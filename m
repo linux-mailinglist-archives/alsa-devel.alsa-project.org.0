@@ -2,73 +2,124 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id F2D6322F5D7
-	for <lists+alsa-devel@lfdr.de>; Mon, 27 Jul 2020 18:52:30 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B551122F56D
+	for <lists+alsa-devel@lfdr.de>; Mon, 27 Jul 2020 18:33:38 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 95023169D;
-	Mon, 27 Jul 2020 18:51:40 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 95023169D
+	by alsa0.perex.cz (Postfix) with ESMTPS id 5637E16A0;
+	Mon, 27 Jul 2020 18:32:48 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5637E16A0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1595868750;
-	bh=2Vy4oEMfj54AXpagZ+SUwH1CbU5vOuexbHBLkv1ZLjw=;
-	h=To:Subject:From:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=heWc2cYXgm+Q3IwjYOtego9Ld3ECZoL5iENhZaQ0Tl5rSK0C/w8OAVvteHSR8XRte
-	 +gAvAWN6f4ko5NoC61bAo2Udf5UFrzfxg7LUgdTt2gZ36WLf/F+ZPW3UhdItoNnZ6a
-	 xxFNUP71d9nKzMIlAm2yv8n7+JfPiIE1LtdXbAvo=
+	s=default; t=1595867618;
+	bh=9RGr3XfB3A/PzoQvueg3BQCOuzJEKRSLV/anMYNUfkk=;
+	h=From:To:Subject:Date:References:Cc:List-Id:List-Unsubscribe:
+	 List-Archive:List-Post:List-Help:List-Subscribe:From;
+	b=Qnng9QN6IZKQ1IFhQykV/4Ccp7ykuayLqbSElcBcevYfqXOgwu04Evk7ynAsCPa03
+	 crSfieBkpaWZhIyOrVj6Pdr93+KQABeYAZAq9EEEHZB9rWEefxH/LyFkoKupP6ldfI
+	 HV8Te4QG9CCOiLS0uEpRrTOzK6G/5n5e0uZvm3rc=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 89739F8029B;
-	Mon, 27 Jul 2020 18:49:46 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 9EBA5F800AD;
+	Mon, 27 Jul 2020 18:31:57 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 8A10DF802FE; Mon, 27 Jul 2020 17:03:37 +0200 (CEST)
+ id 79B29F801EB; Mon, 27 Jul 2020 18:31:53 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.0 required=5.0 tests=MSGID_FROM_MTA_HEADER,
- RCVD_IN_MSPIKE_H4,RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from m177126.mail.qiye.163.com (m177126.mail.qiye.163.com
- [123.58.177.126])
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+ DKIM_VALID,DKIM_VALID_AU,RCVD_IN_MSPIKE_H3,RCVD_IN_MSPIKE_WL,SPF_HELO_PASS,
+ SPF_PASS,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mailout1.w1.samsung.com (mailout1.w1.samsung.com
+ [210.118.77.11])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 48061F800DE
- for <alsa-devel@alsa-project.org>; Mon, 27 Jul 2020 17:03:24 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 48061F800DE
-Received: from vivo.com (wm-5 [127.0.0.1])
- by m177126.mail.qiye.163.com (Hmail) with ESMTP id 2483C182188;
- Mon, 27 Jul 2020 23:03:16 +0800 (CST)
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: base64
-Message-ID: <AMoAtwB9DXJsyd-1khUpzqq9.1.1595862196133.Hmail.wenhu.wang@vivo.com>
-To: elder@kernel.org, davem@davemloft.net, kuba@kernel.org,
- kvalo@codeaurora.org, 
- agross@kernel.org, bjorn.andersson@linaro.org, ohad@wizery.com, 
- linux-kernel@vger.kernel.org
-Subject: =?UTF-8?B?W1BBVENIXSBzb2M6IHFtaTogYWxsb3cgdXNlciB0byBzZXQgaGFuZGxlIHdxIHRvIGhpcHJpbw==?=
-X-Priority: 3
-X-Mailer: HMail Webmail Server V2.0 Copyright (c) 2016-163.com
-X-Originating-IP: 58.251.74.226
-MIME-Version: 1.0
-Received: from wenhu.wang@vivo.com( [58.251.74.226) ] by ajax-webmail (
- [127.0.0.1] ) ; Mon, 27 Jul 2020 23:03:16 +0800 (GMT+08:00)
-From: =?UTF-8?B?546L5paH6JmO?= <wenhu.wang@vivo.com>
-Date: Mon, 27 Jul 2020 23:03:16 +0800 (GMT+08:00)
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgYFAkeWUFZS1VLWVdZKFlBSE83V1ktWUFJV1kPCR
- oVCBIfWUFZGkIaSkgeSEtIHk1OVkpOQk5DTUlKQk1JS0NVEwETFhoSFyQUDg9ZV1kWGg8SFR0UWU
- FZT0tIVUpKS0hKTFVKS0tZBg++
-X-HM-Sender-Digest: e1kMHhlZQQ8JDh5XWRIfHhUPWUFZRzo2FDoPDDlCPyMxCAIfVkoQEy4L
- AQoKQlVKVUpOQk5DTUlKQk1NQ0NVMxYaEhdVDB4VEw5VDBoVHDsNEg0UVRgUFkVZV1kSC1lBWU5D
- VUlOSlVMT1VJSU1ZV1kIAVlBSklOTUk3Bg++
-X-HM-Tid: 0a7390cc9fd56458kurs2483c182188
-X-Mailman-Approved-At: Mon, 27 Jul 2020 18:49:41 +0200
-Cc: linux-wireless@vger.kernel.org, alsa-devel@alsa-project.org,
- linux-arm-msm@vger.kernel.org, linux-remoteproc@vger.kernel.org,
- ath10k@lists.infradead.org, srinivas.kandagatla@linaro.org,
- sibis@codeaurora.org, netdev@vger.kernel.org, wenhu.wang@vivo.com,
- ath11k@lists.infradead.org
+ by alsa1.perex.cz (Postfix) with ESMTPS id A50CEF800AD
+ for <alsa-devel@alsa-project.org>; Mon, 27 Jul 2020 18:31:42 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A50CEF800AD
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com
+ header.b="cd7jWrWQ"
+Received: from eucas1p2.samsung.com (unknown [182.198.249.207])
+ by mailout1.w1.samsung.com (KnoxPortal) with ESMTP id
+ 20200727163139euoutp01f8bb3cb5ec74617b49d08c800f1bce6c~lqQksnxZg3185831858euoutp019
+ for <alsa-devel@alsa-project.org>; Mon, 27 Jul 2020 16:31:39 +0000 (GMT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 mailout1.w1.samsung.com
+ 20200727163139euoutp01f8bb3cb5ec74617b49d08c800f1bce6c~lqQksnxZg3185831858euoutp019
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
+ s=mail20170921; t=1595867499;
+ bh=jTQiKidsi9U4IkUX06k/tIsaZ8WnIaGvnDKjEbdxO2I=;
+ h=From:To:Cc:Subject:Date:References:From;
+ b=cd7jWrWQEevXK+6nbBFCeWY6Dl8k4xptxPCcn5C5T4z7lHfTWTtGzE8dNUOyKnX/9
+ dgY5gLqT8JPqulEr53TiRAACRBoYU3Q+HJdi+qsYBkdNq6v2WR5cehNXnB2gas2GPY
+ iqrC9yu+1GrNWkcmI4l/ksOFHv/ZmukFL9PSVZNc=
+Received: from eusmges2new.samsung.com (unknown [203.254.199.244]) by
+ eucas1p2.samsung.com (KnoxPortal) with ESMTP id
+ 20200727163139eucas1p29c6efa3b4429c005309bf12e472e2bf7~lqQkZq_HG1104211042eucas1p2u;
+ Mon, 27 Jul 2020 16:31:39 +0000 (GMT)
+Received: from eucas1p1.samsung.com ( [182.198.249.206]) by
+ eusmges2new.samsung.com (EUCPMTA) with SMTP id 6B.8D.05997.B610F1F5; Mon, 27
+ Jul 2020 17:31:39 +0100 (BST)
+Received: from eusmtrp1.samsung.com (unknown [182.198.249.138]) by
+ eucas1p1.samsung.com (KnoxPortal) with ESMTPA id
+ 20200727163139eucas1p17420a06923fb625331b2ea867f75bb7e~lqQj9i1qK1544715447eucas1p1p;
+ Mon, 27 Jul 2020 16:31:39 +0000 (GMT)
+Received: from eusmgms1.samsung.com (unknown [182.198.249.179]) by
+ eusmtrp1.samsung.com (KnoxPortal) with ESMTP id
+ 20200727163139eusmtrp17545c4c10fac8e9549cf04ad6299c8a9~lqQj881oX1289612896eusmtrp1T;
+ Mon, 27 Jul 2020 16:31:39 +0000 (GMT)
+X-AuditID: cbfec7f4-677ff7000000176d-64-5f1f016b37cb
+Received: from eusmtip2.samsung.com ( [203.254.199.222]) by
+ eusmgms1.samsung.com (EUCPMTA) with SMTP id 5B.92.06314.A610F1F5; Mon, 27
+ Jul 2020 17:31:38 +0100 (BST)
+Received: from AMDC3061.digital.local (unknown [106.120.51.75]) by
+ eusmtip2.samsung.com (KnoxPortal) with ESMTPA id
+ 20200727163138eusmtip21bfd16d666f2a9697697affe193aeb23~lqQjeQhwO0553705537eusmtip2M;
+ Mon, 27 Jul 2020 16:31:38 +0000 (GMT)
+From: Sylwester Nawrocki <s.nawrocki@samsung.com>
+To: broonie@kernel.org, krzk@kernel.org
+Subject: [PATCH v2 1/3] ASoC: samsung: Document DT bindings for Midas sound
+ subsystem
+Date: Mon, 27 Jul 2020 18:30:25 +0200
+Message-Id: <20200727163027.9242-1-s.nawrocki@samsung.com>
+X-Mailer: git-send-email 2.17.1
+X-Brightmail-Tracker: H4sIAAAAAAAAA+NgFmpgleLIzCtJLcpLzFFi42LZduznOd1sRvl4gy1bZCyuXDzEZLFxxnpW
+ i6kPn7BZzD9yjtXi/PkN7BYzzu9jslh75C67ReveI+wWh9+0s1psOXObzYHLY8PnJjaPTas6
+ 2Txa1m9i8+jbsorR4/MmuQDWKC6blNSczLLUIn27BK6M+xcuMhUslK2Y2TaNpYHxsGgXIyeH
+ hICJxMmVvaxdjFwcQgIrGCXevX/FBuF8YZSY+G0zVOYzo8SR1g4mmJZVE65CVS1nlJix4z1C
+ y9lb65lBqtgEDCV6j/YxgtgiAuoS92c0gY1iFrjJKDFzUx8bSEJYIFzi8a1XYA0sAqoSRx/u
+ AVvBK2AlseR1NwvEOnmJ1RsOMIM0Swi8Z5OYMe0XM0TCRWLGmneMELawxKvjW9ghbBmJ05N7
+ WCAamhklenbfZodwJjBK3D++AKrDWuLOuV9AZ3AA3aQpsX6XPkTYUeLLjHOsIGEJAT6JG28F
+ QcLMQOakbdOZIcK8Eh1tQhDVKhK/V02HBouURPeT/1A3e0gs3XaaFcQWEoiVeHn0PtsERrlZ
+ CLsWMDKuYhRPLS3OTU8tNspLLdcrTswtLs1L10vOz93ECEwXp/8d/7KDcdefpEOMAhyMSjy8
+ Gfvl4oVYE8uKK3MPMUpwMCuJ8DqdPR0nxJuSWFmVWpQfX1Sak1p8iFGag0VJnNd40ctYIYH0
+ xJLU7NTUgtQimCwTB6dUA2P7AqnpXB5TeBZ//cn7bOf3qOx0j+1vwxKj4iuYLzHsXDDz9MUI
+ R29H4e7QluKyuuAWLr+u2S45l1005hevCtk5/Yoe3+8nImv0bs1imn7wZecVOYUs/tlHyqeo
+ 5U+fbTSDRfPOk7VFqswXwxoFGWNUjG8qiB+Sy1qssDK1+th/SV9rBQe2fCWW4oxEQy3mouJE
+ AHwzGWITAwAA
+X-Brightmail-Tracker: H4sIAAAAAAAAA+NgFrrMLMWRmVeSWpSXmKPExsVy+t/xe7pZjPLxBot32lhcuXiIyWLjjPWs
+ FlMfPmGzmH/kHKvF+fMb2C1mnN/HZLH2yF12i9a9R9gtDr9pZ7XYcuY2mwOXx4bPTWwem1Z1
+ snm0rN/E5tG3ZRWjx+dNcgGsUXo2RfmlJakKGfnFJbZK0YYWRnqGlhZ6RiaWeobG5rFWRqZK
+ +nY2Kak5mWWpRfp2CXoZ9y9cZCpYKFsxs20aSwPjYdEuRk4OCQETiVUTrrKB2EICSxklZv2v
+ 6GLkAIpLScxvUYIoEZb4c60LqIQLqOQTo0TP6kNg9WwChhK9R/sYQWwRAU2Jjnm3WUGKmAUe
+ MkrsP34fLCEsECpxeWsvK4jNIqAqcfThHiYQm1fASmLJ624WiA3yEqs3HGCewMizgJFhFaNI
+ amlxbnpusaFecWJucWleul5yfu4mRmCAbjv2c/MOxksbgw8xCnAwKvHwZuyXixdiTSwrrsw9
+ xCjBwawkwut09nScEG9KYmVValF+fFFpTmrxIUZToOUTmaVEk/OB0ZNXEm9oamhuYWlobmxu
+ bGahJM7bIXAwRkggPbEkNTs1tSC1CKaPiYNTqoGxr3h9o8/zE4svXTnEK58f8c92ipdpQMky
+ Vi5N5g2WoYf9BJSqjFe0VFw7wFmzvt3i+qfY30GKp+M2rL3/nUk5P0SPt9mg++/Os0ybZ8yq
+ u/1+3+Zwphf7XQslWfz3zpZUzWna0HTUrfvXKcbbuRmlkq8cVO51LOnTrzdYOP1150WWfQdv
+ 5ScpsRRnJBpqMRcVJwIACsSU32YCAAA=
+X-CMS-MailID: 20200727163139eucas1p17420a06923fb625331b2ea867f75bb7e
+X-Msg-Generator: CA
+Content-Type: text/plain; charset="utf-8"
+X-RootMTR: 20200727163139eucas1p17420a06923fb625331b2ea867f75bb7e
+X-EPHeader: CA
+CMS-TYPE: 201P
+X-CMS-RootMailID: 20200727163139eucas1p17420a06923fb625331b2ea867f75bb7e
+References: <CGME20200727163139eucas1p17420a06923fb625331b2ea867f75bb7e@eucas1p1.samsung.com>
+Cc: simon@lineageos.org, devicetree@vger.kernel.org,
+ alsa-devel@alsa-project.org, linux-samsung-soc@vger.kernel.org,
+ b.zolnierkie@samsung.com, robh+dt@kernel.org, m.szyprowski@samsung.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -84,138 +135,133 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Q3VycmVudGx5IHRoZSBxbWlfaGFuZGxlIGlzIGluaXRpYWxpemVkIHNpbmdsZSB0aHJlYWRlZCBh
-bmQgc3RyaWN0bHkKb3JkZXJlZCB3aXRoIHRoZSBhY3RpdmUgc2V0IHRvIDEuIFRoaXMgaXMgcHJl
-dHR5IHNpbXBsZSBhbmQgc2FmZSBidXQKc29tZXRpbWVzIGluZWZmZW5jeS4gU28gaXQgaXMgYmV0
-dGVyIHRvIGFsbG93IHVzZXIgdG8gZGVjaWRlIHdoZXRoZXIKYSBoaWdoIHByaW9yaXR5IHdvcmtx
-dWV1ZSBzaG91bGQgYmUgdXNlZC4KClNpZ25lZC1vZmYtYnk6IFdhbmcgV2VuaHUgPHdlbmh1Lndh
-bmdAdml2by5jb20+Ci0tLQogZHJpdmVycy9uZXQvaXBhL2lwYV9xbWkuYyAgICAgICAgICAgICB8
-IDQgKystLQogZHJpdmVycy9uZXQvd2lyZWxlc3MvYXRoL2F0aDEway9xbWkuYyB8IDIgKy0KIGRy
-aXZlcnMvbmV0L3dpcmVsZXNzL2F0aC9hdGgxMWsvcW1pLmMgfCAyICstCiBkcml2ZXJzL3JlbW90
-ZXByb2MvcWNvbV9zeXNtb24uYyAgICAgIHwgMiArLQogZHJpdmVycy9zbGltYnVzL3Fjb20tbmdk
-LWN0cmwuYyAgICAgICB8IDQgKystLQogZHJpdmVycy9zb2MvcWNvbS9wZHJfaW50ZXJmYWNlLmMg
-ICAgICB8IDQgKystLQogZHJpdmVycy9zb2MvcWNvbS9xbWlfaW50ZXJmYWNlLmMgICAgICB8IDkg
-KysrKysrKy0tCiBpbmNsdWRlL2xpbnV4L3NvYy9xY29tL3FtaS5oICAgICAgICAgIHwgMyArKy0K
-IHNhbXBsZXMvcW1pL3FtaV9zYW1wbGVfY2xpZW50LmMgICAgICAgfCA0ICsrLS0KIDkgZmlsZXMg
-Y2hhbmdlZCwgMjAgaW5zZXJ0aW9ucygrKSwgMTQgZGVsZXRpb25zKC0pCgpkaWZmIC0tZ2l0IGEv
-ZHJpdmVycy9uZXQvaXBhL2lwYV9xbWkuYyBiL2RyaXZlcnMvbmV0L2lwYS9pcGFfcW1pLmMKaW5k
-ZXggNTA5MGYwZjkyM2FkLi5kNzhiMGZlNmJkODMgMTAwNjQ0Ci0tLSBhL2RyaXZlcnMvbmV0L2lw
-YS9pcGFfcW1pLmMKKysrIGIvZHJpdmVycy9uZXQvaXBhL2lwYV9xbWkuYwpAQCAtNDg2LDcgKzQ4
-Niw3IEBAIGludCBpcGFfcW1pX3NldHVwKHN0cnVjdCBpcGEgKmlwYSkKIAkgKi8KIAlyZXQgPSBx
-bWlfaGFuZGxlX2luaXQoJmlwYV9xbWktPnNlcnZlcl9oYW5kbGUsCiAJCQkgICAgICBJUEFfUU1J
-X1NFUlZFUl9NQVhfUkNWX1NaLCAmaXBhX3NlcnZlcl9vcHMsCi0JCQkgICAgICBpcGFfc2VydmVy
-X21zZ19oYW5kbGVycyk7CisJCQkgICAgICBpcGFfc2VydmVyX21zZ19oYW5kbGVycywgMCk7CiAJ
-aWYgKHJldCkKIAkJcmV0dXJuIHJldDsKIApAQCAtNTAwLDcgKzUwMCw3IEBAIGludCBpcGFfcW1p
-X3NldHVwKHN0cnVjdCBpcGEgKmlwYSkKIAkgKi8KIAlyZXQgPSBxbWlfaGFuZGxlX2luaXQoJmlw
-YV9xbWktPmNsaWVudF9oYW5kbGUsCiAJCQkgICAgICBJUEFfUU1JX0NMSUVOVF9NQVhfUkNWX1Na
-LCAmaXBhX2NsaWVudF9vcHMsCi0JCQkgICAgICBpcGFfY2xpZW50X21zZ19oYW5kbGVycyk7CisJ
-CQkgICAgICBpcGFfY2xpZW50X21zZ19oYW5kbGVycywgMCk7CiAJaWYgKHJldCkKIAkJZ290byBl
-cnJfc2VydmVyX2hhbmRsZV9yZWxlYXNlOwogCmRpZmYgLS1naXQgYS9kcml2ZXJzL25ldC93aXJl
-bGVzcy9hdGgvYXRoMTBrL3FtaS5jIGIvZHJpdmVycy9uZXQvd2lyZWxlc3MvYXRoL2F0aDEway9x
-bWkuYwppbmRleCA1NDY4YTQxZTkyOGUuLjAyODgxODgyYjRkOSAxMDA2NDQKLS0tIGEvZHJpdmVy
-cy9uZXQvd2lyZWxlc3MvYXRoL2F0aDEway9xbWkuYworKysgYi9kcml2ZXJzL25ldC93aXJlbGVz
-cy9hdGgvYXRoMTBrL3FtaS5jCkBAIC0xMDM0LDcgKzEwMzQsNyBAQCBpbnQgYXRoMTBrX3FtaV9p
-bml0KHN0cnVjdCBhdGgxMGsgKmFyLCB1MzIgbXNhX3NpemUpCiAKIAlyZXQgPSBxbWlfaGFuZGxl
-X2luaXQoJnFtaS0+cW1pX2hkbCwKIAkJCSAgICAgIFdMRldfQkRGX0RPV05MT0FEX1JFUV9NU0df
-VjAxX01BWF9NU0dfTEVOLAotCQkJICAgICAgJmF0aDEwa19xbWlfb3BzLCBxbWlfbXNnX2hhbmRs
-ZXIpOworCQkJICAgICAgJmF0aDEwa19xbWlfb3BzLCBxbWlfbXNnX2hhbmRsZXIsIDApOwogCWlm
-IChyZXQpCiAJCWdvdG8gZXJyOwogCmRpZmYgLS1naXQgYS9kcml2ZXJzL25ldC93aXJlbGVzcy9h
-dGgvYXRoMTFrL3FtaS5jIGIvZHJpdmVycy9uZXQvd2lyZWxlc3MvYXRoL2F0aDExay9xbWkuYwpp
-bmRleCBjMDBhOTlhZDhkYmMuLjkxMzk0ZDU4ZDM2ZSAxMDA2NDQKLS0tIGEvZHJpdmVycy9uZXQv
-d2lyZWxlc3MvYXRoL2F0aDExay9xbWkuYworKysgYi9kcml2ZXJzL25ldC93aXJlbGVzcy9hdGgv
-YXRoMTFrL3FtaS5jCkBAIC0yMzk3LDcgKzIzOTcsNyBAQCBpbnQgYXRoMTFrX3FtaV9pbml0X3Nl
-cnZpY2Uoc3RydWN0IGF0aDExa19iYXNlICphYikKIAogCWFiLT5xbWkudGFyZ2V0X21lbV9tb2Rl
-ID0gQVRIMTFLX1FNSV9UQVJHRVRfTUVNX01PREVfREVGQVVMVDsKIAlyZXQgPSBxbWlfaGFuZGxl
-X2luaXQoJmFiLT5xbWkuaGFuZGxlLCBBVEgxMUtfUU1JX1JFU1BfTEVOX01BWCwKLQkJCSAgICAg
-ICZhdGgxMWtfcW1pX29wcywgYXRoMTFrX3FtaV9tc2dfaGFuZGxlcnMpOworCQkJICAgICAgJmF0
-aDExa19xbWlfb3BzLCBhdGgxMWtfcW1pX21zZ19oYW5kbGVycywgMCk7CiAJaWYgKHJldCA8IDAp
-IHsKIAkJYXRoMTFrX3dhcm4oYWIsICJmYWlsZWQgdG8gaW5pdGlhbGl6ZSBxbWkgaGFuZGxlXG4i
-KTsKIAkJcmV0dXJuIHJldDsKZGlmZiAtLWdpdCBhL2RyaXZlcnMvcmVtb3RlcHJvYy9xY29tX3N5
-c21vbi5jIGIvZHJpdmVycy9yZW1vdGVwcm9jL3Fjb21fc3lzbW9uLmMKaW5kZXggOGQ4OTk2ZDcx
-NGYwLi40ZWM0NzBlNDI0ZWYgMTAwNjQ0Ci0tLSBhL2RyaXZlcnMvcmVtb3RlcHJvYy9xY29tX3N5
-c21vbi5jCisrKyBiL2RyaXZlcnMvcmVtb3RlcHJvYy9xY29tX3N5c21vbi5jCkBAIC02MTQsNyAr
-NjE0LDcgQEAgc3RydWN0IHFjb21fc3lzbW9uICpxY29tX2FkZF9zeXNtb25fc3ViZGV2KHN0cnVj
-dCBycHJvYyAqcnByb2MsCiAJfQogCiAJcmV0ID0gcW1pX2hhbmRsZV9pbml0KCZzeXNtb24tPnFt
-aSwgU1NDVExfTUFYX01TR19MRU4sICZzc2N0bF9vcHMsCi0JCQkgICAgICBxbWlfaW5kaWNhdGlv
-bl9oYW5kbGVyKTsKKwkJCSAgICAgIHFtaV9pbmRpY2F0aW9uX2hhbmRsZXIsIDApOwogCWlmIChy
-ZXQgPCAwKSB7CiAJCWRldl9lcnIoc3lzbW9uLT5kZXYsICJmYWlsZWQgdG8gaW5pdGlhbGl6ZSBx
-bWkgaGFuZGxlXG4iKTsKIAkJa2ZyZWUoc3lzbW9uKTsKZGlmZiAtLWdpdCBhL2RyaXZlcnMvc2xp
-bWJ1cy9xY29tLW5nZC1jdHJsLmMgYi9kcml2ZXJzL3NsaW1idXMvcWNvbS1uZ2QtY3RybC5jCmlu
-ZGV4IDc0M2VlN2I0ZTYzZi4uYmE3NjY5MWZjNWE1IDEwMDY0NAotLS0gYS9kcml2ZXJzL3NsaW1i
-dXMvcWNvbS1uZ2QtY3RybC5jCisrKyBiL2RyaXZlcnMvc2xpbWJ1cy9xY29tLW5nZC1jdHJsLmMK
-QEAgLTQ0Niw3ICs0NDYsNyBAQCBzdGF0aWMgaW50IHFjb21fc2xpbV9xbWlfaW5pdChzdHJ1Y3Qg
-cWNvbV9zbGltX25nZF9jdHJsICpjdHJsLAogCQlyZXR1cm4gLUVOT01FTTsKIAogCXJjID0gcW1p
-X2hhbmRsZV9pbml0KGhhbmRsZSwgU0xJTUJVU19RTUlfUE9XRVJfUkVRX01BWF9NU0dfTEVOLAot
-CQkJCU5VTEwsIHFjb21fc2xpbV9xbWlfbXNnX2hhbmRsZXJzKTsKKwkJCQlOVUxMLCBxY29tX3Ns
-aW1fcW1pX21zZ19oYW5kbGVycywgMCk7CiAJaWYgKHJjIDwgMCkgewogCQlkZXZfZXJyKGN0cmwt
-PmRldiwgIlFNSSBjbGllbnQgaW5pdCBmYWlsZWQ6ICVkXG4iLCByYyk7CiAJCWdvdG8gcW1pX2hh
-bmRsZV9pbml0X2ZhaWxlZDsKQEAgLTEyOTMsNyArMTI5Myw3IEBAIHN0YXRpYyBpbnQgcWNvbV9z
-bGltX25nZF9xbWlfc3ZjX2V2ZW50X2luaXQoc3RydWN0IHFjb21fc2xpbV9uZ2RfY3RybCAqY3Ry
-bCkKIAlpbnQgcmV0OwogCiAJcmV0ID0gcW1pX2hhbmRsZV9pbml0KCZxbWktPnN2Y19ldmVudF9o
-ZGwsIDAsCi0JCQkJJnFjb21fc2xpbV9uZ2RfcW1pX3N2Y19ldmVudF9vcHMsIE5VTEwpOworCQkJ
-CSZxY29tX3NsaW1fbmdkX3FtaV9zdmNfZXZlbnRfb3BzLCBOVUxMLCAwKTsKIAlpZiAocmV0IDwg
-MCkgewogCQlkZXZfZXJyKGN0cmwtPmRldiwgInFtaV9oYW5kbGVfaW5pdCBmYWlsZWQ6ICVkXG4i
-LCByZXQpOwogCQlyZXR1cm4gcmV0OwpkaWZmIC0tZ2l0IGEvZHJpdmVycy9zb2MvcWNvbS9wZHJf
-aW50ZXJmYWNlLmMgYi9kcml2ZXJzL3NvYy9xY29tL3Bkcl9pbnRlcmZhY2UuYwppbmRleCBiZGNm
-MTZmODhhOTcuLmNjMWNiOTBjMTk2OCAxMDA2NDQKLS0tIGEvZHJpdmVycy9zb2MvcWNvbS9wZHJf
-aW50ZXJmYWNlLmMKKysrIGIvZHJpdmVycy9zb2MvcWNvbS9wZHJfaW50ZXJmYWNlLmMKQEAgLTY4
-NSw3ICs2ODUsNyBAQCBzdHJ1Y3QgcGRyX2hhbmRsZSAqcGRyX2hhbmRsZV9hbGxvYyh2b2lkICgq
-c3RhdHVzKShpbnQgc3RhdGUsCiAKIAlyZXQgPSBxbWlfaGFuZGxlX2luaXQoJnBkci0+bG9jYXRv
-cl9oZGwsCiAJCQkgICAgICBTRVJWUkVHX0dFVF9ET01BSU5fTElTVF9SRVNQX01BWF9MRU4sCi0J
-CQkgICAgICAmcGRyX2xvY2F0b3Jfb3BzLCBOVUxMKTsKKwkJCSAgICAgICZwZHJfbG9jYXRvcl9v
-cHMsIE5VTEwsIDApOwogCWlmIChyZXQgPCAwKQogCQlnb3RvIGRlc3Ryb3lfaW5kYWNrOwogCkBA
-IC02OTYsNyArNjk2LDcgQEAgc3RydWN0IHBkcl9oYW5kbGUgKnBkcl9oYW5kbGVfYWxsb2Modm9p
-ZCAoKnN0YXR1cykoaW50IHN0YXRlLAogCXJldCA9IHFtaV9oYW5kbGVfaW5pdCgmcGRyLT5ub3Rp
-Zmllcl9oZGwsCiAJCQkgICAgICBTRVJWUkVHX1NUQVRFX1VQREFURURfSU5EX01BWF9MRU4sCiAJ
-CQkgICAgICAmcGRyX25vdGlmaWVyX29wcywKLQkJCSAgICAgIHFtaV9pbmRpY2F0aW9uX2hhbmRs
-ZXIpOworCQkJICAgICAgcW1pX2luZGljYXRpb25faGFuZGxlciwgMCk7CiAJaWYgKHJldCA8IDAp
-CiAJCWdvdG8gcmVsZWFzZV9xbWlfaGFuZGxlOwogCmRpZmYgLS1naXQgYS9kcml2ZXJzL3NvYy9x
-Y29tL3FtaV9pbnRlcmZhY2UuYyBiL2RyaXZlcnMvc29jL3Fjb20vcW1pX2ludGVyZmFjZS5jCmlu
-ZGV4IDFhMDNlYWEzOGM0Ni4uMDExNjBkYmZjNGQwIDEwMDY0NAotLS0gYS9kcml2ZXJzL3NvYy9x
-Y29tL3FtaV9pbnRlcmZhY2UuYworKysgYi9kcml2ZXJzL3NvYy9xY29tL3FtaV9pbnRlcmZhY2Uu
-YwpAQCAtNjA5LDYgKzYwOSw3IEBAIHN0YXRpYyBzdHJ1Y3Qgc29ja2V0ICpxbWlfc29ja19jcmVh
-dGUoc3RydWN0IHFtaV9oYW5kbGUgKnFtaSwKICAqIEByZWN2X2J1Zl9zaXplOiBtYXhpbXVtIHNp
-emUgb2YgaW5jb21pbmcgbWVzc2FnZQogICogQG9wczoJcmVmZXJlbmNlIHRvIGNhbGxiYWNrcyBm
-b3IgUVJUUiBub3RpZmljYXRpb25zCiAgKiBAaGFuZGxlcnM6CU5VTEwtdGVybWluYXRlZCBsaXN0
-IG9mIFFNSSBtZXNzYWdlIGhhbmRsZXJzCisgKiBAaGlwcmlvOgl3aGV0aGVyIGhpZ2ggcHJpb3Jp
-dHkgd29ya2VyIGlzIHVzZWQgZm9yIHdvcmtxdWV1ZQogICoKICAqIFRoaXMgaW5pdGlhbGl6ZXMg
-dGhlIFFNSSBjbGllbnQgaGFuZGxlIHRvIGFsbG93IHNlbmRpbmcgYW5kIHJlY2VpdmluZyBRTUkK
-ICAqIG1lc3NhZ2VzLiBBcyBtZXNzYWdlcyBhcmUgcmVjZWl2ZWQgdGhlIGFwcHJvcHJpYXRlIGhh
-bmRsZXIgd2lsbCBiZSBpbnZva2VkLgpAQCAtNjE3LDkgKzYxOCwxMSBAQCBzdGF0aWMgc3RydWN0
-IHNvY2tldCAqcW1pX3NvY2tfY3JlYXRlKHN0cnVjdCBxbWlfaGFuZGxlICpxbWksCiAgKi8KIGlu
-dCBxbWlfaGFuZGxlX2luaXQoc3RydWN0IHFtaV9oYW5kbGUgKnFtaSwgc2l6ZV90IHJlY3ZfYnVm
-X3NpemUsCiAJCSAgICBjb25zdCBzdHJ1Y3QgcW1pX29wcyAqb3BzLAotCQkgICAgY29uc3Qgc3Ry
-dWN0IHFtaV9tc2dfaGFuZGxlciAqaGFuZGxlcnMpCisJCSAgICBjb25zdCBzdHJ1Y3QgcW1pX21z
-Z19oYW5kbGVyICpoYW5kbGVycywKKwkJICAgIHVuc2lnbmVkIGludCBoaXByaW8pCiB7CiAJaW50
-IHJldDsKKwl1bnNpZ25lZCBpbnQgZmxhZ3MgPSBXUV9VTkJPVU5EOwogCiAJbXV0ZXhfaW5pdCgm
-cW1pLT50eG5fbG9jayk7CiAJbXV0ZXhfaW5pdCgmcW1pLT5zb2NrX2xvY2spOwpAQCAtNjQ3LDcg
-KzY1MCw5IEBAIGludCBxbWlfaGFuZGxlX2luaXQoc3RydWN0IHFtaV9oYW5kbGUgKnFtaSwgc2l6
-ZV90IHJlY3ZfYnVmX3NpemUsCiAJaWYgKCFxbWktPnJlY3ZfYnVmKQogCQlyZXR1cm4gLUVOT01F
-TTsKIAotCXFtaS0+d3EgPSBhbGxvY193b3JrcXVldWUoInFtaV9tc2dfaGFuZGxlciIsIFdRX1VO
-Qk9VTkQsIDEpOworCWlmIChoaXByaW8pCisJCWZsYWdzIHw9IFdRX0hJR0hQUkk7CisJcW1pLT53
-cSA9IGFsbG9jX3dvcmtxdWV1ZSgicW1pX21zZ19oYW5kbGVyIiwgZmxhZ3MsIDEpOwogCWlmICgh
-cW1pLT53cSkgewogCQlyZXQgPSAtRU5PTUVNOwogCQlnb3RvIGVycl9mcmVlX3JlY3ZfYnVmOwpk
-aWZmIC0tZ2l0IGEvaW5jbHVkZS9saW51eC9zb2MvcWNvbS9xbWkuaCBiL2luY2x1ZGUvbGludXgv
-c29jL3Fjb20vcW1pLmgKaW5kZXggZTcxMmY5NGI4OWZjLi4yNDA2MmZkNzE2M2QgMTAwNjQ0Ci0t
-LSBhL2luY2x1ZGUvbGludXgvc29jL3Fjb20vcW1pLmgKKysrIGIvaW5jbHVkZS9saW51eC9zb2Mv
-cWNvbS9xbWkuaApAQCAtMjQ0LDcgKzI0NCw4IEBAIGludCBxbWlfYWRkX3NlcnZlcihzdHJ1Y3Qg
-cW1pX2hhbmRsZSAqcW1pLCB1bnNpZ25lZCBpbnQgc2VydmljZSwKIAogaW50IHFtaV9oYW5kbGVf
-aW5pdChzdHJ1Y3QgcW1pX2hhbmRsZSAqcW1pLCBzaXplX3QgbWF4X21zZ19sZW4sCiAJCSAgICBj
-b25zdCBzdHJ1Y3QgcW1pX29wcyAqb3BzLAotCQkgICAgY29uc3Qgc3RydWN0IHFtaV9tc2dfaGFu
-ZGxlciAqaGFuZGxlcnMpOworCQkgICAgY29uc3Qgc3RydWN0IHFtaV9tc2dfaGFuZGxlciAqaGFu
-ZGxlcnMsCisJCSAgICB1bnNpZ25lZCBpbnQgaGlwcmlvKTsKIHZvaWQgcW1pX2hhbmRsZV9yZWxl
-YXNlKHN0cnVjdCBxbWlfaGFuZGxlICpxbWkpOwogCiBzc2l6ZV90IHFtaV9zZW5kX3JlcXVlc3Qo
-c3RydWN0IHFtaV9oYW5kbGUgKnFtaSwgc3RydWN0IHNvY2thZGRyX3FydHIgKnNxLApkaWZmIC0t
-Z2l0IGEvc2FtcGxlcy9xbWkvcW1pX3NhbXBsZV9jbGllbnQuYyBiL3NhbXBsZXMvcW1pL3FtaV9z
-YW1wbGVfY2xpZW50LmMKaW5kZXggYzllNzI3NmMzZDgzLi5hOTFkMTYzM2VhMzggMTAwNjQ0Ci0t
-LSBhL3NhbXBsZXMvcW1pL3FtaV9zYW1wbGVfY2xpZW50LmMKKysrIGIvc2FtcGxlcy9xbWkvcW1p
-X3NhbXBsZV9jbGllbnQuYwpAQCAtNDYzLDcgKzQ2Myw3IEBAIHN0YXRpYyBpbnQgcW1pX3NhbXBs
-ZV9wcm9iZShzdHJ1Y3QgcGxhdGZvcm1fZGV2aWNlICpwZGV2KQogCiAJcmV0ID0gcW1pX2hhbmRs
-ZV9pbml0KCZzYW1wbGUtPnFtaSwgVEVTVF9EQVRBX1JFUV9NQVhfTVNHX0xFTl9WMDEsCiAJCQkg
-ICAgICBOVUxMLAotCQkJICAgICAgcW1pX3NhbXBsZV9oYW5kbGVycyk7CisJCQkgICAgICBxbWlf
-c2FtcGxlX2hhbmRsZXJzLCAwKTsKIAlpZiAocmV0IDwgMCkKIAkJcmV0dXJuIHJldDsKIApAQCAt
-NTkwLDcgKzU5MCw3IEBAIHN0YXRpYyBpbnQgcW1pX3NhbXBsZV9pbml0KHZvaWQpCiAJaWYgKHJl
-dCkKIAkJZ290byBlcnJfcmVtb3ZlX2RlYnVnX2RpcjsKIAotCXJldCA9IHFtaV9oYW5kbGVfaW5p
-dCgmbG9va3VwX2NsaWVudCwgMCwgJmxvb2t1cF9vcHMsIE5VTEwpOworCXJldCA9IHFtaV9oYW5k
-bGVfaW5pdCgmbG9va3VwX2NsaWVudCwgMCwgJmxvb2t1cF9vcHMsIE5VTEwsIDApOwogCWlmIChy
-ZXQgPCAwKQogCQlnb3RvIGVycl91bnJlZ2lzdGVyX2RyaXZlcjsKIAotLSAKMi4xNy4xCgoNCg0K
+This patch adds documentation of DT biding for the Midas sound complex.
+Partially based on the *txt version by Simon Shields <simon@lineageos.org>.
+
+Signed-off-by: Sylwester Nawrocki <s.nawrocki@samsung.com>
+---
+Changes for v2:
+ - fix wrong *-gpios entries in the example,
+ - mark sound-dai properties as required.
+---
+ .../bindings/sound/samsung,midas-audio.yaml        | 108 +++++++++++++++++++++
+ 1 file changed, 108 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/sound/samsung,midas-audio.yaml
+
+diff --git a/Documentation/devicetree/bindings/sound/samsung,midas-audio.yaml b/Documentation/devicetree/bindings/sound/samsung,midas-audio.yaml
+new file mode 100644
+index 0000000..fb685e51
+--- /dev/null
++++ b/Documentation/devicetree/bindings/sound/samsung,midas-audio.yaml
+@@ -0,0 +1,108 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/sound/samsung,midas-audio.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: Samsung Midas audio complex with WM1811 codec
++
++maintainers:
++  - Sylwester Nawrocki <s.nawrocki@samsung.com>
++
++properties:
++  compatible:
++    const: samsung,midas-audio
++
++  model:
++    $ref: /schemas/types.yaml#/definitions/string
++    description: The user-visible name of this sound complex.
++
++  cpu:
++    type: object
++    properties:
++      sound-dai:
++        $ref: /schemas/types.yaml#/definitions/phandle-array
++        description: phandle to the I2S controller
++    required:
++      - sound-dai
++
++  codec:
++    type: object
++    properties:
++      sound-dai:
++        $ref: /schemas/types.yaml#/definitions/phandle-array
++        description: phandle to the WM1811 CODEC node
++    required:
++      - sound-dai
++
++  samsung,audio-routing:
++    $ref: /schemas/types.yaml#/definitions/non-unique-string-array
++    description: |
++      List of the connections between audio components; each entry is
++      a pair of strings, the first being the connection's sink, the second
++      being the connection's source; valid names for sources and sinks are
++      the WM1811's pins (as documented in its binding), and the jacks
++      on the board: HP, SPK, Main Mic, Sub Mic, Headset Mic.
++
++  mic-bias-supply:
++    description: Supply for the micbias on the Main microphone
++
++  submic-bias-supply:
++    description: Supply for the micbias on the Sub microphone
++
++  fm-sel-gpios:
++    description: GPIO pin for FM selection
++
++  lineout-sel-gpios:
++    description: GPIO pin for line out selection
++
++required:
++  - compatible
++  - model
++  - cpu
++  - codec
++  - samsung,audio-routing
++  - mic-bias-supply
++  - submic-bias-supply
++
++additionalProperties: false
++
++examples:
++  - |
++    #include <dt-bindings/gpio/gpio.h>
++
++    sound {
++        compatible = "samsung,midas-audio";
++        model = "Midas";
++
++        fm-sel-gpios = <&gpaa0 3 GPIO_ACTIVE_HIGH>;
++
++        mic-bias-supply = <&mic_bias_reg>;
++        submic-bias-supply = <&submic_bias_reg>;
++
++        samsung,audio-routing =
++                "HP", "HPOUT1L",
++                "HP", "HPOUT1R",
++
++                "SPK", "SPKOUTLN",
++                "SPK", "SPKOUTLP",
++                "SPK", "SPKOUTRN",
++                "SPK", "SPKOUTRP",
++
++                "RCV", "HPOUT2N",
++                "RCV", "HPOUT2P",
++
++                "IN1LP", "Main Mic",
++                "IN1LN", "Main Mic",
++                "IN1RP", "Sub Mic",
++                "IN1LP", "Sub Mic";
++
++        cpu {
++            sound-dai = <&i2s0>;
++        };
++
++        codec {
++            sound-dai = <&wm1811>;
++        };
++
++    };
+-- 
+2.7.4
+

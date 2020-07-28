@@ -2,84 +2,70 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6C793231277
-	for <lists+alsa-devel@lfdr.de>; Tue, 28 Jul 2020 21:21:49 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7D465231288
+	for <lists+alsa-devel@lfdr.de>; Tue, 28 Jul 2020 21:29:09 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 00BDE172F;
-	Tue, 28 Jul 2020 21:20:58 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 00BDE172F
+	by alsa0.perex.cz (Postfix) with ESMTPS id 079EF173A;
+	Tue, 28 Jul 2020 21:28:19 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 079EF173A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1595964109;
-	bh=gDjcYZbTOICEER/aI9jME0q7WCtwyCu+wuaU18h5RG0=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1595964549;
+	bh=HBkf6Oqs2cqIL4CVx43zgP9E1OW8xMvjhRsKn4qNMP0=;
+	h=Subject:From:To:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=vmWFu+eDXW2zpENx+Ducx95au7iHteZPEyukZDae+ieiDKQLHAZunRdoUQ0EirSos
-	 0AV+Qy9NbhQPflJuX9W/SfpAJAIByjkgtxaAAnijfKWO+oAtCWAG3CxTT4JJ84YCVe
-	 qIC/FF/qhBqy5jd0claJC3Y0njeEYZftBBOAw+3c=
+	b=PN/9BN5n77z+CK7gyRVQ9XI4wIkiYgHIMkvDRm/T/wD4G13KRrrmnc2tEWIOEUqcG
+	 GzuyKwI7X0DQ3LwWRY3Tex85PDLpVBBeUW37upcC0kplqIaxHSrDfAIrMsxTpWSna4
+	 Ry1KT9JvcFUztwbunYDk5hMS+b4qkUyLiaiz+QQE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 034ADF8021E;
-	Tue, 28 Jul 2020 21:20:08 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 17B42F800DE;
+	Tue, 28 Jul 2020 21:27:28 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 0CE30F8021E; Tue, 28 Jul 2020 21:20:06 +0200 (CEST)
+ id 52A0AF8021E; Tue, 28 Jul 2020 21:27:25 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.3 required=5.0 tests=FREEMAIL_ENVFROM_END_DIGIT,
- FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,
- RCVD_IN_MSPIKE_H2,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from mail-io1-f67.google.com (mail-io1-f67.google.com
- [209.85.166.67])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 01597F8012F
- for <alsa-devel@alsa-project.org>; Tue, 28 Jul 2020 21:19:53 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 01597F8012F
-Received: by mail-io1-f67.google.com with SMTP id e64so21928783iof.12
- for <alsa-devel@alsa-project.org>; Tue, 28 Jul 2020 12:19:53 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to;
- bh=ccbJE075Dg4khtgqkJNGNcjYBuurXYxmcn7lYm7LiDk=;
- b=Ll4h83tkoWqcgZI6mt5MGtaLTEI+1FS5Ezwbj/umVtdHscicrfMpKfLwNJxCxJfWGR
- 9FVYgN88vBFv1yhRW9SyPRmnfjPqc2KLd1ySxsRr5AF5Nbac8uXjLTJjzbo6aKMTKtM5
- 6xLGnfd2YVQlozlYqKzVxbBhOAV9rjUA55KBChsB7adyodMN7VmdEUA3Z+8yxyeSwMCq
- uWr8+vIUGw4hY68zX7e9ocsa/5AVI0x+Y9d9gmVp2u+TF731sa0Z6CTQaIVyvTk+0/I/
- ZHs+Pf5pvfruzQuUHr8b62l3Ue1kppzc0VDzgV1RYEODmBMcYuJJ3ocntKe7/VFIcFBJ
- 6hTg==
-X-Gm-Message-State: AOAM531AJ30oJhpSLbpfTemiXnkoP0N2ZSUpjMBFhe8Xp431Y1itMeyY
- XZN4OYegyh7iEAq/QD+HPg==
-X-Google-Smtp-Source: ABdhPJxSpYWGzrqxj988x4YIzGkL2gF9jlCizwUDFtUeYV2nkG7DE0Cn+EQ8ZGwxQ/OXOAvNrnrXlg==
-X-Received: by 2002:a05:6602:2801:: with SMTP id
- d1mr23672137ioe.201.1595963991726; 
- Tue, 28 Jul 2020 12:19:51 -0700 (PDT)
-Received: from xps15 ([64.188.179.252])
- by smtp.gmail.com with ESMTPSA id u12sm7982022ilj.17.2020.07.28.12.19.50
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 28 Jul 2020 12:19:51 -0700 (PDT)
-Received: (nullmailer pid 2785331 invoked by uid 1000);
- Tue, 28 Jul 2020 19:19:50 -0000
-Date: Tue, 28 Jul 2020 13:19:50 -0600
-From: Rob Herring <robh@kernel.org>
-To: Codrin Ciubotariu <codrin.ciubotariu@microchip.com>
-Subject: Re: [PATCH 1/2] dt-bindings: sound: add DT bindings for Microchip
- S/PDIF TX Controller
-Message-ID: <20200728191950.GA2784080@bogus>
-References: <20200728100744.2820112-1-codrin.ciubotariu@microchip.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 0BEA1F8012F
+ for <alsa-devel@alsa-project.org>; Tue, 28 Jul 2020 21:27:18 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0BEA1F8012F
+IronPort-SDR: mb2L2Tb7uRU4LfMEZn5d7ZgZZVkCEOyAxyC1kQZF6UkSn/blRpo/mLjoXPlwl/GwiBa04DF4t/
+ NXCFEiRRVUuQ==
+X-IronPort-AV: E=McAfee;i="6000,8403,9696"; a="150465489"
+X-IronPort-AV: E=Sophos;i="5.75,407,1589266800"; d="scan'208";a="150465489"
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from orsmga006.jf.intel.com ([10.7.209.51])
+ by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 28 Jul 2020 12:27:15 -0700
+IronPort-SDR: A6vCh40HSX//jWzqqd5vptHaPdHPBY1F0mxO6zq3n4Ua9pN9VV6KhMO/Bxm102dfcG36AgqHSM
+ OGfTQWnIM5Sw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.75,407,1589266800"; d="scan'208";a="290285172"
+Received: from hfranco-mobl1.amr.corp.intel.com ([10.254.52.60])
+ by orsmga006.jf.intel.com with ESMTP; 28 Jul 2020 12:27:15 -0700
+Message-ID: <3ec084ee58b6e3490c668295370b58a9eeb986e8.camel@linux.intel.com>
+Subject: Re: [PATCH 1/7] ASoC: soc-dai: add mark for
+ snd_soc_dai_startup/shutdown()
+From: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
+To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>, Mark Brown
+ <broonie@kernel.org>
+Date: Tue, 28 Jul 2020 12:27:14 -0700
+In-Reply-To: <87v9i8ku04.wl-kuninori.morimoto.gx@renesas.com>
+References: <87wo2oku0m.wl-kuninori.morimoto.gx@renesas.com>
+ <87v9i8ku04.wl-kuninori.morimoto.gx@renesas.com>
+Content-Type: text/plain; charset="UTF-8"
+User-Agent: Evolution 3.36.3-0ubuntu1 
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20200728100744.2820112-1-codrin.ciubotariu@microchip.com>
-Cc: devicetree@vger.kernel.org, alexandre.belloni@bootlin.com,
- alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org, tiwai@suse.com,
- nicolas.ferre@microchip.com, robh+dt@kernel.org, lgirdwood@gmail.com,
- ludovic.desroches@microchip.com, broonie@kernel.org,
- linux-arm-kernel@lists.infradead.org
+Content-Transfer-Encoding: 7bit
+Cc: Linux-ALSA <alsa-devel@alsa-project.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -95,193 +81,144 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Tue, 28 Jul 2020 13:07:43 +0300, Codrin Ciubotariu wrote:
-> This patch adds DT bindings for the new Microchip S/PDIF TX Controller
-> embedded inside sama7g5 SoCs.
+On Tue, 2020-07-28 at 15:57 +0900, Kuninori Morimoto wrote:
+> From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 > 
-> Signed-off-by: Codrin Ciubotariu <codrin.ciubotariu@microchip.com>
+> soc_pcm_open() does rollback when failed (A),
+> but, it is almost same as soc_pcm_close().
+> 
+> 	static int soc_pcm_open(xxx)
+> 	{
+> 		...
+> 		if (ret < 0)
+> 			goto xxx_err;
+> 		...
+> 		return 0;
+> 
+>  ^	config_err:
+>  |		...
+>  |	rtd_startup_err:
+> (A)		...
+>  |	component_err:
+>  |		...
+>  v		return ret;
+> 	}
+> 
+> The difference is
+> soc_pcm_close() is for all dai/component/substream,
+> rollback        is for succeeded part only.
+> 
+> This kind of duplicated code can be a hotbed of bugs,
+> thus, we want to share soc_pcm_close() and rollback.
+> 
+> Now, soc_pcm_open/close() are handling
+> =>	1) snd_soc_dai_startup/shutdown()
+> 	2) snd_soc_link_startup/shutdown()
+> 	3) snd_soc_component_module_get/put()
+> 	4) snd_soc_component_open/close()
+> 	5) pm_runtime_put/get()
+> 
+> This patch is for 1) snd_soc_dai_startup/shutdown(),
+> and adds new substream mark.
+> It will mark substream when startup was suceeded.
+> If rollback happen *after* that, it will check rollback flag
+> and marked substream.
+> 
+> It cares *previous* startup() only now,
+> but we might want to check *whole* marked substream in the future.
+> This patch is using macro so that it can be easily adjust to it.
+> 
+> Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 > ---
->  .../bindings/sound/mchp,spdiftx.yaml          | 76 +++++++++++++++++++
->  1 file changed, 76 insertions(+)
->  create mode 100644 Documentation/devicetree/bindings/sound/mchp,spdiftx.yaml
+>  include/sound/soc-dai.h |  5 ++++-
+>  sound/soc/soc-dai.c     | 21 ++++++++++++++++++++-
+>  sound/soc/soc-dapm.c    |  4 ++--
+>  sound/soc/soc-pcm.c     |  4 ++--
+>  4 files changed, 28 insertions(+), 6 deletions(-)
 > 
+> diff --git a/include/sound/soc-dai.h b/include/sound/soc-dai.h
+> index 776a60529e70..86411f503c1c 100644
+> --- a/include/sound/soc-dai.h
+> +++ b/include/sound/soc-dai.h
+> @@ -153,7 +153,7 @@ void snd_soc_dai_hw_free(struct snd_soc_dai *dai,
+>  int snd_soc_dai_startup(struct snd_soc_dai *dai,
+>  			struct snd_pcm_substream *substream);
+>  void snd_soc_dai_shutdown(struct snd_soc_dai *dai,
+> -			  struct snd_pcm_substream *substream);
+> +			  struct snd_pcm_substream *substream, int
+> rollback);
+>  snd_pcm_sframes_t snd_soc_dai_delay(struct snd_soc_dai *dai,
+>  				    struct snd_pcm_substream
+> *substream);
+>  void snd_soc_dai_suspend(struct snd_soc_dai *dai);
+> @@ -388,6 +388,9 @@ struct snd_soc_dai {
+>  
+>  	struct list_head list;
+>  
+> +	/* function mark */
+> +	struct snd_pcm_substream *mark_startup;
+> +
+>  	/* bit field */
+>  	unsigned int probed:1;
+>  };
+> diff --git a/sound/soc/soc-dai.c b/sound/soc/soc-dai.c
+> index 693893420bf0..4f9f73800ab0 100644
+> --- a/sound/soc/soc-dai.c
+> +++ b/sound/soc/soc-dai.c
+> @@ -32,6 +32,14 @@ static inline int _soc_dai_ret(struct snd_soc_dai
+> *dai,
+>  	return ret;
+>  }
+>  
+> +/*
+> + * We might want to check substream by using list.
+> + * In such case, we can update these macros.
+> + */
+> +#define soc_dai_mark_push(dai, substream, tgt)	((dai)-
+> >mark_##tgt = substream)
+> +#define soc_dai_mark_pop(dai, substream, tgt)	((dai)-
+> >mark_##tgt = NULL)
+> +#define soc_dai_mark_match(dai, substream, tgt)	((dai)-
+> >mark_##tgt == substream)
+> +
+>  /**
+>   * snd_soc_dai_set_sysclk - configure DAI system or master clock.
+>   * @dai: DAI
+> @@ -348,15 +356,26 @@ int snd_soc_dai_startup(struct snd_soc_dai
+> *dai,
+>  	    dai->driver->ops->startup)
+>  		ret = dai->driver->ops->startup(substream, dai);
+>  
+> +	/* mark substream if succeeded */
+> +	if (ret == 0)
+> +		soc_dai_mark_push(dai, substream, startup);
+> +
+>  	return soc_dai_ret(dai, ret);
+>  }
+>  
+>  void snd_soc_dai_shutdown(struct snd_soc_dai *dai,
+> -			 struct snd_pcm_substream *substream)
+> +			  struct snd_pcm_substream *substream,
+> +			  int rollback)
+>  {
+> +	if (rollback && !soc_dai_mark_match(dai, substream, startup))
+> +		return;
+Morimoto-san,
+Im having a hard time undersdtanding why we need the second check? When
+will it ever be the case that this match will fail? 
 
+I think if we want to roll-back in case of errors , we could simply
+have a bool in snd_soc_dai to indicate that the dai has been started up
+already and check that here to decide whether we should shut it down or
+not. Ideally, a helper function like snd_soc_dai_shutdown_all() which
+iterates through all the rtd dai's and shuts all of them that are
+marked as started up should suffice and will be more intuitive.
 
-My bot found errors running 'make dt_binding_check' on your patch:
+Also, push/pop are associated with stacks and we're only really dealing
+with one object here. So it is a bit misleading nomemclature-wise. 
 
-Traceback (most recent call last):
-  File "/usr/local/lib/python3.6/dist-packages/jsonschema/validators.py", line 774, in resolve_from_url
-    document = self.store[url]
-  File "/usr/local/lib/python3.6/dist-packages/jsonschema/_utils.py", line 22, in __getitem__
-    return self.store[self.normalize(uri)]
-KeyError: 'https://devicetree.org/meta-schemas/core.yaml'
+What do you think?
 
-During handling of the above exception, another exception occurred:
-
-Traceback (most recent call last):
-  File "/usr/local/lib/python3.6/dist-packages/jsonschema/validators.py", line 777, in resolve_from_url
-    document = self.resolve_remote(url)
-  File "/usr/local/lib/python3.6/dist-packages/jsonschema/validators.py", line 863, in resolve_remote
-    with urlopen(uri) as url:
-  File "/usr/lib/python3.6/urllib/request.py", line 223, in urlopen
-    return opener.open(url, data, timeout)
-  File "/usr/lib/python3.6/urllib/request.py", line 532, in open
-    response = meth(req, response)
-  File "/usr/lib/python3.6/urllib/request.py", line 642, in http_response
-    'http', request, response, code, msg, hdrs)
-  File "/usr/lib/python3.6/urllib/request.py", line 564, in error
-    result = self._call_chain(*args)
-  File "/usr/lib/python3.6/urllib/request.py", line 504, in _call_chain
-    result = func(*args)
-  File "/usr/lib/python3.6/urllib/request.py", line 756, in http_error_302
-    return self.parent.open(new, timeout=req.timeout)
-  File "/usr/lib/python3.6/urllib/request.py", line 532, in open
-    response = meth(req, response)
-  File "/usr/lib/python3.6/urllib/request.py", line 642, in http_response
-    'http', request, response, code, msg, hdrs)
-  File "/usr/lib/python3.6/urllib/request.py", line 570, in error
-    return self._call_chain(*args)
-  File "/usr/lib/python3.6/urllib/request.py", line 504, in _call_chain
-    result = func(*args)
-  File "/usr/lib/python3.6/urllib/request.py", line 650, in http_error_default
-    raise HTTPError(req.full_url, code, msg, hdrs, fp)
-urllib.error.HTTPError: HTTP Error 404: Not Found
-
-During handling of the above exception, another exception occurred:
-
-Traceback (most recent call last):
-  File "/usr/local/bin/dt-doc-validate", line 64, in <module>
-    ret = check_doc(args.yamldt)
-  File "/usr/local/bin/dt-doc-validate", line 33, in check_doc
-    for error in sorted(dtschema.DTValidator.iter_schema_errors(testtree), key=lambda e: e.linecol):
-  File "/usr/local/lib/python3.6/dist-packages/dtschema/lib.py", line 656, in iter_schema_errors
-    meta_schema = cls.resolver.resolve_from_url(schema['$schema'])
-  File "/usr/local/lib/python3.6/dist-packages/jsonschema/validators.py", line 779, in resolve_from_url
-    raise exceptions.RefResolutionError(exc)
-jsonschema.exceptions.RefResolutionError: HTTP Error 404: Not Found
-Documentation/devicetree/bindings/Makefile:20: recipe for target 'Documentation/devicetree/bindings/sound/mchp,spdiftx.example.dts' failed
-make[1]: *** [Documentation/devicetree/bindings/sound/mchp,spdiftx.example.dts] Error 1
-make[1]: *** Waiting for unfinished jobs....
-Traceback (most recent call last):
-  File "/usr/local/lib/python3.6/dist-packages/jsonschema/validators.py", line 774, in resolve_from_url
-    document = self.store[url]
-  File "/usr/local/lib/python3.6/dist-packages/jsonschema/_utils.py", line 22, in __getitem__
-    return self.store[self.normalize(uri)]
-KeyError: 'https://devicetree.org/meta-schemas/core.yaml'
-
-During handling of the above exception, another exception occurred:
-
-Traceback (most recent call last):
-  File "/usr/local/lib/python3.6/dist-packages/jsonschema/validators.py", line 777, in resolve_from_url
-    document = self.resolve_remote(url)
-  File "/usr/local/lib/python3.6/dist-packages/jsonschema/validators.py", line 863, in resolve_remote
-    with urlopen(uri) as url:
-  File "/usr/lib/python3.6/urllib/request.py", line 223, in urlopen
-    return opener.open(url, data, timeout)
-  File "/usr/lib/python3.6/urllib/request.py", line 532, in open
-    response = meth(req, response)
-  File "/usr/lib/python3.6/urllib/request.py", line 642, in http_response
-    'http', request, response, code, msg, hdrs)
-  File "/usr/lib/python3.6/urllib/request.py", line 564, in error
-    result = self._call_chain(*args)
-  File "/usr/lib/python3.6/urllib/request.py", line 504, in _call_chain
-    result = func(*args)
-  File "/usr/lib/python3.6/urllib/request.py", line 756, in http_error_302
-    return self.parent.open(new, timeout=req.timeout)
-  File "/usr/lib/python3.6/urllib/request.py", line 532, in open
-    response = meth(req, response)
-  File "/usr/lib/python3.6/urllib/request.py", line 642, in http_response
-    'http', request, response, code, msg, hdrs)
-  File "/usr/lib/python3.6/urllib/request.py", line 570, in error
-    return self._call_chain(*args)
-  File "/usr/lib/python3.6/urllib/request.py", line 504, in _call_chain
-    result = func(*args)
-  File "/usr/lib/python3.6/urllib/request.py", line 650, in http_error_default
-    raise HTTPError(req.full_url, code, msg, hdrs, fp)
-urllib.error.HTTPError: HTTP Error 404: Not Found
-
-During handling of the above exception, another exception occurred:
-
-Traceback (most recent call last):
-  File "/usr/local/bin/dt-mk-schema", line 34, in <module>
-    schemas = dtschema.process_schemas(args.schemas, core_schema=(not args.useronly))
-  File "/usr/local/lib/python3.6/dist-packages/dtschema/lib.py", line 557, in process_schemas
-    sch = process_schema(os.path.abspath(filename))
-  File "/usr/local/lib/python3.6/dist-packages/dtschema/lib.py", line 517, in process_schema
-    DTValidator.check_schema(schema)
-  File "/usr/local/lib/python3.6/dist-packages/dtschema/lib.py", line 668, in check_schema
-    meta_schema = cls.resolver.resolve_from_url(schema['$schema'])
-  File "/usr/local/lib/python3.6/dist-packages/jsonschema/validators.py", line 779, in resolve_from_url
-    raise exceptions.RefResolutionError(exc)
-jsonschema.exceptions.RefResolutionError: HTTP Error 404: Not Found
-Traceback (most recent call last):
-  File "/usr/local/lib/python3.6/dist-packages/jsonschema/validators.py", line 774, in resolve_from_url
-    document = self.store[url]
-  File "/usr/local/lib/python3.6/dist-packages/jsonschema/_utils.py", line 22, in __getitem__
-    return self.store[self.normalize(uri)]
-KeyError: 'https://devicetree.org/meta-schemas/core.yaml'
-
-During handling of the above exception, another exception occurred:
-
-Traceback (most recent call last):
-  File "/usr/local/lib/python3.6/dist-packages/jsonschema/validators.py", line 777, in resolve_from_url
-    document = self.resolve_remote(url)
-  File "/usr/local/lib/python3.6/dist-packages/jsonschema/validators.py", line 863, in resolve_remote
-    with urlopen(uri) as url:
-  File "/usr/lib/python3.6/urllib/request.py", line 223, in urlopen
-    return opener.open(url, data, timeout)
-  File "/usr/lib/python3.6/urllib/request.py", line 532, in open
-    response = meth(req, response)
-  File "/usr/lib/python3.6/urllib/request.py", line 642, in http_response
-    'http', request, response, code, msg, hdrs)
-  File "/usr/lib/python3.6/urllib/request.py", line 564, in error
-    result = self._call_chain(*args)
-  File "/usr/lib/python3.6/urllib/request.py", line 504, in _call_chain
-    result = func(*args)
-  File "/usr/lib/python3.6/urllib/request.py", line 756, in http_error_302
-    return self.parent.open(new, timeout=req.timeout)
-  File "/usr/lib/python3.6/urllib/request.py", line 532, in open
-    response = meth(req, response)
-  File "/usr/lib/python3.6/urllib/request.py", line 642, in http_response
-    'http', request, response, code, msg, hdrs)
-  File "/usr/lib/python3.6/urllib/request.py", line 570, in error
-    return self._call_chain(*args)
-  File "/usr/lib/python3.6/urllib/request.py", line 504, in _call_chain
-    result = func(*args)
-  File "/usr/lib/python3.6/urllib/request.py", line 650, in http_error_default
-    raise HTTPError(req.full_url, code, msg, hdrs, fp)
-urllib.error.HTTPError: HTTP Error 404: Not Found
-
-During handling of the above exception, another exception occurred:
-
-Traceback (most recent call last):
-  File "/usr/local/bin/dt-mk-schema", line 34, in <module>
-    schemas = dtschema.process_schemas(args.schemas, core_schema=(not args.useronly))
-  File "/usr/local/lib/python3.6/dist-packages/dtschema/lib.py", line 557, in process_schemas
-    sch = process_schema(os.path.abspath(filename))
-  File "/usr/local/lib/python3.6/dist-packages/dtschema/lib.py", line 517, in process_schema
-    DTValidator.check_schema(schema)
-  File "/usr/local/lib/python3.6/dist-packages/dtschema/lib.py", line 668, in check_schema
-    meta_schema = cls.resolver.resolve_from_url(schema['$schema'])
-  File "/usr/local/lib/python3.6/dist-packages/jsonschema/validators.py", line 779, in resolve_from_url
-    raise exceptions.RefResolutionError(exc)
-jsonschema.exceptions.RefResolutionError: HTTP Error 404: Not Found
-Documentation/devicetree/bindings/Makefile:53: recipe for target 'Documentation/devicetree/bindings/processed-schema.yaml' failed
-make[1]: *** [Documentation/devicetree/bindings/processed-schema.yaml] Error 123
-make[1]: *** Deleting file 'Documentation/devicetree/bindings/processed-schema.yaml'
-Documentation/devicetree/bindings/Makefile:49: recipe for target 'Documentation/devicetree/bindings/processed-schema-examples.yaml' failed
-make[1]: *** [Documentation/devicetree/bindings/processed-schema-examples.yaml] Error 123
-make[1]: *** Deleting file 'Documentation/devicetree/bindings/processed-schema-examples.yaml'
-Makefile:1347: recipe for target 'dt_binding_check' failed
-make: *** [dt_binding_check] Error 2
-
-
-See https://patchwork.ozlabs.org/patch/1337735
-
-If you already ran 'make dt_binding_check' and didn't see the above
-error(s), then make sure dt-schema is up to date:
-
-pip3 install git+https://github.com/devicetree-org/dt-schema.git@master --upgrade
-
-Please check and re-submit.
+Thanks,
+Ranjani
 

@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1C1CF230F57
-	for <lists+alsa-devel@lfdr.de>; Tue, 28 Jul 2020 18:32:44 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5B561230F58
+	for <lists+alsa-devel@lfdr.de>; Tue, 28 Jul 2020 18:33:31 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 91D5E16F7;
-	Tue, 28 Jul 2020 18:31:53 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 91D5E16F7
+	by alsa0.perex.cz (Postfix) with ESMTPS id 09B421704;
+	Tue, 28 Jul 2020 18:32:41 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 09B421704
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1595953963;
-	bh=QH/fNpriLdWfgqzqml0LW6l6Cmgll/uf1nxBcMvnPWc=;
+	s=default; t=1595954011;
+	bh=fu8BQVTYRHqSDmcTdXV9xFLRNxBetsC48Rb8C5QDh1I=;
 	h=Date:From:To:In-Reply-To:References:Subject:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=Ybz29hc0fDrP6n+QnEFdwihGnUO+VZkI1XuIITqB1oiTRqR7VRgPBdLH58peDHPQl
-	 v+W3oKVfIiGPbQAA6Q3vHLzhTMFWsDqBbYcOjYtQhi4K0bHqlBU/K1W6jLglGYsveK
-	 PXFhW6yeyDi6fn6BDGgArRD9z27Vy0Kt5dXgNLDE=
+	b=aG5eXy90hVxYDuEduWyXRSdmi7Fd0+uoyUV/NkdGw8iWb96k5dXBKHZj98d8uhZ8z
+	 lbZGtjLWukR3ZSDHFzebJbw+s3MquVO6ZOjFlJppbf7iWu1IJ1gXi7DjbMBLB08ya/
+	 OIUiBk+1RKa65hJM0nLiB7IheYYq/BBVAj55RxWE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id AB4E6F8012F;
-	Tue, 28 Jul 2020 18:31:02 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 05760F80256;
+	Tue, 28 Jul 2020 18:31:07 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 778C3F800AD; Tue, 28 Jul 2020 18:30:59 +0200 (CEST)
+ id D224CF8021E; Tue, 28 Jul 2020 18:31:00 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -34,33 +34,33 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 69F9EF800AD
- for <alsa-devel@alsa-project.org>; Tue, 28 Jul 2020 18:30:51 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 69F9EF800AD
+ by alsa1.perex.cz (Postfix) with ESMTPS id 48C8FF8021C
+ for <alsa-devel@alsa-project.org>; Tue, 28 Jul 2020 18:30:57 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 48C8FF8021C
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="Sypy9P7C"
+ header.b="1YLaHe37"
 Received: from localhost (fw-tnat.cambridge.arm.com [217.140.96.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 62FCD2074F;
- Tue, 28 Jul 2020 16:30:48 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id 9AB31207F5;
+ Tue, 28 Jul 2020 16:30:55 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1595953848;
- bh=QH/fNpriLdWfgqzqml0LW6l6Cmgll/uf1nxBcMvnPWc=;
+ s=default; t=1595953856;
+ bh=fu8BQVTYRHqSDmcTdXV9xFLRNxBetsC48Rb8C5QDh1I=;
  h=Date:From:To:Cc:In-Reply-To:References:Subject:From;
- b=Sypy9P7CThuG/PVUmHOtNiWyyBtkreQbISYFIhWCpycCFVMaVPwsc0h6ZsNglEMiQ
- 59R+yIvDg3i3ReGH2Vr8W4TYXvMRyCfwzRCMSOfBlybDtl+e7B3/zVQe9oVhQ52foV
- 7FwVZCT3nNCAvN2bNSn9uQoHxnYW8ckN1Bna32ps=
-Date: Tue, 28 Jul 2020 17:30:31 +0100
+ b=1YLaHe372Df4C+OmkxB5LvO5WUv8a1r0Fc2ygts+NDilE1mBLB0Qa2mew3erHtD/a
+ znZjKHMvBz8onC8sp0PX72hzzzT09WCgvyw9UYf4RQYPUOa4m3UsPF0dh3LwDrMd7g
+ lzVZ14g6bA1GRiI9uEyt97Yskg9kGXN5f+tefu6k=
+Date: Tue, 28 Jul 2020 17:30:37 +0100
 From: Mark Brown <broonie@kernel.org>
 To: robh@kernel.org, perex@perex.cz, Dan Murphy <dmurphy@ti.com>,
  lgirdwood@gmail.com, tiwai@suse.com
-In-Reply-To: <20200612171412.25423-1-dmurphy@ti.com>
-References: <20200612171412.25423-1-dmurphy@ti.com>
-Subject: Re: [PATCH v4 1/2] dt-bindings: tas2562: Convert the tas2562 binding
+In-Reply-To: <20200723160838.9738-1-dmurphy@ti.com>
+References: <20200723160838.9738-1-dmurphy@ti.com>
+Subject: Re: [PATCH v3 1/2] dt-bindings: tas2562: Convert the tas2562 binding
  to yaml
-Message-Id: <159595383112.15027.8364475369374911747.b4-ty@kernel.org>
+Message-Id: <159595383113.15027.14495128108452214806.b4-ty@kernel.org>
 Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
  linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
@@ -78,7 +78,7 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Fri, 12 Jun 2020 12:14:11 -0500, Dan Murphy wrote:
+On Thu, 23 Jul 2020 11:08:37 -0500, Dan Murphy wrote:
 > Convert the TAS2562 text file to yaml format.
 
 Applied to
@@ -87,8 +87,8 @@ Applied to
 
 Thanks!
 
-[1/2] dt-bindings: tas2562: Convert the tas2562 binding to yaml
-      (no commit info)
+[1/2] ASoC: tas2562: Convert the tas2562 binding to yaml
+      commit: e35cf9f5edb18fd9daf1c6ba7a89f463334526c4
 [2/2] ASoC: tas2562: Update shutdown GPIO property
       commit: f78a97003b8babb1c49e2e4a6b46f15ac31ecf49
 

@@ -2,82 +2,73 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 228D823100E
-	for <lists+alsa-devel@lfdr.de>; Tue, 28 Jul 2020 18:48:06 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1BCA4231031
+	for <lists+alsa-devel@lfdr.de>; Tue, 28 Jul 2020 18:57:12 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C0450170D;
-	Tue, 28 Jul 2020 18:47:15 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C0450170D
+	by alsa0.perex.cz (Postfix) with ESMTPS id BF4911718;
+	Tue, 28 Jul 2020 18:56:21 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BF4911718
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1595954885;
-	bh=dyEMHTMqLlcfCZiHMGljZAEjN4IHi82H26oFStAZa1Y=;
-	h=Subject:From:To:References:Date:In-Reply-To:List-Id:
+	s=default; t=1595955431;
+	bh=rJVDQqY5WUvFsOu1EgRX9G1KnNLENwbxshwoQwQR3p4=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=p81VdGnuFPniIEdolPUHiuRo/qERwE1n0qiRo00sJl1tZMwpJtNDDd03hoxSXNoL/
-	 Jr/cXe9UJH0IXr8UadK0N2pjOTWlrdulNOaBtMVH6kJ6AVWLupOPOq7m+j73zFTQPG
-	 EVSml1BmqoGSI6FJGh2xsy174MngnCdrQup7wFZY=
+	b=hLeqWaYFfnCiruiltnUCPBWrsOAmypbfQOQHkJ200KiNdcDESGxTSmnETX1emNYIN
+	 JeUmUWO9BvJRufS4u8f5sp4zU9WKe9h8qlt1LR4ud+ttHiYo3LdiPe2P3jSCgkvXUF
+	 yv6p7Gn63f0AroFR6xyhB2adt/V96yv7enxNIk8k=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 21775F80227;
-	Tue, 28 Jul 2020 18:46:25 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id E653AF8012F;
+	Tue, 28 Jul 2020 18:55:30 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 4DB97F8021E; Tue, 28 Jul 2020 18:46:22 +0200 (CEST)
+ id A27EAF8021C; Tue, 28 Jul 2020 18:55:28 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-1.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS autolearn=disabled
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+ DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled
  version=3.4.0
-Received: from cable.insite.cz (cable.insite.cz [84.242.75.189])
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id AB392F800AD
- for <alsa-devel@alsa-project.org>; Tue, 28 Jul 2020 18:46:12 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz AB392F800AD
+ by alsa1.perex.cz (Postfix) with ESMTPS id EB36EF800AD
+ for <alsa-devel@alsa-project.org>; Tue, 28 Jul 2020 18:55:18 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EB36EF800AD
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=ivitera.com header.i=@ivitera.com
- header.b="RZn831Tv"; 
- dkim=pass (1024-bit key) header.d=ivitera.com header.i=@ivitera.com
- header.b="FmR8q8Eu"
-Received: from localhost (localhost [127.0.0.1])
- by cable.insite.cz (Postfix) with ESMTP id CD423A1F65AA3;
- Tue, 28 Jul 2020 18:46:09 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=ivitera.com; s=mail;
- t=1595954769; bh=dyEMHTMqLlcfCZiHMGljZAEjN4IHi82H26oFStAZa1Y=;
- h=Subject:From:To:References:Date:In-Reply-To:From;
- b=RZn831TvvHOKVKCOwk7vrxAGTq11PGMcm3AL0I97DLbJWQXG5iE37u9KO4qnTE/fL
- 2FTSOKSyyDtj7Zo4angfIYcZ+5/anZiULINbisE/BmXu7knQsVOKd00ZCPpXaIa+/I
- fTgo1Ji2vrG38r8UnKrH0i1ZTYUmpQobQFELoFWg=
-Received: from cable.insite.cz ([84.242.75.189])
- by localhost (server.insite.cz [127.0.0.1]) (amavisd-new, port 10024)
- with ESMTP id 16ySbqPcq27X; Tue, 28 Jul 2020 18:46:04 +0200 (CEST)
-Received: from [192.168.105.151] (ip28.insite.cz [81.0.237.28])
- (Authenticated sender: pavel)
- by cable.insite.cz (Postfix) with ESMTPSA id 54049A1F67621;
- Tue, 28 Jul 2020 18:46:04 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=ivitera.com; s=mail;
- t=1595954764; bh=dyEMHTMqLlcfCZiHMGljZAEjN4IHi82H26oFStAZa1Y=;
- h=Subject:From:To:References:Date:In-Reply-To:From;
- b=FmR8q8EuXepy3E4I/AgMRHDOFCg9376A8j6wsgj6fLuZyxejhP1xyvexixpyzk3xy
- py7PyqphYNjMj4iGrK+qFbDc9eXy3+CQjvEavkcQojE8BbRGOfMKedrF8/Q2vponE0
- GygW9LyYFLe83WBZQyqfgBWd9OQ5STzzkSiqWZyw=
-Subject: Re: pcm_meter.c issue at s16_update
-From: Pavel Hofman <pavel.hofman@ivitera.com>
-To: "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
- Takashi Iwai <tiwai@suse.de>
-References: <f56d6a67-014a-e562-c253-830c0ec03717@ivitera.com>
-Message-ID: <9957e124-be4b-cdc9-ffad-579b631455df@ivitera.com>
-Date: Tue, 28 Jul 2020 18:46:00 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.8.0
+ dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="wphuh2vg"
+Received: from localhost (fw-tnat.cambridge.arm.com [217.140.96.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by mail.kernel.org (Postfix) with ESMTPSA id C20702053B;
+ Tue, 28 Jul 2020 16:55:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=default; t=1595955316;
+ bh=rJVDQqY5WUvFsOu1EgRX9G1KnNLENwbxshwoQwQR3p4=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=wphuh2vgRP2NmEjnKL/5WhUCKFXp+LcT7YqJVHmw80vzlb5hYsg1+TCnZNO1xijV3
+ ff3mBUbM5YPw7DzfyjG55DZ5fKlsnV7zhOQm6hOxsiIaLs7EcdXUiB4yoQjM3s8ouI
+ CBtWyKxHVMqPKp5uH2ReQkcjAPv3ltdxZ9Zb+XUk=
+Date: Tue, 28 Jul 2020 17:54:58 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Rob Herring <robh+dt@kernel.org>
+Subject: Re: [PATCH v3] ASoC: dt-bindings: ak4613: switch to yaml base
+ Documentation
+Message-ID: <20200728165458.GC24701@sirena.org.uk>
+References: <87y2nk2tfd.wl-kuninori.morimoto.gx@renesas.com>
+ <CAL_JsqJ8PyuZLXj4bLwyConb+GdH83hjPPj2mHbqNy=w9m-joA@mail.gmail.com>
 MIME-Version: 1.0
-In-Reply-To: <f56d6a67-014a-e562-c253-830c0ec03717@ivitera.com>
-Content-Type: text/plain; charset=iso-8859-2
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="zCKi3GIZzVBPywwA"
+Content-Disposition: inline
+In-Reply-To: <CAL_JsqJ8PyuZLXj4bLwyConb+GdH83hjPPj2mHbqNy=w9m-joA@mail.gmail.com>
+X-Cookie: You will be misunderstood by everyone.
+User-Agent: Mutt/1.10.1 (2018-07-13)
+Cc: devicetree@vger.kernel.org, Linux-ALSA <alsa-devel@alsa-project.org>,
+ Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -94,62 +85,31 @@ Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 
-Dne 26. 07. 20 v 20:20 Pavel Hofman napsal(a):
-> Hi,
-> 
-> I am debugging the following problem with the PCM METER API:
-> 
-> An application with meter/scope configured in .asoundrc hits a high CPU
-> load sometimes when a new playback stream is opened. E.g. in MPD when
-> opening a new radio stream. The 100% CPU core load takes tens of seconds.
-> ...........
-> 
-> TL;DR: at decrease of [status.appl_ptr - status.delay] between
-> consequent runs the size of buffer to convert by the built-in s16 scope
-> is set from usual 100s to huge value of pcm->boundary (1.5G), causing a
-> very long processing at 100% core load.
-> 
-> The debug around the event looks like this, suddenly meter->now drops down:
-> 
-> s16_update 1: meter->now 2567498, s16->old 2566593, size 905
-> s16_update 1: meter->now 2568401, s16->old 2567498, size 903
-> s16_update 1: meter->now 20786, s16->old 20786, size 0
-> s16_update 1: meter->now 1065, s16->old 20786, size -19721
-> s16_update 1: meter->now 24839, s16->old 24838, size 1
-> s16_update 1: meter->now 701, s16->old 24839, size -24138
-> s16_update 1: meter->now 1253162, s16->old 701, size 1252461
-> s16_update 1: meter->now 1255148, s16->old 1253162, size 1986
-> 
-> ..........
-> 
-> s16_update 1: meter->now 11136, s16->old 10261, size 875
-> s16_update 1: meter->now 22525, s16->old 22524, size 1
-> s16_update 1: meter->now 963, s16->old 22525, size -21562
-> s16_update 1: meter->now 1270914, s16->old 963, size 1269951
-> s16_update 1: meter->now 1272917, s16->old 1270914, size 2003
-> 
+--zCKi3GIZzVBPywwA
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-I think the problem is that s16->old is not reset when status.appl_ptr
-is zeroed and starts running again. There is a call
+On Mon, Jul 27, 2020 at 08:39:23AM -0600, Rob Herring wrote:
 
-static void s16_reset(snd_pcm_scope_t *scope)
-{
-	snd_pcm_scope_s16_t *s16 = scope->private_data;
-	snd_pcm_meter_t *meter = s16->pcm->private_data;
-	s16->old = meter->now;
-}
+> I haven't seen any follow-up to my audio-graph-card.yaml comments, so
+> please revert this.
 
-but I do not know when this method is called and whether the meter->now
-is already assigned to the newly zeroed status.appl_ptr.
+OK, Morimoto-san please resubmit as a series with the audio-graph-card
+when you get back to that.
 
-Please at which method should I reset s16->old = 0?
-* s16_reset
-* s16_enable
-* s16_start
-* snd_pcm_scope_s16_open
+--zCKi3GIZzVBPywwA
+Content-Type: application/pgp-signature; name="signature.asc"
 
+-----BEGIN PGP SIGNATURE-----
 
-Thanks a lot for any help,
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl8gWGEACgkQJNaLcl1U
+h9DjEgf/flTiTV9yDbY8qM8OA6yHxLt7VbCKxsA1FUtPKBoCgMfbawzKmYcVLArI
+aamcAdgU1VXbJivony07qipiIF2I4fND1DcK5h1tjgH4UmRGe/4geoZfSJ8xxlTJ
+5FnL0ojGnsCuM2hi20XAFHBNoRAcAD0irnyOUR/HXrRA6N1r6Jlhih1tkP9FH740
+FFZwwyGtlBZ09/nPdig1dzfkxqqtkgupTRxdBmaA3WNAFU9y5XL1QQ7Bhlu8f4yM
+ibjmpePvAYbcUqIYp5q5VH6PgDzmhwUtd/mC2SGedAlVpq2kiocMgpnKbScApN7W
++iwbD1kRjKBsHeI4rCdUxkdAhMDnBA==
+=Evbh
+-----END PGP SIGNATURE-----
 
-Pavel.
-
+--zCKi3GIZzVBPywwA--

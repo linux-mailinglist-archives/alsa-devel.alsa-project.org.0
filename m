@@ -2,121 +2,123 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4C949230B30
-	for <lists+alsa-devel@lfdr.de>; Tue, 28 Jul 2020 15:13:27 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0FC00230B37
+	for <lists+alsa-devel@lfdr.de>; Tue, 28 Jul 2020 15:14:33 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id CBE1E16B0;
-	Tue, 28 Jul 2020 15:12:36 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CBE1E16B0
+	by alsa0.perex.cz (Postfix) with ESMTPS id AEBBD16A9;
+	Tue, 28 Jul 2020 15:13:42 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AEBBD16A9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1595942006;
-	bh=XUk5Rs2/v9YoPU2zbQOLk+GG/ENE+EAohbsfSaezrNA=;
-	h=From:To:Subject:Date:References:Cc:List-Id:List-Unsubscribe:
-	 List-Archive:List-Post:List-Help:List-Subscribe:From;
-	b=knQ8WQ0fO3r6dtz5uAFDpVPx/Jtrn4ZKdi+c9Q3kCv5AvSGorGUmYvjB/klYibDOx
-	 /uZ5SIIqCphmf19CgH53kQTlZoMHlObT0EnX2C5ZavxZp7VN4hbEv0W88ckjvQ9HOH
-	 5E7FUbDXijF7+py76BqvxvcrqNA8MuvIQbqyIetc=
+	s=default; t=1595942072;
+	bh=wzgXLPRCuxDRavTcYYNKdYYBXD//QJMJMmITjKc/waY=;
+	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=MYrU1QVV87lA34H6vlX0CdKc472ESFTBEhRSWtLshxmVHJSlcZI0/v3uA5JLvmlrB
+	 IGmnUXhDSRYL/rFL920BpzZfsTEpXk8xRB3DHsXtIx0adLYen7EvtrDUbYYdH6G+pN
+	 35wDyeYdRfMMUR+9Fainp+PvAY/ZuXLu9xzvD9Yk=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id EBEC6F8012F;
-	Tue, 28 Jul 2020 15:11:45 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id D28DFF8029B;
+	Tue, 28 Jul 2020 15:12:08 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 3B6C9F8021E; Tue, 28 Jul 2020 15:11:43 +0200 (CEST)
+ id C6D1EF8028D; Tue, 28 Jul 2020 15:12:06 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
  DKIM_VALID,DKIM_VALID_AU,RCVD_IN_MSPIKE_H3,RCVD_IN_MSPIKE_WL,SPF_HELO_PASS,
  SPF_PASS,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mailout1.w1.samsung.com (mailout1.w1.samsung.com
- [210.118.77.11])
+Received: from mailout2.w1.samsung.com (mailout2.w1.samsung.com
+ [210.118.77.12])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 3E191F800DE
- for <alsa-devel@alsa-project.org>; Tue, 28 Jul 2020 15:11:28 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3E191F800DE
+ by alsa1.perex.cz (Postfix) with ESMTPS id B1F5BF80227
+ for <alsa-devel@alsa-project.org>; Tue, 28 Jul 2020 15:11:52 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B1F5BF80227
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com
- header.b="XNrIdy39"
+ header.b="TkC3tE2l"
 Received: from eucas1p2.samsung.com (unknown [182.198.249.207])
- by mailout1.w1.samsung.com (KnoxPortal) with ESMTP id
- 20200728131127euoutp019b95f3b9630329992b68f605a5247944~l7LDSect-1972419724euoutp01u
- for <alsa-devel@alsa-project.org>; Tue, 28 Jul 2020 13:11:27 +0000 (GMT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mailout1.w1.samsung.com
- 20200728131127euoutp019b95f3b9630329992b68f605a5247944~l7LDSect-1972419724euoutp01u
+ by mailout2.w1.samsung.com (KnoxPortal) with ESMTP id
+ 20200728131151euoutp02dd84bac24329f4908537d2af16190ec1~l7LZsc0I52631526315euoutp02z
+ for <alsa-devel@alsa-project.org>; Tue, 28 Jul 2020 13:11:51 +0000 (GMT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 mailout2.w1.samsung.com
+ 20200728131151euoutp02dd84bac24329f4908537d2af16190ec1~l7LZsc0I52631526315euoutp02z
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
- s=mail20170921; t=1595941887;
- bh=LxXAXNiNU2/+HZuMBh9dY62HizQSIWMo4cmZejA+I1Q=;
- h=From:To:Cc:Subject:Date:References:From;
- b=XNrIdy395zjmhcghyppKw3D4af+mKZb7IvQOolDzvqfDIcXzz3rr3DOOjsRriqTgF
- KDBH3/jTOK+zCJ1lzNcysWyk6ZdhwG/sHZRHXYXouERaMPeGSD8E38Y4kpXmdGBGsQ
- N2oAXew4/oKjGnNtskfJMHAN37fNWEATRaYKUADM=
-Received: from eusmges1new.samsung.com (unknown [203.254.199.242]) by
+ s=mail20170921; t=1595941911;
+ bh=2sfWFBx3MHOqpFKK2U0RHkjvsyGq5QlkAcimkH6bOQY=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+ b=TkC3tE2ltKNKvKLGmSCDZq8+7w2r5h6qytdPbSTfJeAWsPyhBeP407KDlHApa6rqQ
+ SWfjd1jf7v+jc4VsGkJjxugb/W2zfg+vHqhZ3u40hj/UMAEMGi90a+DqMVHgwfsJmE
+ UmpnsxNGKJcD8jNssiqvCBXfYrtR4KaQVpH5Jqps=
+Received: from eusmges2new.samsung.com (unknown [203.254.199.244]) by
  eucas1p1.samsung.com (KnoxPortal) with ESMTP id
- 20200728131126eucas1p1c5d36b6ae691176384dee4f62fa200ff~l7LDFoDnl3202632026eucas1p1V;
- Tue, 28 Jul 2020 13:11:26 +0000 (GMT)
+ 20200728131150eucas1p1a5b8da833b425f997b393443c48a22a6~l7LZaPrUW1537115371eucas1p1A;
+ Tue, 28 Jul 2020 13:11:50 +0000 (GMT)
 Received: from eucas1p2.samsung.com ( [182.198.249.207]) by
- eusmges1new.samsung.com (EUCPMTA) with SMTP id 19.2B.06456.EF3202F5; Tue, 28
- Jul 2020 14:11:26 +0100 (BST)
+ eusmges2new.samsung.com (EUCPMTA) with SMTP id A7.19.05997.614202F5; Tue, 28
+ Jul 2020 14:11:50 +0100 (BST)
 Received: from eusmtrp2.samsung.com (unknown [182.198.249.139]) by
- eucas1p1.samsung.com (KnoxPortal) with ESMTPA id
- 20200728131126eucas1p16365622c52f91104373a2cd3e0ebb619~l7LCztZ251537115371eucas1p1l;
- Tue, 28 Jul 2020 13:11:26 +0000 (GMT)
-Received: from eusmgms2.samsung.com (unknown [182.198.249.180]) by
+ eucas1p2.samsung.com (KnoxPortal) with ESMTPA id
+ 20200728131150eucas1p29e1dd0ae1e8cffbde0e3c8b4e0f7ce81~l7LZCIb032681526815eucas1p2N;
+ Tue, 28 Jul 2020 13:11:50 +0000 (GMT)
+Received: from eusmgms1.samsung.com (unknown [182.198.249.179]) by
  eusmtrp2.samsung.com (KnoxPortal) with ESMTP id
- 20200728131126eusmtrp2f5371e3065140d16723cde541d90084c~l7LCzC6790544805448eusmtrp2I;
- Tue, 28 Jul 2020 13:11:26 +0000 (GMT)
-X-AuditID: cbfec7f2-809ff70000001938-85-5f2023fea0e2
+ 20200728131150eusmtrp2797b94bbb710dbdfafb71afc4f13de81~l7LY9r1160544805448eusmtrp2F;
+ Tue, 28 Jul 2020 13:11:50 +0000 (GMT)
+X-AuditID: cbfec7f4-65dff7000000176d-99-5f202416d8ce
 Received: from eusmtip2.samsung.com ( [203.254.199.222]) by
- eusmgms2.samsung.com (EUCPMTA) with SMTP id 92.85.06017.EF3202F5; Tue, 28
- Jul 2020 14:11:26 +0100 (BST)
+ eusmgms1.samsung.com (EUCPMTA) with SMTP id 33.92.06314.614202F5; Tue, 28
+ Jul 2020 14:11:50 +0100 (BST)
 Received: from AMDC3061.digital.local (unknown [106.120.51.75]) by
  eusmtip2.samsung.com (KnoxPortal) with ESMTPA id
- 20200728131126eusmtip261a0343f852ecdbdfc93314fb68e9cdd~l7LCVXo5e0123701237eusmtip2r;
- Tue, 28 Jul 2020 13:11:26 +0000 (GMT)
+ 20200728131149eusmtip234a22b12439c532cde795dae0b5c7888~l7LYdjfmJ0134801348eusmtip2x;
+ Tue, 28 Jul 2020 13:11:49 +0000 (GMT)
 From: Sylwester Nawrocki <s.nawrocki@samsung.com>
 To: broonie@kernel.org, krzk@kernel.org
-Subject: [PATCH v3 1/3] ASoC: samsung: Document DT bindings for Midas sound
- subsystem
-Date: Tue, 28 Jul 2020 15:11:09 +0200
-Message-Id: <20200728131111.14334-1-s.nawrocki@samsung.com>
+Subject: [PATCH v3 2/3] ASoC: samsung: Add sound support for Midas boards
+Date: Tue, 28 Jul 2020 15:11:10 +0200
+Message-Id: <20200728131111.14334-2-s.nawrocki@samsung.com>
 X-Mailer: git-send-email 2.17.1
-X-Brightmail-Tracker: H4sIAAAAAAAAA+NgFvrNIsWRmVeSWpSXmKPExsWy7djP87r/lBXiDV6vt7C4cvEQk8XGGetZ
- LaY+fMJmMf/IOVaL8+c3sFvMOL+PyWLtkbvsFq17j7BbHH7Tzmqx5cxtNgcujw2fm9g8Nq3q
- ZPNoWb+JzaNvyypGj8+b5AJYo7hsUlJzMstSi/TtErgyLl3+xFjwX7biUtt11gbGDrEuRk4O
- CQETiV1ne5m7GLk4hARWMEr8WLeBCcL5wigxcWkzG0iVkMBnRondxy1hOl49/sACUbScUeLi
- 2Z3McB3Hb95iBKliEzCU6D3aB2aLCKhL3J/RxApSxCxwk1Fi5qY+oLEcHMIC4RJd/cIgJouA
- qkRTdxlIOa+AtcTFyXsYIZbJS6zecABsvoTAezaJ/wsb2SESLhLf1vdB2cISr45vgbJlJP7v
- nM8E0dDMKNGz+zY7hDOBUeL+8QVQY60l7pz7BXYEs4CmxPpd+iCmhICjROtTYQiTT+LGW0GQ
- YmYgc9K26cwQYV6JjjYhiBkqEr9XTWeCsKUkup/8Z4GwPSQ2XHsAVi4kECtxZY3TBEa5WQib
- FjAyrmIUTy0tzk1PLTbMSy3XK07MLS7NS9dLzs/dxAhMEqf/Hf+0g/HrpaRDjAIcjEo8vDNE
- FeKFWBPLiitzDzFKcDArifA6nT0dJ8SbklhZlVqUH19UmpNafIhRmoNFSZzXeNHLWCGB9MSS
- 1OzU1ILUIpgsEwenVAOj0IUpQWJ1bxQTDn169XS26tze7l+Lt6Y+NHzENmflUu3O6lsm8Vbi
- xQs3tHVtKPVJu2nxt3f23Yhah8ogr4MnZz37J8OonvFlwsdJVgInHe4HbZvV46iQdWSuwpNz
- xS95Vuc2VV48yKT75v5ng4X60xKeHtzx5k8B//br3zf+fb7shtE6xYX3ryixFGckGmoxFxUn
- AgBn5i3ADgMAAA==
-X-Brightmail-Tracker: H4sIAAAAAAAAA+NgFrrMLMWRmVeSWpSXmKPExsVy+t/xe7r/lBXiDabuVbG4cvEQk8XGGetZ
- LaY+fMJmMf/IOVaL8+c3sFvMOL+PyWLtkbvsFq17j7BbHH7Tzmqx5cxtNgcujw2fm9g8Nq3q
- ZPNoWb+JzaNvyypGj8+b5AJYo/RsivJLS1IVMvKLS2yVog0tjPQMLS30jEws9QyNzWOtjEyV
- 9O1sUlJzMstSi/TtEvQyLl3+xFjwX7biUtt11gbGDrEuRk4OCQETiVePP7B0MXJxCAksZZTY
- desZkMMBlJCSmN+iBFEjLPHnWhcbRM0nRomeO29YQBJsAoYSvUf7GEFsEQFNiY55t1lBipgF
- HjJK7D9+HywhLBAqcWH7LWaQoSwCqhJN3WUgYV4Ba4mLk/cwQiyQl1i94QDzBEaeBYwMqxhF
- UkuLc9Nzi430ihNzi0vz0vWS83M3MQIDdNuxn1t2MHa9Cz7EKMDBqMTDO0NUIV6INbGsuDL3
- EKMEB7OSCK/T2dNxQrwpiZVVqUX58UWlOanFhxhNgXZPZJYSTc4HRk9eSbyhqaG5haWhubG5
- sZmFkjhvh8DBGCGB9MSS1OzU1ILUIpg+Jg5OqQbGCLun90L8vu9WXqyYLHNG82eBduMe3ll8
- GTVTxZvsLF+y9H4Tcdl4fweHbJLcbeXQolJFx+0Cd+dq8i51imvTZl2f6bKuL1hC/HA6z+vS
- a45zngVNcV/MJbbDYuYGNm1HdotQgXVeTMx7+Fc2fWuUV2zgyrtl7N9/SdX4koJJ16F3ryI+
- eyuxFGckGmoxFxUnAgCaSdh+ZgIAAA==
-X-CMS-MailID: 20200728131126eucas1p16365622c52f91104373a2cd3e0ebb619
+In-Reply-To: <20200728131111.14334-1-s.nawrocki@samsung.com>
+X-Brightmail-Tracker: H4sIAAAAAAAAA+NgFupkleLIzCtJLcpLzFFi42LZduzneV0xFYV4g+8nDC2uXDzEZLFxxnpW
+ i6kPn7BZzD9yjtXi/PkN7BYzzu9jslh75C67ReveI+wWh9+0s1psOXObzYHLY8PnJjaPTas6
+ 2Txa1m9i8+jbsorR4/MmuQDWKC6blNSczLLUIn27BK6MK7+yC953MVa8/MfVwPiyqIuRk0NC
+ wERi5ow5rF2MXBxCAisYJY5M/MAO4XxhlJh2+zErSJWQwGdGibbVDjAdLecWM0IULWeU+DJz
+ KyNcR8ONHkaQKjYBQ4neo31gtoiAusT9GU1gO5gFbjJKzNzUxwaSEBbwlLj36QoziM0ioCqx
+ d8ENMJtXwFpi7fvvTBDr5CVWbzgAFOfg4BSwkXgyIwFkjoRAO7vExKfHweISAi4SR16nQJQL
+ S7w6voUdwpaR+L9zPhNEfTOjRM/u2+wQzgRGifvHFzBCVFlL3Dn3iw1kELOApsT6XfoQYUeJ
+ vZ8fM0HM55O48VYQJMwMZE7aNh1qLa9ER5sQRLWKxO9V06EulpLofvKfBcL2kOjb9Q4aPv2M
+ Ep9fXGGcwCg/C2HZAkbGVYziqaXFuempxUZ5qeV6xYm5xaV56XrJ+bmbGIEJ5PS/4192MO76
+ k3SIUYCDUYmH94O4QrwQa2JZcWXuIUYJDmYlEV6ns6fjhHhTEiurUovy44tKc1KLDzFKc7Ao
+ ifMaL3oZKySQnliSmp2aWpBaBJNl4uCUamDcuEJTOdwzJm39hG/Gc84W/r+6wEfltH7WWRfD
+ B5rntqyVdnjZfngNb3jSls+GjWybpU+lTvtcsdTq67PjKgp157QPzvY8XDMtI8RA2cDBIip8
+ 9+nPcxfI9put5DKe+dviVU51xYFuhV03/jtf7dg7YePBvjs/E9r8vc5HNYn2aZlF8D+KnpOq
+ xFKckWioxVxUnAgA0Yg2KBwDAAA=
+X-Brightmail-Tracker: H4sIAAAAAAAAA+NgFnrFLMWRmVeSWpSXmKPExsVy+t/xe7piKgrxBg8millcuXiIyWLjjPWs
+ FlMfPmGzmH/kHKvF+fMb2C1mnN/HZLH2yF12i9a9R9gtDr9pZ7XYcuY2mwOXx4bPTWwem1Z1
+ snm0rN/E5tG3ZRWjx+dNcgGsUXo2RfmlJakKGfnFJbZK0YYWRnqGlhZ6RiaWeobG5rFWRqZK
+ +nY2Kak5mWWpRfp2CXoZV35lF7zvYqx4+Y+rgfFlURcjJ4eEgIlEy7nFjF2MXBxCAksZJeZ0
+ f2DvYuQASkhJzG9RgqgRlvhzrYsNouYTo0Tvo+VsIAk2AUOJ3qN9jCC2iICmRMe826wgRcwC
+ Dxkl9h+/D5YQFvCUuPfpCjOIzSKgKrF3wQ0wm1fAWmLt++9MEBvkJVZvOMAMsphTwEbiyYwE
+ kLAQUMn6WQ8ZJzDyLWBkWMUoklpanJueW2yoV5yYW1yal66XnJ+7iREYztuO/dy8g/HSxuBD
+ jAIcjEo8vB/EFeKFWBPLiitzDzFKcDArifA6nT0dJ8SbklhZlVqUH19UmpNafIjRFOimicxS
+ osn5wFjLK4k3NDU0t7A0NDc2NzazUBLn7RA4GCMkkJ5YkpqdmlqQWgTTx8TBKdXAmNmuPaPD
+ YdkMIyHVSv8LG1j/nV5bHG/9K+WfSbBoWCNzdIaWp2TFx8dfOx/UNTTyfFbpc9ySax/1WmrX
+ suzdn0u2H360b6lo6BJGw8jG++92eaRKLyw8pxc7z0aHNz1C8e7zDb4JvIETn8ZtPDnzlb3u
+ jM97uJ7f+yj+sJYjyPXhjcflSeeClViKMxINtZiLihMBpkUxaH0CAAA=
+X-CMS-MailID: 20200728131150eucas1p29e1dd0ae1e8cffbde0e3c8b4e0f7ce81
 X-Msg-Generator: CA
 Content-Type: text/plain; charset="utf-8"
-X-RootMTR: 20200728131126eucas1p16365622c52f91104373a2cd3e0ebb619
+X-RootMTR: 20200728131150eucas1p29e1dd0ae1e8cffbde0e3c8b4e0f7ce81
 X-EPHeader: CA
 CMS-TYPE: 201P
-X-CMS-RootMailID: 20200728131126eucas1p16365622c52f91104373a2cd3e0ebb619
-References: <CGME20200728131126eucas1p16365622c52f91104373a2cd3e0ebb619@eucas1p1.samsung.com>
+X-CMS-RootMailID: 20200728131150eucas1p29e1dd0ae1e8cffbde0e3c8b4e0f7ce81
+References: <20200728131111.14334-1-s.nawrocki@samsung.com>
+ <CGME20200728131150eucas1p29e1dd0ae1e8cffbde0e3c8b4e0f7ce81@eucas1p2.samsung.com>
 Cc: simon@lineageos.org, devicetree@vger.kernel.org,
  alsa-devel@alsa-project.org, linux-samsung-soc@vger.kernel.org,
  b.zolnierkie@samsung.com, robh+dt@kernel.org, m.szyprowski@samsung.com
@@ -135,137 +137,614 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-This patch adds documentation of DT biding for the Midas sound complex.
-Partially based on the *txt version by Simon Shields <simon@lineageos.org>.
+From: Simon Shields <simon@lineageos.org>
 
+This patch adds support for voice and BT calls, along with standard
+audio output via the speaker, earpiece, headphone jack, HDMI, and
+any accessories compatible with Midas boards. This patch also supports
+headphone/headset detection and headsets with inline buttons.
+
+Signed-off-by: Simon Shields <simon@lineageos.org>
+[m.szyprowski: adaptation to v5.1+ kernels (DAI links initialization)]
+Signed-off-by: Marek Szyprowski <m.szyprowski@samsung.com>
+[s.nawrocki: removal of the clk API calls for CODEC MCLK, the jack data
+ structure moved to struct midas_priv, coding style and typo fixes,
+ conversion to new cpu/codec/dai-node binding]
+Acked-by: Krzysztof Kozlowski <krzk@kernel.org>
 Signed-off-by: Sylwester Nawrocki <s.nawrocki@samsung.com>
 ---
 Changes for v3:
- - change the sound-dai property type in cpu, codec nodes from
-   phandle-array to phandle
-
-Changes for v2:
- - fix wrong *-gpios entries in the example,
- - mark sound-dai properties as required.
+ - none.
 ---
- .../bindings/sound/samsung,midas-audio.yaml        | 108 +++++++++++++++++++++
- 1 file changed, 108 insertions(+)
- create mode 100644 Documentation/devicetree/bindings/sound/samsung,midas-audio.yaml
+ sound/soc/samsung/Kconfig        |   8 +
+ sound/soc/samsung/Makefile       |   2 +
+ sound/soc/samsung/midas_wm1811.c | 543 +++++++++++++++++++++++++++++++++++++++
+ 3 files changed, 553 insertions(+)
+ create mode 100644 sound/soc/samsung/midas_wm1811.c
 
-diff --git a/Documentation/devicetree/bindings/sound/samsung,midas-audio.yaml b/Documentation/devicetree/bindings/sound/samsung,midas-audio.yaml
+diff --git a/sound/soc/samsung/Kconfig b/sound/soc/samsung/Kconfig
+index 4b5c348..1431be4 100644
+--- a/sound/soc/samsung/Kconfig
++++ b/sound/soc/samsung/Kconfig
+@@ -225,4 +225,12 @@ config SND_SOC_SAMSUNG_ARIES_WM8994
+ 	  via ADC, GPIOs, and an extcon device.  Switching between the Mic
+ 	  and TV-Out path is also handled.
+ 
++config SND_SOC_SAMSUNG_MIDAS_WM1811
++	tristate "SoC I2S Audio support for Midas boards"
++	depends on SND_SOC_SAMSUNG
++	select SND_SAMSUNG_I2S
++	select SND_SOC_WM8994
++	help
++	  Say Y if you want to add support for SoC audio on the Midas boards.
++
+ endif #SND_SOC_SAMSUNG
+diff --git a/sound/soc/samsung/Makefile b/sound/soc/samsung/Makefile
+index 22259f7..398e843 100644
+--- a/sound/soc/samsung/Makefile
++++ b/sound/soc/samsung/Makefile
+@@ -42,6 +42,7 @@ snd-soc-odroid-objs := odroid.o
+ snd-soc-arndale-objs := arndale.o
+ snd-soc-tm2-wm5110-objs := tm2_wm5110.o
+ snd-soc-aries-wm8994-objs := aries_wm8994.o
++snd-soc-midas-wm1811-objs := midas_wm1811.o
+ 
+ obj-$(CONFIG_SND_SOC_SAMSUNG_JIVE_WM8750) += snd-soc-jive-wm8750.o
+ obj-$(CONFIG_SND_SOC_SAMSUNG_NEO1973_WM8753) += snd-soc-neo1973-wm8753.o
+@@ -66,3 +67,4 @@ obj-$(CONFIG_SND_SOC_ODROID) += snd-soc-odroid.o
+ obj-$(CONFIG_SND_SOC_ARNDALE) += snd-soc-arndale.o
+ obj-$(CONFIG_SND_SOC_SAMSUNG_TM2_WM5110) += snd-soc-tm2-wm5110.o
+ obj-$(CONFIG_SND_SOC_SAMSUNG_ARIES_WM8994) += snd-soc-aries-wm8994.o
++obj-$(CONFIG_SND_SOC_SAMSUNG_MIDAS_WM1811) += snd-soc-midas-wm1811.o
+diff --git a/sound/soc/samsung/midas_wm1811.c b/sound/soc/samsung/midas_wm1811.c
 new file mode 100644
-index 0000000..1c755de
+index 0000000..d03340c
 --- /dev/null
-+++ b/Documentation/devicetree/bindings/sound/samsung,midas-audio.yaml
-@@ -0,0 +1,108 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/sound/samsung,midas-audio.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
++++ b/sound/soc/samsung/midas_wm1811.c
+@@ -0,0 +1,543 @@
++// SPDX-License-Identifier: GPL-2.0+
++//
++// Midas audio support
++//
++// Copyright (C) 2018 Simon Shields <simon@lineageos.org>
++// Copyright (C) 2020 Samsung Electronics Co., Ltd.
 +
-+title: Samsung Midas audio complex with WM1811 codec
++#include <linux/clk.h>
++#include <linux/mfd/wm8994/registers.h>
++#include <linux/module.h>
++#include <linux/of.h>
++#include <linux/of_device.h>
++#include <linux/of_gpio.h>
++#include <linux/regulator/consumer.h>
++#include <sound/jack.h>
++#include <sound/soc.h>
++#include <sound/soc-dapm.h>
 +
-+maintainers:
-+  - Sylwester Nawrocki <s.nawrocki@samsung.com>
++#include "i2s.h"
++#include "../codecs/wm8994.h"
 +
-+properties:
-+  compatible:
-+    const: samsung,midas-audio
++/*
++ * The MCLK1 clock source is XCLKOUT with its mux set to the external fixed rate
++ * oscillator (XXTI).
++ */
++#define MCLK1_RATE 24000000U
++#define MCLK2_RATE 32768U
++#define DEFAULT_FLL1_RATE 11289600U
 +
-+  model:
-+    $ref: /schemas/types.yaml#/definitions/string
-+    description: The user-visible name of this sound complex.
++struct midas_priv {
++	struct regulator *reg_mic_bias;
++	struct regulator *reg_submic_bias;
++	struct gpio_desc *gpio_fm_sel;
++	struct gpio_desc *gpio_lineout_sel;
++	unsigned int fll1_rate;
 +
-+  cpu:
-+    type: object
-+    properties:
-+      sound-dai:
-+        $ref: /schemas/types.yaml#/definitions/phandle
-+        description: phandle to the I2S controller
-+    required:
-+      - sound-dai
++	struct snd_soc_jack headset_jack;
++};
 +
-+  codec:
-+    type: object
-+    properties:
-+      sound-dai:
-+        $ref: /schemas/types.yaml#/definitions/phandle
-+        description: phandle to the WM1811 CODEC
-+    required:
-+      - sound-dai
++static int midas_start_fll1(struct snd_soc_pcm_runtime *rtd, unsigned int rate)
++{
++	struct snd_soc_card *card = rtd->card;
++	struct midas_priv *priv = snd_soc_card_get_drvdata(card);
++	struct snd_soc_dai *aif1_dai = asoc_rtd_to_codec(rtd, 0);
++	struct snd_soc_dai *cpu_dai = asoc_rtd_to_cpu(rtd, 0);
++	int ret;
 +
-+  samsung,audio-routing:
-+    $ref: /schemas/types.yaml#/definitions/non-unique-string-array
-+    description: |
-+      List of the connections between audio components; each entry is
-+      a pair of strings, the first being the connection's sink, the second
-+      being the connection's source; valid names for sources and sinks are
-+      the WM1811's pins (as documented in its binding), and the jacks
-+      on the board: HP, SPK, Main Mic, Sub Mic, Headset Mic.
++	if (!rate)
++		rate = priv->fll1_rate;
++	/*
++	 * If no new rate is requested, set FLL1 to a sane default for jack
++	 * detection.
++	 */
++	if (!rate)
++		rate = DEFAULT_FLL1_RATE;
 +
-+  mic-bias-supply:
-+    description: Supply for the micbias on the Main microphone
++	if (rate != priv->fll1_rate && priv->fll1_rate) {
++		/* while reconfiguring, switch to MCLK2 for SYSCLK */
++		ret = snd_soc_dai_set_sysclk(aif1_dai, WM8994_SYSCLK_MCLK2,
++					     MCLK2_RATE, SND_SOC_CLOCK_IN);
++		if (ret < 0) {
++			dev_err(card->dev, "Unable to switch to MCLK2: %d\n", ret);
++			return ret;
++		}
++	}
 +
-+  submic-bias-supply:
-+    description: Supply for the micbias on the Sub microphone
++	ret = snd_soc_dai_set_pll(aif1_dai, WM8994_FLL1, WM8994_FLL_SRC_MCLK1,
++				  MCLK1_RATE, rate);
++	if (ret < 0) {
++		dev_err(card->dev, "Failed to set FLL1 rate: %d\n", ret);
++		return ret;
++	}
++	priv->fll1_rate = rate;
 +
-+  fm-sel-gpios:
-+    description: GPIO pin for FM selection
++	ret = snd_soc_dai_set_sysclk(aif1_dai, WM8994_SYSCLK_FLL1,
++				     priv->fll1_rate, SND_SOC_CLOCK_IN);
++	if (ret < 0) {
++		dev_err(card->dev, "Failed to set SYSCLK source: %d\n", ret);
++		return ret;
++	}
 +
-+  lineout-sel-gpios:
-+    description: GPIO pin for line out selection
++	ret = snd_soc_dai_set_sysclk(cpu_dai, SAMSUNG_I2S_OPCLK, 0,
++				     SAMSUNG_I2S_OPCLK_PCLK);
++	if (ret < 0) {
++		dev_err(card->dev, "Failed to set OPCLK source: %d\n", ret);
++		return ret;
++	}
 +
-+required:
-+  - compatible
-+  - model
-+  - cpu
-+  - codec
-+  - samsung,audio-routing
-+  - mic-bias-supply
-+  - submic-bias-supply
++	return 0;
++}
 +
-+additionalProperties: false
++static int midas_stop_fll1(struct snd_soc_pcm_runtime *rtd)
++{
++	struct snd_soc_card *card = rtd->card;
++	struct midas_priv *priv = snd_soc_card_get_drvdata(card);
++	struct snd_soc_dai *aif1_dai = asoc_rtd_to_codec(rtd, 0);
++	int ret;
 +
-+examples:
-+  - |
-+    #include <dt-bindings/gpio/gpio.h>
++	ret = snd_soc_dai_set_sysclk(aif1_dai, WM8994_SYSCLK_MCLK2,
++				     MCLK2_RATE, SND_SOC_CLOCK_IN);
++	if (ret < 0) {
++		dev_err(card->dev, "Unable to switch to MCLK2: %d\n", ret);
++		return ret;
++	}
 +
-+    sound {
-+        compatible = "samsung,midas-audio";
-+        model = "Midas";
++	ret = snd_soc_dai_set_pll(aif1_dai, WM8994_FLL1, 0, 0, 0);
++	if (ret < 0) {
++		dev_err(card->dev, "Unable to stop FLL1: %d\n", ret);
++		return ret;
++	}
 +
-+        fm-sel-gpios = <&gpaa0 3 GPIO_ACTIVE_HIGH>;
++	priv->fll1_rate = 0;
 +
-+        mic-bias-supply = <&mic_bias_reg>;
-+        submic-bias-supply = <&submic_bias_reg>;
++	return 0;
++}
 +
-+        samsung,audio-routing =
-+                "HP", "HPOUT1L",
-+                "HP", "HPOUT1R",
++static int midas_aif1_hw_params(struct snd_pcm_substream *substream,
++				struct snd_pcm_hw_params *params)
++{
++	struct snd_soc_pcm_runtime *rtd	= substream->private_data;
++	unsigned int pll_out;
 +
-+                "SPK", "SPKOUTLN",
-+                "SPK", "SPKOUTLP",
-+                "SPK", "SPKOUTRN",
-+                "SPK", "SPKOUTRP",
++	/* AIF1CLK should be at least 3MHz for "optimal performance" */
++	if (params_rate(params) == 8000 || params_rate(params) == 11025)
++		pll_out = params_rate(params) * 512;
++	else
++		pll_out = params_rate(params) * 256;
 +
-+                "RCV", "HPOUT2N",
-+                "RCV", "HPOUT2P",
++	return midas_start_fll1(rtd, pll_out);
++}
 +
-+                "IN1LP", "Main Mic",
-+                "IN1LN", "Main Mic",
-+                "IN1RP", "Sub Mic",
-+                "IN1LP", "Sub Mic";
++static struct snd_soc_ops midas_aif1_ops = {
++	.hw_params = midas_aif1_hw_params,
++};
 +
-+        cpu {
-+            sound-dai = <&i2s0>;
-+        };
++/*
++ * We only have a single external speaker, so mix stereo data
++ * to a single mono stream.
++ */
++static int midas_ext_spkmode(struct snd_soc_dapm_widget *w,
++			     struct snd_kcontrol *kcontrol, int event)
++{
++	struct snd_soc_component *codec = snd_soc_dapm_to_component(w->dapm);
++	int ret = 0;
 +
-+        codec {
-+            sound-dai = <&wm1811>;
-+        };
++	switch (event) {
++	case SND_SOC_DAPM_PRE_PMU:
++		ret = snd_soc_component_update_bits(codec, WM8994_SPKOUT_MIXERS,
++				  WM8994_SPKMIXR_TO_SPKOUTL_MASK,
++				  WM8994_SPKMIXR_TO_SPKOUTL);
++		break;
++	case SND_SOC_DAPM_POST_PMD:
++		ret = snd_soc_component_update_bits(codec, WM8994_SPKOUT_MIXERS,
++				  WM8994_SPKMIXR_TO_SPKOUTL_MASK,
++				  0);
++		break;
++	}
 +
-+    };
++	return ret;
++}
++
++static int midas_mic_bias(struct snd_soc_dapm_widget *w,
++			  struct snd_kcontrol *kcontrol, int event)
++{
++	struct snd_soc_card *card = w->dapm->card;
++	struct midas_priv *priv = snd_soc_card_get_drvdata(card);
++
++	switch (event) {
++	case SND_SOC_DAPM_PRE_PMU:
++		return regulator_enable(priv->reg_mic_bias);
++	case SND_SOC_DAPM_POST_PMD:
++		return regulator_disable(priv->reg_mic_bias);
++	}
++
++	return 0;
++}
++
++static int midas_submic_bias(struct snd_soc_dapm_widget *w,
++			     struct snd_kcontrol *kcontrol, int event)
++{
++	struct snd_soc_card *card = w->dapm->card;
++	struct midas_priv *priv = snd_soc_card_get_drvdata(card);
++
++	switch (event) {
++	case SND_SOC_DAPM_PRE_PMU:
++		return regulator_enable(priv->reg_submic_bias);
++	case SND_SOC_DAPM_POST_PMD:
++		return regulator_disable(priv->reg_submic_bias);
++	}
++
++	return 0;
++}
++
++static int midas_fm_set(struct snd_soc_dapm_widget *w,
++			struct snd_kcontrol *kcontrol, int event)
++{
++	struct snd_soc_card *card = w->dapm->card;
++	struct midas_priv *priv = snd_soc_card_get_drvdata(card);
++
++	if (!priv->gpio_fm_sel)
++		return 0;
++
++	switch (event) {
++	case SND_SOC_DAPM_PRE_PMU:
++		gpiod_set_value_cansleep(priv->gpio_fm_sel, 1);
++		break;
++	case SND_SOC_DAPM_POST_PMD:
++		gpiod_set_value_cansleep(priv->gpio_fm_sel, 0);
++		break;
++	}
++
++	return 0;
++}
++
++static int midas_line_set(struct snd_soc_dapm_widget *w,
++			  struct snd_kcontrol *kcontrol, int event)
++{
++	struct snd_soc_card *card = w->dapm->card;
++	struct midas_priv *priv = snd_soc_card_get_drvdata(card);
++
++	if (!priv->gpio_lineout_sel)
++		return 0;
++
++	switch (event) {
++	case SND_SOC_DAPM_PRE_PMU:
++		gpiod_set_value_cansleep(priv->gpio_lineout_sel, 1);
++		break;
++	case SND_SOC_DAPM_POST_PMD:
++		gpiod_set_value_cansleep(priv->gpio_lineout_sel, 0);
++		break;
++	}
++
++	return 0;
++}
++
++static const struct snd_kcontrol_new midas_controls[] = {
++	SOC_DAPM_PIN_SWITCH("HP"),
++
++	SOC_DAPM_PIN_SWITCH("SPK"),
++	SOC_DAPM_PIN_SWITCH("RCV"),
++
++	SOC_DAPM_PIN_SWITCH("LINE"),
++	SOC_DAPM_PIN_SWITCH("HDMI"),
++
++	SOC_DAPM_PIN_SWITCH("Main Mic"),
++	SOC_DAPM_PIN_SWITCH("Sub Mic"),
++	SOC_DAPM_PIN_SWITCH("Headset Mic"),
++
++	SOC_DAPM_PIN_SWITCH("FM In"),
++};
++
++static const struct snd_soc_dapm_widget midas_dapm_widgets[] = {
++	SND_SOC_DAPM_HP("HP", NULL),
++
++	SND_SOC_DAPM_SPK("SPK", midas_ext_spkmode),
++	SND_SOC_DAPM_SPK("RCV", NULL),
++
++	/* FIXME: toggle MAX77693 on i9300/i9305 */
++	SND_SOC_DAPM_LINE("LINE", midas_line_set),
++	SND_SOC_DAPM_LINE("HDMI", NULL),
++	SND_SOC_DAPM_LINE("FM In", midas_fm_set),
++
++	SND_SOC_DAPM_MIC("Headset Mic", NULL),
++	SND_SOC_DAPM_MIC("Main Mic", midas_mic_bias),
++	SND_SOC_DAPM_MIC("Sub Mic", midas_submic_bias),
++};
++
++static int midas_set_bias_level(struct snd_soc_card *card,
++				struct snd_soc_dapm_context *dapm,
++				enum snd_soc_bias_level level)
++{
++	struct snd_soc_pcm_runtime *rtd = snd_soc_get_pcm_runtime(card,
++						  &card->dai_link[0]);
++	struct snd_soc_dai *aif1_dai = asoc_rtd_to_codec(rtd, 0);
++
++	if (dapm->dev != aif1_dai->dev)
++		return 0;
++
++	switch (level) {
++	case SND_SOC_BIAS_STANDBY:
++		return midas_stop_fll1(rtd);
++	case SND_SOC_BIAS_PREPARE:
++		return midas_start_fll1(rtd, 0);
++	default:
++		break;
++	}
++
++	return 0;
++}
++
++static int midas_late_probe(struct snd_soc_card *card)
++{
++	struct snd_soc_pcm_runtime *rtd = snd_soc_get_pcm_runtime(card,
++							&card->dai_link[0]);
++	struct snd_soc_dai *aif1_dai = asoc_rtd_to_codec(rtd, 0);
++	struct midas_priv *priv = snd_soc_card_get_drvdata(card);
++	int ret;
++
++	/* Use MCLK2 as SYSCLK for boot */
++	ret = snd_soc_dai_set_sysclk(aif1_dai, WM8994_SYSCLK_MCLK2, MCLK2_RATE,
++				     SND_SOC_CLOCK_IN);
++	if (ret < 0) {
++		dev_err(aif1_dai->dev, "Failed to switch to MCLK2: %d\n", ret);
++		return ret;
++	}
++
++	ret = snd_soc_card_jack_new(card, "Headset",
++			SND_JACK_HEADSET | SND_JACK_MECHANICAL |
++			SND_JACK_BTN_0 | SND_JACK_BTN_1 | SND_JACK_BTN_2 |
++			SND_JACK_BTN_3 | SND_JACK_BTN_4 | SND_JACK_BTN_5,
++			&priv->headset_jack, NULL, 0);
++	if (ret)
++		return ret;
++
++	wm8958_mic_detect(aif1_dai->component, &priv->headset_jack,
++			  NULL, NULL, NULL, NULL);
++	return 0;
++}
++
++static struct snd_soc_dai_driver midas_ext_dai[] = {
++	{
++		.name = "Voice call",
++		.playback = {
++			.channels_min = 1,
++			.channels_max = 2,
++			.rate_min = 8000,
++			.rate_max = 16000,
++			.rates = (SNDRV_PCM_RATE_8000 | SNDRV_PCM_RATE_16000),
++			.formats = SNDRV_PCM_FMTBIT_S16_LE,
++		},
++		.capture = {
++			.channels_min = 1,
++			.channels_max = 2,
++			.rate_min = 8000,
++			.rate_max = 16000,
++			.rates = (SNDRV_PCM_RATE_8000 | SNDRV_PCM_RATE_16000),
++			.formats = SNDRV_PCM_FMTBIT_S16_LE,
++		},
++	},
++	{
++		.name = "Bluetooth",
++		.playback = {
++			.channels_min = 1,
++			.channels_max = 2,
++			.rate_min = 8000,
++			.rate_max = 16000,
++			.rates = (SNDRV_PCM_RATE_8000 | SNDRV_PCM_RATE_16000),
++			.formats = SNDRV_PCM_FMTBIT_S16_LE,
++		},
++		.capture = {
++			.channels_min = 1,
++			.channels_max = 2,
++			.rate_min = 8000,
++			.rate_max = 16000,
++			.rates = (SNDRV_PCM_RATE_8000 | SNDRV_PCM_RATE_16000),
++			.formats = SNDRV_PCM_FMTBIT_S16_LE,
++		},
++	},
++};
++
++static const struct snd_soc_component_driver midas_component = {
++	.name	= "midas-audio",
++};
++
++SND_SOC_DAILINK_DEFS(wm1811_hifi,
++	DAILINK_COMP_ARRAY(COMP_EMPTY()),
++	DAILINK_COMP_ARRAY(COMP_CODEC(NULL, "wm8994-aif1")),
++	DAILINK_COMP_ARRAY(COMP_EMPTY()));
++
++SND_SOC_DAILINK_DEFS(wm1811_voice,
++	DAILINK_COMP_ARRAY(COMP_EMPTY()),
++	DAILINK_COMP_ARRAY(COMP_CODEC(NULL, "wm8994-aif2")),
++	DAILINK_COMP_ARRAY(COMP_EMPTY()));
++
++SND_SOC_DAILINK_DEFS(wm1811_bt,
++	DAILINK_COMP_ARRAY(COMP_EMPTY()),
++	DAILINK_COMP_ARRAY(COMP_CODEC(NULL, "wm8994-aif3")),
++	DAILINK_COMP_ARRAY(COMP_EMPTY()));
++
++static struct snd_soc_dai_link midas_dai[] = {
++	{
++		.name = "WM8994 AIF1",
++		.stream_name = "HiFi Primary",
++		.ops = &midas_aif1_ops,
++		.dai_fmt = SND_SOC_DAIFMT_I2S | SND_SOC_DAIFMT_NB_NF |
++			SND_SOC_DAIFMT_CBM_CFM,
++		SND_SOC_DAILINK_REG(wm1811_hifi),
++	}, {
++		.name = "WM1811 Voice",
++		.stream_name = "Voice call",
++		.ignore_suspend = 1,
++		SND_SOC_DAILINK_REG(wm1811_voice),
++	}, {
++		.name = "WM1811 BT",
++		.stream_name = "Bluetooth",
++		.ignore_suspend = 1,
++		SND_SOC_DAILINK_REG(wm1811_bt),
++	},
++};
++
++static struct snd_soc_card midas_card = {
++	.name = "Midas WM1811",
++	.owner = THIS_MODULE,
++
++	.dai_link = midas_dai,
++	.num_links = ARRAY_SIZE(midas_dai),
++	.controls = midas_controls,
++	.num_controls = ARRAY_SIZE(midas_controls),
++	.dapm_widgets = midas_dapm_widgets,
++	.num_dapm_widgets = ARRAY_SIZE(midas_dapm_widgets),
++
++	.set_bias_level = midas_set_bias_level,
++	.late_probe = midas_late_probe,
++};
++
++static int midas_probe(struct platform_device *pdev)
++{
++	struct device_node *cpu_dai_node = NULL, *codec_dai_node = NULL;
++	struct device_node *cpu = NULL, *codec = NULL;
++	struct snd_soc_card *card = &midas_card;
++	struct device *dev = &pdev->dev;
++	static struct snd_soc_dai_link *dai_link;
++	struct midas_priv *priv;
++	int ret, i;
++
++	priv = devm_kzalloc(dev, sizeof(*priv), GFP_KERNEL);
++	if (!priv)
++		return -ENOMEM;
++
++	snd_soc_card_set_drvdata(card, priv);
++	card->dev = dev;
++
++	priv->reg_mic_bias = devm_regulator_get(dev, "mic-bias");
++	if (IS_ERR(priv->reg_mic_bias)) {
++		dev_err(dev, "Failed to get mic bias regulator\n");
++		return PTR_ERR(priv->reg_mic_bias);
++	}
++
++	priv->reg_submic_bias = devm_regulator_get(dev, "submic-bias");
++	if (IS_ERR(priv->reg_submic_bias)) {
++		dev_err(dev, "Failed to get submic bias regulator\n");
++		return PTR_ERR(priv->reg_submic_bias);
++	}
++
++	priv->gpio_fm_sel = devm_gpiod_get_optional(dev, "fm-sel", GPIOD_OUT_HIGH);
++	if (IS_ERR(priv->gpio_fm_sel)) {
++		dev_err(dev, "Failed to get FM selection GPIO\n");
++		return PTR_ERR(priv->gpio_fm_sel);
++	}
++
++	priv->gpio_lineout_sel = devm_gpiod_get_optional(dev, "lineout-sel",
++						    GPIOD_OUT_HIGH);
++	if (IS_ERR(priv->gpio_lineout_sel)) {
++		dev_err(dev, "Failed to get line out selection GPIO\n");
++		return PTR_ERR(priv->gpio_lineout_sel);
++	}
++
++	ret = snd_soc_of_parse_card_name(card, "model");
++	if (ret < 0) {
++		dev_err(dev, "Card name is not specified\n");
++		return ret;
++	}
++
++	ret = snd_soc_of_parse_audio_routing(card, "samsung,audio-routing");
++	if (ret < 0) {
++		dev_err(dev, "Audio routing invalid/unspecified\n");
++		return ret;
++	}
++
++	cpu = of_get_child_by_name(dev->of_node, "cpu");
++	if (!cpu)
++		return -EINVAL;
++
++	codec = of_get_child_by_name(dev->of_node, "codec");
++	if (!codec) {
++		of_node_put(cpu);
++		return -EINVAL;
++	}
++
++	cpu_dai_node = of_parse_phandle(cpu, "sound-dai", 0);
++	of_node_put(cpu);
++	if (!cpu_dai_node) {
++		dev_err(dev, "parsing cpu/sound-dai failed\n");
++		of_node_put(codec);
++		return -EINVAL;
++	}
++
++	codec_dai_node = of_parse_phandle(codec, "sound-dai", 0);
++	of_node_put(codec);
++	if (!codec_dai_node) {
++		dev_err(dev, "audio-codec property invalid/missing\n");
++		ret = -EINVAL;
++		goto put_cpu_dai_node;
++	}
++
++	for_each_card_prelinks(card, i, dai_link) {
++		dai_link->codecs->of_node = codec_dai_node;
++		dai_link->cpus->of_node = cpu_dai_node;
++		dai_link->platforms->of_node = cpu_dai_node;
++	}
++
++	ret = devm_snd_soc_register_component(dev, &midas_component,
++			midas_ext_dai, ARRAY_SIZE(midas_ext_dai));
++	if (ret < 0) {
++		dev_err(dev, "Failed to register component: %d\n", ret);
++		goto put_codec_dai_node;
++	}
++
++	ret = devm_snd_soc_register_card(dev, card);
++	if (ret < 0) {
++		dev_err(dev, "Failed to register card: %d\n", ret);
++		goto put_codec_dai_node;
++	}
++
++	return 0;
++
++put_codec_dai_node:
++	of_node_put(codec_dai_node);
++put_cpu_dai_node:
++	of_node_put(cpu_dai_node);
++	return ret;
++}
++
++static const struct of_device_id midas_of_match[] = {
++	{ .compatible = "samsung,midas-audio" },
++	{ },
++};
++MODULE_DEVICE_TABLE(of, midas_of_match);
++
++static struct platform_driver midas_driver = {
++	.driver = {
++		.name = "midas-audio",
++		.of_match_table = midas_of_match,
++		.owner = THIS_MODULE,
++		.pm = &snd_soc_pm_ops,
++	},
++	.probe = midas_probe,
++};
++module_platform_driver(midas_driver);
++
++MODULE_AUTHOR("Simon Shields <simon@lineageos.org>");
++MODULE_DESCRIPTION("ASoC support for Midas");
++MODULE_LICENSE("GPL v2");
 -- 
 2.7.4
 

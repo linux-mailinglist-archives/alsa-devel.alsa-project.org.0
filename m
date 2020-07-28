@@ -2,80 +2,82 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id BD9DF23100A
-	for <lists+alsa-devel@lfdr.de>; Tue, 28 Jul 2020 18:45:42 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 228D823100E
+	for <lists+alsa-devel@lfdr.de>; Tue, 28 Jul 2020 18:48:06 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 5A42F170E;
-	Tue, 28 Jul 2020 18:44:52 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5A42F170E
+	by alsa0.perex.cz (Postfix) with ESMTPS id C0450170D;
+	Tue, 28 Jul 2020 18:47:15 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C0450170D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1595954742;
-	bh=EyH5KZ/u4sjimRw6RW29SPh18agPcQjEPE2ZcZoWaBA=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=DlTFIIjbVcil1cU5KMEUGEc+J2KIKwvKV8HzLDGGNmpWNIC1gTj9g6mvT+VIW/O3l
-	 9TJAaUEIOQ286RbX/u+tumPMR4NcVR68W7bv8JZg7Azo67R1/1v+eyB0LUYQieU48l
-	 E00ZFGtaaVlol7nfE2pb3on+GDhUJzysKW0pEJ2k=
+	s=default; t=1595954885;
+	bh=dyEMHTMqLlcfCZiHMGljZAEjN4IHi82H26oFStAZa1Y=;
+	h=Subject:From:To:References:Date:In-Reply-To:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=p81VdGnuFPniIEdolPUHiuRo/qERwE1n0qiRo00sJl1tZMwpJtNDDd03hoxSXNoL/
+	 Jr/cXe9UJH0IXr8UadK0N2pjOTWlrdulNOaBtMVH6kJ6AVWLupOPOq7m+j73zFTQPG
+	 EVSml1BmqoGSI6FJGh2xsy174MngnCdrQup7wFZY=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 8188EF8012F;
-	Tue, 28 Jul 2020 18:44:01 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 21775F80227;
+	Tue, 28 Jul 2020 18:46:25 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id A8032F8021E; Tue, 28 Jul 2020 18:43:58 +0200 (CEST)
+ id 4DB97F8021E; Tue, 28 Jul 2020 18:46:22 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,RCVD_IN_MSPIKE_H3,RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,
- SPF_PASS,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from fllv0016.ext.ti.com (fllv0016.ext.ti.com [198.47.19.142])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-1.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS autolearn=disabled
+ version=3.4.0
+Received: from cable.insite.cz (cable.insite.cz [84.242.75.189])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 50AF3F800AD
- for <alsa-devel@alsa-project.org>; Tue, 28 Jul 2020 18:43:48 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 50AF3F800AD
+ by alsa1.perex.cz (Postfix) with ESMTPS id AB392F800AD
+ for <alsa-devel@alsa-project.org>; Tue, 28 Jul 2020 18:46:12 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz AB392F800AD
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b="GsxHbf/V"
-Received: from lelv0265.itg.ti.com ([10.180.67.224])
- by fllv0016.ext.ti.com (8.15.2/8.15.2) with ESMTP id 06SGhjX5011284;
- Tue, 28 Jul 2020 11:43:45 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com;
- s=ti-com-17Q1; t=1595954625;
- bh=jdKE6zp5yHn3EXrC6YzjiSN2SMWcYzGzcRo94VExG04=;
- h=From:To:CC:Subject:Date;
- b=GsxHbf/Vhiz/kQkg7HJD+yIGBIyujCrnwfv30wckn2JXpWcLvTrhjHlapqqPm0RPV
- XbtIicT1OO1lDKqVMGwH84aowDsIrfjfSpTsNsVba7iLiJ8HzsB6TyVWDBLJMPPrCl
- wUfB/8qTLcaDtGKSPnyl/4daiW384d7IMJ1qRaOM=
-Received: from DLEE109.ent.ti.com (dlee109.ent.ti.com [157.170.170.41])
- by lelv0265.itg.ti.com (8.15.2/8.15.2) with ESMTPS id 06SGhjmV065653
- (version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=FAIL);
- Tue, 28 Jul 2020 11:43:45 -0500
-Received: from DLEE101.ent.ti.com (157.170.170.31) by DLEE109.ent.ti.com
- (157.170.170.41) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.1979.3; Tue, 28
- Jul 2020 11:43:45 -0500
-Received: from lelv0326.itg.ti.com (10.180.67.84) by DLEE101.ent.ti.com
- (157.170.170.31) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.1979.3 via
- Frontend Transport; Tue, 28 Jul 2020 11:43:45 -0500
-Received: from localhost (ileax41-snat.itg.ti.com [10.172.224.153])
- by lelv0326.itg.ti.com (8.15.2/8.15.2) with ESMTP id 06SGhjQi011670;
- Tue, 28 Jul 2020 11:43:45 -0500
-From: Dan Murphy <dmurphy@ti.com>
-To: <lgirdwood@gmail.com>, <broonie@kernel.org>, <perex@perex.cz>,
- <tiwai@suse.com>
-Subject: [PATCH] ASoC: tlv320adcx140: Fix various style errors and warnings
-Date: Tue, 28 Jul 2020 11:43:39 -0500
-Message-ID: <20200728164339.16841-1-dmurphy@ti.com>
-X-Mailer: git-send-email 2.27.0
+ dkim=pass (1024-bit key) header.d=ivitera.com header.i=@ivitera.com
+ header.b="RZn831Tv"; 
+ dkim=pass (1024-bit key) header.d=ivitera.com header.i=@ivitera.com
+ header.b="FmR8q8Eu"
+Received: from localhost (localhost [127.0.0.1])
+ by cable.insite.cz (Postfix) with ESMTP id CD423A1F65AA3;
+ Tue, 28 Jul 2020 18:46:09 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=ivitera.com; s=mail;
+ t=1595954769; bh=dyEMHTMqLlcfCZiHMGljZAEjN4IHi82H26oFStAZa1Y=;
+ h=Subject:From:To:References:Date:In-Reply-To:From;
+ b=RZn831TvvHOKVKCOwk7vrxAGTq11PGMcm3AL0I97DLbJWQXG5iE37u9KO4qnTE/fL
+ 2FTSOKSyyDtj7Zo4angfIYcZ+5/anZiULINbisE/BmXu7knQsVOKd00ZCPpXaIa+/I
+ fTgo1Ji2vrG38r8UnKrH0i1ZTYUmpQobQFELoFWg=
+Received: from cable.insite.cz ([84.242.75.189])
+ by localhost (server.insite.cz [127.0.0.1]) (amavisd-new, port 10024)
+ with ESMTP id 16ySbqPcq27X; Tue, 28 Jul 2020 18:46:04 +0200 (CEST)
+Received: from [192.168.105.151] (ip28.insite.cz [81.0.237.28])
+ (Authenticated sender: pavel)
+ by cable.insite.cz (Postfix) with ESMTPSA id 54049A1F67621;
+ Tue, 28 Jul 2020 18:46:04 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=ivitera.com; s=mail;
+ t=1595954764; bh=dyEMHTMqLlcfCZiHMGljZAEjN4IHi82H26oFStAZa1Y=;
+ h=Subject:From:To:References:Date:In-Reply-To:From;
+ b=FmR8q8EuXepy3E4I/AgMRHDOFCg9376A8j6wsgj6fLuZyxejhP1xyvexixpyzk3xy
+ py7PyqphYNjMj4iGrK+qFbDc9eXy3+CQjvEavkcQojE8BbRGOfMKedrF8/Q2vponE0
+ GygW9LyYFLe83WBZQyqfgBWd9OQ5STzzkSiqWZyw=
+Subject: Re: pcm_meter.c issue at s16_update
+From: Pavel Hofman <pavel.hofman@ivitera.com>
+To: "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
+ Takashi Iwai <tiwai@suse.de>
+References: <f56d6a67-014a-e562-c253-830c0ec03717@ivitera.com>
+Message-ID: <9957e124-be4b-cdc9-ffad-579b631455df@ivitera.com>
+Date: Tue, 28 Jul 2020 18:46:00 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.8.0
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-EXCLAIMER-MD-CONFIG: e1e8a2fd-e40a-4ac6-ac9b-f7e9cc9ee180
-Cc: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
- Dan Murphy <dmurphy@ti.com>
+In-Reply-To: <f56d6a67-014a-e562-c253-830c0ec03717@ivitera.com>
+Content-Type: text/plain; charset=iso-8859-2
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -91,59 +93,63 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Fix white space issues and remove else case where it was not needed.
-Convert "static const char *" to "static const char * const"
 
-Fixes: 689c7655b50 ("ASoC: tlv320adcx140: Add the tlv320adcx140 codec driver family")
-Signed-off-by: Dan Murphy <dmurphy@ti.com>
----
- sound/soc/codecs/tlv320adcx140.c | 12 ++++++------
- 1 file changed, 6 insertions(+), 6 deletions(-)
+Dne 26. 07. 20 v 20:20 Pavel Hofman napsal(a):
+> Hi,
+> 
+> I am debugging the following problem with the PCM METER API:
+> 
+> An application with meter/scope configured in .asoundrc hits a high CPU
+> load sometimes when a new playback stream is opened. E.g. in MPD when
+> opening a new radio stream. The 100% CPU core load takes tens of seconds.
+> ...........
+> 
+> TL;DR: at decrease of [status.appl_ptr - status.delay] between
+> consequent runs the size of buffer to convert by the built-in s16 scope
+> is set from usual 100s to huge value of pcm->boundary (1.5G), causing a
+> very long processing at 100% core load.
+> 
+> The debug around the event looks like this, suddenly meter->now drops down:
+> 
+> s16_update 1: meter->now 2567498, s16->old 2566593, size 905
+> s16_update 1: meter->now 2568401, s16->old 2567498, size 903
+> s16_update 1: meter->now 20786, s16->old 20786, size 0
+> s16_update 1: meter->now 1065, s16->old 20786, size -19721
+> s16_update 1: meter->now 24839, s16->old 24838, size 1
+> s16_update 1: meter->now 701, s16->old 24839, size -24138
+> s16_update 1: meter->now 1253162, s16->old 701, size 1252461
+> s16_update 1: meter->now 1255148, s16->old 1253162, size 1986
+> 
+> ..........
+> 
+> s16_update 1: meter->now 11136, s16->old 10261, size 875
+> s16_update 1: meter->now 22525, s16->old 22524, size 1
+> s16_update 1: meter->now 963, s16->old 22525, size -21562
+> s16_update 1: meter->now 1270914, s16->old 963, size 1269951
+> s16_update 1: meter->now 1272917, s16->old 1270914, size 2003
+> 
 
-diff --git a/sound/soc/codecs/tlv320adcx140.c b/sound/soc/codecs/tlv320adcx140.c
-index 49dcdd72e5c6..938c5ef17e61 100644
---- a/sound/soc/codecs/tlv320adcx140.c
-+++ b/sound/soc/codecs/tlv320adcx140.c
-@@ -218,8 +218,8 @@ static const struct snd_kcontrol_new in4_resistor_controls[] = {
- };
- 
- /* Analog/Digital Selection */
--static const char *adcx140_mic_sel_text[] = {"Analog", "Line In", "Digital"};
--static const char *adcx140_analog_sel_text[] = {"Analog", "Line In"};
-+static const char * const adcx140_mic_sel_text[] = {"Analog", "Line In", "Digital"};
-+static const char * const adcx140_analog_sel_text[] = {"Analog", "Line In"};
- 
- static SOC_ENUM_SINGLE_DECL(adcx140_mic1p_enum,
- 			    ADCX140_CH1_CFG0, 5,
-@@ -598,7 +598,7 @@ static int adcx140_reset(struct adcx140_priv *adcx140)
- 		gpiod_direction_output(adcx140->gpio_reset, 1);
- 	} else {
- 		ret = regmap_write(adcx140->regmap, ADCX140_SW_RESET,
--		          ADCX140_RESET);
-+				   ADCX140_RESET);
- 	}
- 
- 	/* 8.4.2: wait >= 10 ms after entering sleep mode. */
-@@ -841,7 +841,7 @@ static int adcx140_codec_probe(struct snd_soc_component *component)
- 	if (ret)
- 		goto out;
- 
--	if(adcx140->supply_areg == NULL)
-+	if (adcx140->supply_areg == NULL)
- 		sleep_cfg_val |= ADCX140_AREG_INTERNAL;
- 
- 	ret = regmap_write(adcx140->regmap, ADCX140_SLEEP_CFG, sleep_cfg_val);
-@@ -942,8 +942,8 @@ static int adcx140_i2c_probe(struct i2c_client *i2c,
- 	if (IS_ERR(adcx140->supply_areg)) {
- 		if (PTR_ERR(adcx140->supply_areg) == -EPROBE_DEFER)
- 			return -EPROBE_DEFER;
--		else
--			adcx140->supply_areg = NULL;
-+
-+		adcx140->supply_areg = NULL;
- 	} else {
- 		ret = regulator_enable(adcx140->supply_areg);
- 		if (ret) {
--- 
-2.28.0
+I think the problem is that s16->old is not reset when status.appl_ptr
+is zeroed and starts running again. There is a call
+
+static void s16_reset(snd_pcm_scope_t *scope)
+{
+	snd_pcm_scope_s16_t *s16 = scope->private_data;
+	snd_pcm_meter_t *meter = s16->pcm->private_data;
+	s16->old = meter->now;
+}
+
+but I do not know when this method is called and whether the meter->now
+is already assigned to the newly zeroed status.appl_ptr.
+
+Please at which method should I reset s16->old = 0?
+* s16_reset
+* s16_enable
+* s16_start
+* snd_pcm_scope_s16_open
+
+
+Thanks a lot for any help,
+
+Pavel.
 

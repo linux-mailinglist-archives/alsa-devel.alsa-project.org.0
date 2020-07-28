@@ -2,69 +2,77 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A79BD23098B
-	for <lists+alsa-devel@lfdr.de>; Tue, 28 Jul 2020 14:04:34 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id EA411230994
+	for <lists+alsa-devel@lfdr.de>; Tue, 28 Jul 2020 14:08:03 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 2BE381673;
-	Tue, 28 Jul 2020 14:03:44 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2BE381673
+	by alsa0.perex.cz (Postfix) with ESMTPS id 77A031677;
+	Tue, 28 Jul 2020 14:07:13 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 77A031677
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1595937874;
-	bh=zq0QFR15LKAQyhej+djI+MUkQdCC1czmdACzur8Ut2k=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1595938083;
+	bh=hHJNUWC8TFlWMp2JnY+zUwR+3Va3nEelpdEpIQiHF3w=;
+	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=QkgmL2br87CK32tII40G4FYhrK0llyqGnVmUr5RatmefALk2yWP3RL1lx+ewQEVG0
-	 AL000cDTJ1OMXyyZdnzV0JT6fe7hrz/TqdCRmesbHUtFugPEJzLtd4C3zm6OY09so8
-	 +9lqOm5t38FbSsowdNgtWXVlFx9LuHN3MuR4jtF4=
+	b=fsMWVz3mEAMCuv/RpeQJ1PQqZAK3P8+0lkA1bCosfdO8SoAC0eId/jU0Ea07ddFaT
+	 E3w84FC2iiI7QR5tr+hkipemmOPzDk5uM6sWM1MTsUEpCKRNkAK40rBq8pZPj/KqPy
+	 fSjfpYL3FsAy5tf0n/hwlBkPrQJUQiFb5UalZ6L8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 4DC7AF80227;
-	Tue, 28 Jul 2020 14:02:53 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 9E96CF80227;
+	Tue, 28 Jul 2020 14:06:22 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 03585F800AD; Tue, 28 Jul 2020 14:02:51 +0200 (CEST)
+ id 7F028F8021E; Tue, 28 Jul 2020 14:06:20 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled
- version=3.4.0
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 5C364F800AD
- for <alsa-devel@alsa-project.org>; Tue, 28 Jul 2020 14:02:44 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5C364F800AD
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="B/Dajtog"
-Received: from localhost (unknown [122.171.202.192])
+X-Spam-Status: No, score=-0.9 required=5.0 tests=NICE_REPLY_A,SPF_HELO_NONE,
+ SPF_NONE autolearn=disabled version=3.4.0
+Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 240C9206D7;
- Tue, 28 Jul 2020 12:02:40 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1595937762;
- bh=zq0QFR15LKAQyhej+djI+MUkQdCC1czmdACzur8Ut2k=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=B/DajtogiCq73EE+MTHxDDTib0zZnQ58tzBIMySb0wXnNa+yXuapmd4ptlifCbhVH
- FamrV9E/fh+I145MiYKVqhxs3v2RbVQcG5K28n2H0TXc8995IBdu1GrrxNvy/sFZ/K
- 7u48MEWQIUzwQKrgAaY2Wy8SASnOKPENjxkpsVYA=
-Date: Tue, 28 Jul 2020 17:32:37 +0530
-From: Vinod Koul <vkoul@kernel.org>
-To: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
-Subject: Re: [PATCH v3 00/10] ASoC: qdsp6: add gapless compressed audio support
-Message-ID: <20200728120237.GZ12965@vkoul-mobl>
-References: <20200727093806.17089-1-srinivas.kandagatla@linaro.org>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 1B12CF800AD
+ for <alsa-devel@alsa-project.org>; Tue, 28 Jul 2020 14:06:09 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1B12CF800AD
+IronPort-SDR: T4eNXfkRlGHBeSEChuNCiPTAKv7nrYaINN5bLv8kpGHqLhjf4VSH6hLxP5ONlOnZQGSMcnqIPw
+ 9C6HAxrRSZkw==
+X-IronPort-AV: E=McAfee;i="6000,8403,9695"; a="131259414"
+X-IronPort-AV: E=Sophos;i="5.75,406,1589266800"; d="scan'208";a="131259414"
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from fmsmga004.fm.intel.com ([10.253.24.48])
+ by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 28 Jul 2020 05:06:07 -0700
+IronPort-SDR: eU0e3fnVpj0fmZD1AeZgpCuDK9ik87Y8q3k/d+ZfxYrbUZKdLn3JmnIBl9saLPu/FCNALdACcg
+ UHgOK2zhCVgw==
+X-IronPort-AV: E=Sophos;i="5.75,406,1589266800"; d="scan'208";a="312592771"
+Received: from caradool-mobl.amr.corp.intel.com (HELO [10.251.24.77])
+ ([10.251.24.77])
+ by fmsmga004-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 28 Jul 2020 05:06:06 -0700
+Subject: Re: [PATCH] ASoC: Intel: Atom: use hardware counter to update hw_ptr
+To: "Lu, Brent" <brent.lu@intel.com>,
+ "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>
+References: <1595779727-31404-1-git-send-email-brent.lu@intel.com>
+ <7dec7fcd-0381-d279-4dac-77c27ea5f6fe@linux.intel.com>
+ <DM6PR11MB3642BE84A5C91504D6AF4ECB97730@DM6PR11MB3642.namprd11.prod.outlook.com>
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Message-ID: <14fde5e9-a11a-077d-b533-1e6db4b7a262@linux.intel.com>
+Date: Tue, 28 Jul 2020 07:06:05 -0500
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.10.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20200727093806.17089-1-srinivas.kandagatla@linaro.org>
-Cc: pierre-louis.bossart@linux.intel.com, alsa-devel@alsa-project.org,
- ckeepax@opensource.cirrus.com, linux-kernel@vger.kernel.org,
- lgirdwood@gmail.com, tiwai@suse.com, broonie@kernel.org
+In-Reply-To: <DM6PR11MB3642BE84A5C91504D6AF4ECB97730@DM6PR11MB3642.namprd11.prod.outlook.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
+Cc: "Rojewski, Cezary" <cezary.rojewski@intel.com>,
+ Jie Yang <yang.jie@linux.intel.com>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ Takashi Iwai <tiwai@suse.com>, Liam Girdwood <liam.r.girdwood@linux.intel.com>,
+ Mark Brown <broonie@kernel.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -80,27 +88,71 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 27-07-20, 10:37, Srinivas Kandagatla wrote:
-> This patchset adds gapless compressed audio support on q6asm.
-> Gapless on q6asm is implemented using 2 streams in a single q6asm session.
+
+
+On 7/27/20 9:28 PM, Lu, Brent wrote:
+>>
+>> All the Atom firmware assumes data chunks in multiples of 1ms (typically 5,
+>> 10 or 20ms). I have never seen anyone use 256 frames, that's asking for
+>> trouble really.
+>>
+>> it's actually the same with Skylake and SOF in most cases.
+>>
+>> Is this a 'real' problem or a problem detected by the Chrome ALSA
+>> compliance tests, in the latter case that would hint at a too generic value of
+>> min_period.
+>>
 > 
-> First few patches such as stream id per each command, gapless flags
-> and silence meta data are for preparedness for adding gapless support.
-> Last patch implements copy callback to allow finer control over buffer offsets,
-> specially in partial drain cases.
+> I've told them 240 is more reasonable since the sample rate is 48000 and our
+> android bsp also uses 240 for multimedia use case for many years but they don't
+> want to change the CRAS setting for some reason.
 > 
-> This patchset is tested on RB3 aka DB845c platform.
+> Google says it's a real issue for them: "The driver consumes frames quickly at the
+> beginning will make CRAS underrun because CRAS fills samples in the fixed rate."
 > 
-> This patchset as it is will support gapless however QDSP can also
-> support switching decoders on a single stream. Patches to support such feature
-> are send in different patchset which involves adding generic interfaces.
+> Currently they implement constraint in machine driver of atom machines to force
+> 240 period size so CRAS is using 240 for atom platforms and 256 for other big cores.
 
-The lgtm so:
-Reviewed-by: Vinod Koul <vkoul@kernel.org>
+So if there are already quirks in atom machine drivers to change the 
+period size, why is this patch necessary?
 
-tested on Dragon Board RB3:
+> I'm curious why not just using hardware counter to update hw_ptr and get rid of
+> the period setting in hw_param? It seems to me the ring buffer counter does not
+> reflect the real status.
 
-Tested-by: Vinod Koul <vkoul@kernel.org>
+I don't recall precisely what this hardware counter does. I vaguely 
+recall it's tied to the 19.2MHz external timer which is also used to 
+schedule the 1ms SBA mixer and the SSP IOs. And by comparing with the 
+ring buffer pointer you can infer the delay inside the DSP. I think you 
+are also making an assumption that all streams are tied to the output 
+rate, but that's most likely a bad assumption. The hard-coded topology 
+supported media, speech and compressed data and the consumption rate on 
+the DMA side could be faster with some buffering happening in the DSP. 
+It's not a passthrough DMA in all cases.
 
--- 
-~Vinod
+This is really legacy code that no one really fully understands nor 
+plans on improving, it'd be a bad idea to change the pcm pointer reports 
+now, 6 years after the initial code release and after all initial 
+contributors moved on. It's what it is.
+
+>> and that seems also wrong? Why would the delay be zero?
+>>
+> 
+> info->pcm_delay is the difference between ring buffer counter and hardware
+> counter. Because the ring buffer counter (hw_ptr) is running faster then it should,
+> so we add the info->pcm_delay to substream->runtime->delay as compensation.
+> 
+> Therefore, application could use snd_pcm_delay() to get the actual frame number
+> which are still in buffer.
+> 
+> snd_pcm_delay() = buffer_size - snd_pcm_avail() + runtime->delay
+> 
+> We don't need pcm_delay to compensate anything if using hardware counter.
+
+If you force info->pcm_delay to be zero, then runtime->delay is also zero:
+
+see sst_soc_pointer():
+	substream->runtime->delay = str_info->pcm_delay;
+
+>>> -	info->pcm_delay = delay_frames;
+

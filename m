@@ -2,50 +2,50 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A7BCA230365
-	for <lists+alsa-devel@lfdr.de>; Tue, 28 Jul 2020 09:00:23 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 962E9230367
+	for <lists+alsa-devel@lfdr.de>; Tue, 28 Jul 2020 09:00:58 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 483E81689;
-	Tue, 28 Jul 2020 08:59:33 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 483E81689
+	by alsa0.perex.cz (Postfix) with ESMTPS id 34EDD169E;
+	Tue, 28 Jul 2020 09:00:08 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 34EDD169E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1595919623;
-	bh=wn+C8PjBLqrAcirluVu8a68jSlauNWYNxkMztFRjSNI=;
+	s=default; t=1595919658;
+	bh=AA5th9vzQTjTti4GIcXXZs+NOuFdp+vjrU4E+N4fGUM=;
 	h=Date:From:Subject:To:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=TtZwtm8iliBgNOwlOWkJivR3eUvuL+eAlLh1wuwL7ZDrzQCFkfyGpsLpT5K5KDaUW
-	 sL/086bIkagxGUI/SHH7ePNsZFC424SzAIPSd+jGYYeKEME9Uu9wHQuc/LTez0H5xC
-	 MO/rI/6KK5ZjAAEPV6ump8vGRG5wbPK7D6cBVPkg=
+	b=ElDLuPtVHZv5ijSBQ5tVb4vsNdrtbSizvq2A37yXy8sbZj9BG1TzWyAP+q/DBRDoY
+	 sN9UHIgthH4zNGCtiNc2qwahUDTci+4FuCV50XF/BHSAzFDoc6fXe5YsV7dtSGKwrc
+	 xT2LxPrqpoD9sgfhAvEAW5/bvpV1RziAzNZoI8Xw=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 38DC3F802BE;
-	Tue, 28 Jul 2020 08:57:53 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 60A38F8028D;
+	Tue, 28 Jul 2020 08:57:58 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id E7C1EF802BD; Tue, 28 Jul 2020 08:57:50 +0200 (CEST)
+ id A5477F802C4; Tue, 28 Jul 2020 08:57:55 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
  URIBL_BLOCKED autolearn=disabled version=3.4.0
 Received: from relmlie5.idc.renesas.com (relmlor1.renesas.com
  [210.160.252.171])
- by alsa1.perex.cz (Postfix) with ESMTP id A5CD0F80254
- for <alsa-devel@alsa-project.org>; Tue, 28 Jul 2020 08:57:36 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A5CD0F80254
-Date: 28 Jul 2020 15:57:34 +0900
-X-IronPort-AV: E=Sophos;i="5.75,405,1589209200"; d="scan'208";a="53223418"
-Received: from unknown (HELO relmlir5.idc.renesas.com) ([10.200.68.151])
- by relmlie5.idc.renesas.com with ESMTP; 28 Jul 2020 15:57:34 +0900
+ by alsa1.perex.cz (Postfix) with ESMTP id BA81FF8027B
+ for <alsa-devel@alsa-project.org>; Tue, 28 Jul 2020 08:57:39 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BA81FF8027B
+Date: 28 Jul 2020 15:57:38 +0900
+X-IronPort-AV: E=Sophos;i="5.75,405,1589209200"; d="scan'208";a="53223424"
+Received: from unknown (HELO relmlir6.idc.renesas.com) ([10.200.68.152])
+ by relmlie5.idc.renesas.com with ESMTP; 28 Jul 2020 15:57:38 +0900
 Received: from mercury.renesas.com (unknown [10.166.252.133])
- by relmlir5.idc.renesas.com (Postfix) with ESMTP id 389BF4004922;
- Tue, 28 Jul 2020 15:57:34 +0900 (JST)
-Message-ID: <87tuxsktzz.wl-kuninori.morimoto.gx@renesas.com>
+ by relmlir6.idc.renesas.com (Postfix) with ESMTP id 0924B41A9AB1;
+ Tue, 28 Jul 2020 15:57:38 +0900 (JST)
+Message-ID: <87sgdcktzv.wl-kuninori.morimoto.gx@renesas.com>
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Subject: [PATCH 2/7] ASoC: soc-link: add mark for
- snd_soc_link_startup/shutdown()
+Subject: [PATCH 3/7] ASoC: soc-component: add mark for
+ soc_pcm_components_open/close()
 User-Agent: Wanderlust/2.15.9 Emacs/26.3 Mule/6.0
 To: Mark Brown <broonie@kernel.org>
 In-Reply-To: <87wo2oku0m.wl-kuninori.morimoto.gx@renesas.com>
@@ -99,62 +99,86 @@ thus, we want to share soc_pcm_close() and rollback.
 
 Now, soc_pcm_open/close() are handling
 	1) snd_soc_dai_startup/shutdown()
-=>	2) snd_soc_link_startup/shutdown()
-	3) snd_soc_component_module_get/put()
-	4) snd_soc_component_open/close()
+	2) snd_soc_link_startup/shutdown()
+=>	3) snd_soc_component_module_get/put()
+=>	4) snd_soc_component_open/close()
 	5) pm_runtime_put/get()
 
-This patch is for 2) snd_soc_link_startup/shutdown(),
+This patch is for 3) snd_soc_component_module_get/put()
+4) snd_soc_component_open/close(),
 and adds new substream mark.
-It will mark substream when startup was suceeded.
+It will mark substream when open was suceeded.
 If rollback happen *after* that, it will check rollback flag
 and marked substream.
 
-It cares *previous* startup() only now,
+It cares *previous* open() only now,
 but we might want to check *whole* marked substream in the future.
 This patch is using macro so that it can be easily adjust to it.
 
 Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 ---
- include/sound/soc-link.h |  3 ++-
- include/sound/soc.h      |  3 +++
- sound/soc/soc-link.c     | 21 ++++++++++++++++++++-
- sound/soc/soc-pcm.c      |  4 ++--
- 4 files changed, 27 insertions(+), 4 deletions(-)
+ include/sound/soc-component.h | 23 +++++++++++++++--------
+ sound/soc/soc-component.c     | 35 +++++++++++++++++++++++++++++++++--
+ sound/soc/soc-pcm.c           | 28 +++++++---------------------
+ 3 files changed, 55 insertions(+), 31 deletions(-)
 
-diff --git a/include/sound/soc-link.h b/include/sound/soc-link.h
-index 337ac5666757..dac6c0ce6ede 100644
---- a/include/sound/soc-link.h
-+++ b/include/sound/soc-link.h
-@@ -14,7 +14,8 @@ int snd_soc_link_be_hw_params_fixup(struct snd_soc_pcm_runtime *rtd,
- 				    struct snd_pcm_hw_params *params);
- 
- int snd_soc_link_startup(struct snd_pcm_substream *substream);
--void snd_soc_link_shutdown(struct snd_pcm_substream *substream);
-+void snd_soc_link_shutdown(struct snd_pcm_substream *substream,
-+			   int rollback);
- int snd_soc_link_prepare(struct snd_pcm_substream *substream);
- int snd_soc_link_hw_params(struct snd_pcm_substream *substream,
- 			   struct snd_pcm_hw_params *params);
-diff --git a/include/sound/soc.h b/include/sound/soc.h
-index acbb5efb28ef..fddb89db1f8e 100644
---- a/include/sound/soc.h
-+++ b/include/sound/soc.h
-@@ -1158,6 +1158,9 @@ struct snd_soc_pcm_runtime {
- 	unsigned int num; /* 0-based and monotonic increasing */
- 	struct list_head list; /* rtd list of the soc card */
+diff --git a/include/sound/soc-component.h b/include/sound/soc-component.h
+index 8917b15eccae..8aabadfbdebc 100644
+--- a/include/sound/soc-component.h
++++ b/include/sound/soc-component.h
+@@ -217,6 +217,10 @@ struct snd_soc_component {
+ 	/* machine specific init */
+ 	int (*init)(struct snd_soc_component *component);
  
 +	/* function mark */
-+	struct snd_pcm_substream *mark_startup;
++	struct snd_pcm_substream *mark_module;
++	struct snd_pcm_substream *mark_open;
 +
- 	/* bit field */
- 	unsigned int pop_wait:1;
- 	unsigned int fe_compr:1; /* for Dynamic PCM */
-diff --git a/sound/soc/soc-link.c b/sound/soc/soc-link.c
-index cec70b19863e..2a8881978930 100644
---- a/sound/soc/soc-link.c
-+++ b/sound/soc/soc-link.c
-@@ -30,6 +30,14 @@ static inline int _soc_link_ret(struct snd_soc_pcm_runtime *rtd,
+ #ifdef CONFIG_DEBUG_FS
+ 	struct dentry *debugfs_root;
+ 	const char *debugfs_prefix;
+@@ -373,17 +377,19 @@ void snd_soc_component_exit_regmap(struct snd_soc_component *component);
+ #endif
+ 
+ #define snd_soc_component_module_get_when_probe(component)\
+-	snd_soc_component_module_get(component, 0)
+-#define snd_soc_component_module_get_when_open(component)	\
+-	snd_soc_component_module_get(component, 1)
++	snd_soc_component_module_get(component, NULL, 0)
++#define snd_soc_component_module_get_when_open(component, substream)	\
++	snd_soc_component_module_get(component, substream, 1)
+ int snd_soc_component_module_get(struct snd_soc_component *component,
++				 struct snd_pcm_substream *substream,
+ 				 int upon_open);
+ #define snd_soc_component_module_put_when_remove(component)	\
+-	snd_soc_component_module_put(component, 0)
+-#define snd_soc_component_module_put_when_close(component)	\
+-	snd_soc_component_module_put(component, 1)
++	snd_soc_component_module_put(component, NULL, 0, 0)
++#define snd_soc_component_module_put_when_close(component, substream, rollback) \
++	snd_soc_component_module_put(component, substream, 1, rollback)
+ void snd_soc_component_module_put(struct snd_soc_component *component,
+-				  int upon_open);
++				  struct snd_pcm_substream *substream,
++				  int upon_open, int rollback);
+ 
+ static inline void snd_soc_component_set_drvdata(struct snd_soc_component *c,
+ 						 void *data)
+@@ -427,7 +433,8 @@ int snd_soc_component_force_enable_pin_unlocked(
+ int snd_soc_component_open(struct snd_soc_component *component,
+ 			   struct snd_pcm_substream *substream);
+ int snd_soc_component_close(struct snd_soc_component *component,
+-			    struct snd_pcm_substream *substream);
++			    struct snd_pcm_substream *substream,
++			    int rollback);
+ void snd_soc_component_suspend(struct snd_soc_component *component);
+ void snd_soc_component_resume(struct snd_soc_component *component);
+ int snd_soc_component_is_suspended(struct snd_soc_component *component);
+diff --git a/sound/soc/soc-component.c b/sound/soc/soc-component.c
+index dcc89fa8913a..6544e74cf7f7 100644
+--- a/sound/soc/soc-component.c
++++ b/sound/soc/soc-component.c
+@@ -33,6 +33,14 @@ static inline int _soc_component_ret(struct snd_soc_component *component,
  	return ret;
  }
  
@@ -162,64 +186,161 @@ index cec70b19863e..2a8881978930 100644
 + * We might want to check substream by using list.
 + * In such case, we can update these macros.
 + */
-+#define soc_link_mark_push(rtd, substream, tgt)		((rtd)->mark_##tgt = substream)
-+#define soc_link_mark_pop(rtd, substream, tgt)		((rtd)->mark_##tgt = NULL)
-+#define soc_link_mark_match(rtd, substream, tgt)	((rtd)->mark_##tgt == substream)
++#define soc_component_mark_push(component, substream, tgt)	((component)->mark_##tgt = substream)
++#define soc_component_mark_pop(component, substream, tgt)	((component)->mark_##tgt = NULL)
++#define soc_component_mark_match(component, substream, tgt)	((component)->mark_##tgt == substream)
 +
- int snd_soc_link_init(struct snd_soc_pcm_runtime *rtd)
+ int snd_soc_component_initialize(struct snd_soc_component *component,
+ 				 const struct snd_soc_component_driver *driver,
+ 				 struct device *dev, const char *name)
+@@ -254,6 +262,7 @@ int snd_soc_component_set_jack(struct snd_soc_component *component,
+ EXPORT_SYMBOL_GPL(snd_soc_component_set_jack);
+ 
+ int snd_soc_component_module_get(struct snd_soc_component *component,
++				 struct snd_pcm_substream *substream,
+ 				 int upon_open)
  {
  	int ret = 0;
-@@ -66,16 +74,27 @@ int snd_soc_link_startup(struct snd_pcm_substream *substream)
- 	    rtd->dai_link->ops->startup)
- 		ret = rtd->dai_link->ops->startup(substream);
+@@ -262,14 +271,25 @@ int snd_soc_component_module_get(struct snd_soc_component *component,
+ 	    !try_module_get(component->dev->driver->owner))
+ 		ret = -ENODEV;
  
 +	/* mark substream if succeeded */
 +	if (ret == 0)
-+		soc_link_mark_push(rtd, substream, startup);
++		soc_component_mark_push(component, substream, module);
 +
- 	return soc_link_ret(rtd, ret);
+ 	return soc_component_ret(component, ret);
  }
  
--void snd_soc_link_shutdown(struct snd_pcm_substream *substream)
-+void snd_soc_link_shutdown(struct snd_pcm_substream *substream,
-+			   int rollback)
+ void snd_soc_component_module_put(struct snd_soc_component *component,
+-				  int upon_open)
++				  struct snd_pcm_substream *substream,
++				  int upon_open, int rollback)
  {
- 	struct snd_soc_pcm_runtime *rtd = asoc_substream_to_rtd(substream);
- 
-+	if (rollback && !soc_link_mark_match(rtd, substream, startup))
++	if (rollback && !soc_component_mark_match(component, substream, module))
 +		return;
 +
- 	if (rtd->dai_link->ops &&
- 	    rtd->dai_link->ops->shutdown)
- 		rtd->dai_link->ops->shutdown(substream);
+ 	if (component->driver->module_get_upon_open == !!upon_open)
+ 		module_put(component->dev->driver->owner);
 +
 +	/* remove marked substream */
-+	soc_link_mark_pop(rtd, substream, startup);
++	soc_component_mark_pop(component, substream, module);
  }
  
- int snd_soc_link_prepare(struct snd_pcm_substream *substream)
+ int snd_soc_component_open(struct snd_soc_component *component,
+@@ -280,17 +300,28 @@ int snd_soc_component_open(struct snd_soc_component *component,
+ 	if (component->driver->open)
+ 		ret = component->driver->open(component, substream);
+ 
++	/* mark substream if succeeded */
++	if (ret == 0)
++		soc_component_mark_push(component, substream, open);
++
+ 	return soc_component_ret(component, ret);
+ }
+ 
+ int snd_soc_component_close(struct snd_soc_component *component,
+-			    struct snd_pcm_substream *substream)
++			    struct snd_pcm_substream *substream,
++			    int rollback)
+ {
+ 	int ret = 0;
+ 
++	if (rollback && !soc_component_mark_match(component, substream, open))
++		return 0;
++
+ 	if (component->driver->close)
+ 		ret = component->driver->close(component, substream);
+ 
++	/* remove marked substream */
++	soc_component_mark_pop(component, substream, open);
++
+ 	return soc_component_ret(component, ret);
+ }
+ 
 diff --git a/sound/soc/soc-pcm.c b/sound/soc/soc-pcm.c
-index ae7e648cd21c..7e809aa56e8d 100644
+index 7e809aa56e8d..c034b8a1e6f9 100644
 --- a/sound/soc/soc-pcm.c
 +++ b/sound/soc/soc-pcm.c
-@@ -684,7 +684,7 @@ static int soc_pcm_close(struct snd_pcm_substream *substream)
- 	for_each_rtd_dais(rtd, i, dai)
- 		snd_soc_dai_shutdown(dai, substream, 0);
+@@ -609,14 +609,11 @@ static void soc_pcm_init_runtime_hw(struct snd_pcm_substream *substream)
+ static int soc_pcm_components_open(struct snd_pcm_substream *substream)
+ {
+ 	struct snd_soc_pcm_runtime *rtd = asoc_substream_to_rtd(substream);
+-	struct snd_soc_component *last = NULL;
+ 	struct snd_soc_component *component;
+ 	int i, ret = 0;
  
--	snd_soc_link_shutdown(substream);
-+	snd_soc_link_shutdown(substream, 0);
+ 	for_each_rtd_components(rtd, i, component) {
+-		last = component;
+-
+-		ret = snd_soc_component_module_get_when_open(component);
++		ret = snd_soc_component_module_get_when_open(component, substream);
+ 		if (ret < 0) {
+ 			dev_err(component->dev,
+ 				"ASoC: can't get module %s\n",
+@@ -626,7 +623,6 @@ static int soc_pcm_components_open(struct snd_pcm_substream *substream)
  
- 	soc_pcm_components_close(substream);
+ 		ret = snd_soc_component_open(component, substream);
+ 		if (ret < 0) {
+-			snd_soc_component_module_put_when_close(component);
+ 			dev_err(component->dev,
+ 				"ASoC: can't open component %s: %d\n",
+ 				component->name, ret);
+@@ -634,32 +630,22 @@ static int soc_pcm_components_open(struct snd_pcm_substream *substream)
+ 		}
+ 	}
  
-@@ -815,7 +815,7 @@ static int soc_pcm_open(struct snd_pcm_substream *substream)
- 	for_each_rtd_dais(rtd, i, dai)
- 		snd_soc_dai_shutdown(dai, substream, 1);
+-	if (ret < 0) {
+-		/* rollback on error */
+-		for_each_rtd_components(rtd, i, component) {
+-			if (component == last)
+-				break;
+-
+-			snd_soc_component_close(component, substream);
+-			snd_soc_component_module_put_when_close(component);
+-		}
+-	}
+-
+ 	return ret;
+ }
  
--	snd_soc_link_shutdown(substream);
-+	snd_soc_link_shutdown(substream, 1);
+-static int soc_pcm_components_close(struct snd_pcm_substream *substream)
++static int soc_pcm_components_close(struct snd_pcm_substream *substream,
++				    int rollback)
+ {
+ 	struct snd_soc_pcm_runtime *rtd = asoc_substream_to_rtd(substream);
+ 	struct snd_soc_component *component;
+ 	int i, r, ret = 0;
+ 
+ 	for_each_rtd_components(rtd, i, component) {
+-		r = snd_soc_component_close(component, substream);
++		r = snd_soc_component_close(component, substream, rollback);
+ 		if (r < 0)
+ 			ret = r; /* use last ret */
+ 
+-		snd_soc_component_module_put_when_close(component);
++		snd_soc_component_module_put_when_close(component, substream, rollback);
+ 	}
+ 
+ 	return ret;
+@@ -686,7 +672,7 @@ static int soc_pcm_close(struct snd_pcm_substream *substream)
+ 
+ 	snd_soc_link_shutdown(substream, 0);
+ 
+-	soc_pcm_components_close(substream);
++	soc_pcm_components_close(substream, 0);
+ 
+ 	snd_soc_dapm_stream_stop(rtd, substream->stream);
+ 
+@@ -817,7 +803,7 @@ static int soc_pcm_open(struct snd_pcm_substream *substream)
+ 
+ 	snd_soc_link_shutdown(substream, 1);
  rtd_startup_err:
- 	soc_pcm_components_close(substream);
+-	soc_pcm_components_close(substream);
++	soc_pcm_components_close(substream, 1);
  component_err:
+ 	mutex_unlock(&rtd->card->pcm_mutex);
+ 
 -- 
 2.25.1
 

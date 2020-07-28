@@ -2,51 +2,88 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1C80523053A
-	for <lists+alsa-devel@lfdr.de>; Tue, 28 Jul 2020 10:22:29 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 55959230766
+	for <lists+alsa-devel@lfdr.de>; Tue, 28 Jul 2020 12:14:43 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 8E03E16B2;
-	Tue, 28 Jul 2020 10:21:38 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8E03E16B2
+	by alsa0.perex.cz (Postfix) with ESMTPS id ECCE01667;
+	Tue, 28 Jul 2020 12:13:52 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz ECCE01667
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1595924548;
-	bh=0VdHajr5ddxBcbsjgeEpdY2Khcpp9DWXXzAZbxCH6aU=;
-	h=From:To:Subject:Date:List-Id:List-Unsubscribe:List-Archive:
+	s=default; t=1595931283;
+	bh=qWRJyT7ofYqitA7J7pY2TzLOv0iLUhqR8zqJooNWb/Y=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
 	 List-Post:List-Help:List-Subscribe:From;
-	b=ZXspKH5NtXbGiDjLrbIFbCI9Y75Bmkw5HW1E2Mb0atQIPvA1j2sN7qpGBsvteAZHg
-	 gcKjiR61LzH4wbLB2dXwiBoe4uh5c6xztjB7HQO06HofyBPEN6VfeytsWqx6WmJZxz
-	 rgEfwZQVFP6gO5BuO4giRTOJdr/UJgNtrKuzDeNc=
+	b=frFFowdMhUzd9LyzGwxL2Rw0fmQSaRFLrGn2UrbrDlX02Ue6J7Vai5ZIygggLZbg4
+	 QCATu4MeqWY02+W+q182iDOur00TRFFuvGRO/dpnC0hkaM0zIGvuCAPmzHGfz0fFM/
+	 IDpI7Tw1UDUTVzZ8FchG8mItcdz2ApuQxny5BdCs=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id AFC29F80227;
-	Tue, 28 Jul 2020 10:20:47 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 1D777F8012F;
+	Tue, 28 Jul 2020 12:13:02 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 1CEC9F8021E; Tue, 28 Jul 2020 10:20:45 +0200 (CEST)
+ id BC9B8F80227; Tue, 28 Jul 2020 12:12:59 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.0 required=5.0 tests=RCVD_IN_MSPIKE_H3,
- RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,RCVD_IN_MSPIKE_H4,RCVD_IN_MSPIKE_WL,SPF_HELO_PASS,SPF_PASS,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from esa3.microchip.iphmx.com (esa3.microchip.iphmx.com
+ [68.232.153.233])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 63C5FF800DE
- for <alsa-devel@alsa-project.org>; Tue, 28 Jul 2020 10:20:34 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 63C5FF800DE
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 60492AFE8
- for <alsa-devel@alsa-project.org>; Tue, 28 Jul 2020 08:20:45 +0000 (UTC)
-From: Takashi Iwai <tiwai@suse.de>
-To: alsa-devel@alsa-project.org
-Subject: [PATCH] ALSA: hda/hdmi: Fix keep_power assignment for non-component
- devices
-Date: Tue, 28 Jul 2020 10:20:33 +0200
-Message-Id: <20200728082033.23933-1-tiwai@suse.de>
-X-Mailer: git-send-email 2.16.4
+ by alsa1.perex.cz (Postfix) with ESMTPS id 1EE1DF800AD
+ for <alsa-devel@alsa-project.org>; Tue, 28 Jul 2020 12:12:45 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1EE1DF800AD
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com
+ header.b="qJG+53MD"
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+ d=microchip.com; i=@microchip.com; q=dns/txt; s=mchp;
+ t=1595931174; x=1627467174;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=qWRJyT7ofYqitA7J7pY2TzLOv0iLUhqR8zqJooNWb/Y=;
+ b=qJG+53MDyO/1aZQ+NRwvRt7LvJ1xnjDjygKecV1AxfbxxaNDqZsD0d+X
+ BIOrxYqcNuQJpPwWK6hRiZ02pdyzsSenEi8Qpl5YlbkFtw22kFSb0H1NZ
+ GDeNi5c5AkPfZkO644unjbjtssD+xi3GX7+XiPW5IRlZ47g/WQelu5vxd
+ IOMl7WY/fWwmzaWaCkhvws1gfBU7ZwFWP6Afp6edLgtJ4OjBCXkkn/nAw
+ BdR/KcBRRI7xE4tGIcygpRgvjOkETJlg39qck87OO5thiz2tXbJEyHF6w
+ i7/oNHsY8kPGbu94o1hqHHdY+fOgL3Zm2RY1n99yuvlU18Np/K+IMO86P Q==;
+IronPort-SDR: gdPgaWcpufmrKHTg82I5mspqkRip8bEW8aDNhKJEbccH4P1o17eWwqZ3rgBxFEptjbsvhJbRsh
+ UXvbrECR/Li40jtK4QxamVLOoFYeHfR4u/TMu3fmYOQ2OpjKU+QFXNZZspfZlXMByfGdfAdzIb
+ ImCSyAMUO0Fyoni426xHqToRiKkOvN75wShDuuM9bgAcvPPILsJjaWfXSMVDk90ZynqrKba0oz
+ Od6psfDfZiRdhNr1Nknmq/spaeqbLDRR8yrgbnBKmezGbCy+/RbUsJuCI4/ShSEP8bWZH6/BN8
+ L/4=
+X-IronPort-AV: E=Sophos;i="5.75,406,1589266800"; d="scan'208";a="85607370"
+Received: from smtpout.microchip.com (HELO email.microchip.com)
+ ([198.175.253.82])
+ by esa3.microchip.iphmx.com with ESMTP/TLS/AES256-SHA256;
+ 28 Jul 2020 03:12:42 -0700
+Received: from chn-vm-ex01.mchp-main.com (10.10.85.143) by
+ chn-vm-ex04.mchp-main.com (10.10.85.152) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.1979.3; Tue, 28 Jul 2020 03:12:42 -0700
+Received: from rob-ult-m19940.microchip.com (10.10.115.15) by
+ chn-vm-ex01.mchp-main.com (10.10.85.143) with Microsoft SMTP Server id
+ 15.1.1979.3 via Frontend Transport; Tue, 28 Jul 2020 03:11:53 -0700
+From: Codrin Ciubotariu <codrin.ciubotariu@microchip.com>
+To: <alsa-devel@alsa-project.org>, <devicetree@vger.kernel.org>,
+ <linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>
+Subject: [PATCH 1/2] dt-bindings: sound: add DT bindings for Microchip S/PDIF
+ TX Controller
+Date: Tue, 28 Jul 2020 13:07:43 +0300
+Message-ID: <20200728100744.2820112-1-codrin.ciubotariu@microchip.com>
+X-Mailer: git-send-email 2.25.1
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+Cc: alexandre.belloni@bootlin.com, lgirdwood@gmail.com,
+ nicolas.ferre@microchip.com, robh+dt@kernel.org, tiwai@suse.com,
+ ludovic.desroches@microchip.com, broonie@kernel.org, Codrin
+ Ciubotariu <codrin.ciubotariu@microchip.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -62,52 +99,97 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-It's been reported that, when neither nouveau nor Nvidia graphics
-driver is used, the screen starts flickering.  And, after comparing
-between the working case (stable 4.4.x) and the broken case, it turned
-out that the problem comes from the audio component binding.  The
-Nvidia and AMD audio binding code clears the bus->keep_power flag
-whenever snd_hdac_acomp_init() succeeds.  But this doesn't mean that
-the component is actually bound, but it merely indicates that it's
-ready for binding.  So, when both nouveau and Nvidia are blacklisted
-or not ready, the driver keeps running without the audio component but
-also with bus->keep_power = false.  This made the driver runtime PM
-kicked in and powering down when unused, which results in flickering
-in the graphics side, as it seems.
+This patch adds DT bindings for the new Microchip S/PDIF TX Controller
+embedded inside sama7g5 SoCs.
 
-For fixing the bug, this patch moves the bus->keep_power flag change
-into generic_acomp_notifier_set() that is the function called from the
-master_bind callback of component ops; i.e. it's guaranteed that the
-binding succeeded.
-
-BugLink: https://bugzilla.kernel.org/show_bug.cgi?id=208609
-Fixes: 5a858e79c911 ("ALSA: hda - Disable audio component for legacy Nvidia HDMI codecs")
-Cc: <stable@vger.kernel.org>
-Signed-off-by: Takashi Iwai <tiwai@suse.de>
+Signed-off-by: Codrin Ciubotariu <codrin.ciubotariu@microchip.com>
 ---
- sound/pci/hda/patch_hdmi.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ .../bindings/sound/mchp,spdiftx.yaml          | 76 +++++++++++++++++++
+ 1 file changed, 76 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/sound/mchp,spdiftx.yaml
 
-diff --git a/sound/pci/hda/patch_hdmi.c b/sound/pci/hda/patch_hdmi.c
-index 41eaa89660c3..cd46247988e4 100644
---- a/sound/pci/hda/patch_hdmi.c
-+++ b/sound/pci/hda/patch_hdmi.c
-@@ -2440,6 +2440,7 @@ static void generic_acomp_notifier_set(struct drm_audio_component *acomp,
- 	mutex_lock(&spec->bind_lock);
- 	spec->use_acomp_notifier = use_acomp;
- 	spec->codec->relaxed_resume = use_acomp;
-+	spec->codec->bus->keep_power = 0;
- 	/* reprogram each jack detection logic depending on the notifier */
- 	for (i = 0; i < spec->num_pins; i++)
- 		reprogram_jack_detect(spec->codec,
-@@ -2534,7 +2535,6 @@ static void generic_acomp_init(struct hda_codec *codec,
- 	if (!snd_hdac_acomp_init(&codec->bus->core, &spec->drm_audio_ops,
- 				 match_bound_vga, 0)) {
- 		spec->acomp_registered = true;
--		codec->bus->keep_power = 0;
- 	}
- }
- 
+diff --git a/Documentation/devicetree/bindings/sound/mchp,spdiftx.yaml b/Documentation/devicetree/bindings/sound/mchp,spdiftx.yaml
+new file mode 100644
+index 000000000000..8e2acfbbe621
+--- /dev/null
++++ b/Documentation/devicetree/bindings/sound/mchp,spdiftx.yaml
+@@ -0,0 +1,76 @@
++# SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: https://devicetree.org/schemas/sound/mchp,spdiftx.yaml#
++$schema: https://devicetree.org/meta-schemas/core.yaml#
++
++title: Microchip S/PDIF Tx Controller Device Tree Bindings
++
++maintainers:
++  - Codrin Ciubotariu <codrin.ciubotariu@microchip.com>
++
++description:
++        The Microchip Sony/Philips Digital Interface Transmitter is a
++        serial port compliant with the IEC-60958 standard.
++
++properties:
++  "#sound-dai-cells":
++    const: 0
++
++  compatible:
++    oneOf:
++      - const: microchip,sama7g5-spdiftx
++
++  reg:
++    maxItems: 1
++
++  interrupts:
++    maxItems: 1
++
++  clocks:
++    items:
++      - description: Peripheral Bus Clock
++      - description: Generic Clock
++
++  clock-names:
++    items:
++      - const: pclk
++      - const: gclk
++
++  dmas:
++    description: TX DMA Channel
++
++  dma-names:
++    const: tx
++
++  pinctrl-0: true
++
++  pinctrl-names:
++    const: default
++
++required:
++  - "#sound-dai-cells"
++  - compatible
++  - reg
++  - interrupts
++  - clocks
++  - clock-names
++  - dmas
++  - dma-names
++
++additionalProperties: false
++
++examples:
++  - |
++    spdiftx@e1618000 {
++        #sound-dai-cells = <0>;
++        compatible = "microchip,sama7g5-spdiftx";
++        reg = <0xe1618000 0x100>;
++        interrupts = <GIC_SPI 85 IRQ_TYPE_LEVEL_HIGH>;
++        dmas = <&dma0 AT91_XDMAC_DT_PERID(50)>;
++        dma-names = "tx";
++        clocks = <&spdiftx_clk>, <&spdiftx_gclk>;
++        clock-names = "pclk", "gclk";
++        pinctrl-names = "default";
++        pinctrl-0 = <&pinctrl_spdiftx_default>;
++    };
 -- 
-2.16.4
+2.25.1
 

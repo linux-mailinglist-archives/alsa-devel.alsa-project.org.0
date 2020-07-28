@@ -2,50 +2,50 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id ACEE323036A
-	for <lists+alsa-devel@lfdr.de>; Tue, 28 Jul 2020 09:02:43 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id ADDF223036D
+	for <lists+alsa-devel@lfdr.de>; Tue, 28 Jul 2020 09:03:25 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 625DD16B5;
-	Tue, 28 Jul 2020 09:01:53 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 625DD16B5
+	by alsa0.perex.cz (Postfix) with ESMTPS id 4F8B9169B;
+	Tue, 28 Jul 2020 09:02:35 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4F8B9169B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1595919763;
-	bh=5eiWC+b1BgrNCfPWA/uzA6WJ40hQbvttOl9BtVbdNGI=;
+	s=default; t=1595919805;
+	bh=iqbX6UAhru0VQw/bBF31HHUc9Yv1UHnOKt8VFDd6h18=;
 	h=Date:From:Subject:To:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=iuW5HmwrK2XnwO1R+acJEC0dHD3Kbq8xBMnvtitMe1OE7U7dt6OXHPxiBlpFtOq5L
-	 DPJL47pVtKdTqN/VGw2uqmekfRDEh1ihG2cWn9iKu90GZ+iQ5keJ/hwue4ZbOn0SjQ
-	 arj2///VN4X/oFrGVkPPtXd2hLvc5lhKUeexVrgg=
+	b=eX/bBIVLHtvD69siQ10rewPb8oH+LsG7+IYnAebS9xKD6JTHRCcujbnPJt7y40YdS
+	 /k+1SFCG4l1XkcXaWFpheOnlNSZIH3J0YhLqMx1KsrJvP2ymKcIPswon5XfLD8hQme
+	 +IWmt40zNtnEDDw5TqyN+DlZbWZUYjivInOrFl18=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 878FFF802F8;
-	Tue, 28 Jul 2020 08:58:09 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id DF886F802F9;
+	Tue, 28 Jul 2020 08:58:10 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 1F19FF802F8; Tue, 28 Jul 2020 08:58:07 +0200 (CEST)
+ id 5CE58F802F7; Tue, 28 Jul 2020 08:58:07 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
  URIBL_BLOCKED autolearn=disabled version=3.4.0
 Received: from relmlie6.idc.renesas.com (relmlor2.renesas.com
  [210.160.252.172])
- by alsa1.perex.cz (Postfix) with ESMTP id CB1C0F802E7
- for <alsa-devel@alsa-project.org>; Tue, 28 Jul 2020 08:57:50 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CB1C0F802E7
-Date: 28 Jul 2020 15:57:49 +0900
-X-IronPort-AV: E=Sophos;i="5.75,405,1589209200"; d="scan'208";a="53011661"
-Received: from unknown (HELO relmlir5.idc.renesas.com) ([10.200.68.151])
- by relmlie6.idc.renesas.com with ESMTP; 28 Jul 2020 15:57:49 +0900
+ by alsa1.perex.cz (Postfix) with ESMTP id 00925F802E1
+ for <alsa-devel@alsa-project.org>; Tue, 28 Jul 2020 08:57:54 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 00925F802E1
+Date: 28 Jul 2020 15:57:53 +0900
+X-IronPort-AV: E=Sophos;i="5.75,405,1589209200"; d="scan'208";a="53011669"
+Received: from unknown (HELO relmlir6.idc.renesas.com) ([10.200.68.152])
+ by relmlie6.idc.renesas.com with ESMTP; 28 Jul 2020 15:57:53 +0900
 Received: from mercury.renesas.com (unknown [10.166.252.133])
- by relmlir5.idc.renesas.com (Postfix) with ESMTP id AF14C4004927;
- Tue, 28 Jul 2020 15:57:49 +0900 (JST)
-Message-ID: <87o8o0ktzj.wl-kuninori.morimoto.gx@renesas.com>
+ by relmlir6.idc.renesas.com (Postfix) with ESMTP id A318741A9AB1;
+ Tue, 28 Jul 2020 15:57:53 +0900 (JST)
+Message-ID: <87mu3kktzf.wl-kuninori.morimoto.gx@renesas.com>
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Subject: [PATCH 6/7] ASoC: soc-pcm: remove unneeded dev_err() for
- snd_soc_dai_startup()
+Subject: [PATCH 7/7] ASoC: soc-pcm: remove unneeded dev_err() for
+ snd_soc_component_module/open()
 User-Agent: Wanderlust/2.15.9 Emacs/26.3 Mule/6.0
 To: Mark Brown <broonie@kernel.org>
 In-Reply-To: <87wo2oku0m.wl-kuninori.morimoto.gx@renesas.com>
@@ -70,33 +70,42 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 
-snd_soc_dai_startup() itself will indicate error message,
-thus, soc_pcm_open() don't need to handle it.
-This patch removes it.
+snd_soc_component_module_get(), snd_soc_component_open() itself will indicate
+error message, thus, soc_pcm_components_open() don't need to handle it.
+This patch removes these.
 
 Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 ---
- sound/soc/soc-pcm.c | 6 +-----
- 1 file changed, 1 insertion(+), 5 deletions(-)
+ sound/soc/soc-pcm.c | 12 ++----------
+ 1 file changed, 2 insertions(+), 10 deletions(-)
 
 diff --git a/sound/soc/soc-pcm.c b/sound/soc/soc-pcm.c
-index 25e368e2b74b..aff84fdb493e 100644
+index aff84fdb493e..884e99971464 100644
 --- a/sound/soc/soc-pcm.c
 +++ b/sound/soc/soc-pcm.c
-@@ -729,12 +729,8 @@ static int soc_pcm_open(struct snd_pcm_substream *substream)
- 	/* startup the audio subsystem */
- 	for_each_rtd_dais(rtd, i, dai) {
- 		ret = snd_soc_dai_startup(dai, substream);
+@@ -614,20 +614,12 @@ static int soc_pcm_components_open(struct snd_pcm_substream *substream)
+ 
+ 	for_each_rtd_components(rtd, i, component) {
+ 		ret = snd_soc_component_module_get_when_open(component, substream);
 -		if (ret < 0) {
--			dev_err(dai->dev,
--				"ASoC: can't open DAI %s: %d\n",
--				dai->name, ret);
+-			dev_err(component->dev,
+-				"ASoC: can't get module %s\n",
+-				component->name);
 +		if (ret < 0)
- 			goto err;
+ 			break;
 -		}
  
- 		if (substream->stream == SNDRV_PCM_STREAM_PLAYBACK)
- 			dai->tx_mask = 0;
+ 		ret = snd_soc_component_open(component, substream);
+-		if (ret < 0) {
+-			dev_err(component->dev,
+-				"ASoC: can't open component %s: %d\n",
+-				component->name, ret);
++		if (ret < 0)
+ 			break;
+-		}
+ 	}
+ 
+ 	return ret;
 -- 
 2.25.1
 

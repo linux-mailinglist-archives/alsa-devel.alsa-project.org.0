@@ -2,69 +2,86 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1E03A23212A
-	for <lists+alsa-devel@lfdr.de>; Wed, 29 Jul 2020 17:05:24 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 644E5232167
+	for <lists+alsa-devel@lfdr.de>; Wed, 29 Jul 2020 17:18:02 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 99EF816FF;
-	Wed, 29 Jul 2020 17:04:33 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 99EF816FF
+	by alsa0.perex.cz (Postfix) with ESMTPS id EFB3C1705;
+	Wed, 29 Jul 2020 17:17:11 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EFB3C1705
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1596035123;
-	bh=XhpkLVQMFDGVz2qoN/34o8q+R5jH6m9lizccqBqt4io=;
-	h=Subject:From:To:Date:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1596035882;
+	bh=yDdQDhe0aUkPneMHf4V7CtUIlgiQ6JNskljZx+0L3lY=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=ke3dLONIIbVTrN6QogzPho0Qr2SdvJzM47eO0JxzUvBXoTMq/yLg6ZtBipyoHM7//
-	 RA2chTljQV3D1SusFEQxXQi5KbrszgKxi1WdjUJLEAe0p4V73zykrE93aUYMn93FPb
-	 67wnt9avtBW2mh1shRHBSoMZXrVApVj6gH634exo=
+	b=nZlZJOTIuiIZVIncZloGJiBc7kB4uQu5tdZc93nL9wQov11mkHjNCxKNXFyHqlwin
+	 THy0do+Mj5jBs0Ayzk6QxjF/0bv6QLpLISZ6P8ibjSGeELn4vcbZPMfVdtNc7nukng
+	 aDalz5dyum6AwLFwZ7eKmw6h+idaeqJiyZqs3Nv4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id CE649F801D9;
-	Wed, 29 Jul 2020 17:03:42 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 02DB8F800DE;
+	Wed, 29 Jul 2020 17:16:21 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id C11A6F801A3; Wed, 29 Jul 2020 17:03:40 +0200 (CEST)
+ id D60F9F801A3; Wed, 29 Jul 2020 17:16:18 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
+X-Spam-Status: No, score=0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+ DKIM_VALID,DKIM_VALID_AU,PRX_BODY_76,SPF_HELO_NONE,SPF_PASS
+ autolearn=disabled version=3.4.0
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 092D0F800DE
+ for <alsa-devel@alsa-project.org>; Wed, 29 Jul 2020 17:16:08 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 092D0F800DE
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="Gei8T5JG"
+Received: from localhost (fw-tnat.cambridge.arm.com [217.140.96.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id B6A70F800DE
- for <alsa-devel@alsa-project.org>; Wed, 29 Jul 2020 17:03:28 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B6A70F800DE
-IronPort-SDR: pZCetBavc1qAK1FKp/obYuKFfNIEFM5AzcA91HwMd7dyqauo9ryPKoN6L8tLAr8OEOVYOiVkgS
- zhusniws2LTg==
-X-IronPort-AV: E=McAfee;i="6000,8403,9696"; a="148888651"
-X-IronPort-AV: E=Sophos;i="5.75,410,1589266800"; d="scan'208";a="148888651"
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from fmsmga007.fm.intel.com ([10.253.24.52])
- by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 29 Jul 2020 08:03:21 -0700
-IronPort-SDR: ErIwcas1U+bdC9R+zI3cVyILruPsZ0z0iB+Qk5gglbUNGFZlzqhdW8H0ZMvqoM9sZUk/Upx4yN
- j0G6rGIKxErQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.75,410,1589266800"; d="scan'208";a="272642852"
-Received: from jganesan-mobl.amr.corp.intel.com ([10.254.55.234])
- by fmsmga007.fm.intel.com with ESMTP; 29 Jul 2020 08:03:22 -0700
-Message-ID: <862d7184dac6dea172d94b83f2ca7dd29136d2df.camel@linux.intel.com>
-Subject: Re: [PATCH] ALSA: hda: fix NULL pointer dereference during suspend
-From: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
-To: Takashi Iwai <tiwai@suse.de>
-Date: Wed, 29 Jul 2020 08:03:22 -0700
-In-Reply-To: <s5hzh7iep8n.wl-tiwai@suse.de>
-References: <20200728231011.1454066-1-ranjani.sridharan@linux.intel.com>
- <s5hzh7iep8n.wl-tiwai@suse.de>
-Content-Type: text/plain; charset="UTF-8"
-User-Agent: Evolution 3.36.3-0ubuntu1 
+ by mail.kernel.org (Postfix) with ESMTPSA id E5BE420829;
+ Wed, 29 Jul 2020 15:16:05 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=default; t=1596035766;
+ bh=yDdQDhe0aUkPneMHf4V7CtUIlgiQ6JNskljZx+0L3lY=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=Gei8T5JG9mkokmueZzsBGcLX8YlboI/FeJehVNWoEm6q8np1zBgiz2xRJCgZ50WMa
+ duK94SsDjx3dcUQZ/qxbD9kRvbRfotqQgGnuG/YP+L9oby0LuER4sQU432e+thWKZc
+ 11er+SlaUzGnZyXJ12P5ZS9ynMsNXAF4xj3riDgw=
+Date: Wed, 29 Jul 2020 16:15:48 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Maxime Ripard <maxime@cerno.tech>
+Subject: Re: [PATCH v3 3/7] ASoC: sun4i-i2s: Add support for H6 I2S
+Message-ID: <20200729151548.GB5612@sirena.org.uk>
+References: <20200426104115.22630-4-peron.clem@gmail.com>
+ <20200428081321.ht3el26yqhsnyfm4@gilmour.lan>
+ <CAJiuCcdVs_drs40Q6537BYfz24F7NmC6B8S5-Lt4V4ggs-FXWA@mail.gmail.com>
+ <20200429123529.y24dpy63wxq7uvkt@gilmour.lan>
+ <CAJiuCcfXqizcq_JuXRCsqEqM2562cr1SGJ0pmy07jcJxAXojOw@mail.gmail.com>
+ <20200430084600.samghw4zxb5zdbez@gilmour.lan>
+ <CAJiuCcf_LHrJ6QdZgH8HyN6TRiT+GiD+t4UggFCrz-VwVHXV6w@mail.gmail.com>
+ <20200504120942.lnrxnnmykqnvw3fb@gilmour.lan>
+ <CAJiuCceF340FiLvyeXNZtvqftQMAmk=MtFDLT_9696ix+eH1Yw@mail.gmail.com>
+ <20200729143927.47f5tbuaob4ph3lp@gilmour.lan>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Cc: yong.zhi@intel.com, alsa-devel@alsa-project.org, broonie@kernel.org,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>, tiwai@suse.com
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="xgyAXRrhYN0wYx8y"
+Content-Disposition: inline
+In-Reply-To: <20200729143927.47f5tbuaob4ph3lp@gilmour.lan>
+X-Cookie: May all your PUSHes be POPped.
+User-Agent: Mutt/1.10.1 (2018-07-13)
+Cc: devicetree <devicetree@vger.kernel.org>,
+ Linux-ALSA <alsa-devel@alsa-project.org>,
+ linux-kernel <linux-kernel@vger.kernel.org>,
+ Jernej Skrabec <jernej.skrabec@siol.net>, Takashi Iwai <tiwai@suse.com>,
+ Liam Girdwood <lgirdwood@gmail.com>, Marcus Cooper <codekipper@gmail.com>,
+ Chen-Yu Tsai <wens@csie.org>, Rob Herring <robh+dt@kernel.org>,
+ =?iso-8859-1?Q?Cl=E9ment_P=E9ron?= <peron.clem@gmail.com>,
+ linux-arm-kernel <linux-arm-kernel@lists.infradead.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -80,37 +97,32 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Wed, 2020-07-29 at 09:48 +0200, Takashi Iwai wrote:
-> On Wed, 29 Jul 2020 01:10:11 +0200,
-> Ranjani Sridharan wrote:
-> > When the ASoC card registration fails and the codec component
-> > driver
-> > never probes, the codec device is not initialized and therefore
-> > memory for codec->wcaps is not allocated. This results in a NULL
-> > pointer
-> > dereference when the codec driver suspend callback is invoked
-> > during
-> > system suspend. Fix this by returning without performing any
-> > actions
-> > during codec suspend/resume if the card was not registered
-> > successfully.
-> > 
-> > Reviewed-by: Pierre-Louis Bossart <
-> > pierre-louis.bossart@linux.intel.com>
-> > Signed-off-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com
-> > >
-> 
-> The code changes look OK to apply, but I still wonder how the runtime
-> PM gets invoked even if the device is not instantiated properly?
-Hi Takashi,
 
-Its not runtime PM suspend but rather the system PM suspend callback
-that is invoked when the system is suspended that ends up callling the
-the runtime PM callback. So, the sequence is:
-hda_codec_pm_suspend()
-   -> pm_runtime_force_suspend()
-          -> hda_codec_runtime_suspend()
+--xgyAXRrhYN0wYx8y
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-Thanks,
-Ranjani
+On Wed, Jul 29, 2020 at 04:39:27PM +0200, Maxime Ripard wrote:
 
+> It really looks like the polarity of LRCK is fine though. The first word
+> is sent with LRCK low, and then high, so we have channel 0 and then
+> channel 1 which seems to be the proper ordering?
+
+Yes, that's normal.
+
+--xgyAXRrhYN0wYx8y
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl8hkqMACgkQJNaLcl1U
+h9BWOAgAgZCmz5kPu3UP5TIzHU0FAftm7xaaVdfAgv4E8uT1NNTTa8BP1dvsplb9
+Y4S5BMhGEtD8QKO8xfJOn2rmCsNNVxKbTcu17pJrU/deNmnoT5F4TnYr08pckTcp
+0lR7PGk2ue9IcXFaDjzjTEHRy6OAm607BBjXyWVAhr3eM9KxVObTR/xeYaXsW0pl
+524o3XwTcNKdjkYC+zmF/wcrJ98vThoGY3AIm/2dwJJ7/LjXGWxE0JVMMoA7o4RZ
+6DbNVGZyRaha3iLUmk75+d8yD+Bub8C+/xZUDzZX9dskbmerGio/TCFJhG24cx+w
+zXy5TYbMMqUp7E3+lRX8m6sRgBuA7Q==
+=1GYE
+-----END PGP SIGNATURE-----
+
+--xgyAXRrhYN0wYx8y--

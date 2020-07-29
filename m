@@ -2,67 +2,60 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 750CC231A78
-	for <lists+alsa-devel@lfdr.de>; Wed, 29 Jul 2020 09:41:45 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 21BD7231A99
+	for <lists+alsa-devel@lfdr.de>; Wed, 29 Jul 2020 09:49:59 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 2D000171E;
-	Wed, 29 Jul 2020 09:40:55 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2D000171E
+	by alsa0.perex.cz (Postfix) with ESMTPS id AAB0B1758;
+	Wed, 29 Jul 2020 09:49:08 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AAB0B1758
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1596008505;
-	bh=r3CC5Ka7zUlATlDReupeB3wyS7Und0psyZDHdF5DVXI=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1596008998;
+	bh=04vUzhvtyGYrMJ+omFDX8FtTionI1laOLHNEVzm8cvY=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=E6VYokTdkGyRQck5cl3InfDS1VYHWu9DtFQTqQK2saIgRkyAcyXvfWBPs9hhZ+yDa
-	 Fl/BLeV6IMFKVK6v4/EGGcI9OMiWKW9/lrMMYt07xUT+7Dq8bQYuzgsWF6FobgajG3
-	 FUyprx9vNAkUIK8UZ16tsZ9mkQT1V7om6KalKEkI=
+	b=rSt4nKgMQkwmpTabM5ielfldYOpowR9UVAJUS6wGb4Gyz0RZLmOthNWCm4+eX8SJy
+	 7ethNUbhxtNISfy5y9HhxPVEXAicwTKIZNqnfmFV0n2nD/gPUbcexFeOw9FJ3zm2wZ
+	 27gWNQnSiiySTJ7xxqZIfz1X0dWsy/ME2LsZfxeM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 23AACF802C3;
-	Wed, 29 Jul 2020 09:38:31 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id C43F3F801D9;
+	Wed, 29 Jul 2020 09:48:17 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 9B0DBF8028D; Wed, 29 Jul 2020 09:38:25 +0200 (CEST)
+ id 5C0F0F801A3; Wed, 29 Jul 2020 09:48:15 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-0.0 required=5.0 tests=RCVD_IN_MSPIKE_H3,
+ RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
+Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 60F45F801A3
- for <alsa-devel@alsa-project.org>; Wed, 29 Jul 2020 09:38:15 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 60F45F801A3
-IronPort-SDR: VHfH/MvKGOQt5nklKWpdcFIksyA8gffWqSJUVb5ctJKWNx2RWnrF49brNCN/gq8ETNi1Bp7HfS
- vCOYHbQwUTNg==
-X-IronPort-AV: E=McAfee;i="6000,8403,9696"; a="149216440"
-X-IronPort-AV: E=Sophos;i="5.75,409,1589266800"; d="scan'208";a="149216440"
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from orsmga004.jf.intel.com ([10.7.209.38])
- by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 29 Jul 2020 00:38:13 -0700
-IronPort-SDR: 07MCNjAN1YfKuizfK9NM/LDncMNSEQbNyulT7iP/FAy8KVE6/0n89UpPF7Fd40cN833kCGH2yF
- XYfw/CUOQYUA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.75,409,1589266800"; d="scan'208";a="434604245"
-Received: from mike-ilbpg1.png.intel.com ([10.88.227.76])
- by orsmga004.jf.intel.com with ESMTP; 29 Jul 2020 00:38:10 -0700
-From: Michael Sit Wei Hong <michael.wei.hong.sit@intel.com>
-To: alsa-devel@alsa-project.org
-Subject: [PATCH 3/3] ASoC: codec: tlv3204: Moving GPIO reset and add ADC reset
-Date: Wed, 29 Jul 2020 15:32:56 +0800
-Message-Id: <20200729073256.24028-4-michael.wei.hong.sit@intel.com>
-X-Mailer: git-send-email 2.17.1
-In-Reply-To: <20200729073256.24028-1-michael.wei.hong.sit@intel.com>
-References: <20200729073256.24028-1-michael.wei.hong.sit@intel.com>
-Cc: cezary.rojewski@intel.com, a-estrada@ti.com, andriy.shevchenko@intel.com,
- zakkaye@ti.com, tiwai@suse.com, jee.heng.sia@intel.com,
- pierre-louis.bossart@linux.intel.com, liam.r.girdwood@linux.intel.com,
- broonie@kernel.org, dmurphy@ti.com
+ by alsa1.perex.cz (Postfix) with ESMTPS id 8D790F80125
+ for <alsa-devel@alsa-project.org>; Wed, 29 Jul 2020 09:48:08 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8D790F80125
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id C1799ACA0;
+ Wed, 29 Jul 2020 07:48:19 +0000 (UTC)
+Date: Wed, 29 Jul 2020 09:48:08 +0200
+Message-ID: <s5hzh7iep8n.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
+Subject: Re: [PATCH] ALSA: hda: fix NULL pointer dereference during suspend
+In-Reply-To: <20200728231011.1454066-1-ranjani.sridharan@linux.intel.com>
+References: <20200728231011.1454066-1-ranjani.sridharan@linux.intel.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
+ FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
+ (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
+Content-Type: text/plain; charset=US-ASCII
+Cc: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ alsa-devel@alsa-project.org, broonie@kernel.org, tiwai@suse.com,
+ yong.zhi@intel.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -78,118 +71,57 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Moving GPIO reset to a later stage and before clock registration to
-ensure that the host system and codec clocks are in sync. If the host
-register clock values prior to gpio reset, the last configured codec clock
-is registered to the host. The codec then gets gpio resetted setting the
-codec clocks to their default value, causing a mismatch. Host system will
-skip clock setting thinking the codec clocks are already at the requested
-rate.
+On Wed, 29 Jul 2020 01:10:11 +0200,
+Ranjani Sridharan wrote:
+> 
+> When the ASoC card registration fails and the codec component driver
+> never probes, the codec device is not initialized and therefore
+> memory for codec->wcaps is not allocated. This results in a NULL pointer
+> dereference when the codec driver suspend callback is invoked during
+> system suspend. Fix this by returning without performing any actions
+> during codec suspend/resume if the card was not registered successfully.
+> 
+> Reviewed-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+> Signed-off-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
 
-ADC reset is added to ensure the next audio capture does not have
-undesired artifacts. It is probably related to the original code
-where the probe function resets the ADC prior to 1st record.
+The code changes look OK to apply, but I still wonder how the runtime
+PM gets invoked even if the device is not instantiated properly?
 
-Signed-off-by: Michael Sit Wei Hong <michael.wei.hong.sit@intel.com>
-Reviewed-by: Sia Jee Heng <jee.heng.sia@intel.com>
-Reviewed-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
----
- sound/soc/codecs/tlv320aic32x4.c | 47 ++++++++++++++++++++++++--------
- 1 file changed, 35 insertions(+), 12 deletions(-)
 
-diff --git a/sound/soc/codecs/tlv320aic32x4.c b/sound/soc/codecs/tlv320aic32x4.c
-index 5af438a00f95..37e14558d7c0 100644
---- a/sound/soc/codecs/tlv320aic32x4.c
-+++ b/sound/soc/codecs/tlv320aic32x4.c
-@@ -50,6 +50,28 @@ struct aic32x4_priv {
- 	struct device *dev;
- };
- 
-+static int aic32x4_reset_adc(struct snd_soc_dapm_widget *w,
-+			     struct snd_kcontrol *kcontrol, int event)
-+{
-+	struct snd_soc_component *component = snd_soc_dapm_to_component(w->dapm);
-+	u32 adc_reg;
-+
-+	/*
-+	 * Workaround: the datasheet does not mention a required programming
-+	 * sequence but experiments show the ADC needs to be reset after each
-+	 * capture to avoid audible artifacts.
-+	 */
-+	switch (event) {
-+	case SND_SOC_DAPM_POST_PMD:
-+		adc_reg = snd_soc_component_read32(component, AIC32X4_ADCSETUP);
-+		snd_soc_component_write(component, AIC32X4_ADCSETUP, adc_reg |
-+					AIC32X4_LADC_EN | AIC32X4_RADC_EN);
-+		snd_soc_component_write(component, AIC32X4_ADCSETUP, adc_reg);
-+		break;
-+	}
-+	return 0;
-+};
-+
- static int mic_bias_event(struct snd_soc_dapm_widget *w,
- 	struct snd_kcontrol *kcontrol, int event)
- {
-@@ -434,6 +456,7 @@ static const struct snd_soc_dapm_widget aic32x4_dapm_widgets[] = {
- 	SND_SOC_DAPM_SUPPLY("Mic Bias", AIC32X4_MICBIAS, 6, 0, mic_bias_event,
- 			SND_SOC_DAPM_POST_PMU | SND_SOC_DAPM_PRE_PMD),
- 
-+	SND_SOC_DAPM_POST("ADC Reset", aic32x4_reset_adc),
- 
- 	SND_SOC_DAPM_OUTPUT("HPL"),
- 	SND_SOC_DAPM_OUTPUT("HPR"),
-@@ -665,8 +688,8 @@ static int aic32x4_set_processing_blocks(struct snd_soc_component *component,
- }
- 
- static int aic32x4_setup_clocks(struct snd_soc_component *component,
--			unsigned int sample_rate, unsigned int channel,
--			unsigned int bit_depth)
-+				unsigned int sample_rate, unsigned int channel,
-+				unsigned int bit_depth)
- {
- 	u8 aosr;
- 	u16 dosr;
-@@ -957,12 +980,6 @@ static int aic32x4_component_probe(struct snd_soc_component *component)
- 	if (ret)
- 		return ret;
- 
--	if (gpio_is_valid(aic32x4->rstn_gpio)) {
--		ndelay(10);
--		gpio_set_value(aic32x4->rstn_gpio, 1);
--		mdelay(1);
--	}
--
- 	snd_soc_component_write(component, AIC32X4_RESET, 0x01);
- 
- 	if (aic32x4->setup)
-@@ -1195,10 +1212,6 @@ int aic32x4_probe(struct device *dev, struct regmap *regmap)
- 		aic32x4->mclk_name = "mclk";
- 	}
- 
--	ret = aic32x4_register_clocks(dev, aic32x4->mclk_name);
--	if (ret)
--		return ret;
--
- 	if (gpio_is_valid(aic32x4->rstn_gpio)) {
- 		ret = devm_gpio_request_one(dev, aic32x4->rstn_gpio,
- 				GPIOF_OUT_INIT_LOW, "tlv320aic32x4 rstn");
-@@ -1220,6 +1233,16 @@ int aic32x4_probe(struct device *dev, struct regmap *regmap)
- 		return ret;
- 	}
- 
-+	if (gpio_is_valid(aic32x4->rstn_gpio)) {
-+		ndelay(10);
-+		gpio_set_value_cansleep(aic32x4->rstn_gpio, 1);
-+		mdelay(1);
-+	}
-+
-+	ret = aic32x4_register_clocks(dev, aic32x4->mclk_name);
-+	if (ret)
-+		return ret;
-+
- 	return 0;
- }
- EXPORT_SYMBOL(aic32x4_probe);
--- 
-2.17.1
+thanks,
 
+Takashi
+
+> ---
+>  sound/pci/hda/hda_codec.c | 8 ++++++++
+>  1 file changed, 8 insertions(+)
+> 
+> diff --git a/sound/pci/hda/hda_codec.c b/sound/pci/hda/hda_codec.c
+> index 3576e2d8452f..9b1f387d18e5 100644
+> --- a/sound/pci/hda/hda_codec.c
+> +++ b/sound/pci/hda/hda_codec.c
+> @@ -2936,6 +2936,10 @@ static int hda_codec_runtime_suspend(struct device *dev)
+>  	struct hda_codec *codec = dev_to_hda_codec(dev);
+>  	unsigned int state;
+>  
+> +	/* Nothing to do if card registration fails and the component driver never probes */
+> +	if (!codec->card)
+> +		return 0;
+> +
+>  	cancel_delayed_work_sync(&codec->jackpoll_work);
+>  	state = hda_call_codec_suspend(codec);
+>  	if (codec->link_down_at_suspend ||
+> @@ -2950,6 +2954,10 @@ static int hda_codec_runtime_resume(struct device *dev)
+>  {
+>  	struct hda_codec *codec = dev_to_hda_codec(dev);
+>  
+> +	/* Nothing to do if card registration fails and the component driver never probes */
+> +	if (!codec->card)
+> +		return 0;
+> +
+>  	codec_display_power(codec, true);
+>  	snd_hdac_codec_link_up(&codec->core);
+>  	hda_call_codec_resume(codec);
+> -- 
+> 2.25.1
+> 

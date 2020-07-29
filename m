@@ -2,74 +2,61 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id DC53423220B
-	for <lists+alsa-devel@lfdr.de>; Wed, 29 Jul 2020 17:58:06 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7EA39232226
+	for <lists+alsa-devel@lfdr.de>; Wed, 29 Jul 2020 18:08:16 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 7756B1717;
-	Wed, 29 Jul 2020 17:57:16 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7756B1717
+	by alsa0.perex.cz (Postfix) with ESMTPS id 05692171B;
+	Wed, 29 Jul 2020 18:07:26 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 05692171B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1596038286;
-	bh=ypKljuw+rWHc8pjVYuOK8ExU6hHd7bIlhR7AstImwLo=;
-	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
+	s=default; t=1596038896;
+	bh=xMGNiPd9oOoY0TqF7HmJ6+TmULvYjmMOhHM5l0BvRLM=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=vAEdC4xw6j3xoSMwjf6F8AhEodPLU96SLMQ24PM/1PYh2ZXg5ruXOxVjnFe4tVIRy
-	 tyCLp2pSGCCG30cL0u0xWjJRNLUbpcF54QsK7xZhXaXESsC7Cv4LkAf3hIR1WHVYfc
-	 Nc/CTWRZ87c4v6iT1XSl7HJZuvuhxy/ZXnn40BTg=
+	b=Kl88eCJHyRrvkDCcEYzMtVnOSjFdusIxq3Q5w7ZEy7n5QOhAEunqr6UK+oekDTOkY
+	 6gI2/Jcj8tqHFzAhBma0YR42a3FWyHc0hbv6/E5wy73uXv2O9RfcTgr5kUWbMDYwl/
+	 l+V6MGRZjP0XA48M3nXy/RNCgXS72qo2BWrU1lS4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 8816CF80125;
-	Wed, 29 Jul 2020 17:56:25 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 2E99FF800DE;
+	Wed, 29 Jul 2020 18:06:35 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 60997F801A3; Wed, 29 Jul 2020 17:56:23 +0200 (CEST)
+ id 93754F801A3; Wed, 29 Jul 2020 18:06:32 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.9 required=5.0 tests=NICE_REPLY_A,SPF_HELO_NONE,
- SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-0.0 required=5.0 tests=RCVD_IN_MSPIKE_H3,
+ RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
+Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id B91F5F800DE
- for <alsa-devel@alsa-project.org>; Wed, 29 Jul 2020 17:56:13 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B91F5F800DE
-IronPort-SDR: 5U7TwJ+j97pL2sCVQ+fG+tkchLf5M7bWAKvDT9C+FzbxoUNY+SgBl4rAexxCz0PMuMgMeVibCp
- HtTMvvYCNhXQ==
-X-IronPort-AV: E=McAfee;i="6000,8403,9697"; a="215936396"
-X-IronPort-AV: E=Sophos;i="5.75,410,1589266800"; d="scan'208";a="215936396"
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from fmsmga002.fm.intel.com ([10.253.24.26])
- by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 29 Jul 2020 08:56:10 -0700
-IronPort-SDR: IDiwGItDXIzja3qJHXtAQwZsgkfdvjN51ZFJYyn4gETjqIXmWP3NNyN85itVh4GNZZCNBIn5O4
- HqvTijKzaFgQ==
-X-IronPort-AV: E=Sophos;i="5.75,410,1589266800"; d="scan'208";a="322594221"
-Received: from vmlivin-mobl1.amr.corp.intel.com (HELO [10.209.108.29])
- ([10.209.108.29])
- by fmsmga002-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 29 Jul 2020 08:56:08 -0700
-Subject: Re: [PATCH] ASoC: core: restore dpcm flags semantics
-To: Jerome Brunet <jbrunet@baylibre.com>, Mark Brown <broonie@kernel.org>,
- Liam Girdwood <lgirdwood@gmail.com>
-References: <20200723180533.220312-1-pierre-louis.bossart@linux.intel.com>
- <20200729154639.1983854-1-jbrunet@baylibre.com>
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Message-ID: <2ad13f95-434d-376a-bc38-b209623b461e@linux.intel.com>
-Date: Wed, 29 Jul 2020 10:56:05 -0500
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.10.0
-MIME-Version: 1.0
-In-Reply-To: <20200729154639.1983854-1-jbrunet@baylibre.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
-Cc: alsa-devel@alsa-project.org, Stephan Gerhold <stephan@gerhold.net>,
- Kevin Hilman <khilman@baylibre.com>, linux-kernel@vger.kernel.org,
- zhangn1985@outlook.com, linux-amlogic@lists.infradead.org
+ by alsa1.perex.cz (Postfix) with ESMTPS id A3A06F800DE
+ for <alsa-devel@alsa-project.org>; Wed, 29 Jul 2020 18:06:26 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A3A06F800DE
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id 62D0DAF8D;
+ Wed, 29 Jul 2020 16:06:37 +0000 (UTC)
+Date: Wed, 29 Jul 2020 18:06:25 +0200
+Message-ID: <s5hft9ae266.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
+Subject: Re: [PATCH] ALSA: hda: fix NULL pointer dereference during suspend
+In-Reply-To: <862d7184dac6dea172d94b83f2ca7dd29136d2df.camel@linux.intel.com>
+References: <20200728231011.1454066-1-ranjani.sridharan@linux.intel.com>
+ <s5hzh7iep8n.wl-tiwai@suse.de>
+ <862d7184dac6dea172d94b83f2ca7dd29136d2df.camel@linux.intel.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
+ FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
+ (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
+Content-Type: text/plain; charset=US-ASCII
+Cc: yong.zhi@intel.com, alsa-devel@alsa-project.org, broonie@kernel.org,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>, tiwai@suse.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -85,84 +72,53 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+On Wed, 29 Jul 2020 17:03:22 +0200,
+Ranjani Sridharan wrote:
+> 
+> On Wed, 2020-07-29 at 09:48 +0200, Takashi Iwai wrote:
+> > On Wed, 29 Jul 2020 01:10:11 +0200,
+> > Ranjani Sridharan wrote:
+> > > When the ASoC card registration fails and the codec component
+> > > driver
+> > > never probes, the codec device is not initialized and therefore
+> > > memory for codec->wcaps is not allocated. This results in a NULL
+> > > pointer
+> > > dereference when the codec driver suspend callback is invoked
+> > > during
+> > > system suspend. Fix this by returning without performing any
+> > > actions
+> > > during codec suspend/resume if the card was not registered
+> > > successfully.
+> > > 
+> > > Reviewed-by: Pierre-Louis Bossart <
+> > > pierre-louis.bossart@linux.intel.com>
+> > > Signed-off-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com
+> > > >
+> > 
+> > The code changes look OK to apply, but I still wonder how the runtime
+> > PM gets invoked even if the device is not instantiated properly?
+> Hi Takashi,
+> 
+> Its not runtime PM suspend but rather the system PM suspend callback
+> that is invoked when the system is suspended that ends up callling the
+> the runtime PM callback. So, the sequence is:
+> hda_codec_pm_suspend()
+>    -> pm_runtime_force_suspend()
+>           -> hda_codec_runtime_suspend()
+
+OK, but the problem is still same.  The basic problem is that the
+hda_codec_driver_probe() is called for the hda_codec object that
+hasn't been initialized and bypasses to ext_ops.hdev_attach.
+
+So, we can factor out the fundamental part of
+snd_hda_codec_device_new() that is irrelevant with the card object and
+call it in hdac_hda_dev_probe().  Most of the legacy HD-audio codec
+can work without the card object, including suspend/resume.
+
+But this will be a more intensive surgery, and maybe not much worth
+for the corner case, so I already applied your patch as is.
 
 
-On 7/29/20 10:46 AM, Jerome Brunet wrote:
-> commit b73287f0b0745 ('ASoC: soc-pcm: dpcm: fix playback/capture checks')
-> changed dpcm_playback and dpcm_capture semantic by throwing an error if
-> these flags are not aligned with DAIs capabilities on the link.
-> 
-> The former semantic did not force the flags and DAI caps to be aligned.
-> The flag previously allowed card drivers to disable a stream direction on
-> a link (whether or not such feature is deemed useful).
-> 
-> With change ('ASoC: core: use less strict tests for dailink capabilities')
-> an error is thrown if the flags and and the DAI caps are not aligned. Those
-> parameters were not meant to aligned initially. No technical reason was
-> given about why cards should now be considered "broken" in such condition
-> is not met, or why it should be considered to be an improvement to enforce
-> that.
-> 
-> Forcing the flags to be aligned with DAI caps just make the information
-> the flag carry redundant with DAI caps, breaking a few cards along the way.
-> 
-> This change drops the added error conditions and restore the initial flag
-> semantics.
+thanks,
 
-or rather lack thereof.
-
-I am ok to move dev_err to dev_warn and remove the return -EINVAL, but I 
-maintain that we have to reach a point where configurations make sense 
-before we can clean them up. If we implicitly push issues under the rug 
-by not even being aware of them we'll never make progress.
-
-> 
-> Cc: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-> Signed-off-by: Jerome Brunet <jbrunet@baylibre.com>
-> ---
-> 
->   Hi Mark,
-> 
->   Because b73287f0b0745 ('ASoC: soc-pcm: dpcm: fix playback/capture checks')
->   introduced more than one problem, the change
->   "ASoC: core: use less strict tests for dailink capabilities" [0] is still
->   necessary but the change of semantic remains a problem with it.
-> 
->   This patch applies on top of it.
-> 
->   sound/soc/soc-pcm.c | 14 --------------
->   1 file changed, 14 deletions(-)
-> 
-> diff --git a/sound/soc/soc-pcm.c b/sound/soc/soc-pcm.c
-> index 00ac1cbf6f88..2e205b738eae 100644
-> --- a/sound/soc/soc-pcm.c
-> +++ b/sound/soc/soc-pcm.c
-> @@ -2749,13 +2749,6 @@ int soc_new_pcm(struct snd_soc_pcm_runtime *rtd, int num)
->   					break;
->   				}
->   			}
-> -
-> -			if (!playback) {
-> -				dev_err(rtd->card->dev,
-> -					"No CPU DAIs support playback for stream %s\n",
-> -					rtd->dai_link->stream_name);
-> -				return -EINVAL;
-> -			}
->   		}
->   		if (rtd->dai_link->dpcm_capture) {
->   			stream = SNDRV_PCM_STREAM_CAPTURE;
-> @@ -2766,13 +2759,6 @@ int soc_new_pcm(struct snd_soc_pcm_runtime *rtd, int num)
->   					break;
->   				}
->   			}
-> -
-> -			if (!capture) {
-> -				dev_err(rtd->card->dev,
-> -					"No CPU DAIs support capture for stream %s\n",
-> -					rtd->dai_link->stream_name);
-> -				return -EINVAL;
-> -			}
->   		}
->   	} else {
->   		/* Adapt stream for codec2codec links */
-> 
+Takashi

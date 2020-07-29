@@ -2,86 +2,90 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 644E5232167
-	for <lists+alsa-devel@lfdr.de>; Wed, 29 Jul 2020 17:18:02 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D97132321D9
+	for <lists+alsa-devel@lfdr.de>; Wed, 29 Jul 2020 17:47:01 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id EFB3C1705;
-	Wed, 29 Jul 2020 17:17:11 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EFB3C1705
+	by alsa0.perex.cz (Postfix) with ESMTPS id 284D91707;
+	Wed, 29 Jul 2020 17:46:11 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 284D91707
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1596035882;
-	bh=yDdQDhe0aUkPneMHf4V7CtUIlgiQ6JNskljZx+0L3lY=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=nZlZJOTIuiIZVIncZloGJiBc7kB4uQu5tdZc93nL9wQov11mkHjNCxKNXFyHqlwin
-	 THy0do+Mj5jBs0Ayzk6QxjF/0bv6QLpLISZ6P8ibjSGeELn4vcbZPMfVdtNc7nukng
-	 aDalz5dyum6AwLFwZ7eKmw6h+idaeqJiyZqs3Nv4=
+	s=default; t=1596037621;
+	bh=5gmYp4HFQbg6xemHt3uq+mqQjq/KTsafBZ7oraSMs+4=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=OjdCBzvNju1/ASsCXJWbsGWY582jMy+Ni5mmg7IdIL4H+emPjbchDBMFwrcsoWLta
+	 2uF9se06qK+g+5nooYqNYDPif4dQNbp+GfxARudqwgoGRlQK+Luu5mXrLBCpQIzwHj
+	 awrN49xZWxX0Vj/0Wz8fpBPejqcdJ5eBB+IZXpaA=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 02DB8F800DE;
-	Wed, 29 Jul 2020 17:16:21 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 3DDBEF801D9;
+	Wed, 29 Jul 2020 17:45:20 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id D60F9F801A3; Wed, 29 Jul 2020 17:16:18 +0200 (CEST)
+ id A5660F801A3; Wed, 29 Jul 2020 17:45:17 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,PRX_BODY_76,SPF_HELO_NONE,SPF_PASS
- autolearn=disabled version=3.4.0
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
+Received: from mail-wm1-x344.google.com (mail-wm1-x344.google.com
+ [IPv6:2a00:1450:4864:20::344])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 092D0F800DE
- for <alsa-devel@alsa-project.org>; Wed, 29 Jul 2020 17:16:08 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 092D0F800DE
+ by alsa1.perex.cz (Postfix) with ESMTPS id 0E110F8012F
+ for <alsa-devel@alsa-project.org>; Wed, 29 Jul 2020 17:45:14 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0E110F8012F
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="Gei8T5JG"
-Received: from localhost (fw-tnat.cambridge.arm.com [217.140.96.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id E5BE420829;
- Wed, 29 Jul 2020 15:16:05 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1596035766;
- bh=yDdQDhe0aUkPneMHf4V7CtUIlgiQ6JNskljZx+0L3lY=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=Gei8T5JG9mkokmueZzsBGcLX8YlboI/FeJehVNWoEm6q8np1zBgiz2xRJCgZ50WMa
- duK94SsDjx3dcUQZ/qxbD9kRvbRfotqQgGnuG/YP+L9oby0LuER4sQU432e+thWKZc
- 11er+SlaUzGnZyXJ12P5ZS9ynMsNXAF4xj3riDgw=
-Date: Wed, 29 Jul 2020 16:15:48 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Maxime Ripard <maxime@cerno.tech>
-Subject: Re: [PATCH v3 3/7] ASoC: sun4i-i2s: Add support for H6 I2S
-Message-ID: <20200729151548.GB5612@sirena.org.uk>
-References: <20200426104115.22630-4-peron.clem@gmail.com>
- <20200428081321.ht3el26yqhsnyfm4@gilmour.lan>
- <CAJiuCcdVs_drs40Q6537BYfz24F7NmC6B8S5-Lt4V4ggs-FXWA@mail.gmail.com>
- <20200429123529.y24dpy63wxq7uvkt@gilmour.lan>
- <CAJiuCcfXqizcq_JuXRCsqEqM2562cr1SGJ0pmy07jcJxAXojOw@mail.gmail.com>
- <20200430084600.samghw4zxb5zdbez@gilmour.lan>
- <CAJiuCcf_LHrJ6QdZgH8HyN6TRiT+GiD+t4UggFCrz-VwVHXV6w@mail.gmail.com>
- <20200504120942.lnrxnnmykqnvw3fb@gilmour.lan>
- <CAJiuCceF340FiLvyeXNZtvqftQMAmk=MtFDLT_9696ix+eH1Yw@mail.gmail.com>
- <20200729143927.47f5tbuaob4ph3lp@gilmour.lan>
+ dkim=pass (2048-bit key) header.d=baylibre-com.20150623.gappssmtp.com
+ header.i=@baylibre-com.20150623.gappssmtp.com header.b="b+VLFMtt"
+Received: by mail-wm1-x344.google.com with SMTP id d190so3140083wmd.4
+ for <alsa-devel@alsa-project.org>; Wed, 29 Jul 2020 08:45:14 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=baylibre-com.20150623.gappssmtp.com; s=20150623;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=tZyrzrT0Nf0x/gyHGp8Cs5MnYb93JhfVD87ZJN1UfIU=;
+ b=b+VLFMttcd/AFDxmAsi8VtfuqKDOuaZmXWDAIR/zZ4938MhI4865tTZFGExVfPlBhL
+ xLVpSRa6XIhOa+/LP36WaI+2tTZ47GBE9T7gjF+py7giHDrzvkqNyJDvY8382KJNGuVp
+ cCjiAw4lVH6uHGR/w6SHFGvU6rIoHbjXgKk2sNWkwv1KGUqiz/nlCfhOix6wC66nQHMS
+ t4h1iSP+MVInoN7KMc6D+Rq2vTPy96OMNY9jGhFGRg/JYdivPqc9sGz2XMoh3oR4jqFs
+ rnquzA/xfhfueM7cuqjDDJNQuZZUwW2IjIgGWZhDbk0px+wYgok0PiRTq86MuaEBiuo5
+ GnIw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=tZyrzrT0Nf0x/gyHGp8Cs5MnYb93JhfVD87ZJN1UfIU=;
+ b=mQeIH63G1+DZT0h/oMGsI6ACph4FUmHJt18BECKTVdGoukL+5f0Zy+WGK7ER72IeJa
+ K55sClA7AVkiwQZn7mm7rM9UL90IRHTkecZ0vilA2lATwmd6m/HYutPbl0u8p/LIqbc/
+ 6nm8H5pq34p4QeTrnLcEb0TB+RoiT188N+dORTYA8khta9Cn0Cw6MxtBYusP5Sowg3HF
+ hBFHWOoTs37AXTV1/vd07lt/37UXPER4aG51x3Jzu8Y8dQ9cGrNeEJZLOX6QDeA1Y/f5
+ Z+4cZ6DXSA4w8Koc7dDQj6DuyFkUR+hut78fkTBcycJnNrMctbhFQl3btEhUVFqXwIyi
+ QvEg==
+X-Gm-Message-State: AOAM532ISh4UjLy1z1kTCFqzvnQd1G+TCYpskq0cnKskIgCbZuoySFMw
+ inHjtpBoAy5K5HbFY8i13howTQ==
+X-Google-Smtp-Source: ABdhPJw5uFTrnEpbYb0n1UKwvaYWnjt8taRop48MzCBBqK0z4sbTETQUcnZx4nGuZE6MZ/Ja7pWWdw==
+X-Received: by 2002:a05:600c:284:: with SMTP id 4mr9474888wmk.48.1596037512993; 
+ Wed, 29 Jul 2020 08:45:12 -0700 (PDT)
+Received: from starbuck.baylibre.local
+ (laubervilliers-658-1-213-31.w90-63.abo.wanadoo.fr. [90.63.244.31])
+ by smtp.googlemail.com with ESMTPSA id k10sm5950967wrm.74.2020.07.29.08.45.12
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 29 Jul 2020 08:45:12 -0700 (PDT)
+From: Jerome Brunet <jbrunet@baylibre.com>
+To: Mark Brown <broonie@kernel.org>,
+	Liam Girdwood <lgirdwood@gmail.com>
+Subject: [PATCH 0/4] ASoC: meson: tdm fixes
+Date: Wed, 29 Jul 2020 17:44:52 +0200
+Message-Id: <20200729154456.1983396-1-jbrunet@baylibre.com>
+X-Mailer: git-send-email 2.25.4
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="xgyAXRrhYN0wYx8y"
-Content-Disposition: inline
-In-Reply-To: <20200729143927.47f5tbuaob4ph3lp@gilmour.lan>
-X-Cookie: May all your PUSHes be POPped.
-User-Agent: Mutt/1.10.1 (2018-07-13)
-Cc: devicetree <devicetree@vger.kernel.org>,
- Linux-ALSA <alsa-devel@alsa-project.org>,
- linux-kernel <linux-kernel@vger.kernel.org>,
- Jernej Skrabec <jernej.skrabec@siol.net>, Takashi Iwai <tiwai@suse.com>,
- Liam Girdwood <lgirdwood@gmail.com>, Marcus Cooper <codekipper@gmail.com>,
- Chen-Yu Tsai <wens@csie.org>, Rob Herring <robh+dt@kernel.org>,
- =?iso-8859-1?Q?Cl=E9ment_P=E9ron?= <peron.clem@gmail.com>,
- linux-arm-kernel <linux-arm-kernel@lists.infradead.org>
+X-Patchwork-Bot: notify
+Content-Transfer-Encoding: 8bit
+Cc: linux-amlogic@lists.infradead.org, alsa-devel@alsa-project.org,
+ Kevin Hilman <khilman@baylibre.com>, linux-kernel@vger.kernel.org,
+ Jerome Brunet <jbrunet@baylibre.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -97,32 +101,27 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+This patcheset is collection of fixes for the TDM input and output the
+axg audio architecture. Its fixes:
+ - slave mode format setting
+ - g12 and sm1 skew offset
+ - tdm clock inversion
+ - standard daifmt props names which don't require a specific prefix
 
---xgyAXRrhYN0wYx8y
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Jerome Brunet (4):
+  ASoC: meson: axg-tdm-interface: fix link fmt setup
+  ASoC: meson: axg-tdmin: fix g12a skew
+  ASoC: meson: axg-tdm-formatters: fix sclk inversion
+  ASoC: meson: cards: remove DT_PREFIX for standard daifmt properties
 
-On Wed, Jul 29, 2020 at 04:39:27PM +0200, Maxime Ripard wrote:
+ sound/soc/meson/axg-tdm-formatter.c | 11 ++++++-----
+ sound/soc/meson/axg-tdm-formatter.h |  1 -
+ sound/soc/meson/axg-tdm-interface.c | 26 +++++++++++++++++---------
+ sound/soc/meson/axg-tdmin.c         | 16 +++++++++++++++-
+ sound/soc/meson/axg-tdmout.c        |  3 ---
+ sound/soc/meson/meson-card-utils.c  |  2 +-
+ 6 files changed, 39 insertions(+), 20 deletions(-)
 
-> It really looks like the polarity of LRCK is fine though. The first word
-> is sent with LRCK low, and then high, so we have channel 0 and then
-> channel 1 which seems to be the proper ordering?
+-- 
+2.25.4
 
-Yes, that's normal.
-
---xgyAXRrhYN0wYx8y
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl8hkqMACgkQJNaLcl1U
-h9BWOAgAgZCmz5kPu3UP5TIzHU0FAftm7xaaVdfAgv4E8uT1NNTTa8BP1dvsplb9
-Y4S5BMhGEtD8QKO8xfJOn2rmCsNNVxKbTcu17pJrU/deNmnoT5F4TnYr08pckTcp
-0lR7PGk2ue9IcXFaDjzjTEHRy6OAm607BBjXyWVAhr3eM9KxVObTR/xeYaXsW0pl
-524o3XwTcNKdjkYC+zmF/wcrJ98vThoGY3AIm/2dwJJ7/LjXGWxE0JVMMoA7o4RZ
-6DbNVGZyRaha3iLUmk75+d8yD+Bub8C+/xZUDzZX9dskbmerGio/TCFJhG24cx+w
-zXy5TYbMMqUp7E3+lRX8m6sRgBuA7Q==
-=1GYE
------END PGP SIGNATURE-----
-
---xgyAXRrhYN0wYx8y--

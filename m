@@ -2,84 +2,84 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1AF7A2321DB
-	for <lists+alsa-devel@lfdr.de>; Wed, 29 Jul 2020 17:47:49 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id EE1B52321E5
+	for <lists+alsa-devel@lfdr.de>; Wed, 29 Jul 2020 17:48:47 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B6EE81716;
-	Wed, 29 Jul 2020 17:46:58 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B6EE81716
+	by alsa0.perex.cz (Postfix) with ESMTPS id 80E5D1725;
+	Wed, 29 Jul 2020 17:47:57 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 80E5D1725
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1596037668;
-	bh=nTpC6NRHJb8qA3qhuNR8lXG/+yx4OSZqYCLqfunAQH8=;
+	s=default; t=1596037727;
+	bh=/4ShZvpN/MLkatzay/lTalbUNEjR64BhaCe2fXkgm6c=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=GhO4HInKslFcEAg9faQ9/aCYEypjWJlguM/v/PMQNrX3qOrum8SKj8ncBUqw9tT3M
-	 r9cQKnRDKkUAX8Hf/lV566UlBOJ2mBH5FpFczjArFUbLjI9EbxkEttOmitfh06ZkYs
-	 hhikE5dWB7+GeEAQgzKnRgYUyhRfoAThmlowEduA=
+	b=F+jkJusM+B8+Aubu96nhYlFKlm664inF09Iu/AnCVdjTce5ey71PLsc2GzW8C3m1j
+	 9DvImv6UKRvckmuz5mJoqUV3P7E1x5t0Ldm5SBkRXu7cKsUbSqOj8rs1UMDsC1LzuY
+	 0j7p8hFk+FUTaJC9D+FzLR6mbpjQl23jEi9EQZvA=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 60184F8028D;
-	Wed, 29 Jul 2020 17:45:25 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 5D506F802DF;
+	Wed, 29 Jul 2020 17:45:31 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 119A8F8028D; Wed, 29 Jul 2020 17:45:23 +0200 (CEST)
+ id EA6E0F802DC; Wed, 29 Jul 2020 17:45:27 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mail-wm1-x341.google.com (mail-wm1-x341.google.com
- [IPv6:2a00:1450:4864:20::341])
+Received: from mail-wm1-x343.google.com (mail-wm1-x343.google.com
+ [IPv6:2a00:1450:4864:20::343])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id CE8D4F800DE
- for <alsa-devel@alsa-project.org>; Wed, 29 Jul 2020 17:45:15 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CE8D4F800DE
+ by alsa1.perex.cz (Postfix) with ESMTPS id 936ADF801F7
+ for <alsa-devel@alsa-project.org>; Wed, 29 Jul 2020 17:45:16 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 936ADF801F7
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=baylibre-com.20150623.gappssmtp.com
- header.i=@baylibre-com.20150623.gappssmtp.com header.b="zLTcc+Hf"
-Received: by mail-wm1-x341.google.com with SMTP id x5so3147569wmi.2
- for <alsa-devel@alsa-project.org>; Wed, 29 Jul 2020 08:45:15 -0700 (PDT)
+ header.i=@baylibre-com.20150623.gappssmtp.com header.b="XaVnRFyy"
+Received: by mail-wm1-x343.google.com with SMTP id k8so3450826wma.2
+ for <alsa-devel@alsa-project.org>; Wed, 29 Jul 2020 08:45:16 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=baylibre-com.20150623.gappssmtp.com; s=20150623;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=aFwWixal6bg6/yGBUeckQ8zNlylY1ZjbXYs/S0fdtuA=;
- b=zLTcc+HfVBRchrfIBW1jERIX0biVz9CZS/q5ReBKow+W3caoKQqKObHjtFUrUxj8c2
- xwYDvY0erPB/k5HObfYjFrjWXFf3xIgp4skpvwEhKdnWD4pvRG7mDcnMK7xXY/RLg0Q5
- K3K/UK7XjR0RwzpWZzGemhvur36OTxJZSTaGEacmgrpybzO0SQ/H6ly4coZCWfDqL1sZ
- iHGvPEtY37h0owml1JyQD2FxV5jkGh0MmFPmTNXfE4WbzYS1dLMIXDwJKQCTg/f+TeuA
- y4Za0NejtucqFd8pW6sexE2gwHte8Ksk4JOt6dmVBKrfIrlntfUV9npxZnOlQHsExRRY
- xiuA==
+ bh=odKL8nfgi2JfYFNsaHMY4SKWdmff32MEW/xIQyAYpOU=;
+ b=XaVnRFyyLv/CDI3rNrvt+N1NR94GoD23fiy/1/aev0VHbn3oeX9+0gLViXcHzcPViC
+ mwlIFOWJmaj7nZtyvHYwX0VYgYAWhYlilB06hqnszYmsJEMA/ptUEBCYejYVctWNmLvG
+ DaXtxBbRu5szTpoi/tqJKw0GDefnpfkG2ef3NB7uRsoJKp358/WBuGwCaFgmhWSEt1Xb
+ TdyN1A3/uSX2bqsM9cPHzZ0isZY56UvuXLD7Dfz5VjSyrzzma3a0D2RYNurND6ap+y6s
+ vdzrI/4KXtoIAm5gIupf2DJq9ssRajx8xEWOiGD5gNisR6FFXhdyhHxyuvBdWbPxj3Rl
+ LPjA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=aFwWixal6bg6/yGBUeckQ8zNlylY1ZjbXYs/S0fdtuA=;
- b=JrdU4s5Y3VZS/5lDOlE1InuJvLyQFdYhV4GaMCcPYZJsHTszcKKpEFGe2c7SKmAP2q
- 2eXxooNHAdMYRUzhU/l4jmRrrHYm/AhLsiHXwEZRBKjsImKqBM2ll3VlfKxPF0T41QLk
- OxdwNN+02lREK7N6CbtLEb2TgYExoNH2Bj3w0VgEM3Xc9RYXKODi3w2K2HCzcYj9g86f
- YwSLfty3zk410T/cMnZ1P09+N3z9BqZQmwpfV2p0IMMI3A790KAIov9O8nbL+BKNdX32
- ZUKP1729c6iZCZ8xn7WSGY7FuiyW1X3tbDr9TUTx4xBtTRlNFyfRcFzqyuMw7jPTybWI
- 37vg==
-X-Gm-Message-State: AOAM531PjcFZC6JWnQAl4zWReLIIgREhZXX/OtRRKPgObJLFb3Hx2JrW
- n3THOltJj+C3NMCQg19L6qS5yA==
-X-Google-Smtp-Source: ABdhPJy0qqcwBITavP16MW6ffF+xI8XGXN/tI7XsE9Z0703/iHSoM2qsfi/fgn4gRUXAFwua0XmGDg==
-X-Received: by 2002:a1c:9914:: with SMTP id b20mr9098844wme.15.1596037514079; 
- Wed, 29 Jul 2020 08:45:14 -0700 (PDT)
+ bh=odKL8nfgi2JfYFNsaHMY4SKWdmff32MEW/xIQyAYpOU=;
+ b=uQyaGqGtZvlj1atcj+FOQR+B9s/tYkN1RgyHN5cJ9wjaK2AluX3jxt+izcqEWM/vTu
+ eHUZiY2X45Tt5ubW379Knb312xs2233QQudyzvjDq+AyKDqxMldK6uOK320DwLepwBoj
+ BFC6Le/3jhDG4YGQQWVbqSxjhIHwG588A7fOHzzqBIIY+aQwR05ovERmckV9oOOf5UdX
+ KfjOBxd29iCCDlklDunWJiaSI74JaYDqnSgFoSQSEXXEc6oX6pieoAz/6bK1Il3zlUmW
+ t3GONgGjRprrRGBKiBkCXErY2N7Peen8hFgu01tDKbyh6U+Otri7LQdSpRvAwuqYgWJp
+ XcPg==
+X-Gm-Message-State: AOAM531rhecX7WnBlYuCUGvARPEqcVKWjO5sYxWWu3L3oDj8osW7F91d
+ n5pofqVGc5ebz7aqRuq0B5rr3g==
+X-Google-Smtp-Source: ABdhPJwJufUM+fr/ccstncgAq56W2HRh9FWgpXsZ5IRILScKbhvt1s8lTYaYBt7VHezKJF6mEIM+8w==
+X-Received: by 2002:a7b:c057:: with SMTP id u23mr8667635wmc.167.1596037515187; 
+ Wed, 29 Jul 2020 08:45:15 -0700 (PDT)
 Received: from starbuck.baylibre.local
  (laubervilliers-658-1-213-31.w90-63.abo.wanadoo.fr. [90.63.244.31])
- by smtp.googlemail.com with ESMTPSA id k10sm5950967wrm.74.2020.07.29.08.45.13
+ by smtp.googlemail.com with ESMTPSA id k10sm5950967wrm.74.2020.07.29.08.45.14
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 29 Jul 2020 08:45:13 -0700 (PDT)
+ Wed, 29 Jul 2020 08:45:14 -0700 (PDT)
 From: Jerome Brunet <jbrunet@baylibre.com>
 To: Mark Brown <broonie@kernel.org>,
 	Liam Girdwood <lgirdwood@gmail.com>
-Subject: [PATCH 1/4] ASoC: meson: axg-tdm-interface: fix link fmt setup
-Date: Wed, 29 Jul 2020 17:44:53 +0200
-Message-Id: <20200729154456.1983396-2-jbrunet@baylibre.com>
+Subject: [PATCH 2/4] ASoC: meson: axg-tdmin: fix g12a skew
+Date: Wed, 29 Jul 2020 17:44:54 +0200
+Message-Id: <20200729154456.1983396-3-jbrunet@baylibre.com>
 X-Mailer: git-send-email 2.25.4
 In-Reply-To: <20200729154456.1983396-1-jbrunet@baylibre.com>
 References: <20200729154456.1983396-1-jbrunet@baylibre.com>
@@ -104,66 +104,47 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-The .set_fmt() callback of the axg tdm interface incorrectly
-test the content of SND_SOC_DAIFMT_MASTER_MASK as if it was a
-bitfield, which it is not.
+After carefully checking the result provided by the TDMIN on the g12a and
+sm1 SoC families, the TDMIN skew offset appears to be 3 instead of 2 on the
+axg.
 
-Implement the test correctly.
-
-Fixes: d60e4f1e4be5 ("ASoC: meson: add tdm interface driver")
+Fixes: f01bc67f58fd ("ASoC: meson: axg-tdm-formatter: rework quirks settings")
 Signed-off-by: Jerome Brunet <jbrunet@baylibre.com>
 ---
- sound/soc/meson/axg-tdm-interface.c | 26 +++++++++++++++++---------
- 1 file changed, 17 insertions(+), 9 deletions(-)
+ sound/soc/meson/axg-tdmin.c | 16 ++++++++++++++++
+ 1 file changed, 16 insertions(+)
 
-diff --git a/sound/soc/meson/axg-tdm-interface.c b/sound/soc/meson/axg-tdm-interface.c
-index 6de27238e9df..36df30915378 100644
---- a/sound/soc/meson/axg-tdm-interface.c
-+++ b/sound/soc/meson/axg-tdm-interface.c
-@@ -119,18 +119,25 @@ static int axg_tdm_iface_set_fmt(struct snd_soc_dai *dai, unsigned int fmt)
- {
- 	struct axg_tdm_iface *iface = snd_soc_dai_get_drvdata(dai);
+diff --git a/sound/soc/meson/axg-tdmin.c b/sound/soc/meson/axg-tdmin.c
+index 973d4c02ef8d..3d002b4eb939 100644
+--- a/sound/soc/meson/axg-tdmin.c
++++ b/sound/soc/meson/axg-tdmin.c
+@@ -233,10 +233,26 @@ static const struct axg_tdm_formatter_driver axg_tdmin_drv = {
+ 	},
+ };
  
--	/* These modes are not supported */
--	if (fmt & (SND_SOC_DAIFMT_CBS_CFM | SND_SOC_DAIFMT_CBM_CFS)) {
-+	switch (fmt & SND_SOC_DAIFMT_MASTER_MASK) {
-+	case SND_SOC_DAIFMT_CBS_CFS:
-+		if (!iface->mclk) {
-+			dev_err(dai->dev, "cpu clock master: mclk missing\n");
-+			return -ENODEV;
-+		}
-+		break;
++static const struct axg_tdm_formatter_driver g12a_tdmin_drv = {
++	.component_drv	= &axg_tdmin_component_drv,
++	.regmap_cfg	= &axg_tdmin_regmap_cfg,
++	.ops		= &axg_tdmin_ops,
++	.quirks		= &(const struct axg_tdm_formatter_hw) {
++		.invert_sclk	= false,
++		.skew_offset	= 3,
++	},
++};
 +
-+	case SND_SOC_DAIFMT_CBM_CFM:
-+		break;
-+
-+	case SND_SOC_DAIFMT_CBS_CFM:
-+	case SND_SOC_DAIFMT_CBM_CFS:
- 		dev_err(dai->dev, "only CBS_CFS and CBM_CFM are supported\n");
-+		/* Fall-through */
-+	default:
- 		return -EINVAL;
- 	}
- 
--	/* If the TDM interface is the clock master, it requires mclk */
--	if (!iface->mclk && (fmt & SND_SOC_DAIFMT_CBS_CFS)) {
--		dev_err(dai->dev, "cpu clock master: mclk missing\n");
--		return -ENODEV;
--	}
--
- 	iface->fmt = fmt;
- 	return 0;
- }
-@@ -319,7 +326,8 @@ static int axg_tdm_iface_hw_params(struct snd_pcm_substream *substream,
- 	if (ret)
- 		return ret;
- 
--	if (iface->fmt & SND_SOC_DAIFMT_CBS_CFS) {
-+	if ((iface->fmt & SND_SOC_DAIFMT_MASTER_MASK) ==
-+	    SND_SOC_DAIFMT_CBS_CFS) {
- 		ret = axg_tdm_iface_set_sclk(dai, params);
- 		if (ret)
- 			return ret;
+ static const struct of_device_id axg_tdmin_of_match[] = {
+ 	{
+ 		.compatible = "amlogic,axg-tdmin",
+ 		.data = &axg_tdmin_drv,
++	}, {
++		.compatible = "amlogic,g12a-tdmin",
++		.data = &g12a_tdmin_drv,
++	}, {
++		.compatible = "amlogic,sm1-tdmin",
++		.data = &g12a_tdmin_drv,
+ 	}, {}
+ };
+ MODULE_DEVICE_TABLE(of, axg_tdmin_of_match);
 -- 
 2.25.4
 

@@ -2,82 +2,59 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 640A62329D1
-	for <lists+alsa-devel@lfdr.de>; Thu, 30 Jul 2020 04:11:31 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 415132329DA
+	for <lists+alsa-devel@lfdr.de>; Thu, 30 Jul 2020 04:18:45 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E33A41740;
-	Thu, 30 Jul 2020 04:10:40 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E33A41740
+	by alsa0.perex.cz (Postfix) with ESMTPS id BC0741740;
+	Thu, 30 Jul 2020 04:17:54 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BC0741740
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1596075091;
-	bh=X/09oUjhz98VclAWvc0r/oKf50MFfsglwwLmYGPeUNE=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=dMYnvy4+j79cjO5cTLh4HBTy+UI2pjFU4OuoJ3Q63SuSX4jTWK/6toe4mJ3UpDx3O
-	 P0hMa1uC2eMCDzUxtMlVdakAgs6u9EqXphJYrN0mr3BuKr1/guBggtp/ctHTWf64Ko
-	 WJRT6yDvrkP3TCEgD/neuvVKp+SEC69UjTdZTxnA=
+	s=default; t=1596075524;
+	bh=ZiGPGg2RQVDwdYB3piiUlZo2PnRheMEAoo64O0sY5Jo=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=GDJoIsJMvl4fYVJagYOmGA3SpwYtElFEmdrYRzODiPa2UYrVFL98KV0T4d763KF4w
+	 ktZ6GFgyL0GOL9JW3hOUox2VPJxuz4m4loI73rcBP32jJVRBLHhfIgpuXnfxFYbho9
+	 hXCFTpODGEDq6XhxdZYcTumpVMbA/knrdvZNMy88=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 1B4FBF80227;
-	Thu, 30 Jul 2020 04:09:50 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id CBFB0F8012F;
+	Thu, 30 Jul 2020 04:17:03 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 9B8BAF8021E; Thu, 30 Jul 2020 04:09:47 +0200 (CEST)
+ id 65049F8021E; Thu, 30 Jul 2020 04:17:01 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from mail-qt1-x841.google.com (mail-qt1-x841.google.com
- [IPv6:2607:f8b0:4864:20::841])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id D3054F80111
- for <alsa-devel@alsa-project.org>; Thu, 30 Jul 2020 04:09:40 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D3054F80111
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="k4XpWvZa"
-Received: by mail-qt1-x841.google.com with SMTP id s23so19237220qtq.12
- for <alsa-devel@alsa-project.org>; Wed, 29 Jul 2020 19:09:40 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=from:to:cc:subject:date:message-id;
- bh=Fs1DcfP+Rf98tWaIkqVPfKHWBrVish3r8O2xuyzbm6o=;
- b=k4XpWvZa7P0kmHBBZy4eIL/OTnFpcSu/A+lvHDx/I/Crsu6bs4H9neGQBrPUktSItv
- 2f2CqGpBvdvKmTIxtf2SXAei1LcxGSVyvPa9spHPPoz17jCHiDcL6X6Hzo0JvISi07Vt
- F19vr4V9Gk/14PvVscm1nxKASmpwPCFlbTS9eMs26EGVYcV+cpC3SJVEhpE777Wb7l8e
- dJgxJTmAig0yr74uav2AghmqxwavguBjtIY+jU0KZfcmEqyM28uNB8HwYYGTKX83YEkI
- P9LqobwNbTQa50pfZ3fu3sbHAUp4LQXRnDHEk2kRPveeUmybvlXWBykH1hw/ftwYa29/
- uVAQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id;
- bh=Fs1DcfP+Rf98tWaIkqVPfKHWBrVish3r8O2xuyzbm6o=;
- b=MFDbUZPXokbjc0EmKb5kBjhCq/72ynYoXbLABg4hPk+E5j1s3Ov22Pu1AnFPiiUcml
- HaA08gzcCzvoIJcDjWP99S9s+wkiulfvDsmGWIVl9W6PQ5/LZIsM+JIN4hCIk08waxAY
- HmtNS8samVacDuA3rPbyP36JSH7ncdO58q7gxwnGF4k1a7fqZKbepgeUyV6ym2dm0OVe
- vV1crQlYuASoyOIKxn03BW0E2meHTDuMy0ogHdPvvMiIvEt1IEfFKGlKlAbAuBMcj6L6
- lJHEv17T4oZmHDJm57Z4gZti0f/q3lVF89Ffx276GDoAADcfkwakFK73Mjx0ELOQhaLM
- sZVg==
-X-Gm-Message-State: AOAM5321W5kVyAe/9dIuOIcIhUhA5QtnU1Ojo84NZkWE4rL3K2ItLrZM
- Cy51O8oKN7moHOOth6TN38Y=
-X-Google-Smtp-Source: ABdhPJylNhIjwTCQJYrU0Llv0FEIStRbUm1xnVkFdzNvp1q2ZPgrCDWMA+hbRTKhaXGLdbyBwy890Q==
-X-Received: by 2002:aed:29a4:: with SMTP id o33mr900765qtd.66.1596074978963;
- Wed, 29 Jul 2020 19:09:38 -0700 (PDT)
-Received: from localhost.localdomain ([177.194.72.74])
- by smtp.gmail.com with ESMTPSA id 8sm3259706qkh.77.2020.07.29.19.09.36
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 29 Jul 2020 19:09:37 -0700 (PDT)
-From: Fabio Estevam <festevam@gmail.com>
-To: broonie@kernel.org
-Subject: [PATCH RESEND] ASoC: wm8962: Do not access WM8962_GPIO_BASE
-Date: Wed, 29 Jul 2020 23:07:18 -0300
-Message-Id: <20200730020718.31700-1-festevam@gmail.com>
-X-Mailer: git-send-email 2.17.1
-Cc: Fabio Estevam <festevam@gmail.com>, alsa-devel@alsa-project.org,
- ckeepax@opensource.cirrus.com
+X-Spam-Level: *
+X-Spam-Status: No, score=1.0 required=5.0 tests=PRX_BODY_30,SPF_HELO_NONE,
+ SPF_PASS autolearn=disabled version=3.4.0
+Received: from relmlie5.idc.renesas.com (relmlor1.renesas.com
+ [210.160.252.171])
+ by alsa1.perex.cz (Postfix) with ESMTP id 763DAF80111
+ for <alsa-devel@alsa-project.org>; Thu, 30 Jul 2020 04:16:55 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 763DAF80111
+Date: 30 Jul 2020 11:16:53 +0900
+X-IronPort-AV: E=Sophos;i="5.75,412,1589209200"; d="scan'208";a="53400689"
+Received: from unknown (HELO relmlir6.idc.renesas.com) ([10.200.68.152])
+ by relmlie5.idc.renesas.com with ESMTP; 30 Jul 2020 11:16:53 +0900
+Received: from mercury.renesas.com (unknown [10.166.252.133])
+ by relmlir6.idc.renesas.com (Postfix) with ESMTP id 3190B4178AA4;
+ Thu, 30 Jul 2020 11:16:53 +0900 (JST)
+Message-ID: <875za5bvf4.wl-kuninori.morimoto.gx@renesas.com>
+From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Subject: Re: [PATCH 1/7] ASoC: soc-dai: add mark for
+ snd_soc_dai_startup/shutdown()
+In-Reply-To: <5d7e4b05-4900-f276-b7d2-ac7c01ad730b@linux.intel.com>
+References: <87wo2oku0m.wl-kuninori.morimoto.gx@renesas.com>
+ <87v9i8ku04.wl-kuninori.morimoto.gx@renesas.com>
+ <5d7e4b05-4900-f276-b7d2-ac7c01ad730b@linux.intel.com>
+User-Agent: Wanderlust/2.15.9 Emacs/26.3 Mule/6.0
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+Cc: Linux-ALSA <alsa-devel@alsa-project.org>, Mark Brown <broonie@kernel.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -93,52 +70,84 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-According to the WM8962 datasheet, there is no register at address 0x200.
 
-WM8962_GPIO_BASE is just a base address for the GPIO registers and not a
-real register, so remove it from wm8962_readable_register().
+Hi Pierre-Louis
 
-Also, Register 515 (WM8962_GPIO_BASE + 3) does not exist, so skip
-its access.
+Thank you for your review.
 
-This fixes the following errors:
+> > +#define soc_dai_mark_push(dai, substream, tgt)	((dai)->mark_##tgt = substream)
+> 
+> we may want a check that detects if the pointer is NULL before
+> assigning it, otherwise we won't be able to detect bad configuration
+> where a pointer is overwritten by 2 mark_push() calls on the same
+> object?
 
-wm8962 0-001a: ASoC: error at soc_component_read_no_lock on wm8962.0-001a: -16
-wm8962 0-001a: ASoC: error at soc_component_read_no_lock on wm8962.0-001a: -16
+One assumption here is that open() / close() pair are called same number of times.
+open() / close() unbalance is not mentioned here, it is other problem.
 
-Signed-off-by: Fabio Estevam <festevam@gmail.com>
-Acked-by: Charles Keepax <ckeepax@opensource.cirrus.com>
+My expectation for this mark is that it will be used only for rollback.
+The necessary things in such case is that marked pointer is match to
+current pointer, or not when rollback case.
+Thus, overwritten is not problem in my understanding.
+
+> I am a bit concerned here about the case of a bi-directional DAI, it's
+> my understanding that the .startup() callback could be called for each
+> direction?
+> 
+> soc-dapm.c:		ret = snd_soc_dai_startup(source, substream);
+> soc-dapm.c:		ret = snd_soc_dai_startup(sink, substream);
+> 
+> To convince myself of this, I added a dummy startup routine and I do
+> see it called when I do playback and capture at the same time:
+> 
+> [  179.057494] plb: ssp2 startup stream 0
+> [  183.976963] plb: ssp2 startup stream 1
+> 
+> That makes me nervous about having a single pointer and unbalanced
+> calls between startup and shutdown.
+> 
+> We had such issues in the past so I may be on the paranoid side here...
+
+Thank you for sharing your experience.
+As I mentioned above, this mark is used only for rollback of open(),
+not related to close().
+
+But hmm.. I now double checked the code, 1 concern is mutex_lock().
+In final step, the soc_pcm_open() will be
+
+	static int soc_pcm_open()
+	{
+		...
+(1)		mutex_lock_nested(...);
+		...
+		for_each_rtd_dais(rtd, i, dai) {
+(A)			ret = snd_soc_dai_startup(dai, substream);
+			...
+		}
+		...
+	err:
+(2)		mutex_unlock(&rtd->card->pcm_mutex);
+
+		if (ret < 0)
+(B)			soc_pcm_clean(substream, 1);
+		...
+	}
+
+(A) is called under (1) lock, but it will be unlocked at (2),
+and (B) is called if rollback.
+
+If
+	- 2 x soc_pcm_open() were called in the same time
+	- 1st soc_pcm_open() was failed
+	- 2nd soc_pcm_open() was called between 1st soc_pcm_open()'s (2) and (B)
+
+Indeed single pointer is not good...
+!?
+But, soc_pcm_open() itself is called under othere mutex_lock() of pcm_native.c
+Above issue never happen ?
+
+Thank you for your help !!
+
+Best regards
 ---
- sound/soc/codecs/wm8962.c | 9 +++++++--
- 1 file changed, 7 insertions(+), 2 deletions(-)
-
-diff --git a/sound/soc/codecs/wm8962.c b/sound/soc/codecs/wm8962.c
-index df8cdc71357d..8159a3866cde 100644
---- a/sound/soc/codecs/wm8962.c
-+++ b/sound/soc/codecs/wm8962.c
-@@ -956,7 +956,6 @@ static bool wm8962_readable_register(struct device *dev, unsigned int reg)
- 	case WM8962_EQ39:
- 	case WM8962_EQ40:
- 	case WM8962_EQ41:
--	case WM8962_GPIO_BASE:
- 	case WM8962_GPIO_2:
- 	case WM8962_GPIO_3:
- 	case WM8962_GPIO_5:
-@@ -3437,7 +3436,13 @@ static int wm8962_probe(struct snd_soc_component *component)
- 	/* Save boards having to disable DMIC when not in use */
- 	dmicclk = false;
- 	dmicdat = false;
--	for (i = 0; i < WM8962_MAX_GPIO; i++) {
-+	for (i = 1; i < WM8962_MAX_GPIO; i++) {
-+		/*
-+		 * Register 515 (WM8962_GPIO_BASE + 3) does not exist,
-+		 * so skip its access
-+		 */
-+		if (i == 3)
-+			continue;
- 		switch (snd_soc_component_read(component, WM8962_GPIO_BASE + i)
- 			& WM8962_GP2_FN_MASK) {
- 		case WM8962_GPIO_FN_DMICCLK:
--- 
-2.17.1
-
+Kuninori Morimoto

@@ -2,82 +2,62 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B889023324A
-	for <lists+alsa-devel@lfdr.de>; Thu, 30 Jul 2020 14:36:05 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8C4762332AB
+	for <lists+alsa-devel@lfdr.de>; Thu, 30 Jul 2020 15:09:12 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 5C9671799;
-	Thu, 30 Jul 2020 14:35:15 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5C9671799
+	by alsa0.perex.cz (Postfix) with ESMTPS id 0C2D01799;
+	Thu, 30 Jul 2020 15:08:22 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0C2D01799
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1596112565;
-	bh=AICqF0qVPcxX6h2jgoARmYjtKK+QC3weSgG1Wfeyvwc=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1596114552;
+	bh=hycYRWpKqRmEVCrWd0DXua49IUkgyVlMTga0fbkYfwE=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=nwLrqDAkLkJ48T5ZfnOdclis0QdqN/IvUn+/jagbrBGt8zS5yDaND6K+Oim3QmqjA
-	 iei0KjnJbxCpTtx6ZXjeHzcOqlObPhkGPXC8SQalU9Hk5tnvRHKQW9GAG+4PcOffgy
-	 eLeM2aeZe4xzH0GLRZ0zP0WDdjmUfyU2Cmuz8bVk=
+	b=b9/Jy7Xci8AYGbjWmPSqjFhHFarKQ1nciOFLHoJv0ALc2gu2dQYlmHOgHCmhgMkRN
+	 +tqdab+VBMvz7HfQJ1ZkOI69hbBeNcovpOmXmvCXAhsdkDWdFxwDX5r/ly6Pg9/+Lj
+	 PS39ODInTzUFF3rVAE6z0m8ueyJtw1siswCBD0uU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 9FD6DF80111;
-	Thu, 30 Jul 2020 14:34:24 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 309E3F80227;
+	Thu, 30 Jul 2020 15:07:31 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 622F1F8021E; Thu, 30 Jul 2020 14:34:22 +0200 (CEST)
+ id F043BF8021E; Thu, 30 Jul 2020 15:07:28 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled
+X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_MSPIKE_H3,
+ RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=disabled
  version=3.4.0
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 0B76FF80111
- for <alsa-devel@alsa-project.org>; Thu, 30 Jul 2020 14:34:15 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0B76FF80111
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="GbD8weUO"
-Received: from localhost (cpc102320-sgyl38-2-0-cust46.18-2.cable.virginm.net
- [82.37.168.47])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id A074E2074B;
- Thu, 30 Jul 2020 12:34:12 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1596112453;
- bh=AICqF0qVPcxX6h2jgoARmYjtKK+QC3weSgG1Wfeyvwc=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=GbD8weUO1Ithjde50V8FenwXItv0AhdqzArlcfemAfKUXrcNtOvOIsUzjqTIQJXRv
- 8vvZxxRA7NqlaJhJbmtwaLKbRVZZO7Tupei6MrFQ0TNpLLC8ioABW0v1J56d3CEaui
- zIHSLQAv24jbHQOZXTQ6ePBPUBZZQAXkvbuUCPig=
-Date: Thu, 30 Jul 2020 13:33:53 +0100
-From: Mark Brown <broonie@kernel.org>
-To: "Sit, Michael Wei Hong" <michael.wei.hong.sit@intel.com>
-Subject: Re: [PATCH 3/3] ASoC: codec: tlv3204: Moving GPIO reset and add ADC
- reset
-Message-ID: <20200730123353.GC5055@sirena.org.uk>
-References: <20200729073256.24028-1-michael.wei.hong.sit@intel.com>
- <20200729073256.24028-4-michael.wei.hong.sit@intel.com>
- <e97b37d1-548e-6ede-4015-563d4f67f5e6@ti.com>
- <BYAPR11MB30468CC46295BBA5BEF0FB0C9D710@BYAPR11MB3046.namprd11.prod.outlook.com>
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="8X7/QrJGcKSMr1RN"
-Content-Disposition: inline
-In-Reply-To: <BYAPR11MB30468CC46295BBA5BEF0FB0C9D710@BYAPR11MB3046.namprd11.prod.outlook.com>
-X-Cookie: Alex Haley was adopted!
-User-Agent: Mutt/1.10.1 (2018-07-13)
-Cc: "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
- "a-estrada@ti.com" <a-estrada@ti.com>, "Shevchenko,
- Andriy" <andriy.shevchenko@intel.com>, "Rojewski,
- Cezary" <cezary.rojewski@intel.com>, "zakkaye@ti.com" <zakkaye@ti.com>,
- "pierre-louis.bossart@linux.intel.com" <pierre-louis.bossart@linux.intel.com>,
- "Sia, Jee Heng" <jee.heng.sia@intel.com>, "tiwai@suse.com" <tiwai@suse.com>,
- "liam.r.girdwood@linux.intel.com" <liam.r.girdwood@linux.intel.com>,
- Dan Murphy <dmurphy@ti.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id DA218F800C9
+ for <alsa-devel@alsa-project.org>; Thu, 30 Jul 2020 15:07:16 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DA218F800C9
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id 39989AAC7;
+ Thu, 30 Jul 2020 13:07:28 +0000 (UTC)
+Date: Thu, 30 Jul 2020 15:07:15 +0200
+Message-ID: <s5hd04dcfss.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
+Subject: Re: [PATCH] ALSA: hda: fix NULL pointer dereference during suspend
+In-Reply-To: <s5hft9ae266.wl-tiwai@suse.de>
+References: <20200728231011.1454066-1-ranjani.sridharan@linux.intel.com>
+ <s5hzh7iep8n.wl-tiwai@suse.de>
+ <862d7184dac6dea172d94b83f2ca7dd29136d2df.camel@linux.intel.com>
+ <s5hft9ae266.wl-tiwai@suse.de>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
+ FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
+ (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
+Content-Type: text/plain; charset=US-ASCII
+Cc: yong.zhi@intel.com, alsa-devel@alsa-project.org, broonie@kernel.org,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>, tiwai@suse.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -93,46 +73,326 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+On Wed, 29 Jul 2020 18:06:25 +0200,
+Takashi Iwai wrote:
+> 
+> On Wed, 29 Jul 2020 17:03:22 +0200,
+> Ranjani Sridharan wrote:
+> > 
+> > On Wed, 2020-07-29 at 09:48 +0200, Takashi Iwai wrote:
+> > > On Wed, 29 Jul 2020 01:10:11 +0200,
+> > > Ranjani Sridharan wrote:
+> > > > When the ASoC card registration fails and the codec component
+> > > > driver
+> > > > never probes, the codec device is not initialized and therefore
+> > > > memory for codec->wcaps is not allocated. This results in a NULL
+> > > > pointer
+> > > > dereference when the codec driver suspend callback is invoked
+> > > > during
+> > > > system suspend. Fix this by returning without performing any
+> > > > actions
+> > > > during codec suspend/resume if the card was not registered
+> > > > successfully.
+> > > > 
+> > > > Reviewed-by: Pierre-Louis Bossart <
+> > > > pierre-louis.bossart@linux.intel.com>
+> > > > Signed-off-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com
+> > > > >
+> > > 
+> > > The code changes look OK to apply, but I still wonder how the runtime
+> > > PM gets invoked even if the device is not instantiated properly?
+> > Hi Takashi,
+> > 
+> > Its not runtime PM suspend but rather the system PM suspend callback
+> > that is invoked when the system is suspended that ends up callling the
+> > the runtime PM callback. So, the sequence is:
+> > hda_codec_pm_suspend()
+> >    -> pm_runtime_force_suspend()
+> >           -> hda_codec_runtime_suspend()
+> 
+> OK, but the problem is still same.  The basic problem is that the
+> hda_codec_driver_probe() is called for the hda_codec object that
+> hasn't been initialized and bypasses to ext_ops.hdev_attach.
+> 
+> So, we can factor out the fundamental part of
+> snd_hda_codec_device_new() that is irrelevant with the card object and
+> call it in hdac_hda_dev_probe().
 
---8X7/QrJGcKSMr1RN
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+I meant something like below (totally untested)
 
-On Thu, Jul 30, 2020 at 05:46:20AM +0000, Sit, Michael Wei Hong wrote:
-> Hi Dan,
->=20
-> The code snippet is taken from the aic32x4_component_probe function of th=
-e driver in 5.8.
->=20
-> Could you have a look at that portion and see if it is the same?
 
-You need to submit code against the current development branch unless
-it's a bug fix for the current release branch, sometimes interfaces
-change in the development version (as is the case here).
+Takashi
 
-Please don't top post, reply in line with needed context.  This allows
-readers to readily follow the flow of conversation and understand what
-you are talking about and also helps ensure that everything in the
-discussion is being addressed.
 
-Please fix your mail client to word wrap within paragraphs at something
-substantially less than 80 columns.  Doing this makes your messages much
-easier to read and reply to.
-
---8X7/QrJGcKSMr1RN
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl8ivjAACgkQJNaLcl1U
-h9CQ/gf9FkJIvq6J4XVKDPV90OV99qJJXv0qTT8vDbnbPc1gmOr8gk0YKkDySlUp
-FtXMWsMml5+cOceljQiOBxui/z72Wm26xbqKkMqQ/g0pVus4mB6RwdWnTBWjQIXK
-y9bDBT2xPNbGZljajfaJMx3vthAMLxovWtegg6TESFtwAK4dFKjVEjZ1953cx86t
-9EuJx0LCGG3ZDLr7jYdNv2JzE0vw+OVMLM0nkp/uPZn35nBV7OXYS0/E8vzvMTU0
-817z737RN7XSd5SCh1J2gvEgcovSdJpNG5dqKRUWzOJaKN7VAY3sXcF5GHnj4/yu
-Dmg+S1R3McGvbWTsKp9WHC+1dxsFYw==
-=mHir
------END PGP SIGNATURE-----
-
---8X7/QrJGcKSMr1RN--
+---
+diff --git a/include/sound/hda_codec.h b/include/sound/hda_codec.h
+index f4cc364d837f..1f01e4d6b923 100644
+--- a/include/sound/hda_codec.h
++++ b/include/sound/hda_codec.h
+@@ -303,10 +303,11 @@ struct hda_codec {
+ /*
+  * constructors
+  */
+-int snd_hda_codec_new(struct hda_bus *bus, struct snd_card *card,
+-		      unsigned int codec_addr, struct hda_codec **codecp);
+-int snd_hda_codec_device_new(struct hda_bus *bus, struct snd_card *card,
+-		      unsigned int codec_addr, struct hda_codec *codec);
++int snd_hda_codec_new(struct hda_bus *bus, unsigned int codec_addr,
++		      struct hda_codec **codecp);
++int snd_hda_codec_device_init(struct hda_bus *bus, unsigned int codec_addr,
++			      struct hda_codec *codec);
++int snd_hda_codec_assign_card(struct hda_codec *codec);
+ int snd_hda_codec_configure(struct hda_codec *codec);
+ int snd_hda_codec_update_widgets(struct hda_codec *codec);
+ 
+diff --git a/sound/pci/hda/hda_codec.c b/sound/pci/hda/hda_codec.c
+index 40f3c175954d..3079d32ba64d 100644
+--- a/sound/pci/hda/hda_codec.c
++++ b/sound/pci/hda/hda_codec.c
+@@ -867,15 +867,13 @@ static void snd_hda_codec_dev_release(struct device *dev)
+ 
+ #define DEV_NAME_LEN 31
+ 
+-static int snd_hda_codec_device_init(struct hda_bus *bus, struct snd_card *card,
+-			unsigned int codec_addr, struct hda_codec **codecp)
++static int hda_codec_new(struct hda_bus *bus, unsigned int card_number,
++			 unsigned int codec_addr, struct hda_codec **codecp)
+ {
+ 	char name[DEV_NAME_LEN];
+ 	struct hda_codec *codec;
+ 	int err;
+ 
+-	dev_dbg(card->dev, "%s: entry\n", __func__);
+-
+ 	if (snd_BUG_ON(!bus))
+ 		return -EINVAL;
+ 	if (snd_BUG_ON(codec_addr > HDA_MAX_CODEC_ADDRESS))
+@@ -885,7 +883,7 @@ static int snd_hda_codec_device_init(struct hda_bus *bus, struct snd_card *card,
+ 	if (!codec)
+ 		return -ENOMEM;
+ 
+-	sprintf(name, "hdaudioC%dD%d", card->number, codec_addr);
++	sprintf(name, "hdaudioC%dD%d", card_number, codec_addr);
+ 	err = snd_hdac_device_init(&codec->core, &bus->core, name, codec_addr);
+ 	if (err < 0) {
+ 		kfree(codec);
+@@ -901,37 +899,41 @@ static int snd_hda_codec_device_init(struct hda_bus *bus, struct snd_card *card,
+ /**
+  * snd_hda_codec_new - create a HDA codec
+  * @bus: the bus to assign
+- * @card: card for this codec
+  * @codec_addr: the codec address
+  * @codecp: the pointer to store the generated codec
+  *
+  * Returns 0 if successful, or a negative error code.
+  */
+-int snd_hda_codec_new(struct hda_bus *bus, struct snd_card *card,
+-		      unsigned int codec_addr, struct hda_codec **codecp)
++int snd_hda_codec_new(struct hda_bus *bus, unsigned int codec_addr,
++		      struct hda_codec **codecp)
+ {
+ 	int ret;
+ 
+-	ret = snd_hda_codec_device_init(bus, card, codec_addr, codecp);
++	ret = hda_codec_new(bus, bus->card->number, codec_addr, codecp);
+ 	if (ret < 0)
+ 		return ret;
+ 
+-	return snd_hda_codec_device_new(bus, card, codec_addr, *codecp);
++	ret = snd_hda_codec_device_init(bus, codec_addr, *codecp);
++	if (ret < 0)
++		goto error;
++
++	ret = snd_hda_codec_assign_card(*codecp);
++	if (ret < 0)
++		goto error;
++
++	return 0;
++
++ error:
++	 put_device(hda_codec_dev(*codecp));
++	 return ret;
+ }
+ EXPORT_SYMBOL_GPL(snd_hda_codec_new);
+ 
+-int snd_hda_codec_device_new(struct hda_bus *bus, struct snd_card *card,
+-			unsigned int codec_addr, struct hda_codec *codec)
++int snd_hda_codec_device_init(struct hda_bus *bus, unsigned int codec_addr,
++			      struct hda_codec *codec)
+ {
+-	char component[31];
+ 	hda_nid_t fg;
+ 	int err;
+-	static const struct snd_device_ops dev_ops = {
+-		.dev_register = snd_hda_codec_dev_register,
+-		.dev_free = snd_hda_codec_dev_free,
+-	};
+-
+-	dev_dbg(card->dev, "%s: entry\n", __func__);
+ 
+ 	if (snd_BUG_ON(!bus))
+ 		return -EINVAL;
+@@ -942,7 +944,6 @@ int snd_hda_codec_device_new(struct hda_bus *bus, struct snd_card *card,
+ 	codec->core.exec_verb = codec_exec_verb;
+ 
+ 	codec->bus = bus;
+-	codec->card = card;
+ 	codec->addr = codec_addr;
+ 	mutex_init(&codec->spdif_mutex);
+ 	mutex_init(&codec->control_mutex);
+@@ -965,47 +966,50 @@ int snd_hda_codec_device_new(struct hda_bus *bus, struct snd_card *card,
+ 	codec->power_jiffies = jiffies;
+ #endif
+ 
+-	snd_hda_sysfs_init(codec);
+-
+ 	if (codec->bus->modelname) {
+ 		codec->modelname = kstrdup(codec->bus->modelname, GFP_KERNEL);
+-		if (!codec->modelname) {
+-			err = -ENOMEM;
+-			goto error;
+-		}
++		if (!codec->modelname)
++			return -ENOMEM;
+ 	}
+ 
+ 	fg = codec->core.afg ? codec->core.afg : codec->core.mfg;
+ 	err = read_widget_caps(codec, fg);
+ 	if (err < 0)
+-		goto error;
++		return err;
+ 	err = read_pin_defaults(codec);
+ 	if (err < 0)
+-		goto error;
++		return err;
+ 
+ 	/* power-up all before initialization */
+ 	hda_set_power_state(codec, AC_PWRST_D0);
+ 	codec->core.dev.power.power_state = PMSG_ON;
+ 
++	return 0;
++}
++EXPORT_SYMBOL_GPL(snd_hda_codec_device_init);
++
++int snd_hda_codec_assign_card(struct hda_codec *codec)
++{
++	static const struct snd_device_ops dev_ops = {
++		.dev_register = snd_hda_codec_dev_register,
++		.dev_free = snd_hda_codec_dev_free,
++	};
++	char component[31];
++
++	codec->card = codec->bus->card;
+ 	snd_hda_codec_proc_new(codec);
+ 
++	snd_hda_sysfs_init(codec);
++
+ 	snd_hda_create_hwdep(codec);
+ 
+ 	sprintf(component, "HDA:%08x,%08x,%08x", codec->core.vendor_id,
+ 		codec->core.subsystem_id, codec->core.revision_id);
+-	snd_component_add(card, component);
+-
+-	err = snd_device_new(card, SNDRV_DEV_CODEC, codec, &dev_ops);
+-	if (err < 0)
+-		goto error;
+-
+-	return 0;
++	snd_component_add(codec->card, component);
+ 
+- error:
+-	put_device(hda_codec_dev(codec));
+-	return err;
++	return snd_device_new(codec->card, SNDRV_DEV_CODEC, codec, &dev_ops);
+ }
+-EXPORT_SYMBOL_GPL(snd_hda_codec_device_new);
++EXPORT_SYMBOL_GPL(snd_hda_codec_assign_card);
+ 
+ /**
+  * snd_hda_codec_update_widgets - Refresh widget caps and pin defaults
+diff --git a/sound/pci/hda/hda_controller.c b/sound/pci/hda/hda_controller.c
+index 80016b7b6849..e68ca57be30e 100644
+--- a/sound/pci/hda/hda_controller.c
++++ b/sound/pci/hda/hda_controller.c
+@@ -1213,6 +1213,7 @@ EXPORT_SYMBOL_GPL(azx_bus_init);
+ int azx_probe_codecs(struct azx *chip, unsigned int max_slots)
+ {
+ 	struct hdac_bus *bus = azx_bus(chip);
++	struct hda_codec *codec;
+ 	int c, codecs, err;
+ 
+ 	codecs = 0;
+@@ -1245,10 +1246,10 @@ int azx_probe_codecs(struct azx *chip, unsigned int max_slots)
+ 	/* Then create codec instances */
+ 	for (c = 0; c < max_slots; c++) {
+ 		if ((bus->codec_mask & (1 << c)) & chip->codec_probe_mask) {
+-			struct hda_codec *codec;
+-			err = snd_hda_codec_new(&chip->bus, chip->card, c, &codec);
++			err = snd_hda_codec_new(&chip->bus, c, &codec);
+ 			if (err < 0)
+ 				continue;
++
+ 			codec->jackpoll_interval = chip->jackpoll_interval;
+ 			codec->beep_mode = chip->beep_mode;
+ 			codecs++;
+diff --git a/sound/soc/codecs/hdac_hda.c b/sound/soc/codecs/hdac_hda.c
+index 473efe9ef998..298d9c46d85d 100644
+--- a/sound/soc/codecs/hdac_hda.c
++++ b/sound/soc/codecs/hdac_hda.c
+@@ -417,18 +417,12 @@ static int hdac_hda_codec_probe(struct snd_soc_component *component)
+ 		snd_hdac_display_power(hdev->bus,
+ 				       HDA_CODEC_IDX_CONTROLLER, true);
+ 
+-	ret = snd_hda_codec_device_new(hcodec->bus, component->card->snd_card,
+-				       hdev->addr, hcodec);
++	hcodec->bus->card = dapm->card->snd_card;
++	ret = snd_hda_codec_assign_card(hcodec);
+ 	if (ret < 0) {
+ 		dev_err(&hdev->dev, "failed to create hda codec %d\n", ret);
+ 		goto error_no_pm;
+ 	}
+-	/*
+-	 * Overwrite type to HDA_DEV_ASOC since it is a ASoC driver
+-	 * hda_codec.c will check this flag to determine if unregister
+-	 * device is needed.
+-	 */
+-	hdev->type = HDA_DEV_ASOC;
+ 
+ 	/*
+ 	 * snd_hda_codec_device_new decrements the usage count so call get pm
+@@ -436,8 +430,6 @@ static int hdac_hda_codec_probe(struct snd_soc_component *component)
+ 	 */
+ 	pm_runtime_get_noresume(&hdev->dev);
+ 
+-	hcodec->bus->card = dapm->card->snd_card;
+-
+ 	ret = snd_hda_codec_set_name(hcodec, hcodec->preset->name);
+ 	if (ret < 0) {
+ 		dev_err(&hdev->dev, "name failed %s\n", hcodec->preset->name);
+@@ -574,6 +566,7 @@ static int hdac_hda_dev_probe(struct hdac_device *hdev)
+ {
+ 	struct hdac_ext_link *hlink;
+ 	struct hdac_hda_priv *hda_pvt;
++	struct hda_codec *hcodec;
+ 	int ret;
+ 
+ 	/* hold the ref while we probe */
+@@ -588,6 +581,18 @@ static int hdac_hda_dev_probe(struct hdac_device *hdev)
+ 	if (!hda_pvt)
+ 		return -ENOMEM;
+ 
++	ret = snd_hda_codec_device_init(hcodec->bus, hdev->addr,
++					&hda_pvt->codec);
++	if (ret < 0)
++		return ret;
++
++	/*
++	 * Overwrite type to HDA_DEV_ASOC since it is a ASoC driver
++	 * hda_codec.c will check this flag to determine if unregister
++	 * device is needed.
++	 */
++	hdev->type = HDA_DEV_ASOC;
++
+ 	/* ASoC specific initialization */
+ 	ret = devm_snd_soc_register_component(&hdev->dev,
+ 					 &hdac_hda_codec, hdac_hda_dais,

@@ -2,122 +2,92 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D172A23313D
-	for <lists+alsa-devel@lfdr.de>; Thu, 30 Jul 2020 13:50:22 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2D50D2331AE
+	for <lists+alsa-devel@lfdr.de>; Thu, 30 Jul 2020 14:09:11 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 5D5941781;
-	Thu, 30 Jul 2020 13:49:32 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5D5941781
+	by alsa0.perex.cz (Postfix) with ESMTPS id B5402178C;
+	Thu, 30 Jul 2020 14:08:20 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B5402178C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1596109822;
-	bh=+7wg1xbelqPgnLr31WteU/SJNUgZVnmoKtz/1aj7xRM=;
-	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=Rvj6GtI3wNl4tpPO6BY973Ib4JXGPDPEFgNxHfLBWSJORtrMaiDZz57QFtsea7oJd
-	 IYWPb/xhZL+I39xcaS7TacU8VKZrOlPXVJpuNoDFcm9SoZPuWedE9UEkbHj9MIQ234
-	 Vo0PNHEpuJMmx+yk4gXDY/0XaGnD387KJZvGfz9w=
+	s=default; t=1596110950;
+	bh=d+82iwWHkguLvJ841+6pGneC73eDjm9EIjKgvHKFyts=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=cSiDyw006eRVx6dtHEmwAex4x5He67LybkdLzj1Jl9PT2CaxQcS2bPO6BLr27UjJQ
+	 0msIQMQorxfPdCJHJlYTWAlXxy0np3WRmqLJpMjUROr73uKi04o6of8N3L6LwhVIE0
+	 Wh8NyxoiYDeLsYsrucQ7lKTE/EN/3Eh/iPSahrNo=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 98D60F8021C;
-	Thu, 30 Jul 2020 13:48:41 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id DE94CF80227;
+	Thu, 30 Jul 2020 14:07:29 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 6516AF800C9; Thu, 30 Jul 2020 13:48:40 +0200 (CEST)
+ id 001C9F8021E; Thu, 30 Jul 2020 14:07:27 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- FORGED_SPF_HELO,MSGID_FROM_MTA_HEADER,NICE_REPLY_A,RCVD_IN_MSPIKE_H2,
- SPF_HELO_PASS,SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from NAM12-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam12on2087.outbound.protection.outlook.com [40.107.244.87])
+X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mx0b-001ae601.pphosted.com (mx0b-001ae601.pphosted.com
+ [67.231.152.168])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 1DF7CF800C9
- for <alsa-devel@alsa-project.org>; Thu, 30 Jul 2020 13:48:33 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1DF7CF800C9
+ by alsa1.perex.cz (Postfix) with ESMTPS id D0E5BF80111
+ for <alsa-devel@alsa-project.org>; Thu, 30 Jul 2020 14:07:18 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D0E5BF80111
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=amdcloud.onmicrosoft.com
- header.i=@amdcloud.onmicrosoft.com header.b="s0R95My3"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=G9RwPyim4F6kX4bGkNx83b6UCCaGyZVVplySEZZidj1ccuAf5CSAeXytkhlWKaMMnsEZfeYkIcvm/vNHtOnQ2gsFeiQlMdJq0kvCzO5+oz+p0mUoUsl1PEUWASYO4fMHsSdt8bqLYCOyxKYFs9Cw3iwxT6+Nkwp+gI6psd5csrIaJf3D53hqdgVFn9UnpfgIhpEdAuJKBS3iu3SVR6qH0wVNSCd364q3VrigjY1kGnsmg4Ggvzt75AS6TwLkeELeahozFHwfpcox5YuvYy7xJBOsJno5x7Z3NZ1KesuYdxup+4v7rGaMvBQ9McAUmqmUEoZ40wASc3S1z08AlK0dbw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=X21CoqJKU7eCqfIh2mEaK2ZuEVX6gLOX5h8R+cuhPbQ=;
- b=XtZ8ePEJ8jSMcl9j9FQbahYcPvR4yrf1+ry3xiXgCRJ1/TOWvaDapzW8gkfYoleK3diyDLKOyX9hLL9Y/yc8aHNFsiGRwEUOOHfOgA1U/f84eIL1Gnb006p9vJJqWWLAOuzzwTSq1swZ25WK2beqyhpDfUGJn9AsyB4SrUPFbiRm+AckqSUqmSoB4cn8nOKibbjdukoEVK9RPgeHsNbWaIOfyqCAMEwT5uMfoP8oBxN0JdmJkOr0Xc3dtZkb6BUMFEnfzJRJLVmd1YSor1mqzirrvqHzaMlfahZjctBHGH8gtvWf+IyZzu2aOG4VsmpNXvFW4Goi0e60tEy6CNUM+A==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=X21CoqJKU7eCqfIh2mEaK2ZuEVX6gLOX5h8R+cuhPbQ=;
- b=s0R95My3agyw5MgbK0tYqoGhopFYv2PP402uJFg24X2v2PgWitATXZj/uDh4WQkbO6f7Wog6q9axUCi7HGzKt2esrF9UQTUBeyLCvdb+ZAhgmg5EV2Fb5ez1zP+HjDAUEtLa4+tf9Dprka2rMFh0G0NvJMC3soS49GOthHgYZkw=
-Authentication-Results: vger.kernel.org; dkim=none (message not signed)
- header.d=none;vger.kernel.org; dmarc=none action=none header.from=amd.com;
-Received: from MWHPR12MB1663.namprd12.prod.outlook.com (2603:10b6:301:e::9) by
- MW3PR12MB4427.namprd12.prod.outlook.com (2603:10b6:303:52::10) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.3239.16; Thu, 30 Jul 2020 11:48:30 +0000
-Received: from MWHPR12MB1663.namprd12.prod.outlook.com
- ([fe80::45:3012:7b13:778c]) by MWHPR12MB1663.namprd12.prod.outlook.com
- ([fe80::45:3012:7b13:778c%8]) with mapi id 15.20.3239.020; Thu, 30 Jul 2020
- 11:48:30 +0000
-Subject: Re: [PATCH] ASoC: amd: renoir: restore two more registers during
- resume
-To: Hui Wang <hui.wang@canonical.com>, alsa-devel@alsa-project.org,
- broonie@kernel.org
-References: <20200730075020.15667-1-hui.wang@canonical.com>
-From: "Mukunda,Vijendar" <vijendar.mukunda@amd.com>
-Message-ID: <5d00fc3f-acbe-cfb5-38fe-cd787c509a2d@amd.com>
-Date: Thu, 30 Jul 2020 17:32:41 +0530
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.10.0
-In-Reply-To: <20200730075020.15667-1-hui.wang@canonical.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: MA1PR0101CA0059.INDPRD01.PROD.OUTLOOK.COM
- (2603:1096:a00:20::21) To MWHPR12MB1663.namprd12.prod.outlook.com
- (2603:10b6:301:e::9)
+ dkim=pass (2048-bit key) header.d=cirrus.com header.i=@cirrus.com
+ header.b="noIwF1Q4"
+Received: from pps.filterd (m0077474.ppops.net [127.0.0.1])
+ by mx0b-001ae601.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
+ 06UC2C98019718; Thu, 30 Jul 2020 07:07:16 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com;
+ h=from : to : cc :
+ subject : date : message-id : mime-version : content-type;
+ s=PODMain02222019; bh=nyqotu57rbuKxGespPT9IiZiohZhwAGL6Bru1L1RYaA=;
+ b=noIwF1Q4gPMPWvBR2oCk7QBjQa1uio/fIN+8/OIdZLFUyeSAIKtA0SkPxKKuigjhnKrG
+ rAt0mkJyRjuqs6yi49khn9J8/yUxxbo/D3iczl0I3HkPlNDS3txR1FTFWlw/bVXR42Rb
+ B6pJafFqBxkRSq3bJ8uspijOoN8rWnkV1OS+18csytke67qGzlZdiRSMX0yqEojClb5b
+ ySDTRBWsNDRkToX4GsOXrp2/B+I/rHtYPEehCaQLdigRjjeDlXqSxo3zwwXkPGEo1g7R
+ m8c3O3IdWyIf0G6gGL6V85fGvlNcmYSpqfYUWYR6i+6iw1D1pTE2htThKB71NyJ6sepz TQ== 
+Authentication-Results: ppops.net;
+ spf=fail smtp.mailfrom=ckeepax@opensource.cirrus.com
+Received: from ediex02.ad.cirrus.com ([87.246.76.36])
+ by mx0b-001ae601.pphosted.com with ESMTP id 32gh5qqb5m-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT);
+ Thu, 30 Jul 2020 07:07:16 -0500
+Received: from EDIEX01.ad.cirrus.com (198.61.84.80) by EDIEX02.ad.cirrus.com
+ (198.61.84.81) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1913.5; Thu, 30 Jul
+ 2020 13:07:15 +0100
+Received: from ediswmail.ad.cirrus.com (198.61.86.93) by EDIEX01.ad.cirrus.com
+ (198.61.84.80) with Microsoft SMTP Server id 15.1.1913.5 via Frontend
+ Transport; Thu, 30 Jul 2020 13:07:15 +0100
+Received: from algalon.ad.cirrus.com (algalon.ad.cirrus.com [198.90.251.122])
+ by ediswmail.ad.cirrus.com (Postfix) with ESMTP id 162F42A3;
+ Thu, 30 Jul 2020 12:07:15 +0000 (UTC)
+From: Charles Keepax <ckeepax@opensource.cirrus.com>
+To: <broonie@kernel.org>
+Subject: [PATCH] ASoC: soc-core: Fix regression causing sysfs entries to
+ disappear
+Date: Thu, 30 Jul 2020 13:07:14 +0100
+Message-ID: <20200730120715.637-1-ckeepax@opensource.cirrus.com>
+X-Mailer: git-send-email 2.11.0
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-Received: from [10.129.8.176] (165.204.159.251) by
- MA1PR0101CA0059.INDPRD01.PROD.OUTLOOK.COM (2603:1096:a00:20::21) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3239.16 via Frontend
- Transport; Thu, 30 Jul 2020 11:48:28 +0000
-X-Originating-IP: [165.204.159.251]
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-HT: Tenant
-X-MS-Office365-Filtering-Correlation-Id: e018b065-081d-41b5-3797-08d8347e7a96
-X-MS-TrafficTypeDiagnostic: MW3PR12MB4427:
-X-Microsoft-Antispam-PRVS: <MW3PR12MB442755398855781BA088FB2D97710@MW3PR12MB4427.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:7691;
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: VL4+iNc2OVZFZ8e35Pca+Pc/LF+g4tYoDa+rLrJMScM9x3QMiu9CyYfGEVCw6w8W5CkkL69xUF83PEuVykiEcqg+vTUBjJFQSmykKQw9auhAXvMPY1201YmBc4vACduDhe6ZJKC+xyHKopIcm701nQGr6itE5ZuKEyGHZXaHCqDqg0ceEmnPa9toh0Cjr9HAaSaKBjBeEYQhu2MPGvDOIOeC/HHLEL26YkXH9S/vsepsiJAeps+X/eOgIWWIvqRS7vUy01/Nva12V5tTUHVhdBveOo445aBznp3JN/5j+X+gIn/Xb3ONtWWxNhyJrZM7HGumfDkgeHlR6ENGoU2zrkxliwxrsbfCEmoCbILU4lrlajLXfyRF/8h4Zp1uC1al
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:MWHPR12MB1663.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFTY:;
- SFS:(4636009)(396003)(136003)(346002)(366004)(39860400002)(376002)(86362001)(83380400001)(31686004)(66946007)(66476007)(36756003)(66556008)(52116002)(8936002)(956004)(2906002)(8676002)(2616005)(478600001)(4326008)(31696002)(16526019)(186003)(5660300002)(53546011)(316002)(16576012)(26005)(6486002)(6666004)(43740500002);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData: LdcN46FCQrvIVk5zuVWxxPSQNbDvVL2Knu0q4IK8DEFqrbkPRdqVullz40QGql4KIsb3YVtDfhSmcpsQjWGMbH34LWVyHPqlXXcCipPUAzFPvwN9mJs998oWflUaS1gNMD2zGL7LkAyoj+0/ETUzgHyoamxfIrBeOzVXPML0uWaFo4x7dqtadM304T/HqNShnEVrLgJgubpSJw9SWtpwOUy7DpnV+JpZnKmu9a/Z98ZDI1aoBCdCoPfo3Z0ThuVlrNokxgH3fHJaptlXCap0KSAeFnc9yNjof7AWMkCyE0PN4V6svOY12l5pheozwHh3wE9V95LHc3XYsLZ61rQYbohAv8r5Jfk2pzxd7nzqOGTbprGk84T0lKqTftED919B5Kv9lNCFVuQ9OwzgBtL6xrQqEVwv1/p0A3wrL5OXac+Ez7blT94R9qj5d4tURSoFLp9lXAR3oTGqHyadiqkVI5nvGdIKYPBpJjeJfw3h9IQmolAGscp8Fk+IJ3ovwCHCg7T8G4aNp03p9w/FuCetwkS7dUjMimFNEo41g7v2gGAI+JUtNYfQiOxV7n+gyViFjSF0NABZ65Ug/zquygLPyGU9xKCG8IsjsAiyZRVyS6fBHVud8ReZ3t/5XZBngMsRb96vjRjEg72RDljgjGWgbg==
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: e018b065-081d-41b5-3797-08d8347e7a96
-X-MS-Exchange-CrossTenant-AuthSource: MWHPR12MB1663.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Jul 2020 11:48:30.2472 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: NX0SV7JIE1m3XMibe2+ngCXWrazQiauTaJ6FBqwFRNtUpHzVE5P0tGfFY32qZefavQS8VL1UgfrnN5UEApxPtg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW3PR12MB4427
-Cc: stable@vger.kernel.org
+Content-Type: text/plain
+X-Proofpoint-SPF-Result: fail
+X-Proofpoint-SPF-Record: v=spf1 include:spf-001ae601.pphosted.com
+ include:spf.protection.outlook.com
+ ip4:5.172.152.52 -all
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 mlxscore=0
+ suspectscore=3
+ mlxlogscore=999 priorityscore=1501 malwarescore=0 clxscore=1011
+ impostorscore=0 lowpriorityscore=0 spamscore=0 adultscore=0 phishscore=0
+ bulkscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.12.0-2006250000 definitions=main-2007300090
+Cc: patches@opensource.cirrus.com, alsa-devel@alsa-project.org,
+ lgirdwood@gmail.com, kuninori.morimoto.gx@renesas.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -133,50 +103,46 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+The allocation order of things in soc_new_pcm_runtime was changed to
+move the device_register before the allocation of the rtd structure.
+This was to allow the rtd allocation to be managed by devm. However
+currently the sysfs entries are added by device_register and their
+visibility depends on variables within the rtd structure, this causes
+the pmdown_time and dapm_widgets sysfs entries to be missing for all
+rtds.
 
+Correct this issue by manually calling device_add_groups after the
+appropriate information is available.
 
-On 30/07/20 1:20 pm, Hui Wang wrote:
-> Recently we found an issue about the suspend and resume. If dmic is
-> recording the sound, and we run suspend and resume, after the resume,
-> the dmic can't work well anymore. we need to close the app and reopen
-> the app, then the dmic could record the sound again.
-> 
-> For example, we run "arecord -D hw:CARD=acp,DEV=0 -f S32_LE -c 2
-> -r 48000 test.wav", then suspend and resume, after the system resume
-> back, we speak to the dmic. then stop the arecord, use aplay to play
-> the test.wav, we could hear the sound recorded after resume is weird,
-> it is not what we speak to the dmic.
-> 
-> I found two registers are set in the dai_hw_params(), if the two
-> registers are set in the resume() too, this issue could be fixed.
-> 
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Hui Wang <hui.wang@canonical.com>
-> ---
->   sound/soc/amd/renoir/acp3x-pdm-dma.c | 5 +++++
->   1 file changed, 5 insertions(+)
-> 
-> diff --git a/sound/soc/amd/renoir/acp3x-pdm-dma.c b/sound/soc/amd/renoir/acp3x-pdm-dma.c
-> index 623dfd3ea705..8acb0315a169 100644
-> --- a/sound/soc/amd/renoir/acp3x-pdm-dma.c
-> +++ b/sound/soc/amd/renoir/acp3x-pdm-dma.c
-> @@ -474,6 +474,11 @@ static int acp_pdm_resume(struct device *dev)
->   		rtd = runtime->private_data;
->   		period_bytes = frames_to_bytes(runtime, runtime->period_size);
->   		buffer_len = frames_to_bytes(runtime, runtime->buffer_size);
-> +		if (runtime->channels == TWO_CH) {
-> +			rn_writel(0x0 , rtd->acp_base + ACP_WOV_PDM_NO_OF_CHANNELS);
-> +			rn_writel(PDM_DECIMATION_FACTOR, rtd->acp_base +
-> +				  ACP_WOV_PDM_DECIMATION_FACTOR);
-> +		}
+Fixes: d918a37610b1 ("ASoC: soc-core: tidyup soc_new_pcm_runtime() alloc order")
+Signed-off-by: Charles Keepax <ckeepax@opensource.cirrus.com>
+---
+ sound/soc/soc-core.c | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
 
+diff --git a/sound/soc/soc-core.c b/sound/soc/soc-core.c
+index defd96b14c287..df4c7116f308c 100644
+--- a/sound/soc/soc-core.c
++++ b/sound/soc/soc-core.c
+@@ -446,7 +446,6 @@ static struct snd_soc_pcm_runtime *soc_new_pcm_runtime(
+ 
+ 	dev->parent	= card->dev;
+ 	dev->release	= soc_release_rtd_dev;
+-	dev->groups	= soc_dev_attr_groups;
+ 
+ 	dev_set_name(dev, "%s", dai_link->name);
+ 
+@@ -503,6 +502,10 @@ static struct snd_soc_pcm_runtime *soc_new_pcm_runtime(
+ 	/* see for_each_card_rtds */
+ 	list_add_tail(&rtd->list, &card->rtd_list);
+ 
++	ret = device_add_groups(dev, soc_dev_attr_groups);
++	if (ret < 0)
++		goto free_rtd;
++
+ 	return rtd;
+ 
+ free_rtd:
+-- 
+2.11.0
 
-Could you refactor the code.
-Remove this logic from resume callback
-Add this register sequence in acp_pdm_dai_trigger() callback before 
-invoking start_pdm _dma() callback.
-Remove acp_pdm_dai_hw_params().
->   		config_acp_dma(rtd, SNDRV_PCM_STREAM_CAPTURE);
->   		init_pdm_ring_buffer(MEM_WINDOW_START, buffer_len, period_bytes,
->   				     adata->acp_base);
-> 

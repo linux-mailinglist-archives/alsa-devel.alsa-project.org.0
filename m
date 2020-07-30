@@ -2,121 +2,144 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7EA48233619
-	for <lists+alsa-devel@lfdr.de>; Thu, 30 Jul 2020 17:55:53 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 92956233650
+	for <lists+alsa-devel@lfdr.de>; Thu, 30 Jul 2020 18:08:14 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id F08BC17B8;
-	Thu, 30 Jul 2020 17:55:02 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz F08BC17B8
+	by alsa0.perex.cz (Postfix) with ESMTPS id 0561417BE;
+	Thu, 30 Jul 2020 18:07:24 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0561417BE
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1596124553;
-	bh=uHFFwyUpR4YMs8BUl+nb5rbJ8uhPO3m3qbswQMCqwqs=;
+	s=default; t=1596125294;
+	bh=do9GfLRM7UG28MsSvzky7vKRPNS6rfef6n5/oXUaQ8w=;
 	h=From:To:Subject:Date:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=RwmY2Rd/JC2hjXP++zlxkjAlSuhIGBM1h71Aq06npgeGsfx4NWcJviDkOCXKIk16o
-	 RhGNQt7K7dXPvgsI0bVSOLRCe0b1SG0UPWNKec58ccsXQy54ncADdVJ1UvdGGcgKdb
-	 tmfUsx4mUsoKTRmNeTd2wc1AvHj9iaoT1oQnz5PI=
+	b=O03o7WGTZtdVQfyx9cBuS1gnBPNutmlosbazqPPnjVI6v0qHCFkLUZXKO8DBEaOCS
+	 q2ZUwOFNGAs8qvkGdhulcY9pKe0kIpy2/cnDpCpDXSRJhXAAD8NKsCTAMC4NE3NCbX
+	 7WMS0RkuchIFZC/uy3w42vUJc+jBpifnLh8CMY5o=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 1BBCFF80227;
-	Thu, 30 Jul 2020 17:54:12 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 1AC1AF80240;
+	Thu, 30 Jul 2020 18:06:33 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id D6893F8021E; Thu, 30 Jul 2020 17:54:08 +0200 (CEST)
+ id D3A75F8021E; Thu, 30 Jul 2020 18:06:29 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=1.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- FORGED_SPF_HELO,RCVD_IN_MSPIKE_H2,SPF_HELO_PASS,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from EUR05-DB8-obe.outbound.protection.outlook.com
- (mail-db8eur05on2075.outbound.protection.outlook.com [40.107.20.75])
+X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id CFF72F80111
- for <alsa-devel@alsa-project.org>; Thu, 30 Jul 2020 17:53:58 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CFF72F80111
+ by alsa1.perex.cz (Postfix) with ESMTPS id 08CACF80111
+ for <alsa-devel@alsa-project.org>; Thu, 30 Jul 2020 18:06:18 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 08CACF80111
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=dialogsemiconductor.onmicrosoft.com
- header.i=@dialogsemiconductor.onmicrosoft.com header.b="zs8XCfp2"
+ dkim=pass (1024-bit key) header.d=intel.onmicrosoft.com
+ header.i=@intel.onmicrosoft.com header.b="tcJb6LaY"
+IronPort-SDR: xU749Lu+87zRPKmzjlbM07fiy1JJmQPzgauqptsqAoWldQR+xiyRlQb9vAL3/e3hkuESs+zIT6
+ IGC89IqgI+ZA==
+X-IronPort-AV: E=McAfee;i="6000,8403,9698"; a="216099434"
+X-IronPort-AV: E=Sophos;i="5.75,415,1589266800"; d="scan'208";a="216099434"
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from fmsmga007.fm.intel.com ([10.253.24.52])
+ by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 30 Jul 2020 09:06:11 -0700
+IronPort-SDR: WOPFZKWD2NKZUPuP9oKFTf4elPO7NDQjb0TMRKQcaFEJ8YoOFVpzc2n9JKSq1T3s5fRcqwWAQ1
+ Bgb115yB9DGA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.75,415,1589266800"; d="scan'208";a="272963147"
+Received: from fmsmsx107.amr.corp.intel.com ([10.18.124.205])
+ by fmsmga007.fm.intel.com with ESMTP; 30 Jul 2020 09:06:11 -0700
+Received: from fmsmsx116.amr.corp.intel.com (10.18.116.20) by
+ fmsmsx107.amr.corp.intel.com (10.18.124.205) with Microsoft SMTP Server (TLS)
+ id 14.3.439.0; Thu, 30 Jul 2020 09:06:11 -0700
+Received: from FMSEDG002.ED.cps.intel.com (10.1.192.134) by
+ fmsmsx116.amr.corp.intel.com (10.18.116.20) with Microsoft SMTP Server (TLS)
+ id 14.3.439.0; Thu, 30 Jul 2020 09:06:10 -0700
+Received: from NAM11-DM6-obe.outbound.protection.outlook.com (104.47.57.175)
+ by edgegateway.intel.com (192.55.55.69) with Microsoft SMTP Server (TLS) id
+ 14.3.439.0; Thu, 30 Jul 2020 09:06:10 -0700
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Q7ZilwE/vueU8UbmquTgbTTGGupgAnzxJBTGtukrLXtfyQPncA6R3siUHIN5QDauagdQ1p4uKsPeCdYaGPJSp6o0+UNzAIvcnMowOD53W4KPRtaVO+xLVG2MYSRKSvbwx/BnZF9rb3PGxjAHAHeXGj17ovfZY6G3lZmSdc1O3sINDnu5i2sd+NKBlAGqAsjp2bkhHxVeYD5fUc8KJ6FE2vQ8KUZMkfDzRjX0tAMrwlYND4hgXcCuaJ7fD//dtufsPbRjZQOXsJLSLnRH+Oh/TsxbuxwUGJVzfroeGI6OXvj7TT8gfDdnOS7+BpFaLoRlMl9n4VlbwoJ34uQA3RcDOg==
+ b=WEUk4ZEv4GAaSRdEC4zAz6gxXpkfyo/D0B9av3R3An0n63b1D2QLPUv3W5s8wRs711aGjg2iTqadSGrLzPSUkt+pkWO8lOO4tjReraVK8WcRqpiBCHa8ojI+L+gqOVuUsgmS1HI5v2HDPlz4P9p5YyZ5bmPDiG7/dgfAcyVoZrX8G6Rqo5l6QqB/v9Z8rF5O2n7v7GKq/wSG0yer9hIZqGoWitPGFPr80qTWHUFiz216ZmD6+jpntim3d4ubYtK01UMEddLIMnEViTslzF3/qDXE6gzi1jkiMYjuEn0IMUC96Rk1daFDmZQgbRLXc+SiXb2ye9dtwwtYQGHryewSiA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ky9juz0t+7C66hKbVCcfhZ1CHiKo1u6JdHWdtsLBrcY=;
- b=LkAXMuih+fJ5oTJCZN6oBsrvSQd4ZCPTWHIY2GE2xNl21pAi95eW7T8GzUr4h/PSKjpxlNf6GGvzXhyHZBWx7YR4xFDJeJbrsdu17h94z8th7vekBccymdjd1yRow1Me7r1yOKW37Xyx9XWGNLDwkGAV2XFrNYsLkBbvVaRnlIkG/3MFhVnYx+8nEU+9Qk70TQerJb78CboAcBCIJmXLHr9DN+cRv8OpYlG1vHOyBUBP3tznEnwWFK1Xr6YqzCbXfCYxXE4VhCVQZJmMWreliE8/AzxdGsKWQ/Lhiw51OneW4u6bYTEJ338LYQjfgthT2XMHwbFHBm71T+AQw/w85A==
+ bh=ve5BP53Z2kiEBn4NqEp/YyccPCKgdrllU/lx/sxHoy8=;
+ b=Ab0ePAf/Zmr/8+l/3w6JAWSOWkKoR7zTODB3twK56Ql1x7q0LjWFszBkfVLB9AzCYwiwy1DlVbIfpw2HWfYnaDrjQ1H6jDh66bum8CfAw1rXsXGdSkbvim1qsrixJqI8Eh7idhdjrAXnMkxBn/j5eU8F1mI39RYEqX63dIhY8KCs+gNw9wQdseMzEL3ou1Du9VoUsE9m46o6SjqvAN8zRqVYUydiYyCaAVwe/hAK/j4LEOPTXuMoV3+BdGcCejuuUFW+J+4tnVYRqZKglXunM65YhobmW5Bg+n9FvfaVFtE3RqSt3efZlCtxbobXudYOmpxV6GUaZ1ZYtttkag7sIA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=diasemi.com; dmarc=pass action=none header.from=diasemi.com;
- dkim=pass header.d=diasemi.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=dialogsemiconductor.onmicrosoft.com;
- s=selector1-dialogsemiconductor-onmicrosoft-com;
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=intel.onmicrosoft.com; 
+ s=selector2-intel-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ky9juz0t+7C66hKbVCcfhZ1CHiKo1u6JdHWdtsLBrcY=;
- b=zs8XCfp2CSxeCPiDCxB6EnzD4l93mN3uHKMz7h8rVuUO8vcm48dEIDEmZuHCrZEpGXB/sdsAJeavxogiE9sYaVYokjkFyW5N+IbDSM8UL4+1Omcf68eOr2IdH4mSYS2pkPql/2l4/BeqxI3xNWuSb6ttAha6nWL+G3uv9a3EmRo=
-Received: from AM7PR10MB3640.EURPRD10.PROD.OUTLOOK.COM (2603:10a6:20b:135::13)
- by AM7PR10MB3238.EURPRD10.PROD.OUTLOOK.COM (2603:10a6:20b:10e::10)
+ bh=ve5BP53Z2kiEBn4NqEp/YyccPCKgdrllU/lx/sxHoy8=;
+ b=tcJb6LaYLXBVZ+HocPJTJjjFQZC/BwNAdpNNJO4tuSZbfQSA8lWukZZH9f5m3plmU6kzK6QEmFwupHq/M4HwcENP2TwhqjyrNuBByG/KiTXZ40mvP/Ab0K7/GaP353eWVyCJZAafeQxqHf4Uk45WCA1DD2Csv8PM6XpXWMv8IPE=
+Received: from MW3PR11MB4665.namprd11.prod.outlook.com (2603:10b6:303:5d::12)
+ by MW3PR11MB4523.namprd11.prod.outlook.com (2603:10b6:303:5b::16)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3239.18; Thu, 30 Jul
- 2020 15:53:56 +0000
-Received: from AM7PR10MB3640.EURPRD10.PROD.OUTLOOK.COM
- ([fe80::7114:8e7f:c0d1:3aad]) by AM7PR10MB3640.EURPRD10.PROD.OUTLOOK.COM
- ([fe80::7114:8e7f:c0d1:3aad%5]) with mapi id 15.20.3239.019; Thu, 30 Jul 2020
- 15:53:56 +0000
-From: Adam Thomson <Adam.Thomson.Opensource@diasemi.com>
-To: Yong Zhi <yong.zhi@intel.com>, "alsa-devel@alsa-project.org"
- <alsa-devel@alsa-project.org>, "broonie@kernel.org" <broonie@kernel.org>
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3239.17; Thu, 30 Jul
+ 2020 16:06:09 +0000
+Received: from MW3PR11MB4665.namprd11.prod.outlook.com
+ ([fe80::18a3:e19c:fd98:f75a]) by MW3PR11MB4665.namprd11.prod.outlook.com
+ ([fe80::18a3:e19c:fd98:f75a%9]) with mapi id 15.20.3239.017; Thu, 30 Jul 2020
+ 16:06:09 +0000
+From: "Zhi, Yong" <yong.zhi@intel.com>
+To: Adam Thomson <Adam.Thomson.Opensource@diasemi.com>,
+ "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
+ "broonie@kernel.org" <broonie@kernel.org>
 Subject: RE: [PATCH] ASoC: da7219: Fix general protection fault in
  da7219_register_dai_clks
 Thread-Topic: [PATCH] ASoC: da7219: Fix general protection fault in
  da7219_register_dai_clks
-Thread-Index: AQHWZnpiUvyyyDmjcEOw5pxm+8Nvm6kgQlAw
-Date: Thu, 30 Jul 2020 15:53:56 +0000
-Message-ID: <AM7PR10MB3640075298BCB15AFB22A9D480710@AM7PR10MB3640.EURPRD10.PROD.OUTLOOK.COM>
+Thread-Index: AQHWZnpogeP0BcNIMEC2Z6w66lP9Q6kgRk4AgAAAyfA=
+Date: Thu, 30 Jul 2020 16:06:08 +0000
+Message-ID: <MW3PR11MB4665FA01F552E3BCB69EA2F285710@MW3PR11MB4665.namprd11.prod.outlook.com>
 References: <1596117868-3317-1-git-send-email-yong.zhi@intel.com>
-In-Reply-To: <1596117868-3317-1-git-send-email-yong.zhi@intel.com>
-Accept-Language: en-GB, en-US
+ <AM7PR10MB3640075298BCB15AFB22A9D480710@AM7PR10MB3640.EURPRD10.PROD.OUTLOOK.COM>
+In-Reply-To: <AM7PR10MB3640075298BCB15AFB22A9D480710@AM7PR10MB3640.EURPRD10.PROD.OUTLOOK.COM>
+Accept-Language: en-US
 Content-Language: en-US
 X-MS-Has-Attach: 
 X-MS-TNEF-Correlator: 
-authentication-results: intel.com; dkim=none (message not signed)
- header.d=none;intel.com; dmarc=none action=none header.from=diasemi.com;
-x-ms-exchange-messagesentrepresentingtype: 1
-x-originating-ip: [165.225.80.85]
+dlp-product: dlpe-windows
+dlp-version: 11.2.0.6
+dlp-reaction: no-action
+authentication-results: diasemi.com; dkim=none (message not signed)
+ header.d=none;diasemi.com; dmarc=none action=none header.from=intel.com;
+x-originating-ip: [72.180.71.28]
 x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: b55935d8-acb0-41c9-380a-08d834a0c454
-x-ms-traffictypediagnostic: AM7PR10MB3238:
-x-ms-exchange-sharedmailbox-routingagent-processed: True
-x-ms-exchange-transport-forked: True
-x-microsoft-antispam-prvs: <AM7PR10MB3238EE8C7A4CB4644E9D376FA7710@AM7PR10MB3238.EURPRD10.PROD.OUTLOOK.COM>
-x-ms-oob-tlc-oobclassifiers: OLM:3513;
+x-ms-office365-filtering-correlation-id: 2830f33c-38ba-4c57-6dfa-08d834a278ef
+x-ms-traffictypediagnostic: MW3PR11MB4523:
+x-microsoft-antispam-prvs: <MW3PR11MB45238BB78039E2AD927888E085710@MW3PR11MB4523.namprd11.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:1728;
 x-ms-exchange-senderadcheck: 1
 x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: 8vXytkCLpHo2KU1cC2AGuDlGqczzIKByGj3t3MGel38UC1VjURA268zw5RciG3n3dG1cDI7kW/hT2MWDEdkAAaOlg+ro/rEf50ecgumH7k6wbygM8Mpcoyc370zDP1LcpYbOhqHg/w8de4TUJV2Xg3m2J+9VKbtuqovs+8q+8tbbRlXk/8Q5jBB+MmrbgLj7Mr8dqXgCJhUBHxEO1/OacSeLKNvzeq+Hu8ZWjgdNwvqQou9ULhdkYBUIspSIVfrWYH6M8k2JxX5sttJfsHbTXXzz8RT2m3Y23D2VjOAsF86u9XDJK9Qp9DguwWd+i/moeSd52PZQ9wNPAkbOJcLPAQ==
+x-microsoft-antispam-message-info: K31B5J93U6StYmeHo9jBQ4DV0gZ7bnSV7FdK9ypuT5jDMFpWYxefpPwDMwBuuHrzRMtlns9nNB1ZgQ4h00Kogn8rHAf06YfufAus6PJ7nAHb9zmCSedpVk2K8z8500X78BiJzgfc972/xg+Dw8CddfoTqeOY8E2aGKDP738zezNeyLvTW0rHDFeDwVCFfhWNWxm/96nv6YlGBOsWX75BQ3ISGkHLos6Eprh5Gikl/CCWiIa3fuiDyfRLsMuiQ1/QjFsmOCmql8m6xO6tc71786kWLdnxBTQTd8dfU4YjzxEW1gwMgoir57fIggGIbZ6pce6yJkjtap7PMILQWECG7g==
 x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:AM7PR10MB3640.EURPRD10.PROD.OUTLOOK.COM; PTR:; CAT:NONE;
+ IPV:NLI; SFV:NSPM; H:MW3PR11MB4665.namprd11.prod.outlook.com; PTR:; CAT:NONE;
  SFTY:;
- SFS:(4636009)(346002)(396003)(376002)(366004)(136003)(39860400002)(2906002)(52536014)(7696005)(33656002)(64756008)(66556008)(83380400001)(66446008)(186003)(26005)(4326008)(66476007)(5660300002)(55236004)(6506007)(76116006)(66946007)(478600001)(53546011)(110136005)(8936002)(316002)(54906003)(86362001)(8676002)(9686003)(71200400001)(55016002)(107886003);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata: 7907Sgga7CMkigCJieGAGZxYl3VWft0EzFEF5hKrxi//Wlj5YM5J2h8k7n8bGHFpGuMjtV2HYjNtWCseCAlikKv/ItaYHBmS7PsNL+LMpHI8grhC/8x99PYvJx2y5/o9OZpyLsQprSSJhHqxFpVjlM2U4hfK4+vIiCTR6cyuJUkf+7U2PgBrUANIPjjqggW2LzgvoJezF2F3dA0nJjpdhnCUDCGisWTLxQEmSMuP1J42QWLX0GukDHEleF7PwuBEM6u7pJNpX+z8PYSIgZv2cD7r9QPFel1peAYsOl491jKjHITJ8Kv8DsdLvjAjh1Q5efwXj4VQdWV9FfN6CPtxlJz87uBiU2LPpMf4FGl0amubCSK1uhMpvYhi+c6MhUrFoEmDBvpW4/jlVsGa64e/6jbjOuBFKqvZovHXOcEpGvMoBptb6cUTfj3ee+WRUK1L1igoGlfXTqErSax1ldNfs7Q2f3gK1/zsEtuxDj2Pw3gIzBe/0WSGM94ajhihWZKUwnCu9UbFOgOteBaG9b9hu+FxjrRvyqIo0uBv9b7wRSeWeseMpiEL+Y64BvjpNfRlAfWZuuIg7UgRyirKHyyX7ZOQqowObLnZ5h9zgcKxbXtfTrCvfJVBkaQmdSl6lzTrO5nra19Y3/UxUK34gsoMFQ==
+ SFS:(4636009)(346002)(376002)(39860400002)(366004)(396003)(136003)(71200400001)(316002)(5660300002)(26005)(33656002)(4326008)(186003)(110136005)(53546011)(6506007)(8936002)(7696005)(478600001)(66446008)(76116006)(86362001)(64756008)(83380400001)(66476007)(66556008)(66946007)(52536014)(55016002)(8676002)(9686003)(2906002);
+ DIR:OUT; SFP:1102; 
+x-ms-exchange-antispam-messagedata: TcR8pRA5eTf78iViftalI1+Nza90SmphKV/oaoMLSWHh9A0cfIA7dLleOMcH+ukbnh5f8QlzJ2LxF9xV6Q6Qm0bzOmlyEwuknxvcIx8AlAePbHhERE4jNI4xI8QuX02Ebtwpf4nsCPrRdtDUQsmdCPduuDGUZ29T1auooi52DfcZBW8uOnZsSfGLMDksDlJKLXB9/j85MVgTXYwR5GofyLtGCuRNiUWz6dlTveeOYM5Dx4PSLMCIF+bTSCtz/bQTLbaFyoPIDOj9a8gf+rQH6/ohO9P3xtTp0gLUJMcJ3JoeOlnqt8bqAM+tAFvbAVq7TC+Z5dGdl8d/uU60jus2N8+dP4UbepDSVa3HxQlLtb2JtiCDuJwSzSwViJMpqsaKXUNa44jEI4sjEysAVqZ3bgr15yzbKLYRK7ynNRv6UvZrFL02K4DcIHbAMwj9ac5qGv12uQ1S4X45KPjKcu+ymLsMGLmwi/l8NLprTHb+qfxUFEEdLBqKfg6r2GM3YRkNKMaw+7k96RIE2K1S9J7PdvOr7fRmUWVJLy44mrFxxMGEpWbQ/3zEC8Td29D/G65NLU4WVLiFWzfnw9MM7djt885EAsCW9QoBF+oaWZ1+OfOIxiaYfgkKx6KsjoB5BUbdLf86uKhVkTATHFmZrsMUpw==
+x-ms-exchange-transport-forked: True
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
-X-OriginatorOrg: diasemi.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: AM7PR10MB3640.EURPRD10.PROD.OUTLOOK.COM
-X-MS-Exchange-CrossTenant-Network-Message-Id: b55935d8-acb0-41c9-380a-08d834a0c454
-X-MS-Exchange-CrossTenant-originalarrivaltime: 30 Jul 2020 15:53:56.5274 (UTC)
+X-MS-Exchange-CrossTenant-AuthSource: MW3PR11MB4665.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 2830f33c-38ba-4c57-6dfa-08d834a278ef
+X-MS-Exchange-CrossTenant-originalarrivaltime: 30 Jul 2020 16:06:09.0511 (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 511e3c0e-ee96-486e-a2ec-e272ffa37b7c
+X-MS-Exchange-CrossTenant-id: 46c98d88-e344-4ed4-8496-4ed7712e255d
 X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: x9+Dk9dQ6uePF6F2NEfg1JI8Rc4u4Us+bueXoz8Tko7xQENjJ9DgjUCHjIHh0Y528yhOm+IwpJv2PZuHdJWvZiEf9KpjOR6wfYhDa3gwlOw=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM7PR10MB3238
-Cc: Adam Thomson <Adam.Thomson.Opensource@diasemi.com>,
- "pierre-louis.bossart@linux.intel.com"
+X-MS-Exchange-CrossTenant-userprincipalname: roDTRlMmAaMdnywO45IWSRIkmVyxwY3SNvUtsTO6tNdrhV+j2b9DAsPrNmh6NEuj/qA5Crpn+uIQ7Aooy9EHtg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW3PR11MB4523
+X-OriginatorOrg: intel.com
+Cc: "pierre-louis.bossart@linux.intel.com"
  <pierre-louis.bossart@linux.intel.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
@@ -133,79 +156,96 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 30 July 2020 15:04, Yong Zhi wrote:
+Hi, Adam,
 
-> clkdev_drop(cl) does not null the removed cl, if da7219_register_dai_clks=
-()
-> entered again after card removal, devm_clk_register() will return -EEXIST=
-,
-> the goto err to clkdev_drop() will trigger board reboot.
+> -----Original Message-----
+> From: Adam Thomson <Adam.Thomson.Opensource@diasemi.com>
+> Sent: Thursday, July 30, 2020 10:54 AM
+> To: Zhi, Yong <yong.zhi@intel.com>; alsa-devel@alsa-project.org;
+> broonie@kernel.org
+> Cc: pierre-louis.bossart@linux.intel.com; Adam Thomson
+> <Adam.Thomson.Opensource@diasemi.com>
+> Subject: RE: [PATCH] ASoC: da7219: Fix general protection fault in
+> da7219_register_dai_clks
 >=20
-> Test commands:
->    modprobe -r snd_sof_pci
->    modprobe snd_sof_pci
+> On 30 July 2020 15:04, Yong Zhi wrote:
 >=20
-> The oops looks like:
+> > clkdev_drop(cl) does not null the removed cl, if
+> > da7219_register_dai_clks() entered again after card removal,
+> > devm_clk_register() will return -EEXIST, the goto err to clkdev_drop() =
+will
+> trigger board reboot.
+> >
+> > Test commands:
+> >    modprobe -r snd_sof_pci
+> >    modprobe snd_sof_pci
+> >
+> > The oops looks like:
+> >
+> > da7219 i2c-DLGS7219:00: Using default DAI clk names: da7219-dai-wclk,
+> > da7219- dai-bclk
+> > da7219 i2c-DLGS7219:00: Failed to register da7219-dai-wclk: -17
+> > general protection fault: 0000 [#1] PREEMPT SMP NOPTI
+> > RIP: 0010:clkdev_drop+0x20/0x52
+> > Call Trace:
+> >  da7219_probe+0x52e/0x6dc [snd_soc_da7219]
+> >  soc_probe_component+0x206/0x3a1
+> >  snd_soc_bind_card+0x4ee/0x9a6
+> >  devm_snd_soc_register_card+0x48/0x7b
+> >  audio_probe+0x1f0/0x221 [snd_soc_sof_da7219_max98373]
+> >  platform_drv_probe+0x89/0xa2
+> >  really_probe+0x129/0x30d
+> >  driver_probe_device+0x59/0xec
+> >  ? driver_sysfs_remove+0x55/0x55
+> >  bus_for_each_drv+0xa1/0xdc
+> >  __device_attach+0xc2/0x146
+> >  bus_probe_device+0x32/0x97
+> >  device_add+0x311/0x3b4
+> >  platform_device_add+0x184/0x1eb
+> >
+> > Fix by marking (nullifying) the da7219->dai_clks_lookup[i] after
+> > clkdev_drop().
+> >
+> > Signed-off-by: Yong Zhi <yong.zhi@intel.com>
+> > ---
+> >  sound/soc/codecs/da7219.c | 4 +++-
+> >  1 file changed, 3 insertions(+), 1 deletion(-)
+> >
+> > diff --git a/sound/soc/codecs/da7219.c b/sound/soc/codecs/da7219.c
+> > index 153ea30b5a8f..54da7cfbb5f4 100644
+> > --- a/sound/soc/codecs/da7219.c
+> > +++ b/sound/soc/codecs/da7219.c
+> > @@ -2369,8 +2369,10 @@ static void da7219_remove(struct
+> > snd_soc_component *component)
+> >
+> >  #ifdef CONFIG_COMMON_CLK
+> >  	for (i =3D DA7219_DAI_NUM_CLKS - 1; i >=3D 0; --i) {
+> > -		if (da7219->dai_clks_lookup[i])
+> > +		if (da7219->dai_clks_lookup[i]) {
+> >  			clkdev_drop(da7219->dai_clks_lookup[i]);
+> > +			da7219->dai_clks_lookup[i] =3D NULL;
+> > +		}
 >=20
-> da7219 i2c-DLGS7219:00: Using default DAI clk names: da7219-dai-wclk, da7=
-219-
-> dai-bclk
-> da7219 i2c-DLGS7219:00: Failed to register da7219-dai-wclk: -17
-> general protection fault: 0000 [#1] PREEMPT SMP NOPTI
-> RIP: 0010:clkdev_drop+0x20/0x52
-> Call Trace:
->  da7219_probe+0x52e/0x6dc [snd_soc_da7219]
->  soc_probe_component+0x206/0x3a1
->  snd_soc_bind_card+0x4ee/0x9a6
->  devm_snd_soc_register_card+0x48/0x7b
->  audio_probe+0x1f0/0x221 [snd_soc_sof_da7219_max98373]
->  platform_drv_probe+0x89/0xa2
->  really_probe+0x129/0x30d
->  driver_probe_device+0x59/0xec
->  ? driver_sysfs_remove+0x55/0x55
->  bus_for_each_drv+0xa1/0xdc
->  __device_attach+0xc2/0x146
->  bus_probe_device+0x32/0x97
->  device_add+0x311/0x3b4
->  platform_device_add+0x184/0x1eb
+> It seems to me that devm_* functions should have freed up everything when=
+ the
+> codec module was removed. I can only assume the codec isn't being removed=
+ in
+> your test hence devm is never freeing the clock resource and is why you'r=
+e
+> getting -EEXIST. Is this the case and is your use-case expected behaviour=
+? It's
+> not something that has been reported previously so am keen to understand
+> exactly what's happening here.
 >=20
-> Fix by marking (nullifying) the da7219->dai_clks_lookup[i]
-> after clkdev_drop().
->=20
-> Signed-off-by: Yong Zhi <yong.zhi@intel.com>
-> ---
->  sound/soc/codecs/da7219.c | 4 +++-
->  1 file changed, 3 insertions(+), 1 deletion(-)
->=20
-> diff --git a/sound/soc/codecs/da7219.c b/sound/soc/codecs/da7219.c
-> index 153ea30b5a8f..54da7cfbb5f4 100644
-> --- a/sound/soc/codecs/da7219.c
-> +++ b/sound/soc/codecs/da7219.c
-> @@ -2369,8 +2369,10 @@ static void da7219_remove(struct
-> snd_soc_component *component)
->=20
->  #ifdef CONFIG_COMMON_CLK
->  	for (i =3D DA7219_DAI_NUM_CLKS - 1; i >=3D 0; --i) {
-> -		if (da7219->dai_clks_lookup[i])
-> +		if (da7219->dai_clks_lookup[i]) {
->  			clkdev_drop(da7219->dai_clks_lookup[i]);
-> +			da7219->dai_clks_lookup[i] =3D NULL;
-> +		}
+> >  	}
+> >  #endif
+> >
 
-It seems to me that devm_* functions should have freed up everything when t=
-he
-codec module was removed. I can only assume the codec isn't being removed i=
-n
-your test hence devm is never freeing the clock resource and is why you're
-getting -EEXIST. Is this the case and is your use-case expected behaviour? =
-It's
-not something that has been reported previously so am keen to understand ex=
-actly
-what's happening here.
+When the card was uninstalled with modprobe -r, the da7219 codec was not re=
+moved, only component da7219_remove() is invoked, do you suggest the compon=
+ent driver probe and remove has to happen with da7219_i2_driver probe and r=
+emove together? Thanks for the code review. =20
 
->  	}
->  #endif
->=20
-> --
-> 2.7.4
+> > --
+> > 2.7.4
 

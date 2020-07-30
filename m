@@ -2,84 +2,73 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 22F11232ED4
-	for <lists+alsa-devel@lfdr.de>; Thu, 30 Jul 2020 10:44:09 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C4FAE232F01
+	for <lists+alsa-devel@lfdr.de>; Thu, 30 Jul 2020 10:55:33 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id BFCEF1769;
-	Thu, 30 Jul 2020 10:43:18 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BFCEF1769
+	by alsa0.perex.cz (Postfix) with ESMTPS id 752F61772;
+	Thu, 30 Jul 2020 10:54:43 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 752F61772
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1596098648;
-	bh=0dxCIHDfMHr/3c5K8qkI4IB3Kf3PliQkWuddH1SxOqs=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1596099333;
+	bh=cppix1O2T9sbgZqY9FxxreC7gOCGq1IvEDTCFknU584=;
+	h=From:To:Subject:Date:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=q9SEBcxO7ckdAat4rhQppmjD6u5ONX1jtlXvvI8/13zhLkrIdVyxBMmkWfRj7YtRU
-	 loGLbSUby3STdONhKIoAF+uHL99AQiAx7guSlH3N/p/j1l7puscx3NW/e2lPNGMMWC
-	 jjvbPVYBL2FjynS0P0iw4tqs0dSvVXdGjKtaMQjA=
+	b=MWnrECC2hKgznZ4yr5+63cmtg5E3osCTTOpAzos7sgy9nSuSeh3SXpuQ7kPFizNLk
+	 WuMsONlZyT6tQy7B5rMaCbcgp5FmW73slP+UF5WRoIo8qEWGtoZGdzoa79+S/GTAWw
+	 1fV9oF61F73AGgyu2pHdAyInx3oac7eT0sEYlxfI=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id D245FF80292;
-	Thu, 30 Jul 2020 10:42:41 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id B8939F80111;
+	Thu, 30 Jul 2020 10:53:52 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id F3A6FF8028D; Thu, 30 Jul 2020 10:42:38 +0200 (CEST)
+ id 261CCF8021E; Thu, 30 Jul 2020 10:53:51 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_MSPIKE_H3,
- RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id CD9BEF800C9
- for <alsa-devel@alsa-project.org>; Thu, 30 Jul 2020 10:42:28 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CD9BEF800C9
-IronPort-SDR: 0ZSUQ/z07glcr6AE9kAF0cYL8FaPdo638TvV/4da+GynC3fnuJ4D5W7hAfiJ6HVaYPWglfgYMX
- 5CsA1nuHcBAw==
-X-IronPort-AV: E=McAfee;i="6000,8403,9697"; a="139560322"
-X-IronPort-AV: E=Sophos;i="5.75,413,1589266800"; d="scan'208";a="139560322"
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from orsmga006.jf.intel.com ([10.7.209.51])
- by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 30 Jul 2020 01:42:24 -0700
-IronPort-SDR: gfGnHeCWPOOlv1nD9N0LEMMmXHvH6bSvctZ/dB+RjNTm93upa/7TLq4DBfp/EijlZQjUR0oYEj
- JBE5tQqcRJ7A==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.75,413,1589266800"; d="scan'208";a="290811088"
-Received: from smile.fi.intel.com (HELO smile) ([10.237.68.40])
- by orsmga006.jf.intel.com with ESMTP; 30 Jul 2020 01:42:20 -0700
-Received: from andy by smile with local (Exim 4.94)
- (envelope-from <andriy.shevchenko@linux.intel.com>)
- id 1k148p-004snj-PM; Thu, 30 Jul 2020 11:42:19 +0300
-Date: Thu, 30 Jul 2020 11:42:19 +0300
-From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-To: Brent Lu <brent.lu@intel.com>
-Subject: Re: [PATCH v2 2/2] ASoC: Intel: Add period size constraint on strago
- board
-Message-ID: <20200730084219.GF3703480@smile.fi.intel.com>
-References: <1596096815-32043-1-git-send-email-brent.lu@intel.com>
- <1596096815-32043-3-git-send-email-brent.lu@intel.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 2D664F80111
+ for <alsa-devel@alsa-project.org>; Thu, 30 Jul 2020 10:53:39 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2D664F80111
+Authenticated-By: 
+X-SpamFilter-By: ArmorX SpamTrap 5.69 with qID 06U8rZGq9020300,
+ This message is accepted by code: ctloc85258
+Received: from mail.realtek.com (rtexmb06.realtek.com.tw[172.21.6.99])
+ by rtits2.realtek.com.tw (8.15.2/2.66/5.86) with ESMTPS id 06U8rZGq9020300
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT);
+ Thu, 30 Jul 2020 16:53:36 +0800
+Received: from RTEXMB01.realtek.com.tw (172.21.6.94) by
+ RTEXMB06.realtek.com.tw (172.21.6.99) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.1779.2; Thu, 30 Jul 2020 16:53:35 +0800
+Received: from RTEXMB01.realtek.com.tw ([fe80::d53a:d9a5:318:7cd8]) by
+ RTEXMB01.realtek.com.tw ([fe80::d53a:d9a5:318:7cd8%5]) with mapi id
+ 15.01.1779.005; Thu, 30 Jul 2020 16:53:35 +0800
+From: Kailang <kailang@realtek.com>
+To: Takashi Iwai <tiwai@suse.de>
+Subject: RE: HP NB right speaker no sound
+Thread-Topic: HP NB right speaker no sound
+Thread-Index: AdZmNYjtwJeLXA6YQTiGlZ0FEYdto///onEA//94S7A=
+Date: Thu, 30 Jul 2020 08:53:35 +0000
+Message-ID: <022139c65ccc443bb94df7f11118a709@realtek.com>
+References: <01285f623ac7447187482fb4a8ecaa7c@realtek.com>
+ <s5h4kppe7st.wl-tiwai@suse.de>
+In-Reply-To: <s5h4kppe7st.wl-tiwai@suse.de>
+Accept-Language: zh-TW, en-US
+Content-Language: zh-TW
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-originating-ip: [172.22.102.211]
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <1596096815-32043-3-git-send-email-brent.lu@intel.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
-Cc: Guennadi Liakhovetski <guennadi.liakhovetski@linux.intel.com>,
- alsa-devel@alsa-project.org, Kai Vehmanen <kai.vehmanen@linux.intel.com>,
- Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
- linux-kernel@vger.kernel.org, Takashi Iwai <tiwai@suse.com>,
- Jie Yang <yang.jie@linux.intel.com>,
- Cezary Rojewski <cezary.rojewski@intel.com>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- Liam Girdwood <liam.r.girdwood@linux.intel.com>,
- Sam McNally <sammc@chromium.org>, Mark Brown <broonie@kernel.org>,
- Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
- Daniel Stuart <daniel.stuart14@gmail.com>, Yu-Hsuan Hsu <yuhsuan@chromium.org>,
- Damian van Soelen <dj.vsoelen@gmail.com>
+Cc: " \(alsa-devel@alsa-project.org\)" <alsa-devel@alsa-project.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -95,26 +84,52 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Thu, Jul 30, 2020 at 04:13:35PM +0800, Brent Lu wrote:
-> From: Yu-Hsuan Hsu <yuhsuan@chromium.org>
-> 
-> The CRAS server does not set the period size in hw_param so ALSA will
-> calculate a value for period size which is based on the buffer size
-> and other parameters. The value may not always be aligned with Atom's
-> dsp design so a constraint is added to make sure the board always has
-> a good value.
-> 
-> Cyan uses chtmax98090 and others(banon, celes, edgar, kefka...) use
-> rt5650.
-
-Actually one more comment here.
-Can you split per machine driver?
-
->  sound/soc/intel/boards/cht_bsw_max98090_ti.c | 14 +++++++++++++-
->  sound/soc/intel/boards/cht_bsw_rt5645.c      | 14 +++++++++++++-
-
--- 
-With Best Regards,
-Andy Shevchenko
 
 
+> -----Original Message-----
+> From: Takashi Iwai <tiwai@suse.de>
+> Sent: Thursday, July 30, 2020 4:17 PM
+> To: Kailang <kailang@realtek.com>
+> Cc: (alsa-devel@alsa-project.org) <alsa-devel@alsa-project.org>
+> Subject: Re: HP NB right speaker no sound
+>=20
+> On Thu, 30 Jul 2020 07:53:57 +0200,
+> Kailang wrote:
+> On Thu, 30 Jul 2020 07:53:57 +0200,
+> Kailang wrote:
+> >
+> > Hi Takashi,
+> >
+> > HP NB platform right side speaker no sound.
+> > Attach patch was help EC to initial I2S Amp normally.
+> > Thanks.
+> >
+> > BR,
+> > Kailang
+> > [2 0000-alc285-hp-amp-init.patch <application/octet-stream (base64)>]
+> >
+> >
+> > Hi Takashi,
+> >
+> > HP NB platform right side speaker no sound.
+> > Attach patch was help EC to initial I2S Amp normally.
+> > Thanks.
+> >
+> > BR,
+> > Kailang
+>=20
+> Thanks, applied now.
+>=20
+> If I understand correctly from your patch description, it implies the
+> GPIO1 high, and that's already done in the chained quirk?
+No.
+BIOS verb table had fill GPIO1 to high already.
+BIOS verb table had fill PD pin to test mode.
+It will cause GPIO1 to low.
+This case just need to disable PD pin test mode. GPIO1 will return to high.
+
+>=20
+>=20
+> Takashi
+>=20
+> ------Please consider the environment before printing this e-mail.

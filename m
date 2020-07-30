@@ -2,67 +2,60 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B697123278D
-	for <lists+alsa-devel@lfdr.de>; Thu, 30 Jul 2020 00:21:57 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4737B232940
+	for <lists+alsa-devel@lfdr.de>; Thu, 30 Jul 2020 02:59:26 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 3980A1735;
-	Thu, 30 Jul 2020 00:21:07 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3980A1735
+	by alsa0.perex.cz (Postfix) with ESMTPS id B59F0173C;
+	Thu, 30 Jul 2020 02:58:35 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B59F0173C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1596061317;
-	bh=KLvPsavYrofWM6f4AXDigwHYBLrvjA0P788PW9BOn3I=;
-	h=Date:From:To:Subject:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=Or/OyZ4ROFaIwX9mzoKWzG/2kTA2AMsLZYXO3/XOatT8ccNQqxCFCB/Bl/Y9D6P5r
-	 xfrUrgs/nqSb9lG6XBcntfU6LyvSFqS6ARTBsAmHy4C6msRez05dxQ7kB+/1pJOFvw
-	 c+dNd7hpUio7Tb9LIz8t8xR3qUITxNxmu3gNh6Zw=
+	s=default; t=1596070765;
+	bh=CgQYGPT+GO2PlpTLoK323ii4uDE/3+t3Gxfg8IGmrN8=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=YEKUb7uoqMHhZ0Rj3lSRNf1HGJiV/UnPVbCdOIuYTB5pvxlnIl5q/ybJIqqpz3DHM
+	 np80mZb4D3nRZBe4XA+Lh8j4HEILXzbNR5VVIkGW/aAjn+oAsOFPpJlk8DRBBnGBHf
+	 DCXmaJjWzR+mJqmfpvCyhAjI37RdRsGVKE8PZJNA=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 736DBF80171;
-	Thu, 30 Jul 2020 00:20:16 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id C257FF800DE;
+	Thu, 30 Jul 2020 02:57:44 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 989D2F801A3; Thu, 30 Jul 2020 00:20:14 +0200 (CEST)
+ id 35434F801A3; Thu, 30 Jul 2020 02:57:42 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled
- version=3.4.0
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id D5DE3F8012F
- for <alsa-devel@alsa-project.org>; Thu, 30 Jul 2020 00:20:10 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D5DE3F8012F
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="lQ6SWJrw"
-Received: from embeddedor (187-162-31-110.static.axtel.net [187.162.31.110])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 79C0720656;
- Wed, 29 Jul 2020 22:20:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1596061209;
- bh=KLvPsavYrofWM6f4AXDigwHYBLrvjA0P788PW9BOn3I=;
- h=Date:From:To:Cc:Subject:From;
- b=lQ6SWJrwmliagnaaj9AARYqFgysmTQLl9kIdZPWtkh9xXkOIBIpNnBRq2/xX9rbNM
- KJxT6KVIXBtwPDzKKUE7379wEXYB6xKcVN1vG2gwRoOUsqR7ZK6MNVqLwoSI9wV5ea
- mnP7+7JCN8ciFZRnbDmEazP0YfwViqMXbk5m542s=
-Date: Wed, 29 Jul 2020 17:26:07 -0500
-From: "Gustavo A. R. Silva" <gustavoars@kernel.org>
-To: Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>
-Subject: [PATCH][next] ALSA: hda_codec: Use flex_array_size() helper in
- memcpy()
-Message-ID: <20200729222607.GA11750@embeddedor>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-User-Agent: Mutt/1.9.4 (2018-02-28)
-Cc: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
- "Gustavo A. R. Silva" <gustavoars@kernel.org>
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS
+ autolearn=disabled version=3.4.0
+Received: from relmlie6.idc.renesas.com (relmlor2.renesas.com
+ [210.160.252.172])
+ by alsa1.perex.cz (Postfix) with ESMTP id 745DCF800DE
+ for <alsa-devel@alsa-project.org>; Thu, 30 Jul 2020 02:57:36 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 745DCF800DE
+Date: 30 Jul 2020 09:57:30 +0900
+X-IronPort-AV: E=Sophos;i="5.75,412,1589209200"; d="scan'208";a="53177530"
+Received: from unknown (HELO relmlir5.idc.renesas.com) ([10.200.68.151])
+ by relmlie6.idc.renesas.com with ESMTP; 30 Jul 2020 09:57:30 +0900
+Received: from mercury.renesas.com (unknown [10.166.252.133])
+ by relmlir5.idc.renesas.com (Postfix) with ESMTP id 24D6D400C424;
+ Thu, 30 Jul 2020 09:57:30 +0900 (JST)
+Message-ID: <878sf1bz3f.wl-kuninori.morimoto.gx@renesas.com>
+From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+To: Mark Brown <broonie@kernel.org>
+Subject: Re: [PATCH v3] ASoC: dt-bindings: ak4613: switch to yaml base
+ Documentation
+In-Reply-To: <20200728165458.GC24701@sirena.org.uk>
+References: <87y2nk2tfd.wl-kuninori.morimoto.gx@renesas.com>
+ <CAL_JsqJ8PyuZLXj4bLwyConb+GdH83hjPPj2mHbqNy=w9m-joA@mail.gmail.com>
+ <20200728165458.GC24701@sirena.org.uk>
+User-Agent: Wanderlust/2.15.9 Emacs/26.3 Mule/6.0
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+Cc: devicetree@vger.kernel.org, Linux-ALSA <alsa-devel@alsa-project.org>,
+ Rob Herring <robh+dt@kernel.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -78,31 +71,23 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Make use of the flex_array_size() helper to calculate the size of a
-flexible array member within an enclosing structure.
 
-This helper offers defense-in-depth against potential integer overflows
-and makes it explicitly clear that we are dealing with a flexible array
-member.
+Hi Mark
 
-Signed-off-by: Gustavo A. R. Silva <gustavoars@kernel.org>
+> > I haven't seen any follow-up to my audio-graph-card.yaml comments, so
+> > please revert this.
+> 
+> OK, Morimoto-san please resubmit as a series with the audio-graph-card
+> when you get back to that.
+
+Oops, it was my fault.
+My current plan is that 1st ak4613 YAML Doc doesn't support audio-graph-card.
+It will be added later.
+Just removing audio-graph-card part only is enough for ak4613, I think.
+I will fixup and repost today.
+
+Thank you for your help !!
+
+Best regards
 ---
- sound/pci/hda/hda_codec.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/sound/pci/hda/hda_codec.c b/sound/pci/hda/hda_codec.c
-index 58c698f4d131..453c4ec77c48 100644
---- a/sound/pci/hda/hda_codec.c
-+++ b/sound/pci/hda/hda_codec.c
-@@ -113,7 +113,7 @@ static int add_conn_list(struct hda_codec *codec, hda_nid_t nid, int len,
- 		return -ENOMEM;
- 	p->len = len;
- 	p->nid = nid;
--	memcpy(p->conns, list, len * sizeof(hda_nid_t));
-+	memcpy(p->conns, list, flex_array_size(p, conns, len));
- 	list_add(&p->list, &codec->conn_list);
- 	return 0;
- }
--- 
-2.27.0
-
+Kuninori Morimoto

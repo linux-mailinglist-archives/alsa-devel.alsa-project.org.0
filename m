@@ -2,73 +2,65 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3AF62233B72
-	for <lists+alsa-devel@lfdr.de>; Fri, 31 Jul 2020 00:39:30 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1DA00233B67
+	for <lists+alsa-devel@lfdr.de>; Fri, 31 Jul 2020 00:33:04 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 950EC1669;
-	Fri, 31 Jul 2020 00:38:39 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 950EC1669
+	by alsa0.perex.cz (Postfix) with ESMTPS id 622C21673;
+	Fri, 31 Jul 2020 00:32:13 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 622C21673
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1596148769;
-	bh=MPDGk6EG3O5H5cWuKSvALlqOwuaO5mBhfBAqbxq8eqQ=;
+	s=default; t=1596148383;
+	bh=oCtQbMc0yIjwTyoUHceGAsyCS/EgZDfLbcmV5WPOPq0=;
 	h=Date:From:To:In-Reply-To:References:Subject:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=He5+T/6Xjk/gMTuiYuebY1HUW0UMGbP+sy4L5LP2i9TZ6yUzVtip5qWIJ1wZxnJXg
-	 Mb7vDPiYqBt2jXpGBqwq0YpYF6/DKolQQglEXcf48zmlrkha16g+Zh/VZn+DZGDcyK
-	 57mtFJMupRff5ph8hF21lm3d0MXyqFf2jr9sbZR4=
+	b=jfYTf6EEktShYbs71sTSYZVPpCaAk2guu8hX7lO0S4MtKwCnm8ZaCV4ZvacXEwyyH
+	 0D0JocV3GTbNiHFdVoxKt2FuJ0w5f3/aM28QUH3Z2GoY0x14fZZUioWxcz9h4ETF/z
+	 E3f1P8PK8s7ZphtGJ3PBrOrQZS6MR1ioGjySlA4U=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 79F40F802DD;
-	Fri, 31 Jul 2020 00:28:30 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 51F38F802E7;
+	Fri, 31 Jul 2020 00:28:32 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id DFC43F800C9; Fri, 31 Jul 2020 00:28:21 +0200 (CEST)
+ id AD592F800C9; Fri, 31 Jul 2020 00:28:25 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
+ DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled
+ version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id D5A76F8028D;
- Fri, 31 Jul 2020 00:28:14 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D5A76F8028D
+ by alsa1.perex.cz (Postfix) with ESMTPS id 32CD0F800C9
+ for <alsa-devel@alsa-project.org>; Fri, 31 Jul 2020 00:28:22 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 32CD0F800C9
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="S9W1a9FP"
+ header.b="WzaL/zUJ"
 Received: from localhost (fw-tnat.cambridge.arm.com [217.140.96.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 98EF720829;
- Thu, 30 Jul 2020 22:28:12 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id 23CBD20829;
+ Thu, 30 Jul 2020 22:28:19 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1596148093;
- bh=MPDGk6EG3O5H5cWuKSvALlqOwuaO5mBhfBAqbxq8eqQ=;
+ s=default; t=1596148100;
+ bh=oCtQbMc0yIjwTyoUHceGAsyCS/EgZDfLbcmV5WPOPq0=;
  h=Date:From:To:Cc:In-Reply-To:References:Subject:From;
- b=S9W1a9FPFTqBbmMqUpWUqbK5rQxWK+p2kPij/XiBGbFjQ8HJPQpsxNtDYoRLdT4Uv
- KmqISuSiPwRgl9DgD1Axo49Fa00x5Ly55ap6+Nb0vLkkzEEWcFvDo3ibnXkFLrKe/l
- yzjsZg25Iga9ES/yjs6Peb5luaPlnQifXGHrjvM4=
-Date: Thu, 30 Jul 2020 23:27:52 +0100
+ b=WzaL/zUJErKB3SDcOhK2ZY2fXDqKFTF5FjgwwZn6aP1IpBFKKvuCcgIiZVnarVC5k
+ K3PjnyLsLJJtnuTmWVgq3kb2WjdUC5p26skGiZX5BmQpXsgswCRAwA7VrJam5ojv37
+ EuoKoYOjT06TXuX+cxfnzVDVi10I4G5TwNlYRUh4=
+Date: Thu, 30 Jul 2020 23:28:00 +0100
 From: Mark Brown <broonie@kernel.org>
-To: Julia Lawall <Julia.Lawall@inria.fr>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-In-Reply-To: <1595751933-4952-1-git-send-email-Julia.Lawall@inria.fr>
-References: <1595751933-4952-1-git-send-email-Julia.Lawall@inria.fr>
-Subject: Re: [PATCH] ASoC: SOF: imx: use resource_size
-Message-Id: <159614804536.1473.644625044517486054.b4-ty@kernel.org>
-Cc: alsa-devel@alsa-project.org, Fabio Estevam <festevam@gmail.com>,
- Kai Vehmanen <kai.vehmanen@linux.intel.com>,
- Liam Girdwood <lgirdwood@gmail.com>, Shawn Guo <shawnguo@kernel.org>,
- Sascha Hauer <s.hauer@pengutronix.de>, kernel-janitors@vger.kernel.org,
- linux-kernel@vger.kernel.org, Takashi Iwai <tiwai@suse.com>,
- Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- NXP Linux Team <linux-imx@nxp.com>, Daniel Baluta <daniel.baluta@nxp.com>,
- linux-arm-kernel@lists.infradead.org, sound-open-firmware@alsa-project.org
+To: Liam Girdwood <lgirdwood@gmail.com>, Jerome Brunet <jbrunet@baylibre.com>
+In-Reply-To: <20200729154456.1983396-1-jbrunet@baylibre.com>
+References: <20200729154456.1983396-1-jbrunet@baylibre.com>
+Subject: Re: [PATCH 0/4] ASoC: meson: tdm fixes
+Message-Id: <159614804534.1473.9918282900203412134.b4-ty@kernel.org>
+Cc: Kevin Hilman <khilman@baylibre.com>, alsa-devel@alsa-project.org,
+ linux-kernel@vger.kernel.org, linux-amlogic@lists.infradead.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -84,18 +76,15 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Sun, 26 Jul 2020 10:25:33 +0200, Julia Lawall wrote:
-> Use resource_size rather than a verbose computation on
-> the end and start fields.
+On Wed, 29 Jul 2020 17:44:52 +0200, Jerome Brunet wrote:
+> This patcheset is collection of fixes for the TDM input and output the
+> axg audio architecture. Its fixes:
+>  - slave mode format setting
+>  - g12 and sm1 skew offset
+>  - tdm clock inversion
+>  - standard daifmt props names which don't require a specific prefix
 > 
-> The semantic patch that makes this change is as follows:
-> (http://coccinelle.lip6.fr/)
-> 
-> <smpl>
-> @@ struct resource ptr; @@
-> - (ptr.end - ptr.start + 1)
-> + resource_size(&ptr)
-> </smpl>
+> [...]
 
 Applied to
 
@@ -103,8 +92,14 @@ Applied to
 
 Thanks!
 
-[1/1] ASoC: SOF: imx: use resource_size
-      commit: afd842c031408f9eaf689ff417071eed15afa05e
+[1/4] ASoC: meson: axg-tdm-interface: fix link fmt setup
+      commit: 6878ba91ce84f7a07887a0615af70f969508839f
+[2/4] ASoC: meson: axg-tdmin: fix g12a skew
+      commit: 80a254394fcfe55450b0351da298ca7231889219
+[3/4] ASoC: meson: axg-tdm-formatters: fix sclk inversion
+      commit: 0d3f01dcdc234001f979a0af0b6b31cb9f25b6c1
+[4/4] ASoC: meson: cards: remove DT_PREFIX for standard daifmt properties
+      commit: e44815a295a50027a9953f3ef62827d14631b96b
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

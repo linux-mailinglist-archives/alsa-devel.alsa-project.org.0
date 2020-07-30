@@ -2,57 +2,122 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 28287233125
-	for <lists+alsa-devel@lfdr.de>; Thu, 30 Jul 2020 13:46:25 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D172A23313D
+	for <lists+alsa-devel@lfdr.de>; Thu, 30 Jul 2020 13:50:22 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C2FDC1785;
-	Thu, 30 Jul 2020 13:45:34 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C2FDC1785
+	by alsa0.perex.cz (Postfix) with ESMTPS id 5D5941781;
+	Thu, 30 Jul 2020 13:49:32 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5D5941781
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1596109584;
-	bh=+4zTANKYaqBzk+wuO5fbID7FKZTu9EirPOTiJT6MtTY=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1596109822;
+	bh=+7wg1xbelqPgnLr31WteU/SJNUgZVnmoKtz/1aj7xRM=;
+	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=nIk9aK1nQTMVGaBr4+6u/gLHiJJNS3IxutXgCEkIfG7HQhVOY/CLOYWBCNBCPQChX
-	 fzl9RNIPGF4SGrcPTL8XVfEFLy92FXkNTlbtfmOAvgdqQiK7FnkCGvZGQjAWBH/sDX
-	 1wK8yfKL6PUrAV5los+6oovpqbfgD0LIeSHQkkLQ=
+	b=Rvj6GtI3wNl4tpPO6BY973Ib4JXGPDPEFgNxHfLBWSJORtrMaiDZz57QFtsea7oJd
+	 IYWPb/xhZL+I39xcaS7TacU8VKZrOlPXVJpuNoDFcm9SoZPuWedE9UEkbHj9MIQ234
+	 Vo0PNHEpuJMmx+yk4gXDY/0XaGnD387KJZvGfz9w=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 289F4F8021C;
-	Thu, 30 Jul 2020 13:44:44 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 98D60F8021C;
+	Thu, 30 Jul 2020 13:48:41 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 809ABF8021E; Thu, 30 Jul 2020 13:44:42 +0200 (CEST)
+ id 6516AF800C9; Thu, 30 Jul 2020 13:48:40 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=FREEMAIL_FROM,
- RCVD_IN_MSPIKE_BL,RCVD_IN_MSPIKE_L3,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from r3-23.sinamail.sina.com.cn (r3-23.sinamail.sina.com.cn
- [202.108.3.23]) by alsa1.perex.cz (Postfix) with SMTP id DEF1FF8021C
- for <alsa-devel@alsa-project.org>; Thu, 30 Jul 2020 13:44:31 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DEF1FF8021C
-Received: from unknown (HELO localhost.localdomain)([222.131.74.184])
- by sina.com with ESMTP
- id 5F22B2980000DDB1; Thu, 30 Jul 2020 19:44:25 +0800 (CST)
-X-Sender: hdanton@sina.com
-X-Auth-ID: hdanton@sina.com
-X-SMAIL-MID: 98735654919359
-From: Hillf Danton <hdanton@sina.com>
-To: syzbot <syzbot+9d2abfef257f3e2d4713@syzkaller.appspotmail.com>
-Subject: Re: KASAN: invalid-free in snd_seq_port_disconnect
-Date: Thu, 30 Jul 2020 19:44:14 +0800
-Message-Id: <20200730114414.16316-1-hdanton@sina.com>
-In-Reply-To: <0000000000002ce2fc05aba24a7e@google.com>
-References: 
+X-Spam-Status: No, score=0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ FORGED_SPF_HELO,MSGID_FROM_MTA_HEADER,NICE_REPLY_A,RCVD_IN_MSPIKE_H2,
+ SPF_HELO_PASS,SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from NAM12-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam12on2087.outbound.protection.outlook.com [40.107.244.87])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 1DF7CF800C9
+ for <alsa-devel@alsa-project.org>; Thu, 30 Jul 2020 13:48:33 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1DF7CF800C9
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=amdcloud.onmicrosoft.com
+ header.i=@amdcloud.onmicrosoft.com header.b="s0R95My3"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=G9RwPyim4F6kX4bGkNx83b6UCCaGyZVVplySEZZidj1ccuAf5CSAeXytkhlWKaMMnsEZfeYkIcvm/vNHtOnQ2gsFeiQlMdJq0kvCzO5+oz+p0mUoUsl1PEUWASYO4fMHsSdt8bqLYCOyxKYFs9Cw3iwxT6+Nkwp+gI6psd5csrIaJf3D53hqdgVFn9UnpfgIhpEdAuJKBS3iu3SVR6qH0wVNSCd364q3VrigjY1kGnsmg4Ggvzt75AS6TwLkeELeahozFHwfpcox5YuvYy7xJBOsJno5x7Z3NZ1KesuYdxup+4v7rGaMvBQ9McAUmqmUEoZ40wASc3S1z08AlK0dbw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=X21CoqJKU7eCqfIh2mEaK2ZuEVX6gLOX5h8R+cuhPbQ=;
+ b=XtZ8ePEJ8jSMcl9j9FQbahYcPvR4yrf1+ry3xiXgCRJ1/TOWvaDapzW8gkfYoleK3diyDLKOyX9hLL9Y/yc8aHNFsiGRwEUOOHfOgA1U/f84eIL1Gnb006p9vJJqWWLAOuzzwTSq1swZ25WK2beqyhpDfUGJn9AsyB4SrUPFbiRm+AckqSUqmSoB4cn8nOKibbjdukoEVK9RPgeHsNbWaIOfyqCAMEwT5uMfoP8oBxN0JdmJkOr0Xc3dtZkb6BUMFEnfzJRJLVmd1YSor1mqzirrvqHzaMlfahZjctBHGH8gtvWf+IyZzu2aOG4VsmpNXvFW4Goi0e60tEy6CNUM+A==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=X21CoqJKU7eCqfIh2mEaK2ZuEVX6gLOX5h8R+cuhPbQ=;
+ b=s0R95My3agyw5MgbK0tYqoGhopFYv2PP402uJFg24X2v2PgWitATXZj/uDh4WQkbO6f7Wog6q9axUCi7HGzKt2esrF9UQTUBeyLCvdb+ZAhgmg5EV2Fb5ez1zP+HjDAUEtLa4+tf9Dprka2rMFh0G0NvJMC3soS49GOthHgYZkw=
+Authentication-Results: vger.kernel.org; dkim=none (message not signed)
+ header.d=none;vger.kernel.org; dmarc=none action=none header.from=amd.com;
+Received: from MWHPR12MB1663.namprd12.prod.outlook.com (2603:10b6:301:e::9) by
+ MW3PR12MB4427.namprd12.prod.outlook.com (2603:10b6:303:52::10) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.3239.16; Thu, 30 Jul 2020 11:48:30 +0000
+Received: from MWHPR12MB1663.namprd12.prod.outlook.com
+ ([fe80::45:3012:7b13:778c]) by MWHPR12MB1663.namprd12.prod.outlook.com
+ ([fe80::45:3012:7b13:778c%8]) with mapi id 15.20.3239.020; Thu, 30 Jul 2020
+ 11:48:30 +0000
+Subject: Re: [PATCH] ASoC: amd: renoir: restore two more registers during
+ resume
+To: Hui Wang <hui.wang@canonical.com>, alsa-devel@alsa-project.org,
+ broonie@kernel.org
+References: <20200730075020.15667-1-hui.wang@canonical.com>
+From: "Mukunda,Vijendar" <vijendar.mukunda@amd.com>
+Message-ID: <5d00fc3f-acbe-cfb5-38fe-cd787c509a2d@amd.com>
+Date: Thu, 30 Jul 2020 17:32:41 +0530
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.10.0
+In-Reply-To: <20200730075020.15667-1-hui.wang@canonical.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: MA1PR0101CA0059.INDPRD01.PROD.OUTLOOK.COM
+ (2603:1096:a00:20::21) To MWHPR12MB1663.namprd12.prod.outlook.com
+ (2603:10b6:301:e::9)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Cc: alsa-devel@alsa-project.org, syzkaller-bugs@googlegroups.com,
- tiwai@suse.com, Hillf Danton <hdanton@sina.com>, linux-kernel@vger.kernel.org,
- Markus Elfring <Markus.Elfring@web.de>
+X-MS-Exchange-MessageSentRepresentingType: 1
+Received: from [10.129.8.176] (165.204.159.251) by
+ MA1PR0101CA0059.INDPRD01.PROD.OUTLOOK.COM (2603:1096:a00:20::21) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3239.16 via Frontend
+ Transport; Thu, 30 Jul 2020 11:48:28 +0000
+X-Originating-IP: [165.204.159.251]
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-HT: Tenant
+X-MS-Office365-Filtering-Correlation-Id: e018b065-081d-41b5-3797-08d8347e7a96
+X-MS-TrafficTypeDiagnostic: MW3PR12MB4427:
+X-Microsoft-Antispam-PRVS: <MW3PR12MB442755398855781BA088FB2D97710@MW3PR12MB4427.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:7691;
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: VL4+iNc2OVZFZ8e35Pca+Pc/LF+g4tYoDa+rLrJMScM9x3QMiu9CyYfGEVCw6w8W5CkkL69xUF83PEuVykiEcqg+vTUBjJFQSmykKQw9auhAXvMPY1201YmBc4vACduDhe6ZJKC+xyHKopIcm701nQGr6itE5ZuKEyGHZXaHCqDqg0ceEmnPa9toh0Cjr9HAaSaKBjBeEYQhu2MPGvDOIOeC/HHLEL26YkXH9S/vsepsiJAeps+X/eOgIWWIvqRS7vUy01/Nva12V5tTUHVhdBveOo445aBznp3JN/5j+X+gIn/Xb3ONtWWxNhyJrZM7HGumfDkgeHlR6ENGoU2zrkxliwxrsbfCEmoCbILU4lrlajLXfyRF/8h4Zp1uC1al
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:MWHPR12MB1663.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFTY:;
+ SFS:(4636009)(396003)(136003)(346002)(366004)(39860400002)(376002)(86362001)(83380400001)(31686004)(66946007)(66476007)(36756003)(66556008)(52116002)(8936002)(956004)(2906002)(8676002)(2616005)(478600001)(4326008)(31696002)(16526019)(186003)(5660300002)(53546011)(316002)(16576012)(26005)(6486002)(6666004)(43740500002);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData: LdcN46FCQrvIVk5zuVWxxPSQNbDvVL2Knu0q4IK8DEFqrbkPRdqVullz40QGql4KIsb3YVtDfhSmcpsQjWGMbH34LWVyHPqlXXcCipPUAzFPvwN9mJs998oWflUaS1gNMD2zGL7LkAyoj+0/ETUzgHyoamxfIrBeOzVXPML0uWaFo4x7dqtadM304T/HqNShnEVrLgJgubpSJw9SWtpwOUy7DpnV+JpZnKmu9a/Z98ZDI1aoBCdCoPfo3Z0ThuVlrNokxgH3fHJaptlXCap0KSAeFnc9yNjof7AWMkCyE0PN4V6svOY12l5pheozwHh3wE9V95LHc3XYsLZ61rQYbohAv8r5Jfk2pzxd7nzqOGTbprGk84T0lKqTftED919B5Kv9lNCFVuQ9OwzgBtL6xrQqEVwv1/p0A3wrL5OXac+Ez7blT94R9qj5d4tURSoFLp9lXAR3oTGqHyadiqkVI5nvGdIKYPBpJjeJfw3h9IQmolAGscp8Fk+IJ3ovwCHCg7T8G4aNp03p9w/FuCetwkS7dUjMimFNEo41g7v2gGAI+JUtNYfQiOxV7n+gyViFjSF0NABZ65Ug/zquygLPyGU9xKCG8IsjsAiyZRVyS6fBHVud8ReZ3t/5XZBngMsRb96vjRjEg72RDljgjGWgbg==
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: e018b065-081d-41b5-3797-08d8347e7a96
+X-MS-Exchange-CrossTenant-AuthSource: MWHPR12MB1663.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Jul 2020 11:48:30.2472 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: NX0SV7JIE1m3XMibe2+ngCXWrazQiauTaJ6FBqwFRNtUpHzVE5P0tGfFY32qZefavQS8VL1UgfrnN5UEApxPtg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW3PR12MB4427
+Cc: stable@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -69,144 +134,49 @@ Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 
-Wed, 29 Jul 2020 22:53:21 -0700
-> syzbot found the following issue on:
-> 
-> HEAD commit:    d3590ebf Merge tag 'audit-pr-20200729' of git://git.kernel..
-> git tree:       upstream
-> console output: https://syzkaller.appspot.com/x/log.txt?x=1797d388900000
-> kernel config:  https://syzkaller.appspot.com/x/.config?x=812bbfcb6ae2cd60
-> dashboard link: https://syzkaller.appspot.com/bug?extid=9d2abfef257f3e2d4713
-> compiler:       clang version 10.0.0 (https://github.com/llvm/llvm-project/ c2443155a0fb245c8f17f2c1c72b6ea391e86e81)
-> syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=14761be4900000
-> 
-> IMPORTANT: if you fix the issue, please add the following tag to the commit:
-> Reported-by: syzbot+9d2abfef257f3e2d4713@syzkaller.appspotmail.com
-> 
-> ==================================================================
-> BUG: KASAN: double-free or invalid-free in snd_seq_port_disconnect+0x570/0x610 sound/core/seq/seq_ports.c:614
-> 
-> CPU: 1 PID: 7530 Comm: syz-executor.0 Not tainted 5.8.0-rc7-syzkaller #0
-> Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 01/01/2011
-> Call Trace:
->  __dump_stack lib/dump_stack.c:77 [inline]
->  dump_stack+0x1f0/0x31e lib/dump_stack.c:118
->  print_address_description+0x66/0x5a0 mm/kasan/report.c:383
->  kasan_report_invalid_free+0x54/0xd0 mm/kasan/report.c:477
->  __kasan_slab_free+0xae/0x170 mm/kasan/common.c:443
->  __cache_free mm/slab.c:3426 [inline]
->  kfree+0x10a/0x220 mm/slab.c:3757
->  snd_seq_port_disconnect+0x570/0x610 sound/core/seq/seq_ports.c:614
->  snd_seq_ioctl_unsubscribe_port+0x349/0x6c0 sound/core/seq/seq_clientmgr.c:1525
->  snd_seq_oss_midi_close+0x397/0x620 sound/core/seq/oss/seq_oss_midi.c:405
->  snd_seq_oss_synth_reset+0x335/0x8b0 sound/core/seq/oss/seq_oss_synth.c:406
->  snd_seq_oss_reset+0x5b/0x250 sound/core/seq/oss/seq_oss_init.c:435
->  snd_seq_oss_ioctl+0x5c2/0x1090 sound/core/seq/oss/seq_oss_ioctl.c:93
->  odev_ioctl+0x51/0x70 sound/core/seq/oss/seq_oss.c:174
->  vfs_ioctl fs/ioctl.c:48 [inline]
->  ksys_ioctl fs/ioctl.c:753 [inline]
->  __do_sys_ioctl fs/ioctl.c:762 [inline]
->  __se_sys_ioctl+0xf9/0x160 fs/ioctl.c:760
->  do_syscall_64+0x73/0xe0 arch/x86/entry/common.c:384
->  entry_SYSCALL_64_after_hwframe+0x44/0xa9
-> RIP: 0033:0x45c429
-> Code: 8d b6 fb ff c3 66 2e 0f 1f 84 00 00 00 00 00 66 90 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 0f 83 5b b6 fb ff c3 66 2e 0f 1f 84 00 00 00 00
-> RSP: 002b:00007f25d0cb3c78 EFLAGS: 00000246 ORIG_RAX: 0000000000000010
-> RAX: ffffffffffffffda RBX: 00000000000154c0 RCX: 000000000045c429
-> RDX: 0000000000000000 RSI: 0000000000005100 RDI: 0000000000000003
-> RBP: 000000000078bfd8 R08: 0000000000000000 R09: 0000000000000000
-> R10: 0000000000000000 R11: 0000000000000246 R12: 000000000078bfac
-> R13: 00007ffe03b9f5df R14: 00007f25d0cb49c0 R15: 000000000078bfac
-> 
-> Allocated by task 7529:
->  save_stack mm/kasan/common.c:48 [inline]
->  set_track mm/kasan/common.c:56 [inline]
->  __kasan_kmalloc+0x103/0x140 mm/kasan/common.c:494
->  kmem_cache_alloc_trace+0x234/0x300 mm/slab.c:3551
->  kmalloc include/linux/slab.h:555 [inline]
->  kzalloc include/linux/slab.h:669 [inline]
->  snd_seq_port_connect+0x66/0x460 sound/core/seq/seq_ports.c:553
->  snd_seq_ioctl_subscribe_port+0x349/0x6c0 sound/core/seq/seq_clientmgr.c:1484
->  snd_seq_oss_midi_open+0x4db/0x830 sound/core/seq/oss/seq_oss_midi.c:364
->  snd_seq_oss_synth_setup_midi+0x108/0x510 sound/core/seq/oss/seq_oss_synth.c:269
->  snd_seq_oss_open+0x899/0xe90 sound/core/seq/oss/seq_oss_init.c:261
->  odev_open+0x5e/0x90 sound/core/seq/oss/seq_oss.c:125
->  chrdev_open+0x498/0x580 fs/char_dev.c:414
->  do_dentry_open+0x813/0x1070 fs/open.c:828
->  do_open fs/namei.c:3243 [inline]
->  path_openat+0x278d/0x37f0 fs/namei.c:3360
->  do_filp_open+0x191/0x3a0 fs/namei.c:3387
->  do_sys_openat2+0x463/0x770 fs/open.c:1179
->  do_sys_open fs/open.c:1195 [inline]
->  __do_sys_openat fs/open.c:1209 [inline]
->  __se_sys_openat fs/open.c:1204 [inline]
->  __x64_sys_openat+0x1c8/0x1f0 fs/open.c:1204
->  do_syscall_64+0x73/0xe0 arch/x86/entry/common.c:384
->  entry_SYSCALL_64_after_hwframe+0x44/0xa9
-> 
-> Freed by task 7529:
->  save_stack mm/kasan/common.c:48 [inline]
->  set_track mm/kasan/common.c:56 [inline]
->  kasan_set_free_info mm/kasan/common.c:316 [inline]
->  __kasan_slab_free+0x114/0x170 mm/kasan/common.c:455
->  __cache_free mm/slab.c:3426 [inline]
->  kfree+0x10a/0x220 mm/slab.c:3757
->  snd_seq_port_disconnect+0x570/0x610 sound/core/seq/seq_ports.c:614
->  snd_seq_ioctl_unsubscribe_port+0x349/0x6c0 sound/core/seq/seq_clientmgr.c:1525
->  snd_seq_oss_midi_close+0x397/0x620 sound/core/seq/oss/seq_oss_midi.c:405
->  snd_seq_oss_synth_reset+0x335/0x8b0 sound/core/seq/oss/seq_oss_synth.c:406
->  snd_seq_oss_reset+0x5b/0x250 sound/core/seq/oss/seq_oss_init.c:435
->  snd_seq_oss_ioctl+0x5c2/0x1090 sound/core/seq/oss/seq_oss_ioctl.c:93
->  odev_ioctl+0x51/0x70 sound/core/seq/oss/seq_oss.c:174
->  vfs_ioctl fs/ioctl.c:48 [inline]
->  ksys_ioctl fs/ioctl.c:753 [inline]
->  __do_sys_ioctl fs/ioctl.c:762 [inline]
->  __se_sys_ioctl+0xf9/0x160 fs/ioctl.c:760
->  do_syscall_64+0x73/0xe0 arch/x86/entry/common.c:384
->  entry_SYSCALL_64_after_hwframe+0x44/0xa9
-> 
-> The buggy address belongs to the object at ffff8880a3acdd00
->  which belongs to the cache kmalloc-128 of size 128
-> The buggy address is located 0 bytes inside of
->  128-byte region [ffff8880a3acdd00, ffff8880a3acdd80)
-> The buggy address belongs to the page:
-> page:ffffea00028eb340 refcount:1 mapcount:0 mapping:0000000000000000 index:0x0
-> flags: 0xfffe0000000200(slab)
-> raw: 00fffe0000000200 ffffea00025c5208 ffffea0002a371c8 ffff8880aa400700
-> raw: 0000000000000000 ffff8880a3acd000 0000000100000010 0000000000000000
-> page dumped because: kasan: bad access detected
-> 
-> Memory state around the buggy address:
->  ffff8880a3acdc00: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
->  ffff8880a3acdc80: fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc
-> >ffff8880a3acdd00: fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
->                    ^
->  ffff8880a3acdd80: fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc
->  ffff8880a3acde00: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
-> ==================================================================
 
-Serialize the open and ioctl pathes using the register_mutex lock.
+On 30/07/20 1:20 pm, Hui Wang wrote:
+> Recently we found an issue about the suspend and resume. If dmic is
+> recording the sound, and we run suspend and resume, after the resume,
+> the dmic can't work well anymore. we need to close the app and reopen
+> the app, then the dmic could record the sound again.
+> 
+> For example, we run "arecord -D hw:CARD=acp,DEV=0 -f S32_LE -c 2
+> -r 48000 test.wav", then suspend and resume, after the system resume
+> back, we speak to the dmic. then stop the arecord, use aplay to play
+> the test.wav, we could hear the sound recorded after resume is weird,
+> it is not what we speak to the dmic.
+> 
+> I found two registers are set in the dai_hw_params(), if the two
+> registers are set in the resume() too, this issue could be fixed.
+> 
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Hui Wang <hui.wang@canonical.com>
+> ---
+>   sound/soc/amd/renoir/acp3x-pdm-dma.c | 5 +++++
+>   1 file changed, 5 insertions(+)
+> 
+> diff --git a/sound/soc/amd/renoir/acp3x-pdm-dma.c b/sound/soc/amd/renoir/acp3x-pdm-dma.c
+> index 623dfd3ea705..8acb0315a169 100644
+> --- a/sound/soc/amd/renoir/acp3x-pdm-dma.c
+> +++ b/sound/soc/amd/renoir/acp3x-pdm-dma.c
+> @@ -474,6 +474,11 @@ static int acp_pdm_resume(struct device *dev)
+>   		rtd = runtime->private_data;
+>   		period_bytes = frames_to_bytes(runtime, runtime->period_size);
+>   		buffer_len = frames_to_bytes(runtime, runtime->buffer_size);
+> +		if (runtime->channels == TWO_CH) {
+> +			rn_writel(0x0 , rtd->acp_base + ACP_WOV_PDM_NO_OF_CHANNELS);
+> +			rn_writel(PDM_DECIMATION_FACTOR, rtd->acp_base +
+> +				  ACP_WOV_PDM_DECIMATION_FACTOR);
+> +		}
 
---- a/sound/core/seq/oss/seq_oss.c
-+++ b/sound/core/seq/oss/seq_oss.c
-@@ -167,11 +167,17 @@ odev_write(struct file *file, const char
- static long
- odev_ioctl(struct file *file, unsigned int cmd, unsigned long arg)
- {
-+	long rc;
- 	struct seq_oss_devinfo *dp;
-+
-+	mutex_lock(&register_mutex);
- 	dp = file->private_data;
- 	if (snd_BUG_ON(!dp))
--		return -ENXIO;
--	return snd_seq_oss_ioctl(dp, cmd, arg);
-+		rc = -ENXIO;
-+	else
-+		rc = snd_seq_oss_ioctl(dp, cmd, arg);
-+	mutex_unlock(&register_mutex);
-+	return rc; 
- }
- 
- #ifdef CONFIG_COMPAT
 
+Could you refactor the code.
+Remove this logic from resume callback
+Add this register sequence in acp_pdm_dai_trigger() callback before 
+invoking start_pdm _dma() callback.
+Remove acp_pdm_dai_hw_params().
+>   		config_acp_dma(rtd, SNDRV_PCM_STREAM_CAPTURE);
+>   		init_pdm_ring_buffer(MEM_WINDOW_START, buffer_len, period_bytes,
+>   				     adata->acp_base);
+> 

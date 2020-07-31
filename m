@@ -2,87 +2,73 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C5359234C25
-	for <lists+alsa-devel@lfdr.de>; Fri, 31 Jul 2020 22:22:20 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 63D6A234C6E
+	for <lists+alsa-devel@lfdr.de>; Fri, 31 Jul 2020 22:44:05 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 58CA31696;
-	Fri, 31 Jul 2020 22:21:30 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 58CA31696
+	by alsa0.perex.cz (Postfix) with ESMTPS id E8F9916A6;
+	Fri, 31 Jul 2020 22:43:14 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E8F9916A6
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1596226940;
-	bh=b6Kd7W7qIcd9HCB+grl80x+iMKiqdTkxM3biZ3nm8mA=;
+	s=default; t=1596228245;
+	bh=TGDv3Frj4rCMmzqFPlTvoVIycIJIp6yYmbKH/jOE9mc=;
 	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=Tpi/R3hihmKeso5zZPh7cvFsDFkpzpoOsH3Ej2i4yVP4mMgurUpC6OMOYktUVp7wx
-	 sc2R9NvGK/qRNdHI8FVVbl3SZeVogne/hIO89D9MpgGRBVHZ6Tf1sWmjy9D25ifGa4
-	 uQYv89vQTftLDmGAOHGxoY2vrt0U4eGF3Wvu2iUQ=
+	b=dNdHmS2JQ5odUNcW8fgvkbzTigdrVuTmGBucpnKGSVZ3m2vGgW/rJwgyBhC0Lt7mb
+	 L28U2igVzGHLmUSZvwJz7Hkxhadcu6fhctZHnX95l+4vT3iow2yJLESDBLTEBUKbul
+	 fdVNpwqTA+xqJ5a85R3yIWu6T6a8W0pdVs/7Jn08=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 70946F80161;
-	Fri, 31 Jul 2020 22:20:39 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 02877F801A3;
+	Fri, 31 Jul 2020 22:42:24 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 618CCF80171; Fri, 31 Jul 2020 22:20:37 +0200 (CEST)
+ id 4F556F80171; Fri, 31 Jul 2020 22:42:21 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: *
-X-Spam-Status: No, score=1.3 required=5.0 tests=FREEMAIL_ENVFROM_END_DIGIT,
- FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,
- PRX_BODY_26,RCVD_IN_MSPIKE_H2,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from mail-il1-f194.google.com (mail-il1-f194.google.com
- [209.85.166.194])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Level: 
+X-Spam-Status: No, score=0.4 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,PRX_BODY_13,SPF_HELO_PASS,SPF_PASS autolearn=disabled
+ version=3.4.0
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com
+ [IPv6:2001:4b98:dc2:55:216:3eff:fef7:d647])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 464F8F8011C
- for <alsa-devel@alsa-project.org>; Fri, 31 Jul 2020 22:20:30 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 464F8F8011C
-Received: by mail-il1-f194.google.com with SMTP id z3so16151458ilh.3
- for <alsa-devel@alsa-project.org>; Fri, 31 Jul 2020 13:20:30 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to;
- bh=14cFHIH+5pcNnYf7nGiGjtZ3STT/BgFgufhbpVb8w2E=;
- b=dI+uVZ5tmK7NnUyFk8JFwaFZIagl9OcqyH5SxGZGE903OfPbzEfgtsdGG3FHVQNlUR
- pL8aL4lYYHHd+gsAYLE3AD0oI/NrXU7yVRcDh1HeoPeBKI6aNf13pusnRMZHEnpZI2YZ
- XaLMEjKwU1RL9mom9FBL6E2fIvF3hOfVyHQPtNAiyh5sdsWUNoisDmvD1deRC8bv9ptI
- NSyWu1TGOfQSxeib9hH7Wc03bawJ6y38fbYwBmZV+eHE05Bbam/xG1zXK1bIRpb8pPH2
- m3uhQZuaybTOm90l1JzznaDx6jVZ9zsiotNqJ6raX81Oe5Rfh28T62PXR2z+7jSxRdj0
- ATJg==
-X-Gm-Message-State: AOAM5338o14MDm6cNHYeowYLVBtB+8TsqFZg9dpno3nHimGQIgSRropI
- OVFyiiTSHo57Ly+FjLrZkQ==
-X-Google-Smtp-Source: ABdhPJwH+8TRsy44CdLoDhMeudbSS0ZxxndP4/x3ZTsHVWfrjyI+20UP81e+sp4iuHC9D9Xz17JjSw==
-X-Received: by 2002:a05:6e02:134e:: with SMTP id
- k14mr2532291ilr.152.1596226829165; 
- Fri, 31 Jul 2020 13:20:29 -0700 (PDT)
-Received: from xps15 ([64.188.179.252])
- by smtp.gmail.com with ESMTPSA id a18sm4415112ilp.52.2020.07.31.13.20.26
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 31 Jul 2020 13:20:28 -0700 (PDT)
-Received: (nullmailer pid 713904 invoked by uid 1000);
- Fri, 31 Jul 2020 20:20:25 -0000
-Date: Fri, 31 Jul 2020 14:20:25 -0600
-From: Rob Herring <robh@kernel.org>
-To: Samuel Holland <samuel@sholland.org>
-Subject: Re: [PATCH 1/7] ASoC: dt-bindings: Add a new compatible for the A64
- codec
-Message-ID: <20200731202025.GA713768@bogus>
-References: <20200726012557.38282-1-samuel@sholland.org>
- <20200726012557.38282-2-samuel@sholland.org>
+ by alsa1.perex.cz (Postfix) with ESMTPS id ACC3FF8015C
+ for <alsa-devel@alsa-project.org>; Fri, 31 Jul 2020 22:42:18 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz ACC3FF8015C
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com
+ header.b="Im3+k8u+"
+Received: from pendragon.ideasonboard.com (81-175-216-236.bb.dnainternet.fi
+ [81.175.216.236])
+ by perceval.ideasonboard.com (Postfix) with ESMTPSA id DB6D353C;
+ Fri, 31 Jul 2020 22:42:15 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+ s=mail; t=1596228136;
+ bh=TGDv3Frj4rCMmzqFPlTvoVIycIJIp6yYmbKH/jOE9mc=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=Im3+k8u+Yxa3c9UDV4VQq4DNQKg69ugyaC0/L5DmB2fFrkduhebVB6KTRG6iVWOXa
+ egFJ/d36EO5mvPkd5KwvF3DNugdzJwhUdIkiLFzsp02rX3vkq8SC/KwnGOV1ia4eVw
+ Bs2wh5kDTRDxiPEdhX1Rhc3bov2XSPe5p41MPOfk=
+Date: Fri, 31 Jul 2020 23:42:06 +0300
+From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+To: Vinod Koul <vkoul@kernel.org>
+Subject: Re: [PATCH v2 0/3] Fix Kconfig dependency issue with DMAENGINES
+ selection
+Message-ID: <20200731204206.GC24315@pendragon.ideasonboard.com>
+References: <20200731152433.1297-1-laurent.pinchart@ideasonboard.com>
+ <20200731164744.GF12965@vkoul-mobl>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20200726012557.38282-2-samuel@sholland.org>
-Cc: Mark Rutland <mark.rutland@arm.com>, devicetree@vger.kernel.org,
- alsa-devel@alsa-project.org, Liam Girdwood <lgirdwood@gmail.com>,
- Ondrej Jirman <megous@megous.com>, Mark Brown <broonie@kernel.org>,
- Takashi Iwai <tiwai@suse.com>, linux-kernel@vger.kernel.org,
- Maxime Ripard <mripard@kernel.org>, Vasily Khoruzhick <anarsoul@gmail.com>,
- Chen-Yu Tsai <wens@csie.org>, Rob Herring <robh+dt@kernel.org>,
- linux-arm-kernel@lists.infradead.org
+In-Reply-To: <20200731164744.GF12965@vkoul-mobl>
+Cc: alsa-devel@alsa-project.org, Hyun Kwon <hyun.kwon@xilinx.com>,
+ Randy Dunlap <rdunlap@infradead.org>, Liam Girdwood <lgirdwood@gmail.com>,
+ dri-devel@lists.freedesktop.org, Michal Simek <michal.simek@xilinx.com>,
+ Alexandre Bounine <alex.bou9@gmail.com>, Mark Brown <broonie@kernel.org>,
+ dmaengine@vger.kernel.org, Matt Porter <mporter@kernel.crashing.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -98,25 +84,47 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Sat, 25 Jul 2020 20:25:51 -0500, Samuel Holland wrote:
-> The audio codecs in the A33 and A64 are both integrated variants of the
-> X-Powers AC100 codec. However, there are some differences between them
-> that merit having a separate compatible:
->  - The A64 has a second DRC block, not present in the AC100 or A33.
->  - The A33 has some extra muxing options for AIF1/2/3 in the
->    AIF3_SGP_CTRL register, which are not present in the AC100 or A64.
->  - The A33 is missing registers providing jack detection functionality.
->  - The A33 is claimed to invert LRCK, but this is not seen on A64.
-> 
-> Since the driver will continue to work on the A64 using the A33
-> compatible, albeit without jack detection functionality and with
-> possibly inverted channels, as it does now, allow the A33 compatible
-> to be used as a fallback.
-> 
-> Signed-off-by: Samuel Holland <samuel@sholland.org>
-> ---
->  .../bindings/sound/allwinner,sun8i-a33-codec.yaml           | 6 +++++-
->  1 file changed, 5 insertions(+), 1 deletion(-)
-> 
+Hi Vinod,
 
-Reviewed-by: Rob Herring <robh@kernel.org>
+On Fri, Jul 31, 2020 at 10:17:44PM +0530, Vinod Koul wrote:
+> On 31-07-20, 18:24, Laurent Pinchart wrote:
+> > Hello,
+> > 
+> > This small series fixes a Kconfig dependency issue with the recently
+> > merged Xilixn DPSUB DRM/KMS driver. The fix is in patch 3/3, but
+> > requires a separate fixes in patches 1/3 and 2/3 to avoid circular
+> > dependencies:
+> > 
+> >         drivers/i2c/Kconfig:8:error: recursive dependency detected!
+> >         drivers/i2c/Kconfig:8:  symbol I2C is selected by FB_DDC
+> >         drivers/video/fbdev/Kconfig:63: symbol FB_DDC depends on FB
+> >         drivers/video/fbdev/Kconfig:12: symbol FB is selected by DRM_KMS_FB_HELPER
+> >         drivers/gpu/drm/Kconfig:80:     symbol DRM_KMS_FB_HELPER depends on DRM_KMS_HELPER
+> >         drivers/gpu/drm/Kconfig:74:     symbol DRM_KMS_HELPER is selected by DRM_ZYNQMP_DPSUB
+> >         drivers/gpu/drm/xlnx/Kconfig:1: symbol DRM_ZYNQMP_DPSUB depends on DMA_ENGINE
+> >         drivers/dma/Kconfig:44: symbol DMA_ENGINE depends on DMADEVICES
+> >         drivers/dma/Kconfig:6:  symbol DMADEVICES is selected by SND_SOC_SH4_SIU
+> >         sound/soc/sh/Kconfig:30:        symbol SND_SOC_SH4_SIU is selected by SND_SIU_MIGOR
+> >         sound/soc/sh/Kconfig:60:        symbol SND_SIU_MIGOR depends on I2C
+> >         For a resolution refer to Documentation/kbuild/kconfig-language.rst
+> >         subsection "Kconfig recursive dependency limitations"
+> > 
+> > Due to the DPSUB driver being merged in v5.9, this is a candidate fix
+> > for v5.9 as well. 1/3 and 2/3 can be merged independently, 3/3 depends
+> > on the first two. What's the best course of action, can I merge this all
+> > in a single tree, or should the rapidio and ASoC patches be merged
+> > independently early in the -rc cycle, and the DRM patch later on top ? I
+> > don't expect conflicts (especially in 2/3 and 3/3), so merging the whole
+> > series in one go would be simpler in my opinion.
+> 
+> Acked-By: Vinod Koul <vkoul@kernel.org>
+
+Thank you.
+
+As Mark as queued the sound fix in his for-next branch for v5.9, could
+you queue the dmaengine fix for v5.9 too ?
+
+-- 
+Regards,
+
+Laurent Pinchart

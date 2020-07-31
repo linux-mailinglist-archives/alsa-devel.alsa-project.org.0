@@ -2,98 +2,86 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id CF160234257
-	for <lists+alsa-devel@lfdr.de>; Fri, 31 Jul 2020 11:20:00 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7354923442C
+	for <lists+alsa-devel@lfdr.de>; Fri, 31 Jul 2020 12:40:55 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 57FF3169C;
-	Fri, 31 Jul 2020 11:19:10 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 57FF3169C
+	by alsa0.perex.cz (Postfix) with ESMTPS id 1BA1916A6;
+	Fri, 31 Jul 2020 12:40:05 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1BA1916A6
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1596187200;
-	bh=MBYKW+6zfDB2a54T6hWqLG1CXD8Xv9gEE8YRBupknoc=;
+	s=default; t=1596192055;
+	bh=z79UlB74SFDGkVx/wf5z/xmQkiHttzepy/SROQkunds=;
 	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=YlZGa4ZrQmjuyxkUyNLTW4Ib2fjIXz/HVT9zyLGvUNcuiOog2hkrJjXvS39N6X9mB
-	 kUEShuP8W1etLkVtguHzcOg0ZVcrIgV1gm/TGLvHanphzWxjIfWa6MDUXaPfINv0ms
-	 c0qbgz89jSQFb6gSiGmDy2mMTSIXtU2+0eN1kx2g=
+	b=WEnUvQN8VplM2Q/GIgCwyJK0e+JX716EOj5N8jZ2DHD8fq8nqxe8Gd5+i6FIgtGsB
+	 R0ul0go17XBTf/uvQ5msKnwiJ0w7EIn19GjsjwTqOLtkHmRt6fIuGxgBrAvGRZyMo0
+	 nRBcSGrIjqIqTq7Rqtykabiqish7YjMxMBPy/AIw=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 804DDF801A3;
-	Fri, 31 Jul 2020 11:18:19 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 542EEF8011C;
+	Fri, 31 Jul 2020 12:39:14 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id B699DF80171; Fri, 31 Jul 2020 11:18:16 +0200 (CEST)
+ id 364DFF80171; Fri, 31 Jul 2020 12:39:12 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-15.6 required=5.0 tests=DKIMWL_WL_MED,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,ENV_AND_HDR_SPF_MATCH,SPF_HELO_NONE,SPF_PASS,
- URIBL_BLOCKED,USER_IN_DEF_DKIM_WL,USER_IN_DEF_SPF_WL autolearn=disabled
- version=3.4.0
-Received: from mail-io1-xd42.google.com (mail-io1-xd42.google.com
- [IPv6:2607:f8b0:4864:20::d42])
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from mail-lj1-x241.google.com (mail-lj1-x241.google.com
+ [IPv6:2a00:1450:4864:20::241])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 78AC3F8011C
- for <alsa-devel@alsa-project.org>; Fri, 31 Jul 2020 11:18:05 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 78AC3F8011C
+ by alsa1.perex.cz (Postfix) with ESMTPS id 9F9DCF8015C
+ for <alsa-devel@alsa-project.org>; Fri, 31 Jul 2020 12:38:59 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9F9DCF8015C
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=google.com header.i=@google.com
- header.b="Q4dxRilW"
-Received: by mail-io1-xd42.google.com with SMTP id l1so31000979ioh.5
- for <alsa-devel@alsa-project.org>; Fri, 31 Jul 2020 02:18:05 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
+ dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
+ header.b="NP3joG2e"
+Received: by mail-lj1-x241.google.com with SMTP id v12so1633259ljc.10
+ for <alsa-devel@alsa-project.org>; Fri, 31 Jul 2020 03:38:59 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=MBYKW+6zfDB2a54T6hWqLG1CXD8Xv9gEE8YRBupknoc=;
- b=Q4dxRilWRBgR7d7mMciRIspoaJm1fKMtrrxqGop4MRWMLfDc2D9yEkmq7lanCl9IDe
- r7Ipz4IWXCJMfmE8gERtTCXqU0PCd2yaU25HbqQAmtQQfmbt9kxpDNN2AVYcf2lFK1pC
- cwqvXq69UceGzBHTSrTnvMYRIvHZl+qJ4u17vqcges3uTIgsNJpdkSZKEYBAdS6e1jjj
- qwjFZv61E1DWla4RqmgLOTPcf169N+7qeHI86xyeTQ+kuv1LDlJTZGttIqTSER1GnIn6
- R01XGra1AUEkoKQGTvP1e29NBtDPetvcV9hgYInxlth9Nfx8/iX5yND0vqQLmGYSWbhj
- /bCw==
+ :cc; bh=z79UlB74SFDGkVx/wf5z/xmQkiHttzepy/SROQkunds=;
+ b=NP3joG2eyPBwdPuBC5qMi8kkL6strW9nGbsOxkdGKVfI7BxLID1cEUkgnP+mlCWBxt
+ Oi+nhKOnN8wnmJSr3M2SroeZ9Qt4xUC+AT9vZKu6L6+68tugEIhkSESjZv69Xj1qQN8a
+ 9auoue2YYBt5pDKoWjt7M0NeMZV7aSW696PIHQr9CV4Hc1DxV6ZYT+xu+nc71zXevASU
+ KVYQObh7ib1jYD4VBS/DMEGRCtRJ+v86MVx8LN2D2U8gsp6Sv3pAR4dktVdayVwiZu8s
+ QefOUUQIIjdbW9tb5HPWFerVWpd0bpdfcg1GsRWhLBRExqnXgLZkRubdIOEvxay8il3Q
+ Rc+w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc;
- bh=MBYKW+6zfDB2a54T6hWqLG1CXD8Xv9gEE8YRBupknoc=;
- b=XC/3YFdXqeCIQyklsZfjjpWJluOWm/dxug3351TzSBiSf0gs6Xbx7esTDo5Iuj/89L
- vo5cxyqCRUPwX3/xOQGX6ph0/8b+PMPfMqGWxJQztr+Cr9RWF5AHaMGGclkS2+HBG1pt
- SZZbG1shHMrAnklouvU2sb5i2A0tn6kbvK/4104K10eRUK5wU3Q3VKAp4KcQMGvYBXbk
- Fq8TW3QAllq0o+KX3ncP75h+rQRFeLrv03MPG/WbVU/B5/sgZrTft2RfTgWRi6tV+ZkS
- nWrnsFPfLhaPncWQ5ecqCkbCsUGyEFk80HFWFca9JA6vKQpkrJXeack3x0sDb6tGFxmZ
- bCUg==
-X-Gm-Message-State: AOAM532EsCqXTDW5az6gqYwKE8sbwlyhQ8GAq7GuaKFKFi5191VPVa3i
- XOzZfBAncmmBYozlov+CTxzFhFDIrmWklC65/J5Few==
-X-Google-Smtp-Source: ABdhPJx+ufc4R00ufDto7B+hLq2EDngnNSkTrnF9favAezBqDM2gxaTBrSA3LHvhe9NZwN3t9yBnkD6e7zjqycRcULE=
-X-Received: by 2002:a5d:9b05:: with SMTP id y5mr2682909ion.59.1596187081282;
- Fri, 31 Jul 2020 02:18:01 -0700 (PDT)
+ bh=z79UlB74SFDGkVx/wf5z/xmQkiHttzepy/SROQkunds=;
+ b=i5G/cAkbFrmASr2H8/gkWrCOmItUiHjBfyHIRkJUElpJHSm9n+z5iNdRmNINK9vN/V
+ Q15yf8Gvek3t5AKEc42qmpUG5pupK8GZAfQBFGi+RNcfxf0injbmaFPDbaMzvKdveF6U
+ twunBBaa71N5OiL49UqadhLAnskqj7nz5iZDFue8w7YuSyvOmBUe6PkxyQHc1WtQkpgt
+ zwPZ72dMHgCjT3aztLTE+9+BdYCPf4n43YfxTMD2odTIwg6PCit3OfBTJy199SVWKhIi
+ AJWJrKmTQgAoaJRECuvdYZhwgJJItZW270gGCNmXkthCiBgEc38ubyJGuwodgeGRlUWj
+ 0ANQ==
+X-Gm-Message-State: AOAM531eRoEGZhK5bYA1M1p14AvOnwKOIX6+1I7w8SjsACmkknpSlQTH
+ 9WneBwozdGdDoOCAuR14slDzv55s59GA+mMnMUU=
+X-Google-Smtp-Source: ABdhPJyTao9Lg7MGHS3w6J9lpe8D0qlnuOVVRbxEmgjJQIelAXZ79/aJ1SXFA2+uNtLKj3VoeR2KEKtfcSTSVW8aM3o=
+X-Received: by 2002:a2e:5cc9:: with SMTP id q192mr1646387ljb.452.1596191937433; 
+ Fri, 31 Jul 2020 03:38:57 -0700 (PDT)
 MIME-Version: 1.0
-References: <20200731084023.2678931-1-cychiang@chromium.org>
- <20200731084023.2678931-3-cychiang@chromium.org>
-In-Reply-To: <20200731084023.2678931-3-cychiang@chromium.org>
-From: Tzung-Bi Shih <tzungbi@google.com>
-Date: Fri, 31 Jul 2020 17:17:50 +0800
-Message-ID: <CA+Px+wXL6-zM6vBZj9_6MhxQz7Dy_Z4J7+RUYEViVkWYv2zX=g@mail.gmail.com>
-Subject: Re: [PATCH v3 2/2] ASoC: qcom: sc7180: Add machine driver for sound
- card registration
-To: Cheng-Yi Chiang <cychiang@chromium.org>
+References: <1596176895-28724-1-git-send-email-shengjiu.wang@nxp.com>
+In-Reply-To: <1596176895-28724-1-git-send-email-shengjiu.wang@nxp.com>
+From: Fabio Estevam <festevam@gmail.com>
+Date: Fri, 31 Jul 2020 07:38:46 -0300
+Message-ID: <CAOMZO5C89emJ91wZsWe-APJ3OpzX=3+jHx6DAEU5kQjNLLSc4Q@mail.gmail.com>
+Subject: Re: [PATCH] ASoC: fsl_sai: Fix value of FSL_SAI_CR1_RFW_MASK
+To: Shengjiu Wang <shengjiu.wang@nxp.com>
 Content-Type: text/plain; charset="UTF-8"
-Cc: Taniya Das <tdas@codeaurora.org>,
- ALSA development <alsa-devel@alsa-project.org>,
- Banajit Goswami <bgoswami@codeaurora.org>, Takashi Iwai <tiwai@suse.com>,
- Rohit kumar <rohitkr@codeaurora.org>, Patrick Lai <plai@codeaurora.org>,
- Ajit Pandey <ajitp@codeaurora.org>, Andy Gross <agross@kernel.org>,
- dgreid@chromium.org, devicetree@vger.kernel.org,
- Tzung-Bi Shih <tzungbi@chromium.org>, Stephan Gerhold <stephan@gerhold.net>,
- linux-arm-msm@vger.kernel.org, Rob Herring <robh+dt@kernel.org>,
- Bjorn Andersson <bjorn.andersson@linaro.org>,
- linux-arm-kernel@lists.infradead.org, Douglas Anderson <dianders@chromium.org>,
- Liam Girdwood <lgirdwood@gmail.com>,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- Mark Brown <broonie@kernel.org>,
- Srini Kandagatla <srinivas.kandagatla@linaro.org>
+Cc: Linux-ALSA <alsa-devel@alsa-project.org>, Timur Tabi <timur@kernel.org>,
+ Xiubo Li <Xiubo.Lee@gmail.com>, linux-kernel <linux-kernel@vger.kernel.org>,
+ Takashi Iwai <tiwai@suse.com>, Liam Girdwood <lgirdwood@gmail.com>,
+ Nicolin Chen <nicoleotsuka@gmail.com>, Mark Brown <broonie@kernel.org>,
+ linuxppc-dev@lists.ozlabs.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -109,16 +97,18 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Fri, Jul 31, 2020 at 4:41 PM Cheng-Yi Chiang <cychiang@chromium.org> wrote:
->
-> From: Ajit Pandey <ajitp@codeaurora.org>
->
-> Add new driver to register sound card on sc7180 trogdor board and
-> do the required configuration for lpass cpu dai and external codecs
-> connected over MI2S interfaces.
->
-> Signed-off-by: Ajit Pandey <ajitp@codeaurora.org>
-> Signed-off-by: Cheng-Yi Chiang <cychiang@chromium.org>
-Reviewed-by: Tzung-Bi Shih <tzungbi@google.com>
+Hi Shengjiu,
 
-LGTM.
+On Fri, Jul 31, 2020 at 3:32 AM Shengjiu Wang <shengjiu.wang@nxp.com> wrote:
+>
+> The fifo_depth is 64 on i.MX8QM/i.MX8QXP, 128 on i.MX8MQ, 16 on
+> i.MX7ULP.
+>
+> Original FSL_SAI_CR1_RFW_MASK value 0x1F is not suitable for
+> these platform, the FIFO watermark mask should be updated
+> according to the fifo_depth.
+>
+> Fixes: a860fac42097 ("ASoC: fsl_sai: Add support for imx7ulp/imx8mq")
+> Signed-off-by: Shengjiu Wang <shengjiu.wang@nxp.com>
+
+Reviewed-by: Fabio Estevam <festevam@gmail.com>

@@ -2,86 +2,62 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7354923442C
-	for <lists+alsa-devel@lfdr.de>; Fri, 31 Jul 2020 12:40:55 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 561F82344F2
+	for <lists+alsa-devel@lfdr.de>; Fri, 31 Jul 2020 14:00:00 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 1BA1916A6;
-	Fri, 31 Jul 2020 12:40:05 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1BA1916A6
+	by alsa0.perex.cz (Postfix) with ESMTPS id DE72816A6;
+	Fri, 31 Jul 2020 13:59:09 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DE72816A6
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1596192055;
-	bh=z79UlB74SFDGkVx/wf5z/xmQkiHttzepy/SROQkunds=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
+	s=default; t=1596196799;
+	bh=plExrbxm3Rh5lxvDXnUM0bT90aeimA319e9qjInfeek=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=WEnUvQN8VplM2Q/GIgCwyJK0e+JX716EOj5N8jZ2DHD8fq8nqxe8Gd5+i6FIgtGsB
-	 R0ul0go17XBTf/uvQ5msKnwiJ0w7EIn19GjsjwTqOLtkHmRt6fIuGxgBrAvGRZyMo0
-	 nRBcSGrIjqIqTq7Rqtykabiqish7YjMxMBPy/AIw=
+	b=sguCP+I6ur2oSfjiTrHV6S9qgjZEpO7NPtlGVRpxoRbu4MzCA70YKgspHzmkiuRwh
+	 Y0t1quUd5zf/ALv1uM/GVDpQbvUeGwkPmEviiQNJ5MgUvXit1/U27RrjF4cgCihOEL
+	 j3ht41IrKRZl6/OGgfp3Utk5DdbZGvshfRxTpu8c=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 542EEF8011C;
-	Fri, 31 Jul 2020 12:39:14 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 1CD81F801A3;
+	Fri, 31 Jul 2020 13:58:19 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 364DFF80171; Fri, 31 Jul 2020 12:39:12 +0200 (CEST)
+ id C40EAF80171; Fri, 31 Jul 2020 13:58:16 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from mail-lj1-x241.google.com (mail-lj1-x241.google.com
- [IPv6:2a00:1450:4864:20::241])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_MSPIKE_H3,
+ RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
+Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 9F9DCF8015C
- for <alsa-devel@alsa-project.org>; Fri, 31 Jul 2020 12:38:59 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9F9DCF8015C
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="NP3joG2e"
-Received: by mail-lj1-x241.google.com with SMTP id v12so1633259ljc.10
- for <alsa-devel@alsa-project.org>; Fri, 31 Jul 2020 03:38:59 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=z79UlB74SFDGkVx/wf5z/xmQkiHttzepy/SROQkunds=;
- b=NP3joG2eyPBwdPuBC5qMi8kkL6strW9nGbsOxkdGKVfI7BxLID1cEUkgnP+mlCWBxt
- Oi+nhKOnN8wnmJSr3M2SroeZ9Qt4xUC+AT9vZKu6L6+68tugEIhkSESjZv69Xj1qQN8a
- 9auoue2YYBt5pDKoWjt7M0NeMZV7aSW696PIHQr9CV4Hc1DxV6ZYT+xu+nc71zXevASU
- KVYQObh7ib1jYD4VBS/DMEGRCtRJ+v86MVx8LN2D2U8gsp6Sv3pAR4dktVdayVwiZu8s
- QefOUUQIIjdbW9tb5HPWFerVWpd0bpdfcg1GsRWhLBRExqnXgLZkRubdIOEvxay8il3Q
- Rc+w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=z79UlB74SFDGkVx/wf5z/xmQkiHttzepy/SROQkunds=;
- b=i5G/cAkbFrmASr2H8/gkWrCOmItUiHjBfyHIRkJUElpJHSm9n+z5iNdRmNINK9vN/V
- Q15yf8Gvek3t5AKEc42qmpUG5pupK8GZAfQBFGi+RNcfxf0injbmaFPDbaMzvKdveF6U
- twunBBaa71N5OiL49UqadhLAnskqj7nz5iZDFue8w7YuSyvOmBUe6PkxyQHc1WtQkpgt
- zwPZ72dMHgCjT3aztLTE+9+BdYCPf4n43YfxTMD2odTIwg6PCit3OfBTJy199SVWKhIi
- AJWJrKmTQgAoaJRECuvdYZhwgJJItZW270gGCNmXkthCiBgEc38ubyJGuwodgeGRlUWj
- 0ANQ==
-X-Gm-Message-State: AOAM531eRoEGZhK5bYA1M1p14AvOnwKOIX6+1I7w8SjsACmkknpSlQTH
- 9WneBwozdGdDoOCAuR14slDzv55s59GA+mMnMUU=
-X-Google-Smtp-Source: ABdhPJyTao9Lg7MGHS3w6J9lpe8D0qlnuOVVRbxEmgjJQIelAXZ79/aJ1SXFA2+uNtLKj3VoeR2KEKtfcSTSVW8aM3o=
-X-Received: by 2002:a2e:5cc9:: with SMTP id q192mr1646387ljb.452.1596191937433; 
- Fri, 31 Jul 2020 03:38:57 -0700 (PDT)
-MIME-Version: 1.0
-References: <1596176895-28724-1-git-send-email-shengjiu.wang@nxp.com>
-In-Reply-To: <1596176895-28724-1-git-send-email-shengjiu.wang@nxp.com>
-From: Fabio Estevam <festevam@gmail.com>
-Date: Fri, 31 Jul 2020 07:38:46 -0300
-Message-ID: <CAOMZO5C89emJ91wZsWe-APJ3OpzX=3+jHx6DAEU5kQjNLLSc4Q@mail.gmail.com>
-Subject: Re: [PATCH] ASoC: fsl_sai: Fix value of FSL_SAI_CR1_RFW_MASK
-To: Shengjiu Wang <shengjiu.wang@nxp.com>
-Content-Type: text/plain; charset="UTF-8"
-Cc: Linux-ALSA <alsa-devel@alsa-project.org>, Timur Tabi <timur@kernel.org>,
- Xiubo Li <Xiubo.Lee@gmail.com>, linux-kernel <linux-kernel@vger.kernel.org>,
- Takashi Iwai <tiwai@suse.com>, Liam Girdwood <lgirdwood@gmail.com>,
- Nicolin Chen <nicoleotsuka@gmail.com>, Mark Brown <broonie@kernel.org>,
- linuxppc-dev@lists.ozlabs.org
+ by alsa1.perex.cz (Postfix) with ESMTPS id 5E72BF8015C
+ for <alsa-devel@alsa-project.org>; Fri, 31 Jul 2020 13:58:06 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5E72BF8015C
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id AAFB9ABD2;
+ Fri, 31 Jul 2020 11:58:18 +0000 (UTC)
+Date: Fri, 31 Jul 2020 13:58:05 +0200
+Message-ID: <s5hk0yjaoc2.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Hillf Danton <hdanton@sina.com>
+Subject: Re: KASAN: invalid-free in snd_seq_port_disconnect
+In-Reply-To: <20200730114414.16316-1-hdanton@sina.com>
+References: <0000000000002ce2fc05aba24a7e@google.com>
+ <20200730114414.16316-1-hdanton@sina.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
+ FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
+ (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
+Content-Type: text/plain; charset=US-ASCII
+Cc: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
+ syzkaller-bugs@googlegroups.com, tiwai@suse.com,
+ Markus Elfring <Markus.Elfring@web.de>,
+ syzbot <syzbot+9d2abfef257f3e2d4713@syzkaller.appspotmail.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -97,18 +73,155 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hi Shengjiu,
+On Thu, 30 Jul 2020 13:44:14 +0200,
+Hillf Danton wrote:
+> 
+> 
+> Wed, 29 Jul 2020 22:53:21 -0700
+> > syzbot found the following issue on:
+> > 
+> > HEAD commit:    d3590ebf Merge tag 'audit-pr-20200729' of git://git.kernel..
+> > git tree:       upstream
+> > console output: https://syzkaller.appspot.com/x/log.txt?x=1797d388900000
+> > kernel config:  https://syzkaller.appspot.com/x/.config?x=812bbfcb6ae2cd60
+> > dashboard link: https://syzkaller.appspot.com/bug?extid=9d2abfef257f3e2d4713
+> > compiler:       clang version 10.0.0 (https://github.com/llvm/llvm-project/ c2443155a0fb245c8f17f2c1c72b6ea391e86e81)
+> > syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=14761be4900000
+> > 
+> > IMPORTANT: if you fix the issue, please add the following tag to the commit:
+> > Reported-by: syzbot+9d2abfef257f3e2d4713@syzkaller.appspotmail.com
+> > 
+> > ==================================================================
+> > BUG: KASAN: double-free or invalid-free in snd_seq_port_disconnect+0x570/0x610 sound/core/seq/seq_ports.c:614
+> > 
+> > CPU: 1 PID: 7530 Comm: syz-executor.0 Not tainted 5.8.0-rc7-syzkaller #0
+> > Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 01/01/2011
+> > Call Trace:
+> >  __dump_stack lib/dump_stack.c:77 [inline]
+> >  dump_stack+0x1f0/0x31e lib/dump_stack.c:118
+> >  print_address_description+0x66/0x5a0 mm/kasan/report.c:383
+> >  kasan_report_invalid_free+0x54/0xd0 mm/kasan/report.c:477
+> >  __kasan_slab_free+0xae/0x170 mm/kasan/common.c:443
+> >  __cache_free mm/slab.c:3426 [inline]
+> >  kfree+0x10a/0x220 mm/slab.c:3757
+> >  snd_seq_port_disconnect+0x570/0x610 sound/core/seq/seq_ports.c:614
+> >  snd_seq_ioctl_unsubscribe_port+0x349/0x6c0 sound/core/seq/seq_clientmgr.c:1525
+> >  snd_seq_oss_midi_close+0x397/0x620 sound/core/seq/oss/seq_oss_midi.c:405
+> >  snd_seq_oss_synth_reset+0x335/0x8b0 sound/core/seq/oss/seq_oss_synth.c:406
+> >  snd_seq_oss_reset+0x5b/0x250 sound/core/seq/oss/seq_oss_init.c:435
+> >  snd_seq_oss_ioctl+0x5c2/0x1090 sound/core/seq/oss/seq_oss_ioctl.c:93
+> >  odev_ioctl+0x51/0x70 sound/core/seq/oss/seq_oss.c:174
+> >  vfs_ioctl fs/ioctl.c:48 [inline]
+> >  ksys_ioctl fs/ioctl.c:753 [inline]
+> >  __do_sys_ioctl fs/ioctl.c:762 [inline]
+> >  __se_sys_ioctl+0xf9/0x160 fs/ioctl.c:760
+> >  do_syscall_64+0x73/0xe0 arch/x86/entry/common.c:384
+> >  entry_SYSCALL_64_after_hwframe+0x44/0xa9
+> > RIP: 0033:0x45c429
+> > Code: 8d b6 fb ff c3 66 2e 0f 1f 84 00 00 00 00 00 66 90 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 0f 83 5b b6 fb ff c3 66 2e 0f 1f 84 00 00 00 00
+> > RSP: 002b:00007f25d0cb3c78 EFLAGS: 00000246 ORIG_RAX: 0000000000000010
+> > RAX: ffffffffffffffda RBX: 00000000000154c0 RCX: 000000000045c429
+> > RDX: 0000000000000000 RSI: 0000000000005100 RDI: 0000000000000003
+> > RBP: 000000000078bfd8 R08: 0000000000000000 R09: 0000000000000000
+> > R10: 0000000000000000 R11: 0000000000000246 R12: 000000000078bfac
+> > R13: 00007ffe03b9f5df R14: 00007f25d0cb49c0 R15: 000000000078bfac
+> > 
+> > Allocated by task 7529:
+> >  save_stack mm/kasan/common.c:48 [inline]
+> >  set_track mm/kasan/common.c:56 [inline]
+> >  __kasan_kmalloc+0x103/0x140 mm/kasan/common.c:494
+> >  kmem_cache_alloc_trace+0x234/0x300 mm/slab.c:3551
+> >  kmalloc include/linux/slab.h:555 [inline]
+> >  kzalloc include/linux/slab.h:669 [inline]
+> >  snd_seq_port_connect+0x66/0x460 sound/core/seq/seq_ports.c:553
+> >  snd_seq_ioctl_subscribe_port+0x349/0x6c0 sound/core/seq/seq_clientmgr.c:1484
+> >  snd_seq_oss_midi_open+0x4db/0x830 sound/core/seq/oss/seq_oss_midi.c:364
+> >  snd_seq_oss_synth_setup_midi+0x108/0x510 sound/core/seq/oss/seq_oss_synth.c:269
+> >  snd_seq_oss_open+0x899/0xe90 sound/core/seq/oss/seq_oss_init.c:261
+> >  odev_open+0x5e/0x90 sound/core/seq/oss/seq_oss.c:125
+> >  chrdev_open+0x498/0x580 fs/char_dev.c:414
+> >  do_dentry_open+0x813/0x1070 fs/open.c:828
+> >  do_open fs/namei.c:3243 [inline]
+> >  path_openat+0x278d/0x37f0 fs/namei.c:3360
+> >  do_filp_open+0x191/0x3a0 fs/namei.c:3387
+> >  do_sys_openat2+0x463/0x770 fs/open.c:1179
+> >  do_sys_open fs/open.c:1195 [inline]
+> >  __do_sys_openat fs/open.c:1209 [inline]
+> >  __se_sys_openat fs/open.c:1204 [inline]
+> >  __x64_sys_openat+0x1c8/0x1f0 fs/open.c:1204
+> >  do_syscall_64+0x73/0xe0 arch/x86/entry/common.c:384
+> >  entry_SYSCALL_64_after_hwframe+0x44/0xa9
+> > 
+> > Freed by task 7529:
+> >  save_stack mm/kasan/common.c:48 [inline]
+> >  set_track mm/kasan/common.c:56 [inline]
+> >  kasan_set_free_info mm/kasan/common.c:316 [inline]
+> >  __kasan_slab_free+0x114/0x170 mm/kasan/common.c:455
+> >  __cache_free mm/slab.c:3426 [inline]
+> >  kfree+0x10a/0x220 mm/slab.c:3757
+> >  snd_seq_port_disconnect+0x570/0x610 sound/core/seq/seq_ports.c:614
+> >  snd_seq_ioctl_unsubscribe_port+0x349/0x6c0 sound/core/seq/seq_clientmgr.c:1525
+> >  snd_seq_oss_midi_close+0x397/0x620 sound/core/seq/oss/seq_oss_midi.c:405
+> >  snd_seq_oss_synth_reset+0x335/0x8b0 sound/core/seq/oss/seq_oss_synth.c:406
+> >  snd_seq_oss_reset+0x5b/0x250 sound/core/seq/oss/seq_oss_init.c:435
+> >  snd_seq_oss_ioctl+0x5c2/0x1090 sound/core/seq/oss/seq_oss_ioctl.c:93
+> >  odev_ioctl+0x51/0x70 sound/core/seq/oss/seq_oss.c:174
+> >  vfs_ioctl fs/ioctl.c:48 [inline]
+> >  ksys_ioctl fs/ioctl.c:753 [inline]
+> >  __do_sys_ioctl fs/ioctl.c:762 [inline]
+> >  __se_sys_ioctl+0xf9/0x160 fs/ioctl.c:760
+> >  do_syscall_64+0x73/0xe0 arch/x86/entry/common.c:384
+> >  entry_SYSCALL_64_after_hwframe+0x44/0xa9
+> > 
+> > The buggy address belongs to the object at ffff8880a3acdd00
+> >  which belongs to the cache kmalloc-128 of size 128
+> > The buggy address is located 0 bytes inside of
+> >  128-byte region [ffff8880a3acdd00, ffff8880a3acdd80)
+> > The buggy address belongs to the page:
+> > page:ffffea00028eb340 refcount:1 mapcount:0 mapping:0000000000000000 index:0x0
+> > flags: 0xfffe0000000200(slab)
+> > raw: 00fffe0000000200 ffffea00025c5208 ffffea0002a371c8 ffff8880aa400700
+> > raw: 0000000000000000 ffff8880a3acd000 0000000100000010 0000000000000000
+> > page dumped because: kasan: bad access detected
+> > 
+> > Memory state around the buggy address:
+> >  ffff8880a3acdc00: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+> >  ffff8880a3acdc80: fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc
+> > >ffff8880a3acdd00: fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
+> >                    ^
+> >  ffff8880a3acdd80: fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc
+> >  ffff8880a3acde00: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+> > ==================================================================
+> 
+> Serialize the open and ioctl pathes using the register_mutex lock.
+> 
+> --- a/sound/core/seq/oss/seq_oss.c
+> +++ b/sound/core/seq/oss/seq_oss.c
+> @@ -167,11 +167,17 @@ odev_write(struct file *file, const char
+>  static long
+>  odev_ioctl(struct file *file, unsigned int cmd, unsigned long arg)
+>  {
+> +	long rc;
+>  	struct seq_oss_devinfo *dp;
+> +
+> +	mutex_lock(&register_mutex);
+>  	dp = file->private_data;
+>  	if (snd_BUG_ON(!dp))
+> -		return -ENXIO;
+> -	return snd_seq_oss_ioctl(dp, cmd, arg);
+> +		rc = -ENXIO;
+> +	else
+> +		rc = snd_seq_oss_ioctl(dp, cmd, arg);
+> +	mutex_unlock(&register_mutex);
+> +	return rc; 
+>  }
+>  
+>  #ifdef CONFIG_COMPAT
 
-On Fri, Jul 31, 2020 at 3:32 AM Shengjiu Wang <shengjiu.wang@nxp.com> wrote:
->
-> The fifo_depth is 64 on i.MX8QM/i.MX8QXP, 128 on i.MX8MQ, 16 on
-> i.MX7ULP.
->
-> Original FSL_SAI_CR1_RFW_MASK value 0x1F is not suitable for
-> these platform, the FIFO watermark mask should be updated
-> according to the fifo_depth.
->
-> Fixes: a860fac42097 ("ASoC: fsl_sai: Add support for imx7ulp/imx8mq")
-> Signed-off-by: Shengjiu Wang <shengjiu.wang@nxp.com>
+This should fix this bug report and another similar one, indeed.
+Please submit a proper patch once when you get a positive result.
 
-Reviewed-by: Fabio Estevam <festevam@gmail.com>
+
+Thanks!
+
+Takashi

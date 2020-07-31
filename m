@@ -2,80 +2,96 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7C380234189
-	for <lists+alsa-devel@lfdr.de>; Fri, 31 Jul 2020 10:51:24 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 490D32341AB
+	for <lists+alsa-devel@lfdr.de>; Fri, 31 Jul 2020 10:57:26 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 19B8F16A3;
-	Fri, 31 Jul 2020 10:50:34 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 19B8F16A3
+	by alsa0.perex.cz (Postfix) with ESMTPS id 89F0216A6;
+	Fri, 31 Jul 2020 10:56:35 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 89F0216A6
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1596185484;
-	bh=aDUPt/WcOB5WLGuGTIh8ZCGjtC+lWxWACKfk7CCybk4=;
-	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
+	s=default; t=1596185845;
+	bh=oC95LPdzEPcU1ouZlXz3oyScuYgP2Tnlp9Eudz6kh9E=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=viYqkatwjc+cRMhXbC9Ka+7a076FN0Xl8Knb5keABptab1drbWtoY5/mUFx8GCsa6
-	 hjF6KJM+NwiCdthA69hf+jbVrcikZ735AxrcN87TmvyjZVxi3FqqOaNt6cr2LVLyOd
-	 vObZPPnv5z+VDpPejpGCoAt7azjZeZ2Od3AVCYAo=
+	b=K4ENWjKfE2el5tFFs9ooO9IGFR5o9u9lJ4ZeUjzFlMI48rdV4+YvECtqetlsFtN3X
+	 I2uj7CQ3gCvqJWpQyBh3enu6RdI39AoST8SCSsCBBx4UmHDTC+9blzdyr5jba4qaB+
+	 FXmTiOwzAmKwjs4fdKmo4t4BUMlhZtehG1wHywCY=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 466ACF80161;
-	Fri, 31 Jul 2020 10:49:43 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id A907CF801A3;
+	Fri, 31 Jul 2020 10:55:44 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 1B05DF80171; Fri, 31 Jul 2020 10:49:23 +0200 (CEST)
+ id 133D3F8011C; Fri, 31 Jul 2020 10:55:42 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.8 required=5.0 tests=NICE_REPLY_A,SPF_HELO_PASS,
- SPF_PASS,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from loongson.cn (mail.loongson.cn [114.242.206.163])
- by alsa1.perex.cz (Postfix) with ESMTP id 7716AF80111
- for <alsa-devel@alsa-project.org>; Fri, 31 Jul 2020 10:49:11 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7716AF80111
-Received: from [10.130.0.69] (unknown [113.200.148.30])
- by mail.loongson.cn (Coremail) with SMTP id AQAAf9DxT9772iNfkvECAA--.45S3;
- Fri, 31 Jul 2020 16:49:00 +0800 (CST)
-Subject: Re: [RFC] ALSA: hda: Add workaround to adapt to Loongson 7A1000
- controller
-To: Takashi Iwai <tiwai@suse.de>
-References: <1596163314-21808-1-git-send-email-likaige@loongson.cn>
- <s5hlfj0b3jk.wl-tiwai@suse.de>
-From: Kaige Li <likaige@loongson.cn>
-Message-ID: <15648946-3b87-69db-914c-354dce1abcac@loongson.cn>
-Date: Fri, 31 Jul 2020 16:48:59 +0800
-User-Agent: Mozilla/5.0 (X11; Linux mips64; rv:45.0) Gecko/20100101
- Thunderbird/45.4.0
+X-Spam-Status: No, score=-7.6 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+ DKIM_VALID, DKIM_VALID_AU, HEADER_FROM_DIFFERENT_DOMAINS, SPF_HELO_NONE,
+ SPF_PASS, 
+ URIBL_BLOCKED,USER_IN_DEF_SPF_WL autolearn=disabled version=3.4.0
+Received: from mail-wr1-x442.google.com (mail-wr1-x442.google.com
+ [IPv6:2a00:1450:4864:20::442])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id C529FF8011C
+ for <alsa-devel@alsa-project.org>; Fri, 31 Jul 2020 10:55:34 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C529FF8011C
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org
+ header.b="gJ1DQMpp"
+Received: by mail-wr1-x442.google.com with SMTP id y3so27271218wrl.4
+ for <alsa-devel@alsa-project.org>; Fri, 31 Jul 2020 01:55:34 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=PyioNdq8CYBvYgbkg8UuSG7Wqo4MUTr2xfEMOw9a9rE=;
+ b=gJ1DQMppeYGWIl/xt4mhVBRMBU0vPPeIW+lpH27Uv8zpU3m+ggx5euP9ZtcQhQF/OX
+ E64+yzIOVHvWUNyqhXWsVm5YOOfibgDqUixJyt6FHUGiARBRyr4pilLoh8vKs2cWjOsS
+ w2zgqojCdQtg0rcRAYhI3V6W7ePsunHAc0g9U=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=PyioNdq8CYBvYgbkg8UuSG7Wqo4MUTr2xfEMOw9a9rE=;
+ b=q7o7ZawisHFbop+dcWWXi9b722knCeYZLjPagcNfllP+poekjl7E1K74uKIHPEfaKD
+ JqREL4zTV4+1X8o8KNAJweJ4TOJKs+gQIhrDW35qQ52IAg4sfQqUdntZbQnEwCZKRM3r
+ rkejRwpHqYo0UfOW6p2jXAM7uhRtWjumcdlH24i59wDxn4S6k1DMOz4S83TJhpAxGfYh
+ X785e1O7hhasisN0XEzZjlLIStBQHH5vC5TzXiipOPfSlKpK/EBjNLKgar0/6WqjCuTh
+ WITMheoGKJDjNjr2xztQiF5NjQGG9S46dqsfsWP6g3DC0+v3boWJbK8hgltEV182rzEr
+ nxOw==
+X-Gm-Message-State: AOAM533rBN2ZESJyjaM/ht/YFFmHVt8AbvsC9s47g0NrXoetALDp4bH3
+ m2uubDz+3EMK5NI/at3fDN7KIpEMMtOeiPUZ5lMvdA==
+X-Google-Smtp-Source: ABdhPJyRhrXp3l6RU/5xr+rqhFrRNMWDU/mr680vSH+27w5AXxfytNKMGTBpF7RmL2K+p94pKbqb9iePJ20hmgfEMro=
+X-Received: by 2002:a5d:4bc8:: with SMTP id l8mr2466765wrt.159.1596185732557; 
+ Fri, 31 Jul 2020 01:55:32 -0700 (PDT)
 MIME-Version: 1.0
-In-Reply-To: <s5hlfj0b3jk.wl-tiwai@suse.de>
-Content-Type: text/plain; charset=windows-1252; format=flowed
-Content-Transfer-Encoding: 7bit
-X-CM-TRANSID: AQAAf9DxT9772iNfkvECAA--.45S3
-X-Coremail-Antispam: 1UD129KBjvJXoW7ZFW7Kr1DXw47JFW5CF4xCrg_yoW8XF1UpF
- n3CayUCF4Dtr1jkFsru3y5KayFg3yfGF45KryFvw1DAw1qk343X3WvvrWjkF9Y9wsY9r4Y
- kFy7ta4kGFW5ZaDanT9S1TB71UUUUUUqnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
- 9KBjDU0xBIdaVrnRJUUUBj14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
- rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
- 1l84ACjcxK6xIIjxv20xvE14v26ryj6F1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4j
- 6F4UM28EF7xvwVC2z280aVAFwI0_Cr1j6rxdM28EF7xvwVC2z280aVCY1x0267AKxVW0oV
- Cq3wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0
- I7IYx2IY67AKxVWUJVWUGwAv7VC2z280aVAFwI0_Cr0_Gr1UMcvjeVCFs4IE7xkEbVWUJV
- W8JwACjcxG0xvEwIxGrwACjI8F5VA0II8E6IAqYI8I648v4I1lFIxGxcIEc7CjxVA2Y2ka
- 0xkIwI1lc7I2V7IY0VAS07AlzVAYIcxG8wCY02Avz4vE14v_GFyl42xK82IYc2Ij64vIr4
- 1l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK
- 67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r1q6r43MIIYrxkI7VAKI48JMIIF0xvE2Ix0cI
- 8IcVAFwI0_Jr0_JF4lIxAIcVC0I7IYx2IY6xkF7I0E14v26r4j6F4UMIIF0xvE42xK8VAv
- wI8IcIk0rVWrZr1j6s0DMIIF0xvEx4A2jsIE14v26r1j6r4UMIIF0xvEx4A2jsIEc7CjxV
- AFwI0_Gr0_Gr1UYxBIdaVFxhVjvjDU0xZFpf9x0JUmYL9UUUUU=
-X-CM-SenderInfo: 5olntxtjh6z05rqj20fqof0/
-Cc: alsa-devel@alsa-project.org, Kai Vehmanen <kai.vehmanen@linux.intel.com>,
- linux-kernel@vger.kernel.org, Sameer Pujar <spujar@nvidia.com>,
- Keyon Jie <yang.jie@linux.intel.com>,
+References: <20200721104422.369368-1-cychiang@chromium.org>
+ <20200721104422.369368-2-cychiang@chromium.org>
+ <c270a068-c96b-63ae-a5ca-ec2081924dac@linaro.org>
+In-Reply-To: <c270a068-c96b-63ae-a5ca-ec2081924dac@linaro.org>
+From: Cheng-yi Chiang <cychiang@chromium.org>
+Date: Fri, 31 Jul 2020 16:55:04 +0800
+Message-ID: <CAFv8NwJBqndBozdc9DOr2T67VTnJ1LLEwvze2nJD6xNXh1a+gw@mail.gmail.com>
+Subject: Re: [PATCH v2 1/2] ASoC: qcom: dt-bindings: Add sc7180 machine
+ bindings
+To: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
+Content-Type: text/plain; charset="UTF-8"
+Cc: Taniya Das <tdas@codeaurora.org>,
+ "open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS"
+ <devicetree@vger.kernel.org>, Tzung-Bi Shih <tzungbi@chromium.org>,
+ Banajit Goswami <bgoswami@codeaurora.org>,
+ "moderated list:SOUND - SOC LAYER / DYNAMIC AUDIO POWER MANAGEM..."
+ <alsa-devel@alsa-project.org>, Liam Girdwood <lgirdwood@gmail.com>,
+ linux-arm-msm <linux-arm-msm@vger.kernel.org>,
+ Patrick Lai <plai@codeaurora.org>, Takashi Iwai <tiwai@suse.com>,
+ linux-kernel <linux-kernel@vger.kernel.org>, Rob Herring <robh+dt@kernel.org>,
+ Bjorn Andersson <bjorn.andersson@linaro.org>, Mark Brown <broonie@kernel.org>,
+ Rohit kumar <rohitkr@codeaurora.org>, Andy Gross <agross@kernel.org>,
+ Doug Anderson <dianders@chromium.org>, Dylan Reid <dgreid@chromium.org>,
  Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- Takashi Iwai <tiwai@suse.com>, Alex Deucher <alexander.deucher@amd.com>,
- Tiezhu Yang <yangtiezhu@loongson.cn>, Xuefeng Li <lixuefeng@loongson.cn>,
- Mohan Kumar <mkumard@nvidia.com>
+ Linux ARM <linux-arm-kernel@lists.infradead.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -91,51 +107,202 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 07/31/2020 02:29 PM, Takashi Iwai wrote:
+On Wed, Jul 22, 2020 at 5:25 PM Srinivas Kandagatla
+<srinivas.kandagatla@linaro.org> wrote:
+>
+>
+>
+> On 21/07/2020 11:44, Cheng-Yi Chiang wrote:
+> > Add devicetree bindings documentation file for sc7180 sound card.
+> >
+> > Signed-off-by: Cheng-Yi Chiang <cychiang@chromium.org>
+> > ---
+> >   .../bindings/sound/qcom,sc7180.yaml           | 130 ++++++++++++++++++
+> >   1 file changed, 130 insertions(+)
+> >   create mode 100644 Documentation/devicetree/bindings/sound/qcom,sc7180.yaml
+> >
+> > diff --git a/Documentation/devicetree/bindings/sound/qcom,sc7180.yaml b/Documentation/devicetree/bindings/sound/qcom,sc7180.yaml
+> > new file mode 100644
+> > index 000000000000..82f9483276eb
+> > --- /dev/null
+> > +++ b/Documentation/devicetree/bindings/sound/qcom,sc7180.yaml
+> > @@ -0,0 +1,130 @@
+> > +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> > +%YAML 1.2
+> > +---
+> > +$id: http://devicetree.org/schemas/sound/qcom,sc7180.yaml#
+> > +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> > +
+> > +title: Qualcomm Technologies Inc. SC7180 ASoC sound card driver
+> > +
+> > +maintainers:
+> > +  - Rohit kumar <rohitkr@codeaurora.org>
+> > +  - Cheng-Yi Chiang <cychiang@chromium.org>
+> > +
+> > +description:
+> > +  This binding describes the SC7180 sound card which uses LPASS for audio.
+> > +
+> > +definitions:
+> > +
+> > +  dai:
+> > +    type: object
+> > +    properties:
+> > +      sound-dai:
+> > +        maxItems: 1
+> > +        $ref: /schemas/types.yaml#/definitions/phandle-array
+> > +        description: phandle array of the codec or CPU DAI
+> > +
+> > +    required:
+> > +      - sound-dai
+> > +
+> > +properties:
+> > +  compatible:
+> > +    contains:
+> > +      const: qcom,sc7180-sndcard
+> > +
+> > +  audio-routing:
+> > +    $ref: /schemas/types.yaml#/definitions/non-unique-string-array
+> > +    description:
+> > +      A list of the connections between audio components. Each entry is a
+> > +      pair of strings, the first being the connection's sink, the second
+> > +      being the connection's source.
+> > +
+> > +  model:
+> > +    $ref: /schemas/types.yaml#/definitions/string
+> > +    description: User specified audio sound card name
+> > +
+> > +  aux-dev:
+> > +    $ref: /schemas/types.yaml#/definitions/phandle
+> > +    description: phandle of the codec for headset detection
+>
+>
+> Why do we need this? You should be able to set the jack for codec
+> snd_soc_component_set_jack()?
+>
+>
+I put my explanation in the machine driver patch since there is more
+context there.
 
-> On Fri, 31 Jul 2020 04:41:54 +0200,
-> Kaige Li wrote:
->> There's some issues that cause palyback without a sound on Loongson
->> platform (3A3000 + 7A1000) with a Realtek ALC269 codec. After lengthy
->> debugging sessions, we solved it by adding workaround.
->>
->> Signed-off-by: Kaige Li <likaige@loongson.cn>
-> Thanks for the patch.  But this can't be taken as is due to the design
-> problem.  Namely...
+> > +
+> > +patternProperties:
+> > +  "^dai-link(@[0-9]+)?$":
+> > +    description:
+> > +      Each subnode represents a dai link. Subnodes of each dai links would be
+> > +      cpu/codec dais.
+> > +
+> > +    type: object
+> > +
+> > +    properties:
+> > +      link-name:
+> > +        description: Indicates dai-link name and PCM stream name.
+> > +        $ref: /schemas/types.yaml#/definitions/string
+> > +        maxItems: 1
+> > +
+> > +      reg:
+> > +        description: dai link address.
+> > +        $ref: /schemas/types.yaml#/definitions/uint32
+> > +        maxItems: 1
 >
->> --- a/sound/hda/hdac_controller.c
->> +++ b/sound/hda/hdac_controller.c
->> @@ -9,6 +9,7 @@
->>   #include <sound/core.h>
->>   #include <sound/hdaudio.h>
->>   #include <sound/hda_register.h>
->> +#include "../pci/hda/hda_controller.h"
-> ... here already suspicious, and ...
+> Why do we need this?? I have not seen the parsing code using this.
 >
->>   #include "local.h"
->>   
->>   /* clear CORB read pointer properly */
->> @@ -42,6 +43,8 @@ static void azx_clear_corbrp(struct hdac_bus *bus)
->>    */
->>   void snd_hdac_bus_init_cmd_io(struct hdac_bus *bus)
->>   {
->> +	struct azx *chip = bus_to_azx(bus);
-> ... here you cast the hdac_bus object to its child class.  This is
-> disallowed, as it's a layer violation and would break if another child
-> class like ASoC driver is used with this patch.
 >
-> IOW, inside the code in sound/hda/*, you must not use the contents in
-> sound/pci/hda/* and include/sound/hda_codec.h.
->
-> If any new workaround is needed, introduce a new flag in struct
-> hdac_bus.
+When checking the yaml file using dt_binding_check, I got this warnings:
 
-Thank you for your reply and suggestions. I will review it, and see how 
-hdac_bus works.
+$  make dt_binding_check
+DT_SCHEMA_FILES=Documentation/devicetree/bindings/sound/qcom,sc7180.yaml
+  CHKDT   Documentation/devicetree/bindings/sound/qcom,sc7180.yaml
+  SCHEMA  Documentation/devicetree/bindings/processed-schema-examples.yaml
+  DTC     Documentation/devicetree/bindings/sound/qcom,sc7180.example.dt.yaml
+Documentation/devicetree/bindings/sound/qcom,sc7180.example.dts:32.24-41.15:
+Warning (unit_address_vs_reg): /example-0/sound/dai-link@0: node has a
+unit name, but no reg or ranges property
+Documentation/devicetree/bindings/sound/qcom,sc7180.example.dts:43.24-52.15:
+Warning (unit_address_vs_reg): /example-0/sound/dai-link@1: node has a
+unit name, but no reg or ranges property
+  CHECK   Documentation/devicetree/bindings/sound/qcom,sc7180.example.dt.yaml
 
-Thanks,
-Kaige
-> thanks,
+Should I ignore these warnings because reg is not used in the driver ?
+
+> > +
+> > +      playback-only:
+> > +        description: Specify that the dai link is only for playback.
+> > +        $ref: /schemas/types.yaml#/definitions/flag
+> > +
+> > +      capture-only:
+> > +        description: Specify that the dai link is only for capture.
+> > +        $ref: /schemas/types.yaml#/definitions/flag
+> > +
 >
-> Takashi
+> Are these because the cpu/codec dais are single directional?
+>
+> If so you can extend snd_soc_dai_link_set_capabilities() and use this
+> function.
 
+I found that this is not needed since soc_new_pcm already takes care
+of checking capture/playback capability in non-dpcm cases.
+
+>
+>
+> --srini
+>
+
+Thanks for reviewing the patch!
+
+
+
+> > +      cpu:
+> > +        $ref: "#/definitions/dai"
+> > +
+> > +      codec:
+> > +        $ref: "#/definitions/dai"
+> > +
+> > +    required:
+> > +      - link-name
+> > +      - reg
+> > +      - cpu
+> > +      - codec
+> > +
+> > +    additionalProperties: false
+> > +
+> > +examples:
+> > +
+> > +  - |
+> > +    sound {
+> > +        compatible = "qcom,sc7180-sndcard";
+> > +        model = "sc7180-snd-card";
+> > +
+> > +        audio-routing =
+> > +                    "Headphone Jack", "HPOL",
+> > +                    "Headphone Jack", "HPOR";
+> > +
+> > +        aux-dev = <&alc5682>;
+> > +
+> > +        #address-cells = <1>;
+> > +        #size-cells = <0>;
+> > +
+> > +        dai-link@0 {
+> > +            reg = <0>;
+> > +            link-name = "MultiMedia0";
+> > +            cpu {
+> > +                sound-dai = <&lpass_cpu 0>;
+> > +            };
+> > +
+> > +            codec {
+> > +                sound-dai = <&alc5682 0>;
+> > +            };
+> > +        };
+> > +
+> > +        dai-link@1 {
+> > +            reg = <1>;
+> > +            link-name = "MultiMedia1";
+> > +            playback-only;
+> > +            cpu {
+> > +                sound-dai = <&lpass_cpu 1>;
+> > +            };
+> > +
+> > +            codec {
+> > +                sound-dai = <&max98357a>;
+> > +            };
+> > +        };
+> > +    };
+> >

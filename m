@@ -2,119 +2,59 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1DCB5239FA5
-	for <lists+alsa-devel@lfdr.de>; Mon,  3 Aug 2020 08:26:47 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 68A1D239FA6
+	for <lists+alsa-devel@lfdr.de>; Mon,  3 Aug 2020 08:27:34 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 40BCD166D;
-	Mon,  3 Aug 2020 08:25:56 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 40BCD166D
+	by alsa0.perex.cz (Postfix) with ESMTPS id 0A8EC1663;
+	Mon,  3 Aug 2020 08:26:44 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0A8EC1663
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1596436006;
-	bh=8mD+nqB33TkoOoj/gJgWM5VeBC7j95G7SbgFkstL1+Y=;
-	h=From:To:Subject:In-Reply-To:References:Date:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=dMUv2VC1UZKjGk1+ZYTucTk4BLMTULtKGp4KL2yzixz1m1KI2S2B/dreM23aB8tg9
-	 cK7VT4f/4yRphfs6ddWYBtnJCW3kRbARSTPMYKAbINwx0Ng7GGEpP2smhMSccW/cJA
-	 r15FJGxrtv0o6LoKNnox2shVSqiXf97hllzEWySU=
+	s=default; t=1596436054;
+	bh=iI+8T+rDaBX818OOAiJ4QiPsSEsHFQz6h9A9vVLH8A8=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=Ps1QT1vReyMEEn6iw5BV7U4wRD+dEr9cg+uiiu2YkPQALtTlMivuHe2o4UjVRzH63
+	 8aTt5ky6twyQwIX3cZPRk02H5xJRNbxjOmbQI1Eg2pMbGAhHoM8uQAS18DIizGDlPx
+	 5NRPlbrRxLiVL0NP+0O6IJkQTlaSLINxkzuZg/XU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 5CDEFF80148;
-	Mon,  3 Aug 2020 08:25:05 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id ACC76F8023E;
+	Mon,  3 Aug 2020 08:25:06 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 9CAC7F80171; Fri, 31 Jul 2020 11:20:13 +0200 (CEST)
+ id B664CF80227; Sat,  1 Aug 2020 08:13:23 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,
- SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mail-lf1-x143.google.com (mail-lf1-x143.google.com
- [IPv6:2a00:1450:4864:20::143])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mail5.wrs.com (mail5.windriver.com [192.103.53.11])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 31BA5F80111
- for <alsa-devel@alsa-project.org>; Fri, 31 Jul 2020 11:20:10 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 31BA5F80111
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="kYONy1EG"
-Received: by mail-lf1-x143.google.com with SMTP id m15so15815617lfp.7
- for <alsa-devel@alsa-project.org>; Fri, 31 Jul 2020 02:20:10 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=sender:from:to:cc:subject:in-reply-to:references:date:message-id
- :mime-version; bh=8mD+nqB33TkoOoj/gJgWM5VeBC7j95G7SbgFkstL1+Y=;
- b=kYONy1EGZKl0txXMXdnNJT1Y23m2++O6HdGV8zLgsm4sCEMAk4SBmQNWhlxd1RyFjF
- mH9uaD7kMfSnJQuXDiqulF7cksFMlMFyQu1uhXZJKRRkx/rfeldFPCsO2st4PnmT/kDq
- GgQWPaMYzTpc2zdZcMeYUCGhg0EPuQUpoOWYoK/2aGEYM9vehvSOPrTkPc3veCvTt9+4
- vBmykpfMFEq9dDLUBzRBMzYkCzqkG+OST7U2uHzggevt/iPDVH0iMUQZFOaFL7U7aUQA
- EGMxdwknpaXiN9Z1bmHGl6cwvZpRnPncn/hh48VAwiif+7nAFYKUPceAD4e6TjEWS9uL
- A6iw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:sender:from:to:cc:subject:in-reply-to:references
- :date:message-id:mime-version;
- bh=8mD+nqB33TkoOoj/gJgWM5VeBC7j95G7SbgFkstL1+Y=;
- b=ll7fej8rvzPlhgZ4TzFPKbahDIwFI76A7oFb7kgHJaDUJgAcYKkKwLWC52dCa3wnNW
- mQx5nQFm2X9MAf1DFfsLa4USLMY/3EphCJBpN8M48ENvAyY9xSqo++2LXRlcXOQYrHXS
- JgSx1HvISKeW1Fdd55xZstmOQlsMgTDikJjtoxAmpllHnyBJ203uPj+gbhYUQMEhFw2X
- /LD47qBaNbA/HMKhQ1P2w7CRlnRk+z4sSb/nO0x9FbqAAGEui98iWRYpmfDq+ryHV1yK
- lcZ4qJxmUav1v73HQBNUsb3bgfF+Huecx8XTE0yPEFkIWTW1Y9JAjbbGts3F49r7R7OT
- LDlA==
-X-Gm-Message-State: AOAM531MaI+X0AfNZoKd0fgcjXDKdRTw7ExDS8/kS0Fqnung0M7qxoJm
- d57p+owGAZ4Q6UGz6rjkDWE=
-X-Google-Smtp-Source: ABdhPJzX+r8g5hxwtM4cWf4LYMeGpaFl7y04AtV1EWXCDj7oMyC8Q9bisj8CbBCupPDW3m2AB12hbw==
-X-Received: by 2002:a19:8607:: with SMTP id i7mr1555288lfd.208.1596187209458; 
- Fri, 31 Jul 2020 02:20:09 -0700 (PDT)
-Received: from saruman (91-155-214-58.elisa-laajakaista.fi. [91.155.214.58])
- by smtp.gmail.com with ESMTPSA id v26sm1546603lji.65.2020.07.31.02.20.06
- (version=TLS1_2 cipher=ECDHE-ECDSA-CHACHA20-POLY1305 bits=256/256);
- Fri, 31 Jul 2020 02:20:08 -0700 (PDT)
-From: Felipe Balbi <balbi@kernel.org>
-To: Kees Cook <keescook@chromium.org>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Subject: Re: [PATCH 1/3] usb: gadget: udc: Avoid tasklet passing a global
-In-Reply-To: <20200716030847.1564131-2-keescook@chromium.org>
-References: <20200716030847.1564131-1-keescook@chromium.org>
- <20200716030847.1564131-2-keescook@chromium.org>
-Date: Fri, 31 Jul 2020 12:20:02 +0300
-Message-ID: <87zh7gm471.fsf@kernel.org>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 018A2F8011C
+ for <alsa-devel@alsa-project.org>; Sat,  1 Aug 2020 08:13:16 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 018A2F8011C
+Received: from ALA-HCA.corp.ad.wrs.com (ala-hca.corp.ad.wrs.com
+ [147.11.189.40])
+ by mail5.wrs.com (8.15.2/8.15.2) with ESMTPS id 0716C7Vd028182
+ (version=TLSv1 cipher=DHE-RSA-AES256-SHA bits=256 verify=FAIL);
+ Fri, 31 Jul 2020 23:12:38 -0700
+Received: from pek-lpg-core1-vm1.wrs.com (128.224.156.106) by
+ ALA-HCA.corp.ad.wrs.com (147.11.189.40) with Microsoft SMTP Server id
+ 14.3.487.0; Fri, 31 Jul 2020 23:12:15 -0700
+From: <qiang.zhang@windriver.com>
+To: <perex@perex.cz>, <tiwai@suse.com>
+Subject: [PATCH] ALSA: seq: KASAN: use-after-free Read in
+ delete_and_unsubscribe_port
+Date: Sat, 1 Aug 2020 14:24:03 +0800
+Message-ID: <20200801062403.8005-1-qiang.zhang@windriver.com>
+X-Mailer: git-send-email 2.26.2
 MIME-Version: 1.0
-Content-Type: multipart/signed; boundary="=-=-=";
- micalg=pgp-sha256; protocol="application/pgp-signature"
-X-Mailman-Approved-At: Mon, 03 Aug 2020 08:25:02 +0200
-Cc: Kuppuswamy Sathyanarayanan <sathyanarayanan.kuppuswamy@linux.intel.com>,
- "Rafael J. Wysocki" <rafael.j.wysocki@intel.com>,
- Oscar Carter <oscar.carter@gmx.com>, Mitchell Blank Jr <mitch@sfgoth.com>,
- kernel-hardening@lists.openwall.com, Peter Zijlstra <peterz@infradead.org>,
- kgdb-bugreport@lists.sourceforge.net,
- Sebastian Andrzej Siewior <bigeasy@linutronix.de>, alsa-devel@alsa-project.org,
- Allen Pais <allen.lkml@gmail.com>,
- Christian Gromm <christian.gromm@microchip.com>, Will Deacon <will@kernel.org>,
- devel@driverdev.osuosl.org, Jonathan Corbet <corbet@lwn.net>,
- Daniel Thompson <daniel.thompson@linaro.org>,
- "David S. Miller" <davem@davemloft.net>,
- Masahiro Yamada <masahiroy@kernel.org>, Takashi Iwai <tiwai@suse.com>,
- Julian Wiedmann <jwi@linux.ibm.com>,
- "Matthew Wilcox \(Oracle\)" <willy@infradead.org>,
- Christian Borntraeger <borntraeger@de.ibm.com>,
- Nishka Dasgupta <nishkadg.linux@gmail.com>, Jiri Slaby <jslaby@suse.com>,
- Jakub Kicinski <kuba@kernel.org>, Guenter Roeck <linux@roeck-us.net>,
- Wambui Karuga <wambui.karugax@gmail.com>, Kees Cook <keescook@chromium.org>,
- Vasily Gorbik <gor@linux.ibm.com>, linux-s390@vger.kernel.org,
- linux-kernel@vger.kernel.org, Heiko Carstens <hca@linux.ibm.com>,
- linux-input@vger.kernel.org, Ursula Braun <ubraun@linux.ibm.com>,
- Stephen Boyd <swboyd@chromium.org>,
- Chris Packham <chris.packham@alliedtelesis.co.nz>,
- Harald Freudenberger <freude@linux.ibm.com>,
- Thomas Gleixner <tglx@linutronix.de>, Kyungtae Kim <kt0755@gmail.com>,
- netdev@vger.kernel.org, Dmitry Torokhov <dmitry.torokhov@gmail.com>,
- Douglas Anderson <dianders@chromium.org>,
- Kevin Curtis <kevin.curtis@farsite.co.uk>, linux-usb@vger.kernel.org,
- Jason Wessel <jason.wessel@windriver.com>,
- Romain Perier <romain.perier@gmail.com>, Karsten Graul <kgraul@linux.ibm.com>
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Mailman-Approved-At: Mon, 03 Aug 2020 08:25:03 +0200
+Cc: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -130,43 +70,139 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
---=-=-=
-Content-Type: text/plain
-Content-Transfer-Encoding: quoted-printable
+From: Zhang Qiang <qiang.zhang@windriver.com>
 
-Hi,
+There is a potential race window,when a task acquire "src->list_mutex"
+write sem,traverse the linked list to find "subs" objects through
+parameter "info" in snd_seq_port_disconnect and then release this
+write sem, before this task acquire write sem again,this write sem
+may be acquired by another task, and get the same "subs" object through
+the same "info" before, it could happen "use-after-free" later, so a
+simple solution is to delete the object from the linked list when it
+is found.
 
-Kees Cook <keescook@chromium.org> writes:
-> There's no reason for the tasklet callback to set an argument since it
-> always uses a global. Instead, use the global directly, in preparation
-> for converting the tasklet subsystem to modern callback conventions.
->
-> Signed-off-by: Kees Cook <keescook@chromium.org>
+BUG: KASAN: use-after-free in list_empty include/linux/list.h:282 [inline]
+BUG: KASAN: use-after-free in delete_and_unsubscribe_port+0x8b/0x450
+sound/core/seq/seq_ports.c:530
+Read of size 8 at addr ffff888098523060 by task syz-executor.0/7202
 
-looks okay to me.
+Call Trace:
+ __dump_stack lib/dump_stack.c:77 [inline]
+ dump_stack+0x1f0/0x31e lib/dump_stack.c:118
+ print_address_description+0x66/0x5a0 mm/kasan/report.c:383
+ __kasan_report mm/kasan/report.c:513 [inline]
+ kasan_report+0x132/0x1d0 mm/kasan/report.c:530
+ list_empty include/linux/list.h:282 [inline]
+ delete_and_unsubscribe_port+0x8b/0x450 sound/core/seq/seq_ports.c:530
+ snd_seq_port_disconnect+0x568/0x610 sound/core/seq/seq_ports.c:612
+ snd_seq_ioctl_unsubscribe_port+0x349/0x6c0 sound/core/seq/seq_clientmgr.c:1525
+ snd_seq_oss_midi_close+0x397/0x620 sound/core/seq/oss/seq_oss_midi.c:405
+ snd_seq_oss_synth_reset+0x335/0x8b0 sound/core/seq/oss/seq_oss_synth.c:406
+ snd_seq_oss_reset+0x5b/0x250 sound/core/seq/oss/seq_oss_init.c:435
+ snd_seq_oss_ioctl+0x5c2/0x1090 sound/core/seq/oss/seq_oss_ioctl.c:93
+ odev_ioctl+0x51/0x70 sound/core/seq/oss/seq_oss.c:174
+ vfs_ioctl fs/ioctl.c:48 [inline]
+ ksys_ioctl fs/ioctl.c:753 [inline]
+ __do_sys_ioctl fs/ioctl.c:762 [inline]
+ __se_sys_ioctl+0xf9/0x160 fs/ioctl.c:760
+ do_syscall_64+0x73/0xe0 arch/x86/entry/common.c:384
+ entry_SYSCALL_64_after_hwframe+0x44/0xa9
 
-Acked-by: Felipe Balbi <balbi@kernel.org>
+Allocated by task 7202:
+ save_stack mm/kasan/common.c:48 [inline]
+ set_track mm/kasan/common.c:56 [inline]
+ __kasan_kmalloc+0x103/0x140 mm/kasan/common.c:494
+ kmem_cache_alloc_trace+0x234/0x300 mm/slab.c:3551
+ kmalloc include/linux/slab.h:555 [inline]
+ kzalloc include/linux/slab.h:669 [inline]
+ snd_seq_port_connect+0x66/0x460 sound/core/seq/seq_ports.c:553
+ snd_seq_ioctl_subscribe_port+0x349/0x6c0 sound/core/seq/seq_clientmgr.c:1484
+ snd_seq_oss_midi_open+0x4db/0x830 sound/core/seq/oss/seq_oss_midi.c:364
+ snd_seq_oss_synth_setup_midi+0x108/0x510 sound/core/seq/oss/seq_oss_synth.c:269
+ snd_seq_oss_open+0x899/0xe90 sound/core/seq/oss/seq_oss_init.c:261
+ odev_open+0x5e/0x90 sound/core/seq/oss/seq_oss.c:125
+ chrdev_open+0x498/0x580 fs/char_dev.c:414
+ do_dentry_open+0x813/0x1070 fs/open.c:828
+ do_open fs/namei.c:3243 [inline]
+ path_openat+0x278d/0x37f0 fs/namei.c:3360
+ do_filp_open+0x191/0x3a0 fs/namei.c:3387
+ do_sys_openat2+0x463/0x770 fs/open.c:1179
+ do_sys_open fs/open.c:1195 [inline]
+ __do_sys_openat fs/open.c:1209 [inline]
+ __se_sys_openat fs/open.c:1204 [inline]
+ __x64_sys_openat+0x1c8/0x1f0 fs/open.c:1204
+ do_syscall_64+0x73/0xe0 arch/x86/entry/common.c:384
+ entry_SYSCALL_64_after_hwframe+0x44/0xa9
 
-=2D-=20
-balbi
+Freed by task 7203:
+ save_stack mm/kasan/common.c:48 [inline]
+ set_track mm/kasan/common.c:56 [inline]
+ kasan_set_free_info mm/kasan/common.c:316 [inline]
+ __kasan_slab_free+0x114/0x170 mm/kasan/common.c:455
+ __cache_free mm/slab.c:3426 [inline]
+ kfree+0x10a/0x220 mm/slab.c:3757
+ snd_seq_port_disconnect+0x570/0x610 sound/core/seq/seq_ports.c:614
+ snd_seq_ioctl_unsubscribe_port+0x349/0x6c0 sound/core/seq/seq_clientmgr.c:1525
+ snd_seq_oss_midi_close+0x397/0x620 sound/core/seq/oss/seq_oss_midi.c:405
+ snd_seq_oss_synth_reset+0x335/0x8b0 sound/core/seq/oss/seq_oss_synth.c:406
+ snd_seq_oss_reset+0x5b/0x250 sound/core/seq/oss/seq_oss_init.c:435
+ snd_seq_oss_ioctl+0x5c2/0x1090 sound/core/seq/oss/seq_oss_ioctl.c:93
+ odev_ioctl+0x51/0x70 sound/core/seq/oss/seq_oss.c:174
+ vfs_ioctl fs/ioctl.c:48 [inline]
+ ksys_ioctl fs/ioctl.c:753 [inline]
+ __do_sys_ioctl fs/ioctl.c:762 [inline]
+ __se_sys_ioctl+0xf9/0x160 fs/ioctl.c:760
+ do_syscall_64+0x73/0xe0 arch/x86/entry/common.c:384
+ entry_SYSCALL_64_after_hwframe+0x44/0xa9
 
---=-=-=
-Content-Type: application/pgp-signature; name="signature.asc"
+The buggy address belongs to the object at ffff888098523000
+ which belongs to the cache kmalloc-128 of size 128
+The buggy address is located 96 bytes inside of
+ 128-byte region [ffff888098523000, ffff888098523080)
+The buggy address belongs to the page:
+page:ffffea00026148c0 refcount:1 mapcount:0 mapping:0000000000000000 index:0x0
+flags: 0xfffe0000000200(slab)
+raw: 00fffe0000000200 ffffea0002613988 ffffea000262c648 ffff8880aa400700
+raw: 0000000000000000 ffff888098523000 0000000100000010 0000000000000000
+page dumped because: kasan: bad access detected
 
------BEGIN PGP SIGNATURE-----
+Memory state around the buggy address:
+ ffff888098522f00: fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc
+ ffff888098522f80: fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc
+>ffff888098523000: fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
+                                                       ^
+ ffff888098523080: fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc
+ ffff888098523100: fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
+==================================================================
 
-iQIzBAEBCAAdFiEElLzh7wn96CXwjh2IzL64meEamQYFAl8j4kIACgkQzL64meEa
-mQZ6zQ//ZXtGFv/fRsm1+M9OI2t7qOY4ZsyygLSKzdncJp2pYVhKXNiMOjtYNxRV
-Hv8GjhXRlsOn7pZZ+BqcYWDjvJM20owDzT0NS7oeLKFeIXB6QR5Y/viDETy3MkId
-eq1gPhxbK2szcyYVUqC6/qaOuDVpPV4PKlLDPfXev8REL78mYBAgKb5a8kVuZnjo
-Lcg64xhnc9YAc5gj+f2HnybldhmU606mRQt/RDQlK9uUymMsD7rZw0L6zfV5r7AY
-0oWUzryBMvVMMZ3l0ZpdiSWqoRVgOplih5AHcH4SFZq/5Rv14F7ILAV3JNsIoGZ3
-x7MwtAJuIBmBNr48PSDtLu5ntF8OpRLhwBvt6onOzbOyqpk6TnjfbmVHcorlWtfE
-tSy2qOo9W6Smc6NsFLcaoYlZUVAiPr2R0Ogap0ISvFF6nBe1b3CEp9Hco79blWCy
-1CiCwhq17U6q3tgrRRc34+zewtdAYw+Xze3TNBhQi3EOuCjNNXAoNl6v20/8LOsI
-lijSWagZFc7o3LM9xsxWhFVrAWI5bXY+1CmPdwd4dHbaCXg2rcQ33MGP0Uum/bHu
-DijJZ1LszhIf1RgXrOD/kmY/WmSh4Nh6nQkdssxXSabz0oN0wsuxMfgNqnkcnIj9
-56pCsJHf2phFZyTaMDgzL17tcfor5xQQs27yAoGI1ygKelTGAjY=
-=ua4k
------END PGP SIGNATURE-----
---=-=-=--
+Reported-by: syzbot+1a54a94bd32716796edd@syzkaller.appspotmail.com
+Signed-off-by: Zhang Qiang <qiang.zhang@windriver.com>
+---
+ sound/core/seq/seq_ports.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/sound/core/seq/seq_ports.c b/sound/core/seq/seq_ports.c
+index 83be6b982a87..9675d3fc146e 100644
+--- a/sound/core/seq/seq_ports.c
++++ b/sound/core/seq/seq_ports.c
+@@ -533,8 +533,7 @@ static void delete_and_unsubscribe_port(struct snd_seq_client *client,
+ 	grp->exclusive = 0;
+ 	write_unlock_irq(&grp->list_lock);
+ 
+-	if (!empty)
+-		unsubscribe_port(client, port, grp, &subs->info, ack);
++	unsubscribe_port(client, port, grp, &subs->info, ack);
+ 	up_write(&grp->list_mutex);
+ }
+ 
+@@ -599,6 +598,7 @@ int snd_seq_port_disconnect(struct snd_seq_client *connector,
+ 	list_for_each_entry(subs, &src->list_head, src_list) {
+ 		if (match_subs_info(info, &subs->info)) {
+ 			atomic_dec(&subs->ref_count); /* mark as not ready */
++			list_del_init(&subs->src_list);
+ 			err = 0;
+ 			break;
+ 		}
+-- 
+2.26.2
+

@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E3B08235181
-	for <lists+alsa-devel@lfdr.de>; Sat,  1 Aug 2020 11:36:22 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7DBC2235182
+	for <lists+alsa-devel@lfdr.de>; Sat,  1 Aug 2020 11:37:10 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 1007616D2;
-	Sat,  1 Aug 2020 11:35:32 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1007616D2
+	by alsa0.perex.cz (Postfix) with ESMTPS id 176A916BB;
+	Sat,  1 Aug 2020 11:36:20 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 176A916BB
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1596274582;
-	bh=LgKFX1SVx7L3cijGoJRs3WsM26oCNmdrXg1qujvEqQE=;
+	s=default; t=1596274630;
+	bh=jPrYDABtELaWmlzAKQzsH8m1K3nnnz7WChcn+Un3qh0=;
 	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=O9jMl5eaCdpjv9UmJwWxjAg+A/RS1jWE6xx3vd+FwzGkBLIZJGwvM7Dnuz3is6zy6
-	 A5xQ784eUZPan0I1xNcR9nJa7pe0hyW+XSNVVSDxfq7rC4Kl5uhWnvEM6R2NFFzcMn
-	 LEmWBPWU8UadboHST881dWrmBH+kcC11D11ANgiQ=
+	b=Qu+v8hlXe6GsBl9u2xLuQz4TNtg1gcDoIWmQSdawiPMqBRaeKfynPVjKet2ODu1my
+	 BErVZlgwEV4Hsu+hmM6fFIC2URMASy1cUw4wivbW2lwUeHSZOOSXgHZDoD9e5Aa7Ih
+	 0rM94tQ5OH3fvFfMiBzQUjra7c5PL7gHkGPv9ugk=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 3438BF80240;
-	Sat,  1 Aug 2020 11:34:41 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 58678F8028D;
+	Sat,  1 Aug 2020 11:34:49 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id AD95EF80227; Sat,  1 Aug 2020 11:34:38 +0200 (CEST)
+ id 93701F8028B; Sat,  1 Aug 2020 11:34:47 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_MSPIKE_H3,
@@ -34,20 +34,20 @@ X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_MSPIKE_H3,
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id D882AF8015C
- for <alsa-devel@alsa-project.org>; Sat,  1 Aug 2020 11:34:31 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D882AF8015C
+ by alsa1.perex.cz (Postfix) with ESMTPS id 01593F8015C
+ for <alsa-devel@alsa-project.org>; Sat,  1 Aug 2020 11:34:41 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 01593F8015C
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id E7065ABF1;
- Sat,  1 Aug 2020 09:34:44 +0000 (UTC)
-Date: Sat, 01 Aug 2020 11:34:30 +0200
-Message-ID: <s5ha6ze90bd.wl-tiwai@suse.de>
+ by mx2.suse.de (Postfix) with ESMTP id 5F188AC94;
+ Sat,  1 Aug 2020 09:34:55 +0000 (UTC)
+Date: Sat, 01 Aug 2020 11:34:41 +0200
+Message-ID: <s5h8sey90b2.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
 To: Julia Lawall <Julia.Lawall@inria.fr>
-Subject: Re: [PATCH] ALSA: doc: use correct config variable name
-In-Reply-To: <1596223701-7558-1-git-send-email-Julia.Lawall@inria.fr>
-References: <1596223701-7558-1-git-send-email-Julia.Lawall@inria.fr>
+Subject: Re: [PATCH] ALSA: docs: fix typo
+In-Reply-To: <1596224129-7699-1-git-send-email-Julia.Lawall@inria.fr>
+References: <1596224129-7699-1-git-send-email-Julia.Lawall@inria.fr>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
  FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
  (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
@@ -71,10 +71,10 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Fri, 31 Jul 2020 21:28:21 +0200,
+On Fri, 31 Jul 2020 21:35:29 +0200,
 Julia Lawall wrote:
 > 
-> CONFIG_PCM_XRUN_DEBUG should be CONFIG_SND_PCM_XRUN_DEBUG
+> GFP_KRENEL -> GFP_KERNEL
 > 
 > Signed-off-by: Julia Lawall <Julia.Lawall@inria.fr>
 

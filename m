@@ -2,82 +2,121 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D21E6234D06
-	for <lists+alsa-devel@lfdr.de>; Fri, 31 Jul 2020 23:32:31 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id CC6B6235093
+	for <lists+alsa-devel@lfdr.de>; Sat,  1 Aug 2020 07:13:49 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 5EBF41686;
-	Fri, 31 Jul 2020 23:31:41 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5EBF41686
+	by alsa0.perex.cz (Postfix) with ESMTPS id 65C1316C2;
+	Sat,  1 Aug 2020 07:12:59 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 65C1316C2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1596231151;
-	bh=NHsr3aFIVXcbgVNcABj+122r90mMVIkb6+W2zQXbddw=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1596258829;
+	bh=liPBkfS706smDTuFF5ki8Me1RGedJ9PvPRquDzQtstY=;
+	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=hYjVYlWgyk0rudNKk7uISyPwk4qd2kN2ZWa5P1eTT/HZlNEnLw7ePSEn5nR/MSgHq
-	 jPFYERRVROn0mVkmR+N+o5FGKsF+Tu8yXHBFQcfeBEuFrEDRmSgrZNgsLruShis85v
-	 /wLFnizxF7hO/6u8a7s2XdyxLwWJM+DkN6205Hqk=
+	b=s5rGX9hvyM76lp37sZuBDz17X5J+SLyYY5wYLR12OKnyJm0hAEe8b4bghHk5QENSq
+	 uW0IshXtveYpteEup+RIOncfaDNs1wfnlqKJoimDAIuxM6u95nWppgpc9cpYbVhXdQ
+	 XCbYxg7XlBIvjfBleKtC2wgzBvlB8XltZAcsIH08=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 6170CF801A3;
-	Fri, 31 Jul 2020 23:30:50 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 7B5D1F8015C;
+	Sat,  1 Aug 2020 07:12:08 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 87E9FF80171; Fri, 31 Jul 2020 23:30:47 +0200 (CEST)
+ id 6F0B7F8021E; Sat,  1 Aug 2020 07:12:05 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.3 required=5.0 tests=FREEMAIL_ENVFROM_END_DIGIT,
- FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,
- RCVD_IN_MSPIKE_H2,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from mail-io1-f66.google.com (mail-io1-f66.google.com
- [209.85.166.66])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=0.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ FORGED_SPF_HELO,MSGID_FROM_MTA_HEADER,NICE_REPLY_A,RCVD_IN_MSPIKE_H2,
+ SPF_HELO_PASS,SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from NAM11-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam11on2055.outbound.protection.outlook.com [40.107.236.55])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 8BBF0F80111
- for <alsa-devel@alsa-project.org>; Fri, 31 Jul 2020 23:30:33 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8BBF0F80111
-Received: by mail-io1-f66.google.com with SMTP id k23so32995644iom.10
- for <alsa-devel@alsa-project.org>; Fri, 31 Jul 2020 14:30:33 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to;
- bh=+1TGdSM7ebRYhzsfJccNqgk5kV9sG3dUDdM4DYu83Fw=;
- b=cuv6zQxGSYau4GwhyX9MFkB+Moxn/wMaXORx3vnrUWmfmhK4kAvv9yBSC4mJ2/K+mz
- iSDtmJjxG43iyXKit0bbmyEnx/CsSqjNtYdRquZ/EEMxasIacXBvxBP3eJUXeiI5Etj/
- ylI26o7QgZ7VJthnIjOuh+ohu9bYsc5aCmzwLGvJjJHN8SHO/OLpR4lKFlgutL77N72i
- Hu6l9vL8ATFQrMZY7qESxQQN5tCxUcjg2Mf9jPo/plrERh3tbMgATl/Mt3VArOpXn2d1
- Nrro/jEvqoqaEblB7LuV/++0KFw5kuDBotF/kCFNScQtfC9oHmfGTV9IVAxZDzbIW2rH
- gpXw==
-X-Gm-Message-State: AOAM533x97LBr6cxifVKQutR5SY66aS09z2Lza/d3znt5UYcCH5cQ6Kv
- vkocgzOvtaxhvkhdmudF8w==
-X-Google-Smtp-Source: ABdhPJxXeVS0jZueBStQpy+cdWH/c/tpvRGzhw0OjxjNfquqY5ZbETuEj8pXTjXPXY5xHhqTIYPArg==
-X-Received: by 2002:a02:84ac:: with SMTP id f41mr2890486jai.56.1596231030696; 
- Fri, 31 Jul 2020 14:30:30 -0700 (PDT)
-Received: from xps15 ([64.188.179.252])
- by smtp.gmail.com with ESMTPSA id i9sm5682020ile.48.2020.07.31.14.30.28
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 31 Jul 2020 14:30:30 -0700 (PDT)
-Received: (nullmailer pid 827984 invoked by uid 1000);
- Fri, 31 Jul 2020 21:30:28 -0000
-Date: Fri, 31 Jul 2020 15:30:28 -0600
-From: Rob Herring <robh@kernel.org>
-To: Codrin Ciubotariu <codrin.ciubotariu@microchip.com>
-Subject: Re: [PATCH v2 1/2] dt-bindings: sound: add DT bindings for Microchip
- S/PDIF TX Controller
-Message-ID: <20200731213028.GA824739@bogus>
-References: <20200729101922.3033616-1-codrin.ciubotariu@microchip.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 37D23F8015C
+ for <alsa-devel@alsa-project.org>; Sat,  1 Aug 2020 07:11:55 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 37D23F8015C
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=amdcloud.onmicrosoft.com
+ header.i=@amdcloud.onmicrosoft.com header.b="iVQ79rPA"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=i79OsSeEh6PVGEQmZ4DsN45a9h4gW8I0hQxtcdOm0cYE9W95Uiz0oH38gKlsCJNnTHQGlyuVOnuhFb5mx6ThEAUte+sRcvhTyyMe1BTSUadr/csBAq0teKXIl0ta+ZOjrpQglU/dn4GreEg7wZ5PZEseN5oSvWHNgILacke0EIs6enxsZHBqjh4fx+oaUx6xhafBHlF6xpMvIdPT0Dr4PqXFNk1dXLhR30TxVxeX7IcEAO5X6LiTX1ga6l6g2acFSD/Ec7tPggrD1dGf+fhZHCMOm7a0yUEB6GCFHzU7szgGPztN1mV8dGaXsKodGn7T3tsgAATPuUwK6JmmiU3Uxg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=p8nPj0eix6DAxr4o8qpAdN4nfMR7ubcANTKedF+CG0E=;
+ b=jHNhjIwEdUT01Bp7fOkZ760aAA3vP7IudkQ0Ybzi/mtsTPJ5Zm5QZ0HqKusU7apSgmf0YRz/0hU4Tncyedmncc0mxP7tkqSm43S6vsgMn2ajyTNgJwEe/CPICXXhQc1WNXEcN9Cfqab7rgQr+PN6hk1vVZcaG+K+QeO9SCWYm0L+4UALyr1i+uz9gb+XPvseCZYzjVkTwlNh9tLRuQHmHsRe1VCygA1+tz+WYpbcuxWMPFRfFDFzktCqVR9sCaFAZkD7rD2u6ITnAtbuDgpnE/bWA4VCTQd2boM24DMo8Kjksce32OCCq/O0N315VTlX3F+ALcSG7/fl56qV3PjX2w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=p8nPj0eix6DAxr4o8qpAdN4nfMR7ubcANTKedF+CG0E=;
+ b=iVQ79rPAVYgMi3THYb5cpYKvcZRCRCWVoHeqNPQy5a4A33aPcqIxk5xfIf1UVUnUiUOmdnUHuo2ReS49Y6DWAATxElN+JBlIa8QWbwEEo0CxaNdlLPT1h87iUbEGTLK7CPpfv28TW4kq859d9AQ0nSOy81jmAVUMDGrOC0Jdj8M=
+Authentication-Results: vger.kernel.org; dkim=none (message not signed)
+ header.d=none;vger.kernel.org; dmarc=none action=none header.from=amd.com;
+Received: from MWHPR12MB1663.namprd12.prod.outlook.com (2603:10b6:301:e::9) by
+ MWHPR12MB1437.namprd12.prod.outlook.com (2603:10b6:300:7::23) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.3239.20; Sat, 1 Aug 2020 05:11:50 +0000
+Received: from MWHPR12MB1663.namprd12.prod.outlook.com
+ ([fe80::45:3012:7b13:778c]) by MWHPR12MB1663.namprd12.prod.outlook.com
+ ([fe80::45:3012:7b13:778c%8]) with mapi id 15.20.3239.020; Sat, 1 Aug 2020
+ 05:11:50 +0000
+Subject: Re: [PATCH v2] ASoC: amd: renoir: restore two more registers during
+ resume
+To: Hui Wang <hui.wang@canonical.com>, alsa-devel@alsa-project.org,
+ broonie@kernel.org
+References: <20200730123138.5659-1-hui.wang@canonical.com>
+From: "Mukunda,Vijendar" <vijendar.mukunda@amd.com>
+Message-ID: <44945fdf-8aca-8ecd-74d1-7cceb267968a@amd.com>
+Date: Sat, 1 Aug 2020 10:56:01 +0530
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.10.0
+In-Reply-To: <20200730123138.5659-1-hui.wang@canonical.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: BMXPR01CA0065.INDPRD01.PROD.OUTLOOK.COM
+ (2603:1096:b00:2c::29) To MWHPR12MB1663.namprd12.prod.outlook.com
+ (2603:10b6:301:e::9)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20200729101922.3033616-1-codrin.ciubotariu@microchip.com>
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- alexandre.belloni@bootlin.com, tiwai@suse.com, linux-kernel@vger.kernel.org,
- lgirdwood@gmail.com, ludovic.desroches@microchip.com, broonie@kernel.org,
- linux-arm-kernel@lists.infradead.org, nicolas.ferre@microchip.com
+X-MS-Exchange-MessageSentRepresentingType: 1
+Received: from [10.129.8.176] (165.204.159.251) by
+ BMXPR01CA0065.INDPRD01.PROD.OUTLOOK.COM (2603:1096:b00:2c::29) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.3239.16 via Frontend Transport; Sat, 1 Aug 2020 05:11:48 +0000
+X-Originating-IP: [165.204.159.251]
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-HT: Tenant
+X-MS-Office365-Filtering-Correlation-Id: 798d4af0-bd72-4b2a-5379-08d835d96553
+X-MS-TrafficTypeDiagnostic: MWHPR12MB1437:
+X-Microsoft-Antispam-PRVS: <MWHPR12MB1437704524412BC07203C318974F0@MWHPR12MB1437.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:7219;
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: xOqTH6FDZpHMpZ8zVfaAEM7gWRZjECq3S6PvsF4xMjrWArdpFrgZl7uo+VLpynLmEDoyAm8YhZtTXqPrqcBZzJP50sJKxE8R6DPLW6z3iWIBcohMB7yhkveGuuHJMJuvCixtzgjg5eH92KtRItsy++ZmPxj5VNrsaRTJz/GIsaWs/2iBxvaGL+Hnu3cZ8sosEiDYf9M7RVSCw8sJMuSWuv0pMLSgFbbOeJ0s3OrECBiQg/h6hR3nlwEH2oPmVoQFSXGkYkP7xaztxLU6Pt+hymuzvdnnVbS0YHpRJS+xfcebMXow+UgF0JcUygIQDf2FohvLwEBCTB677uE2Qs09VbiZReItJWDNpIzABe866RepyTxUFF45bnYExnRM4y7S
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:MWHPR12MB1663.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFTY:;
+ SFS:(4636009)(136003)(366004)(396003)(346002)(39860400002)(376002)(478600001)(16526019)(956004)(2616005)(31686004)(8936002)(186003)(316002)(53546011)(16576012)(8676002)(36756003)(26005)(4326008)(6486002)(52116002)(5660300002)(83380400001)(6666004)(86362001)(66556008)(31696002)(2906002)(66946007)(66476007)(43740500002);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData: qSAfDHi9z7+ukqYxr5R9UyHR9APvWq9RXyp6eNj2wqtw9CgMhxZafVYCTTfd6jV6E2/KsfPbomYHc04WaGyxfQ8mFBkZEBUSzMl2LrhhvjYoKL/8pT9aNQzMhWUaxOjdnQ2Y9wIDcmfanZanWmpzqsT7rP66dRnvZmoeDREqegrVGrSs/Bxu6ur3oOTrx+gZTbRyfyYMNrGf+Qrd12DmULBlHSlSNDBBgKCKsj+GfV7eiRuPoos5GutXo+fLSQpsW4HCXZZZshTjS3xmw8H3BhAbnJFbylGB2d68EhvZJ8dhyMihSdirJiO/8vcaFzue2N9N1YzcyDS0SAMCEQO5fIiX3oN8TlOTFyEkDaQ4kRfYmeeRgF9UBJ5BCXP26nJ/1R1IiSqh9AB/+XTbDYJf3tudtEiqQBZq12wbaP1G/aF5A9Q6PuEDBdOZIzimCik6XdTKpWC8Ow2Wt08civIPkDRigrzMIBh7Me8EzliUT05LJlwk6YSzGmA8amQyW0BXAWvoUAPg+Eb5JVk8gDhlqbyTfK3FzAZZ1eFzNS3KVvqXw4CA7Qb8/xxhf6IeGUyvtyQepexHEhGDdRY/oVVJ6vksS3nzidiS1czAc5FBHQ2sJY4Qw4TzqiN6AXaK8bFg7ssoLY3jraDsjYZWvBbnOw==
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 798d4af0-bd72-4b2a-5379-08d835d96553
+X-MS-Exchange-CrossTenant-AuthSource: MWHPR12MB1663.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Aug 2020 05:11:49.9219 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: kR8vwmxX0eeoovi911TGCDV9g5IIG8ulq+lyoiU9FOI9ZUIHom7BAP8tLgio5RcBUVHRAANGo5AT8+6cTDDsRQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MWHPR12MB1437
+Cc: stable@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -93,116 +132,94 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Wed, Jul 29, 2020 at 01:19:21PM +0300, Codrin Ciubotariu wrote:
-> This patch adds DT bindings for the new Microchip S/PDIF TX Controller
-> embedded inside sama7g5 SoCs.
+
+
+On 30/07/20 6:01 pm, Hui Wang wrote:
+> Recently we found an issue about the suspend and resume. If dmic is
+> recording the sound, and we run suspend and resume, after the resume,
+> the dmic can't work well anymore. we need to close the app and reopen
+> the app, then the dmic could record the sound again.
 > 
-> Signed-off-by: Codrin Ciubotariu <codrin.ciubotariu@microchip.com>
+> For example, we run "arecord -D hw:CARD=acp,DEV=0 -f S32_LE -c 2
+> -r 48000 test.wav", then suspend and resume, after the system resume
+> back, we speak to the dmic. then stop the arecord, use aplay to play
+> the test.wav, we could hear the sound recorded after resume is weird,
+> it is not what we speak to the dmic.
+> 
+> I found two registers are set in the dai_hw_params(), if the two
+> registers are set during the resume, this issue could be fixed.
+> Move the code of the dai_hw_params() into the pdm_dai_trigger(), then
+> these two registers will be set during resume since pdm_dai_trigger()
+> will be called during resume. And delete the empty function
+> dai_hw_params().
+> 
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Hui Wang <hui.wang@canonical.com>
+Reviewed-by: Vijendar Mukunda <Vijendar.Mukunda@amd.com>
 > ---
+>   sound/soc/amd/renoir/acp3x-pdm-dma.c | 29 +++++++++-------------------
+>   1 file changed, 9 insertions(+), 20 deletions(-)
 > 
-> Changes in v2:
->  - replaced https with http
->  - reworked example, included bindings;
-> 
->  .../bindings/sound/mchp,spdiftx.yaml          | 80 +++++++++++++++++++
->  1 file changed, 80 insertions(+)
->  create mode 100644 Documentation/devicetree/bindings/sound/mchp,spdiftx.yaml
-> 
-> diff --git a/Documentation/devicetree/bindings/sound/mchp,spdiftx.yaml b/Documentation/devicetree/bindings/sound/mchp,spdiftx.yaml
-> new file mode 100644
-> index 000000000000..2b7c27391f0d
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/sound/mchp,spdiftx.yaml
-> @@ -0,0 +1,80 @@
-> +# SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause)
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/sound/mchp,spdiftx.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: Microchip S/PDIF Tx Controller Device Tree Bindings
-> +
-> +maintainers:
-> +  - Codrin Ciubotariu <codrin.ciubotariu@microchip.com>
-> +
-> +description:
-> +        The Microchip Sony/Philips Digital Interface Transmitter is a
-> +        serial port compliant with the IEC-60958 standard.
-> +
-> +properties:
-> +  "#sound-dai-cells":
-> +    const: 0
-> +
-> +  compatible:
-> +    oneOf:
-> +      - const: microchip,sama7g5-spdiftx
-
-No need for 'oneOf' when only 1 entry.
-
-> +
-> +  reg:
-> +    maxItems: 1
-> +
-> +  interrupts:
-> +    maxItems: 1
-> +
-> +  clocks:
-> +    items:
-> +      - description: Peripheral Bus Clock
-> +      - description: Generic Clock
-> +
-> +  clock-names:
-> +    items:
-> +      - const: pclk
-> +      - const: gclk
-> +
-> +  dmas:
-> +    description: TX DMA Channel
-
-How many? (maxItems: 1)
-
-> +
-> +  dma-names:
-> +    const: tx
-> +
-> +  pinctrl-0: true
-> +
-> +  pinctrl-names:
-> +    const: default
-
-You can drop pinctrl props. They are always allowed.
-
-> +
-> +required:
-> +  - "#sound-dai-cells"
-> +  - compatible
-> +  - reg
-> +  - interrupts
-> +  - clocks
-> +  - clock-names
-> +  - dmas
-> +  - dma-names
-> +
-> +additionalProperties: false
-> +
-> +examples:
-> +  - |
-> +    #include <dt-bindings/clock/at91.h>
-> +    #include <dt-bindings/dma/at91.h>
-> +    #include <dt-bindings/interrupt-controller/arm-gic.h>
-> +
-> +    spdiftx@e1618000 {
-> +        #sound-dai-cells = <0>;
-> +        compatible = "microchip,sama7g5-spdiftx";
-> +        reg = <0xe1618000 0x4000>;
-> +        interrupts = <GIC_SPI 85 IRQ_TYPE_LEVEL_HIGH>;
-> +        dmas = <&dma0 AT91_XDMAC_DT_PERID(50)>;
-> +        dma-names = "tx";
-> +        clocks = <&pmc PMC_TYPE_PERIPHERAL 85>, <&pmc PMC_TYPE_GCK 85>;
-> +        clock-names = "pclk", "gclk";
-> +        pinctrl-names = "default";
-> +        pinctrl-0 = <&pinctrl_spdiftx_default>;
-> +    };
-> -- 
-> 2.25.1
+> diff --git a/sound/soc/amd/renoir/acp3x-pdm-dma.c b/sound/soc/amd/renoir/acp3x-pdm-dma.c
+> index 623dfd3ea705..7b14d9a81b97 100644
+> --- a/sound/soc/amd/renoir/acp3x-pdm-dma.c
+> +++ b/sound/soc/amd/renoir/acp3x-pdm-dma.c
+> @@ -314,40 +314,30 @@ static int acp_pdm_dma_close(struct snd_soc_component *component,
+>   	return 0;
+>   }
+>   
+> -static int acp_pdm_dai_hw_params(struct snd_pcm_substream *substream,
+> -				 struct snd_pcm_hw_params *params,
+> -				 struct snd_soc_dai *dai)
+> +static int acp_pdm_dai_trigger(struct snd_pcm_substream *substream,
+> +			       int cmd, struct snd_soc_dai *dai)
+>   {
+>   	struct pdm_stream_instance *rtd;
+> +	int ret;
+> +	bool pdm_status;
+>   	unsigned int ch_mask;
+>   
+>   	rtd = substream->runtime->private_data;
+> -	switch (params_channels(params)) {
+> +	ret = 0;
+> +	switch (substream->runtime->channels) {
+>   	case TWO_CH:
+>   		ch_mask = 0x00;
+>   		break;
+>   	default:
+>   		return -EINVAL;
+>   	}
+> -	rn_writel(ch_mask, rtd->acp_base + ACP_WOV_PDM_NO_OF_CHANNELS);
+> -	rn_writel(PDM_DECIMATION_FACTOR, rtd->acp_base +
+> -		  ACP_WOV_PDM_DECIMATION_FACTOR);
+> -	return 0;
+> -}
+> -
+> -static int acp_pdm_dai_trigger(struct snd_pcm_substream *substream,
+> -			       int cmd, struct snd_soc_dai *dai)
+> -{
+> -	struct pdm_stream_instance *rtd;
+> -	int ret;
+> -	bool pdm_status;
+> -
+> -	rtd = substream->runtime->private_data;
+> -	ret = 0;
+>   	switch (cmd) {
+>   	case SNDRV_PCM_TRIGGER_START:
+>   	case SNDRV_PCM_TRIGGER_RESUME:
+>   	case SNDRV_PCM_TRIGGER_PAUSE_RELEASE:
+> +		rn_writel(ch_mask, rtd->acp_base + ACP_WOV_PDM_NO_OF_CHANNELS);
+> +		rn_writel(PDM_DECIMATION_FACTOR, rtd->acp_base +
+> +			  ACP_WOV_PDM_DECIMATION_FACTOR);
+>   		rtd->bytescount = acp_pdm_get_byte_count(rtd,
+>   							 substream->stream);
+>   		pdm_status = check_pdm_dma_status(rtd->acp_base);
+> @@ -369,7 +359,6 @@ static int acp_pdm_dai_trigger(struct snd_pcm_substream *substream,
+>   }
+>   
+>   static struct snd_soc_dai_ops acp_pdm_dai_ops = {
+> -	.hw_params = acp_pdm_dai_hw_params,
+>   	.trigger   = acp_pdm_dai_trigger,
+>   };
+>   
 > 

@@ -2,71 +2,86 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2E2C7235707
-	for <lists+alsa-devel@lfdr.de>; Sun,  2 Aug 2020 15:16:55 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 90E2A23598B
+	for <lists+alsa-devel@lfdr.de>; Sun,  2 Aug 2020 19:52:44 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id BC0F716DA;
-	Sun,  2 Aug 2020 15:16:04 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BC0F716DA
+	by alsa0.perex.cz (Postfix) with ESMTPS id 19A2F1612;
+	Sun,  2 Aug 2020 19:51:54 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 19A2F1612
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1596374214;
-	bh=on8h5+JRjBnbAALQ8soHcQY4n+vqYHUfI3jbBuIOdZw=;
-	h=To:Subject:In-Reply-To:From:Date:Cc:List-Id:List-Unsubscribe:
-	 List-Archive:List-Post:List-Help:List-Subscribe:From;
-	b=qFevm0Bvaw4qt/xKFP1BTqL6rkDoOuBbIwDu6IUO+dF26CUjIioXj5eM3hXvRNQ9y
-	 rHx+db6kve/m2aCXyzd4PgNUqQTVAKXckLjA8r/WmRAdPcmry0rJNnvZfC23k7SiUI
-	 jD5T8yoX6LpkqZJd0jwOtBzjz6+44SdyOKI9PsyQ=
+	s=default; t=1596390764;
+	bh=Fap6mDs2FFmWo3/3V/YY056tGbS9sDLVb/TztDMbfz8=;
+	h=Subject:From:To:References:Date:In-Reply-To:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=i6YBAcSDZ8k2Er2P4rWUNrNPVhwFpeMph7Lci1yFH2Czsa+UFmhyY5MCakSU1kFzw
+	 yFvQoGxJDHptc61+ZvyOBnJ9az8Sao8lP2om5u57QiyXgOjeAX2oTfPActhlOwHVnx
+	 Kfh5nxITf4W/zk2YLzs4uWrxDfEnxrQFo6hdThIY=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id CE79EF800B7;
-	Sun,  2 Aug 2020 15:15:13 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 34EC4F8015A;
+	Sun,  2 Aug 2020 19:51:03 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 8D5ADF80150; Sun,  2 Aug 2020 15:15:10 +0200 (CEST)
+ id 4D8B0F80150; Sun,  2 Aug 2020 19:51:00 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=MSGID_FROM_MTA_HEADER,
- RCVD_IN_MSPIKE_H2,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=disabled
+X-Spam-Status: No, score=-1.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS autolearn=disabled
  version=3.4.0
-Received: from mail-m127107.qiye.163.com (mail-m127107.qiye.163.com
- [115.236.127.107])
+Received: from cable.insite.cz (cable.insite.cz [84.242.75.189])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 94545F800B7
- for <alsa-devel@alsa-project.org>; Sun,  2 Aug 2020 15:14:59 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 94545F800B7
-Received: from vivo.com (wm-12.qy.internal [127.0.0.1])
- by mail-m127107.qiye.163.com (Hmail) with ESMTP id 99F0281725;
- Sun,  2 Aug 2020 21:14:48 +0800 (CST)
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: base64
-Message-ID: <ADUAnwD8DVByMMSsrG-r3Kri.3.1596374087585.Hmail.wenhu.wang@vivo.com>
-To: Bjorn Andersson <bjorn.andersson@linaro.org>
-Subject: =?UTF-8?B?UmU6UmU6IFtQQVRDSF0gc29jOiBxbWk6IGFsbG93IHVzZXIgdG8gc2V0IGhhbmRsZSB3cSB0byBoaXByaW8=?=
-X-Priority: 3
-X-Mailer: HMail Webmail Server V2.0 Copyright (c) 2016-163.com
-X-Originating-IP: 58.251.74.226
-In-Reply-To: <20200727204521.GB229995@builder.lan>
+ by alsa1.perex.cz (Postfix) with ESMTPS id E1685F8011C
+ for <alsa-devel@alsa-project.org>; Sun,  2 Aug 2020 19:50:56 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E1685F8011C
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=ivitera.com header.i=@ivitera.com
+ header.b="Ggu77o7/"; 
+ dkim=pass (1024-bit key) header.d=ivitera.com header.i=@ivitera.com
+ header.b="HHsUxdaO"
+Received: from localhost (localhost [127.0.0.1])
+ by cable.insite.cz (Postfix) with ESMTP id 14756A1F79870;
+ Sun,  2 Aug 2020 19:50:55 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=ivitera.com; s=mail;
+ t=1596390655; bh=Fap6mDs2FFmWo3/3V/YY056tGbS9sDLVb/TztDMbfz8=;
+ h=Subject:From:To:Cc:References:Date:In-Reply-To:From;
+ b=Ggu77o7/Gwlf/2EFn/qEqGS96CisigYHeQj/6B2dOfBi7eFNH2dlgsNFuWJlSvWid
+ EB3IAXelLEUhu+SQlHRcyJS4+2qDlEvrvaDziXaAKumu2vD6ltlDlQNEJsUaoj53do
+ aG8BkLiMS6ggo5g1gIPqmElG0OjBDLNv1r2CDV2U=
+Received: from cable.insite.cz ([84.242.75.189])
+ by localhost (server.insite.cz [127.0.0.1]) (amavisd-new, port 10024)
+ with ESMTP id ZRg8H1Jb1NEV; Sun,  2 Aug 2020 19:50:49 +0200 (CEST)
+Received: from [192.168.105.151] (ip28.insite.cz [81.0.237.28])
+ (Authenticated sender: pavel)
+ by cable.insite.cz (Postfix) with ESMTPSA id F04CAA1F30493;
+ Sun,  2 Aug 2020 19:50:48 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=ivitera.com; s=mail;
+ t=1596390649; bh=Fap6mDs2FFmWo3/3V/YY056tGbS9sDLVb/TztDMbfz8=;
+ h=Subject:From:To:Cc:References:Date:In-Reply-To:From;
+ b=HHsUxdaO9YeKXcxkQNe25ZSemjnt4dGGFs9vU7lXLm39eCM+5UT7mSgmGGNGo4iOX
+ iknCpoo4IDSsm5fPlwgkxeCu80LlAmTAascgHfiAXWvZr0TcwW3tb4LR17Abyxf7So
+ jqEqXUUNz9Vjuja4BB9AJZtGwiqis8U7tYPb0q/8=
+Subject: Re: pcm_meter.c issue at s16_update
+From: Pavel Hofman <pavel.hofman@ivitera.com>
+To: Takashi Iwai <tiwai@suse.de>
+References: <f56d6a67-014a-e562-c253-830c0ec03717@ivitera.com>
+ <9957e124-be4b-cdc9-ffad-579b631455df@ivitera.com>
+ <s5hd04ffu4m.wl-tiwai@suse.de>
+ <fd493c4d-797e-d76d-771d-7c7483ffdea7@ivitera.com>
+ <1cd5de43-5f67-78d3-f5e1-bbbaa8856873@ivitera.com>
+Message-ID: <9bad013a-0306-90e4-adc5-547ebcac1b55@ivitera.com>
+Date: Sun, 2 Aug 2020 19:50:44 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.8.0
 MIME-Version: 1.0
-Received: from wenhu.wang@vivo.com( [58.251.74.226) ] by ajax-webmail (
- [127.0.0.1] ) ; Sun, 2 Aug 2020 21:14:47 +0800 (GMT+08:00)
-From: =?UTF-8?B?546L5paH6JmO?= <wenhu.wang@vivo.com>
-Date: Sun, 2 Aug 2020 21:14:47 +0800 (GMT+08:00)
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgYFAkeWUFZS1VLWVdZKFlBSE83V1ktWUFJV1kPCR
- oVCBIfWUFZTR1KTktOSx4aQkpOVkpOQk1ITE9LQ0JLSE5VEwETFhoSFyQUDg9ZV1kWGg8SFR0UWU
- FZT0tIVUpKS0hKTFVKS0tZBg++
-X-HM-Sender-Digest: e1kJHlYWEh9ZQU5MTU1OSEpOS0tJN1dZDB4ZWUEPCQ4eV1kSHx4VD1lB
- WUc6Py46FQw*Qz8tOQI2NigICTxWCUgwCRJVSFVKTkJNSExPS0NCQ0lDVTMWGhIXVQweFRMOVQwa
- FRw7DRINFFUYFBZFWVdZEgtZQVlOQ1VJTkpVTE9VSUlNWVdZCAFZQU5LS0I3Bg++
-X-HM-Tid: 0a73af4f7bbb986bkuuu99f0281725
-Cc: ohad@wizery.com, linux-wireless@vger.kernel.org,
- alsa-devel@alsa-project.org, elder@kernel.org, linux-arm-msm@vger.kernel.org,
- linux-remoteproc@vger.kernel.org, linux-kernel@vger.kernel.org,
- ath10k@lists.infradead.org, ath11k@lists.infradead.org, agross@kernel.org,
- srinivas.kandagatla@linaro.org, sibis@codeaurora.org, netdev@vger.kernel.org,
- kuba@kernel.org, davem@davemloft.net, kvalo@codeaurora.org
+In-Reply-To: <1cd5de43-5f67-78d3-f5e1-bbbaa8856873@ivitera.com>
+Content-Type: text/plain; charset=iso-8859-2
+Content-Language: en-US
+Content-Transfer-Encoding: 8bit
+Cc: "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -82,37 +97,89 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Cj4+IEN1cnJlbnRseSB0aGUgcW1pX2hhbmRsZSBpcyBpbml0aWFsaXplZCBzaW5nbGUgdGhyZWFk
-ZWQgYW5kIHN0cmljdGx5Cj4+IG9yZGVyZWQgd2l0aCB0aGUgYWN0aXZlIHNldCB0byAxLiBUaGlz
-IGlzIHByZXR0eSBzaW1wbGUgYW5kIHNhZmUgYnV0Cj4+IHNvbWV0aW1lcyBpbmVmZmVuY3kuIFNv
-IGl0IGlzIGJldHRlciB0byBhbGxvdyB1c2VyIHRvIGRlY2lkZSB3aGV0aGVyCj4+IGEgaGlnaCBw
-cmlvcml0eSB3b3JrcXVldWUgc2hvdWxkIGJlIHVzZWQuCj4KPkNhbiB5b3UgcGxlYXNlIGRlc2Ny
-aWJlIGEgc2NlbmFyaW8gd2hlcmUgdGhpcyBpcyBuZWVkZWQvZGVzaXJlZCBhbmQKPnBlcmhhcHMg
-YWxzbyBjb21tZW50IG9uIHdoeSB0aGlzIGlzIG5vdCBhbHdheXMgZGVzaXJlZD8KPgoKV2VsbCwg
-b25lIHNjZW5hcmlvIGlzIHRoYXQgd2hlbiB0aGUgQVAgd2FudHMgdG8gY2hlY2sgdGhlIHN0YXR1
-cyBvZiB0aGUKc3Vic3lzdGVtcyBhbmQgdGhlIHdob2xlIFFNSSBkYXRhIHBhdGguIEl0IGZpcnN0
-IHNlbmRzIG91dCBhbiBpbmRpY2F0aW9uCndoaWNoIGFza3MgdGhlIHN1YnN5c3RlbXMgdG8gcmVw
-b3J0IHRoZWlyIHN0YXR1cy4gQWZ0ZXIgdGhlIHN1YnN5c3RlbXMgc2VuZApyZXNwb25zZXMgdG8g
-dGhlIEFQLCB0aGUgcmVzcG9uc2VzIHRoZW4gYXJlIHF1ZXVlZCBvbiB0aGUgd29ya3F1ZXVlIG9m
-CnRoZSBRTUkgaGFuZGxlci4gQWN0dWFsbHkgdGhlIEFQIGlzIGNvbmZpZ3VyZWQgdG8gZG8gdGhl
-IGNoZWNrIGluIGEgc3BlY2lmaWMKaW50ZXJ2YWwgcmVndWxhcmx5LiBBbmQgaXQgY2hlY2sgdGhl
-IHJlcG9ydCBjb3VudHMgd2l0aGluIGEgc3BlY2lmaWMgZGVsYXkgYWZ0ZXIKaXQgc2VuZHMgb3V0
-IHRoZSByZWxhdGVkIGluZGljYXRpb24uIFdoZW4gdGhlIEFQIGhhcyBiZWVuIHVuZGVyIGEgaGVh
-dnkKbG9hZCBmb3IgbG9uZywgdGhlIHJlcG9ydHMgYXJlIHF1ZXVlIHRoZWlyIHdpdGhvdXQgQ1BV
-IHJlc291cmNlIHRvIHVwZGF0ZQp0aGUgcmVwb3J0IGNvdW50cyB3aXRoaW4gdGhlIHNwZWNpZmlj
-IGRlbGF5LiBBcyBhIHJlc3VsdCwgdGhlIHRocmVhZCB0aGF0IGNoZWNrcwp0aGUgcmVwb3J0IGNv
-dW50cyB0YWtlcyBpdCBtaXNsZWFkaW5nbHkgdGhhdCB0aGUgUU1JIGRhdGEgcGF0aCBvciB0aGUg
-c3Vic3lzdGVtcwphcmUgY3Jhc2hlZC4KClRoZSBwYXRjaCBjYW4gcmVhbGx5IHJlc29sdmUgdGhl
-IHByb2JsZW0gbWVudGlvbmVkIGFib2x2ZS4KCkZvciBuYXJtYWwgc2l0dWF0aW9ucywgaXQgaXMg
-ZW5vdWdoIHRvIGp1c3QgdXNlIG5vcm1hbCBwcmlvcml0eSBRTUkgd29ya3F1ZXVlLgoKPlJlZ2Fy
-ZHMsCj5Cam9ybgo+Cj4+IAo+PiBTaWduZWQtb2ZmLWJ5OiBXYW5nIFdlbmh1IDx3ZW5odS53YW5n
-QHZpdm8uY29tPgo+PiAtLS0KPj4gIGRyaXZlcnMvbmV0L2lwYS9pcGFfcW1pLmMgICAgICAgICAg
-ICAgfCA0ICsrLS0KPj4gIGRyaXZlcnMvbmV0L3dpcmVsZXNzL2F0aC9hdGgxMGsvcW1pLmMgfCAy
-ICstCj4+ICBkcml2ZXJzL25ldC93aXJlbGVzcy9hdGgvYXRoMTFrL3FtaS5jIHwgMiArLQo+PiAg
-ZHJpdmVycy9yZW1vdGVwcm9jL3Fjb21fc3lzbW9uLmMgICAgICB8IDIgKy0KPj4gIGRyaXZlcnMv
-c2xpbWJ1cy9xY29tLW5nZC1jdHJsLmMgICAgICAgfCA0ICsrLS0KPj4gIGRyaXZlcnMvc29jL3Fj
-b20vcGRyX2ludGVyZmFjZS5jICAgICAgfCA0ICsrLS0KPj4gIGRyaXZlcnMvc29jL3Fjb20vcW1p
-X2ludGVyZmFjZS5jICAgICAgfCA5ICsrKysrKystLQo+PiAgaW5jbHVkZS9saW51eC9zb2MvcWNv
-bS9xbWkuaCAgICAgICAgICB8IDMgKystCj4+ICBzYW1wbGVzL3FtaS9xbWlfc2FtcGxlX2NsaWVu
-dC5jICAgICAgIHwgNCArKy0tCj4+ICA5IGZpbGVzIGNoYW5nZWQsIDIwIGluc2VydGlvbnMoKyks
-IDE0IGRlbGV0aW9ucygtKQ0KDQo=
+
+Dne 28. 07. 20 v 20:54 Pavel Hofman napsal(a):
+> 
+> Dne 28. 07. 20 v 20:04 Pavel Hofman napsal(a):
+>> Dne 28. 07. 20 v 19:04 Takashi Iwai napsal(a):
+>>> Would adding atomic_add(&meter->reset, 1) in snd_pcm_meter_reset()
+>>> help?
+>>>
+>> Unfortunately not.
+>>
+>> s16_reset is called correctly, setting s16->old = meter->now;  But at
+>> that time meter->now is still 22751, setting s16->old to the same value.
+>>
+>> s16_update 1: meter->now 22751, s16->old 22751, size 0
+>>
+>> However, in the next update call meter->now comes from the freshly
+>> started application pointer:
+>>
+>> s16_update 1: meter->now 839, s16->old 22751, size -21912
+>>
+>>
+>> Of course this helps:
+>>
+>> -       if (size < 0)
+>> -               size += spcm->boundary;
+>> +       if (size < 0) {
+>> +               size = meter->now;
+>> +               s16->old = 0;
+>> +       }
+>>
+>> But I understand this is not a solution because:
+>>
+>> * it will not work at reaching spcm->boundary (after thousands of hours?)
+>> * it will cause the same problem when the stream is rewound (which is
+>> the problem now too) - size will equal to large meter->now (length from
+>> the beginning of the stream minus the rewound = large number).
+>>
+> 
+> IMHO there are two cases of the [application pointer + delay] drop
+> compared to the previous run:
+> 
+> * stream start, rewinding => s16->old = meter->now; size =0, i.e.
+> skipping the samples to show
+> * wrapping at spcm->boundary => size += spcm->boundary, i.e. showing the
+> wrapped samples
+> 
+> Optionally the second case could be handled just like the first case by
+> resetting s16->old, assuming the boundary wrap occurs very infrequently.
+
+The following patch is tested to work OK, no CPU peaks and no meter
+output glitches when the size < 0 condition occurs:
+
+diff --git a/src/pcm/pcm_meter.c b/src/pcm/pcm_meter.c
+index 20b41876..48df5945 100644
+--- a/src/pcm/pcm_meter.c
++++ b/src/pcm/pcm_meter.c
+@@ -1098,8 +1098,15 @@ static void s16_update(snd_pcm_scope_t *scope)
+        snd_pcm_sframes_t size;
+        snd_pcm_uframes_t offset;
+        size = meter->now - s16->old;
+-       if (size < 0)
+-               size += spcm->boundary;
++       if (size < 0) {
++               /**
++                * Application pointer adjusted for delay (meter->now)
+has dropped compared
++                * to the previous update cycle. Either spcm->boundary
+wraparound, pcm rewinding,
++                * or pcm restart without s16->old properly reset.
++                * In any case the safest solution is skipping this
+conversion cycle.
++                */
++               size = 0;
++       }
+        offset = s16->old % meter->buf_size;
+        while (size > 0) {
+                snd_pcm_uframes_t frames = size;
+
+
+
+Please will you accept this (workaround) bugfix? If so, I would send a
+proper patch.
+
+Thanks a lot,
+
+Pavel.

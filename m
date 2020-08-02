@@ -2,83 +2,92 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C4E262354E0
-	for <lists+alsa-devel@lfdr.de>; Sun,  2 Aug 2020 04:25:09 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B54CA2355BB
+	for <lists+alsa-devel@lfdr.de>; Sun,  2 Aug 2020 08:45:54 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 4757A16A9;
-	Sun,  2 Aug 2020 04:24:19 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4757A16A9
+	by alsa0.perex.cz (Postfix) with ESMTPS id C331D16B9;
+	Sun,  2 Aug 2020 08:45:03 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C331D16B9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1596335109;
-	bh=kViwOdzwtBRtsEQ6QfGohgiEch4OfgnzVpfS0xLr9l4=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
+	s=default; t=1596350753;
+	bh=PQjgMmHGSIJKYrXf6CYzUAtDoryifNrUt65vg/DSxog=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=krYGdYeVn4+itSwRuLK4tX3iK0ixZY5uUNxxjv+QRWlJywRa1YLkxLyr+pqAxOUgN
-	 gVzFG7VQJOEfy0jbsUBvOvCj9yjWiOTm8sVCGL72Khek5tQml1IUzmdwAqle3uuWRd
-	 rgIfVFREGhumd4afOD59y5LJENPDHISc9Np6mIcI=
+	b=t/GPFWplJisT7cDtowbZUJjcMfQk/plW1SNCbeKVdRB6cYZg/U74INbZRz+vweEPn
+	 7M3ERYo20+h1zHmekVGjIING10lGiXPhzWPsz22MrdduqeXegjNEB873eOdzlVRsdu
+	 Q6lQv5yZ9Tk0+wVwNH+HdPwKsKozFLrbdXlcxwPU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 6823BF8011C;
-	Sun,  2 Aug 2020 04:23:28 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id EEB7AF8014C;
+	Sun,  2 Aug 2020 08:44:12 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 1AAB0F80150; Sun,  2 Aug 2020 04:22:53 +0200 (CEST)
+ id 2B47CF80150; Sun,  2 Aug 2020 08:44:09 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_PASS autolearn=disabled
  version=3.4.0
-Received: from mail-qt1-x843.google.com (mail-qt1-x843.google.com
- [IPv6:2607:f8b0:4864:20::843])
+Received: from mail-pl1-x644.google.com (mail-pl1-x644.google.com
+ [IPv6:2607:f8b0:4864:20::644])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 416D2F8011C
- for <alsa-devel@alsa-project.org>; Sun,  2 Aug 2020 04:22:48 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 416D2F8011C
+ by alsa1.perex.cz (Postfix) with ESMTPS id 26961F800B7
+ for <alsa-devel@alsa-project.org>; Sun,  2 Aug 2020 08:44:05 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 26961F800B7
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="GT+DUHoL"
-Received: by mail-qt1-x843.google.com with SMTP id 6so25966349qtt.0
- for <alsa-devel@alsa-project.org>; Sat, 01 Aug 2020 19:22:48 -0700 (PDT)
+ header.b="NVwzdDzr"
+Received: by mail-pl1-x644.google.com with SMTP id r4so8605652pls.2
+ for <alsa-devel@alsa-project.org>; Sat, 01 Aug 2020 23:44:05 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=whOvptctYszI0TUoSb9wHwW4EucWmLnWHPSIiYGN8Wg=;
- b=GT+DUHoLyEtK/qt+Sl6m8Mf+/U/Q8YGwJbZQspRR/1cq9u8FUPWTRWwLNmCNY3JUxP
- 1qy9NrIWokY2Vnh7eWIHVvWNN5jtyeXj1JPKyU8nDJI/CCYA68tNtCURbY1tL7UPSc22
- 3yQnM1wHR4Oe1023lD3cRY5PbLwT8Y8bxZbGaQSMrfZFWR5vI1is0il6HOs5wNN5daUe
- vO1Qsh5a4CntBIYA5kpBv+7RBsOsRwopAO37ClYQyoNZsx5K78yetewKgHCZehgNRd1k
- ZXThfFVMGKnTMdCRlnBGkrkWCfpcbnow50sw+sjZSScZkiOLCNWLhMd53Pxwj9zNvb52
- idag==
+ h=date:from:to:cc:subject:message-id:references:mime-version
+ :content-disposition:in-reply-to:user-agent;
+ bh=X2aoqAI7ZyUC5Rm/QGa/RZ2mj9QoixqrEf8FBg4wiIE=;
+ b=NVwzdDzrwGuTsH/vRGeNQFdLRqkgojk4/9Jlwet5zvG3h2zgFl7ZbxGfHRg8wffHUV
+ 1a/LFn1ZW7JNnr8JoVOER9hf2rBtohqBMf8T6rO54OBH+FuZOrRXdtqfQvvN0WPJ1W5k
+ Q3ouXMqZXP7rj9EkRoqITzgshE5MVGBVCcl21FdPO4zv5GMcYT+AqefwIS03y+4sabBG
+ u8MBuDWOZ6IoFpbrYGAQN9NyDt0kipob/5m0LYS2Nn5n+AMRR6tqwuWoauLGMtweZa5a
+ 30eeof/z+kPgHfve/tQG/b1IwEPqGVu6hzjIGyw67PY5Dex6SiMMHxTwzthlayu1G/A5
+ MZOQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=whOvptctYszI0TUoSb9wHwW4EucWmLnWHPSIiYGN8Wg=;
- b=XqrE+hYY0t4ooKZiUzQGegIpIszWgi5xrhDKVwfLAkSnPtqZs1Kj2mA4b7uZ9dRhL1
- fF9Th27cUA4ujGKFUMs8k9PWT0oPOiXdoDqM+zBPgz0HyA4e8A7khJ8qPjiW1/A1fGyC
- 0NWI+HnPHkoMGimnVvBIeL1to5JIwlP82GyL/G5UnvrAtIqHkZOjyhtmQSq9J0Hd+Xyo
- uoMNk/iyWBMT/wT8PQcH9n3jcj9/dsZRjVdPFSYJkWIUDrh2OIMwuKe7zLdFTTjTAokW
- m14B40QtCDVoEvQleb7yux3y3C+S/VIOyI6PZDBJY8shBkNHh5nieQzsHVSX8zOse5c0
- 8PsA==
-X-Gm-Message-State: AOAM530WLtrAZgDXJkOllo/EPO5LCTUT1jXErvBKQNQKdKvO9IEItX2s
- FzHvosaECFaxFlkZcasA6xBLKeaKtGkC8v9SFM8=
-X-Google-Smtp-Source: ABdhPJx+oNY0MJ6Pd5AOYnXI12LGvR++U9v1s05zQk6gTj0oayzG0KE5Co6SYk/c4xn465qVOihcKPEWfsGkyGTJ6ws=
-X-Received: by 2002:ac8:450c:: with SMTP id q12mr10542733qtn.292.1596334966873; 
- Sat, 01 Aug 2020 19:22:46 -0700 (PDT)
-MIME-Version: 1.0
-References: <1596102422-14010-1-git-send-email-shengjiu.wang@nxp.com>
- <20200801075954.GA19629@Asurada-Nvidia>
-In-Reply-To: <20200801075954.GA19629@Asurada-Nvidia>
-From: Shengjiu Wang <shengjiu.wang@gmail.com>
-Date: Sun, 2 Aug 2020 10:22:35 +0800
-Message-ID: <CAA+D8AMM90bt_WbPCny6C=R=dv6gXXh49p59yng2vH7DDuD2PQ@mail.gmail.com>
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to:user-agent;
+ bh=X2aoqAI7ZyUC5Rm/QGa/RZ2mj9QoixqrEf8FBg4wiIE=;
+ b=eeM5OwI1pY76P7zgxlUlUuH7q4d1jE/J0Sckbh6CYMOakjUSgsY20TAp1z/LCODFld
+ p6RZ9htvOAlLVKyx65iuF1rKEkO+oCHXpco+2GdE3TLnklUNPicmoHfrrr8WOqO/De8O
+ oY6YeguJ7laGfWzRTuRuRNse5yz38WKsMW2/FmFUBCEyUXWuXmgHRpozWOX5HvQUVW+C
+ WyDMO286M+hvCIk9c5FVaAcfe/D6+Yknnn05gqH4icV9qvR44eiM29pKIuDtMzfrrFH3
+ g8WXr/dwI8YcpEEFwl87wd9aL5vY+4SEOnOXj322ATFuqw2oTZ/M3moBicTK6t12m85f
+ +mdA==
+X-Gm-Message-State: AOAM5339KS8nN8XPCL8kyL0Tj8RAzVzxV+pk4jBOaoqLFRuZQ/kIs+4n
+ JDd/boENpXsAPCB6H91sNbw=
+X-Google-Smtp-Source: ABdhPJzT67tILFTVcT+5Nq4nLiq/ChOlKvzNLIZhqH09UIVzSNlqRhHDagQVesDQEPfSG0+9p5y7aQ==
+X-Received: by 2002:a17:90a:6285:: with SMTP id
+ d5mr11743122pjj.85.1596350642900; 
+ Sat, 01 Aug 2020 23:44:02 -0700 (PDT)
+Received: from Asurada-Nvidia (searspoint.nvidia.com. [216.228.112.21])
+ by smtp.gmail.com with ESMTPSA id f18sm15347558pgv.84.2020.08.01.23.44.02
+ (version=TLS1_2 cipher=ECDHE-ECDSA-CHACHA20-POLY1305 bits=256/256);
+ Sat, 01 Aug 2020 23:44:02 -0700 (PDT)
+Date: Sat, 1 Aug 2020 23:43:52 -0700
+From: Nicolin Chen <nicoleotsuka@gmail.com>
+To: Shengjiu Wang <shengjiu.wang@gmail.com>
 Subject: Re: [PATCH v2] ASoC: fsl-asoc-card: Remove
  fsl_asoc_card_set_bias_level function
-To: Nicolin Chen <nicoleotsuka@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
+Message-ID: <20200802064351.GA24213@Asurada-Nvidia>
+References: <1596102422-14010-1-git-send-email-shengjiu.wang@nxp.com>
+ <20200801075954.GA19629@Asurada-Nvidia>
+ <CAA+D8AMM90bt_WbPCny6C=R=dv6gXXh49p59yng2vH7DDuD2PQ@mail.gmail.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <CAA+D8AMM90bt_WbPCny6C=R=dv6gXXh49p59yng2vH7DDuD2PQ@mail.gmail.com>
+User-Agent: Mutt/1.9.4 (2018-02-28)
 Cc: Linux-ALSA <alsa-devel@alsa-project.org>, Timur Tabi <timur@kernel.org>,
  Xiubo Li <Xiubo.Lee@gmail.com>, Fabio Estevam <festevam@gmail.com>,
  Shengjiu Wang <shengjiu.wang@nxp.com>, Takashi Iwai <tiwai@suse.com>,
@@ -99,70 +108,40 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Sat, Aug 1, 2020 at 4:01 PM Nicolin Chen <nicoleotsuka@gmail.com> wrote:
->
-> Hi,
->
-> Having two nits and one question, inline:
->
-> On Thu, Jul 30, 2020 at 05:47:02PM +0800, Shengjiu Wang wrote:
-> > @@ -182,6 +180,69 @@ static int fsl_asoc_card_hw_params(struct snd_pcm_substream *substream,
-> >                                              cpu_priv->slot_width);
-> >               if (ret && ret != -ENOTSUPP) {
-> >                       dev_err(dev, "failed to set TDM slot for cpu dai\n");
-> > +                     goto out;
-> > +             }
-> > +     }
-> > +
-> > +     /* Specific configuration for PLL */
-> > +     if (codec_priv->pll_id && codec_priv->fll_id) {
-> > +             if (priv->sample_format == SNDRV_PCM_FORMAT_S24_LE)
-> > +                     pll_out = priv->sample_rate * 384;
-> > +             else
-> > +                     pll_out = priv->sample_rate * 256;
-> > +
-> > +             ret = snd_soc_dai_set_pll(asoc_rtd_to_codec(rtd, 0),
-> > +                                       codec_priv->pll_id,
-> > +                                       codec_priv->mclk_id,
-> > +                                       codec_priv->mclk_freq, pll_out);
-> > +             if (ret) {
-> > +                     dev_err(dev, "failed to start FLL: %d\n", ret);
-> > +                     goto out;
-> > +             }
-> > +
-> > +             ret = snd_soc_dai_set_sysclk(asoc_rtd_to_codec(rtd, 0),
-> > +                                          codec_priv->fll_id,
-> > +                                          pll_out, SND_SOC_CLOCK_IN);
->
-> Just came into my mind: do we need some protection here to prevent
-> PLL/SYSCLK reconfiguration if TX/RX end up with different values?
->
-Sorry,  not really catching your point. could you please elaborate?
-Why do TX/RX end up with different values?
+On Sun, Aug 02, 2020 at 10:22:35AM +0800, Shengjiu Wang wrote:
 
-best regards
-wang shengiu
-> > +     return 0;
-> > +
-> > +out:
-> > +     priv->streams &= ~BIT(substream->stream);
-> > +     return ret;
->
-> Rather than "out:" which doesn't explicitly indicate an error-out,
-> "fail:" would be better, following what we used in probe().
->
-> > +static int fsl_asoc_card_hw_free(struct snd_pcm_substream *substream)
-> > +{
-> > +     struct snd_soc_pcm_runtime *rtd = substream->private_data;
-> > +     struct fsl_asoc_card_priv *priv = snd_soc_card_get_drvdata(rtd->card);
-> > +     struct codec_priv *codec_priv = &priv->codec_priv;
-> > +     struct device *dev = rtd->card->dev;
-> > +     int ret;
-> > +
-> > +     priv->streams &= ~BIT(substream->stream);
-> > +
->
-> > +     if (!priv->streams && codec_priv->pll_id &&
-> > +         codec_priv->fll_id) {
->
-> This now can fit into single line :)
+> > > +     /* Specific configuration for PLL */
+> > > +     if (codec_priv->pll_id && codec_priv->fll_id) {
+> > > +             if (priv->sample_format == SNDRV_PCM_FORMAT_S24_LE)
+> > > +                     pll_out = priv->sample_rate * 384;
+> > > +             else
+> > > +                     pll_out = priv->sample_rate * 256;
+> > > +
+> > > +             ret = snd_soc_dai_set_pll(asoc_rtd_to_codec(rtd, 0),
+> > > +                                       codec_priv->pll_id,
+> > > +                                       codec_priv->mclk_id,
+> > > +                                       codec_priv->mclk_freq, pll_out);
+> > > +             if (ret) {
+> > > +                     dev_err(dev, "failed to start FLL: %d\n", ret);
+> > > +                     goto out;
+> > > +             }
+> > > +
+> > > +             ret = snd_soc_dai_set_sysclk(asoc_rtd_to_codec(rtd, 0),
+> > > +                                          codec_priv->fll_id,
+> > > +                                          pll_out, SND_SOC_CLOCK_IN);
+> >
+> > Just came into my mind: do we need some protection here to prevent
+> > PLL/SYSCLK reconfiguration if TX/RX end up with different values?
+> >
+> Sorry,  not really catching your point. could you please elaborate?
+> Why do TX/RX end up with different values?
+
+If TX and RX run concurrently but in different sample rates or
+sample formats, pll_out would be overwritten to PLL/SYSCLK?
+
+I remember imx-wm8962 uses SSI, having symmetric flags for rates/
+channels/samplebits, but fsl-asoc-card might have (or will have)
+other use case.
+
+If all existing combinations don't have any problem, we can add
+a protection later when we need.

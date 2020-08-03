@@ -2,83 +2,89 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6B73F23A2E2
-	for <lists+alsa-devel@lfdr.de>; Mon,  3 Aug 2020 12:46:34 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7737E23A2E8
+	for <lists+alsa-devel@lfdr.de>; Mon,  3 Aug 2020 12:50:26 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id F310F1668;
-	Mon,  3 Aug 2020 12:45:43 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz F310F1668
+	by alsa0.perex.cz (Postfix) with ESMTPS id 1033D166A;
+	Mon,  3 Aug 2020 12:49:36 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1033D166A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1596451594;
-	bh=z9/LeLLQ5s5md3V7lPjMYCDuIIO9eX/08LfUzJiXogM=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1596451826;
+	bh=V5jrURUsMpQUB0zv+wPAxq07yLC4/o4zAUniYie7Fmc=;
+	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=BdSFW0BbjcDX8QWu72E49/DYZYwbPSjvyPJeLWsKBGayYAwjpg+LQ5rZKd2P/3xmV
-	 RfWBkCcNyhZ0+mPPXdJwm81dMZhv3Y39tUaN2v7v4KFFTeH+6e6xioQ780MW9m9uc9
-	 yb7lNLk85KuqO0+axXIqPWN0faw9Tm3/I80hBXPE=
+	b=BlfWob7RJY5fIwSjp30FhcsYJXycejZ+DYh9p5BWwOqm+4K0dp+CTHolS4mI6T+k6
+	 eJTo112+18+nd/xmlWORxzFzTBpFMiiX4XZRpIJ7RJ0mhh0SFINNC/Dck7e2RehSwq
+	 wA5DI8axIUWEGtf8mkNVifFWGqzTyV9p2XIs6hmE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 29351F80234;
-	Mon,  3 Aug 2020 12:44:53 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 4FAC6F80234;
+	Mon,  3 Aug 2020 12:48:45 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id D0BA8F80218; Mon,  3 Aug 2020 12:44:50 +0200 (CEST)
+ id 3F8C8F80218; Mon,  3 Aug 2020 12:48:43 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.9 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,PRX_BODY_30,SPF_HELO_NONE,SPF_PASS
- autolearn=disabled version=3.4.0
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+X-Spam-Status: No, score=-1.6 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS autolearn=disabled
+ version=3.4.0
+Received: from cable.insite.cz (cable.insite.cz [84.242.75.189])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 2C9CEF80148
- for <alsa-devel@alsa-project.org>; Mon,  3 Aug 2020 12:44:40 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2C9CEF80148
+ by alsa1.perex.cz (Postfix) with ESMTPS id E5D91F80148
+ for <alsa-devel@alsa-project.org>; Mon,  3 Aug 2020 12:48:39 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E5D91F80148
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="XlBPj667"
-Received: from localhost (fw-tnat.cambridge.arm.com [217.140.96.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 1C4E720738;
- Mon,  3 Aug 2020 10:44:36 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1596451477;
- bh=z9/LeLLQ5s5md3V7lPjMYCDuIIO9eX/08LfUzJiXogM=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=XlBPj667FSEY/eT5CX0hbbR1cAUTa2CmFIZr12Oe+Wz1mCsGtprcjuJb6Qm4l9uMS
- m0zGA+6l7panrLavb5Bt5U+IKRNRcCPQVkdbsAsb9dHQCa/PcYVq5fZ85cPNqgq+Ca
- xj4E7x4/ge2kXbq+BCkonDDlt0Gc1Jmg5eV7VIAU=
-Date: Mon, 3 Aug 2020 11:44:16 +0100
-From: Mark Brown <broonie@kernel.org>
-To: "Sit, Michael Wei Hong" <michael.wei.hong.sit@intel.com>
-Subject: Re: [PATCH 3/3] ASoC: codec: tlv3204: Moving GPIO reset and add ADC
- reset
-Message-ID: <20200803104416.GA4502@sirena.org.uk>
-References: <20200729073256.24028-1-michael.wei.hong.sit@intel.com>
- <20200729073256.24028-4-michael.wei.hong.sit@intel.com>
- <e97b37d1-548e-6ede-4015-563d4f67f5e6@ti.com>
- <BYAPR11MB30468CC46295BBA5BEF0FB0C9D710@BYAPR11MB3046.namprd11.prod.outlook.com>
- <20200730123353.GC5055@sirena.org.uk>
- <BYAPR11MB3046A6AB5E7E1A2E2795DD329D4D0@BYAPR11MB3046.namprd11.prod.outlook.com>
+ dkim=pass (1024-bit key) header.d=ivitera.com header.i=@ivitera.com
+ header.b="loIjvEIW"; 
+ dkim=pass (1024-bit key) header.d=ivitera.com header.i=@ivitera.com
+ header.b="OYfFXFmp"
+Received: from localhost (localhost [127.0.0.1])
+ by cable.insite.cz (Postfix) with ESMTP id 051DEA1F7C875;
+ Mon,  3 Aug 2020 12:48:37 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=ivitera.com; s=mail;
+ t=1596451717; bh=V5jrURUsMpQUB0zv+wPAxq07yLC4/o4zAUniYie7Fmc=;
+ h=Subject:To:Cc:References:From:Date:In-Reply-To:From;
+ b=loIjvEIWDvhIf2+spLJsB5fJx17QlfBlZ9rYTa3N9Lqi7kmTcKm6eCaS0PVy0Kqa7
+ 4TVxSHn3NrDRJLRd72xpkOj/5Iu7+U3Xhvzax+BDkIeb/ZnlNKizionwMut2RzBF2b
+ JEx6Golbyi2iA6Xdj19QPdJNYpXpCAwk6PccLIow=
+Received: from cable.insite.cz ([84.242.75.189])
+ by localhost (server.insite.cz [127.0.0.1]) (amavisd-new, port 10024)
+ with ESMTP id IkhCY1ShWkPF; Mon,  3 Aug 2020 12:48:36 +0200 (CEST)
+Received: from [192.168.100.21] (unknown [192.168.100.21])
+ (Authenticated sender: pavel)
+ by cable.insite.cz (Postfix) with ESMTPSA id CC38CA1F6760B;
+ Mon,  3 Aug 2020 12:48:36 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=ivitera.com; s=mail;
+ t=1596451716; bh=V5jrURUsMpQUB0zv+wPAxq07yLC4/o4zAUniYie7Fmc=;
+ h=Subject:To:Cc:References:From:Date:In-Reply-To:From;
+ b=OYfFXFmpkODy/nLmqNSz3uI10V936jWpQKk3XCPhUep7juGrR9gPsvgA8LWt2n7f6
+ wrk8NTDXEbqiVt7LXUOlpQAuMO/5vziU6FQNDNqgv9BQq94OPv1Ctt0kL0hmPcsh3t
+ jTJdX0gQIsdC54RcTZgVwReOETPDGBBhV5ILOuY4=
+Subject: Re: pcm_meter.c issue at s16_update
+To: Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.de>
+References: <f56d6a67-014a-e562-c253-830c0ec03717@ivitera.com>
+ <9957e124-be4b-cdc9-ffad-579b631455df@ivitera.com>
+ <s5hd04ffu4m.wl-tiwai@suse.de>
+ <fd493c4d-797e-d76d-771d-7c7483ffdea7@ivitera.com>
+ <1cd5de43-5f67-78d3-f5e1-bbbaa8856873@ivitera.com>
+ <9bad013a-0306-90e4-adc5-547ebcac1b55@ivitera.com>
+ <s5hbljs6yno.wl-tiwai@suse.de>
+ <142255de-556a-bc73-dfe9-df031fb79b28@perex.cz>
+From: Pavel Hofman <pavel.hofman@ivitera.com>
+Message-ID: <b065ea69-b014-fb4d-4b6a-f814640aac8c@ivitera.com>
+Date: Mon, 3 Aug 2020 12:48:32 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.10.0
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="cWoXeonUoKmBZSoM"
-Content-Disposition: inline
-In-Reply-To: <BYAPR11MB3046A6AB5E7E1A2E2795DD329D4D0@BYAPR11MB3046.namprd11.prod.outlook.com>
-X-Cookie: They just buzzed and buzzed...buzzed.
-User-Agent: Mutt/1.10.1 (2018-07-13)
-Cc: "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
- "a-estrada@ti.com" <a-estrada@ti.com>, "Shevchenko,
- Andriy" <andriy.shevchenko@intel.com>, "Rojewski,
- Cezary" <cezary.rojewski@intel.com>, "zakkaye@ti.com" <zakkaye@ti.com>,
- "pierre-louis.bossart@linux.intel.com" <pierre-louis.bossart@linux.intel.com>,
- "Sia, Jee Heng" <jee.heng.sia@intel.com>, "tiwai@suse.com" <tiwai@suse.com>,
- "liam.r.girdwood@linux.intel.com" <liam.r.girdwood@linux.intel.com>,
- Dan Murphy <dmurphy@ti.com>
+In-Reply-To: <142255de-556a-bc73-dfe9-df031fb79b28@perex.cz>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: cs-CZ
+Content-Transfer-Encoding: 8bit
+Cc: "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -95,39 +101,143 @@ Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 
---cWoXeonUoKmBZSoM
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
 
-On Mon, Aug 03, 2020 at 01:54:06AM +0000, Sit, Michael Wei Hong wrote:
+Dne 03. 08. 20 v 9:22 Jaroslav Kysela napsal(a):
+> Dne 03. 08. 20 v 8:17 Takashi Iwai napsal(a):
+>> On Sun, 02 Aug 2020 19:50:44 +0200,
+>> Pavel Hofman wrote:
+>>>
+>>>
+>>> Dne 28. 07. 20 v 20:54 Pavel Hofman napsal(a):
+>>>>
+>>>> Dne 28. 07. 20 v 20:04 Pavel Hofman napsal(a):
+>>>>> Dne 28. 07. 20 v 19:04 Takashi Iwai napsal(a):
+>>>>>> Would adding atomic_add(&meter->reset, 1) in snd_pcm_meter_reset()
+>>>>>> help?
+>>>>>>
+>>>>> Unfortunately not.
+>>>>>
+>>>>> s16_reset is called correctly, setting s16->old = meter->now;  But at
+>>>>> that time meter->now is still 22751, setting s16->old to the same value.
+>>>>>
+>>>>> s16_update 1: meter->now 22751, s16->old 22751, size 0
+>>>>>
+>>>>> However, in the next update call meter->now comes from the freshly
+>>>>> started application pointer:
+>>>>>
+>>>>> s16_update 1: meter->now 839, s16->old 22751, size -21912
+>>>>>
+>>>>>
+>>>>> Of course this helps:
+>>>>>
+>>>>> -       if (size < 0)
+>>>>> -               size += spcm->boundary;
+>>>>> +       if (size < 0) {
+>>>>> +               size = meter->now;
+>>>>> +               s16->old = 0;
+>>>>> +       }
+>>>>>
+>>>>> But I understand this is not a solution because:
+>>>>>
+>>>>> * it will not work at reaching spcm->boundary (after thousands of hours?)
+>>>>> * it will cause the same problem when the stream is rewound (which is
+>>>>> the problem now too) - size will equal to large meter->now (length from
+>>>>> the beginning of the stream minus the rewound = large number).
+>>>>>
+>>>>
+>>>> IMHO there are two cases of the [application pointer + delay] drop
+>>>> compared to the previous run:
+>>>>
+>>>> * stream start, rewinding => s16->old = meter->now; size =0, i.e.
+>>>> skipping the samples to show
+>>>> * wrapping at spcm->boundary => size += spcm->boundary, i.e. showing the
+>>>> wrapped samples
+>>>>
+>>>> Optionally the second case could be handled just like the first case by
+>>>> resetting s16->old, assuming the boundary wrap occurs very infrequently.
+>>>
+>>> The following patch is tested to work OK, no CPU peaks and no meter
+>>> output glitches when the size < 0 condition occurs:
+>>>
+>>> diff --git a/src/pcm/pcm_meter.c b/src/pcm/pcm_meter.c
+>>> index 20b41876..48df5945 100644
+>>> --- a/src/pcm/pcm_meter.c
+>>> +++ b/src/pcm/pcm_meter.c
+>>> @@ -1098,8 +1098,15 @@ static void s16_update(snd_pcm_scope_t *scope)
+>>>          snd_pcm_sframes_t size;
+>>>          snd_pcm_uframes_t offset;
+>>>          size = meter->now - s16->old;
+>>> -       if (size < 0)
+>>> -               size += spcm->boundary;
+>>> +       if (size < 0) {
+>>> +               /**
+>>> +                * Application pointer adjusted for delay (meter->now)
+>>> has dropped compared
+>>> +                * to the previous update cycle. Either spcm->boundary
+>>> wraparound, pcm rewinding,
+>>> +                * or pcm restart without s16->old properly reset.
+>>> +                * In any case the safest solution is skipping this
+>>> conversion cycle.
+>>> +                */
+>>> +               size = 0;
+>>> +       }
+>>>          offset = s16->old % meter->buf_size;
+>>>          while (size > 0) {
+>>>                  snd_pcm_uframes_t frames = size;
+>>>
+>>>
+>>>
+>>> Please will you accept this (workaround) bugfix? If so, I would send a
+>>> proper patch.
+>>
+>> It looks OK, at least this must be safe.
+>> So yes, I'll happily apply if you submit a proper patch.
+> 
+> It would be probably better to check against the boundary / 2 value to check
+> correctly the boundary wrap instead to drop all negative size values:
+> 
+>    if (size < 0) {
+>       if (size < -(spcm->boundary / 2))
+>          size += spcm->boundary;
+>       else
+>          size = 0;
+>    }
 
-> This code patch is created based on the kernel version 5.8-rc4.
-> The register reading and writing are copied from the function aic32x4_component_probe.
-> May I know the version of the kernel you are applying the patch on?
+Is there a reliable way to detect the boundary wraparound, at best using 
+some dedicated API? I could find any, IMO the wraparound does not create 
+any notification. The check is OK for a rewind, half of boundary is 
+usually a very large number too. I am not sure what would happen at 
+reset when application pointer was already past the boundary half - see 
+below.
 
-The trees for each subsystem are listed in MAINTAINERS, or you can look
-and see the trees that linux-next is pulling from.  In the case of ASoC
+> 
+> The "hidden" pcm restart referred in the comment should not occur, otherwise
+> it's another bug somewhere.
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
+I do not know the exact moments when plugin API methods are called. The 
+fact is Takashi's suggestion to call s16 reset explicitely in 
+snd_pcm_meter_reset created this order:
 
-Please delete unneeded context from mails when replying.  Doing this
-makes it much easier to find your reply in the message, helping ensure
-it won't be missed by people scrolling through the irrelevant quoted
-material.
+snd_pcm_meter_reset -> s16->reset
+s16_update: meter->now 22751, s16->old 22751, size 0
+s16_update: meter->now 839, s16->old 22751, size -21912
 
---cWoXeonUoKmBZSoM
-Content-Type: application/pgp-signature; name="signature.asc"
+I.e. AFTER resetting meter/s16 the variable meter->now was still at the 
+original large 22751 (with s16->old equal to its value due to 
+s16->reset). The value of meter->now was reset to 839 (= app pointer - 
+delay) only in the next call of s16_update (when s16->old was still the 
+previous old value => size < 0 => huge size => high CPU load).  From 
+this I kind of conclude that the reset is buggy. Maybe the reset code 
+should re-calculate meter->now = appl.pointer - delay before aligning 
+s16->old = meter->now.
 
------BEGIN PGP SIGNATURE-----
+Nevertheless all this (except for the boundary wraparound) would result 
+in the same size = 0, thus skipping samples from the last cycle, just 
+like what the proposed patch does.
 
-iQEyBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl8n6oAACgkQJNaLcl1U
-h9CD8Qf3UaWxmp0H2nDTK3BbTL+i3AcGzpSok6UthoK5fOGz1vIPHm/RA/pPX4q2
-BZLGIbBPQ30qlcOHSekwnF5qjs0PuL6c/gOr2wdZG5GN0R0ZeT5VVI0tgxRY4K/K
-Izn5YUvR6u6nF2Dg2RMX3Jxo/sYu65Mz9EVgVVywteQ2x6ehi6JRkXUsHFjzCR9z
-yA57/3ysvqkQcYyAAuN+Q01uGyJl1XuTuFkFQMwGYM7882ZkJrjHV9IZWH1n0fyR
-n44O7fF/HQZHiPAAi2LD9psosdeY6OLgyJaJcWBfBq93KWanRN1/AbPH7cD/X0hP
-oqtZ0+RKQRZKyKlB7J6/UHxu5eG0
-=W8Ao
------END PGP SIGNATURE-----
 
---cWoXeonUoKmBZSoM--
+Pavel.
+
+
+
+

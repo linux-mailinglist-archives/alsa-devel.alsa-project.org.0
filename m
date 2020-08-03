@@ -2,83 +2,88 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 18EA823A0BB
-	for <lists+alsa-devel@lfdr.de>; Mon,  3 Aug 2020 10:17:47 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8886E23A0CF
+	for <lists+alsa-devel@lfdr.de>; Mon,  3 Aug 2020 10:21:06 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 9CB4F165E;
-	Mon,  3 Aug 2020 10:16:56 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9CB4F165E
+	by alsa0.perex.cz (Postfix) with ESMTPS id CB7671668;
+	Mon,  3 Aug 2020 10:20:15 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CB7671668
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1596442666;
-	bh=ZDCEqAWu0KDLEEdI38az63rJuIY8TdhT9DCQlt0fzAU=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=OxoJviJlaef7s1anyCi8332pVndXQSuHtTUu5C4uiFjA1ymFCk17kPpoNSJriombm
-	 rjrCD7+jTSBNL0d8LIsOWl83xt06VZtWlXXnK1wUT2Prz5tFc0XGtgagzgGq07K87q
-	 Avu2u0x7MlYhn0Qw2h+eAA4c11WRnhPMD9Y3BG9E=
+	s=default; t=1596442865;
+	bh=SGEcvZSOFRJblJ2NNtHSQW6ePv1d9zPxcHnZaXeLFiU=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=DQ8v4mxIksgzAEGMmU1h+Ql/KceUBmuLAsLK2IxduPSB0W6kWZJOWvU+tXTqBIMob
+	 x7t3R2b3yeEJEC4j3zmyFTJWU/MbrVBNkcrRKXf6Lg558lyIlwtKkPUY5LFfsH3Lfn
+	 ceBFROj58X6Cs+M/kYJD/nBzKC5iubhkSiqkyEWs=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id C2ECCF801F7;
-	Mon,  3 Aug 2020 10:16:05 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 0BC4DF80234;
+	Mon,  3 Aug 2020 10:19:25 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 43B6EF80218; Mon,  3 Aug 2020 10:16:03 +0200 (CEST)
+ id 5A628F8023E; Mon,  3 Aug 2020 10:19:23 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,RCVD_IN_MSPIKE_H4,RCVD_IN_MSPIKE_WL,SPF_HELO_PASS,SPF_PASS,
  URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
+Received: from esa5.microchip.iphmx.com (esa5.microchip.iphmx.com
+ [216.71.150.166])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id C5DE5F80148
- for <alsa-devel@alsa-project.org>; Mon,  3 Aug 2020 10:15:55 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C5DE5F80148
-IronPort-SDR: iGGVFHOruth2nm6al98y5R7fFbdXlo2t4xEgh7fMVEpyXGCtTuR34vomaY5vcggTm0+TneKHaI
- Wc6xkwv3qhVg==
-X-IronPort-AV: E=McAfee;i="6000,8403,9701"; a="149862300"
-X-IronPort-AV: E=Sophos;i="5.75,429,1589266800"; d="scan'208";a="149862300"
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from orsmga004.jf.intel.com ([10.7.209.38])
- by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 03 Aug 2020 01:15:53 -0700
-IronPort-SDR: 4lqu+AEIANGtQ9xZ5kBw2ftLxIPwdIklY+f0QZ0LXzkHaOaNwvLBS1nMUi773pN94Fr2wao5Ug
- meu68jSIe1rA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.75,429,1589266800"; d="scan'208";a="436124374"
-Received: from smile.fi.intel.com (HELO smile) ([10.237.68.40])
- by orsmga004.jf.intel.com with ESMTP; 03 Aug 2020 01:15:50 -0700
-Received: from andy by smile with local (Exim 4.94)
- (envelope-from <andriy.shevchenko@intel.com>)
- id 1k2VdO-005tEJ-8O; Mon, 03 Aug 2020 11:15:50 +0300
-Date: Mon, 3 Aug 2020 11:15:50 +0300
-From: "Shevchenko, Andriy" <andriy.shevchenko@intel.com>
-To: "Sit, Michael Wei Hong" <michael.wei.hong.sit@intel.com>
-Subject: Re: [PATCH 3/3] ASoC: codec: tlv3204: Moving GPIO reset and add ADC
- reset
-Message-ID: <20200803081550.GV3703480@smile.fi.intel.com>
-References: <20200729073256.24028-1-michael.wei.hong.sit@intel.com>
- <20200729073256.24028-4-michael.wei.hong.sit@intel.com>
- <e97b37d1-548e-6ede-4015-563d4f67f5e6@ti.com>
- <BYAPR11MB30468CC46295BBA5BEF0FB0C9D710@BYAPR11MB3046.namprd11.prod.outlook.com>
- <20200730123353.GC5055@sirena.org.uk>
- <BYAPR11MB3046A6AB5E7E1A2E2795DD329D4D0@BYAPR11MB3046.namprd11.prod.outlook.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id DE700F800B7
+ for <alsa-devel@alsa-project.org>; Mon,  3 Aug 2020 10:19:12 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DE700F800B7
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com
+ header.b="hHHOY4Hn"
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+ d=microchip.com; i=@microchip.com; q=dns/txt; s=mchp;
+ t=1596442758; x=1627978758;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=SGEcvZSOFRJblJ2NNtHSQW6ePv1d9zPxcHnZaXeLFiU=;
+ b=hHHOY4HnaMCWJvSCUGXeMSfZtVDCvOA5SCZn7A3uhhAT4QM24JmBqzpj
+ yxT8C1toh9ecm9H5MZJ1vGwsng0i5UFSRK2ROXluhevqHDrW4zlu+gY6R
+ zAIIR0RPvovSfXDecTKCicbq+yzFcnQH2OykkD6qfpcNQFwIrP7sUd5sF
+ GhSVmi7gbYQ901osi/fIAtzX0WaLz+41epzCjqPh5+n9Rv0N6Pp70cglO
+ 5UUdoGOZTxz4BmCnQxBemtbifPkmHmcJkWSF9x1nFv6zYy5XtjdssMmZg
+ GT2caWbSUjgMTRA++5Yg+qVeUvSciJ7bUJOvsuPzq0IJA4hckyThFUXLa A==;
+IronPort-SDR: ArdU2Nv5C0JvSFp9vuMfJ520kxKJg7pI/l8khOhEDbMavYbsspqKkytDq+NTOYYtw2i2whfNSZ
+ OE2bVLLDkDlaYsbWDrFFOZxOnv4dae1B0PPLkEiV/A6lAIX5Lgn1UzHXHrsTUahN3xMJ8gvzvj
+ 9zOrLVAgp0o+tvPOF+tfUKL47cvFjGdTIuQUQvihuqH+xtWqk9oMcXERLsxTcsNWPxiHOuvGtv
+ izr6Na9AbMicbRJWamuv+UGlFVcut9We19gA0I2bvcwT+MStUm60Q0j8KyZWPcnQ8gA0NLGGiV
+ 6jY=
+X-IronPort-AV: E=Sophos;i="5.75,429,1589266800"; d="scan'208";a="85586189"
+Received: from smtpout.microchip.com (HELO email.microchip.com)
+ ([198.175.253.82])
+ by esa5.microchip.iphmx.com with ESMTP/TLS/AES256-SHA256;
+ 03 Aug 2020 01:19:11 -0700
+Received: from chn-vm-ex01.mchp-main.com (10.10.85.143) by
+ chn-vm-ex03.mchp-main.com (10.10.85.151) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.1979.3; Mon, 3 Aug 2020 01:19:09 -0700
+Received: from rob-ult-m19940.microchip.com (10.10.115.15) by
+ chn-vm-ex01.mchp-main.com (10.10.85.143) with Microsoft SMTP Server id
+ 15.1.1979.3 via Frontend Transport; Mon, 3 Aug 2020 01:19:03 -0700
+From: Codrin Ciubotariu <codrin.ciubotariu@microchip.com>
+To: <alsa-devel@alsa-project.org>, <devicetree@vger.kernel.org>,
+ <linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>
+Subject: [PATCH v3 1/2] dt-bindings: sound: add DT bindings for Microchip
+ S/PDIF TX Controller
+Date: Mon, 3 Aug 2020 11:18:50 +0300
+Message-ID: <20200803081851.102570-1-codrin.ciubotariu@microchip.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <BYAPR11MB3046A6AB5E7E1A2E2795DD329D4D0@BYAPR11MB3046.namprd11.prod.outlook.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
-Cc: "Rojewski, Cezary" <cezary.rojewski@intel.com>,
- "a-estrada@ti.com" <a-estrada@ti.com>,
- "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
- "zakkaye@ti.com" <zakkaye@ti.com>,
- "pierre-louis.bossart@linux.intel.com" <pierre-louis.bossart@linux.intel.com>,
- "Sia, Jee Heng" <jee.heng.sia@intel.com>, "tiwai@suse.com" <tiwai@suse.com>,
- "liam.r.girdwood@linux.intel.com" <liam.r.girdwood@linux.intel.com>,
- Mark Brown <broonie@kernel.org>, Dan Murphy <dmurphy@ti.com>
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+Cc: alexandre.belloni@bootlin.com, lgirdwood@gmail.com,
+ nicolas.ferre@microchip.com, robh+dt@kernel.org, tiwai@suse.com,
+ ludovic.desroches@microchip.com, broonie@kernel.org, Codrin
+ Ciubotariu <codrin.ciubotariu@microchip.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -94,25 +99,106 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Mon, Aug 03, 2020 at 04:54:06AM +0300, Sit, Michael Wei Hong wrote:
-> > From: Mark Brown <broonie@kernel.org>
-> > Sent: Thursday, 30 July, 2020 8:34 PM
-> > On Thu, Jul 30, 2020 at 05:46:20AM +0000, Sit, Michael Wei Hong wrote:
-> > From: Alsa-devel <alsa-devel-bounces@alsa-project.org> On Behalf Of Sit,
-> > Michael Wei Hong
-> > Sent: Thursday, 30 July, 2020 1:46 PM
-> > From: Dan Murphy <dmurphy@ti.com>
-> > Sent: Wednesday, 29 July, 2020 8:31 PM
-> > On 7/29/20 2:32 AM, Michael Sit Wei Hong wrote:
+This patch adds DT bindings for the new Microchip S/PDIF TX Controller
+embedded inside sama7g5 SoCs.
 
-> This code patch is created based on the kernel version 5.8-rc4.
-> The register reading and writing are copied from the function aic32x4_component_probe.
+Signed-off-by: Codrin Ciubotariu <codrin.ciubotariu@microchip.com>
+---
 
-Side note. When formatting the patch series, add --base to the `git
-format-patch`, so it will add it to cover letter.
+Changes in v3:
+ - removed 'oneOf' from 'compatible' property;
+ - added 'maxItems: 1' to 'dmas' property;
+ - removed pinctrl related properties;
 
+Changes in v2:
+ - replaced https with http;
+ - reworked example, included bindings;
+
+ .../bindings/sound/mchp,spdiftx.yaml          | 75 +++++++++++++++++++
+ 1 file changed, 75 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/sound/mchp,spdiftx.yaml
+
+diff --git a/Documentation/devicetree/bindings/sound/mchp,spdiftx.yaml b/Documentation/devicetree/bindings/sound/mchp,spdiftx.yaml
+new file mode 100644
+index 000000000000..a03b0b871fc9
+--- /dev/null
++++ b/Documentation/devicetree/bindings/sound/mchp,spdiftx.yaml
+@@ -0,0 +1,75 @@
++# SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/sound/mchp,spdiftx.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: Microchip S/PDIF Tx Controller Device Tree Bindings
++
++maintainers:
++  - Codrin Ciubotariu <codrin.ciubotariu@microchip.com>
++
++description:
++        The Microchip Sony/Philips Digital Interface Transmitter is a
++        serial port compliant with the IEC-60958 standard.
++
++properties:
++  "#sound-dai-cells":
++    const: 0
++
++  compatible:
++    const: microchip,sama7g5-spdiftx
++
++  reg:
++    maxItems: 1
++
++  interrupts:
++    maxItems: 1
++
++  clocks:
++    items:
++      - description: Peripheral Bus Clock
++      - description: Generic Clock
++
++  clock-names:
++    items:
++      - const: pclk
++      - const: gclk
++
++  dmas:
++    description: TX DMA Channel
++    maxItems: 1
++
++  dma-names:
++    const: tx
++
++required:
++  - "#sound-dai-cells"
++  - compatible
++  - reg
++  - interrupts
++  - clocks
++  - clock-names
++  - dmas
++  - dma-names
++
++additionalProperties: false
++
++examples:
++  - |
++    #include <dt-bindings/clock/at91.h>
++    #include <dt-bindings/dma/at91.h>
++    #include <dt-bindings/interrupt-controller/arm-gic.h>
++
++    spdiftx@e1618000 {
++        #sound-dai-cells = <0>;
++        compatible = "microchip,sama7g5-spdiftx";
++        reg = <0xe1618000 0x4000>;
++        interrupts = <GIC_SPI 85 IRQ_TYPE_LEVEL_HIGH>;
++        dmas = <&dma0 AT91_XDMAC_DT_PERID(50)>;
++        dma-names = "tx";
++        clocks = <&pmc PMC_TYPE_PERIPHERAL 85>, <&pmc PMC_TYPE_GCK 85>;
++        clock-names = "pclk", "gclk";
++        pinctrl-names = "default";
++        pinctrl-0 = <&pinctrl_spdiftx_default>;
++    };
 -- 
-With Best Regards,
-Andy Shevchenko
-
+2.25.1
 

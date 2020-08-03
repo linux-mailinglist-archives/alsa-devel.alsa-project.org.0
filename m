@@ -2,74 +2,83 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3629A23A2F0
-	for <lists+alsa-devel@lfdr.de>; Mon,  3 Aug 2020 12:53:31 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id EA10623A3AA
+	for <lists+alsa-devel@lfdr.de>; Mon,  3 Aug 2020 13:57:37 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id BCF79166B;
-	Mon,  3 Aug 2020 12:52:40 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BCF79166B
+	by alsa0.perex.cz (Postfix) with ESMTPS id 717891668;
+	Mon,  3 Aug 2020 13:56:47 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 717891668
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1596452010;
-	bh=ACZ/ZGRaPUI2z5RqRCc5uHOjppVPBvjqY+ekgc1FSvs=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=JEw6KcRitMYC+8tcPjite19cnmDj24pDBa9XZMABnZ+1ifRwTimdv9TQ/t9Caav7F
-	 6EhJUdX6XsLZ/XQ1Ddaic5qLNUtzVHnQcq8TzZsPO275oCEex/N5nJtwksdUs1qXq1
-	 bBwZ1DKlXQY7L1ZWN0A2FOYhbN2QU4m0Chl+WM60=
+	s=default; t=1596455857;
+	bh=OUpY1jbei1vfyE44090MOuweMYbVPr0kiyoLzO1Mai8=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=jtxsB+qtBp1xqXPa3D3XU8lzAgB1834lwJa0fRq2xW+iEaxIri9v8jPEKYO1Efvs4
+	 rtGR7K8w0chu8MQNTurmCyus7oeMKjWQaX58ICx+vhjMtgkgLssAkjfMPhOgk9fZbj
+	 lebECChd9A8bZxNknn1tlSEaGjxjoRYJxxo0aWqA=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 0AFF0F80234;
-	Mon,  3 Aug 2020 12:51:50 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 95B9DF800B7;
+	Mon,  3 Aug 2020 13:55:56 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 883B8F80148; Mon,  3 Aug 2020 12:51:47 +0200 (CEST)
+ id 14242F80218; Mon,  3 Aug 2020 13:55:53 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_PASS autolearn=disabled
  version=3.4.0
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+Received: from mail-qv1-xf44.google.com (mail-qv1-xf44.google.com
+ [IPv6:2607:f8b0:4864:20::f44])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 4AFFBF80148
- for <alsa-devel@alsa-project.org>; Mon,  3 Aug 2020 12:51:45 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4AFFBF80148
+ by alsa1.perex.cz (Postfix) with ESMTPS id 23808F800BD
+ for <alsa-devel@alsa-project.org>; Mon,  3 Aug 2020 13:55:49 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 23808F800BD
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="tY6Ktofj"
-Received: from localhost (fw-tnat.cambridge.arm.com [217.140.96.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 8D0852064B;
- Mon,  3 Aug 2020 10:51:42 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1596451903;
- bh=ACZ/ZGRaPUI2z5RqRCc5uHOjppVPBvjqY+ekgc1FSvs=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=tY6KtofjyGkoDxlmdaiuEpt6X9K84+2P5Drr4yoqeXTCc9p9VEoMT2sWvbxjNVztl
- kur9wvTmAG+svjMcmrzvnnI53qG1NOWj708Y5jFQt6gDlKP5Bp1Cwsmzr4eZgkJOe/
- Fm3zwIJKM74zriYzxagLVUqpDCSht+lhNSybfyww=
-Date: Mon, 3 Aug 2020 11:51:22 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Shengjiu Wang <shengjiu.wang@gmail.com>
-Subject: Re: [PATCH] ASoC: wm8962: Do not access WM8962_GPIO_BASE
-Message-ID: <20200803105122.GC4502@sirena.org.uk>
-References: <20200717135959.19212-1-festevam@gmail.com>
- <CAA+D8AM8EKowXs_0nyNKMa0odyEAF=Sgu8y2n48pGFnEbE0Mpg@mail.gmail.com>
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="p2kqVDKq5asng8Dg"
-Content-Disposition: inline
-In-Reply-To: <CAA+D8AM8EKowXs_0nyNKMa0odyEAF=Sgu8y2n48pGFnEbE0Mpg@mail.gmail.com>
-X-Cookie: They just buzzed and buzzed...buzzed.
-User-Agent: Mutt/1.10.1 (2018-07-13)
-Cc: Charles Keepax <ckeepax@opensource.cirrus.com>,
- Shengjiu Wang <shengjiu.wang@nxp.com>, Fabio Estevam <festevam@gmail.com>,
- Linux-ALSA <alsa-devel@alsa-project.org>,
- Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+ dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
+ header.b="JfeTdm/1"
+Received: by mail-qv1-xf44.google.com with SMTP id o2so17124971qvk.6
+ for <alsa-devel@alsa-project.org>; Mon, 03 Aug 2020 04:55:49 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=from:to:cc:subject:date:message-id;
+ bh=5vBkDKoACkQ2A0d3jhkAsa0pWmFtHWlj6+CEzAIFgtA=;
+ b=JfeTdm/1dLwMa6PupMeE+b6AYFoXFeAAaSehUc7g/ZDKppjAZmNzYUeS+Dx+H3MrD9
+ lFlZeRG/iFaDBK2huglUjGvEOKQyB5EkVcTogiSUT1r9BKpm5HcBBhtiXuRVBf5qaBg6
+ xlDUScWe8Fz9Ze1fcIP1KBY67jDFrzLx+vXRlk+v1+gyD1tmtJVVgFMtDjG3kmep5j4Z
+ uz1SYkO/S6acJP5bbwqJ2XeSIcpuxD+eRlZAHPxjhfgoxXPN4AXSsgzYiaRx+u8mN1kB
+ FZ4Nb+/+banLKukV4alr0y6fmRWkisSwGngpxqEdWXwjLWX4x3J5nNlT9pa1uWJUgGIv
+ aFPw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id;
+ bh=5vBkDKoACkQ2A0d3jhkAsa0pWmFtHWlj6+CEzAIFgtA=;
+ b=Mzs1lv9U9uwneFWxzOChR3DfxldQufCpxAiquRlDa7MvHKUSrvgsQ9FC6VLDNMA6Nf
+ z6bRWB1YlJ5Xx2nKRG6VEzK1EGBWxYqsUwQLG4KSZjAQr/ZjsjqQJ7XJ4um9KiQRbsa6
+ 6KoxT6ZAtaJ9bNkFBFuX0mlRoFaLBkJEeAHHCYHrnqvAatLUvBDAy2KIF2cqx9GgteFb
+ Y14GXGh/8MOvfM/5C36Su5qWHskOd9UHjJZZZJv3qPToTo45JzbrTDsakB+mnx514L5y
+ rCf+cAwc8+uI6yilP0BEHhUJLq6KTRgI7WuT05RmbeUvBLLgAFbBZx4dJav8sOD13AZ0
+ ww5g==
+X-Gm-Message-State: AOAM530Aprvs1l6yQ1Vh89Qcy3joPcO3dmxFcWqpBKoXg/tEXwGkmVWD
+ iue+VdgbEjKQ1vaa9AZXrK0=
+X-Google-Smtp-Source: ABdhPJzrckX4DiRjP8XdEFcXk6cBiATHM21g0f5ME3ouRUmxTw+30jOhw10IVtB/DL0W+amF/ucD8A==
+X-Received: by 2002:a0c:da07:: with SMTP id x7mr16600215qvj.66.1596455747674; 
+ Mon, 03 Aug 2020 04:55:47 -0700 (PDT)
+Received: from localhost.localdomain ([177.194.72.74])
+ by smtp.gmail.com with ESMTPSA id n6sm19114344qkh.74.2020.08.03.04.55.44
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 03 Aug 2020 04:55:46 -0700 (PDT)
+From: Fabio Estevam <festevam@gmail.com>
+To: broonie@kernel.org
+Subject: [PATCH] ASoC: wm8962: Do not remove ADDITIONAL_CONTROL_4 from
+ readable register list
+Date: Mon,  3 Aug 2020 08:52:33 -0300
+Message-Id: <20200803115233.19034-1-festevam@gmail.com>
+X-Mailer: git-send-email 2.17.1
+Cc: Fabio Estevam <festevam@gmail.com>, shengjiu.wang@nxp.com,
+ ckeepax@opensource.cirrus.com, alsa-devel@alsa-project.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -85,37 +94,43 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+Removing ADDITIONAL_CONTROL_4 from the list of readable registers cause
+audio distortion.
 
---p2kqVDKq5asng8Dg
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+This change was sent as a comment below the --- line when submitting
+commit 658bb297e393 ("ASoC: wm8962: Do not access WM8962_GPIO_BASE"), so
+it was not supposed to get merged.
 
-On Mon, Aug 03, 2020 at 10:07:06AM +0800, Shengjiu Wang wrote:
+Keep WM8962_ADDITIONAL_CONTROL_4 inside wm8962_readable_register() to
+fix the regression.
 
-> WM8962_ADDITIONAL_CONTROL_4 should not be removed
-> from the readable registers,  after this change, there is distortion
-> on output sound. but this patch has been merged.
+Fixes: 658bb297e393 ("ASoC: wm8962: Do not access WM8962_GPIO_BASE")
+Reported-by: Shengjiu Wang <shengjiu.wang@gmail.com>
+Signed-off-by: Fabio Estevam <festevam@gmail.com>
+---
+ sound/soc/codecs/wm8962.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-If there's an issue please submit an incremental patch fixing this.
+diff --git a/sound/soc/codecs/wm8962.c b/sound/soc/codecs/wm8962.c
+index 317916cb4e27..0623a2251084 100644
+--- a/sound/soc/codecs/wm8962.c
++++ b/sound/soc/codecs/wm8962.c
+@@ -151,7 +151,6 @@ static const struct reg_default wm8962_reg[] = {
+ 	{ 40, 0x0000 },   /* R40    - SPKOUTL volume */
+ 	{ 41, 0x0000 },   /* R41    - SPKOUTR volume */
+ 
+-	{ 48, 0x0000 },   /* R48    - Additional control(4) */
+ 	{ 49, 0x0010 },   /* R49    - Class D Control 1 */
+ 	{ 51, 0x0003 },   /* R51    - Class D Control 2 */
+ 
+@@ -842,6 +841,7 @@ static bool wm8962_readable_register(struct device *dev, unsigned int reg)
+ 	case WM8962_SPKOUTL_VOLUME:
+ 	case WM8962_SPKOUTR_VOLUME:
+ 	case WM8962_THERMAL_SHUTDOWN_STATUS:
++	case WM8962_ADDITIONAL_CONTROL_4:
+ 	case WM8962_CLASS_D_CONTROL_1:
+ 	case WM8962_CLASS_D_CONTROL_2:
+ 	case WM8962_CLOCKING_4:
+-- 
+2.17.1
 
-> "[PATCH RESEND] ASoC: wm8962: Do not access WM8962_GPIO_BASE"
-> that patch is correct.
-
-If the two patches differ clearly that wasn't a resend :/
-
---p2kqVDKq5asng8Dg
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl8n7CkACgkQJNaLcl1U
-h9DI/Af+K05B4ann59M1hjtOplSwDx7BbXgZ6r4u9p/oP4OwMRqDU+hqole/1iQI
-+w20rGSkNVque8he+uanlg6wCKUsrccJS0KmLZGV4XkGbn4THTqsD+JlDi93HKSi
-dt8aibL57mBI8IhX708s5DQ7rVeARwHY/h4+R7tzkHA+3e8KW2INyb++KrJgcKdr
-azuUQjS06jc317oak+Odj0BEyaPliRa4V44FoaER470fz1kGYQ0BPl1AwnweV5HD
-QuZT6i4QIL7uxKDGRlgiGdYt83FsXDq7VU5ftICRQU4piiYB1848AnxvgaY86xbl
-3cTa7KeXU549JzvjG1QZgzLi4AO0Dg==
-=wCkk
------END PGP SIGNATURE-----
-
---p2kqVDKq5asng8Dg--

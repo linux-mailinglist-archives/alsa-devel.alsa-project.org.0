@@ -2,93 +2,90 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id CD00C239D12
-	for <lists+alsa-devel@lfdr.de>; Mon,  3 Aug 2020 02:32:35 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B8006239D3B
+	for <lists+alsa-devel@lfdr.de>; Mon,  3 Aug 2020 03:30:02 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 5BADD15F9;
-	Mon,  3 Aug 2020 02:31:45 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5BADD15F9
+	by alsa0.perex.cz (Postfix) with ESMTPS id 46D52165E;
+	Mon,  3 Aug 2020 03:29:12 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 46D52165E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1596414755;
-	bh=NaKBRizc96t9rnAUVLsNDIUL6VUdcW/tZm14yj3tO88=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1596418202;
+	bh=9tuP0lfwv5VlaoodZ9McRZtKeTxHTQb0h5NedbhK9fg=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=G3knK1kdRVtZmjH8zv9iS1ppGZYr+hMrIz/qVQoBWZ+hzNIFBNHY5WNsF5WnJa9EL
-	 xEN/iRuS6HVqROV+Oj4xOnWepgWyEo3cIsBdZDkv9YIaTgl2qWxT+OR/fz1EJBmJJf
-	 Rmaq5vSTxYSwrKSpHHCoPkL4Dwy0zYqbIBQrs/LU=
+	b=dFwNxgi4t/d6c3lA6NyoIezDb/5kwxUVCzjGrkyP2WWAUERN4K2aPaqfmwmmak3+G
+	 vLOwdpZkmhveBejYbLGCQQC1qb7P4P1/VzXwJKYPDo+UuKKEvdxfpeED3nQV91t2nY
+	 jbm7NOXOK9/iC8CrwrEk6+GnvRZ0pGb0fPFDETa8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id A74CFF802C3;
-	Mon,  3 Aug 2020 02:29:49 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 774B4F8015A;
+	Mon,  3 Aug 2020 03:28:21 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id D34CDF80150; Mon,  3 Aug 2020 02:29:44 +0200 (CEST)
+ id B9777F80150; Mon,  3 Aug 2020 03:28:17 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU, FREEMAIL_ENVFROM_END_DIGIT, FREEMAIL_FROM, SPF_HELO_NONE,
- SPF_PASS autolearn=disabled version=3.4.0
-Received: from mail-qt1-x844.google.com (mail-qt1-x844.google.com
- [IPv6:2607:f8b0:4864:20::844])
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_PASS autolearn=disabled
+ version=3.4.0
+Received: from mail-qt1-x841.google.com (mail-qt1-x841.google.com
+ [IPv6:2607:f8b0:4864:20::841])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 575A7F8014C
- for <alsa-devel@alsa-project.org>; Mon,  3 Aug 2020 02:29:40 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 575A7F8014C
+ by alsa1.perex.cz (Postfix) with ESMTPS id EB6C4F80141
+ for <alsa-devel@alsa-project.org>; Mon,  3 Aug 2020 03:28:14 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EB6C4F80141
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="fvp68Air"
-Received: by mail-qt1-x844.google.com with SMTP id e5so13085311qth.5
- for <alsa-devel@alsa-project.org>; Sun, 02 Aug 2020 17:29:40 -0700 (PDT)
+ header.b="fEdiU72r"
+Received: by mail-qt1-x841.google.com with SMTP id s23so27161588qtq.12
+ for <alsa-devel@alsa-project.org>; Sun, 02 Aug 2020 18:28:14 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding;
- bh=2oDXkHoga8CFpulGMHnQLHOpWkVkfgMDqur7ds2Dqg4=;
- b=fvp68AirKtIE2WPpmkrtNexNU0pqxp2MffHcgMRI2XMXiRkKwQuYw5unr3UXL4EHdy
- 2mBFPAmQQkAo/IMKfKApD45Kayh0IVhwnAwyC7AaIYQnOAq9TtC17Zhdqicb8W52s3i3
- HGLs/GAmEeF5bOnj6X+McPcRSFrC4ava+Gqxw+NAt7igHx4q8IQvHbC2KypKeHGD/2LS
- xUcwBA83h/BlOWgtwae/LTeQTARl1/psQenlzhBqjthYQybprxzAKIpKx3haniNZkzRl
- V2jxUKrn8ciygpJ8NVenRQM2aOsjrQpcHgqOU7n5TT0GE+4GlcjLzPK5W/+gX5r9yla7
- L+1w==
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=ZdPTwt6GzaEE8ypkWcyEAGla3ExjJ1L9xlPLjdJjECo=;
+ b=fEdiU72rgYUFv9VxZJS1kvdK2VZZ3oV8HbXncHDDjA5BQ65BZMi8GwdFhXl1Ye4PpZ
+ bI1ijchagYxkSM4OfR2b6qC7gI4oNsmp9TcwMT80BR6lleR9ee9i7WFxeCVdvfuvSqLu
+ UHltGgZaXzD77Vy6L32svJpXEJvmaB0fTCbw4JubQ2ny2imbJtgqROPHQyU2A7xfvrxs
+ 6n780V50p67eQizGGpyIKfBpqyIVN9iNtvGYaML06s2jMGegknEJIFwJkCfoSABhJba+
+ +0zBty3ts1Q/agn7DV2tT6YXAfZFPp8/5OX+J35KOQdo+w55Gr6sS5hy+RTcU9Pacz82
+ 1f2Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
- :references:mime-version:content-transfer-encoding;
- bh=2oDXkHoga8CFpulGMHnQLHOpWkVkfgMDqur7ds2Dqg4=;
- b=RM5SDaJ/2RQCsCRRqXEcJmScLPsAs9cRERFKKkpUgDRMB8MpaeJWNImREJioOv6Tlz
- Ush2kdmUZecLltF4e34wZg/CEaqWxR4DHaMX2PEmkzLc4C7cQPkHXQgRk62HAxJqivls
- KYpTGyxmTvbbs4AusByxcW9NyDb1SO+N+ZOkXesd6E/lVOWK/7xVO8HHwo9EsQMsGulN
- wWTZ537bUUKz+pJjX2ezPVDLQdy7SEE5qRPXWkPROZjf1x9CyBB2mv6JpCthGoKN4clY
- lyK80vbnB5qMsDm281P42BnYi99EHYZW3zQDr1apQNxrdPxhS3ry/fZ0cEeFSZMlr2Lc
- rYcA==
-X-Gm-Message-State: AOAM5325ooCN348I6o4zuNK5P1OsFiEY9vpnME5Pm5GQBZrDu6A7WLkb
- cbJBvP5Hxw3mLq+IAg2A0AI=
-X-Google-Smtp-Source: ABdhPJxwQn2dfQG1/MTaE6hRKRGHByyI7Dm6Ezh9RHnplL0UjufYiCFtdY0ZUgze0SuKx7ueRLZssQ==
-X-Received: by 2002:ac8:710b:: with SMTP id z11mr14331167qto.64.1596414579713; 
- Sun, 02 Aug 2020 17:29:39 -0700 (PDT)
-Received: from localhost.localdomain (cpe-71-65-111-223.cinci.res.rr.com.
- [71.65.111.223])
- by smtp.googlemail.com with ESMTPSA id e23sm18261614qto.15.2020.08.02.17.29.38
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 02 Aug 2020 17:29:39 -0700 (PDT)
-From: Connor McAdams <conmanx360@gmail.com>
-To: 
-Subject: [PATCH 3/3] ALSA: hda/ca0132 - Fix AE-5 microphone selection commands.
-Date: Sun,  2 Aug 2020 20:29:27 -0400
-Message-Id: <20200803002928.8638-3-conmanx360@gmail.com>
-X-Mailer: git-send-email 2.20.1
-In-Reply-To: <20200803002928.8638-1-conmanx360@gmail.com>
-References: <20200803002928.8638-1-conmanx360@gmail.com>
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=ZdPTwt6GzaEE8ypkWcyEAGla3ExjJ1L9xlPLjdJjECo=;
+ b=ffQdF+4CwNNIDjkFiD1TZ3Mv6l4eOjAXK6XB8SxIgfXzmrgV036JhXwJmbB493EeY+
+ mhsUWa7fRRdPPYoh1HtrR2LNINThKe6Yva0+LiQmGnahOLewztRDov6H7ss80BxPw9K6
+ 45DJ5u69bcw73kT4B2og8tuw0sL6xGvA8vceJb5eG182EzvwnBzYnl+mDLkmEkXAHjI+
+ +cX/qnmDN6cw6LAauhQ0ZmcHIhkspbn2Td06Yymdsa7ghmcOAzgLrDpD9AuU+aCue5Gf
+ LNCg1w7SA+7E8amwDnOoyOsvoMthLAXZ5IRVejywAWDvSet0wkUyCy7mjUr05QxMyWdS
+ FzMQ==
+X-Gm-Message-State: AOAM530Wu9/mN7o+VLBalOtDcWLDR8+bqLdhvfQKyyMdm3O9RPZemyeK
+ feYCX9zLNB5GCYo33Hdw1QhEkEl2yRCgB6LuAvs=
+X-Google-Smtp-Source: ABdhPJwocfcyQPliB369D5sk19qV1NbUk9jBsxi7F2QFFlJFuMT6+0u0s+7ZI7bqi/ttnQcjQ9O5aO+qWGK5SbuojF0=
+X-Received: by 2002:ac8:6d0f:: with SMTP id o15mr14208849qtt.121.1596418092106; 
+ Sun, 02 Aug 2020 18:28:12 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Cc: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
- Takashi Iwai <tiwai@suse.com>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- =?UTF-8?q?Micha=C5=82=20Miros=C5=82aw?= <mirq-linux@rere.qmqm.pl>,
- conmanx360@gmail.com, =?UTF-8?q?Pawe=C5=82=20Rekowski?= <p.rekowski@gmail.com>
+References: <1596102422-14010-1-git-send-email-shengjiu.wang@nxp.com>
+ <20200801075954.GA19629@Asurada-Nvidia>
+ <CAA+D8AMM90bt_WbPCny6C=R=dv6gXXh49p59yng2vH7DDuD2PQ@mail.gmail.com>
+ <20200802064351.GA24213@Asurada-Nvidia>
+In-Reply-To: <20200802064351.GA24213@Asurada-Nvidia>
+From: Shengjiu Wang <shengjiu.wang@gmail.com>
+Date: Mon, 3 Aug 2020 09:28:01 +0800
+Message-ID: <CAA+D8APexk_-o91B=u1bthVxXr_+gUL9Yq4UA5zscLfP3Xsa6Q@mail.gmail.com>
+Subject: Re: [PATCH v2] ASoC: fsl-asoc-card: Remove
+ fsl_asoc_card_set_bias_level function
+To: Nicolin Chen <nicoleotsuka@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Cc: Linux-ALSA <alsa-devel@alsa-project.org>, Timur Tabi <timur@kernel.org>,
+ Xiubo Li <Xiubo.Lee@gmail.com>, Fabio Estevam <festevam@gmail.com>,
+ Shengjiu Wang <shengjiu.wang@nxp.com>, Takashi Iwai <tiwai@suse.com>,
+ Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+ linuxppc-dev@lists.ozlabs.org, linux-kernel <linux-kernel@vger.kernel.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -104,45 +101,52 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-The ca0113 command had the wrong group_id, 0x48 when it should've been
-0x30. The front microphone selection should now work.
+On Sun, Aug 2, 2020 at 2:44 PM Nicolin Chen <nicoleotsuka@gmail.com> wrote:
+>
+> On Sun, Aug 02, 2020 at 10:22:35AM +0800, Shengjiu Wang wrote:
+>
+> > > > +     /* Specific configuration for PLL */
+> > > > +     if (codec_priv->pll_id && codec_priv->fll_id) {
+> > > > +             if (priv->sample_format == SNDRV_PCM_FORMAT_S24_LE)
+> > > > +                     pll_out = priv->sample_rate * 384;
+> > > > +             else
+> > > > +                     pll_out = priv->sample_rate * 256;
+> > > > +
+> > > > +             ret = snd_soc_dai_set_pll(asoc_rtd_to_codec(rtd, 0),
+> > > > +                                       codec_priv->pll_id,
+> > > > +                                       codec_priv->mclk_id,
+> > > > +                                       codec_priv->mclk_freq, pll_out);
+> > > > +             if (ret) {
+> > > > +                     dev_err(dev, "failed to start FLL: %d\n", ret);
+> > > > +                     goto out;
+> > > > +             }
+> > > > +
+> > > > +             ret = snd_soc_dai_set_sysclk(asoc_rtd_to_codec(rtd, 0),
+> > > > +                                          codec_priv->fll_id,
+> > > > +                                          pll_out, SND_SOC_CLOCK_IN);
+> > >
+> > > Just came into my mind: do we need some protection here to prevent
+> > > PLL/SYSCLK reconfiguration if TX/RX end up with different values?
+> > >
+> > Sorry,  not really catching your point. could you please elaborate?
+> > Why do TX/RX end up with different values?
+>
+> If TX and RX run concurrently but in different sample rates or
+> sample formats, pll_out would be overwritten to PLL/SYSCLK?
+>
+> I remember imx-wm8962 uses SSI, having symmetric flags for rates/
+> channels/samplebits, but fsl-asoc-card might have (or will have)
+> other use case.
+>
+> If all existing combinations don't have any problem, we can add
+> a protection later when we need.
 
-Signed-off-by: Connor McAdams <conmanx360@gmail.com>
----
- sound/pci/hda/patch_ca0132.c | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+Good point. Current cases should be ok, as the boards with
+wm8960 and wm8962 are all designed as synchronous mode.
 
-diff --git a/sound/pci/hda/patch_ca0132.c b/sound/pci/hda/patch_ca0132.c
-index 40fa9d82ef95..b7dbf2e7f77a 100644
---- a/sound/pci/hda/patch_ca0132.c
-+++ b/sound/pci/hda/patch_ca0132.c
-@@ -4672,7 +4672,7 @@ static int ca0132_alt_select_in(struct hda_codec *codec)
- 			tmp = FLOAT_ONE;
- 			break;
- 		case QUIRK_AE5:
--			ca0113_mmio_command_set(codec, 0x48, 0x28, 0x00);
-+			ca0113_mmio_command_set(codec, 0x30, 0x28, 0x00);
- 			tmp = FLOAT_THREE;
- 			break;
- 		default:
-@@ -4718,7 +4718,7 @@ static int ca0132_alt_select_in(struct hda_codec *codec)
- 			r3di_gpio_mic_set(codec, R3DI_REAR_MIC);
- 			break;
- 		case QUIRK_AE5:
--			ca0113_mmio_command_set(codec, 0x48, 0x28, 0x00);
-+			ca0113_mmio_command_set(codec, 0x30, 0x28, 0x00);
- 			break;
- 		default:
- 			break;
-@@ -4757,7 +4757,7 @@ static int ca0132_alt_select_in(struct hda_codec *codec)
- 			tmp = FLOAT_ONE;
- 			break;
- 		case QUIRK_AE5:
--			ca0113_mmio_command_set(codec, 0x48, 0x28, 0x3f);
-+			ca0113_mmio_command_set(codec, 0x30, 0x28, 0x3f);
- 			tmp = FLOAT_THREE;
- 			break;
- 		default:
--- 
-2.20.1
+Agree to add protection when needed in the future.
 
+I will fix the nits and send v3.
+
+best regards
+wang shengjiu

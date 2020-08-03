@@ -2,61 +2,74 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4014A23ABC7
-	for <lists+alsa-devel@lfdr.de>; Mon,  3 Aug 2020 19:42:35 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0AE4D23ABD7
+	for <lists+alsa-devel@lfdr.de>; Mon,  3 Aug 2020 19:52:41 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B811E1669;
-	Mon,  3 Aug 2020 19:41:44 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B811E1669
+	by alsa0.perex.cz (Postfix) with ESMTPS id 91A6A1667;
+	Mon,  3 Aug 2020 19:51:50 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 91A6A1667
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1596476554;
-	bh=GL8WtL2eOSDmLVygIsmWeZ7geDk/2fHhi+NFPFjuDXg=;
-	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1596477160;
+	bh=uoMvmX8A5GSV71fMeSt+Pi43BLuWQZGrdnxy4jmxMz4=;
+	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=WYY37i+Ec62zJkPU5CkmICRTEBkVJyDUefzc6OaUB5zLXkA1yxNsWNmrNuVHTuRXT
-	 xI+y/Pkjaj358Lv7AcU0GK6gVFs1TS8nV/S+R+YLzK020fKO9omeqkEpNWYQV9BT2G
-	 PgV79hQ3UP2xbkZ4FQpoFJ3kk7yKld6E2A0v4ZlM=
+	b=lQxKD3oQqT2yLcZYeMnRpiqPXmbj9sp0o1U9pZDnybzmazDacriKwKNhvl4nTNJc7
+	 qfGe3dNxQsfSEgcI4HYEJneh8pDuoR9r7eZ6Ta4o+FftVWU5vlTDL83AtM+C0neKqS
+	 kwQaV+0olxo6zSKuxVJa0O8+LAq3jya0vrJyFPYE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id E6FC7F800B7;
-	Mon,  3 Aug 2020 19:40:53 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id BA15EF801F7;
+	Mon,  3 Aug 2020 19:50:59 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 5BFE5F80218; Mon,  3 Aug 2020 19:40:51 +0200 (CEST)
+ id 27666F80218; Mon,  3 Aug 2020 19:50:58 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.0 required=5.0 tests=RCVD_IN_MSPIKE_H3,
- RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+X-Spam-Status: No, score=-1.5 required=5.0 tests=NICE_REPLY_A,SPF_HELO_NONE,
+ SPF_NONE autolearn=disabled version=3.4.0
+Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 938D4F80148
- for <alsa-devel@alsa-project.org>; Mon,  3 Aug 2020 19:40:45 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 938D4F80148
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 29F34B677;
- Mon,  3 Aug 2020 17:41:00 +0000 (UTC)
-Date: Mon, 03 Aug 2020 19:40:44 +0200
-Message-ID: <s5hk0yf39wj.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 670ABF800BD
+ for <alsa-devel@alsa-project.org>; Mon,  3 Aug 2020 19:50:53 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 670ABF800BD
+IronPort-SDR: BseJ9xk8Av1ijATqw/fVVVMm6PNVUfSElyznKUyQaEiY6onodcbP1EQxki3LXhW9FRrHI4uH+W
+ xMwS/XuPFszg==
+X-IronPort-AV: E=McAfee;i="6000,8403,9702"; a="149615248"
+X-IronPort-AV: E=Sophos;i="5.75,430,1589266800"; d="scan'208";a="149615248"
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from fmsmga003.fm.intel.com ([10.253.24.29])
+ by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 03 Aug 2020 10:50:51 -0700
+IronPort-SDR: hOdiJNidcPOOLZB0eOpfj5YDCPJczoyfoxkmQ9QJDOxdUHqqG2P5tttzc8QDdWR4Csmg3vBe80
+ h09bg/p36dSQ==
+X-IronPort-AV: E=Sophos;i="5.75,430,1589266800"; d="scan'208";a="330152837"
+Received: from dravoori-mobl.amr.corp.intel.com (HELO [10.212.46.95])
+ ([10.212.46.95])
+ by fmsmga003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 03 Aug 2020 10:50:51 -0700
 Subject: Re: [PATCH] Revert "ALSA: hda: call runtime_allow() for all hda
  controllers"
-In-Reply-To: <6f583ccc-2251-384d-bc20-aa17c83a45b4@linux.intel.com>
+To: Takashi Iwai <tiwai@suse.de>
 References: <20200803064638.6139-1-hui.wang@canonical.com>
  <0db4f5fe-7895-2d00-8ce3-96f1245000ab@linux.intel.com>
  <s5hwo2f3cux.wl-tiwai@suse.de>
  <6f583ccc-2251-384d-bc20-aa17c83a45b4@linux.intel.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
- FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
- (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
-MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
-Content-Type: text/plain; charset=US-ASCII
+ <s5hk0yf39wj.wl-tiwai@suse.de>
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Message-ID: <f6a66bc4-9f1a-0425-6f00-4ddce3a2b6cc@linux.intel.com>
+Date: Mon, 3 Aug 2020 12:50:50 -0500
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.10.0
+MIME-Version: 1.0
+In-Reply-To: <s5hk0yf39wj.wl-tiwai@suse.de>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
 Cc: Hui Wang <hui.wang@canonical.com>, alsa-devel@alsa-project.org,
  stable@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
@@ -74,69 +87,32 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Mon, 03 Aug 2020 19:00:30 +0200,
-Pierre-Louis Bossart wrote:
-> 
-> 
-> 
-> On 8/3/20 11:36 AM, Takashi Iwai wrote:
-> > On Mon, 03 Aug 2020 17:27:12 +0200,
-> > Pierre-Louis Bossart wrote:
-> >>
-> >>
-> >>
-> >> On 8/3/20 1:46 AM, Hui Wang wrote:
-> >>> This reverts commit 9a6418487b56 ("ALSA: hda: call runtime_allow()
-> >>> for all hda controllers").
-> >>>
-> >>> The reverted patch already introduced some regressions on some
-> >>> machines:
-> >>>    - on gemini-lake machines, the error of "azx_get_response timeout"
-> >>>      happens in the hda driver.
-> >>>    - on the machines with alc662 codec, the audio jack detection doesn't
-> >>>      work anymore.
-> >>>
-> >>> BugLink: https://bugzilla.kernel.org/show_bug.cgi?id=208511
-> >>> Cc: <stable@vger.kernel.org>
-> >>> Signed-off-by: Hui Wang <hui.wang@canonical.com>
-> >>> ---
-> >>>    sound/pci/hda/hda_intel.c | 1 -
-> >>>    1 file changed, 1 deletion(-)
-> >>>
-> >>> diff --git a/sound/pci/hda/hda_intel.c b/sound/pci/hda/hda_intel.c
-> >>> index e699873c8293..e34a4d5d047c 100644
-> >>> --- a/sound/pci/hda/hda_intel.c
-> >>> +++ b/sound/pci/hda/hda_intel.c
-> >>> @@ -2352,7 +2352,6 @@ static int azx_probe_continue(struct azx *chip)
-> >>>      	if (azx_has_pm_runtime(chip)) {
-> >>>    		pm_runtime_use_autosuspend(&pci->dev);
-> >>> -		pm_runtime_allow(&pci->dev);
-> >>>    		pm_runtime_put_autosuspend(&pci->dev);
-> >>>    	}
-> >>
-> >> Do I get this right that this permanently disables pm_runtime on all
-> >> Intel HDaudio controllers?
-> >
-> > It just drops the unconditional enablement of runtime PM.
-> > It can be enabled via sysfs, and that's the old default (let admin
-> > enabling it via udev or whatever).
-> 
-> Sorry I am confused now.
-> Kai seemed to suggest in the Bugzilla comments that this would be
-> temporary, until these problems with i915 and ALC662 get fixed?
 
-Right, that's the plan.  This patch revert to the old state before the
-forced-all-enable call we've taken in 5.7.  On 5.7 and onwards, all
-HD-audio controllers are enforced to use the runtime PM.  Before that
-version, the runtime PM was enabled *as default* only for limited
-devices (typically the ones bound with GPU); for other devices, the
-runtime PM is manually enabled from user-space via sysfs (and many
-distros enable them in anyway).
+>>>> Do I get this right that this permanently disables pm_runtime on all
+>>>> Intel HDaudio controllers?
+>>>
+>>> It just drops the unconditional enablement of runtime PM.
+>>> It can be enabled via sysfs, and that's the old default (let admin
+>>> enabling it via udev or whatever).
+>>
+>> Sorry I am confused now.
+>> Kai seemed to suggest in the Bugzilla comments that this would be
+>> temporary, until these problems with i915 and ALC662 get fixed?
+> 
+> Right, that's the plan.  This patch revert to the old state before the
+> forced-all-enable call we've taken in 5.7.  On 5.7 and onwards, all
+> HD-audio controllers are enforced to use the runtime PM.  Before that
+> version, the runtime PM was enabled *as default* only for limited
+> devices (typically the ones bound with GPU); for other devices, the
+> runtime PM is manually enabled from user-space via sysfs (and many
+> distros enable them in anyway).
+> 
+> The forced enablement was merged with a hope that now all HD-audio
+> controllers behave nicely, but it turned out to cause a regression, so
+> it was reverted.  Once when we find out the real cause, we can flip
+> the flag again.
 
-The forced enablement was merged with a hope that now all HD-audio
-controllers behave nicely, but it turned out to cause a regression, so
-it was reverted.  Once when we find out the real cause, we can flip
-the flag again.
-
-
-Takashi
+ok, sounds good. I was concerned mainly because on the SOF driver side 
+we enable pm_runtime by default, so that's a difference in configuration 
+we need to be aware of when dealing with 'my speaker is silent' support 
+questions.

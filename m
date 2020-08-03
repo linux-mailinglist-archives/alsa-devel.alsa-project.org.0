@@ -2,97 +2,91 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5E87B239E01
-	for <lists+alsa-devel@lfdr.de>; Mon,  3 Aug 2020 06:04:34 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 964AD239F30
+	for <lists+alsa-devel@lfdr.de>; Mon,  3 Aug 2020 07:42:45 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E50A21666;
-	Mon,  3 Aug 2020 06:03:43 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E50A21666
+	by alsa0.perex.cz (Postfix) with ESMTPS id 1FB631667;
+	Mon,  3 Aug 2020 07:41:55 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1FB631667
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1596427474;
-	bh=OHQRdil0MRMI+aqQyvgs7ZGql7ns95/nbuVxx6ACjMY=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1596433365;
+	bh=ASwIW8Y65N21eQHyWXKJPpkl/HLpoVkJnsfB0pxQHnU=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=nPXsF/9iEKc3SwBxK96772mR8FaB9QBda16H6M0JldEN3znMr8Lar1pid+4v2wQOG
-	 fP2xFheoFXrcPmZ8kGf/b7ZTuDLt7zl/mXobmPvI9+94IsH0+FX8o0Lcbi8cJMFiRc
-	 dnYbAzMQh+QjxB4wmXI7lnFy3hDTeuUYYxu+w8+4=
+	b=b8wV06VGGbro1s9M0Zu8kY6FUKNKz3SM8q0nRmpdislJklzqXSfuwJwfdCW2eFU4K
+	 r6P2qXOob7JL2VESU/PQXCvSIRGOiAEEigjQal+fA+76r3Kybk7eff0MixrE005kbX
+	 2XjhLLBn8hRwh6VhlDYu+9Vuo9wA9T2ae5bQfyPk=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 2BCD7F802E0;
-	Mon,  3 Aug 2020 06:02:02 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 5FA9CF80148;
+	Mon,  3 Aug 2020 07:41:04 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id F2F99F802DF; Mon,  3 Aug 2020 06:01:59 +0200 (CEST)
+ id 8BF07F80218; Mon,  3 Aug 2020 07:41:01 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from mail-pl1-x643.google.com (mail-pl1-x643.google.com
- [IPv6:2607:f8b0:4864:20::643])
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_PASS autolearn=disabled
+ version=3.4.0
+Received: from mail-pf1-x444.google.com (mail-pf1-x444.google.com
+ [IPv6:2607:f8b0:4864:20::444])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id D0AF9F802DB
- for <alsa-devel@alsa-project.org>; Mon,  3 Aug 2020 06:01:49 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D0AF9F802DB
+ by alsa1.perex.cz (Postfix) with ESMTPS id A69C1F80148
+ for <alsa-devel@alsa-project.org>; Mon,  3 Aug 2020 07:40:52 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A69C1F80148
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org
- header.b="Wtz24d2O"
-Received: by mail-pl1-x643.google.com with SMTP id r4so9436779pls.2
- for <alsa-devel@alsa-project.org>; Sun, 02 Aug 2020 21:01:49 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
- h=from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding;
- bh=z4eT/1a+a0GzNr9W1LSF99nKks/o5wcKMQj/uE+Uh5Y=;
- b=Wtz24d2OUvqFsvXubowl3eecjED02qdEg/M67zmEPWpsY+/7i8xhOu7+DHkBHoaQlH
- RGu71SbLaElX1IFzkiCka+YhaKWmrFRMIRtjIuEmPFEZSkhwgxrZekghC/DHgV0+gclE
- fOvEHYIOta7yoDIgI6yctE42vTLPTunu3kAf0=
+ dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
+ header.b="K186TuiU"
+Received: by mail-pf1-x444.google.com with SMTP id j20so17575458pfe.5
+ for <alsa-devel@alsa-project.org>; Sun, 02 Aug 2020 22:40:52 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=date:from:to:cc:subject:message-id:references:mime-version
+ :content-disposition:in-reply-to:user-agent;
+ bh=FhbpD1GOOiuI1h2KLYGhIc+Q4nrSHyP4h81W7KBJFqA=;
+ b=K186TuiUMKQPdqAxCXhqtmALF9pZVrrem7PSJKHN2TVp6X/DGU7ghf9/BJMgBlUhh9
+ jS5/KukDzLHwp2Tdh4NSv/i8naoGe9A3lUIZtoYE8DaWtRKIWGLC17qgWRsBuZ3JbkXD
+ oI8zW7cC4xb3BZI+vs/9AmJvJY9r0ii6/sp00L/jDAKIi60G5674s+5a07y3LVR+IYv+
+ deXVnc3aHNRNX7yQY4FFTNiSAUxBcTIDHNsWd3W3SkG+OiQQgnX8qlAqr3PJu9juma9t
+ ZOSyPHOQaDxAdPbVnDMa/p63b0pwNeNG3aWsDaeHmhNXIVHXLUvlwT1LaFoiZtLXcwQy
+ s+PQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
- :references:mime-version:content-transfer-encoding;
- bh=z4eT/1a+a0GzNr9W1LSF99nKks/o5wcKMQj/uE+Uh5Y=;
- b=mpCmYiYS6jVPqMSH74OvxXOajktW0YBUt+0qNNDtQzczHER8hir212ZfGCxbtBk5vG
- /R5bMWZBu72fdPCcYEjkcWFB1zy3T1rEfTEBotgKrmFDA7cDQTBVxwVUrTg038e+CTOy
- /iFeSabdaz5yDmCIf8cU5dqsut/hp48Ty4rreS14YmjjCquA7Upgl/RrS5YZSl3cwse4
- PfH5rebRvamUpqc9KTGvy+748BBEbbSD0/RTxC5hMIdibhUOOdq/+BCKjnsTiWeTS63K
- dlHpiO1BPgUxJFTrdncKsZsN0vVgwAYCIalrPCKV5eZFZef8qiRPUErhQAp50vMLJ7RU
- mPiQ==
-X-Gm-Message-State: AOAM531VFdopqOYQ5AdwmI6+YouuF3igbNT7qMJCFiSCe3HS0HAX2ieG
- ufbtRGicmxti2F9F9luca78fQg==
-X-Google-Smtp-Source: ABdhPJyK0/kYhg7YzqGurYGcQJ6U/yuVkG2PgI66WEI2JOmPHFKdUHtgHPeMVgnCWRrjunoQKAALvQ==
-X-Received: by 2002:a17:90b:470f:: with SMTP id
- jc15mr8374241pjb.166.1596427307258; 
- Sun, 02 Aug 2020 21:01:47 -0700 (PDT)
-Received: from localhost ([2401:fa00:1:10:de4a:3eff:fe7d:d39c])
- by smtp.gmail.com with ESMTPSA id a16sm17946781pgj.27.2020.08.02.21.01.43
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Sun, 02 Aug 2020 21:01:46 -0700 (PDT)
-From: Cheng-Yi Chiang <cychiang@chromium.org>
-To: linux-kernel@vger.kernel.org
-Subject: [PATCH v4 2/2] ASoC: qcom: sc7180: Add machine driver for sound card
- registration
-Date: Mon,  3 Aug 2020 12:01:22 +0800
-Message-Id: <20200803040122.2063634-3-cychiang@chromium.org>
-X-Mailer: git-send-email 2.28.0.163.g6104cc2f0b6-goog
-In-Reply-To: <20200803040122.2063634-1-cychiang@chromium.org>
-References: <20200803040122.2063634-1-cychiang@chromium.org>
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to:user-agent;
+ bh=FhbpD1GOOiuI1h2KLYGhIc+Q4nrSHyP4h81W7KBJFqA=;
+ b=fB2dd3eT7vpmA+4GjGKCJQyhcf+vzGJ2b5Vlstdy8O/GfuFrAsGs4mrz/49cukcNtf
+ f0voE+uHDHok09VUh4OComLkwfTN6JOGrHzSjWKPPLPp1j2+QpjwCbNhU1c6OcFZ3NNY
+ CwowBuFWHRoCVYWJ2yKTmypoSiaJ4bMh2AEwqkbkpKXQSlyAu97XAI4tTfr4mroLqtqc
+ YFHWzBrCHzI7t6dzvP5k/ScNLRJBbFMD85lDDPdmHy5CMmyrg+I4bbbEwsQep08tzy1f
+ KS1ZNypjUR9+O64c3G5eDLkPKlJuuvRH4jCjIeU0tx8xxbjoZe+8aUf6+P+Mg4Y6jOhb
+ mBHw==
+X-Gm-Message-State: AOAM533YJCDIOlZjyAwDGOk16bR+83qutY8z4mt3HGrmYUPz5BANazfF
+ /9lv0GSZ18Zs574xeOM8p8g=
+X-Google-Smtp-Source: ABdhPJwtNZAtl8+czzRAcH8w3sZ9OYQlR+w7v7GG79nlmxqjy27pa7NblOV/FHvTJ6hTl+lyzxlnOg==
+X-Received: by 2002:a63:444b:: with SMTP id t11mr13955435pgk.134.1596433249969; 
+ Sun, 02 Aug 2020 22:40:49 -0700 (PDT)
+Received: from Asurada-Nvidia (searspoint.nvidia.com. [216.228.112.21])
+ by smtp.gmail.com with ESMTPSA id m190sm16926096pfm.89.2020.08.02.22.40.48
+ (version=TLS1_2 cipher=ECDHE-ECDSA-CHACHA20-POLY1305 bits=256/256);
+ Sun, 02 Aug 2020 22:40:49 -0700 (PDT)
+Date: Sun, 2 Aug 2020 22:40:37 -0700
+From: Nicolin Chen <nicoleotsuka@gmail.com>
+To: Shengjiu Wang <shengjiu.wang@nxp.com>
+Subject: Re: [PATCH] ASoC: fsl_sai: Clean code for synchronize mode
+Message-ID: <20200803054037.GA1056@Asurada-Nvidia>
+References: <1596424674-32127-1-git-send-email-shengjiu.wang@nxp.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Cc: Taniya Das <tdas@codeaurora.org>, alsa-devel@alsa-project.org,
- Banajit Goswami <bgoswami@codeaurora.org>, Liam Girdwood <lgirdwood@gmail.com>,
- Rohit kumar <rohitkr@codeaurora.org>, Cheng-Yi Chiang <cychiang@chromium.org>,
- Patrick Lai <plai@codeaurora.org>, Ajit Pandey <ajitp@codeaurora.org>,
- Tzung-Bi Shih <tzungbi@google.com>, Andy Gross <agross@kernel.org>,
- dgreid@chromium.org, devicetree@vger.kernel.org, tzungbi@chromium.org,
- Stephan Gerhold <stephan@gerhold.net>, linux-arm-msm@vger.kernel.org,
- Rob Herring <robh+dt@kernel.org>, Bjorn Andersson <bjorn.andersson@linaro.org>,
- linux-arm-kernel@lists.infradead.org, dianders@chromium.org,
- Takashi Iwai <tiwai@suse.com>, Mark Brown <broonie@kernel.org>,
- Srini Kandagatla <srinivas.kandagatla@linaro.org>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <1596424674-32127-1-git-send-email-shengjiu.wang@nxp.com>
+User-Agent: Mutt/1.9.4 (2018-02-28)
+Cc: alsa-devel@alsa-project.org, timur@kernel.org, Xiubo.Lee@gmail.com,
+ linuxppc-dev@lists.ozlabs.org, tiwai@suse.com, lgirdwood@gmail.com,
+ broonie@kernel.org, festevam@gmail.com, linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -108,311 +102,45 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: Ajit Pandey <ajitp@codeaurora.org>
+On Mon, Aug 03, 2020 at 11:17:54AM +0800, Shengjiu Wang wrote:
+> TX synchronous with RX: The RMR is no need to be changed when
+> Tx is enabled, the other configuration in hw_params() is enough for
 
-Add new driver to register sound card on sc7180 trogdor board and
-do the required configuration for lpass cpu dai and external codecs
-connected over MI2S interfaces.
+Probably you should explain why RMR can be removed, like what
+it really does so as to make it clear that there's no such a
+relationship between RMR and clock generating.
 
-Signed-off-by: Ajit Pandey <ajitp@codeaurora.org>
-Signed-off-by: Cheng-Yi Chiang <cychiang@chromium.org>
-Reviewed-by: Tzung-Bi Shih <tzungbi@google.com>
----
- sound/soc/qcom/Kconfig  |  12 ++
- sound/soc/qcom/Makefile |   2 +
- sound/soc/qcom/sc7180.c | 244 ++++++++++++++++++++++++++++++++++++++++
- 3 files changed, 258 insertions(+)
- create mode 100644 sound/soc/qcom/sc7180.c
+Anyway, this is against the warning comments in the driver:
+	/*
+	 * For SAI master mode, when Tx(Rx) sync with Rx(Tx) clock, Rx(Tx) will
+	 * generate bclk and frame clock for Tx(Rx), we should set RCR4(TCR4),
+	 * RCR5(TCR5) and RMR(TMR) for playback(capture), or there will be sync
+	 * error.
+	 */
 
-diff --git a/sound/soc/qcom/Kconfig b/sound/soc/qcom/Kconfig
-index 5d6b2466a2f2..54aa2ede229c 100644
---- a/sound/soc/qcom/Kconfig
-+++ b/sound/soc/qcom/Kconfig
-@@ -110,3 +110,15 @@ config SND_SOC_SDM845
- 	  To add support for audio on Qualcomm Technologies Inc.
- 	  SDM845 SoC-based systems.
- 	  Say Y if you want to use audio device on this SoCs.
-+
-+config SND_SOC_SC7180
-+	tristate "SoC Machine driver for SC7180 boards"
-+	depends on SND_SOC_QCOM
-+	select SND_SOC_QCOM_COMMON
-+	select SND_SOC_LPASS_SC7180
-+	select SND_SOC_MAX98357A
-+	select SND_SOC_RT5682
-+	help
-+	 To add support for audio on Qualcomm Technologies Inc.
-+	 SC7180 SoC-based systems.
-+	 Say Y if you want to use audio device on this SoCs.
-diff --git a/sound/soc/qcom/Makefile b/sound/soc/qcom/Makefile
-index 41b2c7a23a4d..3f6275d90526 100644
---- a/sound/soc/qcom/Makefile
-+++ b/sound/soc/qcom/Makefile
-@@ -15,12 +15,14 @@ snd-soc-storm-objs := storm.o
- snd-soc-apq8016-sbc-objs := apq8016_sbc.o
- snd-soc-apq8096-objs := apq8096.o
- snd-soc-sdm845-objs := sdm845.o
-+snd-soc-sc7180-objs := sc7180.o
- snd-soc-qcom-common-objs := common.o
- 
- obj-$(CONFIG_SND_SOC_STORM) += snd-soc-storm.o
- obj-$(CONFIG_SND_SOC_APQ8016_SBC) += snd-soc-apq8016-sbc.o
- obj-$(CONFIG_SND_SOC_MSM8996) += snd-soc-apq8096.o
- obj-$(CONFIG_SND_SOC_SDM845) += snd-soc-sdm845.o
-+obj-$(CONFIG_SND_SOC_SC7180) += snd-soc-sc7180.o
- obj-$(CONFIG_SND_SOC_QCOM_COMMON) += snd-soc-qcom-common.o
- 
- #DSP lib
-diff --git a/sound/soc/qcom/sc7180.c b/sound/soc/qcom/sc7180.c
-new file mode 100644
-index 000000000000..7849376f63ba
---- /dev/null
-+++ b/sound/soc/qcom/sc7180.c
-@@ -0,0 +1,244 @@
-+// SPDX-License-Identifier: GPL-2.0-only
-+//
-+// Copyright (c) 2020, The Linux Foundation. All rights reserved.
-+//
-+// sc7180.c -- ALSA SoC Machine driver for SC7180
-+
-+#include <dt-bindings/sound/sc7180-lpass.h>
-+#include <linux/module.h>
-+#include <linux/of_device.h>
-+#include <linux/platform_device.h>
-+#include <sound/core.h>
-+#include <sound/jack.h>
-+#include <sound/pcm.h>
-+#include <sound/pcm_params.h>
-+#include <sound/soc.h>
-+#include <uapi/linux/input-event-codes.h>
-+
-+#include "../codecs/rt5682.h"
-+#include "common.h"
-+#include "lpass.h"
-+
-+#define DEFAULT_SAMPLE_RATE_48K		48000
-+#define DEFAULT_MCLK_RATE		19200000
-+#define RT5682_PLL1_FREQ (48000 * 512)
-+
-+struct sc7180_snd_data {
-+	struct snd_soc_jack jack;
-+	u32 pri_mi2s_clk_count;
-+};
-+
-+static void sc7180_jack_free(struct snd_jack *jack)
-+{
-+	struct snd_soc_component *component = jack->private_data;
-+
-+	snd_soc_component_set_jack(component, NULL, NULL);
-+}
-+
-+static int sc7180_headset_init(struct snd_soc_component *component)
-+{
-+	struct snd_soc_card *card = component->card;
-+	struct sc7180_snd_data *pdata = snd_soc_card_get_drvdata(card);
-+	struct snd_jack *jack;
-+	int rval;
-+
-+	rval = snd_soc_card_jack_new(
-+			card, "Headset Jack",
-+			SND_JACK_HEADSET |
-+			SND_JACK_HEADPHONE |
-+			SND_JACK_BTN_0 | SND_JACK_BTN_1 |
-+			SND_JACK_BTN_2 | SND_JACK_BTN_3,
-+			&pdata->jack, NULL, 0);
-+
-+	if (rval < 0) {
-+		dev_err(card->dev, "Unable to add Headset Jack\n");
-+		return rval;
-+	}
-+
-+	jack = pdata->jack.jack;
-+
-+	snd_jack_set_key(jack, SND_JACK_BTN_0, KEY_PLAYPAUSE);
-+	snd_jack_set_key(jack, SND_JACK_BTN_1, KEY_VOICECOMMAND);
-+	snd_jack_set_key(jack, SND_JACK_BTN_2, KEY_VOLUMEUP);
-+	snd_jack_set_key(jack, SND_JACK_BTN_3, KEY_VOLUMEDOWN);
-+
-+	jack->private_data = component;
-+	jack->private_free = sc7180_jack_free;
-+
-+	rval = snd_soc_component_set_jack(component,
-+					  &pdata->jack, NULL);
-+	if (rval != 0 && rval != -EOPNOTSUPP) {
-+		dev_warn(card->dev, "Failed to set jack: %d\n", rval);
-+		return rval;
-+	}
-+
-+	return 0;
-+}
-+
-+static struct snd_soc_aux_dev sc7180_headset_dev = {
-+	.dlc = COMP_EMPTY(),
-+	.init = sc7180_headset_init,
-+};
-+
-+static int sc7180_snd_startup(struct snd_pcm_substream *substream)
-+{
-+	struct snd_soc_pcm_runtime *rtd = substream->private_data;
-+	struct snd_soc_card *card = rtd->card;
-+	struct sc7180_snd_data *data = snd_soc_card_get_drvdata(card);
-+	struct snd_soc_dai *cpu_dai = asoc_rtd_to_cpu(rtd, 0);
-+	struct snd_soc_dai *codec_dai = asoc_rtd_to_codec(rtd, 0);
-+	int ret;
-+
-+	switch (cpu_dai->id) {
-+	case MI2S_PRIMARY:
-+		if (++data->pri_mi2s_clk_count == 1) {
-+			snd_soc_dai_set_sysclk(cpu_dai,
-+					       LPASS_MCLK0,
-+					       DEFAULT_MCLK_RATE,
-+					       SNDRV_PCM_STREAM_PLAYBACK);
-+		}
-+
-+		snd_soc_dai_set_fmt(codec_dai,
-+				    SND_SOC_DAIFMT_CBS_CFS |
-+				    SND_SOC_DAIFMT_NB_NF |
-+				    SND_SOC_DAIFMT_I2S);
-+
-+		/* Configure PLL1 for codec */
-+		ret = snd_soc_dai_set_pll(codec_dai, 0, RT5682_PLL1_S_MCLK,
-+					  DEFAULT_MCLK_RATE, RT5682_PLL1_FREQ);
-+		if (ret) {
-+			dev_err(rtd->dev, "can't set codec pll: %d\n", ret);
-+			return ret;
-+		}
-+
-+		/* Configure sysclk for codec */
-+		ret = snd_soc_dai_set_sysclk(codec_dai, RT5682_SCLK_S_PLL1,
-+					     RT5682_PLL1_FREQ,
-+					     SND_SOC_CLOCK_IN);
-+		if (ret)
-+			dev_err(rtd->dev, "snd_soc_dai_set_sysclk err = %d\n",
-+				ret);
-+
-+		break;
-+	case MI2S_SECONDARY:
-+		break;
-+	default:
-+		dev_err(rtd->dev, "%s: invalid dai id 0x%x\n", __func__,
-+			cpu_dai->id);
-+		return -EINVAL;
-+	}
-+	return 0;
-+}
-+
-+static void sc7180_snd_shutdown(struct snd_pcm_substream *substream)
-+{
-+	struct snd_soc_pcm_runtime *rtd = substream->private_data;
-+	struct snd_soc_card *card = rtd->card;
-+	struct sc7180_snd_data *data = snd_soc_card_get_drvdata(card);
-+	struct snd_soc_dai *cpu_dai = asoc_rtd_to_cpu(rtd, 0);
-+
-+	switch (cpu_dai->id) {
-+	case MI2S_PRIMARY:
-+		if (--data->pri_mi2s_clk_count == 0) {
-+			snd_soc_dai_set_sysclk(cpu_dai,
-+					       LPASS_MCLK0,
-+					       0,
-+					       SNDRV_PCM_STREAM_PLAYBACK);
-+		}
-+		break;
-+	case MI2S_SECONDARY:
-+		break;
-+	default:
-+		dev_err(rtd->dev, "%s: invalid dai id 0x%x\n", __func__,
-+			cpu_dai->id);
-+		break;
-+	}
-+}
-+
-+static const struct snd_soc_ops sc7180_ops = {
-+	.startup = sc7180_snd_startup,
-+	.shutdown = sc7180_snd_shutdown,
-+};
-+
-+static const struct snd_soc_dapm_widget sc7180_snd_widgets[] = {
-+	SND_SOC_DAPM_HP("Headphone Jack", NULL),
-+	SND_SOC_DAPM_MIC("Headset Mic", NULL),
-+};
-+
-+static struct snd_soc_card sc7180_card = {
-+	.owner = THIS_MODULE,
-+	.aux_dev = &sc7180_headset_dev,
-+	.num_aux_devs = 1,
-+	.dapm_widgets = sc7180_snd_widgets,
-+	.num_dapm_widgets = ARRAY_SIZE(sc7180_snd_widgets),
-+};
-+
-+static int sc7180_parse_aux_of(struct device *dev)
-+{
-+	sc7180_headset_dev.dlc.of_node = of_parse_phandle(
-+			dev->of_node, "aux-dev", 0);
-+
-+	if (!sc7180_headset_dev.dlc.of_node)
-+		return -EINVAL;
-+	return 0;
-+}
-+
-+static void sc7180_add_ops(struct snd_soc_card *card)
-+{
-+	struct snd_soc_dai_link *link;
-+	int i;
-+
-+	for_each_card_prelinks(card, i, link)
-+		link->ops = &sc7180_ops;
-+}
-+
-+static int sc7180_snd_platform_probe(struct platform_device *pdev)
-+{
-+	struct snd_soc_card *card = &sc7180_card;
-+	struct sc7180_snd_data *data;
-+	struct device *dev = &pdev->dev;
-+	int ret;
-+
-+	/* Allocate the private data */
-+	data = devm_kzalloc(dev, sizeof(*data), GFP_KERNEL);
-+	if (!data)
-+		return -ENOMEM;
-+
-+	card->dev = dev;
-+
-+	ret = qcom_snd_parse_of(card);
-+	if (ret) {
-+		dev_err(dev, "Error parsing OF data\n");
-+		return ret;
-+	}
-+
-+	snd_soc_card_set_drvdata(card, data);
-+
-+	sc7180_add_ops(card);
-+
-+	ret = sc7180_parse_aux_of(dev);
-+	if (ret) {
-+		dev_err(dev, "Failed to parse OF for jack device\n");
-+		return ret;
-+	}
-+
-+	return devm_snd_soc_register_card(dev, card);
-+}
-+
-+static const struct of_device_id sc7180_snd_device_id[]  = {
-+	{ .compatible = "qcom,sc7180-sndcard" },
-+	{},
-+};
-+MODULE_DEVICE_TABLE(of, sc7180_snd_device_id);
-+
-+static struct platform_driver sc7180_snd_driver = {
-+	.probe = sc7180_snd_platform_probe,
-+	.driver = {
-+		.name = "msm-snd-sc7180",
-+		.of_match_table = sc7180_snd_device_id,
-+	},
-+};
-+module_platform_driver(sc7180_snd_driver);
-+
-+MODULE_DESCRIPTION("sc7180 ASoC Machine Driver");
-+MODULE_LICENSE("GPL v2");
--- 
-2.28.0.163.g6104cc2f0b6-goog
+So would need to update it.
 
+> clock generation. The TCSR.TE is no need to enabled when only RX
+> is enabled.
+
+You are correct if there's only RX running without TX joining.
+However, that's something we can't guarantee. Then we'd enable
+TE after RE is enabled, which is against what RM recommends:
+
+# From 54.3.3.1 Synchronous mode in IMX6SXRM
+# If the receiver bit clock and frame sync are to be used by
+# both the transmitter and receiver, it is recommended that
+# the receiver is the last enabled and the first disabled.
+
+I remember I did this "ugly" design by strictly following what
+RM says. If hardware team has updated the RM or removed this
+limitation, please quote in the commit logs.
+
+> +		if (!sai->synchronous[TX] && sai->synchronous[RX] && !tx) {
+> +			regmap_update_bits(sai->regmap, FSL_SAI_xCSR((!tx), ofs),
+> +					   FSL_SAI_CSR_TERE, FSL_SAI_CSR_TERE);
+> +		} else if (!sai->synchronous[RX] && sai->synchronous[TX] && tx) {
+> +			regmap_update_bits(sai->regmap, FSL_SAI_xCSR((!tx), ofs),
+> +					   FSL_SAI_CSR_TERE, FSL_SAI_CSR_TERE);
+
+Two identical regmap_update_bits calls -- both on !tx (RX?)

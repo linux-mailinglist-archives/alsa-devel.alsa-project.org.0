@@ -2,81 +2,81 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 51EFA23B18E
-	for <lists+alsa-devel@lfdr.de>; Tue,  4 Aug 2020 02:08:57 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 78F8323B190
+	for <lists+alsa-devel@lfdr.de>; Tue,  4 Aug 2020 02:09:13 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id DEA721661;
-	Tue,  4 Aug 2020 02:08:06 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DEA721661
+	by alsa0.perex.cz (Postfix) with ESMTPS id 1CC591676;
+	Tue,  4 Aug 2020 02:08:23 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1CC591676
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1596499736;
-	bh=i7RqaK+9Q+KK6nbWpbbk9g589RBn4mqsq5K4Pm80vjc=;
+	s=default; t=1596499753;
+	bh=7v+C0Tq6jHojhPVXEd2eOjPd6q3hapJ/jP0S1mJ6RnI=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=ommI7cv9ZicWdo5CljLcAzgoBjjPfiiA66d2LYJCReMbRr3F/uL5TdhUcqoYeCbBz
-	 x/BjY4mba3mIsl1HNqsqJEt3zA1GxXhrQdco4VwUDN6Noj5HXt4suZk6YKdqNBsZ+z
-	 z77/gloBnFTZJYYxJd0rVQVsHh5EazsKCJvrQBPo=
+	b=ogEWsstKBarGFeRCybR4QfQbvxrJMAYkfLEQdih/veQ93knMU6rtIOYlkokl9gRTI
+	 xshrIU824qDHR6GLIUD8ANjvzmLZbAuiRIB1o9TB1mJ80bYG5DbN2C2SL4lNBUr2PL
+	 U3ZTDCqXrnZVJN1Fw7/dmkvP/hOSo88EfF4lPDPM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id A48A4F802D2;
-	Tue,  4 Aug 2020 02:05:51 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 67813F802E2;
+	Tue,  4 Aug 2020 02:05:52 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 724CCF802C3; Tue,  4 Aug 2020 02:05:48 +0200 (CEST)
+ id DA486F802D2; Tue,  4 Aug 2020 02:05:48 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
  DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
  autolearn=disabled version=3.4.0
-Received: from mail-pf1-x444.google.com (mail-pf1-x444.google.com
- [IPv6:2607:f8b0:4864:20::444])
+Received: from mail-pj1-x1044.google.com (mail-pj1-x1044.google.com
+ [IPv6:2607:f8b0:4864:20::1044])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 1431AF80218
- for <alsa-devel@alsa-project.org>; Tue,  4 Aug 2020 02:05:36 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1431AF80218
+ by alsa1.perex.cz (Postfix) with ESMTPS id BC813F800B7
+ for <alsa-devel@alsa-project.org>; Tue,  4 Aug 2020 02:05:37 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BC813F800B7
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org
- header.b="LPyRsBf8"
-Received: by mail-pf1-x444.google.com with SMTP id r11so11306609pfl.11
- for <alsa-devel@alsa-project.org>; Mon, 03 Aug 2020 17:05:36 -0700 (PDT)
+ header.b="kSXUbVgM"
+Received: by mail-pj1-x1044.google.com with SMTP id f9so1014326pju.4
+ for <alsa-devel@alsa-project.org>; Mon, 03 Aug 2020 17:05:37 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=l3OiBOjafm3plPEFte4M6SO56RI7TS2vgkQEyD6y8A0=;
- b=LPyRsBf8uatoR8gWHlPsC/BOs6J+g3iymamTa9IWYe2OXk+e9O1U+kElZtxQYeyY/C
- Eyb660XqBkPshzkYARXpu1veuTlEWBLctTGaZ2TX8ZFi03Mq+fDjaLt9pW05nKWefJuq
- XvNZhcNKkmbYBMGzbXq3C4j6YB6NKPoCc5c7E=
+ bh=XYxlPxktLYpTU+ajRvocUmvWDtHWUPhy8uwzwzVSk3I=;
+ b=kSXUbVgMYfHIPmXvbDKDf53m5ed9n1Gm6wnE6Vy5a4s1jaI4+9yrAkwN4xh9jxDUCj
+ WQlzPLz+ANy+WsdXd6S24HWI0jcEtM+EQeiagJNqQZZIftIkdToSDqBWVkXMifVxXbvd
+ gxYItY//3bUQS8cwCayYMupFA/eJoX86S2fbQ=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=l3OiBOjafm3plPEFte4M6SO56RI7TS2vgkQEyD6y8A0=;
- b=Nwp93aWAgJmYvKtn9Z7AAC3Q+YQ5KHZpaFic0mSZkC672mqTZYTfC1UT3EA7oAJwnj
- 2RrYVoh5N6CGSU4ij1GtlfZwEOd1hbLKpU/Hn/FXdCYIehr6MuCeTdvyZL0eaR1MUsNW
- zDGrziTXqZ6WFwMHxXRh1inXBZq76lYmOGlUQGSiLXXCSvR1CY9eA2teK5h8etiI4850
- TreLaO7BFMq8YmdpGkW69wlMHop0D/iOrq1igkZXEeEu+WFIlsDYs8iQLEFbnMZYGHah
- JJ9TOU+tffujD0xhk+s6+BQxCM4tU4QPikkR3mDEALrL1mCFk6kiuTncCy2I0RYxwif1
- R0Cg==
-X-Gm-Message-State: AOAM5302vqTwZchUI1uWc6Qd+B6kf1vx3SQJXKRuQhcZ29GZXMUIP7WF
- wqPeZuy+jnK1IjbfBYlDwDYwsA==
-X-Google-Smtp-Source: ABdhPJyFldD5Jk+BXD0T+4t0RZBnjvyZfqehuzQXAggkI49L/50t4c4PrODhjN5fDmoDfwya8bFnWA==
-X-Received: by 2002:a63:8ec8:: with SMTP id
- k191mr17016302pge.154.1596499534145; 
- Mon, 03 Aug 2020 17:05:34 -0700 (PDT)
+ bh=XYxlPxktLYpTU+ajRvocUmvWDtHWUPhy8uwzwzVSk3I=;
+ b=ObaWtv1svs+PjMyAToxOnj+OB4Uzm7r2NIu2OMT4a8xOlpILYHs0vqT78pi0XKJdlK
+ HYoE90cTQHEBvjyBZ4mhHAeDKTjrZyzUR4e9bEFGLUHlwpKPFHQYHGnN1ksOKb5uum8x
+ mMOMfbbQYS9EqQFVwtsvOaq2ePpdIfedYH9huvfnm3kzUhJbL2180YpDFNpkE8YUgMdj
+ 2YOdoxC42uyLZFjUROQxRyOnaBciuACHoXDzGEdR46zJLpRoVA0iiVOOAPP3PWrQM2Wf
+ q4y3gjN7LH26VFFPPb03lupKZKFYz+BmcIvgFzHkIegv8OqXPB1uThSVgDkPTHG/Nh87
+ 31Zg==
+X-Gm-Message-State: AOAM531FL2M3YixXU9JkocN6nscdHvqj7aR7Yhh1zg6LkqTOF2keunpe
+ 5iCjyiM8VaXNFvVArYzDNKGbPg==
+X-Google-Smtp-Source: ABdhPJy0Kl39KCvp6CQkcZipctw4cxaao9j76i19pk33xNx5VtGJDatjpizlaD3AgEZ9rDJKr/SibQ==
+X-Received: by 2002:a17:90a:33e8:: with SMTP id
+ n95mr1683693pjb.183.1596499535212; 
+ Mon, 03 Aug 2020 17:05:35 -0700 (PDT)
 Received: from smtp.gmail.com ([2620:15c:202:1:3e52:82ff:fe6c:83ab])
- by smtp.gmail.com with ESMTPSA id e28sm12332756pfl.124.2020.08.03.17.05.33
+ by smtp.gmail.com with ESMTPSA id e28sm12332756pfl.124.2020.08.03.17.05.34
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 03 Aug 2020 17:05:33 -0700 (PDT)
+ Mon, 03 Aug 2020 17:05:34 -0700 (PDT)
 From: Stephen Boyd <swboyd@chromium.org>
 To: Mark Brown <broonie@kernel.org>,
 	Oder Chiou <oder_chiou@realtek.com>
-Subject: [PATCH 2/3] ASoC: rt5682: Drop usage of __clk_get_name()
-Date: Mon,  3 Aug 2020 17:05:30 -0700
-Message-Id: <20200804000531.920688-3-swboyd@chromium.org>
+Subject: [PATCH 3/3] ASoC: rt5682: Use clk_hw based APIs for registration
+Date: Mon,  3 Aug 2020 17:05:31 -0700
+Message-Id: <20200804000531.920688-4-swboyd@chromium.org>
 X-Mailer: git-send-email 2.28.0.163.g6104cc2f0b6-goog
 In-Reply-To: <20200804000531.920688-1-swboyd@chromium.org>
 References: <20200804000531.920688-1-swboyd@chromium.org>
@@ -100,89 +100,121 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-The __clk_get_name() API is deprecated. Use clk_hw_get_name() or
-proper registration techniques to avoid it.
+The (new?) style of clk registration uses clk_hw based APIs so that we
+can more easily see the difference between clk providers and clk
+consumers. Use the clk_hw based APIs to do this and migrate to devm for
+the clkdev creation so that we can reduce the amount of code.
 
 Cc: Cheng-Yi Chiang <cychiang@chromium.org>
 Cc: Shuming Fan <shumingf@realtek.com>
 Signed-off-by: Stephen Boyd <swboyd@chromium.org>
 ---
- sound/soc/codecs/rt5682.c | 24 +++++++++++-------------
- 1 file changed, 11 insertions(+), 13 deletions(-)
+ sound/soc/codecs/rt5682.c | 47 +++++++++------------------------------
+ sound/soc/codecs/rt5682.h |  2 --
+ 2 files changed, 11 insertions(+), 38 deletions(-)
 
 diff --git a/sound/soc/codecs/rt5682.c b/sound/soc/codecs/rt5682.c
-index ed9475f24aec..d8a1973a4624 100644
+index d8a1973a4624..bfb26fec7137 100644
 --- a/sound/soc/codecs/rt5682.c
 +++ b/sound/soc/codecs/rt5682.c
-@@ -2548,7 +2548,7 @@ static unsigned long rt5682_wclk_recalc_rate(struct clk_hw *hw,
- 		container_of(hw, struct rt5682_priv,
- 			     dai_clks_hw[RT5682_DAI_WCLK_IDX]);
- 	struct snd_soc_component *component = rt5682->component;
--	const char * const clk_name = __clk_get_name(hw->clk);
-+	const char * const clk_name = clk_hw_get_name(hw);
- 
- 	if (!rt5682_clk_check(rt5682))
- 		return 0;
-@@ -2572,7 +2572,7 @@ static long rt5682_wclk_round_rate(struct clk_hw *hw, unsigned long rate,
- 		container_of(hw, struct rt5682_priv,
- 			     dai_clks_hw[RT5682_DAI_WCLK_IDX]);
- 	struct snd_soc_component *component = rt5682->component;
--	const char * const clk_name = __clk_get_name(hw->clk);
-+	const char * const clk_name = clk_hw_get_name(hw);
- 
- 	if (!rt5682_clk_check(rt5682))
- 		return -EINVAL;
-@@ -2597,7 +2597,7 @@ static int rt5682_wclk_set_rate(struct clk_hw *hw, unsigned long rate,
- 			     dai_clks_hw[RT5682_DAI_WCLK_IDX]);
- 	struct snd_soc_component *component = rt5682->component;
- 	struct clk *parent_clk;
--	const char * const clk_name = __clk_get_name(hw->clk);
-+	const char * const clk_name = clk_hw_get_name(hw);
- 	int pre_div;
- 	unsigned int clk_pll2_out;
- 
-@@ -2755,33 +2755,31 @@ static int rt5682_register_dai_clks(struct snd_soc_component *component)
+@@ -2755,8 +2755,6 @@ static int rt5682_register_dai_clks(struct snd_soc_component *component)
  	struct device *dev = component->dev;
  	struct rt5682_priv *rt5682 = snd_soc_component_get_drvdata(component);
  	struct rt5682_platform_data *pdata = &rt5682->pdata;
--	struct clk_init_data init;
- 	struct clk *dai_clk;
- 	struct clk_lookup *dai_clk_lookup;
+-	struct clk *dai_clk;
+-	struct clk_lookup *dai_clk_lookup;
  	struct clk_hw *dai_clk_hw;
--	const char *parent_name;
  	int i, ret;
  
- 	for (i = 0; i < RT5682_DAI_NUM_CLKS; ++i) {
-+		struct clk_init_data init = { };
-+
- 		dai_clk_hw = &rt5682->dai_clks_hw[i];
- 
- 		switch (i) {
- 		case RT5682_DAI_WCLK_IDX:
- 			/* Make MCLK the parent of WCLK */
- 			if (rt5682->mclk) {
--				parent_name = __clk_get_name(rt5682->mclk);
--				init.parent_names = &parent_name;
-+				init.parent_data = &(struct clk_parent_data){
-+					.fw_name = "mclk",
-+				};
- 				init.num_parents = 1;
--			} else {
--				init.parent_names = NULL;
--				init.num_parents = 0;
- 			}
- 			break;
- 		case RT5682_DAI_BCLK_IDX:
- 			/* Make WCLK the parent of BCLK */
--			parent_name = __clk_get_name(
--				rt5682->dai_clks[RT5682_DAI_WCLK_IDX]);
--			init.parent_names = &parent_name;
-+			init.parent_hws = &(const struct clk_hw *){
-+				&rt5682->dai_clks_hw[RT5682_DAI_WCLK_IDX]
-+			};
- 			init.num_parents = 1;
+@@ -2784,8 +2782,7 @@ static int rt5682_register_dai_clks(struct snd_soc_component *component)
  			break;
  		default:
+ 			dev_err(dev, "Invalid clock index\n");
+-			ret = -EINVAL;
+-			goto err;
++			return -EINVAL;
+ 		}
+ 
+ 		init.name = pdata->dai_clk_names[i];
+@@ -2793,39 +2790,26 @@ static int rt5682_register_dai_clks(struct snd_soc_component *component)
+ 		init.flags = CLK_GET_RATE_NOCACHE | CLK_SET_RATE_GATE;
+ 		dai_clk_hw->init = &init;
+ 
+-		dai_clk = devm_clk_register(dev, dai_clk_hw);
+-		if (IS_ERR(dai_clk)) {
+-			dev_warn(dev, "Failed to register %s: %ld\n",
+-				 init.name, PTR_ERR(dai_clk));
+-			ret = PTR_ERR(dai_clk);
+-			goto err;
++		ret = devm_clk_hw_register(dev, dai_clk_hw);
++		if (ret) {
++			dev_warn(dev, "Failed to register %s: %d\n",
++				 init.name, ret);
++			return ret;
+ 		}
+-		rt5682->dai_clks[i] = dai_clk;
+ 
+ 		if (dev->of_node) {
+ 			devm_of_clk_add_hw_provider(dev, of_clk_hw_simple_get,
+ 						    dai_clk_hw);
+ 		} else {
+-			dai_clk_lookup = clkdev_create(dai_clk, init.name,
+-						       "%s", dev_name(dev));
+-			if (!dai_clk_lookup) {
+-				ret = -ENOMEM;
+-				goto err;
+-			} else {
+-				rt5682->dai_clks_lookup[i] = dai_clk_lookup;
+-			}
++			ret = devm_clk_hw_register_clkdev(dev, dai_clk_hw,
++							  init.name,
++							  dev_name(dev));
++			if (ret)
++				return ret;
+ 		}
+ 	}
+ 
+ 	return 0;
+-
+-err:
+-	do {
+-		if (rt5682->dai_clks_lookup[i])
+-			clkdev_drop(rt5682->dai_clks_lookup[i]);
+-	} while (i-- > 0);
+-
+-	return ret;
+ }
+ #endif /* CONFIG_COMMON_CLK */
+ 
+@@ -2882,15 +2866,6 @@ static void rt5682_remove(struct snd_soc_component *component)
+ {
+ 	struct rt5682_priv *rt5682 = snd_soc_component_get_drvdata(component);
+ 
+-#ifdef CONFIG_COMMON_CLK
+-	int i;
+-
+-	for (i = RT5682_DAI_NUM_CLKS - 1; i >= 0; --i) {
+-		if (rt5682->dai_clks_lookup[i])
+-			clkdev_drop(rt5682->dai_clks_lookup[i]);
+-	}
+-#endif
+-
+ 	rt5682_reset(rt5682);
+ }
+ 
+diff --git a/sound/soc/codecs/rt5682.h b/sound/soc/codecs/rt5682.h
+index 6d94327beae5..354acd735ef4 100644
+--- a/sound/soc/codecs/rt5682.h
++++ b/sound/soc/codecs/rt5682.h
+@@ -1411,8 +1411,6 @@ struct rt5682_priv {
+ 
+ #ifdef CONFIG_COMMON_CLK
+ 	struct clk_hw dai_clks_hw[RT5682_DAI_NUM_CLKS];
+-	struct clk_lookup *dai_clks_lookup[RT5682_DAI_NUM_CLKS];
+-	struct clk *dai_clks[RT5682_DAI_NUM_CLKS];
+ 	struct clk *mclk;
+ #endif
+ 
 -- 
 Sent by a computer, using git, on the internet
 

@@ -2,68 +2,69 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B3A0D23B68B
-	for <lists+alsa-devel@lfdr.de>; Tue,  4 Aug 2020 10:12:58 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9A8F823B692
+	for <lists+alsa-devel@lfdr.de>; Tue,  4 Aug 2020 10:14:06 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 56C871666;
-	Tue,  4 Aug 2020 10:12:08 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 56C871666
+	by alsa0.perex.cz (Postfix) with ESMTPS id 330291662;
+	Tue,  4 Aug 2020 10:13:16 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 330291662
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1596528778;
-	bh=48VoSHiUNBq8ew1rmsSXbIkEeiKZW0zi8O3Mb/RfHto=;
+	s=default; t=1596528846;
+	bh=AreLftsLiSJefTuNbyVtOof0KsAUajYy8jiVFG3W7PY=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=hhPviPz+4b2q9TVY0BFfqsOIbltxL0vd/4uiYb8gmThRPzNWKMhY22CqvCmSBJ38f
-	 dIDrSDi2Egurc3knQfjnfQA/GuzUaZB+EuKDwmQjKvC2cE2oft4dJ/z4PCd65qxjXV
-	 d4JRxEsvjjvqaCxmYG5iwewqqbrbSX+iDK06CvxY=
+	b=KFOEuvLUw58V8mmKMG59+x7J+8UDxOEymq50xaHB1DEvLFOakZp9rmZAQ40fGwCJC
+	 wg5HQ1FvvfVsLVDIDosSauCmJy+z4hoouHS+1i+6Fmzmgr1PrxJhAmVkXn3mNPCg5N
+	 BY9YkNw3Qc/KYHRBz9QJrQqMKlmLNhHOGHDYrsJI=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 9AFE1F802F7;
-	Tue,  4 Aug 2020 10:08:53 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 5627AF80316;
+	Tue,  4 Aug 2020 10:09:05 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 01AABF802F7; Tue,  4 Aug 2020 10:08:50 +0200 (CEST)
+ id 460C3F80317; Tue,  4 Aug 2020 10:09:02 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- RCVD_IN_MSPIKE_H3,RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from m43-7.mailgun.net (m43-7.mailgun.net [69.72.43.7])
+ RCVD_IN_MSPIKE_H2,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
+Received: from mail29.static.mailgun.info (mail29.static.mailgun.info
+ [104.130.122.29])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 308F2F802EA
- for <alsa-devel@alsa-project.org>; Tue,  4 Aug 2020 10:08:42 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 308F2F802EA
+ by alsa1.perex.cz (Postfix) with ESMTPS id 0D0F2F802EA
+ for <alsa-devel@alsa-project.org>; Tue,  4 Aug 2020 10:08:52 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0D0F2F802EA
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=mg.codeaurora.org
- header.i=@mg.codeaurora.org header.b="vvi4hLIW"
+ header.i=@mg.codeaurora.org header.b="CDitBotR"
 DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
  q=dns/txt; 
- s=smtp; t=1596528526; h=References: In-Reply-To: Message-Id: Date:
+ s=smtp; t=1596528537; h=References: In-Reply-To: Message-Id: Date:
  Subject: Cc: To: From: Sender;
- bh=MFq5q/nvUA4Da5minLQ/5WQKxE6K5fjxfakeD/Ulegg=;
- b=vvi4hLIWxsvIroxJ0A7v1BvYzHjCDNAKZbF159niXvoW8RaavlWD9VVddG4vP26EE20rLaU5
- GY0fCfh9C36Gi4XM3Zs+UxMA+x0Rhsvvte6ZM+tpFXnZ67tROR6Q3z+DMmbHJq1q7POBS4y9
- YU+b4MeVt9fXHChamTwftQu1J7k=
-X-Mailgun-Sending-Ip: 69.72.43.7
+ bh=wzkE1gcsoctw3hiDqTWdfJ/SEs/ShA6LmWUp5yuAKJA=;
+ b=CDitBotRj+CRHsdxlAtV3lN2TZ6wkan/8+YnBCxpG7XlHmkDLCQQk25FUBmaektooKYn++Ze
+ i6mCXYNW4Xle7af94RAjVtYAe+PywHXDqwaQKgYdggDQHw6qB9O2vLErC6aFJ6/YgLzhe3F/
+ Ra/hv4hKMW+NiNkjEq0THsQLkkQ=
+X-Mailgun-Sending-Ip: 104.130.122.29
 X-Mailgun-Sid: WyI4ZmE2ZSIsICJhbHNhLWRldmVsQGFsc2EtcHJvamVjdC5vcmciLCAiYmU5ZTRhIl0=
 Received: from smtp.codeaurora.org
  (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171]) by
- smtp-out-n04.prod.us-west-2.postgun.com with SMTP id
- 5f291784e1ac2727649c38ed (version=TLS1.2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Tue, 04 Aug 2020 08:08:36
+ smtp-out-n06.prod.us-west-2.postgun.com with SMTP id
+ 5f29178c9c7be6b4a5819b06 (version=TLS1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Tue, 04 Aug 2020 08:08:44
  GMT
 Received: by smtp.codeaurora.org (Postfix, from userid 1001)
- id 14AFFC43395; Tue,  4 Aug 2020 08:08:36 +0000 (UTC)
+ id 27097C433CB; Tue,  4 Aug 2020 08:08:43 +0000 (UTC)
 Received: from rohkumar-linux.qualcomm.com (unknown [202.46.22.19])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-SHA256 (128/128 bits))
  (No client certificate requested) (Authenticated sender: rohitkr)
- by smtp.codeaurora.org (Postfix) with ESMTPSA id 86B44C433CB;
- Tue,  4 Aug 2020 08:08:30 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 smtp.codeaurora.org 86B44C433CB
+ by smtp.codeaurora.org (Postfix) with ESMTPSA id CCCDFC433CB;
+ Tue,  4 Aug 2020 08:08:36 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 smtp.codeaurora.org CCCDFC433CB
 Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
  dmarc=none (p=none dis=none) header.from=codeaurora.org
 Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
@@ -75,9 +76,10 @@ To: agross@kernel.org, bjorn.andersson@linaro.org, lgirdwood@gmail.com,
  srinivas.kandagatla@linaro.org, linux-arm-msm@vger.kernel.org,
  alsa-devel@alsa-project.org, devicetree@vger.kernel.org,
  linux-kernel@vger.kernel.org
-Subject: [PATCH v5 06/12] ASoC: qcom: lpass-cpu: fix concurrency issue
-Date: Tue,  4 Aug 2020 13:37:27 +0530
-Message-Id: <1596528453-11437-7-git-send-email-rohitkr@codeaurora.org>
+Subject: [PATCH v5 07/12] dt-bindings: sound: lpass-cpu: Add sc7180 lpass cpu
+ node
+Date: Tue,  4 Aug 2020 13:37:28 +0530
+Message-Id: <1596528453-11437-8-git-send-email-rohitkr@codeaurora.org>
 X-Mailer: git-send-email 2.7.4
 In-Reply-To: <1596528453-11437-1-git-send-email-rohitkr@codeaurora.org>
 References: <1596528453-11437-1-git-send-email-rohitkr@codeaurora.org>
@@ -97,53 +99,97 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-i2sctl register value is set to 0 during hw_free(). This
-impacts any ongoing concurrent session on the same i2s
-port. As trigger() stop already resets enable bit to 0,
-there is no need of explicit hw_free. Removing it to
-fix the issue.
+Add dt-bindings to support "qcom,lpass-cpu-sc7180" node.
 
-Fixes: 80beab8e1d86 ("ASoC: qcom: Add LPASS CPU DAI driver")
 Signed-off-by: Rohit kumar <rohitkr@codeaurora.org>
-Reviewed-by: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
 ---
- sound/soc/qcom/lpass-cpu.c | 16 ----------------
- 1 file changed, 16 deletions(-)
+ .../devicetree/bindings/sound/qcom,lpass-cpu.txt   | 55 +++++++++++++++++++++-
+ 1 file changed, 53 insertions(+), 2 deletions(-)
 
-diff --git a/sound/soc/qcom/lpass-cpu.c b/sound/soc/qcom/lpass-cpu.c
-index 6b86f16..5d84f63 100644
---- a/sound/soc/qcom/lpass-cpu.c
-+++ b/sound/soc/qcom/lpass-cpu.c
-@@ -266,21 +266,6 @@ static int lpass_cpu_daiops_hw_params(struct snd_pcm_substream *substream,
- 	return 0;
- }
+diff --git a/Documentation/devicetree/bindings/sound/qcom,lpass-cpu.txt b/Documentation/devicetree/bindings/sound/qcom,lpass-cpu.txt
+index 32c2cdb..c07202c 100644
+--- a/Documentation/devicetree/bindings/sound/qcom,lpass-cpu.txt
++++ b/Documentation/devicetree/bindings/sound/qcom,lpass-cpu.txt
+@@ -4,7 +4,8 @@ This node models the Qualcomm Technologies Low-Power Audio SubSystem (LPASS).
  
--static int lpass_cpu_daiops_hw_free(struct snd_pcm_substream *substream,
--		struct snd_soc_dai *dai)
--{
--	struct lpass_data *drvdata = snd_soc_dai_get_drvdata(dai);
--	int ret;
--
--	ret = regmap_write(drvdata->lpaif_map,
--			   LPAIF_I2SCTL_REG(drvdata->variant, dai->driver->id),
--			   0);
--	if (ret)
--		dev_err(dai->dev, "error writing to i2sctl reg: %d\n", ret);
--
--	return ret;
--}
--
- static int lpass_cpu_daiops_prepare(struct snd_pcm_substream *substream,
- 		struct snd_soc_dai *dai)
- {
-@@ -350,7 +335,6 @@ const struct snd_soc_dai_ops asoc_qcom_lpass_cpu_dai_ops = {
- 	.startup	= lpass_cpu_daiops_startup,
- 	.shutdown	= lpass_cpu_daiops_shutdown,
- 	.hw_params	= lpass_cpu_daiops_hw_params,
--	.hw_free	= lpass_cpu_daiops_hw_free,
- 	.prepare	= lpass_cpu_daiops_prepare,
- 	.trigger	= lpass_cpu_daiops_trigger,
+ Required properties:
+ 
+-- compatible		: "qcom,lpass-cpu" or "qcom,apq8016-lpass-cpu"
++- compatible		: "qcom,lpass-cpu" or "qcom,apq8016-lpass-cpu" or
++			  "qcom,sc7180-lpass-cpu"
+ - clocks		: Must contain an entry for each entry in clock-names.
+ - clock-names		: A list which must include the following entries:
+ 				* "ahbix-clk"
+@@ -18,6 +19,13 @@ Required properties:
+ 				* "mi2s-bit-clk3"
+ 				* "pcnoc-mport-clk"
+ 				* "pcnoc-sway-clk"
++			: required clocks for "qcom,lpass-cpu-sc7180"
++				* "audio-core"
++				* "mclk0"
++				* "mi2s-bit-clk0"
++				* "mi2s-bit-clk1"
++				* "pcnoc-sway-clk"
++				* "pcnoc-mport-clk"
+ 
+ - interrupts		: Must contain an entry for each entry in
+ 			  interrupt-names.
+@@ -53,7 +61,8 @@ Required properties for each DAI (represented by a subnode):
+ Note that adding a subnode changes the default to "no lines configured",
+ so both playback and capture lines should be configured when a subnode is added.
+ 
+-Example:
++Examples:
++1)
+ 
+ lpass@28100000 {
+ 	compatible = "qcom,lpass-cpu";
+@@ -77,3 +86,45 @@ lpass@28100000 {
+ 		qcom,playback-sd-lines = <0 1>;
+ 	};
  };
++
++2)
++
++#include <dt-bindings/sound/sc7180-lpass.h>
++
++lpass_cpu: lpass {
++	compatible = "qcom,sc7180-lpass-cpu";
++
++	reg = <0 0x62F00000 0 0x29000>;
++
++	iommus = <&apps_smmu 0x1020 0>;
++
++	power-domains = <&lpass_hm LPASS_CORE_HM_GDSCR>;
++	clocks = <&gcc GCC_LPASS_CFG_NOC_SWAY_CLK>,
++		<&lpasscorecc LPASS_AUDIO_CORE_CORE_CLK>,
++		<&lpasscorecc LPASS_AUDIO_CORE_EXT_MCLK0_CLK>,
++		<&lpasscorecc LPASS_AUDIO_CORE_SYSNOC_MPORT_CORE_CLK>,
++		<&lpasscorecc LPASS_AUDIO_CORE_LPAIF_PRI_IBIT_CLK>,
++		<&lpasscorecc LPASS_AUDIO_CORE_LPAIF_SEC_IBIT_CLK>;
++	clock-names = "pcnoc-sway-clk", "audio-core",
++			"mclk0", "pcnoc-mport-clk",
++			"mi2s-bit-clk0", "mi2s-bit-clk1";
++	interrupts = <0 160 IRQ_TYPE_LEVEL_HIGH>;
++	interrupt-names = "lpass-irq-lpaif";
++
++
++	#sound-dai-cells = <1>;
++
++	#address-cells = <1>;
++	#size-cells = <0>;
++
++	mi2s-primary@0 {
++		reg = <MI2S_PRIMARY>;
++		qcom,playback-sd-lines = <1>;
++		qcom,capture-sd-lines = <0>;
++	};
++
++	mi2s-secondary@1 {
++		reg = <MI2S_SECONDARY>;
++		qcom,playback-sd-lines = <0>;
++	};
++};
 -- 
 Qualcomm India Private Limited, on behalf of Qualcomm Innovation Center, Inc.,
 is a member of Code Aurora Forum, a Linux Foundation Collaborative Project.

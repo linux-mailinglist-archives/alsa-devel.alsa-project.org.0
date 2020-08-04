@@ -2,82 +2,59 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 36EF923B9F7
-	for <lists+alsa-devel@lfdr.de>; Tue,  4 Aug 2020 13:52:37 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3CA3723BB64
+	for <lists+alsa-devel@lfdr.de>; Tue,  4 Aug 2020 15:50:08 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C488D1668;
-	Tue,  4 Aug 2020 13:51:46 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C488D1668
+	by alsa0.perex.cz (Postfix) with ESMTPS id C28FE1662;
+	Tue,  4 Aug 2020 15:49:17 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C28FE1662
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1596541956;
-	bh=erKjDfsyWHFse4lDcnfJJfQ34faBG+4muG9hErhPl5A=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=g/jY7s7EA8oHNLHlN21d/1A53R/EBYYy4/kN0pMd8/gpxSflUWa/YSc4HjTgwCvdS
-	 UzeBXpQZWZFGHJVAsqFg8ImaWCAvMcbohnJ/rNZDkO7lebY1bX4/Y5PPUevTyg/2FJ
-	 ZbAWCiEmZDk0+RObd+b76j7+p73avt9OYrsoRrHA=
+	s=default; t=1596549007;
+	bh=FRb5BJdVZ7IUOQHbmcgwpznAPIb6L2zapOb3br0Pzfo=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=a45dX1rIUxzIPctOM0vct/ATnQPCCMQA4Rzbru8LAWcJ4oMCA+jOSz27wuUy7u6Lt
+	 8nJikU4HbBUwKi6enJ7Of+IZmaUwFnYPxEL45CL2LR3uTGPmylLQfZ4wtuler3XrKU
+	 EVznggeGoBVnUEJ6ALdjpx/Ag8pGoGQin214RYLM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 5D655F800B7;
-	Tue,  4 Aug 2020 13:50:55 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 07997F8015A;
+	Tue,  4 Aug 2020 15:48:27 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 28DC3F80150; Tue,  4 Aug 2020 13:50:52 +0200 (CEST)
+ id 30BD2F80150; Tue,  4 Aug 2020 15:48:24 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled
- version=3.4.0
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+X-Spam-Level: ***
+X-Spam-Status: No, score=3.0 required=5.0 tests=AC_FROM_MANY_DOTS,
+ RCVD_IN_MSPIKE_H3,RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from youngberry.canonical.com (youngberry.canonical.com
+ [91.189.89.112])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 29C2EF800B7
- for <alsa-devel@alsa-project.org>; Tue,  4 Aug 2020 13:50:42 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 29C2EF800B7
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="n8BSTkCW"
-Received: from localhost (fw-tnat.cambridge.arm.com [217.140.96.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id AF07E2086A;
- Tue,  4 Aug 2020 11:50:40 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1596541841;
- bh=erKjDfsyWHFse4lDcnfJJfQ34faBG+4muG9hErhPl5A=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=n8BSTkCWnzkGly3EX+k5/5Mdj3y4c15PE3Zvz63K4IP8PLULgbDwSpWxMhXN/H5wg
- neqdQjCanKrZyK+pPMh4AFiVZlX30KSlJWVHbj2FS+MshPIKsMCvP27PwR/uXFQtZw
- 4q2aorUsta7l5JnGV081BNbgUq5KP+mWh5I8Ajjk=
-Date: Tue, 4 Aug 2020 12:50:19 +0100
-From: Mark Brown <broonie@kernel.org>
-To: "Sit, Michael Wei Hong" <michael.wei.hong.sit@intel.com>
-Subject: Re: [PATCH 4/4] dt-bindings: sound: intel,keembay-i2s: Add
- channel-max property
-Message-ID: <20200804115019.GA5249@sirena.org.uk>
-References: <20200730055319.1522-1-michael.wei.hong.sit@intel.com>
- <20200730055319.1522-5-michael.wei.hong.sit@intel.com>
- <20200730112948.GB5055@sirena.org.uk>
- <BYAPR11MB3046DD82FAC2B5C672FC85B29D4D0@BYAPR11MB3046.namprd11.prod.outlook.com>
- <20200803104917.GB4502@sirena.org.uk>
- <BYAPR11MB3046E41085E470BFB11D710B9D4A0@BYAPR11MB3046.namprd11.prod.outlook.com>
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="qMm9M+Fa2AknHoGS"
-Content-Disposition: inline
-In-Reply-To: <BYAPR11MB3046E41085E470BFB11D710B9D4A0@BYAPR11MB3046.namprd11.prod.outlook.com>
-X-Cookie: Every solution breeds new problems.
-User-Agent: Mutt/1.10.1 (2018-07-13)
-Cc: "pierre-louis.bossart@linux.intel.com"
- <pierre-louis.bossart@linux.intel.com>, "Rojewski,
- Cezary" <cezary.rojewski@intel.com>, "Shevchenko,
- Andriy" <andriy.shevchenko@intel.com>,
- "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>, "Sia,
- Jee Heng" <jee.heng.sia@intel.com>, "tiwai@suse.com" <tiwai@suse.com>,
- "liam.r.girdwood@linux.intel.com" <liam.r.girdwood@linux.intel.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 4995CF800B7
+ for <alsa-devel@alsa-project.org>; Tue,  4 Aug 2020 15:48:14 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4995CF800B7
+Received: from 61-220-137-37.hinet-ip.hinet.net ([61.220.137.37]
+ helo=localhost) by youngberry.canonical.com with esmtpsa
+ (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.86_2)
+ (envelope-from <kai.heng.feng@canonical.com>)
+ id 1k2xIT-0002gl-8L; Tue, 04 Aug 2020 13:48:05 +0000
+From: Kai-Heng Feng <kai.heng.feng@canonical.com>
+To: tiwai@suse.com
+Subject: [PATCH v2] ALSA: hda/hdmi: Add quirk to force connectivity
+Date: Tue,  4 Aug 2020 21:48:00 +0800
+Message-Id: <20200804134801.10872-1-kai.heng.feng@canonical.com>
+X-Mailer: git-send-email 2.17.1
+Cc: Nikhil Mahale <nmahale@nvidia.com>,
+ Kai Vehmanen <kai.vehmanen@linux.intel.com>,
+ Aaron Plattner <aplattner@nvidia.com>,
+ open list <linux-kernel@vger.kernel.org>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ Kai-Heng Feng <kai.heng.feng@canonical.com>,
+ "moderated list:SOUND" <alsa-devel@alsa-project.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -93,42 +70,92 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+HDMI on some platforms doesn't enable audio support because its Port
+Connectivity [31:30] is set to AC_JACK_PORT_NONE:
+Node 0x05 [Pin Complex] wcaps 0x40778d: 8-Channels Digital Amp-Out CP
+  Amp-Out caps: ofs=0x00, nsteps=0x00, stepsize=0x00, mute=1
+  Amp-Out vals:  [0x00 0x00]
+  Pincap 0x0b000094: OUT Detect HBR HDMI DP
+  Pin Default 0x58560010: [N/A] Digital Out at Int HDMI
+    Conn = Digital, Color = Unknown
+    DefAssociation = 0x1, Sequence = 0x0
+  Pin-ctls: 0x40: OUT
+  Unsolicited: tag=00, enabled=0
+  Power states:  D0 D3 EPSS
+  Power: setting=D0, actual=D0
+  Devices: 0
+  Connection: 3
+     0x02 0x03* 0x04
 
---qMm9M+Fa2AknHoGS
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+For now, use a quirk to force connectivity based on SSID. If there are
+more platforms affected by the same issue, we can eye for a more generic
+solution.
 
-On Tue, Aug 04, 2020 at 01:57:23AM +0000, Sit, Michael Wei Hong wrote:
+Signed-off-by: Kai-Heng Feng <kai.heng.feng@canonical.com>
+---
+v2:
+ - Use a quirk list instead.
 
-> > > The platform also has 2 different interfaces which have different
-> > supported max-channels.
-> > > Using this value in the device-tree to determine the maximum
-> > supported channel of the interface.
+ include/sound/hda_codec.h  |  1 +
+ sound/pci/hda/patch_hdmi.c | 14 +++++++++++++-
+ 2 files changed, 14 insertions(+), 1 deletion(-)
 
-> > These should have different compatible strings, there are likely
-> > further differences between them (even if they are not currently
-> > documented).
+diff --git a/include/sound/hda_codec.h b/include/sound/hda_codec.h
+index d16a4229209b..947cba68d9fe 100644
+--- a/include/sound/hda_codec.h
++++ b/include/sound/hda_codec.h
+@@ -254,6 +254,7 @@ struct hda_codec {
+ 	unsigned int link_down_at_suspend:1; /* link down at runtime suspend */
+ 	unsigned int relaxed_resume:1;	/* don't resume forcibly for jack */
+ 	unsigned int mst_no_extra_pcms:1; /* no backup PCMs for DP-MST */
++	unsigned int force_connect:1; /* force connectivity */
+ 
+ #ifdef CONFIG_PM
+ 	unsigned long power_on_acct;
+diff --git a/sound/pci/hda/patch_hdmi.c b/sound/pci/hda/patch_hdmi.c
+index cd46247988e4..40d4f0e0e3d7 100644
+--- a/sound/pci/hda/patch_hdmi.c
++++ b/sound/pci/hda/patch_hdmi.c
+@@ -1701,7 +1701,8 @@ static int hdmi_add_pin(struct hda_codec *codec, hda_nid_t pin_nid)
+ 	 * all device entries on the same pin
+ 	 */
+ 	config = snd_hda_codec_get_pincfg(codec, pin_nid);
+-	if (get_defcfg_connect(config) == AC_JACK_PORT_NONE)
++	if (get_defcfg_connect(config) == AC_JACK_PORT_NONE &&
++	    !codec->force_connect)
+ 		return 0;
+ 
+ 	/*
+@@ -1803,11 +1804,17 @@ static int hdmi_add_cvt(struct hda_codec *codec, hda_nid_t cvt_nid)
+ 	return 0;
+ }
+ 
++static const struct snd_pci_quirk force_connect_list[] = {
++	SND_PCI_QUIRK(0x103c, 0x871a, "HP", 1),
++	{}
++};
++
+ static int hdmi_parse_codec(struct hda_codec *codec)
+ {
+ 	hda_nid_t start_nid;
+ 	unsigned int caps;
+ 	int i, nodes;
++	const struct snd_pci_quirk *q;
+ 
+ 	nodes = snd_hda_get_sub_nodes(codec, codec->core.afg, &start_nid);
+ 	if (!start_nid || nodes < 0) {
+@@ -1815,6 +1822,11 @@ static int hdmi_parse_codec(struct hda_codec *codec)
+ 		return -EINVAL;
+ 	}
+ 
++	q = snd_pci_quirk_lookup(codec->bus->pci, force_connect_list);
++
++	if (q && q->value)
++		codec->force_connect = 1;
++
+ 	/*
+ 	 * hdmi_add_pin() assumes total amount of converters to
+ 	 * be known, so first discover all converters
+-- 
+2.17.1
 
-> The 2 different I2S ports are from the same SoC which supports different
-> number of channels, do we need different compatible strings for this?
-> Considering the only difference is the maximum supported channels is 8 and 2?
-
-Are you *sure* that's the only difference, or is that just the only
-difference you know about right now?
-
---qMm9M+Fa2AknHoGS
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl8pS3gACgkQJNaLcl1U
-h9A+rwf8D5WYj5TvTjpmdksdW5qpD5mSbP+JWLV42nXt+JtdG/0YDBwiflNwZQRy
-3fEMl2SzsmmI+/79vwQNXozVR/YT6qu41v4d6h8JRdZUcjkqv3Emxsasl+dX7d2/
-HpIY3vhnmGhfbzW9U1h7w1YFVPvZsb1q9QhQKxXPrkHiCtAlvF5GMGYMFEBdvacI
-N6vImZCSLgDfeerEr3mRrlfyjCENeVY5P+fBZNMUoWIpDLnnD/+n/9op5NDh82ZE
-bmS1K1REsZbrsFzwcUxx99eT2kfHVr85TY9167IkYEkTu7GAkliNVYW5UUsuAlIW
-136mzQPprRhnlqfNWz37qx2ECis3ug==
-=sxCb
------END PGP SIGNATURE-----
-
---qMm9M+Fa2AknHoGS--

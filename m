@@ -2,103 +2,63 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A78F323B6AD
-	for <lists+alsa-devel@lfdr.de>; Tue,  4 Aug 2020 10:17:32 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5BCAC23B738
+	for <lists+alsa-devel@lfdr.de>; Tue,  4 Aug 2020 11:05:51 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 437CC1685;
-	Tue,  4 Aug 2020 10:16:42 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 437CC1685
+	by alsa0.perex.cz (Postfix) with ESMTPS id D3D9E1667;
+	Tue,  4 Aug 2020 11:05:00 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D3D9E1667
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1596529052;
-	bh=C6Mmq1t0yH3MRwY/GwVOVy5HMKCguTxWUhvV4Sy4Ftc=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1596531950;
+	bh=SvrVzYvIjE5EmbNDjSt4LYlR7VPGBX/aoTTQy5Rloos=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=VY4TbxtnHwJmWAm3o9vma6XzaPzHbQaYGINWJF0ZOOa8avy/Y83+vnc/bS2atp2dT
-	 7/iErKfF9iJG3dKeVcAbesn8IxJb2a24Z/mLHM58NJQYPE1kFs884noI720jm5r8dQ
-	 0MrBslbsVMZy9FNQAYRc8AyOtVUDa00g+PTImFQA=
+	b=g3XAj87NGLSX2iIVyN6HtnQdyEFoXlFKvud7+gOne3dlFcQPcXzaQAclxHATWxee7
+	 YK3mH0LF1Q0kUFmNcHdLDWg68BHjAUNYRtt8LpbiAitCigoXjgNNoKTHnc//vS6v7V
+	 6d+478I5TYnro4Wfm9ZbuCMHNsbnPsx2vtnz945Y=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id D849AF80148;
-	Tue,  4 Aug 2020 10:13:58 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 10F54F8015A;
+	Tue,  4 Aug 2020 11:04:10 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 663FAF8015C; Tue,  4 Aug 2020 10:13:56 +0200 (CEST)
+ id B24D3F80150; Tue,  4 Aug 2020 11:04:07 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=0.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_FROM,PRX_BODY_30,SPF_HELO_NONE,SPF_PASS
- autolearn=disabled version=3.4.0
-Received: from mail-pj1-x1043.google.com (mail-pj1-x1043.google.com
- [IPv6:2607:f8b0:4864:20::1043])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Level: *
+X-Spam-Status: No, score=1.0 required=5.0 tests=PRX_BODY_30, RCVD_IN_MSPIKE_H3,
+ RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
+Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id A0EC7F80150
- for <alsa-devel@alsa-project.org>; Tue,  4 Aug 2020 10:13:49 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A0EC7F80150
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="DYdif+vR"
-Received: by mail-pj1-x1043.google.com with SMTP id i92so1226333pje.0
- for <alsa-devel@alsa-project.org>; Tue, 04 Aug 2020 01:13:49 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=date:from:to:cc:subject:message-id:references:mime-version
- :content-disposition:in-reply-to:user-agent;
- bh=QTZfG/kR29WZl/QqtrKhHeYkzxPgGUcbCVsRoqYuMCg=;
- b=DYdif+vRQ34VCrII1rcRURMIr1UR4eoarWbg2ONWRx2uRCdkqrY/8JzU46Oa5nbfS1
- uzfdNROpnO06HKpLdfpbuCQ6FGlq1Q5agZp+uGKZ5nqXoP26nuPN6pGHOUvRcoyQ5bfG
- Qx/B/rXOjGtqaGu/9kKoQQZm1SZEHot04BYIN3+aFdQAblXL7A87TG51b8LtSNB5EETn
- /UOZrqg0fsXd/BPGQy1t9OVN/S/GLvcqnKP5beN4UKBBmJY+KZhj5C/MnD9to9XjnKka
- UQ5K8pRSkK4hmoSUUGWd4okRUmae3379DE7RgP2SDmoISUxFqIE48oXwWhe4UDm+zj0M
- HtvQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to:user-agent;
- bh=QTZfG/kR29WZl/QqtrKhHeYkzxPgGUcbCVsRoqYuMCg=;
- b=ohLALKkK9ahsoSB9c8jLP90FPZRUUEcweA42IfYg1uCU4B/gqb5jS2F4EhJOQtWk6A
- E64kUNzBsWhfnd7qqscE8D7iJsDSUSt3+VtVulkUOS+Pk6kXQV5umcE/zYSy2/uLmjEN
- RQAHI/Wm+lat+xOW0qzFIiVTrDGMfCrGnWWugvcLCZtBGp6NvquKfMgDsd7J/NFxbEJd
- syuMSXJrQ9dv43lmfB41eCP7/DsNVW2gVDj6rPnVgoPxowhUSZCVKRTvubXqAIiOWjY5
- uX5cSVn1oiDKaRzlam+Cpc+5F0c1tuRujqRckcfA3rv5OLorkf3wMojZWOFgruuqVkKs
- V/4w==
-X-Gm-Message-State: AOAM532BGp7TOf4VnJ0FJ8gdtKt2nQyurYmJIk2BZVuHeRlZjGmT1+Mk
- iqGLJTLHXKhtXMsMbzChabA=
-X-Google-Smtp-Source: ABdhPJz+uClNx0qLTPNR0v0kaWetuL5qHIA7MjIEAIYLOMnWp36caMp4FKmFAUV7cMJ+CR83l1o0Dg==
-X-Received: by 2002:a17:90b:c90:: with SMTP id
- o16mr3081175pjz.79.1596528827041; 
- Tue, 04 Aug 2020 01:13:47 -0700 (PDT)
-Received: from Asurada-Nvidia (searspoint.nvidia.com. [216.228.112.21])
- by smtp.gmail.com with ESMTPSA id c10sm18237720pfc.62.2020.08.04.01.13.46
- (version=TLS1_2 cipher=ECDHE-ECDSA-CHACHA20-POLY1305 bits=256/256);
- Tue, 04 Aug 2020 01:13:46 -0700 (PDT)
-Date: Tue, 4 Aug 2020 01:13:34 -0700
-From: Nicolin Chen <nicoleotsuka@gmail.com>
-To: Shengjiu Wang <shengjiu.wang@gmail.com>
-Subject: Re: [PATCH] ASoC: fsl_sai: Clean code for synchronize mode
-Message-ID: <20200804081333.GA664@Asurada-Nvidia>
-References: <CAA+D8AOGF44UUq=P1S-M5TUwDUaOnqVmHJKPDBM9DAzt1nVzmQ@mail.gmail.com>
- <20200803215735.GA5461@Asurada-Nvidia>
- <CAA+D8ANQxnvR2bOyHVRs5h2NJhMeVh4gjLPknaz7aQ86MtL0sQ@mail.gmail.com>
- <20200804021114.GA15390@Asurada-Nvidia>
- <CAA+D8ANagfMXPAkK4-vBDY9rZMukVUXs8FfBCHS0avXt57pekA@mail.gmail.com>
- <20200804030004.GA27028@Asurada-Nvidia>
- <CAA+D8ANuLQuUO+VsABjt2t1ccK+LGayq13d6EEcV18=4KNaC+w@mail.gmail.com>
- <CAA+D8AP=27SdR68T-LiQHkJ0_dJaqtgcS-oi9d8arUzvTz5GwA@mail.gmail.com>
- <20200804070345.GA27658@Asurada-Nvidia>
- <CAA+D8ANodghXDbUVOqpf9uq8A5FVbDFEFkf4dWdyMUNDTPaJ7A@mail.gmail.com>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <CAA+D8ANodghXDbUVOqpf9uq8A5FVbDFEFkf4dWdyMUNDTPaJ7A@mail.gmail.com>
-User-Agent: Mutt/1.9.4 (2018-02-28)
-Cc: Linux-ALSA <alsa-devel@alsa-project.org>, Timur Tabi <timur@kernel.org>,
- Xiubo Li <Xiubo.Lee@gmail.com>, Fabio Estevam <festevam@gmail.com>,
- Shengjiu Wang <shengjiu.wang@nxp.com>, Takashi Iwai <tiwai@suse.com>,
- Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
- linuxppc-dev@lists.ozlabs.org, linux-kernel <linux-kernel@vger.kernel.org>
+ by alsa1.perex.cz (Postfix) with ESMTPS id A7ACBF80124
+ for <alsa-devel@alsa-project.org>; Tue,  4 Aug 2020 11:04:01 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A7ACBF80124
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id 75A23ACCC;
+ Tue,  4 Aug 2020 09:04:16 +0000 (UTC)
+Date: Tue, 04 Aug 2020 11:04:00 +0200
+Message-ID: <s5hv9hy235r.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Kai-Heng Feng <kai.heng.feng@canonical.com>
+Subject: Re: [PATCH] ALSA: hda/hdmi: Add pins with jack detection support
+In-Reply-To: <20200804072926.16897-1-kai.heng.feng@canonical.com>
+References: <20200804072926.16897-1-kai.heng.feng@canonical.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
+ FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
+ (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
+Content-Type: text/plain; charset=US-ASCII
+Cc: "moderated list:SOUND" <alsa-devel@alsa-project.org>,
+ Nikhil Mahale <nmahale@nvidia.com>,
+ Kai Vehmanen <kai.vehmanen@linux.intel.com>,
+ Aaron Plattner <aplattner@nvidia.com>,
+ open list <linux-kernel@vger.kernel.org>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>, tiwai@suse.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -114,32 +74,63 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Tue, Aug 04, 2020 at 03:53:51PM +0800, Shengjiu Wang wrote:
-
-> > >                 /* Check if the opposite FRDE is also disabled */
-> > >                 regmap_read(sai->regmap, FSL_SAI_xCSR(!tx, ofs), &xcsr);
-> > > +               if (sai->synchronous[tx] && !sai->synchronous[!tx] && !(xcsr & FSL_SAI_CSR_FRDE))
-> > > +                       fsl_sai_config_disable(sai, !tx);
-> >
-> > > +               if (sai->synchronous[tx] || !sai->synchronous[!tx] || !(xcsr & FSL_SAI_CSR_FRDE))
-> > > +                       fsl_sai_config_disable(sai, tx);
-> >
-> > The first "||" should probably be "&&".
+On Tue, 04 Aug 2020 09:29:25 +0200,
+Kai-Heng Feng wrote:
 > 
-> No. it is !(!sai->synchronous[tx] && sai->synchronous[!tx] && (xcsr &
-> FSL_SAI_CSR_FRDE))
-> so then convert to
-> (sai->synchronous[tx] || !sai->synchronous[!tx] || !(xcsr & FSL_SAI_CSR_FRDE))
+> HDMI on some platforms doesn't enable audio support because its Port
+> Connectivity [31:30] is set to AC_JACK_PORT_NONE:
+> Node 0x05 [Pin Complex] wcaps 0x40778d: 8-Channels Digital Amp-Out CP
+>   Amp-Out caps: ofs=0x00, nsteps=0x00, stepsize=0x00, mute=1
+>   Amp-Out vals:  [0x00 0x00]
+>   Pincap 0x0b000094: OUT Detect HBR HDMI DP
+>   Pin Default 0x58560010: [N/A] Digital Out at Int HDMI
+>     Conn = Digital, Color = Unknown
+>     DefAssociation = 0x1, Sequence = 0x0
+>   Pin-ctls: 0x40: OUT
+>   Unsolicited: tag=00, enabled=0
+>   Power states:  D0 D3 EPSS
+>   Power: setting=D0, actual=D0
+>   Devices: 0
+>   Connection: 3
+>      0x02 0x03* 0x04
 > 
-> if change to &&, then it won't work for:
-> sai->synchronous[tx] = false, sai->synchronous[!tx]=false.
+> Those pins were filtered out by commit 116dcde63806 ("ALSA: HDA: Remove
+> unconnected PCM devices for Intel HDMI"). However, jacks that support
+> detection won't have the issues the commit addresses.
+> 
+> So still add the pin if it supports jack detection.
+> 
+> Signed-off-by: Kai-Heng Feng <kai.heng.feng@canonical.com>
 
-Ahh..probably should be
-if (!(sync[dir] && !sync[adir]) || !frde)
+Which platform did show the problem?
 
-I have a (seemingly) correct version in my sample code.
+I'm reluctant to apply this change as it would potentially break the
+existing system.  If we must to apply, maybe it's safer to apply it
+conditionally to the limited devices.
 
-And...please untangle the logic using the given example -- adding
-helper function(s) and comments. And, though the driver does have
-places using array[tx] and array[!tx], better not to use any more
-boolean type variable as an array index, as it's hard to read.
+
+thanks,
+
+Takashi
+
+> ---
+>  sound/pci/hda/patch_hdmi.c | 3 ++-
+>  1 file changed, 2 insertions(+), 1 deletion(-)
+> 
+> diff --git a/sound/pci/hda/patch_hdmi.c b/sound/pci/hda/patch_hdmi.c
+> index cd46247988e4..db3a5148bd40 100644
+> --- a/sound/pci/hda/patch_hdmi.c
+> +++ b/sound/pci/hda/patch_hdmi.c
+> @@ -1701,7 +1701,8 @@ static int hdmi_add_pin(struct hda_codec *codec, hda_nid_t pin_nid)
+>  	 * all device entries on the same pin
+>  	 */
+>  	config = snd_hda_codec_get_pincfg(codec, pin_nid);
+> -	if (get_defcfg_connect(config) == AC_JACK_PORT_NONE)
+> +	if ((get_defcfg_connect(config) == AC_JACK_PORT_NONE) &&
+> +	    !(caps & AC_PINCAP_PRES_DETECT))
+>  		return 0;
+>  
+>  	/*
+> -- 
+> 2.17.1
+> 

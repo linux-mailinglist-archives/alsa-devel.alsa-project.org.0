@@ -2,59 +2,96 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id CF32D23B906
-	for <lists+alsa-devel@lfdr.de>; Tue,  4 Aug 2020 12:46:36 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 86E0423B9CE
+	for <lists+alsa-devel@lfdr.de>; Tue,  4 Aug 2020 13:44:00 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 7D11D1669;
-	Tue,  4 Aug 2020 12:45:46 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7D11D1669
+	by alsa0.perex.cz (Postfix) with ESMTPS id 1B2F21666;
+	Tue,  4 Aug 2020 13:43:10 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1B2F21666
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1596537996;
-	bh=ue70WnQkNqpirRYIA/tYzkfGcaOfMr7aIWtHY8lCIWk=;
-	h=Subject:From:To:Date:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1596541440;
+	bh=atGiKDgySwD1vknKRjxD7mx/yEDdt+A9Yg/xupaM8Pg=;
+	h=Subject:From:In-Reply-To:Date:References:To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=e+cKl5AmrWP1ZJETGns+5Vos2Fcla6Q3UyKkQJ0r9zRWcmlS96GKGdIjjwfyaWpAh
-	 jvp5XcAPU9U1DifVbzRG/2Qm25H2i0EDz0L2Cv5fJGd9AjapAIShBgKY+yEoKEjYu1
-	 yJWI8uoxBIzfg73S7Obnk8hO6j+8FE8Pd4kQoBdw=
+	b=Yya2gXOJBgB88+Aw+EDnEnsh4iqtwjxxXU6YhB5lAq0qq2dJUev2WjQqRICyvIy8O
+	 8cAJuwTaSoVSHgijxD9z4z6pAHj50e8uvDfz4cySIZ8C3uyxg8Z2ygDAM29lUnoApS
+	 nFU4fuCFsoyosTvM7rOnP+XHd1D6ZZ7511/UrGqw=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id B950CF8015A;
-	Tue,  4 Aug 2020 12:44:55 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 488BDF8015A;
+	Tue,  4 Aug 2020 13:42:19 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 24839F80150; Tue,  4 Aug 2020 12:44:54 +0200 (CEST)
+ id B2251F80150; Tue,  4 Aug 2020 13:42:16 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=-0.0 required=5.0 tests=RCVD_IN_MSPIKE_H2,
- SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
-Received: from relay6-d.mail.gandi.net (relay6-d.mail.gandi.net
- [217.70.183.198])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Level: *
+X-Spam-Status: No, score=1.0 required=5.0 tests=PRX_BODY_30, RCVD_IN_MSPIKE_H3,
+ RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
+Received: from youngberry.canonical.com (youngberry.canonical.com
+ [91.189.89.112])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 4D317F80148
- for <alsa-devel@alsa-project.org>; Tue,  4 Aug 2020 12:44:43 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4D317F80148
-X-Originating-IP: 82.255.60.242
-Received: from classic (lns-bzn-39-82-255-60-242.adsl.proxad.net
- [82.255.60.242]) (Authenticated sender: hadess@hadess.net)
- by relay6-d.mail.gandi.net (Postfix) with ESMTPSA id 9E1C2C000D;
- Tue,  4 Aug 2020 10:44:42 +0000 (UTC)
-Message-ID: <934480a020c68bee9ecbf2ab060fac338888db94.camel@hadess.net>
-Subject: Re: Lenovo m720s combined audio jack not working (ALC233)
-From: Bastien Nocera <hadess@hadess.net>
-To: alsa-devel@alsa-project.org
-Date: Tue, 04 Aug 2020 12:44:42 +0200
-In-Reply-To: <177c5035121d784c06e07631121e1b276962b957.camel@hadess.net>
-References: <fd8d4a187c86c3514e4442a404ad2568014c5d0b.camel@hadess.net>
- <177c5035121d784c06e07631121e1b276962b957.camel@hadess.net>
-Content-Type: text/plain; charset="UTF-8"
-User-Agent: Evolution 3.36.3 (3.36.3-1.fc32) 
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Cc: Mark Pearson <markpearson@lenovo.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id B5F73F800B7
+ for <alsa-devel@alsa-project.org>; Tue,  4 Aug 2020 13:42:09 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B5F73F800B7
+Received: from mail-pf1-f200.google.com ([209.85.210.200])
+ by youngberry.canonical.com with esmtps
+ (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.86_2)
+ (envelope-from <kai.heng.feng@canonical.com>) id 1k2vKa-0002lH-L5
+ for alsa-devel@alsa-project.org; Tue, 04 Aug 2020 11:42:08 +0000
+Received: by mail-pf1-f200.google.com with SMTP id r25so6701425pfg.4
+ for <alsa-devel@alsa-project.org>; Tue, 04 Aug 2020 04:42:08 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:subject:from:in-reply-to:date:cc
+ :content-transfer-encoding:message-id:references:to;
+ bh=+MkR9k+K5AnlR4tpaB961yLWGon3VPfUxzAccVnmGDg=;
+ b=KtJ+0d6BbgUiP8somRau0JU6CsgwtWO3Z57EAiPH95KX002oGPEQvGkldfcljDlF+1
+ JP/5ZLGiFAsoARLSE62QCMESfx7Ic+DdqY4mWn1cEVxa4fMRRXUpAyW0cg53QIIgpOtN
+ FFsqh7bZMPI14Bl6fF+34AxkhAIMHKT537Sdzxps1WmfeEO3oeaECwMUmx5jIdPtlFtp
+ /QzZEjWY/FO+zElwf+zaFxoNIDw+mwzZ5udxF/KsVW41W/3AYyooXxo3ijp0Hz6dMa+c
+ gwFdXWE8qc2XVh61Yj/kNKyjz0KxQHJVvwAruM92IMwApfMBGxGmBbg7krsWaSsGbyKU
+ qMdw==
+X-Gm-Message-State: AOAM531zrN4PvVz2kYz2V8335YerWCyzqOH2tZyDqJIcmXuVqpD/ySRZ
+ XoUhR6tkHy0zS1uTeq3OEXFYSKyb7JITx72MNRgBEzKt4Sh0obJuEzacZmC5EjndWVL4e7Fxt0T
+ JySWAlcFPE1fw7WQNSo3JOW72DZv9Qwqd1K/oqqWf
+X-Received: by 2002:a17:90a:fd03:: with SMTP id
+ cv3mr3899678pjb.111.1596541327214; 
+ Tue, 04 Aug 2020 04:42:07 -0700 (PDT)
+X-Google-Smtp-Source: ABdhPJxbf0hOnUK6qTvuV9gqQz088987sBR9Dm3KrCJpYfGojJAqMxgNdgLWjLBaxSgDIHUjz2Ovog==
+X-Received: by 2002:a17:90a:fd03:: with SMTP id
+ cv3mr3899636pjb.111.1596541326539; 
+ Tue, 04 Aug 2020 04:42:06 -0700 (PDT)
+Received: from [192.168.1.208] (220-133-187-190.HINET-IP.hinet.net.
+ [220.133.187.190])
+ by smtp.gmail.com with ESMTPSA id 3sm21315334pfv.109.2020.08.04.04.42.04
+ (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+ Tue, 04 Aug 2020 04:42:05 -0700 (PDT)
+Content-Type: text/plain;
+	charset=us-ascii
+Mime-Version: 1.0 (Mac OS X Mail 13.4 \(3608.120.23.2.1\))
+Subject: Re: [PATCH] ALSA: hda/hdmi: Add pins with jack detection support
+From: Kai-Heng Feng <kai.heng.feng@canonical.com>
+In-Reply-To: <s5hpn86213w.wl-tiwai@suse.de>
+Date: Tue, 4 Aug 2020 19:42:03 +0800
+Content-Transfer-Encoding: quoted-printable
+Message-Id: <21676100-4D83-44F6-BB39-4FDFBDEAF462@canonical.com>
+References: <20200804072926.16897-1-kai.heng.feng@canonical.com>
+ <s5hv9hy235r.wl-tiwai@suse.de>
+ <41E2234E-451C-4C14-833A-E24C650EDEE1@canonical.com>
+ <s5hpn86213w.wl-tiwai@suse.de>
+To: Takashi Iwai <tiwai@suse.de>
+X-Mailer: Apple Mail (2.3608.120.23.2.1)
+Cc: "moderated list:SOUND" <alsa-devel@alsa-project.org>,
+ Nikhil Mahale <nmahale@nvidia.com>,
+ Kai Vehmanen <kai.vehmanen@linux.intel.com>,
+ Aaron Plattner <aplattner@nvidia.com>,
+ open list <linux-kernel@vger.kernel.org>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>, tiwai@suse.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -70,85 +107,126 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Tue, 2020-08-04 at 12:03 +0200, Bastien Nocera wrote:
-> On Tue, 2020-08-04 at 11:56 +0200, Bastien Nocera wrote:
-> > Hey,
-> > 
-> > The front audio jack on my newly purchased (but not new) Lenovo
-> > m720s
-> > doesn't make a microphone output appear in PulseAudio when a
-> > headset
-> > is
-> > plugged in. The headphone part works correctly though. The "sof-
-> > hda-
-> > dsp 
-> > Front Headphone" evdev device will switch the state of
-> > SW_HEADPHONE_INSERT as expected.
-> > 
-> > Does anyone know whether the headphones/headset switching is
-> > supposed
-> > to be automatic, or would that trigger a "what did you plug in"
-> > dialogue as on some Dell machines I've worked with?
-> > 
-> > I couldn't find any quirks in sound/pci/hda that would be directly
-> > related to this problem (eg. Lenovo, ALC233 and mic presence), so
-> > I'm
-> > a
-> > bit stumped.
-> > 
-> > I've attached the pinout information from alsa-info.
-> 
-> I should note that I'm using BIOS version M1UKT21A, and that the
-> latest
-> is 25 releases newer, so that it's very possible that a newer BIOS
-> would fix this. I'll have to try that first.
-
-Updating to BIOS M1UKT59A [1] didn't fix the problem. dmesg contains
-some more "pin mapping" info:
-[    6.728470] sof-audio-pci 0000:00:1f.3: using HDA machine driver skl_hda_dsp_generic now
-[    9.753117] skl_hda_dsp_generic skl_hda_dsp_generic: info: override BE DAI link iDisp1
-[    9.753118] skl_hda_dsp_generic skl_hda_dsp_generic: info: override BE DAI link iDisp2
-[    9.753119] skl_hda_dsp_generic skl_hda_dsp_generic: info: override BE DAI link iDisp3
-[    9.753119] skl_hda_dsp_generic skl_hda_dsp_generic: info: override BE DAI link Analog Playback and Capture
-[    9.753119] skl_hda_dsp_generic skl_hda_dsp_generic: info: override BE DAI link Digital Playback and Capture
-[    9.753121] skl_hda_dsp_generic skl_hda_dsp_generic: info: override BE DAI link dmic01
-[    9.753121] skl_hda_dsp_generic skl_hda_dsp_generic: info: override BE DAI link dmic16k
-[   10.110831] skl_hda_dsp_generic skl_hda_dsp_generic: intel-hdmi-hifi1 <-> iDisp1 Pin mapping ok
-[   10.110833] skl_hda_dsp_generic skl_hda_dsp_generic: intel-hdmi-hifi2 <-> iDisp2 Pin mapping ok
-[   10.110834] skl_hda_dsp_generic skl_hda_dsp_generic: intel-hdmi-hifi3 <-> iDisp3 Pin mapping ok
-[   10.110836] skl_hda_dsp_generic skl_hda_dsp_generic: Analog Codec DAI <-> Analog CPU DAI mapping ok
-[   10.110838] skl_hda_dsp_generic skl_hda_dsp_generic: Digital Codec DAI <-> Digital CPU DAI mapping ok
-[   10.110839] skl_hda_dsp_generic skl_hda_dsp_generic: dmic-hifi <-> DMIC01 Pin mapping ok
-[   10.110840] skl_hda_dsp_generic skl_hda_dsp_generic: dmic-hifi <-> DMIC16k Pin mapping ok
-[   10.110847] skl_hda_dsp_generic skl_hda_dsp_generic: snd-soc-dummy-dai <-> DMIC 6 mapping ok
-[   10.110851] skl_hda_dsp_generic skl_hda_dsp_generic: snd-soc-dummy-dai <-> DMIC16kHz 7 mapping ok
-[   10.110857] skl_hda_dsp_generic skl_hda_dsp_generic: snd-soc-dummy-dai <-> HDA Analog 0 mapping ok
-[   10.110863] skl_hda_dsp_generic skl_hda_dsp_generic: snd-soc-dummy-dai <-> HDA Digital 1 mapping ok
-[   10.110867] skl_hda_dsp_generic skl_hda_dsp_generic: snd-soc-dummy-dai <-> HDMI1 3 mapping ok
-[   10.110871] skl_hda_dsp_generic skl_hda_dsp_generic: snd-soc-dummy-dai <-> HDMI2 4 mapping ok
-[   10.110875] skl_hda_dsp_generic skl_hda_dsp_generic: snd-soc-dummy-dai <-> HDMI3 5 mapping ok
-[   10.111103] skl_hda_dsp_generic skl_hda_dsp_generic: ASoC: sink widget hifi3 overwritten
-[   10.111106] skl_hda_dsp_generic skl_hda_dsp_generic: ASoC: sink widget hifi2 overwritten
-[   10.111109] skl_hda_dsp_generic skl_hda_dsp_generic: ASoC: sink widget hifi1 overwritten
-[   10.111112] skl_hda_dsp_generic skl_hda_dsp_generic: ASoC: source widget Codec Output Pin1 overwritten
-[   10.111114] skl_hda_dsp_generic skl_hda_dsp_generic: ASoC: sink widget Codec Input Pin1 overwritten
-[   10.111118] skl_hda_dsp_generic skl_hda_dsp_generic: ASoC: sink widget Analog Codec Playback overwritten
-[   10.111121] skl_hda_dsp_generic skl_hda_dsp_generic: ASoC: sink widget Digital Codec Playback overwritten
-[   10.111125] skl_hda_dsp_generic skl_hda_dsp_generic: ASoC: sink widget Alt Analog Codec Playback overwritten
-[   10.111129] skl_hda_dsp_generic skl_hda_dsp_generic: ASoC: source widget Analog Codec Capture overwritten
-[   10.111132] skl_hda_dsp_generic skl_hda_dsp_generic: ASoC: source widget Digital Codec Capture overwritten
-[   10.111136] skl_hda_dsp_generic skl_hda_dsp_generic: ASoC: source widget Alt Analog Codec Capture overwritten
-[   10.128765] input: sof-hda-dsp Mic as /devices/pci0000:00/0000:00:1f.3/skl_hda_dsp_generic/sound/card0/input26
-[   10.129042] input: sof-hda-dsp Front Mic as /devices/pci0000:00/0000:00:1f.3/skl_hda_dsp_generic/sound/card0/input27
-[   10.129230] input: sof-hda-dsp Line Out as /devices/pci0000:00/0000:00:1f.3/skl_hda_dsp_generic/sound/card0/input28
-[   10.129269] input: sof-hda-dsp Front Headphone as /devices/pci0000:00/0000:00:1f.3/skl_hda_dsp_generic/sound/card0/input29
-[   10.129484] input: sof-hda-dsp HDMI/DP,pcm=3 as /devices/pci0000:00/0000:00:1f.3/skl_hda_dsp_generic/sound/card0/input30
-[   10.129516] input: sof-hda-dsp HDMI/DP,pcm=4 as /devices/pci0000:00/0000:00:1f.3/skl_hda_dsp_generic/sound/card0/input31
-[   10.129734] input: sof-hda-dsp HDMI/DP,pcm=5 as /devices/pci0000:00/0000:00:1f.3/skl_hda_dsp_generic/sound/card0/input32
 
 
-[1]: which is scary as heck, as the thing tells you the new BIOS
-doesn't match what you want to upgrade and asks whether you want to
-proceed, but proceeds anyway after a couple of seconds, then fails to
-boot at least 3 or 4 times after the upgrade.
+> On Aug 4, 2020, at 17:48, Takashi Iwai <tiwai@suse.de> wrote:
+>=20
+> On Tue, 04 Aug 2020 11:31:59 +0200,
+> Kai-Heng Feng wrote:
+>>=20
+>>=20
+>>=20
+>>> On Aug 4, 2020, at 17:04, Takashi Iwai <tiwai@suse.de> wrote:
+>>>=20
+>>> On Tue, 04 Aug 2020 09:29:25 +0200,
+>>> Kai-Heng Feng wrote:
+>>>>=20
+>>>> HDMI on some platforms doesn't enable audio support because its =
+Port
+>>>> Connectivity [31:30] is set to AC_JACK_PORT_NONE:
+>>>> Node 0x05 [Pin Complex] wcaps 0x40778d: 8-Channels Digital Amp-Out =
+CP
+>>>> Amp-Out caps: ofs=3D0x00, nsteps=3D0x00, stepsize=3D0x00, mute=3D1
+>>>> Amp-Out vals:  [0x00 0x00]
+>>>> Pincap 0x0b000094: OUT Detect HBR HDMI DP
+>>>> Pin Default 0x58560010: [N/A] Digital Out at Int HDMI
+>>>>   Conn =3D Digital, Color =3D Unknown
+>>>>   DefAssociation =3D 0x1, Sequence =3D 0x0
+>>>> Pin-ctls: 0x40: OUT
+>>>> Unsolicited: tag=3D00, enabled=3D0
+>>>> Power states:  D0 D3 EPSS
+>>>> Power: setting=3DD0, actual=3DD0
+>>>> Devices: 0
+>>>> Connection: 3
+>>>>    0x02 0x03* 0x04
+>>>>=20
+>>>> Those pins were filtered out by commit 116dcde63806 ("ALSA: HDA: =
+Remove
+>>>> unconnected PCM devices for Intel HDMI"). However, jacks that =
+support
+>>>> detection won't have the issues the commit addresses.
+>>>>=20
+>>>> So still add the pin if it supports jack detection.
+>>>>=20
+>>>> Signed-off-by: Kai-Heng Feng <kai.heng.feng@canonical.com>
+>>>=20
+>>> Which platform did show the problem?
+>>=20
+>> An HP desktop.
+>=20
+> Well, what I meant was about which codec.  And now I see it in the
+> below.
+>=20
+>>> I'm reluctant to apply this change as it would potentially break the
+>>> existing system.  If we must to apply, maybe it's safer to apply it
+>>> conditionally to the limited devices.
+>>=20
+>> Hmm, I find it's a bit hard to match a specific device, because the =
+ID seems to be rather generic:
+>> Codec: Intel Kabylake HDMI
+>> Address: 2                     =20
+>> AFG Function Id: 0x1 (unsol 0)
+>> Vendor Id: 0x8086280b        =20
+>> Subsystem Id: 0x80860101
+>> Revision Id: 0x100000
+>>=20
+>> Should we use DMI string instead?
+>=20
+> So it's a Kabylake, and I presume that it's rather an old machine.
+> Is this for docking station or anything else?
+
+The system is Comet Lake CPU so it's fairly recent. I think most Comet =
+Lake platforms still use "Kabylake HDMI".
+
+>=20
+> Basically the pin capability is rather fixed by the chip design while
+> the pin configuration is set by BIOS.  And we follow the BIOS setup
+> for determining which pins are actually alive.  That said, the bug is
+> a BIOS bug.
+
+Yes but sometimes vendors are reluctant to fix it because "Windows =
+doesn't have this issue".
+
+>=20
+> Note that PCI SSID bound with this codec might have a different
+> number, so we might be still able to use the standard quirk table to
+> pick up.
+
+Ok. Will send v2 with a quirk list.
+
+Kai-Heng
+
+>=20
+>=20
+> thanks,
+>=20
+> Takashi
+>=20
+>>>=20
+>>> thanks,
+>>>=20
+>>> Takashi
+>>>=20
+>>>> ---
+>>>> sound/pci/hda/patch_hdmi.c | 3 ++-
+>>>> 1 file changed, 2 insertions(+), 1 deletion(-)
+>>>>=20
+>>>> diff --git a/sound/pci/hda/patch_hdmi.c =
+b/sound/pci/hda/patch_hdmi.c
+>>>> index cd46247988e4..db3a5148bd40 100644
+>>>> --- a/sound/pci/hda/patch_hdmi.c
+>>>> +++ b/sound/pci/hda/patch_hdmi.c
+>>>> @@ -1701,7 +1701,8 @@ static int hdmi_add_pin(struct hda_codec =
+*codec, hda_nid_t pin_nid)
+>>>> 	 * all device entries on the same pin
+>>>> 	 */
+>>>> 	config =3D snd_hda_codec_get_pincfg(codec, pin_nid);
+>>>> -	if (get_defcfg_connect(config) =3D=3D AC_JACK_PORT_NONE)
+>>>> +	if ((get_defcfg_connect(config) =3D=3D AC_JACK_PORT_NONE) &&
+>>>> +	    !(caps & AC_PINCAP_PRES_DETECT))
+>>>> 		return 0;
+>>>>=20
+>>>> 	/*
+>>>> --=20
+>>>> 2.17.1
 

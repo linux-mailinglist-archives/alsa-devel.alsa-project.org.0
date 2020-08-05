@@ -2,69 +2,71 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 317FA23C873
-	for <lists+alsa-devel@lfdr.de>; Wed,  5 Aug 2020 11:00:55 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8637923C888
+	for <lists+alsa-devel@lfdr.de>; Wed,  5 Aug 2020 11:03:24 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C2AA61667;
-	Wed,  5 Aug 2020 11:00:04 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C2AA61667
+	by alsa0.perex.cz (Postfix) with ESMTPS id 280491664;
+	Wed,  5 Aug 2020 11:02:34 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 280491664
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1596618054;
-	bh=FcJXYfATTe6mXsgb7i9nLb8BZsNn2ZPoTs9/chlQtZM=;
+	s=default; t=1596618204;
+	bh=KuMRZItE2N6uS2GlGWGYq0vagTMyGlGg7sw5OpZ+IxA=;
 	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=idsegdqL/lWVUzyH6+f6jsyAQuqGJlSxo5z/Jj2TT7gBFPrVbAGSNMEa5bBjN91/Z
-	 PAzThhvMdjnA01pFnvSdAN2WMchNSoh4Z1o07zWIyOEAwt6UbozGKysh2KrVMkPZik
-	 FPNuaxlb4g6zDoqo964hnfUpv8f670hprwICM9I0=
+	b=r+sD+40HHmYPUIOORH7pbKN1m1EeB+N/zm5KRnA496YLdxXsxEbAPvf5S288MsLGS
+	 dKT6mw0uwVftqLDxbRHxNc41R/4BKFyFDQzd+EWImnz+fjpn+U0yqtYhGXLQnRd5xR
+	 Y5Ar8LI6ZRpSv7H2UjP0wQsbv55pNeD9MCa2rLBo=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id EDE02F80234;
-	Wed,  5 Aug 2020 10:59:13 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 58A8AF80234;
+	Wed,  5 Aug 2020 11:01:43 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id C00CEF80218; Wed,  5 Aug 2020 10:59:11 +0200 (CEST)
+ id 8E266F80218; Wed,  5 Aug 2020 11:01:40 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.3 required=5.0 tests=FREEMAIL_FORGED_FROMDOMAIN,
- FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,PRX_BODY_135,RCVD_IN_MSPIKE_H2,
- SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mail-oi1-f194.google.com (mail-oi1-f194.google.com
- [209.85.167.194])
+ FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,PRX_BODY_135,RCVD_IN_MSPIKE_H3,
+ RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
+Received: from mail-ot1-f65.google.com (mail-ot1-f65.google.com
+ [209.85.210.65])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id B3446F80112
- for <alsa-devel@alsa-project.org>; Wed,  5 Aug 2020 10:59:04 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B3446F80112
-Received: by mail-oi1-f194.google.com with SMTP id o21so18219305oie.12
- for <alsa-devel@alsa-project.org>; Wed, 05 Aug 2020 01:59:04 -0700 (PDT)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 1A77BF80112
+ for <alsa-devel@alsa-project.org>; Wed,  5 Aug 2020 11:01:32 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1A77BF80112
+Received: by mail-ot1-f65.google.com with SMTP id x24so8646366otp.3
+ for <alsa-devel@alsa-project.org>; Wed, 05 Aug 2020 02:01:32 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc;
- bh=3PEPkOHX4GNS8S5Rg4NoX/0Kkpu8DKvfoDJJeWRfc+c=;
- b=RINqIWqbGDV13LbbYI77mizzQ6fbI2ksJiMev6BUYIpTnT8f9KKIsdt9rVUafCcrge
- 7pSRBmG/FZYX5xBLoQE1pDcgFdVmtcp0tb6aaYnL2vKjL3kdxli9U35TQtuWPcHzondM
- y7U0111UW2Bv5tDx+JdT9IGrUjYJ/g6iDLHn99b0G8nxGXK/wOOYUg6im6btXH0X9iD0
- EPHHoYBm9xJxHJPLGQw6/kDL4JYVvhfOX4RmQy3Uoh815lHHAXN1v+MnVM2RkJcRA5fc
- 958ncb8TEgck+r+6MiJLt7AsqgooPCfAYhPSmqcNeUQFLS1mjs1hu9O4Yw1HqV7cLK2k
- tv4A==
-X-Gm-Message-State: AOAM533wry43gLL8kP3dWSJ1xn9hyj4FQ/b7d/aEbXtFDUx7JR8z0H9l
- z7vGlaCYicoTjoexBPiz/Mv/Yi6NK3M6DPuMv/A=
-X-Google-Smtp-Source: ABdhPJxOPpR3dk7VDSXYx6KKvjnoJv5/4tMZbEd2TqXt4CKHnoMUzx0WD2+9YVb/X64OZIidpkxnwCi/O01k1qJCr/c=
-X-Received: by 2002:aca:b742:: with SMTP id h63mr1809112oif.148.1596617943136; 
- Wed, 05 Aug 2020 01:59:03 -0700 (PDT)
+ bh=0C2QPNz+RkDu9YLa9Z+rHGCS+ZeukaWrCXpvcs7hr4E=;
+ b=n0IYYwYl8RVrf1chX2t9lPZlIvq73W28+PKX6WNzc2CxqUi90HJw29Va9H3F7d2t3m
+ wqAubQ9NGXec+GtZOz42E+gtlgpXbvRfEl5pBLQ2cS66k/ubgygUMmVyvoq2rOkZWBsm
+ HEx3N7f9rssZo2+CLpeH20EwwsHkuzUD+zEgRk4P0zkZsZdedf3G4gXrwbWPX25OGkIk
+ T2r4Hy6dBI652cbwQUwUi33cfE3RvrjG+/GjwWiSsy9yNcat3YWFwXmiMHS0J1XIF1/G
+ /i2ZNRY2Lvu4CpyQv/p4LdRiGoydLIE748et30fTdrl8N9EJm5+I8mp1lAP1JeOnNG9k
+ AFXw==
+X-Gm-Message-State: AOAM532LwOX36JEhN9UEqRgTrsV0PhE3uDvT5exy67dWF0Eyma6lCabz
+ ixGGOu+vxZWiQorpZUHY//m2E09P1ZtMyueRlc0=
+X-Google-Smtp-Source: ABdhPJzwuWnWTa8dJV/m6He89KYBMO1Y4xUVDsn3hrJVOZjCaTh+iqtHvbnjEc9E84B1Jj0ycdia/XgV6GsfA8XjU7Q=
+X-Received: by 2002:a05:6830:1b79:: with SMTP id
+ d25mr1662418ote.107.1596618091230; 
+ Wed, 05 Aug 2020 02:01:31 -0700 (PDT)
 MIME-Version: 1.0
 References: <1594919915-5225-1-git-send-email-prabhakar.mahadev-lad.rj@bp.renesas.com>
- <1594919915-5225-9-git-send-email-prabhakar.mahadev-lad.rj@bp.renesas.com>
-In-Reply-To: <1594919915-5225-9-git-send-email-prabhakar.mahadev-lad.rj@bp.renesas.com>
+ <1594919915-5225-10-git-send-email-prabhakar.mahadev-lad.rj@bp.renesas.com>
+In-Reply-To: <1594919915-5225-10-git-send-email-prabhakar.mahadev-lad.rj@bp.renesas.com>
 From: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Wed, 5 Aug 2020 10:58:51 +0200
-Message-ID: <CAMuHMdVzVGmc=2d5B4AZ4-G--gvkF4H3D-PVxhj6o5mq875fig@mail.gmail.com>
-Subject: Re: [PATCH 08/20] dt-bindings: usb: usb-xhci: Document r8a774e1
- support
+Date: Wed, 5 Aug 2020 11:01:20 +0200
+Message-ID: <CAMuHMdW0LNihaPnSdv1RAkbBi6sm-MS5+d5n5jiCHwAEMKj+dw@mail.gmail.com>
+Subject: Re: [PATCH 09/20] dt-bindings: phy: renesas,
+ usb3-phy: Add r8a774e1 support
 To: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
 Content-Type: text/plain; charset="UTF-8"
 Cc: ALSA Development Mailing List <alsa-devel@alsa-project.org>,
@@ -102,30 +104,11 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 On Thu, Jul 16, 2020 at 7:19 PM Lad Prabhakar
 <prabhakar.mahadev-lad.rj@bp.renesas.com> wrote:
-> Document r8a774e1 xhci support. The driver will use the fallback
-> compatible string "renesas,rcar-gen3-xhci", therefore no driver
-> change is needed.
+> Document RZ/G2H (R8A774E1) SoC bindings.
 >
 > Signed-off-by: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
 > Reviewed-by: Marian-Cristian Rotariu <marian-cristian.rotariu.rb@bp.renesas.com>
-> ---
->  Documentation/devicetree/bindings/usb/usb-xhci.txt | 1 +
 
-In the mean time, this file has been converted to dt-schema in Rob's
-tree: Documentation/devicetree/bindings/usb/renesas,usb-xhci.yaml
-
-> --- a/Documentation/devicetree/bindings/usb/usb-xhci.txt
-> +++ b/Documentation/devicetree/bindings/usb/usb-xhci.txt
-> @@ -13,6 +13,7 @@ Required properties:
->      - "renesas,xhci-r8a774a1" for r8a774a1 SoC
->      - "renesas,xhci-r8a774b1" for r8a774b1 SoC
->      - "renesas,xhci-r8a774c0" for r8a774c0 SoC
-> +    - "renesas,xhci-r8a774e1" for r8a774e1 SoC
->      - "renesas,xhci-r8a7790" for r8a7790 SoC
->      - "renesas,xhci-r8a7791" for r8a7791 SoC
->      - "renesas,xhci-r8a7793" for r8a7793 SoC
-
-For the logical change:
 Reviewed-by: Geert Uytterhoeven <geert+renesas@glider.be>
 
 Gr{oetje,eeting}s,

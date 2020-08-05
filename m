@@ -2,65 +2,88 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9B14723CA12
-	for <lists+alsa-devel@lfdr.de>; Wed,  5 Aug 2020 12:54:57 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 55A0023CA2A
+	for <lists+alsa-devel@lfdr.de>; Wed,  5 Aug 2020 13:10:50 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 2F72F1666;
-	Wed,  5 Aug 2020 12:54:07 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2F72F1666
+	by alsa0.perex.cz (Postfix) with ESMTPS id BC0D91668;
+	Wed,  5 Aug 2020 13:09:59 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BC0D91668
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1596624897;
-	bh=NgSSmfnTKzGmmfI9rzYl934CFRlrPTJ5e4vYcAtFmxY=;
-	h=To:From:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=Og8tZzvot6KvnnI9M+rNlkvI/cAu1+ukk3lY1SyfuXHEtlNL5al+/SbULARnvOPmR
-	 xKfMAmB/r1OAlDnn0ntnDadrNe1hnXy6pbZjwfh7B8Qx6qEIiBP5twwLxCUlxzoaSW
-	 6XHrwIUh42vQsceQQW8Rs0cjDybWIGRMVYKoSEE8=
+	s=default; t=1596625849;
+	bh=YdYOYRyJgmPYefsdjNv05w/JuOwRFT3mytpi4kxhQys=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=iAbPEzWOnkRLxgLQ4thWxgK1N5yqfzZTmBus6XuyC4Fr3ZKGr6aJ4nWxGdLG/LqK0
+	 ZHy3AtpCctyBLiE/QXiVDRD2cxo+FU0MhtNUXitzMor7i+CZvL/B5AX5/+80BwE2lj
+	 6kG+gGArgf2HEywUHa9YonFnJL4K399s/u+b8WZw=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 67AAFF80112;
-	Wed,  5 Aug 2020 12:53:16 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id D0CF1F80112;
+	Wed,  5 Aug 2020 13:09:08 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 20CBCF80218; Wed,  5 Aug 2020 12:53:14 +0200 (CEST)
+ id 9E3CEF80218; Wed,  5 Aug 2020 13:09:06 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
-Received: from mail.arturia.com (mail.arturia.com [5.39.71.79])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=0.3 required=5.0 tests=FREEMAIL_FORGED_FROMDOMAIN,
+ FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,PRX_BODY_135,RCVD_IN_MSPIKE_H2,
+ SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mail-oi1-f196.google.com (mail-oi1-f196.google.com
+ [209.85.167.196])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 0A4EEF80124
- for <alsa-devel@alsa-project.org>; Wed,  5 Aug 2020 12:53:03 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0A4EEF80124
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=arturia.com header.i=@arturia.com
- header.b="ohxjZzIW"
-Received: from [192.168.33.240] (226.142.197.77.rev.sfr.net [77.197.142.226])
- (Authenticated sender: markus.bollinger@arturia.com)
- by mail.arturia.com (Postfix) with ESMTPSA id 9DCF547C03A4;
- Wed,  5 Aug 2020 12:53:01 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=arturia.com; s=mail;
- t=1596624781; bh=NgSSmfnTKzGmmfI9rzYl934CFRlrPTJ5e4vYcAtFmxY=;
- h=To:Cc:From:Subject:Date:From;
- b=ohxjZzIWmqnC1SRDAKww9AiftI3ZDwgEwBWLz2dMj9Pa4+YPZPOO47bTjWFZTetCJ
- caxST2phHF7Ab3HQpysGep0t57qtzBcbk1+z13KUDzSEn3x/K2RuwBfY1mtdZvm4Kb
- EKOjDqBs9FEEfxYUcG9BwJCmry318X057EeC+joU=
-To: alsa-devel@alsa-project.org
-From: Markus Bollinger <markus.bollinger@arturia.com>
-Subject: asoc : snd_soc_simple_card connection to AKM4556 codec (i2s) issue on
- arm64
-Message-ID: <1f6b4d1f-88ff-94d2-5224-7219c61d558f@arturia.com>
-Date: Wed, 5 Aug 2020 12:52:59 +0200
-User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:68.0) Gecko/20100101
- Thunderbird/68.11.0
+ by alsa1.perex.cz (Postfix) with ESMTPS id D37BCF80112
+ for <alsa-devel@alsa-project.org>; Wed,  5 Aug 2020 13:08:59 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D37BCF80112
+Received: by mail-oi1-f196.google.com with SMTP id b22so13277226oic.8
+ for <alsa-devel@alsa-project.org>; Wed, 05 Aug 2020 04:08:59 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=a747GTvzdj8BhTC99m/ltqffKPbWLknrH4UGCy7e+04=;
+ b=RTN97CvwLVhlvE8/EX/bI86qMOwCGd744twKRimQsgYEntfYgXvn2LGigKzYlIe3fj
+ XcriHKij1Lq6OsmtVqw5hEm1yyWPzy/s19OenL+ixmdxRlDpUQVcFyBCsDRKY3Y4CUPb
+ PERLR4pSLLf+IQ91dwrhAB6drQWNc9RXqradhhTimAwN1jqZQm4LD1Gh5Fkiu+/Sdw5t
+ RyQrA33Ywr/okRb9SHx94ZqXxJ9kcLyaZT/je9S5NM2h6OoG6u7VwwVdmaNvNkJ/RLdT
+ KdWm6Wgz/D5qh+jY8zxg2tcMzss2ERDOXeGMHpaKBlH3NAghS8VIgJVMKjoEyOAporkH
+ e3NA==
+X-Gm-Message-State: AOAM533CkIQn6DREVtQchPWwQ02cEF8PcRGoGIg4tcaQUAwWL18+e/yy
+ JUijGvmx828RPe68ZuZmkz//8MoVnZ9gbiCmFmM=
+X-Google-Smtp-Source: ABdhPJxOLh0H5vKRdwT+SgNB4/VJFY79xxN/fk4jyCR22Pxw8fbAj3AqGa5onUuCO90I+Y+bzEmqLPTLGI8ksjYr6g8=
+X-Received: by 2002:aca:b742:: with SMTP id h63mr2149267oif.148.1596625738500; 
+ Wed, 05 Aug 2020 04:08:58 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 8bit
-Content-Language: en-US
-Cc: tiwai@suse.com
+References: <1594919915-5225-1-git-send-email-prabhakar.mahadev-lad.rj@bp.renesas.com>
+ <1594919915-5225-3-git-send-email-prabhakar.mahadev-lad.rj@bp.renesas.com>
+In-Reply-To: <1594919915-5225-3-git-send-email-prabhakar.mahadev-lad.rj@bp.renesas.com>
+From: Geert Uytterhoeven <geert@linux-m68k.org>
+Date: Wed, 5 Aug 2020 13:08:47 +0200
+Message-ID: <CAMuHMdVNrbi2twUoJ1wB4DY++M+VgsLVQXxS_NTK9YtExF8BBg@mail.gmail.com>
+Subject: Re: [PATCH 02/20] arm64: dts: renesas: r8a774e1: Add PCIe device nodes
+To: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+Content-Type: text/plain; charset="UTF-8"
+Cc: ALSA Development Mailing List <alsa-devel@alsa-project.org>,
+ linux-pci <linux-pci@vger.kernel.org>,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ linux-ide@vger.kernel.org, Prabhakar <prabhakar.csengg@gmail.com>,
+ Linux I2C <linux-i2c@vger.kernel.org>,
+ Marek Vasut <marek.vasut+renesas@gmail.com>,
+ Magnus Damm <magnus.damm@gmail.com>, Kishon Vijay Abraham I <kishon@ti.com>,
+ Linux Media Mailing List <linux-media@vger.kernel.org>,
+ "open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS"
+ <devicetree@vger.kernel.org>, Niklas <niklas.soderlund@ragnatech.se>,
+ Rob Herring <robh+dt@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>, Jens Axboe <axboe@kernel.dk>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Yoshihiro Shimoda <yoshihiro.shimoda.uh@renesas.com>,
+ USB list <linux-usb@vger.kernel.org>, Liam Girdwood <lgirdwood@gmail.com>,
+ Linux-Renesas <linux-renesas-soc@vger.kernel.org>,
+ Vinod Koul <vkoul@kernel.org>, Mark Brown <broonie@kernel.org>,
+ dmaengine <dmaengine@vger.kernel.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -76,90 +99,23 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hello,
+On Thu, Jul 16, 2020 at 7:18 PM Lad Prabhakar
+<prabhakar.mahadev-lad.rj@bp.renesas.com> wrote:
+> Add PCIe{0,1} device nodes for R8A774E1 SoC.
+>
+> Signed-off-by: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+> Reviewed-by: Marian-Cristian Rotariu <marian-cristian.rotariu.rb@bp.renesas.com>
 
-I try to get working an AKM4556 codec on the arm64 Rockchip RK3399 board 
-under Linux 4.4.179
-The codec is a simple one (without i2c connection), similar to AKM4554 
-(but 24 bit instead of 16 bit audio) and hard configured to use i2s.
-I implemented the driver soc/codecs/ak4556.c which has only few 
-differences to ak4554.c.
-But when I try to get it working with the soc/general/simple-card.c, the 
-connection to the codec fails
-Both drivers (snd_soc_simple_card and snd_soc_ak4556) get loaded, the 
-call to
+Reviewed-by: Geert Uytterhoeven <geert+renesas@glider.be>
+i.e. will queue in renesas-devel for v5.10.
 
-asoc_simple_card_dai_link_of -> asoc_simple_card_sub_parse_of(cpu, ..)
+Gr{oetje,eeting}s,
 
-is OK, but the call to
+                        Geert
 
-asoc_simple_card_dai_link_of -> asoc_simple_card_sub_parse_of(codec, ..) 
--> snd_soc_of_get_dai_name
+-- 
+Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
 
-fails with -EPROBE_DEFER.
-
-Now, i am not sure if it is a driver issue or rather a device-tree one. 
-I declared dt like this :
-
-/ {
-
-     ak4556_card: ak4556-adc-dac {
-         status = "okay";
-         compatible = "simple-audio-card";
-
-         simple-audio-card,name = "ak4556";
-         simple-audio-card,format = "i2s";
-         simple-audio-card,mclk-fs = <256>;
-
-         simple-audio-card,widgets =
-             "Line", "Line In",
-             "Line", "Line Out";
-         simple-audio-card,routing =
-             "LIN", "Line In",
-             "RIN", "Line In",
-             "Line Out", "LOUT",
-             "Line Out", "ROUT";
-
-         simple-audio-card,cpu {
-             sound-dai = <&i2s0>;
-         };
-         simple-audio-card,codec {
-             sound-dai = <&ak4556_codec>;
-         };
-     };
-
-     ak4556_codec: ak4556-codec {
-         status = "okay";
-         compatible = "asahi-kasei,ak4556";
-         #sound-dai-cells = <0>;
-     };
-
-     i2s0: i2s@ff880000 {
-
-         compatible = "rockchip,rk3399-i2s", "rockchip,rk3066-i2s";
-         reg = <0x0 0xff880000 0x0 0x1000>;
-         rockchip,grf = <&grf>;
-         interrupts = <GIC_SPI 39 IRQ_TYPE_LEVEL_HIGH 0>;
-         dmas = <&dmac_bus 0>, <&dmac_bus 1>;
-         dma-names = "tx", "rx";
-         clock-names = "i2s_clk", "i2s_hclk";
-         clocks = <&cru SCLK_I2S0_8CH>, <&cru HCLK_I2S0_8CH>;
-         resets = <&cru SRST_I2S0_8CH>, <&cru SRST_H_I2S0_8CH>;
-         reset-names = "reset-m", "reset-h";
-         pinctrl-names = "default";
-         pinctrl-0 = <&i2s0_8ch_bus>;
-         power-domains = <&power RK3399_PD_SDIOAUDIO>;
-         status = "disabled";
-     };
-
-&i2s0 {
-     #sound-dai-cells = <0>;
-     assigned-clocks = <&cru SCLK_I2S0_DIV>;
-     assigned-clock-parents = <&cru PLL_GPLL>;
-     status = "okay";
-};
-
-Thank you in advance for your suggestions,
-
-Markus
-
+In personal conversations with technical people, I call myself a hacker. But
+when I'm talking to journalists I just say "programmer" or something like that.
+                                -- Linus Torvalds

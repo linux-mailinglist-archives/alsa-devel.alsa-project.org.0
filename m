@@ -2,85 +2,84 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6AECE23DB2C
-	for <lists+alsa-devel@lfdr.de>; Thu,  6 Aug 2020 16:31:56 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2058B23DB2F
+	for <lists+alsa-devel@lfdr.de>; Thu,  6 Aug 2020 16:35:42 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id F35D3836;
-	Thu,  6 Aug 2020 16:31:05 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz F35D3836
+	by alsa0.perex.cz (Postfix) with ESMTPS id 820D3826;
+	Thu,  6 Aug 2020 16:34:51 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 820D3826
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1596724316;
-	bh=9bx/m5KJGlL6iI4Ot1s02fouYxRcpi6AchvVLqflqRw=;
+	s=default; t=1596724541;
+	bh=wStRA4EuUEMGRja+kX3fM5/SC48dkvfk/I/nuiwn6b8=;
 	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=aqr9Cp6DQ7St/ycs7UR3525Q4zRDaXt6EVqYujQvypuj8tOm4FF9vkbNHfkYZ/L/x
-	 fa0lvJ2nqsMmOGtNMnJEN46Ix00RlpxBpnqWuvmBF86lXM+AQKofFnpZVir1J6F66j
-	 KBWLDMulGQYL3pBUwhmxmCTn5x+VEV/ZTnHG27m0=
+	b=dyoRvBzY5ZapErz5kubZUXUoxQ4bDM+xgZ0vKSfWtZLAsyGo/HYlmGUqBL4eGJpVZ
+	 GfyC9QoMtzmxkDd+8/kwIJXKdMuqjzOpL///SeQBKckvjwGpptd8fHVIn0eaSvwpMj
+	 wZv/fk9LNdjrviM8NFFJnNQBVwOuO0WGyyfUbBqM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 1938DF8015A;
-	Thu,  6 Aug 2020 16:30:15 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id C5B0DF80150;
+	Thu,  6 Aug 2020 16:34:00 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id F0508F80159; Thu,  6 Aug 2020 16:30:12 +0200 (CEST)
+ id AF895F80159; Thu,  6 Aug 2020 16:33:58 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.3 required=5.0 tests=FREEMAIL_ENVFROM_END_DIGIT,
  FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,
  RCVD_IN_MSPIKE_H2,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=disabled
  version=3.4.0
-Received: from mail-io1-f67.google.com (mail-io1-f67.google.com
- [209.85.166.67])
+Received: from mail-io1-f65.google.com (mail-io1-f65.google.com
+ [209.85.166.65])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 37E26F80124
- for <alsa-devel@alsa-project.org>; Thu,  6 Aug 2020 16:30:04 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 37E26F80124
-Received: by mail-io1-f67.google.com with SMTP id t15so40849665iob.3
- for <alsa-devel@alsa-project.org>; Thu, 06 Aug 2020 07:30:04 -0700 (PDT)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 5B9F1F800B7
+ for <alsa-devel@alsa-project.org>; Thu,  6 Aug 2020 16:33:51 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5B9F1F800B7
+Received: by mail-io1-f65.google.com with SMTP id a5so34543218ioa.13
+ for <alsa-devel@alsa-project.org>; Thu, 06 Aug 2020 07:33:51 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:date:from:to:cc:subject:message-id:references
  :mime-version:content-disposition:in-reply-to;
- bh=K/3We8AGMWDx9mNTiTs/sOpLR+yCgqCzpB93qqwd4xg=;
- b=cG9ACpQZ8a1AD2Em9fnG3YA4oolVQECmTqh8hXA5sBGodHsbX1wiw9IIp0FV1mccjO
- cakPLeaebs2e0HF4qu/1dfRlS12WV0nAJIQRQ0JgjaDjMktLjvbRrh92H83eSEZ/ZeGU
- 41zUtZW9k9tzRcW4N0nBjB+eszRYw0R0+WWbVjh/g31L6YWrkbyXjuDVmBiriR79emu/
- 7V0H9RscLrPgMrMdLCuYf63vJYPKjS/IMDgcMKCDLQIZ59GjvNZfaCzC3wE5teDyeYwL
- JDGR7NUbxgh5LC6SYbSqH4MMYnK7ydAtOhRyqdWll1oKUOiOZiI6D1ajGlQ3/+z3+Rby
- JPCw==
-X-Gm-Message-State: AOAM533w3eJNNKnFuKnkl/TC6QNXOEXKzFAypLDRNz64lvkqzKaRhG9K
- y5xobAGeY45NN8a7XTjesQ==
-X-Google-Smtp-Source: ABdhPJxIIJY14/wDGJG1LlEcpKWPQN9KGSXYigWRU+8ra5vZCkBoygTzV2YMWGy2Cnsuuto1f8jrlg==
-X-Received: by 2002:a6b:c3cf:: with SMTP id
- t198mr10069332iof.164.1596724203177; 
- Thu, 06 Aug 2020 07:30:03 -0700 (PDT)
+ bh=0CY+HYyjcG5KgYKlxO2qEhQLPlSK9IFLuMhYDCyAc1U=;
+ b=MwF/gHHXjHTyaq+4k4KbHFVgsXu/xc9upaAcmVbQKB+k0GWcwtJc8s77SAj8AcNLql
+ 6kr0AR+aQD1eMYB3CJq9dHT7HDoLOBtgnxA7YqIQYHSVbbgm8b1eV+JHPxRgE7IvsSO4
+ mA9lbCWi3AilEN7ndF2TD8h1WF2MwYk7F/7B2u2wpsJYlFGvnfET4GP63symJ8DxeFnJ
+ diFRYUG+JuXrGwwHyOn1RiKQXjV8VtLV1vONrglwVyd7Nc/mbsbxyS50PutKa7Q8YNGT
+ oKvph+WrCwNeBH7PTQRTor/HcePKcWLc1FTtlM1TsbULWL0mutBjRg1/tnXn/vLIPBxc
+ 32Pg==
+X-Gm-Message-State: AOAM531Ew0Z/oiSbpw40He7l4dxyhOmZ9rzcnoT48Flqh+PrsACUZU6e
+ s6/Y9cBI7i1ibhaw5JC7JA==
+X-Google-Smtp-Source: ABdhPJxKrJnGykiV0FQHbkUGGMsTv5GN+QsIdL7usfPBxcMT6Pw2io1HLz3mOlEhGcOsgiGNkkPcJA==
+X-Received: by 2002:a5e:d519:: with SMTP id e25mr10418055iom.36.1596724429814; 
+ Thu, 06 Aug 2020 07:33:49 -0700 (PDT)
 Received: from xps15 ([64.188.179.252])
- by smtp.gmail.com with ESMTPSA id s6sm4071541ilq.73.2020.08.06.07.30.00
+ by smtp.gmail.com with ESMTPSA id 13sm1680404ilj.49.2020.08.06.07.33.48
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 06 Aug 2020 07:30:02 -0700 (PDT)
-Received: (nullmailer pid 807481 invoked by uid 1000);
- Thu, 06 Aug 2020 14:29:59 -0000
-Date: Thu, 6 Aug 2020 08:29:59 -0600
+ Thu, 06 Aug 2020 07:33:49 -0700 (PDT)
+Received: (nullmailer pid 813532 invoked by uid 1000);
+ Thu, 06 Aug 2020 14:33:48 -0000
+Date: Thu, 6 Aug 2020 08:33:48 -0600
 From: Rob Herring <robh@kernel.org>
 To: Rohit kumar <rohitkr@codeaurora.org>
-Subject: Re: [PATCH v5 07/12] dt-bindings: sound: lpass-cpu: Add sc7180 lpass
- cpu node
-Message-ID: <20200806142959.GA807423@bogus>
+Subject: Re: [PATCH v5 12/12] dt-bindings: sound: lpass-cpu: Move to yaml
+ format
+Message-ID: <20200806143348.GA807751@bogus>
 References: <1596528453-11437-1-git-send-email-rohitkr@codeaurora.org>
- <1596528453-11437-8-git-send-email-rohitkr@codeaurora.org>
+ <1596528453-11437-13-git-send-email-rohitkr@codeaurora.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <1596528453-11437-8-git-send-email-rohitkr@codeaurora.org>
+In-Reply-To: <1596528453-11437-13-git-send-email-rohitkr@codeaurora.org>
 Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- bgoswami@codeaurora.org, linux-kernel@vger.kernel.org, plai@codeaurora.org,
- tiwai@suse.com, lgirdwood@gmail.com, robh+dt@kernel.org,
- bjorn.andersson@linaro.org, broonie@kernel.org, srinivas.kandagatla@linaro.org,
- agross@kernel.org, linux-arm-msm@vger.kernel.org
+ bgoswami@codeaurora.org, linux-arm-msm@vger.kernel.org, plai@codeaurora.org,
+ tiwai@suse.com, agross@kernel.org, lgirdwood@gmail.com, broonie@kernel.org,
+ srinivas.kandagatla@linaro.org, bjorn.andersson@linaro.org,
+ linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -96,13 +95,342 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Tue, 04 Aug 2020 13:37:28 +0530, Rohit kumar wrote:
-> Add dt-bindings to support "qcom,lpass-cpu-sc7180" node.
+On Tue, Aug 04, 2020 at 01:37:33PM +0530, Rohit kumar wrote:
+> Update lpass-cpu binding with yaml formats.
 > 
 > Signed-off-by: Rohit kumar <rohitkr@codeaurora.org>
 > ---
->  .../devicetree/bindings/sound/qcom,lpass-cpu.txt   | 55 +++++++++++++++++++++-
->  1 file changed, 53 insertions(+), 2 deletions(-)
+>  .../devicetree/bindings/sound/qcom,lpass-cpu.txt   | 130 ---------------
+>  .../devicetree/bindings/sound/qcom,lpass-cpu.yaml  | 179 +++++++++++++++++++++
+>  2 files changed, 179 insertions(+), 130 deletions(-)
+>  delete mode 100644 Documentation/devicetree/bindings/sound/qcom,lpass-cpu.txt
+>  create mode 100644 Documentation/devicetree/bindings/sound/qcom,lpass-cpu.yaml
 > 
+> diff --git a/Documentation/devicetree/bindings/sound/qcom,lpass-cpu.txt b/Documentation/devicetree/bindings/sound/qcom,lpass-cpu.txt
+> deleted file mode 100644
+> index c07202c..00000000
+> --- a/Documentation/devicetree/bindings/sound/qcom,lpass-cpu.txt
+> +++ /dev/null
+> @@ -1,130 +0,0 @@
+> -* Qualcomm Technologies LPASS CPU DAI
+> -
+> -This node models the Qualcomm Technologies Low-Power Audio SubSystem (LPASS).
+> -
+> -Required properties:
+> -
+> -- compatible		: "qcom,lpass-cpu" or "qcom,apq8016-lpass-cpu" or
+> -			  "qcom,sc7180-lpass-cpu"
+> -- clocks		: Must contain an entry for each entry in clock-names.
+> -- clock-names		: A list which must include the following entries:
+> -				* "ahbix-clk"
+> -				* "mi2s-osr-clk"
+> -				* "mi2s-bit-clk"
+> -			: required clocks for "qcom,lpass-cpu-apq8016"
+> -				* "ahbix-clk"
+> -				* "mi2s-bit-clk0"
+> -				* "mi2s-bit-clk1"
+> -				* "mi2s-bit-clk2"
+> -				* "mi2s-bit-clk3"
+> -				* "pcnoc-mport-clk"
+> -				* "pcnoc-sway-clk"
+> -			: required clocks for "qcom,lpass-cpu-sc7180"
+> -				* "audio-core"
+> -				* "mclk0"
+> -				* "mi2s-bit-clk0"
+> -				* "mi2s-bit-clk1"
+> -				* "pcnoc-sway-clk"
+> -				* "pcnoc-mport-clk"
+> -
+> -- interrupts		: Must contain an entry for each entry in
+> -			  interrupt-names.
+> -- interrupt-names	: A list which must include the following entries:
+> -				* "lpass-irq-lpaif"
+> -- pinctrl-N		: One property must exist for each entry in
+> -			  pinctrl-names.  See ../pinctrl/pinctrl-bindings.txt
+> -			  for details of the property values.
+> -- pinctrl-names		: Must contain a "default" entry.
+> -- reg			: Must contain an address for each entry in reg-names.
+> -- reg-names		: A list which must include the following entries:
+> -				* "lpass-lpaif"
+> -- #address-cells	: Must be 1
+> -- #size-cells		: Must be 0
+> -
+> -
+> -
+> -Optional properties:
+> -
+> -- qcom,adsp		: Phandle for the audio DSP node
+> -
+> -By default, the driver uses up to 4 MI2S SD lines, for a total of 8 channels.
+> -The SD lines to use can be configured by adding subnodes for each of the DAIs.
+> -
+> -Required properties for each DAI (represented by a subnode):
+> -- reg			: Must be one of the DAI IDs
+> -			  (usually part of dt-bindings header)
+> -- qcom,playback-sd-lines: List of serial data lines to use for playback
+> -			  Each SD line should be represented by a number from 0-3.
+> -- qcom,capture-sd-lines	: List of serial data lines to use for capture
+> -			  Each SD line should be represented by a number from 0-3.
+> -
+> -Note that adding a subnode changes the default to "no lines configured",
+> -so both playback and capture lines should be configured when a subnode is added.
+> -
+> -Examples:
+> -1)
+> -
+> -lpass@28100000 {
+> -	compatible = "qcom,lpass-cpu";
+> -	clocks = <&lcc AHBIX_CLK>, <&lcc MI2S_OSR_CLK>, <&lcc MI2S_BIT_CLK>;
+> -	clock-names = "ahbix-clk", "mi2s-osr-clk", "mi2s-bit-clk";
+> -	interrupts = <0 85 1>;
+> -	interrupt-names = "lpass-irq-lpaif";
+> -	pinctrl-names = "default", "idle";
+> -	pinctrl-0 = <&mi2s_default>;
+> -	pinctrl-1 = <&mi2s_idle>;
+> -	reg = <0x28100000 0x10000>;
+> -	reg-names = "lpass-lpaif";
+> -	qcom,adsp = <&adsp>;
+> -
+> -	#address-cells = <1>;
+> -	#size-cells = <0>;
+> -
+> -	/* Optional to set different MI2S SD lines */
+> -	dai@3 {
+> -		reg = <MI2S_QUATERNARY>;
+> -		qcom,playback-sd-lines = <0 1>;
+> -	};
+> -};
+> -
+> -2)
+> -
+> -#include <dt-bindings/sound/sc7180-lpass.h>
+> -
+> -lpass_cpu: lpass {
+> -	compatible = "qcom,sc7180-lpass-cpu";
+> -
+> -	reg = <0 0x62F00000 0 0x29000>;
+> -
+> -	iommus = <&apps_smmu 0x1020 0>;
+> -
+> -	power-domains = <&lpass_hm LPASS_CORE_HM_GDSCR>;
+> -	clocks = <&gcc GCC_LPASS_CFG_NOC_SWAY_CLK>,
+> -		<&lpasscorecc LPASS_AUDIO_CORE_CORE_CLK>,
+> -		<&lpasscorecc LPASS_AUDIO_CORE_EXT_MCLK0_CLK>,
+> -		<&lpasscorecc LPASS_AUDIO_CORE_SYSNOC_MPORT_CORE_CLK>,
+> -		<&lpasscorecc LPASS_AUDIO_CORE_LPAIF_PRI_IBIT_CLK>,
+> -		<&lpasscorecc LPASS_AUDIO_CORE_LPAIF_SEC_IBIT_CLK>;
+> -	clock-names = "pcnoc-sway-clk", "audio-core",
+> -			"mclk0", "pcnoc-mport-clk",
+> -			"mi2s-bit-clk0", "mi2s-bit-clk1";
+> -	interrupts = <0 160 IRQ_TYPE_LEVEL_HIGH>;
+> -	interrupt-names = "lpass-irq-lpaif";
+> -
+> -
+> -	#sound-dai-cells = <1>;
+> -
+> -	#address-cells = <1>;
+> -	#size-cells = <0>;
+> -
+> -	mi2s-primary@0 {
+> -		reg = <MI2S_PRIMARY>;
+> -		qcom,playback-sd-lines = <1>;
+> -		qcom,capture-sd-lines = <0>;
+> -	};
+> -
+> -	mi2s-secondary@1 {
+> -		reg = <MI2S_SECONDARY>;
+> -		qcom,playback-sd-lines = <0>;
+> -	};
+> -};
+> diff --git a/Documentation/devicetree/bindings/sound/qcom,lpass-cpu.yaml b/Documentation/devicetree/bindings/sound/qcom,lpass-cpu.yaml
+> new file mode 100644
+> index 00000000..5c1881d
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/sound/qcom,lpass-cpu.yaml
+> @@ -0,0 +1,179 @@
+> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/sound/qcom,lpass-cpu.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +
+> +title: Qualcomm Technologies Inc. LPASS CPU dai driver bindings
+> +
+> +maintainers:
+> +  - Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
+> +  - Rohit kumar <rohitkr@codeaurora.org>
+> +
+> +description: |
+> +  Qualcomm Technologies Inc. SOC Low-Power Audio SubSystem (LPASS) that consist
+> +  of MI2S interface for audio data transfer on external codecs. LPASS cpu driver
+> +  is a module to configure Low-Power Audio Interface(LPAIF) core registers
+> +  across different IP versions.
+> +
+> +properties:
+> +  compatible:
+> +    enum:
+> +      - qcom,lpass-cpu
+> +      - qcom,apq8016-lpass-cpu
+> +      - qcom,sc7180-lpass-cpu
+> +
+> +  reg:
+> +    maxItems: 1
+> +    description: LPAIF core registers
+> +
+> +  clocks:
+> +    minItems: 3
+> +    maxItems: 6
+> +
+> +  clock-names:
+> +    minItems: 3
+> +    maxItems: 6
+> +
+> +  interrupts:
+> +    maxItems: 1
+> +    description: LPAIF DMA buffer interrupt
+> +
+> +  qcom,adsp:
+> +    $ref: /schemas/types.yaml#/definitions/phandle
+> +    description: Phandle for the audio DSP node
+> +
+> +  iommus:
+> +    maxItems: 1
+> +    description: Phandle to apps_smmu node with sid mask
+> +
+> +  power-domains:
+> +    maxItems: 1
+> +
+> +  '#sound-dai-cells':
+> +    const: 1
+> +
+> +  '#address-cells':
+> +    const: 1
+> +
+> +  '#size-cells':
+> +    const: 0
+> +
+> +patternProperties:
+> +  "(^mi2s-[0-9a-f]$|mi2s)":
 
-Reviewed-by: Rob Herring <robh@kernel.org>
+I believe this will work:
+
+"^mi2s(-[0-9a-f])?$"
+
+> +    type: object
+> +    description: Required properties for each DAI
+> +
+> +    properties:
+> +      reg:
+> +        maxItems: 1
+> +        description: Must be one of the DAI ID
+> +
+> +    required:
+> +      - reg
+
+       additionalProperties: false
+
+> +
+> +required:
+> +  - compatible
+> +  - reg
+> +  - clocks
+> +  - clock-names
+> +  - interrupts
+> +  - '#sound-dai-cells'
+> +
+> +additionalProperties: false
+> +
+> +allOf:
+> +  - if:
+> +      properties:
+> +        compatible:
+> +          contains:
+> +            const: qcom,lpass-cpu
+> +
+> +    then:
+> +      properties:
+> +        clock-names:
+> +          items:
+> +            - const: ahbix-clk
+> +            - const: mi2s-osr-clk
+> +            - const: mi2s-bit-clk
+> +
+> +  - if:
+> +      properties:
+> +        compatible:
+> +          contains:
+> +            const: qcom,apq8016-lpass-cpu
+> +
+> +    then:
+> +      properties:
+> +        clock-names:
+> +          items:
+> +            - const: ahbix-clk
+> +            - const: mi2s-bit-clk0
+> +            - const: mi2s-bit-clk1
+> +            - const: mi2s-bit-clk2
+> +            - const: mi2s-bit-clk3
+> +            - const: pcnoc-mport-clk
+> +            - const: pcnoc-sway-clk
+> +
+> +  - if:
+> +      properties:
+> +        compatible:
+> +          contains:
+> +            const: qcom,sc7180-lpass-cpu
+> +
+> +    then:
+> +      properties:
+> +        clock-names:
+> +          items:
+> +            - const: pcnoc-sway-clk
+> +            - const: audio-core
+> +            - const: mclk0
+> +            - const: pcnoc-mport-clk
+> +            - const: mi2s-bit-clk0
+> +            - const: mi2s-bit-clk1
+> +      required:
+> +        - iommus
+> +        - power-domains
+> +
+> +examples:
+> +  - |
+> +    #include <dt-bindings/sound/sc7180-lpass.h>
+> +
+> +    soc {
+> +        #address-cells = <2>;
+> +        #size-cells = <2>;
+> +        lpass@62f00000 {
+> +            compatible = "qcom,sc7180-lpass-cpu";
+> +
+> +            reg = <0 0x62f00000  0 0x29000>;
+> +
+> +            iommus = <&apps_smmu 0x1020 0>;
+> +            power-domains = <&lpass_hm 0>;
+> +
+> +            clocks = <&gcc 131>,
+> +                 <&lpasscorecc 6>,
+> +                 <&lpasscorecc 7>,
+> +                 <&lpasscorecc 10>,
+> +                 <&lpasscorecc 8>,
+> +                 <&lpasscorecc 9>;
+> +
+> +            clock-names = "pcnoc-sway-clk", "audio-core",
+> +                          "mclk0", "pcnoc-mport-clk",
+> +                          "mi2s-bit-clk0", "mi2s-bit-clk1";
+> +
+> +            interrupts = <0 160 1>;
+> +
+> +            #sound-dai-cells = <1>;
+> +
+> +            #address-cells = <1>;
+> +            #size-cells = <0>;
+> +            /* Optional to set different MI2S SD lines */
+> +            mi2s-primary@0 {
+> +                reg = <MI2S_PRIMARY>;
+> +                qcom,playback-sd-lines = <1>;
+> +                qcom,capture-sd-lines = <0>;
+
+These 2 aren't documented.
+
+Rob

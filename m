@@ -2,77 +2,94 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9477623DA11
-	for <lists+alsa-devel@lfdr.de>; Thu,  6 Aug 2020 13:45:27 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id ED2A723DA20
+	for <lists+alsa-devel@lfdr.de>; Thu,  6 Aug 2020 13:50:05 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 319211660;
-	Thu,  6 Aug 2020 13:44:37 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 319211660
+	by alsa0.perex.cz (Postfix) with ESMTPS id 8EF8C82E;
+	Thu,  6 Aug 2020 13:49:15 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8EF8C82E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1596714327;
-	bh=ETZ1kfcVQqM6vV95bnvi4k+Z47o/WXBRu3MjD3eXsMk=;
-	h=From:Date:Subject:To:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=ta87A0fwDlYcttet/pS4OTsk7eZy9G0cDOUKJHbWj0WUiLzxZw3EF6JWqlgDcQtgx
-	 YGnoiPUipMKBA2+x+57PCCtzw9pb90Y80jNpF30lZJTBQn6eugpD7tMxEP9XmmyIXl
-	 DJmjfjnniwUMzG4fstj6T4MKGq5WEspj7IhNUWGU=
+	s=default; t=1596714605;
+	bh=+1Y/gsy1+1KUIj8s/vrC1qw2e5xhmoZYmdAxpeMGXvs=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=f4ZymHbPHYHNW+Z1nEeF6sViqmDtXCIVti8Jy8WbbLAPZumeSpFTrDkWe1EzaStZD
+	 PSYCDaiz6TbH80J1xMVN+5T1blpfDxI/uyWJo1IlX2TlBw8DaqMkjtvi1Y/jfVVBTf
+	 sPx1C+wdn4JJlAPSiiyFT2bNGvA/k1aAg/eJrumI=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 498FAF80150;
-	Thu,  6 Aug 2020 13:43:46 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id CB378F800B7;
+	Thu,  6 Aug 2020 13:48:24 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id BB50CF80159; Thu,  6 Aug 2020 13:43:43 +0200 (CEST)
+ id 84BA4F80159; Thu,  6 Aug 2020 13:48:22 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
+X-Spam-Status: No, score=0.8 required=5.0 tests=FREEMAIL_FORGED_FROMDOMAIN,
+ FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,PRX_BODY_13,PRX_BODY_135,
+ RCVD_IN_MSPIKE_H3,RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
  autolearn=disabled version=3.4.0
-Received: from mail-wm1-x32c.google.com (mail-wm1-x32c.google.com
- [IPv6:2a00:1450:4864:20::32c])
+Received: from mail-ot1-f67.google.com (mail-ot1-f67.google.com
+ [209.85.210.67])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id E0E2EF80086
- for <alsa-devel@alsa-project.org>; Thu,  6 Aug 2020 13:43:33 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E0E2EF80086
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="e98zpcFd"
-Received: by mail-wm1-x32c.google.com with SMTP id f18so6394740wmc.0
- for <alsa-devel@alsa-project.org>; Thu, 06 Aug 2020 04:43:33 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:from:date:message-id:subject:to;
- bh=FgD7orWHpzGmDa/8oBTow9bXXYLWqdrIe7E2jYA9td4=;
- b=e98zpcFdf5jeTzGCpy37Vncq/4RgFwM3neMkkmIHc9+IgyqvYT4NZC5yAYUW6/xxUZ
- /JN6pkckiegsvGFAoDUPlAeB6E8GMvxcXE7NWs10l/8L/ZnDn6jsS0VGQtTYgWYHpko/
- o0Y6nMJMqnti8ZvmNc8/O27F13ulDw9/3oNp63pCgU9Gcjfq9OFgghiql13HZe5wByjh
- gA1XgN5oI6zQqU+rXvS/6O+h5QhNuCLik70uAQxUJEEs6WwTcOW/oOE+JHoflKf0yzco
- XlL941zSSN8Rv+/eUCBOXUsJ3WHlZKwIyK2QjBvLjA5gunlv77FZBBbq8L27IcPQMv5A
- bRpA==
+ by alsa1.perex.cz (Postfix) with ESMTPS id E4B31F80086
+ for <alsa-devel@alsa-project.org>; Thu,  6 Aug 2020 13:48:10 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E4B31F80086
+Received: by mail-ot1-f67.google.com with SMTP id r21so25379296ota.10
+ for <alsa-devel@alsa-project.org>; Thu, 06 Aug 2020 04:48:10 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:from:date:message-id:subject:to;
- bh=FgD7orWHpzGmDa/8oBTow9bXXYLWqdrIe7E2jYA9td4=;
- b=sjnJssLHhuEhdJ7o+la/wJHuILfolu92Rtq3E1DK4IksOYZ75S+3j/4xZ2InpBx3K9
- LV49++8My5KWHb/taCQILsC6cHGK+nYGD50MMtTrGioQt/2J2PXD4Efb4DoIgY5Fzq9i
- Rlx5nLrP0JkQbDEhk/SEuBej5tyjOQOFcS54mJ4IRL8sVK8FkZwlDnldR4ke0/5aqz/K
- bIdviqXvjh7daY5cSUn9jZ0loYrb9IzIK1eNxnFQ8n9BN5ujgCF+9vPGyzYhAHk37exK
- nfOLWHF+jyup/2x6K0SD2RhiY15q5Gm0E+kb1uFQs5nPHv7IbDeUCBVlmYuOUwIDs09a
- 9PNw==
-X-Gm-Message-State: AOAM531O8Xn/ZWw6UtGsd1vdS28CeZlmC2c+pe4EwBJ12YDhYGlrAm11
- dlkWk3HX3CN3rQ/oIc2W0nDSaqV8tR7jK8WOzOK6s6BJHzLXSw==
-X-Google-Smtp-Source: ABdhPJxmujlVqEkoIBt7ZIQVgxDf0io7nNJTpTA79PUuIhd2XmsNqRZqZslm+wpWYepuMehQ+YcEctdv2bkD7OorKgo=
-X-Received: by 2002:a1c:ed0e:: with SMTP id l14mr1954239wmh.140.1596714213129; 
- Thu, 06 Aug 2020 04:43:33 -0700 (PDT)
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=GfRNKclYJY9TFgLDludWTlpzguMceCfSaUZal/qDN6s=;
+ b=uiwtEU/FIyyODWu+1HVqhVg/qHTHAy0+N0s6K3af19aWn8DNdJ/TPJ+mrvrfioeReC
+ YOERSqiz43M9wUrmT9/aIA2z7nCekpC5sGpsZ+KRS8OP2wGYvKsh+nSQL7CJKxWQ9CwO
+ 9KReN+k9EB41+2VVAVsqauKLX/8y7RxXvnEZ97QQzSjazjj7cpfwq9xv+cJ8w6OERGHP
+ FKOteasaHEACwHdsIjqybsKfPGsTcd63Wj4AedYecGnbFB74iKeCu6gn4AZVSzi3HNeZ
+ 2sxJq6DnmCWI+HajnSv1IQakj0Hb8OLplK7TQVgm0PZ0U6reeDaOni19qARBD6lI/EEv
+ GCIQ==
+X-Gm-Message-State: AOAM533jlm2FVxPp4DowD++VMQYRsGunCMNr/AyivotGSPNo28i/8uR4
+ YsgYELQRVBoRJ3VvWWP8xw2fcjfdiaflIhthh3ZEA4GH
+X-Google-Smtp-Source: ABdhPJxsjDZTTqPo+9e6awj5yV1LG1Imzyw5Civ8gt7ap18JuUVGKty3JozPE/qiMGjuARTMT9EOZFY2swizOMfqf1E=
+X-Received: by 2002:a05:6830:1b79:: with SMTP id
+ d25mr6431613ote.107.1596714489705; 
+ Thu, 06 Aug 2020 04:48:09 -0700 (PDT)
 MIME-Version: 1.0
-From: _ <tschunschi@gmail.com>
-Date: Thu, 6 Aug 2020 13:43:22 +0200
-Message-ID: <CAK=G1zU-F0=4JcHd2pZbKJX55gL-kAfhE6bxU_yvOon6=44tNw@mail.gmail.com>
-Subject: Creative USB X-Fi Pro V3 volume knob and IR remote control
-To: alsa-devel@alsa-project.org
+References: <1594919915-5225-1-git-send-email-prabhakar.mahadev-lad.rj@bp.renesas.com>
+ <1594919915-5225-21-git-send-email-prabhakar.mahadev-lad.rj@bp.renesas.com>
+ <CAMuHMdVriWnPK8-=w=0mq8yj9+1jbsg9yH8aV=ygyHsQ0f-CQQ@mail.gmail.com>
+ <CA+V-a8vXjhV-EeQb=bBhoRmuVA=0GSuFiV33N9nkhi39VNN6oA@mail.gmail.com>
+In-Reply-To: <CA+V-a8vXjhV-EeQb=bBhoRmuVA=0GSuFiV33N9nkhi39VNN6oA@mail.gmail.com>
+From: Geert Uytterhoeven <geert@linux-m68k.org>
+Date: Thu, 6 Aug 2020 13:47:58 +0200
+Message-ID: <CAMuHMdXie+GfKBO22mFrn4oG_y7YUxU9ekQdWnp1hn-6z2mLuQ@mail.gmail.com>
+Subject: Re: [PATCH 20/20] arm64: dts: renesas: r8a774e1: Add VIN and CSI-2
+ nodes
+To: "Lad, Prabhakar" <prabhakar.csengg@gmail.com>
 Content-Type: text/plain; charset="UTF-8"
+Cc: ALSA Development Mailing List <alsa-devel@alsa-project.org>,
+ linux-pci <linux-pci@vger.kernel.org>,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ linux-ide@vger.kernel.org, Linux I2C <linux-i2c@vger.kernel.org>,
+ Marek Vasut <marek.vasut+renesas@gmail.com>,
+ Magnus Damm <magnus.damm@gmail.com>, Kishon Vijay Abraham I <kishon@ti.com>,
+ Linux Media Mailing List <linux-media@vger.kernel.org>,
+ "open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS"
+ <devicetree@vger.kernel.org>,
+ Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>,
+ =?UTF-8?Q?Niklas_S=C3=B6derlund?= <niklas.soderlund@ragnatech.se>,
+ Rob Herring <robh+dt@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>, Jens Axboe <axboe@kernel.dk>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Yoshihiro Shimoda <yoshihiro.shimoda.uh@renesas.com>,
+ USB list <linux-usb@vger.kernel.org>, Liam Girdwood <lgirdwood@gmail.com>,
+ Linux-Renesas <linux-renesas-soc@vger.kernel.org>,
+ Vinod Koul <vkoul@kernel.org>, Mark Brown <broonie@kernel.org>,
+ dmaengine <dmaengine@vger.kernel.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -88,58 +105,76 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hi,
+Hi Prabhakar,
 
-I hope I'm in the right place here.
+On Thu, Aug 6, 2020 at 1:17 PM Lad, Prabhakar
+<prabhakar.csengg@gmail.com> wrote:
+> On Wed, Aug 5, 2020 at 12:19 PM Geert Uytterhoeven <geert@linux-m68k.org> wrote:
+> > On Thu, Jul 16, 2020 at 7:20 PM Lad Prabhakar
+> > <prabhakar.mahadev-lad.rj@bp.renesas.com> wrote:
+> > > Add VIN and CSI-2 nodes to RZ/G2H (R8A774E1) SoC dtsi.
+> > >
+> > > Signed-off-by: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+> > > Reviewed-by: Marian-Cristian Rotariu <marian-cristian.rotariu.rb@bp.renesas.com>
+> >
+> > Reviewed-by: Geert Uytterhoeven <geert+renesas@glider.be>
+> >
+> > However, before I queue this in renesas-devel for v5.10, I'd like to
+> > have some clarification about the issue below.
+> >
+> > > --- a/arch/arm64/boot/dts/renesas/r8a774e1.dtsi
+> > > +++ b/arch/arm64/boot/dts/renesas/r8a774e1.dtsi
+> >
+> > > +               vin4: video@e6ef4000 {
+> > > +                       compatible = "renesas,vin-r8a774e1";
+> > > +                       reg = <0 0xe6ef4000 0 0x1000>;
+> > > +                       interrupts = <GIC_SPI 174 IRQ_TYPE_LEVEL_HIGH>;
+> > > +                       clocks = <&cpg CPG_MOD 807>;
+> > > +                       power-domains = <&sysc R8A774E1_PD_ALWAYS_ON>;
+> > > +                       resets = <&cpg 807>;
+> > > +                       renesas,id = <4>;
+> > > +                       status = "disabled";
+> > > +
+> > > +                       ports {
+> > > +                               #address-cells = <1>;
+> > > +                               #size-cells = <0>;
+> > > +
+> > > +                               port@1 {
+> > > +                                       #address-cells = <1>;
+> > > +                                       #size-cells = <0>;
+> >
+> > "make dtbs W=1" says:
+> >
+> >     arch/arm64/boot/dts/renesas/r8a774e1.dtsi:1562.12-1572.7: Warning
+> > (graph_child_address): /soc/video@e6ef4000/ports/port@1: graph node
+> > has single child node 'endpoint@0', #address-cells/#size-cells are not
+> > necessary
+> >
+> > (same for vin5-7 below)
+> >
+> Referring to commit 5e53dbf4edb4d ("arm64: dts: renesas: r8a77990: Fix
+> VIN endpoint numbering") we definitely need endpoint numbering.
+> Probably the driver needs to be fixed to handle such cases.
 
-I bought a Creative USB X-Fi Pro (external USB DAC) which
-plays/records audio just fine out of the box. It
-features a volume knob and also an IR remote control (RM-820). These
-controls didn't work.
-I followed a guide which describes how to get the controls to work on
-Linux using LIRC
-alsa_usb driver (https://alsa.opensrc.org/Usb-audio under section
-"Creative USB X-Fi Surround 5.1").
+> > > +
+> > > +                                       reg = <1>;
+> > > +
+> > > +                                       vin4csi20: endpoint@0 {
+> > > +                                               reg = <0>;
+> > > +                                               remote-endpoint = <&csi20vin4>;
 
-It turned out the method didn't work for my device (LIRC wouldn't
-detect the IR device) so I did some digging
-and found this patch
-(https://github.com/torvalds/linux/commit/3dc8523fa7412e731441c01fb33f003eb3cfece1)
-which enables the volume knob for the device. I noticed the USB ID is
-041e:3237, while my device has 041e:3263.
-My device is marketed as "CREATIVE Sound Blaster X-Fi Surround 5.1 Pro
-v3" and only available since the
-beginning of 2019. So, I assume it to be another revision of the same
-hardware. The device model is SB1095.
+On R-Car E3, the single endpoint is at address 2, so "make dtbs W=1"doesn't
+complain. Here it is at address 0.
 
-I recompiled my kernel with the attached simple patch and the controls
-including the IR remote are now
-detected by LIRC and working.
+Niklas?
 
-I'd be happy if the change could be picked up if possible.
+Gr{oetje,eeting}s,
 
-Thank you
-Mirko
-
----
- sound/usb/mixer_quirks.c | 1 +
- 1 file changed, 1 insertion(+)
-
-diff --git a/sound/usb/mixer_quirks.c b/sound/usb/mixer_quirks.c
-index cec1cfd7edb7..199cdbfdc761 100644
---- a/sound/usb/mixer_quirks.c
-+++ b/sound/usb/mixer_quirks.c
-@@ -185,6 +185,7 @@ static const struct rc_config {
-        { USB_ID(0x041e, 0x3042), 0, 1, 1, 1,  1,  0x000d }, /* Usb X-Fi S51 */
-        { USB_ID(0x041e, 0x30df), 0, 1, 1, 1,  1,  0x000d }, /* Usb
-X-Fi S51 Pro */
-        { USB_ID(0x041e, 0x3237), 0, 1, 1, 1,  1,  0x000d }, /* Usb
-X-Fi S51 Pro */
-+       { USB_ID(0x041e, 0x3263), 0, 1, 1, 1,  1,  0x000d }, /* Usb
-X-Fi S51 Pro */
-        { USB_ID(0x041e, 0x3048), 2, 2, 6, 6,  2,  0x6e91 }, /*
-Toshiba SB0500 */
- };
+                        Geert
 
 -- 
-2.28.0
+Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
+
+In personal conversations with technical people, I call myself a hacker. But
+when I'm talking to journalists I just say "programmer" or something like that.
+                                -- Linus Torvalds

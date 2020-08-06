@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 52F9C23E048
-	for <lists+alsa-devel@lfdr.de>; Thu,  6 Aug 2020 20:26:14 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id BD20F23E049
+	for <lists+alsa-devel@lfdr.de>; Thu,  6 Aug 2020 20:26:29 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id CEDBC82E;
-	Thu,  6 Aug 2020 20:25:23 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CEDBC82E
+	by alsa0.perex.cz (Postfix) with ESMTPS id 526D01667;
+	Thu,  6 Aug 2020 20:25:39 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 526D01667
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1596738373;
-	bh=FHA57+AhyuwFu169uBnI07bF7rlOue//dBxLIpuhG/A=;
+	s=default; t=1596738389;
+	bh=mPsC61lMZKmtzeLxo601e47DlSg2SAAoFQgjc4SYv8o=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=rop8LhUdeVHKmiXF5LI1cp8658qYUwXv4LM6Q2bolbl9cxgeJ0Xc/YFLXFKJAR6UE
-	 ncvZyGQdz1N+rO9WWRJxmTfJRUmiIc24toOzcOq3uk9+k0ap5OVR/gxxEqO3prEHeD
-	 IiVPIPyQTRxXpPVryZW8/iQNdYOy4+3yJu4SOeek=
+	b=HRx4RiiUlSNx3abYkwoqcx03fMyIsX9G/dWgBIFnxMPv4Tn1QXxPDL7EHci6C8XbJ
+	 zJNyBLuoPiywVEGO9dcI2HcIi+vNgESnFf5byIW06suMHlfsM/BuLWSgFoM7rGIQnx
+	 GoE+RsSqMmNpzQKEmxQTrTnBrprh+iOIM7c/CHvM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 261E6F802DD;
+	by alsa1.perex.cz (Postfix) with ESMTP id D88FDF802DF;
 	Thu,  6 Aug 2020 20:23:27 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 60775F802DD; Thu,  6 Aug 2020 20:23:24 +0200 (CEST)
+ id 29BECF802DC; Thu,  6 Aug 2020 20:23:25 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: ***
 X-Spam-Status: No, score=3.5 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -34,29 +34,29 @@ X-Spam-Status: No, score=3.5 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 53673F80254
- for <alsa-devel@alsa-project.org>; Thu,  6 Aug 2020 20:23:18 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 53673F80254
+ by alsa1.perex.cz (Postfix) with ESMTPS id 6678CF802D2
+ for <alsa-devel@alsa-project.org>; Thu,  6 Aug 2020 20:23:22 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6678CF802D2
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="Rs2aObNQ"
+ header.b="o3fhH0ni"
 Received: from localhost.localdomain (unknown [194.230.155.117])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 8519E22DA9;
- Thu,  6 Aug 2020 18:23:14 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id 0F5F822DA7;
+ Thu,  6 Aug 2020 18:23:17 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1596738197;
- bh=FHA57+AhyuwFu169uBnI07bF7rlOue//dBxLIpuhG/A=;
+ s=default; t=1596738201;
+ bh=mPsC61lMZKmtzeLxo601e47DlSg2SAAoFQgjc4SYv8o=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=Rs2aObNQJlMWa6LY3B2iZMvRGGVQzv+LIW8Q3ctxhJwbIKpYxW8YTZiIi/TmOEbMv
- XVq8gvLS3NSvtcKuryMfVNyLvpf1QeUiW6aDppOAiigzQwabRPeTWoDJWESmkdcnzP
- pUyTm3JhvQa4kVYoiGsedS7Or576pd5nhRtdZSEI=
+ b=o3fhH0niDfjMM09Vzx/0teVjpyo+Nhlg9HvKFFa582tyrB5jzqOMQZGtqYlYakm/u
+ Un2t3ZKkAd3r4V59qdigc4NxmGn6gi7TgSQeyxY3CjyXCDLa8PRM4MYwDFrZ9P17pj
+ xoB+z2V0hITRznxzE5WRaKXmEb6fwq4bdCmo5pTQ=
 From: Krzysztof Kozlowski <krzk@kernel.org>
 To: linux-kernel@vger.kernel.org
-Subject: [PATCH v2 25/41] ASoC: samsung: neo1973: turn into platform driver
-Date: Thu,  6 Aug 2020 20:20:42 +0200
-Message-Id: <20200806182059.2431-25-krzk@kernel.org>
+Subject: [PATCH v2 26/41] ASoC: samsung: rx1950: turn into platform driver
+Date: Thu,  6 Aug 2020 20:20:43 +0200
+Message-Id: <20200806182059.2431-26-krzk@kernel.org>
 X-Mailer: git-send-email 2.17.1
 In-Reply-To: <20200806181932.2253-1-krzk@kernel.org>
 References: <20200806181932.2253-1-krzk@kernel.org>
@@ -88,204 +88,184 @@ combined with a platform_driver for this board.
 Signed-off-by: Arnd Bergmann <arnd@arndb.de>
 Signed-off-by: Krzysztof Kozlowski <krzk@kernel.org>
 ---
- arch/arm/mach-s3c24xx/mach-gta02.c | 17 ++++++
- sound/soc/samsung/neo1973_wm8753.c | 85 +++++++++---------------------
- 2 files changed, 43 insertions(+), 59 deletions(-)
+ arch/arm/mach-s3c24xx/mach-rx1950.c | 16 +++++++
+ sound/soc/samsung/rx1950_uda1380.c  | 72 +++++++++--------------------
+ 2 files changed, 39 insertions(+), 49 deletions(-)
 
-diff --git a/arch/arm/mach-s3c24xx/mach-gta02.c b/arch/arm/mach-s3c24xx/mach-gta02.c
-index 346a158f9960..46a80fae7056 100644
---- a/arch/arm/mach-s3c24xx/mach-gta02.c
-+++ b/arch/arm/mach-s3c24xx/mach-gta02.c
-@@ -15,6 +15,7 @@
- #include <linux/delay.h>
- #include <linux/timer.h>
- #include <linux/init.h>
-+#include <linux/gpio/machine.h>
- #include <linux/gpio.h>
- #include <linux/gpio_keys.h>
- #include <linux/workqueue.h>
-@@ -472,6 +473,20 @@ static struct platform_device gta02_buttons_device = {
+diff --git a/arch/arm/mach-s3c24xx/mach-rx1950.c b/arch/arm/mach-s3c24xx/mach-rx1950.c
+index 65440c39500e..a5461b2227bd 100644
+--- a/arch/arm/mach-s3c24xx/mach-rx1950.c
++++ b/arch/arm/mach-s3c24xx/mach-rx1950.c
+@@ -727,6 +727,20 @@ static struct i2c_board_info rx1950_i2c_devices[] = {
  	},
  };
  
-+static struct gpiod_lookup_table gta02_audio_gpio_table = {
-+	.dev_id = "neo1973-audio",
++static struct gpiod_lookup_table rx1950_audio_gpio_table = {
++	.dev_id = "rx1950-audio",
 +	.table = {
-+		GPIO_LOOKUP("GPIOJ", 2, "amp-shut", GPIO_ACTIVE_HIGH),
-+		GPIO_LOOKUP("GPIOJ", 1, "hp", GPIO_ACTIVE_HIGH),
++		GPIO_LOOKUP("GPIOG", 12, "hp-gpio", GPIO_ACTIVE_HIGH),
++		GPIO_LOOKUP("GPIOA", 1, "speaker-power", GPIO_ACTIVE_HIGH),
 +		{ },
 +	},
 +};
 +
-+static struct platform_device gta02_audio = {
-+	.name = "neo1973-audio",
++static struct platform_device rx1950_audio = {
++	.name = "rx1950-audio",
 +	.id = -1,
 +};
 +
- static void __init gta02_map_io(void)
- {
- 	s3c24xx_init_io(gta02_iodesc, ARRAY_SIZE(gta02_iodesc));
-@@ -496,6 +511,7 @@ static struct platform_device *gta02_devices[] __initdata = {
- 	&gta02_buttons_device,
- 	&s3c_device_adc,
- 	&s3c_device_ts,
-+	&gta02_audio,
+ static struct platform_device *rx1950_devices[] __initdata = {
+ 	&s3c2410_device_dclk,
+ 	&s3c_device_lcd,
+@@ -745,6 +759,7 @@ static struct platform_device *rx1950_devices[] __initdata = {
+ 	&power_supply,
+ 	&rx1950_battery,
+ 	&rx1950_leds,
++	&rx1950_audio,
  };
  
- static void gta02_poweroff(void)
-@@ -522,6 +538,7 @@ static void __init gta02_machine_init(void)
+ static void __init rx1950_map_io(void)
+@@ -812,6 +827,7 @@ static void __init rx1950_init_machine(void)
+ 	gpio_direction_output(S3C2410_GPJ(6), 0);
  
- 	i2c_register_board_info(0, gta02_i2c_devs, ARRAY_SIZE(gta02_i2c_devs));
+ 	pwm_add_table(rx1950_pwm_lookup, ARRAY_SIZE(rx1950_pwm_lookup));
++	gpiod_add_lookup_table(&rx1950_audio_gpio_table);
+ 	platform_add_devices(rx1950_devices, ARRAY_SIZE(rx1950_devices));
  
-+	gpiod_add_lookup_table(&gta02_audio_gpio_table);
- 	platform_add_devices(gta02_devices, ARRAY_SIZE(gta02_devices));
- 	pm_power_off = gta02_poweroff;
+ 	i2c_register_board_info(0, rx1950_i2c_devices,
+diff --git a/sound/soc/samsung/rx1950_uda1380.c b/sound/soc/samsung/rx1950_uda1380.c
+index 08f7c82aedb6..400a7f77c711 100644
+--- a/sound/soc/samsung/rx1950_uda1380.c
++++ b/sound/soc/samsung/rx1950_uda1380.c
+@@ -12,16 +12,13 @@
+ //          Vasily Khoruzhick <anarsoul@gmail.com>
  
-diff --git a/sound/soc/samsung/neo1973_wm8753.c b/sound/soc/samsung/neo1973_wm8753.c
-index 54317e0f68f8..9266070e0181 100644
---- a/sound/soc/samsung/neo1973_wm8753.c
-+++ b/sound/soc/samsung/neo1973_wm8753.c
-@@ -11,14 +11,11 @@
- 
- #include <linux/module.h>
- #include <linux/platform_device.h>
+ #include <linux/types.h>
 -#include <linux/gpio.h>
 +#include <linux/gpio/consumer.h>
+ #include <linux/module.h>
  
  #include <sound/soc.h>
+ #include <sound/jack.h>
  
 -#include <mach/gpio-samsung.h>
--#include <asm/mach-types.h>
  #include "regs-iis.h"
+-#include <asm/mach-types.h>
 -
- #include "../codecs/wm8753.h"
  #include "s3c24xx-i2s.h"
  
-@@ -166,6 +163,7 @@ static struct snd_soc_ops neo1973_voice_ops = {
- 	.hw_free = neo1973_voice_hw_free,
+ static int rx1950_uda1380_init(struct snd_soc_pcm_runtime *rtd);
+@@ -58,7 +55,6 @@ static struct snd_soc_jack_pin hp_jack_pins[] = {
+ 
+ static struct snd_soc_jack_gpio hp_jack_gpios[] = {
+ 	[0] = {
+-		.gpio			= S3C2410_GPG(12),
+ 		.name			= "hp-gpio",
+ 		.report			= SND_JACK_HEADPHONE,
+ 		.invert			= 1,
+@@ -123,8 +119,6 @@ static struct snd_soc_card rx1950_asoc = {
+ 	.num_dapm_routes = ARRAY_SIZE(audio_map),
  };
  
-+static struct gpio_desc *gpiod_hp_in, *gpiod_amp_shut;
- static int gta02_speaker_enabled;
- 
- static int lm4853_set_spk(struct snd_kcontrol *kcontrol,
-@@ -173,7 +171,7 @@ static int lm4853_set_spk(struct snd_kcontrol *kcontrol,
+-static struct platform_device *s3c24xx_snd_device;
+-
+ static int rx1950_startup(struct snd_pcm_substream *substream)
  {
- 	gta02_speaker_enabled = ucontrol->value.integer.value[0];
+ 	struct snd_pcm_runtime *runtime = substream->runtime;
+@@ -134,13 +128,15 @@ static int rx1950_startup(struct snd_pcm_substream *substream)
+ 					&hw_rates);
+ }
  
--	gpio_set_value(S3C2410_GPJ(2), !gta02_speaker_enabled);
-+	gpiod_set_value(gpiod_hp_in, !gta02_speaker_enabled);
++struct gpio_desc *gpiod_speaker_power;
++
+ static int rx1950_spk_power(struct snd_soc_dapm_widget *w,
+ 				struct snd_kcontrol *kcontrol, int event)
+ {
+ 	if (SND_SOC_DAPM_EVENT_ON(event))
+-		gpio_set_value(S3C2410_GPA(1), 1);
++		gpiod_set_value(gpiod_speaker_power, 1);
+ 	else
+-		gpio_set_value(S3C2410_GPA(1), 0);
++		gpiod_set_value(gpiod_speaker_power, 0);
  
  	return 0;
  }
-@@ -188,7 +186,7 @@ static int lm4853_get_spk(struct snd_kcontrol *kcontrol,
- static int lm4853_event(struct snd_soc_dapm_widget *w,
- 			struct snd_kcontrol *k, int event)
- {
--	gpio_set_value(S3C2410_GPJ(1), SND_SOC_DAPM_EVENT_OFF(event));
-+	gpiod_set_value(gpiod_amp_shut, SND_SOC_DAPM_EVENT_OFF(event));
- 
+@@ -214,57 +210,35 @@ static int rx1950_uda1380_init(struct snd_soc_pcm_runtime *rtd)
  	return 0;
  }
-@@ -308,13 +306,8 @@ static struct snd_soc_codec_conf neo1973_codec_conf[] = {
- 	},
- };
  
--static const struct gpio neo1973_gta02_gpios[] = {
--	{ S3C2410_GPJ(2), GPIOF_OUT_INIT_HIGH, "GTA02_HP_IN" },
--	{ S3C2410_GPJ(1), GPIOF_OUT_INIT_HIGH, "GTA02_AMP_SHUT" },
--};
--
- static struct snd_soc_card neo1973 = {
--	.name = "neo1973",
-+	.name = "neo1973gta02",
- 	.owner = THIS_MODULE,
- 	.dai_link = neo1973_dai,
- 	.num_links = ARRAY_SIZE(neo1973_dai),
-@@ -332,62 +325,36 @@ static struct snd_soc_card neo1973 = {
- 	.fully_routed = true,
- };
- 
--static struct platform_device *neo1973_snd_device;
--
--static int __init neo1973_init(void)
-+static int neo1973_probe(struct platform_device *pdev)
+-static int __init rx1950_init(void)
++static int rx1950_probe(struct platform_device *pdev)
  {
 -	int ret;
 -
--	if (!machine_is_neo1973_gta02())
+-	if (!machine_is_rx1950())
 -		return -ENODEV;
 +	struct device *dev = &pdev->dev;
  
--	if (machine_is_neo1973_gta02()) {
--		neo1973.name = "neo1973gta02";
--		neo1973.num_aux_devs = 1;
+ 	/* configure some gpios */
+-	ret = gpio_request(S3C2410_GPA(1), "speaker-power");
+-	if (ret)
+-		goto err_gpio;
 -
--		ret = gpio_request_array(neo1973_gta02_gpios,
--				ARRAY_SIZE(neo1973_gta02_gpios));
--		if (ret)
--			return ret;
-+	gpiod_hp_in = devm_gpiod_get(dev, "hp", GPIOD_OUT_HIGH);
-+	if (IS_ERR(gpiod_hp_in)) {
-+		dev_err(dev, "missing gpio %s\n", "hp");
-+		return PTR_ERR(gpiod_hp_in);
- 	}
+-	ret = gpio_direction_output(S3C2410_GPA(1), 0);
+-	if (ret)
+-		goto err_gpio_conf;
 -
--	neo1973_snd_device = platform_device_alloc("soc-audio", -1);
--	if (!neo1973_snd_device) {
+-	s3c24xx_snd_device = platform_device_alloc("soc-audio", -1);
+-	if (!s3c24xx_snd_device) {
 -		ret = -ENOMEM;
--		goto err_gpio_free;
-+	gpiod_amp_shut = devm_gpiod_get(dev, "amp-shut", GPIOD_OUT_HIGH);
-+	if (IS_ERR(gpiod_amp_shut)) {
-+		dev_err(dev, "missing gpio %s\n", "amp-shut");
-+		return PTR_ERR(gpiod_amp_shut);
+-		goto err_plat_alloc;
+-	}
+-
+-	platform_set_drvdata(s3c24xx_snd_device, &rx1950_asoc);
+-	ret = platform_device_add(s3c24xx_snd_device);
+-
+-	if (ret) {
+-		platform_device_put(s3c24xx_snd_device);
+-		goto err_plat_add;
++	gpiod_speaker_power = devm_gpiod_get(dev, "speaker-power", GPIOD_OUT_LOW);
++	if (IS_ERR(gpiod_speaker_power)) {
++		dev_err(dev, "cannot get gpio\n");
++		return PTR_ERR(gpiod_speaker_power);
  	}
  
--	platform_set_drvdata(neo1973_snd_device, &neo1973);
--	ret = platform_device_add(neo1973_snd_device);
--
--	if (ret)
--		goto err_put_device;
--
 -	return 0;
 -
--err_put_device:
--	platform_device_put(neo1973_snd_device);
--err_gpio_free:
--	if (machine_is_neo1973_gta02()) {
--		gpio_free_array(neo1973_gta02_gpios,
--				ARRAY_SIZE(neo1973_gta02_gpios));
--	}
--	return ret;
-+	neo1973.dev = dev;
-+	return devm_snd_soc_register_card(dev, &neo1973);
- }
--module_init(neo1973_init);
--
--static void __exit neo1973_exit(void)
--{
--	platform_device_unregister(neo1973_snd_device);
+-err_plat_add:
+-err_plat_alloc:
+-err_gpio_conf:
+-	gpio_free(S3C2410_GPA(1));
++	hp_jack_gpios[0].gpiod_dev = dev;
++	rx1950_asoc.dev = dev;
  
--	if (machine_is_neo1973_gta02()) {
--		gpio_free_array(neo1973_gta02_gpios,
--				ARRAY_SIZE(neo1973_gta02_gpios));
--	}
+-err_gpio:
+-	return ret;
++	return devm_snd_soc_register_card(dev, &rx1950_asoc);
+ }
+ 
+-static void __exit rx1950_exit(void)
+-{
+-	platform_device_unregister(s3c24xx_snd_device);
+-	gpio_free(S3C2410_GPA(1));
 -}
--module_exit(neo1973_exit);
-+struct platform_driver neo1973_audio = {
++struct platform_driver rx1950_audio = {
 +	.driver = {
-+		.name = "neo1973-audio",
++		.name = "rx1950-audio",
 +		.pm = &snd_soc_pm_ops,
 +	},
-+	.probe = neo1973_probe,
++	.probe = rx1950_probe,
 +};
-+module_platform_driver(neo1973_audio);
+ 
+-module_init(rx1950_init);
+-module_exit(rx1950_exit);
++module_platform_driver(rx1950_audio);
  
  /* Module information */
- MODULE_AUTHOR("Graeme Gregory, graeme@openmoko.org, www.openmoko.org");
- MODULE_DESCRIPTION("ALSA SoC WM8753 Neo1973 and Frerunner");
+ MODULE_AUTHOR("Vasily Khoruzhick");
+ MODULE_DESCRIPTION("ALSA SoC RX1950");
  MODULE_LICENSE("GPL");
-+MODULE_ALIAS("platform:neo1973-audio");
++MODULE_ALIAS("platform:rx1950-audio");
 -- 
 2.17.1
 

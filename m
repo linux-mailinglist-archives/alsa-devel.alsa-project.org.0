@@ -2,94 +2,48 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id ED2A723DA20
-	for <lists+alsa-devel@lfdr.de>; Thu,  6 Aug 2020 13:50:05 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 025BE23DA26
+	for <lists+alsa-devel@lfdr.de>; Thu,  6 Aug 2020 13:55:30 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 8EF8C82E;
-	Thu,  6 Aug 2020 13:49:15 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8EF8C82E
+	by alsa0.perex.cz (Postfix) with ESMTPS id 8FD6C82B;
+	Thu,  6 Aug 2020 13:54:39 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8FD6C82B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1596714605;
-	bh=+1Y/gsy1+1KUIj8s/vrC1qw2e5xhmoZYmdAxpeMGXvs=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
+	s=default; t=1596714929;
+	bh=A6xkKaxFfY+DyF4Lv2eKfuP/S7t14MPNNP9R7LE9IMA=;
+	h=From:To:In-Reply-To:References:Subject:Date:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=f4ZymHbPHYHNW+Z1nEeF6sViqmDtXCIVti8Jy8WbbLAPZumeSpFTrDkWe1EzaStZD
-	 PSYCDaiz6TbH80J1xMVN+5T1blpfDxI/uyWJo1IlX2TlBw8DaqMkjtvi1Y/jfVVBTf
-	 sPx1C+wdn4JJlAPSiiyFT2bNGvA/k1aAg/eJrumI=
+	b=aw4XaaLMHeO9vhoDK6VH7YMvWS4CJJmPp8V0SK5mtBScSHlu9QzPGsnxZYO8cPbbw
+	 1B1h2VgmQUvynQJkV/9O4jyylCRCDKzRZdoCjhr5YLX0ottkscW9ZDJrGqQaWIIL2D
+	 xLP0hKkRzSb54F7+kAS6txWjeIG3hhUDkyWvdIFc=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id CB378F800B7;
-	Thu,  6 Aug 2020 13:48:24 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id C1A4FF8015A;
+	Thu,  6 Aug 2020 13:53:48 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 84BA4F80159; Thu,  6 Aug 2020 13:48:22 +0200 (CEST)
+ id D7FB3F80159; Thu,  6 Aug 2020 13:53:46 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=0.8 required=5.0 tests=FREEMAIL_FORGED_FROMDOMAIN,
- FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,PRX_BODY_13,PRX_BODY_135,
- RCVD_IN_MSPIKE_H3,RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from mail-ot1-f67.google.com (mail-ot1-f67.google.com
- [209.85.210.67])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id E4B31F80086
- for <alsa-devel@alsa-project.org>; Thu,  6 Aug 2020 13:48:10 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E4B31F80086
-Received: by mail-ot1-f67.google.com with SMTP id r21so25379296ota.10
- for <alsa-devel@alsa-project.org>; Thu, 06 Aug 2020 04:48:10 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=GfRNKclYJY9TFgLDludWTlpzguMceCfSaUZal/qDN6s=;
- b=uiwtEU/FIyyODWu+1HVqhVg/qHTHAy0+N0s6K3af19aWn8DNdJ/TPJ+mrvrfioeReC
- YOERSqiz43M9wUrmT9/aIA2z7nCekpC5sGpsZ+KRS8OP2wGYvKsh+nSQL7CJKxWQ9CwO
- 9KReN+k9EB41+2VVAVsqauKLX/8y7RxXvnEZ97QQzSjazjj7cpfwq9xv+cJ8w6OERGHP
- FKOteasaHEACwHdsIjqybsKfPGsTcd63Wj4AedYecGnbFB74iKeCu6gn4AZVSzi3HNeZ
- 2sxJq6DnmCWI+HajnSv1IQakj0Hb8OLplK7TQVgm0PZ0U6reeDaOni19qARBD6lI/EEv
- GCIQ==
-X-Gm-Message-State: AOAM533jlm2FVxPp4DowD++VMQYRsGunCMNr/AyivotGSPNo28i/8uR4
- YsgYELQRVBoRJ3VvWWP8xw2fcjfdiaflIhthh3ZEA4GH
-X-Google-Smtp-Source: ABdhPJxsjDZTTqPo+9e6awj5yV1LG1Imzyw5Civ8gt7ap18JuUVGKty3JozPE/qiMGjuARTMT9EOZFY2swizOMfqf1E=
-X-Received: by 2002:a05:6830:1b79:: with SMTP id
- d25mr6431613ote.107.1596714489705; 
- Thu, 06 Aug 2020 04:48:09 -0700 (PDT)
+X-Spam-Level: **
+X-Spam-Status: No, score=2.5 required=5.0 tests=MISSING_DATE,MISSING_MID,
+ SPF_FAIL,SPF_HELO_NONE autolearn=disabled version=3.4.0
+Received: from webhooks-bot.alsa-project.org (gate.perex.cz [77.48.224.242])
+ by alsa1.perex.cz (Postfix) with ESMTP id 2F6CEF800B7
+ for <alsa-devel@alsa-project.org>; Thu,  6 Aug 2020 13:53:35 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2F6CEF800B7
 MIME-Version: 1.0
-References: <1594919915-5225-1-git-send-email-prabhakar.mahadev-lad.rj@bp.renesas.com>
- <1594919915-5225-21-git-send-email-prabhakar.mahadev-lad.rj@bp.renesas.com>
- <CAMuHMdVriWnPK8-=w=0mq8yj9+1jbsg9yH8aV=ygyHsQ0f-CQQ@mail.gmail.com>
- <CA+V-a8vXjhV-EeQb=bBhoRmuVA=0GSuFiV33N9nkhi39VNN6oA@mail.gmail.com>
-In-Reply-To: <CA+V-a8vXjhV-EeQb=bBhoRmuVA=0GSuFiV33N9nkhi39VNN6oA@mail.gmail.com>
-From: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Thu, 6 Aug 2020 13:47:58 +0200
-Message-ID: <CAMuHMdXie+GfKBO22mFrn4oG_y7YUxU9ekQdWnp1hn-6z2mLuQ@mail.gmail.com>
-Subject: Re: [PATCH 20/20] arm64: dts: renesas: r8a774e1: Add VIN and CSI-2
- nodes
-To: "Lad, Prabhakar" <prabhakar.csengg@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Cc: ALSA Development Mailing List <alsa-devel@alsa-project.org>,
- linux-pci <linux-pci@vger.kernel.org>,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- linux-ide@vger.kernel.org, Linux I2C <linux-i2c@vger.kernel.org>,
- Marek Vasut <marek.vasut+renesas@gmail.com>,
- Magnus Damm <magnus.damm@gmail.com>, Kishon Vijay Abraham I <kishon@ti.com>,
- Linux Media Mailing List <linux-media@vger.kernel.org>,
- "open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS"
- <devicetree@vger.kernel.org>,
- Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>,
- =?UTF-8?Q?Niklas_S=C3=B6derlund?= <niklas.soderlund@ragnatech.se>,
- Rob Herring <robh+dt@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>,
- Mauro Carvalho Chehab <mchehab@kernel.org>, Jens Axboe <axboe@kernel.dk>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Yoshihiro Shimoda <yoshihiro.shimoda.uh@renesas.com>,
- USB list <linux-usb@vger.kernel.org>, Liam Girdwood <lgirdwood@gmail.com>,
- Linux-Renesas <linux-renesas-soc@vger.kernel.org>,
- Vinod Koul <vkoul@kernel.org>, Mark Brown <broonie@kernel.org>,
- dmaengine <dmaengine@vger.kernel.org>
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
+From: GitHub pull_request - opened <github@alsa-project.org>
+To: alsa-devel@alsa-project.org
+In-Reply-To: <1596714815273674965-webhooks-bot@alsa-project.org>
+References: <1596714815273674965-webhooks-bot@alsa-project.org>
+Subject: Correct conflicting mic in max98090
+Message-Id: <20200806115346.D7FB3F80159@alsa1.perex.cz>
+Date: Thu,  6 Aug 2020 13:53:46 +0200 (CEST)
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -105,76 +59,12 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hi Prabhakar,
+alsa-project/alsa-ucm-conf pull request #43 was opened from jacobopantoja:
 
-On Thu, Aug 6, 2020 at 1:17 PM Lad, Prabhakar
-<prabhakar.csengg@gmail.com> wrote:
-> On Wed, Aug 5, 2020 at 12:19 PM Geert Uytterhoeven <geert@linux-m68k.org> wrote:
-> > On Thu, Jul 16, 2020 at 7:20 PM Lad Prabhakar
-> > <prabhakar.mahadev-lad.rj@bp.renesas.com> wrote:
-> > > Add VIN and CSI-2 nodes to RZ/G2H (R8A774E1) SoC dtsi.
-> > >
-> > > Signed-off-by: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
-> > > Reviewed-by: Marian-Cristian Rotariu <marian-cristian.rotariu.rb@bp.renesas.com>
-> >
-> > Reviewed-by: Geert Uytterhoeven <geert+renesas@glider.be>
-> >
-> > However, before I queue this in renesas-devel for v5.10, I'd like to
-> > have some clarification about the issue below.
-> >
-> > > --- a/arch/arm64/boot/dts/renesas/r8a774e1.dtsi
-> > > +++ b/arch/arm64/boot/dts/renesas/r8a774e1.dtsi
-> >
-> > > +               vin4: video@e6ef4000 {
-> > > +                       compatible = "renesas,vin-r8a774e1";
-> > > +                       reg = <0 0xe6ef4000 0 0x1000>;
-> > > +                       interrupts = <GIC_SPI 174 IRQ_TYPE_LEVEL_HIGH>;
-> > > +                       clocks = <&cpg CPG_MOD 807>;
-> > > +                       power-domains = <&sysc R8A774E1_PD_ALWAYS_ON>;
-> > > +                       resets = <&cpg 807>;
-> > > +                       renesas,id = <4>;
-> > > +                       status = "disabled";
-> > > +
-> > > +                       ports {
-> > > +                               #address-cells = <1>;
-> > > +                               #size-cells = <0>;
-> > > +
-> > > +                               port@1 {
-> > > +                                       #address-cells = <1>;
-> > > +                                       #size-cells = <0>;
-> >
-> > "make dtbs W=1" says:
-> >
-> >     arch/arm64/boot/dts/renesas/r8a774e1.dtsi:1562.12-1572.7: Warning
-> > (graph_child_address): /soc/video@e6ef4000/ports/port@1: graph node
-> > has single child node 'endpoint@0', #address-cells/#size-cells are not
-> > necessary
-> >
-> > (same for vin5-7 below)
-> >
-> Referring to commit 5e53dbf4edb4d ("arm64: dts: renesas: r8a77990: Fix
-> VIN endpoint numbering") we definitely need endpoint numbering.
-> Probably the driver needs to be fixed to handle such cases.
+'mic' was conflicting 'mic' instead of 'headset', thus preventing correct configuration regarding microphones.
 
-> > > +
-> > > +                                       reg = <1>;
-> > > +
-> > > +                                       vin4csi20: endpoint@0 {
-> > > +                                               reg = <0>;
-> > > +                                               remote-endpoint = <&csi20vin4>;
+With this corrected, introducing a headset enables 'headset' mic and disables internal 'mic', whereas releasing the headset disables 'headset' mic and enables internal 'mic'
 
-On R-Car E3, the single endpoint is at address 2, so "make dtbs W=1"doesn't
-complain. Here it is at address 0.
-
-Niklas?
-
-Gr{oetje,eeting}s,
-
-                        Geert
-
--- 
-Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
-
-In personal conversations with technical people, I call myself a hacker. But
-when I'm talking to journalists I just say "programmer" or something like that.
-                                -- Linus Torvalds
+Request URL   : https://github.com/alsa-project/alsa-ucm-conf/pull/43
+Patch URL     : https://github.com/alsa-project/alsa-ucm-conf/pull/43.patch
+Repository URL: https://github.com/alsa-project/alsa-ucm-conf

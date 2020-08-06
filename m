@@ -2,67 +2,95 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1AEE223D560
-	for <lists+alsa-devel@lfdr.de>; Thu,  6 Aug 2020 04:22:08 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5D2BF23D5E9
+	for <lists+alsa-devel@lfdr.de>; Thu,  6 Aug 2020 06:02:27 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B80211670;
-	Thu,  6 Aug 2020 04:21:17 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B80211670
+	by alsa0.perex.cz (Postfix) with ESMTPS id C890E829;
+	Thu,  6 Aug 2020 06:01:36 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C890E829
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1596680527;
-	bh=/kTAf5X8CkjfypR727oDSX4mbfTl07k3JeiuNOEnnJ8=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=g07ea2oiL8pK1RmnCo3jePyoiPzYVuZNosBPcXUN4N7H75oOGpvWcg/hA4eBFeyeP
-	 GwJQKxmb+v9x8OQPcSN6YnJnn2lhNnSZWb5rCl96feQvNFz1y3JKcfnYGRj+T0XEH6
-	 iU3uVSRhK6/OMugfn0UmQK3hqpjum21Dv+f+jpWg=
+	s=default; t=1596686546;
+	bh=bzJ4dtXroWYGUCk/+lpxRnjmjTTQC4S4CNnyDNaHNfw=;
+	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=rm8XHRBjRJuNCNJNsv07Tl4Wp+EOCxjbJTxlCmiUyZM5/tlypiez+BqvinBCmlddN
+	 MIydg515Es1eZp9XqsxWTWNuW+5pEpwULqN7gvxToZ4+CPh+3zNVSMxle1KvsbHvbz
+	 QfJFTa4cUGVKKIA14XrWeSXvQ4OP3Yiidy7cPICs=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id EEBD8F80086;
-	Thu,  6 Aug 2020 04:19:42 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id EC163F800B7;
+	Thu,  6 Aug 2020 06:00:45 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 6FC73F8015D; Thu,  6 Aug 2020 04:19:41 +0200 (CEST)
+ id CD3CCF80159; Thu,  6 Aug 2020 06:00:41 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from casper.infradead.org (casper.infradead.org
- [IPv6:2001:8b0:10b:1236::1])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Level: *
+X-Spam-Status: No, score=1.5 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ NICE_REPLY_A,RCVD_IN_MSPIKE_H2,RCVD_IN_SORBS_WEB,SPF_HELO_NONE,SPF_PASS,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mail29.static.mailgun.info (mail29.static.mailgun.info
+ [104.130.122.29])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 4363EF80086
- for <alsa-devel@alsa-project.org>; Thu,  6 Aug 2020 04:19:35 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4363EF80086
+ by alsa1.perex.cz (Postfix) with ESMTPS id 3F664F800B7
+ for <alsa-devel@alsa-project.org>; Thu,  6 Aug 2020 06:00:33 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3F664F800B7
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org
- header.b="crkZ/ujv"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=infradead.org; s=casper.20170209; h=Content-Transfer-Encoding:MIME-Version:
- Message-Id:Date:Subject:Cc:To:From:Sender:Reply-To:Content-Type:Content-ID:
- Content-Description:In-Reply-To:References;
- bh=xofDKx+o3lfDCmu16wOwUA02EP86ThN0YOQmggCIzCs=; b=crkZ/ujvSIDdXY+v4hPfwRHs9q
- 0+U0bSOKKrL8q+xXgaLa9xT24ax+PIYKAefYMJdT5kL2y1H6uHBuyd/ZQ4ietlku+km8OAAUyw4TW
- C1QWy2CSeGb/X7GDHpLzJvzwSyETOO6ymWM25xwqhieF67OoYz/q7uIMcec5jvBzuE/85xxuSuer+
- w+7xUYyR57O+iFKqDCoc4bEvUVa6vj0EOShLeqDX3SqNQ1K3OwxEKbsoG+05/3kHhwsDI9eQAFITh
- RVb0LOllnw0azwyoV26Dmu1lasO+PCNDIHsGV5+/PkLPkEfFslvWNYcMYRc+EHNYg6gDfpSspHJT4
- sQ5hzOKw==;
-Received: from [2601:1c0:6280:3f0::19c2] (helo=smtpauth.infradead.org)
- by casper.infradead.org with esmtpsa (Exim 4.92.3 #3 (Red Hat Linux))
- id 1k3VVC-0007us-2G; Thu, 06 Aug 2020 02:19:31 +0000
-From: Randy Dunlap <rdunlap@infradead.org>
-To: linux-kernel@vger.kernel.org
-Subject: [PATCH] sound: pci: delete repeated words in comments
-Date: Wed,  5 Aug 2020 19:19:26 -0700
-Message-Id: <20200806021926.32418-1-rdunlap@infradead.org>
-X-Mailer: git-send-email 2.26.2
+ dkim=pass (1024-bit key) header.d=mg.codeaurora.org
+ header.i=@mg.codeaurora.org header.b="E0xfXNjS"
+DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
+ q=dns/txt; 
+ s=smtp; t=1596686436; h=Content-Transfer-Encoding: Content-Type:
+ In-Reply-To: MIME-Version: Date: Message-ID: From: References: Cc: To:
+ Subject: Sender; bh=385LRkURABpjFHvOhGppwgzxlDi5diqKefwwA9AZkPM=;
+ b=E0xfXNjSnqYklr5/91dC6c69Qx9mD7LZNArYvnu81NTSuhc3iT1kko3Z7GScdNUbLT9I3KHK
+ M8sADWHR0TcZfdPYKYZBbMB5++F2DZyJ1Uye9UDQLENdLghtsmuuNBVR45d7PGWUYZttsXtj
+ AbTJnh0gFREyhbCC7GdRTm6dGXg=
+X-Mailgun-Sending-Ip: 104.130.122.29
+X-Mailgun-Sid: WyI4ZmE2ZSIsICJhbHNhLWRldmVsQGFsc2EtcHJvamVjdC5vcmciLCAiYmU5ZTRhIl0=
+Received: from smtp.codeaurora.org
+ (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171]) by
+ smtp-out-n02.prod.us-east-1.postgun.com with SMTP id
+ 5f2b804e725833be30595867 (version=TLS1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Thu, 06 Aug 2020 04:00:14
+ GMT
+Received: by smtp.codeaurora.org (Postfix, from userid 1001)
+ id 2DB8BC433CA; Thu,  6 Aug 2020 04:00:14 +0000 (UTC)
+Received: from [192.168.0.129] (unknown [183.83.142.110])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested) (Authenticated sender: rohitkr)
+ by smtp.codeaurora.org (Postfix) with ESMTPSA id 0D254C433C6;
+ Thu,  6 Aug 2020 03:59:58 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 smtp.codeaurora.org 0D254C433C6
+Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
+ dmarc=none (p=none dis=none) header.from=codeaurora.org
+Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
+ spf=none smtp.mailfrom=rohitkr@codeaurora.org
+Subject: Re: [PATCH v4 01/12] ASoC: qcom: Add common array to initialize soc
+ based core clocks
+To: Stephen Boyd <sboyd@kernel.org>, agross@kernel.org,
+ alsa-devel@alsa-project.org, bgoswami@codeaurora.org,
+ bjorn.andersson@linaro.org, broonie@kernel.org, devicetree@vger.kernel.org,
+ lgirdwood@gmail.com, linux-arm-msm@vger.kernel.org,
+ linux-kernel@vger.kernel.org, perex@perex.cz, plai@codeaurora.org,
+ robh+dt@kernel.org, srinivas.kandagatla@linaro.org, tiwai@suse.com
+References: <1595413915-17867-1-git-send-email-rohitkr@codeaurora.org>
+ <1595413915-17867-2-git-send-email-rohitkr@codeaurora.org>
+ <159667391634.1360974.15763918681460437981@swboyd.mtv.corp.google.com>
+From: Rohit Kumar <rohitkr@codeaurora.org>
+Message-ID: <989f1d99-3cd0-e725-3f6d-43facf1ec04d@codeaurora.org>
+Date: Thu, 6 Aug 2020 09:29:48 +0530
+User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:68.0) Gecko/20100101
+ Thunderbird/68.11.0
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Cc: alsa-devel@alsa-project.org, Randy Dunlap <rdunlap@infradead.org>,
- Clemens Ladisch <clemens@ladisch.de>, Takashi Iwai <tiwai@suse.com>
+In-Reply-To: <159667391634.1360974.15763918681460437981@swboyd.mtv.corp.google.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 7bit
+Content-Language: en-US
+Cc: Ajit Pandey <ajitp@codeaurora.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -78,98 +106,33 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Drop duplicated words in sound/pci/.
-{and, the, at}
+Thanks Stephen for reviewing.
 
-Signed-off-by: Randy Dunlap <rdunlap@infradead.org>
-Cc: Jaroslav Kysela <perex@perex.cz>
-Cc: Takashi Iwai <tiwai@suse.com>
-Cc: alsa-devel@alsa-project.org
-Cc: Clemens Ladisch <clemens@ladisch.de>
----
- sound/pci/cs46xx/cs46xx_lib.c       |    2 +-
- sound/pci/cs46xx/dsp_spos_scb_lib.c |    2 +-
- sound/pci/hda/hda_codec.c           |    2 +-
- sound/pci/hda/hda_generic.c         |    2 +-
- sound/pci/hda/patch_sigmatel.c      |    2 +-
- sound/pci/ice1712/prodigy192.c      |    2 +-
- sound/pci/oxygen/xonar_dg.c         |    2 +-
- 7 files changed, 7 insertions(+), 7 deletions(-)
+On 8/6/2020 6:01 AM, Stephen Boyd wrote:
+> Quoting Rohit kumar (2020-07-22 03:31:44)
+>> From: Ajit Pandey <ajitp@codeaurora.org>
+>>
+>> LPASS variants have their own soc specific clocks that needs to be
+>> enabled for MI2S audio support. Added a common variable in drvdata to
+>> initialize such clocks using bulk clk api. Such clock names is
+>> defined in variants specific data and needs to fetched during init.
+> Why not just get all the clks and not even care about the names of them?
+> Use devm_clk_bulk_get_all() for that, unless some clks need to change
+> rates?
 
---- linux-next-20200805.orig/sound/pci/cs46xx/cs46xx_lib.c
-+++ linux-next-20200805/sound/pci/cs46xx/cs46xx_lib.c
-@@ -766,7 +766,7 @@ static void snd_cs46xx_set_capture_sampl
- 		rate = 48000 / 9;
- 
- 	/*
--	 *  We can not capture at at rate greater than the Input Rate (48000).
-+	 *  We can not capture at a rate greater than the Input Rate (48000).
- 	 *  Return an error if an attempt is made to stray outside that limit.
- 	 */
- 	if (rate > 48000)
---- linux-next-20200805.orig/sound/pci/cs46xx/dsp_spos_scb_lib.c
-+++ linux-next-20200805/sound/pci/cs46xx/dsp_spos_scb_lib.c
-@@ -1716,7 +1716,7 @@ int cs46xx_iec958_pre_open (struct snd_c
- 	struct dsp_spos_instance * ins = chip->dsp_spos_instance;
- 
- 	if ( ins->spdif_status_out & DSP_SPDIF_STATUS_OUTPUT_ENABLED ) {
--		/* remove AsynchFGTxSCB and and PCMSerialInput_II */
-+		/* remove AsynchFGTxSCB and PCMSerialInput_II */
- 		cs46xx_dsp_disable_spdif_out (chip);
- 
- 		/* save state */
---- linux-next-20200805.orig/sound/pci/hda/hda_codec.c
-+++ linux-next-20200805/sound/pci/hda/hda_codec.c
-@@ -3428,7 +3428,7 @@ EXPORT_SYMBOL_GPL(snd_hda_set_power_save
-  * @nid: NID to check / update
-  *
-  * Check whether the given NID is in the amp list.  If it's in the list,
-- * check the current AMP status, and update the the power-status according
-+ * check the current AMP status, and update the power-status according
-  * to the mute status.
-  *
-  * This function is supposed to be set or called from the check_power_status
---- linux-next-20200805.orig/sound/pci/hda/hda_generic.c
-+++ linux-next-20200805/sound/pci/hda/hda_generic.c
-@@ -813,7 +813,7 @@ static void activate_amp_in(struct hda_c
- 	}
- }
- 
--/* sync power of each widget in the the given path */
-+/* sync power of each widget in the given path */
- static hda_nid_t path_power_update(struct hda_codec *codec,
- 				   struct nid_path *path,
- 				   bool allow_powerdown)
---- linux-next-20200805.orig/sound/pci/hda/patch_sigmatel.c
-+++ linux-next-20200805/sound/pci/hda/patch_sigmatel.c
-@@ -838,7 +838,7 @@ static int stac_auto_create_beep_ctls(st
- 	static const struct snd_kcontrol_new beep_vol_ctl =
- 		HDA_CODEC_VOLUME(NULL, 0, 0, 0);
- 
--	/* check for mute support for the the amp */
-+	/* check for mute support for the amp */
- 	if ((caps & AC_AMPCAP_MUTE) >> AC_AMPCAP_MUTE_SHIFT) {
- 		const struct snd_kcontrol_new *temp;
- 		if (spec->anabeep_nid == nid)
---- linux-next-20200805.orig/sound/pci/ice1712/prodigy192.c
-+++ linux-next-20200805/sound/pci/ice1712/prodigy192.c
-@@ -32,7 +32,7 @@
-  *		  Experimentally I found out that only a combination of
-  *		  OCKS0=1, OCKS1=1 (128fs, 64fs output) and ice1724 -
-  *		  VT1724_MT_I2S_MCLK_128X=0 (256fs input) yields correct
-- *		  sampling rate. That means the the FPGA doubles the
-+ *		  sampling rate. That means that the FPGA doubles the
-  *		  MCK01 rate.
-  *
-  *	Copyright (c) 2003 Takashi Iwai <tiwai@suse.de>
---- linux-next-20200805.orig/sound/pci/oxygen/xonar_dg.c
-+++ linux-next-20200805/sound/pci/oxygen/xonar_dg.c
-@@ -29,7 +29,7 @@
-  *   GPIO 4 <- headphone detect
-  *   GPIO 5 -> enable ADC analog circuit for the left channel
-  *   GPIO 6 -> enable ADC analog circuit for the right channel
-- *   GPIO 7 -> switch green rear output jack between CS4245 and and the first
-+ *   GPIO 7 -> switch green rear output jack between CS4245 and the first
-  *             channel of CS4361 (mechanical relay)
-  *   GPIO 8 -> enable output to speakers
-  *
+There is ahbix clk which needs clk rate to be set. Please check below 
+patch in
+
+the series for reference
+
+[PATCH v5 02/12] ASoC: qcom: lpass-cpu: Move ahbix clk to platform 
+specific function
+
+Thanks,
+
+Rohit
+
+-- 
+Qualcomm INDIA, on behalf of Qualcomm Innovation Center, Inc.is a member
+of the Code Aurora Forum, hosted by the Linux Foundation.
+

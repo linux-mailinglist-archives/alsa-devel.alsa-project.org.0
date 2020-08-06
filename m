@@ -2,109 +2,130 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5863823D863
-	for <lists+alsa-devel@lfdr.de>; Thu,  6 Aug 2020 11:16:54 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 32B8723D93A
+	for <lists+alsa-devel@lfdr.de>; Thu,  6 Aug 2020 12:22:30 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E47CD166A;
-	Thu,  6 Aug 2020 11:16:03 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E47CD166A
+	by alsa0.perex.cz (Postfix) with ESMTPS id B76AD1675;
+	Thu,  6 Aug 2020 12:21:39 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B76AD1675
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1596705414;
-	bh=rTGtTn/emJAtIimMu3rBd1IpbuDXjjehh2FyqVG9Iwg=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=kQ3Zp0TRdwP67Vjm8uXs9WrxxGHkkmstOtpeMeEeA4P7u5adZO+KHQUzEv4S9ZvIG
-	 If+oBOxJkiv+8rCjRTs0phS9TUi5T7UMgA4Si3UBZ1Q9HqbwqhiBFfhtHKPz6PVrsc
-	 JqlgCUhKLYeTpb9SBa6vYPHjT0FMFeM8tbYFI9F4=
+	s=default; t=1596709349;
+	bh=gbRXDJElZZBqAwDqQ2RCDiEc7IUh/rjVOdxT9bUAUxg=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=o6XzLuySXKQFd7jCWvoOWFMzT2H6GvTvpr5Z6cNRIgz5TQ/0wUXOEqcWF3HO3FRB2
+	 bU1NuUJmUQu4QfBVb3HwNUpR2OWtAn2+ws+6BVbr4AdIURAHROzJw0INLoU7l8G+zg
+	 O91cblnUlUzV0Kv8Rrq7kgaupQiUTwmAm3PX4beY=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 17EF1F8015A;
-	Thu,  6 Aug 2020 11:15:13 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id EA156F80159;
+	Thu,  6 Aug 2020 12:20:48 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 663E6F80159; Thu,  6 Aug 2020 11:15:10 +0200 (CEST)
+ id 64E2AF80159; Thu,  6 Aug 2020 12:20:46 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,RCVD_IN_MSPIKE_H3,RCVD_IN_MSPIKE_WL,SPF_HELO_PASS,SPF_PASS,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from out2-smtp.messagingengine.com (out2-smtp.messagingengine.com
- [66.111.4.26])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+X-Spam-Level: *
+X-Spam-Status: No, score=1.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ FORGED_SPF_HELO,RCVD_IN_MSPIKE_H2,SPF_HELO_PASS,SPF_NONE,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from NAM04-CO1-obe.outbound.protection.outlook.com
+ (mail-eopbgr690075.outbound.protection.outlook.com [40.107.69.75])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id A37ECF800B7;
- Thu,  6 Aug 2020 11:15:04 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A37ECF800B7
+ by alsa1.perex.cz (Postfix) with ESMTPS id 54E02F800B7
+ for <alsa-devel@alsa-project.org>; Thu,  6 Aug 2020 12:20:35 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 54E02F800B7
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=sakamocchi.jp header.i=@sakamocchi.jp
- header.b="YSuxN43Z"; 
- dkim=pass (2048-bit key) header.d=messagingengine.com
- header.i=@messagingengine.com header.b="a4htpZaC"
-Received: from compute2.internal (compute2.nyi.internal [10.202.2.42])
- by mailout.nyi.internal (Postfix) with ESMTP id 4DDDB5C01D9;
- Thu,  6 Aug 2020 05:15:03 -0400 (EDT)
-Received: from mailfrontend2 ([10.202.2.163])
- by compute2.internal (MEProxy); Thu, 06 Aug 2020 05:15:03 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sakamocchi.jp;
- h=date:from:to:cc:subject:message-id:references:mime-version
- :content-type:in-reply-to; s=fm2; bh=2du+NCvGva8NqJAR7uK1+WcXq5Y
- UI3qSposCF3nkDsg=; b=YSuxN43ZkEr66EL0840T6W3+AFBoeyYs6VThsfOeqrg
- 3csj3N3mFNtAo/Ri29vrfA/AqGCf4IXtV8Iris1LtWAmqlS2yECgfugt5AE8DTOc
- hshtwC+E4ek07YSvi2AX5nz8GTAsDns8HfRiL88tPKJ6Vr+FqUD3Qhg7RJKZeauI
- s7xmU4Q6H2esmULLuaKj2VHhMWRmNbTyvnHE2VLH8LHlMchgrB+wxx39kSdjtCSo
- lciBt21znTH97XoJqFKrc39e1HGX2jnCdwKQWu4uqxqxcU9D9xuV9LOpXyQpkldD
- RLdVC//9KNNiLE+RTcNkLFBz6qPEBdC6mvrK/2pLqQg==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to:x-me-proxy
- :x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; bh=2du+NC
- vGva8NqJAR7uK1+WcXq5YUI3qSposCF3nkDsg=; b=a4htpZaCdhKps2URaXJtd/
- 7yIO/QIksadLrUvroASVfoqTrRI1o/VKzFVYy4whWvSoFAk5p5nk5VTanIgViXoo
- J/hEA7iwwWdHSrrXIQvwB3yxxu9DT3jn7IWn2TUffkBFSoAaq4coMhIzuYs4Qbe5
- i2Zw7CYFZQbuvIvMSrLodNNiB/TBr6m5loVWrO+JuiuexefalnVHiy4v4TEaqbBj
- q49OMJNkNW+WbyhrW+2udYJATSmmHXklM+Kd/29nFL1/rm+K0GZx6m5zYWCu2lgA
- UFnkuAVfAzK6EJj74rALIv9IkJrwyzq7UpKmx1G1J+aLE6AUPxPi4HVz3XQnJsKg
- ==
-X-ME-Sender: <xms:FsorXzf7U7irnNP17bv51oxIu4cEHwTOnHOWdGoJrtoP2yNGypJ00Q>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeduiedrkedtgddugecutefuodetggdotefrodftvf
- curfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfghnecu
- uegrihhlohhuthemuceftddtnecunecujfgurhepfffhvffukfhfgggtuggjsehttdertd
- dttddvnecuhfhrohhmpefvrghkrghshhhiucfurghkrghmohhtohcuoehoqdhtrghkrghs
- hhhisehsrghkrghmohgttghhihdrjhhpqeenucggtffrrghtthgvrhhnpefgveetvefgve
- eftdegfeehkeeukeevkeefheehfffhkeetkedtvdehfeejledtieenucffohhmrghinhep
- fihikhhiphgvughirgdrohhrghenucfkphepudektddrvdefhedrfedrheegnecuvehluh
- hsthgvrhfuihiivgeptdenucfrrghrrghmpehmrghilhhfrhhomhepohdqthgrkhgrshhh
- ihesshgrkhgrmhhotggthhhirdhjph
-X-ME-Proxy: <xmx:FsorX5N8H4Dp733yJXI9KPj1YDBdf8EHJkrC4PPWNZsrZmqprrN8Rg>
- <xmx:FsorX8h0OCDJ-ocaEQG5PzLMnQVQv-xDZcCaoGb8uWTKtNZZ3DW4oQ>
- <xmx:FsorX0_VOM4n0geNbS1elYkjLW4NvzFhwEPHmPLA0MzgplQ537Tl1g>
- <xmx:F8orX4WbkeKqzlQ5gUwdgZtpsDiRoKasTdiuU5ngg7_9S7dE014OLg>
-Received: from workstation (ad003054.dynamic.ppp.asahi-net.or.jp
- [180.235.3.54])
- by mail.messagingengine.com (Postfix) with ESMTPA id 0EA4030600A3;
- Thu,  6 Aug 2020 05:15:00 -0400 (EDT)
-Date: Thu, 6 Aug 2020 18:14:58 +0900
-From: Takashi Sakamoto <o-takashi@sakamocchi.jp>
-To: Tom Yan <tom.ty89@gmail.com>
-Subject: Re: Why doesn't mixer control (values) have some kind of locking
- mechanism? (mutex?)
-Message-ID: <20200806091458.GA360003@workstation>
-Mail-Followup-To: Tom Yan <tom.ty89@gmail.com>, alsa-devel@alsa-project.org,
- alsa-user@alsa-project.org,
- pulseaudio-discuss@lists.freedesktop.org,
- pierre-louis.bossart@linux.intel.com
-References: <CAGnHSEkpYqyZJjG587FSVUzYX2zV1tm83zj+uGjF4e24o4iAMA@mail.gmail.com>
- <20200806020601.GA6286@laptop>
- <CAGnHSEnMhF-1y7rL=JsmcFdTNVaA5ygv5N4TS9dhpORyOm+H_A@mail.gmail.com>
+ dkim=pass (1024-bit key) header.d=amdcloud.onmicrosoft.com
+ header.i=@amdcloud.onmicrosoft.com header.b="Zxy6kdsh"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=fTae+7Sj+AGN2g7GR/qRZcWL54z1zSWWhgrNawmOJQvR9eZldE3Dxvji9fUC5hmX4nPxVjFUrDVqbQKv6HJ8IVPdjWLrtvwgxkdI6k5CaEZ/8ohrFHx/p1sE+TBkjUVKnyo/9/zm/YJg+bJTC0lQxtBPfD2BPFUoEgOPYwZaIhyKBFHN9MWKNgXGfzOgHhJCl7RjVjpGCgmSrFVoqFr5hWlSYMph6E9wCU5Zv5KBCOG4UPRWnqImYc8XqoxZoNcrlv71gk7fuuYYIxTf4xxvMzVgLyIPscDsZXdFtuF9FDx9Urza2dq3hnY7TIhgpn95R+Eu01nNfF7ZaLsvKLHrcg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=3VyfaXDNa7Hma5eJuOzSgefADULYJJJwfduBrclNEME=;
+ b=nUOfpRpKRsqIW5BgvYIxqjsae0pCJ6/ilhVVus2p2gA/MD3xvQxXS906Nvcx5J9OzZHngaWT5zyOGZBNh/F0FYc3ipcDDPNnZXcXE7pcuCAYoDLrklGiCXh+expPUVnJ+bclMApLzFoaVivV6l39oVX4mkYXDIMUHvFtP8UV/9ojm0511gzxXl23i8b8Xuv9nrWgG7Q5H50AoKhcZcQXZSdclG5TNRvC3Ume3mgF7xYLX1A5x6EQ1brMEzSEGIbAhXPAYnkgXrDtThi42DlQ8z/863fC+jqQgmIxikQZFR31npZWs82Bd7hGl3CQonvj0GFqxyosn4MBPTOqLax2zA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=gmail.com smtp.mailfrom=amd.com;
+ dmarc=permerror action=none header.from=amd.com; dkim=none (message not
+ signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=3VyfaXDNa7Hma5eJuOzSgefADULYJJJwfduBrclNEME=;
+ b=Zxy6kdshfws6qOdKz0Y+bOyd/1GYy9A7hyIY6FxIANP2060GM/McppGaJGlGEe/+YpE20cmvRm6lYcOIlPhjOal4fXMpnGf2YusY/+5ZgAmXGOE1McT0JhvffLWBSlWJjiP1VGGIrdMMQdiO1OSP4wGFAi6KtmcKc0OjPP+pDyA=
+Received: from BN6PR13CA0061.namprd13.prod.outlook.com (2603:10b6:404:11::23)
+ by BN6PR1201MB2499.namprd12.prod.outlook.com (2603:10b6:404:b2::8)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3261.18; Thu, 6 Aug
+ 2020 10:20:20 +0000
+Received: from BN8NAM11FT018.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:404:11:cafe::90) by BN6PR13CA0061.outlook.office365.com
+ (2603:10b6:404:11::23) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3261.13 via Frontend
+ Transport; Thu, 6 Aug 2020 10:20:20 +0000
+X-MS-Exchange-Authentication-Results: spf=none (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; gmail.com; dkim=none (message not signed)
+ header.d=none;gmail.com; dmarc=permerror action=none header.from=amd.com;
+Received-SPF: None (protection.outlook.com: amd.com does not designate
+ permitted sender hosts)
+Received: from SATLEXMB01.amd.com (165.204.84.17) by
+ BN8NAM11FT018.mail.protection.outlook.com (10.13.176.89) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.3261.16 via Frontend Transport; Thu, 6 Aug 2020 10:20:20 +0000
+Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB01.amd.com
+ (10.181.40.142) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1713.5; Thu, 6 Aug 2020
+ 05:20:20 -0500
+Received: from SATLEXMB02.amd.com (10.181.40.143) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1713.5; Thu, 6 Aug 2020
+ 05:20:20 -0500
+Received: from vishnu-All-Series.amd.com (10.180.168.240) by
+ SATLEXMB02.amd.com (10.181.40.143) with Microsoft SMTP Server id 15.1.1713.5
+ via Frontend Transport; Thu, 6 Aug 2020 05:20:13 -0500
+From: Ravulapati Vishnu vardhan rao <Vishnuvardhanrao.Ravulapati@amd.com>
+To: 
+Subject: [PATCH] ASoC: amd: Replacing component->name with codec_dai->name
+Date: Thu, 6 Aug 2020 15:44:12 +0530
+Message-ID: <20200806101451.7918-1-Vishnuvardhanrao.Ravulapati@amd.com>
+X-Mailer: git-send-email 2.17.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <CAGnHSEnMhF-1y7rL=JsmcFdTNVaA5ygv5N4TS9dhpORyOm+H_A@mail.gmail.com>
-Cc: alsa-devel@alsa-project.org, pulseaudio-discuss@lists.freedesktop.org,
- alsa-user@alsa-project.org, pierre-louis.bossart@linux.intel.com
+Content-Type: text/plain
+X-EOPAttributedMessage: 0
+X-MS-Office365-Filtering-HT: Tenant
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 807df74e-d080-4a60-8765-08d839f252c5
+X-MS-TrafficTypeDiagnostic: BN6PR1201MB2499:
+X-Microsoft-Antispam-PRVS: <BN6PR1201MB2499B00BD57B72053857CA97E7480@BN6PR1201MB2499.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:1122;
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: VNEE8EYIWloaO8Xb37+TP9MAuhKuO/ACUM1ZCpPa9WJpyEmv5ijgCq3DuSq/96OouIIdZR84TrXc/JD5pFp6Kn3fRPK3yom/H+lEeTBWs4W1O/68BJ93kuOstfCv750u0Ie+ace9+JqbJiZdHDCPxflRuJoFfnG81TOEUc/mSxSKqSjOJojjWa6P+E8YJKIvhOzmfe4mu0sXZdRA+mkE8DZiQJ8s+a1dQa52a8sraLt8U+009bdUVwuCvaMbhyAt5XMlUm2cmXbNwyOUZ1jm25yuOfdXocGNfr8oHKDfTntxtYNkvmtzEwICeRkOi3+b6HylRJSoo7fpTQOSAcQCgss5UAYBkHSJxn941P0UHC6W3VmkmscxUx0y/0jykNiH0K31+07Pu3w8lsYF+yR4r24JSHHMcTKDnb3TIUPmdIM=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:SATLEXMB01.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFTY:;
+ SFS:(4636009)(39860400002)(136003)(346002)(376002)(396003)(46966005)(82310400002)(356005)(47076004)(186003)(7696005)(81166007)(336012)(26005)(2906002)(86362001)(478600001)(83380400001)(82740400003)(109986005)(426003)(54906003)(1076003)(316002)(8936002)(5660300002)(70206006)(70586007)(4744005)(4326008)(8676002)(2616005)(36756003)(266003);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Aug 2020 10:20:20.6031 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 807df74e-d080-4a60-8765-08d839f252c5
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB01.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BN8NAM11FT018.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN6PR1201MB2499
+Cc: "moderated list:SOUND - SOC LAYER / DYNAMIC AUDIO POWER MANAGEM..."
+ <alsa-devel@alsa-project.org>,
+ Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>, Liam
+ Girdwood <lgirdwood@gmail.com>, open list <linux-kernel@vger.kernel.org>,
+ YueHaibing <yuehaibing@huawei.com>, Takashi Iwai <tiwai@suse.com>,
+ Akshu Agrawal <akshu.agrawal@amd.com>, Mark Brown <broonie@kernel.org>,
+ Ravulapati Vishnu vardhan rao <Vishnuvardhanrao.Ravulapati@amd.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -120,60 +141,27 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hi,
+Replacing string compare with codec_dai->name instead of comparing with
+codec_dai->component->name in hw_params.
 
-On Thu, Aug 06, 2020 at 04:57:02PM +0800, Tom Yan wrote:
-> The problem/race I am trying to point out is, one process can
-> get()/read before another finishing its get()+put() pair (which is
-> required by volume setting/adjusting), so something like
-> get1()->get2()->put1()->put2() could easily happen (where each put()
-> relies on / is "configured" with volumes of their respective get()).
-> The lock will need to intentionally stall further get()/read as well.
+Signed-off-by: Ravulapati Vishnu vardhan rao <Vishnuvardhanrao.Ravulapati@amd.com>
+---
+ sound/soc/amd/acp3x-rt5682-max9836.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-In my opinion, in the above case, it's possible to serialize each
-transaction which consists of get/put (read/write in userspace
-application) with lock/unlock mechanism.
-
-+-----------+-----------+
-| process A | process B |
-+-----------+-----------+
-|   lock    |           |
-|   get     |           |
-|           |lock(EPERM)| reschedule lock/get/set/unlock actions
-|   set     |           |
-|           |lock(EPERM)| reschedule lock/get/set/unlock actions
-|  unlock   |           |
-|           |   lock    |
-|           |   get     |
-|           |   set     |
-|           |  unlock   |
-+-----------+-----------+
-
-(Of course, the above is achieved when the series of operations is done
-by userspace applications. For simplicity, I don't mention about
-in-kernel initiators of the get/set actions. In this point, I don't
-address to the message Pierre posted.)
-
-> If we for some reason want to avoid using locks, put() needs to be
-> atomic by design (like, "embed" get() in itself and use arrays for
-> volume values, instead of requiring those to be implemented in the
-> userspace manually / with a loop). Unfortunately that isn't the case
-> in ALSA.
+diff --git a/sound/soc/amd/acp3x-rt5682-max9836.c b/sound/soc/amd/acp3x-rt5682-max9836.c
+index 55815fdaa1aa..406526e79af3 100644
+--- a/sound/soc/amd/acp3x-rt5682-max9836.c
++++ b/sound/soc/amd/acp3x-rt5682-max9836.c
+@@ -138,7 +138,7 @@ static int acp3x_1015_hw_params(struct snd_pcm_substream *substream,
+ 	srate = params_rate(params);
  
-I get your intension is something like compare-and-swap[1]. At present,
-ALSA control core has no functionality like it, but it's worth to
-investigate. The ioctl request should includes a pair of 'struct
-snd_ctl_elem_value' in its argument. In a design of ALSA control
-core, the pair should be processed in each driver since ALSA control
-core has no 'cache' of the content of 'struct snd_ctl_elem_value' except
-for user-defined control element set.
+ 	for_each_rtd_codec_dais(rtd, i, codec_dai) {
+-		if (strcmp(codec_dai->component->name, "rt1015-aif"))
++		if (strcmp(codec_dai->name, "rt1015-aif"))
+ 			continue;
+ 		ret = snd_soc_dai_set_bclk_ratio(codec_dai, 64);
+ 		if (ret < 0)
+-- 
+2.17.1
 
-Here, would I ask your opinion to the lock/get/set/unlock actions
-from userspace? It can really not be one of solution for the issue?
-
-[1] https://en.wikipedia.org/wiki/Compare-and-swap
-
-
-Regards
-
-Takashi Sakamoto

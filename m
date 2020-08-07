@@ -2,75 +2,107 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id CB7C723EDAB
-	for <lists+alsa-devel@lfdr.de>; Fri,  7 Aug 2020 15:07:55 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B118923EE85
+	for <lists+alsa-devel@lfdr.de>; Fri,  7 Aug 2020 16:02:24 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 730FD1663;
-	Fri,  7 Aug 2020 15:07:05 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 730FD1663
+	by alsa0.perex.cz (Postfix) with ESMTPS id 1D3181614;
+	Fri,  7 Aug 2020 16:01:34 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1D3181614
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1596805675;
-	bh=ynKUQ5C/IjqwdqP7kbjsgNu6KaqCrQYoxaO95yslmQI=;
-	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
+	s=default; t=1596808944;
+	bh=E1l2Y5ZIjWI5QG7qOlzxqvOBRIRXBvhbLk0WYq3N6Dk=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=GNZ0JW6r2N/cpumnTz+56D5pKcaiNhWSsFyp8F+9kVhNCXua4XX4v73uwWQ8z4LAA
-	 4Oz0bvHWmEaDM7ug/11XZCfb4+wbUQAUJqYyz6Y6tmEC5K7xhK3f4otUdADR+NpxyU
-	 RIb4wUCVapDrsu5RxbWWPEK+/JU1cw1Z2AmqmhkM=
+	b=VqJPl86/YDVNV/NDGM7qEDM65L3QXGiAm0xtXyPKD5RLJ+l4K0zf6VmXX9tRvQQAK
+	 kQa51t/2lCKttdAKDsCup93sjHBmmDYi7kDS+LFgcuk7dzcPPUSuJk+M9v5RmPrf/X
+	 FMWqfNmjB8lXdwtm3pjLfPpmMnQJwVteHNvOA0IY=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id B59A8F800B7;
-	Fri,  7 Aug 2020 15:06:27 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 3347BF8020B;
+	Fri,  7 Aug 2020 16:00:43 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id CBECBF8023E; Fri,  7 Aug 2020 15:06:25 +0200 (CEST)
+ id BF24EF80218; Fri,  7 Aug 2020 16:00:40 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-1.5 required=5.0 tests=NICE_REPLY_A,SPF_HELO_NONE,
- SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,RCVD_IN_MSPIKE_H3,RCVD_IN_MSPIKE_WL,SPF_HELO_PASS,SPF_PASS,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from wout3-smtp.messagingengine.com (wout3-smtp.messagingengine.com
+ [64.147.123.19])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 4E0E8F800B7
- for <alsa-devel@alsa-project.org>; Fri,  7 Aug 2020 15:06:14 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4E0E8F800B7
-IronPort-SDR: ipRwaT4x65uiaoIYH8ua2fG55bjMEOlj3UG2U4q/BvcaitK9aua0lQgzmkbz5Zn6D9mkf4OTip
- 9Vh4jf/gBZag==
-X-IronPort-AV: E=McAfee;i="6000,8403,9705"; a="140667225"
-X-IronPort-AV: E=Sophos;i="5.75,445,1589266800"; d="scan'208";a="140667225"
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from orsmga002.jf.intel.com ([10.7.209.21])
- by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 07 Aug 2020 06:05:53 -0700
-IronPort-SDR: 0yMK1IswMLYSYBpMw2tB5IO4yqD7SzTvDmbx8BQ5dXIUV9EPWBhfRp7D6eLUBeJYDqxWMVqxau
- E1O/DJKEUw0g==
-X-IronPort-AV: E=Sophos;i="5.75,445,1589266800"; d="scan'208";a="307370116"
-Received: from aslawinx-mobl1.ger.corp.intel.com (HELO [10.249.153.24])
- ([10.249.153.24])
- by orsmga002-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 07 Aug 2020 06:05:49 -0700
-Subject: Re: [PATCH 00/13] ASoC: Intel: Catpt - Lynx and Wildcat point
-To: Cezary Rojewski <cezary.rojewski@intel.com>, alsa-devel@alsa-project.org
-References: <20200807110649.17114-1-cezary.rojewski@intel.com>
-From: =?UTF-8?Q?Amadeusz_S=c5=82awi=c5=84ski?=
- <amadeuszx.slawinski@linux.intel.com>
-Message-ID: <275aa4b8-a98e-9d32-38ad-746783731fe0@linux.intel.com>
-Date: Fri, 7 Aug 2020 15:05:46 +0200
-User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:68.0) Gecko/20100101
- Thunderbird/68.11.0
+ by alsa1.perex.cz (Postfix) with ESMTPS id 3C630F801F7
+ for <alsa-devel@alsa-project.org>; Fri,  7 Aug 2020 16:00:32 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3C630F801F7
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=sakamocchi.jp header.i=@sakamocchi.jp
+ header.b="QQ/T6vfa"; 
+ dkim=pass (2048-bit key) header.d=messagingengine.com
+ header.i=@messagingengine.com header.b="H/B6qni4"
+Received: from compute2.internal (compute2.nyi.internal [10.202.2.42])
+ by mailout.west.internal (Postfix) with ESMTP id AB6CDB67;
+ Fri,  7 Aug 2020 10:00:29 -0400 (EDT)
+Received: from mailfrontend1 ([10.202.2.162])
+ by compute2.internal (MEProxy); Fri, 07 Aug 2020 10:00:29 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sakamocchi.jp;
+ h=date:from:to:cc:subject:message-id:references:mime-version
+ :content-type:in-reply-to; s=fm2; bh=mWSkS+mfjNKEGI2aeMrwmTsHZZd
+ wBq26FhEdVwDj3y0=; b=QQ/T6vfaneXf1gDbI/5vkik2U9gzMYw6CwmorUhElrc
+ OFu5FzEgWI/YbrozppKs9zu65hZ9YgYmGTRhjsQuHg8MZIQta9HYugI6HzU4xk5m
+ NsQR/U9nfVmLpqnQ9nRS9GC4z2BedIVkWAAEQzWPN0RM6vIewoi8knrxquEHylu/
+ vsKqnOCSkhp3h8rgBOM407TDFGjKyvay7dOU8LGVVF5fncUqdGr95/YnYYM5Jo2w
+ AWkiTHnsY3lMSqVFunVHcIscR7S4fCyzTTdjUal00kpQSa5hqa0GaCv6YtCise8M
+ bk0oNEtixVNpZVPnYWH+LPBjWQacL2T3hPmXRw9u4iA==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to:x-me-proxy
+ :x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; bh=mWSkS+
+ mfjNKEGI2aeMrwmTsHZZdwBq26FhEdVwDj3y0=; b=H/B6qni4vo7hsXsSHDPxXI
+ SMCjbFUtQKf8kYf9tn9aSuiSsEDD81a5C9F0h+8FqTxNa1FMSH1RfVunB3FGye3K
+ pMu8jrZZdcC/TISxlkPiiuf+FIl0czu8Oli38mImTRclQ76+MQTEE02UkKleakEx
+ 2dalyTNbaVkOZJi0ppcbWV3cE9Kgi9lTTnMgwSgH+IQEUSrqYjpPFdAQyVaWuIkx
+ AdE6w98Q1vH7hWGOvZU4Ux2ZWsLTSY425CGsAHOGu2dVoRZvqrZnTKZcYYXT7g8P
+ SQlLT3Bp2ZLis7Zh87rWKeKAKc52od88By85unIAq0pNziKq/24jRZ7d/ud9l/sw
+ ==
+X-ME-Sender: <xms:e14tXwEOprAjx-ELwtIJbsJc8p6K2Uz_ai082wBBSh7Un1sM03Az_w>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeduiedrkedvgdeikecutefuodetggdotefrodftvf
+ curfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfghnecu
+ uegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenog
+ fuuhhsphgvtghtffhomhgrihhnucdlgeelmdenucfjughrpeffhffvuffkfhggtggujges
+ thdtredttddtvdenucfhrhhomhepvfgrkhgrshhhihcuufgrkhgrmhhothhouceoohdqth
+ grkhgrshhhihesshgrkhgrmhhotggthhhirdhjpheqnecuggftrfgrthhtvghrnhepledv
+ geduieffkeettedtieelleekheelleehgfegveejgeeihffgueeileeviefhnecuffhomh
+ grihhnpehgihhthhhusgdrtghomhdpghhithhhuhgsrdhiohenucfkphepudektddrvdef
+ hedrfedrheegnecuvehluhhsthgvrhfuihiivgeptdenucfrrghrrghmpehmrghilhhfrh
+ homhepohdqthgrkhgrshhhihesshgrkhgrmhhotggthhhirdhjph
+X-ME-Proxy: <xmx:e14tX5X4KnbZ7I_fCeTlehFmjvLRcLZtxyHk6embDU8FsuECjKgAAg>
+ <xmx:e14tX6INXkIoRniIWgQ0nC1qjDARx2G2qT3-MIfVHP0KN-bWQjm34w>
+ <xmx:e14tXyHGhhRS8aKxo7Hu7jInJiRdTPQFgKZvypH6oMpLKycTg7wTmg>
+ <xmx:fV4tXxDJO9T3w27NOxxQk1V5wqlNxp8EG3SByRo71wjxuo68YueNFw>
+Received: from workstation (ad003054.dynamic.ppp.asahi-net.or.jp
+ [180.235.3.54])
+ by mail.messagingengine.com (Postfix) with ESMTPA id 74DBA3280063;
+ Fri,  7 Aug 2020 10:00:26 -0400 (EDT)
+Date: Fri, 7 Aug 2020 23:00:24 +0900
+From: Takashi Sakamoto <o-takashi@sakamocchi.jp>
+To: Takashi Iwai <tiwai@suse.de>
+Subject: Re: request for missing access permission to libhinawa repository
+Message-ID: <20200807140024.GA476204@workstation>
+Mail-Followup-To: Takashi Iwai <tiwai@suse.de>,
+ Jaroslav Kysela <perex@perex.cz>,
+ ALSA development <alsa-devel@alsa-project.org>
+References: <20200807051853.GA453546@workstation>
+ <e45a2bc4-af63-3996-35f6-6558261c9106@perex.cz>
+ <s5hv9huanoi.wl-tiwai@suse.de>
 MIME-Version: 1.0
-In-Reply-To: <20200807110649.17114-1-cezary.rojewski@intel.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 8bit
-Cc: andriy.shevchenko@intel.com, filip.kaczmarski@intel.com,
- harshapriya.n@intel.com, ppapierkowski@habana.ai, marcin.barlik@intel.com,
- zwisler@google.com, pierre-louis.bossart@linux.intel.com, lgirdwood@gmail.com,
- filip.proborszcz@intel.com, broonie@kernel.org, michal.wasko@intel.com,
- tiwai@suse.com, cujomalainey@chromium.org, vamshi.krishna.gopal@intel.com
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <s5hv9huanoi.wl-tiwai@suse.de>
+Cc: ALSA development <alsa-devel@alsa-project.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -86,20 +118,39 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+Hi,
 
-
-On 8/7/2020 1:06 PM, Cezary Rojewski wrote:
-
+On Fri, Aug 07, 2020 at 10:02:37AM +0200, Takashi Iwai wrote:
+> On Fri, 07 Aug 2020 09:52:36 +0200,
+> Jaroslav Kysela wrote:
+> > 
+> > Dne 07. 08. 20 v 7:18 Takashi Sakamoto napsal(a):
+> > > Hi Iwai-san,
+> > > 
+> > > As Jaroslav is absent so long[1] (summer vacation?), I would like you to
+> > > arrange some team/repository settings for libhinawa.
+> > > 
+> > > I lost my write permission to libhinawa repository[2] since Jaroslav's
+> > > arrangement for github team. You are an owner of 'alsa-project' team in
+> > > github.com, and I guess you have enough permission to configure below items:
+> > > 
+> > > 1. setting enough permission for my account to libhinawa repository
+> > > 2. add libhinawa repository to 'GObject Introspection' team[2]
+> > 
+> > Oops. The permissions are fixed now. Sorry for the long delay.
+> > 
+> > 						Jaroslav
 > 
-> Special thanks go to Marcin Barlik and Piotr Papierkowski for sharing
-> their LPT/WPT AudioDSP architecture expertise as well as helping
-> backtrack its historical background.
-> My thanks go to Amadeusz Slawinski for reviews and improvements proposed
-> on and off the internal list. Most of diff below is his contribution.
-> Krzysztof Hejmowski helped me setup my own Xtensa environment and
-> recompile LPT/WPT FW binary sources what sped up the development greatly.
-> 
-As mentioned I've already seen those patches before and gone through 
-them once again now, as I have no more comments:
+> Ah, you already fixed, that's why I didn't find anything wrong :)
 
-Reviewed-by: Amadeusz Sławiński <amadeuszx.slawinski@linux.intel.com>
+At last I can push into the remote branch. Thank you.
+
+And I'd like Jaroslav to fix repository desctiption with correct URL to
+documentation so that a few users are not puzzled. At present, it's
+https://takaswie.github.io/libhinawa-docs/ but should be
+https://alsa-project.github.io/libhinawa-docs/.
+
+
+Regards
+
+Takashi Sakamoto

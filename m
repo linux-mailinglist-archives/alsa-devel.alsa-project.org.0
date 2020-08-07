@@ -2,67 +2,88 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D76F623E795
-	for <lists+alsa-devel@lfdr.de>; Fri,  7 Aug 2020 09:14:53 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A298623E7C8
+	for <lists+alsa-devel@lfdr.de>; Fri,  7 Aug 2020 09:20:00 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 74E7415F9;
-	Fri,  7 Aug 2020 09:14:03 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 74E7415F9
+	by alsa0.perex.cz (Postfix) with ESMTPS id 17199852;
+	Fri,  7 Aug 2020 09:19:10 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 17199852
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1596784493;
-	bh=RdvMiUCKF4djFC+UEiFcwjCT5iQydTS7NWGjg6dmw4Q=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=Gs3Jk2YO2zyCytFeXr89IOyM66nQWX9EqxP2vnlFZMKpFi+mV+WuOM4bnF9S5sPD9
-	 Xr1uXMhMrFaNAXLW/2ZR98OR7NJHtrVrUnBqFh9K1tvmRKeDOgjlI5r1lfuPSToPxu
-	 d+tYegmWLBRw3xgF6RhBKRAyOMIwhiwbGMtPHYKs=
+	s=default; t=1596784800;
+	bh=NUt34D/6YEtSDuqFEZZoKde/qrGAp0Eyp/6vO+rdzxs=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=KKKSp/tmrB0mWrx9ymhaj88u9g7aheR6aDRjPcg2xw/0Goj/bPj0Fg8ahEyYC2He9
+	 o2PDH5msCF3Mhlg6WG9Dli3WbkJ19Trh8dxE4lAqsNFwDUDBhxsYTJTqMcC8ltn7Yr
+	 nfHxpL0rGVyi8UJfBeqzFBliYEKHQ7cEQK9BrnXM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 98DC3F801F7;
-	Fri,  7 Aug 2020 09:13:12 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 4A959F80234;
+	Fri,  7 Aug 2020 09:18:19 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 1AC0EF80218; Fri,  7 Aug 2020 09:13:10 +0200 (CEST)
+ id C5415F80218; Fri,  7 Aug 2020 09:18:16 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.0 required=5.0 tests=SPF_HELO_PASS,SPF_PASS,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from zju.edu.cn (mail.zju.edu.cn [61.164.42.155])
- by alsa1.perex.cz (Postfix) with ESMTP id 7A127F801F7
- for <alsa-devel@alsa-project.org>; Fri,  7 Aug 2020 09:12:57 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7A127F801F7
-Received: from localhost.localdomain (unknown [210.32.144.186])
- by mail-app4 (Coremail) with SMTP id cS_KCgBXznnl_ixfYKOuAA--.36381S4;
- Fri, 07 Aug 2020 15:12:41 +0800 (CST)
-From: Dinghao Liu <dinghao.liu@zju.edu.cn>
-To: dinghao.liu@zju.edu.cn,
-	kjlu@umn.edu
-Subject: [PATCH] ALSA: usb-audio: Fix memleak in scarlett2_add_new_ctl
-Date: Fri,  7 Aug 2020 15:12:27 +0800
-Message-Id: <20200807071229.9533-1-dinghao.liu@zju.edu.cn>
-X-Mailer: git-send-email 2.17.1
-X-CM-TRANSID: cS_KCgBXznnl_ixfYKOuAA--.36381S4
-X-Coremail-Antispam: 1UD129KBjvdXoW7GrWUXr43WrW8ZFW7Xr18Zrb_yoWftwc_Wa
- 1rXw1kuF1UG3sIyr1UCr1fArn0y3WfA3WFyFsrKa97ZFyjy3yrtryxXr93Cr1IkFs5Kr1D
- Crn7ZFyakryIvjkaLaAFLSUrUUUUUb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
- 9fnUUIcSsGvfJTRUUUbxkFc2x0x2IEx4CE42xK8VAvwI8IcIk0rVWrJVCq3wAFIxvE14AK
- wVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK021l84ACjcxK6xIIjxv20x
- vE14v26w1j6s0DM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26rxl6s0DM28EF7xvwVC2z280
- aVAFwI0_GcCE3s1l84ACjcxK6I8E87Iv6xkF7I0E14v26rxl6s0DM2AIxVAIcxkEcVAq07
- x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r1j6r18
- McIj6I8E87Iv67AKxVWUJVW8JwAm72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IYc2Ij64vIr4
- 1lF7I21c0EjII2zVCS5cI20VAGYxC7MxkIecxEwVAFwVW8CwCF04k20xvY0x0EwIxGrwCF
- 04k20xvE74AGY7Cv6cx26r4fKr1UJr1l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4
- xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r126r1D
- MIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_Jr0_JF4lIxAIcVC0I7IYx2IY6xkF7I
- 0E14v26r1j6r4UMIIF0xvE42xK8VAvwI8IcIk0rVWrZr1j6s0DMIIF0xvEx4A2jsIE14v2
- 6r1j6r4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Jr0_GrUvcSsGvfC2KfnxnUUI43ZEXa7VUb
- hiSPUUUUU==
-X-CM-SenderInfo: qrrzjiaqtzq6lmxovvfxof0/1tbiAgECBlZdtPbBHgACsT
-Cc: linux-kernel@vger.kernel.org, alsa-devel@alsa-project.org,
- "Geoffrey D. Bennett" <g@b4.vu>, Takashi Iwai <tiwai@suse.com>
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_PASS autolearn=disabled
+ version=3.4.0
+Received: from mail-qt1-x841.google.com (mail-qt1-x841.google.com
+ [IPv6:2607:f8b0:4864:20::841])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 26580F800AB
+ for <alsa-devel@alsa-project.org>; Fri,  7 Aug 2020 09:18:09 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 26580F800AB
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
+ header.b="a/CYaZUT"
+Received: by mail-qt1-x841.google.com with SMTP id b25so639841qto.2
+ for <alsa-devel@alsa-project.org>; Fri, 07 Aug 2020 00:18:09 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=BjBgjmOHw57678g0o5hgG5E9h3ORFUrabBo5u11RIkM=;
+ b=a/CYaZUTnaXHYxqHoecfCwYEelSne77o/fgIVbDNgujdYRVXwWmuaYBlO1L60+Q7wi
+ VAV9GzcIaEiwrsQqXgQ3CbqbZwpM7Rm67s3wC/vPd0V1vU10vpdIVlwFdQSGnXWT9iFL
+ FrBz/EmG2SzhpE4MAtfAGijqdjnGgI7x9BkGB8b9wkvXFAs3sWZfS3cuNBWuUjeF144e
+ WqmS/sjKnHERyHXHj1D4ub7NJFhZrZzLmQcpm9CfbG1MfC82t2ZP2lvZExDnEwQGDZ6T
+ C7y9vnBi+pglIAzfJqty3goo1Mshzlovbmb77WUsXZEshGSm43rphjfMNd8HoqJuCBZC
+ OelQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=BjBgjmOHw57678g0o5hgG5E9h3ORFUrabBo5u11RIkM=;
+ b=bsAJKsG7rpgGEB/PusgkqY4PwQXWIbadPteyXUdqTjH+XO2JmheqwGcTzrYS4RpClS
+ DbAgUAGlKxv9bjwIk+poqpv9GGwi1uAPjjkYCj9ACw6wSRdzu9K44tr1+VarJQRx8cNE
+ 3x6+pWc3UBnx0Df/uNW5BFDwVN4JpRjw4/ipWJIe02dmKycPdwaPXPYDIHPVY3phAhDa
+ uTnatCUicmpM2xxAYxUHx4lsT4ljOiy4QWCK8vTFE1gYoeVKJ+A+yjPo1xhVoKVSkfgd
+ KjffESB9um6CyxhL+2YZ7bofZaZkBgUDXunqOij7QSFge8hHgxS0tq4lcm+wVrylSsHz
+ MuQQ==
+X-Gm-Message-State: AOAM532cgg9gqkwUypQL02gSMrlllmEjH6NmUswBAqmGm2nHDA025jJD
+ k5nsCgzefA79V+9EBSgZ25rFmDU+6yVQtJwTvig=
+X-Google-Smtp-Source: ABdhPJwH6rQ4Xtx8TIDeCErClcwMqaVFrhF6ev68LM4jAENVmB3yaTIBDChUTbXFpgYfNjU12TzCBsz0qDFzNQ4T+OM=
+X-Received: by 2002:ac8:450c:: with SMTP id q12mr12563634qtn.292.1596784688131; 
+ Fri, 07 Aug 2020 00:18:08 -0700 (PDT)
+MIME-Version: 1.0
+References: <1596699585-27429-1-git-send-email-shengjiu.wang@nxp.com>
+ <20200806123721.GC6442@sirena.org.uk>
+In-Reply-To: <20200806123721.GC6442@sirena.org.uk>
+From: Shengjiu Wang <shengjiu.wang@gmail.com>
+Date: Fri, 7 Aug 2020 15:17:57 +0800
+Message-ID: <CAA+D8AOqaEEGuVp_vaSf6XAyjjCd=azj2qgKkqagvrtBNr9Mqw@mail.gmail.com>
+Subject: Re: [PATCH] ASoC: fsl-asoc-card: Get "extal" clock rate by
+ clk_get_rate
+To: Mark Brown <broonie@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Cc: Linux-ALSA <alsa-devel@alsa-project.org>, Timur Tabi <timur@kernel.org>,
+ Xiubo Li <Xiubo.Lee@gmail.com>, Fabio Estevam <festevam@gmail.com>,
+ Shengjiu Wang <shengjiu.wang@nxp.com>, Takashi Iwai <tiwai@suse.com>,
+ Liam Girdwood <lgirdwood@gmail.com>, Nicolin Chen <nicoleotsuka@gmail.com>,
+ linuxppc-dev@lists.ozlabs.org, linux-kernel <linux-kernel@vger.kernel.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -78,32 +99,30 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-When snd_usb_mixer_add_control() fails, elem needs to be
-freed just like when snd_ctl_new1() fails. However, current
-code is returning directly and ends up leaking memory.
+On Thu, Aug 6, 2020 at 8:39 PM Mark Brown <broonie@kernel.org> wrote:
+>
+> On Thu, Aug 06, 2020 at 03:39:45PM +0800, Shengjiu Wang wrote:
+>
+> >       } else if (of_node_name_eq(cpu_np, "esai")) {
+> > +             struct clk *esai_clk = clk_get(&cpu_pdev->dev, "extal");
+> > +
+> > +             if (!IS_ERR(esai_clk)) {
+> > +                     priv->cpu_priv.sysclk_freq[TX] = clk_get_rate(esai_clk);
+> > +                     priv->cpu_priv.sysclk_freq[RX] = clk_get_rate(esai_clk);
+> > +                     clk_put(esai_clk);
+> > +             }
+>
+> This should handle probe deferral.  Also if this clock is in use
+> shouldn't we be enabling it?  It looks like it's intended to be a
+> crystal so it's probably forced on all the time but sometimes there's
+> power control for crystals, or perhaps someone might do something
+> unusual with the hardware.
 
-Fixes: 9e4d5c1be21f0 ("ALSA: usb-audio: Scarlett Gen 2 mixer interface")
-Signed-off-by: Dinghao Liu <dinghao.liu@zju.edu.cn>
----
- sound/usb/mixer_scarlett_gen2.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+Ok, will add handler for probe deferral.
 
-diff --git a/sound/usb/mixer_scarlett_gen2.c b/sound/usb/mixer_scarlett_gen2.c
-index 74c00c905d24..4b2da0866cdc 100644
---- a/sound/usb/mixer_scarlett_gen2.c
-+++ b/sound/usb/mixer_scarlett_gen2.c
-@@ -964,8 +964,10 @@ static int scarlett2_add_new_ctl(struct usb_mixer_interface *mixer,
- 	strlcpy(kctl->id.name, name, sizeof(kctl->id.name));
- 
- 	err = snd_usb_mixer_add_control(&elem->head, kctl);
--	if (err < 0)
-+	if (err < 0) {
-+		kfree(elem);
- 		return err;
-+	}
- 
- 	if (kctl_return)
- 		*kctl_return = kctl;
--- 
-2.17.1
+This clock is not a crystal, "extal" clock is for cpu dai, it is from
+soc internal PLL. which is enabled by cpu dai, here is just to
+get the clock rate.
 
+best regards
+wang shengjiu

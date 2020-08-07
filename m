@@ -2,60 +2,60 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E444C23EBEF
-	for <lists+alsa-devel@lfdr.de>; Fri,  7 Aug 2020 13:09:44 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0A57523EBF0
+	for <lists+alsa-devel@lfdr.de>; Fri,  7 Aug 2020 13:10:28 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 7E17A11C;
-	Fri,  7 Aug 2020 13:08:54 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7E17A11C
+	by alsa0.perex.cz (Postfix) with ESMTPS id 9A3061616;
+	Fri,  7 Aug 2020 13:09:37 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9A3061616
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1596798584;
-	bh=cNNjhhLjeixYU070UsgTwyy/w3VjgcJaGaG0GAGktAY=;
+	s=default; t=1596798627;
+	bh=6xsOXtNuiSHi09aWmLLF+IQWbE7t8eKXFJI1FM8wONI=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=N6c7Yc/eMusNZgS80ODqcTAFpMuToR36fPzV5inufuN8DFfxOT4Ow7di7gbMkVnZn
-	 iuIOMVsbC4iR0EnHkqpgOvYIRnhz3wtTUY3pxyHfJDZsOXU6g+jzeBADcRm17FI+Ho
-	 HZZN493cZzw4JlADsgavIx8ZBY4vW/ADTGedrPw4=
+	b=t8yXLSUB1m7gAJfYYwaL/febAICHYYyLMPPzBVhN5HIqnegL/Yh/+MMQx7rKbpXjV
+	 m+9vMuQctm3daUknu3NKznurbfZzVJFblkrsj/A7EBQbgED5KYZ66huSVhedHPCHeb
+	 gM2JGjQ11YpbHwRj6lTR9CTXzbVVOxZMPQ4Ti/Ew=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id E22EEF80218;
-	Fri,  7 Aug 2020 13:07:17 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 78241F802DF;
+	Fri,  7 Aug 2020 13:07:21 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id D9ABBF80290; Fri,  7 Aug 2020 13:07:15 +0200 (CEST)
+ id 496A1F802DD; Fri,  7 Aug 2020 13:07:20 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
+X-Spam-Level: *
+X-Spam-Status: No, score=1.0 required=5.0 tests=PRX_BODY_30,SPF_HELO_NONE,
+ SPF_PASS,URIBL_BLOCKED autolearn=disabled version=3.4.0
 Received: from mga06.intel.com (mga06.intel.com [134.134.136.31])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 449ECF8020B
- for <alsa-devel@alsa-project.org>; Fri,  7 Aug 2020 13:07:09 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 449ECF8020B
-IronPort-SDR: 0INAHWTZ0e/KzmMrY6zgt0QgPQCkXExqM+bfKSRnRO77L///op0HoAxuA3LDLphlxNvDckKzPu
- uAoUUBk6cnqA==
-X-IronPort-AV: E=McAfee;i="6000,8403,9705"; a="214585450"
-X-IronPort-AV: E=Sophos;i="5.75,445,1589266800"; d="scan'208";a="214585450"
+ by alsa1.perex.cz (Postfix) with ESMTPS id 85FE3F800AB
+ for <alsa-devel@alsa-project.org>; Fri,  7 Aug 2020 13:07:13 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 85FE3F800AB
+IronPort-SDR: f50lPQn/nX7KuvIyAmbg5xtz4GjCBBXNK97YjzHFjFsk/oFHftsBTdxHXdyHuwmw2983AS8ttg
+ kwCbUIuzfIlg==
+X-IronPort-AV: E=McAfee;i="6000,8403,9705"; a="214585454"
+X-IronPort-AV: E=Sophos;i="5.75,445,1589266800"; d="scan'208";a="214585454"
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
 Received: from orsmga007.jf.intel.com ([10.7.209.58])
  by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 07 Aug 2020 04:07:08 -0700
-IronPort-SDR: xjK3H6f6ga5/2pBuHQH8UMXbOkhgPhrZxS9PLk67UoW4rum+nntDaL9bEr0GVkmpW71JMVDp9R
- 4bFDDw4TsPgQ==
+ 07 Aug 2020 04:07:11 -0700
+IronPort-SDR: SIvqs7v6OZjDormEukPEwyh18I+9kyBeJ9yXbLSqfmh9ShZsFvMg7UNtVA1KjJXC8wKXUhwi3v
+ ZE1PR47YR+Fg==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.75,445,1589266800"; d="scan'208";a="333513942"
+X-IronPort-AV: E=Sophos;i="5.75,445,1589266800"; d="scan'208";a="333513951"
 Received: from crojewsk-ctrl.igk.intel.com ([10.102.9.28])
- by orsmga007.jf.intel.com with ESMTP; 07 Aug 2020 04:07:04 -0700
+ by orsmga007.jf.intel.com with ESMTP; 07 Aug 2020 04:07:08 -0700
 From: Cezary Rojewski <cezary.rojewski@intel.com>
 To: alsa-devel@alsa-project.org
-Subject: [PATCH 01/13] ASoC: Intel: Add catpt device
-Date: Fri,  7 Aug 2020 13:06:37 +0200
-Message-Id: <20200807110649.17114-2-cezary.rojewski@intel.com>
+Subject: [PATCH 02/13] ASoC: Intel: catpt: Define DSP operations
+Date: Fri,  7 Aug 2020 13:06:38 +0200
+Message-Id: <20200807110649.17114-3-cezary.rojewski@intel.com>
 X-Mailer: git-send-email 2.17.1
 In-Reply-To: <20200807110649.17114-1-cezary.rojewski@intel.com>
 References: <20200807110649.17114-1-cezary.rojewski@intel.com>
@@ -81,842 +81,513 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Declare base structures, registers and device routines for the catpt
-solution. Catpt deprecates and is a direct replacement for
-sound/soc/intel/haswell. Supports Lynxpoint and Wildcat Point both.
+Implement dsp lifecycle functions such as core RESET and STALL,
+SRAM power control and LP clock selection. This also adds functions for
+handling transport over DW DMA controller.
 
 Signed-off-by: Cezary Rojewski <cezary.rojewski@intel.com>
 ---
- sound/soc/intel/catpt/core.h      | 224 +++++++++++++++++
- sound/soc/intel/catpt/device.c    | 389 ++++++++++++++++++++++++++++++
- sound/soc/intel/catpt/registers.h | 191 +++++++++++++++
- 3 files changed, 804 insertions(+)
- create mode 100644 sound/soc/intel/catpt/core.h
- create mode 100644 sound/soc/intel/catpt/device.c
- create mode 100644 sound/soc/intel/catpt/registers.h
+ sound/soc/intel/catpt/dsp.c | 491 ++++++++++++++++++++++++++++++++++++
+ 1 file changed, 491 insertions(+)
+ create mode 100644 sound/soc/intel/catpt/dsp.c
 
-diff --git a/sound/soc/intel/catpt/core.h b/sound/soc/intel/catpt/core.h
+diff --git a/sound/soc/intel/catpt/dsp.c b/sound/soc/intel/catpt/dsp.c
 new file mode 100644
-index 000000000000..184ae1ae22ae
+index 000000000000..137c43ca521d
 --- /dev/null
-+++ b/sound/soc/intel/catpt/core.h
-@@ -0,0 +1,224 @@
-+/* SPDX-License-Identifier: GPL-2.0-only
-+ *
-+ * Copyright(c) 2020 Intel Corporation. All rights reserved.
-+ *
-+ * Author: Cezary Rojewski <cezary.rojewski@intel.com>
-+ */
-+
-+#ifndef __SND_SOC_INTEL_CATPT_CORE_H
-+#define __SND_SOC_INTEL_CATPT_CORE_H
-+
-+#include <linux/dma/dw.h>
-+#include <linux/irqreturn.h>
-+#include "messages.h"
-+#include "registers.h"
-+
-+struct catpt_mbank {
-+	u32 start;
-+	u32 end;
-+	u32 mask;
-+	struct mutex mutex;
-+	struct list_head region_list;
-+};
-+
-+static inline size_t catpt_mbank_size(const struct catpt_mbank *sram)
-+{
-+	return sram->end - sram->start + 1;
-+}
-+
-+struct catpt_mregion {
-+	u32 start;
-+	u32 end;
-+	bool busy;
-+	struct list_head node;
-+};
-+
-+static inline size_t catpt_mregion_size(const struct catpt_mregion *reg)
-+{
-+	return reg->end - reg->start + 1;
-+}
-+
-+/* True if region r1 intersects region r2 */
-+static inline bool catpt_mregion_intersects(struct catpt_mregion *r1,
-+					    struct catpt_mregion *r2)
-+{
-+	return (r1->start >= r2->start && r1->start <= r2->end) ||
-+	       (r1->end >= r2->start && r1->end <= r2->end);
-+}
-+
-+static inline bool catpt_mregion_intersecting(struct catpt_mregion *r1,
-+					      struct catpt_mregion *r2,
-+					      struct catpt_mregion *ret)
-+{
-+	if (!catpt_mregion_intersects(r1, r2))
-+		return false;
-+	ret->start = max(r1->start, r2->start);
-+	ret->end = min(r1->end, r2->end);
-+	return true;
-+}
-+
-+int catpt_mbank_create(struct catpt_mbank *sram, u32 start, u32 size, u32 mask);
-+void catpt_mbank_remove(struct catpt_mbank *sram);
-+
-+struct catpt_mregion *
-+catpt_mbank_request_region(struct catpt_mbank *sram, u32 size);
-+struct catpt_mregion *
-+catpt_mbank_reserve_region(struct catpt_mbank *sram, u32 start, u32 size);
-+void catpt_mbank_release_region(struct catpt_mbank *sram,
-+				struct catpt_mregion *region);
-+
-+struct catpt_ipc_msg {
-+	union {
-+		u32 header;
-+		union catpt_global_msg rsp;
-+	};
-+	void *data;
-+	size_t size;
-+};
-+
-+struct catpt_ipc {
-+	struct device *dev;
-+
-+	struct catpt_ipc_msg rx;
-+	struct catpt_fw_ready config;
-+	u32 default_timeout;
-+	bool ready;
-+
-+	spinlock_t lock;
-+	struct mutex mutex;
-+	struct completion done_completion;
-+	struct completion busy_completion;
-+};
-+
-+void catpt_ipc_init(struct catpt_ipc *ipc, struct device *dev);
-+
-+struct catpt_module_type {
-+	bool loaded;
-+	u32 entry_point;
-+	u32 persistent_size;
-+	u32 scratch_size;
-+	/* DRAM, initial module state */
-+	u32 state_offset;
-+	u32 state_size;
-+
-+	struct list_head node;
-+};
-+
-+struct catpt_pdata {
-+	struct snd_soc_acpi_mach *machines;
-+	u8 core_id;
-+	u32 host_dram_offset;
-+	u32 host_iram_offset;
-+	u32 host_shim_offset;
-+	u32 host_dma_offset[CATPT_DMA_COUNT];
-+	u32 host_ssp_offset[CATPT_SSP_COUNT];
-+	u32 dram_mask;
-+	u32 iram_mask;
-+	void (*pll_shutdown)(struct catpt_dev *cdev, bool enable);
-+	int (*power_up)(struct catpt_dev *cdev);
-+	int (*power_down)(struct catpt_dev *cdev);
-+};
-+
-+struct catpt_dev {
-+	struct device *dev;
-+	struct dw_dma_chip *dmac;
-+	struct catpt_ipc ipc;
-+
-+	void __iomem *pci_ba;
-+	void __iomem *lpe_ba;
-+	u32 lpe_base;
-+	int irq;
-+
-+	const struct catpt_pdata *pdata;
-+	struct completion fw_ready;
-+
-+	struct catpt_mbank dram;
-+	struct catpt_mbank iram;
-+	struct catpt_mregion *scratch;
-+
-+	struct catpt_mixer_stream_info mixer;
-+	struct catpt_module_type modules[CATPT_MODULE_COUNT];
-+	struct catpt_ssp_device_format devfmt[CATPT_SSP_COUNT];
-+	struct list_head stream_list;
-+	spinlock_t list_lock;
-+	struct mutex clk_mutex;
-+
-+	struct catpt_dx_context dx_ctx;
-+	void *dxbuf_vaddr;
-+	dma_addr_t dxbuf_paddr;
-+};
-+
-+int catpt_dmac_probe(struct catpt_dev *cdev);
-+void catpt_dmac_remove(struct catpt_dev *cdev);
-+struct dma_chan *catpt_dma_request_config_chan(struct catpt_dev *cdev);
-+int catpt_dma_memcpy_todsp(struct catpt_dev *cdev, struct dma_chan *chan,
-+			   dma_addr_t dst_addr, dma_addr_t src_addr,
-+			   size_t size);
-+int catpt_dma_memcpy_fromdsp(struct catpt_dev *cdev, struct dma_chan *chan,
-+			     dma_addr_t dst_addr, dma_addr_t src_addr,
-+			     size_t size);
-+
-+void lpt_dsp_pll_shutdown(struct catpt_dev *cdev, bool enable);
-+void wpt_dsp_pll_shutdown(struct catpt_dev *cdev, bool enable);
-+int lpt_dsp_power_up(struct catpt_dev *cdev);
-+int lpt_dsp_power_down(struct catpt_dev *cdev);
-+int wpt_dsp_power_up(struct catpt_dev *cdev);
-+int wpt_dsp_power_down(struct catpt_dev *cdev);
-+int catpt_dsp_stall(struct catpt_dev *cdev, bool stall);
-+void catpt_dsp_update_srampge(struct catpt_dev *cdev, struct catpt_mbank *sram);
-+int catpt_dsp_update_lpclock(struct catpt_dev *cdev);
-+irqreturn_t catpt_dsp_irq_handler(int irq, void *dev_id);
-+irqreturn_t catpt_dsp_irq_thread(int irq, void *dev_id);
-+
-+/*
-+ * IPC handlers may return positive values which denote successful
-+ * HOST <-> DSP communication yet failure to process specific request.
-+ * Use below macro to convert returned non-zero values appropriately
-+ */
-+#define CATPT_IPC_ERROR(err) ((err < 0) ? err : -EREMOTEIO)
-+
-+int catpt_dsp_send_msg_timeout(struct catpt_dev *cdev,
-+			       struct catpt_ipc_msg request,
-+			       struct catpt_ipc_msg *reply, int timeout);
-+int catpt_dsp_send_msg(struct catpt_dev *cdev, struct catpt_ipc_msg request,
-+		       struct catpt_ipc_msg *reply);
-+
-+int catpt_first_boot_firmware(struct catpt_dev *cdev);
-+int catpt_boot_firmware(struct catpt_dev *cdev, bool restore);
-+int catpt_store_streams_context(struct catpt_dev *cdev, struct dma_chan *chan);
-+int catpt_store_module_states(struct catpt_dev *cdev, struct dma_chan *chan);
-+int catpt_store_memdumps(struct catpt_dev *cdev, struct dma_chan *chan);
-+int catpt_coredump(struct catpt_dev *cdev);
-+
-+int catpt_sysfs_create(struct catpt_dev *cdev);
-+void catpt_sysfs_remove(struct catpt_dev *cdev);
-+
-+#include <sound/memalloc.h>
-+#include <uapi/sound/asound.h>
-+
-+struct snd_pcm_substream;
-+struct catpt_stream_template;
-+
-+struct catpt_stream_runtime {
-+	struct snd_pcm_substream *substream;
-+
-+	struct catpt_stream_template *template;
-+	struct catpt_stream_info info;
-+	struct catpt_mregion *persistent;
-+	struct snd_dma_buffer pgtbl;
-+
-+	bool allocated:1;
-+	bool prepared:1;
-+
-+	struct list_head node;
-+};
-+
-+int catpt_register_plat_component(struct catpt_dev *cdev);
-+void catpt_stream_update_position(struct catpt_dev *cdev,
-+				  struct catpt_stream_runtime *stream,
-+				  struct catpt_notify_position *pos);
-+struct catpt_stream_runtime *
-+catpt_stream_find(struct catpt_dev *cdev, u8 stream_hw_id);
-+int catpt_arm_stream_templates(struct catpt_dev *cdev);
-+
-+#endif
-diff --git a/sound/soc/intel/catpt/device.c b/sound/soc/intel/catpt/device.c
-new file mode 100644
-index 000000000000..2e880a320def
---- /dev/null
-+++ b/sound/soc/intel/catpt/device.c
-@@ -0,0 +1,389 @@
++++ b/sound/soc/intel/catpt/dsp.c
+@@ -0,0 +1,491 @@
 +// SPDX-License-Identifier: GPL-2.0-only
 +//
 +// Copyright(c) 2020 Intel Corporation. All rights reserved.
 +//
 +// Author: Cezary Rojewski <cezary.rojewski@intel.com>
 +//
-+// Special thanks to:
-+//    Marcin Barlik <marcin.barlik@intel.com>
-+//    Piotr Papierkowski <piotr.papierkowski@intel.com>
-+//
-+// for sharing LPT-LP and WTP-LP AudioDSP architecture expertise and
-+// helping backtrack its historical background
-+//
 +
-+#include <linux/acpi.h>
 +#include <linux/dma-mapping.h>
-+#include <linux/interrupt.h>
-+#include <linux/module.h>
-+#include <linux/platform_device.h>
-+#include <linux/pm_runtime.h>
-+#include <sound/soc.h>
-+#include <sound/soc-acpi.h>
-+#include <sound/soc-acpi-intel-match.h>
++#include <linux/acpi_dma.h>
++#include <linux/firmware.h>
 +#include "core.h"
++#include "messages.h"
 +#include "registers.h"
-+
-+#define CREATE_TRACE_POINTS
 +#include "trace.h"
 +
-+#ifdef CONFIG_PM
-+static int catpt_suspend(struct device *dev)
++static void catpt_dma_transfer_complete(void *arg)
 +{
-+	struct catpt_dev *cdev = dev_get_drvdata(dev);
++	struct catpt_dev *cdev = arg;
++
++	dev_dbg(cdev->dev, "%s\n", __func__);
++}
++
++static bool catpt_dma_filter(struct dma_chan *chan, void *param)
++{
++	return chan->device->dev == (struct device *)param;
++}
++
++#define CATPT_DMA_DEVID		1 /* dma engine used */
++#define CATPT_DMA_MAXBURST	0x3
++#define CATPT_DMA_DSP_ADDR_MASK	0xFFF00000
++
++struct dma_chan *catpt_dma_request_config_chan(struct catpt_dev *cdev)
++{
++	struct dma_slave_config config;
 +	struct dma_chan *chan;
++	dma_cap_mask_t mask;
 +	int ret;
 +
-+	chan = catpt_dma_request_config_chan(cdev);
-+	if (IS_ERR(chan))
-+		return PTR_ERR(chan);
++	dma_cap_zero(mask);
++	dma_cap_set(DMA_SLAVE, mask);
++	dma_cap_set(DMA_MEMCPY, mask);
 +
-+	memset(&cdev->dx_ctx, 0, sizeof(cdev->dx_ctx));
-+	ret = catpt_ipc_enter_dxstate(cdev, CATPT_DX_STATE_D3, &cdev->dx_ctx);
++	chan = dma_request_channel(mask, catpt_dma_filter, cdev->dev);
++	if (!chan) {
++		dev_err(cdev->dev, "request channel failed\n");
++		dump_stack();
++		return ERR_PTR(-EPROBE_DEFER);
++	}
++
++	memset(&config, 0, sizeof(config));
++	config.direction = DMA_MEM_TO_DEV;
++	config.src_addr_width = DMA_SLAVE_BUSWIDTH_4_BYTES;
++	config.dst_addr_width = DMA_SLAVE_BUSWIDTH_4_BYTES;
++	config.src_maxburst = CATPT_DMA_MAXBURST;
++	config.dst_maxburst = CATPT_DMA_MAXBURST;
++
++	ret = dmaengine_slave_config(chan, &config);
 +	if (ret) {
-+		ret = CATPT_IPC_ERROR(ret);
-+		goto exit;
++		dev_err(cdev->dev, "slave config failed: %d\n", ret);
++		dma_release_channel(chan);
++		return ERR_PTR(ret);
 +	}
 +
-+	ret = catpt_dsp_stall(cdev, true);
-+	if (ret < 0)
-+		goto exit;
-+
-+	ret = catpt_store_memdumps(cdev, chan);
-+	if (ret < 0) {
-+		dev_err(cdev->dev, "store memdumps failed: %d\n", ret);
-+		goto exit;
-+	}
-+
-+	ret = catpt_store_module_states(cdev, chan);
-+	if (ret < 0) {
-+		dev_err(cdev->dev, "store module states failed: %d\n", ret);
-+		goto exit;
-+	}
-+
-+	ret = catpt_store_streams_context(cdev, chan);
-+	if (ret < 0) {
-+		dev_err(cdev->dev, "store streams ctx failed: %d\n", ret);
-+		goto exit;
-+	}
-+exit:
-+	dma_release_channel(chan);
-+	if (ret < 0)
-+		return ret;
-+	return cdev->pdata->power_down(cdev);
++	return chan;
 +}
 +
-+static int catpt_resume(struct device *dev)
++static int catpt_dma_memcpy(struct catpt_dev *cdev, struct dma_chan *chan,
++			    dma_addr_t dst_addr, dma_addr_t src_addr,
++			    size_t size)
 +{
-+	struct catpt_dev *cdev = dev_get_drvdata(dev);
-+	int ret, i;
++	struct dma_async_tx_descriptor *desc;
++	enum dma_status status;
 +
-+	ret = cdev->pdata->power_up(cdev);
-+	if (ret < 0)
-+		return ret;
-+
-+	if (!module_is_live(dev->driver->owner)) {
-+		dev_info(dev, "module unloading, skipping fw boot\n");
-+		return 0;
++	desc = dmaengine_prep_dma_memcpy(chan, dst_addr, src_addr, size,
++					 DMA_CTRL_ACK);
++	if (!desc) {
++		dev_err(cdev->dev, "prep dma memcpy failed\n");
++		return -EIO;
 +	}
 +
-+	ret = catpt_boot_firmware(cdev, true);
-+	if (ret < 0) {
-+		dev_err(cdev->dev, "boot firmware failed: %d\n", ret);
-+		return ret;
-+	}
++	/* enable demand mode for dma channel */
++	catpt_updatel_shim(cdev, HMDC,
++			   CATPT_HMDC_HDDA(CATPT_DMA_DEVID, chan->chan_id),
++			   CATPT_HMDC_HDDA(CATPT_DMA_DEVID, chan->chan_id));
++	desc->callback = catpt_dma_transfer_complete;
++	desc->callback_param = cdev;
++	dmaengine_submit(desc);
 +
-+	/* reconfigure SSP devices after dx transition */
-+	for (i = 0; i < CATPT_SSP_COUNT; i++) {
-+		if (cdev->devfmt[i].iface == UINT_MAX)
-+			continue;
++	status = dma_wait_for_async_tx(desc);
++	catpt_updatel_shim(cdev, HMDC,
++			   CATPT_HMDC_HDDA(CATPT_DMA_DEVID, chan->chan_id), 0);
 +
-+		ret = catpt_ipc_set_device_format(cdev, &cdev->devfmt[i]);
-+		if (ret)
-+			return CATPT_IPC_ERROR(ret);
-+	}
-+
-+	return 0;
-+}
-+#endif
-+
-+#ifdef CONFIG_PM_SLEEP
-+static int catpt_runtime_suspend(struct device *dev)
-+{
-+	return catpt_suspend(dev);
++	return (status == DMA_COMPLETE) ? 0 : -EPROTO;
 +}
 +
-+static int catpt_runtime_resume(struct device *dev)
++int catpt_dma_memcpy_todsp(struct catpt_dev *cdev, struct dma_chan *chan,
++			   dma_addr_t dst_addr, dma_addr_t src_addr,
++			   size_t size)
 +{
-+	return catpt_resume(dev);
-+}
-+#endif
-+
-+static const struct dev_pm_ops catpt_dev_pm = {
-+	SET_SYSTEM_SLEEP_PM_OPS(catpt_suspend, catpt_resume)
-+	SET_RUNTIME_PM_OPS(catpt_runtime_suspend, catpt_runtime_resume, NULL)
-+};
-+
-+/* machine board owned by CATPT is removed with this hook */
-+static void board_pdev_unregister(void *data)
-+{
-+	platform_device_unregister(data);
++	return catpt_dma_memcpy(cdev, chan, dst_addr | CATPT_DMA_DSP_ADDR_MASK,
++				src_addr, size);
 +}
 +
-+static int catpt_register_board(struct catpt_dev *cdev)
++int catpt_dma_memcpy_fromdsp(struct catpt_dev *cdev, struct dma_chan *chan,
++			     dma_addr_t dst_addr, dma_addr_t src_addr,
++			     size_t size)
 +{
-+	const struct catpt_pdata *pdata = cdev->pdata;
-+	struct snd_soc_acpi_mach *mach;
-+	struct platform_device *board;
++	return catpt_dma_memcpy(cdev, chan, dst_addr,
++				src_addr | CATPT_DMA_DSP_ADDR_MASK, size);
++}
++
++int catpt_dmac_probe(struct catpt_dev *cdev)
++{
++	struct dw_dma_chip *dmac;
++	struct resource res;
 +	int ret;
 +
-+	mach = snd_soc_acpi_find_machine(pdata->machines);
-+	if (!mach) {
-+		dev_info(cdev->dev, "no machines present\n");
-+		return 0;
-+	}
-+
-+	mach->mach_params.platform = "catpt-platform";
-+	board = platform_device_register_data(NULL, mach->drv_name,
-+					PLATFORM_DEVID_NONE,
-+					(const void *)mach, sizeof(*mach));
-+	if (!board) {
-+		dev_err(cdev->dev, "board register failed\n");
-+		return PTR_ERR(board);
-+	}
-+
-+	ret = devm_add_action(cdev->dev, board_pdev_unregister, board);
-+	if (ret < 0) {
-+		platform_device_unregister(board);
-+		return ret;
-+	}
-+
-+	return 0;
-+}
-+
-+static int catpt_probe_components(struct catpt_dev *cdev)
-+{
-+	int ret;
-+
-+	ret = cdev->pdata->power_up(cdev);
-+	if (ret < 0)
-+		return ret;
-+
-+	ret = catpt_dmac_probe(cdev);
-+	if (ret < 0) {
-+		dev_err(cdev->dev, "DMAC probe failed: %d\n", ret);
-+		goto dmac_err;
-+	}
-+
-+	ret = catpt_first_boot_firmware(cdev);
-+	if (ret < 0) {
-+		dev_err(cdev->dev, "first fw boot failed: %d\n", ret);
-+		goto boot_fw_err;
-+	}
-+
-+	ret = catpt_register_plat_component(cdev);
-+	if (ret < 0) {
-+		dev_err(cdev->dev, "register plat comp failed: %d\n", ret);
-+		goto boot_fw_err;
-+	}
-+
-+	ret = catpt_register_board(cdev);
-+	if (ret < 0) {
-+		dev_err(cdev->dev, "register board failed: %d\n", ret);
-+		goto board_err;
-+	}
-+
-+	ret = catpt_sysfs_create(cdev);
-+	if (ret < 0)
-+		goto board_err;
-+
-+	/* reflect actual ADSP state in pm_runtime */
-+	pm_runtime_set_active(cdev->dev);
-+
-+	pm_runtime_set_autosuspend_delay(cdev->dev, 2000);
-+	pm_runtime_use_autosuspend(cdev->dev);
-+	pm_runtime_mark_last_busy(cdev->dev);
-+	pm_runtime_enable(cdev->dev);
-+	return 0;
-+
-+board_err:
-+	snd_soc_unregister_component(cdev->dev);
-+boot_fw_err:
-+	catpt_dmac_remove(cdev);
-+dmac_err:
-+	cdev->pdata->power_down(cdev);
-+
-+	return ret;
-+}
-+
-+static void catpt_dev_init(struct catpt_dev *cdev, struct device *dev)
-+{
-+	cdev->dev = dev;
-+	init_completion(&cdev->fw_ready);
-+	INIT_LIST_HEAD(&cdev->stream_list);
-+	spin_lock_init(&cdev->list_lock);
-+	mutex_init(&cdev->clk_mutex);
-+	/*
-+	 * Mark both device formats as uninitialized. Once corresponding
-+	 * cpu_dai's pcm is created, proper values are assigned
-+	 */
-+	cdev->devfmt[CATPT_SSP_IFACE_0].iface = UINT_MAX;
-+	cdev->devfmt[CATPT_SSP_IFACE_1].iface = UINT_MAX;
-+
-+	catpt_ipc_init(&cdev->ipc, dev);
-+}
-+
-+static int catpt_acpi_probe(struct platform_device *pdev)
-+{
-+	struct device *dev = &pdev->dev;
-+	struct catpt_dev *cdev;
-+	struct resource *res;
-+	int ret;
-+
-+	cdev = devm_kzalloc(dev, sizeof(*cdev), GFP_KERNEL);
-+	if (!cdev)
++	dmac = devm_kzalloc(cdev->dev, sizeof(*dmac), GFP_KERNEL);
++	if (!dmac)
 +		return -ENOMEM;
 +
-+	catpt_dev_init(cdev, dev);
++	memset(&res, 0, sizeof(res));
++	res.start = cdev->lpe_base +
++		    cdev->pdata->host_dma_offset[CATPT_DMA_DEVID];
++	res.end = res.start + (CATPT_DMA_REGS_SIZE - 1);
++	res.flags = IORESOURCE_MEM;
++	dmac->dev = cdev->dev;
++	dmac->irq = cdev->irq;
 +
-+	cdev->pdata = device_get_match_data(dev);
-+	if (!cdev->pdata)
-+		return -ENODEV;
++	dmac->regs = devm_ioremap_resource(cdev->dev, &res);
++	if (IS_ERR(dmac->regs))
++		return PTR_ERR(dmac->regs);
 +
-+	/* map DSP bar address */
-+	res = platform_get_resource(pdev, IORESOURCE_MEM, 0);
-+	if (!res)
-+		return -ENODEV;
-+	cdev->lpe_ba = devm_ioremap(dev, res->start, resource_size(res));
-+	if (!cdev->lpe_ba)
-+		return -EIO;
-+	cdev->lpe_base = res->start;
-+
-+	/* map PCI bar address */
-+	res = platform_get_resource(pdev, IORESOURCE_MEM, 1);
-+	if (!res)
-+		return -ENODEV;
-+	cdev->pci_ba = devm_ioremap(dev, res->start, resource_size(res));
-+	if (!cdev->pci_ba)
-+		return -EIO;
-+
-+	/* DRAM spans from lpe_ba offset 0x0 till start of IRAM area */
-+	ret = catpt_mbank_create(&cdev->dram, 0x0,
-+				 catpt_dram_size(cdev),
-+				 cdev->pdata->dram_mask);
++	ret = dma_coerce_mask_and_coherent(cdev->dev, DMA_BIT_MASK(31));
 +	if (ret < 0)
 +		return ret;
-+	ret = catpt_mbank_create(&cdev->iram, cdev->pdata->host_iram_offset,
-+				 catpt_iram_size(cdev),
-+				 cdev->pdata->iram_mask);
++	/*
++	 * Caller is responsible for putting device in D0 to allow
++	 * for I/O and memory access before probing DW
++	 */
++	ret = dw_dma_probe(dmac);
 +	if (ret < 0)
-+		goto iram_err;
++		return ret;
 +
-+	/* alloc buffer for storing DRAM context during dx transitions */
-+	cdev->dxbuf_vaddr = dma_alloc_coherent(dev, catpt_dram_size(cdev),
-+					       &cdev->dxbuf_paddr, GFP_KERNEL);
-+	if (!cdev->dxbuf_vaddr) {
-+		ret = -ENOMEM;
-+		goto dma_alloc_err;
++	cdev->dmac = dmac;
++	return 0;
++}
++
++void catpt_dmac_remove(struct catpt_dev *cdev)
++{
++	/*
++	 * As do_dma_remove() juggles with pm_runtime_get_xxx() and
++	 * pm_runtime_put_xxx() while both ADSP and DW 'devices' are part of
++	 * the same module, caller makes sure pm_runtime_disable() is invoked
++	 * before removing DW to prevent postmortem resume and suspend
++	 */
++	dw_dma_remove(cdev->dmac);
++}
++
++static void catpt_dsp_set_srampge(struct catpt_dev *cdev,
++				  struct catpt_mbank *sram, unsigned long new)
++{
++	unsigned long old;
++	u32 off = sram->start;
++	u32 b = __ffs(sram->mask);
++
++	old = catpt_readl_pci(cdev, VDRTCTL0) & sram->mask;
++	trace_catpt_updatel("SRAMPGE", sram->mask, old, new);
++	if (old == new)
++		return;
++
++	catpt_updatel_pci(cdev, VDRTCTL0, sram->mask, new);
++	udelay(60);
++
++	/*
++	 * dummy read as the very first access after block enable
++	 * to prevent byte loss in future operations
++	 */
++	for_each_clear_bit_from(b, &new, fls(sram->mask)) {
++		u8 buf[4];
++
++		/* newly enabled: new bit=0 while old bit=1 */
++		if (test_bit(b, &old)) {
++			dev_dbg(cdev->dev, "sanitize block %ld: off 0x%08x\n",
++				(b - __ffs(sram->mask)), off);
++			memcpy_fromio(buf, cdev->lpe_ba + off, sizeof(buf));
++		}
++		off += CATPT_MEMBLOCK_SIZE;
++	}
++}
++
++void catpt_dsp_update_srampge(struct catpt_dev *cdev, struct catpt_mbank *sram)
++{
++	struct catpt_mregion *reg;
++	unsigned long new = 0;
++
++	/* flag all busy blocks */
++	list_for_each_entry(reg, &sram->region_list, node) {
++		u32 h, l;
++
++		if (!reg->busy)
++			continue;
++		h = (reg->end - sram->start) / CATPT_MEMBLOCK_SIZE;
++		l = (reg->start - sram->start) / CATPT_MEMBLOCK_SIZE;
++		new |= GENMASK(h, l);
 +	}
 +
-+	ret = platform_get_irq(pdev, 0);
-+	if (ret < 0)
-+		goto irq_err;
-+	cdev->irq = ret;
++	/* offset value given mask's start and invert it as ON=b0 */
++	new <<= __ffs(sram->mask);
++	new = ~(new) & sram->mask;
 +
-+	platform_set_drvdata(pdev, cdev);
++	/* disable core clock gating */
++	catpt_updatel_pci(cdev, VDRTCTL2, CATPT_VDRTCTL2_DCLCGE, 0);
 +
-+	ret = devm_request_threaded_irq(dev, cdev->irq, catpt_dsp_irq_handler,
-+					catpt_dsp_irq_thread,
-+					IRQF_SHARED, "AudioDSP", cdev);
-+	if (ret < 0)
-+		goto irq_err;
++	catpt_dsp_set_srampge(cdev, sram, new);
 +
-+	ret = catpt_probe_components(cdev);
-+	if (ret < 0)
-+		goto irq_err;
-+	return 0;
-+
-+irq_err:
-+	dma_free_coherent(cdev->dev, catpt_dram_size(cdev),
-+			  cdev->dxbuf_vaddr, cdev->dxbuf_paddr);
-+dma_alloc_err:
-+	catpt_mbank_remove(&cdev->iram);
-+iram_err:
-+	catpt_mbank_remove(&cdev->dram);
-+
-+	return ret;
++	/* enable core clock gating */
++	catpt_updatel_pci(cdev, VDRTCTL2, CATPT_VDRTCTL2_DCLCGE,
++			  CATPT_VDRTCTL2_DCLCGE);
 +}
 +
-+static int catpt_acpi_remove(struct platform_device *pdev)
++int catpt_dsp_stall(struct catpt_dev *cdev, bool stall)
 +{
-+	struct catpt_dev *cdev = platform_get_drvdata(pdev);
++	u32 reg, val;
 +
-+	pm_runtime_disable(cdev->dev);
++	val = stall ? CATPT_CS_STALL : 0;
++	catpt_updatel_shim(cdev, CS, CATPT_CS_STALL, val);
 +
-+	snd_soc_unregister_component(cdev->dev);
-+	catpt_dmac_remove(cdev);
-+	cdev->pdata->power_down(cdev);
++	return catpt_readl_poll_shim(cdev, CS,
++				     reg, (reg & CATPT_CS_STALL) == val,
++				     500, 10000);
++}
 +
-+	dma_free_coherent(cdev->dev, catpt_dram_size(cdev),
-+			  cdev->dxbuf_vaddr, cdev->dxbuf_paddr);
-+	catpt_mbank_remove(&cdev->iram);
-+	catpt_mbank_remove(&cdev->dram);
++static int catpt_dsp_reset(struct catpt_dev *cdev, bool reset)
++{
++	u32 reg, val;
 +
-+	catpt_sysfs_remove(cdev);
++	val = reset ? CATPT_CS_RST : 0;
++	catpt_updatel_shim(cdev, CS, CATPT_CS_RST, val);
++
++	return catpt_readl_poll_shim(cdev, CS,
++				     reg, (reg & CATPT_CS_RST) == val,
++				     500, 10000);
++}
++
++void lpt_dsp_pll_shutdown(struct catpt_dev *cdev, bool enable)
++{
++	u32 val;
++
++	val = enable ? LPT_VDRTCTL0_APLLSE : 0;
++	catpt_updatel_pci(cdev, VDRTCTL0, LPT_VDRTCTL0_APLLSE, val);
++}
++
++void wpt_dsp_pll_shutdown(struct catpt_dev *cdev, bool enable)
++{
++	u32 val;
++
++	val = enable ? WPT_VDRTCTL2_APLLSE : 0;
++	catpt_updatel_pci(cdev, VDRTCTL2, WPT_VDRTCTL2_APLLSE, val);
++}
++
++static int catpt_dsp_select_lpclock(struct catpt_dev *cdev, bool lp, bool waiti)
++{
++	u32 mask, reg, val;
++	int ret;
++
++	mutex_lock(&cdev->clk_mutex);
++
++	val = lp ? CATPT_CS_LPCS : 0;
++	reg = catpt_readl_shim(cdev, CS) & CATPT_CS_LPCS;
++	trace_catpt_updatel("LPCS", CATPT_CS_LPCS, reg, val);
++
++	if (reg == val) {
++		mutex_unlock(&cdev->clk_mutex);
++		return 0;
++	}
++
++	if (waiti) {
++		/* wait for DSP to signal WAIT state */
++		ret = catpt_readl_poll_shim(cdev, ISD,
++					    reg, (reg & CATPT_ISD_DCPWM),
++					    500, 10000);
++		if (ret < 0) {
++			dev_warn(cdev->dev, "await WAITI timeout\n");
++			mutex_unlock(&cdev->clk_mutex);
++			return ret;
++		}
++	}
++
++	ret = catpt_readl_poll_shim(cdev, CLKCTL,
++				    reg, !(reg & CATPT_CLKCTL_CFCIP),
++				    500, 10000);
++	if (ret < 0)
++		dev_warn(cdev->dev, "clock change still in progress\n");
++
++	/* default to DSP core & audio fabric high clock */
++	val |= CATPT_CS_DCS_HIGH;
++	mask = CATPT_CS_LPCS | CATPT_CS_DCS;
++	catpt_updatel_shim(cdev, CS, mask, val);
++
++	ret = catpt_readl_poll_shim(cdev, CLKCTL,
++				    reg, !(reg & CATPT_CLKCTL_CFCIP),
++				    500, 10000);
++	if (ret < 0)
++		dev_warn(cdev->dev, "clock change still in progress\n");
++
++	/* update PLL accordingly */
++	cdev->pdata->pll_shutdown(cdev, lp);
++
++	mutex_unlock(&cdev->clk_mutex);
++	return 0;
++}
++
++int catpt_dsp_update_lpclock(struct catpt_dev *cdev)
++{
++	struct catpt_stream_runtime *stream;
++	bool lp;
++
++	if (list_empty(&cdev->stream_list))
++		return catpt_dsp_select_lpclock(cdev, true, true);
++
++	lp = true;
++	list_for_each_entry(stream, &cdev->stream_list, node) {
++		if (stream->prepared) {
++			lp = false;
++			break;
++		}
++	}
++
++	return catpt_dsp_select_lpclock(cdev, lp, true);
++}
++
++/* bring registers to their defaults as HW won't reset itself */
++static void catpt_dsp_set_regs_defaults(struct catpt_dev *cdev)
++{
++	int i;
++
++	catpt_writel_shim(cdev, CS, CATPT_CS_DEFAULT);
++	catpt_writel_shim(cdev, ISC, CATPT_ISC_DEFAULT);
++	catpt_writel_shim(cdev, ISD, CATPT_ISD_DEFAULT);
++	catpt_writel_shim(cdev, IMC, CATPT_IMC_DEFAULT);
++	catpt_writel_shim(cdev, IMD, CATPT_IMD_DEFAULT);
++	catpt_writel_shim(cdev, IPCC, CATPT_IPCC_DEFAULT);
++	catpt_writel_shim(cdev, IPCD, CATPT_IPCD_DEFAULT);
++	catpt_writel_shim(cdev, CLKCTL, CATPT_CLKCTL_DEFAULT);
++	catpt_writel_shim(cdev, CS2, CATPT_CS2_DEFAULT);
++	catpt_writel_shim(cdev, LTRC, CATPT_LTRC_DEFAULT);
++	catpt_writel_shim(cdev, HMDC, CATPT_HMDC_DEFAULT);
++
++	for (i = 0; i < CATPT_SSP_COUNT; i++) {
++		catpt_writel_ssp(cdev, i, SSC0, CATPT_SSP_SSC0_DEFAULT);
++		catpt_writel_ssp(cdev, i, SSC1, CATPT_SSP_SSC1_DEFAULT);
++		catpt_writel_ssp(cdev, i, SSS, CATPT_SSP_SSS_DEFAULT);
++		catpt_writel_ssp(cdev, i, SSIT, CATPT_SSP_SSIT_DEFAULT);
++		catpt_writel_ssp(cdev, i, SSD, CATPT_SSP_SSD_DEFAULT);
++		catpt_writel_ssp(cdev, i, SSTO, CATPT_SSP_SSTO_DEFAULT);
++		catpt_writel_ssp(cdev, i, SSPSP, CATPT_SSP_SSPSP_DEFAULT);
++		catpt_writel_ssp(cdev, i, SSTSA, CATPT_SSP_SSTSA_DEFAULT);
++		catpt_writel_ssp(cdev, i, SSRSA, CATPT_SSP_SSRSA_DEFAULT);
++		catpt_writel_ssp(cdev, i, SSTSS, CATPT_SSP_SSTSS_DEFAULT);
++		catpt_writel_ssp(cdev, i, SSC2, CATPT_SSP_SSC2_DEFAULT);
++		catpt_writel_ssp(cdev, i, SSPSP2, CATPT_SSP_SSPSP2_DEFAULT);
++	}
++}
++
++int lpt_dsp_power_down(struct catpt_dev *cdev)
++{
++	catpt_dsp_reset(cdev, true);
++
++	/* set 24Mhz clock for both SSPs */
++	catpt_updatel_shim(cdev, CS, CATPT_CS_SBCS(0) | CATPT_CS_SBCS(1),
++			   CATPT_CS_SBCS(0) | CATPT_CS_SBCS(1));
++	catpt_dsp_select_lpclock(cdev, true, false);
++
++	/* DRAM power gating all */
++	catpt_dsp_set_srampge(cdev, &cdev->dram, cdev->dram.mask);
++	catpt_dsp_set_srampge(cdev, &cdev->iram, cdev->iram.mask);
++
++	/* set D3 */
++	catpt_updatel_pci(cdev, PMCS, CATPT_PMCS_PS, CATPT_PMCS_PS_D3HOT);
++	udelay(50);
 +
 +	return 0;
 +}
 +
-+static struct catpt_pdata lpt_desc = {
-+	.machines = snd_soc_acpi_intel_haswell_machines,
-+	.core_id = 0x01,
-+	.host_dram_offset = 0x000000,
-+	.host_iram_offset = 0x080000,
-+	.host_shim_offset = 0x0E7000,
-+	.host_dma_offset = { 0x0F0000, 0x0F8000 },
-+	.host_ssp_offset = { 0x0E8000, 0x0E9000 },
-+	.dram_mask = LPT_VDRTCTL0_DSRAMPGE_MASK,
-+	.iram_mask = LPT_VDRTCTL0_ISRAMPGE_MASK,
-+	.pll_shutdown = lpt_dsp_pll_shutdown,
-+	.power_up = lpt_dsp_power_up,
-+	.power_down = lpt_dsp_power_down,
-+};
++int lpt_dsp_power_up(struct catpt_dev *cdev)
++{
++	/* SRAM power gating none */
++	catpt_dsp_set_srampge(cdev, &cdev->dram, 0);
++	catpt_dsp_set_srampge(cdev, &cdev->iram, 0);
 +
-+static struct catpt_pdata wpt_desc = {
-+	.machines = snd_soc_acpi_intel_broadwell_machines,
-+	.core_id = 0x02,
-+	.host_dram_offset = 0x000000,
-+	.host_iram_offset = 0x0A0000,
-+	.host_shim_offset = 0x0FB000,
-+	.host_dma_offset = { 0x0FE000, 0x0FF000 },
-+	.host_ssp_offset = { 0x0FC000, 0x0FD000 },
-+	.dram_mask = WPT_VDRTCTL0_DSRAMPGE_MASK,
-+	.iram_mask = WPT_VDRTCTL0_ISRAMPGE_MASK,
-+	.pll_shutdown = wpt_dsp_pll_shutdown,
-+	.power_up = wpt_dsp_power_up,
-+	.power_down = wpt_dsp_power_down,
-+};
++	/* set D0 */
++	catpt_updatel_pci(cdev, PMCS, CATPT_PMCS_PS, 0);
++	udelay(100);
 +
-+static const struct acpi_device_id catpt_ids[] = {
-+	{ "INT33C8", (unsigned long)&lpt_desc },
-+	{ "INT3438", (unsigned long)&wpt_desc },
-+	{ },
-+};
-+MODULE_DEVICE_TABLE(acpi, catpt_ids);
++	catpt_dsp_select_lpclock(cdev, false, false);
++	catpt_updatel_shim(cdev, CS,
++			CATPT_CS_SBCS(0) | CATPT_CS_SBCS(1),
++			CATPT_CS_SBCS(0) | CATPT_CS_SBCS(1));
++	udelay(50);
 +
-+static struct platform_driver catpt_acpi_driver = {
-+	.probe = catpt_acpi_probe,
-+	.remove = catpt_acpi_remove,
-+	.driver = {
-+		.name = "catpt_adsp",
-+		.acpi_match_table = ACPI_PTR(catpt_ids),
-+		.pm = &catpt_dev_pm,
-+	},
-+};
-+module_platform_driver(catpt_acpi_driver);
++	catpt_dsp_reset(cdev, false);
++	/* generate int deassert msg to fix inversed int logic */
++	catpt_updatel_shim(cdev, IMC, CATPT_IMC_IPCDB | CATPT_IMC_IPCCD, 0);
 +
-+MODULE_AUTHOR("Cezary Rojewski <cezary.rojewski@intel.com>");
-+MODULE_DESCRIPTION("Intel LPT/WPT AudioDSP driver");
-+MODULE_LICENSE("GPL v2");
-diff --git a/sound/soc/intel/catpt/registers.h b/sound/soc/intel/catpt/registers.h
-new file mode 100644
-index 000000000000..65e9b5905577
---- /dev/null
-+++ b/sound/soc/intel/catpt/registers.h
-@@ -0,0 +1,191 @@
-+/* SPDX-License-Identifier: GPL-2.0-only
-+ *
-+ * Copyright(c) 2020 Intel Corporation. All rights reserved.
-+ *
-+ * Author: Cezary Rojewski <cezary.rojewski@intel.com>
-+ */
++	return 0;
++}
 +
-+#ifndef __SND_SOC_INTEL_CATPT_REGS_H
-+#define __SND_SOC_INTEL_CATPT_REGS_H
++int wpt_dsp_power_down(struct catpt_dev *cdev)
++{
++	u32 mask, val;
 +
-+#include <linux/iopoll.h>
++	/* disable core clock gating */
++	catpt_updatel_pci(cdev, VDRTCTL2, CATPT_VDRTCTL2_DCLCGE, 0);
 +
-+#define CATPT_SHIM_REGS_SIZE	4096
-+#define CATPT_DMA_REGS_SIZE	1024
-+#define CATPT_DMA_COUNT		2
-+#define CATPT_SSP_REGS_SIZE	512
++	catpt_dsp_reset(cdev, true);
++	/* set 24Mhz clock for both SSPs */
++	catpt_updatel_shim(cdev, CS, CATPT_CS_SBCS(0) | CATPT_CS_SBCS(1),
++			   CATPT_CS_SBCS(0) | CATPT_CS_SBCS(1));
++	catpt_dsp_select_lpclock(cdev, true, false);
++	/* disable MCLK */
++	catpt_updatel_shim(cdev, CLKCTL, CATPT_CLKCTL_SMOS, 0);
 +
-+/* DSP Shim registers */
++	catpt_dsp_set_regs_defaults(cdev);
 +
-+#define CATPT_SHIM_REG_CS	0x0
-+#define CATPT_SHIM_REG_ISC	0x18
-+#define CATPT_SHIM_REG_ISD	0x20
-+#define CATPT_SHIM_REG_IMC	0x28
-+#define CATPT_SHIM_REG_IMD	0x30
-+#define CATPT_SHIM_REG_IPCC	0x38
-+#define CATPT_SHIM_REG_IPCD	0x40
-+#define CATPT_SHIM_REG_CLKCTL	0x78
-+#define CATPT_SHIM_REG_CS2	0x80
-+#define CATPT_SHIM_REG_LTRC	0xE0
-+#define CATPT_SHIM_REG_HMDC	0xE8
++	/* switch clock gating */
++	mask = CATPT_VDRTCTL2_CGEALL & (~CATPT_VDRTCTL2_DCLCGE);
++	val = mask & (~CATPT_VDRTCTL2_DTCGE);
++	catpt_updatel_pci(cdev, VDRTCTL2, mask, val);
++	/* enable DTCGE separatelly */
++	catpt_updatel_pci(cdev, VDRTCTL2, CATPT_VDRTCTL2_DTCGE,
++			  CATPT_VDRTCTL2_DTCGE);
 +
-+#define CATPT_CS_LPCS		BIT(31)
-+#define CATPT_CS_SFCR(ssp)	BIT(27 + ssp)
-+#define CATPT_CS_S1IOCS		BIT(23)
-+#define CATPT_CS_S0IOCS		BIT(21)
-+#define CATPT_CS_PCE		BIT(15)
-+#define CATPT_CS_SDPM(ssp)	BIT(11 + ssp)
-+#define CATPT_CS_STALL		BIT(10)
-+#define CATPT_CS_DCS		GENMASK(6, 4)
-+/* b100 DSP core & audio fabric high clock */
-+#define CATPT_CS_DCS_HIGH	(0x4 << 4)
-+#define CATPT_CS_SBCS(ssp)	BIT(2 + ssp)
-+#define CATPT_CS_RST		BIT(1)
++	/* SRAM power gating all */
++	catpt_dsp_set_srampge(cdev, &cdev->dram, cdev->dram.mask);
++	catpt_dsp_set_srampge(cdev, &cdev->iram, cdev->iram.mask);
++	mask = WPT_VDRTCTL0_D3SRAMPGD | WPT_VDRTCTL0_D3PGD;
++	catpt_updatel_pci(cdev, VDRTCTL0, mask, WPT_VDRTCTL0_D3PGD);
 +
-+#define CATPT_ISC_IPCDB		BIT(1)
-+#define CATPT_ISC_IPCCD		BIT(0)
-+#define CATPT_ISD_DCPWM		BIT(31)
-+#define CATPT_ISD_IPCCB		BIT(1)
-+#define CATPT_ISD_IPCDD		BIT(0)
++	/* set D3 */
++	catpt_updatel_pci(cdev, PMCS, CATPT_PMCS_PS, CATPT_PMCS_PS_D3HOT);
++	udelay(50);
 +
-+#define CATPT_IMC_IPCDB		BIT(1)
-+#define CATPT_IMC_IPCCD		BIT(0)
-+#define CATPT_IMD_IPCCB		BIT(1)
-+#define CATPT_IMD_IPCDD		BIT(0)
++	/* enable core clock gating */
++	catpt_updatel_pci(cdev, VDRTCTL2, CATPT_VDRTCTL2_DCLCGE,
++			  CATPT_VDRTCTL2_DCLCGE);
++	udelay(50);
 +
-+#define CATPT_IPCC_BUSY		BIT(31)
-+#define CATPT_IPCC_DONE		BIT(30)
-+#define CATPT_IPCD_BUSY		BIT(31)
-+#define CATPT_IPCD_DONE		BIT(30)
++	return 0;
++}
 +
-+#define CATPT_CLKCTL_CFCIP	BIT(31)
-+#define CATPT_CLKCTL_SMOS	GENMASK(25, 24)
++int wpt_dsp_power_up(struct catpt_dev *cdev)
++{
++	u32 mask, val;
 +
-+#define CATPT_HMDC_HDDA(e, ch)	BIT(8 * e + ch)
++	/* disable core clock gating */
++	catpt_updatel_pci(cdev, VDRTCTL2, CATPT_VDRTCTL2_DCLCGE, 0);
 +
-+#define CATPT_CS_DEFAULT	0x8480040E
-+#define CATPT_ISC_DEFAULT	0x0
-+#define CATPT_ISD_DEFAULT	0x0
-+#define CATPT_IMC_DEFAULT	0x7FFF0003
-+#define CATPT_IMD_DEFAULT	0x7FFF0003
-+#define CATPT_IPCC_DEFAULT	0x0
-+#define CATPT_IPCD_DEFAULT	0x0
-+#define CATPT_CLKCTL_DEFAULT	0x7FF
-+#define CATPT_CS2_DEFAULT	0x0
-+#define CATPT_LTRC_DEFAULT	0x0
-+#define CATPT_HMDC_DEFAULT	0x0
++	/* switch clock gating */
++	mask = CATPT_VDRTCTL2_CGEALL & (~CATPT_VDRTCTL2_DCLCGE);
++	val = mask & (~CATPT_VDRTCTL2_DTCGE);
++	catpt_updatel_pci(cdev, VDRTCTL2, mask, val);
 +
-+/* PCI Configuration registers */
++	/* set D0 */
++	catpt_updatel_pci(cdev, PMCS, CATPT_PMCS_PS, 0);
 +
-+#define CATPT_PCI_REG_PMCS	0x84
-+#define CATPT_PCI_REG_VDRTCTL0	0xA0
-+#define CATPT_PCI_REG_VDRTCTL2	0xA8
++	/* SRAM power gating none */
++	mask = WPT_VDRTCTL0_D3SRAMPGD | WPT_VDRTCTL0_D3PGD;
++	catpt_updatel_pci(cdev, VDRTCTL0, mask, mask);
++	catpt_dsp_set_srampge(cdev, &cdev->dram, 0);
++	catpt_dsp_set_srampge(cdev, &cdev->iram, 0);
 +
-+#define CATPT_PMCS_PS		GENMASK(1, 0)
-+#define CATPT_PMCS_PS_D3HOT	(0x3 << 0)
++	catpt_dsp_set_regs_defaults(cdev);
 +
-+#define CATPT_VDRTCTL2_DTCGE	BIT(10)
-+#define CATPT_VDRTCTL2_DCLCGE	BIT(1)
-+#define CATPT_VDRTCTL2_CGEALL	0xF7F
++	/* restore MCLK */
++	catpt_updatel_shim(cdev, CLKCTL, CATPT_CLKCTL_SMOS, CATPT_CLKCTL_SMOS);
++	catpt_dsp_select_lpclock(cdev, false, false);
++	/* set 24Mhz clock for both SSPs */
++	catpt_updatel_shim(cdev, CS, CATPT_CS_SBCS(0) | CATPT_CS_SBCS(1),
++			   CATPT_CS_SBCS(0) | CATPT_CS_SBCS(1));
++	catpt_dsp_reset(cdev, false);
 +
-+/* LPT PCI Configuration bits */
++	/* enable core clock gating */
++	catpt_updatel_pci(cdev, VDRTCTL2, CATPT_VDRTCTL2_DCLCGE,
++			  CATPT_VDRTCTL2_DCLCGE);
 +
-+#define LPT_VDRTCTL0_DSRAMPGE(b)	BIT(16 + b)
-+#define LPT_VDRTCTL0_DSRAMPGE_MASK	GENMASK(31, 16)
-+#define LPT_VDRTCTL0_ISRAMPGE(b)	BIT(6 + b)
-+#define LPT_VDRTCTL0_ISRAMPGE_MASK	GENMASK(15, 6)
-+#define LPT_VDRTCTL0_D3SRAMPGD		BIT(2)
-+#define LPT_VDRTCTL0_D3PGD		BIT(1)
-+#define LPT_VDRTCTL0_APLLSE		BIT(0)
++	/* generate int deassert msg to fix inversed int logic */
++	catpt_updatel_shim(cdev, IMC, CATPT_IMC_IPCDB | CATPT_IMC_IPCCD, 0);
 +
-+/* WPT PCI Configuration bits */
-+
-+#define WPT_VDRTCTL0_DSRAMPGE(b)	BIT(12 + b)
-+#define WPT_VDRTCTL0_DSRAMPGE_MASK	GENMASK(31, 12)
-+#define WPT_VDRTCTL0_ISRAMPGE(b)	BIT(2 + b)
-+#define WPT_VDRTCTL0_ISRAMPGE_MASK	GENMASK(11, 2)
-+#define WPT_VDRTCTL0_D3SRAMPGD		BIT(1)
-+#define WPT_VDRTCTL0_D3PGD		BIT(0)
-+
-+#define WPT_VDRTCTL2_APLLSE		BIT(31)
-+
-+/* SSP Interface registers */
-+
-+#define CATPT_SSP_SSC0		0x0
-+#define CATPT_SSP_SSC1		0x4
-+#define CATPT_SSP_SSS		0x8
-+#define CATPT_SSP_SSIT		0xC
-+#define CATPT_SSP_SSD		0x10
-+#define CATPT_SSP_SSTO		0x28
-+#define CATPT_SSP_SSPSP		0x2C
-+#define CATPT_SSP_SSTSA		0x30
-+#define CATPT_SSP_SSRSA		0x34
-+#define CATPT_SSP_SSTSS		0x38
-+#define CATPT_SSP_SSC2		0x40
-+#define CATPT_SSP_SSPSP2	0x44
-+
-+#define CATPT_SSP_SSC0_DEFAULT		0x0
-+#define CATPT_SSP_SSC1_DEFAULT		0x0
-+#define CATPT_SSP_SSS_DEFAULT		0xF004
-+#define CATPT_SSP_SSIT_DEFAULT		0x0
-+#define CATPT_SSP_SSD_DEFAULT		0xC43893A3
-+#define CATPT_SSP_SSTO_DEFAULT		0x0
-+#define CATPT_SSP_SSPSP_DEFAULT		0x0
-+#define CATPT_SSP_SSTSA_DEFAULT		0x0
-+#define CATPT_SSP_SSRSA_DEFAULT		0x0
-+#define CATPT_SSP_SSTSS_DEFAULT		0x0
-+#define CATPT_SSP_SSC2_DEFAULT		0x0
-+#define CATPT_SSP_SSPSP2_DEFAULT	0x0
-+
-+/* Physically the same block, access address differs between host and dsp */
-+#define CATPT_DSP_DRAM_OFFSET		0x400000
-+#define catpt_to_host_offset(offset)	(offset & ~(CATPT_DSP_DRAM_OFFSET))
-+#define catpt_to_dsp_offset(offset)	(offset | CATPT_DSP_DRAM_OFFSET)
-+
-+#define CATPT_MEMBLOCK_SIZE	0x8000
-+#define catpt_num_dram(cdev)	(hweight_long((cdev)->pdata->dram_mask))
-+#define catpt_num_iram(cdev)	(hweight_long((cdev)->pdata->iram_mask))
-+#define catpt_dram_size(cdev)	(catpt_num_dram(cdev) * CATPT_MEMBLOCK_SIZE)
-+#define catpt_iram_size(cdev)	(catpt_num_iram(cdev) * CATPT_MEMBLOCK_SIZE)
-+
-+/* registry I/O helpers */
-+
-+#define catpt_shim_addr(cdev) \
-+	((cdev)->lpe_ba + (cdev)->pdata->host_shim_offset)
-+#define catpt_dma_addr(cdev, dma) \
-+	((cdev)->lpe_ba + (cdev)->pdata->host_dma_offset[dma])
-+#define catpt_ssp_addr(cdev, ssp) \
-+	((cdev)->lpe_ba + (cdev)->pdata->host_ssp_offset[ssp])
-+#define catpt_inbox_addr(cdev) \
-+	((cdev)->lpe_ba + (cdev)->ipc.config.inbox_offset)
-+#define catpt_outbox_addr(cdev) \
-+	((cdev)->lpe_ba + (cdev)->ipc.config.outbox_offset)
-+
-+#define catpt_writel_ssp(cdev, ssp, reg, val) \
-+	writel(val, catpt_ssp_addr(cdev, ssp) + CATPT_SSP_##reg)
-+
-+#define catpt_readl_shim(cdev, reg) \
-+	readl(catpt_shim_addr(cdev) + CATPT_SHIM_REG_##reg)
-+#define catpt_writel_shim(cdev, reg, val) \
-+	writel(val, catpt_shim_addr(cdev) + CATPT_SHIM_REG_##reg)
-+#define catpt_updatel_shim(cdev, reg, mask, val) \
-+	catpt_writel_shim(cdev, reg, \
-+			(catpt_readl_shim(cdev, reg) & ~(mask)) | val)
-+
-+#define catpt_readl_poll_shim(cdev, reg, val, cond, delay_us, timeout_us) \
-+	readl_poll_timeout(catpt_shim_addr(cdev) + CATPT_SHIM_REG_##reg, \
-+			   val, cond, delay_us, timeout_us)
-+
-+#define catpt_readl_pci(cdev, reg) \
-+	readl(cdev->pci_ba + CATPT_PCI_REG_##reg)
-+#define catpt_writel_pci(cdev, reg, val) \
-+	writel(val, cdev->pci_ba + CATPT_PCI_REG_##reg)
-+#define catpt_updatel_pci(cdev, reg, mask, val) \
-+	catpt_writel_pci(cdev, reg, \
-+			(catpt_readl_pci(cdev, reg) & ~(mask)) | val)
-+
-+#define catpt_readl_poll_pci(cdev, reg, val, cond, delay_us, timeout_us) \
-+	readl_poll_timeout((cdev)->pci_ba + CATPT_PCI_REG_##reg, \
-+			   val, cond, delay_us, timeout_us)
-+
-+#endif
++	return 0;
++}
 -- 
 2.17.1
 

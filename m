@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9D33423EC05
-	for <lists+alsa-devel@lfdr.de>; Fri,  7 Aug 2020 13:12:47 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 834D923EC1E
+	for <lists+alsa-devel@lfdr.de>; Fri,  7 Aug 2020 13:14:02 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 4786A15E2;
-	Fri,  7 Aug 2020 13:11:57 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4786A15E2
+	by alsa0.perex.cz (Postfix) with ESMTPS id 303AE15F9;
+	Fri,  7 Aug 2020 13:13:12 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 303AE15F9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1596798767;
-	bh=EwWlBD3tgenwDpFNp+1pCy5dLOUP+mfYRooJOfW8qPE=;
+	s=default; t=1596798842;
+	bh=nT4O4Qvdv4nQ7mxemsLZ8XsRXRVeP0VZVkcZp0ROgKM=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=g8SPTPNzQsFJ6s0SJCBABaAJiNayjgiQf5JjHND6szTZEhDXgrSj9lM9VgBv3Do4d
-	 RQITxImYrLE/2ApJah7iGOcbgvJPqnoLZg3NX5EScbnU0IaRfSnlKWcgDDaHXeLZhY
-	 c3g6CY1RqHlnZsYo8wiExo+uLKT15MACB0KSb7is=
+	b=tXzsaa21tR2MfD0dwUxyhsW+SAHmvE3EWa8RVfKPMaRzQ9pBz8ILlaiM0wLMEL6RK
+	 hQ8UDYVDjUyxf+tWItdTEQaUxOhHZsugmi0fc9X7SFMnnoooSGBI7qw3eZIMlYPU7X
+	 9OAeQTkwl+ejjVKUkbaDknvGNE0kUPCOSivlpJ3U=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 2FCB7F8031A;
-	Fri,  7 Aug 2020 13:07:36 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id B2147F80321;
+	Fri,  7 Aug 2020 13:07:40 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id D1468F80316; Fri,  7 Aug 2020 13:07:34 +0200 (CEST)
+ id 40E10F80337; Fri,  7 Aug 2020 13:07:38 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
@@ -33,29 +33,29 @@ X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
 Received: from mga06.intel.com (mga06.intel.com [134.134.136.31])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id B5F0DF80303
- for <alsa-devel@alsa-project.org>; Fri,  7 Aug 2020 13:07:31 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B5F0DF80303
-IronPort-SDR: u9UOlRm4biHPjWtqXM2cbXZIdhboGCWxQDxIXxxZ6BEeBpaiW42IeHcf4r9S7ACYNAM9Pfic06
- 1oVPY7iNOY+g==
-X-IronPort-AV: E=McAfee;i="6000,8403,9705"; a="214585509"
-X-IronPort-AV: E=Sophos;i="5.75,445,1589266800"; d="scan'208";a="214585509"
+ by alsa1.perex.cz (Postfix) with ESMTPS id 31E23F80321
+ for <alsa-devel@alsa-project.org>; Fri,  7 Aug 2020 13:07:35 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 31E23F80321
+IronPort-SDR: EqeqIwF9JyuJzaIdXkk88g9ZVYNvbWBLJGt4lGcCKViJYRiiBSk/v3OnpQRa90ZSoAdVUYescY
+ b+wz3uyJCKlQ==
+X-IronPort-AV: E=McAfee;i="6000,8403,9705"; a="214585518"
+X-IronPort-AV: E=Sophos;i="5.75,445,1589266800"; d="scan'208";a="214585518"
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
 Received: from orsmga007.jf.intel.com ([10.7.209.58])
  by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 07 Aug 2020 04:07:31 -0700
-IronPort-SDR: 1377CIZP0f1Uul9+xuNwLWyaSrK8fl68+sZr4H8CyE6l1PolqUMHOf/DmtiQ2P0PzU6UfP+Y9w
- YuzJC1slsQUg==
+ 07 Aug 2020 04:07:34 -0700
+IronPort-SDR: 4z5ciHdGL02p5IDkI0tazfJ9PRiyGUUTZJ1ah+JbzurenP+dWnoAyrb3jUpf0Jh+vCejrIHhYj
+ oX0NmfeOAKCQ==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.75,445,1589266800"; d="scan'208";a="333514019"
+X-IronPort-AV: E=Sophos;i="5.75,445,1589266800"; d="scan'208";a="333514034"
 Received: from crojewsk-ctrl.igk.intel.com ([10.102.9.28])
- by orsmga007.jf.intel.com with ESMTP; 07 Aug 2020 04:07:27 -0700
+ by orsmga007.jf.intel.com with ESMTP; 07 Aug 2020 04:07:31 -0700
 From: Cezary Rojewski <cezary.rojewski@intel.com>
 To: alsa-devel@alsa-project.org
-Subject: [PATCH 07/13] ASoC: Intel: catpt: Event tracing
-Date: Fri,  7 Aug 2020 13:06:43 +0200
-Message-Id: <20200807110649.17114-8-cezary.rojewski@intel.com>
+Subject: [PATCH 08/13] ASoC: Intel: catpt: Simple sysfs attributes
+Date: Fri,  7 Aug 2020 13:06:44 +0200
+Message-Id: <20200807110649.17114-9-cezary.rojewski@intel.com>
 X-Mailer: git-send-email 2.17.1
 In-Reply-To: <20200807110649.17114-1-cezary.rojewski@intel.com>
 References: <20200807110649.17114-1-cezary.rojewski@intel.com>
@@ -81,190 +81,101 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Define tracing macros for easy catpt debug. These are divided into
-memory, registry and ipc event categories.
+Add sysfs entries for displaying version of FW currently in use as well
+as binary dump of entire version info, including build and log providers
+hashes.
 
 Signed-off-by: Cezary Rojewski <cezary.rojewski@intel.com>
 ---
- sound/soc/intel/catpt/trace.h | 169 ++++++++++++++++++++++++++++++++++
- 1 file changed, 169 insertions(+)
- create mode 100644 sound/soc/intel/catpt/trace.h
+ sound/soc/intel/catpt/fs.c | 79 ++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 79 insertions(+)
+ create mode 100644 sound/soc/intel/catpt/fs.c
 
-diff --git a/sound/soc/intel/catpt/trace.h b/sound/soc/intel/catpt/trace.h
+diff --git a/sound/soc/intel/catpt/fs.c b/sound/soc/intel/catpt/fs.c
 new file mode 100644
-index 000000000000..92f79667b73b
+index 000000000000..5102641b57f1
 --- /dev/null
-+++ b/sound/soc/intel/catpt/trace.h
-@@ -0,0 +1,169 @@
-+/* SPDX-License-Identifier: GPL-2.0
-+ *
-+ * Copyright(c) 2020 Intel Corporation. All rights reserved.
-+ *
-+ * Author: Cezary Rojewski <cezary.rojewski@intel.com>
-+ */
++++ b/sound/soc/intel/catpt/fs.c
+@@ -0,0 +1,79 @@
++// SPDX-License-Identifier: GPL-2.0-pcm
++//
++// Copyright(c) 2020 Intel Corporation. All rights reserved.
++//
++// Author: Cezary Rojewski <cezary.rojewski@intel.com>
++//
 +
-+#undef TRACE_SYSTEM
-+#define TRACE_SYSTEM intel_catpt
++#include <linux/pm_runtime.h>
++#include "core.h"
 +
-+#if !defined(__SND_SOC_INTEL_CATPT_TRACE_H) || defined(TRACE_HEADER_MULTI_READ)
-+#define __SND_SOC_INTEL_CATPT_TRACE_H
++static ssize_t fw_version_show(struct device *dev,
++			       struct device_attribute *attr, char *buf)
++{
++	struct catpt_dev *cdev = dev_get_drvdata(dev);
++	struct catpt_fw_version version;
++	int ret;
 +
-+#include <linux/types.h>
-+#include <linux/tracepoint.h>
++	pm_runtime_get_sync(cdev->dev);
 +
-+struct catpt_mbank;
-+struct catpt_mregion;
++	ret = catpt_ipc_get_fw_version(cdev, &version);
 +
-+TRACE_EVENT(catpt_mbank,
-+	TP_PROTO(struct catpt_mbank *sram, const char *action,
-+		 u32 start, u32 end),
++	pm_runtime_mark_last_busy(cdev->dev);
++	pm_runtime_put_autosuspend(cdev->dev);
 +
-+	TP_ARGS(sram, action, start, end),
++	if (ret)
++		return CATPT_IPC_ERROR(ret);
 +
-+	TP_STRUCT__entry(
-+		__field(u32, bank_start)
-+		__field(u32, bank_end)
-+		__string(action, action)
-+		__field(u32, start)
-+		__field(u32, end)
-+	),
++	return sprintf(buf, "%d.%d.%d.%d\n", version.type, version.major,
++		       version.minor, version.build);
++}
 +
-+	TP_fast_assign(
-+		__entry->bank_start = sram->start;
-+		__entry->bank_end = sram->end;
-+		__assign_str(action, action);
-+		__entry->start = start;
-+		__entry->end = end;
-+	),
++static DEVICE_ATTR_RO(fw_version);
 +
-+	TP_printk("[0x%08x-%08x] %s 0x%08x-%08x",
-+		  __entry->bank_start, __entry->bank_end,
-+		  __get_str(action),
-+		  __entry->start, __entry->end)
-+);
++static ssize_t fw_build_read(struct file *filp, struct kobject *kobj,
++			     struct bin_attribute *bin_attr, char *buf,
++			     loff_t off, size_t count)
++{
++	struct catpt_dev *cdev = dev_get_drvdata(kobj_to_dev(kobj));
++	struct catpt_fw_version version;
++	int ret;
 +
-+TRACE_EVENT(catpt_mregion,
-+	TP_PROTO(struct catpt_mregion *r1, struct catpt_mregion *r2,
-+		 const char *action),
++	pm_runtime_get_sync(cdev->dev);
 +
-+	TP_ARGS(r1, r2, action),
++	ret = catpt_ipc_get_fw_version(cdev, &version);
 +
-+	TP_STRUCT__entry(
-+		__field(u32, r1_start)
-+		__field(u32, r1_end)
-+		__field(u32, r2_start)
-+		__field(u32, r2_end)
-+		__string(action, action)
-+	),
++	pm_runtime_mark_last_busy(cdev->dev);
++	pm_runtime_put_autosuspend(cdev->dev);
 +
-+	TP_fast_assign(
-+		__entry->r1_start = r1->start;
-+		__entry->r1_end = r1->end;
-+		__entry->r2_start = r2->start;
-+		__entry->r2_end = r2->end;
-+		__assign_str(action, action);
-+	),
++	if (ret)
++		return CATPT_IPC_ERROR(ret);
 +
-+	TP_printk("0x%08x-%08x %s 0x%08x-%08x",
-+		  __entry->r1_start, __entry->r1_end,
-+		  __get_str(action),
-+		  __entry->r2_start, __entry->r2_end)
-+);
++	memcpy(buf, &version, count);
++	return count;
++}
 +
-+TRACE_EVENT(catpt_updatel,
++static BIN_ATTR_RO(fw_build, sizeof(struct catpt_fw_version));
 +
-+	TP_PROTO(const char *title, u32 mask, u32 old, u32 new),
++int catpt_sysfs_create(struct catpt_dev *cdev)
++{
++	int ret;
 +
-+	TP_ARGS(title, mask, old, new),
++	ret = sysfs_create_file(&cdev->dev->kobj, &dev_attr_fw_version.attr);
++	if (ret)
++		return ret;
 +
-+	TP_STRUCT__entry(
-+		__string(title, title)
-+		__field(u32, mask)
-+		__field(u32, old)
-+		__field(u32, new)
-+	),
++	ret = sysfs_create_bin_file(&cdev->dev->kobj, &bin_attr_fw_build);
++	if (ret) {
++		sysfs_remove_file(&cdev->dev->kobj, &dev_attr_fw_version.attr);
++		return ret;
++	}
 +
-+	TP_fast_assign(
-+		__assign_str(title, title);
-+		__entry->mask = mask;
-+		__entry->old = old;
-+		__entry->new = new;
-+	),
++	return 0;
++}
 +
-+	TP_printk("%s [0x%08x] 0x%08x -> 0x%08x",
-+		  __get_str(title),
-+		  __entry->mask,
-+		  __entry->old,
-+		  __entry->new)
-+);
-+
-+DECLARE_EVENT_CLASS(catpt_ipc_msg,
-+
-+	TP_PROTO(u32 header),
-+
-+	TP_ARGS(header),
-+
-+	TP_STRUCT__entry(
-+		__field(u32, header)
-+	),
-+
-+	TP_fast_assign(
-+		__entry->header = header;
-+	),
-+
-+	TP_printk("0x%08x", __entry->header)
-+);
-+
-+DEFINE_EVENT(catpt_ipc_msg, catpt_irq,
-+	TP_PROTO(u32 header),
-+	TP_ARGS(header)
-+);
-+
-+DEFINE_EVENT(catpt_ipc_msg, catpt_ipc_request,
-+	TP_PROTO(u32 header),
-+	TP_ARGS(header)
-+);
-+
-+DEFINE_EVENT(catpt_ipc_msg, catpt_ipc_reply,
-+	TP_PROTO(u32 header),
-+	TP_ARGS(header)
-+);
-+
-+DEFINE_EVENT(catpt_ipc_msg, catpt_ipc_notify,
-+	TP_PROTO(u32 header),
-+	TP_ARGS(header)
-+);
-+
-+TRACE_EVENT_CONDITION(catpt_ipc_payload,
-+
-+	TP_PROTO(const u8 *data, size_t size),
-+
-+	TP_ARGS(data, size),
-+
-+	TP_CONDITION(data && size),
-+
-+	TP_STRUCT__entry(
-+		__dynamic_array(u8, buf, size)
-+	),
-+
-+	TP_fast_assign(
-+		memcpy(__get_dynamic_array(buf), data, size);
-+	),
-+
-+	TP_printk("%u byte(s)%s",
-+		  __get_dynamic_array_len(buf),
-+		  __print_hex_dump("", DUMP_PREFIX_NONE, 16, 4,
-+				   __get_dynamic_array(buf),
-+				   __get_dynamic_array_len(buf), false))
-+);
-+
-+#endif /* __SND_SOC_INTEL_CATPT_TRACE_H */
-+
-+/* This part must be outside protection */
-+#undef TRACE_INCLUDE_PATH
-+#define TRACE_INCLUDE_PATH .
-+#define TRACE_INCLUDE_FILE trace
-+#include <trace/define_trace.h>
++void catpt_sysfs_remove(struct catpt_dev *cdev)
++{
++	sysfs_remove_bin_file(&cdev->dev->kobj, &bin_attr_fw_build);
++	sysfs_remove_file(&cdev->dev->kobj, &dev_attr_fw_version.attr);
++}
 -- 
 2.17.1
 

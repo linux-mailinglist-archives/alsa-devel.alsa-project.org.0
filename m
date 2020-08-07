@@ -2,84 +2,48 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 992E023EF14
-	for <lists+alsa-devel@lfdr.de>; Fri,  7 Aug 2020 16:33:23 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E393123EF1A
+	for <lists+alsa-devel@lfdr.de>; Fri,  7 Aug 2020 16:38:05 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 1F9421607;
-	Fri,  7 Aug 2020 16:32:33 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1F9421607
+	by alsa0.perex.cz (Postfix) with ESMTPS id 72C6F1614;
+	Fri,  7 Aug 2020 16:37:15 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 72C6F1614
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1596810803;
-	bh=46Q+0+jZwF0wfJ5v40XvJY3v1uf1QkAJYn5NMafKPLE=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1596811085;
+	bh=/8S8Cv/FG9TD4t9LwrAWG6D5QvAr34LeehYO4R5yFFs=;
+	h=From:To:In-Reply-To:References:Subject:Date:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=qk9QdpcfNPEjoDSS9K5RZwOYNnfEC+E+G5VWZW6vz7fBfPg/8nSdmmw8J7aBYk9iI
-	 OpPnkFh2nZNd+4PMVpjescdcbf6tflgBRbU7inqBfnJsOUijQGHvweCODKqRDJv52C
-	 EkESE0mMTbEXWgkOzunCQMikY89ipiqsA3HP5FZw=
+	b=Uc28O9x9+trR+uu2jUAUnxdUAYG/rpY5zYRyoPFPn0RPCBio23KegNBLKfa/U6hCc
+	 eqMI6Vgg4lph/sYjgYI0PzGLjAQpmdbAQtnDB4P9djqSUwbcE9GsWw5o6hxHPWVOPA
+	 tPkDflw9G+tsio4Wp4tfjX9q2haxrKAz4dAziTeM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 33765F80234;
-	Fri,  7 Aug 2020 16:31:42 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 991B2F801F7;
+	Fri,  7 Aug 2020 16:36:24 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 0B1F1F80218; Fri,  7 Aug 2020 16:31:39 +0200 (CEST)
+ id 8CD01F80218; Fri,  7 Aug 2020 16:36:22 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled
- version=3.4.0
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 720C4F800AB
- for <alsa-devel@alsa-project.org>; Fri,  7 Aug 2020 16:31:29 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 720C4F800AB
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="j0ZHWYAW"
-Received: from localhost (fw-tnat.cambridge.arm.com [217.140.96.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 92CD9221E2;
- Fri,  7 Aug 2020 14:31:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1596810686;
- bh=46Q+0+jZwF0wfJ5v40XvJY3v1uf1QkAJYn5NMafKPLE=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=j0ZHWYAW91IQbQriKpJIXGat/sFckD/PfMek+xcKJ6Pmz1RwmIQCYYAweWimL0GM4
- VnW090s9T+pK65MNy3DTvh0LNXwq7uDJFvIKGZVCpkuVqKrHGJCHWQ0obkkEC/c+RJ
- k54ZoqYxwa2XPpdJ5WQ+tjYj/0aAq9++gsMYRYgM=
-Date: Fri, 7 Aug 2020 15:31:01 +0100
-From: Mark Brown <broonie@kernel.org>
-To: "Sit, Michael Wei Hong" <michael.wei.hong.sit@intel.com>
-Subject: Re: [PATCH 4/4] dt-bindings: sound: intel,keembay-i2s: Add
- channel-max property
-Message-ID: <20200807143101.GL5435@sirena.org.uk>
-References: <20200730055319.1522-1-michael.wei.hong.sit@intel.com>
- <20200730055319.1522-5-michael.wei.hong.sit@intel.com>
- <20200730112948.GB5055@sirena.org.uk>
- <BYAPR11MB3046DD82FAC2B5C672FC85B29D4D0@BYAPR11MB3046.namprd11.prod.outlook.com>
- <20200803104917.GB4502@sirena.org.uk>
- <BYAPR11MB3046E41085E470BFB11D710B9D4A0@BYAPR11MB3046.namprd11.prod.outlook.com>
- <20200804115019.GA5249@sirena.org.uk>
- <BYAPR11MB3046BCAFC8335E7841DE8EAA9D4B0@BYAPR11MB3046.namprd11.prod.outlook.com>
+X-Spam-Level: **
+X-Spam-Status: No, score=2.5 required=5.0 tests=MISSING_DATE,MISSING_MID,
+ SPF_FAIL,SPF_HELO_NONE autolearn=disabled version=3.4.0
+Received: from webhooks-bot.alsa-project.org (gate.perex.cz [77.48.224.242])
+ by alsa1.perex.cz (Postfix) with ESMTP id C3521F801F7
+ for <alsa-devel@alsa-project.org>; Fri,  7 Aug 2020 16:36:12 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C3521F801F7
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="8SdtHY/0P4yzaavF"
-Content-Disposition: inline
-In-Reply-To: <BYAPR11MB3046BCAFC8335E7841DE8EAA9D4B0@BYAPR11MB3046.namprd11.prod.outlook.com>
-X-Cookie: Disposable, use only once.
-User-Agent: Mutt/1.10.1 (2018-07-13)
-Cc: "pierre-louis.bossart@linux.intel.com"
- <pierre-louis.bossart@linux.intel.com>, "Rojewski,
- Cezary" <cezary.rojewski@intel.com>, "Shevchenko,
- Andriy" <andriy.shevchenko@intel.com>,
- "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>, "Sia,
- Jee Heng" <jee.heng.sia@intel.com>, "tiwai@suse.com" <tiwai@suse.com>,
- "liam.r.girdwood@linux.intel.com" <liam.r.girdwood@linux.intel.com>
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
+From: GitHub pull_request - reopened <github@alsa-project.org>
+To: alsa-devel@alsa-project.org
+In-Reply-To: <1596810972284259081-webhooks-bot@alsa-project.org>
+References: <1596810972284259081-webhooks-bot@alsa-project.org>
+Subject: Correct conflicting mic in max98090
+Message-Id: <20200807143622.8CD01F80218@alsa1.perex.cz>
+Date: Fri,  7 Aug 2020 16:36:22 +0200 (CEST)
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -95,39 +59,12 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+alsa-project/alsa-ucm-conf pull request #43 was reopened from jacobopantoja:
 
---8SdtHY/0P4yzaavF
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+'mic' was conflicting 'mic' instead of 'headset', thus preventing correct configuration regarding microphones.
 
-On Wed, Aug 05, 2020 at 06:21:14AM +0000, Sit, Michael Wei Hong wrote:
+With this corrected, introducing a headset enables 'headset' mic and disables internal 'mic', whereas releasing the headset disables 'headset' mic and enables internal 'mic'
 
-> > Are you *sure* that's the only difference, or is that just the only
-> > difference you know about right now?
-
-> Yes, I am fairy sure that is the only difference according to the design, as per the platform use case.
-
-It would still be safer to have a separate compatible, it wouldn't be
-the first time that additional changes that the hardware people had
-failed to communicate were discovered.
-
-Please fix your mail client to word wrap within paragraphs at something
-substantially less than 80 columns.  Doing this makes your messages much
-easier to read and reply to.
-
---8SdtHY/0P4yzaavF
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl8tZaQACgkQJNaLcl1U
-h9CI6Qf+NWrfyvrDCxBzOaQ5PNVZO0sowhT2nHBp4vMvoTNOIu14rGMTv1iHbI8P
-9xGacSTERvHgOC2GfgLwycaYs5JEDCg9MU0Hgwxq9wTmqlVliOWPPD8S0oxcL+Lz
-wtgFZ1qN5L6RX/K81Enxuj2D3MFBxAvNlu9lsXW/IYaLTX4m8dlvflTK6thJk6vN
-6DTTDI95ronTQH9yJx8IlXID1aHfqnhOdBL1iokrdCivq3e7hEQQWWv2vcpEjtx2
-O9/kezY3dbwnqQW6GqyKQg64dp0Ys1CLQSHJUoQT9ImSARUloKHlgjIHWXIS5Ftb
-aDH2n/V4SRuJ6X3dXA6LVwXIpHITEA==
-=kYXN
------END PGP SIGNATURE-----
-
---8SdtHY/0P4yzaavF--
+Request URL   : https://github.com/alsa-project/alsa-ucm-conf/pull/43
+Patch URL     : https://github.com/alsa-project/alsa-ucm-conf/pull/43.patch
+Repository URL: https://github.com/alsa-project/alsa-ucm-conf

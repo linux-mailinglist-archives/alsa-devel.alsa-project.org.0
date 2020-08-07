@@ -2,76 +2,72 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2D57023ECFA
-	for <lists+alsa-devel@lfdr.de>; Fri,  7 Aug 2020 13:56:30 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D81D823EDA8
+	for <lists+alsa-devel@lfdr.de>; Fri,  7 Aug 2020 15:07:07 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B42891607;
-	Fri,  7 Aug 2020 13:55:39 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B42891607
+	by alsa0.perex.cz (Postfix) with ESMTPS id 767A615F9;
+	Fri,  7 Aug 2020 15:06:17 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 767A615F9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1596801389;
-	bh=ZtA3NUxNT+VUCjbXoK3nwC7HwEhIkp1OwgDmyeuzGSo=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=dftF1qiNrZrpuwhz9R9BE26HU7AxU8ty0jqmUr/y8x19CkmW2ikrtoJqAtBBNQDQs
-	 5RQIEnuk8vfXhfkwjYlZOfECm4BRHk4OfsdgrV5OJjuGWNzwwxEm9dHw7R9YH2vUol
-	 xwlpx++ocHzb2G4YSl0eVUNgBt2SAOkE9YTIri8s=
+	s=default; t=1596805627;
+	bh=AR4ihdx1/e1aKPgsnYOkF27WUQdSky67yBlxji70x0s=;
+	h=To:From:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=aIR3AUfrkLMCE5wF07I3b2F6CCNcZAEaMDM3eHCUyYdJwGw33U9XzEQutL4IYUCDJ
+	 qGOPdfBni3gi1P+/ofDwRjI96M0XqFPq/E0hO0Z0SW/hWS+BcjiJIoqUzD44ZLASwA
+	 30eAEi2KDpR2qwQlgsxnk4/sJIDe6LAWBu6tgQcc=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id D0E10F80234;
-	Fri,  7 Aug 2020 13:54:48 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 97DB9F800AB;
+	Fri,  7 Aug 2020 15:05:26 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id C6950F80218; Fri,  7 Aug 2020 13:54:46 +0200 (CEST)
+ id 73A64F80218; Fri,  7 Aug 2020 15:05:24 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled
- version=3.4.0
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id EB8C2F801F7
- for <alsa-devel@alsa-project.org>; Fri,  7 Aug 2020 13:54:40 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EB8C2F801F7
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="SLO03/FO"
-Received: from localhost (fw-tnat.cambridge.arm.com [217.140.96.140])
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,RCVD_IN_MSPIKE_H3,RCVD_IN_MSPIKE_WL,SPF_HELO_PASS,SPF_NONE,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mo4-p00-ob.smtp.rzone.de (mo4-p00-ob.smtp.rzone.de
+ [85.215.255.23])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id CB2B02075D;
- Fri,  7 Aug 2020 11:54:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1596801279;
- bh=ZtA3NUxNT+VUCjbXoK3nwC7HwEhIkp1OwgDmyeuzGSo=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=SLO03/FOcrfNQ+qPTkxU1dgQGEhJFM2Ul9fpJa3e1SEXb3rQ+sKtvBXRHbjiseWu3
- 1M4zGkfTAnUAIgaFLhVHAHs+Jg70ApN+OXLpv3F8ZDZtcmJ1X6x9iqRPL6ivYYqiSA
- ZGu8A2dvW5JwdJDq7Pe0y77lWF6FVtAvxNeYErRM=
-Date: Fri, 7 Aug 2020 12:54:14 +0100
-From: Mark Brown <broonie@kernel.org>
-To: "RAVULAPATI, VISHNU VARDHAN RAO" <Vishnuvardhanrao.Ravulapati@amd.com>
-Subject: Re: [PATCH] ASoC: amd: Replacing component->name with codec_dai->name
-Message-ID: <20200807115414.GI5435@sirena.org.uk>
-References: <20200806101451.7918-1-Vishnuvardhanrao.Ravulapati@amd.com>
- <20200806112831.GA6442@sirena.org.uk>
- <BY5PR12MB429286C315F66F7E2E5EA501E7490@BY5PR12MB4292.namprd12.prod.outlook.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 2F102F800B7
+ for <alsa-devel@alsa-project.org>; Fri,  7 Aug 2020 15:05:13 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2F102F800B7
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=alarmhandy.de header.i=@alarmhandy.de
+ header.b="ebYpUPQd"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1596805513;
+ s=strato-dkim-0002; d=alarmhandy.de;
+ h=Date:Message-ID:Subject:From:Cc:To:X-RZG-CLASS-ID:X-RZG-AUTH:From:
+ Subject:Sender;
+ bh=30UCX+4Qop2pXXansa8sVLKqH+RhD+ev0heKsMD4Akw=;
+ b=ebYpUPQd73Mzw8mflLNt0liKziqIBGO9066NOrdVI4FFMrGk19k+1JAIlYpDMwj4go
+ JOL5hS1PpZkf3SWcHALjYgQqJip2W1IQL1NyLr6ewUKMLlA6t5qGf0OL31chxoZ74EOM
+ BikZldsynOWpPFIHyLTNVnZ6d+OsJbasKkonjZFcjkhk+Wwg/XxgUd1ymxNSY26H02Q9
+ 4vhe4RJrQm4DVZMRmWIeAsqn5QHhp1GBzUn9CoXRILusxUwSEiiv9IMyLvnhwVGlqMqb
+ Wy41ld/ooDRON8n0MNovFQclvv0W5MP+QpKCFmKccF0xIHHs2p6B+vz7IryrV5Nywth8
+ YQbA==
+X-RZG-AUTH: ":LWABbWCpd/7F2tYDFKK/RTiu0TNXYdF7Mwi+q4wIVIrdnF+kUmjp/0vw2qvj/uWT+YVE+CFkfD398SRT802n8iE+xuOsHvqCCvAXBA=="
+X-RZG-CLASS-ID: mo00
+Received: from localhost by smtp.strato.de (RZmta 46.10.5 AUTH)
+ with ESMTPSA id Y0a2fbw77D5DM7L
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256 bits))
+ (Client did not present a certificate);
+ Fri, 7 Aug 2020 15:05:13 +0200 (CEST)
+To: alsa-devel@alsa-project.org
+From: Alexander Giese <alex@alarmhandy.de>
+Subject: [HDAudio][ALC285] Native speaker support for HP Spectre x360 15-eb0xxx
+Message-ID: <e6a982a8-15c8-1fad-e412-fa5b9d289fd2@alarmhandy.de>
+Date: Fri, 7 Aug 2020 15:05:12 +0200
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="mhOzvPhkurUs4vA9"
-Content-Disposition: inline
-In-Reply-To: <BY5PR12MB429286C315F66F7E2E5EA501E7490@BY5PR12MB4292.namprd12.prod.outlook.com>
-X-Cookie: Disposable, use only once.
-User-Agent: Mutt/1.10.1 (2018-07-13)
-Cc: "moderated list:SOUND - SOC LAYER / DYNAMIC AUDIO POWER MANAGEM..."
- <alsa-devel@alsa-project.org>,
- Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
- open list <linux-kernel@vger.kernel.org>, YueHaibing <yuehaibing@huawei.com>,
- Takashi Iwai <tiwai@suse.com>, Liam Girdwood <lgirdwood@gmail.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
+Cc: tiwai@suse.de
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -87,47 +83,38 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+Hello alsa-devel-team,
 
---mhOzvPhkurUs4vA9
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+I have a problem with the built-in speakers on the 2020 model of the 
+hp-spectre. From my unexperienced point of view, the audio sinks are 
+correctly identified and therefore I tried tweaking the GPIO pins with 
+success.
 
-On Fri, Aug 07, 2020 at 08:36:25AM +0000, RAVULAPATI, VISHNU VARDHAN RAO wr=
-ote:
-> On Thu, Aug 06, 2020 at 03:44:12PM +0530, Ravulapati Vishnu vardhan rao w=
-rote:
+Information from alsa-info is here: 
+http://alsa-project.org/db/?f=c8ee13e52fd6b2377573a7123c2887fe4d59c917
 
-> > Replacing string compare with codec_dai->name instead of comparing=20
-> > with codec_dai->component->name in hw_params.
+When I use hda-verb with the following parameters 2 of 4 of my built-in 
+speakers start working:
 
-> >Why?
+hda-verb /dev/snd/hwC0D0 0x01 SET_GPIO_DATA 0x02 (or 0x04)
+hda-verb /dev/snd/hwC0D0 0x01 SET_GPIO_DIR 0x01
+hda-verb /dev/snd/hwC0D0 0x01 SET_GPIO_MASK 0x01
 
-> Here the component name for codec RT1015 is "i2c-10EC1015:00" and will ne=
-ver be "rt1015-aif1"
-> As it is codec-dai->name so the strcmp always compares and fails to set t=
-he sysclk,pll,bratio of expected codec-dai
+In addition, my mute-mic-led on the keyboard glows when:
 
-This should be in the changelog so people can understand why the change
-was made.
+hda-verb /dev/snd/hwC0D0 0x01 SET_GPIO_DATA 0x01 (or 0x02)
+hda-verb /dev/snd/hwC0D0 0x01 SET_GPIO_DIR 0x04
+hda-verb /dev/snd/hwC0D0 0x01 SET_GPIO_MASK 0x04
 
-Please fix your mail client to word wrap within paragraphs at something
-substantially less than 80 columns.  Doing this makes your messages much
-easier to read and reply to.
+Since I do not understand how the GPIO-settings are integrated and 
+applied in the upstream software for corresponding models, I would very 
+much appreciate any help to get this to work out of the box in future 
+releases so I do not have tweak my system all the time and others can 
+benefit as well.
 
---mhOzvPhkurUs4vA9
-Content-Type: application/pgp-signature; name="signature.asc"
+Any suggestions on getting all 4 speakers to work or the mute-volume-led 
+to glow are very much welcome alike!
 
------BEGIN PGP SIGNATURE-----
+Thank you very much!
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl8tQOUACgkQJNaLcl1U
-h9AMEwf9EjG0TW7IazqtWGPRye237mVP6Pc8k9MNOPeSCB+0NwICOZWMa+bT2dr9
-YAUGqvVRrbSFzqgPXlUvSP9WQoYXbnx9vyu/eNYinHy1P5ij0JMafTb79TekTqbW
-QlaRNBdesjDQPuoFnHncAQZY8hddYW9OwKQ/dEGA3uvM9q86dGLgH5LrOhl9sRXp
-zywg8qYT1oQkfj1gvfj3OgqjJHo6g65l6Ei7QQ1oNXk7lq+cxJGebjpTOVcVW6pA
-pxwbi4r/fyemXLhJ/YvF62wZ6YVarLh2zWAn6sKBTRY+1owvQ/nOKpRAC/Ie+2WF
-P8ojsr5EIog/QduiVBCAs2MV7ModLg==
-=ml31
------END PGP SIGNATURE-----
-
---mhOzvPhkurUs4vA9--
+Alexander

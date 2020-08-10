@@ -2,70 +2,59 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id EA1EB2401EE
-	for <lists+alsa-devel@lfdr.de>; Mon, 10 Aug 2020 08:17:08 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8638F240201
+	for <lists+alsa-devel@lfdr.de>; Mon, 10 Aug 2020 08:32:19 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 6754E1662;
-	Mon, 10 Aug 2020 08:16:18 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6754E1662
+	by alsa0.perex.cz (Postfix) with ESMTPS id 13FA41663;
+	Mon, 10 Aug 2020 08:31:29 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 13FA41663
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1597040228;
-	bh=aYyyzMZ1/AV19lEo+J5pjka1v4ks1In5aPkJcf/W87s=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=RuCG2g61UfVHE7wM3dryj20wnjE259gA/suM+Tsy/PkD6JNNubQDc4lD7ojTLUSHS
-	 grxbc/XHmKXsJ7Anv1XBT/VfzWlozuQUmDOLPLa4dcFfb3AvpFSTKBnJp6QyAMSWQL
-	 tqPVTMbDHRke560nrzgFMtXgy/jrAQlTpRnySecs=
+	s=default; t=1597041139;
+	bh=+app+J4uQGyv1zSXHZlL+S2bZPN1IMMBgQbw8IidMrU=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=ZmVpSco38ECeRmJvt63XI0dALQCi9Yg5e3xZZ4+bXH2ZP5rsVzmKMMgAPTGlQt3sZ
+	 PopA/73kTVs1dVlgBeT1SBz4y29EaHMq7RQYmUv3/L9fA55jkC9+d0wGZGWMsc8sRK
+	 Q4kLFJG1lqjqfO0rxo5TSKN7l5i8LEpApFsxGQ2E=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 82F32F8022D;
-	Mon, 10 Aug 2020 08:15:27 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 4D136F8022D;
+	Mon, 10 Aug 2020 08:30:38 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 2B0B9F800BC; Mon, 10 Aug 2020 08:15:25 +0200 (CEST)
+ id 3BDC8F8022B; Mon, 10 Aug 2020 08:30:36 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.0 required=5.0 tests=SPF_HELO_PASS,SPF_PASS,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from zju.edu.cn (mail.zju.edu.cn [61.164.42.155])
- by alsa1.perex.cz (Postfix) with ESMTP id AC9A8F800BC
- for <alsa-devel@alsa-project.org>; Mon, 10 Aug 2020 08:15:12 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz AC9A8F800BC
-Received: from localhost.localdomain (unknown [210.32.144.186])
- by mail-app2 (Coremail) with SMTP id by_KCgBXX7Pm5TBfGJavAQ--.21907S4;
- Mon, 10 Aug 2020 14:15:05 +0800 (CST)
-From: Dinghao Liu <dinghao.liu@zju.edu.cn>
-To: dinghao.liu@zju.edu.cn,
-	kjlu@umn.edu
-Subject: [PATCH] ALSA: echoaudio: Fix memory leak in snd_echo_resume()
-Date: Mon, 10 Aug 2020 14:14:58 +0800
-Message-Id: <20200810061500.9329-1-dinghao.liu@zju.edu.cn>
-X-Mailer: git-send-email 2.17.1
-X-CM-TRANSID: by_KCgBXX7Pm5TBfGJavAQ--.21907S4
-X-Coremail-Antispam: 1UD129KBjvdXoWrKr47XrW3Zw4fJrW8KF18Grg_yoW3Grg_Ww
- 48Xrn5Way5trykC34UZ3y8WryDJ3s8Cw15CwsxtF4xJasrG3Z2gr9xZr9xJr17CrWjkrs8
- K34rXrWYy3s8GjkaLaAFLSUrUUUUUb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
- 9fnUUIcSsGvfJTRUUUb-kFc2x0x2IEx4CE42xK8VAvwI8IcIk0rVWrJVCq3wAFIxvE14AK
- wVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK021l84ACjcxK6xIIjxv20x
- vE14v26w1j6s0DM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4UJVWxJr1l84ACjcxK6I8E
- 87Iv67AKxVW0oVCq3wA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_GcCE3s1le2I262IYc4CY6c
- 8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E2Ix0cI8IcVAFwI0_Jr0_
- Jr4lYx0Ex4A2jsIE14v26r1j6r4UMcvjeVCFs4IE7xkEbVWUJVW8JwACjcxG0xvY0x0EwI
- xGrwACjI8F5VA0II8E6IAqYI8I648v4I1lFIxGxcIEc7CjxVA2Y2ka0xkIwI1lc2xSY4AK
- 67AK6r47MxAIw28IcxkI7VAKI48JMxAIw28IcVCjz48v1sIEY20_GFWkJr1UJwCFx2IqxV
- CFs4IE7xkEbVWUJVW8JwC20s026c02F40E14v26r1j6r18MI8I3I0E7480Y4vE14v26r10
- 6r1rMI8E67AF67kF1VAFwI0_Jw0_GFylIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxV
- WUJVWUCwCI42IY6xIIjxv20xvEc7CjxVAFwI0_Gr0_Cr1lIxAIcVCF04k26cxKx2IYs7xG
- 6rW3Jr0E3s1lIxAIcVC2z280aVAFwI0_Jr0_Gr1lIxAIcVC2z280aVCY1x0267AKxVW8JV
- W8JrUvcSsGvfC2KfnxnUUI43ZEXa7VUjHUDJUUUUU==
-X-CM-SenderInfo: qrrzjiaqtzq6lmxovvfxof0/1tbiAgsFBlZdtPe8fwAIsJ
-Cc: alsa-devel@alsa-project.org, Arnd Bergmann <arnd@arndb.de>,
- linux-kernel@vger.kernel.org,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- Takashi Iwai <tiwai@suse.com>, Mark Hills <mark@xwax.org>,
- Dan Carpenter <dan.carpenter@oracle.com>
+X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_MSPIKE_H3,
+ RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
+Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 97BE7F800CE
+ for <alsa-devel@alsa-project.org>; Mon, 10 Aug 2020 08:30:25 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 97BE7F800CE
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id 8BE9FAC3F;
+ Mon, 10 Aug 2020 06:30:44 +0000 (UTC)
+Date: Mon, 10 Aug 2020 08:30:24 +0200
+Message-ID: <s5hd03z6min.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Hui Wang <hui.wang@canonical.com>
+Subject: Re: [PATCH] ALSA: hda - fix the micmute led status for Lenovo
+ ThinkCentre AIO
+In-Reply-To: <20200810021659.7429-1-hui.wang@canonical.com>
+References: <20200810021659.7429-1-hui.wang@canonical.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
+ FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
+ (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
+Content-Type: text/plain; charset=US-ASCII
+Cc: alsa-devel@alsa-project.org, stable@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -81,27 +70,46 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-When restore_dsp_rettings() fails, chip should be freed
-just like when init_hw() and request_irq() fails.
+On Mon, 10 Aug 2020 04:16:59 +0200,
+Hui Wang wrote:
+> 
+> After installing the Ubuntu Linux, the micmute led status is not
+> correct. Users expect that the led is on if the capture is disabled,
+> but with the current kernel, the led is off with the capture disabled.
+> 
+> We tried the old linux kernel like linux-4.15, there is no this issue.
+> It looks like we introduced this issue when switching to the led_cdev.
 
-Fixes: 47b5d028fdce8 ("ALSA: Echoaudio - Add suspend support #2")
-Signed-off-by: Dinghao Liu <dinghao.liu@zju.edu.cn>
----
- sound/pci/echoaudio/echoaudio.c | 1 +
- 1 file changed, 1 insertion(+)
+The behavior can be controlled via "Mic Mute-LED Mode" enum kcontrol.
+Which value does it have now?  If it's "Follow Capture", that's the
+correct behavior.  OTOH, if it's "Follow Mute", the LED polarity is
+indeed wrong.
 
-diff --git a/sound/pci/echoaudio/echoaudio.c b/sound/pci/echoaudio/echoaudio.c
-index 6aeb99aa2414..2aa183fe5dc1 100644
---- a/sound/pci/echoaudio/echoaudio.c
-+++ b/sound/pci/echoaudio/echoaudio.c
-@@ -2226,6 +2226,7 @@ static int snd_echo_resume(struct device *dev)
- 	chip->pipe_alloc_mask = pipe_alloc_mask;
- 	if (err < 0) {
- 		kfree(commpage_bak);
-+		snd_echo_free(chip);
- 		return err;
- 	}
- 
--- 
-2.17.1
 
+thanks,
+
+Takashi
+
+
+> 
+> Cc: <stable@vger.kernel.org>
+> Signed-off-by: Hui Wang <hui.wang@canonical.com>
+> ---
+>  sound/pci/hda/patch_realtek.c | 1 +
+>  1 file changed, 1 insertion(+)
+> 
+> diff --git a/sound/pci/hda/patch_realtek.c b/sound/pci/hda/patch_realtek.c
+> index daedcc0adc21..09d93dd88713 100644
+> --- a/sound/pci/hda/patch_realtek.c
+> +++ b/sound/pci/hda/patch_realtek.c
+> @@ -4414,6 +4414,7 @@ static void alc233_fixup_lenovo_line2_mic_hotkey(struct hda_codec *codec,
+>  {
+>  	struct alc_spec *spec = codec->spec;
+>  
+> +	spec->micmute_led_polarity = 1;
+>  	alc_fixup_hp_gpio_led(codec, action, 0, 0x04);
+>  	if (action == HDA_FIXUP_ACT_PRE_PROBE) {
+>  		spec->init_amp = ALC_INIT_DEFAULT;
+> -- 
+> 2.17.1
+> 

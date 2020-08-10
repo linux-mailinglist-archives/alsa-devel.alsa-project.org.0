@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B785A2404F8
-	for <lists+alsa-devel@lfdr.de>; Mon, 10 Aug 2020 13:01:09 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 51E092404F9
+	for <lists+alsa-devel@lfdr.de>; Mon, 10 Aug 2020 13:01:57 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id CA2261663;
-	Mon, 10 Aug 2020 13:00:18 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CA2261663
+	by alsa0.perex.cz (Postfix) with ESMTPS id D6B33827;
+	Mon, 10 Aug 2020 13:01:06 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D6B33827
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1597057268;
-	bh=rE5lKZx3tK+0OJAORBYTgZFf0Snh3egHSQ1j/E/4uqU=;
+	s=default; t=1597057316;
+	bh=wQO04XtK/x5l7EfWWjqq+NL0+7rBYZruZrAl/fHDedI=;
 	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=VvIeo9IRbHNSad4eAx0/Cx3KngSPepyE9dkak6Fgn3MmADoKmCg/v9GQ28Mtq3dzm
-	 NK2x/fPIXagpt9NS7uOvKrjBoiQqdKjmk45eInXkjfrq1vVbsyJSuakBiHH4LDcvcW
-	 YCmFKsz5AOsbz65jC2adD2WgPOpShq/kGqfrWrwo=
+	b=n0TsfkaTqyQFPRHfoH8vqkCsaZZJq+nSJ+0JJNqo5KndqhrkHzQUhN0drkLQwCOl+
+	 mzPEnmNyNh2fqu56fWiRPSUORnkmTAd/XVFakvH9xI9uEpCvJROL773UmuRh+VVhjy
+	 UNM4QSZqEv+pebbaKBVhpTS5qLWkuLmOzJlQBlcA=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 0F0B2F8022D;
-	Mon, 10 Aug 2020 12:59:28 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 0ED37F80085;
+	Mon, 10 Aug 2020 12:59:57 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 0A9D1F8022B; Mon, 10 Aug 2020 12:59:26 +0200 (CEST)
+ id 60F61F80247; Mon, 10 Aug 2020 12:59:54 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_MSPIKE_H3,
@@ -34,21 +34,20 @@ X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_MSPIKE_H3,
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id D7226F800CE
- for <alsa-devel@alsa-project.org>; Mon, 10 Aug 2020 12:59:15 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D7226F800CE
+ by alsa1.perex.cz (Postfix) with ESMTPS id 77267F8022B
+ for <alsa-devel@alsa-project.org>; Mon, 10 Aug 2020 12:59:48 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 77267F8022B
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 10C66AD43;
- Mon, 10 Aug 2020 10:59:35 +0000 (UTC)
-Date: Mon, 10 Aug 2020 12:59:14 +0200
-Message-ID: <s5heeoe6a2l.wl-tiwai@suse.de>
+ by mx2.suse.de (Postfix) with ESMTP id 47F98ACB5;
+ Mon, 10 Aug 2020 11:00:08 +0000 (UTC)
+Date: Mon, 10 Aug 2020 12:59:48 +0200
+Message-ID: <s5hd03y6a1n.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
 To: Hector Martin <marcan@marcan.st>
-Subject: Re: [PATCH] ALSA: usb-audio: work around streaming quirk for
- MacroSilicon MS2109
-In-Reply-To: <20200810082400.225858-1-marcan@marcan.st>
-References: <20200810082400.225858-1-marcan@marcan.st>
+Subject: Re: [PATCH] ALSA: usb-audio: add quirk for Pioneer DDJ-RB
+In-Reply-To: <20200810082502.225979-1-marcan@marcan.st>
+References: <20200810082502.225979-1-marcan@marcan.st>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
  FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
  (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
@@ -70,27 +69,16 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Mon, 10 Aug 2020 10:24:00 +0200,
+On Mon, 10 Aug 2020 10:25:02 +0200,
 Hector Martin wrote:
 > 
-> Further investigation of the L-R swap problem on the MS2109 reveals that
-> the problem isn't that the channels are swapped, but rather that they
-> are swapped and also out of phase by one sample. In other words, the
-> issue is actually that the very first frame that comes from the hardware
-> is a half-frame containing only the right channel, and after that
-> everything becomes offset.
-> 
-> So introduce a new quirk field to drop the very first 2 bytes that come
-> in after the format is configured and a capture stream starts. This puts
-> the channels in phase and in the correct order.
+> This is just another Pioneer device with fixed endpoints. Input is dummy
+> but used as feedback (it always returns silence).
 > 
 > Cc: stable@vger.kernel.org
 > Signed-off-by: Hector Martin <marcan@marcan.st>
 
-Hm, that's fairly weird behavior, but the workaround looks simple
-enough, so now I applied as is.
+Applied, thanks.
 
-
-thanks,
 
 Takashi

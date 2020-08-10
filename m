@@ -2,87 +2,160 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8B1092403A6
-	for <lists+alsa-devel@lfdr.de>; Mon, 10 Aug 2020 10:55:38 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id F077F240439
+	for <lists+alsa-devel@lfdr.de>; Mon, 10 Aug 2020 11:49:24 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 2A2A21661;
-	Mon, 10 Aug 2020 10:54:48 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2A2A21661
+	by alsa0.perex.cz (Postfix) with ESMTPS id 71F331667;
+	Mon, 10 Aug 2020 11:48:34 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 71F331667
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1597049738;
-	bh=P5205B7DSBVpJ83irqAkSCzMf3U7XJUMwrsQq4Zoy0g=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
+	s=default; t=1597052964;
+	bh=enUsemuBwSRxpyjOpqUpVCbIxPpC7IkjzNh/9VKMXX8=;
+	h=From:To:Subject:Date:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=O3DCNcarWNV+7GuQT0QJaknOoxqE0Q92acwm9VvYg/oXFFseKcF0poU1mSN3eetY3
-	 vZlS5sxHpgbKqXHsuP9wDB3vS0P9UtMgLpYB7koZZfgZ+6r9e0QBXEWsBBg+j2uOXm
-	 3dd7s3/BhmevjuNg2BVCnikkJkn5h4a6fzsgm+Ro=
+	b=rHHtndTgihmvJjb02L2r3mISOVBO6CXU+iNMR4mXKS4yNCpYy74G2w7kiD3d01nAu
+	 cDkJszeS9zlGrA65978s9tfEguFUFZOYcDFzCmC0FxKTaGXD5q42XdE2y+mJdjisL5
+	 y4qFTx+7gxQe5/7zlovE9ohlAJpnijeRmMDHoTZk=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 5BF7FF8022D;
-	Mon, 10 Aug 2020 10:53:57 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 7A5FDF801DB;
+	Mon, 10 Aug 2020 11:47:43 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 7DDC3F800BC; Mon, 10 Aug 2020 10:53:55 +0200 (CEST)
+ id 6E3EFF8022B; Mon, 10 Aug 2020 11:47:41 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
+X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ RCVD_IN_MSPIKE_H3,RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
  autolearn=disabled version=3.4.0
-Received: from mail-qk1-x744.google.com (mail-qk1-x744.google.com
- [IPv6:2607:f8b0:4864:20::744])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 6926BF800BC
- for <alsa-devel@alsa-project.org>; Mon, 10 Aug 2020 10:53:44 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6926BF800BC
+ by alsa1.perex.cz (Postfix) with ESMTPS id 2705CF80085
+ for <alsa-devel@alsa-project.org>; Mon, 10 Aug 2020 11:47:29 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2705CF80085
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="d7Aa9uvk"
-Received: by mail-qk1-x744.google.com with SMTP id n129so1975618qkd.6
- for <alsa-devel@alsa-project.org>; Mon, 10 Aug 2020 01:53:44 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=hn/uvI5guaY3D0G4/sdlh6Gx/KpGc+PN8jIJlWv4gfw=;
- b=d7Aa9uvkgM7oBz+js2KgV6ryeTcBKg1+nuyabNAVpCSEqUIVRt494wY2baViHTGqKZ
- aF8nGJPx0RtjOgE/N1sdXrZ5LC0r/EHlwHUFetfeuk2Shc5Vgs2rX7/rFOfAJ9fOSvZX
- c03EyDruLop4NtSphCrDRGpVngIJMJJhzgRS8dseZLs8U/scj0te95vbIW8mYJqoro1t
- cIgFamiIKdggQQ8iXVxxwWkmWuXVpJkxyQRerU5lir3AWhL1OVYlRUkI5PFHFweMQssu
- f5lmFSUmVMWE08JFuNHHPBbwf+uMCMnNuki5SkOm8ov4A5AFAwy2zcaornwwpbm+zdOD
- 5hng==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=hn/uvI5guaY3D0G4/sdlh6Gx/KpGc+PN8jIJlWv4gfw=;
- b=Z9tnzXooq4Use3bM8+JNkqnrPiikmmDz48/4GWxTJpGlF+qORuNDDCfhMDRvqPosVX
- 7D4bTLb8zhkDbO8Emn2BuJDJ5zlMLE7w9UjWBHAIn/oF0MqZtTILqpIg4Ze16MVIZi5y
- qb4Xu6HkL8H36VbomigMXgo1CpF/2mHYkq8GcZqVG2Jrx1JOR/7X3d9gshgQZNJarBQk
- JPIbn4aVCXobktYe8np77JWxl8W8PmFa4faH2oOzbX1jKnJbBNTb8CvYWKMuFGoCNBKb
- w/SmEmzxqXB/ivR9xYb3LtPK6CmdR3nYfrA+doUct9Cdw3UVPgCGTrQ59+2bkf6TERm/
- Bq6g==
-X-Gm-Message-State: AOAM531AGTkNfilI4Nu77f+JVxaqNtUtEfLGmUqQgjATQ4pB8LUbtxuS
- 8Y766lE3m4QbJY8QMtBlna9Wx34hxS4TWrJLK7Q=
-X-Google-Smtp-Source: ABdhPJw4PLTjbhjwDy6EiKaJ7HTrl8YRVLWi1NAyqs9jnrxv1KPWBcnGXX4x7q7HcmegO6cIZyeDvkpZWdqQjLRd+WU=
-X-Received: by 2002:a37:e92:: with SMTP id 140mr24720492qko.121.1597049622701; 
- Mon, 10 Aug 2020 01:53:42 -0700 (PDT)
+ dkim=pass (1024-bit key) header.d=intel.onmicrosoft.com
+ header.i=@intel.onmicrosoft.com header.b="T9xGXtBA"
+IronPort-SDR: DKakov1WaJvoA7vxU7pO968bZtKJ/717ZhxQwXH/WiZ0zRxaB0QmcxSVJp0ys0FT+SsPi1D1tu
+ MXkeooqkN+VQ==
+X-IronPort-AV: E=McAfee;i="6000,8403,9708"; a="141363643"
+X-IronPort-AV: E=Sophos;i="5.75,457,1589266800"; d="scan'208";a="141363643"
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from fmsmga003.fm.intel.com ([10.253.24.29])
+ by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 10 Aug 2020 02:47:24 -0700
+IronPort-SDR: VM3O3zXWtWQYyHGTkIuliC6z0C+ndwec32MHfp4WK671OnS1W4joH/xYl89YzTlzP90qv/Wk4C
+ X87vr/SZRXbw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.75,457,1589266800"; d="scan'208";a="332159224"
+Received: from fmsmsx603-2.cps.intel.com (HELO fmsmsx603.amr.corp.intel.com)
+ ([10.18.84.213])
+ by FMSMGA003.fm.intel.com with ESMTP; 10 Aug 2020 02:47:24 -0700
+Received: from fmsmsx606.amr.corp.intel.com (10.18.126.86) by
+ fmsmsx603.amr.corp.intel.com (10.18.126.83) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.1713.5; Mon, 10 Aug 2020 02:47:23 -0700
+Received: from FMSEDG002.ED.cps.intel.com (10.1.192.134) by
+ fmsmsx606.amr.corp.intel.com (10.18.126.86) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256) id 15.1.1713.5
+ via Frontend Transport; Mon, 10 Aug 2020 02:47:23 -0700
+Received: from NAM10-MW2-obe.outbound.protection.outlook.com (104.47.55.103)
+ by edgegateway.intel.com (192.55.55.69) with Microsoft SMTP Server (TLS) id
+ 14.3.439.0; Mon, 10 Aug 2020 02:47:17 -0700
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=SB5zzC3GjGtML4K4wLEsa/hMr474nvHj6jtjWn7F1C4xsRZ1nLFBX0lhI95KN80clv22LRgFAsnOeSyU1p17IGFLvmtUDdeAaNYD+BzP4Sk1EffCxt1veofegYO1caWyPaSmtRctyWGxLeGV3MHjVokI++TpCCADZ0XlMq4aqODcH62xMLS3yu6NlWXolzC2MkkjfKnTxQ6q+BGqhs1JTNvGamqVBfMaEEW6fmDEIOEcUCnJttKBUjia8wcGlaCiX93Fsff0aoWCSsrlQYNijqVYumhlIqzCcaTI8zuHAgN1SBgNX88xjxNJxg1CgRP5/5R3FqTd7iIewO4bW3Qg/w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Trp0bIrrVAJRAVPdHncIEhpcxbIQ4ofFvlVg/txzFUU=;
+ b=D7Ab3tkokzwK5MYr6Ft6SpwOrigs+ukxhaLQnpkr39RVZSw6BC6uh8JGF60WfRCQgQxHuLLJ08bUSlb2uVHQna7tbsO6rUN9TY5f7U1KYIiXT7rlH+4qd3z92yQRF84BVeyP29Egfz0jH2o5v/T5eAMCbXeEPLvrnGGP2c3xqdpaSxJ28DWedKcajNLvBl3qRa+vcJBmOIehzWGxhCZ4k94CTtwYpD26G4WT31ygTIN9q/XNBSbathBzwUJ9xrpg4tKK/dkNMm8GjKUZfAzPX5/cSXM6KhrlAH19C0tNO0CcbVhgtYp4d4agv3j1WXA91dpcXRXAzSnsR4Ie3W777w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=intel.onmicrosoft.com; 
+ s=selector2-intel-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Trp0bIrrVAJRAVPdHncIEhpcxbIQ4ofFvlVg/txzFUU=;
+ b=T9xGXtBAeL3qE3kx/i9cYhWRP+iDdOhXWRV8X/lkF2YsUpjaqpnz4N8ZGgx/WFnm3xgV3wsfpE9AYVgFpf1ksBTEpe2VDgJn5RCjNsTlSkPjBeyAhOeZb5N9xUEo8tXq8iTO8/Rxw10lRtGsmArpATnjY2GEhNFEIWmOUg67aqc=
+Received: from BYAPR11MB3046.namprd11.prod.outlook.com (2603:10b6:a03:86::18)
+ by BYAPR11MB3495.namprd11.prod.outlook.com (2603:10b6:a03:8a::14)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3261.16; Mon, 10 Aug
+ 2020 09:47:15 +0000
+Received: from BYAPR11MB3046.namprd11.prod.outlook.com
+ ([fe80::cc39:1771:dc1f:593c]) by BYAPR11MB3046.namprd11.prod.outlook.com
+ ([fe80::cc39:1771:dc1f:593c%3]) with mapi id 15.20.3261.024; Mon, 10 Aug 2020
+ 09:47:15 +0000
+From: "Sit, Michael Wei Hong" <michael.wei.hong.sit@intel.com>
+To: Mark Brown <broonie@kernel.org>
+Subject: RE: [PATCH 4/4] dt-bindings: sound: intel,keembay-i2s: Add
+ channel-max property
+Thread-Topic: [PATCH 4/4] dt-bindings: sound: intel,keembay-i2s: Add
+ channel-max property
+Thread-Index: AQHWZmTSECd6XhR1kUiCjOuunRmPnqklpW/ggACVP4CAAP0SgIAAplCAgAE1hHCAA65hgIAEZ0wQ
+Date: Mon, 10 Aug 2020 09:47:15 +0000
+Message-ID: <BYAPR11MB304699F4BE93C6DDB9620EFD9D440@BYAPR11MB3046.namprd11.prod.outlook.com>
+References: <20200730055319.1522-1-michael.wei.hong.sit@intel.com>
+ <20200730055319.1522-5-michael.wei.hong.sit@intel.com>
+ <20200730112948.GB5055@sirena.org.uk>
+ <BYAPR11MB3046DD82FAC2B5C672FC85B29D4D0@BYAPR11MB3046.namprd11.prod.outlook.com>
+ <20200803104917.GB4502@sirena.org.uk>
+ <BYAPR11MB3046E41085E470BFB11D710B9D4A0@BYAPR11MB3046.namprd11.prod.outlook.com>
+ <20200804115019.GA5249@sirena.org.uk>
+ <BYAPR11MB3046BCAFC8335E7841DE8EAA9D4B0@BYAPR11MB3046.namprd11.prod.outlook.com>
+ <20200807143101.GL5435@sirena.org.uk>
+In-Reply-To: <20200807143101.GL5435@sirena.org.uk>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+dlp-reaction: no-action
+dlp-version: 11.5.1.3
+dlp-product: dlpe-windows
+authentication-results: kernel.org; dkim=none (message not signed)
+ header.d=none;kernel.org; dmarc=none action=none header.from=intel.com;
+x-originating-ip: [121.123.85.241]
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-correlation-id: fc83a1dc-0499-4951-c5bf-08d83d125d59
+x-ms-traffictypediagnostic: BYAPR11MB3495:
+x-ld-processed: 46c98d88-e344-4ed4-8496-4ed7712e255d,ExtAddr
+x-ms-exchange-transport-forked: True
+x-microsoft-antispam-prvs: <BYAPR11MB3495F699BC90EDBCA6F0BB309D440@BYAPR11MB3495.namprd11.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:5236;
+x-ms-exchange-senderadcheck: 1
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: RanJCpEoWlS87DdLDvQir+GgAhDPNl45YKs7qqM3640qGZXKNgV/skD7RAUIYB0K8UIVXEw8cddS72k64gfNwOQAIDZNGTKXhKcwDvFYgpCYxticz05H6fVll/bv7JCCtgvg945a5xuTg0QFeG9T9MbRlvfcCDfyvV7HCyiYqc2j9tukF5cH1xvundby69xzO3HMS4h8MZc6zgDvLv8JVwRIjw5nPphxsm7nYjz2xuqiyDhsIk/OxhhcXLcEQ8wcFP6ETvAXlPVlB7lcw3tSLMEA4v3aYyjgSCmeIxT/4A/webkccdFxtFy2uQ+uytvLqEJMKuX7vxKSrMaDaROqJ/uBVnXufqLtNFY1OhObBVkK4CaJb9tK+x+qzeSaDqhb
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BYAPR11MB3046.namprd11.prod.outlook.com; PTR:; CAT:NONE;
+ SFTY:;
+ SFS:(4636009)(136003)(39860400002)(376002)(366004)(396003)(346002)(6916009)(52536014)(54906003)(71200400001)(4326008)(83380400001)(26005)(5660300002)(316002)(8936002)(33656002)(86362001)(8676002)(7696005)(478600001)(76116006)(6506007)(66946007)(66476007)(64756008)(66446008)(66556008)(186003)(53546011)(2906002)(9686003)(55016002)(142933001);
+ DIR:OUT; SFP:1102; 
+x-ms-exchange-antispam-messagedata: l0m1oc/SPKnguJPmfMB2evv6xMdCa8t/88p3Bo/BDuZcX9UruyfYBYKBeygI5PNnEKDJCfe97RxVJl0aWyUI6pe41vHjJQcbSEPhEOPvF0HUFuuUU6m0iOKNDRhAfgQp2HHbQ3kEvCyPihm+nFEYC0zP941/mj/bXeF0Sk+bv3HwD64wfsfM1wPfNsfrR8k8qCs9BOGH8IzplFO9+QvkL8maE5AYzevY2wwtoh/TWp+OUX9H+DFnjO2ltnOvxs/XpmppfuHvretXo9RxDMXYkmBu1wpNPmHILW1d2jlNNvUIZSsL6CRVbZ7twWn+hhbim6eKRk6BtlIZunw77KglOOKfQ+yASxnYJg02uOgP7dkr1hLh6xkF63RF+o9GYc1bUgJMOzgksEXER/L5qHgIzLMRJd1YCEMy2Z+UAtDRPhpQG0XmcH+Y+0hebiNVAMcBnsSFL3HWgDCXgAtnUUGF2mp4uuPZe/Es44rwQebeqd86GmEX9Dc1z0RbYQm127uIJ6TOJFN0EtdWtM0oD16OPbgHvd9fhjfbvWMBfKRi2vDPNuSOKjfXqEFcyVOOeTQkEHfC67f//Zvn1yMw8K3r6EuY9WSRTkknRBGECzkWaZhh6aoH3r8eH4MoGjdhPyT9tPD6EqD74WZ++uv6QARWKw==
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
-References: <1596791682-4311-1-git-send-email-shengjiu.wang@nxp.com>
- <20200810080018.GA13408@Asurada-Nvidia>
-In-Reply-To: <20200810080018.GA13408@Asurada-Nvidia>
-From: Shengjiu Wang <shengjiu.wang@gmail.com>
-Date: Mon, 10 Aug 2020 16:53:31 +0800
-Message-ID: <CAA+D8AP6thymUXN_OTGMxz6Xun0c8Ep0s1-LKj6b0odoBQ0K=g@mail.gmail.com>
-Subject: Re: [PATCH] ASoC: fsl_sai: Add -EPROBE_DEFER check for regmap init
-To: Nicolin Chen <nicoleotsuka@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Cc: Linux-ALSA <alsa-devel@alsa-project.org>, Timur Tabi <timur@kernel.org>,
- Xiubo Li <Xiubo.Lee@gmail.com>, Fabio Estevam <festevam@gmail.com>,
- Shengjiu Wang <shengjiu.wang@nxp.com>, Takashi Iwai <tiwai@suse.com>,
- Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
- linuxppc-dev@lists.ozlabs.org, linux-kernel <linux-kernel@vger.kernel.org>
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: BYAPR11MB3046.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: fc83a1dc-0499-4951-c5bf-08d83d125d59
+X-MS-Exchange-CrossTenant-originalarrivaltime: 10 Aug 2020 09:47:15.6735 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: uFDu7wL3jgHP0l6E912gB1LN9QVLV34UAbtAlZzO3RPCm13HEO4gjtOaRif6whDVvsJphHp+7dNdkh749cVYjNaNtsEVYsDqopX4OB36nXM=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BYAPR11MB3495
+X-OriginatorOrg: intel.com
+Cc: "pierre-louis.bossart@linux.intel.com"
+ <pierre-louis.bossart@linux.intel.com>, "Rojewski,
+ Cezary" <cezary.rojewski@intel.com>, "Shevchenko,
+ Andriy" <andriy.shevchenko@intel.com>,
+ "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>, "Sia,
+ Jee Heng" <jee.heng.sia@intel.com>, "tiwai@suse.com" <tiwai@suse.com>,
+ "liam.r.girdwood@linux.intel.com" <liam.r.girdwood@linux.intel.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -98,37 +171,38 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Mon, Aug 10, 2020 at 4:02 PM Nicolin Chen <nicoleotsuka@gmail.com> wrote:
->
-> On Fri, Aug 07, 2020 at 05:14:42PM +0800, Shengjiu Wang wrote:
-> > Regmap initialization may return -EPROBE_DEFER for clock
-> > may not be ready, so check -EPROBE_DEFER error type before
-> > start another Regmap initialization.
-> >
-> > Signed-off-by: Shengjiu Wang <shengjiu.wang@nxp.com>
-> > ---
-> >  sound/soc/fsl/fsl_sai.c | 2 +-
-> >  1 file changed, 1 insertion(+), 1 deletion(-)
-> >
-> > diff --git a/sound/soc/fsl/fsl_sai.c b/sound/soc/fsl/fsl_sai.c
-> > index a22562f2df47..eb933fe9b6d1 100644
-> > --- a/sound/soc/fsl/fsl_sai.c
-> > +++ b/sound/soc/fsl/fsl_sai.c
-> > @@ -927,7 +927,7 @@ static int fsl_sai_probe(struct platform_device *pdev)
-> >                       "bus", base, &fsl_sai_regmap_config);
-> >
-> >       /* Compatible with old DTB cases */
-> > -     if (IS_ERR(sai->regmap))
-> > +     if (IS_ERR(sai->regmap) && PTR_ERR(sai->regmap) != -EPROBE_DEFER)
-> >               sai->regmap = devm_regmap_init_mmio_clk(&pdev->dev,
-> >                               "sai", base, &fsl_sai_regmap_config);
-> >       if (IS_ERR(sai->regmap)) {
->
-> In that case, might need a !EPROBE_DEFER check for this
-> fallback devm_regmap_init_mmio_clk at "sai" clock too?
 
-No, I think it is ok for this fallback to return directly with
-EPROBE_DEFER.
 
-best regards
-wang shengjiu
+> -----Original Message-----
+> From: Mark Brown <broonie@kernel.org>
+> Sent: Friday, 7 August, 2020 10:31 PM
+> To: Sit, Michael Wei Hong <michael.wei.hong.sit@intel.com>
+> Cc: alsa-devel@alsa-project.org; tiwai@suse.com; pierre-
+> louis.bossart@linux.intel.com; Rojewski, Cezary
+> <cezary.rojewski@intel.com>; Shevchenko, Andriy
+> <andriy.shevchenko@intel.com>; liam.r.girdwood@linux.intel.com;
+> Sia, Jee Heng <jee.heng.sia@intel.com>
+> Subject: Re: [PATCH 4/4] dt-bindings: sound: intel,keembay-i2s: Add
+> channel-max property
+>=20
+> On Wed, Aug 05, 2020 at 06:21:14AM +0000, Sit, Michael Wei Hong
+> wrote:
+>=20
+> > > Are you *sure* that's the only difference, or is that just the only
+> > > difference you know about right now?
+>=20
+> > Yes, I am fairy sure that is the only difference according to the
+> design, as per the platform use case.
+>=20
+> It would still be safer to have a separate compatible, it wouldn't be
+> the first time that additional changes that the hardware people had
+> failed to communicate were discovered.
+>=20
+I will create a separate compatible string in the next revision of the patc=
+h.
+Since part of the patch series has already been merged, do I send in the ne=
+w
+patch as a new review or on top of these patch series?
+> Please fix your mail client to word wrap within paragraphs at
+> something substantially less than 80 columns.  Doing this makes
+> your messages much easier to read and reply to.

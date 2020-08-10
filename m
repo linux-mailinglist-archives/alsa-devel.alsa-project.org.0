@@ -2,75 +2,91 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id DD871240D60
-	for <lists+alsa-devel@lfdr.de>; Mon, 10 Aug 2020 21:01:04 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6332A2413A1
+	for <lists+alsa-devel@lfdr.de>; Tue, 11 Aug 2020 01:13:45 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 8BA761662;
-	Mon, 10 Aug 2020 21:00:14 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8BA761662
+	by alsa0.perex.cz (Postfix) with ESMTPS id DF6D11665;
+	Tue, 11 Aug 2020 01:12:54 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DF6D11665
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1597086064;
-	bh=0HJsvBhDgtMd4mAfQ0IClkR95U5B70Iyt02xN0TkLRE=;
+	s=default; t=1597101224;
+	bh=DTC3H0Wg6mcic8SpTccRSVSJM9mt3iC7pJcHG5LHdek=;
 	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=Yj9GkRBdvWsAZCz2fX0wE7+oF2n0b/mCWgWKgVaDXlMZaMUntAKxvW7bJ2is7Rkk7
-	 MYdpiC+FBrle7AWIooE0loqYVoAtjE/PMTMt100e6b8QEqdebVfT3c76WKETEQkw1h
-	 8idMwAqlMRM3y/mHP/lgEP+5aHcc3MhoqGjufYXU=
+	b=nj7/S02rLLAZ1GuUA7j/Cy/BbD1FuO/jV4qAvUmNQdL+f0n47bLXpsJMCFCZZPfsn
+	 0WSL2pqc+G4j5jCqCyVg3hJeb+kMS6I+fqHsr8ahblT+VIYQMiBqzD4DWj3uSoEvqD
+	 5lzNCSPdrEgXtP9bRRzFQsBZAfKJrbyeYwyevuH0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id BFF33F80247;
-	Mon, 10 Aug 2020 21:00:07 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 20077F801DB;
+	Tue, 11 Aug 2020 01:12:04 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 188D0F8022D; Mon, 10 Aug 2020 21:00:05 +0200 (CEST)
+ id 756CDF8022B; Tue, 11 Aug 2020 01:12:01 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled
- version=3.4.0
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from mail-pf1-x443.google.com (mail-pf1-x443.google.com
+ [IPv6:2607:f8b0:4864:20::443])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 4BC68F80085
- for <alsa-devel@alsa-project.org>; Mon, 10 Aug 2020 21:00:00 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4BC68F80085
+ by alsa1.perex.cz (Postfix) with ESMTPS id C01C6F800CE
+ for <alsa-devel@alsa-project.org>; Tue, 11 Aug 2020 01:11:54 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C01C6F800CE
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="aMSpvbZo"
-Received: from localhost (fw-tnat.cambridge.arm.com [217.140.96.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 36726221E2;
- Mon, 10 Aug 2020 18:59:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1597085998;
- bh=0HJsvBhDgtMd4mAfQ0IClkR95U5B70Iyt02xN0TkLRE=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=aMSpvbZonA3oWK0xvB/yax4FSrQgALfDEtyp7u69heNiQkz85DxmhF24Zwy83vKAU
- Mfm7ehaatohrYVb7vx7e/NX3PkpY8YH5ZmgDV8s5rCJHfonsIVyD23cgmOs3P1ot9d
- IJqH8xPbXjukRPEjSOp0pxkpna/oN2MvpjTv42+w=
-Date: Mon, 10 Aug 2020 19:59:33 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Jiaxin Yu <jiaxin.yu@mediatek.com>
-Subject: Re: [PATCH v2 1/2] ASoC: mediatek: mt6359: add codec driver
-Message-ID: <20200810185933.GI6438@sirena.org.uk>
-References: <1597028754-7732-1-git-send-email-jiaxin.yu@mediatek.com>
- <1597028754-7732-2-git-send-email-jiaxin.yu@mediatek.com>
+ dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
+ header.b="YOm0rklr"
+Received: by mail-pf1-x443.google.com with SMTP id m71so6172057pfd.1
+ for <alsa-devel@alsa-project.org>; Mon, 10 Aug 2020 16:11:54 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=date:from:to:cc:subject:message-id:references:mime-version
+ :content-disposition:in-reply-to:user-agent;
+ bh=iyYx+79mwCrZYi3nlfml4tfsSp9D2+EXuOvJ+LHVxHU=;
+ b=YOm0rklrG+M8yFJVFuQfstvRO3v/Hq2XyONxrwKB7WZOa58+I2waQdvBPnfANWEeWd
+ v5WN019344fkBd/eUIc5q/mc3sglQTBGZDEbM8ImbMp2WhdkG5RRxU7pqJnJaPrw3WCn
+ +VCZvNgkDjq9REtEPH2RI17kTTXfMsoGMrpDtzTMLDGVK/Hs4tuMJinvZbhtK5F0CDfW
+ vD2Lf3HLMgqNmaMxZfzFed+8IPMFkA3udQF3G1LCYaCNG0raW05Dxr9MbiCOHu/8QXal
+ 0WXPqS2vz1Z7OsqX/2vdlYryvbQk7whq3a/jKkt4UUUnuIODEDf7pXoMTvj+s4CZjfqc
+ IVAg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to:user-agent;
+ bh=iyYx+79mwCrZYi3nlfml4tfsSp9D2+EXuOvJ+LHVxHU=;
+ b=Wv9msFnXg2lKBu0DnL9IDUa8VcGdiqXSQ+098N+BZ+I44mifqdOvOOs7U+Bvq7pPZ5
+ 4hMteAvuV16U+7/ts9kPVBu+lqR1kw4+CQXs3m/noUFrNjsohMTgj+yye3VkeWKnWDP1
+ 5mROUvfBlzeZH7L1mv1R8wGQJgokMRAbUw4HVcouz3WNdkt86jM5NU32UCF0bmF8eTiC
+ slj+/Hh9tQ2pmlcJyFVpWCecBMisG0EFduRbSbOHba6Y2kiTIXYgdlzSY1gQs0pjxd2l
+ sqAuUqVVSggd8POFBwVgdpYrN7US7EPAd5fObDJjnxTPBZqbii7IK5q/+8puQE/gxCYM
+ yPuw==
+X-Gm-Message-State: AOAM532HD+tFNqBLJzHBQh8GK0XCZSxmGGS9h2R8VtQ4jVkYvpgjTMlq
+ qY6/B4sCrOMx96AWkNUWSAI=
+X-Google-Smtp-Source: ABdhPJyuVXKLUZzlX+04asv1rO5NDwf3RYoPK3yQ/Y5WBimvbdL5XOOKrIANZFoQMNYFlRtNl7BTDQ==
+X-Received: by 2002:a63:705b:: with SMTP id a27mr21206295pgn.405.1597101111429; 
+ Mon, 10 Aug 2020 16:11:51 -0700 (PDT)
+Received: from Asurada-Nvidia (searspoint.nvidia.com. [216.228.112.21])
+ by smtp.gmail.com with ESMTPSA id y4sm19161705pgb.16.2020.08.10.16.11.50
+ (version=TLS1_2 cipher=ECDHE-ECDSA-CHACHA20-POLY1305 bits=256/256);
+ Mon, 10 Aug 2020 16:11:51 -0700 (PDT)
+Date: Mon, 10 Aug 2020 16:11:45 -0700
+From: Nicolin Chen <nicoleotsuka@gmail.com>
+To: Shengjiu Wang <shengjiu.wang@nxp.com>
+Subject: Re: [PATCH] ASoC: fsl_sai: Add -EPROBE_DEFER check for regmap init
+Message-ID: <20200810231144.GA16645@Asurada-Nvidia>
+References: <1596791682-4311-1-git-send-email-shengjiu.wang@nxp.com>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="tctmm6wHVGT/P6vA"
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <1597028754-7732-2-git-send-email-jiaxin.yu@mediatek.com>
-X-Cookie: Walk softly and carry a megawatt laser.
-User-Agent: Mutt/1.10.1 (2018-07-13)
-Cc: alsa-devel@alsa-project.org, shane.chien@mediatek.com,
- howie.huang@mediatek.com, tiwai@suse.com, linux-kernel@vger.kernel.org,
- tzungbi@google.com, robh+dt@kernel.org, linux-mediatek@lists.infradead.org,
- eason.yen@mediatek.com, matthias.bgg@gmail.com,
- linux-arm-kernel@lists.infradead.org
+In-Reply-To: <1596791682-4311-1-git-send-email-shengjiu.wang@nxp.com>
+User-Agent: Mutt/1.9.4 (2018-02-28)
+Cc: alsa-devel@alsa-project.org, timur@kernel.org, Xiubo.Lee@gmail.com,
+ linuxppc-dev@lists.ozlabs.org, tiwai@suse.com, lgirdwood@gmail.com,
+ broonie@kernel.org, festevam@gmail.com, linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -86,217 +102,11 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+On Fri, Aug 07, 2020 at 05:14:42PM +0800, Shengjiu Wang wrote:
+> Regmap initialization may return -EPROBE_DEFER for clock
+> may not be ready, so check -EPROBE_DEFER error type before
+> start another Regmap initialization.
+> 
+> Signed-off-by: Shengjiu Wang <shengjiu.wang@nxp.com>
 
---tctmm6wHVGT/P6vA
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-
-On Mon, Aug 10, 2020 at 11:05:53AM +0800, Jiaxin Yu wrote:
-
-> +void mt6359_set_playback_gpio(struct snd_soc_component *cmpnt)
-> +{
-> +	struct mt6359_priv *priv = snd_soc_component_get_drvdata(cmpnt);
-
-> +void mt6359_reset_playback_gpio(struct snd_soc_component *cmpnt)
-> +{
-> +	struct mt6359_priv *priv = snd_soc_component_get_drvdata(cmpnt);
-
-> +void mt6359_set_capture_gpio(struct snd_soc_component *cmpnt)
-> +{
-
-> +void mt6359_reset_capture_gpio(struct snd_soc_component *cmpnt)
-> +{
-
-What are these, should they not be managed through gpiolib and/or
-pinctrl?
-
-> +/* use only when doing mtkaif calibraiton at the boot time */
-> +static int mt6359_set_dcxo(struct mt6359_priv *priv, bool enable)
-> +{
-> +	regmap_update_bits(priv->regmap, MT6359_DCXO_CW12,
-> +			   0x1 << RG_XO_AUDIO_EN_M_SFT,
-> +			   (enable ? 1 : 0) << RG_XO_AUDIO_EN_M_SFT);
-> +	return 0;
-
-Either don't have a return value or use the result of
-regmap_update_bits().  There's similar issues with some other functions
-in here.
-
-> +int mt6359_mtkaif_calibration_enable(struct snd_soc_pcm_runtime *rtd)
-> +{
-
-> +EXPORT_SYMBOL_GPL(mt6359_mtkaif_calibration_enable);
-
-Why is this exported?
-
-> +static void hp_aux_feedback_loop_gain_ramp(struct mt6359_priv *priv, bool up)
-> +{
-> +	int i = 0, stage = 0;
-> +
-> +	/* Reduce HP aux feedback loop gain step by step */
-> +	for (i = 0; i <= 0xf; i++) {
-> +		stage = up ? i : 0xf - i;
-
-Please write normal conditional statements, it helps legibility.
-
-> +static int mt6359_put_volsw(struct snd_kcontrol *kcontrol,
-> +			    struct snd_ctl_elem_value *ucontrol)
-> +{
-> +	struct snd_soc_component *component =
-> +			snd_soc_kcontrol_component(kcontrol);
-> +	struct mt6359_priv *priv = snd_soc_component_get_drvdata(component);
-> +	struct soc_mixer_control *mc =
-> +			(struct soc_mixer_control *)kcontrol->private_value;
-> +	unsigned int reg;
-> +	int index = ucontrol->value.integer.value[0];
-> +	int ret;
-> +
-> +	ret = snd_soc_put_volsw(kcontrol, ucontrol);
-> +	if (ret < 0)
-> +		return ret;
-
-So we make the volume change actually take effect...
-
-> +	switch (mc->reg) {
-> +	case MT6359_ZCD_CON2:
-> +		regmap_read(priv->regmap, MT6359_ZCD_CON2, &reg);
-> +		priv->ana_gain[AUDIO_ANALOG_VOLUME_HPOUTL] =
-> +			(reg >> RG_AUDHPLGAIN_SFT) & RG_AUDHPLGAIN_MASK;
-> +		priv->ana_gain[AUDIO_ANALOG_VOLUME_HPOUTR] =
-> +			(reg >> RG_AUDHPRGAIN_SFT) & RG_AUDHPRGAIN_MASK;
-> +		break;
-
-...then read the value that was set and store it elsewhere.  What's
-going on here?
-
-> +/*HP MUX */
-> +static const char * const hp_in_mux_map[] = {
-> +	"Open",
-> +	"LoudSPK Playback",
-> +	"Audio Playback",
-> +	"Test Mode",
-> +	"HP Impedance",
-> +	"undefined1",
-> +	"undefined2",
-> +	"undefined3",
-> +};
-
-Why expose undefined (and presumably out of spec) values to userspace?
-
-> +static int mt_clksq_event(struct snd_soc_dapm_widget *w,
-> +			  struct snd_kcontrol *kcontrol,
-> +			  int event)
-> +{
-> +	struct snd_soc_component *cmpnt = snd_soc_dapm_to_component(w->dapm);
-> +	struct mt6359_priv *priv = snd_soc_component_get_drvdata(cmpnt);
-> +
-> +	dev_dbg(priv->dev, "%s(), event = 0x%x\n", __func__, event);
-> +
-> +	switch (event) {
-> +	case SND_SOC_DAPM_PRE_PMU:
-> +		/* audio clk source from internal dcxo */
-> +		regmap_update_bits(priv->regmap, MT6359_AUDENC_ANA_CON23,
-> +				   RG_CLKSQ_IN_SEL_TEST_MASK_SFT,
-> +				   0x0);
-
-This also appeared to be controlled in _set_clkseq() - are we sure that
-things couldn't get confused about the state?
-
-> +	/* HP damp circuit enable */
-> +	/*Enable HPRN/HPLN output 4K to VCM */
-
-Spaces around the /* */
-
-> +static int mt_hp_event(struct snd_soc_dapm_widget *w,
-> +		       struct snd_kcontrol *kcontrol,
-> +		       int event)
-> +{
-> +	struct snd_soc_component *cmpnt = snd_soc_dapm_to_component(w->dapm);
-> +	struct mt6359_priv *priv = snd_soc_component_get_drvdata(cmpnt);
-> +	unsigned int mux = dapm_kcontrol_get_value(w->kcontrols[0]);
-> +	int device = DEVICE_HP;
-> +
-> +	dev_dbg(priv->dev, "%s(), event 0x%x, dev_counter[DEV_HP] %d, mux %u\n",
-> +		__func__, event, priv->dev_counter[device], mux);
-> +
-> +	switch (event) {
-> +	case SND_SOC_DAPM_PRE_PMU:
-> +		priv->dev_counter[device]++;
-> +		if (priv->dev_counter[device] > 1)
-> +			break;	/* already enabled, do nothing */
-> +		else if (priv->dev_counter[device] <= 0)
-
-Why are we doing additional refcounting on top of what DAPM is doing?
-This seems like there should be at least one widget representing the
-shared bits of the audio path.
-
-> +#define MT6359_FORMATS (SNDRV_PCM_FMTBIT_S16_LE | SNDRV_PCM_FMTBIT_S16_BE |\
-> +			SNDRV_PCM_FMTBIT_U16_LE | SNDRV_PCM_FMTBIT_U16_BE |\
-> +			SNDRV_PCM_FMTBIT_S24_LE | SNDRV_PCM_FMTBIT_S24_BE |\
-> +			SNDRV_PCM_FMTBIT_U24_LE | SNDRV_PCM_FMTBIT_U24_BE |\
-> +			SNDRV_PCM_FMTBIT_S32_LE | SNDRV_PCM_FMTBIT_S32_BE |\
-> +			SNDRV_PCM_FMTBIT_U32_LE | SNDRV_PCM_FMTBIT_U32_BE)
-
-The driver doesn't appear to configure anything except the sample rate -
-how are all these formats supported?
-
-> +	/* hp gain ctl default choose ZCD */
-> +	priv->hp_gain_ctl = HP_GAIN_CTL_ZCD;
-> +	hp_gain_ctl_select(priv, priv->hp_gain_ctl);
-
-Why not use the hardware default?
-
-> +	mt6359_codec_init_reg(cmpnt);
-> +
-> +	priv->ana_gain[AUDIO_ANALOG_VOLUME_HPOUTL] = 8;
-> +	priv->ana_gain[AUDIO_ANALOG_VOLUME_HPOUTR] = 8;
-> +	priv->ana_gain[AUDIO_ANALOG_VOLUME_MICAMP1] = 3;
-> +	priv->ana_gain[AUDIO_ANALOG_VOLUME_MICAMP2] = 3;
-> +	priv->ana_gain[AUDIO_ANALOG_VOLUME_MICAMP3] = 3;
-
-Same here.
-
-> +	ret = regulator_enable(priv->avdd_reg);
-> +	if (ret) {
-> +		dev_err(priv->dev, "%s(), failed to enable regulator!\n",
-> +			__func__);
-> +		return ret;
-> +	}
-
-Perhaps make this a DAPM widget?
-
-> +	priv->avdd_reg = devm_regulator_get(&pdev->dev, "vaud18");
-> +	if (IS_ERR(priv->avdd_reg)) {
-> +		dev_err(&pdev->dev, "%s(), have no vaud18 supply", __func__);
-> +		return PTR_ERR(priv->avdd_reg);
-> +	}
-
-It's better to print error codes to help people debugging problems.
-
-> +static const struct of_device_id mt6359_of_match[] = {
-> +	{.compatible = "mediatek,mt6359-sound",},
-> +	{}
-> +};
-> +MODULE_DEVICE_TABLE(of, mt6359_of_match);
-
-We don't need a compatible here, we know that this device is here since
-it's part of the parent device and isn't something that might appear in
-another device.  This is reflecting the Linux driver model, not the
-hardware.
-
---tctmm6wHVGT/P6vA
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl8xmRQACgkQJNaLcl1U
-h9AwIgf/ayU+/rwIHTkJ6VHfejmdeAG1IuGX9PJk/02XeL8eLs6JB9rj9SSoU2pO
-G0QckxHzOBj3IgDORpJy47BJv7U2KM5LH5XctLsQGImG9/M+eZcQ/1lAymOqJIcx
-PEzpnBRXrIwwJYwWw+mr3EZB0fqpDUW2mXiNQ7izPT2AVi7zb0DFXFNaptVHxXoc
-EeL/LPmaj53Gla+Yzf7jgx7D3aVqD2jBvSbn7ZUdxC9UZ251BNUhgfp3qL0AoUZS
-maoxcbO9NL3J9L03l9EGTOUY1lqIqV086dq9Li6SShSkhBa75Qi62p5ekPMqzNZo
-iOIMD+8g6aPEauTaCnT4ozpXpwiPvA==
-=J0i4
------END PGP SIGNATURE-----
-
---tctmm6wHVGT/P6vA--
+Acked-by: Nicolin Chen <nicoleotsuka@gmail.com>

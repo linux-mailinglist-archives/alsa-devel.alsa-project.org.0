@@ -2,55 +2,78 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id DB575241AF2
-	for <lists+alsa-devel@lfdr.de>; Tue, 11 Aug 2020 14:27:40 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id EE4E1241AEF
+	for <lists+alsa-devel@lfdr.de>; Tue, 11 Aug 2020 14:26:53 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 8385210E;
-	Tue, 11 Aug 2020 14:26:50 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8385210E
+	by alsa0.perex.cz (Postfix) with ESMTPS id 64A8F1666;
+	Tue, 11 Aug 2020 14:26:03 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 64A8F1666
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1597148860;
-	bh=qj4IcTrLhEQ0TJHEdVU5A5IdVITfa2Y5krv3bfMuY/o=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=klFc3A/QsUXo9lTon2ekMG13gEX6wjtFewnqFUTdS9xwuQizd2oIyi2AS+8v8z/zJ
-	 zLNuB4WnAD0btouYzxZPHdSqeoaRYe37D+b5GIwuLwCvoXSbKTaXeLdwg19V2ILpXb
-	 981rcQszX4C8BZ2ktf43wGcXNj2E7r0l+G5qsyQI=
+	s=default; t=1597148813;
+	bh=UEN4jJ44IQpR0oEbe7kFtnmV+ebGwMThzWk5GJb3sMk=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=bzr/Nqem3r/eG3znSXYrvq5WplshNPyXXScEl4iL+D7xgKV1Qj2A0oOAgX/YP/yVB
+	 flCejulQjTCn+LXT2TUg25OjHT9mWDBxafM9/Cc0oR2IDGwtlC0yigAsaSUJo6Gmev
+	 ui/mtGFrcGDYD7s26ojkMEiMgcjNRIMtuDZTVqUQ=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id E527FF801A3;
-	Tue, 11 Aug 2020 14:25:19 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 76E65F8015B;
+	Tue, 11 Aug 2020 14:25:12 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id E14B8F80171; Tue, 11 Aug 2020 14:25:16 +0200 (CEST)
+ id F3BF2F8015B; Tue, 11 Aug 2020 14:25:09 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_MSPIKE_H3,
- RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+ DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled
  version=3.4.0
-Received: from youngberry.canonical.com (youngberry.canonical.com
- [91.189.89.112])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 5A85BF80161
- for <alsa-devel@alsa-project.org>; Tue, 11 Aug 2020 14:25:05 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5A85BF80161
-Received: from [114.253.245.60] (helo=localhost.localdomain)
- by youngberry.canonical.com with esmtpsa
- (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.86_2)
- (envelope-from <hui.wang@canonical.com>)
- id 1k5TKx-00025J-Ts; Tue, 11 Aug 2020 12:25:04 +0000
-From: Hui Wang <hui.wang@canonical.com>
-To: alsa-devel@alsa-project.org,
-	tiwai@suse.de,
-	kai.heng.feng@canonical.com
-Subject: [PATCH] ALSA: hda - reverse the setting value in the micmute_led_set
-Date: Tue, 11 Aug 2020 20:24:30 +0800
-Message-Id: <20200811122430.6546-1-hui.wang@canonical.com>
-X-Mailer: git-send-email 2.17.1
-Cc: stable@vger.kernel.org
+ by alsa1.perex.cz (Postfix) with ESMTPS id 050C5F800BC
+ for <alsa-devel@alsa-project.org>; Tue, 11 Aug 2020 14:24:59 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 050C5F800BC
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="jjk5nGh6"
+Received: from localhost (fw-tnat.cambridge.arm.com [217.140.96.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by mail.kernel.org (Postfix) with ESMTPSA id 52EF6206C3;
+ Tue, 11 Aug 2020 12:24:57 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=default; t=1597148698;
+ bh=UEN4jJ44IQpR0oEbe7kFtnmV+ebGwMThzWk5GJb3sMk=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=jjk5nGh6bBqd1lcXIiXCYC13xq9blsxmjW4F52a+YozgcFNgF0a3RzuSbsrHNM9np
+ 9SGSKAJBuRKGJkbRoYEcA9SeHbIXnmOKv+Bga2s8Bg0AnBfIjcvX/uIpEqArbIH6qx
+ 3m2LkcP1BUWZmRMB2iApTpjiiwhHvvbuLN1wAy8I=
+Date: Tue, 11 Aug 2020 13:24:30 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Amadeusz =?utf-8?B?U8WCYXdpxYRza2k=?= <amadeuszx.slawinski@linux.intel.com>
+Subject: Re: [PATCH v2 01/13] ASoC: Intel: Add catpt device
+Message-ID: <20200811122430.GF6967@sirena.org.uk>
+References: <20200811100034.6875-1-cezary.rojewski@intel.com>
+ <20200811100034.6875-2-cezary.rojewski@intel.com>
+ <76ca9300-f995-f5c3-48c4-6cc22f7a80c3@linux.intel.com>
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="5CUMAwwhRxlRszMD"
+Content-Disposition: inline
+In-Reply-To: <76ca9300-f995-f5c3-48c4-6cc22f7a80c3@linux.intel.com>
+X-Cookie: Gravity is a myth, the Earth sucks.
+User-Agent: Mutt/1.10.1 (2018-07-13)
+Cc: Cezary Rojewski <cezary.rojewski@intel.com>, andriy.shevchenko@intel.com,
+ filip.kaczmarski@intel.com, harshapriya.n@intel.com, lgirdwood@gmail.com,
+ ppapierkowski@habana.ai, marcin.barlik@intel.com, zwisler@google.com,
+ alsa-devel@alsa-project.org, pierre-louis.bossart@linux.intel.com,
+ filip.proborszcz@intel.com, michal.wasko@intel.com, tiwai@suse.com,
+ krzysztof.hejmowski@intel.com, cujomalainey@chromium.org,
+ vamshi.krishna.gopal@intel.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -66,53 +89,37 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Before the micmute_led_set() is introduced, the function of
-alc_gpio_micmute_update() will set the gpio value with the
-!micmute_led.led_value, and the machines have the correct micmute led
-status. After the micmute_led_set() is introduced, it sets the gpio
-value with !!micmute_led.led_value, so the led status is not correct
-anymore, we need to set micmute_led_polarity = 1 to workaround it.
 
-Now we fix the micmute_led_set() and remove micmute_led_polarity = 1.
+--5CUMAwwhRxlRszMD
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-Fixes: 87dc36482cab ("ALSA: hda/realtek - Add LED class support for micmute LED")
-Reported-and-suggested-by: Kai-Heng Feng <kai.heng.feng@canonical.com>
-Cc: <stable@vger.kernel.org>
-Signed-off-by: Hui Wang <hui.wang@canonical.com>
----
- sound/pci/hda/patch_realtek.c | 5 +----
- 1 file changed, 1 insertion(+), 4 deletions(-)
+On Tue, Aug 11, 2020 at 02:17:08PM +0200, Amadeusz S=C5=82awi=C5=84ski wrot=
+e:
+> On 8/11/2020 12:00 PM, Cezary Rojewski wrote:
 
-diff --git a/sound/pci/hda/patch_realtek.c b/sound/pci/hda/patch_realtek.c
-index 09d93dd88713..073029aeaf3c 100644
---- a/sound/pci/hda/patch_realtek.c
-+++ b/sound/pci/hda/patch_realtek.c
-@@ -4125,7 +4125,7 @@ static int micmute_led_set(struct led_classdev *led_cdev,
- 	struct alc_spec *spec = codec->spec;
- 
- 	alc_update_gpio_led(codec, spec->gpio_mic_led_mask,
--			    spec->micmute_led_polarity, !!brightness);
-+			    spec->micmute_led_polarity, !brightness);
- 	return 0;
- }
- 
-@@ -4162,8 +4162,6 @@ static void alc285_fixup_hp_gpio_led(struct hda_codec *codec,
- {
- 	struct alc_spec *spec = codec->spec;
- 
--	spec->micmute_led_polarity = 1;
--
- 	alc_fixup_hp_gpio_led(codec, action, 0x04, 0x01);
- }
- 
-@@ -4414,7 +4412,6 @@ static void alc233_fixup_lenovo_line2_mic_hotkey(struct hda_codec *codec,
- {
- 	struct alc_spec *spec = codec->spec;
- 
--	spec->micmute_led_polarity = 1;
- 	alc_fixup_hp_gpio_led(codec, action, 0, 0x04);
- 	if (action == HDA_FIXUP_ACT_PRE_PROBE) {
- 		spec->init_amp = ALC_INIT_DEFAULT;
--- 
-2.17.1
+> > +/* SPDX-License-Identifier: GPL-2.0-only
 
+> If we are making sure that SPDX headers are correct, from what I remember
+> SPDX identifier should be a separate comment line, even if followed by
+> comment. Checkpatch doesn't seem to care and I can't find anything
+
+Yes, it should.
+
+--5CUMAwwhRxlRszMD
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl8yjf0ACgkQJNaLcl1U
+h9CCfQf9HmAe7+y/ptlW2ZZPvi15RjI8Undn5LlJB5nZcAHkozu2jY3ZJOoIOOuo
+rwrppqsshqA49z7EBeZ4W+pwoNMrApfOiww4wyhyRPKqRy4EfLGkYor+TBK5BQlq
+TH7PTAosE79pdEuAa1ZWI5NAkM5K+u8UDysMGoMwYZnfle/dvYV3SllGcFgo6aaY
+EyXf5T8lIHw0cBM3zjsvC5didGyaSFPzCvbPpjbpcdBkERdbuxHpmz3TSJ/XKJNl
+HF3IiJrI7/KLYO/yb1XGVMv9PUiqftAcGTKNWpHU9HdC4IVXO/HMPpMDUjwn/Q+k
+y7Zpk9zN4HzvGF2/Wlrlcs1elkJZUQ==
+=Wgz5
+-----END PGP SIGNATURE-----
+
+--5CUMAwwhRxlRszMD--

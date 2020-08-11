@@ -2,78 +2,90 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id EBBA3241736
-	for <lists+alsa-devel@lfdr.de>; Tue, 11 Aug 2020 09:32:29 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0F713241785
+	for <lists+alsa-devel@lfdr.de>; Tue, 11 Aug 2020 09:45:01 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 6DDC184B;
-	Tue, 11 Aug 2020 09:31:39 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6DDC184B
+	by alsa0.perex.cz (Postfix) with ESMTPS id 979571665;
+	Tue, 11 Aug 2020 09:44:10 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 979571665
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1597131149;
-	bh=gg4BK8MIbEobdX5yRb50MyBRHrKGJ6t41M8LmSlWdDk=;
-	h=Subject:From:To:References:Date:In-Reply-To:Cc:List-Id:
+	s=default; t=1597131900;
+	bh=+VjSSFxwf6hVry26mPLNJYq1KwxWCpIXffYq5jz3210=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=jcHXspKX3jJh3rMj7rZLDy3Din6AeT4F33zLqNjwksRwdDzHdKr9rly8TliiPX2o7
-	 y345YF4l1uIT0bnMSmvkxwJO4gUA0xBzwjUfluIe0hLJukw/Q/a4zIYXKb1g8wZ+u1
-	 WEKHgILu5Gx6DNcJsnsh6hZm9QVgciZRI/gSTfws=
+	b=Vnzw40YM73KAs1xJ5S3BEtQNbdYaIIj7NKy0Pz1ZaMKbSAwlrS+3DrHliPK1l2nOU
+	 7uTNv5HLkpRM9v6naUCxJAy+h58yXJMNuqIPS+UnQOLvEZN1tOD3l2wFxwkEp5T1F1
+	 BbVxg9jJiaHkFOEOL4EpyBZsNypoHXbOd4sELLqw=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 8F124F80161;
-	Tue, 11 Aug 2020 09:30:48 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id B2EFDF80162;
+	Tue, 11 Aug 2020 09:43:19 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 6B3CBF8015B; Tue, 11 Aug 2020 09:30:46 +0200 (CEST)
+ id 0767BF8015B; Tue, 11 Aug 2020 09:43:18 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=NICE_REPLY_A,SPF_HELO_NONE,
- SPF_PASS,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Level: *
+X-Spam-Status: No, score=1.0 required=5.0 tests=PRX_BODY_30, RCVD_IN_MSPIKE_H3,
+ RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
+Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 73491F800D3
- for <alsa-devel@alsa-project.org>; Tue, 11 Aug 2020 09:30:34 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 73491F800D3
-IronPort-SDR: 9e0buFu1vtb3S0x098pri/KXslhR+TfB6oxbix++8sZBpsglOYP5G7gbc3N125aiRwkOIOIqJ+
- 96IsFiq7qwxg==
-X-IronPort-AV: E=McAfee;i="6000,8403,9709"; a="151359723"
-X-IronPort-AV: E=Sophos;i="5.75,460,1589266800"; d="scan'208";a="151359723"
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from fmsmga004.fm.intel.com ([10.253.24.48])
- by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 11 Aug 2020 00:30:27 -0700
-IronPort-SDR: ULYzAC9OOyivaB4WrLTMqpYT6YbtjqsveKrIHy//fZL+st7qVc/Y8s3OPEQEPbT/xYUko1p1pP
- JeH3/yRY/WFQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.75,460,1589266800"; d="scan'208";a="317631427"
-Received: from tpawlows-mobl.ger.corp.intel.com (HELO [10.213.31.191])
- ([10.213.31.191])
- by fmsmga004.fm.intel.com with ESMTP; 11 Aug 2020 00:30:21 -0700
-Subject: Re: [PATCH 07/13] ASoC: Intel: catpt: Event tracing
-From: Cezary Rojewski <cezary.rojewski@intel.com>
-To: Mark Brown <broonie@kernel.org>
-References: <20200807110649.17114-1-cezary.rojewski@intel.com>
- <20200807110649.17114-8-cezary.rojewski@intel.com>
- <20200807150908.GN5435@sirena.org.uk>
- <2e964389-9917-91a4-5f41-7031e54f83a5@intel.com>
-Message-ID: <b7b1d286-0920-2c49-b227-1c49840d20b8@intel.com>
-Date: Tue, 11 Aug 2020 09:30:20 +0200
-User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:68.0) Gecko/20100101
- Thunderbird/68.11.0
-MIME-Version: 1.0
-In-Reply-To: <2e964389-9917-91a4-5f41-7031e54f83a5@intel.com>
-Content-Type: text/plain; charset=windows-1252; format=flowed
-Content-Language: en-US
+ by alsa1.perex.cz (Postfix) with ESMTPS id 10E56F800D3
+ for <alsa-devel@alsa-project.org>; Tue, 11 Aug 2020 09:43:07 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 10E56F800D3
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id ADC6BAC52;
+ Tue, 11 Aug 2020 07:43:27 +0000 (UTC)
+Date: Tue, 11 Aug 2020 09:43:06 +0200
+Message-ID: <s5htux939x1.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Yu-Hsuan Hsu <yuhsuan@chromium.org>
+Subject: Re: [PATCH v3 2/2] ASoC: Intel: Add period size constraint on strago
+ board
+In-Reply-To: <CAGvk5PogmqfEnFRA8hzby+AGgbOSvbELamh_1=eA9KTpyBMPYQ@mail.gmail.com>
+References: <1596020585-11517-1-git-send-email-brent.lu@intel.com>
+ <1596198365-10105-1-git-send-email-brent.lu@intel.com>
+ <1596198365-10105-3-git-send-email-brent.lu@intel.com>
+ <s5h5za3ajvb.wl-tiwai@suse.de>
+ <DM6PR11MB3642AE90DF98956CCEDE6C2F974F0@DM6PR11MB3642.namprd11.prod.outlook.com>
+ <s5hd04a90o4.wl-tiwai@suse.de>
+ <DM6PR11MB3642B5BC2E1E0708088526D8974D0@DM6PR11MB3642.namprd11.prod.outlook.com>
+ <63bca214-3434-16c6-1b60-adf323aec554@linux.intel.com>
+ <DM6PR11MB3642D9BE1E5DAAB8B78B84B0974D0@DM6PR11MB3642.namprd11.prod.outlook.com>
+ <s5hpn873by6.wl-tiwai@suse.de>
+ <DM6PR11MB36423A9D28134811AD5A911F974A0@DM6PR11MB3642.namprd11.prod.outlook.com>
+ <6466847a-8aae-24f7-d727-36ba75e95f98@linux.intel.com>
+ <DM6PR11MB364259049769F6EF3B84AABD97480@DM6PR11MB3642.namprd11.prod.outlook.com>
+ <3f3baf5e-f73d-9cd6-cbfb-36746071e126@linux.intel.com>
+ <CAGvk5PohOP0Yv22tb53EX=ZLB9_vOMb=iujTh64OvHmjC1d4mg@mail.gmail.com>
+ <DM6PR11MB3642AC7F8EC47EB48B384D4797450@DM6PR11MB3642.namprd11.prod.outlook.com>
+ <CAGvk5PogmqfEnFRA8hzby+AGgbOSvbELamh_1=eA9KTpyBMPYQ@mail.gmail.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
+ FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
+ (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Cc: pierre-louis.bossart@linux.intel.com, alsa-devel@alsa-project.org,
- andriy.shevchenko@intel.com, filip.kaczmarski@intel.com,
- harshapriya.n@intel.com, marcin.barlik@intel.com, zwisler@google.com,
- lgirdwood@gmail.com, tiwai@suse.com, filip.proborszcz@intel.com,
- michal.wasko@intel.com, cujomalainey@chromium.org, ppapierkowski@habana.ai,
- vamshi.krishna.gopal@intel.com
+Cc: Guennadi Liakhovetski <guennadi.liakhovetski@linux.intel.com>,
+ "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
+ Kai Vehmanen <kai.vehmanen@linux.intel.com>,
+ Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>, "Rojewski,
+ Cezary" <cezary.rojewski@intel.com>, Takashi Iwai <tiwai@suse.com>,
+ Jie Yang <yang.jie@linux.intel.com>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ Liam Girdwood <liam.r.girdwood@linux.intel.com>,
+ Sam McNally <sammc@chromium.org>, Mark Brown <broonie@kernel.org>,
+ "yuhsuan@google.com" <yuhsuan@google.com>,
+ Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
+ Daniel Stuart <daniel.stuart14@gmail.com>,
+ Andy Shevchenko <andriy.shevchenko@linux.intel.com>, "Lu,
+ Brent" <brent.lu@intel.com>, Damian van Soelen <dj.vsoelen@gmail.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -89,31 +101,88 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 2020-08-10 9:16 AM, Cezary Rojewski wrote:
-> On 2020-08-07 5:09 PM, Mark Brown wrote:
->> On Fri, Aug 07, 2020 at 01:06:43PM +0200, Cezary Rojewski wrote:
->>> Define tracing macros for easy catpt debug. These are divided into
->>> memory, registry and ipc event categories.
->>>
->>> Signed-off-by: Cezary Rojewski <cezary.rojewski@intel.com>
->>> ---
->>> � sound/soc/intel/catpt/trace.h | 169 ++++++++++++++++++++++++++++++++++
->>
->> Usually events go into include/trace/events/
->>
+On Tue, 11 Aug 2020 04:29:24 +0200,
+Yu-Hsuan Hsu wrote:
 > 
-> Thought TRACE_INCLUDE_FILE/ _PATH are designed specifically to remove 
-> the need for trace.h to go into mentioned folder. Based my decision on 
-> fact that sound/hda and sound/core have their traces defined locally.
+> Lu, Brent <brent.lu@intel.com> 於 2020年8月11日 週二 上午10:17寫道：
+> >
+> > >
+> > > Sorry for the late reply. CRAS does not set the period size when using it.
+> > > The default period size is 256, which consumes the samples quickly(about 49627
+> > > fps when the rate is 48000 fps) at the beginning of the playback.
+> > > Since CRAS write samples with the fixed frequency, it triggers underruns
+> > > immidiately.
+> > >
+> > > According to Brent, the DSP is using 240 period regardless the hw_param. If the
+> > > period size is 256, DSP will read 256 samples each time but only consume 240
+> > > samples until the ring buffer of DSP is full. This behavior makes the samples in
+> > > the ring buffer of kernel consumed quickly. (Not sure whether the explanation is
+> > > correct. Need Brent to confirm it.)
+> > >
+> > > Unfortunately, we can not change the behavior of DSP. After some experiments,
+> > > we found that the issue can be fixed if we set the period size to 240. With the
+> > > same frequency as the DSP, the samples are consumed stably. Because everyone
+> > > can trigger this issue when using the driver without setting the period size, we
+> > > think it is a general issue that should be fixed in the kernel.
+> >
+> > I check the code and just realized CRAS does nothing but request maximum buffer
+> > size. As I know the application needs to decide the buffer time and period time so
+> > ALSA could generate a hw_param structure with proper period size instead of using
+> > fixed constraint in machine driver because driver has no idea about the latency you
+> > want.
+> >
+> > You can use snd_pcm_hw_params_set_buffer_time_near() and
+> > snd_pcm_hw_params_set_period_time_near() to get a proper configuration of
+> > buffer and period parameters according to the latency requirement. In the CRAS
+> > code, there is a UCM variable to support this: DmaPeriodMicrosecs. I tested it on
+> > Celes and it looks quite promising. It seems to me that adding constraint in machine
+> > driver is not necessary.
+> >
+> > SectionDevice."Speaker".0 {
+> >         Value {
+> >                 PlaybackPCM "hw:chtrt5650,0"
+> >                 DmaPeriodMicrosecs "5000"
+> > ...
+> >
+> > [   52.434761] sound pcmC1D0p: hw_param
+> > [   52.434767] sound pcmC1D0p:   ACCESS 0x1
+> > [   52.434770] sound pcmC1D0p:   FORMAT 0x4
+> > [   52.434772] sound pcmC1D0p:   SUBFORMAT 0x1
+> > [   52.434776] sound pcmC1D0p:   SAMPLE_BITS [16:16]
+> > [   52.434779] sound pcmC1D0p:   FRAME_BITS [32:32]
+> > [   52.434782] sound pcmC1D0p:   CHANNELS [2:2]
+> > [   52.434785] sound pcmC1D0p:   RATE [48000:48000]
+> > [   52.434788] sound pcmC1D0p:   PERIOD_TIME [5000:5000]
+> > [   52.434791] sound pcmC1D0p:   PERIOD_SIZE [240:240]
+> > [   52.434794] sound pcmC1D0p:   PERIOD_BYTES [960:960]
+> > [   52.434797] sound pcmC1D0p:   PERIODS [852:852]
+> > [   52.434799] sound pcmC1D0p:   BUFFER_TIME [4260000:4260000]
+> > [   52.434802] sound pcmC1D0p:   BUFFER_SIZE [204480:204480]
+> > [   52.434805] sound pcmC1D0p:   BUFFER_BYTES [817920:817920]
+> > [   52.434808] sound pcmC1D0p:   TICK_TIME [0:0]
+> >
+> > Regards,
+> > Brent
+> Hi Brent,
 > 
-> What's the preferred way?
-> 
+> Yes, I know we can do it to fix the issue as well. As I mentioned
+> before, we wanted to fix it in kernel because it is a real issue,
+> isn't it? Basically, a driver should work with any param it supports.
+> But in this case, everyone can trigger underrun if he or she does not
+> the period size to 240. If you still think it's not necessary, I can
+> modify UCM to make CRAS set the appropriate period size.
 
-In regard to preferences, one more question Mark, if I may:
-	snd_soc_catpt vs snd_soc_intel_catpt
+How does it *not* work if you set other than period size 240, more
+exactly?
 
-while developers usually prefer the shorter ones, I understand there 
-might be some subsystem level preferences and currently chosen name 
-could have easily slipped reviewers given the length of patchset.
+The hw_constraint to a fixed period size must be really an exception.
+If you look at other drivers, you won't find any other doing such.
+It already indicates that something is wrong.
 
-Czarek
+Usually the fixed period size comes from the hardware limitation and
+defined in snd_pcm_hardware.  Or, sometimes it's an alignment issue.
+If you need more than that, you should doubt what's really not
+working.
+
+
+Takashi

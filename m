@@ -2,95 +2,122 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2A8A3241EB9
-	for <lists+alsa-devel@lfdr.de>; Tue, 11 Aug 2020 18:56:41 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C8DA1241EC7
+	for <lists+alsa-devel@lfdr.de>; Tue, 11 Aug 2020 19:00:10 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id ADA0C1664;
-	Tue, 11 Aug 2020 18:55:50 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz ADA0C1664
+	by alsa0.perex.cz (Postfix) with ESMTPS id 713671668;
+	Tue, 11 Aug 2020 18:59:20 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 713671668
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1597165000;
-	bh=lxmc9DXaN8Dxl4oww7Cb/ch/PTcz0Rl7FJyUH20ZR9I=;
-	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=p7v4aIV9LTaBohKH2s/p9gaMokLkuY7QKpmSxKqf9KJF4Qi/yZmSLADBP5loeglBr
-	 ftEZDKxeC3SCDY0pnibznTLBx4LpD/pdeOJwzf5MngYQDYoj6+ea3jW8HOuFadz7kS
-	 MtMlWLbYGomzp7jsOog62BG9cmzx2Cx8wQB7PWoE=
+	s=default; t=1597165210;
+	bh=+EqoqA6vXG6pCfJJG+wNaV9HoBkhqj7HwPblxzy7Li8=;
+	h=From:Date:Subject:To:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=eGLDjhWn0kGYoyvKfFDrZwYD1a2ouwpmupuyKKcwnlsZA+pwVbVTJFXKZ0tlzLiXQ
+	 iEcNp2WZ6MZvDFzg9WLwnT3F0Var0QMpOv6lEDYFpZug69RG06EEd5QHaZhssnTKay
+	 G3x7oeY9xpIEjojPnwFUC1S9l9eJzfyP60wHAI9U=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id C5A10F80161;
-	Tue, 11 Aug 2020 18:54:59 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 6A4F6F8027B;
+	Tue, 11 Aug 2020 18:57:42 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 7196CF8015B; Tue, 11 Aug 2020 18:54:57 +0200 (CEST)
+ id C2C0DF800BC; Tue, 11 Aug 2020 18:57:38 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=NICE_REPLY_A,SPF_HELO_NONE,
- SPF_NONE autolearn=disabled version=3.4.0
-Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
+X-Spam-Level: ****
+X-Spam-Status: No, score=4.9 required=5.0 tests=AC_FROM_MANY_DOTS, DKIM_SIGNED,
+ DKIM_VALID,FORGED_SPF_HELO,FROM_WORDY,RCVD_IN_MSPIKE_H2,SPF_HELO_PASS
+ autolearn=disabled version=3.4.0
+Received: from EUR05-VI1-obe.outbound.protection.outlook.com
+ (mail-vi1eur05on2049.outbound.protection.outlook.com [40.107.21.49])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 441D3F80118
- for <alsa-devel@alsa-project.org>; Tue, 11 Aug 2020 18:54:44 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 441D3F80118
-IronPort-SDR: ElBcUIu1r8pbrZiWDblmzD1U3wYkOeXYYHVEqHuYs1uyDDTRbqQmYEg/A2q4kVvpIOEs/qpXrD
- 7qMz0///XbRQ==
-X-IronPort-AV: E=McAfee;i="6000,8403,9710"; a="151446947"
-X-IronPort-AV: E=Sophos;i="5.76,301,1592895600"; d="scan'208";a="151446947"
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from fmsmga005.fm.intel.com ([10.253.24.32])
- by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 11 Aug 2020 09:54:41 -0700
-IronPort-SDR: R+rgW4VXEi6GPdVsNSPPelRJdde1YATjsp7hTZyCXnQW5hDkJKLhGtxzcFZx76HOtN6UvBV43J
- NaFi2AsXBeTA==
-X-IronPort-AV: E=Sophos;i="5.76,301,1592895600"; d="scan'208";a="495211140"
-Received: from lwhitehe-mobl.amr.corp.intel.com (HELO [10.212.97.49])
- ([10.212.97.49])
- by fmsmga005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 11 Aug 2020 09:54:39 -0700
-Subject: Re: [PATCH v3 2/2] ASoC: Intel: Add period size constraint on strago
- board
-To: Mark Brown <broonie@kernel.org>, Yu-Hsuan Hsu <yuhsuan@chromium.org>
-References: <6466847a-8aae-24f7-d727-36ba75e95f98@linux.intel.com>
- <DM6PR11MB364259049769F6EF3B84AABD97480@DM6PR11MB3642.namprd11.prod.outlook.com>
- <3f3baf5e-f73d-9cd6-cbfb-36746071e126@linux.intel.com>
- <CAGvk5PohOP0Yv22tb53EX=ZLB9_vOMb=iujTh64OvHmjC1d4mg@mail.gmail.com>
- <DM6PR11MB3642AC7F8EC47EB48B384D4797450@DM6PR11MB3642.namprd11.prod.outlook.com>
- <CAGvk5PogmqfEnFRA8hzby+AGgbOSvbELamh_1=eA9KTpyBMPYQ@mail.gmail.com>
- <s5htux939x1.wl-tiwai@suse.de>
- <CAGvk5PpcmkZ2HarqeCDaXm4id=84wYs-u4vWxJunHaf09gj66g@mail.gmail.com>
- <s5ho8nh37br.wl-tiwai@suse.de>
- <CAGvk5PphzkdiNfW8hiDuqX+2eQO2FvrpzA0qR3=3VvqM3GBhAA@mail.gmail.com>
- <20200811145353.GG6967@sirena.org.uk>
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Message-ID: <d78f9adc-d583-f0f2-ce38-3c9175c939b8@linux.intel.com>
-Date: Tue, 11 Aug 2020 11:54:38 -0500
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.10.0
+ by alsa1.perex.cz (Postfix) with ESMTPS id E69BFF800BC
+ for <alsa-devel@alsa-project.org>; Tue, 11 Aug 2020 18:57:26 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E69BFF800BC
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=dialogsemiconductor.onmicrosoft.com
+ header.i=@dialogsemiconductor.onmicrosoft.com header.b="IN0Ja54i"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=L0v2J/37CGQ3d4bSjkXtgnIXB4G1jI8VSurBjsaQw6gUqYLpqTpGbPdEAvOAkTgUh072wIWi+8FFXC2oozOunoV1F8uaZYHTdxPVOjTHAyqucFvjjB5mWztsCkOvP5JcqpQ6xB5+3fzx802CPpDf+62CSj1Gl2YxkgasYN74yRFDvtWYGPIyz2A0q6GRhgm3fX7C2cjlkKQSg9q0qMspa1nxTSJRL6l5xOYIas6Wr8NvU4acdYnC9rJ4wyXGLq0AnLRSKwFMPaLJCs9NwmOexExk8MK4FAw+9r0l/v3ozS4h2O5T7ofB/Cek7k8Fyb7eulADBB1hStWmY1A73AWZMA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Zw0xafDtwv027Qsh9wkR5zgsCwR3/eiXEqTpTAuyHoU=;
+ b=malQEMEKVmeXqpPDT2b/PHU5mOoff22Z+qVdxN8+ripPqY2qtdmmzforwiJ21oa9u9vqC3UeWtOvQksOk53xhd4cqi5M/Y+meUijvIFLsHdWg94cEHfEWaHSEWBxYv+7VsgcAuKII9204YYadH4szWRbhmK0EuKLHSFKwIlzc8Uhpntd934IzPFwBpzyT25pv0BVWg0+SfBjcj2uzt4JAXTv8kCfK4708Be0voGmb4kLtdkW+kwJvf/uI0uHuKtg/uPHNbwnKcQ/Hv5QnfVJ0zEfzvAMO7cseSmWhnZ5n1ScCh2AqvfA++7/7q19XniHmQdybiO0uk1XIdnebxgd3g==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=softfail (sender ip
+ is 193.240.239.45) smtp.rcpttodomain=perex.cz smtp.mailfrom=diasemi.com;
+ dmarc=fail (p=none sp=none pct=100) action=none header.from=diasemi.com;
+ dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=dialogsemiconductor.onmicrosoft.com;
+ s=selector1-dialogsemiconductor-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Zw0xafDtwv027Qsh9wkR5zgsCwR3/eiXEqTpTAuyHoU=;
+ b=IN0Ja54i4lOzPhrHwrkl03kP54+G13UON47UpeIU5DBsxN6DZERHXOf6R5y7o3roBU0A4CydcuWO6pcWw8nGMQJ2+b3wi9MnqgITEr2VBVRWM6z7rFgyQa8n5CvwbUk3jALQwwdTUPQWgZsU9ngOhjHCltNIEdhh5cY+P3Qq6EI=
+Received: from AM6PR02CA0002.eurprd02.prod.outlook.com (2603:10a6:20b:6e::15)
+ by VI1PR10MB3120.EURPRD10.PROD.OUTLOOK.COM (2603:10a6:803:de::25)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3261.19; Tue, 11 Aug
+ 2020 16:57:25 +0000
+Received: from HE1EUR02FT053.eop-EUR02.prod.protection.outlook.com
+ (2603:10a6:20b:6e:cafe::3f) by AM6PR02CA0002.outlook.office365.com
+ (2603:10a6:20b:6e::15) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3283.15 via Frontend
+ Transport; Tue, 11 Aug 2020 16:57:24 +0000
+X-MS-Exchange-Authentication-Results: spf=softfail (sender IP is
+ 193.240.239.45) smtp.mailfrom=diasemi.com; perex.cz; dkim=none (message not
+ signed) header.d=none;perex.cz; dmarc=fail action=none
+ header.from=diasemi.com;
+Received-SPF: SoftFail (protection.outlook.com: domain of transitioning
+ diasemi.com discourages use of 193.240.239.45 as permitted sender)
+Received: from mailrelay1.diasemi.com (193.240.239.45) by
+ HE1EUR02FT053.mail.protection.outlook.com (10.152.11.109) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384) id
+ 15.20.3261.16 via Frontend Transport; Tue, 11 Aug 2020 16:57:24 +0000
+Received: from swsrvapps-01.diasemi.com (10.20.28.141) by
+ NB-EX-CASHUB01.diasemi.com (10.1.16.140) with Microsoft SMTP Server id
+ 14.3.468.0; Tue, 11 Aug 2020 18:57:22 +0200
+Received: by swsrvapps-01.diasemi.com (Postfix, from userid 22379)	id
+ C37773FB82; Tue, 11 Aug 2020 17:57:22 +0100 (BST)
+Message-ID: <cover.1597164865.git.Adam.Thomson.Opensource@diasemi.com>
+From: Adam Thomson <Adam.Thomson.Opensource@diasemi.com>
+Date: Tue, 11 Aug 2020 17:57:22 +0100
+Subject: [PATCH 0/3] ASoC: da7219: Reorganise device/codec level probe/remove
+To: Mark Brown <broonie@kernel.org>, Takashi Iwai <tiwai@suse.com>, Liam
+ Girdwood <lgirdwood@gmail.com>, Jaroslav Kysela <perex@perex.cz>
 MIME-Version: 1.0
-In-Reply-To: <20200811145353.GG6967@sirena.org.uk>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
-Cc: Guennadi Liakhovetski <guennadi.liakhovetski@linux.intel.com>,
- "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
- Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
- Kai Vehmanen <kai.vehmanen@linux.intel.com>,
- Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
- Takashi Iwai <tiwai@suse.de>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- Jie Yang <yang.jie@linux.intel.com>, "Rojewski,
- Cezary" <cezary.rojewski@intel.com>, Takashi Iwai <tiwai@suse.com>,
- Liam Girdwood <liam.r.girdwood@linux.intel.com>,
- Sam McNally <sammc@chromium.org>,
- Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
- Daniel Stuart <daniel.stuart14@gmail.com>,
- "yuhsuan@google.com" <yuhsuan@google.com>, "Lu, Brent" <brent.lu@intel.com>,
- Damian van Soelen <dj.vsoelen@gmail.com>
+Content-Type: text/plain
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 7f75375e-bc62-4d05-60d1-08d83e179f0d
+X-MS-TrafficTypeDiagnostic: VI1PR10MB3120:
+X-Microsoft-Antispam-PRVS: <VI1PR10MB3120A4F23776C3EAAF889281A7450@VI1PR10MB3120.EURPRD10.PROD.OUTLOOK.COM>
+X-MS-Oob-TLC-OOBClassifiers: OLM:7219;
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: HAzsnvI6u3JyZx/ZRab6ONnoDueU0U0lDEGiipV/S1YzG99n5mvKEKDY7K9RLGicg7WFXFTNqgkEObCp8uDWtlK7riLmdnBNI8seWVH95BO5lu+evQ1gsIk3KByOjF1vQEbQ9WNVDEykCNdwNE1JXJAg7Mg9BDqCJBGF9muMkhF84RjQYgVYAX6OQEIhlN4KkgXHIx91B0n7N0/f3AARTbZT9F0K6uqIm2vClOOxaaHn8KkmqhL2bDSp9q7PdnHXX844cjoF0xbODo1JcZB7MJl3kP8xDAFl8mWDpXXzo0MZ8jYE7uA7OdQfFQ2Sc9Ixgyi1S9Q+LKTjOh0xOIUJbMVwLTtMHhgfqhaAPcocfJHQHTheYQmGov9BBz1sNZ+ahPu5Od+tltqM941n6DsQPgNt+PaQcCyk79YWn6hk7XsNLBy+aQ4JuKjUSxtX4GQg4TI7F6Gz/Fy/mmQsvMuLRA==
+X-Forefront-Antispam-Report: CIP:193.240.239.45; CTRY:GB; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:mailrelay1.diasemi.com; PTR:InfoDomainNonexistent;
+ CAT:NONE; SFTY:;
+ SFS:(4636009)(396003)(39850400004)(376002)(136003)(346002)(46966005)(316002)(4744005)(4326008)(107886003)(2616005)(478600001)(36906005)(426003)(70586007)(42186006)(336012)(83380400001)(356005)(86362001)(186003)(36756003)(2906002)(82310400002)(26005)(8676002)(5660300002)(110136005)(47076004)(82740400003)(81166007)(8936002)(54906003)(33310700002)(70206006)(6266002)(136400200001);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: diasemi.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Aug 2020 16:57:24.3710 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 7f75375e-bc62-4d05-60d1-08d83e179f0d
+X-MS-Exchange-CrossTenant-Id: 511e3c0e-ee96-486e-a2ec-e272ffa37b7c
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=511e3c0e-ee96-486e-a2ec-e272ffa37b7c; Ip=[193.240.239.45];
+ Helo=[mailrelay1.diasemi.com]
+X-MS-Exchange-CrossTenant-AuthSource: HE1EUR02FT053.eop-EUR02.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR10MB3120
+Cc: linux-kernel@vger.kernel.org, alsa-devel@alsa-project.org,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ Support Opensource <support.opensource@diasemi.com>,
+ Yong Zhi <yong.zhi@intel.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -106,92 +133,25 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+This patch set reorganises and fixes device and codec level probe/remove
+handling within the driver, to allow clean probe and remove at the codec level.
 
->>> ... Why only 240?  That's the next logical question.
->>> If you have a clarification for it, it may be the rigid reason to
->>> introduce such a hw constraint.
-> 
->> According to Brent, the DSP is using 240 period regardless the
->> hw_param. If the period size is 256, DSP will read 256 samples each
->> time but only consume 240 samples until the ring buffer of DSP is
->> full. This behavior makes the samples in the ring buffer of kernel
->> consumed quickly.
-> 
->> Not sure whether the explanation is correct. Hi Brent, can you confirm it?
-> 
-> This seems to be going round and round in circles.  Userspace lets the
-> kernel pick the period size, if the period size isn't 240 (or a multiple
-> of it?) the DSP doesn't properly pay attention to that apparently due to
-> internal hard coding in the DSP firmware which we can't change so the
-> constraint logic needs to know about this DSP limitation - it seems like
-> none of this is going to change without something new going into the
-> mix?  We at least need a new question to ask about the DSP firmware I
-> think.
+This set relates to an issue raised by Yong Zhi where a codec level re-probe
+would fail due to clks still being registered from the previous instantiation.
+In addition some improvements around regulator handling and soft reset have
+also been included.
 
-I just tested aplay -Dhw: on a Cyan Chromebook with the Ubuntu kernel 
-5.4, and I see no issues with the 240 sample period. Same with 432, 960, 
-9600, etc.
+Adam Thomson (3):
+  ASoC: da7219: Move required devm_* allocations to device level code
+  ASoC: da7219: Move soft reset handling to codec level probe
+  ASoC: da7219: Fix clock handling around codec level probe
 
-I also tried just for fun what happens with 256 samples, and I don't see 
-any underflows thrown either, so I am wondering what exactly the problem 
-is? Something's not adding up. I would definitively favor multiple of 
-1ms periods, since it's the only case that was productized, but there's 
-got to me something a side effect of how CRAS programs the hw_params.
+ sound/soc/codecs/da7219-aad.c |  85 +++++---
+ sound/soc/codecs/da7219-aad.h |   3 +
+ sound/soc/codecs/da7219.c     | 493 +++++++++++++++++++++++-------------------
+ sound/soc/codecs/da7219.h     |   1 +
+ 4 files changed, 328 insertions(+), 254 deletions(-)
 
-root@chrx:~# aplay -Dhw:0,0 --period-size=240 --buffer-size=480 -v 1.wav
-Playing WAVE '1.wav' : Signed 16 bit Little Endian, Rate 48000 Hz, Stereo
-Hardware PCM card 0 'chtmax98090' device 0 subdevice 0
-Its setup is:
-   stream       : PLAYBACK
-   access       : RW_INTERLEAVED
-   format       : S16_LE
-   subformat    : STD
-   channels     : 2
-   rate         : 48000
-   exact rate   : 48000 (48000/1)
-   msbits       : 16
-   buffer_size  : 480
-   period_size  : 240
-   period_time  : 5000
-   tstamp_mode  : NONE
-   tstamp_type  : MONOTONIC
-   period_step  : 1
-   avail_min    : 240
-   period_event : 0
-   start_threshold  : 480
-   stop_threshold   : 480
-   silence_threshold: 0
-   silence_size : 0
-   boundary     : 8646911284551352320
-   appl_ptr     : 0
-   hw_ptr       : 0
-
-root@chrx:~# aplay -Dhw:0,0 --period-size=256 --buffer-size=512 -v 1.wav
-Playing WAVE '1.wav' : Signed 16 bit Little Endian, Rate 48000 Hz, Stereo
-Hardware PCM card 0 'chtmax98090' device 0 subdevice 0
-Its setup is:
-   stream       : PLAYBACK
-   access       : RW_INTERLEAVED
-   format       : S16_LE
-   subformat    : STD
-   channels     : 2
-   rate         : 48000
-   exact rate   : 48000 (48000/1)
-   msbits       : 16
-   buffer_size  : 512
-   period_size  : 256
-   period_time  : 5333
-   tstamp_mode  : NONE
-   tstamp_type  : MONOTONIC
-   period_step  : 1
-   avail_min    : 256
-   period_event : 0
-   start_threshold  : 512
-   stop_threshold   : 512
-   silence_threshold: 0
-   silence_size : 0
-   boundary     : 4611686018427387904
-   appl_ptr     : 0
-   hw_ptr       : 0
-
+-- 
+1.9.1
 

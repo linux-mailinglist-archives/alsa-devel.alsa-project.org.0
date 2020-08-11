@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4A490241B22
-	for <lists+alsa-devel@lfdr.de>; Tue, 11 Aug 2020 14:46:07 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3747C241B25
+	for <lists+alsa-devel@lfdr.de>; Tue, 11 Aug 2020 14:46:57 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D31371665;
-	Tue, 11 Aug 2020 14:45:16 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D31371665
+	by alsa0.perex.cz (Postfix) with ESMTPS id C25DC1616;
+	Tue, 11 Aug 2020 14:46:06 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C25DC1616
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1597149966;
-	bh=AgS6py54o7Drbgbaqg5aKP+vVEY1n3QTFFuGbpGBikI=;
+	s=default; t=1597150016;
+	bh=urhKcXumUqAwSkrRZ4F4QsgnW7ienqM0oaw7VSF+L88=;
 	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=SPl0On9oSbIg0uBvATCXjOskg7ZoqEZdXgobZrcjrLa0/TNaskHWMxOClIEIC7Wi2
-	 J2yL7nd8MlHYO9gJurmF+xwJqT45CbKCoRe+d8BPlHl1NrEzyEXymphyXRIzA7hqsH
-	 j4EskEwxIlGnrp7/qGGgSVKKqUAKNiO4ff3uchL8=
+	b=s+ebSJNiCveWe3GQoffWXhziUwEWOtdngD9KrgF7eWcDYqARJbxRs4SxLFji6xcX/
+	 oRKfpP1dLCF+Y4DytoRJnD3/sxaqvjKB4XCEDVS3SLsB1ahpyrT8IM7FPspBSGiI4V
+	 gcbGQBOlPeupqDPlAOd/7WkX5wNSARdGW12J9mpQ=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 1996BF80161;
-	Tue, 11 Aug 2020 14:44:26 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 0B79BF80171;
+	Tue, 11 Aug 2020 14:45:57 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 3FAD4F8015B; Tue, 11 Aug 2020 14:44:23 +0200 (CEST)
+ id 173DEF80162; Tue, 11 Aug 2020 14:45:55 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=NICE_REPLY_A,SPF_HELO_NONE,
@@ -33,38 +33,38 @@ X-Spam-Status: No, score=0.0 required=5.0 tests=NICE_REPLY_A,SPF_HELO_NONE,
 Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id C4F0FF800BC
- for <alsa-devel@alsa-project.org>; Tue, 11 Aug 2020 14:44:12 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C4F0FF800BC
-IronPort-SDR: 7QC/tiEVaI+Ca3J5Qv0AEz6LMScPLDfw5WYtAdVYfUbz46NbtZV3ZHItCR0Kb5Vk8Yony7CcPM
- fyMsIxpw24yg==
-X-IronPort-AV: E=McAfee;i="6000,8403,9709"; a="151391948"
-X-IronPort-AV: E=Sophos;i="5.75,461,1589266800"; d="scan'208";a="151391948"
+ by alsa1.perex.cz (Postfix) with ESMTPS id 9C94BF8014C
+ for <alsa-devel@alsa-project.org>; Tue, 11 Aug 2020 14:45:48 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9C94BF8014C
+IronPort-SDR: zDRBxF3eW7VAcaRqXN3u7752YtQNcPM46Q6B9stRcqwHhT0SVSNK62R/RWeTvbnD2x75DtmvxO
+ K4ruyYX5g6MQ==
+X-IronPort-AV: E=McAfee;i="6000,8403,9709"; a="151392082"
+X-IronPort-AV: E=Sophos;i="5.75,461,1589266800"; d="scan'208";a="151392082"
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
 Received: from fmsmga004.fm.intel.com ([10.253.24.48])
  by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 11 Aug 2020 05:44:10 -0700
-IronPort-SDR: Xm7yXlEcLxk7qLCkJK9H2iGg+T2aTTNrj2Ja8etK7nnD6SLuBMuaMbOZ0cUe/V7xePX9U5I1t+
- Wt9xmqk2HAxQ==
+ 11 Aug 2020 05:45:46 -0700
+IronPort-SDR: duePVcA3tulheztpC5zJUgkHWlVj3jQMCWtHBRVUShUF+VFCxkxgmaynm6bv286EKFUMTawucq
+ /k1vdJZPsBZQ==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.75,461,1589266800"; d="scan'208";a="317713090"
+X-IronPort-AV: E=Sophos;i="5.75,461,1589266800"; d="scan'208";a="317713478"
 Received: from crojewsk-mobl1.ger.corp.intel.com (HELO [10.213.31.191])
  ([10.213.31.191])
- by fmsmga004.fm.intel.com with ESMTP; 11 Aug 2020 05:44:06 -0700
-Subject: Re: [PATCH v2 06/13] ASoC: Intel: catpt: PCM operations
+ by fmsmga004.fm.intel.com with ESMTP; 11 Aug 2020 05:45:42 -0700
+Subject: Re: [PATCH v2 01/13] ASoC: Intel: Add catpt device
 To: =?UTF-8?Q?Amadeusz_S=c5=82awi=c5=84ski?=
  <amadeuszx.slawinski@linux.intel.com>, alsa-devel@alsa-project.org
 References: <20200811100034.6875-1-cezary.rojewski@intel.com>
- <20200811100034.6875-7-cezary.rojewski@intel.com>
- <e02fc6e7-20aa-4977-d2a3-a78e3e696df2@linux.intel.com>
+ <20200811100034.6875-2-cezary.rojewski@intel.com>
+ <76ca9300-f995-f5c3-48c4-6cc22f7a80c3@linux.intel.com>
 From: Cezary Rojewski <cezary.rojewski@intel.com>
-Message-ID: <63853493-bbf4-f9f7-b892-ad1c485a6860@intel.com>
-Date: Tue, 11 Aug 2020 14:44:05 +0200
+Message-ID: <8fff8fb0-1b78-493e-0fdd-f9f0f15a6b5b@intel.com>
+Date: Tue, 11 Aug 2020 14:45:42 +0200
 User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:68.0) Gecko/20100101
  Thunderbird/68.11.0
 MIME-Version: 1.0
-In-Reply-To: <e02fc6e7-20aa-4977-d2a3-a78e3e696df2@linux.intel.com>
+In-Reply-To: <76ca9300-f995-f5c3-48c4-6cc22f7a80c3@linux.intel.com>
 Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Language: en-US
 Content-Transfer-Encoding: 8bit
@@ -93,48 +93,35 @@ On 2020-08-11 2:17 PM, Amadeusz Sławiński wrote:
 > 
 > 
 > On 8/11/2020 12:00 PM, Cezary Rojewski wrote:
->> DSP designed for Lynxpoint and Wildcat Point offers no dynamic topology
->> i.e. all pipelines are already defined within firmware and host is
->> relegated to allocing stream for predefined pins. This is represented by
->> 'catpt_topology' member.
->>
->> Implementation covers all available pin types:
->> - system playback and capture
->> - two offload streams
->> - loopback (reference)
->> - bluetooth playback and capture
->>
->> PCM DAI operations differentiate between those pins as some (mainly
->> offload) are to be handled differently - DSP expects wp updates on each
->> notify_position notification.
->>
->> System playback has no volume control capability as it is routed to
->> mixer stream directly. Other primary streams - capture and two offloads
->> - offer individual volume controls.
->>
->> Compared to sound/soc/intel/haswell this configures SSP device format
->> automatically on pcm creation.
+>> Declare base structures, registers and device routines for the catpt
+>> solution. Catpt deprecates and is a direct replacement for
+>> sound/soc/intel/haswell. Supports Lynxpoint and Wildcat Point both.
 >>
 >> Signed-off-by: Cezary Rojewski <cezary.rojewski@intel.com>
 >> ---
 > 
 > ...
 > 
->> +
->> +static int catpt_set_ctlvol(struct catpt_dev *cdev, u8 stream_id, 
->> long *ctlvol)
->> +{
->> +    u32 dspvol;
->> +    int ret, i;
->> +
->> +    if (ctlvol[0] == ctlvol[1]) {
+>> diff --git a/sound/soc/intel/catpt/registers.h 
+>> b/sound/soc/intel/catpt/registers.h
+>> new file mode 100644
+>> index 000000000000..62c968a4721a
+>> --- /dev/null
+>> +++ b/sound/soc/intel/catpt/registers.h
+>> @@ -0,0 +1,191 @@
+>> +/* SPDX-License-Identifier: GPL-2.0-only
 > 
-> This check seems bit suspicious to me, as CATPT_CHANNELS_MAX is 4 and 
-> you only check 2 of possible values here, while in else part, you loop 
-> over all possible 4 to set them? So there is chance that ctlvol[0] is 
-> equal to ctlvol[1], but ctlvol[2] and ctlvol[3] are different, what 
-> happens then?
+> If we are making sure that SPDX headers are correct, from what I 
+> remember SPDX identifier should be a separate comment line, even if 
+> followed by comment. Checkpatch doesn't seem to care and I can't find 
+> anything explicitly saying that's a rule in 
+> Documentation/process/license-rules.rst (apart from one line "C Header" 
+> example, which is one line comment). Can someone else chime in? Also all 
+> other header that are included in patchset seem to follow this scheme...
 > 
 
-Check is simplified as majority of configurations make use of stereo 
-only. Maybe it shouldn't have been. Will fix in v3.
+Sorry for the repeated mistake. Mark already did mention it. Fixed 
+core.h, traces.h and messages.h but the register.h was omitted during 
+the update.
+
+Ack.

@@ -2,93 +2,68 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 26BBD241CC8
-	for <lists+alsa-devel@lfdr.de>; Tue, 11 Aug 2020 16:56:15 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C7030241DDE
+	for <lists+alsa-devel@lfdr.de>; Tue, 11 Aug 2020 18:09:40 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id AAFE284B;
-	Tue, 11 Aug 2020 16:55:24 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AAFE284B
+	by alsa0.perex.cz (Postfix) with ESMTPS id 4E3A91660;
+	Tue, 11 Aug 2020 18:08:50 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4E3A91660
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1597157774;
-	bh=Zl1pJ2DFMmfKMyJErLFYhmOgyXO6PRB0VQI/KuGEDw0=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=ebLeb7G4ozwZvLgM6I1ZWz4kG76RdGYoqElke8eCBQh9rmH1RMQ8Nolbw2bDVh8kr
-	 fc6+5sQoAS4MxBljp8gUQ+w4kqF8es9QbZmh9Y+sHe4bFe1uZ0QFzYfBTo1X71aCzp
-	 hWv7oP9aSDQ8eR/v8fK9O2SEYwhB/jlKUAigps6s=
+	s=default; t=1597162180;
+	bh=lDnyJPJjGoz1C4o62KZBKMEYgA5Z7jRremvf5d/7PF0=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=O5CNUQ5MqYrJcZpo5vsdwPbnoqAJVPXRlNNOn2VovIs1+1u6zCQkGctaaQmsAi3NE
+	 UKYzTZjVFp00vJjXl/ohWG5UMQ+P2yio4qGjl0neB6KJjHCWeXE869icpaPLi4HH26
+	 Vpsx187btIkYZjVXSGMntmbGeRUcXD5HUW0Hg2Ys=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id D265EF8014C;
-	Tue, 11 Aug 2020 16:54:33 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 42B86F80259;
+	Tue, 11 Aug 2020 18:07:12 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id E5782F8015B; Tue, 11 Aug 2020 16:54:30 +0200 (CEST)
+ id BB96FF8014C; Tue, 11 Aug 2020 18:06:52 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 6B64FF800BC
- for <alsa-devel@alsa-project.org>; Tue, 11 Aug 2020 16:54:23 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6B64FF800BC
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="iH7qbb0G"
-Received: from localhost (fw-tnat.cambridge.arm.com [217.140.96.140])
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id B3B492083B;
- Tue, 11 Aug 2020 14:54:20 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1597157661;
- bh=Zl1pJ2DFMmfKMyJErLFYhmOgyXO6PRB0VQI/KuGEDw0=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=iH7qbb0GzuMV9fPw7/HNe4Txfq+eGeS0iW+h2zR9twWkwrCwj6bRX/czJr6xvZmxO
- BJhNNJLU0wdnPYenJjKjIfSaNWPOJfypoLhQb4DrxzJtSR5eW4EKVvcU3DmrjWI4kE
- ZJXvf1YeXxKuNSeNN5/3K+lEqj30omp1+1UMbIKw=
-Date: Tue, 11 Aug 2020 15:53:53 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Yu-Hsuan Hsu <yuhsuan@chromium.org>
-Subject: Re: [PATCH v3 2/2] ASoC: Intel: Add period size constraint on strago
- board
-Message-ID: <20200811145353.GG6967@sirena.org.uk>
-References: <6466847a-8aae-24f7-d727-36ba75e95f98@linux.intel.com>
- <DM6PR11MB364259049769F6EF3B84AABD97480@DM6PR11MB3642.namprd11.prod.outlook.com>
- <3f3baf5e-f73d-9cd6-cbfb-36746071e126@linux.intel.com>
- <CAGvk5PohOP0Yv22tb53EX=ZLB9_vOMb=iujTh64OvHmjC1d4mg@mail.gmail.com>
- <DM6PR11MB3642AC7F8EC47EB48B384D4797450@DM6PR11MB3642.namprd11.prod.outlook.com>
- <CAGvk5PogmqfEnFRA8hzby+AGgbOSvbELamh_1=eA9KTpyBMPYQ@mail.gmail.com>
- <s5htux939x1.wl-tiwai@suse.de>
- <CAGvk5PpcmkZ2HarqeCDaXm4id=84wYs-u4vWxJunHaf09gj66g@mail.gmail.com>
- <s5ho8nh37br.wl-tiwai@suse.de>
- <CAGvk5PphzkdiNfW8hiDuqX+2eQO2FvrpzA0qR3=3VvqM3GBhAA@mail.gmail.com>
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="5L6AZ1aJH5mDrqCQ"
-Content-Disposition: inline
-In-Reply-To: <CAGvk5PphzkdiNfW8hiDuqX+2eQO2FvrpzA0qR3=3VvqM3GBhAA@mail.gmail.com>
-X-Cookie: Gravity is a myth, the Earth sucks.
-User-Agent: Mutt/1.10.1 (2018-07-13)
-Cc: Guennadi Liakhovetski <guennadi.liakhovetski@linux.intel.com>,
- "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
- Kai Vehmanen <kai.vehmanen@linux.intel.com>,
- Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
- Takashi Iwai <tiwai@suse.de>, "Rojewski, Cezary" <cezary.rojewski@intel.com>,
- Takashi Iwai <tiwai@suse.com>, Jie Yang <yang.jie@linux.intel.com>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- Liam Girdwood <liam.r.girdwood@linux.intel.com>,
- Sam McNally <sammc@chromium.org>, "yuhsuan@google.com" <yuhsuan@google.com>,
- Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
- Daniel Stuart <daniel.stuart14@gmail.com>,
- Andy Shevchenko <andriy.shevchenko@linux.intel.com>, "Lu,
- Brent" <brent.lu@intel.com>, Damian van Soelen <dj.vsoelen@gmail.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 9BB37F800D3
+ for <alsa-devel@alsa-project.org>; Tue, 11 Aug 2020 18:06:40 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9BB37F800D3
+IronPort-SDR: UU0Hdeg1gMr9NyE3aSo2ixZCsnonRbgvOiG9xMIQH9PGTzDXfYQgapKL40pASKsYsKVF9V8ita
+ +kIY2fJQh7vg==
+X-IronPort-AV: E=McAfee;i="6000,8403,9710"; a="153733844"
+X-IronPort-AV: E=Sophos;i="5.76,300,1592895600"; d="scan'208";a="153733844"
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from fmsmga004.fm.intel.com ([10.253.24.48])
+ by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 11 Aug 2020 09:06:36 -0700
+IronPort-SDR: ER5Bm0ybmS/Bky8YtetN6SxaWi6y2KwGK8Hh/Pe9ClbhBd3d8AaSlu84tyry8vzjLtVfLR6ODT
+ 66S0bTaJ+mUg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.76,300,1592895600"; d="scan'208";a="317777564"
+Received: from crojewsk-ctrl.igk.intel.com ([10.102.9.28])
+ by fmsmga004.fm.intel.com with ESMTP; 11 Aug 2020 09:06:32 -0700
+From: Cezary Rojewski <cezary.rojewski@intel.com>
+To: alsa-devel@alsa-project.org
+Subject: [PATCH v3 00/13] ASoC: Intel: Catpt - Lynx and Wildcat point
+Date: Tue, 11 Aug 2020 18:05:57 +0200
+Message-Id: <20200811160610.32735-1-cezary.rojewski@intel.com>
+X-Mailer: git-send-email 2.17.1
+Cc: pierre-louis.bossart@linux.intel.com,
+ Cezary Rojewski <cezary.rojewski@intel.com>, andriy.shevchenko@intel.com,
+ filip.kaczmarski@intel.com, harshapriya.n@intel.com, marcin.barlik@intel.com,
+ zwisler@google.com, lgirdwood@gmail.com, tiwai@suse.com,
+ filip.proborszcz@intel.com, broonie@kernel.org,
+ amadeuszx.slawinski@linux.intel.com, michal.wasko@intel.com,
+ cujomalainey@chromium.org, krzysztof.hejmowski@intel.com,
+ ppapierkowski@habana.ai, vamshi.krishna.gopal@intel.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -104,50 +79,167 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+Implement support for Lynxpoint and Wildcat Point AudioDSP. Catpt
+solution deprecates existing sound/soc/intel/haswell which is removed in
+the following series. This cover-letter is followed by 'Developer's deep
+dive' message schedding light on catpt's key concepts and areas
+addressed.
 
---5L6AZ1aJH5mDrqCQ
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Due to high range of errors and desynchronization from recommendations
+set by Windows solution, re-write came as a lower-cost solution compared
+to refactoring /haswell/ with several series of patches.
 
-On Tue, Aug 11, 2020 at 05:35:45PM +0800, Yu-Hsuan Hsu wrote:
-> Takashi Iwai <tiwai@suse.de> =E6=96=BC 2020=E5=B9=B48=E6=9C=8811=E6=97=A5=
- =E9=80=B1=E4=BA=8C =E4=B8=8B=E5=8D=884:39=E5=AF=AB=E9=81=93=EF=BC=9A
+Special thanks go to Marcin Barlik and Piotr Papierkowski for sharing
+their LPT/WPT AudioDSP architecture expertise as well as helping
+backtrack its historical background.
+My thanks go to Amadeusz Slawinski for reviews and improvements proposed
+on and off the internal list. Most of internal diff below is his
+contribution.
+Krzysztof Hejmowski helped me setup my own Xtensa environment and
+recompile LPT/WPT FW binary sources what sped up the development greatly.
 
-> > ... Why only 240?  That's the next logical question.
-> > If you have a clarification for it, it may be the rigid reason to
-> > introduce such a hw constraint.
+This would not have been possible without help from these champions,
+especially considering how quickly the catpt was written: 2 weeks
+features, 3 weeks optimizations. Thank you.
 
-> According to Brent, the DSP is using 240 period regardless the
-> hw_param. If the period size is 256, DSP will read 256 samples each
-> time but only consume 240 samples until the ring buffer of DSP is
-> full. This behavior makes the samples in the ring buffer of kernel
-> consumed quickly.
+Userspace-exposed members are compatible with what is exposed by
+deprecated solution as well as FW binary being re-used thus no harm is
+done. The only visible differences are: the newly added 'Loopback Mute'
+kcontrol and volume support extending to quad from stereo.
 
-> Not sure whether the explanation is correct. Hi Brent, can you confirm it?
+On top of fixing erros and design flows, catpt also adds module reload,
+dynamic SRAM memory allocation during PCM runtime and exposes missing
+userspace API: 'Loopback Mute' kcontrol, quad volume controls and sysfs
+fw-version entries. Event tracing is provided to easy solution
+debugging.
 
-This seems to be going round and round in circles.  Userspace lets the
-kernel pick the period size, if the period size isn't 240 (or a multiple
-of it?) the DSP doesn't properly pay attention to that apparently due to
-internal hard coding in the DSP firmware which we can't change so the
-constraint logic needs to know about this DSP limitation - it seems like
-none of this is going to change without something new going into the
-mix?  We at least need a new question to ask about the DSP firmware I
-think.
+Following are not included in this update and are scheduled as later
+addition:
+- fw logging
+- module (library) support
 
---5L6AZ1aJH5mDrqCQ
-Content-Type: application/pgp-signature; name="signature.asc"
+Note: LPT power up/down sequences might get aligned with WPT once enough
+testing is done as capabilities are shared for both DSPs.
+Note #2: Both LPT and WPT power up/down sequences may get optimized in
+future updates as thanks to help from the Windows team, most of nuances
+behind why/what/when in regard to hw registers have been backtracked and
+reviewed again.
 
------BEGIN PGP SIGNATURE-----
+Link to developer's deep dive message:
+https://www.spinics.net/lists/alsa-devel/msg113563.html
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl8ysQAACgkQJNaLcl1U
-h9AeeAf/UWVHZwuLSbdU4F24gTh9Evg65nXjOQ/J9iQI9FUTAWaZmBBgfnbWlbRx
-1sqvxQ03kOtC40oS9jFz0hYMwDMQm4seHQfg9Zy0gr6DUHcZBnh+eTmn//6u6Xto
-W68Wr61drakKTT+9jqC5j694fxtAl1uAvrySfjiIoAJFUg+JRsytjzaeUWRGY1+z
-9EjA+q5dX7LuwPKxUmkPkSipJwxXF4zateJ3VnKK2dmNvtnFbYAYD+b7FK2x+9sK
-Q30ZaYcs5rlAif136+aUFKABTBjVBjxzE1yGlD66ZipYapXuFo1IyGiQWwq2phPT
-ZRU1vj4Zn9eW/Ma7XKCxMWgxJHEoOg==
-=CfWE
------END PGP SIGNATURE-----
+Changes in v3:
+- fixed IRAM mask usage in lpt_dsp_power_up (dsp.c)
+- updated dbg message formatting in catpt_restore_fwimage as suggested
+  by Andy
+- fixed alignment for struct catpt_ssp_device_format
+- catpt_set_ctlvol now verifies all-equal scenario based on all
+  channels rather than just first two as requested by Amadeo
+- fixed SPDX for registers.h
 
---5L6AZ1aJH5mDrqCQ--
+Changes in v2:
+- fixed SPDX formatting for all header files as well as pcm.c
+- fixed size used when memcping fs.c::fw_build_read as reported by Mark
+- renamed struct catpt_pdata to struct catpt_spec (cosmetic)
+- fixed erroneous path in catpt_load_block: region is properly released
+- trace.h events for updating registers have been removed and usages
+  replaced by dev_dbg (SRAMPGE/ LPCS)
+
+- as requested by Andy, struct resource has replaced struct catpt_mbank
+  and struct catpt_mregion. This change cascaded into:
+
+  - catpt_mbank_size and catpt_mregion_size replaced by resource_size
+  - catpt_mregion_intersects replaced by resource_overlaps
+  - all catpt_mbank_ and catpt_mregion_ handlers found in loader.c
+    (_request, _reserve, _release, _extract, _split, _join) have been
+    removed
+  - __request_region and __release_region have been enlisted in their
+    place
+  - catpt_mregion_intersecting renamed to catpt_resource_overlapping
+  - catpt_request_region helper has been provided to deal with -size
+    based requests
+      o haven't found direct replacements in resource.c/ ioport.h for
+      both functions
+
+  - catpt_mbank_create and catpt_mbank_remove renamed to catpt_sram_init
+    and catpt_sram_free respectively
+  - catpt_sram_init now returns void instead of int and has been
+    converted to simple initialized. This change ultimately cascaded
+    into:
+      o both SRAM banks initialization being moved to catpt_dev_init
+        from catpt_acpi_probe (device.c)
+      o catpt_dev::spec is now initialized first, with catpt_dev_init
+        following it soon after
+      o catpt_acpi_probe erroneous path has been simplified as SRAM
+        banks no longer need to be freed
+
+  - catpt_sram_free now frees all resources via child -> sibling
+    enumeration rather than region_list iteration
+  - catpt_dsp_update_srampge and catpt_dsp_set_srampge now accept new
+    argument: unsigned long mask. Caused by removal of catpt_mbank -
+    mask is taken directly from catpt_dev::spec::d/iram_mask
+  - trace.h events for catpt_mbank and catpt_mregion have been removed
+
+Diff against last drop on internal list:
+- replaced spinlock with mutex for mregion allocation and release to
+  address sleeping in atomic context warnings
+- fixed coredump fw_hash dumping
+- kcontrol values are now always stored regardless of stream of interest
+  is running or not
+- kcontrol values are now applied after stream is prepared instead of
+  ignoring what has been set by user initially
+- catpt_pdata instances have been renamed from hsw_ and bdw_ to lpt_ and
+  wpt_ respectively
+- reordered Makefile .o(s) (cosmetic)
+
+Cezary Rojewski (13):
+  ASoC: Intel: Add catpt device
+  ASoC: Intel: catpt: Define DSP operations
+  ASoC: Intel: catpt: Firmware loading and context restore
+  ASoC: Intel: catpt: Implement IPC protocol
+  ASoC: Intel: catpt: Add IPC messages
+  ASoC: Intel: catpt: PCM operations
+  ASoC: Intel: catpt: Event tracing
+  ASoC: Intel: catpt: Simple sysfs attributes
+  ASoC: Intel: Select catpt and deprecate haswell
+  ASoC: Intel: haswell: Remove haswell-solution specific code
+  ASoC: Intel: broadwell: Remove haswell-solution specific code
+  ASoC: Intel: bdw-5650: Remove haswell-solution specific code
+  ASoC: Intel: bdw-5677: Remove haswell-solution specific code
+
+ sound/soc/intel/Kconfig             |   22 +-
+ sound/soc/intel/Makefile            |    2 +-
+ sound/soc/intel/boards/Kconfig      |    8 +-
+ sound/soc/intel/boards/bdw-rt5650.c |   36 -
+ sound/soc/intel/boards/bdw-rt5677.c |   33 -
+ sound/soc/intel/boards/broadwell.c  |   33 -
+ sound/soc/intel/boards/haswell.c    |   28 +-
+ sound/soc/intel/catpt/Makefile      |    6 +
+ sound/soc/intel/catpt/core.h        |  187 +++++
+ sound/soc/intel/catpt/device.c      |  376 +++++++++
+ sound/soc/intel/catpt/dsp.c         |  596 +++++++++++++
+ sound/soc/intel/catpt/fs.c          |   79 ++
+ sound/soc/intel/catpt/ipc.c         |  298 +++++++
+ sound/soc/intel/catpt/loader.c      |  673 +++++++++++++++
+ sound/soc/intel/catpt/messages.c    |  312 +++++++
+ sound/soc/intel/catpt/messages.h    |  401 +++++++++
+ sound/soc/intel/catpt/pcm.c         | 1198 +++++++++++++++++++++++++++
+ sound/soc/intel/catpt/registers.h   |  191 +++++
+ sound/soc/intel/catpt/trace.h       |   83 ++
+ 19 files changed, 4420 insertions(+), 142 deletions(-)
+ create mode 100644 sound/soc/intel/catpt/Makefile
+ create mode 100644 sound/soc/intel/catpt/core.h
+ create mode 100644 sound/soc/intel/catpt/device.c
+ create mode 100644 sound/soc/intel/catpt/dsp.c
+ create mode 100644 sound/soc/intel/catpt/fs.c
+ create mode 100644 sound/soc/intel/catpt/ipc.c
+ create mode 100644 sound/soc/intel/catpt/loader.c
+ create mode 100644 sound/soc/intel/catpt/messages.c
+ create mode 100644 sound/soc/intel/catpt/messages.h
+ create mode 100644 sound/soc/intel/catpt/pcm.c
+ create mode 100644 sound/soc/intel/catpt/registers.h
+ create mode 100644 sound/soc/intel/catpt/trace.h
+
+-- 
+2.17.1
+

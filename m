@@ -2,88 +2,94 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5D6D92419D3
-	for <lists+alsa-devel@lfdr.de>; Tue, 11 Aug 2020 12:37:02 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id F3F172419E0
+	for <lists+alsa-devel@lfdr.de>; Tue, 11 Aug 2020 12:45:19 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id DEAA71614;
-	Tue, 11 Aug 2020 12:36:11 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DEAA71614
+	by alsa0.perex.cz (Postfix) with ESMTPS id 95DCE1665;
+	Tue, 11 Aug 2020 12:44:29 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 95DCE1665
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1597142221;
-	bh=PnIsAgseScuuaujleqYaGPmk7PwvxiPyEEPaKjLhew8=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=CGeCN+DtkzA3JpmriSdHNVuSIedwLrePvnsNB0retW2XRZhi3RGqq4ISt1RpPCz2T
-	 jggZt1NQiKAW0xBk7aB7N5FxM3c8TLlEULjFgIkTRUdyAWcEvqxSThkv7boMbEHMKm
-	 zEme3xIbS8EpI/nrR6Vx7T1pKTCNjzArvfcuzZg8=
+	s=default; t=1597142719;
+	bh=at+ZzXmOialSHv5OS6jf9F4lnrLzYpOJkgFNU9nuAiY=;
+	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=MVZn7SCv7WPD7CObfXM+yTOKD7Y7OPaYl1Qm1DVvpJQbg6Y/7Ew/mQCQDAtD25t16
+	 uBfE3fVn4Uns/ybsznIXkgdOG+fHy2epFp+xOXohgM1XqoSYf7bmWVWH+2vIwh21wm
+	 Z47PV+cniKYW2l6xFWBllJLvGCg+gsrfnrwsE4Vw=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 1DA26F80162;
-	Tue, 11 Aug 2020 12:35:21 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id C5C8BF80118;
+	Tue, 11 Aug 2020 12:43:38 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 46F4AF80161; Tue, 11 Aug 2020 12:35:19 +0200 (CEST)
+ id 7BDAAF8014C; Tue, 11 Aug 2020 12:43:36 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from mail-ed1-x541.google.com (mail-ed1-x541.google.com
- [IPv6:2a00:1450:4864:20::541])
+X-Spam-Level: *
+X-Spam-Status: No, score=1.5 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ NICE_REPLY_A,RCVD_IN_MSPIKE_H2,RCVD_IN_SORBS_WEB,SPF_HELO_NONE,SPF_PASS,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mail29.static.mailgun.info (mail29.static.mailgun.info
+ [104.130.122.29])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id A5447F80118
- for <alsa-devel@alsa-project.org>; Tue, 11 Aug 2020 12:35:09 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A5447F80118
+ by alsa1.perex.cz (Postfix) with ESMTPS id 1AFDAF800D3
+ for <alsa-devel@alsa-project.org>; Tue, 11 Aug 2020 12:43:25 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1AFDAF800D3
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org
- header.b="FaYh00uP"
-Received: by mail-ed1-x541.google.com with SMTP id di22so8665136edb.12
- for <alsa-devel@alsa-project.org>; Tue, 11 Aug 2020 03:35:09 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=uRwIOipcItrxEdvc73BAciFxrjXyyFnJHwCmi01GD6k=;
- b=FaYh00uPA0inU6V6X2XtdZN53s+We0TQUPc9IhKJ3DbWywQJQ+i0UAQxlILma4ALQo
- IyOcKDSGziasn+GtzETnNfBUyQdbmIgZmGVvuf0HFrvQdgW/zE+hYMYiMGZAJsF+ThPs
- siOxI+L5Ibaa8SCuUr4vQXMPPziiyCHH+YPXyRsN4inm8UUENDKzhOlRPiSTymjY3SQ2
- VDdyS9wWP7/pBtZRewKvOJ69hnPNpzC6MkhXVjeZvW9NWZeguZjak6jl/vpwlXRa8Y8w
- irs1XnmomSkDKmr88V1QU74osUol2sTOfAgb21IMXAGgjc251BsYZPdpb9Puc2jGEvPm
- XwSw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=uRwIOipcItrxEdvc73BAciFxrjXyyFnJHwCmi01GD6k=;
- b=T+xZ3Qhn0+WRBgIhy1l+TcIVD7MJCFoGr5wuMUS+zFa+FtUzCM03hmkW7eLjGckSW9
- nWfhfunWLljQRsq5PoAZ8LcOQ36IJspInDaVzhfmPfZ6iXSxSXsT7y9KcaMtxAHfdHVi
- 601Pb5u/dhPmtNAgkbkwA8yoCVeQi5PTUpmXL1DiewHqFRHHGXgIwO0YKitT9shhvkFj
- 7Tt53Dh+oEX8nCHfoRcoBDK5qWjq0xHTjJ+4/EZsyCiiKzb8EemYJIfV7ZfjYlpgPqAP
- sSEh26LXC6qidJpiOBOWms0UMiq76exCwl0Ih/s6hb4DSvQLosm60ZeRHqy4AUuoHwcH
- ippQ==
-X-Gm-Message-State: AOAM533Xx5bnWa/+AX610BliZv9xD0NkJyrqTd58RQSWPsJcjGkDVqn7
- vAd0p1qMSsJ07juFrL7SXIdf6vjbbao=
-X-Google-Smtp-Source: ABdhPJy8ApjorAKEGaNyUAsmOZgPX5uvHrh5fbCJQl0ALsJMNqZQ4GtLfP/Z4GNVsouofKCKA2PxnA==
-X-Received: by 2002:a50:fc0e:: with SMTP id i14mr24919687edr.346.1597142108347; 
- Tue, 11 Aug 2020 03:35:08 -0700 (PDT)
-Received: from srini-hackbox.lan
- (cpc86377-aztw32-2-0-cust226.18-1.cable.virginm.net. [92.233.226.227])
- by smtp.gmail.com with ESMTPSA id q2sm14639997edb.82.2020.08.11.03.35.07
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 11 Aug 2020 03:35:07 -0700 (PDT)
-From: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
-To: broonie@kernel.org
-Subject: [PATCH] ASoC: msm8916-wcd-analog: fix register Interrupt offset
-Date: Tue, 11 Aug 2020 11:34:52 +0100
-Message-Id: <20200811103452.20448-1-srinivas.kandagatla@linaro.org>
-X-Mailer: git-send-email 2.21.0
+ dkim=pass (1024-bit key) header.d=mg.codeaurora.org
+ header.i=@mg.codeaurora.org header.b="t3y4fHry"
+DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
+ q=dns/txt; 
+ s=smtp; t=1597142610; h=Content-Transfer-Encoding: Content-Type:
+ In-Reply-To: MIME-Version: Date: Message-ID: From: References: Cc: To:
+ Subject: Sender; bh=5wolqnc4WX3Y9HxnTB+o9sLyjo3ISi+Uffi77Yd3f7o=;
+ b=t3y4fHryRK6/npMQkrs7a0sbDjoVGH6U/WYiJ2bWz1+48zOHRlkeGmoq/vzsG6qFaheuHXHk
+ jU+fl7HsiuJ4Y4fOYIhpMZamjahuMwXOd6WMVbt/kcL+G/F2A6MEAEiDkLVGjTMYiHcGdRZe
+ 1Fn6tf+bYl4ETco/i0kwfPHsiVs=
+X-Mailgun-Sending-Ip: 104.130.122.29
+X-Mailgun-Sid: WyI4ZmE2ZSIsICJhbHNhLWRldmVsQGFsc2EtcHJvamVjdC5vcmciLCAiYmU5ZTRhIl0=
+Received: from smtp.codeaurora.org
+ (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171]) by
+ smtp-out-n02.prod.us-east-1.postgun.com with SMTP id
+ 5f327646ba4c2cd36723ba7c (version=TLS1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Tue, 11 Aug 2020 10:43:18
+ GMT
+Received: by smtp.codeaurora.org (Postfix, from userid 1001)
+ id 0C1A7C433C6; Tue, 11 Aug 2020 10:43:18 +0000 (UTC)
+Received: from [192.168.0.129] (unknown [183.83.142.110])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested) (Authenticated sender: rohitkr)
+ by smtp.codeaurora.org (Postfix) with ESMTPSA id 7FDA2C433C9;
+ Tue, 11 Aug 2020 10:43:06 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 smtp.codeaurora.org 7FDA2C433C9
+Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
+ dmarc=none (p=none dis=none) header.from=codeaurora.org
+Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
+ spf=none smtp.mailfrom=rohitkr@codeaurora.org
+Subject: Re: [PATCH v5 01/12] ASoC: qcom: Add common array to initialize soc
+ based core clocks
+To: agross@kernel.org, bjorn.andersson@linaro.org, lgirdwood@gmail.com,
+ broonie@kernel.org, robh+dt@kernel.org, plai@codeaurora.org,
+ bgoswami@codeaurora.org, perex@perex.cz, tiwai@suse.com,
+ srinivas.kandagatla@linaro.org, linux-arm-msm@vger.kernel.org,
+ alsa-devel@alsa-project.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <1596528453-11437-1-git-send-email-rohitkr@codeaurora.org>
+ <1596528453-11437-2-git-send-email-rohitkr@codeaurora.org>
+From: Rohit Kumar <rohitkr@codeaurora.org>
+Message-ID: <3e390421-84ce-3b74-a72d-8fc09e908971@codeaurora.org>
+Date: Tue, 11 Aug 2020 16:13:03 +0530
+User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:68.0) Gecko/20100101
+ Thunderbird/68.11.0
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Cc: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
- lgirdwood@gmail.com, tiwai@suse.com,
- Srinivas Kandagatla <srinivas.kandagatla@linaro.org>, john.stultz@linaro.org
+In-Reply-To: <1596528453-11437-2-git-send-email-rohitkr@codeaurora.org>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 7bit
+Content-Language: en-US
+Cc: Ajit Pandey <ajitp@codeaurora.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -99,31 +105,133 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-For some reason interrupt set and clear register offsets are
-not set correctly.
-This patch corrects them!
+Hello Mark,
 
-Fixes: 585e881e5b9e ("ASoC: codecs: Add msm8916-wcd analog codec")
-Signed-off-by: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
----
- sound/soc/codecs/msm8916-wcd-analog.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+Do you see any concern with patches (1-11).
+As of now, there is comment only in patch 12 from Rob which I am
+planning to update once other patches are merged. Can you
+please review and let me know if anything is missing.
 
-diff --git a/sound/soc/codecs/msm8916-wcd-analog.c b/sound/soc/codecs/msm8916-wcd-analog.c
-index 4428c62e25cf..3ddd822240e3 100644
---- a/sound/soc/codecs/msm8916-wcd-analog.c
-+++ b/sound/soc/codecs/msm8916-wcd-analog.c
-@@ -19,8 +19,8 @@
- 
- #define CDC_D_REVISION1			(0xf000)
- #define CDC_D_PERPH_SUBTYPE		(0xf005)
--#define CDC_D_INT_EN_SET		(0x015)
--#define CDC_D_INT_EN_CLR		(0x016)
-+#define CDC_D_INT_EN_SET		(0xf015)
-+#define CDC_D_INT_EN_CLR		(0xf016)
- #define MBHC_SWITCH_INT			BIT(7)
- #define MBHC_MIC_ELECTRICAL_INS_REM_DET	BIT(6)
- #define MBHC_BUTTON_PRESS_DET		BIT(5)
+Thanks,
+Rohit
+On 8/4/2020 1:37 PM, Rohit kumar wrote:
+> From: Ajit Pandey <ajitp@codeaurora.org>
+>
+> LPASS variants have their own soc specific clocks that needs to be
+> enabled for MI2S audio support. Added a common variable in drvdata to
+> initialize such clocks using bulk clk api. Such clock names is
+> defined in variants specific data and needs to fetched during init.
+>
+> Signed-off-by: Ajit Pandey <ajitp@codeaurora.org>
+> Signed-off-by: Rohit kumar <rohitkr@codeaurora.org>
+> Reviewed-by: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
+> ---
+>   sound/soc/qcom/lpass-apq8016.c | 39 +++++++++++++++++++--------------------
+>   sound/soc/qcom/lpass.h         | 10 +++++++---
+>   2 files changed, 26 insertions(+), 23 deletions(-)
+>
+> diff --git a/sound/soc/qcom/lpass-apq8016.c b/sound/soc/qcom/lpass-apq8016.c
+> index b3610d0..8210e37 100644
+> --- a/sound/soc/qcom/lpass-apq8016.c
+> +++ b/sound/soc/qcom/lpass-apq8016.c
+> @@ -161,32 +161,27 @@ static int apq8016_lpass_free_dma_channel(struct lpass_data *drvdata, int chan)
+>   static int apq8016_lpass_init(struct platform_device *pdev)
+>   {
+>   	struct lpass_data *drvdata = platform_get_drvdata(pdev);
+> +	struct lpass_variant *variant = drvdata->variant;
+>   	struct device *dev = &pdev->dev;
+> -	int ret;
+> +	int ret, i;
+>   
+> -	drvdata->pcnoc_mport_clk = devm_clk_get(dev, "pcnoc-mport-clk");
+> -	if (IS_ERR(drvdata->pcnoc_mport_clk)) {
+> -		dev_err(dev, "error getting pcnoc-mport-clk: %ld\n",
+> -			PTR_ERR(drvdata->pcnoc_mport_clk));
+> -		return PTR_ERR(drvdata->pcnoc_mport_clk);
+> -	}
+>   
+> -	ret = clk_prepare_enable(drvdata->pcnoc_mport_clk);
+> +	drvdata->clks = devm_kcalloc(dev, variant->num_clks,
+> +				     sizeof(*drvdata->clks), GFP_KERNEL);
+> +	drvdata->num_clks = variant->num_clks;
+> +
+> +	for (i = 0; i < drvdata->num_clks; i++)
+> +		drvdata->clks[i].id = variant->clk_name[i];
+> +
+> +	ret = devm_clk_bulk_get(dev, drvdata->num_clks, drvdata->clks);
+>   	if (ret) {
+> -		dev_err(dev, "Error enabling pcnoc-mport-clk: %d\n", ret);
+> +		dev_err(dev, "Failed to get clocks %d\n", ret);
+>   		return ret;
+>   	}
+>   
+> -	drvdata->pcnoc_sway_clk = devm_clk_get(dev, "pcnoc-sway-clk");
+> -	if (IS_ERR(drvdata->pcnoc_sway_clk)) {
+> -		dev_err(dev, "error getting pcnoc-sway-clk: %ld\n",
+> -			PTR_ERR(drvdata->pcnoc_sway_clk));
+> -		return PTR_ERR(drvdata->pcnoc_sway_clk);
+> -	}
+> -
+> -	ret = clk_prepare_enable(drvdata->pcnoc_sway_clk);
+> +	ret = clk_bulk_prepare_enable(drvdata->num_clks, drvdata->clks);
+>   	if (ret) {
+> -		dev_err(dev, "Error enabling pcnoc_sway_clk: %d\n", ret);
+> +		dev_err(dev, "apq8016 clk_enable failed\n");
+>   		return ret;
+>   	}
+>   
+> @@ -197,8 +192,7 @@ static int apq8016_lpass_exit(struct platform_device *pdev)
+>   {
+>   	struct lpass_data *drvdata = platform_get_drvdata(pdev);
+>   
+> -	clk_disable_unprepare(drvdata->pcnoc_mport_clk);
+> -	clk_disable_unprepare(drvdata->pcnoc_sway_clk);
+> +	clk_bulk_disable_unprepare(drvdata->num_clks, drvdata->clks);
+>   
+>   	return 0;
+>   }
+> @@ -219,6 +213,11 @@ static struct lpass_variant apq8016_data = {
+>   	.wrdma_reg_stride	= 0x1000,
+>   	.wrdma_channel_start	= 5,
+>   	.wrdma_channels		= 2,
+> +	.clk_name		= (const char*[]) {
+> +				   "pcnoc-mport-clk",
+> +				   "pcnoc-sway-clk",
+> +				  },
+> +	.num_clks		= 2,
+>   	.dai_driver		= apq8016_lpass_cpu_dai_driver,
+>   	.num_dai		= ARRAY_SIZE(apq8016_lpass_cpu_dai_driver),
+>   	.dai_osr_clk_names	= (const char *[]) {
+> diff --git a/sound/soc/qcom/lpass.h b/sound/soc/qcom/lpass.h
+> index bd19ec5..450020e 100644
+> --- a/sound/soc/qcom/lpass.h
+> +++ b/sound/soc/qcom/lpass.h
+> @@ -51,9 +51,9 @@ struct lpass_data {
+>   	/* used it for handling interrupt per dma channel */
+>   	struct snd_pcm_substream *substream[LPASS_MAX_DMA_CHANNELS];
+>   
+> -	/* 8016 specific */
+> -	struct clk *pcnoc_mport_clk;
+> -	struct clk *pcnoc_sway_clk;
+> +	/* SOC specific clock list */
+> +	struct clk_bulk_data *clks;
+> +	int num_clks;
+>   
+>   };
+>   
+> @@ -89,6 +89,10 @@ struct lpass_variant {
+>   	int num_dai;
+>   	const char * const *dai_osr_clk_names;
+>   	const char * const *dai_bit_clk_names;
+> +
+> +	/* SOC specific clocks configuration */
+> +	const char **clk_name;
+> +	int num_clks;
+>   };
+>   
+>   /* register the platform driver from the CPU DAI driver */
+
 -- 
-2.21.0
+Qualcomm INDIA, on behalf of Qualcomm Innovation Center, Inc.is a member
+of the Code Aurora Forum, hosted by the Linux Foundation.
 

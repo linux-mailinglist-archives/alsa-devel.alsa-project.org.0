@@ -2,92 +2,93 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B8B8424185E
-	for <lists+alsa-devel@lfdr.de>; Tue, 11 Aug 2020 10:40:59 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 502322418A4
+	for <lists+alsa-devel@lfdr.de>; Tue, 11 Aug 2020 10:58:09 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 4FC721665;
-	Tue, 11 Aug 2020 10:40:09 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4FC721665
+	by alsa0.perex.cz (Postfix) with ESMTPS id D25A71667;
+	Tue, 11 Aug 2020 10:57:18 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D25A71667
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1597135259;
-	bh=R9JcRRNOY1KiUKGD2XIgnkyElZ7lCgO7oHq3phndA1U=;
-	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1597136288;
+	bh=+7qICEn6hIJ1S0a7q7noyogpBLApkDzMeZlj1V29JOk=;
+	h=Subject:From:In-Reply-To:Date:References:To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=fPPuhBjh/f8kGFcNSg4JLoT8rOD/JFiWPBvMQyoiVWJ+oCT/EmjVjjOg/U8vQ+L6i
-	 9j7iTcKXYLTvJPuJqDNw5cM9gKSAN6r+L8+0FhOUnMdnMr976/VO4JV72ES1DWTj0o
-	 A5FJseQxOJTGXWFtL+4p3LLXnQQRjUliEAotLch8=
+	b=FU/4sYiAK6ZBwhsbgnIckkfwZCdN6v9mpnYaUjnpHdVxLGQU/6+Px49qVy4eAdCTU
+	 teoq62LT30cf9IkKDzdBl3B5YsT14mY7z4BENC1Un8NWeDAj5w5G4yi0FNlui31/cT
+	 +vHNufvMni92KncAD0YBTel8zj7AaWBUBHM8pYtM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 7E845F8014C;
-	Tue, 11 Aug 2020 10:39:18 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 1AEA4F80118;
+	Tue, 11 Aug 2020 10:56:28 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 8415FF8015B; Tue, 11 Aug 2020 10:39:16 +0200 (CEST)
+ id A470FF8015B; Tue, 11 Aug 2020 10:56:24 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: *
-X-Spam-Status: No, score=1.0 required=5.0 tests=PRX_BODY_30, RCVD_IN_MSPIKE_H3,
- RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=disabled
+X-Spam-Level: 
+X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_MSPIKE_H3,
+ RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
  version=3.4.0
-Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+Received: from youngberry.canonical.com (youngberry.canonical.com
+ [91.189.89.112])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 58485F800BC
- for <alsa-devel@alsa-project.org>; Tue, 11 Aug 2020 10:39:05 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 58485F800BC
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id CB812B1ED;
- Tue, 11 Aug 2020 08:39:25 +0000 (UTC)
-Date: Tue, 11 Aug 2020 10:39:04 +0200
-Message-ID: <s5ho8nh37br.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Yu-Hsuan Hsu <yuhsuan@chromium.org>
-Subject: Re: [PATCH v3 2/2] ASoC: Intel: Add period size constraint on strago
- board
-In-Reply-To: <CAGvk5PpcmkZ2HarqeCDaXm4id=84wYs-u4vWxJunHaf09gj66g@mail.gmail.com>
-References: <1596020585-11517-1-git-send-email-brent.lu@intel.com>
- <1596198365-10105-1-git-send-email-brent.lu@intel.com>
- <1596198365-10105-3-git-send-email-brent.lu@intel.com>
- <s5h5za3ajvb.wl-tiwai@suse.de>
- <DM6PR11MB3642AE90DF98956CCEDE6C2F974F0@DM6PR11MB3642.namprd11.prod.outlook.com>
- <s5hd04a90o4.wl-tiwai@suse.de>
- <DM6PR11MB3642B5BC2E1E0708088526D8974D0@DM6PR11MB3642.namprd11.prod.outlook.com>
- <63bca214-3434-16c6-1b60-adf323aec554@linux.intel.com>
- <DM6PR11MB3642D9BE1E5DAAB8B78B84B0974D0@DM6PR11MB3642.namprd11.prod.outlook.com>
- <s5hpn873by6.wl-tiwai@suse.de>
- <DM6PR11MB36423A9D28134811AD5A911F974A0@DM6PR11MB3642.namprd11.prod.outlook.com>
- <6466847a-8aae-24f7-d727-36ba75e95f98@linux.intel.com>
- <DM6PR11MB364259049769F6EF3B84AABD97480@DM6PR11MB3642.namprd11.prod.outlook.com>
- <3f3baf5e-f73d-9cd6-cbfb-36746071e126@linux.intel.com>
- <CAGvk5PohOP0Yv22tb53EX=ZLB9_vOMb=iujTh64OvHmjC1d4mg@mail.gmail.com>
- <DM6PR11MB3642AC7F8EC47EB48B384D4797450@DM6PR11MB3642.namprd11.prod.outlook.com>
- <CAGvk5PogmqfEnFRA8hzby+AGgbOSvbELamh_1=eA9KTpyBMPYQ@mail.gmail.com>
- <s5htux939x1.wl-tiwai@suse.de>
- <CAGvk5PpcmkZ2HarqeCDaXm4id=84wYs-u4vWxJunHaf09gj66g@mail.gmail.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
- FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
- (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
-MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-Cc: Guennadi Liakhovetski <guennadi.liakhovetski@linux.intel.com>,
- "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
- Kai Vehmanen <kai.vehmanen@linux.intel.com>,
- Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>, "Rojewski,
- Cezary" <cezary.rojewski@intel.com>, Takashi Iwai <tiwai@suse.com>,
- Jie Yang <yang.jie@linux.intel.com>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- Liam Girdwood <liam.r.girdwood@linux.intel.com>,
- Sam McNally <sammc@chromium.org>, Mark Brown <broonie@kernel.org>,
- "yuhsuan@google.com" <yuhsuan@google.com>,
- Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
- Daniel Stuart <daniel.stuart14@gmail.com>,
- Andy Shevchenko <andriy.shevchenko@linux.intel.com>, "Lu,
- Brent" <brent.lu@intel.com>, Damian van Soelen <dj.vsoelen@gmail.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id C92E1F800BC
+ for <alsa-devel@alsa-project.org>; Tue, 11 Aug 2020 10:56:14 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C92E1F800BC
+Received: from mail-pj1-f69.google.com ([209.85.216.69])
+ by youngberry.canonical.com with esmtps
+ (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.86_2)
+ (envelope-from <kai.heng.feng@canonical.com>) id 1k5Q4p-0002Sb-CL
+ for alsa-devel@alsa-project.org; Tue, 11 Aug 2020 08:56:11 +0000
+Received: by mail-pj1-f69.google.com with SMTP id k103so1684785pje.2
+ for <alsa-devel@alsa-project.org>; Tue, 11 Aug 2020 01:56:11 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:subject:from:in-reply-to:date:cc
+ :content-transfer-encoding:message-id:references:to;
+ bh=u21NqTiGBaO3K/btYj1Wn3aQqEJu/JKT9VndsfXZEPI=;
+ b=V4APy3uILXuJxVGiA67TI4ifKUtQOPgquLhhiNM1hJ6IU3yf34OPAL6q3dBYNLNXyE
+ oT53j/MeBPjCNb6edrqBGbLQ26DLnbbafHgfh//i4J0tNe40TcEgqQBrF3T128s4/vSH
+ 5AvsIkFJREFWSty0SrUFGAPZFGaBEzPx26zboI5Ihi7STafXMzwUaLdb7rCmJF3bE/Kz
+ nEQ2i/+t2sndHjJhxN/jMTBZO34zMn1d/H/Up3/Czxmsn9isV/ElIoDUuBLMZUrXKDNb
+ OcKfDWk3zdYz3kmCc4CmW9SwgFsuqEn/uiF26f0eUWgdH9i9RFg/Puo/qrspejjcNCri
+ SRvA==
+X-Gm-Message-State: AOAM533qrNikFUXGyPxC1Q0jadSGGRvnhByxLiZ4EZ65KN/4b2UFVW0k
+ tQk080A7XDd32Aziybmk0H4jn8JcUNBFa9RS6/IoXm3g04PExMR00glkc/nRnczZKeXD/uZKiMa
+ 9s+ynnU5wJiRYxhcNam/DCWN8oVXiaJcFRFivyEdE
+X-Received: by 2002:a17:90a:c781:: with SMTP id
+ gn1mr12984pjb.151.1597136169993; 
+ Tue, 11 Aug 2020 01:56:09 -0700 (PDT)
+X-Google-Smtp-Source: ABdhPJz7PvV/m+33ro9dfryiIo4G78TwNxgylekeGjGa/1zQVw9IhU/vDyVlS84kqG1cPozrtHHlww==
+X-Received: by 2002:a17:90a:c781:: with SMTP id
+ gn1mr12945pjb.151.1597136169437; 
+ Tue, 11 Aug 2020 01:56:09 -0700 (PDT)
+Received: from [192.168.1.208] (220-133-187-190.HINET-IP.hinet.net.
+ [220.133.187.190])
+ by smtp.gmail.com with ESMTPSA id w23sm20160621pgj.5.2020.08.11.01.56.07
+ (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+ Tue, 11 Aug 2020 01:56:08 -0700 (PDT)
+Content-Type: text/plain;
+	charset=utf-8
+Mime-Version: 1.0 (Mac OS X Mail 13.4 \(3608.120.23.2.1\))
+Subject: Re: [PATCH] ALSA: hda - fix the micmute led status for Lenovo
+ ThinkCentre AIO
+From: Kai-Heng Feng <kai.heng.feng@canonical.com>
+In-Reply-To: <s5ha6z36lk8.wl-tiwai@suse.de>
+Date: Tue, 11 Aug 2020 16:56:06 +0800
+Content-Transfer-Encoding: quoted-printable
+Message-Id: <01D08974-C4EB-4820-9870-42B633DC19B3@canonical.com>
+References: <20200810021659.7429-1-hui.wang@canonical.com>
+ <s5hd03z6min.wl-tiwai@suse.de>
+ <c8ca5bd3-d9a1-6269-e088-6bc6e3936876@canonical.com>
+ <s5ha6z36lk8.wl-tiwai@suse.de>
+To: Takashi Iwai <tiwai@suse.de>
+X-Mailer: Apple Mail (2.3608.120.23.2.1)
+Cc: Hui Wang <hui.wang@canonical.com>,
+ "moderated list:SOUND" <alsa-devel@alsa-project.org>, stable@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -103,111 +104,73 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Tue, 11 Aug 2020 10:25:22 +0200,
-Yu-Hsuan Hsu wrote:
-> 
-> Takashi Iwai <tiwai@suse.de> 於 2020年8月11日 週二 下午3:43寫道：
-> >
-> > On Tue, 11 Aug 2020 04:29:24 +0200,
-> > Yu-Hsuan Hsu wrote:
-> > >
-> > > Lu, Brent <brent.lu@intel.com> 於 2020年8月11日 週二 上午10:17寫道：
-> > > >
-> > > > >
-> > > > > Sorry for the late reply. CRAS does not set the period size when using it.
-> > > > > The default period size is 256, which consumes the samples quickly(about 49627
-> > > > > fps when the rate is 48000 fps) at the beginning of the playback.
-> > > > > Since CRAS write samples with the fixed frequency, it triggers underruns
-> > > > > immidiately.
-> > > > >
-> > > > > According to Brent, the DSP is using 240 period regardless the hw_param. If the
-> > > > > period size is 256, DSP will read 256 samples each time but only consume 240
-> > > > > samples until the ring buffer of DSP is full. This behavior makes the samples in
-> > > > > the ring buffer of kernel consumed quickly. (Not sure whether the explanation is
-> > > > > correct. Need Brent to confirm it.)
-> > > > >
-> > > > > Unfortunately, we can not change the behavior of DSP. After some experiments,
-> > > > > we found that the issue can be fixed if we set the period size to 240. With the
-> > > > > same frequency as the DSP, the samples are consumed stably. Because everyone
-> > > > > can trigger this issue when using the driver without setting the period size, we
-> > > > > think it is a general issue that should be fixed in the kernel.
-> > > >
-> > > > I check the code and just realized CRAS does nothing but request maximum buffer
-> > > > size. As I know the application needs to decide the buffer time and period time so
-> > > > ALSA could generate a hw_param structure with proper period size instead of using
-> > > > fixed constraint in machine driver because driver has no idea about the latency you
-> > > > want.
-> > > >
-> > > > You can use snd_pcm_hw_params_set_buffer_time_near() and
-> > > > snd_pcm_hw_params_set_period_time_near() to get a proper configuration of
-> > > > buffer and period parameters according to the latency requirement. In the CRAS
-> > > > code, there is a UCM variable to support this: DmaPeriodMicrosecs. I tested it on
-> > > > Celes and it looks quite promising. It seems to me that adding constraint in machine
-> > > > driver is not necessary.
-> > > >
-> > > > SectionDevice."Speaker".0 {
-> > > >         Value {
-> > > >                 PlaybackPCM "hw:chtrt5650,0"
-> > > >                 DmaPeriodMicrosecs "5000"
-> > > > ...
-> > > >
-> > > > [   52.434761] sound pcmC1D0p: hw_param
-> > > > [   52.434767] sound pcmC1D0p:   ACCESS 0x1
-> > > > [   52.434770] sound pcmC1D0p:   FORMAT 0x4
-> > > > [   52.434772] sound pcmC1D0p:   SUBFORMAT 0x1
-> > > > [   52.434776] sound pcmC1D0p:   SAMPLE_BITS [16:16]
-> > > > [   52.434779] sound pcmC1D0p:   FRAME_BITS [32:32]
-> > > > [   52.434782] sound pcmC1D0p:   CHANNELS [2:2]
-> > > > [   52.434785] sound pcmC1D0p:   RATE [48000:48000]
-> > > > [   52.434788] sound pcmC1D0p:   PERIOD_TIME [5000:5000]
-> > > > [   52.434791] sound pcmC1D0p:   PERIOD_SIZE [240:240]
-> > > > [   52.434794] sound pcmC1D0p:   PERIOD_BYTES [960:960]
-> > > > [   52.434797] sound pcmC1D0p:   PERIODS [852:852]
-> > > > [   52.434799] sound pcmC1D0p:   BUFFER_TIME [4260000:4260000]
-> > > > [   52.434802] sound pcmC1D0p:   BUFFER_SIZE [204480:204480]
-> > > > [   52.434805] sound pcmC1D0p:   BUFFER_BYTES [817920:817920]
-> > > > [   52.434808] sound pcmC1D0p:   TICK_TIME [0:0]
-> > > >
-> > > > Regards,
-> > > > Brent
-> > > Hi Brent,
-> > >
-> > > Yes, I know we can do it to fix the issue as well. As I mentioned
-> > > before, we wanted to fix it in kernel because it is a real issue,
-> > > isn't it? Basically, a driver should work with any param it supports.
-> > > But in this case, everyone can trigger underrun if he or she does not
-> > > the period size to 240. If you still think it's not necessary, I can
-> > > modify UCM to make CRAS set the appropriate period size.
-> >
-> > How does it *not* work if you set other than period size 240, more
-> > exactly?
-> >
-> > The hw_constraint to a fixed period size must be really an exception.
-> > If you look at other drivers, you won't find any other doing such.
-> > It already indicates that something is wrong.
-> >
-> > Usually the fixed period size comes from the hardware limitation and
-> > defined in snd_pcm_hardware.  Or, sometimes it's an alignment issue.
-> > If you need more than that, you should doubt what's really not
-> > working.
-> >
-> >
-> > Takashi
-> Thank Takashi,
-> 
-> As I mentioned before, if the period size is set to 256, the measured
-> rate of sample-consuming will be around 49627 fps. It causes underrun
-> because the rate we set is 48000 fps.
+Hi,
 
-But this explanation rather sounds like the alignment problem.
-However...
+> On Aug 10, 2020, at 14:51, Takashi Iwai <tiwai@suse.de> wrote:
+>=20
+> On Mon, 10 Aug 2020 08:34:36 +0200,
+> Hui Wang wrote:
+>>=20
+>>=20
+>> On 2020/8/10 =E4=B8=8B=E5=8D=882:30, Takashi Iwai wrote:
+>>> On Mon, 10 Aug 2020 04:16:59 +0200,
+>>> Hui Wang wrote:
+>>>> After installing the Ubuntu Linux, the micmute led status is not
+>>>> correct. Users expect that the led is on if the capture is =
+disabled,
+>>>> but with the current kernel, the led is off with the capture =
+disabled.
+>>>>=20
+>>>> We tried the old linux kernel like linux-4.15, there is no this =
+issue.
+>>>> It looks like we introduced this issue when switching to the =
+led_cdev.
+>>> The behavior can be controlled via "Mic Mute-LED Mode" enum =
+kcontrol.
+>>> Which value does it have now?  If it's "Follow Capture", that's the
+>>> correct behavior.  OTOH, if it's "Follow Mute", the LED polarity is
+>>> indeed wrong.
+>>=20
+>> It is "Follow Mute",  if I change it to "Follow Capture" manually, =
+the
+>> led status becomes correct.
+>=20
+> OK, thanks for confirmation.  Applied now.
 
-> This behavior also happen on the
-> other period rate except for 240.
+I wonder if it's because how brightness value passed to =
+gpio_mute_led_set() and micmute_led_set():
 
-... Why only 240?  That's the next logical question.
-If you have a clarification for it, it may be the rigid reason to
-introduce such a hw constraint.
+static int gpio_mute_led_set(struct led_classdev *led_cdev,
+                             enum led_brightness brightness)
+{
+        struct hda_codec *codec =3D =
+dev_to_hda_codec(led_cdev->dev->parent);
+        struct alc_spec *spec =3D codec->spec;
 
+        alc_update_gpio_led(codec, spec->gpio_mute_led_mask,
+                            spec->mute_led_polarity, !brightness);
+        return 0;
+}
 
-Takashi
+static int micmute_led_set(struct led_classdev *led_cdev,
+                           enum led_brightness brightness)
+{
+        struct hda_codec *codec =3D =
+dev_to_hda_codec(led_cdev->dev->parent);
+        struct alc_spec *spec =3D codec->spec;
+
+        alc_update_gpio_led(codec, spec->gpio_mic_led_mask,
+                            spec->micmute_led_polarity, !!brightness);   =
+  =20
+        return 0;
+}
+
+Maybe we should let micmute_led_set() match gpio_mute_led_set() so the =
+micmute polarity can be removed?
+
+Kai-Heng
+
+>=20
+>=20
+> Takashi
+

@@ -2,91 +2,83 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 99650242474
-	for <lists+alsa-devel@lfdr.de>; Wed, 12 Aug 2020 06:02:12 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9872D24253B
+	for <lists+alsa-devel@lfdr.de>; Wed, 12 Aug 2020 08:15:55 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 40D1C1675;
-	Wed, 12 Aug 2020 06:01:22 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 40D1C1675
+	by alsa0.perex.cz (Postfix) with ESMTPS id 165011670;
+	Wed, 12 Aug 2020 08:15:05 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 165011670
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1597204932;
-	bh=yXNs8VNA9uBE3jj70UrlcVw6fiX/dSyYxmk0s3FYysA=;
-	h=Subject:From:In-Reply-To:Date:References:To:Cc:List-Id:
+	s=default; t=1597212955;
+	bh=FexQohZPWb/INxmBncAfApR6S7sR/WWv7YkBqRcHU1I=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=YyN7zUZKQBmHYJb3CZW4SA7AwZiIyhGJmMn8wLHDoWxXtS8qoENf0vFfRFA7OaK4w
-	 ZOMTGpV89khCpDDJ+C4u59rNU6oj9xghKC+A1pcJ8NsQxzQUwCNUpA91nEh6Ffx229
-	 e4UKJU00DHlttB4Li2gSBOIlNwetBBD4NcKVnKTQ=
+	b=jPQYqs4LGnA3pombfpYPONo21pBnCv/n7yjWkOtNdoMPS8dDuyNhz1KEVNko2kfUX
+	 HX+uf3xbGI3yZh/yE5He74mReO4X6rnSrVEnwDif28QtF9EMGazbX+UWZc09pOqI0u
+	 eGO1yDe7mTlpwLHecz8kv0wDpNEqWxSYjltMBTHo=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id EC3A9F801DB;
-	Wed, 12 Aug 2020 06:00:42 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 2A9C2F801DB;
+	Wed, 12 Aug 2020 08:14:14 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 1248DF80245; Wed, 12 Aug 2020 06:00:41 +0200 (CEST)
+ id 298A7F8022B; Wed, 12 Aug 2020 08:14:12 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_MSPIKE_H3,
- RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from youngberry.canonical.com (youngberry.canonical.com
- [91.189.89.112])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
+ RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
+Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 02FD7F801DB
- for <alsa-devel@alsa-project.org>; Wed, 12 Aug 2020 06:00:30 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 02FD7F801DB
-Received: from mail-pf1-f197.google.com ([209.85.210.197])
- by youngberry.canonical.com with esmtps
- (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.86_2)
- (envelope-from <kai.heng.feng@canonical.com>) id 1k5hwB-0006yO-Dl
- for alsa-devel@alsa-project.org; Wed, 12 Aug 2020 04:00:27 +0000
-Received: by mail-pf1-f197.google.com with SMTP id e30so856318pfj.0
- for <alsa-devel@alsa-project.org>; Tue, 11 Aug 2020 21:00:27 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:subject:from:in-reply-to:date:cc
- :content-transfer-encoding:message-id:references:to;
- bh=KpQMClX0m0IvhtHYcrsDtlKBf40K7zJ3etomTW9/OoQ=;
- b=eXOHsnPllmkoJUb3oghV5w8x13CG1zIwcsrVQFD5q/8yP7MYquTHUP9w8K7eDNOvny
- /wRnrJgwPyfQ0hK3P9Jq3MredOIR4r6WEo7AiaY1vgYeo4bTbdFbtG3imRAm7fjM7TyC
- 2OZBTkuwtYK+fB2n22MJBgLf0bHf23q7FKRy1lMhAYJQXGElvIgbvSI9r1Sg8eAsiXLe
- tLeC0Q0X7xQuf/CtsVYCcPffjbGswoI+26K66BHngT7hwnPMgkHlO3QTTWE3G/syUoP/
- LcG4zhfomyQG53ZHVMABpSNoS1x/t1UxnbJIpsswSKGy5mzPTPNBGxVU6ugz6dj08LMu
- mVpg==
-X-Gm-Message-State: AOAM530ZEobYTarSS3HwHWpovE9cNSsAgplcVf2mfUsBifIVsaSCizgA
- 9d9hZ8bEV3wZLQllxXVzmEgvwP5YReqUfpjjgexqKzn+ElyP+DBggM9numNxFP8gPj6w1+GqIUZ
- uS8btPUqGqyJKS5m3NWbK35MhFu4pNs3/pH3RVqL8
-X-Received: by 2002:a17:90b:138a:: with SMTP id
- hr10mr4092349pjb.161.1597204825994; 
- Tue, 11 Aug 2020 21:00:25 -0700 (PDT)
-X-Google-Smtp-Source: ABdhPJykse1r526gUQQqLbNz5OMhbZPtsbLpwy4J+UPa0mlnYR8aByJSoCtZul478Oo5SL0TQZ2tew==
-X-Received: by 2002:a17:90b:138a:: with SMTP id
- hr10mr4092319pjb.161.1597204825544; 
- Tue, 11 Aug 2020 21:00:25 -0700 (PDT)
-Received: from [192.168.1.208] (220-133-187-190.HINET-IP.hinet.net.
- [220.133.187.190])
- by smtp.gmail.com with ESMTPSA id y19sm609691pfn.77.2020.08.11.21.00.24
- (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
- Tue, 11 Aug 2020 21:00:24 -0700 (PDT)
-Content-Type: text/plain;
-	charset=us-ascii
-Mime-Version: 1.0 (Mac OS X Mail 13.4 \(3608.120.23.2.1\))
-Subject: Re: [PATCH] conf: USB-Audio: Disable IEC958 on Lenovo ThinkStation
- P620
-From: Kai-Heng Feng <kai.heng.feng@canonical.com>
-In-Reply-To: <s5h5z9p2zz2.wl-tiwai@suse.de>
-Date: Wed, 12 Aug 2020 12:00:22 +0800
-Content-Transfer-Encoding: quoted-printable
-Message-Id: <C17B75FA-61F1-4646-8C24-249170FF3829@canonical.com>
-References: <20200803155745.18082-1-kai.heng.feng@canonical.com>
- <7626CA68-F198-4654-BEDE-59E4DB0D9B48@canonical.com>
- <s5h5z9p2zz2.wl-tiwai@suse.de>
-To: Takashi Iwai <tiwai@suse.de>
-X-Mailer: Apple Mail (2.3608.120.23.2.1)
-Cc: "moderated list:SOUND" <alsa-devel@alsa-project.org>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 08FA2F800D3
+ for <alsa-devel@alsa-project.org>; Wed, 12 Aug 2020 08:14:00 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 08FA2F800D3
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id B1D51AC12;
+ Wed, 12 Aug 2020 06:14:21 +0000 (UTC)
+Date: Wed, 12 Aug 2020 08:13:59 +0200
+Message-ID: <s5hr1scz908.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Yu-Hsuan Hsu <yuhsuan@chromium.org>
+Subject: Re: [PATCH v3 2/2] ASoC: Intel: Add period size constraint on strago
+ board
+In-Reply-To: <CAGvk5PqGi7cXthLHFi4NyypxFiGnoHvD9vp+5nJdH-_VkVvcKw@mail.gmail.com>
+References: <3f3baf5e-f73d-9cd6-cbfb-36746071e126@linux.intel.com>
+ <CAGvk5PohOP0Yv22tb53EX=ZLB9_vOMb=iujTh64OvHmjC1d4mg@mail.gmail.com>
+ <DM6PR11MB3642AC7F8EC47EB48B384D4797450@DM6PR11MB3642.namprd11.prod.outlook.com>
+ <CAGvk5PogmqfEnFRA8hzby+AGgbOSvbELamh_1=eA9KTpyBMPYQ@mail.gmail.com>
+ <s5htux939x1.wl-tiwai@suse.de>
+ <CAGvk5PpcmkZ2HarqeCDaXm4id=84wYs-u4vWxJunHaf09gj66g@mail.gmail.com>
+ <s5ho8nh37br.wl-tiwai@suse.de>
+ <CAGvk5PphzkdiNfW8hiDuqX+2eQO2FvrpzA0qR3=3VvqM3GBhAA@mail.gmail.com>
+ <20200811145353.GG6967@sirena.org.uk>
+ <d78f9adc-d583-f0f2-ce38-3c9175c939b8@linux.intel.com>
+ <20200811172209.GM6967@sirena.org.uk>
+ <CAGvk5PqGi7cXthLHFi4NyypxFiGnoHvD9vp+5nJdH-_VkVvcKw@mail.gmail.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
+ FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
+ (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+Cc: Guennadi Liakhovetski <guennadi.liakhovetski@linux.intel.com>,
+ "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
+ Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+ Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
+ Kai Vehmanen <kai.vehmanen@linux.intel.com>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, "Rojewski,
+ Cezary" <cezary.rojewski@intel.com>, Jie Yang <yang.jie@linux.intel.com>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ Takashi Iwai <tiwai@suse.com>, Liam Girdwood <liam.r.girdwood@linux.intel.com>,
+ Sam McNally <sammc@chromium.org>, Mark Brown <broonie@kernel.org>,
+ Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
+ Daniel Stuart <daniel.stuart14@gmail.com>,
+ "yuhsuan@google.com" <yuhsuan@google.com>, "Lu, Brent" <brent.lu@intel.com>,
+ Damian van Soelen <dj.vsoelen@gmail.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -102,37 +94,72 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hi,
+On Wed, 12 Aug 2020 05:09:58 +0200,
+Yu-Hsuan Hsu wrote:
+> 
+> Mark Brown <broonie@kernel.org> 於 2020年8月12日 週三 上午1:22寫道：
+> >
+> > On Tue, Aug 11, 2020 at 11:54:38AM -0500, Pierre-Louis Bossart wrote:
+> >
+> > > > constraint logic needs to know about this DSP limitation - it seems like
+> > > > none of this is going to change without something new going into the
+> > > > mix?  We at least need a new question to ask about the DSP firmware I
+> > > > think.
+> >
+> > > I just tested aplay -Dhw: on a Cyan Chromebook with the Ubuntu kernel 5.4,
+> > > and I see no issues with the 240 sample period. Same with 432, 960, 9600,
+> > > etc.
+> >
+> > > I also tried just for fun what happens with 256 samples, and I don't see any
+> > > underflows thrown either, so I am wondering what exactly the problem is?
+> > > Something's not adding up. I would definitively favor multiple of 1ms
+> > > periods, since it's the only case that was productized, but there's got to
+> > > me something a side effect of how CRAS programs the hw_params.
+> >
+> > Is it something that goes wrong with longer playbacks possibly (eg,
+> > someone watching a feature film or something)?
+> 
+> Thanks for testing!
+> 
+> After doing some experiments, I think I can identify the problem more precisely.
+> 1. aplay can not reproduce this issue because it writes samples
+> immediately when there are some space in the buffer. However, you can
+> add --test-position to see how the delay grows with period size 256.
+> > aplay -Dhw:1,0 --period-size=256 --buffer-size=480 /dev/zero -d 1 -f dat --test-position
+> Playing raw data '/dev/zero' : Signed 16 bit Little Endian, Rate 48000
+> Hz, Stereo
+> Suspicious buffer position (1 total): avail = 0, delay = 2064, buffer = 512
+> Suspicious buffer position (2 total): avail = 0, delay = 2064, buffer = 512
+> Suspicious buffer position (3 total): avail = 0, delay = 2096, buffer = 512
+> ...
 
-> On Aug 11, 2020, at 19:17, Takashi Iwai <tiwai@suse.de> wrote:
->=20
-> On Tue, 11 Aug 2020 12:00:54 +0200,
-> Kai-Heng Feng wrote:
->>=20
->> Hi,
->>=20
->>> On Aug 3, 2020, at 23:57, Kai-Heng Feng =
-<kai.heng.feng@canonical.com> wrote:
->>>=20
->>> Both USB audio cards on Lenovo ThinkStation P620 don't support =
-IEC958,
->>> so disable IEC958 accordingly.
->>>=20
->>> Signed-off-by: Kai-Heng Feng <kai.heng.feng@canonical.com>
->>=20
->> Should I use GitHub instead of mailing list for any future alia-lib =
-patch?
->=20
-> Sorry, I overlooked this since I wasn't on Cc.
-> Applied now.  Thanks.
+Isn't this about the alignment of the buffer size against the period
+size, not the period size itself?  i.e. in the example above, the
+buffer size isn't a multiple of period size, and DSP can't handle if
+the position overlaps the buffer size in a half way.
 
-Thanks.
+If that's the problem (and it's an oft-seen restriction), the right
+constraint is
+  snd_pcm_hw_constraint_integer(runtime, SNDRV_PCM_HW_PARAM_PERIODS);
 
-Is mailing list or GitHub preferred way?
 
-Kai-Heng
+Takashi
 
->=20
->=20
-> Takashi
-
+> 2. Since many samples are moved to DSP(delay), the measured rate of
+> the ring-buffer is high. (I measured it by alsa_conformance_test,
+> which only test the sampling rate in the ring buffer of kernel not
+> DSP)
+> 
+> 3. Since CRAS writes samples with a fixed frequency, this behavior
+> will take all samples from the ring buffer, which is seen as underrun
+> by CRAS. (It seems that it is not a real underrun because that avail
+> does not larger than buffer size. Maybe CRAS should also take dalay
+> into account.)
+> 
+> 4. In spite of it is not a real underrun, the large delay is still a
+> big problem. Can we apply the constraint to fix it? Or any better
+> idea?
+> 
+> Thanks,
+> Yu-Hsuan
+> 

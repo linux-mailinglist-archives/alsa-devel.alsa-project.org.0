@@ -2,105 +2,76 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 882F624242E
-	for <lists+alsa-devel@lfdr.de>; Wed, 12 Aug 2020 05:12:00 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D32C9242473
+	for <lists+alsa-devel@lfdr.de>; Wed, 12 Aug 2020 06:01:24 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 2564E166B;
-	Wed, 12 Aug 2020 05:11:10 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2564E166B
+	by alsa0.perex.cz (Postfix) with ESMTPS id 62713166D;
+	Wed, 12 Aug 2020 06:00:34 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 62713166D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1597201920;
-	bh=CFnxBPNDgtE44pHXI+KFL0dwjYiqKviACre/vH4lS4Y=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
+	s=default; t=1597204884;
+	bh=Sb4NHeOvwvLl7zWwn8/9QvmOut296xUPDSZPKp9RxUE=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=utmTHTTNiQaWVI7PJMm6b5rhU5B1xlVLN+J6XXfxNgzu8sn6xMOa2bx7W0Q268Zxj
-	 RessYvdIvFGltt9tUtFoG84HzmgVt17T7H5OizIBODuLAxErWsTMNaGXDvOttQZAC8
-	 vA7Gd07a5Ohehf5PG8LqYQ1iPB0C+vpnp9GWDy2w=
+	b=CGYMd9cT+yJsDZxfrr4aeu5mP+gSFmx68QBqtGcO4Q4pyBT9yHIJp7HHReyVulWKI
+	 aBxCvSBmj5rJVQsWDqL65j2N2NKaaG4I0VPHLiWg3OqaFPgysi7GZAo93SbBm14yhu
+	 cFc5PBLXNUt7gXd6W4KiaTL+LbveKfsk7tQTtMTs=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 25FD1F8022D;
-	Wed, 12 Aug 2020 05:10:19 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 97C4BF800F4;
+	Wed, 12 Aug 2020 05:59:43 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 348B1F8022B; Wed, 12 Aug 2020 05:10:15 +0200 (CEST)
+ id 83012F8022B; Wed, 12 Aug 2020 05:59:40 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled
- version=3.4.0
-Received: from mail-wm1-x343.google.com (mail-wm1-x343.google.com
- [IPv6:2a00:1450:4864:20::343])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=0.4 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+ DKIM_VALID,DKIM_VALID_AU,PRX_BODY_13,SPF_HELO_NONE,SPF_PASS
+ autolearn=disabled version=3.4.0
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 5690FF800D3
- for <alsa-devel@alsa-project.org>; Wed, 12 Aug 2020 05:10:10 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5690FF800D3
+ by alsa1.perex.cz (Postfix) with ESMTPS id 1205EF800F4
+ for <alsa-devel@alsa-project.org>; Wed, 12 Aug 2020 05:59:36 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1205EF800F4
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org
- header.b="ngSRzlum"
-Received: by mail-wm1-x343.google.com with SMTP id c19so3300272wmd.1
- for <alsa-devel@alsa-project.org>; Tue, 11 Aug 2020 20:10:10 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc:content-transfer-encoding;
- bh=3hkg0qu6P9KQ5oYfn7DTQjSamGImaGuetOUyRL9DWkY=;
- b=ngSRzlumHkb0IDY4Pr87hg0ZwDwyroTE0Ld40lvNSNKIijgNhqQpnM6zRj84dIcXj4
- qQ0YIrqSSAk94RpkV98/z5snP7OuL/YSL97sskrxvMAJUeecU/LwDCYHJLTkNbYY6y4S
- ag4+ErdhG3PO6Aaz/J7vZZktVSkGJgZVvQCYE=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc:content-transfer-encoding;
- bh=3hkg0qu6P9KQ5oYfn7DTQjSamGImaGuetOUyRL9DWkY=;
- b=ebgwbTtN7/dKByMoug8OUUQ1E7eFrA8D5HsyUlPQK+w0L7xEb9yPh2R12fpuXtdx09
- cTAEz5SPUpMx19Cghgv6o6tr+kRVZOFoEHqOmOSHsCwkQIkxVbCp9RzJKYd56ePIy41T
- tySjziDNruWFrI7sHjUa9ZW19RK17pOksMVAuImxyH7RnVKc03vjHiDRyLQUezKE7/vH
- NI7uN1HWIjw2JVLMyMFV5DYNi6NxVb1QkvkjfWOe9eP9zne5PEpQ6YBTQV9XbyYCzK5c
- tpFO+wYdR3vzHF/9oI4yT29smC8xJSSGRw4YpgOg2SgF0uj54nDwTBWrOrOW9s4R9KZE
- tU1w==
-X-Gm-Message-State: AOAM530f5Q4KTfdOOrnp4vzWAij0dXpWia2Yq+DRmu7P+ieYGrp4cXDz
- R+SsB3s7bqgOvflrVnzvZ4fa9EaRuTYjYeAfa0PGDw==
-X-Google-Smtp-Source: ABdhPJxDOFrYjfmnL/EFseUjo4ptWPav8xuJ2FzYhPDiA/AQYuCzo4N45IBYUvbTgXJuvFyhWdUUCw3z9AyGGUry5Yc=
-X-Received: by 2002:a7b:c7c6:: with SMTP id z6mr6825647wmk.17.1597201809730;
- Tue, 11 Aug 2020 20:10:09 -0700 (PDT)
+ dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="XWD91RYe"
+Received: from localhost (unknown [122.171.202.192])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by mail.kernel.org (Postfix) with ESMTPSA id 3F65C207F7;
+ Wed, 12 Aug 2020 03:59:32 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=default; t=1597204774;
+ bh=Sb4NHeOvwvLl7zWwn8/9QvmOut296xUPDSZPKp9RxUE=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=XWD91RYe9OFSYn0TYx+/w89WfcYtoPO3ZO14hOTtCZkDZ8mFfKARWd6sCbwtr1TEU
+ azXSCU0fHjHdlXHwSG2fh/wCEvPh7WTFY7yGGX+57qBjy8ZJo2kXJsVQBpfytmoR/8
+ 7H2xPmpaMZkBRziHqH9qOH9jqaSJVW8DYDeQxZwc=
+Date: Wed, 12 Aug 2020 09:29:29 +0530
+From: Vinod Koul <vkoul@kernel.org>
+To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+Subject: Re: [PATCH v2 0/3] Fix Kconfig dependency issue with DMAENGINES
+ selection
+Message-ID: <20200812035929.GS12965@vkoul-mobl>
+References: <20200731152433.1297-1-laurent.pinchart@ideasonboard.com>
+ <20200731164744.GF12965@vkoul-mobl>
+ <20200731204206.GC24315@pendragon.ideasonboard.com>
+ <20200802064409.GH12965@vkoul-mobl>
+ <20200811225203.GG17446@pendragon.ideasonboard.com>
 MIME-Version: 1.0
-References: <3f3baf5e-f73d-9cd6-cbfb-36746071e126@linux.intel.com>
- <CAGvk5PohOP0Yv22tb53EX=ZLB9_vOMb=iujTh64OvHmjC1d4mg@mail.gmail.com>
- <DM6PR11MB3642AC7F8EC47EB48B384D4797450@DM6PR11MB3642.namprd11.prod.outlook.com>
- <CAGvk5PogmqfEnFRA8hzby+AGgbOSvbELamh_1=eA9KTpyBMPYQ@mail.gmail.com>
- <s5htux939x1.wl-tiwai@suse.de>
- <CAGvk5PpcmkZ2HarqeCDaXm4id=84wYs-u4vWxJunHaf09gj66g@mail.gmail.com>
- <s5ho8nh37br.wl-tiwai@suse.de>
- <CAGvk5PphzkdiNfW8hiDuqX+2eQO2FvrpzA0qR3=3VvqM3GBhAA@mail.gmail.com>
- <20200811145353.GG6967@sirena.org.uk>
- <d78f9adc-d583-f0f2-ce38-3c9175c939b8@linux.intel.com>
- <20200811172209.GM6967@sirena.org.uk>
-In-Reply-To: <20200811172209.GM6967@sirena.org.uk>
-From: Yu-Hsuan Hsu <yuhsuan@chromium.org>
-Date: Wed, 12 Aug 2020 11:09:58 +0800
-Message-ID: <CAGvk5PqGi7cXthLHFi4NyypxFiGnoHvD9vp+5nJdH-_VkVvcKw@mail.gmail.com>
-Subject: Re: [PATCH v3 2/2] ASoC: Intel: Add period size constraint on strago
- board
-To: Mark Brown <broonie@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-Cc: Guennadi Liakhovetski <guennadi.liakhovetski@linux.intel.com>,
- "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
- Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
- Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
- Kai Vehmanen <kai.vehmanen@linux.intel.com>, Takashi Iwai <tiwai@suse.de>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, "Rojewski,
- Cezary" <cezary.rojewski@intel.com>, Jie Yang <yang.jie@linux.intel.com>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- Takashi Iwai <tiwai@suse.com>, Liam Girdwood <liam.r.girdwood@linux.intel.com>,
- Sam McNally <sammc@chromium.org>,
- Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
- Daniel Stuart <daniel.stuart14@gmail.com>,
- "yuhsuan@google.com" <yuhsuan@google.com>, "Lu, Brent" <brent.lu@intel.com>,
- Damian van Soelen <dj.vsoelen@gmail.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20200811225203.GG17446@pendragon.ideasonboard.com>
+Cc: alsa-devel@alsa-project.org, Hyun Kwon <hyun.kwon@xilinx.com>,
+ Randy Dunlap <rdunlap@infradead.org>, Liam Girdwood <lgirdwood@gmail.com>,
+ dri-devel@lists.freedesktop.org, Michal Simek <michal.simek@xilinx.com>,
+ Alexandre Bounine <alex.bou9@gmail.com>, Mark Brown <broonie@kernel.org>,
+ dmaengine@vger.kernel.org, Matt Porter <mporter@kernel.crashing.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -116,68 +87,66 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Mark Brown <broonie@kernel.org> =E6=96=BC 2020=E5=B9=B48=E6=9C=8812=E6=97=
-=A5 =E9=80=B1=E4=B8=89 =E4=B8=8A=E5=8D=881:22=E5=AF=AB=E9=81=93=EF=BC=9A
->
-> On Tue, Aug 11, 2020 at 11:54:38AM -0500, Pierre-Louis Bossart wrote:
->
-> > > constraint logic needs to know about this DSP limitation - it seems l=
-ike
-> > > none of this is going to change without something new going into the
-> > > mix?  We at least need a new question to ask about the DSP firmware I
-> > > think.
->
-> > I just tested aplay -Dhw: on a Cyan Chromebook with the Ubuntu kernel 5=
-.4,
-> > and I see no issues with the 240 sample period. Same with 432, 960, 960=
-0,
-> > etc.
->
-> > I also tried just for fun what happens with 256 samples, and I don't se=
-e any
-> > underflows thrown either, so I am wondering what exactly the problem is=
-?
-> > Something's not adding up. I would definitively favor multiple of 1ms
-> > periods, since it's the only case that was productized, but there's got=
- to
-> > me something a side effect of how CRAS programs the hw_params.
->
-> Is it something that goes wrong with longer playbacks possibly (eg,
-> someone watching a feature film or something)?
+HI Laurent,
 
-Thanks for testing!
+On 12-08-20, 01:52, Laurent Pinchart wrote:
+> Hi Vinod,
+> 
+> On Sun, Aug 02, 2020 at 12:14:09PM +0530, Vinod Koul wrote:
+> > On 31-07-20, 23:42, Laurent Pinchart wrote:
+> > > On Fri, Jul 31, 2020 at 10:17:44PM +0530, Vinod Koul wrote:
+> > > > On 31-07-20, 18:24, Laurent Pinchart wrote:
+> > > > > Hello,
+> > > > > 
+> > > > > This small series fixes a Kconfig dependency issue with the recently
+> > > > > merged Xilixn DPSUB DRM/KMS driver. The fix is in patch 3/3, but
+> > > > > requires a separate fixes in patches 1/3 and 2/3 to avoid circular
+> > > > > dependencies:
+> > > > > 
+> > > > >         drivers/i2c/Kconfig:8:error: recursive dependency detected!
+> > > > >         drivers/i2c/Kconfig:8:  symbol I2C is selected by FB_DDC
+> > > > >         drivers/video/fbdev/Kconfig:63: symbol FB_DDC depends on FB
+> > > > >         drivers/video/fbdev/Kconfig:12: symbol FB is selected by DRM_KMS_FB_HELPER
+> > > > >         drivers/gpu/drm/Kconfig:80:     symbol DRM_KMS_FB_HELPER depends on DRM_KMS_HELPER
+> > > > >         drivers/gpu/drm/Kconfig:74:     symbol DRM_KMS_HELPER is selected by DRM_ZYNQMP_DPSUB
+> > > > >         drivers/gpu/drm/xlnx/Kconfig:1: symbol DRM_ZYNQMP_DPSUB depends on DMA_ENGINE
+> > > > >         drivers/dma/Kconfig:44: symbol DMA_ENGINE depends on DMADEVICES
+> > > > >         drivers/dma/Kconfig:6:  symbol DMADEVICES is selected by SND_SOC_SH4_SIU
+> > > > >         sound/soc/sh/Kconfig:30:        symbol SND_SOC_SH4_SIU is selected by SND_SIU_MIGOR
+> > > > >         sound/soc/sh/Kconfig:60:        symbol SND_SIU_MIGOR depends on I2C
+> > > > >         For a resolution refer to Documentation/kbuild/kconfig-language.rst
+> > > > >         subsection "Kconfig recursive dependency limitations"
+> > > > > 
+> > > > > Due to the DPSUB driver being merged in v5.9, this is a candidate fix
+> > > > > for v5.9 as well. 1/3 and 2/3 can be merged independently, 3/3 depends
+> > > > > on the first two. What's the best course of action, can I merge this all
+> > > > > in a single tree, or should the rapidio and ASoC patches be merged
+> > > > > independently early in the -rc cycle, and the DRM patch later on top ? I
+> > > > > don't expect conflicts (especially in 2/3 and 3/3), so merging the whole
+> > > > > series in one go would be simpler in my opinion.
+> > > > 
+> > > > Acked-By: Vinod Koul <vkoul@kernel.org>
+> > > 
+> > > Thank you.
+> > > 
+> > > As Mark as queued the sound fix in his for-next branch for v5.9, could
+> > > you queue the dmaengine fix for v5.9 too ?
+> > 
+> > Dmaengine? I see three patches none of which touch dmaengine..
+> > Did I miss something?
+> 
+> I'm not sure what I was thinking... It's the rapidio patch that needs to
+> be merged.
 
-After doing some experiments, I think I can identify the problem more preci=
-sely.
-1. aplay can not reproduce this issue because it writes samples
-immediately when there are some space in the buffer. However, you can
-add --test-position to see how the delay grows with period size 256.
-> aplay -Dhw:1,0 --period-size=3D256 --buffer-size=3D480 /dev/zero -d 1 -f =
-dat --test-position
-Playing raw data '/dev/zero' : Signed 16 bit Little Endian, Rate 48000
-Hz, Stereo
-Suspicious buffer position (1 total): avail =3D 0, delay =3D 2064, buffer =
-=3D 512
-Suspicious buffer position (2 total): avail =3D 0, delay =3D 2064, buffer =
-=3D 512
-Suspicious buffer position (3 total): avail =3D 0, delay =3D 2096, buffer =
-=3D 512
-...
+No worries :)
 
-2. Since many samples are moved to DSP(delay), the measured rate of
-the ring-buffer is high. (I measured it by alsa_conformance_test,
-which only test the sampling rate in the ring buffer of kernel not
-DSP)
+> Matt, Alexandre, can you either merge the patch as a v5.9 fix, or give
+> me an ack to get it merged through the DRM tree ?
+> 
+> -- 
+> Regards,
+> 
+> Laurent Pinchart
 
-3. Since CRAS writes samples with a fixed frequency, this behavior
-will take all samples from the ring buffer, which is seen as underrun
-by CRAS. (It seems that it is not a real underrun because that avail
-does not larger than buffer size. Maybe CRAS should also take dalay
-into account.)
-
-4. In spite of it is not a real underrun, the large delay is still a
-big problem. Can we apply the constraint to fix it? Or any better
-idea?
-
-Thanks,
-Yu-Hsuan
+-- 
+~Vinod

@@ -2,60 +2,60 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5017D243059
-	for <lists+alsa-devel@lfdr.de>; Wed, 12 Aug 2020 23:05:11 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 55FB224305A
+	for <lists+alsa-devel@lfdr.de>; Wed, 12 Aug 2020 23:05:46 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id DE2EF1664;
-	Wed, 12 Aug 2020 23:04:20 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DE2EF1664
+	by alsa0.perex.cz (Postfix) with ESMTPS id 0BC701663;
+	Wed, 12 Aug 2020 23:04:56 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0BC701663
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1597266310;
-	bh=dziJlIGt8YSAaXFOlbgrPRQ0vz6X9KjbN2RJ9k38khE=;
+	s=default; t=1597266346;
+	bh=H/HhnVxxGtkfTjxqvE5TSiMDWQayKKG/SMzMso2B1/I=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=gOdlmGhHB/xsyprellMWCWOc2vS7G0izn5G3sKKmeoJZlrmUvsnqcWZFBwA4HvXe2
-	 Oq0QfWPU1WYiZMqceRFYdtkR8+iriUGpX/GeAm3dKN9vWkPKfb2abZ2z6+aCigmviu
-	 xEQqudcYnJ31ooKbjjcdev3++9D+699wiK3qPfXU=
+	b=Hit0HZdAyyGMociXoKokijvR9fwwVFY/sd9m4IxBGLQWiHStru7JHbk1VjFW3z3CQ
+	 IKemDdX3naGKf0ugfVBpNOa3DWf9OA23lBq5W0hWo/oHehaDPnO4Sr1BnnUPJG07We
+	 JWMcbb8HHWCV+pjsUxGVjkPb0gDP63wR70Iu65Lg=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 89620F80338;
-	Wed, 12 Aug 2020 22:59:04 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id DF7C1F8033D;
+	Wed, 12 Aug 2020 22:59:09 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 1EFB1F80337; Wed, 12 Aug 2020 22:59:02 +0200 (CEST)
+ id 037DEF8033E; Wed, 12 Aug 2020 22:59:07 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.0 required=5.0 tests=SPF_HELO_PASS,SPF_PASS,
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
  URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
+Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id D3687F80329
- for <alsa-devel@alsa-project.org>; Wed, 12 Aug 2020 22:58:58 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D3687F80329
-IronPort-SDR: sXMDEVNO+Zrov9lgVurrhNpBukTDJncn+llfcDFx5cBZGAstsW5QGD1knbwS80Ic2foRzf7EL3
- c/jPo4s17qeQ==
-X-IronPort-AV: E=McAfee;i="6000,8403,9711"; a="133607745"
-X-IronPort-AV: E=Sophos;i="5.76,305,1592895600"; d="scan'208";a="133607745"
+ by alsa1.perex.cz (Postfix) with ESMTPS id 1283AF80336
+ for <alsa-devel@alsa-project.org>; Wed, 12 Aug 2020 22:59:03 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1283AF80336
+IronPort-SDR: rcbXLss1AFO0IQh3AirvuhsN0sPROHrk+V+7tdwozPD+lIHK/iF5Hf/R6jDcHM0xsnk1hMvVly
+ LDU7NDN9Z1ew==
+X-IronPort-AV: E=McAfee;i="6000,8403,9711"; a="151730036"
+X-IronPort-AV: E=Sophos;i="5.76,305,1592895600"; d="scan'208";a="151730036"
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
 Received: from orsmga002.jf.intel.com ([10.7.209.21])
- by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 12 Aug 2020 13:58:56 -0700
-IronPort-SDR: JKtsatL8OB82GIpCI9Z7XrzWprMQ+eOI/Ia9q43+bsQcobLSrOcS6/zeQz84VKA5oxWTLMNEVv
- d8MNACQuDEWw==
+ by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 12 Aug 2020 13:59:02 -0700
+IronPort-SDR: 5lEYC8SQ4Q7OEm0FF3isr/JGmqOOx8l7AIaOiDbNbgQlSPGoiuA6pIIsue3EDmqJ1CZqRdGDMq
+ vrsT+CN4Fvfg==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.76,305,1592895600"; d="scan'208";a="308837325"
+X-IronPort-AV: E=Sophos;i="5.76,305,1592895600"; d="scan'208";a="308837337"
 Received: from crojewsk-ctrl.igk.intel.com ([10.102.9.28])
- by orsmga002.jf.intel.com with ESMTP; 12 Aug 2020 13:58:51 -0700
+ by orsmga002.jf.intel.com with ESMTP; 12 Aug 2020 13:58:56 -0700
 From: Cezary Rojewski <cezary.rojewski@intel.com>
 To: alsa-devel@alsa-project.org
-Subject: [PATCH v4 08/13] ASoC: Intel: catpt: Simple sysfs attributes
-Date: Wed, 12 Aug 2020 22:57:48 +0200
-Message-Id: <20200812205753.29115-9-cezary.rojewski@intel.com>
+Subject: [PATCH v4 09/13] ASoC: Intel: Select catpt and deprecate haswell
+Date: Wed, 12 Aug 2020 22:57:49 +0200
+Message-Id: <20200812205753.29115-10-cezary.rojewski@intel.com>
 X-Mailer: git-send-email 2.17.1
 In-Reply-To: <20200812205753.29115-1-cezary.rojewski@intel.com>
 References: <20200812205753.29115-1-cezary.rojewski@intel.com>
@@ -82,101 +82,118 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Add sysfs entries for displaying version of FW currently in use as well
-as binary dump of entire version info, including build and log providers
-hashes.
+Prevent sound/soc/intel/haswell code compile and select catpt instead as
+a recommended solution. Userspace-exposed members are compatible with
+what is exposed by deprecated solution thus no harm is done. The only
+visible difference is the newly added 'Loopback Mute' kcontrol.
 
 Signed-off-by: Cezary Rojewski <cezary.rojewski@intel.com>
 ---
- sound/soc/intel/catpt/fs.c | 79 ++++++++++++++++++++++++++++++++++++++
- 1 file changed, 79 insertions(+)
- create mode 100644 sound/soc/intel/catpt/fs.c
+ sound/soc/intel/Kconfig        | 22 +++++++++++-----------
+ sound/soc/intel/Makefile       |  2 +-
+ sound/soc/intel/boards/Kconfig |  8 ++++----
+ sound/soc/intel/catpt/Makefile |  6 ++++++
+ 4 files changed, 22 insertions(+), 16 deletions(-)
+ create mode 100644 sound/soc/intel/catpt/Makefile
 
-diff --git a/sound/soc/intel/catpt/fs.c b/sound/soc/intel/catpt/fs.c
+diff --git a/sound/soc/intel/Kconfig b/sound/soc/intel/Kconfig
+index 82805a8681e5..4a18e8f83eeb 100644
+--- a/sound/soc/intel/Kconfig
++++ b/sound/soc/intel/Kconfig
+@@ -47,21 +47,21 @@ config SND_SOC_INTEL_SST_FIRMWARE
+ 	# Haswell/Broadwell/Baytrail legacy and will be set
+ 	# when these platforms are enabled
+ 
+-config SND_SOC_INTEL_HASWELL
+-	tristate "Haswell/Broadwell Platforms"
++config SND_SOC_INTEL_CATPT
++	tristate "Haswell and Broadwell"
+ 	depends on SND_DMA_SGBUF
+ 	depends on DMADEVICES && ACPI
+-	select SND_SOC_INTEL_SST
+-	select SND_SOC_INTEL_SST_ACPI
+-	select SND_SOC_INTEL_SST_FIRMWARE
++	select DW_DMAC_CORE
+ 	select SND_SOC_ACPI_INTEL_MATCH
+ 	help
+-	  If you have a Intel Haswell or Broadwell platform connected to
+-	  an I2S codec, then enable this option by saying Y or m. This is
+-	  typically used for Chromebooks. This is a recommended option.
+-	  This option is mutually exclusive with the SOF support on
+-	  Broadwell. If you want to enable SOF on Broadwell, you need to
+-	  deselect this option first.
++	  Enable support for Intel(R) Haswell and Broadwell platforms
++	  with I2S codec present. This is a recommended option.
++	  Say Y or m if you have such device.
++	  If unsure, say N.
++
++config SND_SOC_INTEL_HASWELL
++	tristate
++	select SND_SOC_INTEL_CATPT
+ 
+ config SND_SOC_INTEL_BAYTRAIL
+ 	tristate "Baytrail (legacy) Platforms"
+diff --git a/sound/soc/intel/Makefile b/sound/soc/intel/Makefile
+index 04ee48204fc9..c88c615f85f7 100644
+--- a/sound/soc/intel/Makefile
++++ b/sound/soc/intel/Makefile
+@@ -3,9 +3,9 @@
+ obj-$(CONFIG_SND_SOC) += common/
+ 
+ # Platform Support
+-obj-$(CONFIG_SND_SOC_INTEL_HASWELL) += haswell/
+ obj-$(CONFIG_SND_SOC_INTEL_BAYTRAIL) += baytrail/
+ obj-$(CONFIG_SND_SST_ATOM_HIFI2_PLATFORM) += atom/
++obj-$(CONFIG_SND_SOC_INTEL_CATPT) += catpt/
+ obj-$(CONFIG_SND_SOC_INTEL_SKYLAKE) += skylake/
+ obj-$(CONFIG_SND_SOC_INTEL_KEEMBAY) += keembay/
+ 
+diff --git a/sound/soc/intel/boards/Kconfig b/sound/soc/intel/boards/Kconfig
+index d96fc1313434..f4358c33059b 100644
+--- a/sound/soc/intel/boards/Kconfig
++++ b/sound/soc/intel/boards/Kconfig
+@@ -26,7 +26,7 @@ config SND_SOC_INTEL_USER_FRIENDLY_LONG_NAMES
+ 	  interface.
+ 	  If unsure select N.
+ 
+-if SND_SOC_INTEL_HASWELL
++if SND_SOC_INTEL_CATPT
+ 
+ config SND_SOC_INTEL_HASWELL_MACH
+ 	tristate "Haswell Lynxpoint"
+@@ -40,9 +40,9 @@ config SND_SOC_INTEL_HASWELL_MACH
+ 	  Say Y or m if you have such a device.
+ 	  If unsure select "N".
+ 
+-endif ## SND_SOC_INTEL_HASWELL
++endif ## SND_SOC_INTEL_CATPT
+ 
+-if SND_SOC_INTEL_HASWELL || SND_SOC_SOF_BROADWELL
++if SND_SOC_INTEL_CATPT || SND_SOC_SOF_BROADWELL
+ 
+ config SND_SOC_INTEL_BDW_RT5650_MACH
+ 	tristate "Broadwell with RT5650 codec"
+@@ -83,7 +83,7 @@ config SND_SOC_INTEL_BROADWELL_MACH
+ 	  Ultrabook platforms.
+ 	  Say Y or m if you have such a device. This is a recommended option.
+ 	  If unsure select "N".
+-endif ## SND_SOC_INTEL_HASWELL || SND_SOC_SOF_BROADWELL
++endif ## SND_SOC_INTEL_CATPT || SND_SOC_SOF_BROADWELL
+ 
+ if SND_SOC_INTEL_BAYTRAIL
+ 
+diff --git a/sound/soc/intel/catpt/Makefile b/sound/soc/intel/catpt/Makefile
 new file mode 100644
-index 000000000000..d73493687f4a
+index 000000000000..0717190106d9
 --- /dev/null
-+++ b/sound/soc/intel/catpt/fs.c
-@@ -0,0 +1,79 @@
-+// SPDX-License-Identifier: GPL-2.0-pcm
-+//
-+// Copyright(c) 2020 Intel Corporation. All rights reserved.
-+//
-+// Author: Cezary Rojewski <cezary.rojewski@intel.com>
-+//
++++ b/sound/soc/intel/catpt/Makefile
+@@ -0,0 +1,6 @@
++snd-soc-catpt-objs := device.o dsp.o loader.o ipc.o messages.o pcm.o fs.o
 +
-+#include <linux/pm_runtime.h>
-+#include "core.h"
++# tell define_trace.h where to find the trace header
++CFLAGS_device.o := -I$(src)
 +
-+static ssize_t fw_version_show(struct device *dev,
-+			       struct device_attribute *attr, char *buf)
-+{
-+	struct catpt_dev *cdev = dev_get_drvdata(dev);
-+	struct catpt_fw_version version;
-+	int ret;
-+
-+	pm_runtime_get_sync(cdev->dev);
-+
-+	ret = catpt_ipc_get_fw_version(cdev, &version);
-+
-+	pm_runtime_mark_last_busy(cdev->dev);
-+	pm_runtime_put_autosuspend(cdev->dev);
-+
-+	if (ret)
-+		return CATPT_IPC_ERROR(ret);
-+
-+	return sprintf(buf, "%d.%d.%d.%d\n", version.type, version.major,
-+		       version.minor, version.build);
-+}
-+
-+static DEVICE_ATTR_RO(fw_version);
-+
-+static ssize_t fw_build_read(struct file *filp, struct kobject *kobj,
-+			     struct bin_attribute *bin_attr, char *buf,
-+			     loff_t off, size_t count)
-+{
-+	struct catpt_dev *cdev = dev_get_drvdata(kobj_to_dev(kobj));
-+	struct catpt_fw_version version;
-+	int ret;
-+
-+	pm_runtime_get_sync(cdev->dev);
-+
-+	ret = catpt_ipc_get_fw_version(cdev, &version);
-+
-+	pm_runtime_mark_last_busy(cdev->dev);
-+	pm_runtime_put_autosuspend(cdev->dev);
-+
-+	if (ret)
-+		return CATPT_IPC_ERROR(ret);
-+
-+	memcpy(buf, &version, sizeof(version));
-+	return count;
-+}
-+
-+static BIN_ATTR_RO(fw_build, sizeof(struct catpt_fw_version));
-+
-+int catpt_sysfs_create(struct catpt_dev *cdev)
-+{
-+	int ret;
-+
-+	ret = sysfs_create_file(&cdev->dev->kobj, &dev_attr_fw_version.attr);
-+	if (ret)
-+		return ret;
-+
-+	ret = sysfs_create_bin_file(&cdev->dev->kobj, &bin_attr_fw_build);
-+	if (ret) {
-+		sysfs_remove_file(&cdev->dev->kobj, &dev_attr_fw_version.attr);
-+		return ret;
-+	}
-+
-+	return 0;
-+}
-+
-+void catpt_sysfs_remove(struct catpt_dev *cdev)
-+{
-+	sysfs_remove_bin_file(&cdev->dev->kobj, &bin_attr_fw_build);
-+	sysfs_remove_file(&cdev->dev->kobj, &dev_attr_fw_version.attr);
-+}
++obj-$(CONFIG_SND_SOC_INTEL_CATPT) += snd-soc-catpt.o
 -- 
 2.17.1
 

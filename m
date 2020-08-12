@@ -2,72 +2,72 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 53E4B243060
-	for <lists+alsa-devel@lfdr.de>; Wed, 12 Aug 2020 23:07:59 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B0FAE243099
+	for <lists+alsa-devel@lfdr.de>; Wed, 12 Aug 2020 23:36:53 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 00E521671;
-	Wed, 12 Aug 2020 23:07:09 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 00E521671
+	by alsa0.perex.cz (Postfix) with ESMTPS id 3E986166B;
+	Wed, 12 Aug 2020 23:36:03 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3E986166B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1597266479;
-	bh=pUp2qjTBHdwSr7Cis4uwxJJj8R/M1wbYJ2trqO2DMDc=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1597268213;
+	bh=VAyyG0h/E8IngiaXLfDYuD3olxbH0AgtBc3qI/beeoM=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=r66pOxB3ojamwEyYvw1IuFMtsy28zc7E8rN6CgXRwabHJ1wk4PJM14p3fTj5+Tx/2
-	 tvJBj32yfvGnQ/9vOdpaLkSb0zpGjFeIb0bgMuMgeD3NzxNMk0fYFVcQV2QwJmkHgg
-	 unABv4uK1i1hAKy2zGlXnnBbbFOIoQChvDZFqALI=
+	b=lL8mO41P7j9zGgAsM8uBHhMZat/DCeOCE0Dl4lLfQTRH5p0iBJX3AdsCq42h9QYMk
+	 y1r4I6poE3LgR91KZ/hS7VQerVgmOIT+qqTv+xwVEunUFx1sIodOaQQtzWaCY3PYG1
+	 M1P1mDwP2XwCwK7tn6eAz29EEWR3eUolR0gmIbyQ=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 8248EF8035F;
-	Wed, 12 Aug 2020 22:59:33 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 5FD88F800D3;
+	Wed, 12 Aug 2020 23:35:12 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 21AE0F8034C; Wed, 12 Aug 2020 22:59:32 +0200 (CEST)
+ id 54F63F8022B; Wed, 12 Aug 2020 23:35:07 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
+X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_MSPIKE_H4,
+ RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
+Received: from asavdk3.altibox.net (asavdk3.altibox.net [109.247.116.14])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id EA1DDF80346
- for <alsa-devel@alsa-project.org>; Wed, 12 Aug 2020 22:59:25 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EA1DDF80346
-IronPort-SDR: yUR+Y1b0ia5abrlRlDGGTc2AnYOplfDiC1nEL1X/MPG1uxA6YCqCbrzZ/G4jGe8TylhMS0w+30
- 4SlDUWoL7Kcw==
-X-IronPort-AV: E=McAfee;i="6000,8403,9711"; a="151730084"
-X-IronPort-AV: E=Sophos;i="5.76,305,1592895600"; d="scan'208";a="151730084"
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from orsmga002.jf.intel.com ([10.7.209.21])
- by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 12 Aug 2020 13:59:23 -0700
-IronPort-SDR: vouqgC+XLSYiM5X1LLSNkqB89qkEjNT5KkJiXDAozFE+frHK/TP/Zo6QaegHeIakB4mOIHuES8
- zHb5aAvasSwQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.76,305,1592895600"; d="scan'208";a="308837407"
-Received: from crojewsk-ctrl.igk.intel.com ([10.102.9.28])
- by orsmga002.jf.intel.com with ESMTP; 12 Aug 2020 13:59:17 -0700
-From: Cezary Rojewski <cezary.rojewski@intel.com>
-To: alsa-devel@alsa-project.org
-Subject: [PATCH v4 13/13] ASoC: Intel: bdw-5677: Remove haswell-solution
- specific code
-Date: Wed, 12 Aug 2020 22:57:53 +0200
-Message-Id: <20200812205753.29115-14-cezary.rojewski@intel.com>
-X-Mailer: git-send-email 2.17.1
-In-Reply-To: <20200812205753.29115-1-cezary.rojewski@intel.com>
-References: <20200812205753.29115-1-cezary.rojewski@intel.com>
-Cc: pierre-louis.bossart@linux.intel.com,
- Cezary Rojewski <cezary.rojewski@intel.com>, andriy.shevchenko@intel.com,
- filip.kaczmarski@intel.com, harshapriya.n@intel.com, marcin.barlik@intel.com,
- zwisler@google.com, lgirdwood@gmail.com, tiwai@suse.com,
- filip.proborszcz@intel.com, broonie@kernel.org,
- amadeuszx.slawinski@linux.intel.com, michal.wasko@intel.com,
- cujomalainey@chromium.org, krzysztof.hejmowski@intel.com,
- ppapierkowski@habana.ai, vamshi.krishna.gopal@intel.com
+ by alsa1.perex.cz (Postfix) with ESMTPS id 30FA4F80147
+ for <alsa-devel@alsa-project.org>; Wed, 12 Aug 2020 23:34:57 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 30FA4F80147
+Received: from ravnborg.org (unknown [188.228.123.71])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by asavdk3.altibox.net (Postfix) with ESMTPS id DE6062002E;
+ Wed, 12 Aug 2020 23:34:54 +0200 (CEST)
+Date: Wed, 12 Aug 2020 23:34:53 +0200
+From: Sam Ravnborg <sam@ravnborg.org>
+To: Rob Herring <robh@kernel.org>
+Subject: Re: [PATCH] dt-bindings: Whitespace clean-ups in schema files
+Message-ID: <20200812213453.GA690477@ravnborg.org>
+References: <20200812203618.2656699-1-robh@kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20200812203618.2656699-1-robh@kernel.org>
+X-CMAE-Score: 0
+X-CMAE-Analysis: v=2.3 cv=f+hm+t6M c=1 sm=1 tr=0
+ a=S6zTFyMACwkrwXSdXUNehg==:117 a=S6zTFyMACwkrwXSdXUNehg==:17
+ a=kj9zAlcOel0A:10 a=7gkXJVJtAAAA:8 a=S2FyQyr5uj24keYp2QUA:9
+ a=CjuIK1q_8ugA:10 a=c0zojPR3vx4A:10 a=E9Po1WZjFZOl8hwRPBS3:22
+Cc: linux-fbdev@vger.kernel.org, linux-iio@vger.kernel.org,
+ linux-remoteproc@vger.kernel.org, alsa-devel@alsa-project.org,
+ dri-devel@lists.freedesktop.org, linux-mtd@lists.infradead.org,
+ linux-i2c@vger.kernel.org, linux-clk@vger.kernel.org,
+ linux-rtc@vger.kernel.org, linux-serial@vger.kernel.org,
+ linux-input@vger.kernel.org, linux-media@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-pm@vger.kernel.org,
+ linux-gpio@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-hwmon@vger.kernel.org, netdev@vger.kernel.org, linux-usb@vger.kernel.org,
+ linux-mmc@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-spi@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -83,89 +83,182 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Remove code specific to sound/soc/intel/haswell. Update BE dai_link
-definition to provide seamless transition to catpt solution.
+Hi Rob.
 
-Signed-off-by: Cezary Rojewski <cezary.rojewski@intel.com>
----
- sound/soc/intel/boards/bdw-rt5677.c | 33 -----------------------------
- 1 file changed, 33 deletions(-)
+On Wed, Aug 12, 2020 at 02:36:18PM -0600, Rob Herring wrote:
+> Clean-up incorrect indentation, extra spaces, long lines, and missing
+> EOF newline in schema files. Most of the clean-ups are for list
+> indentation which should always be 2 spaces more than the preceding
+> keyword.
+> 
+> Found with yamllint (which I plan to integrate into the checks).
 
-diff --git a/sound/soc/intel/boards/bdw-rt5677.c b/sound/soc/intel/boards/bdw-rt5677.c
-index 86e427e3822f..4451957fc170 100644
---- a/sound/soc/intel/boards/bdw-rt5677.c
-+++ b/sound/soc/intel/boards/bdw-rt5677.c
-@@ -17,9 +17,6 @@
- #include <sound/jack.h>
- #include <sound/soc-acpi.h>
- 
--#include "../common/sst-dsp.h"
--#include "../haswell/sst-haswell-ipc.h"
--
- #include "../../codecs/rt5677.h"
- 
- struct bdw_rt5677_priv {
-@@ -201,27 +198,6 @@ static const struct snd_soc_ops bdw_rt5677_dsp_ops = {
- 	.hw_params = bdw_rt5677_dsp_hw_params,
- };
- 
--#if !IS_ENABLED(CONFIG_SND_SOC_SOF_BROADWELL)
--static int bdw_rt5677_rtd_init(struct snd_soc_pcm_runtime *rtd)
--{
--	struct snd_soc_component *component = snd_soc_rtdcom_lookup(rtd, DRV_NAME);
--	struct sst_pdata *pdata = dev_get_platdata(component->dev);
--	struct sst_hsw *broadwell = pdata->dsp;
--	int ret;
--
--	/* Set ADSP SSP port settings */
--	ret = sst_hsw_device_set_config(broadwell, SST_HSW_DEVICE_SSP_0,
--		SST_HSW_DEVICE_MCLK_FREQ_24_MHZ,
--		SST_HSW_DEVICE_CLOCK_MASTER, 9);
--	if (ret < 0) {
--		dev_err(rtd->dev, "error: failed to set device config\n");
--		return ret;
--	}
--
--	return 0;
--}
--#endif
--
- static const unsigned int channels[] = {
- 	2,
- };
-@@ -333,10 +309,8 @@ SND_SOC_DAILINK_DEF(platform,
- SND_SOC_DAILINK_DEF(be,
- 	DAILINK_COMP_ARRAY(COMP_CODEC("i2c-RT5677CE:00", "rt5677-aif1")));
- 
--#if IS_ENABLED(CONFIG_SND_SOC_SOF_BROADWELL)
- SND_SOC_DAILINK_DEF(ssp0_port,
- 	    DAILINK_COMP_ARRAY(COMP_CPU("ssp0-port")));
--#endif
- 
- /* Wake on voice interface */
- SND_SOC_DAILINK_DEFS(dsp,
-@@ -350,9 +324,6 @@ static struct snd_soc_dai_link bdw_rt5677_dais[] = {
- 		.name = "System PCM",
- 		.stream_name = "System Playback/Capture",
- 		.dynamic = 1,
--#if !IS_ENABLED(CONFIG_SND_SOC_SOF_BROADWELL)
--		.init = bdw_rt5677_rtd_init,
--#endif
- 		.trigger = {
- 			SND_SOC_DPCM_TRIGGER_POST,
- 			SND_SOC_DPCM_TRIGGER_POST
-@@ -387,11 +358,7 @@ static struct snd_soc_dai_link bdw_rt5677_dais[] = {
- 		.dpcm_capture = 1,
- 		.init = bdw_rt5677_init,
- 		.exit = bdw_rt5677_exit,
--#if !IS_ENABLED(CONFIG_SND_SOC_SOF_BROADWELL)
--		SND_SOC_DAILINK_REG(dummy, be, dummy),
--#else
- 		SND_SOC_DAILINK_REG(ssp0_port, be, platform),
--#endif
- 	},
- };
- 
--- 
-2.17.1
+I have browsed through the patch - and there was only a few things
+that jumped at me.
+
+With these points considered:
+Acked-by: Sam Ravnborg <sam@ravnborg.org>
+
+I expect only some (few) of my points to actually results in any updates.
+
+I look forward to have the lint functionality as part of the built-in
+tools so we catch these things early.
+
+	Sam
+
+> diff --git a/Documentation/devicetree/bindings/arm/fsl.yaml b/Documentation/devicetree/bindings/arm/fsl.yaml
+> index f63895c8ce2d..88814a2a14a5 100644
+> --- a/Documentation/devicetree/bindings/arm/fsl.yaml
+> +++ b/Documentation/devicetree/bindings/arm/fsl.yaml
+> @@ -273,8 +273,8 @@ properties:
+>                - fsl,imx6ull-14x14-evk     # i.MX6 UltraLiteLite 14x14 EVK Board
+>                - kontron,imx6ull-n6411-som # Kontron N6411 SOM
+>                - myir,imx6ull-mys-6ulx-eval # MYiR Tech iMX6ULL Evaluation Board
+> -              - toradex,colibri-imx6ull-eval            # Colibri iMX6ULL Module on Colibri Evaluation Board
+> -              - toradex,colibri-imx6ull-wifi-eval       # Colibri iMX6ULL Wi-Fi / Bluetooth Module on Colibri Evaluation Board
+> +              - toradex,colibri-imx6ull-eval      # Colibri iMX6ULL Module on Colibri Eval Board
+> +              - toradex,colibri-imx6ull-wifi-eval # Colibri iMX6ULL Wi-Fi / BT Module on Colibri Eval Board
+>            - const: fsl,imx6ull
+
+This change looks bad as it drops the alignment with the comments below.
+See following patch chunck:
+
+>
+>        - description: Kontron N6411 S Board
+> @@ -312,9 +312,12 @@ properties:
+>                - toradex,colibri-imx7d                   # Colibri iMX7 Dual Module
+>                - toradex,colibri-imx7d-aster             # Colibri iMX7 Dual Module on Aster Carrier Board
+>                - toradex,colibri-imx7d-emmc              # Colibri iMX7 Dual 1GB (eMMC) Module
+> -              - toradex,colibri-imx7d-emmc-aster        # Colibri iMX7 Dual 1GB (eMMC) Module on Aster Carrier Board
+> -              - toradex,colibri-imx7d-emmc-eval-v3      # Colibri iMX7 Dual 1GB (eMMC) Module on Colibri Evaluation Board V3
+> -              - toradex,colibri-imx7d-eval-v3           # Colibri iMX7 Dual Module on Colibri Evaluation Board V3
+> +              - toradex,colibri-imx7d-emmc-aster        # Colibri iMX7 Dual 1GB (eMMC) Module on
+> +                                                        #  Aster Carrier Board
+
+
+
+> diff --git a/Documentation/devicetree/bindings/display/panel/ilitek,ili9322.yaml b/Documentation/devicetree/bindings/display/panel/ilitek,ili9322.yaml
+> index 177d48c5bd97..e89c1ea62ffa 100644
+> --- a/Documentation/devicetree/bindings/display/panel/ilitek,ili9322.yaml
+> +++ b/Documentation/devicetree/bindings/display/panel/ilitek,ili9322.yaml
+> @@ -25,8 +25,7 @@ properties:
+>    compatible:
+>      items:
+>        - enum:
+> -        - dlink,dir-685-panel
+> -
+> +          - dlink,dir-685-panel
+>        - const: ilitek,ili9322
+>
+>    reset-gpios: true
+> diff --git a/Documentation/devicetree/bindings/display/panel/ilitek,ili9881c.yaml b/Documentation/devicetree/bindings/display/panel/ilitek,ili9881c.yaml
+> index a39332276bab..76a9068a85dd 100644
+> --- a/Documentation/devicetree/bindings/display/panel/ilitek,ili9881c.yaml
+> +++ b/Documentation/devicetree/bindings/display/panel/ilitek,ili9881c.yaml
+> @@ -13,8 +13,7 @@ properties:
+>    compatible:
+>      items:
+>        - enum:
+> -        - bananapi,lhr050h41
+> -
+> +          - bananapi,lhr050h41
+>        - const: ilitek,ili9881c
+>
+
+The extra lines is a simple way to indicate that here shall be added
+more in the future. So I like the empty line.
+
+
+> diff --git a/Documentation/devicetree/bindings/leds/backlight/qcom-wled.yaml b/Documentation/devicetree/bindings/leds/backlight/qcom-wled.yaml
+> index 32e0896c6bc1..47938e372987 100644
+> --- a/Documentation/devicetree/bindings/leds/backlight/qcom-wled.yaml
+> +++ b/Documentation/devicetree/bindings/leds/backlight/qcom-wled.yaml
+> @@ -79,7 +79,8 @@ properties:
+>      description: |
+>        kHz; switching frequency.
+>      $ref: /schemas/types.yaml#/definitions/uint32
+> -    enum: [ 600, 640, 685, 738, 800, 872, 960, 1066, 1200, 1371, 1600, 1920, 2400, 3200, 4800, 9600 ]
+> +    enum: [ 600, 640, 685, 738, 800, 872, 960, 1066, 1200, 1371, 1600, 1920,
+> +            2400, 3200, 4800, 9600 ]
+>
+>    qcom,ovp:
+>      description: |
+
+In the modern world we are living in now line length of 100 chars are
+OK. checkpatch and coding_style is updated to reflected this.
+
+> diff --git a/Documentation/devicetree/bindings/spi/mikrotik,rb4xx-spi.yaml b/Documentation/devicetree/bindings/spi/mikrotik,rb4xx-spi.yaml
+> index 4ddb42a4ae05..9102feae90a2 100644
+> --- a/Documentation/devicetree/bindings/spi/mikrotik,rb4xx-spi.yaml
+> +++ b/Documentation/devicetree/bindings/spi/mikrotik,rb4xx-spi.yaml
+> @@ -33,4 +33,5 @@ examples:
+>          reg = <0x1f000000 0x10>;
+>      };
+>
+> -...
+> \ No newline at end of file
+> +...
+> +
+
+Added one line too much?
+
+ diff --git a/Documentation/devicetree/bindings/spi/spi-mux.yaml b/Documentation/devicetree/bindings/spi/spi-mux.yaml
+> index 0ae692dc28b5..3d3fed63409b 100644
+> --- a/Documentation/devicetree/bindings/spi/spi-mux.yaml
+> +++ b/Documentation/devicetree/bindings/spi/spi-mux.yaml
+> @@ -43,47 +43,47 @@ properties:
+>      maxItems: 1
+>
+>  required:
+> -   - compatible
+> -   - reg
+> -   - spi-max-frequency
+> -   - mux-controls
+> +  - compatible
+> +  - reg
+> +  - spi-max-frequency
+> +  - mux-controls
+>
+>  examples:
+> -   - |
+> -     #include <dt-bindings/gpio/gpio.h>
+> -     mux: mux-controller {
+> -       compatible = "gpio-mux";
+> -       #mux-control-cells = <0>;
+> +  - |
+> +    #include <dt-bindings/gpio/gpio.h>
+> +    mux: mux-controller {
+> +        compatible = "gpio-mux";
+> +        #mux-control-cells = <0>;
+>
+> -       mux-gpios = <&gpio0 3 GPIO_ACTIVE_HIGH>;
+> -     };
+> +        mux-gpios = <&gpio0 3 GPIO_ACTIVE_HIGH>;
+> +    };
+
+Example is updated to use 4-space indent. I like.
+
+But many other examples are left untouched.
+
+So I wonder if updating all examples to the same indent should
+be left for another mega-patch?
+
+> diff --git a/Documentation/devicetree/bindings/vendor-prefixes.yaml b/Documentation/devicetree/bindings/vendor-prefixes.yaml
+> index f3d847832fdc..2baee2c817c1 100644
+> --- a/Documentation/devicetree/bindings/vendor-prefixes.yaml
+> +++ b/Documentation/devicetree/bindings/vendor-prefixes.yaml
+> @@ -993,7 +993,8 @@ patternProperties:
+>    "^sst,.*":
+>      description: Silicon Storage Technology, Inc.
+>    "^sstar,.*":
+> -    description: Xiamen Xingchen(SigmaStar) Technology Co., Ltd. (formerly part of MStar Semiconductor, Inc.)
+> +    description: Xiamen Xingchen(SigmaStar) Technology Co., Ltd.
+> +      (formerly part of MStar Semiconductor, Inc.)
+>    "^st,.*":
+>      description: STMicroelectronics
+>    "^starry,.*":
+
+Did you check that they are all in alphabetical order?
+I would be suprised if this is the only issue in this file.
+
 

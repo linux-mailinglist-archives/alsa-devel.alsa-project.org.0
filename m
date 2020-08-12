@@ -2,95 +2,84 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3075E242F07
-	for <lists+alsa-devel@lfdr.de>; Wed, 12 Aug 2020 21:16:27 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 634CB242F87
+	for <lists+alsa-devel@lfdr.de>; Wed, 12 Aug 2020 21:45:29 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B7C691614;
-	Wed, 12 Aug 2020 21:15:36 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B7C691614
+	by alsa0.perex.cz (Postfix) with ESMTPS id E9AA6166D;
+	Wed, 12 Aug 2020 21:44:38 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E9AA6166D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1597259786;
-	bh=QGrQMPg9TlKjRJJfGjQlGHcmr8N+V5wzL+mRPOLSiJ4=;
-	h=To:From:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=jmc9WzAOBq/vvxRYhIjQtesvukYG8EuO4uaMTQVJ45zALCak6g1s3uFWIKgxTPE9U
-	 Vtyfo/rLDvSeLIKmCaSK8J1Le+4cCRUlr5ahTgvPW8hsWYF3Ma5jPmmFdB7UFl3FbM
-	 TD7LDIjPcnQL7t+MBhsoL7wkAkpH2bieWk6E6JkE=
+	s=default; t=1597261529;
+	bh=y4ELIOsvGVAFxRhK1EnW2G9rTljAV6PZKr1+MkHcOZQ=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=YdtrBjrT4JzDspvOH2K6OvPx6oUkZzJpLqtHDtyTMvq9Z3g2Nrf/EPiImUDnuHddj
+	 5FL3h3nnR56TbVuuUYffYu7bRT0gGvd5qFehojB0DFtkCbgnJZZBUHdpwOTf9IZaqW
+	 e1Qp4QcKHjxmUESVh4eOrI4rGDjo5KWXlsNOgzeU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id CC311F801DB;
-	Wed, 12 Aug 2020 21:14:45 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 18EFBF8022D;
+	Wed, 12 Aug 2020 21:43:47 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id B8024F8022B; Wed, 12 Aug 2020 21:14:43 +0200 (CEST)
+ id 6C96EF8022B; Wed, 12 Aug 2020 21:43:43 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: **
-X-Spam-Status: No, score=2.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_PASS,SUBJECT_DRUG_GAP_L,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mail-lj1-x243.google.com (mail-lj1-x243.google.com
- [IPv6:2a00:1450:4864:20::243])
+X-Spam-Level: 
+X-Spam-Status: No, score=0.3 required=5.0 tests=FREEMAIL_ENVFROM_END_DIGIT,
+ FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,
+ RCVD_IN_MSPIKE_H2,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
+Received: from mail-il1-f193.google.com (mail-il1-f193.google.com
+ [209.85.166.193])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id A7E0EF800D3
- for <alsa-devel@alsa-project.org>; Wed, 12 Aug 2020 21:14:37 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A7E0EF800D3
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="VCIfzsH+"
-Received: by mail-lj1-x243.google.com with SMTP id m22so3489226ljj.5
- for <alsa-devel@alsa-project.org>; Wed, 12 Aug 2020 12:14:37 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=to:from:subject:cc:message-id:date:user-agent:mime-version
- :content-language:content-transfer-encoding;
- bh=tYFf59hA9v+jMzuapZ0MlLUMVG9vOUbRt2fp4Brw40A=;
- b=VCIfzsH+uCHsKlZRNHmr1W3grdz/j0GxKXLKQF0Bj+PTue4HBBvlFy9Fa0NfoVEBMf
- mRbNnLIIuQhlUlceVmz1Hw4l5puMLGo0z6yZ9J6RaNigMk/fsFc3g+rUtx/MwBKT9MZt
- ReYEgMQ67q9KYLMHvK/3D3QNIUDDJvrkwyMUKTS/hE36MWWzbw94vdKfcdS5z1T5bGIV
- qQ+k6nvOictNYh5rWywIz5hMBKo+xZBjppID8lgAAvXhUjMLnheOp6depw9cF0eh7TXr
- 26j9DcNdNvFV8jWSmS3Mt0DmnYRKq+pVpSX7VrWtBSDxIMymcbOc+2I0DiKqCrrXwFSC
- 4xog==
+ by alsa1.perex.cz (Postfix) with ESMTPS id E5B6BF80147
+ for <alsa-devel@alsa-project.org>; Wed, 12 Aug 2020 21:43:36 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E5B6BF80147
+Received: by mail-il1-f193.google.com with SMTP id x1so3045442ilp.7
+ for <alsa-devel@alsa-project.org>; Wed, 12 Aug 2020 12:43:36 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:to:from:subject:cc:message-id:date:user-agent
- :mime-version:content-language:content-transfer-encoding;
- bh=tYFf59hA9v+jMzuapZ0MlLUMVG9vOUbRt2fp4Brw40A=;
- b=OKPaoMqJmzn7t38XmRhDS9kvvsBro/Le8vwfbhjlrM85oyLdS/wIXSH4Owdrqb/GCA
- SzCLqYwVa09d9tWRbaMw4ekcnbQyy3PYVlvdfljNv+mv82xkxIpbpFlAGVoVB32JGzCF
- blg2basQfWp1JtSZR2U4mD33EAJx1hjbtf5uoXBbWAC3Jud5kGW4aCR/L5sDxsVdB7Br
- TD1Lx56Mj6uEfcBMIl7PLb6vdss8vk073kaXGEwaM2IN7V99uKQRqiPEzV8Re2OHnQDT
- nyDttIqcYmWyefdZ0W7vH0yjdfB9T7w/h419pLo8EPxmXyQyFkmttMevhenhifGe5tuY
- ryhQ==
-X-Gm-Message-State: AOAM530VatsiDmV+neodW3Wu6JbmKPb0mqbe/Gp9mINElkxOUJyAFfbh
- AzcDW2qqib0Bd0JZIkaLyEePdmAg
-X-Google-Smtp-Source: ABdhPJypq/7BRfReIxcwzBms77PIV8Tf9CfaRzMDGjw4q5DavOE4FVKVMp2HzV0HjGdchXmV+q7jTg==
-X-Received: by 2002:a2e:b619:: with SMTP id r25mr353668ljn.220.1597259676032; 
- Wed, 12 Aug 2020 12:14:36 -0700 (PDT)
-Received: from [192.168.2.145] (109-252-170-211.dynamic.spd-mgts.ru.
- [109.252.170.211])
- by smtp.googlemail.com with ESMTPSA id j17sm668713lfr.32.2020.08.12.12.14.34
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 12 Aug 2020 12:14:35 -0700 (PDT)
-To: Stable <stable@vger.kernel.org>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Sasha Levin <sashal@kernel.org>, Sowjanya Komatineni
- <skomatineni@nvidia.com>, Thierry Reding <thierry.reding@gmail.com>,
- Jon Hunter <jonathanh@nvidia.com>, Erik Faye-Lund <kusmabite@gmail.com>,
- Mark Brown <broonie@kernel.org>
-From: Dmitry Osipenko <digetx@gmail.com>
-Subject: Request to pick up couple NVIDIA Tegra ASoC patches into 5.7 kernel
-Message-ID: <2db6e1ef-5cea-d479-8a7a-8f336313cb1d@gmail.com>
-Date: Wed, 12 Aug 2020 22:14:34 +0300
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.10.0
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to;
+ bh=F25zreK/uMPj1Zeh3/PKOdX/kNSOqJf1CQzVccpZong=;
+ b=k1KhlYUwVl0l7+pHIsslEPaiMAQ/EubjnWbRhl7c9bpwBItt6gHjCFZvi8ZtH+yWZx
+ 5kadsrA+qamqkzK+9gUVrBsOgzYHpyNMdCdMPRSJN6LEqp9WuaUegfAQ1/7HVGw9IlmT
+ fy5DzDDEzRoaz12F0YYDoBiOHEeacMz91Pgot7oAesKFjiQxmCoYR7ax6SYYhHKWJh2n
+ MwtEpHZWY71eSOsGrj/7icTM2FYYKfxpsaEyVmmAUamsc6S4OQ11hmXoJbikS4w3wVxF
+ ZI1bzQ0nfLzMc8+BHawTouBlJ2xmXK+Xbfn75ml73hzEygu0Fd2ZEnqGK9O48/FxA/Xz
+ npaA==
+X-Gm-Message-State: AOAM530e3TosAY+XU2SgOBSL8HJRscKJ5cKWkCufpAz41bPR6FywhoXP
+ 8DVR4+ApG2ZT4Uqqmj2VMw==
+X-Google-Smtp-Source: ABdhPJzXbKpQczi7VhkjG9X+vXDz4AATVf/LWQQxKg2HZu8cGQum7joDaIR3c56n1O/YtSkfWB1Qog==
+X-Received: by 2002:a05:6e02:1207:: with SMTP id
+ a7mr1177891ilq.303.1597261413373; 
+ Wed, 12 Aug 2020 12:43:33 -0700 (PDT)
+Received: from xps15 ([64.188.179.248])
+ by smtp.gmail.com with ESMTPSA id x12sm1503060ile.14.2020.08.12.12.43.30
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 12 Aug 2020 12:43:32 -0700 (PDT)
+Received: (nullmailer pid 2586064 invoked by uid 1000);
+ Wed, 12 Aug 2020 19:43:29 -0000
+Date: Wed, 12 Aug 2020 13:43:29 -0600
+From: Rob Herring <robh@kernel.org>
+To: Codrin Ciubotariu <codrin.ciubotariu@microchip.com>
+Subject: Re: [PATCH v3 1/2] dt-bindings: sound: add DT bindings for Microchip
+ S/PDIF TX Controller
+Message-ID: <20200812194329.GA2585991@bogus>
+References: <20200803081851.102570-1-codrin.ciubotariu@microchip.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
-Cc: "linux-tegra@vger.kernel.org" <linux-tegra@vger.kernel.org>,
- alsa-devel@alsa-project.org
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20200803081851.102570-1-codrin.ciubotariu@microchip.com>
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
+ alexandre.belloni@bootlin.com, broonie@kernel.org, nicolas.ferre@microchip.com,
+ linux-kernel@vger.kernel.org, lgirdwood@gmail.com,
+ ludovic.desroches@microchip.com, robh+dt@kernel.org, tiwai@suse.com,
+ linux-arm-kernel@lists.infradead.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -106,29 +95,25 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hello, stable-kernel maintainers!
+On Mon, 03 Aug 2020 11:18:50 +0300, Codrin Ciubotariu wrote:
+> This patch adds DT bindings for the new Microchip S/PDIF TX Controller
+> embedded inside sama7g5 SoCs.
+> 
+> Signed-off-by: Codrin Ciubotariu <codrin.ciubotariu@microchip.com>
+> ---
+> 
+> Changes in v3:
+>  - removed 'oneOf' from 'compatible' property;
+>  - added 'maxItems: 1' to 'dmas' property;
+>  - removed pinctrl related properties;
+> 
+> Changes in v2:
+>  - replaced https with http;
+>  - reworked example, included bindings;
+> 
+>  .../bindings/sound/mchp,spdiftx.yaml          | 75 +++++++++++++++++++
+>  1 file changed, 75 insertions(+)
+>  create mode 100644 Documentation/devicetree/bindings/sound/mchp,spdiftx.yaml
+> 
 
-Could you please cherry-pick these commits into the v5.7.x kernel?
-
-commit 0de6db30ef79b391cedd749801a49c485d2daf4b
-Author: Sowjanya Komatineni <skomatineni@nvidia.com>
-Date:   Mon Jan 13 23:24:17 2020 -0800
-
-    ASoC: tegra: Use device managed resource APIs to get the clock
-
-commit 1e4e0bf136aa4b4aa59c1e6af19844bd6d807794
-Author: Sowjanya Komatineni <skomatineni@nvidia.com>
-Date:   Mon Jan 13 23:24:23 2020 -0800
-
-    ASoC: tegra: Add audio mclk parent configuration
-
-commit ff5d18cb04f4ecccbcf05b7f83ab6df2a0d95c16
-Author: Sowjanya Komatineni <skomatineni@nvidia.com>
-Date:   Mon Jan 13 23:24:24 2020 -0800
-
-    ASoC: tegra: Enable audio mclk during tegra_asoc_utils_init()
-
-It will fix a huge warnings splat during of kernel boot on NVIDIA Tegra
-SoCs. For some reason these patches haven't made into 5.7 when it was
-released and several people complained about the warnings. Thanks in
-advance!
+Reviewed-by: Rob Herring <robh@kernel.org>

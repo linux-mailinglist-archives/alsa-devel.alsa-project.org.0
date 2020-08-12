@@ -2,79 +2,109 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 755E8242616
-	for <lists+alsa-devel@lfdr.de>; Wed, 12 Aug 2020 09:32:12 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E162D24263D
+	for <lists+alsa-devel@lfdr.de>; Wed, 12 Aug 2020 09:45:28 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 10B7B166A;
-	Wed, 12 Aug 2020 09:31:22 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 10B7B166A
+	by alsa0.perex.cz (Postfix) with ESMTPS id 598DE1669;
+	Wed, 12 Aug 2020 09:44:38 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 598DE1669
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1597217532;
-	bh=2f2b1fQK5k9viNAfZ6b5HGQYyZyp/SEvBXD6QVEm6VM=;
-	h=Subject:From:To:Date:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1597218328;
+	bh=5dtJn44x7OKFcr8TLj5OJrA2ISXXX2Km2r059gIizyo=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=IIgappa/dp5YVB6lAU+TTBNv1N7Q+W9ffDttvHbJW9r85y+g7ufOH3vXArVy/yw1f
-	 rudvroGgjIwmwSb4PrQkOjocc9G1GVd5QvxPCHKfIkZKAcoljtja8Ne8qbLhx0XLNV
-	 qRwh9N73Q62Zfn/V4oc0Q/PUTK1swZbfY3ABJ5cg=
+	b=UEYryo3T4FL8POkMTzTRk9hfL3WnsqfI+sU8VhICsZgvRj+V6CQJ0iM5mNu26YGGP
+	 xgn1R63Z2RyL185nHH8OQL0EQfNJj307vvBoZSopsKR5qDkbmXG6yJo/oSNIDr9Lrs
+	 X4FDPXI09HJX53rmNzxwfhraHre61063bAOjSLJw=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 46D73F8022D;
-	Wed, 12 Aug 2020 09:30:31 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 89D68F800F4;
+	Wed, 12 Aug 2020 09:43:47 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 0B5D6F8022B; Wed, 12 Aug 2020 09:30:29 +0200 (CEST)
+ id 76AFEF8022B; Wed, 12 Aug 2020 09:43:45 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: *
-X-Spam-Status: No, score=1.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,PRX_BODY_30,RDNS_NONE,SPF_HELO_NONE,SPF_PASS,UNPARSEABLE_RELAY
+X-Spam-Level: 
+X-Spam-Status: No, score=0.9 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+ DKIM_VALID,DKIM_VALID_AU,PRX_BODY_30,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
  autolearn=disabled version=3.4.0
-Received: from mailgw01.mediatek.com (unknown [1.203.163.78])
- by alsa1.perex.cz (Postfix) with ESMTP id A7A1AF800F4
- for <alsa-devel@alsa-project.org>; Wed, 12 Aug 2020 09:30:17 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A7A1AF800F4
+Received: from mail-wr1-x441.google.com (mail-wr1-x441.google.com
+ [IPv6:2a00:1450:4864:20::441])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 9882AF800F4
+ for <alsa-devel@alsa-project.org>; Wed, 12 Aug 2020 09:43:34 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9882AF800F4
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=mediatek.com header.i=@mediatek.com
- header.b="JZcT24Hh"
-X-UUID: be8b77c0b9314ee790102ea5f77c3127-20200812
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=mediatek.com;
- s=dk; 
- h=Content-Transfer-Encoding:MIME-Version:Content-Type:References:In-Reply-To:Date:CC:To:From:Subject:Message-ID;
- bh=2f2b1fQK5k9viNAfZ6b5HGQYyZyp/SEvBXD6QVEm6VM=; 
- b=JZcT24Hh5miQrUaDH1vUIsfgoB4qGVSOhlghs9vfnUKUa0Ja36aldiZISaE50Q3F7NmBKvxAdVCX4a9Tmbm763nPDk1kDb4MAD53EnoPD7/Ki8nXN1FOQbVwklzk3fNo0uhLRqbLwOext6HScR6b8fRq//5iB1e+fFu3zuQJmOI=;
-X-UUID: be8b77c0b9314ee790102ea5f77c3127-20200812
-Received: from mtkcas32.mediatek.inc [(172.27.4.253)] by mailgw01.mediatek.com
- (envelope-from <jiaxin.yu@mediatek.com>)
- (mailgw01.mediatek.com ESMTP with TLS)
- with ESMTP id 672401171; Wed, 12 Aug 2020 15:30:08 +0800
-Received: from MTKCAS32.mediatek.inc (172.27.4.184) by MTKMBS31N2.mediatek.inc
- (172.27.4.87) with Microsoft SMTP Server (TLS) id 15.0.1497.2;
- Wed, 12 Aug 2020 15:30:06 +0800
-Received: from [10.17.3.153] (10.17.3.153) by MTKCAS32.mediatek.inc
- (172.27.4.170) with Microsoft SMTP Server id 15.0.1497.2 via Frontend
- Transport; Wed, 12 Aug 2020 15:30:05 +0800
-Message-ID: <1597217353.23246.45.camel@mhfsdcap03>
-Subject: Re: [PATCH v2 1/2] ASoC: mediatek: mt6359: add codec driver
-From: Jiaxin Yu <jiaxin.yu@mediatek.com>
-To: Mark Brown <broonie@kernel.org>
-Date: Wed, 12 Aug 2020 15:29:13 +0800
-In-Reply-To: <20200810185933.GI6438@sirena.org.uk>
-References: <1597028754-7732-1-git-send-email-jiaxin.yu@mediatek.com>
- <1597028754-7732-2-git-send-email-jiaxin.yu@mediatek.com>
- <20200810185933.GI6438@sirena.org.uk>
-Content-Type: text/plain; charset="UTF-8"
-X-Mailer: Evolution 3.10.4-0ubuntu2 
+ dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org
+ header.b="hol+hh8J"
+Received: by mail-wr1-x441.google.com with SMTP id 88so1098202wrh.3
+ for <alsa-devel@alsa-project.org>; Wed, 12 Aug 2020 00:43:34 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc:content-transfer-encoding;
+ bh=ga6T3Cy+kh1TnFrSU/BgLt86L1Ae+2hwNAjs8j02oF8=;
+ b=hol+hh8JjG7+8Td5Y3AZkrMiWi6c+FnjZIx0uZ4RnrL55vZ7MusPGjbo/QfAgeQmJ1
+ o9lkuGe+HE4Ohw3X382P5Kqpd3BPeuEwO8oeqL501BcCWdME9Mh4lbl96TzX4Gnjx1nb
+ yUMwCY92PsBTHeo7NxMJbPtWsyl6AgtUQfKrc=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc:content-transfer-encoding;
+ bh=ga6T3Cy+kh1TnFrSU/BgLt86L1Ae+2hwNAjs8j02oF8=;
+ b=Jz5I++bwl/5u7SxDBfv/1Q3ZOnNx8+pyz45HlF9Nca/+aoOskDnpCugtydSnY7jNZ2
+ h4RyqakdQxiCHjbREuWjV2GRRk4AQ9L5N8frwIF064xWacRxiGQVm0Sl5Xsgfa+bqR+j
+ d6MT/G4SvXh+flrv08cLNLjsYnT0GA8Lcv0ka6WtgmQN0KerqUCjqsHOzO5O1FFPW6L1
+ s6Mtb/smyPZ7yqoIBFRoUgQtV51kTOGWX2ezm2XvvS1X6xF0ISX+fHF0bXbjqBKPk3JU
+ BSWMpfvyO4g4UleT1bDTtU3wK0aBYV7659XKTUL2zKqlGnACjS2+t1KW82dt13/9tGjX
+ JQFw==
+X-Gm-Message-State: AOAM530IteUiLhAeaYXbN50qz0YeQTHn3hazLhMt7NN+ipMbVR2CZ2Rh
+ 4U0L+9cOtezuKw55ZV9gQimwIXdRElP6hy+xMFs8+Q==
+X-Google-Smtp-Source: ABdhPJyoyVFNUCQzV+GdngHdYV/Kl2T2efj6sEyjpzqgjLkdb1V9rB0pF/Z+jW3c9VLxtezHJOrfD4PS+K7JdIvDJww=
+X-Received: by 2002:adf:c981:: with SMTP id f1mr32180609wrh.14.1597218213822; 
+ Wed, 12 Aug 2020 00:43:33 -0700 (PDT)
 MIME-Version: 1.0
-X-TM-SNTS-SMTP: 88F3FBB46F83E01A2B8413515E7631FBCEBB150A4347EE5EB913520D28AC67AE2000:8
-X-MTK: N
-Content-Transfer-Encoding: base64
-Cc: alsa-devel@alsa-project.org, shane.chien@mediatek.com,
- howie.huang@mediatek.com, tiwai@suse.com, linux-kernel@vger.kernel.org,
- tzungbi@google.com, robh+dt@kernel.org, linux-mediatek@lists.infradead.org,
- eason.yen@mediatek.com, matthias.bgg@gmail.com,
- linux-arm-kernel@lists.infradead.org
+References: <3f3baf5e-f73d-9cd6-cbfb-36746071e126@linux.intel.com>
+ <CAGvk5PohOP0Yv22tb53EX=ZLB9_vOMb=iujTh64OvHmjC1d4mg@mail.gmail.com>
+ <DM6PR11MB3642AC7F8EC47EB48B384D4797450@DM6PR11MB3642.namprd11.prod.outlook.com>
+ <CAGvk5PogmqfEnFRA8hzby+AGgbOSvbELamh_1=eA9KTpyBMPYQ@mail.gmail.com>
+ <s5htux939x1.wl-tiwai@suse.de>
+ <CAGvk5PpcmkZ2HarqeCDaXm4id=84wYs-u4vWxJunHaf09gj66g@mail.gmail.com>
+ <s5ho8nh37br.wl-tiwai@suse.de>
+ <CAGvk5PphzkdiNfW8hiDuqX+2eQO2FvrpzA0qR3=3VvqM3GBhAA@mail.gmail.com>
+ <20200811145353.GG6967@sirena.org.uk>
+ <d78f9adc-d583-f0f2-ce38-3c9175c939b8@linux.intel.com>
+ <20200811172209.GM6967@sirena.org.uk>
+ <CAGvk5PqGi7cXthLHFi4NyypxFiGnoHvD9vp+5nJdH-_VkVvcKw@mail.gmail.com>
+ <s5hr1scz908.wl-tiwai@suse.de>
+ <CAGvk5Pp+Gk5Uk-iLdhVPWuCL0FiL9OhsaAtwkotay5JAYUNxdQ@mail.gmail.com>
+ <s5hlfikz6y8.wl-tiwai@suse.de>
+In-Reply-To: <s5hlfikz6y8.wl-tiwai@suse.de>
+From: Yu-Hsuan Hsu <yuhsuan@chromium.org>
+Date: Wed, 12 Aug 2020 15:43:22 +0800
+Message-ID: <CAGvk5Pq3rEGJX=WjriPfWg_sEAVWHGZ9S=4iySNfYaHX7Xcw0g@mail.gmail.com>
+Subject: Re: [PATCH v3 2/2] ASoC: Intel: Add period size constraint on strago
+ board
+To: Takashi Iwai <tiwai@suse.de>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+Cc: Guennadi Liakhovetski <guennadi.liakhovetski@linux.intel.com>,
+ "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
+ Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+ Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
+ Kai Vehmanen <kai.vehmanen@linux.intel.com>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, "Rojewski,
+ Cezary" <cezary.rojewski@intel.com>, Jie Yang <yang.jie@linux.intel.com>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ Takashi Iwai <tiwai@suse.com>, Liam Girdwood <liam.r.girdwood@linux.intel.com>,
+ Sam McNally <sammc@chromium.org>, Mark Brown <broonie@kernel.org>,
+ Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
+ Daniel Stuart <daniel.stuart14@gmail.com>,
+ "yuhsuan@google.com" <yuhsuan@google.com>, "Lu, Brent" <brent.lu@intel.com>,
+ Damian van Soelen <dj.vsoelen@gmail.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -90,160 +120,124 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-T24gTW9uLCAyMDIwLTA4LTEwIGF0IDE5OjU5ICswMTAwLCBNYXJrIEJyb3duIHdyb3RlOg0KPiBP
-biBNb24sIEF1ZyAxMCwgMjAyMCBhdCAxMTowNTo1M0FNICswODAwLCBKaWF4aW4gWXUgd3JvdGU6
-DQo+IA0KPiA+ICt2b2lkIG10NjM1OV9zZXRfcGxheWJhY2tfZ3BpbyhzdHJ1Y3Qgc25kX3NvY19j
-b21wb25lbnQgKmNtcG50KQ0KPiA+ICt7DQo+ID4gKwlzdHJ1Y3QgbXQ2MzU5X3ByaXYgKnByaXYg
-PSBzbmRfc29jX2NvbXBvbmVudF9nZXRfZHJ2ZGF0YShjbXBudCk7DQo+IA0KPiA+ICt2b2lkIG10
-NjM1OV9yZXNldF9wbGF5YmFja19ncGlvKHN0cnVjdCBzbmRfc29jX2NvbXBvbmVudCAqY21wbnQp
-DQo+ID4gK3sNCj4gPiArCXN0cnVjdCBtdDYzNTlfcHJpdiAqcHJpdiA9IHNuZF9zb2NfY29tcG9u
-ZW50X2dldF9kcnZkYXRhKGNtcG50KTsNCj4gDQo+ID4gK3ZvaWQgbXQ2MzU5X3NldF9jYXB0dXJl
-X2dwaW8oc3RydWN0IHNuZF9zb2NfY29tcG9uZW50ICpjbXBudCkNCj4gPiArew0KPiANCj4gPiAr
-dm9pZCBtdDYzNTlfcmVzZXRfY2FwdHVyZV9ncGlvKHN0cnVjdCBzbmRfc29jX2NvbXBvbmVudCAq
-Y21wbnQpDQo+ID4gK3sNCj4gDQo+IFdoYXQgYXJlIHRoZXNlLCBzaG91bGQgdGhleSBub3QgYmUg
-bWFuYWdlZCB0aHJvdWdoIGdwaW9saWIgYW5kL29yDQo+IHBpbmN0cmw/DQoNClRoZXNlIGFyZSB0
-aGUgZnVuY3Rpb25zIHRoYXQgY29udHJvbCB0aGUgbXV4IG9mIGlucHV0IG9yIG91dHB1dA0Kc2ln
-bmFsLiBJIHJlZmVyIHRvIHRoZSBvdGhlciBjb2RlYyBkcml2ZXJzLCBtb3N0IG9mIHRoZW0gYXJl
-IG1hbmlwdWxhdGUNCnRoZSByZWdzIGluIHRoZWlyIGNvZGVjIGRyaXZlcnMgYWxzby4gTWF5YmUg
-aXQncyBlYXNpZXIgdG8gY29udHJvbD8NCg0KPiA+ICsvKiB1c2Ugb25seSB3aGVuIGRvaW5nIG10
-a2FpZiBjYWxpYnJhaXRvbiBhdCB0aGUgYm9vdCB0aW1lICovDQo+ID4gK3N0YXRpYyBpbnQgbXQ2
-MzU5X3NldF9kY3hvKHN0cnVjdCBtdDYzNTlfcHJpdiAqcHJpdiwgYm9vbCBlbmFibGUpDQo+ID4g
-K3sNCj4gPiArCXJlZ21hcF91cGRhdGVfYml0cyhwcml2LT5yZWdtYXAsIE1UNjM1OV9EQ1hPX0NX
-MTIsDQo+ID4gKwkJCSAgIDB4MSA8PCBSR19YT19BVURJT19FTl9NX1NGVCwNCj4gPiArCQkJICAg
-KGVuYWJsZSA/IDEgOiAwKSA8PCBSR19YT19BVURJT19FTl9NX1NGVCk7DQo+ID4gKwlyZXR1cm4g
-MDsNCj4gDQo+IEVpdGhlciBkb24ndCBoYXZlIGEgcmV0dXJuIHZhbHVlIG9yIHVzZSB0aGUgcmVz
-dWx0IG9mDQo+IHJlZ21hcF91cGRhdGVfYml0cygpLiAgVGhlcmUncyBzaW1pbGFyIGlzc3VlcyB3
-aXRoIHNvbWUgb3RoZXIgZnVuY3Rpb25zDQo+IGluIGhlcmUuDQo+IA0KDQpZZXMsIEkgd2lsbCBy
-ZWZpbmUgdGhlbS4NCg0KPiA+ICtpbnQgbXQ2MzU5X210a2FpZl9jYWxpYnJhdGlvbl9lbmFibGUo
-c3RydWN0IHNuZF9zb2NfcGNtX3J1bnRpbWUgKnJ0ZCkNCj4gPiArew0KPiANCj4gPiArRVhQT1JU
-X1NZTUJPTF9HUEwobXQ2MzU5X210a2FpZl9jYWxpYnJhdGlvbl9lbmFibGUpOw0KPiANCj4gV2h5
-IGlzIHRoaXMgZXhwb3J0ZWQ/DQo+IA0KDQpUaGlzIGZ1bmN0aW9uIGlzIGV4cG9ydGVkIHRvIG1h
-Y2hpbmUgZHJpdmVyIHRvIGRvIGNhbGlicmF0aW9uIHdoZW4NCnJlZ2lzdGVyaW5nLiBUaGUgaW50
-ZXJmYWNlIGJldHdlZW4gTVQ2MzU5IGFuZCBNVEsgU29DIGlzIGEgc3BlY2lhbA0KaW50ZXJmYWNl
-IHRoYXQgbmFtZWQgTVRLQUlGLiBUaGVyZWZvcmUsIGlmIE1UNjM1OSBpcyB0byBiZSB1c2VkDQpu
-b3JtYWxseSwgaXQgbmVlZHMgdG8gcmVseSBvbiB0aGUgcGxhdGZvcm0gZm9yIGNhbGlicmF0aW9u
-IHdoZW4NCnJlZ2lzdGVyaW5nLg0KDQo+ID4gK3N0YXRpYyB2b2lkIGhwX2F1eF9mZWVkYmFja19s
-b29wX2dhaW5fcmFtcChzdHJ1Y3QgbXQ2MzU5X3ByaXYgKnByaXYsIGJvb2wgdXApDQo+ID4gK3sN
-Cj4gPiArCWludCBpID0gMCwgc3RhZ2UgPSAwOw0KPiA+ICsNCj4gPiArCS8qIFJlZHVjZSBIUCBh
-dXggZmVlZGJhY2sgbG9vcCBnYWluIHN0ZXAgYnkgc3RlcCAqLw0KPiA+ICsJZm9yIChpID0gMDsg
-aSA8PSAweGY7IGkrKykgew0KPiA+ICsJCXN0YWdlID0gdXAgPyBpIDogMHhmIC0gaTsNCj4gDQo+
-IFBsZWFzZSB3cml0ZSBub3JtYWwgY29uZGl0aW9uYWwgc3RhdGVtZW50cywgaXQgaGVscHMgbGVn
-aWJpbGl0eS4NCj4gDQoNCi8qIEluY3JlYXNlL1JlZHVjZSBIUCBhdXggZmVlZGJhY2sgbG9vcCBn
-YWluIHN0ZXAgYnkgc3RlcCAqLw0KVGhpcyBpcyB0byBwcmV2ZW50IHN1ZGRlbiBjaGFuZ2VzIGlu
-IHZvbHVtZS4NCg0KPiA+ICtzdGF0aWMgaW50IG10NjM1OV9wdXRfdm9sc3coc3RydWN0IHNuZF9r
-Y29udHJvbCAqa2NvbnRyb2wsDQo+ID4gKwkJCSAgICBzdHJ1Y3Qgc25kX2N0bF9lbGVtX3ZhbHVl
-ICp1Y29udHJvbCkNCj4gPiArew0KPiA+ICsJc3RydWN0IHNuZF9zb2NfY29tcG9uZW50ICpjb21w
-b25lbnQgPQ0KPiA+ICsJCQlzbmRfc29jX2tjb250cm9sX2NvbXBvbmVudChrY29udHJvbCk7DQo+
-ID4gKwlzdHJ1Y3QgbXQ2MzU5X3ByaXYgKnByaXYgPSBzbmRfc29jX2NvbXBvbmVudF9nZXRfZHJ2
-ZGF0YShjb21wb25lbnQpOw0KPiA+ICsJc3RydWN0IHNvY19taXhlcl9jb250cm9sICptYyA9DQo+
-ID4gKwkJCShzdHJ1Y3Qgc29jX21peGVyX2NvbnRyb2wgKilrY29udHJvbC0+cHJpdmF0ZV92YWx1
-ZTsNCj4gPiArCXVuc2lnbmVkIGludCByZWc7DQo+ID4gKwlpbnQgaW5kZXggPSB1Y29udHJvbC0+
-dmFsdWUuaW50ZWdlci52YWx1ZVswXTsNCj4gPiArCWludCByZXQ7DQo+ID4gKw0KPiA+ICsJcmV0
-ID0gc25kX3NvY19wdXRfdm9sc3coa2NvbnRyb2wsIHVjb250cm9sKTsNCj4gPiArCWlmIChyZXQg
-PCAwKQ0KPiA+ICsJCXJldHVybiByZXQ7DQo+IA0KPiBTbyB3ZSBtYWtlIHRoZSB2b2x1bWUgY2hh
-bmdlIGFjdHVhbGx5IHRha2UgZWZmZWN0Li4uDQo+IA0KPiA+ICsJc3dpdGNoIChtYy0+cmVnKSB7
-DQo+ID4gKwljYXNlIE1UNjM1OV9aQ0RfQ09OMjoNCj4gPiArCQlyZWdtYXBfcmVhZChwcml2LT5y
-ZWdtYXAsIE1UNjM1OV9aQ0RfQ09OMiwgJnJlZyk7DQo+ID4gKwkJcHJpdi0+YW5hX2dhaW5bQVVE
-SU9fQU5BTE9HX1ZPTFVNRV9IUE9VVExdID0NCj4gPiArCQkJKHJlZyA+PiBSR19BVURIUExHQUlO
-X1NGVCkgJiBSR19BVURIUExHQUlOX01BU0s7DQo+ID4gKwkJcHJpdi0+YW5hX2dhaW5bQVVESU9f
-QU5BTE9HX1ZPTFVNRV9IUE9VVFJdID0NCj4gPiArCQkJKHJlZyA+PiBSR19BVURIUFJHQUlOX1NG
-VCkgJiBSR19BVURIUFJHQUlOX01BU0s7DQo+ID4gKwkJYnJlYWs7DQo+IA0KPiAuLnRoZW4gcmVh
-ZCB0aGUgdmFsdWUgdGhhdCB3YXMgc2V0IGFuZCBzdG9yZSBpdCBlbHNld2hlcmUuICBXaGF0J3MN
-Cj4gZ29pbmcgb24gaGVyZT8NCj4gDQoNCkJlY2F1c2Ugd2UgY2FuIGFkanVzdCB0aGUgdm9sdW1l
-IGF0IHR3byBwb2ludHMsIGJlZm9yZSBhbmQgZHVyaW5nIHRoZQ0KcGxheWJhY2sgb3IgY2FwdHVy
-ZS4gSW4gYWRkaXRpb24sIHdlIHdpbGwgZG8gdm9sdW1lIHJhbXAgd2hlbiBvcGVuaW5nDQp0aGUg
-ZHJpdmVyLiBJZiB3ZSBzZXQgdGhlIHZvbHVtZSBiZWZvcmUgb3BlbmluZyB0aGUgZHJpdmVyLCB3
-ZSBuZWVkIGdldA0KdGhlIHZhbHVlIHRvIGRvIHZvbHVtZSByYW1wIGR1cmluZyBvcGVuaW5nIHRo
-ZSBkcml2ZXIuDQoNCj4gPiArLypIUCBNVVggKi8NCj4gPiArc3RhdGljIGNvbnN0IGNoYXIgKiBj
-b25zdCBocF9pbl9tdXhfbWFwW10gPSB7DQo+ID4gKwkiT3BlbiIsDQo+ID4gKwkiTG91ZFNQSyBQ
-bGF5YmFjayIsDQo+ID4gKwkiQXVkaW8gUGxheWJhY2siLA0KPiA+ICsJIlRlc3QgTW9kZSIsDQo+
-ID4gKwkiSFAgSW1wZWRhbmNlIiwNCj4gPiArCSJ1bmRlZmluZWQxIiwNCj4gPiArCSJ1bmRlZmlu
-ZWQyIiwNCj4gPiArCSJ1bmRlZmluZWQzIiwNCj4gPiArfTsNCj4gDQo+IFdoeSBleHBvc2UgdW5k
-ZWZpbmVkIChhbmQgcHJlc3VtYWJseSBvdXQgb2Ygc3BlYykgdmFsdWVzIHRvIHVzZXJzcGFjZT8N
-Cj4gDQoNClJlbW92ZWQgdGhlbS4NCg0KPiA+ICtzdGF0aWMgaW50IG10X2Nsa3NxX2V2ZW50KHN0
-cnVjdCBzbmRfc29jX2RhcG1fd2lkZ2V0ICp3LA0KPiA+ICsJCQkgIHN0cnVjdCBzbmRfa2NvbnRy
-b2wgKmtjb250cm9sLA0KPiA+ICsJCQkgIGludCBldmVudCkNCj4gPiArew0KPiA+ICsJc3RydWN0
-IHNuZF9zb2NfY29tcG9uZW50ICpjbXBudCA9IHNuZF9zb2NfZGFwbV90b19jb21wb25lbnQody0+
-ZGFwbSk7DQo+ID4gKwlzdHJ1Y3QgbXQ2MzU5X3ByaXYgKnByaXYgPSBzbmRfc29jX2NvbXBvbmVu
-dF9nZXRfZHJ2ZGF0YShjbXBudCk7DQo+ID4gKw0KPiA+ICsJZGV2X2RiZyhwcml2LT5kZXYsICIl
-cygpLCBldmVudCA9IDB4JXhcbiIsIF9fZnVuY19fLCBldmVudCk7DQo+ID4gKw0KPiA+ICsJc3dp
-dGNoIChldmVudCkgew0KPiA+ICsJY2FzZSBTTkRfU09DX0RBUE1fUFJFX1BNVToNCj4gPiArCQkv
-KiBhdWRpbyBjbGsgc291cmNlIGZyb20gaW50ZXJuYWwgZGN4byAqLw0KPiA+ICsJCXJlZ21hcF91
-cGRhdGVfYml0cyhwcml2LT5yZWdtYXAsIE1UNjM1OV9BVURFTkNfQU5BX0NPTjIzLA0KPiA+ICsJ
-CQkJICAgUkdfQ0xLU1FfSU5fU0VMX1RFU1RfTUFTS19TRlQsDQo+ID4gKwkJCQkgICAweDApOw0K
-PiANCj4gVGhpcyBhbHNvIGFwcGVhcmVkIHRvIGJlIGNvbnRyb2xsZWQgaW4gX3NldF9jbGtzZXEo
-KSAtIGFyZSB3ZSBzdXJlIHRoYXQNCj4gdGhpbmdzIGNvdWxkbid0IGdldCBjb25mdXNlZCBhYm91
-dCB0aGUgc3RhdGU/DQo+IA0KDQpfc2V0X2Nsa3NlcSgpIHdpbGwgb25seSBiZSBydW4gYXQgdGhl
-IHRpbWUgb2YgbXRrYWlmIGNhbGlicmFpdG9uLCBhbmQNCnRoZSBjYWxpYnJhdGlvbiBvbmx5IHJ1
-biBvbmNlIHdoZW4gdGhlIGNvZGVjIGRyaXZlciBwcm9iZS4gU28gaXQgd29uJ3QNCmdldCBjb25m
-dXNlZCBhYm91dCB0aGUgc3RhdGUuIEJ1dCBpdCByZWFsbHkgb25seSBuZWVkcyB0byBiZSBzZXQg
-dXAgb25jZQ0KYXQgbXQ2MzU5X2NvZGVjX2luaXRfcmVnKCkuIEkgd2lsbCByZW1vdmUgdGhlIHVu
-bmVjZXNhcnkgc2V0dGluZ3MuDQoNCj4gPiArCS8qIEhQIGRhbXAgY2lyY3VpdCBlbmFibGUgKi8N
-Cj4gPiArCS8qRW5hYmxlIEhQUk4vSFBMTiBvdXRwdXQgNEsgdG8gVkNNICovDQo+IA0KPiBTcGFj
-ZXMgYXJvdW5kIHRoZSAvKiAqLw0KPiANCg0KU29ycnksIGZpeGVkIGl0Lg0KDQo+ID4gK3N0YXRp
-YyBpbnQgbXRfaHBfZXZlbnQoc3RydWN0IHNuZF9zb2NfZGFwbV93aWRnZXQgKncsDQo+ID4gKwkJ
-ICAgICAgIHN0cnVjdCBzbmRfa2NvbnRyb2wgKmtjb250cm9sLA0KPiA+ICsJCSAgICAgICBpbnQg
-ZXZlbnQpDQo+ID4gK3sNCj4gPiArCXN0cnVjdCBzbmRfc29jX2NvbXBvbmVudCAqY21wbnQgPSBz
-bmRfc29jX2RhcG1fdG9fY29tcG9uZW50KHctPmRhcG0pOw0KPiA+ICsJc3RydWN0IG10NjM1OV9w
-cml2ICpwcml2ID0gc25kX3NvY19jb21wb25lbnRfZ2V0X2RydmRhdGEoY21wbnQpOw0KPiA+ICsJ
-dW5zaWduZWQgaW50IG11eCA9IGRhcG1fa2NvbnRyb2xfZ2V0X3ZhbHVlKHctPmtjb250cm9sc1sw
-XSk7DQo+ID4gKwlpbnQgZGV2aWNlID0gREVWSUNFX0hQOw0KPiA+ICsNCj4gPiArCWRldl9kYmco
-cHJpdi0+ZGV2LCAiJXMoKSwgZXZlbnQgMHgleCwgZGV2X2NvdW50ZXJbREVWX0hQXSAlZCwgbXV4
-ICV1XG4iLA0KPiA+ICsJCV9fZnVuY19fLCBldmVudCwgcHJpdi0+ZGV2X2NvdW50ZXJbZGV2aWNl
-XSwgbXV4KTsNCj4gPiArDQo+ID4gKwlzd2l0Y2ggKGV2ZW50KSB7DQo+ID4gKwljYXNlIFNORF9T
-T0NfREFQTV9QUkVfUE1VOg0KPiA+ICsJCXByaXYtPmRldl9jb3VudGVyW2RldmljZV0rKzsNCj4g
-PiArCQlpZiAocHJpdi0+ZGV2X2NvdW50ZXJbZGV2aWNlXSA+IDEpDQo+ID4gKwkJCWJyZWFrOwkv
-KiBhbHJlYWR5IGVuYWJsZWQsIGRvIG5vdGhpbmcgKi8NCj4gPiArCQllbHNlIGlmIChwcml2LT5k
-ZXZfY291bnRlcltkZXZpY2VdIDw9IDApDQo+IA0KPiBXaHkgYXJlIHdlIGRvaW5nIGFkZGl0aW9u
-YWwgcmVmY291bnRpbmcgb24gdG9wIG9mIHdoYXQgREFQTSBpcyBkb2luZz8NCj4gVGhpcyBzZWVt
-cyBsaWtlIHRoZXJlIHNob3VsZCBiZSBhdCBsZWFzdCBvbmUgd2lkZ2V0IHJlcHJlc2VudGluZyB0
-aGUNCj4gc2hhcmVkIGJpdHMgb2YgdGhlIGF1ZGlvIHBhdGguDQo+IA0KDQpXZSBoYXZlICJIUEwg
-TXV4IiBhbmQgIkhQUiBNdXgiLCB0aGVyZSB3aWxsIGJlIHR3byBwYXRocyBlbmFibGVkIHdoZW4N
-CnBsYXliYWNrIHRocm91aCBIUC4gQnV0IGFjdHVhbGx5IHRoZXkgc2hhcmUgdGhlIHNhbWUgY29u
-dHJvbCBzZXF1ZW5jZXMuDQpTbyBpbiBvcmRlciB0byBwcmV2ZW50IHNldHRpbmcgaXQgb25lIG1v
-cmUgdGltZSB3ZSBkbyBhZGRpdGlvbmFsDQpyZWZjb3V0aW5nLg0KDQoNCj4gPiArI2RlZmluZSBN
-VDYzNTlfRk9STUFUUyAoU05EUlZfUENNX0ZNVEJJVF9TMTZfTEUgfCBTTkRSVl9QQ01fRk1UQklU
-X1MxNl9CRSB8XA0KPiA+ICsJCQlTTkRSVl9QQ01fRk1UQklUX1UxNl9MRSB8IFNORFJWX1BDTV9G
-TVRCSVRfVTE2X0JFIHxcDQo+ID4gKwkJCVNORFJWX1BDTV9GTVRCSVRfUzI0X0xFIHwgU05EUlZf
-UENNX0ZNVEJJVF9TMjRfQkUgfFwNCj4gPiArCQkJU05EUlZfUENNX0ZNVEJJVF9VMjRfTEUgfCBT
-TkRSVl9QQ01fRk1UQklUX1UyNF9CRSB8XA0KPiA+ICsJCQlTTkRSVl9QQ01fRk1UQklUX1MzMl9M
-RSB8IFNORFJWX1BDTV9GTVRCSVRfUzMyX0JFIHxcDQo+ID4gKwkJCVNORFJWX1BDTV9GTVRCSVRf
-VTMyX0xFIHwgU05EUlZfUENNX0ZNVEJJVF9VMzJfQkUpDQo+IA0KPiBUaGUgZHJpdmVyIGRvZXNu
-J3QgYXBwZWFyIHRvIGNvbmZpZ3VyZSBhbnl0aGluZyBleGNlcHQgdGhlIHNhbXBsZSByYXRlIC0N
-Cj4gaG93IGFyZSBhbGwgdGhlc2UgZm9ybWF0cyBzdXBwb3J0ZWQ/DQo+IA0KDQpUaGUgaW50ZXJm
-YWNlIGJldHdlZW4gTVQ2MzU5IGFuZCBNVEsgU29DIGlzIGEgc3BlY2lhbCBpbnRlcmZhY2UgdGhh
-dA0KbmFtZWQgTVRLQUlGLiBCZWNhdXNlIG9mIGl0cyB1bmlxdWUgaGFyZHdhcmUgc2V0dGluZ3Ms
-IGl0IHJlYWxseSBkb2Vzbid0DQp0byBzZXQgZm9ybWF0IGFyZ3VtZW50LiBUaGUgY2FwYWJpbGl0
-eSBvZiBwY20gZHJpdmVyIG1haW5seSBkZXBlbmRzIG9uDQpjcHUtZGFpIGRyaXZlciB0byBsaW1p
-dC4NCg0KPiA+ICsJLyogaHAgZ2FpbiBjdGwgZGVmYXVsdCBjaG9vc2UgWkNEICovDQo+ID4gKwlw
-cml2LT5ocF9nYWluX2N0bCA9IEhQX0dBSU5fQ1RMX1pDRDsNCj4gPiArCWhwX2dhaW5fY3RsX3Nl
-bGVjdChwcml2LCBwcml2LT5ocF9nYWluX2N0bCk7DQo+IA0KPiBXaHkgbm90IHVzZSB0aGUgaGFy
-ZHdhcmUgZGVmYXVsdD8NCj4gDQoNCldlIGhhdmUgdHdvIHdheXMgdG8gY29udHJvbCB0aGUgdm9s
-dW1lLCB0aGVyZSBpcyB0byBzZWxlY3QgWkNELiBCZWNhdXNlDQp0aGUgb3RoZXIgb25lIGl0IG5v
-dCBvZnRlbiB1c2VkLCBaQ0QgaXMgdXNlZCBieSBkZWZhdWx0LiANCg0KPiA+ICsJbXQ2MzU5X2Nv
-ZGVjX2luaXRfcmVnKGNtcG50KTsNCj4gPiArDQo+ID4gKwlwcml2LT5hbmFfZ2FpbltBVURJT19B
-TkFMT0dfVk9MVU1FX0hQT1VUTF0gPSA4Ow0KPiA+ICsJcHJpdi0+YW5hX2dhaW5bQVVESU9fQU5B
-TE9HX1ZPTFVNRV9IUE9VVFJdID0gODsNCj4gPiArCXByaXYtPmFuYV9nYWluW0FVRElPX0FOQUxP
-R19WT0xVTUVfTUlDQU1QMV0gPSAzOw0KPiA+ICsJcHJpdi0+YW5hX2dhaW5bQVVESU9fQU5BTE9H
-X1ZPTFVNRV9NSUNBTVAyXSA9IDM7DQo+ID4gKwlwcml2LT5hbmFfZ2FpbltBVURJT19BTkFMT0df
-Vk9MVU1FX01JQ0FNUDNdID0gMzsNCj4gDQo+IFNhbWUgaGVyZS4NCj4gDQoNClJlbW92ZWQgdGhl
-bS4NCg0KPiA+ICsJcmV0ID0gcmVndWxhdG9yX2VuYWJsZShwcml2LT5hdmRkX3JlZyk7DQo+ID4g
-KwlpZiAocmV0KSB7DQo+ID4gKwkJZGV2X2Vycihwcml2LT5kZXYsICIlcygpLCBmYWlsZWQgdG8g
-ZW5hYmxlIHJlZ3VsYXRvciFcbiIsDQo+ID4gKwkJCV9fZnVuY19fKTsNCj4gPiArCQlyZXR1cm4g
-cmV0Ow0KPiA+ICsJfQ0KPiANCj4gUGVyaGFwcyBtYWtlIHRoaXMgYSBEQVBNIHdpZGdldD8NCj4g
-DQoNCiJ2YXVkMTgiIG5lZWRzIHRvIGJlIGFsd2F5cyBvbiBzbyB3ZSBlbmFibGUgaXQgd2hlbiBj
-b2RlYyBwcm9iZS4NCg0KPiA+ICsJcHJpdi0+YXZkZF9yZWcgPSBkZXZtX3JlZ3VsYXRvcl9nZXQo
-JnBkZXYtPmRldiwgInZhdWQxOCIpOw0KPiA+ICsJaWYgKElTX0VSUihwcml2LT5hdmRkX3JlZykp
-IHsNCj4gPiArCQlkZXZfZXJyKCZwZGV2LT5kZXYsICIlcygpLCBoYXZlIG5vIHZhdWQxOCBzdXBw
-bHkiLCBfX2Z1bmNfXyk7DQo+ID4gKwkJcmV0dXJuIFBUUl9FUlIocHJpdi0+YXZkZF9yZWcpOw0K
-PiA+ICsJfQ0KPiANCj4gSXQncyBiZXR0ZXIgdG8gcHJpbnQgZXJyb3IgY29kZXMgdG8gaGVscCBw
-ZW9wbGUgZGVidWdnaW5nIHByb2JsZW1zLg0KPiANCg0KWWVzLCBJIHdpbGwgcHJpbnQgdGhlIGVy
-cm9yIGNvZGVzLg0KDQo+ID4gK3N0YXRpYyBjb25zdCBzdHJ1Y3Qgb2ZfZGV2aWNlX2lkIG10NjM1
-OV9vZl9tYXRjaFtdID0gew0KPiA+ICsJey5jb21wYXRpYmxlID0gIm1lZGlhdGVrLG10NjM1OS1z
-b3VuZCIsfSwNCj4gPiArCXt9DQo+ID4gK307DQo+ID4gK01PRFVMRV9ERVZJQ0VfVEFCTEUob2Ys
-IG10NjM1OV9vZl9tYXRjaCk7DQo+IA0KPiBXZSBkb24ndCBuZWVkIGEgY29tcGF0aWJsZSBoZXJl
-LCB3ZSBrbm93IHRoYXQgdGhpcyBkZXZpY2UgaXMgaGVyZSBzaW5jZQ0KPiBpdCdzIHBhcnQgb2Yg
-dGhlIHBhcmVudCBkZXZpY2UgYW5kIGlzbid0IHNvbWV0aGluZyB0aGF0IG1pZ2h0IGFwcGVhciBp
-bg0KPiBhbm90aGVyIGRldmljZS4gIFRoaXMgaXMgcmVmbGVjdGluZyB0aGUgTGludXggZHJpdmVy
-IG1vZGVsLCBub3QgdGhlDQo+IGhhcmR3YXJlLg0KDQpSZW1vdmVkIHRoZW0uDQo=
+Takashi Iwai <tiwai@suse.de> =E6=96=BC 2020=E5=B9=B48=E6=9C=8812=E6=97=A5 =
+=E9=80=B1=E4=B8=89 =E4=B8=8B=E5=8D=882:58=E5=AF=AB=E9=81=93=EF=BC=9A
+>
+> On Wed, 12 Aug 2020 08:53:42 +0200,
+> Yu-Hsuan Hsu wrote:
+> >
+> > Takashi Iwai <tiwai@suse.de> =E6=96=BC 2020=E5=B9=B48=E6=9C=8812=E6=97=
+=A5 =E9=80=B1=E4=B8=89 =E4=B8=8B=E5=8D=882:14=E5=AF=AB=E9=81=93=EF=BC=9A
+> > >
+> > > On Wed, 12 Aug 2020 05:09:58 +0200,
+> > > Yu-Hsuan Hsu wrote:
+> > > >
+> > > > Mark Brown <broonie@kernel.org> =E6=96=BC 2020=E5=B9=B48=E6=9C=8812=
+=E6=97=A5 =E9=80=B1=E4=B8=89 =E4=B8=8A=E5=8D=881:22=E5=AF=AB=E9=81=93=EF=BC=
+=9A
+> > > > >
+> > > > > On Tue, Aug 11, 2020 at 11:54:38AM -0500, Pierre-Louis Bossart wr=
+ote:
+> > > > >
+> > > > > > > constraint logic needs to know about this DSP limitation - it=
+ seems like
+> > > > > > > none of this is going to change without something new going i=
+nto the
+> > > > > > > mix?  We at least need a new question to ask about the DSP fi=
+rmware I
+> > > > > > > think.
+> > > > >
+> > > > > > I just tested aplay -Dhw: on a Cyan Chromebook with the Ubuntu =
+kernel 5.4,
+> > > > > > and I see no issues with the 240 sample period. Same with 432, =
+960, 9600,
+> > > > > > etc.
+> > > > >
+> > > > > > I also tried just for fun what happens with 256 samples, and I =
+don't see any
+> > > > > > underflows thrown either, so I am wondering what exactly the pr=
+oblem is?
+> > > > > > Something's not adding up. I would definitively favor multiple =
+of 1ms
+> > > > > > periods, since it's the only case that was productized, but the=
+re's got to
+> > > > > > me something a side effect of how CRAS programs the hw_params.
+> > > > >
+> > > > > Is it something that goes wrong with longer playbacks possibly (e=
+g,
+> > > > > someone watching a feature film or something)?
+> > > >
+> > > > Thanks for testing!
+> > > >
+> > > > After doing some experiments, I think I can identify the problem mo=
+re precisely.
+> > > > 1. aplay can not reproduce this issue because it writes samples
+> > > > immediately when there are some space in the buffer. However, you c=
+an
+> > > > add --test-position to see how the delay grows with period size 256=
+.
+> > > > > aplay -Dhw:1,0 --period-size=3D256 --buffer-size=3D480 /dev/zero =
+-d 1 -f dat --test-position
+> > > > Playing raw data '/dev/zero' : Signed 16 bit Little Endian, Rate 48=
+000
+> > > > Hz, Stereo
+> > > > Suspicious buffer position (1 total): avail =3D 0, delay =3D 2064, =
+buffer =3D 512
+> > > > Suspicious buffer position (2 total): avail =3D 0, delay =3D 2064, =
+buffer =3D 512
+> > > > Suspicious buffer position (3 total): avail =3D 0, delay =3D 2096, =
+buffer =3D 512
+> > > > ...
+> > >
+> > > Isn't this about the alignment of the buffer size against the period
+> > > size, not the period size itself?  i.e. in the example above, the
+> > > buffer size isn't a multiple of period size, and DSP can't handle if
+> > > the position overlaps the buffer size in a half way.
+> > >
+> > > If that's the problem (and it's an oft-seen restriction), the right
+> > > constraint is
+> > >   snd_pcm_hw_constraint_integer(runtime, SNDRV_PCM_HW_PARAM_PERIODS);
+> > >
+> > >
+> > > Takashi
+> > Oh sorry for my typo. The issue happens no matter what buffer size is
+> > set. Actually, even if I want to set 480, it will change to 512
+> > automatically.
+> > Suspicious buffer position (1 total): avail =3D 0, delay =3D 2064, buff=
+er
+> > =3D 512 <-this one is the buffer size
+>
+> OK, then it means that the buffer size alignment is already in place.
+>
+> And this large delay won't happen if you use period size 240?
+>
+>
+> Takashi
+Yes! If I set the period size to 240, it will not print "Suspicious
+buffer position ..."
 
+Yu-Hsuan
+
+>
+> > > > 2. Since many samples are moved to DSP(delay), the measured rate of
+> > > > the ring-buffer is high. (I measured it by alsa_conformance_test,
+> > > > which only test the sampling rate in the ring buffer of kernel not
+> > > > DSP)
+> > > >
+> > > > 3. Since CRAS writes samples with a fixed frequency, this behavior
+> > > > will take all samples from the ring buffer, which is seen as underr=
+un
+> > > > by CRAS. (It seems that it is not a real underrun because that avai=
+l
+> > > > does not larger than buffer size. Maybe CRAS should also take dalay
+> > > > into account.)
+> > > >
+> > > > 4. In spite of it is not a real underrun, the large delay is still =
+a
+> > > > big problem. Can we apply the constraint to fix it? Or any better
+> > > > idea?
+> > > >
+> > > > Thanks,
+> > > > Yu-Hsuan
+> > > >
+> >

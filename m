@@ -2,67 +2,94 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id CAAD7242829
-	for <lists+alsa-devel@lfdr.de>; Wed, 12 Aug 2020 12:19:15 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B79B12428BF
+	for <lists+alsa-devel@lfdr.de>; Wed, 12 Aug 2020 13:34:56 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 80C881674;
-	Wed, 12 Aug 2020 12:18:25 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 80C881674
+	by alsa0.perex.cz (Postfix) with ESMTPS id 539281670;
+	Wed, 12 Aug 2020 13:34:06 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 539281670
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1597227555;
-	bh=4FzYyW5JJNVBQO4GB8avNDtPRVKFwQlJedNUISU2tsE=;
-	h=Date:From:To:In-Reply-To:References:Subject:Cc:List-Id:
+	s=default; t=1597232096;
+	bh=w4SJrTHJm69aFnEmeaqXnWMvGfZwawWzB0kCD/BpImc=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=cvXlj+eGaFzLZ6oneeyCB8sAEjEFk4I2zT3DL7uF2fLu9D2nzRHP1PijJAJ2e3cmU
-	 4rVGYZD17FcTxiKyoTTwn6iOkuWRkedDhYNEvENA4D0Vy6/i7Z1ABplhrWUenDoSt5
-	 3BJSlcxtImQc4Ppt6O0ycb+96jzEri39tYINrLlM=
+	b=sKvCFwbXu3CPFy+bHkd95kSymlkiCV0xbSMH+hrIYciL4wIFn0HyNlALdInrBalJs
+	 iNOzd242PJEUSu1YwrtQyPt36n/0nTJ+klJosTt/YmPqW9ZgdtcG4VxaqGoeuPi1fw
+	 g+f4IedwOOuC23V5HOEjDNxISsdbpuLGOnDVEho4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 9EF5BF80247;
-	Wed, 12 Aug 2020 12:16:47 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 6DF7BF8022D;
+	Wed, 12 Aug 2020 13:33:15 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 3374FF80245; Wed, 12 Aug 2020 12:16:46 +0200 (CEST)
+ id DFBA2F8022B; Wed, 12 Aug 2020 13:33:12 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_PASS autolearn=disabled
  version=3.4.0
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+Received: from mail-ot1-x341.google.com (mail-ot1-x341.google.com
+ [IPv6:2607:f8b0:4864:20::341])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id E38E2F800F4
- for <alsa-devel@alsa-project.org>; Wed, 12 Aug 2020 12:16:43 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E38E2F800F4
+ by alsa1.perex.cz (Postfix) with ESMTPS id 32DC0F800D3
+ for <alsa-devel@alsa-project.org>; Wed, 12 Aug 2020 13:33:05 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 32DC0F800D3
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="1dgB38AR"
-Received: from localhost (fw-tnat.cambridge.arm.com [217.140.96.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id A85B3206B2;
- Wed, 12 Aug 2020 10:16:41 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1597227402;
- bh=4FzYyW5JJNVBQO4GB8avNDtPRVKFwQlJedNUISU2tsE=;
- h=Date:From:To:Cc:In-Reply-To:References:Subject:From;
- b=1dgB38ARzjRx/PgOGShQd/GmWjSnHlV3Xz0JgrmYSxmpl8tE+d4JV/xCtK8GQ8h14
- 0LprerGEAt3dt0vddiE0IR2RXyCx4YdElutOvy0FJVQBf1Ma+h7ydZuMUNszm1RPIb
- RP6f1HJJYVq9olYriMZurPncvITiUAo1ZE6qVWPI=
-Date: Wed, 12 Aug 2020 11:16:14 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
-In-Reply-To: <20200811120205.21805-1-srinivas.kandagatla@linaro.org>
-References: <20200811120205.21805-1-srinivas.kandagatla@linaro.org>
-Subject: Re: [PATCH v2 1/2] ASoC: q6afe-dai: mark all widgets registers as
- SND_SOC_NOPM
-Message-Id: <159722736188.10105.1473595017449198199.b4-ty@kernel.org>
-Cc: alsa-devel@alsa-project.org, stephan@gerhold.net,
- linux-kernel@vger.kernel.org, tiwai@suse.com, lgirdwood@gmail.com,
- john.stultz@linaro.org
+ dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
+ header.b="svUM0Ptl"
+Received: by mail-ot1-x341.google.com with SMTP id r21so1610967ota.10
+ for <alsa-devel@alsa-project.org>; Wed, 12 Aug 2020 04:33:05 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=Em9Sp8XmzIpv/p2/XIEVSGX1+QelGDXMy8mBEoKzQGA=;
+ b=svUM0PtlSc/BsJ398hEypGo/dtDceKxpkxJL2XapJiufbso1e8LfFI4bXYobnoySJa
+ SRjvv9f/48b5GJPA7fHwECXPGN7eO/ub5qQngsk3EUO83vMzAXxkqcbbp5j1xemvZIq9
+ s5mftpWisvt6SbOmNG3lr1AFiu06MFhrdLN47I42cpfWHFnGFPC0kmoM7pnxUZpSyLQj
+ +N4Js6sN6aumylIuGGMt2QsXP+hkf1Ol4GBV8Uuo8S00kvpt2DD1ugHsd9sXoZ13vg/2
+ 3wLqiAgbMsq3tbjK6M6brM8AX2Uig0dYIzJF4KNHkRmKijkDxBWgQ34F0o2mtUai8o4g
+ hCHA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=Em9Sp8XmzIpv/p2/XIEVSGX1+QelGDXMy8mBEoKzQGA=;
+ b=p0rgMMZ3dogZMctLPbyiqbaLat4qqe+cqA1WzvI8Bin9X/k0CaQlIKXKSZLvXkrMgY
+ sGb0Jq8c5BtIene2fS390KCijqQ0Gm7RugUyIIL2WM348fIObZKO3ru5qmG6hlFRcpU7
+ UfQmM3naIorD2U8a6kuqD75J+JsTNoVdDZMA/rAscSQXwlH3couUWwx8cy/iBiTUFSxd
+ CcJgaa/ozy2mP05oMvYaj2qReWT5bPb4Oxql98jviKlC2vsvKzWPHTArx76HKM7WkTDr
+ sYzyRrifaBx0UaLZ8z2/2xLkGPHFEXZ0tLqfXBmPgraRT7t15Uu6Ke3N3p1kJXPl/u8X
+ JdhA==
+X-Gm-Message-State: AOAM531ZVnDwSw9b51nf2WRWbUSIqn3v0lUUeC38XnbHa9y+k54FVl+x
+ /6CpL9wYt0/dikztfxLRQR19voHUnWFxpfoKgN8=
+X-Google-Smtp-Source: ABdhPJyApW1cAsqfCZE8viTLCHhX3eA/ksSTGjILeL6+zxKJ5TOuIeeZt8iyPAiUApQEScansB5N2ki5ANp9kIXSCiU=
+X-Received: by 2002:a9d:128c:: with SMTP id g12mr8585420otg.242.1597231982871; 
+ Wed, 12 Aug 2020 04:33:02 -0700 (PDT)
+MIME-Version: 1.0
+References: <20200716030847.1564131-1-keescook@chromium.org>
+ <87h7tpa3hg.fsf@nanos.tec.linutronix.de> <202007301113.45D24C9D@keescook>
+ <CAOMdWSJQKHAWY1P297b9koOLd8sVtezEYEyWGtymN1YeY27M6A@mail.gmail.com>
+ <202008111427.D00FCCF@keescook> <s5hpn7wz8o6.wl-tiwai@suse.de>
+In-Reply-To: <s5hpn7wz8o6.wl-tiwai@suse.de>
+From: Allen <allen.lkml@gmail.com>
+Date: Wed, 12 Aug 2020 17:02:50 +0530
+Message-ID: <CAOMdWS+FJm0NZfbj+yyShX2edX6_9w5K+rA+_u+Z6-rrjcwucg@mail.gmail.com>
+Subject: Re: [PATCH 0/3] Modernize tasklet callback API
+To: Takashi Iwai <tiwai@suse.de>
+Content-Type: text/plain; charset="UTF-8"
+Cc: devel@driverdev.osuosl.org, linux-s390@vger.kernel.org,
+ alsa-devel@alsa-project.org, Oscar Carter <oscar.carter@gmx.com>,
+ Kees Cook <keescook@chromium.org>, Will Deacon <will@kernel.org>,
+ Kernel Hardening <kernel-hardening@lists.openwall.com>,
+ Peter Zijlstra <peterz@infradead.org>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, linux-usb@vger.kernel.org,
+ linux-kernel@vger.kernel.org, netdev@vger.kernel.org,
+ kgdb-bugreport@lists.sourceforge.net, Thomas Gleixner <tglx@linutronix.de>,
+ Romain Perier <romain.perier@gmail.com>, linux-input@vger.kernel.org,
+ "David S. Miller" <davem@davemloft.net>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -78,42 +105,24 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Tue, 11 Aug 2020 13:02:04 +0100, Srinivas Kandagatla wrote:
-> Looks like the q6afe-dai dapm widget registers are set as "0",
-> which is a not correct.
-> 
-> As this registers will be read by ASoC core during startup
-> which will throw up errors, Fix this by making the registers
-> as SND_SOC_NOPM as these should be never used.
-> 
-> [...]
+>
+> I have a patch set to convert the remaining tasklet usage in sound
+> drivers to either the threaded IRQ or the work, but it wasn't
+> submitted / merged for 5.8 due to the obvious conflict with your API
+> changes.
+> Each conversion is rather simple, but it's always a question of the
+> nature of each tasklet usage which alternative is the best fit.
+>
+> FWIW, the current version is found in test/kill-tasklet branch of
+> sound git tree
+>   git://git.kernel.org/pub/scm/linux/kernel/git/tiwai/sound.git
 
-Applied to
+Great. Currently my tree has these converted to use the new
+tasklet_setup() api. I will add these to my threaded IRQ/work tree
+(which is still wip).
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
+Thanks.
 
-Thanks!
 
-[1/2] ASoC: q6afe-dai: mark all widgets registers as SND_SOC_NOPM
-      commit: 56235e4bc5ae58cb8fcd9314dba4e9ab077ddda8
-[2/2] ASoC: q6routing: add dummy register read/write function
-      commit: 796a58fe2b8c9b6668db00d92512ec84be663027
-
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
-
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
-
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
-
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-Thanks,
-Mark
+-- 
+       - Allen

@@ -2,101 +2,114 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7C57D2431B5
-	for <lists+alsa-devel@lfdr.de>; Thu, 13 Aug 2020 02:26:34 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id ED74C243406
+	for <lists+alsa-devel@lfdr.de>; Thu, 13 Aug 2020 08:26:59 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 14E681668;
-	Thu, 13 Aug 2020 02:25:44 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 14E681668
+	by alsa0.perex.cz (Postfix) with ESMTPS id 8909D1663;
+	Thu, 13 Aug 2020 08:26:09 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8909D1663
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1597278394;
-	bh=cU6RGnoncnYoMCinV1zeDEN84CTD3u0eRzmC+sWV9Yg=;
-	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
+	s=default; t=1597300019;
+	bh=8KV3iNXRuphn+mAGHnrwMko51l806xol/eUUi2OV844=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=F79e5cQZHACFe/GeTcWSDTL591fgJZS75stZPevNaZWQeqiEUWVxfyFFAObRe3Jua
-	 V9Txwdq26NqT8mRFI/1gc+NtQGgNx01CXeQaZiHjo+VB4BfrOGzOx6E3gasPhLzLMx
-	 JmiEKsofJn0zltoaaOhyqfsXp24k5ZIw7vByhfEI=
+	b=g051Dain3jGvFGZlh0a3WOtLhUm4e5yOURF/szFZZ7JH99tG6ZCWv7rsEkNPUz0GT
+	 UQ7O2YLq/Z4QGlTvq9RkzOhlvyZpIKh1zcQPm886JRW38IjzFOZjX8M8H66WBwRl3p
+	 3K0nFM7vnRXFBXPcmNE8nGED7gR6AHLVcFuQYnG0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 52632F8022D;
-	Thu, 13 Aug 2020 02:24:43 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id AD61AF800F4;
+	Thu, 13 Aug 2020 08:25:18 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id B3712F8022B; Thu, 13 Aug 2020 02:24:41 +0200 (CEST)
+ id 0B548F800F4; Thu, 13 Aug 2020 08:25:17 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: **
-X-Spam-Status: No, score=2.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_FROM,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,
- SUBJECT_DRUG_GAP_L,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mail-lj1-x243.google.com (mail-lj1-x243.google.com
- [IPv6:2a00:1450:4864:20::243])
+X-Spam-Level: 
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+ DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from mail-wr1-x442.google.com (mail-wr1-x442.google.com
+ [IPv6:2a00:1450:4864:20::442])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 1E1A0F800F4
- for <alsa-devel@alsa-project.org>; Thu, 13 Aug 2020 02:24:35 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1E1A0F800F4
+ by alsa1.perex.cz (Postfix) with ESMTPS id AE808F800F4
+ for <alsa-devel@alsa-project.org>; Thu, 13 Aug 2020 08:25:06 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz AE808F800F4
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="janc2rzC"
-Received: by mail-lj1-x243.google.com with SMTP id t6so4220988ljk.9
- for <alsa-devel@alsa-project.org>; Wed, 12 Aug 2020 17:24:35 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=subject:to:cc:references:from:message-id:date:user-agent
- :mime-version:in-reply-to:content-language:content-transfer-encoding;
- bh=gwuRbsafJP8ISlOi3BJD/DTlryrf3+Ufz6ONoYmN8Cg=;
- b=janc2rzCfPrV3szeglM91wrUIIoUk9PShPbTLwHqSIHsKnHYEY4E2zwkaBvWhdNQ1W
- RxJPNvamviy/AodULq33Viu2RLg9nzCPbc48oLVaj5mq3RBJMkbrznWBEL2xnpQNSpk1
- wWn+Yi7GYI5aFH9O47e+F9q6EyQuod1aasrvcAmoiXKrte0ezU3iJk6kr6lO9QZPlYlt
- dYAQR41fk/ey32YPQHO3kwWN98bx0MglrPwugRZXQtof5HcKmA+icIJJY09aIQvHZk+k
- RAPm/WQtE6yqqvdWo0EIXvG627ugM+PF7uz0f4Jh0ZnEV45TCygVHJJRfbBOcfTvKxDH
- VWug==
+ dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org
+ header.b="VKZLwG+L"
+Received: by mail-wr1-x442.google.com with SMTP id f1so4173136wro.2
+ for <alsa-devel@alsa-project.org>; Wed, 12 Aug 2020 23:25:06 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc:content-transfer-encoding;
+ bh=Rkxg7BbjMCs7clQXqrkuuJfUcLuYZQzc5cqQVGT0bkA=;
+ b=VKZLwG+LBvxKNHW01Y5Vq1/8AYhApv5uc8wgcsV/vbbo4UJGTn/e5mkESWhcGdLN1z
+ 9WWewNaDZMHCE+ZCrJMu3icDG4+cPlyocZWkv0BwiQvVqFNGfAhD0jvtaOrwou6FzGr4
+ pL6Fs3rCu1m/uUWiC6PdMZz9hLGdlCSTrNt6I=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:subject:to:cc:references:from:message-id:date
- :user-agent:mime-version:in-reply-to:content-language
- :content-transfer-encoding;
- bh=gwuRbsafJP8ISlOi3BJD/DTlryrf3+Ufz6ONoYmN8Cg=;
- b=jR4Ox4f+ukBh3+UK5ciAoEibz1u2ls9YtyiP4mhi+0uoR9dPpNSpksAMEKcLLmRZi9
- v8QQY8NhxQ/85iusubjfh7ZFOi2BHClwGP3WFjY84acoZzlDG91+npny5do+6xKO0/rl
- 6UMYK8D9/uTbicfa1lrBKuk5zj1/cFvTep4qboYIPkFpHA/jDi7vwB6SFuT2ilZz/HmS
- 1/w0yPHVnrhyVQPd+VgTZAPMHfzuvWzlyGVkBgnNUGodRpl/gX3HRqb8g2dHcs1x+I82
- NK/yeDX5rvZgnS3Mzx16UFY6j+OanN4m0C3Q/xXypQv7EeDQximjvUte39MRKlbbuf1s
- iRVQ==
-X-Gm-Message-State: AOAM530ImvpkPcy/+DF+6uoUtLfskkRIo7XTK4Jl7vsGIyo/mm3XX7Ak
- zDg+V5hYsrzduRNjl2WrM/fey6js
-X-Google-Smtp-Source: ABdhPJxn2xxQ3JGiSMdj5N3uj42Xe67P8W0+f37cwmSXORwfJX2X+7icfK82tq8Cxi9aiB6OAp4wdg==
-X-Received: by 2002:a05:651c:505:: with SMTP id
- o5mr769785ljp.306.1597278274140; 
- Wed, 12 Aug 2020 17:24:34 -0700 (PDT)
-Received: from [192.168.2.145] (109-252-170-211.dynamic.spd-mgts.ru.
- [109.252.170.211])
- by smtp.googlemail.com with ESMTPSA id h6sm810501lfc.84.2020.08.12.17.24.33
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 12 Aug 2020 17:24:33 -0700 (PDT)
-Subject: Re: Request to pick up couple NVIDIA Tegra ASoC patches into 5.7
- kernel
-To: Sasha Levin <sashal@kernel.org>
-References: <2db6e1ef-5cea-d479-8a7a-8f336313cb1d@gmail.com>
- <20200813000800.GM2975990@sasha-vm>
-From: Dmitry Osipenko <digetx@gmail.com>
-Message-ID: <4991edb7-011d-2dc4-e684-797b6504a122@gmail.com>
-Date: Thu, 13 Aug 2020 03:24:32 +0300
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.10.0
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc:content-transfer-encoding;
+ bh=Rkxg7BbjMCs7clQXqrkuuJfUcLuYZQzc5cqQVGT0bkA=;
+ b=Gzgy10huYhp3/Sjgh2XWWdCKFup7UD0hL+32p3n3DiYnfM5KrulcsbKbcHH9g9VeYj
+ +apIkI7WyQuIxtwqJPJ161NUCWdOo1O1LhQqiD8Kodrrm+Y04m66kWsJICjdJn0vfw2s
+ snXzMXhp0S8dP81wZKYap4n1l0TIBsn2ynDxdrJO+yvKuG9BDH5KffJw1+N4q9R+bXaB
+ Z1KW0Aj3tm+g2NwL2Kwf9JV9WsjWC076vGCTPn/qD8Yf1QUbfHUQgf9IF7d3okijPu1J
+ KkdfwQdJdrK7ukTr+imtkWVnRtcok7CNSB0rEfVbpEfY0n55N7iWrxiNOMGZiPAOeSs0
+ W3jg==
+X-Gm-Message-State: AOAM530cVI0EppoRYukNBNAQ/PjpBCCTyUAa7lNJ+na4Ybqa9RGqDhtA
+ I0zghGt45jNtGXBCIXQOyCDe6UtPMarA2RYGgnVWgw==
+X-Google-Smtp-Source: ABdhPJwX7HQyKe8Lf22vhQBwhwUlh4q7DNvkacWIafhRKIRTVUNnp1ZfiClutenFSWuoQDpO5dzZeguBrPMnyG5BM9s=
+X-Received: by 2002:adf:97d3:: with SMTP id t19mr2321367wrb.138.1597299905388; 
+ Wed, 12 Aug 2020 23:25:05 -0700 (PDT)
 MIME-Version: 1.0
-In-Reply-To: <20200813000800.GM2975990@sasha-vm>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 8bit
-Cc: alsa-devel@alsa-project.org, Erik Faye-Lund <kusmabite@gmail.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Mark Brown <broonie@kernel.org>, Stable <stable@vger.kernel.org>,
- Jon Hunter <jonathanh@nvidia.com>, Thierry Reding <thierry.reding@gmail.com>,
- Sowjanya Komatineni <skomatineni@nvidia.com>,
- "linux-tegra@vger.kernel.org" <linux-tegra@vger.kernel.org>
+References: <3f3baf5e-f73d-9cd6-cbfb-36746071e126@linux.intel.com>
+ <CAGvk5PogmqfEnFRA8hzby+AGgbOSvbELamh_1=eA9KTpyBMPYQ@mail.gmail.com>
+ <s5htux939x1.wl-tiwai@suse.de>
+ <CAGvk5PpcmkZ2HarqeCDaXm4id=84wYs-u4vWxJunHaf09gj66g@mail.gmail.com>
+ <s5ho8nh37br.wl-tiwai@suse.de>
+ <CAGvk5PphzkdiNfW8hiDuqX+2eQO2FvrpzA0qR3=3VvqM3GBhAA@mail.gmail.com>
+ <20200811145353.GG6967@sirena.org.uk>
+ <d78f9adc-d583-f0f2-ce38-3c9175c939b8@linux.intel.com>
+ <20200811172209.GM6967@sirena.org.uk>
+ <CAGvk5PqGi7cXthLHFi4NyypxFiGnoHvD9vp+5nJdH-_VkVvcKw@mail.gmail.com>
+ <s5hr1scz908.wl-tiwai@suse.de>
+ <CAGvk5Pp+Gk5Uk-iLdhVPWuCL0FiL9OhsaAtwkotay5JAYUNxdQ@mail.gmail.com>
+ <s5hlfikz6y8.wl-tiwai@suse.de>
+ <CAGvk5Pq3rEGJX=WjriPfWg_sEAVWHGZ9S=4iySNfYaHX7Xcw0g@mail.gmail.com>
+ <s5h8sekz4ox.wl-tiwai@suse.de>
+ <e4cc6231-8b19-c145-1b18-91d3a00131d3@linux.intel.com>
+ <s5hv9hnx6am.wl-tiwai@suse.de>
+ <be45d821-57c6-6ca5-0864-ac3aa521d82e@linux.intel.com>
+ <DM6PR11MB364242D3652EDC2F9B8B214897420@DM6PR11MB3642.namprd11.prod.outlook.com>
+ <0714b222-d3fc-5744-1147-bfac7df2651e@linux.intel.com>
+In-Reply-To: <0714b222-d3fc-5744-1147-bfac7df2651e@linux.intel.com>
+From: Yu-Hsuan Hsu <yuhsuan@chromium.org>
+Date: Thu, 13 Aug 2020 14:24:54 +0800
+Message-ID: <CAGvk5Pqg000SnrRhVD+8cOtAVokomRSa6MLdaKKnY2P6R_ruGA@mail.gmail.com>
+Subject: Re: [PATCH v3 2/2] ASoC: Intel: Add period size constraint on strago
+ board
+To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+Cc: Guennadi Liakhovetski <guennadi.liakhovetski@linux.intel.com>,
+ "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
+ Kai Vehmanen <kai.vehmanen@linux.intel.com>,
+ Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
+ Takashi Iwai <tiwai@suse.de>, "Rojewski, Cezary" <cezary.rojewski@intel.com>,
+ Jie Yang <yang.jie@linux.intel.com>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ Takashi Iwai <tiwai@suse.com>, Liam Girdwood <liam.r.girdwood@linux.intel.com>,
+ Sam McNally <sammc@chromium.org>, Mark Brown <broonie@kernel.org>,
+ "yuhsuan@google.com" <yuhsuan@google.com>,
+ Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
+ Daniel Stuart <daniel.stuart14@gmail.com>,
+ Andy Shevchenko <andriy.shevchenko@linux.intel.com>, "Lu,
+ Brent" <brent.lu@intel.com>, Damian van Soelen <dj.vsoelen@gmail.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -112,45 +125,35 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-13.08.2020 03:08, Sasha Levin пишет:
-> On Wed, Aug 12, 2020 at 10:14:34PM +0300, Dmitry Osipenko wrote:
->> Hello, stable-kernel maintainers!
->>
->> Could you please cherry-pick these commits into the v5.7.x kernel?
->>
->> commit 0de6db30ef79b391cedd749801a49c485d2daf4b
->> Author: Sowjanya Komatineni <skomatineni@nvidia.com>
->> Date:   Mon Jan 13 23:24:17 2020 -0800
->>
->>    ASoC: tegra: Use device managed resource APIs to get the clock
->>
->> commit 1e4e0bf136aa4b4aa59c1e6af19844bd6d807794
->> Author: Sowjanya Komatineni <skomatineni@nvidia.com>
->> Date:   Mon Jan 13 23:24:23 2020 -0800
->>
->>    ASoC: tegra: Add audio mclk parent configuration
->>
->> commit ff5d18cb04f4ecccbcf05b7f83ab6df2a0d95c16
->> Author: Sowjanya Komatineni <skomatineni@nvidia.com>
->> Date:   Mon Jan 13 23:24:24 2020 -0800
->>
->>    ASoC: tegra: Enable audio mclk during tegra_asoc_utils_init()
->>
->> It will fix a huge warnings splat during of kernel boot on NVIDIA Tegra
->> SoCs. For some reason these patches haven't made into 5.7 when it was
->> released and several people complained about the warnings. Thanks in
->> advance!
-> 
-> They never made it in because they don't have a stable tag, a fixes tag,
-> or do they sound like they fix a problem :)
-> 
-> Do you have a reference to the issue at hand here?
+Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com> =E6=96=BC
+2020=E5=B9=B48=E6=9C=8813=E6=97=A5 =E9=80=B1=E5=9B=9B =E4=B8=8A=E5=8D=8812:=
+38=E5=AF=AB=E9=81=93=EF=BC=9A
+>
+>
+>
+> On 8/12/20 11:08 AM, Lu, Brent wrote:
+> >>>
+> >>> I also wonder what's really missing, too :)
+> >>>
+> >>> BTW, I took a look back at the thread, and CRAS seems using a very
+> >>> large buffer, namely:
+> >>> [   52.434791] sound pcmC1D0p:   PERIOD_SIZE [240:240]
+> >>> [   52.434802] sound pcmC1D0p:   BUFFER_SIZE [204480:204480]
+> >>
+> >> yes, that's 852 periods and 4.260 seconds. Never seen such values :-)
+> >
+> > CRAS calls snd_pcm_hw_params_set_buffer_size_max() to use as large
+> > buffer as possible. So the period size is an arbitrary number in differ=
+ent
+> > platforms. Atom SST platform happens to be 256, and CML SOF platform
+> > is 1056 for example.
+>
+> ok, but earlier in this thread it was mentioned that values such as 432
+> are not suitable. the statement above seems to mean the period actual
+> value is a "don't care", so I don't quite see why this specific patch2
+> restricting the value to 240 is necessary. Patch1 is needed for sure,
+> Patch2 is where Takashi and I are not convinced.
 
-https://lore.kernel.org/lkml/64b70163-05be-e4f9-2dbc-5088ac2a3af9@nvidia.com/
-
-> Either way, 5.7 is alive for only about 1 or 2 weeks, is anyone still
-> stuck on 5.7?
-> 
-
-I didn't know that 5.7 is about to die, let's not bother with it then.
-Thanks!
+I have downloaded the patch1 but it does not work. After applying
+patch1, the default period size changes to 320. However, it also has
+the same issue with period size 320. (It can be verified by aplay.)

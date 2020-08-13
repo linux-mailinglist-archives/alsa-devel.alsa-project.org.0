@@ -2,101 +2,48 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 088F5243A65
-	for <lists+alsa-devel@lfdr.de>; Thu, 13 Aug 2020 14:59:33 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id EB44B243ACF
+	for <lists+alsa-devel@lfdr.de>; Thu, 13 Aug 2020 15:31:35 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 8A466166B;
-	Thu, 13 Aug 2020 14:58:42 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8A466166B
+	by alsa0.perex.cz (Postfix) with ESMTPS id 706BE1668;
+	Thu, 13 Aug 2020 15:30:45 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 706BE1668
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1597323572;
-	bh=CQkZnhNUCbl5WFGnGYih1ZdarJP7T1UBu8DBeOkoVbQ=;
-	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
+	s=default; t=1597325495;
+	bh=LBQZ7Bi9YKo0WHpsmdLmp1kkby9BNXQAKdIx58hU3AQ=;
+	h=From:To:In-Reply-To:References:Subject:Date:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=b8MIiBO493mOlvL6DVO7hsDZflyNKb/PnwXKQS3Efd79yE+puoOMKjZNB9FHWRR2w
-	 umhTOJsFxzmMZpm5tREHgQuz7EK6sX40WA6jnqrqGDQFFXzI8F3CtbdgmOCABJU1Nc
-	 arY860gMs3p/yDrMkYXCLzGBTxvDgndpsA/s0W1Y=
+	b=sHQJ1vglGpLJw/HLzwz3yy1bnqttMoRKzMSDW/8iPnaobr0CKluo2BrWOOA6xhAg/
+	 neYZKwmwEBDxdwFQPEuBJ8N8iD0yqvjFuW2o8BH6GmyeMKHKN2ZTLE2uMxhSiyblsd
+	 z7Y6PFwRjRFJp5ADmarT7cQgwxrfJgpfl1Uo2SOk=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id B6DC7F80161;
-	Thu, 13 Aug 2020 14:57:51 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 96265F80161;
+	Thu, 13 Aug 2020 15:29:54 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 6624BF8015B; Thu, 13 Aug 2020 14:57:49 +0200 (CEST)
+ id 61F57F8015B; Thu, 13 Aug 2020 15:29:51 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=NICE_REPLY_A, RCVD_IN_MSPIKE_H3,
- RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 08B97F800F4
- for <alsa-devel@alsa-project.org>; Thu, 13 Aug 2020 14:57:42 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 08B97F800F4
-IronPort-SDR: m9SM90pgxM8xJ5xvX33/fEUWY3Tf+B/MqOZB8WJPONm+pD0nPJg1TFduAcf8ILIxmFpMYmw+vG
- 54eJaVn+ryxw==
-X-IronPort-AV: E=McAfee;i="6000,8403,9711"; a="172250870"
-X-IronPort-AV: E=Sophos;i="5.76,308,1592895600"; d="scan'208";a="172250870"
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from fmsmga003.fm.intel.com ([10.253.24.29])
- by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 13 Aug 2020 05:57:38 -0700
-IronPort-SDR: 4TbxNK5/QPQDHXXHIJNqMc9bTYRc/awbplus0DHvOH1EX6V8zHMPTO2JPHWk16GPlh3qi1OJok
- zcLByXumFfhA==
-X-IronPort-AV: E=Sophos;i="5.76,308,1592895600"; d="scan'208";a="333100702"
-Received: from jsdraege-mobl1.amr.corp.intel.com (HELO [10.209.128.166])
- ([10.209.128.166])
- by fmsmga003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 13 Aug 2020 05:57:36 -0700
-Subject: Re: [PATCH v3 2/2] ASoC: Intel: Add period size constraint on strago
- board
-To: Takashi Iwai <tiwai@suse.de>, Yu-Hsuan Hsu <yuhsuan@chromium.org>
-References: <3f3baf5e-f73d-9cd6-cbfb-36746071e126@linux.intel.com>
- <d78f9adc-d583-f0f2-ce38-3c9175c939b8@linux.intel.com>
- <20200811172209.GM6967@sirena.org.uk>
- <CAGvk5PqGi7cXthLHFi4NyypxFiGnoHvD9vp+5nJdH-_VkVvcKw@mail.gmail.com>
- <s5hr1scz908.wl-tiwai@suse.de>
- <CAGvk5Pp+Gk5Uk-iLdhVPWuCL0FiL9OhsaAtwkotay5JAYUNxdQ@mail.gmail.com>
- <s5hlfikz6y8.wl-tiwai@suse.de>
- <CAGvk5Pq3rEGJX=WjriPfWg_sEAVWHGZ9S=4iySNfYaHX7Xcw0g@mail.gmail.com>
- <s5h8sekz4ox.wl-tiwai@suse.de>
- <e4cc6231-8b19-c145-1b18-91d3a00131d3@linux.intel.com>
- <s5hv9hnx6am.wl-tiwai@suse.de>
- <be45d821-57c6-6ca5-0864-ac3aa521d82e@linux.intel.com>
- <DM6PR11MB364242D3652EDC2F9B8B214897420@DM6PR11MB3642.namprd11.prod.outlook.com>
- <0714b222-d3fc-5744-1147-bfac7df2651e@linux.intel.com>
- <CAGvk5Pqg000SnrRhVD+8cOtAVokomRSa6MLdaKKnY2P6R_ruGA@mail.gmail.com>
- <DM6PR11MB364285D8B21B723EB88915CB97430@DM6PR11MB3642.namprd11.prod.outlook.com>
- <CAGvk5PpvhjyvETcGS0212XnLPaL71A8D2qMW55rSQZxseOffmw@mail.gmail.com>
- <s5h8sejvsrs.wl-tiwai@suse.de>
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Message-ID: <e836596b-8ed8-d85f-8226-a471ab4c23d3@linux.intel.com>
-Date: Thu, 13 Aug 2020 07:57:35 -0500
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.10.0
+X-Spam-Level: **
+X-Spam-Status: No, score=2.5 required=5.0 tests=MISSING_DATE,MISSING_MID,
+ SPF_FAIL,SPF_HELO_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from webhooks-bot.alsa-project.org (gate.perex.cz [77.48.224.242])
+ by alsa1.perex.cz (Postfix) with ESMTP id B988DF800D3
+ for <alsa-devel@alsa-project.org>; Thu, 13 Aug 2020 15:29:40 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B988DF800D3
 MIME-Version: 1.0
-In-Reply-To: <s5h8sejvsrs.wl-tiwai@suse.de>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 8bit
-Cc: Guennadi Liakhovetski <guennadi.liakhovetski@linux.intel.com>,
- "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
- Kai Vehmanen <kai.vehmanen@linux.intel.com>,
- Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>, "Rojewski,
- Cezary" <cezary.rojewski@intel.com>, Jie Yang <yang.jie@linux.intel.com>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- Takashi Iwai <tiwai@suse.com>, Liam Girdwood <liam.r.girdwood@linux.intel.com>,
- Sam McNally <sammc@chromium.org>, Mark Brown <broonie@kernel.org>,
- "yuhsuan@google.com" <yuhsuan@google.com>,
- Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
- Daniel Stuart <daniel.stuart14@gmail.com>,
- Andy Shevchenko <andriy.shevchenko@linux.intel.com>, "Lu,
- Brent" <brent.lu@intel.com>, Damian van Soelen <dj.vsoelen@gmail.com>
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
+From: GitHub pull_request - opened <github@alsa-project.org>
+To: alsa-devel@alsa-project.org
+In-Reply-To: <1597325379999676943-webhooks-bot@alsa-project.org>
+References: <1597325379999676943-webhooks-bot@alsa-project.org>
+Subject: pcm: dmix: fix access to sum-buffer in non-interleaved mixing mode
+Message-Id: <20200813132951.61F57F8015B@alsa1.perex.cz>
+Date: Thu, 13 Aug 2020 15:29:51 +0200 (CEST)
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -112,55 +59,57 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+alsa-project/alsa-lib pull request #78 was opened from vijaypalaniswamy:
 
+When dmix uses non-interleaved mixing mode the offset and step width
+to sum_buffer was calculated by using the dmix channels instead of
+the slave channels. This leads to audio distortions due to frame
+corruption.
 
-On 8/13/20 3:45 AM, Takashi Iwai wrote:
-> On Thu, 13 Aug 2020 10:36:57 +0200,
-> Yu-Hsuan Hsu wrote:
->>
->> Lu, Brent <brent.lu@intel.com> 於 2020年8月13日 週四 下午3:55寫道：
->>>
->>>>>>
->>>>>> CRAS calls snd_pcm_hw_params_set_buffer_size_max() to use as large
->>>>>> buffer as possible. So the period size is an arbitrary number in
->>>>>> different platforms. Atom SST platform happens to be 256, and CML
->>>>>> SOF platform is 1056 for example.
->>>>>
->>>>> ok, but earlier in this thread it was mentioned that values such as
->>>>> 432 are not suitable. the statement above seems to mean the period
->>>>> actual value is a "don't care", so I don't quite see why this specific
->>>>> patch2 restricting the value to 240 is necessary. Patch1 is needed for
->>>>> sure,
->>>>> Patch2 is where Takashi and I are not convinced.
->>>>
->>>> I have downloaded the patch1 but it does not work. After applying patch1,
->>>> the default period size changes to 320. However, it also has the same issue
->>>> with period size 320. (It can be verified by aplay.)
->>>
->>> The period_size is related to the audio latency so it's decided by application
->>> according to the use case it's running. That's why there are concerns about
->>> patch 2 and also you cannot find similar constraints in other machine driver.
->> You're right. However, the problem here is the provided period size
->> does not work. Like 256, setting the period size to 320 also makes
->> users have big latency in the DSP ring buffer.
->>
->> localhost ~ # aplay -Dhw:1,0 --period-size=320 --buffer-size=640
->> /dev/zero -d 1 -f dat --test-position
->> Playing raw data '/dev/zero' : Signed 16 bit Little Endian, Rate 48000
->> Hz, Stereo
->> Suspicious buffer position (1 total): avail = 0, delay = 2640, buffer = 640
->> Suspicious buffer position (2 total): avail = 0, delay = 2640, buffer = 640
->> Suspicious buffer position (3 total): avail = 0, delay = 2720, buffer = 640
->> ...
-> 
-> It means that the delay value returned from the driver is bogus.
-> I suppose it comes pcm_delay value calculated in sst_calc_tstamp(),
-> but haven't followed the code closely yet.  Maybe checking the debug
-> outputs can help to trace what's going wrong.
+example:
+- With below configuratio, Do aplay on both device in parallel for
+audio distortion
 
-the problem is really that we add a constraint that the period size be a 
-multiple of 1ms, and it's not respected. 320 samples is not a valid 
-choice, I don't get how it ends-up being selected? there's a glitch in 
-the matrix here.
+pcm.dmix_2_channels {
+        type dmix
+        ipc_key 5678293
+        ipc_perm 0660
+        ipc_gid audio
+        bindings [0 1]
 
+        slave {
+                pcm "hardware"
+                channels 2
+                periods  4
+                period_time 40000
+        }
+}
 
+pcm.dmix_1_channels {
+        type dmix
+        ipc_key 5678293
+        ipc_perm 0660
+        ipc_gid audio
+        bindings [0]
+
+        slave {
+                pcm "hardware"
+                channels 1
+                periods  4
+                period_time 40000
+        }
+}
+
+pcm.hardware {
+        type hw
+        card 0
+        channels 2
+        rate 48000
+        format S16_LE
+}
+
+Signed-off-by: Vijay Palaniswamy <vijay.palaniswamy@in.bosch.com>
+
+Request URL   : https://github.com/alsa-project/alsa-lib/pull/78
+Patch URL     : https://github.com/alsa-project/alsa-lib/pull/78.patch
+Repository URL: https://github.com/alsa-project/alsa-lib

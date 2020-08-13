@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5D0D9243FA2
-	for <lists+alsa-devel@lfdr.de>; Thu, 13 Aug 2020 22:07:58 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4355D243FAF
+	for <lists+alsa-devel@lfdr.de>; Thu, 13 Aug 2020 22:10:48 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 0AB4F1665;
-	Thu, 13 Aug 2020 22:07:08 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0AB4F1665
+	by alsa0.perex.cz (Postfix) with ESMTPS id D0E9D168A;
+	Thu, 13 Aug 2020 22:09:57 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D0E9D168A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1597349278;
-	bh=4Va8InEbuQOz/LUHA0t1yB2ias8hxAnASXfJNRZsdP4=;
+	s=default; t=1597349447;
+	bh=hMKlzBxXhaiQAXfevdBspN1Fj5KQy7rLhOFG5kTM5X8=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=XTYSqrp8/ajuNGpHnL0mqk4694pInI/7b+eWTaVsqAt4Iv8dWZw/7nj3SqTruCbh1
-	 GL9CQpVI3Q1E4T7m1ZjhJeTxIao9nfXu+5nro2MUgub+9OBDD+s+NYx1sy3i1lKKvg
-	 ur7OYgC5WevABa2RN5Uq/wZRDsKUzZzotGGmqdec=
+	b=umAv0HK6YrYHKvJaEHZP0jjSAIwYPba4qaqbf5ZyHir+lNCBM0V+O63CT26Tj55Cq
+	 VnkdZAgF8ynxsYR7TFOSY7ATV0LwnlufYnhAI5xaRL+qIGT6iVBdvegh8gnROBF6u4
+	 2jx0NrMv/qttoPyaQFpPzS1ZEqhEQeq7vtdSJB68=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 74D1DF8031A;
-	Thu, 13 Aug 2020 22:02:33 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 001D4F802F7;
+	Thu, 13 Aug 2020 22:02:41 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id E4F20F802FD; Thu, 13 Aug 2020 22:02:23 +0200 (CEST)
+ id 01428F80307; Thu, 13 Aug 2020 22:02:29 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
@@ -33,31 +33,31 @@ X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
 Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 52633F800D3
- for <alsa-devel@alsa-project.org>; Thu, 13 Aug 2020 22:02:12 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 52633F800D3
-IronPort-SDR: I8UwjMnqb63lAb/gRPEZX+n3Si3WiaBEmkeBH30pjqjwcj4sxxPPOxgvsV3F+mfcgJoI0K2nTU
- ECOFtYIotRHg==
-X-IronPort-AV: E=McAfee;i="6000,8403,9712"; a="134374662"
-X-IronPort-AV: E=Sophos;i="5.76,309,1592895600"; d="scan'208";a="134374662"
+ by alsa1.perex.cz (Postfix) with ESMTPS id 3A056F802A1
+ for <alsa-devel@alsa-project.org>; Thu, 13 Aug 2020 22:02:15 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3A056F802A1
+IronPort-SDR: i9XAi2qX0NVKjK3JQqdUkVyMmaY/BTA+GqPIiNvlsX9TOtPYM7RNMKOoX/XYPB3q0UdW4dbrF/
+ NV3dgS8dyzig==
+X-IronPort-AV: E=McAfee;i="6000,8403,9712"; a="134374665"
+X-IronPort-AV: E=Sophos;i="5.76,309,1592895600"; d="scan'208";a="134374665"
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
 Received: from fmsmga006.fm.intel.com ([10.253.24.20])
  by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 13 Aug 2020 13:02:07 -0700
-IronPort-SDR: KQ63HNzOG936VCxOwZTUNASsoPrQaATgLAsgl5jbei1krEb0jiE6RWeO4SkG/8wlTGySJgyWyG
- Qm0OjD9dosmQ==
-X-IronPort-AV: E=Sophos;i="5.76,309,1592895600"; d="scan'208";a="495506317"
+ 13 Aug 2020 13:02:08 -0700
+IronPort-SDR: hnZRzX2ZhFqxQGv0sRRAhdX/l6UUjWa0y5Sh8Rw65b8/g8N43sc3gldkZgHRftqhSfmy3PG88C
+ 3aLRT2StzCyw==
+X-IronPort-AV: E=Sophos;i="5.76,309,1592895600"; d="scan'208";a="495506319"
 Received: from jctorres-mobl1.amr.corp.intel.com (HELO
  pbossart-mobl3.amr.corp.intel.com) ([10.251.137.200])
  by fmsmga006-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  13 Aug 2020 13:02:06 -0700
 From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 To: alsa-devel@alsa-project.org
-Subject: [PATCH 13/21] ASoC: Intel: common: (cosmetic) align function
+Subject: [PATCH 14/21] ASoC: Intel: haswell: (cosmetic) align function
  parameters
-Date: Thu, 13 Aug 2020 15:01:39 -0500
-Message-Id: <20200813200147.61990-14-pierre-louis.bossart@linux.intel.com>
+Date: Thu, 13 Aug 2020 15:01:40 -0500
+Message-Id: <20200813200147.61990-15-pierre-louis.bossart@linux.intel.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20200813200147.61990-1-pierre-louis.bossart@linux.intel.com>
 References: <20200813200147.61990-1-pierre-louis.bossart@linux.intel.com>
@@ -80,55 +80,31 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Fix cppcheck style warnings, align headers and code and remove useless
-prototypes.
+Fix cppcheck warning:
+
+sound/soc/intel/haswell/sst-haswell-ipc.c:963:8: style:inconclusive:
+Function 'sst_hsw_stream_new' argument 3 names different: declaration
+'get_write_position' definition
+'notify_position'. [funcArgNamesDifferent]
 
 Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 ---
- sound/soc/intel/common/sst-dsp-priv.h |  2 +-
- sound/soc/intel/common/sst-dsp.h      | 15 +++++++--------
- 2 files changed, 8 insertions(+), 9 deletions(-)
+ sound/soc/intel/haswell/sst-haswell-ipc.h | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/sound/soc/intel/common/sst-dsp-priv.h b/sound/soc/intel/common/sst-dsp-priv.h
-index 3d8765ce3e0d..9a760123b46f 100644
---- a/sound/soc/intel/common/sst-dsp-priv.h
-+++ b/sound/soc/intel/common/sst-dsp-priv.h
-@@ -344,7 +344,7 @@ void sst_fw_unload(struct sst_fw *sst_fw);
- /* Create/Free firmware modules */
- struct sst_module *sst_module_new(struct sst_fw *sst_fw,
- 	struct sst_module_template *template, void *private);
--void sst_module_free(struct sst_module *module);
-+void sst_module_free(struct sst_module *sst_module);
- struct sst_module *sst_module_get_from_id(struct sst_dsp *dsp, u32 id);
- int sst_module_alloc_blocks(struct sst_module *module);
- int sst_module_free_blocks(struct sst_module *module);
-diff --git a/sound/soc/intel/common/sst-dsp.h b/sound/soc/intel/common/sst-dsp.h
-index 604a80c5859b..d55014587415 100644
---- a/sound/soc/intel/common/sst-dsp.h
-+++ b/sound/soc/intel/common/sst-dsp.h
-@@ -268,15 +268,14 @@ void sst_dsp_ipc_msg_tx(struct sst_dsp *dsp, u32 msg);
- u32 sst_dsp_ipc_msg_rx(struct sst_dsp *dsp);
+diff --git a/sound/soc/intel/haswell/sst-haswell-ipc.h b/sound/soc/intel/haswell/sst-haswell-ipc.h
+index fdc70c77e688..646dbbba327b 100644
+--- a/sound/soc/intel/haswell/sst-haswell-ipc.h
++++ b/sound/soc/intel/haswell/sst-haswell-ipc.h
+@@ -414,7 +414,7 @@ int sst_hsw_mixer_get_volume(struct sst_hsw *hsw, u32 stage_id, u32 channel,
  
- /* Mailbox management */
--int sst_dsp_mailbox_init(struct sst_dsp *dsp, u32 inbox_offset,
-+int sst_dsp_mailbox_init(struct sst_dsp *sst, u32 inbox_offset,
- 	size_t inbox_size, u32 outbox_offset, size_t outbox_size);
--void sst_dsp_inbox_write(struct sst_dsp *dsp, void *message, size_t bytes);
--void sst_dsp_inbox_read(struct sst_dsp *dsp, void *message, size_t bytes);
--void sst_dsp_outbox_write(struct sst_dsp *dsp, void *message, size_t bytes);
--void sst_dsp_outbox_read(struct sst_dsp *dsp, void *message, size_t bytes);
--void sst_dsp_mailbox_dump(struct sst_dsp *dsp, size_t bytes);
--int sst_dsp_register_poll(struct sst_dsp  *dsp, u32 offset, u32 mask,
--		 u32 expected_value, u32 timeout, char *operation);
-+void sst_dsp_inbox_write(struct sst_dsp *sst, void *message, size_t bytes);
-+void sst_dsp_inbox_read(struct sst_dsp *sst, void *message, size_t bytes);
-+void sst_dsp_outbox_write(struct sst_dsp *sst, void *message, size_t bytes);
-+void sst_dsp_outbox_read(struct sst_dsp *sst, void *message, size_t bytes);
-+int sst_dsp_register_poll(struct sst_dsp  *ctx, u32 offset, u32 mask,
-+		 u32 target, u32 time, char *operation);
+ /* Stream API */
+ struct sst_hsw_stream *sst_hsw_stream_new(struct sst_hsw *hsw, int id,
+-	u32 (*get_write_position)(struct sst_hsw_stream *stream, void *data),
++	u32 (*notify_position)(struct sst_hsw_stream *stream, void *data),
+ 	void *data);
  
- /* Debug */
- void sst_dsp_dump(struct sst_dsp *sst);
+ int sst_hsw_stream_free(struct sst_hsw *hsw, struct sst_hsw_stream *stream);
 -- 
 2.25.1
 

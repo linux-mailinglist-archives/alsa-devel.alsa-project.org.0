@@ -2,114 +2,142 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 46F0E243E27
-	for <lists+alsa-devel@lfdr.de>; Thu, 13 Aug 2020 19:17:57 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0752A243E3B
+	for <lists+alsa-devel@lfdr.de>; Thu, 13 Aug 2020 19:23:51 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id DE6C71667;
-	Thu, 13 Aug 2020 19:17:06 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DE6C71667
+	by alsa0.perex.cz (Postfix) with ESMTPS id 973E91667;
+	Thu, 13 Aug 2020 19:23:00 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 973E91667
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1597339076;
-	bh=3gO3o7V7FrXIPDDXBeC/XG5mwrVyaeQN2WQzVOm9DsE=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=jclTcPEroDh51IddxcNTLdpWiM2tQfMrHpkjUfcgCmfol+0+8WoUdZ6TV6kjyoTw7
-	 YaKlMj8P7PV5OH1DJqfYhbpoyG4Li/IiNN/PbaYhayFNHbQgp0KYRQFkCCKjryRC3j
-	 EJLfur026qNzJP1R2cjVrdu9CRUx9pNt3hlR47uI=
+	s=default; t=1597339430;
+	bh=Z6A/Nm74icChz2Xjka/Og/QQtA8GXnEZ6Rns/k0g82A=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=HQIKjwqo6tL7+t3AMPiSJTmmnJpQT3w2Zakg0fntIiJd8B1c1BIemd5D0UvAFvUIM
+	 tPqA/Zzl02TcdzXPuwxkiT0/h2PwlkeO9AjsBfK3T68apu6Rg7zfdYVaeZIluTAs8a
+	 xiLFYeZxoMTsWARUeQCnxIQWZiCZGeLaLIAOeiNQ=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 02FEFF80161;
-	Thu, 13 Aug 2020 19:16:16 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 9F6BFF80161;
+	Thu, 13 Aug 2020 19:22:09 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id A50DDF8015B; Thu, 13 Aug 2020 19:16:13 +0200 (CEST)
+ id 77BF8F8015B; Thu, 13 Aug 2020 19:22:07 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from mail-wr1-x442.google.com (mail-wr1-x442.google.com
- [IPv6:2a00:1450:4864:20::442])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ HTML_MESSAGE,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
+Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id AC848F800F4
- for <alsa-devel@alsa-project.org>; Thu, 13 Aug 2020 19:16:07 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz AC848F800F4
+ by alsa1.perex.cz (Postfix) with ESMTPS id 9E134F800F4
+ for <alsa-devel@alsa-project.org>; Thu, 13 Aug 2020 19:21:56 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9E134F800F4
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org
- header.b="U64AEa3y"
-Received: by mail-wr1-x442.google.com with SMTP id z18so5955843wrm.12
- for <alsa-devel@alsa-project.org>; Thu, 13 Aug 2020 10:16:07 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc:content-transfer-encoding;
- bh=tAbE60AfPQ68SFoJfLwXxAhzymsyN9ddwLjjDAk36no=;
- b=U64AEa3ypgo0b0GxsyeuQmYXUbFWfpNdJO6SToZ63kYzeRUKcpZxxUu22Z+/O+B1SE
- LQ29FfOkUFi2kK4ebi32x20f0vDVQ0uSLjRZOOrWJnei4Z3CY9FAPtMVRQV2ahyQKt1M
- QTMiOpRlEwtXg4h7UGMJcg2UtpdD18dC0K0bM=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc:content-transfer-encoding;
- bh=tAbE60AfPQ68SFoJfLwXxAhzymsyN9ddwLjjDAk36no=;
- b=DgpSvlelKbof78roAlou/rYNG7tfxuk6PITiHwKSVQf2sw44ch5ytQudQ1tkO4WDoB
- vTXiAVaNJfv4nGNLOm0x86IOyyiRZQ+tnKbJA5ouLfYYfneWjSax73WHYH907z0hQOrT
- aogEaJxFX6NZmxJFOrgW/5HxlIFGLq7gCGT2Q3ldvbDQU6x6+5+USYWiPf2gw7oyz3aS
- EhsFx//xvjgObfIq6UmdRCgpa55ibs3XDolahO4wOaLZkoHwUkCy9CechiJSeETE+3vg
- XrQl59eTPrfzNN4Xp4DeAQVft2HuqMMUwF5ES5TlH5yU6CUQAISiNjKA+gkiSp3PaE5w
- NInQ==
-X-Gm-Message-State: AOAM533I4Dsmd5PkaoCtP5oee99UwOL4x/WxcCW9dl8J+Qbnw3FsWFlB
- YWduZi9DpagYXfEZ9dWCRu+lV8fTwImRW7sBH9x8fw==
-X-Google-Smtp-Source: ABdhPJxs9I4NCN5HTGmFKOr8ZCysJX7Wt4hfxt+ZjzQO+yc4spS15XTKkNfHlxiKG+9sJfXf5R6khKEqBc03P2cWLlo=
-X-Received: by 2002:a05:6000:1091:: with SMTP id
- y17mr5222406wrw.255.1597338966174; 
- Thu, 13 Aug 2020 10:16:06 -0700 (PDT)
+ dkim=pass (1024-bit key) header.d=intel.onmicrosoft.com
+ header.i=@intel.onmicrosoft.com header.b="ouGUsVz+"
+IronPort-SDR: L93B5XpddJEC0HV2jm8zMn7rJYxM2sbKEZLIXk4x6wuXd1jNzUkjQaeG3oGAs+jbOa/BNwzLvh
+ KS/GBS+gBQOA==
+X-IronPort-AV: E=McAfee;i="6000,8403,9712"; a="151930714"
+X-IronPort-AV: E=Sophos;i="5.76,309,1592895600"; 
+ d="scan'208,217";a="151930714"
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from fmsmga005.fm.intel.com ([10.253.24.32])
+ by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 13 Aug 2020 10:21:42 -0700
+IronPort-SDR: 9mkEFf+dyQYTOlD08qW7gqnZn1jthEdPMbI9RLDXhGeHZhtizDvwTALzIwuIoMxm8iN96KY73Z
+ aaCG32VBEc2w==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.76,309,1592895600"; 
+ d="scan'208,217";a="495932234"
+Received: from fmsmsx603-2.cps.intel.com (HELO fmsmsx603.amr.corp.intel.com)
+ ([10.18.84.213])
+ by fmsmga005.fm.intel.com with ESMTP; 13 Aug 2020 10:21:42 -0700
+Received: from fmsmsx607.amr.corp.intel.com (10.18.126.87) by
+ fmsmsx603.amr.corp.intel.com (10.18.126.83) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.1713.5; Thu, 13 Aug 2020 10:21:42 -0700
+Received: from fmsedg601.ED.cps.intel.com (10.1.192.135) by
+ fmsmsx607.amr.corp.intel.com (10.18.126.87) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1713.5
+ via Frontend Transport; Thu, 13 Aug 2020 10:21:42 -0700
+Received: from NAM12-BN8-obe.outbound.protection.outlook.com (104.47.55.172)
+ by edgegateway.intel.com (192.55.55.70) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.1.1713.5; Thu, 13 Aug 2020 10:21:41 -0700
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=V8pYaZYyA07hAkhXPUp//0x4Cd0/II2M9KWMSSleyqOY42JDgLNu6DtC5dsCpQhYcIW+Phuu18ZdiEghDjslemJhxGCKlKotmcGGSQSJ6fUsd7RTbUCgxzqqpGfrcCn6SlMGvR4wDl8wo3SCt55hKhQUkhRY8Fe+h0BOEfidUS61Um8UMRSdjEhj87eMsxoaAlAoGnbfXeN8zqW7JYFG0ViWYtzGVbgViDe667yFdWsMuidZQrr+1NM/ZYTxyaaha/eU+W+8Fo+IytItxcLe0yp+qXiASOluHMOe+gv8+E2Lv8mk64cPKcizZ5AdWNfjbaRqddtl+S7N5a0Pji3jDA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=6Oy3M3Ttw+0/HPyyc6l9lITETHexDtHY6Xg6OprsOFA=;
+ b=TmR3G6y7BCUEjitTLxpS2eCHnErhI4LBvqrQ8XsakERTgbrykciaEjg+0lSrCqyZUjcGUr0k8S2PSG2NWP2blkm13eDbIsTrnxm6fxIujEV6WcmZSAznue8mR9QcKs9FzV3hrwOh2xEjeh7XklzJ1SMRwH2j5BvOugxQhqiU0VcktMPiMxapyq0Z4TkelKmTYeY1zMTbEX7GBm1bWbmA/SnwxLAuSwpEFfWtN6XhDohxVOE9cd9Eq/4c9BLkiJU0vICLxHb1bbGWMQ/T3cghYdvnh1AlQsnuvgvq2aJEDvk+bq9N/W7SYm3IfselVaDuen2D8AZEvxeJVX3qrI/tYw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=intel.onmicrosoft.com; 
+ s=selector2-intel-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=6Oy3M3Ttw+0/HPyyc6l9lITETHexDtHY6Xg6OprsOFA=;
+ b=ouGUsVz+77G7++sDjTZCXf1z05RF6LvM+RNnBNMJzuDjSo0cfzPO/g5sudvCj1sIw7q+CvymXY4PnmGBaF9ha0wxGGV2xiNmerH3N4zFSdPkKwxzEMH0uM6Gp16/YHZ/8gz+i4j88L1vshZ7nxlLVffrmrcBLlZI5sks1qchm3I=
+Received: from DM6PR11MB2905.namprd11.prod.outlook.com (2603:10b6:5:62::18) by
+ DM5PR1101MB2137.namprd11.prod.outlook.com (2603:10b6:4:50::23) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.3283.15; Thu, 13 Aug 2020 17:21:40 +0000
+Received: from DM6PR11MB2905.namprd11.prod.outlook.com
+ ([fe80::65c9:ac55:7693:e09e]) by DM6PR11MB2905.namprd11.prod.outlook.com
+ ([fe80::65c9:ac55:7693:e09e%7]) with mapi id 15.20.3283.016; Thu, 13 Aug 2020
+ 17:21:40 +0000
+From: "Sridharan, Ranjani" <ranjani.sridharan@intel.com>
+To: "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>, Mark Brown
+ <broonie@kernel.org>
+Subject: Enabling DAPM for Dummy DAIs
+Thread-Topic: Enabling DAPM for Dummy DAIs
+Thread-Index: AQHWcZT+08Lc3mSa90ukN5oqtaKksA==
+Date: Thu, 13 Aug 2020 17:21:40 +0000
+Message-ID: <DM6PR11MB290561D66CB13F86B419004CE8430@DM6PR11MB2905.namprd11.prod.outlook.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+authentication-results: alsa-project.org; dkim=none (message not signed)
+ header.d=none; alsa-project.org; dmarc=none action=none header.from=intel.com; 
+x-originating-ip: [192.198.151.44]
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-correlation-id: 0e1b0e42-a069-463c-791a-08d83fad57d3
+x-ms-traffictypediagnostic: DM5PR1101MB2137:
+x-microsoft-antispam-prvs: <DM5PR1101MB21379093A3F1E133C77CFC4BE8430@DM5PR1101MB2137.namprd11.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:8273;
+x-ms-exchange-senderadcheck: 1
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: vYHpjWLMzrujTcNbTqK3zkqTHIveC6LC35OE3t1XEx3/16aEBdZa9FCEBGFo69FCAK6vxcQWiDyAExT+QE4XfeGvmJo+mKjnZfgdingrNYdo952r3PYtHU8BkgIyvXYAud25e47ybN3MzZm2UqguAhvjPqfGNxs6ddAqVQ5Wkm31rQ2RgO1opWtmhsE7qb41G7CakSAIl/FO5QOFiSJW7nFTQIf74OP/ogaWwHPx1PZHuPhgnB0pR5S4XshCHIlneN9cLjZc1tzJlFPEoqXoGOTJ3nE+WOj6yj9R4WljpcPBcilOdm59p8Qvo+JzeGV+ltA0Acziiry5/db1L8hVKkX65A17L5X0VIdtcJUMh7H2cwPaiBjaOp02jENuwYdII3gO8/XdYmrcvwuJnrMwFQ==
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DM6PR11MB2905.namprd11.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(39860400002)(366004)(346002)(136003)(376002)(396003)(166002)(54906003)(83380400001)(86362001)(71200400001)(8676002)(66476007)(66446008)(66556008)(91956017)(76116006)(66946007)(52536014)(110136005)(4744005)(64756008)(55016002)(7696005)(26005)(33656002)(478600001)(19627405001)(9686003)(316002)(6506007)(5660300002)(2906002)(8936002)(186003)(4326008)(966005);
+ DIR:OUT; SFP:1102; 
+x-ms-exchange-antispam-messagedata: lxXSCmvfKhXEykqSiyC+cuUWRq28VjwiqGkZwAyBM1/46fy2cpOK6pMlquFZysJooYGHKJOihQFqkbFPqEt/MYhARa/jcBeiY3LLVueudVHjG6BcvJbvygSpy4lorXv7iaGwRVtQoHjASuNPLuplgJAmhNX7/KUCf3wAlJTFOje2p0J+VsRpLsiIanHBqpQaS4fX8XIL8F2x8PbVwlIjWo0QZ81eOD/vVW0HAYPSu4l34rY43vVjHVe3Q2ZjkBbT6be+uCgEVfpUY4CR94zk5xqIX+MTQnp7NPci2k+03haCQs/0n0iYECK5Abb5YR/YGfwVCGlJhtGO+fR4oonZytfj9to8yxsD/IY2ceT6A5tz9y1p5yK4VbJSkCFJ4bTQF21BirgB/y0ywDzGKGCcYaIx+EVKxKGqYUzHBoUWJa6ysiMcY6WTdxDuFhtMxogFsashdKPmN8dKHUjoUtW8A634ivZxDmYd33qWbdIu4GENMyFeeDsU/fWV8JUMBw9JQRC8nubCw7lkAdljkfDQ/VgeFz6zdCom2OwjKBs8L3fLe7IQ0E5qc4+CxMyB7q1jPKTiEKlgtOuNF+2Btbqs0xpUZ+5MOodrtBsF3koARF+W/gRmb5xlJkZK2JSoKi7kBtsG6sX+xi41SSwBMglxog==
+x-ms-exchange-transport-forked: True
 MIME-Version: 1.0
-References: <3f3baf5e-f73d-9cd6-cbfb-36746071e126@linux.intel.com>
- <d78f9adc-d583-f0f2-ce38-3c9175c939b8@linux.intel.com>
- <20200811172209.GM6967@sirena.org.uk>
- <CAGvk5PqGi7cXthLHFi4NyypxFiGnoHvD9vp+5nJdH-_VkVvcKw@mail.gmail.com>
- <s5hr1scz908.wl-tiwai@suse.de>
- <CAGvk5Pp+Gk5Uk-iLdhVPWuCL0FiL9OhsaAtwkotay5JAYUNxdQ@mail.gmail.com>
- <s5hlfikz6y8.wl-tiwai@suse.de>
- <CAGvk5Pq3rEGJX=WjriPfWg_sEAVWHGZ9S=4iySNfYaHX7Xcw0g@mail.gmail.com>
- <s5h8sekz4ox.wl-tiwai@suse.de>
- <e4cc6231-8b19-c145-1b18-91d3a00131d3@linux.intel.com>
- <s5hv9hnx6am.wl-tiwai@suse.de>
- <be45d821-57c6-6ca5-0864-ac3aa521d82e@linux.intel.com>
- <DM6PR11MB364242D3652EDC2F9B8B214897420@DM6PR11MB3642.namprd11.prod.outlook.com>
- <0714b222-d3fc-5744-1147-bfac7df2651e@linux.intel.com>
- <CAGvk5Pqg000SnrRhVD+8cOtAVokomRSa6MLdaKKnY2P6R_ruGA@mail.gmail.com>
- <DM6PR11MB364285D8B21B723EB88915CB97430@DM6PR11MB3642.namprd11.prod.outlook.com>
- <CAGvk5PpvhjyvETcGS0212XnLPaL71A8D2qMW55rSQZxseOffmw@mail.gmail.com>
- <s5h8sejvsrs.wl-tiwai@suse.de>
- <e836596b-8ed8-d85f-8226-a471ab4c23d3@linux.intel.com>
-In-Reply-To: <e836596b-8ed8-d85f-8226-a471ab4c23d3@linux.intel.com>
-From: Yu-Hsuan Hsu <yuhsuan@chromium.org>
-Date: Fri, 14 Aug 2020 01:15:54 +0800
-Message-ID: <CAGvk5Pr7t+TqRuBXbkU2PLTaFSZjDzOQLsx747VW__vEpDztsA@mail.gmail.com>
-Subject: Re: [PATCH v3 2/2] ASoC: Intel: Add period size constraint on strago
- board
-To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Content-Type: text/plain; charset="UTF-8"
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: DM6PR11MB2905.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 0e1b0e42-a069-463c-791a-08d83fad57d3
+X-MS-Exchange-CrossTenant-originalarrivaltime: 13 Aug 2020 17:21:40.7134 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: /06AcV4LFTUVk7Na3EZ66K2P6VyovyvyUtYbzgTOcGntgACKogO+FHW6F1a9YEcazTZIwx8YODlPDGghu2by5PGEoH2K5/kl1IflYtilWco=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM5PR1101MB2137
+X-OriginatorOrg: intel.com
+Content-Type: text/plain; charset="iso-8859-1"
 Content-Transfer-Encoding: quoted-printable
-Cc: Guennadi Liakhovetski <guennadi.liakhovetski@linux.intel.com>,
- "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
- Kai Vehmanen <kai.vehmanen@linux.intel.com>,
- Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
- Takashi Iwai <tiwai@suse.de>, "Rojewski, Cezary" <cezary.rojewski@intel.com>,
- Jie Yang <yang.jie@linux.intel.com>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- Takashi Iwai <tiwai@suse.com>, Liam Girdwood <liam.r.girdwood@linux.intel.com>,
- Sam McNally <sammc@chromium.org>, Mark Brown <broonie@kernel.org>,
- "yuhsuan@google.com" <yuhsuan@google.com>,
- Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
- Daniel Stuart <daniel.stuart14@gmail.com>,
- Andy Shevchenko <andriy.shevchenko@linux.intel.com>, "Lu,
- Brent" <brent.lu@intel.com>, Damian van Soelen <dj.vsoelen@gmail.com>
+X-Content-Filtered-By: Mailman/MimeDel 2.1.15
+Cc: Takashi Iwai <tiwai@suse.de>,
+ "bard.liao@linux.intel.com" <bard.liao@linux.intel.com>,
+ "pierre-louis.bossart@linux.intel.com" <pierre-louis.bossart@linux.intel.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -125,91 +153,25 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com> =E6=96=BC
-2020=E5=B9=B48=E6=9C=8813=E6=97=A5 =E9=80=B1=E5=9B=9B =E4=B8=8B=E5=8D=888:5=
-7=E5=AF=AB=E9=81=93=EF=BC=9A
->
->
->
-> On 8/13/20 3:45 AM, Takashi Iwai wrote:
-> > On Thu, 13 Aug 2020 10:36:57 +0200,
-> > Yu-Hsuan Hsu wrote:
-> >>
-> >> Lu, Brent <brent.lu@intel.com> =E6=96=BC 2020=E5=B9=B48=E6=9C=8813=E6=
-=97=A5 =E9=80=B1=E5=9B=9B =E4=B8=8B=E5=8D=883:55=E5=AF=AB=E9=81=93=EF=BC=9A
-> >>>
-> >>>>>>
-> >>>>>> CRAS calls snd_pcm_hw_params_set_buffer_size_max() to use as large
-> >>>>>> buffer as possible. So the period size is an arbitrary number in
-> >>>>>> different platforms. Atom SST platform happens to be 256, and CML
-> >>>>>> SOF platform is 1056 for example.
-> >>>>>
-> >>>>> ok, but earlier in this thread it was mentioned that values such as
-> >>>>> 432 are not suitable. the statement above seems to mean the period
-> >>>>> actual value is a "don't care", so I don't quite see why this speci=
-fic
-> >>>>> patch2 restricting the value to 240 is necessary. Patch1 is needed =
-for
-> >>>>> sure,
-> >>>>> Patch2 is where Takashi and I are not convinced.
-> >>>>
-> >>>> I have downloaded the patch1 but it does not work. After applying pa=
-tch1,
-> >>>> the default period size changes to 320. However, it also has the sam=
-e issue
-> >>>> with period size 320. (It can be verified by aplay.)
-> >>>
-> >>> The period_size is related to the audio latency so it's decided by ap=
-plication
-> >>> according to the use case it's running. That's why there are concerns=
- about
-> >>> patch 2 and also you cannot find similar constraints in other machine=
- driver.
-> >> You're right. However, the problem here is the provided period size
-> >> does not work. Like 256, setting the period size to 320 also makes
-> >> users have big latency in the DSP ring buffer.
-> >>
-> >> localhost ~ # aplay -Dhw:1,0 --period-size=3D320 --buffer-size=3D640
-> >> /dev/zero -d 1 -f dat --test-position
-> >> Playing raw data '/dev/zero' : Signed 16 bit Little Endian, Rate 48000
-> >> Hz, Stereo
-> >> Suspicious buffer position (1 total): avail =3D 0, delay =3D 2640, buf=
-fer =3D 640
-> >> Suspicious buffer position (2 total): avail =3D 0, delay =3D 2640, buf=
-fer =3D 640
-> >> Suspicious buffer position (3 total): avail =3D 0, delay =3D 2720, buf=
-fer =3D 640
-> >> ...
-> >
-> > It means that the delay value returned from the driver is bogus.
-> > I suppose it comes pcm_delay value calculated in sst_calc_tstamp(),
-> > but haven't followed the code closely yet.  Maybe checking the debug
-> > outputs can help to trace what's going wrong.
->
-> the problem is really that we add a constraint that the period size be a
-> multiple of 1ms, and it's not respected. 320 samples is not a valid
-> choice, I don't get how it ends-up being selected? there's a glitch in
-> the matrix here.
->
->
-Oh sorry that I applied the wrong patch. With the correct patch, the
-default period size is 432.
-With period size 432, running aplay with --test-position does not show
-any errors. However, by cat `/proc/asound/card1/pcm0p/sub0/status`. We
-can see the delay is around 3000.
-Here are all period sizes I have tried. All buffer sizes are set to 2
-* period size.
-period size: 192,  delay is a negative number. Not sure what happened.
-period size: 240, delay is fixed at 960
-period size: 288, delay is around 27XX
-period size: 336, delay is around 27XX
-period size: 384, delay is around 24XX (no errors from aplay)
-period size: 432, delay is around 30XX (no errors from aplay)
-period size: 480, delay is fixed at 3120 (no errors from aplay)
-period size: 524, delay is around 31XX (no errors from aplay)
+Hi Mark/Takashi,
 
-Not sure why the delay is around 50ms except for the period size 240.
-Is it normal?
+We're using the Dummy DAI and dummy component for the nocodec mode in the S=
+OF driver and we noticed that there are no DAPM power status updates for th=
+e widgets because there are no output/input widgets in the Dummy component.=
+ Adding these widgets in the dummy component wont help either because we ex=
+plicitly skip adding widgets for the Dummy component in the core.
+
+But it would be very useful for us to debug PM issue if we could have the D=
+APM power updates for the widgets in topology. Reverting the change that im=
+plemented the check for skipping the dummy component probe (ASoC: core: Don=
+'t probe the component which is dummy) would not be advisable because it wi=
+ll be used by multiple cards and will lead to the same issue again.
+
+More details about the issue can be found here:
+https://github.com/thesofproject/linux/issues/1987
+
+What would your recommendation be to get around this problem in SOF? Thanks=
+ for your help.
 
 Thanks,
-Yu-Hsuan
+Ranjani

@@ -2,69 +2,70 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id F3981243F07
-	for <lists+alsa-devel@lfdr.de>; Thu, 13 Aug 2020 20:53:24 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 66165243F0C
+	for <lists+alsa-devel@lfdr.de>; Thu, 13 Aug 2020 20:58:06 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 921F41668;
-	Thu, 13 Aug 2020 20:52:34 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 921F41668
+	by alsa0.perex.cz (Postfix) with ESMTPS id 0AD0C166D;
+	Thu, 13 Aug 2020 20:57:16 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0AD0C166D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1597344804;
-	bh=wPRFysFY9QzkCR63w8pzJKDqiHMLuJ3CCV4wGMW6BeE=;
+	s=default; t=1597345086;
+	bh=9lPVUeCvY1FKCuCU7lNH1oiqQ+cRIF84VuNwfg6H56I=;
 	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=oAJkz28EOMy49irnlPvqaDoGQWYzNf9DEdDPa9PNLeVmlU1dNV/TsLKHLNWgeRfdR
-	 49MPaJwdOl8O3LZlDpPhrSAy0yJzFwQtN0GSOS2GYdlBIt2l9gH7FFvjtSjiegG12q
-	 ELSCqrzQTYdPK1v39LDoPAuHLHjzh2+gDqeOqHPQ=
+	b=mr2s0DHma2CtBn0qcCHDuU1YsJi7dLSO7PpwqqK3M3NrRQSPlttGa0IMX23gKLSVQ
+	 hZ2IULw3sF29BxHI1+BaV3Rhhur+IQ+mRpVswqJL4WQWEbO9+YbVR90iZi2cc5WxAh
+	 vfrMV84vGkMbMsgzW4JnUMnzh3wKxQca/HwcS/Vs=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id CA4E0F8014C;
-	Thu, 13 Aug 2020 20:51:43 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 1D53FF8014C;
+	Thu, 13 Aug 2020 20:56:25 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id B7833F8015B; Thu, 13 Aug 2020 20:51:42 +0200 (CEST)
+ id 8D8C6F8015B; Thu, 13 Aug 2020 20:56:23 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.0 required=5.0 tests=SPF_HELO_PASS,SPF_PASS
- autolearn=disabled version=3.4.0
-Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id A5277F800F4
- for <alsa-devel@alsa-project.org>; Thu, 13 Aug 2020 20:51:37 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A5277F800F4
-IronPort-SDR: oC1sXHXvXpDLLo/cqV29dyfgsGRDjwGYaqc5KuMYbHDKrnjGkFU5CyWaCMIHiWlZRp62LZ74ED
- DVJmk0KHrr/g==
-X-IronPort-AV: E=McAfee;i="6000,8403,9712"; a="133829386"
-X-IronPort-AV: E=Sophos;i="5.76,309,1592895600"; d="scan'208";a="133829386"
+ by alsa1.perex.cz (Postfix) with ESMTPS id 71B0AF80100
+ for <alsa-devel@alsa-project.org>; Thu, 13 Aug 2020 20:56:15 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 71B0AF80100
+IronPort-SDR: X8RLT88VZCbN8TOSSirYCV8P+7b7Yu2MFxQ3GkyKPe+AvdpOGk74TYpD7rWa9TYM/7/4h3d5Lk
+ X4ULrAAQBa2Q==
+X-IronPort-AV: E=McAfee;i="6000,8403,9712"; a="218639599"
+X-IronPort-AV: E=Sophos;i="5.76,309,1592895600"; d="scan'208";a="218639599"
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
 Received: from orsmga008.jf.intel.com ([10.7.209.65])
- by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 13 Aug 2020 11:51:34 -0700
-IronPort-SDR: s5UiLBxVfB17waFzE5IGc/kokTfUzKKyMt8JC4l7FQnpwfTJFCIkgJ5zbD2zVf+yWcy6SJZKSf
- 3YSSLXJAPhJg==
+ by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 13 Aug 2020 11:56:12 -0700
+IronPort-SDR: aJ5GROhKxCiZoKtPMtse38aqxCVExrtiHdqJlEuxCAcvDFj/d0+Ny60kqWQcIQsp9M3RYG8jqG
+ +Y1n4WZxNp9Q==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.76,309,1592895600"; d="scan'208";a="325506606"
+X-IronPort-AV: E=Sophos;i="5.76,309,1592895600"; d="scan'208";a="325507728"
 Received: from smile.fi.intel.com (HELO smile) ([10.237.68.40])
- by orsmga008.jf.intel.com with ESMTP; 13 Aug 2020 11:51:30 -0700
+ by orsmga008.jf.intel.com with ESMTP; 13 Aug 2020 11:56:08 -0700
 Received: from andy by smile with local (Exim 4.94)
  (envelope-from <andriy.shevchenko@intel.com>)
- id 1k6IK1-008Urp-Ao; Thu, 13 Aug 2020 21:51:29 +0300
-Date: Thu, 13 Aug 2020 21:51:29 +0300
+ id 1k6IOT-008Uum-Gu; Thu, 13 Aug 2020 21:56:05 +0300
+Date: Thu, 13 Aug 2020 21:56:05 +0300
 From: Andy Shevchenko <andriy.shevchenko@intel.com>
 To: Cezary Rojewski <cezary.rojewski@intel.com>
-Subject: Re: [PATCH v4 02/13] ASoC: Intel: catpt: Define DSP operations
-Message-ID: <20200813185129.GB1891694@smile.fi.intel.com>
+Subject: Re: [PATCH v4 11/13] ASoC: Intel: broadwell: Remove haswell-solution
+ specific code
+Message-ID: <20200813185605.GD1891694@smile.fi.intel.com>
 References: <20200812205753.29115-1-cezary.rojewski@intel.com>
- <20200812205753.29115-3-cezary.rojewski@intel.com>
+ <20200812205753.29115-12-cezary.rojewski@intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20200812205753.29115-3-cezary.rojewski@intel.com>
+In-Reply-To: <20200812205753.29115-12-cezary.rojewski@intel.com>
 Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
 Cc: pierre-louis.bossart@linux.intel.com, alsa-devel@alsa-project.org,
  filip.kaczmarski@intel.com, harshapriya.n@intel.com, marcin.barlik@intel.com,
@@ -88,231 +89,95 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Wed, Aug 12, 2020 at 10:57:42PM +0200, Cezary Rojewski wrote:
-> Implement dsp lifecycle functions such as core RESET and STALL,
-> SRAM power control and LP clock selection. This also adds functions for
-> handling transport over DW DMA controller.
-
-...
-
-> +static void catpt_dma_transfer_complete(void *arg)
-> +{
-> +	struct catpt_dev *cdev = arg;
-> +
-
-> +	dev_dbg(cdev->dev, "%s\n", __func__);
-
-Noise. Somebody should provide either trace events, of get used to function tracer / perf.
-
-> +}
-
-...
-
-> +static bool catpt_dma_filter(struct dma_chan *chan, void *param)
-> +{
-
-> +	return chan->device->dev == (struct device *)param;
-
-Redundant casting, and please, consider to swap left and right side (in this
-case easily to find these and perhaps provide a generic helper function).
-
-> +}
-
-...
-
-> +#define CATPT_DMA_DEVID		1 /* dma engine used */
-
-Not sure I understand what exactly this means.
-
-...
-
-> +#define CATPT_DMA_MAXBURST	0x3
-
-We have DMA engine definitions for that, please avoid magic numbers.
-
-...
-
-> +#define CATPT_DMA_DSP_ADDR_MASK	0xFFF00000
-
-GENMASK()
-
-...
-
-> +	dma_cap_set(DMA_SLAVE, mask);
-
-How this helps with mem2mem channel?
-
-...
-
-> +	chan = dma_request_channel(mask, catpt_dma_filter, cdev->dev);
-> +	if (!chan) {
-> +		dev_err(cdev->dev, "request channel failed\n");
-
-> +		dump_stack();
-
-Huh?!
-
-> +		return ERR_PTR(-EPROBE_DEFER);
-> +	}
-
-...
-
-> +	status = dma_wait_for_async_tx(desc);
-
-> +	catpt_updatel_shim(cdev, HMDC,
-> +			   CATPT_HMDC_HDDA(CATPT_DMA_DEVID, chan->chan_id), 0);
-
-Update even in erroneous case?
-
-> +	return (status == DMA_COMPLETE) ? 0 : -EPROTO;
-
-...
-
-> +static void catpt_dsp_set_srampge(struct catpt_dev *cdev, struct resource *sram,
-> +				  unsigned long mask, unsigned long new)
-> +{
-> +	unsigned long old;
-> +	u32 off = sram->start;
-> +	u32 b = __ffs(mask);
-> +
-> +	old = catpt_readl_pci(cdev, VDRTCTL0) & mask;
-
-> +	dev_dbg(cdev->dev, "SRAMPGE [0x%08lx] 0x%08lx -> 0x%08lx",
-> +		mask, old, new);
-
-trace event / point?
-
-> +	if (old == new)
-> +		return;
-> +
-> +	catpt_updatel_pci(cdev, VDRTCTL0, mask, new);
-
-> +	udelay(60);
-
-Delays should be commented.
-
-> +
-> +	/*
-> +	 * dummy read as the very first access after block enable
-> +	 * to prevent byte loss in future operations
-> +	 */
-> +	for_each_clear_bit_from(b, &new, fls(mask)) {
-
-fls_long()
-
-> +		u8 buf[4];
-> +
-> +		/* newly enabled: new bit=0 while old bit=1 */
-> +		if (test_bit(b, &old)) {
-> +			dev_dbg(cdev->dev, "sanitize block %ld: off 0x%08x\n",
-
-> +				(b - __ffs(mask)), off);
-
-Unneeded parentheses.
-
-> +			memcpy_fromio(buf, cdev->lpe_ba + off, sizeof(buf));
-> +		}
-> +		off += CATPT_MEMBLOCK_SIZE;
-> +	}
-> +}
-
-...
-
-> +	/* offset value given mask's start and invert it as ON=b0 */
-
-> +	new <<= __ffs(mask);
-> +	new = ~(new) & mask;
-
-Unneeded parentheses.
-And perhaps in one line it will be better to understand:
-
-	new = ~(new << __ffs(mask)) & mask;
-
-...
-
-> +	if (waiti) {
-> +		/* wait for DSP to signal WAIT state */
-> +		ret = catpt_readl_poll_shim(cdev, ISD,
-> +					    reg, (reg & CATPT_ISD_DCPWM),
-> +					    500, 10000);
-> +		if (ret < 0) {
-
-> +			dev_warn(cdev->dev, "await WAITI timeout\n");
-
-Shouldn't be an error level?
-
-> +			mutex_unlock(&cdev->clk_mutex);
-> +			return ret;
-> +		}
-> +	}
-
-...
-
-> +int catpt_dsp_update_lpclock(struct catpt_dev *cdev)
-> +{
-> +	struct catpt_stream_runtime *stream;
-
-> +	bool lp;
-> +
-> +	if (list_empty(&cdev->stream_list))
-> +		return catpt_dsp_select_lpclock(cdev, true, true);
-> +
-> +	lp = true;
-> +	list_for_each_entry(stream, &cdev->stream_list, node) {
-> +		if (stream->prepared) {
-> +			lp = false;
-> +			break;
-> +		}
-> +	}
-> +
-> +	return catpt_dsp_select_lpclock(cdev, lp, true);
-
-Seems too much duplication.
-
-	struct catpt_stream_runtime *stream;
-
-	list_for_each_entry(stream, &cdev->stream_list, node) {
-		if (stream->prepared)
-			return catpt_dsp_select_lpclock(cdev, false, true);
-	}
-
-	return catpt_dsp_select_lpclock(cdev, true, true);
-
-
-Better?
-
-> +}
-
-...
-
-> +	/* set D3 */
-> +	catpt_updatel_pci(cdev, PMCS, CATPT_PMCS_PS, CATPT_PMCS_PS_D3HOT);
-> +	udelay(50);
-
-Don't we have PCI core function for this?
-
-...
-
-> +	/* set D0 */
-> +	catpt_updatel_pci(cdev, PMCS, CATPT_PMCS_PS, 0);
-> +	udelay(100);
-
-Ditto.
-
-...
-
-> +	/* set D3 */
-> +	catpt_updatel_pci(cdev, PMCS, CATPT_PMCS_PS, CATPT_PMCS_PS_D3HOT);
-> +	udelay(50);
-
-Ditto.
-
-...
-
-> +	/* set D0 */
-> +	catpt_updatel_pci(cdev, PMCS, CATPT_PMCS_PS, 0);
-
-Ditto.
+On Wed, Aug 12, 2020 at 10:57:51PM +0200, Cezary Rojewski wrote:
+> Remove code specific to sound/soc/intel/haswell. Update BE dai_link
+> definition to provide seamless transition to catpt solution.
+
+Reviewed-by: Andy Shevchenko <andriy.shevchenko@intel.com>
+
+> Signed-off-by: Cezary Rojewski <cezary.rojewski@intel.com>
+> ---
+>  sound/soc/intel/boards/broadwell.c | 33 ------------------------------
+>  1 file changed, 33 deletions(-)
+> 
+> diff --git a/sound/soc/intel/boards/broadwell.c b/sound/soc/intel/boards/broadwell.c
+> index f6399077d291..ea2818f27105 100644
+> --- a/sound/soc/intel/boards/broadwell.c
+> +++ b/sound/soc/intel/boards/broadwell.c
+> @@ -14,9 +14,6 @@
+>  #include <sound/pcm_params.h>
+>  #include <sound/soc-acpi.h>
+>  
+> -#include "../common/sst-dsp.h"
+> -#include "../haswell/sst-haswell-ipc.h"
+> -
+>  #include "../../codecs/rt286.h"
+>  
+>  static struct snd_soc_jack broadwell_headset;
+> @@ -122,27 +119,6 @@ static const struct snd_soc_ops broadwell_rt286_ops = {
+>  	.hw_params = broadwell_rt286_hw_params,
+>  };
+>  
+> -#if !IS_ENABLED(CONFIG_SND_SOC_SOF_BROADWELL)
+> -static int broadwell_rtd_init(struct snd_soc_pcm_runtime *rtd)
+> -{
+> -	struct snd_soc_component *component = snd_soc_rtdcom_lookup(rtd, DRV_NAME);
+> -	struct sst_pdata *pdata = dev_get_platdata(component->dev);
+> -	struct sst_hsw *broadwell = pdata->dsp;
+> -	int ret;
+> -
+> -	/* Set ADSP SSP port settings */
+> -	ret = sst_hsw_device_set_config(broadwell, SST_HSW_DEVICE_SSP_0,
+> -		SST_HSW_DEVICE_MCLK_FREQ_24_MHZ,
+> -		SST_HSW_DEVICE_CLOCK_MASTER, 9);
+> -	if (ret < 0) {
+> -		dev_err(rtd->dev, "error: failed to set device config\n");
+> -		return ret;
+> -	}
+> -
+> -	return 0;
+> -}
+> -#endif
+> -
+>  static const unsigned int channels[] = {
+>  	2,
+>  };
+> @@ -189,10 +165,8 @@ SND_SOC_DAILINK_DEF(platform,
+>  SND_SOC_DAILINK_DEF(codec,
+>  	DAILINK_COMP_ARRAY(COMP_CODEC("i2c-INT343A:00", "rt286-aif1")));
+>  
+> -#if IS_ENABLED(CONFIG_SND_SOC_SOF_BROADWELL)
+>  SND_SOC_DAILINK_DEF(ssp0_port,
+>  	    DAILINK_COMP_ARRAY(COMP_CPU("ssp0-port")));
+> -#endif
+>  
+>  /* broadwell digital audio interface glue - connects codec <--> CPU */
+>  static struct snd_soc_dai_link broadwell_rt286_dais[] = {
+> @@ -201,9 +175,6 @@ static struct snd_soc_dai_link broadwell_rt286_dais[] = {
+>  		.name = "System PCM",
+>  		.stream_name = "System Playback/Capture",
+>  		.dynamic = 1,
+> -#if !IS_ENABLED(CONFIG_SND_SOC_SOF_BROADWELL)
+> -		.init = broadwell_rtd_init,
+> -#endif
+>  		.trigger = {SND_SOC_DPCM_TRIGGER_POST, SND_SOC_DPCM_TRIGGER_POST},
+>  		.ops = &broadwell_fe_ops,
+>  		.dpcm_playback = 1,
+> @@ -248,11 +219,7 @@ static struct snd_soc_dai_link broadwell_rt286_dais[] = {
+>  		.ops = &broadwell_rt286_ops,
+>  		.dpcm_playback = 1,
+>  		.dpcm_capture = 1,
+> -#if !IS_ENABLED(CONFIG_SND_SOC_SOF_BROADWELL)
+> -		SND_SOC_DAILINK_REG(dummy, codec, dummy),
+> -#else
+>  		SND_SOC_DAILINK_REG(ssp0_port, codec, platform),
+> -#endif
+>  	},
+>  };
+>  
+> -- 
+> 2.17.1
+> 
 
 -- 
 With Best Regards,

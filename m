@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 032D62436E4
-	for <lists+alsa-devel@lfdr.de>; Thu, 13 Aug 2020 10:47:06 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5C96D243793
+	for <lists+alsa-devel@lfdr.de>; Thu, 13 Aug 2020 11:24:14 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 9169C1667;
-	Thu, 13 Aug 2020 10:46:15 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9169C1667
+	by alsa0.perex.cz (Postfix) with ESMTPS id DB9321668;
+	Thu, 13 Aug 2020 11:23:23 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DB9321668
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1597308425;
-	bh=6NTKIST8VusyD35KSv9RJ8cf8sxTpY8cqsSll9LzBXE=;
+	s=default; t=1597310653;
+	bh=dBHAHSNOVxmQ/i9hDnptgcW15WY3PLKjwZP4EuaBJy4=;
 	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=NtWrm6dKaIGnBOQqkrqFbR/x0eSCRYWiLaFZqJl0eAjoItWLJnob/jTb6bunm2kZ0
-	 h/oT5N6teDJoedMx49CbaSXiE2lXejGkLVlwrd1ERuMTRqsNXwPuk8EvOxp2kG/t2L
-	 65qJ2I9Tw/9ENIWRtyVHgI2nRy3UipnLL4ar7fkw=
+	b=SoWr12Oc30H11QGy8gbosQrdDiTzs4knwd1oblSf0hAi3r2sPJIWYdlS9hSAguG4G
+	 EBLlpSA8EUGnL0g2MY+lWQBeE95UqsshOSP09VurvBnEBsjl1eO+Y5IPoX0JaX0a6X
+	 XYlzZGggZAGj2D9VEO6W/slpsIzpiIUDbGekDDlk=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id BB7EEF80161;
-	Thu, 13 Aug 2020 10:45:24 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 0B680F8014C;
+	Thu, 13 Aug 2020 11:22:33 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 532EFF800D3; Thu, 13 Aug 2020 10:45:23 +0200 (CEST)
+ id 6EA5BF8015B; Thu, 13 Aug 2020 11:22:30 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_MSPIKE_H3,
@@ -34,64 +34,30 @@ X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_MSPIKE_H3,
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 794BCF800D3
- for <alsa-devel@alsa-project.org>; Thu, 13 Aug 2020 10:45:12 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 794BCF800D3
+ by alsa1.perex.cz (Postfix) with ESMTPS id 5DDDFF800D3
+ for <alsa-devel@alsa-project.org>; Thu, 13 Aug 2020 11:22:20 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5DDDFF800D3
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 86D17B5EC;
- Thu, 13 Aug 2020 08:45:34 +0000 (UTC)
-Date: Thu, 13 Aug 2020 10:45:11 +0200
-Message-ID: <s5h8sejvsrs.wl-tiwai@suse.de>
+ by mx2.suse.de (Postfix) with ESMTP id D2549AE7D;
+ Thu, 13 Aug 2020 09:22:41 +0000 (UTC)
+Date: Thu, 13 Aug 2020 11:22:17 +0200
+Message-ID: <s5h364qx5me.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
-To: Yu-Hsuan Hsu <yuhsuan@chromium.org>
-Subject: Re: [PATCH v3 2/2] ASoC: Intel: Add period size constraint on strago
- board
-In-Reply-To: <CAGvk5PpvhjyvETcGS0212XnLPaL71A8D2qMW55rSQZxseOffmw@mail.gmail.com>
-References: <3f3baf5e-f73d-9cd6-cbfb-36746071e126@linux.intel.com>
- <CAGvk5PogmqfEnFRA8hzby+AGgbOSvbELamh_1=eA9KTpyBMPYQ@mail.gmail.com>
- <s5htux939x1.wl-tiwai@suse.de>
- <CAGvk5PpcmkZ2HarqeCDaXm4id=84wYs-u4vWxJunHaf09gj66g@mail.gmail.com>
- <s5ho8nh37br.wl-tiwai@suse.de>
- <CAGvk5PphzkdiNfW8hiDuqX+2eQO2FvrpzA0qR3=3VvqM3GBhAA@mail.gmail.com>
- <20200811145353.GG6967@sirena.org.uk>
- <d78f9adc-d583-f0f2-ce38-3c9175c939b8@linux.intel.com>
- <20200811172209.GM6967@sirena.org.uk>
- <CAGvk5PqGi7cXthLHFi4NyypxFiGnoHvD9vp+5nJdH-_VkVvcKw@mail.gmail.com>
- <s5hr1scz908.wl-tiwai@suse.de>
- <CAGvk5Pp+Gk5Uk-iLdhVPWuCL0FiL9OhsaAtwkotay5JAYUNxdQ@mail.gmail.com>
- <s5hlfikz6y8.wl-tiwai@suse.de>
- <CAGvk5Pq3rEGJX=WjriPfWg_sEAVWHGZ9S=4iySNfYaHX7Xcw0g@mail.gmail.com>
- <s5h8sekz4ox.wl-tiwai@suse.de>
- <e4cc6231-8b19-c145-1b18-91d3a00131d3@linux.intel.com>
- <s5hv9hnx6am.wl-tiwai@suse.de>
- <be45d821-57c6-6ca5-0864-ac3aa521d82e@linux.intel.com>
- <DM6PR11MB364242D3652EDC2F9B8B214897420@DM6PR11MB3642.namprd11.prod.outlook.com>
- <0714b222-d3fc-5744-1147-bfac7df2651e@linux.intel.com>
- <CAGvk5Pqg000SnrRhVD+8cOtAVokomRSa6MLdaKKnY2P6R_ruGA@mail.gmail.com>
- <DM6PR11MB364285D8B21B723EB88915CB97430@DM6PR11MB3642.namprd11.prod.outlook.com>
- <CAGvk5PpvhjyvETcGS0212XnLPaL71A8D2qMW55rSQZxseOffmw@mail.gmail.com>
+To: Dinghao Liu <dinghao.liu@zju.edu.cn>
+Subject: Re: [PATCH] [v2] ALSA: echoaudio: Fix potential Oops in
+ snd_echo_resume()
+In-Reply-To: <20200813074632.17022-1-dinghao.liu@zju.edu.cn>
+References: <20200813074632.17022-1-dinghao.liu@zju.edu.cn>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
  FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
  (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
 MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-Cc: Guennadi Liakhovetski <guennadi.liakhovetski@linux.intel.com>,
- "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
- Kai Vehmanen <kai.vehmanen@linux.intel.com>,
- Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>, "Rojewski,
- Cezary" <cezary.rojewski@intel.com>, Takashi Iwai <tiwai@suse.com>,
- Jie Yang <yang.jie@linux.intel.com>,
+Content-Type: text/plain; charset=US-ASCII
+Cc: alsa-devel@alsa-project.org, YueHaibing <yuehaibing@huawei.com>,
+ Takashi Iwai <tiwai@suse.com>, kjlu@umn.edu,
  Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- Liam Girdwood <liam.r.girdwood@linux.intel.com>,
- Sam McNally <sammc@chromium.org>, Mark Brown <broonie@kernel.org>,
- "yuhsuan@google.com" <yuhsuan@google.com>,
- Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
- Daniel Stuart <daniel.stuart14@gmail.com>,
- Andy Shevchenko <andriy.shevchenko@linux.intel.com>, "Lu,
- Brent" <brent.lu@intel.com>, Damian van Soelen <dj.vsoelen@gmail.com>
+ Mark Hills <mark@xwax.org>, linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -107,71 +73,17 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Thu, 13 Aug 2020 10:36:57 +0200,
-Yu-Hsuan Hsu wrote:
+On Thu, 13 Aug 2020 09:46:30 +0200,
+Dinghao Liu wrote:
 > 
-> Lu, Brent <brent.lu@intel.com> 於 2020年8月13日 週四 下午3:55寫道：
-> >
-> > > > >
-> > > > > CRAS calls snd_pcm_hw_params_set_buffer_size_max() to use as large
-> > > > > buffer as possible. So the period size is an arbitrary number in
-> > > > > different platforms. Atom SST platform happens to be 256, and CML
-> > > > > SOF platform is 1056 for example.
-> > > >
-> > > > ok, but earlier in this thread it was mentioned that values such as
-> > > > 432 are not suitable. the statement above seems to mean the period
-> > > > actual value is a "don't care", so I don't quite see why this specific
-> > > > patch2 restricting the value to 240 is necessary. Patch1 is needed for
-> > > > sure,
-> > > > Patch2 is where Takashi and I are not convinced.
-> > >
-> > > I have downloaded the patch1 but it does not work. After applying patch1,
-> > > the default period size changes to 320. However, it also has the same issue
-> > > with period size 320. (It can be verified by aplay.)
-> >
-> > The period_size is related to the audio latency so it's decided by application
-> > according to the use case it's running. That's why there are concerns about
-> > patch 2 and also you cannot find similar constraints in other machine driver.
-> You're right. However, the problem here is the provided period size
-> does not work. Like 256, setting the period size to 320 also makes
-> users have big latency in the DSP ring buffer.
+> Freeing chip on error may lead to an Oops at the next time
+> the system goes to resume. Fix this by removing all
+> snd_echo_free() calls on error.
 > 
-> localhost ~ # aplay -Dhw:1,0 --period-size=320 --buffer-size=640
-> /dev/zero -d 1 -f dat --test-position
-> Playing raw data '/dev/zero' : Signed 16 bit Little Endian, Rate 48000
-> Hz, Stereo
-> Suspicious buffer position (1 total): avail = 0, delay = 2640, buffer = 640
-> Suspicious buffer position (2 total): avail = 0, delay = 2640, buffer = 640
-> Suspicious buffer position (3 total): avail = 0, delay = 2720, buffer = 640
-> ...
+> Fixes: 47b5d028fdce8 ("ALSA: Echoaudio - Add suspend support #2")
+> Signed-off-by: Dinghao Liu <dinghao.liu@zju.edu.cn>
 
-It means that the delay value returned from the driver is bogus.
-I suppose it comes pcm_delay value calculated in sst_calc_tstamp(),
-but haven't followed the code closely yet.  Maybe checking the debug
-outputs can help to trace what's going wrong.
+Applied, thanks.
 
 
 Takashi
-
-> 
-> >
-> > Another problem is the buffer size. Too large buffer is not just wasting memories.
-> > It also creates problems to memory allocator since continuous pages are not
-> > always there. Using a small period_count like 2 or 4 should be sufficient for audio
-> > data transfer.
-> >
-> > buffer_size = period_size * period_count * 1000000 / sample_rate;
-> > snd_pcm_hw_params_set_buffer_time_near(mPcmDevice, params, &buffer_size, NULL);
-> >
-> > And one more problem here: you need to decide period_size and period_count
-> > first in order to calculate the buffer size...
-> It's a good point. I will bring it up to our team and see whether we
-> can use the smaller buffer size. Thanks!
-> >
-> >
-> > Regards,
-> > Brent
-> 
-> Thanks,
-> Yu-Hsuan
-> 

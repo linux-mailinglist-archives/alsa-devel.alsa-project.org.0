@@ -2,73 +2,89 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B10332449DB
-	for <lists+alsa-devel@lfdr.de>; Fri, 14 Aug 2020 14:39:39 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1B812244A53
+	for <lists+alsa-devel@lfdr.de>; Fri, 14 Aug 2020 15:20:15 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 43ABD166F;
-	Fri, 14 Aug 2020 14:38:49 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 43ABD166F
+	by alsa0.perex.cz (Postfix) with ESMTPS id 9CF3F166D;
+	Fri, 14 Aug 2020 15:19:24 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9CF3F166D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1597408779;
-	bh=dblQaQ5VxViI0Ta4f0SOD8uUc/RCGB7Zn8xY6o+ZawY=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1597411214;
+	bh=KGNLwjRd5GKalcTUHBTMfyv9qSkSWandogCiPLAfY0g=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=Us4d3EzAQFIYfP/gZub/GS3cwj9QVTn40u38/ZHMLx8wFJOB7M6fiA+DSh1Harqts
-	 XcUfMbNB5PXSNZuKKgq60hVUPqXmbBF9q4eYvksBFEKz1V23gwFFmMFz7Irnf5Wi8h
-	 TFm/VLIanJExXN+sJyjZh0hNSILHkbXBSrnfytGg=
+	b=MJ3oMNleBo96WdeTUJUw+5GVXdFU0OKDGhgvKOnFjeNPb7mxW5+WzpkFsaxqxPemy
+	 nyqLabVk5m9l86pOpnFiZBExgnUVJVHp3rtcUNT9GqA5aIDdQ0Wui5FXzfgsTH47vn
+	 KXankUZ4xfDOmws0CANDeBxhM+x9vfEGKKDXqISo=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 69104F800F4;
-	Fri, 14 Aug 2020 14:37:58 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id BC296F8022D;
+	Fri, 14 Aug 2020 15:18:33 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 93CC2F8022B; Fri, 14 Aug 2020 14:37:54 +0200 (CEST)
+ id 1F833F8022B; Fri, 14 Aug 2020 15:18:30 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled
+X-Spam-Status: No, score=-15.6 required=5.0 tests=DKIMWL_WL_MED,DKIM_SIGNED,
+ DKIM_VALID,DKIM_VALID_AU,ENV_AND_HDR_SPF_MATCH,SPF_HELO_NONE,SPF_PASS,
+ URIBL_BLOCKED,USER_IN_DEF_DKIM_WL,USER_IN_DEF_SPF_WL autolearn=disabled
  version=3.4.0
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+Received: from mail-io1-xd42.google.com (mail-io1-xd42.google.com
+ [IPv6:2607:f8b0:4864:20::d42])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 87FF0F800F4
- for <alsa-devel@alsa-project.org>; Fri, 14 Aug 2020 14:37:43 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 87FF0F800F4
+ by alsa1.perex.cz (Postfix) with ESMTPS id 8BB39F80146
+ for <alsa-devel@alsa-project.org>; Fri, 14 Aug 2020 15:18:18 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8BB39F80146
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="x9Hw9BNC"
-Received: from localhost (fw-tnat.cambridge.arm.com [217.140.96.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 51ECA20866;
- Fri, 14 Aug 2020 12:37:40 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1597408660;
- bh=dblQaQ5VxViI0Ta4f0SOD8uUc/RCGB7Zn8xY6o+ZawY=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=x9Hw9BNCC7AqXQVYmrIfBumdIeNeOxBoPLJdGhbSJ/FhcU5kq5M0ScLt45Ul8LZ79
- gGUMkVZ0afJgKiyT+xu6/1jCTXR/lytJ9T9V+hdrU7UWGWc5V8TZqwK4GTpFUTrjKp
- 2W5znN9YjcXJS4XMeqZfHWeanzqdR+BtVTMvrvaM=
-Date: Fri, 14 Aug 2020 13:37:12 +0100
-From: Mark Brown <broonie@kernel.org>
-To: "Sridharan, Ranjani" <ranjani.sridharan@intel.com>
-Subject: Re: Enabling DAPM for Dummy DAIs
-Message-ID: <20200814123712.GB4783@sirena.org.uk>
-References: <DM6PR11MB290561D66CB13F86B419004CE8430@DM6PR11MB2905.namprd11.prod.outlook.com>
+ dkim=pass (2048-bit key) header.d=google.com header.i=@google.com
+ header.b="YI5fYDIx"
+Received: by mail-io1-xd42.google.com with SMTP id k23so10659179iom.10
+ for <alsa-devel@alsa-project.org>; Fri, 14 Aug 2020 06:18:18 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=d2PB/319L1J3UbSsvQXsk+iqaXbh8YEkFfuDe3hnFHE=;
+ b=YI5fYDIxlyNW2uGLyD7wh7pch8oOC4a9BM9XzcAV3uzZReGiSnYl8Fzr0GLs8CDPS8
+ hbrlmLFTzWfNSKJxC4C7bPefxFdIhNnPRT407Vluos3iBg1hJMvtQHoXZln5na/PQ78L
+ yPzVrnSv9VjO5zXwGXHhipg/o6uqzMv7JueLQxV9vudzz95WjoOWWcuRm13N2La14f+C
+ UWnlV15BX6PNArrSpyjbkVWLOmpdu+kxCr2jSBZd+UiFBzHhXTCgvoWYwr9F0V0ck2h3
+ K1fKgj2AhZGavQoDjUS2fDu/NW4+4MdAvBU4gALuq6tceMnoSbS9VcanPVHg5Zn2SHQ8
+ DAbQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=d2PB/319L1J3UbSsvQXsk+iqaXbh8YEkFfuDe3hnFHE=;
+ b=QzneTU6mxdx5z/9A0s8IgTnnQkXknHxDa4RGzUC05xPdb7Dn6L9Ua8ZMB9YSmJjO3S
+ S0q7ZMNwUHhqFkI9LqkE2XicyJpQcFWsBZ1uDrb3fXhbvGEbFs5verIWplTeNJ3182sB
+ Y0oIvLpQYvbuGWwZc06IENBVZy9gFQU6oTxI01NPjIgdHrFEsbuSTfbytRjtD4h9EK7J
+ S3v8s8Om4blRxQb8arKWrXkjlKUV4+DCUgMrHHvPmJMFX70G6wUedlnSGzH/16LtH8ZI
+ YdG7UrcYHeBGibOxPkXhd2WKGXE4N/LtrZvEgvdkeqN9rkB+2sU0G4slx6n3Ha/xaNV9
+ 9krQ==
+X-Gm-Message-State: AOAM532TN0neDzqxKBcQbGpw0G6f0OY4kcuwY8uLmKoyinRgm1VbLf52
+ YkE7/dwfpWx01PcB+l4K+ZmdUXWB8QogY3/Ql9LriQ==
+X-Google-Smtp-Source: ABdhPJwYd8jpI65/wtT2fNRZWRhTYTd4FnLcZufGtZBAixlBWVHmz9K/7rA4kw/6OBJZEDtXxlHLFhaUiHeMnLm74jQ=
+X-Received: by 2002:a02:a584:: with SMTP id b4mr2653129jam.68.1597411096065;
+ Fri, 14 Aug 2020 06:18:16 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="aM3YZ0Iwxop3KEKx"
-Content-Disposition: inline
-In-Reply-To: <DM6PR11MB290561D66CB13F86B419004CE8430@DM6PR11MB2905.namprd11.prod.outlook.com>
-X-Cookie: Non-sequiturs make me eat lampshades.
-User-Agent: Mutt/1.10.1 (2018-07-13)
-Cc: Takashi Iwai <tiwai@suse.de>,
- "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
- "bard.liao@linux.intel.com" <bard.liao@linux.intel.com>,
- "pierre-louis.bossart@linux.intel.com" <pierre-louis.bossart@linux.intel.com>
+References: <1597401954-28388-1-git-send-email-jiaxin.yu@mediatek.com>
+In-Reply-To: <1597401954-28388-1-git-send-email-jiaxin.yu@mediatek.com>
+From: Tzung-Bi Shih <tzungbi@google.com>
+Date: Fri, 14 Aug 2020 21:18:05 +0800
+Message-ID: <CA+Px+wUYYV=AS51i=7sbLDJ980om5mDp=YwVuOYzEy01WxTf-A@mail.gmail.com>
+Subject: Re: [PATCH v3 0/2] Add mediatek codec mt6359 driver
+To: Jiaxin Yu <jiaxin.yu@mediatek.com>
+Content-Type: text/plain; charset="UTF-8"
+Cc: ALSA development <alsa-devel@alsa-project.org>, howie.huang@mediatek.com,
+ Takashi Iwai <tiwai@suse.com>, Rob Herring <robh+dt@kernel.org>,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ shane.chien@mediatek.com, Mark Brown <broonie@kernel.org>,
+ linux-mediatek@lists.infradead.org, bicycle.tasi@mediatek.com,
+ eason.yen@mediatek.com, Matthias Brugger <matthias.bgg@gmail.com>,
+ linux-arm-kernel@lists.infradead.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -84,42 +100,9 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+On Fri, Aug 14, 2020 at 6:47 PM Jiaxin Yu <jiaxin.yu@mediatek.com> wrote:
+> Jiaxin Yu (2):
+>   WIP: ASoC: mediatek: mt6359: add codec driver
+>   WIP: dt-bindings: mediatek: mt6359: add codec document
 
---aM3YZ0Iwxop3KEKx
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-
-On Thu, Aug 13, 2020 at 05:21:40PM +0000, Sridharan, Ranjani wrote:
-> Hi Mark/Takashi,
-
-Please fix your mail client to word wrap within paragraphs at something
-substantially less than 80 columns.  Doing this makes your messages much
-easier to read and reply to.
-
-> What would your recommendation be to get around this problem in SOF? Thanks for your help.
-
-Actively using the dummy CODEC at runtime isn't a great idea at the best
-of times, things would be a lot easier if you used something with actual
-audio paths for testing - as far as I can see the issue is that you've
-told the system that there's nothing connected which is reasonably being
-interpreted as there being no need to power anything on.  If you intend
-this to represent an actual connection it would be better to use a
-simple CODEC with no software control rather than something that
-explicitly means there is nothing connected.
-
---aM3YZ0Iwxop3KEKx
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl82hXcACgkQJNaLcl1U
-h9CaTwf+KMxOa08jMGVGW6g1nGTLycwtWSKCz4+NDiCsD6XHdNv593Xndc+fKmKb
-KoxXgXoumA2umXsfOH4Ka9F0MRUuCxkb+IwE9KIdq7Oq7QBV2gQYNXyX2IX94tFI
-pTRbOcXk+lEBMawBbLsnjU9Aq0lISG2vmfZB6rMbspWgK4Gl8X1k17MEc63DaGMq
-mp/7Qqj2OPKCAwYpnJGNOrW5RruUCub9P+GYGdhVmxH2DOuTPjFa3G5es76IFvSf
-zigupkyPVZ+rTDLWFTBfF3v3upQvm7GQ1dcCLRiTWlAXkOUjRTWDGUeZFypO5glE
-voIcgjHNNzarbEKhknS8rNN5WvWdnA==
-=x6wX
------END PGP SIGNATURE-----
-
---aM3YZ0Iwxop3KEKx--
+Please remove the "WIP: " prefixes and resend again.

@@ -2,75 +2,93 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 81694244C66
-	for <lists+alsa-devel@lfdr.de>; Fri, 14 Aug 2020 18:03:40 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 29DAF244CC0
+	for <lists+alsa-devel@lfdr.de>; Fri, 14 Aug 2020 18:32:19 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 11C171665;
-	Fri, 14 Aug 2020 18:02:50 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 11C171665
+	by alsa0.perex.cz (Postfix) with ESMTPS id AC17C1667;
+	Fri, 14 Aug 2020 18:31:28 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AC17C1667
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1597421020;
-	bh=bwt4I1Ivw+5s6OaoKYWYSNGKjE4/A6uymfb27r28z6c=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1597422738;
+	bh=RPib77+1iFWs+fYvy9vOaY5mrTX3Q6XRQz6cvpt/jr8=;
+	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=T1b1jTckcCMhU6ohNfANKmD4I/BG64qoHiap/sVUrfKD0ZliVbL14c/iixEgkOaSv
-	 t2CGnfxUbw6+dd8nHLtG4XBa3GlZDRh/9XkymO/PQgYwc2X/z85KUTzSDZz431lXVJ
-	 CagLxa0n6KGjxrSdG+eWsXs6fjAwCXG7F4gIUh/A=
+	b=gJraF1H4ko9ZNQWL9dsgzEIWU4BRSUQqTqvPM8tUBGBZWj9b0mw6hvcaT/0u7m/Pm
+	 BZiFHTzMlpNQVThhPJaVpQrPdB8D4MECZxxaswkUd5HgjI8gUpD4ufnEqejnyiBixq
+	 6qaDGshy6VO2bbIGBfvAOGfYmJx5XVrpODa9KDIA=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 2D994F80146;
-	Fri, 14 Aug 2020 18:01:56 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id C62F4F80146;
+	Fri, 14 Aug 2020 18:30:37 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 8EC76F8022B; Fri, 14 Aug 2020 18:01:53 +0200 (CEST)
+ id 8C58CF8022B; Fri, 14 Aug 2020 18:30:35 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled
- version=3.4.0
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id DE95BF80146
- for <alsa-devel@alsa-project.org>; Fri, 14 Aug 2020 18:01:46 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DE95BF80146
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="fgHf/GGP"
-Received: from localhost (fw-tnat.cambridge.arm.com [217.140.96.140])
+X-Spam-Status: No, score=0.3 required=5.0 tests=NICE_REPLY_A,PRX_BODY_135,
+ SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from hostingweb31-40.netsons.net (hostingweb31-40.netsons.net
+ [89.40.174.40])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 341332078D;
- Fri, 14 Aug 2020 16:01:43 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1597420903;
- bh=bwt4I1Ivw+5s6OaoKYWYSNGKjE4/A6uymfb27r28z6c=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=fgHf/GGPT4X5Rh3a7QelbgRyOu9jbsHEgWPkF14MskZ4qfuSVe5YhbU4bvrSsNNjQ
- JggiVYC73FnhPU2fZZ+iHhZXVtTw/Jb+a8JNUUCzUfE6Qucl5W+YW+7B04lXQfjyBu
- BoBIz68fhhXmp9nCPVgQAaYoFxAdWulVUbR6KsGs=
-Date: Fri, 14 Aug 2020 17:01:15 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Jiaxin Yu <jiaxin.yu@mediatek.com>
-Subject: Re: [PATCH v3 1/2] WIP: ASoC: mediatek: mt6359: add codec driver
-Message-ID: <20200814160115.GC4783@sirena.org.uk>
-References: <1597401954-28388-1-git-send-email-jiaxin.yu@mediatek.com>
- <1597401954-28388-2-git-send-email-jiaxin.yu@mediatek.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id B2AD2F80146
+ for <alsa-devel@alsa-project.org>; Fri, 14 Aug 2020 18:30:23 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B2AD2F80146
+Received: from [37.160.38.175] (port=40734 helo=[192.168.42.162])
+ by hostingweb31.netsons.net with esmtpsa (TLS1.2) tls
+ TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256 (Exim 4.93)
+ (envelope-from <luca@lucaceresoli.net>)
+ id 1k6cay-0001mB-F9; Fri, 14 Aug 2020 18:30:20 +0200
+Subject: Re: [PATCH] dt-bindings: Whitespace clean-ups in schema files
+To: Rob Herring <robh@kernel.org>
+References: <20200812203618.2656699-1-robh@kernel.org>
+ <d5808e9c-07fe-1c28-b9a6-a16abe9df458@lucaceresoli.net>
+ <CAL_JsqKekx0VO4NROwLrgrU8+L584HaLHM9i3kCZvU+g5myeGw@mail.gmail.com>
+From: Luca Ceresoli <luca@lucaceresoli.net>
+Message-ID: <f1963eb9-283f-e903-2a3a-4f324d71d418@lucaceresoli.net>
+Date: Fri, 14 Aug 2020 18:30:17 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.10.0
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="Sr1nOIr3CvdE5hEN"
-Content-Disposition: inline
-In-Reply-To: <1597401954-28388-2-git-send-email-jiaxin.yu@mediatek.com>
-X-Cookie: Non-sequiturs make me eat lampshades.
-User-Agent: Mutt/1.10.1 (2018-07-13)
-Cc: alsa-devel@alsa-project.org, shane.chien@mediatek.com,
- howie.huang@mediatek.com, tiwai@suse.com, bicycle.tasi@mediatek.com,
- linux-kernel@vger.kernel.org, tzungbi@google.com, robh+dt@kernel.org,
- linux-mediatek@lists.infradead.org, eason.yen@mediatek.com,
- matthias.bgg@gmail.com, linux-arm-kernel@lists.infradead.org
+In-Reply-To: <CAL_JsqKekx0VO4NROwLrgrU8+L584HaLHM9i3kCZvU+g5myeGw@mail.gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
+X-AntiAbuse: This header was added to track abuse,
+ please include it with any abuse report
+X-AntiAbuse: Primary Hostname - hostingweb31.netsons.net
+X-AntiAbuse: Original Domain - alsa-project.org
+X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
+X-AntiAbuse: Sender Address Domain - lucaceresoli.net
+X-Get-Message-Sender-Via: hostingweb31.netsons.net: authenticated_id:
+ luca@lucaceresoli.net
+X-Authenticated-Sender: hostingweb31.netsons.net: luca@lucaceresoli.net
+X-Source: 
+X-Source-Args: 
+X-Source-Dir: 
+Cc: Linux Fbdev development list <linux-fbdev@vger.kernel.org>,
+ "open list:IIO SUBSYSTEM AND DRIVERS" <linux-iio@vger.kernel.org>,
+ "open list:REMOTE PROCESSOR \(REMOTEPROC\) SUBSYSTEM"
+ <linux-remoteproc@vger.kernel.org>, Linux-ALSA <alsa-devel@alsa-project.org>,
+ dri-devel <dri-devel@lists.freedesktop.org>,
+ MTD Maling List <linux-mtd@lists.infradead.org>,
+ Linux I2C <linux-i2c@vger.kernel.org>, linux-clk <linux-clk@vger.kernel.org>,
+ "open list:REAL TIME CLOCK \(RTC\) SUBSYSTEM" <linux-rtc@vger.kernel.org>,
+ "open list:SERIAL DRIVERS" <linux-serial@vger.kernel.org>,
+ Linux Input <linux-input@vger.kernel.org>,
+ Linux Media Mailing List <linux-media@vger.kernel.org>,
+ devicetree@vger.kernel.org, "open list:THERMAL" <linux-pm@vger.kernel.org>,
+ "open list:GPIO SUBSYSTEM" <linux-gpio@vger.kernel.org>,
+ "moderated list:ARM/FREESCALE IMX / MXC ARM ARCHITECTURE"
+ <linux-arm-kernel@lists.infradead.org>,
+ Linux HWMON List <linux-hwmon@vger.kernel.org>,
+ netdev <netdev@vger.kernel.org>, Linux USB List <linux-usb@vger.kernel.org>,
+ linux-mmc <linux-mmc@vger.kernel.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ linux-spi <linux-spi@vger.kernel.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -86,43 +104,85 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+Hi,
 
---Sr1nOIr3CvdE5hEN
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+On 14/08/20 16:51, Rob Herring wrote:
+> On Thu, Aug 13, 2020 at 4:31 AM Luca Ceresoli <luca@lucaceresoli.net> wrote:
+>>
+>> Hi Rob,
+>>
+>> On 12/08/20 22:36, Rob Herring wrote:
+>>> Clean-up incorrect indentation, extra spaces, long lines, and missing
+>>> EOF newline in schema files. Most of the clean-ups are for list
+>>> indentation which should always be 2 spaces more than the preceding
+>>> keyword.
+>>>
+>>> Found with yamllint (which I plan to integrate into the checks).
+>>
+>> [...]
+>>
+>>> diff --git a/Documentation/devicetree/bindings/clock/idt,versaclock5.yaml b/Documentation/devicetree/bindings/clock/idt,versaclock5.yaml
+>>> index 3d4e1685cc55..28c6461b9a9a 100644
+>>> --- a/Documentation/devicetree/bindings/clock/idt,versaclock5.yaml
+>>> +++ b/Documentation/devicetree/bindings/clock/idt,versaclock5.yaml
+>>> @@ -95,10 +95,10 @@ allOf:
+>>>        # Devices without builtin crystal
+>>>        properties:
+>>>          clock-names:
+>>> -            minItems: 1
+>>> -            maxItems: 2
+>>> -            items:
+>>> -              enum: [ xin, clkin ]
+>>> +          minItems: 1
+>>> +          maxItems: 2
+>>> +          items:
+>>> +            enum: [ xin, clkin ]
+>>>          clocks:
+>>>            minItems: 1
+>>>            maxItems: 2
+>>
+>> Thanks for noticing, LGTM.
+>>
+>> [...]
+>>
+>>> diff --git a/Documentation/devicetree/bindings/input/touchscreen/touchscreen.yaml b/Documentation/devicetree/bindings/input/touchscreen/touchscreen.yaml
+>>> index d7dac16a3960..36dc7b56a453 100644
+>>> --- a/Documentation/devicetree/bindings/input/touchscreen/touchscreen.yaml
+>>> +++ b/Documentation/devicetree/bindings/input/touchscreen/touchscreen.yaml
+>>> @@ -33,8 +33,8 @@ properties:
+>>>      $ref: /schemas/types.yaml#/definitions/uint32
+>>>
+>>>    touchscreen-min-pressure:
+>>> -    description: minimum pressure on the touchscreen to be achieved in order for the
+>>> -                 touchscreen driver to report a touch event.
+>>> +    description: minimum pressure on the touchscreen to be achieved in order
+>>> +      for the touchscreen driver to report a touch event.
+>>
+>> Out of personal taste, I find the original layout more pleasant and
+>> readable. This third option is also good, especially for long descriptions:
+>>
+>>   description:
+>>     minimum pressure on the touchscreen to be achieved in order for the
+>>     touchscreen driver to report a touch event.
+>>
+>> At first glance yamllint seems to support exactly these two by default:
+>>
+>>> With indentation: {spaces: 4, check-multi-line-strings: true}
+> 
+> Turning on check-multi-line-strings results in 10K+ warnings, so no.
+> 
+> The other issue is the style ruamel.yaml wants to write out is as the
+> patch does above. This matters when doing some scripted
+> transformations where we read in the files and write them back out. I
+> can somewhat work around that by first doing a pass with no changes
+> and then another pass with the actual changes, but that's completely
+> scriptable. Hopefully, ruamel learns to preserve the style better.
 
-On Fri, Aug 14, 2020 at 06:45:53PM +0800, Jiaxin Yu wrote:
+Kind of sad, but I understand the reason as far as my understanding of
+the yaml world allows. Thanks for the explanation.
 
-This looks mostly good, a couple of very small things:
+[For idt,versaclock5.yaml, plus an overview of whole patch]
+Reviewed-by: Luca Ceresoli <luca@lucaceresoli.net>
 
-> +	ret = regulator_enable(priv->avdd_reg);
-> +	if (ret) {
-> +		dev_err(&pdev->dev, "%s(), failed to enable regulator!\n",
-> +			__func__);
-> +		return ret;
-> +	}
-
-You need a remove() function to undo this enable.
-
-> +	dev_info(&pdev->dev, "%s(), dev name %s\n",
-> +		 __func__, dev_name(&pdev->dev));
-
-This isn't really adding anything, just remove it - it's not reading
-info from the hardware or anything.
-
---Sr1nOIr3CvdE5hEN
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl82tUoACgkQJNaLcl1U
-h9Azugf+KQT2qjv6S1GYzqybbbwsXf9EyoEnEt+nTpEnAUPp4fJMT8SboJ0j++fD
-4je+pUPhMO3oMDD+s7/1npVhSowHCaO1943wiq5X31lTnio2zcYYFiaI577/8E9Q
-jcrESOC0PUcLZjuUPGc4I8Ae2yh9uen2vMoJqmSDZaRYKW38a3V3vAjV5Ky51l2/
-vTw65kfnt87EVF7X18TiheJmgK3ZYWkgV4ugljUQ8FqWxnnUHtaQUUzF7Th5+khJ
-aAQM1NW022CE9MFXd8idK+RvGbWuQZBjv+MIOpy2eE5RpdQvbSUgrC+up6bDntjF
-FCirVs8xfLOqqP4ld/eJlZxW2vF3qg==
-=eI4S
------END PGP SIGNATURE-----
-
---Sr1nOIr3CvdE5hEN--
+-- 
+Luca

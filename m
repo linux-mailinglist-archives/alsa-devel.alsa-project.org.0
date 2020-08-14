@@ -2,89 +2,96 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1B812244A53
-	for <lists+alsa-devel@lfdr.de>; Fri, 14 Aug 2020 15:20:15 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6274C244B74
+	for <lists+alsa-devel@lfdr.de>; Fri, 14 Aug 2020 16:53:34 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 9CF3F166D;
-	Fri, 14 Aug 2020 15:19:24 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9CF3F166D
+	by alsa0.perex.cz (Postfix) with ESMTPS id 07D5F166D;
+	Fri, 14 Aug 2020 16:52:44 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 07D5F166D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1597411214;
-	bh=KGNLwjRd5GKalcTUHBTMfyv9qSkSWandogCiPLAfY0g=;
+	s=default; t=1597416814;
+	bh=2azDCJAW0WmwzjFoNP1+Xf1baXp64Ykp/VUpBlKju0s=;
 	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=MJ3oMNleBo96WdeTUJUw+5GVXdFU0OKDGhgvKOnFjeNPb7mxW5+WzpkFsaxqxPemy
-	 nyqLabVk5m9l86pOpnFiZBExgnUVJVHp3rtcUNT9GqA5aIDdQ0Wui5FXzfgsTH47vn
-	 KXankUZ4xfDOmws0CANDeBxhM+x9vfEGKKDXqISo=
+	b=pFDmtjRvR7MG0RyzKLDgBcRPTd3yr3pOKBVX/EiU35TSrMjyBpCzlqcfVesyiLJA2
+	 P1cfqiDI9EVafxk5jDSZSMLqw/RtFQysWhu29eZD7nxHDWMAyuyL9aW5Nw2Cc3QVlA
+	 DA+9a5egMIHHM9/XiRkX5wCY6jNAoDEEn7Gt9LOM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id BC296F8022D;
-	Fri, 14 Aug 2020 15:18:33 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 307ABF801DB;
+	Fri, 14 Aug 2020 16:51:53 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 1F833F8022B; Fri, 14 Aug 2020 15:18:30 +0200 (CEST)
+ id A254FF8022B; Fri, 14 Aug 2020 16:51:50 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-15.6 required=5.0 tests=DKIMWL_WL_MED,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,ENV_AND_HDR_SPF_MATCH,SPF_HELO_NONE,SPF_PASS,
- URIBL_BLOCKED,USER_IN_DEF_DKIM_WL,USER_IN_DEF_SPF_WL autolearn=disabled
- version=3.4.0
-Received: from mail-io1-xd42.google.com (mail-io1-xd42.google.com
- [IPv6:2607:f8b0:4864:20::d42])
+X-Spam-Status: No, score=0.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+ DKIM_VALID,DKIM_VALID_AU,PRX_BODY_135,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 33702F80146
+ for <alsa-devel@alsa-project.org>; Fri, 14 Aug 2020 16:51:39 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 33702F80146
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="bjfRL+mB"
+Received: from mail-ot1-f53.google.com (mail-ot1-f53.google.com
+ [209.85.210.53])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 8BB39F80146
- for <alsa-devel@alsa-project.org>; Fri, 14 Aug 2020 15:18:18 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8BB39F80146
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=google.com header.i=@google.com
- header.b="YI5fYDIx"
-Received: by mail-io1-xd42.google.com with SMTP id k23so10659179iom.10
- for <alsa-devel@alsa-project.org>; Fri, 14 Aug 2020 06:18:18 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=d2PB/319L1J3UbSsvQXsk+iqaXbh8YEkFfuDe3hnFHE=;
- b=YI5fYDIxlyNW2uGLyD7wh7pch8oOC4a9BM9XzcAV3uzZReGiSnYl8Fzr0GLs8CDPS8
- hbrlmLFTzWfNSKJxC4C7bPefxFdIhNnPRT407Vluos3iBg1hJMvtQHoXZln5na/PQ78L
- yPzVrnSv9VjO5zXwGXHhipg/o6uqzMv7JueLQxV9vudzz95WjoOWWcuRm13N2La14f+C
- UWnlV15BX6PNArrSpyjbkVWLOmpdu+kxCr2jSBZd+UiFBzHhXTCgvoWYwr9F0V0ck2h3
- K1fKgj2AhZGavQoDjUS2fDu/NW4+4MdAvBU4gALuq6tceMnoSbS9VcanPVHg5Zn2SHQ8
- DAbQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=d2PB/319L1J3UbSsvQXsk+iqaXbh8YEkFfuDe3hnFHE=;
- b=QzneTU6mxdx5z/9A0s8IgTnnQkXknHxDa4RGzUC05xPdb7Dn6L9Ua8ZMB9YSmJjO3S
- S0q7ZMNwUHhqFkI9LqkE2XicyJpQcFWsBZ1uDrb3fXhbvGEbFs5verIWplTeNJ3182sB
- Y0oIvLpQYvbuGWwZc06IENBVZy9gFQU6oTxI01NPjIgdHrFEsbuSTfbytRjtD4h9EK7J
- S3v8s8Om4blRxQb8arKWrXkjlKUV4+DCUgMrHHvPmJMFX70G6wUedlnSGzH/16LtH8ZI
- YdG7UrcYHeBGibOxPkXhd2WKGXE4N/LtrZvEgvdkeqN9rkB+2sU0G4slx6n3Ha/xaNV9
- 9krQ==
-X-Gm-Message-State: AOAM532TN0neDzqxKBcQbGpw0G6f0OY4kcuwY8uLmKoyinRgm1VbLf52
- YkE7/dwfpWx01PcB+l4K+ZmdUXWB8QogY3/Ql9LriQ==
-X-Google-Smtp-Source: ABdhPJwYd8jpI65/wtT2fNRZWRhTYTd4FnLcZufGtZBAixlBWVHmz9K/7rA4kw/6OBJZEDtXxlHLFhaUiHeMnLm74jQ=
-X-Received: by 2002:a02:a584:: with SMTP id b4mr2653129jam.68.1597411096065;
- Fri, 14 Aug 2020 06:18:16 -0700 (PDT)
+ by mail.kernel.org (Postfix) with ESMTPSA id DA1D620866
+ for <alsa-devel@alsa-project.org>; Fri, 14 Aug 2020 14:51:36 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=default; t=1597416697;
+ bh=2azDCJAW0WmwzjFoNP1+Xf1baXp64Ykp/VUpBlKju0s=;
+ h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
+ b=bjfRL+mBKQdeXNIPuXX+sib3fYs2/XZWJHPOjPd4x196xwXtWkEnxkwGCGKCP+vXy
+ CxGeqKP68MgYI300g+hNTJd4uQCvZb/zOsnBdJ/cEKlyynKbLGyhuMbkA+R9Y9MLDY
+ rajai6Sqx8HGb8L035zTD4t0BSpxCLooD+BQeHTA=
+Received: by mail-ot1-f53.google.com with SMTP id 93so7770353otx.2
+ for <alsa-devel@alsa-project.org>; Fri, 14 Aug 2020 07:51:36 -0700 (PDT)
+X-Gm-Message-State: AOAM530A5fH84+GDNZDqZeMfsw1Qnudi022zX2ZQe+cuv40j0PeExAlY
+ RnXj7tBoHiRzirS+M1RHGb06AHfFj8RB+HRjgw==
+X-Google-Smtp-Source: ABdhPJzAQOVgwIRLTeJz+4kS8jI7uSM4yy2bV/QUkiEz2152JH8sgfiQxJMSY+wk4abg95jsoFr6h5Ymz6ZJoeFhB2g=
+X-Received: by 2002:a05:6830:1b79:: with SMTP id
+ d25mr1995774ote.107.1597416696235; 
+ Fri, 14 Aug 2020 07:51:36 -0700 (PDT)
 MIME-Version: 1.0
-References: <1597401954-28388-1-git-send-email-jiaxin.yu@mediatek.com>
-In-Reply-To: <1597401954-28388-1-git-send-email-jiaxin.yu@mediatek.com>
-From: Tzung-Bi Shih <tzungbi@google.com>
-Date: Fri, 14 Aug 2020 21:18:05 +0800
-Message-ID: <CA+Px+wUYYV=AS51i=7sbLDJ980om5mDp=YwVuOYzEy01WxTf-A@mail.gmail.com>
-Subject: Re: [PATCH v3 0/2] Add mediatek codec mt6359 driver
-To: Jiaxin Yu <jiaxin.yu@mediatek.com>
+References: <20200812203618.2656699-1-robh@kernel.org>
+ <d5808e9c-07fe-1c28-b9a6-a16abe9df458@lucaceresoli.net>
+In-Reply-To: <d5808e9c-07fe-1c28-b9a6-a16abe9df458@lucaceresoli.net>
+From: Rob Herring <robh@kernel.org>
+Date: Fri, 14 Aug 2020 08:51:24 -0600
+X-Gmail-Original-Message-ID: <CAL_JsqKekx0VO4NROwLrgrU8+L584HaLHM9i3kCZvU+g5myeGw@mail.gmail.com>
+Message-ID: <CAL_JsqKekx0VO4NROwLrgrU8+L584HaLHM9i3kCZvU+g5myeGw@mail.gmail.com>
+Subject: Re: [PATCH] dt-bindings: Whitespace clean-ups in schema files
+To: Luca Ceresoli <luca@lucaceresoli.net>
 Content-Type: text/plain; charset="UTF-8"
-Cc: ALSA development <alsa-devel@alsa-project.org>, howie.huang@mediatek.com,
- Takashi Iwai <tiwai@suse.com>, Rob Herring <robh+dt@kernel.org>,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- shane.chien@mediatek.com, Mark Brown <broonie@kernel.org>,
- linux-mediatek@lists.infradead.org, bicycle.tasi@mediatek.com,
- eason.yen@mediatek.com, Matthias Brugger <matthias.bgg@gmail.com>,
- linux-arm-kernel@lists.infradead.org
+Cc: Linux Fbdev development list <linux-fbdev@vger.kernel.org>,
+ "open list:IIO SUBSYSTEM AND DRIVERS" <linux-iio@vger.kernel.org>,
+ "open list:REMOTE PROCESSOR \(REMOTEPROC\) SUBSYSTEM"
+ <linux-remoteproc@vger.kernel.org>, Linux-ALSA <alsa-devel@alsa-project.org>,
+ dri-devel <dri-devel@lists.freedesktop.org>,
+ MTD Maling List <linux-mtd@lists.infradead.org>,
+ Linux I2C <linux-i2c@vger.kernel.org>, linux-clk <linux-clk@vger.kernel.org>,
+ "open list:REAL TIME CLOCK \(RTC\) SUBSYSTEM" <linux-rtc@vger.kernel.org>,
+ "open list:SERIAL DRIVERS" <linux-serial@vger.kernel.org>,
+ Linux Input <linux-input@vger.kernel.org>,
+ Linux Media Mailing List <linux-media@vger.kernel.org>,
+ devicetree@vger.kernel.org, "open list:THERMAL" <linux-pm@vger.kernel.org>,
+ "open list:GPIO SUBSYSTEM" <linux-gpio@vger.kernel.org>,
+ "moderated list:ARM/FREESCALE IMX / MXC ARM ARCHITECTURE"
+ <linux-arm-kernel@lists.infradead.org>,
+ Linux HWMON List <linux-hwmon@vger.kernel.org>,
+ netdev <netdev@vger.kernel.org>, Linux USB List <linux-usb@vger.kernel.org>,
+ linux-mmc <linux-mmc@vger.kernel.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ linux-spi <linux-spi@vger.kernel.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -100,9 +107,75 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Fri, Aug 14, 2020 at 6:47 PM Jiaxin Yu <jiaxin.yu@mediatek.com> wrote:
-> Jiaxin Yu (2):
->   WIP: ASoC: mediatek: mt6359: add codec driver
->   WIP: dt-bindings: mediatek: mt6359: add codec document
+On Thu, Aug 13, 2020 at 4:31 AM Luca Ceresoli <luca@lucaceresoli.net> wrote:
+>
+> Hi Rob,
+>
+> On 12/08/20 22:36, Rob Herring wrote:
+> > Clean-up incorrect indentation, extra spaces, long lines, and missing
+> > EOF newline in schema files. Most of the clean-ups are for list
+> > indentation which should always be 2 spaces more than the preceding
+> > keyword.
+> >
+> > Found with yamllint (which I plan to integrate into the checks).
+>
+> [...]
+>
+> > diff --git a/Documentation/devicetree/bindings/clock/idt,versaclock5.yaml b/Documentation/devicetree/bindings/clock/idt,versaclock5.yaml
+> > index 3d4e1685cc55..28c6461b9a9a 100644
+> > --- a/Documentation/devicetree/bindings/clock/idt,versaclock5.yaml
+> > +++ b/Documentation/devicetree/bindings/clock/idt,versaclock5.yaml
+> > @@ -95,10 +95,10 @@ allOf:
+> >        # Devices without builtin crystal
+> >        properties:
+> >          clock-names:
+> > -            minItems: 1
+> > -            maxItems: 2
+> > -            items:
+> > -              enum: [ xin, clkin ]
+> > +          minItems: 1
+> > +          maxItems: 2
+> > +          items:
+> > +            enum: [ xin, clkin ]
+> >          clocks:
+> >            minItems: 1
+> >            maxItems: 2
+>
+> Thanks for noticing, LGTM.
+>
+> [...]
+>
+> > diff --git a/Documentation/devicetree/bindings/input/touchscreen/touchscreen.yaml b/Documentation/devicetree/bindings/input/touchscreen/touchscreen.yaml
+> > index d7dac16a3960..36dc7b56a453 100644
+> > --- a/Documentation/devicetree/bindings/input/touchscreen/touchscreen.yaml
+> > +++ b/Documentation/devicetree/bindings/input/touchscreen/touchscreen.yaml
+> > @@ -33,8 +33,8 @@ properties:
+> >      $ref: /schemas/types.yaml#/definitions/uint32
+> >
+> >    touchscreen-min-pressure:
+> > -    description: minimum pressure on the touchscreen to be achieved in order for the
+> > -                 touchscreen driver to report a touch event.
+> > +    description: minimum pressure on the touchscreen to be achieved in order
+> > +      for the touchscreen driver to report a touch event.
+>
+> Out of personal taste, I find the original layout more pleasant and
+> readable. This third option is also good, especially for long descriptions:
+>
+>   description:
+>     minimum pressure on the touchscreen to be achieved in order for the
+>     touchscreen driver to report a touch event.
+>
+> At first glance yamllint seems to support exactly these two by default:
+>
+> > With indentation: {spaces: 4, check-multi-line-strings: true}
 
-Please remove the "WIP: " prefixes and resend again.
+Turning on check-multi-line-strings results in 10K+ warnings, so no.
+
+The other issue is the style ruamel.yaml wants to write out is as the
+patch does above. This matters when doing some scripted
+transformations where we read in the files and write them back out. I
+can somewhat work around that by first doing a pass with no changes
+and then another pass with the actual changes, but that's completely
+scriptable. Hopefully, ruamel learns to preserve the style better.
+
+Rob

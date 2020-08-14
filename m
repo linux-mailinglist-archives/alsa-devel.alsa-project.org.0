@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 021D724488D
-	for <lists+alsa-devel@lfdr.de>; Fri, 14 Aug 2020 13:00:29 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7BCE024488A
+	for <lists+alsa-devel@lfdr.de>; Fri, 14 Aug 2020 12:59:50 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 82B621663;
-	Fri, 14 Aug 2020 12:59:38 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 82B621663
+	by alsa0.perex.cz (Postfix) with ESMTPS id 13BEC166D;
+	Fri, 14 Aug 2020 12:59:00 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 13BEC166D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1597402828;
-	bh=AreLftsLiSJefTuNbyVtOof0KsAUajYy8jiVFG3W7PY=;
+	s=default; t=1597402790;
+	bh=dlucjFmXTQ8lBqd7zLxGFvP+99iIlZRjBN51lVIJOs4=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=iXojCtUQ16mfi7oUwircT7II5i5clmcMe2owThsFhcXhiuLS6Rngube6jnYzRsVPJ
-	 vL6XZoacGTRMYJa2lcSbuVd+2y+QDXfJbbzGShhh3SvW21lxtoUEuWxm8e5Bv5jGNh
-	 XeiMtg/OBBPsA8pn2A6QG0E/z76mVJgAN+yQ5vGA=
+	b=psYnTGWJPuRTmhw0E0/AmZk8siC/5QZDIJBj5bVSeD0SSEoPPwu5j+NPUdaUPu+6d
+	 svyswEvvVArJxCk8GYm5fD631JaeWr2lzq6d8d9uOOApNyt77BxK86yRCt1JybUHMh
+	 cxA2acZwS5mlXHPnc76voT70q3BUxhvBxcwWpwp8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id A38F9F80316;
-	Fri, 14 Aug 2020 12:55:11 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 29843F80315;
+	Fri, 14 Aug 2020 12:54:56 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id BCB5DF80323; Fri, 14 Aug 2020 12:55:08 +0200 (CEST)
+ id 2E5BCF80308; Fri, 14 Aug 2020 12:54:54 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,36 +34,36 @@ X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from m43-7.mailgun.net (m43-7.mailgun.net [69.72.43.7])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 7F49EF802F7
- for <alsa-devel@alsa-project.org>; Fri, 14 Aug 2020 12:54:40 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7F49EF802F7
+ by alsa1.perex.cz (Postfix) with ESMTPS id A48B0F801DB
+ for <alsa-devel@alsa-project.org>; Fri, 14 Aug 2020 12:54:46 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A48B0F801DB
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=mg.codeaurora.org
- header.i=@mg.codeaurora.org header.b="ONVNprxB"
+ header.i=@mg.codeaurora.org header.b="WoyretMC"
 DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
  q=dns/txt; 
- s=smtp; t=1597402485; h=References: In-Reply-To: Message-Id: Date:
+ s=smtp; t=1597402492; h=References: In-Reply-To: Message-Id: Date:
  Subject: Cc: To: From: Sender;
- bh=wzkE1gcsoctw3hiDqTWdfJ/SEs/ShA6LmWUp5yuAKJA=;
- b=ONVNprxBV307wbodRTtgHUFmVCgl3qz3URhwBYVMalhXgAPTUBhDmsUtpW7pntG0ejnjG1Ig
- vrSnZgmUOeqLMOcKiN1Ts5DGq09UR+UQzKwxno65LJXQg8rkv6aPaF6C0BtLeJdH3/0AOjju
- +lxD6GujAczpXIN3W46lKmxmJG8=
+ bh=GZkjDkpKTKSPxQOn1C6nl629XIJ2Lx9Les5Owq+DC0A=;
+ b=WoyretMCmq3DaY49UyZH5nRXcCXbDASrVD1y6GqZf6yYFjhOHBXsIZ3xFjFJuQXEuSWCGPUR
+ Q4QaI/nP4X1EY/nya/uPFLTAE4xbECazETr4/GKhnOaIiOXAu9eIkVvTDASIQEmteNFMbnPh
+ 2QtXi4WyWbe/n3id99JKCOnpRSk=
 X-Mailgun-Sending-Ip: 69.72.43.7
 X-Mailgun-Sid: WyI4ZmE2ZSIsICJhbHNhLWRldmVsQGFsc2EtcHJvamVjdC5vcmciLCAiYmU5ZTRhIl0=
 Received: from smtp.codeaurora.org
  (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171]) by
- smtp-out-n01.prod.us-east-1.postgun.com with SMTP id
- 5f366d63440a07969a0b0539 (version=TLS1.2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Fri, 14 Aug 2020 10:54:27
+ smtp-out-n03.prod.us-east-1.postgun.com with SMTP id
+ 5f366d69247ccc308cbc1559 (version=TLS1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Fri, 14 Aug 2020 10:54:33
  GMT
 Received: by smtp.codeaurora.org (Postfix, from userid 1001)
- id 2E2AEC43395; Fri, 14 Aug 2020 10:54:27 +0000 (UTC)
+ id BDCB5C433C9; Fri, 14 Aug 2020 10:54:32 +0000 (UTC)
 Received: from rohkumar-linux.qualcomm.com (unknown [202.46.22.19])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-SHA256 (128/128 bits))
  (No client certificate requested) (Authenticated sender: rohitkr)
- by smtp.codeaurora.org (Postfix) with ESMTPSA id 6BF69C43391;
- Fri, 14 Aug 2020 10:54:22 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 smtp.codeaurora.org 6BF69C43391
+ by smtp.codeaurora.org (Postfix) with ESMTPSA id 10480C433CA;
+ Fri, 14 Aug 2020 10:54:27 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 smtp.codeaurora.org 10480C433CA
 Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
  dmarc=none (p=none dis=none) header.from=codeaurora.org
 Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
@@ -75,14 +75,14 @@ To: agross@kernel.org, bjorn.andersson@linaro.org, lgirdwood@gmail.com,
  srinivas.kandagatla@linaro.org, linux-arm-msm@vger.kernel.org,
  alsa-devel@alsa-project.org, devicetree@vger.kernel.org,
  linux-kernel@vger.kernel.org
-Subject: [PATCH v6 07/12] dt-bindings: sound: lpass-cpu: Add sc7180 lpass cpu
- node
-Date: Fri, 14 Aug 2020 16:23:03 +0530
-Message-Id: <1597402388-14112-8-git-send-email-rohitkr@codeaurora.org>
+Subject: [PATCH v6 08/12] include: dt-bindings: sound: Add sc7180-lpass
+ bindings header
+Date: Fri, 14 Aug 2020 16:23:04 +0530
+Message-Id: <1597402388-14112-9-git-send-email-rohitkr@codeaurora.org>
 X-Mailer: git-send-email 2.7.4
 In-Reply-To: <1597402388-14112-1-git-send-email-rohitkr@codeaurora.org>
 References: <1597402388-14112-1-git-send-email-rohitkr@codeaurora.org>
-Cc: Rohit kumar <rohitkr@codeaurora.org>
+Cc: Rohit kumar <rohitkr@codeaurora.org>, Ajit Pandey <ajitp@codeaurora.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -98,97 +98,34 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Add dt-bindings to support "qcom,lpass-cpu-sc7180" node.
+From: Ajit Pandey <ajitp@codeaurora.org>
 
+Add header defining dai-id and mclk id for SC7180 lpass soc.
+
+Signed-off-by: Ajit Pandey <ajitp@codeaurora.org>
 Signed-off-by: Rohit kumar <rohitkr@codeaurora.org>
+Acked-by: Rob Herring <robh@kernel.org>
 ---
- .../devicetree/bindings/sound/qcom,lpass-cpu.txt   | 55 +++++++++++++++++++++-
- 1 file changed, 53 insertions(+), 2 deletions(-)
+ include/dt-bindings/sound/sc7180-lpass.h | 10 ++++++++++
+ 1 file changed, 10 insertions(+)
+ create mode 100644 include/dt-bindings/sound/sc7180-lpass.h
 
-diff --git a/Documentation/devicetree/bindings/sound/qcom,lpass-cpu.txt b/Documentation/devicetree/bindings/sound/qcom,lpass-cpu.txt
-index 32c2cdb..c07202c 100644
---- a/Documentation/devicetree/bindings/sound/qcom,lpass-cpu.txt
-+++ b/Documentation/devicetree/bindings/sound/qcom,lpass-cpu.txt
-@@ -4,7 +4,8 @@ This node models the Qualcomm Technologies Low-Power Audio SubSystem (LPASS).
- 
- Required properties:
- 
--- compatible		: "qcom,lpass-cpu" or "qcom,apq8016-lpass-cpu"
-+- compatible		: "qcom,lpass-cpu" or "qcom,apq8016-lpass-cpu" or
-+			  "qcom,sc7180-lpass-cpu"
- - clocks		: Must contain an entry for each entry in clock-names.
- - clock-names		: A list which must include the following entries:
- 				* "ahbix-clk"
-@@ -18,6 +19,13 @@ Required properties:
- 				* "mi2s-bit-clk3"
- 				* "pcnoc-mport-clk"
- 				* "pcnoc-sway-clk"
-+			: required clocks for "qcom,lpass-cpu-sc7180"
-+				* "audio-core"
-+				* "mclk0"
-+				* "mi2s-bit-clk0"
-+				* "mi2s-bit-clk1"
-+				* "pcnoc-sway-clk"
-+				* "pcnoc-mport-clk"
- 
- - interrupts		: Must contain an entry for each entry in
- 			  interrupt-names.
-@@ -53,7 +61,8 @@ Required properties for each DAI (represented by a subnode):
- Note that adding a subnode changes the default to "no lines configured",
- so both playback and capture lines should be configured when a subnode is added.
- 
--Example:
-+Examples:
-+1)
- 
- lpass@28100000 {
- 	compatible = "qcom,lpass-cpu";
-@@ -77,3 +86,45 @@ lpass@28100000 {
- 		qcom,playback-sd-lines = <0 1>;
- 	};
- };
+diff --git a/include/dt-bindings/sound/sc7180-lpass.h b/include/dt-bindings/sound/sc7180-lpass.h
+new file mode 100644
+index 00000000..7d988f6
+--- /dev/null
++++ b/include/dt-bindings/sound/sc7180-lpass.h
+@@ -0,0 +1,10 @@
++/* SPDX-License-Identifier: GPL-2.0 */
++#ifndef __DT_SC7180_LPASS_H
++#define __DT_SC7180_LPASS_H
 +
-+2)
++#define MI2S_PRIMARY	0
++#define MI2S_SECONDARY	1
 +
-+#include <dt-bindings/sound/sc7180-lpass.h>
++#define LPASS_MCLK0	0
 +
-+lpass_cpu: lpass {
-+	compatible = "qcom,sc7180-lpass-cpu";
-+
-+	reg = <0 0x62F00000 0 0x29000>;
-+
-+	iommus = <&apps_smmu 0x1020 0>;
-+
-+	power-domains = <&lpass_hm LPASS_CORE_HM_GDSCR>;
-+	clocks = <&gcc GCC_LPASS_CFG_NOC_SWAY_CLK>,
-+		<&lpasscorecc LPASS_AUDIO_CORE_CORE_CLK>,
-+		<&lpasscorecc LPASS_AUDIO_CORE_EXT_MCLK0_CLK>,
-+		<&lpasscorecc LPASS_AUDIO_CORE_SYSNOC_MPORT_CORE_CLK>,
-+		<&lpasscorecc LPASS_AUDIO_CORE_LPAIF_PRI_IBIT_CLK>,
-+		<&lpasscorecc LPASS_AUDIO_CORE_LPAIF_SEC_IBIT_CLK>;
-+	clock-names = "pcnoc-sway-clk", "audio-core",
-+			"mclk0", "pcnoc-mport-clk",
-+			"mi2s-bit-clk0", "mi2s-bit-clk1";
-+	interrupts = <0 160 IRQ_TYPE_LEVEL_HIGH>;
-+	interrupt-names = "lpass-irq-lpaif";
-+
-+
-+	#sound-dai-cells = <1>;
-+
-+	#address-cells = <1>;
-+	#size-cells = <0>;
-+
-+	mi2s-primary@0 {
-+		reg = <MI2S_PRIMARY>;
-+		qcom,playback-sd-lines = <1>;
-+		qcom,capture-sd-lines = <0>;
-+	};
-+
-+	mi2s-secondary@1 {
-+		reg = <MI2S_SECONDARY>;
-+		qcom,playback-sd-lines = <0>;
-+	};
-+};
++#endif /* __DT_APQ8016_LPASS_H */
 -- 
 Qualcomm India Private Limited, on behalf of Qualcomm Innovation Center, Inc.,
 is a member of Code Aurora Forum, a Linux Foundation Collaborative Project.

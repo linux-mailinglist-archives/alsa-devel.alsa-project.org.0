@@ -2,80 +2,55 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 40B2E2456D0
-	for <lists+alsa-devel@lfdr.de>; Sun, 16 Aug 2020 10:46:17 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 495872456D1
+	for <lists+alsa-devel@lfdr.de>; Sun, 16 Aug 2020 10:47:06 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D9E67166D;
-	Sun, 16 Aug 2020 10:45:26 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D9E67166D
+	by alsa0.perex.cz (Postfix) with ESMTPS id E73B3827;
+	Sun, 16 Aug 2020 10:46:15 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E73B3827
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1597567576;
-	bh=T6UwMy4v18bgR1RYSk8bKZfCqTMnyUP8XZKnI31+u3w=;
-	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=e3CwzSxQNy7JbFM3xCeVB01zy8wEo9M+ru18wwRFgT7N7qLx7/t2GTqvCsC3F7mj6
-	 mSMowpvhF+llWy/ePmdJop9GWvUA54eR3sc3eKFntbwfeIja43VWYBi/pIwAEpFL1l
-	 SQJb0Q92eT381erSuTnNo4MAdc0rwymTV5Q40at8=
+	s=default; t=1597567626;
+	bh=Q3wcZchFNqELRbQ/xtZy0TGCNsLvm0i7RXJTe48IuAQ=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=n7xYvOIV66/mFCYvAkoerDOlAN1+j41CLqNp2PzAms/NDJMRGZbmiG3PIq5KEMC/S
+	 9QuKye6a5SJYLg5fgaagqL2CuiAuda37gBlZpWCW0qjqsCgVziS1RE5XmSNWOtPJHX
+	 xjhw5HEU4snxqWaGwx00bEsD4ayZuf8In3V2cARE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 20BF3F80228;
-	Sun, 16 Aug 2020 10:44:36 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 122CEF800C8;
+	Sun, 16 Aug 2020 10:44:53 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 25DA3F8023F; Sun, 16 Aug 2020 10:44:34 +0200 (CEST)
+ id 29643F802A1; Sun, 16 Aug 2020 10:44:51 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mail.marcansoft.com (marcansoft.com [212.63.210.85])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 259F3F800C8
- for <alsa-devel@alsa-project.org>; Sun, 16 Aug 2020 10:44:27 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 259F3F800C8
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="drEoeXpH"
-Received: from archlinux (cpc149474-cmbg20-2-0-cust94.5-4.cable.virginm.net
- [82.4.196.95])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ by alsa1.perex.cz (Postfix) with ESMTPS id 46C35F800C8
+ for <alsa-devel@alsa-project.org>; Sun, 16 Aug 2020 10:44:44 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 46C35F800C8
+Received: from [127.0.0.1] (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 032672067C;
- Sun, 16 Aug 2020 08:44:20 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1597567464;
- bh=T6UwMy4v18bgR1RYSk8bKZfCqTMnyUP8XZKnI31+u3w=;
- h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
- b=drEoeXpHv0E0mUqTh6XgOtxm5HjQ3BZXo/2Vyh0E5JgpqmZ5oJHeFCZAHCZB9rAXm
- AbIb6f0WWGOxG4kSm3h11hWn0MA48MyZ6oiLma2mj2RujKNmxiI3bNdIjGxh0rdsDK
- bybFa1BfDVi2cbQ+dCfDbBrEzAgdhLg63i6r2Z2c=
-Date: Sun, 16 Aug 2020 09:44:18 +0100
-From: Jonathan Cameron <jic23@kernel.org>
-To: Sam Ravnborg <sam@ravnborg.org>
-Subject: Re: [PATCH] dt-bindings: Whitespace clean-ups in schema files
-Message-ID: <20200816094418.5bd08f5f@archlinux>
-In-Reply-To: <20200812213453.GA690477@ravnborg.org>
-References: <20200812203618.2656699-1-robh@kernel.org>
- <20200812213453.GA690477@ravnborg.org>
-X-Mailer: Claws Mail 3.17.6 (GTK+ 2.24.32; x86_64-pc-linux-gnu)
+ (Authenticated sender: hector@marcansoft.com)
+ by mail.marcansoft.com (Postfix) with ESMTPSA id 73B5E4261A;
+ Sun, 16 Aug 2020 08:44:38 +0000 (UTC)
+From: Hector Martin <marcan@marcan.st>
+To: alsa-devel@alsa-project.org
+Subject: [PATCH] usb-audio: Update documentation comment for MS2109 quirk
+Date: Sun, 16 Aug 2020 17:44:31 +0900
+Message-Id: <20200816084431.102151-1-marcan@marcan.st>
+X-Mailer: git-send-email 2.27.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
-Cc: linux-fbdev@vger.kernel.org, linux-iio@vger.kernel.org,
- linux-remoteproc@vger.kernel.org, alsa-devel@alsa-project.org,
- dri-devel@lists.freedesktop.org, linux-mtd@lists.infradead.org,
- linux-i2c@vger.kernel.org, linux-clk@vger.kernel.org,
- linux-rtc@vger.kernel.org, Rob Herring <robh@kernel.org>,
- linux-serial@vger.kernel.org, linux-input@vger.kernel.org,
- linux-media@vger.kernel.org, devicetree@vger.kernel.org,
- linux-pm@vger.kernel.org, linux-gpio@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-hwmon@vger.kernel.org,
- netdev@vger.kernel.org, linux-usb@vger.kernel.org, linux-mmc@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-spi@vger.kernel.org
+Content-Transfer-Encoding: 8bit
+Cc: Takashi Iwai <tiwai@suse.de>, Hector Martin <marcan@marcan.st>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -91,193 +66,26 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Wed, 12 Aug 2020 23:34:53 +0200
-Sam Ravnborg <sam@ravnborg.org> wrote:
+Signed-off-by: Hector Martin <marcan@marcan.st>
+---
+ sound/usb/quirks-table.h | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-> Hi Rob.
-> 
-> On Wed, Aug 12, 2020 at 02:36:18PM -0600, Rob Herring wrote:
-> > Clean-up incorrect indentation, extra spaces, long lines, and missing
-> > EOF newline in schema files. Most of the clean-ups are for list
-> > indentation which should always be 2 spaces more than the preceding
-> > keyword.
-> > 
-> > Found with yamllint (which I plan to integrate into the checks).  
-> 
-> I have browsed through the patch - and there was only a few things
-> that jumped at me.
-> 
-> With these points considered:
-> Acked-by: Sam Ravnborg <sam@ravnborg.org>
-
-Replying here as the patch doesn't seem to have made it to linux-iio
-at least. I'm not sure why...
-
-Anyhow, found it in an lkml archive so for the iio changes
-Acked-by: Jonathan Cameron <Jonathan.Cameron@huawei.com>
-
-> 
-> I expect only some (few) of my points to actually results in any updates.
-> 
-> I look forward to have the lint functionality as part of the built-in
-> tools so we catch these things early.
-> 
-> 	Sam
-> 
-> > diff --git a/Documentation/devicetree/bindings/arm/fsl.yaml b/Documentation/devicetree/bindings/arm/fsl.yaml
-> > index f63895c8ce2d..88814a2a14a5 100644
-> > --- a/Documentation/devicetree/bindings/arm/fsl.yaml
-> > +++ b/Documentation/devicetree/bindings/arm/fsl.yaml
-> > @@ -273,8 +273,8 @@ properties:
-> >                - fsl,imx6ull-14x14-evk     # i.MX6 UltraLiteLite 14x14 EVK Board
-> >                - kontron,imx6ull-n6411-som # Kontron N6411 SOM
-> >                - myir,imx6ull-mys-6ulx-eval # MYiR Tech iMX6ULL Evaluation Board
-> > -              - toradex,colibri-imx6ull-eval            # Colibri iMX6ULL Module on Colibri Evaluation Board
-> > -              - toradex,colibri-imx6ull-wifi-eval       # Colibri iMX6ULL Wi-Fi / Bluetooth Module on Colibri Evaluation Board
-> > +              - toradex,colibri-imx6ull-eval      # Colibri iMX6ULL Module on Colibri Eval Board
-> > +              - toradex,colibri-imx6ull-wifi-eval # Colibri iMX6ULL Wi-Fi / BT Module on Colibri Eval Board
-> >            - const: fsl,imx6ull  
-> 
-> This change looks bad as it drops the alignment with the comments below.
-> See following patch chunck:
-> 
-> >
-> >        - description: Kontron N6411 S Board
-> > @@ -312,9 +312,12 @@ properties:
-> >                - toradex,colibri-imx7d                   # Colibri iMX7 Dual Module
-> >                - toradex,colibri-imx7d-aster             # Colibri iMX7 Dual Module on Aster Carrier Board
-> >                - toradex,colibri-imx7d-emmc              # Colibri iMX7 Dual 1GB (eMMC) Module
-> > -              - toradex,colibri-imx7d-emmc-aster        # Colibri iMX7 Dual 1GB (eMMC) Module on Aster Carrier Board
-> > -              - toradex,colibri-imx7d-emmc-eval-v3      # Colibri iMX7 Dual 1GB (eMMC) Module on Colibri Evaluation Board V3
-> > -              - toradex,colibri-imx7d-eval-v3           # Colibri iMX7 Dual Module on Colibri Evaluation Board V3
-> > +              - toradex,colibri-imx7d-emmc-aster        # Colibri iMX7 Dual 1GB (eMMC) Module on
-> > +                                                        #  Aster Carrier Board  
-> 
-> 
-> 
-> > diff --git a/Documentation/devicetree/bindings/display/panel/ilitek,ili9322.yaml b/Documentation/devicetree/bindings/display/panel/ilitek,ili9322.yaml
-> > index 177d48c5bd97..e89c1ea62ffa 100644
-> > --- a/Documentation/devicetree/bindings/display/panel/ilitek,ili9322.yaml
-> > +++ b/Documentation/devicetree/bindings/display/panel/ilitek,ili9322.yaml
-> > @@ -25,8 +25,7 @@ properties:
-> >    compatible:
-> >      items:
-> >        - enum:
-> > -        - dlink,dir-685-panel
-> > -
-> > +          - dlink,dir-685-panel
-> >        - const: ilitek,ili9322
-> >
-> >    reset-gpios: true
-> > diff --git a/Documentation/devicetree/bindings/display/panel/ilitek,ili9881c.yaml b/Documentation/devicetree/bindings/display/panel/ilitek,ili9881c.yaml
-> > index a39332276bab..76a9068a85dd 100644
-> > --- a/Documentation/devicetree/bindings/display/panel/ilitek,ili9881c.yaml
-> > +++ b/Documentation/devicetree/bindings/display/panel/ilitek,ili9881c.yaml
-> > @@ -13,8 +13,7 @@ properties:
-> >    compatible:
-> >      items:
-> >        - enum:
-> > -        - bananapi,lhr050h41
-> > -
-> > +          - bananapi,lhr050h41
-> >        - const: ilitek,ili9881c
-> >  
-> 
-> The extra lines is a simple way to indicate that here shall be added
-> more in the future. So I like the empty line.
-> 
-> 
-> > diff --git a/Documentation/devicetree/bindings/leds/backlight/qcom-wled.yaml b/Documentation/devicetree/bindings/leds/backlight/qcom-wled.yaml
-> > index 32e0896c6bc1..47938e372987 100644
-> > --- a/Documentation/devicetree/bindings/leds/backlight/qcom-wled.yaml
-> > +++ b/Documentation/devicetree/bindings/leds/backlight/qcom-wled.yaml
-> > @@ -79,7 +79,8 @@ properties:
-> >      description: |
-> >        kHz; switching frequency.
-> >      $ref: /schemas/types.yaml#/definitions/uint32
-> > -    enum: [ 600, 640, 685, 738, 800, 872, 960, 1066, 1200, 1371, 1600, 1920, 2400, 3200, 4800, 9600 ]
-> > +    enum: [ 600, 640, 685, 738, 800, 872, 960, 1066, 1200, 1371, 1600, 1920,
-> > +            2400, 3200, 4800, 9600 ]
-> >
-> >    qcom,ovp:
-> >      description: |  
-> 
-> In the modern world we are living in now line length of 100 chars are
-> OK. checkpatch and coding_style is updated to reflected this.
-> 
-> > diff --git a/Documentation/devicetree/bindings/spi/mikrotik,rb4xx-spi.yaml b/Documentation/devicetree/bindings/spi/mikrotik,rb4xx-spi.yaml
-> > index 4ddb42a4ae05..9102feae90a2 100644
-> > --- a/Documentation/devicetree/bindings/spi/mikrotik,rb4xx-spi.yaml
-> > +++ b/Documentation/devicetree/bindings/spi/mikrotik,rb4xx-spi.yaml
-> > @@ -33,4 +33,5 @@ examples:
-> >          reg = <0x1f000000 0x10>;
-> >      };
-> >
-> > -...
-> > \ No newline at end of file
-> > +...
-> > +  
-> 
-> Added one line too much?
-> 
->  diff --git a/Documentation/devicetree/bindings/spi/spi-mux.yaml b/Documentation/devicetree/bindings/spi/spi-mux.yaml
-> > index 0ae692dc28b5..3d3fed63409b 100644
-> > --- a/Documentation/devicetree/bindings/spi/spi-mux.yaml
-> > +++ b/Documentation/devicetree/bindings/spi/spi-mux.yaml
-> > @@ -43,47 +43,47 @@ properties:
-> >      maxItems: 1
-> >
-> >  required:
-> > -   - compatible
-> > -   - reg
-> > -   - spi-max-frequency
-> > -   - mux-controls
-> > +  - compatible
-> > +  - reg
-> > +  - spi-max-frequency
-> > +  - mux-controls
-> >
-> >  examples:
-> > -   - |
-> > -     #include <dt-bindings/gpio/gpio.h>
-> > -     mux: mux-controller {
-> > -       compatible = "gpio-mux";
-> > -       #mux-control-cells = <0>;
-> > +  - |
-> > +    #include <dt-bindings/gpio/gpio.h>
-> > +    mux: mux-controller {
-> > +        compatible = "gpio-mux";
-> > +        #mux-control-cells = <0>;
-> >
-> > -       mux-gpios = <&gpio0 3 GPIO_ACTIVE_HIGH>;
-> > -     };
-> > +        mux-gpios = <&gpio0 3 GPIO_ACTIVE_HIGH>;
-> > +    };  
-> 
-> Example is updated to use 4-space indent. I like.
-> 
-> But many other examples are left untouched.
-> 
-> So I wonder if updating all examples to the same indent should
-> be left for another mega-patch?
-> 
-> > diff --git a/Documentation/devicetree/bindings/vendor-prefixes.yaml b/Documentation/devicetree/bindings/vendor-prefixes.yaml
-> > index f3d847832fdc..2baee2c817c1 100644
-> > --- a/Documentation/devicetree/bindings/vendor-prefixes.yaml
-> > +++ b/Documentation/devicetree/bindings/vendor-prefixes.yaml
-> > @@ -993,7 +993,8 @@ patternProperties:
-> >    "^sst,.*":
-> >      description: Silicon Storage Technology, Inc.
-> >    "^sstar,.*":
-> > -    description: Xiamen Xingchen(SigmaStar) Technology Co., Ltd. (formerly part of MStar Semiconductor, Inc.)
-> > +    description: Xiamen Xingchen(SigmaStar) Technology Co., Ltd.
-> > +      (formerly part of MStar Semiconductor, Inc.)
-> >    "^st,.*":
-> >      description: STMicroelectronics
-> >    "^starry,.*":  
-> 
-> Did you check that they are all in alphabetical order?
-> I would be suprised if this is the only issue in this file.
-> 
-> 
+diff --git a/sound/usb/quirks-table.h b/sound/usb/quirks-table.h
+index d79e3ddc5690..72cc03e7aed1 100644
+--- a/sound/usb/quirks-table.h
++++ b/sound/usb/quirks-table.h
+@@ -3714,8 +3714,8 @@ ALC1220_VB_DESKTOP(0x26ce, 0x0a01), /* Asrock TRX40 Creator */
+  * they pretend to be 96kHz mono as a workaround for stereo being broken
+  * by that...
+  *
+- * They also have swapped L-R channels, but that's for userspace to deal
+- * with.
++ * They also have an issue with initial stream alignment that causes the
++ * channels to be swapped and out of phase, which is dealt with in quirks.c.
+  */
+ {
+ 	.match_flags = USB_DEVICE_ID_MATCH_DEVICE |
+-- 
+2.27.0
 

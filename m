@@ -2,55 +2,118 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 495872456D1
-	for <lists+alsa-devel@lfdr.de>; Sun, 16 Aug 2020 10:47:06 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A29AF24573B
+	for <lists+alsa-devel@lfdr.de>; Sun, 16 Aug 2020 12:51:39 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E73B3827;
-	Sun, 16 Aug 2020 10:46:15 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E73B3827
+	by alsa0.perex.cz (Postfix) with ESMTPS id 1D220166F;
+	Sun, 16 Aug 2020 12:50:49 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1D220166F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1597567626;
-	bh=Q3wcZchFNqELRbQ/xtZy0TGCNsLvm0i7RXJTe48IuAQ=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=n7xYvOIV66/mFCYvAkoerDOlAN1+j41CLqNp2PzAms/NDJMRGZbmiG3PIq5KEMC/S
-	 9QuKye6a5SJYLg5fgaagqL2CuiAuda37gBlZpWCW0qjqsCgVziS1RE5XmSNWOtPJHX
-	 xjhw5HEU4snxqWaGwx00bEsD4ayZuf8In3V2cARE=
+	s=default; t=1597575099;
+	bh=nIIMXZ7kFS8ZlLg2LN/7xcIugwI/e796QJLnC4+ac5A=;
+	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=Y2T2xLNF28mFecaT3iArATCilLgMpNPjeO5HurqaWV+P5mqhfM/K74UOuEhuJsww0
+	 HZswnNvBExwsHId0W+a/CvqyiJS2yPVhkBzFx2o7catqGhZakK0jxk5guxz7HqXbH2
+	 56ME7xn8zy26v+19oRycimim/NkSq76isIJtff6Y=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 122CEF800C8;
-	Sun, 16 Aug 2020 10:44:53 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 464AAF80228;
+	Sun, 16 Aug 2020 12:49:58 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 29643F802A1; Sun, 16 Aug 2020 10:44:51 +0200 (CEST)
+ id 01792F8023F; Sun, 16 Aug 2020 12:49:54 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
+X-Spam-Status: No, score=0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,NICE_REPLY_A,PRX_BODYSUB_19,SPF_HELO_NONE,SPF_PASS,
  URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mail.marcansoft.com (marcansoft.com [212.63.210.85])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail.cccmz.de (mail.cccmz.de [IPv6:2a01:4f8:161:4283:1000::108])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 46C35F800C8
- for <alsa-devel@alsa-project.org>; Sun, 16 Aug 2020 10:44:44 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 46C35F800C8
-Received: from [127.0.0.1] (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- (Authenticated sender: hector@marcansoft.com)
- by mail.marcansoft.com (Postfix) with ESMTPSA id 73B5E4261A;
- Sun, 16 Aug 2020 08:44:38 +0000 (UTC)
-From: Hector Martin <marcan@marcan.st>
-To: alsa-devel@alsa-project.org
-Subject: [PATCH] usb-audio: Update documentation comment for MS2109 quirk
-Date: Sun, 16 Aug 2020 17:44:31 +0900
-Message-Id: <20200816084431.102151-1-marcan@marcan.st>
-X-Mailer: git-send-email 2.27.0
+ by alsa1.perex.cz (Postfix) with ESMTPS id 3D59DF800F0
+ for <alsa-devel@alsa-project.org>; Sun, 16 Aug 2020 12:49:48 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3D59DF800F0
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=cccmz.de header.i=@cccmz.de
+ header.b="J/agDGDe"
+Received: from [192.168.178.45] (x4db4c9c2.dyn.telefonica.de [77.180.201.194])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128
+ bits)) (No client certificate requested)
+ (Authenticated sender: tanjeff@cccmz.de)
+ by mail.cccmz.de (Postfix) with ESMTPSA id D477817A0717;
+ Sun, 16 Aug 2020 12:49:45 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cccmz.de; s=2019;
+ t=1597574985;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=H06TnZ5izTej2as3BPuvkKAEFrWlyKFtTw6zgR84Xbk=;
+ b=J/agDGDeYpbPnJTvzN2mgzRA0Co6lCeQ3UXQjaa6Ah/gXlcpwGc9rhRIdj7cHASK8snUSr
+ psE6MTnbcINj5drcqcY/uAtglljUwkz+gVZKvySAAKBxQ5OPcW4LsgF28/gzcZMIeWszwx
+ BVGzJkPvzEgLoDD1VjcuH4SVel1K8Wg=
+Subject: Re: [PATCH] Add documentation for snd_ctl_elem_list_*
+To: Takashi Iwai <tiwai@suse.de>
+References: <499ff8f3-0487-5b80-7a8e-e8ec70c277fc@cccmz.de>
+ <s5himdjqbtl.wl-tiwai@suse.de>
+From: Tanjeff Moos <tanjeff@cccmz.de>
+Autocrypt: addr=tanjeff@cccmz.de; prefer-encrypt=mutual; keydata=
+ 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
+ YAC/BUWuon8xl+Sm7fKHytJTyQ==
+Message-ID: <ad9e0d6f-9903-4f71-6f84-c91b2facc7d5@cccmz.de>
+Date: Sun, 16 Aug 2020 12:49:45 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.10.0
 MIME-Version: 1.0
+In-Reply-To: <s5himdjqbtl.wl-tiwai@suse.de>
+Content-Type: text/plain; charset=utf-8
+Content-Language: de-DE
 Content-Transfer-Encoding: 8bit
-Cc: Takashi Iwai <tiwai@suse.de>, Hector Martin <marcan@marcan.st>
+Cc: alsa-devel@alsa-project.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -66,26 +129,302 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Signed-off-by: Hector Martin <marcan@marcan.st>
----
- sound/usb/quirks-table.h | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+On 16/08/2020 09:39, Takashi Iwai wrote:
+> The contents look good to me, but could you give your Signed-off-by
+> line for merging the patch?
+> 
 
-diff --git a/sound/usb/quirks-table.h b/sound/usb/quirks-table.h
-index d79e3ddc5690..72cc03e7aed1 100644
---- a/sound/usb/quirks-table.h
-+++ b/sound/usb/quirks-table.h
-@@ -3714,8 +3714,8 @@ ALC1220_VB_DESKTOP(0x26ce, 0x0a01), /* Asrock TRX40 Creator */
-  * they pretend to be 96kHz mono as a workaround for stereo being broken
-  * by that...
-  *
-- * They also have swapped L-R channels, but that's for userspace to deal
-- * with.
-+ * They also have an issue with initial stream alignment that causes the
-+ * channels to be swapped and out of phase, which is dealt with in quirks.c.
+Here we go:
+
+
+From 731895b67fcae743551989a5dd04382003e66560 Mon Sep 17 00:00:00 2001
+From: "Tanjeff-N. Moos" <tanjeff@cccmz.de>
+Date: Fri, 14 Aug 2020 08:40:28 +0200
+Subject: [PATCH] Add documentation for snd_ctl_elem_list_*.
+
+Signed-off-by: Tanjeff-N. Moos <tanjeff@cccmz.de>
+---
+ include/control.h     | 81 +++++++++++++++++++++++++++++++++++++++++--
+ src/control/control.c | 80 ++++++++++++++++++++++++++++++++++++------
+ 2 files changed, 148 insertions(+), 13 deletions(-)
+
+diff --git a/include/control.h b/include/control.h
+index 02db72d4..9deec6f3 100644
+--- a/include/control.h
++++ b/include/control.h
+@@ -56,7 +56,75 @@ typedef struct _snd_ctl_card_info snd_ctl_card_info_t;
+ /** CTL element identifier container */
+ typedef struct _snd_ctl_elem_id snd_ctl_elem_id_t;
+
+-/** CTL element identifier list container */
++/** CTL element list container
++ *
++ * This is a list of CTL elements. The list contains management
++ * information (e.g. how many elements the sound card has) as well as
++ * the element identifiers. All functions which operate on the list
++ * are named snd_ctl_elem_list_*().
++ *
++ * \par Memory management
++ *
++ * There are two memory areas to deal with: The list container itself
++ * and the memory for the element identifiers.
++ *
++ * To manage the area for the list container, the following functions
++ * are used:
++ *
++ * - snd_ctl_elem_list_malloc() / snd_ctl_elem_list_free() to allocate
++ *   and free memory on the heap, or
++ * - snd_ctl_elem_list_alloca() to allocate the memory on the
++ *   stack. This memory is auto-released when the stack is unwound.
++ *
++ * To manage the space for the element identifiers, the
++ * snd_ctl_elem_list_alloc_space() and snd_ctl_elem_list_free_space()
++ * are used. Allocating the right amount of space can be achieved by
++ * first obtaining the number of elements and then calling
++ * snd_ctl_elem_list_alloc_space():
++ *
++ * \code
++ *   snd_ctl_elem_list_t* list;
++ *   int count;
++ *
++ *   // Initialise list
++ *   snd_ctl_elem_list_malloc(&list);
++ *
++ *   // Get number of elements
++ *   snd_ctl_elem_list(ctl, list);
++ *   count = snd_ctl_elem_list_get_count(list);
++ *
++ *   // Allocate space for identifiers
++ *   snd_ctl_elem_list_alloc_space(list, count);
++ *
++ *   // Get identifiers
++ *   snd_ctl_elem_list(ctl, list); // yes, this is same as above :)
++ *
++ *   // Do something useful with the list...
++ *
++ *   // Cleanup
++ *   snd_ctl_elem_list_free_space(list);
++ *   snd_ctl_elem_list_free(list);
++ * \endcode
++ *
++ *
++ * \par The Elements
++ *
++ * The elements in the list are accessed using an index. This index is
++ * the location in the list; Don't confuse it with the 'index' of the
++ * element identifier. For example:
++ *
++ * \code
++ *     snd_ctl_elem_list_t list;
++ *     unsigned int element_index;
++ *
++ *     // Allocate space, fill list ...
++ *
++ *     element_index = snd_ctl_elem_list_get_index(&list, 2);
++ * \endcode
++ *
++ * This will access the 3rd element in the list (index=2) and get the
++ * elements index from the driver (which might be 13, for example).
++ */
+ typedef struct _snd_ctl_elem_list snd_ctl_elem_list_t;
+
+ /** CTL element info container */
+@@ -354,11 +422,18 @@ void snd_ctl_event_copy(snd_ctl_event_t *dst,
+const snd_ctl_event_t *src);
+ snd_ctl_event_type_t snd_ctl_event_get_type(const snd_ctl_event_t *obj);
+
+ size_t snd_ctl_elem_list_sizeof(void);
++
+ /** \hideinitializer
+- * \brief allocate an invalid #snd_ctl_elem_list_t using standard alloca
+- * \param ptr returned pointer
++ *
++ * \brief Allocate a #snd_ctl_elem_list_t using standard alloca.
++ *
++ * The memory is allocated on the stack and will automatically be
++ * released when the stack unwinds (i.e. no free() is needed).
++ *
++ * \param ptr Pointer to allocated memory.
   */
+ #define snd_ctl_elem_list_alloca(ptr) __snd_alloca(ptr, snd_ctl_elem_list)
++
+ int snd_ctl_elem_list_malloc(snd_ctl_elem_list_t **ptr);
+ void snd_ctl_elem_list_free(snd_ctl_elem_list_t *obj);
+ void snd_ctl_elem_list_clear(snd_ctl_elem_list_t *obj);
+diff --git a/src/control/control.c b/src/control/control.c
+index e21e8f1d..1bcf1ab2 100644
+--- a/src/control/control.c
++++ b/src/control/control.c
+@@ -280,6 +280,21 @@ int snd_ctl_card_info(snd_ctl_t *ctl,
+snd_ctl_card_info_t *info)
+
+ /**
+  * \brief Get a list of element identifiers
++ *
++ * Before calling this function, memoru must be allocated using
++ * snd_ctl_elem_list_malloc().
++ *
++ * This function obtains data from the sound card driver and puts it
++ * into the list.
++ *
++ * If there was space allocated for the element identifiers (using
++ * snd_ctl_elem_list_alloc_space()), information will be filled in. If
++ * too little space was allocated, only a part of the elements will be
++ * queried. If there was too much space allocated, some of it remains
++ * unused. Use snd_ctl_elem_list_get_count() and
++ * snd_ctl_elem_list_get_used() to obtain information about space
++ * usage. See #snd_ctl_elem_list_t to learn more.
++ *
+  * \param ctl CTL handle
+  * \param list CTL element identifiers list pointer
+  * \return 0 on success otherwise a negative error code
+@@ -1508,9 +1523,14 @@ const char
+*snd_ctl_event_type_name(snd_ctl_event_type_t type)
+
+ /**
+  * \brief allocate space for CTL element identifiers list
+- * \param obj CTL element identifiers list
+- * \param entries Entries to allocate
+- * \return 0 on success otherwise a negative error code
++ *
++ * The space can be released with snd_ctl_elem_list_free_space().
++ *
++ * \param obj CTL element identifiers list.
++ * \param entries How many entries to allocate. See
++ *        #snd_ctl_elem_list_t to learn how to obtain
++ *        this number in advance.
++ * \return 0 on success otherwise a negative error code.
+  */
+ int snd_ctl_elem_list_alloc_space(snd_ctl_elem_list_t *obj, unsigned
+int entries)
  {
- 	.match_flags = USB_DEVICE_ID_MATCH_DEVICE |
+@@ -1526,6 +1546,10 @@ int
+snd_ctl_elem_list_alloc_space(snd_ctl_elem_list_t *obj, unsigned int entries
+
+ /**
+  * \brief free previously allocated space for CTL element identifiers list
++ *
++ * Releases space previously allocated using
++ * snd_ctl_elem_list_alloc_space().
++ *
+  * \param obj CTL element identifiers list
+  */
+ void snd_ctl_elem_list_free_space(snd_ctl_elem_list_t *obj)
+@@ -2016,7 +2040,7 @@ snd_ctl_event_type_t snd_ctl_event_get_type(const
+snd_ctl_event_t *obj)
+ }
+
+ /**
+- * \brief get size of #snd_ctl_elem_list_t
++ * \brief get size of #snd_ctl_elem_list_t.
+  * \return size in bytes
+  */
+ size_t snd_ctl_elem_list_sizeof()
+@@ -2025,7 +2049,10 @@ size_t snd_ctl_elem_list_sizeof()
+ }
+
+ /**
+- * \brief allocate an invalid #snd_ctl_elem_list_t using standard malloc
++ * \brief allocate a #snd_ctl_elem_list_t using standard malloc.
++ *
++ * The memory can be released using snd_ctl_elem_list_free().
++ *
+  * \param ptr returned pointer
+  * \return 0 on success otherwise negative error code
+  */
+@@ -2039,7 +2066,15 @@ int snd_ctl_elem_list_malloc(snd_ctl_elem_list_t
+**ptr)
+ }
+
+ /**
+- * \brief frees a previously allocated #snd_ctl_elem_list_t
++ * \brief frees a previously allocated #snd_ctl_elem_list_t.
++ *
++ * Release memory previously allocated using
++ * snd_ctl_elem_list_malloc().
++ *
++ * If you used snd_ctl_elem_list_alloc_space() on the list, you must
++ * use snd_ctl_elem_list_free_space() \em before calling this
++ * function.
++ *
+  * \param obj pointer to object to free
+  */
+ void snd_ctl_elem_list_free(snd_ctl_elem_list_t *obj)
+@@ -2048,7 +2083,15 @@ void snd_ctl_elem_list_free(snd_ctl_elem_list_t *obj)
+ }
+
+ /**
+- * \brief clear given #snd_ctl_elem_list_t object
++ * \brief Clear given #snd_ctl_elem_list_t object.
++ *
++ * This will make the stored identifiers inaccessible without freeing
++ * their space.
++ *
++ * \warning The element identifier space cannot be freed after calling
++ *          this function. Therefore, snd_ctl_elem_list_free_space()
++ *          must be called in advance.
++ *
+  * \param obj pointer to object to clear
+  */
+ void snd_ctl_elem_list_clear(snd_ctl_elem_list_t *obj)
+@@ -2057,7 +2100,11 @@ void snd_ctl_elem_list_clear(snd_ctl_elem_list_t
+*obj)
+ }
+
+ /**
+- * \brief copy one #snd_ctl_elem_list_t to another
++ * \brief copy one #snd_ctl_elem_list_t to another.
++ *
++ * This performs a shallow copy. That means the both lists will share
++ * the same space for the elements.  The elements will not be copied.
++ *
+  * \param dst pointer to destination
+  * \param src pointer to source
+  */
+@@ -2080,6 +2127,12 @@ void
+snd_ctl_elem_list_set_offset(snd_ctl_elem_list_t *obj, unsigned int val)
+
+ /**
+  * \brief Get number of used entries in CTL element identifiers list
++ *
++ * This function returns how many entries are actually filled with
++ * useful information.
++ *
++ * See also snd_ctl_elem_list_get_count().
++ *
+  * \param obj CTL element identifier list
+  * \return number of used entries
+  */
+@@ -2090,7 +2143,14 @@ unsigned int snd_ctl_elem_list_get_used(const
+snd_ctl_elem_list_t *obj)
+ }
+
+ /**
+- * \brief Get total count of elements present in CTL device
+(information present in every filled CTL element identifiers list)
++ * \brief Get total count of elements present in CTL device
++ *
++ * This function returns how many entries were allocated using
++ * snd_ctl_elem_list_alloc_space(). This information is present after
++ * snd_ctl_elem_list() was called.
++ *
++ * See also snd_ctl_elem_list_get_used().
++ *
+  * \param obj CTL element identifier list
+  * \return total number of elements
+  */
+@@ -2140,7 +2200,7 @@ snd_ctl_elem_iface_t
+snd_ctl_elem_list_get_interface(const snd_ctl_elem_list_t *
+ }
+
+ /**
+- * \brief Get device part of CTL element identifier for an entry of a
+CTL element identifiers list
++ * \brief Get the device part of CTL element identifier for an entry of
+a CTL element identifiers list
+  * \param obj CTL element identifier list
+  * \param idx Index of entry
+  * \return CTL element related device
 -- 
-2.27.0
+2.17.1
 

@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A67FE247CD2
-	for <lists+alsa-devel@lfdr.de>; Tue, 18 Aug 2020 05:29:52 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B4CBA247CD4
+	for <lists+alsa-devel@lfdr.de>; Tue, 18 Aug 2020 05:30:14 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 53B24170C;
-	Tue, 18 Aug 2020 05:29:02 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 53B24170C
+	by alsa0.perex.cz (Postfix) with ESMTPS id 564D91729;
+	Tue, 18 Aug 2020 05:29:24 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 564D91729
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1597721392;
-	bh=yWZ70K4e92KTGNdVohfl0OZFYX7tPdbF36ZdRgUccy0=;
+	s=default; t=1597721414;
+	bh=dbMz36uvgxZ3NEgtz+yQMBT5SO/ec3+4Nz+rLX86uqk=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=N7oQSubOt8LQ9otjsB9E0542EB818YNXlOM1NT5UhiZrxfRgfa++aKuScyOHFGm6m
-	 /10x7pifUDG+3QOAvT6otsA3Gic+C4v2TzPoLgXuVtzRZlOQoREg1V6qWYgkf0E353
-	 mbfbvCk3JffRwVwBwbav3wobADV/VA4rieIMlels=
+	b=TcDPvQeLBHUKDTiv/A2/Nt95CFPEXoHM/JBrq+Ll/hWp6H+igVLghU7cnhhr3/8+v
+	 TZlQvJaIwG1ZPDRb8Uex3mOL4nqSrjfAJU60GgeuANCbikX4pcfmzHZerywOeO2EpA
+	 wUW6qdSTzcp3EQWhZ+bMx4TnEjVQBnNpv+/igkNk=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id B6EBBF80307;
-	Tue, 18 Aug 2020 05:23:56 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 2F543F80322;
+	Tue, 18 Aug 2020 05:24:02 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id E3EFAF802FF; Tue, 18 Aug 2020 05:23:48 +0200 (CEST)
+ id 37EA3F80307; Tue, 18 Aug 2020 05:23:52 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: *
 X-Spam-Status: No, score=1.1 required=5.0 tests=DATE_IN_PAST_06_12,
@@ -33,30 +33,30 @@ X-Spam-Status: No, score=1.1 required=5.0 tests=DATE_IN_PAST_06_12,
 Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id E0C3FF802EB
- for <alsa-devel@alsa-project.org>; Tue, 18 Aug 2020 05:23:44 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E0C3FF802EB
-IronPort-SDR: yThhDqZSk3uSrBJ6IRIiRRgKeuSVzRc5AD2pcqoH1a0Lzc4hV+nCPOjwk63vFI9mmg6WXndb8R
- Np1vG4e89Jew==
-X-IronPort-AV: E=McAfee;i="6000,8403,9716"; a="152243040"
-X-IronPort-AV: E=Sophos;i="5.76,325,1592895600"; d="scan'208";a="152243040"
+ by alsa1.perex.cz (Postfix) with ESMTPS id 2E294F802FB
+ for <alsa-devel@alsa-project.org>; Tue, 18 Aug 2020 05:23:48 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2E294F802FB
+IronPort-SDR: nc5eT6bHhYbc8r/AONp4Y9hfttcaHqR1Ru2UJX8OHkzeXQ/c1FR/PjENdtpiF6K3l74TgY3cyS
+ d0qV+3cDAo3w==
+X-IronPort-AV: E=McAfee;i="6000,8403,9716"; a="152243046"
+X-IronPort-AV: E=Sophos;i="5.76,325,1592895600"; d="scan'208";a="152243046"
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
 Received: from orsmga004.jf.intel.com ([10.7.209.38])
  by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 17 Aug 2020 20:23:44 -0700
-IronPort-SDR: 3uNF3wfHbS4SFkosHNHgGmXYY5/3DHNSEDjHQ3d0j0t7K7+ch1FvfbuHAyNicBX0UmUALxlWXi
- ofKhHgkkKh9g==
-X-IronPort-AV: E=Sophos;i="5.76,325,1592895600"; d="scan'208";a="441084647"
+ 17 Aug 2020 20:23:47 -0700
+IronPort-SDR: xDqN1dgdDYDwVq+SeaUu259O1Kh52s9XmxAfAgtveXmBMi9SJcGrjrt3kAgQcxET5VTi57MJ8x
+ Q0vGgDM+YHtA==
+X-IronPort-AV: E=Sophos;i="5.76,325,1592895600"; d="scan'208";a="441084662"
 Received: from bard-ubuntu.sh.intel.com ([10.239.13.33])
  by orsmga004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 17 Aug 2020 20:23:40 -0700
+ 17 Aug 2020 20:23:44 -0700
 From: Bard Liao <yung-chuan.liao@linux.intel.com>
 To: alsa-devel@alsa-project.org,
 	vkoul@kernel.org
-Subject: [PATCH v2 08/12] soundwire: intel: add CLK_STOP_BUS_RESET support
-Date: Mon, 17 Aug 2020 23:29:19 +0800
-Message-Id: <20200817152923.3259-9-yung-chuan.liao@linux.intel.com>
+Subject: [PATCH v2 09/12] soundwire: intel: add CLK_STOP_NOT_ALLOWED support
+Date: Mon, 17 Aug 2020 23:29:20 +0800
+Message-Id: <20200817152923.3259-10-yung-chuan.liao@linux.intel.com>
 X-Mailer: git-send-email 2.17.1
 In-Reply-To: <20200817152923.3259-1-yung-chuan.liao@linux.intel.com>
 References: <20200817152923.3259-1-yung-chuan.liao@linux.intel.com>
@@ -80,85 +80,62 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: Rander Wang <rander.wang@intel.com>
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 
-Move existing pm_runtime suspend under the CLK_STOP_TEARDOWN case.
+In case the clock needs to keep running, we need to prevent the Master
+from entering pm_runtime suspend.
 
-In this mode the Master IP will lose all context but in-band wakes are
-supported.
-
-On pm_runtime resume a complete re-enumeration will be performed after
-a bus reset.
-
-Signed-off-by: Rander Wang <rander.wang@intel.com>
 Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 Signed-off-by: Bard Liao <yung-chuan.liao@linux.intel.com>
 ---
- drivers/soundwire/intel.c | 44 +++++++++++++++++++++++++++++++++++++++
- 1 file changed, 44 insertions(+)
+ drivers/soundwire/intel.c | 20 ++++++++++++++++++++
+ 1 file changed, 20 insertions(+)
 
 diff --git a/drivers/soundwire/intel.c b/drivers/soundwire/intel.c
-index 68c1cdfb7999..ad476e9e4d25 100644
+index ad476e9e4d25..95b14c034ea7 100644
 --- a/drivers/soundwire/intel.c
 +++ b/drivers/soundwire/intel.c
-@@ -1575,6 +1575,26 @@ static int intel_suspend_runtime(struct device *dev)
+@@ -1367,6 +1367,7 @@ int intel_master_startup(struct platform_device *pdev)
+ 	struct sdw_intel *sdw = cdns_to_intel(cdns);
+ 	struct sdw_bus *bus = &cdns->bus;
+ 	int link_flags;
++	u32 clock_stop_quirks;
+ 	int ret;
  
- 		intel_shim_wake(sdw, false);
+ 	if (bus->prop.hw_disabled) {
+@@ -1423,6 +1424,20 @@ int intel_master_startup(struct platform_device *pdev)
+ 		pm_runtime_enable(dev);
+ 	}
  
-+	} else if (clock_stop_quirks & SDW_INTEL_CLK_STOP_BUS_RESET) {
-+		ret = sdw_cdns_clock_stop(cdns, true);
-+		if (ret < 0) {
-+			dev_err(dev, "cannot enable clock stop on suspend\n");
-+			return ret;
-+		}
-+
-+		ret = sdw_cdns_enable_interrupt(cdns, false);
-+		if (ret < 0) {
-+			dev_err(dev, "cannot disable interrupts on suspend\n");
-+			return ret;
-+		}
-+
-+		ret = intel_link_power_down(sdw);
-+		if (ret) {
-+			dev_err(dev, "Link power down failed: %d", ret);
-+			return ret;
-+		}
-+
-+		intel_shim_wake(sdw, true);
- 	} else {
- 		dev_err(dev, "%s clock_stop_quirks %x unsupported\n",
- 			__func__, clock_stop_quirks);
-@@ -1691,6 +1711,30 @@ static int intel_resume_runtime(struct device *dev)
- 			dev_err(dev, "unable to exit bus reset sequence during resume\n");
- 			return ret;
- 		}
-+	} else if (clock_stop_quirks & SDW_INTEL_CLK_STOP_BUS_RESET) {
-+		ret = intel_init(sdw);
-+		if (ret) {
-+			dev_err(dev, "%s failed: %d", __func__, ret);
-+			return ret;
-+		}
-+
++	clock_stop_quirks = sdw->link_res->clock_stop_quirks;
++	if (clock_stop_quirks & SDW_INTEL_CLK_STOP_NOT_ALLOWED) {
 +		/*
-+		 * make sure all Slaves are tagged as UNATTACHED and
-+		 * provide reason for reinitialization
++		 * To keep the clock running we need to prevent
++		 * pm_runtime suspend from happening by increasing the
++		 * reference count.
++		 * This quirk is specified by the parent PCI device in
++		 * case of specific latency requirements. It will have
++		 * no effect if pm_runtime is disabled by the user via
++		 * a module parameter for testing purposes.
 +		 */
-+		sdw_clear_slave_status(bus, SDW_UNATTACH_REQUEST_MASTER_RESET);
++		pm_runtime_get_noresume(dev);
++	}
 +
-+		ret = sdw_cdns_enable_interrupt(cdns, true);
-+		if (ret < 0) {
-+			dev_err(dev, "cannot enable interrupts during resume\n");
-+			return ret;
-+		}
-+
-+		ret = sdw_cdns_clock_restart(cdns, true);
-+		if (ret < 0) {
-+			dev_err(dev, "unable to restart clock during resume\n");
-+			return ret;
-+		}
- 	} else {
- 		dev_err(dev, "%s clock_stop_quirks %x unsupported\n",
- 			__func__, clock_stop_quirks);
+ 	/*
+ 	 * The runtime PM status of Slave devices is "Unsupported"
+ 	 * until they report as ATTACHED. If they don't, e.g. because
+@@ -1454,6 +1469,11 @@ static int intel_master_remove(struct platform_device *pdev)
+ 	struct sdw_intel *sdw = cdns_to_intel(cdns);
+ 	struct sdw_bus *bus = &cdns->bus;
+ 
++	/*
++	 * Since pm_runtime is already disabled, we don't decrease
++	 * the refcount when the clock_stop_quirk is
++	 * SDW_INTEL_CLK_STOP_NOT_ALLOWED
++	 */
+ 	if (!bus->prop.hw_disabled) {
+ 		intel_debugfs_exit(sdw);
+ 		sdw_cdns_enable_interrupt(cdns, false);
 -- 
 2.17.1
 

@@ -2,94 +2,73 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id AF3AF246595
-	for <lists+alsa-devel@lfdr.de>; Mon, 17 Aug 2020 13:40:06 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 98F792465B1
+	for <lists+alsa-devel@lfdr.de>; Mon, 17 Aug 2020 13:49:24 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 573441687;
-	Mon, 17 Aug 2020 13:39:16 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 573441687
+	by alsa0.perex.cz (Postfix) with ESMTPS id 2EB131694;
+	Mon, 17 Aug 2020 13:48:34 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2EB131694
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1597664406;
-	bh=qAiSySTl/y8QrdoOwS73hqC2vZPrIK22GvC7HIEK8Sw=;
-	h=From:To:Subject:Date:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1597664964;
+	bh=PWU1FA67zQAasUqd3BPumylawraXXdrgHP9MCo9WyJc=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=tDXyTMTQ9YhT1dXUvwa0AmEMtPx2o4nOndu5YcM/0OkkTy69g6X9blb7RpecL+nRi
-	 +ruRB0+ilk+0J0gj+RHQ6GVXw/GLS5ecJsm7yudnBu+4/8j9UhL4+lVqWWQMJRQMA/
-	 jwFUxViNQusZ4zEO94b3q2DJk0LmYR1fSSjXVWW0=
+	b=diqTmCQ87+8BE0jbzyi2aspKMIP+zQNTVuIu9e5WCnA+ldAkll2Rer0PbmEr5vufp
+	 M6FwWZYDdD9ar+b/pfhAW1zsg6CkCB6O35xaYn9DPY+AwleadBcOyAUYVvmAwXdWOw
+	 Eoo0uEceh1/HD/s/8vo56dOyTtsBZTdOecIFw5Ig=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 77242F800EF;
-	Mon, 17 Aug 2020 13:38:25 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 3AE1EF80216;
+	Mon, 17 Aug 2020 13:47:43 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 31A2BF80218; Mon, 17 Aug 2020 13:38:23 +0200 (CEST)
+ id E2C34F80218; Mon, 17 Aug 2020 13:47:41 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from mail2.skidata.com (mail2.skidata.com [91.230.2.91])
- (using TLSv1.2 with cipher DHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+ DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 2DC07F800EF
- for <alsa-devel@alsa-project.org>; Mon, 17 Aug 2020 13:38:12 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2DC07F800EF
+ by alsa1.perex.cz (Postfix) with ESMTPS id D3217F800F0
+ for <alsa-devel@alsa-project.org>; Mon, 17 Aug 2020 13:47:35 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D3217F800F0
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=skidata.com header.i=@skidata.com
- header.b="V3ApX3ce"
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
- d=skidata.com; i=@skidata.com; q=dns/txt; s=selector1;
- t=1597664298; x=1629200298;
- h=from:to:cc:subject:date:message-id:references:
- in-reply-to:content-transfer-encoding:mime-version;
- bh=qAiSySTl/y8QrdoOwS73hqC2vZPrIK22GvC7HIEK8Sw=;
- b=V3ApX3cefSTleR4JFzaTGtdru6ij2KRHasqR89qARCt+1zxjnvQinhVW
- 9eMC+i9W4HDU08N5fIOPnf7XSkjZR51xX7d4ui72ITYsJiguUDsplmRiH
- ErTkT1S7dO/TDwmZy3QRfaH/+Syl4k0lMGYfc/0Ib2YgfuO1eNraR1GZo
- vgCrZqO1eH/GFIxcMdCzE5X0b1Ae17CwpSiAMu9f8WUJazfFnC9yzjxCx
- xQfTy4mPndzm/rPa4qcsbosklvDc/1nHV9IVNn4pq9OPzTzG34QPN4733
- Iwy/3cAZcdbOTOUPFJ0uOgjeK9qhZmDlSXBgBb03LeyQmgQ8LPPOsw8UY A==;
-IronPort-SDR: r14hO/kLklIsGQ2dnpEN7qM09P2f2aF1EjhAlxzmSMcuqfvXFBRe+N2g2GbNAQy6RBnH6mvub4
- G9CzTCq5/0Xu34vgrQoODE4XvobffdAgUcNAoI/Wd3UL6Jq51FS5mK4HdyazyQntye83cu6C1d
- Utxs08P5rh1ovPmRJnbqt32sNVRq/vBpgr26ga+RPc5pxsLbfheQqpxpsN6+Av0kB6MiwftAt7
- /fB6w62Tw9zJn1oFUf2wPuRXpstyhH7KMAs9dQhCYg8DlQFi2903uhUeTmOramaYOuZ2OpH0lA
- PAs=
-X-IronPort-AV: E=Sophos;i="5.76,322,1592863200"; 
-   d="scan'208";a="2642801"
-From: Benjamin Bara - SKIDATA <Benjamin.Bara@skidata.com>
-To: Robin Gong <yibin.gong@nxp.com>
-Subject: RE: pcm|dmaengine|imx-sdma race condition on i.MX6
-Thread-Topic: pcm|dmaengine|imx-sdma race condition on i.MX6
-Thread-Index: AQHWcWQZKYOChL0mPkuCFeZyDJy6mKk3KiiAgABS1/CABG6hAIAARo2Q
-Date: Mon, 17 Aug 2020 11:38:10 +0000
-Message-ID: <a64ae27d9f1348ecae6adc74969cc88c@skidata.com>
-References: <20200813112258.GA327172@pcleri>
- <VE1PR04MB6638EE5BDBE2C65FF50B7DB889400@VE1PR04MB6638.eurprd04.prod.outlook.com>
- <61498763c60e488a825e8dd270732b62@skidata.com>
- <VE1PR04MB6638AC2A3AE852C3047E7B97895F0@VE1PR04MB6638.eurprd04.prod.outlook.com>
-In-Reply-To: <VE1PR04MB6638AC2A3AE852C3047E7B97895F0@VE1PR04MB6638.eurprd04.prod.outlook.com>
-Accept-Language: en-US, de-AT
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-originating-ip: [192.168.111.252]
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+ dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="2Bb0s9c1"
+Received: from localhost (unknown [122.171.38.130])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by mail.kernel.org (Postfix) with ESMTPSA id C07AE20674;
+ Mon, 17 Aug 2020 11:47:32 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=default; t=1597664853;
+ bh=PWU1FA67zQAasUqd3BPumylawraXXdrgHP9MCo9WyJc=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=2Bb0s9c1fXzrj0yzxKH6TCjhWGcINNywtn7fDxCldvxcXqhjpd+ietw8xoQr1LBU4
+ +tId8AB1jrQEbVZDeJb458pPtVyNcCho0J3XN5oui0KxZzSSAUpgVTgwSfGcxehI18
+ juHydM2Zsdmrr3Rko36cqSQH8+J5gro0pUpgtS08=
+Date: Mon, 17 Aug 2020 17:17:29 +0530
+From: Vinod Koul <vkoul@kernel.org>
+To: Bard Liao <yung-chuan.liao@linux.intel.com>
+Subject: Re: [PATCH 09/13] soundwire: intel: add CLK_STOP_BUS_RESET support
+Message-ID: <20200817114729.GP2639@vkoul-mobl>
+References: <20200721203723.18305-1-yung-chuan.liao@linux.intel.com>
+ <20200721203723.18305-10-yung-chuan.liao@linux.intel.com>
 MIME-Version: 1.0
-Cc: "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
- "timur@kernel.org" <timur@kernel.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "nicoleotsuka@gmail.com" <nicoleotsuka@gmail.com>,
- "vkoul@kernel.org" <vkoul@kernel.org>, dl-linux-imx <linux-imx@nxp.com>,
- "kernel@pengutronix.de" <kernel@pengutronix.de>,
- "dmaengine@vger.kernel.org" <dmaengine@vger.kernel.org>,
- "dan.j.williams@intel.com" <dan.j.williams@intel.com>,
- "shawnguo@kernel.org" <shawnguo@kernel.org>,
- "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>,
- Richard Leitner - SKIDATA <Richard.Leitner@skidata.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20200721203723.18305-10-yung-chuan.liao@linux.intel.com>
+Cc: pierre-louis.bossart@linux.intel.com, alsa-devel@alsa-project.org,
+ tiwai@suse.de, gregkh@linuxfoundation.org, linux-kernel@vger.kernel.org,
+ ranjani.sridharan@linux.intel.com, hui.wang@canonical.com, broonie@kernel.org,
+ srinivas.kandagatla@linaro.org, jank@cadence.com, mengdong.lin@intel.com,
+ slawomir.blauciak@intel.com, sanyog.r.kale@intel.com,
+ rander.wang@linux.intel.com, bard.liao@intel.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -105,37 +84,91 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-> -----Original Message-----
-> From: Robin Gong <yibin.gong@nxp.com>
-> Sent: Montag, 17. August 2020 11:23
-> busy_wait is not good I think, would you please have a try with the attac=
-hed patch
-> which is based on https://lkml.org/lkml/2020/8/11/111? The basic idea is
-> to keep the freed descriptor into another list for freeing in later termi=
-nate_worker
-> instead of freeing directly all in terminate_worker by vchan_get_all_desc=
-riptors
-> which may break next descriptor coming soon
+On 22-07-20, 04:37, Bard Liao wrote:
+> From: Rander Wang <rander.wang@intel.com>
+> 
+> Move existing pm_runtime suspend under the CLK_STOP_TEARDOWN case.
+> 
+> In this mode the Master IP will lose all context but in-band wakes are
+> supported.
+> 
+> On pm_runtime resume a complete re-enumeration will be performed after
+> a bus reset.
+> 
+> Signed-off-by: Rander Wang <rander.wang@intel.com>
+> Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+> Signed-off-by: Bard Liao <yung-chuan.liao@linux.intel.com>
+> ---
+>  drivers/soundwire/intel.c | 44 +++++++++++++++++++++++++++++++++++++++
+>  1 file changed, 44 insertions(+)
+> 
+> diff --git a/drivers/soundwire/intel.c b/drivers/soundwire/intel.c
+> index 1954eb48b86c..744fc0a4816a 100644
+> --- a/drivers/soundwire/intel.c
+> +++ b/drivers/soundwire/intel.c
+> @@ -1576,6 +1576,26 @@ static int intel_suspend_runtime(struct device *dev)
+>  
+>  		intel_shim_wake(sdw, false);
+>  
+> +	} else if (clock_stop_quirks & SDW_INTEL_CLK_STOP_BUS_RESET) {
+> +		ret = sdw_cdns_clock_stop(cdns, true);
+> +		if (ret < 0) {
+> +			dev_err(dev, "cannot enable clock stop on suspend\n");
+> +			return ret;
+> +		}
+> +
+> +		ret = sdw_cdns_enable_interrupt(cdns, false);
+> +		if (ret < 0) {
+> +			dev_err(dev, "cannot disable interrupts on suspend\n");
+> +			return ret;
+> +		}
+> +
+> +		ret = intel_link_power_down(sdw);
+> +		if (ret) {
+> +			dev_err(dev, "Link power down failed: %d", ret);
+> +			return ret;
+> +		}
 
-The idea sounds good, but with this attempt we are still not sure that the =
-1ms
-(the ultimate reason why this is a problem) is awaited between DMA disablin=
-g and
-re-enabling.
+no cleanup on all the error cases here?
 
-If we are allowed to leave the atomic PCM context on each trigger, synchron=
-ize the DMA and then
-enter it back again, everything is fine.
-This might be the most performant and elegant solution.
-However, since we are in an atomic context for a reason, it might not be wa=
-nted by the PCM system
-that the DMA termination completion of the previous context happens within =
-the next call,
-but we are not sure about that.
-In this case, a busy wait is not a good solution, but a necessary one,
-or at least the only valid solution we are aware of.
+> +
+> +		intel_shim_wake(sdw, true);
+>  	} else {
+>  		dev_err(dev, "%s clock_stop_quirks %x unsupported\n",
+>  			__func__, clock_stop_quirks);
+> @@ -1694,6 +1714,30 @@ static int intel_resume_runtime(struct device *dev)
+>  			dev_err(dev, "unable to exit bus reset sequence during resume\n");
+>  			return ret;
+>  		}
+> +	} else if (clock_stop_quirks & SDW_INTEL_CLK_STOP_BUS_RESET) {
+> +		ret = intel_init(sdw);
+> +		if (ret) {
+> +			dev_err(dev, "%s failed: %d", __func__, ret);
+> +			return ret;
+> +		}
+> +
+> +		/*
+> +		 * make sure all Slaves are tagged as UNATTACHED and
+> +		 * provide reason for reinitialization
+> +		 */
+> +		sdw_clear_slave_status(bus, SDW_UNATTACH_REQUEST_MASTER_RESET);
+> +
+> +		ret = sdw_cdns_enable_interrupt(cdns, true);
+> +		if (ret < 0) {
+> +			dev_err(dev, "cannot enable interrupts during resume\n");
+> +			return ret;
+> +		}
+> +
+> +		ret = sdw_cdns_clock_restart(cdns, true);
+> +		if (ret < 0) {
+> +			dev_err(dev, "unable to restart clock during resume\n");
+> +			return ret;
+> +		}
+>  	} else {
+>  		dev_err(dev, "%s clock_stop_quirks %x unsupported\n",
+>  			__func__, clock_stop_quirks);
+> -- 
+> 2.17.1
 
-Anyhow, based on my understanding, either the start or the stop trigger has=
- to wait the 1ms
-(or whats left of it).
-
+-- 
+~Vinod

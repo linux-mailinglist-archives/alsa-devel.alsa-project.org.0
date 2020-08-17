@@ -2,87 +2,80 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0AAE1246E14
-	for <lists+alsa-devel@lfdr.de>; Mon, 17 Aug 2020 19:22:19 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 37366246E1F
+	for <lists+alsa-devel@lfdr.de>; Mon, 17 Aug 2020 19:23:09 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A5F4816DB;
-	Mon, 17 Aug 2020 19:21:28 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A5F4816DB
+	by alsa0.perex.cz (Postfix) with ESMTPS id 9451C16F0;
+	Mon, 17 Aug 2020 19:22:18 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9451C16F0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1597684938;
-	bh=QfjH7CK1j5dkyPWpFAMOxQG6t4bkH3mbAUS/pBBMtCg=;
+	s=default; t=1597684988;
+	bh=iBJ1EFBzXy+fbJey3Hab4W2rLUjr9PjU2ROJbiQpL3w=;
 	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
 	 List-Post:List-Help:List-Subscribe:From;
-	b=f4fZvt/6BcBKoxXKAVgVK9T3wcZUo0/6iMxRlBb2CJOu6x59eJ11molHNed4qhzHP
-	 DL0+DaCFU+ewm8eWTPAMV5IJ58OKXSMKk1uxOEng7l80H2vpiUXsgWgIrqCHNN+ZuB
-	 xEOpMS0NmVnVKURXzmyGgg5K06lUxG9HO/ED43lA=
+	b=dhejyY77/kz6c/54TlJphDHv8APiUCz7iFYlWcU0ElS98dNB2f45riOEKnWCsfLda
+	 7ZrtXq8410mvqdBdmNV15hDPbRCMgeol7/r3cwv5KXJEwnWhJ8bEvI4/j2/+MSrc6L
+	 0ukBpmdN11zcNIl8KxcG/F06ikiGJl5xX+uER2dw=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 55B4FF80255;
-	Mon, 17 Aug 2020 19:20:36 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id CA6A0F80218;
+	Mon, 17 Aug 2020 19:22:16 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 37D20F80218; Mon, 17 Aug 2020 19:20:34 +0200 (CEST)
+ id 18165F8025A; Mon, 17 Aug 2020 19:22:14 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: *
-X-Spam-Status: No, score=1.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_ENVFROM_END_DIGIT,FREEMAIL_FROM,PRX_BODY_30,
- SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
-Received: from mail-pg1-x542.google.com (mail-pg1-x542.google.com
- [IPv6:2607:f8b0:4864:20::542])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Level: 
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+ DKIM_VALID,DKIM_VALID_AU,RCVD_IN_MSPIKE_H3,RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,
+ SPF_PASS,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from fllv0016.ext.ti.com (fllv0016.ext.ti.com [198.47.19.142])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 4A121F800D3;
- Mon, 17 Aug 2020 19:20:22 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4A121F800D3
+ by alsa1.perex.cz (Postfix) with ESMTPS id 7F477F80216
+ for <alsa-devel@alsa-project.org>; Mon, 17 Aug 2020 19:22:01 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7F477F80216
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="fpUZA4bf"
-Received: by mail-pg1-x542.google.com with SMTP id 189so7778181pgg.13;
- Mon, 17 Aug 2020 10:20:22 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=message-id:from:to:cc:subject:date:mime-version
- :content-transfer-encoding;
- bh=RbY6tGPTrkcG98Af+Dxzxvljy/pjO7cq1UUK0Qa+75E=;
- b=fpUZA4bflgL5uVDjuNuakcvMqzu/C+VckkYBzailg2SKBvAhin8ad/Xh/+jlmDSR1n
- Hh1PuxtWl7RU1dkB7FMaFjRdBJ2XZ10wTShvzZsoRkZZ1aoGlu81UEgxZXzNsZJZ+jGq
- KzD/VLDqje+HlBcpNY7LlOeA8d12//DdSoruUkl2iPNr7AkLeF1YiP5oT3lRCrVENzN0
- 2Glp4C147rgNhCyJ+Jd/X2vCt7oh8qbuOqi9/d+punKXmZoTl+6zexDeh5TOF2KxlICV
- AS8NwRvlpGpseUf32TnQ46KPFBOyMirXXMFz4g3vAhlM5I2nBzg2GhOhdD0XLpq4ejiX
- R3rQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:message-id:from:to:cc:subject:date:mime-version
- :content-transfer-encoding;
- bh=RbY6tGPTrkcG98Af+Dxzxvljy/pjO7cq1UUK0Qa+75E=;
- b=dRAtkTZ+nJgBIR+Ae6AKzhW/fI4dohQFC2NbFUjTqyXz9za7mW/ip/JSwiYZFa96Ur
- ssIiNwbVOaMt1dBG/3PZVK4rmNTkOlltho6yx2csrERwRKIhdbWnpdgrMM41MA8AER0s
- shpIdRJb+mGm2tonj8eI7LPDNZjf3U+tsM9TOxxNLagGSbtZcl7fQB81PZ+dccsOWOFR
- 0k4jVQzSOkAcnro3OfNfMh/N7u6gqhpj4CZ27j0lcMZTtuazt36aFSI8PyP/6F1wcZvI
- G9rkKl0qvs1zD9Qqf7J5YnzYJEPUsb3T8bnwqNTY4I3fX7x9daBfpYoHcYDR4aFVxh6L
- V3ng==
-X-Gm-Message-State: AOAM5325zGVo6MrL9P3LcFQHFw5mSAiKyCDRVcQDpNdK6WRb75bB/7ck
- Uii5Jk6oE1QBrs4Yf+ReU2kiZutI9iY=
-X-Google-Smtp-Source: ABdhPJwG9wGSCfgCv96oYWg23BN4tTFD2aqgDkAbv2L1KiYtJjm7RDEGpS8X6r4jW4j8HC/A1kbVnQ==
-X-Received: by 2002:a63:143:: with SMTP id 64mr10369908pgb.343.1597684819076; 
- Mon, 17 Aug 2020 10:20:19 -0700 (PDT)
-Received: from localhost.localdomain ([161.81.62.213])
- by smtp.gmail.com with ESMTPSA id t11sm19774006pfe.165.2020.08.17.10.20.17
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 17 Aug 2020 10:20:18 -0700 (PDT)
-Message-ID: <5f3abc52.1c69fb81.9cf2.fe91@mx.google.com>
-X-Google-Original-Message-ID: <20200817172011.3717-1-me>
-From: tom.ty89@gmail.com
-X-Google-Original-From: me
-To: patch@alsa-project.org
-Subject: [PATCH] ALSA: usb-audio: ignore broken processing/extension unit
-Date: Tue, 18 Aug 2020 01:20:11 +0800
-X-Mailer: git-send-email 2.28.0
+ dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b="cskJHjmS"
+Received: from lelv0266.itg.ti.com ([10.180.67.225])
+ by fllv0016.ext.ti.com (8.15.2/8.15.2) with ESMTP id 07HHLv8o048896;
+ Mon, 17 Aug 2020 12:21:57 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com;
+ s=ti-com-17Q1; t=1597684917;
+ bh=LklfsQNtzEgv4Muun+dSl7Ny7j+95Ivu7/MecpZEky0=;
+ h=From:To:CC:Subject:Date;
+ b=cskJHjmSEpYEbTI8yN/aG5sv6LTSTZD8UxSG54Pmh+5Xa7F0Wuzd7WxCdp0UBzomR
+ /QsCKvJW1Tza7CmR+BrNClMInj/J7zEHDMqUKU3h3vtymBtw4417dXEWs/2B8ji4yV
+ hL/8UFY2aQSKfnxEPeP6O+rC4QeC0lT/quSAUEzE=
+Received: from DLEE115.ent.ti.com (dlee115.ent.ti.com [157.170.170.26])
+ by lelv0266.itg.ti.com (8.15.2/8.15.2) with ESMTPS id 07HHLvbx063744
+ (version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=FAIL);
+ Mon, 17 Aug 2020 12:21:57 -0500
+Received: from DLEE113.ent.ti.com (157.170.170.24) by DLEE115.ent.ti.com
+ (157.170.170.26) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.1979.3; Mon, 17
+ Aug 2020 12:21:57 -0500
+Received: from lelv0327.itg.ti.com (10.180.67.183) by DLEE113.ent.ti.com
+ (157.170.170.24) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.1979.3 via
+ Frontend Transport; Mon, 17 Aug 2020 12:21:57 -0500
+Received: from localhost (ileax41-snat.itg.ti.com [10.172.224.153])
+ by lelv0327.itg.ti.com (8.15.2/8.15.2) with ESMTP id 07HHLv4L073434;
+ Mon, 17 Aug 2020 12:21:57 -0500
+From: Dan Murphy <dmurphy@ti.com>
+To: <lgirdwood@gmail.com>, <broonie@kernel.org>, <perex@perex.cz>,
+ <tiwai@suse.com>, <robh@kernel.org>
+Subject: [PATCH 1/2] dt-bindings: tas2562: Remove tas2562 text file
+Date: Mon, 17 Aug 2020 12:21:50 -0500
+Message-ID: <20200817172151.26564-1-dmurphy@ti.com>
+X-Mailer: git-send-email 2.27.0
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Cc: alsa-devel@alsa-project.org, Tom Yan <tom.ty89@gmail.com>
+Content-Type: text/plain
+X-EXCLAIMER-MD-CONFIG: e1e8a2fd-e40a-4ac6-ac9b-f7e9cc9ee180
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
+ linux-kernel@vger.kernel.org, Dan Murphy <dmurphy@ti.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -98,41 +91,57 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: Tom Yan <tom.ty89@gmail.com>
+Remove the tas2562 text file as the tas2562.yaml is now available.
 
-Some devices have broken extension unit where getting current value doesn't work. Attempt that once when creating mixer control for it. If it fails, just ignore it, so that it won't cripple the device entirely (and/or make the error floods).
-
-Signed-off-by: Tom Yan <tom.ty89@gmail.com>
+Signed-off-by: Dan Murphy <dmurphy@ti.com>
 ---
- sound/usb/mixer.c | 8 +++++++-
- 1 file changed, 7 insertions(+), 1 deletion(-)
+ .../devicetree/bindings/sound/tas2562.txt     | 37 -------------------
+ 1 file changed, 37 deletions(-)
+ delete mode 100644 Documentation/devicetree/bindings/sound/tas2562.txt
 
-diff --git a/sound/usb/mixer.c b/sound/usb/mixer.c
-index eab0fd4fd7c3..e0b7174c1043 100644
---- a/sound/usb/mixer.c
-+++ b/sound/usb/mixer.c
-@@ -2367,7 +2367,7 @@ static int build_audio_procunit(struct mixer_build *state, int unitid,
- 	int num_ins;
- 	struct usb_mixer_elem_info *cval;
- 	struct snd_kcontrol *kctl;
--	int i, err, nameid, type, len;
-+	int i, err, nameid, type, len, val;
- 	const struct procunit_info *info;
- 	const struct procunit_value_info *valinfo;
- 	const struct usbmix_name_map *map;
-@@ -2470,6 +2470,12 @@ static int build_audio_procunit(struct mixer_build *state, int unitid,
- 			break;
- 		}
- 
-+		err = get_cur_ctl_value(cval, cval->control << 8, &val);
-+		if (err < 0) {
-+			usb_mixer_elem_info_free(cval);
-+			return -EINVAL;
-+		}
-+
- 		kctl = snd_ctl_new1(&mixer_procunit_ctl, cval);
- 		if (!kctl) {
- 			usb_mixer_elem_info_free(cval);
+diff --git a/Documentation/devicetree/bindings/sound/tas2562.txt b/Documentation/devicetree/bindings/sound/tas2562.txt
+deleted file mode 100644
+index dc6d7362ded7..000000000000
+--- a/Documentation/devicetree/bindings/sound/tas2562.txt
++++ /dev/null
+@@ -1,37 +0,0 @@
+-Texas Instruments TAS2562 Smart PA
+-
+-The TAS2562 is a mono, digital input Class-D audio amplifier optimized for
+-efficiently driving high peak power into small loudspeakers.
+-Integrated speaker voltage and current sense provides for
+-real time monitoring of loudspeaker behavior.
+-
+-Required properties:
+- - #address-cells  - Should be <1>.
+- - #size-cells     - Should be <0>.
+- - compatible:	   - Should contain "ti,tas2562", "ti,tas2563".
+- - reg:		   - The i2c address. Should be 0x4c, 0x4d, 0x4e or 0x4f.
+- - ti,imon-slot-no:- TDM TX current sense time slot.
+- - ti,vmon-slot-no:- TDM TX voltage sense time slot. This slot must always be
+-		     greater then ti,imon-slot-no.
+-
+-Optional properties:
+-- interrupt-parent: phandle to the interrupt controller which provides
+-                    the interrupt.
+-- interrupts: (GPIO) interrupt to which the chip is connected.
+-- shut-down-gpio: GPIO used to control the state of the device.
+-
+-Examples:
+-tas2562@4c {
+-        #address-cells = <1>;
+-        #size-cells = <0>;
+-        compatible = "ti,tas2562";
+-        reg = <0x4c>;
+-
+-        interrupt-parent = <&gpio1>;
+-        interrupts = <14>;
+-
+-	shut-down-gpio = <&gpio1 15 0>;
+-        ti,imon-slot-no = <0>;
+-        ti,vmon-slot-no = <1>;
+-};
+-
 -- 
 2.28.0
 

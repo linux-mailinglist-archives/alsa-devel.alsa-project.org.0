@@ -2,84 +2,81 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id BCE4724784F
-	for <lists+alsa-devel@lfdr.de>; Mon, 17 Aug 2020 22:47:36 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D83C724793B
+	for <lists+alsa-devel@lfdr.de>; Mon, 17 Aug 2020 23:54:02 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 223F316FC;
-	Mon, 17 Aug 2020 22:46:46 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 223F316FC
+	by alsa0.perex.cz (Postfix) with ESMTPS id 7041916FD;
+	Mon, 17 Aug 2020 23:53:12 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7041916FD
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1597697256;
-	bh=otIA2Snm5NT9eyVYwYaAYWh/2xDfTK+Qv/KjTnAyjxo=;
+	s=default; t=1597701242;
+	bh=VafXr1WcSttAOv4RIWZ56chxFqmuaaAq+X03JIuQmrs=;
 	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=DLVtIn3INyhUJjIhjOnt+PED90bW3OBAFWF/GUGESk5RqGfy79QqCPkOt6dfaGub4
-	 p+gBGMezByjR8cDG5wtl7ska2W2qDq1MRp/uxtNaMjfjEie6wEUuWBtFRO0I9KDv2w
-	 rPZdx/Bdf2nUZIo8tJYYADCBKORdqeU+L2Q4wEcs=
+	b=t8fBo8NkH2pxPnxrWg1CiYzybSREGOr9pJ6ABB62v3w22qN9kmN8zDl7rx2T06lG1
+	 accV2vJ2mDaQx78HotoYWLw2SNUJ4+uEin7ujRsFoAFuRykPDEUwDDMfI8sfsnHglb
+	 lfIC5qSD7+RWCiFbOZ5Soe3vlIr6T7Gfn6xotz6A=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 53705F80255;
-	Mon, 17 Aug 2020 22:45:55 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 7CD61F800F0;
+	Mon, 17 Aug 2020 23:52:21 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 32E1EF80218; Mon, 17 Aug 2020 22:45:52 +0200 (CEST)
+ id B8305F80218; Mon, 17 Aug 2020 23:52:18 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.7 required=5.0 tests=FREEMAIL_ENVFROM_END_DIGIT,
  FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,
  RCVD_IN_MSPIKE_H2,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=disabled
  version=3.4.0
-Received: from mail-il1-f193.google.com (mail-il1-f193.google.com
- [209.85.166.193])
+Received: from mail-io1-f67.google.com (mail-io1-f67.google.com
+ [209.85.166.67])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 84550F800EF
- for <alsa-devel@alsa-project.org>; Mon, 17 Aug 2020 22:45:44 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 84550F800EF
-Received: by mail-il1-f193.google.com with SMTP id t13so15685881ile.9
- for <alsa-devel@alsa-project.org>; Mon, 17 Aug 2020 13:45:44 -0700 (PDT)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 0730AF800F0
+ for <alsa-devel@alsa-project.org>; Mon, 17 Aug 2020 23:52:11 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0730AF800F0
+Received: by mail-io1-f67.google.com with SMTP id h4so19185399ioe.5
+ for <alsa-devel@alsa-project.org>; Mon, 17 Aug 2020 14:52:11 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:date:from:to:cc:subject:message-id:references
  :mime-version:content-disposition:in-reply-to;
- bh=8BJpUFruvhhEHxqofNhY/G7iCQHj547c9tNCNX6kgbg=;
- b=Ypbq9qPIeR+T0+tn1Z5NlO/Pj6/vaKhvNGXb1DAj6L9+fjdQNKdTpgiF8rpneZLZ3z
- RY3M3RDXNEE5bh78SFj7MUYP11mEyVMTGF5DiHJEeGy3b3gOhA7UQIXcIJFFtlcN1nSP
- kWPNCKjk+jbPw3nJ2Vb7Dk0Xj8tu7BbpQx8eBtY5imFZ9lzN6XFAy3igjzK1zfg7Uh5P
- pPejEniPplpD0ko43HEMbuPNzf9KpIQBuJCkP2bOlKE4wVVnFi7WZia6VFp7Go9YOQfu
- jq/Vfi6C5YRRrd+ENH1D6M1x0/UEqjMUdCJzE2Y6Mi6R7nwr9iCj8t7ASYRtYNqa4Kfe
- PfLw==
-X-Gm-Message-State: AOAM530NtY1h7dzkBitFwOSd+DFXGcE7n3bNXdzjOZV2gCysA5k18T3x
- eaNeiPP2heX1fWBzSSjdawzNSB5xSw==
-X-Google-Smtp-Source: ABdhPJytR1FxTi0bUkNGyhC8h+w18pWMjgJBz4sZPYA/pW7wZXQCMWd83VU3tLqjKxekg/37S7MOlA==
-X-Received: by 2002:a92:9e48:: with SMTP id q69mr15760069ili.170.1597697143190; 
- Mon, 17 Aug 2020 13:45:43 -0700 (PDT)
+ bh=E11IGqe88Tc6Z0vOlOvE5ENGRj196p+lCtOlbpTnEuM=;
+ b=goaZ+uQjrH7pgk414RxzOmo3VWhzOfX31eFA3wMy3sbWH5ABSfvYvLkPElr6EsDBdH
+ 5hJFrwwd0kXpuWQ0oht10XeYwQbaznu6BBDKZdrE2iWf8hwSwF75aqkvxJR9EArRYaIw
+ TspeVV4xgEqHhym59jtBo8yJ1F45eauJliiT1Qg4Id3Seq41gy+qennO2nRLHmjwWgYW
+ 19QncE92e5P5o1cyZcokHiNBEqA+uFw+9CLMopYCOnb8sk5m/o3o+EoMkr5nomPt1HPY
+ fIUlGvhf00hRXAASH/2CKGAmflt8NeAXZW/20CPUFfAP6AFgVHx/ixoStO+z/OOmw6bJ
+ yFPw==
+X-Gm-Message-State: AOAM532/31w9Mmm+Z+DLQ8SExnT5nkudiuGdLTHA4AZiNk6YoUfS7jfN
+ QKZI3yebQ/VMFONwp7zKAw==
+X-Google-Smtp-Source: ABdhPJyHSDK+5TEtfeg0k9BGNP6X9Atf/V18+ASpg7f0YjHh3/cYxf3H70kyY4EQqMZnas7g5GZrTg==
+X-Received: by 2002:a6b:8dd2:: with SMTP id
+ p201mr14037976iod.152.1597701129759; 
+ Mon, 17 Aug 2020 14:52:09 -0700 (PDT)
 Received: from xps15 ([64.188.179.249])
- by smtp.gmail.com with ESMTPSA id u17sm9552610ilj.0.2020.08.17.13.45.40
+ by smtp.gmail.com with ESMTPSA id t187sm9556524iof.54.2020.08.17.14.52.08
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 17 Aug 2020 13:45:42 -0700 (PDT)
-Received: (nullmailer pid 1527573 invoked by uid 1000);
- Mon, 17 Aug 2020 20:45:39 -0000
-Date: Mon, 17 Aug 2020 14:45:39 -0600
+ Mon, 17 Aug 2020 14:52:09 -0700 (PDT)
+Received: (nullmailer pid 1635439 invoked by uid 1000);
+ Mon, 17 Aug 2020 21:52:08 -0000
+Date: Mon, 17 Aug 2020 15:52:08 -0600
 From: Rob Herring <robh@kernel.org>
-To: Rohit kumar <rohitkr@codeaurora.org>
-Subject: Re: [PATCH v6 12/12] dt-bindings: sound: lpass-cpu: Move to yaml
- format
-Message-ID: <20200817204539.GB1512270@bogus>
-References: <1597402388-14112-1-git-send-email-rohitkr@codeaurora.org>
- <1597402388-14112-13-git-send-email-rohitkr@codeaurora.org>
+To: Anson Huang <Anson.Huang@nxp.com>
+Subject: Re: [PATCH] dt-bindings: sound: Convert NXP spdif to json-schema
+Message-ID: <20200817215208.GA1632404@bogus>
+References: <1596691077-30658-1-git-send-email-Anson.Huang@nxp.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <1597402388-14112-13-git-send-email-rohitkr@codeaurora.org>
+In-Reply-To: <1596691077-30658-1-git-send-email-Anson.Huang@nxp.com>
 Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- bgoswami@codeaurora.org, linux-arm-msm@vger.kernel.org, plai@codeaurora.org,
- tiwai@suse.com, agross@kernel.org, lgirdwood@gmail.com, broonie@kernel.org,
- srinivas.kandagatla@linaro.org, bjorn.andersson@linaro.org,
- linux-kernel@vger.kernel.org
+ shengjiu.wang@nxp.com, lgirdwood@gmail.com, linux-kernel@vger.kernel.org,
+ broonie@kernel.org, Linux-imx@nxp.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -95,361 +92,214 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Fri, Aug 14, 2020 at 04:23:08PM +0530, Rohit kumar wrote:
-> Update lpass-cpu binding with yaml formats.
+On Thu, Aug 06, 2020 at 01:17:57PM +0800, Anson Huang wrote:
+> Convert the NXP SPDIF binding to DT schema format using json-schema.
 > 
-> Signed-off-by: Rohit kumar <rohitkr@codeaurora.org>
+> Signed-off-by: Anson Huang <Anson.Huang@nxp.com>
 > ---
->  .../devicetree/bindings/sound/qcom,lpass-cpu.txt   | 130 --------------
->  .../devicetree/bindings/sound/qcom,lpass-cpu.yaml  | 189 +++++++++++++++++++++
->  2 files changed, 189 insertions(+), 130 deletions(-)
->  delete mode 100644 Documentation/devicetree/bindings/sound/qcom,lpass-cpu.txt
->  create mode 100644 Documentation/devicetree/bindings/sound/qcom,lpass-cpu.yaml
+>  .../devicetree/bindings/sound/fsl,spdif.txt        |  68 -------------
+>  .../devicetree/bindings/sound/fsl,spdif.yaml       | 108 +++++++++++++++++++++
+>  2 files changed, 108 insertions(+), 68 deletions(-)
+>  delete mode 100644 Documentation/devicetree/bindings/sound/fsl,spdif.txt
+>  create mode 100644 Documentation/devicetree/bindings/sound/fsl,spdif.yaml
 > 
-> diff --git a/Documentation/devicetree/bindings/sound/qcom,lpass-cpu.txt b/Documentation/devicetree/bindings/sound/qcom,lpass-cpu.txt
+> diff --git a/Documentation/devicetree/bindings/sound/fsl,spdif.txt b/Documentation/devicetree/bindings/sound/fsl,spdif.txt
 > deleted file mode 100644
-> index c07202c..00000000
-> --- a/Documentation/devicetree/bindings/sound/qcom,lpass-cpu.txt
+> index e1365b0..0000000
+> --- a/Documentation/devicetree/bindings/sound/fsl,spdif.txt
 > +++ /dev/null
-> @@ -1,130 +0,0 @@
-> -* Qualcomm Technologies LPASS CPU DAI
+> @@ -1,68 +0,0 @@
+> -Freescale Sony/Philips Digital Interface Format (S/PDIF) Controller
 > -
-> -This node models the Qualcomm Technologies Low-Power Audio SubSystem (LPASS).
+> -The Freescale S/PDIF audio block is a stereo transceiver that allows the
+> -processor to receive and transmit digital audio via an coaxial cable or
+> -a fibre cable.
 > -
 > -Required properties:
 > -
-> -- compatible		: "qcom,lpass-cpu" or "qcom,apq8016-lpass-cpu" or
-> -			  "qcom,sc7180-lpass-cpu"
-> -- clocks		: Must contain an entry for each entry in clock-names.
-> -- clock-names		: A list which must include the following entries:
-> -				* "ahbix-clk"
-> -				* "mi2s-osr-clk"
-> -				* "mi2s-bit-clk"
-> -			: required clocks for "qcom,lpass-cpu-apq8016"
-> -				* "ahbix-clk"
-> -				* "mi2s-bit-clk0"
-> -				* "mi2s-bit-clk1"
-> -				* "mi2s-bit-clk2"
-> -				* "mi2s-bit-clk3"
-> -				* "pcnoc-mport-clk"
-> -				* "pcnoc-sway-clk"
-> -			: required clocks for "qcom,lpass-cpu-sc7180"
-> -				* "audio-core"
-> -				* "mclk0"
-> -				* "mi2s-bit-clk0"
-> -				* "mi2s-bit-clk1"
-> -				* "pcnoc-sway-clk"
-> -				* "pcnoc-mport-clk"
+> -  - compatible		: Compatible list, should contain one of the following
+> -			  compatibles:
+> -			  "fsl,imx35-spdif",
+> -			  "fsl,vf610-spdif",
+> -			  "fsl,imx6sx-spdif",
 > -
-> -- interrupts		: Must contain an entry for each entry in
-> -			  interrupt-names.
-> -- interrupt-names	: A list which must include the following entries:
-> -				* "lpass-irq-lpaif"
-> -- pinctrl-N		: One property must exist for each entry in
-> -			  pinctrl-names.  See ../pinctrl/pinctrl-bindings.txt
-> -			  for details of the property values.
-> -- pinctrl-names		: Must contain a "default" entry.
-> -- reg			: Must contain an address for each entry in reg-names.
-> -- reg-names		: A list which must include the following entries:
-> -				* "lpass-lpaif"
-> -- #address-cells	: Must be 1
-> -- #size-cells		: Must be 0
+> -  - reg			: Offset and length of the register set for the device.
 > -
+> -  - interrupts		: Contains the spdif interrupt.
 > -
+> -  - dmas		: Generic dma devicetree binding as described in
+> -			  Documentation/devicetree/bindings/dma/dma.txt.
+> -
+> -  - dma-names		: Two dmas have to be defined, "tx" and "rx".
+> -
+> -  - clocks		: Contains an entry for each entry in clock-names.
+> -
+> -  - clock-names		: Includes the following entries:
+> -	"core"		  The core clock of spdif controller.
+> -	"rxtx<0-7>"	  Clock source list for tx and rx clock.
+> -			  This clock list should be identical to the source
+> -			  list connecting to the spdif clock mux in "SPDIF
+> -			  Transceiver Clock Diagram" of SoC reference manual.
+> -			  It can also be referred to TxClk_Source bit of
+> -			  register SPDIF_STC.
+> -	"spba"		  The spba clock is required when SPDIF is placed as a
+> -			  bus slave of the Shared Peripheral Bus and when two
+> -			  or more bus masters (CPU, DMA or DSP) try to access
+> -			  it. This property is optional depending on the SoC
+> -			  design.
 > -
 > -Optional properties:
 > -
-> -- qcom,adsp		: Phandle for the audio DSP node
+> -   - big-endian		: If this property is absent, the native endian mode
+> -			  will be in use as default, or the big endian mode
+> -			  will be in use for all the device registers.
 > -
-> -By default, the driver uses up to 4 MI2S SD lines, for a total of 8 channels.
-> -The SD lines to use can be configured by adding subnodes for each of the DAIs.
+> -Example:
 > -
-> -Required properties for each DAI (represented by a subnode):
-> -- reg			: Must be one of the DAI IDs
-> -			  (usually part of dt-bindings header)
-> -- qcom,playback-sd-lines: List of serial data lines to use for playback
-> -			  Each SD line should be represented by a number from 0-3.
-> -- qcom,capture-sd-lines	: List of serial data lines to use for capture
-> -			  Each SD line should be represented by a number from 0-3.
+> -spdif: spdif@2004000 {
+> -	compatible = "fsl,imx35-spdif";
+> -	reg = <0x02004000 0x4000>;
+> -	interrupts = <0 52 0x04>;
+> -	dmas = <&sdma 14 18 0>,
+> -	       <&sdma 15 18 0>;
+> -	dma-names = "rx", "tx";
 > -
-> -Note that adding a subnode changes the default to "no lines configured",
-> -so both playback and capture lines should be configured when a subnode is added.
+> -	clocks = <&clks 197>, <&clks 3>,
+> -	       <&clks 197>, <&clks 107>,
+> -	       <&clks 0>, <&clks 118>,
+> -	       <&clks 62>, <&clks 139>,
+> -	       <&clks 0>;
+> -	clock-names = "core", "rxtx0",
+> -		"rxtx1", "rxtx2",
+> -		"rxtx3", "rxtx4",
+> -		"rxtx5", "rxtx6",
+> -		"rxtx7";
 > -
-> -Examples:
-> -1)
-> -
-> -lpass@28100000 {
-> -	compatible = "qcom,lpass-cpu";
-> -	clocks = <&lcc AHBIX_CLK>, <&lcc MI2S_OSR_CLK>, <&lcc MI2S_BIT_CLK>;
-> -	clock-names = "ahbix-clk", "mi2s-osr-clk", "mi2s-bit-clk";
-> -	interrupts = <0 85 1>;
-> -	interrupt-names = "lpass-irq-lpaif";
-> -	pinctrl-names = "default", "idle";
-> -	pinctrl-0 = <&mi2s_default>;
-> -	pinctrl-1 = <&mi2s_idle>;
-> -	reg = <0x28100000 0x10000>;
-> -	reg-names = "lpass-lpaif";
-> -	qcom,adsp = <&adsp>;
-> -
-> -	#address-cells = <1>;
-> -	#size-cells = <0>;
-> -
-> -	/* Optional to set different MI2S SD lines */
-> -	dai@3 {
-> -		reg = <MI2S_QUATERNARY>;
-> -		qcom,playback-sd-lines = <0 1>;
-> -	};
+> -	big-endian;
 > -};
-> -
-> -2)
-> -
-> -#include <dt-bindings/sound/sc7180-lpass.h>
-> -
-> -lpass_cpu: lpass {
-> -	compatible = "qcom,sc7180-lpass-cpu";
-> -
-> -	reg = <0 0x62F00000 0 0x29000>;
-> -
-> -	iommus = <&apps_smmu 0x1020 0>;
-> -
-> -	power-domains = <&lpass_hm LPASS_CORE_HM_GDSCR>;
-> -	clocks = <&gcc GCC_LPASS_CFG_NOC_SWAY_CLK>,
-> -		<&lpasscorecc LPASS_AUDIO_CORE_CORE_CLK>,
-> -		<&lpasscorecc LPASS_AUDIO_CORE_EXT_MCLK0_CLK>,
-> -		<&lpasscorecc LPASS_AUDIO_CORE_SYSNOC_MPORT_CORE_CLK>,
-> -		<&lpasscorecc LPASS_AUDIO_CORE_LPAIF_PRI_IBIT_CLK>,
-> -		<&lpasscorecc LPASS_AUDIO_CORE_LPAIF_SEC_IBIT_CLK>;
-> -	clock-names = "pcnoc-sway-clk", "audio-core",
-> -			"mclk0", "pcnoc-mport-clk",
-> -			"mi2s-bit-clk0", "mi2s-bit-clk1";
-> -	interrupts = <0 160 IRQ_TYPE_LEVEL_HIGH>;
-> -	interrupt-names = "lpass-irq-lpaif";
-> -
-> -
-> -	#sound-dai-cells = <1>;
-> -
-> -	#address-cells = <1>;
-> -	#size-cells = <0>;
-> -
-> -	mi2s-primary@0 {
-> -		reg = <MI2S_PRIMARY>;
-> -		qcom,playback-sd-lines = <1>;
-> -		qcom,capture-sd-lines = <0>;
-> -	};
-> -
-> -	mi2s-secondary@1 {
-> -		reg = <MI2S_SECONDARY>;
-> -		qcom,playback-sd-lines = <0>;
-> -	};
-> -};
-> diff --git a/Documentation/devicetree/bindings/sound/qcom,lpass-cpu.yaml b/Documentation/devicetree/bindings/sound/qcom,lpass-cpu.yaml
+> diff --git a/Documentation/devicetree/bindings/sound/fsl,spdif.yaml b/Documentation/devicetree/bindings/sound/fsl,spdif.yaml
 > new file mode 100644
-> index 00000000..09c9bd2
+> index 0000000..819f37f
 > --- /dev/null
-> +++ b/Documentation/devicetree/bindings/sound/qcom,lpass-cpu.yaml
-> @@ -0,0 +1,189 @@
+> +++ b/Documentation/devicetree/bindings/sound/fsl,spdif.yaml
+> @@ -0,0 +1,108 @@
 > +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
 > +%YAML 1.2
 > +---
-> +$id: http://devicetree.org/schemas/sound/qcom,lpass-cpu.yaml#
+> +$id: http://devicetree.org/schemas/sound/fsl,spdif.yaml#
 > +$schema: http://devicetree.org/meta-schemas/core.yaml#
 > +
-> +title: Qualcomm Technologies Inc. LPASS CPU dai driver bindings
+> +title: Freescale Sony/Philips Digital Interface Format (S/PDIF) Controller
 > +
 > +maintainers:
-> +  - Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
-> +  - Rohit kumar <rohitkr@codeaurora.org>
+> +  - Shengjiu Wang <shengjiu.wang@nxp.com>
 > +
 > +description: |
-> +  Qualcomm Technologies Inc. SOC Low-Power Audio SubSystem (LPASS) that consist
-> +  of MI2S interface for audio data transfer on external codecs. LPASS cpu driver
-> +  is a module to configure Low-Power Audio Interface(LPAIF) core registers
-> +  across different IP versions.
+> +  The Freescale S/PDIF audio block is a stereo transceiver that allows the
+> +  processor to receive and transmit digital audio via an coaxial cable or
+> +  a fibre cable.
 > +
 > +properties:
 > +  compatible:
 > +    enum:
-> +      - qcom,lpass-cpu
-> +      - qcom,apq8016-lpass-cpu
-> +      - qcom,sc7180-lpass-cpu
+> +      - fsl,imx35-spdif
+> +      - fsl,vf610-spdif
+> +      - fsl,imx6sx-spdif
 > +
 > +  reg:
 > +    maxItems: 1
-> +    description: LPAIF core registers
-> +
-> +  clocks:
-> +    minItems: 3
-> +    maxItems: 6
-> +
-> +  clock-names:
-> +    minItems: 3
-> +    maxItems: 6
 > +
 > +  interrupts:
 > +    maxItems: 1
-> +    description: LPAIF DMA buffer interrupt
 > +
-> +  qcom,adsp:
-> +    $ref: /schemas/types.yaml#/definitions/phandle
-> +    description: Phandle for the audio DSP node
+> +  dmas:
+> +    items:
+> +      - description: DMA controller phandle and request line for RX
+> +      - description: DMA controller phandle and request line for TX
 > +
-> +  iommus:
-> +    maxItems: 1
-> +    description: Phandle to apps_smmu node with sid mask
+> +  dma-names:
+> +    items:
+> +      - const: rx
+> +      - const: tx
 > +
-> +  power-domains:
-> +    maxItems: 1
+> +  clocks:
+> +    items:
+> +      - description: The core clock of spdif controller.
+> +      - description: Clock for tx0 and rx0.
+> +      - description: Clock for tx1 and rx1.
+> +      - description: Clock for tx2 and rx2.
+> +      - description: Clock for tx3 and rx3.
+> +      - description: Clock for tx4 and rx4.
+> +      - description: Clock for tx5 and rx5.
+> +      - description: Clock for tx6 and rx6.
+> +      - description: Clock for tx7 and rx7.
+> +      - description: The spba clock is required when SPDIF is placed as a bus
+> +          slave of the Shared Peripheral Bus and when two or more bus masters
+> +          (CPU, DMA or DSP) try to access it. This property is optional depending
+> +          on the SoC design.
+> +    minItems: 9
 > +
-> +  '#sound-dai-cells':
-> +    const: 1
+> +  clock-names:
+> +    items:
+> +      - const: core
+> +      - const: rxtx0
+> +      - const: rxtx1
+> +      - const: rxtx2
+> +      - const: rxtx3
+> +      - const: rxtx4
+> +      - const: rxtx5
+> +      - const: rxtx6
+> +      - const: rxtx7
+> +      - const: spba
+> +    minItems: 9
 > +
-> +  '#address-cells':
-> +    const: 1
-> +
-> +  '#size-cells':
-> +    const: 0
-> +
-> +patternProperties:
-> +  "(^mi2s-[0-9a-f]$|mi2s)":
-
-This allows '.*mi2s.*' for a node name which is too lax. And since 
-there's a required 'reg' property, the unit-address should always be 
-there.
-
-Looking at this again, the node names shouldn't imply instance 
-information. Just a generic '^dai@[0-9a-f]$' should suffice.
-
-> +    type: object
-> +    description: Required properties for each DAI
-
-'description' should be what the node is, not what the schema has. Plus 
-it is wrong as there's optional properties here too.
-
-> +
-> +    properties:
-> +      reg:
-> +        maxItems: 1
-> +        description: Must be one of the DAI ID
-> +
-> +      qcom,playback-sd-lines:
-> +        $ref: /schemas/types.yaml#/definitions/uint32-array
-> +        description: list of MI2S data lines for playback
-> +
-> +      qcom,capture-sd-lines:
-> +        $ref: /schemas/types.yaml#/definitions/uint32-array
-> +        description: list of MI2S data lines for capture
-> +
-> +    required:
-> +      - reg
-> +
-> +    additionalProperties: false
+> +  big-endian:
+> +    $ref: /schemas/types.yaml#/definitions/flag
+> +    description: |
+> +      If this property is absent, the native endian mode will be in use
+> +      as default, or the big endian mode will be in use for all the device
+> +      registers. Set this flag for HCDs with big endian descriptors and big
+> +      endian registers.
 > +
 > +required:
 > +  - compatible
 > +  - reg
+> +  - interrupts
+> +  - dmas
+> +  - dma-names
 > +  - clocks
 > +  - clock-names
-> +  - interrupts
-> +  - '#sound-dai-cells'
-> +
-> +additionalProperties: false
-> +
-> +allOf:
-> +  - if:
-> +      properties:
-> +        compatible:
-> +          contains:
-> +            const: qcom,lpass-cpu
-> +
-> +    then:
-> +      properties:
-> +        clock-names:
-> +          items:
-> +            - const: ahbix-clk
-> +            - const: mi2s-osr-clk
-> +            - const: mi2s-bit-clk
-> +
-> +  - if:
-> +      properties:
-> +        compatible:
-> +          contains:
-> +            const: qcom,apq8016-lpass-cpu
-> +
-> +    then:
-> +      properties:
-> +        clock-names:
-> +          items:
-> +            - const: ahbix-clk
-> +            - const: mi2s-bit-clk0
-> +            - const: mi2s-bit-clk1
-> +            - const: mi2s-bit-clk2
-> +            - const: mi2s-bit-clk3
-> +            - const: pcnoc-mport-clk
-> +            - const: pcnoc-sway-clk
-> +
-> +  - if:
-> +      properties:
-> +        compatible:
-> +          contains:
-> +            const: qcom,sc7180-lpass-cpu
-> +
-> +    then:
-> +      properties:
-> +        clock-names:
-> +          items:
-> +            - const: pcnoc-sway-clk
-> +            - const: audio-core
-> +            - const: mclk0
-> +            - const: pcnoc-mport-clk
-> +            - const: mi2s-bit-clk0
-> +            - const: mi2s-bit-clk1
-> +      required:
-> +        - iommus
-> +        - power-domains
+
+Add:
+
+additionalProperties: false
+
+With that added,
+
+Reviewed-by: Rob Herring <robh@kernel.org>
+
 > +
 > +examples:
 > +  - |
-> +    #include <dt-bindings/sound/sc7180-lpass.h>
-> +
-> +    soc {
-> +        #address-cells = <2>;
-> +        #size-cells = <2>;
-> +        lpass@62f00000 {
-> +            compatible = "qcom,sc7180-lpass-cpu";
-> +
-> +            reg = <0 0x62f00000  0 0x29000>;
-> +
-> +            iommus = <&apps_smmu 0x1020 0>;
-> +            power-domains = <&lpass_hm 0>;
-> +
-> +            clocks = <&gcc 131>,
-> +                 <&lpasscorecc 6>,
-> +                 <&lpasscorecc 7>,
-> +                 <&lpasscorecc 10>,
-> +                 <&lpasscorecc 8>,
-> +                 <&lpasscorecc 9>;
-> +
-> +            clock-names = "pcnoc-sway-clk", "audio-core",
-> +                          "mclk0", "pcnoc-mport-clk",
-> +                          "mi2s-bit-clk0", "mi2s-bit-clk1";
-> +
-> +            interrupts = <0 160 1>;
-> +
-> +            #sound-dai-cells = <1>;
-> +
-> +            #address-cells = <1>;
-> +            #size-cells = <0>;
-> +            /* Optional to set different MI2S SD lines */
-> +            mi2s-primary@0 {
-> +                reg = <MI2S_PRIMARY>;
-> +                qcom,playback-sd-lines = <1>;
-> +                qcom,capture-sd-lines = <0>;
-> +            };
-> +        };
+> +    spdif@2004000 {
+> +        compatible = "fsl,imx35-spdif";
+> +        reg = <0x02004000 0x4000>;
+> +        interrupts = <0 52 0x04>;
+> +        dmas = <&sdma 14 18 0>,
+> +               <&sdma 15 18 0>;
+> +        dma-names = "rx", "tx";
+> +        clocks = <&clks 197>, <&clks 3>,
+> +                 <&clks 197>, <&clks 107>,
+> +                 <&clks 0>, <&clks 118>,
+> +                 <&clks 62>, <&clks 139>,
+> +                 <&clks 0>;
+> +        clock-names = "core", "rxtx0",
+> +                      "rxtx1", "rxtx2",
+> +                      "rxtx3", "rxtx4",
+> +                      "rxtx5", "rxtx6",
+> +                      "rxtx7";
+> +        big-endian;
 > +    };
-> +
-> +...
 > -- 
-> Qualcomm India Private Limited, on behalf of Qualcomm Innovation Center, Inc.,
-> is a member of Code Aurora Forum, a Linux Foundation Collaborative Project.
+> 2.7.4
 > 

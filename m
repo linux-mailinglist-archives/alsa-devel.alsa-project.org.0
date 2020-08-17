@@ -2,68 +2,68 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id DC1042463EF
-	for <lists+alsa-devel@lfdr.de>; Mon, 17 Aug 2020 12:04:50 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A5A98246535
+	for <lists+alsa-devel@lfdr.de>; Mon, 17 Aug 2020 13:13:58 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 8253F16E2;
-	Mon, 17 Aug 2020 12:04:00 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8253F16E2
+	by alsa0.perex.cz (Postfix) with ESMTPS id 3980316EA;
+	Mon, 17 Aug 2020 13:13:08 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3980316EA
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1597658690;
-	bh=FcZWfAQKiYye4i/D5VsJ9Gk5aeYNdt8paZNp6M4uwbs=;
+	s=default; t=1597662838;
+	bh=NAQLJ+Xx5cbAk90dRCMjq9otv0yd4Jbly1VOR7+/xtU=;
 	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=SDxu8Vw/GIYeYqPiiGy++otHGPtPMyncgEjia9Aue5Cwl+IonHMIyJ+fF6zm1H6UU
-	 RpBFUU4npP1YUn0w6FHKhkX3W+oHFWeIRMBnZknIZuawWWsHNPRDlFArK93u4l7CSS
-	 Fe7s93WgxrduIRPxWCM2uJSRZnneLWEN3GiIg1Tg=
+	b=VNIHkcBdmzvBJAC08doS5Ht7NS8FDqMeysLHMoVn5ByPuEjg8Uf50secl+O3X00xF
+	 UlNUtZqTn2GGZM1E4/JlK0ID1rBV/TiZmpoRQgJ+9WVf0mE8LoagaQnScK++e+uS7Z
+	 4wz1Rm9KKzkZgbcfDQXjyIo4ZfeF+5d9xzTHeiuY=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id BA4D5F80255;
-	Mon, 17 Aug 2020 12:03:09 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 48243F800EF;
+	Mon, 17 Aug 2020 13:12:17 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 88A40F80218; Mon, 17 Aug 2020 12:03:03 +0200 (CEST)
+ id AB483F80218; Mon, 17 Aug 2020 13:12:14 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=NICE_REPLY_A,PRX_BODY_30,
- SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
-Received: from mga06.intel.com (mga06.intel.com [134.134.136.31])
+X-Spam-Status: No, score=-1.0 required=5.0 tests=NICE_REPLY_A,SPF_HELO_NONE,
+ SPF_PASS autolearn=disabled version=3.4.0
+Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 857C0F800D3
- for <alsa-devel@alsa-project.org>; Mon, 17 Aug 2020 12:02:50 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 857C0F800D3
-IronPort-SDR: V2crbuchm5Qhv+elnCvwexKTsyaoXjAjP9JDyzLc13+KzP86H0MCZI4mIEwdTjFGU3A4c5wYg/
- 8IakhHVPgavA==
-X-IronPort-AV: E=McAfee;i="6000,8403,9715"; a="216192130"
-X-IronPort-AV: E=Sophos;i="5.76,322,1592895600"; d="scan'208";a="216192130"
+ by alsa1.perex.cz (Postfix) with ESMTPS id 4115AF800EF
+ for <alsa-devel@alsa-project.org>; Mon, 17 Aug 2020 13:12:10 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4115AF800EF
+IronPort-SDR: SZomAftzAGHwM5EW8nLjvolLAtbLtcoNMuZc34W24EgKqf0PNOM3UqIJB7xzUZ+qnQwZ9YVo0Y
+ cr8fLK+VjnWw==
+X-IronPort-AV: E=McAfee;i="6000,8403,9715"; a="153929949"
+X-IronPort-AV: E=Sophos;i="5.76,322,1592895600"; d="scan'208";a="153929949"
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
 Received: from orsmga005.jf.intel.com ([10.7.209.41])
- by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 17 Aug 2020 03:02:47 -0700
-IronPort-SDR: MaG3zbh7GTQhJxu2qsfIlDwzQWyHSEaOhtmrc9cf6AlgytV20kw5M7N9SxH/mziMNqQs34EUfP
- dp0KePdmWkOg==
+ by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 17 Aug 2020 04:12:06 -0700
+IronPort-SDR: 0x8CxIiz5UEUYBwVcVxqGa7TmrBwLo26BZACzFNEVNvimVj930/IXZGgHiNZ9IXPQvwuJEaTzk
+ iqVDKuJhaHcw==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.76,322,1592895600"; d="scan'208";a="471370007"
+X-IronPort-AV: E=Sophos;i="5.76,322,1592895600"; d="scan'208";a="471391036"
 Received: from crojewsk-mobl1.ger.corp.intel.com (HELO [10.213.4.178])
  ([10.213.4.178])
- by orsmga005.jf.intel.com with ESMTP; 17 Aug 2020 03:02:40 -0700
-Subject: Re: [PATCH v4 01/13] ASoC: Intel: Add catpt device
+ by orsmga005.jf.intel.com with ESMTP; 17 Aug 2020 04:12:02 -0700
+Subject: Re: [PATCH v4 02/13] ASoC: Intel: catpt: Define DSP operations
 To: Andy Shevchenko <andriy.shevchenko@intel.com>
 References: <20200812205753.29115-1-cezary.rojewski@intel.com>
- <20200812205753.29115-2-cezary.rojewski@intel.com>
- <20200813182908.GA1891694@smile.fi.intel.com>
+ <20200812205753.29115-3-cezary.rojewski@intel.com>
+ <20200813185129.GB1891694@smile.fi.intel.com>
 From: Cezary Rojewski <cezary.rojewski@intel.com>
-Message-ID: <3280b1a6-81f3-9f3f-d496-2bbf570c82d1@intel.com>
-Date: Mon, 17 Aug 2020 12:02:39 +0200
+Message-ID: <946fdd80-c89d-ee1b-6eef-e752318b55a6@intel.com>
+Date: Mon, 17 Aug 2020 13:12:01 +0200
 User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:68.0) Gecko/20100101
  Thunderbird/68.11.0
 MIME-Version: 1.0
-In-Reply-To: <20200813182908.GA1891694@smile.fi.intel.com>
+In-Reply-To: <20200813185129.GB1891694@smile.fi.intel.com>
 Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Language: en-US
 Content-Transfer-Encoding: 7bit
@@ -89,468 +89,285 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 2020-08-13 8:29 PM, Andy Shevchenko wrote:
-> On Wed, Aug 12, 2020 at 10:57:41PM +0200, Cezary Rojewski wrote:
+On 2020-08-13 8:51 PM, Andy Shevchenko wrote:
+> On Wed, Aug 12, 2020 at 10:57:42PM +0200, Cezary Rojewski wrote:
+>> Implement dsp lifecycle functions such as core RESET and STALL,
+>> SRAM power control and LP clock selection. This also adds functions for
+>> handling transport over DW DMA controller.
 
-Thanks for good review Andy!
+Thanks for your input Andy!
 
-
->> +static inline bool catpt_resource_overlapping(struct resource *r1,
->> +					      struct resource *r2,
->> +					      struct resource *ret)
+>> +static void catpt_dma_transfer_complete(void *arg)
 >> +{
->> +	if (!resource_overlaps(r1, r2))
->> +		return false;
->> +	ret->start = max(r1->start, r2->start);
->> +	ret->end = min(r1->end, r2->end);
->> +	return true;
->> +}
+>> +	struct catpt_dev *cdev = arg;
+>> +
 > 
-> JFYI, I have just submitted a series [1] that includes this helper [2]
-> to be available for all.
+>> +	dev_dbg(cdev->dev, "%s\n", __func__);
 > 
-> [1]: https://lore.kernel.org/linux-acpi/20200813175729.15088-1-andriy.shevchenko@linux.intel.com/
-> [2]: https://lore.kernel.org/linux-acpi/20200813175729.15088-4-andriy.shevchenko@linux.intel.com/
+> Noise. Somebody should provide either trace events, of get used to function tracer / perf.
 > 
 
-Well, I'm happy that catpt somewhat impacted resource-API getting more 
-flexble, although it would be nice to get --cc'ed as 
-_overlapping/_intersecting got moved into general part of kernel without 
-changes, basically.
+Agree. Don't have much expertise with DMA-engine and some stuff is based 
+on existing stuff:
+/sound/soc/intel/common/sst-firmware.c ::sst_dma_transfer_complete()
 
-This raises a dependancy issue, am I right? i.e. until this gets merged, 
-catpt will cause compilation errors on Mark's for-next. -or- perhaps you 
-want me to leave things as they are for current release while removing 
-said function later, once your PR get's merged?
+That's not somebody - that's CI. I don't mind ftracer, but our's CI 
+logging is currently dmesg/ event traces -based.
 
->> +struct catpt_dev {
->> +	struct device *dev;
-> 
->> +	struct dw_dma_chip *dmac;
-> 
-> Is it possible to use opaque pointer here? It will be better if in the future
-> (I think unlikely, but still) somebody decides to use this with another DMA
-> engine.
-> 
-
-Any opaque structure comes at a cost -> requires higher level of 
-understanding from developers maintaining given piece of code (that 
-includes architecture knowledge too, to get a grasp of why such decision 
-was even made) == higher maintaince cost.
-
-One could device ADSP architectures into:
-1) LPT/WPT
-2) BYT/CHT/BDW
-3) cAVS (SKL+)
-4) new (which I won't be elaborating here for obvious reasons)
-
-To my knowledge, except for 1), none of them makes use of dmaengine.h 
-when loading FW or doing any other action for that matter. As such, I 
-don't see any reason to convert something explicit into something 
-implicit. Don't believe either of options would be reusing struct 
-catpt_dev too. In general, to make that happen you'd have to start with 
-conversion of existing HDAudio transport (cAVS+) into dmaengine model 
-and then do the same with SoundWire (cAVS+) - haven't seen sdw code in a 
-while but still pretty sure it's not dmaengine-friendly.
+Anyway, with log removed, catpt_dma_transfer_complete() ceases to exist too.
 
 > 
->> +#define CATPT_IPC_ERROR(err) ((err < 0) ? err : -EREMOTEIO)
+>> +static bool catpt_dma_filter(struct dma_chan *chan, void *param)
+>> +{
 > 
-> err -> (err) in all cases of right side.
+>> +	return chan->device->dev == (struct device *)param;
 > 
+> Redundant casting, and please, consider to swap left and right side (in this
+> case easily to find these and perhaps provide a generic helper function).
+> 
+
+Good point. Yeah, I've tried to find generic-helper before even adding 
+this, but with no result.
+
+> 
+>> +#define CATPT_DMA_DEVID		1 /* dma engine used */
+> 
+> Not sure I understand what exactly this means.
+> 
+
+Well, you may choose either engine 0 or 1 for loading images. Reference 
+solution which I'm basing catpt on - Windows driver equivalent - makes 
+use of engine 1. Goal of this implementation is to align closely to 
+stable Windows solution wherever possible to reduce maintainance cost.
+
+> 
+>> +#define CATPT_DMA_MAXBURST	0x3
+> 
+> We have DMA engine definitions for that, please avoid magic numbers.
+> 
+
+As with most of the dma stuff, based on existing:
+/sound/soc/intel/common/sst-firmware.c SST_DSP_DMA_MAX_BURST
 
 Ack.
 
+>> +#define CATPT_DMA_DSP_ADDR_MASK	0xFFF00000
 > 
->> +struct catpt_stream_runtime {
->> +	struct snd_pcm_substream *substream;
->> +
->> +	struct catpt_stream_template *template;
->> +	struct catpt_stream_info info;
->> +	struct resource *persistent;
->> +	struct snd_dma_buffer pgtbl;
->> +
-> 
->> +	bool allocated:1;
->> +	bool prepared:1;
-> 
-> Does this ':1' make any sense?
+> GENMASK()
 > 
 
-In current state it does not, really. Playing internally with segments 
-which are not part of this release (as noted in cover-letter) where some 
-of these did. Will remove in v5.
+Ditto as above. Ack.
 
->> +	struct list_head node;
->> +};
+>> +	dma_cap_set(DMA_SLAVE, mask);
+> 
+> How this helps with mem2mem channel?
 > 
 > ...
 > 
->> +#ifdef CONFIG_PM
+>> +	chan = dma_request_channel(mask, catpt_dma_filter, cdev->dev);
+>> +	if (!chan) {
+>> +		dev_err(cdev->dev, "request channel failed\n");
 > 
-> Perhaps __maybe_unused?
+>> +		dump_stack();
 > 
-
-Sure, removal of #ifdefs is always nice.
-
-> 
->> +	ret = catpt_dsp_stall(cdev, true);
->> +	if (ret < 0)
-> 
-> I'm wondering if all these ' < 0' all over the code make sense? What do you
-> expect out of positive returned values if any?
+> Huh?!
 > 
 
-Isn't this more of a preference? Please note I'm basing many of my 
-decisions on code that's around me - /sound/core/ and sound/soc/ *.c.
+I'm as surpriced as you : )
+Remnant of pm_runtime + single platform_device (for adsp and dw both) 
+debug. Removed in v5.
 
-Except for IPCs, basically all catpt rets retrieved from functions 
-called will be returning either 0 (success) or <0 (error). No 
-objections, but I don't see much difference either.
-
->> +		goto exit;
-
-> 
->> +#ifdef CONFIG_PM_SLEEP
-> 
-> Perhaps __maybe_unused?
-> 
-
-Same as above~1, ack.
-
-> 
->> +	board = platform_device_register_data(NULL, mach->drv_name,
->> +					PLATFORM_DEVID_NONE,
->> +					(const void *)mach, sizeof(*mach));
->> +	if (!board) {
-> 
-> Here obviously not correct check.
-> 
-
-Indeed, ack.
-
->> +		dev_err(cdev->dev, "board register failed\n");
->> +		return PTR_ERR(board);
+>> +		return ERR_PTR(-EPROBE_DEFER);
 >> +	}
+> 
+> ...
+> 
+>> +	status = dma_wait_for_async_tx(desc);
+> 
+>> +	catpt_updatel_shim(cdev, HMDC,
+>> +			   CATPT_HMDC_HDDA(CATPT_DMA_DEVID, chan->chan_id), 0);
+> 
+> Update even in erroneous case?
+> 
+
+Yes. This is based on stable Windows solution equivalent and get's 
+updated even in failure case to disable access to HOST memory in demand 
+more.
+
+>> +	return (status == DMA_COMPLETE) ? 0 : -EPROTO;
+> 
+> ...
+> 
+>> +static void catpt_dsp_set_srampge(struct catpt_dev *cdev, struct resource *sram,
+>> +				  unsigned long mask, unsigned long new)
+>> +{
+>> +	unsigned long old;
+>> +	u32 off = sram->start;
+>> +	u32 b = __ffs(mask);
 >> +
->> +	ret = devm_add_action(cdev->dev, board_pdev_unregister, board);
->> +	if (ret < 0) {
->> +		platform_device_unregister(board);
+>> +	old = catpt_readl_pci(cdev, VDRTCTL0) & mask;
 > 
->> +		return ret;
->> +	}
+>> +	dev_dbg(cdev->dev, "SRAMPGE [0x%08lx] 0x%08lx -> 0x%08lx",
+>> +		mask, old, new);
+> 
+> trace event / point?
+> 
+
+Well, I've just replaced these with dev_dbg (from trace events). Not 
+many usages and caused all reg-related prints to be available in dmesg.
+
+>> +	if (old == new)
+>> +		return;
 >> +
->> +	return 0;
+>> +	catpt_updatel_pci(cdev, VDRTCTL0, mask, new);
 > 
-> return ret;
+>> +	udelay(60);
 > 
-
-Similarly, to comment~2 regarding preferences, don't mind the change (in 
-fact, I'm a fan) but in the past got messaged to leave things explicit - 
-leave last 'if' with return ret, while return 0 marking success outside.
-
-> 
->> +	mutex_init(&cdev->clk_mutex);
-> 
-> + blank line.
+> Delays should be commented.
 > 
 
-Thought wide comment makes enough distance already.
+Similarly to previous review (comment regarding hw support), I'm afraid 
+I don't have good comments for most occurences available.
 
+I'll try to add something meaningful for at least some of these.
+
+>> +
 >> +	/*
->> +	 * Mark both device formats as uninitialized. Once corresponding
->> +	 * cpu_dai's pcm is created, proper values are assigned
+>> +	 * dummy read as the very first access after block enable
+>> +	 * to prevent byte loss in future operations
+>> +	 */
+>> +	for_each_clear_bit_from(b, &new, fls(mask)) {
 > 
-> Please, use period(s) in multi-line comments.
+> fls_long()
 > 
 
-Used to: all-but-last sentence with period(s). Will update as requested 
-in v5.
+Ack.
 
-> 
->> +static int catpt_acpi_probe(struct platform_device *pdev)
->> +{
->> +	struct device *dev = &pdev->dev;
->> +	struct catpt_dev *cdev;
->> +	struct resource *res;
->> +	int ret;
+>> +		u8 buf[4];
 >> +
->> +	cdev = devm_kzalloc(dev, sizeof(*cdev), GFP_KERNEL);
->> +	if (!cdev)
->> +		return -ENOMEM;
+>> +		/* newly enabled: new bit=0 while old bit=1 */
+>> +		if (test_bit(b, &old)) {
+>> +			dev_dbg(cdev->dev, "sanitize block %ld: off 0x%08x\n",
 > 
+>> +				(b - __ffs(mask)), off);
 > 
->> +	cdev->spec = device_get_match_data(dev);
->> +	if (!cdev->spec)
->> +		return -ENODEV;
-> 
-> You may save some cycles if you do this before memory allocations.
+> Unneeded parentheses.
 > 
 
-i.e. define a local for spec, assign and begin the init process only 
-once it's found? Isn't that a loss in most cases? Comes down to:
+Ack.
 
-	declare local + later cdev->spec = spec assignment
-	vs
-	unlikely -ENODEV with memory being unnecessarily allocated
-
-Perhaps I'm unaware of what's going on with device_get_match_data, but I 
-believe .probe() won't get called until one of .acpi_match_table ids 
-matches device available on the bus. Existing list of ids won't ever get 
-changed as there are only two platforms available for 2011-2013 ADSP 
-architecture.
-
->> +	catpt_dev_init(cdev, dev);
->> +
->> +	/* map DSP bar address */
->> +	res = platform_get_resource(pdev, IORESOURCE_MEM, 0);
->> +	if (!res)
->> +		return -ENODEV;
->> +	cdev->lpe_ba = devm_ioremap(dev, res->start, resource_size(res));
->> +	if (!cdev->lpe_ba)
->> +		return -EIO;
->> +	cdev->lpe_base = res->start;
-> 
-> Why the region is not get requested?
-> 
->> +	/* map PCI bar address */
->> +	res = platform_get_resource(pdev, IORESOURCE_MEM, 1);
->> +	if (!res)
->> +		return -ENODEV;
->> +	cdev->pci_ba = devm_ioremap(dev, res->start, resource_size(res));
->> +	if (!cdev->pci_ba)
->> +		return -EIO;
-> 
-> Ditto.
-> 
-
-Comes from catpt_dmac_probe() (dsp.c) making use of 
-devm_ioremap_resource(). If you _get_ requested resource there, the 
-function called in catpt_dmac_probe() will yielrd -EBUSY.
-
-This is based on existing code:
-/sound/soc/intel/common/sst-acpi.c ::sst_acpi_probe() see mmio assignments.
-/sound/soc/intel/common/sst-firmate.ce ::dw_probe() see chip->regs 
-assignment.
-
-Perhaps you've found even more problems in existing code than I did..
-
->> +	/* alloc buffer for storing DRAM context during dx transitions */
->> +	cdev->dxbuf_vaddr = dma_alloc_coherent(dev, catpt_dram_size(cdev),
-> 
-> dmam_alloc_coherent() ?
-> 
-
-Nice! Wasn't aware of this helper. Simplifies error-path too.
-
->> +					       &cdev->dxbuf_paddr, GFP_KERNEL);
->> +	if (!cdev->dxbuf_vaddr)
->> +		return -ENOMEM;
-> 
->> +	ret = platform_get_irq(pdev, 0);
->> +	if (ret < 0)
->> +		goto irq_err;
->> +	cdev->irq = ret;
-> 
-> But you may return directly if you get IRQ resource before allocation (despite
-> previous comment).
-> 
-
-Indeed, reordering irq-request and dxbuf allocation would alloc for 
-s/goto irq_err/return <err>/
-Error-path wouldn't be removed though, as final operation - 
-catpt_probe_components - must be verified before leaving scope.
-
->> +
->> +	platform_set_drvdata(pdev, cdev);
->> +
->> +	ret = devm_request_threaded_irq(dev, cdev->irq, catpt_dsp_irq_handler,
->> +					catpt_dsp_irq_thread,
->> +					IRQF_SHARED, "AudioDSP", cdev);
->> +	if (ret < 0)
->> +		goto irq_err;
->> +
->> +	ret = catpt_probe_components(cdev);
-> 
-> return ...
-> 
-
-With dmam_xxx helper, true.
-
->> +	if (ret < 0)
->> +		goto irq_err;
->> +	return 0;
->> +
->> +irq_err:
->> +	dma_free_coherent(cdev->dev, catpt_dram_size(cdev),
->> +			  cdev->dxbuf_vaddr, cdev->dxbuf_paddr);
->> +
->> +	return ret;
-> 
-> This will be gone...
-> 
-
-Ditto. Thanks!
-
+>> +			memcpy_fromio(buf, cdev->lpe_ba + off, sizeof(buf));
+>> +		}
+>> +		off += CATPT_MEMBLOCK_SIZE;
+>> +	}
 >> +}
 > 
 > ...
 > 
->> +static const struct acpi_device_id catpt_ids[] = {
->> +	{ "INT33C8", (unsigned long)&lpt_desc },
->> +	{ "INT3438", (unsigned long)&wpt_desc },
+>> +	/* offset value given mask's start and invert it as ON=b0 */
 > 
->> +	{ },
+>> +	new <<= __ffs(mask);
+>> +	new = ~(new) & mask;
 > 
-> No need to have comma in terminator line.
+> Unneeded parentheses.
+> And perhaps in one line it will be better to understand:
+> 
+> 	new = ~(new << __ffs(mask)) & mask;
 > 
 
-Well, that's a habbit to add a ',' at the end of each enumeration line 
-and I bet it's a good one. No problem removing this one though.
+Was called out in the past not to combine everything in one-line like if 
+I'm to hide something from reviewer.
 
->> +};
+No problem with combining these together in v5.
+
+>> +	if (waiti) {
+>> +		/* wait for DSP to signal WAIT state */
+>> +		ret = catpt_readl_poll_shim(cdev, ISD,
+>> +					    reg, (reg & CATPT_ISD_DCPWM),
+>> +					    500, 10000);
+>> +		if (ret < 0) {
+> 
+>> +			dev_warn(cdev->dev, "await WAITI timeout\n");
+> 
+> Shouldn't be an error level?
+> 
+
+As this causes early return, I agree.
+
+>> +			mutex_unlock(&cdev->clk_mutex);
+>> +			return ret;
+>> +		}
+>> +	}
 > 
 > ...
 > 
->> +static struct platform_driver catpt_acpi_driver = {
->> +	.probe = catpt_acpi_probe,
->> +	.remove = catpt_acpi_remove,
->> +	.driver = {
->> +		.name = "catpt_adsp",
+>> +int catpt_dsp_update_lpclock(struct catpt_dev *cdev)
+>> +{
+>> +	struct catpt_stream_runtime *stream;
 > 
->> +		.acpi_match_table = ACPI_PTR(catpt_ids),
-> 
-> ACPI_PTR() either bogus (when you have depends on ACPI) or mistake that brings
-> you compiler warning (unused variable).
-> 
-> I highly recommend in new code avoid completely ACPI_PTR() and of_match_ptr()
-> macros.
-> 
-
-That's something new for me. Thanks for a good advice.
-
->> +		.pm = &catpt_dev_pm,
->> +	},
->> +};
-> 
-> ...
-> 
->> +#include <linux/iopoll.h>
-> 
-> Missed headers:
-> bits.h (note, the below guarantees to provide this one)
-> bitops.h
-> io.h (writel(), readl(), etc)
-> 
-
-Removed these as registers.h always gets included with other files which 
-already inhering them via nesting.
-Will update in v5 as requested.
-
->> +/* DSP Shim registers */
+>> +	bool lp;
 >> +
->> +#define CATPT_SHIM_CS1		0x0
-> 
-> Please, keep all register definitions of the same width, like 0x00 here or so.
-> 
-
-Ack.
-
-> 
->> +#define CATPT_CS_SFCR(ssp)	BIT(27 + ssp)
-> 
-> In all macros, try to be a little bit defensive, e.g. here ssp -> (ssp).
-> 
-> ...
-> 
->> +#define CATPT_HMDC_HDDA(e, ch)	BIT(8 * e + ch)
-> 
-> ...or e -> (e) and ch -> (ch) here.
-> 
-
-Agreed, will update in v5.
-
->> +#define CATPT_CS_DEFAULT	0x8480040E
->> +#define CATPT_IMC_DEFAULT	0x7FFF0003
->> +#define CATPT_IMD_DEFAULT	0x7FFF0003
->> +#define CATPT_CLKCTL_DEFAULT	0x7FF
-> 
-> These looks like set of bit fields, can we describe them either in comments
-> or in the values like GENMASK(x, y) | BIT(z) ?
-> 
-
-Let's go with the latter. As explained below, I don't have much info in 
-regard to re-setting registers to their defaults. This knowldge might 
-come in time (and a ton of testing) but certainly, won't be part of this 
-release.
-
-One issue might arise when describing the "reserved" regions as some 
-bits should not be modified by sw normally, but are part of "recommended 
-sequence" anyway. I'll see if there are any among '1's.
-
->> +/* PCI Configuration registers */
+>> +	if (list_empty(&cdev->stream_list))
+>> +		return catpt_dsp_select_lpclock(cdev, true, true);
 >> +
->> +#define CATPT_PCI_PMCS		0x84
+>> +	lp = true;
+>> +	list_for_each_entry(stream, &cdev->stream_list, node) {
+>> +		if (stream->prepared) {
+>> +			lp = false;
+>> +			break;
+>> +		}
+>> +	}
+>> +
+>> +	return catpt_dsp_select_lpclock(cdev, lp, true);
 > 
-> Why?! We have PCI capability and entire infrastructure for that in PCI core.
+> Seems too much duplication.
+> 
+> 	struct catpt_stream_runtime *stream;
+> 
+> 	list_for_each_entry(stream, &cdev->stream_list, node) {
+> 		if (stream->prepared)
+> 			return catpt_dsp_select_lpclock(cdev, false, true);
+> 	}
+> 
+> 	return catpt_dsp_select_lpclock(cdev, true, true);
+> 
+> 
+> Better?
+> 
+
+list_first_entry (part of list_for_each_entry) expects list to be 
+non-empty. ->streal_list may be empty when invoking 
+catpt_dsp_update_lpclock().
+
+>> +	/* set D3 */
+>> +	catpt_updatel_pci(cdev, PMCS, CATPT_PMCS_PS, CATPT_PMCS_PS_D3HOT);
+>> +	udelay(50);
+> 
+> Don't we have PCI core function for this?
 > 
 > ...
 > 
->> +#define CATPT_PMCS_PS		GENMASK(1, 0)
->> +#define CATPT_PMCS_PS_D3HOT	(0x3 << 0)
+>> +	/* set D0 */
+>> +	catpt_updatel_pci(cdev, PMCS, CATPT_PMCS_PS, 0);
+>> +	udelay(100);
+> 
+> Ditto.
+> 
+> ...
+> 
+>> +	/* set D3 */
+>> +	catpt_updatel_pci(cdev, PMCS, CATPT_PMCS_PS, CATPT_PMCS_PS_D3HOT);
+>> +	udelay(50);
+> 
+> Ditto.
+> 
+> ...
+> 
+>> +	/* set D0 */
+>> +	catpt_updatel_pci(cdev, PMCS, CATPT_PMCS_PS, 0);
 > 
 > Ditto.
 > 
 
-No need for astonishment : ) Wasn't aware of this, in fact, I count on 
-more experienced kernel developers - like you Andy - to help others in 
-learning about such improvements. Certainly, this isn't knowledge one is 
-going to inherit from developing drivers in Windows environment.
-
-Ack.
-
-> 
->> +#define CATPT_SSP_SSC0		0x0
->> +#define CATPT_SSP_SSC1		0x4
->> +#define CATPT_SSP_SSS		0x8
->> +#define CATPT_SSP_SSIT		0xC
->> +#define CATPT_SSP_SSD		0x10
->> +#define CATPT_SSP_SSTO		0x28
->> +#define CATPT_SSP_SSPSP		0x2C
->> +#define CATPT_SSP_SSTSA		0x30
->> +#define CATPT_SSP_SSRSA		0x34
->> +#define CATPT_SSP_SSTSS		0x38
->> +#define CATPT_SSP_SSC2		0x40
->> +#define CATPT_SSP_SSPSP2	0x44
-> 
-> Isn't it PXA2xx register set? Can you use their definitions?
-> 
-
-Could you be more specific? Wasn't able to find anything useful in /include.
-
-> 
->> +#define CATPT_SSP_SSC0_DEFAULT		0x0
->> +#define CATPT_SSP_SSC1_DEFAULT		0x0
->> +#define CATPT_SSP_SSS_DEFAULT		0xF004
->> +#define CATPT_SSP_SSIT_DEFAULT		0x0
->> +#define CATPT_SSP_SSD_DEFAULT		0xC43893A3
->> +#define CATPT_SSP_SSTO_DEFAULT		0x0
->> +#define CATPT_SSP_SSPSP_DEFAULT		0x0
->> +#define CATPT_SSP_SSTSA_DEFAULT		0x0
->> +#define CATPT_SSP_SSRSA_DEFAULT		0x0
->> +#define CATPT_SSP_SSTSS_DEFAULT		0x0
->> +#define CATPT_SSP_SSC2_DEFAULT		0x0
->> +#define CATPT_SSP_SSPSP2_DEFAULT	0x0
-> 
-> These defaults lack of comments.
-> 
-
-Because there aren't any available to choose from. While these are part 
-of "recommended sequence", the only comment attached is:
-     bring hw to their defaults as hw won't reset itself
-
-catpt is an effort of sw and fw guys, no hw input is included as I've 
-found only one guy still @ intel but he is busy with different projects 
-and honestly, even if he would agree, him digging now why was this 
-needed might take weeks. That's 2011 ADSP architecture, not some 
-cutting-edge stuff.
+Thanks to you now I know the correct answer: yes.
+Ack for all of these. Good advice Andy, again!

@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2240A247CB9
-	for <lists+alsa-devel@lfdr.de>; Tue, 18 Aug 2020 05:26:04 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8C054247CBE
+	for <lists+alsa-devel@lfdr.de>; Tue, 18 Aug 2020 05:26:50 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C998E170C;
-	Tue, 18 Aug 2020 05:25:13 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C998E170C
+	by alsa0.perex.cz (Postfix) with ESMTPS id 37D6E1719;
+	Tue, 18 Aug 2020 05:26:00 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 37D6E1719
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1597721163;
-	bh=p2r1eF8KRXyXU+ruPjhakCWpOtCCxbFeppGzM1/MH08=;
+	s=default; t=1597721210;
+	bh=JqVRZt5qCEsEXnX7cmlYBhujNgBVz4P/6UpxCKa1cLI=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=rAFzifEOjMqK+92aomil2ajuK4vqx/dYh96Mfy6IHuRy5L16QcNZ8iJjYbezG+XCR
-	 ABcTMytJugdIsOUF6VrcuKwD36yu1XfGyplygGgvJ6Gs6UNA2FNQXL851OajE9wn22
-	 XwdTLi6JC6fyQTYMpMpSOd6v5qpTEgPuz8LQwmv4=
+	b=pGrBjkJIHeObJXGVpv0r4bQ9+gkq8kO1CjtEzNCsgm8bdShSs9jZL+ohbaCdBEWcx
+	 WrumviRICVFwChvVT+C6AqFR58aOITP55yisDQOj7morTmNBaF0pvnY5O2mY4wpP3L
+	 ySrtj73qJipuAz/gqFg9Q9fKmR2AQH+5AabxR5pM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id BEF0EF802C2;
-	Tue, 18 Aug 2020 05:23:35 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 0D349F802E7;
+	Tue, 18 Aug 2020 05:23:39 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id CCF87F8029A; Tue, 18 Aug 2020 05:23:29 +0200 (CEST)
+ id 4DD27F802A2; Tue, 18 Aug 2020 05:23:34 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: *
 X-Spam-Status: No, score=1.1 required=5.0 tests=DATE_IN_PAST_06_12,
@@ -33,31 +33,30 @@ X-Spam-Status: No, score=1.1 required=5.0 tests=DATE_IN_PAST_06_12,
 Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 547EAF800D3
- for <alsa-devel@alsa-project.org>; Tue, 18 Aug 2020 05:23:22 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 547EAF800D3
-IronPort-SDR: NJx0uapbEjJib3rxXwh5O7Hx0oJfxIurEANmpWqMarT1EDkWWu9nK24Y+s17UHD1IenhfgDZvp
- aK7QPt3O4+9g==
-X-IronPort-AV: E=McAfee;i="6000,8403,9716"; a="152242998"
-X-IronPort-AV: E=Sophos;i="5.76,325,1592895600"; d="scan'208";a="152242998"
+ by alsa1.perex.cz (Postfix) with ESMTPS id 91EAFF8023F
+ for <alsa-devel@alsa-project.org>; Tue, 18 Aug 2020 05:23:25 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 91EAFF8023F
+IronPort-SDR: J1MFCYltqZjY/qLQuaoSdNjeweLyoWBL5vBxtW3T352ZNZwCVNwRJajvTIrqC39mrNdPB4a/wf
+ W6CYsMf+p3KQ==
+X-IronPort-AV: E=McAfee;i="6000,8403,9716"; a="152243005"
+X-IronPort-AV: E=Sophos;i="5.76,325,1592895600"; d="scan'208";a="152243005"
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
 Received: from orsmga004.jf.intel.com ([10.7.209.38])
  by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 17 Aug 2020 20:23:21 -0700
-IronPort-SDR: QFetKkvHaQvpm7iSf9CEQnJI06T6FgQrV57YPu6g+hy6JJ0WTHh9VGGnsQtqcGtrrLb2MWJN/Z
- Cc5US3OUp/xw==
-X-IronPort-AV: E=Sophos;i="5.76,325,1592895600"; d="scan'208";a="441084543"
+ 17 Aug 2020 20:23:25 -0700
+IronPort-SDR: IUKUFnI+VfHvI/oK/YYda08gAN/iI3qK4UOrhlxMWdHsQQfh/5zBbmT2Q+XrBhVdSEpxnIf4un
+ C82uTajiXHCQ==
+X-IronPort-AV: E=Sophos;i="5.76,325,1592895600"; d="scan'208";a="441084559"
 Received: from bard-ubuntu.sh.intel.com ([10.239.13.33])
  by orsmga004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 17 Aug 2020 20:23:17 -0700
+ 17 Aug 2020 20:23:21 -0700
 From: Bard Liao <yung-chuan.liao@linux.intel.com>
 To: alsa-devel@alsa-project.org,
 	vkoul@kernel.org
-Subject: [PATCH v2 02/12] soundwire: intel: reset pm_runtime status during
- system resume
-Date: Mon, 17 Aug 2020 23:29:13 +0800
-Message-Id: <20200817152923.3259-3-yung-chuan.liao@linux.intel.com>
+Subject: [PATCH v2 03/12] soundwire: intel: fix race condition on system resume
+Date: Mon, 17 Aug 2020 23:29:14 +0800
+Message-Id: <20200817152923.3259-4-yung-chuan.liao@linux.intel.com>
 X-Mailer: git-send-email 2.17.1
 In-Reply-To: <20200817152923.3259-1-yung-chuan.liao@linux.intel.com>
 References: <20200817152923.3259-1-yung-chuan.liao@linux.intel.com>
@@ -83,57 +82,47 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 
-The system resume does the entire bus re-initialization and brings it
-to full-power. If the device was pm_runtime suspended, there is no
-need to run the pm_runtime resume sequence after the system runtime.
+Previous patches took care of the case where the master device is
+pm_runtime 'suspended' when a system suspend occurs.
 
-Follow the documentation from runtime_pm.rst, and conditionally
-disable, set_active and re-enable the device on system resume.
+In the case where the master device was not suspended, e.g. if suspend
+occurred while streaming audio, Intel validation noticed a race
+condition: the pm_runtime suspend may conflict with the enumeration
+started by the system resume.
 
-Note that pm_runtime_suspended() is used instead of
-pm_runtime_status_suspended() so that we can deal with the case where
-pm_runtime is disabled.
+This can be simply fixed by updating the status before exiting system
+resume.
 
+GitHub issue: https://github.com/thesofproject/linux/issues/1482
 Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 Signed-off-by: Bard Liao <yung-chuan.liao@linux.intel.com>
 ---
- drivers/soundwire/intel.c | 16 ++++++++++++++++
- 1 file changed, 16 insertions(+)
+ drivers/soundwire/intel.c | 12 ++++++++++++
+ 1 file changed, 12 insertions(+)
 
 diff --git a/drivers/soundwire/intel.c b/drivers/soundwire/intel.c
-index 85a0bb6af4fe..0e21bae3cd19 100644
+index 0e21bae3cd19..00c5de1250ec 100644
 --- a/drivers/soundwire/intel.c
 +++ b/drivers/soundwire/intel.c
-@@ -1434,6 +1434,12 @@ static int intel_suspend(struct device *dev)
- 		return 0;
+@@ -1528,6 +1528,18 @@ static int intel_resume(struct device *dev)
+ 		return ret;
  	}
  
-+	if (pm_runtime_suspended(dev)) {
-+		dev_dbg(dev, "%s: pm_runtime status: suspended\n", __func__);
++	/*
++	 * after system resume, the pm_runtime suspend() may kick in
++	 * during the enumeration, before any children device force the
++	 * master device to remain active.  Using pm_runtime_get()
++	 * routines is not really possible, since it'd prevent the
++	 * master from suspending.
++	 * A reasonable compromise is to update the pm_runtime
++	 * counters and delay the pm_runtime suspend by several
++	 * seconds, by when all enumeration should be complete.
++	 */
++	pm_runtime_mark_last_busy(dev);
 +
-+		return 0;
-+	}
-+
- 	ret = sdw_cdns_enable_interrupt(cdns, false);
- 	if (ret < 0) {
- 		dev_err(dev, "cannot disable interrupts on suspend\n");
-@@ -1494,6 +1500,16 @@ static int intel_resume(struct device *dev)
- 		return 0;
- 	}
+ 	return ret;
+ }
  
-+	if (pm_runtime_suspended(dev)) {
-+		dev_dbg(dev, "%s: pm_runtime status was suspended, forcing active\n", __func__);
-+
-+		/* follow required sequence from runtime_pm.rst */
-+		pm_runtime_disable(dev);
-+		pm_runtime_set_active(dev);
-+		pm_runtime_mark_last_busy(dev);
-+		pm_runtime_enable(dev);
-+	}
-+
- 	ret = intel_init(sdw);
- 	if (ret) {
- 		dev_err(dev, "%s failed: %d", __func__, ret);
 -- 
 2.17.1
 

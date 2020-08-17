@@ -2,84 +2,84 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 52C85246327
-	for <lists+alsa-devel@lfdr.de>; Mon, 17 Aug 2020 11:21:41 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 486EE24632C
+	for <lists+alsa-devel@lfdr.de>; Mon, 17 Aug 2020 11:22:24 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id EB0F216AE;
-	Mon, 17 Aug 2020 11:20:50 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EB0F216AE
+	by alsa0.perex.cz (Postfix) with ESMTPS id 02E17169A;
+	Mon, 17 Aug 2020 11:21:34 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 02E17169A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1597656101;
-	bh=C16vL6hnbgvsiiC9zdfwMACi838YTcg8QH4b15TBWAw=;
+	s=default; t=1597656144;
+	bh=La+Nn02jbOZQLGokp98p76QRlTP3kHuIDeBbyvDVpMA=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=hO194CJXgz0mcp/n1EghCisY+kMCHJyQmxQEz/0B4GNSRkLV6q/BBd7GSITK57nab
-	 88Ma8zo/ar5YPkCTnT7bHAZYQgUtLGGa97CCxHsza+Ka1gKhMrLovA9BW3FHCmiUS2
-	 gsT/1tmzuwtYt8ivVnZvVsCKdtgWJSo/twTLUeCc=
+	b=laB0AfEMj2oHj9H7pbGqeLht9/Bohri8+KDknuGa/js/zjY38jVwXkgG5l2G6j8CB
+	 r/5zH9/H+dxrbvqE3vAWjdPJjkMe1Oi1+auTF6GDHH+WciNyc4zQTSaFOYClCXGduK
+	 9y5e5SU28k1RLvf4GI8hSBJdvSw2ea0jAobKr9jU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id F3A15F802E7;
-	Mon, 17 Aug 2020 11:17:28 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id C2215F802EB;
+	Mon, 17 Aug 2020 11:17:29 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id A4DB5F80218; Mon, 17 Aug 2020 10:57:44 +0200 (CEST)
+ id 1392FF80218; Mon, 17 Aug 2020 10:57:54 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: *
 X-Spam-Status: No, score=1.4 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,FREEMAIL_FROM,RCVD_IN_SORBS_WEB,SPF_HELO_NONE,SPF_PASS
  autolearn=disabled version=3.4.0
-Received: from mail-pg1-x542.google.com (mail-pg1-x542.google.com
- [IPv6:2607:f8b0:4864:20::542])
+Received: from mail-pf1-x442.google.com (mail-pf1-x442.google.com
+ [IPv6:2607:f8b0:4864:20::442])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 43117F80255
- for <alsa-devel@alsa-project.org>; Mon, 17 Aug 2020 10:57:37 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 43117F80255
+ by alsa1.perex.cz (Postfix) with ESMTPS id 664C3F800EF
+ for <alsa-devel@alsa-project.org>; Mon, 17 Aug 2020 10:57:50 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 664C3F800EF
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="QAqvBoa/"
-Received: by mail-pg1-x542.google.com with SMTP id i10so2262482pgk.1
- for <alsa-devel@alsa-project.org>; Mon, 17 Aug 2020 01:57:37 -0700 (PDT)
+ header.b="tnVY62Mm"
+Received: by mail-pf1-x442.google.com with SMTP id k18so7894889pfp.7
+ for <alsa-devel@alsa-project.org>; Mon, 17 Aug 2020 01:57:50 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=from:to:cc:subject:date:message-id:in-reply-to:references;
- bh=5ir2EUoXSC9UiT6j30BKzwTi2avjOse2gHmZ0bVuRLw=;
- b=QAqvBoa/dd6F4tETAI6u/nDKz/8vA4EoePLKL2jn8cWNCqTVZrYl40CYqJxWTcf+eH
- ruK1J6R7QGdhsuqcJisS4p1gaDyPL/E5YLmfLh4tTdGhUmDWoUx+iH0koSkUGUQXliO7
- 2JCpmXvCn5GzZPEKehV89mhI9YhIgsKxPYCzx0sEZdZFgiJvmspJz6zSMpHviaIGekwJ
- 1z8BTY5fdbhG0uMJgtP8lqMAWPG/KEBRDetYK87jDM6OGa5X6bN2ruy4ecHjDY2vFviz
- XLsP4x+jKhVxq0vODvOPtstM1fIX6fFJxk0zucKQXdSgLhefDyQlIGj7mM8phP46n4ur
- aMqg==
+ bh=UTSOhqNL5HstpQGSytQ69KLhEIvbIwMRL+50xoY/d1A=;
+ b=tnVY62Mm3nYGST0oeSTRXyKqQJ1c+CoCCnUIazPPvCz2Zyx5i9VDNgtHhs66n21pZw
+ P4WQK0kqDNCBQLWx79G6o67dpbwJPhWt+17dc0HsrLgkWerecLg4kU1AIkrwQFslBYBa
+ lo6RK50/eqXjea5NQ6H/qmPJ5d/LhTJqcY5Wvpy4eRiJzPb6/1l1l/XqqBulYx6AA8Rn
+ b4E5GwDvHlrlvoROyLH70MCyMvgwQ9Ma/CkCSLmwzyT1Lc4KAPigBb5KhVbbv3w22pje
+ /GE4J6Iy8M24q00gdPEdDZwI0qp52uLP2AUdBjM2NmPmIQ7TYyAvbBumeE8H6Z/ojew0
+ JD3w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references;
- bh=5ir2EUoXSC9UiT6j30BKzwTi2avjOse2gHmZ0bVuRLw=;
- b=h4e8d4ZBSUgurC7f9Pzpiqv/h0zXzNYH1Zk8paLAD5Ep39KPZUbXpH02SGAdHT2Q/7
- 6c5DmoP8mr5KBQFnCcsE3RYFFPUOO/KftSJhKJzGnuOcKPaTFfUpJjIDb1yRbJt8kNYm
- Fi4/lULG8kGOXMQOxhr9zCJWQRrdqi0vH9bsSCBU5tXYq/1CjsLIL0xEHKNfPPDzDA5C
- neSIBVX4jqPt+/5WpNJae3kM9yxnjLOJHke66UxAZF5v6MiJGI4bH1qtA8Rfk42JoJuW
- nQmCRkvTFf4QmvYtH8GgFojVGiG2bQT4vbNLfPd0UKAF2jpS/bHCR4Ws7o5GfiKBAbaY
- uAVw==
-X-Gm-Message-State: AOAM532R75xceuCwrNWgDBmE7lxrXdA7LZp1ijk0+g5GW76L0mqLZvK3
- Dxa7xQ6IcpAqxTVVVVkMxXs=
-X-Google-Smtp-Source: ABdhPJzGb3DXb0HExdoQilfc10prLDt115mewJJXkDS4HvxKOzPFoSgMOQt2dPqyE+lXYYhpi5FbKw==
-X-Received: by 2002:a63:6dc2:: with SMTP id i185mr9441882pgc.190.1597654654967; 
- Mon, 17 Aug 2020 01:57:34 -0700 (PDT)
+ bh=UTSOhqNL5HstpQGSytQ69KLhEIvbIwMRL+50xoY/d1A=;
+ b=PYHgXqO53GIqx+MBMf70GewpUVEAdesbsZgMGZRhT8xBnaYvQ94RFE5nG5I1Y3FJH5
+ b8vrY8K6Zus/1Y3jTzPt/GJgpv3oh9TC4NcReMTK9aSc/jOzRmpxFNXCiTY+NZ/DyXy1
+ S40A87HEcrwbbkmhze3mFEwAap9tAbVmw08dP9XkWzgccNkxrsTowbReOeqeby/mvM21
+ fEzKCFnZJ81CiLiqMIoGU9PyN7Ueal0SW0gTwCiGdPgbjtDGmec83YSnR6pWyKwH7XLd
+ wEVOgUeWcsPABnmVA2Y+SKfJGxFw2+JmdypJ5ClfPdz7OLttkve/TjyHBpdU5J/n+vtd
+ YXWw==
+X-Gm-Message-State: AOAM5308RQW7iE2H+BWL6bkW5hcuB1P0Z4Mm9XlmibUPZIfgSHpZ2tAl
+ o21/RknUcTEvQY/WUO1XibE=
+X-Google-Smtp-Source: ABdhPJyfL9kjLJ5laRAS5+b9JXqWdLH4UWSLPWaVE24ZUuM9BF3zE8Ke4dRt9cpQCFIksdK7gJHV4w==
+X-Received: by 2002:a62:c582:: with SMTP id j124mr10929426pfg.21.1597654668407; 
+ Mon, 17 Aug 2020 01:57:48 -0700 (PDT)
 Received: from localhost.localdomain ([49.207.202.98])
- by smtp.gmail.com with ESMTPSA id j5sm19057245pfg.80.2020.08.17.01.57.31
+ by smtp.gmail.com with ESMTPSA id j5sm19057245pfg.80.2020.08.17.01.57.35
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 17 Aug 2020 01:57:34 -0700 (PDT)
+ Mon, 17 Aug 2020 01:57:47 -0700 (PDT)
 From: Allen Pais <allen.cryptic@gmail.com>
 To: perex@perex.cz, tiwai@suse.com, clemens@ladisch.de,
  o-takashi@sakamocchi.jp, timur@kernel.org, nicoleotsuka@gmail.com,
  Xiubo.Lee@gmail.com
-Subject: [PATCH 04/10] sound: riptide: convert tasklets to use new
+Subject: [PATCH 05/10] sound: rm9652: convert tasklets to use new
  tasklet_setup() API
-Date: Mon, 17 Aug 2020 14:26:57 +0530
-Message-Id: <20200817085703.25732-5-allen.cryptic@gmail.com>
+Date: Mon, 17 Aug 2020 14:26:58 +0530
+Message-Id: <20200817085703.25732-6-allen.cryptic@gmail.com>
 X-Mailer: git-send-email 2.17.1
 In-Reply-To: <20200817085703.25732-1-allen.cryptic@gmail.com>
 References: <20200817085703.25732-1-allen.cryptic@gmail.com>
@@ -112,34 +112,61 @@ and from_tasklet() to pass the tasklet pointer explicitly.
 Signed-off-by: Romain Perier <romain.perier@gmail.com>
 Signed-off-by: Allen Pais <allen.lkml@gmail.com>
 ---
- sound/pci/riptide/riptide.c | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+ sound/pci/rme9652/hdsp.c  | 6 +++---
+ sound/pci/rme9652/hdspm.c | 7 +++----
+ 2 files changed, 6 insertions(+), 7 deletions(-)
 
-diff --git a/sound/pci/riptide/riptide.c b/sound/pci/riptide/riptide.c
-index b4f300281822..098c69b3b7aa 100644
---- a/sound/pci/riptide/riptide.c
-+++ b/sound/pci/riptide/riptide.c
-@@ -1070,9 +1070,9 @@ getmixer(struct cmdif *cif, short num, unsigned short *rval,
+diff --git a/sound/pci/rme9652/hdsp.c b/sound/pci/rme9652/hdsp.c
+index 227aece17e39..dda56ecfd33b 100644
+--- a/sound/pci/rme9652/hdsp.c
++++ b/sound/pci/rme9652/hdsp.c
+@@ -3791,9 +3791,9 @@ static int snd_hdsp_set_defaults(struct hdsp *hdsp)
  	return 0;
  }
  
--static void riptide_handleirq(unsigned long dev_id)
-+static void riptide_handleirq(struct tasklet_struct *t)
+-static void hdsp_midi_tasklet(unsigned long arg)
++static void hdsp_midi_tasklet(struct tasklet_struct *t)
  {
--	struct snd_riptide *chip = (void *)dev_id;
-+	struct snd_riptide *chip = from_tasklet(chip, t, riptide_tq);
- 	struct cmdif *cif = chip->cif;
- 	struct snd_pcm_substream *substream[PLAYBACK_SUBSTREAMS + 1];
- 	struct snd_pcm_runtime *runtime;
-@@ -1843,7 +1843,7 @@ snd_riptide_create(struct snd_card *card, struct pci_dev *pci,
- 	chip->received_irqs = 0;
- 	chip->handled_irqs = 0;
- 	chip->cif = NULL;
--	tasklet_init(&chip->riptide_tq, riptide_handleirq, (unsigned long)chip);
-+	tasklet_setup(&chip->riptide_tq, riptide_handleirq);
+-	struct hdsp *hdsp = (struct hdsp *)arg;
++	struct hdsp *hdsp = from_tasklet(hdsp, t, midi_tasklet);
  
- 	if ((chip->res_port =
- 	     request_region(chip->port, 64, "RIPTIDE")) == NULL) {
+ 	if (hdsp->midi[0].pending)
+ 		snd_hdsp_midi_input_read (&hdsp->midi[0]);
+@@ -5182,7 +5182,7 @@ static int snd_hdsp_create(struct snd_card *card,
+ 
+ 	spin_lock_init(&hdsp->lock);
+ 
+-	tasklet_init(&hdsp->midi_tasklet, hdsp_midi_tasklet, (unsigned long)hdsp);
++	tasklet_setup(&hdsp->midi_tasklet, hdsp_midi_tasklet);
+ 
+ 	pci_read_config_word(hdsp->pci, PCI_CLASS_REVISION, &hdsp->firmware_rev);
+ 	hdsp->firmware_rev &= 0xff;
+diff --git a/sound/pci/rme9652/hdspm.c b/sound/pci/rme9652/hdspm.c
+index 0fa49f4d15cf..572350aaf18d 100644
+--- a/sound/pci/rme9652/hdspm.c
++++ b/sound/pci/rme9652/hdspm.c
+@@ -2169,9 +2169,9 @@ static int snd_hdspm_create_midi(struct snd_card *card,
+ }
+ 
+ 
+-static void hdspm_midi_tasklet(unsigned long arg)
++static void hdspm_midi_tasklet(struct tasklet_struct *t)
+ {
+-	struct hdspm *hdspm = (struct hdspm *)arg;
++	struct hdspm *hdspm = from_tasklet(hdspm, t, midi_tasklet);
+ 	int i = 0;
+ 
+ 	while (i < hdspm->midiPorts) {
+@@ -6836,8 +6836,7 @@ static int snd_hdspm_create(struct snd_card *card,
+ 
+ 	}
+ 
+-	tasklet_init(&hdspm->midi_tasklet,
+-			hdspm_midi_tasklet, (unsigned long) hdspm);
++	tasklet_setup(&hdspm->midi_tasklet, hdspm_midi_tasklet);
+ 
+ 
+ 	if (hdspm->io_type != MADIface) {
 -- 
 2.17.1
 

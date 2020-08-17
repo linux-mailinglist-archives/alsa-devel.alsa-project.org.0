@@ -2,75 +2,84 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D61F524737F
-	for <lists+alsa-devel@lfdr.de>; Mon, 17 Aug 2020 20:57:15 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 13FDC247837
+	for <lists+alsa-devel@lfdr.de>; Mon, 17 Aug 2020 22:37:55 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 75CD416F3;
-	Mon, 17 Aug 2020 20:56:25 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 75CD416F3
+	by alsa0.perex.cz (Postfix) with ESMTPS id 84E9716F6;
+	Mon, 17 Aug 2020 22:37:04 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 84E9716F6
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1597690635;
-	bh=Nc5tx9MY3htbvFK8fcEZIYObQdndgngLn3mqn/2Jm8g=;
+	s=default; t=1597696674;
+	bh=YrqLb9GOScQina8flKUkbCictXz0PxKRcpxzaCPkE9c=;
 	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=hCljran6zoj/JpXcPaMJbO4Hn5VWFJRXvkTief9SPfQoapwXQiJqTOlRIC1VarSH4
-	 LujPceSlECg3qzrHM44nt4pzL7UaZzBPRRTSQdyCE1gZMNubKv2ZwJxxt71k3ARc8M
-	 MrT9UL33i1LDU4pXP2PlrAisZWq/h/tazCzpGLUI=
+	b=lCnSMy7W1t6UxDT0DL0mQkRXH+Pssar7hAgSQK8F+CLBYXMzeLttx35fqkx7okB1w
+	 RrbaEm+IJ1mdaV2AwPn7mTBsDYN13lrH/IbMffhlL1lbP7i1/Y6I8TTqiVctJDDgRi
+	 2Vh21/ohy5OTn1DPbucifsn5bYCvLjgJIzIHPZVA=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id A2C0FF80255;
-	Mon, 17 Aug 2020 20:55:34 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 9AB2EF80216;
+	Mon, 17 Aug 2020 22:36:13 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 9B71FF80218; Mon, 17 Aug 2020 20:55:32 +0200 (CEST)
+ id 74CB6F80216; Mon, 17 Aug 2020 22:36:11 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled
+X-Spam-Status: No, score=0.7 required=5.0 tests=FREEMAIL_ENVFROM_END_DIGIT,
+ FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,
+ RCVD_IN_MSPIKE_H2,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=disabled
  version=3.4.0
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+Received: from mail-io1-f68.google.com (mail-io1-f68.google.com
+ [209.85.166.68])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 940C4F800EF
- for <alsa-devel@alsa-project.org>; Mon, 17 Aug 2020 20:55:21 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 940C4F800EF
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="A0bXs+cm"
-Received: from localhost (fw-tnat.cambridge.arm.com [217.140.96.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 526CD204EC;
- Mon, 17 Aug 2020 18:55:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1597690519;
- bh=Nc5tx9MY3htbvFK8fcEZIYObQdndgngLn3mqn/2Jm8g=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=A0bXs+cmMaz+IbHH0jThM9KPgbp0OfRNEdfGKERKyDN4N0Hc9/krruMRvLp3nM8kK
- jqY7AZo0rMrjylwNTSTsci5ZBCxl/ym8+tHueg9I6XTPZLS6q+4Cg8MWF8ADrqTdja
- bh3UggiivNDFxUGoZZfr5Wuk/S8FlkdWaU3aLHS8=
-Date: Mon, 17 Aug 2020 19:54:48 +0100
-From: Mark Brown <broonie@kernel.org>
-To: "Sridharan, Ranjani" <ranjani.sridharan@intel.com>
-Subject: Re: Enabling DAPM for Dummy DAIs
-Message-ID: <20200817185448.GB6661@sirena.org.uk>
-References: <DM6PR11MB290561D66CB13F86B419004CE8430@DM6PR11MB2905.namprd11.prod.outlook.com>
- <20200814123712.GB4783@sirena.org.uk>
- <1a8e6e8872692ea88bd7905ed5ae0e8e2a8c0414.camel@intel.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 11710F800F0
+ for <alsa-devel@alsa-project.org>; Mon, 17 Aug 2020 22:35:59 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 11710F800F0
+Received: by mail-io1-f68.google.com with SMTP id u126so18889727iod.12
+ for <alsa-devel@alsa-project.org>; Mon, 17 Aug 2020 13:35:59 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to;
+ bh=Gggmf4/obf3xyX8N4OL6u2ludp+W78q9wdQyjaXQVTA=;
+ b=deWU+iOABlYEHHvfE8Jh/89ehVsHyPv5OipS3aahfl1njTibSOCE857k2GcHWDzRVk
+ B4Hpjiuig8cfW27h4u+B3RR3EMkVrH/NQrB5/SP0W2N0nn7W/4h9eH863UZY/M1FNnjn
+ 5sBgEI5pXKaHODZ8RSBZwjF4rMVl01Vtzb6Dmh8kRBs5IRio6L4crJgFGyV7eWhSb7/b
+ JZ2S3XtRg1BOmJM8X4OC/MLyXHX9YhN0TmL5Dvpdcs5qEYbl4/w09hGvjKQD5O6Ppdx+
+ +23vACK0LSntJyvoiGJVVZmjpNNztx9/zDPxDIIEqFSkXGH86erYqP8MgYdt62gRWnzt
+ C2jA==
+X-Gm-Message-State: AOAM531JTLCDqzJB5VXvQjn2reY+igyspGU4XLgulzM+Kb0zJJMN3PUi
+ Gr91SPv0FOb3/zXE1FekBw==
+X-Google-Smtp-Source: ABdhPJzdeGjzY2eK3orrhQ6ZhXXYF4B8P4OnWpr2Kg2IjB7nPlnMYmtp7GDglYyFcTF2wKxx0RdFlQ==
+X-Received: by 2002:a02:95ae:: with SMTP id b43mr15885225jai.19.1597696557970; 
+ Mon, 17 Aug 2020 13:35:57 -0700 (PDT)
+Received: from xps15 ([64.188.179.249])
+ by smtp.gmail.com with ESMTPSA id o62sm10249657ilb.38.2020.08.17.13.35.55
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 17 Aug 2020 13:35:57 -0700 (PDT)
+Received: (nullmailer pid 1512415 invoked by uid 1000);
+ Mon, 17 Aug 2020 20:35:54 -0000
+Date: Mon, 17 Aug 2020 14:35:54 -0600
+From: Rob Herring <robh@kernel.org>
+To: Rohit kumar <rohitkr@codeaurora.org>
+Subject: Re: [PATCH v6 07/12] dt-bindings: sound: lpass-cpu: Add sc7180 lpass
+ cpu node
+Message-ID: <20200817203554.GA1512270@bogus>
+References: <1597402388-14112-1-git-send-email-rohitkr@codeaurora.org>
+ <1597402388-14112-8-git-send-email-rohitkr@codeaurora.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="61jdw2sOBCFtR2d/"
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <1a8e6e8872692ea88bd7905ed5ae0e8e2a8c0414.camel@intel.com>
-X-Cookie: Ignore previous fortune.
-User-Agent: Mutt/1.10.1 (2018-07-13)
-Cc: "tiwai@suse.de" <tiwai@suse.de>,
- "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
- "bard.liao@linux.intel.com" <bard.liao@linux.intel.com>,
- "pierre-louis.bossart@linux.intel.com" <pierre-louis.bossart@linux.intel.com>
+In-Reply-To: <1597402388-14112-8-git-send-email-rohitkr@codeaurora.org>
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
+ bgoswami@codeaurora.org, linux-arm-msm@vger.kernel.org, broonie@kernel.org,
+ tiwai@suse.com, lgirdwood@gmail.com, robh+dt@kernel.org,
+ bjorn.andersson@linaro.org, agross@kernel.org, srinivas.kandagatla@linaro.org,
+ plai@codeaurora.org, linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -86,37 +95,19 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+On Fri, 14 Aug 2020 16:23:03 +0530, Rohit kumar wrote:
+> Add dt-bindings to support "qcom,lpass-cpu-sc7180" node.
+> 
+> Signed-off-by: Rohit kumar <rohitkr@codeaurora.org>
+> ---
+>  .../devicetree/bindings/sound/qcom,lpass-cpu.txt   | 55 +++++++++++++++++++++-
+>  1 file changed, 53 insertions(+), 2 deletions(-)
+> 
 
---61jdw2sOBCFtR2d/
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
 
-On Mon, Aug 17, 2020 at 05:45:59PM +0000, Sridharan, Ranjani wrote:
+Please add Acked-by/Reviewed-by tags when posting new versions. However,
+there's no need to repost patches *only* to add the tags. The upstream
+maintainer will do that for acks received on the version they apply.
 
-> Thanks, Mark. But I am still confused by what you mean by a simple
-> codec here. Would this simple codec be registered by the SOF platform
-> driver?
+If a tag was not added on purpose, please state why and what changed.
 
-Any CODEC driver that doesn't require software control.  I have no idea
-what would register something with the whole probing situation you have
-- ideally you'd just be able to use the actual configuration of the
-board you're on.  Given you're already registering platform devices for
-things not described in ACPI whatever does that is probably the right
-place.
-
---61jdw2sOBCFtR2d/
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl860ngACgkQJNaLcl1U
-h9CkdQf/UgL6BlsjzD8utdr9uAg92V9W5fT+vEB0C5kkUiGnAk4Rb+X54ATC7Sew
-0FAgnNS61U7SEjCN+M5N0MLP+XOU2BlyiQBizYJvZL2hedtjJY6CpBGClCgusChO
-8VFxcXgUyw3FEpKkh5fOXL/+epIJ5JsqwfjsgqNvtNVPotFnToN/FsERRmRG0TVn
-GjiT0h/rx4FGSrt1EqpIJxLZdGmIw6d0le6qHDiMB6FkTcgT3oIiaKwoju1Ve8gj
-i/rfbQqjiUVt8KMBKjmhZkYcmGD7HlU8VGs2meApnt6KuxFFw7rNNIEOd/s1g1pQ
-2r0f85kOIqBeviMPnpBQPxAe1sFHKQ==
-=KQLv
------END PGP SIGNATURE-----
-
---61jdw2sOBCFtR2d/--

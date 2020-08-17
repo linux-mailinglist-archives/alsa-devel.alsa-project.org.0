@@ -2,59 +2,48 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D0F06247AAB
-	for <lists+alsa-devel@lfdr.de>; Tue, 18 Aug 2020 00:49:11 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D1A36247B1E
+	for <lists+alsa-devel@lfdr.de>; Tue, 18 Aug 2020 01:36:27 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 6889516FC;
-	Tue, 18 Aug 2020 00:48:21 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6889516FC
+	by alsa0.perex.cz (Postfix) with ESMTPS id 5D8BF16FC;
+	Tue, 18 Aug 2020 01:35:37 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5D8BF16FC
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1597704551;
-	bh=kLLZuOItp7lmq+MfOP/sYg6TH7hauCI+MB43ZZD6MTs=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=gYCti2t4tb0750clr1Q3Eyq1CJelJVZrsGOI0sK1Ih4VthTAhb1j6FvE4TVvukdhu
-	 MEJw9a5Hf9OfP75MowZ4oBVEG/HA1fSIlc0gVqtxkzRnUEKJ6jRbTEhyWwCfRFrZJE
-	 E6yNoXs8zZu2pI8y6Xaw+iYQLQqXmf0nxRiBPv7M=
+	s=default; t=1597707387;
+	bh=27U8aGS4dGLgS57fwvOU/S32GzirC2tLJLTgkLDMsDI=;
+	h=From:To:In-Reply-To:References:Subject:Date:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=LTtQ1wogrXjUA/eOGSqI59nnvArWbz4Rirl6sECK0a4iO4cCdzycxtb+9Zhnqysh2
+	 X/M2aIGLyotj9HTeGuDADM6g83fbvuopzD4Xep+LmaT8myVOmXqBCF8JaiCWQ/frHY
+	 JZiL+ePQHu55xubDR8cSz2VtULMZrNIdxPN9gS7E=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 8B66AF800EF;
-	Tue, 18 Aug 2020 00:47:30 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 7EBEBF800EF;
+	Tue, 18 Aug 2020 01:34:46 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id A08E7F80218; Tue, 18 Aug 2020 00:47:26 +0200 (CEST)
+ id 16A3CF80218; Tue, 18 Aug 2020 01:34:44 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=-0.0 required=5.0 tests=RCVD_IN_MSPIKE_H3,
- RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from youngberry.canonical.com (youngberry.canonical.com
- [91.189.89.112])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 5F60CF800EF
- for <alsa-devel@alsa-project.org>; Tue, 18 Aug 2020 00:47:19 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5F60CF800EF
-Received: from [82.43.126.140] (helo=localhost)
- by youngberry.canonical.com with esmtpsa
- (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.86_2)
- (envelope-from <colin.king@canonical.com>)
- id 1k7nuK-0000uc-3W; Mon, 17 Aug 2020 22:47:12 +0000
-From: Colin King <colin.king@canonical.com>
-To: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
- Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
- Michal Simek <michal.simek@xilinx.com>, alsa-devel@alsa-project.org,
- linux-arm-kernel@lists.infradead.org
-Subject: [PATCH] sound: remove duplicate "the the" phrase in Kconfig text
-Date: Mon, 17 Aug 2020 23:47:06 +0100
-Message-Id: <20200817224706.6139-1-colin.king@canonical.com>
-X-Mailer: git-send-email 2.27.0
+X-Spam-Level: **
+X-Spam-Status: No, score=2.5 required=5.0 tests=MISSING_DATE,MISSING_MID,
+ SPF_FAIL,SPF_HELO_NONE autolearn=disabled version=3.4.0
+Received: from webhooks-bot.alsa-project.org (gate.perex.cz [77.48.224.242])
+ by alsa1.perex.cz (Postfix) with ESMTP id 36865F800F0
+ for <alsa-devel@alsa-project.org>; Tue, 18 Aug 2020 01:34:40 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 36865F800F0
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Cc: kernel-janitors@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
+From: GitHub pull_request - opened <github@alsa-project.org>
+To: alsa-devel@alsa-project.org
+In-Reply-To: <1597707280009090900-webhooks-bot@alsa-project.org>
+References: <1597707280009090900-webhooks-bot@alsa-project.org>
+Subject: hdajackretask: Update kernel doc URL in README
+Message-Id: <20200817233444.16A3CF80218@alsa1.perex.cz>
+Date: Tue, 18 Aug 2020 01:34:44 +0200 (CEST)
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -70,37 +59,10 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: Colin Ian King <colin.king@canonical.com>
+alsa-project/alsa-tools pull request #2 was opened from ferdnyc:
 
-There are a couple of occurrences of "the the" in the Kconfig
-text. Fix these.
+As of THIS writing, the kernel documentation tree has been rearranged, and the "Hint strings" section now resides at the updated URL
 
-Signed-off-by: Colin Ian King <colin.king@canonical.com>
----
- sound/soc/xilinx/Kconfig | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
-
-diff --git a/sound/soc/xilinx/Kconfig b/sound/soc/xilinx/Kconfig
-index 1d3586b68db7..5bd2730aab76 100644
---- a/sound/soc/xilinx/Kconfig
-+++ b/sound/soc/xilinx/Kconfig
-@@ -9,14 +9,14 @@ config SND_SOC_XILINX_I2S
- 	  encapsulates PCM in AES format and sends AES data.
- 
- config SND_SOC_XILINX_AUDIO_FORMATTER
--	tristate "Audio support for the the Xilinx audio formatter"
-+	tristate "Audio support for the Xilinx audio formatter"
- 	help
- 	  Select this option to enable Xilinx audio formatter
- 	  support. This provides DMA platform device support for
- 	  audio functionality.
- 
- config SND_SOC_XILINX_SPDIF
--	tristate "Audio support for the the Xilinx SPDIF"
-+	tristate "Audio support for the Xilinx SPDIF"
- 	help
- 	  Select this option to enable Xilinx SPDIF Audio.
- 	  This provides playback and capture of SPDIF audio in
--- 
-2.27.0
-
+Request URL   : https://github.com/alsa-project/alsa-tools/pull/2
+Patch URL     : https://github.com/alsa-project/alsa-tools/pull/2.patch
+Repository URL: https://github.com/alsa-project/alsa-tools

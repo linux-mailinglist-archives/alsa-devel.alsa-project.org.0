@@ -2,73 +2,60 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 98F792465B1
-	for <lists+alsa-devel@lfdr.de>; Mon, 17 Aug 2020 13:49:24 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id F3EBA246607
+	for <lists+alsa-devel@lfdr.de>; Mon, 17 Aug 2020 14:08:54 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 2EB131694;
-	Mon, 17 Aug 2020 13:48:34 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2EB131694
+	by alsa0.perex.cz (Postfix) with ESMTPS id 9714716BF;
+	Mon, 17 Aug 2020 14:08:04 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9714716BF
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1597664964;
-	bh=PWU1FA67zQAasUqd3BPumylawraXXdrgHP9MCo9WyJc=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1597666134;
+	bh=aIdrI0ghTgJYoHrHKPzKxTBF9ReKLD1TFAvA7Eh2S7g=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=diqTmCQ87+8BE0jbzyi2aspKMIP+zQNTVuIu9e5WCnA+ldAkll2Rer0PbmEr5vufp
-	 M6FwWZYDdD9ar+b/pfhAW1zsg6CkCB6O35xaYn9DPY+AwleadBcOyAUYVvmAwXdWOw
-	 Eoo0uEceh1/HD/s/8vo56dOyTtsBZTdOecIFw5Ig=
+	b=DYALJDLDkQAkeBbQJXqCUxWQGXKCssZsFTDvSZXg9QDP7IhJ5R73jVWLGLBgO41+N
+	 M02TfBtCIyL71UAAw5uUl88GPBIeyFFZ7/GFTDCqL/AVkjxmiJDBRYhaz2SXacVj4U
+	 itUjKnsH+jwmhLVz/dZ+S1v/EUcdhwRSqaLabfPU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 3AE1EF80216;
-	Mon, 17 Aug 2020 13:47:43 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id C535DF800EF;
+	Mon, 17 Aug 2020 14:07:13 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id E2C34F80218; Mon, 17 Aug 2020 13:47:41 +0200 (CEST)
+ id 67990F80218; Mon, 17 Aug 2020 14:07:11 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
+X-Spam-Status: No, score=0.4 required=5.0 tests=PRX_BODYSUB_19,
+ RCVD_IN_MSPIKE_H3,RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
  autolearn=disabled version=3.4.0
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id D3217F800F0
- for <alsa-devel@alsa-project.org>; Mon, 17 Aug 2020 13:47:35 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D3217F800F0
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="2Bb0s9c1"
-Received: from localhost (unknown [122.171.38.130])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id C07AE20674;
- Mon, 17 Aug 2020 11:47:32 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1597664853;
- bh=PWU1FA67zQAasUqd3BPumylawraXXdrgHP9MCo9WyJc=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=2Bb0s9c1fXzrj0yzxKH6TCjhWGcINNywtn7fDxCldvxcXqhjpd+ietw8xoQr1LBU4
- +tId8AB1jrQEbVZDeJb458pPtVyNcCho0J3XN5oui0KxZzSSAUpgVTgwSfGcxehI18
- juHydM2Zsdmrr3Rko36cqSQH8+J5gro0pUpgtS08=
-Date: Mon, 17 Aug 2020 17:17:29 +0530
-From: Vinod Koul <vkoul@kernel.org>
-To: Bard Liao <yung-chuan.liao@linux.intel.com>
-Subject: Re: [PATCH 09/13] soundwire: intel: add CLK_STOP_BUS_RESET support
-Message-ID: <20200817114729.GP2639@vkoul-mobl>
-References: <20200721203723.18305-1-yung-chuan.liao@linux.intel.com>
- <20200721203723.18305-10-yung-chuan.liao@linux.intel.com>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20200721203723.18305-10-yung-chuan.liao@linux.intel.com>
-Cc: pierre-louis.bossart@linux.intel.com, alsa-devel@alsa-project.org,
- tiwai@suse.de, gregkh@linuxfoundation.org, linux-kernel@vger.kernel.org,
- ranjani.sridharan@linux.intel.com, hui.wang@canonical.com, broonie@kernel.org,
- srinivas.kandagatla@linaro.org, jank@cadence.com, mengdong.lin@intel.com,
- slawomir.blauciak@intel.com, sanyog.r.kale@intel.com,
- rander.wang@linux.intel.com, bard.liao@intel.com
+ by alsa1.perex.cz (Postfix) with ESMTPS id 4C29EF800EF
+ for <alsa-devel@alsa-project.org>; Mon, 17 Aug 2020 14:07:00 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4C29EF800EF
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id 61637AFF3;
+ Mon, 17 Aug 2020 12:07:25 +0000 (UTC)
+Date: Mon, 17 Aug 2020 14:07:00 +0200
+Message-ID: <s5h5z9hpjbv.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Tanjeff Moos <tanjeff@cccmz.de>
+Subject: Re: [PATCH] Add documentation for snd_ctl_elem_list_*
+In-Reply-To: <ad9e0d6f-9903-4f71-6f84-c91b2facc7d5@cccmz.de>
+References: <499ff8f3-0487-5b80-7a8e-e8ec70c277fc@cccmz.de>
+ <s5himdjqbtl.wl-tiwai@suse.de>
+ <ad9e0d6f-9903-4f71-6f84-c91b2facc7d5@cccmz.de>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
+ FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
+ (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
+Content-Type: text/plain; charset=US-ASCII
+Cc: alsa-devel@alsa-project.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -84,91 +71,314 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 22-07-20, 04:37, Bard Liao wrote:
-> From: Rander Wang <rander.wang@intel.com>
+On Sun, 16 Aug 2020 12:49:45 +0200,
+Tanjeff Moos wrote:
 > 
-> Move existing pm_runtime suspend under the CLK_STOP_TEARDOWN case.
+> On 16/08/2020 09:39, Takashi Iwai wrote:
+> > The contents look good to me, but could you give your Signed-off-by
+> > line for merging the patch?
+> > 
 > 
-> In this mode the Master IP will lose all context but in-band wakes are
-> supported.
+> Here we go:
+
+Your embedded patch isn't cleanly applicable due to the line breaks
+your MUA has put at reply.  Please fix your MUA setup, or submit via
+git-send-email again.
+
+
+
+thanks,
+
+Takashi
+
+> >From 731895b67fcae743551989a5dd04382003e66560 Mon Sep 17 00:00:00 2001
+> From: "Tanjeff-N. Moos" <tanjeff@cccmz.de>
+> Date: Fri, 14 Aug 2020 08:40:28 +0200
+> Subject: [PATCH] Add documentation for snd_ctl_elem_list_*.
 > 
-> On pm_runtime resume a complete re-enumeration will be performed after
-> a bus reset.
-> 
-> Signed-off-by: Rander Wang <rander.wang@intel.com>
-> Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-> Signed-off-by: Bard Liao <yung-chuan.liao@linux.intel.com>
+> Signed-off-by: Tanjeff-N. Moos <tanjeff@cccmz.de>
 > ---
->  drivers/soundwire/intel.c | 44 +++++++++++++++++++++++++++++++++++++++
->  1 file changed, 44 insertions(+)
+>  include/control.h     | 81 +++++++++++++++++++++++++++++++++++++++++--
+>  src/control/control.c | 80 ++++++++++++++++++++++++++++++++++++------
+>  2 files changed, 148 insertions(+), 13 deletions(-)
 > 
-> diff --git a/drivers/soundwire/intel.c b/drivers/soundwire/intel.c
-> index 1954eb48b86c..744fc0a4816a 100644
-> --- a/drivers/soundwire/intel.c
-> +++ b/drivers/soundwire/intel.c
-> @@ -1576,6 +1576,26 @@ static int intel_suspend_runtime(struct device *dev)
->  
->  		intel_shim_wake(sdw, false);
->  
-> +	} else if (clock_stop_quirks & SDW_INTEL_CLK_STOP_BUS_RESET) {
-> +		ret = sdw_cdns_clock_stop(cdns, true);
-> +		if (ret < 0) {
-> +			dev_err(dev, "cannot enable clock stop on suspend\n");
-> +			return ret;
-> +		}
+> diff --git a/include/control.h b/include/control.h
+> index 02db72d4..9deec6f3 100644
+> --- a/include/control.h
+> +++ b/include/control.h
+> @@ -56,7 +56,75 @@ typedef struct _snd_ctl_card_info snd_ctl_card_info_t;
+>  /** CTL element identifier container */
+>  typedef struct _snd_ctl_elem_id snd_ctl_elem_id_t;
+> 
+> -/** CTL element identifier list container */
+> +/** CTL element list container
+> + *
+> + * This is a list of CTL elements. The list contains management
+> + * information (e.g. how many elements the sound card has) as well as
+> + * the element identifiers. All functions which operate on the list
+> + * are named snd_ctl_elem_list_*().
+> + *
+> + * \par Memory management
+> + *
+> + * There are two memory areas to deal with: The list container itself
+> + * and the memory for the element identifiers.
+> + *
+> + * To manage the area for the list container, the following functions
+> + * are used:
+> + *
+> + * - snd_ctl_elem_list_malloc() / snd_ctl_elem_list_free() to allocate
+> + *   and free memory on the heap, or
+> + * - snd_ctl_elem_list_alloca() to allocate the memory on the
+> + *   stack. This memory is auto-released when the stack is unwound.
+> + *
+> + * To manage the space for the element identifiers, the
+> + * snd_ctl_elem_list_alloc_space() and snd_ctl_elem_list_free_space()
+> + * are used. Allocating the right amount of space can be achieved by
+> + * first obtaining the number of elements and then calling
+> + * snd_ctl_elem_list_alloc_space():
+> + *
+> + * \code
+> + *   snd_ctl_elem_list_t* list;
+> + *   int count;
+> + *
+> + *   // Initialise list
+> + *   snd_ctl_elem_list_malloc(&list);
+> + *
+> + *   // Get number of elements
+> + *   snd_ctl_elem_list(ctl, list);
+> + *   count = snd_ctl_elem_list_get_count(list);
+> + *
+> + *   // Allocate space for identifiers
+> + *   snd_ctl_elem_list_alloc_space(list, count);
+> + *
+> + *   // Get identifiers
+> + *   snd_ctl_elem_list(ctl, list); // yes, this is same as above :)
+> + *
+> + *   // Do something useful with the list...
+> + *
+> + *   // Cleanup
+> + *   snd_ctl_elem_list_free_space(list);
+> + *   snd_ctl_elem_list_free(list);
+> + * \endcode
+> + *
+> + *
+> + * \par The Elements
+> + *
+> + * The elements in the list are accessed using an index. This index is
+> + * the location in the list; Don't confuse it with the 'index' of the
+> + * element identifier. For example:
+> + *
+> + * \code
+> + *     snd_ctl_elem_list_t list;
+> + *     unsigned int element_index;
+> + *
+> + *     // Allocate space, fill list ...
+> + *
+> + *     element_index = snd_ctl_elem_list_get_index(&list, 2);
+> + * \endcode
+> + *
+> + * This will access the 3rd element in the list (index=2) and get the
+> + * elements index from the driver (which might be 13, for example).
+> + */
+>  typedef struct _snd_ctl_elem_list snd_ctl_elem_list_t;
+> 
+>  /** CTL element info container */
+> @@ -354,11 +422,18 @@ void snd_ctl_event_copy(snd_ctl_event_t *dst,
+> const snd_ctl_event_t *src);
+>  snd_ctl_event_type_t snd_ctl_event_get_type(const snd_ctl_event_t *obj);
+> 
+>  size_t snd_ctl_elem_list_sizeof(void);
 > +
-> +		ret = sdw_cdns_enable_interrupt(cdns, false);
-> +		if (ret < 0) {
-> +			dev_err(dev, "cannot disable interrupts on suspend\n");
-> +			return ret;
-> +		}
+>  /** \hideinitializer
+> - * \brief allocate an invalid #snd_ctl_elem_list_t using standard alloca
+> - * \param ptr returned pointer
+> + *
+> + * \brief Allocate a #snd_ctl_elem_list_t using standard alloca.
+> + *
+> + * The memory is allocated on the stack and will automatically be
+> + * released when the stack unwinds (i.e. no free() is needed).
+> + *
+> + * \param ptr Pointer to allocated memory.
+>   */
+>  #define snd_ctl_elem_list_alloca(ptr) __snd_alloca(ptr, snd_ctl_elem_list)
 > +
-> +		ret = intel_link_power_down(sdw);
-> +		if (ret) {
-> +			dev_err(dev, "Link power down failed: %d", ret);
-> +			return ret;
-> +		}
-
-no cleanup on all the error cases here?
-
-> +
-> +		intel_shim_wake(sdw, true);
->  	} else {
->  		dev_err(dev, "%s clock_stop_quirks %x unsupported\n",
->  			__func__, clock_stop_quirks);
-> @@ -1694,6 +1714,30 @@ static int intel_resume_runtime(struct device *dev)
->  			dev_err(dev, "unable to exit bus reset sequence during resume\n");
->  			return ret;
->  		}
-> +	} else if (clock_stop_quirks & SDW_INTEL_CLK_STOP_BUS_RESET) {
-> +		ret = intel_init(sdw);
-> +		if (ret) {
-> +			dev_err(dev, "%s failed: %d", __func__, ret);
-> +			return ret;
-> +		}
-> +
-> +		/*
-> +		 * make sure all Slaves are tagged as UNATTACHED and
-> +		 * provide reason for reinitialization
-> +		 */
-> +		sdw_clear_slave_status(bus, SDW_UNATTACH_REQUEST_MASTER_RESET);
-> +
-> +		ret = sdw_cdns_enable_interrupt(cdns, true);
-> +		if (ret < 0) {
-> +			dev_err(dev, "cannot enable interrupts during resume\n");
-> +			return ret;
-> +		}
-> +
-> +		ret = sdw_cdns_clock_restart(cdns, true);
-> +		if (ret < 0) {
-> +			dev_err(dev, "unable to restart clock during resume\n");
-> +			return ret;
-> +		}
->  	} else {
->  		dev_err(dev, "%s clock_stop_quirks %x unsupported\n",
->  			__func__, clock_stop_quirks);
+>  int snd_ctl_elem_list_malloc(snd_ctl_elem_list_t **ptr);
+>  void snd_ctl_elem_list_free(snd_ctl_elem_list_t *obj);
+>  void snd_ctl_elem_list_clear(snd_ctl_elem_list_t *obj);
+> diff --git a/src/control/control.c b/src/control/control.c
+> index e21e8f1d..1bcf1ab2 100644
+> --- a/src/control/control.c
+> +++ b/src/control/control.c
+> @@ -280,6 +280,21 @@ int snd_ctl_card_info(snd_ctl_t *ctl,
+> snd_ctl_card_info_t *info)
+> 
+>  /**
+>   * \brief Get a list of element identifiers
+> + *
+> + * Before calling this function, memoru must be allocated using
+> + * snd_ctl_elem_list_malloc().
+> + *
+> + * This function obtains data from the sound card driver and puts it
+> + * into the list.
+> + *
+> + * If there was space allocated for the element identifiers (using
+> + * snd_ctl_elem_list_alloc_space()), information will be filled in. If
+> + * too little space was allocated, only a part of the elements will be
+> + * queried. If there was too much space allocated, some of it remains
+> + * unused. Use snd_ctl_elem_list_get_count() and
+> + * snd_ctl_elem_list_get_used() to obtain information about space
+> + * usage. See #snd_ctl_elem_list_t to learn more.
+> + *
+>   * \param ctl CTL handle
+>   * \param list CTL element identifiers list pointer
+>   * \return 0 on success otherwise a negative error code
+> @@ -1508,9 +1523,14 @@ const char
+> *snd_ctl_event_type_name(snd_ctl_event_type_t type)
+> 
+>  /**
+>   * \brief allocate space for CTL element identifiers list
+> - * \param obj CTL element identifiers list
+> - * \param entries Entries to allocate
+> - * \return 0 on success otherwise a negative error code
+> + *
+> + * The space can be released with snd_ctl_elem_list_free_space().
+> + *
+> + * \param obj CTL element identifiers list.
+> + * \param entries How many entries to allocate. See
+> + *        #snd_ctl_elem_list_t to learn how to obtain
+> + *        this number in advance.
+> + * \return 0 on success otherwise a negative error code.
+>   */
+>  int snd_ctl_elem_list_alloc_space(snd_ctl_elem_list_t *obj, unsigned
+> int entries)
+>  {
+> @@ -1526,6 +1546,10 @@ int
+> snd_ctl_elem_list_alloc_space(snd_ctl_elem_list_t *obj, unsigned int entries
+> 
+>  /**
+>   * \brief free previously allocated space for CTL element identifiers list
+> + *
+> + * Releases space previously allocated using
+> + * snd_ctl_elem_list_alloc_space().
+> + *
+>   * \param obj CTL element identifiers list
+>   */
+>  void snd_ctl_elem_list_free_space(snd_ctl_elem_list_t *obj)
+> @@ -2016,7 +2040,7 @@ snd_ctl_event_type_t snd_ctl_event_get_type(const
+> snd_ctl_event_t *obj)
+>  }
+> 
+>  /**
+> - * \brief get size of #snd_ctl_elem_list_t
+> + * \brief get size of #snd_ctl_elem_list_t.
+>   * \return size in bytes
+>   */
+>  size_t snd_ctl_elem_list_sizeof()
+> @@ -2025,7 +2049,10 @@ size_t snd_ctl_elem_list_sizeof()
+>  }
+> 
+>  /**
+> - * \brief allocate an invalid #snd_ctl_elem_list_t using standard malloc
+> + * \brief allocate a #snd_ctl_elem_list_t using standard malloc.
+> + *
+> + * The memory can be released using snd_ctl_elem_list_free().
+> + *
+>   * \param ptr returned pointer
+>   * \return 0 on success otherwise negative error code
+>   */
+> @@ -2039,7 +2066,15 @@ int snd_ctl_elem_list_malloc(snd_ctl_elem_list_t
+> **ptr)
+>  }
+> 
+>  /**
+> - * \brief frees a previously allocated #snd_ctl_elem_list_t
+> + * \brief frees a previously allocated #snd_ctl_elem_list_t.
+> + *
+> + * Release memory previously allocated using
+> + * snd_ctl_elem_list_malloc().
+> + *
+> + * If you used snd_ctl_elem_list_alloc_space() on the list, you must
+> + * use snd_ctl_elem_list_free_space() \em before calling this
+> + * function.
+> + *
+>   * \param obj pointer to object to free
+>   */
+>  void snd_ctl_elem_list_free(snd_ctl_elem_list_t *obj)
+> @@ -2048,7 +2083,15 @@ void snd_ctl_elem_list_free(snd_ctl_elem_list_t *obj)
+>  }
+> 
+>  /**
+> - * \brief clear given #snd_ctl_elem_list_t object
+> + * \brief Clear given #snd_ctl_elem_list_t object.
+> + *
+> + * This will make the stored identifiers inaccessible without freeing
+> + * their space.
+> + *
+> + * \warning The element identifier space cannot be freed after calling
+> + *          this function. Therefore, snd_ctl_elem_list_free_space()
+> + *          must be called in advance.
+> + *
+>   * \param obj pointer to object to clear
+>   */
+>  void snd_ctl_elem_list_clear(snd_ctl_elem_list_t *obj)
+> @@ -2057,7 +2100,11 @@ void snd_ctl_elem_list_clear(snd_ctl_elem_list_t
+> *obj)
+>  }
+> 
+>  /**
+> - * \brief copy one #snd_ctl_elem_list_t to another
+> + * \brief copy one #snd_ctl_elem_list_t to another.
+> + *
+> + * This performs a shallow copy. That means the both lists will share
+> + * the same space for the elements.  The elements will not be copied.
+> + *
+>   * \param dst pointer to destination
+>   * \param src pointer to source
+>   */
+> @@ -2080,6 +2127,12 @@ void
+> snd_ctl_elem_list_set_offset(snd_ctl_elem_list_t *obj, unsigned int val)
+> 
+>  /**
+>   * \brief Get number of used entries in CTL element identifiers list
+> + *
+> + * This function returns how many entries are actually filled with
+> + * useful information.
+> + *
+> + * See also snd_ctl_elem_list_get_count().
+> + *
+>   * \param obj CTL element identifier list
+>   * \return number of used entries
+>   */
+> @@ -2090,7 +2143,14 @@ unsigned int snd_ctl_elem_list_get_used(const
+> snd_ctl_elem_list_t *obj)
+>  }
+> 
+>  /**
+> - * \brief Get total count of elements present in CTL device
+> (information present in every filled CTL element identifiers list)
+> + * \brief Get total count of elements present in CTL device
+> + *
+> + * This function returns how many entries were allocated using
+> + * snd_ctl_elem_list_alloc_space(). This information is present after
+> + * snd_ctl_elem_list() was called.
+> + *
+> + * See also snd_ctl_elem_list_get_used().
+> + *
+>   * \param obj CTL element identifier list
+>   * \return total number of elements
+>   */
+> @@ -2140,7 +2200,7 @@ snd_ctl_elem_iface_t
+> snd_ctl_elem_list_get_interface(const snd_ctl_elem_list_t *
+>  }
+> 
+>  /**
+> - * \brief Get device part of CTL element identifier for an entry of a
+> CTL element identifiers list
+> + * \brief Get the device part of CTL element identifier for an entry of
+> a CTL element identifiers list
+>   * \param obj CTL element identifier list
+>   * \param idx Index of entry
+>   * \return CTL element related device
 > -- 
 > 2.17.1
-
--- 
-~Vinod
+> 

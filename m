@@ -2,70 +2,75 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6AC7D246628
-	for <lists+alsa-devel@lfdr.de>; Mon, 17 Aug 2020 14:16:12 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4E875246866
+	for <lists+alsa-devel@lfdr.de>; Mon, 17 Aug 2020 16:32:04 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id EF8C116D5;
-	Mon, 17 Aug 2020 14:15:21 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EF8C116D5
+	by alsa0.perex.cz (Postfix) with ESMTPS id B57C016D7;
+	Mon, 17 Aug 2020 16:31:13 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B57C016D7
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1597666572;
-	bh=SEtwrw8sAsNOlbZ277m2AQgNTdD6hRM23Zfb7NdecOA=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1597674723;
+	bh=x1mPW2IlbzKPi21BeGGjuXFp+W8qBk7GLahgZuqMOSw=;
+	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=tPwYqgS295G2DH5tnt8EFNL5v5E9CCvG341RQJRprcAaiP6FM50lXpjoXi1wzvGvd
-	 na0HsIWH91KC1TgDvsj9P/3UwP7SQwa9/di+QHuCt2BuKsNdkzEB0ki/yORpAiya+p
-	 6B9zL9rgxODMFKfgaO6TBWxrkRp+WRPjprH1L25Q=
+	b=NmfwTnPAXTAIWZOFAUchfaomBOUF1toFZy/GdhTfZMQvfHA/0TnWMi3onswmdhUhx
+	 GAss8bbc11gx9hJ6m0fTRXGqnCqQ/UaP/7WqTWU8v/v9ZX9u59geQ5EiJO49ObbIkD
+	 Se0iSamfiqTWCEoQuEjFaE4zpwzckS++lBuFwKjI=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 2425CF80216;
-	Mon, 17 Aug 2020 14:14:31 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id D44F0F800EF;
+	Mon, 17 Aug 2020 16:30:22 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 0ECABF80218; Mon, 17 Aug 2020 14:14:29 +0200 (CEST)
+ id 43E51F80218; Mon, 17 Aug 2020 16:30:20 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 0D626F800EF
- for <alsa-devel@alsa-project.org>; Mon, 17 Aug 2020 14:14:18 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0D626F800EF
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="1GvFQQ8w"
-Received: from localhost (unknown [122.171.38.130])
+X-Spam-Status: No, score=-1.0 required=5.0 tests=NICE_REPLY_A,SPF_HELO_NONE,
+ SPF_NONE autolearn=disabled version=3.4.0
+Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 533DD2072E;
- Mon, 17 Aug 2020 12:14:14 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1597666456;
- bh=SEtwrw8sAsNOlbZ277m2AQgNTdD6hRM23Zfb7NdecOA=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=1GvFQQ8wTo47RRjSr3A49xWB70B29cZgm08CH3xQDUtL1dGPgIKaWoh39V3LjIaZm
- Xjr0OBo7rvXZ024dquiRm8fwY/DMIPfBbynuaR3iWQOfe6/JjtoWBmK8JUL34+4Sk3
- R3OXMK/G70Su6c8WCCFm6g0xDvbxctE1J+I9pIDg=
-Date: Mon, 17 Aug 2020 17:44:11 +0530
-From: Vinod Koul <vkoul@kernel.org>
-To: Bard Liao <yung-chuan.liao@linux.intel.com>
-Subject: Re: [PATCH v2] soundwire: SDCA: add helper macro to access controls
-Message-ID: <20200817121411.GR2639@vkoul-mobl>
-References: <20200816201058.9687-1-yung-chuan.liao@linux.intel.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 6BC0AF800EF
+ for <alsa-devel@alsa-project.org>; Mon, 17 Aug 2020 16:30:11 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6BC0AF800EF
+IronPort-SDR: /OoT8e+cEP/zfmGFyfs6FPXRC/3uExvjdccauOHVCcfAx7ePCl/zZszqL6/vkcuMHswfXbkKeQ
+ wsp/CfM3xFmA==
+X-IronPort-AV: E=McAfee;i="6000,8403,9715"; a="142340537"
+X-IronPort-AV: E=Sophos;i="5.76,322,1592895600"; d="scan'208";a="142340537"
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from orsmga003.jf.intel.com ([10.7.209.27])
+ by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 17 Aug 2020 07:30:06 -0700
+IronPort-SDR: rb9oDKBZ7Q6nZ+8PBCrPMVYTd0fot1WnZvQ1lnkpz12w55ZRqXvdhKbos46SyzTXYT2iT4PLxf
+ tiCRjcbDK3zQ==
+X-IronPort-AV: E=Sophos;i="5.76,322,1592895600"; d="scan'208";a="292450642"
+Received: from abhishik-mobl1.amr.corp.intel.com (HELO [10.212.204.20])
+ ([10.212.204.20])
+ by orsmga003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 17 Aug 2020 07:30:03 -0700
+Subject: Re: [PATCH 09/13] soundwire: intel: add CLK_STOP_BUS_RESET support
+To: Vinod Koul <vkoul@kernel.org>, Bard Liao <yung-chuan.liao@linux.intel.com>
+References: <20200721203723.18305-1-yung-chuan.liao@linux.intel.com>
+ <20200721203723.18305-10-yung-chuan.liao@linux.intel.com>
+ <20200817114729.GP2639@vkoul-mobl>
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Message-ID: <8aac898f-92d3-c907-ebb8-4642a618645b@linux.intel.com>
+Date: Mon, 17 Aug 2020 09:30:02 -0500
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.10.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20200816201058.9687-1-yung-chuan.liao@linux.intel.com>
-Cc: pierre-louis.bossart@linux.intel.com, alsa-devel@alsa-project.org,
- tiwai@suse.de, gregkh@linuxfoundation.org, linux-kernel@vger.kernel.org,
- ranjani.sridharan@linux.intel.com, hui.wang@canonical.com, broonie@kernel.org,
- srinivas.kandagatla@linaro.org, jank@cadence.com, mengdong.lin@intel.com,
+In-Reply-To: <20200817114729.GP2639@vkoul-mobl>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
+Cc: alsa-devel@alsa-project.org, tiwai@suse.de, gregkh@linuxfoundation.org,
+ linux-kernel@vger.kernel.org, ranjani.sridharan@linux.intel.com,
+ hui.wang@canonical.com, broonie@kernel.org, srinivas.kandagatla@linaro.org,
+ jank@cadence.com, mengdong.lin@intel.com, slawomir.blauciak@intel.com,
  sanyog.r.kale@intel.com, rander.wang@linux.intel.com, bard.liao@intel.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
@@ -82,64 +87,34 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 17-08-20, 04:10, Bard Liao wrote:
-> From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+
+
+
+>> +	} else if (clock_stop_quirks & SDW_INTEL_CLK_STOP_BUS_RESET) {
+>> +		ret = sdw_cdns_clock_stop(cdns, true);
+>> +		if (ret < 0) {
+>> +			dev_err(dev, "cannot enable clock stop on suspend\n");
+>> +			return ret;
+>> +		}
+>> +
+>> +		ret = sdw_cdns_enable_interrupt(cdns, false);
+>> +		if (ret < 0) {
+>> +			dev_err(dev, "cannot disable interrupts on suspend\n");
+>> +			return ret;
+>> +		}
+>> +
+>> +		ret = intel_link_power_down(sdw);
+>> +		if (ret) {
+>> +			dev_err(dev, "Link power down failed: %d", ret);
+>> +			return ret;
+>> +		}
 > 
-> The upcoming SDCA (SoundWire Device Class Audio) specification defines
-> a hiearchical encoding to interface with Class-defined capabilities,
+> no cleanup on all the error cases here?
 
-typo hiearchical
+See above the 'else if' test, the clock stop on suspend will be followed 
+by a bus reset on resume. this is essentially a complete bus restart.
 
-> based on which audio function, entity, control and channel being used.
-
-Can you please elaborate on what do these terms refer to?
-
-Also can we have some documentation for this and how Linux is going to
-use it..
-
-> 
-> The specification is not yet accessible to the general public but this
-> information is released with explicit permission from the MIPI Board
-> to avoid delays with SDCA support on Linux platforms.
-> 
-> Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-> Reviewed-by: Rander Wang <rander.wang@linux.intel.com>
-> Reviewed-by: Guennadi Liakhovetski <guennadi.liakhovetski@linux.intel.com>
-> Signed-off-by: Bard Liao <yung-chuan.liao@linux.intel.com>
-> ---
-> 
-> Changelog:
-> 
-> v2:
->  - add SDW_SDCA_MBQ_CTL
-> 
-> ---
->  include/linux/soundwire/sdw_registers.h | 12 ++++++++++++
->  1 file changed, 12 insertions(+)
-> 
-> diff --git a/include/linux/soundwire/sdw_registers.h b/include/linux/soundwire/sdw_registers.h
-> index 5d3c271af7d1..4517c0f65b4f 100644
-> --- a/include/linux/soundwire/sdw_registers.h
-> +++ b/include/linux/soundwire/sdw_registers.h
-> @@ -305,4 +305,16 @@
->  #define SDW_CASC_PORT_MASK_INTSTAT3		1
->  #define SDW_CASC_PORT_REG_OFFSET_INTSTAT3	2
->  
-> +/* v1.2 device - SDCA address mapping */
-> +#define SDW_SDCA_CTL(fun, ent, ctl, ch)		(BIT(30) |			\
-> +						 (((fun) & 0x7) << 22) |	\
-> +						 (((ent) & 0x40) << 15) |	\
-> +						 (((ent) & 0x3f) << 7) |	\
-> +						 (((ctl) & 0x30) << 15) |	\
-> +						 (((ctl) & 0x0f) << 3) |	\
-> +						 (((ch) & 0x38) << 12) |	\
-> +						 ((ch) & 0x07))
-> +
-
-how about adding an underscore to the arguments here:
-
-#define SDW_SDCA_CTL(_fun, _ent, _ctl, _ch)
-and so on..
-
--- 
-~Vinod
+The only open here is whether we should actually return an error while 
+suspending, or just log the error and squelch it. We decided to return 
+the status so that the pm_runtime suspend does not proceed: the state 
+remains active which is easier to detect than a single line in a dmesg log.

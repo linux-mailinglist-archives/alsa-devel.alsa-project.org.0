@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id CF716248C68
-	for <lists+alsa-devel@lfdr.de>; Tue, 18 Aug 2020 19:05:34 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B32DE248C6F
+	for <lists+alsa-devel@lfdr.de>; Tue, 18 Aug 2020 19:06:07 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 84B8F17B3;
-	Tue, 18 Aug 2020 19:04:44 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 84B8F17B3
+	by alsa0.perex.cz (Postfix) with ESMTPS id 5736517B9;
+	Tue, 18 Aug 2020 19:05:17 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5736517B9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1597770334;
-	bh=gqv4Huqtni8WALhihVYDMsmUJhBHF0Kyvn6tC+rp3dA=;
+	s=default; t=1597770367;
+	bh=xekM5kRz9UCjLJqA6E1zFK+ssQoQ+wQqM7QItEQ3XaM=;
 	h=Date:From:To:In-Reply-To:References:Subject:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=cNDpNEEkRKLeMiiMvDeWWZiQouJGKCygSUKF8GtioS+QessxNuyrgguzb7ASd4XmW
-	 HwKj+ZY3ZRcsQjg3n5959GrLVfzdjqaiRVIhuIOxldDSXLxF3eRgatltGijo5i2A6I
-	 wC3wTBgymwQxeZfiPwofJ8MmEla2nIoDmLYnPHx0=
+	b=KreVlW26O8JC7DJ5DZF4ijIzxXfYpm8lt5IHcy2orJLV1+KRKV5r4vIAi9bUba7EL
+	 GYk9ZwdIrcXX2xZr8AFDI/GP/p+UrS3kDm9x0Rqf6dB3EoFA/s73jZ+4tGVb1iaQXP
+	 0F/W6D+Be00MuLs1xMTgOmO2auRlBrYS65G4n4aE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 4D6A7F8035E;
-	Tue, 18 Aug 2020 18:55:38 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 4BBACF8035F;
+	Tue, 18 Aug 2020 18:55:43 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 17C67F8034A; Tue, 18 Aug 2020 18:55:35 +0200 (CEST)
+ id D0CEBF80361; Tue, 18 Aug 2020 18:55:39 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -34,33 +34,34 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 37E41F80344
- for <alsa-devel@alsa-project.org>; Tue, 18 Aug 2020 18:55:32 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 37E41F80344
+ by alsa1.perex.cz (Postfix) with ESMTPS id 7EF79F8034F
+ for <alsa-devel@alsa-project.org>; Tue, 18 Aug 2020 18:55:37 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7EF79F8034F
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="MF7Qn1Kx"
+ header.b="T2ho4vW9"
 Received: from localhost (fw-tnat.cambridge.arm.com [217.140.96.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 60167207D3;
- Tue, 18 Aug 2020 16:55:30 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id 6BDD220825;
+ Tue, 18 Aug 2020 16:55:35 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1597769730;
- bh=gqv4Huqtni8WALhihVYDMsmUJhBHF0Kyvn6tC+rp3dA=;
+ s=default; t=1597769735;
+ bh=xekM5kRz9UCjLJqA6E1zFK+ssQoQ+wQqM7QItEQ3XaM=;
  h=Date:From:To:Cc:In-Reply-To:References:Subject:From;
- b=MF7Qn1KxMy9y1LZxTDYdv3S7xHufl5P1ej0WwhlaQCngMDslbnAHLlLl4KSRabIOn
- U9F7AKIfqejCPwWwjbBsEQZ2XosCqnbfuRW+nYOuLaQcPWKj6z5X5ABLNwgSSaVWH9
- BMvjoKDAY6YRFh8CI6iuVN6iNokPSMb591NQqDtI=
-Date: Tue, 18 Aug 2020 17:55:00 +0100
+ b=T2ho4vW9XR5fJqyPNbypj/3ggltFOcmtUKJAAICqBbPWHWLdAszvEDVHW0hHCk+L9
+ FKn9YdIWSeOq/cMBGkzABBVWwnDK0qnsTMnwCZlcFbQcdP5OziyJkBzG/rAY57iWU8
+ zShhTHNOuJRhngF8ukkCB/eCzqvFKdzfXZmcdnh8=
+Date: Tue, 18 Aug 2020 17:55:05 +0100
 From: Mark Brown <broonie@kernel.org>
-To: alsa-devel@alsa-project.org, Brent Lu <brent.lu@intel.com>
-In-Reply-To: <20200818004413.12852-1-brent.lu@intel.com>
-References: <20200814083436.19845-1-brent.lu@intel.com>
- <20200818004413.12852-1-brent.lu@intel.com>
-Subject: Re: [PATCH v2] ASoC: hdac_hdmi: support 'ELD' mixer
-Message-Id: <159776961933.56094.5631231288603647018.b4-ty@kernel.org>
-Cc: Guennadi Liakhovetski <guennadi.liakhovetski@linux.intel.com>, Kai Vehmanen <kai.vehmanen@linux.intel.com>, linux-kernel@vger.kernel.org, Takashi Iwai <tiwai@suse.com>, Liam Girdwood <lgirdwood@gmail.com>, Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>, Amadeusz Sławiński <amadeuszx.slawinski@linux.intel.com>
+To: alsa-devel@alsa-project.org,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+In-Reply-To: <20200813175442.59067-1-pierre-louis.bossart@linux.intel.com>
+References: <20200813175442.59067-1-pierre-louis.bossart@linux.intel.com>
+Subject: Re: [PATCH] ASoC: codecs: wm0010: use DECLARE_COMPLETION_ONSTACK()
+ macro
+Message-Id: <159776961933.56094.2198814210491994428.b4-ty@kernel.org>
+Cc: tiwai@suse.de
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -76,9 +77,9 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Tue, 18 Aug 2020 08:44:13 +0800, Brent Lu wrote:
-> Add an binary mixer 'ELD' to each HDMI PCM device so user space
-> could read the ELD data of external HDMI display.
+On Thu, 13 Aug 2020 12:54:42 -0500, Pierre-Louis Bossart wrote:
+> Follow recommendation in Documentation/scheduler/completion.rst and
+> use macro to declare local 'struct completion'
 
 Applied to
 
@@ -86,8 +87,8 @@ Applied to
 
 Thanks!
 
-[1/1] ASoC: hdac_hdmi: support 'ELD' mixer
-      commit: 1f53bcb3fc952b55a0ad0e7f6eabfc93a170659d
+[1/1] ASoC: codecs: wm0010: use DECLARE_COMPLETION_ONSTACK() macro
+      commit: 093513b8ed12d3f074c846cfae5ca4e34f3b37f4
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

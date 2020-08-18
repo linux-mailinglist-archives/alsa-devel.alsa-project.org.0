@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 03BB4248D61
-	for <lists+alsa-devel@lfdr.de>; Tue, 18 Aug 2020 19:42:36 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id ADC70248D66
+	for <lists+alsa-devel@lfdr.de>; Tue, 18 Aug 2020 19:43:20 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A0FB117E7;
-	Tue, 18 Aug 2020 19:41:45 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A0FB117E7
+	by alsa0.perex.cz (Postfix) with ESMTPS id 55B5B17DC;
+	Tue, 18 Aug 2020 19:42:30 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 55B5B17DC
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1597772555;
-	bh=jw0rqgoKOxJjeFzL3PLrNSOLSmVzOndyFsCJBt1RmBE=;
+	s=default; t=1597772600;
+	bh=vhi5iImj5rpc1HCF6tflR5/gmVfFRnZe0Q1H8J1CIQU=;
 	h=Date:From:To:In-Reply-To:References:Subject:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=pjn+BqNZqZr5i1akVlLJOK1DdrsdIlGznRuZeFh78mpDFKaMXEiyzFfr5ZiPP1XLQ
-	 Ca2wHdEhcZdbDDGR+fNgvvbVJyoHZTrNiBujF0Bh0qvkZv5xEUSYOJbxpKP/FG06A/
-	 TOlP08z80S/gngkPUS1erS20lPK+YJnBvg/nm+1c=
+	b=iEfBm+1mZIHn1+7ZJJU+qo5nry7oy5ZpwsuXjJJD3GLL8W9hCz3AAeFroBxQgzUmL
+	 XTP4oDl/TQJE68kcj4PeJa5pbdecSbBr4XbN4pR8pWuPwycCHNsGNZXhB4VGLoXPqo
+	 b0kYIj0Wh4IRUuATCApxKRCddOW1yK3uRHNSQZFE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id E8F34F802C2;
-	Tue, 18 Aug 2020 19:40:07 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id EC1E8F802C3;
+	Tue, 18 Aug 2020 19:40:16 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 9612CF802A9; Tue, 18 Aug 2020 19:40:05 +0200 (CEST)
+ id E2872F802D2; Tue, 18 Aug 2020 19:40:14 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -34,31 +34,32 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 5B718F802A1
- for <alsa-devel@alsa-project.org>; Tue, 18 Aug 2020 19:39:59 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5B718F802A1
+ by alsa1.perex.cz (Postfix) with ESMTPS id 12B40F802A9
+ for <alsa-devel@alsa-project.org>; Tue, 18 Aug 2020 19:40:04 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 12B40F802A9
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="JITDFbdX"
+ header.b="W0/tCenk"
 Received: from localhost (fw-tnat.cambridge.arm.com [217.140.96.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 5ED2D20738;
- Tue, 18 Aug 2020 17:39:57 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id 5B01B20674;
+ Tue, 18 Aug 2020 17:40:02 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1597772397;
- bh=jw0rqgoKOxJjeFzL3PLrNSOLSmVzOndyFsCJBt1RmBE=;
+ s=default; t=1597772402;
+ bh=vhi5iImj5rpc1HCF6tflR5/gmVfFRnZe0Q1H8J1CIQU=;
  h=Date:From:To:Cc:In-Reply-To:References:Subject:From;
- b=JITDFbdXUSdL3CAO6S6oBsDueJ6T92UpvF2cvgIOiROsih1Att03rFWG8fDHlw8Kr
- 5gt3MWB6+E0LwEoKV+J6QXsnwHozg+mfEoWWSvEb1Q5SEj1klVTkoZKaAbgD8OMGnD
- 3qc8wxSPdiMVAh95d49Qx9j8IJ2vMKLzaQUYDKLo=
-Date: Tue, 18 Aug 2020 18:39:27 +0100
+ b=W0/tCenkdLxWuq9DuP4pl5WQcneKduqX5eyQEDgaOCxoz2k6PoOjjku4t9ap0FZ1Z
+ wnmqFwEuJ2KJKV3b1BLNA+ZrNPMZEawNR3TQo392nmQ0iDEhCot7Ltbfon5AAV5B8t
+ oIL4zXmPmcaoqD1XW3bn9zNoc3qxPNGBMnLPTBHg=
+Date: Tue, 18 Aug 2020 18:39:32 +0100
 From: Mark Brown <broonie@kernel.org>
 To: heiko@sntech.de, Johan Jonker <jbx6244@gmail.com>
-In-Reply-To: <20200818143727.5882-1-jbx6244@gmail.com>
-References: <20200818143727.5882-1-jbx6244@gmail.com>
-Subject: Re: [PATCH v2 1/2] ASoC: rockchip-spdif: add description for rk3308
-Message-Id: <159777235702.24785.2371871958311959848.b4-ty@kernel.org>
+In-Reply-To: <20200815112437.6662-1-jbx6244@gmail.com>
+References: <20200815112437.6662-1-jbx6244@gmail.com>
+Subject: Re: [RFC PATCH v1 1/2] ASoC: rockchip-spdif: add description for
+ rk3308
+Message-Id: <159777235702.24785.6071406092979338870.b4-ty@kernel.org>
 Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
  linux-kernel@vger.kernel.org, lgirdwood@gmail.com, sugar.zhang@rock-chips.com,
  linux-rockchip@lists.infradead.org, robh+dt@kernel.org,
@@ -78,7 +79,7 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Tue, 18 Aug 2020 16:37:26 +0200, Johan Jonker wrote:
+On Sat, 15 Aug 2020 13:24:36 +0200, Johan Jonker wrote:
 > A test with the command below shows that the compatible string
 > 
 > "rockchip,rk3308-spdif", "rockchip,rk3328-spdif"

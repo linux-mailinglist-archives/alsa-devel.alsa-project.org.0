@@ -2,77 +2,88 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D98472481C6
-	for <lists+alsa-devel@lfdr.de>; Tue, 18 Aug 2020 11:19:47 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 72C012481F7
+	for <lists+alsa-devel@lfdr.de>; Tue, 18 Aug 2020 11:33:59 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 751001742;
-	Tue, 18 Aug 2020 11:18:57 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 751001742
+	by alsa0.perex.cz (Postfix) with ESMTPS id 029851745;
+	Tue, 18 Aug 2020 11:33:09 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 029851745
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1597742387;
-	bh=rPEhBVdj3TNhZ/9MeLIiP8JDXIGxKhgYrb+eXqJHV2o=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1597743239;
+	bh=TPicDVXGdIYQw7A0sJriNO7kefWFMltGe2Y4Q8hw//Y=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=cf77m9tF8Sm4PTZ0EaMnuvvBl7qtnD1I34eDo1T4g0JGo1Ic5criwgXyTjW+cwJkL
-	 aQIcFIDQZIoppC+48ab998EVJ16AYLgziHQ3Rp0sH71rLUX71F7EX21EGee54sp0rQ
-	 1QUxYQCtyfeyDtR2YUoGbj9JCG6c1Plb0ZyqEnSs=
+	b=Xx4nr6MNeiD/YhyPepJrjL/VkD9szZXNV/ocdHlJ+QGlt/+b795bfpAnycJJ1ovBf
+	 bjNEOI9Bjb94c5S106lIaROVKUiLxqseNiI3sdN00QtpG3BLwcFbibCwCcP4S1ak6d
+	 vwa/bgn09ruJ9nR9PYermg/lmwFkYHZl4IACu8uo=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 859F3F80273;
-	Tue, 18 Aug 2020 11:18:06 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 1BE48F800D3;
+	Tue, 18 Aug 2020 11:32:18 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 19234F8023F; Tue, 18 Aug 2020 11:18:04 +0200 (CEST)
+ id B224EF8023F; Tue, 18 Aug 2020 11:32:14 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.9 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,PRX_BODY_30,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_PASS autolearn=disabled
+ version=3.4.0
+Received: from mail-ot1-x341.google.com (mail-ot1-x341.google.com
+ [IPv6:2607:f8b0:4864:20::341])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 91DD3F80114
- for <alsa-devel@alsa-project.org>; Tue, 18 Aug 2020 11:17:53 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 91DD3F80114
+ by alsa1.perex.cz (Postfix) with ESMTPS id BDF10F800D3
+ for <alsa-devel@alsa-project.org>; Tue, 18 Aug 2020 11:32:11 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BDF10F800D3
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="gc5yoV6S"
-Received: from localhost (fw-tnat.cambridge.arm.com [217.140.96.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id F32FA2075E;
- Tue, 18 Aug 2020 09:17:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1597742270;
- bh=rPEhBVdj3TNhZ/9MeLIiP8JDXIGxKhgYrb+eXqJHV2o=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=gc5yoV6SQpmYKD7harBGev82XCXf71775+Ihey9bEN7nHUqEJDoNRC9uE7BbpS5jE
- 0llPCxd8F8+TWsDX39bXo6dKNt4P5EVBjTrsac2IgmOBqkLrjNfjqGk6dzWFG9Lq9e
- SZu6dvzp4ErbRWqjWWJYmJKFCb8djmm5f1nZNwiw=
-Date: Tue, 18 Aug 2020 10:17:19 +0100
-From: Mark Brown <broonie@kernel.org>
-To: "Sit, Michael Wei Hong" <michael.wei.hong.sit@intel.com>
-Subject: Re: [PATCH v2 1/2] ASoC: Intel: KMB: Enable TDM audio capture
-Message-ID: <20200818091719.GA5337@sirena.org.uk>
-References: <20200811041836.999-1-michael.wei.hong.sit@intel.com>
- <20200811041836.999-2-michael.wei.hong.sit@intel.com>
- <BYAPR11MB30464FB862DCEA243ADA51499D5C0@BYAPR11MB3046.namprd11.prod.outlook.com>
+ dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
+ header.b="oiYao3LS"
+Received: by mail-ot1-x341.google.com with SMTP id 93so15774693otx.2
+ for <alsa-devel@alsa-project.org>; Tue, 18 Aug 2020 02:32:11 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=CukyYxKQagzxSnoAUerbnhafgFTcDCc+vCHDuzHrDm0=;
+ b=oiYao3LSY05RtHiCa7E8GRzIrl9VRRJYDZjBtQ/ubmceLYQblalUYWs7OwMluhpnUV
+ 1OD/4u8SmwCBI4jQy+CFzB9DiOBMSi80AOG36VcptLnhf6mlFt3cEPpf08XASzer3N1U
+ 8ju50bDwgsm8cIKentn09KT7dEn43UVXAcfqk+qtmEK0ijNDJx9xsmN1YdHBtsSuJmgX
+ XysM+f14J1mp0IjxEpAjmlNUmnhz1n1EVGQKFm+eyUG+fLys9+zxOsW+/DEZwSjDm1AD
+ eZY+FJmAR1IxLWdli8IGiG0WHu1UOvpZRaDlGQ0XHmg+jBupgMHOuue6LE6XSsPUVN5S
+ P/Qw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=CukyYxKQagzxSnoAUerbnhafgFTcDCc+vCHDuzHrDm0=;
+ b=Ik+KIgRV8pltfAu4+BBckBleUlF55kyssCbsq2l3QuKmkWgpUnV87HOc8WPGqK11NV
+ HKKRCM/6pSGj9QQjZu/wZEEMWJJnVTsa+vu2byU+D3bxa/qcK4grbCifgkKp3sFSdkAd
+ VFvkEhL2ENQ9S4soORMAL0uj1GrnKkNU4y12P33exRVrjF+zxPFWo5+4IWLo7SqUM4xT
+ OFC2kfiXR/J3BYcnVSR+qWy41LRVMGPt1OaFmrtqWhZnKwz5UaJau7NvKOUsGhPtzNER
+ L31lbjy/mvpoHmvbB5ma9Dms74SoT0zEYmly690Smq0YYA4iIbfoVjcRHCtco/SBEyr7
+ /DIA==
+X-Gm-Message-State: AOAM533L0sCoANp7vo8TduxLp3O887yTO7JbK8KzHTZjnOsvVJfS+cm9
+ y59ZkY8dDT9gW26AFwROaaarOS8kIF++wCNlaDw=
+X-Google-Smtp-Source: ABdhPJxWr9qkdSOHISPy+oYHPAYjGVOTOnZt44b3JJOq1hBBUFKJuivSXPClh61XAr/SYq05DdwSLWmaagZHOPuDyto=
+X-Received: by 2002:a9d:128c:: with SMTP id g12mr13892805otg.242.1597743128285; 
+ Tue, 18 Aug 2020 02:32:08 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="bg08WKrSYDhXBjb5"
-Content-Disposition: inline
-In-Reply-To: <BYAPR11MB30464FB862DCEA243ADA51499D5C0@BYAPR11MB3046.namprd11.prod.outlook.com>
-X-Cookie: You're at Witt's End.
-User-Agent: Mutt/1.10.1 (2018-07-13)
-Cc: "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>, "Shevchenko,
- Andriy" <andriy.shevchenko@intel.com>, "Rojewski,
- Cezary" <cezary.rojewski@intel.com>,
- "pierre-louis.bossart@linux.intel.com" <pierre-louis.bossart@linux.intel.com>,
- "Sia, Jee Heng" <jee.heng.sia@intel.com>, "tiwai@suse.com" <tiwai@suse.com>,
- "liam.r.girdwood@linux.intel.com" <liam.r.girdwood@linux.intel.com>
+References: <20200817085703.25732-1-allen.cryptic@gmail.com>
+ <s5hpn7pprl1.wl-tiwai@suse.de>
+ <CAEogwTAGHOfBe4ztkx9To0gQGwHwFWzCBxn8nzWJP=wRJUJ56A@mail.gmail.com>
+ <s5hk0xxppz6.wl-tiwai@suse.de>
+In-Reply-To: <s5hk0xxppz6.wl-tiwai@suse.de>
+From: Allen <allen.lkml@gmail.com>
+Date: Tue, 18 Aug 2020 15:01:56 +0530
+Message-ID: <CAOMdWSLJmiAxH5bvwh9b8O_MLdttU3Fsb4B_Y2tA08_P1b0BXQ@mail.gmail.com>
+Subject: Re: [PATCH 00/10] sound: convert tasklets to use new tasklet_setup()
+To: Takashi Iwai <tiwai@suse.de>
+Content-Type: text/plain; charset="UTF-8"
+Cc: alsa-devel@alsa-project.org, Kees Cook <keescook@chromium.org>,
+ timur@kernel.org, Xiubo.Lee@gmail.com, linux-kernel@vger.kernel.org,
+ clemens@ladisch.de, tiwai@suse.com, nicoleotsuka@gmail.com,
+ Allen Pais <allen.cryptic@gmail.com>, linuxppc-dev@lists.ozlabs.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -88,56 +99,32 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+>
+> Well, then at the next time, please mention it explicitly in the cover
+> letter.  Usually this kind of API conversion isn't done during rc.  Or
+> it's done systematically via script or such.  So unless mentioned,
+> it's not expected to be carried to 5.9.
 
---bg08WKrSYDhXBjb5
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+ Sorry for having missed the detail. Will take care of it in the future.
 
-On Tue, Aug 18, 2020 at 06:50:43AM +0000, Sit, Michael Wei Hong wrote:
-> > -----Original Message-----
-> > From: Alsa-devel <alsa-devel-bounces@alsa-project.org> On Behalf
-> > Of Michael Sit Wei Hong
-> > Sent: Tuesday, 11 August, 2020 12:19 PM
-> > To: alsa-devel@alsa-project.org
-> > Cc: Rojewski, Cezary <cezary.rojewski@intel.com>; Shevchenko,
-> > Andriy <andriy.shevchenko@intel.com>; tiwai@suse.com; Sia, Jee
-> > Heng <jee.heng.sia@intel.com>; pierre-
-> > louis.bossart@linux.intel.com; liam.r.girdwood@linux.intel.com;
-> > broonie@kernel.org
-> > Subject: [PATCH v2 1/2] ASoC: Intel: KMB: Enable TDM audio
+>
+> In anyway, if the final purpose is to drop the old tasklet API and
+> that's the plan for 5.9, all tree-wide changes have to be done in
+> 5.9 beforehand.  Was that the decision?
 
-Please don't send content free pings and please allow a reasonable time
-for review.  People get busy, go on holiday, attend conferences and so=20
-on so unless there is some reason for urgency (like critical bug fixes)
-please allow at least a couple of weeks for review.  If there have been
-review comments then people may be waiting for those to be addressed.
+ The idea was to land the tree-wide changes as part of 5.9
 
-Sending content free pings adds to the mail volume (if they are seen at
-all) which is often the problem and since they can't be reviewed
-directly if something has gone wrong you'll have to resend the patches
-anyway, so sending again is generally a better approach though there are
-some other maintainers who like them - if in doubt look at how patches
-for the subsystem are normally handled.
+>
+> > > I have a patch set to drop the whole tasklet usage in sound/*
+> > > (destined for 5.10, to be submitted soon), so if that's for 5.10,
+> > > it'll be likely superfluous.
+> >
+> >  I have picked patches from your tree to adapt to this new API.
+> > Those can be picked in 5.10 I suppose.
+>
+> Adapting the changes are trivial, don't worry.  It was just a question
+> of how to organize changes.
 
-Please delete unneeded context from mails when replying.  Doing this
-makes it much easier to find your reply in the message, helping ensure
-it won't be missed by people scrolling through the irrelevant quoted
-material.
+Sure, Thank you.
 
---bg08WKrSYDhXBjb5
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl87nJ8ACgkQJNaLcl1U
-h9DnLwf+N5G5YkGo8soTvwoVeoBbWDerxIvx2M7Fq0R9JCOKrZsXpV3B88h/mx5g
-wS1rr0eLSjXjrZEFmomhhSm5w1BaYGFZdlR6NNUvimNzjrxQME5YBhieCncY4UiZ
-HWZ1i/7eCJBZS8dzHeOUzqYUzqzbSoZlbBK81A/Yg8F9W8Nxtymo11xfP2Dupd0E
-9NoDYCbgcT9BmpjdInmbdB8W0Vy3kMmits4uWOXPMXj0Xxmi0nWdfkt9b/ee7j0E
-Edk/Yh9n3LlOOYPszSjoTzL/3/m16vUELpGpJcCS2h1nEi3SpNxUNnAga96thb9S
-Bx9rr0GocPcs72JkW9VQiGHGrUMMiw==
-=MDYp
------END PGP SIGNATURE-----
-
---bg08WKrSYDhXBjb5--
+- Allen

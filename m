@@ -2,70 +2,58 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6B97624834F
-	for <lists+alsa-devel@lfdr.de>; Tue, 18 Aug 2020 12:46:55 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id EAB98248374
+	for <lists+alsa-devel@lfdr.de>; Tue, 18 Aug 2020 13:01:19 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 1C4AB1758;
-	Tue, 18 Aug 2020 12:46:05 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1C4AB1758
+	by alsa0.perex.cz (Postfix) with ESMTPS id 7F5D5175A;
+	Tue, 18 Aug 2020 13:00:29 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7F5D5175A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1597747615;
-	bh=V2xRo09r41goWcHkv/TbZqQoAC4ijfdpV8AhWqNHVa8=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1597748479;
+	bh=BhaTjc/xCjzPpeuqSpHLdWju8X0la4vxA1tTT6lO7ao=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=UVzODmHSpS3j8gWzjmDLI6cnoalnrayhJwDX0EvJgIUoludO6qRH7lTjlx7JHsKuo
-	 DzlZqZitKa9BPnkqYY2j4ucg3mrLxAMOWVlkMLOG5C6R5d8rIvKx+2i4nXBG+CtgF1
-	 Heyve3G4TdT8TpKlbTIdNW9+9kjc6ezKMLifItOU=
+	b=I4KuvCcaU5beumiLHsbk9pU77mV6VH2Y/HpbZogRFOvB9mKrynduJkjgDVQ1qpqk0
+	 WBPtIh+gAnAeL6hkso2YDobv5aXwQxuCrjY9dJSgJVCOmjF14AsQWopcR2L8nmWRcw
+	 R0wtoSCyB49apC3sEcjgFmzr5u15pGbnaJz/x/VA=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 4ABDDF80228;
-	Tue, 18 Aug 2020 12:45:14 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id A9D83F80273;
+	Tue, 18 Aug 2020 12:59:38 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 5DA15F8023F; Tue, 18 Aug 2020 12:45:12 +0200 (CEST)
+ id 74197F8023F; Tue, 18 Aug 2020 12:59:35 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled
- version=3.4.0
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_MSPIKE_H3,
+ RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
+Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id DA006F80114
- for <alsa-devel@alsa-project.org>; Tue, 18 Aug 2020 12:45:04 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DA006F80114
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="Fh5UJUtv"
-Received: from localhost (fw-tnat.cambridge.arm.com [217.140.96.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id A4408204EA;
- Tue, 18 Aug 2020 10:45:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1597747503;
- bh=V2xRo09r41goWcHkv/TbZqQoAC4ijfdpV8AhWqNHVa8=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=Fh5UJUtv8etbELwMr2WpcfExLHbDpbyxc8JOao7kijScx1xcMrMp2cxAMpUru677p
- m9jcw94Zv7743Oy88oRexPOJWKKsp3xONJUS3/SWF4Dv6qL0cjeTppw8xJuMheqfxZ
- LTzaqXDgyTnnreT1mV1S2GX3/m2Q6XYGFyIC8AGc=
-Date: Tue, 18 Aug 2020 11:44:32 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Takashi Iwai <tiwai@suse.de>
+ by alsa1.perex.cz (Postfix) with ESMTPS id B5527F800D3
+ for <alsa-devel@alsa-project.org>; Tue, 18 Aug 2020 12:59:24 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B5527F800D3
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id 33394ABD2;
+ Tue, 18 Aug 2020 10:59:50 +0000 (UTC)
+Date: Tue, 18 Aug 2020 12:59:24 +0200
+Message-ID: <s5ho8n8kynn.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Mark Brown <broonie@kernel.org>
 Subject: Re: [PATCH 00/10] sound: convert tasklets to use new tasklet_setup()
-Message-ID: <20200818104432.GB5337@sirena.org.uk>
+In-Reply-To: <20200818104432.GB5337@sirena.org.uk>
 References: <20200817085703.25732-1-allen.cryptic@gmail.com>
  <s5hsgckl084.wl-tiwai@suse.de>
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="RASg3xLB4tUQ4RcS"
-Content-Disposition: inline
-In-Reply-To: <s5hsgckl084.wl-tiwai@suse.de>
-X-Cookie: You're at Witt's End.
-User-Agent: Mutt/1.10.1 (2018-07-13)
+ <20200818104432.GB5337@sirena.org.uk>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
+ FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
+ (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
+Content-Type: text/plain; charset=US-ASCII
 Cc: alsa-devel@alsa-project.org, keescook@chromium.org, timur@kernel.org,
  Xiubo.Lee@gmail.com, linux-kernel@vger.kernel.org, clemens@ladisch.de,
  tiwai@suse.com, nicoleotsuka@gmail.com, Allen Pais <allen.cryptic@gmail.com>,
@@ -85,46 +73,31 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+On Tue, 18 Aug 2020 12:44:32 +0200,
+Mark Brown wrote:
+> 
+> On Tue, Aug 18, 2020 at 12:25:31PM +0200, Takashi Iwai wrote:
+> 
+> > Mark, may I apply those ASoC patches through my tree together with
+> > others?  Those seem targeting to 5.9, and I have a patch set to
+> > convert to tasklet for 5.10, which would be better manageable when
+> > based on top of those changes.
+> 
+> These patches which I wasn't CCed on and which need their subject lines
+> fixing :( .  With the subject lines fixed I guess so so
+> 
+> Acked-by: Mark Brown <broonie@kernel.org>
+> 
+> but judging from some of the other threads about similar patches that I
+> was randomly CCed on I'm not sure people like from_tasklet() so perhaps
+> there might be issues.
 
---RASg3xLB4tUQ4RcS
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Indeed, now I noticed some complaints through other threads, too.
 
-On Tue, Aug 18, 2020 at 12:25:31PM +0200, Takashi Iwai wrote:
+It's no urgent changes but something preferred to be merged in 5.9.
+Let's see how the things settled.
 
-> Mark, may I apply those ASoC patches through my tree together with
-> others?  Those seem targeting to 5.9, and I have a patch set to
-> convert to tasklet for 5.10, which would be better manageable when
-> based on top of those changes.
 
-These patches which I wasn't CCed on and which need their subject lines
-fixing :( .  With the subject lines fixed I guess so so
+thanks,
 
-Acked-by: Mark Brown <broonie@kernel.org>
-
-but judging from some of the other threads about similar patches that I
-was randomly CCed on I'm not sure people like from_tasklet() so perhaps
-there might be issues.
-
-Allen, as documented in submitting-patches.rst please send patches to
-the maintainers for the code you would like to change.  The normal
-kernel workflow is that people apply patches from their inboxes, if they
-aren't copied they are likely to not see the patch at all and it is much
-more difficult to apply patches.
-
---RASg3xLB4tUQ4RcS
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl87sQ8ACgkQJNaLcl1U
-h9AXXgf9Grt6q+diq7m3+Va9EPuojISFzp0rHACAAAE39g0r2Kzx/g53wYjT8uoA
-Yr6dm9ajOxkGjqsZp4Zsp6iSabfuXuEAi9qBBBkCJlatDiEWwObS4X77VNUE82lo
-U7d2ljdnsbtM/zTfYjc63OaAstv4bXWHm+NtjgJhiO155DifPsUOW8js8IPoSlN+
-XDEPT0VVKs1syY90ef4oz7i/aTnOKLlGEejv1YHLRkvwmQyWbjZOo83UHSuB7IPB
-GeTWC/+jE9ujCAKoCFmW8la4LWjfn8yV15s0LI7OFBFZZQoulBBhC7Dp316u5wsw
-B2jWhNhnIJc8tG4nAuopeUqjHqIKYA==
-=oDDH
------END PGP SIGNATURE-----
-
---RASg3xLB4tUQ4RcS--
+Takashi

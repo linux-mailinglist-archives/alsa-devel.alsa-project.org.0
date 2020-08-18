@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A0E69247E6D
-	for <lists+alsa-devel@lfdr.de>; Tue, 18 Aug 2020 08:29:32 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C77DB247E73
+	for <lists+alsa-devel@lfdr.de>; Tue, 18 Aug 2020 08:30:21 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 1671A172F;
-	Tue, 18 Aug 2020 08:28:42 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1671A172F
+	by alsa0.perex.cz (Postfix) with ESMTPS id 522A2171E;
+	Tue, 18 Aug 2020 08:29:31 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 522A2171E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1597732172;
-	bh=JSK9ci9WhE9/2a+BcV+RJI/GZdayBc/8ZdvTiCoeTGw=;
+	s=default; t=1597732221;
+	bh=zBw9hFO+H66X4Rr03LngM7OaVXF0mK9y8qCEVNvyBVw=;
 	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=jcOgkx93IbErg58qyyOkIsRdg1LEavSBf39f757ZaSTJQ6JReStaBpTjTU3CKAg8f
-	 imxJKLP15ceACMYi3S3yIAtjmo7XnswtjOfgOgLGGiiBVEQe83TYgtpDK2KPvPmC+d
-	 Pd/7gjpY8bXoz30VNfg+kQhMUFzDCvWr/B3uj/WY=
+	b=SLuP/aFj2kUZ/DkMGpcTrpqkginwHJzRAw5QNlER6SZyz4O9wbkANi4zZr0L972dz
+	 2A+VMjZhwg9FezuKq886cIr2NkcAnTYqzMvBYXkKNRQNOP8kzeCVGw5mL/cZITuuGo
+	 uAp54KTMcim55a7+rqE2P2JVIMps5yFOqcDZmQvE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 410B0F80114;
-	Tue, 18 Aug 2020 08:27:51 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id E9913F800D3;
+	Tue, 18 Aug 2020 08:29:28 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 4814AF8023F; Tue, 18 Aug 2020 08:27:48 +0200 (CEST)
+ id 732D1F80279; Tue, 18 Aug 2020 08:29:24 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -34,37 +34,38 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id BE2C5F800D3
- for <alsa-devel@alsa-project.org>; Tue, 18 Aug 2020 08:27:36 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BE2C5F800D3
+ by alsa1.perex.cz (Postfix) with ESMTPS id DEEFFF800D3
+ for <alsa-devel@alsa-project.org>; Tue, 18 Aug 2020 08:29:20 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DEEFFF800D3
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="wGw3PcUk"
+ header.b="BdGkNHmL"
 Received: from localhost (unknown [122.171.38.130])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 0B66B20825;
- Tue, 18 Aug 2020 06:27:32 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id 6B24B20825;
+ Tue, 18 Aug 2020 06:29:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1597732053;
- bh=JSK9ci9WhE9/2a+BcV+RJI/GZdayBc/8ZdvTiCoeTGw=;
+ s=default; t=1597732159;
+ bh=zBw9hFO+H66X4Rr03LngM7OaVXF0mK9y8qCEVNvyBVw=;
  h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=wGw3PcUkzKlVCGYV8eKWpkIal8/JUgTDCMtBdO7CCK31U/1VWTvCMAuy5BlpYJM1s
- ZKEEwXShBPr8QzhBWt6npd96Ftf4aS0BGnD/aGbueLot1Sqnwy9ehLXW1UwdYu1rFk
- iivNWMnAt4cQVMj3Ks84ZeiibfC1L3ZhkH2m4ask=
-Date: Tue, 18 Aug 2020 11:57:29 +0530
+ b=BdGkNHmLk2pD8vhckIj7kQXtI+aSrPKhj9pKMOHnMPS+QaPuN8td+x1ZzXfkOMgaz
+ Sb7XmZP1K4Y2i/7naBcfrKZXcR6wL2fzwmNgf9zTHsy2e1knLwsWsAJCa7SVWm3vvC
+ EkVIEdHbsKHoDTlzVRmPuqctTDKnKWBq0nx1oz/0=
+Date: Tue, 18 Aug 2020 11:59:15 +0530
 From: Vinod Koul <vkoul@kernel.org>
 To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Subject: Re: [PATCH 09/13] soundwire: intel: add CLK_STOP_BUS_RESET support
-Message-ID: <20200818062729.GS2639@vkoul-mobl>
+Subject: Re: [PATCH 00/13] soundwire: intel: add power management support
+Message-ID: <20200818062915.GT2639@vkoul-mobl>
 References: <20200721203723.18305-1-yung-chuan.liao@linux.intel.com>
- <20200721203723.18305-10-yung-chuan.liao@linux.intel.com>
- <20200817114729.GP2639@vkoul-mobl>
- <8aac898f-92d3-c907-ebb8-4642a618645b@linux.intel.com>
+ <20200817120841.GQ2639@vkoul-mobl>
+ <d8f8f64f-34db-9c9a-c821-83dda3b2db9a@linux.intel.com>
+ <093dcb7d-e2b7-b568-6a23-aeaf9bfb6004@linux.intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <8aac898f-92d3-c907-ebb8-4642a618645b@linux.intel.com>
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <093dcb7d-e2b7-b568-6a23-aeaf9bfb6004@linux.intel.com>
 Cc: alsa-devel@alsa-project.org, tiwai@suse.de, gregkh@linuxfoundation.org,
  linux-kernel@vger.kernel.org, ranjani.sridharan@linux.intel.com,
  hui.wang@canonical.com, broonie@kernel.org, srinivas.kandagatla@linaro.org,
@@ -86,42 +87,47 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 17-08-20, 09:30, Pierre-Louis Bossart wrote:
+On 17-08-20, 11:10, Pierre-Louis Bossart wrote:
 > 
 > 
-> 
-> > > +	} else if (clock_stop_quirks & SDW_INTEL_CLK_STOP_BUS_RESET) {
-> > > +		ret = sdw_cdns_clock_stop(cdns, true);
-> > > +		if (ret < 0) {
-> > > +			dev_err(dev, "cannot enable clock stop on suspend\n");
-> > > +			return ret;
-> > > +		}
-> > > +
-> > > +		ret = sdw_cdns_enable_interrupt(cdns, false);
-> > > +		if (ret < 0) {
-> > > +			dev_err(dev, "cannot disable interrupts on suspend\n");
-> > > +			return ret;
-> > > +		}
-> > > +
-> > > +		ret = intel_link_power_down(sdw);
-> > > +		if (ret) {
-> > > +			dev_err(dev, "Link power down failed: %d", ret);
-> > > +			return ret;
-> > > +		}
+> > > I had applied except 3 & 9 (few skipped in middle due to conflict while
+> > > applying), BUT I get a build failure on patch 2 onwards :(
+> > > 
+> > > drivers/soundwire/intel_init.c: In function ‘sdw_intel_cleanup’:
+> > > drivers/soundwire/intel_init.c:72:4: error: implicit declaration of
+> > > function ‘pm_runtime_disable’
+> > > [-Werror=implicit-function-declaration]
+> > >     72 |    pm_runtime_disable(&link->pdev->dev);
+> > > 
+> > > I suspect due to missing header? I was on x64 build with allmodconfig
+> > > 
+> > > So only patch 1 is applied and pushed now
 > > 
-> > no cleanup on all the error cases here?
+> > I just tried on these series applied on top of soundwire/next
+> > 
+> > commit 9b3b4b3f2f2af863d2f6dd65afd295a5a673afa2 (soundwire/next)
+> > 
+> >      soundwire: intel: Add basic power management support
+> > 
+> > And I don't see any issue?
 > 
-> See above the 'else if' test, the clock stop on suspend will be followed by
-> a bus reset on resume. this is essentially a complete bus restart.
+> Sorry, I misunderstood the issue. Yes indeed the #include
+> <linux/pm_runtime.h> is added to the wrong patch, I see Bard fixed this in
+> our tree. Not sure what happened here, I ran a patch-by-patch compilation
+> test a long time ago and kbuild was silent. Thanks for spotting this.
+> 
+> > If you want to double-check merge issues, I pushed the code here:
+> > https://github.com/plbossart/sound/tree/sdw/pm_runtime_soundwire_next
+> > 
+> > I am really not sure what conflicts you are referring to, git am worked
+> > fine for me, only skipped the first patch that's already applied.
+> 
+> But the point about conflicts does remain, I am not sure why you skipped
+> patches, I have no merge conflicts on my side.
 
-ok
-
-> The only open here is whether we should actually return an error while
-> suspending, or just log the error and squelch it. We decided to return the
-> status so that the pm_runtime suspend does not proceed: the state remains
-> active which is easier to detect than a single line in a dmesg log.
-
-right, returning makes sense and is done correctly above
+As noted above, I tried to apply except 3 & 9 due to questions on them.
+It is quite normal that dependencies fail to apply, not sure why you are
+confused.
 
 -- 
 ~Vinod

@@ -2,77 +2,74 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D509E248488
-	for <lists+alsa-devel@lfdr.de>; Tue, 18 Aug 2020 14:11:39 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3025C2484C1
+	for <lists+alsa-devel@lfdr.de>; Tue, 18 Aug 2020 14:32:46 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 5FF34175E;
-	Tue, 18 Aug 2020 14:10:49 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5FF34175E
+	by alsa0.perex.cz (Postfix) with ESMTPS id C7B9B175B;
+	Tue, 18 Aug 2020 14:31:55 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C7B9B175B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1597752699;
-	bh=8CDvSsoGHSgWS/T4tRzZ4j52ptS8lToZydgo6p/5VQg=;
-	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
+	s=default; t=1597753965;
+	bh=eHNv9FdwsK7uVxIPYmdOittfWJ5rJzEkrVPozM1SQu4=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=HSdaa5utPcIrTV3f99cx6OSnnu5aoK1c12g6VLZds4caaFNhlOtZ/dG5vl5s3Pqov
-	 2MfFjzPfCl0eFNR4j4Lp2j78Uyh0gpIevv5V9Mthf0Mf5R5ZlVOUUXkOvbI1kQq2rm
-	 VgmApcXRZ++wrncip/DvS1+OyYCyGHxUEm+YXgAI=
+	b=q8k6ZmC4Ps8pZV0F5kzl9cApmkTm0G/5VBFHmxQd7c51IbZQBr5oMu2a2BwG+BznK
+	 pNS6LZym8J0RZKEBXaofoIyL5hK6b3E0GgXjS0hdLWArq12dXUzfJv+aVdPWKXjOQI
+	 iWpCCklDpiqSZY3JO6HQ48WRUHymIY52Reljw92o=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 7CA45F800D3;
-	Tue, 18 Aug 2020 14:09:58 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id A266AF80114;
+	Tue, 18 Aug 2020 14:31:00 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 3277CF8023F; Tue, 18 Aug 2020 14:09:56 +0200 (CEST)
+ id 1599CF8023F; Tue, 18 Aug 2020 14:30:57 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.6 required=5.0 tests=NICE_REPLY_A,SPF_HELO_NONE,
- SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mga06.intel.com (mga06.intel.com [134.134.136.31])
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+ DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled
+ version=3.4.0
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 01DECF80104
+ for <alsa-devel@alsa-project.org>; Tue, 18 Aug 2020 14:30:49 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 01DECF80104
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="SKcxKtnJ"
+Received: from localhost (fw-tnat.cambridge.arm.com [217.140.96.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id D59FCF800D3
- for <alsa-devel@alsa-project.org>; Tue, 18 Aug 2020 14:09:48 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D59FCF800D3
-IronPort-SDR: 1xIrTwa7NSRRfh/ugfDbyPVtJ4SfFOjB8xXELk0ddjKOqdNb9xNO0duS3y/w7otIjqzRJ8WwZf
- QQEsyZ6qsrpg==
-X-IronPort-AV: E=McAfee;i="6000,8403,9716"; a="216412780"
-X-IronPort-AV: E=Sophos;i="5.76,327,1592895600"; d="scan'208";a="216412780"
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from orsmga005.jf.intel.com ([10.7.209.41])
- by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 18 Aug 2020 05:09:44 -0700
-IronPort-SDR: nE7KDIMg9QlBsdRoU29DOvkkZeyvCbLlCKWCcoa2bwJdcra3a1uGTS6k/nIb8mxGuhU4DUbT8K
- LGh5G+j7mBxQ==
-X-IronPort-AV: E=Sophos;i="5.76,327,1592895600"; d="scan'208";a="471783463"
-Received: from kumaraaj-mobl1.amr.corp.intel.com (HELO [10.251.23.85])
- ([10.251.23.85])
- by orsmga005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 18 Aug 2020 05:09:42 -0700
-Subject: Re: [PATCH 2/2] soundwire: fix port_ready[] dynamic allocation in
- mipi_disco and ASoC codecs
-To: Vinod Koul <vkoul@kernel.org>, Bard Liao <yung-chuan.liao@linux.intel.com>
-References: <20200817174727.15139-1-yung-chuan.liao@linux.intel.com>
- <20200817174727.15139-3-yung-chuan.liao@linux.intel.com>
- <20200818063659.GW2639@vkoul-mobl>
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Message-ID: <e9f12e13-49e0-5306-a975-b1b854baef02@linux.intel.com>
-Date: Tue, 18 Aug 2020 07:09:41 -0500
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.10.0
+ by mail.kernel.org (Postfix) with ESMTPSA id 5BDD72065D;
+ Tue, 18 Aug 2020 12:30:46 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=default; t=1597753846;
+ bh=eHNv9FdwsK7uVxIPYmdOittfWJ5rJzEkrVPozM1SQu4=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=SKcxKtnJrC7cXoPgNbvfatsTcUqQhXRNKGPXtOc0RgH4w9KY00FBZqzp1j8kQ2QZw
+ ZzBaqCkEH4QbKmE2zV4HIk0defjdZ64vYVLhewYYIeqY7p994IAwXa/3ppqOTMNNGd
+ nMguyU5y+4CN7DYElJUpDnrUftjA7P8DWV1/7Uv4=
+Date: Tue, 18 Aug 2020 13:30:15 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Johan Jonker <jbx6244@gmail.com>
+Subject: Re: [RFC PATCH v1 1/2] ASoC: rockchip-spdif: add description for
+ rk3308
+Message-ID: <20200818123015.GA5344@sirena.org.uk>
+References: <20200815112437.6662-1-jbx6244@gmail.com>
 MIME-Version: 1.0
-In-Reply-To: <20200818063659.GW2639@vkoul-mobl>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
-Cc: alsa-devel@alsa-project.org, tiwai@suse.de, gregkh@linuxfoundation.org,
- linux-kernel@vger.kernel.org, ranjani.sridharan@linux.intel.com,
- hui.wang@canonical.com, broonie@kernel.org, srinivas.kandagatla@linaro.org,
- jank@cadence.com, mengdong.lin@intel.com, sanyog.r.kale@intel.com,
- rander.wang@linux.intel.com, bard.liao@intel.com
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="45Z9DzgjV8m4Oswq"
+Content-Disposition: inline
+In-Reply-To: <20200815112437.6662-1-jbx6244@gmail.com>
+X-Cookie: Ma Bell is a mean mother!
+User-Agent: Mutt/1.10.1 (2018-07-13)
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org, heiko@sntech.de,
+ linux-kernel@vger.kernel.org, lgirdwood@gmail.com, sugar.zhang@rock-chips.com,
+ linux-rockchip@lists.infradead.org, robh+dt@kernel.org,
+ linux-arm-kernel@lists.infradead.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -89,66 +86,31 @@ Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 
+--45Z9DzgjV8m4Oswq
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-On 8/18/20 1:36 AM, Vinod Koul wrote:
-> On 18-08-20, 01:47, Bard Liao wrote:
->> From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
->>
->> The existing code allocates memory for the total number of ports.
->> This only works if the ports are contiguous, but will break if e.g. a
->> Devices uses port0, 1, and 14. The port_ready[] array would contain 3
->> elements, which would lead to an out-of-bounds access. Conversely in
->> other cases, the wrong port index would be used leading to timeouts on
->> prepare.
->>
->> This can be fixed by allocating for the worst-case of 15
->> ports (DP0..DP14). In addition since the number is now fixed, we can
->> use an array instead of a dynamic allocation.
->>
->> Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
->> Reviewed-by: Rander Wang <rander.wang@linux.intel.com>
->> Reviewed-by: Guennadi Liakhovetski <guennadi.liakhovetski@linux.intel.com>
->> Signed-off-by: Bard Liao <yung-chuan.liao@linux.intel.com>
->> ---
->>   drivers/soundwire/mipi_disco.c  | 18 +-----------------
->>   drivers/soundwire/slave.c       |  4 ++++
->>   include/linux/soundwire/sdw.h   |  2 +-
->>   sound/soc/codecs/max98373-sdw.c | 15 +--------------
->>   sound/soc/codecs/rt1308-sdw.c   | 14 +-------------
->>   sound/soc/codecs/rt5682-sdw.c   | 15 +--------------
->>   sound/soc/codecs/rt700-sdw.c    | 15 +--------------
->>   sound/soc/codecs/rt711-sdw.c    | 15 +--------------
->>   sound/soc/codecs/rt715-sdw.c    | 33 +--------------------------------
-> 
-> This looks fine, but the asoc changes are not dependent, so maybe we
-> should split them up and then can go thru Mark. Or Mark acks, either way
-> would work for me
+On Sat, Aug 15, 2020 at 01:24:36PM +0200, Johan Jonker wrote:
+> A test with the command below shows that the compatible string
+>=20
+> "rockchip,rk3308-spdif", "rockchip,rk3328-spdif"
 
-There are 3 dependencies that we tracked between SoundWire and ASoC 
-subsystems:
+This doesn't apply against current code, please check and resend.
 
-a) addition of SDCA control macro (needed before SDCA codec drivers can 
-be shared)
-b) this series - we could indeed submit the codec changes to Mark's tree 
-separately, but then the SoundWire tree would be broken: the codec 
-drivers would still try to allocate dynamically what is now a fixed-size 
-array.
-c) configuration of the interrupt masks in codec drivers instead of 
-hard-coded in bus driver + spurious parity error workaround (not posted 
-yet but ready).
+--45Z9DzgjV8m4Oswq
+Content-Type: application/pgp-signature; name="signature.asc"
 
-The changes in ASoC codecs are really only on the initialization part 
-(either removing a dynamic allocation or setting masks), there's no 
-functional change otherwise.
+-----BEGIN PGP SIGNATURE-----
 
-I think the simplest to avoid multiple back-and-forth is to have these 
-small interface/initialization changes merged through the SoundWire 
-subsystem, then merged by Mark from a single immutable tag. Would this 
-work for everyone?
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl87ydcACgkQJNaLcl1U
+h9ATqAf+Kw1JpgjNUlPGU5ePMTxIX88Ulj71aDatZmH8W/yzzfj7Lq5d1Rd2SDTC
+e7WeRvDuKmtoPbccucFH0aNFO3ev07yvSzgyQEzjlnvEIWiYO7RTxSQaqWfwGYJJ
+NgJ22Gfro6WhWVyOE4Wj6SQ9lGk5AkdmBEIiExWBgudwa+m7rwnzY5zM3oaLWCnO
+5zvlTV1yglKX5xuYjO38wOmmq2c1ZyWs8qriuXShJGQr9R96wZEvstrJlExGn/V/
+gR5Y0HvcEnAkCGWj8vqoeeq+Ot8vwbIkF4LZoAJpKVSDW5NELwr6IX7aww6k9p7+
+jsmCl584BsniWd/wfF6j7sQSETp0DA==
+=ZzoW
+-----END PGP SIGNATURE-----
 
-In addition, there's a WIP change to regmap to add support for SoundWire 
-1.2 MBQ-based register access, but this only affects regmap and ASoC 
-trees, all handled by Mark.
-
-I don't think we have any other cross-tree changes planned for now, the 
-SDCA infrastructure plumbing is still rather open.
+--45Z9DzgjV8m4Oswq--

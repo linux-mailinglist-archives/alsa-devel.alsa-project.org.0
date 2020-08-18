@@ -2,48 +2,70 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D1A36247B1E
-	for <lists+alsa-devel@lfdr.de>; Tue, 18 Aug 2020 01:36:27 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5E2BA247BAE
+	for <lists+alsa-devel@lfdr.de>; Tue, 18 Aug 2020 02:58:02 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 5D8BF16FC;
-	Tue, 18 Aug 2020 01:35:37 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5D8BF16FC
+	by alsa0.perex.cz (Postfix) with ESMTPS id EAA0016ED;
+	Tue, 18 Aug 2020 02:57:11 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EAA0016ED
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1597707387;
-	bh=27U8aGS4dGLgS57fwvOU/S32GzirC2tLJLTgkLDMsDI=;
-	h=From:To:In-Reply-To:References:Subject:Date:List-Id:
+	s=default; t=1597712282;
+	bh=VeQJ7gtUfxTiZYIo6KTcLfjVHIgZX92yB4cLnpUCVUw=;
+	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=LTtQ1wogrXjUA/eOGSqI59nnvArWbz4Rirl6sECK0a4iO4cCdzycxtb+9Zhnqysh2
-	 X/M2aIGLyotj9HTeGuDADM6g83fbvuopzD4Xep+LmaT8myVOmXqBCF8JaiCWQ/frHY
-	 JZiL+ePQHu55xubDR8cSz2VtULMZrNIdxPN9gS7E=
+	b=rD893fhU6W8NDui1IEOn7ZuszAfuxKrkmuxWLQGPbloxMKnUW1nSHo35xIFi9XbOD
+	 axTKxJOMbL7fAMXY3xN2FjkVw8lkp9/mTJ+Lvue7Z+Q8g6sk50kFQAGYe6qgtOS6zX
+	 QQCHhagW73hMokodvd9vaDbyEzMT0qDQCWRGR1pE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 7EBEBF800EF;
-	Tue, 18 Aug 2020 01:34:46 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 2B492F800D3;
+	Tue, 18 Aug 2020 02:56:21 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 16A3CF80218; Tue, 18 Aug 2020 01:34:44 +0200 (CEST)
+ id 391D8F80218; Tue, 18 Aug 2020 02:56:19 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: **
-X-Spam-Status: No, score=2.5 required=5.0 tests=MISSING_DATE,MISSING_MID,
- SPF_FAIL,SPF_HELO_NONE autolearn=disabled version=3.4.0
-Received: from webhooks-bot.alsa-project.org (gate.perex.cz [77.48.224.242])
- by alsa1.perex.cz (Postfix) with ESMTP id 36865F800F0
- for <alsa-devel@alsa-project.org>; Tue, 18 Aug 2020 01:34:40 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 36865F800F0
-MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
-From: GitHub pull_request - opened <github@alsa-project.org>
+X-Spam-Level: 
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 1CDE0F800D3
+ for <alsa-devel@alsa-project.org>; Tue, 18 Aug 2020 02:56:12 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1CDE0F800D3
+IronPort-SDR: UJDabTyd6uvUaRKExof6q9vXZq+TtM3JY62mh+K4Ebv/jCRQlNrrC0kfMWvxjqAZcTYH87kUHD
+ rH+Llw7beDrA==
+X-IronPort-AV: E=McAfee;i="6000,8403,9716"; a="239642552"
+X-IronPort-AV: E=Sophos;i="5.76,324,1592895600"; d="scan'208";a="239642552"
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from fmsmga002.fm.intel.com ([10.253.24.26])
+ by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 17 Aug 2020 17:56:10 -0700
+IronPort-SDR: +cRgIv89HL96sSmuryIQJos0iUOC3iKa4y7gEnpQim4/uCQFhmJO8lbrcHsk14+4dMnWw9K52g
+ E7UU0pdud5hQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.76,324,1592895600"; d="scan'208";a="328802745"
+Received: from brentlu-desk0.itwn.intel.com ([10.5.253.11])
+ by fmsmga002.fm.intel.com with ESMTP; 17 Aug 2020 17:56:08 -0700
+From: Brent Lu <brent.lu@intel.com>
 To: alsa-devel@alsa-project.org
-In-Reply-To: <1597707280009090900-webhooks-bot@alsa-project.org>
-References: <1597707280009090900-webhooks-bot@alsa-project.org>
-Subject: hdajackretask: Update kernel doc URL in README
-Message-Id: <20200817233444.16A3CF80218@alsa1.perex.cz>
-Date: Tue, 18 Aug 2020 01:34:44 +0200 (CEST)
+Subject: [PATCH v2] ASoC: hdac_hdmi: support 'ELD' mixer
+Date: Tue, 18 Aug 2020 08:44:13 +0800
+Message-Id: <20200818004413.12852-1-brent.lu@intel.com>
+X-Mailer: git-send-email 2.17.1
+In-Reply-To: <20200814083436.19845-1-brent.lu@intel.com>
+References: <20200814083436.19845-1-brent.lu@intel.com>
+Cc: Guennadi Liakhovetski <guennadi.liakhovetski@linux.intel.com>,
+ Kai Vehmanen <kai.vehmanen@linux.intel.com>,
+ Liam Girdwood <lgirdwood@gmail.com>, linux-kernel@vger.kernel.org,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ Takashi Iwai <tiwai@suse.com>, Mark Brown <broonie@kernel.org>,
+ =?UTF-8?q?Amadeusz=20S=C5=82awi=C5=84ski?=
+ <amadeuszx.slawinski@linux.intel.com>, Brent Lu <brent.lu@intel.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -59,10 +81,212 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-alsa-project/alsa-tools pull request #2 was opened from ferdnyc:
+Add an binary mixer 'ELD' to each HDMI PCM device so user space
+could read the ELD data of external HDMI display.
 
-As of THIS writing, the kernel documentation tree has been rearranged, and the "Hint strings" section now resides at the updated URL
+Signed-off-by: Brent Lu <brent.lu@intel.com>
+---
+ sound/soc/codecs/hdac_hdmi.c | 138 +++++++++++++++++++++++++++++++++++
+ 1 file changed, 138 insertions(+)
 
-Request URL   : https://github.com/alsa-project/alsa-tools/pull/2
-Patch URL     : https://github.com/alsa-project/alsa-tools/pull/2.patch
-Repository URL: https://github.com/alsa-project/alsa-tools
+diff --git a/sound/soc/codecs/hdac_hdmi.c b/sound/soc/codecs/hdac_hdmi.c
+index f26b77faed59..869d1547ae5d 100644
+--- a/sound/soc/codecs/hdac_hdmi.c
++++ b/sound/soc/codecs/hdac_hdmi.c
+@@ -9,6 +9,7 @@
+  *
+  * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  */
++
+ #include <linux/init.h>
+ #include <linux/delay.h>
+ #include <linux/module.h>
+@@ -107,6 +108,7 @@ struct hdac_hdmi_pcm {
+ 	unsigned char chmap[8]; /* ALSA API channel-map */
+ 	struct mutex lock;
+ 	int jack_event;
++	struct snd_kcontrol *eld_ctl;
+ };
+ 
+ struct hdac_hdmi_dai_port_map {
+@@ -1248,6 +1250,7 @@ static void hdac_hdmi_present_sense(struct hdac_hdmi_pin *pin,
+ 	struct hdac_hdmi_pcm *pcm;
+ 	int size = 0;
+ 	int port_id = -1;
++	bool eld_valid, eld_changed;
+ 
+ 	if (!hdmi)
+ 		return;
+@@ -1273,6 +1276,8 @@ static void hdac_hdmi_present_sense(struct hdac_hdmi_pin *pin,
+ 			size = -EINVAL;
+ 	}
+ 
++	eld_valid = port->eld.eld_valid;
++
+ 	if (size > 0) {
+ 		port->eld.eld_valid = true;
+ 		port->eld.eld_size = size;
+@@ -1281,6 +1286,8 @@ static void hdac_hdmi_present_sense(struct hdac_hdmi_pin *pin,
+ 		port->eld.eld_size = 0;
+ 	}
+ 
++	eld_changed = (eld_valid != port->eld.eld_valid);
++
+ 	pcm = hdac_hdmi_get_pcm(hdev, port);
+ 
+ 	if (!port->eld.monitor_present || !port->eld.eld_valid) {
+@@ -1313,6 +1320,12 @@ static void hdac_hdmi_present_sense(struct hdac_hdmi_pin *pin,
+ 
+ 	}
+ 	mutex_unlock(&hdmi->pin_mutex);
++
++	if (eld_changed && pcm)
++		snd_ctl_notify(hdmi->card,
++			       SNDRV_CTL_EVENT_MASK_VALUE |
++			       SNDRV_CTL_EVENT_MASK_INFO,
++			       &pcm->eld_ctl->id);
+ }
+ 
+ static int hdac_hdmi_add_ports(struct hdac_device *hdev,
+@@ -1411,6 +1424,122 @@ static void hdac_hdmi_skl_enable_dp12(struct hdac_device *hdev)
+ 
+ }
+ 
++static int hdac_hdmi_eld_ctl_info(struct snd_kcontrol *kcontrol,
++			     struct snd_ctl_elem_info *uinfo)
++{
++	struct snd_soc_component *component = snd_kcontrol_chip(kcontrol);
++	struct hdac_hdmi_priv *hdmi = snd_soc_component_get_drvdata(component);
++	struct hdac_hdmi_pcm *pcm;
++	struct hdac_hdmi_port *port;
++	struct hdac_hdmi_eld *eld;
++
++	uinfo->type = SNDRV_CTL_ELEM_TYPE_BYTES;
++	uinfo->count = 0;
++
++	pcm = get_hdmi_pcm_from_id(hdmi, kcontrol->id.device);
++	if (!pcm) {
++		dev_dbg(component->dev, "%s: no pcm, device %d\n", __func__,
++			kcontrol->id.device);
++		return 0;
++	}
++
++	if (list_empty(&pcm->port_list)) {
++		dev_dbg(component->dev, "%s: empty port list, device %d\n",
++			__func__, kcontrol->id.device);
++		return 0;
++	}
++
++	mutex_lock(&hdmi->pin_mutex);
++
++	list_for_each_entry(port, &pcm->port_list, head) {
++		eld = &port->eld;
++
++		if (eld->eld_valid) {
++			uinfo->count = eld->eld_size;
++			break;
++		}
++	}
++
++	mutex_unlock(&hdmi->pin_mutex);
++
++	return 0;
++}
++
++static int hdac_hdmi_eld_ctl_get(struct snd_kcontrol *kcontrol,
++			    struct snd_ctl_elem_value *ucontrol)
++{
++	struct snd_soc_component *component = snd_kcontrol_chip(kcontrol);
++	struct hdac_hdmi_priv *hdmi = snd_soc_component_get_drvdata(component);
++	struct hdac_hdmi_pcm *pcm;
++	struct hdac_hdmi_port *port;
++	struct hdac_hdmi_eld *eld;
++
++	memset(ucontrol->value.bytes.data, 0, ARRAY_SIZE(ucontrol->value.bytes.data));
++
++	pcm = get_hdmi_pcm_from_id(hdmi, kcontrol->id.device);
++	if (!pcm) {
++		dev_dbg(component->dev, "%s: no pcm, device %d\n", __func__,
++			kcontrol->id.device);
++		return 0;
++	}
++
++	if (list_empty(&pcm->port_list)) {
++		dev_dbg(component->dev, "%s: empty port list, device %d\n",
++			__func__, kcontrol->id.device);
++		return 0;
++	}
++
++	mutex_lock(&hdmi->pin_mutex);
++
++	list_for_each_entry(port, &pcm->port_list, head) {
++		eld = &port->eld;
++
++		if (!eld->eld_valid)
++			continue;
++
++		if (eld->eld_size > ARRAY_SIZE(ucontrol->value.bytes.data) ||
++		    eld->eld_size > ELD_MAX_SIZE) {
++			mutex_unlock(&hdmi->pin_mutex);
++
++			dev_err(component->dev, "%s: buffer too small, device %d eld_size %d\n",
++				__func__, kcontrol->id.device, eld->eld_size);
++			snd_BUG();
++			return -EINVAL;
++		}
++
++		memcpy(ucontrol->value.bytes.data, eld->eld_buffer,
++		       eld->eld_size);
++		break;
++	}
++
++	mutex_unlock(&hdmi->pin_mutex);
++
++	return 0;
++}
++
++static int hdac_hdmi_create_eld_ctl(struct snd_soc_component *component, struct hdac_hdmi_pcm *pcm)
++{
++	struct snd_kcontrol *kctl;
++	struct snd_kcontrol_new hdmi_eld_ctl = {
++		.access	= SNDRV_CTL_ELEM_ACCESS_READ |
++			  SNDRV_CTL_ELEM_ACCESS_VOLATILE,
++		.iface	= SNDRV_CTL_ELEM_IFACE_PCM,
++		.name	= "ELD",
++		.info	= hdac_hdmi_eld_ctl_info,
++		.get	= hdac_hdmi_eld_ctl_get,
++		.device	= pcm->pcm_id,
++	};
++
++	/* add ELD ctl with the device number corresponding to the PCM stream */
++	kctl = snd_ctl_new1(&hdmi_eld_ctl, component);
++	if (!kctl)
++		return -ENOMEM;
++
++	pcm->eld_ctl = kctl;
++
++	return snd_ctl_add(component->card->snd_card, kctl);
++}
++
+ static const struct snd_soc_dai_ops hdmi_dai_ops = {
+ 	.startup = hdac_hdmi_pcm_open,
+ 	.shutdown = hdac_hdmi_pcm_close,
+@@ -1784,6 +1913,15 @@ int hdac_hdmi_jack_init(struct snd_soc_dai *dai, int device,
+ 		}
+ 	}
+ 
++	/* add control for ELD Bytes */
++	err = hdac_hdmi_create_eld_ctl(component, pcm);
++	if (err < 0) {
++		dev_err(&hdev->dev,
++			"eld control add failed with err: %d for pcm: %d\n",
++			err, device);
++		return err;
++	}
++
+ 	list_add_tail(&pcm->head, &hdmi->pcm_list);
+ 
+ 	return 0;
+-- 
+2.17.1
+

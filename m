@@ -2,69 +2,65 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2D94B248C5C
-	for <lists+alsa-devel@lfdr.de>; Tue, 18 Aug 2020 19:03:47 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 92596248C5F
+	for <lists+alsa-devel@lfdr.de>; Tue, 18 Aug 2020 19:04:23 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id CDAD0179B;
-	Tue, 18 Aug 2020 19:02:56 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CDAD0179B
+	by alsa0.perex.cz (Postfix) with ESMTPS id 336F317CA;
+	Tue, 18 Aug 2020 19:03:33 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 336F317CA
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1597770226;
-	bh=F0d1tHSMqIeJXGRCk/zltyPc2lru14KSafh0tiFtELM=;
+	s=default; t=1597770263;
+	bh=c6gTr3KzJfv/fFxXcecxzQN77FTkZtezl4q3okO4iPA=;
 	h=Date:From:To:In-Reply-To:References:Subject:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=NUp1q8mNe454Qfato6ICBjSJvst7dqS3ue9JPbMvF0IGXpWSewHIU/fm3UDNCJpME
-	 wUSszdPfaMfKBj//HHSGD1WAAHrwBdaCyyETreVx9EQKFJx55xwFkfoAecBMzbjP0u
-	 a28l6m5L/bRcLSXEJVjsScXrZIqumHmifewL5cwk=
+	b=W2OkVP8SL2NDg5+PDmMOXgQ4m2La1LnSsZkQJnmxv+qr+vxumThp4HWSBT84siUU5
+	 eFikWnT8gFGbJ5E+vebpohyPeO6di1J9QQjU8HdiA43DDG26PYLYSo2D//2VYlK10Q
+	 ksz2VRSu5JvDJwgh0dpTlPO007R+ESASjae+hUqs=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 2E431F800D3;
-	Tue, 18 Aug 2020 18:55:26 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 5FB06F802A9;
+	Tue, 18 Aug 2020 18:55:32 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 83271F8033F; Tue, 18 Aug 2020 18:55:24 +0200 (CEST)
+ id 1C900F80343; Tue, 18 Aug 2020 18:55:30 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.9 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,PRX_BODY_26,SPF_HELO_NONE,SPF_PASS
- autolearn=disabled version=3.4.0
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+ DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled
+ version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 3EBCBF80341
- for <alsa-devel@alsa-project.org>; Tue, 18 Aug 2020 18:55:22 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3EBCBF80341
+ by alsa1.perex.cz (Postfix) with ESMTPS id C3F81F80341
+ for <alsa-devel@alsa-project.org>; Tue, 18 Aug 2020 18:55:27 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C3F81F80341
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="opiKH/kZ"
+ header.b="T2UqYezM"
 Received: from localhost (fw-tnat.cambridge.arm.com [217.140.96.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 5FEAB20786;
- Tue, 18 Aug 2020 16:55:20 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id 5B3542080C;
+ Tue, 18 Aug 2020 16:55:25 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1597769720;
- bh=F0d1tHSMqIeJXGRCk/zltyPc2lru14KSafh0tiFtELM=;
+ s=default; t=1597769725;
+ bh=c6gTr3KzJfv/fFxXcecxzQN77FTkZtezl4q3okO4iPA=;
  h=Date:From:To:Cc:In-Reply-To:References:Subject:From;
- b=opiKH/kZMfaz3lDHneR7+ihHEGL/mIrOfTr5dG01Giq1h9rJ79uKzp2hh8nRr0HG/
- yj99c358vIf+E66L2K5eL7Ah159k+TSf1kwfZ5494B8HV43X9KDojhCvf18GdRDlku
- OlxQRtm/3/ihRjCYDOyFCcTXcsgZXROtHqB2icnE=
-Date: Tue, 18 Aug 2020 17:54:50 +0100
+ b=T2UqYezMUFrXWDhCtn2cp+ILVVCWBpYGxF7zPdvO1F1aYxQuV++XKxfK1VUPvtH+J
+ Zb1sxppYNIodWeQW5+u4xNkPXMvFJcWe4Xp2nSK1rItEX6BaWf6bM9BtDE89UL1eY0
+ Qnn7X7nzD2SKu5i39doS6KusX/mRJznD6vFg4Tb8=
+Date: Tue, 18 Aug 2020 17:54:55 +0100
 From: Mark Brown <broonie@kernel.org>
-To: Rob Herring <robh+dt@kernel.org>, Samuel Holland <samuel@sholland.org>,
- Maxime Ripard <mripard@kernel.org>, Jaroslav Kysela <perex@perex.cz>,
- Mark Rutland <mark.rutland@arm.com>, Chen-Yu Tsai <wens@csie.org>,
- Liam Girdwood <lgirdwood@gmail.com>, Takashi Iwai <tiwai@suse.com>
-In-Reply-To: <20200726012557.38282-1-samuel@sholland.org>
-References: <20200726012557.38282-1-samuel@sholland.org>
-Subject: Re: [PATCH 0/7] Allwinner A64 digital audio codec fixes
-Message-Id: <159776961932.56094.2705667823777375165.b4-ty@kernel.org>
-Cc: Ondrej Jirman <megous@megous.com>, devicetree@vger.kernel.org,
- alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
- Vasily Khoruzhick <anarsoul@gmail.com>, linux-arm-kernel@lists.infradead.org
+To: alsa-devel@alsa-project.org,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+In-Reply-To: <20200813175839.59422-1-pierre-louis.bossart@linux.intel.com>
+References: <20200813175839.59422-1-pierre-louis.bossart@linux.intel.com>
+Subject: Re: [PATCH 0/5] ASoC: SOF/Intel: fix cppcheck warnings
+Message-Id: <159776961932.56094.13912004080779932324.b4-ty@kernel.org>
+Cc: tiwai@suse.de
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -80,16 +76,15 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Sat, 25 Jul 2020 20:25:50 -0500, Samuel Holland wrote:
-> This series fixes a couple of issues with the digital audio codec in the
-> Allwinner A64 SoC:
->   1) Left/right channels were swapped when playing/recording audio
->   2) DAPM topology was wrong, breaking some kcontrols
+On Thu, 13 Aug 2020 12:58:34 -0500, Pierre-Louis Bossart wrote:
+> A small set of fixes to reduce the number of warnings.
 > 
-> This is the minimum set of changes necessary to fix these issues in a
-> backward-compatible way. For that reason, some DAPM widgets still have
-> incorrect or confusing names; those and other issues will be fixed in
-> later patch sets.
+> Pierre-Louis Bossart (5):
+>   ASOC: SOF: Intel: hda-codec: move unused label to correct position
+>   ASoC: SOF: Intel: hda-codec: move variable used conditionally
+>   ASoC: Intel: rename shadowed variable for all broadwell boards
+>   ASoC: Intel: bytcht_cx2072x: simplify return handling
+>   ASoC: Intel: sof_sdw: clarify operator precedence
 > 
 > [...]
 
@@ -99,19 +94,15 @@ Applied to
 
 Thanks!
 
-[1/7] ASoC: dt-bindings: Add a new compatible for the A64 codec
-      commit: cef305d4eb0733f25215793ed30b056a7db9bb62
-[2/7] ASoC: sun8i-codec: Fix DAPM to match the hardware topology
-      commit: 90cac932976e93b17203b4216ba83bdcd68e0ed0
-[3/7] ASoC: sun8i-codec: Add missing mixer routes
-      commit: e47d2dcd88fc3e6837f8aa0060ce820ec9001e26
-[4/7] ASoC: sun8i-codec: Add a quirk for LRCK inversion
-      commit: 7518805fb636308909a6a7953e9fdb194abb15f8
-[5/7] ARM: dts: sun8i: a33: Update codec widget names
-      (no commit info)
-[6/7] arm64: dts: allwinner: a64: Update codec widget names
-      (no commit info)
-[7/7] arm64: dts: allwinner: a64: Update the audio codec compatible
+[1/5] ASOC: SOF: Intel: hda-codec: move unused label to correct position
+      commit: 11ec0edc6408a739dffca34ebbbe921817c3b10e
+[2/5] ASoC: SOF: Intel: hda-codec: move variable used conditionally
+      commit: 2e3e0bc378f205370fc4c6dbd9374d66e803ce53
+[3/5] ASoC: Intel: rename shadowed variable for all broadwell boards
+      commit: 1e6444271c667d56f3a793cfc295b72a1f8007da
+[4/5] ASoC: Intel: bytcht_cx2072x: simplify return handling
+      commit: 9c7deb0576d7fe4370a23f4e127b2a69325f7ce9
+[5/5] ASoC: Intel: sof_sdw: clarify operator precedence
       (no commit info)
 
 All being well this means that it will be integrated into the linux-next

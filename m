@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0011E248C1A
-	for <lists+alsa-devel@lfdr.de>; Tue, 18 Aug 2020 18:56:06 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3E814248C20
+	for <lists+alsa-devel@lfdr.de>; Tue, 18 Aug 2020 18:56:51 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 6D550179A;
-	Tue, 18 Aug 2020 18:55:16 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6D550179A
+	by alsa0.perex.cz (Postfix) with ESMTPS id DB13A178A;
+	Tue, 18 Aug 2020 18:56:00 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DB13A178A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1597769766;
-	bh=PxM9+n8vVIqpRf0jfe4HVoCR3Hxu6WufuYAJnUBROT4=;
-	h=Date:From:To:In-Reply-To:References:Subject:List-Id:
+	s=default; t=1597769810;
+	bh=Rofmd0QiMs/9k+UeK1IF5bpm3qfZbJPjgTGC8mXF5mo=;
+	h=Date:From:To:In-Reply-To:References:Subject:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=eLC1FU1PYvm0A3KubgDC9gDlfDYhOyZs3R9bU5TLgX8zcJ+ZukpU5ABtGblwUUVe1
-	 a9kirRgfiCx7KBUkiEt/Ai2DUNcj7HBdEmA4HnCIEMlxm9mmHaFAop1ZLn3CD5/mpj
-	 tJoeW4Pyewi3YqRQzoZrQp1v7Bwv5Nn/RYpFWnBc=
+	b=EJzcPMZCLZTW+aHmBKFpjxQP5vGjnmRPqtZbwbmwjxQlbnKwMlXo+yTlgKy5VGFJk
+	 oFMGoyfhZknUzXzMRFXwiX4IvPJr4j633jgz90PlcD5x9COEN/+U6cluutYIg+kSHu
+	 5fdfBKL0LYo5tl6e6p8ERjSC8xYkYAOVPHTklKWU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id A1E7AF80114;
-	Tue, 18 Aug 2020 18:54:25 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id A5506F802C4;
+	Tue, 18 Aug 2020 18:54:27 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 49598F80273; Tue, 18 Aug 2020 18:54:22 +0200 (CEST)
+ id BD739F800D3; Tue, 18 Aug 2020 18:54:22 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -34,36 +34,33 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 301A6F80114
- for <alsa-devel@alsa-project.org>; Tue, 18 Aug 2020 18:54:11 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 301A6F80114
+ by alsa1.perex.cz (Postfix) with ESMTPS id 14048F800D3
+ for <alsa-devel@alsa-project.org>; Tue, 18 Aug 2020 18:54:16 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 14048F800D3
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="gUYGs4eM"
+ header.b="RuLvDdVL"
 Received: from localhost (fw-tnat.cambridge.arm.com [217.140.96.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 7C48A20786;
- Tue, 18 Aug 2020 16:54:09 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id 957D3207D3;
+ Tue, 18 Aug 2020 16:54:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1597769650;
- bh=PxM9+n8vVIqpRf0jfe4HVoCR3Hxu6WufuYAJnUBROT4=;
+ s=default; t=1597769655;
+ bh=Rofmd0QiMs/9k+UeK1IF5bpm3qfZbJPjgTGC8mXF5mo=;
  h=Date:From:To:Cc:In-Reply-To:References:Subject:From;
- b=gUYGs4eMGo9kZaPbLsgoa9Ac73rnnbET5oal91nJ1x5zii7YwFryJq3BN3ZcuMXb4
- +7MkNCsRLfFlMxKfJH0UR+bn9MXQ798+2obQ7OurbpMjqL7fO4qZuA+LxcrD+EYFGU
- VqKfIY1uCkI02fGwhtF1gilroLiY3RAY5aRrR29U=
-Date: Tue, 18 Aug 2020 17:53:39 +0100
+ b=RuLvDdVLs1Oeefo7spMC8e0Ij5aM8bFFrsLuPKzM9D5Wzsz2MvNc7mMhAsl1hALMl
+ Nf11Lqt2Y3X5wb/dzEbKuj7NJExtqMZv/o18SmuzEq8vQALb9lxqvlOaffeuFza0OI
+ +O2nP3ITQ9psaIqAM7xB7MSgL915CJ7g4RBtHDfM=
+Date: Tue, 18 Aug 2020 17:53:44 +0100
 From: Mark Brown <broonie@kernel.org>
-To: devicetree@vger.kernel.org, robh+dt@kernel.org,
- srinivas.kandagatla@linaro.org, tiwai@suse.com, plai@codeaurora.org,
- Rohit kumar <rohitkr@codeaurora.org>, lgirdwood@gmail.com,
- linux-kernel@vger.kernel.org, bgoswami@codeaurora.org,
- bjorn.andersson@linaro.org, agross@kernel.org, alsa-devel@alsa-project.org,
- linux-arm-msm@vger.kernel.org, perex@perex.cz
-In-Reply-To: <1597402388-14112-1-git-send-email-rohitkr@codeaurora.org>
-References: <1597402388-14112-1-git-send-email-rohitkr@codeaurora.org>
-Subject: Re: [PATCH v6 00/12] ASoC: qcom: Add support for SC7180 lpass variant
-Message-Id: <159776961933.56094.17007093151985279828.b4-ty@kernel.org>
+To: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
+In-Reply-To: <20200811105818.7890-1-srinivas.kandagatla@linaro.org>
+References: <20200811105818.7890-1-srinivas.kandagatla@linaro.org>
+Subject: Re: [PATCH] ASoC: qcom: add a dedicated menuconfig
+Message-Id: <159776961932.56094.5932457968960769416.b4-ty@kernel.org>
+Cc: linux-kernel@vger.kernel.org, alsa-devel@alsa-project.org,
+ john.stultz@linaro.org, tiwai@suse.com, lgirdwood@gmail.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -79,17 +76,9 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Fri, 14 Aug 2020 16:22:56 +0530, Rohit kumar wrote:
-> This patch chain add audio support for SC7180 soc by doing the required
-> modification in existing common lpass-cpu/lpass-platform driver.
-> This also fixes some concurrency issue.
-> 
-> This patch series is already tested by Srinivas on Dragon Board 410c.
-> Changes since v5:
->         - Fixed remove api in lpass-sc7180.c
->         - Addressed comments by Rob in yaml Documentation.
-> 
-> [...]
+On Tue, 11 Aug 2020 11:58:18 +0100, Srinivas Kandagatla wrote:
+> Currently list of Qualcomm drivers is growing, so put them in to a
+> proper menu so that it does not mix up with other ASOC configs in menuconfig.
 
 Applied to
 
@@ -97,30 +86,8 @@ Applied to
 
 Thanks!
 
-[01/12] ASoC: qcom: Add common array to initialize soc based core clocks
-        commit: 1220f6a76e77af8ac14fe67a11fcd7806764ea46
-[02/12] ASoC: qcom: lpass-cpu: Move ahbix clk to platform specific function
-        commit: a503567d70eca91796a4ab23053d4c70df8e1e3e
-[03/12] ASoC: qcom: lpass-platform: Replace card->dev with component->dev
-        commit: 784771863abae5f8878c62e9c624111c51bebe7c
-[04/12] ASoC: qcom: lpass-platform: fix memory leak
-        commit: 5fd188215d4eb52703600d8986b22311099a5940
-[05/12] ASoC: qcom: lpass: Use regmap_field for i2sctl and dmactl registers
-        commit: b5022a36d28f6a99c1a57f54246e8b566cf094d5
-[06/12] ASoC: qcom: lpass-cpu: fix concurrency issue
-        commit: 753a6e17942f6f425ca622e1610625998312ad89
-[07/12] ASoC: Add sc7180 lpass cpu node
-        commit: 2a7a3797ed2de6a55e1467bd11002fa7b13e12f3
-[08/12] ASoC: Add sc7180-lpass bindings header
-        commit: 68d8904b25df28821425753eaebc8fe992dde236
-[09/12] ASoC: qcom: lpass-sc7180: Add platform driver for lpass audio
-        commit: 24caf8d9eb108c52e144bcc7af94bb1edcb70700
-[10/12] ASoC: qcom: lpass-cpu: Use platform_get_resource
-        commit: 93dbbd657167a796583506834cc03950ce25bce1
-[11/12] ASoC: qcom: lpass-platform: Use platform_get_irq
-        commit: b05372c84d61ad2a905274db7e3d63a65c835463
-[12/12] ASoC: lpass-cpu: Move to yaml format
-        commit: 4b381d7e86fd0b767456e07c49982fb4896e1166
+[1/1] ASoC: qcom: add a dedicated menuconfig
+      commit: db24fa5756e944a711a66692af7e25a2189bfe52
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

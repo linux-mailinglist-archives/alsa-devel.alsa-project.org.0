@@ -2,79 +2,77 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6D8A2248437
-	for <lists+alsa-devel@lfdr.de>; Tue, 18 Aug 2020 13:52:49 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D509E248488
+	for <lists+alsa-devel@lfdr.de>; Tue, 18 Aug 2020 14:11:39 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E95A91753;
-	Tue, 18 Aug 2020 13:51:58 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E95A91753
+	by alsa0.perex.cz (Postfix) with ESMTPS id 5FF34175E;
+	Tue, 18 Aug 2020 14:10:49 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5FF34175E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1597751569;
-	bh=sdHwiepqYdoLouoCNamuLXSYsXBax5xPUxWrnVNkprM=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1597752699;
+	bh=8CDvSsoGHSgWS/T4tRzZ4j52ptS8lToZydgo6p/5VQg=;
+	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=EawfCHn0rdG2lSxetcOaMUo4AWkcvy/9D5VDgKK9YGBFRWUZWrk8CJrdlhTk/KVBa
-	 LIyF0AabJNdbVrdsDLOcEBgt+GqGf36NkjPd+lbht6kqFn9vzFs2o1eA4x3rJ/7o1C
-	 jEVV1epCet7pFUUJxbrIBgOa8nLl3qXHUy+4gkEQ=
+	b=HSdaa5utPcIrTV3f99cx6OSnnu5aoK1c12g6VLZds4caaFNhlOtZ/dG5vl5s3Pqov
+	 2MfFjzPfCl0eFNR4j4Lp2j78Uyh0gpIevv5V9Mthf0Mf5R5ZlVOUUXkOvbI1kQq2rm
+	 VgmApcXRZ++wrncip/DvS1+OyYCyGHxUEm+YXgAI=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 0EF7DF80228;
-	Tue, 18 Aug 2020 13:51:08 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 7CA45F800D3;
+	Tue, 18 Aug 2020 14:09:58 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 2D047F8023F; Tue, 18 Aug 2020 13:51:06 +0200 (CEST)
+ id 3277CF8023F; Tue, 18 Aug 2020 14:09:56 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS
- autolearn=disabled version=3.4.0
-Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
+X-Spam-Status: No, score=-0.6 required=5.0 tests=NICE_REPLY_A,SPF_HELO_NONE,
+ SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mga06.intel.com (mga06.intel.com [134.134.136.31])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id C3265F80104
- for <alsa-devel@alsa-project.org>; Tue, 18 Aug 2020 13:50:58 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C3265F80104
-IronPort-SDR: MKy2F8HebNcHwA6+LNOikeitnCa9QReQ8/zEG/b43HTMxg9Mke1W00PzkoQ5SpSJHyij5LMUWU
- jJ/hpvCh2H1w==
-X-IronPort-AV: E=McAfee;i="6000,8403,9716"; a="152293597"
-X-IronPort-AV: E=Sophos;i="5.76,327,1592895600"; d="scan'208";a="152293597"
+ by alsa1.perex.cz (Postfix) with ESMTPS id D59FCF800D3
+ for <alsa-devel@alsa-project.org>; Tue, 18 Aug 2020 14:09:48 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D59FCF800D3
+IronPort-SDR: 1xIrTwa7NSRRfh/ugfDbyPVtJ4SfFOjB8xXELk0ddjKOqdNb9xNO0duS3y/w7otIjqzRJ8WwZf
+ QQEsyZ6qsrpg==
+X-IronPort-AV: E=McAfee;i="6000,8403,9716"; a="216412780"
+X-IronPort-AV: E=Sophos;i="5.76,327,1592895600"; d="scan'208";a="216412780"
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
-Received: from orsmga008.jf.intel.com ([10.7.209.65])
- by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 18 Aug 2020 04:50:56 -0700
-IronPort-SDR: gudfIXfj2oaBPIPuwbNIWs+15+bMKtS9KLKw99/aEh9+4RXY5F8WJmzNwA/18Jqbmx/AnpozF1
- aeNrvs4jwfhA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.76,327,1592895600"; d="scan'208";a="326708846"
-Received: from smile.fi.intel.com (HELO smile) ([10.237.68.40])
- by orsmga008.jf.intel.com with ESMTP; 18 Aug 2020 04:50:52 -0700
-Received: from andy by smile with local (Exim 4.94)
- (envelope-from <andriy.shevchenko@intel.com>)
- id 1k808g-009dZN-Fz; Tue, 18 Aug 2020 14:50:50 +0300
-Date: Tue, 18 Aug 2020 14:50:50 +0300
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Cezary Rojewski <cezary.rojewski@intel.com>
-Subject: Re: [PATCH v4 02/13] ASoC: Intel: catpt: Define DSP operations
-Message-ID: <20200818115050.GI1891694@smile.fi.intel.com>
-References: <20200812205753.29115-1-cezary.rojewski@intel.com>
- <20200812205753.29115-3-cezary.rojewski@intel.com>
- <20200813185129.GB1891694@smile.fi.intel.com>
- <946fdd80-c89d-ee1b-6eef-e752318b55a6@intel.com>
+Received: from orsmga005.jf.intel.com ([10.7.209.41])
+ by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 18 Aug 2020 05:09:44 -0700
+IronPort-SDR: nE7KDIMg9QlBsdRoU29DOvkkZeyvCbLlCKWCcoa2bwJdcra3a1uGTS6k/nIb8mxGuhU4DUbT8K
+ LGh5G+j7mBxQ==
+X-IronPort-AV: E=Sophos;i="5.76,327,1592895600"; d="scan'208";a="471783463"
+Received: from kumaraaj-mobl1.amr.corp.intel.com (HELO [10.251.23.85])
+ ([10.251.23.85])
+ by orsmga005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 18 Aug 2020 05:09:42 -0700
+Subject: Re: [PATCH 2/2] soundwire: fix port_ready[] dynamic allocation in
+ mipi_disco and ASoC codecs
+To: Vinod Koul <vkoul@kernel.org>, Bard Liao <yung-chuan.liao@linux.intel.com>
+References: <20200817174727.15139-1-yung-chuan.liao@linux.intel.com>
+ <20200817174727.15139-3-yung-chuan.liao@linux.intel.com>
+ <20200818063659.GW2639@vkoul-mobl>
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Message-ID: <e9f12e13-49e0-5306-a975-b1b854baef02@linux.intel.com>
+Date: Tue, 18 Aug 2020 07:09:41 -0500
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.10.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <946fdd80-c89d-ee1b-6eef-e752318b55a6@intel.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
-Cc: pierre-louis.bossart@linux.intel.com, alsa-devel@alsa-project.org,
- filip.kaczmarski@intel.com, harshapriya.n@intel.com, marcin.barlik@intel.com,
- zwisler@google.com, lgirdwood@gmail.com, tiwai@suse.com,
- filip.proborszcz@intel.com, broonie@kernel.org,
- amadeuszx.slawinski@linux.intel.com, michal.wasko@intel.com,
- cujomalainey@chromium.org, krzysztof.hejmowski@intel.com,
- ppapierkowski@habana.ai, vamshi.krishna.gopal@intel.com
+In-Reply-To: <20200818063659.GW2639@vkoul-mobl>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
+Cc: alsa-devel@alsa-project.org, tiwai@suse.de, gregkh@linuxfoundation.org,
+ linux-kernel@vger.kernel.org, ranjani.sridharan@linux.intel.com,
+ hui.wang@canonical.com, broonie@kernel.org, srinivas.kandagatla@linaro.org,
+ jank@cadence.com, mengdong.lin@intel.com, sanyog.r.kale@intel.com,
+ rander.wang@linux.intel.com, bard.liao@intel.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -90,104 +88,67 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Mon, Aug 17, 2020 at 01:12:01PM +0200, Cezary Rojewski wrote:
-> On 2020-08-13 8:51 PM, Andy Shevchenko wrote:
-> > On Wed, Aug 12, 2020 at 10:57:42PM +0200, Cezary Rojewski wrote:
-> > > Implement dsp lifecycle functions such as core RESET and STALL,
-> > > SRAM power control and LP clock selection. This also adds functions for
-> > > handling transport over DW DMA controller.
+
+
+On 8/18/20 1:36 AM, Vinod Koul wrote:
+> On 18-08-20, 01:47, Bard Liao wrote:
+>> From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+>>
+>> The existing code allocates memory for the total number of ports.
+>> This only works if the ports are contiguous, but will break if e.g. a
+>> Devices uses port0, 1, and 14. The port_ready[] array would contain 3
+>> elements, which would lead to an out-of-bounds access. Conversely in
+>> other cases, the wrong port index would be used leading to timeouts on
+>> prepare.
+>>
+>> This can be fixed by allocating for the worst-case of 15
+>> ports (DP0..DP14). In addition since the number is now fixed, we can
+>> use an array instead of a dynamic allocation.
+>>
+>> Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+>> Reviewed-by: Rander Wang <rander.wang@linux.intel.com>
+>> Reviewed-by: Guennadi Liakhovetski <guennadi.liakhovetski@linux.intel.com>
+>> Signed-off-by: Bard Liao <yung-chuan.liao@linux.intel.com>
+>> ---
+>>   drivers/soundwire/mipi_disco.c  | 18 +-----------------
+>>   drivers/soundwire/slave.c       |  4 ++++
+>>   include/linux/soundwire/sdw.h   |  2 +-
+>>   sound/soc/codecs/max98373-sdw.c | 15 +--------------
+>>   sound/soc/codecs/rt1308-sdw.c   | 14 +-------------
+>>   sound/soc/codecs/rt5682-sdw.c   | 15 +--------------
+>>   sound/soc/codecs/rt700-sdw.c    | 15 +--------------
+>>   sound/soc/codecs/rt711-sdw.c    | 15 +--------------
+>>   sound/soc/codecs/rt715-sdw.c    | 33 +--------------------------------
 > 
-> Thanks for your input Andy!
+> This looks fine, but the asoc changes are not dependent, so maybe we
+> should split them up and then can go thru Mark. Or Mark acks, either way
+> would work for me
 
-You're welcome!
+There are 3 dependencies that we tracked between SoundWire and ASoC 
+subsystems:
 
-...
+a) addition of SDCA control macro (needed before SDCA codec drivers can 
+be shared)
+b) this series - we could indeed submit the codec changes to Mark's tree 
+separately, but then the SoundWire tree would be broken: the codec 
+drivers would still try to allocate dynamically what is now a fixed-size 
+array.
+c) configuration of the interrupt masks in codec drivers instead of 
+hard-coded in bus driver + spurious parity error workaround (not posted 
+yet but ready).
 
-> > > +#define CATPT_DMA_DEVID		1 /* dma engine used */
-> > 
-> > Not sure I understand what exactly this means.
-> > 
-> 
-> Well, you may choose either engine 0 or 1 for loading images. Reference
-> solution which I'm basing catpt on - Windows driver equivalent - makes use
-> of engine 1. Goal of this implementation is to align closely to stable
-> Windows solution wherever possible to reduce maintainance cost.
+The changes in ASoC codecs are really only on the initialization part 
+(either removing a dynamic allocation or setting masks), there's no 
+functional change otherwise.
 
-Please, give extended comment here.
+I think the simplest to avoid multiple back-and-forth is to have these 
+small interface/initialization changes merged through the SoundWire 
+subsystem, then merged by Mark from a single immutable tag. Would this 
+work for everyone?
 
-...
+In addition, there's a WIP change to regmap to add support for SoundWire 
+1.2 MBQ-based register access, but this only affects regmap and ASoC 
+trees, all handled by Mark.
 
-> > > +	status = dma_wait_for_async_tx(desc);
-> > 
-> > > +	catpt_updatel_shim(cdev, HMDC,
-> > > +			   CATPT_HMDC_HDDA(CATPT_DMA_DEVID, chan->chan_id), 0);
-> > 
-> > Update even in erroneous case?
-> > 
-> 
-> Yes. This is based on stable Windows solution equivalent and get's updated
-> even in failure case to disable access to HOST memory in demand more.
-
-I guess this deserves a comment.
-
-> > > +	return (status == DMA_COMPLETE) ? 0 : -EPROTO;
-
-...
-
-> > > +	new <<= __ffs(mask);
-> > > +	new = ~(new) & mask;
-> > 
-> > Unneeded parentheses.
-> > And perhaps in one line it will be better to understand:
-> > 
-> > 	new = ~(new << __ffs(mask)) & mask;
-> > 
-> 
-> Was called out in the past not to combine everything in one-line like if I'm
-> to hide something from reviewer.
-> 
-> No problem with combining these together in v5.
-
-you also may consider to use u32_replace_bits() or so.
-
-...
-
-> > > +	bool lp;
-> > > +
-> > > +	if (list_empty(&cdev->stream_list))
-> > > +		return catpt_dsp_select_lpclock(cdev, true, true);
-> > > +
-> > > +	lp = true;
-> > > +	list_for_each_entry(stream, &cdev->stream_list, node) {
-> > > +		if (stream->prepared) {
-> > > +			lp = false;
-> > > +			break;
-> > > +		}
-> > > +	}
-> > > +
-> > > +	return catpt_dsp_select_lpclock(cdev, lp, true);
-> > 
-> > Seems too much duplication.
-> > 
-> > 	struct catpt_stream_runtime *stream;
-> > 
-> > 	list_for_each_entry(stream, &cdev->stream_list, node) {
-> > 		if (stream->prepared)
-> > 			return catpt_dsp_select_lpclock(cdev, false, true);
-> > 	}
-> > 
-> > 	return catpt_dsp_select_lpclock(cdev, true, true);
-> > 
-> > 
-> > Better?
-> 
-> list_first_entry (part of list_for_each_entry) expects list to be non-empty.
-> ->streal_list may be empty when invoking catpt_dsp_update_lpclock().
-
-I didn't get this. Can you point out where is exactly problematic place?
-
--- 
-With Best Regards,
-Andy Shevchenko
-
-
+I don't think we have any other cross-tree changes planned for now, the 
+SDCA infrastructure plumbing is still rather open.

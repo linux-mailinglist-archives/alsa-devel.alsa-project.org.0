@@ -2,61 +2,61 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 82D282487D4
-	for <lists+alsa-devel@lfdr.de>; Tue, 18 Aug 2020 16:37:50 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 35CEE2487D6
+	for <lists+alsa-devel@lfdr.de>; Tue, 18 Aug 2020 16:38:01 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B7C241757;
-	Tue, 18 Aug 2020 16:36:59 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B7C241757
+	by alsa0.perex.cz (Postfix) with ESMTPS id D6EEC176B;
+	Tue, 18 Aug 2020 16:37:10 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D6EEC176B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1597761469;
-	bh=IGbMowwoJnqHeHWISULeSDOwh/Tg4ybiFZLqHqLcFT4=;
+	s=default; t=1597761480;
+	bh=LjamWxOg98vcSqJtuYJhXzStZ7dX77gIUQ7V4UJ9rvI=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=qlsMBHLo4QFOVL0it2scdd77HLqeCIOi01LR1E4Zi970mNJ2SHRxXQsIZaJeFOHrt
-	 2tCJfEIIf1L8HEjMRYENgV160W4TI5lj6e7sy18hDkA/kELTiEDl2p9Vi+s97zFPdd
-	 I4Q8zFSekiCSx5BHV88eOkobd1ud197UNdKJhD64=
+	b=NV/4eGiBKx/wJbtkUNZxZgm8XaPMJSdls4aLyCs5stYQutYQPvlCZPQGCnIo7ngNF
+	 aNghBNcsjieqUZeigu38mECG82hHCguHcPTpMnzS1yrlQZC2CjbykOMNKvWQGPElj+
+	 1Q9JsC6NeK+JPnq6/G2Zmu2gFNpCnOWYqC+AiW8c=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 7524BF802A8;
-	Tue, 18 Aug 2020 16:35:32 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id E2C0CF80114;
+	Tue, 18 Aug 2020 16:35:37 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id F024CF8029A; Tue, 18 Aug 2020 16:35:28 +0200 (CEST)
+ id 5D1D3F802C3; Tue, 18 Aug 2020 16:35:35 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: *
 X-Spam-Status: No, score=1.1 required=5.0 tests=DATE_IN_PAST_06_12,
  SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
+Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 5F971F800D3
- for <alsa-devel@alsa-project.org>; Tue, 18 Aug 2020 16:35:18 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5F971F800D3
-IronPort-SDR: hb8CWfLkbuKKZNGR+8fIsv0l0Ki8Tp2yZtJyvWfGaSvAHcBQTewIupthtLcUO+jVwZLmpeAkUn
- SJjkik8IfkcQ==
-X-IronPort-AV: E=McAfee;i="6000,8403,9716"; a="154885433"
-X-IronPort-AV: E=Sophos;i="5.76,327,1592895600"; d="scan'208";a="154885433"
+ by alsa1.perex.cz (Postfix) with ESMTPS id 02D03F80273
+ for <alsa-devel@alsa-project.org>; Tue, 18 Aug 2020 16:35:24 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 02D03F80273
+IronPort-SDR: Q8JrK5rRk9rfr9GZZs9Vbrvd/ykmv0L/rxQ/9BR6J1O7On1o/DtgNkXK8Q40892NOHFG46ljM5
+ 0Ylxzh01eUsQ==
+X-IronPort-AV: E=McAfee;i="6000,8403,9716"; a="219223479"
+X-IronPort-AV: E=Sophos;i="5.76,327,1592895600"; d="scan'208";a="219223479"
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
 Received: from orsmga005.jf.intel.com ([10.7.209.41])
- by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 18 Aug 2020 07:35:16 -0700
-IronPort-SDR: WyHsuadT6jVo+CUsor5B5qJYHT8X3rCEZB3gty/TmdwcpcbIeFrAaYs5I8fkMhfRY6pUTbtpf+
- 61chcvHzMSSQ==
-X-IronPort-AV: E=Sophos;i="5.76,327,1592895600"; d="scan'208";a="471830291"
+ by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 18 Aug 2020 07:35:22 -0700
+IronPort-SDR: mJdXbCWdxOR7a6Q4QjeYKaPcZxbFWdVEEGC0RP0aoEQ+EeiHREsNbOYHR2uyrXUIg5KeDuAppf
+ QcCeS+6DyOqw==
+X-IronPort-AV: E=Sophos;i="5.76,327,1592895600"; d="scan'208";a="471830344"
 Received: from bard-ubuntu.sh.intel.com ([10.239.13.33])
  by orsmga005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 18 Aug 2020 07:35:12 -0700
+ 18 Aug 2020 07:35:16 -0700
 From: Bard Liao <yung-chuan.liao@linux.intel.com>
 To: alsa-devel@alsa-project.org,
 	vkoul@kernel.org
-Subject: [PATCH 01/11] soundwire: intel: disable shim wake on suspend
-Date: Tue, 18 Aug 2020 10:41:10 +0800
-Message-Id: <20200818024120.20721-2-yung-chuan.liao@linux.intel.com>
+Subject: [PATCH 02/11] soundwire: intel: ignore software command retries
+Date: Tue, 18 Aug 2020 10:41:11 +0800
+Message-Id: <20200818024120.20721-3-yung-chuan.liao@linux.intel.com>
 X-Mailer: git-send-email 2.17.1
 In-Reply-To: <20200818024120.20721-1-yung-chuan.liao@linux.intel.com>
 References: <20200818024120.20721-1-yung-chuan.liao@linux.intel.com>
@@ -82,53 +82,31 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 
-If we enabled the clock stop mode and suspend, we need to disable the
-shim wake. We do so only if the parent is pm_runtime active due to
-power rail dependencies.
+with multiple links synchronized in hardware, retrying commands in
+software is not recommended.
 
-GitHub issue: https://github.com/thesofproject/linux/issues/1678
 Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 Signed-off-by: Bard Liao <yung-chuan.liao@linux.intel.com>
 ---
- drivers/soundwire/intel.c | 18 ++++++++++++++++++
- 1 file changed, 18 insertions(+)
+ drivers/soundwire/intel.c | 5 +++++
+ 1 file changed, 5 insertions(+)
 
 diff --git a/drivers/soundwire/intel.c b/drivers/soundwire/intel.c
-index dbcbe2708563..fe9b92fd48db 100644
+index fe9b92fd48db..c9ba706e20c6 100644
 --- a/drivers/soundwire/intel.c
 +++ b/drivers/soundwire/intel.c
-@@ -1532,6 +1532,7 @@ static int intel_suspend(struct device *dev)
- 	struct sdw_cdns *cdns = dev_get_drvdata(dev);
- 	struct sdw_intel *sdw = cdns_to_intel(cdns);
- 	struct sdw_bus *bus = &cdns->bus;
-+	u32 clock_stop_quirks;
- 	int ret;
+@@ -1355,6 +1355,11 @@ static int intel_master_probe(struct platform_device *pdev)
+ 		dev_info(dev,
+ 			 "SoundWire master %d is disabled, will be ignored\n",
+ 			 bus->link_id);
++	/*
++	 * Ignore BIOS err_threshold, it's a really bad idea when dealing
++	 * with multiple hardware synchronized links
++	 */
++	bus->prop.err_threshold = 0;
  
- 	if (bus->prop.hw_disabled) {
-@@ -1543,6 +1544,23 @@ static int intel_suspend(struct device *dev)
- 	if (pm_runtime_suspended(dev)) {
- 		dev_dbg(dev, "%s: pm_runtime status: suspended\n", __func__);
- 
-+		clock_stop_quirks = sdw->link_res->clock_stop_quirks;
-+
-+		if ((clock_stop_quirks & SDW_INTEL_CLK_STOP_BUS_RESET ||
-+		     !clock_stop_quirks) &&
-+		    !pm_runtime_suspended(dev->parent)) {
-+
-+			/*
-+			 * if we've enabled clock stop, and the parent
-+			 * is still active, disable shim wake. The
-+			 * SHIM registers are not accessible if the
-+			 * parent is already pm_runtime suspended so
-+			 * it's too late to change that configuration
-+			 */
-+
-+			intel_shim_wake(sdw, false);
-+		}
-+
- 		return 0;
- 	}
- 
+ 	return 0;
+ }
 -- 
 2.17.1
 

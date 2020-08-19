@@ -2,79 +2,87 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0C4D0249A8E
-	for <lists+alsa-devel@lfdr.de>; Wed, 19 Aug 2020 12:40:00 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5C811249B42
+	for <lists+alsa-devel@lfdr.de>; Wed, 19 Aug 2020 12:54:10 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 8D24B1819;
-	Wed, 19 Aug 2020 12:39:09 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8D24B1819
+	by alsa0.perex.cz (Postfix) with ESMTPS id 0FB4D1838;
+	Wed, 19 Aug 2020 12:53:20 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0FB4D1838
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1597833599;
-	bh=y+M69Til1EvJORNhPxvngspprJECf70sXE+hyFMk3+Y=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1597834450;
+	bh=GMQuIR5UNmYVb35mgBzzxYImDXnf+cB3ASaEIyHK3t8=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=vWbumlK0TiLaICbilHYM6acmY8qlmEGYerI0frFs4edJG6gtRtYal+m/W6DfIaAhA
-	 q+GGNEr3FRM6cPVf0bgUQ6CgN0WP0jodEoivHvjGx2wP3TDMMzHN75R7ryY8k/Nvz0
-	 ZcKOnx05MJ78SNlIYh1Rc3xlqTUdOuyEHRCeUK3Y=
+	b=oUi0SdDsfx5y2jd7ZPZtIs0nJAJUg2RP/1r8az88R68snxBgkX4Mq6KDGdNqlwVwL
+	 vL9/+b/lUjqbrKrGPF1zTm8ZjaF4QkuNdogRgpZd7gBJmgvRzPQJmtS0SEgMyu/SJ5
+	 SwEfIvHKaEK4QVOjtlmb8Ooohkjz3Te2n8bD4TPI=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id B6CFDF80255;
-	Wed, 19 Aug 2020 12:38:18 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 37C6BF800D3;
+	Wed, 19 Aug 2020 12:52:29 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id D0BFAF80218; Wed, 19 Aug 2020 12:38:15 +0200 (CEST)
+ id 54397F80218; Wed, 19 Aug 2020 12:52:23 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_PASS autolearn=disabled
  version=3.4.0
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+Received: from mail-oo1-xc42.google.com (mail-oo1-xc42.google.com
+ [IPv6:2607:f8b0:4864:20::c42])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 56864F800D3
- for <alsa-devel@alsa-project.org>; Wed, 19 Aug 2020 12:38:04 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 56864F800D3
+ by alsa1.perex.cz (Postfix) with ESMTPS id 6A5CBF80114
+ for <alsa-devel@alsa-project.org>; Wed, 19 Aug 2020 12:52:12 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6A5CBF80114
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="toLXAql2"
-Received: from localhost (fw-tnat.cambridge.arm.com [217.140.96.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id BC7B52072D;
- Wed, 19 Aug 2020 10:38:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1597833482;
- bh=y+M69Til1EvJORNhPxvngspprJECf70sXE+hyFMk3+Y=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=toLXAql2wtllHm023rx293u6rgtg4oRalT1G7c7wfPh7zw6tadzcKc0nAX0mtQSv9
- cJCv8nopRHdF9FKLtrxwQZ8GdvEdfF2+RWPKX1UAnOfdE43dVszrqRdv7WbdIxH5JE
- UIM61liYddD+z/S7aiK9zvrhAesojjkLfn5YxTb0=
-Date: Wed, 19 Aug 2020 11:37:30 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Tzung-Bi Shih <tzungbi@google.com>
-Subject: Re: [PATCH v5 2/2] dt-bindings: mediatek: mt6359: add codec document
-Message-ID: <20200819103730.GB5441@sirena.org.uk>
-References: <1597644455-8216-1-git-send-email-jiaxin.yu@mediatek.com>
- <1597644455-8216-3-git-send-email-jiaxin.yu@mediatek.com>
- <CA+Px+wXSbGLb+AZnF8ETRycRUVjqk4xacm5DH6MzuMw0vh6Wzg@mail.gmail.com>
- <CA+Px+wUMXoSL6w0wBduE7obJRWgCteeT8=_=U=8LR34JKTTGZA@mail.gmail.com>
+ dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
+ header.b="Gso9pMxr"
+Received: by mail-oo1-xc42.google.com with SMTP id a6so4788602oog.9
+ for <alsa-devel@alsa-project.org>; Wed, 19 Aug 2020 03:52:12 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=NVVSOWbVhc+1jDHdFns3ZSzRukenY167RTrEndwbU+M=;
+ b=Gso9pMxrOQWdMFS4oUDFDQopnA2DpTpiZCJFqq/B2ZEoa859lMA5DG1q5AfyFRQC2K
+ 0BbOOMsaxojyLaYamQN/hpqRKPyyNI6tYgVnrQEOZwypkcXjeXNYOcmggJBzwWOAPH2t
+ uDby8ZfkUfgPuCVQ1hjydyCXloT/GD+ySll0NBJQxEcqa5ZYkvWZC8QcBYu6LNGB6qmy
+ BNwFxRP4pWhEXUL9/E4VkRndasu5/0pLNTSDu1EbLLgbuQ4nsZFmlQPPbC5atEOXRxVR
+ X7KawI1aJh0oYRDXgKsXSAYl9gDpUeMspxL/faww8IWo5Ubp2AZ/wAk+H184A02WZfBJ
+ /6Yg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=NVVSOWbVhc+1jDHdFns3ZSzRukenY167RTrEndwbU+M=;
+ b=NunJ+sd0TOst9/x8E5dIeVdYeLScqK897XgDgvD92bdyvv67YwBFowupkCdVFRq9Fs
+ DehfYAc274am1F+vNYDhb6QBlGEL6ECjNkEXOZxyuzjib1pi3aexZGLRRRSb1Hb72frQ
+ 5xnHEJmIYs9hBdayeESLKpSvwO7Pqp8OLgQaqtPm/VczovirGpaJCtPmDgsLfFY6Dlbh
+ goEVRYm6nOn8UHIn3uEui0NqufuibLCxQZYkrf62X8h9mctzrRnizRspmbx9jHa3rtJF
+ wkPQqKCJrwWfh7UBBJb7MCY+1cYYWrjq6mTavjFdFp1VwbpUeX8r/vDBQZJ6kMO1XHlH
+ OgXw==
+X-Gm-Message-State: AOAM5301whuvI7xXeTBmvqiMe4sxEsBWRabBztMYtlVDSSwxLwql6NwW
+ xjjOFCJruLI0rN3jW1m6K9IKPD7nupNH/9KqlI8=
+X-Google-Smtp-Source: ABdhPJza8N+paiL7BVopPlHy+EmjenRyRlSSITcfsn9ivsKXVK0GX/mlG+WzET1CjkKeuuz0KvlkntNnGGj9jJ4neCo=
+X-Received: by 2002:a4a:d62c:: with SMTP id n12mr18112364oon.38.1597834329556; 
+ Wed, 19 Aug 2020 03:52:09 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="/WwmFnJnmDyWGHa4"
-Content-Disposition: inline
-In-Reply-To: <CA+Px+wUMXoSL6w0wBduE7obJRWgCteeT8=_=U=8LR34JKTTGZA@mail.gmail.com>
-X-Cookie: I wish you were a Scotch on the rocks.
-User-Agent: Mutt/1.10.1 (2018-07-13)
-Cc: ALSA development <alsa-devel@alsa-project.org>, howie.huang@mediatek.com,
- Takashi Iwai <tiwai@suse.com>, Jiaxin Yu <jiaxin.yu@mediatek.com>,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- shane.chien@mediatek.com, Rob Herring <robh+dt@kernel.org>,
- linux-mediatek@lists.infradead.org, eason.yen@mediatek.com,
- Matthias Brugger <matthias.bgg@gmail.com>, bicycle.tsai@mediatek.com,
- linux-arm-kernel@lists.infradead.org
+References: <20200817085703.25732-1-allen.cryptic@gmail.com>
+ <s5hsgckl084.wl-tiwai@suse.de> <20200818104432.GB5337@sirena.org.uk>
+In-Reply-To: <20200818104432.GB5337@sirena.org.uk>
+From: Allen <allen.lkml@gmail.com>
+Date: Wed, 19 Aug 2020 16:21:58 +0530
+Message-ID: <CAOMdWSK79WWsmsxJH9zUMZMfkBNRWXbmEHg-haxNZopHjC1cGw@mail.gmail.com>
+Subject: Re: [PATCH 00/10] sound: convert tasklets to use new tasklet_setup()
+To: Mark Brown <broonie@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Cc: alsa-devel@alsa-project.org, Kees Cook <keescook@chromium.org>,
+ timur@kernel.org, Xiubo.Lee@gmail.com, Takashi Iwai <tiwai@suse.de>,
+ linux-kernel@vger.kernel.org, clemens@ladisch.de, tiwai@suse.com,
+ nicoleotsuka@gmail.com, Allen Pais <allen.cryptic@gmail.com>,
+ linuxppc-dev@lists.ozlabs.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -90,37 +98,35 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+>
+> > Mark, may I apply those ASoC patches through my tree together with
+> > others?  Those seem targeting to 5.9, and I have a patch set to
+> > convert to tasklet for 5.10, which would be better manageable when
+> > based on top of those changes.
+>
+> These patches which I wasn't CCed on and which need their subject lines
+> fixing :( .  With the subject lines fixed I guess so so
 
---/WwmFnJnmDyWGHa4
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Extremely sorry. I thought I had it covered. How would you like it
+worded?
 
-On Mon, Aug 17, 2020 at 04:11:03PM +0800, Tzung-Bi Shih wrote:
-> On Mon, Aug 17, 2020 at 3:29 PM Tzung-Bi Shih <tzungbi@google.com> wrote:
+> Acked-by: Mark Brown <broonie@kernel.org>
+>
+> but judging from some of the other threads about similar patches that I
+> was randomly CCed on I'm not sure people like from_tasklet() so perhaps
+> there might be issues.
 
-> > > +required:
-> > > +  - compatible
+Yes, there is a new macro by name cast_out() is suggested in place of
+from_tasklet(). Hopefully it will go in soon. Will spin out V2 with the change
+and also re-word subject line.
 
-> > And the same here.
+> Allen, as documented in submitting-patches.rst please send patches to
+> the maintainers for the code you would like to change.  The normal
+> kernel workflow is that people apply patches from their inboxes, if they
+> aren't copied they are likely to not see the patch at all and it is much
+> more difficult to apply patches.
 
-> I misunderstood.  It still needs the compatible string to match the
-> corresponding driver.
+I understand, I'll take care of it in the future. Thank you.
 
-No, it doesn't.  The MFD should be registering the platform device.
-
---/WwmFnJnmDyWGHa4
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl89AOkACgkQJNaLcl1U
-h9Dwbwf8COv9Rs7LMNn91TpJLXgOTRfXxwmnESd9+12yTNqmd+k9YAgp3PaB7PBq
-GX1hQYeOeClZMGMGnjCt2RAkfT5A0/5SwKVsASefRpA6CTlKNCUk+5WQ6pK/LLqA
-TH0RRiA3Z8ZS5WfUsZrovdCsHlCEQ+gCNctOyf3RqmX33RmycE1YWyWlQS3qLK7v
-W7/F7t/mOMbrEAT4a4YHtbSYf/xT8aDr81GyndfpV6zwtQlWAmw4lI2IT0+XX4hr
-BDwHxr6/Te3UgU6p+9xq5UgrIyXkR5htNv+49VqxNFNUhhPMgd00IO47kda9kvHP
-rIO1YU5Mf+STMsbFuTk3zmEfud3FkQ==
-=7xtJ
------END PGP SIGNATURE-----
-
---/WwmFnJnmDyWGHa4--
+-- 
+       - Allen

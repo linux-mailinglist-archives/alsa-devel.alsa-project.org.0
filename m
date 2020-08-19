@@ -2,81 +2,79 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 98E7C249930
-	for <lists+alsa-devel@lfdr.de>; Wed, 19 Aug 2020 11:19:41 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0C4D0249A8E
+	for <lists+alsa-devel@lfdr.de>; Wed, 19 Aug 2020 12:40:00 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 3D8B31831;
-	Wed, 19 Aug 2020 11:18:51 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3D8B31831
+	by alsa0.perex.cz (Postfix) with ESMTPS id 8D24B1819;
+	Wed, 19 Aug 2020 12:39:09 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8D24B1819
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1597828781;
-	bh=tJSP5OFOrmLv72YyzMbpihFggnmPdL4eX4KmW6kGvHA=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1597833599;
+	bh=y+M69Til1EvJORNhPxvngspprJECf70sXE+hyFMk3+Y=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=cHg2CCaBwYU2LUuE9sFX/4yiH1ooRuxUCIVhR1CN0pXBPaHzY/DdSI2EfzG7qH55T
-	 ljoqq48r1CSsWHL/fymnuLxzhFXBj6v0tlvOzKr57ef05hkT+tVvzKIbuQR88BmK7y
-	 1abHozROqHMeqdXHiSpkuZhIcABUJhfXxYlNlZ6c=
+	b=vWbumlK0TiLaICbilHYM6acmY8qlmEGYerI0frFs4edJG6gtRtYal+m/W6DfIaAhA
+	 q+GGNEr3FRM6cPVf0bgUQ6CgN0WP0jodEoivHvjGx2wP3TDMMzHN75R7ryY8k/Nvz0
+	 ZcKOnx05MJ78SNlIYh1Rc3xlqTUdOuyEHRCeUK3Y=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 6F03DF802C2;
-	Wed, 19 Aug 2020 11:17:16 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id B6CFDF80255;
+	Wed, 19 Aug 2020 12:38:18 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id BF666F802A9; Wed, 19 Aug 2020 11:17:14 +0200 (CEST)
+ id D0BFAF80218; Wed, 19 Aug 2020 12:38:15 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,RCVD_IN_MSPIKE_H2,SPF_HELO_PASS,SPF_NONE,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from mo4-p02-ob.smtp.rzone.de (mo4-p02-ob.smtp.rzone.de
- [85.215.255.80])
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+ DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled
+ version=3.4.0
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 56864F800D3
+ for <alsa-devel@alsa-project.org>; Wed, 19 Aug 2020 12:38:04 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 56864F800D3
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="toLXAql2"
+Received: from localhost (fw-tnat.cambridge.arm.com [217.140.96.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 6B21AF8011C
- for <alsa-devel@alsa-project.org>; Wed, 19 Aug 2020 11:17:03 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6B21AF8011C
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=gerhold.net header.i=@gerhold.net
- header.b="hrRCfeuE"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1597828623;
- s=strato-dkim-0002; d=gerhold.net;
- h=References:In-Reply-To:Message-Id:Date:Subject:Cc:To:From:
- X-RZG-CLASS-ID:X-RZG-AUTH:From:Subject:Sender;
- bh=O63GLG7sddoCYObzLYc9FbVF3AO3J5EaI5KdyvqBGk8=;
- b=hrRCfeuEGj9Vq4pUDteVYUJXQSA86fFdNkl+ixrqTG+R5p584BN5I33Wp56Og75LCB
- kZuLxujJNiU7NONi6VcGnnZuAAsn7SvdcYSAkosGjqLEnkWvl5Y3xVWJ0VHEXYV9llNT
- eDCjuitbQEAbLML5Tz1jAC9jsp2qil84P5BMYsAfSVRf8HySbHax+LuXL0Ua+doMpMg2
- oTlC55JO9I5X5hoduuIzFfdpmGmZeLmcY6Tii7fW9IboftJRq9a8PdNg3FFoGcaqIZGF
- 81sPGBMl5zDgLghoTfzK9Vq014p+w3JAEajmqPDjAuS/WwQ/Vr7JwQ7cXnHQ61NFflqY
- +nAA==
-X-RZG-AUTH: ":P3gBZUipdd93FF5ZZvYFPugejmSTVR2nRPhVORvLd4SsytBXS7IYBkLahKxB5m6NDwQo"
-X-RZG-CLASS-ID: mo00
-Received: from localhost.localdomain
- by smtp.strato.de (RZmta 46.10.7 DYNA|AUTH)
- with ESMTPSA id g0b6c1w7J9Gu0SU
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256 bits))
- (Client did not present a certificate);
- Wed, 19 Aug 2020 11:16:56 +0200 (CEST)
-From: Stephan Gerhold <stephan@gerhold.net>
-To: Mark Brown <broonie@kernel.org>
-Subject: [PATCH 2/2] ASoC: qcom: common: Parse auxiliary devices from device
- tree
-Date: Wed, 19 Aug 2020 11:15:33 +0200
-Message-Id: <20200819091533.2334-3-stephan@gerhold.net>
-X-Mailer: git-send-email 2.28.0
-In-Reply-To: <20200819091533.2334-1-stephan@gerhold.net>
-References: <20200819091533.2334-1-stephan@gerhold.net>
+ by mail.kernel.org (Postfix) with ESMTPSA id BC7B52072D;
+ Wed, 19 Aug 2020 10:38:01 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=default; t=1597833482;
+ bh=y+M69Til1EvJORNhPxvngspprJECf70sXE+hyFMk3+Y=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=toLXAql2wtllHm023rx293u6rgtg4oRalT1G7c7wfPh7zw6tadzcKc0nAX0mtQSv9
+ cJCv8nopRHdF9FKLtrxwQZ8GdvEdfF2+RWPKX1UAnOfdE43dVszrqRdv7WbdIxH5JE
+ UIM61liYddD+z/S7aiK9zvrhAesojjkLfn5YxTb0=
+Date: Wed, 19 Aug 2020 11:37:30 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Tzung-Bi Shih <tzungbi@google.com>
+Subject: Re: [PATCH v5 2/2] dt-bindings: mediatek: mt6359: add codec document
+Message-ID: <20200819103730.GB5441@sirena.org.uk>
+References: <1597644455-8216-1-git-send-email-jiaxin.yu@mediatek.com>
+ <1597644455-8216-3-git-send-email-jiaxin.yu@mediatek.com>
+ <CA+Px+wXSbGLb+AZnF8ETRycRUVjqk4xacm5DH6MzuMw0vh6Wzg@mail.gmail.com>
+ <CA+Px+wUMXoSL6w0wBduE7obJRWgCteeT8=_=U=8LR34JKTTGZA@mail.gmail.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- Banajit Goswami <bgoswami@codeaurora.org>,
- Stephan Gerhold <stephan@gerhold.net>, linux-arm-msm@vger.kernel.org,
- Patrick Lai <plai@codeaurora.org>, Liam Girdwood <lgirdwood@gmail.com>,
- Rob Herring <robh+dt@kernel.org>,
- Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="/WwmFnJnmDyWGHa4"
+Content-Disposition: inline
+In-Reply-To: <CA+Px+wUMXoSL6w0wBduE7obJRWgCteeT8=_=U=8LR34JKTTGZA@mail.gmail.com>
+X-Cookie: I wish you were a Scotch on the rocks.
+User-Agent: Mutt/1.10.1 (2018-07-13)
+Cc: ALSA development <alsa-devel@alsa-project.org>, howie.huang@mediatek.com,
+ Takashi Iwai <tiwai@suse.com>, Jiaxin Yu <jiaxin.yu@mediatek.com>,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ shane.chien@mediatek.com, Rob Herring <robh+dt@kernel.org>,
+ linux-mediatek@lists.infradead.org, eason.yen@mediatek.com,
+ Matthias Brugger <matthias.bgg@gmail.com>, bicycle.tsai@mediatek.com,
+ linux-arm-kernel@lists.infradead.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -92,51 +90,37 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-In some cases we need to probe additional audio components that do
-not appear as part of the DAI links specified in the device tree.
-Examples for this are auxiliary devices such as analog amplifiers
-or codecs.
 
-The ASoC core provides a way to probe these components by adding
-them to snd_soc_card->aux_dev. We can use the snd_soc_of_parse_aux_devs()
-function to parse them from the device tree.
+--/WwmFnJnmDyWGHa4
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-As an example for this, some MSM8916 smartphones have an analog
-speaker amplifier connected to the HPHR output. With the new property
-this can be modelled as follows:
+On Mon, Aug 17, 2020 at 04:11:03PM +0800, Tzung-Bi Shih wrote:
+> On Mon, Aug 17, 2020 at 3:29 PM Tzung-Bi Shih <tzungbi@google.com> wrote:
 
-	speaker-amp: audio-amplifier {
-		compatible = "simple-audio-amplifier";
-		enable-gpios = <&msmgpio 114 GPIO_ACTIVE_HIGH>;
-		sound-name-prefix = "Speaker Amp";
-	};
+> > > +required:
+> > > +  - compatible
 
-	&sound {
-		aux-devs = <&speaker_amp>;
-		audio-routing = "Speaker Amp IN", "HPHR";
-	};
+> > And the same here.
 
-Cc: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
-Signed-off-by: Stephan Gerhold <stephan@gerhold.net>
----
- sound/soc/qcom/common.c | 4 ++++
- 1 file changed, 4 insertions(+)
+> I misunderstood.  It still needs the compatible string to match the
+> corresponding driver.
 
-diff --git a/sound/soc/qcom/common.c b/sound/soc/qcom/common.c
-index 5194d90ddb96..fe6e778c31c0 100644
---- a/sound/soc/qcom/common.c
-+++ b/sound/soc/qcom/common.c
-@@ -39,6 +39,10 @@ int qcom_snd_parse_of(struct snd_soc_card *card)
- 			return ret;
- 	}
- 
-+	ret = snd_soc_of_parse_aux_devs(card, "aux-devs");
-+	if (ret)
-+		return ret;
-+
- 	/* Populate links */
- 	num_links = of_get_child_count(dev->of_node);
- 
--- 
-2.28.0
+No, it doesn't.  The MFD should be registering the platform device.
 
+--/WwmFnJnmDyWGHa4
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl89AOkACgkQJNaLcl1U
+h9Dwbwf8COv9Rs7LMNn91TpJLXgOTRfXxwmnESd9+12yTNqmd+k9YAgp3PaB7PBq
+GX1hQYeOeClZMGMGnjCt2RAkfT5A0/5SwKVsASefRpA6CTlKNCUk+5WQ6pK/LLqA
+TH0RRiA3Z8ZS5WfUsZrovdCsHlCEQ+gCNctOyf3RqmX33RmycE1YWyWlQS3qLK7v
+W7/F7t/mOMbrEAT4a4YHtbSYf/xT8aDr81GyndfpV6zwtQlWAmw4lI2IT0+XX4hr
+BDwHxr6/Te3UgU6p+9xq5UgrIyXkR5htNv+49VqxNFNUhhPMgd00IO47kda9kvHP
+rIO1YU5Mf+STMsbFuTk3zmEfud3FkQ==
+=7xtJ
+-----END PGP SIGNATURE-----
+
+--/WwmFnJnmDyWGHa4--

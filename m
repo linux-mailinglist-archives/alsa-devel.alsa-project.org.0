@@ -2,77 +2,48 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id AFCB1249374
-	for <lists+alsa-devel@lfdr.de>; Wed, 19 Aug 2020 05:36:48 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 10B9B2493BC
+	for <lists+alsa-devel@lfdr.de>; Wed, 19 Aug 2020 06:12:42 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 2201F17F4;
-	Wed, 19 Aug 2020 05:35:58 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2201F17F4
+	by alsa0.perex.cz (Postfix) with ESMTPS id A13BD17F5;
+	Wed, 19 Aug 2020 06:11:51 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A13BD17F5
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1597808208;
-	bh=RgRvYOfdymyiXmitWmYSNkWeivyTv9SR2fGVAi2KP1k=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=dUCQ2aR2VYR1lYXeSXk7Vo1nyx6Qa8uHD9/auJZ7wf+tXQbMu/r4jCjIrH+bybkBS
-	 sPjUE13DFy61GYQrGDnuanEtFcUQNZ7uyQBjhynUBdt3viQL1vMgCcRR2VpEK0qTA1
-	 a2QZxycU2n6zboKutp9Xod3WSlnLR9NGqvzkgRq8=
+	s=default; t=1597810361;
+	bh=AHI8NvPgNOMxhtu0h5kkNVP7LNhIQyIeDkXpamog7/g=;
+	h=From:To:In-Reply-To:References:Subject:Date:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=qxyqk//Qj7/JP+UlbGytbP3PCoN9qA1hUSLkElfXwO5+vVwaa9eM/3DVPOrHQuVFW
+	 oL1yFFFAG7Vw8wPyCo0KtKEizm5LbCPcxVUdhr+uwtSjXksc/4ebz77gq1YtZtoWsj
+	 eTKkWuGvgXgx3rcarbag9TOAYoIim6juLsRKNpYA=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 57603F800D3;
-	Wed, 19 Aug 2020 05:35:07 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id BBC62F80114;
+	Wed, 19 Aug 2020 06:11:00 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 1F825F80218; Wed, 19 Aug 2020 05:35:04 +0200 (CEST)
+ id 411FFF80218; Wed, 19 Aug 2020 06:10:57 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_MSPIKE_H4,
- RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from regular1.263xmail.com (regular1.263xmail.com [211.150.70.197])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 85356F800D3
- for <alsa-devel@alsa-project.org>; Wed, 19 Aug 2020 05:34:54 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 85356F800D3
-Received: from localhost (unknown [192.168.167.16])
- by regular1.263xmail.com (Postfix) with ESMTP id C5764D3F;
- Wed, 19 Aug 2020 11:34:50 +0800 (CST)
-X-MAIL-GRAY: 0
-X-MAIL-DELIVERY: 1
-X-ADDR-CHECKED4: 1
-X-ANTISPAM-LEVEL: 2
-X-SKE-CHECKED: 1
-X-ABS-CHECKED: 1
-Received: from localhost.localdomain (250.19.126.124.broad.bjtelecom.net
- [124.126.19.250]) by smtp.263.net (postfix) whith ESMTP id
- P25957T140260100654848S1597808091034256_; 
- Wed, 19 Aug 2020 11:34:51 +0800 (CST)
-X-IP-DOMAINF: 1
-X-UNIQUE-TAG: <a04c9f09ffb779a6d53edaaf716d81cf>
-X-RL-SENDER: penghao@uniontech.com
-X-SENDER: penghao@uniontech.com
-X-LOGIN-NAME: penghao@uniontech.com
-X-FST-TO: perex@perex.cz
-X-SENDER-IP: 124.126.19.250
-X-ATTACHMENT-NUM: 0
-X-DNS-TYPE: 5
-X-System-Flag: 0
-From: penghao <penghao@uniontech.com>
-To: perex@perex.cz,
-	tiwai@suse.com
-Subject: [PATCH] ALSA: usb-audio: Add prevent wakeup from s3 state trig by
- Lenovo ThinkCentre TI024Gen3 USB-audio
-Date: Wed, 19 Aug 2020 11:34:46 +0800
-Message-Id: <20200819033446.7897-1-penghao@uniontech.com>
-X-Mailer: git-send-email 2.11.0
+X-Spam-Level: **
+X-Spam-Status: No, score=2.5 required=5.0 tests=MISSING_DATE,MISSING_MID,
+ SPF_FAIL,SPF_HELO_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from webhooks-bot.alsa-project.org (gate.perex.cz [77.48.224.242])
+ by alsa1.perex.cz (Postfix) with ESMTP id C73DCF80114
+ for <alsa-devel@alsa-project.org>; Wed, 19 Aug 2020 06:10:50 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C73DCF80114
 MIME-Version: 1.0
-Content-Type: text/plain; charset=yes
-Content-Transfer-Encoding: 8bit
-Cc: alsa-devel@alsa-project.org, penghao@uniontech.com, crwulff@gmail.com,
- gustavoars@kernel.org, linux-kernel@vger.kernel.org, alexander@tsoy.me,
- dan.carpenter@oracle.com
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
+From: GitHub pull_request - opened <github@alsa-project.org>
+To: alsa-devel@alsa-project.org
+In-Reply-To: <1597810249724416018-webhooks-bot@alsa-project.org>
+References: <1597810249724416018-webhooks-bot@alsa-project.org>
+Subject: ucm: let rval_sysfs check the device/driver/module first
+Message-Id: <20200819041057.411FFF80218@alsa1.perex.cz>
+Date: Wed, 19 Aug 2020 06:10:57 +0200 (CEST)
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -88,34 +59,32 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-TI024Gen3 USB-audio is controlled by TI024Gen3,when TI024Gens
-enter sleep mode, USB-audio will disconnect from USB bus port,
-wakup form s3 state
+alsa-project/alsa-lib pull request #79 was opened from jason77-wang:
 
-Signed-off-by: penghao <penghao@uniontech.com>
----
- sound/usb/card.c | 6 ++++++
- 1 file changed, 6 insertions(+)
+We plan to use the sound driver module's name for the top ucm's name,
+I checked it on 3 different ASoC machines, the device/driver links to
+machine driver while deice/driver/module links to the sound driver
+module, so change the code to readlink the device/driver/module first,
+if it fails then readlink the device/driver.
 
-diff --git a/sound/usb/card.c b/sound/usb/card.c
-index 696e788c5d31..6bdbb34009b3 100644
---- a/sound/usb/card.c
-+++ b/sound/usb/card.c
-@@ -658,6 +658,12 @@ static int usb_audio_probe(struct usb_interface *intf,
- 	}
- 
- 	dev_set_drvdata(&dev->dev, chip);
-+	/*
-+	 *ALSA: usb-audio: Add prevent wakeup from s3 state trig by Lenovo
-+	 *ThinkCentre TI024Gen3 usb-audio
-+	 */
-+	if ((usb_id->idVendor == 0x17ef) && (usb_id->idProduct == 0xa012))
-+		device_set_wakeup_enable(＆dev->dev, 0);
- 
- 	/*
- 	 * For devices with more than one control interface, we assume the
--- 
-2.11.0
+This is the output from those 3 machines:
+$readlink /sys/class/sound/card0/device/driver
+../../../../bus/platform/drivers/skl_hda_dsp_generic
+$readlink /sys/class/sound/card0/device/driver/module
+../../../../module/snd_soc_skl_hda_dsp
 
+$readlink /sys/class/sound/card2/device/driver
+../../../../../bus/platform/drivers/acp_pdm_mach
+$readlink /sys/class/sound/card2/device/driver/module
+../../../../module/snd_acp3x_rn
 
+$readlink /sys/class/sound/card0/device/driver
+../../../../bus/platform/drivers/sof_sdw
+$readlink /sys/class/sound/card0/device/driver/module
+../../../../module/snd_soc_sof_sdw
 
+Signed-off-by: Hui Wang <hui.wang@canonical.com>
+
+Request URL   : https://github.com/alsa-project/alsa-lib/pull/79
+Patch URL     : https://github.com/alsa-project/alsa-lib/pull/79.patch
+Repository URL: https://github.com/alsa-project/alsa-lib

@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E01FE24CFFE
-	for <lists+alsa-devel@lfdr.de>; Fri, 21 Aug 2020 09:53:12 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0E78E24CFFF
+	for <lists+alsa-devel@lfdr.de>; Fri, 21 Aug 2020 09:53:48 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 751E016E0;
-	Fri, 21 Aug 2020 09:52:22 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 751E016E0
+	by alsa0.perex.cz (Postfix) with ESMTPS id 918701676;
+	Fri, 21 Aug 2020 09:52:57 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 918701676
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1597996392;
-	bh=uEY7dk9y/9x4HcaWjwFAfwvm+T0doGz7atsT11F+few=;
+	s=default; t=1597996427;
+	bh=GazL5RuGzNsltJmK5TVSYc5vxyNguEsJt8YXpsvAPSI=;
 	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=MRRCrnhno2epVpmc0+SPTQGCLPiwI8c01vFdBWb1QP4H9z0MwLGvEIB/cthFO2oql
-	 /ZwyUYMH2xuYJbyJeXtuixWoJ8FCuV6OgIrVGXVnHftT9wjyuXRBhGasryfi13yjTe
-	 omdUARaY+1OR8MfPs199GXk9b/zctAzj3ENcUjgg=
+	b=J9zkEB16Zd86ZZOu0s5/Vl4kjmszG7ywbK1pMKq9ErkvYfJ49QyVFoHM5JCnbADsE
+	 9FDFlA7ciRL3EoxISRleNFXj6LwNeMWvWqn1uniO10D+OM2XWDjNcr+RBy1BmW2hP3
+	 J2dd+aX4i49tnlMzPx2wRbcQYfMMG1tyx7fjjork=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 9625BF80405;
-	Fri, 21 Aug 2020 09:36:30 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 24C01F8041D;
+	Fri, 21 Aug 2020 09:36:32 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 784A1F80257; Wed, 19 Aug 2020 16:22:57 +0200 (CEST)
+ id 6BDEBF80218; Wed, 19 Aug 2020 17:04:18 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -35,75 +35,70 @@ Received: from mail-ej1-x644.google.com (mail-ej1-x644.google.com
  [IPv6:2a00:1450:4864:20::644])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 07AFFF800D3
- for <alsa-devel@alsa-project.org>; Wed, 19 Aug 2020 16:22:50 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 07AFFF800D3
+ by alsa1.perex.cz (Postfix) with ESMTPS id B3D7AF80114
+ for <alsa-devel@alsa-project.org>; Wed, 19 Aug 2020 17:04:11 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B3D7AF80114
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org
- header.b="MwoQKU4R"
-Received: by mail-ej1-x644.google.com with SMTP id o23so26551647ejr.1
- for <alsa-devel@alsa-project.org>; Wed, 19 Aug 2020 07:22:50 -0700 (PDT)
+ header.b="CmFRV9MF"
+Received: by mail-ej1-x644.google.com with SMTP id kq25so26684548ejb.3
+ for <alsa-devel@alsa-project.org>; Wed, 19 Aug 2020 08:04:11 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=uEY7dk9y/9x4HcaWjwFAfwvm+T0doGz7atsT11F+few=;
- b=MwoQKU4RRVGBwswghQT2kEA4PWtzNJ9PP0GlvGH+VtAzrSvBnEW2dUpr0fs6tqB36t
- NEatNz3nTo9Srl8JZAX9oVp9pc5TQLgcK+vTRNeNePaaHI1s5H4G84GiGqxdAJ9X51ZU
- 9RjLZl32ILMLyADH9W9JtyN4rfe/+nXKgJFvs=
+ :cc; bh=gblnYCzc62i56nCc5LRWss+Qf5wc+kIzyZ60hUww65Y=;
+ b=CmFRV9MF78Io9lyU3ZTHQoxCUWL8rgrVpgpqOj4nEXWpRTCd1+KGSochi2kuoVhtFt
+ PQJJembCFDIORAph3WzrpDoRd2cIGJpwf9VAtP5a9ydpphhRkHDHcmKRPuhZGWASaGfl
+ y6rPrnsIqK2MPfXnYUVbYzJtuDwuiigpqdGRc=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc;
- bh=uEY7dk9y/9x4HcaWjwFAfwvm+T0doGz7atsT11F+few=;
- b=ssSC64/tvg0Nl+PaMi41FlMQanNTwB/AWeeen/QeafHUNgxRgZTEAehomTWafbedP8
- +7kfQeOHWu4Wpt/dRtf83MT75M/GpNCmk/fzkdwSh0k0O+wIelXFYDuJ/X5UOEY3Hfq0
- 1GsWf5Lb+hX9iEPWLxaO1YdgUPC5P8Puz4q89PwEKLcU9mKmxYfZSE2pCTURgUVChlzf
- GoS60qb6N7LihCdsZusn67P159N+NZKDFD4kWkyOk2ZZJO5KOJYorXBmuHxXqManOuBy
- Hwi9CI0eOJ/t8pQ/ousqyzMXUI3+JOVJm+pjyYVWdcP7dwqlk9TWqBFblID3Rp4kpHpg
- +WhA==
-X-Gm-Message-State: AOAM531Q7xvu2xh4D8041N4fUvmKvKcTGrpwuadKr3GNHNqu4A9gnJ4b
- 1D0Vbn1IytI4t6XGOykTKbogyoGcSfb9JA==
-X-Google-Smtp-Source: ABdhPJz45LG/9kEMu8IDVYGfDYlLmFVOl+GdhVG+eTheEF2tkoCwPElikD+VmDyAakd57DG5PwHHsw==
-X-Received: by 2002:a17:906:e2c5:: with SMTP id
- gr5mr26676422ejb.89.1597846968871; 
- Wed, 19 Aug 2020 07:22:48 -0700 (PDT)
-Received: from mail-wr1-f53.google.com (mail-wr1-f53.google.com.
- [209.85.221.53])
- by smtp.gmail.com with ESMTPSA id j1sm17697265edq.58.2020.08.19.07.22.46
+ bh=gblnYCzc62i56nCc5LRWss+Qf5wc+kIzyZ60hUww65Y=;
+ b=CSGJGCubQpyo4Q4GD3zJIqqKDjh/euH4WMhe2V6FFDZsphLA3+hKJm8HNh+vTVyiIz
+ aE4cCvh9pJbZI74u9Gt20APobyRZyB5HtTWG8mwSVqCTHDZXjgYYQt3Y8fwXPfbHM2mm
+ E2t8qbkee/Jiac9ID10aVa9KNyW6C43nP6XbEJpOKDV2YbuL5tlRyBlQHYkSnK0rbFJF
+ v6GPU+AwCa1v/0+86Am36zhs+srkqA8kep9Ru6ugbgwKvQx5yA+alhztPJwIflAbz9fg
+ kPO80eMW8bNdGjE7AXSc9DNWL1MvzRy7QAUgFeSxz8TTOuoEDJHH/ruwGhLq9PdvFfRX
+ ORyg==
+X-Gm-Message-State: AOAM532nCEk2H3BlXacbK5BozQhaahs254WSFda/rpflW2v8n7+ANKSk
+ hFN5uTOtRvLE7fBmKzZdQ67Pj9BKEa0mCg==
+X-Google-Smtp-Source: ABdhPJx7STbHcpALOvv+6s3flDWW7G/giqrBYwSt0SGKwdw2CLVCWBfhgM6F9jXe0OkC6ExaOpy6CQ==
+X-Received: by 2002:a17:906:b6d5:: with SMTP id
+ ec21mr24662234ejb.396.1597849450876; 
+ Wed, 19 Aug 2020 08:04:10 -0700 (PDT)
+Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com.
+ [209.85.128.53])
+ by smtp.gmail.com with ESMTPSA id gh25sm18583495ejb.109.2020.08.19.08.04.09
  for <alsa-devel@alsa-project.org>
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 19 Aug 2020 07:22:47 -0700 (PDT)
-Received: by mail-wr1-f53.google.com with SMTP id r2so21739407wrs.8
- for <alsa-devel@alsa-project.org>; Wed, 19 Aug 2020 07:22:46 -0700 (PDT)
-X-Received: by 2002:adf:ec45:: with SMTP id w5mr25495420wrn.415.1597846966201; 
- Wed, 19 Aug 2020 07:22:46 -0700 (PDT)
+ Wed, 19 Aug 2020 08:04:10 -0700 (PDT)
+Received: by mail-wm1-f53.google.com with SMTP id c80so2416555wme.0
+ for <alsa-devel@alsa-project.org>; Wed, 19 Aug 2020 08:04:09 -0700 (PDT)
+X-Received: by 2002:a1c:4d12:: with SMTP id o18mr5316483wmh.55.1597849448826; 
+ Wed, 19 Aug 2020 08:04:08 -0700 (PDT)
 MIME-Version: 1.0
 References: <20200819065555.1802761-1-hch@lst.de>
- <20200819065555.1802761-6-hch@lst.de>
- <CAAFQd5COLxjydDYrfx47ht8tj-aNPiaVnC+WyQA7nvpW4gs=ww@mail.gmail.com>
- <62e4f4fc-c8a5-3ee8-c576-fe7178cb4356@arm.com>
- <CAAFQd5AcCTDguB2C9KyDiutXWoEvBL8tL7+a==Uo8vj_8CLOJw@mail.gmail.com>
- <2b32f1d8-16f7-3352-40a5-420993d52fb5@arm.com>
-In-Reply-To: <2b32f1d8-16f7-3352-40a5-420993d52fb5@arm.com>
+ <20200819065555.1802761-20-hch@lst.de>
+In-Reply-To: <20200819065555.1802761-20-hch@lst.de>
 From: Tomasz Figa <tfiga@chromium.org>
-Date: Wed, 19 Aug 2020 16:22:29 +0200
-X-Gmail-Original-Message-ID: <CAAFQd5DrEq7UVi_aH=-DO4xYC3SbjJ3m1aQSbt=8THL-W+orMQ@mail.gmail.com>
-Message-ID: <CAAFQd5DrEq7UVi_aH=-DO4xYC3SbjJ3m1aQSbt=8THL-W+orMQ@mail.gmail.com>
-Subject: Re: [PATCH 05/28] media/v4l2: remove V4L2-FLAG-MEMORY-NON-CONSISTENT
-To: Robin Murphy <robin.murphy@arm.com>
+Date: Wed, 19 Aug 2020 17:03:52 +0200
+X-Gmail-Original-Message-ID: <CAAFQd5Bbp-eAVKS1MKS8xtrT4ZoOmBPfZyw9mys=eOmDb6r8Lw@mail.gmail.com>
+Message-ID: <CAAFQd5Bbp-eAVKS1MKS8xtrT4ZoOmBPfZyw9mys=eOmDb6r8Lw@mail.gmail.com>
+Subject: Re: [PATCH 19/28] dma-mapping: replace DMA_ATTR_NON_CONSISTENT with
+ dma_{alloc, free}_pages
+To: Christoph Hellwig <hch@lst.de>
 Content-Type: text/plain; charset="UTF-8"
 X-Mailman-Approved-At: Fri, 21 Aug 2020 09:36:14 +0200
 Cc: alsa-devel@alsa-project.org, linux-ia64@vger.kernel.org,
  Linux Doc Mailing List <linux-doc@vger.kernel.org>,
  nouveau@lists.freedesktop.org, linux-nvme@lists.infradead.org,
- linux-mips@vger.kernel.org,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
  "James E.J. Bottomley" <James.Bottomley@hansenpartnership.com>,
- linux-mm@kvack.org, Christoph Hellwig <hch@lst.de>,
- Marek Szyprowski <m.szyprowski@samsung.com>,
+ linux-mm@kvack.org, Marek Szyprowski <m.szyprowski@samsung.com>,
  linux-samsung-soc <linux-samsung-soc@vger.kernel.org>,
  Joonyoung Shim <jy0922.shim@samsung.com>, linux-scsi@vger.kernel.org,
- Joerg Roedel <joro@8bytes.org>,
- "list@263.net:IOMMU DRIVERS" <iommu@lists.linux-foundation.org>,
- Ben Skeggs <bskeggs@redhat.com>, Matt Porter <mporter@kernel.crashing.org>,
+ Kyungmin Park <kyungmin.park@samsung.com>, Ben Skeggs <bskeggs@redhat.com>,
+ Matt Porter <mporter@kernel.crashing.org>,
  Linux Media Mailing List <linux-media@vger.kernel.org>,
  Tom Lendacky <thomas.lendacky@amd.com>, Pawel Osciak <pawel@osciak.com>,
  Mauro Carvalho Chehab <mchehab@kernel.org>,
@@ -111,8 +106,9 @@ Cc: alsa-devel@alsa-project.org, linux-ia64@vger.kernel.org,
  Joerg Roedel <joro@8bytes.org>, " <linux-arm-kernel@lists.infradead.org>,
  Thomas Bogendoerfer <tsbogend@alpha.franken.de>, linux-parisc@vger.kernel.org,
  netdev@vger.kernel.org, Seung-Woo Kim <sw0312.kim@samsung.com>,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- Kyungmin Park <kyungmin.park@samsung.com>
+ linux-mips@vger.kernel.org,
+ "list@263.net:IOMMU DRIVERS <iommu@lists.linux-foundation.org>,
+ Joerg Roedel <joro@8bytes.org>, " <iommu@lists.linux-foundation.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -128,114 +124,121 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Wed, Aug 19, 2020 at 4:07 PM Robin Murphy <robin.murphy@arm.com> wrote:
->
-> On 2020-08-19 13:49, Tomasz Figa wrote:
-> > On Wed, Aug 19, 2020 at 1:51 PM Robin Murphy <robin.murphy@arm.com> wrote:
-> >>
-> >> Hi Tomasz,
-> >>
-> >> On 2020-08-19 12:16, Tomasz Figa wrote:
-> >>> Hi Christoph,
-> >>>
-> >>> On Wed, Aug 19, 2020 at 8:56 AM Christoph Hellwig <hch@lst.de> wrote:
-> >>>>
-> >>>> The V4L2-FLAG-MEMORY-NON-CONSISTENT flag is entirely unused,
-> >>>
-> >>> Could you explain what makes you think it's unused? It's a feature of
-> >>> the UAPI generally supported by the videobuf2 framework and relied on
-> >>> by Chromium OS to get any kind of reasonable performance when
-> >>> accessing V4L2 buffers in the userspace.
-> >>>
-> >>>> and causes
-> >>>> weird gymanstics with the DMA_ATTR_NON_CONSISTENT flag, which is
-> >>>> unimplemented except on PARISC and some MIPS configs, and about to be
-> >>>> removed.
-> >>>
-> >>> It is implemented by the generic DMA mapping layer [1], which is used
-> >>> by a number of architectures including ARM64 and supposed to be used
-> >>> by new architectures going forward.
-> >>
-> >> AFAICS all that V4L2_FLAG_MEMORY_NON_CONSISTENT does is end up
-> >> controling whether DMA_ATTR_NON_CONSISTENT is added to vb2_queue::dma_attrs.
-> >>
-> >> Please can you point to where DMA_ATTR_NON_CONSISTENT does anything at
-> >> all on arm64?
-> >>
-> >
-> > With the default config it doesn't, but with
-> > CONFIG_DMA_NONCOHERENT_CACHE_SYNC enabled it makes dma_pgprot() keep
-> > the pgprot value as is, without enforcing coherence attributes.
->
-> How active are the PA-RISC and MIPS ports of Chromium OS?
+Hi Christoph,
 
-Not active. We enable CONFIG_DMA_NONCOHERENT_CACHE_SYNC for ARM64,
-given the directions received back in April when discussing the
-noncoherent memory functionality on the mailing list in the thread I
-pointed out in my previous message and no clarification on why it is
-disabled for ARM64 in upstream, despite making several attempts to get
-some.
+On Wed, Aug 19, 2020 at 8:57 AM Christoph Hellwig <hch@lst.de> wrote:
+>
+> Add a new API to allocate and free pages that are guaranteed to be
+> addressable by a device, but otherwise behave like pages allocated by
+> alloc_pages.  The intended APIs to sync them for use with the device
+> and cpu are dma_sync_single_for_{device,cpu} that are also used for
+> streaming mappings.
+>
+> Switch all drivers over to this new API, but keep the usage of the
+> crufty dma_cache_sync API for now, which will be cleaned up on a driver
+> by driver basis.
+>
+> Signed-off-by: Christoph Hellwig <hch@lst.de>
+> ---
+>  Documentation/core-api/dma-api.rst        | 68 +++++++++++------------
+>  Documentation/core-api/dma-attributes.rst |  8 ---
+>  arch/alpha/kernel/pci_iommu.c             |  2 +
+>  arch/arm/mm/dma-mapping-nommu.c           |  2 +
+>  arch/arm/mm/dma-mapping.c                 |  4 ++
+>  arch/ia64/hp/common/sba_iommu.c           |  2 +
+>  arch/mips/jazz/jazzdma.c                  |  7 +--
+>  arch/powerpc/kernel/dma-iommu.c           |  2 +
+>  arch/powerpc/platforms/ps3/system-bus.c   |  4 ++
+>  arch/powerpc/platforms/pseries/vio.c      |  2 +
+>  arch/s390/pci/pci_dma.c                   |  2 +
+>  arch/x86/kernel/amd_gart_64.c             |  2 +
+>  drivers/iommu/dma-iommu.c                 |  2 +
+>  drivers/iommu/intel/iommu.c               |  4 ++
+>  drivers/net/ethernet/i825xx/lasi_82596.c  | 13 ++---
+>  drivers/net/ethernet/seeq/sgiseeq.c       | 12 ++--
+>  drivers/parisc/ccio-dma.c                 |  2 +
+>  drivers/parisc/sba_iommu.c                |  2 +
+>  drivers/scsi/53c700.c                     |  8 +--
+>  drivers/scsi/sgiwd93.c                    | 12 ++--
+>  drivers/xen/swiotlb-xen.c                 |  2 +
+>  include/linux/dma-direct.h                |  5 ++
+>  include/linux/dma-mapping.h               | 29 ++++++++--
+>  include/linux/dma-noncoherent.h           |  3 -
+>  kernel/dma/direct.c                       | 51 ++++++++++++++++-
+>  kernel/dma/mapping.c                      | 43 +++++++++++++-
+>  kernel/dma/ops_helpers.c                  | 35 ++++++++++++
+>  kernel/dma/virt.c                         |  2 +
+>  sound/mips/hal2.c                         | 20 +++----
+>  29 files changed, 254 insertions(+), 96 deletions(-)
+>
+
+Thanks for the patch. The general design looks quite nice, but please
+see my comments inline.
+
+
+> diff --git a/Documentation/core-api/dma-api.rst b/Documentation/core-api/dma-api.rst
+> index 90239348b30f6f..047fcfffa0e5cf 100644
+> --- a/Documentation/core-api/dma-api.rst
+> +++ b/Documentation/core-api/dma-api.rst
+> @@ -516,48 +516,53 @@ routines, e.g.:::
+>         }
+>
+>
+> -Part II - Advanced dma usage
+> -----------------------------
+> +Part II - Non-coherent DMA allocations
+> +--------------------------------------
+>
+> -Warning: These pieces of the DMA API should not be used in the
+> -majority of cases, since they cater for unlikely corner cases that
+> -don't belong in usual drivers.
+> +These APIs allow to allocate pages that can be used like normal pages
+> +in the kernel direct mapping, but are guaranteed to be DMA addressable.
+
+Could we elaborate a bit more on what "like normal pages in kernel
+direct mapping" mean from the driver perspective?
 
 >
-> Hacking CONFIG_DMA_NONCOHERENT_CACHE_SYNC into an architecture that
-> doesn't provide dma_cache_sync() is wrong, since at worst it may break
-> other drivers. If downstream is wildly misusing an API then so be it,
-> but it's hardly a strong basis for an upstream argument.
-
-I guess it means that we're wildly misusing the API, but it still does
-work. Could you explain how it could break other drivers?
-
+>  If you don't understand how cache line coherency works between a
+>  processor and an I/O device, you should not be using this part of the
+> -API at all.
+> +API.
 >
-> >> Also, I posit that videobuf2 is not actually relying on
-> >> DMA_ATTR_NON_CONSISTENT anyway, since it's clearly not using it properly:
-> >>
-> >> "By using this API, you are guaranteeing to the platform
-> >> that you have all the correct and necessary sync points for this memory
-> >> in the driver should it choose to return non-consistent memory."
-> >>
-> >> $ git grep dma_cache_sync drivers/media
-> >> $
-> >
-> > AFAIK dma_cache_sync() isn't the only way to perform the cache
-> > synchronization. The earlier patch series that I reviewed relied on
-> > dma_get_sgtable() and then dma_sync_sg_*() (which existed in the
-> > vb2-dc since forever [1]). However, it looks like with the final code
-> > the sgtable isn't acquired and the synchronization isn't happening, so
-> > you have a point.
+>  ::
 >
-> Using the streaming sync calls on coherent allocations has also always
-> been wrong per the API, regardless of the bodies of code that have
-> happened to get away with it for so long.
->
-> > FWIW, I asked back in time what the plan is for non-coherent
-> > allocations and it seemed like DMA_ATTR_NON_CONSISTENT and
-> > dma_sync_*() was supposed to be the right thing to go with. [2] The
-> > same thread also explains why dma_alloc_pages() isn't suitable for the
-> > users of dma_alloc_attrs() and DMA_ATTR_NON_CONSISTENT.
->
-> AFAICS even back then Christoph was implying getting rid of
-> NON_CONSISTENT and *replacing* it with something streaming-API-based -
+>         void *
+> -       dma_alloc_attrs(struct device *dev, size_t size, dma_addr_t *dma_handle,
+> -                       gfp_t flag, unsigned long attrs)
+> +       dma_alloc_pages(struct device *dev, size_t size, dma_addr_t *dma_handle,
+> +                       enum dma_data_direction dir, gfp_t gfp)
+> +
+> +This routine allocates a region of <size> bytes of consistent memory.  It
+> +returns a pointer to the allocated region (in the processor's virtual address
+> +space) or NULL if the allocation failed. The returned memory is guanteed to
+> +behave like memory allocated using alloc_pages.
 
-That's not how I read his reply from the thread I pointed to, but that
-might of course be my misunderstanding.
+There is one aspect that the existing dma_alloc_attrs() handles, but
+this new function doesn't: IOMMU support. The function will always
+allocate a physically-contiguous block memory, which is a costly
+operation and not even guaranteed to succeed, even if enough free
+memory is available.
 
-> i.e. this series - not encouraging mixing the existing APIs. It doesn't
-> seem impossible to implement a remapping version of this new
-> dma_alloc_pages() for IOMMU-backed ops if it's really warranted
-> (although at that point it seems like "non-coherent" vb2-dc starts to
-> have significant conceptual overlap with vb2-sg).
+Modern SoCs employ IOMMUs to avoid the need to allocate
+physically-contiguous memory and those happen to be also the devices
+that could benefit from non-coherent allocations a lot. One of the
+tasks of the DMA API was making it possible to allocate suitable
+memory for a given device, without having the driver know about the
+SoC integration details, such as the presence of an IOMMU.
 
-No, there is no overlap between vb2-dc and vb2-sg. They differ on
-another level - the former is to be used by devices without
-scatter-gather or internal mapping capabilities and gives the driver a
-single DMA address for the whole buffer, regardless of whether it's
-IOVA-contiguous (for devices behind an IOMMU) or physically contiguous
-(for the others), while the latter gives the driver an sgtable, which
-of course may be DMA-contiguous internally, but doesn't have to and
-usually isn't. This model makes it possible to hide the SoC
-implementation details from particular drivers, since those are very
-often reused on many SoCs which differ in the availability of IOMMU,
-DMA addressing restrictions and so on.
+Today, dma_alloc_attrs() uses the .alloc callback of the dma_ops
+struct and the IOMMU-aware implementations, like the dma-iommu helpers
+[1], would allocate discontiguous pages. Therefore, while I see the
+DMA-aware page allocation functionality as a useful functionality on
+its own for scatter-gather-capable hardware, I believe it is not a
+complete replacement for dma_alloc_attrs() with the
+DMA_ATTR_NON_CONSISTENT attribute.
+
+[1] https://elixir.bootlin.com/linux/v5.9-rc1/source/drivers/iommu/dma-iommu.c#L510
 
 Best regards,
 Tomasz

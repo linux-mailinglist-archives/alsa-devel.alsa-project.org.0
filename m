@@ -2,63 +2,63 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B24C724A3B8
-	for <lists+alsa-devel@lfdr.de>; Wed, 19 Aug 2020 18:03:03 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4420024A4C9
+	for <lists+alsa-devel@lfdr.de>; Wed, 19 Aug 2020 19:20:29 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 26C6D1868;
-	Wed, 19 Aug 2020 18:02:13 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 26C6D1868
+	by alsa0.perex.cz (Postfix) with ESMTPS id C4CA316B2;
+	Wed, 19 Aug 2020 19:19:38 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C4CA316B2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1597852983;
-	bh=VEH5mrRJW2yZs+No2jlkpnOi7G46WzUtWvb8pPGrAmg=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=IyFtXkKXKkigjDk8h2t3g7GyZ7iSciFOUyS/yn5+4LHaAR8FrTIDm1PRJkFMm2nY0
-	 N6ILosGO9mUGSs3aOTaSGXhv1fSvM1G3Z+RmBYHNuwNIhPrVeCMsjFpdZFdJTMVrpi
-	 aAULZqCnHBxsXTcqKvPQnjYCYfSHzdcg3c1ft1cY=
+	s=default; t=1597857628;
+	bh=YpAqtif9b9psey6iEfLuKmV51aLYuxHOaVaSjTe+0Dg=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=dfLOSBIDeX0HIZz+5eRXgrWeYD3ycerQA++6qS550DV49CPO5jbKXATm2HO891y/8
+	 0D9gYRSryzw7BnBy5mfnHVxzW+2mKlyoZ0sEL2AwUITF3NEpohtf78n2cSTC0MhCvT
+	 yVamlVQU6O4K5RV0ho0N6DEYYwd5x+XNBE/7Ge1o=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 5286DF800D3;
-	Wed, 19 Aug 2020 18:01:22 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 018BDF800D3;
+	Wed, 19 Aug 2020 19:18:47 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id BC5B0F80218; Wed, 19 Aug 2020 18:01:19 +0200 (CEST)
+ id 1D4B5F80218; Wed, 19 Aug 2020 19:18:45 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_MSPIKE_H3,
- RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
+ RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=disabled
  version=3.4.0
-Received: from youngberry.canonical.com (youngberry.canonical.com
- [91.189.89.112])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
+Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id A0C1DF8011C
- for <alsa-devel@alsa-project.org>; Wed, 19 Aug 2020 18:01:09 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A0C1DF8011C
-Received: from 1.general.cking.uk.vpn ([10.172.193.212] helo=localhost)
- by youngberry.canonical.com with esmtpsa
- (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.86_2)
- (envelope-from <colin.king@canonical.com>)
- id 1k8QWN-0003Um-Kj; Wed, 19 Aug 2020 16:01:03 +0000
-From: Colin King <colin.king@canonical.com>
-To: Patrick Lai <plai@codeaurora.org>,
- Banajit Goswami <bgoswami@codeaurora.org>,
- Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
- Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
- Ajit Pandey <ajitp@codeaurora.org>,
- Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
- Rohit kumar <rohitkr@codeaurora.org>, alsa-devel@alsa-project.org
-Subject: [PATCH][next] ASoC: qcom: add missing out of memory check on
- drvdata->clks allocation
-Date: Wed, 19 Aug 2020 17:01:03 +0100
-Message-Id: <20200819160103.164893-1-colin.king@canonical.com>
-X-Mailer: git-send-email 2.27.0
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+ by alsa1.perex.cz (Postfix) with ESMTPS id 70CF5F80114
+ for <alsa-devel@alsa-project.org>; Wed, 19 Aug 2020 19:18:33 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 70CF5F80114
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id BE2ABAD8D;
+ Wed, 19 Aug 2020 17:18:57 +0000 (UTC)
+Date: Wed, 19 Aug 2020 19:18:30 +0200
+Message-ID: <s5h364ih7vd.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: penghao <penghao@uniontech.com>
+Subject: Re: [PATCH] ALSA: usb-audio: Add prevent wakeup from s3 state trig by
+ Lenovo ThinkCentre TI024Gen3 USB-audio
+In-Reply-To: <20200819115757.23168-1-penghao@uniontech.com>
+References: <20200819115757.23168-1-penghao@uniontech.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
+ FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
+ (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Cc: kernel-janitors@vger.kernel.org, linux-kernel@vger.kernel.org
+Cc: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
+ crwulff@gmail.com, gustavoars@kernel.org, Hui Wang <hui.wang@canonical.com>,
+ alexander@tsoy.me, Kai-Heng Feng <kai.heng.feng@canonical.com>,
+ Mark Pearson <mpearson@lenovo.com>, dan.carpenter@oracle.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -74,32 +74,43 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: Colin Ian King <colin.king@canonical.com>
+[ Adding a few more relevant people to Cc. ]
 
-Currently drvdata->clks is not being checked for an allocation failure,
-leading to potential null pointer dereferencing. Fix this by adding a
-check and returning -ENOMEM if an error occurred.
+On Wed, 19 Aug 2020 13:57:57 +0200,
+penghao wrote:
+> 
+> TI024Gen3 USB-audio is controlled by TI024Gen3,when TI024Gens
+> enter sleep mode, USB-audio will disconnect from USB bus port,
+> wakup form s3 state
+> 
+> Signed-off-by: penghao <penghao@uniontech.com>
+> ---
+>  sound/usb/card.c | 6 ++++++
+>  1 file changed, 6 insertions(+)
+> 
+> diff --git a/sound/usb/card.c b/sound/usb/card.c
+> index 696e788c5d31..6bdbb34009b3 100644
+> --- a/sound/usb/card.c
+> +++ b/sound/usb/card.c
+> @@ -658,6 +658,12 @@ static int usb_audio_probe(struct usb_interface *intf,
+>  	}
+>  
+>  	dev_set_drvdata(&dev->dev, chip);
+> +	/*
+> +	 *ALSA: usb-audio: Add prevent wakeup from s3 state trig by Lenovo
+> +	 *ThinkCentre TI024Gen3 usb-audio
+> +	 */
+> +	if ((usb_id->idVendor == 0x17ef) && (usb_id->idProduct == 0xa012))
+> +		device_set_wakeup_enable(＆dev->dev, 0);
 
-Addresses-Coverity: ("Dereference null return value")
-Fixes: 1220f6a76e77 ("ASoC: qcom: Add common array to initialize soc based core clocks")
-Signed-off-by: Colin Ian King <colin.king@canonical.com>
----
- sound/soc/qcom/lpass-apq8016.c | 2 ++
- 1 file changed, 2 insertions(+)
+Here it's no proper ASCII letter, and this must be broken.
+Please check the actual patch before submitting.
 
-diff --git a/sound/soc/qcom/lpass-apq8016.c b/sound/soc/qcom/lpass-apq8016.c
-index dd9e3dd014f6..5c8ae225cd5d 100644
---- a/sound/soc/qcom/lpass-apq8016.c
-+++ b/sound/soc/qcom/lpass-apq8016.c
-@@ -168,6 +168,8 @@ static int apq8016_lpass_init(struct platform_device *pdev)
- 
- 	drvdata->clks = devm_kcalloc(dev, variant->num_clks,
- 				     sizeof(*drvdata->clks), GFP_KERNEL);
-+	if (!drvdata->clks)
-+		return -ENOMEM;
- 	drvdata->num_clks = variant->num_clks;
- 
- 	for (i = 0; i < drvdata->num_clks; i++)
--- 
-2.27.0
+In anyway, before going further, I'd like to hear from other people
+whether this is really mandatory and appropriate.  And whether it's
+specific to that device, too (not other Lenovo devices?)
 
+
+thanks,
+
+Takashi

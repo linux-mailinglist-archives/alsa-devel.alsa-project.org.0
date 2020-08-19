@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 70E032496C3
-	for <lists+alsa-devel@lfdr.de>; Wed, 19 Aug 2020 09:11:42 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8005F2496B6
+	for <lists+alsa-devel@lfdr.de>; Wed, 19 Aug 2020 09:10:32 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 18062185D;
-	Wed, 19 Aug 2020 09:10:52 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 18062185D
+	by alsa0.perex.cz (Postfix) with ESMTPS id 22EAB1804;
+	Wed, 19 Aug 2020 09:09:42 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 22EAB1804
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1597821102;
-	bh=125/lrB+Jn57H75j963amJOsQrNwt5dVvQpnreLpGOI=;
+	s=default; t=1597821032;
+	bh=YO2W6X4OgAdrwEafAl/zJF/cDSTcA4Ih0R6uA55nsxo=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=uG/ifstkhO3X7WM0PY3F7+nO1dJ7Wbj/c+7ce2m7aiO2RIQ/Bxd3EnI6eC8TCdMwJ
-	 GZOucXEW+m+GCpHj45WgrjlprgcEfi7CS/vKJMJb2YaNRw4GdgVQVzTwn4uU7qlTO7
-	 haodAdUlQjw98StOpfz621+OxwAR+nQKI/CzzsZw=
+	b=mSQi6BDjNXBiMteTe6EHCtpzaV3vZiI/tfU7wXguJWqHDVTrOx/LpOXhpXVxiZLQT
+	 6p9LQWqtHRgHhoXcBZjIAhgcr6zV7VC/dpABloP05NOV/xliqoPWTwSBUx/YAuYPHh
+	 Gc65lYvFvCDZ+2PYjT01R2VCdvZQdg3wuouOzoDY=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 21489F803CA;
-	Wed, 19 Aug 2020 08:58:25 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id E42F0F80257;
+	Wed, 19 Aug 2020 08:58:18 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 912F0F8034D; Wed, 19 Aug 2020 08:58:17 +0200 (CEST)
+ id 7403AF80394; Wed, 19 Aug 2020 08:58:07 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -35,25 +35,25 @@ Received: from casper.infradead.org (casper.infradead.org
  [IPv6:2001:8b0:10b:1236::1])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id A9AACF8036F
- for <alsa-devel@alsa-project.org>; Wed, 19 Aug 2020 08:57:47 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A9AACF8036F
+ by alsa1.perex.cz (Postfix) with ESMTPS id 764CAF8036C
+ for <alsa-devel@alsa-project.org>; Wed, 19 Aug 2020 08:57:43 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 764CAF8036C
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org
- header.b="sSA1uJRo"
+ header.b="mO0h3/QJ"
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=infradead.org; s=casper.20170209; h=Content-Transfer-Encoding:MIME-Version:
  References:In-Reply-To:Message-Id:Date:Subject:Cc:To:From:Sender:Reply-To:
  Content-Type:Content-ID:Content-Description;
- bh=MRNzaOyGgBXAbxlH8jJhu7Fo+yEVO9gcgLpxTqOqwdM=; b=sSA1uJRosiTZcOaNfH8Jw4gist
- pdyBVazeX5Er/VAH1jAh2eeW6oh6FGUHL6f0fFDAH9ca10qn4+vH9gc1KqSD6L8q6iCTKzPNBFEeW
- +d4knhEu8T5Zu2G3o1KV8pjluXxR6gEWwOIDaYyMRJo7Ug7OWoBthI509o6SZCHvUapbbVmf2F3xD
- /2qs3Zok9b+Z+raoInO4th8f0GiEk/9PIULhquiqOLFnN01zaDtMBuiH8qWkZ0b+/82q3fpSfEDsQ
- j5SfKv5GPFSgC58TzTvdo/cNnJEeigdWXucgoCeXuGC4fA4dOHDlLHv4W6IyBvvYk5qPFx+splTcU
- w9yaJfhQ==;
+ bh=RFTX12/6vaWoRhhjSqpC5wgk9pFG99OSZ6G21Gj4zUk=; b=mO0h3/QJQ4IMJcw7idTzxUEyfy
+ FuPqv+qEDbTDPKK7FEenUd7ionlcjYL5GNBSYPlMCFwiQJm5+2rN19erxYXKVTBf390ZI8EWPbL0a
+ ab7QtB66NQzyOAGNH+ofzZrE9kkefR1unxsPvJ5aJmbuHVe11Py2x1Qkb3NICIBaF7SLnVjd2jf1j
+ WogQQTRrOF5qGuiMHBe3WOb95aMfkixb9aeUOuDYPDLOtubIROb53k2qV4Kd5JURqGiFRezaphnme
+ D+80I4GP/SkvHK3cjj0XcV7p+d8ZZ2xWBwT2HC7Kew3oBm8FRsyQUXwUGkUv2IaqYMxBQPG/p6CP2
+ xIzfAfMg==;
 Received: from [2001:4bb8:198:f3b2:86b6:2277:f429:37a1] (helo=localhost)
  by casper.infradead.org with esmtpsa (Exim 4.92.3 #3 (Red Hat Linux))
- id 1k8I1b-0008Tv-Q4; Wed, 19 Aug 2020 06:56:44 +0000
+ id 1k8I1e-0008V1-Rd; Wed, 19 Aug 2020 06:56:47 +0000
 From: Christoph Hellwig <hch@lst.de>
 To: Mauro Carvalho Chehab <mchehab@kernel.org>,
  Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
@@ -64,10 +64,10 @@ To: Mauro Carvalho Chehab <mchehab@kernel.org>,
  Pawel Osciak <pawel@osciak.com>,
  Marek Szyprowski <m.szyprowski@samsung.com>,
  Matt Porter <mporter@kernel.crashing.org>, iommu@lists.linux-foundation.org
-Subject: [PATCH 21/28] hal2: convert from dma_cache_sync to
+Subject: [PATCH 22/28] sgiseeq: convert from dma_cache_sync to
  dma_sync_single_for_device
-Date: Wed, 19 Aug 2020 08:55:48 +0200
-Message-Id: <20200819065555.1802761-22-hch@lst.de>
+Date: Wed, 19 Aug 2020 08:55:49 +0200
+Message-Id: <20200819065555.1802761-23-hch@lst.de>
 X-Mailer: git-send-email 2.28.0
 In-Reply-To: <20200819065555.1802761-1-hch@lst.de>
 References: <20200819065555.1802761-1-hch@lst.de>
@@ -98,143 +98,39 @@ Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 Use the proper modern API to transfer cache ownership for incoherent DMA.
-This also means we can allocate the buffer memory with the proper
-direction instead of bidirectional.
 
 Signed-off-by: Christoph Hellwig <hch@lst.de>
 ---
- sound/mips/hal2.c | 44 ++++++++++++++++++++------------------------
- 1 file changed, 20 insertions(+), 24 deletions(-)
+ drivers/net/ethernet/seeq/sgiseeq.c | 12 ++++++++----
+ 1 file changed, 8 insertions(+), 4 deletions(-)
 
-diff --git a/sound/mips/hal2.c b/sound/mips/hal2.c
-index 746c410bd9bf11..c8e429a5f48f85 100644
---- a/sound/mips/hal2.c
-+++ b/sound/mips/hal2.c
-@@ -441,7 +441,8 @@ static inline void hal2_stop_adc(struct snd_hal2 *hal2)
- 	hal2->adc.pbus.pbus->pbdma_ctrl = HPC3_PDMACTRL_LD;
+diff --git a/drivers/net/ethernet/seeq/sgiseeq.c b/drivers/net/ethernet/seeq/sgiseeq.c
+index 39599bbb5d45b6..f91dae16d69a19 100644
+--- a/drivers/net/ethernet/seeq/sgiseeq.c
++++ b/drivers/net/ethernet/seeq/sgiseeq.c
+@@ -112,14 +112,18 @@ struct sgiseeq_private {
+ 
+ static inline void dma_sync_desc_cpu(struct net_device *dev, void *addr)
+ {
+-	dma_cache_sync(dev->dev.parent, addr, sizeof(struct sgiseeq_rx_desc),
+-		       DMA_FROM_DEVICE);
++	struct sgiseeq_private *sp = netdev_priv(dev);
++
++	dma_sync_single_for_cpu(dev->dev.parent, VIRT_TO_DMA(sp, addr),
++			sizeof(struct sgiseeq_rx_desc), DMA_BIDIRECTIONAL);
  }
  
--static int hal2_alloc_dmabuf(struct snd_hal2 *hal2, struct hal2_codec *codec)
-+static int hal2_alloc_dmabuf(struct snd_hal2 *hal2, struct hal2_codec *codec,
-+		enum dma_data_direction buffer_dir)
+ static inline void dma_sync_desc_dev(struct net_device *dev, void *addr)
  {
- 	struct device *dev = hal2->card->dev;
- 	struct hal2_desc *desc;
-@@ -450,14 +451,14 @@ static int hal2_alloc_dmabuf(struct snd_hal2 *hal2, struct hal2_codec *codec)
- 	int i;
- 
- 	codec->buffer = dma_alloc_pages(dev, H2_BUF_SIZE, &buffer_dma,
--					DMA_BIDIRECTIONAL, GFP_KERNEL);
-+					buffer_dir, GFP_KERNEL);
- 	if (!codec->buffer)
- 		return -ENOMEM;
- 	desc = dma_alloc_pages(dev, count * sizeof(struct hal2_desc), &desc_dma,
- 			       DMA_BIDIRECTIONAL, GFP_KERNEL);
- 	if (!desc) {
- 		dma_free_pages(dev, H2_BUF_SIZE, codec->buffer, buffer_dma,
--				DMA_BIDIRECTIONAL);
-+				buffer_dir);
- 		return -ENOMEM;
- 	}
- 	codec->buffer_dma = buffer_dma;
-@@ -470,20 +471,22 @@ static int hal2_alloc_dmabuf(struct snd_hal2 *hal2, struct hal2_codec *codec)
- 		      desc_dma : desc_dma + (i + 1) * sizeof(struct hal2_desc);
- 		desc++;
- 	}
--	dma_cache_sync(dev, codec->desc, count * sizeof(struct hal2_desc),
+-	dma_cache_sync(dev->dev.parent, addr, sizeof(struct sgiseeq_rx_desc),
 -		       DMA_TO_DEVICE);
-+	dma_sync_single_for_device(dev, codec->desc_dma,
-+				   count * sizeof(struct hal2_desc),
-+				   DMA_BIDIRECTIONAL);
- 	codec->desc_count = count;
- 	return 0;
++	struct sgiseeq_private *sp = netdev_priv(dev);
++
++	dma_sync_single_for_device(dev->dev.parent, VIRT_TO_DMA(sp, addr),
++			sizeof(struct sgiseeq_rx_desc), DMA_BIDIRECTIONAL);
  }
  
--static void hal2_free_dmabuf(struct snd_hal2 *hal2, struct hal2_codec *codec)
-+static void hal2_free_dmabuf(struct snd_hal2 *hal2, struct hal2_codec *codec,
-+		enum dma_data_direction buffer_dir)
- {
- 	struct device *dev = hal2->card->dev;
- 
- 	dma_free_pages(dev, codec->desc_count * sizeof(struct hal2_desc),
- 		       codec->desc, codec->desc_dma, DMA_BIDIRECTIONAL);
- 	dma_free_pages(dev, H2_BUF_SIZE, codec->buffer, codec->buffer_dma,
--			DMA_BIDIRECTIONAL);
-+			buffer_dir);
- }
- 
- static const struct snd_pcm_hardware hal2_pcm_hw = {
-@@ -509,21 +512,16 @@ static int hal2_playback_open(struct snd_pcm_substream *substream)
- {
- 	struct snd_pcm_runtime *runtime = substream->runtime;
- 	struct snd_hal2 *hal2 = snd_pcm_substream_chip(substream);
--	int err;
- 
- 	runtime->hw = hal2_pcm_hw;
--
--	err = hal2_alloc_dmabuf(hal2, &hal2->dac);
--	if (err)
--		return err;
--	return 0;
-+	return hal2_alloc_dmabuf(hal2, &hal2->dac, DMA_TO_DEVICE);
- }
- 
- static int hal2_playback_close(struct snd_pcm_substream *substream)
- {
- 	struct snd_hal2 *hal2 = snd_pcm_substream_chip(substream);
- 
--	hal2_free_dmabuf(hal2, &hal2->dac);
-+	hal2_free_dmabuf(hal2, &hal2->dac, DMA_TO_DEVICE);
- 	return 0;
- }
- 
-@@ -579,7 +577,9 @@ static void hal2_playback_transfer(struct snd_pcm_substream *substream,
- 	unsigned char *buf = hal2->dac.buffer + rec->hw_data;
- 
- 	memcpy(buf, substream->runtime->dma_area + rec->sw_data, bytes);
--	dma_cache_sync(hal2->card->dev, buf, bytes, DMA_TO_DEVICE);
-+	dma_sync_single_for_device(hal2->card->dev,
-+			hal2->dac.buffer_dma + rec->hw_data, bytes,
-+			DMA_TO_DEVICE);
- 
- }
- 
-@@ -597,22 +597,16 @@ static int hal2_capture_open(struct snd_pcm_substream *substream)
- {
- 	struct snd_pcm_runtime *runtime = substream->runtime;
- 	struct snd_hal2 *hal2 = snd_pcm_substream_chip(substream);
--	struct hal2_codec *adc = &hal2->adc;
--	int err;
- 
- 	runtime->hw = hal2_pcm_hw;
--
--	err = hal2_alloc_dmabuf(hal2, adc);
--	if (err)
--		return err;
--	return 0;
-+	return hal2_alloc_dmabuf(hal2, &hal2->adc, DMA_FROM_DEVICE);
- }
- 
- static int hal2_capture_close(struct snd_pcm_substream *substream)
- {
- 	struct snd_hal2 *hal2 = snd_pcm_substream_chip(substream);
- 
--	hal2_free_dmabuf(hal2, &hal2->adc);
-+	hal2_free_dmabuf(hal2, &hal2->adc, DMA_FROM_DEVICE);
- 	return 0;
- }
- 
-@@ -667,7 +661,9 @@ static void hal2_capture_transfer(struct snd_pcm_substream *substream,
- 	struct snd_hal2 *hal2 = snd_pcm_substream_chip(substream);
- 	unsigned char *buf = hal2->adc.buffer + rec->hw_data;
- 
--	dma_cache_sync(hal2->card->dev, buf, bytes, DMA_FROM_DEVICE);
-+	dma_sync_single_for_cpu(hal2->card->dev,
-+			hal2->adc.buffer_dma + rec->hw_data, bytes,
-+			DMA_FROM_DEVICE);
- 	memcpy(substream->runtime->dma_area + rec->sw_data, buf, bytes);
- }
- 
+ static inline void hpc3_eth_reset(struct hpc3_ethregs *hregs)
 -- 
 2.28.0
 

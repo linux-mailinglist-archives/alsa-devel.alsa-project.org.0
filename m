@@ -2,86 +2,81 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A537F24CFE1
-	for <lists+alsa-devel@lfdr.de>; Fri, 21 Aug 2020 09:48:23 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 05FD224D032
+	for <lists+alsa-devel@lfdr.de>; Fri, 21 Aug 2020 10:00:46 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 0895A169D;
-	Fri, 21 Aug 2020 09:47:33 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0895A169D
+	by alsa0.perex.cz (Postfix) with ESMTPS id A5DFA16AA;
+	Fri, 21 Aug 2020 09:59:55 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A5DFA16AA
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1597996103;
-	bh=aPjlnF14zgZg8tK3QsIiYKwfQ5nIQhoCFtQERsafaLA=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
+	s=default; t=1597996845;
+	bh=X0ORiFKrWP0s649SyWVIij8iYQogdHWVg0rWlAHt9tU=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=i/xE/Sv5NMBzXZIq4ufPBhZDz8zaBVh3KHl7o0zwrHBgZxCszvx/7gBUcESQX0/VM
-	 sdRnVyOhos1glCqoDeG0PgQ5c1LFQc1H954/Bqe9K6gHRSrjLGIvWxiHXOrXuQ9uIJ
-	 DszwW3nsBUknR1TeOMs8eAgzfzOJvKVphiegtX58=
+	b=abzTZokwXSiM/MiwE0b/OM1AhFCxXJ5b8vZJIKitAmNQqSbhFuT36tOklLcp/VVgt
+	 H6Rsl/UlAFhsLJxgKBwofmxE9s6/81M0VLTbRcrqT8jWBqSJbaSkZjsPRZMR+GtgSx
+	 RjLXSFXF5nUcz6c1pSegPTElgEChQO5dcwa2X778=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 5FA5AF802DF;
-	Fri, 21 Aug 2020 09:33:49 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 87317F804D1;
+	Fri, 21 Aug 2020 09:37:05 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 87079F802DB; Fri, 21 Aug 2020 09:33:47 +0200 (CEST)
+ id 74FCAF80228; Thu, 20 Aug 2020 18:52:16 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE
  autolearn=disabled version=3.4.0
-Received: from mail-wr1-x42c.google.com (mail-wr1-x42c.google.com
- [IPv6:2a00:1450:4864:20::42c])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from verein.lst.de (verein.lst.de [213.95.11.211])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 3079AF802A9
- for <alsa-devel@alsa-project.org>; Fri, 21 Aug 2020 09:33:36 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3079AF802A9
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="oQqWiBbc"
-Received: by mail-wr1-x42c.google.com with SMTP id r15so1007107wrp.13
- for <alsa-devel@alsa-project.org>; Fri, 21 Aug 2020 00:33:36 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=7af5XMotKX7+7pq+GDcHe4RuHh/qDb+P+7bkBuurbqI=;
- b=oQqWiBbcvD1Lxxady4jXWmfyeyQJZRkYXxNWMUQpC6ZdDn6p5aa/V1Kt4h5O0qvkP3
- mhoXVj2Uv58p18uP9XmQ+3Ec538e+VMaCMy1VBzBAjfDOfweoADp5GC4IIj4/uhei5ES
- F17DvcL1eHVlzQb2uCGQoEmlz19cY9vZyQKAWEI/AJMdR0xDvhstXnbu9g47OGMNSGm9
- wiAysuM46eaExOcnMx7qxv9snzFp4OVLgKPEmiJ86qA5aoZ3v1APeYfk9xjsxM45VIrW
- 8bToMViCZqGNAz9xaKBbpRq65e9yZpOERC04zESKyX964rJWO4tcE05XkBEbWtBfbZD1
- pBoA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=7af5XMotKX7+7pq+GDcHe4RuHh/qDb+P+7bkBuurbqI=;
- b=LtVTfeWrILnrZLzl8dy8VuNkKf+Jt4b8wdH4qec7D/gAIhdz635wWPXs22lT9CPK82
- GhxuD0FEZaFuS5pqFmC7AqrYmPB3FR9Lu1MX59yDGrUjcOALCkPS8NVzuulCt2v6JKeQ
- TROSfeoNgr8yA8c7tEVvqJbwzfqWOB7CGxAX1b4hi4GXs/DArUThuE50FAo7nDDepcxf
- eaOIFL/tMnXb9a/weuqkh35cwoeIkz4776jaI/+6w1m44qn4cXgQwRCew9GnNCiEVCeU
- 5ivwQEY+ofU+1xjCcnnz0F0FyA+c6Mp3MQwvc9Jw0UTlI0WV9jyC1atory78NtyrRoLV
- 1t9w==
-X-Gm-Message-State: AOAM530YEFWIWrFI3wu0KIxPZN7tMytaGIK3t1komtSRo2ILrNVB7bp6
- UV44+m8d1Oohoymzsd7qi+Y6OkD3whB8HOqmxGo=
-X-Google-Smtp-Source: ABdhPJzl0JeDqHGYoVYAJh80c2IEY966kQCF6X3dAY8wrLiISpuuSsAPpidFO7bLjXn4TlVahutsvmFLrYl9EwqiL90=
-X-Received: by 2002:adf:ef08:: with SMTP id e8mr1577386wro.164.1597995215644; 
- Fri, 21 Aug 2020 00:33:35 -0700 (PDT)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 3DDF7F800D3
+ for <alsa-devel@alsa-project.org>; Thu, 20 Aug 2020 18:52:14 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3DDF7F800D3
+Received: by verein.lst.de (Postfix, from userid 2407)
+ id 48F9168AFE; Thu, 20 Aug 2020 18:52:13 +0200 (CEST)
+Date: Thu, 20 Aug 2020 18:52:13 +0200
+From: Christoph Hellwig <hch@lst.de>
+To: Tomasz Figa <tfiga@chromium.org>
+Subject: Re: [PATCH 05/28] media/v4l2: remove V4L2-FLAG-MEMORY-NON-CONSISTENT
+Message-ID: <20200820165213.GC12693@lst.de>
+References: <20200819065555.1802761-1-hch@lst.de>
+ <20200819065555.1802761-6-hch@lst.de>
+ <CAAFQd5COLxjydDYrfx47ht8tj-aNPiaVnC+WyQA7nvpW4gs=ww@mail.gmail.com>
+ <62e4f4fc-c8a5-3ee8-c576-fe7178cb4356@arm.com>
+ <CAAFQd5AcCTDguB2C9KyDiutXWoEvBL8tL7+a==Uo8vj_8CLOJw@mail.gmail.com>
+ <2b32f1d8-16f7-3352-40a5-420993d52fb5@arm.com> <20200820050214.GA4815@lst.de>
+ <CAAFQd5AknYpP5BamC=wJkEJyO-q47V6Gc+HT65h6B+HyT+-xjQ@mail.gmail.com>
 MIME-Version: 1.0
-References: <87k0xszlep.wl-kuninori.morimoto.gx@renesas.com>
- <CAEnQRZCsy+QiMpCCRPNF-BUcjaT+UVE2B_a6Bd48f8tRqXTpOA@mail.gmail.com>
- <87h7swzclq.wl-kuninori.morimoto.gx@renesas.com>
-In-Reply-To: <87h7swzclq.wl-kuninori.morimoto.gx@renesas.com>
-From: Daniel Baluta <daniel.baluta@gmail.com>
-Date: Fri, 21 Aug 2020 10:33:24 +0300
-Message-ID: <CAEnQRZAPeGcBYWjdJOaUNdeqpdbNw63m9QxpXFM92HoD-29ysA@mail.gmail.com>
-Subject: Re: More Generic Audio Graph Sound Card idea
-To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Content-Type: text/plain; charset="UTF-8"
-Cc: Sameer Pujar <spujar@nvidia.com>, Mark Brown <broonie@kernel.org>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- Linux-ALSA <alsa-devel@alsa-project.org>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <CAAFQd5AknYpP5BamC=wJkEJyO-q47V6Gc+HT65h6B+HyT+-xjQ@mail.gmail.com>
+User-Agent: Mutt/1.5.17 (2007-11-01)
+X-Mailman-Approved-At: Fri, 21 Aug 2020 09:36:15 +0200
+Cc: alsa-devel@alsa-project.org, linux-ia64@vger.kernel.org,
+ Linux Doc Mailing List <linux-doc@vger.kernel.org>,
+ nouveau@lists.freedesktop.org, linux-nvme@lists.infradead.org,
+ linux-mips@vger.kernel.org,
+ "James E.J. Bottomley" <James.Bottomley@hansenpartnership.com>,
+ linux-mm@kvack.org, Christoph Hellwig <hch@lst.de>,
+ Marek Szyprowski <m.szyprowski@samsung.com>,
+ linux-samsung-soc <linux-samsung-soc@vger.kernel.org>,
+ Joonyoung Shim <jy0922.shim@samsung.com>, linux-scsi@vger.kernel.org,
+ Joerg Roedel <joro@8bytes.org>,
+ "list@263.net:IOMMU DRIVERS" <iommu@lists.linux-foundation.org>,
+ Ben Skeggs <bskeggs@redhat.com>, Matt Porter <mporter@kernel.crashing.org>,
+ Linux Media Mailing List <linux-media@vger.kernel.org>,
+ Tom Lendacky <thomas.lendacky@amd.com>, Pawel Osciak <pawel@osciak.com>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>,
+ "list@263.net:IOMMU DRIVERS <iommu@lists.linux-foundation.org>,
+ Joerg Roedel <joro@8bytes.org>, " <linux-arm-kernel@lists.infradead.org>,
+ Thomas Bogendoerfer <tsbogend@alpha.franken.de>, linux-parisc@vger.kernel.org,
+ netdev@vger.kernel.org, Seung-Woo Kim <sw0312.kim@samsung.com>,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ Kyungmin Park <kyungmin.park@samsung.com>, Robin Murphy <robin.murphy@arm.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -97,43 +92,23 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Fri, Aug 21, 2020 at 10:25 AM Kuninori Morimoto
-<kuninori.morimoto.gx@renesas.com> wrote:
->
->
-> Hi Daniel
->
-> Thank you for your feedback
->
-> > > Because of it, the connection judgement for normal vs DPCM is tricky.
-> > > I know Pierre-Louis want to use it for SOF, but something is missing,
-> > > thus, can't use (?).
-> (snip)
-> > Thanks for having a look at this. I also tried to use generic machine
-> > driver (simple-card)
-> > with SOF but I had some trouble creating desired DPCM links.
-> >
-> > Main limitation of simple-card is that there is no direct way of
-> > specifying DPCM links.
-> >
-> > I had an attempt to introduce a more flexible approach for that here:
-> > https://lkml.org/lkml/2019/10/13/123
-> >
-> > but obviously we can do better than that.
-> >
-> > For now, I'm using only normal links with simple-audio card and it
-> > works fine for
-> > me with SOF, but in the future I think we might need to expand that.
->
-> OK, the issue is also normal vs DPCM judgement.
-> Maybe having "dsp" can solve it, same as audio-graph-card ?
-> I'm not sure we need to update simple-audio, too > Mark ?
+On Thu, Aug 20, 2020 at 12:24:31PM +0200, Tomasz Figa wrote:
+> > Of course this still uses the scatterlist structure with its annoying
+> > mix of input and output parametes, so I'd rather not expose it as
+> > an official API at the DMA layer.
+> 
+> The problem with the above open coded approach is that it requires
+> explicit handling of the non-IOMMU and IOMMU cases and this is exactly
+> what we don't want to have in vb2 and what was actually the job of the
+> DMA API to hide. Is the plan to actually move the IOMMU handling out
+> of the DMA API?
+> 
+> Do you think we could instead turn it into a dma_alloc_noncoherent()
+> helper, which has similar semantics as dma_alloc_attrs() and handles
+> the various corner cases (e.g. invalidate_kernel_vmap_range and
+> flush_kernel_vmap_range) to achieve the desired functionality without
+> delegating the "hell", as you called it, to the users?
 
-Yes, the condition choosing normal vs dpcm is fairly similar
-for simple-card and audio-graph-card:
-
-if (dpcm_selectable &&
-    ((of_get_child_count(codec_port) > 1) ||
-     adata.convert_rate || adata.convert_channels)
-
-Can you expand a little bit more about what having 'DSP' means?
+Yes, I guess I could do something in that direction.  At least for
+dma-iommu, which thanks to Robin should be all you'll need in the
+foreseeable future.

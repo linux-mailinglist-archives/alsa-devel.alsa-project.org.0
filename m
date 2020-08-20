@@ -2,77 +2,78 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6AA7A24C27C
-	for <lists+alsa-devel@lfdr.de>; Thu, 20 Aug 2020 17:47:56 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B28C224C3CB
+	for <lists+alsa-devel@lfdr.de>; Thu, 20 Aug 2020 18:55:59 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 080C41685;
-	Thu, 20 Aug 2020 17:47:06 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 080C41685
+	by alsa0.perex.cz (Postfix) with ESMTPS id 205FA1685;
+	Thu, 20 Aug 2020 18:55:09 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 205FA1685
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1597938476;
-	bh=oDCFAIhrgKgSJ63FISertzBLamCZVj9KnKRiDSb/Smc=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=LYRIKqwY8fXLJDqykdgRj6reHalmuhlLhyJpkmxb+3wReEu95JF10bikFlVXFROQi
-	 tMske20D0Os23kJsKcT4ikNB0pwV8y8zJk6f6eD3Fs+70DZw+b4eWAts36rFNpbEAD
-	 D0udSqQYgKst48lkn/s6qE+vyrZGrVP4B/D7qeys=
+	s=default; t=1597942559;
+	bh=uB0apwHv9T5HiWNK9tDHEPMWPIv8tim1IIW9Ghw3QTI=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=gwhfeHBfihgtTvyn8PVLhznXFsVJbX4ZcLTUwEtfzrbQrmY40sRcFH6hyC4e9KoXC
+	 +E3ML0op1zybmm2a5EZ8oz6W7TH6Yvv6y+z0cIwv9s0QJt5rm8a4zX1WTiTbKTkDh+
+	 sxhHAFnB+bnc0yaPPXe7N+iukGIAXry6s5Jon6UI=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 19C5AF8023F;
-	Thu, 20 Aug 2020 17:46:15 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 44C29F8023F;
+	Thu, 20 Aug 2020 18:54:18 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 0C759F80228; Thu, 20 Aug 2020 17:46:09 +0200 (CEST)
+ id 192A3F80228; Thu, 20 Aug 2020 18:54:16 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,RCVD_IN_MSPIKE_H4,RCVD_IN_MSPIKE_WL,SPF_HELO_PASS,SPF_NONE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mo4-p01-ob.smtp.rzone.de (mo4-p01-ob.smtp.rzone.de
- [81.169.146.167])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE
+ autolearn=disabled version=3.4.0
+Received: from verein.lst.de (verein.lst.de [213.95.11.211])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id D1FC3F80114
- for <alsa-devel@alsa-project.org>; Thu, 20 Aug 2020 17:45:55 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D1FC3F80114
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=gerhold.net header.i=@gerhold.net
- header.b="dyMIlJXo"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1597938355;
- s=strato-dkim-0002; d=gerhold.net;
- h=Message-Id:Date:Subject:Cc:To:From:X-RZG-CLASS-ID:X-RZG-AUTH:From:
- Subject:Sender;
- bh=DweA/cq0/iloaXFFVeVyBdCPYwKcL/boO0u1r/q5j8o=;
- b=dyMIlJXoV8g+PAhEFiYGezGo993Wasr75ToJnNDT8ZOTpRuOWd+tCaD7YCY4jNn7vg
- UvPlLMqtURW6UXBhDnL1E+45YOTj6XNkR8zVxG+q+hkodnf1K/g2z+bTAMHY1M4h6ofZ
- KpZ72h2slFTHw1Nv3bacVowpkPh+0oEskntBqXxZV1VS5Ai9ypCiIgGe1s/CiHv2kEcP
- Gjj7pV165bRNusYJlyU/c8wpYn26OsjZ9+QrhHhoL20GV3+xdsPnrx+xnMye9rpGQCfF
- XEUDWL57yeHuS1sJR0+fvm8BGwP7vJofZpKRpjPw9WZ2hrbrI5ViBLwfPKk946/kF+7/
- cbRQ==
-X-RZG-AUTH: ":P3gBZUipdd93FF5ZZvYFPugejmSTVR2nRPhVORvLd4SsytBXS7IYBkLahKxB5m6ONqVX"
-X-RZG-CLASS-ID: mo00
-Received: from localhost.localdomain
- by smtp.strato.de (RZmta 46.10.7 DYNA|AUTH)
- with ESMTPSA id g0b6c1w7KFjsFVP
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256 bits))
- (Client did not present a certificate);
- Thu, 20 Aug 2020 17:45:54 +0200 (CEST)
-From: Stephan Gerhold <stephan@gerhold.net>
-To: Mark Brown <broonie@kernel.org>
-Subject: [PATCH] ASoC: qcom: Set card->owner to avoid warnings
-Date: Thu, 20 Aug 2020 17:45:11 +0200
-Message-Id: <20200820154511.203072-1-stephan@gerhold.net>
-X-Mailer: git-send-email 2.28.0
+ by alsa1.perex.cz (Postfix) with ESMTPS id 37B11F80114
+ for <alsa-devel@alsa-project.org>; Thu, 20 Aug 2020 18:54:09 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 37B11F80114
+Received: by verein.lst.de (Postfix, from userid 2407)
+ id CF00868AFE; Thu, 20 Aug 2020 18:54:07 +0200 (CEST)
+Date: Thu, 20 Aug 2020 18:54:07 +0200
+From: Christoph Hellwig <hch@lst.de>
+To: Tomasz Figa <tfiga@chromium.org>
+Subject: Re: [PATCH 05/28] media/v4l2: remove V4L2-FLAG-MEMORY-NON-CONSISTENT
+Message-ID: <20200820165407.GD12693@lst.de>
+References: <20200819065555.1802761-1-hch@lst.de>
+ <20200819065555.1802761-6-hch@lst.de>
+ <CAAFQd5COLxjydDYrfx47ht8tj-aNPiaVnC+WyQA7nvpW4gs=ww@mail.gmail.com>
+ <20200819135454.GA17098@lst.de>
+ <CAAFQd5BuXP7t3d-Rwft85j=KTyXq7y4s24mQxLr=VoY9krEGZw@mail.gmail.com>
+ <20200820044347.GA4533@lst.de> <20200820052004.GA5305@lst.de>
+ <CAAFQd5CFiA2WBaaPQ9ezvMjYZfNw37c42UEy9Pk7kJyCi1mLzQ@mail.gmail.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Cc: Kenneth Westfield <kwestfie@codeaurora.org>,
- Banajit Goswami <bgoswami@codeaurora.org>,
- Stephan Gerhold <stephan@gerhold.net>, alsa-devel@alsa-project.org,
- Patrick Lai <plai@codeaurora.org>, Liam Girdwood <lgirdwood@gmail.com>,
- Rohit kumar <rohitkr@codeaurora.org>,
- Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <CAAFQd5CFiA2WBaaPQ9ezvMjYZfNw37c42UEy9Pk7kJyCi1mLzQ@mail.gmail.com>
+User-Agent: Mutt/1.5.17 (2007-11-01)
+Cc: alsa-devel@alsa-project.org, linux-ia64@vger.kernel.org,
+ Linux Doc Mailing List <linux-doc@vger.kernel.org>,
+ nouveau@lists.freedesktop.org, linux-nvme@lists.infradead.org,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ "James E.J. Bottomley" <James.Bottomley@hansenpartnership.com>,
+ linux-mm@kvack.org, Christoph Hellwig <hch@lst.de>,
+ linux-samsung-soc <linux-samsung-soc@vger.kernel.org>,
+ Joonyoung Shim <jy0922.shim@samsung.com>, linux-scsi@vger.kernel.org,
+ "list@263.net:IOMMU DRIVERS <iommu@lists.linux-foundation.org>,
+ Joerg Roedel <joro@8bytes.org>, " <iommu@lists.linux-foundation.org>,
+ Ben Skeggs <bskeggs@redhat.com>, Matt Porter <mporter@kernel.crashing.org>,
+ Linux Media Mailing List <linux-media@vger.kernel.org>,
+ Tom Lendacky <thomas.lendacky@amd.com>, Pawel Osciak <pawel@osciak.com>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>,
+ "list@263.net:IOMMU DRIVERS <iommu@lists.linux-foundation.org>,
+ Joerg Roedel <joro@8bytes.org>, " <linux-arm-kernel@lists.infradead.org>,
+ Thomas Bogendoerfer <tsbogend@alpha.franken.de>, linux-parisc@vger.kernel.org,
+ netdev@vger.kernel.org, Seung-Woo Kim <sw0312.kim@samsung.com>,
+ linux-mips@vger.kernel.org, Kyungmin Park <kyungmin.park@samsung.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -88,87 +89,21 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Linux 5.9-rc1 I get the following warning with apq8016-sbc:
+On Thu, Aug 20, 2020 at 12:05:29PM +0200, Tomasz Figa wrote:
+> The UAPI and V4L2/videobuf2 changes are in good shape and the only
+> wrong part is the use of DMA API, which was based on an earlier email
+> guidance anyway, and a change to the synchronization part . I find
+> conclusions like the above insulting for people who put many hours
+> into designing and implementing the related functionality, given the
+> complexity of the videobuf2 framework and how ill-defined the DMA API
+> was, and would feel better if such could be avoided in future
+> communication.
 
-WARNING: CPU: 2 PID: 69 at sound/core/init.c:207 snd_card_new+0x36c/0x3b0 [snd]
-CPU: 2 PID: 69 Comm: kworker/2:1 Not tainted 5.9.0-rc1 #1
-Workqueue: events deferred_probe_work_func
-pc : snd_card_new+0x36c/0x3b0 [snd]
-lr : snd_card_new+0xf4/0x3b0 [snd]
-Call trace:
- snd_card_new+0x36c/0x3b0 [snd]
- snd_soc_bind_card+0x340/0x9a0 [snd_soc_core]
- snd_soc_register_card+0xf4/0x110 [snd_soc_core]
- devm_snd_soc_register_card+0x44/0xa0 [snd_soc_core]
- apq8016_sbc_platform_probe+0x11c/0x140 [snd_soc_apq8016_sbc]
+It wasn't meant to be too insulting, but I found this out when trying
+to figure out how to just disable it.  But it also ends up using
+the actual dma attr flags for it's own consistency checks, so just
+not setting the flag did not turn out to work that easily.
 
-This warning was introduced in
-commit 81033c6b584b ("ALSA: core: Warn on empty module").
-It looks like we are supposed to set card->owner to THIS_MODULE.
-
-Fix this for all the qcom ASoC drivers.
-
-Cc: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
-Fixes: 79119c798649 ("ASoC: qcom: Add Storm machine driver")
-Fixes: bdb052e81f62 ("ASoC: qcom: add apq8016 sound card support")
-Fixes: a6f933f63f2f ("ASoC: qcom: apq8096: Add db820c machine driver")
-Fixes: 6b1687bf76ef ("ASoC: qcom: add sdm845 sound card support")
-Signed-off-by: Stephan Gerhold <stephan@gerhold.net>
----
- sound/soc/qcom/apq8016_sbc.c | 1 +
- sound/soc/qcom/apq8096.c     | 1 +
- sound/soc/qcom/sdm845.c      | 1 +
- sound/soc/qcom/storm.c       | 1 +
- 4 files changed, 4 insertions(+)
-
-diff --git a/sound/soc/qcom/apq8016_sbc.c b/sound/soc/qcom/apq8016_sbc.c
-index 083413abc2f6..575e2aefefe3 100644
---- a/sound/soc/qcom/apq8016_sbc.c
-+++ b/sound/soc/qcom/apq8016_sbc.c
-@@ -143,6 +143,7 @@ static int apq8016_sbc_platform_probe(struct platform_device *pdev)
- 
- 	card = &data->card;
- 	card->dev = dev;
-+	card->owner = THIS_MODULE;
- 	card->dapm_widgets = apq8016_sbc_dapm_widgets;
- 	card->num_dapm_widgets = ARRAY_SIZE(apq8016_sbc_dapm_widgets);
- 
-diff --git a/sound/soc/qcom/apq8096.c b/sound/soc/qcom/apq8096.c
-index 253549600c5a..1a69baefc5ce 100644
---- a/sound/soc/qcom/apq8096.c
-+++ b/sound/soc/qcom/apq8096.c
-@@ -114,6 +114,7 @@ static int apq8096_platform_probe(struct platform_device *pdev)
- 		return -ENOMEM;
- 
- 	card->dev = dev;
-+	card->owner = THIS_MODULE;
- 	dev_set_drvdata(dev, card);
- 	ret = qcom_snd_parse_of(card);
- 	if (ret)
-diff --git a/sound/soc/qcom/sdm845.c b/sound/soc/qcom/sdm845.c
-index 0d10fba53945..ab1bf23c21a6 100644
---- a/sound/soc/qcom/sdm845.c
-+++ b/sound/soc/qcom/sdm845.c
-@@ -555,6 +555,7 @@ static int sdm845_snd_platform_probe(struct platform_device *pdev)
- 	card->dapm_widgets = sdm845_snd_widgets;
- 	card->num_dapm_widgets = ARRAY_SIZE(sdm845_snd_widgets);
- 	card->dev = dev;
-+	card->owner = THIS_MODULE;
- 	dev_set_drvdata(dev, card);
- 	ret = qcom_snd_parse_of(card);
- 	if (ret)
-diff --git a/sound/soc/qcom/storm.c b/sound/soc/qcom/storm.c
-index c0c388d4db82..80c9cf2f254a 100644
---- a/sound/soc/qcom/storm.c
-+++ b/sound/soc/qcom/storm.c
-@@ -96,6 +96,7 @@ static int storm_platform_probe(struct platform_device *pdev)
- 		return -ENOMEM;
- 
- 	card->dev = &pdev->dev;
-+	card->owner = THIS_MODULE;
- 
- 	ret = snd_soc_of_parse_card_name(card, "qcom,model");
- 	if (ret) {
--- 
-2.28.0
-
+But in general it helps to add a few more people to the Cc list for
+such things that do stranger things.  Especially if you think you did
+it based on the advice of those people.

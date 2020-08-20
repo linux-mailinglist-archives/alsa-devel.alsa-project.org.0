@@ -2,112 +2,83 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8AA0024D017
-	for <lists+alsa-devel@lfdr.de>; Fri, 21 Aug 2020 09:57:03 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4579524D031
+	for <lists+alsa-devel@lfdr.de>; Fri, 21 Aug 2020 10:00:20 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 2126D1676;
-	Fri, 21 Aug 2020 09:56:13 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2126D1676
+	by alsa0.perex.cz (Postfix) with ESMTPS id D90A116B8;
+	Fri, 21 Aug 2020 09:59:29 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D90A116B8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1597996623;
-	bh=nsNGQJZxzCJX90d0zifGxofIrP5Uj65BXC5524x/10c=;
+	s=default; t=1597996819;
+	bh=5n8Ej9Jyx+ak/RB4zixbPt/7g+d6y/3VfoEVH/79BoE=;
 	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=NJUx7JgvazZInWdpxIMyJ6QgwFRH7huKMTArxurbu9hnh0z6jzogUndnPEUu4lcFZ
-	 fVDI9NokYHuumq4MIXHqboEgyF2Dda86CJyJuFp20G6SXYaXQ6ttg7rHcooamQu6rP
-	 ORzd3cbD4B0TGxhEpBJ3f/qqnr43KMt1S1blCXB0=
+	b=DvVXZXQohpqX8B53h1mTVsHDLGKVMg069CLPIaqtd8SoEVnM+NHbohpJ642kW27o1
+	 z+/hJl1wBUr4bYos6IY+9n7EmXwP3YAGGcQ3cDFIepNijzA9vRaWfrA0OEGDY+zqVU
+	 sBVA8/eUlrRd9FvTuDarFw2dl2YVgg45QS8c5dk0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id DD0F5F80315;
-	Fri, 21 Aug 2020 09:36:48 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 7E682F804B3;
+	Fri, 21 Aug 2020 09:37:04 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id F1BA2F80228; Thu, 20 Aug 2020 17:59:29 +0200 (CEST)
+ id A2FE1F80228; Thu, 20 Aug 2020 18:51:21 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.5 required=5.0 tests=FREEMAIL_FORGED_FROMDOMAIN,
- FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,RCVD_IN_MSPIKE_H2,SPF_HELO_NONE,
- SPF_PASS autolearn=disabled version=3.4.0
-Received: from mail-wr1-f67.google.com (mail-wr1-f67.google.com
- [209.85.221.67])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=0.2 required=5.0 tests=PRX_BODY_167,SPF_HELO_NONE,
+ SPF_NONE autolearn=disabled version=3.4.0
+Received: from verein.lst.de (verein.lst.de [213.95.11.211])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id ACCBEF80114
- for <alsa-devel@alsa-project.org>; Thu, 20 Aug 2020 17:59:19 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz ACCBEF80114
-Received: by mail-wr1-f67.google.com with SMTP id y3so2524223wrl.4
- for <alsa-devel@alsa-project.org>; Thu, 20 Aug 2020 08:59:19 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to:user-agent;
- bh=AICl07wj2rdeLbaUuIr48jZgNAhD7HLePnLKN8bK9F8=;
- b=U+8GXSxm2xZqIHW8lYQBln3CScuqFITVZOPZi77tGJp03wrQQI80l00YViX5R3nRzT
- RAu+W+5Iiceau5c+yEpwzCBitBP2onNv1juzq5MxQzJJhrJGNo2f51E5F6C2FMQA9wHB
- OoI548hctOxE9IfSZHwBvjgr0yoFTAdH+WwSJ5nZooibJkgXXTOCdlRRZw2esom3r/0w
- 4ozfyrbQD66EaImeKb/4hmbom8ItIOEg1712RY2plsu0sJ+ZhSpYEmOXArmFtg0wC47G
- bOHPfUq9UpPie8jRHkJr6G8CV6zvUuiwXTTP4x+otEMnjY6+VbImCFjmO5eKg+jtZ44n
- wkgA==
-X-Gm-Message-State: AOAM533hwlHNZsP06r5WYxETN10QIGH1JUbBgs61gMO21glYxUjQWE3T
- xBf22fbt1R+q9ejDM9L6GJc=
-X-Google-Smtp-Source: ABdhPJywyymogpnt/oOUmaLTWNdzju8F9YvcCdpX66tCuBP6i1vn7QobEV9VEvGit4tTroGXYziTeA==
-X-Received: by 2002:adf:b353:: with SMTP id k19mr3772990wrd.159.1597939158768; 
- Thu, 20 Aug 2020 08:59:18 -0700 (PDT)
-Received: from kozik-lap ([194.230.155.216])
- by smtp.googlemail.com with ESMTPSA id l11sm4693828wme.11.2020.08.20.08.59.15
- (version=TLS1_2 cipher=ECDHE-ECDSA-CHACHA20-POLY1305 bits=256/256);
- Thu, 20 Aug 2020 08:59:18 -0700 (PDT)
-Date: Thu, 20 Aug 2020 17:59:13 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Kukjin Kim <kgene@kernel.org>,
- Bartlomiej Zolnierkiewicz <b.zolnierkie@samsung.com>,
- Daniel Lezcano <daniel.lezcano@linaro.org>,
- Simtec Linux Team <linux@simtec.co.uk>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@st.com>,
- Kyungmin Park <kyungmin.park@samsung.com>,
- Sylwester Nawrocki <s.nawrocki@samsung.com>,
- Tomasz Figa <tomasz.figa@gmail.com>, Chanwoo Choi <cw00.choi@samsung.com>,
- Michael Turquette <mturquette@baylibre.com>,
- Stephen Boyd <sboyd@kernel.org>, "Rafael J. Wysocki" <rjw@rjwysocki.net>,
- Viresh Kumar <viresh.kumar@linaro.org>, Jean Delvare <jdelvare@suse.com>,
- Guenter Roeck <linux@roeck-us.net>,
- Dmitry Torokhov <dmitry.torokhov@gmail.com>,
- Thomas Gleixner <tglx@linutronix.de>,
- Jason Cooper <jason@lakedaemon.net>, Marc Zyngier <maz@kernel.org>,
- Ulf Hansson <ulf.hansson@linaro.org>,
- Ben Dooks <ben-linux@fluff.org>, Sebastian Reichel <sre@kernel.org>,
- Thierry Reding <thierry.reding@gmail.com>,
- Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <u.kleine-koenig@pengutronix.de>,
- Lee Jones <lee.jones@linaro.org>, Mark Brown <broonie@kernel.org>,
- Andi Shyti <andi@etezian.org>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Jiri Slaby <jirislaby@kernel.org>, Felipe Balbi <balbi@kernel.org>,
- Sangbeom Kim <sbkim73@samsung.com>, Liam Girdwood <lgirdwood@gmail.com>,
- Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-samsung-soc@vger.kernel.org, linux-pm@vger.kernel.org,
- patches@opensource.cirrus.com,
- linux-stm32@st-md-mailman.stormreply.com, linux-clk@vger.kernel.org,
- linux-hwmon@vger.kernel.org, linux-input@vger.kernel.org,
- linux-mmc@vger.kernel.org, linux-pwm@vger.kernel.org,
- linux-spi@vger.kernel.org, linux-serial@vger.kernel.org,
- linux-usb@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linux-fbdev@vger.kernel.org, alsa-devel@alsa-project.org
-Subject: Re: [PATCH v2 00/41] spi / fbdev / cpufreq / usb / mmc / hwmon /
- ARM: Prepare for multiplatform S3C
-Message-ID: <20200820155913.GA21395@kozik-lap>
-References: <20200806181932.2253-1-krzk@kernel.org>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 9A579F800D3
+ for <alsa-devel@alsa-project.org>; Thu, 20 Aug 2020 18:51:14 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9A579F800D3
+Received: by verein.lst.de (Postfix, from userid 2407)
+ id 01D2C68AFE; Thu, 20 Aug 2020 18:51:13 +0200 (CEST)
+Date: Thu, 20 Aug 2020 18:51:12 +0200
+From: Christoph Hellwig <hch@lst.de>
+To: Tomasz Figa <tfiga@chromium.org>
+Subject: Re: [PATCH 05/28] media/v4l2: remove V4L2-FLAG-MEMORY-NON-CONSISTENT
+Message-ID: <20200820165112.GB12693@lst.de>
+References: <20200819065555.1802761-1-hch@lst.de>
+ <20200819065555.1802761-6-hch@lst.de>
+ <CAAFQd5COLxjydDYrfx47ht8tj-aNPiaVnC+WyQA7nvpW4gs=ww@mail.gmail.com>
+ <62e4f4fc-c8a5-3ee8-c576-fe7178cb4356@arm.com>
+ <CAAFQd5AcCTDguB2C9KyDiutXWoEvBL8tL7+a==Uo8vj_8CLOJw@mail.gmail.com>
+ <20200819135738.GB17098@lst.de>
+ <CAAFQd5BvpzJTycFvjntmX9W_d879hHFX+rJ8W9EK6+6cqFaVMA@mail.gmail.com>
+ <20200820044533.GA4570@lst.de>
+ <CAAFQd5CEsC2h-oEdZOPTkUQ4WfFL0yyYu9dE5UscEVpLyMLrCg@mail.gmail.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20200806181932.2253-1-krzk@kernel.org>
-User-Agent: Mutt/1.9.4 (2018-02-28)
-X-Mailman-Approved-At: Fri, 21 Aug 2020 09:36:14 +0200
-Cc: Russell King <linux@armlinux.org.uk>, Arnd Bergmann <arnd@arndb.de>
+In-Reply-To: <CAAFQd5CEsC2h-oEdZOPTkUQ4WfFL0yyYu9dE5UscEVpLyMLrCg@mail.gmail.com>
+User-Agent: Mutt/1.5.17 (2007-11-01)
+X-Mailman-Approved-At: Fri, 21 Aug 2020 09:36:15 +0200
+Cc: alsa-devel@alsa-project.org, linux-ia64@vger.kernel.org,
+ Linux Doc Mailing List <linux-doc@vger.kernel.org>,
+ nouveau@lists.freedesktop.org, linux-nvme@lists.infradead.org,
+ linux-mips@vger.kernel.org,
+ "James E.J. Bottomley" <James.Bottomley@hansenpartnership.com>,
+ linux-mm@kvack.org, Christoph Hellwig <hch@lst.de>,
+ Marek Szyprowski <m.szyprowski@samsung.com>,
+ linux-samsung-soc <linux-samsung-soc@vger.kernel.org>,
+ Joonyoung Shim <jy0922.shim@samsung.com>, linux-scsi@vger.kernel.org,
+ Joerg Roedel <joro@8bytes.org>,
+ "list@263.net:IOMMU DRIVERS" <iommu@lists.linux-foundation.org>,
+ Ben Skeggs <bskeggs@redhat.com>, Matt Porter <mporter@kernel.crashing.org>,
+ Linux Media Mailing List <linux-media@vger.kernel.org>,
+ Tom Lendacky <thomas.lendacky@amd.com>, Pawel Osciak <pawel@osciak.com>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>,
+ "list@263.net:IOMMU DRIVERS <iommu@lists.linux-foundation.org>,
+ Joerg Roedel <joro@8bytes.org>, " <linux-arm-kernel@lists.infradead.org>,
+ Thomas Bogendoerfer <tsbogend@alpha.franken.de>, linux-parisc@vger.kernel.org,
+ netdev@vger.kernel.org, Seung-Woo Kim <sw0312.kim@samsung.com>,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ Kyungmin Park <kyungmin.park@samsung.com>, Robin Murphy <robin.murphy@arm.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -123,34 +94,14 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Thu, Aug 06, 2020 at 08:19:32PM +0200, Krzysztof Kozlowski wrote:
-> Hi All,
+On Thu, Aug 20, 2020 at 12:09:34PM +0200, Tomasz Figa wrote:
+> > I'm happy to Cc and active participant in the discussion.  I'm not
+> > going to add all reviewers because even with the trimmed CC list
+> > I'm already hitting the number of receipients limit on various lists.
 > 
-> Shortly
-> =======
-> This is a continuation of Arnd's work from 2019 [1].  The goal is to
-> cleanup, merge and finally make the Samsung S3C24xx and S3C64xx
-> architectures multiplatform.  The multiplatform did not happen yet
-> here... just cleaning up and merging into one mach-s3c.
+> Fair enough.
 > 
-> I intend to take it through Samsung SoC tree so all Acks are welcomed.
-> 
-> Changes since v1
-> ================
-> 1. Rebased,
-> 2. Addressed comments (including mine),
-> 3. Few new patches.
-> 
-> Please see individual changelogs (per patch).
-> 
-> [1] https://patchwork.kernel.org/project/linux-samsung-soc/list/?series=185855&state=*
->
+> We'll make your job easier and just turn my MAINTAINERS entry into a
+> maintainer. :)
 
-Hi All,
-
-I applied second part of the set which finishes this step of S3C
-cleanup. Thanks to Arnd for the work!
-
-Best regards,
-Krzysztof
-
+Sounds like a plan.

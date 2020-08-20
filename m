@@ -2,76 +2,81 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id F130324B177
-	for <lists+alsa-devel@lfdr.de>; Thu, 20 Aug 2020 10:55:36 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6508B24B1C1
+	for <lists+alsa-devel@lfdr.de>; Thu, 20 Aug 2020 11:11:36 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 98785168C;
-	Thu, 20 Aug 2020 10:54:46 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 98785168C
+	by alsa0.perex.cz (Postfix) with ESMTPS id 9D8F01683;
+	Thu, 20 Aug 2020 11:10:45 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9D8F01683
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1597913736;
-	bh=j8a9SVlwQsp8owy5SXHZ0yPh88UDv3/JzrMYfl377bU=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1597914695;
+	bh=9grOJwwW+smmWhXPKrco5JwncCzYMCLalLQO1ZYLmAk=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=FHxodjKZEblAMv7FzWVyv3Qb725PZYG0kFDYlXS3Up0uxXL0ELSz9Dpbu23kw3Fj8
-	 CpYKyW36s9t0QciY+U7voJM/ohqq6g4e/eaDElI/IyKPJXhXJcwPf/Lnwq1Pi1nGdV
-	 xYESC3gjwfSbVHm9JbB0d3lWhoK0MkNgA6Y0cAKE=
+	b=RCMTkc8IOIGdn8a6S1YRJcOTJDyROwUKX/ygqaf6Yt24l99YoH7a0higpUr3sK9QE
+	 yeYHYeqfuOZmGbUaUguAcuS4ccu/PP55hVjAxsWApXwojKKLiGOcyJlPzjisra39zP
+	 7LvA8AmT9WJZCFXSU0T8qgwBtn17unZbQ1ouBgE4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 64A8AF8029A;
-	Thu, 20 Aug 2020 10:53:13 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 8B4DAF8023F;
+	Thu, 20 Aug 2020 11:09:54 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 8ADFCF8023F; Thu, 20 Aug 2020 10:53:08 +0200 (CEST)
+ id 031CCF80228; Thu, 20 Aug 2020 11:09:53 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,MIME_BASE64_TEXT,RDNS_NONE,SPF_HELO_NONE,SPF_PASS,
- UNPARSEABLE_RELAY,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mailgw02.mediatek.com (unknown [210.61.82.184])
- by alsa1.perex.cz (Postfix) with ESMTP id AD719F800D3
- for <alsa-devel@alsa-project.org>; Thu, 20 Aug 2020 10:52:56 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz AD719F800D3
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=mediatek.com header.i=@mediatek.com
- header.b="Hb4rp7h/"
-X-UUID: dc3d8367abaf43aaab8be3bd47665bd5-20200820
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=mediatek.com;
- s=dk; 
- h=Content-Transfer-Encoding:Content-Type:MIME-Version:References:In-Reply-To:Message-ID:Date:Subject:CC:To:From;
- bh=j8a9SVlwQsp8owy5SXHZ0yPh88UDv3/JzrMYfl377bU=; 
- b=Hb4rp7h/vaVZO7ISl2iGdF8kYsR2JY82xan4aQCOp/99fOCGO5u4AzXJjkRp5oC71wRyppf8KmtOH65FsoVO8iEnVTilFMpsWS5UxlJlI6NNDUUBbyV1wdEIzXboa8ftbo2xbu+V1LKbFUceCNKSpPjEeQAzVCfyG4s+yYTNT7Y=;
-X-UUID: dc3d8367abaf43aaab8be3bd47665bd5-20200820
-Received: from mtkcas06.mediatek.inc [(172.21.101.30)] by mailgw02.mediatek.com
- (envelope-from <jiaxin.yu@mediatek.com>)
- (Cellopoint E-mail Firewall v4.1.10 Build 0809 with TLS)
- with ESMTP id 1651412918; Thu, 20 Aug 2020 16:52:47 +0800
-Received: from mtkcas08.mediatek.inc (172.21.101.126) by
- mtkmbs05n1.mediatek.inc (172.21.101.15) with Microsoft SMTP Server (TLS) id
- 15.0.1497.2; Thu, 20 Aug 2020 16:52:46 +0800
-Received: from localhost.localdomain (10.17.3.153) by mtkcas08.mediatek.inc
- (172.21.101.73) with Microsoft SMTP Server id 15.0.1497.2 via Frontend
- Transport; Thu, 20 Aug 2020 16:52:45 +0800
-From: Jiaxin Yu <jiaxin.yu@mediatek.com>
-To: <broonie@kernel.org>, <matthias.bgg@gmail.com>, <robh+dt@kernel.org>,
- <tiwai@suse.com>, <linux-kernel@vger.kernel.org>
-Subject: [PATCH v6 2/2] dt-bindings: mediatek: mt6359: add codec document
-Date: Thu, 20 Aug 2020 16:51:33 +0800
-Message-ID: <1597913493-10747-3-git-send-email-jiaxin.yu@mediatek.com>
-X-Mailer: git-send-email 1.8.1.1.dirty
-In-Reply-To: <1597913493-10747-1-git-send-email-jiaxin.yu@mediatek.com>
-References: <1597913493-10747-1-git-send-email-jiaxin.yu@mediatek.com>
+X-Spam-Status: No, score=-0.0 required=5.0 tests=SPF_HELO_PASS,SPF_PASS
+ autolearn=disabled version=3.4.0
+Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 8A510F800D3
+ for <alsa-devel@alsa-project.org>; Thu, 20 Aug 2020 11:09:47 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8A510F800D3
+IronPort-SDR: 7XLn981Ajwao+mWnBFYgCwXSym5wiR1nuOFKzUp0VD0PKxZnQYY9is3u0kz284n/daUGwvKBMc
+ C+BXjq6j8huQ==
+X-IronPort-AV: E=McAfee;i="6000,8403,9718"; a="134789646"
+X-IronPort-AV: E=Sophos;i="5.76,332,1592895600"; d="scan'208";a="134789646"
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from orsmga008.jf.intel.com ([10.7.209.65])
+ by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 20 Aug 2020 02:09:44 -0700
+IronPort-SDR: psTo1wmXOs2DKVI2uw3zkBjnDaN4OhGcO6ZTW8iptgHUgFZZsmanfUSkYBfphPke74ku8eLHW3
+ Zh8t3TshfBog==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.76,332,1592895600"; d="scan'208";a="327359802"
+Received: from smile.fi.intel.com (HELO smile) ([10.237.68.40])
+ by orsmga008.jf.intel.com with ESMTP; 20 Aug 2020 02:09:40 -0700
+Received: from andy by smile with local (Exim 4.94)
+ (envelope-from <andriy.shevchenko@intel.com>)
+ id 1k8gRL-00A4fP-I8; Thu, 20 Aug 2020 12:00:55 +0300
+Date: Thu, 20 Aug 2020 12:00:55 +0300
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Cezary Rojewski <cezary.rojewski@intel.com>
+Subject: Re: [PATCH v4 02/13] ASoC: Intel: catpt: Define DSP operations
+Message-ID: <20200820090055.GT1891694@smile.fi.intel.com>
+References: <20200812205753.29115-1-cezary.rojewski@intel.com>
+ <20200812205753.29115-3-cezary.rojewski@intel.com>
+ <20200813185129.GB1891694@smile.fi.intel.com>
+ <946fdd80-c89d-ee1b-6eef-e752318b55a6@intel.com>
+ <237f2343-fd57-8ebf-b8f2-8c2cf5c3c745@intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain
-X-MTK: N
-Content-Transfer-Encoding: base64
-Cc: alsa-devel@alsa-project.org, shane.chien@mediatek.com,
- howie.huang@mediatek.com, bicycle.tasi@mediatek.com, tzungbi@google.com,
- linux-mediatek@lists.infradead.org, Jiaxin Yu <jiaxin.yu@mediatek.com>,
- eason.yen@mediatek.com, linux-arm-kernel@lists.infradead.org
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <237f2343-fd57-8ebf-b8f2-8c2cf5c3c745@intel.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
+Cc: pierre-louis.bossart@linux.intel.com, alsa-devel@alsa-project.org,
+ filip.kaczmarski@intel.com, harshapriya.n@intel.com, marcin.barlik@intel.com,
+ zwisler@google.com, lgirdwood@gmail.com, tiwai@suse.com,
+ filip.proborszcz@intel.com, broonie@kernel.org,
+ amadeuszx.slawinski@linux.intel.com, michal.wasko@intel.com,
+ cujomalainey@chromium.org, krzysztof.hejmowski@intel.com,
+ ppapierkowski@habana.ai, vamshi.krishna.gopal@intel.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -87,48 +92,86 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-VGhpcyBwYXRjaCBhZGRzIE1lZGlhVGVrIE1UNjM1OSBjb2RlYyBkb2N1bWVudC4NCg0KU2lnbmVk
-LW9mZi1ieTogSmlheGluIFl1IDxqaWF4aW4ueXVAbWVkaWF0ZWsuY29tPg0KLS0tDQogLi4uL2Rl
-dmljZXRyZWUvYmluZGluZ3Mvc291bmQvbXQ2MzU5LnlhbWwgICAgIHwgNjEgKysrKysrKysrKysr
-KysrKysrKw0KIDEgZmlsZSBjaGFuZ2VkLCA2MSBpbnNlcnRpb25zKCspDQogY3JlYXRlIG1vZGUg
-MTAwNjQ0IERvY3VtZW50YXRpb24vZGV2aWNldHJlZS9iaW5kaW5ncy9zb3VuZC9tdDYzNTkueWFt
-bA0KDQpkaWZmIC0tZ2l0IGEvRG9jdW1lbnRhdGlvbi9kZXZpY2V0cmVlL2JpbmRpbmdzL3NvdW5k
-L210NjM1OS55YW1sIGIvRG9jdW1lbnRhdGlvbi9kZXZpY2V0cmVlL2JpbmRpbmdzL3NvdW5kL210
-NjM1OS55YW1sDQpuZXcgZmlsZSBtb2RlIDEwMDY0NA0KaW5kZXggMDAwMDAwMDAwMDAwMC4uYTU0
-ZjQ2NmY3NjlkNA0KLS0tIC9kZXYvbnVsbA0KKysrIGIvRG9jdW1lbnRhdGlvbi9kZXZpY2V0cmVl
-L2JpbmRpbmdzL3NvdW5kL210NjM1OS55YW1sDQpAQCAtMCwwICsxLDYxIEBADQorIyBTUERYLUxp
-Y2Vuc2UtSWRlbnRpZmllcjogR1BMLTIuMA0KKyVZQU1MIDEuMg0KKy0tLQ0KKyRpZDogaHR0cDov
-L2RldmljZXRyZWUub3JnL3NjaGVtYXMvc291bmQvbXQ2MzU5LnlhbWwjDQorJHNjaGVtYTogaHR0
-cDovL2RldmljZXRyZWUub3JnL21ldGEtc2NoZW1hcy9jb3JlLnlhbWwjDQorDQordGl0bGU6IE1l
-ZGlhdGVrIE1UNjM1OSBDb2RlYyBEZXZpY2UgVHJlZSBCaW5kaW5ncw0KKw0KK21haW50YWluZXJz
-Og0KKyAgLSBFYXNvbiBZZW4gPGVhc29uLnllbkBtZWRpYXRlay5jb20+DQorICAtIEppYXhpbiBZ
-dSA8amlheGluLnl1QG1lZGlhdGVrLmNvbT4NCisgIC0gU2hhbmUgQ2hpZW4gPHNoYW5lLmNoaWVu
-QG1lZGlhdGVrLmNvbT4NCisNCitkZXNjcmlwdGlvbjogfA0KKyAgVGhlIGNvbW11bmljYXRpb24g
-YmV0d2VlbiBNVDYzNTkgYW5kIFNvQyBpcyB0aHJvdWdoIE1lZGlhdGVrIFBNSUMgd3JhcHBlci4N
-CisgIEZvciBtb3JlIGRldGFpbCwgcGxlYXNlIHZpc2l0IE1lZGlhdGVrIFBNSUMgd3JhcHBlciBk
-b2N1bWVudGF0aW9uLg0KKyAgTXVzdCBiZSBhIGNoaWxkIG5vZGUgb2YgUE1JQyB3cmFwcGVyLg0K
-Kw0KK3Byb3BlcnRpZXM6DQorICBtZWRpYXRlayxkbWljLW1vZGU6DQorICAgICRyZWY6IC9zY2hl
-bWFzL3R5cGVzLnlhbWwjL2RlZmluaXRpb25zL3VpbnQzMg0KKyAgICBkZXNjcmlwdGlvbjogfA0K
-KyAgICAgIEluZGljYXRlcyBob3cgbWFueSBkYXRhIHBpbnMgYXJlIHVzZWQgdG8gdHJhbnNtaXQg
-dHdvIGNoYW5uZWxzIG9mIFBETQ0KKyAgICAgIHNpZ25hbC4gMCBtZWFucyB0d28gd2lyZXMsIDEg
-bWVhbnMgb25lIHdpcmUuIERlZmF1bHQgdmFsdWUgaXMgMC4NCisgICAgZW51bToNCisgICAgICAt
-IDAgIyBvbmUgd2lyZQ0KKyAgICAgIC0gMSAjIHR3byB3aXJlcw0KKw0KKyAgbWVkaWF0ZWssbWlj
-LXR5cGUtMDoNCisgICAgJHJlZjogL3NjaGVtYXMvdHlwZXMueWFtbCMvZGVmaW5pdGlvbnMvdWlu
-dDMyDQorICAgIGRlc2NyaXB0aW9uOiB8DQorICAgICAgU3BlY2lmaWVzIHRoZSB0eXBlIG9mIG1p
-YyB0eXBlIGNvbm5lY3RlZCB0byBhZGMwDQorDQorICAgIGVudW06DQorICAgICAgLSAwICMgSURM
-RSAtIG1pYyBpbiB0dXJuLW9mZiBzdGF0dXMNCisgICAgICAtIDEgIyBBQ0MgLSBhbmFsb2cgbWlj
-IHdpdGggYWx0ZXJuYXRpbmcgY291cGxpbmcNCisgICAgICAtIDIgIyBETUlDIC0gZGlnaXRhbCBt
-aWMNCisgICAgICAtIDMgIyBEQ0MgLSBhbmFsb2cgbWljIHdpdGggZGlyZWN0IGNvdXBpbmcNCisg
-ICAgICAtIDQgIyBEQ0NfRUNNX0RJRkYgLSBhbmFsb2cgZWxlY3RyZXQgY29uZGVuc2VyIG1pYyB3
-aXRoIGRpZmZlcmVudGlhbCBtb2RlDQorICAgICAgLSA1ICMgRENDX0VDTV9TSU5HTEUgLSBhbmFs
-b2cgZWxlY3RyZXQgY29uZGVuc2VyIG1pYyB3aXRoIHNpbmdsZSBtb2RlDQorDQorICBtZWRpYXRl
-ayxtaWMtdHlwZS0xOg0KKyAgICAkcmVmOiAvc2NoZW1hcy90eXBlcy55YW1sIy9kZWZpbml0aW9u
-cy91aW50MzINCisgICAgZGVzY3JpcHRpb246IHwNCisgICAgICBTcGVjaWZpZXMgdGhlIHR5cGUg
-b2YgbWljIHR5cGUgY29ubmVjdGVkIHRvIGFkYzENCisNCisgIG1lZGlhdGVrLG1pYy10eXBlLTI6
-DQorICAgICRyZWY6IC9zY2hlbWFzL3R5cGVzLnlhbWwjL2RlZmluaXRpb25zL3VpbnQzMg0KKyAg
-ICBkZXNjcmlwdGlvbjogfA0KKyAgICAgIFNwZWNpZmllcyB0aGUgdHlwZSBvZiBtaWMgdHlwZSBj
-b25uZWN0ZWQgdG8gYWRjMg0KKw0KK2FkZGl0aW9uYWxQcm9wZXJ0aWVzOiBmYWxzZQ0KKw0KK2V4
-YW1wbGVzOg0KKyAgLSB8DQorICAgIG10NjM1OWNvZGVjOiBtdDYzNTljb2RlYyB7DQorICAgICAg
-bWVkaWF0ZWssZG1pYy1tb2RlID0gPDA+Ow0KKyAgICAgIG1lZGlhdGVrLG1pYy10eXBlLTAgPSA8
-Mj47DQorICAgIH07DQorDQorLi4uDQotLSANCjIuMTguMA0K
+On Thu, Aug 20, 2020 at 09:30:13AM +0200, Cezary Rojewski wrote:
+> On 2020-08-17 1:12 PM, Cezary Rojewski wrote:
+> > On 2020-08-13 8:51 PM, Andy Shevchenko wrote:
+> > > On Wed, Aug 12, 2020 at 10:57:42PM +0200, Cezary Rojewski wrote:
+
+...
+
+> > > > +#define CATPT_DMA_MAXBURST    0x3
+> > > 
+> > > We have DMA engine definitions for that, please avoid magic numbers.
+> > 
+> > As with most of the dma stuff, based on existing:
+> > /sound/soc/intel/common/sst-firmware.c SST_DSP_DMA_MAX_BURST
+> > 
+> > Ack.
+> 
+> Actually, wasn't able to find anything _MAXBURST related in dmaengine.h.
+> _BUSWIDTH_ have their constants defined there, true, but I'm already making
+> use of these and this is dst/src_maxburst we're talking about. From what
+> I've seen in kernel sources, most usages are direct assignments:
+> xxx_maxburst = Y;
+
+Okay, and how 0x3 bytes can be a burst? Does DMA engine support this?
+
+...
+
+> > > > +    /* set D3 */
+> > > > +    catpt_updatel_pci(cdev, PMCS, CATPT_PMCS_PS, CATPT_PMCS_PS_D3HOT);
+> > > > +    udelay(50);
+> > > 
+> > > Don't we have PCI core function for this?
+> > > 
+> > > > +    /* set D0 */
+> > > > +    catpt_updatel_pci(cdev, PMCS, CATPT_PMCS_PS, 0);
+> > > > +    udelay(100);
+> > > 
+> > > Ditto.
+> > > 
+> > > > +    /* set D3 */
+> > > > +    catpt_updatel_pci(cdev, PMCS, CATPT_PMCS_PS, CATPT_PMCS_PS_D3HOT);
+> > > > +    udelay(50);
+> > > 
+> > > Ditto.
+> > > 
+> > > > +    /* set D0 */
+> > > > +    catpt_updatel_pci(cdev, PMCS, CATPT_PMCS_PS, 0);
+> > > 
+> > > Ditto.
+> > 
+> > Thanks to you now I know the correct answer: yes.
+> > Ack for all of these. Good advice Andy, again!
+> 
+> Similar situation occurred here. What we're dealing with is: instance of
+> 'struct platform_device' type, found on bus: acpi with PCI set as a parent
+> device.
+> 
+> Scope found in DSDT:
+> 	\_SB_.PCI0.ADSP
+> sysfs device path:
+> 	/sys/devices/pci0000:00/INT3438:00
+> Within the latter _no_ standard utility files will be available e.g.:
+> ability to dump PCI config space, bars and such.
+
+I see. Can you dump DSDT somewhere? We are interested in
+PSx/PRx/PSE/PSW/PSC/PRE/PRW/ON/OFF (x=0..3) methods.
+
+> I haven't found any functionality to extract "pci_companion" from a
+> platform_device. What can be made use of is: PCI_D3hot and PCI_D0 enum
+> constants, as pci_set_power_state() does not apply - expects struct pci_dev
+> *.
+> 
+> Perhaps got misled by the function naming? catpt_updatel_xxx helpers: _xxx
+> denotes specific ADSP device's mmio space. Almost all cases are covered by
+> _pci and _shim.
+
+If we really need to use these commands directly, utilize at least definitions
+from PCI core, e.g. PCI_D0, PCI_D3hot, PCI_PM_CTRL.
+
+-- 
+With Best Regards,
+Andy Shevchenko
+
 

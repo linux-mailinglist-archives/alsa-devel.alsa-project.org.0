@@ -2,67 +2,93 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E7B7C24ACB1
-	for <lists+alsa-devel@lfdr.de>; Thu, 20 Aug 2020 03:44:55 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 05EF224AD80
+	for <lists+alsa-devel@lfdr.de>; Thu, 20 Aug 2020 05:58:17 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 8099E167D;
-	Thu, 20 Aug 2020 03:44:05 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8099E167D
+	by alsa0.perex.cz (Postfix) with ESMTPS id 82D9F167C;
+	Thu, 20 Aug 2020 05:57:26 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 82D9F167C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1597887895;
-	bh=MbufvYMZMcNYenH7FdO/pLwyvXQIQ0QaL53Cz7Bu2pE=;
+	s=default; t=1597895896;
+	bh=0YIJMyAp06P3/P6/l2dRXBOLWPwUTla83iKmHZODahM=;
 	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=ktimC0M/jytocqFCYzPHCkDoYVcoYJSMx03YliJwdsBfSSxyBXD6n/7cvQSS6MlHz
-	 oYDnh2HR5383FU2rQL2cBdO+ZswoSRjUOp8oauoMZfcLCA3IUxA3x+J/gXmJ59Sdlq
-	 s85VD1zNuhJxevCRSVjcQe5ESMcBG+FSjwUZ4IuI=
+	b=asc1JclCyqPu0YjOQF0saIYSgWwusyIA3EwZzDclYZmqWFnZr0uTf4u7ofigmWqSJ
+	 QGKo6iGkRFiiwavPRm1mVLY+kzFqoJyWzO4+H5tXkQAVDk/EA+uecdEFpTqtXJsGc3
+	 vhS5oU16Pez6U/fKGoJ+/2rVXBgavxo5EwW4Gmrg=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 8A1B2F8023F;
-	Thu, 20 Aug 2020 03:43:09 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 8075EF80228;
+	Thu, 20 Aug 2020 05:56:35 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id BD5AFF80228; Thu, 20 Aug 2020 03:43:06 +0200 (CEST)
+ id 18715F80228; Thu, 20 Aug 2020 05:56:31 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.9 required=5.0 tests=NICE_REPLY_A,
- RCVD_IN_MSPIKE_H3,RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from youngberry.canonical.com (youngberry.canonical.com
- [91.189.89.112])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
+X-Spam-Status: No, score=0.6 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ NICE_REPLY_A,RCVD_IN_MSPIKE_H2,RCVD_IN_SORBS_WEB,SPF_HELO_NONE,SPF_PASS,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from m43-7.mailgun.net (m43-7.mailgun.net [69.72.43.7])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 03FB1F800C0
- for <alsa-devel@alsa-project.org>; Thu, 20 Aug 2020 03:42:59 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 03FB1F800C0
-Received: from [111.196.79.150] (helo=[192.168.0.103])
- by youngberry.canonical.com with esmtpsa
- (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.86_2)
- (envelope-from <hui.wang@canonical.com>)
- id 1k8ZbU-0006l0-8l; Thu, 20 Aug 2020 01:42:56 +0000
-Subject: Re: [PATCH] ALSA: usb-audio: Add prevent wakeup from s3 state trig by
- Lenovo ThinkCentre TI024Gen3 USB-audio
-To: Kai-Heng Feng <kai.heng.feng@canonical.com>, Takashi Iwai <tiwai@suse.de>
-References: <20200819115757.23168-1-penghao@uniontech.com>
- <s5h364ih7vd.wl-tiwai@suse.de>
- <74B3A9AD-8B49-4E5F-BE9F-BF88865304B7@canonical.com>
-From: Hui Wang <hui.wang@canonical.com>
-Message-ID: <fdd0d029-d7b5-ff43-5f84-9d73de867bca@canonical.com>
-Date: Thu, 20 Aug 2020 09:42:41 +0800
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.10.0
+ by alsa1.perex.cz (Postfix) with ESMTPS id 2DE7EF800D3
+ for <alsa-devel@alsa-project.org>; Thu, 20 Aug 2020 05:56:20 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2DE7EF800D3
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=mg.codeaurora.org
+ header.i=@mg.codeaurora.org header.b="LM/PgMo8"
+DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
+ q=dns/txt; 
+ s=smtp; t=1597895784; h=Content-Transfer-Encoding: Content-Type:
+ In-Reply-To: MIME-Version: Date: Message-ID: From: References: Cc: To:
+ Subject: Sender; bh=0Ene2rVOMV4n1dEpM6kT25mhCOM8ZBLpeIVDWoHFH6U=;
+ b=LM/PgMo86+YCBSIIFRl4Cyd/H8dZlYS5CuPIRrWbZNi15hmWj6P60pJuZSEq1acwM+29tHGD
+ wvNLDuBu230Tx6Ug/4R83mr+JjukA26YXNYkAv3f70OQlOjRsIg7NgwTYfjfJOSTh50fFvLU
+ C8au5J6IEuvlV1u6FPWfgzO3deg=
+X-Mailgun-Sending-Ip: 69.72.43.7
+X-Mailgun-Sid: WyI4ZmE2ZSIsICJhbHNhLWRldmVsQGFsc2EtcHJvamVjdC5vcmciLCAiYmU5ZTRhIl0=
+Received: from smtp.codeaurora.org
+ (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171]) by
+ smtp-out-n03.prod.us-east-1.postgun.com with SMTP id
+ 5f3df45af729de107885d818 (version=TLS1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Thu, 20 Aug 2020 03:56:10
+ GMT
+Received: by smtp.codeaurora.org (Postfix, from userid 1001)
+ id 11D2FC433CB; Thu, 20 Aug 2020 03:56:10 +0000 (UTC)
+Received: from [192.168.0.129] (unknown [183.83.142.110])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested) (Authenticated sender: rohitkr)
+ by smtp.codeaurora.org (Postfix) with ESMTPSA id 3759EC433CA;
+ Thu, 20 Aug 2020 03:55:39 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 smtp.codeaurora.org 3759EC433CA
+Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
+ dmarc=none (p=none dis=none) header.from=codeaurora.org
+Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
+ spf=none smtp.mailfrom=rohitkr@codeaurora.org
+Subject: Re: [PATCH][next] ASoC: qcom: add missing out of memory check on
+ drvdata->clks allocation
+To: Colin King <colin.king@canonical.com>, Patrick Lai <plai@codeaurora.org>, 
+ Banajit Goswami <bgoswami@codeaurora.org>,
+ Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+ Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+ Ajit Pandey <ajitp@codeaurora.org>,
+ Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
+ alsa-devel@alsa-project.org
+References: <20200819160103.164893-1-colin.king@canonical.com>
+From: Rohit Kumar <rohitkr@codeaurora.org>
+Message-ID: <82bb39d1-c3a9-a8d1-9d96-f4d6d6b0f042@codeaurora.org>
+Date: Thu, 20 Aug 2020 09:25:33 +0530
+User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:68.0) Gecko/20100101
+ Thunderbird/68.11.0
 MIME-Version: 1.0
-In-Reply-To: <74B3A9AD-8B49-4E5F-BE9F-BF88865304B7@canonical.com>
+In-Reply-To: <20200819160103.164893-1-colin.king@canonical.com>
 Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 Content-Language: en-US
-Cc: "moderated list:SOUND" <alsa-devel@alsa-project.org>,
- penghao <penghao@uniontech.com>, linux-kernel@vger.kernel.org,
- crwulff@gmail.com, gustavoars@kernel.org, alexander@tsoy.me,
- Mark Pearson <mpearson@lenovo.com>, dan.carpenter@oracle.com
+Cc: kernel-janitors@vger.kernel.org, linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -79,62 +105,40 @@ Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 
-On 2020/8/20 上午2:10, Kai-Heng Feng wrote:
+On 8/19/2020 9:31 PM, Colin King wrote:
+> From: Colin Ian King <colin.king@canonical.com>
 >
->> On Aug 20, 2020, at 01:18, Takashi Iwai <tiwai@suse.de> wrote:
->>
->> [ Adding a few more relevant people to Cc. ]
->>
->> On Wed, 19 Aug 2020 13:57:57 +0200,
->> penghao wrote:
->>> TI024Gen3 USB-audio is controlled by TI024Gen3,when TI024Gens
->>> enter sleep mode, USB-audio will disconnect from USB bus port,
->>> wakup form s3 state
->>>
->>> Signed-off-by: penghao <penghao@uniontech.com>
->>> ---
->>> sound/usb/card.c | 6 ++++++
->>> 1 file changed, 6 insertions(+)
->>>
->>> diff --git a/sound/usb/card.c b/sound/usb/card.c
->>> index 696e788c5d31..6bdbb34009b3 100644
->>> --- a/sound/usb/card.c
->>> +++ b/sound/usb/card.c
->>> @@ -658,6 +658,12 @@ static int usb_audio_probe(struct usb_interface *intf,
->>> 	}
->>>
->>> 	dev_set_drvdata(&dev->dev, chip);
->>> +	/*
->>> +	 *ALSA: usb-audio: Add prevent wakeup from s3 state trig by Lenovo
->>> +	 *ThinkCentre TI024Gen3 usb-audio
->>> +	 */
->>> +	if ((usb_id->idVendor == 0x17ef) && (usb_id->idProduct == 0xa012))
->>> +		device_set_wakeup_enable(＆dev->dev, 0);
->> Here it's no proper ASCII letter, and this must be broken.
->> Please check the actual patch before submitting.
->>
->> In anyway, before going further, I'd like to hear from other people
->> whether this is really mandatory and appropriate.  And whether it's
->> specific to that device, too (not other Lenovo devices?)
-> If USB remote wakeup on this device is broken then we need to fix it in USB core instead of USB audio.
-> We need USB and xHCI logs to understand the real problem here, the commit message doesn't contain enough information.
+> Currently drvdata->clks is not being checked for an allocation failure,
+> leading to potential null pointer dereferencing. Fix this by adding a
+> check and returning -ENOMEM if an error occurred.
 >
-> Kai-Heng
+> Addresses-Coverity: ("Dereference null return value")
+> Fixes: 1220f6a76e77 ("ASoC: qcom: Add common array to initialize soc based core clocks")
+> Signed-off-by: Colin Ian King <colin.king@canonical.com>
+> ---
 
-I checked with our QA, we didn't enable this machine before.  And I 
-tried 2 different usb audio cards, neither of them has wakeup 
-capability. it is weird that your usb sound card (maybe a built-in usb 
-sound card) has wakeup capability.
+Thanks for the fix.
 
-You could file a bug to 
-https://bugs.launchpad.net/ubuntu/+source/linux/+filebug, then upload 
-the needed logs,  Kai-Heng and I will help investigate this issue.
+Reviewed-by: Rohit kumar <rohitkr@codeaurora.org>
 
-Thanks,
+>   sound/soc/qcom/lpass-apq8016.c | 2 ++
+>   1 file changed, 2 insertions(+)
+>
+> diff --git a/sound/soc/qcom/lpass-apq8016.c b/sound/soc/qcom/lpass-apq8016.c
+> index dd9e3dd014f6..5c8ae225cd5d 100644
+> --- a/sound/soc/qcom/lpass-apq8016.c
+> +++ b/sound/soc/qcom/lpass-apq8016.c
+> @@ -168,6 +168,8 @@ static int apq8016_lpass_init(struct platform_device *pdev)
+>   
+>   	drvdata->clks = devm_kcalloc(dev, variant->num_clks,
+>   				     sizeof(*drvdata->clks), GFP_KERNEL);
+> +	if (!drvdata->clks)
+> +		return -ENOMEM;
+>   	drvdata->num_clks = variant->num_clks;
+>   
+>   	for (i = 0; i < drvdata->num_clks; i++)
 
-Hui.
+-- 
+Qualcomm INDIA, on behalf of Qualcomm Innovation Center, Inc.is a member
+of the Code Aurora Forum, hosted by the Linux Foundation.
 
->>
->> thanks,
->>
->> Takashi

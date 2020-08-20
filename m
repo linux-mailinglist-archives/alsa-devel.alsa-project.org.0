@@ -2,29 +2,29 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id EFA2A24C99A
-	for <lists+alsa-devel@lfdr.de>; Fri, 21 Aug 2020 03:41:25 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5998E24C9CE
+	for <lists+alsa-devel@lfdr.de>; Fri, 21 Aug 2020 04:00:23 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 8FF8D168A;
-	Fri, 21 Aug 2020 03:40:35 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8FF8D168A
+	by alsa0.perex.cz (Postfix) with ESMTPS id C4EF81689;
+	Fri, 21 Aug 2020 03:59:32 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C4EF81689
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1597974085;
-	bh=TD7qAco0gmZRTpvCSFUAiXmY4j2aOWz97Bj0gYA6Cuc=;
+	s=default; t=1597975222;
+	bh=i+SVszx5HEmUv00UcCS6NR45pFE+TE/3RRn9gheqqeg=;
 	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
 	 List-Post:List-Help:List-Subscribe:From;
-	b=EucBiVObfF7ypqO44c7ZFApiAtgo47BioM7zrGgyQ9YZvEQgxcbVYOpZeQ0JEAQTG
-	 SjRVsazfCfRpIMeGdgQFkPcHglqb05KoQ4uWQi8gSOh2PiBWsoNaEH0tNU5kt8GPiz
-	 NYneHmLPVqK5IuNSSMEUKbd7/L0AlIqIMunYZRNA=
+	b=n+zoBNo4ubXoIiPcwCJdCsoQozz16ecGWGRJ8Qe+IC+fY05NmjoLbiCwKKVWxCPCk
+	 oipaZiY82xFvPa0GHQLD711B9pOCfNZOscJeBaSXFoVhVfrpT7XmcyV+L//vCpjpeF
+	 iq8/5a9siBOR3WmZ3GsugPwayfQBytrslAeL/Xd4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id BAD70F80253;
-	Fri, 21 Aug 2020 03:39:44 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id EA4FDF80253;
+	Fri, 21 Aug 2020 03:58:41 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 3CF60F80218; Fri, 21 Aug 2020 03:39:41 +0200 (CEST)
+ id 8CC9AF80218; Fri, 21 Aug 2020 03:58:38 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: *
 X-Spam-Status: No, score=1.1 required=5.0 tests=DATE_IN_PAST_06_12,
@@ -32,33 +32,39 @@ X-Spam-Status: No, score=1.1 required=5.0 tests=DATE_IN_PAST_06_12,
 Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 9EE0DF800D2
- for <alsa-devel@alsa-project.org>; Fri, 21 Aug 2020 03:39:33 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9EE0DF800D2
-IronPort-SDR: tE7BJ9Bwo13oGeLsHSIRxLYJtc0pcxWMFztk74EHiCtv6I0tvZkPdvlpBq5S5MnEr5VWleX3Rb
- uhDu85T9wM4w==
-X-IronPort-AV: E=McAfee;i="6000,8403,9719"; a="153044834"
-X-IronPort-AV: E=Sophos;i="5.76,335,1592895600"; d="scan'208";a="153044834"
+ by alsa1.perex.cz (Postfix) with ESMTPS id 1627CF800D3
+ for <alsa-devel@alsa-project.org>; Fri, 21 Aug 2020 03:58:31 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1627CF800D3
+IronPort-SDR: 0krxu58R/oGOBr7Ci+V7ckW1jbb2nfkeOdvJ8NuTTm4+mkNQp5VbxJjampqA/EASHRLySjIfb8
+ jpMYpin5gCqA==
+X-IronPort-AV: E=McAfee;i="6000,8403,9719"; a="153046737"
+X-IronPort-AV: E=Sophos;i="5.76,335,1592895600"; d="scan'208";a="153046737"
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
-Received: from orsmga005.jf.intel.com ([10.7.209.41])
+Received: from fmsmga008.fm.intel.com ([10.253.24.58])
  by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 20 Aug 2020 18:39:29 -0700
-IronPort-SDR: OeQNrk1RjGkr2dzUBDGmwBgDz13weajGFlol1/pv9u3gHuptcpKw2MpPWL+yXIS4xQqsNErtp9
- 1w5lXc4h7QQg==
-X-IronPort-AV: E=Sophos;i="5.76,335,1592895600"; d="scan'208";a="472866129"
+ 20 Aug 2020 18:58:28 -0700
+IronPort-SDR: 4FFHH7EkeEOP8Eho1sxBO9KAGbft4Lpkgk1r0N4SyuLMHYa9vMMfeW/pVwLzxQ5+beLmnIS/iG
+ fvaYi+hvG1fQ==
+X-IronPort-AV: E=Sophos;i="5.76,335,1592895600"; d="scan'208";a="280150774"
 Received: from bard-ubuntu.sh.intel.com ([10.239.13.33])
- by orsmga005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 20 Aug 2020 18:39:27 -0700
+ by fmsmga008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 20 Aug 2020 18:58:25 -0700
 From: Bard Liao <yung-chuan.liao@linux.intel.com>
-To: broonie@kernel.org,
-	tiwai@suse.de
-Subject: [PATCH] ASoC: intel: sof_sdw: add .exit callback function
-Date: Thu, 20 Aug 2020 21:45:42 +0800
-Message-Id: <20200820134542.8682-1-yung-chuan.liao@linux.intel.com>
+To: alsa-devel@alsa-project.org,
+	vkoul@kernel.org
+Subject: [PATCH] soundwire: intel: fix CONFIG_PM and CONFIG_PM_SLEEP confusion
+Date: Thu, 20 Aug 2020 22:04:41 +0800
+Message-Id: <20200820140441.9478-1-yung-chuan.liao@linux.intel.com>
 X-Mailer: git-send-email 2.17.1
-Cc: vkoul@kernel.org, alsa-devel@alsa-project.org,
- pierre-louis.bossart@linux.intel.com, bard.liao@intel.com
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+Cc: pierre-louis.bossart@linux.intel.com, vinod.koul@linaro.org, tiwai@suse.de,
+ gregkh@linuxfoundation.org, linux-kernel@vger.kernel.org,
+ ranjani.sridharan@linux.intel.com, hui.wang@canonical.com, broonie@kernel.org,
+ srinivas.kandagatla@linaro.org, jank@cadence.com, mengdong.lin@intel.com,
+ sanyog.r.kale@intel.com, rander.wang@linux.intel.com, bard.liao@intel.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -74,77 +80,82 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-We may allocate some resources in sof_sdw_codec_info .init function.
-Adding a corresponding .exit function can help to release these resources.
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 
+When CONFIG_PM_SLEEP is not defined, GCC throws compilation warnings:
+
+drivers/soundwire/intel.c:1816:12: warning: ‘intel_resume’ defined but
+not used [-Wunused-function]
+ 1816 | static int intel_resume(struct device *dev)
+      |            ^~~~~~~~~~~~
+
+drivers/soundwire/intel.c:1697:12: warning: ‘intel_suspend’ defined
+but not used [-Wunused-function]
+ 1697 | static int intel_suspend(struct device *dev)
+
+Fix by adding the missing CONFIG_PM_SLEEP.
+
+Note that we could move code around and use only 2 ifdefs, but this
+will generate conflicts so let's do this when all the pm handling is
+merged.
+
+Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 Signed-off-by: Bard Liao <yung-chuan.liao@linux.intel.com>
-Reviewed-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Reviewed-by: Kai Vehmanen <kai.vehmanen@linux.intel.com>
 ---
- sound/soc/intel/boards/sof_sdw.c        | 31 +++++++++++++++++++++++++
- sound/soc/intel/boards/sof_sdw_common.h |  1 +
- 2 files changed, 32 insertions(+)
+ drivers/soundwire/intel.c | 12 ++++++++++--
+ 1 file changed, 10 insertions(+), 2 deletions(-)
 
-diff --git a/sound/soc/intel/boards/sof_sdw.c b/sound/soc/intel/boards/sof_sdw.c
-index 2463d432bf4d..4bc1ed757009 100644
---- a/sound/soc/intel/boards/sof_sdw.c
-+++ b/sound/soc/intel/boards/sof_sdw.c
-@@ -1032,12 +1032,43 @@ static int mc_probe(struct platform_device *pdev)
+diff --git a/drivers/soundwire/intel.c b/drivers/soundwire/intel.c
+index dbcbe2708563..a2f0026cb2c1 100644
+--- a/drivers/soundwire/intel.c
++++ b/drivers/soundwire/intel.c
+@@ -1525,7 +1525,7 @@ int intel_master_process_wakeen_event(struct platform_device *pdev)
+  * PM calls
+  */
+ 
+-#ifdef CONFIG_PM
++#ifdef CONFIG_PM_SLEEP
+ 
+ static int intel_suspend(struct device *dev)
+ {
+@@ -1562,6 +1562,9 @@ static int intel_suspend(struct device *dev)
+ 
+ 	return 0;
+ }
++#endif
++
++#ifdef CONFIG_PM
+ 
+ static int intel_suspend_runtime(struct device *dev)
+ {
+@@ -1624,6 +1627,9 @@ static int intel_suspend_runtime(struct device *dev)
+ 
  	return ret;
  }
- 
-+static int mc_remove(struct platform_device *pdev)
-+{
-+	struct snd_soc_card *card = platform_get_drvdata(pdev);
-+	struct snd_soc_dai_link *link;
-+	int ret;
-+	int i, j;
++#endif
 +
-+	for (i = 0; i < ARRAY_SIZE(codec_info_list); i++) {
-+		if (!codec_info_list[i].exit)
-+			continue;
-+		/*
-+		 * We don't need to call .exit function if there is no matched
-+		 * dai link found.
-+		 */
-+		for_each_card_prelinks(card, j, link) {
-+			if (!strcmp(link->codecs[0].dai_name,
-+				    codec_info_list[i].dai_name)) {
-+				ret = codec_info_list[i].exit(&pdev->dev, link);
-+				if (ret)
-+					dev_warn(&pdev->dev,
-+						 "codec exit failed %d\n",
-+						 ret);
-+				break;
-+			}
-+		}
-+	}
-+
-+	return 0;
-+}
-+
- static struct platform_driver sof_sdw_driver = {
- 	.driver = {
- 		.name = "sof_sdw",
- 		.pm = &snd_soc_pm_ops,
- 	},
- 	.probe = mc_probe,
-+	.remove = mc_remove,
- };
++#ifdef CONFIG_PM_SLEEP
  
- module_platform_driver(sof_sdw_driver);
-diff --git a/sound/soc/intel/boards/sof_sdw_common.h b/sound/soc/intel/boards/sof_sdw_common.h
-index 12e32439ba46..76d6c0c3839d 100644
---- a/sound/soc/intel/boards/sof_sdw_common.h
-+++ b/sound/soc/intel/boards/sof_sdw_common.h
-@@ -63,6 +63,7 @@ struct sof_sdw_codec_info {
- 		     struct sof_sdw_codec_info *info,
- 		     bool playback);
+ static int intel_resume(struct device *dev)
+ {
+@@ -1691,6 +1697,9 @@ static int intel_resume(struct device *dev)
  
-+	int (*exit)(struct device *dev, struct snd_soc_dai_link *dai_link);
- 	bool late_probe;
- 	int (*codec_card_late_probe)(struct snd_soc_card *card);
- };
+ 	return ret;
+ }
++#endif
++
++#ifdef CONFIG_PM
+ 
+ static int intel_resume_runtime(struct device *dev)
+ {
+@@ -1797,7 +1806,6 @@ static int intel_resume_runtime(struct device *dev)
+ 
+ 	return ret;
+ }
+-
+ #endif
+ 
+ static const struct dev_pm_ops intel_pm = {
 -- 
 2.17.1
 

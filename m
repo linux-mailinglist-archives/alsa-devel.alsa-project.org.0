@@ -2,73 +2,128 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7940624BFF8
-	for <lists+alsa-devel@lfdr.de>; Thu, 20 Aug 2020 16:00:55 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C1F0424C125
+	for <lists+alsa-devel@lfdr.de>; Thu, 20 Aug 2020 17:03:50 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 131FD1684;
-	Thu, 20 Aug 2020 16:00:05 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 131FD1684
+	by alsa0.perex.cz (Postfix) with ESMTPS id 4E8081685;
+	Thu, 20 Aug 2020 17:03:00 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4E8081685
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1597932055;
-	bh=eHYrEeD3RUV23521by+Jpr+VGgUcMTn/TODr8duNkWk=;
-	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
+	s=default; t=1597935830;
+	bh=ZdhWFIYBIyHxtfv2TMR9UO8e2r+fwkCZHmqScpn0P4k=;
+	h=From:To:Subject:Date:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=kbRIzbpr+7ulop9E5vzyuE2kGX2IhweZBOHxifEGqzspJPhjTweAYMcnuYjzJRaOT
-	 xLFqi2JoGrf9anPGHzYUuDMQfDlwxzds7UxBhnabn0FvgaArrI72d/jVUNrVVmXUfG
-	 OCfAV9kRUv7BVp07Vndpstj/bo/Sc4xQeBnZ6+Tc=
+	b=eeQrjz+ik31D2FFplMbaEvUcwJDTwfJdVuW3qFGX5dQgrisDHZA7an56kOCufpZmf
+	 DPPXTa9hnMnsLnZCyHIebha8+Hch9Z5h871qqwhLphgF+QQb/T76fBTA62RIH9tpna
+	 DEDWP9iWlb3vqr/aE/EjXtC3ynWvz1aqJenJ6gQ8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 2C942F8023F;
-	Thu, 20 Aug 2020 15:59:14 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 4DE5BF800C0;
+	Thu, 20 Aug 2020 17:02:08 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id A9D9BF80228; Thu, 20 Aug 2020 15:59:10 +0200 (CEST)
+ id 2E273F80228; Thu, 20 Aug 2020 17:01:56 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.9 required=5.0 tests=NICE_REPLY_A,SPF_HELO_NONE,
- SPF_NONE autolearn=disabled version=3.4.0
-Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,RCVD_IN_MSPIKE_H2,SPF_HELO_PASS,SPF_PASS,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from EUR04-DB3-obe.outbound.protection.outlook.com
+ (mail-eopbgr60059.outbound.protection.outlook.com [40.107.6.59])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 0E5E0F800C0
- for <alsa-devel@alsa-project.org>; Thu, 20 Aug 2020 15:59:03 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0E5E0F800C0
-IronPort-SDR: S+heiZ3xBq+c6Yms/eXyXKAL7kT7so8lq+oT8+RPh2/OQnEuVxNfSybHtlkl55gR9cO0bhTgkA
- WWY92BtRbzoQ==
-X-IronPort-AV: E=McAfee;i="6000,8403,9718"; a="219604254"
-X-IronPort-AV: E=Sophos;i="5.76,333,1592895600"; d="scan'208";a="219604254"
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from orsmga003.jf.intel.com ([10.7.209.27])
- by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 20 Aug 2020 06:58:58 -0700
-IronPort-SDR: 6IZe+4HdOlnXu4sAQ/X3emqRQvBALEapqQL42ZN2ur/bjkfRKDZeTNcMdOby3hs2weB9+4+/xA
- bFlPy4XPZtPA==
-X-IronPort-AV: E=Sophos;i="5.76,333,1592895600"; d="scan'208";a="293488541"
-Received: from svemulap-mobl2.amr.corp.intel.com (HELO [10.209.157.176])
- ([10.209.157.176])
- by orsmga003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 20 Aug 2020 06:58:57 -0700
-Subject: Re: [RESEND] ASoC: SOF: Intel: add build support for SoundWire
-To: Jaroslav Kysela <perex@perex.cz>,
- Bard Liao <yung-chuan.liao@linux.intel.com>, broonie@kernel.org,
- tiwai@suse.de
-References: <20200819124429.3785-1-yung-chuan.liao@linux.intel.com>
- <5db411e9-2dba-fe5e-f200-9f5e05410007@perex.cz>
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Message-ID: <61354e28-641d-b359-f1ed-d018458c4a97@linux.intel.com>
-Date: Thu, 20 Aug 2020 08:58:56 -0500
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.10.0
-MIME-Version: 1.0
-In-Reply-To: <5db411e9-2dba-fe5e-f200-9f5e05410007@perex.cz>
-Content-Type: text/plain; charset=utf-8; format=flowed
+ by alsa1.perex.cz (Postfix) with ESMTPS id 4A900F800D3
+ for <alsa-devel@alsa-project.org>; Thu, 20 Aug 2020 17:01:46 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4A900F800D3
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=nxp.com header.i=@nxp.com
+ header.b="o1gmSDr8"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=SdJbIaLUaF4Px5EIuDiBNGYFK3rRY7jNYbn0IjivJt5FaM1S+P78WfxK2NZFzppeY3KlYw1dYt42pahNMwgmYslfTR01ZKAkG3lyR2Rica5fw4+ib/H7k1CaHaqLiyZEa5nxnYqp9YhvtlNsN5jmt0kZsZbusPEGEq0JFoO7YckaEAz9BPAEIcM4E3ihURDrIomS6VnK9AktqIhDlPqaNLpSlWp3Ss9mUld3+w5s6i2SI0lB5/fhENncs50l+iuDrWntXEDEbI/AOZb3dC24SavL649sQHNG+rmNMsZpo2e3Xjb2pqICMwEHZcjL8e0NKsTZFxFO7zrQdUAkQCavIg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=ZdhWFIYBIyHxtfv2TMR9UO8e2r+fwkCZHmqScpn0P4k=;
+ b=iaqpXwDmZM4lvMSpdVs0WaFLQye1WoVNmeMydZBJOOIOVnyHlWTN5yMDkI9TYlap10hSKAvL2u+eTjTNevHkQ7jc5CAr2VxNec34Ua15FSo0zMOC7PYLSq/EmdIlYdSx88tAZsI3KKi+5GjUzEi6xW67PrItE30wglNczs1/kVnjJp65XF+t7r2pGrTAveKrLgTtzbk09jWhyIfUxXOOI76z9QB8e+eE6XcSM1nn6z8SzeWGcIT3nLVchghyylFFy8F6a0MEs3Ga3CFBahCLConc6C1mivuyiA437q01kTf8E3KDcdH4YCDbL/LFlYMM5B9zbhhh3Axm3MVMOifBNw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
+ header.d=nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector2; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=ZdhWFIYBIyHxtfv2TMR9UO8e2r+fwkCZHmqScpn0P4k=;
+ b=o1gmSDr81CAlGPvweZ4/WB947sXwrmPsvOZ0NbY2IYkFJaN4msV2+Rc/rE2Rcb60pSWKZFqZFaTYzDwpuLG3bG11bE4fD8jLMney+rKFxxas3Z7IHvB1TvFqYZyW9/otrOFEqZGw8mzhcqXYI3CXSWNCgoVJMjArG8UAfs74pak=
+Received: from VE1PR04MB6638.eurprd04.prod.outlook.com (2603:10a6:803:119::15)
+ by VE1PR04MB7343.eurprd04.prod.outlook.com (2603:10a6:800:1a2::18)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3305.25; Thu, 20 Aug
+ 2020 15:01:45 +0000
+Received: from VE1PR04MB6638.eurprd04.prod.outlook.com
+ ([fe80::ad7f:d95a:5413:a950]) by VE1PR04MB6638.eurprd04.prod.outlook.com
+ ([fe80::ad7f:d95a:5413:a950%3]) with mapi id 15.20.3283.027; Thu, 20 Aug 2020
+ 15:01:45 +0000
+From: Robin Gong <yibin.gong@nxp.com>
+To: Benjamin Bara - SKIDATA <Benjamin.Bara@skidata.com>, Lars-Peter Clausen
+ <lars@metafoo.de>
+Subject: RE: pcm|dmaengine|imx-sdma race condition on i.MX6
+Thread-Topic: pcm|dmaengine|imx-sdma race condition on i.MX6
+Thread-Index: AQHWcWQbD9eqMlwY2U27XyctTVPmVak3Rd/wgASnXICAA2IfgIAANxuAgAFCSvA=
+Date: Thu, 20 Aug 2020 15:01:44 +0000
+Message-ID: <VE1PR04MB6638A7AC625B6771F9A69F0D895A0@VE1PR04MB6638.eurprd04.prod.outlook.com>
+References: <20200813112258.GA327172@pcleri>
+ <VE1PR04MB6638EE5BDBE2C65FF50B7DB889400@VE1PR04MB6638.eurprd04.prod.outlook.com>
+ <61498763c60e488a825e8dd270732b62@skidata.com>
+ <16942794-1e03-6da0-b8e5-c82332a217a5@metafoo.de>
+ <6b5799a567d14cfb9ce34d278a33017d@skidata.com>
+In-Reply-To: <6b5799a567d14cfb9ce34d278a33017d@skidata.com>
+Accept-Language: en-US
 Content-Language: en-US
-Content-Transfer-Encoding: 8bit
-Cc: vkoul@kernel.org, alsa-devel@alsa-project.org, bard.liao@intel.com
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+authentication-results: skidata.com; dkim=none (message not signed)
+ header.d=none;skidata.com; dmarc=none action=none header.from=nxp.com;
+x-originating-ip: [183.192.235.22]
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-ht: Tenant
+x-ms-office365-filtering-correlation-id: 9bb7857f-79f5-415d-0f11-08d84519f497
+x-ms-traffictypediagnostic: VE1PR04MB7343:
+x-ms-exchange-transport-forked: True
+x-microsoft-antispam-prvs: <VE1PR04MB7343600441659F288374C4E3895A0@VE1PR04MB7343.eurprd04.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:10000;
+x-ms-exchange-senderadcheck: 1
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: t5fVH0mbJ4+YPV7nk5Ad73lzNocbaTtDPhFYWGfloZIU1/eDQnOP3rKfOAow6gP022gvTHBmXtyx3AfkWhYinf8XafLd0NgDqd1ClGDHI42TMtUqeasoRczTJgyPWQeoFtp2Ps8ZKB3GZXON13icmClqBb02wzZcL+TFUlaN5nCWMuW0a6qtO4JzMHrNGpTO64NC74iSG0KGF810TcHOqba6lk4UUExDC6m4qPLgwLU7SMbIzXwhSeGTpJd+4bqznFQoVkX/u/ewNn6Ra4iZycugPp/pGxtRudognDE7epO1hqUgprEcOp/2T0ejmCjwpwTG29qL4zdEhAnNJy/6dg==
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:VE1PR04MB6638.eurprd04.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(136003)(396003)(346002)(376002)(39860400002)(366004)(478600001)(55016002)(8676002)(9686003)(86362001)(64756008)(66556008)(66476007)(66946007)(8936002)(76116006)(4326008)(52536014)(2906002)(33656002)(66446008)(7416002)(5660300002)(316002)(53546011)(26005)(7696005)(83380400001)(71200400001)(110136005)(54906003)(6506007)(186003);
+ DIR:OUT; SFP:1101; 
+x-ms-exchange-antispam-messagedata: WqUbWRixlKXxaEeSIoGUFMksPU7BnuSLboUMH4jXhWkuuLzZkMC4Y4Wasewf9WQLqfTXtkkDC69IRrmbHAFMOZgKCAjjQd0nz8HYwyrM/d3CVOeZi27ufrHvFlLq9XVK4OSw6rO2fPBfsdGt7wp21fKBczfTkcgd23pSjIKqxxbXzLgFv8fxy2SQmfZpVuzOGiF2kcL+Ti1AD7hKFsib115EhDoz9cPqFJi5SaWFzHl+9pjW+1GxgWcyR5I1ksRiuWTEgVQ9WWR6FCJCA3JRUA0kWRP/4zsoKILcGJ87p0achI0ynWNPfXlF5O4Xpx2zGYeEM9JCtst5C+98O9XjFN92kIXBaGcJ2nGD/IClun9coR91qZzGlYVYYJjOP3iMfh631v7ZQ88KlZJNEqyqxwzihzFzqzrDNEf/ZuYi4vBNMEKLQpe5ced13mscH/Aewg7ffq0kPuH6D68OcIr59iPH2UNaKY3DyvuHW+oWPTLCbajDEnH79mXxC6Tq74P7SATYLLYzw2WgtlfmzDhkB/y88UXeWrNNvK1i1yDSrwvYXJZsidHeKGEJxVx+vjepv4nDAvFqAOH/0uuV0CrjxP6f3AjyUG5cc2unQ8fntKCgE0t+PpzCaXohTYcoWOzuw3anfJF2fkSxQug7ofYMpw==
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+MIME-Version: 1.0
+X-OriginatorOrg: nxp.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: VE1PR04MB6638.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 9bb7857f-79f5-415d-0f11-08d84519f497
+X-MS-Exchange-CrossTenant-originalarrivaltime: 20 Aug 2020 15:01:45.1675 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: 6/V6b/ZenbtPqZ0nkdpYJOnq/J3lrrAql8UiXdyrKTppGIbd9i0O0/KYAnnWyiGjMa4AGF71jIXY1PEPLru4cA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: VE1PR04MB7343
+Cc: "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
+ "timur@kernel.org" <timur@kernel.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "nicoleotsuka@gmail.com" <nicoleotsuka@gmail.com>,
+ "vkoul@kernel.org" <vkoul@kernel.org>, dl-linux-imx <linux-imx@nxp.com>,
+ "kernel@pengutronix.de" <kernel@pengutronix.de>,
+ "dmaengine@vger.kernel.org" <dmaengine@vger.kernel.org>,
+ "dan.j.williams@intel.com" <dan.j.williams@intel.com>,
+ "shawnguo@kernel.org" <shawnguo@kernel.org>,
+ "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>,
+ Richard Leitner - SKIDATA <Richard.Leitner@skidata.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -84,39 +139,71 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-
-> Can we enable SDW/SOF also for the 5.8 stable kernel or some vital pieces are
-> missing in 5.8?
-> 
-> If I am not wrong, it's a 5.9 patch, right?
-
-I just tried with v5.8 stable and there are compilation issues due to 
-missed dependencies between ASoC and SoundWire subsystems.
-
-sound/soc/intel/boards/sof_sdw.c: In function ‘sdw_startup’:
-sound/soc/intel/boards/sof_sdw.c:162:9: error: implicit declaration of 
-function ‘sdw_startup_stream’; did you mean ‘sdw_enable_stream’? 
-[-Werror=implicit-function-declaration]
-   162 |  return sdw_startup_stream(substream);
-       |         ^~~~~~~~~~~~~~~~~~
-       |         sdw_enable_stream
-sound/soc/intel/boards/sof_sdw.c: In function ‘sdw_shutdown’:
-sound/soc/intel/boards/sof_sdw.c:167:2: error: implicit declaration of 
-function ‘sdw_shutdown_stream’; did you mean ‘sdw_shutdown’? 
-[-Werror=implicit-function-declaration]
-   167 |  sdw_shutdown_stream(substream);
-       |  ^~~~~~~~~~~~~~~~~~~
-       |  sdw_shutdown
-
-I also tried with plain vanilla v5.9-rc1, and I didn't see any issues. I 
-think it'd be good to have this patch (and the other one with the 
-namespace) be added to v5.9 indeed.
-
-That said, this just adds compilation/build support. We are still 
-missing PM patches that were merged by Vinod earlier this week, we 
-submitted the multi-link patches and the last batch will be the 
-bandwidth allocation.
-
-UCM files + PulseAudio changes were shared earlier, so at this point 
-5.10 should hopefully be the first intercept where SoundWire 'just 
-works'(tm) across kernel/userspace.
+T24gMjAyMC8wOC8xOSAyMjoyNiBCZW5qYW1pbiBCYXJhIC0gU0tJREFUQSA8QmVuamFtaW4uQmFy
+YUBza2lkYXRhLmNvbT4gd3JvdGU6IA0KPiA+IC0tLS0tT3JpZ2luYWwgTWVzc2FnZS0tLS0tDQo+
+ID4gRnJvbTogTGFycy1QZXRlciBDbGF1c2VuIDxsYXJzQG1ldGFmb28uZGU+DQo+ID4gU2VudDog
+TWl0dHdvY2gsIDE5LiBBdWd1c3QgMjAyMCAxMzowOA0KPiA+IEkgdGhpbmsgdGhpcyBtaWdodCBi
+ZSBhbiBzZG1hIHNwZWNpZmljIHByb2JsZW0gYWZ0ZXIgYWxsLg0KPiA+IGRtYWVuZ2luZV90ZXJt
+aW5hdGVfYXN5bmMoKSB3aWxsIGlzc3VlIGEgcmVxdWVzdCB0byBzdG9wIHRoZSBETUEuIEJ1dA0K
+PiA+IGl0IGlzIHN0aWxsIHNhZmUgdG8gaXNzdWUgdGhlIG5leHQgdHJhbnNmZXIsIGV2ZW4gd2l0
+aG91dCBjYWxsaW5nDQo+ID4gZG1hZW5naW5lX3N5bmNocm9uaXplKCkuIFRoZSBETUEgc2hvdWxk
+IHN0YXJ0IHRoZSBuZXcgdHJhbnNmZXIgYXQgaXRzDQo+ID4gZWFybGllc3QgY29udmVuaWVuY2Ug
+aW4gdGhhdCBjYXNlLg0KPiA+DQo+ID4gZG1hZWdpbmVfc3luY2hyb25pemUoKSBpcyBzbyB0aGF0
+IHRoZSBjb25zdW1lciBoYXMgYSBndWFyYW50ZWUgdGhhdA0KPiA+IHRoZSBETUEgaXMgZmluaXNo
+ZWQgdXNpbmcgdGhlIHJlc291cmNlcyAoZS5nLiB0aGUgbWVtb3J5IGJ1ZmZlcnMpDQo+ID4gYXNz
+b2NpYXRlZCB3aXRoIHRoZSBETUEgdHJhbnNmZXIgc28gaXQgY2FuIHNhZmVseSBmcmVlIHRoZW0u
+DQo+IA0KPiBUaGFuayB5b3UgZm9yIHRoZSBjbGFyaWZpY2F0aW9ucyENCj4gDQo+ID4gSSBkb24n
+dCBrbm93IGhvdyBmZWFzaWJsZSB0aGlzIGlzIHRvIGltcGxlbWVudCBpbiB0aGUgU0RNQSBkbWFl
+bmdpbmUNCj4gPiBkcml2ZXIuIEJ1dCBJIHRoaW5rIHdoYXQgaXMgc2hvdWxkIGRvIGlzIHRvIGhh
+dmUgc29tZSBmbGFnIHRvIGluZGljYXRlDQo+ID4gaWYgYSB0ZXJtaW5hdGUgaXMgaW4gcHJvZ3Jl
+c3MuIElmIGEgbmV3IHRyYW5zZmVyIGlzIGlzc3VlZCB3aGlsZQ0KPiA+IHRlcm1pbmF0ZSBpcyBp
+biBwcm9ncmVzcyB0aGUgdHJhbnNmZXIgc2hvdWxkIGdvIG9uIGEgbGlzdC4gT25jZQ0KPiA+IHRl
+cm1pbmF0ZSBmaW5pc2hlcyBpdCBzaG91bGQgY2hlY2sgdGhlIGxpc3QgYW5kIHN0YXJ0IHRoZSB0
+cmFuc2ZlciBpZg0KPiA+IHRoZXJlIGFyZSBhbnkgb24gdGhlIGxpc3QuDQo+IA0KPiBJTUhPIHRo
+YXQncyBuZWFybHkgd2hhdCBSb2JpbidzIHBhdGNoZXMgZG9lcywgc28gdGhpcyBzaG91bGQgYmUg
+c3VmZmljaWVudDoNCj4gUHV0dGluZyB0aGUgZGVzY3JpcHRvcnMgdG8gZnJlZSBpbiBhbiBleHRy
+YSB0ZXJtaW5hdGlvbiBsaXN0IGFuZCBlbnN1cmluZyB0aGF0IGENCj4gbmV3IHRyYW5zZmVyIGlz
+IGhhbmRsZWQgYWZ0ZXIgdGhlIGxhc3QgdGVybWluYXRpb24gaXMgZG9uZS4NCkhlbGxvIEJlbmph
+bWluLCANCiAgSXQgc2VlbXMgTGFycydzIGxpc3QgaXMgbm90IHRoZSBleHRyYSB0ZXJtaW5hdGlv
+biBsaXN0IGluIG15IHBhdGNoLg0KSW5zdGVhZCwgaGUgbWVhbnMgdGhlIG5leHQgZGVzY3JpcHRv
+ciBzaG91bGQgYmUgbW92ZWQgaW4gYW5vdGhlciBwZW5kaW5nIGxpc3QNCmlmIHRoZSBsYXN0IGNo
+YW5uZWwgdGVybWluYXRlZCBub3QgZG9uZSB5ZXQgYW5kIHJlc3RhcnQgdG8gaGFuZGxlIHRoZSBw
+ZW5kaW5nIGxpc3QNCmFmdGVyIHRoZSBsYXN0IGNoYW5uZWwgdGVybWluYXRlZCBkb25lIGlmIHRo
+ZSBsaXN0IGlzIG5vdCBlbXB0eS4NCg0KICBJIGxpa2UgdGhlIGlkZWEsIGJ1dCBvbiBTRE1BIHRo
+YXQgcmFjZSBjb25kaXRpb24gbWF5IG5ldmVyIGhhcHBlbiBJIHRoaW5rLCBiZWNhdXNlDQp0aGF0
+IG9uY2UgdGhlIG5leHQgZGVzY3JpcHRvciBnb3QgZHVyaW5nIHVzbGVlcF9yYW5nZSBpbiBzZG1h
+X2NoYW5uZWxfdGVybWluYXRlX3dvcmssDQptZWFucyB0aGUgbGFzdCBjaGFubmVsIHN0b3BwZWQg
+aW5kZWVkLiBJIGhhdmUgbWVudGlvbmVkIGJlZm9yZToNCicgYmVjYXVzZSBsb2FkIGNvbnRleHQo
+c2RtYV9sb2FkX2NvbnRleHQpIGRvbmUgYnkgY2hhbm5lbDAgd2hpY2ggaXMgdGhlDQogbG93ZXN0
+IHByaW9yaXR5LiBJbiBvdGhlciB3b3JkcywgY2FsbGluZyBzdWNjZXNzZnVsbHkgZG1hZW5naW5l
+X3ByZXBfKiBpbiB0aGUNCiBuZXh0IHRyYW5zZmVyIG1lYW5zIG5ldyBub3JtYWwgdHJhbnNmZXIg
+d2l0aG91dCBhbnkgbGFzdCB0ZXJtaW5hdGVkIHRyYW5zZmVyIGltcGFjdCAnDQpub3JtYWwgZGF0
+YSB0cmFuc2ZlciBvbiBkbWEgbm9uLWNoYW5uZWwwLCBzdWNoIGFzIGNoYW5uZWwxLDIuLi5ldGMg
+d2hpY2ggaGFzIGhpZ2hlcg0KcHJpb3JpdHkgdGhhbiBjaGFubmVsMCwgc28gaWYgY2hhbm5lbDAg
+Z2V0IHRvIHJ1biB0byBsb2FkIGNvbnRleHQgbWVhbnMgdGhlICdwb3RlbnRpYWwgdHJhbnNmZXIn
+IG9uIHRoZSBsYXN0IHRlcm1pbmF0ZWQgY2hhbm5lbCBoYXZlIGJlZW4gZG9uZS4gU28gbm8gbmVl
+ZCB0byBtb3ZlIGxpc3Qgc2luY2UNCml0J3Mgbm8gZGlmZmVyZW50IHdpdGggbm9ybWFsIHRyYW5z
+ZmVyIGFsdGhvdWdoIHNkbWFfY2hhbm5lbF90ZXJtaW5hdGVfd29yayBtYXkgZ2V0DQp0byBydW4g
+bGF0ZXIgdG8gZnJlZSB0aGUgbGFzdCBkZXNjcmlwdG9yKG9ubHkgc29mdHdhcmUgaW1wYWN0IHdo
+aWNoIG15IHBhdGNoIGZpeCkuDQogIFRyYW5zZmVyIG9uIHNkbWEgY2hhbm5lbCB3aWxsIGJlIHNw
+bGl0IGludG8gbWFueSBzbWFsbCBwaWVjZXMgb2YgdHJhbnNmZXIgDQooV2F0ZXItTWFyay1MZXZl
+bCBzaXplKS4gT25jZSBkbWEgcmVxdWVzdCBldmVudCBhY2tub3dsZWRnZWQgYW5kIHNjaGVkdWxl
+ZCBieSBzZG1hDQpjb3JlLCB0aGlzIHNkbWEgY2hhbm5lbCB3aWxsIHN0YXJ0IHRvIHRyYW5zZmVy
+IFdNTCBzaXplIG9mIGRhdGEgYW5kIHRoZW4gc2NoZWR1bGUgb3V0IHRvDQpvdGhlciBjaGFubmVs
+LiBOb3cgdGhlICdwb3RlbnRpYWwgdHJhbnNmZXInIGFsaXZlIG9uIHRlcm1pbmF0ZWQgY2hhbm5l
+bCBvbmx5IGhhcHBlbiBpbg0KdGhlIGJlbG93IHR3byB0aGluZ3MgY29tZSBvdXQgaW4gdGhlIHNh
+bWUgdGltZToNCiAgIFsxXS5UaGUgY2hhbm5lbCBpcyBydW5uaW5nIHRvIHRyYW5zZmVyIFdhdGVy
+LU1hcmstTGV2ZWwgc2l6ZSAoc2RtYSBzaWRlKS4NCiAgIFsyXS5UaGUgY2hhbm5lbCBpcyB0ZXJt
+aW5hdGVkIGJ5IHNkbWFfZGlzYWJsZV9jaGFubmVsIGF0IHRoZSBzYW1lIHRpbWUoYXJtIHNpZGUp
+Lg0KRXZlbiBpZiBpdCBoYXBwZW4sIHRoZSAncG90ZW50aWFsIHRyYW5zZmVyJyBvbiBzZG1hIGlz
+IHZlcnkgc2hvcnQsIGJlY2F1c2UgZmV0Y2hpbmcvZmlsbGluZw0KZmlmbyBpbiBXTUwgc2l6ZShm
+aWZvIHNpemUgb3IgaGFsZiBmaWZvIHNpemUpIGlzIHZlcnkgcXVpY2suIEFmdGVyIHRoYXQsIHRo
+aXMgY2hhbm5lbCBpcw0KdGVybWluYXRlZCBhdCBIVyBsZXZlbC4gSGVyZSAxbXMgZnJvbSBkZXNp
+Z24gdGVhbSBqdXN0IGZvciBiaWcgc2FmZSBJIHRoaW5rLiBTbyBJIGRvbid0DQp0aGluayB0aGF0
+J3MgYSBiaWcgZGVhbCBpZiBtZW1vcnkgYnVmZmVyIGlzIGF2YWlsYWJsZSBhbmQgZGVzY3JpcHRv
+ciBhcmUgdGFrZW4gY2FyZSB0bw0Kbm8gaW1wYWN0IG9uIHRoZSBuZXh0IHRyYW5zZmVyIGFzIG15
+IHBhdGNoIGRpZC4gDQoNCj4gDQo+IA0KPiBAUm9iaW46DQo+IElzIGl0IHBvc3NpYmxlIHRvIHRh
+ZyB0aGUgY29tbWl0cyBmb3IgdGhlIHN0YWJsZS10cmVlDQo+IENjOiBzdGFibGVAdmdlci5rZXJu
+ZWwub3JnPw0KQ291bGQgbXkgcGF0Y2ggd29yayBpbiB5b3VyIHNpZGU/IElmIHllcywgSSB3aWxs
+IGFkZA0KQ2M6IHN0YWJsZUB2Z2VyLmtlcm5lbC5vcmcgDQoNCj4gDQo+IEJlc3QgcmVnYXJkcyBh
+bmQgdGhhbmsgeW91IGFsbCENCj4gQmVuamFtaW4NCj4gUmljaGFyZA0KDQo=

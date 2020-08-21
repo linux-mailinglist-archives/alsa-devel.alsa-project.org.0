@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9B17324DB92
-	for <lists+alsa-devel@lfdr.de>; Fri, 21 Aug 2020 18:43:51 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D3B0D24DB99
+	for <lists+alsa-devel@lfdr.de>; Fri, 21 Aug 2020 18:44:35 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 31ABE1726;
-	Fri, 21 Aug 2020 18:43:01 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 31ABE1726
+	by alsa0.perex.cz (Postfix) with ESMTPS id 7D99D171C;
+	Fri, 21 Aug 2020 18:43:45 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7D99D171C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1598028231;
-	bh=eeD33E/GM5/WtGmv+bjQ9EqZZdzjh3+IGMJzdajAfKk=;
+	s=default; t=1598028275;
+	bh=DtGgnPkg8Vi64C6+dKTHm1EqoFMOck2QxuISZD/5lx0=;
 	h=Date:From:To:In-Reply-To:References:Subject:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=PnAqJpp1i/A0uNJ86L6PDCljduTUjkGTJAo7EU1ekYfW1LjOurqH5wEOqexLyUN0W
-	 TaMBptA87sBZtCgVqy3CBmBdw7VMplw5ptud7aG69nnO1P8TrZ+JuPpdeutlJPfqPF
-	 VlMDdHu8UlqW2uRoMHH2JIDlSdZnopUJoARi95Jk=
+	b=HwHGJoHcA99jF+gXhuCxk/ctsBWU8ovIX6bVLKXifJj6xeuYwiSa0haHkgHdt9hQz
+	 mCQeiRNB3pTzeiULjP5Nua80LZkZnCWrYbYZkC13DeL9hVQeZECbhzXuCsDyUnYJbz
+	 1VOuIc8SUA06Deqyr1hYxEqJ0vZ2X2IyaieZan3E=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 7C95BF802C2;
-	Fri, 21 Aug 2020 18:40:37 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id B01B8F802DF;
+	Fri, 21 Aug 2020 18:40:41 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id E0FFAF8028F; Fri, 21 Aug 2020 18:40:33 +0200 (CEST)
+ id DC254F802DD; Fri, 21 Aug 2020 18:40:38 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -34,37 +34,45 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 55A56F8025A
- for <alsa-devel@alsa-project.org>; Fri, 21 Aug 2020 18:40:31 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 55A56F8025A
+ by alsa1.perex.cz (Postfix) with ESMTPS id 4D769F802D2
+ for <alsa-devel@alsa-project.org>; Fri, 21 Aug 2020 18:40:36 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4D769F802D2
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="So0tK9r4"
+ header.b="qMiOzNe6"
 Received: from localhost (fw-tnat.cambridge.arm.com [217.140.96.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 7ED4820738;
- Fri, 21 Aug 2020 16:40:29 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id 527382072D;
+ Fri, 21 Aug 2020 16:40:34 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1598028030;
- bh=eeD33E/GM5/WtGmv+bjQ9EqZZdzjh3+IGMJzdajAfKk=;
+ s=default; t=1598028034;
+ bh=DtGgnPkg8Vi64C6+dKTHm1EqoFMOck2QxuISZD/5lx0=;
  h=Date:From:To:Cc:In-Reply-To:References:Subject:From;
- b=So0tK9r4QCjDNUgTZ/eg3qedxTbwmYbxb50oP3TgYxxRoEvV38q69vk0rsrwy/RBl
- sWtJzrkOI5yoyFlO37/Txe2OY/aQJz/54m/eJUqQla0YcV5WE0cNJBOMZ1ntjRM2On
- nVyCOpqof/gih7HGjjkqfAFg243X3YaGIr4UXFiM=
-Date: Fri, 21 Aug 2020 17:39:57 +0100
+ b=qMiOzNe6KP7t162HHbQjkPpYIlCVtFv8ltnH10opD/JDehV3q+upopsMV2bo60TM8
+ 6Z8WJGPJUdMhItnbU72Y6dskZsMOoGS2HMZSYzDh6KgmEGd3CpOKS9Q4VMnCh+7Qxa
+ GA4kPln/R6m7gkeNxxk4N6dWGdmMey+I6ho9CHW8=
+Date: Fri, 21 Aug 2020 17:40:02 +0100
 From: Mark Brown <broonie@kernel.org>
-To: Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
- Adam Thomson <Adam.Thomson.Opensource@diasemi.com>,
- Liam Girdwood <lgirdwood@gmail.com>
-In-Reply-To: <20200821142259.C2ECE3FB96@swsrvapps-01.diasemi.com>
-References: <20200821142259.C2ECE3FB96@swsrvapps-01.diasemi.com>
-Subject: Re: [PATCH] ASoC: da7219: Fix I/O voltage range configuration during
- probe
-Message-Id: <159802798182.25503.9768924803803430146.b4-ty@kernel.org>
-Cc: linux-kernel@vger.kernel.org, alsa-devel@alsa-project.org,
- Support Opensource <support.opensource@diasemi.com>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+To: alsa-devel@alsa-project.org, Brent Lu <brent.lu@intel.com>
+In-Reply-To: <1596198365-10105-1-git-send-email-brent.lu@intel.com>
+References: <1596020585-11517-1-git-send-email-brent.lu@intel.com>
+ <1596198365-10105-1-git-send-email-brent.lu@intel.com>
+Subject: Re: [PATCH v3 0/2] Add period size constraint for Atom Chromebook
+Message-Id: <159802798182.25503.9357316995968776171.b4-ty@kernel.org>
+Cc: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
+ Guennadi Liakhovetski <guennadi.liakhovetski@linux.intel.com>,
+ Cezary Rojewski <cezary.rojewski@intel.com>,
+ Kai Vehmanen <kai.vehmanen@linux.intel.com>,
+ Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
+ linux-kernel@vger.kernel.org, Jie Yang <yang.jie@linux.intel.com>,
+ Takashi Iwai <tiwai@suse.com>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ Liam Girdwood <liam.r.girdwood@linux.intel.com>,
+ Sam McNally <sammc@chromium.org>, Damian van Soelen <dj.vsoelen@gmail.com>,
+ Daniel Stuart <daniel.stuart14@gmail.com>,
+ Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+ Yu-Hsuan Hsu <yuhsuan@chromium.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -80,13 +88,17 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Fri, 21 Aug 2020 15:22:59 +0100, Adam Thomson wrote:
-> Previous improvements around handling device and codec level
-> probe functionality added the possibility of the voltage level
-> being undefined for the scenario where the IO voltage retrieved
-> from the regulator supply was below 1.2V, whereas previously the
-> code defaulted to the 2.5V to 3.6V range in that case. This
-> commit restores the default value to avoid this happening.
+On Fri, 31 Jul 2020 20:26:03 +0800, Brent Lu wrote:
+> Two different constraints are implemented: one is in platform's CPU
+> DAI to enforce the period to be multiple of 1ms to align with firmware
+> design. The other is in Atom Chromebook's machine driver to use 240 as
+> period size which is selected by google.
+> 
+> 
+> Changes since v1:
+> -Add comma at the end of media_period_size array declaration.
+> 
+> [...]
 
 Applied to
 
@@ -94,8 +106,8 @@ Applied to
 
 Thanks!
 
-[1/1] ASoC: da7219: Fix I/O voltage range configuration during probe
-      commit: fcea8b023a5f06ea0180ae65b01520b0414ee325
+[1/1] ASoC: intel: atom: Add period size constraint
+      commit: 5e7820e369248f880767c4c4079b414529bc2125
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

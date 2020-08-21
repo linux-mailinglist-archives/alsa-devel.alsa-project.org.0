@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5FDC224E189
-	for <lists+alsa-devel@lfdr.de>; Fri, 21 Aug 2020 21:58:51 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8CD1924E18D
+	for <lists+alsa-devel@lfdr.de>; Fri, 21 Aug 2020 21:59:02 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id F3F951692;
-	Fri, 21 Aug 2020 21:58:00 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz F3F951692
+	by alsa0.perex.cz (Postfix) with ESMTPS id 452C4168C;
+	Fri, 21 Aug 2020 21:58:12 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 452C4168C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1598039931;
-	bh=yuoDDJljcVgMU1sJ2KSdUP+sLXWAxQoctdRWVUNO7ys=;
+	s=default; t=1598039942;
+	bh=IqImp2Nk/EXphVxRNVe90M0a5GbSDrhsb8Mnd9OCH+s=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=jaEUqDWdEDSyJinYFv3ZtsWKTqdAJnrR9Yjbmi9BHVdtB9aSj3k/QhqgVVXv0tVMb
-	 +CCpaZht3/9+O1sTkJhq4JTBlcEnwIG8HivehjrJZLByguoTgIN0b7yB8eDy1z7OSx
-	 2bTsV9/nPUPTT640uMRP3RDaXpu3vpm8SRdnRSXs=
+	b=qFteB2eBpzKphn6iXIL5RCb69PwiopK74ACxUCCf54pkpLvjjv/H7R8rMUHuBdCHG
+	 pjV9V9Pg+AGCJw03QZj20kgwUJ2kUycrA9fmGy5peuiBZ3bY7omWrh/5YLQyR0NjgA
+	 gfdKbnmxWEnEXjgZ2bHtszwP/KQ1rVO3gRg9K2Og=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 2D443F802DF;
-	Fri, 21 Aug 2020 21:56:30 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id E8F17F802E8;
+	Fri, 21 Aug 2020 21:56:32 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 32716F802C4; Fri, 21 Aug 2020 21:56:27 +0200 (CEST)
+ id 0CE69F802D2; Fri, 21 Aug 2020 21:56:28 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
@@ -33,31 +33,31 @@ X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
 Received: from mga06.intel.com (mga06.intel.com [134.134.136.31])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 80301F800D3
- for <alsa-devel@alsa-project.org>; Fri, 21 Aug 2020 21:56:20 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 80301F800D3
-IronPort-SDR: eVap+yVEngRz2+/GoXAMUD/Dlht2n6+ysVpyodR+8zwWdqrb+Wd+Ttz98j1sI8UaU5SBWZn0rV
- 8CcRF+2L442g==
-X-IronPort-AV: E=McAfee;i="6000,8403,9720"; a="217158536"
-X-IronPort-AV: E=Sophos;i="5.76,338,1592895600"; d="scan'208";a="217158536"
+ by alsa1.perex.cz (Postfix) with ESMTPS id 59E1DF80216
+ for <alsa-devel@alsa-project.org>; Fri, 21 Aug 2020 21:56:21 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 59E1DF80216
+IronPort-SDR: fgZDYDrQv4R6Fnn9tFiqH75ODri8YVj/aMfFvByQh4hvIFahv1mg+YgWOrc9o9W8oeSSiiv8GX
+ lfrTRMPgq7Kg==
+X-IronPort-AV: E=McAfee;i="6000,8403,9720"; a="217158538"
+X-IronPort-AV: E=Sophos;i="5.76,338,1592895600"; d="scan'208";a="217158538"
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
 Received: from fmsmga007.fm.intel.com ([10.253.24.52])
  by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 21 Aug 2020 12:56:14 -0700
-IronPort-SDR: 8mPVYV+Tduth0FN/zYFsoq9xcnn6jGK+jHG1nixNF3yYmEK80JeQYjGJGMDWXz1swTmHB/ymYC
- Fa8XRa+8VQlg==
-X-IronPort-AV: E=Sophos;i="5.76,338,1592895600"; d="scan'208";a="279002389"
+ 21 Aug 2020 12:56:15 -0700
+IronPort-SDR: iNVd9IoE6k3FYeu93VyjRjmOW00PejWxCzo5jEuIGARTvGWHlHNWlSaA4Gh8mFm7n4TtP+BL/q
+ lBHHsVUNnfnQ==
+X-IronPort-AV: E=Sophos;i="5.76,338,1592895600"; d="scan'208";a="279002392"
 Received: from pahnn-mobl.amr.corp.intel.com (HELO pbossart-mobl3.intel.com)
  ([10.254.176.176])
  by fmsmga007-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  21 Aug 2020 12:56:14 -0700
 From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 To: alsa-devel@alsa-project.org
-Subject: [PATCH 01/14] ASoC: Intel: modify SoundWire version id in acpi match
- table
-Date: Fri, 21 Aug 2020 14:55:48 -0500
-Message-Id: <20200821195603.215535-2-pierre-louis.bossart@linux.intel.com>
+Subject: [PATCH 02/14] ASoC: Intel: soc-acpi: cnl: add support for rt5682 on
+ SoundWire link2
+Date: Fri, 21 Aug 2020 14:55:49 -0500
+Message-Id: <20200821195603.215535-3-pierre-louis.bossart@linux.intel.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20200821195603.215535-1-pierre-louis.bossart@linux.intel.com>
 References: <20200821195603.215535-1-pierre-louis.bossart@linux.intel.com>
@@ -82,136 +82,61 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: Bard Liao <yung-chuan.liao@linux.intel.com>
+Add one of the configurations for rt5682 w/ the Up Extreme Advanced
+Audio mode using the SoundWire link2.
 
-The SoundWire version id of the existing RT1308, RT711, and RT715
-codecs should be 2 (index for SoundWire 1.1), it was mistakenly set as
-1 which pointed to the wrong version (SoundWire 1.0).
-
-This off-by-one error had no functional impact so far since the
-version number was not used, however in future patches this version
-will be required.
-
+Reviewed-by: Bard Liao <yung-chuan.liao@linux.intel.com>
 Reviewed-by: Rander Wang <rander.wang@linux.intel.com>
-Signed-off-by: Bard Liao <yung-chuan.liao@linux.intel.com>
 Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 ---
- sound/soc/intel/common/soc-acpi-intel-cml-match.c | 10 +++++-----
- sound/soc/intel/common/soc-acpi-intel-icl-match.c | 10 +++++-----
- sound/soc/intel/common/soc-acpi-intel-tgl-match.c |  2 +-
- 3 files changed, 11 insertions(+), 11 deletions(-)
+ .../intel/common/soc-acpi-intel-cnl-match.c   | 33 ++++++++++++++++++-
+ 1 file changed, 32 insertions(+), 1 deletion(-)
 
-diff --git a/sound/soc/intel/common/soc-acpi-intel-cml-match.c b/sound/soc/intel/common/soc-acpi-intel-cml-match.c
-index dee1f0fa998b..51535cd60a0a 100644
---- a/sound/soc/intel/common/soc-acpi-intel-cml-match.c
-+++ b/sound/soc/intel/common/soc-acpi-intel-cml-match.c
-@@ -112,7 +112,7 @@ static const struct snd_soc_acpi_link_adr cml_rvp[] = {
+diff --git a/sound/soc/intel/common/soc-acpi-intel-cnl-match.c b/sound/soc/intel/common/soc-acpi-intel-cnl-match.c
+index 6a0bcc1a8429..7d61e0da808b 100644
+--- a/sound/soc/intel/common/soc-acpi-intel-cnl-match.c
++++ b/sound/soc/intel/common/soc-acpi-intel-cnl-match.c
+@@ -27,8 +27,39 @@ struct snd_soc_acpi_mach snd_soc_acpi_intel_cnl_machines[] = {
+ };
+ EXPORT_SYMBOL_GPL(snd_soc_acpi_intel_cnl_machines);
  
- static const struct snd_soc_acpi_adr_device rt711_0_adr[] = {
- 	{
--		.adr = 0x000010025D071100,
-+		.adr = 0x000020025D071100,
- 		.num_endpoints = 1,
- 		.endpoints = &single_endpoint,
- 	}
-@@ -120,7 +120,7 @@ static const struct snd_soc_acpi_adr_device rt711_0_adr[] = {
++static const struct snd_soc_acpi_endpoint single_endpoint = {
++	.num = 0,
++	.aggregated = 0,
++	.group_position = 0,
++	.group_id = 0,
++};
++
++static const struct snd_soc_acpi_adr_device rt5682_2_adr[] = {
++	{
++		.adr = 0x000220025D568200,
++		.num_endpoints = 1,
++		.endpoints = &single_endpoint,
++	}
++};
++
++static const struct snd_soc_acpi_link_adr up_extreme_rt5682_2[] = {
++	{
++		.mask = BIT(2),
++		.num_adr = ARRAY_SIZE(rt5682_2_adr),
++		.adr_d = rt5682_2_adr,
++	},
++	{}
++};
++
+ struct snd_soc_acpi_mach snd_soc_acpi_intel_cnl_sdw_machines[] = {
+-	{},
++	{
++		.link_mask = BIT(2),
++		.links = up_extreme_rt5682_2,
++		.drv_name = "sof_sdw",
++		.sof_fw_filename = "sof-cnl.ri",
++		.sof_tplg_filename = "sof-cnl-rt5682-sdw2.tplg"
++	},
++	{}
+ };
+ EXPORT_SYMBOL_GPL(snd_soc_acpi_intel_cnl_sdw_machines);
  
- static const struct snd_soc_acpi_adr_device rt1308_1_adr[] = {
- 	{
--		.adr = 0x000110025D130800,
-+		.adr = 0x000120025D130800,
- 		.num_endpoints = 1,
- 		.endpoints = &single_endpoint,
- 	}
-@@ -128,7 +128,7 @@ static const struct snd_soc_acpi_adr_device rt1308_1_adr[] = {
- 
- static const struct snd_soc_acpi_adr_device rt1308_1_group1_adr[] = {
- 	{
--		.adr = 0x000110025D130800,
-+		.adr = 0x000120025D130800,
- 		.num_endpoints = 1,
- 		.endpoints = &spk_l_endpoint,
- 	}
-@@ -136,7 +136,7 @@ static const struct snd_soc_acpi_adr_device rt1308_1_group1_adr[] = {
- 
- static const struct snd_soc_acpi_adr_device rt1308_2_group1_adr[] = {
- 	{
--		.adr = 0x000210025D130800,
-+		.adr = 0x000220025D130800,
- 		.num_endpoints = 1,
- 		.endpoints = &spk_r_endpoint,
- 	}
-@@ -144,7 +144,7 @@ static const struct snd_soc_acpi_adr_device rt1308_2_group1_adr[] = {
- 
- static const struct snd_soc_acpi_adr_device rt715_3_adr[] = {
- 	{
--		.adr = 0x000310025D071500,
-+		.adr = 0x000320025D071500,
- 		.num_endpoints = 1,
- 		.endpoints = &single_endpoint,
- 	}
-diff --git a/sound/soc/intel/common/soc-acpi-intel-icl-match.c b/sound/soc/intel/common/soc-acpi-intel-icl-match.c
-index 6927bbbc66fc..ebe13197410f 100644
---- a/sound/soc/intel/common/soc-acpi-intel-icl-match.c
-+++ b/sound/soc/intel/common/soc-acpi-intel-icl-match.c
-@@ -73,7 +73,7 @@ static const struct snd_soc_acpi_link_adr icl_rvp[] = {
- 
- static const struct snd_soc_acpi_adr_device rt711_0_adr[] = {
- 	{
--		.adr = 0x000010025D071100,
-+		.adr = 0x000020025D071100,
- 		.num_endpoints = 1,
- 		.endpoints = &single_endpoint,
- 	}
-@@ -81,7 +81,7 @@ static const struct snd_soc_acpi_adr_device rt711_0_adr[] = {
- 
- static const struct snd_soc_acpi_adr_device rt1308_1_adr[] = {
- 	{
--		.adr = 0x000110025D130800,
-+		.adr = 0x000120025D130800,
- 		.num_endpoints = 1,
- 		.endpoints = &single_endpoint,
- 	}
-@@ -89,7 +89,7 @@ static const struct snd_soc_acpi_adr_device rt1308_1_adr[] = {
- 
- static const struct snd_soc_acpi_adr_device rt1308_1_group1_adr[] = {
- 	{
--		.adr = 0x000110025D130800,
-+		.adr = 0x000120025D130800,
- 		.num_endpoints = 1,
- 		.endpoints = &spk_l_endpoint,
- 	}
-@@ -97,7 +97,7 @@ static const struct snd_soc_acpi_adr_device rt1308_1_group1_adr[] = {
- 
- static const struct snd_soc_acpi_adr_device rt1308_2_group1_adr[] = {
- 	{
--		.adr = 0x000210025D130800,
-+		.adr = 0x000220025D130800,
- 		.num_endpoints = 1,
- 		.endpoints = &spk_r_endpoint,
- 	}
-@@ -105,7 +105,7 @@ static const struct snd_soc_acpi_adr_device rt1308_2_group1_adr[] = {
- 
- static const struct snd_soc_acpi_adr_device rt715_3_adr[] = {
- 	{
--		.adr = 0x000310025D071500,
-+		.adr = 0x000320025D071500,
- 		.num_endpoints = 1,
- 		.endpoints = &single_endpoint,
- 	}
-diff --git a/sound/soc/intel/common/soc-acpi-intel-tgl-match.c b/sound/soc/intel/common/soc-acpi-intel-tgl-match.c
-index 2ffa608d987d..472f58ddda1f 100644
---- a/sound/soc/intel/common/soc-acpi-intel-tgl-match.c
-+++ b/sound/soc/intel/common/soc-acpi-intel-tgl-match.c
-@@ -37,7 +37,7 @@ static const struct snd_soc_acpi_endpoint spk_r_endpoint = {
- 
- static const struct snd_soc_acpi_adr_device rt711_0_adr[] = {
- 	{
--		.adr = 0x000010025D071100,
-+		.adr = 0x000020025D071100,
- 		.num_endpoints = 1,
- 		.endpoints = &single_endpoint,
- 	}
 -- 
 2.25.1
 

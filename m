@@ -2,85 +2,84 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8D89D24E03D
-	for <lists+alsa-devel@lfdr.de>; Fri, 21 Aug 2020 21:01:17 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id F410424E040
+	for <lists+alsa-devel@lfdr.de>; Fri, 21 Aug 2020 21:01:53 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 3984D1694;
-	Fri, 21 Aug 2020 21:00:27 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3984D1694
+	by alsa0.perex.cz (Postfix) with ESMTPS id 995D71682;
+	Fri, 21 Aug 2020 21:01:03 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 995D71682
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1598036477;
-	bh=2ZwV0/WGjr59FbX/Jxbu7LEt8ZKgsrso9pySXoZl1V8=;
+	s=default; t=1598036513;
+	bh=xQiIoLEk5KOB6E/J9T4pYpG+NbUu6eskEaaEboFMhjw=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=MGrZGXBjrRgPuUWf4M4tOXRfQxDag+fRrHNAhXob+UIWDyljwPP/Y9K3N+vnyUADD
-	 DTbslFNnjoKqK7COYPqQZJU7cAM9dUhD+hULfmGMHVmeV4AxBgo33SU1fjKyBFtgqh
-	 AkbDgGISWKb6qIfOP8w30y2z097yWlJPV67TLKu4=
+	b=IkKWnyxIY9NOFSyx61FH5Cq2dLWmTlpZfW0HLru/T2eKEgYICm5RXBLdLlKPmMcKB
+	 zqyC6yJ1mCgwrShQY2TRXE4lhyz9FPtZpw8nFumvkZOAPHIfprK3frTbsrJojb+fsH
+	 G7lPSJJIA16YeYRJ485U7gNAQCs3Hta9S1dEvQ7k=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 252C9F80334;
-	Fri, 21 Aug 2020 20:54:28 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 2B90FF80338;
+	Fri, 21 Aug 2020 20:54:29 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 76104F8028F; Fri, 21 Aug 2020 20:54:09 +0200 (CEST)
+ id 1D151F80316; Fri, 21 Aug 2020 20:54:12 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU, FREEMAIL_ENVFROM_END_DIGIT, FREEMAIL_FROM, SPF_HELO_NONE,
  SPF_PASS autolearn=disabled version=3.4.0
-Received: from mail-qv1-xf43.google.com (mail-qv1-xf43.google.com
- [IPv6:2607:f8b0:4864:20::f43])
+Received: from mail-qk1-x741.google.com (mail-qk1-x741.google.com
+ [IPv6:2607:f8b0:4864:20::741])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 910E3F8028F
+ by alsa1.perex.cz (Postfix) with ESMTPS id BD7F1F802E3
  for <alsa-devel@alsa-project.org>; Fri, 21 Aug 2020 20:54:02 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 910E3F8028F
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BD7F1F802E3
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="GD6hD8LM"
-Received: by mail-qv1-xf43.google.com with SMTP id x6so1080270qvr.8
+ header.b="DFRXGiY0"
+Received: by mail-qk1-x741.google.com with SMTP id 144so2261713qkl.5
  for <alsa-devel@alsa-project.org>; Fri, 21 Aug 2020 11:54:02 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=9IeHB9lDAArlqZqVF3RpujPXGqkuFDtD8SXfEd8xABI=;
- b=GD6hD8LMYN5mgdIAELCXVSnSM884fmkvhr5QqlZoeJpeb+L1ZV9uxSoOV7b0prEDCN
- nAFH6njIFhR2pI1yMQw2XmHNcDq3yQbtD6o7xi50IQrQV1++zULuBD4C71Eeh5jksjeV
- f5AoLe6an5/xr+k4QzibPZI18Z2L7VHdPP5pAyKsm/2lyzaERsEJhT+gCoOLQ32ZKokj
- A+/VYocRBPXO2FhE90r6bFFbF1PoQCyMtpqvchi8nLIgQjybnWa7Y9/yODsOQEtU8v/1
- puI+7D5DqqArmZRFaYVc8wT7UGqAbh9A08hAg7ycrQUFNpml0JkqNDmgfRV8c4pE1d78
- Ivtg==
+ bh=vbIqlW9tIGTLfzpUAmzhy2jwZSMiaqwnKKLjixkwjZs=;
+ b=DFRXGiY0lVwbInp4Hc89l99KSZWL1Y7oOq+tGhWChfBNLIkYEbwUqlZ4BXU/tPedgV
+ 2wHD/yNKHdEwXsTgi7ljPnNM10evF+j56rGZJcj/UUSkuJW5O3+h+aGGBJHrLS3K+5W8
+ YBCE7Uzd/2Ew6IUsRorq91yt/tLUcNL76j0F58g5xFJYCH8cozhBS6rhTI19skAZt3Na
+ dGCls7TePTma8gQn7ElUlO92812r9ZQeir4EKlznCEddlp77Il1gz1alD39fjjqYYdZg
+ Dz4FG6ya6MYVBuG395UPfgHZtIt0Ea7OqRSz+07GIUIzj7uwWR/CTw2SCTgJbCeEO7by
+ tbhw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=9IeHB9lDAArlqZqVF3RpujPXGqkuFDtD8SXfEd8xABI=;
- b=axqAiV4RTxWKgydy/gokzf94Vyym1xym5bGaQOA5MuMnkPAQbmookRgObLlJpLfS+L
- MwWWeFlKv3zDHiyiDNyX2RkJmqjy7JixKws8+WZrZA41EliDQ8b4Ar/FP27R2xo4LD5B
- ahdSm6c/o0PiVPfVW9ZjRFrPNljzMza5rfiFBwvKZtr94A8EZKkDPbSRwJXvSIByDBX7
- TU/I5BEoIBQKAlyuVPJ3AcrSTBnEOsi11S0++Esbpnqc3PB0FWpY8qp0wc7L7dwGX7kr
- EgHRVR/BgFE7q7utbpxKs563C5tAuYif2btNXL7ecv9RXM9o1H8N80EeYpdVr5W84BXc
- j5bw==
-X-Gm-Message-State: AOAM531FIHEYRLcfTnj3nmY/LZKI0jH7MYL3OSmI8XgmCI+uFGDNkhLI
- RkqKS+T1yVesjwhPKuLVhvw=
-X-Google-Smtp-Source: ABdhPJw/p/aSkmV5jyryhckZjVlGcJD7wF9+/GM74z1Nf/6LQvha53fa74/Vf278dTIRUtlJXKMSIw==
-X-Received: by 2002:a05:6214:1742:: with SMTP id
- dc2mr3813584qvb.90.1598036039800; 
- Fri, 21 Aug 2020 11:53:59 -0700 (PDT)
+ bh=vbIqlW9tIGTLfzpUAmzhy2jwZSMiaqwnKKLjixkwjZs=;
+ b=pshsc+vESlt37qvE1i24Z9ZwRBngPbPAmhqcYH792Po89SXSFWdZgWsg7K1KdQjLTY
+ M1TN+zTRfwrkz9t/vM59neEQYmS+KKnW746lDfBcdFptnD1r3lnaCR3bfnDslLD605N0
+ EmV8pIACvmOJht7Sgzr+gGsaakiN18UR0QVdGe0MRrQdOmbRWPMgMAaKP9cjoddGhB8N
+ 37AXqGTiP/aQPpI1YW4FoG8PTX2VJVdJBclPWdboKtv3aNiu7Vf1KxQt4QKv4/UUzGfN
+ FJIN5g7eygtO/tuGqDklMrMNPgvylPjIzFfCuocEi0bdkD9ccrZl1eUWlyD1uXQhvifp
+ Oe+A==
+X-Gm-Message-State: AOAM533hzs5psWlOMUtqlYW1MLHSy+7IsjQ+3MPrGMADPvGvH86hS0vp
+ No/hLVUsGZh6sQWFg2NTW94=
+X-Google-Smtp-Source: ABdhPJyG++7Ob77MchmieGa7tWfqpRRJpEIGbAVu1UOAkvGBzvAcBL4dHOxqx5zI33G9zpwWabyJ/g==
+X-Received: by 2002:a05:620a:1523:: with SMTP id
+ n3mr3891494qkk.245.1598036041687; 
+ Fri, 21 Aug 2020 11:54:01 -0700 (PDT)
 Received: from localhost.localdomain (cpe-71-65-111-223.cinci.res.rr.com.
  [71.65.111.223])
- by smtp.googlemail.com with ESMTPSA id o72sm2468426qka.113.2020.08.21.11.53.59
+ by smtp.googlemail.com with ESMTPSA id o72sm2468426qka.113.2020.08.21.11.54.01
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 21 Aug 2020 11:53:59 -0700 (PDT)
+ Fri, 21 Aug 2020 11:54:01 -0700 (PDT)
 From: Connor McAdams <conmanx360@gmail.com>
 To: 
-Subject: [PATCH 10/20] ALSA: hda/ca0132 - Add new quirk ID for SoundBlaster
- AE-7.
-Date: Fri, 21 Aug 2020 14:52:27 -0400
-Message-Id: <20200821185239.26133-11-conmanx360@gmail.com>
+Subject: [PATCH 11/20] ALSA: hda/ca0132 - Add SoundBlaster AE-7 pincfg.
+Date: Fri, 21 Aug 2020 14:52:28 -0400
+Message-Id: <20200821185239.26133-12-conmanx360@gmail.com>
 X-Mailer: git-send-email 2.20.1
 In-Reply-To: <20200821185239.26133-1-conmanx360@gmail.com>
 References: <20200821185239.26133-1-conmanx360@gmail.com>
@@ -103,33 +102,57 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Add a new PCI subsystem ID for the SoundBlaster AE-7 card.
+Add AE-7 pincfg, based on the values set within Windows.
 
 Signed-off-by: Connor McAdams <conmanx360@gmail.com>
 ---
- sound/pci/hda/patch_ca0132.c | 2 ++
- 1 file changed, 2 insertions(+)
+ sound/pci/hda/patch_ca0132.c | 19 +++++++++++++++++++
+ 1 file changed, 19 insertions(+)
 
 diff --git a/sound/pci/hda/patch_ca0132.c b/sound/pci/hda/patch_ca0132.c
-index 9c61a10114aa..57cb63ea88e6 100644
+index 57cb63ea88e6..5aad9d8ee5e4 100644
 --- a/sound/pci/hda/patch_ca0132.c
 +++ b/sound/pci/hda/patch_ca0132.c
-@@ -1134,6 +1134,7 @@ enum {
- 	QUIRK_R3DI,
- 	QUIRK_R3D,
- 	QUIRK_AE5,
-+	QUIRK_AE7,
- };
- 
- #ifdef CONFIG_PCI
-@@ -1253,6 +1254,7 @@ static const struct snd_pci_quirk ca0132_quirks[] = {
- 	SND_PCI_QUIRK(0x1102, 0x0013, "Recon3D", QUIRK_R3D),
- 	SND_PCI_QUIRK(0x1102, 0x0018, "Recon3D", QUIRK_R3D),
- 	SND_PCI_QUIRK(0x1102, 0x0051, "Sound Blaster AE-5", QUIRK_AE5),
-+	SND_PCI_QUIRK(0x1102, 0x0081, "Sound Blaster AE-7", QUIRK_AE7),
+@@ -1238,6 +1238,20 @@ static const struct hda_pintbl r3di_pincfgs[] = {
  	{}
  };
  
++static const struct hda_pintbl ae7_pincfgs[] = {
++	{ 0x0b, 0x01017010 },
++	{ 0x0c, 0x014510f0 },
++	{ 0x0d, 0x414510f0 },
++	{ 0x0e, 0x01c520f0 },
++	{ 0x0f, 0x01017114 },
++	{ 0x10, 0x01017011 },
++	{ 0x11, 0x018170ff },
++	{ 0x12, 0x01a170f0 },
++	{ 0x13, 0x908700f0 },
++	{ 0x18, 0x500000f0 },
++	{}
++};
++
+ static const struct snd_pci_quirk ca0132_quirks[] = {
+ 	SND_PCI_QUIRK(0x1028, 0x057b, "Alienware M17x R4", QUIRK_ALIENWARE_M17XR4),
+ 	SND_PCI_QUIRK(0x1028, 0x0685, "Alienware 15 2015", QUIRK_ALIENWARE),
+@@ -9105,6 +9119,10 @@ static void ca0132_config(struct hda_codec *codec)
+ 		codec_dbg(codec, "%s: QUIRK_AE5 applied.\n", __func__);
+ 		snd_hda_apply_pincfgs(codec, ae5_pincfgs);
+ 		break;
++	case QUIRK_AE7:
++		codec_dbg(codec, "%s: QUIRK_AE7 applied.\n", __func__);
++		snd_hda_apply_pincfgs(codec, ae7_pincfgs);
++		break;
+ 	default:
+ 		break;
+ 	}
+@@ -9186,6 +9204,7 @@ static void ca0132_config(struct hda_codec *codec)
+ 		spec->dig_in = 0x09;
+ 		break;
+ 	case QUIRK_AE5:
++	case QUIRK_AE7:
+ 		spec->num_outputs = 2;
+ 		spec->out_pins[0] = 0x0B; /* Line out */
+ 		spec->out_pins[1] = 0x11; /* Rear headphone out */
 -- 
 2.20.1
 

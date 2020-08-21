@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 52FA724E1A6
-	for <lists+alsa-devel@lfdr.de>; Fri, 21 Aug 2020 22:00:31 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1EC7524E197
+	for <lists+alsa-devel@lfdr.de>; Fri, 21 Aug 2020 21:59:47 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 0497E1676;
-	Fri, 21 Aug 2020 21:59:41 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0497E1676
+	by alsa0.perex.cz (Postfix) with ESMTPS id 8EE091695;
+	Fri, 21 Aug 2020 21:58:56 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8EE091695
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1598040031;
-	bh=D2op7XL64H8x27+yvp0Q7BYmSbdw6w3uJvDFw5R6CpU=;
+	s=default; t=1598039986;
+	bh=ZTSv1T6QTgQq+l9dndeGu/d0ok2KJ1gSygYekp0jztE=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=J5O1cj56TGAGV+KkEeEOlgUGAHIFNBjTnQAuctdV36hwqX33A5wx8nyI2mxMfglHM
-	 nv4gW6975es1/0WVYRq1dMT19dAKVfjPBX7gPaV3fueM4JAC7W2n3zdeVNjf+P4bWo
-	 HXGwQsxA4OuCfkwiR62MWwdRXot0gY15MT+at/WA=
+	b=AqvwH5Kf+Tc4pqxq4027Ol0T2mmYvmafHwt9v6LyyFGF2W2xWfQWNE7hvks57yVrN
+	 s5BZphJGZ/9LeFkvs3Ls9UEAhsg8pvuVzmZONdAoMpG14fAROq2884NOxuMDtySEFV
+	 oZrOpoCZCmc8pr0O8EmJ7ZGfkPpgEHGsZzJb+yjg=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 6D9C2F80216;
-	Fri, 21 Aug 2020 21:56:43 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 87D3CF802C2;
+	Fri, 21 Aug 2020 21:56:38 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 87F15F802EA; Fri, 21 Aug 2020 21:56:35 +0200 (CEST)
+ id 59A12F802EB; Fri, 21 Aug 2020 21:56:35 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
@@ -33,37 +33,39 @@ X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
 Received: from mga06.intel.com (mga06.intel.com [134.134.136.31])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 81E73F800C0
- for <alsa-devel@alsa-project.org>; Fri, 21 Aug 2020 21:56:22 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 81E73F800C0
-IronPort-SDR: q1bMj5zJGle9GAO9SxC7STSbiphROdFWHW+v9jGDFfVKZ3ID/vMDwKlhVBsQb/yOR2Wg13ylPo
- x+9VREDML54Q==
-X-IronPort-AV: E=McAfee;i="6000,8403,9720"; a="217158543"
-X-IronPort-AV: E=Sophos;i="5.76,338,1592895600"; d="scan'208";a="217158543"
+ by alsa1.perex.cz (Postfix) with ESMTPS id 08391F8028F
+ for <alsa-devel@alsa-project.org>; Fri, 21 Aug 2020 21:56:23 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 08391F8028F
+IronPort-SDR: GzUK+DIh4CTZesq2jwDgGBj4p6dJVAlDpC6OLXt2H1gT3VMC0M1P/60Ge9WcF0pvaXslzzQfGL
+ rftYG0OTIUag==
+X-IronPort-AV: E=McAfee;i="6000,8403,9720"; a="217158553"
+X-IronPort-AV: E=Sophos;i="5.76,338,1592895600"; d="scan'208";a="217158553"
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
 Received: from fmsmga007.fm.intel.com ([10.253.24.52])
  by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 21 Aug 2020 12:56:16 -0700
-IronPort-SDR: mnzD7vXZoFENCXWj13K/Jo5ux4rk1MvpUP+rVKeRFgCow7IYzZzidyMBSPMzWk8naASdu51M0d
- GODq2QMIN/QA==
-X-IronPort-AV: E=Sophos;i="5.76,338,1592895600"; d="scan'208";a="279002400"
+ 21 Aug 2020 12:56:18 -0700
+IronPort-SDR: 0FIvipkgQlh5AZy19ORNB2bq6pEszBYUGWckk8zyBV5KwH90Ps3N0qJz9orryjNeNF4JiVREU7
+ W4Ga0vFAVxNA==
+X-IronPort-AV: E=Sophos;i="5.76,338,1592895600"; d="scan'208";a="279002407"
 Received: from pahnn-mobl.amr.corp.intel.com (HELO pbossart-mobl3.intel.com)
  ([10.254.176.176])
  by fmsmga007-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 21 Aug 2020 12:56:16 -0700
+ 21 Aug 2020 12:56:17 -0700
 From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 To: alsa-devel@alsa-project.org
-Subject: [PATCH 04/14] ASoC: Intel: soc-acpi: mirror CML and TGL configurations
-Date: Fri, 21 Aug 2020 14:55:51 -0500
-Message-Id: <20200821195603.215535-5-pierre-louis.bossart@linux.intel.com>
+Subject: [PATCH 06/14] ASoC: Intel: tgl_max98373: fix a runtime pm issue in
+ multi-thread case
+Date: Fri, 21 Aug 2020 14:55:53 -0500
+Message-Id: <20200821195603.215535-7-pierre-louis.bossart@linux.intel.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20200821195603.215535-1-pierre-louis.bossart@linux.intel.com>
 References: <20200821195603.215535-1-pierre-louis.bossart@linux.intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Cc: tiwai@suse.de, Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- vinod.koul@intel.com, broonie@kernel.org,
+Cc: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>, tiwai@suse.de,
+ Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
+ Rander Wang <rander.wang@intel.com>, vinod.koul@intel.com, broonie@kernel.org,
  Bard liao <yung-chuan.liao@linux.intel.com>,
  Rander Wang <rander.wang@linux.intel.com>
 X-BeenThere: alsa-devel@alsa-project.org
@@ -81,185 +83,51 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Some TGL devices use the same audio hardware as on CML platforms, with
-RT711 on link0, RT1308 on link1 and optionally link2, and RT715 on
-link 3.
+From: Rander Wang <rander.wang@intel.com>
 
-To clarify configurations, the rt1308 configurations are split between
-single amp on link1 and dual amps on link1. The case with two amps on
-different links is already identified with the group1 attribute.
+When the playback & capture streams are stopped simultaneously, the
+SOF PCI device will remain pm_runtime active. The root-cause is a race
+condition with two threads reaching the trigger function at the same
+time. They see another stream is active so the dapm pin is not
+disabled, so the codec remains active as well as the parent PCI
+device.
 
-Reviewed-by: Bard Liao <yung-chuan.liao@linux.intel.com>
-Reviewed-by: Rander Wang <rander.wang@linux.intel.com>
+For max98373, the capture stream provides feedback when playback is
+working and it is unused when playback is stopped. So the dapm pin
+should be set only when playback is active.
+
+Reviewed-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
+Signed-off-by: Rander Wang <rander.wang@intel.com>
 Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 ---
- .../intel/common/soc-acpi-intel-cml-match.c   |   6 +-
- .../intel/common/soc-acpi-intel-tgl-match.c   | 100 +++++++++++++++++-
- 2 files changed, 100 insertions(+), 6 deletions(-)
+ sound/soc/intel/boards/sof_maxim_common.c | 7 ++++---
+ 1 file changed, 4 insertions(+), 3 deletions(-)
 
-diff --git a/sound/soc/intel/common/soc-acpi-intel-cml-match.c b/sound/soc/intel/common/soc-acpi-intel-cml-match.c
-index 51535cd60a0a..8ac01a2d5886 100644
---- a/sound/soc/intel/common/soc-acpi-intel-cml-match.c
-+++ b/sound/soc/intel/common/soc-acpi-intel-cml-match.c
-@@ -118,7 +118,7 @@ static const struct snd_soc_acpi_adr_device rt711_0_adr[] = {
- 	}
- };
+diff --git a/sound/soc/intel/boards/sof_maxim_common.c b/sound/soc/intel/boards/sof_maxim_common.c
+index 1a6961592029..b6e63ea13d64 100644
+--- a/sound/soc/intel/boards/sof_maxim_common.c
++++ b/sound/soc/intel/boards/sof_maxim_common.c
+@@ -66,6 +66,10 @@ int max98373_trigger(struct snd_pcm_substream *substream, int cmd)
+ 	int j;
+ 	int ret = 0;
  
--static const struct snd_soc_acpi_adr_device rt1308_1_adr[] = {
-+static const struct snd_soc_acpi_adr_device rt1308_1_single_adr[] = {
- 	{
- 		.adr = 0x000120025D130800,
- 		.num_endpoints = 1,
-@@ -182,8 +182,8 @@ static const struct snd_soc_acpi_link_adr cml_3_in_1_mono_amp[] = {
- 	},
- 	{
- 		.mask = BIT(1),
--		.num_adr = ARRAY_SIZE(rt1308_1_adr),
--		.adr_d = rt1308_1_adr,
-+		.num_adr = ARRAY_SIZE(rt1308_1_single_adr),
-+		.adr_d = rt1308_1_single_adr,
- 	},
- 	{
- 		.mask = BIT(3),
-diff --git a/sound/soc/intel/common/soc-acpi-intel-tgl-match.c b/sound/soc/intel/common/soc-acpi-intel-tgl-match.c
-index 472f58ddda1f..aabb49617d37 100644
---- a/sound/soc/intel/common/soc-acpi-intel-tgl-match.c
-+++ b/sound/soc/intel/common/soc-acpi-intel-tgl-match.c
-@@ -43,7 +43,7 @@ static const struct snd_soc_acpi_adr_device rt711_0_adr[] = {
- 	}
- };
- 
--static const struct snd_soc_acpi_adr_device rt1308_1_adr[] = {
-+static const struct snd_soc_acpi_adr_device rt1308_1_dual_adr[] = {
- 	{
- 		.adr = 0x000120025D130800,
- 		.num_endpoints = 1,
-@@ -56,6 +56,38 @@ static const struct snd_soc_acpi_adr_device rt1308_1_adr[] = {
- 	}
- };
- 
-+static const struct snd_soc_acpi_adr_device rt1308_1_single_adr[] = {
-+	{
-+		.adr = 0x000120025D130800,
-+		.num_endpoints = 1,
-+		.endpoints = &single_endpoint,
-+	}
-+};
++	/* set spk pin by playback only */
++	if (substream->stream == SNDRV_PCM_STREAM_CAPTURE)
++		return 0;
 +
-+static const struct snd_soc_acpi_adr_device rt1308_1_group1_adr[] = {
-+	{
-+		.adr = 0x000120025D130800,
-+		.num_endpoints = 1,
-+		.endpoints = &spk_l_endpoint,
-+	}
-+};
-+
-+static const struct snd_soc_acpi_adr_device rt1308_2_group1_adr[] = {
-+	{
-+		.adr = 0x000220025D130800,
-+		.num_endpoints = 1,
-+		.endpoints = &spk_r_endpoint,
-+	}
-+};
-+
-+static const struct snd_soc_acpi_adr_device rt715_3_adr[] = {
-+	{
-+		.adr = 0x000320025D071500,
-+		.num_endpoints = 1,
-+		.endpoints = &single_endpoint,
-+	}
-+};
-+
- static const struct snd_soc_acpi_adr_device mx8373_1_adr[] = {
- 	{
- 		.adr = 0x000123019F837300,
-@@ -94,8 +126,8 @@ static const struct snd_soc_acpi_link_adr tgl_rvp[] = {
- 	},
- 	{
- 		.mask = BIT(1),
--		.num_adr = ARRAY_SIZE(rt1308_1_adr),
--		.adr_d = rt1308_1_adr,
-+		.num_adr = ARRAY_SIZE(rt1308_1_dual_adr),
-+		.adr_d = rt1308_1_dual_adr,
- 	},
- 	{}
- };
-@@ -114,6 +146,49 @@ static const struct snd_soc_acpi_link_adr tgl_chromebook_base[] = {
- 	{}
- };
- 
-+static const struct snd_soc_acpi_link_adr tgl_3_in_1_default[] = {
-+	{
-+		.mask = BIT(0),
-+		.num_adr = ARRAY_SIZE(rt711_0_adr),
-+		.adr_d = rt711_0_adr,
-+	},
-+	{
-+		.mask = BIT(1),
-+		.num_adr = ARRAY_SIZE(rt1308_1_group1_adr),
-+		.adr_d = rt1308_1_group1_adr,
-+	},
-+	{
-+		.mask = BIT(2),
-+		.num_adr = ARRAY_SIZE(rt1308_2_group1_adr),
-+		.adr_d = rt1308_2_group1_adr,
-+	},
-+	{
-+		.mask = BIT(3),
-+		.num_adr = ARRAY_SIZE(rt715_3_adr),
-+		.adr_d = rt715_3_adr,
-+	},
-+	{}
-+};
-+
-+static const struct snd_soc_acpi_link_adr tgl_3_in_1_mono_amp[] = {
-+	{
-+		.mask = BIT(0),
-+		.num_adr = ARRAY_SIZE(rt711_0_adr),
-+		.adr_d = rt711_0_adr,
-+	},
-+	{
-+		.mask = BIT(1),
-+		.num_adr = ARRAY_SIZE(rt1308_1_single_adr),
-+		.adr_d = rt1308_1_single_adr,
-+	},
-+	{
-+		.mask = BIT(3),
-+		.num_adr = ARRAY_SIZE(rt715_3_adr),
-+		.adr_d = rt715_3_adr,
-+	},
-+	{}
-+};
-+
- static struct snd_soc_acpi_codecs tgl_max98373_amp = {
- 	.num_codecs = 1,
- 	.codecs = {"MX98373"}
-@@ -150,6 +225,25 @@ EXPORT_SYMBOL_GPL(snd_soc_acpi_intel_tgl_machines);
- 
- /* this table is used when there is no I2S codec present */
- struct snd_soc_acpi_mach snd_soc_acpi_intel_tgl_sdw_machines[] = {
-+	{
-+		.link_mask = 0xF, /* 4 active links required */
-+		.links = tgl_3_in_1_default,
-+		.drv_name = "sof_sdw",
-+		.sof_fw_filename = "sof-tgl.ri",
-+		.sof_tplg_filename = "sof-tgl-rt711-rt1308-rt715.tplg",
-+	},
-+	{
-+		/*
-+		 * link_mask should be 0xB, but all links are enabled by BIOS.
-+		 * This entry will be selected if there is no rt1308 exposed
-+		 * on link2 since it will fail to match the above entry.
-+		 */
-+		.link_mask = 0xF,
-+		.links = tgl_3_in_1_mono_amp,
-+		.drv_name = "sof_sdw",
-+		.sof_fw_filename = "sof-tgl.ri",
-+		.sof_tplg_filename = "sof-tgl-rt711-rt1308-mono-rt715.tplg",
-+	},
- 	{
- 		.link_mask = 0x3, /* rt711 on link 0 and 2 rt1308s on link 1 */
- 		.links = tgl_rvp,
+ 	for_each_rtd_codec_dais(rtd, j, codec_dai) {
+ 		struct snd_soc_component *component = codec_dai->component;
+ 		struct snd_soc_dapm_context *dapm =
+@@ -86,9 +90,6 @@ int max98373_trigger(struct snd_pcm_substream *substream, int cmd)
+ 		case SNDRV_PCM_TRIGGER_STOP:
+ 		case SNDRV_PCM_TRIGGER_SUSPEND:
+ 		case SNDRV_PCM_TRIGGER_PAUSE_PUSH:
+-			/* Make sure no streams are active before disable pin */
+-			if (snd_soc_dai_active(codec_dai) != 1)
+-				break;
+ 			ret = snd_soc_dapm_disable_pin(dapm, pin_name);
+ 			if (!ret)
+ 				snd_soc_dapm_sync(dapm);
 -- 
 2.25.1
 

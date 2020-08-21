@@ -2,118 +2,100 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D1ECC24D02E
-	for <lists+alsa-devel@lfdr.de>; Fri, 21 Aug 2020 09:59:43 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id DA8BF24CF4F
+	for <lists+alsa-devel@lfdr.de>; Fri, 21 Aug 2020 09:33:16 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 7CFC016CA;
-	Fri, 21 Aug 2020 09:58:53 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7CFC016CA
+	by alsa0.perex.cz (Postfix) with ESMTPS id 6183B1670;
+	Fri, 21 Aug 2020 09:32:26 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6183B1670
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1597996783;
-	bh=JraPpJKN0WyV2l4dFNyq3Ubl7Ex3bvSBX43aEv/S2lo=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=UOcjy/j9b9fIMg8+OcpG0nt5JFXNisUl867VS9bHQ11JfzcSrxC4u9qQh3+FLAjd3
-	 24fFCoxoTbIC4CWyieXfKks977YmqTH69MYn0aYcrjtPTptUaoY+IUoudMXppbBs6S
-	 aZyfBuZQlsVGmxU/dzl4o4qObdR5L07qC9CRO40U=
+	s=default; t=1597995196;
+	bh=6WeOtM29xI2fY6SHnqSEd952AS3nUYlHcV0UhmRK+dQ=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=a0LZVkKeO3GVXffMMNhhJ320QgmJpwO8IBcBWuG4Y1+Yg8GfFE+Oq2UxvRlnPbe+v
+	 j6Zb55FgofDvDbRDl19EC35S6ZpbICVICt3SDDhsVrGfhLP4LB7TLyX7yLbQZAnVJN
+	 syc723znVyicZuzGNyaX9IXa2cnuL/htn2g4COe0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 9DC44F804B1;
-	Fri, 21 Aug 2020 09:36:54 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 6CBB8F802A9;
+	Fri, 21 Aug 2020 09:31:35 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id E4372F80228; Thu, 20 Aug 2020 19:46:31 +0200 (CEST)
+ id 9230BF802C2; Fri, 21 Aug 2020 09:31:32 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from mail-ej1-x643.google.com (mail-ej1-x643.google.com
- [IPv6:2a00:1450:4864:20::643])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU, PRX_BODY_135, RCVD_IN_MSPIKE_H3, RCVD_IN_MSPIKE_WL,
+ SPF_HELO_PASS, SPF_PASS autolearn=disabled version=3.4.0
+Received: from wout4-smtp.messagingengine.com (wout4-smtp.messagingengine.com
+ [64.147.123.20])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 31E58F80114
- for <alsa-devel@alsa-project.org>; Thu, 20 Aug 2020 19:46:22 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 31E58F80114
+ by alsa1.perex.cz (Postfix) with ESMTPS id CBF7AF80216
+ for <alsa-devel@alsa-project.org>; Fri, 21 Aug 2020 09:31:20 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CBF7AF80216
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org
- header.b="cAZtzVYP"
-Received: by mail-ej1-x643.google.com with SMTP id o18so3507824eje.7
- for <alsa-devel@alsa-project.org>; Thu, 20 Aug 2020 10:46:22 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=TdWdmS9KmpqRDKTTx4ZFKlZV0sk8Q5cLOhIOkZ1gD+w=;
- b=cAZtzVYP2n3YvXgVkbJ7dbST+g3SP0UPbXQ9iKKyhX4VXr8jHpSYHqZMaG5ucNVipI
- bzzpnQCIz78GKzn14VpRAj8Y6mpMr87iyH7UMbPsjr5O6z0niDquexdhhjTmn1y5QjQv
- l8iJOpqbyOslL4LKhF6zS+g3cTQ+z78POnoVc=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=TdWdmS9KmpqRDKTTx4ZFKlZV0sk8Q5cLOhIOkZ1gD+w=;
- b=gFh1VTuuYX/F5NQFiLfUTKwZYte+1JaflopuzeNG5hrsGeZSNoof+RNjcoQvu+PD6K
- DYuxlaEsdv/uzP3CKiwLlIF5D4lKcvr1mxK70rDh3L9MjZ72T8xlF3ekphrwRhd3JLSU
- 0UvxkXpXyFA8plgTPld6/2weTGjlV4uVkhTI2gjuZtRkqh+uisqsV8m+ij65IMw8oovT
- PzUfxxFFdMNhmyM0b89eRgpXz1U5FcmStx4DkWuUkARDrfAMjWXnvuEYL6U9uItfPBFF
- H/sczO7RJM6MiT6RfEQl99A1yjgWHbtKT4x+uJ+sbwW0ahVXvYDt3jOD1ODVA2M2cozJ
- IS+A==
-X-Gm-Message-State: AOAM532zFYamxEHnS+nhrCYEs3kskavnUZq6+uw54nIfnYFvv/XnDBik
- Qw4L5pYe+l9y67OWR8mfxnNkBiWdaYY11Q==
-X-Google-Smtp-Source: ABdhPJzOKaIlgXJw5xLMtU3Y78iX1NKMtoxchYlE9hbH6AUk/ryx40aRm3oa2GQUHrjneMPxa38x0A==
-X-Received: by 2002:a17:906:d18c:: with SMTP id
- c12mr4227991ejz.151.1597945581545; 
- Thu, 20 Aug 2020 10:46:21 -0700 (PDT)
-Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com.
- [209.85.128.46])
- by smtp.gmail.com with ESMTPSA id t26sm1828685ejd.55.2020.08.20.10.46.21
- for <alsa-devel@alsa-project.org>
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 20 Aug 2020 10:46:21 -0700 (PDT)
-Received: by mail-wm1-f46.google.com with SMTP id c80so2426788wme.0
- for <alsa-devel@alsa-project.org>; Thu, 20 Aug 2020 10:46:21 -0700 (PDT)
-X-Received: by 2002:a1c:4d12:: with SMTP id o18mr4512279wmh.55.1597945276327; 
- Thu, 20 Aug 2020 10:41:16 -0700 (PDT)
+ dkim=pass (2048-bit key) header.d=sakamocchi.jp header.i=@sakamocchi.jp
+ header.b="aP8QBgiZ"; 
+ dkim=pass (2048-bit key) header.d=messagingengine.com
+ header.i=@messagingengine.com header.b="rhTyUgIu"
+Received: from compute2.internal (compute2.nyi.internal [10.202.2.42])
+ by mailout.west.internal (Postfix) with ESMTP id 61A3E84F;
+ Fri, 21 Aug 2020 03:31:17 -0400 (EDT)
+Received: from mailfrontend2 ([10.202.2.163])
+ by compute2.internal (MEProxy); Fri, 21 Aug 2020 03:31:17 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sakamocchi.jp;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding; s=fm2; bh=MFll1LAy+HeKGWf2n47Lt4xykN
+ NDfDYFOfqIl15Kcj4=; b=aP8QBgiZcqR8KW3YIW2vkB2va/VkZk2MB8IMwukVA+
+ dVMMnA4qW1gzARkTJ1dSTaQ71taZRuDcDmRHLwtuOsnXKZhEwbqMJJSp3DR35qui
+ dMEgSJNyo+Zq837lRvZoegL7QsRHQevOMH3sbffE99o4CGdTyhKhOTndZFYdjuTM
+ fGV6oEq8zwuKT9OJ+o2fxTi0m3P9WOsC+nubssZG2/pycvCKJKRY6+pFxG1dNk/h
+ 4/m8hEiDjIf979LdrwmgFn1iDzXGXy6d4cOXd8qauXSR1LEBIhEypK8jllqzkBKn
+ RN2EmMCubSX4jrb7dYWZPaOqGqozVBk2WWCtnOAmgE0A==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:content-transfer-encoding:date:from
+ :message-id:mime-version:subject:to:x-me-proxy:x-me-proxy
+ :x-me-sender:x-me-sender:x-sasl-enc; s=fm3; bh=MFll1LAy+HeKGWf2n
+ 47Lt4xykNNDfDYFOfqIl15Kcj4=; b=rhTyUgIu8iEuraxhdegGLTrgCW7FuRaRz
+ cR+IMcXjOQxM5NmsbDZhmxrFH/H7EVX7Ak8vzMPU6pLIDsIMWvYO1zWMNLDaraWR
+ KOy8xZh1cgN1XhqNLegqCixh4nZMIVFEKxJpjE4C7ytWPZsFAY/KIg7cuutt5mnR
+ nRFX+Fs9wL0B2wVhK3KsbI/5OaZqF9SIYco6xquMLvOZWgJdcB8lbiINp1pQKMB7
+ ZZ7OVrA7O5JyDOsEUR2aAQt077K5iOUedZjk9XotM47gdho4CgevNCk12ElcDKed
+ uTu8dKjXOIvL7Tpw0hPTh04palPLzw2CJ/H/1fi7FB8V8TfLO58LQ==
+X-ME-Sender: <xms:Q3g_Xw-5VLIYdwC4cdFFCh5EE6YqnLRAXP8ohyX6wX-SB94vzYxv8A>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeduiedrudduuddgudduudcutefuodetggdotefrod
+ ftvfcurfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfgh
+ necuuegrihhlohhuthemuceftddtnecunecujfgurhephffvufffkffoggfgsedtkeertd
+ ertddtnecuhfhrohhmpefvrghkrghshhhiucfurghkrghmohhtohcuoehoqdhtrghkrghs
+ hhhisehsrghkrghmohgttghhihdrjhhpqeenucggtffrrghtthgvrhhnpedvtdeggeejje
+ etjedufffhuddvfefhvefhleelveeffefhleehhfegueeftedvheenucffohhmrghinhep
+ ghhithhhuhgsrdgtohhmnecukfhppedukedtrddvfeehrdefrdehgeenucevlhhushhtvg
+ hrufhiiigvpedtnecurfgrrhgrmhepmhgrihhlfhhrohhmpehoqdhtrghkrghshhhisehs
+ rghkrghmohgttghhihdrjhhp
+X-ME-Proxy: <xmx:RHg_X4thIPC1B2O-Mkdp1ygrdSuMTyWf7SH2CSyB8owSfHuxe-8agA>
+ <xmx:RHg_X2DC8MJBtQ5DKYGzTHBoXI_k6LZQiwQZVg4TUXckPtR8FgON-g>
+ <xmx:RHg_XwdviAQ1wLAqLkou8XEQ_haokEaP5Q5daFKgBVRqxUj3g7VouA>
+ <xmx:RXg_Xz205dKJ93SHTidPH-lkPPNdZ7hq-AGL7WfoUgoTQpULDGHIfQ>
+Received: from workstation.flets-east.jp (ad003054.dynamic.ppp.asahi-net.or.jp
+ [180.235.3.54])
+ by mail.messagingengine.com (Postfix) with ESMTPA id ACE2030600B7;
+ Fri, 21 Aug 2020 03:31:14 -0400 (EDT)
+From: Takashi Sakamoto <o-takashi@sakamocchi.jp>
+To: tiwai@suse.de,
+	perex@perex.cz
+Subject: [PATCH 00/25] alsa-tools: efw-downloader: add initial version of
+ firmwre downloader for Echo Audio Fireworks devices
+Date: Fri, 21 Aug 2020 16:30:46 +0900
+Message-Id: <20200821073111.134857-1-o-takashi@sakamocchi.jp>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-References: <20200819065555.1802761-1-hch@lst.de>
- <20200819065555.1802761-6-hch@lst.de>
- <CAAFQd5COLxjydDYrfx47ht8tj-aNPiaVnC+WyQA7nvpW4gs=ww@mail.gmail.com>
- <62e4f4fc-c8a5-3ee8-c576-fe7178cb4356@arm.com>
- <CAAFQd5AcCTDguB2C9KyDiutXWoEvBL8tL7+a==Uo8vj_8CLOJw@mail.gmail.com>
- <2b32f1d8-16f7-3352-40a5-420993d52fb5@arm.com> <20200820050214.GA4815@lst.de>
- <CAAFQd5AknYpP5BamC=wJkEJyO-q47V6Gc+HT65h6B+HyT+-xjQ@mail.gmail.com>
- <20200820165213.GC12693@lst.de>
-In-Reply-To: <20200820165213.GC12693@lst.de>
-From: Tomasz Figa <tfiga@chromium.org>
-Date: Thu, 20 Aug 2020 19:41:03 +0200
-X-Gmail-Original-Message-ID: <CAAFQd5BcH-_S=WDvqYvSPxMvQuN5atO8q=xktbMaPS-DOCAYbw@mail.gmail.com>
-Message-ID: <CAAFQd5BcH-_S=WDvqYvSPxMvQuN5atO8q=xktbMaPS-DOCAYbw@mail.gmail.com>
-Subject: Re: [PATCH 05/28] media/v4l2: remove V4L2-FLAG-MEMORY-NON-CONSISTENT
-To: Christoph Hellwig <hch@lst.de>
-Content-Type: text/plain; charset="UTF-8"
-X-Mailman-Approved-At: Fri, 21 Aug 2020 09:36:14 +0200
-Cc: alsa-devel@alsa-project.org, linux-ia64@vger.kernel.org,
- Linux Doc Mailing List <linux-doc@vger.kernel.org>,
- nouveau@lists.freedesktop.org, linux-nvme@lists.infradead.org,
- linux-mips@vger.kernel.org,
- "James E.J. Bottomley" <James.Bottomley@hansenpartnership.com>,
- linux-mm@kvack.org, Marek Szyprowski <m.szyprowski@samsung.com>,
- linux-samsung-soc <linux-samsung-soc@vger.kernel.org>,
- Joonyoung Shim <jy0922.shim@samsung.com>, linux-scsi@vger.kernel.org,
- Joerg Roedel <joro@8bytes.org>,
- "list@263.net:IOMMU DRIVERS" <iommu@lists.linux-foundation.org>,
- Ben Skeggs <bskeggs@redhat.com>, Matt Porter <mporter@kernel.crashing.org>,
- Linux Media Mailing List <linux-media@vger.kernel.org>,
- Tom Lendacky <thomas.lendacky@amd.com>, Pawel Osciak <pawel@osciak.com>,
- Mauro Carvalho Chehab <mchehab@kernel.org>,
- "list@263.net:IOMMU DRIVERS <iommu@lists.linux-foundation.org>,
- Joerg Roedel <joro@8bytes.org>, " <linux-arm-kernel@lists.infradead.org>,
- Thomas Bogendoerfer <tsbogend@alpha.franken.de>, linux-parisc@vger.kernel.org,
- netdev@vger.kernel.org, Seung-Woo Kim <sw0312.kim@samsung.com>,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- Kyungmin Park <kyungmin.park@samsung.com>, Robin Murphy <robin.murphy@arm.com>
+Content-Transfer-Encoding: 8bit
+Cc: ffado-devel@lists.sourceforge.net, alsa-devel@alsa-project.org,
+ clemens@ladisch.de
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -129,31 +111,128 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Thu, Aug 20, 2020 at 6:52 PM Christoph Hellwig <hch@lst.de> wrote:
->
-> On Thu, Aug 20, 2020 at 12:24:31PM +0200, Tomasz Figa wrote:
-> > > Of course this still uses the scatterlist structure with its annoying
-> > > mix of input and output parametes, so I'd rather not expose it as
-> > > an official API at the DMA layer.
-> >
-> > The problem with the above open coded approach is that it requires
-> > explicit handling of the non-IOMMU and IOMMU cases and this is exactly
-> > what we don't want to have in vb2 and what was actually the job of the
-> > DMA API to hide. Is the plan to actually move the IOMMU handling out
-> > of the DMA API?
-> >
-> > Do you think we could instead turn it into a dma_alloc_noncoherent()
-> > helper, which has similar semantics as dma_alloc_attrs() and handles
-> > the various corner cases (e.g. invalidate_kernel_vmap_range and
-> > flush_kernel_vmap_range) to achieve the desired functionality without
-> > delegating the "hell", as you called it, to the users?
->
-> Yes, I guess I could do something in that direction.  At least for
-> dma-iommu, which thanks to Robin should be all you'll need in the
-> foreseeable future.
+Hi,
 
-That would be really great. Let me know if we can help by testing with
-V4L2/vb2 or in any other way.
+This patchset is for alsa-tool repository[1] to add a new command-line
+tool, efw-downloader. The tools is designed to operate on-board flash
+memory for devices based on Fireworks board module. The patches are also
+available in my personal repository in github.com[2].
 
-Best regards,
-Tomasz
+Fireworks board module was designed by Echo Digital Audio corporation. The
+board module has on-board flash memory to store firmware blob and session
+data. The contents of flash memory can be operated by software by a pair
+of asynchronous transactions defined by Echo Digital Audio corporation.
+
+Echo Digital Audio corporation also designed file format of firmware.
+Hardware Vendors including Echo Digital Audio corporation shipped
+several versions of firmware by the format in driver packages for
+Windows and macOS.
+
+The goal of this tool is to operate the flash memory to download any
+version of firmware. In this patchset, limited functionalities are added;
+read from the flash memory, and parse the content of file. The other
+functionalities are planned to added in future work.
+
+I thinks it possible to put actual firmware blobs into somewhere
+suitable for them (alsa-firmware or linux-firmware repositories). I
+think it better to prepare the files by reading on-board flash memory,
+with enough care of copyright of original firmware files shipped by
+vendor. In the case, it's preferable to use file format different
+from the original one. But it's my first time for this kind of work.
+I'd like to ask some advices to alsa developers.
+
+[1] https://github.com/alsa-project/alsa-tools/
+[2] https://github.com/takaswie/alsa-tools/tree/topic/efw-downloader
+
+Takashi Sakamoto (25):
+  efw-downloader: start a new project to operate on-board flash memory
+    for Fireworks board module
+  efw-downloader: efw-proto: define EfwProto as derived object of
+    HinawaFwResp
+  efw-downloader: efw-proto: add constructor, destructor, bind, unbind
+    functions
+  efw-downloader: efw-proto: add responded signal
+  efw-downloader: efw-proto: add class virtual method to handle
+    responded signal
+  efw-downloader: efw-proto: add instance private structure
+  efw-downloader: efw-proto: emit responded signal at receiving response
+  efw-downloader: efw-proto: add function to finish transaction for
+    command frame
+  efw-downloader: efw-proto: add function to finish a pair of
+    transactions
+  efw-downloader: add parser for sub commands
+  efw-downloader: subcmd-device: implement 'device' sub command to
+    operate actual device
+  efw-downloader: subcmd-device: open firewire character device by
+    HinawaFwNode
+  efw-downloader: config-rom: parse config rom to detect supported
+    device
+  efw-downloader: subcmd-device: check supported models or not
+  efw-downloader: subcmd-device: bind Fireworks protocol
+  efw-downloader: node_dispatcher: add event dispatcher utilizing GLib
+    MainContext/MainLoop
+  efw-downloader: subcmd-device: support debug output for response of
+    Fireworks protocol
+  efw-downloader: efw-commands: add support for a part of hardware
+    command
+  efw-downloader: efw-commands: add support for commands in flash
+    category
+  efw-downloader: subcmd-device: add read operation
+  efw-downloader: file-cntr: add parser for data binary shipped by Echo
+    Digital Audio corporation
+  efw-downloader: subcmd-file: add 'file' sub command
+  efw-downloader: subcmd-file: add parse operation
+  efw-downloader: man: add online manual
+  efw-downloader: add README formatted by reStructuredText
+
+ efw-downloader/COPYING                        | 674 ++++++++++++++++++
+ efw-downloader/README.rst                     | 167 +++++
+ efw-downloader/man/efw-downloader.1           | 162 +++++
+ efw-downloader/meson.build                    |  14 +
+ efw-downloader/meson_options.txt              |   5 +
+ efw-downloader/src/config-rom.c               |  60 ++
+ efw-downloader/src/config-rom.h               |  26 +
+ efw-downloader/src/efw-commands.c             | 243 +++++++
+ efw-downloader/src/efw-commands.h             |  57 ++
+ .../src/efw-proto-sigs-marshal.list           |   1 +
+ efw-downloader/src/efw-proto.c                | 401 +++++++++++
+ efw-downloader/src/efw-proto.h                |  80 +++
+ efw-downloader/src/file-cntr.c                | 183 +++++
+ efw-downloader/src/file-cntr.h                |  39 +
+ efw-downloader/src/main.c                     |  54 ++
+ efw-downloader/src/meson.build                |  54 ++
+ efw-downloader/src/node-dispatcher.c          |  86 +++
+ efw-downloader/src/node-dispatcher.h          |  21 +
+ efw-downloader/src/op-device-read.c           | 104 +++
+ efw-downloader/src/op-file-parse.c            | 106 +++
+ efw-downloader/src/subcmd-device.c            | 182 +++++
+ efw-downloader/src/subcmd-file.c              |  87 +++
+ efw-downloader/src/subcmds.h                  |  16 +
+ 23 files changed, 2822 insertions(+)
+ create mode 100644 efw-downloader/COPYING
+ create mode 100644 efw-downloader/README.rst
+ create mode 100644 efw-downloader/man/efw-downloader.1
+ create mode 100644 efw-downloader/meson.build
+ create mode 100644 efw-downloader/meson_options.txt
+ create mode 100644 efw-downloader/src/config-rom.c
+ create mode 100644 efw-downloader/src/config-rom.h
+ create mode 100644 efw-downloader/src/efw-commands.c
+ create mode 100644 efw-downloader/src/efw-commands.h
+ create mode 100644 efw-downloader/src/efw-proto-sigs-marshal.list
+ create mode 100644 efw-downloader/src/efw-proto.c
+ create mode 100644 efw-downloader/src/efw-proto.h
+ create mode 100644 efw-downloader/src/file-cntr.c
+ create mode 100644 efw-downloader/src/file-cntr.h
+ create mode 100644 efw-downloader/src/main.c
+ create mode 100644 efw-downloader/src/meson.build
+ create mode 100644 efw-downloader/src/node-dispatcher.c
+ create mode 100644 efw-downloader/src/node-dispatcher.h
+ create mode 100644 efw-downloader/src/op-device-read.c
+ create mode 100644 efw-downloader/src/op-file-parse.c
+ create mode 100644 efw-downloader/src/subcmd-device.c
+ create mode 100644 efw-downloader/src/subcmd-file.c
+ create mode 100644 efw-downloader/src/subcmds.h
+
+-- 
+2.25.1
+

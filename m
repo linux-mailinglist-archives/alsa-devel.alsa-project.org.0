@@ -2,89 +2,130 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id DDD8824D08B
-	for <lists+alsa-devel@lfdr.de>; Fri, 21 Aug 2020 10:30:23 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4C64424D15C
+	for <lists+alsa-devel@lfdr.de>; Fri, 21 Aug 2020 11:23:36 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 5251B169F;
-	Fri, 21 Aug 2020 10:29:33 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5251B169F
+	by alsa0.perex.cz (Postfix) with ESMTPS id C12A11686;
+	Fri, 21 Aug 2020 11:22:45 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C12A11686
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1597998623;
-	bh=avWmPL2EtXt/ZNaTUPpSodMdPR2j8+wH4rRJprZugEo=;
-	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
+	s=default; t=1598001815;
+	bh=cnwjXpnGN6Gn0m2rSOMDdAe9yhT6nhfknyihg4yeoUQ=;
+	h=From:To:Subject:Date:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=cYmrVCdCkNdeWqL8OosbOdaVbR2sU0/zTrabXVBAE8vX6y0p7+NmdYkT/U3tokeVR
-	 lowQ89KMQXnx3RQgEC09U+b1sxYXWRRfNmpZg91uSpBeTg8EyrPBICFSbcegwUgi+X
-	 JkSPGJ2osmdBsuHfW21ZiLVODuLU4FnwgImcPULE=
+	b=fPePLO7A+0faNPjyqRf0s6VWJUQceuOtBNisko8IOjpylKDbn++L7HYmCRgctVT6o
+	 to40rjrsYMWbwt1v3BvJiEeMSQ7xuyw421UHQjteQ/Q6Euyuc8RfFNG7hJ7cljW7/5
+	 75rtCtp8r0/QppW4AmMDStmNscTuXM2IeCeEPkJQ=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 7D792F800D2;
-	Fri, 21 Aug 2020 10:28:42 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 03072F80216;
+	Fri, 21 Aug 2020 11:21:55 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 1663BF80218; Fri, 21 Aug 2020 10:28:40 +0200 (CEST)
+ id E0593F80218; Fri, 21 Aug 2020 11:21:52 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,RCVD_IN_MSPIKE_H2,SPF_HELO_PASS,SPF_PASS,URIBL_BLOCKED
  autolearn=disabled version=3.4.0
-Received: from hqnvemgate24.nvidia.com (hqnvemgate24.nvidia.com
- [216.228.121.143])
+Received: from EUR01-VE1-obe.outbound.protection.outlook.com
+ (mail-eopbgr140049.outbound.protection.outlook.com [40.107.14.49])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 2D886F800D2
- for <alsa-devel@alsa-project.org>; Fri, 21 Aug 2020 10:28:26 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2D886F800D2
+ by alsa1.perex.cz (Postfix) with ESMTPS id 1B089F800D2
+ for <alsa-devel@alsa-project.org>; Fri, 21 Aug 2020 11:21:39 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1B089F800D2
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=nvidia.com header.i=@nvidia.com
- header.b="WQRg5YP5"
-Received: from hqpgpgate102.nvidia.com (Not Verified[216.228.121.13]) by
- hqnvemgate24.nvidia.com (using TLS: TLSv1.2, DES-CBC3-SHA)
- id <B5f3f85330000>; Fri, 21 Aug 2020 01:26:27 -0700
-Received: from hqmail.nvidia.com ([172.20.161.6])
- by hqpgpgate102.nvidia.com (PGP Universal service);
- Fri, 21 Aug 2020 01:28:22 -0700
-X-PGP-Universal: processed;
- by hqpgpgate102.nvidia.com on Fri, 21 Aug 2020 01:28:22 -0700
-Received: from [10.25.96.247] (10.124.1.5) by HQMAIL107.nvidia.com
- (172.20.187.13) with Microsoft SMTP Server (TLS) id 15.0.1473.3; Fri, 21 Aug
- 2020 08:28:19 +0000
-Subject: Re: More Generic Audio Graph Sound Card idea
-To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-References: <87k0xszlep.wl-kuninori.morimoto.gx@renesas.com>
- <097e3fc4-4a84-e101-e6b6-045c3e9e5bfc@nvidia.com>
- <87imdczd4i.wl-kuninori.morimoto.gx@renesas.com>
-From: Sameer Pujar <spujar@nvidia.com>
-Message-ID: <7ceb0e77-fdf5-dd62-f1f6-660c4ed43e89@nvidia.com>
-Date: Fri, 21 Aug 2020 13:58:15 +0530
-User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:68.0) Gecko/20100101
- Thunderbird/68.10.0
+ dkim=pass (1024-bit key) header.d=nxp.com header.i=@nxp.com
+ header.b="DGt0uP7V"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=TPn9tyRhmJtxmnCkmqlZCp6E5QGHNrUN45PRs2jD+vjhmdigGaUDMvcEBZq5DmsuXDfZ88hXzXQegLLgrECphnO5AwErE7/St8EVwWzDMe5DNnvwYGYKZbO8IijDsw/1sP/8fVJ83lbakVUEhZN4rC4C0/LSCa9mNSM4NfkscsBn38yNAONP1TpohbDVs+tXkF09A52kYZWOfDEqf8TR/IseWR/x7rwnVIXw7Zofrfpxb9kfA3ODK7ea3e5ojdonf7wjFcp68mQ1jMkxHATNo1uy2vVdofILAXJ0nzQvd9j8eTIoingTsGOkknkVSsANSrA2l1BOfO5TZzUlOuD84g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=cnwjXpnGN6Gn0m2rSOMDdAe9yhT6nhfknyihg4yeoUQ=;
+ b=aQd9TfY2LTUBBYe3W2vGEXetnZAjfYYAV3uJTseRNcuAFx+fnKGFHMwNBu29j9xQ/0b6w5cEgGjsdRsCUK5enwP/fZsAXBRADULK7ptN9aXVyN63neJi0teqq/jeOxSNc6XM6tbIqxrFmYCvuE5uDLcxggvaN/uQDOFKDs9TgRnnPRCyvz/da/juqLvwTS+xGUwC6TBJ6Rq4yMyEUPFpg7TgXGEt6LdxVLMg8fxj0yM82+XbBkZO3rmhrP7+a734yXDF5T49jyNcXah3vcvUUHQMbVA/5NLhEz9atKx2HdwtGWyI4tZuum0xzNadll/x11ZirpA53NBG64JMOFXK3w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
+ header.d=nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector2; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=cnwjXpnGN6Gn0m2rSOMDdAe9yhT6nhfknyihg4yeoUQ=;
+ b=DGt0uP7VEcmnWLZTbqSOfcj95SfdqS3IMhKsc5sEbYTMAg2nUL0qtUdxVRM2D2KU8bP9SkZ0JEXRYzUfWVvAYirFz2Bf67OJtbOGXLHOgwB/B3cPQD7kq7v29Kd0ydh7uc3lIVGFtOCHi8m+f6B7hK14pXZCRHgXWMRnvcEsQEE=
+Received: from VE1PR04MB6638.eurprd04.prod.outlook.com (2603:10a6:803:119::15)
+ by VE1PR04MB7470.eurprd04.prod.outlook.com (2603:10a6:800:1a3::15)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3305.26; Fri, 21 Aug
+ 2020 09:21:37 +0000
+Received: from VE1PR04MB6638.eurprd04.prod.outlook.com
+ ([fe80::ad7f:d95a:5413:a950]) by VE1PR04MB6638.eurprd04.prod.outlook.com
+ ([fe80::ad7f:d95a:5413:a950%3]) with mapi id 15.20.3283.027; Fri, 21 Aug 2020
+ 09:21:37 +0000
+From: Robin Gong <yibin.gong@nxp.com>
+To: Richard Leitner <richard.leitner@skidata.com>
+Subject: RE: pcm|dmaengine|imx-sdma race condition on i.MX6
+Thread-Topic: pcm|dmaengine|imx-sdma race condition on i.MX6
+Thread-Index: AQHWcWQbD9eqMlwY2U27XyctTVPmVak3Rd/wgASnXICAA2IfgIAANxuAgAFCSvCAAT0iAIAATlSQ
+Date: Fri, 21 Aug 2020 09:21:37 +0000
+Message-ID: <VE1PR04MB6638271FA459E4068391ABF8895B0@VE1PR04MB6638.eurprd04.prod.outlook.com>
+References: <20200813112258.GA327172@pcleri>
+ <VE1PR04MB6638EE5BDBE2C65FF50B7DB889400@VE1PR04MB6638.eurprd04.prod.outlook.com>
+ <61498763c60e488a825e8dd270732b62@skidata.com>
+ <16942794-1e03-6da0-b8e5-c82332a217a5@metafoo.de>
+ <6b5799a567d14cfb9ce34d278a33017d@skidata.com>
+ <VE1PR04MB6638A7AC625B6771F9A69F0D895A0@VE1PR04MB6638.eurprd04.prod.outlook.com>
+ <20200821043418.GA65616@pcleri>
+In-Reply-To: <20200821043418.GA65616@pcleri>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+authentication-results: skidata.com; dkim=none (message not signed)
+ header.d=none;skidata.com; dmarc=none action=none header.from=nxp.com;
+x-originating-ip: [119.31.174.67]
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-ht: Tenant
+x-ms-office365-filtering-correlation-id: 4219dbeb-ce1d-4a89-be7b-08d845b39b41
+x-ms-traffictypediagnostic: VE1PR04MB7470:
+x-ms-exchange-transport-forked: True
+x-microsoft-antispam-prvs: <VE1PR04MB74701A8B9321A2BBF02068D5895B0@VE1PR04MB7470.eurprd04.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:8882;
+x-ms-exchange-senderadcheck: 1
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: +pmPoeIX1mNRkPxCBaeSUA4FblZH+F8hvduwamiH0Hh7U3x/jf4J2hHwc3ezBPFvYhwWv39IMrNlRP2nCdzAoNSgzvgGgsI4yjzYrw/3JAYRPBk5vPhnKpH49JyAkMPr/BOp88fwcJ/8xRngRvAjzYnKHaCgfPgFvPD1yxXTSo0mQFhoOnJOi5N2ibiKSI9DTRgyexc/E0Rf4hlHZkgq9SSUZ/B8Rij4l2h22zDuaoDFcvf/Y8+fAM7Zio/JLwCOp6vq7bCTmcQ/bB+BPVSolLjkW4plmTKyEjzHDAKc5TeSLNhWXwRDRG9DdFXIgfHEGpqx2CDFNkarWsgOiprkE4H+kMgg7zDnYzBZS7rhg26dWd4cTwlBtF+HGLWFDqD9WKrBOssmPDsNViyYO5/v3w==
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:VE1PR04MB6638.eurprd04.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(136003)(396003)(346002)(366004)(376002)(39860400002)(2906002)(66476007)(64756008)(66446008)(66556008)(66946007)(7416002)(71200400001)(76116006)(6506007)(53546011)(86362001)(4326008)(6916009)(478600001)(52536014)(5660300002)(186003)(966005)(8936002)(4744005)(316002)(55016002)(9686003)(7696005)(54906003)(26005)(8676002)(33656002);
+ DIR:OUT; SFP:1101; 
+x-ms-exchange-antispam-messagedata: uyfZic1K9d9MbY9sr56IUf9KjAIxmvY2Vq7OPzhKnV25ZOef2UlDp2auz0JFuS/Ogyx4WpQqW04NVscOqaVGKx6CIMt8FGLU7d0PtWPK8CJCUuvAr+zFCR/WTQg7Z8bYzn5dVbKeOs68/+DSt/i0vpUl5mtp/ULIzLZ0Iwv4KigvCT2pqF/oUr2+ENn1ASfbSwNWhizq5zhPXLHXRb+cnHhYvghbeF5uoRFw/ZP8eJBQxirXMlyN1J1h+WnM7QZeiwpSe7+UKa/1q4iSdRJGxz+pUmn+3YSP0vE4MlNV+U5AaCvYg/LzV30cjtwPNkEVoF7zW5BMBBCDqIZgn7GKvqQ9aNpEhBLQHe2WPDkuiPst9OG6qEN5aOEJS+ELd54cgJyOdhu8g98JcYIZ2PSejToQrmk+4YneUC7y8nLAbzn8HaY3L/ZXaIQXnVO5BEMhddFalvAi+XLVSPAGJ9yz+c7NBgUulRH7TxPKvn8FZl6OVVh/Bvcvx8tnw++RO1wsz8VGJqRk0JPNCdOtFKsFnPXfJMwMsj6slzjHAbtP6hkj+BpxtekzXIiufHqRcwwttjujfzcAxBFTHPimlcJ2Y3Cfg9priQLRAgLpoHT9UKFvtC93qEuN4uOG720Ttd/LMdjmFCprqec5McmuMCFD4Q==
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
-In-Reply-To: <87imdczd4i.wl-kuninori.morimoto.gx@renesas.com>
-X-Originating-IP: [10.124.1.5]
-X-ClientProxiedBy: HQMAIL111.nvidia.com (172.20.187.18) To
- HQMAIL107.nvidia.com (172.20.187.13)
-Content-Type: text/plain; charset="utf-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-Content-Language: en-GB
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nvidia.com; s=n1;
- t=1597998387; bh=WFsVh6c8M4+WiCczi6dhz+24e/gBsRCCrYxfIkZMvuo=;
- h=X-PGP-Universal:Subject:To:CC:References:From:Message-ID:Date:
- User-Agent:MIME-Version:In-Reply-To:X-Originating-IP:
- X-ClientProxiedBy:Content-Type:Content-Transfer-Encoding:
- Content-Language;
- b=WQRg5YP5JQ1N7kppv6l/rKb3lGUdSTI7MFMNVWPLkJ2GRPl3YRAlxxjNsvUdMIAxi
- HH23s0HOtwuDk7g28chlvwDUYHt8zfi2By6nR5DWV71Oj6g6306IYrmBFCc7+LODZX
- yacZwhgpKq/LGMP3/0veVynzR8qlPQ8V2yKUAybt+JCnoMa4R+zLALacsO2bLwyQUh
- +AOqqWA9Pt6VpoVcAEeEj8SoEwyGiRv3D88W6YZdjG0OwgxPPU4IHoVDDViLcI9iXZ
- xPYvJTXv9ic2dhG2h7N4ZfAom1bMo4ihDyRTvi3mvMqVxfhDyJWEU0xPVXYHju0WaV
- Nrqxe4eVVDIJg==
-Cc: Linux-ALSA <alsa-devel@alsa-project.org>, Mark Brown <broonie@kernel.org>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- jonathanh@nvidia.com
+X-OriginatorOrg: nxp.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: VE1PR04MB6638.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 4219dbeb-ce1d-4a89-be7b-08d845b39b41
+X-MS-Exchange-CrossTenant-originalarrivaltime: 21 Aug 2020 09:21:37.8615 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: M2mfbT0XvsRY/38sXwpz2SsysXND0GzAslOkOWp6/HX4ULLwRn2TX3zHIzkDR+Pto3/42GIzP4SkFJ2YI1Q5sw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: VE1PR04MB7470
+Cc: "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
+ Lars-Peter Clausen <lars@metafoo.de>, "timur@kernel.org" <timur@kernel.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "nicoleotsuka@gmail.com" <nicoleotsuka@gmail.com>,
+ "vkoul@kernel.org" <vkoul@kernel.org>,
+ Benjamin Bara - SKIDATA <Benjamin.Bara@skidata.com>,
+ "kernel@pengutronix.de" <kernel@pengutronix.de>,
+ "dmaengine@vger.kernel.org" <dmaengine@vger.kernel.org>,
+ "dan.j.williams@intel.com" <dan.j.williams@intel.com>,
+ "shawnguo@kernel.org" <shawnguo@kernel.org>,
+ "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>,
+ dl-linux-imx <linux-imx@nxp.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -100,28 +141,29 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hi Morimoto-san,
-
-...
-
->> If we encode use case information in DT, it would become regid and is
->> not flexible when the HW is giving us the all flexibility (at least in
->> my case). Thus may lead to complications. If there is a way to
->> configure PCM parameters from the user space it would help to simplify
->> things. Then DT can just describe the HW links.
-> What kind of PCM parameters you want to get from user-space ?
-
-I was referring to channels, rate, sample size for PCM parameters which 
-are part of hw_params(). Having these strictly defined in DT would limit 
-from using the same audio path for different configurations. So far used 
-mixer controls for overriding this info in hw_param(), but this idea is 
-dropped as per Mark's suggestion earlier. The requirement here is, some 
-components have the ability to alter these parameters. Subsequent 
-components in the audio path should me made aware of this.
-
-For example, SRC (sample rate converter) can change 'rate' info coming 
-from hw_param(). Similarly 'mux/demux' can change channel info. Fixing 
-one set of configuration in DT will limit the usage. If this is 
-configurable from user space, then it would be lot more easier.
-
-. . .
+On 2020/08/21 12:34 Richard Leitner <richard.leitner@skidata.com> wrote:=20
+> On Thu, Aug 20, 2020 at 03:01:44PM +0000, Robin Gong wrote:
+> > On 2020/08/19 22:26 Benjamin Bara - SKIDATA <Benjamin.Bara@skidata.com>
+> wrote:
+> > >
+> > > @Robin:
+> > > Is it possible to tag the commits for the stable-tree
+> > > Cc: stable@vger.kernel.org?
+> > Could my patch work in your side? If yes, I will add
+> > Cc: stable@vger.kernel.org
+>=20
+> I've tested the patches 3 & 4 (removing sdmac->context_loaded) of the ser=
+ies
+> you mentioned and sent Tested-by tags for them [1,2], as they fix the EIO
+> problems for our use case.
+>=20
+> So from our side they are fine for stable.
+>=20
+Okay, I thought that's just decrease the issue in your side not totally fix=
+, and the patch
+I post in https://www.spinics.net/lists/arm-kernel/msg829972.html
+could resolve the potential next descriptor wrongly freed by vchan_get_all_=
+descriptors
+in sdma_channel_terminate_work. Anyway, I'll add ' Cc: stable@vger.kernel.o=
+rg' and
+your Tested-by tags in 3&4, then resend it again, thanks.

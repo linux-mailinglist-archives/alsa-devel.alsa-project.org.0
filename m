@@ -2,84 +2,92 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 690B524CEB2
-	for <lists+alsa-devel@lfdr.de>; Fri, 21 Aug 2020 09:13:35 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0CEED24CEB4
+	for <lists+alsa-devel@lfdr.de>; Fri, 21 Aug 2020 09:14:31 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C3AF91684;
-	Fri, 21 Aug 2020 09:12:44 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C3AF91684
+	by alsa0.perex.cz (Postfix) with ESMTPS id A7A0E1678;
+	Fri, 21 Aug 2020 09:13:40 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A7A0E1678
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1597994014;
-	bh=PIQOGothtnLFZt78Xvj62XGMba01CFg78S4FbXoNPTg=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=ayue5Bh3d1WN7twfeotiSnibD1k40l2GjJ6ht7qWnuzf+j3YD6RsUeofX8+5Kji7C
-	 ekbnnyqkL7hV30jZ6ApTKA5N63wgIGL80VQvDuecudommZPq1i4+0ViIeylXfhzVs/
-	 MIrx5WCJj2h4ifBl/KXyPgG4ZNT00mjSdg9SY++0=
+	s=default; t=1597994070;
+	bh=4C93rfTkYYAe6YpLxR8PaC5qgCxICWsqnPda3XOTLVU=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=is8tfj9Ny7ZtnHVrQf4KGwnk5yUmxPr5t6YvAQrevrMeLkkcBusatdKAd5NWgHpXs
+	 FwutBrg/uf17mklFxj76KN7B1pQe2pvuZzAymN9Ea2pKUJCpZOJa7+3RryteLE9rdj
+	 wsrTFcGbM/GwL0tIfI5Ns0C8VL80GdODixVlYXv8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id ED3F2F80253;
-	Fri, 21 Aug 2020 09:11:53 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 16BE8F802C2;
+	Fri, 21 Aug 2020 09:12:26 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 25FB8F80218; Fri, 21 Aug 2020 09:11:52 +0200 (CEST)
+ id 76D74F80218; Fri, 21 Aug 2020 09:12:22 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from mail-wr1-x42e.google.com (mail-wr1-x42e.google.com
- [IPv6:2a00:1450:4864:20::42e])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mx1.tq-group.com (mx1.tq-group.com [62.157.118.193])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 0DD98F800D3
- for <alsa-devel@alsa-project.org>; Fri, 21 Aug 2020 09:11:41 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0DD98F800D3
+ by alsa1.perex.cz (Postfix) with ESMTPS id 7F323F80218
+ for <alsa-devel@alsa-project.org>; Fri, 21 Aug 2020 09:12:12 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7F323F80218
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="pbAIL/rQ"
-Received: by mail-wr1-x42e.google.com with SMTP id f7so1017770wrw.1
- for <alsa-devel@alsa-project.org>; Fri, 21 Aug 2020 00:11:41 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=PIQOGothtnLFZt78Xvj62XGMba01CFg78S4FbXoNPTg=;
- b=pbAIL/rQwSZOVREIzWP5AZpMrXceQpap5AfjycHayfdWLmWkkP34smXv2gpM3wCIS2
- ZNJN3eyQ22M32THpzVD/O8w2c6rZQ6/fmKieN3/5OEEwne23SILS5e9JxxeQ4IZ1KUos
- /+KI9Osr0ug2Fm00II2CAOA3FHCMaPhD+KH2q1qIHcCYRLpn/DEOAKuEinhuR52pGJGL
- aH6ukp0MiZjCZqH1nW76rXu4vxRtLi9w5t02qkJANJqs0y61QVG0vNu+la6JWP4vNxZ1
- EPvK6IzvO9DHtS3FgEppJRot2LmqeYGqy7g4H2Um++qXnYTIG0yxIEmZsF4Fy92VitP/
- /2xw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=PIQOGothtnLFZt78Xvj62XGMba01CFg78S4FbXoNPTg=;
- b=TNIctMeVM3ckbBUuBBq96BhR8DOP8xjVbx5WOxN91bWaG9vuCVCSsATLHVD9Zk791N
- fxjWXSCzKD+numdKEVc46Bk3P4iB2au11sj7yYmqz1ehBzyv4U4ppHc8npmEZ23faeXa
- OOCdO/Y0t5FVd+CnTlTONkEJKY17kLSlZRkVLjEH2vOPdEhtNR1dVjRtgrO+S9clHhVb
- jHsHnvxKoJa1UAWAksgJDwfKn3vxko2XHK9VixN+WuoHwTSRNENZLUXlLvWY5MD5q8jV
- YWcs1iT7ea9O273ntdmJmf7Q0QaU/wqItvVDmXZxpuMXo00ICU9jF6H9AMuMBYKKftDx
- yyrA==
-X-Gm-Message-State: AOAM531NY4QcENTsdZ5Y3xgaydWCtEvYDvFx0A7HUGGedH1GPI+8Sfhw
- vuCXDoLbFXSRWCZ9qvCju64QaPndpcegu4OJKxQ=
-X-Google-Smtp-Source: ABdhPJyhusNPFvsraHcL4n65gslUil1jiSzGmRnLwhTSCpbW1p4KbLCq3fh6DLWciu0ZOjm/2fzKXd9OGNYNTLkWhrA=
-X-Received: by 2002:a5d:414d:: with SMTP id c13mr1374700wrq.78.1597993900282; 
- Fri, 21 Aug 2020 00:11:40 -0700 (PDT)
-MIME-Version: 1.0
-References: <87k0xszlep.wl-kuninori.morimoto.gx@renesas.com>
-In-Reply-To: <87k0xszlep.wl-kuninori.morimoto.gx@renesas.com>
-From: Daniel Baluta <daniel.baluta@gmail.com>
-Date: Fri, 21 Aug 2020 10:11:29 +0300
-Message-ID: <CAEnQRZCsy+QiMpCCRPNF-BUcjaT+UVE2B_a6Bd48f8tRqXTpOA@mail.gmail.com>
-Subject: Re: More Generic Audio Graph Sound Card idea
-To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Content-Type: text/plain; charset="UTF-8"
-Cc: Sameer Pujar <spujar@nvidia.com>, Mark Brown <broonie@kernel.org>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- Linux-ALSA <alsa-devel@alsa-project.org>
+ dkim=pass (2048-bit key) header.d=tq-group.com header.i=@tq-group.com
+ header.b="Vt4Sqwe3"
+IronPort-SDR: 2D1en2nIaqpQD5WHCwkl5keNUKSx1Yg7WLkFEX+Jp+IudMxGs1H/g5cCp/jxcMacHgXvy977qn
+ 5g3ld4Rv8sGPCt/inLic2BkOVLqH70LdODaB2ptDpGVg13T61EzidU9QW3C6DvmrFHbpX2Zngh
+ wSVeYWIXGeol0ckTAlkUHDCjLHhVEeQNW8peWblzM86/UMCaKAFTTJ3j1iwbl+kjsFJRNfSETg
+ N4lh8O5r9BBLFmbAv+ZzOUyWz2Ya6kArXVgIQ2LdjiAiE5PTUGVhAM1FZUaEtYeQwUHYw7+fs7
+ jJo=
+X-IronPort-AV: E=Sophos;i="5.76,335,1592863200"; d="scan'208";a="13549137"
+Received: from unknown (HELO tq-pgp-pr1.tq-net.de) ([192.168.6.15])
+ by mx1-pgp.tq-group.com with ESMTP; 21 Aug 2020 09:12:11 +0200
+Received: from mx1.tq-group.com ([192.168.6.7])
+ by tq-pgp-pr1.tq-net.de (PGP Universal service);
+ Fri, 21 Aug 2020 09:12:11 +0200
+X-PGP-Universal: processed;
+ by tq-pgp-pr1.tq-net.de on Fri, 21 Aug 2020 09:12:11 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+ d=tq-group.com; i=@tq-group.com; q=dns/txt; s=key1;
+ t=1597993931; x=1629529931;
+ h=from:to:cc:subject:date:message-id;
+ bh=4C93rfTkYYAe6YpLxR8PaC5qgCxICWsqnPda3XOTLVU=;
+ b=Vt4Sqwe3i0b2cyC3lAhzp2Yi+sqoXtYFC2sCdrTVy8gwY9CyEiL+Um5k
+ uQAh5tqzqvc/VIz7efzO02RYLgv/rQ9LqIRcZqU9yvWwFIGGE0Y0uVjqe
+ eeHAp8F3vAQXI/MAoYBmLuf7Jc4NG6Sv12voaIF7Adwd5q67FOE5zqyHJ
+ c1wt0HK9Q+PnRxOJlrVn6I2EDnsnNv7boPbh/ENCzhYSp84Bdnovc+fU+
+ lNGOPSuyQT7bAY5zTVU2MNVPv/7XM5OsmhxxP6QqbXtfAQcE3E8voGhDd
+ Ah9qmNvgxe0PM7YWxrdT2pjcXpM7L456B/LhM67awZEsKtNRssxlEaur4 Q==;
+IronPort-SDR: 6LGTt+7iBWNLGsTYozLX6NjYOiV2bCMlsFeIRF2xdffJ9B+qK9CoDa1hEyGqnxS5Q7XWWYVf1P
+ v7KRfyhftrSqG/neIJL821FYZLfCDPzGD9wpbq873juzofSBUp76oxRK3bssXI8m2fTfNJLt3i
+ OOlRIXO5npr+Vfpsn5wWPnRzD9fwe+kxzQLDPS8f5KiKSFwvyRUdY7MAPMsWo5WtRMynRW3E7A
+ 0ySil2zYA546DRPRdhaamIo+uQJLKfLV474xZ2T1g5AJ5ZbssgzE4BdXP0f9nLfNRBi+ZZtDkI
+ WlU=
+X-IronPort-AV: E=Sophos;i="5.76,335,1592863200"; d="scan'208";a="13549136"
+Received: from vtuxmail01.tq-net.de ([10.115.0.20])
+ by mx1.tq-group.com with ESMTP; 21 Aug 2020 09:12:11 +0200
+Received: from schifferm-ubuntu4.tq-net.de (schifferm-ubuntu4.tq-net.de
+ [10.117.49.26])
+ by vtuxmail01.tq-net.de (Postfix) with ESMTPA id 90C36280065;
+ Fri, 21 Aug 2020 09:12:11 +0200 (CEST)
+From: Matthias Schiffer <matthias.schiffer@ew.tq-group.com>
+To: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+ Rob Herring <robh+dt@kernel.org>, Jaroslav Kysela <perex@perex.cz>,
+ Takashi Iwai <tiwai@suse.com>, Timur Tabi <timur@kernel.org>,
+ Nicolin Chen <nicoleotsuka@gmail.com>, Xiubo Li <Xiubo.Lee@gmail.com>,
+ Fabio Estevam <festevam@gmail.com>, Shengjiu Wang <shengjiu.wang@gmail.com>
+Subject: [PATCH 1/2] ASoC: bindings: fsl-asoc-card: add compatible string for
+ TLV320AIC32x4 codec
+Date: Fri, 21 Aug 2020 09:11:52 +0200
+Message-Id: <20200821071153.7317-1-matthias.schiffer@ew.tq-group.com>
+X-Mailer: git-send-email 2.17.1
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
+ Matthias Schiffer <matthias.schiffer@ew.tq-group.com>,
+ linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -95,35 +103,27 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Fri, Aug 21, 2020 at 7:16 AM Kuninori Morimoto
-<kuninori.morimoto.gx@renesas.com> wrote:
->
->
-> Hi Mark
-> Cc Pierre-Louis, Sameer
->
-> Current audio-graph-card driver has DPCM support,
-> but it is limited (= Mix/Mux/TDM-split/rate-convert/channel-convert).
-> It was expanded forcibly expanded.
->
-> Because of it, the connection judgement for normal vs DPCM is tricky.
-> I know Pierre-Louis want to use it for SOF, but something is missing,
-> thus, can't use (?).
+The TLV320AIC32x4 is commonly used on TQ-Systems starterkit mainboards
+for i.MX-based SoMs (i.MX6Q/DL, i.MX6UL, i.MX7) and LS1021A.
 
-Hi Morimoto-san,
+Signed-off-by: Matthias Schiffer <matthias.schiffer@ew.tq-group.com>
+---
+ Documentation/devicetree/bindings/sound/fsl-asoc-card.txt | 2 ++
+ 1 file changed, 2 insertions(+)
 
-Thanks for having a look at this. I also tried to use generic machine
-driver (simple-card)
-with SOF but I had some trouble creating desired DPCM links.
+diff --git a/Documentation/devicetree/bindings/sound/fsl-asoc-card.txt b/Documentation/devicetree/bindings/sound/fsl-asoc-card.txt
+index 63ebf52b43e8..f339be62e7e4 100644
+--- a/Documentation/devicetree/bindings/sound/fsl-asoc-card.txt
++++ b/Documentation/devicetree/bindings/sound/fsl-asoc-card.txt
+@@ -38,6 +38,8 @@ The compatible list for this generic sound card currently:
+ 
+  "fsl,imx-audio-wm8524"
+ 
++ "fsl,imx-audio-tlv320aic32x4"
++
+ Required properties:
+ 
+   - compatible		: Contains one of entries in the compatible list.
+-- 
+2.17.1
 
-Main limitation of simple-card is that there is no direct way of
-specifying DPCM links.
-
-I had an attempt to introduce a more flexible approach for that here:
-https://lkml.org/lkml/2019/10/13/123
-
-but obviously we can do better than that.
-
-For now, I'm using only normal links with simple-audio card and it
-works fine for
-me with SOF, but in the future I think we might need to expand that.

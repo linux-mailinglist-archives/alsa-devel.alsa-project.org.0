@@ -2,120 +2,118 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4C64424D15C
-	for <lists+alsa-devel@lfdr.de>; Fri, 21 Aug 2020 11:23:36 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4868024D1CA
+	for <lists+alsa-devel@lfdr.de>; Fri, 21 Aug 2020 11:53:55 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C12A11686;
-	Fri, 21 Aug 2020 11:22:45 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C12A11686
+	by alsa0.perex.cz (Postfix) with ESMTPS id B2A98167D;
+	Fri, 21 Aug 2020 11:53:04 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B2A98167D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1598001815;
-	bh=cnwjXpnGN6Gn0m2rSOMDdAe9yhT6nhfknyihg4yeoUQ=;
+	s=default; t=1598003634;
+	bh=hBrxyv9hhNobtxhfWgtPl5qqxtsmeP7AeB9qls/U2O0=;
 	h=From:To:Subject:Date:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=fPePLO7A+0faNPjyqRf0s6VWJUQceuOtBNisko8IOjpylKDbn++L7HYmCRgctVT6o
-	 to40rjrsYMWbwt1v3BvJiEeMSQ7xuyw421UHQjteQ/Q6Euyuc8RfFNG7hJ7cljW7/5
-	 75rtCtp8r0/QppW4AmMDStmNscTuXM2IeCeEPkJQ=
+	b=O7+95/bi24iGS+AXfnRsEsCfw/demEcjYw4eA7aYrD4+wVxTjWETBL7qxyOMA+Dc3
+	 MyCfNmzzVAHvMzS9gu5rXuhJRlG/SUyawNPtuWosy/8k3e3yzbEzhe0Op7ebGSNSrn
+	 xdJa6rCaJgNljxCWe0eP6lmDrUNSd1X2pLDPjU4Y=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 03072F80216;
-	Fri, 21 Aug 2020 11:21:55 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id CD878F800D2;
+	Fri, 21 Aug 2020 11:52:13 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id E0593F80218; Fri, 21 Aug 2020 11:21:52 +0200 (CEST)
+ id DAA1AF80218; Fri, 21 Aug 2020 11:52:10 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,RCVD_IN_MSPIKE_H2,SPF_HELO_PASS,SPF_PASS,URIBL_BLOCKED
  autolearn=disabled version=3.4.0
-Received: from EUR01-VE1-obe.outbound.protection.outlook.com
- (mail-eopbgr140049.outbound.protection.outlook.com [40.107.14.49])
+Received: from EUR03-DB5-obe.outbound.protection.outlook.com
+ (mail-eopbgr40079.outbound.protection.outlook.com [40.107.4.79])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 1B089F800D2
- for <alsa-devel@alsa-project.org>; Fri, 21 Aug 2020 11:21:39 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1B089F800D2
+ by alsa1.perex.cz (Postfix) with ESMTPS id ABF17F800C0
+ for <alsa-devel@alsa-project.org>; Fri, 21 Aug 2020 11:52:04 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz ABF17F800C0
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=nxp.com header.i=@nxp.com
- header.b="DGt0uP7V"
+ header.b="VDT1FBeO"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=TPn9tyRhmJtxmnCkmqlZCp6E5QGHNrUN45PRs2jD+vjhmdigGaUDMvcEBZq5DmsuXDfZ88hXzXQegLLgrECphnO5AwErE7/St8EVwWzDMe5DNnvwYGYKZbO8IijDsw/1sP/8fVJ83lbakVUEhZN4rC4C0/LSCa9mNSM4NfkscsBn38yNAONP1TpohbDVs+tXkF09A52kYZWOfDEqf8TR/IseWR/x7rwnVIXw7Zofrfpxb9kfA3ODK7ea3e5ojdonf7wjFcp68mQ1jMkxHATNo1uy2vVdofILAXJ0nzQvd9j8eTIoingTsGOkknkVSsANSrA2l1BOfO5TZzUlOuD84g==
+ b=jB3gFVYqEg4rMs6VvmQ84+2+sb0QDIUAkQflzFT7JDzRGXzC8queVMFXnOxNKlin1nP/mwLrpp8QpswYXbj9cRDMhtsItbq3CYaCf4+9xObeeMhuxSRFWD4OejXBzVi4S7MmUoH+tHcz8YN1Mn1+34EPWD6XgnsbWpEPrSr5FJATwRGHY5poFI8KzuFhoySAv+weuDEjzjUaVA1yTAT0L1bclsxiX+fJhUtaG11l9S4F8zAbgq5aOlpKsZJW1Eh2TodO26jorDm2st/P/OrgVUMKJrMbuBjDtzh7n36LR3hDlTlT8VufWudfyMQk473pUGKm6hVwXIaWkjr7A3khcQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=cnwjXpnGN6Gn0m2rSOMDdAe9yhT6nhfknyihg4yeoUQ=;
- b=aQd9TfY2LTUBBYe3W2vGEXetnZAjfYYAV3uJTseRNcuAFx+fnKGFHMwNBu29j9xQ/0b6w5cEgGjsdRsCUK5enwP/fZsAXBRADULK7ptN9aXVyN63neJi0teqq/jeOxSNc6XM6tbIqxrFmYCvuE5uDLcxggvaN/uQDOFKDs9TgRnnPRCyvz/da/juqLvwTS+xGUwC6TBJ6Rq4yMyEUPFpg7TgXGEt6LdxVLMg8fxj0yM82+XbBkZO3rmhrP7+a734yXDF5T49jyNcXah3vcvUUHQMbVA/5NLhEz9atKx2HdwtGWyI4tZuum0xzNadll/x11ZirpA53NBG64JMOFXK3w==
+ bh=6y40jIdXqSjeJyX4PsUQ9ODdn5bUlDTpJNYivUJSuXI=;
+ b=JVMfsm3SRs/Izqk1gIPS1e4jMzSK1yfNSvrTAZLju6phLsSVwNnrgTxI7S9mS+03yvo119dNOAIgVbzR4jFbjR1S8TRkxkOUjzeUCaii1g7gNoxlOIaeoyGypMCD85H9TyFwFhuSUsVZFUoB8seIn8hU5dCHi/O8buElF5xM2H0rJerTqXYsp//TWOGsV2fXGocSjvNnwgGplllMkCKb6uhfs2cVBn8AVgK558oBs/onLLVCgYdhhyIKo/DJBNNgZoC3/qePH+oq2R6tu/eHR8WnvsXIu6/aadD/B8otehMzE702HqqTRrULkOwHVSE0QgnX5w/FqTKmYzS0hH2J0g==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
  header.d=nxp.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector2; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=cnwjXpnGN6Gn0m2rSOMDdAe9yhT6nhfknyihg4yeoUQ=;
- b=DGt0uP7VEcmnWLZTbqSOfcj95SfdqS3IMhKsc5sEbYTMAg2nUL0qtUdxVRM2D2KU8bP9SkZ0JEXRYzUfWVvAYirFz2Bf67OJtbOGXLHOgwB/B3cPQD7kq7v29Kd0ydh7uc3lIVGFtOCHi8m+f6B7hK14pXZCRHgXWMRnvcEsQEE=
+ bh=6y40jIdXqSjeJyX4PsUQ9ODdn5bUlDTpJNYivUJSuXI=;
+ b=VDT1FBeOURzIfGzWZtYbITCrgRArGgVdFsT8fHc1iyYWLpHv8aq8KD0TlVIJW+eVQSxZFAnaZx8jU+CNQWwi+/0j6nsnKfrZ49zu2t8qdVasmqbVQw1MW7Y82Odp/wAC5VMxraAZkqfPCnNt9LICS/ts+OhraaXm911dAYwMcPc=
 Received: from VE1PR04MB6638.eurprd04.prod.outlook.com (2603:10a6:803:119::15)
- by VE1PR04MB7470.eurprd04.prod.outlook.com (2603:10a6:800:1a3::15)
+ by VI1PR0402MB3711.eurprd04.prod.outlook.com (2603:10a6:803:18::31)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3305.26; Fri, 21 Aug
- 2020 09:21:37 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3283.20; Fri, 21 Aug
+ 2020 09:52:00 +0000
 Received: from VE1PR04MB6638.eurprd04.prod.outlook.com
  ([fe80::ad7f:d95a:5413:a950]) by VE1PR04MB6638.eurprd04.prod.outlook.com
  ([fe80::ad7f:d95a:5413:a950%3]) with mapi id 15.20.3283.027; Fri, 21 Aug 2020
- 09:21:37 +0000
+ 09:52:00 +0000
 From: Robin Gong <yibin.gong@nxp.com>
-To: Richard Leitner <richard.leitner@skidata.com>
+To: Sascha Hauer <s.hauer@pengutronix.de>, Lars-Peter Clausen <lars@metafoo.de>
 Subject: RE: pcm|dmaengine|imx-sdma race condition on i.MX6
 Thread-Topic: pcm|dmaengine|imx-sdma race condition on i.MX6
-Thread-Index: AQHWcWQbD9eqMlwY2U27XyctTVPmVak3Rd/wgASnXICAA2IfgIAANxuAgAFCSvCAAT0iAIAATlSQ
-Date: Fri, 21 Aug 2020 09:21:37 +0000
-Message-ID: <VE1PR04MB6638271FA459E4068391ABF8895B0@VE1PR04MB6638.eurprd04.prod.outlook.com>
+Thread-Index: AQHWcWQbD9eqMlwY2U27XyctTVPmVak3Rd/wgASnXICAA2IfgIABSsWAgAFIBOA=
+Date: Fri, 21 Aug 2020 09:52:00 +0000
+Message-ID: <VE1PR04MB66386A43E2BCC5B758D1A71A895B0@VE1PR04MB6638.eurprd04.prod.outlook.com>
 References: <20200813112258.GA327172@pcleri>
  <VE1PR04MB6638EE5BDBE2C65FF50B7DB889400@VE1PR04MB6638.eurprd04.prod.outlook.com>
  <61498763c60e488a825e8dd270732b62@skidata.com>
  <16942794-1e03-6da0-b8e5-c82332a217a5@metafoo.de>
- <6b5799a567d14cfb9ce34d278a33017d@skidata.com>
- <VE1PR04MB6638A7AC625B6771F9A69F0D895A0@VE1PR04MB6638.eurprd04.prod.outlook.com>
- <20200821043418.GA65616@pcleri>
-In-Reply-To: <20200821043418.GA65616@pcleri>
+ <20200820065221.GF19745@pengutronix.de>
+In-Reply-To: <20200820065221.GF19745@pengutronix.de>
 Accept-Language: en-US
 Content-Language: en-US
 X-MS-Has-Attach: 
 X-MS-TNEF-Correlator: 
-authentication-results: skidata.com; dkim=none (message not signed)
- header.d=none;skidata.com; dmarc=none action=none header.from=nxp.com;
+authentication-results: pengutronix.de; dkim=none (message not signed)
+ header.d=none;pengutronix.de; dmarc=none action=none header.from=nxp.com;
 x-originating-ip: [119.31.174.67]
 x-ms-publictraffictype: Email
 x-ms-office365-filtering-ht: Tenant
-x-ms-office365-filtering-correlation-id: 4219dbeb-ce1d-4a89-be7b-08d845b39b41
-x-ms-traffictypediagnostic: VE1PR04MB7470:
+x-ms-office365-filtering-correlation-id: 097eb0c9-f049-4500-28cd-08d845b7d9b6
+x-ms-traffictypediagnostic: VI1PR0402MB3711:
 x-ms-exchange-transport-forked: True
-x-microsoft-antispam-prvs: <VE1PR04MB74701A8B9321A2BBF02068D5895B0@VE1PR04MB7470.eurprd04.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:8882;
+x-microsoft-antispam-prvs: <VI1PR0402MB371166538E756AEADF38C128895B0@VI1PR0402MB3711.eurprd04.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:10000;
 x-ms-exchange-senderadcheck: 1
 x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: +pmPoeIX1mNRkPxCBaeSUA4FblZH+F8hvduwamiH0Hh7U3x/jf4J2hHwc3ezBPFvYhwWv39IMrNlRP2nCdzAoNSgzvgGgsI4yjzYrw/3JAYRPBk5vPhnKpH49JyAkMPr/BOp88fwcJ/8xRngRvAjzYnKHaCgfPgFvPD1yxXTSo0mQFhoOnJOi5N2ibiKSI9DTRgyexc/E0Rf4hlHZkgq9SSUZ/B8Rij4l2h22zDuaoDFcvf/Y8+fAM7Zio/JLwCOp6vq7bCTmcQ/bB+BPVSolLjkW4plmTKyEjzHDAKc5TeSLNhWXwRDRG9DdFXIgfHEGpqx2CDFNkarWsgOiprkE4H+kMgg7zDnYzBZS7rhg26dWd4cTwlBtF+HGLWFDqD9WKrBOssmPDsNViyYO5/v3w==
+x-microsoft-antispam-message-info: m6hn9tmks7/tkOwxMbBBNzb8gPsV/7Yiqc3nxENZUkmYccM9jnFboAXjspVYH8oKu0gKdlCdq8k5EpRuTr49UAXq1yBsuYXy2WEa4U2g9zBwK+kRtZGUwgD4TmxRNVXIdDf3PPxaDzM7YZOSCcULarC1EXEaBwOcW5g9CzCTapRF2fjAE6/EZuz03TaABzUcXPO3Dy5jVqqZI6xHNt0b3AiRNZqJbrRGf1nGhEQ+FnmE4n0VQnGxFm68yzotyD/uXUskxsIG2gEicfPrZLlHWdELN9YYr3SaMMGRvDBXpLqUHCXCFFKKYHKxvdiMqJ6p2/QVDgS/7riiyleMvOwTkH6TdLPNWtrrxwpdyJfL74BLqELxERTE8i0TN9FEe4wHDvZQDOWZIVJXzsjtQJijtA==
 x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:VE1PR04MB6638.eurprd04.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(136003)(396003)(346002)(366004)(376002)(39860400002)(2906002)(66476007)(64756008)(66446008)(66556008)(66946007)(7416002)(71200400001)(76116006)(6506007)(53546011)(86362001)(4326008)(6916009)(478600001)(52536014)(5660300002)(186003)(966005)(8936002)(4744005)(316002)(55016002)(9686003)(7696005)(54906003)(26005)(8676002)(33656002);
+ SFS:(4636009)(39860400002)(396003)(366004)(376002)(136003)(346002)(9686003)(71200400001)(966005)(8676002)(8936002)(86362001)(478600001)(54906003)(66946007)(4326008)(110136005)(7696005)(5660300002)(316002)(66556008)(66476007)(7416002)(66446008)(64756008)(83380400001)(2906002)(55016002)(186003)(52536014)(76116006)(33656002)(26005)(53546011)(6506007);
  DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata: uyfZic1K9d9MbY9sr56IUf9KjAIxmvY2Vq7OPzhKnV25ZOef2UlDp2auz0JFuS/Ogyx4WpQqW04NVscOqaVGKx6CIMt8FGLU7d0PtWPK8CJCUuvAr+zFCR/WTQg7Z8bYzn5dVbKeOs68/+DSt/i0vpUl5mtp/ULIzLZ0Iwv4KigvCT2pqF/oUr2+ENn1ASfbSwNWhizq5zhPXLHXRb+cnHhYvghbeF5uoRFw/ZP8eJBQxirXMlyN1J1h+WnM7QZeiwpSe7+UKa/1q4iSdRJGxz+pUmn+3YSP0vE4MlNV+U5AaCvYg/LzV30cjtwPNkEVoF7zW5BMBBCDqIZgn7GKvqQ9aNpEhBLQHe2WPDkuiPst9OG6qEN5aOEJS+ELd54cgJyOdhu8g98JcYIZ2PSejToQrmk+4YneUC7y8nLAbzn8HaY3L/ZXaIQXnVO5BEMhddFalvAi+XLVSPAGJ9yz+c7NBgUulRH7TxPKvn8FZl6OVVh/Bvcvx8tnw++RO1wsz8VGJqRk0JPNCdOtFKsFnPXfJMwMsj6slzjHAbtP6hkj+BpxtekzXIiufHqRcwwttjujfzcAxBFTHPimlcJ2Y3Cfg9priQLRAgLpoHT9UKFvtC93qEuN4uOG720Ttd/LMdjmFCprqec5McmuMCFD4Q==
+x-ms-exchange-antispam-messagedata: 9m9kvxJP/MKG3SqF7SYW/hf1CHuUtprmGV+IfeJATDqWwSX3PlyUBvn8WOqYTxUUhdEIXl0Dciyp9dd5sdlz7v384QZwrmofA2Z3Pzassy1o23E3PHS4FdP2fcI4mPSpfaIzGZOYMNkLFxswouqPOyP3z0KmFTQfJzgATcBfWKlv4MUfCrOhLNUEmR5T5IO74elDmLzMmqrlcI9pgCqwNYBzNEjnE4nX2dfng4n1HHT05miEoNPZQbS06z0AJxllDl2n/5+hlFQUjLPVq6U/IBLvcJRxtrTKZ2dTf4U66HgVfyF7H85jRSjFlI22tdk5VCLH7jMizQ7di7QtdusJbmjKCTetKi1RRR7xXq3Mcy4Qx3YSGgd0FmdpmChD3WxdU/baVpC255O6iuBFxFAN8NegOJ7tis12NmhPTsC/Z1AdjE2ouyCkSCi02Hvn4te7YdLHMm8k6U926K6RmXI5OauJXvybKPRpeIGJvpl1Sdb1W4KeQaKZZRsXma13uMh/vze/lgw2nwg0IjkcTrvdtRpICLkc1UaXszsNp8JwzoODIKpluS39aSLwTfB1JGuzOggUkjZZBWFecaZkZ8I162p8pJSVE5IWM96WMFgot7BbHWgitcfG1OtnJwK+vJfEQQVhH6FpQfWkQvdBHrwWGQ==
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
 X-OriginatorOrg: nxp.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
 X-MS-Exchange-CrossTenant-AuthSource: VE1PR04MB6638.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 4219dbeb-ce1d-4a89-be7b-08d845b39b41
-X-MS-Exchange-CrossTenant-originalarrivaltime: 21 Aug 2020 09:21:37.8615 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 097eb0c9-f049-4500-28cd-08d845b7d9b6
+X-MS-Exchange-CrossTenant-originalarrivaltime: 21 Aug 2020 09:52:00.4542 (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
 X-MS-Exchange-CrossTenant-id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
 X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: M2mfbT0XvsRY/38sXwpz2SsysXND0GzAslOkOWp6/HX4ULLwRn2TX3zHIzkDR+Pto3/42GIzP4SkFJ2YI1Q5sw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: VE1PR04MB7470
+X-MS-Exchange-CrossTenant-userprincipalname: 8ZU/iO6CvjQ+2nP/PrMxq5fVccSiMqsbS1EVsTGlrpkFfZYbVyl6VHikPNqZNwAy40K1Xpus8X0HphcsnZozew==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR0402MB3711
 Cc: "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
- Lars-Peter Clausen <lars@metafoo.de>, "timur@kernel.org" <timur@kernel.org>,
+ "timur@kernel.org" <timur@kernel.org>,
  "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
  "nicoleotsuka@gmail.com" <nicoleotsuka@gmail.com>,
  "vkoul@kernel.org" <vkoul@kernel.org>,
@@ -123,6 +121,7 @@ Cc: "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
  "kernel@pengutronix.de" <kernel@pengutronix.de>,
  "dmaengine@vger.kernel.org" <dmaengine@vger.kernel.org>,
  "dan.j.williams@intel.com" <dan.j.williams@intel.com>,
+ Richard Leitner - SKIDATA <Richard.Leitner@skidata.com>,
  "shawnguo@kernel.org" <shawnguo@kernel.org>,
  "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>,
  dl-linux-imx <linux-imx@nxp.com>
@@ -141,29 +140,76 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 2020/08/21 12:34 Richard Leitner <richard.leitner@skidata.com> wrote:=20
-> On Thu, Aug 20, 2020 at 03:01:44PM +0000, Robin Gong wrote:
-> > On 2020/08/19 22:26 Benjamin Bara - SKIDATA <Benjamin.Bara@skidata.com>
-> wrote:
-> > >
-> > > @Robin:
-> > > Is it possible to tag the commits for the stable-tree
-> > > Cc: stable@vger.kernel.org?
-> > Could my patch work in your side? If yes, I will add
-> > Cc: stable@vger.kernel.org
+On 2020/08/20 14:52 Sascha Hauer <s.hauer@pengutronix.de> wrote:
+> On Wed, Aug 19, 2020 at 01:08:29PM +0200, Lars-Peter Clausen wrote:
+> > > For the first option, which is potentially more performant, we have
+> > > to leave the atomic PCM context and we are not sure if we are allowed=
+ to.
+> > > For the second option, we would have to divide the dma_device
+> > > terminate_all into an atomic sync and an async one, which would
+> > > align with the dmaengine API, giving it the option to ensure terminat=
+ion in
+> an atomic context.
+> > > Based on my understanding, most of them are synchronous anyways, for
+> > > the currently async ones we would have to implement busy waits.
+> > > However, with this approach, we reach the WARN_ON [6] inside of an
+> > > atomic context, indicating we might not do the right thing.
+> >
+> > I don't know how feasible this is to implement in the SDMA dmaengine
+> driver.
+> > But I think what is should do is to have some flag to indicate if a
+> > terminate is in progress. If a new transfer is issued while terminate
+> > is in progress the transfer should go on a list. Once terminate
+> > finishes it should check the list and start the transfer if there are a=
+ny on the
+> list.
 >=20
-> I've tested the patches 3 & 4 (removing sdmac->context_loaded) of the ser=
-ies
-> you mentioned and sent Tested-by tags for them [1,2], as they fix the EIO
-> problems for our use case.
+> The list is already there in form of the vchan helpers the driver uses.
+Seems Lars major concern is on the race condition between next descriptor
+and sdma_channel_terminate_work which free the last terminated descriptor,
+not the ability of vchan to support multi descriptors. But anyway, I think =
+we
+should take care vchan_get_all_descriptors to free descriptors during termi=
+nate
+phase in case it's done in worker like sdma_channel_terminate_work, since t=
+hat
+may free the next descriptor wrongly. That's what my patch attached in
+0001-dmaengine-imx-sdma-add-terminated-list-for-freed-des.patch
+https://www.spinics.net/lists/arm-kernel/msg829972.html
+
 >=20
-> So from our side they are fine for stable.
+> I think the big mistake the driver makes is to configure fields in struct
+> sdma_channel and also the hardware directly in sdma_prep_memcpy(),
+> sdma_prep_slave_sg() and sdma_prep_dma_cyclic(). All information should b=
+e
+> stored in the struct sdma_desc allocated in the prep functions and only b=
+e used
+> when it's time to fire that specific descriptor.
+Sorry Sascha, seems that's another topic and your intention is to make sure=
+ only
+software involved in sdma_prep_* and all HW moved into one function inside
+sdma_start_desc. I agree that will make code more clean but my concern is=20
+sdma_start_desc is protect by spin_lock which should be short as possible w=
+hile
+some HW touch as context_load may cost some time. Anyway, that's another to=
+pic,
+maybe we can refine it in the future.
+
 >=20
-Okay, I thought that's just decrease the issue in your side not totally fix=
-, and the patch
-I post in https://www.spinics.net/lists/arm-kernel/msg829972.html
-could resolve the potential next descriptor wrongly freed by vchan_get_all_=
-descriptors
-in sdma_channel_terminate_work. Anyway, I'll add ' Cc: stable@vger.kernel.o=
-rg' and
-your Tested-by tags in 3&4, then resend it again, thanks.
+> More specifically sdma_config_write() may not be called from
+> sdma_prep_slave_sg() or sdma_prep_dma_cyclic(), but instead must be calle=
+d
+> from sdma_start_desc().  sdma_config_ownership() also must be called late=
+r
+> in sdma_start_desc(). 'direction' must be a member of struct sdma_desc, n=
+ot of
+> struct sdma_channel.
+>=20
+> Overall this sounds like a fair amount of work to do, but should be feasi=
+ble and
+> IMO is a step in the right direction.
+>=20
+> Sascha
+>=20
+> --
+

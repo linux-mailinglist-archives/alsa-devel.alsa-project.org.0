@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5F25824CF6B
-	for <lists+alsa-devel@lfdr.de>; Fri, 21 Aug 2020 09:39:00 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id BBC7F24CF65
+	for <lists+alsa-devel@lfdr.de>; Fri, 21 Aug 2020 09:38:19 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 074DD166B;
-	Fri, 21 Aug 2020 09:38:10 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 074DD166B
+	by alsa0.perex.cz (Postfix) with ESMTPS id 55DF31676;
+	Fri, 21 Aug 2020 09:37:29 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 55DF31676
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1597995540;
-	bh=Un9gcCkuhjkfDslARqhayeEeecn/Amxz9mQCFQ8OTl0=;
+	s=default; t=1597995499;
+	bh=JvandNNP245hzJHkq7tZRYkB6WPc6xjhvjL517RrU9g=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=Ml1P+rGYe9c3sLlGJK1bIK0hFGGg/sc7BBWXVzaV79m7C+5JvmCeARSLWBsT20rOE
-	 srPMOHUZInyd1va43DqfmzBluNuN1SZyhJqtKosOme77/bUujEoJh90PXbEfFSVp9H
-	 o8R2HhlhR0DBzt+SGZ9Cc8xVLHRAxLu5f4jJ5wag=
+	b=svSyjnTVzmHEmL215QrTOr4DtjTz9XgcnVpq/Z8WIW0Ut2rc5cbsxVPnN3B5kXgTv
+	 KNtU14g1TYT10nZV0vHOncn42nax/s2r9JCxVUe256Q3Fb9J2HmXmPp92PuvQwPUhf
+	 ayg5H9uXg/6Kd+Ut13A8/LHQV8ri283xGy6aWmSU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 9D8AFF80336;
-	Fri, 21 Aug 2020 09:32:04 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id D0D3CF8031A;
+	Fri, 21 Aug 2020 09:32:02 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id A9051F80303; Fri, 21 Aug 2020 09:31:49 +0200 (CEST)
+ id 3415BF802DD; Fri, 21 Aug 2020 09:31:49 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -35,40 +35,40 @@ Received: from wout4-smtp.messagingengine.com (wout4-smtp.messagingengine.com
  [64.147.123.20])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 9F50AF802DC
- for <alsa-devel@alsa-project.org>; Fri, 21 Aug 2020 09:31:35 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9F50AF802DC
+ by alsa1.perex.cz (Postfix) with ESMTPS id 569AEF802DD
+ for <alsa-devel@alsa-project.org>; Fri, 21 Aug 2020 09:31:37 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 569AEF802DD
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=sakamocchi.jp header.i=@sakamocchi.jp
- header.b="jzzAi2Rc"; 
+ header.b="ArKOieeD"; 
  dkim=pass (2048-bit key) header.d=messagingengine.com
- header.i=@messagingengine.com header.b="tg/bXBPn"
+ header.i=@messagingengine.com header.b="M+HstCdl"
 Received: from compute2.internal (compute2.nyi.internal [10.202.2.42])
- by mailout.west.internal (Postfix) with ESMTP id B90B135B;
- Fri, 21 Aug 2020 03:31:33 -0400 (EDT)
+ by mailout.west.internal (Postfix) with ESMTP id 87F0E89D;
+ Fri, 21 Aug 2020 03:31:35 -0400 (EDT)
 Received: from mailfrontend2 ([10.202.2.163])
- by compute2.internal (MEProxy); Fri, 21 Aug 2020 03:31:34 -0400
+ by compute2.internal (MEProxy); Fri, 21 Aug 2020 03:31:35 -0400
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sakamocchi.jp;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding; s=fm2; bh=4IJgN3kapfojz
- XX3lCjkvMyQ0pm2+CwQAbJceSsrHTc=; b=jzzAi2RcyWOL/WdgnUeKepPgQvIoQ
- pbTs86YEVzCV+ZklXb3uwQ5E2aafdvgr3o6wYpgXTUeYWRsRqL6gmpPJOm0t6rCf
- Jn9ySuMqXQaHU4g9wKkRaNRdW1DQRSE8TgnYNjsO5SDdmT6bSwh5bgc9+qOxTF4L
- wdJIpbGw0JTROMDm6isckm5QPtEbGtbOR5kQDHSoWizUFR6NXumAVmM+cVzAwosp
- WplLJed9RVSLTpdeGudEhQmP+brWMvfc1vVBC37/v1pCLP5eNpruSOS8jvy2yvd8
- dmbgHE7y9Bu0dcvDN17cO5SmIQY1hqyYzB6AHsie0jPlcmd6NNcnsLmRA==
+ :mime-version:content-transfer-encoding; s=fm2; bh=nCeOuln1DQD8W
+ hM5ui/6o3n/TLutmQMHIgbn/AwpBX8=; b=ArKOieeDXhGrykTrk76UZR9P//hbU
+ S5lOJIfoKX7aNC0T9nwnNSx44d3NN6BP+33/ZN+jQkAD0AhK/XKX48sdrIC8Dv0V
+ g2NN6C9Rs6qsv2klnf+JfMoOEKCrn6nzHyM1dF/Sh5z2dBcoIGXAC2JYCJXgnVUd
+ zqEXDrlJbA2ewJcpeatIfHtqkZC2ovV1mu8uuk8PD2XrLCsqhTdmW5fIjE0yGXM0
+ SrLV5z2Ayx7sscNvIVERxOmEZFv5bB/3iym6acRVxyl4fsu/R5kI9HYvvyDHB+bk
+ iEltHmDVzxgGr/2UioTMH2r+36NFUHCOGZsFh2yXUcLUlLc+R1E+yAZuQ==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
  messagingengine.com; h=cc:content-transfer-encoding:date:from
  :in-reply-to:message-id:mime-version:references:subject:to
  :x-me-proxy:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
- fm3; bh=4IJgN3kapfojzXX3lCjkvMyQ0pm2+CwQAbJceSsrHTc=; b=tg/bXBPn
- +c/g2tiwKWX3xbTvh5R8nYlziQM0gPaQjKTSfLoDZE+oA40hRpjzVJscHClxTAiu
- X5i03T7dov8aLwo5l5Df+S9WCFYRSWJve1M+CwrM9jkogNiIw4gUndHYQ6+hT/aM
- COSSMsZJzjUuW6yeztdUIvlnUHDZ5tJ3+9ocd/HUHKaOlVjaONbpyYN828wHklSl
- iNGlDam1IM8K4/MzyQ8lljzaF35+uL60g5IEZSxzSTJWVuACwHAsD6bekIxixulR
- c8/WiAMEKOycSI7VvQO81B9SBHfxORjMoRyVzCIrfQny3munBNlynx+rK/r+GTfg
- jEiTZG1M5Ajukw==
-X-ME-Sender: <xms:VXg_X8KN9TXOKCwBX1gJhAdcpAogs_gH2kvTUSr949egIlK0BXbmrQ>
+ fm3; bh=nCeOuln1DQD8WhM5ui/6o3n/TLutmQMHIgbn/AwpBX8=; b=M+HstCdl
+ 529xK2yDkX3AAnH0Td6I5X1YnHVS6u6axj5JO5MK67Qnt8lXj5OjT49zZXi02i7r
+ wP9He2RM6l43TJglCibW+1S2p9AeuJaE7/xcnddkp+39VvkgZwL4na+uSkEr7QdD
+ M0jvLwqOjgCQhdrQDZdp2P3mJnP+Lt5x77kZ9LAxRpJfcAeHtd0Kz4JPtpUPH0fH
+ QoM2+iueGuDKEXNHdmtrhX1Z2ZkH9B0L8pg98wwwvvbE1QePUfm4lc5L+pJBm4BU
+ BnI07RfL9RfDi79QI/7btuD4JGMXrHB5RrErXkTO791LawRWwFTI54+jnWQkBJfl
+ dR6WpewIBIR6tQ==
+X-ME-Sender: <xms:V3g_X1CeFWyOyH6pv3CHkhrJxQ1475r2mVq-MRl1ZnH4_fWahPijWA>
 X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeduiedrudduuddgudduudcutefuodetggdotefrod
  ftvfcurfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfgh
  necuuegrihhlohhuthemuceftddtnecunecujfgurhephffvufffkffojghfggfgsedtke
@@ -77,20 +77,21 @@ X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeduiedrudduuddgudduudcutefuodetgg
  ektefgveegfeelheffhfeujedtjeevtefhkeevkedtjeejvddtjefhjeenucfkphepudek
  tddrvdefhedrfedrheegnecuvehluhhsthgvrhfuihiivgepkeenucfrrghrrghmpehmrg
  hilhhfrhhomhepohdqthgrkhgrshhhihesshgrkhgrmhhotggthhhirdhjph
-X-ME-Proxy: <xmx:VXg_X8LDt8n0mJRrzZMhn8sp9LbhNsqOn_bzKiAkoCj38Wb4sNnPaQ>
- <xmx:VXg_X8v9Vqcb1UJ2WYjVbcGcIwNAvv01qRXBRTBrcNzojSwCUpczhA>
- <xmx:VXg_X5bdFa588RkFj9e4QjbDGh5XEyGR3d1cv6Bc2CKBdTwuJZFC8w>
- <xmx:VXg_X6zFdlFPkr5YBG22ViRVZYTzLbB-wM6KXrUPsHM-n85p9_9hHg>
+X-ME-Proxy: <xmx:V3g_XzhkJgtQZtAvklFeiQSI0Tos9lqGkLaNFRrdHFSAOsFieFRjYQ>
+ <xmx:V3g_XwlUYyhV6fs2qGZLc1Q-_6Z2hy_-0Qr5C0xdvK2fslS110isyA>
+ <xmx:V3g_X_xJ-vr4RH_HksG6XRCOXTfQuCVWF2vlhQHUrZovavxnhoTX8Q>
+ <xmx:V3g_X9IY-h5m5yJhXpH95MPWNE0uBYhCLjuls-NfdL5eETaQX_AUHA>
 Received: from workstation.flets-east.jp (ad003054.dynamic.ppp.asahi-net.or.jp
  [180.235.3.54])
- by mail.messagingengine.com (Postfix) with ESMTPA id E097D30600B1;
- Fri, 21 Aug 2020 03:31:31 -0400 (EDT)
+ by mail.messagingengine.com (Postfix) with ESMTPA id A42653060272;
+ Fri, 21 Aug 2020 03:31:33 -0400 (EDT)
 From: Takashi Sakamoto <o-takashi@sakamocchi.jp>
 To: tiwai@suse.de,
 	perex@perex.cz
-Subject: [PATCH 10/25] efw-downloader: add parser for sub commands
-Date: Fri, 21 Aug 2020 16:30:56 +0900
-Message-Id: <20200821073111.134857-11-o-takashi@sakamocchi.jp>
+Subject: [PATCH 11/25] efw-downloader: subcmd-device: implement 'device' sub
+ command to operate actual device
+Date: Fri, 21 Aug 2020 16:30:57 +0900
+Message-Id: <20200821073111.134857-12-o-takashi@sakamocchi.jp>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20200821073111.134857-1-o-takashi@sakamocchi.jp>
 References: <20200821073111.134857-1-o-takashi@sakamocchi.jp>
@@ -113,70 +114,163 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-This tool consists of sub commands for different functionalities.
-
-This commit adds parser for sub commands. Actual implementation for
-each sub command will be added in future commits.
+This commit implements 'device' sub command to operate the target device.
+This sub command consists of several operations and parser for the
+operation will be implemented in future commits.
 
 Signed-off-by: Takashi Sakamoto <o-takashi@sakamocchi.jp>
 ---
- efw-downloader/src/main.c | 42 ++++++++++++++++++++++++++++++++++++++-
- 1 file changed, 41 insertions(+), 1 deletion(-)
+ efw-downloader/src/main.c          |  4 ++
+ efw-downloader/src/meson.build     |  2 +
+ efw-downloader/src/subcmd-device.c | 77 ++++++++++++++++++++++++++++++
+ efw-downloader/src/subcmds.h       |  8 ++++
+ 4 files changed, 91 insertions(+)
+ create mode 100644 efw-downloader/src/subcmd-device.c
+ create mode 100644 efw-downloader/src/subcmds.h
 
 diff --git a/efw-downloader/src/main.c b/efw-downloader/src/main.c
-index 31ac349..499e67e 100644
+index 499e67e..e150cc8 100644
 --- a/efw-downloader/src/main.c
 +++ b/efw-downloader/src/main.c
-@@ -1,8 +1,48 @@
- // SPDX-License-Identifier: GPL-3.0-or-later
- // Copyright (c) 2020 Takashi Sakamoto
-+#include <stdio.h>
+@@ -4,6 +4,8 @@
  #include <stdlib.h>
-+#include <string.h>
+ #include <string.h>
+ 
++#include "subcmds.h"
 +
-+static void print_help()
+ static void print_help()
+ {
+     printf("Usage\n"
+@@ -11,6 +13,7 @@ static void print_help()
+            "\n"
+            "where:\n"
+            "  SUBCOMMAND:\n"
++           "    device:     operate for device for unit on IEEE 1394 bus\n"
+            "    help:       print help\n"
+            "  OPTIONS:      optional arguments dependent on the subcommand\n");
+ }
+@@ -22,6 +25,7 @@ int main(int argc, char **argv)
+     size_t size;
+         int (*op)(int argc, char **argv);
+     } *entry, entries[] = {
++        { "device", sizeof("device"), subcmd_device },
+     };
+     const char *subcmd;
+     int i;
+diff --git a/efw-downloader/src/meson.build b/efw-downloader/src/meson.build
+index ca894d9..07a6182 100644
+--- a/efw-downloader/src/meson.build
++++ b/efw-downloader/src/meson.build
+@@ -14,10 +14,12 @@ hinawa = dependency('hinawa',
+ sources = [
+   'main.c',
+   'efw-proto.c',
++  'subcmd-device.c',
+ ]
+ 
+ headers = [
+   'efw-proto.h',
++  'subcmds.h',
+ ]
+ 
+ gnome = import('gnome')
+diff --git a/efw-downloader/src/subcmd-device.c b/efw-downloader/src/subcmd-device.c
+new file mode 100644
+index 0000000..739944e
+--- /dev/null
++++ b/efw-downloader/src/subcmd-device.c
+@@ -0,0 +1,77 @@
++// SPDX-License-Identifier: GPL-3.0-or-later
++// Copyright (c) 2020 Takashi Sakamoto
++#include <stdio.h>
++#include <stdlib.h>
++#include <errno.h>
++#include <assert.h>
++
++#include "efw-proto.h"
++
++static int print_help()
 +{
 +    printf("Usage\n"
-+           "  efw-downloader SUBCOMMAND OPTIONS\n"
++           "  efw-downloader device CDEV OPERATION ARGUMENTS\n"
 +           "\n"
 +           "where:\n"
-+           "  SUBCOMMAND:\n"
-+           "    help:       print help\n"
-+           "  OPTIONS:      optional arguments dependent on the subcommand\n");
++           "  CDEV:   The firewire character device corresponding to the node for transaction\n"
++           "  OPERATION:\n"
++           "    help:   print this help message\n"
++           "  ARGUMENTS:\n"
++           "    depending on OPERATION\n"
++           "\n");
++    return EXIT_FAILURE;
 +}
- 
- int main(int argc, char **argv)
- {
--    return EXIT_SUCCESS;
-+    static const struct {
++
++static int parse_args(int argc, char **argv, const char **path, const char **op_name)
++{
++    if (argc < 2)
++        return -EINVAL;
++    assert(strncmp(argv[1], "device", sizeof("device")) == 0);
++
++    if (argc < 3)
++        return -EINVAL;
++    *path = argv[2];
++
++    if (argc < 4)
++        return -EINVAL;
++    *op_name = argv[3];
++
++    return 0;
++}
++
++int subcmd_device(int argc, char **argv)
++{
++    struct {
 +        const char *name;
-+    size_t size;
-+        int (*op)(int argc, char **argv);
++        size_t size;
++        void (*op)(int argc, char **argv, EfwProto *proto, GError **error);
 +    } *entry, entries[] = {
 +    };
-+    const char *subcmd;
++    GError *error = NULL;
++    const char *path;
++    const char *op_name;
++    EfwProto *proto;
++    int err;
 +    int i;
 +
-+    if (argc < 2) {
-+        print_help();
-+        return EXIT_FAILURE;
-+    }
-+    subcmd = argv[1];
++    err = parse_args(argc, argv, &path, &op_name);
++    if (err < 0)
++        return print_help(0, NULL, NULL, NULL);
 +
-+    for (i = 0; i < sizeof(entries) / sizeof(entries[0]); ++i) {
++    for (i = 0; i < G_N_ELEMENTS(entries); ++i) {
 +        entry = entries + i;
-+        if (strncmp(subcmd, entry->name, entry->size) == 0) {
-+            entry = &entries[i];
++        if (strncmp(op_name, entry->name, entry->size) == 0)
 +            break;
-+        }
 +    }
-+    if (i == sizeof(entries) / sizeof(entries[0])) {
-+        print_help();
++    if (i == G_N_ELEMENTS(entries))
++        return print_help();
++
++    entry->op(argc, argv, proto, &error);
++
++    if (error != NULL) {
++        g_clear_error(&error);
 +        return EXIT_FAILURE;
 +    }
 +
-+    return entry->op(argc, argv);
- }
++    return EXIT_SUCCESS;
++}
+diff --git a/efw-downloader/src/subcmds.h b/efw-downloader/src/subcmds.h
+new file mode 100644
+index 0000000..f10c420
+--- /dev/null
++++ b/efw-downloader/src/subcmds.h
+@@ -0,0 +1,8 @@
++// SPDX-License-Identifier: GPL-3.0-or-later
++// Copyright (c) 2020 Takashi Sakamoto
++#ifndef __SUBCMDS_H__
++#define __SUBCMDS_H__
++
++int subcmd_device(int argc, char **argv);
++
++#endif
 -- 
 2.25.1
 

@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 46D5E24CF57
-	for <lists+alsa-devel@lfdr.de>; Fri, 21 Aug 2020 09:35:01 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 605D024CF62
+	for <lists+alsa-devel@lfdr.de>; Fri, 21 Aug 2020 09:37:22 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E81AF1686;
-	Fri, 21 Aug 2020 09:34:10 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E81AF1686
+	by alsa0.perex.cz (Postfix) with ESMTPS id 0F3C1167C;
+	Fri, 21 Aug 2020 09:36:32 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0F3C1167C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1597995301;
-	bh=eZaL1CatvTHWznqV742+LRhjRj4c5Mbt5WbqdEvo2Ck=;
+	s=default; t=1597995442;
+	bh=1FNxYcdaZ2MqbmSfb6XXlvjUmLr5I0McuKwPUpDAQ68=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=tnpaF+djj9Y09DV5JJIe+3Um4bcggkZnYpV9nKN3CD82yWi7yn1PSHa7l8ctXu9xv
-	 EIEwO80N295Y0Hcd/nJoY1peFMJgzfTwnsgXuEy/R3BjRb/W4NIQsJVfFetVH+Mac3
-	 phIIzS5wG44oCW9nzJwdEMYsVrDf8/JbPkPk8b8Y=
+	b=DnuUU6d8w2lC9QbZ5++nJbz0aAFmLYRRdaNY00Ww9rFw6AsVF8QHXtlgcn+Zw5e9y
+	 /8Fr1YsGmdc7x5+uFnjFdNFBeVhx4kIKesAPBt/8CQ+ve+q8QvUXxorCnutHf3nXdd
+	 JGcZCpQG0AGeUATrG5do8mnx4ytL9tCNOGeyBvmQ=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id B3E99F802F8;
-	Fri, 21 Aug 2020 09:31:47 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id CE975F80218;
+	Fri, 21 Aug 2020 09:31:58 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 199E1F802E9; Fri, 21 Aug 2020 09:31:41 +0200 (CEST)
+ id BEB30F802F9; Fri, 21 Aug 2020 09:31:45 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -35,63 +35,63 @@ Received: from wout4-smtp.messagingengine.com (wout4-smtp.messagingengine.com
  [64.147.123.20])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 72F36F80255
- for <alsa-devel@alsa-project.org>; Fri, 21 Aug 2020 09:31:28 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 72F36F80255
+ by alsa1.perex.cz (Postfix) with ESMTPS id 65FBBF80260
+ for <alsa-devel@alsa-project.org>; Fri, 21 Aug 2020 09:31:29 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 65FBBF80260
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=sakamocchi.jp header.i=@sakamocchi.jp
- header.b="NvyF0vRd"; 
+ header.b="B8wYT3eY"; 
  dkim=pass (2048-bit key) header.d=messagingengine.com
- header.i=@messagingengine.com header.b="j0kiJ2uT"
+ header.i=@messagingengine.com header.b="nRY9f26B"
 Received: from compute2.internal (compute2.nyi.internal [10.202.2.42])
- by mailout.west.internal (Postfix) with ESMTP id 1D2BB338;
- Fri, 21 Aug 2020 03:31:26 -0400 (EDT)
+ by mailout.west.internal (Postfix) with ESMTP id A29B22E3;
+ Fri, 21 Aug 2020 03:31:27 -0400 (EDT)
 Received: from mailfrontend2 ([10.202.2.163])
- by compute2.internal (MEProxy); Fri, 21 Aug 2020 03:31:26 -0400
+ by compute2.internal (MEProxy); Fri, 21 Aug 2020 03:31:28 -0400
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sakamocchi.jp;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding; s=fm2; bh=fA4cTsRV7fXvW
- LR7nLE/higt9EkmbireVuRQmBQEbV4=; b=NvyF0vRdyXSuFEmPsGN11VdEKQ2NB
- IGG31bfxGTP3iMtQxdfjlsrA6hcYk1IW+zWWetE5MdV+zN3yHTZ/bwX+4bFR/hzQ
- QRLu3maGFi+nJKn49lM7Chwu7w7UYrd082nIGzwV+6D0eakvmSaDhSS7xsV5KEIl
- GwO0llumUe7lC65Q/xbgvone0oRoJlQ6MwvcorRtym8DcOIFo+s5h2XqbjIIRVyG
- CzADA7q5uuZVe+L/5diKeFxxieBNzK+dor3xlqx6JJesvzCNSADLCIChoSQI3Oys
- PjP25kJl560IjjI0ptd60Tz70WwqF1xS6Y81CH0oxpziJRU+xCvZh9DDQ==
+ :mime-version:content-transfer-encoding; s=fm2; bh=CO1en39JIi6Uz
+ AIoH2m+sP93P2k6nrsw1RLmt6kL1wY=; b=B8wYT3eYpaxIukigq8St4HKqRL/qM
+ Ie1+EwmgzTbvejof6UdtHHDdLxpeHaziBfUM6WHvsDZMrf1bGgmwtZ09AYxnsTG4
+ NdziSwLkiyQEEjPuLIDT8THtBUvbpq4Y+Cl92O1fGUfHow3kRS/oJhAP/aRlw6HP
+ iZ3nr1AjAnGL58+vFg0+sFEpVllyg9Ej/BnVjOzu2ZcBg+r057fSucT1ywEm/k51
+ M5J0ldcd/J3xQsdX/HQ2w8LTEsVEllk9/qqxLYOyTcJdSImFhxCO6KWE/0cJDlyJ
+ ZUQ4S6nZ3WZ/x7ALhoVX1ZL1nCLefhJb3pz4WwdKY6ZXZBNhce+YsZ4ug==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
  messagingengine.com; h=cc:content-transfer-encoding:date:from
  :in-reply-to:message-id:mime-version:references:subject:to
  :x-me-proxy:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
- fm3; bh=fA4cTsRV7fXvWLR7nLE/higt9EkmbireVuRQmBQEbV4=; b=j0kiJ2uT
- xNyfTfcJMfMBp9qm4S2K+nTufOKzpEeqEuVfgMwe0nDnq11p9QhQesY4p99EsjrY
- 0BvahsEZJ6+M15P8KRBzD7O8Jfg9NK/L2H2mWXJwJDpWBdB3RnyI8lcQoO+dq3S3
- U3Jp92SnJaWjZNzD6chQP10QrM+utnLasHFImrUvyxeIRzeRmFVnV36SON6Y/CNx
- Nml/33CwKmjGOoZUrCXlC7P+I9Tqtuez+lcR++dc6yU6+hWXatdmR6paIoFqBWyF
- gsPsAt0x8n/uYY+oUt1dnYIGTZtTjeEpW3WbSjEiSBJDVAkeJ9rveVGwvXAU7JRu
- ffGCw420rto63A==
-X-ME-Sender: <xms:TXg_X3waZdwc5XAiFrC0rBosl7ByQqVTBTd7cPxCkCQciyCcYYrh4Q>
+ fm3; bh=CO1en39JIi6UzAIoH2m+sP93P2k6nrsw1RLmt6kL1wY=; b=nRY9f26B
+ 3KrbdBHdoxGZNc3ZZC7cXW7sAlrzBptzYZl6/p3QIFoBC4btwxzV4G3lICSt1bl2
+ FpiOkg/Rw8b+mgXtR7ZTUV+gpKoOMLY8FjB76xDR4fVmrexagKBvyQ7NPmN391Vd
+ Dh2/6VtXHD2zhpaTOSl8ZTZp6jao10mSLodbtMoZZT3DfgDuIJb/hCx1glGvk5bu
+ l+2BUlsSng/f5U2/qm9iRc1lOxOruSjcfw4Fx33cj7UK2QT79SxbTWH3vw0vqqpZ
+ NI7t/HEEukdSL8PtTwNrJfCpcxEOvEwBUc+xbJt2Lu8aZyM/acx2AeJV1X16lhkn
+ +4WaCXLhyFVdQQ==
+X-ME-Sender: <xms:T3g_X1WuLE4kfJgkDhFx0spI1lSVkowjmVkq7iTUIp_bhcqWZ-bgew>
 X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeduiedrudduuddgudduudcutefuodetggdotefrod
  ftvfcurfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfgh
  necuuegrihhlohhuthemuceftddtnecunecujfgurhephffvufffkffojghfggfgsedtke
  ertdertddtnecuhfhrohhmpefvrghkrghshhhiucfurghkrghmohhtohcuoehoqdhtrghk
  rghshhhisehsrghkrghmohgttghhihdrjhhpqeenucggtffrrghtthgvrhhnpeevfefffe
  ektefgveegfeelheffhfeujedtjeevtefhkeevkedtjeejvddtjefhjeenucfkphepudek
- tddrvdefhedrfedrheegnecuvehluhhsthgvrhfuihiivgepvdenucfrrghrrghmpehmrg
+ tddrvdefhedrfedrheegnecuvehluhhsthgvrhfuihiivgepheenucfrrghrrghmpehmrg
  hilhhfrhhomhepohdqthgrkhgrshhhihesshgrkhgrmhhotggthhhirdhjph
-X-ME-Proxy: <xmx:TXg_X_TKHeePrfAgBHULwfAnK8-M-IO2ZRvkbyhnFxH_-tOj9kT56w>
- <xmx:TXg_XxX6VtRKjJkV6x9tPPV0vIobG3x9NFX1rHZxCGxaugq6Im5_FQ>
- <xmx:TXg_XxjF9pP_eEiEfcSomYihoVMKBlresAJr_k6LR1bKQK2O4K_7AQ>
- <xmx:TXg_X25bCNcp1ID65zQ2_4Y4zDdOZvdEue0w7JQfAoyCzidsVuiE9A>
+X-ME-Proxy: <xmx:T3g_X1m0-CFWBwpPzO6DWBR-MMV__ohDnU0l2pWNctypCCcQKr-sgA>
+ <xmx:T3g_XxYYWVBb3f-6U9G0d9g8frWTqVev58lgKfuAnbp14wjpmKeL2A>
+ <xmx:T3g_X4Vxvs7y-GTFUoSoR09Y4kshFsFZJatWdbt9ifGDKkC-OWFrrg>
+ <xmx:T3g_X3tIng1uOvvVnhIuCp_Qttf9fUkpjWcy4kr5U5kxCnP0XpR6kA>
 Received: from workstation.flets-east.jp (ad003054.dynamic.ppp.asahi-net.or.jp
  [180.235.3.54])
- by mail.messagingengine.com (Postfix) with ESMTPA id 3BF2330600B4;
- Fri, 21 Aug 2020 03:31:23 -0400 (EDT)
+ by mail.messagingengine.com (Postfix) with ESMTPA id EAAA830600B1;
+ Fri, 21 Aug 2020 03:31:25 -0400 (EDT)
 From: Takashi Sakamoto <o-takashi@sakamocchi.jp>
 To: tiwai@suse.de,
 	perex@perex.cz
-Subject: [PATCH 06/25] efw-downloader: efw-proto: add instance private
- structure
-Date: Fri, 21 Aug 2020 16:30:52 +0900
-Message-Id: <20200821073111.134857-7-o-takashi@sakamocchi.jp>
+Subject: [PATCH 07/25] efw-downloader: efw-proto: emit responded signal at
+ receiving response
+Date: Fri, 21 Aug 2020 16:30:53 +0900
+Message-Id: <20200821073111.134857-8-o-takashi@sakamocchi.jp>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20200821073111.134857-1-o-takashi@sakamocchi.jp>
 References: <20200821073111.134857-1-o-takashi@sakamocchi.jp>
@@ -114,79 +114,90 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-GObject allows instance to have private data.
+HinawaFwResp has class virtual method for applications to handle received
+frame on 1394 OHCI controller by overriding the method with own function
+implementation.
 
-This commit adds private structure to EfwProto instance.
+This commit overrides the class virtual method and emits 'responded'
+signal with the data of received response frame. The content of frame
+is aligned to host-endianness, then passed to signal handlers.
 
 Signed-off-by: Takashi Sakamoto <o-takashi@sakamocchi.jp>
 ---
- efw-downloader/src/efw-proto.c | 17 ++++++++++++++++-
- efw-downloader/src/efw-proto.h |  3 +++
- 2 files changed, 19 insertions(+), 1 deletion(-)
+ efw-downloader/src/efw-proto.c | 43 ++++++++++++++++++++++++++++++++++
+ 1 file changed, 43 insertions(+)
 
 diff --git a/efw-downloader/src/efw-proto.c b/efw-downloader/src/efw-proto.c
-index 72b7655..72959ac 100644
+index 72959ac..bef81b3 100644
 --- a/efw-downloader/src/efw-proto.c
 +++ b/efw-downloader/src/efw-proto.c
-@@ -15,7 +15,10 @@
-  * command to a certain address region on 1394 OHCI controller. The instance of #EfwProto reserves
-  * the address region at call of #efw_proto_bind(), releases at call of #efw_proto_unbind().
-  */
--G_DEFINE_TYPE(EfwProto, efw_proto, HINAWA_TYPE_FW_RESP)
-+struct _EfwProtoPrivate {
-+    guint32 *buf;
-+};
-+G_DEFINE_TYPE_WITH_PRIVATE(EfwProto, efw_proto, HINAWA_TYPE_FW_RESP)
+@@ -3,6 +3,8 @@
+ #include "efw-proto.h"
+ #include "efw-proto-sigs-marshal.h"
  
- #define EFW_RESP_ADDR           0xecc080000000ull
- #define EFW_MAX_FRAME_SIZE      0x200u
-@@ -94,9 +97,16 @@ EfwProto *efw_proto_new()
-  */
- void efw_proto_bind(EfwProto *self, HinawaFwNode *node, GError **error)
- {
-+    EfwProtoPrivate *priv;
++#include <sound/firewire.h>
 +
-     g_return_if_fail(EFW_IS_PROTO(self));
-+    priv = efw_proto_get_instance_private(self);
- 
-     hinawa_fw_resp_reserve(HINAWA_FW_RESP(self), node, EFW_RESP_ADDR, EFW_MAX_FRAME_SIZE, error);
-+    if (*error != NULL)
-+        return;
-+
-+    priv->buf = g_malloc0(EFW_MAX_FRAME_SIZE);
- }
- 
  /**
-@@ -107,7 +117,12 @@ void efw_proto_bind(EfwProto *self, HinawaFwNode *node, GError **error)
-  */
- void efw_proto_unbind(EfwProto *self)
- {
-+    EfwProtoPrivate *priv;
-+
-     g_return_if_fail(EFW_IS_PROTO(self));
-+    priv = efw_proto_get_instance_private(self);
- 
-     hinawa_fw_resp_release(HINAWA_FW_RESP(self));
-+
-+    g_free(priv->buf);
+  * SECTION:efw_proto
+  * @Title: EfwProto
+@@ -38,12 +40,16 @@ static void proto_finalize(GObject *obj)
+     G_OBJECT_CLASS(efw_proto_parent_class)->finalize(obj);
  }
-diff --git a/efw-downloader/src/efw-proto.h b/efw-downloader/src/efw-proto.h
-index fdbcbc8..bc179dc 100644
---- a/efw-downloader/src/efw-proto.h
-+++ b/efw-downloader/src/efw-proto.h
-@@ -27,9 +27,12 @@ G_BEGIN_DECLS
  
- typedef struct _EfwProto            EfwProto;
- typedef struct _EfwProtoClass       EfwProtoClass;
-+typedef struct _EfwProtoPrivate     EfwProtoPrivate;
- 
- struct _EfwProto {
-     HinawaFwResp parent_instance;
++static HinawaFwRcode proto_handle_response(HinawaFwResp *resp, HinawaFwTcode tcode);
 +
-+    EfwProtoPrivate *priv;
- };
+ static void efw_proto_class_init(EfwProtoClass *klass)
+ {
+     GObjectClass *gobject_class = G_OBJECT_CLASS(klass);
  
- struct _EfwProtoClass {
+     gobject_class->finalize = proto_finalize;
+ 
++    HINAWA_FW_RESP_CLASS(klass)->requested = proto_handle_response;
++
+     /**
+      * EfwProto::responded:
+      * @self: A #EfwProto.
+@@ -126,3 +132,40 @@ void efw_proto_unbind(EfwProto *self)
+ 
+     g_free(priv->buf);
+ }
++
++static HinawaFwRcode proto_handle_response(HinawaFwResp *resp, HinawaFwTcode tcode)
++{
++    EfwProto *self = EFW_PROTO(resp);
++    EfwProtoPrivate *priv = efw_proto_get_instance_private(self);
++    const guint8 *req_frame = NULL;
++    gsize length = 0;
++    const struct snd_efw_transaction *frame;
++    guint status;
++    guint seqnum;
++    guint category;
++    guint command;
++    guint param_count;
++    int i;
++
++    hinawa_fw_resp_get_req_frame(resp, &req_frame, &length);
++    if (length < sizeof(*frame))
++        return HINAWA_FW_RCODE_DATA_ERROR;
++    frame = (const struct snd_efw_transaction *)req_frame;
++
++    status = GUINT32_FROM_BE(frame->status);
++    if (status > HINAWA_SND_EFW_STATUS_BAD_PARAMETER)
++        status = HINAWA_SND_EFW_STATUS_BAD;
++
++    seqnum = GUINT32_FROM_BE(frame->seqnum);
++    category = GUINT32_FROM_BE(frame->category);
++    command = GUINT32_FROM_BE(frame->command);
++    param_count = GUINT32_FROM_BE(frame->length) - sizeof(*frame) / sizeof(guint32);
++
++    for (i = 0; i < param_count; ++i)
++        priv->buf[i] = GUINT32_FROM_BE(frame->params[i]);
++
++    g_signal_emit(self, efw_proto_sigs[EFW_PROTO_SIG_TYPE_RESPONDED], 0,
++                  status, seqnum, category, command, priv->buf, param_count);
++
++    return HINAWA_FW_RCODE_COMPLETE;
++}
 -- 
 2.25.1
 

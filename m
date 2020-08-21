@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 35D5724CFAC
-	for <lists+alsa-devel@lfdr.de>; Fri, 21 Aug 2020 09:41:26 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 26C6224CFB7
+	for <lists+alsa-devel@lfdr.de>; Fri, 21 Aug 2020 09:41:45 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id BF1D01676;
-	Fri, 21 Aug 2020 09:40:35 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BF1D01676
+	by alsa0.perex.cz (Postfix) with ESMTPS id CB4F0169E;
+	Fri, 21 Aug 2020 09:40:54 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CB4F0169E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1597995685;
-	bh=GXx1jp7kxwc0AJl58yY1WGSnCP664nmJaqeoKNNBLzk=;
+	s=default; t=1597995704;
+	bh=iLpf9j3bHT8tVO3YogU0k313skhdEyHAAGgtsoCaLYU=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=eLB5S1cRS15z6n8lnIiybIQyRoSIHLsqUs3t3VGbutLmFexDoAFqQjooL/DRabeK0
-	 rWY872M872vKzbAGvBzsiy5mTcFvS8EPETrGGQuJdSqUrfRwW1yjQNN2O16OKxpuOg
-	 0p6BWND7ZPEMBx00LixPHdf4ig0BryVxbUt70qSY=
+	b=NFjFNONM1WL1eb9Wcbr8f1TmuPWr+Lxlqb1EheVHjPHNtY741n+QKjnH4IGOj495A
+	 ssP5wcuQW84gj21YKX24m+vldFMwR6GEsrlPkHUZMWhFxwwpOmMmyeEExok2K6S2Gk
+	 FTZM4CcQcdcus5Hpv09Amd49dKQHUxTiRvbzkkWc=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 81F57F8034C;
-	Fri, 21 Aug 2020 09:32:19 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id C3796F8034F;
+	Fri, 21 Aug 2020 09:32:20 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 7024FF8031A; Fri, 21 Aug 2020 09:31:56 +0200 (CEST)
+ id C792FF80317; Fri, 21 Aug 2020 09:31:56 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -35,63 +35,63 @@ Received: from wout4-smtp.messagingengine.com (wout4-smtp.messagingengine.com
  [64.147.123.20])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 7A92EF80253
- for <alsa-devel@alsa-project.org>; Fri, 21 Aug 2020 09:31:40 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7A92EF80253
+ by alsa1.perex.cz (Postfix) with ESMTPS id CA5CFF80218
+ for <alsa-devel@alsa-project.org>; Fri, 21 Aug 2020 09:31:41 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CA5CFF80218
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=sakamocchi.jp header.i=@sakamocchi.jp
- header.b="LPes8KDf"; 
+ header.b="OUlZJHhi"; 
  dkim=pass (2048-bit key) header.d=messagingengine.com
- header.i=@messagingengine.com header.b="ErGjARVK"
+ header.i=@messagingengine.com header.b="IkHv2Ous"
 Received: from compute2.internal (compute2.nyi.internal [10.202.2.42])
- by mailout.west.internal (Postfix) with ESMTP id 9B40828A;
- Fri, 21 Aug 2020 03:31:38 -0400 (EDT)
+ by mailout.west.internal (Postfix) with ESMTP id 129F48D5;
+ Fri, 21 Aug 2020 03:31:40 -0400 (EDT)
 Received: from mailfrontend2 ([10.202.2.163])
- by compute2.internal (MEProxy); Fri, 21 Aug 2020 03:31:38 -0400
+ by compute2.internal (MEProxy); Fri, 21 Aug 2020 03:31:40 -0400
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sakamocchi.jp;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding; s=fm2; bh=/1kXJ5EnNWuIn
- wtKakugyFCNGf74wLBdhLPndyx0Y/U=; b=LPes8KDfjmyruabB85yX0dvMzPNes
- iZPHrqperUmeH+HNNgk3iwM5bAIxVpmXJSyax6mS68+42b5pryiix3gvfzWuAm5G
- uompRz3ZF5cH/xgDvujnRBE0nvYWfGo7B7VKLcdLC7nw+ABdtOYfUmWKLv1/Gzf2
- OriP2zWAwWd7fJrM64WYqedvyCTPeMJD2ruskWpudjYx8VF2ZeYbeTJbwr4aHoJa
- ZZxqb9oPtLBO30JsOE1wf2DI0UD1fxoRM25IW9QZ4bXuHMZr3mpnxYSKpZnJsAs/
- +8z4mwTQwR8ui8BGDhXJjcDV7TAROenkAjBJ/AbPjdPfFSzkDMlOSknuQ==
+ :mime-version:content-transfer-encoding; s=fm2; bh=0Do/PKfM1uNzR
+ ZmES9ekz1wc/pZqDt02aIEOkzvwxjg=; b=OUlZJHhiOt06Cjimyu6yDfmR27HR/
+ 2SnQEODovz+fqj/scoHTD+FeH/mP9+om+1MTyByUjszbXOisilw2iO3vWkeGfRMp
+ JBSSbTkv2Mxr4uDE4BB5LE2ZgMZQ1hHLX1lERejAMCWNPRSWK4aKP+7GcDKiDgQ/
+ 6sM+N+LecrkWUdTQoH7OgpBzSwAOUgxtQJC1qACk/aWYDRbS/hfxFuEATdHz3nqS
+ 2iZj/SlJOY5cCVQxt8M4EiK93txB7YWEAgjRord6n/L2gFCyIBj1v4bMWSIvtpma
+ ArKaAhQAQMJ4cxMd52DMtBhvL3uKZ/sC6mp8YerP7OsZkrjlcDrk0mOpw==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
  messagingengine.com; h=cc:content-transfer-encoding:date:from
  :in-reply-to:message-id:mime-version:references:subject:to
  :x-me-proxy:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
- fm3; bh=/1kXJ5EnNWuInwtKakugyFCNGf74wLBdhLPndyx0Y/U=; b=ErGjARVK
- AQlJXljhuvw7JEI/B/REUPXTDOBfN9xQXKm8222OqMSAYiBdf6ffhV3KbZHqB+Ku
- L+PWpO43DYA+S2xcxVEAtJn+Chkaq6aMEPDw0j3jmOmciG2XtBD4WrrbD6T91ppG
- KWI1acU7ck3mHEm1jVKdtWhtQ6R+qgLVQScuKOmPaLad0q0xHtSCmlmPn8LAMPQq
- 9tKYSMvJIuYdnJGADOYkKR9W2fsjRvp0h/myqF2OEcgk5cuAV0trLHkPcTNp10lO
- CzMt+PXGsNloR2oBKBysb2z0GmismbwZ34a9w/0QGxTpoLwxMpCzmImFG+kwkEMk
- 5bBW3wlWKxCrWw==
-X-ME-Sender: <xms:Wng_X1WjU--7c2sAbsK8n17xxyB0sxWsQG_yqH-WD1knf6kkhcgpWQ>
+ fm3; bh=0Do/PKfM1uNzRZmES9ekz1wc/pZqDt02aIEOkzvwxjg=; b=IkHv2Ous
+ dKN93r5EgY3j1rYwZRB+u4Ax++2WiBWgW+4vV4h/vERqSTCoMG3c76TfFWj1FnLz
+ zmuMrG3X9aZMGCSS3AUIF5vcwdHhwhM2b3xpRoC9kJFCpI42UyQ4cnmuUALaHMzA
+ UKTMtwmscIjeF7287Lpf6uqpCATI9NnBel9boStYyFaHEV3D3RalwAu/tkGye8oW
+ UilvPWP1pB5yFn6dUSz5u8Ik9KV7PfqWEkfj/DN4K9K96Gxk/L2XbHKszn8eHw5B
+ Q/BT24UEEm/cJ/gr087IDvNtkpj7krzMhphxaVDG3DHN1PNiNMz0DJKJWXShjdB5
+ ZgAIo53ifCSbCg==
+X-ME-Sender: <xms:W3g_XzRnA6qQo1H_KiMOZqKOQFpOMua7p4EZtoS6nWuc7XrwF6tQ0w>
 X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeduiedrudduuddgudduudcutefuodetggdotefrod
  ftvfcurfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfgh
  necuuegrihhlohhuthemuceftddtnecunecujfgurhephffvufffkffojghfggfgsedtke
  ertdertddtnecuhfhrohhmpefvrghkrghshhhiucfurghkrghmohhtohcuoehoqdhtrghk
  rghshhhisehsrghkrghmohgttghhihdrjhhpqeenucggtffrrghtthgvrhhnpeevfefffe
  ektefgveegfeelheffhfeujedtjeevtefhkeevkedtjeejvddtjefhjeenucfkphepudek
- tddrvdefhedrfedrheegnecuvehluhhsthgvrhfuihiivgepkeenucfrrghrrghmpehmrg
- hilhhfrhhomhepohdqthgrkhgrshhhihesshgrkhgrmhhotggthhhirdhjph
-X-ME-Proxy: <xmx:Wng_X1kFrZuxyAdwSIz0SuiC6Yp48XJMpFVmGWTuckv_KQeLvaHxxw>
- <xmx:Wng_XxaV5c44qgTOxrVT4JfHwuWPRYAuWbybYAvpwNg0V367LWj8PA>
- <xmx:Wng_X4Wq3SQObhLWfN0uYzeXxrrrl9vxXWGkjy6dtt8IVcfUksQT2A>
- <xmx:Wng_X3uhC8nw-S0MQuuPYU8GLgm3rff7F4oydoN01XKrl6_cCQxXPQ>
+ tddrvdefhedrfedrheegnecuvehluhhsthgvrhfuihiivgepuddvnecurfgrrhgrmhepmh
+ grihhlfhhrohhmpehoqdhtrghkrghshhhisehsrghkrghmohgttghhihdrjhhp
+X-ME-Proxy: <xmx:W3g_X0zFEfZUqOPPbbamOJ6KY4iUyTkACEEDmPVZQ8WYJReP7BrxcA>
+ <xmx:W3g_X42hQ36S6PB6wpf5R-ZrGxnu0PezBvpbdnnbsPkqbl9DIAcGeQ>
+ <xmx:W3g_XzDjz_7frMg2V3Ed2U_avZExThDhgllYl3zIb1-fqL8-DHrI3Q>
+ <xmx:W3g_X4YkLrjNA_Hvor7AUvI8tNbCSrnIzV-YGCP7yts_r0xYPEYOyw>
 Received: from workstation.flets-east.jp (ad003054.dynamic.ppp.asahi-net.or.jp
  [180.235.3.54])
- by mail.messagingengine.com (Postfix) with ESMTPA id DC26A30600B1;
- Fri, 21 Aug 2020 03:31:36 -0400 (EDT)
+ by mail.messagingengine.com (Postfix) with ESMTPA id 656EC30600B4;
+ Fri, 21 Aug 2020 03:31:38 -0400 (EDT)
 From: Takashi Sakamoto <o-takashi@sakamocchi.jp>
 To: tiwai@suse.de,
 	perex@perex.cz
-Subject: [PATCH 13/25] efw-downloader: config-rom: parse config rom to detect
- supported device
-Date: Fri, 21 Aug 2020 16:30:59 +0900
-Message-Id: <20200821073111.134857-14-o-takashi@sakamocchi.jp>
+Subject: [PATCH 14/25] efw-downloader: subcmd-device: check supported models
+ or not
+Date: Fri, 21 Aug 2020 16:31:00 +0900
+Message-Id: <20200821073111.134857-15-o-takashi@sakamocchi.jp>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20200821073111.134857-1-o-takashi@sakamocchi.jp>
 References: <20200821073111.134857-1-o-takashi@sakamocchi.jp>
@@ -114,138 +114,59 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-In IEEE 1394 bus, each node exposes the range of address for data. The data
-is used by the other node to identify the node. The data is named as
-configuration rom.
-
-This commit adds helper function to parse the configuration rom to detect
-supported models.
+This commit checks whether the device for node is supported models or not.
+When it's unsupported, the runtime exits with EXIT_FAILURE.
 
 Signed-off-by: Takashi Sakamoto <o-takashi@sakamocchi.jp>
 ---
- efw-downloader/src/config-rom.c | 60 +++++++++++++++++++++++++++++++++
- efw-downloader/src/config-rom.h | 26 ++++++++++++++
- efw-downloader/src/meson.build  |  2 ++
- 3 files changed, 88 insertions(+)
- create mode 100644 efw-downloader/src/config-rom.c
- create mode 100644 efw-downloader/src/config-rom.h
+ efw-downloader/src/subcmd-device.c | 19 ++++++++++++++++++-
+ 1 file changed, 18 insertions(+), 1 deletion(-)
 
-diff --git a/efw-downloader/src/config-rom.c b/efw-downloader/src/config-rom.c
-new file mode 100644
-index 0000000..ce37037
---- /dev/null
-+++ b/efw-downloader/src/config-rom.c
-@@ -0,0 +1,60 @@
-+// SPDX-License-Identifier: GPL-3.0-or-later
-+// Copyright (c) 2020 Takashi Sakamoto
+diff --git a/efw-downloader/src/subcmd-device.c b/efw-downloader/src/subcmd-device.c
+index e1be025..b93d62d 100644
+--- a/efw-downloader/src/subcmd-device.c
++++ b/efw-downloader/src/subcmd-device.c
+@@ -6,6 +6,7 @@
+ #include <assert.h>
+ 
+ #include "efw-proto.h"
 +#include "config-rom.h"
-+
-+gboolean config_rom_detect_vendor_and_model(const guint8 *rom, guint32 *vendor_id, guint32 *model_id)
-+{
-+    gboolean detected = FALSE;
-+
-+    if (rom[24] != 0x03)
-+        return FALSE;
-+
-+    *vendor_id = (rom[25] << 16) | (rom[26] << 8) | rom[27];
-+
-+    if (rom[32] != 0x17)
-+        return FALSE;
-+
-+    *model_id = (rom[33] << 16) | (rom[34] << 8) | rom[35];
-+
-+    switch (*vendor_id) {
-+    case VENDOR_LOUD:
-+        switch (*model_id) {
-+        case MODEL_ONYX400F:
-+        case MODEL_ONYX1200F:
-+            detected = TRUE;
-+            break;
-+        default:
-+            break;
-+        }
-+        break;
-+    case VENDOR_ECHO_AUDIO:
-+        switch (*model_id) {
-+        case MODEL_AF2:
-+        case MODEL_AF4:
-+        case MODEL_AF8:
-+        case MODEL_AF8P:
-+        case MODEL_AF12:
-+        case MODEL_AF12HD:
-+        case MODEL_AF12_APPLE:
-+        case MODEL_FWHDMI:
-+            detected = TRUE;
-+            break;
-+        default:
-+            break;
-+        }
-+        break;
-+    case VENDOR_GIBSON:
-+        switch (*model_id) {
-+        case MODELRIP:
-+        case MODELAUDIOPUNK:
-+            detected = TRUE;
-+            break;
-+        default:
-+            break;
-+        }
-+    default:
-+        break;
+ 
+ #define report_error(error, msg)                                                    \
+         fprintf(stderr, "Fail to %s: %s %d %s\n",                                   \
+@@ -55,6 +56,9 @@ int subcmd_device(int argc, char **argv)
+     const char *path;
+     const char *op_name;
+     HinawaFwNode *node;
++    const guint8 *rom;
++    gsize length;
++    guint32 vendor_id, model_id;
+     EfwProto *proto;
+     int err;
+     int i;
+@@ -83,8 +87,21 @@ int subcmd_device(int argc, char **argv)
+         goto err;
+     }
+ 
+-    entry->op(argc, argv, proto, &error);
++    hinawa_fw_node_get_config_rom(node, &rom, &length, &error);
++    if (error != NULL) {
++        report_error(error, "get config rom");
++        goto err_node;
++    }
+ 
++    if (!config_rom_detect_vendor_and_model(rom, &vendor_id, &model_id)) {
++        fprintf(stderr, "The node is not for Fireworks device: %s\n", path);
++        g_set_error_literal(&error, G_FILE_ERROR, g_file_error_from_errno(ENXIO),
++                            "The node is not for Fireworks device");
++        goto err_node;
 +    }
 +
-+    return detected;
-+}
-diff --git a/efw-downloader/src/config-rom.h b/efw-downloader/src/config-rom.h
-new file mode 100644
-index 0000000..59bdc14
---- /dev/null
-+++ b/efw-downloader/src/config-rom.h
-@@ -0,0 +1,26 @@
-+// SPDX-License-Identifier: GPL-3.0-or-later
-+// Copyright (c) 2020 Takashi Sakamoto
-+#ifndef __CONFIG_ROM_H__
-+#define __CONFIG_ROM_H__
-+
-+#include <glib.h>
-+
-+#define VENDOR_LOUD         0x000ff2
-+#define   MODEL_ONYX400F    0x00400f
-+#define   MODEL_ONYX1200F   0x01200f
-+#define VENDOR_ECHO_AUDIO   0x001486
-+#define   MODEL_AF2         0x000af2
-+#define   MODEL_AF4         0x000af4
-+#define   MODEL_AF8         0x000af8
-+#define   MODEL_AF8P        0x000af9
-+#define   MODEL_AF12        0x00af12
-+#define   MODEL_AF12HD      0x0af12d
-+#define   MODEL_AF12_APPLE  0x0af12a
-+#define   MODEL_FWHDMI      0x00afd1
-+#define VENDOR_GIBSON       0x00075b
-+#define   MODELRIP          0x00afb2
-+#define   MODELAUDIOPUNK    0x00afb9
-+
-+gboolean config_rom_detect_vendor_and_model(const guint8 *rom, guint32 *vendor_id, guint32 *model_id);
-+
-+#endif
-diff --git a/efw-downloader/src/meson.build b/efw-downloader/src/meson.build
-index 07a6182..c006c8b 100644
---- a/efw-downloader/src/meson.build
-+++ b/efw-downloader/src/meson.build
-@@ -14,11 +14,13 @@ hinawa = dependency('hinawa',
- sources = [
-   'main.c',
-   'efw-proto.c',
-+  'config-rom.c',
-   'subcmd-device.c',
- ]
- 
- headers = [
-   'efw-proto.h',
-+  'config-rom.h',
-   'subcmds.h',
- ]
- 
++    entry->op(argc, argv, proto, &error);
++err_node:
+     g_object_unref(node);
+ err:
+     if (error != NULL) {
 -- 
 2.25.1
 

@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id CDB4824CF5D
-	for <lists+alsa-devel@lfdr.de>; Fri, 21 Aug 2020 09:36:39 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id EE6E624CF56
+	for <lists+alsa-devel@lfdr.de>; Fri, 21 Aug 2020 09:34:45 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 81B681696;
-	Fri, 21 Aug 2020 09:35:49 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 81B681696
+	by alsa0.perex.cz (Postfix) with ESMTPS id 8DC1C844;
+	Fri, 21 Aug 2020 09:33:55 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8DC1C844
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1597995399;
-	bh=fhHD7IMMF9mUTUGiwX2FECTy6+NcrCyDYHMR9+HIuks=;
+	s=default; t=1597995285;
+	bh=XrZH+LLb4Xp6i3fKT5dN7dzSnnRsamf2oncPMnSy/q8=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=lxfdnSOKan/EfPHOaldkCWrngM89+GZc1fvKs4qjVuab2x+UAv7YV0j/rXk90gmLK
-	 8O1nT7bHG7uODI4JTPQk6IUJuTiS7rdyF1UlfYw2R4veu5X4JEy9R2n6tuIc2A/26e
-	 adzZWfqRqRWfMoQH3gNVndrD4AOe2JN7vm6DNhb4=
+	b=GZwVbCrOdRBBJcf2uTadoQy4CAp7KnfmDg48wUgGhN6oTU4ryxBNbqbNBWeAkBCj6
+	 Wj+g+8SU3800eBsN7tdTNRaaF2sZOgPejlD6r5pP7Gqx5ka1VNCvbxwW1ChT+kJ6lr
+	 vvYyKBTj8NOmPbAEecPVr88d3/IaqAjaWMxT7KgQ=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id D6E99F80308;
-	Fri, 21 Aug 2020 09:31:55 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 49574F802E7;
+	Fri, 21 Aug 2020 09:31:43 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 12F56F802E7; Fri, 21 Aug 2020 09:31:42 +0200 (CEST)
+ id 62649F802EA; Fri, 21 Aug 2020 09:31:40 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -35,40 +35,40 @@ Received: from wout4-smtp.messagingengine.com (wout4-smtp.messagingengine.com
  [64.147.123.20])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id B198DF80218
- for <alsa-devel@alsa-project.org>; Fri, 21 Aug 2020 09:31:21 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B198DF80218
+ by alsa1.perex.cz (Postfix) with ESMTPS id C4924F800D3
+ for <alsa-devel@alsa-project.org>; Fri, 21 Aug 2020 09:31:23 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C4924F800D3
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=sakamocchi.jp header.i=@sakamocchi.jp
- header.b="F6lgjzCD"; 
+ header.b="nc/DRFEz"; 
  dkim=pass (2048-bit key) header.d=messagingengine.com
- header.i=@messagingengine.com header.b="b0BHf2EX"
+ header.i=@messagingengine.com header.b="YcFUHwXg"
 Received: from compute2.internal (compute2.nyi.internal [10.202.2.42])
- by mailout.west.internal (Postfix) with ESMTP id D01CC6F0;
- Fri, 21 Aug 2020 03:31:19 -0400 (EDT)
+ by mailout.west.internal (Postfix) with ESMTP id 701C6839;
+ Fri, 21 Aug 2020 03:31:21 -0400 (EDT)
 Received: from mailfrontend2 ([10.202.2.163])
- by compute2.internal (MEProxy); Fri, 21 Aug 2020 03:31:20 -0400
+ by compute2.internal (MEProxy); Fri, 21 Aug 2020 03:31:21 -0400
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sakamocchi.jp;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding; s=fm2; bh=IHL0xumbb5SCV
- VFEZYwR9Fn70hgzcQxVEDDhjaewpJI=; b=F6lgjzCDDjj/tOAyPFfEnLXHUCrqF
- aYcXb3G1R0BUjI3Sd3p709RF/3qSbyJEH4mmNgkIq/xg32TK0w4bXe0zfTDWQT4t
- Q7oqW3TETIXzM9MsoaYNmIUyA/4+pR2Hdb7w/ByW/8zYvrg1RfJxO8a8ly1FhzZe
- LzzbNmP1Hvin2RyAwBVZL3XcBGuEUdlFp2ZWfGyCiu0bCEWoFBth6ouTOr3YALr5
- dhKODmSuMzH++ZN6KK8hWtTMZornRmo5twYGB2xqv6e4jX8XM4V69sKLnaJkzIGO
- R42se5BoAdq9nFOeDRnaQSq45kwsxF4L82ARor0mBY6a3LAB1ew10HZlQ==
+ :mime-version:content-transfer-encoding; s=fm2; bh=cvkhDFrmVXOO0
+ NlRW+1FPGG5nVNKOzj8jgWingxFv4I=; b=nc/DRFEzhYXSWhsTgB82e5r3Elj+n
+ 2DfgmuSbQkIwY5BzI+NXFoThHk2WZ6hX3B6e3xy454b1d+jgfpAnvQPV84MFu9iT
+ BtgpgrHp5yYx2tGiUwCV1jukHudDXHmdEiqrjpsq64BXKdUdCWUdXvzEEYZeYSnC
+ LtPBiEQ43DWvZortk4sRk6pUt0R2x2lfcNyszoWqavRsg1LYaBU6qFtfGxBBPeGu
+ NG+lGqMbzA9sWQHB88If52wciQ2mR0Ohf+2HVra9yt+VdKz7l5D5pIhi3/Zx4zH2
+ WTDC/z3Gvbi9mVkRH94yV6+ctDtxiufE8ZAFsy9HB6DM1NelQqsCJ3CgQ==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
  messagingengine.com; h=cc:content-transfer-encoding:date:from
  :in-reply-to:message-id:mime-version:references:subject:to
  :x-me-proxy:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
- fm3; bh=IHL0xumbb5SCVVFEZYwR9Fn70hgzcQxVEDDhjaewpJI=; b=b0BHf2EX
- AjYtHGfEMYj6i5buerO0zX8m7j35fNzHcQAVC+/Ck6YIMZXMa7VkjUfQUhfDRbaa
- bGCwSc0yxj2LkB7tJlZMaYezfCNxMpiLj/vIXWAPRJhk/mK/oCY8rK3/Zk1YhLSq
- /be5V7/bCT/hoirHANil9ltbvDGyFuM1UUpF1Qd//s6FPwQ5EWi8BAX8wRGEghVv
- sr1fXwNziUIQvtY2q2wIHa6DL12BXasc5fSawxpqc/v/CpIOUQX6phEqoF0iameM
- Awc0/u/k9mm59MnzTickaKaP1gpqn5cU+h0YvatRmtpVj6exdQfaXyVGlMMl2B3E
- lJ1BFB0vuEkQiA==
-X-ME-Sender: <xms:R3g_X_gn8CrttFSMoWsfHvfU3T5Fif9-sij0qtbt12nt4Yw8drkHFA>
+ fm3; bh=cvkhDFrmVXOO0NlRW+1FPGG5nVNKOzj8jgWingxFv4I=; b=YcFUHwXg
+ fjDE0YUY9/UwA71Fnbm0TlJ8WTPKDLvm7/ztvdQEEFeAWW+Bhl71n6jZGMgWCYbm
+ 4h1bpXuYN6CioXYglBDYfFqeTXJIf/lSCuCU2bjMZxn9vm6U+Fh44nEbxs2wDNBs
+ tTEDsVyuETZ0P763iw1Oehdjwv5Uu+pTyc53OXDHxEKCbah6iQZlF4b3sAAH1ucY
+ kKevwVEFqbPSUzVMZMvRfbjytw9i7ud1Qqnkzpakqb9sqa5IgnQqqBlv+KLEukmI
+ mCW/oxR1R/CFlfhJe30HDsgs0FdkTWnqHviUr3YXIeYuyzdZasdaanL8/uI+HBOJ
+ +1pJ0O5hAbMzBg==
+X-ME-Sender: <xms:SHg_XzesoJgE2JsADJgLcTvbgwl3J824bXo8CL-A7ksxzkHtivffTA>
 X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeduiedrudduuddgudduudcutefuodetggdotefrod
  ftvfcurfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfgh
  necuuegrihhlohhuthemuceftddtnecunecujfgurhephffvufffkffojghfggfgsedtke
@@ -77,21 +77,21 @@ X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeduiedrudduuddgudduudcutefuodetgg
  ektefgveegfeelheffhfeujedtjeevtefhkeevkedtjeejvddtjefhjeenucfkphepudek
  tddrvdefhedrfedrheegnecuvehluhhsthgvrhfuihiivgeptdenucfrrghrrghmpehmrg
  hilhhfrhhomhepohdqthgrkhgrshhhihesshgrkhgrmhhotggthhhirdhjph
-X-ME-Proxy: <xmx:R3g_X8DwvzxN52ebRJwnVQEcpY5fQKO-qJIb_5aFGe07y65DI2OhEQ>
- <xmx:R3g_X_FZZriyU-aUp8zyQCThj8cVeoIcf2mZ6CmjEBPlu4iKpkbYSQ>
- <xmx:R3g_X8Q9cqXtZQaECfIQ7eEsAnD850H0BZXKOSC1tyEl9Da-gwEreA>
- <xmx:R3g_X5q9wQy2uauDxQ6s70nBcmHLvTyrl1CYACTeqEYkmTRmr-8DHQ>
+X-ME-Proxy: <xmx:SHg_X5PZzBMJsjzwk-wmr3w34D6eC4Ckjm7RleVnE71n3nOD2K4dLw>
+ <xmx:SHg_X8gNl36ePGUvM2CFdwoHtitm1Ucgba3wEcaSfALokBxy6Cpb_Q>
+ <xmx:SHg_X0_69QXan6ha2WhrdnU54DSnHc-W083P-Om2ral_N-CL1A0bTg>
+ <xmx:SXg_X4Vg7uTMpKY9kKgdUmpNyoNXaujJluMPGq3z2xchU3H82oGrSw>
 Received: from workstation.flets-east.jp (ad003054.dynamic.ppp.asahi-net.or.jp
  [180.235.3.54])
- by mail.messagingengine.com (Postfix) with ESMTPA id 0BC8B30600B1;
- Fri, 21 Aug 2020 03:31:17 -0400 (EDT)
+ by mail.messagingengine.com (Postfix) with ESMTPA id A049130600B4;
+ Fri, 21 Aug 2020 03:31:19 -0400 (EDT)
 From: Takashi Sakamoto <o-takashi@sakamocchi.jp>
 To: tiwai@suse.de,
 	perex@perex.cz
-Subject: [PATCH 02/25] efw-downloader: efw-proto: define EfwProto as derived
- object of HinawaFwResp
-Date: Fri, 21 Aug 2020 16:30:48 +0900
-Message-Id: <20200821073111.134857-3-o-takashi@sakamocchi.jp>
+Subject: [PATCH 03/25] efw-downloader: efw-proto: add constructor, destructor,
+ bind, unbind functions
+Date: Fri, 21 Aug 2020 16:30:49 +0900
+Message-Id: <20200821073111.134857-4-o-takashi@sakamocchi.jp>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20200821073111.134857-1-o-takashi@sakamocchi.jp>
 References: <20200821073111.134857-1-o-takashi@sakamocchi.jp>
@@ -114,138 +114,121 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Echo Digital Audio corporation designed specific protocol to operate
-Fireworks board module. The protocol includes a pair of asynchronous
-transactions on IEEE 1394 bus to transfer command frame and receive
-response frame.
+In Fireworks protocol, response frame from target device arrives at offset
+0xecc080000000 on 1394 OHCI controller and the maximum size is 0x200U. It
+seems to be inspired by Function Control Protocol in IEC 61883-1.
 
-This commit adds EfwProto GObject object. This object inherits
-HinawaFwResp to receive the response frame from Linux 1394 OHCI driver,
-thus libglib-2.0, libgobject-2.0 and libhinawa 2.1 is added for
-build and runtime dependency.
+This commit adds functions to construct and destruct the instance of
+EfwProto object, to bind and unbind the Fireworks protocol to the the given
+instance of HinawaFwNode. When calling the bind function, the instance
+requests Linux firewire subsystem to allocate the range of address.
+It's possible to encounter conflict in the case that the range of address
+is also allocated by ALSA fireworks driver, thus this tool can not be used
+when the driver is loaded.
 
 Signed-off-by: Takashi Sakamoto <o-takashi@sakamocchi.jp>
 ---
- efw-downloader/src/efw-proto.c | 25 +++++++++++++++++++++
- efw-downloader/src/efw-proto.h | 40 ++++++++++++++++++++++++++++++++++
- efw-downloader/src/meson.build | 21 +++++++++++++++++-
- 3 files changed, 85 insertions(+), 1 deletion(-)
- create mode 100644 efw-downloader/src/efw-proto.c
- create mode 100644 efw-downloader/src/efw-proto.h
+ efw-downloader/src/efw-proto.c | 62 ++++++++++++++++++++++++++++++++--
+ efw-downloader/src/efw-proto.h |  5 +++
+ 2 files changed, 64 insertions(+), 3 deletions(-)
 
 diff --git a/efw-downloader/src/efw-proto.c b/efw-downloader/src/efw-proto.c
-new file mode 100644
-index 0000000..63fd2c5
---- /dev/null
+index 63fd2c5..a6a6055 100644
+--- a/efw-downloader/src/efw-proto.c
 +++ b/efw-downloader/src/efw-proto.c
-@@ -0,0 +1,25 @@
-+// SPDX-License-Identifier: GPL-3.0-or-later
-+// Copyright (c) 2020 Takashi Sakamoto
-+#include "efw-proto.h"
+@@ -9,17 +9,73 @@
+  * @include: fw_fcp.h
+  *
+  * Fireworks board module from Echo Digital Audio corporation supports specific protocol based on
+- * a pair of asynchronous transactions in IEEE 1394 bus. The EfwProto class is an implementation
+- * for the protocol.
++ * a pair of asynchronous transactions in IEEE 1394 bus for command and response. The #EfwProto class
++ * is an implementation for the protocol. The Fireworks device transfers response against the
++ * command to a certain address region on 1394 OHCI controller. The instance of #EfwProto reserves
++ * the address region at call of #efw_proto_bind(), releases at call of #efw_proto_unbind().
+  */
+ G_DEFINE_TYPE(EfwProto, efw_proto, HINAWA_TYPE_FW_RESP)
+ 
++#define EFW_RESP_ADDR           0xecc080000000ull
++#define EFW_MAX_FRAME_SIZE      0x200u
++
++static void proto_finalize(GObject *obj)
++{
++    EfwProto *self = EFW_PROTO(obj);
++
++    efw_proto_unbind(self);
++
++    G_OBJECT_CLASS(efw_proto_parent_class)->finalize(obj);
++}
++
+ static void efw_proto_class_init(EfwProtoClass *klass)
+ {
+-    return;
++    GObjectClass *gobject_class = G_OBJECT_CLASS(klass);
++
++    gobject_class->finalize = proto_finalize;
+ }
+ 
+ static void efw_proto_init(EfwProto *self)
+ {
+     return;
+ }
 +
 +/**
-+ * SECTION:efw_proto
-+ * @Title: EfwProto
-+ * @Short_description: Transaction implementation for Fireworks protocol
-+ * @include: fw_fcp.h
++ * efw_proto_new:
 + *
-+ * Fireworks board module from Echo Digital Audio corporation supports specific protocol based on
-+ * a pair of asynchronous transactions in IEEE 1394 bus. The EfwProto class is an implementation
-+ * for the protocol.
++ * Instantiate and return #EfwProto object.
++ *
++ * Returns: An instance of #EfwProto.
 + */
-+G_DEFINE_TYPE(EfwProto, efw_proto, HINAWA_TYPE_FW_RESP)
-+
-+static void efw_proto_class_init(EfwProtoClass *klass)
++EfwProto *efw_proto_new()
 +{
-+    return;
++    return g_object_new(EFW_TYPE_PROTO, NULL);
 +}
 +
-+static void efw_proto_init(EfwProto *self)
++/**
++ * efw_proto_bind:
++ * @self: A #EfwProto.
++ * @node: A #HinawaFwNode.
++ * @error: A #GError. The error can be generated with domain of #hinawa_fw_node_error_quark().
++ *
++ * Bind to Fireworks protocol for communication to the given node.
++ */
++void efw_proto_bind(EfwProto *self, HinawaFwNode *node, GError **error)
 +{
-+    return;
++    g_return_if_fail(EFW_IS_PROTO(self));
++
++    hinawa_fw_resp_reserve(HINAWA_FW_RESP(self), node, EFW_RESP_ADDR, EFW_MAX_FRAME_SIZE, error);
++}
++
++/**
++ * efw_proto_unbind:
++ * @self: A #EfwProto.
++ *
++ * Unbind from Fireworks protocol.
++ */
++void efw_proto_unbind(EfwProto *self)
++{
++    g_return_if_fail(EFW_IS_PROTO(self));
++
++    hinawa_fw_resp_release(HINAWA_FW_RESP(self));
 +}
 diff --git a/efw-downloader/src/efw-proto.h b/efw-downloader/src/efw-proto.h
-new file mode 100644
-index 0000000..83e52be
---- /dev/null
+index 83e52be..b0e519d 100644
+--- a/efw-downloader/src/efw-proto.h
 +++ b/efw-downloader/src/efw-proto.h
-@@ -0,0 +1,40 @@
-+// SPDX-License-Identifier: GPL-3.0-or-later
-+// Copyright (c) 2020 Takashi Sakamoto
-+#ifndef __EFW_PROTO_H__
-+#define __EFW_PROTO_H__
-+
-+#include <glib.h>
-+#include <glib-object.h>
-+
-+#include <libhinawa/fw_resp.h>
-+
-+G_BEGIN_DECLS
-+
-+#define EFW_TYPE_PROTO      (efw_proto_get_type())
-+
-+#define EFW_PROTO(obj) \
-+    (G_TYPE_CHECK_INSTANCE_CAST((obj), EFW_TYPE_PROTO, EfwProto))
-+#define EFW_IS_PROTO(obj) \
-+    (G_TYPE_CHECK_INSTANCE_TYPE((obj), EFW_TYPE_PROTO))
-+
-+#define EFW_PROTO_CLASS(klass) \
-+    (G_TYPE_CHECK_CLASS_CAST((klass), EFW_TYPE_PROTO, EfwProtoClass))
-+#define EFW_IS_PROTO_CLASS(klass) \
-+    (G_TYPE_CHECK_CLASS_TYPE((klass), EFW_TYPE_PROTO))
-+#define EFW_PROTO_GET_CLASS(obj) \
-+    (G_TYPE_INSTANCE_GET_CLASS((obj), EFW_TYPE_PROTO, EfwProtoClass))
-+
-+typedef struct _EfwProto            EfwProto;
-+typedef struct _EfwProtoClass       EfwProtoClass;
-+
-+struct _EfwProto {
-+    HinawaFwResp parent_instance;
-+};
-+
-+struct _EfwProtoClass {
-+    HinawaFwRespClass parent_class;
-+};
-+
-+G_END_DECLS
-+
-+#endif
-diff --git a/efw-downloader/src/meson.build b/efw-downloader/src/meson.build
-index b837e92..b7992a2 100644
---- a/efw-downloader/src/meson.build
-+++ b/efw-downloader/src/meson.build
-@@ -1,11 +1,30 @@
- # SPDX-License-Identifier: GPL-3.0-or-later
- # Copyright (c) 2020 Takashi Sakamoto
+@@ -35,6 +35,11 @@ struct _EfwProtoClass {
+     HinawaFwRespClass parent_class;
+ };
  
-+# Depends on glib-2.0 and gobject-2.0.
-+gobject = dependency('gobject-2.0',
-+  version: '>=2.34.0',
-+)
++EfwProto *efw_proto_new();
 +
-+# Depends on libhinawa v2.1.0 or later.
-+hinawa = dependency('hinawa',
-+  version: '>=2.1',
-+)
++void efw_proto_bind(EfwProto *self, HinawaFwNode *node, GError **error);
++void efw_proto_unbind(EfwProto *self);
 +
- sources = [
-   'main.c',
-+  'efw-proto.c',
-+]
-+
-+headers = [
-+  'efw-proto.h',
- ]
+ G_END_DECLS
  
- executable('efw-downloader',
--  sources: sources,
-+  sources: sources + headers,
-+  dependencies: [
-+    gobject,
-+    hinawa,
-+  ],
-   install: true,
- )
+ #endif
 -- 
 2.25.1
 

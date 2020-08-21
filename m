@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id EBEB024DB8D
-	for <lists+alsa-devel@lfdr.de>; Fri, 21 Aug 2020 18:42:56 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8FDE224DB7E
+	for <lists+alsa-devel@lfdr.de>; Fri, 21 Aug 2020 18:42:11 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 2E6FF1732;
-	Fri, 21 Aug 2020 18:42:06 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2E6FF1732
+	by alsa0.perex.cz (Postfix) with ESMTPS id 0B9711727;
+	Fri, 21 Aug 2020 18:41:21 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0B9711727
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1598028176;
-	bh=0Qa41WQlaYq/whDhAGtnEAcxJQQ+D6ScKD4SEYqiqdA=;
+	s=default; t=1598028131;
+	bh=pRIfmNaiNOw1L35y4l06tL/wHSPMxVTsjUkGjVve9oA=;
 	h=Date:From:To:In-Reply-To:References:Subject:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=loCAxZAdFyHPkJYsUM+KZtUShZcKbDjPD6oU/ZvWf4Wy6K1pvJ/UAucHPraldA3DA
-	 Dpq4m3KRxTd7X1YMsXrmLDr1CZInYcY25+BySBRfsP0anpifSCK9priGqdjrn+jBZa
-	 3JG1vCR+mNOeuLXvRQXb3+P3tGDPU1KvxFEsI7S8=
+	b=uqqlYIJv1hTeJb0M527BkUWKqJPPyzQgIp2iZdtVt6H2G7EHqHjuMElju3LC9fCBl
+	 mQrGT1HJX2iA4JZze9fuddMS6275XvH9ZF0a2FWgGkVVZHrUSkj1QCPc2nTXMQInD5
+	 j7mfLz7McR+ONWvqV9lMizC1XHQSYhV1EsG/Cjeg=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id AF2F0F80253;
-	Fri, 21 Aug 2020 18:40:31 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 247ABF800C0;
+	Fri, 21 Aug 2020 18:40:30 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 29874F80253; Fri, 21 Aug 2020 18:40:27 +0200 (CEST)
+ id 3275BF800C0; Fri, 21 Aug 2020 18:40:27 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -34,33 +34,39 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 37B7DF800C0
- for <alsa-devel@alsa-project.org>; Fri, 21 Aug 2020 18:40:16 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 37B7DF800C0
+ by alsa1.perex.cz (Postfix) with ESMTPS id 4161EF800D3
+ for <alsa-devel@alsa-project.org>; Fri, 21 Aug 2020 18:40:21 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4161EF800D3
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="tFhKobVf"
+ header.b="qTTDKWve"
 Received: from localhost (fw-tnat.cambridge.arm.com [217.140.96.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 54B9620738;
- Fri, 21 Aug 2020 16:40:14 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id 4EF0C207BB;
+ Fri, 21 Aug 2020 16:40:19 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1598028014;
- bh=0Qa41WQlaYq/whDhAGtnEAcxJQQ+D6ScKD4SEYqiqdA=;
+ s=default; t=1598028019;
+ bh=pRIfmNaiNOw1L35y4l06tL/wHSPMxVTsjUkGjVve9oA=;
  h=Date:From:To:Cc:In-Reply-To:References:Subject:From;
- b=tFhKobVfrzEG7yup28B6oQxCu0m22fBgl45+OOMhAm9D7nVDVZsOcc962F1Sz/OF4
- 661BJ0vOFE/0lckXY67wn6Dev3Gxf4wID6Vj/z+CIK9DCpewVVcNRBKT1bc5iYurIQ
- c+K3prNzAP6vny8RTXe3CVki7na7i/iIm8KWIlFg=
-Date: Fri, 21 Aug 2020 17:39:41 +0100
+ b=qTTDKWveXPeCEbKj/21q8Q3uNVUNe1ETGOUcRV3IABy7DtksxhPMSWk2CCZPezbFa
+ PvTZHgcJxYEOfb4IJbTUJT/c5AaQVUpPwW+aueWZHQngGv2B3Lpa4its2rHT8VHFXU
+ 0UAwBVCBnScmbmCIAxsvWbHiqjVTihrgLydy/GJg=
+Date: Fri, 21 Aug 2020 17:39:46 +0100
 From: Mark Brown <broonie@kernel.org>
-To: tiwai@suse.de, Bard Liao <yung-chuan.liao@linux.intel.com>
-In-Reply-To: <20200820134542.8682-1-yung-chuan.liao@linux.intel.com>
-References: <20200820134542.8682-1-yung-chuan.liao@linux.intel.com>
-Subject: Re: [PATCH] ASoC: intel: sof_sdw: add .exit callback function
-Message-Id: <159802798181.25503.2778020961455268836.b4-ty@kernel.org>
-Cc: vkoul@kernel.org, alsa-devel@alsa-project.org,
- pierre-louis.bossart@linux.intel.com, bard.liao@intel.com
+To: Fabio Estevam <festevam@gmail.com>, Liam Girdwood <lgirdwood@gmail.com>,
+ Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+ Nicolin Chen <nicoleotsuka@gmail.com>, Xiubo Li <Xiubo.Lee@gmail.com>,
+ Matthias Schiffer <matthias.schiffer@ew.tq-group.com>,
+ Timur Tabi <timur@kernel.org>, Rob Herring <robh+dt@kernel.org>,
+ Shengjiu Wang <shengjiu.wang@gmail.com>
+In-Reply-To: <20200821071153.7317-1-matthias.schiffer@ew.tq-group.com>
+References: <20200821071153.7317-1-matthias.schiffer@ew.tq-group.com>
+Subject: Re: [PATCH 1/2] ASoC: bindings: fsl-asoc-card: add compatible string
+ for TLV320AIC32x4 codec
+Message-Id: <159802798182.25503.6288597388971978944.b4-ty@kernel.org>
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
+ linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -76,9 +82,9 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Thu, 20 Aug 2020 21:45:42 +0800, Bard Liao wrote:
-> We may allocate some resources in sof_sdw_codec_info .init function.
-> Adding a corresponding .exit function can help to release these resources.
+On Fri, 21 Aug 2020 09:11:52 +0200, Matthias Schiffer wrote:
+> The TLV320AIC32x4 is commonly used on TQ-Systems starterkit mainboards
+> for i.MX-based SoMs (i.MX6Q/DL, i.MX6UL, i.MX7) and LS1021A.
 
 Applied to
 
@@ -86,8 +92,10 @@ Applied to
 
 Thanks!
 
-[1/1] ASoC: intel: sof_sdw: add .exit callback function
-      commit: 751365035b4f360369ed6b0990283fd25d4ee32c
+[1/2] ASoC: bindings: fsl-asoc-card: add compatible string for TLV320AIC32x4 codec
+      commit: 6d3029e92f320531805e6aed33c74185e5e3f8fa
+[2/2] ASoC: fsl-asoc-card: add support for TLV320AIC32x4 codec
+      commit: b50747558855ff94523dbb7f08a8c9fadfdd9110
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

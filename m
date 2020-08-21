@@ -2,30 +2,29 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9E5C724DA79
-	for <lists+alsa-devel@lfdr.de>; Fri, 21 Aug 2020 18:20:49 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5A36224DA84
+	for <lists+alsa-devel@lfdr.de>; Fri, 21 Aug 2020 18:21:28 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 5574C1692;
-	Fri, 21 Aug 2020 18:19:59 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5574C1692
+	by alsa0.perex.cz (Postfix) with ESMTPS id 0964C16B1;
+	Fri, 21 Aug 2020 18:20:38 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0964C16B1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1598026849;
-	bh=EJJez6UPPbajUEmbkwY0h8McdlMhZ6j/R+FW9Mk8Q0c=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=KOrAJnGYhKitnxxKMeWIjeyRvccJt3snFqCqIvACTXzkdkT7n6eRNX23hCXhf8Jeq
-	 VkpQBLY2bnYUBEA0k4efKmdShz2gkhJI4V1+IKzAgY850WdvlBLgHereRc6co5Qzhn
-	 p/NrDpDXdzTMp8EvAzZykThQmf/nJfQRRlPXwPWc=
+	s=default; t=1598026888;
+	bh=n6zWkgSvLTHWulO+um9xLaxuATIDNiiE2Uuh9AwmZx8=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=f6VnBCA6OfAqXz8fCE30NbJkLpyau/6Zvm5tzFo6NfTC3v+9J9rAjYJaRddePOeY/
+	 JNV+cIFEIlIPN9jqZOZdQ/rv530sDe06eEaIUKzz7ySBSGb8GHuxa7U5xIn6tmxijb
+	 CKUHFLE2xqnEBuCM1qbTI5k+8vRnh+PwUWVqxe80=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 403EAF800D3;
-	Fri, 21 Aug 2020 18:15:31 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 08C50F80329;
+	Fri, 21 Aug 2020 18:15:57 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 720CDF80307; Fri, 21 Aug 2020 18:15:29 +0200 (CEST)
+ id F1324F8032A; Fri, 21 Aug 2020 18:15:54 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -34,43 +33,39 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 20B22F802FE
- for <alsa-devel@alsa-project.org>; Fri, 21 Aug 2020 18:15:23 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 20B22F802FE
+ by alsa1.perex.cz (Postfix) with ESMTPS id CB394F80260
+ for <alsa-devel@alsa-project.org>; Fri, 21 Aug 2020 18:15:48 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CB394F80260
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="fDPDiIgS"
+ header.b="DiUWSuKI"
 Received: from sasha-vm.mshome.net (c-73-47-72-35.hsd1.nh.comcast.net
  [73.47.72.35])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id E929522B4B;
- Fri, 21 Aug 2020 16:15:20 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id A54CC208DB;
+ Fri, 21 Aug 2020 16:15:46 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1598026521;
- bh=EJJez6UPPbajUEmbkwY0h8McdlMhZ6j/R+FW9Mk8Q0c=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=fDPDiIgSo3JKgcHY0PofC9eYjlcnIqcafoOB8BRrRONW5iHBX/tPRroGMy7bi363I
- K8qjAHGCcVa37f4WPONs3OviaapTPrioTOLqf4x8FKM4O4FA9UgCuetTPr76mexY1o
- 7WKIs3tYxTJO1UmdZDqSDi6Vx1GXLeUN5RFENHjg=
+ s=default; t=1598026547;
+ bh=n6zWkgSvLTHWulO+um9xLaxuATIDNiiE2Uuh9AwmZx8=;
+ h=From:To:Cc:Subject:Date:From;
+ b=DiUWSuKIP23y5m93wbWRE4mAHiHphAU4UfDeU0TfJu0eUyqAcU0SYR60xrxRJpgTt
+ G6M2geezz1F4YrWbHsiSulBt6ZPnVePOw1XnzHi9SlWxb5h3yd5OkaamxJvMvQtRb7
+ A+g5u7wiROzuM2ccPFjpwxlwZL6QdD4yfh0HBMYk=
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 5.8 45/62] ASoC: Intel: sof_sdw_rt711: remove
- properties in card remove
-Date: Fri, 21 Aug 2020 12:14:06 -0400
-Message-Id: <20200821161423.347071-45-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 5.7 01/61] ALSA: hda/hdmi: Add quirk to force
+ connectivity
+Date: Fri, 21 Aug 2020 12:14:45 -0400
+Message-Id: <20200821161545.347622-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20200821161423.347071-1-sashal@kernel.org>
-References: <20200821161423.347071-1-sashal@kernel.org>
 MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
 Content-Transfer-Encoding: 8bit
-Cc: Sasha Levin <sashal@kernel.org>, alsa-devel@alsa-project.org,
- Kai Vehmanen <kai.vehmanen@linux.intel.com>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- Mark Brown <broonie@kernel.org>, Bard Liao <yung-chuan.liao@linux.intel.com>
+Cc: Takashi Iwai <tiwai@suse.de>, Sasha Levin <sashal@kernel.org>,
+ alsa-devel@alsa-project.org, Kai-Heng Feng <kai.heng.feng@canonical.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -86,87 +81,92 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+From: Kai-Heng Feng <kai.heng.feng@canonical.com>
 
-[ Upstream commit cf0418cd06ce42fcf35beb33e315b5a77e596926 ]
+[ Upstream commit cd72c317a0a11f64225b9a3f1fe503bb8c7327b5 ]
 
-The rt711 jack detection properties are set from the machine drivers
-during the card probe, as done in other ASoC examples.
+HDMI on some platforms doesn't enable audio support because its Port
+Connectivity [31:30] is set to AC_JACK_PORT_NONE:
+Node 0x05 [Pin Complex] wcaps 0x40778d: 8-Channels Digital Amp-Out CP
+  Amp-Out caps: ofs=0x00, nsteps=0x00, stepsize=0x00, mute=1
+  Amp-Out vals:  [0x00 0x00]
+  Pincap 0x0b000094: OUT Detect HBR HDMI DP
+  Pin Default 0x58560010: [N/A] Digital Out at Int HDMI
+    Conn = Digital, Color = Unknown
+    DefAssociation = 0x1, Sequence = 0x0
+  Pin-ctls: 0x40: OUT
+  Unsolicited: tag=00, enabled=0
+  Power states:  D0 D3 EPSS
+  Power: setting=D0, actual=D0
+  Devices: 0
+  Connection: 3
+     0x02 0x03* 0x04
 
-KASAN reports a use-after-free error when unbinding drivers due to a
-confusing sequence between the ACPI core, the device core and the
-SoundWire device cleanups.
+For now, use a quirk to force connectivity based on SSID. If there are
+more platforms affected by the same issue, we can eye for a more generic
+solution.
 
-Rather than fixing this sequence, follow the recommendation to have
-the same caller add and remove properties, add an explicit
-device_remove_properties() in the card .remove() callback.
-
-In future patches the use of device_add/remove_properties will be
-replaced by a direct handling of a swnode, but the sequence will
-remain the same.
-
-Signed-off-by: Bard Liao <yung-chuan.liao@linux.intel.com>
-Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Reviewed-by: Kai Vehmanen <kai.vehmanen@linux.intel.com>
-Link: https://lore.kernel.org/r/20200717211337.31956-3-pierre-louis.bossart@linux.intel.com
-Signed-off-by: Mark Brown <broonie@kernel.org>
+Signed-off-by: Kai-Heng Feng <kai.heng.feng@canonical.com>
+Link: https://lore.kernel.org/r/20200804155836.16252-1-kai.heng.feng@canonical.com
+Signed-off-by: Takashi Iwai <tiwai@suse.de>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- sound/soc/intel/boards/sof_sdw.c        |  1 +
- sound/soc/intel/boards/sof_sdw_common.h |  1 +
- sound/soc/intel/boards/sof_sdw_rt711.c  | 15 +++++++++++++++
- 3 files changed, 17 insertions(+)
+ sound/pci/hda/patch_hdmi.c | 16 +++++++++++++++-
+ 1 file changed, 15 insertions(+), 1 deletion(-)
 
-diff --git a/sound/soc/intel/boards/sof_sdw.c b/sound/soc/intel/boards/sof_sdw.c
-index 1bfd9613449e9..95a119a2d354e 100644
---- a/sound/soc/intel/boards/sof_sdw.c
-+++ b/sound/soc/intel/boards/sof_sdw.c
-@@ -184,6 +184,7 @@ static struct sof_sdw_codec_info codec_info_list[] = {
- 		.direction = {true, true},
- 		.dai_name = "rt711-aif1",
- 		.init = sof_sdw_rt711_init,
-+		.exit = sof_sdw_rt711_exit,
- 	},
- 	{
- 		.id = 0x1308,
-diff --git a/sound/soc/intel/boards/sof_sdw_common.h b/sound/soc/intel/boards/sof_sdw_common.h
-index 69b363b8a6869..fdd2385049e1e 100644
---- a/sound/soc/intel/boards/sof_sdw_common.h
-+++ b/sound/soc/intel/boards/sof_sdw_common.h
-@@ -84,6 +84,7 @@ int sof_sdw_rt711_init(const struct snd_soc_acpi_link_adr *link,
- 		       struct snd_soc_dai_link *dai_links,
- 		       struct sof_sdw_codec_info *info,
- 		       bool playback);
-+int sof_sdw_rt711_exit(struct device *dev, struct snd_soc_dai_link *dai_link);
+diff --git a/sound/pci/hda/patch_hdmi.c b/sound/pci/hda/patch_hdmi.c
+index 37391c3d2f47c..de9570032e07c 100644
+--- a/sound/pci/hda/patch_hdmi.c
++++ b/sound/pci/hda/patch_hdmi.c
+@@ -160,6 +160,7 @@ struct hdmi_spec {
  
- /* RT700 support */
- int sof_sdw_rt700_init(const struct snd_soc_acpi_link_adr *link,
-diff --git a/sound/soc/intel/boards/sof_sdw_rt711.c b/sound/soc/intel/boards/sof_sdw_rt711.c
-index d4d75c8dc6b78..0cb9f1c1f8676 100644
---- a/sound/soc/intel/boards/sof_sdw_rt711.c
-+++ b/sound/soc/intel/boards/sof_sdw_rt711.c
-@@ -133,6 +133,21 @@ static int rt711_rtd_init(struct snd_soc_pcm_runtime *rtd)
- 	return ret;
+ 	bool use_acomp_notifier; /* use eld_notify callback for hotplug */
+ 	bool acomp_registered; /* audio component registered in this driver */
++	bool force_connect; /* force connectivity */
+ 	struct drm_audio_component_audio_ops drm_audio_ops;
+ 	int (*port2pin)(struct hda_codec *, int); /* reverse port/pin mapping */
+ 
+@@ -1700,7 +1701,8 @@ static int hdmi_add_pin(struct hda_codec *codec, hda_nid_t pin_nid)
+ 	 * all device entries on the same pin
+ 	 */
+ 	config = snd_hda_codec_get_pincfg(codec, pin_nid);
+-	if (get_defcfg_connect(config) == AC_JACK_PORT_NONE)
++	if (get_defcfg_connect(config) == AC_JACK_PORT_NONE &&
++	    !spec->force_connect)
+ 		return 0;
+ 
+ 	/*
+@@ -1802,11 +1804,18 @@ static int hdmi_add_cvt(struct hda_codec *codec, hda_nid_t cvt_nid)
+ 	return 0;
  }
  
-+int sof_sdw_rt711_exit(struct device *dev, struct snd_soc_dai_link *dai_link)
-+{
-+	struct device *sdw_dev;
++static const struct snd_pci_quirk force_connect_list[] = {
++	SND_PCI_QUIRK(0x103c, 0x871a, "HP", 1),
++	{}
++};
 +
-+	sdw_dev = bus_find_device_by_name(&sdw_bus_type, NULL,
-+					  dai_link->codecs[0].name);
-+	if (!sdw_dev)
-+		return -EINVAL;
+ static int hdmi_parse_codec(struct hda_codec *codec)
+ {
++	struct hdmi_spec *spec = codec->spec;
+ 	hda_nid_t start_nid;
+ 	unsigned int caps;
+ 	int i, nodes;
++	const struct snd_pci_quirk *q;
+ 
+ 	nodes = snd_hda_get_sub_nodes(codec, codec->core.afg, &start_nid);
+ 	if (!start_nid || nodes < 0) {
+@@ -1814,6 +1823,11 @@ static int hdmi_parse_codec(struct hda_codec *codec)
+ 		return -EINVAL;
+ 	}
+ 
++	q = snd_pci_quirk_lookup(codec->bus->pci, force_connect_list);
 +
-+	device_remove_properties(sdw_dev);
-+	put_device(sdw_dev);
++	if (q && q->value)
++		spec->force_connect = true;
 +
-+	return 0;
-+}
-+
- int sof_sdw_rt711_init(const struct snd_soc_acpi_link_adr *link,
- 		       struct snd_soc_dai_link *dai_links,
- 		       struct sof_sdw_codec_info *info,
+ 	/*
+ 	 * hdmi_add_pin() assumes total amount of converters to
+ 	 * be known, so first discover all converters
 -- 
 2.25.1
 

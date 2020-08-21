@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 608D824CF5B
-	for <lists+alsa-devel@lfdr.de>; Fri, 21 Aug 2020 09:35:42 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id AC09F24CF5C
+	for <lists+alsa-devel@lfdr.de>; Fri, 21 Aug 2020 09:36:21 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 01C711691;
-	Fri, 21 Aug 2020 09:34:52 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 01C711691
+	by alsa0.perex.cz (Postfix) with ESMTPS id 50A21167C;
+	Fri, 21 Aug 2020 09:35:31 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 50A21167C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1597995342;
-	bh=02kgDYO3g8sN0N4zec5cLghBy6Zx2WAnN/DOSYcvCaE=;
+	s=default; t=1597995381;
+	bh=DXaP1tpGX1zKV+YxWs4LTpnx3JDNKUF7BR1fuoD633o=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=iij8SFYDfOCZ/rVe7NZBF5r7wPfU8gr1+65LpdU+LZ4kf43gdn4E/fdk0g5kiNlXO
-	 Hy/eEDiOicG72WUVw87wgzCgKavWIW7pnPZ0lwa7d59NmXDnwG+K3W3Rgg0T+uJPEG
-	 b/s1ghKDedreqUQZAiU5YUa2u1qhB9i4MIdqBKXE=
+	b=nC1gWw9WrGWgCJPBoh9eVU4VKC4f7zxlj1nWEbFPk8jUGdmTgM9FV6bWk/JKu7aQz
+	 0OIcVdbv/29ZcZ35KaMvHFZCbLCsuUwZ8ACeBxzihoyjOvLiKTozSCkcVnYNQdG/iS
+	 i7S+zas7MPSeJdg3m3KVuhMmWKPgdIMnXkPk17sM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 75A06F80257;
-	Fri, 21 Aug 2020 09:31:49 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 78E08F802E8;
+	Fri, 21 Aug 2020 09:31:53 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 3A237F802E7; Fri, 21 Aug 2020 09:31:41 +0200 (CEST)
+ id 6D412F8025A; Fri, 21 Aug 2020 09:31:41 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -35,40 +35,40 @@ Received: from wout4-smtp.messagingengine.com (wout4-smtp.messagingengine.com
  [64.147.123.20])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 8AF8DF8025A
- for <alsa-devel@alsa-project.org>; Fri, 21 Aug 2020 09:31:24 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8AF8DF8025A
+ by alsa1.perex.cz (Postfix) with ESMTPS id 68A44F80253
+ for <alsa-devel@alsa-project.org>; Fri, 21 Aug 2020 09:31:28 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 68A44F80253
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=sakamocchi.jp header.i=@sakamocchi.jp
- header.b="Me/ieQ89"; 
+ header.b="GW+E40S7"; 
  dkim=pass (2048-bit key) header.d=messagingengine.com
- header.i=@messagingengine.com header.b="mGz+S2Ql"
+ header.i=@messagingengine.com header.b="oo1CzkwM"
 Received: from compute2.internal (compute2.nyi.internal [10.202.2.42])
- by mailout.west.internal (Postfix) with ESMTP id D9EAF874;
- Fri, 21 Aug 2020 03:31:22 -0400 (EDT)
+ by mailout.west.internal (Postfix) with ESMTP id 590ED310;
+ Fri, 21 Aug 2020 03:31:24 -0400 (EDT)
 Received: from mailfrontend2 ([10.202.2.163])
- by compute2.internal (MEProxy); Fri, 21 Aug 2020 03:31:23 -0400
+ by compute2.internal (MEProxy); Fri, 21 Aug 2020 03:31:24 -0400
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sakamocchi.jp;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding; s=fm2; bh=s9E+MFXVnhMSF
- mbIpbJVREX6/j7qFbqK6L8U1zPCKac=; b=Me/ieQ89W9wZBQqgqIyaSRjp5IM/a
- snSQC3SpzjItWxhirAcJQK6G1X9qF5ZpjQNeXkvaNC2ePb4pxpmtI9bHvGeQkwYs
- 3QhH6Gtj9QkBdgzTt5eapAj5EdrNmZFwHzOiLkbVsUeMkCm+ZfX+h5R8/DGNEl+c
- pIPna5MeA4aM3r1QugN8W7agrcvw0ARrlkysptutBiqNGRuk1XvnwDPpgXPwoY+L
- fYzl7EKgv8xLtqplrbKgM7DaFXV5Vat5iGq/xm8ycC0/JApz5f8jwdFiwepKv9/q
- 8iz4wVW++7M+rRwNAQZrzcrv8V3zm1yZlLPIIWRoYfbRnAd24ILH8R+dQ==
+ :mime-version:content-transfer-encoding; s=fm2; bh=/XqfIqyu18uSn
+ jcHyC2m9YLXcfLh7soh6af9AtUQNBo=; b=GW+E40S7AYviY+khl9tkkW6U/POe6
+ s7Y8Bn4ZjnGZb783QcfiFtyQs1NXXwcuwlsbJm9Hj3Mkst3CHdNFypP8MvHbD8I9
+ ZXPBJNWMoDdo1yDtPlFirHPabMfVOPBOsHQwBIrJ+RGLIkf6XFGLR2PCMg3P6b3T
+ SJaGIvonUu5Wc8jDFcW8CPdEWOBnBRKWGoZHPJWCERT6QeFXQTxVJN28ewUcj3gv
+ OKc69Pmpm1JdoW+eRwbnfQ5PhET7GI7R5iH2QwjnNK3tuNXN3a3zh+lR1Xi1kF2j
+ H+LTjFz/rzIdyr3BSHidfLlTwzBkIqYn62FrRk3LoD2DsiHl3ZKiBr8Hg==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
  messagingengine.com; h=cc:content-transfer-encoding:date:from
  :in-reply-to:message-id:mime-version:references:subject:to
  :x-me-proxy:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
- fm3; bh=s9E+MFXVnhMSFmbIpbJVREX6/j7qFbqK6L8U1zPCKac=; b=mGz+S2Ql
- LvUr0o0iBmT9UdnIkrSjeQV0MOAFbXm/CyleyozNgsDTOfk7AC9oijKmlSkycv/y
- MVX6XFWSbbe8qSslQrDlA9QH/IN0DOtktNAP91KaTZadOXgbgxOYD+ZZmiqyudVW
- 1/KuxGYua5aGlh5YB5qXUTwJzmxi8y3d1iCXE044qi/8bSBxZBsM1AgLozJZ9bgs
- OQkW3xRZMjTsJ1Q5svRPrlX9pN+w//u5F50MyWUkKrmtlAxXKKXln5OSjzAMF9b0
- WjmcVdE01KuwH9QJTLS84qmgUuJWb20iY7twDjkqMOGSgyr6KTbOD/Ekz8arsOnl
- loHun2DhNhp4FQ==
-X-ME-Sender: <xms:Sng_X8JjW7djfV5GWUmL8rn6NB6hWNRWWLqOVTRXkkWiNJFWhaX0vQ>
+ fm3; bh=/XqfIqyu18uSnjcHyC2m9YLXcfLh7soh6af9AtUQNBo=; b=oo1CzkwM
+ EbdFzUcSf2urR1K4WB8epIV7QVU8tEUh/39hASdKh3INQtPGvowbPrw/Ip6+MV54
+ /468h8g/5D6lHUvC06QsLXV9JLs/Hh9gmWuyICwVIG41IZ7k5HxTMSYEOf9Slsjr
+ KwJ/PK+7+tSy8lWMfOUgWscWIR2B46+dMG4iWwiIp++muVdb4Ji5mW6oTduZsWjx
+ FWDqnsFQYfhotiece5diB1wPU+5oyXNp2b7ifFUbaXxHMwjAUcJuNfHbFRTbT1Df
+ w5DaufgKMZO/wpeJevHPj5v+uARnIQoc6OiidPd26HQ5l5iYtnXWyB8LO5vL/TNv
+ OT4X2hL1ceQimg==
+X-ME-Sender: <xms:S3g_Xz877RGaYIOk1SptUe4Yb1pf6EHzsAH1SgDAMtlWAiOmeD0riQ>
 X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeduiedrudduuddgudduudcutefuodetggdotefrod
  ftvfcurfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfgh
  necuuegrihhlohhuthemuceftddtnecunecujfgurhephffvufffkffojghfggfgsedtke
@@ -77,20 +77,21 @@ X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeduiedrudduuddgudduudcutefuodetgg
  ektefgveegfeelheffhfeujedtjeevtefhkeevkedtjeejvddtjefhjeenucfkphepudek
  tddrvdefhedrfedrheegnecuvehluhhsthgvrhfuihiivgepvdenucfrrghrrghmpehmrg
  hilhhfrhhomhepohdqthgrkhgrshhhihesshgrkhgrmhhotggthhhirdhjph
-X-ME-Proxy: <xmx:Sng_X8LhV6ilw4yicPSoB2iBYnFpOID-5KA16JcBM0JwhxbDX2m_Rw>
- <xmx:Sng_X8vDd_QDAmrIu6UK_EpcAW3nUUwF1pdycwFcBY6AvDIo4eueRw>
- <xmx:Sng_X5Yr7n7Hb8I1yQDz12UH0KmptcQl472wAuQvFcY0WRLO-XyrBQ>
- <xmx:Sng_X6zTytvN_pw6hH0FlA5CldEhw5zqVeRK89jGEbqRfQG2rUtuSg>
+X-ME-Proxy: <xmx:S3g_X_vvRk2LY7ymcrRbpXaElZPsYZ71kcPEQ_O10BzQyDNZV6jh2A>
+ <xmx:S3g_XxAIlH9wIKbHKJXKCwHctUqKWF-KYISiBWaFIIUV3GRiE4nOBw>
+ <xmx:S3g_X_c66eR5dsWQcntiqaY3jEs32gN7_yfB9KAs7hqJgxzo6bloNw>
+ <xmx:S3g_Xy0OumcRQHpCYznf7-IMUPy5SbUIgU8GixBTBL-lAu0OY-Ii4w>
 Received: from workstation.flets-east.jp (ad003054.dynamic.ppp.asahi-net.or.jp
  [180.235.3.54])
- by mail.messagingengine.com (Postfix) with ESMTPA id 2E86430600B1;
- Fri, 21 Aug 2020 03:31:21 -0400 (EDT)
+ by mail.messagingengine.com (Postfix) with ESMTPA id A171530600DC;
+ Fri, 21 Aug 2020 03:31:22 -0400 (EDT)
 From: Takashi Sakamoto <o-takashi@sakamocchi.jp>
 To: tiwai@suse.de,
 	perex@perex.cz
-Subject: [PATCH 04/25] efw-downloader: efw-proto: add responded signal
-Date: Fri, 21 Aug 2020 16:30:50 +0900
-Message-Id: <20200821073111.134857-5-o-takashi@sakamocchi.jp>
+Subject: [PATCH 05/25] efw-downloader: efw-proto: add class virtual method to
+ handle responded signal
+Date: Fri, 21 Aug 2020 16:30:51 +0900
+Message-Id: <20200821073111.134857-6-o-takashi@sakamocchi.jp>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20200821073111.134857-1-o-takashi@sakamocchi.jp>
 References: <20200821073111.134857-1-o-takashi@sakamocchi.jp>
@@ -113,61 +114,42 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-GObject has a feature of 'signal'. It's emitted in event dispatcher
-asynchronously to application which register own callback function in
-advance.
+GObject allows applications to override class virtual method with own
+method implementation in inheritance.
 
-This commit adds 'responded' GObject signal to handle data in response
-frame. In future commit, the signal is emitted actually.
+This commit adds the class virtual method to handle 'responded' signal
+added in the former commit.
 
 Signed-off-by: Takashi Sakamoto <o-takashi@sakamocchi.jp>
 ---
- .../src/efw-proto-sigs-marshal.list           |  1 +
- efw-downloader/src/efw-proto.c                | 32 +++++++++++++++++++
- efw-downloader/src/efw-proto.h                |  1 +
- efw-downloader/src/meson.build                |  8 +++++
- 4 files changed, 42 insertions(+)
- create mode 100644 efw-downloader/src/efw-proto-sigs-marshal.list
+ efw-downloader/src/efw-proto.c |  2 +-
+ efw-downloader/src/efw-proto.h | 18 ++++++++++++++++++
+ 2 files changed, 19 insertions(+), 1 deletion(-)
 
-diff --git a/efw-downloader/src/efw-proto-sigs-marshal.list b/efw-downloader/src/efw-proto-sigs-marshal.list
-new file mode 100644
-index 0000000..c489d58
---- /dev/null
-+++ b/efw-downloader/src/efw-proto-sigs-marshal.list
-@@ -0,0 +1 @@
-+VOID:ENUM,UINT,UINT,UINT,POINTER,UINT
 diff --git a/efw-downloader/src/efw-proto.c b/efw-downloader/src/efw-proto.c
-index a6a6055..6502957 100644
+index 6502957..72b7655 100644
 --- a/efw-downloader/src/efw-proto.c
 +++ b/efw-downloader/src/efw-proto.c
-@@ -1,6 +1,7 @@
- // SPDX-License-Identifier: GPL-3.0-or-later
- // Copyright (c) 2020 Takashi Sakamoto
- #include "efw-proto.h"
-+#include "efw-proto-sigs-marshal.h"
+@@ -60,7 +60,7 @@ static void efw_proto_class_init(EfwProtoClass *klass)
+         g_signal_new("responded",
+             G_OBJECT_CLASS_TYPE(klass),
+             G_SIGNAL_RUN_LAST,
+-            0,
++            G_STRUCT_OFFSET(EfwProtoClass, responded),
+             NULL, NULL,
+             efw_proto_sigs_marshal_VOID__ENUM_UINT_UINT_UINT_POINTER_UINT,
+             G_TYPE_NONE,
+diff --git a/efw-downloader/src/efw-proto.h b/efw-downloader/src/efw-proto.h
+index fbd4366..fdbcbc8 100644
+--- a/efw-downloader/src/efw-proto.h
++++ b/efw-downloader/src/efw-proto.h
+@@ -34,6 +34,24 @@ struct _EfwProto {
  
- /**
-  * SECTION:efw_proto
-@@ -19,6 +20,12 @@ G_DEFINE_TYPE(EfwProto, efw_proto, HINAWA_TYPE_FW_RESP)
- #define EFW_RESP_ADDR           0xecc080000000ull
- #define EFW_MAX_FRAME_SIZE      0x200u
- 
-+enum efw_proto_sig_type {
-+    EFW_PROTO_SIG_TYPE_RESPONDED = 1,
-+    EFW_PROTO_SIG_COUNT,
-+};
-+static guint efw_proto_sigs[EFW_PROTO_SIG_COUNT] = { 0 };
-+
- static void proto_finalize(GObject *obj)
- {
-     EfwProto *self = EFW_PROTO(obj);
-@@ -33,6 +40,31 @@ static void efw_proto_class_init(EfwProtoClass *klass)
-     GObjectClass *gobject_class = G_OBJECT_CLASS(klass);
- 
-     gobject_class->finalize = proto_finalize;
+ struct _EfwProtoClass {
+     HinawaFwRespClass parent_class;
 +
 +    /**
-+     * EfwProto::responded:
++     * EfwProtoClass::responded:
 +     * @self: A #EfwProto.
 +     * @status: One of #HinawaSndEfwStatus.
 +     * @seqnum: The sequence number of response.
@@ -181,49 +163,11 @@ index a6a6055..6502957 100644
 +     * process successfully reads the content of response from ALSA Fireworks driver, the
 +     * #EfwProto::responded signal handler is called with parameters of the response.
 +     */
-+    efw_proto_sigs[EFW_PROTO_SIG_TYPE_RESPONDED] =
-+        g_signal_new("responded",
-+            G_OBJECT_CLASS_TYPE(klass),
-+            G_SIGNAL_RUN_LAST,
-+            0,
-+            NULL, NULL,
-+            efw_proto_sigs_marshal_VOID__ENUM_UINT_UINT_UINT_POINTER_UINT,
-+            G_TYPE_NONE,
-+            6, HINAWA_TYPE_SND_EFW_STATUS, G_TYPE_UINT, G_TYPE_UINT, G_TYPE_UINT, G_TYPE_POINTER, G_TYPE_UINT);
- }
++    void (*responded)(EfwProto *self, HinawaSndEfwStatus status, guint seqnum,
++                      guint category, guint command, const guint32 *frame, guint frame_size);
+ };
  
- static void efw_proto_init(EfwProto *self)
-diff --git a/efw-downloader/src/efw-proto.h b/efw-downloader/src/efw-proto.h
-index b0e519d..fbd4366 100644
---- a/efw-downloader/src/efw-proto.h
-+++ b/efw-downloader/src/efw-proto.h
-@@ -7,6 +7,7 @@
- #include <glib-object.h>
- 
- #include <libhinawa/fw_resp.h>
-+#include <libhinawa/hinawa_enum_types.h>
- 
- G_BEGIN_DECLS
- 
-diff --git a/efw-downloader/src/meson.build b/efw-downloader/src/meson.build
-index b7992a2..ca894d9 100644
---- a/efw-downloader/src/meson.build
-+++ b/efw-downloader/src/meson.build
-@@ -20,6 +20,14 @@ headers = [
-   'efw-proto.h',
- ]
- 
-+gnome = import('gnome')
-+marshallers = gnome.genmarshal('efw-proto-sigs-marshal',
-+  prefix: 'efw_proto_sigs_marshal',
-+  sources: 'efw-proto-sigs-marshal.list',
-+  stdinc: true,
-+)
-+sources += marshallers
-+
- executable('efw-downloader',
-   sources: sources + headers,
-   dependencies: [
+ EfwProto *efw_proto_new();
 -- 
 2.25.1
 

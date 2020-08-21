@@ -2,93 +2,73 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D344C24CCD1
-	for <lists+alsa-devel@lfdr.de>; Fri, 21 Aug 2020 06:36:18 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D2E6924CD15
+	for <lists+alsa-devel@lfdr.de>; Fri, 21 Aug 2020 07:03:56 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 62BEF1689;
-	Fri, 21 Aug 2020 06:35:28 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 62BEF1689
+	by alsa0.perex.cz (Postfix) with ESMTPS id 660311682;
+	Fri, 21 Aug 2020 07:03:06 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 660311682
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1597984578;
-	bh=8MCltXRL+RGxf4gw22SJJk0rZoXwbuNIta681mVBukg=;
+	s=default; t=1597986236;
+	bh=keywDDnmc2BgdhkVQo4jd6Uf3rJXgxmDUgazsUR4kHU=;
 	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=RWTbJ21VEp0m+aAKIUPVuiFmNjq9C5R5xSmEzA/OONy0m9iyL/Q2WNRCQwKq1a8TT
-	 dmXwwBEf/OyHIc9uTo+Flq/+B/Ya8CMSvnErTGbuLdEU3YslRluAM6GmanLauVYTBR
-	 ci1lg4+MAyGrhedBj5DU8JqCAsDYHwTw94scMrxQ=
+	b=JqMsubPBaIQi5icSYjhszhgeltoFAU8WzrsYky4YGTae/ZYfRVnwo7mGEkjrs1/Zm
+	 oxKEk7o7zsjs3nE3jkSg/1UGyZNGEpJT+7jxFcUjmm7SxM9TRbYuia+5OvkKGiJmPw
+	 ZMXqCgs3MroqR8dXWbMti/dT6brnKgU7gRy9LS70=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 69740F80253;
-	Fri, 21 Aug 2020 06:34:37 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 6DF75F800D2;
+	Fri, 21 Aug 2020 07:02:15 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 42B8BF80218; Fri, 21 Aug 2020 06:34:34 +0200 (CEST)
+ id 1B230F80218; Fri, 21 Aug 2020 07:02:13 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from mail2.skidata.com (mail2.skidata.com [91.230.2.91])
- (using TLSv1.2 with cipher DHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+ DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id CBBD6F800D2
- for <alsa-devel@alsa-project.org>; Fri, 21 Aug 2020 06:34:26 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CBBD6F800D2
+ by alsa1.perex.cz (Postfix) with ESMTPS id A7ECDF800D2
+ for <alsa-devel@alsa-project.org>; Fri, 21 Aug 2020 07:02:06 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A7ECDF800D2
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=skidata.com header.i=@skidata.com
- header.b="Koeki1sT"
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
- d=skidata.com; i=@skidata.com; q=dns/txt; s=selector1;
- t=1597984468; x=1629520468;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:in-reply-to;
- bh=8MCltXRL+RGxf4gw22SJJk0rZoXwbuNIta681mVBukg=;
- b=Koeki1sTRxXlXUDrf4FoZrT/Zp/r/+BIciNRofKbcUbNAWtiJTzIr7nj
- 71YAm3rp950HO56XT5Im4k6qjOhuC41e52vKzXTX+KBNx4y+zwfD2Jjib
- KRYDiMtVrNTc0yHsYo3KFYTkSGpCNZMCAXOJ611D7LyuAUDBw/Rmmsmy7
- EPRunB9CzFfwz6cKeQYc9rT2VZXEPDb/a2VuFZU3USjiX0huP8NNCyycA
- C+cBzG9ucUeMY/tbh2R1Z3bV0gswFVuFw2q5Z5+wFEFp6Wms6xcUwey8f
- xippHikrZDakcViurj+QfvjZDwWy8e9Q1JRBddWlRuUx+NJn/KADmTUs5 Q==;
-IronPort-SDR: HAN9vym7mM33d8fMsKj7u4xEC2g2HvwohDQjA95kU2hj4jut2jxR/PHsvKaEd7LbB7+IDRkmaB
- Zj/9cm09Gb+dP1nj9NLcIT5B+4A8/7PBANIHGP5zyyRfYxDJyi9jP0d8Y4eWOAVXQ05OH539Re
- NEwAp5488VCy830zzz14uO+BsLZJnhTVS0/xn/kmzWinSOQyaQLyXxLtVcX2jB0GvOns9WFHBC
- J8FOf9prgzvqw/1mFhBCfyrAKFizPQmu/tk7pPG4uM3HvHH3dUSuBxxPp+3XpUHxvBxqPsjzc5
- UjY=
-X-IronPort-AV: E=Sophos;i="5.76,335,1592863200"; 
-   d="scan'208";a="2647454"
-Date: Fri, 21 Aug 2020 06:34:18 +0200
-From: Richard Leitner <richard.leitner@skidata.com>
-To: Robin Gong <yibin.gong@nxp.com>
-Subject: Re: pcm|dmaengine|imx-sdma race condition on i.MX6
-Message-ID: <20200821043418.GA65616@pcleri>
-References: <20200813112258.GA327172@pcleri>
- <VE1PR04MB6638EE5BDBE2C65FF50B7DB889400@VE1PR04MB6638.eurprd04.prod.outlook.com>
- <61498763c60e488a825e8dd270732b62@skidata.com>
- <16942794-1e03-6da0-b8e5-c82332a217a5@metafoo.de>
- <6b5799a567d14cfb9ce34d278a33017d@skidata.com>
- <VE1PR04MB6638A7AC625B6771F9A69F0D895A0@VE1PR04MB6638.eurprd04.prod.outlook.com>
+ dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="jaqjnY1j"
+Received: from localhost (unknown [122.171.38.130])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by mail.kernel.org (Postfix) with ESMTPSA id 28C57208E4;
+ Fri, 21 Aug 2020 05:02:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=default; t=1597986124;
+ bh=keywDDnmc2BgdhkVQo4jd6Uf3rJXgxmDUgazsUR4kHU=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=jaqjnY1jUD/EE/weN+QRcHhIfwnA6shexdxHlqictJXVnjtmLACrg6OktI6asGzAi
+ l2/SrNW89m35FhlEPidgDvvw9CG782isX6FVDeQycw8yu6M+TiLDrWYisPewKjoXSV
+ GOV1DP9pXMqZ2lscIl36v3GJ3/Ae7DBM4NbtJvfQ=
+Date: Fri, 21 Aug 2020 10:31:59 +0530
+From: Vinod Koul <vkoul@kernel.org>
+To: Bard Liao <yung-chuan.liao@linux.intel.com>
+Subject: Re: [PATCH] soundwire: intel: fix CONFIG_PM and CONFIG_PM_SLEEP
+ confusion
+Message-ID: <20200821050159.GH2639@vkoul-mobl>
+References: <20200820140441.9478-1-yung-chuan.liao@linux.intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <VE1PR04MB6638A7AC625B6771F9A69F0D895A0@VE1PR04MB6638.eurprd04.prod.outlook.com>
-X-Originating-IP: [192.168.111.252]
-X-ClientProxiedBy: sdex6srv.skidata.net (192.168.111.84) To
- sdex5srv.skidata.net (192.168.111.83)
-Cc: "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
- Lars-Peter Clausen <lars@metafoo.de>, "timur@kernel.org" <timur@kernel.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "nicoleotsuka@gmail.com" <nicoleotsuka@gmail.com>,
- "vkoul@kernel.org" <vkoul@kernel.org>,
- Benjamin Bara - SKIDATA <Benjamin.Bara@skidata.com>,
- "kernel@pengutronix.de" <kernel@pengutronix.de>,
- "dmaengine@vger.kernel.org" <dmaengine@vger.kernel.org>,
- "dan.j.williams@intel.com" <dan.j.williams@intel.com>,
- "shawnguo@kernel.org" <shawnguo@kernel.org>,
- "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>,
- dl-linux-imx <linux-imx@nxp.com>
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20200820140441.9478-1-yung-chuan.liao@linux.intel.com>
+Cc: pierre-louis.bossart@linux.intel.com, alsa-devel@alsa-project.org,
+ tiwai@suse.de, gregkh@linuxfoundation.org, linux-kernel@vger.kernel.org,
+ ranjani.sridharan@linux.intel.com, hui.wang@canonical.com, broonie@kernel.org,
+ srinivas.kandagatla@linaro.org, jank@cadence.com, mengdong.lin@intel.com,
+ sanyog.r.kale@intel.com, rander.wang@linux.intel.com, bard.liao@intel.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -104,22 +84,90 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Thu, Aug 20, 2020 at 03:01:44PM +0000, Robin Gong wrote:
-> On 2020/08/19 22:26 Benjamin Bara - SKIDATA <Benjamin.Bara@skidata.com> wrote: 
-> > 
-> > @Robin:
-> > Is it possible to tag the commits for the stable-tree
-> > Cc: stable@vger.kernel.org?
-> Could my patch work in your side? If yes, I will add
-> Cc: stable@vger.kernel.org 
+On 20-08-20, 22:04, Bard Liao wrote:
+> From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+> 
+> When CONFIG_PM_SLEEP is not defined, GCC throws compilation warnings:
+> 
+> drivers/soundwire/intel.c:1816:12: warning: ‘intel_resume’ defined but
+> not used [-Wunused-function]
+>  1816 | static int intel_resume(struct device *dev)
+>       |            ^~~~~~~~~~~~
+> 
+> drivers/soundwire/intel.c:1697:12: warning: ‘intel_suspend’ defined
+> but not used [-Wunused-function]
+>  1697 | static int intel_suspend(struct device *dev)
+> 
+> Fix by adding the missing CONFIG_PM_SLEEP.
 
-I've tested the patches 3 & 4 (removing sdmac->context_loaded) of the
-series you mentioned and sent Tested-by tags for them [1,2], as they
-fix the EIO problems for our use case.
+Can you rather use __maybe for for these rather than wrapping in another
+ifdef, that is the recommended way to do this
 
-So from our side they are fine for stable.
+Thanks
 
-[1] https://lore.kernel.org/dmaengine/20200817053813.GA551027@pcleri/T/#u
-[2] https://lore.kernel.org/dmaengine/20200817053820.GB551027@pcleri/T/#u
+> Note that we could move code around and use only 2 ifdefs, but this
+> will generate conflicts so let's do this when all the pm handling is
+> merged.
+> 
+> Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+> Signed-off-by: Bard Liao <yung-chuan.liao@linux.intel.com>
+> ---
+>  drivers/soundwire/intel.c | 12 ++++++++++--
+>  1 file changed, 10 insertions(+), 2 deletions(-)
+> 
+> diff --git a/drivers/soundwire/intel.c b/drivers/soundwire/intel.c
+> index dbcbe2708563..a2f0026cb2c1 100644
+> --- a/drivers/soundwire/intel.c
+> +++ b/drivers/soundwire/intel.c
+> @@ -1525,7 +1525,7 @@ int intel_master_process_wakeen_event(struct platform_device *pdev)
+>   * PM calls
+>   */
+>  
+> -#ifdef CONFIG_PM
+> +#ifdef CONFIG_PM_SLEEP
+>  
+>  static int intel_suspend(struct device *dev)
+>  {
+> @@ -1562,6 +1562,9 @@ static int intel_suspend(struct device *dev)
+>  
+>  	return 0;
+>  }
+> +#endif
+> +
+> +#ifdef CONFIG_PM
+>  
+>  static int intel_suspend_runtime(struct device *dev)
+>  {
+> @@ -1624,6 +1627,9 @@ static int intel_suspend_runtime(struct device *dev)
+>  
+>  	return ret;
+>  }
+> +#endif
+> +
+> +#ifdef CONFIG_PM_SLEEP
+>  
+>  static int intel_resume(struct device *dev)
+>  {
+> @@ -1691,6 +1697,9 @@ static int intel_resume(struct device *dev)
+>  
+>  	return ret;
+>  }
+> +#endif
+> +
+> +#ifdef CONFIG_PM
+>  
+>  static int intel_resume_runtime(struct device *dev)
+>  {
+> @@ -1797,7 +1806,6 @@ static int intel_resume_runtime(struct device *dev)
+>  
+>  	return ret;
+>  }
+> -
+>  #endif
+>  
+>  static const struct dev_pm_ops intel_pm = {
+> -- 
+> 2.17.1
 
-regards;rl
+-- 
+~Vinod

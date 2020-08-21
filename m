@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9EA9F24CFD9
-	for <lists+alsa-devel@lfdr.de>; Fri, 21 Aug 2020 09:46:23 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2E4CE24CFDB
+	for <lists+alsa-devel@lfdr.de>; Fri, 21 Aug 2020 09:46:50 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 436C41676;
-	Fri, 21 Aug 2020 09:45:33 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 436C41676
+	by alsa0.perex.cz (Postfix) with ESMTPS id D0EEF16BA;
+	Fri, 21 Aug 2020 09:45:59 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D0EEF16BA
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1597995983;
-	bh=OBSwhEBcqI35q6xG/aAUxKl6NhPWCiXlxOhWpXMVifA=;
+	s=default; t=1597996009;
+	bh=1M0xMF6jh/kQkej4AfnVrwJUI4xFNs4rjRFSQTbinrw=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=E0m0wVq7UqxtBtxCLC5LE3i0riu4vM/ersPBq34rQOzICPdGTD7NIOHJExav2NdLk
-	 krzSIWzyUYx2UyM24MjkRy9W0M4RZvQ2WrLwgtCxiH9WWgkHprwNU/5ODDiBZsUoPS
-	 x8qSIJQxkLQwn7GCVqFy8GXwJUidQ+1aFaIf8F0c=
+	b=EfPuP3SDfmYcQrT/MtzssAQ/fSIgfkn0DiUs/spiA0r/hZghpct7iKbmFe0ezfNKB
+	 0Q5cgYU1cKEAVS8Kj2Jxc+MAfA86q/nHsMX6O331ICcLNeD7aUWEprhRXcJR7jycMF
+	 p2KSja2G7Y2msOgJhciDWd+rjOdaE5c/I/bz/kXc=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 5BB50F803A6;
-	Fri, 21 Aug 2020 09:32:31 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 94251F803B0;
+	Fri, 21 Aug 2020 09:32:32 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id ECEF3F80349; Fri, 21 Aug 2020 09:32:15 +0200 (CEST)
+ id F1ADBF8034F; Fri, 21 Aug 2020 09:32:18 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -35,62 +35,63 @@ Received: from wout4-smtp.messagingengine.com (wout4-smtp.messagingengine.com
  [64.147.123.20])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id E2001F80253
- for <alsa-devel@alsa-project.org>; Fri, 21 Aug 2020 09:31:56 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E2001F80253
+ by alsa1.perex.cz (Postfix) with ESMTPS id 8C961F80260
+ for <alsa-devel@alsa-project.org>; Fri, 21 Aug 2020 09:31:58 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8C961F80260
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=sakamocchi.jp header.i=@sakamocchi.jp
- header.b="ZKTRxkVV"; 
+ header.b="GP1Jq+53"; 
  dkim=pass (2048-bit key) header.d=messagingengine.com
- header.i=@messagingengine.com header.b="d2iz8TXs"
+ header.i=@messagingengine.com header.b="dqP1L8T4"
 Received: from compute2.internal (compute2.nyi.internal [10.202.2.42])
- by mailout.west.internal (Postfix) with ESMTP id 211F393B;
- Fri, 21 Aug 2020 03:31:55 -0400 (EDT)
+ by mailout.west.internal (Postfix) with ESMTP id A955E882;
+ Fri, 21 Aug 2020 03:31:56 -0400 (EDT)
 Received: from mailfrontend2 ([10.202.2.163])
- by compute2.internal (MEProxy); Fri, 21 Aug 2020 03:31:55 -0400
+ by compute2.internal (MEProxy); Fri, 21 Aug 2020 03:31:57 -0400
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sakamocchi.jp;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding; s=fm2; bh=BMe74KewABkkh
- TJIZlnshVWfepeONnyeatFA/AXINs8=; b=ZKTRxkVVIIcKG0rmkyls/+d7EB0Z5
- Nf4Pfy8G1mwn9GofYjzx69szbPRywkRCf+Y8MhuIo/zlUFP8U+9jGxhnGJhGN0q4
- T7NGimaJ8dNUL3WaevMQCQV5fMHTP0MSB8/3Uy0lQ6p4J3aTlvHjexLOK0a3ej+c
- OL91lNJlBoNv2AOddEFdPZnb2OKpcYYVem+ccfXSHGLvctozaV4bKPcfTL+lX6GW
- GWJHsrv6L3WZSGVaQspnGlN0b4JU6ljUr1yKthMsQx5k/IZWvJB1X7GWktp8xaKC
- +cPFX12qCouDkwadcibY3XBwRdnjt5nOIHmHEwe4GqnEQa15fniUTA1bw==
+ :mime-version:content-transfer-encoding; s=fm2; bh=3BFWBP5PBZ6Hi
+ BLP9nUpES7DxhrMVS/Dhly6Y5qWPG4=; b=GP1Jq+53E5eJiemZeR1uPI72DWOIz
+ JV9CutAngV5J75RAgzIStmgf1iIBFKm0U+1DJ/wr7FY7XqKX2mQNLLpq74HBuyMu
+ SdIIxX1pwn3OqQgZtTbz3jxswTDHaBcGi2wgtQ9jXV8XRHyLG+ccbAsHNCLHObsh
+ wOsvJzUdK445vtwSLkgz2VAepkGjU0i87x+LTE734P14QNR611ihdR5B437cbCgU
+ HZJF4Yniej8wxDYVEksdDW4iKcbQrnh2YQ9od3JtfBaXTbLhd5hHMTgZWqUJWm5y
+ SfmKAL8q5uTnX9iu2C+VuPh7/3xsLEbxpCcGtgQFomGJYJg4+kNkLY/Mw==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
  messagingengine.com; h=cc:content-transfer-encoding:date:from
  :in-reply-to:message-id:mime-version:references:subject:to
  :x-me-proxy:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
- fm3; bh=BMe74KewABkkhTJIZlnshVWfepeONnyeatFA/AXINs8=; b=d2iz8TXs
- 4L4CTi48Sj2Ki6YUvzg2Nhnss7WLFFTJTkYwkU+PUk/Cvrsyr646BoatwYHllESr
- rWh3qOi02zeIe9XqmTmKaFpuKeKgKWlHGy/gAWcXLoMRu0guBywCF4dBIkld0Inh
- kKvjZxGxCzCRWnvHUvB1iU3mlppiUynQ9vQpfEKbtr7UHhRf91BTTivjQ2F9W5A0
- z4dImNoJ/9771ZrEfZI+2VnZPBd9a2DLHIXYvudwX2LTKMOGzMVqDYFh9BVYV2TL
- gxNnKXne3zJt1hgnzrVRndn6EU3HJfkEdpV3Km+YtZE1G+n+s+XXVu+2NWyn/dz/
- cdW8SuR9LW/OcQ==
-X-ME-Sender: <xms:ang_Xwyw9b_P13-EqEWr3DHeYuMi6M2mjk8NrGy1pMMNTl89L_ea7Q>
+ fm3; bh=3BFWBP5PBZ6HiBLP9nUpES7DxhrMVS/Dhly6Y5qWPG4=; b=dqP1L8T4
+ xT+0uCQL9/5mhpk0YYyeMgWYjuQvhc8hwOQvN7cgN1Pyz3FDTo3Pi/ulymF7IFSN
+ LMH6vqiYfWwjWrXtqZyiEbPwroMf3GW8Rzi05LpUkALgriVG3tmW7da29tuYdqoa
+ 3naiQsnJF1TpqnLl7ZdOL2N/y6nx4w/NPZiiwBhciOkGUZyrIaPxqj0PsWAl0n21
+ wDuaZIfneWFhgTeIRcZeLolHl3n0yHtZPoL7nO8PHSsF14EIAGdG4NtfYJyj4s5U
+ 5rCZHOu1VdyO3V2/N3CHIdSDdWRgPZ9qQQZUhNBZRBuzHlhYzy2e4uqbliJ/rcGB
+ 4oA/tXAEWciExQ==
+X-ME-Sender: <xms:bHg_X9vnuxj9YWuBR8KPhK31sZQDpn78IvcvHpwhuI0y-6_xbVDC6w>
 X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeduiedrudduuddgudduudcutefuodetggdotefrod
  ftvfcurfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfgh
  necuuegrihhlohhuthemuceftddtnecunecujfgurhephffvufffkffojghfggfgsedtke
  ertdertddtnecuhfhrohhmpefvrghkrghshhhiucfurghkrghmohhtohcuoehoqdhtrghk
- rghshhhisehsrghkrghmohgttghhihdrjhhpqeenucggtffrrghtthgvrhhnpeevfefffe
- ektefgveegfeelheffhfeujedtjeevtefhkeevkedtjeejvddtjefhjeenucfkphepudek
- tddrvdefhedrfedrheegnecuvehluhhsthgvrhfuihiivgepudelnecurfgrrhgrmhepmh
- grihhlfhhrohhmpehoqdhtrghkrghshhhisehsrghkrghmohgttghhihdrjhhp
-X-ME-Proxy: <xmx:ang_X0TZzHKkk3CChh_ijOK49fgyj0UZVU_6SF4lqajEAL2Q87zFNg>
- <xmx:ang_XyXyeyYuRtAsF0kwBx7W4ji33J6g0AQP7rbjRtRnOixpVv9KJw>
- <xmx:ang_X-jDUlM56TbZSEaTF_IOB2dYgqRAO1tzptJg8_m9BSRZqTCFNA>
- <xmx:ang_Xz5kN6nuyjRbtgWMUEuK6lvNFUjCgNYy5k2bQJZJJlO7KjNghQ>
+ rghshhhisehsrghkrghmohgttghhihdrjhhpqeenucggtffrrghtthgvrhhnpefgieevte
+ efveeludehfefhveeukefffeffjeeuvdeggeegfedvteegjefffedugeenucffohhmrghi
+ nhepghhithhhuhgsrdgtohhmnecukfhppedukedtrddvfeehrdefrdehgeenucevlhhush
+ htvghrufhiiigvpedtnecurfgrrhgrmhepmhgrihhlfhhrohhmpehoqdhtrghkrghshhhi
+ sehsrghkrghmohgttghhihdrjhhp
+X-ME-Proxy: <xmx:bHg_X2eWKkpnf93-TwQy0ulakitQBXmjwSePOakeNJ2NPC1-GzcTlQ>
+ <xmx:bHg_XwzslseMy0YhJ8nYIGuvCKlKqU5anaismTUMbbr3S1sjHu8LZg>
+ <xmx:bHg_X0O1SNtwj6hNqinTjZoXkrdnHqXXGkSxqKymWGqEVuQvnkz1Wg>
+ <xmx:bHg_X_kF-ldTTj287Uw90fD4PAxRPQiNr5woCLJr2cPTbMKZxpP4Dw>
 Received: from workstation.flets-east.jp (ad003054.dynamic.ppp.asahi-net.or.jp
  [180.235.3.54])
- by mail.messagingengine.com (Postfix) with ESMTPA id 6308A30600A9;
- Fri, 21 Aug 2020 03:31:53 -0400 (EDT)
+ by mail.messagingengine.com (Postfix) with ESMTPA id E563530600B1;
+ Fri, 21 Aug 2020 03:31:54 -0400 (EDT)
 From: Takashi Sakamoto <o-takashi@sakamocchi.jp>
 To: tiwai@suse.de,
 	perex@perex.cz
-Subject: [PATCH 23/25] efw-downloader: subcmd-file: add parse operation
-Date: Fri, 21 Aug 2020 16:31:09 +0900
-Message-Id: <20200821073111.134857-24-o-takashi@sakamocchi.jp>
+Subject: [PATCH 24/25] efw-downloader: man: add online manual
+Date: Fri, 21 Aug 2020 16:31:10 +0900
+Message-Id: <20200821073111.134857-25-o-takashi@sakamocchi.jp>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20200821073111.134857-1-o-takashi@sakamocchi.jp>
 References: <20200821073111.134857-1-o-takashi@sakamocchi.jp>
@@ -113,194 +114,209 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-This commit adds parse operation in file sub command to dump contents of
-firmware files.
+This commit adds online manual. Additionally, this commit adds 'man' meson
+option to decide whether installing the manual or not.
 
 Signed-off-by: Takashi Sakamoto <o-takashi@sakamocchi.jp>
 ---
- efw-downloader/src/main.c          |   2 +
- efw-downloader/src/meson.build     |   1 +
- efw-downloader/src/op-file-parse.c | 106 +++++++++++++++++++++++++++++
- efw-downloader/src/subcmd-file.c   |   2 +
- efw-downloader/src/subcmds.h       |   2 +
- 5 files changed, 113 insertions(+)
- create mode 100644 efw-downloader/src/op-file-parse.c
+ efw-downloader/man/efw-downloader.1 | 162 ++++++++++++++++++++++++++++
+ efw-downloader/meson.build          |   4 +
+ efw-downloader/meson_options.txt    |   5 +
+ 3 files changed, 171 insertions(+)
+ create mode 100644 efw-downloader/man/efw-downloader.1
+ create mode 100644 efw-downloader/meson_options.txt
 
-diff --git a/efw-downloader/src/main.c b/efw-downloader/src/main.c
-index e150cc8..a9b52eb 100644
---- a/efw-downloader/src/main.c
-+++ b/efw-downloader/src/main.c
-@@ -14,6 +14,7 @@ static void print_help()
-            "where:\n"
-            "  SUBCOMMAND:\n"
-            "    device:     operate for device for unit on IEEE 1394 bus\n"
-+           "    file:       operate for firmware file"
-            "    help:       print help\n"
-            "  OPTIONS:      optional arguments dependent on the subcommand\n");
- }
-@@ -26,6 +27,7 @@ int main(int argc, char **argv)
-         int (*op)(int argc, char **argv);
-     } *entry, entries[] = {
-         { "device", sizeof("device"), subcmd_device },
-+        { "file", sizeof("file"), subcmd_file },
-     };
-     const char *subcmd;
-     int i;
-diff --git a/efw-downloader/src/meson.build b/efw-downloader/src/meson.build
-index 7d11332..8f7e363 100644
---- a/efw-downloader/src/meson.build
-+++ b/efw-downloader/src/meson.build
-@@ -23,6 +23,7 @@ sources = [
-   'subcmd-device.c',
-   'op-device-read.c',
-   'subcmd-file.c',
-+  'op-file-parse.c',
- ]
- 
- headers = [
-diff --git a/efw-downloader/src/op-file-parse.c b/efw-downloader/src/op-file-parse.c
+diff --git a/efw-downloader/man/efw-downloader.1 b/efw-downloader/man/efw-downloader.1
 new file mode 100644
-index 0000000..c9c81d2
+index 0000000..5b38c28
 --- /dev/null
-+++ b/efw-downloader/src/op-file-parse.c
-@@ -0,0 +1,106 @@
-+// SPDX-License-Identifier: GPL-3.0-or-later
-+// Copyright (c) 2020 Takashi Sakamoto
-+#include <stdio.h>
-+#include <stddef.h>
-+#include <stdbool.h>
-+#include <errno.h>
-+#include <string.h>
-+#include <assert.h>
++++ b/efw-downloader/man/efw-downloader.1
+@@ -0,0 +1,162 @@
++.TH EFW\-DOWNLOADER 1 "20 Aug 2020" "alsa\-tools"
 +
-+#include "file-cntr.h"
++.SH NAME
++efw\-downloader \- operate on-board flash memory for Fireworks board module
 +
-+static void print_help()
-+{
-+    printf("Usage\n"
-+           "  efw-downloader file PATH parse [--help | -h]\n"
-+           "\n"
-+           "where:\n"
-+           "  --help, -h: print this help message\n");
-+}
++.SH SYNOPSIS
 +
-+static const char *get_blob_type_name(enum blob_type type)
-+{
-+    const char *name;
++.B efw-downloader
++.I subcommand
++.I options ...
 +
-+    switch (type) {
-+    case BLOB_TYPE_DSP:
-+        name = "DSP";
-+        break;
-+    case BLOB_TYPE_ICELYNX:
-+        name = "IceLynx";
-+        break;
-+    case BLOB_TYPE_DATA:
-+        name = "data";
-+        break;
-+    case BLOB_TYPE_FPGA:
-+        name = "FPGA";
-+        break;
-+    default:
-+        name = "invalid";
-+        break;
-+    }
++subcommand =
++.B device
++|
++.B file
 +
-+    return name;
-+}
++options = ( depends on
++.I subcommand
++)
 +
-+static void file_cntr_dump_header(const struct file_cntr *cntr)
-+{
-+    printf("Container header:\n");
-+    printf("  type:               %d (%s)\n", cntr->header.type, get_blob_type_name(cntr->header.type));
-+    printf("  offset_addr:        0x%08x\n", cntr->header.offset_addr);
-+    printf("  blob_quads:         %u\n", cntr->header.blob_quads);
-+    printf("  blob_crc32:         0x%08x\n", cntr->header.blob_crc32);
-+    printf("  blob_checksum:      0x%08x\n", cntr->header.blob_checksum);
-+    printf("  version:            0x%08x\n", cntr->header.version);
-+    printf("  crc_in_region_end:  %d\n", cntr->header.crc_in_region_end);
-+    printf("  total_quads:        %d\n", cntr->header.cntr_quads);
-+}
++.SH DESCRIPTION
 +
-+static void file_cntr_dump_payload(const struct file_cntr *cntr)
-+{
-+    int i;
++The
++.B efw-downloader
++is a command\-line tool to operate on-board flash memory for Fireworks board
++module by Fireworks protocol.
 +
-+    printf("Container payload:\n");
-+    for (i = 0; i < cntr->payload.count; ++i)
-+        printf("  %08x: %08x\n", cntr->header.offset_addr + i * 4, cntr->payload.blob[i]);
-+}
++.SH SUBCOMMAND
 +
-+static int parse_args(int argc, char **argv, bool *help)
-+{
-+    int i;
++.SS device
++Operate on-board flash memory by Fireworks protocol.
 +
-+    if (argc < 4)
-+        return -EINVAL;
-+    assert(!strncmp(argv[3], "parse", sizeof("parse")));
++.SS file
++Operate firmware files.
 +
-+    *help = false;
-+    for (i = 0; i < argc; ++i) {
-+        if (strncmp(argv[i], "--help", sizeof("--help")) == 0 ||
-+            strncmp(argv[i], "-h", sizeof("-h")) == 0) {
-+            *help = true;
-+            break;
-+        }
-+    }
++.SH OPTIONS
 +
-+    return 0;
-+}
++.SS For device subcommand
 +
-+int op_file_parse(int argc, char **argv, struct file_cntr *cntr)
-+{
-+    bool help = false;
-+    int err;
++.B efw-downloader device
++.I path
++.I operation
++.I arguments
 +
-+    err = parse_args(argc, argv, &help);
-+    if (err < 0)
-+        return err;
++.TP
++.B path
++The path to special file for firewire character device corresponding to
++node of Fireworks board module.
 +
-+    if (help) {
-+        print_help();
-+        return 0;
-+    }
++.TP
++.B operation
++One of
++.I read
++, and
++.I help
++operations.
 +
-+    file_cntr_dump_header(cntr);
-+    file_cntr_dump_payload(cntr);
++.TP
++.B arguments for read operation
 +
-+    return 0;
-+}
-diff --git a/efw-downloader/src/subcmd-file.c b/efw-downloader/src/subcmd-file.c
-index 0ee7653..a61378c 100644
---- a/efw-downloader/src/subcmd-file.c
-+++ b/efw-downloader/src/subcmd-file.c
-@@ -16,6 +16,7 @@ static void print_help()
-            "where:\n"
-            "  FILEPATH: The path to file.\n"
-            "  OPERATION:\n"
-+           "    parse:  parse and dump binary blob released by Echo Audio\n"
-            "    help:   print this help message\n"
-            "  ARGUMENTS:\n"
-            "    depending on the OPERATION\n");
-@@ -45,6 +46,7 @@ int subcmd_file(int argc, char **argv)
-         size_t size;
-         int (*op)(int argc, char **argv, struct file_cntr *cntr);
-     } *entry, entries[] = {
-+        { "parse", sizeof("parse"), op_file_parse },
-     };
-     const char *op_name;
-     const char *filepath;
-diff --git a/efw-downloader/src/subcmds.h b/efw-downloader/src/subcmds.h
-index b1810b3..99d3bef 100644
---- a/efw-downloader/src/subcmds.h
-+++ b/efw-downloader/src/subcmds.h
-@@ -11,4 +11,6 @@ int subcmd_file(int argc, char **argv);
++.B efw-downloader device
++.I path
++read
++.I offset
++.I size
++[
++.I --debug
++|
++.I --help
++|
++.I -h
++]
++
++The
++.I offset
++argument is the hexadecimal number of offset on flash memory.
++
++The
++.I size
++argument is
++the hexadecimal number of size to read, aligned to quadlet automatically.
++
++The optional
++.I --debug
++argument is to enable debug output for Fireworks protocol.
++
++The optional
++.I --help
++and
++.I -h
++arguments are for help message.
++
++.TP
++.B arguments for help operation
++
++.B efw-downloader device
++.I path
++help
++
++The help operation have no arguments.
++
++.SS For file subcommand
++
++.B efw-downloader file
++.I filepath
++.I operation
++.I arguments
++
++.TP
++.B filepath
++The path to file of firmware blob included in driver package shipped by vendors.
++
++.TP
++.B operation
++One of
++.I parse
++, and
++.I help
++operations.
++
++.TP
++.B arguments for parse operation
++
++.B efw-downloader file
++.I filepath
++.I parse
++[
++.I --help
++|
++.I -h
++]
++
++The
++.I --help
++and
++.I -h
++argument is for help message.
++
++.TP
++.B arguments for help operation
++
++.B efw-downloder file
++.I filepath
++.I help
++
++The help operation have no arguments.
++
++.SH EXIT_STATUS
++
++.I EXIT_SUCCESS
++(0) if run time successfully finished, else
++.I EXIT_FAILURE
++(1).
++
++.SH REPORTING BUGS
++Report any bugs to mailing list in ALSA community
++<alsa\-devel@alsa\-project.org> where the development and maintenance is
++primarily discussed. Bug tracking service of alsa\-tools repository on
++github.com is also available.
++
++.SH AUTHOR
++Takashi Sakamoto <o\-takashi@sakamocchi.jp>
+diff --git a/efw-downloader/meson.build b/efw-downloader/meson.build
+index 9664100..bd7ce21 100644
+--- a/efw-downloader/meson.build
++++ b/efw-downloader/meson.build
+@@ -8,3 +8,7 @@ project('efw-downloader', 'c',
+ )
  
- void op_device_read(int argc, char **argv, EfwProto *proto, GError **error);
- 
-+int op_file_parse(int argc, char **argv, struct file_cntr *cntr);
+ subdir('src')
 +
- #endif
++if get_option('man')
++  install_man('man/efw-downloader.1')
++endif
+diff --git a/efw-downloader/meson_options.txt b/efw-downloader/meson_options.txt
+new file mode 100644
+index 0000000..83ac978
+--- /dev/null
++++ b/efw-downloader/meson_options.txt
+@@ -0,0 +1,5 @@
++option('man',
++  type: 'boolean',
++  value: true,
++  description: 'install online manual',
++)
 -- 
 2.25.1
 

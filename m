@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id AB3F324DA93
-	for <lists+alsa-devel@lfdr.de>; Fri, 21 Aug 2020 18:22:47 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A110124DAA0
+	for <lists+alsa-devel@lfdr.de>; Fri, 21 Aug 2020 18:23:47 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 58E1016A9;
-	Fri, 21 Aug 2020 18:21:57 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 58E1016A9
+	by alsa0.perex.cz (Postfix) with ESMTPS id 51F9B16CE;
+	Fri, 21 Aug 2020 18:22:57 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 51F9B16CE
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1598026967;
-	bh=MH/XHhgIuGUSwCqDceXgRYfcAdjj+S7B5fgn8Cpmi+E=;
+	s=default; t=1598027027;
+	bh=G7Bxe3htfLyEMy8okKHuhNIpEbesWGNFyZOsNYvkWzo=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=srdKwp5u2BazPppuwNYkXGUPiiw3Wauj5VMpnG+M36/EjroE/4uJRoVCOtesiZgW8
-	 rf+Er9b1RUU2enN8QUU+S4MMmpFJe7HmnqI5kRxgtlvi0zLqzV4gvvBN5dsVIgYvsy
-	 z4UcPN8mqDzZCtLZdZFNga1PxlJBF9dZ3CHpOHDw=
+	b=TOiU7lJaPa58i2pJbyJjqnne1tpoIfeyxllKqTzwfg1dp5fyn0ueMQEo/2Oh5xLap
+	 QUPAZPfn7AUuTHR1e0u9ADgUV7hAfL8A5LbyNbW1/tm+FJUX3xDYZGgZz7wW5lTODP
+	 B7bRfuBfHNwCtSoLaTb3g/I/QQb2jXcFbxPZPCzw=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 36F6DF80334;
-	Fri, 21 Aug 2020 18:16:04 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 3F228F80340;
+	Fri, 21 Aug 2020 18:16:07 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id EC466F80338; Fri, 21 Aug 2020 18:15:59 +0200 (CEST)
+ id F2BAEF80337; Fri, 21 Aug 2020 18:16:01 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -34,32 +34,32 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 7D620F80323
- for <alsa-devel@alsa-project.org>; Fri, 21 Aug 2020 18:15:52 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7D620F80323
+ by alsa1.perex.cz (Postfix) with ESMTPS id 34839F80317
+ for <alsa-devel@alsa-project.org>; Fri, 21 Aug 2020 18:15:56 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 34839F80317
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="P2LAcydz"
+ header.b="AGYXy6Pe"
 Received: from sasha-vm.mshome.net (c-73-47-72-35.hsd1.nh.comcast.net
  [73.47.72.35])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 7C7FD22B40;
- Fri, 21 Aug 2020 16:15:50 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id 06C5322B4D;
+ Fri, 21 Aug 2020 16:15:53 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1598026551;
- bh=MH/XHhgIuGUSwCqDceXgRYfcAdjj+S7B5fgn8Cpmi+E=;
+ s=default; t=1598026554;
+ bh=G7Bxe3htfLyEMy8okKHuhNIpEbesWGNFyZOsNYvkWzo=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=P2LAcydz4BI0diKWUAh7BYgmfv4qT+YhfXUt84uXHMV5h2a+v/npvcmy79WksmE4D
- aFop6kLCFgQAFR67YVMlAHTEo4m8L/oQS3FTMcXdCmCsXM6LjNvPF3ioWSiGLZ1FpX
- QdYFFV3835O1zj7PwgeQOvpxwlC76rt+1VF3TYeU=
+ b=AGYXy6PeVp4hSWPSiena6ENLUsJydqsrEG/FNzUaAfiMOjOyUwmNNfYp7qHx7NaEW
+ Dqsnr8aA71Jd6SxkeWBCFUQ4moRHnSzRbrISLBLYvPkBz+jYoM8ySGTbsORuET5eSK
+ HhBtfiWHTwlDLnNfjxwUU7bHLaQ06JY3wUCtZr9I=
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 5.7 04/61] ALSA: hda/hdmi: Use force connectivity
- quirk on another HP desktop
-Date: Fri, 21 Aug 2020 12:14:48 -0400
-Message-Id: <20200821161545.347622-4-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 5.7 07/61] ASoC: img: Fix a reference count leak in
+ img_i2s_in_set_fmt
+Date: Fri, 21 Aug 2020 12:14:51 -0400
+Message-Id: <20200821161545.347622-7-sashal@kernel.org>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20200821161545.347622-1-sashal@kernel.org>
 References: <20200821161545.347622-1-sashal@kernel.org>
@@ -67,8 +67,8 @@ MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
 Content-Transfer-Encoding: 8bit
-Cc: Takashi Iwai <tiwai@suse.de>, Sasha Levin <sashal@kernel.org>,
- alsa-devel@alsa-project.org, Kai-Heng Feng <kai.heng.feng@canonical.com>
+Cc: Sasha Levin <sashal@kernel.org>, alsa-devel@alsa-project.org,
+ Mark Brown <broonie@kernel.org>, Qiushi Wu <wu000273@umn.edu>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -84,35 +84,39 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: Kai-Heng Feng <kai.heng.feng@canonical.com>
+From: Qiushi Wu <wu000273@umn.edu>
 
-[ Upstream commit d96f27c80b65437a7b572647ecb4717ec9a50c98 ]
+[ Upstream commit c4c59b95b7f7d4cef5071b151be2dadb33f3287b ]
 
-There's another HP desktop has buggy BIOS which flags the Port
-Connectivity bit as no connection.
+pm_runtime_get_sync() increments the runtime PM usage counter even
+when it returns an error code, causing incorrect ref count if
+pm_runtime_put_noidle() is not called in error handling paths.
+Thus call pm_runtime_put_noidle() if pm_runtime_get_sync() fails.
 
-Apply force connectivity quirk to enable DP/HDMI audio.
-
-Signed-off-by: Kai-Heng Feng <kai.heng.feng@canonical.com>
-Link: https://lore.kernel.org/r/20200811095336.32396-1-kai.heng.feng@canonical.com
-Signed-off-by: Takashi Iwai <tiwai@suse.de>
+Signed-off-by: Qiushi Wu <wu000273@umn.edu>
+Link: https://lore.kernel.org/r/20200614033749.2975-1-wu000273@umn.edu
+Signed-off-by: Mark Brown <broonie@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- sound/pci/hda/patch_hdmi.c | 1 +
- 1 file changed, 1 insertion(+)
+ sound/soc/img/img-i2s-in.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
 
-diff --git a/sound/pci/hda/patch_hdmi.c b/sound/pci/hda/patch_hdmi.c
-index de9570032e07c..1f6f6b955362e 100644
---- a/sound/pci/hda/patch_hdmi.c
-+++ b/sound/pci/hda/patch_hdmi.c
-@@ -1805,6 +1805,7 @@ static int hdmi_add_cvt(struct hda_codec *codec, hda_nid_t cvt_nid)
- }
+diff --git a/sound/soc/img/img-i2s-in.c b/sound/soc/img/img-i2s-in.c
+index e30b66b94bf67..0843235d73c91 100644
+--- a/sound/soc/img/img-i2s-in.c
++++ b/sound/soc/img/img-i2s-in.c
+@@ -343,8 +343,10 @@ static int img_i2s_in_set_fmt(struct snd_soc_dai *dai, unsigned int fmt)
+ 	chan_control_mask = IMG_I2S_IN_CH_CTL_CLK_TRANS_MASK;
  
- static const struct snd_pci_quirk force_connect_list[] = {
-+	SND_PCI_QUIRK(0x103c, 0x870f, "HP", 1),
- 	SND_PCI_QUIRK(0x103c, 0x871a, "HP", 1),
- 	{}
- };
+ 	ret = pm_runtime_get_sync(i2s->dev);
+-	if (ret < 0)
++	if (ret < 0) {
++		pm_runtime_put_noidle(i2s->dev);
+ 		return ret;
++	}
+ 
+ 	for (i = 0; i < i2s->active_channels; i++)
+ 		img_i2s_in_ch_disable(i2s, i);
 -- 
 2.25.1
 

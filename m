@@ -2,84 +2,83 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C1EFA24E021
-	for <lists+alsa-devel@lfdr.de>; Fri, 21 Aug 2020 20:57:11 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3719524E034
+	for <lists+alsa-devel@lfdr.de>; Fri, 21 Aug 2020 20:58:55 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 60AEA169A;
-	Fri, 21 Aug 2020 20:56:21 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 60AEA169A
+	by alsa0.perex.cz (Postfix) with ESMTPS id E3C1E1684;
+	Fri, 21 Aug 2020 20:58:04 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E3C1E1684
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1598036231;
-	bh=5NByDfd1wzFFLzPzZZ3004lIq2ucx9A6UBax5gOeSsU=;
+	s=default; t=1598036335;
+	bh=oAOaB3994c5Ra/BBX+Jwy9JK8QCz85uZHVZ2drOanRA=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=tQHKov6yhpUQfdN22PRROhPyemhT7SzZR0V24PNIhrMYIPY4SRhrymNOake2Z1zJD
-	 pQGwC9FFC9F+3UUEf7SCJs6n+JXu0GgCNlyi6+qM8Wd/sik0CqA/DPrs2vCLj3PT5x
-	 2390ZE4fQZkBmQoZbP3yC++rWrhVdeVw/N94pPQA=
+	b=iQmSrPQF0Yv6WTCfpDN/BXFN83j5HLpA2B8DJZyVdUjBfiiLNP4pudBcympb4zgbO
+	 kwcHHp54EIZhyMGN5CrLqMMeP56g8LM363wsLd/zpLtL9vUOTlK+eGGVVdwlO8DjuC
+	 WSLvUIy/x8c28AegFIRA1l+1g5xzx0gTfCSeP0BI=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 4D3EEF80257;
-	Fri, 21 Aug 2020 20:54:00 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 7E803F80303;
+	Fri, 21 Aug 2020 20:54:10 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 4024BF80257; Fri, 21 Aug 2020 20:53:53 +0200 (CEST)
+ id A5C3BF802E0; Fri, 21 Aug 2020 20:53:59 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: *
-X-Spam-Status: No, score=1.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_ENVFROM_END_DIGIT,FREEMAIL_FROM,PRX_BODY_30,
- SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
-Received: from mail-qk1-x744.google.com (mail-qk1-x744.google.com
- [IPv6:2607:f8b0:4864:20::744])
+X-Spam-Level: 
+X-Spam-Status: No, score=0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU, FREEMAIL_ENVFROM_END_DIGIT, FREEMAIL_FROM, SPF_HELO_NONE,
+ SPF_PASS, URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mail-qt1-x841.google.com (mail-qt1-x841.google.com
+ [IPv6:2607:f8b0:4864:20::841])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id CDC1BF80255
- for <alsa-devel@alsa-project.org>; Fri, 21 Aug 2020 20:53:49 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CDC1BF80255
+ by alsa1.perex.cz (Postfix) with ESMTPS id 380F4F802A9
+ for <alsa-devel@alsa-project.org>; Fri, 21 Aug 2020 20:53:51 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 380F4F802A9
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="Gby67M+0"
-Received: by mail-qk1-x744.google.com with SMTP id i20so2268366qkk.8
- for <alsa-devel@alsa-project.org>; Fri, 21 Aug 2020 11:53:49 -0700 (PDT)
+ header.b="BZySkau+"
+Received: by mail-qt1-x841.google.com with SMTP id s16so1941183qtn.7
+ for <alsa-devel@alsa-project.org>; Fri, 21 Aug 2020 11:53:51 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=Bv67ihDVTEDQj09PWsYiVKFEHQCcpRPrT/l21XbwLYo=;
- b=Gby67M+0otxTnK9cq9ag3I0A3lveDhPh6Ol2xqEFqNtiuxMZ27nOmuaxgfG1VPrDN1
- vwmQSv7qLGy7PBP/IUhBDmsI02bLEaj8y6TGcVG5MvHKbO7cTR2Ln9o9ctvsMeYjbdq3
- PUovRGMngHx2Ho3qa75Z7jetgTk3YWNmvQQALJ29POJgeeR18h6igCFZTfuKw1GebZtV
- rHTECVa05MByAhBtbRcyh/d+YkGiBtYcWFtLAqPvHxGtdAVwS3nTq5PDIlX3lfMhCLLo
- rMluF/s6KlEfiHUpPo7v6Jp4gCFdXaBgELcjuZKe6WLARDH8QbzmNyp8o2BSlqh0NQ2a
- G2hw==
+ bh=GP5vIYZDE5wLQloDqHwwOOSc6E8YyrpTpCW1tgf7iiM=;
+ b=BZySkau+Lmb4Mn7kwLID8XWciUtg9EQYdPQ41jEmFjltAl0Mpxpqey0ii9hlyV+tqf
+ T48NHqDEs1yxgc3qkGmJCTTz5E+o6opRPKR4937Wi732O5CldMKxnUiSayTjExLnCOvU
+ I1HvFg0g91vM50EgrZ8vYtpf5ep/MiF7RpJ+gmcuiNZfwq0mZcPiRXyDR9pCEWf5q1NZ
+ 3FvwJLgzYjwx9YNgT3rkno1CQBgUgc5WIIR3PfkBguXnAvBGrTAaHbz9JyHbZLdM9Qg5
+ lyat9CdodV9zduPNynOuYUPjDftdNyfyw0fPcjPIlTNhfOFAcHGycDqfD4ICa3LQ5CsU
+ ATng==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=Bv67ihDVTEDQj09PWsYiVKFEHQCcpRPrT/l21XbwLYo=;
- b=edQZCoOiVnQt6OjfWWfn9guIwM2BFptJSUGFTCf+f3dXn792+mQFPNkYGEJV/HF512
- tF2vrMJc2zngEVd6yPyqfosg+6YdbkPPuNxx40dHEjXYHjjIjiHZ4Vr+gq972XcLEhLO
- q/PbwYw2OWcUjrg4ug9JWdWrHnZaitp7VCRFftvvCA98v5mx1tc8hieWEQu0CjYhYuwi
- t+7A4gawyftV21t/Nz0KDiSxc/Rpx4OInAaKv9sQmNRRNAnlzO4TEjrZlSs1dKCnG6E3
- XDHsEIlv8S+8vG4UxoxBy+piy705za2yCz0y+fdCMv7gSqrU5Hj9Hu5a3dIVuTZwLpRm
- JwRg==
-X-Gm-Message-State: AOAM5335o4k0kGO/+EQgiTZj9QJl0Z0gSWKQKGr1A4OTT0C78170RKIF
- Ehc3lXjP9dTmLkvjfhD4y6xXu7TyVOw=
-X-Google-Smtp-Source: ABdhPJw/Yb8quq3VibPNAzooWmG1jHpZroVZFnhNcooHuK/G7ca0kRmI/5tn0erShK29pdVTDnvgng==
-X-Received: by 2002:ae9:e505:: with SMTP id w5mr3970052qkf.282.1598036028162; 
- Fri, 21 Aug 2020 11:53:48 -0700 (PDT)
+ bh=GP5vIYZDE5wLQloDqHwwOOSc6E8YyrpTpCW1tgf7iiM=;
+ b=g6HEo8CaGzRG0KlVVZCHF0+SbV76WBRtyRHtS14IizKq9m/JbhfPBiRW7WeuGGLc3q
+ 1/N5olCswVLhcF91wfrikntQ0ohgkmTBLIaHWkcOfrKkDds4qiM5JiIyhPfaZL+0uKfW
+ zVeUeG6WFS6afNiCsHqhmrnC6p6Ifa7G56FpLDYgmAZ8G10TpuCy03gtJDayuuUoqxH3
+ 8Yn8tsi848Km74FkLsAxrZpHjxo+T00/Z4UQmsrRif/tZPOV+1je40y5SiV37zzko7TH
+ eUFP6KW+D9gcMSrugrL67qpHXCNfyEquu64z9V9b3Ikz6a+0ATarjgdIrjQ6w+5Ad4dP
+ n24g==
+X-Gm-Message-State: AOAM5315H8Qh+eps19FjclG/MFSSl9yz4Ox3ESBvRHMRoz8nwpH85vBn
+ nBzhkTeoS826Q8V+wvAacMahKq+Jazo=
+X-Google-Smtp-Source: ABdhPJwq9xnhoPY81WJaYWLW9xZcomJNImjoRqEUOGfPKHuinRvHVD/BHOR0sivtN3KZ2o3MtyMELg==
+X-Received: by 2002:ac8:431a:: with SMTP id z26mr4015779qtm.298.1598036030149; 
+ Fri, 21 Aug 2020 11:53:50 -0700 (PDT)
 Received: from localhost.localdomain (cpe-71-65-111-223.cinci.res.rr.com.
  [71.65.111.223])
- by smtp.googlemail.com with ESMTPSA id o72sm2468426qka.113.2020.08.21.11.53.47
+ by smtp.googlemail.com with ESMTPSA id o72sm2468426qka.113.2020.08.21.11.53.49
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 21 Aug 2020 11:53:47 -0700 (PDT)
+ Fri, 21 Aug 2020 11:53:49 -0700 (PDT)
 From: Connor McAdams <conmanx360@gmail.com>
 To: 
-Subject: [PATCH 04/20] ALSA: hda/ca0132 - Add full-range speaker selection
- controls.
-Date: Fri, 21 Aug 2020 14:52:21 -0400
-Message-Id: <20200821185239.26133-5-conmanx360@gmail.com>
+Subject: [PATCH 05/20] ALSA: hda/ca0132 - Add bass redirection controls.
+Date: Fri, 21 Aug 2020 14:52:22 -0400
+Message-Id: <20200821185239.26133-6-conmanx360@gmail.com>
 X-Mailer: git-send-email 2.20.1
 In-Reply-To: <20200821185239.26133-1-conmanx360@gmail.com>
 References: <20200821185239.26133-1-conmanx360@gmail.com>
@@ -102,102 +101,65 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Add functions for setting full-range speakers and controls to
-enable/disable the setting. Setting a speaker to full-range means that
-the channels won't have their bass redirected to the LFE channel.
+Add bass redirection controls for surround outputs. This uses the DSP to
+redirect audio below the bass redirection crossover frequency to the LFE
+channel from the front/rear L/R speakers. This only goes into effect if
+the speakers aren't set as full range, and only if the surround
+configuration has an LFE channel.
 
 Signed-off-by: Connor McAdams <conmanx360@gmail.com>
 ---
- sound/pci/hda/patch_ca0132.c | 117 +++++++++++++++++++++++++++++++++++
- 1 file changed, 117 insertions(+)
+ sound/pci/hda/patch_ca0132.c | 130 +++++++++++++++++++++++++++++++++--
+ 1 file changed, 126 insertions(+), 4 deletions(-)
 
 diff --git a/sound/pci/hda/patch_ca0132.c b/sound/pci/hda/patch_ca0132.c
-index dd580f4b741d..c9cd4fc218fe 100644
+index c9cd4fc218fe..d97358406401 100644
 --- a/sound/pci/hda/patch_ca0132.c
 +++ b/sound/pci/hda/patch_ca0132.c
-@@ -147,6 +147,8 @@ enum {
- 	AE5_SOUND_FILTER_ENUM,
- 	ZXR_HEADPHONE_GAIN,
+@@ -149,6 +149,8 @@ enum {
  	SPEAKER_CHANNEL_CFG_ENUM,
-+	SPEAKER_FULL_RANGE_FRONT,
-+	SPEAKER_FULL_RANGE_REAR,
+ 	SPEAKER_FULL_RANGE_FRONT,
+ 	SPEAKER_FULL_RANGE_REAR,
++	BASS_REDIRECTION,
++	BASS_REDIRECTION_XOVER,
  #define EFFECTS_COUNT  (EFFECT_END_NID - EFFECT_START_NID)
  };
  
-@@ -592,6 +594,24 @@ static const struct ct_eq_preset ca0132_alt_eq_presets[] = {
- 	}
- };
- 
-+/*
-+ * DSP reqs for handling full-range speakers/bass redirection. If a speaker is
-+ * set as not being full range, and bass redirection is enabled, all
-+ * frequencies below the crossover frequency are redirected to the LFE
-+ * channel. If the surround configuration has no LFE channel, this can't be
-+ * enabled. X-Bass must be disabled when using these.
-+ */
-+enum speaker_range_reqs {
-+	SPEAKER_BASS_REDIRECT            = 0x15,
-+	SPEAKER_BASS_REDIRECT_XOVER_FREQ = 0x16,
-+	/* Between 0x16-0x1a are the X-Bass reqs. */
-+	SPEAKER_FULL_RANGE_FRONT_L_R     = 0x1a,
-+	SPEAKER_FULL_RANGE_CENTER_LFE    = 0x1b,
-+	SPEAKER_FULL_RANGE_REAR_L_R      = 0x1c,
-+	SPEAKER_FULL_RANGE_SURROUND_L_R  = 0x1d,
-+	SPEAKER_BASS_REDIRECT_SUB_GAIN   = 0x1e,
-+};
-+
- /*
-  * Definitions for the DSP req's to handle speaker tuning. These all belong to
-  * module ID 0x96, the output effects module.
-@@ -1100,6 +1120,7 @@ struct ca0132_spec {
- 	unsigned char in_enum_val;
- 	unsigned char out_enum_val;
- 	unsigned char channel_cfg_val;
-+	unsigned char speaker_range_val[2];
+@@ -1123,6 +1125,8 @@ struct ca0132_spec {
+ 	unsigned char speaker_range_val[2];
  	unsigned char mic_boost_enum_val;
  	unsigned char smart_volume_setting;
++	unsigned char bass_redirection_val;
++	long bass_redirect_xover_freq;
  	long fx_ctl_val[EFFECT_LEVEL_SLIDERS];
-@@ -4259,6 +4280,50 @@ static void ae5_mmio_select_out(struct hda_codec *codec)
- 			ae5_ca0113_output_presets[spec->cur_out_type].vals[i]);
+ 	long xbass_xover_freq;
+ 	long eq_preset_val;
+@@ -4324,6 +4328,35 @@ static int ca0132_alt_set_full_range_speaker(struct hda_codec *codec)
+ 	return 0;
  }
  
-+static int ca0132_alt_set_full_range_speaker(struct hda_codec *codec)
++static int ca0132_alt_surround_set_bass_redirection(struct hda_codec *codec,
++		bool val)
 +{
 +	struct ca0132_spec *spec = codec->spec;
 +	unsigned int tmp;
 +	int err;
 +
-+	/* 2.0/4.0 setup has no LFE channel, so setting full-range does nothing. */
-+	if (spec->channel_cfg_val == SPEAKER_CHANNELS_4_0
-+			|| spec->channel_cfg_val == SPEAKER_CHANNELS_2_0)
-+		return 0;
++	if (val && spec->channel_cfg_val != SPEAKER_CHANNELS_4_0 &&
++			spec->channel_cfg_val != SPEAKER_CHANNELS_2_0)
++		tmp = FLOAT_ONE;
++	else
++		tmp = FLOAT_ZERO;
 +
-+	/* Set front L/R full range. Zero for full-range, one for redirection. */
-+	tmp = spec->speaker_range_val[0] ? FLOAT_ZERO : FLOAT_ONE;
-+	err = dspio_set_uint_param(codec, 0x96,
-+			SPEAKER_FULL_RANGE_FRONT_L_R, tmp);
++	err = dspio_set_uint_param(codec, 0x96, SPEAKER_BASS_REDIRECT, tmp);
 +	if (err < 0)
 +		return err;
 +
-+	/* When setting full-range rear, both rear and center/lfe are set. */
-+	tmp = spec->speaker_range_val[1] ? FLOAT_ZERO : FLOAT_ONE;
-+	err = dspio_set_uint_param(codec, 0x96,
-+			SPEAKER_FULL_RANGE_CENTER_LFE, tmp);
-+	if (err < 0)
-+		return err;
-+
-+	err = dspio_set_uint_param(codec, 0x96,
-+			SPEAKER_FULL_RANGE_REAR_L_R, tmp);
-+	if (err < 0)
-+		return err;
-+
-+	/*
-+	 * Only the AE series cards set this value when setting full-range,
-+	 * and it's always 1.0f.
-+	 */
-+	if (ca0132_quirk(spec) == QUIRK_AE5) {
++	/* If it is enabled, make sure to set the crossover frequency. */
++	if (tmp) {
++		tmp = float_xbass_xover_lookup[spec->xbass_xover_freq];
 +		err = dspio_set_uint_param(codec, 0x96,
-+				SPEAKER_FULL_RANGE_SURROUND_L_R, FLOAT_ONE);
++				SPEAKER_BASS_REDIRECT_XOVER_FREQ, tmp);
 +		if (err < 0)
 +			return err;
 +	}
@@ -208,44 +170,112 @@ index dd580f4b741d..c9cd4fc218fe 100644
  /*
   * These are the commands needed to setup output on each of the different card
   * types.
-@@ -4539,6 +4604,9 @@ static int ca0132_alt_select_out(struct hda_codec *codec)
- 			goto exit;
- 	}
+@@ -4593,6 +4626,15 @@ static int ca0132_alt_select_out(struct hda_codec *codec)
+ 		ca0132_effects_set(codec, X_BASS,
+ 			spec->effects_switch[X_BASS - EFFECT_START_NID]);
  
 +	if (spec->cur_out_type == SURROUND_OUT)
-+		err = ca0132_alt_set_full_range_speaker(codec);
++		err = ca0132_alt_surround_set_bass_redirection(codec,
++				spec->bass_redirection_val);
++	else
++		err = ca0132_alt_surround_set_bass_redirection(codec, 0);
 +
- exit:
- 	snd_hda_power_down_pm(codec);
++	if (err < 0)
++		goto exit;
++
+ 	/* run through the output dsp commands for the selected output. */
+ 	for (i = 0; i < alt_out_presets[spec->cur_out_type].commands; i++) {
+ 		err = dspio_set_uint_param(codec,
+@@ -5282,6 +5324,18 @@ static int ca0132_vnode_switch_set(struct snd_kcontrol *kcontrol,
+ 	return ret;
+ }
+ /* End of control change helpers. */
++
++static void ca0132_alt_bass_redirection_xover_set(struct hda_codec *codec,
++		long idx)
++{
++	snd_hda_power_up(codec);
++
++	dspio_set_param(codec, 0x96, 0x20, SPEAKER_BASS_REDIRECT_XOVER_FREQ,
++			&(float_xbass_xover_lookup[idx]), sizeof(unsigned int));
++
++	snd_hda_power_down(codec);
++}
++
+ /*
+  * Below I've added controls to mess with the effect levels, I've only enabled
+  * them on the Sound Blaster Z, but they would probably also work on the
+@@ -5290,6 +5344,7 @@ static int ca0132_vnode_switch_set(struct snd_kcontrol *kcontrol,
+  */
  
-@@ -5269,6 +5337,7 @@ static int ca0132_alt_xbass_xover_slider_ctl_get(struct snd_kcontrol *kcontrol,
+ /* Sets DSP effect level from the sliders above the controls */
++
+ static int ca0132_alt_slider_ctl_set(struct hda_codec *codec, hda_nid_t nid,
+ 			  const unsigned int *lookup, int idx)
+ {
+@@ -5335,8 +5390,12 @@ static int ca0132_alt_xbass_xover_slider_ctl_get(struct snd_kcontrol *kcontrol,
+ 	struct hda_codec *codec = snd_kcontrol_chip(kcontrol);
+ 	struct ca0132_spec *spec = codec->spec;
  	long *valp = ucontrol->value.integer.value;
++	hda_nid_t nid = get_amp_nid(kcontrol);
  
- 	*valp = spec->xbass_xover_freq;
-+
+-	*valp = spec->xbass_xover_freq;
++	if (nid == BASS_REDIRECTION_XOVER)
++		*valp = spec->bass_redirect_xover_freq;
++	else
++		*valp = spec->xbass_xover_freq;
+ 
  	return 0;
  }
+@@ -5391,16 +5450,25 @@ static int ca0132_alt_xbass_xover_slider_put(struct snd_kcontrol *kcontrol,
+ 	struct ca0132_spec *spec = codec->spec;
+ 	hda_nid_t nid = get_amp_nid(kcontrol);
+ 	long *valp = ucontrol->value.integer.value;
++	long *cur_val;
+ 	int idx;
  
-@@ -5894,6 +5963,11 @@ static int ca0132_switch_get(struct snd_kcontrol *kcontrol,
++	if (nid == BASS_REDIRECTION_XOVER)
++		cur_val = &spec->bass_redirect_xover_freq;
++	else
++		cur_val = &spec->xbass_xover_freq;
++
+ 	/* any change? */
+-	if (spec->xbass_xover_freq == *valp)
++	if (*cur_val == *valp)
+ 		return 0;
+ 
+-	spec->xbass_xover_freq = *valp;
++	*cur_val = *valp;
+ 
+ 	idx = *valp;
+-	ca0132_alt_slider_ctl_set(codec, nid, float_xbass_xover_lookup, idx);
++	if (nid == BASS_REDIRECTION_XOVER)
++		ca0132_alt_bass_redirection_xover_set(codec, *cur_val);
++	else
++		ca0132_alt_slider_ctl_set(codec, nid, float_xbass_xover_lookup, idx);
+ 
+ 	return 0;
+ }
+@@ -5968,6 +6036,11 @@ static int ca0132_switch_get(struct snd_kcontrol *kcontrol,
  		return 0;
  	}
  
-+	if (nid == SPEAKER_FULL_RANGE_FRONT || nid == SPEAKER_FULL_RANGE_REAR) {
-+		*valp = spec->speaker_range_val[nid - SPEAKER_FULL_RANGE_FRONT];
++	if (nid == BASS_REDIRECTION) {
++		*valp = spec->bass_redirection_val;
 +		return 0;
 +	}
 +
  	return 0;
  }
  
-@@ -5972,6 +6046,14 @@ static int ca0132_switch_put(struct snd_kcontrol *kcontrol,
- 		goto exit;
+@@ -6054,6 +6127,14 @@ static int ca0132_switch_put(struct snd_kcontrol *kcontrol,
+ 		changed = 0;
  	}
  
-+	if (nid == SPEAKER_FULL_RANGE_FRONT || nid == SPEAKER_FULL_RANGE_REAR) {
-+		spec->speaker_range_val[nid - SPEAKER_FULL_RANGE_FRONT] = *valp;
++	if (nid == BASS_REDIRECTION) {
++		spec->bass_redirection_val = *valp;
 +		if (spec->cur_out_type == SURROUND_OUT)
-+			ca0132_alt_set_full_range_speaker(codec);
++			ca0132_alt_surround_set_bass_redirection(codec, *valp);
 +
 +		changed = 0;
 +	}
@@ -253,62 +283,68 @@ index dd580f4b741d..c9cd4fc218fe 100644
  exit:
  	snd_hda_power_down(codec);
  	return changed;
-@@ -6329,6 +6411,31 @@ static int ca0132_alt_add_speaker_channel_cfg_enum(struct hda_codec *codec)
+@@ -6436,6 +6517,39 @@ static int ca0132_alt_add_rear_full_range_switch(struct hda_codec *codec)
  				snd_ctl_new1(&knew, codec));
  }
  
 +/*
-+ * Full range front stereo and rear surround switches. When these are set to
-+ * full range, the lower frequencies from these channels are no longer
-+ * redirected to the LFE channel.
++ * Bass redirection redirects audio below the crossover frequency to the LFE
++ * channel on speakers that are set as not being full-range. On configurations
++ * without an LFE channel, it does nothing. Bass redirection seems to be the
++ * replacement for X-Bass on configurations with an LFE channel.
 + */
-+static int ca0132_alt_add_front_full_range_switch(struct hda_codec *codec)
++static int ca0132_alt_add_bass_redirection_crossover(struct hda_codec *codec)
 +{
++	const char *namestr = "Output: Bass Redirection Playback Volume";
 +	struct snd_kcontrol_new knew =
-+		CA0132_CODEC_MUTE_MONO("Output: Full-Range Front Playback Switch",
-+				    SPEAKER_FULL_RANGE_FRONT, 1, HDA_OUTPUT);
++		HDA_CODEC_VOLUME_MONO(namestr, BASS_REDIRECTION_XOVER, 1, 0,
++				HDA_OUTPUT);
 +
-+	return snd_hda_ctl_add(codec, SPEAKER_FULL_RANGE_FRONT,
-+				snd_ctl_new1(&knew, codec));
++	knew.tlv.c = NULL;
++	knew.info = ca0132_alt_xbass_xover_slider_info;
++	knew.get = ca0132_alt_xbass_xover_slider_ctl_get;
++	knew.put = ca0132_alt_xbass_xover_slider_put;
++
++	return snd_hda_ctl_add(codec, BASS_REDIRECTION_XOVER,
++			snd_ctl_new1(&knew, codec));
 +}
 +
-+static int ca0132_alt_add_rear_full_range_switch(struct hda_codec *codec)
++static int ca0132_alt_add_bass_redirection_switch(struct hda_codec *codec)
 +{
++	const char *namestr = "Output: Bass Redirection Playback Switch";
 +	struct snd_kcontrol_new knew =
-+		CA0132_CODEC_MUTE_MONO("Output: Full-Range Rear Playback Switch",
-+				    SPEAKER_FULL_RANGE_REAR, 1, HDA_OUTPUT);
++		CA0132_CODEC_MUTE_MONO(namestr, BASS_REDIRECTION, 1,
++				HDA_OUTPUT);
 +
-+	return snd_hda_ctl_add(codec, SPEAKER_FULL_RANGE_REAR,
-+				snd_ctl_new1(&knew, codec));
++	return snd_hda_ctl_add(codec, BASS_REDIRECTION,
++			snd_ctl_new1(&knew, codec));
 +}
 +
  /*
   * Create an Input Source enumerated control for the alternate ca0132 codecs
   * because the front microphone has no auto-detect, and Line-in has to be set
-@@ -6636,6 +6743,12 @@ static int ca0132_build_controls(struct hda_codec *codec)
+@@ -6749,6 +6863,12 @@ static int ca0132_build_controls(struct hda_codec *codec)
  		if (err < 0)
  			return err;
- 		err = ca0132_alt_add_speaker_channel_cfg_enum(codec);
+ 		err = ca0132_alt_add_rear_full_range_switch(codec);
 +		if (err < 0)
 +			return err;
-+		err = ca0132_alt_add_front_full_range_switch(codec);
++		err = ca0132_alt_add_bass_redirection_crossover(codec);
 +		if (err < 0)
 +			return err;
-+		err = ca0132_alt_add_rear_full_range_switch(codec);
++		err = ca0132_alt_add_bass_redirection_switch(codec);
  		if (err < 0)
  			return err;
  		err = ca0132_alt_add_mic_boost_enum(codec);
-@@ -7982,6 +8095,10 @@ static void ca0132_init_chip(struct hda_codec *codec)
- 	 * ca0132 codecs. Also sets x-bass crossover frequency to 80hz.
- 	 */
- 	if (ca0132_use_alt_controls(spec)) {
-+		/* Set speakers to default to full range. */
-+		spec->speaker_range_val[0] = 1;
-+		spec->speaker_range_val[1] = 1;
-+
+@@ -8102,6 +8222,8 @@ static void ca0132_init_chip(struct hda_codec *codec)
  		spec->xbass_xover_freq = 8;
  		for (i = 0; i < EFFECT_LEVEL_SLIDERS; i++)
  			spec->fx_ctl_val[i] = effect_slider_defaults[i];
++
++		spec->bass_redirect_xover_freq = 8;
+ 	}
+ 
+ 	spec->voicefx_val = 0;
 -- 
 2.20.1
 

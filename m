@@ -2,71 +2,70 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id EF5E424D916
-	for <lists+alsa-devel@lfdr.de>; Fri, 21 Aug 2020 17:51:52 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6EC9624D9E4
+	for <lists+alsa-devel@lfdr.de>; Fri, 21 Aug 2020 18:17:07 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 6818E168F;
-	Fri, 21 Aug 2020 17:51:02 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6818E168F
+	by alsa0.perex.cz (Postfix) with ESMTPS id 7A53B16A2;
+	Fri, 21 Aug 2020 18:16:16 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7A53B16A2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1598025112;
-	bh=7lGvicdNOA09KI+9Iqs64Ww2ddOSsgTat/wpE3LePBo=;
-	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=CjoxiUNB4tYjJgA/ozXNm1vpjEOC0C05vqVty0/8/BlYa/RNA1GMLHdiBucm5ag45
-	 Ig6EwDSuBUgJqiobkbd2NTvqKpJikzDGodIsQNsYC7ziHwEZBVc5YJgfStsTu6+8To
-	 jkXhxBOhiVRSbKR9Vb7Ss+aJKa+LcyIrKaT0u640=
+	s=default; t=1598026626;
+	bh=bpqFFIuJIaqnBbKwzmWCfJM+VGZuHc3Yu7TUhucPvko=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=ovpmx1vpKNL9L/1tCFzeB16gf+t7A21PMf3tQzCJFzHGBqnYE7GRemHv4hSxr4dmf
+	 WikyYC2VVAd5CCexSqIiWKssFe+3AHwIKxjmUsHFwy91zs1WmyEB2rsSaQA4zfRyP7
+	 +9kUjeFhuIPwpRTN6r6O91uV+dOvQTgoqBgjmTb0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 955E1F80253;
-	Fri, 21 Aug 2020 17:50:11 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 6BBC3F800D2;
+	Fri, 21 Aug 2020 18:14:44 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 5C926F80218; Fri, 21 Aug 2020 17:50:09 +0200 (CEST)
+ id 0D480F80260; Fri, 21 Aug 2020 18:14:39 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.1 required=5.0 tests=NICE_REPLY_A,SPF_HELO_PASS,
- SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+ DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 5487EF800D2
- for <alsa-devel@alsa-project.org>; Fri, 21 Aug 2020 17:49:57 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5487EF800D2
-IronPort-SDR: Ku8BDoms2h5Ayw2VlkVIjbTmyw75ZEn02YY3Z/7b3SNAiSvKALH5Iz+QVCTcUSrRmFb9Ik6i25
- pUEFrKW8O58g==
-X-IronPort-AV: E=McAfee;i="6000,8403,9719"; a="135101313"
-X-IronPort-AV: E=Sophos;i="5.76,337,1592895600"; d="scan'208";a="135101313"
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from orsmga004.jf.intel.com ([10.7.209.38])
- by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 21 Aug 2020 08:49:55 -0700
-IronPort-SDR: U0c/ucYHcYWMlQh/WwpAiK3Danxi4+T+E4u771AvD7KIVPZW1dYADp7rgNRfOP9+NXg4ImwvZO
- xe4Dt3D1dCtw==
-X-IronPort-AV: E=Sophos;i="5.76,337,1592895600"; d="scan'208";a="442385981"
-Received: from pcmiller-mobl1.amr.corp.intel.com (HELO [10.209.120.121])
- ([10.209.120.121])
- by orsmga004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 21 Aug 2020 08:49:54 -0700
-Subject: Re: More Generic Audio Graph Sound Card idea
-To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
- Mark Brown <broonie@kernel.org>
-References: <87k0xszlep.wl-kuninori.morimoto.gx@renesas.com>
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Message-ID: <8507bcc1-8b20-4d70-7fd2-1131f8b02d5b@linux.intel.com>
-Date: Fri, 21 Aug 2020 10:49:53 -0500
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.10.0
+ by alsa1.perex.cz (Postfix) with ESMTPS id 9A4B0F800D3
+ for <alsa-devel@alsa-project.org>; Fri, 21 Aug 2020 18:14:28 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9A4B0F800D3
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="hET2W7+L"
+Received: from sasha-vm.mshome.net (c-73-47-72-35.hsd1.nh.comcast.net
+ [73.47.72.35])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested)
+ by mail.kernel.org (Postfix) with ESMTPSA id 52F5120855;
+ Fri, 21 Aug 2020 16:14:25 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=default; t=1598026466;
+ bh=bpqFFIuJIaqnBbKwzmWCfJM+VGZuHc3Yu7TUhucPvko=;
+ h=From:To:Cc:Subject:Date:From;
+ b=hET2W7+L+AyCGbfHrGxcLq9cfB3lH/scu7BOfsVK+iAzwOXu6TnIIthd18n5NeeGT
+ 1qSlXR86jltCXky4HHoHmHTXIVo+ajXFCKrSX+NunP1QzPf8XRIvTPAvFo4IQ+MZgi
+ HTzPLNVG5Rz90eOFjsOQUIY2NATqnY5HAehjAoz8=
+From: Sasha Levin <sashal@kernel.org>
+To: linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH AUTOSEL 5.8 01/62] ALSA: hda/hdmi: Add quirk to force
+ connectivity
+Date: Fri, 21 Aug 2020 12:13:22 -0400
+Message-Id: <20200821161423.347071-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-In-Reply-To: <87k0xszlep.wl-kuninori.morimoto.gx@renesas.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
-Cc: Sameer Pujar <spujar@nvidia.com>, Linux-ALSA <alsa-devel@alsa-project.org>
+X-stable: review
+X-Patchwork-Hint: Ignore
+Content-Transfer-Encoding: 8bit
+Cc: Takashi Iwai <tiwai@suse.de>, Sasha Levin <sashal@kernel.org>,
+ alsa-devel@alsa-project.org, Kai-Heng Feng <kai.heng.feng@canonical.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -82,77 +81,92 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hi Morimoto-san,
+From: Kai-Heng Feng <kai.heng.feng@canonical.com>
 
- > I know Pierre-Louis want to use it for SOF, but something is missing,
- > thus, can't use (?).
+[ Upstream commit cd72c317a0a11f64225b9a3f1fe503bb8c7327b5 ]
 
-Here's a bit more background.
+HDMI on some platforms doesn't enable audio support because its Port
+Connectivity [31:30] is set to AC_JACK_PORT_NONE:
+Node 0x05 [Pin Complex] wcaps 0x40778d: 8-Channels Digital Amp-Out CP
+  Amp-Out caps: ofs=0x00, nsteps=0x00, stepsize=0x00, mute=1
+  Amp-Out vals:  [0x00 0x00]
+  Pincap 0x0b000094: OUT Detect HBR HDMI DP
+  Pin Default 0x58560010: [N/A] Digital Out at Int HDMI
+    Conn = Digital, Color = Unknown
+    DefAssociation = 0x1, Sequence = 0x0
+  Pin-ctls: 0x40: OUT
+  Unsolicited: tag=00, enabled=0
+  Power states:  D0 D3 EPSS
+  Power: setting=D0, actual=D0
+  Devices: 0
+  Connection: 3
+     0x02 0x03* 0x04
 
-For SoundWire, we could have the following examples for amplifier 
-connections, where in some cases we have two amplifiers located on 
-separate links (top diagram) and in the second they are on the same link.
+For now, use a quirk to force connectivity based on SSID. If there are
+more platforms affected by the same issue, we can eye for a more generic
+solution.
 
-| FE PCMs    |  SoC DSP  | BE DAIs   | Audio devices |
+Signed-off-by: Kai-Heng Feng <kai.heng.feng@canonical.com>
+Link: https://lore.kernel.org/r/20200804155836.16252-1-kai.heng.feng@canonical.com
+Signed-off-by: Takashi Iwai <tiwai@suse.de>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ sound/pci/hda/patch_hdmi.c | 16 +++++++++++++++-
+ 1 file changed, 15 insertions(+), 1 deletion(-)
 
-              *************
-   PCM0 <---> *           * DAI0 <---> Codec Headset
-              *           *
-   PCM1 <---> *           * DAI1 <---> Amp Left
-              *   DSP     *
-   PCM2 <---> *           * DAI2 <---> Amp Right
-              *           *
-   PCM3 <---> *           * DAI3 <---> BT
-              *           *
-              *           * DAI4 <---> DMIC
-              *           *
-              *           * DAI5 <---> FM
-              *************
+diff --git a/sound/pci/hda/patch_hdmi.c b/sound/pci/hda/patch_hdmi.c
+index cd46247988e4d..b62cd3abb8273 100644
+--- a/sound/pci/hda/patch_hdmi.c
++++ b/sound/pci/hda/patch_hdmi.c
+@@ -160,6 +160,7 @@ struct hdmi_spec {
+ 
+ 	bool use_acomp_notifier; /* use eld_notify callback for hotplug */
+ 	bool acomp_registered; /* audio component registered in this driver */
++	bool force_connect; /* force connectivity */
+ 	struct drm_audio_component_audio_ops drm_audio_ops;
+ 	int (*port2pin)(struct hda_codec *, int); /* reverse port/pin mapping */
+ 
+@@ -1701,7 +1702,8 @@ static int hdmi_add_pin(struct hda_codec *codec, hda_nid_t pin_nid)
+ 	 * all device entries on the same pin
+ 	 */
+ 	config = snd_hda_codec_get_pincfg(codec, pin_nid);
+-	if (get_defcfg_connect(config) == AC_JACK_PORT_NONE)
++	if (get_defcfg_connect(config) == AC_JACK_PORT_NONE &&
++	    !spec->force_connect)
+ 		return 0;
+ 
+ 	/*
+@@ -1803,11 +1805,18 @@ static int hdmi_add_cvt(struct hda_codec *codec, hda_nid_t cvt_nid)
+ 	return 0;
+ }
+ 
++static const struct snd_pci_quirk force_connect_list[] = {
++	SND_PCI_QUIRK(0x103c, 0x871a, "HP", 1),
++	{}
++};
++
+ static int hdmi_parse_codec(struct hda_codec *codec)
+ {
++	struct hdmi_spec *spec = codec->spec;
+ 	hda_nid_t start_nid;
+ 	unsigned int caps;
+ 	int i, nodes;
++	const struct snd_pci_quirk *q;
+ 
+ 	nodes = snd_hda_get_sub_nodes(codec, codec->core.afg, &start_nid);
+ 	if (!start_nid || nodes < 0) {
+@@ -1815,6 +1824,11 @@ static int hdmi_parse_codec(struct hda_codec *codec)
+ 		return -EINVAL;
+ 	}
+ 
++	q = snd_pci_quirk_lookup(codec->bus->pci, force_connect_list);
++
++	if (q && q->value)
++		spec->force_connect = true;
++
+ 	/*
+ 	 * hdmi_add_pin() assumes total amount of converters to
+ 	 * be known, so first discover all converters
+-- 
+2.25.1
 
-              *************
-   PCM0 <---> *           * DAI0 <---> Codec Headset
-              *           *
-   PCM1 <---> *           * DAI1 <---> Amp Left
-              *   DSP     *        |
-   PCM2 <---> *           * DAI2/  --> Amp Right
-              *           *
-   PCM3 <---> *           * DAI3 <---> BT
-              *           *
-              *           * DAI4 <---> DMIC
-              *           *
-              *           * DAI5 <---> FM
-              *************
-
-We'd need a means to express that the two amplifiers are really supposed 
-to operate concurrently and be synchronized, and let the drivers know 
-which configuration to use (multi-cpu/multi-codec or single 
-CPU/multi-codec).
-
-Currently we do this manually by hard-coding an 'endpoint group', see 
-e.g. 
-https://elixir.bootlin.com/linux/latest/source/sound/soc/intel/common/soc-acpi-intel-cml-match.c#L69, 
-and use this information in the machine driver to know which of the 
-configurations to use.
-
-At some point we'd like to read this information from platform firmware 
-(will be ACPI for Intel but that's a detail) and create the dais in the 
-right way by grouping endpoints on the same dailink when they are 
-connected, and create separate dailink otherwise.
-
-Note that we only want the connection between BEs and audio devices to 
-be described in platform firmware, the topology inside the SOC DSP is 
-handled with a topology file that can be changed at will to e.g. 
-add/remove processing.
-
-We really need to make sure the audio graph can be described in two 
-parts, the bottom part related to hardware routing and layout, and the 
-DSP part. Of course the topology part would have to be constrained to 
-use the DAIs used in the lower level.
-
-Hope this helps explain what I am looking for.
-
-Thank you for starting this thread!
-
-Regards
-
--Pierre

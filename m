@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 819E624CFD3
-	for <lists+alsa-devel@lfdr.de>; Fri, 21 Aug 2020 09:45:48 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8E7D524CFCD
+	for <lists+alsa-devel@lfdr.de>; Fri, 21 Aug 2020 09:44:11 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 1C7B61670;
-	Fri, 21 Aug 2020 09:44:58 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1C7B61670
+	by alsa0.perex.cz (Postfix) with ESMTPS id 2EC601694;
+	Fri, 21 Aug 2020 09:43:21 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2EC601694
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1597995948;
-	bh=qj6DwRt2l7/77BGTLO1VgFLexfNWHoofqRlwGSONCF8=;
+	s=default; t=1597995851;
+	bh=UZPTzWLbxzFaYWGHqrpSCOVA+RqV9BHgddJXLt0YuLA=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=FoRUoKr40QqXDfyHx5OfIsIEr+tf2yxXrli2eLbqwWfFWob2nnAE3Wq0P90r/u0CB
-	 UZaH7Mw2B+d8kFOX2eMF1cFDlnOxAUKU2MTApUHAhHkrOaK3pUnPupUK+MGe+HpQnb
-	 HeqCWYUBxbmExn+ERUdw63wix8OeCvFa9sVe1Qvc=
+	b=kSQoPaQ/c2mjQDVNlJJXyTX5j6X0QUS/qlXX3gPJgcytP62S0Zwj/MXp+YOb9/hEl
+	 sc97QLLKqBo0GU6rY6xF77Eeq1gZvz1gwiCqwbeDkqDlQoNrZ0YBaPvdIuYYhb1nvB
+	 eEH/X8kWvzQ+ofGglL+LGdMryJ65KqmsD/RuGfqQ=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 3E9E3F8038F;
-	Fri, 21 Aug 2020 09:32:30 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id E05B6F8037D;
+	Fri, 21 Aug 2020 09:32:25 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id BC0D6F80347; Fri, 21 Aug 2020 09:32:12 +0200 (CEST)
+ id AF74BF8033E; Fri, 21 Aug 2020 09:32:08 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -35,40 +35,40 @@ Received: from wout4-smtp.messagingengine.com (wout4-smtp.messagingengine.com
  [64.147.123.20])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id A0326F802FE
- for <alsa-devel@alsa-project.org>; Fri, 21 Aug 2020 09:31:50 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A0326F802FE
+ by alsa1.perex.cz (Postfix) with ESMTPS id 47515F80303
+ for <alsa-devel@alsa-project.org>; Fri, 21 Aug 2020 09:31:52 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 47515F80303
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=sakamocchi.jp header.i=@sakamocchi.jp
- header.b="WpThy1DF"; 
+ header.b="iKLa+juy"; 
  dkim=pass (2048-bit key) header.d=messagingengine.com
- header.i=@messagingengine.com header.b="fc/TWWok"
+ header.i=@messagingengine.com header.b="OFfFdeCf"
 Received: from compute2.internal (compute2.nyi.internal [10.202.2.42])
- by mailout.west.internal (Postfix) with ESMTP id CD7F38FA;
- Fri, 21 Aug 2020 03:31:48 -0400 (EDT)
+ by mailout.west.internal (Postfix) with ESMTP id 7AFF48B9;
+ Fri, 21 Aug 2020 03:31:50 -0400 (EDT)
 Received: from mailfrontend2 ([10.202.2.163])
- by compute2.internal (MEProxy); Fri, 21 Aug 2020 03:31:49 -0400
+ by compute2.internal (MEProxy); Fri, 21 Aug 2020 03:31:50 -0400
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sakamocchi.jp;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding; s=fm2; bh=hC3f/5eiwOoMy
- eaSZy0EsvqaQWeJ5FR6+CHhWs3o1zs=; b=WpThy1DFAkTKPqptOzjGzljwoUomR
- Q0FEyn/TMWPyggy5UNePLxoYqyFUQe4Q2nMJLIRrv/KLq3AaYN9nBQxC74D5GnlY
- UG+7UgaSt8AA4EGRhc2DPg36DgnlQsWxiFDTvEcAAGajAfg0pGrynpITKel1Fyxk
- zTmx71jurFIDJcPr8IklqATlisl6rrRu2rLBBtJ5NdzX1Okbetwb0ke7FL93DoLt
- X2TQiBUc5a0FKZS2ie/TK35fOIWi4vgNNirRSgx7sHxhIe1K+axuCH++3cjC9sKK
- HHHEonoVbYnQimzLxopyRdKae9KKb111Gzvu2XU4T1AKdBiPjjMTCvqeQ==
+ :mime-version:content-transfer-encoding; s=fm2; bh=KPYyZhrP1cWcK
+ m0GXDuzOYq7JBYXxkQkitzqKvC+u38=; b=iKLa+juyy5TsCh0novAg2MenJkWZh
+ yg/htRi1oGOUmc9u6FwYa0ir2J+heKp9hyy7LDXv09U5x1u5FOsyuVN1xnB6hFZK
+ FdasippRwfS+/rj2MJwfjGSuFVKsJp4TEqUOZpdTdvpkzBaXYd+RCqKySpmaty/Z
+ wMLO73DWnSzj2z8dukvUi/ZxlseIRDB9iIovvq6dYev4ZtkYIKPmZJqI+Kru1vID
+ bcT5akrsN1pGN5AoCf171MvXqK+kI0o9s77jaoipibfjR58vxMoYqeo54UKNtgwR
+ QSjLWcfBb6wZ/9h5KvkLGRE08KOlxZr1n2AgJTA3h+l54KcypF/pR3R8w==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
  messagingengine.com; h=cc:content-transfer-encoding:date:from
  :in-reply-to:message-id:mime-version:references:subject:to
  :x-me-proxy:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
- fm3; bh=hC3f/5eiwOoMyeaSZy0EsvqaQWeJ5FR6+CHhWs3o1zs=; b=fc/TWWok
- 5LSDaQ9B3XCJXj6jaBmLnyZn0H7MD4j3xESoOkgD+totmQQysq4JWnerIMigvavL
- W4M3Lp7rVn32ywxNdW9QC3U3sXXf41y5KI4IQyMgziXbf27k/k7kFZmrF21v/U5j
- qQKxLw4ycsQH+JNu5Idkwnpl/j4iC3Vxm+3OIzSQICWd5CP1J+96bPahim9MwZhV
- j7kMD4xWqea1wuHEo824ca60nqgSOeywb7x7N0ln/JdmSRm0DRF0SKkGGLrwGZJf
- R4945p8W9m3vA+LzL67gwvo1CyoFQiOYrD2pinvb2sjri70eA8oGUxQaPI3yt13Y
- M0bbXMyvO68mHg==
-X-ME-Sender: <xms:ZHg_X9hEq0DrG4H_viuKaxHbHm5Zqmjruz4aEK-m_szOYyeIJFMFkg>
+ fm3; bh=KPYyZhrP1cWcKm0GXDuzOYq7JBYXxkQkitzqKvC+u38=; b=OFfFdeCf
+ Ln+2joZcIIK+Fx60rqLiXfDPan3DMhpIe52bG+EzKR8wPvCNf0pQHe4UbNelLzzQ
+ INDm/wxFkU/3fjaXgy612R8Td7dz4d+zGllETiJrKuMuh+2YbJIQeyccMkEaYFu8
+ QH0zcjC94hw/plZ1ckAl96jHvM/0WvURs1X/oaYAYURqrXLFwzy/+rct/gmP6a1t
+ x/UOREXecVp1GXnANG5VTA8dN7D3WD2/Cc1yY82TFHtJmGAP9KEHyjvS85TNN8pG
+ mo9KUTXMAFPNrll5UO5haMo3Vx053bTuH7VEbV0w4IHjJooBfTcPDsDUIZ12b3tC
+ netI6rIOl3ha/Q==
+X-ME-Sender: <xms:Zng_X7SOSp4CwwXON-C75HT2qHCpDLNZ6_Z0D3_7Y8XQaFv9o2O1vQ>
 X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeduiedrudduuddgudduudcutefuodetggdotefrod
  ftvfcurfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfgh
  necuuegrihhlohhuthemuceftddtnecunecujfgurhephffvufffkffojghfggfgsedtke
@@ -77,21 +77,20 @@ X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeduiedrudduuddgudduudcutefuodetgg
  ektefgveegfeelheffhfeujedtjeevtefhkeevkedtjeejvddtjefhjeenucfkphepudek
  tddrvdefhedrfedrheegnecuvehluhhsthgvrhfuihiivgepudeinecurfgrrhgrmhepmh
  grihhlfhhrohhmpehoqdhtrghkrghshhhisehsrghkrghmohgttghhihdrjhhp
-X-ME-Proxy: <xmx:ZHg_XyB83HeM6o_T3e07Qx5e4JjcoWgo9hrZza_E956qv_W1MaciLw>
- <xmx:ZHg_X9HxRUULIWQZ4217HO9Rk3p83-JDhs-nU4TgA65gkmQV4y2gNA>
- <xmx:ZHg_XyQomcW56PA927bw9tN7A__OdGUh3uItOV-Be6omm3BZsdKs0Q>
- <xmx:ZHg_X_qTN91XRbLps7Gi_2El-3pkfLhkDgZITb_Btp1ZDT2cDxqz_Q>
+X-ME-Proxy: <xmx:Zng_X8yW2k9-NSk0eIvx6H_5qJz_esKhGZTCVdKeKlYzUzl-kAHR5Q>
+ <xmx:Zng_Xw3V_UZtrGyeKKghuRR1j7IWnqe37sHnva9WlK81tBBea6NYeg>
+ <xmx:Zng_X7DQXDo2KN6pFWg2iGBgyCurTgs2YeMUxfvMZQuDarrrrnqTWA>
+ <xmx:Zng_XwZCW8CZR8IhfRuz-FucGGrOzSs25MyMYhC9RWWVlLMTZJCfUQ>
 Received: from workstation.flets-east.jp (ad003054.dynamic.ppp.asahi-net.or.jp
  [180.235.3.54])
- by mail.messagingengine.com (Postfix) with ESMTPA id 2120530600A9;
- Fri, 21 Aug 2020 03:31:46 -0400 (EDT)
+ by mail.messagingengine.com (Postfix) with ESMTPA id B338E30600B1;
+ Fri, 21 Aug 2020 03:31:48 -0400 (EDT)
 From: Takashi Sakamoto <o-takashi@sakamocchi.jp>
 To: tiwai@suse.de,
 	perex@perex.cz
-Subject: [PATCH 19/25] efw-downloader: efw-commands: add support for commands
- in flash category
-Date: Fri, 21 Aug 2020 16:31:05 +0900
-Message-Id: <20200821073111.134857-20-o-takashi@sakamocchi.jp>
+Subject: [PATCH 20/25] efw-downloader: subcmd-device: add read operation
+Date: Fri, 21 Aug 2020 16:31:06 +0900
+Message-Id: <20200821073111.134857-21-o-takashi@sakamocchi.jp>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20200821073111.134857-1-o-takashi@sakamocchi.jp>
 References: <20200821073111.134857-1-o-takashi@sakamocchi.jp>
@@ -114,268 +113,183 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Fireworks protocol includes command for software to operate on-board flash
-memory.
-
-This commit implements the command and adds local helper functions.
+This commit add read operation in device sub command. The arbitrary range
+of address in on-board flash memory is read and the content is dump in
+stdout.
 
 Signed-off-by: Takashi Sakamoto <o-takashi@sakamocchi.jp>
 ---
- efw-downloader/src/efw-commands.c | 213 ++++++++++++++++++++++++++++++
- efw-downloader/src/efw-commands.h |  12 ++
- 2 files changed, 225 insertions(+)
+ efw-downloader/src/meson.build      |   1 +
+ efw-downloader/src/op-device-read.c | 104 ++++++++++++++++++++++++++++
+ efw-downloader/src/subcmd-device.c  |   4 ++
+ efw-downloader/src/subcmds.h        |   4 ++
+ 4 files changed, 113 insertions(+)
+ create mode 100644 efw-downloader/src/op-device-read.c
 
-diff --git a/efw-downloader/src/efw-commands.c b/efw-downloader/src/efw-commands.c
-index 08b0114..b0a8320 100644
---- a/efw-downloader/src/efw-commands.c
-+++ b/efw-downloader/src/efw-commands.c
-@@ -8,10 +8,26 @@
+diff --git a/efw-downloader/src/meson.build b/efw-downloader/src/meson.build
+index 73a0f36..8738d76 100644
+--- a/efw-downloader/src/meson.build
++++ b/efw-downloader/src/meson.build
+@@ -18,6 +18,7 @@ sources = [
+   'node-dispatcher.c',
+   'efw-commands.c',
+   'subcmd-device.c',
++  'op-device-read.c',
+ ]
  
- // Categories in Echo Audio Fireworks protocol.
- #define CATEGORY_HW             0
-+#define CATEGORY_FLASH          1
- 
- // Commands in hardware category.
- #define HW_CMD_INFO             0
- 
-+// Commands in flash category.
-+#define FLASH_CMD_ERASE         0
-+#define FLASH_CMD_READ          1
-+#define FLASH_CMD_WRITE         2
-+#define FLASH_CMD_STATE         3
-+#define FLASH_CMD_SESSION_BASE  4
-+#define FLASH_CMD_LOCK          5
+ headers = [
+diff --git a/efw-downloader/src/op-device-read.c b/efw-downloader/src/op-device-read.c
+new file mode 100644
+index 0000000..a1fa0cf
+--- /dev/null
++++ b/efw-downloader/src/op-device-read.c
+@@ -0,0 +1,104 @@
++// SPDX-License-Identifier: GPL-3.0-or-later
++// Copyright (c) 2020 Takashi Sakamoto
++#include <stdio.h>
++#include <stdlib.h>
++#include <string.h>
++#include <errno.h>
++#include <assert.h>
 +
-+#define EFW_FLASH_FRAME_MAX_QUADS   64
++#include "efw-commands.h"
 +
-+// Between 0x00000000 - 0x00010000.
-+#define EFW_FLASH_BLOCK_SIZE_LOW    0x00002000
-+// Between 0x00010000 - 0x00200000.
-+#define EFW_FLASH_BLOCK_SIZE_HIGH   0x00010000
-+
- #define TIMEOUT 200
- 
- #define CAP_HAS_DSP     0x00000010
-@@ -28,3 +44,200 @@ void efw_hw_info_has_fpga(struct hw_info *info, gboolean *has_fpga)
- {
-     *has_fpga = !!(info->flags & CAP_HAS_FPGA);
- }
-+
-+int efw_flash_get_block_size(size_t offset, size_t *block_size)
++static void print_help()
 +{
-+    if (offset < 0x00010000)
-+        *block_size = EFW_FLASH_BLOCK_SIZE_LOW;
-+    else if (offset < 0x00200000)
-+        *block_size = EFW_FLASH_BLOCK_SIZE_HIGH;
-+    else
-+        return -ENXIO;
++    printf("Usage\n"
++           "  efw-downloader device CDEV read OFFSET LENGTH [OPTIONS]\n"
++           "\n"
++           "where:\n"
++           "  CDEV:   The firewire character device corresponding to the node for proto\n"
++           "  OFFSET: The hexadecimal offset address in on-board flash memory\n"
++           "  LENGTH: The hexadecimal number to read. The value is finally aligned to quadlet.\n"
++           "  OPTIONS:\n"
++           "    --help, -h: Print this help message and exit.\n"
++           "    --debug:    Output debug message to stderr\n");
++}
++
++static int parse_args(int argc, char **argv, size_t *offset, size_t *quads, gboolean *help)
++{
++    unsigned long val;
++    char *end;
++    int i;
++
++    if (argc < 4)
++        return -EINVAL;
++    assert(strncmp(argv[3], "read", sizeof("read")) == 0);
++
++    if (argc < 5)
++        return -EINVAL;
++    val = strtol(argv[4], &end, 16);
++    if (*end != '\0') {
++        printf("Invalid argument for offset address.\n");
++        return -EINVAL;
++    }
++    *offset = (size_t)val;
++
++    if (argc < 6)
++        return -EINVAL;
++    val = strtol(argv[5], &end, 16);
++    if (*end != '\0') {
++        printf("Invalid argument for quadlet count.\n");
++        return -EINVAL;
++    }
++    *quads = (size_t)(val + 3) / 4;
++
++    *help = FALSE;
++    for (i = 0; i < argc; ++i) {
++        if (strncmp(argv[i], "--help", sizeof("--help")) == 0 ||
++            strncmp(argv[i], "-h", sizeof("-h")) == 0) {
++            *help = TRUE;
++        }
++    }
 +
 +    return 0;
 +}
 +
-+void efw_flash_erase(EfwProto *proto, size_t offset, GError **error)
++void op_device_read(int argc, char **argv, EfwProto *proto, GError **error)
 +{
-+    size_t block_size;
-+    guint32 args[1] = {0};
-+    guint32 *params = (guint32 [1]){0};
-+    gsize param_count = 1;
++    size_t offset;
++    size_t quads;
++    guint32 *buf;
++    gboolean help;
 +    int err;
++    int i;
 +
-+    err = efw_flash_get_block_size(offset, &block_size);
++    err = parse_args(argc, argv, &offset, &quads, &help);
 +    if (err < 0) {
-+        g_set_error(error, EFW_PROTO_ERROR, -err,
-+                    "%s %d: %s", __FILE__, __LINE__, strerror(-err));
++        print_help();
++        g_set_error_literal(error, G_FILE_ERROR, G_FILE_ERROR_INVAL, "Invalid arguments");
 +        return;
 +    }
 +
-+    if (offset % block_size > 0) {
-+        g_set_error(error, EFW_PROTO_ERROR, EINVAL,
-+                    "%s %d: %s", __FILE__, __LINE__, strerror(EINVAL));
++    if (help) {
++        print_help();
 +        return;
 +    }
 +
-+    args[0] = offset;
-+    efw_proto_transaction(proto, CATEGORY_FLASH, FLASH_CMD_ERASE, args, G_N_ELEMENTS(args),
-+                          (guint32 *const *)&params, &param_count, TIMEOUT, error);
-+}
-+
-+void efw_flash_erase_and_wait(EfwProto *proto, size_t offset, GError **error)
-+{
-+    efw_flash_erase(proto, offset, error);
-+    if (*error != NULL)
-+        return;
-+
-+    while (TRUE) {
-+        gboolean state;
-+        struct timespec req = {
-+            .tv_sec = 0,
-+            .tv_nsec = 500000000,
-+        };
-+
-+        efw_flash_state(proto, &state, error);
-+        if (state == TRUE)
-+            break;
-+
-+        if (*error != NULL)
-+            g_clear_error(error);
-+
-+        clock_nanosleep(CLOCK_MONOTONIC, 0, &req, NULL);
-+    }
-+}
-+
-+void efw_flash_read(EfwProto *proto, size_t offset, guint32 *buf, size_t quads, GError **error)
-+{
-+    guint32 args[2] = {0};
-+    guint32 *params = (guint32 [2 + EFW_FLASH_FRAME_MAX_QUADS]){0};
-+    gsize param_count = 2 + EFW_FLASH_FRAME_MAX_QUADS;
-+
-+    if (quads > EFW_FLASH_FRAME_MAX_QUADS) {
-+        g_set_error(error, EFW_PROTO_ERROR, EINVAL,
-+                    "%s %d: %s", __FILE__, __LINE__, strerror(EINVAL));
++    buf = g_try_malloc0_n(quads, sizeof(*buf));
++    if (buf == NULL) {
++        fprintf(stderr, "Memory allocation fails.\n");
++        g_set_error_literal(error, G_FILE_ERROR, G_FILE_ERROR_NOSPC, "Memory allocation error");
 +        return;
 +    }
 +
-+    args[0] = offset;
-+    args[1] = quads;
-+
-+    efw_proto_transaction(proto, CATEGORY_FLASH, FLASH_CMD_READ, args, G_N_ELEMENTS(args),
-+                          (guint32 *const *)&params, &param_count, TIMEOUT, error);
-+    if (*error != NULL)
-+        return;
-+
-+    if (params[0] != offset || params[1] != quads) {
-+        g_set_error(error, EFW_PROTO_ERROR, EIO,
-+                    "%s %d: %s", __FILE__, __LINE__, strerror(EIO));
-+        return;
++    efw_flash_recursive_read(proto, offset, buf, quads, error);
++    if (*error != NULL) {
++        fprintf(stderr,
++                "Fail to read contents of flash memory: %s %d %s\n",
++                g_quark_to_string((*error)->domain), (*error)->code, (*error)->message);
++        goto end;
 +    }
 +
-+    memcpy(buf, (const void *)&params[2], quads * sizeof(*buf));
++    for (i = 0; i < quads; ++i)
++        printf("  %08lx: %08x\n", offset + 4 * i, buf[i]);
++end:
++    g_free(buf);
 +}
-+
-+void efw_flash_recursive_read(EfwProto *proto, size_t offset, guint32 *buf, size_t quads, GError **error)
-+{
-+    while (quads > 0) {
-+        size_t count = MIN(quads, EFW_FLASH_FRAME_MAX_QUADS);
-+
-+        efw_flash_read(proto, offset, buf, count, error);
-+        if (*error != NULL)
-+            return;
-+
-+        offset += count * 4;
-+        quads -= count;
-+        buf += count;
-+    }
-+}
-+
-+void efw_flash_write(EfwProto *proto, size_t offset, guint32 *buf, size_t quads, GError **error)
-+{
-+    guint32 args[2 + EFW_FLASH_FRAME_MAX_QUADS] = {0};
-+    guint32 *params = (guint32 [2]){0};
-+    gsize param_count = 2;
-+
-+    if (quads > EFW_FLASH_FRAME_MAX_QUADS) {
-+        g_set_error(error, EFW_PROTO_ERROR, EINVAL,
-+                    "%s %d: %s", __FILE__, __LINE__, strerror(EINVAL));
-+        return;
-+    }
-+
-+    args[0] = offset;
-+    args[1] = quads;
-+    memcpy((void *)&args[2], buf, quads * sizeof(*buf));
-+
-+    efw_proto_transaction(proto, CATEGORY_FLASH, FLASH_CMD_WRITE, args, G_N_ELEMENTS(args),
-+                          (guint32 *const *)&params, &param_count, TIMEOUT, error);
-+}
-+
-+void efw_flash_recursive_write(EfwProto *proto, size_t offset, guint32 *buf, size_t quads, GError **error)
-+{
-+    while (quads > 0) {
-+        size_t count = MIN(quads, EFW_FLASH_FRAME_MAX_QUADS);
-+        gboolean state;
-+
-+        efw_flash_write(proto, offset, buf, count, error);
-+        if (*error != NULL)
-+            return;
-+
-+        offset += count * 4;
-+        quads -= count;
-+        buf += count;
-+
-+        while (TRUE) {
-+            struct timespec req = {
-+                .tv_sec = 0,
-+                .tv_nsec = 500000000,
-+            };
-+
-+            efw_flash_state(proto, &state, error);
-+            if (state == TRUE)
-+                break;
-+
-+            if (*error != NULL)
-+                g_clear_error(error);
-+
-+            clock_nanosleep(CLOCK_MONOTONIC, 0, &req, NULL);
-+        }
-+    }
-+}
-+
-+void efw_flash_state(EfwProto *proto, gboolean *state, GError **error)
-+{
-+    gsize param_count = 0;
-+    efw_proto_transaction(proto, CATEGORY_FLASH, FLASH_CMD_STATE, NULL, 0, NULL, &param_count,
-+                          TIMEOUT, error);
-+    if (*error == NULL) {
-+        *state = TRUE;
-+    } else if (g_error_matches(*error, EFW_PROTO_ERROR, HINAWA_SND_EFW_STATUS_FLASH_BUSY)) {
-+        *state = FALSE;
-+        g_clear_error(error);
-+    }
-+}
-+
-+void efw_flash_get_session_base(EfwProto *proto, size_t *offset, GError **error)
-+{
-+    guint32 *params = (guint32 [1]){0};
-+    gsize param_count = 1;
-+
-+    efw_proto_transaction(proto, CATEGORY_FLASH, FLASH_CMD_SESSION_BASE, NULL, 0,
-+                          (guint32 *const *)&params, &param_count, TIMEOUT, error);
-+    if (*error != NULL)
-+        return;
-+
-+    *offset = params[0];
-+}
-+
-+// MEMO: Lock operation is additional to the combination of IceLynx Micro and FPGA.
-+void efw_flash_lock(EfwProto *proto, gboolean locked, GError **error)
-+{
-+    guint32 args[1] = {0};
-+    guint32 *params = (guint32 [1]){0};
-+    gsize param_count = 1;
-+
-+    args[0] = locked;
-+
-+    efw_proto_transaction(proto, CATEGORY_FLASH, FLASH_CMD_LOCK, args, G_N_ELEMENTS(args),
-+                          (guint32 *const *)&params, &param_count, TIMEOUT, error);
-+}
-diff --git a/efw-downloader/src/efw-commands.h b/efw-downloader/src/efw-commands.h
-index fd2dbe3..a25781b 100644
---- a/efw-downloader/src/efw-commands.h
-+++ b/efw-downloader/src/efw-commands.h
-@@ -42,4 +42,16 @@ void efw_hw_info(EfwProto *proto, struct hw_info *info, GError **error);
+diff --git a/efw-downloader/src/subcmd-device.c b/efw-downloader/src/subcmd-device.c
+index 329eef0..a11450c 100644
+--- a/efw-downloader/src/subcmd-device.c
++++ b/efw-downloader/src/subcmd-device.c
+@@ -9,6 +9,8 @@
+ #include "config-rom.h"
+ #include "node-dispatcher.h"
  
- void efw_hw_info_has_fpga(struct hw_info *info, gboolean *has_fpga);
- 
-+void efw_flash_erase(EfwProto *proto, size_t offset, GError **error);
-+void efw_flash_read(EfwProto *proto, size_t offset, guint32 *buf, size_t quads, GError **error);
-+void efw_flash_write(EfwProto *proto, size_t offset, guint32 *buf, size_t quads, GError **error);
-+void efw_flash_state(EfwProto *proto, gboolean *state, GError **error);
-+void efw_flash_get_session_base(EfwProto *proto, size_t *offset, GError **error);
-+void efw_flash_lock(EfwProto *proto, gboolean locked, GError **error);
++#include "subcmds.h"
 +
-+int efw_flash_get_block_size(size_t offset, size_t *block_size);
-+void efw_flash_erase_and_wait(EfwProto *proto, size_t offset, GError **error);
-+void efw_flash_recursive_read(EfwProto *proto, size_t offset, guint32 *buf, size_t quads, GError **error);
-+void efw_flash_recursive_write(EfwProto *proto, size_t offset, guint32 *buf, size_t quads, GError **error);
+ #define report_error(error, msg)                                                    \
+         fprintf(stderr, "Fail to %s: %s %d %s\n",                                   \
+                 msg, g_quark_to_string(error->domain), error->code, error->message)
+@@ -21,6 +23,7 @@ static int print_help()
+            "where:\n"
+            "  CDEV:   The firewire character device corresponding to the node for transaction\n"
+            "  OPERATION:\n"
++           "    read:   read from on-board flash memory\n"
+            "    help:   print this help message\n"
+            "  ARGUMENTS:\n"
+            "    depending on OPERATION\n"
+@@ -84,6 +87,7 @@ int subcmd_device(int argc, char **argv)
+         size_t size;
+         void (*op)(int argc, char **argv, EfwProto *proto, GError **error);
+     } *entry, entries[] = {
++        { "read", sizeof("read"), op_device_read },
+     };
+     GError *error = NULL;
+     gboolean debug;
+diff --git a/efw-downloader/src/subcmds.h b/efw-downloader/src/subcmds.h
+index f10c420..70cbb5a 100644
+--- a/efw-downloader/src/subcmds.h
++++ b/efw-downloader/src/subcmds.h
+@@ -3,6 +3,10 @@
+ #ifndef __SUBCMDS_H__
+ #define __SUBCMDS_H__
+ 
++#include "efw-proto.h"
++
+ int subcmd_device(int argc, char **argv);
+ 
++void op_device_read(int argc, char **argv, EfwProto *proto, GError **error);
 +
  #endif
 -- 

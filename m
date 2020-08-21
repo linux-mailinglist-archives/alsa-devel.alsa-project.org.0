@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 50E5424E1D1
-	for <lists+alsa-devel@lfdr.de>; Fri, 21 Aug 2020 22:06:32 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0092124E1D7
+	for <lists+alsa-devel@lfdr.de>; Fri, 21 Aug 2020 22:07:10 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E387D168B;
-	Fri, 21 Aug 2020 22:05:41 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E387D168B
+	by alsa0.perex.cz (Postfix) with ESMTPS id 9FF99166F;
+	Fri, 21 Aug 2020 22:06:19 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9FF99166F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1598040392;
+	s=default; t=1598040429;
 	bh=ywLfKmS0x8bT0AOgpLIP2jYoPqbc6pKlxWNqS0stO94=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=KNvEEib2PL1JycIxry/vrLt03zZK+MLtP6o+L90wzaBE1/iRW9AMmTX9UCwkb/5IC
-	 e8pBxAqDGlIGqMX7nNWnGukaZoXIp8ZkeOSEKLVWNHTz0XPa4YAJ4H/ZqAB37WVrlh
-	 1J1XMHzVJwCrDkJgbzIixkJK/Hu5Z0Y7cgYqN3rg=
+	b=hvuvy1zZ+xnjqGXGL7ycDfvxxc+mUJBeBPi/I2+st2/ddQj09tUxa7SnSFaCxOgIf
+	 QWz24CD0gM0zICMPNQ9o0l1ro/TMeTOrTDg7SMynlsgCmvKhCayS/Jo+ca7Q9b7gJL
+	 pdFZgk1YHVl9ex1i57w4P3Q/0lMYjaM4uYeby/bY=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 42F9DF8034B;
-	Fri, 21 Aug 2020 21:57:00 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 35657F8034F;
+	Fri, 21 Aug 2020 21:57:01 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 96247F802FE; Fri, 21 Aug 2020 21:56:48 +0200 (CEST)
+ id F2823F802FF; Fri, 21 Aug 2020 21:56:48 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
@@ -33,31 +33,31 @@ X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
 Received: from mga06.intel.com (mga06.intel.com [134.134.136.31])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 6BE9FF802E0
+ by alsa1.perex.cz (Postfix) with ESMTPS id 426CFF802DB
  for <alsa-devel@alsa-project.org>; Fri, 21 Aug 2020 21:56:29 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6BE9FF802E0
-IronPort-SDR: X1VnqYOpUkzBLhgFOfpbL+BobDEJpGiFCbSrU18/lSM0fWmIJmsOCRh/D8NKUige2b06U28jrM
- trdJHX/TSrwQ==
-X-IronPort-AV: E=McAfee;i="6000,8403,9720"; a="217158575"
-X-IronPort-AV: E=Sophos;i="5.76,338,1592895600"; d="scan'208";a="217158575"
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 426CFF802DB
+IronPort-SDR: rrnHAgrn27nuhxWTK/8gPLrrbKHSkZHO7BuhsKzIUBItOErG7p6YMqAzPS1fumqNbi0dZ9//NV
+ G3AigRkzyYwA==
+X-IronPort-AV: E=McAfee;i="6000,8403,9720"; a="217158577"
+X-IronPort-AV: E=Sophos;i="5.76,338,1592895600"; d="scan'208";a="217158577"
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
 Received: from fmsmga007.fm.intel.com ([10.253.24.52])
  by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 21 Aug 2020 12:56:25 -0700
-IronPort-SDR: HYbTgB4UCUvGOCozYGDx43oMfAyKH1hwRyJ085spvAwM6Rr9DqY/rLIN3zZMlGf33+ZqYCgGIm
- GXp/8tauOOew==
-X-IronPort-AV: E=Sophos;i="5.76,338,1592895600"; d="scan'208";a="279002446"
+ 21 Aug 2020 12:56:26 -0700
+IronPort-SDR: m4df3fDcECLophNuSCORLf21USbdPQ5FoIhqvEqodm8DmB4F5DYWibhLiW1mNvrcNwzaBfGKiF
+ 2U2dYhioTfNA==
+X-IronPort-AV: E=Sophos;i="5.76,338,1592895600"; d="scan'208";a="279002450"
 Received: from pahnn-mobl.amr.corp.intel.com (HELO pbossart-mobl3.intel.com)
  ([10.254.176.176])
  by fmsmga007-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 21 Aug 2020 12:56:24 -0700
+ 21 Aug 2020 12:56:25 -0700
 From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 To: alsa-devel@alsa-project.org
-Subject: [PATCH 13/14] ASoC: intel: sof_sdw: add rt711 rt1316 rt714 SDCA codec
+Subject: [PATCH 13/14] ASoC: Intel: sof_sdw: add rt711 rt1316 rt714 SDCA codec
  support.
-Date: Fri, 21 Aug 2020 14:56:01 -0500
-Message-Id: <20200821195603.215535-15-pierre-louis.bossart@linux.intel.com>
+Date: Fri, 21 Aug 2020 14:56:02 -0500
+Message-Id: <20200821195603.215535-16-pierre-louis.bossart@linux.intel.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20200821195603.215535-1-pierre-louis.bossart@linux.intel.com>
 References: <20200821195603.215535-1-pierre-louis.bossart@linux.intel.com>

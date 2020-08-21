@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1783924DACD
-	for <lists+alsa-devel@lfdr.de>; Fri, 21 Aug 2020 18:28:10 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A294824DAD8
+	for <lists+alsa-devel@lfdr.de>; Fri, 21 Aug 2020 18:29:28 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id BD81616BD;
-	Fri, 21 Aug 2020 18:27:19 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BD81616BD
+	by alsa0.perex.cz (Postfix) with ESMTPS id 5338D16F2;
+	Fri, 21 Aug 2020 18:28:38 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5338D16F2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1598027289;
-	bh=fbGa6hXFYDUx0qQvVLBElXseSMxRIENuGCkKMVoNJdE=;
+	s=default; t=1598027368;
+	bh=wfyP6ErZoZxY7ltPAxt9V2YaYyKjCJkU6bza5vC6jfQ=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=p+iWhutadm5W8kiYYjZcRpJg+5tbZtLI5q2GlutDJbTJ7olld1JZ5P93/XAZhogiT
-	 myPJgIsjd5wa7h69WXpmbePK7TJa1KB2owUYOKcHmjiU5B/7ouFhcvYUIKXo7EsDQL
-	 sFWVNR59q+rfgCNa/AL2+/xh+RWpdHppuMmrAqNs=
+	b=cO0dQ+/3i7TPzK6DPQMlWjyIxXbnBe7Wv5u/TOY1bi6HSOFrUzhdVUDIorI/Y51As
+	 6O/9zJPdXmsBEVCCleGs9DqHvn2jm1witUVWNeQOGgNFz4EjNjawfw5rgAxxYFXg9O
+	 cW1jUM9ZUKDYlNez1Lb5PtegpPM5+mXjp+BuOxjs=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 6DCFAF8036B;
-	Fri, 21 Aug 2020 18:17:26 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 6A762F80384;
+	Fri, 21 Aug 2020 18:17:31 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id CA487F8036A; Fri, 21 Aug 2020 18:17:21 +0200 (CEST)
+ id 5B274F8036D; Fri, 21 Aug 2020 18:17:25 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -34,32 +34,32 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 6B556F80360
- for <alsa-devel@alsa-project.org>; Fri, 21 Aug 2020 18:17:12 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6B556F80360
+ by alsa1.perex.cz (Postfix) with ESMTPS id B1DB3F80255
+ for <alsa-devel@alsa-project.org>; Fri, 21 Aug 2020 18:17:13 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B1DB3F80255
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="kFT9zhTH"
+ header.b="1mdwuIRM"
 Received: from sasha-vm.mshome.net (c-73-47-72-35.hsd1.nh.comcast.net
  [73.47.72.35])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 620BB21741;
- Fri, 21 Aug 2020 16:17:10 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id 8759022B4B;
+ Fri, 21 Aug 2020 16:17:11 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1598026631;
- bh=fbGa6hXFYDUx0qQvVLBElXseSMxRIENuGCkKMVoNJdE=;
+ s=default; t=1598026632;
+ bh=wfyP6ErZoZxY7ltPAxt9V2YaYyKjCJkU6bza5vC6jfQ=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=kFT9zhTHU5nRFNWPk3Vb9WZ8TO1gF3GvyhXI7XNSQrDDhjM7++kDzxbiwmNbE7DX7
- CkAXZnxf/6yBJlLklzH6zrcS1aOAiYC44BhKv50FhuXDCyiVrDFvoWZRjIZ7T6MZoP
- /Ckv8FItRxlQwazjM+J2LNit4o3Q1BjNP6F3AKNM=
+ b=1mdwuIRMkVgETb0eextYFGtt7NCh7LodlfucpqonofdDnaGfRFdxmsrUuqIP/MN+p
+ MpVCCjEeN8YXvtn/UcE4QCC8jXEol74nKG17vfnwkNMDW5VSyPCBlf/yin2mvMA9Ju
+ D9DIJuhCvn++16AHGQli/Hs2DRBGgxA3hFVO/+mk=
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 5.4 05/48] ASoC: img: Fix a reference count leak in
- img_i2s_in_set_fmt
-Date: Fri, 21 Aug 2020 12:16:21 -0400
-Message-Id: <20200821161704.348164-5-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 5.4 06/48] ASoC: img-parallel-out: Fix a reference
+ count leak
+Date: Fri, 21 Aug 2020 12:16:22 -0400
+Message-Id: <20200821161704.348164-6-sashal@kernel.org>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20200821161704.348164-1-sashal@kernel.org>
 References: <20200821161704.348164-1-sashal@kernel.org>
@@ -86,7 +86,7 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 From: Qiushi Wu <wu000273@umn.edu>
 
-[ Upstream commit c4c59b95b7f7d4cef5071b151be2dadb33f3287b ]
+[ Upstream commit 6b9fbb073636906eee9fe4d4c05a4f445b9e2a23 ]
 
 pm_runtime_get_sync() increments the runtime PM usage counter even
 when it returns an error code, causing incorrect ref count if
@@ -94,29 +94,29 @@ pm_runtime_put_noidle() is not called in error handling paths.
 Thus call pm_runtime_put_noidle() if pm_runtime_get_sync() fails.
 
 Signed-off-by: Qiushi Wu <wu000273@umn.edu>
-Link: https://lore.kernel.org/r/20200614033749.2975-1-wu000273@umn.edu
+Link: https://lore.kernel.org/r/20200614033344.1814-1-wu000273@umn.edu
 Signed-off-by: Mark Brown <broonie@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- sound/soc/img/img-i2s-in.c | 4 +++-
+ sound/soc/img/img-parallel-out.c | 4 +++-
  1 file changed, 3 insertions(+), 1 deletion(-)
 
-diff --git a/sound/soc/img/img-i2s-in.c b/sound/soc/img/img-i2s-in.c
-index 869fe0068cbd3..bb668551dd4b2 100644
---- a/sound/soc/img/img-i2s-in.c
-+++ b/sound/soc/img/img-i2s-in.c
-@@ -343,8 +343,10 @@ static int img_i2s_in_set_fmt(struct snd_soc_dai *dai, unsigned int fmt)
- 	chan_control_mask = IMG_I2S_IN_CH_CTL_CLK_TRANS_MASK;
+diff --git a/sound/soc/img/img-parallel-out.c b/sound/soc/img/img-parallel-out.c
+index 5ddbe3a31c2e9..4da49a42e8547 100644
+--- a/sound/soc/img/img-parallel-out.c
++++ b/sound/soc/img/img-parallel-out.c
+@@ -163,8 +163,10 @@ static int img_prl_out_set_fmt(struct snd_soc_dai *dai, unsigned int fmt)
+ 	}
  
- 	ret = pm_runtime_get_sync(i2s->dev);
+ 	ret = pm_runtime_get_sync(prl->dev);
 -	if (ret < 0)
 +	if (ret < 0) {
-+		pm_runtime_put_noidle(i2s->dev);
++		pm_runtime_put_noidle(prl->dev);
  		return ret;
 +	}
  
- 	for (i = 0; i < i2s->active_channels; i++)
- 		img_i2s_in_ch_disable(i2s, i);
+ 	reg = img_prl_out_readl(prl, IMG_PRL_OUT_CTL);
+ 	reg = (reg & ~IMG_PRL_OUT_CTL_EDGE_MASK) | control_set;
 -- 
 2.25.1
 

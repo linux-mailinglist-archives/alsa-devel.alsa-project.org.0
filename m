@@ -2,93 +2,70 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3390124E7BA
-	for <lists+alsa-devel@lfdr.de>; Sat, 22 Aug 2020 15:50:23 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D3DBE24E861
+	for <lists+alsa-devel@lfdr.de>; Sat, 22 Aug 2020 17:29:28 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 9C854166F;
-	Sat, 22 Aug 2020 15:49:32 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9C854166F
+	by alsa0.perex.cz (Postfix) with ESMTPS id 4A9EC166B;
+	Sat, 22 Aug 2020 17:28:38 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4A9EC166B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1598104222;
-	bh=mCm8jMFIxNttI6Qpw9hPtbgzU78M7Kvn+KVrlrzxf4Q=;
-	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
+	s=default; t=1598110168;
+	bh=sGXBZ7fjUNAYT3PnpOm5v+iB6nA7dsTYZIb3jeHjIRY=;
+	h=Subject:From:To:Date:In-Reply-To:References:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=iPoIwKSSO8DMrAK+Ay7CXMqkeVp3JFw+TxFbgZBR0dD0dHNdDNfoA0lO+rZaPRagY
-	 gCVtE6rUtMEMknk91bqVMV09M/ylaemK4LURanb5Q2vFFUtFjFfIE01GOnfCQyn7In
-	 rZH/0fKJiaqtWpVk6FnKa+jBAtQa1LMzlMv3CVTg=
+	b=RW8uuw/ITD/K0vHKccvAuPyvPS2qb3ZqBLsC6rw1xSIO5fO1pfCkfTtQf5zApMB9t
+	 i1NIzNIZoEXq+7NGKOVcZO+eNODfW0MYSbhkj214wqvJPgBeRO2w8lCvcJSFLYB2o9
+	 uKNNPmtPJQ4cKU10PterhyqCyrw9MYvZ94g+JlvM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id C83EAF8007E;
-	Sat, 22 Aug 2020 15:48:41 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 24249F80228;
+	Sat, 22 Aug 2020 17:27:47 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 90654F801F9; Sat, 22 Aug 2020 15:48:38 +0200 (CEST)
+ id 50D4CF801F9; Sat, 22 Aug 2020 17:27:45 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_FROM,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS
- autolearn=disabled version=3.4.0
-Received: from mail-wr1-x441.google.com (mail-wr1-x441.google.com
- [IPv6:2a00:1450:4864:20::441])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,SPF_HELO_PASS,SPF_PASS,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from puleglot.ru (puleglot.ru [IPv6:2a01:4f8:1c0c:58e8::2])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 28489F8007E
- for <alsa-devel@alsa-project.org>; Sat, 22 Aug 2020 15:48:34 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 28489F8007E
+ by alsa1.perex.cz (Postfix) with ESMTPS id 508EEF800C0
+ for <alsa-devel@alsa-project.org>; Sat, 22 Aug 2020 17:27:38 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 508EEF800C0
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="sTSZ2XxK"
-Received: by mail-wr1-x441.google.com with SMTP id a15so4400661wrh.10
- for <alsa-devel@alsa-project.org>; Sat, 22 Aug 2020 06:48:34 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=subject:to:cc:references:from:message-id:date:user-agent
- :mime-version:in-reply-to:content-language:content-transfer-encoding;
- bh=mCm8jMFIxNttI6Qpw9hPtbgzU78M7Kvn+KVrlrzxf4Q=;
- b=sTSZ2XxKslxUt+qAwrD5UUCZPpTwt4KLH2O+jHj5zpwteyNWrPPd3txgriyS51sx2T
- jDft5+t87RS7Q1HvhXlUq46Rt4Tdsb+XkrxYE7SBOrCTBD1pI06df/JrImXuFDvjLkUH
- n9qmXTT27p0gbkRAqnTSGvIz7f0VjlLYAvot/PsygGLfolPSoJpj/CalWtOhywgEz7cE
- WnmOwFW7U+Uk4z3cBaxjZcmPwU1e7O0A/Gx73/1s8XydzDj/4Uoy9ZNFUrdNGnQw5jm7
- +pdQWr5plXgUNRCtzTDyU6JghN6ddZiJEO1MF6AwwpsXFgLpdSP/kG8rXJJ7Z3Q56TuE
- Ev0Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:subject:to:cc:references:from:message-id:date
- :user-agent:mime-version:in-reply-to:content-language
- :content-transfer-encoding;
- bh=mCm8jMFIxNttI6Qpw9hPtbgzU78M7Kvn+KVrlrzxf4Q=;
- b=mMYFkHNQcbW9BRhGBRpj0WS6h3O2JkZwSixHFr+fyBh8rEKsI8WTLLQRPGc5Pnt6C0
- eCr8G3aAU1Pa+n+PIvp7d+PVS44LgtHhfaOXygC2CGaH+RmHLunq2tW5mG8Y0308YiCj
- i/wPZTC7HgvMDLWMZDfBTdYmhF17OXS0pvIy4Yo6PR3YcR/HgsF7wzV92prfw265wFjB
- es/PEz2gidicCITXfrAX3+bNBCdIZTXyAfwQ6kc4v+mouLvAtt4+OMbu5I8piv9S/T7H
- YwNtrzw93qsycwenyZNH6iasbpfVaEQtNlZWNVRBiAG4edb+Ax6c/Xhbr9Mmf1owlNWy
- TCgA==
-X-Gm-Message-State: AOAM5334LXw0coQFNGdWSPebEsH0ThAOR95a6EBxWSu2/6thlWDyhVwJ
- YIQV88hdmBjAGPM6iAiepEc=
-X-Google-Smtp-Source: ABdhPJzWhCw/arov4mC5syWiooyXvGKHtvNxAwBRfnrw2AcioDkLKwXl1UY7lWGfY+AbbXN1XaJNDA==
-X-Received: by 2002:adf:ec10:: with SMTP id x16mr6850429wrn.74.1598104113188; 
- Sat, 22 Aug 2020 06:48:33 -0700 (PDT)
-Received: from [192.168.0.74] ([178.233.178.9])
- by smtp.gmail.com with ESMTPSA id 3sm11491977wms.36.2020.08.22.06.48.31
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Sat, 22 Aug 2020 06:48:32 -0700 (PDT)
-Subject: Re: [PATCH 1/2] ucm: Add JackSwitch definition
-To: Curtis Malainey <cujomalainey@chromium.org>
-References: <20200820233205.505925-1-cujomalainey@chromium.org>
-From: Alper Nebi Yasak <alpernebiyasak@gmail.com>
-Message-ID: <b98a8a77-7652-1995-27ba-eb7b6d30202a@gmail.com>
-Date: Sat, 22 Aug 2020 16:48:28 +0300
-User-Agent: Mozilla/5.0 (X11; Linux aarch64; rv:68.0) Gecko/20100101
- Thunderbird/68.11.0
+ dkim=pass (1024-bit key) header.d=tsoy.me header.i=@tsoy.me
+ header.b="YdOSXS5w"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=tsoy.me;
+ s=mymail; h=Sender:Content-Transfer-Encoding:MIME-Version:Content-Type:
+ References:In-Reply-To:Date:To:From:Subject:Message-ID:Reply-To:Cc:Content-ID
+ :Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:
+ Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe
+ :List-Post:List-Owner:List-Archive;
+ bh=Rpc2WeIQjRSQkNHJc2XaLoAncRIXq8AQL6Z/JE45IjM=; b=YdOSXS5wU6EfJAsEduP81C5VKS
+ lyHnmxVe+XQoTuiZX3kRWB+7B+WgPnS2Mn8hUH3XyClIgBFK0JCLXMDispJWsCBoLazGw1AbnayEc
+ Zx+9alNndW0w3nOjFdO9cdbPH2fN4VvOZhF49b4zWpDkn22NWoKaNYZxqAzTDYuj+4pw=;
+Received: from [2a00:1370:8125:4e4::b41] (helo=home)
+ by puleglot.ru with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
+ (Exim 4.93.0.4) (envelope-from <puleglot@puleglot.ru>)
+ id 1k9VQe-0000gv-K4; Sat, 22 Aug 2020 18:27:36 +0300
+Message-ID: <213664da6ebb6bf7f1382a93676f087236da412a.camel@tsoy.me>
+Subject: Re: [PATCH 3/3] ALSA: usb-audio: Properly match with audio
+ interface class
+From: Alexander Tsoy <alexander@tsoy.me>
+To: Takashi Iwai <tiwai@suse.de>, alsa-devel@alsa-project.org
+Date: Sat, 22 Aug 2020 18:27:35 +0300
+In-Reply-To: <20200817082140.20232-4-tiwai@suse.de>
+References: <20200817082140.20232-1-tiwai@suse.de>
+ <20200817082140.20232-4-tiwai@suse.de>
+Content-Type: text/plain; charset="UTF-8"
+User-Agent: Evolution 3.36.4 
 MIME-Version: 1.0
-In-Reply-To: <20200820233205.505925-1-cujomalainey@chromium.org>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
-Cc: tiwai@suse.de, alsa-devel@alsa-project.org,
- Alper Nebi Yasak <alpernebiyasak@gmail.com>
+Content-Transfer-Encoding: 8bit
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -104,18 +81,123 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hi, I'm not really a kernel person, but wanted to point out an
-alternative I think is better.
+В Пн, 17/08/2020 в 10:21 +0200, Takashi Iwai пишет:
+> There are a few entries in the quirk table that set the device ID
+> with
+> USB_DEVICE() macro while having an extra bInterfaceClass field.  But
+> bInterfaceClass field is never checked unless the proper match_flags
+> is set, so those may match incorrectly with all interfaces.
+> 
+> Introduce another macro to match with the vid/pid pair and the audio
+> class interface, and apply it to such entries, so that they can match
+> properly.
+> 
+> Signed-off-by: Takashi Iwai <tiwai@suse.de>
+> ---
+>  sound/usb/quirks-table.h | 55 +++++++++++++++++---------------------
+> ----------
+>  1 file changed, 19 insertions(+), 36 deletions(-)
+> 
+> diff --git a/sound/usb/quirks-table.h b/sound/usb/quirks-table.h
+> index 988bb9d00192..7a80ef31bbe4 100644
+> --- a/sound/usb/quirks-table.h
+> +++ b/sound/usb/quirks-table.h
+> @@ -35,6 +35,14 @@
+>  	.bInterfaceClass = USB_CLASS_AUDIO, \
+>  	.bInterfaceSubClass = USB_SUBCLASS_AUDIOCONTROL
+>  
+> +/* Another standard entry matching with vid/pid and the audio class
+> */
+> +#define USB_AUDIO_CLASS(vend, prod) \
+> +	.match_flags = USB_DEVICE_ID_MATCH_DEVICE | \
+> +		       USB_DEVICE_ID_MATCH_INT_CLASS, \
+> +	.idVendor = vend, \
+> +	.idProduct = prod, \
+> +	.bInterfaceClass = USB_CLASS_AUDIO
+> +
+>  /* FTDI devices */
+>  {
+>  	USB_DEVICE(0x0403, 0xb8d8),
+> @@ -68,34 +76,14 @@
+>  	}
+>  },
+>  
+> -{
+> -	/* E-Mu 0202 USB */
+> -	.match_flags = USB_DEVICE_ID_MATCH_DEVICE,
+> -	.idVendor = 0x041e,
+> -	.idProduct = 0x3f02,
+> -	.bInterfaceClass = USB_CLASS_AUDIO,
+> -},
+> -{
+> -	/* E-Mu 0404 USB */
+> -	.match_flags = USB_DEVICE_ID_MATCH_DEVICE,
+> -	.idVendor = 0x041e,
+> -	.idProduct = 0x3f04,
+> -	.bInterfaceClass = USB_CLASS_AUDIO,
+> -},
+> -{
+> -	/* E-Mu Tracker Pre */
+> -	.match_flags = USB_DEVICE_ID_MATCH_DEVICE,
+> -	.idVendor = 0x041e,
+> -	.idProduct = 0x3f0a,
+> -	.bInterfaceClass = USB_CLASS_AUDIO,
+> -},
+> -{
+> -	/* E-Mu 0204 USB */
+> -	.match_flags = USB_DEVICE_ID_MATCH_DEVICE,
+> -	.idVendor = 0x041e,
+> -	.idProduct = 0x3f19,
+> -	.bInterfaceClass = USB_CLASS_AUDIO,
+> -},
+> +/* E-Mu 0202 USB */
+> +{ USB_AUDIO_CLASS(0x041e, 0x3f02) },
+> +/* E-Mu 0404 USB */
+> +{ USB_AUDIO_CLASS(0x041e, 0x3f04) },
+> +/* E-Mu Tracker Pre */
+> +{ USB_AUDIO_CLASS(0x041e, 0x3f0a) },
+> +/* E-Mu 0204 USB */
+> +{ USB_AUDIO_CLASS(0x041e, 0x3f19) },
+>  
+>  /*
+>   * HP Wireless Audio
+> @@ -2751,10 +2739,7 @@ YAMAHA_DEVICE(0x7010, "UB99"),
+>  },
+>  
+>  /* KeithMcMillen Stringport */
+> -{
+> -	USB_DEVICE(0x1f38, 0x0001),
+> -	.bInterfaceClass = USB_CLASS_AUDIO,
+> -},
+> +{ USB_AUDIO_CLASS(0x1f38, 0x0001) },
+>  
+>  /* Miditech devices */
+>  {
+> @@ -2977,10 +2962,7 @@ AU0828_DEVICE(0x2040, 0x7270, "Hauppauge",
+> "HVR-950Q"),
+>  },
+>  {
+>  	/* Tascam US122 MKII - playback-only support */
+> -	.match_flags = USB_DEVICE_ID_MATCH_DEVICE,
+> -	.idVendor = 0x0644,
+> -	.idProduct = 0x8021,
+> -	.bInterfaceClass = USB_CLASS_AUDIO,
+> +	USB_AUDIO_CLASS(0x0644, 0x8021),
+>  	.driver_info = (unsigned long) &(const struct
+> snd_usb_audio_quirk) {
+>  		.vendor_name = "TASCAM",
+>  		.product_name = "US122 MKII",
+> @@ -3612,3 +3594,4 @@ AU0828_DEVICE(0x2040, 0x7270, "Hauppauge",
+> "HVR-950Q"),
+>  
+>  #undef USB_DEVICE_VENDOR_SPEC
+>  #undef USB_AUDIO_DEVICE
+> +#undef USB_AUDIO_CLASS
 
-On 21/08/2020 02:32, Curtis Malainey wrote:
-> Some codecs can differentiate headsets based on the number of rings.
-> Should we choose to differentiate the config we will need to be able to
-> select based on the jack event code.
+I don't know anything about KeithMcMillen Stringport, but all other
+devices (US122 MKII and E-mu) seems to have Vendor-specific Class. And
+since the driver should already match all compliant devices, the only
+potentional use for USB_AUDIO_CLASS macro is for devices
+with bInterfaceClass = USB_CLASS_AUDIO and with some invalid
+bInterfaceSubClass.
 
-AFAICT from ChromiumOS UCM configs, you're using JackSwitch to detect
-whether a plugged-in jack is/has headphones, a headset mic, or line-out.
-Instead, if you add something like my recent commit d0508b4f1604 ("ASoC:
-rk3399_gru_sound: Add DAPM pins, kcontrols for jack detection") to the
-machine drivers, you can just use JackControl to specify them in your
-UCM files, and your audio server could distinguish between those cases
-by the values of the jack kcontrols (e.g. PulseAudio already can).

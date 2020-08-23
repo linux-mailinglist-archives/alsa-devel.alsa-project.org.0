@@ -2,61 +2,63 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A621924ECF0
-	for <lists+alsa-devel@lfdr.de>; Sun, 23 Aug 2020 13:01:09 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9365624ED19
+	for <lists+alsa-devel@lfdr.de>; Sun, 23 Aug 2020 13:30:31 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 2F213167D;
-	Sun, 23 Aug 2020 13:00:19 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2F213167D
+	by alsa0.perex.cz (Postfix) with ESMTPS id 11D15167D;
+	Sun, 23 Aug 2020 13:29:41 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 11D15167D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1598180469;
-	bh=bs+7doNG1YeEAmgR6/XpC4BYj5OseHSRlraAsLLVXzw=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=EyNzDOzud6RLIjSkPK3+YHL573DbFDsHbysAJlp6yZAvt+Y13O6fy+xdhwm39sZ5N
-	 pZ6nx10xWxdwM7PT6uwPIabi78VAsCW6wTui145vYv7l8YIcRXjcw6UNpwaLvep1fd
-	 +J0X2HVFD6yU9hVrcrmXYa9efi1BvZVI7EQIHaz8=
+	s=default; t=1598182231;
+	bh=7Zjys5Cs6sRf+7+uamw5zQ2SLnXTJFSrBUQwm9W/VqA=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=ZEArKZ+IYLOWETYrWrjNqp0DBtiBGc2Ji7E29YwKWzWA91sHRCpolvYgO3cGz0zAM
+	 QWUfG46kyrj1eRBtDUS1qKQSFEGE7XopqxacJwr+XNxeuTJr9/UHCiLzYqvdqFgVC7
+	 jDLguqMr7LBdWhp2CwpTg1eJCDmCqSX0tBW0DvVI=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 60796F80245;
-	Sun, 23 Aug 2020 12:59:28 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 36E7EF80260;
+	Sun, 23 Aug 2020 13:28:50 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id B8283F8025A; Sun, 23 Aug 2020 12:59:25 +0200 (CEST)
+ id BFF04F8025A; Sun, 23 Aug 2020 13:28:46 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: ***
-X-Spam-Status: No, score=3.0 required=5.0 tests=AC_FROM_MANY_DOTS,
- RCVD_IN_MSPIKE_H3,RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from youngberry.canonical.com (youngberry.canonical.com
- [91.189.89.112])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
+X-Spam-Level: 
+X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_MSPIKE_H3,
+ RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
+Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id EA361F800C0
- for <alsa-devel@alsa-project.org>; Sun, 23 Aug 2020 12:59:19 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EA361F800C0
-Received: from 61-220-137-37.hinet-ip.hinet.net ([61.220.137.37]
- helo=localhost) by youngberry.canonical.com with esmtpsa
- (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.86_2)
- (envelope-from <kai.heng.feng@canonical.com>)
- id 1k9niF-0003UF-C2; Sun, 23 Aug 2020 10:59:00 +0000
-From: Kai-Heng Feng <kai.heng.feng@canonical.com>
-To: tiwai@suse.com
-Subject: [PATCH] ALSA: usb-audio: Disable autosuspend for Lenovo ThinkStation
- P620
-Date: Sun, 23 Aug 2020 18:58:50 +0800
-Message-Id: <20200823105854.26950-1-kai.heng.feng@canonical.com>
-X-Mailer: git-send-email 2.17.1
-Cc: Jussi Laako <jussi@sonarnerd.net>, Chris Wulff <crwulff@gmail.com>,
- open list <linux-kernel@vger.kernel.org>, Hector Martin <marcan@marcan.st>,
- "moderated list:SOUND" <alsa-devel@alsa-project.org>,
- Hui Wang <hui.wang@canonical.com>, Alexander Tsoy <alexander@tsoy.me>,
- Kai-Heng Feng <kai.heng.feng@canonical.com>,
- =?UTF-8?q?Franti=C5=A1ek=20Ku=C4=8Dera?= <franta-linux@frantovo.cz>,
- Jesus Ramos <jesus-ramos@live.com>, Gregor Pintar <grpintar@gmail.com>,
- Dmitry Panchenko <dmitry@d-systems.ee>, Nick Kossifidis <mickflemm@gmail.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id B30EBF800EB
+ for <alsa-devel@alsa-project.org>; Sun, 23 Aug 2020 13:28:39 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B30EBF800EB
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id 9B1B0AE4B;
+ Sun, 23 Aug 2020 11:29:08 +0000 (UTC)
+Date: Sun, 23 Aug 2020 13:28:38 +0200
+Message-ID: <s5hft8da9eh.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Alexander Tsoy <alexander@tsoy.me>
+Subject: Re: [PATCH 3/3] ALSA: usb-audio: Properly match with audio interface
+ class
+In-Reply-To: <s5h8se6br92.wl-tiwai@suse.de>
+References: <20200817082140.20232-1-tiwai@suse.de>
+ <20200817082140.20232-4-tiwai@suse.de>
+ <213664da6ebb6bf7f1382a93676f087236da412a.camel@tsoy.me>
+ <s5h8se6br92.wl-tiwai@suse.de>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
+ FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
+ (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+Cc: alsa-devel@alsa-project.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -72,94 +74,133 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-If USB autosuspend is enabled, both front and rear panel can no longer
-detect jack insertion.
+On Sat, 22 Aug 2020 18:05:29 +0200,
+Takashi Iwai wrote:
+> 
+> On Sat, 22 Aug 2020 17:27:35 +0200,
+> Alexander Tsoy wrote:
+> > 
+> > В Пн, 17/08/2020 в 10:21 +0200, Takashi Iwai пишет:
+> > > There are a few entries in the quirk table that set the device ID
+> > > with
+> > > USB_DEVICE() macro while having an extra bInterfaceClass field.  But
+> > > bInterfaceClass field is never checked unless the proper match_flags
+> > > is set, so those may match incorrectly with all interfaces.
+> > > 
+> > > Introduce another macro to match with the vid/pid pair and the audio
+> > > class interface, and apply it to such entries, so that they can match
+> > > properly.
+> > > 
+> > > Signed-off-by: Takashi Iwai <tiwai@suse.de>
+> > > ---
+> > >  sound/usb/quirks-table.h | 55 +++++++++++++++++---------------------
+> > > ----------
+> > >  1 file changed, 19 insertions(+), 36 deletions(-)
+> > > 
+> > > diff --git a/sound/usb/quirks-table.h b/sound/usb/quirks-table.h
+> > > index 988bb9d00192..7a80ef31bbe4 100644
+> > > --- a/sound/usb/quirks-table.h
+> > > +++ b/sound/usb/quirks-table.h
+> > > @@ -35,6 +35,14 @@
+> > >  	.bInterfaceClass = USB_CLASS_AUDIO, \
+> > >  	.bInterfaceSubClass = USB_SUBCLASS_AUDIOCONTROL
+> > >  
+> > > +/* Another standard entry matching with vid/pid and the audio class
+> > > */
+> > > +#define USB_AUDIO_CLASS(vend, prod) \
+> > > +	.match_flags = USB_DEVICE_ID_MATCH_DEVICE | \
+> > > +		       USB_DEVICE_ID_MATCH_INT_CLASS, \
+> > > +	.idVendor = vend, \
+> > > +	.idProduct = prod, \
+> > > +	.bInterfaceClass = USB_CLASS_AUDIO
+> > > +
+> > >  /* FTDI devices */
+> > >  {
+> > >  	USB_DEVICE(0x0403, 0xb8d8),
+> > > @@ -68,34 +76,14 @@
+> > >  	}
+> > >  },
+> > >  
+> > > -{
+> > > -	/* E-Mu 0202 USB */
+> > > -	.match_flags = USB_DEVICE_ID_MATCH_DEVICE,
+> > > -	.idVendor = 0x041e,
+> > > -	.idProduct = 0x3f02,
+> > > -	.bInterfaceClass = USB_CLASS_AUDIO,
+> > > -},
+> > > -{
+> > > -	/* E-Mu 0404 USB */
+> > > -	.match_flags = USB_DEVICE_ID_MATCH_DEVICE,
+> > > -	.idVendor = 0x041e,
+> > > -	.idProduct = 0x3f04,
+> > > -	.bInterfaceClass = USB_CLASS_AUDIO,
+> > > -},
+> > > -{
+> > > -	/* E-Mu Tracker Pre */
+> > > -	.match_flags = USB_DEVICE_ID_MATCH_DEVICE,
+> > > -	.idVendor = 0x041e,
+> > > -	.idProduct = 0x3f0a,
+> > > -	.bInterfaceClass = USB_CLASS_AUDIO,
+> > > -},
+> > > -{
+> > > -	/* E-Mu 0204 USB */
+> > > -	.match_flags = USB_DEVICE_ID_MATCH_DEVICE,
+> > > -	.idVendor = 0x041e,
+> > > -	.idProduct = 0x3f19,
+> > > -	.bInterfaceClass = USB_CLASS_AUDIO,
+> > > -},
+> > > +/* E-Mu 0202 USB */
+> > > +{ USB_AUDIO_CLASS(0x041e, 0x3f02) },
+> > > +/* E-Mu 0404 USB */
+> > > +{ USB_AUDIO_CLASS(0x041e, 0x3f04) },
+> > > +/* E-Mu Tracker Pre */
+> > > +{ USB_AUDIO_CLASS(0x041e, 0x3f0a) },
+> > > +/* E-Mu 0204 USB */
+> > > +{ USB_AUDIO_CLASS(0x041e, 0x3f19) },
+> > >  
+> > >  /*
+> > >   * HP Wireless Audio
+> > > @@ -2751,10 +2739,7 @@ YAMAHA_DEVICE(0x7010, "UB99"),
+> > >  },
+> > >  
+> > >  /* KeithMcMillen Stringport */
+> > > -{
+> > > -	USB_DEVICE(0x1f38, 0x0001),
+> > > -	.bInterfaceClass = USB_CLASS_AUDIO,
+> > > -},
+> > > +{ USB_AUDIO_CLASS(0x1f38, 0x0001) },
+> > >  
+> > >  /* Miditech devices */
+> > >  {
+> > > @@ -2977,10 +2962,7 @@ AU0828_DEVICE(0x2040, 0x7270, "Hauppauge",
+> > > "HVR-950Q"),
+> > >  },
+> > >  {
+> > >  	/* Tascam US122 MKII - playback-only support */
+> > > -	.match_flags = USB_DEVICE_ID_MATCH_DEVICE,
+> > > -	.idVendor = 0x0644,
+> > > -	.idProduct = 0x8021,
+> > > -	.bInterfaceClass = USB_CLASS_AUDIO,
+> > > +	USB_AUDIO_CLASS(0x0644, 0x8021),
+> > >  	.driver_info = (unsigned long) &(const struct
+> > > snd_usb_audio_quirk) {
+> > >  		.vendor_name = "TASCAM",
+> > >  		.product_name = "US122 MKII",
+> > > @@ -3612,3 +3594,4 @@ AU0828_DEVICE(0x2040, 0x7270, "Hauppauge",
+> > > "HVR-950Q"),
+> > >  
+> > >  #undef USB_DEVICE_VENDOR_SPEC
+> > >  #undef USB_AUDIO_DEVICE
+> > > +#undef USB_AUDIO_CLASS
+> > 
+> > I don't know anything about KeithMcMillen Stringport, but all other
+> > devices (US122 MKII and E-mu) seems to have Vendor-specific Class.
+> 
+> OK, then it must be with USB_DEVICE_VENDOR_SPEC macro instead although
+> they had .bInterfaceClass = USB_CLASS_AUDIO line wrongly.
+> Could you submit the correction patch, or shall I fix in my side?
 
-Enable USB remote wakeup, i.e. needs_remote_wakeup = 1, doesn't help
-either.
+Never mind, I prepared a patch by myself.  Will submit now.
 
-So disable USB autosuspend to prevent missing jack detection event.
 
-Signed-off-by: Kai-Heng Feng <kai.heng.feng@canonical.com>
----
- sound/usb/quirks-table.h | 18 ++++++++++++++----
- sound/usb/quirks.c       | 10 ++++++++++
- sound/usb/usbaudio.h     |  1 +
- 3 files changed, 25 insertions(+), 4 deletions(-)
-
-diff --git a/sound/usb/quirks-table.h b/sound/usb/quirks-table.h
-index f4fb002e3ef4..416de71c6895 100644
---- a/sound/usb/quirks-table.h
-+++ b/sound/usb/quirks-table.h
-@@ -2827,14 +2827,24 @@ YAMAHA_DEVICE(0x7010, "UB99"),
- /* Lenovo ThinkStation P620 Rear Line-in, Line-out and Microphone */
- {
- 	USB_DEVICE(0x17aa, 0x1046),
--	QUIRK_DEVICE_PROFILE("Lenovo", "ThinkStation P620 Rear",
--			     "Lenovo-ThinkStation-P620-Rear"),
-+	.driver_info = (unsigned long) & (const struct snd_usb_audio_quirk) {
-+		.vendor_name = "Lenovo",
-+		.product_name = "ThinkStation P620 Rear",
-+		.profile_name = "Lenovo-ThinkStation-P620-Rear",
-+		.ifnum = QUIRK_ANY_INTERFACE,
-+		.type = QUIRK_SETUP_DISABLE_AUTOSUSPEND
-+	}
- },
- /* Lenovo ThinkStation P620 Internal Speaker + Front Headset */
- {
- 	USB_DEVICE(0x17aa, 0x104d),
--	QUIRK_DEVICE_PROFILE("Lenovo", "ThinkStation P620 Main",
--			     "Lenovo-ThinkStation-P620-Main"),
-+	.driver_info = (unsigned long) & (const struct snd_usb_audio_quirk) {
-+		.vendor_name = "Lenovo",
-+		.product_name = "ThinkStation P620 Main",
-+		.profile_name = "Lenovo-ThinkStation-P620-Main",
-+		.ifnum = QUIRK_ANY_INTERFACE,
-+		.type = QUIRK_SETUP_DISABLE_AUTOSUSPEND
-+	}
- },
- 
- /* Native Instruments MK2 series */
-diff --git a/sound/usb/quirks.c b/sound/usb/quirks.c
-index abf99b814a0f..b800fd92106c 100644
---- a/sound/usb/quirks.c
-+++ b/sound/usb/quirks.c
-@@ -518,6 +518,15 @@ static int setup_fmt_after_resume_quirk(struct snd_usb_audio *chip,
- 	return 1;	/* Continue with creating streams and mixer */
- }
- 
-+static int setup_disable_autosuspend(struct snd_usb_audio *chip,
-+				       struct usb_interface *iface,
-+				       struct usb_driver *driver,
-+				       const struct snd_usb_audio_quirk *quirk)
-+{
-+	driver->supports_autosuspend = 0;
-+	return 1;	/* Continue with creating streams and mixer */
-+}
-+
- /*
-  * audio-interface quirks
-  *
-@@ -557,6 +566,7 @@ int snd_usb_create_quirk(struct snd_usb_audio *chip,
- 		[QUIRK_AUDIO_ALIGN_TRANSFER] = create_align_transfer_quirk,
- 		[QUIRK_AUDIO_STANDARD_MIXER] = create_standard_mixer_quirk,
- 		[QUIRK_SETUP_FMT_AFTER_RESUME] = setup_fmt_after_resume_quirk,
-+		[QUIRK_SETUP_DISABLE_AUTOSUSPEND] = setup_disable_autosuspend,
- 	};
- 
- 	if (quirk->type < QUIRK_TYPE_COUNT) {
-diff --git a/sound/usb/usbaudio.h b/sound/usb/usbaudio.h
-index b91c4c0807ec..6839915a0128 100644
---- a/sound/usb/usbaudio.h
-+++ b/sound/usb/usbaudio.h
-@@ -102,6 +102,7 @@ enum quirk_type {
- 	QUIRK_AUDIO_ALIGN_TRANSFER,
- 	QUIRK_AUDIO_STANDARD_MIXER,
- 	QUIRK_SETUP_FMT_AFTER_RESUME,
-+	QUIRK_SETUP_DISABLE_AUTOSUSPEND,
- 
- 	QUIRK_TYPE_COUNT
- };
--- 
-2.17.1
-
+Takashi

@@ -2,90 +2,96 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 52CF924EB0F
-	for <lists+alsa-devel@lfdr.de>; Sun, 23 Aug 2020 05:50:28 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 957AC24EC08
+	for <lists+alsa-devel@lfdr.de>; Sun, 23 Aug 2020 09:57:37 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E69C2167D;
-	Sun, 23 Aug 2020 05:49:37 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E69C2167D
+	by alsa0.perex.cz (Postfix) with ESMTPS id 06BC3167E;
+	Sun, 23 Aug 2020 09:56:47 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 06BC3167E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1598154628;
-	bh=DDLMIpARLo60QyGkeB/hSld17jPkDxqbSncFsDkEUXo=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=FRAuTTgeP2Tw/a5te0x6rMq8+JwcaDa/B9EpBJsEo6xxmv8i6o0zrCPGIIymVcmlX
-	 IjMxgx0rci9ySSrKuXFXvioDFvJsZs8L8yoFW+a1hK8X42EwI4xxV+VRRr+G7/FqM6
-	 bGj5S/kQTkcFRtFJr8e0fwlpz47oeKUtTQI8p7XI=
+	s=default; t=1598169457;
+	bh=DYp5v9nrohWmjfwYzQCAEU7t8LNfeBwRO8Wh+RHizLc=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=RxCKbmJYafzKnyNrQ5/mUbKIgq6mknzzP/+l53o9+rHycaqb/B2CRuY+osTwLnWPL
+	 4QZk0Y+uqydkpFaeHeJhLOraLoDdGhvaPQKSu/BsAeTq7EZNYWPwKcrEVZx9C0/XjP
+	 MtYzHLRPOxHTK9n0W1aX6+j0sdzv9F9KhzOiJdpA=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id BDF62F80260;
-	Sun, 23 Aug 2020 05:48:46 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 315DFF800C0;
+	Sun, 23 Aug 2020 09:55:56 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 52E71F8025A; Sun, 23 Aug 2020 05:48:43 +0200 (CEST)
+ id 5DF4BF80260; Sun, 23 Aug 2020 09:55:53 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from mail-qt1-x843.google.com (mail-qt1-x843.google.com
- [IPv6:2607:f8b0:4864:20::843])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ DKIM_VALID_AU,RCVD_IN_MSPIKE_H3,RCVD_IN_MSPIKE_WL,SPF_HELO_PASS,SPF_PASS,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from wout4-smtp.messagingengine.com (wout4-smtp.messagingengine.com
+ [64.147.123.20])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 41894F800EB
- for <alsa-devel@alsa-project.org>; Sun, 23 Aug 2020 05:48:34 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 41894F800EB
+ by alsa1.perex.cz (Postfix) with ESMTPS id F154CF800C0
+ for <alsa-devel@alsa-project.org>; Sun, 23 Aug 2020 09:55:44 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz F154CF800C0
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="kLWyeib8"
-Received: by mail-qt1-x843.google.com with SMTP id e5so4037676qth.5
- for <alsa-devel@alsa-project.org>; Sat, 22 Aug 2020 20:48:34 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=date:from:to:cc:subject:message-id:references:mime-version
- :content-disposition:in-reply-to;
- bh=ifz33jCf1uh5PVEoowr/JfI2gQmxuqYW31QuiG6PsJM=;
- b=kLWyeib8YAnIuLkwCUzHRV6VucC/iWuf8LL6FH4cHkp8ckkYJhdqkT29zdB4eTYtmW
- 5agyzLko8o7IiTjrsUGo2dmiDwIRmlLvLPhKsyPk6TSy1AKq2IoZsVAJIOVIehaYUyY2
- ado4LS/XOQxsmb67rAuflYr73m+RK2ADoGkAs7Q3ObLgvtJVgWbTRDLZDwqNjcH9HfyQ
- lQtLk7ODr6EF+e5yu53lkgHS+o088PL/HYTHfJNbcjfJEua6ffwrY186xvBC9WYzOwmc
- JUGsOQZilbfmRSI3CUp9d8KAHRBwt47BS/uviMKAVg9UkQyF9Zd81xMAZOCnQlfOYjuC
- s7DA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to;
- bh=ifz33jCf1uh5PVEoowr/JfI2gQmxuqYW31QuiG6PsJM=;
- b=Zgliuz2asGQwDcfneNYlN57N0qntcQnWfofm9OjYbne1MOJ74TVBic/vBVhOgoIY05
- e9fQhW/h8HGr8Muf/nnepjKSaAA5jaFAwWfbCmaSjVphez1Nb2bsQF+fu1z5epszPcOW
- +3H4gGRRS445FGxI0xGeGiR6UTKrwGfPTK+HLCOJtEI30k/5uniNZoB9fTRFSkxKcVMD
- 58/uAOE9IvsGAh2qlSOYaUaUV9htJGSnplS8i0e7vz6ff1AZUle2s4WLN+z8p3CwR1QF
- RekLtzkXnr0BHU8Ey+Qz21uKJeg6Rj/W5+g3ov6PjIYkVGHiqZuFmZZn9qc/o9xgQYBh
- KT5w==
-X-Gm-Message-State: AOAM531osg/orXQ03QPxzeyw4sssj3YqsvfpSRhFgb2s4GH6e8VhNbYs
- SQh/6/ioMWijb/8rhuK8T5s=
-X-Google-Smtp-Source: ABdhPJxcW/gJgraQEn5SqHN7VH2RkIDqY0mJF+1R3gpCtOCAZSQDLqD9CFQca+eouDl3K8bbz/be2g==
-X-Received: by 2002:ac8:73d9:: with SMTP id v25mr222890qtp.82.1598154512740;
- Sat, 22 Aug 2020 20:48:32 -0700 (PDT)
-Received: from ubuntu-n2-xlarge-x86 ([2604:1380:45d1:2600::1])
- by smtp.gmail.com with ESMTPSA id c70sm5788098qke.109.2020.08.22.20.48.31
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 22 Aug 2020 20:48:31 -0700 (PDT)
-Date: Sat, 22 Aug 2020 20:48:29 -0700
-From: Nathan Chancellor <natechancellor@gmail.com>
-To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Subject: Re: [PATCH 1/5] ASOC: SOF: Intel: hda-codec: move unused label to
- correct position
-Message-ID: <20200823034829.GA2636427@ubuntu-n2-xlarge-x86>
-References: <20200813175839.59422-1-pierre-louis.bossart@linux.intel.com>
- <20200813175839.59422-2-pierre-louis.bossart@linux.intel.com>
+ dkim=pass (2048-bit key) header.d=sakamocchi.jp header.i=@sakamocchi.jp
+ header.b="SZi+TmXq"; 
+ dkim=pass (2048-bit key) header.d=messagingengine.com
+ header.i=@messagingengine.com header.b="Hutrz1rk"
+Received: from compute2.internal (compute2.nyi.internal [10.202.2.42])
+ by mailout.west.internal (Postfix) with ESMTP id 31C189D2;
+ Sun, 23 Aug 2020 03:55:42 -0400 (EDT)
+Received: from mailfrontend2 ([10.202.2.163])
+ by compute2.internal (MEProxy); Sun, 23 Aug 2020 03:55:42 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sakamocchi.jp;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding; s=fm2; bh=IrCmyO1hiKxuQwf57QOo9Vtkr+
+ OdE2H1gJdT+fs0D3Q=; b=SZi+TmXqBxOFRSCCXqRQBaQwv8aBg6Il4ZIofNBb+Z
+ CErQDF5DtvFL+veg8Y/ZlL0flhY+w3uk4EsYD/iL/PUfBqR4zw93UCy8g43MfInC
+ 2vSP1log1c7UA86N+bz7b2FLRnoy5yP12KkwXbLG+54Vcd/dkaBDqYwbPo/8NDpg
+ uvjCyfGr7S7Ibr7wbQbixG+sBBmkL/XoleuGE3kKLWitXkIJIuTbOeiyxSmzymo0
+ jOKb2NVVEWFXcVrdAjk04U+dDjxPSNzEhFnbZVqEjiSbbEIHXLxKODFsL7+IfXJG
+ eZ8E0U0NJr6L8vsfFSYcjvJTMsOOch7I35g68u2N1Dog==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:content-transfer-encoding:date:from
+ :message-id:mime-version:subject:to:x-me-proxy:x-me-proxy
+ :x-me-sender:x-me-sender:x-sasl-enc; s=fm3; bh=IrCmyO1hiKxuQwf57
+ QOo9Vtkr+OdE2H1gJdT+fs0D3Q=; b=Hutrz1rkwwyr92LT4otnbPa+58tjvFoFl
+ IN2JEfinigdF72tWNcmBajZlpSv2uouDwL94TOKlI4NMHeRbcGXteeSMJ96Hc7Ul
+ 0VlcJ+3zgheWoyjMboIRQOdYVosqsuaS9GKJx0HfH0W7/OD4acYjzuzsqDLkqhQU
+ 3eFWZDnNYzmiFMrDJUodM2dOAhXxHQDxEiv0RxWQFIvVRYaZ7KZ3FYDWH199o8Le
+ 13Xr3Zt7kN9mATvkWLuzkUTMS04aIP2mTius0l6FKkC2QlEkYwxAktcYoiDjyQS5
+ UhEOtr8RhGTrpOXsAvkA96+7n0ATgR8TWSpr1GiMKSFUf3efM+JGw==
+X-ME-Sender: <xms:_CBCXxRQ33Xh_NDDy3jSxy191B6T_OZZL5J-kroeTwYPg1nFAra8SA>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeduiedrudduhedguddvvdcutefuodetggdotefrod
+ ftvfcurfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfgh
+ necuuegrihhlohhuthemuceftddtnecunecujfgurhephffvufffkffoggfgsedtkeertd
+ ertddtnecuhfhrohhmpefvrghkrghshhhiucfurghkrghmohhtohcuoehoqdhtrghkrghs
+ hhhisehsrghkrghmohgttghhihdrjhhpqeenucggtffrrghtthgvrhhnpedujeetlefhtd
+ dtkefgtdeuieelhffgteejjeehkeegveduvdevgeeiheeuueekjeenucfkphepudektddr
+ vdefhedrfedrheegnecuvehluhhsthgvrhfuihiivgeptdenucfrrghrrghmpehmrghilh
+ hfrhhomhepohdqthgrkhgrshhhihesshgrkhgrmhhotggthhhirdhjph
+X-ME-Proxy: <xmx:_CBCX6wsbURYJ6DPbb3RJo1YxuCAQQs6GdGLrV_lp66dCR2ZE9JyDg>
+ <xmx:_CBCX23ljoavcrHw3iZkmpts2GXLPhSWpR3X9Bdy9HU7oFZ44W6EqQ>
+ <xmx:_CBCX5AJV_gakP_psrEqecn7KnCL8u0I4yVa7u1ikSAi5whjpOBQWw>
+ <xmx:_SBCXyJj-Bz1xJ61wpTf9nej-aV5PSALdvNT-xL3oIwf8YokSePrYA>
+Received: from workstation.flets-east.jp (ad003054.dynamic.ppp.asahi-net.or.jp
+ [180.235.3.54])
+ by mail.messagingengine.com (Postfix) with ESMTPA id DE58A30600A3;
+ Sun, 23 Aug 2020 03:55:39 -0400 (EDT)
+From: Takashi Sakamoto <o-takashi@sakamocchi.jp>
+To: tiwai@suse.de
+Subject: [PATCH 1/2] ALSA; firewire-tascam: exclude Tascam FE-8 from detection
+Date: Sun, 23 Aug 2020 16:55:37 +0900
+Message-Id: <20200823075537.56255-1-o-takashi@sakamocchi.jp>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20200813175839.59422-2-pierre-louis.bossart@linux.intel.com>
-Cc: tiwai@suse.de, alsa-devel@alsa-project.org, broonie@kernel.org
+Content-Transfer-Encoding: 8bit
+Cc: alsa-devel@alsa-project.org, clemens@ladisch.de, stable@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -101,54 +107,80 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Thu, Aug 13, 2020 at 12:58:35PM -0500, Pierre-Louis Bossart wrote:
-> Cppcheck reports the following warning:
-> 
-> sound/soc/sof/intel/hda-codec.c:191:1: style: Label 'error' is not
-> used. [unusedLabel]
-> 
-> This label is indeed only used conditionally, move it where it's
-> actually used.
-> 
-> Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-> ---
->  sound/soc/sof/intel/hda-codec.c | 5 +++++
->  1 file changed, 5 insertions(+)
-> 
-> diff --git a/sound/soc/sof/intel/hda-codec.c b/sound/soc/sof/intel/hda-codec.c
-> index 2c5c451fa19d..119aa9ffcc66 100644
-> --- a/sound/soc/sof/intel/hda-codec.c
-> +++ b/sound/soc/sof/intel/hda-codec.c
-> @@ -178,6 +178,11 @@ static int hda_codec_probe(struct snd_sof_dev *sdev, int address,
->  	}
->  
->  	return ret;
-> +
-> +error:
-> +	snd_hdac_ext_bus_device_exit(hdev);
-> +	return -ENOENT;
-> +
->  #else
->  	hdev = devm_kzalloc(sdev->dev, sizeof(*hdev), GFP_KERNEL);
->  	if (!hdev)
-> -- 
-> 2.25.1
-> 
+Tascam FE-8 is known to support communication by asynchronous transaction
+only. The support can be implemented in userspace application and
+snd-firewire-ctl-services project has the support. However, ALSA
+firewire-tascam driver is bound to the model.
 
-I don't get this patch because there is no moving of a label, it just
-introduces it, where it is actually completely unused in the function as
-far as I can tell in both v5.9-rc1 and next-20200821. When building with
-clang in certain configurations, this introduces the same type of
-warning:
+This commit changes device entries so that the model is excluded. In a
+commit 53b3ffee7885 ("ALSA: firewire-tascam: change device probing
+processing"), I addressed to the concern that version field in
+configuration differs depending on installed firmware. However, as long
+as I checked, the version number is fixed. It's safe to return version
+number back to modalias.
 
-sound/soc/sof/intel/hda-codec.c:182:1: warning: unused label 'error'
-[-Wunused-label]
-error:
-^~~~~~
-1 warning generated.
+Fixes: 53b3ffee7885 ("ALSA: firewire-tascam: change device probing processing")
+Cc: <stable@vger.kernel.org> # 4.4+
+Signed-off-by: Takashi Sakamoto <o-takashi@sakamocchi.jp>
+---
+ sound/firewire/tascam/tascam.c | 33 +++++++++++++++++++++++++++++----
+ 1 file changed, 29 insertions(+), 4 deletions(-)
 
-It seems like this should be reverted as it does not actually do
-anything.
+diff --git a/sound/firewire/tascam/tascam.c b/sound/firewire/tascam/tascam.c
+index 5dac0d9fc58e..75f2edd8e78f 100644
+--- a/sound/firewire/tascam/tascam.c
++++ b/sound/firewire/tascam/tascam.c
+@@ -39,9 +39,6 @@ static const struct snd_tscm_spec model_specs[] = {
+ 		.midi_capture_ports = 2,
+ 		.midi_playback_ports = 4,
+ 	},
+-	// This kernel module doesn't support FE-8 because the most of features
+-	// can be implemented in userspace without any specific support of this
+-	// module.
+ };
+ 
+ static int identify_model(struct snd_tscm *tscm)
+@@ -211,11 +208,39 @@ static void snd_tscm_remove(struct fw_unit *unit)
+ }
+ 
+ static const struct ieee1394_device_id snd_tscm_id_table[] = {
++	// Tascam, FW-1884.
++	{
++		.match_flags = IEEE1394_MATCH_VENDOR_ID |
++			       IEEE1394_MATCH_SPECIFIER_ID |
++			       IEEE1394_MATCH_VERSION,
++		.vendor_id = 0x00022e,
++		.specifier_id = 0x00022e,
++		.version = 0x800000,
++	},
++	// Tascam, FE-8 (.version = 0x800001)
++	// This kernel module doesn't support FE-8 because the most of features
++	// can be implemented in userspace without any specific support of this
++	// module.
++	//
++	// .version = 0x800002 is unknown.
++	//
++	// Tascam, FW-1082.
++	{
++		.match_flags = IEEE1394_MATCH_VENDOR_ID |
++			       IEEE1394_MATCH_SPECIFIER_ID |
++			       IEEE1394_MATCH_VERSION,
++		.vendor_id = 0x00022e,
++		.specifier_id = 0x00022e,
++		.version = 0x800003,
++	},
++	// Tascam, FW-1804.
+ 	{
+ 		.match_flags = IEEE1394_MATCH_VENDOR_ID |
+-			       IEEE1394_MATCH_SPECIFIER_ID,
++			       IEEE1394_MATCH_SPECIFIER_ID |
++			       IEEE1394_MATCH_VERSION,
+ 		.vendor_id = 0x00022e,
+ 		.specifier_id = 0x00022e,
++		.version = 0x800004,
+ 	},
+ 	{}
+ };
+-- 
+2.25.1
 
-Cheers,
-Nathan

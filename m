@@ -2,61 +2,73 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 26A0E24ED6B
-	for <lists+alsa-devel@lfdr.de>; Sun, 23 Aug 2020 16:02:54 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7E06724EFBC
+	for <lists+alsa-devel@lfdr.de>; Sun, 23 Aug 2020 22:54:37 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id ABC6A1684;
-	Sun, 23 Aug 2020 16:02:03 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz ABC6A1684
+	by alsa0.perex.cz (Postfix) with ESMTPS id 041CD1671;
+	Sun, 23 Aug 2020 22:53:47 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 041CD1671
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1598191373;
-	bh=JPApKvGP38xr+NIOHsp9s2+03RdsCeQN1jNfDLjk1TE=;
-	h=From:To:Subject:Date:In-Reply-To:References:List-Id:
+	s=default; t=1598216077;
+	bh=HJaFo9xSZHkchC/pz6cp0+f8wbbLLnXeJVcQZE+oMWI=;
+	h=Subject:From:To:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=T4egNwjf741jwIuGKthvo+M1D6MOaj2W30OQWbbFdBeO1jpsv1Gl+ug8rnE91xwIU
-	 aGAfa8suCPDGnzKaHvW/s7vERIvooDv5wFKsi4J0Ubuzp9Q/ipcxQZSGw40wsOPbvm
-	 k34GwGh7GHrsan8xSVuPPQXTg7tiFxR9iq41naCc=
+	b=Lx3aKciSIjArEnxOiB0dRS2O1xZQRlaNZEcoLmlWMAbYSTGjyyiPrFjAsBP/O7GE7
+	 +mLohUH8rd2yiyXOlX4vtL1sqKE5fS7vOnXR5OwFMZuOTWTEI7K1UAtEu/42Xv+tO8
+	 s1VNqyZgMS6KZG+frlD7mn5coDHjqD/qrAnOk22Y=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 293EEF800EB;
-	Sun, 23 Aug 2020 16:00:30 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 41FB3F800C0;
+	Sun, 23 Aug 2020 22:52:56 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 5829BF8025A; Sun, 23 Aug 2020 16:00:25 +0200 (CEST)
+ id 0EF8CF800C0; Sun, 23 Aug 2020 22:52:53 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
+X-Spam-Status: No, score=0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,SPF_HELO_PASS,SPF_PASS,
  URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from inva020.nxp.com (inva020.nxp.com [92.121.34.13])
+Received: from puleglot.ru (puleglot.ru [IPv6:2a01:4f8:1c0c:58e8::2])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 911FDF800C0
- for <alsa-devel@alsa-project.org>; Sun, 23 Aug 2020 16:00:14 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 911FDF800C0
-Received: from inva020.nxp.com (localhost [127.0.0.1])
- by inva020.eu-rdc02.nxp.com (Postfix) with ESMTP id 734AF1A0924;
- Sun, 23 Aug 2020 16:00:14 +0200 (CEST)
-Received: from invc005.ap-rdc01.nxp.com (invc005.ap-rdc01.nxp.com
- [165.114.16.14])
- by inva020.eu-rdc02.nxp.com (Postfix) with ESMTP id 14F221A0804;
- Sun, 23 Aug 2020 16:00:11 +0200 (CEST)
-Received: from 10.192.242.69 (shlinux2.ap.freescale.net [10.192.224.44])
- by invc005.ap-rdc01.nxp.com (Postfix) with ESMTP id E3011402E2;
- Sun, 23 Aug 2020 16:00:06 +0200 (CEST)
-From: Shengjiu Wang <shengjiu.wang@nxp.com>
-To: lgirdwood@gmail.com, broonie@kernel.org, perex@perex.cz, tiwai@suse.com,
- alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
- robh+dt@kernel.org, devicetree@vger.kernel.org
-Subject: [PATCH 2/2] ASoC: ak5558: Add regulator support
-Date: Sun, 23 Aug 2020 21:54:37 +0800
-Message-Id: <1598190877-9213-2-git-send-email-shengjiu.wang@nxp.com>
-X-Mailer: git-send-email 2.7.4
-In-Reply-To: <1598190877-9213-1-git-send-email-shengjiu.wang@nxp.com>
-References: <1598190877-9213-1-git-send-email-shengjiu.wang@nxp.com>
-X-Virus-Scanned: ClamAV using ClamSMTP
+ by alsa1.perex.cz (Postfix) with ESMTPS id E1437F800C0
+ for <alsa-devel@alsa-project.org>; Sun, 23 Aug 2020 22:52:46 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E1437F800C0
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=tsoy.me header.i=@tsoy.me
+ header.b="MV6hDEm2"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=tsoy.me;
+ s=mymail; h=Sender:Content-Transfer-Encoding:MIME-Version:Content-Type:
+ References:In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Reply-To:Content-ID
+ :Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:
+ Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe
+ :List-Post:List-Owner:List-Archive;
+ bh=TWjIEi69rR8Owz9VkmRHNMvySUNxNt8QuCrPKbG8xV4=; b=MV6hDEm2RSEBmUsGionDr1piq5
+ 2skbzV0+nT62HFs4j4W1+X3sk2y/mEbtPBglqM4+ndrN5DorYaOvXIngziuME7JwQS+UgIZrvkWBL
+ GA/fydxIh9G5MUzYBYMiExgTgEt004oRkhE1BTTJ7Iydi3nxydQf5tJx+znMW46LjJFI=;
+Received: from [2a00:1370:8125:4e4::b41] (helo=home)
+ by puleglot.ru with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
+ (Exim 4.93.0.4) (envelope-from <puleglot@puleglot.ru>)
+ id 1k9wyq-000LMN-W4; Sun, 23 Aug 2020 23:52:45 +0300
+Message-ID: <713cb4b6b3999fb00781e73bbbe844abe9e0ac83.camel@tsoy.me>
+Subject: Re: [PATCH 3/3] ALSA: usb-audio: Properly match with audio
+ interface class
+From: Alexander Tsoy <alexander@tsoy.me>
+To: Takashi Iwai <tiwai@suse.de>
+Date: Sun, 23 Aug 2020 23:52:43 +0300
+In-Reply-To: <s5hft8da9eh.wl-tiwai@suse.de>
+References: <20200817082140.20232-1-tiwai@suse.de>
+ <20200817082140.20232-4-tiwai@suse.de>
+ <213664da6ebb6bf7f1382a93676f087236da412a.camel@tsoy.me>
+ <s5h8se6br92.wl-tiwai@suse.de> <s5hft8da9eh.wl-tiwai@suse.de>
+Content-Type: text/plain; charset="UTF-8"
+User-Agent: Evolution 3.36.4 
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Cc: alsa-devel@alsa-project.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -72,103 +84,157 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-"AVDD" is for analog power supply,  "DVDD" is for digital power
-supply, they can improve the power management.
+В Вс, 23/08/2020 в 13:28 +0200, Takashi Iwai пишет:
+> On Sat, 22 Aug 2020 18:05:29 +0200,
+> Takashi Iwai wrote:
+> > On Sat, 22 Aug 2020 17:27:35 +0200,
+> > Alexander Tsoy wrote:
+> > > В Пн, 17/08/2020 в 10:21 +0200, Takashi Iwai пишет:
+> > > > There are a few entries in the quirk table that set the device
+> > > > ID
+> > > > with
+> > > > USB_DEVICE() macro while having an extra bInterfaceClass
+> > > > field.  But
+> > > > bInterfaceClass field is never checked unless the proper
+> > > > match_flags
+> > > > is set, so those may match incorrectly with all interfaces.
+> > > > 
+> > > > Introduce another macro to match with the vid/pid pair and the
+> > > > audio
+> > > > class interface, and apply it to such entries, so that they can
+> > > > match
+> > > > properly.
+> > > > 
+> > > > Signed-off-by: Takashi Iwai <tiwai@suse.de>
+> > > > ---
+> > > >  sound/usb/quirks-table.h | 55 +++++++++++++++++---------------
+> > > > ------
+> > > > ----------
+> > > >  1 file changed, 19 insertions(+), 36 deletions(-)
+> > > > 
+> > > > diff --git a/sound/usb/quirks-table.h b/sound/usb/quirks-
+> > > > table.h
+> > > > index 988bb9d00192..7a80ef31bbe4 100644
+> > > > --- a/sound/usb/quirks-table.h
+> > > > +++ b/sound/usb/quirks-table.h
+> > > > @@ -35,6 +35,14 @@
+> > > >  	.bInterfaceClass = USB_CLASS_AUDIO, \
+> > > >  	.bInterfaceSubClass = USB_SUBCLASS_AUDIOCONTROL
+> > > >  
+> > > > +/* Another standard entry matching with vid/pid and the audio
+> > > > class
+> > > > */
+> > > > +#define USB_AUDIO_CLASS(vend, prod) \
+> > > > +	.match_flags = USB_DEVICE_ID_MATCH_DEVICE | \
+> > > > +		       USB_DEVICE_ID_MATCH_INT_CLASS, \
+> > > > +	.idVendor = vend, \
+> > > > +	.idProduct = prod, \
+> > > > +	.bInterfaceClass = USB_CLASS_AUDIO
+> > > > +
+> > > >  /* FTDI devices */
+> > > >  {
+> > > >  	USB_DEVICE(0x0403, 0xb8d8),
+> > > > @@ -68,34 +76,14 @@
+> > > >  	}
+> > > >  },
+> > > >  
+> > > > -{
+> > > > -	/* E-Mu 0202 USB */
+> > > > -	.match_flags = USB_DEVICE_ID_MATCH_DEVICE,
+> > > > -	.idVendor = 0x041e,
+> > > > -	.idProduct = 0x3f02,
+> > > > -	.bInterfaceClass = USB_CLASS_AUDIO,
+> > > > -},
+> > > > -{
+> > > > -	/* E-Mu 0404 USB */
+> > > > -	.match_flags = USB_DEVICE_ID_MATCH_DEVICE,
+> > > > -	.idVendor = 0x041e,
+> > > > -	.idProduct = 0x3f04,
+> > > > -	.bInterfaceClass = USB_CLASS_AUDIO,
+> > > > -},
+> > > > -{
+> > > > -	/* E-Mu Tracker Pre */
+> > > > -	.match_flags = USB_DEVICE_ID_MATCH_DEVICE,
+> > > > -	.idVendor = 0x041e,
+> > > > -	.idProduct = 0x3f0a,
+> > > > -	.bInterfaceClass = USB_CLASS_AUDIO,
+> > > > -},
+> > > > -{
+> > > > -	/* E-Mu 0204 USB */
+> > > > -	.match_flags = USB_DEVICE_ID_MATCH_DEVICE,
+> > > > -	.idVendor = 0x041e,
+> > > > -	.idProduct = 0x3f19,
+> > > > -	.bInterfaceClass = USB_CLASS_AUDIO,
+> > > > -},
+> > > > +/* E-Mu 0202 USB */
+> > > > +{ USB_AUDIO_CLASS(0x041e, 0x3f02) },
+> > > > +/* E-Mu 0404 USB */
+> > > > +{ USB_AUDIO_CLASS(0x041e, 0x3f04) },
+> > > > +/* E-Mu Tracker Pre */
+> > > > +{ USB_AUDIO_CLASS(0x041e, 0x3f0a) },
+> > > > +/* E-Mu 0204 USB */
+> > > > +{ USB_AUDIO_CLASS(0x041e, 0x3f19) },
+> > > >  
+> > > >  /*
+> > > >   * HP Wireless Audio
+> > > > @@ -2751,10 +2739,7 @@ YAMAHA_DEVICE(0x7010, "UB99"),
+> > > >  },
+> > > >  
+> > > >  /* KeithMcMillen Stringport */
+> > > > -{
+> > > > -	USB_DEVICE(0x1f38, 0x0001),
+> > > > -	.bInterfaceClass = USB_CLASS_AUDIO,
+> > > > -},
+> > > > +{ USB_AUDIO_CLASS(0x1f38, 0x0001) },
+> > > >  
+> > > >  /* Miditech devices */
+> > > >  {
+> > > > @@ -2977,10 +2962,7 @@ AU0828_DEVICE(0x2040, 0x7270,
+> > > > "Hauppauge",
+> > > > "HVR-950Q"),
+> > > >  },
+> > > >  {
+> > > >  	/* Tascam US122 MKII - playback-only support */
+> > > > -	.match_flags = USB_DEVICE_ID_MATCH_DEVICE,
+> > > > -	.idVendor = 0x0644,
+> > > > -	.idProduct = 0x8021,
+> > > > -	.bInterfaceClass = USB_CLASS_AUDIO,
+> > > > +	USB_AUDIO_CLASS(0x0644, 0x8021),
+> > > >  	.driver_info = (unsigned long) &(const struct
+> > > > snd_usb_audio_quirk) {
+> > > >  		.vendor_name = "TASCAM",
+> > > >  		.product_name = "US122 MKII",
+> > > > @@ -3612,3 +3594,4 @@ AU0828_DEVICE(0x2040, 0x7270,
+> > > > "Hauppauge",
+> > > > "HVR-950Q"),
+> > > >  
+> > > >  #undef USB_DEVICE_VENDOR_SPEC
+> > > >  #undef USB_AUDIO_DEVICE
+> > > > +#undef USB_AUDIO_CLASS
+> > > 
+> > > I don't know anything about KeithMcMillen Stringport, but all
+> > > other
+> > > devices (US122 MKII and E-mu) seems to have Vendor-specific
+> > > Class.
+> > 
+> > OK, then it must be with USB_DEVICE_VENDOR_SPEC macro instead
+> > although
+> > they had .bInterfaceClass = USB_CLASS_AUDIO line wrongly.
+> > Could you submit the correction patch, or shall I fix in my side?
+> 
+> Never mind, I prepared a patch by myself.  Will submit now.
 
-As the regulator is enabled in pm runtime resume, which is
-behind the component driver probe, so accessing registers in
-component driver probe will fail. Fix this issue by enabling
-regcache_cache_only after pm_runtime_enable.
+Thank you! Yes, I think entries in quirks-table were incorrect. Here
+are some proofs:
 
-Signed-off-by: Shengjiu Wang <shengjiu.wang@nxp.com>
----
- sound/soc/codecs/ak5558.c | 30 ++++++++++++++++++++++++++++++
- 1 file changed, 30 insertions(+)
-
-diff --git a/sound/soc/codecs/ak5558.c b/sound/soc/codecs/ak5558.c
-index 8179512129d3..2f076d5ee284 100644
---- a/sound/soc/codecs/ak5558.c
-+++ b/sound/soc/codecs/ak5558.c
-@@ -11,6 +11,7 @@
- #include <linux/module.h>
- #include <linux/pm_runtime.h>
- #include <linux/regmap.h>
-+#include <linux/regulator/consumer.h>
- #include <linux/slab.h>
- 
- #include <sound/initval.h>
-@@ -22,8 +23,15 @@
- 
- #include "ak5558.h"
- 
-+#define AK5558_NUM_SUPPLIES 2
-+static const char *ak5558_supply_names[AK5558_NUM_SUPPLIES] = {
-+	"DVDD",
-+	"AVDD",
-+};
-+
- /* AK5558 Codec Private Data */
- struct ak5558_priv {
-+	struct regulator_bulk_data supplies[AK5558_NUM_SUPPLIES];
- 	struct snd_soc_component component;
- 	struct regmap *regmap;
- 	struct i2c_client *i2c;
-@@ -299,12 +307,22 @@ static int __maybe_unused ak5558_runtime_suspend(struct device *dev)
- 	regcache_cache_only(ak5558->regmap, true);
- 	ak5558_power_off(ak5558);
- 
-+	regulator_bulk_disable(ARRAY_SIZE(ak5558->supplies),
-+			       ak5558->supplies);
- 	return 0;
- }
- 
- static int __maybe_unused ak5558_runtime_resume(struct device *dev)
- {
- 	struct ak5558_priv *ak5558 = dev_get_drvdata(dev);
-+	int ret;
-+
-+	ret = regulator_bulk_enable(ARRAY_SIZE(ak5558->supplies),
-+				    ak5558->supplies);
-+	if (ret != 0) {
-+		dev_err(dev, "Failed to enable supplies: %d\n", ret);
-+		return ret;
-+	}
- 
- 	ak5558_power_off(ak5558);
- 	ak5558_power_on(ak5558);
-@@ -350,6 +368,7 @@ static int ak5558_i2c_probe(struct i2c_client *i2c)
- {
- 	struct ak5558_priv *ak5558;
- 	int ret = 0;
-+	int i;
- 
- 	ak5558 = devm_kzalloc(&i2c->dev, sizeof(*ak5558), GFP_KERNEL);
- 	if (!ak5558)
-@@ -367,6 +386,16 @@ static int ak5558_i2c_probe(struct i2c_client *i2c)
- 	if (IS_ERR(ak5558->reset_gpiod))
- 		return PTR_ERR(ak5558->reset_gpiod);
- 
-+	for (i = 0; i < ARRAY_SIZE(ak5558->supplies); i++)
-+		ak5558->supplies[i].supply = ak5558_supply_names[i];
-+
-+	ret = devm_regulator_bulk_get(&i2c->dev, ARRAY_SIZE(ak5558->supplies),
-+				      ak5558->supplies);
-+	if (ret != 0) {
-+		dev_err(&i2c->dev, "Failed to request supplies: %d\n", ret);
-+		return ret;
-+	}
-+
- 	ret = devm_snd_soc_register_component(&i2c->dev,
- 				     &soc_codec_dev_ak5558,
- 				     &ak5558_dai, 1);
-@@ -374,6 +403,7 @@ static int ak5558_i2c_probe(struct i2c_client *i2c)
- 		return ret;
- 
- 	pm_runtime_enable(&i2c->dev);
-+	regcache_cache_only(ak5558->regmap, true);
- 
- 	return 0;
- }
--- 
-2.27.0
+- E-Mu 0202 USB:
+https://github.com/linuxhw/LsUSB/blob/master/Desktop/ASUSTek%20Computer/All/All%20Series/EB6955AE5064/ROSA-2016.1/4.9.20-NRJ-DESKTOP-1ROSA-X86_64/X86_64/7339AF533B#L1073
+- E-Mu 0404 USB:
+https://github.com/linuxhw/LsUSB/blob/master/Desktop/ASUSTek%20Computer/M5A97/M5A97%20R2.0/4BA2C16B387E/ROSA-2014.1/4.1.15-NRJ-DESKTOP-1ROSA-X86_64/X86_64/E08FEFA436#L997
+- E-Mu 0204 USB:
+https://github.com/linuxhw/LsUSB/blob/master/Desktop/ASUSTek%20Computer/P5/P5LD2-SE/D614D36EB275/ROSA-2014.1/4.1.15-NRJ-DESKTOP-1ROSA-X86_64/X86_64/09F4577139#L782
+- E-MU Tracker Pre:
+https://github.com/linuxhw/LsUSB/blob/master/Desktop/ASRock/H61/H61M-HVGS/AD71CCCE2E3F/ROSA-2014.1/3.14.44-NRJ-DESKTOP-2ROSA-X86_64/X86_64/6996B0918E#L2
+- TASCAM US-122mkII
+https://github.com/linuxhw/LsUSB/blob/master/Desktop/Intel/WX58BP/WX58BP%20AAE64643-203/2B1109DE1986/ROSA-2014.1/4.1.22-NRJ-DESKTOP-2ROSA-X86_64/X86_64/0E7E6022A3#L421
 

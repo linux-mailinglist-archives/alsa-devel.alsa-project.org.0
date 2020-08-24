@@ -2,74 +2,67 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id BE05D24FDA2
-	for <lists+alsa-devel@lfdr.de>; Mon, 24 Aug 2020 14:19:36 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E318B24FF00
+	for <lists+alsa-devel@lfdr.de>; Mon, 24 Aug 2020 15:34:49 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 524C51661;
-	Mon, 24 Aug 2020 14:18:46 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 524C51661
+	by alsa0.perex.cz (Postfix) with ESMTPS id 892481676;
+	Mon, 24 Aug 2020 15:33:59 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 892481676
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1598271576;
-	bh=e7ruQRGxzVVwS2LmETUHdVA8NodPWtkBcfJ5BrGVaJc=;
-	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1598276089;
+	bh=rzlPdiXrRzYi1XgOVr+vkYavLps2Su7hULtV6kn91GA=;
+	h=Date:From:To:In-Reply-To:References:Subject:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=P58TSBzRAOlXggDz8TD5CZkFqNpQ3wO484cbZHJeksv5UMLnMZwMHz74AMR8SnUx/
-	 G+Bosk9wdODr5Rjd9xaEF/VeR0nCQAdwUsVFRUJU3SGtkiM/4ArjnKj8lORcaNNBX0
-	 xbd75E848ko3/2W8QsMb1PD+ZTyVzNfz+ga2ZNUE=
+	b=ZO8Pkxwm2QNq+H9ROtxAT+a97lrt9tot96M88PiSD1g/U7AqisVCGUG/Po1WS+2ll
+	 qrMvLnEiD5e1uAHykKx6yl162gBm16I2np7NsB6XhM/0VuZmHb/+CluH+eOv0ZLYyw
+	 EchV8pBan5Ca4y1eZy08XBxRWZac8ul/S3q8C6ME=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 664B4F801EC;
-	Mon, 24 Aug 2020 14:17:55 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 96E37F8025E;
+	Mon, 24 Aug 2020 15:32:24 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 094C9F801D9; Mon, 24 Aug 2020 14:17:50 +0200 (CEST)
+ id 7FBD3F8020C; Mon, 24 Aug 2020 15:32:20 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE
- autolearn=disabled version=3.4.0
-Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
+X-Spam-Status: No, score=-1.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+ DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled
+ version=3.4.0
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 30F4DF8013D
+ for <alsa-devel@alsa-project.org>; Mon, 24 Aug 2020 15:32:08 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 30F4DF8013D
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="1RdQ0oiT"
+Received: from localhost (fw-tnat.cambridge.arm.com [217.140.96.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id A3F71F800B8;
- Mon, 24 Aug 2020 14:17:40 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A3F71F800B8
-IronPort-SDR: I91TwC0Q561JEeQ6t8c8YyvyMgNrFMoQixYgdEpwIhjnzGSrzbVnRGyIuSVaJrg/2Wd3vecaaN
- fWeoFz4JHWXw==
-X-IronPort-AV: E=McAfee;i="6000,8403,9722"; a="155869720"
-X-IronPort-AV: E=Sophos;i="5.76,348,1592895600"; d="scan'208";a="155869720"
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from orsmga004.jf.intel.com ([10.7.209.38])
- by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 24 Aug 2020 05:17:36 -0700
-IronPort-SDR: v1DgNXcEDp1P6pt0Og2CYj5cDnO7hdNAXgTXZ6Ee6BHbVLXBANsLfEXS8kzoToRHl76mWUK2Wh
- J3aCsXSqRJNQ==
-X-IronPort-AV: E=Sophos;i="5.76,348,1592895600"; d="scan'208";a="443185272"
-Received: from eliteleevi.tm.intel.com ([10.237.54.20])
- by orsmga004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 24 Aug 2020 05:17:34 -0700
-Date: Mon, 24 Aug 2020 15:16:26 +0300 (EEST)
-From: Kai Vehmanen <kai.vehmanen@linux.intel.com>
-X-X-Sender: kvehmane@eliteleevi.tm.intel.com
-To: Pawel Harlozinski <pawel.harlozinski@linux.intel.com>
-Subject: Re: [PATCH] ALSA: hda: Refactor calculating SDnFMT according to
- specification
-In-Reply-To: <20200824100034.3129-1-pawel.harlozinski@linux.intel.com>
-Message-ID: <alpine.DEB.2.22.394.2008241434310.3186@eliteleevi.tm.intel.com>
-References: <20200824100034.3129-1-pawel.harlozinski@linux.intel.com>
-User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7 02160 Espoo
-MIME-Version: 1.0
-Content-Type: text/plain; charset=ISO-8859-15
-Content-Transfer-Encoding: 8BIT
-X-Content-Filtered-By: Mailman/MimeDel 2.1.15
-Cc: alsa-devel@alsa-project.org, patch@alsa-project.org,
- Takashi Iwai <tiwai@suse.de>, cezary.rojewski@intel.com,
- pierre-louis.bossart@linux.intel.com, lgirdwood@gmail.com, broonie@kernel.org,
- amadeuszx.slawinski@linux.intel.com
+ by mail.kernel.org (Postfix) with ESMTPSA id 6349C207CD;
+ Mon, 24 Aug 2020 13:32:05 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=default; t=1598275925;
+ bh=rzlPdiXrRzYi1XgOVr+vkYavLps2Su7hULtV6kn91GA=;
+ h=Date:From:To:Cc:In-Reply-To:References:Subject:From;
+ b=1RdQ0oiT++7vdL6q8hk/qu/qQOKCTREt2oLWgqHrmn8DpyfnZ+pcX5Jusys7kZja6
+ jGOEtshYZMYZestY8/+iQHc8lbE5G+VQclUG4y0ENlbE0/ToTkc/MmQRnkcBH5nRa5
+ IvdIqQ8YQEMVHysNvY+dIq0n5oSsChXsCm0U8JD4=
+Date: Mon, 24 Aug 2020 14:31:31 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ alsa-devel@alsa-project.org
+In-Reply-To: <20200821195603.215535-1-pierre-louis.bossart@linux.intel.com>
+References: <20200821195603.215535-1-pierre-louis.bossart@linux.intel.com>
+Subject: Re: [PATCH 00/14] ASoC: Intel: machine driver updates for 5.10
+Message-Id: <159827589161.47809.3170755839429146024.b4-ty@kernel.org>
+Cc: tiwai@suse.de, vinod.koul@intel.com,
+ Bard liao <yung-chuan.liao@linux.intel.com>,
+ Rander Wang <rander.wang@linux.intel.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -85,27 +78,71 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hey,
+On Fri, 21 Aug 2020 14:55:47 -0500, Pierre-Louis Bossart wrote:
+> This series updates the tables used to select SoundWire configurations
+> for CometLake and TigerLake, and adds support for SDCA (SoundWire
+> Device Class for Audio) codecs in the common machine driver. These
+> codec drivers are still being tested on early silicon/boards and will
+> be contributed at a later time.
+> 
+> For TigerLake Chromebooks a new DMI quirk is added, as well as a means
+> to override the topology names. A pm_runtime fix is also provided to
+> deal with playback/capture dependencies with an amplifier w/
+> feedback. I also included a minor codec correction for the TGL
+> amplifier.
+> 
+> [...]
 
-On Mon, 24 Aug 2020, Pawel Harlozinski wrote:
+Applied to
 
-> Set SDnFMT depending on which format was given, as maxbps only describes container size.
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
 
-hmm, I'm not entirely sure that is correct. Usage may be a bit varied, but 
-most places in existing code, "maxbps" is treated as number of significant 
-bits, not the container size. E.g. in hdac_hda.c:
+Thanks!
 
-»       if (substream->stream == SNDRV_PCM_STREAM_PLAYBACK)
-»       »       maxbps = dai->driver->playback.sig_bits;
-»       else
-»       »       maxbps = dai->driver->capture.sig_bits;
+[01/14] ASoC: Intel: modify SoundWire version id in acpi match table
+        commit: 69a785da525e8bdfaa8a9c000fb3af714f0d719b
+[02/14] ASoC: Intel: soc-acpi: cnl: add support for rt5682 on SoundWire link2
+        commit: 6f7cf9125ed43daaf4c5dd34ebcd96c978fcd2b2
+[03/14] ASoC: Intel: sof-soundwire: add support for rt5682 on link2
+        commit: b161a12192f4b88cede8a563a6ebd2336d905d18
+[04/14] ASoC: Intel: soc-acpi: mirror CML and TGL configurations
+        commit: 6cb8bd60ba5ca9eb8f05f3f8351bbbcb6b92c525
+[05/14] ASoC: Intel: soc-acpi: add support for SDCA boards
+        commit: 44751fc5f0de07b0a1ab57e9beab9789638d76d2
+[06/14] ASoC: Intel: tgl_max98373: fix a runtime pm issue in multi-thread case
+        commit: e300486ad94d2608ebc3aaed4e03e86eeeb97084
+[07/14] ASoC: codecs: max98373-sdw: add missing test on resume
+        commit: 65fae64d79d2cbad43819c1ab83390594fac7fcb
+[08/14] ASoC: Intel: sof_sdw: check SoundWire version when matching codec
+        commit: 2e2d287bbe613be4848e83be9aa8e99e8b9f7dc0
+[09/14] ASoC: Intel: sof_sdw: rename id as part_id
+        commit: 535df653f75583a25c6bbb2eaaa0b121b47460c4
+[10/14] SoC: Intel: sof_sdw: Add support for product Ripto
+        commit: 626200df2498ff3044170d0f02b463ac0ec899c5
+[11/14] ASoC: Intel: sof_rt5682: override quirk data for tgl_max98373_rt5682
+        commit: 3e1734b64ce786c54dc98adcfe67941e6011d735
+[12/14] ASoC: SOF: Add topology filename override based on dmi data match
+        commit: 5253a73d567dcd75e62834ff5f502ea9470e5722
+[13/14] ASoC: intel: sof_sdw: add rt711 rt1316 rt714 SDCA codec support.
+        commit: b75bea4b8834c1253b00d5f8df2dd3ce09d2e305
+[14/14] ASoC: Intel: sof_sdw: clean-up inclusion of header files
+        commit: 3f2c656491af6698cb3f18d5bd34afa1b54096d2
 
-It would seem "maxbps" is a bit superfluous given the same information can 
-be relayed in "format" as well. But currently it's still used. E.g. if you 
-look at snd_hdac_query_supported_pcm(), if codec reports 24bit support, 
-format is always set to SNDRV_PCM_FMTBIT_S32_LE, even if only 24bit are 
-valid. So snd_pcm_format_width() will not return the expected significant 
-bits info, but you have to use "maxbps". So original code seems correct 
-(or at least you'd need to update both places).
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
 
-Br, Kai
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
+
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
+
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
+
+Thanks,
+Mark

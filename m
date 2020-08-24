@@ -2,68 +2,73 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B6E1024FF01
-	for <lists+alsa-devel@lfdr.de>; Mon, 24 Aug 2020 15:35:01 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B703124FFAF
+	for <lists+alsa-devel@lfdr.de>; Mon, 24 Aug 2020 16:19:26 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 657F5165D;
-	Mon, 24 Aug 2020 15:34:11 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 657F5165D
+	by alsa0.perex.cz (Postfix) with ESMTPS id 1C1041673;
+	Mon, 24 Aug 2020 16:18:36 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1C1041673
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1598276101;
-	bh=227dtBv6s+osOfbFZGxhSmc7Pp+0HyhRJcvJKsfk/9g=;
-	h=Date:From:To:In-Reply-To:References:Subject:Cc:List-Id:
+	s=default; t=1598278766;
+	bh=60Ue2rYDLZ/ZXi+Sit1PnQB39UQFYJYRkBcorllkZ5E=;
+	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=NuiqCyn91pMCByLD0wwuGVjNImvoOVpXWKTjmeYCgOYJWvA3V9SxLDgeqPTvkceu7
-	 g1uU1UOubGkNOfkXy3+KSkCMEjXg5tyjZZMuoaRns1JuCAitXnBNqPiIO8ctgCxmJe
-	 5/quRSAGtiw1mDVZmZ0nOQ2ZQEZ8jKAqhPNuHlMg=
+	b=cf3MmgBjcwl41SLwXwHGnuiwXYHxeYT9p4q72UShErBUiGZr+l+saiSyPIPSo0daE
+	 0+MDIvr/3b0tAaBDZA7hIcA4iNxJglZrX7oPSCfXmonXp3QjVjku2kuiHYSDvGbk+9
+	 OMRxBTea3fKm/onIWdwUE7+sTeEk9nCo6Bye8c0E=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 6BFD3F8026A;
-	Mon, 24 Aug 2020 15:32:25 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 4232AF801EC;
+	Mon, 24 Aug 2020 16:17:45 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 96091F8013D; Mon, 24 Aug 2020 15:32:21 +0200 (CEST)
+ id 98F27F801D9; Mon, 24 Aug 2020 16:17:42 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-1.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled
- version=3.4.0
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 604B4F801D9
- for <alsa-devel@alsa-project.org>; Mon, 24 Aug 2020 15:32:17 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 604B4F801D9
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="Z25Zek48"
-Received: from localhost (fw-tnat.cambridge.arm.com [217.140.96.140])
+X-Spam-Status: No, score=-1.4 required=5.0 tests=NICE_REPLY_A,SPF_HELO_NONE,
+ SPF_NONE autolearn=disabled version=3.4.0
+Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 8482D21741;
- Mon, 24 Aug 2020 13:32:15 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1598275936;
- bh=227dtBv6s+osOfbFZGxhSmc7Pp+0HyhRJcvJKsfk/9g=;
- h=Date:From:To:Cc:In-Reply-To:References:Subject:From;
- b=Z25Zek48M4ObQQW2U6XdS3pJxww3Z1DSNLI8UqjLpwPj7TjLcv9jq/hDBS7TZxXBz
- PwAYzNfPyBe7m3m7hAflDuszz4SPdFZt8uk3/1PvneCwtIgK1oHyPtIOcu5ZXXkRIh
- +gvrqVF80qrTRsXNt3NvpKlh9BukPWX9YazDowiE=
-Date: Mon, 24 Aug 2020 14:31:41 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Xiubo.Lee@gmail.com, tiwai@suse.com, timur@kernel.org,
- alsa-devel@alsa-project.org, festevam@gmail.com,
- Shengjiu Wang <shengjiu.wang@nxp.com>, lgirdwood@gmail.com, perex@perex.cz,
- nicoleotsuka@gmail.com
-In-Reply-To: <1598255887-1391-1-git-send-email-shengjiu.wang@nxp.com>
-References: <1598255887-1391-1-git-send-email-shengjiu.wang@nxp.com>
-Subject: Re: [PATCH RESEND] ASoC: fsl_sai: Add -EPROBE_DEFER check for regmap
- init
-Message-Id: <159827589162.47809.7720594849042451325.b4-ty@kernel.org>
-Cc: linuxppc-dev@lists.ozlabs.org, linux-kernel@vger.kernel.org
+ by alsa1.perex.cz (Postfix) with ESMTPS id 2A5C7F800B8
+ for <alsa-devel@alsa-project.org>; Mon, 24 Aug 2020 16:17:35 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2A5C7F800B8
+IronPort-SDR: 393zK3z56Z1HVtjMetUegWg/+x8URMuZ9EQ3ZpvX0p34V2oO9E7vhRGa7E121ZQfBGP3KQIIP0
+ Hh/7tF33YJNg==
+X-IronPort-AV: E=McAfee;i="6000,8403,9722"; a="135968869"
+X-IronPort-AV: E=Sophos;i="5.76,348,1592895600"; d="scan'208";a="135968869"
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from orsmga003.jf.intel.com ([10.7.209.27])
+ by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 24 Aug 2020 07:17:30 -0700
+IronPort-SDR: swU+Ppaegf0sNVoF6ub1cT8SEn391LTbdxhm2CvRQkpllRuBgxcK08Y2xKyt9OXKQJclX73NKA
+ CACNzfbh/8Bw==
+X-IronPort-AV: E=Sophos;i="5.76,348,1592895600"; d="scan'208";a="294616829"
+Received: from bpjohn-mobl.amr.corp.intel.com (HELO [10.212.174.18])
+ ([10.212.174.18])
+ by orsmga003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 24 Aug 2020 07:17:30 -0700
+Subject: Re: [PATCH 1/5] ASOC: SOF: Intel: hda-codec: move unused label to
+ correct position
+To: Nathan Chancellor <natechancellor@gmail.com>
+References: <20200813175839.59422-1-pierre-louis.bossart@linux.intel.com>
+ <20200813175839.59422-2-pierre-louis.bossart@linux.intel.com>
+ <20200823034829.GA2636427@ubuntu-n2-xlarge-x86>
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Message-ID: <9d1480ba-f17d-bc0f-4242-f34584725bcb@linux.intel.com>
+Date: Mon, 24 Aug 2020 09:17:28 -0500
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.10.0
+MIME-Version: 1.0
+In-Reply-To: <20200823034829.GA2636427@ubuntu-n2-xlarge-x86>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
+Cc: tiwai@suse.de, alsa-devel@alsa-project.org, broonie@kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -79,35 +84,26 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Mon, 24 Aug 2020 15:58:07 +0800, Shengjiu Wang wrote:
-> Regmap initialization may return -EPROBE_DEFER for clock
-> may not be ready, so check -EPROBE_DEFER error type before
-> start another Regmap initialization.
 
-Applied to
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
 
-Thanks!
+> I don't get this patch because there is no moving of a label, it just
+> introduces it, where it is actually completely unused in the function as
+> far as I can tell in both v5.9-rc1 and next-20200821. When building with
+> clang in certain configurations, this introduces the same type of
+> warning:
+> 
+> sound/soc/sof/intel/hda-codec.c:182:1: warning: unused label 'error'
+> [-Wunused-label]
+> error:
+> ^~~~~~
+> 1 warning generated.
+> 
+> It seems like this should be reverted as it does not actually do
+> anything.
 
-[1/1] ASoC: fsl_sai: Add -EPROBE_DEFER check for regmap init
-      commit: c1e47e8919da525c803d1557a30e44441db1e5ee
+I must have made a mistake with these cppcheck patches, the patch that 
+needed to be fixed is not upstream but in the SOF tree. I will send it 
+later today, sorry about the noise.
 
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
 
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
-
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
-
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-Thanks,
-Mark

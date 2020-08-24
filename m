@@ -2,67 +2,65 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 01195250924
-	for <lists+alsa-devel@lfdr.de>; Mon, 24 Aug 2020 21:18:47 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 01BEB2509CA
+	for <lists+alsa-devel@lfdr.de>; Mon, 24 Aug 2020 22:11:18 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 5D934167C;
-	Mon, 24 Aug 2020 21:17:56 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5D934167C
+	by alsa0.perex.cz (Postfix) with ESMTPS id 94951167D;
+	Mon, 24 Aug 2020 22:10:27 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 94951167D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1598296726;
-	bh=jwN7ZNTY2Iw9Y5P8potD/uzWRk1BHJ9ZXOqf9yQIoTU=;
-	h=Date:From:To:In-Reply-To:References:Subject:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=oGs52c/5bqUP3pGG0qTqAlWo4WQefOwgn6HahPy0Hq9Bwc5LTV4KI7QHE+KTSpxfE
-	 lFixCXOTWbqF12HSyqW63ocJkhKKeYV7yyDgjntLJOKhO32We+I0/z2IWaNk2LQV9D
-	 BGAQ18rY03cgkoeTdOmei6/xxnGioXzsG2MvJcJA=
+	s=default; t=1598299877;
+	bh=NP8zHIw+Xbyj/vLm94JcChWsj8kgMuBVED/ey7I6I6Y=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=qkyCccP0JkPW5pUl+Tuc6AAyK1yrG35YNFYezEPvpbUhOv7wklbsi1M0CUblqZ9Ju
+	 i33zTY1E5eJJqqeenodzaBa+CysvjDfOdDZZeQBKpfmweOrV2evvnozXGDSKMSPegM
+	 D3sEqg201vJJV1d7FMIEa3CH+fvDPKbRlGNbitHs=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 85361F800B8;
-	Mon, 24 Aug 2020 21:17:05 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 5D865F8026A;
+	Mon, 24 Aug 2020 22:09:36 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 7B2BBF801D9; Mon, 24 Aug 2020 21:17:03 +0200 (CEST)
+ id 4DFA5F8026A; Mon, 24 Aug 2020 22:09:32 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-1.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled
- version=3.4.0
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 55A61F800B8
- for <alsa-devel@alsa-project.org>; Mon, 24 Aug 2020 21:16:53 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 55A61F800B8
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="DXQbJt88"
-Received: from localhost (fw-tnat.cambridge.arm.com [217.140.96.140])
+X-Spam-Status: No, score=-0.0 required=5.0 tests=RCVD_IN_MSPIKE_H3,
+ RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
+Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 31F3620578;
- Mon, 24 Aug 2020 19:16:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1598296610;
- bh=jwN7ZNTY2Iw9Y5P8potD/uzWRk1BHJ9ZXOqf9yQIoTU=;
- h=Date:From:To:Cc:In-Reply-To:References:Subject:From;
- b=DXQbJt884Hp7RrBHsdsqDs2LiWObUDSFa7l2Q0QIfeNP2miZsSeulmSOTkf+WLd15
- za6ThZnUuRES/qnD97Em5YjdjeYIPRjuXCAc3t9rsevoPDvLMGgKHqQCV5TCWNU1Gm
- XHlsNepQDj8o+KIywqFC6b35qyxmTM/1HO7BuhF0=
-Date: Mon, 24 Aug 2020 20:16:16 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- alsa-devel@alsa-project.org
-In-Reply-To: <20200821195603.215535-1-pierre-louis.bossart@linux.intel.com>
-References: <20200821195603.215535-1-pierre-louis.bossart@linux.intel.com>
-Subject: Re: [PATCH 00/14] ASoC: Intel: machine driver updates for 5.10
-Message-Id: <159829657608.37668.3583799963093180346.b4-ty@kernel.org>
-Cc: tiwai@suse.de, vinod.koul@intel.com,
- Bard liao <yung-chuan.liao@linux.intel.com>,
- Rander Wang <rander.wang@linux.intel.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id EA5CBF800EB
+ for <alsa-devel@alsa-project.org>; Mon, 24 Aug 2020 22:09:25 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EA5CBF800EB
+IronPort-SDR: ssH0mLvxA4IXpTDh+z0C3O19WMYhuh9zLEdkaeR6jMQuaBewc8EBPqpR7AtHpWJb+OPbabnzpd
+ ahNMm7OgNEOg==
+X-IronPort-AV: E=McAfee;i="6000,8403,9723"; a="157033724"
+X-IronPort-AV: E=Sophos;i="5.76,349,1592895600"; d="scan'208";a="157033724"
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from orsmga004.jf.intel.com ([10.7.209.38])
+ by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 24 Aug 2020 13:09:21 -0700
+IronPort-SDR: WCp/0hNRRI6XPE+6ANqhTqpKRuk5nAx63DJrQPBaWelJcabNWNNDU+AIHpQoPOy2hO5SJGoa/o
+ o2o75fgc7Cow==
+X-IronPort-AV: E=Sophos;i="5.76,349,1592895600"; d="scan'208";a="443351176"
+Received: from dentoneb-mobl.amr.corp.intel.com (HELO
+ pbossart-mobl3.intel.com) ([10.212.223.13])
+ by orsmga004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 24 Aug 2020 13:09:20 -0700
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+To: alsa-devel@alsa-project.org
+Subject: [PATCH 0/8] ASoC: SOF: trivial code/log/comment improvements
+Date: Mon, 24 Aug 2020 15:09:04 -0500
+Message-Id: <20200824200912.46852-1-pierre-louis.bossart@linux.intel.com>
+X-Mailer: git-send-email 2.25.1
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Cc: tiwai@suse.de, broonie@kernel.org,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -78,45 +76,40 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Fri, 21 Aug 2020 14:55:47 -0500, Pierre-Louis Bossart wrote:
-> This series updates the tables used to select SoundWire configurations
-> for CometLake and TigerLake, and adds support for SDCA (SoundWire
-> Device Class for Audio) codecs in the common machine driver. These
-> codec drivers are still being tested on early silicon/boards and will
-> be contributed at a later time.
-> 
-> For TigerLake Chromebooks a new DMI quirk is added, as well as a means
-> to override the topology names. A pm_runtime fix is also provided to
-> deal with playback/capture dependencies with an amplifier w/
-> feedback. I also included a minor codec correction for the TGL
-> amplifier.
-> 
-> [...]
+Remove useless variable initialization and allocation, adjust log
+levels to make support easier, and fix comments. No functional
+changes.
 
-Applied to
+Guennadi Liakhovetski (2):
+  ASoC: SOF: topology: (cosmetic) remove redundant variable
+    initialisations
+  ASoC: SOF: (cosmetic) use the "bool" type where it makes sense
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
+Pierre-Louis Bossart (4):
+  ASoC: SOF: IPC: reduce verbosity of IPC pointer updates
+  ASoC: SOF: acpi: add dev_dbg() log for probe completion
+  ASoC: SOF: Intel: add dev_dbg log when driver is not selected
+  ASoC: Intel: use consistent HDAudio spelling in comments/docs
 
-Thanks!
+Ranjani Sridharan (2):
+  ASoC: SOF: topology: remove unnecessary memory alloc for sdev->private
+  ASoC: SOF: topology: reduce the log level for unhandled widgets
 
-[1/1] ASoC: Intel: tgl_max98373: fix a runtime pm issue in multi-thread case
-      commit: e300486ad94d2608ebc3aaed4e03e86eeeb97084
+ include/sound/soc-acpi.h      |  2 +-
+ sound/soc/intel/Kconfig       |  2 +-
+ sound/soc/intel/skylake/skl.c |  6 +++---
+ sound/soc/sof/Kconfig         |  2 +-
+ sound/soc/sof/intel/Kconfig   |  2 +-
+ sound/soc/sof/ipc.c           | 16 +++++++++++-----
+ sound/soc/sof/pcm.c           |  8 ++++----
+ sound/soc/sof/sof-acpi-dev.c  |  2 ++
+ sound/soc/sof/sof-pci-dev.c   |  6 +++---
+ sound/soc/sof/sof-priv.h      | 10 +++++-----
+ sound/soc/sof/topology.c      | 20 ++++----------------
+ 11 files changed, 36 insertions(+), 40 deletions(-)
 
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
 
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
+base-commit: aafdeba5cbc14cecee3797e669473b70a2b3e81e
+-- 
+2.25.1
 
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
-
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-Thanks,
-Mark

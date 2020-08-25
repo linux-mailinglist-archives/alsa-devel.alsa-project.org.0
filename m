@@ -2,65 +2,71 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id ADB3D251E18
-	for <lists+alsa-devel@lfdr.de>; Tue, 25 Aug 2020 19:19:25 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2D6C4251E1F
+	for <lists+alsa-devel@lfdr.de>; Tue, 25 Aug 2020 19:20:10 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 430F51683;
-	Tue, 25 Aug 2020 19:18:35 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 430F51683
+	by alsa0.perex.cz (Postfix) with ESMTPS id D8DDA169B;
+	Tue, 25 Aug 2020 19:19:19 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D8DDA169B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1598375965;
-	bh=P6abe8O2tIpbxEItnlIt2flOT2dr2l6pTLI8HcDvq7I=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=fn+Fmkg3hTlqZjIMEKwpFmn8GrMVVqMuGUMXVIp+FcKxW3uim1z6NeGzxX15Woaf8
-	 fXccLL2xylb4sIAFBGQPyuhbmwyzWpVFhvet4pzXsbO7cs9q93Gx4VLZAorW+iGZtu
-	 SMg1s1gdN58Tv81YA7RAeCRWq/SOTkC/BKMxlLtQ=
+	s=default; t=1598376009;
+	bh=SeSlhNaCmHA3at3IcAizzM0ydyofnu+QkVTd/w7k+/w=;
+	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=smxjLNOaFKG8xJZcMULRfeKbkEHdQ4x5dhmZnIBV45f/JaKbkgqZKZ0ZVJF6m9D+D
+	 0gSmttMFuHHfArqqbSYF8qDlz4nghTQp57m3W1WEE8FpUr/J4bJd6RE5p9jeEcAzkE
+	 UfJQP5LKoz/y/teNGmt1A2ccYKVUmDmFMzYa8M3s=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 0F6D4F8028A;
-	Tue, 25 Aug 2020 19:17:44 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 01E07F802C4;
+	Tue, 25 Aug 2020 19:17:48 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id B1FE6F80269; Tue, 25 Aug 2020 19:17:41 +0200 (CEST)
+ id C5D16F80260; Tue, 25 Aug 2020 19:17:46 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_PASS,SPF_NONE
- autolearn=disabled version=3.4.0
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_PASS,SPF_NONE,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
 Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id EFA19F80143
- for <alsa-devel@alsa-project.org>; Tue, 25 Aug 2020 19:17:33 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EFA19F80143
-IronPort-SDR: 0oPmmQ4hbgyv1g4JHdtvgsX+KBaXITA/XvuEfXzJoBYUC+OtjzIXs2thLjp9OXn0r/M+Uj+GAg
- t3nipS1wLMMg==
-X-IronPort-AV: E=McAfee;i="6000,8403,9723"; a="135708942"
-X-IronPort-AV: E=Sophos;i="5.76,353,1592895600"; d="scan'208";a="135708942"
+ by alsa1.perex.cz (Postfix) with ESMTPS id DD788F800EB
+ for <alsa-devel@alsa-project.org>; Tue, 25 Aug 2020 19:17:39 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DD788F800EB
+IronPort-SDR: J7e39gTxisAQDkBGDGjxtc6L5BA7F0Q5+pX5glyxabqTQi5+fxbkkmMhu5f7D9hKpb09BM+x0k
+ /9jJg4TFsPew==
+X-IronPort-AV: E=McAfee;i="6000,8403,9723"; a="135708957"
+X-IronPort-AV: E=Sophos;i="5.76,353,1592895600"; d="scan'208";a="135708957"
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
 Received: from fmsmga002.fm.intel.com ([10.253.24.26])
  by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 25 Aug 2020 10:17:12 -0700
-IronPort-SDR: 3J5sB4kkc2mN1d+nqB4YZ35SH7MpSKKoj/cNPuNppRPv27Ipcoqi3wILTGipjJ7zwU5QWHYHcY
- ZOSzYywA4m9A==
-X-IronPort-AV: E=Sophos;i="5.76,353,1592895600"; d="scan'208";a="331478405"
+ 25 Aug 2020 10:17:13 -0700
+IronPort-SDR: d3NZa9SV0Erea1YTulYBLN0sGbqCPfb1OHXJZ1polaNzEvInVIOYHnBaL3ccwUU0BvnRDoH1cA
+ zd5liRfe9T7A==
+X-IronPort-AV: E=Sophos;i="5.76,353,1592895600"; d="scan'208";a="331478421"
 Received: from bgarring-mobl.amr.corp.intel.com (HELO
  pbossart-mobl3.intel.com) ([10.212.4.243])
  by fmsmga002-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 25 Aug 2020 10:17:10 -0700
+ 25 Aug 2020 10:17:12 -0700
 From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 To: alsa-devel@alsa-project.org
-Subject: [PATCH 0/4] regmap: add SoundWire 1.2 MBQ support
-Date: Tue, 25 Aug 2020 12:16:52 -0500
-Message-Id: <20200825171656.75836-1-pierre-louis.bossart@linux.intel.com>
+Subject: [PATCH 1/4] regmap: sdw: move to -EOPNOTSUPP
+Date: Tue, 25 Aug 2020 12:16:53 -0500
+Message-Id: <20200825171656.75836-2-pierre-louis.bossart@linux.intel.com>
 X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20200825171656.75836-1-pierre-louis.bossart@linux.intel.com>
+References: <20200825171656.75836-1-pierre-louis.bossart@linux.intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Cc: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>, tiwai@suse.de,
- gregkh@linuxfoundation.org, linux-kernel@vger.kernel.org,
+Cc: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ Kai Vehmanen <kai.vehmanen@linux.intel.com>,
+ Guennadi Liakhovetski <guennadi.liakhovetski@linux.intel.com>, tiwai@suse.de,
+ gregkh@linuxfoundation.org, "Rafael J. Wysocki" <rafael@kernel.org>,
+ linux-kernel@vger.kernel.org,
  Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
  Hui Wang <hui.wang@canonical.com>, vkoul@kernel.org, broonie@kernel.org,
  srinivas.kandagatla@linaro.org, jank@cadence.com, slawomir.blauciak@intel.com,
@@ -81,34 +87,38 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-In preparation of the upstream contribution of SDCA (SoundWire Device
-Class for Audio) ASoC codec drivers [1] [2], add regmap support
-SoundWire 1.2 MBQ support. The MBQ (Multi-Byte Quantity) registers
-need to be handled in a different way from regular 8-bit SoundWire
-registers, their main application is going to be for volume/gain
-controls.
+-ENOTSUPP is not a valid error code, use recommended value instead.
 
-The 3rd patch was initially suggested for inclusion in the SoundWire
-tree, and was modified to add more background information in the
-commit message as requested by Vinod Koul.
+Reviewed-by: Rander Wang <rander.wang@linux.intel.com>
+Reviewed-by: Guennadi Liakhovetski <guennadi.liakhovetski@linux.intel.com>
+Reviewed-by: Kai Vehmanen <kai.vehmanen@linux.intel.com>
+Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+---
+ drivers/base/regmap/regmap-sdw.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
-Pierre-Louis Bossart (4):
-  regmap: sdw: move to -EOPNOTSUPP
-  regmap: sdw: add required header files
-  soundwire: SDCA: add helper macro to access controls
-  regmap: sdw: add support for SoundWire 1.2 MBQ
-
- drivers/base/regmap/Kconfig             |   6 +-
- drivers/base/regmap/Makefile            |   1 +
- drivers/base/regmap/regmap-sdw-mbq.c    | 102 ++++++++++++++++++++++++
- drivers/base/regmap/regmap-sdw.c        |   8 +-
- include/linux/regmap.h                  |  20 +++++
- include/linux/soundwire/sdw_registers.h |  13 +++
- 6 files changed, 146 insertions(+), 4 deletions(-)
- create mode 100644 drivers/base/regmap/regmap-sdw-mbq.c
-
-
-base-commit: 9123e3a74ec7b934a4a099e98af6a61c2f80bbf5
+diff --git a/drivers/base/regmap/regmap-sdw.c b/drivers/base/regmap/regmap-sdw.c
+index 50a66382d87d..89d3856f5890 100644
+--- a/drivers/base/regmap/regmap-sdw.c
++++ b/drivers/base/regmap/regmap-sdw.c
+@@ -40,14 +40,14 @@ static int regmap_sdw_config_check(const struct regmap_config *config)
+ {
+ 	/* All register are 8-bits wide as per MIPI Soundwire 1.0 Spec */
+ 	if (config->val_bits != 8)
+-		return -ENOTSUPP;
++		return -EOPNOTSUPP;
+ 
+ 	/* Registers are 32 bits wide */
+ 	if (config->reg_bits != 32)
+-		return -ENOTSUPP;
++		return -EOPNOTSUPP;
+ 
+ 	if (config->pad_bits != 0)
+-		return -ENOTSUPP;
++		return -EOPNOTSUPP;
+ 
+ 	return 0;
+ }
 -- 
 2.25.1
 

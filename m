@@ -2,84 +2,95 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6170125196F
-	for <lists+alsa-devel@lfdr.de>; Tue, 25 Aug 2020 15:21:09 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A4DCE251976
+	for <lists+alsa-devel@lfdr.de>; Tue, 25 Aug 2020 15:23:05 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id F06B8165D;
-	Tue, 25 Aug 2020 15:20:18 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz F06B8165D
+	by alsa0.perex.cz (Postfix) with ESMTPS id 5178E1673;
+	Tue, 25 Aug 2020 15:22:15 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5178E1673
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1598361669;
-	bh=ASZVM7OkPe6315IX9Nh307CgulfRFzTSNjQnPUsim/Q=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=S07t0S8SH5s6cJ73V0sZp0b0R18QSAiSYNGh5cuMJhGcRVV8bWw5e4W6oxc5twPk8
-	 I+zK6MYnWveuzLYmbn9liQzGpcR2C3MWVvMOg+nxYHxakFijfZ+jK5OON0StxxfmGD
-	 pwqFl2LGDeJL0+qHouwfzkFQfpEHo3E7Cr/UEzjI=
+	s=default; t=1598361785;
+	bh=022JqIhdRQK8u2oQBk4DKotj/DXam5vaf+7NHWvvCRE=;
+	h=Date:From:To:Subject:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=m2sDsR5X+QmoLhqa6Gdnix6V5/LC3XhiJnDsCvBQ/iZxiFUuKprOugBatjiVZUcvF
+	 ewaMPUV6EAcISxFOBQZJPTzlfnHkOx4pVors46Vuc1/IOEvfuTt6JPDmV+jyk9ZvUl
+	 LfmdLoSMSPrLr8YunOLemjtKG0mRsbvv/k/FXgqE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 5972AF80245;
-	Tue, 25 Aug 2020 15:19:24 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 9F445F80260;
+	Tue, 25 Aug 2020 15:21:24 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 0A0EFF80245; Tue, 25 Aug 2020 15:19:22 +0200 (CEST)
+ id F3311F8025A; Tue, 25 Aug 2020 15:21:21 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS
- autolearn=disabled version=3.4.0
-Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
+X-Spam-Status: No, score=-1.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+ DKIM_VALID,DKIM_VALID_AU,RCVD_IN_MSPIKE_H2,SPF_HELO_PASS,SPF_NONE,
+ UNPARSEABLE_RELAY autolearn=disabled version=3.4.0
+Received: from userp2120.oracle.com (userp2120.oracle.com [156.151.31.85])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id AB4E2F80245
- for <alsa-devel@alsa-project.org>; Tue, 25 Aug 2020 15:19:14 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz AB4E2F80245
-IronPort-SDR: Ahf4MmR5bq4g/Y4BXr9ArUoSn89T8V/R2znmgZci+LBwmV6Qat12buIuwiR5PowXWLqBmc2zye
- /Ot3F4rwckgw==
-X-IronPort-AV: E=McAfee;i="6000,8403,9723"; a="136163886"
-X-IronPort-AV: E=Sophos;i="5.76,352,1592895600"; d="scan'208";a="136163886"
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from orsmga008.jf.intel.com ([10.7.209.65])
- by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 25 Aug 2020 06:19:12 -0700
-IronPort-SDR: ubfPUGXIa1YKNzj5MxRoGywFsFs1KIgLJfBmirl+UUkwwzRcJE4qndjDX7AJcoeAti8MjIx74f
- eVPiFu9wT3rQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.76,352,1592895600"; d="scan'208";a="328861732"
-Received: from smile.fi.intel.com (HELO smile) ([10.237.68.40])
- by orsmga008.jf.intel.com with ESMTP; 25 Aug 2020 06:19:08 -0700
-Received: from andy by smile with local (Exim 4.94)
- (envelope-from <andriy.shevchenko@intel.com>)
- id 1kAYqv-00BKaP-SW; Tue, 25 Aug 2020 16:19:05 +0300
-Date: Tue, 25 Aug 2020 16:19:05 +0300
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Cezary Rojewski <cezary.rojewski@intel.com>
-Subject: Re: [PATCH v4 01/13] ASoC: Intel: Add catpt device
-Message-ID: <20200825131905.GI1891694@smile.fi.intel.com>
-References: <20200812205753.29115-1-cezary.rojewski@intel.com>
- <20200812205753.29115-2-cezary.rojewski@intel.com>
- <20200813182908.GA1891694@smile.fi.intel.com>
- <3280b1a6-81f3-9f3f-d496-2bbf570c82d1@intel.com>
- <20200818100743.GH1891694@smile.fi.intel.com>
- <7cd5fa73-797e-17c3-4b7c-7635a18c59af@intel.com>
- <20200819134323.GM1891694@smile.fi.intel.com>
- <13a443ad-f667-c7f0-a25d-35baf94be23e@intel.com>
- <20200825131821.GH1891694@smile.fi.intel.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id D2294F80143
+ for <alsa-devel@alsa-project.org>; Tue, 25 Aug 2020 15:21:14 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D2294F80143
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=oracle.com header.i=@oracle.com
+ header.b="aa5ebGcp"
+Received: from pps.filterd (userp2120.oracle.com [127.0.0.1])
+ by userp2120.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 07PDFF3f192558;
+ Tue, 25 Aug 2020 13:21:11 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com;
+ h=date : from : to : cc
+ : subject : message-id : mime-version : content-type; s=corp-2020-01-29;
+ bh=pelA2eyuxKM5cZPWWuWz7mXWEUYlVu8xXgFI1qKY+vg=;
+ b=aa5ebGcpnSvxKF7AqVUvrUYDw9BscSYd2LVdvXHQY6sgjSox7JgsdCXE1TLxP4xuGBUd
+ u1oRELCZQV9vJXo21lPmh+hlfNZkn2mkYfKN/usOovrruP40ggTa0tqiNOZVvk87vLFG
+ vMrHoNIfE7WnnbBe7X3lSaC3AU0FrT36x6GEeQ5aWhnL7eHB6AXw2Q0uR5spQg89SeSd
+ lft6E9dZbUa0mw6WIsvwB4Dqd4tvD3vEe0oxpTvR3OU1Igza5Ac3rl9PmGB5S0nO+GFi
+ wp41QTasHBiZHlJjiEddP2ZAO8Jw3Ujhed6752AjTKMX1dPHvpLNSOEn1c5eZ9dkurFa Zg== 
+Received: from aserp3020.oracle.com (aserp3020.oracle.com [141.146.126.70])
+ by userp2120.oracle.com with ESMTP id 333w6trxsx-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
+ Tue, 25 Aug 2020 13:21:11 +0000
+Received: from pps.filterd (aserp3020.oracle.com [127.0.0.1])
+ by aserp3020.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 07PDKDmE182699;
+ Tue, 25 Aug 2020 13:21:11 GMT
+Received: from userv0121.oracle.com (userv0121.oracle.com [156.151.31.72])
+ by aserp3020.oracle.com with ESMTP id 333ru7h0x4-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Tue, 25 Aug 2020 13:21:10 +0000
+Received: from abhmp0014.oracle.com (abhmp0014.oracle.com [141.146.116.20])
+ by userv0121.oracle.com (8.14.4/8.13.8) with ESMTP id 07PDL7Ze016573;
+ Tue, 25 Aug 2020 13:21:09 GMT
+Received: from mwanda (/41.57.98.10) by default (Oracle Beehive Gateway v4.0)
+ with ESMTP ; Tue, 25 Aug 2020 06:21:07 -0700
+Date: Tue, 25 Aug 2020 16:21:02 +0300
+From: Dan Carpenter <dan.carpenter@oracle.com>
+To: michael.wei.hong.sit@intel.com
+Subject: [bug report] ASoC: Intel: KMB: Enable TDM audio capture
+Message-ID: <20200825132102.GA306074@mwanda>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20200825131821.GH1891694@smile.fi.intel.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
-Cc: pierre-louis.bossart@linux.intel.com, alsa-devel@alsa-project.org,
- filip.kaczmarski@intel.com, harshapriya.n@intel.com, marcin.barlik@intel.com,
- zwisler@google.com, lgirdwood@gmail.com, tiwai@suse.com,
- filip.proborszcz@intel.com, broonie@kernel.org,
- amadeuszx.slawinski@linux.intel.com, michal.wasko@intel.com,
- cujomalainey@chromium.org, krzysztof.hejmowski@intel.com,
- ppapierkowski@habana.ai, vamshi.krishna.gopal@intel.com
+X-Proofpoint-Virus-Version: vendor=nai engine=6000 definitions=9723
+ signatures=668679
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 mlxlogscore=790
+ phishscore=0
+ bulkscore=0 suspectscore=3 spamscore=0 mlxscore=0 adultscore=0
+ malwarescore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.12.0-2006250000 definitions=main-2008250101
+X-Proofpoint-Virus-Version: vendor=nai engine=6000 definitions=9723
+ signatures=668679
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 adultscore=0
+ impostorscore=0
+ mlxlogscore=780 suspectscore=3 phishscore=0 malwarescore=0 spamscore=0
+ priorityscore=1501 clxscore=1011 mlxscore=0 lowpriorityscore=0 bulkscore=0
+ classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2006250000
+ definitions=main-2008250100
+Cc: alsa-devel@alsa-project.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -95,39 +106,57 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Tue, Aug 25, 2020 at 04:18:21PM +0300, Andy Shevchenko wrote:
-> On Tue, Aug 25, 2020 at 11:32:57AM +0200, Cezary Rojewski wrote:
-> > On 2020-08-19 3:43 PM, Andy Shevchenko wrote:
-> > > On Wed, Aug 19, 2020 at 03:26:04PM +0200, Cezary Rojewski wrote:
+Hello Michael Sit Wei Hong,
 
-...
+The patch 9c3bab3c4f15: "ASoC: Intel: KMB: Enable TDM audio capture"
+from Aug 11, 2020, leads to the following static checker warning:
 
-> > > My vision is to extend that header to cover changes and use it in your code.
-> > > It might, though, require some cleanups to be done against pxa2xx_ssp.h.
-> > 
-> > Conclusion from checking pxa2_ssp.h registers:
-> > 
-> > - SSPSP2 is missing (0x44)
-> > - SSC2 vs SSACDD (0x40) both same offset but different purpose so probably
-> > new define would have to be added
-> > 
-> > As situation is similar to the resource-API case below are the options:
-> > a) ship catpt with existing ssp reg set, update pxa2_ssp.h in following
-> > series and then re-use them for catpt
-> > b) update pxa2_ssp.h first, await merge, ship catpt only afterward
-> > 
-> > I vote for option a) given the maturity driver is reaching plus I'd rather
-> > be done with sound/soc/intel/ sanitization sooner than later.
-> 
-> Luckily we have Mark to maintain both SPI and ASoC, which means you may prepend
-> your series with PXA2xx header update and have his Ack for it. He can create an
-> immutable branch and apply it to SPI tree afterwards, or other way around. So I
-> definitely vote for b).
+	sound/soc/intel/keembay/kmb_platform.c:518 kmb_dai_hw_params()
+	warn: potential ! vs ~ typo
 
-Let's say "for b+)" mean the fast track of the changes to both subsystems.
+sound/soc/intel/keembay/kmb_platform.c
+   502          }
+   503  
+   504          config->chan_nr = params_channels(hw_params);
+   505  
+   506          switch (config->chan_nr) {
+   507          case 8:
+   508          case 4:
+   509                  /*
+   510                   * Platform is not capable of providing clocks for
+   511                   * multi channel audio
+   512                   */
+   513                  if (kmb_i2s->master)
+   514                          return -EINVAL;
+   515  
+   516                  write_val = ((config->chan_nr / 2) << TDM_CHANNEL_CONFIG_BIT) |
+   517                                  (config->data_width << DATA_WIDTH_CONFIG_BIT) |
+   518                                  !MASTER_MODE | TDM_OPERATION;
+                                        ^^^^^^^^^^^^
+MASTER_MODE is BIT(13).  It's unclear what this is supposed to be.  My
+best guess is that the ! should just be deleted.
 
--- 
-With Best Regards,
-Andy Shevchenko
+   519  
+   520                  writel(write_val, kmb_i2s->pss_base + I2S_GEN_CFG_0);
+   521                  break;
+   522          case 2:
+   523                  /*
+   524                   * Platform is only capable of providing clocks need for
+   525                   * 2 channel master mode
+   526                   */
+   527                  if (!(kmb_i2s->master))
+   528                          return -EINVAL;
+   529  
+   530                  write_val = ((config->chan_nr / 2) << TDM_CHANNEL_CONFIG_BIT) |
+   531                                  (config->data_width << DATA_WIDTH_CONFIG_BIT) |
+   532                                  MASTER_MODE | I2S_OPERATION;
+   533  
+   534                  writel(write_val, kmb_i2s->pss_base + I2S_GEN_CFG_0);
+   535                  break;
+   536          default:
+   537                  dev_dbg(kmb_i2s->dev, "channel not supported\n");
+   538                  return -EINVAL;
+   539          }
 
-
+regards,
+dan carpenter

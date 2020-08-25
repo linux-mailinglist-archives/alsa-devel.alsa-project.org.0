@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A4EEE2521DA
-	for <lists+alsa-devel@lfdr.de>; Tue, 25 Aug 2020 22:20:22 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C906E2521DE
+	for <lists+alsa-devel@lfdr.de>; Tue, 25 Aug 2020 22:21:03 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 558D416C7;
-	Tue, 25 Aug 2020 22:19:32 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 558D416C7
+	by alsa0.perex.cz (Postfix) with ESMTPS id 713D016D0;
+	Tue, 25 Aug 2020 22:20:13 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 713D016D0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1598386822;
-	bh=s/FhMw8fZS+NfmEuUM8T3cM8Gf8iDHbTYDhNAPMyAbI=;
+	s=default; t=1598386863;
+	bh=2adDQ8hE1lWCbeEuwSIiU2/iSe/CVM/p6+31ngBH99E=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=ZXiV9ELYWe1gG9lLAyZJbO+vecFkyc8x94JBYjpaF5ON4OQ5ZbxZjGFcFs2iUupNr
-	 O3OnASBVdroSxtUwL4Mx0bX9AUoYnFfy3OW0NxXvXgkXQkM6gQGYh8MBOQFyJ00UR3
-	 0ooXeiG1qFisuLCUvK9HZ1suhaHJBDfCsn4oBHVA=
+	b=B1BzXwzxsTiJrqSaU6YdiEshVK9iRTL8dM55sP+0t6kLvQ562aMtFRHc3OSxbhXSv
+	 Fs1/TOXDoEEEyFyY3Drv2QsL+M/nFpO3RyvYWj7SnRYj3cY535+9OVQpRL71DvdqaP
+	 49pWEOcGNlk25avqp75/MZXO6vwzlQfWIJD0xLgA=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 421C0F8034F;
-	Tue, 25 Aug 2020 22:11:49 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 6306DF8035F;
+	Tue, 25 Aug 2020 22:11:50 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 3479EF80328; Tue, 25 Aug 2020 22:11:34 +0200 (CEST)
+ id 63E5AF8032A; Tue, 25 Aug 2020 22:11:35 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -35,51 +35,52 @@ Received: from mail-qk1-x743.google.com (mail-qk1-x743.google.com
  [IPv6:2607:f8b0:4864:20::743])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 71F4CF80315
- for <alsa-devel@alsa-project.org>; Tue, 25 Aug 2020 22:11:25 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 71F4CF80315
+ by alsa1.perex.cz (Postfix) with ESMTPS id A9D80F802EB
+ for <alsa-devel@alsa-project.org>; Tue, 25 Aug 2020 22:11:27 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A9D80F802EB
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="D+0/zxem"
-Received: by mail-qk1-x743.google.com with SMTP id o64so6192474qkb.10
- for <alsa-devel@alsa-project.org>; Tue, 25 Aug 2020 13:11:25 -0700 (PDT)
+ header.b="GIP3jMK1"
+Received: by mail-qk1-x743.google.com with SMTP id n129so12305939qkd.6
+ for <alsa-devel@alsa-project.org>; Tue, 25 Aug 2020 13:11:27 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=8ChaZ6nTOfS1bT+oUOP3MAm7zV3qo3G8NzOJnN+5Pbk=;
- b=D+0/zxemxo3Q1nuJ9+BA/yGCJgdp18sOmApPYRWiWAWNcWYrG1/TpkoNvchhrUEeJc
- UU2KYmnVK+tWybo7WNRZjn/pQSLgHOe9Of0XcCfe8nxWK8hWcTFBoB7dnbccu11g6wi3
- WYNBygX7RslYzlCqr4Y1gFxg3ezzArQaaF3pFQFAbuoSoCXa5aJQA+VE9F3Y0+JOoXSm
- uPh9fYKcHTFikvU3Wf1J2kluuL9noyMBHTDTa/putZAWT4OERdkrt8raM286+d+5aO/b
- i4QbuT2W9ehv2uWtFH9TjaBzh/t+G+Vk1Ko6YPO2kflHevfAJl4TNmwcIszCuWyHCaod
- TO4w==
+ bh=NxP3rQXiCSclAsMcIFJFVBcoqDGCfKXN2d02ZJbg+bQ=;
+ b=GIP3jMK1OzR7Aq43LTTYjoeRlqIaCXyJWm2lJtUo4jyZjHNrCm10gBr7AOom0R6gtV
+ 7NnSfLT9Jg8IWfgmdzo704nD5kIwv9hAaNlr9OUbeJJyUETugpgZ1ESlNOPeCysNdS/i
+ z2SScJCAGXFsceEwsYHDcRI9FwRJlG2wK12IoMSYtVhTzn26RsprCK//EJ+e/PKZNwAD
+ l62v2xn4Q25nNQ924y9ob8hlXWjZPuwByRxIpeAmIYCAYoy+TWLTYr+kr0rBCs9CKyrV
+ 48QntxFKjyIbR1rh6WOGLn6VXlOQ0wE5g41eajOOfmstzj98LgHO9+01DoHEJMevujUM
+ hqrQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=8ChaZ6nTOfS1bT+oUOP3MAm7zV3qo3G8NzOJnN+5Pbk=;
- b=KERdhCOq2sQfWL88x8rHbZ86xNfx5BuSFbZpV2s8Gew0jSoHPmcv5zAiFdTLD4YjXH
- 3vlh0fSkmUrpcGgmk6s4UwTQaYqLGxuN13gC81jHDRDDBCbxExUmmw+CaPUE+T6kBNT5
- tvCotmxMHlg51/pbKD54V0LJZtGH1lAsHJWgMaBkMVu7mmpmbtHNUU7+ISwuQMlJnxe1
- v8o/AXXgOC8xUyqFZ6ifNFIVvn3xeBqtFhlnZlUAWbQnEAYdTHmjbcdt7g/0JuQAg29t
- 5GZpC7RvHDdgaGOXyU5EW7OJEVeGszxXCMS4yJsl0MuhnnHZnNO/mxUJRc1pvrjKobE7
- ZzMA==
-X-Gm-Message-State: AOAM531PvSARPkvqd9y64RdBTQdU2OzfkQT5Hgj3WdOfSbzpvGow2yB5
- KTykJiXWYFg88wEDY4SIOB0=
-X-Google-Smtp-Source: ABdhPJyjJnhptKpMtj2ytC2kmkr1cC8F9H6XkYVFQrC5Z0kC6fQtJnaHoBxx0QpjP3ZCxJcE4KUZBw==
-X-Received: by 2002:a37:6516:: with SMTP id z22mr11135550qkb.164.1598386284822; 
- Tue, 25 Aug 2020 13:11:24 -0700 (PDT)
+ bh=NxP3rQXiCSclAsMcIFJFVBcoqDGCfKXN2d02ZJbg+bQ=;
+ b=QNRtHX/4uabWjso/2wfuDR/7EtHqpgLOuOJKGup++cDWpdATydl4ugcQs//zxPAm1a
+ YzloNqpBzRhdMH7bvW4oWmdA6m571+QuQ4kHPprndUB1T/jLKi8jlBbbln3Nq2II6EvG
+ 7ttKwRtuCoo4bOOfzFHhDijPGwAhcIefs4BXLbijSrYA8sLadckJfy3GwSMHOH1IEqf2
+ Em2I2EcoKAI1bC0vH/bKoXYma7tjBwkwCruDs86YN+L1sx646DHKSJ6ORLlJHcUfTy0e
+ xCX8yEyANu0Oo4gwNZPZtBLgH6J4WChswbtJDQzNXbkAt90IecugFJqh9yY8hWfDqaLL
+ TmJQ==
+X-Gm-Message-State: AOAM53179KxSbN36LzYHw7lbx80G1HMXGpkkaFY7CVtDojsTbUaag1ZS
+ 0HvZGtvF0ekBMa8og/atQWo=
+X-Google-Smtp-Source: ABdhPJwvqY/3gycbChlBkROJ6M19+JYts0F3JvZuSzYyZ0ZhrS9L+WsYU4fy9e7VNRjpYPRGIR4Mtw==
+X-Received: by 2002:a05:620a:15b0:: with SMTP id
+ f16mr10917378qkk.191.1598386286791; 
+ Tue, 25 Aug 2020 13:11:26 -0700 (PDT)
 Received: from localhost.localdomain (cpe-71-65-111-223.cinci.res.rr.com.
  [71.65.111.223]) by smtp.googlemail.com with ESMTPSA id
- n23sm12453459qkk.105.2020.08.25.13.11.23
+ n23sm12453459qkk.105.2020.08.25.13.11.26
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 25 Aug 2020 13:11:24 -0700 (PDT)
+ Tue, 25 Aug 2020 13:11:26 -0700 (PDT)
 From: Connor McAdams <conmanx360@gmail.com>
 To: 
-Subject: [PATCH v2 13/20] ALSA: hda/ca0132 - Add ca0132_mmio_init data for
+Subject: [PATCH v2 14/20] ALSA: hda/ca0132 - Add pre-init function for
  SoundBlaster AE-7.
-Date: Tue, 25 Aug 2020 16:10:32 -0400
-Message-Id: <20200825201040.30339-14-conmanx360@gmail.com>
+Date: Tue, 25 Aug 2020 16:10:33 -0400
+Message-Id: <20200825201040.30339-15-conmanx360@gmail.com>
 X-Mailer: git-send-email 2.20.1
 In-Reply-To: <20200825201040.30339-1-conmanx360@gmail.com>
 References: <20200825201040.30339-1-conmanx360@gmail.com>
@@ -102,45 +103,120 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Modify the AE-5 ca0132_mmio_init function to add AE-7 specific writes.
+Add pre DSP initialization function for the AE-7.
 
 Signed-off-by: Connor McAdams <conmanx360@gmail.com>
 ---
- sound/pci/hda/patch_ca0132.c | 20 +++++++++++++++++++-
- 1 file changed, 19 insertions(+), 1 deletion(-)
+ sound/pci/hda/patch_ca0132.c | 70 ++++++++++++++++++++++++++++--------
+ 1 file changed, 55 insertions(+), 15 deletions(-)
 
 diff --git a/sound/pci/hda/patch_ca0132.c b/sound/pci/hda/patch_ca0132.c
-index bd5d4f0bd6f5..10aaa4806946 100644
+index 10aaa4806946..cd46112c827e 100644
 --- a/sound/pci/hda/patch_ca0132.c
 +++ b/sound/pci/hda/patch_ca0132.c
-@@ -8748,8 +8748,26 @@ static void ca0132_mmio_init_ae5(struct hda_codec *codec)
- 	data = ca0113_mmio_init_data_ae5;
- 	count = ARRAY_SIZE(ca0113_mmio_init_data_ae5);
- 
--	for (i = 0; i < count; i++)
-+	if (ca0132_quirk(spec) == QUIRK_AE7) {
-+		writel(0x00000680, spec->mem_base + 0x1c);
-+		writel(0x00880680, spec->mem_base + 0x1c);
-+	}
-+
-+	for (i = 0; i < count; i++) {
-+		/*
-+		 * AE-7 shares all writes with the AE-5, except that it writes
-+		 * a different value to 0x20c.
-+		 */
-+		if (i == 21 && ca0132_quirk(spec) == QUIRK_AE7) {
-+			writel(0x00800001, spec->mem_base + addr[i]);
-+			continue;
-+		}
-+
- 		writel(data[i], spec->mem_base + addr[i]);
-+	}
-+
-+	if (ca0132_quirk(spec) == QUIRK_AE5)
-+		writel(0x00880680, spec->mem_base + 0x1c);
+@@ -8786,6 +8786,16 @@ static void ca0132_mmio_init(struct hda_codec *codec)
+ 	}
  }
  
- static void ca0132_mmio_init(struct hda_codec *codec)
++static const unsigned int ca0132_ae5_register_set_addresses[] = {
++	0x304, 0x304, 0x304, 0x304, 0x100, 0x304, 0x100, 0x304, 0x100, 0x304,
++	0x100, 0x304, 0x86c, 0x800, 0x86c, 0x800, 0x804
++};
++
++static const unsigned char ca0132_ae5_register_set_data[] = {
++	0x0f, 0x0e, 0x1f, 0x0c, 0x3f, 0x08, 0x7f, 0x00, 0xff, 0x00, 0x6b,
++	0x01, 0x6b, 0x57
++};
++
+ /*
+  * This function writes to some SFR's, does some region2 writes, and then
+  * eventually resets the codec with the 0x7ff verb. Not quite sure why it does
+@@ -8794,6 +8804,18 @@ static void ca0132_mmio_init(struct hda_codec *codec)
+ static void ae5_register_set(struct hda_codec *codec)
+ {
+ 	struct ca0132_spec *spec = codec->spec;
++	unsigned int count = ARRAY_SIZE(ca0132_ae5_register_set_addresses);
++	const unsigned int *addr = ca0132_ae5_register_set_addresses;
++	const unsigned char *data = ca0132_ae5_register_set_data;
++	unsigned int i, cur_addr;
++	unsigned char tmp[3];
++
++	if (ca0132_quirk(spec) == QUIRK_AE7) {
++		snd_hda_codec_write(codec, WIDGET_CHIP_CTRL, 0,
++				    VENDOR_CHIPIO_8051_ADDRESS_LOW, 0x41);
++		snd_hda_codec_write(codec, WIDGET_CHIP_CTRL, 0,
++				    VENDOR_CHIPIO_PLL_PMU_WRITE, 0xc8);
++	}
+ 
+ 	chipio_8051_write_direct(codec, 0x93, 0x10);
+ 	snd_hda_codec_write(codec, WIDGET_CHIP_CTRL, 0,
+@@ -8801,25 +8823,43 @@ static void ae5_register_set(struct hda_codec *codec)
+ 	snd_hda_codec_write(codec, WIDGET_CHIP_CTRL, 0,
+ 			    VENDOR_CHIPIO_PLL_PMU_WRITE, 0xc2);
+ 
+-	writeb(0x0f, spec->mem_base + 0x304);
+-	writeb(0x0f, spec->mem_base + 0x304);
+-	writeb(0x0f, spec->mem_base + 0x304);
+-	writeb(0x0f, spec->mem_base + 0x304);
+-	writeb(0x0e, spec->mem_base + 0x100);
+-	writeb(0x1f, spec->mem_base + 0x304);
+-	writeb(0x0c, spec->mem_base + 0x100);
+-	writeb(0x3f, spec->mem_base + 0x304);
+-	writeb(0x08, spec->mem_base + 0x100);
+-	writeb(0x7f, spec->mem_base + 0x304);
+-	writeb(0x00, spec->mem_base + 0x100);
+-	writeb(0xff, spec->mem_base + 0x304);
++	if (ca0132_quirk(spec) == QUIRK_AE7) {
++		tmp[0] = 0x03;
++		tmp[1] = 0x03;
++		tmp[2] = 0x07;
++	} else {
++		tmp[0] = 0x0f;
++		tmp[1] = 0x0f;
++		tmp[2] = 0x0f;
++	}
+ 
+-	ca0113_mmio_command_set(codec, 0x30, 0x2d, 0x3f);
++	for (i = cur_addr = 0; i < 3; i++, cur_addr++)
++		writeb(tmp[i], spec->mem_base + addr[cur_addr]);
++
++	/*
++	 * First writes are in single bytes, final are in 4 bytes. So, we use
++	 * writeb, then writel.
++	 */
++	for (i = 0; cur_addr < 12; i++, cur_addr++)
++		writeb(data[i], spec->mem_base + addr[cur_addr]);
++
++	for (; cur_addr < count; i++, cur_addr++)
++		writel(data[i], spec->mem_base + addr[cur_addr]);
++
++	writel(0x00800001, spec->mem_base + 0x20c);
++
++	if (ca0132_quirk(spec) == QUIRK_AE7) {
++		ca0113_mmio_command_set_type2(codec, 0x48, 0x07, 0x83);
++		ca0113_mmio_command_set(codec, 0x30, 0x2e, 0x3f);
++	} else {
++		ca0113_mmio_command_set(codec, 0x30, 0x2d, 0x3f);
++	}
+ 
+ 	chipio_8051_write_direct(codec, 0x90, 0x00);
+ 	chipio_8051_write_direct(codec, 0x90, 0x10);
+ 
+-	ca0113_mmio_command_set(codec, 0x48, 0x07, 0x83);
++	if (ca0132_quirk(spec) == QUIRK_AE5)
++		ca0113_mmio_command_set(codec, 0x48, 0x07, 0x83);
+ 
+ 	chipio_write(codec, 0x18b0a4, 0x000000c2);
+ 
+@@ -8918,7 +8958,7 @@ static int ca0132_init(struct hda_codec *codec)
+ 
+ 	snd_hda_power_up_pm(codec);
+ 
+-	if (ca0132_quirk(spec) == QUIRK_AE5)
++	if (ca0132_quirk(spec) == QUIRK_AE5 || ca0132_quirk(spec) == QUIRK_AE7)
+ 		ae5_register_set(codec);
+ 
+ 	ca0132_init_unsol(codec);
 -- 
 2.20.1
 

@@ -2,68 +2,147 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6F6F625170F
-	for <lists+alsa-devel@lfdr.de>; Tue, 25 Aug 2020 13:07:16 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id CF4062517B1
+	for <lists+alsa-devel@lfdr.de>; Tue, 25 Aug 2020 13:32:42 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 152661694;
-	Tue, 25 Aug 2020 13:06:26 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 152661694
+	by alsa0.perex.cz (Postfix) with ESMTPS id 376B81676;
+	Tue, 25 Aug 2020 13:31:52 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 376B81676
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1598353636;
-	bh=LG+Js2OjQ7autWLRgbDX52cmssVSJDSrEytn9k7rNeI=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=s/n8lM0dIQ1CuOHxoRYdFdwp5rxRHfh9HjiC5VXGPgcYPp7YDgXADAqstDcPKGklY
-	 L2X8aO2Zu6IjCaanRrrVI/FZxE+T5lVGG1pmqDp4b0WE1qQX7/5AyBGK4tiSW6Ehgu
-	 IhoW9QHOgZsznZtV8tHet+mjKzN2SvOPwG7XJ0JY=
+	s=default; t=1598355162;
+	bh=tV37BoqcKclxHH+pSCglVZwZy2b9TxPH8G0BgLm34eI=;
+	h=Subject:To:From:Date:In-Reply-To:References:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=qVQIm7PMtsc40XB/cDNYpid6w6VO/pcQBunGL957n4kT+n3vV16EzAVkHA7saMJSI
+	 JGiZ5A0BnZNLSnwvJFa2yAJjAH+qm0BnKcdgU82iKJxQJTwFrwfKz30Qgyy4mv206D
+	 OwyB5o4HyHxfDYnN/wtNPNtA1+gRW9ENdcL6beWE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 9C4F3F802F9;
-	Tue, 25 Aug 2020 13:01:41 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 66900F800EB;
+	Tue, 25 Aug 2020 13:31:01 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 5CAF7F80143; Tue, 25 Aug 2020 11:40:09 +0200 (CEST)
+ id 850F9F8025A; Tue, 25 Aug 2020 13:30:58 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.0 required=5.0 tests=SPF_HELO_PASS,SPF_PASS,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from loongson.cn (mail.loongson.cn [114.242.206.163])
- by alsa1.perex.cz (Postfix) with ESMTP id 500F0F80143
- for <alsa-devel@alsa-project.org>; Tue, 25 Aug 2020 11:40:00 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 500F0F80143
-Received: from linux.localdomain (unknown [113.200.148.30])
- by mail.loongson.cn (Coremail) with SMTP id AQAAf9DxCMZo3ERfncENAA--.2579S2;
- Tue, 25 Aug 2020 17:39:53 +0800 (CST)
-From: Tiezhu Yang <yangtiezhu@loongson.cn>
-To: Takashi Iwai <tiwai@suse.com>, Takashi Iwai <tiwai@suse.de>,
- Jaroslav Kysela <perex@perex.cz>
-Subject: [PATCH v2] Revert "ALSA: hda: Add support for Loongson 7A1000
- controller"
-Date: Tue, 25 Aug 2020 17:39:48 +0800
-Message-Id: <1598348388-2518-1-git-send-email-yangtiezhu@loongson.cn>
-X-Mailer: git-send-email 2.1.0
-X-CM-TRANSID: AQAAf9DxCMZo3ERfncENAA--.2579S2
-X-Coremail-Antispam: 1UD129KBjvJXoWxAFW3Gr43KFW5XFyrAw4DXFb_yoW5Jw1fpw
- 15Zr12yr4kKr4qqa15ta4Yvry8twnrAasrGrWxJw17ZFnrur18JryxZF4SkFs8urWrJFy7
- J34DtwsrWayDGw7anT9S1TB71UUUUUUqnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
- 9KBjDU0xBIdaVrnRJUUUyC14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
- rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
- 1l84ACjcxK6xIIjxv20xvE14v26r1I6r4UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4j
- 6F4UM28EF7xvwVC2z280aVAFwI0_Cr1j6rxdM28EF7xvwVC2z280aVCY1x0267AKxVW0oV
- Cq3wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0
- I7IYx2IY67AKxVWUJVWUGwAv7VC2z280aVAFwI0_Gr0_Cr1lOx8S6xCaFVCjc4AY6r1j6r
- 4UM4x0Y48IcxkI7VAKI48JM4x0x7Aq67IIx4CEVc8vx2IErcIFxwCF04k20xvY0x0EwIxG
- rwCFx2IqxVCFs4IE7xkEbVWUJVW8JwC20s026c02F40E14v26r1j6r18MI8I3I0E7480Y4
- vE14v26r106r1rMI8E67AF67kF1VAFwI0_JF0_Jw1lIxkGc2Ij64vIr41lIxAIcVC0I7IY
- x2IY67AKxVWUJVWUCwCI42IY6xIIjxv20xvEc7CjxVAFwI0_Jr0_Gr1lIxAIcVCF04k26c
- xKx2IYs7xG6rWUJVWrZr1UMIIF0xvEx4A2jsIE14v26r1j6r4UMIIF0xvEx4A2jsIEc7Cj
- xVAFwI0_Gr0_Gr1UYxBIdaVFxhVjvjDU0xZFpf9x0JUq38nUUUUU=
-X-CM-SenderInfo: p1dqw3xlh2x3gn0dqz5rrqw2lrqou0/
-X-Mailman-Approved-At: Tue, 25 Aug 2020 13:01:32 +0200
-Cc: alsa-devel@alsa-project.org, Xuefeng Li <lixuefeng@loongson.cn>,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
+X-Spam-Status: No, score=-3.7 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+ DKIM_VALID,DKIM_VALID_AU,NICE_REPLY_A,RCVD_IN_MSPIKE_H3,RCVD_IN_MSPIKE_WL,
+ SPF_HELO_PASS,SPF_PASS autolearn=disabled version=3.4.0
+Received: from mailout2.w1.samsung.com (mailout2.w1.samsung.com
+ [210.118.77.12])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id A8239F800D1
+ for <alsa-devel@alsa-project.org>; Tue, 25 Aug 2020 13:30:45 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A8239F800D1
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com
+ header.b="bf/T+vWp"
+Received: from eucas1p2.samsung.com (unknown [182.198.249.207])
+ by mailout2.w1.samsung.com (KnoxPortal) with ESMTP id
+ 20200825113043euoutp02859386853523f25cc2c7ce2643d0aed0~uf3GVadF-1480614806euoutp02V
+ for <alsa-devel@alsa-project.org>; Tue, 25 Aug 2020 11:30:43 +0000 (GMT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 mailout2.w1.samsung.com
+ 20200825113043euoutp02859386853523f25cc2c7ce2643d0aed0~uf3GVadF-1480614806euoutp02V
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
+ s=mail20170921; t=1598355043;
+ bh=X8gDcs427W02/qFtPNsPSdmNDXjqciYwh7aa0XOpqik=;
+ h=Subject:To:Cc:From:Date:In-Reply-To:References:From;
+ b=bf/T+vWpq9orb92VKlt6rntA6M0vAXl4taqwUbJIAGHnDbeMzHeZRFEFmsAXDYrNq
+ Wr9AKv7vwxCWJ/Vo6hIhRgWr9K0GkTMScEkS+wDoQCoPXqBM2W4KpgH6J+25PIJB7S
+ XU9Qwn50dCGine2uiKApqXnlXT7+4oTjOnOc6UhQ=
+Received: from eusmges1new.samsung.com (unknown [203.254.199.242]) by
+ eucas1p2.samsung.com (KnoxPortal) with ESMTP id
+ 20200825113043eucas1p2a677e17885157748102be36111dd7cf0~uf3GIA3vS2151921519eucas1p2e;
+ Tue, 25 Aug 2020 11:30:43 +0000 (GMT)
+Received: from eucas1p2.samsung.com ( [182.198.249.207]) by
+ eusmges1new.samsung.com (EUCPMTA) with SMTP id 2B.B0.06456.366F44F5; Tue, 25
+ Aug 2020 12:30:43 +0100 (BST)
+Received: from eusmtrp2.samsung.com (unknown [182.198.249.139]) by
+ eucas1p1.samsung.com (KnoxPortal) with ESMTPA id
+ 20200825113042eucas1p156019fa8529e69de368498a0a7b4279f~uf3FqdPEE0129601296eucas1p1w;
+ Tue, 25 Aug 2020 11:30:42 +0000 (GMT)
+Received: from eusmgms2.samsung.com (unknown [182.198.249.180]) by
+ eusmtrp2.samsung.com (KnoxPortal) with ESMTP id
+ 20200825113042eusmtrp2f1d062dd589e815ab44765282723204c~uf3FpmMBe1642116421eusmtrp26;
+ Tue, 25 Aug 2020 11:30:42 +0000 (GMT)
+X-AuditID: cbfec7f2-7efff70000001938-75-5f44f663c15d
+Received: from eusmtip2.samsung.com ( [203.254.199.222]) by
+ eusmgms2.samsung.com (EUCPMTA) with SMTP id 45.58.06017.266F44F5; Tue, 25
+ Aug 2020 12:30:42 +0100 (BST)
+Received: from [106.210.88.143] (unknown [106.210.88.143]) by
+ eusmtip2.samsung.com (KnoxPortal) with ESMTPA id
+ 20200825113041eusmtip26d77690ed3da6b991eebf229d4dff802~uf3EXjFCA0971809718eusmtip2L;
+ Tue, 25 Aug 2020 11:30:41 +0000 (GMT)
+Subject: Re: a saner API for allocating DMA addressable pages
+To: Christoph Hellwig <hch@lst.de>, Mauro Carvalho Chehab
+ <mchehab@kernel.org>, Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
+ "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>, Joonyoung
+ Shim <jy0922.shim@samsung.com>, Seung-Woo Kim <sw0312.kim@samsung.com>,
+ Kyungmin Park <kyungmin.park@samsung.com>, Ben Skeggs <bskeggs@redhat.com>,
+ Pawel Osciak <pawel@osciak.com>, Matt Porter <mporter@kernel.crashing.org>,
+ iommu@lists.linux-foundation.org
+From: Marek Szyprowski <m.szyprowski@samsung.com>
+Message-ID: <8fa1ce36-c783-1a02-6890-211eb504a33b@samsung.com>
+Date: Tue, 25 Aug 2020 13:30:41 +0200
+User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:68.0) Gecko/20100101
+ Thunderbird/68.11.0
+MIME-Version: 1.0
+In-Reply-To: <20200819065555.1802761-1-hch@lst.de>
+Content-Transfer-Encoding: 7bit
+Content-Language: en-US
+X-Brightmail-Tracker: H4sIAAAAAAAAA01Sa0yTZxT2/e6g1dd64QQX1C4Yt8RL1ZjXqHiN+UZm4g+XbMsG1vIFUC7a
+ ghf+WAsabsFZ0LLaBdgMzG6KfgMHGktEpSLhbkXxrvVSY1EpYkpUpHyg/HvOc55znuckR6DV
+ tVy4kJiSJhlSdEkaLpQ52xBonafvXx+7cKAXk+vt9RTxVmQjcuKfKxQprVtOzhwSyPN77Qxp
+ Nr/kifz4BkvKDh5nyOvsHpZ0nrNzJP90NUty5GpE7v07yJKS8ic8eXStjSLFrU6K5HXVcKRc
+ fk+RI63vaNJQOp28KyhgSZEvwJPiQi9HLhc5WXLJfJFeHS4e6KhgxNN+MzeEPnDiUcs1Tsx/
+ mcWKsiOHE+VeCy/ez3NR4n/H94mFNyuQeP6WiRMfD3g58ZXTzYkFVQ4k+uWITZN+Dl0RJyUl
+ 7pIMC6K2hCbIXQ5qx7NJe7rP25EJeSbkohAB8BJoqm5kc1GooMZ/I7BVukeKPgTNOQEuqFJj
+ P4KTV5eNTtw5YaUUUQWCPFsNpxSvEPR9yEZB1RS8EnrkB8OrpuIuGkrsATrYoHErDZ7K8UHM
+ YS3k+nKHLVQ4CrL8Vj6IGRwJV+quMkE8DcdAtctNKZrJ0Pi7Z5gPwYvg2OWnvLJzJvzvs4/s
+ D4NuT8lwPMCDAvSdOcQoudfDbbOfV/AUeOGqGsFfwWDt6EAmgoctJ3mlyEfQaS5Gimo53GkZ
+ GIoqDFl8A5XnFij0GmioO8wEacAT4aZvshJiIljOWmmFVkH2QbWingM216nPthfbOujfkMY2
+ 5jTbmHNsY86xffEtRYwDhUnpxuR4yahNkXbPN+qSjekp8fP1qckyGnropo+u3hr0tmNrPcIC
+ 0kxQmZzrYtWsbpdxb3I9AoHWTFWtbW6KUavidHszJENqrCE9STLWoxkCowlTLf7T+6sax+vS
+ pO2StEMyjHYpISTchAx/lP1VGTVOdyGiMWdzgr7Wl7ZFu7Dq7oYLT3w/ZJS791szflzrjF7U
+ 5o20buJ7ZiZ29s+aW7jUEmPVrirLN2daEtM7ZjuKrv/ydrM7YmP7gzf6rw07o+fGpUa3RA/+
+ NK972oHFge8zN3gj9f3bXuyhs56a7N/ZT+EVWcyxmK1z7nsYDWNM0Gm/pQ1G3SdTBG82zAMA
+ AA==
+X-Brightmail-Tracker: H4sIAAAAAAAAA02Se0hTcRTH+d3X7sThbWr9sqhYBVE523TuZ6VICd2CIOqfqHSuuqi1h+xu
+ kkE1zIVOs8d8lJkamqKV2E1TKpQ0M7UwzSwlzXKVi2YP6YllzhX434fzPZ9zOHBoXPqQDKKT
+ DGbOZNDqZJQP0fWnfTh477cYzZpBZzDq62nBkKsyA6CqK20YKm1eh66fotHYcA+BHqV9ECFh
+ tJ9El06UE+hTxjiJntwqolB2bT2JMoV6gIavTpGopOKNCL3ufIyhc91NGMp61kihCmESQ3nd
+ 33F0v3Qu+p6TQ6Jc908ROudwUehebhOJWtPu4tFBrK23kmBrJ9KoafpNsflnOyk2+0M6yQrV
+ mRQrfDkrYl9mtWPsjfJjrON5JWBvD1gpdvSXi2I/Nj2l2Jy6asBOCIu2+e2SrzcZLWZuSaKR
+ N0fKdiuQUq6IQHJlWIRcEaqOXatUyUKi1u/ndEkpnCkkKl6eKDyrxpLf+R0avF0ErMDpawdi
+ GjJh8EVVAWYHPrSUuQygraEN8wYLYUe+lfSyP5zst1PeJjeA7v7juCfwZyLhuDBCeoIAZgCH
+ v93vCU+AM9047MxgvYYNwPeZZTOjKEYB7W7PKDEtYaJg+kSByMMEsxy2NT+YkQOZODh6cgr3
+ 9syBHeedM3Uxo4QX7r0VeReEw+Ibr3AvL4YN7qJ/PA8OOkuw00BaOEsvnKUUzlIKZymlgKgG
+ AZyF1yfoeaWc1+p5iyFBvs+oF8D0J928/7OuEdjHd7QAhgYyX4m1aaNGSmpT+FR9C4A0LguQ
+ bHjUFSeV7NemHuZMRo3JouP4FqCaPu4MHhS4zzj9lwazRqFSqFGEQh2qDg1HsnmSDObuHimT
+ oDVzBzkumTP99zBaHGQF6s2TqrboElXxCnFsqs9YmGG5j41w1ehaG4bqv9kji5ZohyrT66aO
+ 9LWmhuQ9HvG9ltxY9lXXt3OVaYE6PuxA8IPtJUcv/gjPn9+xbdzZW9Vscdx5GOiwXYqK2Cra
+ Ep8uf65Z6oifU9Ne23q5ZpO6Z3VMRU2cK7kXvzC2ZZly3WeRjOATtYqVuInX/gXVsGUeXwMA
+ AA==
+X-CMS-MailID: 20200825113042eucas1p156019fa8529e69de368498a0a7b4279f
+X-Msg-Generator: CA
+Content-Type: text/plain; charset="utf-8"
+X-RootMTR: 20200819065610eucas1p2fde88e81917071b1888e7cc01ba0f298
+X-EPHeader: CA
+CMS-TYPE: 201P
+X-CMS-RootMailID: 20200819065610eucas1p2fde88e81917071b1888e7cc01ba0f298
+References: <CGME20200819065610eucas1p2fde88e81917071b1888e7cc01ba0f298@eucas1p2.samsung.com>
+ <20200819065555.1802761-1-hch@lst.de>
+Cc: Tom Lendacky <thomas.lendacky@amd.com>, alsa-devel@alsa-project.org,
+ linux-samsung-soc@vger.kernel.org, linux-ia64@vger.kernel.org,
+ linux-scsi@vger.kernel.org, linux-parisc@vger.kernel.org,
+ linux-doc@vger.kernel.org, nouveau@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, linux-nvme@lists.infradead.org,
+ linux-mips@vger.kernel.org, linux-mm@kvack.org, netdev@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-media@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -79,65 +158,44 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-This reverts commit 61eee4a7fc40 ("ALSA: hda: Add support for Loongson
-7A1000 controller") to fix the following error on the Loongson LS7A
-platform:
+Hi Christoph,
 
-rcu: INFO: rcu_preempt self-detected stall on CPU
-<SNIP>
-NMI backtrace for cpu 0
-CPU: 0 PID: 68 Comm: kworker/0:2 Not tainted 5.8.0+ #3
-Hardware name:  , BIOS
-Workqueue: events azx_probe_work [snd_hda_intel]
-<SNIP>
-Call Trace:
-[<ffffffff80211a64>] show_stack+0x9c/0x130
-[<ffffffff8065a740>] dump_stack+0xb0/0xf0
-[<ffffffff80665774>] nmi_cpu_backtrace+0x134/0x140
-[<ffffffff80665910>] nmi_trigger_cpumask_backtrace+0x190/0x200
-[<ffffffff802b1abc>] rcu_dump_cpu_stacks+0x12c/0x190
-[<ffffffff802b08cc>] rcu_sched_clock_irq+0xa2c/0xfc8
-[<ffffffff802b91d4>] update_process_times+0x2c/0xb8
-[<ffffffff802cad80>] tick_sched_timer+0x40/0xb8
-[<ffffffff802ba5f0>] __hrtimer_run_queues+0x118/0x1d0
-[<ffffffff802bab74>] hrtimer_interrupt+0x12c/0x2d8
-[<ffffffff8021547c>] c0_compare_interrupt+0x74/0xa0
-[<ffffffff80296bd0>] __handle_irq_event_percpu+0xa8/0x198
-[<ffffffff80296cf0>] handle_irq_event_percpu+0x30/0x90
-[<ffffffff8029d958>] handle_percpu_irq+0x88/0xb8
-[<ffffffff80296124>] generic_handle_irq+0x44/0x60
-[<ffffffff80b3cfd0>] do_IRQ+0x18/0x28
-[<ffffffff8067ace4>] plat_irq_dispatch+0x64/0x100
-[<ffffffff80209a20>] handle_int+0x140/0x14c
-[<ffffffff802402e8>] irq_exit+0xf8/0x100
+On 19.08.2020 08:55, Christoph Hellwig wrote:
+> this series replaced the DMA_ATTR_NON_CONSISTENT flag to dma_alloc_attrs
+> with a separate new dma_alloc_pages API, which is available on all
+> platforms.  In addition to cleaning up the convoluted code path, this
+> ensures that other drivers that have asked for better support for
+> non-coherent DMA to pages with incurring bounce buffering over can finally
+> be properly supported.
+>
+> I'm still a little unsure about the API naming, as alloc_pages sort of
+> implies a struct page return value, but we return a kernel virtual
+> address.  The other alternative would be to name the API
+> dma_alloc_noncoherent, but the whole non-coherent naming seems to put
+> people off.  As a follow up I plan to move the implementation of the
+> DMA_ATTR_NO_KERNEL_MAPPING flag over to this framework as well, given
+> that is also is a fundamentally non coherent allocation.  The replacement
+> for that flag would then return a struct page, as it is allowed to
+> actually return pages without a kernel mapping as the name suggested
+> (although most of the time they will actually have a kernel mapping..)
+>
+> In addition to the conversions of the existing non-coherent DMA users
+> the last three patches also convert the DMA coherent allocations in
+> the NVMe driver to use this new framework through a dmapool addition.
+> This was both to give me a good testing vehicle, but also because it
+> should speed up the NVMe driver on platforms with non-coherent DMA
+> nicely, without a downside on platforms with cache coherent DMA.
 
-Because AZX_DRIVER_GENERIC can not work well for Loongson LS7A HDA
-controller, it needs some workarounds which are not merged into the
-upstream kernel at this time, so it should revert this patch now.
+I really wonder what is the difference between this new API and 
+alloc_pages(GFP_DMA, n). Is this API really needed? I thought that this 
+is legacy thing to be removed one day...
 
-Fixes: 61eee4a7fc40 ("ALSA: hda: Add support for Loongson 7A1000 controller")
-Cc: <stable@vger.kernel.org> # 5.9-rc1+
-Signed-off-by: Tiezhu Yang <yangtiezhu@loongson.cn>
----
+Maybe it would make more sense to convert the few remaining drivers to 
+regular dma_map_page()/dma_sync_*()/dma_unmap_page() or have I missed 
+something?
 
-v2: update commit message
-
- sound/pci/hda/hda_intel.c | 2 --
- 1 file changed, 2 deletions(-)
-
-diff --git a/sound/pci/hda/hda_intel.c b/sound/pci/hda/hda_intel.c
-index e34a4d5..0f86e37 100644
---- a/sound/pci/hda/hda_intel.c
-+++ b/sound/pci/hda/hda_intel.c
-@@ -2745,8 +2745,6 @@ static const struct pci_device_id azx_ids[] = {
- 	  .driver_data = AZX_DRIVER_GENERIC | AZX_DCAPS_PRESET_ATI_HDMI },
- 	/* Zhaoxin */
- 	{ PCI_DEVICE(0x1d17, 0x3288), .driver_data = AZX_DRIVER_ZHAOXIN },
--	/* Loongson */
--	{ PCI_DEVICE(0x0014, 0x7a07), .driver_data = AZX_DRIVER_GENERIC },
- 	{ 0, }
- };
- MODULE_DEVICE_TABLE(pci, azx_ids);
+Best regards
 -- 
-2.1.0
+Marek Szyprowski, PhD
+Samsung R&D Institute Poland
 

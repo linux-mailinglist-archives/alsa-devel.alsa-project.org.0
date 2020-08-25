@@ -2,92 +2,94 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 501EC250FD7
-	for <lists+alsa-devel@lfdr.de>; Tue, 25 Aug 2020 05:13:13 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 02171250FFB
+	for <lists+alsa-devel@lfdr.de>; Tue, 25 Aug 2020 05:27:59 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C4028167D;
-	Tue, 25 Aug 2020 05:12:22 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C4028167D
+	by alsa0.perex.cz (Postfix) with ESMTPS id 7F8D31661;
+	Tue, 25 Aug 2020 05:27:08 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7F8D31661
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1598325192;
-	bh=B+Zgx08ZZIlHiO3EjqC3kAgpVjVLj6Srzmvv9aySNKM=;
-	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
+	s=default; t=1598326078;
+	bh=JjmCa0YLrRln5IbtVF1KjoPJCVLB/W1p3zdefBadhJw=;
+	h=From:Subject:To:References:Date:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=XK4j1jq7Rjh3LvIuGQyDjD38aYnYPbpRb6ufJIxNxEGh+FPOmSiszvS/tL+pa9Slb
-	 TEE+IxWt/UpIpy17nzPB4ZiXmEwmo0EP/aF3jB6oT06uy30YwxzqQcE7JIhXLHo5Fi
-	 wANGpnZTF37DIxAhu5UMeRi4AGYSbqkhLAMrVQiM=
+	b=ITOtzVQfX+QhTOp6ztAiG0/U/NrgktM1+n4Oz4/SfRA8Xv1boyqtDmkmzPliC9hf+
+	 /5dGuF/GI65b5jSzzmdSu73QaF4SnO1MCs9fprPxh5ynyi5YrovnQzWiLHs1Dpobvb
+	 3bAMwG/mQN/LPugp79yUUQuDhTaOOeIhTAqP2B/k=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id E39FBF80260;
-	Tue, 25 Aug 2020 05:11:31 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id F4060F80245;
+	Tue, 25 Aug 2020 05:26:16 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id DCA5CF8025A; Tue, 25 Aug 2020 05:11:23 +0200 (CEST)
+ id 59BDFF8025A; Tue, 25 Aug 2020 05:26:13 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-1.4 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,NICE_REPLY_A,PRX_BODY_30,SPF_HELO_NONE,SPF_PASS,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from hqnvemgate25.nvidia.com (hqnvemgate25.nvidia.com
- [216.228.121.64])
+X-Spam-Status: No, score=-2.4 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+ DKIM_VALID,DKIM_VALID_AU,HTML_MESSAGE,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS
+ autolearn=disabled version=3.4.0
+Received: from hqnvemgate24.nvidia.com (hqnvemgate24.nvidia.com
+ [216.228.121.143])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 04419F80143
- for <alsa-devel@alsa-project.org>; Tue, 25 Aug 2020 05:11:13 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 04419F80143
+ by alsa1.perex.cz (Postfix) with ESMTPS id 63D09F80143
+ for <alsa-devel@alsa-project.org>; Tue, 25 Aug 2020 05:26:08 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 63D09F80143
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=nvidia.com header.i=@nvidia.com
- header.b="Y+qrFFJ6"
+ header.b="Nwdj8Qyh"
 Received: from hqpgpgate101.nvidia.com (Not Verified[216.228.121.13]) by
- hqnvemgate25.nvidia.com (using TLS: TLSv1.2, DES-CBC3-SHA)
- id <B5f4481100000>; Mon, 24 Aug 2020 20:10:08 -0700
+ hqnvemgate24.nvidia.com (using TLS: TLSv1.2, DES-CBC3-SHA)
+ id <B5f4484560000>; Mon, 24 Aug 2020 20:24:06 -0700
 Received: from hqmail.nvidia.com ([172.20.161.6])
  by hqpgpgate101.nvidia.com (PGP Universal service);
- Mon, 24 Aug 2020 20:11:10 -0700
+ Mon, 24 Aug 2020 20:26:05 -0700
 X-PGP-Universal: processed;
- by hqpgpgate101.nvidia.com on Mon, 24 Aug 2020 20:11:10 -0700
-Received: from [10.25.97.151] (172.20.13.39) by HQMAIL107.nvidia.com
+ by hqpgpgate101.nvidia.com on Mon, 24 Aug 2020 20:26:05 -0700
+Received: from [10.25.97.151] (10.124.1.5) by HQMAIL107.nvidia.com
  (172.20.187.13) with Microsoft SMTP Server (TLS) id 15.0.1473.3; Tue, 25 Aug
- 2020 03:11:06 +0000
-Subject: Re: More Generic Audio Graph Sound Card idea
-To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-References: <87k0xszlep.wl-kuninori.morimoto.gx@renesas.com>
- <20200821121844.GF4870@sirena.org.uk>
- <878se4zybn.wl-kuninori.morimoto.gx@renesas.com>
- <58220f32-0b3e-d666-5bb0-bbeae27f6aab@nvidia.com>
- <87364by23u.wl-kuninori.morimoto.gx@renesas.com>
+ 2020 03:25:59 +0000
 From: Sameer Pujar <spujar@nvidia.com>
-Message-ID: <e6e04e2c-2695-b7ba-3eb2-79158f317e4a@nvidia.com>
-Date: Tue, 25 Aug 2020 08:41:03 +0530
+Subject: Re: [PATCH v2 3/9] ASoC: audio-graph: Identify 'no_pcm' DAI links for
+ DPCM
+To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+References: <1596605064-27748-1-git-send-email-spujar@nvidia.com>
+ <1596605064-27748-4-git-send-email-spujar@nvidia.com>
+ <87pn7ofs19.wl-kuninori.morimoto.gx@renesas.com>
+ <97f325a6-96cc-11c5-8027-8c0a159e3da0@nvidia.com>
+Message-ID: <2d3aa11e-3c56-1f7a-3d41-2457f973d55b@nvidia.com>
+Date: Tue, 25 Aug 2020 08:55:56 +0530
 User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:68.0) Gecko/20100101
  Thunderbird/68.10.0
 MIME-Version: 1.0
-In-Reply-To: <87364by23u.wl-kuninori.morimoto.gx@renesas.com>
-X-Originating-IP: [172.20.13.39]
-X-ClientProxiedBy: HQMAIL107.nvidia.com (172.20.187.13) To
+In-Reply-To: <97f325a6-96cc-11c5-8027-8c0a159e3da0@nvidia.com>
+X-Originating-IP: [10.124.1.5]
+X-ClientProxiedBy: HQMAIL101.nvidia.com (172.20.187.10) To
  HQMAIL107.nvidia.com (172.20.187.13)
-Content-Type: text/plain; charset="utf-8"; format=flowed
-Content-Transfer-Encoding: 7bit
 Content-Language: en-GB
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nvidia.com; s=n1;
- t=1598325008; bh=XXp2/9E8WDkIqXHecOtzHsA7j1S9s+rWmxMrXc6Vj1M=;
- h=X-PGP-Universal:Subject:To:CC:References:From:Message-ID:Date:
+ t=1598325846; bh=f90dV3PFmjB+t9TM7uNV45655xT1b8n/JEproPmBO70=;
+ h=X-PGP-Universal:From:Subject:To:CC:References:Message-ID:Date:
  User-Agent:MIME-Version:In-Reply-To:X-Originating-IP:
- X-ClientProxiedBy:Content-Type:Content-Transfer-Encoding:
- Content-Language;
- b=Y+qrFFJ6azmDcOPhED5vmbmUQ9QhqS+q4Gq5V6Jgkg8CRUjWxLq419lodNmeYmhfx
- vREVMM8bitmpoXcbsAp2XXSqWJChnVn1b+ks/ueQWc3eNl6HgpYYRwzOlOc2IJjOiw
- BSjpycygDJ1o3A/Wz5Cb33P1kAGg6fR5JvXyBnHrUvgEBjG3mCNhKeiXd8b1nJScK4
- 8QWIYDBoAv+kYATwEnHqNzr45KbzGuNMlazn9sr6tvBtVKQvZ30D3CAp73B9abca6x
- cGRVja7G0Jqm7oNKksZA/GGQLk9YwmXehWnZHZTRDYonNe/+1iCv7er4VMuUCHPBXq
- vBjn0yNvglSpw==
-Cc: sharadg@nvidia.com, Linux-ALSA <alsa-devel@alsa-project.org>,
- Mark Brown <broonie@kernel.org>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- jonathanh@nvidia.com
+ X-ClientProxiedBy:Content-Type:Content-Language;
+ b=Nwdj8QyhrFYJkndCQk2cBqm2aWEQ/HuK3eU/t3aUGvdixMh/ynSoBAfgwqZY8ZrSV
+ 16QqEUlr537FprNyJ6N0B16DoF5h3RrQIBz9xgRLQd9cCrKMCpryNL2lhTkm5OeZFl
+ B0A19HXbOl3qtOffBeYB7Xky/AjpO6VVuMU1Cf9PsXnBQtRfjyrgwOwjHX6SF0sa/1
+ DkPKzEzmLNibLduSylROupNshDx8BDAEKQEyQRFXOOTYOiqvJU5rx4cVV8OulD0TYk
+ oL6+YP3/cH73jg7KQessUCdITlSVjr6XnJrj0B+O1ofmX2Tm19KN6q6EYYNLCPIlOt
+ fzjHhRzb3bjmg==
+Content-Type: text/plain; charset="utf-8"; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Content-Filtered-By: Mailman/MimeDel 2.1.15
+Cc: jonathanh@nvidia.com, nicoleotsuka@gmail.com, alsa-devel@alsa-project.org,
+ atalambedu@nvidia.com, swarren@nvidia.com, linux-kernel@vger.kernel.org,
+ nwartikar@nvidia.com, lgirdwood@gmail.com, robh+dt@kernel.org, tiwai@suse.com,
+ viswanathl@nvidia.com, sharadg@nvidia.com, broonie@kernel.org,
+ thierry.reding@gmail.com, linux-tegra@vger.kernel.org, rlokhande@nvidia.com,
+ mkumard@nvidia.com, dramesh@nvidia.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -105,63 +107,49 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 Hi Morimoto-san,
 
-CC Jon, Sharad
-
-On 8/25/2020 6:29 AM, Kuninori Morimoto wrote:
-> External email: Use caution opening links or attachments
->
->
-> Hi Sameer
->
->> The series [0] introduces small deltas to resolve issues I am
->> facing. As you see, most of the implementation is unchanged for the
->> graph-card driver. Hence I am not sure if we need a new driver now.
-> Yes, maybe it is not needed *for now*, but will be issue in the future,
-> because I can't have normal-link and DPCM-link in the same time, right ?
-
-Yes I am forcing usage of DPCM for all links. May be the compatible 
-"-cc-" should reflect this. The reason for doing so is, wanted to use 
-DPCM interface with the component model as previously discussed with 
-Mark in [1]. The existing detection mechanism did not work because, in 
-my case, the HW links are one-to-one and the DT is described that way in 
-[0].
-
->
->> at all it gets complicated in future, the "-cc-" compatible can be
->> moved to new driver? Please note that the new "-cc-" compatibility is
->> added to address following and some of these are discussed in [1].
->> - DPCM usage with component model (where there can be N number of
->> components available and M (<= N) of them can be connected together to
->> form an audio path). For example the path would be like,
->> FE -> BE_1 -> BE_2 -> ... -> BE_M.
->> - I am extending dpcm_path_get() for this reason and DAI ops get
->> called for all connected components.
+>> (snip)
+>>> +static bool soc_component_is_pcm(struct snd_soc_dai_link_component 
+>>> *dlc)
+>>> +{
+>>> +     struct snd_soc_dai *dai = snd_soc_find_dai(dlc);
+>>> +
+>>> +     if (dai && (dai->component->driver->pcm_construct ||
+>>> +                 dai->driver->pcm_new))
+>>> +             return true;
+>>> +
+>>> +     return false;
+>>> +}
+>> This snd_soc_find_dai() will indicate WARNING
+>> if .config has CONFIG_LOCKDEP for me.
 >>
->> [0] https://lkml.org/lkml/2020/8/5/42
->> [1] https://lkml.org/lkml/2020/4/30/519
-> The difference between "-cc" and "card2" is DPCM link detection.
-> "-cc-"  will assume all are DPCM link,
-> "card2" will detect both normal-link and DPCM-link via DT.
->
-> But, I guess new driver 1st version is focus to
-> detecting normal-link and DPCM-link only.
+>> Maybe implement it at soc-core.c with client_mutex lock
+>> is needed.
 
-Do you plan to propose something like enum for card2 and has scope for 
-extension, where link type can be normal/DPCM/codec-to-codec/etc., ?
-Since there are so many board variants and may have some specific 
-requirements, I am wondering being able to detect link type from DT 
-should be the only motivation for a new driver.
+I tried testing this with LOCKDEP config enabled at my end. It seems I 
+don't see warning originated from above function. Are you suggesting 
+that, in general, snd_soc_find_dai() should be called with client_mutex 
+held?
 
->
-> This means it is not enough for your case,
-> because I can't full reproduce your board/situation.
-> Maybe you need some extra patch on "card2"
-> which "-cc-" added to soc-xxx.c
+However I do see below warning and stack which is not related to above 
+function call.
+   dump_backtrace+0x0/0x1c0
+   show_stack+0x18/0x28
+   dump_stack+0xc8/0x128
+   __warn+0xa0/0x15c
+   report_bug+0xc8/0x180
+   bug_handler+0x20/0x80
+   brk_handler+0x6c/0xc0
+   do_debug_exception+0xd8/0x1f0
+   el1_sync_handler+0x98/0x128
+   el1_sync+0x7c/0x100
+   snd_soc_find_dai+0x10c/0x120 [snd_soc_core]
+   snd_soc_dai_link_set_capabilities+0xc0/0x168 [snd_soc_core]
+   graph_dai_link_of_dpcm+0x3a4/0x410 [snd_soc_audio_graph_card]
+   graph_for_each_link+0x174/0x220 [snd_soc_audio_graph_card]
+   graph_probe+0x174/0x270 [snd_soc_audio_graph_card]
 
-I am afraid that even the new driver won't work as it is for my case 
-unless a similar compatible and flag exposed for it. So I am not sure 
-how different it would be from [0].
+May be *snd_soc_dai_link_set_capabilities**()* requires similar fix?
 
 
 Thanks,
-Sameer.
+Sameer

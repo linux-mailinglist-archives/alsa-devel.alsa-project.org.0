@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8F9E62521F6
-	for <lists+alsa-devel@lfdr.de>; Tue, 25 Aug 2020 22:25:27 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A82812521F8
+	for <lists+alsa-devel@lfdr.de>; Tue, 25 Aug 2020 22:26:07 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 46DA716F0;
-	Tue, 25 Aug 2020 22:24:37 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 46DA716F0
+	by alsa0.perex.cz (Postfix) with ESMTPS id 432D316F7;
+	Tue, 25 Aug 2020 22:25:17 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 432D316F7
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1598387127;
-	bh=HySFqkSYZQcFq5ald9PWPw2laKIzGU1apduY/pJNmVo=;
+	s=default; t=1598387167;
+	bh=d/9oJLOkaH9e92ieQGrOTbfeo14AurOWxCY+0FNmeE4=;
 	h=Date:From:To:In-Reply-To:References:Subject:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=li3ihEUNvCvh8+PbhScg4MtGb9JszSEKWbk+ycgizgbTMZhiwqO8ewwUTnYhPMgpy
-	 yeBzmqcZafOHuJvU4KPwAP6O8A6pr/rM15toTFIXPuv06uUKHalW/Gvpl3oCr/FIEh
-	 Fcm/P/Z2nEcLcXsgTJsynJH1Jugsh40m3zOI2szc=
+	b=jv0XIdHGHYHoS50xLTm4kafCBPwT0V0zkWizmw/sLatIDtlWVve4sEUmJsBg2vahv
+	 QwE+iuuwPZK+ZupXLFH9RvPcEwgeIEua/0KVt8SJRORQWBS3XeHk6pvSJdirJqGFUg
+	 L2l4+vfX4m+uy6ecIn4NSoOfhVlTJ8cenvIp4HQ4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id E6C5DF802BC;
-	Tue, 25 Aug 2020 22:20:00 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id B5E98F8028A;
+	Tue, 25 Aug 2020 22:20:05 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id A4F19F80269; Tue, 25 Aug 2020 22:19:55 +0200 (CEST)
+ id B02DDF802BC; Tue, 25 Aug 2020 22:19:58 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-1.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -34,33 +34,32 @@ X-Spam-Status: No, score=-1.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 469F9F80260
- for <alsa-devel@alsa-project.org>; Tue, 25 Aug 2020 22:19:49 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 469F9F80260
+ by alsa1.perex.cz (Postfix) with ESMTPS id 38468F8025A
+ for <alsa-devel@alsa-project.org>; Tue, 25 Aug 2020 22:19:55 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 38468F8025A
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="DrmRCeaH"
+ header.b="nJXs4uRi"
 Received: from localhost (fw-tnat.cambridge.arm.com [217.140.96.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 0F4C22075F;
- Tue, 25 Aug 2020 20:19:47 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id 2430A2075F;
+ Tue, 25 Aug 2020 20:19:52 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1598386788;
- bh=HySFqkSYZQcFq5ald9PWPw2laKIzGU1apduY/pJNmVo=;
+ s=default; t=1598386793;
+ bh=d/9oJLOkaH9e92ieQGrOTbfeo14AurOWxCY+0FNmeE4=;
  h=Date:From:To:Cc:In-Reply-To:References:Subject:From;
- b=DrmRCeaHCCdPa3xbEzU6wdZ53wH2quAj0VNg9kB3ekmfNWyeZUZwYcIqhrRo3DhiJ
- 0F2AiHPNz+pGC5io7Gpjj6fDwjzmUtoGPj0Zs9dRMNPkODeuw4N0jgSKGuy/7KL8dL
- jI3RThxlxHSt3DGR8dptuOqqhkubm3Yi+oEDBocA=
-Date: Tue, 25 Aug 2020 21:19:13 +0100
+ b=nJXs4uRil5rG5lO/EMEQQrQlxjfu8y7Tql7UycZspEJoJYVQTHaWNocajTzP8Un+m
+ KTMQwANAto5gIhKbin1GkdSvOf1wEA5lGTAHazNLt7621pGQmHrFOZYKLkpPjCxYbk
+ 4xbxWXOaZBHkdNbTdcI8POXLbi/J17C87DHNPidY=
+Date: Tue, 25 Aug 2020 21:19:18 +0100
 From: Mark Brown <broonie@kernel.org>
-To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- alsa-devel@alsa-project.org
-In-Reply-To: <20200824200912.46852-1-pierre-louis.bossart@linux.intel.com>
-References: <20200824200912.46852-1-pierre-louis.bossart@linux.intel.com>
-Subject: Re: [PATCH 0/8] ASoC: SOF: trivial code/log/comment improvements
-Message-Id: <159838674787.41542.7820759717091847706.b4-ty@kernel.org>
-Cc: tiwai@suse.de
+To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+In-Reply-To: <87a6yjy5sy.wl-kuninori.morimoto.gx@renesas.com>
+References: <87a6yjy5sy.wl-kuninori.morimoto.gx@renesas.com>
+Subject: Re: [PATCH] ASoC: pcm3168a: ignore 0 Hz settings
+Message-Id: <159838674787.41542.16061255228836878344.b4-ty@kernel.org>
+Cc: Linux-ALSA <alsa-devel@alsa-project.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -76,17 +75,9 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Mon, 24 Aug 2020 15:09:04 -0500, Pierre-Louis Bossart wrote:
-> Remove useless variable initialization and allocation, adjust log
-> levels to make support easier, and fix comments. No functional
-> changes.
-> 
-> Guennadi Liakhovetski (2):
->   ASoC: SOF: topology: (cosmetic) remove redundant variable
->     initialisations
->   ASoC: SOF: (cosmetic) use the "bool" type where it makes sense
-> 
-> [...]
+On 25 Aug 2020 08:39:24 +0900, Kuninori Morimoto wrote:
+> Some sound card try to set 0 Hz as reset, but it is impossible.
+> This patch ignores it to avoid error return.
 
 Applied to
 
@@ -94,22 +85,8 @@ Applied to
 
 Thanks!
 
-[1/8] ASoC: SOF: topology: (cosmetic) remove redundant variable initialisations
-      commit: c81a4ef725362dbce890a24d62e745f57172718a
-[2/8] ASoC: SOF: (cosmetic) use the "bool" type where it makes sense
-      commit: f738d8156d05b0331543ec097dd5d3c83465d68f
-[3/8] ASoC: SOF: topology: remove unnecessary memory alloc for sdev->private
-      commit: f3e9ed5e90603db73a699bed18311f15cba71531
-[4/8] ASoC: SOF: topology: reduce the log level for unhandled widgets
-      commit: f46ff50660e88235bd3dc993565c6440544a8e06
-[5/8] ASoC: SOF: IPC: reduce verbosity of IPC pointer updates
-      commit: 277ff2364b3e2a8351ac2a605bfdaba058ac7586
-[6/8] ASoC: SOF: acpi: add dev_dbg() log for probe completion
-      commit: 71d551f5aaed0ae3566bfc1c6c8b31e74cb5cd06
-[7/8] ASoC: SOF: Intel: add dev_dbg log when driver is not selected
-      commit: d5d023592e29b20aa17ba001495ebbab75b220f2
-[8/8] ASoC: Intel: use consistent HDAudio spelling in comments/docs
-      commit: 135ab457e776d042c481d70d8954f6775ce35958
+[1/1] ASoC: pcm3168a: ignore 0 Hz settings
+      commit: 7ad26d6671db758c959d7e1d100b138a38483612
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

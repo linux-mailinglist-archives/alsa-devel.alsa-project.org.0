@@ -2,90 +2,66 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9B5B42511EC
-	for <lists+alsa-devel@lfdr.de>; Tue, 25 Aug 2020 08:14:52 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C28A725121A
+	for <lists+alsa-devel@lfdr.de>; Tue, 25 Aug 2020 08:37:11 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 2FEF31670;
-	Tue, 25 Aug 2020 08:14:02 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2FEF31670
+	by alsa0.perex.cz (Postfix) with ESMTPS id 6CE7F1675;
+	Tue, 25 Aug 2020 08:36:21 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6CE7F1675
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1598336092;
-	bh=bc4ijcMOaUAZeeCTFOSv0AIMrXA3NSpxbmaVw7DB+DE=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1598337431;
+	bh=1GLYZmwFtPNsr94cu8cGFtqv4t2cu+UACZtf0Fr8nX4=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=EFMG2jWzwmR+6toZkhsyWXRgBVDqkUIW0L+clOQz9z57cTtWrHZX3lzroiVRrN7nN
-	 NslxQHUCAbt2cClIqsikhTJbZeKyG59mTdbCBGmnZxoDHy8ENARzzJFe6uj50/gm1R
-	 rgGZJkSxah1wzz9n87U7OJ3koe0hlO44pvM2+cco=
+	b=BSpDz4EYbylyLaj1GgOqZpB2i1FvbllLIfYboAKWJPAomkbyU6mLk4goC1HYabGZ3
+	 JahB9ZNTlaHKZoal5ZWqj3xIg7ezjMonpo31DRkL2XDyoCFQMkl4Yo0kHRl74O8L6v
+	 v9zcYaVFiEeWnLDsXcZ5sk/X/ektggPxghVwWkaw=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 3754EF80260;
-	Tue, 25 Aug 2020 08:13:11 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id B56A4F800D1;
+	Tue, 25 Aug 2020 08:35:30 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 9FAFAF8025A; Tue, 25 Aug 2020 08:13:07 +0200 (CEST)
+ id B2A59F8025A; Tue, 25 Aug 2020 08:35:28 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from metis.ext.pengutronix.de (metis.ext.pengutronix.de
- [85.220.165.71])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id DA0AFF800D1
- for <alsa-devel@alsa-project.org>; Tue, 25 Aug 2020 08:12:59 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DA0AFF800D1
-Received: from [2001:67c:670:100:1d::c0] (helo=ptx.hi.pengutronix.de)
- by metis.ext.pengutronix.de with esmtps
- (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
- (envelope-from <sha@pengutronix.de>)
- id 1kASCS-0004AV-Lp; Tue, 25 Aug 2020 08:12:52 +0200
-Received: from sha by ptx.hi.pengutronix.de with local (Exim 4.92)
- (envelope-from <sha@pengutronix.de>)
- id 1kASCO-0001dd-22; Tue, 25 Aug 2020 08:12:48 +0200
-Date: Tue, 25 Aug 2020 08:12:48 +0200
-From: Sascha Hauer <s.hauer@pengutronix.de>
-To: Robin Gong <yibin.gong@nxp.com>
-Subject: Re: pcm|dmaengine|imx-sdma race condition on i.MX6
-Message-ID: <20200825061247.GL13023@pengutronix.de>
-References: <20200813112258.GA327172@pcleri>
- <VE1PR04MB6638EE5BDBE2C65FF50B7DB889400@VE1PR04MB6638.eurprd04.prod.outlook.com>
- <61498763c60e488a825e8dd270732b62@skidata.com>
- <16942794-1e03-6da0-b8e5-c82332a217a5@metafoo.de>
- <20200820065221.GF19745@pengutronix.de>
- <VE1PR04MB66386A43E2BCC5B758D1A71A895B0@VE1PR04MB6638.eurprd04.prod.outlook.com>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <VE1PR04MB66386A43E2BCC5B758D1A71A895B0@VE1PR04MB6638.eurprd04.prod.outlook.com>
-X-Sent-From: Pengutronix Hildesheim
-X-URL: http://www.pengutronix.de/
-X-IRC: #ptxdist @freenode
-X-Accept-Language: de,en
-X-Accept-Content-Type: text/plain
-X-Uptime: 07:55:28 up 187 days, 13:25, 139 users,  load average: 0.40, 0.16,
- 0.11
-User-Agent: Mutt/1.10.1 (2018-07-13)
-X-SA-Exim-Connect-IP: 2001:67c:670:100:1d::c0
-X-SA-Exim-Mail-From: sha@pengutronix.de
-X-SA-Exim-Scanned: No (on metis.ext.pengutronix.de);
- SAEximRunCond expanded to false
-X-PTX-Original-Recipient: alsa-devel@alsa-project.org
-Cc: "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
- Lars-Peter Clausen <lars@metafoo.de>, "timur@kernel.org" <timur@kernel.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "nicoleotsuka@gmail.com" <nicoleotsuka@gmail.com>,
- "vkoul@kernel.org" <vkoul@kernel.org>,
- Benjamin Bara - SKIDATA <Benjamin.Bara@skidata.com>,
- "kernel@pengutronix.de" <kernel@pengutronix.de>,
- "dmaengine@vger.kernel.org" <dmaengine@vger.kernel.org>,
- "dan.j.williams@intel.com" <dan.j.williams@intel.com>,
- Richard Leitner - SKIDATA <Richard.Leitner@skidata.com>,
- "shawnguo@kernel.org" <shawnguo@kernel.org>,
- "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>,
- dl-linux-imx <linux-imx@nxp.com>
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS
+ autolearn=disabled version=3.4.0
+Received: from relmlie5.idc.renesas.com (relmlor1.renesas.com
+ [210.160.252.171])
+ by alsa1.perex.cz (Postfix) with ESMTP id EDA77F800D1
+ for <alsa-devel@alsa-project.org>; Tue, 25 Aug 2020 08:35:21 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EDA77F800D1
+Date: 25 Aug 2020 15:35:18 +0900
+X-IronPort-AV: E=Sophos;i="5.76,351,1592838000"; d="scan'208";a="55452532"
+Received: from unknown (HELO relmlir5.idc.renesas.com) ([10.200.68.151])
+ by relmlie5.idc.renesas.com with ESMTP; 25 Aug 2020 15:35:18 +0900
+Received: from mercury.renesas.com (unknown [10.166.252.133])
+ by relmlir5.idc.renesas.com (Postfix) with ESMTP id F15104004BBE;
+ Tue, 25 Aug 2020 15:35:17 +0900 (JST)
+Message-ID: <87mu2jw7zd.wl-kuninori.morimoto.gx@renesas.com>
+From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+To: Sameer Pujar <spujar@nvidia.com>
+Subject: Re: More Generic Audio Graph Sound Card idea
+In-Reply-To: <2d9140c7-7cba-34d9-d4b7-c9f9f395d9e7@nvidia.com>
+References: <87k0xszlep.wl-kuninori.morimoto.gx@renesas.com>
+ <20200821121844.GF4870@sirena.org.uk>
+ <878se4zybn.wl-kuninori.morimoto.gx@renesas.com>
+ <58220f32-0b3e-d666-5bb0-bbeae27f6aab@nvidia.com>
+ <87364by23u.wl-kuninori.morimoto.gx@renesas.com>
+ <e6e04e2c-2695-b7ba-3eb2-79158f317e4a@nvidia.com>
+ <87r1rvwbsd.wl-kuninori.morimoto.gx@renesas.com>
+ <2d9140c7-7cba-34d9-d4b7-c9f9f395d9e7@nvidia.com>
+User-Agent: Wanderlust/2.15.9 Emacs/26.3 Mule/6.0
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+Cc: sharadg@nvidia.com, Linux-ALSA <alsa-devel@alsa-project.org>,
+ Mark Brown <broonie@kernel.org>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ jonathanh@nvidia.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -101,61 +77,151 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Fri, Aug 21, 2020 at 09:52:00AM +0000, Robin Gong wrote:
-> On 2020/08/20 14:52 Sascha Hauer <s.hauer@pengutronix.de> wrote:
-> > On Wed, Aug 19, 2020 at 01:08:29PM +0200, Lars-Peter Clausen wrote:
-> > > > For the first option, which is potentially more performant, we have
-> > > > to leave the atomic PCM context and we are not sure if we are allowed to.
-> > > > For the second option, we would have to divide the dma_device
-> > > > terminate_all into an atomic sync and an async one, which would
-> > > > align with the dmaengine API, giving it the option to ensure termination in
-> > an atomic context.
-> > > > Based on my understanding, most of them are synchronous anyways, for
-> > > > the currently async ones we would have to implement busy waits.
-> > > > However, with this approach, we reach the WARN_ON [6] inside of an
-> > > > atomic context, indicating we might not do the right thing.
-> > >
-> > > I don't know how feasible this is to implement in the SDMA dmaengine
-> > driver.
-> > > But I think what is should do is to have some flag to indicate if a
-> > > terminate is in progress. If a new transfer is issued while terminate
-> > > is in progress the transfer should go on a list. Once terminate
-> > > finishes it should check the list and start the transfer if there are any on the
-> > list.
-> > 
-> > The list is already there in form of the vchan helpers the driver uses.
-> Seems Lars major concern is on the race condition between next descriptor
-> and sdma_channel_terminate_work which free the last terminated descriptor,
-> not the ability of vchan to support multi descriptors. But anyway, I think we
-> should take care vchan_get_all_descriptors to free descriptors during terminate
-> phase in case it's done in worker like sdma_channel_terminate_work, since that
-> may free the next descriptor wrongly. That's what my patch attached in
-> 0001-dmaengine-imx-sdma-add-terminated-list-for-freed-des.patch
-> https://www.spinics.net/lists/arm-kernel/msg829972.html
 
-Indeed this should solve the problem of freeing descriptors allocated
-between terminate_all and a following prep_slave*.
+Hi Sameer
 
-> 
-> > 
-> > I think the big mistake the driver makes is to configure fields in struct
-> > sdma_channel and also the hardware directly in sdma_prep_memcpy(),
-> > sdma_prep_slave_sg() and sdma_prep_dma_cyclic(). All information should be
-> > stored in the struct sdma_desc allocated in the prep functions and only be used
-> > when it's time to fire that specific descriptor.
-> Sorry Sascha, seems that's another topic and your intention is to make sure only
-> software involved in sdma_prep_* and all HW moved into one function inside
-> sdma_start_desc. I agree that will make code more clean but my concern is
-> sdma_start_desc is protect by spin_lock which should be short as possible while
-> some HW touch as context_load may cost some time. Anyway, that's another topic,
-> maybe we can refine it in the future.
+> If we plan to go this way, I think we need to consider board specific
+> configuration at init time and one at runtime. In that case there
+> could be multiple compatibles that would get added to the driver and
+> various other requirements can be managed with behavioral flags
+> instead from DT?
 
-Yes, you are right. This is another topic.
+This is still just idea though...
+But for example, if you want to
+	1) basically, DT is almost audio-graph
+	2) but want to have customized operation for some part
 
-Sascha
+And if "audio-graph-card2" driver has graph_init() exported function,
+you can create your own drviver, and use customized audio-graph
+by using .hooks.
 
--- 
-Pengutronix e.K.                           |                             |
-Steuerwalder Str. 21                       | http://www.pengutronix.de/  |
-31137 Hildesheim, Germany                  | Phone: +49-5121-206917-0    |
-Amtsgericht Hildesheim, HRA 2686           | Fax:   +49-5121-206917-5555 |
+This is just idea/sample, but I'm not sure this is enough or not,
+and/or if I can do what I want.
+But do you think it can solve your issue ?
+
+-- own driver ---
+	static const struct of_device_id graph_of_match[] = {
+=>		{ .compatible = "sameer-audio-graph" },
+		{},
+	};
+
+	static audio_graph_hooks hooks = {
+		.parse_of_hook_pre  = xxx,
+=>		.parse_of_hook_post = sameer_parse_of_post,
+		.dai_link_of_pre    = xxx,
+		.dai_link_of_post   = xxx,
+=>		.init               = sameer_init,
+		...
+	};
+
+=>	int sameer_init(struct snd_soc_pcm_runtime *rtd)
+	{
+		/*
+		 * This will be called runtime init timing.
+		 * Call original asoc_simple_dai_init() first
+		 * and do own init, for example.
+		 */
+		asoc_simple_dai_init(rtd);
+
+		do_something_own_settings(rtd->xxx);
+	}
+
+=>	static int sameer_parse_of_post(struct asoc_simple_priv *priv)
+	{
+		struct sameer_priv *my_priv = graph_priv_to_my_priv(priv);
+
+		/*
+		 * This will be called after audio_graph's graph_parse_of()
+		 */
+
+		/*
+		 * Customize own settings here.
+		 *
+		 * Special connection ?
+		 * Special Setings ?
+		 * Calculate something ?
+		 * Overwrite something ?
+		 */
+	}
+
+	static int sameer_probe(...)
+	{
+		struct sameer_priv *my_priv;
+		struct asoc_simple_priv *graph_priv;
+
+		my_priv = zalloc();
+		graph_priv = my_priv_to_graph_priv(my_priv);
+=>		graph_priv->hooks = hooks
+
+		/*
+		 * Basically, it will do same as audio_graph,
+		 * but .hooks will be called if you specified
+		 */
+=>		return graph_init(graph_priv);
+	}
+
+--- Kconfig ----
+
+	config SND_SAMEER_AUDIO_GRAPH_CARD
+		tristate "Sameer's Audio Graph sound card support"
+=>		depends on SND_AUDIO_GRAPH_CARD
+		...
+
+---- my-dt ----------
+
+	  /*
+	   * DT setting is almost same as audio_graph
+	   * which is supporting normal and DPCM.
+	   * You can add own property which will be handled under .hook
+	   */
+	                      *************
+	  PCM0 <------------> *           * <----DAI0----->
+	                      *  DSP      *
+	                      *           * <----DAI1----->
+	                      *************
+	  PCM1 <------------------------------------------> DAI2
+
+		sound {
+			compatible = "sameer-audio-graph";
+
+			dais = <&PCM0,	/* for DPCM */
+				&PCM1>  /* for normal*/
+		};
+
+		front-end {
+			ports {
+				PCM0: port@0 { pcm0: endpoint { remote-endpoint = <&dsp_f0>; }; };
+				PCM1: port@1 { pcm1: endpoint { remote-endpoint = <&dai2>; }; };
+			};
+		};
+
+		dsp {
+			compatible = "audio-graph-card2-dsp";
+
+			ports {
+				/* Front End side */
+				port@0 { dsp_f0: endpoint { remote-endpoint = <&pcm0>; }; };
+
+				/* Back End side */
+				port@4 { dsp_b0: endpoint { remote-endpoint = <&dai0>; }; };
+				port@5 { dsp_b1: endpoint { remote-endpoint = <&dai1>; }; };
+			};
+		};
+
+		back-end {
+			ports {
+				port@0 { dai0: endpoint { remote-endpoint = <&dsp_b0>; }; };
+				port@1 { dai1: endpoint { remote-endpoint = <&dsp_b1>; }; };
+			};
+		};
+
+		codec {
+			port { dai2: endpoint { remote-endpoint = <&pcm1>; }; };
+		};
+
+
+Thank you for your help !!
+
+Best regards
+---
+Kuninori Morimoto

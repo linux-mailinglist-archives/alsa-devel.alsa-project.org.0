@@ -2,76 +2,89 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0FF1B251EFC
-	for <lists+alsa-devel@lfdr.de>; Tue, 25 Aug 2020 20:25:10 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 402FF251FBA
+	for <lists+alsa-devel@lfdr.de>; Tue, 25 Aug 2020 21:20:11 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A08EB1683;
-	Tue, 25 Aug 2020 20:24:19 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A08EB1683
+	by alsa0.perex.cz (Postfix) with ESMTPS id B2DE91690;
+	Tue, 25 Aug 2020 21:19:20 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B2DE91690
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1598379909;
-	bh=P1LYkIOa+GEbbQv3g48icaoiJ7x9/o5Z4GgUc7NLP5E=;
-	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
+	s=default; t=1598383210;
+	bh=u0yt9nN7jC9w69HbJd62x6Z35R6lns7cJyBEEAs+5T8=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=ffTcpfboa0pBiWGIc7ZActG5ym4e+VWCyp/WB/nEOd0iAkn/QUO+L/xlNgid4pq88
-	 Vlgi1J4coEfrqPWVJ2y/6SkJJcRUwERmReNc8X2SBgZF9XQbgGt6nhdYruikKyGGTB
-	 5IJzqCJ6eYty823PyPhJegMsaY8METzX+a53Nabc=
+	b=uHmGUUFH2eMpY7Apv8JCF5WP4gvAqckRQRHRbdXddvx6HxK80TQGlkF717/4Tawx/
+	 YdymSQ5/HqoFgq1JCOQs/enOHgsS4NRqWR823bGsNzt+dE1aj7WpZRk81NlaCE3o9H
+	 HMzEGeMSgrfgpFV3HwsQotWdKdjp1nkxFzwgHYxU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id E8502F800D1;
-	Tue, 25 Aug 2020 20:23:28 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id C63CFF80260;
+	Tue, 25 Aug 2020 21:18:29 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id C836AF8025A; Tue, 25 Aug 2020 20:23:26 +0200 (CEST)
+ id EB3B9F8025A; Tue, 25 Aug 2020 21:18:27 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.6 required=5.0 tests=NICE_REPLY_A,SPF_HELO_NONE,
- SPF_NONE autolearn=disabled version=3.4.0
-Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=0.7 required=5.0 tests=FREEMAIL_ENVFROM_END_DIGIT,
+ FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,
+ RCVD_IN_MSPIKE_H2,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
+Received: from mail-io1-f66.google.com (mail-io1-f66.google.com
+ [209.85.166.66])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id A8C20F800D1
- for <alsa-devel@alsa-project.org>; Tue, 25 Aug 2020 20:23:17 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A8C20F800D1
-IronPort-SDR: VEn8copQSUP6m3xqjV5bn0eqHCO4sZ7le/R4ql1Ozie+CpMofDgbLLqCALzNbUKHjys5bo0z2B
- 4voLRfWNS+qQ==
-X-IronPort-AV: E=McAfee;i="6000,8403,9723"; a="240992448"
-X-IronPort-AV: E=Sophos;i="5.76,353,1592895600"; d="scan'208";a="240992448"
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from fmsmga004.fm.intel.com ([10.253.24.48])
- by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 25 Aug 2020 11:23:12 -0700
-IronPort-SDR: 6uFrrKJJHqE56JBmYESW1/RMeeImJH0mFYuy4DMrHk5XMpjVLQ1e42+DbBBsm2AePmheguR8aa
- lSPEYrsoH9kw==
-X-IronPort-AV: E=Sophos;i="5.76,353,1592895600"; d="scan'208";a="322858576"
-Received: from rbarriga-desk.amr.corp.intel.com (HELO [10.251.128.175])
- ([10.251.128.175])
- by fmsmga004-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 25 Aug 2020 11:23:12 -0700
-Subject: Re: [bug report] ASoC: Intel: KMB: Enable TDM audio capture
-To: "Sit, Michael Wei Hong" <michael.wei.hong.sit@intel.com>
-References: <20200825132102.GA306074@mwanda>
- <CE6D3DA0-65A3-42BA-8341-13A3C6E80A55@intel.com>
- <20200825135800.GS5493@kadam>
- <2B5A2EFF-7391-4565-9B35-DCE395C7DD80@intel.com>
- <5789a393-d2b7-4127-4875-2dbcb5a19bfc@linux.intel.com>
- <EDE660AC-9B3C-4FBB-88F9-464A0D953EA7@intel.com>
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Message-ID: <68c77e0e-564f-6b41-26e5-b5db8b36a7f7@linux.intel.com>
-Date: Tue, 25 Aug 2020 13:23:11 -0500
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.10.0
+ by alsa1.perex.cz (Postfix) with ESMTPS id 54A30F800D1
+ for <alsa-devel@alsa-project.org>; Tue, 25 Aug 2020 21:18:20 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 54A30F800D1
+Received: by mail-io1-f66.google.com with SMTP id h4so13677836ioe.5
+ for <alsa-devel@alsa-project.org>; Tue, 25 Aug 2020 12:18:20 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to;
+ bh=CbaB4dARNo7ofkMDOqGcoP4PrODHbcuDwxHGPmOw1BA=;
+ b=DDkVsteH7G6Tluzk2RrMSDpyW6cs1SvyHh+ChiXTQCVagZ9WyGB+IDG3txoEOAjZON
+ BEZw6nMUTskf+dfrWr+4WZ78dgS0QBWWKRBlBMYOCBmXKFWxyEdufXJsfD8m54vaU1cu
+ SQvc5OKNHuVpv9QhQp2ceyeUUc6Ogo1jXiSFqdgvrNQA/rpT1mxYjeweHtLJH3Up9ic7
+ FR56Rk79f5Roy5Ekq8yG9cKvGtSmPgccg7PnDH6G0MDmmCTdRmqzwhrwWFH0JbVkJbGa
+ DHbUgh7xfnYKmgB4Z7PW0qI00jHeBqPzBrMOctEJjVCHC+OZrBzYLYfLklXOsMejNxST
+ 5dWg==
+X-Gm-Message-State: AOAM533D5FMMrgJf+KWu+sOYCc22uuyTRSg3iWQWFE5GjKC6PdccYeP+
+ ULHngA/9rJbTXtA/tx9gAQ==
+X-Google-Smtp-Source: ABdhPJyiuVhU4p4Zo1w9sz/+dYV7JwEuyuIWv7XvYB+aH6q7VTjJEiPzSYZ7YE7LmEn2epNgM4kg9A==
+X-Received: by 2002:a02:93c5:: with SMTP id z63mr2612135jah.122.1598383098433; 
+ Tue, 25 Aug 2020 12:18:18 -0700 (PDT)
+Received: from xps15 ([64.188.179.249])
+ by smtp.gmail.com with ESMTPSA id l5sm9636540ilj.88.2020.08.25.12.18.16
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 25 Aug 2020 12:18:17 -0700 (PDT)
+Received: (nullmailer pid 1158885 invoked by uid 1000);
+ Tue, 25 Aug 2020 19:18:14 -0000
+Date: Tue, 25 Aug 2020 13:18:14 -0600
+From: Rob Herring <robh@kernel.org>
+To: Cheng-Yi Chiang <cychiang@chromium.org>
+Subject: Re: [PATCH v5 1/2] ASoC: qcom: dt-bindings: Add sc7180 machine
+ bindings
+Message-ID: <20200825191814.GA1155274@bogus>
+References: <20200818035028.2265197-1-cychiang@chromium.org>
+ <20200818035028.2265197-2-cychiang@chromium.org>
 MIME-Version: 1.0
-In-Reply-To: <EDE660AC-9B3C-4FBB-88F9-464A0D953EA7@intel.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
-Cc: "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>, "Sia,
- Jee Heng" <jee.heng.sia@intel.com>, Dan Carpenter <dan.carpenter@oracle.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20200818035028.2265197-2-cychiang@chromium.org>
+Cc: Taniya Das <tdas@codeaurora.org>, devicetree@vger.kernel.org,
+ alsa-devel@alsa-project.org, Banajit Goswami <bgoswami@codeaurora.org>,
+ Stephan Gerhold <stephan@gerhold.net>, Liam Girdwood <lgirdwood@gmail.com>,
+ linux-arm-msm@vger.kernel.org, Patrick Lai <plai@codeaurora.org>,
+ Takashi Iwai <tiwai@suse.com>, linux-kernel@vger.kernel.org,
+ tzungbi@chromium.org, Bjorn Andersson <bjorn.andersson@linaro.org>,
+ Mark Brown <broonie@kernel.org>, Rohit kumar <rohitkr@codeaurora.org>,
+ Andy Gross <agross@kernel.org>, dianders@chromium.org,
+ Srini Kandagatla <srinivas.kandagatla@linaro.org>, dgreid@chromium.org,
+ linux-arm-kernel@lists.infradead.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -87,34 +100,157 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-
->>>>>>   506          switch (config->chan_nr) {
->>>>>>   507          case 8:
->>>>>>   508          case 4:
->>>>>>   509                  /*
->>>>>>   510                   * Platform is not capable of providing clocks for
->>>>>>   511                   * multi channel audio
->>>>>>   512                   */
->>>>>>   513                  if (kmb_i2s->master)
->>>>>>   514                          return -EINVAL;
->>>>>>   515
->>>>>>   516                  write_val = ((config->chan_nr / 2) << TDM_CHANNEL_CONFIG_BIT) |
->>>>>>   517                                  (config->data_width << DATA_WIDTH_CONFIG_BIT) |
->>>>>>   518                                  !MASTER_MODE | TDM_OPERATION;
->>>>>>                                        ^^^^^^^^^^^^
->>>>>> MASTER_MODE is BIT(13).  It's unclear what this is supposed to be.  My
->>>>>> best guess is that the ! should just be deleted.
->>>>>
->>>>> This ! is intentional because it is meant to be Slave mode. Would a better approach be to create another #define for slave mode?
->>>>
->>>> In my opinion, it's better to just leave it out.  ORing with zero causes
->>>> a different static checker warning on my unreleased checks...  Is it
->>>> 0 << 13?  I feel like ORing with zero just makes things more confusing.
->>>>
->>> It is 0<<13, in the event it was previously configured to Master I would need to unset the bit
->>
->> You are assigning the result to write_val, so there's no memory of what was configured before?
+On Tue, Aug 18, 2020 at 11:50:27AM +0800, Cheng-Yi Chiang wrote:
+> Add devicetree bindings documentation file for sc7180 sound card.
 > 
-> Yea you are right, would leaving this !MASTER_MODE out the best solution?
+> Signed-off-by: Cheng-Yi Chiang <cychiang@chromium.org>
+> ---
+>  .../bindings/sound/qcom,sc7180.yaml           | 127 ++++++++++++++++++
+>  1 file changed, 127 insertions(+)
+>  create mode 100644 Documentation/devicetree/bindings/sound/qcom,sc7180.yaml
+> 
+> diff --git a/Documentation/devicetree/bindings/sound/qcom,sc7180.yaml b/Documentation/devicetree/bindings/sound/qcom,sc7180.yaml
+> new file mode 100644
+> index 000000000000..b5cdaa0fe559
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/sound/qcom,sc7180.yaml
+> @@ -0,0 +1,127 @@
+> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/sound/qcom,sc7180.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +
+> +title: Qualcomm Technologies Inc. SC7180 ASoC sound card driver
+> +
+> +maintainers:
+> +  - Rohit kumar <rohitkr@codeaurora.org>
+> +  - Cheng-Yi Chiang <cychiang@chromium.org>
+> +
+> +description:
+> +  This binding describes the SC7180 sound card which uses LPASS for audio.
+> +
+> +properties:
+> +  compatible:
+> +    contains:
 
-Sounds good to me. Thanks Dan for the report!
+Drop contains. Should be exactly the string listed.
+
+> +      const: qcom,sc7180-sndcard
+> +
+> +  audio-routing:
+> +    $ref: /schemas/types.yaml#/definitions/non-unique-string-array
+> +    description:
+> +      A list of the connections between audio components. Each entry is a
+> +      pair of strings, the first being the connection's sink, the second
+> +      being the connection's source.
+> +
+> +  model:
+> +    $ref: /schemas/types.yaml#/definitions/string
+> +    description: User specified audio sound card name
+> +
+> +  aux-dev:
+> +    $ref: /schemas/types.yaml#/definitions/phandle
+> +    description: phandle of the codec for headset detection
+> +
+> +  "#address-cells":
+> +    const: 1
+> +
+> +  "#size-cells":
+> +    const: 0
+> +
+> +patternProperties:
+> +  "^dai-link(@[0-9]+)?$":
+
+Unit addresses are hex. Do you really have more than 10?
+
+> +    description:
+> +      Each subnode represents a dai link. Subnodes of each dai links would be
+> +      cpu/codec dais.
+> +
+> +    type: object
+> +
+> +    properties:
+> +      link-name:
+> +        description: Indicates dai-link name and PCM stream name.
+> +        $ref: /schemas/types.yaml#/definitions/string
+> +        maxItems: 1
+> +
+> +      reg:
+> +        description: dai link address.
+> +        $ref: /schemas/types.yaml#/definitions/uint32
+
+reg already has a type. Drop.
+
+> +        maxItems: 1
+> +
+> +      cpu:
+> +        description: Holds subnode which indicates cpu dai.
+> +        type: object
+> +        properties:
+> +          sound-dai: true
+> +
+> +      codec:
+> +        description: Holds subnode which indicates codec dai.
+> +        type: object
+> +        properties:
+> +          sound-dai: true
+> +
+> +    required:
+> +      - link-name
+> +      - cpu
+> +      - codec
+> +
+> +    additionalProperties: false
+> +
+> +required:
+> +  - compatible
+> +  - model
+> +  - "#address-cells"
+> +  - "#size-cells"
+> +
+> +additionalProperties: false
+> +
+> +examples:
+> +
+> +  - |
+> +    sound {
+> +        compatible = "qcom,sc7180-sndcard";
+> +        model = "sc7180-snd-card";
+> +
+> +        audio-routing =
+> +                    "Headphone Jack", "HPOL",
+> +                    "Headphone Jack", "HPOR";
+> +
+> +        aux-dev = <&alc5682>;
+> +
+> +        #address-cells = <1>;
+> +        #size-cells = <0>;
+> +
+> +        dai-link@0 {
+> +            link-name = "MultiMedia0";
+> +            reg = <0>;
+> +            cpu {
+> +                sound-dai = <&lpass_cpu 0>;
+> +            };
+> +
+> +            codec {
+> +                sound-dai = <&alc5682 0>;
+> +            };
+> +        };
+> +
+> +        dai-link@1 {
+> +            link-name = "MultiMedia1";
+> +            reg = <1>;
+> +            cpu {
+> +                sound-dai = <&lpass_cpu 1>;
+> +            };
+> +
+> +            codec {
+> +                sound-dai = <&max98357a>;
+> +            };
+> +        };
+> +    };
+> -- 
+> 2.28.0.220.ged08abb693-goog
+> 

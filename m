@@ -2,98 +2,90 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E896B2511C7
-	for <lists+alsa-devel@lfdr.de>; Tue, 25 Aug 2020 07:55:16 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9B5B42511EC
+	for <lists+alsa-devel@lfdr.de>; Tue, 25 Aug 2020 08:14:52 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 793C91675;
-	Tue, 25 Aug 2020 07:54:26 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 793C91675
+	by alsa0.perex.cz (Postfix) with ESMTPS id 2FEF31670;
+	Tue, 25 Aug 2020 08:14:02 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2FEF31670
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1598334916;
-	bh=UXnpxOmxm4BmEIzewg4CS4gTJglvQ3ycj57RxxAGu4g=;
-	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
+	s=default; t=1598336092;
+	bh=bc4ijcMOaUAZeeCTFOSv0AIMrXA3NSpxbmaVw7DB+DE=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=d94xT2hQ/YZ2wrZGeVgzU1mm4fxb3e+kmCqHk8Pf9ru2+e4oS2vuqIVWx1uxKUbyJ
-	 Vo9a6bi7lYHrKVpRIhuTNjIieR7k8uAb7kd4jdFuraWKVi2S437tZqXQnaJKp+VxgM
-	 vjnNj4r6t/CsF4PoL1YCHdyxz+B7IdBA5YGFt7hE=
+	b=EFMG2jWzwmR+6toZkhsyWXRgBVDqkUIW0L+clOQz9z57cTtWrHZX3lzroiVRrN7nN
+	 NslxQHUCAbt2cClIqsikhTJbZeKyG59mTdbCBGmnZxoDHy8ENARzzJFe6uj50/gm1R
+	 rgGZJkSxah1wzz9n87U7OJ3koe0hlO44pvM2+cco=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 91B2CF80260;
-	Tue, 25 Aug 2020 07:53:35 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 3754EF80260;
+	Tue, 25 Aug 2020 08:13:11 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 86B30F8025A; Tue, 25 Aug 2020 07:53:32 +0200 (CEST)
+ id 9FAFAF8025A; Tue, 25 Aug 2020 08:13:07 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-3.7 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS
- autolearn=disabled version=3.4.0
-Received: from hqnvemgate25.nvidia.com (hqnvemgate25.nvidia.com
- [216.228.121.64])
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from metis.ext.pengutronix.de (metis.ext.pengutronix.de
+ [85.220.165.71])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 20997F800D1
- for <alsa-devel@alsa-project.org>; Tue, 25 Aug 2020 07:53:24 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 20997F800D1
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=nvidia.com header.i=@nvidia.com
- header.b="fsLiRzQw"
-Received: from hqpgpgate102.nvidia.com (Not Verified[216.228.121.13]) by
- hqnvemgate25.nvidia.com (using TLS: TLSv1.2, DES-CBC3-SHA)
- id <B5f44a7130000>; Mon, 24 Aug 2020 22:52:19 -0700
-Received: from hqmail.nvidia.com ([172.20.161.6])
- by hqpgpgate102.nvidia.com (PGP Universal service);
- Mon, 24 Aug 2020 22:53:21 -0700
-X-PGP-Universal: processed;
- by hqpgpgate102.nvidia.com on Mon, 24 Aug 2020 22:53:21 -0700
-Received: from [10.25.97.151] (10.124.1.5) by HQMAIL107.nvidia.com
- (172.20.187.13) with Microsoft SMTP Server (TLS) id 15.0.1473.3; Tue, 25 Aug
- 2020 05:53:15 +0000
-Subject: Re: [PATCH v2 3/9] ASoC: audio-graph: Identify 'no_pcm' DAI links for
- DPCM
-To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-References: <1596605064-27748-1-git-send-email-spujar@nvidia.com>
- <1596605064-27748-4-git-send-email-spujar@nvidia.com>
- <87pn7ofs19.wl-kuninori.morimoto.gx@renesas.com>
- <97f325a6-96cc-11c5-8027-8c0a159e3da0@nvidia.com>
- <2d3aa11e-3c56-1f7a-3d41-2457f973d55b@nvidia.com>
- <87sgcbwcnf.wl-kuninori.morimoto.gx@renesas.com>
- <14691a05-cb29-a030-0e72-eca900d8eb7e@nvidia.com>
- <87o8mzwajg.wl-kuninori.morimoto.gx@renesas.com>
-From: Sameer Pujar <spujar@nvidia.com>
-Message-ID: <e9698ac3-0a2e-08a2-3f78-b0be0069d6ee@nvidia.com>
-Date: Tue, 25 Aug 2020 11:23:11 +0530
-User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:68.0) Gecko/20100101
- Thunderbird/68.10.0
+ by alsa1.perex.cz (Postfix) with ESMTPS id DA0AFF800D1
+ for <alsa-devel@alsa-project.org>; Tue, 25 Aug 2020 08:12:59 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DA0AFF800D1
+Received: from [2001:67c:670:100:1d::c0] (helo=ptx.hi.pengutronix.de)
+ by metis.ext.pengutronix.de with esmtps
+ (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
+ (envelope-from <sha@pengutronix.de>)
+ id 1kASCS-0004AV-Lp; Tue, 25 Aug 2020 08:12:52 +0200
+Received: from sha by ptx.hi.pengutronix.de with local (Exim 4.92)
+ (envelope-from <sha@pengutronix.de>)
+ id 1kASCO-0001dd-22; Tue, 25 Aug 2020 08:12:48 +0200
+Date: Tue, 25 Aug 2020 08:12:48 +0200
+From: Sascha Hauer <s.hauer@pengutronix.de>
+To: Robin Gong <yibin.gong@nxp.com>
+Subject: Re: pcm|dmaengine|imx-sdma race condition on i.MX6
+Message-ID: <20200825061247.GL13023@pengutronix.de>
+References: <20200813112258.GA327172@pcleri>
+ <VE1PR04MB6638EE5BDBE2C65FF50B7DB889400@VE1PR04MB6638.eurprd04.prod.outlook.com>
+ <61498763c60e488a825e8dd270732b62@skidata.com>
+ <16942794-1e03-6da0-b8e5-c82332a217a5@metafoo.de>
+ <20200820065221.GF19745@pengutronix.de>
+ <VE1PR04MB66386A43E2BCC5B758D1A71A895B0@VE1PR04MB6638.eurprd04.prod.outlook.com>
 MIME-Version: 1.0
-In-Reply-To: <87o8mzwajg.wl-kuninori.morimoto.gx@renesas.com>
-X-Originating-IP: [10.124.1.5]
-X-ClientProxiedBy: HQMAIL101.nvidia.com (172.20.187.10) To
- HQMAIL107.nvidia.com (172.20.187.13)
-Content-Type: text/plain; charset="utf-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-Content-Language: en-GB
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nvidia.com; s=n1;
- t=1598334739; bh=bOJlbPEDP7bzEfLTN1ma/hpFcaswtMKhxhFtn3X3KB0=;
- h=X-PGP-Universal:Subject:To:CC:References:From:Message-ID:Date:
- User-Agent:MIME-Version:In-Reply-To:X-Originating-IP:
- X-ClientProxiedBy:Content-Type:Content-Transfer-Encoding:
- Content-Language;
- b=fsLiRzQw2KhMMRuKJolVunTD28eXxVDQEasbWsBseJFOJDgUaSFnunqKtJ3hBvnjb
- E7KH1w1J+OjQ3pxSZXZpO+ndOwCuK0G2/xn5odTxVE055PvSbW4ECgZOPS2OGsbbH7
- rOTlyUpcq+sthGswphFXGjEDvltPYqQKPUEiDY1CgM3MnLEhYtWEBV2/wZxieSF4SN
- ezxBnh4qVgtV983svcZeEKtOAZxdKwbwbVIe0utHlM7kG0Oq8ssLOsvFEAUnDYnjBO
- b/eNGzTOIAnxUbM7fpNZ8m4Rvv7XVXAdZ1hImwviKGkkc2sFPkgiMHW91zdOI1622/
- erQHqP+NaoXCg==
-Cc: jonathanh@nvidia.com, nicoleotsuka@gmail.com, alsa-devel@alsa-project.org,
- atalambedu@nvidia.com, swarren@nvidia.com, linux-kernel@vger.kernel.org,
- nwartikar@nvidia.com, lgirdwood@gmail.com, robh+dt@kernel.org, tiwai@suse.com,
- viswanathl@nvidia.com, sharadg@nvidia.com, broonie@kernel.org,
- thierry.reding@gmail.com, linux-tegra@vger.kernel.org, rlokhande@nvidia.com,
- mkumard@nvidia.com, dramesh@nvidia.com
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <VE1PR04MB66386A43E2BCC5B758D1A71A895B0@VE1PR04MB6638.eurprd04.prod.outlook.com>
+X-Sent-From: Pengutronix Hildesheim
+X-URL: http://www.pengutronix.de/
+X-IRC: #ptxdist @freenode
+X-Accept-Language: de,en
+X-Accept-Content-Type: text/plain
+X-Uptime: 07:55:28 up 187 days, 13:25, 139 users,  load average: 0.40, 0.16,
+ 0.11
+User-Agent: Mutt/1.10.1 (2018-07-13)
+X-SA-Exim-Connect-IP: 2001:67c:670:100:1d::c0
+X-SA-Exim-Mail-From: sha@pengutronix.de
+X-SA-Exim-Scanned: No (on metis.ext.pengutronix.de);
+ SAEximRunCond expanded to false
+X-PTX-Original-Recipient: alsa-devel@alsa-project.org
+Cc: "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
+ Lars-Peter Clausen <lars@metafoo.de>, "timur@kernel.org" <timur@kernel.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "nicoleotsuka@gmail.com" <nicoleotsuka@gmail.com>,
+ "vkoul@kernel.org" <vkoul@kernel.org>,
+ Benjamin Bara - SKIDATA <Benjamin.Bara@skidata.com>,
+ "kernel@pengutronix.de" <kernel@pengutronix.de>,
+ "dmaengine@vger.kernel.org" <dmaengine@vger.kernel.org>,
+ "dan.j.williams@intel.com" <dan.j.williams@intel.com>,
+ Richard Leitner - SKIDATA <Richard.Leitner@skidata.com>,
+ "shawnguo@kernel.org" <shawnguo@kernel.org>,
+ "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>,
+ dl-linux-imx <linux-imx@nxp.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -109,28 +101,61 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hi Morimoto-san,
+On Fri, Aug 21, 2020 at 09:52:00AM +0000, Robin Gong wrote:
+> On 2020/08/20 14:52 Sascha Hauer <s.hauer@pengutronix.de> wrote:
+> > On Wed, Aug 19, 2020 at 01:08:29PM +0200, Lars-Peter Clausen wrote:
+> > > > For the first option, which is potentially more performant, we have
+> > > > to leave the atomic PCM context and we are not sure if we are allowed to.
+> > > > For the second option, we would have to divide the dma_device
+> > > > terminate_all into an atomic sync and an async one, which would
+> > > > align with the dmaengine API, giving it the option to ensure termination in
+> > an atomic context.
+> > > > Based on my understanding, most of them are synchronous anyways, for
+> > > > the currently async ones we would have to implement busy waits.
+> > > > However, with this approach, we reach the WARN_ON [6] inside of an
+> > > > atomic context, indicating we might not do the right thing.
+> > >
+> > > I don't know how feasible this is to implement in the SDMA dmaengine
+> > driver.
+> > > But I think what is should do is to have some flag to indicate if a
+> > > terminate is in progress. If a new transfer is issued while terminate
+> > > is in progress the transfer should go on a list. Once terminate
+> > > finishes it should check the list and start the transfer if there are any on the
+> > list.
+> > 
+> > The list is already there in form of the vchan helpers the driver uses.
+> Seems Lars major concern is on the race condition between next descriptor
+> and sdma_channel_terminate_work which free the last terminated descriptor,
+> not the ability of vchan to support multi descriptors. But anyway, I think we
+> should take care vchan_get_all_descriptors to free descriptors during terminate
+> phase in case it's done in worker like sdma_channel_terminate_work, since that
+> may free the next descriptor wrongly. That's what my patch attached in
+> 0001-dmaengine-imx-sdma-add-terminated-list-for-freed-des.patch
+> https://www.spinics.net/lists/arm-kernel/msg829972.html
 
->>> Yes, I'm posting fixup patch.
->>>
->>>           https://patchwork.kernel.org/patch/11719919/
->> Just curious that why snd_soc_find_dai() itself cannot be protected,
->> instead of leaving this to callers.
-> Because, snd_soc_find_dai() is called both with/without client_mutex.
-> (same/sof are calling it with mutex, simple-card/audio-graph are calling without mutex)
->
-> Other solution is create both snd_soc_find_dai_with_mutex()/without_mutex().
-> I'm not sure which style is best.
+Indeed this should solve the problem of freeing descriptors allocated
+between terminate_all and a following prep_slave*.
 
-I don't know how complex it is to have a unified solution. But if we can 
-protect snd_soc_find_dai() itself, things would be simpler may be in 
-long term. Right now there are separate source files for soc-core, 
-soc-dai and soc-component, but because of two approaches looks like the 
-function need to be moved around and need to be placed in soc-core. Also 
-the issue might go unnoticed if LOCKDEP is not enabled.
+> 
+> > 
+> > I think the big mistake the driver makes is to configure fields in struct
+> > sdma_channel and also the hardware directly in sdma_prep_memcpy(),
+> > sdma_prep_slave_sg() and sdma_prep_dma_cyclic(). All information should be
+> > stored in the struct sdma_desc allocated in the prep functions and only be used
+> > when it's time to fire that specific descriptor.
+> Sorry Sascha, seems that's another topic and your intention is to make sure only
+> software involved in sdma_prep_* and all HW moved into one function inside
+> sdma_start_desc. I agree that will make code more clean but my concern is
+> sdma_start_desc is protect by spin_lock which should be short as possible while
+> some HW touch as context_load may cost some time. Anyway, that's another topic,
+> maybe we can refine it in the future.
 
-May be start with a wrapper for now and eventually unify?
+Yes, you are right. This is another topic.
 
-Thanks,
-Sameer.
+Sascha
 
+-- 
+Pengutronix e.K.                           |                             |
+Steuerwalder Str. 21                       | http://www.pengutronix.de/  |
+31137 Hildesheim, Germany                  | Phone: +49-5121-206917-0    |
+Amtsgericht Hildesheim, HRA 2686           | Fax:   +49-5121-206917-5555 |

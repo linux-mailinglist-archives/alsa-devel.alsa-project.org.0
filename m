@@ -2,79 +2,100 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5D3B72512CB
-	for <lists+alsa-devel@lfdr.de>; Tue, 25 Aug 2020 09:12:34 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id DED702512F4
+	for <lists+alsa-devel@lfdr.de>; Tue, 25 Aug 2020 09:21:06 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id F06121670;
-	Tue, 25 Aug 2020 09:11:43 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz F06121670
+	by alsa0.perex.cz (Postfix) with ESMTPS id 687E21673;
+	Tue, 25 Aug 2020 09:20:16 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 687E21673
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1598339554;
-	bh=FWfgAaWELOpnq9T2ZqffNJ7A9qnO3QfKuIy+OMg+Nkc=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1598340066;
+	bh=2iMsCB6w/0SQQ4bTiAAbcwXotPjRlzgL6dq/lfr64TE=;
+	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=JHHcemnQl16sjoAy1sfH1PGIhGiEK+gd6U3xS9yJVdhPlW7bk/5t0GVdsq9tJtnDo
-	 FJS8qecPHCIaKDH+TLzsd4tH7AMpvmXihXHiYxOkbocWPQBnHux6/Q5WUBTcu4FkSI
-	 p4Z+VNEJBYX0NAfwEoRoVU3Ury9lU+ZqQg3IJn6g=
+	b=BWiTbVYF0CAaCOLRmxcW9F9yTIC5Ggnp6MOsNi5hhyAr2ZZQmLPtc9s7RPhnj3kBj
+	 NQwZDCb+F1fChcdOEtU0W2dCDFlsBZo48bfe9rrK3afzwkTpY2yzZohW/5skNMOm/b
+	 Wujl418IixZN8ygPx4YyK2jSAtbBEKdJ7tOfmLWA=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 2B410F80245;
-	Tue, 25 Aug 2020 09:10:53 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 9FB85F80260;
+	Tue, 25 Aug 2020 09:19:25 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 90A65F8025A; Tue, 25 Aug 2020 09:10:50 +0200 (CEST)
+ id 3F18EF8025A; Tue, 25 Aug 2020 09:19:22 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-1.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
+X-Spam-Status: No, score=-3.7 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+ DKIM_VALID,DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS
  autolearn=disabled version=3.4.0
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 24998F80143
- for <alsa-devel@alsa-project.org>; Tue, 25 Aug 2020 09:10:39 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 24998F80143
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="f3Wq0A6w"
-Received: from localhost (p54b333df.dip0.t-ipconnect.de [84.179.51.223])
+Received: from hqnvemgate26.nvidia.com (hqnvemgate26.nvidia.com
+ [216.228.121.65])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id C35662074D;
- Tue, 25 Aug 2020 07:10:35 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1598339436;
- bh=FWfgAaWELOpnq9T2ZqffNJ7A9qnO3QfKuIy+OMg+Nkc=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=f3Wq0A6wK+XyCx0NdyaVbiOp2OMrI3KPwj1V3RQ/NOii/Sv8XJMYsbLmiBZPZxHLr
- 0oPOxmO4ZW2uxwUXqLpZCKZIApP5fRkbLXbO9bWzKlL5g/hG5Vx0qfVAI9CAKfOqMV
- tmM358uBo/FCFQE7cpCl+yIXbi94y/ptPbOUqIoI=
-Date: Tue, 25 Aug 2020 09:10:33 +0200
-From: Wolfram Sang <wsa@kernel.org>
-To: Rob Herring <robh@kernel.org>
-Subject: Re: [PATCH] dt-bindings: Whitespace clean-ups in schema files
-Message-ID: <20200825071033.GB1861@ninjato>
-References: <20200812203618.2656699-1-robh@kernel.org>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 1D7B1F800EB
+ for <alsa-devel@alsa-project.org>; Tue, 25 Aug 2020 09:19:11 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1D7B1F800EB
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=nvidia.com header.i=@nvidia.com
+ header.b="FNBSbR20"
+Received: from hqpgpgate102.nvidia.com (Not Verified[216.228.121.13]) by
+ hqnvemgate26.nvidia.com (using TLS: TLSv1.2, DES-CBC3-SHA)
+ id <B5f44bb5d0002>; Tue, 25 Aug 2020 00:18:53 -0700
+Received: from hqmail.nvidia.com ([172.20.161.6])
+ by hqpgpgate102.nvidia.com (PGP Universal service);
+ Tue, 25 Aug 2020 00:19:07 -0700
+X-PGP-Universal: processed;
+ by hqpgpgate102.nvidia.com on Tue, 25 Aug 2020 00:19:07 -0700
+Received: from [10.25.97.151] (10.124.1.5) by HQMAIL107.nvidia.com
+ (172.20.187.13) with Microsoft SMTP Server (TLS) id 15.0.1473.3; Tue, 25 Aug
+ 2020 07:19:01 +0000
+Subject: Re: [PATCH v2 3/9] ASoC: audio-graph: Identify 'no_pcm' DAI links for
+ DPCM
+To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+References: <1596605064-27748-1-git-send-email-spujar@nvidia.com>
+ <1596605064-27748-4-git-send-email-spujar@nvidia.com>
+ <87pn7ofs19.wl-kuninori.morimoto.gx@renesas.com>
+ <97f325a6-96cc-11c5-8027-8c0a159e3da0@nvidia.com>
+ <2d3aa11e-3c56-1f7a-3d41-2457f973d55b@nvidia.com>
+ <87sgcbwcnf.wl-kuninori.morimoto.gx@renesas.com>
+ <14691a05-cb29-a030-0e72-eca900d8eb7e@nvidia.com>
+ <87o8mzwajg.wl-kuninori.morimoto.gx@renesas.com>
+ <e9698ac3-0a2e-08a2-3f78-b0be0069d6ee@nvidia.com>
+ <87lfi3w7hj.wl-kuninori.morimoto.gx@renesas.com>
+From: Sameer Pujar <spujar@nvidia.com>
+Message-ID: <f3724be2-c79d-0815-6ff5-460a4f6c10cc@nvidia.com>
+Date: Tue, 25 Aug 2020 12:48:58 +0530
+User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:68.0) Gecko/20100101
+ Thunderbird/68.10.0
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="JYK4vJDZwFMowpUq"
-Content-Disposition: inline
-In-Reply-To: <20200812203618.2656699-1-robh@kernel.org>
-User-Agent: Mutt/1.10.1 (2018-07-13)
-Cc: linux-fbdev@vger.kernel.org, linux-iio@vger.kernel.org,
- linux-remoteproc@vger.kernel.org, alsa-devel@alsa-project.org,
- dri-devel@lists.freedesktop.org, linux-mtd@lists.infradead.org,
- linux-i2c@vger.kernel.org, linux-clk@vger.kernel.org,
- linux-rtc@vger.kernel.org, linux-serial@vger.kernel.org,
- linux-input@vger.kernel.org, linux-media@vger.kernel.org,
- devicetree@vger.kernel.org, linux-pm@vger.kernel.org,
- linux-gpio@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-hwmon@vger.kernel.org, netdev@vger.kernel.org, linux-usb@vger.kernel.org,
- linux-mmc@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-spi@vger.kernel.org
+In-Reply-To: <87lfi3w7hj.wl-kuninori.morimoto.gx@renesas.com>
+X-Originating-IP: [10.124.1.5]
+X-ClientProxiedBy: HQMAIL101.nvidia.com (172.20.187.10) To
+ HQMAIL107.nvidia.com (172.20.187.13)
+Content-Type: text/plain; charset="utf-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+Content-Language: en-GB
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nvidia.com; s=n1;
+ t=1598339933; bh=PT6WTDioQCPbdq/KOc0iRkwH1Ym5t9uF4Cc1BSATpZg=;
+ h=X-PGP-Universal:Subject:To:CC:References:From:Message-ID:Date:
+ User-Agent:MIME-Version:In-Reply-To:X-Originating-IP:
+ X-ClientProxiedBy:Content-Type:Content-Transfer-Encoding:
+ Content-Language;
+ b=FNBSbR20FJjYN36jhj3xpPjRHmqNM7nWGKauDua6IkLSLhNKPdgvuM/uoUFedegK7
+ gzOipcya4eeDda0nXog91znM2v0+H7z7wIfgrKeM6GzYmF2SFyLdFQ1baAF6HrAEZp
+ k9aRvwS1FHBvDJHq+ybXvm/K5r66l4gF/1gP95mKdMNVJ3SCJ6DgGSJvZi3Ia98mmW
+ nnobrWsOkbAXtJWjfDH5rfi52oxByhdpjoqsQfxnFme67iDBID4GBKVAXn0fv5cqSp
+ 1TIrSZCtQ7Mc5fp75aYgGQQnXBOg6Lw8GybFr+LSr7mGoW1Z3wd5ssPw0EJPA82lC+
+ xYaUkAUFneZrw==
+Cc: jonathanh@nvidia.com, nicoleotsuka@gmail.com, alsa-devel@alsa-project.org,
+ atalambedu@nvidia.com, swarren@nvidia.com, linux-kernel@vger.kernel.org,
+ nwartikar@nvidia.com, lgirdwood@gmail.com, robh+dt@kernel.org, tiwai@suse.com,
+ viswanathl@nvidia.com, sharadg@nvidia.com, broonie@kernel.org,
+ thierry.reding@gmail.com, linux-tegra@vger.kernel.org, rlokhande@nvidia.com,
+ mkumard@nvidia.com, dramesh@nvidia.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -90,65 +111,29 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+Hi Morimoto-san,
 
---JYK4vJDZwFMowpUq
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+>>> Other solution is create both snd_soc_find_dai_with_mutex()/without_mutex().
+>>> I'm not sure which style is best.
+>> I don't know how complex it is to have a unified solution. But if we
+>> can protect snd_soc_find_dai() itself, things would be simpler may be
+>> in long term. Right now there are separate source files for soc-core,
+>> soc-dai and soc-component, but because of two approaches looks like
+>> the function need to be moved around and need to be placed in
+>> soc-core. Also the issue might go unnoticed if LOCKDEP is not enabled.
+>>
+>> May be start with a wrapper for now and eventually unify?
+> Yeah, it seems has _with_mutex() can be better idea.
+> I'm posting patch, but I noticed that Mark's branch vs Linus branch
+> have some mismatch (?), and now I'm asking it to him.
+> I can post _with_mutex() version as v2 if I could get answer.
+> After that I'm happy your next patch can re-use it.
+>
 
-On Wed, Aug 12, 2020 at 02:36:18PM -0600, Rob Herring wrote:
-> Clean-up incorrect indentation, extra spaces, long lines, and missing
-> EOF newline in schema files. Most of the clean-ups are for list
-> indentation which should always be 2 spaces more than the preceding
-> keyword.
->=20
-> Found with yamllint (which I plan to integrate into the checks).
->=20
-> Cc: linux-arm-kernel@lists.infradead.org
-> Cc: linux-clk@vger.kernel.org
-> Cc: dri-devel@lists.freedesktop.org
-> Cc: linux-spi@vger.kernel.org
-> Cc: linux-gpio@vger.kernel.org
-> Cc: linux-remoteproc@vger.kernel.org
-> Cc: linux-hwmon@vger.kernel.org
-> Cc: linux-i2c@vger.kernel.org
-> Cc: linux-fbdev@vger.kernel.org
-> Cc: linux-iio@vger.kernel.org
-> Cc: linux-input@vger.kernel.org
-> Cc: linux-pm@vger.kernel.org
-> Cc: linux-media@vger.kernel.org
-> Cc: alsa-devel@alsa-project.org
-> Cc: linux-mmc@vger.kernel.org
-> Cc: linux-mtd@lists.infradead.org
-> Cc: netdev@vger.kernel.org
-> Cc: linux-rtc@vger.kernel.org
-> Cc: linux-serial@vger.kernel.org
-> Cc: linux-usb@vger.kernel.org
-> Signed-off-by: Rob Herring <robh@kernel.org>
+Sure. BTW, there are more such candidates which require 'lock' version 
+of these helpers.
+For example: soc_find_component(), snd_soc_add/remove_pcm_runtime() and 
+snd_soc_register_dai().
 
-I trust you guys in figuring out the details, so for touching I2C:
+Thank you for the feedback.
 
-Acked-by: Wolfram Sang <wsa@kernel.org>
-
-
---JYK4vJDZwFMowpUq
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEEOZGx6rniZ1Gk92RdFA3kzBSgKbYFAl9EuWkACgkQFA3kzBSg
-KbZbPA/+MqNMzGTVXT++2afD+v/Qkum1LRbeldro+e0ewQSps4tnW/eHg9RaemYr
-BwxfsOZA+EJp0lGOnRM5/vhPMoInlSEwJSBlxtjratUScfPiR7D4ljKXGaUQv4IV
-l9cXBZuOeLnSerxdYsuGrs8M0uqe4rAc3jt/FGD4rSgawNTN1HieFaQ0vq/0I5Gi
-pyJv09alaosBuqNYc37Gqm9Ddk6xEJb8lvwrVqeS2ZGMFmfJuFlsuLKhwdgen/og
-Wik6VZEjyUHJbyZgkcwMn6rTVTnopK7E0RYmdap35Bh6MAZ3auQ4eQU2tktY3L0G
-+NL/ah9FAvmPH1RAR7KmXzZxVYX2ZoWm3AJVpCIvlc9toZI5NdOwdruT+KlTLHIY
-T0vs7B3wqsrD4pHputHdDtf9iSZDB0FiTi44yJjReI72Yb47gDXXK7tOcewvq33Y
-J9dv/HeT85ER8dZ3fCssLdOsIVSE5ZGaDGjP9M4hPo5ZqM5WlMcqW13gmBsEaY3W
-quFFx4pgOXFmnO+7fCb0OIoySeTtgCMNqSwekaNsrbK8dBsFhMx62IzUwwCwL8ST
-clLrMsK81BA4v5hiU1SXC5zAJJG1W0FEpGvIuQRa5YxW8goqwIJrEuvy8jWLhg1x
-kB4BNFdQdBMg8xw0GSHGDhOZhIxgC5t/fvrbiLmqazzmbfCE1i8=
-=71f2
------END PGP SIGNATURE-----
-
---JYK4vJDZwFMowpUq--

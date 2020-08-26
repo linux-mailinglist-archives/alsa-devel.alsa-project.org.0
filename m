@@ -2,96 +2,121 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 53C2A252C33
-	for <lists+alsa-devel@lfdr.de>; Wed, 26 Aug 2020 13:08:25 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 89B56252C59
+	for <lists+alsa-devel@lfdr.de>; Wed, 26 Aug 2020 13:20:53 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id EC72B173A;
-	Wed, 26 Aug 2020 13:07:34 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EC72B173A
+	by alsa0.perex.cz (Postfix) with ESMTPS id BB18C1741;
+	Wed, 26 Aug 2020 13:20:02 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BB18C1741
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1598440105;
-	bh=ySqlvxGRlbgUvPxNnuMOtjg2UOCpj8TJkX/PWNYvpw4=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=utav9omGncuNhYWZSDFiHzQlBF34A0XuARqb7UfkgNfKr3jKmfBjcvdQ1sV4BAL9H
-	 5F1ESF32Ozs5JWtapL789sqAG5QxhA7h144HPXvzyhpaLzw7bZ0JIJwFUun5UYMPeF
-	 n8f+2E0GF43NT+LyXfzO+oPzJNR5HlixhDnTSnDA=
+	s=default; t=1598440852;
+	bh=IijxGu0D4CVXCzPBCf46LbtnePKJSrmGMtFP9pYKEmU=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=KHf5WnG2XUasvHGlbbNfh374WxPz6ft1lmtp1aI9++hT6BrLkH58o6Ihdgexy5oW4
+	 p95UBgolo/yH7vL9R5laZC2ek2dmXqnMLxFo3ZkB/p0h0Vn1Ef+xdPkfqmec+NYyWS
+	 G7jcFn7eFF0Ysu9/CNO2CpjKLUj7Yvvs6ZEDjr9M=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 6A9F9F802E0;
-	Wed, 26 Aug 2020 13:05:35 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id C9E7EF801EC;
+	Wed, 26 Aug 2020 13:19:11 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 53CD9F802DF; Wed, 26 Aug 2020 13:05:32 +0200 (CEST)
+ id 80429F801D9; Wed, 26 Aug 2020 13:19:09 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=-1.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from mail-pf1-x442.google.com (mail-pf1-x442.google.com
- [IPv6:2607:f8b0:4864:20::442])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Level: **
+X-Spam-Status: No, score=2.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ FORGED_SPF_HELO,MSGID_FROM_MTA_HEADER,RCVD_ILLEGAL_IP,RCVD_IN_MSPIKE_H2,
+ SPF_HELO_PASS,SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from NAM11-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam11on2074.outbound.protection.outlook.com [40.107.236.74])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 7CDFEF80105
- for <alsa-devel@alsa-project.org>; Wed, 26 Aug 2020 13:05:20 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7CDFEF80105
+ by alsa1.perex.cz (Postfix) with ESMTPS id CAC97F80105
+ for <alsa-devel@alsa-project.org>; Wed, 26 Aug 2020 13:18:58 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CAC97F80105
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org
- header.b="Eah69NXa"
-Received: by mail-pf1-x442.google.com with SMTP id m8so800706pfh.3
- for <alsa-devel@alsa-project.org>; Wed, 26 Aug 2020 04:05:20 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
- h=from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding;
- bh=pvrVbHE+oViaEur7C2TJKs4p+DVpiKgNTbF6ULcQd3A=;
- b=Eah69NXacA2KT2fbzOZ+K1O6eJLLXzCjVHyKpo4XaHyZc2owdit5oORjGfOAFJQ/Ed
- V3PgssbXuUF2SxFQZtW7VJ7iOAV0zqUc4SaVuZpz04o/cVuyIFC2L2OzXXwWR1Pjfpo7
- pBtME/sZIPg9o7xhA4UxSZoBycUIHwHe7jgeQ=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
- :references:mime-version:content-transfer-encoding;
- bh=pvrVbHE+oViaEur7C2TJKs4p+DVpiKgNTbF6ULcQd3A=;
- b=YBIuKQ7TiSORgfQR550/ine37KBc1PeJhUNsCUqurzIcKCx+F4+5C1vwEOAAh+Wixl
- nh5ODW8nXYVoFuRUgAJIGrANwzv4bopkxU5ZqYb0wN1sS/rbRifkl71dqJSiUSLEqegG
- RXsgRwAJoDXGuOSp3AmMqJdLrXHld/8X4yibQnU6qjc2sZOq6Mrn3fVojD3/CAPmJODf
- FXDJ+lOEjcM1P9bNggldRhN8NiK/uTMdN4qSayikyrf/ItbeYmTB0yR2JRLkAZlAUOzq
- VVJLLJbeHsZGMYPMZ1WEPPu2+CviVMcKffsqVk8v/oFe3+uzN8wOh/BfSOJUahBpmKK5
- NkLg==
-X-Gm-Message-State: AOAM531KPgOeFhRqfy2p+zHUHH5xUg5k4QWrIu5ks2rkiepC9c4ZH5UU
- dtG9jX7cmNVotY/pNqvmGpJj/A==
-X-Google-Smtp-Source: ABdhPJx8jHXqkcdr4ZiixQj5PbX9vk9xK9P1APab3JqWhqwpULRp/sh0Zx4DhnhCD4eeDuqbC64MEw==
-X-Received: by 2002:a63:5552:: with SMTP id f18mr9542482pgm.298.1598439916347; 
- Wed, 26 Aug 2020 04:05:16 -0700 (PDT)
-Received: from localhost ([2401:fa00:1:10:de4a:3eff:fe7d:d39c])
- by smtp.gmail.com with ESMTPSA id x28sm431184pfq.62.2020.08.26.04.05.12
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 26 Aug 2020 04:05:15 -0700 (PDT)
-From: Cheng-Yi Chiang <cychiang@chromium.org>
-To: linux-kernel@vger.kernel.org
-Subject: [PATCH v6 2/2] ASoC: qcom: sc7180: Add machine driver for sound card
- registration
-Date: Wed, 26 Aug 2020 19:04:54 +0800
-Message-Id: <20200826110454.1811352-3-cychiang@chromium.org>
-X-Mailer: git-send-email 2.28.0.297.g1956fa8f8d-goog
-In-Reply-To: <20200826110454.1811352-1-cychiang@chromium.org>
-References: <20200826110454.1811352-1-cychiang@chromium.org>
-MIME-Version: 1.0
+ dkim=pass (1024-bit key) header.d=amdcloud.onmicrosoft.com
+ header.i=@amdcloud.onmicrosoft.com header.b="ZimkLCAA"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=H8OWV2gzkifS2zNRNuxs+ML7KVhPNHhDcPgOaBYatR28OSuunDc6TFS7UvpQH459tKGQUW66H/ivUEdHiR4fIB/SwbjPQT2JoNM3AkrhGvWvFFfP5d/FsAYkJzcQvr4foejp6CP0NVH2TzHRTYHa3KQIOdU7bI+jEcdwlsSRN2xJfpDgFEb3+tARJQxixqOkBlmcvGjbpeGwi8ViCYOu0WEQudT8zoFRmP+9KDzDNOXEd4rPaeic2cvTOrY3kN/phEOFFY1DIU3P3TimV/kMB2hkSPvFWYOwn40Sfni54l/Vt4RGYnwP2KIZwjBjUQOeCSTJhYWnPuE9gKaW2z/sgQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=1BR69KVJXjNlZx1sBgp0e9oyc4MhVgZI1iMJljI5NLc=;
+ b=TRZUe4v+QGFd5XqSHoxcvrP2Z0Mu9xkhRy0FhHFNCdhcirs7zDMNWgiIop9pGPBi0H5T7CHzLFxCyZebyGUfVJl/VxW8xdrYcYeEVDQ5BCORgXQQfjUGyvsFMAGN2PyidrwBaW5dOVwQDibUorG8MnRkV1FykEKik/FMQ9FJe9+gk5F7e3cJQu4TdnP94MWodOJbtu3g3vG5OWYv4PK61hOI44zNG5lsqKTt2S6T6h3obkGh7K0p92d1GUYCDMfa0XrfmsQ+aGoigbkHigQkjDIKBzpD8Dde02TaFXsmC3L8id478TX5sdkzv4zp1e8XJNyBHZP/RCjcu72Q8EPdCQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=1BR69KVJXjNlZx1sBgp0e9oyc4MhVgZI1iMJljI5NLc=;
+ b=ZimkLCAALz3l0O5LhS0loaJqcC3B8lNa0ri1spXEYzXihLL4duWzTRFUF47UXnkyEnKkLFh/yeGzCFcxMHZPKpOvS37SGl6b8AeesR75T5rpBHp1gD4jgyPGkB1NDheD1OCyD17ki/YmRaGFvFbxIroTpxoybPruDPhPJ/lN4uw=
+Authentication-Results: amd.com; dkim=none (message not signed)
+ header.d=none;amd.com; dmarc=none action=none header.from=amd.com;
+Received: from DM5PR1201MB0188.namprd12.prod.outlook.com (2603:10b6:4:56::12)
+ by DM6PR12MB4450.namprd12.prod.outlook.com (2603:10b6:5:28e::18) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3305.26; Wed, 26 Aug
+ 2020 11:18:54 +0000
+Received: from DM5PR1201MB0188.namprd12.prod.outlook.com
+ ([fe80::4df1:4ad8:38cd:128c]) by DM5PR1201MB0188.namprd12.prod.outlook.com
+ ([fe80::4df1:4ad8:38cd:128c%7]) with mapi id 15.20.3305.026; Wed, 26 Aug 2020
+ 11:18:54 +0000
+From: Akshu Agrawal <akshu.agrawal@amd.com>
+To: akshu.agrawal@amd.com
+Subject: [PATCH] ASoC: AMD: Clean kernel log from deferred probe error messages
+Date: Wed, 26 Aug 2020 16:48:05 +0530
+Message-Id: <20200826111826.3168-1-akshu.agrawal@amd.com>
+X-Mailer: git-send-email 2.20.1
 Content-Transfer-Encoding: 8bit
-Cc: Taniya Das <tdas@codeaurora.org>, alsa-devel@alsa-project.org,
- Banajit Goswami <bgoswami@codeaurora.org>, Liam Girdwood <lgirdwood@gmail.com>,
- Rohit kumar <rohitkr@codeaurora.org>, Cheng-Yi Chiang <cychiang@chromium.org>,
- Patrick Lai <plai@codeaurora.org>, Ajit Pandey <ajitp@codeaurora.org>,
- Tzung-Bi Shih <tzungbi@google.com>, Andy Gross <agross@kernel.org>,
- dgreid@chromium.org, devicetree@vger.kernel.org, tzungbi@chromium.org,
- Stephan Gerhold <stephan@gerhold.net>, linux-arm-msm@vger.kernel.org,
- Rob Herring <robh+dt@kernel.org>, Bjorn Andersson <bjorn.andersson@linaro.org>,
- linux-arm-kernel@lists.infradead.org, dianders@chromium.org,
- Takashi Iwai <tiwai@suse.com>, Mark Brown <broonie@kernel.org>,
- Srini Kandagatla <srinivas.kandagatla@linaro.org>
+Content-Type: text/plain
+X-ClientProxiedBy: MAXPR01CA0109.INDPRD01.PROD.OUTLOOK.COM
+ (2603:1096:a00:5d::27) To DM5PR1201MB0188.namprd12.prod.outlook.com
+ (2603:10b6:4:56::12)
+MIME-Version: 1.0
+X-MS-Exchange-MessageSentRepresentingType: 1
+Received: from 255.255.255.255 (255.255.255.255) by
+ MAXPR01CA0109.INDPRD01.PROD.OUTLOOK.COM (2603:1096:a00:5d::27) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.3326.19 via Frontend Transport; Wed, 26 Aug 2020 11:18:50 +0000
+X-Mailer: git-send-email 2.20.1
+X-Originating-IP: [171.61.65.59]
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-HT: Tenant
+X-MS-Office365-Filtering-Correlation-Id: c7579fc1-cbd1-4d31-5e42-08d849b1d117
+X-MS-TrafficTypeDiagnostic: DM6PR12MB4450:
+X-MS-Exchange-Transport-Forked: True
+X-Microsoft-Antispam-PRVS: <DM6PR12MB4450A93DEA4E43863E0D6725F8540@DM6PR12MB4450.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:4303;
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: WIZPhHhJccB8vD7WenXWkk/qaWzsu6MpQequ7krEuTd+Hk7e7vtI61FoWKmRFzvkhS0daGiSrTjNuH/2ekxJ9uVhFqlda85pOvGsXIBoAhbeq2riJy69EQQriUSfRky+4bX37BRu67JXKgzDiaKqvETEMACGD3BSwqDBFULtI/B81FwLm/22XWeJTGg+vTeG+tGKmE8L/9PEPmY/1F5MbPTSd9IJ+YD+tVJXIGXCub3y+93Ha8XAACX/1cqD4NvXEQlZ1AW/3SpDRjH7i34SaVL3Ie5xT0JXyvwI1ddJFcT7meLU85VbE3rJbv25PJibglVCfH18kqC7Qa6qaHCERw==
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DM5PR1201MB0188.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(136003)(376002)(346002)(396003)(39860400002)(366004)(16576012)(83380400001)(5660300002)(6486002)(4744005)(66946007)(1076003)(2906002)(316002)(86362001)(37006003)(8936002)(8676002)(36756003)(54906003)(15650500001)(44832011)(52116002)(26005)(186003)(4326008)(478600001)(956004)(2616005)(66556008)(6666004)(66476007)(34206002);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData: RsSshFk5pg95vOV7Da1DbWiTWcGnUxO6hy148AYKeZtZK6Z0tWMqoGJ6cps9+OqKks6EI5unZFB7eoa/fVuYDCkfwDjGO/vzhy3fDX9doNDXYs/H/XG5qG/EuTWLTV9XJUxhgbHCvUBqChuA3RT5ebYJ2SWxmxzBtZzJVhseMjiqKEmvVuXyGR/ist5BzIMYXiVw5U/BkodfmV9R8klumSxdqIDc9TS3wuvc3hkLtIwUbGdW1m+5O74CIhace80BpoMBlxp8c8NRWi/RAYx+nPCFvCABGpGTNqH5nMpFA7W0mOX5MJKsSkrupv0i6pSuvhi5HJrqnyL0//+EBIxZ1y/7YOaqbHvWFCMT8SE+F3NxeGjwMlrBO9rP/foXZ8tEDGWxY/dLQBaxawvlHzsPg1H0XLGBqPyzQd6gp7K9Jc8NuNJ5vtiWpMaRZbWcu8BHqhMLb/wVSuLkj+8s9ClZ9+Aky4gtPVhtna9ttfLoTHCrvSYQBOI2n+qAtKpVYLXU4cNEK8SXmgxwi4CqUPc0/g4HlNPkYjuHGHjJf21J+Ngj7v24JnbrhZ2m8vQPDltp1Tq09YF/RQW1rFlHJiToFgHqaRvWewWAtoclXZPXdThA+upGCZiGSRY8co47aaOQ+q+5HAk+7FEPmn4EVl+LPQ==
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: c7579fc1-cbd1-4d31-5e42-08d849b1d117
+X-MS-Exchange-CrossTenant-AuthSource: DM5PR1201MB0188.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Aug 2020 11:18:54.3291 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: GEMx22fbMj5MhIginhgGW/1jFL0T5LYcxHuAdp6DTgDYhBHIkUc/WAl5J2ZwXS1dBuJ+px0SJ3PXgPsHHkNHog==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4450
+Cc: "moderated list:SOUND - SOC LAYER / DYNAMIC AUDIO POWER MANAGEM..."
+ <alsa-devel@alsa-project.org>,
+ Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
+ open list <linux-kernel@vger.kernel.org>, YueHaibing <yuehaibing@huawei.com>,
+ Takashi Iwai <tiwai@suse.com>, Liam Girdwood <lgirdwood@gmail.com>,
+ Mark Brown <broonie@kernel.org>,
+ Ravulapati Vishnu vardhan rao <Vishnuvardhanrao.Ravulapati@amd.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -107,312 +132,34 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: Ajit Pandey <ajitp@codeaurora.org>
+While the driver waits for DAIs to be probed and retries probing,
+avoid printing error messages.
 
-Add new driver to register sound card on sc7180 trogdor board and
-do the required configuration for lpass cpu dai and external codecs
-connected over MI2S interfaces.
-
-Signed-off-by: Ajit Pandey <ajitp@codeaurora.org>
-Signed-off-by: Cheng-Yi Chiang <cychiang@chromium.org>
-Reviewed-by: Tzung-Bi Shih <tzungbi@google.com>
+Signed-off-by: Akshu Agrawal <akshu.agrawal@amd.com>
 ---
- sound/soc/qcom/Kconfig  |  12 ++
- sound/soc/qcom/Makefile |   2 +
- sound/soc/qcom/sc7180.c | 244 ++++++++++++++++++++++++++++++++++++++++
- 3 files changed, 258 insertions(+)
- create mode 100644 sound/soc/qcom/sc7180.c
+ sound/soc/amd/acp3x-rt5682-max9836.c | 6 ++----
+ 1 file changed, 2 insertions(+), 4 deletions(-)
 
-diff --git a/sound/soc/qcom/Kconfig b/sound/soc/qcom/Kconfig
-index a607ace8b089..63678b746299 100644
---- a/sound/soc/qcom/Kconfig
-+++ b/sound/soc/qcom/Kconfig
-@@ -116,4 +116,16 @@ config SND_SOC_SDM845
- 	  SDM845 SoC-based systems.
- 	  Say Y if you want to use audio device on this SoCs.
+diff --git a/sound/soc/amd/acp3x-rt5682-max9836.c b/sound/soc/amd/acp3x-rt5682-max9836.c
+index 406526e79af3..67f80ba51de0 100644
+--- a/sound/soc/amd/acp3x-rt5682-max9836.c
++++ b/sound/soc/amd/acp3x-rt5682-max9836.c
+@@ -471,13 +471,11 @@ static int acp3x_probe(struct platform_device *pdev)
+ 	}
  
-+config SND_SOC_SC7180
-+	tristate "SoC Machine driver for SC7180 boards"
-+	depends on SND_SOC_QCOM
-+	select SND_SOC_QCOM_COMMON
-+	select SND_SOC_LPASS_SC7180
-+	select SND_SOC_MAX98357A
-+	select SND_SOC_RT5682
-+	help
-+	  To add support for audio on Qualcomm Technologies Inc.
-+	  SC7180 SoC-based systems.
-+	  Say Y if you want to use audio device on this SoCs.
-+
- endif #SND_SOC_QCOM
-diff --git a/sound/soc/qcom/Makefile b/sound/soc/qcom/Makefile
-index 7972c9479ab0..0cdcbf367ef1 100644
---- a/sound/soc/qcom/Makefile
-+++ b/sound/soc/qcom/Makefile
-@@ -17,12 +17,14 @@ snd-soc-storm-objs := storm.o
- snd-soc-apq8016-sbc-objs := apq8016_sbc.o
- snd-soc-apq8096-objs := apq8096.o
- snd-soc-sdm845-objs := sdm845.o
-+snd-soc-sc7180-objs := sc7180.o
- snd-soc-qcom-common-objs := common.o
+ 	ret = devm_snd_soc_register_card(&pdev->dev, card);
+-	if (ret) {
++	if (ret && ret != -EPROBE_DEFER)
+ 		dev_err(&pdev->dev,
+ 				"devm_snd_soc_register_card(%s) failed: %d\n",
+ 				card->name, ret);
+-		return ret;
+-	}
+-	return 0;
++	return ret;
+ }
  
- obj-$(CONFIG_SND_SOC_STORM) += snd-soc-storm.o
- obj-$(CONFIG_SND_SOC_APQ8016_SBC) += snd-soc-apq8016-sbc.o
- obj-$(CONFIG_SND_SOC_MSM8996) += snd-soc-apq8096.o
- obj-$(CONFIG_SND_SOC_SDM845) += snd-soc-sdm845.o
-+obj-$(CONFIG_SND_SOC_SC7180) += snd-soc-sc7180.o
- obj-$(CONFIG_SND_SOC_QCOM_COMMON) += snd-soc-qcom-common.o
- 
- #DSP lib
-diff --git a/sound/soc/qcom/sc7180.c b/sound/soc/qcom/sc7180.c
-new file mode 100644
-index 000000000000..7849376f63ba
---- /dev/null
-+++ b/sound/soc/qcom/sc7180.c
-@@ -0,0 +1,244 @@
-+// SPDX-License-Identifier: GPL-2.0-only
-+//
-+// Copyright (c) 2020, The Linux Foundation. All rights reserved.
-+//
-+// sc7180.c -- ALSA SoC Machine driver for SC7180
-+
-+#include <dt-bindings/sound/sc7180-lpass.h>
-+#include <linux/module.h>
-+#include <linux/of_device.h>
-+#include <linux/platform_device.h>
-+#include <sound/core.h>
-+#include <sound/jack.h>
-+#include <sound/pcm.h>
-+#include <sound/pcm_params.h>
-+#include <sound/soc.h>
-+#include <uapi/linux/input-event-codes.h>
-+
-+#include "../codecs/rt5682.h"
-+#include "common.h"
-+#include "lpass.h"
-+
-+#define DEFAULT_SAMPLE_RATE_48K		48000
-+#define DEFAULT_MCLK_RATE		19200000
-+#define RT5682_PLL1_FREQ (48000 * 512)
-+
-+struct sc7180_snd_data {
-+	struct snd_soc_jack jack;
-+	u32 pri_mi2s_clk_count;
-+};
-+
-+static void sc7180_jack_free(struct snd_jack *jack)
-+{
-+	struct snd_soc_component *component = jack->private_data;
-+
-+	snd_soc_component_set_jack(component, NULL, NULL);
-+}
-+
-+static int sc7180_headset_init(struct snd_soc_component *component)
-+{
-+	struct snd_soc_card *card = component->card;
-+	struct sc7180_snd_data *pdata = snd_soc_card_get_drvdata(card);
-+	struct snd_jack *jack;
-+	int rval;
-+
-+	rval = snd_soc_card_jack_new(
-+			card, "Headset Jack",
-+			SND_JACK_HEADSET |
-+			SND_JACK_HEADPHONE |
-+			SND_JACK_BTN_0 | SND_JACK_BTN_1 |
-+			SND_JACK_BTN_2 | SND_JACK_BTN_3,
-+			&pdata->jack, NULL, 0);
-+
-+	if (rval < 0) {
-+		dev_err(card->dev, "Unable to add Headset Jack\n");
-+		return rval;
-+	}
-+
-+	jack = pdata->jack.jack;
-+
-+	snd_jack_set_key(jack, SND_JACK_BTN_0, KEY_PLAYPAUSE);
-+	snd_jack_set_key(jack, SND_JACK_BTN_1, KEY_VOICECOMMAND);
-+	snd_jack_set_key(jack, SND_JACK_BTN_2, KEY_VOLUMEUP);
-+	snd_jack_set_key(jack, SND_JACK_BTN_3, KEY_VOLUMEDOWN);
-+
-+	jack->private_data = component;
-+	jack->private_free = sc7180_jack_free;
-+
-+	rval = snd_soc_component_set_jack(component,
-+					  &pdata->jack, NULL);
-+	if (rval != 0 && rval != -EOPNOTSUPP) {
-+		dev_warn(card->dev, "Failed to set jack: %d\n", rval);
-+		return rval;
-+	}
-+
-+	return 0;
-+}
-+
-+static struct snd_soc_aux_dev sc7180_headset_dev = {
-+	.dlc = COMP_EMPTY(),
-+	.init = sc7180_headset_init,
-+};
-+
-+static int sc7180_snd_startup(struct snd_pcm_substream *substream)
-+{
-+	struct snd_soc_pcm_runtime *rtd = substream->private_data;
-+	struct snd_soc_card *card = rtd->card;
-+	struct sc7180_snd_data *data = snd_soc_card_get_drvdata(card);
-+	struct snd_soc_dai *cpu_dai = asoc_rtd_to_cpu(rtd, 0);
-+	struct snd_soc_dai *codec_dai = asoc_rtd_to_codec(rtd, 0);
-+	int ret;
-+
-+	switch (cpu_dai->id) {
-+	case MI2S_PRIMARY:
-+		if (++data->pri_mi2s_clk_count == 1) {
-+			snd_soc_dai_set_sysclk(cpu_dai,
-+					       LPASS_MCLK0,
-+					       DEFAULT_MCLK_RATE,
-+					       SNDRV_PCM_STREAM_PLAYBACK);
-+		}
-+
-+		snd_soc_dai_set_fmt(codec_dai,
-+				    SND_SOC_DAIFMT_CBS_CFS |
-+				    SND_SOC_DAIFMT_NB_NF |
-+				    SND_SOC_DAIFMT_I2S);
-+
-+		/* Configure PLL1 for codec */
-+		ret = snd_soc_dai_set_pll(codec_dai, 0, RT5682_PLL1_S_MCLK,
-+					  DEFAULT_MCLK_RATE, RT5682_PLL1_FREQ);
-+		if (ret) {
-+			dev_err(rtd->dev, "can't set codec pll: %d\n", ret);
-+			return ret;
-+		}
-+
-+		/* Configure sysclk for codec */
-+		ret = snd_soc_dai_set_sysclk(codec_dai, RT5682_SCLK_S_PLL1,
-+					     RT5682_PLL1_FREQ,
-+					     SND_SOC_CLOCK_IN);
-+		if (ret)
-+			dev_err(rtd->dev, "snd_soc_dai_set_sysclk err = %d\n",
-+				ret);
-+
-+		break;
-+	case MI2S_SECONDARY:
-+		break;
-+	default:
-+		dev_err(rtd->dev, "%s: invalid dai id 0x%x\n", __func__,
-+			cpu_dai->id);
-+		return -EINVAL;
-+	}
-+	return 0;
-+}
-+
-+static void sc7180_snd_shutdown(struct snd_pcm_substream *substream)
-+{
-+	struct snd_soc_pcm_runtime *rtd = substream->private_data;
-+	struct snd_soc_card *card = rtd->card;
-+	struct sc7180_snd_data *data = snd_soc_card_get_drvdata(card);
-+	struct snd_soc_dai *cpu_dai = asoc_rtd_to_cpu(rtd, 0);
-+
-+	switch (cpu_dai->id) {
-+	case MI2S_PRIMARY:
-+		if (--data->pri_mi2s_clk_count == 0) {
-+			snd_soc_dai_set_sysclk(cpu_dai,
-+					       LPASS_MCLK0,
-+					       0,
-+					       SNDRV_PCM_STREAM_PLAYBACK);
-+		}
-+		break;
-+	case MI2S_SECONDARY:
-+		break;
-+	default:
-+		dev_err(rtd->dev, "%s: invalid dai id 0x%x\n", __func__,
-+			cpu_dai->id);
-+		break;
-+	}
-+}
-+
-+static const struct snd_soc_ops sc7180_ops = {
-+	.startup = sc7180_snd_startup,
-+	.shutdown = sc7180_snd_shutdown,
-+};
-+
-+static const struct snd_soc_dapm_widget sc7180_snd_widgets[] = {
-+	SND_SOC_DAPM_HP("Headphone Jack", NULL),
-+	SND_SOC_DAPM_MIC("Headset Mic", NULL),
-+};
-+
-+static struct snd_soc_card sc7180_card = {
-+	.owner = THIS_MODULE,
-+	.aux_dev = &sc7180_headset_dev,
-+	.num_aux_devs = 1,
-+	.dapm_widgets = sc7180_snd_widgets,
-+	.num_dapm_widgets = ARRAY_SIZE(sc7180_snd_widgets),
-+};
-+
-+static int sc7180_parse_aux_of(struct device *dev)
-+{
-+	sc7180_headset_dev.dlc.of_node = of_parse_phandle(
-+			dev->of_node, "aux-dev", 0);
-+
-+	if (!sc7180_headset_dev.dlc.of_node)
-+		return -EINVAL;
-+	return 0;
-+}
-+
-+static void sc7180_add_ops(struct snd_soc_card *card)
-+{
-+	struct snd_soc_dai_link *link;
-+	int i;
-+
-+	for_each_card_prelinks(card, i, link)
-+		link->ops = &sc7180_ops;
-+}
-+
-+static int sc7180_snd_platform_probe(struct platform_device *pdev)
-+{
-+	struct snd_soc_card *card = &sc7180_card;
-+	struct sc7180_snd_data *data;
-+	struct device *dev = &pdev->dev;
-+	int ret;
-+
-+	/* Allocate the private data */
-+	data = devm_kzalloc(dev, sizeof(*data), GFP_KERNEL);
-+	if (!data)
-+		return -ENOMEM;
-+
-+	card->dev = dev;
-+
-+	ret = qcom_snd_parse_of(card);
-+	if (ret) {
-+		dev_err(dev, "Error parsing OF data\n");
-+		return ret;
-+	}
-+
-+	snd_soc_card_set_drvdata(card, data);
-+
-+	sc7180_add_ops(card);
-+
-+	ret = sc7180_parse_aux_of(dev);
-+	if (ret) {
-+		dev_err(dev, "Failed to parse OF for jack device\n");
-+		return ret;
-+	}
-+
-+	return devm_snd_soc_register_card(dev, card);
-+}
-+
-+static const struct of_device_id sc7180_snd_device_id[]  = {
-+	{ .compatible = "qcom,sc7180-sndcard" },
-+	{},
-+};
-+MODULE_DEVICE_TABLE(of, sc7180_snd_device_id);
-+
-+static struct platform_driver sc7180_snd_driver = {
-+	.probe = sc7180_snd_platform_probe,
-+	.driver = {
-+		.name = "msm-snd-sc7180",
-+		.of_match_table = sc7180_snd_device_id,
-+	},
-+};
-+module_platform_driver(sc7180_snd_driver);
-+
-+MODULE_DESCRIPTION("sc7180 ASoC Machine Driver");
-+MODULE_LICENSE("GPL v2");
+ static const struct acpi_device_id acp3x_audio_acpi_match[] = {
 -- 
-2.28.0.297.g1956fa8f8d-goog
+2.20.1
 

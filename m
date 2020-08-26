@@ -2,72 +2,60 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id F21ED253A96
-	for <lists+alsa-devel@lfdr.de>; Thu, 27 Aug 2020 01:14:23 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 32B9D253ABC
+	for <lists+alsa-devel@lfdr.de>; Thu, 27 Aug 2020 01:51:05 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 85E1617B8;
-	Thu, 27 Aug 2020 01:13:33 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 85E1617B8
+	by alsa0.perex.cz (Postfix) with ESMTPS id 72A9A17BE;
+	Thu, 27 Aug 2020 01:50:14 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 72A9A17BE
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1598483663;
-	bh=CpHkJUZvyYvt06DXHZ2zSSx1b3+LhUiOGj2TLclLCK4=;
+	s=default; t=1598485864;
+	bh=8vZW1qL5AQ6AqVCkRsi4XYh6RF0y9oDsoJajfHaXMxU=;
 	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=mYVtBVHC3J0yv0npUCIgPYL8N/ALshLBh1p1yYROF6Dqljfk7+FK6UPDetiPkAGqv
-	 aGyctSplTqvCJN1WjLKqMer36AYGEJ3lcoiJpmql+MGEZSVu7qDqXQrTCxAJ0RwrC/
-	 NM0o1D/LaIKGfK04pLBWk5/MHjdtw3aAjsYPptiY=
+	b=UHlmKEIdS14ptqy6PbRSvcCdvOwRARiWT7POT4OFWV9BWcTVCYx0vqj/uKB8LwwYy
+	 CGf2uzucXcqEXVw0C/+WfF1kPHwPXwv+NwtzMB45il5AAN5ERllA+w55kwx6FQB2sT
+	 8S0MvjSdzE1C5aC+KxN5xuCasq4qY3CAUN0vY1BI=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id A976FF8016F;
-	Thu, 27 Aug 2020 01:12:42 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 934B4F801D9;
+	Thu, 27 Aug 2020 01:49:23 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 13F94F801D9; Thu, 27 Aug 2020 01:12:39 +0200 (CEST)
+ id 2ADC7F801D9; Thu, 27 Aug 2020 01:49:20 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS
  autolearn=disabled version=3.4.0
 Received: from relmlie6.idc.renesas.com (relmlor2.renesas.com
  [210.160.252.172])
- by alsa1.perex.cz (Postfix) with ESMTP id A2DD2F80105
- for <alsa-devel@alsa-project.org>; Thu, 27 Aug 2020 01:12:32 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A2DD2F80105
-Date: 27 Aug 2020 08:12:27 +0900
-X-IronPort-AV: E=Sophos;i="5.76,357,1592838000"; d="scan'208";a="55403578"
-Received: from unknown (HELO relmlir6.idc.renesas.com) ([10.200.68.152])
- by relmlie6.idc.renesas.com with ESMTP; 27 Aug 2020 08:12:27 +0900
+ by alsa1.perex.cz (Postfix) with ESMTP id D475AF800EB
+ for <alsa-devel@alsa-project.org>; Thu, 27 Aug 2020 01:49:13 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D475AF800EB
+Date: 27 Aug 2020 08:49:09 +0900
+X-IronPort-AV: E=Sophos;i="5.76,357,1592838000"; d="scan'208";a="55406243"
+Received: from unknown (HELO relmlir5.idc.renesas.com) ([10.200.68.151])
+ by relmlie6.idc.renesas.com with ESMTP; 27 Aug 2020 08:49:09 +0900
 Received: from mercury.renesas.com (unknown [10.166.252.133])
- by relmlir6.idc.renesas.com (Postfix) with ESMTP id 3B1234103C32;
- Thu, 27 Aug 2020 08:12:27 +0900 (JST)
-Message-ID: <87eentvwab.wl-kuninori.morimoto.gx@renesas.com>
+ by relmlir5.idc.renesas.com (Postfix) with ESMTP id 9B93740062AA;
+ Thu, 27 Aug 2020 08:49:09 +0900 (JST)
+Message-ID: <87d03dvul5.wl-kuninori.morimoto.gx@renesas.com>
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-To: Sameer Pujar <spujar@nvidia.com>
-Subject: Re: [PATCH v2 3/9] ASoC: audio-graph: Identify 'no_pcm' DAI links for
- DPCM
-In-Reply-To: <f3724be2-c79d-0815-6ff5-460a4f6c10cc@nvidia.com>
-References: <1596605064-27748-1-git-send-email-spujar@nvidia.com>
- <1596605064-27748-4-git-send-email-spujar@nvidia.com>
- <87pn7ofs19.wl-kuninori.morimoto.gx@renesas.com>
- <97f325a6-96cc-11c5-8027-8c0a159e3da0@nvidia.com>
- <2d3aa11e-3c56-1f7a-3d41-2457f973d55b@nvidia.com>
- <87sgcbwcnf.wl-kuninori.morimoto.gx@renesas.com>
- <14691a05-cb29-a030-0e72-eca900d8eb7e@nvidia.com>
- <87o8mzwajg.wl-kuninori.morimoto.gx@renesas.com>
- <e9698ac3-0a2e-08a2-3f78-b0be0069d6ee@nvidia.com>
- <87lfi3w7hj.wl-kuninori.morimoto.gx@renesas.com>
- <f3724be2-c79d-0815-6ff5-460a4f6c10cc@nvidia.com>
+To: Mark Brown <broonie@kernel.org>
+Subject: Re: [PATCH] ASoC: soc-core: move snd_soc_dai_link_set_capabilities()
+ to soc-core.c
+In-Reply-To: <20200826181036.GN4965@sirena.org.uk>
+References: <87tux0fujp.wl-kuninori.morimoto.gx@renesas.com>
+ <875z97y448.wl-kuninori.morimoto.gx@renesas.com>
+ <20200826181036.GN4965@sirena.org.uk>
 User-Agent: Wanderlust/2.15.9 Emacs/26.3 Mule/6.0
 MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
 Content-Type: text/plain; charset=US-ASCII
-Cc: jonathanh@nvidia.com, nicoleotsuka@gmail.com, alsa-devel@alsa-project.org,
- atalambedu@nvidia.com, swarren@nvidia.com, linux-kernel@vger.kernel.org,
- nwartikar@nvidia.com, lgirdwood@gmail.com, robh+dt@kernel.org, tiwai@suse.com,
- viswanathl@nvidia.com, sharadg@nvidia.com, broonie@kernel.org,
- thierry.reding@gmail.com, linux-tegra@vger.kernel.org, rlokhande@nvidia.com,
- mkumard@nvidia.com, dramesh@nvidia.com
+Cc: Linux-ALSA <alsa-devel@alsa-project.org>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -84,16 +72,26 @@ Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 
-Hi Sameer
+Hi Mark
 
-> Sure. BTW, there are more such candidates which require 'lock' version
-> of these helpers.
-> For example: soc_find_component(), snd_soc_add/remove_pcm_runtime()
-> and snd_soc_register_dai().
+> > This is for mark/for-5.9, but I noticed that
+> > your for-5.9 branch doesn't have this commit
+> 
+> > 	4f8721542f7b75954bfad98c51aa59d683d35b50
+> > 	("ASoC: core: use less strict tests for dailink capabilities")
+> 
+> > But, linus/master (= v5.9-rc2) has it.
+> > And I noticed that your for-5.10 branch has it.
+> 
+> > Which branch should I use for linus/master (= v5.9-rcX) ?
+> 
+> It doesn't apply on my for-5.9 branch which has v5.9-rc2 merged into it
+> (which was needed anyway) either so could you please rebase against
+> current for-5.9?
 
-soc_find_component() is static function, no need to care about mutex.
-other functions are indeed exported function, but is used from
-topology.c which is calling it under mutex.
+Thank you for your feedback.
+I will rebase and post it again, but as I and Sameer discussed,
+it will be different Subject.
 
 Thank you for your help !!
 

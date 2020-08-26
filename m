@@ -2,88 +2,74 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 73129254B46
-	for <lists+alsa-devel@lfdr.de>; Thu, 27 Aug 2020 18:56:47 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7A1E2254B49
+	for <lists+alsa-devel@lfdr.de>; Thu, 27 Aug 2020 18:58:36 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 24A7A1812;
-	Thu, 27 Aug 2020 18:55:57 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 24A7A1812
+	by alsa0.perex.cz (Postfix) with ESMTPS id 284301686;
+	Thu, 27 Aug 2020 18:57:46 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 284301686
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1598547407;
-	bh=KYd9ObWg0QCkZ9uSwqwgVo14DAgFLnTaifLHIicb+to=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=kTbYqSGCSj7u43iPw59BhlokxiUX9estRJceI1ih1VlG7MUItS2X/5+c4pf35nw/u
-	 JS5zFwhZZ8EGUixqesdI7Qu+eI8QwXT2uoVRGjEbGbtJLA3WNmK09vBgaE2rCbhOSV
-	 vHMeQtA/14CQPrbd6dvCJL8ncVikq6rsnS1agu7w=
+	s=default; t=1598547516;
+	bh=DkbwqrVT3iazoNFLQLUmp5GL/D/4T7/eBl+pt5x8BPg=;
+	h=Date:Subject:From:To:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=uo4+ffbacLOngLpMZ9Vr6sU4qtOwCiSzGsGV1sxGtsQZWpq3Bl2GLZDON7qnNQOkl
+	 Ym8RKzrMYEdIZP/t+dHUC3WS9e8qqz6LdthrJYIiPezibClH+YbbiMJITv59bJMYdg
+	 bcwok90Di+GGMA0L2qGPw8lld7IEXb1RoVaE38aY=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 9AC49F802FF;
-	Thu, 27 Aug 2020 18:51:05 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 5392DF80332;
+	Thu, 27 Aug 2020 18:51:10 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id BAA9CF802BC; Tue, 25 Aug 2020 19:17:44 +0200 (CEST)
+ id A963FF801D9; Wed, 26 Aug 2020 12:38:24 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- RCVD_IN_MSPIKE_H2,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from mail29.static.mailgun.info (mail29.static.mailgun.info
- [104.130.122.29])
+X-Spam-Level: ***
+X-Spam-Status: No, score=3.1 required=5.0 tests=FROM_LOCAL_HEX,
+ HEADER_FROM_DIFFERENT_DOMAINS,RCVD_IN_MSPIKE_H2,SORTED_RECIPS,SPF_HELO_NONE,
+ SPF_PASS,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mail-io1-f71.google.com (mail-io1-f71.google.com
+ [209.85.166.71])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 8131EF80245
- for <alsa-devel@alsa-project.org>; Tue, 25 Aug 2020 19:17:38 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8131EF80245
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=mg.codeaurora.org
- header.i=@mg.codeaurora.org header.b="stnlpXGJ"
-DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
- q=dns/txt; 
- s=smtp; t=1598375858; h=References: In-Reply-To: Message-Id: Date:
- Subject: Cc: To: From: Sender;
- bh=i3/1dnHpGufbp+0yWW9h6/2rR2TX2MC9ptm2SWU/FNA=;
- b=stnlpXGJNHF0GAmV80T0Q0iDHs36D9Fm/6T+FAeYffpZycJ/9cGMikk9HEXVwll+Q1/J6WFi
- PVyvEcGXubIVB2kk36NVSorWfz5tnFYx5VsgyyIZ5xFJMZWgqFYLBpWxR7nPLtRsN5pgYTts
- wWeAbPknoJjsYGMva29GySYMhlw=
-X-Mailgun-Sending-Ip: 104.130.122.29
-X-Mailgun-Sid: WyI4ZmE2ZSIsICJhbHNhLWRldmVsQGFsc2EtcHJvamVjdC5vcmciLCAiYmU5ZTRhIl0=
-Received: from smtp.codeaurora.org
- (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171]) by
- smtp-out-n01.prod.us-west-2.postgun.com with SMTP id
- 5f4547b1e2d4d29fc8189ae5 (version=TLS1.2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Tue, 25 Aug 2020 17:17:37
- GMT
-Received: by smtp.codeaurora.org (Postfix, from userid 1001)
- id 91048C43387; Tue, 25 Aug 2020 17:17:37 +0000 (UTC)
-Received: from hyd-lnxbld210.qualcomm.com (unknown [202.46.22.19])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-SHA256 (128/128 bits))
- (No client certificate requested) (Authenticated sender: srivasam)
- by smtp.codeaurora.org (Postfix) with ESMTPSA id 2B1CCC43395;
- Tue, 25 Aug 2020 17:17:28 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 smtp.codeaurora.org 2B1CCC43395
-Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
- dmarc=none (p=none dis=none) header.from=codeaurora.org
-Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
- spf=none smtp.mailfrom=srivasam@codeaurora.org
-From: Srinivasa Rao <srivasam@codeaurora.org>
-To: agross@kernel.org, bjorn.andersson@linaro.org, lgirdwood@gmail.com,
- broonie@kernel.org, robh+dt@kernel.org, plai@codeaurora.org,
- bgoswami@codeaurora.org, perex@perex.cz, tiwai@suse.com,
- srinivas.kandagatla@linaro.org, rohitkr@codeaurora.org,
- linux-arm-msm@vger.kernel.org, alsa-devel@alsa-project.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: [PATCH 5/5] Optimise lpass variant structure
-Date: Tue, 25 Aug 2020 22:46:28 +0530
-Message-Id: <1598375788-1882-6-git-send-email-srivasam@codeaurora.org>
-X-Mailer: git-send-email 2.7.4
-In-Reply-To: <1598375788-1882-1-git-send-email-srivasam@codeaurora.org>
-References: <1598375788-1882-1-git-send-email-srivasam@codeaurora.org>
-X-Mailman-Approved-At: Thu, 27 Aug 2020 18:50:45 +0200
-Cc: vsujithk <vsujithk@codeaurora.org>, Srinivasa Rao <srivasam@codeaurora.org>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 39CF6F80105
+ for <alsa-devel@alsa-project.org>; Wed, 26 Aug 2020 12:38:17 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 39CF6F80105
+Received: by mail-io1-f71.google.com with SMTP id m26so893171iob.14
+ for <alsa-devel@alsa-project.org>; Wed, 26 Aug 2020 03:38:17 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:date:message-id:subject:from:to;
+ bh=zygVL94X6Q9/gOxylja2ASyPRPX3GqyZ0wHqqF523eI=;
+ b=KyTaA3BPx46/vH6l6wjVcohhln1thEKHG+ETuoc3tTDElDqoQSkPdmZaBaSgiCRqGA
+ Kyqcg1pZgS5tnltlStfxSvIZSCpMsN48CqHIDzs4CTGxiq3QktssYLLA53+ASWpVIQLb
+ 3fnTeg3KJTsyf5MaOLILoA94UFQ4h/sonCK8sDzT736LDQv4hn7c0/kvhxQd/OItl9OR
+ ev/35DI7yXyF9jogwQJ0tfIA2vm8V0Cp0kejhHckYxX4Kk2gGqstJoAcCy2c2xS0ow/g
+ nhb8miFIP3OunJuOlHl0nhpL8MiXBm1i5/KR7a+c+KvVxYFgCvrEwtFXYgs8pV2V3ewz
+ 7SVA==
+X-Gm-Message-State: AOAM532b1BNVy0+7AtN+A9qd7fm3Q7hmsw0qaCa4jWAEdwQi/hp4v+iX
+ 85y1CTBqCbXYCRu8A++m5dhHpEmO5uK+8WNf48CtJBplP0W3
+X-Google-Smtp-Source: ABdhPJw08lyBJzdODV2Nkxfhuk4RHh+Cw2MEsa6J9AamNBzV1YHNImbwq9QQ84qsc0HcufY/KZOLJ+Gx1fTymR3g1Kve5aQLypQ6
+MIME-Version: 1.0
+X-Received: by 2002:a02:6d0e:: with SMTP id m14mr14520416jac.23.1598438295340; 
+ Wed, 26 Aug 2020 03:38:15 -0700 (PDT)
+Date: Wed, 26 Aug 2020 03:38:15 -0700
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <000000000000ca0c6805adc56a38@google.com>
+Subject: INFO: task can't die in p9_fd_close
+From: syzbot <syzbot+fbe34b643e462f65e542@syzkaller.appspotmail.com>
+To: alsa-devel@alsa-project.org, asmadeus@codewreck.org, broonie@kernel.org, 
+ daniel.baluta@nxp.com, davem@davemloft.net, ericvh@gmail.com,
+ kuba@kernel.org, 
+ lgirdwood@gmail.com, linux-kernel@vger.kernel.org, lucho@ionkov.net, 
+ netdev@vger.kernel.org, perex@perex.cz, rminnich@sandia.gov, 
+ syzkaller-bugs@googlegroups.com, tiwai@suse.com, 
+ v9fs-developer@lists.sourceforge.net
+Content-Type: text/plain; charset="UTF-8"
+X-Mailman-Approved-At: Thu, 27 Aug 2020 18:50:46 +0200
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -99,671 +85,225 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: vsujithk <vsujithk@codeaurora.org>
+Hello,
 
-lpass variant structure has I2S and HDMI register fields, which are used
-exclusively. To optimize memory, replace with union to select either
-I2S or HDMI register fields.
+syzbot found the following issue on:
 
-Signed-off-by: Srinivasa Rao <srivasam@codeaurora.org>
+HEAD commit:    494d311a Add linux-next specific files for 20200821
+git tree:       linux-next
+console output: https://syzkaller.appspot.com/x/log.txt?x=10615b36900000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=a61d44f28687f508
+dashboard link: https://syzkaller.appspot.com/bug?extid=fbe34b643e462f65e542
+compiler:       gcc (GCC) 10.1.0-syz 20200507
+syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=15920a05900000
+C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=13a78539900000
+
+The issue was bisected to:
+
+commit af3acca3e35c01920fe476f730dca7345d0a48df
+Author: Daniel Baluta <daniel.baluta@nxp.com>
+Date:   Tue Feb 20 12:53:10 2018 +0000
+
+    ASoC: ak5558: Fix style for SPDX identifier
+
+bisection log:  https://syzkaller.appspot.com/x/bisect.txt?x=12ea5d39900000
+final oops:     https://syzkaller.appspot.com/x/report.txt?x=11ea5d39900000
+console output: https://syzkaller.appspot.com/x/log.txt?x=16ea5d39900000
+
+IMPORTANT: if you fix the issue, please add the following tag to the commit:
+Reported-by: syzbot+fbe34b643e462f65e542@syzkaller.appspotmail.com
+Fixes: af3acca3e35c ("ASoC: ak5558: Fix style for SPDX identifier")
+
+INFO: task syz-executor475:7005 can't die for more than 143 seconds.
+task:syz-executor475 state:D stack:27208 pid: 7005 ppid:  6875 flags:0x00004004
+Call Trace:
+ context_switch kernel/sched/core.c:3778 [inline]
+ __schedule+0x8e5/0x21e0 kernel/sched/core.c:4527
+ schedule+0xd0/0x2a0 kernel/sched/core.c:4602
+ schedule_timeout+0x1d8/0x250 kernel/time/timer.c:1855
+ do_wait_for_common kernel/sched/completion.c:85 [inline]
+ __wait_for_common kernel/sched/completion.c:106 [inline]
+ wait_for_common kernel/sched/completion.c:117 [inline]
+ wait_for_completion+0x163/0x260 kernel/sched/completion.c:138
+ __flush_work+0x51f/0xab0 kernel/workqueue.c:3046
+ __cancel_work_timer+0x5de/0x700 kernel/workqueue.c:3133
+ p9_conn_destroy net/9p/trans_fd.c:889 [inline]
+ p9_fd_close+0x305/0x520 net/9p/trans_fd.c:919
+ p9_client_destroy+0xbe/0x360 net/9p/client.c:1086
+ v9fs_session_close+0x45/0x2c0 fs/9p/v9fs.c:498
+ v9fs_kill_super+0x49/0x90 fs/9p/vfs_super.c:222
+ deactivate_locked_super+0x94/0x160 fs/super.c:335
+ v9fs_mount+0x77c/0x970 fs/9p/vfs_super.c:203
+ legacy_get_tree+0x105/0x220 fs/fs_context.c:592
+ vfs_get_tree+0x89/0x2f0 fs/super.c:1547
+ do_new_mount fs/namespace.c:2896 [inline]
+ path_mount+0x1287/0x1e20 fs/namespace.c:3214
+ do_mount fs/namespace.c:3227 [inline]
+ __do_sys_mount fs/namespace.c:3435 [inline]
+ __se_sys_mount fs/namespace.c:3412 [inline]
+ __x64_sys_mount+0x27f/0x300 fs/namespace.c:3412
+ do_syscall_64+0x2d/0x70 arch/x86/entry/common.c:46
+ entry_SYSCALL_64_after_hwframe+0x44/0xa9
+RIP: 0033:0x446eb9
+Code: Bad RIP value.
+RSP: 002b:00007f6a133add98 EFLAGS: 00000246 ORIG_RAX: 00000000000000a5
+RAX: ffffffffffffffda RBX: 00000000006dcc48 RCX: 0000000000446eb9
+RDX: 0000000020000200 RSI: 0000000020000000 RDI: 0000000000000000
+RBP: 00000000006dcc40 R08: 00000000200028c0 R09: 0000000000000000
+R10: 0000000000000000 R11: 0000000000000246 R12: 00000000006dcc4c
+R13: 00000000200003c0 R14: 00000000004af538 R15: 0000000000000000
+INFO: task syz-executor475:7005 blocked for more than 143 seconds.
+      Not tainted 5.9.0-rc1-next-20200821-syzkaller #0
+"echo 0 > /proc/sys/kernel/hung_task_timeout_secs" disables this message.
+task:syz-executor475 state:D stack:27208 pid: 7005 ppid:  6875 flags:0x00004004
+Call Trace:
+ context_switch kernel/sched/core.c:3778 [inline]
+ __schedule+0x8e5/0x21e0 kernel/sched/core.c:4527
+ schedule+0xd0/0x2a0 kernel/sched/core.c:4602
+ schedule_timeout+0x1d8/0x250 kernel/time/timer.c:1855
+ do_wait_for_common kernel/sched/completion.c:85 [inline]
+ __wait_for_common kernel/sched/completion.c:106 [inline]
+ wait_for_common kernel/sched/completion.c:117 [inline]
+ wait_for_completion+0x163/0x260 kernel/sched/completion.c:138
+ __flush_work+0x51f/0xab0 kernel/workqueue.c:3046
+ __cancel_work_timer+0x5de/0x700 kernel/workqueue.c:3133
+ p9_conn_destroy net/9p/trans_fd.c:889 [inline]
+ p9_fd_close+0x305/0x520 net/9p/trans_fd.c:919
+ p9_client_destroy+0xbe/0x360 net/9p/client.c:1086
+ v9fs_session_close+0x45/0x2c0 fs/9p/v9fs.c:498
+ v9fs_kill_super+0x49/0x90 fs/9p/vfs_super.c:222
+ deactivate_locked_super+0x94/0x160 fs/super.c:335
+ v9fs_mount+0x77c/0x970 fs/9p/vfs_super.c:203
+ legacy_get_tree+0x105/0x220 fs/fs_context.c:592
+ vfs_get_tree+0x89/0x2f0 fs/super.c:1547
+ do_new_mount fs/namespace.c:2896 [inline]
+ path_mount+0x1287/0x1e20 fs/namespace.c:3214
+ do_mount fs/namespace.c:3227 [inline]
+ __do_sys_mount fs/namespace.c:3435 [inline]
+ __se_sys_mount fs/namespace.c:3412 [inline]
+ __x64_sys_mount+0x27f/0x300 fs/namespace.c:3412
+ do_syscall_64+0x2d/0x70 arch/x86/entry/common.c:46
+ entry_SYSCALL_64_after_hwframe+0x44/0xa9
+RIP: 0033:0x446eb9
+Code: Bad RIP value.
+RSP: 002b:00007f6a133add98 EFLAGS: 00000246 ORIG_RAX: 00000000000000a5
+RAX: ffffffffffffffda RBX: 00000000006dcc48 RCX: 0000000000446eb9
+RDX: 0000000020000200 RSI: 0000000020000000 RDI: 0000000000000000
+RBP: 00000000006dcc40 R08: 00000000200028c0 R09: 0000000000000000
+R10: 0000000000000000 R11: 0000000000000246 R12: 00000000006dcc4c
+R13: 00000000200003c0 R14: 00000000004af538 R15: 0000000000000000
+
+Showing all locks held in the system:
+1 lock held by khungtaskd/1173:
+ #0: ffffffff89c675c0 (rcu_read_lock){....}-{1:2}, at: debug_show_all_locks+0x53/0x260 kernel/locking/lockdep.c:5825
+1 lock held by in:imklog/6540:
+2 locks held by kworker/0:1/6858:
+ #0: ffff8880ae635dd8 (&rq->lock){-.-.}-{2:2}, at: rq_lock kernel/sched/sched.h:1292 [inline]
+ #0: ffff8880ae635dd8 (&rq->lock){-.-.}-{2:2}, at: __schedule+0x232/0x21e0 kernel/sched/core.c:4445
+ #1: ffff8880ae620ec8 (&per_cpu_ptr(group->pcpu, cpu)->seq){-.-.}-{0:0}, at: psi_task_switch+0x2fb/0x400 kernel/sched/psi.c:833
+2 locks held by kworker/0:2/6898:
+ #0: ffff8880aa063d38 ((wq_completion)events){+.+.}-{0:0}, at: arch_atomic64_set arch/x86/include/asm/atomic64_64.h:34 [inline]
+ #0: ffff8880aa063d38 ((wq_completion)events){+.+.}-{0:0}, at: atomic64_set include/asm-generic/atomic-instrumented.h:856 [inline]
+ #0: ffff8880aa063d38 ((wq_completion)events){+.+.}-{0:0}, at: atomic_long_set include/asm-generic/atomic-long.h:41 [inline]
+ #0: ffff8880aa063d38 ((wq_completion)events){+.+.}-{0:0}, at: set_work_data kernel/workqueue.c:616 [inline]
+ #0: ffff8880aa063d38 ((wq_completion)events){+.+.}-{0:0}, at: set_work_pool_and_clear_pending kernel/workqueue.c:643 [inline]
+ #0: ffff8880aa063d38 ((wq_completion)events){+.+.}-{0:0}, at: process_one_work+0x82b/0x1670 kernel/workqueue.c:2240
+ #1: ffffc90005577da8 ((work_completion)(&m->wq)){+.+.}-{0:0}, at: process_one_work+0x85f/0x1670 kernel/workqueue.c:2244
+1 lock held by syz-executor475/6960:
+ #0: ffff8880a7c7a0e0 (&type->s_umount_key#45/1){+.+.}-{3:3}, at: alloc_super+0x201/0xa90 fs/super.c:229
+1 lock held by syz-executor475/7064:
+ #0: ffff8880a6c9c0e0 (&type->s_umount_key#45/1){+.+.}-{3:3}, at: alloc_super+0x201/0xa90 fs/super.c:229
+2 locks held by kworker/0:3/7070:
+ #0: ffff8880aa073538 ((wq_completion)rcu_gp){+.+.}-{0:0}, at: arch_atomic64_set arch/x86/include/asm/atomic64_64.h:34 [inline]
+ #0: ffff8880aa073538 ((wq_completion)rcu_gp){+.+.}-{0:0}, at: atomic64_set include/asm-generic/atomic-instrumented.h:856 [inline]
+ #0: ffff8880aa073538 ((wq_completion)rcu_gp){+.+.}-{0:0}, at: atomic_long_set include/asm-generic/atomic-long.h:41 [inline]
+ #0: ffff8880aa073538 ((wq_completion)rcu_gp){+.+.}-{0:0}, at: set_work_data kernel/workqueue.c:616 [inline]
+ #0: ffff8880aa073538 ((wq_completion)rcu_gp){+.+.}-{0:0}, at: set_work_pool_and_clear_pending kernel/workqueue.c:643 [inline]
+ #0: ffff8880aa073538 ((wq_completion)rcu_gp){+.+.}-{0:0}, at: process_one_work+0x82b/0x1670 kernel/workqueue.c:2240
+ #1: ffffc90006157da8 ((work_completion)(&rew.rew_work)){+.+.}-{0:0}, at: process_one_work+0x85f/0x1670 kernel/workqueue.c:2244
+1 lock held by syz-executor475/7279:
+ #0: ffff88809476e0e0 (&type->s_umount_key#45/1){+.+.}-{3:3}, at: alloc_super+0x201/0xa90 fs/super.c:229
+1 lock held by syz-executor475/32328:
+ #0: ffffffff89c6bc28 (rcu_state.exp_mutex){+.+.}-{3:3}, at: exp_funnel_lock kernel/rcu/tree_exp.h:322 [inline]
+ #0: ffffffff89c6bc28 (rcu_state.exp_mutex){+.+.}-{3:3}, at: synchronize_rcu_expedited+0x274/0x5f0 kernel/rcu/tree_exp.h:836
+1 lock held by syz-executor475/32335:
+ #0: ffffffff89c6bc28 (rcu_state.exp_mutex){+.+.}-{3:3}, at: exp_funnel_lock kernel/rcu/tree_exp.h:322 [inline]
+ #0: ffffffff89c6bc28 (rcu_state.exp_mutex){+.+.}-{3:3}, at: synchronize_rcu_expedited+0x274/0x5f0 kernel/rcu/tree_exp.h:836
+
+=============================================
+
+NMI backtrace for cpu 1
+CPU: 1 PID: 1173 Comm: khungtaskd Not tainted 5.9.0-rc1-next-20200821-syzkaller #0
+Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 01/01/2011
+Call Trace:
+ __dump_stack lib/dump_stack.c:77 [inline]
+ dump_stack+0x18f/0x20d lib/dump_stack.c:118
+ nmi_cpu_backtrace.cold+0x44/0xd7 lib/nmi_backtrace.c:105
+ nmi_trigger_cpumask_backtrace+0x1b3/0x223 lib/nmi_backtrace.c:62
+ trigger_all_cpu_backtrace include/linux/nmi.h:147 [inline]
+ check_hung_uninterruptible_tasks kernel/hung_task.c:253 [inline]
+ watchdog+0xd89/0xf30 kernel/hung_task.c:339
+ kthread+0x3b5/0x4a0 kernel/kthread.c:292
+ ret_from_fork+0x1f/0x30 arch/x86/entry/entry_64.S:294
+Sending NMI from CPU 1 to CPUs 0:
+NMI backtrace for cpu 0
+CPU: 0 PID: 32335 Comm: syz-executor475 Not tainted 5.9.0-rc1-next-20200821-syzkaller #0
+Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 01/01/2011
+RIP: 0010:write_comp_data+0x0/0x80 kernel/kcov.c:212
+Code: e8 ff ff cc cc cc cc cc cc cc 65 48 8b 04 25 c0 fe 01 00 48 8b 80 20 14 00 00 c3 0f 1f 44 00 00 66 2e 0f 1f 84 00 00 00 00 00 <49> 89 f2 65 8b 05 76 90 8d 7e 65 48 8b 34 25 c0 fe 01 00 a9 00 01
+RSP: 0018:ffffc90009c47ab8 EFLAGS: 00000086
+RAX: 0000000000000000 RBX: ffff888096e0e000 RCX: ffffffff8134b5d6
+RDX: ffff888116e0e000 RSI: ffff888096e0e000 RDI: 0000000000000006
+RBP: ffff888116e0e000 R08: 0000000000000001 R09: ffff8880ae736dc7
+R10: 0000000000000000 R11: 0000000000000001 R12: 0000000000000000
+R13: ffff888096e0e000 R14: ffff8880ae632c80 R15: ffff8880a43f9f00
+FS:  00007f6a133ae700(0000) GS:ffff8880ae600000(0000) knlGS:0000000000000000
+CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+CR2: 00007f19a2450710 CR3: 0000000097214000 CR4: 00000000001506f0
+DR0: 0000000000000000 DR1: 0000000000000000 DR2: 0000000000000000
+DR3: 0000000000000000 DR6: 00000000fffe0ff0 DR7: 0000000000000400
+Call Trace:
+ __phys_addr+0x26/0x110 arch/x86/mm/physaddr.c:20
+ virt_to_head_page include/linux/mm.h:846 [inline]
+ qlink_to_cache mm/kasan/quarantine.c:128 [inline]
+ qlist_move_cache+0x72/0xd0 mm/kasan/quarantine.c:278
+ per_cpu_remove_cache+0x47/0x60 mm/kasan/quarantine.c:296
+ on_each_cpu+0xf0/0x240 kernel/smp.c:834
+ quarantine_remove_cache+0x40/0xd0 mm/kasan/quarantine.c:313
+ shutdown_cache mm/slab_common.c:449 [inline]
+ kmem_cache_destroy+0x50/0x120 mm/slab_common.c:497
+ p9_client_destroy+0x24b/0x360 net/9p/client.c:1097
+ v9fs_session_close+0x45/0x2c0 fs/9p/v9fs.c:498
+ v9fs_kill_super+0x49/0x90 fs/9p/vfs_super.c:222
+ deactivate_locked_super+0x94/0x160 fs/super.c:335
+ v9fs_mount+0x77c/0x970 fs/9p/vfs_super.c:203
+ legacy_get_tree+0x105/0x220 fs/fs_context.c:592
+ vfs_get_tree+0x89/0x2f0 fs/super.c:1547
+ do_new_mount fs/namespace.c:2896 [inline]
+ path_mount+0x1287/0x1e20 fs/namespace.c:3214
+ do_mount fs/namespace.c:3227 [inline]
+ __do_sys_mount fs/namespace.c:3435 [inline]
+ __se_sys_mount fs/namespace.c:3412 [inline]
+ __x64_sys_mount+0x27f/0x300 fs/namespace.c:3412
+ do_syscall_64+0x2d/0x70 arch/x86/entry/common.c:46
+ entry_SYSCALL_64_after_hwframe+0x44/0xa9
+RIP: 0033:0x446eb9
+Code: e8 dc e6 ff ff 48 83 c4 18 c3 0f 1f 80 00 00 00 00 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 0f 83 ab 05 fc ff c3 66 2e 0f 1f 84 00 00 00 00
+RSP: 002b:00007f6a133add98 EFLAGS: 00000246 ORIG_RAX: 00000000000000a5
+RAX: ffffffffffffffda RBX: 00000000006dcc48 RCX: 0000000000446eb9
+RDX: 0000000020000200 RSI: 0000000020000000 RDI: 0000000000000000
+RBP: 00000000006dcc40 R08: 00000000200028c0 R09: 0000000000000000
+R10: 0000000000000000 R11: 0000000000000246 R12: 00000000006dcc4c
+R13: 00000000200003c0 R14: 00000000004af538 R15: 0000000000000000
+
+
 ---
- sound/soc/qcom/lpass-apq8016.c   |  24 ++++-----
- sound/soc/qcom/lpass-cpu.c       |  28 +++++-----
- sound/soc/qcom/lpass-hdmi.c      |  57 ++++++++++----------
- sound/soc/qcom/lpass-hdmi.h      |  24 ++++-----
- sound/soc/qcom/lpass-ipq806x.c   |  24 ++++-----
- sound/soc/qcom/lpass-lpaif-reg.h |   3 +-
- sound/soc/qcom/lpass-sc7180.c    | 114 +++++++++++++++++++--------------------
- sound/soc/qcom/lpass.h           | 109 ++++++++++++++++++++-----------------
- 8 files changed, 200 insertions(+), 183 deletions(-)
+This report is generated by a bot. It may contain errors.
+See https://goo.gl/tpsmEJ for more information about syzbot.
+syzbot engineers can be reached at syzkaller@googlegroups.com.
 
-diff --git a/sound/soc/qcom/lpass-apq8016.c b/sound/soc/qcom/lpass-apq8016.c
-index 904f0eb..520f090 100644
---- a/sound/soc/qcom/lpass-apq8016.c
-+++ b/sound/soc/qcom/lpass-apq8016.c
-@@ -226,9 +226,9 @@ static int apq8016_lpass_exit(struct platform_device *pdev)
- 
- 
- static struct lpass_variant apq8016_data = {
--	.i2sctrl_reg_base	= 0x1000,
--	.i2sctrl_reg_stride	= 0x1000,
--	.i2s_ports		= 4,
-+	.intf.i2s_intf.i2sctrl_reg_base	= 0x1000,
-+	.intf.i2s_intf.i2sctrl_reg_stride	= 0x1000,
-+	.intf.i2s_intf.i2s_ports		= 4,
- 	.irq_reg_base		= 0x6000,
- 	.irq_reg_stride		= 0x1000,
- 	.irq_ports		= 3,
-@@ -240,15 +240,15 @@ static struct lpass_variant apq8016_data = {
- 	.wrdma_reg_stride	= 0x1000,
- 	.wrdma_channel_start	= 5,
- 	.wrdma_channels		= 2,
--	.loopback		= REG_FIELD_ID(0x1000, 15, 15, 4, 0x1000),
--	.spken			= REG_FIELD_ID(0x1000, 14, 14, 4, 0x1000),
--	.spkmode		= REG_FIELD_ID(0x1000, 10, 13, 4, 0x1000),
--	.spkmono		= REG_FIELD_ID(0x1000, 9, 9, 4, 0x1000),
--	.micen			= REG_FIELD_ID(0x1000, 8, 8, 4, 0x1000),
--	.micmode		= REG_FIELD_ID(0x1000, 4, 7, 4, 0x1000),
--	.micmono		= REG_FIELD_ID(0x1000, 3, 3, 4, 0x1000),
--	.wssrc			= REG_FIELD_ID(0x1000, 2, 2, 4, 0x1000),
--	.bitwidth		= REG_FIELD_ID(0x1000, 0, 0, 4, 0x1000),
-+	.intf.i2s_intf.loopback		= REG_FIELD_ID(0x1000, 15, 15, 4, 0x1000),
-+	.intf.i2s_intf.spken			= REG_FIELD_ID(0x1000, 14, 14, 4, 0x1000),
-+	.intf.i2s_intf.spkmode		= REG_FIELD_ID(0x1000, 10, 13, 4, 0x1000),
-+	.intf.i2s_intf.spkmono		= REG_FIELD_ID(0x1000, 9, 9, 4, 0x1000),
-+	.intf.i2s_intf.micen			= REG_FIELD_ID(0x1000, 8, 8, 4, 0x1000),
-+	.intf.i2s_intf.micmode		= REG_FIELD_ID(0x1000, 4, 7, 4, 0x1000),
-+	.intf.i2s_intf.micmono		= REG_FIELD_ID(0x1000, 3, 3, 4, 0x1000),
-+	.intf.i2s_intf.wssrc			= REG_FIELD_ID(0x1000, 2, 2, 4, 0x1000),
-+	.intf.i2s_intf.bitwidth		= REG_FIELD_ID(0x1000, 0, 0, 4, 0x1000),
- 
- 	.rdma_dyncclk		= REG_FIELD_ID(0x8400, 12, 12, 2, 0x1000),
- 	.rdma_bursten		= REG_FIELD_ID(0x8400, 11, 11, 2, 0x1000),
-diff --git a/sound/soc/qcom/lpass-cpu.c b/sound/soc/qcom/lpass-cpu.c
-index 9be0148..d7af977 100644
---- a/sound/soc/qcom/lpass-cpu.c
-+++ b/sound/soc/qcom/lpass-cpu.c
-@@ -34,16 +34,17 @@ static int lpass_cpu_init_i2sctl_bitfields(struct device *dev,
- {
- 	struct lpass_data *drvdata = dev_get_drvdata(dev);
- 	struct lpass_variant *v = drvdata->variant;
--
--	i2sctl->loopback = devm_regmap_field_alloc(dev, map, v->loopback);
--	i2sctl->spken = devm_regmap_field_alloc(dev, map, v->spken);
--	i2sctl->spkmode = devm_regmap_field_alloc(dev, map, v->spkmode);
--	i2sctl->spkmono = devm_regmap_field_alloc(dev, map, v->spkmono);
--	i2sctl->micen = devm_regmap_field_alloc(dev, map, v->micen);
--	i2sctl->micmode = devm_regmap_field_alloc(dev, map, v->micmode);
--	i2sctl->micmono = devm_regmap_field_alloc(dev, map, v->micmono);
--	i2sctl->wssrc = devm_regmap_field_alloc(dev, map, v->wssrc);
--	i2sctl->bitwidth = devm_regmap_field_alloc(dev, map, v->bitwidth);
-+	struct lpass_i2s_rsrc *irsrc = &v->intf.i2s_intf;
-+
-+	i2sctl->loopback = devm_regmap_field_alloc(dev, map, irsrc->loopback);
-+	i2sctl->spken = devm_regmap_field_alloc(dev, map, irsrc->spken);
-+	i2sctl->spkmode = devm_regmap_field_alloc(dev, map, irsrc->spkmode);
-+	i2sctl->spkmono = devm_regmap_field_alloc(dev, map, irsrc->spkmono);
-+	i2sctl->micen = devm_regmap_field_alloc(dev, map, irsrc->micen);
-+	i2sctl->micmode = devm_regmap_field_alloc(dev, map, irsrc->micmode);
-+	i2sctl->micmono = devm_regmap_field_alloc(dev, map, irsrc->micmono);
-+	i2sctl->wssrc = devm_regmap_field_alloc(dev, map, irsrc->wssrc);
-+	i2sctl->bitwidth = devm_regmap_field_alloc(dev, map, irsrc->bitwidth);
- 
- 	if (IS_ERR(i2sctl->loopback) || IS_ERR(i2sctl->spken) ||
- 	    IS_ERR(i2sctl->spkmode) || IS_ERR(i2sctl->spkmono) ||
-@@ -363,9 +364,10 @@ static bool lpass_cpu_regmap_writeable(struct device *dev, unsigned int reg)
- {
- 	struct lpass_data *drvdata = dev_get_drvdata(dev);
- 	struct lpass_variant *v = drvdata->variant;
-+	struct lpass_i2s_rsrc *irsrc = &v->intf.i2s_intf;
- 	int i;
- 
--	for (i = 0; i < v->i2s_ports; ++i)
-+	for (i = 0; i < irsrc->i2s_ports; ++i)
- 		if (reg == LPAIF_I2SCTL_REG(v, i))
- 			return true;
- 
-@@ -405,9 +407,10 @@ static bool lpass_cpu_regmap_readable(struct device *dev, unsigned int reg)
- {
- 	struct lpass_data *drvdata = dev_get_drvdata(dev);
- 	struct lpass_variant *v = drvdata->variant;
-+	struct lpass_i2s_rsrc *irsrc = &v->intf.i2s_intf;
- 	int i;
- 
--	for (i = 0; i < v->i2s_ports; ++i)
-+	for (i = 0; i < irsrc->i2s_ports; ++i)
- 		if (reg == LPAIF_I2SCTL_REG(v, i))
- 			return true;
- 
-@@ -584,7 +587,6 @@ int asoc_qcom_lpass_cpu_platform_probe(struct platform_device *pdev)
- 				PTR_ERR((void const __force *)drvdata->lpaif));
- 		return PTR_ERR((void const __force *)drvdata->lpaif);
- 	}
--
- 	if (variant->id == I2S_INTERFACE) {
- 		lpass_cpu_regmap_config.max_register = LPAIF_WRDMAPER_REG(variant,
- 						variant->wrdma_channels +
-diff --git a/sound/soc/qcom/lpass-hdmi.c b/sound/soc/qcom/lpass-hdmi.c
-index 7e18113..b0270e2 100644
---- a/sound/soc/qcom/lpass-hdmi.c
-+++ b/sound/soc/qcom/lpass-hdmi.c
-@@ -25,6 +25,7 @@ int lpass_hdmi_init_bitfields(struct device *dev, struct regmap *map)
- {
- 	struct lpass_data *drvdata = dev_get_drvdata(dev);
- 	struct lpass_variant *v = drvdata->variant;
-+	struct lpass_hdmi_rsrc *hdmi_rsrc = &v->intf.hdmi_intf;
- 	unsigned int i;
- 	struct lpass_hdmi_tx_ctl *tx_ctl;
- 	struct lpass_hdmitx_legacy *legacy;
-@@ -43,9 +44,9 @@ int lpass_hdmi_init_bitfields(struct device *dev, struct regmap *map)
- 
- 	tx_ctl = drvdata->tx_ctl;
- 	tx_ctl->soft_reset = devm_regmap_field_alloc(dev, map,
--				v->soft_reset);
-+				hdmi_rsrc->soft_reset);
- 	tx_ctl->force_reset = devm_regmap_field_alloc(dev, map,
--				v->force_reset);
-+				hdmi_rsrc->force_reset);
- 	if (IS_ERR(tx_ctl->soft_reset) || IS_ERR(tx_ctl->force_reset))
- 		return -EINVAL;
- 
-@@ -56,7 +57,7 @@ int lpass_hdmi_init_bitfields(struct device *dev, struct regmap *map)
- 
- 	legacy = drvdata->legacy;
- 	legacy->legacy_en = devm_regmap_field_alloc(dev, map,
--				v->legacy_en);
-+				hdmi_rsrc->legacy_en);
- 	if (IS_ERR(legacy->legacy_en))
- 		return -EINVAL;
- 
-@@ -67,9 +68,9 @@ int lpass_hdmi_init_bitfields(struct device *dev, struct regmap *map)
- 
- 	vbit_ctl = drvdata->vbit_ctl;
- 	vbit_ctl->replace_vbit = devm_regmap_field_alloc(dev, map,
--					v->replace_vbit);
-+					hdmi_rsrc->replace_vbit);
- 	vbit_ctl->vbit_stream = devm_regmap_field_alloc(dev, map,
--					v->vbit_stream);
-+					hdmi_rsrc->vbit_stream);
- 	if (IS_ERR(vbit_ctl->replace_vbit) || IS_ERR(vbit_ctl->vbit_stream))
- 		return -EINVAL;
- 
-@@ -80,7 +81,7 @@ int lpass_hdmi_init_bitfields(struct device *dev, struct regmap *map)
- 		return -ENOMEM;
- 
- 	tx_parity = drvdata->tx_parity;
--	tx_parity->calc_en = devm_regmap_field_alloc(dev, map, v->calc_en);
-+	tx_parity->calc_en = devm_regmap_field_alloc(dev, map, hdmi_rsrc->calc_en);
- 
- 	if (IS_ERR(tx_parity->calc_en))
- 		return -EINVAL;
-@@ -92,19 +93,19 @@ int lpass_hdmi_init_bitfields(struct device *dev, struct regmap *map)
- 		return -ENOMEM;
- 
- 	meta_ctl = drvdata->meta_ctl;
--	meta_ctl->mute = devm_regmap_field_alloc(dev, map, v->mute);
-+	meta_ctl->mute = devm_regmap_field_alloc(dev, map, hdmi_rsrc->mute);
- 	meta_ctl->as_sdp_cc = devm_regmap_field_alloc(dev, map,
--						v->as_sdp_cc);
-+						hdmi_rsrc->as_sdp_cc);
- 	meta_ctl->as_sdp_ct = devm_regmap_field_alloc(dev, map,
--						v->as_sdp_ct);
-+						hdmi_rsrc->as_sdp_ct);
- 	meta_ctl->aif_db4 = devm_regmap_field_alloc(dev, map,
--						v->aif_db4);
-+						hdmi_rsrc->aif_db4);
- 	meta_ctl->frequency = devm_regmap_field_alloc(dev, map,
--						v->frequency);
-+						hdmi_rsrc->frequency);
- 	meta_ctl->mst_index = devm_regmap_field_alloc(dev, map,
--						v->mst_index);
-+						hdmi_rsrc->mst_index);
- 	meta_ctl->dptx_index = devm_regmap_field_alloc(dev, map,
--						v->dptx_index);
-+						hdmi_rsrc->dptx_index);
- 
- 	if (IS_ERR(meta_ctl->mute) || IS_ERR(meta_ctl->as_sdp_cc) ||
- 		IS_ERR(meta_ctl->as_sdp_ct) || IS_ERR(meta_ctl->aif_db4) ||
-@@ -119,23 +120,23 @@ int lpass_hdmi_init_bitfields(struct device *dev, struct regmap *map)
- 
- 	sstream_ctl = drvdata->sstream_ctl;
- 	sstream_ctl->sstream_en = devm_regmap_field_alloc(dev, map,
--						v->sstream_en);
-+						hdmi_rsrc->sstream_en);
- 	sstream_ctl->dma_sel = devm_regmap_field_alloc(dev, map,
--						v->dma_sel);
-+						hdmi_rsrc->dma_sel);
- 	sstream_ctl->auto_bbit_en = devm_regmap_field_alloc(dev, map,
--						v->auto_bbit_en);
-+						hdmi_rsrc->auto_bbit_en);
- 	sstream_ctl->layout = devm_regmap_field_alloc(dev, map,
--						v->layout);
-+						hdmi_rsrc->layout);
- 	sstream_ctl->layout_sp = devm_regmap_field_alloc(dev, map,
--						v->layout_sp);
-+						hdmi_rsrc->layout_sp);
- 	sstream_ctl->dp_audio = devm_regmap_field_alloc(dev, map,
--						v->dp_audio);
-+						hdmi_rsrc->dp_audio);
- 	sstream_ctl->set_sp_on_en = devm_regmap_field_alloc(dev, map,
--						v->set_sp_on_en);
-+						hdmi_rsrc->set_sp_on_en);
- 	sstream_ctl->dp_staffing_en = devm_regmap_field_alloc(dev, map,
--						v->dp_staffing_en);
-+						hdmi_rsrc->dp_staffing_en);
- 	sstream_ctl->dp_sp_b_hw_en = devm_regmap_field_alloc(dev, map,
--						v->dp_sp_b_hw_en);
-+						hdmi_rsrc->dp_sp_b_hw_en);
- 
- 	if (IS_ERR(sstream_ctl->sstream_en) || IS_ERR(sstream_ctl->dma_sel) ||
- 		IS_ERR(sstream_ctl->auto_bbit_en) ||
-@@ -155,7 +156,7 @@ int lpass_hdmi_init_bitfields(struct device *dev, struct regmap *map)
- 		ch_msb = drvdata->ch_msb[i];
- 
- 		ch_msb->msb_bits = devm_regmap_field_alloc(dev, map,
--							v->msb_bits);
-+							hdmi_rsrc->msb_bits);
- 		if (IS_ERR(ch_msb->msb_bits))
- 			return -EINVAL;
- 
-@@ -166,7 +167,7 @@ int lpass_hdmi_init_bitfields(struct device *dev, struct regmap *map)
- 
- 		ch_lsb = drvdata->ch_lsb[i];
- 		ch_lsb->lsb_bits = devm_regmap_field_alloc(dev, map,
--					v->lsb_bits);
-+					hdmi_rsrc->lsb_bits);
- 		if (IS_ERR(ch_lsb->lsb_bits))
- 			return -EINVAL;
- 
-@@ -178,13 +179,13 @@ int lpass_hdmi_init_bitfields(struct device *dev, struct regmap *map)
- 
- 		hdmi_tx_dmactl = drvdata->hdmi_tx_dmactl[i];
- 		hdmi_tx_dmactl->use_hw_chs = devm_regmap_field_alloc(dev, map,
--						v->use_hw_chs);
-+						hdmi_rsrc->use_hw_chs);
- 		hdmi_tx_dmactl->use_hw_usr = devm_regmap_field_alloc(dev, map,
--						v->use_hw_usr);
-+						hdmi_rsrc->use_hw_usr);
- 		hdmi_tx_dmactl->hw_chs_sel = devm_regmap_field_alloc(dev, map,
--						v->hw_chs_sel);
-+						hdmi_rsrc->hw_chs_sel);
- 		hdmi_tx_dmactl->hw_usr_sel = devm_regmap_field_alloc(dev, map,
--						v->hw_usr_sel);
-+						hdmi_rsrc->hw_usr_sel);
- 		if (IS_ERR(hdmi_tx_dmactl->use_hw_chs) ||
- 			IS_ERR(hdmi_tx_dmactl->use_hw_usr) ||
- 			IS_ERR(hdmi_tx_dmactl->hw_chs_sel) ||
-diff --git a/sound/soc/qcom/lpass-hdmi.h b/sound/soc/qcom/lpass-hdmi.h
-index f91f322..0866e82 100644
---- a/sound/soc/qcom/lpass-hdmi.h
-+++ b/sound/soc/qcom/lpass-hdmi.h
-@@ -49,27 +49,27 @@
- 
- 
- #define LPASS_HDMI_TX_CTL_ADDR(v) \
--		(v->hdmi_tx_ctl_addr)
-+		(v->intf.hdmi_intf.hdmi_tx_ctl_addr)
- 
- #define LPASS_HDMI_TX_LEGACY_ADDR(v) \
--		(v->hdmi_legacy_addr)
-+		(v->intf.hdmi_intf.hdmi_legacy_addr)
- #define LPASS_HDMI_TX_VBIT_CTL_ADDR(v) \
--		(v->hdmi_vbit_addr)
-+		(v->intf.hdmi_intf.hdmi_vbit_addr)
- #define LPASS_HDMI_TX_CH_LSB_ADDR(v, port) \
--		(v->hdmi_ch_lsb_addr + \
--		v->ch_stride * (port))
-+		(v->intf.hdmi_intf.hdmi_ch_lsb_addr + \
-+		v->intf.hdmi_intf.ch_stride * (port))
- #define LPASS_HDMI_TX_CH_MSB_ADDR(v, port) \
--		(v->hdmi_ch_msb_addr + \
--		v->ch_stride * (port))
-+		(v->intf.hdmi_intf.hdmi_ch_msb_addr + \
-+		v->intf.hdmi_intf.ch_stride * (port))
- #define LPASS_HDMI_TX_DMA_ADDR(v, port) \
--		(v->hdmi_dmactl_addr + \
--		v->hdmi_dma_stride * (port))
-+		(v->intf.hdmi_intf.hdmi_dmactl_addr + \
-+		v->intf.hdmi_intf.hdmi_dma_stride * (port))
- #define LPASS_HDMI_TX_PARITY_ADDR(v) \
--		(v->hdmi_parity_addr)
-+		(v->intf.hdmi_intf.hdmi_parity_addr)
- #define LPASS_HDMI_TX_DP_ADDR(v) \
--		(v->hdmi_DP_addr)
-+		(v->intf.hdmi_intf.hdmi_DP_addr)
- #define LPASS_HDMI_TX_SSTREAM_ADDR(v) \
--		(v->hdmi_sstream_addr)
-+		(v->intf.hdmi_intf.hdmi_sstream_addr)
- 
- struct lpass_sstream_ctl {
- 	struct regmap_field *sstream_en;
-diff --git a/sound/soc/qcom/lpass-ipq806x.c b/sound/soc/qcom/lpass-ipq806x.c
-index aad4b05..eb4b366 100644
---- a/sound/soc/qcom/lpass-ipq806x.c
-+++ b/sound/soc/qcom/lpass-ipq806x.c
-@@ -110,9 +110,9 @@ static int ipq806x_lpass_free_dma_channel(struct lpass_data *drvdata, int chan)
- }
- 
- static struct lpass_variant ipq806x_data = {
--	.i2sctrl_reg_base	= 0x0010,
--	.i2sctrl_reg_stride	= 0x04,
--	.i2s_ports		= 5,
-+	.intf.i2s_intf.i2sctrl_reg_base	= 0x0010,
-+	.intf.i2s_intf.i2sctrl_reg_stride	= 0x04,
-+	.intf.i2s_intf.i2s_ports		= 5,
- 	.irq_reg_base		= 0x3000,
- 	.irq_reg_stride		= 0x1000,
- 	.irq_ports		= 3,
-@@ -123,15 +123,15 @@ static struct lpass_variant ipq806x_data = {
- 	.wrdma_reg_stride	= 0x1000,
- 	.wrdma_channel_start	= 5,
- 	.wrdma_channels		= 4,
--	.loopback		= REG_FIELD_ID(0x0010, 15, 15, 5, 0x4),
--	.spken			= REG_FIELD_ID(0x0010, 14, 14, 5, 0x4),
--	.spkmode		= REG_FIELD_ID(0x0010, 10, 13, 5, 0x4),
--	.spkmono		= REG_FIELD_ID(0x0010, 9, 9, 5, 0x4),
--	.micen			= REG_FIELD_ID(0x0010, 8, 8, 5, 0x4),
--	.micmode		= REG_FIELD_ID(0x0010, 4, 7, 5, 0x4),
--	.micmono		= REG_FIELD_ID(0x0010, 3, 3, 5, 0x4),
--	.wssrc			= REG_FIELD_ID(0x0010, 2, 2, 5, 0x4),
--	.bitwidth		= REG_FIELD_ID(0x0010, 0, 0, 5, 0x4),
-+	.intf.i2s_intf.loopback		= REG_FIELD_ID(0x0010, 15, 15, 5, 0x4),
-+	.intf.i2s_intf.spken			= REG_FIELD_ID(0x0010, 14, 14, 5, 0x4),
-+	.intf.i2s_intf.spkmode		= REG_FIELD_ID(0x0010, 10, 13, 5, 0x4),
-+	.intf.i2s_intf.spkmono		= REG_FIELD_ID(0x0010, 9, 9, 5, 0x4),
-+	.intf.i2s_intf.micen			= REG_FIELD_ID(0x0010, 8, 8, 5, 0x4),
-+	.intf.i2s_intf.micmode		= REG_FIELD_ID(0x0010, 4, 7, 5, 0x4),
-+	.intf.i2s_intf.micmono		= REG_FIELD_ID(0x0010, 3, 3, 5, 0x4),
-+	.intf.i2s_intf.wssrc			= REG_FIELD_ID(0x0010, 2, 2, 5, 0x4),
-+	.intf.i2s_intf.bitwidth		= REG_FIELD_ID(0x0010, 0, 0, 5, 0x4),
- 
- 	.rdma_dyncclk		= REG_FIELD_ID(0x6000, 12, 12, 4, 0x1000),
- 	.rdma_bursten		= REG_FIELD_ID(0x6000, 11, 11, 4, 0x1000),
-diff --git a/sound/soc/qcom/lpass-lpaif-reg.h b/sound/soc/qcom/lpass-lpaif-reg.h
-index 520bfe6..ff38c94 100644
---- a/sound/soc/qcom/lpass-lpaif-reg.h
-+++ b/sound/soc/qcom/lpass-lpaif-reg.h
-@@ -9,7 +9,8 @@
- /* LPAIF I2S */
- 
- #define LPAIF_I2SCTL_REG_ADDR(v, addr, port) \
--	(v->i2sctrl_reg_base + (addr) + v->i2sctrl_reg_stride * (port))
-+	(v->intf.i2s_intf.i2sctrl_reg_base + (addr) + \
-+	v->intf.i2s_intf.i2sctrl_reg_stride * (port))
- 
- #define LPAIF_I2SCTL_REG(v, port)	LPAIF_I2SCTL_REG_ADDR(v, 0x0, (port))
- 
-diff --git a/sound/soc/qcom/lpass-sc7180.c b/sound/soc/qcom/lpass-sc7180.c
-index cea7ae7..6f27ef2 100644
---- a/sound/soc/qcom/lpass-sc7180.c
-+++ b/sound/soc/qcom/lpass-sc7180.c
-@@ -177,9 +177,9 @@ static int sc7180_lpass_exit(struct platform_device *pdev)
- }
- 
- static struct lpass_variant sc7180_data = {
--	.i2sctrl_reg_base	= 0x1000,
--	.i2sctrl_reg_stride	= 0x1000,
--	.i2s_ports		= 3,
-+	.intf.i2s_intf.i2sctrl_reg_base	= 0x1000,
-+	.intf.i2s_intf.i2sctrl_reg_stride	= 0x1000,
-+	.intf.i2s_intf.i2s_ports		= 3,
- 	.irq_reg_base		= 0x9000,
- 	.irq_reg_stride		= 0x1000,
- 	.irq_ports		= 3,
-@@ -192,20 +192,20 @@ static struct lpass_variant sc7180_data = {
- 	.wrdma_channel_start	= 5,
- 	.wrdma_channels		= 4,
- 
--	.loopback		= REG_FIELD_ID(0x1000, 17, 17, 3, 0x1000),
--	.spken			= REG_FIELD_ID(0x1000, 16, 16, 3, 0x1000),
--	.spkmode		= REG_FIELD_ID(0x1000, 11, 15, 3, 0x1000),
--	.spkmono		= REG_FIELD_ID(0x1000, 10, 10, 3, 0x1000),
--	.micen			= REG_FIELD_ID(0x1000, 9, 9, 3, 0x1000),
--	.micmode		= REG_FIELD_ID(0x1000, 4, 8, 3, 0x1000),
--	.micmono		= REG_FIELD_ID(0x1000, 3, 3, 3, 0x1000),
--	.wssrc			= REG_FIELD_ID(0x1000, 2, 2, 3, 0x1000),
--	.bitwidth		= REG_FIELD_ID(0x1000, 0, 0, 3, 0x1000),
-+	.intf.i2s_intf.loopback	= REG_FIELD_ID(0x1000, 17, 17, 3, 0x1000),
-+	.intf.i2s_intf.spken	= REG_FIELD_ID(0x1000, 16, 16, 3, 0x1000),
-+	.intf.i2s_intf.spkmode	= REG_FIELD_ID(0x1000, 11, 15, 3, 0x1000),
-+	.intf.i2s_intf.spkmono	= REG_FIELD_ID(0x1000, 10, 10, 3, 0x1000),
-+	.intf.i2s_intf.micen	= REG_FIELD_ID(0x1000, 9, 9, 3, 0x1000),
-+	.intf.i2s_intf.micmode	= REG_FIELD_ID(0x1000, 4, 8, 3, 0x1000),
-+	.intf.i2s_intf.micmono	= REG_FIELD_ID(0x1000, 3, 3, 3, 0x1000),
-+	.intf.i2s_intf.wssrc	= REG_FIELD_ID(0x1000, 2, 2, 3, 0x1000),
-+	.intf.i2s_intf.bitwidth	= REG_FIELD_ID(0x1000, 0, 0, 3, 0x1000),
- 
- 	.rdma_dyncclk		= REG_FIELD_ID(0xC000, 21, 21, 5, 0x1000),
- 	.rdma_bursten		= REG_FIELD_ID(0xC000, 20, 20, 5, 0x1000),
- 	.rdma_wpscnt		= REG_FIELD_ID(0xC000, 16, 19, 5, 0x1000),
--	.rdma_intf		= REG_FIELD_ID(0xC000, 12, 15, 5, 0x1000),
-+	.rdma_intf			= REG_FIELD_ID(0xC000, 12, 15, 5, 0x1000),
- 	.rdma_fifowm		= REG_FIELD_ID(0xC000, 1, 5, 5, 0x1000),
- 	.rdma_enable		= REG_FIELD_ID(0xC000, 0, 0, 5, 0x1000),
- 
-@@ -240,17 +240,17 @@ static struct lpass_variant sc7180_data = {
- };
- 
- static struct lpass_variant sc7180_hdmi_data = {
--	.hdmi_tx_ctl_addr	= 0x1000,
--	.hdmi_legacy_addr	= 0x1008,
--	.hdmi_vbit_addr		= 0x610c0,
--	.hdmi_ch_lsb_addr	= 0x61048,
--	.hdmi_ch_msb_addr	= 0x6104c,
--	.ch_stride		= 0x8,
--	.hdmi_parity_addr	= 0x61034,
--	.hdmi_dmactl_addr	= 0x61038,
--	.hdmi_dma_stride	= 0x4,
--	.hdmi_DP_addr		= 0x610c8,
--	.hdmi_sstream_addr	= 0x6101c,
-+	.intf.hdmi_intf.hdmi_tx_ctl_addr	= 0x1000,
-+	.intf.hdmi_intf.hdmi_legacy_addr	= 0x1008,
-+	.intf.hdmi_intf.hdmi_vbit_addr		= 0x610c0,
-+	.intf.hdmi_intf.hdmi_ch_lsb_addr	= 0x61048,
-+	.intf.hdmi_intf.hdmi_ch_msb_addr	= 0x6104c,
-+	.intf.hdmi_intf.ch_stride		= 0x8,
-+	.intf.hdmi_intf.hdmi_parity_addr	= 0x61034,
-+	.intf.hdmi_intf.hdmi_dmactl_addr	= 0x61038,
-+	.intf.hdmi_intf.hdmi_dma_stride	= 0x4,
-+	.intf.hdmi_intf.hdmi_DP_addr		= 0x610c8,
-+	.intf.hdmi_intf.hdmi_sstream_addr	= 0x6101c,
- 	.irq_reg_base		= 0x63000,
- 	.irq_ports		= 1,
- 	.rdma_reg_base		= 0x64000,
-@@ -266,39 +266,39 @@ static struct lpass_variant sc7180_hdmi_data = {
- 	.rdma_fifowm		= REG_FIELD_ID(0x64000, 1, 5, 4, 0x1000),
- 	.rdma_enable		= REG_FIELD_ID(0x64000, 0, 0, 4, 0x1000),
- 
--	.sstream_en		= REG_FIELD(0x6101c, 0, 0),
--	.dma_sel			= REG_FIELD(0x6101c, 1, 2),
--	.auto_bbit_en	= REG_FIELD(0x6101c, 3, 3),
--	.layout			= REG_FIELD(0x6101c, 4, 4),
--	.layout_sp		= REG_FIELD(0x6101c, 5, 8),
--	.set_sp_on_en	= REG_FIELD(0x6101c, 10, 10),
--	.dp_audio		= REG_FIELD(0x6101c, 11, 11),
--	.dp_staffing_en	= REG_FIELD(0x6101c, 12, 12),
--	.dp_sp_b_hw_en	= REG_FIELD(0x6101c, 13, 13),
--
--	.mute			= REG_FIELD(0x610c8, 0, 0),
--	.as_sdp_cc		= REG_FIELD(0x610c8, 1, 3),
--	.as_sdp_ct		= REG_FIELD(0x610c8, 4, 7),
--	.aif_db4			= REG_FIELD(0x610c8, 8, 15),
--	.frequency		= REG_FIELD(0x610c8, 16, 21),
--	.mst_index		= REG_FIELD(0x610c8, 28, 29),
--	.dptx_index		= REG_FIELD(0x610c8, 30, 31),
--
--	.soft_reset		= REG_FIELD(0x1000, 31, 31),
--	.force_reset	= REG_FIELD(0x1000, 30, 30),
--
--	.use_hw_chs		= REG_FIELD(0x61038, 0, 0),
--	.use_hw_usr		= REG_FIELD(0x61038, 1, 1),
--	.hw_chs_sel		= REG_FIELD(0x61038, 2, 4),
--	.hw_usr_sel		= REG_FIELD(0x61038, 5, 6),
--
--	.replace_vbit	= REG_FIELD(0x610c0, 0, 0),
--	.vbit_stream	= REG_FIELD(0x610c0, 1, 1),
--
--	.legacy_en		=  REG_FIELD(0x1008, 0, 0),
--	.calc_en		=  REG_FIELD(0x61034, 0, 0),
--	.lsb_bits		=  REG_FIELD(0x61048, 0, 31),
--	.msb_bits		=  REG_FIELD(0x6104c, 0, 31),
-+	.intf.hdmi_intf.sstream_en		= REG_FIELD(0x6101c, 0, 0),
-+	.intf.hdmi_intf.dma_sel			= REG_FIELD(0x6101c, 1, 2),
-+	.intf.hdmi_intf.auto_bbit_en	= REG_FIELD(0x6101c, 3, 3),
-+	.intf.hdmi_intf.layout			= REG_FIELD(0x6101c, 4, 4),
-+	.intf.hdmi_intf.layout_sp		= REG_FIELD(0x6101c, 5, 8),
-+	.intf.hdmi_intf.set_sp_on_en	= REG_FIELD(0x6101c, 10, 10),
-+	.intf.hdmi_intf.dp_audio		= REG_FIELD(0x6101c, 11, 11),
-+	.intf.hdmi_intf.dp_staffing_en	= REG_FIELD(0x6101c, 12, 12),
-+	.intf.hdmi_intf.dp_sp_b_hw_en	= REG_FIELD(0x6101c, 13, 13),
-+
-+	.intf.hdmi_intf.mute			= REG_FIELD(0x610c8, 0, 0),
-+	.intf.hdmi_intf.as_sdp_cc		= REG_FIELD(0x610c8, 1, 3),
-+	.intf.hdmi_intf.as_sdp_ct		= REG_FIELD(0x610c8, 4, 7),
-+	.intf.hdmi_intf.aif_db4			= REG_FIELD(0x610c8, 8, 15),
-+	.intf.hdmi_intf.frequency		= REG_FIELD(0x610c8, 16, 21),
-+	.intf.hdmi_intf.mst_index		= REG_FIELD(0x610c8, 28, 29),
-+	.intf.hdmi_intf.dptx_index		= REG_FIELD(0x610c8, 30, 31),
-+
-+	.intf.hdmi_intf.soft_reset		= REG_FIELD(0x1000, 31, 31),
-+	.intf.hdmi_intf.force_reset	= REG_FIELD(0x1000, 30, 30),
-+
-+	.intf.hdmi_intf.use_hw_chs		= REG_FIELD(0x61038, 0, 0),
-+	.intf.hdmi_intf.use_hw_usr		= REG_FIELD(0x61038, 1, 1),
-+	.intf.hdmi_intf.hw_chs_sel		= REG_FIELD(0x61038, 2, 4),
-+	.intf.hdmi_intf.hw_usr_sel		= REG_FIELD(0x61038, 5, 6),
-+
-+	.intf.hdmi_intf.replace_vbit	= REG_FIELD(0x610c0, 0, 0),
-+	.intf.hdmi_intf.vbit_stream	= REG_FIELD(0x610c0, 1, 1),
-+
-+	.intf.hdmi_intf.legacy_en		=  REG_FIELD(0x1008, 0, 0),
-+	.intf.hdmi_intf.calc_en		=  REG_FIELD(0x61034, 0, 0),
-+	.intf.hdmi_intf.lsb_bits		=  REG_FIELD(0x61048, 0, 31),
-+	.intf.hdmi_intf.msb_bits		=  REG_FIELD(0x6104c, 0, 31),
- 
- 	.clk_name		= (const char*[]) {
- 					"pcnoc-sway-clk",
-diff --git a/sound/soc/qcom/lpass.h b/sound/soc/qcom/lpass.h
-index b976783..aae0b49 100644
---- a/sound/soc/qcom/lpass.h
-+++ b/sound/soc/qcom/lpass.h
-@@ -102,22 +102,7 @@ struct lpass_data {
- 	struct lpass_dp_metadata_ctl *meta_ctl;
- 	struct lpass_sstream_ctl *sstream_ctl;
- };
--
--/* Vairant data per each SOC */
--struct lpass_variant {
--	u32	i2sctrl_reg_base;
--	u32	i2sctrl_reg_stride;
--	u32	i2s_ports;
--	u32	irq_reg_base;
--	u32	irq_reg_stride;
--	u32	irq_ports;
--	u32	rdma_reg_base;
--	u32	rdma_reg_stride;
--	u32	rdma_channels;
--	u32	wrdma_reg_base;
--	u32	wrdma_reg_stride;
--	u32	wrdma_channels;
--
-+struct lpass_hdmi_rsrc {
- 	/* HDMI specific controls */
- 	u32	hdmi_tx_ctl_addr;
- 	u32	hdmi_legacy_addr;
-@@ -131,36 +116,6 @@ struct lpass_variant {
- 	u32	hdmi_DP_addr;
- 	u32	hdmi_sstream_addr;
- 
--	/* I2SCTL Register fields */
--	struct reg_field loopback;
--	struct reg_field spken;
--	struct reg_field spkmode;
--	struct reg_field spkmono;
--	struct reg_field micen;
--	struct reg_field micmode;
--	struct reg_field micmono;
--	struct reg_field wssrc;
--	struct reg_field bitwidth;
--
--	/* RD_DMA Register fields */
--	struct reg_field rdma_bursten;
--	struct reg_field rdma_burst8;
--	struct reg_field rdma_burst16;
--	struct reg_field rdma_dynburst;
--	struct reg_field rdma_wpscnt;
--	struct reg_field rdma_intf;
--	struct reg_field rdma_fifowm;
--	struct reg_field rdma_enable;
--	struct reg_field rdma_dyncclk;
--
--	/* WR_DMA Register fields */
--	struct reg_field wrdma_bursten;
--	struct reg_field wrdma_wpscnt;
--	struct reg_field wrdma_intf;
--	struct reg_field wrdma_fifowm;
--	struct reg_field wrdma_enable;
--	struct reg_field wrdma_dyncclk;
--
- 	/* HDMI SSTREAM CTRL fields  */
- 	struct reg_field sstream_en;
- 	struct reg_field dma_sel;
-@@ -206,6 +161,66 @@ struct lpass_variant {
- 
- 	/* HDMI CH MSB */
- 	struct reg_field msb_bits;
-+};
-+
-+struct lpass_i2s_rsrc {
-+	u32	i2sctrl_reg_base;
-+	u32	i2sctrl_reg_stride;
-+	u32	i2s_ports;
-+
-+	/* I2SCTL Register fields */
-+	struct reg_field loopback;
-+	struct reg_field spken;
-+	struct reg_field spkmode;
-+	struct reg_field spkmono;
-+	struct reg_field micen;
-+	struct reg_field micmode;
-+	struct reg_field micmono;
-+	struct reg_field wssrc;
-+	struct reg_field bitwidth;
-+};
-+
-+union  audio_rsrc_interface {
-+	struct lpass_hdmi_rsrc hdmi_intf;
-+	struct lpass_i2s_rsrc i2s_intf;
-+};
-+
-+/* Vairant data per each SOC */
-+struct lpass_variant {
-+	u32	irq_reg_base;
-+	u32	irq_reg_stride;
-+	u32	irq_ports;
-+	u32	rdma_reg_base;
-+	u32	rdma_reg_stride;
-+	u32	rdma_channels;
-+	u32	wrdma_reg_base;
-+	u32	wrdma_reg_stride;
-+	u32	wrdma_channels;
-+
-+	/* Interface differentiation variable */
-+	int id;
-+
-+	/* Interface related rsrc */
-+	union  audio_rsrc_interface intf;
-+
-+	/* RD_DMA Register fields */
-+	struct reg_field rdma_bursten;
-+	struct reg_field rdma_burst8;
-+	struct reg_field rdma_burst16;
-+	struct reg_field rdma_dynburst;
-+	struct reg_field rdma_wpscnt;
-+	struct reg_field rdma_intf;
-+	struct reg_field rdma_fifowm;
-+	struct reg_field rdma_enable;
-+	struct reg_field rdma_dyncclk;
-+
-+	/* WR_DMA Register fields */
-+	struct reg_field wrdma_bursten;
-+	struct reg_field wrdma_wpscnt;
-+	struct reg_field wrdma_intf;
-+	struct reg_field wrdma_fifowm;
-+	struct reg_field wrdma_enable;
-+	struct reg_field wrdma_dyncclk;
- 
- 	/**
- 	 * on SOCs like APQ8016 the channel control bits start
-@@ -228,8 +243,6 @@ struct lpass_variant {
- 	/* SOC specific clocks configuration */
- 	const char **clk_name;
- 	int num_clks;
--	/* Interface differentiation variable */
--	int id;
- };
- 
- /* register the platform driver from the CPU DAI driver */
--- 
-2.7.4
-
+syzbot will keep track of this issue. See:
+https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
+For information about bisection process see: https://goo.gl/tpsmEJ#bisection
+syzbot can test patches for this issue, for details see:
+https://goo.gl/tpsmEJ#testing-patches

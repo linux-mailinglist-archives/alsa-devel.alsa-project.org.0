@@ -2,29 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 423B7253201
-	for <lists+alsa-devel@lfdr.de>; Wed, 26 Aug 2020 16:51:37 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 08FB225321A
+	for <lists+alsa-devel@lfdr.de>; Wed, 26 Aug 2020 16:52:33 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id BEA141764;
-	Wed, 26 Aug 2020 16:50:46 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BEA141764
+	by alsa0.perex.cz (Postfix) with ESMTPS id AC4A8175C;
+	Wed, 26 Aug 2020 16:51:42 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AC4A8175C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1598453496;
-	bh=4KSU23WtTjItpkpM4PdbL4vEH8O0UC56ECWXv2J/6J0=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=DDgqnpoBZYbWeMOeemkF0iw32W5CN6T1tqCSC3pNDGO1SY1tBoWkQv/DyItYFFdEA
-	 1cfvoAzrdnSpFvFEa9/OMkvdUo4QEpk3VM7qhav1kIvzD9xpAXfEg0EL7CuMqyTW+E
-	 9k3Zk+tt+9mndz+0GuaY8/ZAHlp5OheX86234Qsw=
+	s=default; t=1598453552;
+	bh=rf7zsP6dACnKfYBm9zRmVe9qedTxdc/aAmPH+PZPZZU=;
+	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=ptyYfK7T4Vmk41hSlDSP6S3opvW90EQPcHT6PJAwJxAFnAhNEvAUrEYv/XXKHXdQK
+	 EpbcPrIhmrwHzbwdExQrNxLL9iyS++h0xs8oPMhjRT6rS3yT+LMqrlEyyUZJrxzkol
+	 SLwTb/OrJgXtgSATtg/GA7N1XrPJf+p7JbViP+CE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 140B3F8016F;
-	Wed, 26 Aug 2020 16:49:56 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id AC958F80299;
+	Wed, 26 Aug 2020 16:50:00 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id F1CA6F801F2; Wed, 26 Aug 2020 16:49:53 +0200 (CEST)
+ id 5D55DF801D9; Wed, 26 Aug 2020 16:49:55 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-1.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -33,24 +34,24 @@ X-Spam-Status: No, score=-1.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 9D283F800EB
- for <alsa-devel@alsa-project.org>; Wed, 26 Aug 2020 16:49:43 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9D283F800EB
+ by alsa1.perex.cz (Postfix) with ESMTPS id C4B92F8016F
+ for <alsa-devel@alsa-project.org>; Wed, 26 Aug 2020 16:49:45 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C4B92F8016F
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="ScUGKkM+"
+ header.b="c9Xiglad"
 Received: from localhost.localdomain (unknown [194.230.155.216])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id AFABF2177B;
- Wed, 26 Aug 2020 14:49:38 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id 859FF21741;
+ Wed, 26 Aug 2020 14:49:41 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1598453381;
- bh=4KSU23WtTjItpkpM4PdbL4vEH8O0UC56ECWXv2J/6J0=;
- h=From:To:Cc:Subject:Date:From;
- b=ScUGKkM+UeSzgY8CMhwi8/yLLMbvJ0FnhzjziU28im+JhxuxMHaDVTMN80ixGtMTt
- Am/zzb5mVpN9sx7OSMnAH1h57ECyeO2+QJbuALgfs9vdz5A8/gdyvvQFmJQih4fqtb
- DSRsulWA1dpGg5pD7Fvr08H8nTo55Pl9X4WXKrFY=
+ s=default; t=1598453383;
+ bh=rf7zsP6dACnKfYBm9zRmVe9qedTxdc/aAmPH+PZPZZU=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+ b=c9Xiglad3I74ATAeJSFUx4soE1XJFBfIApc63HcQhhtLj7XmewZG5doK5QdqT1aIT
+ OFE6+VAxfJMgJSmeBVZn7XXhGTdI0pKt1UQt9H5IOW4lupScq5ZhHckGhZ8Z2z4GOS
+ 3XY6HI9kEePSFWod5449v5PbX+s/Fdsk3B6PdaFA=
 From: Krzysztof Kozlowski <krzk@kernel.org>
 To: Charles Keepax <ckeepax@opensource.cirrus.com>,
  Richard Fitzgerald <rf@opensource.cirrus.com>,
@@ -60,10 +61,12 @@ To: Charles Keepax <ckeepax@opensource.cirrus.com>,
  patches@opensource.cirrus.com, linux-kernel@vger.kernel.org,
  linux-stm32@st-md-mailman.stormreply.com,
  linux-arm-kernel@lists.infradead.org
-Subject: [PATCH 1/3] mfd: madera: Simplify with dev_err_probe()
-Date: Wed, 26 Aug 2020 16:49:33 +0200
-Message-Id: <20200826144935.10067-1-krzk@kernel.org>
+Subject: [PATCH 2/3] mfd: stmfx: Simplify with dev_err_probe()
+Date: Wed, 26 Aug 2020 16:49:34 +0200
+Message-Id: <20200826144935.10067-2-krzk@kernel.org>
 X-Mailer: git-send-email 2.17.1
+In-Reply-To: <20200826144935.10067-1-krzk@kernel.org>
+References: <20200826144935.10067-1-krzk@kernel.org>
 Cc: Krzysztof Kozlowski <krzk@kernel.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
@@ -85,36 +88,28 @@ dev_err_probe().  Less code and also it prints the error value.
 
 Signed-off-by: Krzysztof Kozlowski <krzk@kernel.org>
 ---
- drivers/mfd/madera-core.c | 11 +++--------
- 1 file changed, 3 insertions(+), 8 deletions(-)
+ drivers/mfd/stmfx.c | 8 +++-----
+ 1 file changed, 3 insertions(+), 5 deletions(-)
 
-diff --git a/drivers/mfd/madera-core.c b/drivers/mfd/madera-core.c
-index 8a8d733fdce5..4ed6ad8ce002 100644
---- a/drivers/mfd/madera-core.c
-+++ b/drivers/mfd/madera-core.c
-@@ -369,19 +369,14 @@ EXPORT_SYMBOL_GPL(madera_of_match);
- static int madera_get_reset_gpio(struct madera *madera)
- {
- 	struct gpio_desc *reset;
--	int ret;
- 
- 	if (madera->pdata.reset)
- 		return 0;
- 
- 	reset = devm_gpiod_get_optional(madera->dev, "reset", GPIOD_OUT_LOW);
--	if (IS_ERR(reset)) {
--		ret = PTR_ERR(reset);
--		if (ret != -EPROBE_DEFER)
--			dev_err(madera->dev, "Failed to request /RESET: %d\n",
--				ret);
+diff --git a/drivers/mfd/stmfx.c b/drivers/mfd/stmfx.c
+index 711979afd90a..5e680bfdf5c9 100644
+--- a/drivers/mfd/stmfx.c
++++ b/drivers/mfd/stmfx.c
+@@ -331,11 +331,9 @@ static int stmfx_chip_init(struct i2c_client *client)
+ 	ret = PTR_ERR_OR_ZERO(stmfx->vdd);
+ 	if (ret == -ENODEV) {
+ 		stmfx->vdd = NULL;
+-	} else if (ret == -EPROBE_DEFER) {
 -		return ret;
--	}
-+	if (IS_ERR(reset))
-+		return dev_err_probe(madera->dev, PTR_ERR(reset),
-+				"Failed to request /RESET");
+-	} else if (ret) {
+-		dev_err(&client->dev, "Failed to get VDD regulator: %d\n", ret);
+-		return ret;
++	} else {
++		return dev_err_probe(&client->dev, ret,
++				     "Failed to get VDD regulator\n");
+ 	}
  
- 	/*
- 	 * A hard reset is needed for full reset of the chip. We allow running
+ 	if (stmfx->vdd) {
 -- 
 2.17.1
 

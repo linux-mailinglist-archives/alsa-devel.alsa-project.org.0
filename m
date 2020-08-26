@@ -2,88 +2,80 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 56BA2252967
-	for <lists+alsa-devel@lfdr.de>; Wed, 26 Aug 2020 10:43:08 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4F356252968
+	for <lists+alsa-devel@lfdr.de>; Wed, 26 Aug 2020 10:43:53 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A786C1714;
-	Wed, 26 Aug 2020 10:42:17 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A786C1714
+	by alsa0.perex.cz (Postfix) with ESMTPS id D2CE21706;
+	Wed, 26 Aug 2020 10:43:02 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D2CE21706
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1598431387;
-	bh=XYPp4rWPSOWRmWtfeewy/QAt7FTlH4Mu1Ngkz09GZWg=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=AX7IKh2Xp1Mxq9KHqVjN5HV7bDq9IzOpH5KScgGxdIg/ufUWJpSt9LlRAyIp7kjE3
-	 /2cWVivQ4COf/Tb6zXTFD6uOToQdwkfHb5GJfW30zfPEwGgwJngpEgZY6cKPAWZC8f
-	 srfdCHGqM+NmpjA0bqQxIm9VzU1EDKXDtAjYelCo=
+	s=default; t=1598431432;
+	bh=ewd5Qg6DgxJ893/mn2DdjbpHpLYZdoB6GXQ5hSbv320=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=N6J9uYJ1h5pDSv/tGo2oL3hjTUee+Qavjnu2TFt5K6fxlCTFWJztW1NruvDNqmRHe
+	 A4DOQbiCd6L1JwGc8wi/djVwPeiripAcIhjuv2dyferqPPIZYKT0LPcug/JnwzhpRz
+	 306wlD6X7eXd+Bpf49SObUVfvWOxlwzCC9YIkSNs=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id C0402F801EC;
-	Wed, 26 Aug 2020 10:41:26 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id D643BF80257;
+	Wed, 26 Aug 2020 10:41:40 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 01E1EF801D9; Wed, 26 Aug 2020 10:41:24 +0200 (CEST)
+ id 2DAD1F8020C; Wed, 26 Aug 2020 10:41:38 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_PASS autolearn=disabled
- version=3.4.0
-Received: from mail-pl1-x642.google.com (mail-pl1-x642.google.com
- [IPv6:2607:f8b0:4864:20::642])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ DKIM_VALID_AU,RCVD_IN_MSPIKE_H3,RCVD_IN_MSPIKE_WL,SPF_HELO_PASS,SPF_NONE,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mo4-p01-ob.smtp.rzone.de (mo4-p01-ob.smtp.rzone.de
+ [85.215.255.51])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 33205F80105
- for <alsa-devel@alsa-project.org>; Wed, 26 Aug 2020 10:41:21 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 33205F80105
+ by alsa1.perex.cz (Postfix) with ESMTPS id 0E1C3F801D9
+ for <alsa-devel@alsa-project.org>; Wed, 26 Aug 2020 10:41:27 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0E1C3F801D9
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="PQq/z3XL"
-Received: by mail-pl1-x642.google.com with SMTP id h2so563171plr.0
- for <alsa-devel@alsa-project.org>; Wed, 26 Aug 2020 01:41:21 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=JSB2W5Pv/3jJUL2eOsemL7QFgNmO3p3U0SiP4IFkLZM=;
- b=PQq/z3XLXfqrcYlzOat94mH5VVN2P4F5ppN9gEsqYf03TAqcgj7Wji62URYcH5PZsG
- Awy4gf2qQvrbT0pYqG9c83OyG7RGlC8GWsgoUQHpfdJFMPNrnamAI2UtyNCeJ0Xmp1Jp
- MJBZZMG29YN2xcOARSHGvkzJdbbPbV6IVu7w4PDy2K9+rDZ761OmMTH0F6u5JVIg0CUO
- gRq8WSvFU68AjQdWdasGMfRJ7SMJl0rlYPpRL6J59J6nDopXQ+RXzOQR3fNHQL6+Tyfb
- mwkhFXtOP8+zE6W9+TLBIrLzfR14ftavvEv9LB4W1h+7UTJqqtwm3cSVu+Tn9GRbRJbm
- V1dw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=JSB2W5Pv/3jJUL2eOsemL7QFgNmO3p3U0SiP4IFkLZM=;
- b=uK+yhaFDC/OkwZw58hhugM8qZysBt/tQS+JqZQlTRPb3kz8JX5rPOh7tcauPzwR2g+
- mjhf9fsBm5rAer4PxlSBwVKclPp71OBgWYsuDfBiUfqr7vEg0obaSzGTFGdPonhfXLNL
- ysFxxPSnqHhjqe3kpyYTVRdhAyl5K35Uh/igUVFxXnPw1nUeUUVrc61XA9T+pFl/oqDZ
- wWXJn6/yapINkS3teVm6/Y2BfQiOgIVn6qNxdxL/TY0eQaR6jeVenbIisIZdI9WbOIQl
- oSQhMM4wKjRg0GvqyE09R106i8Bzg5qZWlPKQ+dAmjebo6pfep2n0ZvUCADpSCH0MYxr
- kADw==
-X-Gm-Message-State: AOAM530GOH0oNY2nTdyPaBFvtKOwca6VhYIDP7JMnvn8df7RsVohq5sA
- 7qvlmdgOCf4cjCUB3ACIXO0=
-X-Google-Smtp-Source: ABdhPJy9APVzxgOYOZiHI0TdEJ/seh1vsiahqNDOJJu/WZXmE5WovhWYnhQHA5qolszt/3+VG4nxPg==
-X-Received: by 2002:a17:90b:1984:: with SMTP id
- mv4mr5165533pjb.32.1598431278282; 
- Wed, 26 Aug 2020 01:41:18 -0700 (PDT)
-Received: from localhost.localdomain ([112.214.139.41])
- by smtp.googlemail.com with ESMTPSA id e12sm1462284pjl.9.2020.08.26.01.41.14
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 26 Aug 2020 01:41:17 -0700 (PDT)
-From: Adrien Crivelli <adrien.crivelli@gmail.com>
-To: 
-Subject: [PATCH] ALSA: hda/realtek: Add quirk for Samsung Galaxy Book Ion
- NT950XCJ-X716A
-Date: Wed, 26 Aug 2020 17:40:14 +0900
-Message-Id: <20200826084014.211217-1-adrien.crivelli@gmail.com>
-X-Mailer: git-send-email 2.25.1
+ dkim=pass (2048-bit key) header.d=gerhold.net header.i=@gerhold.net
+ header.b="hVm9sLRE"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1598431287;
+ s=strato-dkim-0002; d=gerhold.net;
+ h=In-Reply-To:References:Message-ID:Subject:Cc:To:From:Date:
+ X-RZG-CLASS-ID:X-RZG-AUTH:From:Subject:Sender;
+ bh=MzchAeja0jhJdsQle33hb0rxs0PfxumQcdXnX+NQdaU=;
+ b=hVm9sLRE1k/WCqEWpZAtwQ+RBTKJCFSH3K4yQZz5/YJo2sf0DFjQ41kT0vHYanMXMP
+ bKZA4u0W7vaIlu9/S9ugzqLaWtCgYDWCAZqo46cHPChFakCuERMYBaXwkvUEBXP8VM6U
+ wfqM6WrB99/g0CajOy3++T9ph++Gi2ja14x7QgWTwAOF2cRFpZLDytUy7cZTQaYM/2Lu
+ kP3CPDrdkxAhoKvsjpEZJL2aQhWxjNpYFeulA9vItQit3J/PZM7MwmzvUT0qfz4Wa22s
+ NNlpwtsjXDL85IWsinfIwTIFwXbO/3UWhJpHDHm3Ija36WzN+kwqdrMPR/G7Op6FaFyP
+ TuBA==
+X-RZG-AUTH: ":P3gBZUipdd93FF5ZZvYFPugejmSTVR2nRPhVOQ/OcYgojyw4j34+u26zEodhPgRDZ8j7Ic/Fboo="
+X-RZG-CLASS-ID: mo00
+Received: from gerhold.net by smtp.strato.de (RZmta 46.10.7 DYNA|AUTH)
+ with ESMTPSA id g0b6c1w7Q8fJkcs
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256 bits))
+ (Client did not present a certificate);
+ Wed, 26 Aug 2020 10:41:19 +0200 (CEST)
+Date: Wed, 26 Aug 2020 10:41:18 +0200
+From: Stephan Gerhold <stephan@gerhold.net>
+To: Rob Herring <robh@kernel.org>
+Subject: Re: [PATCH 1/2] ASoC: dt-bindings: qcom: Document "aux-devs" property
+Message-ID: <20200826084118.GB869@gerhold.net>
+References: <20200819091533.2334-1-stephan@gerhold.net>
+ <20200819091533.2334-2-stephan@gerhold.net>
+ <20200825215253.GA1397515@bogus>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Cc: linux-kernel@vger.kernel.org, alsa-devel@alsa-project.org,
- Takashi Iwai <tiwai@suse.com>, Adrien Crivelli <adrien.crivelli@gmail.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20200825215253.GA1397515@bogus>
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
+ Banajit Goswami <bgoswami@codeaurora.org>, linux-arm-msm@vger.kernel.org,
+ Patrick Lai <plai@codeaurora.org>, Liam Girdwood <lgirdwood@gmail.com>,
+ Mark Brown <broonie@kernel.org>,
+ Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -99,34 +91,61 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-The Galaxy Book Ion NT950XCJ-X716A (15 inches) uses the same ALC298
-codec as other Samsung laptops which have the no headphone sound bug. I
-confirmed on my own hardware that this fixes the bug.
+On Tue, Aug 25, 2020 at 03:52:53PM -0600, Rob Herring wrote:
+> On Wed, Aug 19, 2020 at 11:15:32AM +0200, Stephan Gerhold wrote:
+> > In some cases we need to probe additional audio components that do
+> > not appear as part of the DAI links specified in the device tree.
+> > Examples for this are auxiliary devices such as analog amplifiers
+> > or codecs.
+> > 
+> > To make them work they need to be added as part of "aux-devs"
+> > and connected to some other audio component using the audio routes
+> > configurable using "(qcom,)audio-routing".
+> > 
+> > Cc: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
+> > Signed-off-by: Stephan Gerhold <stephan@gerhold.net>
+> > ---
+> >  .../devicetree/bindings/sound/qcom,apq8016-sbc.txt        | 7 +++++++
+> >  Documentation/devicetree/bindings/sound/qcom,apq8096.txt  | 8 ++++++++
+> >  Documentation/devicetree/bindings/sound/qcom,sdm845.txt   | 8 ++++++++
+> >  3 files changed, 23 insertions(+)
+> > 
+> > diff --git a/Documentation/devicetree/bindings/sound/qcom,apq8016-sbc.txt b/Documentation/devicetree/bindings/sound/qcom,apq8016-sbc.txt
+> > index 84b28dbe9f15..23998262a0a7 100644
+> > --- a/Documentation/devicetree/bindings/sound/qcom,apq8016-sbc.txt
+> > +++ b/Documentation/devicetree/bindings/sound/qcom,apq8016-sbc.txt
+> > @@ -34,6 +34,13 @@ Required properties:
+> >  			  * DMIC
+> >  			  * Ext Spk
+> >  
+> > +Optional properties:
+> > +
+> > +- aux-devs		: A list of phandles for auxiliary devices (e.g. analog
+> > +			  amplifiers) that do not appear directly within the DAI
+> > +			  links. Should be connected to another audio component
+> > +			  using "qcom,audio-routing".
+> > +
+> >  Dai-link subnode properties and subnodes:
+> >  
+> >  Required dai-link subnodes:
+> > diff --git a/Documentation/devicetree/bindings/sound/qcom,apq8096.txt b/Documentation/devicetree/bindings/sound/qcom,apq8096.txt
+> > index c814e867850f..248df5056fec 100644
+> > --- a/Documentation/devicetree/bindings/sound/qcom,apq8096.txt
+> > +++ b/Documentation/devicetree/bindings/sound/qcom,apq8096.txt
+> > @@ -55,6 +55,14 @@ This binding describes the APQ8096 sound card, which uses qdsp for audio.
+> >  	Value type: <stringlist>
+> >  	Definition: The user-visible name of this sound card.
+> >  
+> > +- aux-devs
+> > +	Usage: optional
+> > +	Value type: <phandles with arguments>
+> 
+> How do you know how many arguments? It either has to be fixed or needs a 
+> #.*cells in the phandles. For the latter, you'd need to come up with a 
+> common binding.
+> 
 
-This also correct the model name for the 13 inches version. It was
-incorrectly referenced as NT950XCJ-X716A in commit e17f02d05. But it
-should have been NP930XCJ-K01US.
+Actually the phandle should not have any arguments, seems like I just
+copied this from some other entry. Will fix this, thank you!
 
-BugLink: https://bugzilla.kernel.org/show_bug.cgi?id=207423
-Signed-off-by: Adrien Crivelli <adrien.crivelli@gmail.com>
----
- sound/pci/hda/patch_realtek.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
-
-diff --git a/sound/pci/hda/patch_realtek.c b/sound/pci/hda/patch_realtek.c
-index a1fa983d2..98789691a 100644
---- a/sound/pci/hda/patch_realtek.c
-+++ b/sound/pci/hda/patch_realtek.c
-@@ -7695,7 +7695,8 @@ static const struct snd_pci_quirk alc269_fixup_tbl[] = {
- 	SND_PCI_QUIRK(0x144d, 0xc169, "Samsung Notebook 9 Pen (NP930SBE-K01US)", ALC298_FIXUP_SAMSUNG_HEADPHONE_VERY_QUIET),
- 	SND_PCI_QUIRK(0x144d, 0xc176, "Samsung Notebook 9 Pro (NP930MBE-K04US)", ALC298_FIXUP_SAMSUNG_HEADPHONE_VERY_QUIET),
- 	SND_PCI_QUIRK(0x144d, 0xc189, "Samsung Galaxy Flex Book (NT950QCG-X716)", ALC298_FIXUP_SAMSUNG_HEADPHONE_VERY_QUIET),
--	SND_PCI_QUIRK(0x144d, 0xc18a, "Samsung Galaxy Book Ion (NT950XCJ-X716A)", ALC298_FIXUP_SAMSUNG_HEADPHONE_VERY_QUIET),
-+	SND_PCI_QUIRK(0x144d, 0xc18a, "Samsung Galaxy Book Ion (NP930XCJ-K01US)", ALC298_FIXUP_SAMSUNG_HEADPHONE_VERY_QUIET),
-+	SND_PCI_QUIRK(0x144d, 0xc830, "Samsung Galaxy Book Ion (NT950XCJ-X716A)", ALC298_FIXUP_SAMSUNG_HEADPHONE_VERY_QUIET),
- 	SND_PCI_QUIRK(0x144d, 0xc740, "Samsung Ativ book 8 (NP870Z5G)", ALC269_FIXUP_ATIV_BOOK_8),
- 	SND_PCI_QUIRK(0x144d, 0xc812, "Samsung Notebook Pen S (NT950SBE-X58)", ALC298_FIXUP_SAMSUNG_HEADPHONE_VERY_QUIET),
- 	SND_PCI_QUIRK(0x1458, 0xfa53, "Gigabyte BXBT-2807", ALC283_FIXUP_HEADSET_MIC),
--- 
-2.25.1
-
+Stephan

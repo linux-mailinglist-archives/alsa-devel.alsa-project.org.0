@@ -2,80 +2,48 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 91CEF252AE9
-	for <lists+alsa-devel@lfdr.de>; Wed, 26 Aug 2020 11:58:31 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6F0F0252AEE
+	for <lists+alsa-devel@lfdr.de>; Wed, 26 Aug 2020 11:59:16 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 3D5771719;
-	Wed, 26 Aug 2020 11:57:41 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3D5771719
+	by alsa0.perex.cz (Postfix) with ESMTPS id 0FA921734;
+	Wed, 26 Aug 2020 11:58:26 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0FA921734
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1598435911;
-	bh=Du92FRhluqAO2AfdX7nuJTjVbvuW6hgvo/vP+lWSr24=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1598435956;
+	bh=i7x3E5nhwsFPtT9s/nocxn/vZzWCLD8LsVx555BXRHI=;
+	h=From:To:In-Reply-To:References:Subject:Date:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=oh8P2eYwB0dvG2rTizzAO9AsGr6NhjvpeoJ0Cd+2lpE4gllsZlkiDd0nbXZxqAdaL
-	 FTW4FsMyMvUVPRRN7EdN0kj02bWMXb+lpec6NPz2doIiVd7rkxP2fQ0zFP/8C0z0ec
-	 b59XsR9yoXBSakOFn4CDpxxFW2JaKKKgk+MFBTs0=
+	b=facdRi+gsWkL0tfvqRFIX/8stLlMBuzDNT+cROLlyx37CUduFvd2aJPuNCRZPS6X8
+	 Fgzi0XZBOmdqllXNQ1kJ5/ZRUbrg0FSquAXxm1yKplT97yQ4JV9bAuOw7l8nQzdw9g
+	 +19QnvsEc6C6CJkYIurxRvC7XNFo0nLcNqCdxEmQ=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 79DC0F8016F;
-	Wed, 26 Aug 2020 11:56:50 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 968FCF800EB;
+	Wed, 26 Aug 2020 11:58:12 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id CED23F801D9; Wed, 26 Aug 2020 11:56:48 +0200 (CEST)
+ id C96ACF801F2; Wed, 26 Aug 2020 11:58:10 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=-1.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id A737DF800EB
- for <alsa-devel@alsa-project.org>; Wed, 26 Aug 2020 11:56:38 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A737DF800EB
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="DdfWy0/Q"
-Received: from localhost (fw-tnat.cambridge.arm.com [217.140.96.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id B216E2067C;
- Wed, 26 Aug 2020 09:56:36 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1598435797;
- bh=Du92FRhluqAO2AfdX7nuJTjVbvuW6hgvo/vP+lWSr24=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=DdfWy0/QaWPFtQjk2lXSEtNgQqysT5/WhksLCOpQllp9p4OOtV7AP/mzQ5vFDWHlD
- sLUtEGwkdKj9uLYZOrPFtQ+iGre0kpZEzY2CIznSxdCpVKuYPRtR5OoB5n6qgoQPey
- 0ln0FMJ6Ge1RBMERGg4vOwjJ2wuPY0FYYohFLmU4=
-Date: Wed, 26 Aug 2020 10:56:01 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Subject: Re: [PATCH 1/4] regmap: sdw: move to -EOPNOTSUPP
-Message-ID: <20200826095600.GA4965@sirena.org.uk>
-References: <20200825171656.75836-2-pierre-louis.bossart@linux.intel.com>
- <20200825214858.GK5379@sirena.org.uk>
- <6f7e5830-4dd8-1ecc-20c3-df75bc9ef265@linux.intel.com>
+X-Spam-Level: **
+X-Spam-Status: No, score=2.5 required=5.0 tests=MISSING_DATE,MISSING_MID,
+ SPF_FAIL,SPF_HELO_NONE autolearn=disabled version=3.4.0
+Received: from webhooks-bot.alsa-project.org (gate.perex.cz [77.48.224.242])
+ by alsa1.perex.cz (Postfix) with ESMTP id C6111F80143
+ for <alsa-devel@alsa-project.org>; Wed, 26 Aug 2020 11:58:00 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C6111F80143
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="PEIAKu/WMn1b1Hv9"
-Content-Disposition: inline
-In-Reply-To: <6f7e5830-4dd8-1ecc-20c3-df75bc9ef265@linux.intel.com>
-X-Cookie: Should I do my BOBBIE VINTON medley?
-User-Agent: Mutt/1.10.1 (2018-07-13)
-Cc: Guennadi Liakhovetski <guennadi.liakhovetski@linux.intel.com>,
- alsa-devel@alsa-project.org, Kai Vehmanen <kai.vehmanen@linux.intel.com>,
- "Rafael J. Wysocki" <rafael@kernel.org>, tiwai@suse.de,
- gregkh@linuxfoundation.org, linux-kernel@vger.kernel.org,
- Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
- Hui Wang <hui.wang@canonical.com>, vkoul@kernel.org,
- srinivas.kandagatla@linaro.org, jank@cadence.com, slawomir.blauciak@intel.com,
- Bard liao <yung-chuan.liao@linux.intel.com>,
- Rander Wang <rander.wang@linux.intel.com>
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
+From: GitHub pull_request - opened <github@alsa-project.org>
+To: alsa-devel@alsa-project.org
+In-Reply-To: <1598435879800777912-webhooks-bot@alsa-project.org>
+References: <1598435879800777912-webhooks-bot@alsa-project.org>
+Subject: Plugin support in tinycompress
+Message-Id: <20200826095810.C96ACF801F2@alsa1.perex.cz>
+Date: Wed, 26 Aug 2020 11:58:10 +0200 (CEST)
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -91,35 +59,12 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+alsa-project/tinycompress pull request #6 was opened from rohkkumar:
 
---PEIAKu/WMn1b1Hv9
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+These are initial set of patches to add the plugins support to tinycompress.
 
-On Tue, Aug 25, 2020 at 05:08:55PM -0500, Pierre-Louis Bossart wrote:
+This pull request corresponds to https://github.com/alsa-project/tinycompress/issues/5
 
-> > > -ENOTSUPP is not a valid error code, use recommended value instead.
-
-> > What makes you say this - it's what regmap uses internally for
-> > unsupported operations?
-
-> This was flagged by scripts/checkpatch.pl (must be a new addition).
-
-checkpatch is broken.
-
---PEIAKu/WMn1b1Hv9
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl9GMa4ACgkQJNaLcl1U
-h9A/SQf9HoAkYdbr7u7FlIMWhzgxCUW+PydJy4E0E+RX1QXJxu5obdTE/47MxSIb
-bQ2qLl9g1OyqblmHty4BJSGCH/8mHqiNbnidixs3X1jUGkKepC/MWLPNDNTLRNMG
-67ckWqo71U4tODQcO2gEdmY4ADZo1b93YkataMFExkVYs+tcZ+0h88gzrxE6DKLM
-lIDq+0U3SL0V0i3kp+OJ5e8CU2Lku7cal/+EK8yGsLAe+4o8QVc2p2w1C9VZ6KUG
-PDcSyqQq/jTcjio3WnrDzFv54keLw4yh0nyDeQ5liWQYM2m6hwRaWPc7JZT5UxYe
-4x1gBq/4qbM70bYgCwcZilMV2T3UaA==
-=dXb/
------END PGP SIGNATURE-----
-
---PEIAKu/WMn1b1Hv9--
+Request URL   : https://github.com/alsa-project/tinycompress/pull/6
+Patch URL     : https://github.com/alsa-project/tinycompress/pull/6.patch
+Repository URL: https://github.com/alsa-project/tinycompress

@@ -2,74 +2,59 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id DCEDC25379A
-	for <lists+alsa-devel@lfdr.de>; Wed, 26 Aug 2020 20:53:14 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id AFBE925379E
+	for <lists+alsa-devel@lfdr.de>; Wed, 26 Aug 2020 20:53:40 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 85BA71794;
-	Wed, 26 Aug 2020 20:52:24 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 85BA71794
+	by alsa0.perex.cz (Postfix) with ESMTPS id 531EB84B;
+	Wed, 26 Aug 2020 20:52:50 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 531EB84B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1598467994;
-	bh=u5YL3gJo1LDspCet5eGX7Njt7Er6sUfOnLpX//R3Dw4=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1598468020;
+	bh=KatLp4PuiE626eZD+9vMfHbkcy/j3in6hl6kjc5U9Es=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=L3LnEvTjTL/oti60gF6dHmk9n302VKUqNvL4q/DXlglyP1izNdy3jxWpMSm30uAtE
-	 hKhx6hJneJ2okZSG3gbgFTP2TLO2cJ76OQLV9xQzm2iVQyG2JspwC0bhODmyreZnJn
-	 Ppwz3WsvKhWZE5kEo0NHLt906vG9ro27vaVgFYPE=
+	b=PywD6A1vDkqn77VzIF99yPmL22eY9n7YXWZ4zmKz+deHCS5LL9/+8in4SFAam26hu
+	 nARZC9N/RwVkRcb6K1C+ubs8VZyMwxNtC5eMGP2DePnXylJgMnq/BGfczjc5lHaOU0
+	 CK+uL7+v9fDB+Mm9QUpomoNXF0BFs+ScMozFXVS4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id A5EE4F80299;
-	Wed, 26 Aug 2020 20:51:11 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 5B3CDF80143;
+	Wed, 26 Aug 2020 20:52:18 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id EDA9FF80257; Wed, 26 Aug 2020 20:51:09 +0200 (CEST)
+ id 67665F802BC; Wed, 26 Aug 2020 20:52:15 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-1.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled
+X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_MSPIKE_H3,
+ RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=disabled
  version=3.4.0
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 556DAF801EC
- for <alsa-devel@alsa-project.org>; Wed, 26 Aug 2020 20:51:03 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 556DAF801EC
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="EfGk7K67"
-Received: from localhost (fw-tnat.cambridge.arm.com [217.140.96.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id BFA0C2078A;
- Wed, 26 Aug 2020 18:51:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1598467862;
- bh=u5YL3gJo1LDspCet5eGX7Njt7Er6sUfOnLpX//R3Dw4=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=EfGk7K677aN6IwTqYE7tb9F83mITA/w9AJAOovwB0DXuAr5s8Rq5/8VtX9bMZz/ez
- gpOCTcQZaZ5oBlwb2Oa/SX1PFhaSz8ClM89zxd7dpX8OuBW98VgdbPJushXJvali2k
- 6uV311EW6xENriVa4RS1dQSKQ2AFf769uj1katUs=
-Date: Wed, 26 Aug 2020 19:50:25 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
-Subject: Re: [PATCH 1/8] ALSA: hda: fix VS_LTRC register name
-Message-ID: <20200826185025.GR4965@sirena.org.uk>
-References: <20200826184532.1612070-1-ranjani.sridharan@linux.intel.com>
- <20200826184532.1612070-2-ranjani.sridharan@linux.intel.com>
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="ZaW/dtY/7oMe/vLp"
-Content-Disposition: inline
-In-Reply-To: <20200826184532.1612070-2-ranjani.sridharan@linux.intel.com>
-X-Cookie: Should I do my BOBBIE VINTON medley?
-User-Agent: Mutt/1.10.1 (2018-07-13)
-Cc: tiwai@suse.de,
- Guennadi Liakhovetski <guennadi.liakhovetski@linux.intel.com>,
- alsa-devel@alsa-project.org,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 37589F802A0
+ for <alsa-devel@alsa-project.org>; Wed, 26 Aug 2020 20:52:09 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 37589F802A0
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id 2E3FEAF2C;
+ Wed, 26 Aug 2020 18:52:38 +0000 (UTC)
+Date: Wed, 26 Aug 2020 20:52:06 +0200
+Message-ID: <s5hmu2hqlyh.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Kai Vehmanen <kai.vehmanen@linux.intel.com>
+Subject: Re: [PATCH] ALSA: hda/hdmi: always check pin power status in i915 pin
+ fixup
+In-Reply-To: <20200826170306.701566-1-kai.vehmanen@linux.intel.com>
+References: <20200826170306.701566-1-kai.vehmanen@linux.intel.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
+ FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
+ (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
+Content-Type: text/plain; charset=US-ASCII
+Cc: alsa-devel@alsa-project.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -85,29 +70,27 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+On Wed, 26 Aug 2020 19:03:06 +0200,
+Kai Vehmanen wrote:
+> 
+> When system is suspended with active audio playback to HDMI/DP, two
+> alternative sequences can happen at resume:
+>   a) monitor is detected first and ALSA prepare follows normal
+>      stream setup sequence, or
+>   b) ALSA prepare is called first, but monitor is not yet detected,
+>      so PCM is restarted without a pin,
+> 
+> In case of (b), on i915 systems, haswell_verify_D0() is not called at
+> resume and the pin power state may be incorrect. Result is lack of audio
+> after resume with no error reported back to user-space.
+> 
+> Fix the problem by always verifying converter and pin state in the
+> i915_pin_cvt_fixup().
+> 
+> BugLink: https://github.com/thesofproject/linux/issues/2388
+> Signed-off-by: Kai Vehmanen <kai.vehmanen@linux.intel.com>
 
---ZaW/dtY/7oMe/vLp
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Applied with Cc to stable now.  Thanks.
 
-On Wed, Aug 26, 2020 at 11:45:25AM -0700, Ranjani Sridharan wrote:
-> It should be called VS_LTRP instead.
 
-Takashi, should I just apply this to the ASoC tree?
-
---ZaW/dtY/7oMe/vLp
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl9GrvEACgkQJNaLcl1U
-h9A+CAf/aFODriub8QIe1/8fJHtuyFRYaWk3VPPzDbubMOgKfb3seDkq9Qbe0dgS
-zYkoll8G8GmzvFCfy/znjN4Q7uQVSKSzcmid3obiHceWZuum3fSkMMebHvC3TVUy
-B5nek3iw9kDZU10hEYMJWeONU770zExTiXaPYlPMnaBgx35q5Dm7pvHaS+Eebwun
-IYZ6OcUbSC5EwAFC958owZ9yx6t1czaskRetNqo7ecgmSTqizlRQYnyJJ10ZuEO4
-fBGxOrU5OBLsSVsCsyuKOB1iM47ZeiYbCwm1tzrIYEhHlNgzzySt+InHWwOjB5gd
-/etpxoov5xpzTeUlqccO6yLZYr2QTg==
-=ozve
------END PGP SIGNATURE-----
-
---ZaW/dtY/7oMe/vLp--
+Takashi

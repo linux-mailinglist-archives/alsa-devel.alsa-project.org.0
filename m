@@ -2,76 +2,103 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 64ABE2529BB
-	for <lists+alsa-devel@lfdr.de>; Wed, 26 Aug 2020 11:07:35 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 668AE252A20
+	for <lists+alsa-devel@lfdr.de>; Wed, 26 Aug 2020 11:34:57 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id DB9DF172F;
-	Wed, 26 Aug 2020 11:06:44 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DB9DF172F
+	by alsa0.perex.cz (Postfix) with ESMTPS id F00DD1718;
+	Wed, 26 Aug 2020 11:34:06 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz F00DD1718
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1598432854;
-	bh=1KswoGLjtZcHXEOSpuV+YAc4MBEe5uZDB0qGI9+fjOc=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1598434497;
+	bh=hLB86gaZtuxuNJCAc8u02YplyoNq21V2sFbjUuLM5Y0=;
+	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=T4mGjkT68R6weiLX2FSt4qoyiZKVmf7daw3h6oMWRnXqfhd0qd0rzK9oBUWkL/xbf
-	 iB0a1M3JwCBDvdb7y3mJd8E/osj1cAaP6ojuQh/bj4af2/zYTXBqBZDeT911uTAKMz
-	 xHrp+I9i8/cFG4ABbC6qo+R7JQLNtkbPwQ1w0/IA=
+	b=jboORdE286ujwxlewyGv8dSihErY4p/PT/leinLCK/eHRMelsIVyy8Si6TuEDR7/A
+	 UhDWCvghgkme1GFHytL1GqG398KaOLvZ9MnQPA8sU3jNUUW6Mr4jaLRoX77WSUBX3A
+	 4hHo/Is0Skz7UpPDUXEIyHl2WJRK7YaSpGFTEURo=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 0A652F80143;
-	Wed, 26 Aug 2020 11:05:54 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id E3F0AF801EC;
+	Wed, 26 Aug 2020 11:33:15 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 34F46F801D9; Wed, 26 Aug 2020 11:05:52 +0200 (CEST)
+ id 6AA49F801D9; Wed, 26 Aug 2020 11:33:13 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-1.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled
- version=3.4.0
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+X-Spam-Status: No, score=0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU, PRX_BODY_135, RCVD_IN_MSPIKE_H3, RCVD_IN_MSPIKE_WL,
+ SPF_HELO_PASS, SPF_PASS autolearn=disabled version=3.4.0
+Received: from out2-smtp.messagingengine.com (out2-smtp.messagingengine.com
+ [66.111.4.26])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 62E0BF800EB
- for <alsa-devel@alsa-project.org>; Wed, 26 Aug 2020 11:05:48 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 62E0BF800EB
+ by alsa1.perex.cz (Postfix) with ESMTPS id 10963F80143
+ for <alsa-devel@alsa-project.org>; Wed, 26 Aug 2020 11:33:04 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 10963F80143
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="Oxj0+njY"
-Received: from localhost (unknown [122.171.38.130])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id C8138206FA;
- Wed, 26 Aug 2020 09:05:45 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1598432746;
- bh=1KswoGLjtZcHXEOSpuV+YAc4MBEe5uZDB0qGI9+fjOc=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=Oxj0+njYe0KqxWh4WsNLSOGdytSHM4NHyUWsDwu9+fW99RphWTOjqE9pn3ma0pEJ8
- fmUNVwx2/Z4/h8MjBLPQ9glHLmsS3JW9pUnGoLo5yqiNbYQhR3+pwZS30X1I3+Fqv9
- fxn+9rZWEyVDBWXaYgtDbDMsU1goNvTeHLJsxb0o=
-Date: Wed, 26 Aug 2020 14:35:42 +0530
-From: Vinod Koul <vkoul@kernel.org>
-To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Subject: Re: [PATCH 4/4] regmap: sdw: add support for SoundWire 1.2 MBQ
-Message-ID: <20200826090542.GZ2639@vkoul-mobl>
-References: <20200825171656.75836-1-pierre-louis.bossart@linux.intel.com>
- <20200825171656.75836-5-pierre-louis.bossart@linux.intel.com>
+ dkim=pass (2048-bit key) header.d=sakamocchi.jp header.i=@sakamocchi.jp
+ header.b="SmJLKPPH"; 
+ dkim=pass (2048-bit key) header.d=messagingengine.com
+ header.i=@messagingengine.com header.b="lhgFpZaQ"
+Received: from compute2.internal (compute2.nyi.internal [10.202.2.42])
+ by mailout.nyi.internal (Postfix) with ESMTP id 7F40B5C009D;
+ Wed, 26 Aug 2020 05:33:03 -0400 (EDT)
+Received: from mailfrontend1 ([10.202.2.162])
+ by compute2.internal (MEProxy); Wed, 26 Aug 2020 05:33:03 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sakamocchi.jp;
+ h=from:to:cc:subject:date:message-id:in-reply-to:references
+ :mime-version:content-transfer-encoding; s=fm2; bh=UONXLylD67B0x
+ TMLMhVZHmjpr7Crh3Nbv326neHsQgk=; b=SmJLKPPHRgpXpoRSIhklRmsf2RcwT
+ lWvtT2GdWa91YL6qMSNbtLQNlBwHx0bF2Wd2wl1GiFgsw6vSfMvm6yDQrB2TCo7U
+ n3JbHh4PYdE8b9uz+ARrTeD+2V+MD1dHgv809IJxURt87AMp6c+IK7shj0hV63r0
+ BExzyJWTUq6XcRT4XjUlhrODUNjUK0EzdQ/1QFkiLjyDzEgIy3jrInq5SZ4bLVbV
+ vt67PmVgUfJL0+p7vnVxPF4a+Fx6k8kiDfMnkHO/P5bGFfDGEsAczsSWI9MlpFNp
+ 2CZ6uFpQ8kYWjX6HhmMZge7eDf5ntfsjNc+PFxFRH5G3nsNlBtjKZqx8Q==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:content-transfer-encoding:date:from
+ :in-reply-to:message-id:mime-version:references:subject:to
+ :x-me-proxy:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
+ fm3; bh=UONXLylD67B0xTMLMhVZHmjpr7Crh3Nbv326neHsQgk=; b=lhgFpZaQ
+ HtNtg4GoUmYo19RuzCp9bg8R9eH4TUyW53HDiAXyYqmTnrTTq/cHIVNHVRThx2a3
+ ZHV1as4bpI53lI/StsFpyLVoSONJ+Ky7F/bWsSDGSzaME5z+GRnsWS6i+0GrQMRs
+ Qz7gjB80nNuR7iZXozAJas3Rj1xRHUgdMFStCVUgQsyaN+BaVbG0ddbEsrT3Rd7A
+ Mtap/C8H6btOSBKr1u4rqK2jKYoSuU2cNqSp70RC+Fjpu3dJLvAQYlPKXhMyp8zz
+ Pfeind4WblRJ+Ce8seio/8z4LzPkCpQpFcUWdgCzO6eAbh0EhUmxKQgM5dIcbJ9q
+ Mm5FFIuvhopENQ==
+X-ME-Sender: <xms:TixGX0wJrp3KV55735jFXyhjBvJ35v2imuFOQ2mSJn88AFEwsMMTAg>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeduiedruddvvddgudegucetufdoteggodetrfdotf
+ fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
+ uceurghilhhouhhtmecufedttdenucenucfjughrpefhvffufffkofgjfhgggfestdekre
+ dtredttdenucfhrhhomhepvfgrkhgrshhhihcuufgrkhgrmhhothhouceoohdqthgrkhgr
+ shhhihesshgrkhgrmhhotggthhhirdhjpheqnecuggftrfgrthhtvghrnhepgfeiveetfe
+ evleduheefhfevueekffefffejuedvgeeggeefvdetgeejffefudegnecuffhomhgrihhn
+ pehgihhthhhusgdrtghomhenucfkphepudektddrvdefhedrfedrheegnecuvehluhhsth
+ gvrhfuihiivgeptdenucfrrghrrghmpehmrghilhhfrhhomhepohdqthgrkhgrshhhihes
+ shgrkhgrmhhotggthhhirdhjph
+X-ME-Proxy: <xmx:TixGX4RZekFg14ZGoMQ54iUkzBC3sFVRbrlSJJlco9grESknMXUCPw>
+ <xmx:TixGX2UNlcII8hfY7fjuzhpzLAmLZvobTxeqPxpvxesuMc2MbNc-Gg>
+ <xmx:TixGXyjefvcivBREZfSwaZDEZo4Q2YzLWFvEbkIgLiNLj6weDcnetg>
+ <xmx:TyxGXxqSbnssj5jLXEQzOXBI-wEzou6evgJ4-gUeHyFx7rLZSJhdNw>
+Received: from workstation.flets-east.jp (ad003054.dynamic.ppp.asahi-net.or.jp
+ [180.235.3.54])
+ by mail.messagingengine.com (Postfix) with ESMTPA id 797C53280063;
+ Wed, 26 Aug 2020 05:33:01 -0400 (EDT)
+From: Takashi Sakamoto <o-takashi@sakamocchi.jp>
+To: perex@perex.cz,
+	tiwai@suse.de
+Subject: Re: [PATCH 00/25] alsa-tools: efw-downloader: add initial version of
+ firmwre downloader for Echo Audio Fireworks devices
+Date: Wed, 26 Aug 2020 18:32:58 +0900
+Message-Id: <20200826093258.235615-1-o-takashi@sakamocchi.jp>
+X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20200821073111.134857-1-o-takashi@sakamocchi.jp>
+References: <20200821073111.134857-1-o-takashi@sakamocchi.jp>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20200825171656.75836-5-pierre-louis.bossart@linux.intel.com>
-Cc: Guennadi Liakhovetski <guennadi.liakhovetski@linux.intel.com>,
- alsa-devel@alsa-project.org, Kai Vehmanen <kai.vehmanen@linux.intel.com>,
- "Rafael J. Wysocki" <rafael@kernel.org>, tiwai@suse.de,
- gregkh@linuxfoundation.org, linux-kernel@vger.kernel.org,
- Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
- Hui Wang <hui.wang@canonical.com>, broonie@kernel.org,
- srinivas.kandagatla@linaro.org, jank@cadence.com, slawomir.blauciak@intel.com,
- Bard liao <yung-chuan.liao@linux.intel.com>,
- Rander Wang <rander.wang@linux.intel.com>
+Content-Transfer-Encoding: 8bit
+Cc: alsa-devel@alsa-project.org, clemens@ladisch.de
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -87,149 +114,138 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 25-08-20, 12:16, Pierre-Louis Bossart wrote:
-> The SoundWire 1.1 specification only allowed for reads and writes of
-> bytes. The SoundWire 1.2 specification adds a new capability to
-> transfer "Multi-Byte Quantities" (MBQ) across the bus. The transfers
-> still happens one-byte-at-a-time, but the update is atomic.
-> 
-> For example when writing a 16-bit volume, the first byte transferred
-> is only taken into account when the second byte is successfully
-> transferred.
-> 
-> The mechanism is symmetrical for read and writes:
-> - On a read, the address of the last byte to be read is modified by
-> setting the MBQ bit
-> - On a write, the address of all but the last byte to be written are
-> modified by setting the MBQ bit. The address for the last byte relies
-> on the MBQ bit being cleared.
-> 
-> The current definitions for MBQ-based controls in the SDCA draft
-> standard are limited to 16 bits for volumes, so for now this is the
-> only supported format. An update will be provided if and when support
-> for 24-bit and 32-bit values is specified by the SDCA standard.
-> 
-> One possible objection is that this code could have been handled with
-> regmap-sdw.c. However this is a new spec addition not handled by every
-> SoundWire 1.1 and non-SDCA device, so there's no reason to load code
-> that will never be used.
-> 
-> Also in practice it's extremely unlikely that CONFIG_REGMAP would not
-> be selected with CONFIG_REGMAP_MBQ selected. However there's no
-> functional dependency between the two modules so they can be selected
-> separately.
+Hi,
 
-Is there a reason for a new module for mbq writes, cant we do this as
-part of sdw module? Driver can invoke either regmap_init_sdw() or
-regmap_init_sdw_mbq()?
+Would I expect any reaction by maintainers of alsa-tools repository for
+the patches?
 
-> +++ b/drivers/base/regmap/regmap-sdw-mbq.c
-> @@ -0,0 +1,102 @@
-> +// SPDX-License-Identifier: GPL-2.0
-> +// Copyright(c) 2020 Intel Corporation.
-> +
-> +#include <linux/device.h>
-> +#include <linux/errno.h>
-> +#include <linux/mod_devicetable.h>
+On Fri, Aug 21, 2020 at 04:30:46PM +0900, Takashi Sakamoto wrote:
+> Hi,
+> 
+> This patchset is for alsa-tool repository[1] to add a new command-line
+> tool, efw-downloader. The tools is designed to operate on-board flash
+> memory for devices based on Fireworks board module. The patches are also
+> available in my personal repository in github.com[2].
+> 
+> Fireworks board module was designed by Echo Digital Audio corporation. The
+> board module has on-board flash memory to store firmware blob and session
+> data. The contents of flash memory can be operated by software by a pair
+> of asynchronous transactions defined by Echo Digital Audio corporation.
+> 
+> Echo Digital Audio corporation also designed file format of firmware.
+> Hardware Vendors including Echo Digital Audio corporation shipped
+> several versions of firmware by the format in driver packages for
+> Windows and macOS.
+> 
+> The goal of this tool is to operate the flash memory to download any
+> version of firmware. In this patchset, limited functionalities are added;
+> read from the flash memory, and parse the content of file. The other
+> functionalities are planned to added in future work.
+> 
+> I thinks it possible to put actual firmware blobs into somewhere
+> suitable for them (alsa-firmware or linux-firmware repositories). I
+> think it better to prepare the files by reading on-board flash memory,
+> with enough care of copyright of original firmware files shipped by
+> vendor. In the case, it's preferable to use file format different
+> from the original one. But it's my first time for this kind of work.
+> I'd like to ask some advices to alsa developers.
+> 
+> [1] https://github.com/alsa-project/alsa-tools/
+> [2] https://github.com/takaswie/alsa-tools/tree/topic/efw-downloader
+> 
+> Takashi Sakamoto (25):
+>   efw-downloader: start a new project to operate on-board flash memory
+>     for Fireworks board module
+>   efw-downloader: efw-proto: define EfwProto as derived object of
+>     HinawaFwResp
+>   efw-downloader: efw-proto: add constructor, destructor, bind, unbind
+>     functions
+>   efw-downloader: efw-proto: add responded signal
+>   efw-downloader: efw-proto: add class virtual method to handle
+>     responded signal
+>   efw-downloader: efw-proto: add instance private structure
+>   efw-downloader: efw-proto: emit responded signal at receiving response
+>   efw-downloader: efw-proto: add function to finish transaction for
+>     command frame
+>   efw-downloader: efw-proto: add function to finish a pair of
+>     transactions
+>   efw-downloader: add parser for sub commands
+>   efw-downloader: subcmd-device: implement 'device' sub command to
+>     operate actual device
+>   efw-downloader: subcmd-device: open firewire character device by
+>     HinawaFwNode
+>   efw-downloader: config-rom: parse config rom to detect supported
+>     device
+>   efw-downloader: subcmd-device: check supported models or not
+>   efw-downloader: subcmd-device: bind Fireworks protocol
+>   efw-downloader: node_dispatcher: add event dispatcher utilizing GLib
+>     MainContext/MainLoop
+>   efw-downloader: subcmd-device: support debug output for response of
+>     Fireworks protocol
+>   efw-downloader: efw-commands: add support for a part of hardware
+>     command
+>   efw-downloader: efw-commands: add support for commands in flash
+>     category
+>   efw-downloader: subcmd-device: add read operation
+>   efw-downloader: file-cntr: add parser for data binary shipped by Echo
+>     Digital Audio corporation
+>   efw-downloader: subcmd-file: add 'file' sub command
+>   efw-downloader: subcmd-file: add parse operation
+>   efw-downloader: man: add online manual
+>   efw-downloader: add README formatted by reStructuredText
+> 
+>  efw-downloader/COPYING                        | 674 ++++++++++++++++++
+>  efw-downloader/README.rst                     | 167 +++++
+>  efw-downloader/man/efw-downloader.1           | 162 +++++
+>  efw-downloader/meson.build                    |  14 +
+>  efw-downloader/meson_options.txt              |   5 +
+>  efw-downloader/src/config-rom.c               |  60 ++
+>  efw-downloader/src/config-rom.h               |  26 +
+>  efw-downloader/src/efw-commands.c             | 243 +++++++
+>  efw-downloader/src/efw-commands.h             |  57 ++
+>  .../src/efw-proto-sigs-marshal.list           |   1 +
+>  efw-downloader/src/efw-proto.c                | 401 +++++++++++
+>  efw-downloader/src/efw-proto.h                |  80 +++
+>  efw-downloader/src/file-cntr.c                | 183 +++++
+>  efw-downloader/src/file-cntr.h                |  39 +
+>  efw-downloader/src/main.c                     |  54 ++
+>  efw-downloader/src/meson.build                |  54 ++
+>  efw-downloader/src/node-dispatcher.c          |  86 +++
+>  efw-downloader/src/node-dispatcher.h          |  21 +
+>  efw-downloader/src/op-device-read.c           | 104 +++
+>  efw-downloader/src/op-file-parse.c            | 106 +++
+>  efw-downloader/src/subcmd-device.c            | 182 +++++
+>  efw-downloader/src/subcmd-file.c              |  87 +++
+>  efw-downloader/src/subcmds.h                  |  16 +
+>  23 files changed, 2822 insertions(+)
+>  create mode 100644 efw-downloader/COPYING
+>  create mode 100644 efw-downloader/README.rst
+>  create mode 100644 efw-downloader/man/efw-downloader.1
+>  create mode 100644 efw-downloader/meson.build
+>  create mode 100644 efw-downloader/meson_options.txt
+>  create mode 100644 efw-downloader/src/config-rom.c
+>  create mode 100644 efw-downloader/src/config-rom.h
+>  create mode 100644 efw-downloader/src/efw-commands.c
+>  create mode 100644 efw-downloader/src/efw-commands.h
+>  create mode 100644 efw-downloader/src/efw-proto-sigs-marshal.list
+>  create mode 100644 efw-downloader/src/efw-proto.c
+>  create mode 100644 efw-downloader/src/efw-proto.h
+>  create mode 100644 efw-downloader/src/file-cntr.c
+>  create mode 100644 efw-downloader/src/file-cntr.h
+>  create mode 100644 efw-downloader/src/main.c
+>  create mode 100644 efw-downloader/src/meson.build
+>  create mode 100644 efw-downloader/src/node-dispatcher.c
+>  create mode 100644 efw-downloader/src/node-dispatcher.h
+>  create mode 100644 efw-downloader/src/op-device-read.c
+>  create mode 100644 efw-downloader/src/op-file-parse.c
+>  create mode 100644 efw-downloader/src/subcmd-device.c
+>  create mode 100644 efw-downloader/src/subcmd-file.c
+>  create mode 100644 efw-downloader/src/subcmds.h
+> 
+> -- 
+> 2.25.1
 
-Curious why do you need this header?
 
-> +#include <linux/module.h>
-> +#include <linux/regmap.h>
-> +#include <linux/soundwire/sdw.h>
-> +#include <linux/soundwire/sdw_registers.h>
-> +#include "internal.h"
-> +
-> +static int regmap_sdw_mbq_write(void *context, unsigned int reg, unsigned int val)
-> +{
-> +	struct device *dev = context;
-> +	struct sdw_slave *slave = dev_to_sdw_dev(dev);
-> +	int ret;
-> +
-> +	ret = sdw_write(slave, SDW_SDCA_MBQ_CTL(reg), (val >> 8) & 0xff);
-> +	if (ret < 0)
-> +		return ret;
-> +
-> +	return sdw_write(slave, reg, val & 0xff);
-> +}
-> +
-> +static int regmap_sdw_mbq_read(void *context, unsigned int reg, unsigned int *val)
-> +{
-> +	struct device *dev = context;
-> +	struct sdw_slave *slave = dev_to_sdw_dev(dev);
-> +	int read0;
-> +	int read1;
-> +
-> +	read0 = sdw_read(slave, reg);
-> +	if (read0 < 0)
-> +		return read0;
-> +
-> +	read1 = sdw_read(slave, SDW_SDCA_MBQ_CTL(reg));
-> +	if (read1 < 0)
-> +		return read1;
-> +
-> +	*val = (read1 << 8) | read0;
-> +
-> +	return 0;
-> +}
-> +
-> +static struct regmap_bus regmap_sdw_mbq = {
-> +	.reg_read = regmap_sdw_mbq_read,
-> +	.reg_write = regmap_sdw_mbq_write,
-> +	.reg_format_endian_default = REGMAP_ENDIAN_LITTLE,
-> +	.val_format_endian_default = REGMAP_ENDIAN_LITTLE,
-> +};
-> +
-> +static int regmap_sdw_mbq_config_check(const struct regmap_config *config)
-> +{
-> +	/* MBQ-based controls are only 16-bits for now */
-> +	if (config->val_bits != 16)
-> +		return -EOPNOTSUPP;
-> +
-> +	/* Registers are 32 bits wide */
-> +	if (config->reg_bits != 32)
-> +		return -EOPNOTSUPP;
-> +
-> +	if (config->pad_bits != 0)
-> +		return -EOPNOTSUPP;
-> +
-> +	return 0;
-> +}
-> +
-> +struct regmap *__regmap_init_sdw_mbq(struct sdw_slave *sdw,
-> +				     const struct regmap_config *config,
-> +				     struct lock_class_key *lock_key,
-> +				     const char *lock_name)
-> +{
-> +	int ret;
-> +
-> +	ret = regmap_sdw_mbq_config_check(config);
-> +	if (ret)
-> +		return ERR_PTR(ret);
-> +
-> +	return __regmap_init(&sdw->dev, &regmap_sdw_mbq,
-> +			&sdw->dev, config, lock_key, lock_name);
-> +}
-> +EXPORT_SYMBOL_GPL(__regmap_init_sdw_mbq);
-> +
-> +struct regmap *__devm_regmap_init_sdw_mbq(struct sdw_slave *sdw,
-> +					  const struct regmap_config *config,
-> +					  struct lock_class_key *lock_key,
-> +					  const char *lock_name)
-> +{
-> +	int ret;
-> +
-> +	ret = regmap_sdw_mbq_config_check(config);
-> +	if (ret)
-> +		return ERR_PTR(ret);
-> +
-> +	return __devm_regmap_init(&sdw->dev, &regmap_sdw_mbq,
-> +			&sdw->dev, config, lock_key, lock_name);
-> +}
-> +EXPORT_SYMBOL_GPL(__devm_regmap_init_sdw_mbq);
-> +
-> +MODULE_DESCRIPTION("Regmap SoundWire Module");
+Thanks
 
-This is same of sdw module, pls make this one a bit different.
--- 
-~Vinod
+Takashi Sakamoto

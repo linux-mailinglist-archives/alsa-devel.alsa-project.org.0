@@ -2,68 +2,63 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6915B253831
-	for <lists+alsa-devel@lfdr.de>; Wed, 26 Aug 2020 21:19:51 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id DF8762538AC
+	for <lists+alsa-devel@lfdr.de>; Wed, 26 Aug 2020 21:58:59 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 1264317BD;
-	Wed, 26 Aug 2020 21:19:01 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1264317BD
+	by alsa0.perex.cz (Postfix) with ESMTPS id 6ED3F17B4;
+	Wed, 26 Aug 2020 21:58:09 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6ED3F17B4
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1598469591;
-	bh=JmBM+nkl0t+UofWg4Gi1xS0o3nBQu5RONor3hOBJoqE=;
-	h=Date:From:To:In-Reply-To:References:Subject:Cc:List-Id:
+	s=default; t=1598471939;
+	bh=wLmgamH0KIaS0rGIFDHl2rLBW3n+08uEZH3fccfbkjY=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=CFsYxgkhzNxIG0MmKzslhY+chsqZzH7pxJ8MJBZjpxPDGrxnq1IUCc4VzXq/MG77v
-	 RIzzVa64Nc8fNTCR/SKD4CaKzlJkdUNAKChgb/JrJWfdkiTgtKDRhYqxi/QqiMBzB9
-	 ftSU6eyXt1L9oWR6yEl1sygdDtt0dOnAVRe9b+rM=
+	b=latek2oFCzBHh3R+omaj5CAczlcifXDE1/GHaAeCQwy5+g/jmHn3CRm1v3puBjaFh
+	 IuYq/4K5ZFya8rsucy9eAiBRYQV0LRfrQjHsMbY1sNzUNZ3fPbDi5mZSV0skS8pw15
+	 kfxhqmrW42eQqOyMPjV26LwTFPMvg/hSvRbaxz3A=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id E97B0F80257;
-	Wed, 26 Aug 2020 21:17:27 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 9DCEDF801EC;
+	Wed, 26 Aug 2020 21:57:18 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 820B3F801F2; Wed, 26 Aug 2020 21:17:25 +0200 (CEST)
+ id 194ADF800EB; Wed, 26 Aug 2020 21:57:16 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-1.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled
+X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_MSPIKE_H3,
+ RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=disabled
  version=3.4.0
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id BC7D6F801F2
- for <alsa-devel@alsa-project.org>; Wed, 26 Aug 2020 21:17:22 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BC7D6F801F2
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="PNJRCD+c"
-Received: from localhost (fw-tnat.cambridge.arm.com [217.140.96.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id D43552078A;
- Wed, 26 Aug 2020 19:17:20 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1598469441;
- bh=JmBM+nkl0t+UofWg4Gi1xS0o3nBQu5RONor3hOBJoqE=;
- h=Date:From:To:Cc:In-Reply-To:References:Subject:From;
- b=PNJRCD+cKqy2Mvyvk8mEF8MpHMrU/Fy/KvJ4bIblOU22Mdh+2ISANcpiOOK+il/Fo
- mXvPO7D2WwrBryg83KPXAjKWyZpqsbNG52DuxZZ7gq5q/gHAPsHU2V/BQCrANihDeI
- l1H6Mq7+p7vPvcoUOejRI4ltWrit/YNGe8aF6aNY=
-Date: Wed, 26 Aug 2020 20:16:45 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Dinghao Liu <dinghao.liu@zju.edu.cn>, kjlu@umn.edu
-In-Reply-To: <20200820042828.10308-1-dinghao.liu@zju.edu.cn>
-References: <20200820042828.10308-1-dinghao.liu@zju.edu.cn>
-Subject: Re: [PATCH] ASoC: qcom: common: Fix refcount imbalance on error
-Message-Id: <159846939972.39744.13708543764168639585.b4-ty@kernel.org>
-Cc: alsa-devel@alsa-project.org, Banajit Goswami <bgoswami@codeaurora.org>,
- Liam Girdwood <lgirdwood@gmail.com>, linux-kernel@vger.kernel.org,
- Patrick Lai <plai@codeaurora.org>, Takashi Iwai <tiwai@suse.com>,
- Bjorn Andersson <bjorn.andersson@linaro.org>,
- Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 51309F800EB
+ for <alsa-devel@alsa-project.org>; Wed, 26 Aug 2020 21:57:09 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 51309F800EB
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id 0973FABA2;
+ Wed, 26 Aug 2020 19:57:39 +0000 (UTC)
+Date: Wed, 26 Aug 2020 21:57:07 +0200
+Message-ID: <s5hk0xlqiy4.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Mark Brown <broonie@kernel.org>
+Subject: Re: [PATCH 1/8] ALSA: hda: fix VS_LTRC register name
+In-Reply-To: <20200826185025.GR4965@sirena.org.uk>
+References: <20200826184532.1612070-1-ranjani.sridharan@linux.intel.com>
+ <20200826184532.1612070-2-ranjani.sridharan@linux.intel.com>
+ <20200826185025.GR4965@sirena.org.uk>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
+ FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
+ (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
+Content-Type: text/plain; charset=US-ASCII
+Cc: Guennadi Liakhovetski <guennadi.liakhovetski@linux.intel.com>,
+ alsa-devel@alsa-project.org,
+ Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -79,36 +74,20 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Thu, 20 Aug 2020 12:28:27 +0800, Dinghao Liu wrote:
-> for_each_child_of_node returns a node pointer np with
-> refcount incremented. So when devm_kzalloc fails, a
-> pairing refcount decrement is needed to keep np's
-> refcount balanced.
+On Wed, 26 Aug 2020 20:50:25 +0200,
+Mark Brown wrote:
+> 
+> On Wed, Aug 26, 2020 at 11:45:25AM -0700, Ranjani Sridharan wrote:
+> > It should be called VS_LTRP instead.
+> 
+> Takashi, should I just apply this to the ASoC tree?
 
-Applied to
+Yes, it's just a typo fix, feel free to take it.
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
+Reviewed-by: Takashi Iwai <tiwai@suse.de>
 
-Thanks!
 
-[1/1] ASoC: qcom: common: Fix refcount imbalance on error
-      commit: c1e6414cdc371f9ed82cefebba7538499a3059f9
+thanks,
 
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
+Takashi
 
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
-
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
-
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-Thanks,
-Mark

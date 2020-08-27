@@ -2,57 +2,107 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0597B2543B1
-	for <lists+alsa-devel@lfdr.de>; Thu, 27 Aug 2020 12:28:04 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7CC612544F1
+	for <lists+alsa-devel@lfdr.de>; Thu, 27 Aug 2020 14:26:48 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 7ECB117E2;
-	Thu, 27 Aug 2020 12:27:13 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7ECB117E2
+	by alsa0.perex.cz (Postfix) with ESMTPS id 0229F17E5;
+	Thu, 27 Aug 2020 14:25:58 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0229F17E5
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1598524083;
-	bh=cx6zqNRjvsegqTB02XWCCCm8A3izo+HOqOyqETXXCB4=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=qHdl6+w9o3dK/6eiMUgjQFQR8qE2c3wEi60XF689CgJ/CilH0x9+qRCYnAerfVBsV
-	 JiJ7HWlY6LOKQjhEpQGl2xxqyV22sF+N56hnDt4+jOVDiWgweHTuRaCx13gTWvwdAt
-	 Hej+ckI6icKOHfjJZYckCaM9I9BXb33snjQ6qay0=
+	s=default; t=1598531208;
+	bh=OM9p3KyXH00gdCIDmHPba2LdLatIUHQ1lNRqM/1UFcE=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=kI52RVlpkgzsHSJzDWgE6cFhsqMHDEdwdyvTgAMgBtoAF8xwCg2fDPUT3mPDa8p6k
+	 hzpgsziL9qdf3gP47SF2xzVd1T3llObvlwoLFbk66XsILlSMKD+AmCH+JxOXKqP1dx
+	 sX1gI3Qc5KGbtodbdQHIPMLzQVJm2LzE8q9WZPDE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 91A05F801D9;
-	Thu, 27 Aug 2020 12:26:22 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 1C461F801D9;
+	Thu, 27 Aug 2020 14:25:07 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 6CEDCF800EB; Thu, 27 Aug 2020 12:26:20 +0200 (CEST)
+ id ACF47F8016F; Thu, 27 Aug 2020 14:25:03 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from smtp2.axis.com (smtp2.axis.com [195.60.68.18])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=0.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,PRX_BODY_30,RCVD_IN_MSPIKE_H3,RCVD_IN_MSPIKE_WL,SPF_HELO_PASS,
+ SPF_PASS,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from wout2-smtp.messagingengine.com (wout2-smtp.messagingengine.com
+ [64.147.123.25])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id E76C4F800EB
- for <alsa-devel@alsa-project.org>; Thu, 27 Aug 2020 12:26:09 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E76C4F800EB
-IronPort-SDR: HudoWtADTPEEoJAqK65ybqOR+c+C6xcdcOcoINk64ZNyoHt5C4TE5ZSI3odXYx1WQcGZZSAIb3
- eeMqutCBDCmWbnXqR7EXxm1uhj7i4arcfWTmKxZ8qYrKseJ6EMRf1PqjqA7zXkAtqx1/j/5+7H
- Eu1k2Dr4Sts4qVYLPqj7Yc2ODzCmRyRN+oKo6mIn+fLCm4A4ix5h2mzL/4IAzIqaQjUnRVBOb3
- x1WXTGdgqindTjVqGzDd5FCgg7bTejfflUSQFkRvDvWSKQUPVJvQ/oLqzUXNGSMRT5gccOYA32
- mrw=
-X-IronPort-AV: E=Sophos;i="5.76,359,1592863200"; d="scan'208";a="11919597"
-From: Pavel Dobias <dobias@2n.cz>
-To: <alsa-devel@alsa-project.org>
-Subject: [PATCH v3] ASoC: max9867: shutdown codec when changing filter type
-Date: Thu, 27 Aug 2020 12:25:28 +0200
-Message-ID: <20200827102528.29677-1-dobias@2n.cz>
-X-Mailer: git-send-email 2.20.1
+ by alsa1.perex.cz (Postfix) with ESMTPS id 6AFABF800EB
+ for <alsa-devel@alsa-project.org>; Thu, 27 Aug 2020 14:24:50 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6AFABF800EB
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=sakamocchi.jp header.i=@sakamocchi.jp
+ header.b="ljW5AwOR"; 
+ dkim=pass (2048-bit key) header.d=messagingengine.com
+ header.i=@messagingengine.com header.b="I3EaKJ2k"
+Received: from compute2.internal (compute2.nyi.internal [10.202.2.42])
+ by mailout.west.internal (Postfix) with ESMTP id ECBF8FA1;
+ Thu, 27 Aug 2020 08:24:46 -0400 (EDT)
+Received: from mailfrontend2 ([10.202.2.163])
+ by compute2.internal (MEProxy); Thu, 27 Aug 2020 08:24:47 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sakamocchi.jp;
+ h=date:from:to:cc:subject:message-id:references:mime-version
+ :content-type:in-reply-to; s=fm2; bh=9lP0AHN9/JXyQakyhzFZ76scxaY
+ lKfQHg07F1HIcjq0=; b=ljW5AwOR7mV2iksUx7d3DF6gUI3G3h0cAOOsEc025gr
+ XSsPnPZMBM2E/qecywuI7iLwdn74KOlSmZwwNp2c4ivQBBjwbh+uvyNOQZ5Icc4E
+ ZUZ50ZR+jZzeXE6ulM+eNhejG3LcpnfCSlkJZ0G04ftmY1m8NXB7AgyGruYDVKHf
+ uypXxirWm365I3eYJ2/OJ+/fISCtNwutBcpkU8NX79pHCx68Mn+Vtt+LdZ0pqEq+
+ TBkOMYEDlxipI8tfQdsIn3+8hZBPVX4TPCP4HCt6vZERSstpJ0+Zvy5BLS7hJooJ
+ /kxsZcZe0o0EsSn/EshcyoXS+8XLmMPjwTb28Ep6/og==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to:x-me-proxy
+ :x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; bh=9lP0AH
+ N9/JXyQakyhzFZ76scxaYlKfQHg07F1HIcjq0=; b=I3EaKJ2kcZ0hHyEfWCE8f9
+ 7x/aV3SCRwirUIXmZ8sF54qYID6eeGHY5IbYfMPa8MMfFiXb49SIXkwQFvKeeNvf
+ +MIyxUTiGnEv527ZZgVcVcoKHfoCrYpNjddrWPbKEMr8ntgWzP+90kTZ/CQb0n1i
+ TJtXX+Vnsb5Q6UXJxAxjPzPc4a9g6bBX6J0MdsyKGENAz1KKNIqUIWVNBfPfxRC6
+ MG12OMhGiGjjilcNd8E6DcjhP2LstA4Gq9kowbyUf1f1AnZGZsL2HtNSdC0f9Bnn
+ TtE7CCksZMoTxZpMbypwZP+SnkzEhZDu+dKTWS39+lOk+N95V3zGxVEMFTRaaR6w
+ ==
+X-ME-Sender: <xms:DaZHX6YuooCkoMAMG5aLjYOhU0yOkqrUOFh0X7Us-Io6Jy7BypSDkg>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeduiedruddvgedgheduucetufdoteggodetrfdotf
+ fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
+ uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
+ cujfgurhepfffhvffukfhfgggtuggjsehttdertddttddvnecuhfhrohhmpefvrghkrghs
+ hhhiucfurghkrghmohhtohcuoehoqdhtrghkrghshhhisehsrghkrghmohgttghhihdrjh
+ hpqeenucggtffrrghtthgvrhhnpeetveeugfevgeduueffjeehffejleekhefgtdffheeh
+ geduudetudduuedtteelfeenucffohhmrghinheptghonhhfihhguhhrvgdrrggtpdhmrg
+ hkvghfihhlvgdrrghmpdhmvghsohhnsghuihhlugdrtghomhenucfkphepudektddrvdef
+ hedrfedrheegnecuvehluhhsthgvrhfuihiivgeptdenucfrrghrrghmpehmrghilhhfrh
+ homhepohdqthgrkhgrshhhihesshgrkhgrmhhotggthhhirdhjph
+X-ME-Proxy: <xmx:DaZHX9Yc9bfY1VsH-C4fnjUfc7RMJ3yLFpDjdd-l66PaXISpn14eVw>
+ <xmx:DaZHX0_j7atytIZ8YOGpW0PlQ00slUoGROOaqxtj8LLB1TnzwC4HJQ>
+ <xmx:DaZHX8ouOkLAEVOl4GfQSFde3q5VzosmpRUruCksMWF8ONU9RiDdDQ>
+ <xmx:DqZHX0R7kP22EWAq45QcvrgIEAgm1fkM85fxGMyBh89uE4c0Tj7-hQ>
+Received: from workstation (ad003054.dynamic.ppp.asahi-net.or.jp
+ [180.235.3.54])
+ by mail.messagingengine.com (Postfix) with ESMTPA id 88A6A30600A6;
+ Thu, 27 Aug 2020 08:24:44 -0400 (EDT)
+Date: Thu, 27 Aug 2020 21:24:42 +0900
+From: Takashi Sakamoto <o-takashi@sakamocchi.jp>
+To: Takashi Iwai <tiwai@suse.de>
+Subject: Re: [PATCH 00/25] alsa-tools: efw-downloader: add initial version of
+ firmwre downloader for Echo Audio Fireworks devices
+Message-ID: <20200827122442.GA394751@workstation>
+Mail-Followup-To: Takashi Iwai <tiwai@suse.de>, perex@perex.cz,
+ alsa-devel@alsa-project.org, clemens@ladisch.de
+References: <20200821073111.134857-1-o-takashi@sakamocchi.jp>
+ <20200826093258.235615-1-o-takashi@sakamocchi.jp>
+ <s5hy2m1skwm.wl-tiwai@suse.de>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.0.5.60]
-X-ClientProxiedBy: XBOX03.axis.com (10.0.5.17) To XBOX04.axis.com (10.0.5.18)
-Cc: broonie@kernel.org, ladis@linux-mips.org, Pavel Dobias <dobias@2n.cz>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <s5hy2m1skwm.wl-tiwai@suse.de>
+Cc: alsa-devel@alsa-project.org, clemens@ladisch.de
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -68,222 +118,59 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Changing filter type without disabling codec results in filter
-malfunction. Disable codec when changing filter type.
+Hi,
 
-Signed-off-by: Pavel Dobias <dobias@2n.cz>
----
-Changes in v2:
-- don't allow change if component active
-- avoid codec shutdown in max9867_filter_set if value not changed
+On Wed, Aug 26, 2020 at 01:31:53PM +0200, Takashi Iwai wrote:
+> On Wed, 26 Aug 2020 11:32:58 +0200,
+> Takashi Sakamoto wrote:
+> > 
+> > Hi,
+> > 
+> > Would I expect any reaction by maintainers of alsa-tools repository for
+> > the patches?
+> 
+> I'm reviewing those patches now.
+ 
+Thanks for your review.
 
-Changes in v3:
-- don't allow change if ADC/DAC active, not whole component
-- ternary operator rewritten to normal condition
+> Since it's based on meson build, it'll be tricky to include this in
+> alsa-tools whether others are all autoconf.  The tarball creation is
+> done in the top directory and that assumes the execution of "make
+> alsa-dist" in each subdirectory.  Without this integration, the
+> directory won't be included in the release.
+> 
+> Could you work on it, too?
 
- sound/soc/codecs/max9867.c | 131 +++++++++++++++++++++++++++++++++----
- sound/soc/codecs/max9867.h |   4 +-
- 2 files changed, 120 insertions(+), 15 deletions(-)
+I didn't have enough care of distributing the package. Thank you for the
+indication.
 
-diff --git a/sound/soc/codecs/max9867.c b/sound/soc/codecs/max9867.c
-index fcb31144d69c..aef2746bfb94 100644
---- a/sound/soc/codecs/max9867.c
-+++ b/sound/soc/codecs/max9867.c
-@@ -15,6 +15,14 @@
- #include <sound/tlv.h>
- #include "max9867.h"
- 
-+struct max9867_priv {
-+	struct regmap *regmap;
-+	const struct snd_pcm_hw_constraint_list *constraints;
-+	unsigned int sysclk, pclk;
-+	bool master, dsp_a;
-+	unsigned int adc_dac_active;
-+};
-+
- static const char *const max9867_spmode[] = {
- 	"Stereo Diff", "Mono Diff",
- 	"Stereo Cap", "Mono Cap",
-@@ -32,8 +40,102 @@ static const char *const max9867_adc_dac_filter_text[] = {
- 	"Butterworth/8-24"
- };
- 
--static SOC_ENUM_SINGLE_DECL(max9867_filter, MAX9867_CODECFLTR, 7,
--	max9867_filter_text);
-+enum max9867_adc_dac {
-+	MAX9867_ADC_LEFT,
-+	MAX9867_ADC_RIGHT,
-+	MAX9867_DAC_LEFT,
-+	MAX9867_DAC_RIGHT,
-+};
-+
-+static int max9867_adc_dac_event(struct snd_soc_dapm_widget *w,
-+	struct snd_kcontrol *kcontrol, int event)
-+{
-+	struct snd_soc_component *component = snd_soc_dapm_to_component(w->dapm);
-+	struct max9867_priv *max9867 = snd_soc_component_get_drvdata(component);
-+	enum max9867_adc_dac adc_dac;
-+
-+	if (!strcmp(w->name, "ADCL"))
-+		adc_dac = MAX9867_ADC_LEFT;
-+	else if (!strcmp(w->name, "ADCR"))
-+		adc_dac = MAX9867_ADC_RIGHT;
-+	else if (!strcmp(w->name, "DACL"))
-+		adc_dac = MAX9867_DAC_LEFT;
-+	else if (!strcmp(w->name, "DACR"))
-+		adc_dac = MAX9867_DAC_RIGHT;
-+	else
-+		return 0;
-+
-+	if (SND_SOC_DAPM_EVENT_ON(event))
-+		max9867->adc_dac_active |= BIT(adc_dac);
-+	else if (SND_SOC_DAPM_EVENT_OFF(event))
-+		max9867->adc_dac_active &= ~BIT(adc_dac);
-+
-+	return 0;
-+}
-+
-+static int max9867_filter_get(struct snd_kcontrol *kcontrol,
-+			      struct snd_ctl_elem_value *ucontrol)
-+{
-+	struct snd_soc_component *component = snd_soc_kcontrol_component(kcontrol);
-+	struct max9867_priv *max9867 = snd_soc_component_get_drvdata(component);
-+	unsigned int reg;
-+	int ret;
-+
-+	ret = regmap_read(max9867->regmap, MAX9867_CODECFLTR, &reg);
-+	if (ret)
-+		return -EINVAL;
-+
-+	if (reg & MAX9867_CODECFLTR_MODE)
-+		ucontrol->value.enumerated.item[0] = 1;
-+	else
-+		ucontrol->value.enumerated.item[0] = 0;
-+
-+	return 0;
-+}
-+
-+static int max9867_filter_set(struct snd_kcontrol *kcontrol,
-+			      struct snd_ctl_elem_value *ucontrol)
-+{
-+	struct snd_soc_component *component = snd_soc_kcontrol_component(kcontrol);
-+	struct max9867_priv *max9867 = snd_soc_component_get_drvdata(component);
-+	unsigned int reg, mode = ucontrol->value.enumerated.item[0];
-+	int ret;
-+
-+	if (mode > 1)
-+		return -EINVAL;
-+
-+	/* don't allow change if ADC/DAC active */
-+	if (max9867->adc_dac_active)
-+		return -EBUSY;
-+
-+	/* read current filter mode */
-+	ret = regmap_read(max9867->regmap, MAX9867_CODECFLTR, &reg);
-+	if (ret)
-+		return -EINVAL;
-+
-+	if (mode)
-+		mode = MAX9867_CODECFLTR_MODE;
-+
-+	/* check if change is needed */
-+	if ((reg & MAX9867_CODECFLTR_MODE) == mode)
-+		return 0;
-+
-+	/* shutdown codec before switching filter mode */
-+	regmap_update_bits(max9867->regmap, MAX9867_PWRMAN,
-+		MAX9867_PWRMAN_SHDN, 0);
-+
-+	/* switch filter mode */
-+	regmap_update_bits(max9867->regmap, MAX9867_CODECFLTR,
-+		MAX9867_CODECFLTR_MODE, mode);
-+
-+	/* out of shutdown now */
-+	regmap_update_bits(max9867->regmap, MAX9867_PWRMAN,
-+		MAX9867_PWRMAN_SHDN, MAX9867_PWRMAN_SHDN);
-+
-+	return 0;
-+}
-+
-+static SOC_ENUM_SINGLE_EXT_DECL(max9867_filter, max9867_filter_text);
- static SOC_ENUM_SINGLE_DECL(max9867_dac_filter, MAX9867_CODECFLTR, 0,
- 	max9867_adc_dac_filter_text);
- static SOC_ENUM_SINGLE_DECL(max9867_adc_filter, MAX9867_CODECFLTR, 4,
-@@ -76,7 +178,7 @@ static const struct snd_kcontrol_new max9867_snd_controls[] = {
- 	SOC_ENUM("Speaker Mode", max9867_spkmode),
- 	SOC_SINGLE("Volume Smoothing Switch", MAX9867_MODECONFIG, 6, 1, 0),
- 	SOC_SINGLE("Line ZC Switch", MAX9867_MODECONFIG, 5, 1, 0),
--	SOC_ENUM("DSP Filter", max9867_filter),
-+	SOC_ENUM_EXT("DSP Filter", max9867_filter, max9867_filter_get, max9867_filter_set),
- 	SOC_ENUM("ADC Filter", max9867_adc_filter),
- 	SOC_ENUM("DAC Filter", max9867_dac_filter),
- 	SOC_SINGLE("Mono Playback Switch", MAX9867_IFC1B, 3, 1, 0),
-@@ -134,8 +236,12 @@ static const struct snd_soc_dapm_widget max9867_dapm_widgets[] = {
- 			 &max9867_left_dmic_mux),
- 	SND_SOC_DAPM_MUX("DMICR Mux", SND_SOC_NOPM, 0, 0,
- 			 &max9867_right_dmic_mux),
--	SND_SOC_DAPM_ADC("ADCL", "HiFi Capture", SND_SOC_NOPM, 0, 0),
--	SND_SOC_DAPM_ADC("ADCR", "HiFi Capture", SND_SOC_NOPM, 0, 0),
-+	SND_SOC_DAPM_ADC_E("ADCL", "HiFi Capture", SND_SOC_NOPM, 0, 0,
-+			   max9867_adc_dac_event,
-+			   SND_SOC_DAPM_PRE_PMU | SND_SOC_DAPM_POST_PMD),
-+	SND_SOC_DAPM_ADC_E("ADCR", "HiFi Capture", SND_SOC_NOPM, 0, 0,
-+			   max9867_adc_dac_event,
-+			   SND_SOC_DAPM_PRE_PMU | SND_SOC_DAPM_POST_PMD),
- 
- 	SND_SOC_DAPM_MIXER("Digital", SND_SOC_NOPM, 0, 0,
- 			   max9867_sidetone_mixer_controls,
-@@ -143,8 +249,12 @@ static const struct snd_soc_dapm_widget max9867_dapm_widgets[] = {
- 	SND_SOC_DAPM_MIXER_NAMED_CTL("Output Mixer", SND_SOC_NOPM, 0, 0,
- 				     max9867_output_mixer_controls,
- 				     ARRAY_SIZE(max9867_output_mixer_controls)),
--	SND_SOC_DAPM_DAC("DACL", "HiFi Playback", SND_SOC_NOPM, 0, 0),
--	SND_SOC_DAPM_DAC("DACR", "HiFi Playback", SND_SOC_NOPM, 0, 0),
-+	SND_SOC_DAPM_DAC_E("DACL", "HiFi Playback", SND_SOC_NOPM, 0, 0,
-+			   max9867_adc_dac_event,
-+			   SND_SOC_DAPM_PRE_PMU | SND_SOC_DAPM_POST_PMD),
-+	SND_SOC_DAPM_DAC_E("DACR", "HiFi Playback", SND_SOC_NOPM, 0, 0,
-+			   max9867_adc_dac_event,
-+			   SND_SOC_DAPM_PRE_PMU | SND_SOC_DAPM_POST_PMD),
- 	SND_SOC_DAPM_SWITCH("Master Playback", SND_SOC_NOPM, 0, 0,
- 			    &max9867_line_out_control),
- 	SND_SOC_DAPM_OUTPUT("LOUT"),
-@@ -197,13 +307,6 @@ static const struct snd_pcm_hw_constraint_list max9867_constraints_48k = {
- 	.count = ARRAY_SIZE(max9867_rates_48k),
- };
- 
--struct max9867_priv {
--	struct regmap *regmap;
--	const struct snd_pcm_hw_constraint_list *constraints;
--	unsigned int sysclk, pclk;
--	bool master, dsp_a;
--};
--
- static int max9867_startup(struct snd_pcm_substream *substream,
- 			   struct snd_soc_dai *dai)
- {
-diff --git a/sound/soc/codecs/max9867.h b/sound/soc/codecs/max9867.h
-index 3092c3b99075..b6b880631b13 100644
---- a/sound/soc/codecs/max9867.h
-+++ b/sound/soc/codecs/max9867.h
-@@ -44,7 +44,8 @@
- #define MAX9867_IFC1B_PCLK_4	0x05
- #define MAX9867_IFC1B_PCLK_8	0x06
- #define MAX9867_IFC1B_PCLK_16	0x07
--#define MAX9867_CODECFLTR    0x0a
-+#define MAX9867_CODECFLTR	0x0a
-+#define MAX9867_CODECFLTR_MODE	(1<<7)
- #define MAX9867_SIDETONE     0x0b
- #define MAX9867_DACLEVEL     0x0c
- #define MAX9867_ADCLEVEL     0x0d
-@@ -58,6 +59,7 @@
- #define MAX9867_MICCONFIG    0x15
- #define MAX9867_MODECONFIG   0x16
- #define MAX9867_PWRMAN       0x17
-+#define MAX9867_PWRMAN_SHDN  (1<<7)
- #define MAX9867_REVISION     0xff
- 
- #define MAX9867_CACHEREGNUM 10
--- 
-2.20.1
+Although it's possible to write configure.ac/Makefile.am for
+efw-downloader, I'd like to use meson.build for my convenience, especially
+for the convenience of gnome module[1] in meson (Nowadays software in GNOME
+project including GLib is mostly build by meson).
 
+As long as I know, the concept of release creation in GNU Autotools is
+different from the one in meson build system. GNU Autotools distributes
+scripts generated from Makefile.am/configure.ac and so. On the other
+hand, meson distributes files maintained by git or mercurial.
+
+If we have a space to make enough arrangement for alsa-tools, the
+top-level Makefile should be changed to have two variables for
+subdirectories which includes software built by GNU Autotools and the
+others, then be changed further for configure/install/alsa-dist/clean
+targets.
+
+Nevertheless, the idea to mix all of software built by several types of
+build system into one repository is not so convenient itself. I'll take
+more time to investigate further for better packaging of alsa-tools.
+(Tools like Android repo is a bit over-engineering in the case, mmm)
+
+I decline the patchset for now.
+
+
+[1] https://mesonbuild.com/Gnome-module.html
+
+
+Thanks
+
+Takashi Sakamoto

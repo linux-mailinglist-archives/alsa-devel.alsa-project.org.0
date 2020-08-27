@@ -2,50 +2,50 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E0E5A253B9A
-	for <lists+alsa-devel@lfdr.de>; Thu, 27 Aug 2020 03:52:26 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 40225253B9B
+	for <lists+alsa-devel@lfdr.de>; Thu, 27 Aug 2020 03:52:37 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C7E3E17E2;
-	Thu, 27 Aug 2020 03:51:35 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C7E3E17E2
+	by alsa0.perex.cz (Postfix) with ESMTPS id E2C6017EF;
+	Thu, 27 Aug 2020 03:51:46 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E2C6017EF
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1598493145;
-	bh=gyHd6031Usvb3qpUrvnCgIfNzYOWq3NlJnnnTbodNUE=;
+	s=default; t=1598493157;
+	bh=hElvMptDTbgAsNtz70hfPrjrgp/QjS9eQ0Ra86w2Fhs=;
 	h=Date:From:Subject:To:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=j1NQcFJ/Tnr+f3Ik67UC3N6mlQze/Ryyxj7MFv9Cep8O+v3dLJeY5pVedbmHWsh2j
-	 xMMP9o2pCtec3a+YP1sVE3ydWIXU9AUoNXfLVsA9dwVSn+hBuFxGMR0BTMZjG5JGkq
-	 fN7tyaXXSAlB4eSOdG5L31C536eWFJ0jecOnHiqo=
+	b=aXkxvWWGPmJ0kQQOBF19/jJkF2T9KJWgY/5ee6W3G+CZ8Vj7Mir39Q3KaOgVPOe8E
+	 B3wEJ3n8S5Kfb3cRriJDiXxT8G+uoj21D2gsGqbSbTSUeFyFrELp1EeQT9FutwyBff
+	 1mEzgDFlzpyS9JLLt0lRnOevLqkk4xpDTciN/bTY=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 55D0FF80260;
-	Thu, 27 Aug 2020 03:50:31 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 13A8BF802C4;
+	Thu, 27 Aug 2020 03:50:46 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 91953F8025A; Thu, 27 Aug 2020 03:50:29 +0200 (CEST)
+ id CFC01F8027B; Thu, 27 Aug 2020 03:50:42 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
  URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from relmlie6.idc.renesas.com (relmlor2.renesas.com
- [210.160.252.172])
- by alsa1.perex.cz (Postfix) with ESMTP id B4DFDF80143
- for <alsa-devel@alsa-project.org>; Thu, 27 Aug 2020 03:50:22 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B4DFDF80143
-Date: 27 Aug 2020 10:50:21 +0900
-X-IronPort-AV: E=Sophos;i="5.76,357,1592838000"; d="scan'208";a="55418679"
-Received: from unknown (HELO relmlir6.idc.renesas.com) ([10.200.68.152])
- by relmlie6.idc.renesas.com with ESMTP; 27 Aug 2020 10:50:21 +0900
+Received: from relmlie5.idc.renesas.com (relmlor1.renesas.com
+ [210.160.252.171])
+ by alsa1.perex.cz (Postfix) with ESMTP id 0479DF8025A
+ for <alsa-devel@alsa-project.org>; Thu, 27 Aug 2020 03:50:34 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0479DF8025A
+Date: 27 Aug 2020 10:50:33 +0900
+X-IronPort-AV: E=Sophos;i="5.76,357,1592838000"; d="scan'208";a="55635809"
+Received: from unknown (HELO relmlir5.idc.renesas.com) ([10.200.68.151])
+ by relmlie5.idc.renesas.com with ESMTP; 27 Aug 2020 10:50:33 +0900
 Received: from mercury.renesas.com (unknown [10.166.252.133])
- by relmlir6.idc.renesas.com (Postfix) with ESMTP id 7D5B74143014;
- Thu, 27 Aug 2020 10:50:21 +0900 (JST)
-Message-ID: <87v9h4voz5.wl-kuninori.morimoto.gx@renesas.com>
+ by relmlir5.idc.renesas.com (Postfix) with ESMTP id 84672400C0B7;
+ Thu, 27 Aug 2020 10:50:33 +0900 (JST)
+Message-ID: <87tuwovoyt.wl-kuninori.morimoto.gx@renesas.com>
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Subject: [PATCH v2 1/7] ASoC: soc-dai: add mark for
- snd_soc_dai_startup/shutdown()
+Subject: [PATCH v2 2/7] ASoC: soc-link: add mark for
+ snd_soc_link_startup/shutdown()
 User-Agent: Wanderlust/2.15.9 Emacs/26.3 Mule/6.0
 To: Mark Brown <broonie@kernel.org>
 In-Reply-To: <87wo1kvozz.wl-kuninori.morimoto.gx@renesas.com>
@@ -98,13 +98,13 @@ This kind of duplicated code can be a hotbed of bugs,
 thus, we want to share soc_pcm_close() and rollback.
 
 Now, soc_pcm_open/close() are handling
-=>	1) snd_soc_dai_startup/shutdown()
-	2) snd_soc_link_startup/shutdown()
+	1) snd_soc_dai_startup/shutdown()
+=>	2) snd_soc_link_startup/shutdown()
 	3) snd_soc_component_module_get/put()
 	4) snd_soc_component_open/close()
 	5) pm_runtime_put/get()
 
-This patch is for 1) snd_soc_dai_startup/shutdown().
+This patch is for 2) snd_soc_link_startup/shutdown().
 
 The idea of having bit-flag or counter is not enough for this purpose.
 For example if one DAI is used for 2xPlaybacks for some reasons,
@@ -125,40 +125,45 @@ This patch is using macro named "push/pop", so that it can be easily update.
 
 Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 ---
- include/sound/soc-dai.h |  5 ++++-
- sound/soc/soc-dai.c     | 21 ++++++++++++++++++++-
- sound/soc/soc-dapm.c    |  4 ++--
- sound/soc/soc-pcm.c     |  4 ++--
- 4 files changed, 28 insertions(+), 6 deletions(-)
+ include/sound/soc-link.h |  3 ++-
+ include/sound/soc.h      |  3 +++
+ sound/soc/soc-link.c     | 21 ++++++++++++++++++++-
+ sound/soc/soc-pcm.c      |  4 ++--
+ 4 files changed, 27 insertions(+), 4 deletions(-)
 
-diff --git a/include/sound/soc-dai.h b/include/sound/soc-dai.h
-index 776a60529e70..86411f503c1c 100644
---- a/include/sound/soc-dai.h
-+++ b/include/sound/soc-dai.h
-@@ -153,7 +153,7 @@ void snd_soc_dai_hw_free(struct snd_soc_dai *dai,
- int snd_soc_dai_startup(struct snd_soc_dai *dai,
- 			struct snd_pcm_substream *substream);
- void snd_soc_dai_shutdown(struct snd_soc_dai *dai,
--			  struct snd_pcm_substream *substream);
-+			  struct snd_pcm_substream *substream, int rollback);
- snd_pcm_sframes_t snd_soc_dai_delay(struct snd_soc_dai *dai,
- 				    struct snd_pcm_substream *substream);
- void snd_soc_dai_suspend(struct snd_soc_dai *dai);
-@@ -388,6 +388,9 @@ struct snd_soc_dai {
+diff --git a/include/sound/soc-link.h b/include/sound/soc-link.h
+index 337ac5666757..dac6c0ce6ede 100644
+--- a/include/sound/soc-link.h
++++ b/include/sound/soc-link.h
+@@ -14,7 +14,8 @@ int snd_soc_link_be_hw_params_fixup(struct snd_soc_pcm_runtime *rtd,
+ 				    struct snd_pcm_hw_params *params);
  
- 	struct list_head list;
+ int snd_soc_link_startup(struct snd_pcm_substream *substream);
+-void snd_soc_link_shutdown(struct snd_pcm_substream *substream);
++void snd_soc_link_shutdown(struct snd_pcm_substream *substream,
++			   int rollback);
+ int snd_soc_link_prepare(struct snd_pcm_substream *substream);
+ int snd_soc_link_hw_params(struct snd_pcm_substream *substream,
+ 			   struct snd_pcm_hw_params *params);
+diff --git a/include/sound/soc.h b/include/sound/soc.h
+index b94ebff12350..7541c71c9eb8 100644
+--- a/include/sound/soc.h
++++ b/include/sound/soc.h
+@@ -1159,6 +1159,9 @@ struct snd_soc_pcm_runtime {
+ 	unsigned int num; /* 0-based and monotonic increasing */
+ 	struct list_head list; /* rtd list of the soc card */
  
 +	/* function mark */
 +	struct snd_pcm_substream *mark_startup;
 +
  	/* bit field */
- 	unsigned int probed:1;
- };
-diff --git a/sound/soc/soc-dai.c b/sound/soc/soc-dai.c
-index 0dbd312aad08..4705c3da6280 100644
---- a/sound/soc/soc-dai.c
-+++ b/sound/soc/soc-dai.c
-@@ -32,6 +32,14 @@ static inline int _soc_dai_ret(struct snd_soc_dai *dai,
+ 	unsigned int pop_wait:1;
+ 	unsigned int fe_compr:1; /* for Dynamic PCM */
+diff --git a/sound/soc/soc-link.c b/sound/soc/soc-link.c
+index cec70b19863e..2a8881978930 100644
+--- a/sound/soc/soc-link.c
++++ b/sound/soc/soc-link.c
+@@ -30,6 +30,14 @@ static inline int _soc_link_ret(struct snd_soc_pcm_runtime *rtd,
  	return ret;
  }
  
@@ -166,84 +171,64 @@ index 0dbd312aad08..4705c3da6280 100644
 + * We might want to check substream by using list.
 + * In such case, we can update these macros.
 + */
-+#define soc_dai_mark_push(dai, substream, tgt)	((dai)->mark_##tgt = substream)
-+#define soc_dai_mark_pop(dai, substream, tgt)	((dai)->mark_##tgt = NULL)
-+#define soc_dai_mark_match(dai, substream, tgt)	((dai)->mark_##tgt == substream)
++#define soc_link_mark_push(rtd, substream, tgt)		((rtd)->mark_##tgt = substream)
++#define soc_link_mark_pop(rtd, substream, tgt)		((rtd)->mark_##tgt = NULL)
++#define soc_link_mark_match(rtd, substream, tgt)	((rtd)->mark_##tgt == substream)
 +
- /**
-  * snd_soc_dai_set_sysclk - configure DAI system or master clock.
-  * @dai: DAI
-@@ -348,15 +356,26 @@ int snd_soc_dai_startup(struct snd_soc_dai *dai,
- 	    dai->driver->ops->startup)
- 		ret = dai->driver->ops->startup(substream, dai);
+ int snd_soc_link_init(struct snd_soc_pcm_runtime *rtd)
+ {
+ 	int ret = 0;
+@@ -66,16 +74,27 @@ int snd_soc_link_startup(struct snd_pcm_substream *substream)
+ 	    rtd->dai_link->ops->startup)
+ 		ret = rtd->dai_link->ops->startup(substream);
  
 +	/* mark substream if succeeded */
 +	if (ret == 0)
-+		soc_dai_mark_push(dai, substream, startup);
++		soc_link_mark_push(rtd, substream, startup);
 +
- 	return soc_dai_ret(dai, ret);
+ 	return soc_link_ret(rtd, ret);
  }
  
- void snd_soc_dai_shutdown(struct snd_soc_dai *dai,
--			 struct snd_pcm_substream *substream)
-+			  struct snd_pcm_substream *substream,
-+			  int rollback)
+-void snd_soc_link_shutdown(struct snd_pcm_substream *substream)
++void snd_soc_link_shutdown(struct snd_pcm_substream *substream,
++			   int rollback)
  {
-+	if (rollback && !soc_dai_mark_match(dai, substream, startup))
+ 	struct snd_soc_pcm_runtime *rtd = asoc_substream_to_rtd(substream);
+ 
++	if (rollback && !soc_link_mark_match(rtd, substream, startup))
 +		return;
 +
- 	if (dai->driver->ops &&
- 	    dai->driver->ops->shutdown)
- 		dai->driver->ops->shutdown(substream, dai);
+ 	if (rtd->dai_link->ops &&
+ 	    rtd->dai_link->ops->shutdown)
+ 		rtd->dai_link->ops->shutdown(substream);
 +
 +	/* remove marked substream */
-+	soc_dai_mark_pop(dai, substream, startup);
++	soc_link_mark_pop(rtd, substream, startup);
  }
  
- snd_pcm_sframes_t snd_soc_dai_delay(struct snd_soc_dai *dai,
-diff --git a/sound/soc/soc-dapm.c b/sound/soc/soc-dapm.c
-index 3273161e2787..980f2c330b87 100644
---- a/sound/soc/soc-dapm.c
-+++ b/sound/soc/soc-dapm.c
-@@ -3968,14 +3968,14 @@ static int snd_soc_dai_link_event(struct snd_soc_dapm_widget *w,
- 		snd_soc_dapm_widget_for_each_source_path(w, path) {
- 			source = path->source->priv;
- 			snd_soc_dai_deactivate(source, substream->stream);
--			snd_soc_dai_shutdown(source, substream);
-+			snd_soc_dai_shutdown(source, substream, 0);
- 		}
- 
- 		substream->stream = SNDRV_PCM_STREAM_PLAYBACK;
- 		snd_soc_dapm_widget_for_each_sink_path(w, path) {
- 			sink = path->sink->priv;
- 			snd_soc_dai_deactivate(sink, substream->stream);
--			snd_soc_dai_shutdown(sink, substream);
-+			snd_soc_dai_shutdown(sink, substream, 0);
- 		}
- 		break;
- 
+ int snd_soc_link_prepare(struct snd_pcm_substream *substream)
 diff --git a/sound/soc/soc-pcm.c b/sound/soc/soc-pcm.c
-index 00ac1cbf6f88..d269e2865013 100644
+index d269e2865013..047241589567 100644
 --- a/sound/soc/soc-pcm.c
 +++ b/sound/soc/soc-pcm.c
-@@ -682,7 +682,7 @@ static int soc_pcm_close(struct snd_pcm_substream *substream)
- 	snd_soc_runtime_deactivate(rtd, substream->stream);
- 
+@@ -684,7 +684,7 @@ static int soc_pcm_close(struct snd_pcm_substream *substream)
  	for_each_rtd_dais(rtd, i, dai)
--		snd_soc_dai_shutdown(dai, substream);
-+		snd_soc_dai_shutdown(dai, substream, 0);
+ 		snd_soc_dai_shutdown(dai, substream, 0);
  
- 	snd_soc_link_shutdown(substream);
+-	snd_soc_link_shutdown(substream);
++	snd_soc_link_shutdown(substream, 0);
  
-@@ -813,7 +813,7 @@ static int soc_pcm_open(struct snd_pcm_substream *substream)
+ 	soc_pcm_components_close(substream);
  
- config_err:
+@@ -815,7 +815,7 @@ static int soc_pcm_open(struct snd_pcm_substream *substream)
  	for_each_rtd_dais(rtd, i, dai)
--		snd_soc_dai_shutdown(dai, substream);
-+		snd_soc_dai_shutdown(dai, substream, 1);
+ 		snd_soc_dai_shutdown(dai, substream, 1);
  
- 	snd_soc_link_shutdown(substream);
+-	snd_soc_link_shutdown(substream);
++	snd_soc_link_shutdown(substream, 1);
  rtd_startup_err:
+ 	soc_pcm_components_close(substream);
+ component_err:
 -- 
 2.25.1
 

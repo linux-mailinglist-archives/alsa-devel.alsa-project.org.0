@@ -2,47 +2,47 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 23CFD253B50
-	for <lists+alsa-devel@lfdr.de>; Thu, 27 Aug 2020 03:19:58 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B127E253B8C
+	for <lists+alsa-devel@lfdr.de>; Thu, 27 Aug 2020 03:38:48 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A482017D9;
-	Thu, 27 Aug 2020 03:19:07 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A482017D9
+	by alsa0.perex.cz (Postfix) with ESMTPS id 57636173C;
+	Thu, 27 Aug 2020 03:37:58 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 57636173C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1598491197;
-	bh=IYt5ehTs0odMOW6ADceSmRTBabKVYU2X4V+Asz/+0x0=;
+	s=default; t=1598492328;
+	bh=gtSD+kQ8cckM/2X4W2HXI8fGN5o+1zU5jbkRvJ/V3SU=;
 	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=feUUFQBWzGGl6QKyc8+X4HjOgSk72zPpD4dZz0d1Z91AeRswjiB3A5Hp4zogsardy
-	 xsuQrZ90Lrbxk5a1FqtAlvu6cp2vF3yPhh2xYYNgsXqc9+TG8/EBHJWX7IY+RAQO9h
-	 OiR8tWVNaoirl7tP/0uUofy7qELwH3tpkZZ2R+hQ=
+	b=W1mOCARNepzjnY2appi00CSXyxqUUCdt5X83Tb8Fu5ptVjAKCs0/7j+3BWtr4Gsv9
+	 YDitOjHIZy8aj5iuq81NDI605l0KTOn7wgUbI4OCs+b+R3Vf/CBhNyggAsdo1WtFvK
+	 Ul1cfvf98tm7AeLd5N5MfcMyINpPehJx841sxiE4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id BE05CF801EC;
-	Thu, 27 Aug 2020 03:18:16 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 67C5BF801EC;
+	Thu, 27 Aug 2020 03:37:07 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id A10E3F801D9; Thu, 27 Aug 2020 03:18:13 +0200 (CEST)
+ id E2671F801D9; Thu, 27 Aug 2020 03:37:04 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS
  autolearn=disabled version=3.4.0
-Received: from relmlie6.idc.renesas.com (relmlor2.renesas.com
- [210.160.252.172])
- by alsa1.perex.cz (Postfix) with ESMTP id CD6FDF800EB
- for <alsa-devel@alsa-project.org>; Thu, 27 Aug 2020 03:18:08 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CD6FDF800EB
-Date: 27 Aug 2020 10:18:04 +0900
-X-IronPort-AV: E=Sophos;i="5.76,357,1592838000"; d="scan'208";a="55415151"
-Received: from unknown (HELO relmlir5.idc.renesas.com) ([10.200.68.151])
- by relmlie6.idc.renesas.com with ESMTP; 27 Aug 2020 10:18:04 +0900
+Received: from relmlie5.idc.renesas.com (relmlor1.renesas.com
+ [210.160.252.171])
+ by alsa1.perex.cz (Postfix) with ESMTP id C2C67F80143
+ for <alsa-devel@alsa-project.org>; Thu, 27 Aug 2020 03:36:58 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C2C67F80143
+Date: 27 Aug 2020 10:36:54 +0900
+X-IronPort-AV: E=Sophos;i="5.76,357,1592838000"; d="scan'208";a="55634204"
+Received: from unknown (HELO relmlir6.idc.renesas.com) ([10.200.68.152])
+ by relmlie5.idc.renesas.com with ESMTP; 27 Aug 2020 10:36:54 +0900
 Received: from mercury.renesas.com (unknown [10.166.252.133])
- by relmlir5.idc.renesas.com (Postfix) with ESMTP id E4654400C09F;
- Thu, 27 Aug 2020 10:18:04 +0900 (JST)
-Message-ID: <871rjsx51e.wl-kuninori.morimoto.gx@renesas.com>
+ by relmlir6.idc.renesas.com (Postfix) with ESMTP id C9328413F217;
+ Thu, 27 Aug 2020 10:36:54 +0900 (JST)
+Message-ID: <87y2m0vplk.wl-kuninori.morimoto.gx@renesas.com>
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 To: Sameer Pujar <spujar@nvidia.com>
 Subject: Re: More Generic Audio Graph Sound Card idea
@@ -82,42 +82,32 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 Hi Sameer
 
-> What you are suggesting is 'audio-graph-card2' is a new restructured
-> version of 'audio-graph-card' with some additional customization
-> available for specific users. Do you think updating existing
-> 'audio-graph-card' itself, with necessary hooks, would be too
-> complicated to handle?
-
-It depends on how new driver was implemented.
-If we need to keep current card, I will keep it as-is and do nothing anymore,
-and has customize option at card2.
-If we update current card, customize option will be added to it.
-
-> From a brief overview, it may solve my issue in customizing few
-> stuff. But I am not too sure if we want to go that way, because
-> eventually we end up in writing a separate machine driver for Tegra
-> (though there can be common stuff used from the generic graph
-> card). The original idea was to use 'audio-graph-card' and people
-> facing similar issues could use "-cc-" compatible.
-
-The biggest issue on current audio-graph-card is that
-DPCM feature is limited, and because of it, the link detection
-is very tricky.
-Your "-cc-" assumes all links are DPCM, but it is more limitation.
-We want to have more flexible/generic detection.
-
-> >                  dsp {
-> >                          compatible = "audio-graph-card2-dsp";
+> >          static audio_graph_hooks hooks = {
+> >                  .parse_of_hook_pre  = xxx,
+> > =>              .parse_of_hook_post = sameer_parse_of_post,
 > 
-> Sorry I did not understand this. Do you intend to parse 'dsp'
-> separately with some version of audio graph card? In my case 'dsp' is
-> just a 'crossbar' and is registered as a component exposing all
-> routes. However I have described links in the DT in a similar way
-> where my 'crossbar' is exposing FEs and BEs like below.
+> We may end up re-parsing the whole stuff under 'hook_post' (which
+> appears redundant) because I am forcing DPCM and would like
+> func_dpcm() to execute for all links. If I could set a flag under
+> 'hooks' and if 'audio-graph-card' can use it to force DPCM, it would
+> appear to be a better choice.
 
-This compatible is used just for indicating audio-graph DSP.
-"audio-graph-card" will parse it if it was connected.
-If you confuse it, just ignore for now.
+Asking how to judge link to driver is maybe nice idea.
+
+I didn't mentioned in order not to not diverge,
+but I'm also thinking that some overwrite function itself
+as you mentioned.
+
+	if (priv->hooks->func_pre)
+		priv->hooks->func_pre(...);
+
+	if (priv->hooks->func)
+		priv->hooks->func(...);	/* driver's function */
+	else
+		graph_func(...);	/* audio-graph function */
+		
+	if (priv->hooks->func_post)
+		priv->hooks->func_post(...);
 
 
 Thank you for your help !!

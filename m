@@ -2,64 +2,53 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2450E253B8F
-	for <lists+alsa-devel@lfdr.de>; Thu, 27 Aug 2020 03:40:36 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5A695253B97
+	for <lists+alsa-devel@lfdr.de>; Thu, 27 Aug 2020 03:51:41 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B6BB417DF;
-	Thu, 27 Aug 2020 03:39:45 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B6BB417DF
+	by alsa0.perex.cz (Postfix) with ESMTPS id EC03717E4;
+	Thu, 27 Aug 2020 03:50:50 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EC03717E4
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1598492435;
-	bh=XqXMyEgQsChQ8F20E+T/ztUS80Xb8FHUw/8297QYeco=;
-	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=HhR0kQLviUrcR2fRjCM4ETSLU4FDJRTZU8aeFe4sX5LYi5Dtp/LfM8i2CAjlSnpGt
-	 /sRTpVV7qfUh7MdbWV98BtjvShGJQc++J/b1zFi7EfP8ktpN6e4Zf9r4OwUouixlCB
-	 /cJj9KQtdgcjKy1iCTcoB5H5o12ttWiq42s8SVr0=
+	s=default; t=1598493101;
+	bh=IEyzbMZWNoRy8IgHyR/CmlEhaaLfSl8Jjw/wpNAsDX0=;
+	h=Date:From:Subject:To:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=a+fE5pbAa8au8xLnjPZjaoXoCJdmJoWlIozPNHnWNMSGMug/AKJrAPh9lGyD4Lj8B
+	 CsN1vzRNI7CEygnb6ev23yy2UKB1v02RQFBgOG420Tu9entt3qgX88WZiL8QZIhlLq
+	 QF+AA1c8k2VbA2cW50VzExvDrT/hOfiYzfg7jppo=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 1B7E9F801F2;
-	Thu, 27 Aug 2020 03:38:55 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 21AF4F800EB;
+	Thu, 27 Aug 2020 03:50:00 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id B2DDBF801F2; Thu, 27 Aug 2020 03:38:47 +0200 (CEST)
+ id D2758F800EB; Thu, 27 Aug 2020 03:49:57 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=-2.6 required=5.0 tests=NICE_REPLY_A,SPF_HELO_NONE,
- SPF_PASS autolearn=disabled version=3.4.0
-Received: from cmccmta3.chinamobile.com (cmccmta3.chinamobile.com
- [221.176.66.81])
- by alsa1.perex.cz (Postfix) with ESMTP id 76AE4F800EB
- for <alsa-devel@alsa-project.org>; Thu, 27 Aug 2020 03:38:38 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 76AE4F800EB
-Received: from spf.mail.chinamobile.com (unknown[172.16.121.9]) by
- rmmx-syy-dmz-app12-12012 (RichMail) with SMTP id 2eec5f470e8b176-60d10;
- Thu, 27 Aug 2020 09:38:20 +0800 (CST)
-X-RM-TRANSID: 2eec5f470e8b176-60d10
-X-RM-TagInfo: emlType=0                                       
-X-RM-SPAM-FLAG: 00000000
-Received: from [192.168.21.77] (unknown[10.42.68.12])
- by rmsmtp-syy-appsvr05-12005 (RichMail) with SMTP id 2ee55f470e8be69-26624;
- Thu, 27 Aug 2020 09:38:20 +0800 (CST)
-X-RM-TRANSID: 2ee55f470e8be69-26624
-Subject: Re: [PATCH] ASoC: fsl_spdif: Fix unnecessary check infsl_spdif_probe()
+X-Spam-Level: **
+X-Spam-Status: No, score=3.0 required=5.0 tests=AC_FROM_MANY_DOTS,
+ SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
+Received: from relmlie6.idc.renesas.com (relmlor2.renesas.com
+ [210.160.252.172])
+ by alsa1.perex.cz (Postfix) with ESMTP id 2EE3AF800EB
+ for <alsa-devel@alsa-project.org>; Thu, 27 Aug 2020 03:49:52 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2EE3AF800EB
+Date: 27 Aug 2020 10:49:51 +0900
+X-IronPort-AV: E=Sophos;i="5.76,357,1592838000"; d="scan'208";a="55418620"
+Received: from unknown (HELO relmlir5.idc.renesas.com) ([10.200.68.151])
+ by relmlie6.idc.renesas.com with ESMTP; 27 Aug 2020 10:49:51 +0900
+Received: from mercury.renesas.com (unknown [10.166.252.133])
+ by relmlir5.idc.renesas.com (Postfix) with ESMTP id 855194009F70;
+ Thu, 27 Aug 2020 10:49:51 +0900 (JST)
+Message-ID: <87wo1kvozz.wl-kuninori.morimoto.gx@renesas.com>
+From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+Subject: [PATCH v2 0/7] ASoC: merge soc_pcm_open() rollback and soc_pcm_close()
+User-Agent: Wanderlust/2.15.9 Emacs/26.3 Mule/6.0
 To: Mark Brown <broonie@kernel.org>
-References: <20200826150918.16116-1-tangbin@cmss.chinamobile.com>
- <20200826165308.GJ4965@sirena.org.uk>
-From: Tang Bin <tangbin@cmss.chinamobile.com>
-Message-ID: <f2196e55-6458-4f55-96ac-bd18ecb461d1@cmss.chinamobile.com>
-Date: Thu, 27 Aug 2020 09:37:37 +0800
-User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:68.0) Gecko/20100101
- Thunderbird/68.6.0
-MIME-Version: 1.0
-In-Reply-To: <20200826165308.GJ4965@sirena.org.uk>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-Cc: alsa-devel@alsa-project.org, timur@kernel.org, linux-kernel@vger.kernel.org,
- tiwai@suse.com, lgirdwood@gmail.com, linuxppc-dev@lists.ozlabs.org
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+Cc: Linux-ALSA <alsa-devel@alsa-project.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -75,26 +64,60 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+
 Hi Mark
 
-在 2020/8/27 0:53, Mark Brown 写道:
-> On Wed, Aug 26, 2020 at 11:09:18PM +0800, Tang Bin wrote:
->> The function fsl_spdif_probe() is only called with an openfirmware
->> platform device. Therefore there is no need to check that the passed
->> in device is NULL.
-> Why is this an issue - the check will make things more robust if someone
-> manages to load the driver on a non-DT system and otherwise costs us a
-> couple of instructions?
-Thanks for your reply.
+This is v2 patch-set.
 
-In this function,  function fsl_spdif_probe() can be triggered only if 
-the platform_device and platform_driver matches,
+soc_pcm_open() does rollback when failed (A),
+but, it is almost same as soc_pcm_close().
 
-so I think the judgement at the beginning is redundant.
+	static int soc_pcm_open(xxx)
+	{
+		...
+		if (ret < 0)
+			goto xxx_err;
+		...
+		return 0;
 
-Thanks
+ ^	config_err:
+ |		...
+ |	rtd_startup_err:
+(A)		...
+ |	component_err:
+ |		...
+ v		return ret;
+	}
 
-Tang Bin
+This kind of duplicated code can be a hotbed of bugs,
+thus, this patch-set share soc_pcm_close() and rollback.
 
+v1 -> v2
+	- indicate more detail background/logic on git-log
 
+Link: https://lore.kernel.org/r/87wo2oku0m.wl-kuninori.morimoto.gx@renesas.com
+
+Kuninori Morimoto (7):
+  ASoC: soc-dai: add mark for snd_soc_dai_startup/shutdown()
+  ASoC: soc-link: add mark for snd_soc_link_startup/shutdown()
+  ASoC: soc-component: add mark for soc_pcm_components_open/close()
+  ASoC: soc-component: add mark for snd_soc_pcm_component_pm_runtime_get/put()
+  ASoC: soc-pcm: add soc_pcm_clean() and call it from soc_pcm_open/close()
+  ASoC: soc-pcm: remove unneeded dev_err() for snd_soc_dai_startup()
+  ASoC: soc-pcm: remove unneeded dev_err() for snd_soc_component_module/open()
+
+ include/sound/soc-component.h |  28 +++++---
+ include/sound/soc-dai.h       |   5 +-
+ include/sound/soc-link.h      |   3 +-
+ include/sound/soc.h           |   3 +
+ sound/soc/soc-component.c     |  73 ++++++++++++++++++++-
+ sound/soc/soc-compress.c      |  30 +++------
+ sound/soc/soc-dai.c           |  21 +++++-
+ sound/soc/soc-dapm.c          |   4 +-
+ sound/soc/soc-link.c          |  21 +++++-
+ sound/soc/soc-pcm.c           | 120 ++++++++++++----------------------
+ 10 files changed, 190 insertions(+), 118 deletions(-)
+
+-- 
+2.25.1
 

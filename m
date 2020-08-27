@@ -2,63 +2,58 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id BE57D253D2D
-	for <lists+alsa-devel@lfdr.de>; Thu, 27 Aug 2020 07:23:22 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4053A253E7A
+	for <lists+alsa-devel@lfdr.de>; Thu, 27 Aug 2020 09:00:51 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 68E1017CC;
-	Thu, 27 Aug 2020 07:22:32 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 68E1017CC
+	by alsa0.perex.cz (Postfix) with ESMTPS id CD5D417D9;
+	Thu, 27 Aug 2020 09:00:00 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CD5D417D9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1598505802;
-	bh=/YKZEFi5F0VKwiUokMJyOPMPcVNtv4vaP8XbgJUKHLY=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=WLzqKwX42/DBJFPsujP3jpba1raEql1AJuLXtZB0BvYO9sJHkNQYpZ/Y5Ha+xdDls
-	 9YwbbpABRYvhPwaP2YqOWm88WGFudTl7lu3lITvbz024GNPjmttLcT090LiZBl70Rl
-	 ZZgKkqfdCTbHThGfiT5NsMyFF/iq2Pi9TPqNX5ZI=
+	s=default; t=1598511650;
+	bh=u56HHwey9KpECQSbXboTtHYMokwH1EVtQoZW7h7W4kA=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=fU12JtcWDlSA9uJYeyR7ja7J1Dzgef9E95aRoPRYIbpoBqGCVQgRVaf5bd2BfMCDr
+	 pWoqTVCboGj5FmynDb9LLfSgiOMDwnPGYbQCV0xxFPIWlxL0P/2Crwg0rtY4otXAL9
+	 n7NW1v24W0VVqMFzRyh7HYoLqy5fKOWyNGUxD5XE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 87DEDF80105;
-	Thu, 27 Aug 2020 07:21:41 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id EAC02F80085;
+	Thu, 27 Aug 2020 08:59:09 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id E558DF8016F; Thu, 27 Aug 2020 07:21:38 +0200 (CEST)
+ id CC079F8016F; Thu, 27 Aug 2020 08:59:07 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mga06.intel.com (mga06.intel.com [134.134.136.31])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_MSPIKE_H3,
+ RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
+Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 2FE16F80105
- for <alsa-devel@alsa-project.org>; Thu, 27 Aug 2020 07:21:23 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2FE16F80105
-IronPort-SDR: 3qw2Iw8kmGWvt6q6/ki+wt1uGPmrkuWgPOW5vCi7hTOvZ4XEbEKKEiV9GYhUExHhKBkUZS8Upx
- NRKakjTNxTkw==
-X-IronPort-AV: E=McAfee;i="6000,8403,9725"; a="217972727"
-X-IronPort-AV: E=Sophos;i="5.76,358,1592895600"; d="scan'208";a="217972727"
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from fmsmga004.fm.intel.com ([10.253.24.48])
- by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 26 Aug 2020 22:21:19 -0700
-IronPort-SDR: iphuY5GyNlaZ+FhOB8c4v0qoUYwl+6sFdYcoxQDk7TiBsHK8o/oMEY4wiqsaoocfTQNDGijVXa
- nBJXAq4lbD6A==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.76,358,1592895600"; d="scan'208";a="323459519"
-Received: from joycetoh-desk.sc.intel.com ([172.25.206.187])
- by fmsmga004.fm.intel.com with ESMTP; 26 Aug 2020 22:21:18 -0700
-From: Harsha Priya <harshapriya.n@intel.com>
-To: alsa-devel@alsa-project.org,
-	tiwai@suse.de
-Subject: [PATCH] ALSA: Realtek: Early Forbid of runtime PM
-Date: Wed, 26 Aug 2020 22:20:43 -0700
-Message-Id: <1598505643-30347-1-git-send-email-harshapriya.n@intel.com>
-X-Mailer: git-send-email 2.7.4
-Cc: Harsha Priya <harshapriya.n@intel.com>,
- Emmanuel Jillela <emmanuel.jillela@intel.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id BB38BF80085
+ for <alsa-devel@alsa-project.org>; Thu, 27 Aug 2020 08:58:56 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BB38BF80085
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id 0E592B6BF;
+ Thu, 27 Aug 2020 06:59:26 +0000 (UTC)
+Date: Thu, 27 Aug 2020 08:58:54 +0200
+Message-ID: <s5heensr2vl.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Harsha Priya <harshapriya.n@intel.com>
+Subject: Re: [PATCH] ALSA: Realtek: Early Forbid of runtime PM
+In-Reply-To: <1598505643-30347-1-git-send-email-harshapriya.n@intel.com>
+References: <1598505643-30347-1-git-send-email-harshapriya.n@intel.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
+ FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
+ (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
+Content-Type: text/plain; charset=US-ASCII
+Cc: Emmanuel Jillela <emmanuel.jillela@intel.com>, alsa-devel@alsa-project.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -74,45 +69,44 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-For Realtek codecs, pm_runtime_forbid() is called in the probe function 
-after the build_controls(). In a stress test, occasionally the runtime
-PM calls are invoked before controls are built. This causes the codec to be
-runtime suspended before probe completes. Because of this, not all
-controls are enumerated correctly and audio does not work until
-system is rebooted.
+On Thu, 27 Aug 2020 07:20:43 +0200,
+Harsha Priya wrote:
+> 
+> For Realtek codecs, pm_runtime_forbid() is called in the probe function 
+> after the build_controls(). In a stress test, occasionally the runtime
+> PM calls are invoked before controls are built. This causes the codec to be
+> runtime suspended before probe completes. Because of this, not all
+> controls are enumerated correctly and audio does not work until
+> system is rebooted.
+> 
+> This patch calls pm_runtime_forbid() early to fix the issue.
+> Multiple stress tests of 2000+ cycles has been done to test the fix.
+> 
+> Signed-off-by: Harsha Priya <harshapriya.n@intel.com>
+> Signed-off-by: Emmanuel Jillela <emmanuel.jillela@intel.com>
+> Reviewed-by: Kailang Yang <kailang@realtek.com>
 
-This patch calls pm_runtime_forbid() early to fix the issue.
-Multiple stress tests of 2000+ cycles has been done to test the fix.
+The behavior shouldn't be specific to that model, also not to codec
+vendors, but it's rather a generic problem, so it's no right place to
+correct, I suppose.
 
-Signed-off-by: Harsha Priya <harshapriya.n@intel.com>
-Signed-off-by: Emmanuel Jillela <emmanuel.jillela@intel.com>
-Reviewed-by: Kailang Yang <kailang@realtek.com>
+Can we simply call pm_runtime_forbid() at creating a codec object like
+below?
 
----
- sound/pci/hda/patch_realtek.c | 3 +++
- 1 file changed, 3 insertions(+)
 
-diff --git a/sound/pci/hda/patch_realtek.c b/sound/pci/hda/patch_realtek.c
-index 98789691a479..30ea07fd6735 100644
---- a/sound/pci/hda/patch_realtek.c
-+++ b/sound/pci/hda/patch_realtek.c
-@@ -8418,6 +8418,7 @@ static int patch_alc269(struct hda_codec *codec)
- {
- 	struct alc_spec *spec;
- 	int err;
-+	struct device *dev = hda_codec_dev(codec);
- 
- 	err = alc_alloc_spec(codec, 0x0b);
+thanks,
+
+Takashi
+
+--- a/sound/pci/hda/hda_codec.c
++++ b/sound/pci/hda/hda_codec.c
+@@ -1000,6 +1000,9 @@ int snd_hda_codec_device_new(struct hda_bus *bus, struct snd_card *card,
  	if (err < 0)
-@@ -8430,6 +8431,8 @@ static int patch_alc269(struct hda_codec *codec)
- #ifdef CONFIG_PM
- 	codec->patch_ops.suspend = alc269_suspend;
- 	codec->patch_ops.resume = alc269_resume;
-+	pm_runtime_dont_use_autosuspend(dev);
-+	pm_runtime_forbid(dev);
- #endif
- 	spec->shutup = alc_default_shutup;
- 	spec->init_hook = alc_default_init;
--- 
-2.17.1
-
+ 		goto error;
+ 
++	/* PM runtime needs to be enabled later after binding codec */
++	pm_runtime_forbid(&codec->core.dev);
++
+ 	return 0;
+ 
+  error:

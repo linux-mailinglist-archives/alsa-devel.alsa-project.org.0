@@ -2,84 +2,57 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A0B0725432C
-	for <lists+alsa-devel@lfdr.de>; Thu, 27 Aug 2020 12:08:53 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0597B2543B1
+	for <lists+alsa-devel@lfdr.de>; Thu, 27 Aug 2020 12:28:04 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 2DED416D9;
-	Thu, 27 Aug 2020 12:08:03 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2DED416D9
+	by alsa0.perex.cz (Postfix) with ESMTPS id 7ECB117E2;
+	Thu, 27 Aug 2020 12:27:13 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7ECB117E2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1598522933;
-	bh=cijoRAOL04+FZY3/XDKUmKtO5V/Tz566Epf7vDuVZNw=;
-	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=e6pwLIqVCp2e+3UOhrDfEaBDW4fAsA+d6b92VCFz9sx2TIecsqctbExUzMpgL6hpj
-	 yf4SPar4kC4J/1uAvltJNnEIQNpO3rToBUXD9kjeL9P6KFqB1Qv3BefFtMZ5n+Rsgn
-	 RJQZjEzRC+1KpPgK8sShH2/fq0PcXInORlhvmGGE=
+	s=default; t=1598524083;
+	bh=cx6zqNRjvsegqTB02XWCCCm8A3izo+HOqOyqETXXCB4=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=qHdl6+w9o3dK/6eiMUgjQFQR8qE2c3wEi60XF689CgJ/CilH0x9+qRCYnAerfVBsV
+	 JiJ7HWlY6LOKQjhEpQGl2xxqyV22sF+N56hnDt4+jOVDiWgweHTuRaCx13gTWvwdAt
+	 Hej+ckI6icKOHfjJZYckCaM9I9BXb33snjQ6qay0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 4A6D1F80105;
-	Thu, 27 Aug 2020 12:07:12 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 91A05F801D9;
+	Thu, 27 Aug 2020 12:26:22 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id A31DAF800EB; Thu, 27 Aug 2020 12:07:10 +0200 (CEST)
+ id 6CEDCF800EB; Thu, 27 Aug 2020 12:26:20 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.2 required=5.0 tests=NICE_REPLY_A,PRX_BODY_29,
- PRX_BODY_30,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from smtp2.axis.com (smtp2.axis.com [195.60.68.18])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 4DE86F800EB
- for <alsa-devel@alsa-project.org>; Thu, 27 Aug 2020 12:07:03 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4DE86F800EB
-IronPort-SDR: Ty3BOInvHxrrntqW9mmQxCMLb55MBiG4Hlsuggi7QocgFRLV++qIKybI/yspYlJe0cmAIi70F8
- TQ9/Btj355fQ==
-X-IronPort-AV: E=McAfee;i="6000,8403,9725"; a="155711934"
-X-IronPort-AV: E=Sophos;i="5.76,359,1592895600"; d="scan'208";a="155711934"
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from orsmga003.jf.intel.com ([10.7.209.27])
- by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 27 Aug 2020 03:07:00 -0700
-IronPort-SDR: VAuOXdoV93bqrHjPfQJbx5IWDDjy+eAPmPQGUY47XBPndeGw+Ny4aZ8QJGVEHRbnfBJkPGP/h1
- uT87xuF2quzw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.76,359,1592895600"; d="scan'208";a="295675714"
-Received: from crojewsk-mobl1.ger.corp.intel.com (HELO [10.213.22.177])
- ([10.213.22.177])
- by orsmga003.jf.intel.com with ESMTP; 27 Aug 2020 03:06:56 -0700
-Subject: Re: [PATCH v4 02/13] ASoC: Intel: catpt: Define DSP operations
-To: Andy Shevchenko <andriy.shevchenko@intel.com>
-References: <20200812205753.29115-1-cezary.rojewski@intel.com>
- <20200812205753.29115-3-cezary.rojewski@intel.com>
- <20200813185129.GB1891694@smile.fi.intel.com>
- <946fdd80-c89d-ee1b-6eef-e752318b55a6@intel.com>
- <237f2343-fd57-8ebf-b8f2-8c2cf5c3c745@intel.com>
- <20200820090055.GT1891694@smile.fi.intel.com>
- <dec6d548-8376-683f-7d07-44f1cfbbf375@intel.com>
- <20200825131615.GG1891694@smile.fi.intel.com>
-From: Cezary Rojewski <cezary.rojewski@intel.com>
-Message-ID: <e5745369-732a-d70c-20be-2d8c3665e472@intel.com>
-Date: Thu, 27 Aug 2020 12:06:55 +0200
-User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:68.0) Gecko/20100101
- Thunderbird/68.11.0
+ by alsa1.perex.cz (Postfix) with ESMTPS id E76C4F800EB
+ for <alsa-devel@alsa-project.org>; Thu, 27 Aug 2020 12:26:09 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E76C4F800EB
+IronPort-SDR: HudoWtADTPEEoJAqK65ybqOR+c+C6xcdcOcoINk64ZNyoHt5C4TE5ZSI3odXYx1WQcGZZSAIb3
+ eeMqutCBDCmWbnXqR7EXxm1uhj7i4arcfWTmKxZ8qYrKseJ6EMRf1PqjqA7zXkAtqx1/j/5+7H
+ Eu1k2Dr4Sts4qVYLPqj7Yc2ODzCmRyRN+oKo6mIn+fLCm4A4ix5h2mzL/4IAzIqaQjUnRVBOb3
+ x1WXTGdgqindTjVqGzDd5FCgg7bTejfflUSQFkRvDvWSKQUPVJvQ/oLqzUXNGSMRT5gccOYA32
+ mrw=
+X-IronPort-AV: E=Sophos;i="5.76,359,1592863200"; d="scan'208";a="11919597"
+From: Pavel Dobias <dobias@2n.cz>
+To: <alsa-devel@alsa-project.org>
+Subject: [PATCH v3] ASoC: max9867: shutdown codec when changing filter type
+Date: Thu, 27 Aug 2020 12:25:28 +0200
+Message-ID: <20200827102528.29677-1-dobias@2n.cz>
+X-Mailer: git-send-email 2.20.1
 MIME-Version: 1.0
-In-Reply-To: <20200825131615.GG1891694@smile.fi.intel.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
-Cc: pierre-louis.bossart@linux.intel.com, alsa-devel@alsa-project.org,
- filip.kaczmarski@intel.com, harshapriya.n@intel.com, marcin.barlik@intel.com,
- zwisler@google.com, lgirdwood@gmail.com, tiwai@suse.com,
- filip.proborszcz@intel.com, broonie@kernel.org,
- amadeuszx.slawinski@linux.intel.com, michal.wasko@intel.com,
- cujomalainey@chromium.org, krzysztof.hejmowski@intel.com,
- ppapierkowski@habana.ai, vamshi.krishna.gopal@intel.com
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.0.5.60]
+X-ClientProxiedBy: XBOX03.axis.com (10.0.5.17) To XBOX04.axis.com (10.0.5.18)
+Cc: broonie@kernel.org, ladis@linux-mips.org, Pavel Dobias <dobias@2n.cz>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -95,87 +68,222 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 2020-08-25 3:16 PM, Andy Shevchenko wrote:
-> On Mon, Aug 24, 2020 at 06:33:17PM +0200, Cezary Rojewski wrote:
->> On 2020-08-20 11:00 AM, Andy Shevchenko wrote:
+Changing filter type without disabling codec results in filter
+malfunction. Disable codec when changing filter type.
 
-...
+Signed-off-by: Pavel Dobias <dobias@2n.cz>
+---
+Changes in v2:
+- don't allow change if component active
+- avoid codec shutdown in max9867_filter_set if value not changed
 
->> Another question though: PCI_PM_CTRL. In order for me to make use of this,
->> "pm_cap" member would have to be declared for my device. As this is no
->> struct pci_dev, catpt has currently no separate member for that purpose. I
->> don't believe you want me to add that field into struct's declaration.
->> Second option is to define constant for pm_cap offset aka 0x80 within
->> registers.h and then do the operations as follows:
->> 	catpt_updatel_pci(cdev, CATPT_PM_CAP + PCI_PM_CTRL, ...)
-> 
->> However, in such case I won't be able to make use of current version of
->> _updatel_pci() as definition of that macro allows me to skip prefix and type
->> implicitly - PMCS (the rest is appended automatically).
->> Maybe let's leave it within registers.h altogether so I can actually keep
->> using said macro?
-> 
-> Basically what you do with accessing PCI configuration space via these methods
-> (catpt_update_pci(), etc) is something repetitive / similar to what xHCI DbC
-> support code does. I recommend to spend some time to look for similarities here
-> (catpt) and there (PCI core, xHCI DbC, etc) and, if we were lucky, derive
-> common helpers for traverse the capability list in more generalized way.
-> 
+Changes in v3:
+- don't allow change if ADC/DAC active, not whole component
+- ternary operator rewritten to normal condition
 
-I wouldn't call direct-access a repetitive procedure, i.e. had procedure 
-for enumerating PCI capabilities list been implemented individually by 
-every PCI device type, then one can describe that as repetitiveness. 
-Here, we are dealing with no procedure at all, just a writel & readl.
+ sound/soc/codecs/max9867.c | 131 +++++++++++++++++++++++++++++++++----
+ sound/soc/codecs/max9867.h |   4 +-
+ 2 files changed, 120 insertions(+), 15 deletions(-)
 
-About xHCI, I believe you meant: xhci_find_next_ext_cap()
-	https://elixir.bootlin.com/linux/latest/source/drivers/usb/host/xhci-ext-caps.h#L97
+diff --git a/sound/soc/codecs/max9867.c b/sound/soc/codecs/max9867.c
+index fcb31144d69c..aef2746bfb94 100644
+--- a/sound/soc/codecs/max9867.c
++++ b/sound/soc/codecs/max9867.c
+@@ -15,6 +15,14 @@
+ #include <sound/tlv.h>
+ #include "max9867.h"
+ 
++struct max9867_priv {
++	struct regmap *regmap;
++	const struct snd_pcm_hw_constraint_list *constraints;
++	unsigned int sysclk, pclk;
++	bool master, dsp_a;
++	unsigned int adc_dac_active;
++};
++
+ static const char *const max9867_spmode[] = {
+ 	"Stereo Diff", "Mono Diff",
+ 	"Stereo Cap", "Mono Cap",
+@@ -32,8 +40,102 @@ static const char *const max9867_adc_dac_filter_text[] = {
+ 	"Butterworth/8-24"
+ };
+ 
+-static SOC_ENUM_SINGLE_DECL(max9867_filter, MAX9867_CODECFLTR, 7,
+-	max9867_filter_text);
++enum max9867_adc_dac {
++	MAX9867_ADC_LEFT,
++	MAX9867_ADC_RIGHT,
++	MAX9867_DAC_LEFT,
++	MAX9867_DAC_RIGHT,
++};
++
++static int max9867_adc_dac_event(struct snd_soc_dapm_widget *w,
++	struct snd_kcontrol *kcontrol, int event)
++{
++	struct snd_soc_component *component = snd_soc_dapm_to_component(w->dapm);
++	struct max9867_priv *max9867 = snd_soc_component_get_drvdata(component);
++	enum max9867_adc_dac adc_dac;
++
++	if (!strcmp(w->name, "ADCL"))
++		adc_dac = MAX9867_ADC_LEFT;
++	else if (!strcmp(w->name, "ADCR"))
++		adc_dac = MAX9867_ADC_RIGHT;
++	else if (!strcmp(w->name, "DACL"))
++		adc_dac = MAX9867_DAC_LEFT;
++	else if (!strcmp(w->name, "DACR"))
++		adc_dac = MAX9867_DAC_RIGHT;
++	else
++		return 0;
++
++	if (SND_SOC_DAPM_EVENT_ON(event))
++		max9867->adc_dac_active |= BIT(adc_dac);
++	else if (SND_SOC_DAPM_EVENT_OFF(event))
++		max9867->adc_dac_active &= ~BIT(adc_dac);
++
++	return 0;
++}
++
++static int max9867_filter_get(struct snd_kcontrol *kcontrol,
++			      struct snd_ctl_elem_value *ucontrol)
++{
++	struct snd_soc_component *component = snd_soc_kcontrol_component(kcontrol);
++	struct max9867_priv *max9867 = snd_soc_component_get_drvdata(component);
++	unsigned int reg;
++	int ret;
++
++	ret = regmap_read(max9867->regmap, MAX9867_CODECFLTR, &reg);
++	if (ret)
++		return -EINVAL;
++
++	if (reg & MAX9867_CODECFLTR_MODE)
++		ucontrol->value.enumerated.item[0] = 1;
++	else
++		ucontrol->value.enumerated.item[0] = 0;
++
++	return 0;
++}
++
++static int max9867_filter_set(struct snd_kcontrol *kcontrol,
++			      struct snd_ctl_elem_value *ucontrol)
++{
++	struct snd_soc_component *component = snd_soc_kcontrol_component(kcontrol);
++	struct max9867_priv *max9867 = snd_soc_component_get_drvdata(component);
++	unsigned int reg, mode = ucontrol->value.enumerated.item[0];
++	int ret;
++
++	if (mode > 1)
++		return -EINVAL;
++
++	/* don't allow change if ADC/DAC active */
++	if (max9867->adc_dac_active)
++		return -EBUSY;
++
++	/* read current filter mode */
++	ret = regmap_read(max9867->regmap, MAX9867_CODECFLTR, &reg);
++	if (ret)
++		return -EINVAL;
++
++	if (mode)
++		mode = MAX9867_CODECFLTR_MODE;
++
++	/* check if change is needed */
++	if ((reg & MAX9867_CODECFLTR_MODE) == mode)
++		return 0;
++
++	/* shutdown codec before switching filter mode */
++	regmap_update_bits(max9867->regmap, MAX9867_PWRMAN,
++		MAX9867_PWRMAN_SHDN, 0);
++
++	/* switch filter mode */
++	regmap_update_bits(max9867->regmap, MAX9867_CODECFLTR,
++		MAX9867_CODECFLTR_MODE, mode);
++
++	/* out of shutdown now */
++	regmap_update_bits(max9867->regmap, MAX9867_PWRMAN,
++		MAX9867_PWRMAN_SHDN, MAX9867_PWRMAN_SHDN);
++
++	return 0;
++}
++
++static SOC_ENUM_SINGLE_EXT_DECL(max9867_filter, max9867_filter_text);
+ static SOC_ENUM_SINGLE_DECL(max9867_dac_filter, MAX9867_CODECFLTR, 0,
+ 	max9867_adc_dac_filter_text);
+ static SOC_ENUM_SINGLE_DECL(max9867_adc_filter, MAX9867_CODECFLTR, 4,
+@@ -76,7 +178,7 @@ static const struct snd_kcontrol_new max9867_snd_controls[] = {
+ 	SOC_ENUM("Speaker Mode", max9867_spkmode),
+ 	SOC_SINGLE("Volume Smoothing Switch", MAX9867_MODECONFIG, 6, 1, 0),
+ 	SOC_SINGLE("Line ZC Switch", MAX9867_MODECONFIG, 5, 1, 0),
+-	SOC_ENUM("DSP Filter", max9867_filter),
++	SOC_ENUM_EXT("DSP Filter", max9867_filter, max9867_filter_get, max9867_filter_set),
+ 	SOC_ENUM("ADC Filter", max9867_adc_filter),
+ 	SOC_ENUM("DAC Filter", max9867_dac_filter),
+ 	SOC_SINGLE("Mono Playback Switch", MAX9867_IFC1B, 3, 1, 0),
+@@ -134,8 +236,12 @@ static const struct snd_soc_dapm_widget max9867_dapm_widgets[] = {
+ 			 &max9867_left_dmic_mux),
+ 	SND_SOC_DAPM_MUX("DMICR Mux", SND_SOC_NOPM, 0, 0,
+ 			 &max9867_right_dmic_mux),
+-	SND_SOC_DAPM_ADC("ADCL", "HiFi Capture", SND_SOC_NOPM, 0, 0),
+-	SND_SOC_DAPM_ADC("ADCR", "HiFi Capture", SND_SOC_NOPM, 0, 0),
++	SND_SOC_DAPM_ADC_E("ADCL", "HiFi Capture", SND_SOC_NOPM, 0, 0,
++			   max9867_adc_dac_event,
++			   SND_SOC_DAPM_PRE_PMU | SND_SOC_DAPM_POST_PMD),
++	SND_SOC_DAPM_ADC_E("ADCR", "HiFi Capture", SND_SOC_NOPM, 0, 0,
++			   max9867_adc_dac_event,
++			   SND_SOC_DAPM_PRE_PMU | SND_SOC_DAPM_POST_PMD),
+ 
+ 	SND_SOC_DAPM_MIXER("Digital", SND_SOC_NOPM, 0, 0,
+ 			   max9867_sidetone_mixer_controls,
+@@ -143,8 +249,12 @@ static const struct snd_soc_dapm_widget max9867_dapm_widgets[] = {
+ 	SND_SOC_DAPM_MIXER_NAMED_CTL("Output Mixer", SND_SOC_NOPM, 0, 0,
+ 				     max9867_output_mixer_controls,
+ 				     ARRAY_SIZE(max9867_output_mixer_controls)),
+-	SND_SOC_DAPM_DAC("DACL", "HiFi Playback", SND_SOC_NOPM, 0, 0),
+-	SND_SOC_DAPM_DAC("DACR", "HiFi Playback", SND_SOC_NOPM, 0, 0),
++	SND_SOC_DAPM_DAC_E("DACL", "HiFi Playback", SND_SOC_NOPM, 0, 0,
++			   max9867_adc_dac_event,
++			   SND_SOC_DAPM_PRE_PMU | SND_SOC_DAPM_POST_PMD),
++	SND_SOC_DAPM_DAC_E("DACR", "HiFi Playback", SND_SOC_NOPM, 0, 0,
++			   max9867_adc_dac_event,
++			   SND_SOC_DAPM_PRE_PMU | SND_SOC_DAPM_POST_PMD),
+ 	SND_SOC_DAPM_SWITCH("Master Playback", SND_SOC_NOPM, 0, 0,
+ 			    &max9867_line_out_control),
+ 	SND_SOC_DAPM_OUTPUT("LOUT"),
+@@ -197,13 +307,6 @@ static const struct snd_pcm_hw_constraint_list max9867_constraints_48k = {
+ 	.count = ARRAY_SIZE(max9867_rates_48k),
+ };
+ 
+-struct max9867_priv {
+-	struct regmap *regmap;
+-	const struct snd_pcm_hw_constraint_list *constraints;
+-	unsigned int sysclk, pclk;
+-	bool master, dsp_a;
+-};
+-
+ static int max9867_startup(struct snd_pcm_substream *substream,
+ 			   struct snd_soc_dai *dai)
+ {
+diff --git a/sound/soc/codecs/max9867.h b/sound/soc/codecs/max9867.h
+index 3092c3b99075..b6b880631b13 100644
+--- a/sound/soc/codecs/max9867.h
++++ b/sound/soc/codecs/max9867.h
+@@ -44,7 +44,8 @@
+ #define MAX9867_IFC1B_PCLK_4	0x05
+ #define MAX9867_IFC1B_PCLK_8	0x06
+ #define MAX9867_IFC1B_PCLK_16	0x07
+-#define MAX9867_CODECFLTR    0x0a
++#define MAX9867_CODECFLTR	0x0a
++#define MAX9867_CODECFLTR_MODE	(1<<7)
+ #define MAX9867_SIDETONE     0x0b
+ #define MAX9867_DACLEVEL     0x0c
+ #define MAX9867_ADCLEVEL     0x0d
+@@ -58,6 +59,7 @@
+ #define MAX9867_MICCONFIG    0x15
+ #define MAX9867_MODECONFIG   0x16
+ #define MAX9867_PWRMAN       0x17
++#define MAX9867_PWRMAN_SHDN  (1<<7)
+ #define MAX9867_REVISION     0xff
+ 
+ #define MAX9867_CACHEREGNUM 10
+-- 
+2.20.1
 
-in case of PCI that's: pci_find_next_capability(), __pci_find_next_cap() 
-and friends. pci_find_next_capability() is pci_dev dependent while most 
-of the rest pci_bus instead. We fail both dependencies in catpt case.
-
-xhci_find_next_ext_cap search method seems xHCI-specific, notice the 
-0x10 offset for HCCPARAMS1 and then the left-shift-by-2. PCI doesn't do 
-that when enumerating capabilities, instead it checks Capabilities 
-List-bit within Status reg and then begins iterating given the start pos 
-- Capability Pointer, usually 0x34. Abstracting these (if even possible) 
-would end up with 80% code gluing two different worlds with 20% left 
-doing the actual job. Fact that those two are separated increases code 
-readability.
-
-While catpt is of platform_device type located on acpi bus, beneath 
-there's a (incomplete?) description of PCI device.
-
-PCI config
-catpt_acpi_probe00000000: 9cb68086 00100006 04010003 00000000
-catpt_acpi_probe00000010: fe000000 fe100000 00000000 00000000
-catpt_acpi_probe00000020: 00000000 00000000 00000000 00000000
-catpt_acpi_probe00000030: 00000000 00000080 00000000 00000100
-
-PCI base + 0x80
-catpt_acpi_probe00000000: 40030001 0000000b 00000000 00000000
-catpt_acpi_probe00000010: 00000000 00000000 00000000 00000000
-catpt_acpi_probe00000020: fffffffd 00000000 80000fff 00000000
-catpt_acpi_probe00000030: 00000000 00000000 00000000 00000000
-
-Capabilities List-bit is set, start pos from Capabilitiy Pointer equals 
-0x80. What we have here is singular list of capabilities - PM as the 
-only element. Following is the important DWORD (_PM_CTRL) - 0xb tells us 
-that device is currently in D3hot. For LPT/WPT ADSP basically all other 
-PM bits are hardwired to 0 or not supported.
-
-So, quite frankly, had the BIOS offered correct ADSP device description, 
-we wouldn't be dealing with ACPI device/ACPI bus at all. This has been 
-corrected from SKL+ ADSP onward. To answer the immediate question: no, 
-device of id 0x9cb6 won't be present within /sys/bus/pci/devices/ (cat 
-'./device' for id for every entry). Even converted catpt driver from 
-acpi to pci just to make sure.
-
-I don't mind adding new constant within register.h for transparency:
-	#define CATPT_PCI_PMCAPID 0x80
-	#define CATPT_PCI_PMCS (CATPT_PCI_PMCAPID + PCI_PM_CTRL)
-
-Current status for PM catpt_updatel_pci:
-	catpt_updatel_pci(cdev, PMCS, PCI_PM_CTRL_STATE_MASK, PCI_D3hot)
-	catpt_updatel_pci(cdev, PMCS, PCI_PM_CTRL_STATE_MASK, PCI_D0)
-which looks very good to me.

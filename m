@@ -2,63 +2,71 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 98687254B70
-	for <lists+alsa-devel@lfdr.de>; Thu, 27 Aug 2020 19:03:01 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3A518254B73
+	for <lists+alsa-devel@lfdr.de>; Thu, 27 Aug 2020 19:03:28 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 46C8217BA;
-	Thu, 27 Aug 2020 19:02:11 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 46C8217BA
+	by alsa0.perex.cz (Postfix) with ESMTPS id E1FE6183A;
+	Thu, 27 Aug 2020 19:02:37 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E1FE6183A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1598547781;
-	bh=NJXJs8mG124E/Dq7JG57w/b5om6P73IX0kaUZtkEQ8k=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=Aw9jNEr9U5iWcptyQfB1etYuIy0JTwd0lDs7ZOlwEK33ShRooWMA67m+n8fPlP6Ys
-	 MHlKZhvs7FxKmiTGD6P3iLArFiEQNg0skj9e8WIme9uiT0uCazc4yqaogJfja33HWB
-	 FafhW0ddAxt1H8N4TUx/L/slLPdWqvFay8IwfDyY=
+	s=default; t=1598547808;
+	bh=ETXqdM9VJYmsFXZ75H4iFkwwFq0Y/W6Fn6itSsGCeBw=;
+	h=Date:Subject:From:To:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=nlu8YXWazfhNQUZkwsCj2AGXVawZ4nSBw6USzvDukdTCh4npywuGwbOEGito40uRh
+	 a/U1YvcmiEYznvdAO/CH72DcCviZjnO2Cep7qFbcoSyiA6yalYsHYIRpqm6TcA02Jt
+	 5XTPnCviw3Wgkn+F35EVXTYfGY8Bi7ggHQ2BaXhI=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id CF09AF80361;
-	Thu, 27 Aug 2020 18:51:19 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id CB725F80362;
+	Thu, 27 Aug 2020 18:51:20 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 712F1F8016F; Thu, 27 Aug 2020 18:20:51 +0200 (CEST)
+ id 07358F8016F; Thu, 27 Aug 2020 18:34:29 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=0.3 required=5.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
- SPF_HELO_NONE, SPF_PASS,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from nautica.notk.org (nautica.notk.org [91.121.71.147])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+X-Spam-Level: ***
+X-Spam-Status: No, score=3.1 required=5.0 tests=FROM_LOCAL_HEX,
+ HEADER_FROM_DIFFERENT_DOMAINS,RCVD_IN_MSPIKE_H2,SORTED_RECIPS,SPF_HELO_NONE,
+ SPF_PASS,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mail-io1-f72.google.com (mail-io1-f72.google.com
+ [209.85.166.72])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id F14E3F80105
- for <alsa-devel@alsa-project.org>; Thu, 27 Aug 2020 18:20:40 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz F14E3F80105
-Received: by nautica.notk.org (Postfix, from userid 1001)
- id CB8B4C01B; Thu, 27 Aug 2020 18:20:38 +0200 (CEST)
-Date: Thu, 27 Aug 2020 18:20:23 +0200
-From: Dominique Martinet <asmadeus@codewreck.org>
-To: Mark Brown <broonie@kernel.org>
-Subject: Re: INFO: task can't die in p9_fd_close
-Message-ID: <20200827162023.GD31016@nautica>
-References: <000000000000ca0c6805adc56a38@google.com>
- <20200826104919.GE4965@sirena.org.uk>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 1AFE8F80085
+ for <alsa-devel@alsa-project.org>; Thu, 27 Aug 2020 18:34:17 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1AFE8F80085
+Received: by mail-io1-f72.google.com with SMTP id x12so4186777iow.7
+ for <alsa-devel@alsa-project.org>; Thu, 27 Aug 2020 09:34:17 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:date:message-id:subject:from:to;
+ bh=CeejWM1wsnx+eYnik6gMIrJziDJ/HbH2NxxTTf+OlEo=;
+ b=Cka42pB6tPjLcXe9CYxyFnStuba2cjwa67lxcGU3RxeXmziVPLjFYvafOvBEL0YPFo
+ EP8RXAFtv2KW9S/MvPObtBGGKb51gxebrTmjJfQEmdAeDP9JowSJFIyIrzqYv5zBGysy
+ rBU3uAXRPoTAtTZzTKhwqSREa2/0qDihKsyBocnKlhgEvrJhI6rTNodf9h4ct+ENtWzT
+ qFgv37GKOBZBQ9Rwx661bKnzVFJRR0W4sHUegvo1za1LLqI3MIb2jt0KmsaZnsZiHCJa
+ pbOnJd0JwKFFl2QD1KQuEzA/i2k1WGafV5BCjNAtUzZYjNGyqD/qYXLPd2hs0E823uVC
+ wyKA==
+X-Gm-Message-State: AOAM532AyAALYVfyMTu/dFD9Sy++lUVEoDpxmUP0EvHg+iLNc/bjnBjG
+ yOhEGrLadpqF0iPVYRs+KZE2px68nLCug7wuiB7Vahu60LC/
+X-Google-Smtp-Source: ABdhPJwHkrto7t0X1WgI6fFrkVMbX4Uvg4rR0wAtL+dlrFnlUcoF9NqNwCZped76HCsV5Uryb/Pn3h1YMIx/Dt1YLvEIpkdKkk/J
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20200826104919.GE4965@sirena.org.uk>
-User-Agent: Mutt/1.5.21 (2010-09-15)
+X-Received: by 2002:a92:da07:: with SMTP id z7mr11323378ilm.196.1598546055601; 
+ Thu, 27 Aug 2020 09:34:15 -0700 (PDT)
+Date: Thu, 27 Aug 2020 09:34:15 -0700
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <000000000000cd24b305adde81ff@google.com>
+Subject: KASAN: use-after-free Read in snd_pcm_oss_release
+From: syzbot <syzbot+12a3fcd1493ec6585007@syzkaller.appspotmail.com>
+To: akpm@linux-foundation.org, alsa-devel@alsa-project.org, arnd@arndb.de, 
+ gustavoars@kernel.org, linux-kernel@vger.kernel.org, perex@perex.cz, 
+ syzkaller-bugs@googlegroups.com, tiwai@suse.com, vbabka@suse.cz, 
+ walken@google.com
+Content-Type: text/plain; charset="UTF-8"
 X-Mailman-Approved-At: Thu, 27 Aug 2020 18:50:46 +0200
-Cc: lucho@ionkov.net, alsa-devel@alsa-project.org,
- syzbot <syzbot+fbe34b643e462f65e542@syzkaller.appspotmail.com>,
- ericvh@gmail.com, netdev@vger.kernel.org, tiwai@suse.com,
- syzkaller-bugs@googlegroups.com, lgirdwood@gmail.com,
- linux-kernel@vger.kernel.org, v9fs-developer@lists.sourceforge.net,
- rminnich@sandia.gov, kuba@kernel.org, daniel.baluta@nxp.com,
- davem@davemloft.net
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -74,33 +82,122 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Mark Brown wrote on Wed, Aug 26, 2020:
-> On Wed, Aug 26, 2020 at 03:38:15AM -0700, syzbot wrote:
-> 
-> > console output: https://syzkaller.appspot.com/x/log.txt?x=10615b36900000
-> > kernel config:  https://syzkaller.appspot.com/x/.config?x=a61d44f28687f508
-> > dashboard link: https://syzkaller.appspot.com/bug?extid=fbe34b643e462f65e542
-> > compiler:       gcc (GCC) 10.1.0-syz 20200507
-> > syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=15920a05900000
-> > C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=13a78539900000
-> > 
-> > The issue was bisected to:
-> > 
-> > commit af3acca3e35c01920fe476f730dca7345d0a48df
-> > Author: Daniel Baluta <daniel.baluta@nxp.com>
-> > Date:   Tue Feb 20 12:53:10 2018 +0000
-> > 
-> >     ASoC: ak5558: Fix style for SPDX identifier
-> 
-> This bisection is clearly not accurate, I'm guessing the bug is
-> intermittent and it was just luck that landed it on this commit.
+Hello,
 
-It's a bug that's been present since day 1 pretty much.
+syzbot found the following issue on:
 
-I have a fix that had been overcooking for a while which I had planned
-to take in this cycle -- I'll submit to -next during next week, so
-hopefully syzbot will be able to spend its time more usefully after
-that.
+HEAD commit:    f37be724 Add linux-next specific files for 20200826
+git tree:       linux-next
+console output: https://syzkaller.appspot.com/x/log.txt?x=137c7cb9900000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=1e5a1cf036089d95
+dashboard link: https://syzkaller.appspot.com/bug?extid=12a3fcd1493ec6585007
+compiler:       gcc (GCC) 10.1.0-syz 20200507
 
--- 
-Dominique
+Unfortunately, I don't have any reproducer for this issue yet.
+
+IMPORTANT: if you fix the issue, please add the following tag to the commit:
+Reported-by: syzbot+12a3fcd1493ec6585007@syzkaller.appspotmail.com
+
+==================================================================
+BUG: KASAN: use-after-free in snd_pcm_oss_release_file sound/core/oss/pcm_oss.c:2367 [inline]
+BUG: KASAN: use-after-free in snd_pcm_oss_release_file sound/core/oss/pcm_oss.c:2361 [inline]
+BUG: KASAN: use-after-free in snd_pcm_oss_release+0x28d/0x300 sound/core/oss/pcm_oss.c:2548
+Read of size 8 at addr ffff888026b66480 by task syz-executor.1/27751
+
+CPU: 1 PID: 27751 Comm: syz-executor.1 Not tainted 5.9.0-rc2-next-20200826-syzkaller #0
+Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 01/01/2011
+Call Trace:
+ __dump_stack lib/dump_stack.c:77 [inline]
+ dump_stack+0x18f/0x20d lib/dump_stack.c:118
+ print_address_description.constprop.0.cold+0xae/0x497 mm/kasan/report.c:383
+ __kasan_report mm/kasan/report.c:513 [inline]
+ kasan_report.cold+0x1f/0x37 mm/kasan/report.c:530
+ snd_pcm_oss_release_file sound/core/oss/pcm_oss.c:2367 [inline]
+ snd_pcm_oss_release_file sound/core/oss/pcm_oss.c:2361 [inline]
+ snd_pcm_oss_release+0x28d/0x300 sound/core/oss/pcm_oss.c:2548
+ __fput+0x285/0x920 fs/file_table.c:281
+ task_work_run+0xdd/0x190 kernel/task_work.c:141
+ tracehook_notify_resume include/linux/tracehook.h:188 [inline]
+ exit_to_user_mode_loop kernel/entry/common.c:140 [inline]
+ exit_to_user_mode_prepare+0x195/0x1c0 kernel/entry/common.c:167
+ syscall_exit_to_user_mode+0x59/0x2b0 kernel/entry/common.c:242
+ entry_SYSCALL_64_after_hwframe+0x44/0xa9
+RIP: 0033:0x416f01
+Code: 75 14 b8 03 00 00 00 0f 05 48 3d 01 f0 ff ff 0f 83 04 1b 00 00 c3 48 83 ec 08 e8 0a fc ff ff 48 89 04 24 b8 03 00 00 00 0f 05 <48> 8b 3c 24 48 89 c2 e8 53 fc ff ff 48 89 d0 48 83 c4 08 48 3d 01
+RSP: 002b:00007ffdd39a5e70 EFLAGS: 00000293 ORIG_RAX: 0000000000000003
+RAX: 0000000000000000 RBX: 0000000000000004 RCX: 0000000000416f01
+RDX: 0000000000000001 RSI: 0000000001190428 RDI: 0000000000000003
+RBP: 0000000000000000 R08: 0000000000000000 R09: 0000000000000000
+R10: 00007ffdd39a5f60 R11: 0000000000000293 R12: 0000000001190428
+R13: 0000000000268c54 R14: ffffffffffffffff R15: 000000000118cfec
+
+Allocated by task 27754:
+ kasan_save_stack+0x1b/0x40 mm/kasan/common.c:48
+ kasan_set_track mm/kasan/common.c:56 [inline]
+ __kasan_kmalloc.constprop.0+0xbf/0xd0 mm/kasan/common.c:461
+ kmem_cache_alloc_trace+0x16e/0x2c0 mm/slab.c:3550
+ kmalloc include/linux/slab.h:554 [inline]
+ kzalloc include/linux/slab.h:666 [inline]
+ snd_pcm_oss_open_file sound/core/oss/pcm_oss.c:2389 [inline]
+ snd_pcm_oss_open.part.0+0x55e/0x1290 sound/core/oss/pcm_oss.c:2491
+ snd_pcm_oss_open+0x3c/0x50 sound/core/oss/pcm_oss.c:2455
+ soundcore_open+0x445/0x600 sound/sound_core.c:593
+ chrdev_open+0x266/0x770 fs/char_dev.c:414
+ do_dentry_open+0x4b9/0x11b0 fs/open.c:817
+ do_open fs/namei.c:3251 [inline]
+ path_openat+0x1b9a/0x2730 fs/namei.c:3368
+ do_filp_open+0x17e/0x3c0 fs/namei.c:3395
+ do_sys_openat2+0x16d/0x420 fs/open.c:1168
+ do_sys_open fs/open.c:1184 [inline]
+ __do_sys_openat fs/open.c:1200 [inline]
+ __se_sys_openat fs/open.c:1195 [inline]
+ __x64_sys_openat+0x13f/0x1f0 fs/open.c:1195
+ do_syscall_64+0x2d/0x70 arch/x86/entry/common.c:46
+ entry_SYSCALL_64_after_hwframe+0x44/0xa9
+
+Freed by task 27754:
+ kasan_save_stack+0x1b/0x40 mm/kasan/common.c:48
+ kasan_set_track+0x1c/0x30 mm/kasan/common.c:56
+ kasan_set_free_info+0x1b/0x30 mm/kasan/generic.c:355
+ __kasan_slab_free+0xd8/0x120 mm/kasan/common.c:422
+ __cache_free mm/slab.c:3418 [inline]
+ kfree+0x103/0x2c0 mm/slab.c:3756
+ snd_pcm_oss_release_file sound/core/oss/pcm_oss.c:2371 [inline]
+ snd_pcm_oss_release_file sound/core/oss/pcm_oss.c:2361 [inline]
+ snd_pcm_oss_release+0x17e/0x300 sound/core/oss/pcm_oss.c:2548
+ __fput+0x285/0x920 fs/file_table.c:281
+ task_work_run+0xdd/0x190 kernel/task_work.c:141
+ tracehook_notify_resume include/linux/tracehook.h:188 [inline]
+ exit_to_user_mode_loop kernel/entry/common.c:140 [inline]
+ exit_to_user_mode_prepare+0x195/0x1c0 kernel/entry/common.c:167
+ syscall_exit_to_user_mode+0x59/0x2b0 kernel/entry/common.c:242
+ entry_SYSCALL_64_after_hwframe+0x44/0xa9
+
+The buggy address belongs to the object at ffff888026b66480
+ which belongs to the cache kmalloc-32 of size 32
+The buggy address is located 0 bytes inside of
+ 32-byte region [ffff888026b66480, ffff888026b664a0)
+The buggy address belongs to the page:
+page:0000000076bbbb49 refcount:1 mapcount:0 mapping:0000000000000000 index:0xffff888026b66fc1 pfn:0x26b66
+flags: 0xfffe0000000200(slab)
+raw: 00fffe0000000200 ffffea0002385208 ffffea0000782448 ffff8880aa040100
+raw: ffff888026b66fc1 ffff888026b66000 000000010000002e 0000000000000000
+page dumped because: kasan: bad access detected
+
+Memory state around the buggy address:
+ ffff888026b66380: fa fb fb fb fc fc fc fc fb fb fb fb fc fc fc fc
+ ffff888026b66400: 00 fc fc fc fc fc fc fc 00 00 00 00 fc fc fc fc
+>ffff888026b66480: fa fb fb fb fc fc fc fc fb fb fb fb fc fc fc fc
+                   ^
+ ffff888026b66500: 00 fc fc fc fc fc fc fc 00 fc fc fc fc fc fc fc
+ ffff888026b66580: fa fb fb fb fc fc fc fc fb fb fb fb fc fc fc fc
+==================================================================
+
+
+---
+This report is generated by a bot. It may contain errors.
+See https://goo.gl/tpsmEJ for more information about syzbot.
+syzbot engineers can be reached at syzkaller@googlegroups.com.
+
+syzbot will keep track of this issue. See:
+https://goo.gl/tpsmEJ#status for how to communicate with syzbot.

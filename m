@@ -2,71 +2,125 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3A518254B73
-	for <lists+alsa-devel@lfdr.de>; Thu, 27 Aug 2020 19:03:28 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 75654254C40
+	for <lists+alsa-devel@lfdr.de>; Thu, 27 Aug 2020 19:36:09 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E1FE6183A;
-	Thu, 27 Aug 2020 19:02:37 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E1FE6183A
+	by alsa0.perex.cz (Postfix) with ESMTPS id F1D521826;
+	Thu, 27 Aug 2020 19:35:18 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz F1D521826
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1598547808;
-	bh=ETXqdM9VJYmsFXZ75H4iFkwwFq0Y/W6Fn6itSsGCeBw=;
-	h=Date:Subject:From:To:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=nlu8YXWazfhNQUZkwsCj2AGXVawZ4nSBw6USzvDukdTCh4npywuGwbOEGito40uRh
-	 a/U1YvcmiEYznvdAO/CH72DcCviZjnO2Cep7qFbcoSyiA6yalYsHYIRpqm6TcA02Jt
-	 5XTPnCviw3Wgkn+F35EVXTYfGY8Bi7ggHQ2BaXhI=
+	s=default; t=1598549769;
+	bh=sSHh0SalXuG7BXFUVBcY5L/8Wsw6PQQfZ7l8uajXaMg=;
+	h=From:To:Subject:Date:References:Cc:List-Id:List-Unsubscribe:
+	 List-Archive:List-Post:List-Help:List-Subscribe:From;
+	b=P1g72ZlaQ/rWhdAmW2BtvMk38jqFpx3VBdkVIvPQEAPZ6zA/JLzr4nv94Sjpj/+0H
+	 WjCmdk6/L25vCVpXLd0dBTsdIlZ/dKrFI6hM6WwK6GPHo9irCY5htwZCdPdKKX6ewk
+	 WPAtV104FTTykwHrWdiLdLsWHeUxbxFaOpIKPEts=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id CB725F80362;
-	Thu, 27 Aug 2020 18:51:20 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 289D2F800EB;
+	Thu, 27 Aug 2020 19:34:28 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 07358F8016F; Thu, 27 Aug 2020 18:34:29 +0200 (CEST)
+ id 8F3B8F8016F; Thu, 27 Aug 2020 19:34:25 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: ***
-X-Spam-Status: No, score=3.1 required=5.0 tests=FROM_LOCAL_HEX,
- HEADER_FROM_DIFFERENT_DOMAINS,RCVD_IN_MSPIKE_H2,SORTED_RECIPS,SPF_HELO_NONE,
+X-Spam-Level: 
+X-Spam-Status: No, score=-1.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+ DKIM_VALID,DKIM_VALID_AU,RCVD_IN_MSPIKE_H3,RCVD_IN_MSPIKE_WL,SPF_HELO_PASS,
  SPF_PASS,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mail-io1-f72.google.com (mail-io1-f72.google.com
- [209.85.166.72])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mailout1.w1.samsung.com (mailout1.w1.samsung.com
+ [210.118.77.11])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 1AFE8F80085
- for <alsa-devel@alsa-project.org>; Thu, 27 Aug 2020 18:34:17 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1AFE8F80085
-Received: by mail-io1-f72.google.com with SMTP id x12so4186777iow.7
- for <alsa-devel@alsa-project.org>; Thu, 27 Aug 2020 09:34:17 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:date:message-id:subject:from:to;
- bh=CeejWM1wsnx+eYnik6gMIrJziDJ/HbH2NxxTTf+OlEo=;
- b=Cka42pB6tPjLcXe9CYxyFnStuba2cjwa67lxcGU3RxeXmziVPLjFYvafOvBEL0YPFo
- EP8RXAFtv2KW9S/MvPObtBGGKb51gxebrTmjJfQEmdAeDP9JowSJFIyIrzqYv5zBGysy
- rBU3uAXRPoTAtTZzTKhwqSREa2/0qDihKsyBocnKlhgEvrJhI6rTNodf9h4ct+ENtWzT
- qFgv37GKOBZBQ9Rwx661bKnzVFJRR0W4sHUegvo1za1LLqI3MIb2jt0KmsaZnsZiHCJa
- pbOnJd0JwKFFl2QD1KQuEzA/i2k1WGafV5BCjNAtUzZYjNGyqD/qYXLPd2hs0E823uVC
- wyKA==
-X-Gm-Message-State: AOAM532AyAALYVfyMTu/dFD9Sy++lUVEoDpxmUP0EvHg+iLNc/bjnBjG
- yOhEGrLadpqF0iPVYRs+KZE2px68nLCug7wuiB7Vahu60LC/
-X-Google-Smtp-Source: ABdhPJwHkrto7t0X1WgI6fFrkVMbX4Uvg4rR0wAtL+dlrFnlUcoF9NqNwCZped76HCsV5Uryb/Pn3h1YMIx/Dt1YLvEIpkdKkk/J
-MIME-Version: 1.0
-X-Received: by 2002:a92:da07:: with SMTP id z7mr11323378ilm.196.1598546055601; 
- Thu, 27 Aug 2020 09:34:15 -0700 (PDT)
-Date: Thu, 27 Aug 2020 09:34:15 -0700
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <000000000000cd24b305adde81ff@google.com>
-Subject: KASAN: use-after-free Read in snd_pcm_oss_release
-From: syzbot <syzbot+12a3fcd1493ec6585007@syzkaller.appspotmail.com>
-To: akpm@linux-foundation.org, alsa-devel@alsa-project.org, arnd@arndb.de, 
- gustavoars@kernel.org, linux-kernel@vger.kernel.org, perex@perex.cz, 
- syzkaller-bugs@googlegroups.com, tiwai@suse.com, vbabka@suse.cz, 
- walken@google.com
-Content-Type: text/plain; charset="UTF-8"
-X-Mailman-Approved-At: Thu, 27 Aug 2020 18:50:46 +0200
+ by alsa1.perex.cz (Postfix) with ESMTPS id CAC54F80105
+ for <alsa-devel@alsa-project.org>; Thu, 27 Aug 2020 19:34:14 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CAC54F80105
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com
+ header.b="XvcyLiX4"
+Received: from eucas1p2.samsung.com (unknown [182.198.249.207])
+ by mailout1.w1.samsung.com (KnoxPortal) with ESMTP id
+ 20200827173412euoutp01a8968e3e0cb91a6c6237c97d8adf7eb7~vMHBqYWKV0438704387euoutp01B
+ for <alsa-devel@alsa-project.org>; Thu, 27 Aug 2020 17:34:12 +0000 (GMT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 mailout1.w1.samsung.com
+ 20200827173412euoutp01a8968e3e0cb91a6c6237c97d8adf7eb7~vMHBqYWKV0438704387euoutp01B
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
+ s=mail20170921; t=1598549652;
+ bh=FG4lWC3OyYSTOLqHoWMOSEZ22uCxKHsr9ai6/RI9xsA=;
+ h=From:To:Cc:Subject:Date:References:From;
+ b=XvcyLiX4GVkJkxO+lCRDFklWIHp4//bHe9ytEqj4F/nqdfrB6sHoLWDB9sgKHia2V
+ quSa2dCsE6qExuihCpL6ekF5ib58G3+x3nl/6+8Kx33yUgJ/4a5TJ5KZ82OiJMRTOC
+ jTwbh0smewhFFftvJeHpGor79p7q2U9PfLYECdpE=
+Received: from eusmges2new.samsung.com (unknown [203.254.199.244]) by
+ eucas1p2.samsung.com (KnoxPortal) with ESMTP id
+ 20200827173411eucas1p29395f8de00aeb99cfa455d2567f3f3be~vMHBPD3lW0522405224eucas1p2M;
+ Thu, 27 Aug 2020 17:34:11 +0000 (GMT)
+Received: from eucas1p2.samsung.com ( [182.198.249.207]) by
+ eusmges2new.samsung.com (EUCPMTA) with SMTP id 4F.B8.05997.39EE74F5; Thu, 27
+ Aug 2020 18:34:11 +0100 (BST)
+Received: from eusmtrp2.samsung.com (unknown [182.198.249.139]) by
+ eucas1p1.samsung.com (KnoxPortal) with ESMTPA id
+ 20200827173411eucas1p1283200677c5e077c5e07af938934eb5d~vMHA0w_EJ2355723557eucas1p1C;
+ Thu, 27 Aug 2020 17:34:11 +0000 (GMT)
+Received: from eusmgms1.samsung.com (unknown [182.198.249.179]) by
+ eusmtrp2.samsung.com (KnoxPortal) with ESMTP id
+ 20200827173411eusmtrp2e006860f94534a2855b95257a53d0a71~vMHA0IHnN2777327773eusmtrp26;
+ Thu, 27 Aug 2020 17:34:11 +0000 (GMT)
+X-AuditID: cbfec7f4-677ff7000000176d-58-5f47ee933c6a
+Received: from eusmtip1.samsung.com ( [203.254.199.221]) by
+ eusmgms1.samsung.com (EUCPMTA) with SMTP id 25.C6.06314.39EE74F5; Thu, 27
+ Aug 2020 18:34:11 +0100 (BST)
+Received: from AMDC3061.digital.local (unknown [106.120.51.75]) by
+ eusmtip1.samsung.com (KnoxPortal) with ESMTPA id
+ 20200827173410eusmtip181f6027bcab211c6c172b88b90a66242~vMHATrp0z0123701237eusmtip1a;
+ Thu, 27 Aug 2020 17:34:10 +0000 (GMT)
+From: Sylwester Nawrocki <s.nawrocki@samsung.com>
+To: broonie@kernel.org, lgirdwood@gmail.com
+Subject: [PATCH 1/2] ASoC: wm8994: Skip setting of the WM8994_MICBIAS
+ register for WM1811
+Date: Thu, 27 Aug 2020 19:33:56 +0200
+Message-Id: <20200827173357.31891-1-s.nawrocki@samsung.com>
+X-Mailer: git-send-email 2.17.1
+X-Brightmail-Tracker: H4sIAAAAAAAAA+NgFmpkleLIzCtJLcpLzFFi42LZduzned3J79zjDW53K1pcuXiIyWLjjPWs
+ FlMfPmGzuNK6idHi/PkN7BbfrnQwWVzeNYfNYu2Ru+wWn9/vZ7U4/Kad1YHLY8PnJjaPnbPu
+ sntsWtXJ5jF9zn9Gj74tqxg9Pm+SC2CL4rJJSc3JLEst0rdL4MrovvGVtWAbf8XcFwsZGxi/
+ 8nQxcnJICJhIrDo+i7GLkYtDSGAFo8TjltdMEM4XRonFf3axQjifGSVmXXzMBtOy9PZDqKrl
+ jBJ7Oq6DJcBatp9KBLHZBAwleo/2MYLYIgLaEnNudrCBNDALdDJJnJx8lR0kISwQLXF9zlmg
+ FRwcLAKqEs9/gPXyClhLLHh9G2qZvMTqDQeYQXolBH6zSVycMIMZpF5CwEXiWgMTRI2wxKvj
+ W9ghbBmJ/zvnM0HUNzNK9Oy+zQ7hTGCUuH98ASNElbXEnXO/2EAGMQtoSqzfpQ8x01GiY2sx
+ hMknceOtIEgxM5A5adt0qK28Eh1tQhAzVCR+r5oOdYGURPeT/ywQtofE4/cTGSEhEisx7c1C
+ 9gmMcrMQVi1gZFzFKJ5aWpybnlpslJdarlecmFtcmpeul5yfu4kRmDBO/zv+ZQfjrj9JhxgF
+ OBiVeHh37HOPF2JNLCuuzD3EKMHBrCTC63T2dJwQb0piZVVqUX58UWlOavEhRmkOFiVxXuNF
+ L2OFBNITS1KzU1MLUotgskwcnFINjFvYVcI0UnJNkgMsvogv4hF555SzXOD1psCu7ae/vZ7z
+ Wlvmg2zM+sKqsx9n68/ODJx/2K+/+f56wX93e/XrPhw08fgr5vb6cuGyyO3Hawz2bM37y2Mi
+ 1HXs0oEegy/nqtkPaXKnOhndVj0Tuf7sm7wvgkyi04NS08R2qXPOl6qStTRaNSXHVImlOCPR
+ UIu5qDgRAEjZOnEUAwAA
+X-Brightmail-Tracker: H4sIAAAAAAAAA+NgFrrOLMWRmVeSWpSXmKPExsVy+t/xu7qT37nHG9zezG5x5eIhJouNM9az
+ Wkx9+ITN4krrJkaL8+c3sFt8u9LBZHF51xw2i7VH7rJbfH6/n9Xi8Jt2Vgcujw2fm9g8ds66
+ y+6xaVUnm8f0Of8ZPfq2rGL0+LxJLoAtSs+mKL+0JFUhI7+4xFYp2tDCSM/Q0kLPyMRSz9DY
+ PNbKyFRJ384mJTUnsyy1SN8uQS+j+8ZX1oJt/BVzXyxkbGD8ytPFyMkhIWAisfT2Q6YuRi4O
+ IYGljBLbel8zdzFyACWkJOa3KEHUCEv8udbFBmILCXxilLjxOhrEZhMwlOg92scIYosI6Erc
+ WnqMGWQOs8BEJolND68zgSSEBSIlbr1fxQgyk0VAVeL5j0SQMK+AtcSC17fZIObLS6zecIB5
+ AiPPAkaGVYwiqaXFuem5xYZ6xYm5xaV56XrJ+bmbGIGBuu3Yz807GC9tDD7EKMDBqMTDu2Of
+ e7wQa2JZcWXuIUYJDmYlEV6ns6fjhHhTEiurUovy44tKc1KLDzGaAu2eyCwlmpwPjKK8knhD
+ U0NzC0tDc2NzYzMLJXHeDoGDMUIC6YklqdmpqQWpRTB9TBycUg2MZX82MPjbWf1qCCj2PLzY
+ 5LXkragreYzt7+NYxHiOlqy3v3Vc75j8gRVHfMIYlpYKCq5j2y/xdIWz8SZjd5apt3keXhET
+ nbOHY9fn3Y3m8U7hHp/jauY+f/+7clHc9wA5p+vSMfP3rnKWjV4q4fYwT1LL/uW2j+c17mg0
+ KBpafdz0gGnRdgFVJZbijERDLeai4kQAEXn4fWoCAAA=
+X-CMS-MailID: 20200827173411eucas1p1283200677c5e077c5e07af938934eb5d
+X-Msg-Generator: CA
+Content-Type: text/plain; charset="utf-8"
+X-RootMTR: 20200827173411eucas1p1283200677c5e077c5e07af938934eb5d
+X-EPHeader: CA
+CMS-TYPE: 201P
+X-CMS-RootMailID: 20200827173411eucas1p1283200677c5e077c5e07af938934eb5d
+References: <CGME20200827173411eucas1p1283200677c5e077c5e07af938934eb5d@eucas1p1.samsung.com>
+Cc: alsa-devel@alsa-project.org, ckeepax@opensource.cirrus.com,
+ b.zolnierkie@samsung.com, patches@opensource.cirrus.com,
+ linux-kernel@vger.kernel.org, Krzysztof Kozlowski <krzk@kernel.org>,
+ m.szyprowski@samsung.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -82,122 +136,62 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hello,
+The WM8994_MICBIAS register is not available in the WM1811 CODEC so skip
+initialization of that register for that device.
+This suppresses an error during boot:
+"wm8994-codec: ASoC: error at snd_soc_component_update_bits on wm8994-codec"
 
-syzbot found the following issue on:
-
-HEAD commit:    f37be724 Add linux-next specific files for 20200826
-git tree:       linux-next
-console output: https://syzkaller.appspot.com/x/log.txt?x=137c7cb9900000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=1e5a1cf036089d95
-dashboard link: https://syzkaller.appspot.com/bug?extid=12a3fcd1493ec6585007
-compiler:       gcc (GCC) 10.1.0-syz 20200507
-
-Unfortunately, I don't have any reproducer for this issue yet.
-
-IMPORTANT: if you fix the issue, please add the following tag to the commit:
-Reported-by: syzbot+12a3fcd1493ec6585007@syzkaller.appspotmail.com
-
-==================================================================
-BUG: KASAN: use-after-free in snd_pcm_oss_release_file sound/core/oss/pcm_oss.c:2367 [inline]
-BUG: KASAN: use-after-free in snd_pcm_oss_release_file sound/core/oss/pcm_oss.c:2361 [inline]
-BUG: KASAN: use-after-free in snd_pcm_oss_release+0x28d/0x300 sound/core/oss/pcm_oss.c:2548
-Read of size 8 at addr ffff888026b66480 by task syz-executor.1/27751
-
-CPU: 1 PID: 27751 Comm: syz-executor.1 Not tainted 5.9.0-rc2-next-20200826-syzkaller #0
-Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 01/01/2011
-Call Trace:
- __dump_stack lib/dump_stack.c:77 [inline]
- dump_stack+0x18f/0x20d lib/dump_stack.c:118
- print_address_description.constprop.0.cold+0xae/0x497 mm/kasan/report.c:383
- __kasan_report mm/kasan/report.c:513 [inline]
- kasan_report.cold+0x1f/0x37 mm/kasan/report.c:530
- snd_pcm_oss_release_file sound/core/oss/pcm_oss.c:2367 [inline]
- snd_pcm_oss_release_file sound/core/oss/pcm_oss.c:2361 [inline]
- snd_pcm_oss_release+0x28d/0x300 sound/core/oss/pcm_oss.c:2548
- __fput+0x285/0x920 fs/file_table.c:281
- task_work_run+0xdd/0x190 kernel/task_work.c:141
- tracehook_notify_resume include/linux/tracehook.h:188 [inline]
- exit_to_user_mode_loop kernel/entry/common.c:140 [inline]
- exit_to_user_mode_prepare+0x195/0x1c0 kernel/entry/common.c:167
- syscall_exit_to_user_mode+0x59/0x2b0 kernel/entry/common.c:242
- entry_SYSCALL_64_after_hwframe+0x44/0xa9
-RIP: 0033:0x416f01
-Code: 75 14 b8 03 00 00 00 0f 05 48 3d 01 f0 ff ff 0f 83 04 1b 00 00 c3 48 83 ec 08 e8 0a fc ff ff 48 89 04 24 b8 03 00 00 00 0f 05 <48> 8b 3c 24 48 89 c2 e8 53 fc ff ff 48 89 d0 48 83 c4 08 48 3d 01
-RSP: 002b:00007ffdd39a5e70 EFLAGS: 00000293 ORIG_RAX: 0000000000000003
-RAX: 0000000000000000 RBX: 0000000000000004 RCX: 0000000000416f01
-RDX: 0000000000000001 RSI: 0000000001190428 RDI: 0000000000000003
-RBP: 0000000000000000 R08: 0000000000000000 R09: 0000000000000000
-R10: 00007ffdd39a5f60 R11: 0000000000000293 R12: 0000000001190428
-R13: 0000000000268c54 R14: ffffffffffffffff R15: 000000000118cfec
-
-Allocated by task 27754:
- kasan_save_stack+0x1b/0x40 mm/kasan/common.c:48
- kasan_set_track mm/kasan/common.c:56 [inline]
- __kasan_kmalloc.constprop.0+0xbf/0xd0 mm/kasan/common.c:461
- kmem_cache_alloc_trace+0x16e/0x2c0 mm/slab.c:3550
- kmalloc include/linux/slab.h:554 [inline]
- kzalloc include/linux/slab.h:666 [inline]
- snd_pcm_oss_open_file sound/core/oss/pcm_oss.c:2389 [inline]
- snd_pcm_oss_open.part.0+0x55e/0x1290 sound/core/oss/pcm_oss.c:2491
- snd_pcm_oss_open+0x3c/0x50 sound/core/oss/pcm_oss.c:2455
- soundcore_open+0x445/0x600 sound/sound_core.c:593
- chrdev_open+0x266/0x770 fs/char_dev.c:414
- do_dentry_open+0x4b9/0x11b0 fs/open.c:817
- do_open fs/namei.c:3251 [inline]
- path_openat+0x1b9a/0x2730 fs/namei.c:3368
- do_filp_open+0x17e/0x3c0 fs/namei.c:3395
- do_sys_openat2+0x16d/0x420 fs/open.c:1168
- do_sys_open fs/open.c:1184 [inline]
- __do_sys_openat fs/open.c:1200 [inline]
- __se_sys_openat fs/open.c:1195 [inline]
- __x64_sys_openat+0x13f/0x1f0 fs/open.c:1195
- do_syscall_64+0x2d/0x70 arch/x86/entry/common.c:46
- entry_SYSCALL_64_after_hwframe+0x44/0xa9
-
-Freed by task 27754:
- kasan_save_stack+0x1b/0x40 mm/kasan/common.c:48
- kasan_set_track+0x1c/0x30 mm/kasan/common.c:56
- kasan_set_free_info+0x1b/0x30 mm/kasan/generic.c:355
- __kasan_slab_free+0xd8/0x120 mm/kasan/common.c:422
- __cache_free mm/slab.c:3418 [inline]
- kfree+0x103/0x2c0 mm/slab.c:3756
- snd_pcm_oss_release_file sound/core/oss/pcm_oss.c:2371 [inline]
- snd_pcm_oss_release_file sound/core/oss/pcm_oss.c:2361 [inline]
- snd_pcm_oss_release+0x17e/0x300 sound/core/oss/pcm_oss.c:2548
- __fput+0x285/0x920 fs/file_table.c:281
- task_work_run+0xdd/0x190 kernel/task_work.c:141
- tracehook_notify_resume include/linux/tracehook.h:188 [inline]
- exit_to_user_mode_loop kernel/entry/common.c:140 [inline]
- exit_to_user_mode_prepare+0x195/0x1c0 kernel/entry/common.c:167
- syscall_exit_to_user_mode+0x59/0x2b0 kernel/entry/common.c:242
- entry_SYSCALL_64_after_hwframe+0x44/0xa9
-
-The buggy address belongs to the object at ffff888026b66480
- which belongs to the cache kmalloc-32 of size 32
-The buggy address is located 0 bytes inside of
- 32-byte region [ffff888026b66480, ffff888026b664a0)
-The buggy address belongs to the page:
-page:0000000076bbbb49 refcount:1 mapcount:0 mapping:0000000000000000 index:0xffff888026b66fc1 pfn:0x26b66
-flags: 0xfffe0000000200(slab)
-raw: 00fffe0000000200 ffffea0002385208 ffffea0000782448 ffff8880aa040100
-raw: ffff888026b66fc1 ffff888026b66000 000000010000002e 0000000000000000
-page dumped because: kasan: bad access detected
-
-Memory state around the buggy address:
- ffff888026b66380: fa fb fb fb fc fc fc fc fb fb fb fb fc fc fc fc
- ffff888026b66400: 00 fc fc fc fc fc fc fc 00 00 00 00 fc fc fc fc
->ffff888026b66480: fa fb fb fb fc fc fc fc fb fb fb fb fc fc fc fc
-                   ^
- ffff888026b66500: 00 fc fc fc fc fc fc fc 00 fc fc fc fc fc fc fc
- ffff888026b66580: fa fb fb fb fc fc fc fc fb fb fb fb fc fc fc fc
-==================================================================
-
-
+Signed-off-by: Sylwester Nawrocki <s.nawrocki@samsung.com>
 ---
-This report is generated by a bot. It may contain errors.
-See https://goo.gl/tpsmEJ for more information about syzbot.
-syzbot engineers can be reached at syzkaller@googlegroups.com.
+ sound/soc/codecs/wm8994.c  | 2 ++
+ sound/soc/codecs/wm_hubs.c | 3 +++
+ sound/soc/codecs/wm_hubs.h | 1 +
+ 3 files changed, 6 insertions(+)
 
-syzbot will keep track of this issue. See:
-https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
+diff --git a/sound/soc/codecs/wm8994.c b/sound/soc/codecs/wm8994.c
+index 038be66..b3ba053 100644
+--- a/sound/soc/codecs/wm8994.c
++++ b/sound/soc/codecs/wm8994.c
+@@ -4193,11 +4193,13 @@ static int wm8994_component_probe(struct snd_soc_component *component)
+ 			wm8994->hubs.dcs_readback_mode = 2;
+ 			break;
+ 		}
++		wm8994->hubs.micd_scthr = true;
+ 		break;
+ 
+ 	case WM8958:
+ 		wm8994->hubs.dcs_readback_mode = 1;
+ 		wm8994->hubs.hp_startup_mode = 1;
++		wm8994->hubs.micd_scthr = true;
+ 
+ 		switch (control->revision) {
+ 		case 0:
+diff --git a/sound/soc/codecs/wm_hubs.c b/sound/soc/codecs/wm_hubs.c
+index 891effe..0c88184 100644
+--- a/sound/soc/codecs/wm_hubs.c
++++ b/sound/soc/codecs/wm_hubs.c
+@@ -1223,6 +1223,9 @@ int wm_hubs_handle_analogue_pdata(struct snd_soc_component *component,
+ 		snd_soc_component_update_bits(component, WM8993_ADDITIONAL_CONTROL,
+ 				    WM8993_LINEOUT2_FB, WM8993_LINEOUT2_FB);
+ 
++	if (!hubs->micd_scthr)
++		return 0;
++
+ 	snd_soc_component_update_bits(component, WM8993_MICBIAS,
+ 			    WM8993_JD_SCTHR_MASK | WM8993_JD_THR_MASK |
+ 			    WM8993_MICB1_LVL | WM8993_MICB2_LVL,
+diff --git a/sound/soc/codecs/wm_hubs.h b/sound/soc/codecs/wm_hubs.h
+index 4b8e5f0..988b29e 100644
+--- a/sound/soc/codecs/wm_hubs.h
++++ b/sound/soc/codecs/wm_hubs.h
+@@ -27,6 +27,7 @@ struct wm_hubs_data {
+ 	int hp_startup_mode;
+ 	int series_startup;
+ 	int no_series_update;
++	bool micd_scthr;
+ 
+ 	bool no_cache_dac_hp_direct;
+ 	struct list_head dcs_cache;
+-- 
+2.7.4
+

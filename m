@@ -2,106 +2,71 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 809322558E5
-	for <lists+alsa-devel@lfdr.de>; Fri, 28 Aug 2020 12:51:49 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 559492558EF
+	for <lists+alsa-devel@lfdr.de>; Fri, 28 Aug 2020 12:56:27 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 216AD189D;
-	Fri, 28 Aug 2020 12:50:59 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 216AD189D
+	by alsa0.perex.cz (Postfix) with ESMTPS id 0A09617F2;
+	Fri, 28 Aug 2020 12:55:37 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0A09617F2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1598611909;
-	bh=/gfjnM86qHopg5RtM/lW9LCvWwSmzPBMEV4wucs/1pM=;
+	s=default; t=1598612187;
+	bh=vkWbggIn31wkqWLMUw3SydvUtUZsXtxvZX4kmj+Pxpo=;
 	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=atEX4QnrSM8Jun4gClGuZBk9BnjKyek3RpVN0tKAuOEtwCJHVHqZ3jaAH9I4YexJc
-	 eQ5H8y2E9cK7tfbHB67OAxXJtEYICH/7aPaynw/E9YiYIe1dyveNBe4stTJqZVH7k6
-	 2Cj/Vd7qOXzNSZsoyeat/Noalxjz5SaEP54FKQ/w=
+	b=F0NYoQdTPIyBHFpwCq4FKG3W1T/6JoPgf7nUlRXa/O8AIbUYJmq0X8O9RZNR0Q9iT
+	 IKWP06mHekQoR9Kk8LaqN4TQ5n359SJkbYy56LRiTEl/dsJgQoBiMN8XdoY8xnLBML
+	 GJKQbmflbCUdTohUHqCc9BmPjSZtuv9h1C7fA0BA=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 3D9D6F800EB;
-	Fri, 28 Aug 2020 12:50:08 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 2BE1AF8016F;
+	Fri, 28 Aug 2020 12:54:46 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 7D823F8016F; Fri, 28 Aug 2020 12:50:03 +0200 (CEST)
+ id 2D05BF8016F; Fri, 28 Aug 2020 12:54:43 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,PRX_BODY_26,RCVD_IN_MSPIKE_H4,RCVD_IN_MSPIKE_WL,SPF_HELO_PASS,
- SPF_PASS autolearn=disabled version=3.4.0
-Received: from new3-smtp.messagingengine.com (new3-smtp.messagingengine.com
- [66.111.4.229])
+X-Spam-Status: No, score=-1.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+ DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled
+ version=3.4.0
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 0184BF80105
- for <alsa-devel@alsa-project.org>; Fri, 28 Aug 2020 12:49:52 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0184BF80105
+ by alsa1.perex.cz (Postfix) with ESMTPS id 31BB1F800EB
+ for <alsa-devel@alsa-project.org>; Fri, 28 Aug 2020 12:54:33 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 31BB1F800EB
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=cerno.tech header.i=@cerno.tech
- header.b="Vozv8aET"; 
- dkim=pass (2048-bit key) header.d=messagingengine.com
- header.i=@messagingengine.com header.b="WW3lPhXU"
-Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
- by mailnew.nyi.internal (Postfix) with ESMTP id A6035580587;
- Fri, 28 Aug 2020 06:49:51 -0400 (EDT)
-Received: from mailfrontend1 ([10.202.2.162])
- by compute4.internal (MEProxy); Fri, 28 Aug 2020 06:49:51 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cerno.tech; h=
- date:from:to:cc:subject:message-id:references:mime-version
- :content-type:in-reply-to; s=fm3; bh=VtuzJ97VVsG3s9xSqH164E5SJoT
- +rY8ff3DHViPD1PI=; b=Vozv8aET6hkYKrEPdb/7OVUKbM2nH6HAv6Yyq5G8xOY
- EZGPjeE7T4VPUJetB1DFsNAyl7zfyPkpxDEsj0eedPwfJTWwb452cWfUEm2VLDXp
- Bv8VxsRnbWY5EfffptUa+S/CzAGR5i8PbLBRsDKF1ea8tXIhkvFYTj3DT8ZvXOCM
- RALkvKKJaycbbBo5ASosQIFIbm+9TgI1peq9Xj7JID6g7vvOYfkiYaWVqtVkdPSS
- GsEgdghoPAOXg8UQPhG0A+nxZYNq9HiFqE3qfU6ZVlrRfiue5lJBB7Of/v81uu2B
- DduyRZwaKzo4VOkN5PpEywph9KJV2nz1NojC9mPs5bw==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to:x-me-proxy
- :x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; bh=VtuzJ9
- 7VVsG3s9xSqH164E5SJoT+rY8ff3DHViPD1PI=; b=WW3lPhXU34aIyvZ/6Of4yB
- TCD435sw0/iEpLBxnEnlkzQWQthOGqd9SybhOQMLSuunjA7zxwXbobfX1pkT3pJi
- xrfh/wEF44sTwS0U/nqhJf9f7P/UzxaR//fUVcsVzNz5nbe28NSz4klZAspPDT1d
- urv7ywgQxlmN9otdg0JC4wljaMxBOGJxT4sezwPmNfO1/I2zNKkbisAPJuyADX+S
- Tviy7nO4uH5h8HBMOGS/E4oQ5VzZVREh2bSPsrmBuuFfU9Jut31sIJra4bEsvnEg
- JC53vnSNUY5rqZw8bzoZnn8U+AdVctwVQT4qvZXe+/lyFGxWKc7L3E3n42swKBGQ
- ==
-X-ME-Sender: <xms:TuFIX-Nkm23jogQTjpLvEvjy3ZmWcMTWo4U4S8k8nSZL69AYsUS18g>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeduiedruddvjedgudefucetufdoteggodetrfdotf
- fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
- uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
- cujfgurhepfffhvffukfhfgggtuggjsehgtderredttddvnecuhfhrohhmpeforgigihhm
- vgcutfhiphgrrhguuceomhgrgihimhgvsegtvghrnhhordhtvggthheqnecuggftrfgrth
- htvghrnhepleekgeehhfdutdeljefgleejffehfffgieejhffgueefhfdtveetgeehieeh
- gedunecukfhppeeltddrkeelrdeikedrjeeinecuvehluhhsthgvrhfuihiivgeptdenuc
- frrghrrghmpehmrghilhhfrhhomhepmhgrgihimhgvsegtvghrnhhordhtvggthh
-X-ME-Proxy: <xmx:TuFIX88CCGvzHU3tvY9WQ4BV1RQ4Ev_xCXisSaOgerLE1Z6vVRpjMQ>
- <xmx:TuFIX1SEI9UADz-KsxytxCxThchCSt3ZPhsnO0uMOcbmDjsvfY83EQ>
- <xmx:TuFIX-s7VsMHIWCPpqeh1Jwvsfp9FS7mvZzFivhkPecp9dHIQbp71Q>
- <xmx:T-FIX3UjdOEP5w-yE91lgpQqsGdwwSdwXBIuJscXYc7axoFX7P8fQw>
-Received: from localhost (lfbn-tou-1-1502-76.w90-89.abo.wanadoo.fr
- [90.89.68.76])
- by mail.messagingengine.com (Postfix) with ESMTPA id F0E1B3280060;
- Fri, 28 Aug 2020 06:49:49 -0400 (EDT)
-Date: Fri, 28 Aug 2020 12:49:48 +0200
-From: Maxime Ripard <maxime@cerno.tech>
-To: Samuel Holland <samuel@sholland.org>
-Subject: Re: [PATCH 0/7] Allwinner A64 digital audio codec fixes
-Message-ID: <20200828104948.sdq2ftwiwyjhh3lc@gilmour.lan>
-References: <20200726012557.38282-1-samuel@sholland.org>
+ dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="1ib12pX1"
+Received: from localhost (fw-tnat.cambridge.arm.com [217.140.96.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by mail.kernel.org (Postfix) with ESMTPSA id 2C5A2208CA;
+ Fri, 28 Aug 2020 10:54:31 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=default; t=1598612071;
+ bh=vkWbggIn31wkqWLMUw3SydvUtUZsXtxvZX4kmj+Pxpo=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=1ib12pX1ptTPxRSYRHTBZVwFpAcMgaH3y9K3RlcNZ3FQORdQg3USQi54vkQo0YTJQ
+ f8f/C3r8dty5qXFBcOXfHmy1WaH+xZh+FIuozjfoNdYf4RGmovGyg06TRhHCpuHC/9
+ ab9Z1DoPz6biNrVErx3mLuH1MzipAtED9xNMV07o=
+Date: Fri, 28 Aug 2020 11:53:54 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Subject: Re: [PATCH] ASoC: core: remove artificial component and DAI name
+ constraint
+Message-ID: <20200828105354.GD5566@sirena.org.uk>
+References: <20200827205100.1479331-1-dmitry.baryshkov@linaro.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature"; boundary="yat6lg3ldh2xkhmw"
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="IMjqdzrDRly81ofr"
 Content-Disposition: inline
-In-Reply-To: <20200726012557.38282-1-samuel@sholland.org>
-Cc: Mark Rutland <mark.rutland@arm.com>, Ondrej Jirman <megous@megous.com>,
- alsa-devel@alsa-project.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, Takashi Iwai <tiwai@suse.com>,
- Liam Girdwood <lgirdwood@gmail.com>, Rob Herring <robh+dt@kernel.org>,
- Vasily Khoruzhick <anarsoul@gmail.com>, Chen-Yu Tsai <wens@csie.org>,
- Mark Brown <broonie@kernel.org>, linux-arm-kernel@lists.infradead.org
+In-Reply-To: <20200827205100.1479331-1-dmitry.baryshkov@linaro.org>
+X-Cookie: Your fault -- core dumped
+User-Agent: Mutt/1.10.1 (2018-07-13)
+Cc: alsa-devel@alsa-project.org, Liam Girdwood <lgirdwood@gmail.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -118,44 +83,32 @@ Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 
---yat6lg3ldh2xkhmw
+--IMjqdzrDRly81ofr
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
 
-On Sat, Jul 25, 2020 at 08:25:50PM -0500, Samuel Holland wrote:
-> This series fixes a couple of issues with the digital audio codec in the
-> Allwinner A64 SoC:
->   1) Left/right channels were swapped when playing/recording audio
->   2) DAPM topology was wrong, breaking some kcontrols
->=20
-> This is the minimum set of changes necessary to fix these issues in a
-> backward-compatible way. For that reason, some DAPM widgets still have
-> incorrect or confusing names; those and other issues will be fixed in
-> later patch sets.
->=20
-> Samuel Holland (7):
->   ASoC: dt-bindings: Add a new compatible for the A64 codec
->   ASoC: sun8i-codec: Fix DAPM to match the hardware topology
->   ASoC: sun8i-codec: Add missing mixer routes
->   ASoC: sun8i-codec: Add a quirk for LRCK inversion
->   ARM: dts: sun8i: a33: Update codec widget names
->   arm64: dts: allwinner: a64: Update codec widget names
->   arm64: dts: allwinner: a64: Update the audio codec compatible
+On Thu, Aug 27, 2020 at 11:51:00PM +0300, Dmitry Baryshkov wrote:
 
-Applied patcehs 5-7
+> Current fmt_single_name code limits maximum name of a DAI or component
+> to 32 bytes. On some systems corresponding device names might be longer
+> than that (e.g.
 
-Maxime
+Are you sure the name doesn't get exposed to userspace through a field
+that's 32 bytes long?
 
---yat6lg3ldh2xkhmw
+--IMjqdzrDRly81ofr
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iHUEABYIAB0WIQRcEzekXsqa64kGDp7j7w1vZxhRxQUCX0jhTAAKCRDj7w1vZxhR
-xZqWAP9GxoV0XxQnuXpla7KwCEoiiBC9jsLVHXrAH8rtQoc2PwD/eELvNUMYy0wh
-D/rC/j6ImujUJPGQcP5cCV1lOoISLA8=
-=Pxl4
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl9I4kEACgkQJNaLcl1U
+h9D2Ugf/VT5JT5y8pFJiJUbzmWL6aNxT5LIZ29DLnZp+/YjT0j5tkUbxQWBynllA
+OHGcJvb2Zy3PugeTQajbMd4Y3cxwqsj/9+JSZh5f9dmbUzZv3qZtL5WWBydIshwf
+pm5+3dhuglqUt7Sz2zg4FggLYa/75ME6WAoU3W+NE0ZEy4ugihWhbCeoajoKNHPi
+het02DGVx8j8mF5MUlRsLvu4Cbu5yGDWOd5sVu9dzZyrTNEusQpuAC3gCJ1hk9T5
+s6bgaTD7AlvJuVabXvFfUclQYCKwmFlzCLoo9e/1SKxrhjfRnl7hkd3gIxWHKiTe
+DhbgLTkC+otqCG42ARZ4PahFJBDeIQ==
+=hxSz
 -----END PGP SIGNATURE-----
 
---yat6lg3ldh2xkhmw--
+--IMjqdzrDRly81ofr--

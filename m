@@ -2,107 +2,86 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 50A6925635A
-	for <lists+alsa-devel@lfdr.de>; Sat, 29 Aug 2020 01:14:15 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 553B925636F
+	for <lists+alsa-devel@lfdr.de>; Sat, 29 Aug 2020 01:22:43 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id BBB3818D2;
-	Sat, 29 Aug 2020 01:13:24 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BBB3818D2
+	by alsa0.perex.cz (Postfix) with ESMTPS id D7C7E18CD;
+	Sat, 29 Aug 2020 01:21:52 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D7C7E18CD
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1598656454;
-	bh=NAuYfTn7l2Olqc2mIK8A5IL35SDAJWKJAS/dDFuy/LY=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=lCrOT2H110/xSD126gZLFs4sCwbACdEgWdHRoRlv37aV0DfxLB2qoKieL8naEvuzu
-	 SbOcan9/wMhvWHe7wVxcQ8fNSLy2ScGxVT14WjO7ILwjcJZdVBwMT1nBIyzERz4X9e
-	 GOsYo2bRbwzdxkT/Ap8Zdfkbexen7ochmE4aNYms=
+	s=default; t=1598656962;
+	bh=+SQc60KJfz4gwyntBUAIrlL+3zYWjhZvRmc7CLeSRM0=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=aIo+KTCXjyMSwIB+uFfu64685BP7TlwdL2OtyMHW4dGHcyKP4ZD/+wg7w3D0yZdUU
+	 JI9Nma636VRNVz10O1ATuPTSr9xyygn2gAW2ZYQT/rA4Ei5LUud8C/JR7ASFqGjwkc
+	 4lCy/EM4Db4RJwTkW38o7yCwMtulDfsplD4abwck=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id E092BF80118;
-	Sat, 29 Aug 2020 01:12:33 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 10A44F800EB;
+	Sat, 29 Aug 2020 01:21:02 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id D7F6CF8016F; Sat, 29 Aug 2020 01:12:30 +0200 (CEST)
+ id 2D388F8016F; Sat, 29 Aug 2020 01:21:00 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-1.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+ DKIM_VALID,DKIM_VALID_AU,PRX_BODY_30,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
  autolearn=disabled version=3.4.0
-Received: from mail-pj1-x1043.google.com (mail-pj1-x1043.google.com
- [IPv6:2607:f8b0:4864:20::1043])
+Received: from mail-pj1-x1044.google.com (mail-pj1-x1044.google.com
+ [IPv6:2607:f8b0:4864:20::1044])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 70D3AF800EB
- for <alsa-devel@alsa-project.org>; Sat, 29 Aug 2020 01:12:22 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 70D3AF800EB
+ by alsa1.perex.cz (Postfix) with ESMTPS id DE40EF800EB
+ for <alsa-devel@alsa-project.org>; Sat, 29 Aug 2020 01:20:53 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DE40EF800EB
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org
- header.b="DTx98g6e"
-Received: by mail-pj1-x1043.google.com with SMTP id g6so257705pjl.0
- for <alsa-devel@alsa-project.org>; Fri, 28 Aug 2020 16:12:21 -0700 (PDT)
+ header.b="LUFgVPrt"
+Received: by mail-pj1-x1044.google.com with SMTP id n3so347802pjq.1
+ for <alsa-devel@alsa-project.org>; Fri, 28 Aug 2020 16:20:53 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=eTKdXiRCKS6tUmMOhEk7xSRiz3K0QjMIqXKfgOUTwVI=;
- b=DTx98g6eHjR9eWZ8L8pNZvzNzyyoyGJGoCSVzxnwe383QCEf6CiPXBYd7KGVxtcyWM
- imHYSMTzYzDKbP9GdybbwuCc5YWmZJB/nMyEkOnXnO1PMF4GDNLmCJ3JJQnnthHL+c6q
- B4VizqndaVWBqtihAlgf8low/9/yvPUV9bIiU=
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=vekX/Mq23RWwnDgk+6LdcBexEyHMvoMGcRuZ1SgDRMk=;
+ b=LUFgVPrt2Xx4hKMx9nbPEckkaLhVk6gHlJYu31JIplGtbqqbxXGUs9Ik6zkfNEzONc
+ Fepsz9ipT6OZQsO5sUpYT1lTke6Xc3PnJAMODWEsolbqaXJvBZ7hg8bsyHYf9Vsqqf1m
+ qIT2L2wYuYRca4ABfr2Odlioxk5YGEVymiJNA=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=eTKdXiRCKS6tUmMOhEk7xSRiz3K0QjMIqXKfgOUTwVI=;
- b=AxVyKb/19QAKgp9Yepp16K9ZwZC2RuHNPMtq1u4kEGfn9XavXRmMDFV9Sq3pTVJNTt
- Sqz/vxp61thIycxYRlZNOiGfT1+6gfreNeLo1mYGs70Jl0Sat5xb380DE9rJnNsHvcux
- nCCdBLvrEIxVqaHq/gxNFpPv1WtqPikVw6bGEhrkUXT+ennUDIj7yphGeSzLDgHLmUy3
- xj+88d7eFKY6ueGt7zlLCV9ZEh3fDy8FDM1O8zj4uLC22I9kyNQ+a0IwskmzOB1u9rHl
- a7KQSqisT4rJk7RhiLa1ZvqCm+recCRjQcmGRvqRCNtxFLNCuECXIyG80taLRyZijaF4
- oSvQ==
-X-Gm-Message-State: AOAM53292v6TgB40anxZ65dTyfDQEhwG1AoHHt6ptps4F7+kIkYF8t3/
- WvkibAM00Y3MM1Qi5BuKQC7Bzt1vvyD8FQ==
-X-Google-Smtp-Source: ABdhPJwVu33Bchz3j9SPnIwTilSVMCP4t6VJW47O4wFatMjRUOTNk21WctdSGp1UZeQoqKVPv1Ab2g==
-X-Received: by 2002:a17:902:b486:: with SMTP id
- y6mr903874plr.100.1598656338714; 
- Fri, 28 Aug 2020 16:12:18 -0700 (PDT)
-Received: from mail-pj1-f54.google.com (mail-pj1-f54.google.com.
- [209.85.216.54])
- by smtp.gmail.com with ESMTPSA id a200sm492002pfd.182.2020.08.28.16.12.18
- for <alsa-devel@alsa-project.org>
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 28 Aug 2020 16:12:18 -0700 (PDT)
-Received: by mail-pj1-f54.google.com with SMTP id i13so262326pjv.0
- for <alsa-devel@alsa-project.org>; Fri, 28 Aug 2020 16:12:18 -0700 (PDT)
-X-Received: by 2002:a1f:d6c4:: with SMTP id n187mr874772vkg.65.1598655985575; 
- Fri, 28 Aug 2020 16:06:25 -0700 (PDT)
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=vekX/Mq23RWwnDgk+6LdcBexEyHMvoMGcRuZ1SgDRMk=;
+ b=Orj+2KHcWyJvhWAx5Maxsbg/XWRTVFS4UcHjwEfvIRrCdgRRQCj9YZ1FI/+mYTy2wR
+ S/odxtbF/3krjyLMwgvOkuPJdGfVatVapX1Z3E+eTdTn6Hf9bbGsmkFBPKWqFrWNpMS7
+ 2Gq+o84byd7QCLSW3t37IDa+H2UipoXWHqUH9XhULZenmJs4zR2OA7Gra0IseSHc7eL4
+ HIo9WzKrvdrg7DRtNFvP6TodBiZsKkpH2rCBYxkyn24WKrs+sDzFHwMKL0VNEKL1bcU/
+ ml3/GpLpWycJgeAoCBxLgyKvS1wQ1syi91I9B15Th5xjiSB+lbMvyaFQ5uDvsrzNq1AN
+ noBA==
+X-Gm-Message-State: AOAM533FnLv/HAm6KiaqxcQuJWdqTw4mGmWTWuu7cMiZdSusNJrmYz9F
+ EqRMEDNzBUX1Xuije3DJN69vvA==
+X-Google-Smtp-Source: ABdhPJw5KEwmKeKe8mZkKXkaEnaqU+EpMdmR9lHHNGzs1BSmbnljanSuhsnw5f0EIMVjUuqQ+S6WOA==
+X-Received: by 2002:a17:902:c24b:: with SMTP id 11mr922349plg.64.1598656851274; 
+ Fri, 28 Aug 2020 16:20:51 -0700 (PDT)
+Received: from tictac2.mtv.corp.google.com
+ ([2620:15c:202:1:42b0:34ff:fe3d:58e6])
+ by smtp.gmail.com with ESMTPSA id h10sm517971pgn.32.2020.08.28.16.20.50
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 28 Aug 2020 16:20:50 -0700 (PDT)
+From: Douglas Anderson <dianders@chromium.org>
+To: Mark Brown <broonie@kernel.org>
+Subject: [PATCH] ASoC: rt5682: Prefer async probe
+Date: Fri, 28 Aug 2020 16:20:27 -0700
+Message-Id: <20200828162005.1.I4f67f494c4f759b0e5c7f487e040dfdcf16e0876@changeid>
+X-Mailer: git-send-email 2.28.0.402.g5ffc5be6b7-goog
 MIME-Version: 1.0
-References: <20200826110454.1811352-1-cychiang@chromium.org>
- <20200826110454.1811352-3-cychiang@chromium.org>
-In-Reply-To: <20200826110454.1811352-3-cychiang@chromium.org>
-From: Doug Anderson <dianders@chromium.org>
-Date: Fri, 28 Aug 2020 16:06:14 -0700
-X-Gmail-Original-Message-ID: <CAD=FV=XaCt6V+VXfk8T+2mS4d5sKQzMC12AcH9a=MNkgguvmjQ@mail.gmail.com>
-Message-ID: <CAD=FV=XaCt6V+VXfk8T+2mS4d5sKQzMC12AcH9a=MNkgguvmjQ@mail.gmail.com>
-Subject: Re: [PATCH v6 2/2] ASoC: qcom: sc7180: Add machine driver for sound
- card registration
-To: Cheng-Yi Chiang <cychiang@chromium.org>
-Content-Type: text/plain; charset="UTF-8"
-Cc: Taniya Das <tdas@codeaurora.org>,
- ALSA Development Mailing List <alsa-devel@alsa-project.org>,
- Banajit Goswami <bgoswami@codeaurora.org>, Takashi Iwai <tiwai@suse.com>,
- Rohit kumar <rohitkr@codeaurora.org>, Patrick Lai <plai@codeaurora.org>,
- Ajit Pandey <ajitp@codeaurora.org>, Tzung-Bi Shih <tzungbi@google.com>,
- Andy Gross <agross@kernel.org>, Dylan Reid <dgreid@chromium.org>,
- "open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS"
- <devicetree@vger.kernel.org>, tzungbi@chromium.org,
- Stephan Gerhold <stephan@gerhold.net>,
- linux-arm-msm <linux-arm-msm@vger.kernel.org>,
- Rob Herring <robh+dt@kernel.org>, Bjorn Andersson <bjorn.andersson@linaro.org>,
- Linux ARM <linux-arm-kernel@lists.infradead.org>,
- Liam Girdwood <lgirdwood@gmail.com>, LKML <linux-kernel@vger.kernel.org>,
- Mark Brown <broonie@kernel.org>,
- Srini Kandagatla <srinivas.kandagatla@linaro.org>
+Content-Transfer-Encoding: 8bit
+Cc: Oder Chiou <oder_chiou@realtek.com>, alsa-devel@alsa-project.org,
+ Douglas Anderson <dianders@chromium.org>, linux-kernel@vger.kernel.org,
+ Liam Girdwood <lgirdwood@gmail.com>, Takashi Iwai <tiwai@suse.com>,
+ cychiang@chromium.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -118,22 +97,49 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hi,
+The probe of rt5682 is pretty slow.  A quick measurement shows that it
+takes ~650 ms on at least one board.  There's no reason to block all
+other drivers waiting for this probe to finish.  Set the flag to allow
+other drivers to probe while we're probing.
 
-On Wed, Aug 26, 2020 at 4:05 AM Cheng-Yi Chiang <cychiang@chromium.org> wrote:
->
-> +config SND_SOC_SC7180
-> +       tristate "SoC Machine driver for SC7180 boards"
-> +       depends on SND_SOC_QCOM
-> +       select SND_SOC_QCOM_COMMON
-> +       select SND_SOC_LPASS_SC7180
-> +       select SND_SOC_MAX98357A
-> +       select SND_SOC_RT5682
+Signed-off-by: Douglas Anderson <dianders@chromium.org>
+---
+NOTE: I haven't done any analysis of the driver to see _why_ it's so
+slow, only that I have measured it to be slow.  Someone could
+certainly take the time to profile / optimize it, but in any case it
+still won't hurt to be async.
 
-I haven't done any significant testing / review of your patch (I'm
-mostly sound-clueless), but I believe that the above needs to be
-"select SND_SOC_RT5682_I2C" atop the current top of the sound tree.
-When I fix that I can confirm that I see the rt5682 probe on
-sc7180-trogdor with Rob Clark's dts patch.
+This is a very safe flag to turn on since:
 
--Doug
+1. It's not like our probe order was defined by anything anyway.  When
+we probe is at the whim of when our i2c controller probes and that can
+be any time.
+
+2. If some other driver needs us then they have to handle the fact
+that we might not have probed yet anyway.
+
+3. There may be other drivers probing at the same time as us anyway
+because _they_ used async probe.
+
+While I won't say that it's impossible to tickle a bug by turning on
+async probe, I would assert that in almost all cases the bug was
+already there and needed to be fixed anyway.
+
+ sound/soc/codecs/rt5682-i2c.c | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/sound/soc/codecs/rt5682-i2c.c b/sound/soc/codecs/rt5682-i2c.c
+index 85aba311bdc8..6b4e0eb30c89 100644
+--- a/sound/soc/codecs/rt5682-i2c.c
++++ b/sound/soc/codecs/rt5682-i2c.c
+@@ -294,6 +294,7 @@ static struct i2c_driver rt5682_i2c_driver = {
+ 		.name = "rt5682",
+ 		.of_match_table = rt5682_of_match,
+ 		.acpi_match_table = rt5682_acpi_match,
++		.probe_type = PROBE_PREFER_ASYNCHRONOUS,
+ 	},
+ 	.probe = rt5682_i2c_probe,
+ 	.shutdown = rt5682_i2c_shutdown,
+-- 
+2.28.0.402.g5ffc5be6b7-goog
+

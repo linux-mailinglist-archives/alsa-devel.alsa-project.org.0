@@ -2,82 +2,72 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 017132554AD
-	for <lists+alsa-devel@lfdr.de>; Fri, 28 Aug 2020 08:50:11 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 951872554AF
+	for <lists+alsa-devel@lfdr.de>; Fri, 28 Aug 2020 08:53:27 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id AB9101823;
-	Fri, 28 Aug 2020 08:49:20 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AB9101823
+	by alsa0.perex.cz (Postfix) with ESMTPS id 19CBC1823;
+	Fri, 28 Aug 2020 08:52:37 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 19CBC1823
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1598597410;
-	bh=TkhgczOGtkifWB/TVIlRts5Vlh4369xzTFV+is7IYo0=;
+	s=default; t=1598597607;
+	bh=/bhjJvxPGi0YxD+jDxjpPtYNclCNwWY9zpiia8ZDhCA=;
 	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=ZCbRvzohE/bJLiioIfIqk+v6mLzKIKQOIOgRBCf//ms8w1Bgq26ESnvHU1RzxCcX9
-	 dSdtC8U1JtIrMKXn/7ZBpbh7wmEQCL4ED73mu6WzxGvUQIRVNKGapYKLRmO/s4qFOM
-	 xb+MuKAfou8mUbLu/zU4HeckII4Rjz8w3+u3cU6U=
+	b=OLShjDFnL+0DsxnqnlLwjlhmDkiYTCqnUam38rECVwfXoXrDJjqIf6aw3gQNJYAwv
+	 aZlLQoYcucDLA30e9Tvqkk+ruMtIvH3bD5uA6aV+fAwcHlwqeK4BxpY0d+MIs93edz
+	 WRsunk9qoZ08psSxSRBV6BcW5b+1+ChUj8mHDapY=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id B9F3BF80105;
-	Fri, 28 Aug 2020 08:48:29 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 19F22F80143;
+	Fri, 28 Aug 2020 08:51:46 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 788BEF8016F; Fri, 28 Aug 2020 08:48:26 +0200 (CEST)
+ id 0D2B5F8016F; Fri, 28 Aug 2020 08:51:43 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.5 required=5.0 tests=FREEMAIL_FORGED_FROMDOMAIN,
- FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,RCVD_IN_MSPIKE_H3,
- RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from mail-ej1-f65.google.com (mail-ej1-f65.google.com
- [209.85.218.65])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=-1.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+ DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 1B5D6F80105
- for <alsa-devel@alsa-project.org>; Fri, 28 Aug 2020 08:48:16 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1B5D6F80105
-Received: by mail-ej1-f65.google.com with SMTP id d26so123996ejr.1
- for <alsa-devel@alsa-project.org>; Thu, 27 Aug 2020 23:48:16 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to;
- bh=yGha4SiD+sJIY9+V0onyYAsFpD65q4MyMopm/dvyYaY=;
- b=dacc/fGEMznz7IUIFXK0o2G6gBoRinQI6SLbzs2FZaaBIk6/SN8oEboLBpFjqTxXMy
- j4E9feQBHyJ/gZcpZWlegGcjjfdtJGs+skGt9EpuyPQ8tXXkj+bvdaSHG8KAyWy14aHJ
- eOVA3dAqSIYDOhX+1mjzxPBg7yrQOL1nwm0hJGjQkRKLZl9nib5TdpjhVmRxOAI8wN+Z
- zDZKF5Dj3m6ojSCbdST33pF/VHMlyoAJImgEl5U/SoOu+h2Oll0C0ckXfxkAkTEp4hAn
- B7Ss/w2sApJkCEROrQQJFxFdgPacCWM6PqLtyJTZrY4lI0lE4p5t7unT6OvkBbKwOqbU
- 9Ysg==
-X-Gm-Message-State: AOAM530K5OBp4mcqwAhtu56gQcSnlaFu6vAOAfIKI8VCLEtewmPr60AU
- aR624/Uxh3wxlLzdUxfTs5A=
-X-Google-Smtp-Source: ABdhPJxhsWIy8WW+Tr4xQbQCXRqLiOto2ndTlcft3CciYCq2dpG8mxvQSmAG9Sd2ZbVjMFwrTmeR6Q==
-X-Received: by 2002:a17:906:4c97:: with SMTP id
- q23mr327734eju.11.1598597295563; 
- Thu, 27 Aug 2020 23:48:15 -0700 (PDT)
-Received: from pi3 ([194.230.155.216])
- by smtp.googlemail.com with ESMTPSA id dr21sm22807ejc.112.2020.08.27.23.48.14
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 27 Aug 2020 23:48:15 -0700 (PDT)
-Date: Fri, 28 Aug 2020 08:48:12 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Sylwester Nawrocki <s.nawrocki@samsung.com>
-Subject: Re: [PATCH 2/2] ASoC: wm8994: Ensure the device is resumed in
- wm89xx_mic_detect functions
-Message-ID: <20200828064812.GE17406@pi3>
-References: <20200827173357.31891-1-s.nawrocki@samsung.com>
- <CGME20200827173426eucas1p13f9f7d358dfcc440db160de3dc658ddf@eucas1p1.samsung.com>
- <20200827173357.31891-2-s.nawrocki@samsung.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 305C4F80105
+ for <alsa-devel@alsa-project.org>; Fri, 28 Aug 2020 08:51:31 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 305C4F80105
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="m+NiDIn6"
+Received: from localhost (unknown [122.171.38.130])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by mail.kernel.org (Postfix) with ESMTPSA id AACB220825;
+ Fri, 28 Aug 2020 06:51:28 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=default; t=1598597489;
+ bh=/bhjJvxPGi0YxD+jDxjpPtYNclCNwWY9zpiia8ZDhCA=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=m+NiDIn6Xja1b4Arx3GBrQKP9KH40E5H+ysjB5zuUJtKdtHvV9n+YsQusa8lxVt2i
+ ffQqSDy0TV4qnzlB9Rq26sisxGmXN2owFlOX9PHeC9dBLE/nwL1j0EU0+qTDc95A1h
+ cReJsi/Enkve4dAcvZgX3f59Qn0SH28TPXnlFV/s=
+Date: Fri, 28 Aug 2020 12:21:25 +0530
+From: Vinod Koul <vkoul@kernel.org>
+To: Bard Liao <yung-chuan.liao@linux.intel.com>, broonie@kernel.org
+Subject: Re: [PATCH 1/7] soundwire: bus: use property to set interrupt masks
+Message-ID: <20200828065125.GI2639@vkoul-mobl>
+References: <20200818140656.29014-1-yung-chuan.liao@linux.intel.com>
+ <20200818140656.29014-2-yung-chuan.liao@linux.intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20200827173357.31891-2-s.nawrocki@samsung.com>
-Cc: alsa-devel@alsa-project.org, ckeepax@opensource.cirrus.com,
- b.zolnierkie@samsung.com, patches@opensource.cirrus.com, lgirdwood@gmail.com,
- linux-kernel@vger.kernel.org, broonie@kernel.org, m.szyprowski@samsung.com
+In-Reply-To: <20200818140656.29014-2-yung-chuan.liao@linux.intel.com>
+Cc: pierre-louis.bossart@linux.intel.com, alsa-devel@alsa-project.org,
+ tiwai@suse.de, gregkh@linuxfoundation.org, linux-kernel@vger.kernel.org,
+ ranjani.sridharan@linux.intel.com, hui.wang@canonical.com, broonie@kernel.org,
+ srinivas.kandagatla@linaro.org, jank@cadence.com, mengdong.lin@intel.com,
+ sanyog.r.kale@intel.com, rander.wang@linux.intel.com, bard.liao@intel.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -93,35 +83,223 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Thu, Aug 27, 2020 at 07:33:57PM +0200, Sylwester Nawrocki wrote:
-> When the wm8958_mic_detect, wm8994_mic_detect functions get called from
-> the machine driver, e.g. from the card's late_probe() callback, the CODEC
-> device may be PM runtime suspended and any regmap writes have no effect.
-> Add PM runtime calls to these functions to ensure the device registers
-> are updated as expected.
-> This suppresses an error during boot
-> "wm8994-codec: ASoC: error at snd_soc_component_update_bits on wm8994-codec"
-> caused by the regmap access error due to the cache_only flag being set.
+Hi Mark,
+
+On 18-08-20, 22:06, Bard Liao wrote:
+> From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 > 
-> Signed-off-by: Sylwester Nawrocki <s.nawrocki@samsung.com>
+> Add a slave-level property and program the SCP_INT1_MASK as desired by
+> the codec driver. Since there is no DisCo property this has to be an
+> implementation-specific firmware property or hard-coded in the driver.
+> 
+> The only functionality change is that implementation-defined
+> interrupts are no longer set for amplifiers - those interrupts are
+> typically for jack detection or acoustic event detection/hotwording.
+> 
+> Tested-by: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
+> Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+> Reviewed-by: Kai Vehmanen <kai.vehmanen@linux.intel.com>
+> Reviewed-by: Guennadi Liakhovetski <guennadi.liakhovetski@linux.intel.com>
+> Signed-off-by: Bard Liao <yung-chuan.liao@linux.intel.com>
 > ---
->  sound/soc/codecs/wm8994.c | 8 ++++++++
->  1 file changed, 8 insertions(+)
+>  drivers/soundwire/bus.c         | 12 ++++++------
+>  include/linux/soundwire/sdw.h   |  2 ++
+>  sound/soc/codecs/max98373-sdw.c |  3 +++
+>  sound/soc/codecs/rt1308-sdw.c   |  2 ++
+>  sound/soc/codecs/rt5682-sdw.c   |  4 ++++
+>  sound/soc/codecs/rt700-sdw.c    |  4 ++++
+>  sound/soc/codecs/rt711-sdw.c    |  4 ++++
+>  sound/soc/codecs/rt715-sdw.c    |  4 ++++
+>  sound/soc/codecs/wsa881x.c      |  1 +
+
+This touches codecs, can you Ack it please
+
+Ideally this should have been split up to header, the codec updates and
+finally the bus change!
+
+
+>  9 files changed, 30 insertions(+), 6 deletions(-)
 > 
-> diff --git a/sound/soc/codecs/wm8994.c b/sound/soc/codecs/wm8994.c
-> index b3ba053..fc9ea19 100644
-> --- a/sound/soc/codecs/wm8994.c
-> +++ b/sound/soc/codecs/wm8994.c
-> @@ -3514,6 +3514,8 @@ int wm8994_mic_detect(struct snd_soc_component *component, struct snd_soc_jack *
->  		return -EINVAL;
->  	}
+> diff --git a/drivers/soundwire/bus.c b/drivers/soundwire/bus.c
+> index e6e0fb9a81b4..3b6a87bc254e 100644
+> --- a/drivers/soundwire/bus.c
+> +++ b/drivers/soundwire/bus.c
+> @@ -1184,13 +1184,13 @@ static int sdw_initialize_slave(struct sdw_slave *slave)
+>  		return ret;
 >  
-> +	pm_runtime_get_sync(component->dev);
+>  	/*
+> -	 * Set bus clash, parity and SCP implementation
+> -	 * defined interrupt mask
+> -	 * TODO: Read implementation defined interrupt mask
+> -	 * from Slave property
+> +	 * Set SCP_INT1_MASK register, typically bus clash and
+> +	 * implementation-defined interrupt mask. The Parity detection
+> +	 * may not always be correct on startup so its use is
+> +	 * device-dependent, it might e.g. only be enabled in
+> +	 * steady-state after a couple of frames.
+>  	 */
+> -	val = SDW_SCP_INT1_IMPL_DEF | SDW_SCP_INT1_BUS_CLASH |
+> -					SDW_SCP_INT1_PARITY;
+> +	val = slave->prop.scp_int1_mask;
+>  
+>  	/* Enable SCP interrupts */
+>  	ret = sdw_update(slave, SDW_SCP_INTMASK1, val, val);
+> diff --git a/include/linux/soundwire/sdw.h b/include/linux/soundwire/sdw.h
+> index 76052f12c9f7..6d91f2ca20b2 100644
+> --- a/include/linux/soundwire/sdw.h
+> +++ b/include/linux/soundwire/sdw.h
+> @@ -355,6 +355,7 @@ struct sdw_dpn_prop {
+>   * @dp0_prop: Data Port 0 properties
+>   * @src_dpn_prop: Source Data Port N properties
+>   * @sink_dpn_prop: Sink Data Port N properties
+> + * @scp_int1_mask: SCP_INT1_MASK desired settings
+>   */
+>  struct sdw_slave_prop {
+>  	u32 mipi_revision;
+> @@ -376,6 +377,7 @@ struct sdw_slave_prop {
+>  	struct sdw_dp0_prop *dp0_prop;
+>  	struct sdw_dpn_prop *src_dpn_prop;
+>  	struct sdw_dpn_prop *sink_dpn_prop;
+> +	u8 scp_int1_mask;
+>  };
+>  
+>  /**
+> diff --git a/sound/soc/codecs/max98373-sdw.c b/sound/soc/codecs/max98373-sdw.c
+> index 5fe724728e84..17fd1989e873 100644
+> --- a/sound/soc/codecs/max98373-sdw.c
+> +++ b/sound/soc/codecs/max98373-sdw.c
+> @@ -15,6 +15,7 @@
+>  #include <linux/of.h>
+>  #include <linux/soundwire/sdw.h>
+>  #include <linux/soundwire/sdw_type.h>
+> +#include <linux/soundwire/sdw_registers.h>
+>  #include "max98373.h"
+>  #include "max98373-sdw.h"
+>  
+> @@ -287,6 +288,8 @@ static int max98373_read_prop(struct sdw_slave *slave)
+>  	unsigned long addr;
+>  	struct sdw_dpn_prop *dpn;
+>  
+> +	prop->scp_int1_mask = SDW_SCP_INT1_BUS_CLASH | SDW_SCP_INT1_PARITY;
+> +
+>  	/* BITMAP: 00001000  Dataport 3 is active */
+>  	prop->source_ports = BIT(3);
+>  	/* BITMAP: 00000010  Dataport 1 is active */
+> diff --git a/sound/soc/codecs/rt1308-sdw.c b/sound/soc/codecs/rt1308-sdw.c
+> index b0ba0d2acbdd..5cf10fd447eb 100644
+> --- a/sound/soc/codecs/rt1308-sdw.c
+> +++ b/sound/soc/codecs/rt1308-sdw.c
+> @@ -123,6 +123,8 @@ static int rt1308_read_prop(struct sdw_slave *slave)
+>  	unsigned long addr;
+>  	struct sdw_dpn_prop *dpn;
+>  
+> +	prop->scp_int1_mask = SDW_SCP_INT1_BUS_CLASH | SDW_SCP_INT1_PARITY;
+> +
+>  	prop->paging_support = true;
+>  
+>  	/* first we need to allocate memory for set bits in port lists */
+> diff --git a/sound/soc/codecs/rt5682-sdw.c b/sound/soc/codecs/rt5682-sdw.c
+> index 94bf6bee78e6..544073975020 100644
+> --- a/sound/soc/codecs/rt5682-sdw.c
+> +++ b/sound/soc/codecs/rt5682-sdw.c
+> @@ -19,6 +19,7 @@
+>  #include <linux/mutex.h>
+>  #include <linux/soundwire/sdw.h>
+>  #include <linux/soundwire/sdw_type.h>
+> +#include <linux/soundwire/sdw_registers.h>
+>  #include <sound/core.h>
+>  #include <sound/pcm.h>
+>  #include <sound/pcm_params.h>
+> @@ -542,6 +543,9 @@ static int rt5682_read_prop(struct sdw_slave *slave)
+>  	unsigned long addr;
+>  	struct sdw_dpn_prop *dpn;
+>  
+> +	prop->scp_int1_mask = SDW_SCP_INT1_IMPL_DEF | SDW_SCP_INT1_BUS_CLASH |
+> +		SDW_SCP_INT1_PARITY;
+> +
+>  	prop->paging_support = false;
+>  
+>  	/* first we need to allocate memory for set bits in port lists */
+> diff --git a/sound/soc/codecs/rt700-sdw.c b/sound/soc/codecs/rt700-sdw.c
+> index 4d14048d1197..a46b957a3f1b 100644
+> --- a/sound/soc/codecs/rt700-sdw.c
+> +++ b/sound/soc/codecs/rt700-sdw.c
+> @@ -11,6 +11,7 @@
+>  #include <linux/mod_devicetable.h>
+>  #include <linux/soundwire/sdw.h>
+>  #include <linux/soundwire/sdw_type.h>
+> +#include <linux/soundwire/sdw_registers.h>
+>  #include <linux/module.h>
+>  #include <linux/regmap.h>
+>  #include <sound/soc.h>
+> @@ -338,6 +339,9 @@ static int rt700_read_prop(struct sdw_slave *slave)
+>  	unsigned long addr;
+>  	struct sdw_dpn_prop *dpn;
+>  
+> +	prop->scp_int1_mask = SDW_SCP_INT1_IMPL_DEF | SDW_SCP_INT1_BUS_CLASH |
+> +		SDW_SCP_INT1_PARITY;
+> +
+>  	prop->paging_support = false;
+>  
+>  	/* first we need to allocate memory for set bits in port lists */
+> diff --git a/sound/soc/codecs/rt711-sdw.c b/sound/soc/codecs/rt711-sdw.c
+> index 45b928954b58..a877e366fec5 100644
+> --- a/sound/soc/codecs/rt711-sdw.c
+> +++ b/sound/soc/codecs/rt711-sdw.c
+> @@ -11,6 +11,7 @@
+>  #include <linux/mod_devicetable.h>
+>  #include <linux/soundwire/sdw.h>
+>  #include <linux/soundwire/sdw_type.h>
+> +#include <linux/soundwire/sdw_registers.h>
+>  #include <linux/module.h>
+>  #include <linux/regmap.h>
+>  #include <sound/soc.h>
+> @@ -342,6 +343,9 @@ static int rt711_read_prop(struct sdw_slave *slave)
+>  	unsigned long addr;
+>  	struct sdw_dpn_prop *dpn;
+>  
+> +	prop->scp_int1_mask = SDW_SCP_INT1_IMPL_DEF | SDW_SCP_INT1_BUS_CLASH |
+> +		SDW_SCP_INT1_PARITY;
+> +
+>  	prop->paging_support = false;
+>  
+>  	/* first we need to allocate memory for set bits in port lists */
+> diff --git a/sound/soc/codecs/rt715-sdw.c b/sound/soc/codecs/rt715-sdw.c
+> index d11b23d6b240..0eb8943ed6ff 100644
+> --- a/sound/soc/codecs/rt715-sdw.c
+> +++ b/sound/soc/codecs/rt715-sdw.c
+> @@ -12,6 +12,7 @@
+>  #include <linux/mod_devicetable.h>
+>  #include <linux/soundwire/sdw.h>
+>  #include <linux/soundwire/sdw_type.h>
+> +#include <linux/soundwire/sdw_registers.h>
+>  #include <linux/module.h>
+>  #include <linux/of.h>
+>  #include <linux/regmap.h>
+> @@ -436,6 +437,9 @@ static int rt715_read_prop(struct sdw_slave *slave)
+>  	unsigned long addr;
+>  	struct sdw_dpn_prop *dpn;
+>  
+> +	prop->scp_int1_mask = SDW_SCP_INT1_IMPL_DEF | SDW_SCP_INT1_BUS_CLASH |
+> +		SDW_SCP_INT1_PARITY;
+> +
+>  	prop->paging_support = false;
+>  
+>  	/* first we need to allocate memory for set bits in port lists */
+> diff --git a/sound/soc/codecs/wsa881x.c b/sound/soc/codecs/wsa881x.c
+> index d39d479e2378..68e774e69c85 100644
+> --- a/sound/soc/codecs/wsa881x.c
+> +++ b/sound/soc/codecs/wsa881x.c
+> @@ -1112,6 +1112,7 @@ static int wsa881x_probe(struct sdw_slave *pdev,
+>  	wsa881x->sconfig.type = SDW_STREAM_PDM;
+>  	pdev->prop.sink_ports = GENMASK(WSA881X_MAX_SWR_PORTS, 0);
+>  	pdev->prop.sink_dpn_prop = wsa_sink_dpn_prop;
+> +	pdev->prop.scp_int1_mask = SDW_SCP_INT1_BUS_CLASH | SDW_SCP_INT1_PARITY;
+>  	gpiod_direction_output(wsa881x->sd_n, 1);
+>  
+>  	wsa881x->regmap = devm_regmap_init_sdw(pdev, &wsa881x_regmap_config);
+> -- 
+> 2.17.1
 
-The driver enables PM runtime unconditionally so you should probably
-handle the error code here. I know that driver does not do it in other
-cases but it should not be a reason to multiple this pattern... unless
-it really does not matter as there are no runtime PM ops?
-
-Best regards,
-Krzysztof
+-- 
+~Vinod

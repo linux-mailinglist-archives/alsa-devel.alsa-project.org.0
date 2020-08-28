@@ -2,101 +2,75 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 27E60255E41
-	for <lists+alsa-devel@lfdr.de>; Fri, 28 Aug 2020 17:55:49 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4A422255E81
+	for <lists+alsa-devel@lfdr.de>; Fri, 28 Aug 2020 18:05:10 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A7CB518BA;
-	Fri, 28 Aug 2020 17:54:58 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A7CB518BA
+	by alsa0.perex.cz (Postfix) with ESMTPS id C085518CA;
+	Fri, 28 Aug 2020 18:04:19 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C085518CA
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1598630148;
-	bh=cl914DCj3NpC6BlBvqpTjZPyywvcdE1nFASzgS2VegE=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1598630709;
+	bh=34AztJuKEiX/5z+vXP6aicAAjoSricXKar1XdieHfHY=;
+	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=qiUNlStK03thtprqjsbXg8Ih8uBnMxJq0q5gEQEkC2pIkaLwZhQyhi9v335H1Riw7
-	 StwfnF7M/v2yiZvMxGXgTVprOW68rH5EcG79Aq35aMhAfXtexqcXec5PjxOZfpYfKq
-	 gyHehwpJUdUYUP39jlCNW8cJhpZNAqKr2IVd/zNA=
+	b=mzN3GfeqTQLh0lUDYGpAwK/wjsfdLQny3LzqSEU1gL2yzBwfIi9Epos03SZlevVvk
+	 iDG2PtVM17uDX/ApoMSGt+Xm5XYTWQNuuvGQD/YUwcGyaclR2W3e1scbbbDwf2yYNK
+	 avnGA5Kc+VSMr02Tw0ZUZKUB4T5vBvhqcgnBo4nE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 9D764F80143;
-	Fri, 28 Aug 2020 17:54:07 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id B7140F80143;
+	Fri, 28 Aug 2020 18:03:28 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 51E23F8016F; Fri, 28 Aug 2020 17:54:05 +0200 (CEST)
+ id 71A40F80118; Fri, 28 Aug 2020 18:03:26 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mx0b-001ae601.pphosted.com (mx0a-001ae601.pphosted.com
- [67.231.149.25])
+X-Spam-Status: No, score=-1.8 required=5.0 tests=NICE_REPLY_A,SPF_HELO_NONE,
+ SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mga06.intel.com (mga06.intel.com [134.134.136.31])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id C2BC6F80118
- for <alsa-devel@alsa-project.org>; Fri, 28 Aug 2020 17:53:53 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C2BC6F80118
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=cirrus.com header.i=@cirrus.com
- header.b="bRuLBMoI"
-Received: from pps.filterd (m0077473.ppops.net [127.0.0.1])
- by mx0a-001ae601.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
- 07SFi0Uq021999; Fri, 28 Aug 2020 10:53:51 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com;
- h=date : from : to : cc
- : subject : message-id : references : mime-version : content-type :
- in-reply-to; s=PODMain02222019;
- bh=qhUw5EM9tqAPaoYo4GOoztPzC9zw8DfW3LO1+A6Y+28=;
- b=bRuLBMoIsUU2RjJIR8qts3Oo4Pv64klBTiafZz/oeRXu54YUvre3T6GR6XdO8NoY+wS9
- H5LwBEmr8suz459X5hNyVLco6Er/QBsFs+uznnC5bK/pJ8dLewQQe/qqxNgyYShjnoGR
- 3lj7BD1rKeyh+qIDgYHZ81wjltNgPX473U311KTEyoyMRLU10rgyopFs0seCy33pg3Mw
- JQ/qNZsjxEmbeuQXvXAenGsdaz+eQpjdx7Be+HfNgESXNmghb14L9Ekjdvo9rzSR+wfM
- d4SvcU9Ye8tzJQNtn07/GYi1iRT/QcMdi2NZOdfztWa0ttHtp8k/C4FTV7Aghf4jimVF +w== 
-Authentication-Results: ppops.net;
- spf=fail smtp.mailfrom=ckeepax@opensource.cirrus.com
-Received: from ediex02.ad.cirrus.com ([87.246.76.36])
- by mx0a-001ae601.pphosted.com with ESMTP id 3330s3h7e8-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT);
- Fri, 28 Aug 2020 10:53:51 -0500
-Received: from EDIEX01.ad.cirrus.com (198.61.84.80) by EDIEX02.ad.cirrus.com
- (198.61.84.81) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1913.5; Fri, 28 Aug
- 2020 16:53:49 +0100
-Received: from ediswmail.ad.cirrus.com (198.61.86.93) by EDIEX01.ad.cirrus.com
- (198.61.84.80) with Microsoft SMTP Server id 15.1.1913.5 via Frontend
- Transport; Fri, 28 Aug 2020 16:53:49 +0100
-Received: from ediswmail.ad.cirrus.com (ediswmail.ad.cirrus.com [198.61.86.93])
- by ediswmail.ad.cirrus.com (Postfix) with ESMTP id 40F7A2C4;
- Fri, 28 Aug 2020 15:53:49 +0000 (UTC)
-Date: Fri, 28 Aug 2020 15:53:49 +0000
-From: Charles Keepax <ckeepax@opensource.cirrus.com>
-To: Sylwester Nawrocki <s.nawrocki@samsung.com>
-Subject: Re: [PATCH 2/2] ASoC: wm8994: Ensure the device is resumed in
- wm89xx_mic_detect functions
-Message-ID: <20200828155349.GK10899@ediswmail.ad.cirrus.com>
-References: <20200827173357.31891-1-s.nawrocki@samsung.com>
- <CGME20200827173426eucas1p13f9f7d358dfcc440db160de3dc658ddf@eucas1p1.samsung.com>
- <20200827173357.31891-2-s.nawrocki@samsung.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id C409FF80118
+ for <alsa-devel@alsa-project.org>; Fri, 28 Aug 2020 18:03:15 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C409FF80118
+IronPort-SDR: kWC5hJZ5kUPYNfMnjTBCY5FJtR8H2Wwuqkh/1AI2qq4Z9i84o0rZLsVrZpeg3RNdt/5JUIMEsp
+ J6SQ8DNifSPQ==
+X-IronPort-AV: E=McAfee;i="6000,8403,9727"; a="218243798"
+X-IronPort-AV: E=Sophos;i="5.76,364,1592895600"; 
+ d="scan'208,223";a="218243798"
+X-Amp-Result: UNKNOWN
+X-Amp-Original-Verdict: FILE UNKNOWN
+X-Amp-File-Uploaded: False
+Received: from orsmga001.jf.intel.com ([10.7.209.18])
+ by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 28 Aug 2020 09:03:11 -0700
+IronPort-SDR: W3KWLNyPJ76Hv/aa83oxabJIlMh0kpUCgj3wKuGh3wYIZ4mtkEoP4s0aIsakp3CGe0N51NFS2D
+ f1UnO/OkUhBQ==
+X-IronPort-AV: E=Sophos;i="5.76,364,1592895600"; 
+ d="scan'208,223";a="374103471"
+Received: from nyriley-mobl1.amr.corp.intel.com (HELO [10.212.51.95])
+ ([10.212.51.95])
+ by orsmga001-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 28 Aug 2020 09:03:10 -0700
+Subject: Re: [PATCH 1/9] soundwire: define and use addr bit masks
+To: Vinod Koul <vkoul@kernel.org>, alsa-devel@alsa-project.org
+References: <20200828072101.3781956-1-vkoul@kernel.org>
+ <20200828072101.3781956-2-vkoul@kernel.org>
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Message-ID: <9ae0f448-afb8-bcd6-b494-a7014ed88c11@linux.intel.com>
+Date: Fri, 28 Aug 2020 11:03:09 -0500
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.10.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Disposition: inline
-In-Reply-To: <20200827173357.31891-2-s.nawrocki@samsung.com>
-User-Agent: Mutt/1.5.21 (2010-09-15)
-X-Proofpoint-SPF-Result: fail
-X-Proofpoint-SPF-Record: v=spf1 include:spf-001ae601.pphosted.com
- include:spf.protection.outlook.com
- ip4:5.172.152.52 -all
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0
- lowpriorityscore=0 clxscore=1015
- impostorscore=0 mlxscore=0 bulkscore=0 adultscore=0 phishscore=0
- mlxlogscore=766 priorityscore=1501 malwarescore=0 spamscore=0
- suspectscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.12.0-2006250000 definitions=main-2008280119
-Cc: alsa-devel@alsa-project.org, b.zolnierkie@samsung.com,
- patches@opensource.cirrus.com, lgirdwood@gmail.com,
- Krzysztof Kozlowski <krzk@kernel.org>, linux-kernel@vger.kernel.org,
- broonie@kernel.org, m.szyprowski@samsung.com
+In-Reply-To: <20200828072101.3781956-2-vkoul@kernel.org>
+Content-Type: multipart/mixed; boundary="------------6E7563E7AF02904EDBA1AA4B"
+Content-Language: en-US
+Cc: Bard Liao <yung-chuan.liao@linux.intel.com>,
+ Sanyog Kale <sanyog.r.kale@intel.com>,
+ Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -112,20 +86,142 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Thu, Aug 27, 2020 at 07:33:57PM +0200, Sylwester Nawrocki wrote:
-> When the wm8958_mic_detect, wm8994_mic_detect functions get called from
-> the machine driver, e.g. from the card's late_probe() callback, the CODEC
-> device may be PM runtime suspended and any regmap writes have no effect.
-> Add PM runtime calls to these functions to ensure the device registers
-> are updated as expected.
-> This suppresses an error during boot
-> "wm8994-codec: ASoC: error at snd_soc_component_update_bits on wm8994-codec"
-> caused by the regmap access error due to the cache_only flag being set.
-> 
-> Signed-off-by: Sylwester Nawrocki <s.nawrocki@samsung.com>
-> ---
+This is a multi-part message in MIME format.
+--------------6E7563E7AF02904EDBA1AA4B
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Acked-by: Charles Keepax <ckeepax@opensource.cirrus.com>
+Hi Vinod,
+This change to use FIELD_PREP/GET looks good, the code is indeed a lot 
+clearer, but ...
 
-Thanks,
-Charles
+> +#define SDW_DISCO_LINK_ID(adr)	FIELD_GET(SDW_DISCO_LINK_ID_MASK, addr)
+> +#define SDW_VERSION(adr)	FIELD_GET(SDW_VERSION_MASK, addr)
+> +#define SDW_UNIQUE_ID(adr)	FIELD_GET(SDW_UNIQUE_ID_MASK, addr)
+> +#define SDW_MFG_ID(adr)		FIELD_GET(SDW_MFG_ID_MASK, addr)
+> +#define SDW_PART_ID(adr)	FIELD_GET(SDW_PART_ID_MASK, addr)
+> +#define SDW_CLASS_ID(adr)	FIELD_GET(SDW_CLASS_ID_MASK, addr)
+
+...our CI stopped on a compilation error with these macros. You will 
+need the patch1 attached.
+
+Patch 9 also introduces conflicts with the multi-link code (fix in 
+patch2), so would you mind if we go first with the multi-link code, or 
+defer patch9 for now?
+
+Our validation for CML w/ RT700 is at:
+https://github.com/thesofproject/linux/pull/2404
+
+We will also test on machines that are not in the CI farm and provide 
+feedback.
+
+Thanks
+-Pierre
+
+
+--------------6E7563E7AF02904EDBA1AA4B
+Content-Type: text/x-patch; charset=UTF-8;
+ name="0001-fixup-soundwire-define-and-use-addr-bit-masks.patch"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+ filename="0001-fixup-soundwire-define-and-use-addr-bit-masks.patch"
+
+From 3aba5a7229c904664dacf1843f2e925585d4bd3e Mon Sep 17 00:00:00 2001
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Date: Fri, 28 Aug 2020 10:45:22 -0500
+Subject: [PATCH 1/2] fixup! soundwire: define and use addr bit masks
+
+s/addr/adr
+
+Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+---
+ include/linux/soundwire/sdw.h | 12 ++++++------
+ 1 file changed, 6 insertions(+), 6 deletions(-)
+
+diff --git a/include/linux/soundwire/sdw.h b/include/linux/soundwire/sdw.h
+index 892bf4718bc3..ebfabab63ec9 100644
+--- a/include/linux/soundwire/sdw.h
++++ b/include/linux/soundwire/sdw.h
+@@ -472,12 +472,12 @@ struct sdw_slave_id {
+ #define SDW_PART_ID_MASK	GENMASK(23, 8)
+ #define SDW_CLASS_ID_MASK	GENMASK(7, 0)
+ 
+-#define SDW_DISCO_LINK_ID(adr)	FIELD_GET(SDW_DISCO_LINK_ID_MASK, addr)
+-#define SDW_VERSION(adr)	FIELD_GET(SDW_VERSION_MASK, addr)
+-#define SDW_UNIQUE_ID(adr)	FIELD_GET(SDW_UNIQUE_ID_MASK, addr)
+-#define SDW_MFG_ID(adr)		FIELD_GET(SDW_MFG_ID_MASK, addr)
+-#define SDW_PART_ID(adr)	FIELD_GET(SDW_PART_ID_MASK, addr)
+-#define SDW_CLASS_ID(adr)	FIELD_GET(SDW_CLASS_ID_MASK, addr)
++#define SDW_DISCO_LINK_ID(adr)	FIELD_GET(SDW_DISCO_LINK_ID_MASK, adr)
++#define SDW_VERSION(adr)	FIELD_GET(SDW_VERSION_MASK, adr)
++#define SDW_UNIQUE_ID(adr)	FIELD_GET(SDW_UNIQUE_ID_MASK, adr)
++#define SDW_MFG_ID(adr)		FIELD_GET(SDW_MFG_ID_MASK, adr)
++#define SDW_PART_ID(adr)	FIELD_GET(SDW_PART_ID_MASK, adr)
++#define SDW_CLASS_ID(adr)	FIELD_GET(SDW_CLASS_ID_MASK, adr)
+ 
+ /**
+  * struct sdw_slave_intr_status - Slave interrupt status
+-- 
+2.25.1
+
+
+--------------6E7563E7AF02904EDBA1AA4B
+Content-Type: text/x-patch; charset=UTF-8;
+ name="0002-soundwire-intel-use-FIELD_PREP-macro.patch"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+ filename="0002-soundwire-intel-use-FIELD_PREP-macro.patch"
+
+From f0280ed5dbe284df628e58c5afa1e61452cd5cb8 Mon Sep 17 00:00:00 2001
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Date: Fri, 28 Aug 2020 10:51:52 -0500
+Subject: [PATCH 2/2] soundwire: intel: use FIELD_PREP macro
+
+Follow upstream changes.
+
+Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+---
+ drivers/soundwire/intel.c | 18 ++++++++++--------
+ 1 file changed, 10 insertions(+), 8 deletions(-)
+
+diff --git a/drivers/soundwire/intel.c b/drivers/soundwire/intel.c
+index 566c7a99a5c1..20f111ce8a7a 100644
+--- a/drivers/soundwire/intel.c
++++ b/drivers/soundwire/intel.c
+@@ -381,10 +381,11 @@ static int intel_link_power_up(struct sdw_intel *sdw)
+ 		link_control = intel_readl(shim, SDW_SHIM_LCTL);
+ 
+ 		/* only power-up enabled links */
+-		spa_mask = sdw->link_res->link_mask <<
+-			SDW_REG_SHIFT(SDW_SHIM_LCTL_SPA_MASK);
+-		cpa_mask = sdw->link_res->link_mask <<
+-			SDW_REG_SHIFT(SDW_SHIM_LCTL_CPA_MASK);
++		spa_mask = FIELD_PREP(SDW_SHIM_LCTL_SPA_MASK,
++				      sdw->link_res->link_mask);
++		cpa_mask = FIELD_PREP(SDW_SHIM_LCTL_CPA_MASK,
++				      sdw->link_res->link_mask);
++
+ 
+ 		link_control |=  spa_mask;
+ 
+@@ -555,10 +556,11 @@ static int intel_link_power_down(struct sdw_intel *sdw)
+ 		link_control = intel_readl(shim, SDW_SHIM_LCTL);
+ 
+ 		/* only power-down enabled links */
+-		spa_mask = (~sdw->link_res->link_mask) <<
+-			SDW_REG_SHIFT(SDW_SHIM_LCTL_SPA_MASK);
+-		cpa_mask = sdw->link_res->link_mask <<
+-			SDW_REG_SHIFT(SDW_SHIM_LCTL_CPA_MASK);
++		spa_mask = FIELD_PREP(SDW_SHIM_LCTL_SPA_MASK,
++				      ~sdw->link_res->link_mask);
++
++		cpa_mask = FIELD_PREP(SDW_SHIM_LCTL_CPA_MASK,
++				      sdw->link_res->link_mask);
+ 
+ 		link_control &=  spa_mask;
+ 
+-- 
+2.25.1
+
+
+--------------6E7563E7AF02904EDBA1AA4B--

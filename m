@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7F4F22558CE
-	for <lists+alsa-devel@lfdr.de>; Fri, 28 Aug 2020 12:46:09 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E51342558DB
+	for <lists+alsa-devel@lfdr.de>; Fri, 28 Aug 2020 12:48:51 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 16E9218A8;
-	Fri, 28 Aug 2020 12:45:19 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 16E9218A8
+	by alsa0.perex.cz (Postfix) with ESMTPS id 8236016D9;
+	Fri, 28 Aug 2020 12:48:01 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8236016D9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1598611569;
-	bh=5S9ola0AinGcOkFe24KtDIJMhhk9eLQmLaq9E6XgUXs=;
+	s=default; t=1598611731;
+	bh=tt8MF935pgWSjZW0cf4zzJI7hbVdJsomM9xcAT1mgm4=;
 	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=mGeRDQHlDnY3Q9/kJX4yTd17hGukzpWUpO32eo1Bu08CCYzEIV2GCKDRKegXdEwa2
-	 AXMJo8ujKxyN8TWZ2JGK7o72yNmNLlygulQwKH6IOlGPReKEJhR1/n6jbHXhFA/dVF
-	 pY05pURoPHJornMyk3DWEHEnUzJz3MxpCpbQKYZg=
+	b=kiZLeFvYzuQw3QNrLMXx2v7JCW+nHet22J1zdvd2l5XED8CIv+xvzMjNLZ5EzhdDa
+	 nj8dUGRU9x3NQR638XUu2Zg3it8rggGfQoKWvIwRt3J4YBEo+zA5bZbN/7v4zD2NOt
+	 S17OxRYOSULWDMRhSW8W7pPdAEzZTcG5Uh3DbABE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 2F793F801D9;
-	Fri, 28 Aug 2020 12:44:28 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 94899F800EB;
+	Fri, 28 Aug 2020 12:47:10 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 0A70EF8016F; Fri, 28 Aug 2020 12:44:24 +0200 (CEST)
+ id E0A7EF8016F; Fri, 28 Aug 2020 12:47:08 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-1.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -34,41 +34,55 @@ X-Spam-Status: No, score=-1.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 2E40BF800EB
- for <alsa-devel@alsa-project.org>; Fri, 28 Aug 2020 12:44:13 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2E40BF800EB
+ by alsa1.perex.cz (Postfix) with ESMTPS id CA2C9F800EB
+ for <alsa-devel@alsa-project.org>; Fri, 28 Aug 2020 12:47:02 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CA2C9F800EB
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="H1SZ8pId"
+ header.b="olxNBFus"
 Received: from localhost (fw-tnat.cambridge.arm.com [217.140.96.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 5A97E208CA;
- Fri, 28 Aug 2020 10:44:11 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id 917692086A;
+ Fri, 28 Aug 2020 10:46:59 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1598611451;
- bh=5S9ola0AinGcOkFe24KtDIJMhhk9eLQmLaq9E6XgUXs=;
+ s=default; t=1598611620;
+ bh=tt8MF935pgWSjZW0cf4zzJI7hbVdJsomM9xcAT1mgm4=;
  h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=H1SZ8pIdHgh8KrhNCIv7382/Hdg4V7nKyYlbwlelggdMqMvEkKGGTyz71aA6EV/Pt
- igbPUl37VD20iTW3GEcfQII9zlGkuZWWzR7/hyLrFynKJxMirTd6oE3MOYKh0v1ex+
- at9Mli2szL9D/zlVhva4qUw2yGdqeocYfi2gklDI=
-Date: Fri, 28 Aug 2020 11:43:34 +0100
+ b=olxNBFuslEexXluDdwpqUa0h6J1xoaS6MQi3/kEuynXo7N7i2aGXN7IEUf1I2lsOZ
+ vNKi1OKi7rPMajX9OTxgP1p6gW6rflN/uy4Je+Kt/2g2QKxy9d78n4lkw+yrpRUGh9
+ ko4IO5Cpa1hBJWOf1umJsu8WYToOoOtHxlyB7doQ=
+Date: Fri, 28 Aug 2020 11:46:22 +0100
 From: Mark Brown <broonie@kernel.org>
-To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Subject: Re: [PATCH] ASoC: soc-core: add snd_soc_find_dai_with_mutex()
-Message-ID: <20200828104334.GB5566@sirena.org.uk>
-References: <87blixvuab.wl-kuninori.morimoto.gx@renesas.com>
- <159853660472.29762.4382776935010264742.b4-ty@kernel.org>
- <87y2lzu2t9.wl-kuninori.morimoto.gx@renesas.com>
+To: "Liao, Bard" <bard.liao@intel.com>
+Subject: Re: [PATCH v2 3/3] ASoC: codecs: fix port_ready[] dynamic allocation
+ in ASoC codecs
+Message-ID: <20200828104622.GC5566@sirena.org.uk>
+References: <20200820182639.11572-1-yung-chuan.liao@linux.intel.com>
+ <20200820182639.11572-4-yung-chuan.liao@linux.intel.com>
+ <DM6PR11MB40746716F856166D61EE573CFF520@DM6PR11MB4074.namprd11.prod.outlook.com>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="wq9mPyueHGvFACwf"
+ protocol="application/pgp-signature"; boundary="oJ71EGRlYNjSvfq7"
 Content-Disposition: inline
-In-Reply-To: <87y2lzu2t9.wl-kuninori.morimoto.gx@renesas.com>
+In-Reply-To: <DM6PR11MB40746716F856166D61EE573CFF520@DM6PR11MB4074.namprd11.prod.outlook.com>
 X-Cookie: Your fault -- core dumped
 User-Agent: Mutt/1.10.1 (2018-07-13)
-Cc: Linux-ALSA <alsa-devel@alsa-project.org>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Cc: "pierre-louis.bossart@linux.intel.com"
+ <pierre-louis.bossart@linux.intel.com>,
+ "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
+ "vinod.koul@linaro.org" <vinod.koul@linaro.org>,
+ "tiwai@suse.de" <tiwai@suse.de>,
+ "gregkh@linuxfoundation.org" <gregkh@linuxfoundation.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "ranjani.sridharan@linux.intel.com" <ranjani.sridharan@linux.intel.com>,
+ "hui.wang@canonical.com" <hui.wang@canonical.com>,
+ "vkoul@kernel.org" <vkoul@kernel.org>,
+ "srinivas.kandagatla@linaro.org" <srinivas.kandagatla@linaro.org>,
+ "jank@cadence.com" <jank@cadence.com>, "Lin,
+ Mengdong" <mengdong.lin@intel.com>, "Kale, Sanyog R" <sanyog.r.kale@intel.com>,
+ Bard Liao <yung-chuan.liao@linux.intel.com>,
+ "rander.wang@linux.intel.com" <rander.wang@linux.intel.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -85,31 +99,45 @@ Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 
---wq9mPyueHGvFACwf
+--oJ71EGRlYNjSvfq7
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-On Fri, Aug 28, 2020 at 07:46:41AM +0900, Kuninori Morimoto wrote:
+On Fri, Aug 28, 2020 at 08:24:19AM +0000, Liao, Bard wrote:
 
-> Thank you for appling this patch.
-> I think it is added to for-5.10,
-> but is needed to for-5.9.
+> Sorry to ping you, but the patch is really easy to be ignored since I
+> forget to add ASoC prefix  in the cover letter.
+> Could you Ack it if it looks good to you, please?
 
-Moved - the naming here made things unclear.
+I don't have this patch any more, so like I always say please resend:
 
---wq9mPyueHGvFACwf
+Please don't send content free pings and please allow a reasonable time
+for review.  People get busy, go on holiday, attend conferences and so=20
+on so unless there is some reason for urgency (like critical bug fixes)
+please allow at least a couple of weeks for review.  If there have been
+review comments then people may be waiting for those to be addressed.
+
+Sending content free pings adds to the mail volume (if they are seen at
+all) which is often the problem and since they can't be reviewed
+directly if something has gone wrong you'll have to resend the patches
+anyway, so sending again is generally a better approach though there are
+some other maintainers who like them - if in doubt look at how patches
+for the subsystem are normally handled.
+
+--oJ71EGRlYNjSvfq7
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl9I39UACgkQJNaLcl1U
-h9BoXwf/VT+DAZPEDjjHAGUta2f68mX7/yaQmeaGjNOQ0+huKug14FjBUOlg5DbB
-XBfR3bigSniLi0rf0S/tcaPseT5RweeVQuraDUUiHnv+xjGTmEMgzcaJV4eWNqeR
-AqIW0z3uaov4GKsbyEWRxWyZIArGn2l270KTCBI8NMKmZO2NPfY5V3MejdJay+Vh
-lQzgb+aQfTPwhzvPDTDGcZlRpXwXZDmajz4FDRKysA/5JwANgxw7YJj853g5dRZc
-UGhNCke8s3yrhTu0Ox2ci4SlpWhuwy0pHHz2u2L4aJxh4QEH0bCRiaAaN/4XxHQV
-dTPFOmTMWZajj+o7khKYnqhqGqeEaQ==
-=u4MI
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl9I4H0ACgkQJNaLcl1U
+h9B1Pgf/XnMsFTcV918d/rXMNFkYQurZB+NWC2RyBeSc1kt+ym6gWVm0UEu4ZwQz
+zqCVr2fKuTlbomNtGmNw1BrrmdaDieUtJisVI48u7EdFPg+IVR6bxfePBHlPoFcM
+hgnNoVMnhenD4+rh9mEGBy/Ro9F6Cp/9bTjws56bwm7ncCShDT0+O/FgGuO9enRx
+jys4MGr9NU21WWtayqjilu82knuqgzTxze54nZwRU8p5KXv+mL0Hl8i73EB7m5iq
+FmlFWSGX+QbkGbZjmh0t+4Qj2343DEzdFzDz1rDzvFhcBuoap9aJqA7we7Se+Neg
+B15SPTf8mqAfKYVXCKR1IxI/oyRMNQ==
+=eNS/
 -----END PGP SIGNATURE-----
 
---wq9mPyueHGvFACwf--
+--oJ71EGRlYNjSvfq7--

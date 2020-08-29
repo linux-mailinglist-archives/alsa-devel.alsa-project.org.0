@@ -2,85 +2,89 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4A9AF258A14
-	for <lists+alsa-devel@lfdr.de>; Tue,  1 Sep 2020 10:08:42 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 09638258C94
+	for <lists+alsa-devel@lfdr.de>; Tue,  1 Sep 2020 12:17:34 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D392C1748;
-	Tue,  1 Sep 2020 10:07:51 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D392C1748
+	by alsa0.perex.cz (Postfix) with ESMTPS id AA6111797;
+	Tue,  1 Sep 2020 12:16:43 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AA6111797
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1598947721;
-	bh=1cTvXlVFiTOYlnrxfyQywAHIkUhd6YQ1J9L3zQoORmc=;
+	s=default; t=1598955453;
+	bh=2jwMG1eSEm68j/iDhSAUfMG3iMsKfWRveyX8PRt7vyQ=;
 	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
 	 List-Post:List-Help:List-Subscribe:From;
-	b=YN/T8kG/nHLwEUopfsMhgypwsNaJicdePIeId/oF8+LW8AsOyMoH99uzgVcx0aPkV
-	 5GqH8uWoDwCYbjhwLay43KDHr2T1yF/RaQEP83v0tgBxuQTctf/V02JuUlmP1mNKNZ
-	 RakCstyN3oAvxDHHPvnLLr4Wcss401L8VdTgLZnQ=
+	b=SpxoqeVu/cN1DyzNJdJ1bdZfqsEyI3ECqGNAQ2aJTO53InW6QJ3l+9+tFNPNf/c06
+	 peapVu7++sKoLfzW/qx/UF00dwPPoERhdiTbobBK+CQ52aQowsuxMWzzLDQHbnDO1Z
+	 WUeWkn5DKPalGbcQ9bbk7Jn6ih481h7EMb8kIVcI=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 04473F800BA;
-	Tue,  1 Sep 2020 10:07:01 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id DFCCDF800BA;
+	Tue,  1 Sep 2020 12:15:52 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id B1884F80217; Tue,  1 Sep 2020 10:06:57 +0200 (CEST)
+ id 644F2F8025A; Sat, 29 Aug 2020 04:50:19 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,RCVD_IN_MSPIKE_H2,SPF_HELO_NONE,SPF_NONE
- autolearn=disabled version=3.4.0
-Received: from us-smtp-delivery-1.mimecast.com (us-smtp-1.mimecast.com
- [207.211.31.81])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
+X-Spam-Level: *
+X-Spam-Status: No, score=1.4 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,FREEMAIL_FROM,FROM_LOCAL_NOVOWEL,HK_RANDOM_FROM,SPF_HELO_NONE,
+ SPF_NONE autolearn=disabled version=3.4.0
+Received: from mail-lj1-x242.google.com (mail-lj1-x242.google.com
+ [IPv6:2a00:1450:4864:20::242])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 7E9B8F801DA
- for <alsa-devel@alsa-project.org>; Tue,  1 Sep 2020 10:06:50 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7E9B8F801DA
+ by alsa1.perex.cz (Postfix) with ESMTPS id EA611F8012E
+ for <alsa-devel@alsa-project.org>; Sat, 29 Aug 2020 04:50:13 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EA611F8012E
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com
- header.b="iY2mXeiq"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1598947610;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding;
- bh=Ic4ntYy2k5n1UdHZMB1iEawPvcKX66JJlsrKXx327bA=;
- b=iY2mXeiqOMiWdSiCr5F8lpMKT0geldNfxp6Nuq/8Zw/JllfaefDY/D7vrb122Dt24NP2xZ
- GKlTzYn5/UWolv1F67mb72K7KhoSFHNJBOHkF4DJlwLuYG5ndk/EavVd0+QOtNQhcxR/ec
- KAkMXOf3JvubysgDUux0EyxcWzXApQc=
-Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
- [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-457-Dvuchf12PTm_2epJQlgP0A-1; Tue, 01 Sep 2020 04:06:46 -0400
-X-MC-Unique: Dvuchf12PTm_2epJQlgP0A-1
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com
- [10.5.11.15])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 4CE988B94CC;
- Tue,  1 Sep 2020 08:06:39 +0000 (UTC)
-Received: from x1.localdomain.com (ovpn-114-149.ams2.redhat.com
- [10.36.114.149])
- by smtp.corp.redhat.com (Postfix) with ESMTP id 966DE8118F;
- Tue,  1 Sep 2020 08:06:24 +0000 (UTC)
-From: Hans de Goede <hdegoede@redhat.com>
-To: Cezary Rojewski <cezary.rojewski@intel.com>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- Liam Girdwood <liam.r.girdwood@linux.intel.com>,
- Jie Yang <yang.jie@linux.intel.com>, Mark Brown <broonie@kernel.org>
-Subject: [PATCH] ASoC: Intel: bytcr_rt5640: Add quirk for MPMAN Converter9
- 2-in-1
-Date: Tue,  1 Sep 2020 10:06:23 +0200
-Message-Id: <20200901080623.4987-1-hdegoede@redhat.com>
+ dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
+ header.b="GO5xF9C/"
+Received: by mail-lj1-x242.google.com with SMTP id t6so904805ljk.9
+ for <alsa-devel@alsa-project.org>; Fri, 28 Aug 2020 19:50:13 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=eXF1rOFuCr3upnhNqTnjSrFjSuVCSRU/UPn3kL/3JLM=;
+ b=GO5xF9C/82hbVlcWwH7u8XM1zbiWqZnbLEEO/zkuR58wfbviBVgMGdG+HP47S9CQRE
+ HYPhM81j3VGo3Ya8I/pqRaMsmxyQAlTCMokvA42f0Wj1Em33siYrKhEwuL49FDbExgMh
+ NIeRu7NfzbRXLUnITTXW3e05ywpp4oGmhX3rK9z6u8rxCmMsQTA8WYnCTxvLXmaLc4Py
+ Sla8s92HaYvfiAABoZMhWRxovWZmRSZsRrWH0Oa5yi0RiYwP1uN3/0ibGE2XlOpYh6+D
+ ba93Yjym83rg1YwRdVeJNWsSEcKX4PiBri+iXKE32Gtt/nlVoJCGnFD/KCm4pFA1zjIz
+ kubA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=eXF1rOFuCr3upnhNqTnjSrFjSuVCSRU/UPn3kL/3JLM=;
+ b=fi1eTZk1gcwvLmNuU87svRl56Uhlp+Rt89risAEJ8zaInlCmX6Dkq4tSeGa3nE80Wb
+ TfXmG2TZohn6GjQpN2dSgNH/93PwtAe+9pcYtp8S+3ZR8k1oAh2Sx0Z1AzatCf665m/2
+ bZ2HQCTq3AbzpVohTPyUxGkcXdGlvJiGeKBCSy4b1FxfmlZ2Vp9gPP35N0+0Jbm60Qq6
+ JpsmAer5AAcAf/UMfK49PrBvMEzCK061Zv6qS0wX1sVvDW11iJiSUtPMZR5RWrcvNpA9
+ PsCzReie8BY3CZvAQ8ujjM2Ct9HxKZDpTwkLniPAqbthS6qQgOhCwAou3RnYjyubiMSk
+ J6BQ==
+X-Gm-Message-State: AOAM531+iR9UU1gXMbq8IsdGeg0a7W6FS0zztZ7l42OgavNImSH1MYHp
+ /1PQFEXSn9JHgg6pl1TI1vw=
+X-Google-Smtp-Source: ABdhPJx9M52yBfWstyboe2DL1nMa9c7HTffEByyRLokHMLfNrhdwIshhk5FIaUbaTjla0ovxm+yQHg==
+X-Received: by 2002:a2e:730f:: with SMTP id o15mr637875ljc.297.1598669413163; 
+ Fri, 28 Aug 2020 19:50:13 -0700 (PDT)
+Received: from localhost.localdomain ([178.73.195.107])
+ by smtp.googlemail.com with ESMTPSA id i20sm217069ljb.90.2020.08.28.19.50.09
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 28 Aug 2020 19:50:12 -0700 (PDT)
+From: Dan Crawford <dnlcrwfrd@gmail.com>
+X-Google-Original-From: Dan Crawford <dnlcrwfrd@gmail>
+To: tiwai@suse.com, perex@perex.cz, alsa-devel@alsa-project.org,
+ linux-kernel@vger.kernel.org
+Subject: [PATCH 1/1] Fix silent audio output and corrupted input on MSI X570-A
+ PRO
+Date: Sat, 29 Aug 2020 12:49:46 +1000
+Message-Id: <20200829024946.5691-1-dnlcrwfrd@gmail.com>
+X-Mailer: git-send-email 2.28.0
 MIME-Version: 1.0
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
-Authentication-Results: relay.mimecast.com;
- auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=hdegoede@redhat.com
-X-Mimecast-Spam-Score: 0.001
-X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: 8bit
-Cc: Hans de Goede <hdegoede@redhat.com>, alsa-devel@alsa-project.org
+X-Mailman-Approved-At: Tue, 01 Sep 2020 12:15:51 +0200
+Cc: Dan Crawford <dnlcrwfrd@gmail.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -96,38 +100,33 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-The MPMAN Converter9 2-in-1 almost fully works with out default settings.
-The only problem is that it has only 1 speaker so any sounds only playing
-on the right channel get lost.
+From: Dan Crawford <dnlcrwfrd@gmail.com>
 
-Add a quirk for this model using the default settings + MONO_SPEAKER.
+Following Christian Lachner's patch for Gigabyte X570-based motherboards,
+also patch the MSI X570-A PRO motherboard; the ALC1220 codec requires the
+same workaround for Clevo laptops to enforce the DAC/mixer connection
+path. Set up a quirk entry for that.
 
-Signed-off-by: Hans de Goede <hdegoede@redhat.com>
+I suspect most if all X570 motherboards will require similar patches.
+
+Related buglink: https://bugzilla.kernel.org/show_bug.cgi?id=205275
+Signed-off-by: Dan Crawford <dnlcrwfrd@gmail.com>
 ---
- sound/soc/intel/boards/bytcr_rt5640.c | 10 ++++++++++
- 1 file changed, 10 insertions(+)
+ sound/pci/hda/patch_realtek.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/sound/soc/intel/boards/bytcr_rt5640.c b/sound/soc/intel/boards/bytcr_rt5640.c
-index 479992f4e97a..fc202747ba83 100644
---- a/sound/soc/intel/boards/bytcr_rt5640.c
-+++ b/sound/soc/intel/boards/bytcr_rt5640.c
-@@ -591,6 +591,16 @@ static const struct dmi_system_id byt_rt5640_quirk_table[] = {
- 					BYT_RT5640_SSP0_AIF1 |
- 					BYT_RT5640_MCLK_EN),
- 	},
-+	{	/* MPMAN Converter 9, similar hw as the I.T.Works TW891 2-in-1 */
-+		.matches = {
-+			DMI_MATCH(DMI_SYS_VENDOR, "MPMAN"),
-+			DMI_MATCH(DMI_PRODUCT_NAME, "Converter9"),
-+		},
-+		.driver_data = (void *)(BYTCR_INPUT_DEFAULTS |
-+					BYT_RT5640_MONO_SPEAKER |
-+					BYT_RT5640_SSP0_AIF1 |
-+					BYT_RT5640_MCLK_EN),
-+	},
- 	{
- 		/* MPMAN MPWIN895CL */
- 		.matches = {
+diff --git a/sound/pci/hda/patch_realtek.c b/sound/pci/hda/patch_realtek.c
+index a1fa983d2..a52d8640e 100644
+--- a/sound/pci/hda/patch_realtek.c
++++ b/sound/pci/hda/patch_realtek.c
+@@ -2474,6 +2474,7 @@ static const struct snd_pci_quirk alc882_fixup_tbl[] = {
+ 	SND_PCI_QUIRK(0x1462, 0x1275, "MSI-GL63", ALC1220_FIXUP_CLEVO_P950),
+ 	SND_PCI_QUIRK(0x1462, 0x1276, "MSI-GL73", ALC1220_FIXUP_CLEVO_P950),
+ 	SND_PCI_QUIRK(0x1462, 0x1293, "MSI-GP65", ALC1220_FIXUP_CLEVO_P950),
++	SND_PCI_QUIRK(0x1462, 0x9c37, "MSI X570-A PRO", ALC1220_FIXUP_CLEVO_P950),
+ 	SND_PCI_QUIRK(0x1462, 0x7350, "MSI-7350", ALC889_FIXUP_CD),
+ 	SND_PCI_QUIRK(0x1462, 0xda57, "MSI Z270-Gaming", ALC1220_FIXUP_GB_DUAL_CODECS),
+ 	SND_PCI_QUIRK_VENDOR(0x1462, "MSI", ALC882_FIXUP_GPIO3),
 -- 
 2.28.0
 

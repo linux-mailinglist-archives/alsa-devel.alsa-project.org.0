@@ -2,89 +2,97 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 09638258C94
-	for <lists+alsa-devel@lfdr.de>; Tue,  1 Sep 2020 12:17:34 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 637D3258C97
+	for <lists+alsa-devel@lfdr.de>; Tue,  1 Sep 2020 12:18:18 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id AA6111797;
-	Tue,  1 Sep 2020 12:16:43 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AA6111797
+	by alsa0.perex.cz (Postfix) with ESMTPS id 8D08817A9;
+	Tue,  1 Sep 2020 12:17:27 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8D08817A9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1598955453;
-	bh=2jwMG1eSEm68j/iDhSAUfMG3iMsKfWRveyX8PRt7vyQ=;
+	s=default; t=1598955497;
+	bh=6wQXbBXc//g3HGXHz9gHAUKs9LqNG+owfpn4u26Irno=;
 	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
 	 List-Post:List-Help:List-Subscribe:From;
-	b=SpxoqeVu/cN1DyzNJdJ1bdZfqsEyI3ECqGNAQ2aJTO53InW6QJ3l+9+tFNPNf/c06
-	 peapVu7++sKoLfzW/qx/UF00dwPPoERhdiTbobBK+CQ52aQowsuxMWzzLDQHbnDO1Z
-	 WUeWkn5DKPalGbcQ9bbk7Jn6ih481h7EMb8kIVcI=
+	b=c1J770zX73y9AcKyN4c8Ctfgakh7n5Psz82GnNgfsKBGSaMOAxEt3o6CQDEPpGJzt
+	 RjgIitrNgRYdFXb/zQBoYoCEb1k5FN72FTSTOZLfAesqmoSljv3xEeLmtvRcyA5dYa
+	 taUGabyw0G4kG/HYTCAvtinC+UkaYw4rOYw5D7Z0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id DFCCDF800BA;
-	Tue,  1 Sep 2020 12:15:52 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id BCD78F80278;
+	Tue,  1 Sep 2020 12:15:53 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 644F2F8025A; Sat, 29 Aug 2020 04:50:19 +0200 (CEST)
+ id 4D83FF8025A; Sat, 29 Aug 2020 17:35:37 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: *
-X-Spam-Status: No, score=1.4 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_FROM,FROM_LOCAL_NOVOWEL,HK_RANDOM_FROM,SPF_HELO_NONE,
+X-Spam-Level: 
+X-Spam-Status: No, score=-1.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+ DKIM_VALID,DKIM_VALID_AU,RCVD_IN_MSPIKE_H3,RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,
  SPF_NONE autolearn=disabled version=3.4.0
-Received: from mail-lj1-x242.google.com (mail-lj1-x242.google.com
- [IPv6:2a00:1450:4864:20::242])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from us-smtp-delivery-1.mimecast.com (us-smtp-1.mimecast.com
+ [205.139.110.61])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id EA611F8012E
- for <alsa-devel@alsa-project.org>; Sat, 29 Aug 2020 04:50:13 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EA611F8012E
+ by alsa1.perex.cz (Postfix) with ESMTPS id ABC9EF8014E
+ for <alsa-devel@alsa-project.org>; Sat, 29 Aug 2020 17:35:25 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz ABC9EF8014E
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="GO5xF9C/"
-Received: by mail-lj1-x242.google.com with SMTP id t6so904805ljk.9
- for <alsa-devel@alsa-project.org>; Fri, 28 Aug 2020 19:50:13 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=eXF1rOFuCr3upnhNqTnjSrFjSuVCSRU/UPn3kL/3JLM=;
- b=GO5xF9C/82hbVlcWwH7u8XM1zbiWqZnbLEEO/zkuR58wfbviBVgMGdG+HP47S9CQRE
- HYPhM81j3VGo3Ya8I/pqRaMsmxyQAlTCMokvA42f0Wj1Em33siYrKhEwuL49FDbExgMh
- NIeRu7NfzbRXLUnITTXW3e05ywpp4oGmhX3rK9z6u8rxCmMsQTA8WYnCTxvLXmaLc4Py
- Sla8s92HaYvfiAABoZMhWRxovWZmRSZsRrWH0Oa5yi0RiYwP1uN3/0ibGE2XlOpYh6+D
- ba93Yjym83rg1YwRdVeJNWsSEcKX4PiBri+iXKE32Gtt/nlVoJCGnFD/KCm4pFA1zjIz
- kubA==
+ dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com
+ header.b="DxfU35u6"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1598715323;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:content-type:content-type;
+ bh=qmmPLRQSTKQjwJoLTLyS2w23N792Fkd1ROx5b2pWcYU=;
+ b=DxfU35u67L3x4baYyE+v9XIld+H2vIwficC1f9pzRwojPmT1cSD48co81nM9KmQfITgtXQ
+ 3c3CDkLBzA/+Mp6Aioh/Flxneyv6G68IWAVY/ys6CHZDie1gZh1BGQHf/Nu2I10g+3AU3k
+ oHRdXWY6r+qJOAhvP0NqllIfUDs4bCU=
+Received: from mail-ot1-f71.google.com (mail-ot1-f71.google.com
+ [209.85.210.71]) (Using TLS) by relay.mimecast.com with ESMTP id
+ us-mta-300-XbxXnG_DO16PR5ZPtwnSww-1; Sat, 29 Aug 2020 11:35:21 -0400
+X-MC-Unique: XbxXnG_DO16PR5ZPtwnSww-1
+Received: by mail-ot1-f71.google.com with SMTP id r18so1318006otq.6
+ for <alsa-devel@alsa-project.org>; Sat, 29 Aug 2020 08:35:21 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=eXF1rOFuCr3upnhNqTnjSrFjSuVCSRU/UPn3kL/3JLM=;
- b=fi1eTZk1gcwvLmNuU87svRl56Uhlp+Rt89risAEJ8zaInlCmX6Dkq4tSeGa3nE80Wb
- TfXmG2TZohn6GjQpN2dSgNH/93PwtAe+9pcYtp8S+3ZR8k1oAh2Sx0Z1AzatCf665m/2
- bZ2HQCTq3AbzpVohTPyUxGkcXdGlvJiGeKBCSy4b1FxfmlZ2Vp9gPP35N0+0Jbm60Qq6
- JpsmAer5AAcAf/UMfK49PrBvMEzCK061Zv6qS0wX1sVvDW11iJiSUtPMZR5RWrcvNpA9
- PsCzReie8BY3CZvAQ8ujjM2Ct9HxKZDpTwkLniPAqbthS6qQgOhCwAou3RnYjyubiMSk
- J6BQ==
-X-Gm-Message-State: AOAM531+iR9UU1gXMbq8IsdGeg0a7W6FS0zztZ7l42OgavNImSH1MYHp
- /1PQFEXSn9JHgg6pl1TI1vw=
-X-Google-Smtp-Source: ABdhPJx9M52yBfWstyboe2DL1nMa9c7HTffEByyRLokHMLfNrhdwIshhk5FIaUbaTjla0ovxm+yQHg==
-X-Received: by 2002:a2e:730f:: with SMTP id o15mr637875ljc.297.1598669413163; 
- Fri, 28 Aug 2020 19:50:13 -0700 (PDT)
-Received: from localhost.localdomain ([178.73.195.107])
- by smtp.googlemail.com with ESMTPSA id i20sm217069ljb.90.2020.08.28.19.50.09
+ h=x-gm-message-state:from:to:cc:subject:date:message-id;
+ bh=qmmPLRQSTKQjwJoLTLyS2w23N792Fkd1ROx5b2pWcYU=;
+ b=ZW075cvyR0M9Tcpjo2KBBqZqLSW7oWscIId1KznVgyCBzsmrwWilEABvC/KlO8Qr7p
+ X/nnPC+QUJwOsADRyAQ9lKudqPgFPPo+KFrJO+l1FuvH7Zyad0yEUcY6fgp4qUUSMw1J
+ abbgdRe7YalbG+oM8R+rbs48ziiI4RnWQthiFVWueKLpoXP5cqACkjoMzuNP+jqvtOm7
+ TD/JlVtr+gGdDPqtRCQYRqCq06DXOmces77xq5IMCIkFWUiIHx2yaU7ZG889obAky+VI
+ DKEPdoBz/u4kgYr6l/lOg0t5Uv1RT9Zkz9xE8cFM4NpgscustbBLQ4F+h+ra4QV4/k7z
+ uS+Q==
+X-Gm-Message-State: AOAM533NmbqljUaTFKpZWF97YqnUNV8tACc+GX6EVODdEaqyFcHT12qz
+ jLZPA+E3g2CM+N0N2epnntaOpYMEJ8Knf8rM9Irw6F/l/O8N6RqLB7Zsfc88IetrqNZhp9tYeKI
+ nycmJP5ctr0D4Z5wq/AlByuA=
+X-Received: by 2002:a9d:c64:: with SMTP id 91mr2355442otr.59.1598715321082;
+ Sat, 29 Aug 2020 08:35:21 -0700 (PDT)
+X-Google-Smtp-Source: ABdhPJzvYyZNzj2QwclEeBTiTUzzukf5QXLtgqUFvURZjHxxRdmyDGTyXa8nonkQGGQ/TLdoaTTojg==
+X-Received: by 2002:a9d:c64:: with SMTP id 91mr2355412otr.59.1598715320674;
+ Sat, 29 Aug 2020 08:35:20 -0700 (PDT)
+Received: from trix.remote.csb (075-142-250-213.res.spectrum.com.
+ [75.142.250.213])
+ by smtp.gmail.com with ESMTPSA id t22sm226211otq.44.2020.08.29.08.35.19
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 28 Aug 2020 19:50:12 -0700 (PDT)
-From: Dan Crawford <dnlcrwfrd@gmail.com>
-X-Google-Original-From: Dan Crawford <dnlcrwfrd@gmail>
-To: tiwai@suse.com, perex@perex.cz, alsa-devel@alsa-project.org,
- linux-kernel@vger.kernel.org
-Subject: [PATCH 1/1] Fix silent audio output and corrupted input on MSI X570-A
- PRO
-Date: Sat, 29 Aug 2020 12:49:46 +1000
-Message-Id: <20200829024946.5691-1-dnlcrwfrd@gmail.com>
-X-Mailer: git-send-email 2.28.0
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+ Sat, 29 Aug 2020 08:35:20 -0700 (PDT)
+From: trix@redhat.com
+To: vkoul@kernel.org, yung-chuan.liao@linux.intel.com,
+ pierre-louis.bossart@linux.intel.com, sanyog.r.kale@intel.com,
+ natechancellor@gmail.com, ndesaulniers@google.com, shreyas.nc@intel.com
+Subject: [PATCH] soundwire: fix error handling
+Date: Sat, 29 Aug 2020 08:35:15 -0700
+Message-Id: <20200829153515.3840-1-trix@redhat.com>
+X-Mailer: git-send-email 2.18.1
+Authentication-Results: relay.mimecast.com;
+ auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=trix@redhat.com
+X-Mimecast-Spam-Score: 0.0
+X-Mimecast-Originator: redhat.com
+Content-Type: text/plain; charset=US-ASCII
 X-Mailman-Approved-At: Tue, 01 Sep 2020 12:15:51 +0200
-Cc: Dan Crawford <dnlcrwfrd@gmail.com>
+Cc: Tom Rix <trix@redhat.com>, alsa-devel@alsa-project.org,
+ linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -100,33 +108,67 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: Dan Crawford <dnlcrwfrd@gmail.com>
+From: Tom Rix <trix@redhat.com>
 
-Following Christian Lachner's patch for Gigabyte X570-based motherboards,
-also patch the MSI X570-A PRO motherboard; the ALC1220 codec requires the
-same workaround for Clevo laptops to enforce the DAC/mixer connection
-path. Set up a quirk entry for that.
+clang static analysis flags this problem
 
-I suspect most if all X570 motherboards will require similar patches.
+stream.c:844:9: warning: Use of memory after
+  it is freed
+        kfree(bus->defer_msg.msg->buf);
+              ^~~~~~~~~~~~~~~~~~~~~~~
 
-Related buglink: https://bugzilla.kernel.org/show_bug.cgi?id=205275
-Signed-off-by: Dan Crawford <dnlcrwfrd@gmail.com>
+This happens in an error handler cleaning up memory
+allocated for elements in a list.
+
+	list_for_each_entry(m_rt, &stream->master_list, stream_node) {
+		bus = m_rt->bus;
+
+		kfree(bus->defer_msg.msg->buf);
+		kfree(bus->defer_msg.msg);
+	}
+
+And is triggered when the call to sdw_bank_switch() fails.
+There are a two problems.
+
+First, when sdw_bank_switch() fails, though it frees memory it
+does not clear bus's reference 'defer_msg.msg' to that memory.
+
+The second problem is the freeing msg->buf. In some cases
+msg will be NULL so this will dereference a null pointer.
+Need to check before freeing.
+
+Fixes: 99b8a5d608a6 ("soundwire: Add bank switch routine")
+Signed-off-by: Tom Rix <trix@redhat.com>
 ---
- sound/pci/hda/patch_realtek.c | 1 +
- 1 file changed, 1 insertion(+)
+ drivers/soundwire/stream.c | 8 +++++---
+ 1 file changed, 5 insertions(+), 3 deletions(-)
 
-diff --git a/sound/pci/hda/patch_realtek.c b/sound/pci/hda/patch_realtek.c
-index a1fa983d2..a52d8640e 100644
---- a/sound/pci/hda/patch_realtek.c
-+++ b/sound/pci/hda/patch_realtek.c
-@@ -2474,6 +2474,7 @@ static const struct snd_pci_quirk alc882_fixup_tbl[] = {
- 	SND_PCI_QUIRK(0x1462, 0x1275, "MSI-GL63", ALC1220_FIXUP_CLEVO_P950),
- 	SND_PCI_QUIRK(0x1462, 0x1276, "MSI-GL73", ALC1220_FIXUP_CLEVO_P950),
- 	SND_PCI_QUIRK(0x1462, 0x1293, "MSI-GP65", ALC1220_FIXUP_CLEVO_P950),
-+	SND_PCI_QUIRK(0x1462, 0x9c37, "MSI X570-A PRO", ALC1220_FIXUP_CLEVO_P950),
- 	SND_PCI_QUIRK(0x1462, 0x7350, "MSI-7350", ALC889_FIXUP_CD),
- 	SND_PCI_QUIRK(0x1462, 0xda57, "MSI Z270-Gaming", ALC1220_FIXUP_GB_DUAL_CODECS),
- 	SND_PCI_QUIRK_VENDOR(0x1462, "MSI", ALC882_FIXUP_GPIO3),
+diff --git a/drivers/soundwire/stream.c b/drivers/soundwire/stream.c
+index 37290a799023..6e36deb505b1 100644
+--- a/drivers/soundwire/stream.c
++++ b/drivers/soundwire/stream.c
+@@ -717,6 +717,7 @@ static int sdw_bank_switch(struct sdw_bus *bus, int m_rt_count)
+ 	kfree(wbuf);
+ error_1:
+ 	kfree(wr_msg);
++	bus->defer_msg.msg = NULL;
+ 	return ret;
+ }
+ 
+@@ -840,9 +841,10 @@ static int do_bank_switch(struct sdw_stream_runtime *stream)
+ error:
+ 	list_for_each_entry(m_rt, &stream->master_list, stream_node) {
+ 		bus = m_rt->bus;
+-
+-		kfree(bus->defer_msg.msg->buf);
+-		kfree(bus->defer_msg.msg);
++		if (bus->defer_msg.msg) {
++			kfree(bus->defer_msg.msg->buf);
++			kfree(bus->defer_msg.msg);
++		}
+ 	}
+ 
+ msg_unlock:
 -- 
-2.28.0
+2.18.1
 

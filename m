@@ -2,79 +2,84 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9C7AA256855
-	for <lists+alsa-devel@lfdr.de>; Sat, 29 Aug 2020 16:32:11 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2FE7E256EFD
+	for <lists+alsa-devel@lfdr.de>; Sun, 30 Aug 2020 17:21:58 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 4F35D1900;
-	Sat, 29 Aug 2020 16:31:21 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4F35D1900
+	by alsa0.perex.cz (Postfix) with ESMTPS id 80CCB18E9;
+	Sun, 30 Aug 2020 17:21:07 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 80CCB18E9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1598711531;
-	bh=y1v3WRBl4MbrDweIobQQZydmN+yvc1LWyMEcpKKt2S0=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1598800917;
+	bh=C/WsARuFR0qtzlqOWwgT1hVfI40NgZtdYCR2pGP6L6M=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=UH0h1xX0/EUivZomjdM5M4BhA1y1dfpnng+VAhtiX/jF2ZyYZG+8htayXrVZ1zLRC
-	 mYu0zusYbO4tL2IReSC+HFcKQXm3SJqhJ+KF6NXUpdZmvOac7SgxYl7BS3kPEo/sVT
-	 8t3hMOSM+SDI2EWngVqjrdlL83p+VZuhmKbwO6l4=
+	b=Gjdc/bhUHFSdR4YRZglRyXD7ioZwytXfTTMiaxwGKNfXmbEsFzKqCzmunJbmI5tuP
+	 3h/zuyUzM3E6n9AjZV/c2iKVQzfp4FVRx8XBG/wi2Mp2ljCws62EUQcNAcM5GZC47p
+	 RcuCGcp+0YAMtGAZ096opOiSK02mHj5+VB4mXZ6Q=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 7513CF80316;
-	Sat, 29 Aug 2020 16:26:12 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 82172F80217;
+	Sun, 30 Aug 2020 13:06:33 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 51782F80315; Sat, 29 Aug 2020 16:26:08 +0200 (CEST)
+ id 23422F8020D; Sun, 30 Aug 2020 13:06:22 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-1.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled
- version=3.4.0
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 8C536F80308
- for <alsa-devel@alsa-project.org>; Sat, 29 Aug 2020 16:26:05 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8C536F80308
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="m5w7LxE8"
-Received: from localhost.localdomain (unknown [194.230.155.216])
+X-Spam-Status: No, score=-7.3 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+ DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,PRX_BODY_30,
+ RCVD_IN_MSPIKE_H2,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_IN_DEF_SPF_WL
+ autolearn=disabled version=3.4.0
+Received: from mail-wr1-f67.google.com (mail-wr1-f67.google.com
+ [209.85.221.67])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 69282206C0;
- Sat, 29 Aug 2020 14:25:59 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1598711164;
- bh=y1v3WRBl4MbrDweIobQQZydmN+yvc1LWyMEcpKKt2S0=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=m5w7LxE8HNSicErTpW8YDPTUUtPUsRWL7SQc/QbDSiDVxqoVASBqrg0+jxIZS4ALy
- tayAMnlVVsztFempHudHlZ41F71RVa90Nvek6O+r21yXFwjuuw1ogWzkUU28jXC/Hk
- Iyz8IABk+dYmIfBRH3GAHMC+bliFq0mp4oPruUyQ=
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Kukjin Kim <kgene@kernel.org>, Krzysztof Kozlowski <krzk@kernel.org>,
- Rob Herring <robh+dt@kernel.org>, David Airlie <airlied@linux.ie>,
- Daniel Vetter <daniel@ffwll.ch>, Lee Jones <lee.jones@linaro.org>,
- Sangbeom Kim <sbkim73@samsung.com>,
- Sylwester Nawrocki <s.nawrocki@samsung.com>,
- Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
- Daniel Lezcano <daniel.lezcano@linaro.org>,
- Thomas Gleixner <tglx@linutronix.de>, linux-arm-kernel@lists.infradead.org,
- linux-samsung-soc@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- alsa-devel@alsa-project.org
-Subject: [RFT 10/10] arm64: dts: exynos: Enable Arizona interrupt controller
- in Exynos5433 TM2
-Date: Sat, 29 Aug 2020 16:25:01 +0200
-Message-Id: <20200829142501.31478-10-krzk@kernel.org>
-X-Mailer: git-send-email 2.17.1
-In-Reply-To: <20200829142501.31478-1-krzk@kernel.org>
-References: <20200829142501.31478-1-krzk@kernel.org>
-Cc: Sylwester Nawrocki <snawrocki@kernel.org>,
- Chanwoo Choi <cw00.choi@samsung.com>,
- Bartlomiej Zolnierkiewicz <b.zolnierkie@samsung.com>,
- Inki Dae <inki.dae@samsung.com>, Marek Szyprowski <m.szyprowski@samsung.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 6ACCEF8012E
+ for <alsa-devel@alsa-project.org>; Sun, 30 Aug 2020 13:06:09 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6ACCEF8012E
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org
+ header.b="ivbFmx19"
+Received: by mail-wr1-f67.google.com with SMTP id z4so407425wrr.4
+ for <alsa-devel@alsa-project.org>; Sun, 30 Aug 2020 04:06:09 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=+gapKvtqVL4A5DDW8eESdE7vLROc6PFHC2USxeOexv0=;
+ b=ivbFmx19jzkrujZR22GqxHw8+yCLuysq7xSMQ8dBB2CT2t3FfoBKWj4jr8hBQdbEpA
+ 9KipZlMkP21Kau2w749MNR6EeVd04EEiDEeqsksTPR+XY9z4VO46rGbgny8GlzIP3JQC
+ AVCDSR5Y4DodbAVPHQwPNYNJe5JJI/R5M+6H8=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=+gapKvtqVL4A5DDW8eESdE7vLROc6PFHC2USxeOexv0=;
+ b=hu+/hZzgecw5feBvBRyPEFXPs3ZumJY/svwHB1ncc5qflNIDNZ/2eQFZ/tLRIVlrM1
+ A+VydMIdAwYRRdVIfYl8fNvEGp7aLPLDXGnEqrtAr6/Xwo/TCE7cicECF9fRlvahXCU6
+ uliLJ9ktjDnhJ2NvFv9OLWp/sj59c+V10fk08oLjlhlvVHCZ+zl4DWsqbwovc3gwX1AW
+ t6rJf9YgZhoV3N5naUC7X+kDLQQw238x0MoBNwj91Eiunbj0rK4rwOG+OLEJ9SdiRiSt
+ DP7cEs7GSLWllHQ5HVz/0goR9XuI0G4KJq/hPbDan8jEDDm80mW3aGOQ6y8QRfX3HS5j
+ CIuw==
+X-Gm-Message-State: AOAM531l64KcCu7yeFcK1BvedmNYmWa+zzb/nQQiGLAcKqFOsZzRLbqG
+ WAeydDFji7OGmTR2KT/p8Tj59RQbHKDMXcfHy0MkyQ==
+X-Google-Smtp-Source: ABdhPJz6S7KlVIQ+jF4DcOJClBsVEG+nqn+q+JFI/KzLmRup7UV+T1RYuwmr8EEore1ZJB3BAb+4Rnc+4gTbFVY/PdQ=
+X-Received: by 2002:a5d:4ccb:: with SMTP id c11mr6954453wrt.159.1598785508966; 
+ Sun, 30 Aug 2020 04:05:08 -0700 (PDT)
+MIME-Version: 1.0
+References: <20200828162005.1.I4f67f494c4f759b0e5c7f487e040dfdcf16e0876@changeid>
+In-Reply-To: <20200828162005.1.I4f67f494c4f759b0e5c7f487e040dfdcf16e0876@changeid>
+From: Cheng-yi Chiang <cychiang@chromium.org>
+Date: Sun, 30 Aug 2020 19:04:42 +0800
+Message-ID: <CAFv8NwL-s0c_nFWKHmBKgPVeLXwGWdgV+fUtw8MLBJw2D3ox1w@mail.gmail.com>
+Subject: Re: [PATCH] ASoC: rt5682: Prefer async probe
+To: Douglas Anderson <dianders@chromium.org>
+Content-Type: text/plain; charset="UTF-8"
+Cc: Oder Chiou <oder_chiou@realtek.com>,
+ "moderated list:SOUND - SOC LAYER / DYNAMIC AUDIO POWER MANAGEM..."
+ <alsa-devel@alsa-project.org>, linux-kernel <linux-kernel@vger.kernel.org>,
+ Takashi Iwai <tiwai@suse.com>, Liam Girdwood <lgirdwood@gmail.com>,
+ Mark Brown <broonie@kernel.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -90,37 +95,78 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-The Wolfson Arizona codec is interrupt controller which is required by
-bindings.  This fixes dtbs_check warnings like:
+On Sat, Aug 29, 2020 at 7:20 AM Douglas Anderson <dianders@chromium.org> wrote:
+>
+> The probe of rt5682 is pretty slow.  A quick measurement shows that it
+> takes ~650 ms on at least one board.  There's no reason to block all
+> other drivers waiting for this probe to finish.  Set the flag to allow
+> other drivers to probe while we're probing.
+>
+> Signed-off-by: Douglas Anderson <dianders@chromium.org>
+> ---
+> NOTE: I haven't done any analysis of the driver to see _why_ it's so
+> slow, only that I have measured it to be slow.  Someone could
+> certainly take the time to profile / optimize it, but in any case it
+> still won't hurt to be async.
 
-  arch/arm64/boot/dts/exynos/exynos5433-tm2e.dt.yaml: wm5110-codec@0: 'interrupt-controller' is a required property
-  arch/arm64/boot/dts/exynos/exynos5433-tm2e.dt.yaml: wm5110-codec@0: '#interrupt-cells' is a required property
 
-Signed-off-by: Krzysztof Kozlowski <krzk@kernel.org>
+Hi Doug, thank you for the fix.
 
----
+There are multiple usleep in the probe of rt5682 driver.
+The major one is a 300 ms sleep after the regulator turns on.
+There are other sleeps for several tens of ms.
+>
+>
+> This is a very safe flag to turn on since:
+>
+> 1. It's not like our probe order was defined by anything anyway.  When
+> we probe is at the whim of when our i2c controller probes and that can
+> be any time.
+>
+> 2. If some other driver needs us then they have to handle the fact
+> that we might not have probed yet anyway.
 
-Not tested on HQ. Please kindly review and test.
 
-Best regards,
-Krzysztof
----
- arch/arm64/boot/dts/exynos/exynos5433-tm2-common.dtsi | 2 ++
- 1 file changed, 2 insertions(+)
+Agree.
+soc-core already handled this by returning -EPROBE_DEFER when a
+component is not found.
+So the machine driver can probe again.
+Even in the current behavior, we already see machine driver probe
+again when the codec driver is not ready,
+so I think adding this async flag will not affect the machine driver.
 
-diff --git a/arch/arm64/boot/dts/exynos/exynos5433-tm2-common.dtsi b/arch/arm64/boot/dts/exynos/exynos5433-tm2-common.dtsi
-index bab6c1addd5f..49cd55d6891c 100644
---- a/arch/arm64/boot/dts/exynos/exynos5433-tm2-common.dtsi
-+++ b/arch/arm64/boot/dts/exynos/exynos5433-tm2-common.dtsi
-@@ -1242,6 +1242,8 @@
- 
- 		gpio-controller;
- 		#gpio-cells = <2>;
-+		interrupt-controller;
-+		#interrupt-cells = <2>;
- 
- 		wlf,micd-detect-debounce = <300>;
- 		wlf,micd-bias-start-time = <0x1>;
--- 
-2.17.1
+>
+>
+> 3. There may be other drivers probing at the same time as us anyway
+> because _they_ used async probe.
+>
+> While I won't say that it's impossible to tickle a bug by turning on
+> async probe, I would assert that in almost all cases the bug was
+> already there and needed to be fixed anyway.
+>
+>  sound/soc/codecs/rt5682-i2c.c | 1 +
+>  1 file changed, 1 insertion(+)
+>
+> diff --git a/sound/soc/codecs/rt5682-i2c.c b/sound/soc/codecs/rt5682-i2c.c
+> index 85aba311bdc8..6b4e0eb30c89 100644
+> --- a/sound/soc/codecs/rt5682-i2c.c
+> +++ b/sound/soc/codecs/rt5682-i2c.c
+> @@ -294,6 +294,7 @@ static struct i2c_driver rt5682_i2c_driver = {
+>                 .name = "rt5682",
+>                 .of_match_table = rt5682_of_match,
+>                 .acpi_match_table = rt5682_acpi_match,
+> +               .probe_type = PROBE_PREFER_ASYNCHRONOUS,
 
+
+One thing I am wondering is that there has not been any usage in codec
+driver for this.
+I think every codec driver can use this, and take the benefit of a
+possible faster boot time ?
+
+>
+>         },
+>         .probe = rt5682_i2c_probe,
+>         .shutdown = rt5682_i2c_shutdown,
+> --
+> 2.28.0.402.g5ffc5be6b7-goog
+>

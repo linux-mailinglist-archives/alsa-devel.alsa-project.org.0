@@ -2,48 +2,66 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C3F572570DC
-	for <lists+alsa-devel@lfdr.de>; Mon, 31 Aug 2020 00:29:23 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 280DC25717D
+	for <lists+alsa-devel@lfdr.de>; Mon, 31 Aug 2020 03:23:22 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 3D551183E;
-	Mon, 31 Aug 2020 00:28:33 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3D551183E
+	by alsa0.perex.cz (Postfix) with ESMTPS id 48E8A180E;
+	Mon, 31 Aug 2020 03:22:31 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 48E8A180E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1598826563;
-	bh=i2qhYu+H+xIy5AbyQYaa/AFgHs9hQMYQdAMIw1vQolE=;
-	h=From:To:In-Reply-To:References:Subject:Date:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=RuUvXp9oKBjNu+WhR0YwA56niToytvaCRrgDwA5bz+Z3Qcv99hPJmdRkvYoC5bQWL
-	 hZsFS3OyhmAi7uCtTAXYfPO3s1H0osnTnCGRztsBXTa1e5FgnU5VQYCdXNEWcNm7o6
-	 QvaAlAL1T4uy1W03wnxGfrtw9ENT+W4OTaavKmoQ=
+	s=default; t=1598837001;
+	bh=ccP785mNxhpk84ZWaHzCuimoitehQdaexnfjDuHcvfA=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=Z3f8dhK9kjd3ntbNcod58vj9HkegLblKchXQC0GeWDH7tPRjX6QfiXNGLoK7YUFU2
+	 osU17wfqNi2xd0HQSWoJdXDFQLvu0rhUZGb4wi8TNXza1NW3s5oodzFB/pxsI5gIz7
+	 JoIuKHdzee4bQ+sVNt0+XiTafO176M40kB+Xogjw=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 6A650F8012E;
-	Mon, 31 Aug 2020 00:27:42 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 52B8AF80217;
+	Mon, 31 Aug 2020 03:21:40 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id C7030F8020D; Mon, 31 Aug 2020 00:27:37 +0200 (CEST)
+ id 2F870F8020D; Mon, 31 Aug 2020 03:21:34 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: **
-X-Spam-Status: No, score=2.5 required=5.0 tests=MISSING_DATE,MISSING_MID,
- SPF_FAIL,SPF_HELO_NONE autolearn=disabled version=3.4.0
-Received: from webhooks-bot.alsa-project.org (gate.perex.cz [77.48.224.242])
- by alsa1.perex.cz (Postfix) with ESMTP id DA3CEF8012E
- for <alsa-devel@alsa-project.org>; Mon, 31 Aug 2020 00:27:34 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DA3CEF8012E
-MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
-From: GitHub issues - opened <github@alsa-project.org>
-To: alsa-devel@alsa-project.org
-In-Reply-To: <1598826454145714045-webhooks-bot@alsa-project.org>
-References: <1598826454145714045-webhooks-bot@alsa-project.org>
-Subject: Crash when trying to capture vdownmix
-Message-Id: <20200830222737.C7030F8020D@alsa1.perex.cz>
-Date: Mon, 31 Aug 2020 00:27:37 +0200 (CEST)
+X-Spam-Level: *
+X-Spam-Status: No, score=1.1 required=5.0 tests=DATE_IN_PAST_06_12,
+ SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
+Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 75086F8012E
+ for <alsa-devel@alsa-project.org>; Mon, 31 Aug 2020 03:21:29 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 75086F8012E
+IronPort-SDR: M2QvcY5+CfQ+ML3NF+x/C2PDwFrwZEziYDOk8YcGdA5DPcoBJT+P3KiSW7fmdfsUMH4Q6cW/gK
+ YHvsSyVNfqFQ==
+X-IronPort-AV: E=McAfee;i="6000,8403,9729"; a="156899765"
+X-IronPort-AV: E=Sophos;i="5.76,373,1592895600"; d="scan'208";a="156899765"
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from orsmga005.jf.intel.com ([10.7.209.41])
+ by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 30 Aug 2020 18:21:26 -0700
+IronPort-SDR: geFNoiApp43dnDgzKUTSISJDdK+49HGeZhvMkDE7Q2iLoriMbnUuTRV4OSqO50qEGzA3/wIwgm
+ z21n+lY+x9SA==
+X-IronPort-AV: E=Sophos;i="5.76,373,1592895600"; d="scan'208";a="476529179"
+Received: from bard-ubuntu.sh.intel.com ([10.239.13.33])
+ by orsmga005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 30 Aug 2020 18:21:22 -0700
+From: Bard Liao <yung-chuan.liao@linux.intel.com>
+To: alsa-devel@alsa-project.org,
+	vkoul@kernel.org
+Subject: [PATCH v3 0/3] ASoC: soundwire: fix port_ready[] dynamic allocation
+Date: Sun, 30 Aug 2020 21:27:39 +0800
+Message-Id: <20200830132742.20404-1-yung-chuan.liao@linux.intel.com>
+X-Mailer: git-send-email 2.17.1
+Cc: pierre-louis.bossart@linux.intel.com, vinod.koul@linaro.org, tiwai@suse.de,
+ gregkh@linuxfoundation.org, linux-kernel@vger.kernel.org,
+ ranjani.sridharan@linux.intel.com, hui.wang@canonical.com, broonie@kernel.org,
+ srinivas.kandagatla@linaro.org, jank@cadence.com, mengdong.lin@intel.com,
+ sanyog.r.kale@intel.com, rander.wang@linux.intel.com, bard.liao@intel.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -59,13 +77,44 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-alsa-project/alsa-plugins issue #13 was opened from s09bQ5:
+The existing code allocates memory for the total number of ports.
+This only works if the ports are contiguous, but will break if e.g. a
+Devices uses port0, 1, and 14. The port_ready[] array would contain 3
+elements, which would lead to an out-of-bounds access. Conversely in
+other cases, the wrong port index would be used leading to timeouts on
+prepare.
 
-Our game captures audio from microphones and tests the available devices on startup. For some reason PortAudio tells us that vdownmix is a 6 channel capture device. When the game tries to test that device, the plugin crashes inside vdownmix_transfer because the src_areas array contained only two valid pointers while mix->channels is  6. I assume the plugin is not prepared to handle the swapped roles of input and output during capture.
+This can be fixed by allocating for the worst-case of 15
+ports (DP0..DP14). In addition since the number is now fixed, we can
+use an array instead of a dynamic allocation.
 
-A simple way to cause the crash is to execute `arecord -D vdownmix -f dat -c 6`.
+Changes in v3:
+- Add ASoC tag in the cover letter title.
+- Edit the title and commit message of the third patch for better
+  understanding.
 
-The expected behavior is that the plugin either enforces 2 channel capture with a 4/5/6 channel slave pcm or completely rejects capture. In any case, it should not crash with a SIGSEGV.
+Changes in v2:
+- Split patches into sdw and asoc patches. Please note that "soundwire:
+  fix port_ready[] dynamic allocation in mipi_disco" and "ASoC: codecs:
+  fix port_ready[] dynamic allocation in ASoC codecs" should be merged
+  at the same time.
 
-Issue URL     : https://github.com/alsa-project/alsa-plugins/issues/13
-Repository URL: https://github.com/alsa-project/alsa-plugins
+Pierre-Louis Bossart (3):
+  soundwire: add definition for maximum number of ports
+  soundwire: fix port_ready[] dynamic allocation in mipi_disco
+  ASoC: codecs: soundwire: remove port_ready[] usage from codecs.
+
+ drivers/soundwire/mipi_disco.c  | 18 +-----------------
+ drivers/soundwire/slave.c       |  4 ++++
+ include/linux/soundwire/sdw.h   |  5 +++--
+ sound/soc/codecs/max98373-sdw.c | 15 +--------------
+ sound/soc/codecs/rt1308-sdw.c   | 14 +-------------
+ sound/soc/codecs/rt5682-sdw.c   | 15 +--------------
+ sound/soc/codecs/rt700-sdw.c    | 15 +--------------
+ sound/soc/codecs/rt711-sdw.c    | 15 +--------------
+ sound/soc/codecs/rt715-sdw.c    | 33 +--------------------------------
+ 9 files changed, 14 insertions(+), 120 deletions(-)
+
+-- 
+2.17.1
+

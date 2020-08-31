@@ -2,90 +2,71 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 86D5125813C
-	for <lists+alsa-devel@lfdr.de>; Mon, 31 Aug 2020 20:41:25 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1ADDC258437
+	for <lists+alsa-devel@lfdr.de>; Tue,  1 Sep 2020 00:50:32 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 35BD81770;
-	Mon, 31 Aug 2020 20:40:35 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 35BD81770
+	by alsa0.perex.cz (Postfix) with ESMTPS id 968CF1754;
+	Tue,  1 Sep 2020 00:49:41 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 968CF1754
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1598899285;
-	bh=WC+dX2WoAbia/Vtx2i2sWGLUVTRR0l1DH72hve5SIIM=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
+	s=default; t=1598914231;
+	bh=n6RC2ProXWluq+rrfq0tixqJ6LZkVrMR87L9iSpHrXM=;
+	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=G+JdZ2jzzzq2N8CQIqhSYiMpoqpHEZpxol7nFS4QDD8IWvREuTMO94gO15TieAAuq
-	 wL8vT5WHbvyK+IRCCvNZvkYYB2rjNzxEsuxqow8IfSqLYByGeKcyIhItiOFcH2YQ6p
-	 LSOAVzvyGVBpskjq9oIHiMttNVH7fYPFYnsHMBvc=
+	b=qGHiwG7sBh+oK0IDVONSzQfWzXt/ta3LztzjIDx5icQk32FYJtC9QpZVro5xD2p15
+	 RzSUuarXBIJeDlRRLTVzS6Jkzji7KFjptIne0pcLf0OQ5GHpxIoWUN+SqH9P8VVcLI
+	 7SotFfYr+NkWHjXUnAUV40YeEpLovgMrQ+Xfjhu4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 63F46F801DA;
-	Mon, 31 Aug 2020 20:39:44 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id C8AB9F80146;
+	Tue,  1 Sep 2020 00:48:50 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 63643F80212; Mon, 31 Aug 2020 20:39:42 +0200 (CEST)
+ id AC434F80212; Tue,  1 Sep 2020 00:47:04 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-16.1 required=5.0 tests=DKIMWL_WL_MED,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,ENV_AND_HDR_SPF_MATCH,SPF_HELO_NONE,SPF_PASS,
- URIBL_BLOCKED,USER_IN_DEF_DKIM_WL,USER_IN_DEF_SPF_WL autolearn=disabled
- version=3.4.0
-Received: from mail-pl1-x643.google.com (mail-pl1-x643.google.com
- [IPv6:2607:f8b0:4864:20::643])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=-0.2 required=5.0 tests=NICE_REPLY_A,SPF_HELO_NONE,
+ SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id BF0DCF80096
- for <alsa-devel@alsa-project.org>; Mon, 31 Aug 2020 20:39:28 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BF0DCF80096
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=google.com header.i=@google.com
- header.b="ow6IQKyI"
-Received: by mail-pl1-x643.google.com with SMTP id v16so3524940plo.1
- for <alsa-devel@alsa-project.org>; Mon, 31 Aug 2020 11:39:28 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=PJN4MJCj6Pjg+uwt4f3ml6KYFLqzh8Jk41iwpyLU3Mw=;
- b=ow6IQKyIJLSJBzYpYXZ3p2h21/2zo0rNu+6BgSyrmsI+fkPkNnxcT2qqDeEMWA3gEJ
- bWdsNeSXqko14vOuPfPN5c/O0as/itCxlhZl/PM8jJIlJrq3eG1JDVEZ2L7dSXFiBiX5
- tehKF4C/NjFYOHKqfekO7WTGk9GcLmpINDZMVerWZXNYmH6DR2UZ/m+N9HVsXdjZj+cx
- 7ybAZRXR77kKkbnhQPt0ixU154RY5Mw4QjWxjPinBYdBvIXrklkVRgDcuTFchalWrE/7
- aVRYQ+w9RiUq6exwI8Pq+fLZ3V9GMMKSaL0H+ggLvtNqEG4lAYV5fZk5H/G20QrxQaIO
- VnOg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=PJN4MJCj6Pjg+uwt4f3ml6KYFLqzh8Jk41iwpyLU3Mw=;
- b=iE19cYuCGyC19ytESeQ3F7IP6GYOFLGYDEXoAFgOvcZ+yhdJ1quuSgzl32SAWl3Fd4
- gMKUtT7rDR8/hT9yYX6Te6ZZ8kEe087EIs0hlERVwOh3WJmfbIC/1dTVb86Nd33jzyJG
- m6wcgvjyAzgubpMxqbhMx5MUkcLH+tiDRziobP0WsUczHflEzvdGYvbTNGf6IK1j9fFy
- 7VOFyaLPkIA8bkhDdWyncYraSGdDvOrBNzCH5xiMLWVU/C5GR4Xh/UMzu+RG8w1k4yBE
- cGTcjndTCZdXN1r7qrVuzPf7vOUZuaboCecf6Vaxhb+iSAE29UlSQV3dwDMjF7KxBqm8
- hWTg==
-X-Gm-Message-State: AOAM532Q4pI4ZagiXwRqebDGXYTlGlBzhOmtq4RuvhAM0gTbzS5wmMsM
- wOu1AeeqfQRr5yZufvy82czGks8T2niq5LsVGlQ+xQ==
-X-Google-Smtp-Source: ABdhPJx8jmeDuqI3ddtnIQ73j4Oysz/hWduc1h6iUSovGQYoe4WKdkmXDjPKBpZrfy3a2DbH8pbnYy2olWyUgVeJezs=
-X-Received: by 2002:a17:90a:fc98:: with SMTP id
- ci24mr600333pjb.101.1598899165891; 
- Mon, 31 Aug 2020 11:39:25 -0700 (PDT)
-MIME-Version: 1.0
+ by alsa1.perex.cz (Postfix) with ESMTPS id BDEBDF80146
+ for <alsa-devel@alsa-project.org>; Tue,  1 Sep 2020 00:45:57 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BDEBDF80146
+IronPort-SDR: N9IBD6zkjMPWklGgQQNg3cKo+6PNUr0v/0AVRkF6oVJ+/Sopb/h0Q/k2eXmGe+jv4tQfuIxRx+
+ /akUv7h8Hn8g==
+X-IronPort-AV: E=McAfee;i="6000,8403,9730"; a="137119186"
+X-IronPort-AV: E=Sophos;i="5.76,376,1592895600"; d="scan'208";a="137119186"
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from orsmga005.jf.intel.com ([10.7.209.41])
+ by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 31 Aug 2020 15:45:50 -0700
+IronPort-SDR: 3kPxLytFyQve8EiS/uttvND6c2LCCoHrm5YB6W2Mw06GdR2cgpi/ZxoMVwBxijCRcTsaM9QPxn
+ 1UyXl7v06HHg==
+X-IronPort-AV: E=Sophos;i="5.76,376,1592895600"; d="scan'208";a="476932222"
+Received: from rmalladi-mobl.amr.corp.intel.com (HELO [10.254.176.90])
+ ([10.254.176.90])
+ by orsmga005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 31 Aug 2020 15:45:49 -0700
+Subject: Re: [PATCH] soundwire: fix error handling
+To: Nick Desaulniers <ndesaulniers@google.com>, trix@redhat.com
 References: <20200829153515.3840-1-trix@redhat.com>
  <CAKwvOd=+X2AakX3kTYCvyug-MK_Y+atDbkDSRxA0pUfOatQ3mA@mail.gmail.com>
- <CAKwvOdnn6eMqJsL=aJ8n5dWWoHjXUL0LBSyVwZPGCKpkBSLHXA@mail.gmail.com>
- <5f9c8819-cd0f-6fb9-1b0f-b34f390ae65e@redhat.com>
-In-Reply-To: <5f9c8819-cd0f-6fb9-1b0f-b34f390ae65e@redhat.com>
-From: Nick Desaulniers <ndesaulniers@google.com>
-Date: Mon, 31 Aug 2020 11:39:14 -0700
-Message-ID: <CAKwvOd=D=LWeSGYekOc9qs_aVOD_jpM2DVZO7=n_2L75Ad3Nxg@mail.gmail.com>
-Subject: Re: [PATCH] soundwire: fix error handling
-To: Tom Rix <trix@redhat.com>
-Content-Type: text/plain; charset="UTF-8"
-Cc: alsa-devel@alsa-project.org,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- LKML <linux-kernel@vger.kernel.org>,
- clang-built-linux <clang-built-linux@googlegroups.com>,
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Message-ID: <aae0bf86-5900-c437-492f-fbf23d3ff196@linux.intel.com>
+Date: Mon, 31 Aug 2020 17:45:47 -0500
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.10.0
+MIME-Version: 1.0
+In-Reply-To: <CAKwvOd=+X2AakX3kTYCvyug-MK_Y+atDbkDSRxA0pUfOatQ3mA@mail.gmail.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
+Cc: alsa-devel@alsa-project.org, LKML <linux-kernel@vger.kernel.org>,
  Vinod Koul <vkoul@kernel.org>, shreyas.nc@intel.com,
  Nathan Chancellor <natechancellor@gmail.com>, yung-chuan.liao@linux.intel.com,
  Sanyog Kale <sanyog.r.kale@intel.com>
@@ -104,26 +85,81 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Mon, Aug 31, 2020 at 11:20 AM Tom Rix <trix@redhat.com> wrote:
->
->
-> On 8/31/20 10:48 AM, Nick Desaulniers wrote:
-> > On Mon, Aug 31, 2020 at 10:47 AM Nick Desaulniers
-> > <ndesaulniers@google.com> wrote:
-> >> On Sat, Aug 29, 2020 at 8:35 AM <trix@redhat.com> wrote:
-> >>> From: Tom Rix <trix@redhat.com>
-> >>>
-> >>> clang static analysis flags this problem
-> > Also, Tom, please use ./scripts/get_maintainer.pl on your patches to
-> > CC our mailing list; clang-built-linux@googlegroups.com.
->
-> gcc is still doing the building, so it this appropriate ?
->
-> Asking because i have been sed-ing clang-build-linux out.
 
-ah, right, you can use `--use-cc=clang` for analyses of builds with
-clang.  It doesn't hurt to include our mailing list, since we'd like
-to know if issues get reported with the analyzer itself.
--- 
-Thanks,
-~Nick Desaulniers
+
+On 8/31/20 12:47 PM, Nick Desaulniers wrote:
+> On Sat, Aug 29, 2020 at 8:35 AM <trix@redhat.com> wrote:
+>>
+>> From: Tom Rix <trix@redhat.com>
+>>
+>> clang static analysis flags this problem
+>>
+>> stream.c:844:9: warning: Use of memory after
+>>    it is freed
+>>          kfree(bus->defer_msg.msg->buf);
+>>                ^~~~~~~~~~~~~~~~~~~~~~~
+>>
+>> This happens in an error handler cleaning up memory
+>> allocated for elements in a list.
+>>
+>>          list_for_each_entry(m_rt, &stream->master_list, stream_node) {
+>>                  bus = m_rt->bus;
+>>
+>>                  kfree(bus->defer_msg.msg->buf);
+>>                  kfree(bus->defer_msg.msg);
+>>          }
+>>
+>> And is triggered when the call to sdw_bank_switch() fails.
+>> There are a two problems.
+>>
+>> First, when sdw_bank_switch() fails, though it frees memory it
+>> does not clear bus's reference 'defer_msg.msg' to that memory.
+>>
+>> The second problem is the freeing msg->buf. In some cases
+>> msg will be NULL so this will dereference a null pointer.
+>> Need to check before freeing.
+>>
+>> Fixes: 99b8a5d608a6 ("soundwire: Add bank switch routine")
+>> Signed-off-by: Tom Rix <trix@redhat.com>
+>> ---
+>>   drivers/soundwire/stream.c | 8 +++++---
+>>   1 file changed, 5 insertions(+), 3 deletions(-)
+>>
+>> diff --git a/drivers/soundwire/stream.c b/drivers/soundwire/stream.c
+>> index 37290a799023..6e36deb505b1 100644
+>> --- a/drivers/soundwire/stream.c
+>> +++ b/drivers/soundwire/stream.c
+>> @@ -717,6 +717,7 @@ static int sdw_bank_switch(struct sdw_bus *bus, int m_rt_count)
+>>          kfree(wbuf);
+>>   error_1:
+>>          kfree(wr_msg);
+>> +       bus->defer_msg.msg = NULL;
+> 
+> This fix looks correct to me because L668 sets `bus->defer_msg.msg =
+> wr_msg;`, but on error L719 frees `wr_msg`, so now
+> `bus->defer_msg.msg` is a dangling pointer.
+> 
+>>          return ret;
+>>   }
+>>
+>> @@ -840,9 +841,10 @@ static int do_bank_switch(struct sdw_stream_runtime *stream)
+>>   error:
+>>          list_for_each_entry(m_rt, &stream->master_list, stream_node) {
+>>                  bus = m_rt->bus;
+>> -
+>> -               kfree(bus->defer_msg.msg->buf);
+>> -               kfree(bus->defer_msg.msg);
+>> +               if (bus->defer_msg.msg) {
+>> +                       kfree(bus->defer_msg.msg->buf);
+>> +                       kfree(bus->defer_msg.msg);
+>> +               }
+> 
+> I'd prefer a conditional check for each, but sdw_ml_sync_bank_switch()
+> has this same pattern, so it looks like the lifetime of these two
+> match.
+> 
+> Reviewed-by: Nick Desaulniers <ndesaulniers@google.com>
+
+Also looks good to me.
+
+Reviewed-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>

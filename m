@@ -2,75 +2,87 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C962D257C14
-	for <lists+alsa-devel@lfdr.de>; Mon, 31 Aug 2020 17:17:38 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A312E257FED
+	for <lists+alsa-devel@lfdr.de>; Mon, 31 Aug 2020 19:49:47 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 707881769;
-	Mon, 31 Aug 2020 17:16:48 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 707881769
+	by alsa0.perex.cz (Postfix) with ESMTPS id 46FD0176D;
+	Mon, 31 Aug 2020 19:48:57 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 46FD0176D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1598887058;
-	bh=MEMd8TObfbYcwnF80376xgFjo5ScuXiaiIOT9RO6hQQ=;
-	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
+	s=default; t=1598896187;
+	bh=n6xJ+kzcShpeyGVRezS06+AvyvNvJ8DXk0s6BAdayXY=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=RkkZvVaCS7tWNE08VcjavyTN11q/oRLdau+D0tMsbttUXaCEvKVCVeimrNxNCh2kO
-	 OUYJ2wreeG9TPTImgzKmHzcsMyGTcySeYLJyoBISU4FObl07F1kLiKPFzkz6f1Jqo6
-	 /72USPGUaCPv1cuHuzCChhUeGUGqzsqkg7ZIGnxs=
+	b=rrKECx8XoSgsZ4DFChebju2556IbIeIND3951R8nR5O2oOfixA4zzhGzWXMpyNECE
+	 dNJq9oZvCn3sD3NGY53i0OyGLF7nz/yJ3LLlzC75A7AhBgS8j3knkxaGz5mEMmRXyD
+	 lfl0A8LucEg8iZSTHX0JytKYA5FsC0HIql2wLtY4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 9FD4DF8024A;
-	Mon, 31 Aug 2020 17:15:57 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 63436F80146;
+	Mon, 31 Aug 2020 19:48:06 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 1A346F80212; Mon, 31 Aug 2020 17:15:55 +0200 (CEST)
+ id 20363F80212; Mon, 31 Aug 2020 19:48:04 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.2 required=5.0 tests=NICE_REPLY_A,SPF_HELO_PASS,
- SPF_NONE autolearn=disabled version=3.4.0
-Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-16.1 required=5.0 tests=DKIMWL_WL_MED,DKIM_SIGNED,
+ DKIM_VALID,DKIM_VALID_AU,ENV_AND_HDR_SPF_MATCH,SPF_HELO_NONE,SPF_PASS,
+ USER_IN_DEF_DKIM_WL,USER_IN_DEF_SPF_WL autolearn=disabled version=3.4.0
+Received: from mail-pl1-x644.google.com (mail-pl1-x644.google.com
+ [IPv6:2607:f8b0:4864:20::644])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 7B244F80146
- for <alsa-devel@alsa-project.org>; Mon, 31 Aug 2020 17:15:43 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7B244F80146
-IronPort-SDR: aTDRWglonb5aCdisCO7o7uwmMOhmn2m9GNVgksVzBH8nSG1KcvHkDuU5xWQW86zfS5+vzqzIqQ
- Ug6jrY3vpmJw==
-X-IronPort-AV: E=McAfee;i="6000,8403,9730"; a="136520676"
-X-IronPort-AV: E=Sophos;i="5.76,376,1592895600"; d="scan'208";a="136520676"
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from fmsmga006.fm.intel.com ([10.253.24.20])
- by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 31 Aug 2020 08:15:41 -0700
-IronPort-SDR: v+uBZj2yz55phQgP83igUTAsDBunmkJ9f49VrBbrIS3NM4KS8+6pGtYENeFcFdHxEM6jugM9Bv
- 4kF0z8JH/H9A==
-X-IronPort-AV: E=Sophos;i="5.76,376,1592895600"; d="scan'208";a="501376518"
-Received: from jaeikcho-mobl.amr.corp.intel.com (HELO [10.213.165.6])
- ([10.213.165.6])
- by fmsmga006-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 31 Aug 2020 08:15:38 -0700
-Subject: Re: [PATCH 09/11] soundwire: intel: add dynamic debug trace for
- clock-stop invalid configs
-To: Vinod Koul <vkoul@kernel.org>, Bard Liao <yung-chuan.liao@linux.intel.com>
-References: <20200829110047.GC2639@vkoul-mobl>
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Message-ID: <051afb2d-dd2e-0ea4-d8a9-980f5df136b7@linux.intel.com>
-Date: Mon, 31 Aug 2020 10:15:37 -0500
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.10.0
+ by alsa1.perex.cz (Postfix) with ESMTPS id 745CFF80146
+ for <alsa-devel@alsa-project.org>; Mon, 31 Aug 2020 19:47:56 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 745CFF80146
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=google.com header.i=@google.com
+ header.b="ldoEDMh1"
+Received: by mail-pl1-x644.google.com with SMTP id v16so3429443plo.1
+ for <alsa-devel@alsa-project.org>; Mon, 31 Aug 2020 10:47:56 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=P829i5Iw79pY5XzrVknioognLQa7eeRlaAv36ZVo67A=;
+ b=ldoEDMh1VddXNaWZRPrfsEXG5+Zl0OBnn1+eLfeuSKwavLg0dcI+H0wVlxcuStFM8O
+ nRHK8Cg+TDh/AwwKhubsCBz14AnQgdxOxRajQKX50RNKzX1u/i/doBKS4IlqsjcsMUj5
+ YqmwcaTOtetuZSPQlJMpKCa3AX8CEJX8xiiv210o0vz2NnN6XBeo5kElEBVzVoypdZQM
+ mpvPsW/RrHTTyJrqDIAkkr6sh/sZtBltwONXf5HrfPjnYaQzXlIdS8y8V1uWdzbGX2sU
+ jkHAyMkrV7npXAEMbiD93gBqwIjSDhfD9iVSTEG8EILtSp2yWqV2jsh/zfLVgjxCuDSA
+ +9nQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=P829i5Iw79pY5XzrVknioognLQa7eeRlaAv36ZVo67A=;
+ b=eSI8aZT/nfHS9a9pb8iRruyPToLEd+gLT16RvUZ43jrgNV45gk7CFJf3RkBK4Qn03Z
+ /j0DM6nUUFg3CPgPDSdOmhF2w/YwE3wUV95cKb9gA3l7ZmWs0wRblSuvwBaFpLInPt7J
+ EzCDk6w9sARHDVbh5UY7b9N4pDu+twhgDari+gyuFDwpFERK3zZM2cqlgUL4GYcWHIIt
+ IQMWL9LycvUf/RSGAk6N42ELuy4I9iAgjLAtT0g2FODqHa4k1ZZns+t52dQBmaGPDp8x
+ 5YF/otkGGStf+Fb5kxVUGQho7+ZemdzXYwEE1CGEQ7+XFTU5PdKGlesz9Bb/UtcDphGW
+ XhBQ==
+X-Gm-Message-State: AOAM532v++IgBMxqPBxe7ByKuNmcIOH6LwiniYVD5m6dYbHUINMFR/Zr
+ NKYrmQvUI04C5bUsMYLTFmyYqAeh/mmBY4YmXqVSXg==
+X-Google-Smtp-Source: ABdhPJzvRJ7aNmtvcSGmX2ruQahuZVdBW/pE0eXak3IkWeu4IDPVyPGWeVx87YTz/fWB/bjdL5+DRNg0P9DH9AxZguE=
+X-Received: by 2002:a17:902:9f8a:: with SMTP id
+ g10mr1879533plq.158.1598896073003; 
+ Mon, 31 Aug 2020 10:47:53 -0700 (PDT)
 MIME-Version: 1.0
-In-Reply-To: <20200829110047.GC2639@vkoul-mobl>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
-Cc: alsa-devel@alsa-project.org, tiwai@suse.de, gregkh@linuxfoundation.org,
- linux-kernel@vger.kernel.org, ranjani.sridharan@linux.intel.com,
- hui.wang@canonical.com, broonie@kernel.org, srinivas.kandagatla@linaro.org,
- jank@cadence.com, mengdong.lin@intel.com, sanyog.r.kale@intel.com,
- rander.wang@linux.intel.com, bard.liao@intel.com
+References: <20200829153515.3840-1-trix@redhat.com>
+In-Reply-To: <20200829153515.3840-1-trix@redhat.com>
+From: Nick Desaulniers <ndesaulniers@google.com>
+Date: Mon, 31 Aug 2020 10:47:42 -0700
+Message-ID: <CAKwvOd=+X2AakX3kTYCvyug-MK_Y+atDbkDSRxA0pUfOatQ3mA@mail.gmail.com>
+Subject: Re: [PATCH] soundwire: fix error handling
+To: trix@redhat.com
+Content-Type: text/plain; charset="UTF-8"
+Cc: alsa-devel@alsa-project.org,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ LKML <linux-kernel@vger.kernel.org>, Vinod Koul <vkoul@kernel.org>,
+ shreyas.nc@intel.com, Nathan Chancellor <natechancellor@gmail.com>,
+ yung-chuan.liao@linux.intel.com, Sanyog Kale <sanyog.r.kale@intel.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -86,34 +98,88 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+On Sat, Aug 29, 2020 at 8:35 AM <trix@redhat.com> wrote:
+>
+> From: Tom Rix <trix@redhat.com>
+>
+> clang static analysis flags this problem
+>
+> stream.c:844:9: warning: Use of memory after
+>   it is freed
+>         kfree(bus->defer_msg.msg->buf);
+>               ^~~~~~~~~~~~~~~~~~~~~~~
+>
+> This happens in an error handler cleaning up memory
+> allocated for elements in a list.
+>
+>         list_for_each_entry(m_rt, &stream->master_list, stream_node) {
+>                 bus = m_rt->bus;
+>
+>                 kfree(bus->defer_msg.msg->buf);
+>                 kfree(bus->defer_msg.msg);
+>         }
+>
+> And is triggered when the call to sdw_bank_switch() fails.
+> There are a two problems.
+>
+> First, when sdw_bank_switch() fails, though it frees memory it
+> does not clear bus's reference 'defer_msg.msg' to that memory.
+>
+> The second problem is the freeing msg->buf. In some cases
+> msg will be NULL so this will dereference a null pointer.
+> Need to check before freeing.
+>
+> Fixes: 99b8a5d608a6 ("soundwire: Add bank switch routine")
+> Signed-off-by: Tom Rix <trix@redhat.com>
+> ---
+>  drivers/soundwire/stream.c | 8 +++++---
+>  1 file changed, 5 insertions(+), 3 deletions(-)
+>
+> diff --git a/drivers/soundwire/stream.c b/drivers/soundwire/stream.c
+> index 37290a799023..6e36deb505b1 100644
+> --- a/drivers/soundwire/stream.c
+> +++ b/drivers/soundwire/stream.c
+> @@ -717,6 +717,7 @@ static int sdw_bank_switch(struct sdw_bus *bus, int m_rt_count)
+>         kfree(wbuf);
+>  error_1:
+>         kfree(wr_msg);
+> +       bus->defer_msg.msg = NULL;
 
->>>>>> Detect cases where the clock is assumed to be stopped but the IP is
->>>>>> not in the relevant state, and add a dynamic debug trace.
->>>>>
->>>>> you meant a debug print..and it looks like error print below (also in title).
->>>>
->>>> I don't understand the comment. Is the 'trace' confusing and are you asking
->>>> to e.g. change the commit message to 'add dynamic debug log'?
->>>
->>> Question is what is dynamic about this?
->> dev_dbg() is part of the kernel dynamic debug capability...
->>
->> https://www.kernel.org/doc/html/latest/admin-guide/dynamic-debug-howto.html
->>
->> Not sure what you are asking here?
-> 
-> :-| where is dev_dbg() ?
-> 
-> See [1]
+This fix looks correct to me because L668 sets `bus->defer_msg.msg =
+wr_msg;`, but on error L719 frees `wr_msg`, so now
+`bus->defer_msg.msg` is a dangling pointer.
 
-> 
-> [1]
-> 
->> +			dev_err(dev, "%s invalid configuration, clock was not stopped", __func__);
-> 
->                          ^^^^^^^
+>         return ret;
+>  }
+>
+> @@ -840,9 +841,10 @@ static int do_bank_switch(struct sdw_stream_runtime *stream)
+>  error:
+>         list_for_each_entry(m_rt, &stream->master_list, stream_node) {
+>                 bus = m_rt->bus;
+> -
+> -               kfree(bus->defer_msg.msg->buf);
+> -               kfree(bus->defer_msg.msg);
+> +               if (bus->defer_msg.msg) {
+> +                       kfree(bus->defer_msg.msg->buf);
+> +                       kfree(bus->defer_msg.msg);
+> +               }
 
-it's still a log using the "dynamic debug" framework.
+I'd prefer a conditional check for each, but sdw_ml_sync_bank_switch()
+has this same pattern, so it looks like the lifetime of these two
+match.
 
-Again, what are you asking us to fix?
+Reviewed-by: Nick Desaulniers <ndesaulniers@google.com>
 
+Thanks for the patch!
+
+>         }
+>
+>  msg_unlock:
+> --
+> 2.18.1
+>
+
+
+-- 
+Thanks,
+~Nick Desaulniers

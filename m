@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1984325727E
-	for <lists+alsa-devel@lfdr.de>; Mon, 31 Aug 2020 05:55:11 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E6EA725727C
+	for <lists+alsa-devel@lfdr.de>; Mon, 31 Aug 2020 05:54:14 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B3A231844;
-	Mon, 31 Aug 2020 05:54:20 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B3A231844
+	by alsa0.perex.cz (Postfix) with ESMTPS id 91645183C;
+	Mon, 31 Aug 2020 05:53:24 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 91645183C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1598846110;
-	bh=oQ64RIdJL5r09WTlG5sbrMkh/pNK6op+Z4u5uo1YWM4=;
+	s=default; t=1598846054;
+	bh=AcZ/4di7NOukMbypU/G4/BotSk1fKOyxnDcoPZjas4w=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=ShCpDxLLos7Z4DTTdCqW0eVugSehzG8FTdcRjwBtGAsX3KUejk4Fi9pb3gN+5dSGI
-	 qrMrv31uOVAqab8aX2Kt9VgmMn8QgiINH12IwI95YNqiZzVYkgdHlp13VQsYYYHdz9
-	 vqWfjsolv3wJ4HkVyHBFomGdK5dURwkKWGqAtlHI=
+	b=imSR0ZboH6J34YQYIJDmtJdvJKJ4uXwmAW3DZ3vshQOFq4m2OLWJoaxmM9YFx8NwV
+	 WdupmlnpvC/GJpRLdtoeasD1lV3URhnriKqqvIH5nfxcJpnbXYp24CsouwXAvtXFus
+	 efuDQdyJkYuk4oXkunbbJ1d9dHL+FvrhcH/dsN5g=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 14AF6F802FF;
-	Mon, 31 Aug 2020 05:49:43 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 31192F802EB;
+	Mon, 31 Aug 2020 05:49:28 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id F2FB7F802DB; Mon, 31 Aug 2020 05:49:20 +0200 (CEST)
+ id C99DDF802C3; Mon, 31 Aug 2020 05:49:18 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -35,40 +35,40 @@ Received: from new1-smtp.messagingengine.com (new1-smtp.messagingengine.com
  [66.111.4.221])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 5D7CDF802A1
+ by alsa1.perex.cz (Postfix) with ESMTPS id 5D691F8026F
  for <alsa-devel@alsa-project.org>; Mon, 31 Aug 2020 05:49:01 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5D7CDF802A1
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5D691F8026F
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=sholland.org header.i=@sholland.org
- header.b="LiyCbH3Y"; 
+ header.b="GOAghqLp"; 
  dkim=pass (2048-bit key) header.d=messagingengine.com
- header.i=@messagingengine.com header.b="c5uHtCGS"
+ header.i=@messagingengine.com header.b="W3HRXU80"
 Received: from compute3.internal (compute3.nyi.internal [10.202.2.43])
- by mailnew.nyi.internal (Postfix) with ESMTP id B55BD58055D;
- Sun, 30 Aug 2020 23:48:57 -0400 (EDT)
+ by mailnew.nyi.internal (Postfix) with ESMTP id 31C31580561;
+ Sun, 30 Aug 2020 23:48:58 -0400 (EDT)
 Received: from mailfrontend1 ([10.202.2.162])
- by compute3.internal (MEProxy); Sun, 30 Aug 2020 23:48:57 -0400
+ by compute3.internal (MEProxy); Sun, 30 Aug 2020 23:48:58 -0400
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sholland.org; h=
  from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding; s=fm3; bh=IZc2IStvr+AnR
- 7eauS4CeBaKA3UMEQWja2HUN/Gwnuk=; b=LiyCbH3YYEvxEnMZgbuR9NAgF1dq7
- f4ZxGdQ6McOGgY/irALiEv7N9OAw+6zgCI5zr4b/xtOs6vBReFk+jOGFHl4+Fo7f
- B2TpXN7pFpRP48/r3bHXaXrwJUyFTXWA6/JaDVbaXJdd9MbDKpC3KqclPXJ84O5G
- ypY3M6Rrwzjlzs+P2xe0NzCR9UOeMzc+DhBUM1yn6toz+BqMBxWmq0ZxxxIvKl/5
- EhqsaFBDEQZ9dafSEMVMpUO/vZc1NgJ1cXZRZArYRoJD/4GW13kJaCDA5+idltOQ
- 5z6dfZ6nkYaqMl1ZS3x77bQ7NhdW79UQc3hXdr/AoAtE93s6EVV6QMBLQ==
+ :mime-version:content-transfer-encoding; s=fm3; bh=PQrBkezYLt6Fy
+ +c/uvjYlgs8mBO389cR4ftCESf2x2w=; b=GOAghqLpYvqRBtj+22uIKS1yiT2Zq
+ iN1BaVVzITn8OsPxZZiLtSAZv3U58dFoTOXCVhDdgYVu8amWGGChbmLxEP9Yjpjg
+ uwvpewclR/+gAtwzfBzBRjYIKd0GT4enBzsF/VB46pV77Ft95QyuwIr2cZeYIvLt
+ ebcCvu5SgZbnUsz7rK2EF8/wsqTR2mzLyfqjSLKPAMl2i9JhkNGcj1hBZdww//oa
+ oO5k0/0cn1rdOvHRDXRaWYdUm8nmB6jTXbZboAbGWEsnjo4FYH2nQfcoQT5Npkb5
+ SzTETC24HanYxFWXFzDk+N+s7h+pzvlWEuRBG5U/sUSEEa5NiHk9ZtMcQ==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
  messagingengine.com; h=cc:content-transfer-encoding:date:from
  :in-reply-to:message-id:mime-version:references:subject:to
  :x-me-proxy:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
- fm3; bh=IZc2IStvr+AnR7eauS4CeBaKA3UMEQWja2HUN/Gwnuk=; b=c5uHtCGS
- rnLqnXnjwuA766oPIi3d/Nu8GNOW2PW6O+lpkcu4IiNGRTGWFbBcf+TqKRTHWgbh
- Ey+hrpZARrOJUwGez4SkkHFSyxdvKg1PXlitRPgffcXL0+rxVxKv14ydgAB64+az
- k0g8Xj9CCGYcXDKTUkNu0mn7tVynCHYuvIANr0FRFMIlVXUbSj1RCJymTi8xZtCW
- OhuP1hkVqDuuRS+7HYn1FMD9zCWaqrTUODRf2qWEWdgaoucahXKZuzwBo0J4VXyr
- zSbwpU00nUwynyWEBnpNha1mnVaDnuO9aCERLL30O2Lu0iNb5hx3HXhK7DyBGPyf
- LF3t4ZzqOLaTUw==
-X-ME-Sender: <xms:KXNMX2QhieCG8GV0bOl8O_qm72Y1-_KrNpnozTCyQO1rv0cwLQ80wQ>
+ fm3; bh=PQrBkezYLt6Fy+c/uvjYlgs8mBO389cR4ftCESf2x2w=; b=W3HRXU80
+ Qc+lFonH+f++2P25QSzXSmxBgpoPZ/g/3YHu8HppAOjIY6WNWAwtuFMrIwBSGOEp
+ glqRr7cuVaGfHpD5/vOs5cLOYJWx2aTUXH6raIucM8aa9Yb9Bu91vuT3/QAR02BC
+ sc2ZpPtOiynB2nal2f+S+FS09430fwxNiWVWUouFRNea1aCPIbMN0LCvasuPEI9e
+ V/dRDN1gvz/wLNpDzAHP7QYPcYdwC4ZWInY5/W7FHe/N+ZqYmZKlXrujAiOGb5Zz
+ J5ZGn8S3dTOctJC2N8lfhwROAuLV0tm/ROODWXqu8q78eQ1BldlQrvx/X9ltITvJ
+ phJ8Pdr/Cek8zQ==
+X-ME-Sender: <xms:KnNMX-j5DadaiJK1KFZSL4ZXDLO1zmQBY50SW6CkXfkxwCABnnHtaQ>
 X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeduiedrudefgedgjeehucetufdoteggodetrfdotf
  fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
  uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
@@ -78,21 +78,21 @@ X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeduiedrudefgedgjeehucetufdoteggod
  gfejheeuieenucfkphepjedtrddufeehrddugeekrdduhedunecuvehluhhsthgvrhfuih
  iivgepudenucfrrghrrghmpehmrghilhhfrhhomhepshgrmhhuvghlsehshhholhhlrghn
  ugdrohhrgh
-X-ME-Proxy: <xmx:KXNMX7wriZbvv7elfYlTelNYz7CmFF82LbcSFdogI3XkZuFIviIq5Q>
- <xmx:KXNMXz3fYqZyyrb6wYSvgXCBnyX8S99MUsR_EAfXg-LcbNkCnT9slg>
- <xmx:KXNMXyBHyaO_OsmrCJlKCX1kR3wzUNnbvyDn_SzBBqRVvjZbGlZOAw>
- <xmx:KXNMX_gcxY5kO-R8RYkKaiSNMguX43Deesgw7Tnb2VlB_IGRrz56_g>
+X-ME-Proxy: <xmx:KnNMX_DzT4nfumGn_ZuJ80EkL5E6zVNIQ3ZeD2mWMzihCB-2QxsXmQ>
+ <xmx:KnNMX2HV1EQq5kCbjEX57GeNveR_BynfUphz5lBCqn7iw-knheWkfQ>
+ <xmx:KnNMX3Rso55QwepAJr4O4qBJ8o1NlC9joF-MBUp5ujSejF_7v3iR8w>
+ <xmx:KnNMXyxaXvizF7OA9mH4uSBMIVwacKb5VCPSrBcgykDV5alHSktyag>
 Received: from titanium.stl.sholland.net
  (70-135-148-151.lightspeed.stlsmo.sbcglobal.net [70.135.148.151])
- by mail.messagingengine.com (Postfix) with ESMTPA id 2601C328005D;
+ by mail.messagingengine.com (Postfix) with ESMTPA id 964263280060;
  Sun, 30 Aug 2020 23:48:57 -0400 (EDT)
 From: Samuel Holland <samuel@sholland.org>
 To: Mark Brown <broonie@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>,
  Maxime Ripard <mripard@kernel.org>, Chen-Yu Tsai <wens@csie.org>,
  Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>
-Subject: [PATCH 7/9] ASoC: sun8i-codec: Sort masks in a consistent order
-Date: Sun, 30 Aug 2020 22:48:50 -0500
-Message-Id: <20200831034852.18841-8-samuel@sholland.org>
+Subject: [PATCH 8/9] ASoC: sun8i-codec: Attach the bus clock to the regmap
+Date: Sun, 30 Aug 2020 22:48:51 -0500
+Message-Id: <20200831034852.18841-9-samuel@sholland.org>
 X-Mailer: git-send-email 2.26.2
 In-Reply-To: <20200831034852.18841-1-samuel@sholland.org>
 References: <20200831034852.18841-1-samuel@sholland.org>
@@ -116,33 +116,81 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-All other definitions are sorted from largest to smallest bit number.
-This makes the AIF1CLK_CTRL mask constants consistent with them.
+When attached to the regmap, the bus clock is automatically enabled as
+needed to access device registers. This avoids needing code to manage it
+separately in the driver.
 
-Acked-by: Chen-Yu Tsai <wens@csie.org>
 Signed-off-by: Samuel Holland <samuel@sholland.org>
 ---
- sound/soc/sunxi/sun8i-codec.c | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+ sound/soc/sunxi/sun8i-codec.c | 21 ++-------------------
+ 1 file changed, 2 insertions(+), 19 deletions(-)
 
 diff --git a/sound/soc/sunxi/sun8i-codec.c b/sound/soc/sunxi/sun8i-codec.c
-index 62d4b1b44e76..c25cdd3f3057 100644
+index c25cdd3f3057..8a7f98910347 100644
 --- a/sound/soc/sunxi/sun8i-codec.c
 +++ b/sound/soc/sunxi/sun8i-codec.c
-@@ -81,10 +81,10 @@
+@@ -94,7 +94,6 @@ struct sun8i_codec_quirks {
+ struct sun8i_codec {
+ 	struct regmap			*regmap;
+ 	struct clk			*clk_module;
+-	struct clk			*clk_bus;
+ 	const struct sun8i_codec_quirks	*quirks;
+ };
  
- #define SUN8I_SYS_SR_CTRL_AIF1_FS_MASK		GENMASK(15, 12)
- #define SUN8I_SYS_SR_CTRL_AIF2_FS_MASK		GENMASK(11, 8)
--#define SUN8I_AIF1CLK_CTRL_AIF1_DATA_FMT_MASK	GENMASK(3, 2)
--#define SUN8I_AIF1CLK_CTRL_AIF1_WORD_SIZ_MASK	GENMASK(5, 4)
--#define SUN8I_AIF1CLK_CTRL_AIF1_LRCK_DIV_MASK	GENMASK(8, 6)
- #define SUN8I_AIF1CLK_CTRL_AIF1_BCLK_DIV_MASK	GENMASK(12, 9)
-+#define SUN8I_AIF1CLK_CTRL_AIF1_LRCK_DIV_MASK	GENMASK(8, 6)
-+#define SUN8I_AIF1CLK_CTRL_AIF1_WORD_SIZ_MASK	GENMASK(5, 4)
-+#define SUN8I_AIF1CLK_CTRL_AIF1_DATA_FMT_MASK	GENMASK(3, 2)
+@@ -109,12 +108,6 @@ static int sun8i_codec_runtime_resume(struct device *dev)
+ 		return ret;
+ 	}
  
- struct sun8i_codec_quirks {
- 	bool legacy_widgets	: 1;
+-	ret = clk_prepare_enable(scodec->clk_bus);
+-	if (ret) {
+-		dev_err(dev, "Failed to enable the bus clock\n");
+-		goto err_disable_modclk;
+-	}
+-
+ 	regcache_cache_only(scodec->regmap, false);
+ 
+ 	ret = regcache_sync(scodec->regmap);
+@@ -126,9 +119,6 @@ static int sun8i_codec_runtime_resume(struct device *dev)
+ 	return 0;
+ 
+ err_disable_clk:
+-	clk_disable_unprepare(scodec->clk_bus);
+-
+-err_disable_modclk:
+ 	clk_disable_unprepare(scodec->clk_module);
+ 
+ 	return ret;
+@@ -142,7 +132,6 @@ static int sun8i_codec_runtime_suspend(struct device *dev)
+ 	regcache_mark_dirty(scodec->regmap);
+ 
+ 	clk_disable_unprepare(scodec->clk_module);
+-	clk_disable_unprepare(scodec->clk_bus);
+ 
+ 	return 0;
+ }
+@@ -612,20 +601,14 @@ static int sun8i_codec_probe(struct platform_device *pdev)
+ 		return PTR_ERR(scodec->clk_module);
+ 	}
+ 
+-	scodec->clk_bus = devm_clk_get(&pdev->dev, "bus");
+-	if (IS_ERR(scodec->clk_bus)) {
+-		dev_err(&pdev->dev, "Failed to get the bus clock\n");
+-		return PTR_ERR(scodec->clk_bus);
+-	}
+-
+ 	base = devm_platform_ioremap_resource(pdev, 0);
+ 	if (IS_ERR(base)) {
+ 		dev_err(&pdev->dev, "Failed to map the registers\n");
+ 		return PTR_ERR(base);
+ 	}
+ 
+-	scodec->regmap = devm_regmap_init_mmio(&pdev->dev, base,
+-					       &sun8i_codec_regmap_config);
++	scodec->regmap = devm_regmap_init_mmio_clk(&pdev->dev, "bus", base,
++						   &sun8i_codec_regmap_config);
+ 	if (IS_ERR(scodec->regmap)) {
+ 		dev_err(&pdev->dev, "Failed to create our regmap\n");
+ 		return PTR_ERR(scodec->regmap);
 -- 
 2.26.2
 

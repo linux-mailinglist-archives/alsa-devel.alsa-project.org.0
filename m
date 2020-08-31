@@ -2,74 +2,66 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1ADDC258437
-	for <lists+alsa-devel@lfdr.de>; Tue,  1 Sep 2020 00:50:32 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8A650258531
+	for <lists+alsa-devel@lfdr.de>; Tue,  1 Sep 2020 03:38:59 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 968CF1754;
-	Tue,  1 Sep 2020 00:49:41 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 968CF1754
+	by alsa0.perex.cz (Postfix) with ESMTPS id 2F6591704;
+	Tue,  1 Sep 2020 03:38:09 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2F6591704
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1598914231;
-	bh=n6RC2ProXWluq+rrfq0tixqJ6LZkVrMR87L9iSpHrXM=;
-	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=qGHiwG7sBh+oK0IDVONSzQfWzXt/ta3LztzjIDx5icQk32FYJtC9QpZVro5xD2p15
-	 RzSUuarXBIJeDlRRLTVzS6Jkzji7KFjptIne0pcLf0OQ5GHpxIoWUN+SqH9P8VVcLI
-	 7SotFfYr+NkWHjXUnAUV40YeEpLovgMrQ+Xfjhu4=
+	s=default; t=1598924339;
+	bh=1Zbs3D2H0Iv3uSM54N4Rh5f+bxsjWsBv1+XJv6x7Uks=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=pHqrnkZmBfv+Jj2949ljdifcl2ZxlVS/xqyv00MHxhYjw6hHFWcPilNWefMGrpt6x
+	 dFPRArZoFzXS6PMtrMJ5hWCCcAdZgYFm4p6NXdsZvWMqq/0kM5ML6vGDZW4dFmAi42
+	 WvXVl5HqINQLfm4I4qLLzY/Q7DartKkQhHZ6JxbY=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id C8AB9F80146;
-	Tue,  1 Sep 2020 00:48:50 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 49145F8025F;
+	Tue,  1 Sep 2020 03:37:18 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id AC434F80212; Tue,  1 Sep 2020 00:47:04 +0200 (CEST)
+ id BB2F8F800BA; Tue,  1 Sep 2020 03:37:11 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=-0.2 required=5.0 tests=NICE_REPLY_A,SPF_HELO_NONE,
- SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
+X-Spam-Level: *
+X-Spam-Status: No, score=1.1 required=5.0 tests=DATE_IN_PAST_06_12,
+ SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
+Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id BDEBDF80146
- for <alsa-devel@alsa-project.org>; Tue,  1 Sep 2020 00:45:57 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BDEBDF80146
-IronPort-SDR: N9IBD6zkjMPWklGgQQNg3cKo+6PNUr0v/0AVRkF6oVJ+/Sopb/h0Q/k2eXmGe+jv4tQfuIxRx+
- /akUv7h8Hn8g==
-X-IronPort-AV: E=McAfee;i="6000,8403,9730"; a="137119186"
-X-IronPort-AV: E=Sophos;i="5.76,376,1592895600"; d="scan'208";a="137119186"
+ by alsa1.perex.cz (Postfix) with ESMTPS id EFF9CF800BA
+ for <alsa-devel@alsa-project.org>; Tue,  1 Sep 2020 03:37:06 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EFF9CF800BA
+IronPort-SDR: WtX35PfEiBE5n+kCUNCTbQPZeA/hfSKAPOVTFrltpqh0e78Rh2r8yHN/D5Qh/k7E/ct+cpfhnw
+ LcIr0y7xFYXA==
+X-IronPort-AV: E=McAfee;i="6000,8403,9730"; a="157090481"
+X-IronPort-AV: E=Sophos;i="5.76,376,1592895600"; d="scan'208";a="157090481"
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
 Received: from orsmga005.jf.intel.com ([10.7.209.41])
- by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 31 Aug 2020 15:45:50 -0700
-IronPort-SDR: 3kPxLytFyQve8EiS/uttvND6c2LCCoHrm5YB6W2Mw06GdR2cgpi/ZxoMVwBxijCRcTsaM9QPxn
- 1UyXl7v06HHg==
-X-IronPort-AV: E=Sophos;i="5.76,376,1592895600"; d="scan'208";a="476932222"
-Received: from rmalladi-mobl.amr.corp.intel.com (HELO [10.254.176.90])
- ([10.254.176.90])
+ by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 31 Aug 2020 18:37:03 -0700
+IronPort-SDR: ZJtB0CzyLlVkImfOVCXYB8wUU4T/pLvO7cmQfL2FG2F0SILlz5YdJeAeIe60+awBGY1NDYXfY5
+ EU4mRjQmIZ5Q==
+X-IronPort-AV: E=Sophos;i="5.76,376,1592895600"; d="scan'208";a="476984087"
+Received: from bard-ubuntu.sh.intel.com ([10.239.13.33])
  by orsmga005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 31 Aug 2020 15:45:49 -0700
-Subject: Re: [PATCH] soundwire: fix error handling
-To: Nick Desaulniers <ndesaulniers@google.com>, trix@redhat.com
-References: <20200829153515.3840-1-trix@redhat.com>
- <CAKwvOd=+X2AakX3kTYCvyug-MK_Y+atDbkDSRxA0pUfOatQ3mA@mail.gmail.com>
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Message-ID: <aae0bf86-5900-c437-492f-fbf23d3ff196@linux.intel.com>
-Date: Mon, 31 Aug 2020 17:45:47 -0500
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.10.0
-MIME-Version: 1.0
-In-Reply-To: <CAKwvOd=+X2AakX3kTYCvyug-MK_Y+atDbkDSRxA0pUfOatQ3mA@mail.gmail.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
-Cc: alsa-devel@alsa-project.org, LKML <linux-kernel@vger.kernel.org>,
- Vinod Koul <vkoul@kernel.org>, shreyas.nc@intel.com,
- Nathan Chancellor <natechancellor@gmail.com>, yung-chuan.liao@linux.intel.com,
- Sanyog Kale <sanyog.r.kale@intel.com>
+ 31 Aug 2020 18:36:58 -0700
+From: Bard Liao <yung-chuan.liao@linux.intel.com>
+To: alsa-devel@alsa-project.org,
+	vkoul@kernel.org
+Subject: [PATCH v4 0/3] ASoC: soundwire: fix port_ready[] dynamic allocation
+Date: Mon, 31 Aug 2020 21:43:15 +0800
+Message-Id: <20200831134318.11443-1-yung-chuan.liao@linux.intel.com>
+X-Mailer: git-send-email 2.17.1
+Cc: pierre-louis.bossart@linux.intel.com, vinod.koul@linaro.org, tiwai@suse.de,
+ gregkh@linuxfoundation.org, linux-kernel@vger.kernel.org,
+ ranjani.sridharan@linux.intel.com, hui.wang@canonical.com, broonie@kernel.org,
+ srinivas.kandagatla@linaro.org, jank@cadence.com, mengdong.lin@intel.com,
+ sanyog.r.kale@intel.com, rander.wang@linux.intel.com, bard.liao@intel.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -85,81 +77,48 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+The existing code allocates memory for the total number of ports.
+This only works if the ports are contiguous, but will break if e.g. a
+Devices uses port0, 1, and 14. The port_ready[] array would contain 3
+elements, which would lead to an out-of-bounds access. Conversely in
+other cases, the wrong port index would be used leading to timeouts on
+prepare.
+
+This can be fixed by allocating for the worst-case of 15
+ports (DP0..DP14). In addition since the number is now fixed, we can
+use an array instead of a dynamic allocation.
+
+Changes in v4:
+- Reorder the patches order to allow bisect.
+
+Changes in v3:
+- Add ASoC tag in the cover letter title.
+- Edit the title and commit message of the third patch for better
+  understanding.
+
+Changes in v2:
+- Split patches into sdw and asoc patches. Please note that "soundwire:
+  fix port_ready[] dynamic allocation in mipi_disco" and "ASoC: codecs:
+  fix port_ready[] dynamic allocation in ASoC codecs" should be merged
+  at the same time.
 
 
-On 8/31/20 12:47 PM, Nick Desaulniers wrote:
-> On Sat, Aug 29, 2020 at 8:35 AM <trix@redhat.com> wrote:
->>
->> From: Tom Rix <trix@redhat.com>
->>
->> clang static analysis flags this problem
->>
->> stream.c:844:9: warning: Use of memory after
->>    it is freed
->>          kfree(bus->defer_msg.msg->buf);
->>                ^~~~~~~~~~~~~~~~~~~~~~~
->>
->> This happens in an error handler cleaning up memory
->> allocated for elements in a list.
->>
->>          list_for_each_entry(m_rt, &stream->master_list, stream_node) {
->>                  bus = m_rt->bus;
->>
->>                  kfree(bus->defer_msg.msg->buf);
->>                  kfree(bus->defer_msg.msg);
->>          }
->>
->> And is triggered when the call to sdw_bank_switch() fails.
->> There are a two problems.
->>
->> First, when sdw_bank_switch() fails, though it frees memory it
->> does not clear bus's reference 'defer_msg.msg' to that memory.
->>
->> The second problem is the freeing msg->buf. In some cases
->> msg will be NULL so this will dereference a null pointer.
->> Need to check before freeing.
->>
->> Fixes: 99b8a5d608a6 ("soundwire: Add bank switch routine")
->> Signed-off-by: Tom Rix <trix@redhat.com>
->> ---
->>   drivers/soundwire/stream.c | 8 +++++---
->>   1 file changed, 5 insertions(+), 3 deletions(-)
->>
->> diff --git a/drivers/soundwire/stream.c b/drivers/soundwire/stream.c
->> index 37290a799023..6e36deb505b1 100644
->> --- a/drivers/soundwire/stream.c
->> +++ b/drivers/soundwire/stream.c
->> @@ -717,6 +717,7 @@ static int sdw_bank_switch(struct sdw_bus *bus, int m_rt_count)
->>          kfree(wbuf);
->>   error_1:
->>          kfree(wr_msg);
->> +       bus->defer_msg.msg = NULL;
-> 
-> This fix looks correct to me because L668 sets `bus->defer_msg.msg =
-> wr_msg;`, but on error L719 frees `wr_msg`, so now
-> `bus->defer_msg.msg` is a dangling pointer.
-> 
->>          return ret;
->>   }
->>
->> @@ -840,9 +841,10 @@ static int do_bank_switch(struct sdw_stream_runtime *stream)
->>   error:
->>          list_for_each_entry(m_rt, &stream->master_list, stream_node) {
->>                  bus = m_rt->bus;
->> -
->> -               kfree(bus->defer_msg.msg->buf);
->> -               kfree(bus->defer_msg.msg);
->> +               if (bus->defer_msg.msg) {
->> +                       kfree(bus->defer_msg.msg->buf);
->> +                       kfree(bus->defer_msg.msg);
->> +               }
-> 
-> I'd prefer a conditional check for each, but sdw_ml_sync_bank_switch()
-> has this same pattern, so it looks like the lifetime of these two
-> match.
-> 
-> Reviewed-by: Nick Desaulniers <ndesaulniers@google.com>
+Pierre-Louis Bossart (3):
+  ASoC: codecs: soundwire: remove port_ready[] usage from codecs.
+  soundwire: add definition for maximum number of ports
+  soundwire: fix port_ready[] dynamic allocation in mipi_disco
 
-Also looks good to me.
+ drivers/soundwire/mipi_disco.c  | 18 +-----------------
+ drivers/soundwire/slave.c       |  4 ++++
+ include/linux/soundwire/sdw.h   |  5 +++--
+ sound/soc/codecs/max98373-sdw.c | 15 +--------------
+ sound/soc/codecs/rt1308-sdw.c   | 14 +-------------
+ sound/soc/codecs/rt5682-sdw.c   | 15 +--------------
+ sound/soc/codecs/rt700-sdw.c    | 15 +--------------
+ sound/soc/codecs/rt711-sdw.c    | 15 +--------------
+ sound/soc/codecs/rt715-sdw.c    | 33 +--------------------------------
+ 9 files changed, 14 insertions(+), 120 deletions(-)
 
-Reviewed-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+-- 
+2.17.1
+

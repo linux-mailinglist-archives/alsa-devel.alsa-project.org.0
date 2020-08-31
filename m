@@ -2,68 +2,63 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8E11B257646
-	for <lists+alsa-devel@lfdr.de>; Mon, 31 Aug 2020 11:13:58 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A9AFE2576B8
+	for <lists+alsa-devel@lfdr.de>; Mon, 31 Aug 2020 11:41:53 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 3358F184D;
-	Mon, 31 Aug 2020 11:13:08 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3358F184D
+	by alsa0.perex.cz (Postfix) with ESMTPS id 374E91849;
+	Mon, 31 Aug 2020 11:41:03 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 374E91849
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1598865238;
-	bh=D3PlPG7gV6yHwlS8euLBulPj9X3Rb09FdnJHmaMU3dI=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1598866913;
+	bh=eaVf1EMCSJNpZH7VY/jtrhonBx5yT6vxCcf/+Ag4CZk=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=B6qMiP2Vu2snYXfldKjvpZv1FHFONK9iut0FhVGzDMKtH/1kB30+EhaCBB3iEG1YD
-	 lN5QtDYAYsv0Eph/lpMJ7rwYh80fD9rzPoU53qyLPgAYoc3lM8Xg/ctGpBK9wnEKJW
-	 QYgDEUDIWNUteRcTwRIuBLm7Uq3w5K3nI1gTfvKw=
+	b=e1vzu76awRLVrm/2XIU4mA8fZ96cwlXCQoK5nL6y0Jt1zfFFW1Zd6s+TSxWpZrEDd
+	 pFHVgi/VRiKd6UN9kB8kacB+NfFdWMgK6seB3/oMNGkmvEgslB5mojEdrmvHw3R6O+
+	 hTb0wwg40/fG4lToMkTi0Na0GWV40lqmNajlt70A=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 868BFF8024A;
-	Mon, 31 Aug 2020 11:08:54 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 6723AF8024A;
+	Mon, 31 Aug 2020 11:40:12 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 71207F802EA; Mon, 31 Aug 2020 11:08:30 +0200 (CEST)
+ id D7EABF80212; Mon, 31 Aug 2020 11:40:09 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_PASS,SPF_NONE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-0.0 required=5.0 tests=RCVD_IN_MSPIKE_H3,
+ RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
+Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 611B5F8026F
- for <alsa-devel@alsa-project.org>; Mon, 31 Aug 2020 11:08:20 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 611B5F8026F
-IronPort-SDR: V8lsuoFyIvPLXkatYjrXQ0bccFPtnQbE91rcJ+1yEl06asNwHXf577Ar1oPXMQJ/+CJuLjjcPJ
- WEGfwmk0mjcQ==
-X-IronPort-AV: E=McAfee;i="6000,8403,9729"; a="136466783"
-X-IronPort-AV: E=Sophos;i="5.76,375,1592895600"; d="scan'208";a="136466783"
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from orsmga002.jf.intel.com ([10.7.209.21])
- by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 31 Aug 2020 02:08:19 -0700
-IronPort-SDR: gozAWbBfCOt95Er7Bfi2b3CKNdSZJMQxSxaRiwUCRS7HJWI5z3Lgd1ckeehtJ3yfxlkFvg0XdJ
- jozznpWlYVcg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.76,375,1592895600"; d="scan'208";a="314286961"
-Received: from test-hp-compaq-8100-elite-cmt-pc.igk.intel.com ([10.237.149.93])
- by orsmga002.jf.intel.com with ESMTP; 31 Aug 2020 02:08:18 -0700
-From: Piotr Maziarz <piotrx.maziarz@linux.intel.com>
-To: alsa-devel@alsa-project.org
-Subject: [PATCH v4 10/10] topology: Make buffer for saving dynamic size
-Date: Mon, 31 Aug 2020 11:09:03 +0200
-Message-Id: <1598864943-22883-11-git-send-email-piotrx.maziarz@linux.intel.com>
-X-Mailer: git-send-email 2.7.4
-In-Reply-To: <1598864943-22883-1-git-send-email-piotrx.maziarz@linux.intel.com>
-References: <1598864943-22883-1-git-send-email-piotrx.maziarz@linux.intel.com>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-Cc: pierre-louis.bossart@linux.intel.com, cezary.rojewski@intel.com,
- amadeuszx.slawinski@linux.intel.com, tiwai@suse.com
+ by alsa1.perex.cz (Postfix) with ESMTPS id 7CE13F80058
+ for <alsa-devel@alsa-project.org>; Mon, 31 Aug 2020 11:40:02 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7CE13F80058
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id 4D3FBACF2;
+ Mon, 31 Aug 2020 09:40:35 +0000 (UTC)
+Date: Mon, 31 Aug 2020 11:40:00 +0200
+Message-ID: <s5hsgc3i26n.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: "Jillela, Emmanuel" <emmanuel.jillela@intel.com>
+Subject: Re: [PATCH v2] ALSA: HDA: Early Forbid of runtime PM
+In-Reply-To: <BN6PR1101MB2275262388388F71D62390299C520@BN6PR1101MB2275.namprd11.prod.outlook.com>
+References: <1598569536-9450-1-git-send-email-harshapriya.n@intel.com>
+ <s5h5z93ns23.wl-tiwai@suse.de>
+ <alpine.DEB.2.22.394.2008281800180.3186@eliteleevi.tm.intel.com>
+ <BN6PR1101MB2275262388388F71D62390299C520@BN6PR1101MB2275.namprd11.prod.outlook.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
+ FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
+ (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
+Content-Type: text/plain; charset=US-ASCII
+Cc: "N, Harshapriya" <harshapriya.n@intel.com>,
+ "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
+ Kai Vehmanen <kai.vehmanen@linux.intel.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -79,88 +74,46 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Some fields can exceed size limit, e.g. private data has no size
-restriction. Therefore it needs to be dynamically increased.
+On Fri, 28 Aug 2020 19:06:51 +0200,
+Jillela, Emmanuel wrote:
+> 
+> 
+> > Subject: Re: [PATCH v2] ALSA: HDA: Early Forbid of runtime PM
+> > 
+> > Hey,
+> > 
+> > On Fri, 28 Aug 2020, Takashi Iwai wrote:
+> > 
+> > > On Fri, 28 Aug 2020 01:05:36 +0200, Harsha Priya wrote:
+> > > > This issue being common across all codecs, pm_runtime_forbid() is
+> > > > called when the codec object is created to fix this issue.
+> > > > A codec enables or disables runtime pm in its own probe function.
+> > >
+> > > Thanks.  The only concern is about the influence on the relevant ASoC
+> > > code, especially hdac_hda.c.
+> > >
+> > > Kai, could you check whether this still works?
+> > 
+> > I believe Harsha is testing mostly with ASoC, so hdac_hda.c should be covered.
+> > 
+> > I did queue a SOF CI job for this v2 patch and I'm seeing some failures in module
+> > load/unload test that might be related and need checking before we merge:
+> > 
+> > https://sof-ci.01.org/linuxpr/PR2403/build4400/devicetest/
+> > 
+> > The actual runtime-PM tests in our test set pass, but module load/unload has failures >on
+> > some platforms. I'll follow-up when I have a better understanding what goes wrong.
+> > 
+> > Br, Kai
+> I am just trying to think ahead to get something that may work. We can add an if check around the pm_runtime_forbid like below
+> If (!codec->auto_runtime_pm)
+> 	Pm_runtime_forbid(&codec->core.dev)
+> Do you think that will work??
 
-Signed-off-by: Piotr Maziarz <piotrx.maziarz@linux.intel.com>
-Reviewed-by: Cezary Rojewski <cezary.rojewski@intel.com>
-Reviewed-by: Amadeusz Sławiński <amadeuszx.slawinski@linux.intel.com>
-Reviewed-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
----
- src/topology/save.c | 34 +++++++++++++++++++++++++++++-----
- 1 file changed, 29 insertions(+), 5 deletions(-)
+snd_hda_codec_device_new() is called before setting the flag, so it's
+no use for adding the conditional.
 
-diff --git a/src/topology/save.c b/src/topology/save.c
-index 4ecf86c..9c74735 100644
---- a/src/topology/save.c
-+++ b/src/topology/save.c
-@@ -19,22 +19,43 @@
- #include "tplg_local.h"
- 
- #define SAVE_ALLOC_SHIFT	(13)	/* 8192 bytes */
-+#define PRINT_BUF_SIZE		(1024)
-+#define PRINT_BUF_SIZE_MAX	(1024 * 1024)
- 
- int tplg_save_printf(char **dst, const char *pfx, const char *fmt, ...)
- {
- 	va_list va;
--	char buf[1024], *s;
-+	char *buf, *s;
- 	size_t n, l, t, pl;
-+	int ret = 0;
-+
-+	buf = malloc(PRINT_BUF_SIZE);
-+	if (!buf)
-+		return -ENOMEM;
- 
- 	if (pfx == NULL)
- 		pfx = "";
- 
- 	va_start(va, fmt);
--	n = vsnprintf(buf, sizeof(buf), fmt, va);
-+	n = vsnprintf(buf, PRINT_BUF_SIZE, fmt, va);
- 	va_end(va);
- 
--	if (n >= sizeof(buf))
--		return -EOVERFLOW;
-+	if (n >= PRINT_BUF_SIZE_MAX) {
-+		ret = -EOVERFLOW;
-+		goto end;
-+	}
-+
-+	if (n >= PRINT_BUF_SIZE) {
-+		char *tmp = realloc(buf, n + 1);
-+		if (!tmp) {
-+			ret = -ENOMEM;
-+			goto end;
-+		}
-+		buf = tmp;
-+		va_start(va, fmt);
-+		n = vsnprintf(buf, n + 1, fmt, va);
-+		va_end(va);
-+	}
- 
- 	pl = strlen(pfx);
- 	l = *dst ? strlen(*dst) : 0;
-@@ -47,7 +68,8 @@ int tplg_save_printf(char **dst, const char *pfx, const char *fmt, ...)
- 		if (s == NULL) {
- 			free(*dst);
- 			*dst = NULL;
--			return -ENOMEM;
-+			ret = -ENOMEM;
-+			goto end;
- 		}
- 	} else {
- 		s = *dst;
-@@ -57,6 +79,8 @@ int tplg_save_printf(char **dst, const char *pfx, const char *fmt, ...)
- 		strcpy(s + l, pfx);
- 	strcpy(s + l + pl, buf);
- 	*dst = s;
-+end:
-+	free(buf);
- 	return 0;
- }
- 
--- 
-2.7.4
 
+thanks,
+
+Takashi

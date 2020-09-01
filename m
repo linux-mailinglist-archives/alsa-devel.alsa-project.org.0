@@ -2,75 +2,69 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 70C7D258FF7
-	for <lists+alsa-devel@lfdr.de>; Tue,  1 Sep 2020 16:13:09 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 74327259184
+	for <lists+alsa-devel@lfdr.de>; Tue,  1 Sep 2020 16:52:28 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id CFFFB17B9;
-	Tue,  1 Sep 2020 16:12:18 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CFFFB17B9
+	by alsa0.perex.cz (Postfix) with ESMTPS id F1AD917D3;
+	Tue,  1 Sep 2020 16:51:37 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz F1AD917D3
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1598969588;
-	bh=pbnz30rmpcZDc0kCveRcRQ9MzahOUsBSsEuiH6CTR0k=;
-	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
+	s=default; t=1598971948;
+	bh=O1Qz4ZXdiSaMhdkg5TpGlUwTcP3HAsCwly/VMEgw7ew=;
+	h=Date:From:To:In-Reply-To:References:Subject:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=gpHBrCPrJYyoYL/10nxGW3J6cMV7S8qtt9aFzj0YUQB211c+0BpeCUVknTes+rYNm
-	 CDgC9fUpZtqnjkjfhO9YFlu+zwrAYiBHjTUos61M6X3R/fvvz+DBj35J1sjxHUR7og
-	 Nl8blmeOiMJoW1sjTGhOUlsN0/vKPjh+QiCWmKhE=
+	b=Fsew9wuMN5VRFZudwQgURGRkRVcvqvrkwfi2ipmSuhT3awNgj4zcU3PC+mXtPBkBY
+	 6KZaeVfZS2LaBSGVIa3n7biEtaLBonK8NgFa7PBjcKMrHo2WJ9tPP1bDa5BSJA+mOU
+	 CeX177bOoAJGnGONH6vo43T/Wjx3fz7aWi/yer1Y=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id DD24DF80217;
-	Tue,  1 Sep 2020 16:11:27 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 27275F801EB;
+	Tue,  1 Sep 2020 16:50:47 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 5DD00F801DA; Tue,  1 Sep 2020 16:11:25 +0200 (CEST)
+ id CA3A2F80217; Tue,  1 Sep 2020 16:50:44 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-1.1 required=5.0 tests=NICE_REPLY_A,PRX_BODY_30,
- SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+ DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled
+ version=3.4.0
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id DDF29F801EB
+ for <alsa-devel@alsa-project.org>; Tue,  1 Sep 2020 16:50:37 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DDF29F801EB
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="JNxv2gi5"
+Received: from localhost (fw-tnat.cambridge.arm.com [217.140.96.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id A7D3BF801DA
- for <alsa-devel@alsa-project.org>; Tue,  1 Sep 2020 16:11:13 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A7D3BF801DA
-IronPort-SDR: EvVYv02IhJ6QNAMxZF3Mr5N0kfTNgeVwx5y31lM3fSFXzxuPvENatjbEeWBWKsuKafv8BLSVWi
- 9qBfyfperrpQ==
-X-IronPort-AV: E=McAfee;i="6000,8403,9730"; a="137214781"
-X-IronPort-AV: E=Sophos;i="5.76,379,1592895600"; d="scan'208";a="137214781"
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from orsmga001.jf.intel.com ([10.7.209.18])
- by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 01 Sep 2020 07:11:09 -0700
-IronPort-SDR: DEatlQRcsrx6oobs8MpTxoZtgp7eGeDX8I/yREq1cLuSgUFqkdWY5tmFnOOXT090zzdXfuRWv8
- muogLqEN338Q==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.76,379,1592895600"; d="scan'208";a="375162305"
-Received: from crojewsk-mobl1.ger.corp.intel.com (HELO [10.249.145.54])
- ([10.249.145.54])
- by orsmga001.jf.intel.com with ESMTP; 01 Sep 2020 07:11:07 -0700
-Subject: Re: [bug report] 'ASoC: Intel: haswell: Power transition refactor'
- and PulseAudio
-To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-References: <9bc5b3ac-87a0-4d7c-abfd-2407db90d310@www.fastmail.com>
- <28ee99bc-fe27-9111-893b-1cb000067a7c@intel.com>
- <c5e8615d-5c8c-3aba-7ec6-6349ef4edbce@linux.intel.com>
-From: Cezary Rojewski <cezary.rojewski@intel.com>
-Message-ID: <f19d9eed-8af8-fcbc-bc56-ffdc29ca8a57@intel.com>
-Date: Tue, 1 Sep 2020 16:11:06 +0200
-User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:68.0) Gecko/20100101
- Thunderbird/68.11.0
-MIME-Version: 1.0
-In-Reply-To: <c5e8615d-5c8c-3aba-7ec6-6349ef4edbce@linux.intel.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 8bit
-Cc: alsa-devel@alsa-project.org, Christian Bundy <christianbundy@fraction.io>,
- yang.jie@linux.intel.com, zwisler@google.com, liam.r.girdwood@linux.intel.com,
- broonie@kernel.org
+ by mail.kernel.org (Postfix) with ESMTPSA id 39BE3208CA;
+ Tue,  1 Sep 2020 14:50:34 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=default; t=1598971834;
+ bh=O1Qz4ZXdiSaMhdkg5TpGlUwTcP3HAsCwly/VMEgw7ew=;
+ h=Date:From:To:Cc:In-Reply-To:References:Subject:From;
+ b=JNxv2gi5h2pJ4LyuMGOS3XexhJ1U1bx0g0nYlodhdK7d4MKxAJXnlWuKy2rwWZr/2
+ JeyCYsFx2NMzZVRzUNT3Sas8HmqL4kuekDflfnj64gSMpRqNzN0QNoQD360x+TZEvS
+ 0hLvK7uJnHp/C4HFcC9FB6HH9Nl8vBbFCNwgzm8s=
+Date: Tue, 01 Sep 2020 15:49:55 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Sylwester Nawrocki <s.nawrocki@samsung.com>, lgirdwood@gmail.com
+In-Reply-To: <20200827173357.31891-1-s.nawrocki@samsung.com>
+References: <CGME20200827173411eucas1p1283200677c5e077c5e07af938934eb5d@eucas1p1.samsung.com>
+ <20200827173357.31891-1-s.nawrocki@samsung.com>
+Subject: Re: [PATCH 1/2] ASoC: wm8994: Skip setting of the WM8994_MICBIAS
+ register for WM1811
+Message-Id: <159897179514.47719.11338166675649379991.b4-ty@kernel.org>
+Cc: alsa-devel@alsa-project.org, ckeepax@opensource.cirrus.com,
+ b.zolnierkie@samsung.com, patches@opensource.cirrus.com,
+ linux-kernel@vger.kernel.org, Krzysztof Kozlowski <krzk@kernel.org>,
+ m.szyprowski@samsung.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -86,46 +80,38 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 2020-09-01 3:38 PM, Pierre-Louis Bossart wrote:
-> On 9/1/20 6:33 AM, Cezary Rojewski wrote:
+On Thu, 27 Aug 2020 19:33:56 +0200, Sylwester Nawrocki wrote:
+> The WM8994_MICBIAS register is not available in the WM1811 CODEC so skip
+> initialization of that register for that device.
+> This suppresses an error during boot:
+> "wm8994-codec: ASoC: error at snd_soc_component_update_bits on wm8994-codec"
 
-...
+Applied to
 
->>
->> Hello Christian,
->>
->> Thank you for report! Issue is a known one to us and has already been 
->> addressed by:
->>
->>      [PATCH v4 00/13] ASoC: Intel: Catpt - Lynx and Wildcat point
->>      https://www.spinics.net/lists/alsa-devel/msg113762.html
->>
->> waiting for final dependency to be merged (Andy's resource-API 
->> changes, as Mark already added the SPI ones) so v5 with review changes 
->> can be provided. Shouldn't be long before this gets merged. As 
->> consequence, /haswell/ ceases to exist.
-> 
-> That leaves people with no working sound for 5.8 and 5.9.
-> 
->> Basically, once power-cycle (D0 -> D3 -> D0 transition flow) had been 
->> fixed, more - previously hidden - problems arisen. Instead of sending 
->> 70+ patches to Mark refactoring existing code to recommended flow (+ 
->> readability and performance improvements), replacement is provided 
->> along with old code being removed entirely.
->>
->> For now, if there's a possibility for you to modify your kernel, said 
->> patch can be safely removed from your local repo. Note: following is 
->> the outcome:
->> - DMA init may occasionally fail on early boot (audio card won't be 
->> present at all, requires reboot)
->> - D0/D3 flow doesn't follow recommended sequence and thus power-saving 
->> may be limited or non-existent
->> Probably still better than permanently fuzzied audio..
-> 
-> Doesn't this mean that a revert is needed and applied to -stable for 5.8 
-> and 5.9?
-> 
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
 
-I believe you're right Pierre, revert should be provided. I'll see to it.
+Thanks!
 
-Czarek
+[1/2] ASoC: wm8994: Skip setting of the WM8994_MICBIAS register for WM1811
+      commit: 811c5494436789e7149487c06e0602b507ce274b
+[2/2] ASoC: wm8994: Ensure the device is resumed in wm89xx_mic_detect functions
+      commit: f5a2cda4f1db89776b64c4f0f2c2ac609527ac70
+
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
+
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
+
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
+
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
+
+Thanks,
+Mark

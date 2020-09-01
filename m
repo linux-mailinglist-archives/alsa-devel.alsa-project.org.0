@@ -2,74 +2,168 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id BFB08259872
-	for <lists+alsa-devel@lfdr.de>; Tue,  1 Sep 2020 18:27:20 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D97192599BD
+	for <lists+alsa-devel@lfdr.de>; Tue,  1 Sep 2020 18:43:31 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 68CD51739;
-	Tue,  1 Sep 2020 18:26:30 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 68CD51739
+	by alsa0.perex.cz (Postfix) with ESMTPS id 7BD801802;
+	Tue,  1 Sep 2020 18:42:41 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7BD801802
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1598977640;
-	bh=xQqU/jfY7Kztk2q9FyoSHlqquV03KSPbJPH/5zcecxI=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1598978611;
+	bh=iS+KmbY1ndEJSpXJ6ApP71r110vbaj/m88hnuZyQwTA=;
+	h=Subject:From:To:References:Date:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=UM5VoUeFNuGM6DroqfoCA00105O11a0QkjGIe2k0bZ80huUfEYlEWvNFAed+zZKMp
-	 eNTWQrqrp+frHHx+uUBBXEPhPpcCEv8921WaohyDRDqzxnZmA13psM9RpfC+H91jdg
-	 dNsU7ikfuNwT5sQFidIp/6Aoyk4szAJliKVOgcss=
+	b=RMDrEIcDP/SKIaW8OUGUxn/WILzUnq/XH1DFVNFIVzjXGI6ZruI5cfH6ir9axsLxV
+	 GnbYl4SqpY4cOWmzUrt4sMbaV+lx1PI5Bm2pU+89jz2hulvZqHqyj/39w6PrAmJCRJ
+	 umz0nNiyukgmkpsxX5ztI5hmiF43yOSYRazUODPM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 94D65F802C4;
-	Tue,  1 Sep 2020 18:24:13 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 81759F8021D;
+	Tue,  1 Sep 2020 18:41:50 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 0FAFFF8025F; Tue,  1 Sep 2020 18:23:04 +0200 (CEST)
+ id E24E1F80217; Tue,  1 Sep 2020 18:41:43 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
+X-Spam-Status: No, score=-2.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ FREEMAIL_FROM,NICE_REPLY_A,RCVD_IN_MSPIKE_H2,SPF_HELO_NONE,SPF_PASS,
  URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
+Received: from mout.gmx.net (mout.gmx.net [212.227.15.19])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 7FAB0F800BA
- for <alsa-devel@alsa-project.org>; Tue,  1 Sep 2020 18:22:54 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7FAB0F800BA
-IronPort-SDR: rCedTjCEDpm1e8bOwzJ6fCBHHduppQoN5nQ9Z+50FOfNBj6lexT3CvuH6OSVt3LnEP6YtrslJY
- ykOWVwIiR8hA==
-X-IronPort-AV: E=McAfee;i="6000,8403,9731"; a="144889317"
-X-IronPort-AV: E=Sophos;i="5.76,379,1592895600"; d="scan'208";a="144889317"
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from orsmga005.jf.intel.com ([10.7.209.41])
- by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 01 Sep 2020 09:22:48 -0700
-IronPort-SDR: gcTlRKT+t0+rvRkfxBAWei22o/SzbXv5nOP8dVZo/EjJddN2szPdqqCp9FSoprZ/NDWg3R2Cc+
- 9rMQ1DiNh4rw==
-X-IronPort-AV: E=Sophos;i="5.76,379,1592895600"; d="scan'208";a="477261208"
-Received: from tracimsx-mobl5.amr.corp.intel.com (HELO
- pbossart-mobl3.intel.com) ([10.252.140.215])
- by orsmga005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 01 Sep 2020 09:22:47 -0700
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-To: alsa-devel@alsa-project.org
-Subject: [PATCH v2 3/3] regmap: sdw: add support for SoundWire 1.2 MBQ
-Date: Tue,  1 Sep 2020 11:22:25 -0500
-Message-Id: <20200901162225.33343-4-pierre-louis.bossart@linux.intel.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20200901162225.33343-1-pierre-louis.bossart@linux.intel.com>
-References: <20200901162225.33343-1-pierre-louis.bossart@linux.intel.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id F3B82F801DA
+ for <alsa-devel@alsa-project.org>; Tue,  1 Sep 2020 18:41:32 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz F3B82F801DA
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=gmx.net header.i=@gmx.net
+ header.b="Ub1CAZJY"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=gmx.net;
+ s=badeba3b8450; t=1598978476;
+ bh=iS+KmbY1ndEJSpXJ6ApP71r110vbaj/m88hnuZyQwTA=;
+ h=X-UI-Sender-Class:Subject:From:To:Cc:References:Date:In-Reply-To;
+ b=Ub1CAZJYKYLiobVhHR8Et1pUU6d5a0ERsK2MsY7wzhw0HjhUjXhJSc4b4w7JLVY2K
+ imx2QUOs2xWvIZbhXholxKb0puJB9y9zCeV2KFD9q6C/NjJJszwTuwNoPvI/AfTNic
+ kg6J1s8vPoCo/SATwJopqTMYp2II/N+zrO+5Tf7M=
+X-UI-Sender-Class: 01bb95c1-4bf8-414a-932a-4f6e2808ef9c
+Received: from [192.168.20.60] ([92.116.187.2]) by mail.gmx.com (mrgmx004
+ [212.227.17.190]) with ESMTPSA (Nemesis) id 1MqaxO-1kzdF62DEe-00mXqh; Tue, 01
+ Sep 2020 18:41:16 +0200
+Subject: Re: [PATCH 07/28] 53c700: improve non-coherent DMA handling
+From: Helge Deller <deller@gmx.de>
+To: James Bottomley <James.Bottomley@HansenPartnership.com>,
+ Matthew Wilcox <willy@infradead.org>
+References: <20200819065555.1802761-1-hch@lst.de>
+ <20200819065555.1802761-8-hch@lst.de>
+ <1598971960.4238.5.camel@HansenPartnership.com>
+ <20200901150554.GN14765@casper.infradead.org>
+ <1598973776.4238.11.camel@HansenPartnership.com>
+ <3369218e-eea4-14e9-15f1-870269e4649d@gmx.de>
+Autocrypt: addr=deller@gmx.de; keydata=
+ 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
+ c2TFWAS8k6RLkk41ZUU8ENX8+qZx/Q==
+Message-ID: <77c9b2b6-bedc-d090-8b23-6ac664df1d1f@gmx.de>
+Date: Tue, 1 Sep 2020 18:41:12 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.5.0
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Cc: Guennadi Liakhovetski <guennadi.liakhovetski@linux.intel.com>,
- Kai Vehmanen <kai.vehmanen@linux.intel.com>,
- "Rafael J. Wysocki" <rafael@kernel.org>, tiwai@suse.de,
- gregkh@linuxfoundation.org,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- open list <linux-kernel@vger.kernel.org>, vkoul@kernel.org, broonie@kernel.org,
- Bard liao <yung-chuan.liao@linux.intel.com>,
- Rander Wang <rander.wang@linux.intel.com>
+In-Reply-To: <3369218e-eea4-14e9-15f1-870269e4649d@gmx.de>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: quoted-printable
+X-Provags-ID: V03:K1:4Y8gxSC3mimemrR4PtvEKNwyw28FqcRZSkoK2gQkqvo/KOoRbTg
+ w40kQskhrNaheI6REKgULCG68Fy6MEYc0KsJy9WRPUH71+WKoerrwaE3EISLn47wt9qPakq
+ Z9gMZCEqcjMGAkwuPOCtdfBULoqR2MkqoEWEFsPLv/Ad3iHMpMr0z0ACL6exzE1IUZ+o2Jw
+ GUtUnwHdeUzKCJ46isMYw==
+X-UI-Out-Filterresults: notjunk:1;V03:K0:4lG/PGFS7YQ=:rR2RWvp5WhtvYGYgat1e00
+ 0rF5u2mtUMkAk5WSd9Aa85NoBhY1TSBoWKZBCJ4rwtlnRn8wdTBwkngGfwpVVlNUoTFLjSyrV
+ dM46jjweSnPFr8XhH+kUbZi8nfv6BYzG7I3YF2PswSg74hJGslsbwd81I/cZ8KPvjSLwgvlMG
+ qic+xZolA+MdQVgJGn64EkYW1DlcXV4gMG9LXW4+9553DiKfcM+5/zwWxw0cpO6Jnoe1L7rrA
+ kOYQmwe1wTN3lP6q4Xz99dj7FqfZVVuegxF6peou2o6w+ITCPtuLm6egQPtVE3C6amruAZb29
+ glICo0l6SpftC4oBEVgkOIRfdQ2jQlwZcG9QmH3rSp9u2BHEwOTXSLJGiNFvzVoeqt4t7uyVj
+ eXAkUz9hT0d3IU2KosWY3+BLBxNPncgp0/VCs5JvwdO2SHDAByGYT2FqbPFevV9b4XMT/M5PU
+ eh/og76n7UYqpMe+mlzJq5cKbAJVu450dqW7JGEm/PibmF9c0u6QJTppVgX6yAGLFMQI5O9xU
+ 2apy5bcA5aU8jWW9cDTNCwuqkNw0U0/2WWfyQEKJTgRxKgJBU0sIEczgDpxOO5RTNcdBtGFBs
+ V8jzcgpZ5KsngR5t2lWAZMzdwZVP34TfYH1XK6c0CVgBD47Sw5eX5U1Q0rCy37oNa6YIXTE9a
+ Xp6aYP4h3KFkk0s/RoT6Ke1bjKj3Va5B9o5MciBLLx7WvEBlZXYF/EEysP4bV82Xrv5FGgcOg
+ oh52J5bfjodQ5wWNdaRK+e38oUkyRhmURb3XRxrW2fDrcBCchtAsE9mGJ6LB5fBtmYoRsJTmf
+ cXUesL8SjI8AG1F15nWfDKKjsgJI9i4Nv1rLO7jSenStdlCv9bzYkzFYplFgiJQ7cLqwWvAjc
+ 7CPUrsYcLfK4Wbdm0m/VUh6wASK8K0QNytwoXTs/ljGIIK4U52UZJrzgFAKQJhXuVubth+eZY
+ AZkmQQLpSFPMuX6IF1nH1Mc2UjtK1Cp2LEUeAnKDI1fCjiem+fClfbf2G10U0l3tob6wDRsRI
+ t7OdZsZXe0f7TM/u0vGP4R9Cwsl6Fho63YI7D5w6/u5NL5QGtBDEC95y9+G63wmiXSBcng3A4
+ 1UTqryoUHc8aKHXYqF84O5q/rWzFMRztwG8wy1uv0KBlIypD0gFTmCI+GG5eMT7pfTy4hzJ0B
+ r5KBGKxghDj+/3MGdhdvMFOuYS5qssBiWkis3r4/O5Ueg/OUyPJBrZmB18VBFEydfdyctQt6r
+ mkZNnjtzj1HuFIBiQ
+Cc: alsa-devel@alsa-project.org, linux-ia64@vger.kernel.org,
+ linux-doc@vger.kernel.org, nouveau@lists.freedesktop.org,
+ linux-nvme@lists.infradead.org, linux-kernel@vger.kernel.org,
+ linux-mm@kvack.org, Christoph Hellwig <hch@lst.de>,
+ Marek Szyprowski <m.szyprowski@samsung.com>, linux-samsung-soc@vger.kernel.org,
+ Joonyoung Shim <jy0922.shim@samsung.com>, linux-scsi@vger.kernel.org,
+ Kyungmin Park <kyungmin.park@samsung.com>, Ben Skeggs <bskeggs@redhat.com>,
+ Matt Porter <mporter@kernel.crashing.org>, linux-media@vger.kernel.org,
+ Tom Lendacky <thomas.lendacky@amd.com>, Pawel Osciak <pawel@osciak.com>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>,
+ linux-arm-kernel@lists.infradead.org,
+ Thomas Bogendoerfer <tsbogend@alpha.franken.de>, linux-parisc@vger.kernel.org,
+ netdev@vger.kernel.org, Seung-Woo Kim <sw0312.kim@samsung.com>,
+ linux-mips@vger.kernel.org, iommu@lists.linux-foundation.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -85,239 +179,56 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-The SoundWire 1.1 specification only allowed for reads and writes of
-bytes. The SoundWire 1.2 specification adds a new capability to
-transfer "Multi-Byte Quantities" (MBQ) across the bus. The transfers
-still happens one-byte-at-a-time, but the update is atomic.
+On 01.09.20 18:21, Helge Deller wrote:
+> On 01.09.20 17:22, James Bottomley wrote:
+>> On Tue, 2020-09-01 at 16:05 +0100, Matthew Wilcox wrote:
+>>> On Tue, Sep 01, 2020 at 07:52:40AM -0700, James Bottomley wrote:
+>>>> I think this looks mostly OK, except for one misnamed parameter
+>>>> below. Unfortunately, the last non-coherent parisc was the 700
+>>>> series and I no longer own a box, so I can't test that part of it
+>>>> (I can fire up the C360 to test it on a coherent arch).
+>>>
+>>> I have a 715/50 that probably hasn't been powered on in 15 years if
+>>> you need something that old to test on (I believe the 725/100 uses
+>>> the 7100LC and so is coherent).  I'll need to set up a cross-compiler
+>>> ...
+>>
+>> I'm not going to say no to actual testing, but it's going to be a world
+>> of pain getting something so old going.  I do have a box of older
+>> systems I keep for architectural testing that I need to rummage around
+>> in ... I just have a vague memory that my 715 actually caught fire a
+>> decade ago and had to be disposed of.
+>
+> I still have a zoo of machines running for such testing, including a
+> 715/64 and two 730.
+> I'm going to test this git tree on the 715/64:
+> git://git.infradead.org/users/hch/misc.git dma_alloc_pages
 
-For example when writing a 16-bit volume, the first byte transferred
-is only taken into account when the second byte is successfully
-transferred.
+This tree boots nicely (up to a command prompt with i82596 nic working):
 
-The mechanism is symmetrical for read and writes:
-- On a read, the address of the last byte to be read is modified by
-setting the MBQ bit
-- On a write, the address of all but the last byte to be written are
-modified by setting the MBQ bit. The address for the last byte relies
-on the MBQ bit being cleared.
+53c700: Version 2.8 By James.Bottomley@HansenPartnership.com
+scsi0: 53c710 rev 2
+scsi host0: LASI SCSI 53c700
+scsi 0:0:6:0: Direct-Access     QUANTUM  FIREBALL_TM3200S 300X PQ: 0 ANSI:=
+ 2
+scsi target0:0:6: Beginning Domain Validation
+scsi 0:0:6:0: tag#56 Enabling Tag Command Queuing
+scsi target0:0:6: asynchronous
+scsi target0:0:6: FAST-10 SCSI 10.0 MB/s ST (100 ns, offset 8)
+scsi target0:0:6: Domain Validation skipping write tests
+scsi target0:0:6: Ending Domain Validation
+scsi 0:0:6:1: tag#63 Disabling Tag Command Queuing
+st: Version 20160209, fixed bufsize 32768, s/g segs 256
+sd 0:0:6:0: Power-on or device reset occurred
+sd 0:0:6:0: Attached scsi generic sg0 type 0
+LASI 82596 driver - Revision: 1.30
+Found i82596 at 0xf0107000, IRQ 17
+eth0: 82596 at 0xf0107000, 08:00:09:c2:9e:60 IRQ 17.
+sd 0:0:6:0: [sda] 6281856 512-byte logical blocks: (3.22 GB/3.00 GiB)
+sd 0:0:6:0: [sda] Write Protect is off
 
-The current definitions for MBQ-based controls in the SDCA draft
-standard are limited to 16 bits for volumes, so for now this is the
-only supported format. An update will be provided if and when support
-for 24-bit and 32-bit values is specified by the SDCA standard.
+Christoph, you may add a
+Tested-by: Helge Deller <deller@gmx.de> # parisc
+to the series.
 
-One possible objection is that this code could have been handled with
-regmap-sdw.c. However this is a new spec addition not handled by every
-SoundWire 1.1 and non-SDCA device, so there's no reason to load code
-that will never be used.
-
-Also in practice it's extremely unlikely that CONFIG_REGMAP would not
-be selected with CONFIG_REGMAP_MBQ selected. However there's no
-functional dependency between the two modules so they can be selected
-separately.
-
-Reviewed-by: Rander Wang <rander.wang@linux.intel.com>
-Reviewed-by: Guennadi Liakhovetski <guennadi.liakhovetski@linux.intel.com>
-Reviewed-by: Kai Vehmanen <kai.vehmanen@linux.intel.com>
-Acked-by: Bard Liao <yung-chuan.liao@linux.intel.com>
-Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
----
- drivers/base/regmap/Kconfig          |   6 +-
- drivers/base/regmap/Makefile         |   1 +
- drivers/base/regmap/regmap-sdw-mbq.c | 101 +++++++++++++++++++++++++++
- include/linux/regmap.h               |  21 ++++++
- 4 files changed, 128 insertions(+), 1 deletion(-)
- create mode 100644 drivers/base/regmap/regmap-sdw-mbq.c
-
-diff --git a/drivers/base/regmap/Kconfig b/drivers/base/regmap/Kconfig
-index bcb90d8c3960..50b1e2d06a25 100644
---- a/drivers/base/regmap/Kconfig
-+++ b/drivers/base/regmap/Kconfig
-@@ -4,7 +4,7 @@
- # subsystems should select the appropriate symbols.
- 
- config REGMAP
--	default y if (REGMAP_I2C || REGMAP_SPI || REGMAP_SPMI || REGMAP_W1 || REGMAP_AC97 || REGMAP_MMIO || REGMAP_IRQ || REGMAP_SOUNDWIRE || REGMAP_SCCB || REGMAP_I3C || REGMAP_SPI_AVMM)
-+	default y if (REGMAP_I2C || REGMAP_SPI || REGMAP_SPMI || REGMAP_W1 || REGMAP_AC97 || REGMAP_MMIO || REGMAP_IRQ || REGMAP_SOUNDWIRE || REGMAP_SOUNDWIRE_MBQ || REGMAP_SCCB || REGMAP_I3C || REGMAP_SPI_AVMM)
- 	select IRQ_DOMAIN if REGMAP_IRQ
- 	bool
- 
-@@ -46,6 +46,10 @@ config REGMAP_SOUNDWIRE
- 	tristate
- 	depends on SOUNDWIRE
- 
-+config REGMAP_SOUNDWIRE_MBQ
-+	tristate
-+	depends on SOUNDWIRE
-+
- config REGMAP_SCCB
- 	tristate
- 	depends on I2C
-diff --git a/drivers/base/regmap/Makefile b/drivers/base/regmap/Makefile
-index ac1b69ee4051..33f63adb5b3d 100644
---- a/drivers/base/regmap/Makefile
-+++ b/drivers/base/regmap/Makefile
-@@ -15,6 +15,7 @@ obj-$(CONFIG_REGMAP_MMIO) += regmap-mmio.o
- obj-$(CONFIG_REGMAP_IRQ) += regmap-irq.o
- obj-$(CONFIG_REGMAP_W1) += regmap-w1.o
- obj-$(CONFIG_REGMAP_SOUNDWIRE) += regmap-sdw.o
-+obj-$(CONFIG_REGMAP_SOUNDWIRE_MBQ) += regmap-sdw-mbq.o
- obj-$(CONFIG_REGMAP_SCCB) += regmap-sccb.o
- obj-$(CONFIG_REGMAP_I3C) += regmap-i3c.o
- obj-$(CONFIG_REGMAP_SPI_AVMM) += regmap-spi-avmm.o
-diff --git a/drivers/base/regmap/regmap-sdw-mbq.c b/drivers/base/regmap/regmap-sdw-mbq.c
-new file mode 100644
-index 000000000000..8ce30650b97c
---- /dev/null
-+++ b/drivers/base/regmap/regmap-sdw-mbq.c
-@@ -0,0 +1,101 @@
-+// SPDX-License-Identifier: GPL-2.0
-+// Copyright(c) 2020 Intel Corporation.
-+
-+#include <linux/device.h>
-+#include <linux/errno.h>
-+#include <linux/module.h>
-+#include <linux/regmap.h>
-+#include <linux/soundwire/sdw.h>
-+#include <linux/soundwire/sdw_registers.h>
-+#include "internal.h"
-+
-+static int regmap_sdw_mbq_write(void *context, unsigned int reg, unsigned int val)
-+{
-+	struct device *dev = context;
-+	struct sdw_slave *slave = dev_to_sdw_dev(dev);
-+	int ret;
-+
-+	ret = sdw_write(slave, SDW_SDCA_MBQ_CTL(reg), (val >> 8) & 0xff);
-+	if (ret < 0)
-+		return ret;
-+
-+	return sdw_write(slave, reg, val & 0xff);
-+}
-+
-+static int regmap_sdw_mbq_read(void *context, unsigned int reg, unsigned int *val)
-+{
-+	struct device *dev = context;
-+	struct sdw_slave *slave = dev_to_sdw_dev(dev);
-+	int read0;
-+	int read1;
-+
-+	read0 = sdw_read(slave, reg);
-+	if (read0 < 0)
-+		return read0;
-+
-+	read1 = sdw_read(slave, SDW_SDCA_MBQ_CTL(reg));
-+	if (read1 < 0)
-+		return read1;
-+
-+	*val = (read1 << 8) | read0;
-+
-+	return 0;
-+}
-+
-+static struct regmap_bus regmap_sdw_mbq = {
-+	.reg_read = regmap_sdw_mbq_read,
-+	.reg_write = regmap_sdw_mbq_write,
-+	.reg_format_endian_default = REGMAP_ENDIAN_LITTLE,
-+	.val_format_endian_default = REGMAP_ENDIAN_LITTLE,
-+};
-+
-+static int regmap_sdw_mbq_config_check(const struct regmap_config *config)
-+{
-+	/* MBQ-based controls are only 16-bits for now */
-+	if (config->val_bits != 16)
-+		return -ENOTSUPP;
-+
-+	/* Registers are 32 bits wide */
-+	if (config->reg_bits != 32)
-+		return -ENOTSUPP;
-+
-+	if (config->pad_bits != 0)
-+		return -ENOTSUPP;
-+
-+	return 0;
-+}
-+
-+struct regmap *__regmap_init_sdw_mbq(struct sdw_slave *sdw,
-+				     const struct regmap_config *config,
-+				     struct lock_class_key *lock_key,
-+				     const char *lock_name)
-+{
-+	int ret;
-+
-+	ret = regmap_sdw_mbq_config_check(config);
-+	if (ret)
-+		return ERR_PTR(ret);
-+
-+	return __regmap_init(&sdw->dev, &regmap_sdw_mbq,
-+			&sdw->dev, config, lock_key, lock_name);
-+}
-+EXPORT_SYMBOL_GPL(__regmap_init_sdw_mbq);
-+
-+struct regmap *__devm_regmap_init_sdw_mbq(struct sdw_slave *sdw,
-+					  const struct regmap_config *config,
-+					  struct lock_class_key *lock_key,
-+					  const char *lock_name)
-+{
-+	int ret;
-+
-+	ret = regmap_sdw_mbq_config_check(config);
-+	if (ret)
-+		return ERR_PTR(ret);
-+
-+	return __devm_regmap_init(&sdw->dev, &regmap_sdw_mbq,
-+			&sdw->dev, config, lock_key, lock_name);
-+}
-+EXPORT_SYMBOL_GPL(__devm_regmap_init_sdw_mbq);
-+
-+MODULE_DESCRIPTION("Regmap SoundWire MBQ Module");
-+MODULE_LICENSE("GPL v2");
-diff --git a/include/linux/regmap.h b/include/linux/regmap.h
-index d865d8fea535..a031ace22b6b 100644
---- a/include/linux/regmap.h
-+++ b/include/linux/regmap.h
-@@ -567,6 +567,10 @@ struct regmap *__regmap_init_sdw(struct sdw_slave *sdw,
- 				 const struct regmap_config *config,
- 				 struct lock_class_key *lock_key,
- 				 const char *lock_name);
-+struct regmap *__regmap_init_sdw_mbq(struct sdw_slave *sdw,
-+				     const struct regmap_config *config,
-+				     struct lock_class_key *lock_key,
-+				     const char *lock_name);
- struct regmap *__regmap_init_spi_avmm(struct spi_device *spi,
- 				      const struct regmap_config *config,
- 				      struct lock_class_key *lock_key,
-@@ -616,6 +620,10 @@ struct regmap *__devm_regmap_init_sdw(struct sdw_slave *sdw,
- 				 const struct regmap_config *config,
- 				 struct lock_class_key *lock_key,
- 				 const char *lock_name);
-+struct regmap *__devm_regmap_init_sdw_mbq(struct sdw_slave *sdw,
-+					  const struct regmap_config *config,
-+					  struct lock_class_key *lock_key,
-+					  const char *lock_name);
- struct regmap *__devm_regmap_init_slimbus(struct slim_device *slimbus,
- 				 const struct regmap_config *config,
- 				 struct lock_class_key *lock_key,
-@@ -814,6 +822,19 @@ bool regmap_ac97_default_volatile(struct device *dev, unsigned int reg);
- 	__regmap_lockdep_wrapper(__regmap_init_sdw, #config,		\
- 				sdw, config)
- 
-+/**
-+ * regmap_init_sdw_mbq() - Initialise register map
-+ *
-+ * @sdw: Device that will be interacted with
-+ * @config: Configuration for register map
-+ *
-+ * The return value will be an ERR_PTR() on error or a valid pointer to
-+ * a struct regmap.
-+ */
-+#define regmap_init_sdw_mbq(sdw, config)					\
-+	__regmap_lockdep_wrapper(__regmap_init_sdw_mbq, #config,		\
-+				sdw, config)
-+
- /**
-  * regmap_init_spi_avmm() - Initialize register map for Intel SPI Slave
-  * to AVMM Bus Bridge
--- 
-2.25.1
-
+Helge

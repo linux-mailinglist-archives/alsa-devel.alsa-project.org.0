@@ -2,75 +2,73 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id AD371259E1A
-	for <lists+alsa-devel@lfdr.de>; Tue,  1 Sep 2020 20:31:59 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id DF9A925A007
+	for <lists+alsa-devel@lfdr.de>; Tue,  1 Sep 2020 22:33:23 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 3936C17D5;
-	Tue,  1 Sep 2020 20:31:09 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3936C17D5
+	by alsa0.perex.cz (Postfix) with ESMTPS id 6962A16C7;
+	Tue,  1 Sep 2020 22:32:33 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6962A16C7
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1598985119;
-	bh=GU5jknsCTZZ3XDEk1cxYpjyVvzXo6mG9ZAzUEKy4jBw=;
-	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
+	s=default; t=1598992403;
+	bh=Wfn9TQwat/jpQvtBjUEFpNpEt4eW7A/A1IMkX3ajVJk=;
+	h=Subject:From:To:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=qxZUtum5INK4vTtPK11JQ7wwMG7Ee490mjA4HhG4Qmne5swLabHwAVP94UnFx8tRi
-	 P1Gru50FaBIcH8RfePU8J9rRGQsUmorKhzlPTM2eWB/dWCOxS0fgyZiyHhd8TNzC6T
-	 tUJU4hhUejDLuv7WeuAW83saEmhesLaZuGI0PJ3U=
+	b=AF6i8srXA02qSjh+0j95MgbqYxjlXklJ3DkUJfyrgHhzfRec8AJmrYRDjgDz5wsFo
+	 9IihW3WgEWd4hgGWUf7/S2FG2zlgOrPvXODiAfroSS8M8XadFBW9bupsOCrCPO5+Ww
+	 2pJ3TTKrn/fq1eyVfsn8Ar5tARguvxBBAWiPSD/Q=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id F113EF801DA;
-	Tue,  1 Sep 2020 20:30:17 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 881C8F8020D;
+	Tue,  1 Sep 2020 22:31:42 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 069EEF80217; Tue,  1 Sep 2020 20:30:13 +0200 (CEST)
+ id 2B80FF801EB; Tue,  1 Sep 2020 22:31:39 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-1.1 required=5.0 tests=DATE_IN_PAST_03_06,
- NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 83D07F801DA
- for <alsa-devel@alsa-project.org>; Tue,  1 Sep 2020 20:30:04 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 83D07F801DA
-IronPort-SDR: UeDOzPB1Hfsu5hgwQRtNEMnlwhQNhn1V3NFhJ+FBEXeI1TudUvH9z53thwWyqkjFkp0g0mKDrX
- wsrw4PzmSZDQ==
-X-IronPort-AV: E=McAfee;i="6000,8403,9731"; a="137294963"
-X-IronPort-AV: E=Sophos;i="5.76,380,1592895600"; d="scan'208";a="137294963"
+ by alsa1.perex.cz (Postfix) with ESMTPS id DAA96F801EB
+ for <alsa-devel@alsa-project.org>; Tue,  1 Sep 2020 22:31:26 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DAA96F801EB
+IronPort-SDR: 1hPiu46RSbIDPGpKprE9YztONCcROmZ6LShMoJtriRiUQbLqaXjG5PZ93jWhfSwEeZ6MWU2HFD
+ TZg1Aryht1Kw==
+X-IronPort-AV: E=McAfee;i="6000,8403,9731"; a="157270621"
+X-IronPort-AV: E=Sophos;i="5.76,380,1592895600"; d="scan'208";a="157270621"
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
-Received: from fmsmga005.fm.intel.com ([10.253.24.32])
- by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 01 Sep 2020 11:29:59 -0700
-IronPort-SDR: T7OSlaVoI3u6ZC/6uEQh6dIdSjZ5pwOu1Ouod8OqaaFKyA+UiyQ42SaziHyySa/xpTPPi6EJk+
- se+DveOGYStg==
-X-IronPort-AV: E=Sophos;i="5.76,380,1592895600"; d="scan'208";a="502346237"
-Received: from yzhan76-mobl.amr.corp.intel.com (HELO [10.212.111.228])
- ([10.212.111.228])
- by fmsmga005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 01 Sep 2020 11:29:50 -0700
-Subject: Re: [PATCH] ASoC: Intel: bytcr_rt5640: Add quirk for MPMAN Converter9
- 2-in-1
-To: Hans de Goede <hdegoede@redhat.com>,
- Cezary Rojewski <cezary.rojewski@intel.com>,
- Liam Girdwood <liam.r.girdwood@linux.intel.com>,
- Jie Yang <yang.jie@linux.intel.com>, Mark Brown <broonie@kernel.org>
-References: <20200901080623.4987-1-hdegoede@redhat.com>
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Message-ID: <7bfe9f46-63bf-8495-0ef1-aa0dff42d734@linux.intel.com>
-Date: Tue, 1 Sep 2020 08:16:41 -0500
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.10.0
+Received: from orsmga004.jf.intel.com ([10.7.209.38])
+ by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 01 Sep 2020 13:31:22 -0700
+IronPort-SDR: i/eMaE4lWqrzdateVE5/zG/0DrvGbbrNZRBtC9vv/8MdhKmu8vL5iFLTBu4dSz8wuS/aZTumqw
+ E91uU0hk5jUA==
+X-IronPort-AV: E=Sophos;i="5.76,380,1592895600"; d="scan'208";a="446273226"
+Received: from irinav-mobl2.ger.corp.intel.com ([10.214.227.58])
+ by orsmga004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 01 Sep 2020 13:31:17 -0700
+Message-ID: <a4b2783c7ae274c752c8d2322e535006f6c46c1f.camel@linux.intel.com>
+Subject: Re: [bug report] 'ASoC: Intel: haswell: Power transition refactor'
+ and PulseAudio
+From: Liam Girdwood <liam.r.girdwood@linux.intel.com>
+To: Cezary Rojewski <cezary.rojewski@intel.com>
+Date: Tue, 01 Sep 2020 21:31:13 +0100
+In-Reply-To: <c93c0522-d8b7-e4c4-b11b-80646cfd0432@intel.com>
+References: <9bc5b3ac-87a0-4d7c-abfd-2407db90d310@www.fastmail.com>
+ <28ee99bc-fe27-9111-893b-1cb000067a7c@intel.com>
+ <026aa0fd558b8b91a67a868a25eb84d8749101b7.camel@linux.intel.com>
+ <c93c0522-d8b7-e4c4-b11b-80646cfd0432@intel.com>
+Content-Type: text/plain; charset="UTF-8"
+User-Agent: Evolution 3.36.2-0ubuntu1 
 MIME-Version: 1.0
-In-Reply-To: <20200901080623.4987-1-hdegoede@redhat.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
 Content-Transfer-Encoding: 7bit
-Cc: alsa-devel@alsa-project.org
+Cc: alsa-devel@alsa-project.org, Christian Bundy <christianbundy@fraction.io>,
+ yang.jie@linux.intel.com, zwisler@google.com,
+ pierre-louis.bossart@linux.intel.com, broonie@kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -86,18 +84,33 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-
-
-On 9/1/20 3:06 AM, Hans de Goede wrote:
-> The MPMAN Converter9 2-in-1 almost fully works with out default settings.
-> The only problem is that it has only 1 speaker so any sounds only playing
-> on the right channel get lost.
+On Tue, 2020-09-01 at 17:37 +0200, Cezary Rojewski wrote:
+> > > Thank you for report! Issue is a known one to us and has already
+> > > been
+> > > addressed by:
+> > >       [PATCH v4 00/13] ASoC: Intel: Catpt - Lynx and Wildcat
+> > > point
+> > >       https://www.spinics.net/lists/alsa-devel/msg113762.html
+> > > waiting for final dependency to be merged (Andy's resource-API
+> > > changes,
+> > > as Mark already added the SPI ones) so v5 with review changes can
+> > > be
+> > > provided. Shouldn't be long before this gets merged. As
+> > > consequence,
+> > > /haswell/ ceases to exist.
+> > Please also don't forget that the new BDW HW register programming
+> > flows
+> > need to be shared as common code with the SOF BDW driver.
+> > Thanks
+> > Liam
 > 
-> Add a quirk for this model using the default settings + MONO_SPEAKER.
 > 
-> Signed-off-by: Hans de Goede <hdegoede@redhat.com>
+> I don't believe this is related to Christian's report.
 
-Acked-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+To be clear, it's related to v5 readiness statement and not this
+report.
 
-Thanks Hans!
+Thanks
+
+Liam
 

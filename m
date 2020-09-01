@@ -2,51 +2,69 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9F2A3258EFD
-	for <lists+alsa-devel@lfdr.de>; Tue,  1 Sep 2020 15:19:57 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3B9FF258F26
+	for <lists+alsa-devel@lfdr.de>; Tue,  1 Sep 2020 15:33:17 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 5A31817BE;
-	Tue,  1 Sep 2020 15:19:07 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5A31817BE
+	by alsa0.perex.cz (Postfix) with ESMTPS id A6C0617B9;
+	Tue,  1 Sep 2020 15:32:26 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A6C0617B9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1598966397;
-	bh=akwyOAKTBuXF6UtjGtGV5vGcjlgtn+X2g82FYobL9IY=;
-	h=From:To:Subject:Date:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=H2klqJbSi05YWFV/beHVeaWl06i75M8M6Dpq3HXJlFB8BFqIvVsSh5++ZcWbi2Z4r
-	 oBA+ABOGlfRl0geJC786k8rCdXRLFxXR9MSssbNfpTIjqRBt92s1CugS/v0M7XOxbr
-	 dkA+q217D1us1DhCh68XNG04XPkoNQNaZ1PsCfIo=
+	s=default; t=1598967196;
+	bh=FuWZo1WNgCdLfSjE9O1i1nzwTm/eu1X2U4bMj+Wa+tk=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=CxR3ueyX/Gui42oFqgwyRtO8xPFEVzv57KXWvw0qjyd9x2E/JHAOpSsC+IfuhCV0y
+	 c4Eozg97cWAJNeeuY7tMB4CCSFN+n5sRjVGxHSHOHTkLI5KcpZaXnk/BT8Bs3O/IMD
+	 L3aM3XBzx6icNoLupj7Cpfh11qru78Y2uSfTfits=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 6513DF801DA;
-	Tue,  1 Sep 2020 15:18:16 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id CA61DF8020D;
+	Tue,  1 Sep 2020 15:31:35 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id B5720F80217; Tue,  1 Sep 2020 15:18:14 +0200 (CEST)
+ id B39FEF8021D; Tue,  1 Sep 2020 15:31:33 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_MSPIKE_H3,
- RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 566E2F801DA
- for <alsa-devel@alsa-project.org>; Tue,  1 Sep 2020 15:18:04 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 566E2F801DA
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 22299AF6C
- for <alsa-devel@alsa-project.org>; Tue,  1 Sep 2020 13:18:04 +0000 (UTC)
-From: Takashi Iwai <tiwai@suse.de>
-To: alsa-devel@alsa-project.org
-Subject: [PATCH] ALSA: pcm: oss: Remove superfluous WARN_ON() for mulaw sanity
- check
-Date: Tue,  1 Sep 2020 15:18:02 +0200
-Message-Id: <20200901131802.18157-1-tiwai@suse.de>
-X-Mailer: git-send-email 2.16.4
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_PASS,SPF_NONE,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from elvis.franken.de (elvis.franken.de [193.175.24.41])
+ by alsa1.perex.cz (Postfix) with ESMTP id 192D1F801EB
+ for <alsa-devel@alsa-project.org>; Tue,  1 Sep 2020 15:31:26 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 192D1F801EB
+Received: from uucp (helo=alpha)
+ by elvis.franken.de with local-bsmtp (Exim 3.36 #1)
+ id 1kD6NY-0001cg-00; Tue, 01 Sep 2020 15:31:16 +0200
+Received: by alpha.franken.de (Postfix, from userid 1000)
+ id A31F7C0E44; Tue,  1 Sep 2020 15:29:05 +0200 (CEST)
+Date: Tue, 1 Sep 2020 15:29:05 +0200
+From: Thomas Bogendoerfer <tsbogend@alpha.franken.de>
+To: Christoph Hellwig <hch@lst.de>
+Subject: Re: [PATCH 06/28] lib82596: move DMA allocation into the callers of
+ i82596_probe
+Message-ID: <20200901132905.GA11506@alpha.franken.de>
+References: <20200819065555.1802761-1-hch@lst.de>
+ <20200819065555.1802761-7-hch@lst.de>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20200819065555.1802761-7-hch@lst.de>
+User-Agent: Mutt/1.5.23 (2014-03-12)
+Cc: alsa-devel@alsa-project.org, linux-ia64@vger.kernel.org,
+ linux-doc@vger.kernel.org, nouveau@lists.freedesktop.org,
+ linux-nvme@lists.infradead.org, linux-kernel@vger.kernel.org,
+ "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>,
+ linux-mm@kvack.org, Marek Szyprowski <m.szyprowski@samsung.com>,
+ linux-samsung-soc@vger.kernel.org, Joonyoung Shim <jy0922.shim@samsung.com>,
+ linux-scsi@vger.kernel.org, Kyungmin Park <kyungmin.park@samsung.com>,
+ Ben Skeggs <bskeggs@redhat.com>, Matt Porter <mporter@kernel.crashing.org>,
+ linux-media@vger.kernel.org, Tom Lendacky <thomas.lendacky@amd.com>,
+ Pawel Osciak <pawel@osciak.com>, Mauro Carvalho Chehab <mchehab@kernel.org>,
+ linux-arm-kernel@lists.infradead.org, linux-parisc@vger.kernel.org,
+ netdev@vger.kernel.org, Seung-Woo Kim <sw0312.kim@samsung.com>,
+ linux-mips@vger.kernel.org, iommu@lists.linux-foundation.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -62,36 +80,50 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-The PCM OSS mulaw plugin has a check of the format of the counter part
-whether it's a linear format.  The check is with snd_BUG_ON() that
-emits WARN_ON() when the debug config is set, and it confuses
-syzkaller as if it were a serious issue.  Let's drop snd_BUG_ON() for
-avoiding that.
+On Wed, Aug 19, 2020 at 08:55:33AM +0200, Christoph Hellwig wrote:
+> This allows us to get rid of the LIB82596_DMA_ATTR defined and prepare
+> for untangling the coherent vs non-coherent DMA allocation API.
+> 
+> Signed-off-by: Christoph Hellwig <hch@lst.de>
+> ---
+>  drivers/net/ethernet/i825xx/lasi_82596.c | 24 ++++++++++------
+>  drivers/net/ethernet/i825xx/lib82596.c   | 36 ++++++++----------------
+>  drivers/net/ethernet/i825xx/sni_82596.c  | 19 +++++++++----
+>  3 files changed, 40 insertions(+), 39 deletions(-)
+> 
+> [...]
+> diff --git a/drivers/net/ethernet/i825xx/sni_82596.c b/drivers/net/ethernet/i825xx/sni_82596.c
+> index 22f5887578b2bd..e80e790ffbd4d4 100644
+> --- a/drivers/net/ethernet/i825xx/sni_82596.c
+> +++ b/drivers/net/ethernet/i825xx/sni_82596.c
+> @@ -24,8 +24,6 @@
+>  
+>  static const char sni_82596_string[] = "snirm_82596";
+>  
+> -#define LIB82596_DMA_ATTR	0
+> -
+>  #define DMA_WBACK(priv, addr, len)     do { } while (0)
+>  #define DMA_INV(priv, addr, len)       do { } while (0)
+>  #define DMA_WBACK_INV(priv, addr, len) do { } while (0)
+> @@ -134,10 +132,19 @@ static int sni_82596_probe(struct platform_device *dev)
+>  	lp->ca = ca_addr;
+>  	lp->mpu_port = mpu_addr;
+>  
+> +	lp->dma = dma_alloc_coherent(dev->dev.parent, sizeof(struct i596_dma),
+> +				     &lp->dma_addr, GFP_KERNEL);
 
-While we're at it, correct the error code to a more suitable, EINVAL.
+this needs to use &dev->dev as device argument otherwise I get a
 
-Reported-by: syzbot+23b22dc2e0b81cbfcc95@syzkaller.appspotmail.com
-Cc: <stable@vger.kernel.org>
-Signed-off-by: Takashi Iwai <tiwai@suse.de>
----
- sound/core/oss/mulaw.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+WARNING: CPU: 0 PID: 1 at linux/kernel/dma/mapping.c:416 dma_alloc_attrs+0x64/0x98
 
-diff --git a/sound/core/oss/mulaw.c b/sound/core/oss/mulaw.c
-index 3788906421a7..fe27034f2846 100644
---- a/sound/core/oss/mulaw.c
-+++ b/sound/core/oss/mulaw.c
-@@ -329,8 +329,8 @@ int snd_pcm_plugin_build_mulaw(struct snd_pcm_substream *plug,
- 		snd_BUG();
- 		return -EINVAL;
- 	}
--	if (snd_BUG_ON(!snd_pcm_format_linear(format->format)))
--		return -ENXIO;
-+	if (!snd_pcm_format_linear(format->format))
-+		return -EINVAL;
- 
- 	err = snd_pcm_plugin_build(plug, "Mu-Law<->linear conversion",
- 				   src_format, dst_format,
+(coherent_dma_mask is set correctly).
+
+dev->dev.parent was correct when going from netdevice to underlying device,
+but now allocation is done via platform_device probe. I wonder why this works
+for parisc.
+
+Thomas.
+
 -- 
-2.16.4
-
+Crap can work. Given enough thrust pigs will fly, but it's not necessarily a
+good idea.                                                [ RFC1925, 2.3 ]

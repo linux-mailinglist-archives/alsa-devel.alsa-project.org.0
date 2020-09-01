@@ -2,98 +2,64 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 650782591B7
-	for <lists+alsa-devel@lfdr.de>; Tue,  1 Sep 2020 16:54:53 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C43DC259224
+	for <lists+alsa-devel@lfdr.de>; Tue,  1 Sep 2020 17:03:50 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 1571017D5;
-	Tue,  1 Sep 2020 16:54:03 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1571017D5
+	by alsa0.perex.cz (Postfix) with ESMTPS id 6E7F017DC;
+	Tue,  1 Sep 2020 17:03:00 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6E7F017DC
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1598972093;
-	bh=5QgiJp1XQuU8WeasWKUrByXxrzK/9M/xvKJovjxtOSE=;
-	h=Subject:From:To:Date:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1598972630;
+	bh=2sn+LK0S8SKkNzXegWVAmwmL7+Fsh4MLgHvT/o+ZGxs=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=XReXA77h5w17cegKg1CRYyv1q7AWAyo5Iy4B8HilHJ+OjpiAxUM9LcykXJ0MNoMqi
-	 5mYvs8wzePjxF6KVinDmap7i1Dj86/CXdFaC+Ag/BCLCHO0469zsWZMzW1MvSCAwgd
-	 XqdCIoIeQuGG1TpVGLX6SBye0vNoArlJRrLdOB/A=
+	b=Vor4Fu5MDze2jX+5iNdLcEfcfT8IFEG8r4Nklh/1UleUZ84j0lqNb1NoX7APbsI65
+	 soNkJ7xtgUmjLt0hLLUrtuvC4nFXDnkLPny0l41Jlf4w1dzmz/+NXqFB3pcknufO6N
+	 sqdoBkDmuPumbY6T22i9Dtk6cecn27/YfSkr/fvk=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id F374EF80217;
-	Tue,  1 Sep 2020 16:53:12 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 95A33F8020D;
+	Tue,  1 Sep 2020 17:02:09 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id C7124F80217; Tue,  1 Sep 2020 16:53:10 +0200 (CEST)
+ id CA2E4F80217; Tue,  1 Sep 2020 17:02:07 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_PASS autolearn=disabled version=3.4.0
-Received: from bedivere.hansenpartnership.com (bedivere.hansenpartnership.com
- [66.63.167.143])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_MSPIKE_H3,
+ RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
+Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 68634F801EB
- for <alsa-devel@alsa-project.org>; Tue,  1 Sep 2020 16:52:47 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 68634F801EB
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=hansenpartnership.com
- header.i=@hansenpartnership.com header.b="wObSEMiI"; 
- dkim=pass (1024-bit key) header.d=hansenpartnership.com
- header.i=@hansenpartnership.com header.b="aKMifmu3"
-Received: from localhost (localhost [127.0.0.1])
- by bedivere.hansenpartnership.com (Postfix) with ESMTP id 2FA1E8EE112;
- Tue,  1 Sep 2020 07:52:44 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=hansenpartnership.com;
- s=20151216; t=1598971964;
- bh=5QgiJp1XQuU8WeasWKUrByXxrzK/9M/xvKJovjxtOSE=;
- h=Subject:From:To:Cc:Date:In-Reply-To:References:From;
- b=wObSEMiIFiMQqpuLxaCfGj6fWwMB1SR5uR3WpqveV9O4eMPwCERYxZe+pGeu45B1s
- Hh0lHOhPmaDzTL+z1MwoTQwce39LAcI0HTI6j6IhhJYI3h5nKO0TMp801H3LPYpAS2
- cAlNurtUenHcZUudnTaoIqyV7yZakslR9e7UqKeA=
-Received: from bedivere.hansenpartnership.com ([127.0.0.1])
- by localhost (bedivere.hansenpartnership.com [127.0.0.1]) (amavisd-new,
- port 10024)
- with ESMTP id 0Zy3Ukh5UkrA; Tue,  1 Sep 2020 07:52:44 -0700 (PDT)
-Received: from [153.66.254.174] (c-73-35-198-56.hsd1.wa.comcast.net
- [73.35.198.56])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by bedivere.hansenpartnership.com (Postfix) with ESMTPSA id C9BD38EE0F5;
- Tue,  1 Sep 2020 07:52:42 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=hansenpartnership.com;
- s=20151216; t=1598971963;
- bh=5QgiJp1XQuU8WeasWKUrByXxrzK/9M/xvKJovjxtOSE=;
- h=Subject:From:To:Cc:Date:In-Reply-To:References:From;
- b=aKMifmu3auQ6FWaycnVm58I6hz9G+D25US7ZBIQmKPWtl/OO3oAlisEasTKoEqxvs
- l6ihGgc23PPx6Vjc2Wtc/36E47y53pW7IPIx5bd2ov50jG73PyojCzhwq4i11ZzTyB
- Dg3UC/gKa12A9sw0Wl45QN34rTiyU/vUbrJxeAio=
-Message-ID: <1598971960.4238.5.camel@HansenPartnership.com>
-Subject: Re: [PATCH 07/28] 53c700: improve non-coherent DMA handling
-From: James Bottomley <James.Bottomley@HansenPartnership.com>
-To: Christoph Hellwig <hch@lst.de>, Mauro Carvalho Chehab
- <mchehab@kernel.org>,  Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
- Joonyoung Shim <jy0922.shim@samsung.com>, Seung-Woo Kim
- <sw0312.kim@samsung.com>, Kyungmin Park <kyungmin.park@samsung.com>, Ben
- Skeggs <bskeggs@redhat.com>, Pawel Osciak <pawel@osciak.com>, Marek
- Szyprowski <m.szyprowski@samsung.com>, Matt Porter
- <mporter@kernel.crashing.org>,  iommu@lists.linux-foundation.org
-Date: Tue, 01 Sep 2020 07:52:40 -0700
-In-Reply-To: <20200819065555.1802761-8-hch@lst.de>
-References: <20200819065555.1802761-1-hch@lst.de>
- <20200819065555.1802761-8-hch@lst.de>
-Content-Type: text/plain; charset="UTF-8"
-X-Mailer: Evolution 3.26.6 
-Mime-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Cc: Tom Lendacky <thomas.lendacky@amd.com>, alsa-devel@alsa-project.org,
- linux-samsung-soc@vger.kernel.org, linux-ia64@vger.kernel.org,
- linux-scsi@vger.kernel.org, linux-parisc@vger.kernel.org,
- linux-doc@vger.kernel.org, nouveau@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, linux-nvme@lists.infradead.org,
- linux-mips@vger.kernel.org, linux-mm@kvack.org, netdev@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-media@vger.kernel.org
+ by alsa1.perex.cz (Postfix) with ESMTPS id 64D2EF801EB
+ for <alsa-devel@alsa-project.org>; Tue,  1 Sep 2020 17:01:56 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 64D2EF801EB
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id A76E4ACC3;
+ Tue,  1 Sep 2020 15:01:56 +0000 (UTC)
+Date: Tue, 01 Sep 2020 17:01:55 +0200
+Message-ID: <s5hft81czh8.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Jaroslav Kysela <perex@perex.cz>
+Subject: Re: [PATCH] ALSA: hda/realtek - Add control fixup for Lenovo Thinkpad
+ X1 Carbon 7th
+In-Reply-To: <32b649db-ede6-d3ea-a963-d0bac331e4b4@perex.cz>
+References: <20200829112746.3118-1-benjamin.poirier@gmail.com>
+ <32b649db-ede6-d3ea-a963-d0bac331e4b4@perex.cz>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
+ FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
+ (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
+Content-Type: text/plain; charset=US-ASCII
+Cc: alsa-devel@alsa-project.org, Kailang Yang <kailang@realtek.com>,
+ Takashi Iwai <tiwai@suse.com>, Hui Wang <hui.wang@canonical.com>,
+ Benjamin Poirier <benjamin.poirier@gmail.com>,
+ Kai-Heng Feng <kai.heng.feng@canonical.com>,
+ Vincent Bernat <vincent@bernat.ch>, Even Brenden <evenbrenden@gmail.com>,
+ Mark Pearson <mpearson@lenovo.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -109,95 +75,102 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Wed, 2020-08-19 at 08:55 +0200, Christoph Hellwig wrote:
-> Switch the 53c700 driver to only use non-coherent descriptor memory
-> if it really has to because dma_alloc_coherent fails.  This doesn't
-> matter for any of the platforms it runs on currently, but that will
-> change soon.
+On Tue, 01 Sep 2020 15:52:09 +0200,
+Jaroslav Kysela wrote:
 > 
-> To help with this two new helpers to transfer ownership to and from
-> the device are added that abstract the syncing of the non-coherent
-> memory. The two current bidirectional cases are mapped to transfers
-> to the device, as that appears to what they are used for.  Note that
-> for parisc, which is the only architecture this driver needs to use
-> non-coherent memory on, the direction argument of dma_cache_sync is
-> ignored, so this will not change behavior in any way.
+> > +}
+> > +
+> > +static int tpx1_dual_speaker_vol_put(struct snd_kcontrol *kcontrol,
+> > +				     struct snd_ctl_elem_value *ucontrol)
+> > +{
+> > +	struct tpx1_dual_speaker *speaker_priv = snd_kcontrol_chip(kcontrol);
+> > +	int err;
+> > +
+> > +	/* Control tweeter volume */
+> > +	err = speaker_priv->underlying.put(&speaker_priv->underlying,
+> > +					   ucontrol);
+> > +	if (err < 0)
+> > +		return err;
+> > +
+> > +	/* Control woofer volume (shared with headphone) */
+> > +	err = speaker_priv->hp_vol.put(&speaker_priv->hp_vol, ucontrol);
+> > +	if (err < 0)
+> > +		return err;
+> > +
+> > +	snd_ctl_notify(speaker_priv->codec->card, SNDRV_CTL_EVENT_MASK_VALUE,
+> > +		       &speaker_priv->hp_vol.id);
+> > +	return err;
+> > +}
+> > +
+> > +static int tpx1_dual_speaker_vol_tlv(struct snd_kcontrol *kcontrol,
+> > +				     int op_flag, unsigned int size,
+> > +				     unsigned int __user *tlv)
+> > +{
+> > +	struct tpx1_dual_speaker *speaker_priv = snd_kcontrol_chip(kcontrol);
+> > +
+> > +	return speaker_priv->underlying.tlv.c(&speaker_priv->underlying,
+> > +					      op_flag, size, tlv);
+> > +}
+> > +
+> > +static void tpx1_dual_speaker_vol_free(struct snd_kcontrol *kcontrol)
+> > +{
+> > +	struct tpx1_dual_speaker *speaker_priv = snd_kcontrol_chip(kcontrol);
+> > +
+> > +	if (speaker_priv->underlying.private_free)
+> > +		speaker_priv->underlying.private_free(
+> > +			&speaker_priv->underlying);
+> > +	kfree(speaker_priv);
+> > +}
+> > +
+> > +static int tpx1_dual_override_speaker_vol(struct hda_codec *codec,
+> > +					  struct snd_kcontrol *speaker_vol,
+> > +					  struct snd_kcontrol *hp_vol)
+> > +{
+> > +	struct tpx1_dual_speaker *speaker_priv;
+> > +
+> > +	speaker_priv = kmalloc(sizeof(struct tpx1_dual_speaker), GFP_KERNEL);
+> > +	if (!speaker_priv)
+> > +		return -ENOMEM;
+> > +	speaker_priv->codec = codec;
+> > +	memcpy(&speaker_priv->underlying, speaker_vol,
+> > +	       sizeof(struct snd_kcontrol));
+> > +	memcpy(&speaker_priv->hp_vol, hp_vol, sizeof(struct snd_kcontrol));
+> 
+> This is a bit clumsy part. It would be probably nice to have a helper in the
+> upper control code to clone the original control safely. Takashi?
 
-I think this looks mostly OK, except for one misnamed parameter below. 
-Unfortunately, the last non-coherent parisc was the 700 series and I no
-longer own a box, so I can't test that part of it (I can fire up the
-C360 to test it on a coherent arch).
+The purpose of those is to have two controls managing the same amp and
+get notified with each other at other's update, right?  The missing
+piece is only about notification, and that could be done in the common
+code somehow, too.  For example, we can reduce the 16bit usage of NID
+to 8 bit embedded in private_value, then we'll have 8 bit space for
+storing the coupled kctl nid or some other tag for notification.
 
-[...]
-> diff --git a/drivers/scsi/53c700.h b/drivers/scsi/53c700.h
-> index 05fe439b66afe5..0f545b05fe611d 100644
-> --- a/drivers/scsi/53c700.h
-> +++ b/drivers/scsi/53c700.h
-> @@ -209,6 +209,7 @@ struct NCR_700_Host_Parameters {
->  #endif
->  	__u32	chip710:1;	/* set if really a 710 not
-> 700 */
->  	__u32	burst_length:4;	/* set to 0 to disable
-> 710 bursting */
-> +	__u32	noncoherent:1;	/* needs to use non-
-> coherent DMA */
->  
->  	/* NOTHING BELOW HERE NEEDS ALTERING */
->  	__u32	fast:1;		/* if we can alter the
-> SCSI bus clock
-> @@ -429,7 +430,7 @@ struct NCR_700_Host_Parameters {
->  	for(i=0; i< (sizeof(A_##symbol##_used) / sizeof(__u32));
-> i++) { \
->  		__u32 val =
-> bS_to_cpu((script)[A_##symbol##_used[i]]) + da; \
->  		(script)[A_##symbol##_used[i]] = bS_to_host(val); \
-> -		dma_cache_sync((dev),
-> &(script)[A_##symbol##_used[i]], 4, DMA_TO_DEVICE); \
-> +		dma_sync_to_dev((dev),
-> &(script)[A_##symbol##_used[i]], 4); \
->  		DEBUG((" script, patching %s at %d to %pad\n", \
->  		       #symbol, A_##symbol##_used[i], &da)); \
->  	} \
-> @@ -441,7 +442,7 @@ struct NCR_700_Host_Parameters {
->  	dma_addr_t da = value; \
->  	for(i=0; i< (sizeof(A_##symbol##_used) / sizeof(__u32));
-> i++) { \
->  		(script)[A_##symbol##_used[i]] = bS_to_host(da); \
-> -		dma_cache_sync((dev),
-> &(script)[A_##symbol##_used[i]], 4, DMA_TO_DEVICE); \
-> +		dma_sync_to_dev((dev),
-> &(script)[A_##symbol##_used[i]], 4); \
->  		DEBUG((" script, patching %s at %d to %pad\n", \
->  		       #symbol, A_##symbol##_used[i], &da)); \
->  	} \
-> @@ -456,7 +457,7 @@ struct NCR_700_Host_Parameters {
->  		val &= 0xff00ffff; \
->  		val |= ((value) & 0xff) << 16; \
->  		(script)[A_##symbol##_used[i]] = bS_to_host(val); \
-> -		dma_cache_sync((dev),
-> &(script)[A_##symbol##_used[i]], 4, DMA_TO_DEVICE); \
-> +		dma_sync_to_dev((dev),
-> &(script)[A_##symbol##_used[i]], 4); \
->  		DEBUG((" script, patching ID field %s at %d to
-> 0x%x\n", \
->  		       #symbol, A_##symbol##_used[i], val)); \
->  	} \
-> @@ -470,7 +471,7 @@ struct NCR_700_Host_Parameters {
->  		val &= 0xffff0000; \
->  		val |= ((value) & 0xffff); \
->  		(script)[A_##symbol##_used[i]] = bS_to_host(val); \
-> -		dma_cache_sync((dev),
-> &(script)[A_##symbol##_used[i]], 4, DMA_TO_DEVICE); \
-> +		dma_sync_to_dev((dev),
-> &(script)[A_##symbol##_used[i]], 4); \
->  		DEBUG((" script, patching short field %s at %d to
-> 0x%x\n", \
->  		       #symbol, A_##symbol##_used[i], val)); \
->  	} \
+However, the approach by this patch has minor problems, as far as I
+see:
 
-These macro arguments need updating.  Since you changed the input from
-hostdata->dev to hostdata, leaving the macro argument as dev is simply
-misleading.  It needs to become hostdata or h.
+- The notification may be issued unnecessarily for Master volume
+  change;
+  when you change Master volume, it'll notify Headphone and/or Speaker
+  as well although those (virtual) values aren't changed.
+  It's a minor issue and can be almost negligible, though.
 
-James
+- The volume status depends on the operation order;
+  e.g. when switching the output from speaker to headphone, at first
+  mute and set volume zero Speaker, then unmute/raise Headphone.
+  But if we do unmute/raise Headphone at first, then mute/zero
+  Speaker, the headphone output will be also zero volume out of
+  sudden.
+  It seems that PA does in the former way, so the current approach
+  might work practically, but it can be a pitfall in some corner
+  cases.
 
+BTW, if this approach with the tied kctls sharing the same amp is
+acceptable, we may apply it also for the existing case; e.g. the
+generic parser already creates a bit weird kctl like "Headphone+LO" or
+"Speaker+LO".  Those can be re-implemented with two tied kctls, too.
+
+
+thanks,
+
+Takashi

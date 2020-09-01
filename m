@@ -2,100 +2,74 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 576EA258CA4
-	for <lists+alsa-devel@lfdr.de>; Tue,  1 Sep 2020 12:20:52 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 80842258CA7
+	for <lists+alsa-devel@lfdr.de>; Tue,  1 Sep 2020 12:21:33 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 139E117B9;
-	Tue,  1 Sep 2020 12:20:02 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 139E117B9
+	by alsa0.perex.cz (Postfix) with ESMTPS id 27BFF16D7;
+	Tue,  1 Sep 2020 12:20:43 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 27BFF16D7
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1598955652;
-	bh=CXAdQMOSMaK7LUZusVC5fX5N4ydvlE6Hxnp5qeMEIM4=;
-	h=Date:From:To:Subject:Cc:List-Id:List-Unsubscribe:List-Archive:
+	s=default; t=1598955693;
+	bh=HCG2fjaitL+76mG3LXvxjmcK6aj37bvOt3WYb0MHmq0=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
 	 List-Post:List-Help:List-Subscribe:From;
-	b=IkqYzNyl4zQJe4wj7KFNYsOcqZWQ+jS63N874+fJcE2BB2ZpaBdVJz62bBM40WHmx
-	 TJzY5fQx4lBBDR0rK/IrbXrAB3owigxetqpCcipqe0LdUkzdidJ9ZrcBS6rUzMlAP8
-	 643QyGdy4Va156AErL5hWNKDg3yfBff+n/oTD9Lo=
+	b=iSt5BalQ6KDhuNN8xpOxRbklGlXdxpDKsE0+H6BEU9JYgV0pwhxWT9T/UF4lraNSt
+	 9kKLhLcZudiL930pHtsr5Ef0xCd1O7tAfe4IPwp4PGvWhf3PbvwoDgXrXoh7pkOhbO
+	 KbqjFF5N0fBCpaaSy+sQRd9mDWLtFWr0G/PE//j8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id F0D43F802F7;
-	Tue,  1 Sep 2020 12:15:57 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 343E5F802F8;
+	Tue,  1 Sep 2020 12:15:59 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 265FAF80212; Mon, 31 Aug 2020 23:55:40 +0200 (CEST)
+ id 0B741F80217; Tue,  1 Sep 2020 09:27:30 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,RCVD_IN_MSPIKE_H2,SPF_HELO_PASS,SPF_PASS autolearn=disabled
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=disabled
  version=3.4.0
-Received: from wout5-smtp.messagingengine.com (wout5-smtp.messagingengine.com
- [64.147.123.21])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+Received: from smtp2.axis.com (smtp2.axis.com [195.60.68.18])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 1A0F6F80096
- for <alsa-devel@alsa-project.org>; Mon, 31 Aug 2020 23:55:35 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1A0F6F80096
+ by alsa1.perex.cz (Postfix) with ESMTPS id D595CF801DA
+ for <alsa-devel@alsa-project.org>; Tue,  1 Sep 2020 09:27:23 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D595CF801DA
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=fraction.io header.i=@fraction.io
- header.b="F13X7hIc"; 
- dkim=pass (2048-bit key) header.d=messagingengine.com
- header.i=@messagingengine.com header.b="fZhrX/ii"
-Received: from compute3.internal (compute3.nyi.internal [10.202.2.43])
- by mailout.west.internal (Postfix) with ESMTP id B9A5FA42;
- Mon, 31 Aug 2020 17:55:32 -0400 (EDT)
-Received: from imap1 ([10.202.2.51])
- by compute3.internal (MEProxy); Mon, 31 Aug 2020 17:55:33 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=fraction.io; h=
- mime-version:message-id:date:from:to:cc:subject:content-type; s=
- fm2; bh=BsjVqyEaGVEh4rNqDwV6ejSNuQA3xw/Gxt4roGvrd/o=; b=F13X7hIc
- Nn27rPIW+sAK0+5sYXJoPX/huj0biQd3VTLWxZZc8T2GW8Y9WvxR4iWZ16b/GtBW
- W++3pWTW4gvo0LE3pRP5Xzt1XlgKUoHNPIbmEpnUN2LW/JrRlzClozEIjWqTQ2MF
- 7mbimsXO6qRIW3LG2UQbhR5ZWFpbBZWhdYnNoMCD2xI9LIT0q9Sh5jsyFrYL8YKY
- 3SyyvsaZsaNmct2I1NzSD3C2EYfd4ENh7kBGJngPcB29RO9KOtWWwF6aegbl+Fq5
- CSS4cc2MNYZ7dADsS4zDm+2TambtIuCh2I8c2m4Ai8+ORliu1AjmZmOK/On9F1eH
- xNkzahB+9431Iw==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:content-type:date:from:message-id
- :mime-version:subject:to:x-me-proxy:x-me-proxy:x-me-sender
- :x-me-sender:x-sasl-enc; s=fm3; bh=BsjVqyEaGVEh4rNqDwV6ejSNuQA3x
- w/Gxt4roGvrd/o=; b=fZhrX/iiNvfidrY3F6cC+GjrMEhDdc3qEa1+E6V8HUWiL
- TXRPsVNRZmoTxKfJCfZUv+h9Ch7wxgw6d0+tVrwFgS0GJv8j7NGBum/npExbw4cd
- 7QRPg6m4qeChof9VVWKpHeiPACGzYvq8uCSLjP5XAm1EEwf/dhZ0mosIQkQKhRfD
- LO3BHqAIB0Xp3WywPu1EAMPvHuMG1XPq8FmJDGzaCZSLi+RHTPUJqPP/sSc0Dkkm
- MyGcywAHmj6jLEMuKT9xK+iaRWL/Oskk6nY59vRGPYyg+2l8NXkYB6PLlpDJrhcW
- sbcC5jOIl+96ayOEPEN3sgJBBFmrqNwKwOvVX99/Q==
-X-ME-Sender: <xms:03FNX58xaVcKtvZ1DU_R6haDqvQ0wgwQkzyrL5kq6S2KfaC5kHv9Fw>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeduiedrudefiedgtdefucetufdoteggodetrfdotf
- fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
- uceurghilhhouhhtmecufedttdenucenucfjughrpefofgggkfffhffvufgtsehttdertd
- erreejnecuhfhrohhmpedfvehhrhhishhtihgrnhcuuehunhguhidfuceotghhrhhishht
- ihgrnhgsuhhnugihsehfrhgrtghtihhonhdrihhoqeenucggtffrrghtthgvrhhnpedtge
- ekleduffdvvefffeeljeetffeffeffleettddtvdehledvuefhteevgfeuheenucffohhm
- rghinhepkhgvrhhnvghlrdhorhhgnecuvehluhhsthgvrhfuihiivgeptdenucfrrghrrg
- hmpehmrghilhhfrhhomheptghhrhhishhtihgrnhgsuhhnugihsehfrhgrtghtihhonhdr
- ihho
-X-ME-Proxy: <xmx:03FNX9sW6aJRfziYfXtR65fiKw2NRlTH31mN2JiLT0l-v5wtdUlpgg>
- <xmx:03FNX3DVC7s4YYKsJjAeo6BknQqVsaJzfTey06SgD3J_8fWU2Zdj4A>
- <xmx:03FNX9fs723krUbOOoFRq1p1fBqbElV8T3n-9HuNnKsupLwUD8LMPA>
- <xmx:1HFNX7rbe2-0z0dNvvwXLK11X0d9O5YdAivwcO4-ShyT1vy3swgLkg>
-Received: by mailuser.nyi.internal (Postfix, from userid 501)
- id 4D9AEC200A5; Mon, 31 Aug 2020 17:55:31 -0400 (EDT)
-X-Mailer: MessagingEngine.com Webmail Interface
-User-Agent: Cyrus-JMAP/3.3.0-232-g4bdb081-fm-20200825.002-g4bdb081a
-Mime-Version: 1.0
-Message-Id: <9bc5b3ac-87a0-4d7c-abfd-2407db90d310@www.fastmail.com>
-Date: Mon, 31 Aug 2020 14:55:10 -0700
-From: "Christian Bundy" <christianbundy@fraction.io>
-To: alsa-devel@alsa-project.org
-Subject: =?UTF-8?Q?[bug_report]_'ASoC:_Intel:_haswell:_Power_transition_refactor'?=
- =?UTF-8?Q?_and_PulseAudio?=
+ dkim=pass (2048-bit key) header.d=axis.com header.i=@axis.com
+ header.b="IzV0qiHq"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=axis.com; l=995; q=dns/txt; s=axis-central1;
+ t=1598945245; x=1630481245;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=ShxaEFx48sdlmYl8Cn29yMPtphJjPlK3B3A8bgDbuVQ=;
+ b=IzV0qiHq7zh9Wu31UQVfBWUc+G6+3vpDeQHr+rvAYASIVC/i9fovA452
+ JzPaIb1Kr2LdRlOHTLglGwcs/s/ycT4X79aaNQZqsYghfMlCJ9y5SUQwr
+ D51Mm598+iJoQeTsErgL/XBUiJoR8DZCK9/xE106/yQHB44UPawCEIUlP
+ Q27ZXk2HmPDHAMnrUsJXjuzoZS6rFtFysQnABdhpMbz6jflwLYbcLKIhH
+ Adl+sG6vHmOr/YWJUtNqt7PFX+gJhw7KN1eTrtD69zbKBQIcuAP6Ej62b
+ ZnGTR0T8HrE+oE1MTfN9Frod82TzsWzMiHdKGRaaPOpBTT09SBGsm3dVU g==;
+IronPort-SDR: 6wvZqcrh8ZvNMxqhgd4/XGbB+UlSLzwDBAWg/RS3zxVpQu80m5TPFiDIX2iMUBowe98gnwm//z
+ 8VJnQFFVcQZgKFAlO0NK3/issBqDOp0IpfG7EMJdVaKWuW7qCpsO/T/3+Cyv7wcZ+pX6a1O4f7
+ P6CIfANY+XDAcnHaHxzBTfTOo/w+hqD0FgaGvjEbsanfOI9mH1KMTXpf3XgoC2vKf9ugoEx5EG
+ 9zepESA3jj9btI5RD2ktpSnvPEB9ddQ09a40wwGEL9ADjXChE7nX6iv29iCGO1keMGecn1cC7R
+ xJE=
+X-IronPort-AV: E=Sophos;i="5.76,378,1592863200"; d="scan'208";a="12070617"
+From: Camel Guo <camel.guo@axis.com>
+To: <lgirdwood@gmail.com>, <broonie@kernel.org>, <perex@perex.cz>,
+ <tiwai@suse.com>, <dmurphy@ti.com>
+Subject: [PATCH] ASoC: tlv320adcx140: Fix accessing uninitialized abcx140->dev
+Date: Tue, 1 Sep 2020 09:27:10 +0200
+Message-ID: <20200901072710.2031-1-camel.guo@axis.com>
+X-Mailer: git-send-email 2.20.1
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 X-Mailman-Approved-At: Tue, 01 Sep 2020 12:15:51 +0200
-Cc: cezary.rojewski@intel.com, yang.jie@linux.intel.com, zwisler@google.com,
- pierre-louis.bossart@linux.intel.com, liam.r.girdwood@linux.intel.com,
- broonie@kernel.org
+Cc: Camel Guo <camel.guo@axis.com>, alsa-devel@alsa-project.org,
+ kernel@axis.com, linux-kernel@vger.kernel.org, Camel Guo <camelg@axis.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -111,41 +85,38 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-After upgrading to Linux 5.8 I discovered an audio issue on my device that was introduced in 8ec7d6043263ecf250b9b7c0dd8ade899487538a [0]. I used 'git bisect' to identify the commit that introduced the bug and have confirmed that reverting the commit resolves the problem
+From: Camel Guo <camelg@axis.com>
 
-Reproduction:
+in adcx140_i2c_probe, adcx140->dev is accessed before its
+initialization. This commit fixes this bug.
 
-1. Play any audio via PulseAudio.
-2. Observe that the audio output is fuzzy and choppy.
+Signed-off-by: Camel Guo <camel.guo@axis.com>
+---
+ sound/soc/codecs/tlv320adcx140.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
 
-I can use programs like mpv to play audio without PulseAudio, and the audio is fine, but as soon as I open a process that uses PulseAudio it will ruin the audio output for all processes (including mpv) until I reboot.
+diff --git a/sound/soc/codecs/tlv320adcx140.c b/sound/soc/codecs/tlv320adcx140.c
+index 5cd50d841177..7ae6ec374be3 100644
+--- a/sound/soc/codecs/tlv320adcx140.c
++++ b/sound/soc/codecs/tlv320adcx140.c
+@@ -980,6 +980,8 @@ static int adcx140_i2c_probe(struct i2c_client *i2c,
+ 	if (!adcx140)
+ 		return -ENOMEM;
+ 
++	adcx140->dev = &i2c->dev;
++
+ 	adcx140->gpio_reset = devm_gpiod_get_optional(adcx140->dev,
+ 						      "reset", GPIOD_OUT_LOW);
+ 	if (IS_ERR(adcx140->gpio_reset))
+@@ -1007,7 +1009,7 @@ static int adcx140_i2c_probe(struct i2c_client *i2c,
+ 			ret);
+ 		return ret;
+ 	}
+-	adcx140->dev = &i2c->dev;
++
+ 	i2c_set_clientdata(i2c, adcx140);
+ 
+ 	return devm_snd_soc_register_component(&i2c->dev,
+-- 
+2.20.1
 
-I'm using a 2015 Chromebook Pixel ("Samus") and have confirmed this problem with a friend who has the same device.
-
-Is there anything I can do to help debug this instead of sending a patch to revert the commit?
-
-Relevant lspci output:
-
-    00:03.0 Audio device: Intel Corporation Broadwell-U Audio Controller (rev 09)
-	Subsystem: Intel Corporation Broadwell-U Audio Controller
-	Control: I/O- Mem+ BusMaster+ SpecCycle- MemWINV- VGASnoop- ParErr- Stepping- SERR- FastB2B- DisINTx+
-	Status: Cap+ 66MHz- UDF- FastB2B- ParErr- DEVSEL=fast >TAbort- <TAbort- <MAbort- >SERR- <PERR- INTx-
-	Latency: 0, Cache Line Size: 64 bytes
-	Interrupt: pin A routed to IRQ 50
-	Region 0: Memory at e1218000 (64-bit, non-prefetchable) [size=16K]
-	Capabilities: [50] Power Management version 2
-		Flags: PMEClk- DSI- D1- D2- AuxCurrent=0mA PME(D0-,D1-,D2-,D3hot-,D3cold-)
-		Status: D0 NoSoftRst- PME-Enable- DSel=0 DScale=0 PME-
-	Capabilities: [60] MSI: Enable+ Count=1/1 Maskable- 64bit-
-		Address: fee00378  Data: 0000
-	Capabilities: [70] Express (v1) Root Complex Integrated Endpoint, MSI 00
-		DevCap:	MaxPayload 128 bytes, PhantFunc 0
-			ExtTag- RBE- FLReset+
-		DevCtl:	CorrErr- NonFatalErr- FatalErr- UnsupReq-
-			RlxdOrd- ExtTag- PhantFunc- AuxPwr- NoSnoop- FLReset-
-			MaxPayload 128 bytes, MaxReadReq 128 bytes
-		DevSta:	CorrErr- NonFatalErr- FatalErr- UnsupReq- AuxPwr- TransPend-
-	Kernel driver in use: snd_hda_intel
-	Kernel modules: snd_hda_intel
-
-[0]: https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/commit/?h=8ec7d6043263ecf250b9b7c0dd8ade899487538a

@@ -2,86 +2,73 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A3B03258D5C
-	for <lists+alsa-devel@lfdr.de>; Tue,  1 Sep 2020 13:24:46 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id CE70B258D7B
+	for <lists+alsa-devel@lfdr.de>; Tue,  1 Sep 2020 13:35:09 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 2C29B179F;
-	Tue,  1 Sep 2020 13:23:56 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2C29B179F
+	by alsa0.perex.cz (Postfix) with ESMTPS id 7C84A17A9;
+	Tue,  1 Sep 2020 13:34:19 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7C84A17A9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1598959486;
-	bh=6lc8AOIxQaWAqkTCg0KZdf8W6u0jyi4qjd/xMZyZOoM=;
+	s=default; t=1598960109;
+	bh=bhPhlbwAmyGoASWnNSCDuRRdkSeiudPhUJeU+57U49E=;
 	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=uNokQ5PJuItO38FugtDVW1WUtlUDjPv8sxoEbSd+SWpYjquJufcwe382++TKiaf2p
-	 LVShDfdhguFYfpvjBGpK2INvUrGZK4qD/v6phHdywJ0iZXF+3kGzvUyw0MRJYwgEhi
-	 U8c2uGqHcoP53EvHWwhVcfgISVjUc1jYO314rIuc=
+	b=FTH//hnbxW0wbqSUbzUGUsR6U8jgWcSREjKsfABYISCsjczVt/XiWZwM5SG+HTrGJ
+	 StOHrblmM45nI+DYPMa32nduYwf9ljIUw2kSCwsQ6UkuZezPwfynC3L7Rn24MMuu5i
+	 RGZpvY1E0e+y8KZkfvmMJRBCV8tRKzzLOwkOTieo=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 5309BF801EB;
-	Tue,  1 Sep 2020 13:23:05 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 9B168F801DA;
+	Tue,  1 Sep 2020 13:33:28 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id E02F1F80217; Tue,  1 Sep 2020 13:23:02 +0200 (CEST)
+ id 04483F80217; Tue,  1 Sep 2020 13:33:25 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,NICE_REPLY_A,RCVD_IN_MSPIKE_H4,RCVD_IN_MSPIKE_WL,
+X-Spam-Status: No, score=-1.1 required=5.0 tests=NICE_REPLY_A,PRX_BODY_30,
  SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from lelv0142.ext.ti.com (lelv0142.ext.ti.com [198.47.23.249])
+Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id A9E68F801EB
- for <alsa-devel@alsa-project.org>; Tue,  1 Sep 2020 13:22:52 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A9E68F801EB
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b="J9Is2TM3"
-Received: from fllv0034.itg.ti.com ([10.64.40.246])
- by lelv0142.ext.ti.com (8.15.2/8.15.2) with ESMTP id 081BMlwr066864;
- Tue, 1 Sep 2020 06:22:47 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com;
- s=ti-com-17Q1; t=1598959367;
- bh=6lc8AOIxQaWAqkTCg0KZdf8W6u0jyi4qjd/xMZyZOoM=;
- h=Subject:To:CC:References:From:Date:In-Reply-To;
- b=J9Is2TM39XtwqTfxN/+j+uUdd5Zk9U9xSrewcxongeE/OP+48uK8f6FIWYPpWDNEs
- Fies7Sa+STz1Gql1B2xdfj39MqZflk+a/orGBbjGt9UDZzsXzmL6GwI1Z4+4+tq3FO
- xvXK0ZRsWTYudwAINjUrYdGxn8l4m0un5sS8ejQ0=
-Received: from DLEE115.ent.ti.com (dlee115.ent.ti.com [157.170.170.26])
- by fllv0034.itg.ti.com (8.15.2/8.15.2) with ESMTPS id 081BMlhZ107840
- (version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=FAIL);
- Tue, 1 Sep 2020 06:22:47 -0500
-Received: from DLEE105.ent.ti.com (157.170.170.35) by DLEE115.ent.ti.com
- (157.170.170.26) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.1979.3; Tue, 1 Sep
- 2020 06:22:47 -0500
-Received: from lelv0327.itg.ti.com (10.180.67.183) by DLEE105.ent.ti.com
- (157.170.170.35) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.1979.3 via
- Frontend Transport; Tue, 1 Sep 2020 06:22:47 -0500
-Received: from [10.250.38.37] (ileax41-snat.itg.ti.com [10.172.224.153])
- by lelv0327.itg.ti.com (8.15.2/8.15.2) with ESMTP id 081BMkXv065418;
- Tue, 1 Sep 2020 06:22:46 -0500
-Subject: Re: [PATCH] ASoC: tlv320adcx140: Fix accessing uninitialized
- abcx140->dev
-To: Camel Guo <camel.guo@axis.com>, <lgirdwood@gmail.com>,
- <broonie@kernel.org>, <perex@perex.cz>, <tiwai@suse.com>
-References: <20200901072710.2031-1-camel.guo@axis.com>
-From: Dan Murphy <dmurphy@ti.com>
-Message-ID: <daa7dd49-7a5a-a366-4f88-93d256ff9d99@ti.com>
-Date: Tue, 1 Sep 2020 06:22:41 -0500
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.10.0
+ by alsa1.perex.cz (Postfix) with ESMTPS id DA317F801DA
+ for <alsa-devel@alsa-project.org>; Tue,  1 Sep 2020 13:33:13 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DA317F801DA
+IronPort-SDR: zdctdQD4Tshxt2WiTJz+E44giZrPM9H2zoLOqOOiv1Qekk/DbAgCr/2sflLGRBDuKa27pDiPEO
+ GcbP2u6BrUAQ==
+X-IronPort-AV: E=McAfee;i="6000,8403,9730"; a="154549336"
+X-IronPort-AV: E=Sophos;i="5.76,379,1592895600"; d="scan'208";a="154549336"
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from orsmga007.jf.intel.com ([10.7.209.58])
+ by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 01 Sep 2020 04:33:09 -0700
+IronPort-SDR: oWmh7cbrVaB1rk0Du1ihDSb/ClRyVT5u+YSOgfHFDXtjKJRjAAkM9bWs3iA7jYotU/ywR668SJ
+ ElEFMiybkb4Q==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.76,378,1592895600"; d="scan'208";a="340995643"
+Received: from crojewsk-mobl1.ger.corp.intel.com (HELO [10.249.145.54])
+ ([10.249.145.54])
+ by orsmga007.jf.intel.com with ESMTP; 01 Sep 2020 04:33:06 -0700
+Subject: Re: [bug report] 'ASoC: Intel: haswell: Power transition refactor'
+ and PulseAudio
+To: Christian Bundy <christianbundy@fraction.io>
+References: <9bc5b3ac-87a0-4d7c-abfd-2407db90d310@www.fastmail.com>
+From: Cezary Rojewski <cezary.rojewski@intel.com>
+Message-ID: <28ee99bc-fe27-9111-893b-1cb000067a7c@intel.com>
+Date: Tue, 1 Sep 2020 13:33:05 +0200
+User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:68.0) Gecko/20100101
+ Thunderbird/68.11.0
 MIME-Version: 1.0
-In-Reply-To: <20200901072710.2031-1-camel.guo@axis.com>
-Content-Type: text/plain; charset="utf-8"; format=flowed
-Content-Transfer-Encoding: 7bit
+In-Reply-To: <9bc5b3ac-87a0-4d7c-abfd-2407db90d310@www.fastmail.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Language: en-US
-X-EXCLAIMER-MD-CONFIG: e1e8a2fd-e40a-4ac6-ac9b-f7e9cc9ee180
-Cc: alsa-devel@alsa-project.org, kernel@axis.com, linux-kernel@vger.kernel.org,
- Camel Guo <camelg@axis.com>
+Content-Transfer-Encoding: 7bit
+Cc: alsa-devel@alsa-project.org, yang.jie@linux.intel.com, zwisler@google.com,
+ pierre-louis.bossart@linux.intel.com, liam.r.girdwood@linux.intel.com,
+ broonie@kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -97,23 +84,50 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Camel
+On 2020-08-31 11:55 PM, Christian Bundy wrote:
+> After upgrading to Linux 5.8 I discovered an audio issue on my device that was introduced in 8ec7d6043263ecf250b9b7c0dd8ade899487538a [0]. I used 'git bisect' to identify the commit that introduced the bug and have confirmed that reverting the commit resolves the problem
+> 
+> Reproduction:
+> 
+> 1. Play any audio via PulseAudio.
+> 2. Observe that the audio output is fuzzy and choppy.
+> 
+> I can use programs like mpv to play audio without PulseAudio, and the audio is fine, but as soon as I open a process that uses PulseAudio it will ruin the audio output for all processes (including mpv) until I reboot.
+> 
+> I'm using a 2015 Chromebook Pixel ("Samus") and have confirmed this problem with a friend who has the same device.
+> 
+> Is there anything I can do to help debug this instead of sending a patch to revert the commit?
+> 
 
-On 9/1/20 2:27 AM, Camel Guo wrote:
-> From: Camel Guo <camelg@axis.com>
->
-> in adcx140_i2c_probe, adcx140->dev is accessed before its
-> initialization. This commit fixes this bug.
+Hello Christian,
 
-s/abc/adc in the subject
+Thank you for report! Issue is a known one to us and has already been 
+addressed by:
 
-and
+	[PATCH v4 00/13] ASoC: Intel: Catpt - Lynx and Wildcat point
+	https://www.spinics.net/lists/alsa-devel/msg113762.html
 
-s/in/In
+waiting for final dependency to be merged (Andy's resource-API changes, 
+as Mark already added the SPI ones) so v5 with review changes can be 
+provided. Shouldn't be long before this gets merged. As consequence, 
+/haswell/ ceases to exist.
 
-Also please add a Fixes tag.
+Basically, once power-cycle (D0 -> D3 -> D0 transition flow) had been 
+fixed, more - previously hidden - problems arisen. Instead of sending 
+70+ patches to Mark refactoring existing code to recommended flow (+ 
+readability and performance improvements), replacement is provided along 
+with old code being removed entirely.
 
-Otherwise
+For now, if there's a possibility for you to modify your kernel, said 
+patch can be safely removed from your local repo. Note: following is the 
+outcome:
+- DMA init may occasionally fail on early boot (audio card won't be 
+present at all, requires reboot)
+- D0/D3 flow doesn't follow recommended sequence and thus power-saving 
+may be limited or non-existent
+Probably still better than permanently fuzzied audio..
 
-Acked-by: Dan Murphy <dmurphy@ti.com>
+I'm sorry for any inconvenience this has caused to you.
 
+Regards,
+Czarek

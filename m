@@ -2,73 +2,69 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 84D77258F87
-	for <lists+alsa-devel@lfdr.de>; Tue,  1 Sep 2020 15:54:17 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id EF1D4258FA9
+	for <lists+alsa-devel@lfdr.de>; Tue,  1 Sep 2020 15:57:59 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 16DE317AA;
-	Tue,  1 Sep 2020 15:53:27 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 16DE317AA
+	by alsa0.perex.cz (Postfix) with ESMTPS id A4C1917D4;
+	Tue,  1 Sep 2020 15:57:09 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A4C1917D4
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1598968457;
-	bh=PMETuklHjppTSMv0wkRmAgmIiIvN3iJ8oMuQMBv2mig=;
-	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
+	s=default; t=1598968679;
+	bh=Jc8r7wWIhzNKHWVil5wbXGegMFqOBisJFsajY0tKWHc=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=RHyKn2GwC3fWbNasCAtDksy31RGmk9A030qXp4u8k5XPfP4vM+FrZOZ6FVs/wFD6G
-	 udbsg0gnprqEJLuJFUd3fSkfT/U4R1WW2Sqj9daKUkIEnXzFXuYjFQi5idpedWpAid
-	 zR8M6ZseDtWFPj3s6/bl7Wzjh4EEEXj3LKw76+6k=
+	b=AQMFBaUkriBymPxG5ZSwmYcCZsS6GYigLAe6XP11jgw/cISDDQ/VspeYQQnufdaii
+	 OFyiO2IGj7B+xFDKAfZkTrxcCfzpG96kYJbPB8zmYBSD7MNAYJIScxux9bGTqtHxWV
+	 qqd2G4NwWOQyK/fw1TIAW8j7anQ0w062vK0PBwxE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 1D25FF8028F;
-	Tue,  1 Sep 2020 15:52:32 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id CDBCCF802C4;
+	Tue,  1 Sep 2020 15:55:26 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 8104FF80278; Tue,  1 Sep 2020 15:52:30 +0200 (CEST)
+ id BE9B0F802C3; Tue,  1 Sep 2020 15:55:24 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_PASS,SPF_PASS,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from mail1.perex.cz (mail1.perex.cz [77.48.224.245])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 24E7BF801DA
- for <alsa-devel@alsa-project.org>; Tue,  1 Sep 2020 15:52:19 +0200 (CEST)
-Received: from mail1.perex.cz (localhost [127.0.0.1])
- by smtp1.perex.cz (Perex's E-mail Delivery System) with ESMTP id 237D4A0040;
- Tue,  1 Sep 2020 15:52:19 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 smtp1.perex.cz 237D4A0040
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=perex.cz; s=default;
- t=1598968339; bh=GLipuiB1hfnqcaRQ+exueiP1VqR1uI2k2b56TGFr6TE=;
- h=Subject:To:Cc:References:From:Date:In-Reply-To:From;
- b=aWVnKQDx4ugBWFvs27L3xQhqeE6VSvBmxJcBFSXzOKbvbPgc1rmd+WHjfo0AdN8UI
- lnVYE8YYCP4oQcJ4QVBUlscfBY0QKVq9cESMEzjXMDhNkhaLYsD1+VF8fLW3rMeO5t
- gL5PxmWvLadikuVv9cqPyyrETw1NqBTXW9cDH5uE=
-Received: from p1gen2.perex-int.cz (unknown [192.168.100.98])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested) (Authenticated sender: perex)
- by mail1.perex.cz (Perex's E-mail Delivery System) with ESMTPSA;
- Tue,  1 Sep 2020 15:52:10 +0200 (CEST)
-Subject: Re: [PATCH] ALSA: hda/realtek - Add control fixup for Lenovo Thinkpad
- X1 Carbon 7th
-To: Benjamin Poirier <benjamin.poirier@gmail.com>, alsa-devel@alsa-project.org
-References: <20200829112746.3118-1-benjamin.poirier@gmail.com>
-From: Jaroslav Kysela <perex@perex.cz>
-Message-ID: <32b649db-ede6-d3ea-a963-d0bac331e4b4@perex.cz>
-Date: Tue, 1 Sep 2020 15:52:09 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.10.0
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_PASS,SPF_NONE,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from elvis.franken.de (elvis.franken.de [193.175.24.41])
+ by alsa1.perex.cz (Postfix) with ESMTP id 0168EF80217
+ for <alsa-devel@alsa-project.org>; Tue,  1 Sep 2020 15:55:12 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0168EF80217
+Received: from uucp (helo=alpha)
+ by elvis.franken.de with local-bsmtp (Exim 3.36 #1)
+ id 1kD6kf-0001nf-02; Tue, 01 Sep 2020 15:55:09 +0200
+Received: by alpha.franken.de (Postfix, from userid 1000)
+ id 62CB0C0E4C; Tue,  1 Sep 2020 15:53:04 +0200 (CEST)
+Date: Tue, 1 Sep 2020 15:53:04 +0200
+From: Thomas Bogendoerfer <tsbogend@alpha.franken.de>
+To: Christoph Hellwig <hch@lst.de>
+Subject: Re: [PATCH 08/28] MIPS: make dma_sync_*_for_cpu a little less
+ overzealous
+Message-ID: <20200901135304.GC11944@alpha.franken.de>
+References: <20200819065555.1802761-1-hch@lst.de>
+ <20200819065555.1802761-9-hch@lst.de>
 MIME-Version: 1.0
-In-Reply-To: <20200829112746.3118-1-benjamin.poirier@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
-Cc: Kailang Yang <kailang@realtek.com>, Takashi Iwai <tiwai@suse.com>,
- Hui Wang <hui.wang@canonical.com>, Kai-Heng Feng <kai.heng.feng@canonical.com>,
- Vincent Bernat <vincent@bernat.ch>, Even Brenden <evenbrenden@gmail.com>,
- Mark Pearson <mpearson@lenovo.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20200819065555.1802761-9-hch@lst.de>
+User-Agent: Mutt/1.5.23 (2014-03-12)
+Cc: alsa-devel@alsa-project.org, linux-ia64@vger.kernel.org,
+ linux-doc@vger.kernel.org, nouveau@lists.freedesktop.org,
+ linux-nvme@lists.infradead.org, linux-kernel@vger.kernel.org,
+ "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>,
+ linux-mm@kvack.org, Marek Szyprowski <m.szyprowski@samsung.com>,
+ linux-samsung-soc@vger.kernel.org, Joonyoung Shim <jy0922.shim@samsung.com>,
+ linux-scsi@vger.kernel.org, Kyungmin Park <kyungmin.park@samsung.com>,
+ Ben Skeggs <bskeggs@redhat.com>, Matt Porter <mporter@kernel.crashing.org>,
+ linux-media@vger.kernel.org, Tom Lendacky <thomas.lendacky@amd.com>,
+ Pawel Osciak <pawel@osciak.com>, Mauro Carvalho Chehab <mchehab@kernel.org>,
+ linux-arm-kernel@lists.infradead.org, linux-parisc@vger.kernel.org,
+ netdev@vger.kernel.org, Seung-Woo Kim <sw0312.kim@samsung.com>,
+ linux-mips@vger.kernel.org, iommu@lists.linux-foundation.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -84,591 +80,21 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Dne 29. 08. 20 v 13:27 Benjamin Poirier napsal(a):
-> As a result of commit d2cd795c4ece ("ALSA: hda - fixup for the bass speaker
-> on Lenovo Carbon X1 7th gen"), the sound output level on my machine, an X1
-> Carbon 7th gen, was reduced to ~65% of its previous level when playing
-> certain sounds. [1]
+On Wed, Aug 19, 2020 at 08:55:35AM +0200, Christoph Hellwig wrote:
+> When transferring DMA ownership back to the CPU there should never
+> be any writeback from the cache, as the buffer was owned by the
+> device until now.  Instead it should just be invalidated for the
+> mapping directions where the device could have written data.
+> Note that the changes rely on the fact that kmap_atomic is stubbed
+> out for the !HIGHMEM case to simplify the code a bit.
 > 
-> Internally, this laptop model has three outputs (PCM-OUT1, connection 0x02;
-> PCM-OUT2, connection 0x03; SP-OUT PCM, connection 0x06) which can be routed
-> to two sets of stereo speakers: Front (tweeters, node 0x14) and Bass
-> (woofers, node 0x17, aka Rear in some contexts) and one headphone output
-> (node 0x21). The tweeters are noticeably less powerful than the woofers.
-> [2]
-> 
-> Before commit d2cd795c4ece, the bass speakers were connected to SP-OUT PCM.
-> SP-OUT PCM is meant for s/pdif output and does not have volume control.
-> This connection made volume control commonly ineffective (using the Master
-> slider in alsa or pulseaudio apparently had little effect or alternated
-> between mute or max with nothing in between).
-> 
-> commit d2cd795c4ece added quirk ALC285_FIXUP_SPEAKER2_TO_DAC1 which
-> resulted in assigning both sets of speakers to PCM-OUT1, bringing
-> the two sets of speakers under one effective volume control but also
-> lowering the output volume noticeably.
-> 
-> Fix this by connecting PCM-OUT1 to Front speakers and PCM-OUT2 to Rear
-> speakers. The max output volume is restored to what it was before commit
-> d2cd795c4ece. This is done by setting the connection of node 0x17 to 0x03.
-> 
-> However, when we do this, the HDA auto config automatically changes the
-> connection of node 0x21 to 0x02. This output, meant for the front speakers,
-> has some "secret" equalizer which changes the output volume according to
-> the level of what's being played, after some delay[3]. This is undesirable
-> with headphones. Therefore, this patch manually limits the connection of
-> node 0x21 to 0x03.
-> 
-> Even though there are three speaker/line outputs (nodes 0x14, 0x17, 0x21),
-> there are only two amps for volume control (nodes 0x02, 0x03). When setting
-> node 0x17 to connection 0x03 and node 0x21 to connection 0x03, amp 0x03 is
-> shared by the Woofer and Headphone outputs. Therefore, they cannot have
-> independent volume control. This patch uses the Speaker control element to
-> regulate nodes 0x02 (acts on tweeters) and 0x03 (acts on woofers and
-> headphones). A virtual control element is created for the Headphone mixer
-> which mirrors the Speaker mixer. These changes are only for volume
-> controls; there are 3 hardware mute controls.
-> 
-> The current fixup chain applied to this machine is
-> ALC285_FIXUP_THINKPAD_HEADSET_JACK
-> ALC285_FIXUP_SPEAKER2_TO_DAC1
-> ALC269_FIXUP_THINKPAD_ACPI
-> ALC269_FIXUP_SKU_IGNORE
-> 
-> The fixup added by this patch is an alternative to
-> ALC285_FIXUP_SPEAKER2_TO_DAC1 which must be selected explicitly using the
-> module parameter
-> 	snd_sof_intel_hda_common.hda_model=alc285-tpx1-dual-speakers
-> when using the new SOF driver architecture, or
-> 	snd_hda_intel.model=alc285-tpx1-dual-speakers
-> when using the snd_hda_intel driver in legacy mode (see the
-> snd_intel_dspcfg.dsp_driver module parameter).
-> 
-> In order to be able to apply ALC285_FIXUP_THINKPAD_HEADSET_JACK without
-> changing current behavior, a new variant of that fixup is introduced. When
-> using the model added by this patch, the fixup chain is:
-> ALC285_FIXUP_TPX1_DUAL_SPEAKERS
-> ALC285_FIXUP_THINKPAD_HEADSET_JACK_ACPI
-> ALC269_FIXUP_THINKPAD_ACPI
-> ALC269_FIXUP_SKU_IGNORE
-> 
-> [1] https://gist.github.com/hamidzr/dd81e429dc86f4327ded7a2030e7d7d9#gistcomment-3214171
-> [2] https://bugzilla.kernel.org/show_bug.cgi?id=207407#c10
-> [3] https://gist.github.com/hamidzr/dd81e429dc86f4327ded7a2030e7d7d9#gistcomment-3276276
-> 
-> Fixes: d2cd795c4ece ("ALSA: hda - fixup for the bass speaker on Lenovo Carbon X1 7th gen")
-> Link: https://lore.kernel.org/alsa-devel/20200210025249.GA2700@f3/
-> Cc: Jaroslav Kysela <perex@perex.cz>
-> Cc: Kailang Yang <kailang@realtek.com>
-> Tested-by: Even Brenden <evenbrenden@gmail.com>
-> Tested-by: Vincent Bernat <vincent@bernat.ch>
-> Signed-off-by: Benjamin Poirier <benjamin.poirier@gmail.com>
+> Signed-off-by: Christoph Hellwig <hch@lst.de>
 > ---
-> 
-> This is an updated version of the patchset (now a single patch) to fix the
-> low output volume on the Lenovo ThinkPad X1 Carbon 7th gen. With this
-> patch, the volume output with the Linux driver matches the one with the
-> Windows driver. Volume control is effective and headphone output is
-> unaffected.
-> 
-> Multiple users of this machine have reported a low output volume [1] when
-> using a kernel with commit d2cd795c4ece ("ALSA: hda - fixup for the bass
-> speaker on Lenovo Carbon X1 7th gen"). Many have tried these patches or a
-> similar workaround using `hda-verb` and prefer this configuration[2].
-> 
-> [1]
-> https://gist.github.com/hamidzr/dd81e429dc86f4327ded7a2030e7d7d9#gistcomment-3227516
-> https://gist.github.com/hamidzr/dd81e429dc86f4327ded7a2030e7d7d9#gistcomment-3240090
-> https://gist.github.com/hamidzr/dd81e429dc86f4327ded7a2030e7d7d9#gistcomment-3296637
-> https://gist.github.com/hamidzr/dd81e429dc86f4327ded7a2030e7d7d9#gistcomment-3304699
-> https://gist.github.com/hamidzr/dd81e429dc86f4327ded7a2030e7d7d9#gistcomment-3343871
-> https://gist.github.com/hamidzr/dd81e429dc86f4327ded7a2030e7d7d9#gistcomment-3349803
-> https://gist.github.com/hamidzr/dd81e429dc86f4327ded7a2030e7d7d9#gistcomment-3361380
-> ...
-> 
-> [2]
-> https://gist.github.com/hamidzr/dd81e429dc86f4327ded7a2030e7d7d9#gistcomment-3343252
-> https://gist.github.com/hamidzr/dd81e429dc86f4327ded7a2030e7d7d9#gistcomment-3344118
-> https://gist.github.com/hamidzr/dd81e429dc86f4327ded7a2030e7d7d9#gistcomment-3345062
-> https://gist.github.com/hamidzr/dd81e429dc86f4327ded7a2030e7d7d9#gistcomment-3345107
-> ...
-> 
-> Changes:
-> 
-> v1
-> ==
-> https://lore.kernel.org/alsa-devel/20200211055651.4405-1-benjamin.poirier@gmail.com/
-> 
-> v2
-> ==
-> https://lore.kernel.org/alsa-devel/20200703080005.8942-1-benjamin.poirier@gmail.com/
-> * patch 1
-> Shortened log
-> 
-> * patch 2
-> Change log to replace experimental observations by information from diagram
-> posted on kernel.org bugzilla.
-> Select exactly the desired connection for node 0x17 (bass speakers) instead of
-> reusing alc295_fixup_disable_dac3().
-> Control node 0x21 (headphones) connection to avoid the volume "wobble"
-> effect described in the log.
-> Include SET_CONNECT_SEL command in fixup since it is not done by the hda
-> core.
-> Rename one control to reflect its new function and to use as a condition in
-> the ucm config.
-> 
-> v3
-> ==
-> * Remove patch 1 which was merged separately as commit 9774dc218bb6
-> ("ALSA: hda/realtek - Fix Lenovo Thinkpad X1 Carbon 7th quirk
-> subdevice id")
-> * Make fixup activation manual using "alc285-tpx1-dual-speakers" model
-> instead of automatic based on codec id. Suggested by Jaroslav.
-> * Control both tweeter and woofer volume from "Speaker Playback Volume"
-> control. This way a separate ucm change is not needed, unlike in v2 of
-> the patchset. Suggested by Jaroslav.
+>  arch/mips/mm/dma-noncoherent.c | 44 +++++++++++++++++++++-------------
+>  1 file changed, 28 insertions(+), 16 deletions(-)
 
-Thank you for your work.
-
-I tested this patch and it looks good on my test X1. The sound is really more
-strong. I would make this model as default for X1 7th/8th.
-
->  sound/pci/hda/patch_realtek.c | 355 +++++++++++++++++++++++++++++++++-
->  1 file changed, 351 insertions(+), 4 deletions(-)
-> 
-> diff --git a/sound/pci/hda/patch_realtek.c b/sound/pci/hda/patch_realtek.c
-> index a1fa983d2a94..8012c4aaf282 100644
-> --- a/sound/pci/hda/patch_realtek.c
-> +++ b/sound/pci/hda/patch_realtek.c
-> @@ -5821,6 +5821,338 @@ static void alc285_fixup_speaker2_to_dac1(struct hda_codec *codec,
->  	}
->  }
->  
-> +static struct snd_kcontrol *find_ctl_verbose(struct hda_codec *codec,
-> +					     const char *name)
-> +{
-> +	struct snd_kcontrol *kctl;
-> +
-> +	kctl = snd_hda_find_mixer_ctl(codec, name);
-> +	if (!kctl)
-> +		codec_warn(codec, "Did not find control \"%s\"\n", name);
-> +	return kctl;
-> +}
-
-Perhaps, it's too much verbose. I would use codec_dbg() instead.
-
-> +
-> +struct tpx1_dual_speaker {
-> +	struct hda_codec *codec;
-> +	struct snd_kcontrol underlying, hp_vol;
-> +};
-> +
-> +static int tpx1_dual_speaker_vol_info(struct snd_kcontrol *kcontrol,
-> +				      struct snd_ctl_elem_info *uinfo)
-> +{
-> +	struct tpx1_dual_speaker *speaker_priv = snd_kcontrol_chip(kcontrol);
-> +
-> +	return speaker_priv->underlying.info(&speaker_priv->underlying, uinfo);
-> +}
-> +
-> +static int tpx1_dual_speaker_vol_get(struct snd_kcontrol *kcontrol,
-> +				     struct snd_ctl_elem_value *ucontrol)
-> +{
-> +	struct tpx1_dual_speaker *speaker_priv = snd_kcontrol_chip(kcontrol);
-> +
-> +	return speaker_priv->underlying.get(&speaker_priv->underlying,
-> +					    ucontrol);
-
-I think that the checkpatch limit is 100 characters per line now. It might
-make sense to change those lines in this patch. It would be more readable.
-
-> +}
-> +
-> +static int tpx1_dual_speaker_vol_put(struct snd_kcontrol *kcontrol,
-> +				     struct snd_ctl_elem_value *ucontrol)
-> +{
-> +	struct tpx1_dual_speaker *speaker_priv = snd_kcontrol_chip(kcontrol);
-> +	int err;
-> +
-> +	/* Control tweeter volume */
-> +	err = speaker_priv->underlying.put(&speaker_priv->underlying,
-> +					   ucontrol);
-> +	if (err < 0)
-> +		return err;
-> +
-> +	/* Control woofer volume (shared with headphone) */
-> +	err = speaker_priv->hp_vol.put(&speaker_priv->hp_vol, ucontrol);
-> +	if (err < 0)
-> +		return err;
-> +
-> +	snd_ctl_notify(speaker_priv->codec->card, SNDRV_CTL_EVENT_MASK_VALUE,
-> +		       &speaker_priv->hp_vol.id);
-> +	return err;
-> +}
-> +
-> +static int tpx1_dual_speaker_vol_tlv(struct snd_kcontrol *kcontrol,
-> +				     int op_flag, unsigned int size,
-> +				     unsigned int __user *tlv)
-> +{
-> +	struct tpx1_dual_speaker *speaker_priv = snd_kcontrol_chip(kcontrol);
-> +
-> +	return speaker_priv->underlying.tlv.c(&speaker_priv->underlying,
-> +					      op_flag, size, tlv);
-> +}
-> +
-> +static void tpx1_dual_speaker_vol_free(struct snd_kcontrol *kcontrol)
-> +{
-> +	struct tpx1_dual_speaker *speaker_priv = snd_kcontrol_chip(kcontrol);
-> +
-> +	if (speaker_priv->underlying.private_free)
-> +		speaker_priv->underlying.private_free(
-> +			&speaker_priv->underlying);
-> +	kfree(speaker_priv);
-> +}
-> +
-> +static int tpx1_dual_override_speaker_vol(struct hda_codec *codec,
-> +					  struct snd_kcontrol *speaker_vol,
-> +					  struct snd_kcontrol *hp_vol)
-> +{
-> +	struct tpx1_dual_speaker *speaker_priv;
-> +
-> +	speaker_priv = kmalloc(sizeof(struct tpx1_dual_speaker), GFP_KERNEL);
-> +	if (!speaker_priv)
-> +		return -ENOMEM;
-> +	speaker_priv->codec = codec;
-> +	memcpy(&speaker_priv->underlying, speaker_vol,
-> +	       sizeof(struct snd_kcontrol));
-> +	memcpy(&speaker_priv->hp_vol, hp_vol, sizeof(struct snd_kcontrol));
-
-This is a bit clumsy part. It would be probably nice to have a helper in the
-upper control code to clone the original control safely. Takashi?
-
-> +
-> +	speaker_vol->info = &tpx1_dual_speaker_vol_info;
-> +	speaker_vol->get = &tpx1_dual_speaker_vol_get;
-> +	speaker_vol->put = &tpx1_dual_speaker_vol_put;
-> +	speaker_vol->tlv.c = &tpx1_dual_speaker_vol_tlv;
-> +	speaker_vol->private_data = speaker_priv;
-> +	speaker_vol->private_free = &tpx1_dual_speaker_vol_free;
-> +
-> +	return 0;
-> +}
-> +
-> +struct tpx1_dual_hp {
-> +	struct hda_codec *codec;
-> +	struct snd_kcontrol underlying, *speaker_vol;
-> +};
-> +
-> +static int tpx1_dual_hp_vol_info(struct snd_kcontrol *kcontrol,
-> +				 struct snd_ctl_elem_info *uinfo)
-> +{
-> +	struct tpx1_dual_hp *hp_priv = snd_kcontrol_chip(kcontrol);
-> +
-> +	return hp_priv->underlying.info(&hp_priv->underlying, uinfo);
-> +}
-> +
-> +static int tpx1_dual_hp_vol_get(struct snd_kcontrol *kcontrol,
-> +				struct snd_ctl_elem_value *ucontrol)
-> +{
-> +	struct tpx1_dual_hp *hp_priv = snd_kcontrol_chip(kcontrol);
-> +
-> +	return hp_priv->speaker_vol->get(hp_priv->speaker_vol, ucontrol);
-> +}
-> +
-> +static int tpx1_dual_hp_vol_put(struct snd_kcontrol *kcontrol,
-> +				struct snd_ctl_elem_value *ucontrol)
-> +{
-> +	struct tpx1_dual_hp *hp_priv = snd_kcontrol_chip(kcontrol);
-> +	int err;
-> +
-> +	err = hp_priv->speaker_vol->put(hp_priv->speaker_vol, ucontrol);
-> +	if (err < 0)
-> +		return err;
-> +	snd_ctl_notify(hp_priv->codec->card, SNDRV_CTL_EVENT_MASK_VALUE,
-> +		       &hp_priv->speaker_vol->id);
-> +
-> +	return 0;
-> +}
-> +
-> +static int tpx1_dual_hp_vol_tlv(struct snd_kcontrol *kcontrol,
-> +				int op_flag, unsigned int size,
-> +				unsigned int __user *tlv)
-> +{
-> +	struct tpx1_dual_hp *hp_priv = snd_kcontrol_chip(kcontrol);
-> +
-> +	return hp_priv->underlying.tlv.c(&hp_priv->underlying, op_flag, size,
-> +					 tlv);
-> +}
-> +
-> +static void tpx1_dual_hp_vol_free(struct snd_kcontrol *kcontrol)
-> +{
-> +	struct tpx1_dual_hp *hp_priv = snd_kcontrol_chip(kcontrol);
-> +
-> +	if (hp_priv->underlying.private_free)
-> +		hp_priv->underlying.private_free(&hp_priv->underlying);
-> +	kfree(hp_priv);
-> +}
-> +
-> +static int tpx1_dual_override_hp_vol(struct hda_codec *codec,
-> +				     struct snd_kcontrol *speaker_vol,
-> +				     struct snd_kcontrol *hp_vol)
-> +{
-> +	struct tpx1_dual_hp *hp_priv;
-> +
-> +	hp_priv = kmalloc(sizeof(struct tpx1_dual_hp), GFP_KERNEL);
-> +	if (!hp_priv)
-> +		return -ENOMEM;
-> +	hp_priv->codec = codec;
-> +	memcpy(&hp_priv->underlying, hp_vol, sizeof(struct snd_kcontrol));
-> +	hp_priv->speaker_vol = speaker_vol;
-> +
-> +	hp_vol->info = &tpx1_dual_hp_vol_info;
-> +	hp_vol->get = &tpx1_dual_hp_vol_get;
-> +	hp_vol->put = &tpx1_dual_hp_vol_put;
-> +	hp_vol->tlv.c = &tpx1_dual_hp_vol_tlv;
-> +	hp_vol->private_data = hp_priv;
-> +	hp_vol->private_free = &tpx1_dual_hp_vol_free;
-> +
-> +	return 0;
-> +}
-> +
-> +/* We cannot use snd_hda_add_vmaster() because it expects the controls to be
-> + * HDA (see init_follower_0dB()). This is not the case here.
-> + */
-> +static int tpx1_dual_create_main_volume_ctl(struct hda_codec *codec)
-> +{
-> +	struct snd_kcontrol *main_vol, *speaker_vol;
-> +	struct snd_ctl_elem_value *ucontrol = NULL;
-> +	struct hda_gen_spec *spec = codec->spec;
-> +	struct snd_ctl_elem_info *uinfo;
-> +	int ch, err;
-> +
-> +	speaker_vol = find_ctl_verbose(codec, "Speaker Playback Volume");
-> +	if (!speaker_vol)
-> +		return -ENOENT;
-> +
-> +	main_vol = snd_ctl_make_virtual_master("Master Playback Volume",
-> +					       spec->vmaster_tlv);
-> +	if (!main_vol)
-> +		return -ENOMEM;
-> +	err = snd_hda_ctl_add(codec, 0, main_vol);
-> +	if (err < 0)
-> +		return err;
-> +	err = snd_ctl_add_follower(main_vol, speaker_vol);
-> +	if (err < 0)
-> +		return err;
-> +
-> +	/* Initialize values */
-> +	uinfo = kmalloc(sizeof(struct snd_ctl_elem_info), GFP_KERNEL);
-> +	if (!uinfo)
-> +		return -ENOMEM;
-> +
-> +	uinfo->id = speaker_vol->id;
-> +	err = speaker_vol->info(speaker_vol, uinfo);
-> +	if (err)
-> +		goto out;
-> +
-> +	ucontrol = kmalloc(sizeof(struct snd_ctl_elem_value), GFP_KERNEL);
-> +	if (!ucontrol) {
-> +		err = -ENOMEM;
-> +		goto out;
-> +	}
-> +
-> +	ucontrol->id = speaker_vol->id;
-> +	for (ch = 0; ch < uinfo->count; ch++) {
-> +		ucontrol->value.integer.value[ch] =
-> +			uinfo->value.integer.max;
-> +	}
-> +	err = speaker_vol->put(speaker_vol, ucontrol);
-> +	if (err < 0)
-> +		goto out;
-> +	else
-> +		err = 0;
-> +
-> +out:
-> +	kfree(ucontrol);
-> +	kfree(uinfo);
-> +	return err;
-> +}
-> +
-> +static void alc285_fixup_tpx1_dual_speakers(struct hda_codec *codec,
-> +					    const struct hda_fixup *fix,
-> +					    int action)
-> +{
-> +	struct alc_spec *spec = codec->spec;
-> +
-> +	if (action == HDA_FIXUP_ACT_PRE_PROBE) {
-> +		static const hda_nid_t conn[] = { 0x03 };
-> +
-> +		/* For NID 0x17 (bass speakers), the connection list is {0x02,
-> +		 * 0x03, 0x06}. Disable SP-OUT PCM (0x06) selection since it
-> +		 * has no volume control, disable PCM1 (0x02) selection since
-> +		 * it is for front speakers. This leaves PCM2 (0x03).
-> +		 */
-> +		snd_hda_override_conn_list(codec, 0x17, ARRAY_SIZE(conn),
-> +					   conn);
-> +		/* For NID 0x21 (headphone out), the connection list is {0x02,
-> +		 * 0x03}. Disable LOUT1 (0x02) selection since its volume
-> +		 * fluctuates according to input level. This leaves LOUT2
-> +		 * (0x03).
-> +		 */
-> +		snd_hda_override_conn_list(codec, 0x21, ARRAY_SIZE(conn),
-> +					   conn);
-> +
-> +		/* "Master" controls will be created manually after
-> +		 * subordinate controls have been changed in the
-> +		 * HDA_FIXUP_ACT_BUILD phase.
-> +		 */
-> +		spec->gen.suppress_vmaster = 1;
-> +	} else if (action == HDA_FIXUP_ACT_INIT) {
-> +		/* Because the overridden connection lists contain only a
-> +		 * single node, __parse_nid_path() does not label the output
-> +		 * as "multi". This leads snd_hda_activate_path() to skip the
-> +		 * AC_VERB_SET_CONNECT_SEL even though it might be needed. Do
-> +		 * it here instead.
-> +		 * Note that when doing AC_VERB_SET_CONNECT_SEL, the
-> +		 * connection is specified by index instead of nid.
-> +		 */
-> +		snd_hda_codec_write(codec, 0x17, 0, AC_VERB_SET_CONNECT_SEL,
-> +				    0x1);
-> +		snd_hda_codec_write(codec, 0x21, 0, AC_VERB_SET_CONNECT_SEL,
-> +				    0x1);
-> +	} else if (action == HDA_FIXUP_ACT_BUILD) {
-> +		struct snd_kcontrol *speaker_vol, *hp_vol;
-> +		int err;
-> +
-> +		speaker_vol = find_ctl_verbose(codec, "Speaker Playback Volume");
-> +		if (!speaker_vol)
-> +			return;
-> +
-> +		hp_vol = find_ctl_verbose(codec, "Headphone Playback Volume");
-> +		if (!hp_vol)
-> +			return;
-> +
-> +		err = tpx1_dual_override_speaker_vol(codec, speaker_vol, hp_vol);
-> +		if (err) {
-> +			codec_warn(codec, "Failed to override speaker volume control, err %d\n",
-> +				   err);
-
-Also codec_dbg()...
-
-> +			return;
-> +		}
-> +
-> +		err = tpx1_dual_override_hp_vol(codec, speaker_vol, hp_vol);
-> +		if (err) {
-> +			codec_warn(codec, "Failed to override headphone volume control, err %d\n",
-> +				   err);
-> +			return;
-> +		}
-> +
-> +		err = tpx1_dual_create_main_volume_ctl(codec);
-> +		if (err) {
-> +			codec_warn(codec, "Failed to create main volume control, err %d\n",
-> +				   err);
-> +			return;
-> +		}
-> +
-> +		err = __snd_hda_add_vmaster(
-> +			codec, "Master Playback Switch", NULL,
-> +			((const char * const[]){
-> +				"Speaker", "Bass Speaker", "Headphone", NULL
-> +			}), "Playback Switch", true,
-
-Declare array separately to make code more readable.
-
-> +			&spec->gen.vmaster_mute.sw_kctl);
-> +		if (err) {
-> +			codec_warn(codec, "Failed to create main mute control, err %d\n",
-> +				   err);
-> +			return;
-> +		}
-> +
-> +		if (spec->gen.vmaster_mute.hook) {
-> +			snd_hda_add_vmaster_hook(codec,
-> +						 &spec->gen.vmaster_mute,
-> +						 spec->gen.vmaster_mute_enum);
-> +			snd_hda_sync_vmaster_hook(&spec->gen.vmaster_mute);
-> +		}
-> +	}
-> +}
-> +
->  /* Hook to update amp GPIO4 for automute */
->  static void alc280_hp_gpio4_automute_hook(struct hda_codec *codec,
->  					  struct hda_jack_callback *jack)
-> @@ -6083,6 +6415,7 @@ enum {
->  	ALC225_FIXUP_DISABLE_MIC_VREF,
->  	ALC225_FIXUP_DELL1_MIC_NO_PRESENCE,
->  	ALC295_FIXUP_DISABLE_DAC3,
-> +	ALC285_FIXUP_TPX1_DUAL_SPEAKERS,
->  	ALC285_FIXUP_SPEAKER2_TO_DAC1,
->  	ALC280_FIXUP_HP_HEADSET_MIC,
->  	ALC221_FIXUP_HP_FRONT_MIC,
-> @@ -6135,7 +6468,8 @@ enum {
->  	ALC289_FIXUP_DUAL_SPK,
->  	ALC294_FIXUP_SPK2_TO_DAC1,
->  	ALC294_FIXUP_ASUS_DUAL_SPK,
-> -	ALC285_FIXUP_THINKPAD_HEADSET_JACK,
-> +	ALC285_FIXUP_THINKPAD_HEADSET_JACK_SPK,
-> +	ALC285_FIXUP_THINKPAD_HEADSET_JACK_ACPI,
->  	ALC294_FIXUP_ASUS_HPE,
->  	ALC294_FIXUP_ASUS_COEF_1B,
->  	ALC285_FIXUP_HP_GPIO_LED,
-> @@ -6905,6 +7239,12 @@ static const struct hda_fixup alc269_fixups[] = {
->  		.type = HDA_FIXUP_FUNC,
->  		.v.func = alc295_fixup_disable_dac3,
->  	},
-> +	[ALC285_FIXUP_TPX1_DUAL_SPEAKERS] = {
-> +		.type = HDA_FIXUP_FUNC,
-> +		.v.func = alc285_fixup_tpx1_dual_speakers,
-> +		.chained = true,
-> +		.chain_id = ALC285_FIXUP_THINKPAD_HEADSET_JACK_ACPI
-> +	},
->  	[ALC285_FIXUP_SPEAKER2_TO_DAC1] = {
->  		.type = HDA_FIXUP_FUNC,
->  		.v.func = alc285_fixup_speaker2_to_dac1,
-> @@ -7280,12 +7620,18 @@ static const struct hda_fixup alc269_fixups[] = {
->  		.chained = true,
->  		.chain_id = ALC294_FIXUP_SPK2_TO_DAC1
->  	},
-> -	[ALC285_FIXUP_THINKPAD_HEADSET_JACK] = {
-> +	[ALC285_FIXUP_THINKPAD_HEADSET_JACK_SPK] = {
->  		.type = HDA_FIXUP_FUNC,
->  		.v.func = alc_fixup_headset_jack,
->  		.chained = true,
->  		.chain_id = ALC285_FIXUP_SPEAKER2_TO_DAC1
->  	},
-> +	[ALC285_FIXUP_THINKPAD_HEADSET_JACK_ACPI] = {
-> +		.type = HDA_FIXUP_FUNC,
-> +		.v.func = alc_fixup_headset_jack,
-> +		.chained = true,
-> +		.chain_id = ALC269_FIXUP_THINKPAD_ACPI
-> +	},
->  	[ALC294_FIXUP_ASUS_HPE] = {
->  		.type = HDA_FIXUP_VERBS,
->  		.v.verbs = (const struct hda_verb[]) {
-> @@ -7741,8 +8087,8 @@ static const struct snd_pci_quirk alc269_fixup_tbl[] = {
->  	SND_PCI_QUIRK(0x17aa, 0x224c, "Thinkpad", ALC298_FIXUP_TPT470_DOCK),
->  	SND_PCI_QUIRK(0x17aa, 0x224d, "Thinkpad", ALC298_FIXUP_TPT470_DOCK),
->  	SND_PCI_QUIRK(0x17aa, 0x225d, "Thinkpad T480", ALC269_FIXUP_LIMIT_INT_MIC_BOOST),
-> -	SND_PCI_QUIRK(0x17aa, 0x2292, "Thinkpad X1 Carbon 7th", ALC285_FIXUP_THINKPAD_HEADSET_JACK),
-> -	SND_PCI_QUIRK(0x17aa, 0x22be, "Thinkpad X1 Carbon 8th", ALC285_FIXUP_THINKPAD_HEADSET_JACK),
-> +	SND_PCI_QUIRK(0x17aa, 0x2292, "Thinkpad X1 Carbon 7th", ALC285_FIXUP_THINKPAD_HEADSET_JACK_SPK),
-> +	SND_PCI_QUIRK(0x17aa, 0x22be, "Thinkpad X1 Carbon 8th", ALC285_FIXUP_THINKPAD_HEADSET_JACK_SPK),
->  	SND_PCI_QUIRK(0x17aa, 0x30bb, "ThinkCentre AIO", ALC233_FIXUP_LENOVO_LINE2_MIC_HOTKEY),
->  	SND_PCI_QUIRK(0x17aa, 0x30e2, "ThinkCentre AIO", ALC233_FIXUP_LENOVO_LINE2_MIC_HOTKEY),
->  	SND_PCI_QUIRK(0x17aa, 0x310c, "ThinkCentre Station", ALC294_FIXUP_LENOVO_MIC_LOCATION),
-> @@ -7934,6 +8280,7 @@ static const struct hda_model_fixup alc269_fixup_models[] = {
->  	{.id = ALC255_FIXUP_DELL_SPK_NOISE, .name = "dell-spk-noise"},
->  	{.id = ALC225_FIXUP_DELL1_MIC_NO_PRESENCE, .name = "alc225-dell1"},
->  	{.id = ALC295_FIXUP_DISABLE_DAC3, .name = "alc295-disable-dac3"},
-> +	{.id = ALC285_FIXUP_TPX1_DUAL_SPEAKERS, .name = "alc285-tpx1-dual-speakers"},
->  	{.id = ALC285_FIXUP_SPEAKER2_TO_DAC1, .name = "alc285-speaker2-to-dac1"},
->  	{.id = ALC280_FIXUP_HP_HEADSET_MIC, .name = "alc280-hp-headset"},
->  	{.id = ALC221_FIXUP_HP_FRONT_MIC, .name = "alc221-hp-mic"},
-> 
-
+Acked-by: Thomas Bogendoerfer <tsbogend@alpha.franken.de>
 
 -- 
-Jaroslav Kysela <perex@perex.cz>
-Linux Sound Maintainer; ALSA Project; Red Hat, Inc.
+Crap can work. Given enough thrust pigs will fly, but it's not necessarily a
+good idea.                                                [ RFC1925, 2.3 ]

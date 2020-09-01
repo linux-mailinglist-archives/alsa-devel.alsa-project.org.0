@@ -2,69 +2,71 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 26BFC258EE3
-	for <lists+alsa-devel@lfdr.de>; Tue,  1 Sep 2020 15:09:56 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E2CB3258EE6
+	for <lists+alsa-devel@lfdr.de>; Tue,  1 Sep 2020 15:10:39 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 94B3B17AF;
-	Tue,  1 Sep 2020 15:09:05 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 94B3B17AF
+	by alsa0.perex.cz (Postfix) with ESMTPS id 75C4B17BE;
+	Tue,  1 Sep 2020 15:09:49 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 75C4B17BE
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1598965795;
+	s=default; t=1598965839;
 	bh=IRQPmiAp7Vbu72qt56AlBFeE8Mjc2IEdiAvM/ihm14U=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=YczpIqxNlxJNem28dxrZNoUdTunE90er0OlC7Lx0vJDcCG5z6U+bB+pFT/quHNdpl
-	 13L47V84I5HMLBQjij392M4iHZCTWZ/9xDnR/NA4GfyGPWB7rTsUk97SPMAaMFRCg5
-	 aoT71N66hWLF0DAJX3UYWNKP2+VIB7h3SwMpIq4Q=
+	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=QcbD57PlCVmChtnqjXXYnFZC5VEpvvNpix6JLIAHEAsdmsgTYJH8fcAt/1e1HgNSc
+	 pPF3qFRso5P9IRCZF1Uglqnm+vVpqrVmv2cGgDSg4nW99Zmm95VDr9uKMwB70hHDFB
+	 +vu3P0UpQo7DdwTYAYOn5pO7e4cAQPYxsmXu8LCE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id B3634F8025F;
-	Tue,  1 Sep 2020 15:08:14 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 96375F8028F;
+	Tue,  1 Sep 2020 15:08:18 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 6B500F8021D; Tue,  1 Sep 2020 15:08:12 +0200 (CEST)
+ id CFA35F80278; Tue,  1 Sep 2020 15:08:16 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=disabled
  version=3.4.0
-Received: from smtp2.axis.com (smtp2.axis.com [195.60.68.18])
+Received: from smtp1.axis.com (smtp1.axis.com [195.60.68.17])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 1AC8CF801DA
- for <alsa-devel@alsa-project.org>; Tue,  1 Sep 2020 15:08:05 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1AC8CF801DA
+ by alsa1.perex.cz (Postfix) with ESMTPS id ABF2BF8020D
+ for <alsa-devel@alsa-project.org>; Tue,  1 Sep 2020 15:08:10 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz ABF2BF8020D
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=axis.com header.i=@axis.com
- header.b="FkuuOZsS"
+ header.b="A1XJapEF"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=axis.com; l=1083; q=dns/txt; s=axis-central1;
- t=1598965687; x=1630501687;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
+ t=1598965692; x=1630501692;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
  bh=XM/YiO1AN+GvGSxUyxQbpOxOSqb3rPJ2qUV4jnebMHM=;
- b=FkuuOZsSAWyApeYNMJ7eu+VK3B4mYWmrNAAEqdpLIFDbwPKf6DAw0DbJ
- Le7qYJtF8DjiAcjCqJTp8QwpG2vBnIsI79WCuINS8y6d083/yQWuZcha7
- Uu1TnLHu8xLXapW4SiYxPeppq/EwxBUA1K7H+OkGT4eOSIPzwMtn0DBZh
- 8S67QEMpCj3HAj/2dH1q4RIVBuyoZ2HYE4iS6/Pcu/qdPYCwcXAED0Hly
- B/JU3ewpFnJdqnsX4DMQr2nsDwVohX+KGDt4mUs6nLBgiYG7gi76IrSsw
- J3OOI1/zZ0MsJzbGS1/8fLZ4ohoUdzCfcg56mRV1qnSL88onVEETHXDlY g==;
-IronPort-SDR: urVlRcHZRIGbnH4AspnR2uVOcG06TA9Z0n8XexRq5uYKEEPHYbwJGmrq0Ioo5lxoG/KKgmyqo6
- BsjAEXKDGc8CFYzk/FNoVYj+qxJBhf8xeh/FF9+VLrER3BrxNJRlyPgscEIMY9cW9sSQTnWS+0
- 0esfg9GrMu8aRpsgsUcc/lsVmNCooNQ+FwKZxVSkn2RK1qXs5VQZ/vASoOJK5w/gFCsWOc4Fi/
- e2970Rqug8IDPYt4/2Ns4Uv0cuRuuHVKJS1l9hTEktJJZJCgAuoOVmt6kbyn1OCNehCyMewJ07
- peE=
-X-IronPort-AV: E=Sophos;i="5.76,379,1592863200"; d="scan'208";a="12085624"
+ b=A1XJapEFzx5UNTumGMM+Lsg40lcTQQQvtjqnDuD6vGiGR3M5nDCxOWvq
+ Mea0qMcUQz3VUaOqv1sv4FI176EG1OGftURK/JTf2hSS3ofXY6+epkO+i
+ iOt15o99OGg1SQmMNziQWQaRIyLrrAkZ0Zp/KplSA3glGj6UPW3Sp/Idy
+ asDznILQfjW48leGjz0I7pqWwx5oSn/1mfBRxuQj3mrRQifkxiGHKkn5j
+ hsYXdNWq4hH8ds+LXmm2G27rzNrWkQpG2+x+eSbO2UPo3t9FOq+d1MFH9
+ L4zIpnbOOF21KFWY7+7q/C8BlaUN1ir7vDrY2gyT185eOEoCeZHGjfc9G A==;
+IronPort-SDR: JSWorGGGlbfcZbzI5fleFnnnHVRJWrr9awe3/ZTkPFcjNndKis4aT3mf4kLCBRg7CLgBsNQsP/
+ VmhwplkhScCG1ZsWDV/6cO89BonM6vV9ZUtnMj8DXa2IRWh9XgyAoP76bgaEYFl7MaENAci8vF
+ ZU7yzW/TQ5fJhjJhuvzhic6Aylqj3I8DXEzh3jvoMS5VhSKPIB8purSKuRkWRW/QQoSE4pPFkP
+ VJOf7CF6q1h2rrGIQW8M8YLths3IIjNRtqgSFY3sExQDZG+XZSAdbfx8+fODezYDqcer8jq4/Z
+ mEg=
+X-IronPort-AV: E=Sophos;i="5.76,379,1592863200"; d="scan'208";a="12435719"
 From: Camel Guo <camel.guo@axis.com>
 To: <lgirdwood@gmail.com>, <broonie@kernel.org>, <perex@perex.cz>,
  <tiwai@suse.com>, <dmurphy@ti.com>
-Subject: [PATCH v3] ASoC: tlv320adcx140: Fix accessing uninitialized
- adcx140->dev
-Date: Tue, 1 Sep 2020 15:07:52 +0200
-Message-ID: <20200901130753.27670-1-camel.guo@axis.com>
+Subject: [PATCH] ASoC: tlv320adcx140: Fix accessing uninitialized adcx140->dev
+Date: Tue, 1 Sep 2020 15:07:53 +0200
+Message-ID: <20200901130753.27670-2-camel.guo@axis.com>
 X-Mailer: git-send-email 2.20.1
+In-Reply-To: <20200901130753.27670-1-camel.guo@axis.com>
+References: <20200901130753.27670-1-camel.guo@axis.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain

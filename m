@@ -2,89 +2,133 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D48C7258C89
-	for <lists+alsa-devel@lfdr.de>; Tue,  1 Sep 2020 12:15:28 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id BE34E258CD1
+	for <lists+alsa-devel@lfdr.de>; Tue,  1 Sep 2020 12:31:07 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 7FCA4178E;
-	Tue,  1 Sep 2020 12:14:38 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7FCA4178E
+	by alsa0.perex.cz (Postfix) with ESMTPS id 43A6917B2;
+	Tue,  1 Sep 2020 12:30:17 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 43A6917B2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1598955328;
-	bh=XlCTuRG9aKHJrBqJ5YHYjkSJmfNQjeKpw0/g27pnlb8=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1598956267;
+	bh=QQrEl0MdYPJZee6IjdeDBZJ0YI3wcCnel0tjCyODfbQ=;
+	h=Subject:To:From:Date:In-Reply-To:References:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=L7g7rLwVPrlD4AfmK7suci+OOpyvQz5suxFCUOkNUG3FqdjNgKwDGPCYs8saHFys6
-	 U3ic7qrIGhQz/uDuBhUWE5v2XOWWbwBJvc6QSFuHeT0tPpdv3rC3i1kJgKo/2fy1DI
-	 bRclKrJ2Klp8hSJO3QcJFI1NkSzKD5qP4XXdm9zQ=
+	b=lRk3hmfrE3Ese9m4EpKOmkik2cIxHY82r/Nyt/yRFxfdO8HM5HWIDy8IAutOWBNbx
+	 v7kncZZSKnMglbBTUi/ZJlsGVVo/eVrdZw07seLBVPlKO5BFVIGud03lnvgnUmzGoN
+	 zLrFqp1SGFzd8/23T6ZBGiZma7PN8xFTuFGrhfHo=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id B6CAFF8028F;
-	Tue,  1 Sep 2020 12:13:34 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 5EBB8F8021D;
+	Tue,  1 Sep 2020 12:29:26 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id D391CF80278; Tue,  1 Sep 2020 12:13:32 +0200 (CEST)
+ id 5F62CF80217; Tue,  1 Sep 2020 12:29:21 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.3 required=5.0 tests=FREEMAIL_FORGED_FROMDOMAIN,
- FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,RCVD_IN_MSPIKE_H2,SPF_HELO_NONE,
- SPF_PASS autolearn=disabled version=3.4.0
-Received: from mail-wr1-f65.google.com (mail-wr1-f65.google.com
- [209.85.221.65])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=-2.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+ DKIM_VALID,DKIM_VALID_AU,NICE_REPLY_A,RCVD_IN_MSPIKE_H3,RCVD_IN_MSPIKE_WL,
+ SPF_HELO_PASS,SPF_PASS,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mailout2.w1.samsung.com (mailout2.w1.samsung.com
+ [210.118.77.12])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 2328FF801EB
- for <alsa-devel@alsa-project.org>; Tue,  1 Sep 2020 12:13:27 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2328FF801EB
-Received: by mail-wr1-f65.google.com with SMTP id j2so856117wrx.7
- for <alsa-devel@alsa-project.org>; Tue, 01 Sep 2020 03:13:27 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to:user-agent;
- bh=60OSzGQnLdO/drci+KqV2aNKAQlqAAKks8TSNwdM2FY=;
- b=APIdTxFt4KVulNDto8BLdD4DeGyyQhS3mkikifZekWscA0v14rKwJa7E5mQdjQfskC
- 4G0yDRMIzkOvAlAPNaNJs5Ob0J7rpQunKwPDtSC0b1pMwoV5pRIIL3nkdcL+SqdD2ANZ
- U4txL6YC8ldKhmgzHEo1PlaoySl13701JSuaN6EOt+86xFNudCDE0EMrY4feqwI1ePOi
- bOAgugTd+jj+Hwc0SyqVcHy0mNvi7RVaFYWl2xaZ03o6Q5QPBFikVq/OMWaKfRLJ2C2W
- gYkafISJxg8N7OnMXhZb7zWaoOPKQ/kEojb3TKurXrV3umu3D39Q0IJ8wyAZWq0KEXS9
- PuMg==
-X-Gm-Message-State: AOAM533V1LWagRuu7fNr1JTBA8WCJdbmpGCIXRYhKvjE+5nirUCtf8nK
- Lg0lYqvMg19XEueIjAtx2sQ=
-X-Google-Smtp-Source: ABdhPJxMqwy/axvlMjQ/xJnNPGIvM2iHQeNPPj3R8YD2jG1F8eJm1SltrAiVX5VChjwgA+YtEBCEew==
-X-Received: by 2002:a05:6000:7:: with SMTP id h7mr1171095wrx.16.1598955206626; 
- Tue, 01 Sep 2020 03:13:26 -0700 (PDT)
-Received: from kozik-lap ([194.230.155.106])
- by smtp.googlemail.com with ESMTPSA id c6sm1490149wrr.15.2020.09.01.03.13.24
- (version=TLS1_2 cipher=ECDHE-ECDSA-CHACHA20-POLY1305 bits=256/256);
- Tue, 01 Sep 2020 03:13:26 -0700 (PDT)
-Date: Tue, 1 Sep 2020 12:13:22 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Kukjin Kim <kgene@kernel.org>, Rob Herring <robh+dt@kernel.org>,
- David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>,
- Lee Jones <lee.jones@linaro.org>, Sangbeom Kim <sbkim73@samsung.com>,
- Sylwester Nawrocki <s.nawrocki@samsung.com>,
- Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
- Daniel Lezcano <daniel.lezcano@linaro.org>,
- Thomas Gleixner <tglx@linutronix.de>, linux-arm-kernel@lists.infradead.org,
- linux-samsung-soc@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- alsa-devel@alsa-project.org
-Subject: Re: [PATCH 08/10] arm64: dts: exynos: Add compatibles to sysreg nodes
-Message-ID: <20200901101322.GD23793@kozik-lap>
-References: <20200829142501.31478-1-krzk@kernel.org>
- <20200829142501.31478-8-krzk@kernel.org>
+ by alsa1.perex.cz (Postfix) with ESMTPS id A84D5F801DA
+ for <alsa-devel@alsa-project.org>; Tue,  1 Sep 2020 12:29:10 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A84D5F801DA
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com
+ header.b="J/63J8zT"
+Received: from eucas1p2.samsung.com (unknown [182.198.249.207])
+ by mailout2.w1.samsung.com (KnoxPortal) with ESMTP id
+ 20200901102907euoutp022748e5c78e30c1495be800131f579c89~woiUUms-C0830608306euoutp02o
+ for <alsa-devel@alsa-project.org>; Tue,  1 Sep 2020 10:29:07 +0000 (GMT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 mailout2.w1.samsung.com
+ 20200901102907euoutp022748e5c78e30c1495be800131f579c89~woiUUms-C0830608306euoutp02o
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
+ s=mail20170921; t=1598956147;
+ bh=k5vdeDzHjYYiOBpxPyP+677nyH6MYEa+gndR4S5JbNE=;
+ h=Subject:To:From:Date:In-Reply-To:References:From;
+ b=J/63J8zTmTHycRavFZ3I7T8m9hK9IQ39Vjvbir6Ha1h2tm9rc+0iaSwRnlCru1I7n
+ 6lD0wNzE9tAwbOtYCOv8zGr7N3lXJWya84SXsFmb175nJ5zr3ZYjqARserwVwROGoT
+ lv9ok0yfVjZzkHwamwV6AER7etAaIpMfum1KAyI4=
+Received: from eusmges3new.samsung.com (unknown [203.254.199.245]) by
+ eucas1p2.samsung.com (KnoxPortal) with ESMTP id
+ 20200901102907eucas1p25fc8fbd96345364cfa6246fe9d750c7a~woiUNy6FR0806608066eucas1p2-;
+ Tue,  1 Sep 2020 10:29:07 +0000 (GMT)
+Received: from eucas1p1.samsung.com ( [182.198.249.206]) by
+ eusmges3new.samsung.com (EUCPMTA) with SMTP id 46.A8.06318.3722E4F5; Tue,  1
+ Sep 2020 11:29:07 +0100 (BST)
+Received: from eusmtrp2.samsung.com (unknown [182.198.249.139]) by
+ eucas1p1.samsung.com (KnoxPortal) with ESMTPA id
+ 20200901102907eucas1p1fce2d1ab4aa01b0627d715f046653c55~woiTu-ADu2026520265eucas1p1A;
+ Tue,  1 Sep 2020 10:29:07 +0000 (GMT)
+Received: from eusmgms1.samsung.com (unknown [182.198.249.179]) by
+ eusmtrp2.samsung.com (KnoxPortal) with ESMTP id
+ 20200901102907eusmtrp2fbedb8238049e1949d0fb4a4b333c7ae~woiTuJucu3227932279eusmtrp2f;
+ Tue,  1 Sep 2020 10:29:07 +0000 (GMT)
+X-AuditID: cbfec7f5-371ff700000018ae-2a-5f4e22732de5
+Received: from eusmtip1.samsung.com ( [203.254.199.221]) by
+ eusmgms1.samsung.com (EUCPMTA) with SMTP id EF.B5.06314.3722E4F5; Tue,  1
+ Sep 2020 11:29:07 +0100 (BST)
+Received: from [106.210.123.115] (unknown [106.210.123.115]) by
+ eusmtip1.samsung.com (KnoxPortal) with ESMTPA id
+ 20200901102906eusmtip177a377bbd9f4ff37849a2fde134ace8c~woiSpHjga0106201062eusmtip1z;
+ Tue,  1 Sep 2020 10:29:05 +0000 (GMT)
+Subject: Re: [PATCH 2/2] dt-bindings: sound: odroid: Use unevaluatedProperties
+To: Krzysztof Kozlowski <krzk@kernel.org>, Sangbeom Kim
+ <sbkim73@samsung.com>, Liam Girdwood <lgirdwood@gmail.com>, Mark Brown
+ <broonie@kernel.org>, Rob Herring <robh+dt@kernel.org>,
+ alsa-devel@alsa-project.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+From: Sylwester Nawrocki <s.nawrocki@samsung.com>
+Message-ID: <30b8ea43-c2d0-5ddf-dc16-a8fe80d47c38@samsung.com>
+Date: Tue, 1 Sep 2020 12:29:05 +0200
+User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:68.0) Gecko/20100101
+ Thunderbird/68.11.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20200829142501.31478-8-krzk@kernel.org>
-User-Agent: Mutt/1.9.4 (2018-02-28)
-Cc: Sylwester Nawrocki <snawrocki@kernel.org>,
- Chanwoo Choi <cw00.choi@samsung.com>,
- Bartlomiej Zolnierkiewicz <b.zolnierkie@samsung.com>,
- Inki Dae <inki.dae@samsung.com>, Marek Szyprowski <m.szyprowski@samsung.com>
+In-Reply-To: <20200830112633.6732-2-krzk@kernel.org>
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
+X-Brightmail-Tracker: H4sIAAAAAAAAA+NgFtrIKsWRmVeSWpSXmKPExsWy7djPc7rFSn7xBl1zNSyuXDzEZDH14RM2
+ i/lHzrFanD+/gd3i25UOJovLu+awWbTuPcJucXHFFyYHDo8Nn5vYPHbOusvusWlVJ5tH35ZV
+ jB6fN8kFsEZx2aSk5mSWpRbp2yVwZdw9toal4DdzxcWOHrYGxo3MXYwcHBICJhJbNhZ0MXJx
+ CAmsYJS49vMpG4TzhVHi5/NV7BDOZ0aJby9/AzmcYB1v1lyFSixnlPj0/ysThPORUeLl5Q8s
+ IFXCAgESjxvXs4AkRASmMEmcPrmGFSTBJmAo0Xu0jxHE5hWwk3jS2gsWZxFQkXh1uokZxBYV
+ iJPYevwqE0SNoMTJmU/AhnICrV7y4yUbiM0sIC5x68l8JghbXmL72znMIMskBDaxS6x4upwJ
+ 4lYXiYkreqBsYYlXx7dA/SAj8X/nfCaIhmZGiZ7dt9khnAmMEvePL2CEqLKWuHPuFxsonJgF
+ NCXW79KHCDtKbH4zBxp8fBI33gpCHMEnMWnbdKgwr0RHmxBEtYrE71XToU6Qkuh+8p8FwvaQ
+ 2HVpB/sERsVZSN6cheS1WUhem4VwwwJGllWM4qmlxbnpqcXGeanlesWJucWleel6yfm5mxiB
+ Cen0v+NfdzDu+5N0iFGAg1GJh3fFN594IdbEsuLK3EOMEhzMSiK8TmdPxwnxpiRWVqUW5ccX
+ leakFh9ilOZgURLnNV70MlZIID2xJDU7NbUgtQgmy8TBKdXAKDKHYZWIx8QT1k9NAi15Dmbv
+ NfDfP0Hhvmjt55+/I/66Bz9Y9JEtVIbftduwi9Hm3h3P5s7DHzZkmV3K1zjx0v//CZn68A77
+ 7R+nms+9fOdE9hm+L2mbNtzTvq78eq3Rcw3RSzorHq48uZmX9W7Gdb4TRz5+VRC59d9IbW53
+ puWrt9e3l3H5KimxFGckGmoxFxUnAgCARsoTRAMAAA==
+X-Brightmail-Tracker: H4sIAAAAAAAAA+NgFtrOIsWRmVeSWpSXmKPExsVy+t/xu7rFSn7xBs9mcFtcuXiIyWLqwyds
+ FvOPnGO1OH9+A7vFtysdTBaXd81hs2jde4Td4uKKL0wOHB4bPjexeeycdZfdY9OqTjaPvi2r
+ GD0+b5ILYI3SsynKLy1JVcjILy6xVYo2tDDSM7S00DMysdQzNDaPtTIyVdK3s0lJzcksSy3S
+ t0vQy7h7bA1LwW/miosdPWwNjBuZuxg5OSQETCTerLnK3sXIxSEksJRRov/gSdYuRg6ghJTE
+ /BYliBphiT/Xutggat4zSiy9eRysWVjAT2LPzSdgCRGBKUwSt749hZq0kVHi157f7CBVbAKG
+ Er1H+xhBbF4BO4knrb2sIDaLgIrEq9NNYJNEBeIkHvf+Z4aoEZQ4OfMJC4jNCXTekh8v2UBs
+ ZgF1iT/zLjFD2OISt57MZ4Kw5SW2v53DPIFRcBaS9llIWmYhaZmFpGUBI8sqRpHU0uLc9Nxi
+ Q73ixNzi0rx0veT83E2MwEjbduzn5h2MlzYGH2IU4GBU4uEN+OITL8SaWFZcmXuIUYKDWUmE
+ 1+ns6Tgh3pTEyqrUovz4otKc1OJDjKZAz01klhJNzgcmgbySeENTQ3MLS0NzY3NjMwslcd4O
+ gYMxQgLpiSWp2ampBalFMH1MHJxSDYw1f9/MqRT49qvh8bb3us33rU/ZSx5JqHtVV7Ro9l2n
+ s85nHhpXr3syTSZQgSNZ/HKZy5s552N01gbF2Sxfu3tqlppst92si8LHezYcz0zzvqv4fKr9
+ otU75T7N6U7bcchZ0nPhi+Ckqfo/Wp5bX0yMMT0dXx62YZHJN031rxv0Vf7EPyu7kHheiaU4
+ I9FQi7moOBEAXT6ly8oCAAA=
+X-CMS-MailID: 20200901102907eucas1p1fce2d1ab4aa01b0627d715f046653c55
+X-Msg-Generator: CA
+Content-Type: text/plain; charset="utf-8"
+X-RootMTR: 20200830112645eucas1p2e94b4e40ef019afd643461a634d1cdfe
+X-EPHeader: CA
+CMS-TYPE: 201P
+X-CMS-RootMailID: 20200830112645eucas1p2e94b4e40ef019afd643461a634d1cdfe
+References: <20200830112633.6732-1-krzk@kernel.org>
+ <CGME20200830112645eucas1p2e94b4e40ef019afd643461a634d1cdfe@eucas1p2.samsung.com>
+ <20200830112633.6732-2-krzk@kernel.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -100,19 +144,15 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Sat, Aug 29, 2020 at 04:24:59PM +0200, Krzysztof Kozlowski wrote:
-> System register nodes, implementing syscon binding, should use
-> appropriate compatible.  This fixes dtbs_check warnings:
+On 30.08.2020 13:26, Krzysztof Kozlowski wrote:
+> Additional properties or nodes actually might appear (e.g.
+> assigned-clocks) so use unevaluatedProperties to fix dtbs_check warnings
+> like:
 > 
->   arch/arm64/boot/dts/exynos/exynos5433-tm2.dt.yaml: syscon@13b80000:
->     compatible: ['syscon'] is not valid under any of the given schemas
+>   arch/arm/boot/dts/exynos5422-odroidxu3.dt.yaml: sound:
+>     'assigned-clock-parents', 'assigned-clock-rates', 'assigned-clocks' do not match any of the regexes: 'pinctrl-[0-9]+'
 > 
 > Signed-off-by: Krzysztof Kozlowski <krzk@kernel.org>
-> ---
->  arch/arm64/boot/dts/exynos/exynos5433.dtsi | 6 +++---
 
-Applied.
-
-Best regards,
-Krzysztof
+Reviewed-by: Sylwester Nawrocki <s.nawrocki@samsung.com>
 

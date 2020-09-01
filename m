@@ -2,71 +2,109 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0F8E3259CA6
-	for <lists+alsa-devel@lfdr.de>; Tue,  1 Sep 2020 19:18:19 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5382E259D2D
+	for <lists+alsa-devel@lfdr.de>; Tue,  1 Sep 2020 19:28:06 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A18E51807;
-	Tue,  1 Sep 2020 19:17:28 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A18E51807
+	by alsa0.perex.cz (Postfix) with ESMTPS id DDEE817B6;
+	Tue,  1 Sep 2020 19:27:15 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DDEE817B6
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1598980698;
-	bh=BorItmMIFil2sLB2WJyK3azlao9AEfdS3iNuTQaA0X4=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1598981285;
+	bh=ZdaW82SwB9AqqEXqzLygppwbvhjTc90nYoV9Rpa/D84=;
+	h=In-Reply-To:References:Date:From:To:Subject:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=CT2dI0Vigv/Lvn0BeH9al3As0QBYZVwb7t4hPziONskYaGtZ2nyJ0uBi+4eEd6YkV
-	 bpORthy+8ppMLRI6NimoXROvKp2ZAYp19r4wm8+0YakG6ilv+CSaWCSTn5IuoT+AqW
-	 7lvgtzDYaeklLmXTrNISuhryUDVx08PoXsjGhUkg=
+	b=ti1+fRtTQlRFhzNo0pjtacWm6bwaDVloWj/3GENUBa9rkqBho+FOtc1npGHCyOuLB
+	 ZjQ0vvHDowGOd3RO7jokJMtAs4EBhVWHSeIbAbAVs6aWViFNPeb7GzlauQ0k21u4PV
+	 jC1qUTwF8WJYPtkgIF47EoVmv3fhqPMw1DNdiHe0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id ABEDCF8021D;
-	Tue,  1 Sep 2020 19:16:37 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 0ECB5F800BA;
+	Tue,  1 Sep 2020 19:26:25 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 7457AF80217; Tue,  1 Sep 2020 19:16:35 +0200 (CEST)
+ id 010E1F800BA; Tue,  1 Sep 2020 19:26:21 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,RCVD_IN_MSPIKE_H3,RCVD_IN_MSPIKE_WL,SPF_HELO_PASS,SPF_PASS,
  URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from verein.lst.de (verein.lst.de [213.95.11.211])
+Received: from wout3-smtp.messagingengine.com (wout3-smtp.messagingengine.com
+ [64.147.123.19])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 45576F801EB
- for <alsa-devel@alsa-project.org>; Tue,  1 Sep 2020 19:16:28 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 45576F801EB
-Received: by verein.lst.de (Postfix, from userid 2407)
- id 48CDB68B05; Tue,  1 Sep 2020 19:16:27 +0200 (CEST)
-Date: Tue, 1 Sep 2020 19:16:27 +0200
-From: Christoph Hellwig <hch@lst.de>
-To: Thomas Bogendoerfer <tsbogend@alpha.franken.de>
-Subject: Re: [PATCH 22/28] sgiseeq: convert from dma_cache_sync to
- dma_sync_single_for_device
-Message-ID: <20200901171627.GA8255@lst.de>
-References: <20200819065555.1802761-1-hch@lst.de>
- <20200819065555.1802761-23-hch@lst.de>
- <20200901152209.GA14288@alpha.franken.de>
- <20200901171241.GA20685@alpha.franken.de>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20200901171241.GA20685@alpha.franken.de>
-User-Agent: Mutt/1.5.17 (2007-11-01)
-Cc: alsa-devel@alsa-project.org, linux-ia64@vger.kernel.org,
- linux-doc@vger.kernel.org, nouveau@lists.freedesktop.org,
- linux-nvme@lists.infradead.org, linux-mips@vger.kernel.org,
- "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>,
- linux-mm@kvack.org, Christoph Hellwig <hch@lst.de>,
- Marek Szyprowski <m.szyprowski@samsung.com>, linux-samsung-soc@vger.kernel.org,
- Joonyoung Shim <jy0922.shim@samsung.com>, linux-scsi@vger.kernel.org,
- iommu@lists.linux-foundation.org, Ben Skeggs <bskeggs@redhat.com>,
- Matt Porter <mporter@kernel.crashing.org>, linux-media@vger.kernel.org,
- Tom Lendacky <thomas.lendacky@amd.com>, Pawel Osciak <pawel@osciak.com>,
- Mauro Carvalho Chehab <mchehab@kernel.org>,
- linux-arm-kernel@lists.infradead.org, linux-parisc@vger.kernel.org,
- netdev@vger.kernel.org, Seung-Woo Kim <sw0312.kim@samsung.com>,
- linux-kernel@vger.kernel.org, Kyungmin Park <kyungmin.park@samsung.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id A4606F800BA
+ for <alsa-devel@alsa-project.org>; Tue,  1 Sep 2020 19:26:11 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A4606F800BA
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=fraction.io header.i=@fraction.io
+ header.b="oWe5ceb7"; 
+ dkim=pass (2048-bit key) header.d=messagingengine.com
+ header.i=@messagingengine.com header.b="VvWApi+2"
+Received: from compute3.internal (compute3.nyi.internal [10.202.2.43])
+ by mailout.west.internal (Postfix) with ESMTP id 8CF67763;
+ Tue,  1 Sep 2020 13:26:07 -0400 (EDT)
+Received: from imap1 ([10.202.2.51])
+ by compute3.internal (MEProxy); Tue, 01 Sep 2020 13:26:08 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=fraction.io; h=
+ mime-version:message-id:in-reply-to:references:date:from:to:cc
+ :subject:content-type; s=fm2; bh=urwAh98yFS4GvX1mtV+aas1U8pd9j8n
+ e6aRau1JoE34=; b=oWe5ceb7kmi54kWF909odvkKgfiK8nFpaC55iIJ7KBjokuP
+ n+MYnhCMzZ3JKnMBqnZkeHGWGP31+tv4dbcG7acYUakzebOKQp7eB1YZuwJ1rT47
+ vZd33j0V99QTOrX/WtFiEiid44o5lgMTxN1F16iCpUMPMjf0dd5aWgkqkl9yp9Z2
+ HTqcfmMn6zFTO1oaHLiu0tFh/3ElhFR7FIY/XR4bn2Z2HXf9YZqR1vTnEF2ue4TA
+ kYyIikL31uVhJFsCGyB18C1ws1NWa4Nn+95q5BywQD1dorQlCDyuUM5pwg/fSdgE
+ FSpBgdJnOQIVbcI11TS6+F9/axERAWkBaKvD+gA==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to:x-me-proxy
+ :x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; bh=urwAh9
+ 8yFS4GvX1mtV+aas1U8pd9j8ne6aRau1JoE34=; b=VvWApi+2b1JP1uo9gUdbbM
+ ajzb1dLb2Jnv+2GgizC7roj6bPbbb3QPeK3GizKE5Vd74NS/HcPZzCLYGc6YZ+mm
+ ia0iAPZsd66vQDLSO0OooGmy7L5aBDrXBk42jhOYhcRIAjvV3PrWEpJWy/9f7o0m
+ HxkkM4VZKwGjFzJn3DRdG4MxztXhVQFwKD5dbz7hhkpxL3scKnUF5DS6YGJhrOJX
+ ADbPCJO4xkXta/uW9jwBZfuigCKFIar2CyVCjheBcqNgTP8U5TXJl8tvnGzt0aFm
+ u+FYiMEKG40fbw5PIlbX8U/uRM8y9Gmx/MGBHJhCvr0t+bqoA2DIoMk6D/3TLnlw
+ ==
+X-ME-Sender: <xms:LYROX4ojsH9jW6_SSPxUveM6v7fzUz9ARLTgGWfhSpOQEPp8oyvAuQ>
+ <xme:LYROX-o5G1UPwwF9nVKDwv3Tqd28-erhXPDnV2Z9ES48Cqyo9Tf2GyXrPHQDZjD22
+ mAASL2Iq_9p9UVLNw>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeduiedrudefjedguddugecutefuodetggdotefrod
+ ftvfcurfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfgh
+ necuuegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmd
+ enucfjughrpefofgggkfgjfhffhffvufgtsehttdertderreejnecuhfhrohhmpedfvehh
+ rhhishhtihgrnhcuuehunhguhidfuceotghhrhhishhtihgrnhgsuhhnugihsehfrhgrtg
+ htihhonhdrihhoqeenucggtffrrghtthgvrhhnpeeuuddtffdvudeljeeihfeiueegledu
+ uedvveehieetffehjefgffehffevvdefheenucffohhmrghinhepshhpihhnihgtshdrnh
+ gvthenucevlhhushhtvghrufhiiigvpedtnecurfgrrhgrmhepmhgrihhlfhhrohhmpegt
+ hhhrihhsthhirghnsghunhguhiesfhhrrggtthhiohhnrdhioh
+X-ME-Proxy: <xmx:LYROX9M8uPnN519MC0f_xueuBbjIpigecqtqaemIq2yEvrPYebO3Eg>
+ <xmx:LYROX_7jfitgd_ObYx5Vkwklp0Oe1OtrjXi5b_SiRaXJI-8K1tAXow>
+ <xmx:LYROX34LSTThNSgKXrdUh5rPQ6szQ562dYeu9t5v7EgG4UAuaw9dzA>
+ <xmx:L4ROX62D2ctYiCZm1ayUxPBDekmRoPF2jXVeBvBeXc9goz9VSc8-7w>
+Received: by mailuser.nyi.internal (Postfix, from userid 501)
+ id 94779C200A5; Tue,  1 Sep 2020 13:26:05 -0400 (EDT)
+X-Mailer: MessagingEngine.com Webmail Interface
+User-Agent: Cyrus-JMAP/3.3.0-248-gcd102cb-fm-20200901.001-gcd102cb9
+Mime-Version: 1.0
+Message-Id: <b16e4a3e-800d-40b9-ad88-af8caa65c4a3@www.fastmail.com>
+In-Reply-To: <c93c0522-d8b7-e4c4-b11b-80646cfd0432@intel.com>
+References: <9bc5b3ac-87a0-4d7c-abfd-2407db90d310@www.fastmail.com>
+ <28ee99bc-fe27-9111-893b-1cb000067a7c@intel.com>
+ <026aa0fd558b8b91a67a868a25eb84d8749101b7.camel@linux.intel.com>
+ <c93c0522-d8b7-e4c4-b11b-80646cfd0432@intel.com>
+Date: Tue, 01 Sep 2020 10:25:40 -0700
+From: "Christian Bundy" <christianbundy@fraction.io>
+To: "Cezary Rojewski" <cezary.rojewski@intel.com>,
+ "Liam Girdwood" <liam.r.girdwood@linux.intel.com>
+Subject: =?UTF-8?Q?Re:_[bug_report]_'ASoC:_Intel:_haswell:_Power_transition_refac?=
+ =?UTF-8?Q?tor'_and_PulseAudio?=
+Content-Type: text/plain
+Cc: zwisler@google.com, alsa-devel@alsa-project.org, broonie@kernel.org,
+ yang.jie@linux.intel.com,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -82,54 +120,44 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Tue, Sep 01, 2020 at 07:12:41PM +0200, Thomas Bogendoerfer wrote:
-> On Tue, Sep 01, 2020 at 05:22:09PM +0200, Thomas Bogendoerfer wrote:
-> > On Wed, Aug 19, 2020 at 08:55:49AM +0200, Christoph Hellwig wrote:
-> > > Use the proper modern API to transfer cache ownership for incoherent DMA.
-> > > 
-> > > Signed-off-by: Christoph Hellwig <hch@lst.de>
-> > > ---
-> > >  drivers/net/ethernet/seeq/sgiseeq.c | 12 ++++++++----
-> > >  1 file changed, 8 insertions(+), 4 deletions(-)
-> > > 
-> > > diff --git a/drivers/net/ethernet/seeq/sgiseeq.c b/drivers/net/ethernet/seeq/sgiseeq.c
-> > > index 39599bbb5d45b6..f91dae16d69a19 100644
-> > > --- a/drivers/net/ethernet/seeq/sgiseeq.c
-> > > +++ b/drivers/net/ethernet/seeq/sgiseeq.c
-> > > @@ -112,14 +112,18 @@ struct sgiseeq_private {
-> > >  
-> > >  static inline void dma_sync_desc_cpu(struct net_device *dev, void *addr)
-> > >  {
-> > > -	dma_cache_sync(dev->dev.parent, addr, sizeof(struct sgiseeq_rx_desc),
-> > > -		       DMA_FROM_DEVICE);
-> > > +	struct sgiseeq_private *sp = netdev_priv(dev);
-> > > +
-> > > +	dma_sync_single_for_cpu(dev->dev.parent, VIRT_TO_DMA(sp, addr),
-> > > +			sizeof(struct sgiseeq_rx_desc), DMA_BIDIRECTIONAL);
-> > >  }
-> > >  
-> > >  static inline void dma_sync_desc_dev(struct net_device *dev, void *addr)
-> > >  {
-> > > -	dma_cache_sync(dev->dev.parent, addr, sizeof(struct sgiseeq_rx_desc),
-> > > -		       DMA_TO_DEVICE);
-> > > +	struct sgiseeq_private *sp = netdev_priv(dev);
-> > > +
-> > > +	dma_sync_single_for_device(dev->dev.parent, VIRT_TO_DMA(sp, addr),
-> > > +			sizeof(struct sgiseeq_rx_desc), DMA_BIDIRECTIONAL);
-> > >  }
-> > 
-> > this breaks ethernet on IP22 completely, but I haven't figured out why, yet.
-> 
-> the problem is that dma_sync_single_for_cpu() doesn't flush anything
-> for IP22, because it only flushes for CPUs which do speculation. So
-> either MIPS arch_sync_dma_for_cpu() should always flush or sgiseeq
-> needs to use a different sync funktion, when it wants to re-read descriptors
-> from memory.
+Thanks for the quick response. This is great. I've tested the patch and confirmed that it works.
 
-Well, if IP22 doesn't speculate (which I'm pretty sure is the case),
-dma_sync_single_for_cpu should indeeed be a no-op.  But then there
-also shouldn't be anything in the cache, as the previous
-dma_sync_single_for_device should have invalidated it.  So it seems like
-we are missing one (or more) ownership transfers to the device.  I'll
-try to look at the the ownership management in a little more detail
-tomorrow.
+On Tue, Sep 1, 2020, at 08:37, Cezary Rojewski wrote:
+> On 2020-09-01 5:23 PM, Liam Girdwood wrote:
+> > On Tue, 2020-09-01 at 13:33 +0200, Cezary Rojewski wrote:
+> 
+> ...
+> 
+> >>
+> >> Hello Christian,
+> >>
+> >> Thank you for report! Issue is a known one to us and has already
+> >> been
+> >> addressed by:
+> >>
+> >> 	[PATCH v4 00/13] ASoC: Intel: Catpt - Lynx and Wildcat point
+> >> 	https://www.spinics.net/lists/alsa-devel/msg113762.html
+> >>
+> >> waiting for final dependency to be merged (Andy's resource-API
+> >> changes,
+> >> as Mark already added the SPI ones) so v5 with review changes can be
+> >> provided. Shouldn't be long before this gets merged. As consequence,
+> >> /haswell/ ceases to exist.
+> >>
+> > 
+> > Please also don't forget that the new BDW HW register programming flows
+> > need to be shared as common code with the SOF BDW driver.
+> > 
+> > Thanks
+> > 
+> > Liam
+> > 
+> 
+> I don't believe this is related to Christian's report.
+> 
+> Anyway, revert-patch for sound/soc/intel/haswell/ solution has been 
+> provided so it can be later propagated to v5.8 and v5.9 -stable with 
+> matching upstream commit's sha-id.
+> 
+> Czarek
+>

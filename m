@@ -2,72 +2,88 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id AE33E259D62
-	for <lists+alsa-devel@lfdr.de>; Tue,  1 Sep 2020 19:40:38 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2F934259D79
+	for <lists+alsa-devel@lfdr.de>; Tue,  1 Sep 2020 19:44:01 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 5574D17E4;
-	Tue,  1 Sep 2020 19:39:48 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5574D17E4
+	by alsa0.perex.cz (Postfix) with ESMTPS id A08F317E4;
+	Tue,  1 Sep 2020 19:43:10 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A08F317E4
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1598982038;
-	bh=TEUEbM4vYkBXFl3cUjFLyyUZlmdbqw/yLXBsVNcG3WY=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1598982240;
+	bh=itQXTaS+DasNetAiGRc5YbzjBV9Zf8FN8JsytvjJ9bY=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=qCJnTwxmDFCTKy+ABC7uJf3sUgT/G2EYKdvpOyZs3wgwHWbuNpscbPaQtv8x3Rrz5
-	 EN1c33LGeeVjRMLUjrLufUilqNLU1027O0K361Oj4vuD9G+608BCgQjanVuJVvukSo
-	 l4baR+LBP5DkLJfxsD0SGUmYOgaOTCM3FX0UrYmk=
+	b=nKjebd/tjoEZkyFc++BGnf0aZzvMSo6JJlfPpOL9yFm+rcEmX5/4FF+Xu8qOxorbB
+	 YcZcmwC9ZwXdzEHMbAaVLRx8eZnOwhxJBPAg9T2twn4u5WrV3J+kg75EQ4t473qgzP
+	 Ww2IBbOpqQ7+CtgEQvsYbFKX7w2LzA5uCryFwizA=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 89C3BF8021D;
-	Tue,  1 Sep 2020 19:38:57 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id CEC36F800BA;
+	Tue,  1 Sep 2020 19:42:19 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 01D4AF80217; Tue,  1 Sep 2020 19:38:54 +0200 (CEST)
+ id C75C4F80217; Tue,  1 Sep 2020 19:42:17 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_PASS,SPF_NONE
- autolearn=disabled version=3.4.0
-Received: from elvis.franken.de (elvis.franken.de [193.175.24.41])
- by alsa1.perex.cz (Postfix) with ESMTP id 86457F800BA
- for <alsa-devel@alsa-project.org>; Tue,  1 Sep 2020 19:38:48 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 86457F800BA
-Received: from uucp (helo=alpha)
- by elvis.franken.de with local-bsmtp (Exim 3.36 #1)
- id 1kDAF0-0004vS-00; Tue, 01 Sep 2020 19:38:42 +0200
-Received: by alpha.franken.de (Postfix, from userid 1000)
- id 46A35C0E70; Tue,  1 Sep 2020 19:38:10 +0200 (CEST)
-Date: Tue, 1 Sep 2020 19:38:10 +0200
-From: Thomas Bogendoerfer <tsbogend@alpha.franken.de>
-To: Christoph Hellwig <hch@lst.de>
-Subject: Re: [PATCH 22/28] sgiseeq: convert from dma_cache_sync to
- dma_sync_single_for_device
-Message-ID: <20200901173810.GA25282@alpha.franken.de>
-References: <20200819065555.1802761-1-hch@lst.de>
- <20200819065555.1802761-23-hch@lst.de>
- <20200901152209.GA14288@alpha.franken.de>
- <20200901171241.GA20685@alpha.franken.de>
- <20200901171627.GA8255@lst.de>
+X-Spam-Status: No, score=-16.1 required=5.0 tests=DKIMWL_WL_MED,DKIM_SIGNED,
+ DKIM_VALID,DKIM_VALID_AU,ENV_AND_HDR_SPF_MATCH,SPF_HELO_NONE,SPF_PASS,
+ USER_IN_DEF_DKIM_WL,USER_IN_DEF_SPF_WL autolearn=disabled version=3.4.0
+Received: from mail-pj1-x1044.google.com (mail-pj1-x1044.google.com
+ [IPv6:2607:f8b0:4864:20::1044])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id BDF9EF801EB
+ for <alsa-devel@alsa-project.org>; Tue,  1 Sep 2020 19:42:10 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BDF9EF801EB
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=google.com header.i=@google.com
+ header.b="tYjWjwxP"
+Received: by mail-pj1-x1044.google.com with SMTP id b16so772649pjp.0
+ for <alsa-devel@alsa-project.org>; Tue, 01 Sep 2020 10:42:09 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=oADnpVnhuzHJnPApJ9kIojrHq2eqkgYQRcAqIs0z0NY=;
+ b=tYjWjwxPr0KmCCesr5cpdQVclvQX2lHtsn6mThnuSuwoIkTfTALNKOWdscS0oA+A5c
+ WapSqTzs0o8TV8mfYcNhDS79CPLiX026NaMf9kWdbTCJeKw/T/xQmyP4E9/uXLyRcXJ2
+ KeV5YBHMey+XSJCK/Crw64DBSCaN509bwNCgqAzczLOnX0ITSP2bwt+9WHllKCW+8YvE
+ Smm3iD45iDt7iI4Ga+Zh11WmgsltN9OKT5VlYxOMgR/6eMM3dnE9CnfHT8q7mdmVYs1R
+ 1C23Vj2Xeo6uaXFa8XCdR6guZYfFTduAgAmolg6yXEUqGI+/34FqDp7vKi8kMRzKIN7f
+ bI6w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=oADnpVnhuzHJnPApJ9kIojrHq2eqkgYQRcAqIs0z0NY=;
+ b=A9Iek9FmfJkjr4DErTsZ7MTKR6OoAMh5KpoRyEova4oNRp3+axUdIM9vW3hKTWguoi
+ RMj3uSrSGVsYG4dnXaq41rlx0AwKxT/vblhUU91cWsTcUnfdxRRMZwW+1rNcy6g5eVF0
+ Rvab1eH3NjxWTLLaGCyGHQh9GNm1s29mcLIzeIzsZ6MBX859WWP5pEqW3rvCJm3a1ReA
+ 5UXmBjh2QTjyLliko/eJ3rpn5ZIXj0AbLfK2/jZXnQYE6S0ZrwzK/0GCosQNIlzPfp9D
+ BlzRfAIn8x29QaC8qqrayN/KBm/2yVRQmZ3rqCYvYlmCes4Qxot/moeligkLsOWBg24M
+ TE7A==
+X-Gm-Message-State: AOAM533pYmqyBl+abb7wi5PZz1GGcFjtXNRiYxpjjThxtIN+Rzx++0hJ
+ LQaKv1RHzkSc1Rvd1s5XveovPTM5z9CQb9L17a+P6w==
+X-Google-Smtp-Source: ABdhPJxM50938pUVlUK9XqlpjvVyutM77s5En1MbJNd//hDIEsEqDJXdPcaXt0T87RXZE12W08Q/NMM4z13H4Qoiw8M=
+X-Received: by 2002:a17:90b:889:: with SMTP id
+ bj9mr2665819pjb.101.1598982126505; 
+ Tue, 01 Sep 2020 10:42:06 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20200901171627.GA8255@lst.de>
-User-Agent: Mutt/1.5.23 (2014-03-12)
-Cc: alsa-devel@alsa-project.org, linux-ia64@vger.kernel.org,
- linux-doc@vger.kernel.org, nouveau@lists.freedesktop.org,
- linux-nvme@lists.infradead.org, linux-mips@vger.kernel.org,
- "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>,
- linux-mm@kvack.org, Marek Szyprowski <m.szyprowski@samsung.com>,
- linux-samsung-soc@vger.kernel.org, Joonyoung Shim <jy0922.shim@samsung.com>,
- linux-scsi@vger.kernel.org, iommu@lists.linux-foundation.org,
- Ben Skeggs <bskeggs@redhat.com>, Matt Porter <mporter@kernel.crashing.org>,
- linux-media@vger.kernel.org, Tom Lendacky <thomas.lendacky@amd.com>,
- Pawel Osciak <pawel@osciak.com>, Mauro Carvalho Chehab <mchehab@kernel.org>,
- linux-arm-kernel@lists.infradead.org, linux-parisc@vger.kernel.org,
- netdev@vger.kernel.org, Seung-Woo Kim <sw0312.kim@samsung.com>,
- linux-kernel@vger.kernel.org, Kyungmin Park <kyungmin.park@samsung.com>
+References: <20200829153515.3840-1-trix@redhat.com>
+ <20200901110244.GZ2639@vkoul-mobl>
+In-Reply-To: <20200901110244.GZ2639@vkoul-mobl>
+From: Nick Desaulniers <ndesaulniers@google.com>
+Date: Tue, 1 Sep 2020 10:41:55 -0700
+Message-ID: <CAKwvOdkK12Af7hdzDYk2FD+0Y8fXwLviRL2Xxjatuk61O3JQjA@mail.gmail.com>
+Subject: Re: [PATCH] soundwire: fix error handling
+To: Vinod Koul <vkoul@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Cc: alsa-devel@alsa-project.org, Tom Rix <trix@redhat.com>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ LKML <linux-kernel@vger.kernel.org>, shreyas.nc@intel.com,
+ Nathan Chancellor <natechancellor@gmail.com>, yung-chuan.liao@linux.intel.com,
+ Sanyog Kale <sanyog.r.kale@intel.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -83,28 +99,54 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Tue, Sep 01, 2020 at 07:16:27PM +0200, Christoph Hellwig wrote:
-> Well, if IP22 doesn't speculate (which I'm pretty sure is the case),
-> dma_sync_single_for_cpu should indeeed be a no-op.  But then there
-> also shouldn't be anything in the cache, as the previous
-> dma_sync_single_for_device should have invalidated it.  So it seems like
-> we are missing one (or more) ownership transfers to the device.  I'll
-> try to look at the the ownership management in a little more detail
-> tomorrow.
+On Tue, Sep 1, 2020 at 4:02 AM Vinod Koul <vkoul@kernel.org> wrote:
+>
+> Hello Tom,
+>
+> On 29-08-20, 08:35, trix@redhat.com wrote:
+> > From: Tom Rix <trix@redhat.com>
+> >
+> > clang static analysis flags this problem
+> >
+> > stream.c:844:9: warning: Use of memory after
+> >   it is freed
+> >         kfree(bus->defer_msg.msg->buf);
+> >               ^~~~~~~~~~~~~~~~~~~~~~~
+> >
+> > This happens in an error handler cleaning up memory
+> > allocated for elements in a list.
+> >
+> >       list_for_each_entry(m_rt, &stream->master_list, stream_node) {
+> >               bus = m_rt->bus;
+> >
+> >               kfree(bus->defer_msg.msg->buf);
+> >               kfree(bus->defer_msg.msg);
+> >       }
+> >
+> > And is triggered when the call to sdw_bank_switch() fails.
+> > There are a two problems.
+> >
+> > First, when sdw_bank_switch() fails, though it frees memory it
+> > does not clear bus's reference 'defer_msg.msg' to that memory.
+> >
+> > The second problem is the freeing msg->buf. In some cases
+> > msg will be NULL so this will dereference a null pointer.
+> > Need to check before freeing.
+>
+> The change looks good to me, but the title of patch should be revised.
+>
+> The patch subject should describe the patch, in this case is setting
+> pointer to null on cleanup, so an appropriate subject may be"
+> "[PATCH]: soundwire: set defer_msg to null".
+>
+> Please revise subject line and update including the ack/reviews
+> received
 
-this is the problem:
+That's fair, I think
+soundwire: fix double free of dangling pointer
+would be most precise.
 
-       /* Always check for received packets. */
-        sgiseeq_rx(dev, sp, hregs, sregs);
-
-so the driver will look at the rx descriptor on every interrupt, so
-we cache the rx descriptor on the first interrupt and if there was
-$no rx packet, we will only see it, if cache line gets flushed for
-some other reason. kick_tx() does a busy loop checking tx descriptors,
-with just sync_desc_cpu...
-
-Thomas.
 
 -- 
-Crap can work. Given enough thrust pigs will fly, but it's not necessarily a
-good idea.                                                [ RFC1925, 2.3 ]
+Thanks,
+~Nick Desaulniers

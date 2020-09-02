@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id AF04625A9FD
-	for <lists+alsa-devel@lfdr.de>; Wed,  2 Sep 2020 13:06:13 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id CBA1A25AA00
+	for <lists+alsa-devel@lfdr.de>; Wed,  2 Sep 2020 13:06:52 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id EAD071840;
-	Wed,  2 Sep 2020 13:05:22 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EAD071840
+	by alsa0.perex.cz (Postfix) with ESMTPS id 6E1E3184E;
+	Wed,  2 Sep 2020 13:06:02 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6E1E3184E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1599044773;
-	bh=E1iutx9WJV6ikxgtXBWCaYP7b/Z6blJgiTOA58pOvyk=;
+	s=default; t=1599044812;
+	bh=NXgeav573xoVWsJ9e7SLPQ8svoQ2BcSre88zTAW0a84=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=ArEANKN1uhgyOS8YZLoQHu5W8YF9UWd2gMBFihGZxSoFFlU5FWCqt216dWY7qIq3q
-	 XOeEPD2nXnYJLtK+/rRSfdz32SIMMs9UrzFoQ12lhBajaEfX5tP2Tv7xMKaNsDkJHQ
-	 bbB2QVvDxqOZXMIrh9JCnOIomkSoiKHaiFdTzsU0=
+	b=dm3FVlWjoFM73MDEu18IaRY/19TmA3On182dGhqqOantfTAv1O5TjvldHaRz1mjSp
+	 iCxDNdqVTyY/uN+yR3aU1/Z5MZQZECfeG7RWJPjPEWW5dIcj1T93T/YeruMx+JKt+o
+	 rG0nGBEUTZTRQQwJC4F4Wn0GZHlYadIJTiF4eGIQ=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 99E8DF802FF;
-	Wed,  2 Sep 2020 13:01:26 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 82F2CF80304;
+	Wed,  2 Sep 2020 13:01:27 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id C1DEFF802E9; Wed,  2 Sep 2020 13:01:20 +0200 (CEST)
+ id 53A9BF802FB; Wed,  2 Sep 2020 13:01:23 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -34,41 +34,43 @@ X-Spam-Status: No, score=0.0 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id C5620F801DA
- for <alsa-devel@alsa-project.org>; Wed,  2 Sep 2020 13:01:13 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C5620F801DA
+ by alsa1.perex.cz (Postfix) with ESMTPS id 4EED5F802D2
+ for <alsa-devel@alsa-project.org>; Wed,  2 Sep 2020 13:01:16 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4EED5F802D2
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="gt3NCBHK"
+ header.b="LN8KTAvs"
 Received: from localhost (83-86-74-64.cable.dynamic.v4.ziggo.nl [83.86.74.64])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
  bits)) (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id B0C0B214D8;
- Wed,  2 Sep 2020 11:01:11 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id 621652098B;
+ Wed,  2 Sep 2020 11:01:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1599044472;
- bh=E1iutx9WJV6ikxgtXBWCaYP7b/Z6blJgiTOA58pOvyk=;
+ s=default; t=1599044475;
+ bh=NXgeav573xoVWsJ9e7SLPQ8svoQ2BcSre88zTAW0a84=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=gt3NCBHKSdY2RjF68I/q2GKRHZrk3JtGCfRWwDIR9aFOSwqPHhPYgFrw/MEL43Huz
- CHE4lelNoCwVT4310VKgByrBGxUphAUvZfDjn0OLhQ7Vf7R1/jJ8ahgR0xBzFwuBT8
- D1HiUdB2YP2oYhW5TzFInNrihD1IWDfwn3VfTq8A=
+ b=LN8KTAvshdpXMQxfJz2GAfxA34G5mquJQFmkcoLMqumsTybBV/KzvVmSQj8cEnAPq
+ 5wxM7bZYVIexRH0dBH6DP/uU5J+0naKKCegjXSjrYLmO3nl0dW8OvKbpcZSacQwlzS
+ MtAidBU3SMfrFtUFmUTkntIy31bd96kWh9SGToEQ=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: himadrispandya@gmail.com,
 	dvyukov@google.com,
 	linux-usb@vger.kernel.org
-Subject: [PATCH 02/10] USB: add usb_control_msg_send() and
- usb_control_msg_recv()
-Date: Wed,  2 Sep 2020 13:01:04 +0200
-Message-Id: <20200902110115.1994491-3-gregkh@linuxfoundation.org>
+Subject: [PATCH 03/10] USB: core: message.c: use usb_control_msg_send() in a
+ few places
+Date: Wed,  2 Sep 2020 13:01:05 +0200
+Message-Id: <20200902110115.1994491-4-gregkh@linuxfoundation.org>
 X-Mailer: git-send-email 2.28.0
 In-Reply-To: <20200902110115.1994491-1-gregkh@linuxfoundation.org>
 References: <20200902110115.1994491-1-gregkh@linuxfoundation.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Cc: alsa-devel@alsa-project.org, johan.hedberg@gmail.com,
+Cc: alsa-devel@alsa-project.org,
+ Andy Shevchenko <andriy.shevchenko@linux.intel.com>, johan.hedberg@gmail.com,
  Greg Kroah-Hartman <gregkh@linuxfoundation.org>, marcel@holtmann.org,
- linux-kernel@vger.kernel.org, tiwai@suse.com, stern@rowland.harvard.ed,
- linux-bluetooth@vger.kernel.org
+ "Rafael J. Wysocki" <rafael.j.wysocki@intel.com>, linux-kernel@vger.kernel.org,
+ tiwai@suse.com, stern@rowland.harvard.ed, linux-bluetooth@vger.kernel.org,
+ Alan Stern <stern@rowland.harvard.edu>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -84,187 +86,105 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-New core functions to make sending/receiving USB control messages easier
-and saner.
+There are a few calls to usb_control_msg() that can be converted to use
+usb_control_msg_send() instead, so do that in order to make the error
+checking a bit simpler.
 
-In discussions, it turns out that the large majority of users of
-usb_control_msg() do so in potentially incorrect ways.  The most common
-issue is where a "short" message is received, yet never detected
-properly due to "incorrect" error handling.
-
-Handle all of this in the USB core with two new functions to try to make
-working with USB control messages simpler.
-
-No more need for dynamic data, messages can be on the stack, and only
-"complete" send/receive will work without causing an error.
-
+Cc: Alan Stern <stern@rowland.harvard.edu>
+Cc: "Rafael J. Wysocki" <rafael.j.wysocki@intel.com>
+Cc: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+Cc: linux-usb@vger.kernel.org
 Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 ---
- drivers/usb/core/message.c | 133 +++++++++++++++++++++++++++++++++++++
- include/linux/usb.h        |   6 ++
- 2 files changed, 139 insertions(+)
+ drivers/usb/core/message.c | 38 +++++++++++++++++++-------------------
+ 1 file changed, 19 insertions(+), 19 deletions(-)
 
 diff --git a/drivers/usb/core/message.c b/drivers/usb/core/message.c
-index 6197938dcc2d..6aa49b237717 100644
+index 6aa49b237717..dfd079485c76 100644
 --- a/drivers/usb/core/message.c
 +++ b/drivers/usb/core/message.c
-@@ -162,6 +162,139 @@ int usb_control_msg(struct usb_device *dev, unsigned int pipe, __u8 request,
- }
- EXPORT_SYMBOL_GPL(usb_control_msg);
+@@ -1081,7 +1081,7 @@ int usb_set_isoch_delay(struct usb_device *dev)
+ 	if (dev->speed < USB_SPEED_SUPER)
+ 		return 0;
  
-+/**
-+ * usb_control_msg_send - Builds a control "send" message, sends it off and waits for completion
-+ * @dev: pointer to the usb device to send the message to
-+ * @endpoint: endpoint to send the message to
-+ * @request: USB message request value
-+ * @requesttype: USB message request type value
-+ * @value: USB message value
-+ * @index: USB message index value
-+ * @driver_data: pointer to the data to send
-+ * @size: length in bytes of the data to send
-+ * @timeout: time in msecs to wait for the message to complete before timing
-+ *	out (if 0 the wait is forever)
-+ *
-+ * Context: !in_interrupt ()
-+ *
-+ * This function sends a control message to a specified endpoint that is not
-+ * expected to fill in a response (i.e. a "send message") and waits for the
-+ * message to complete, or timeout.
-+ *
-+ * Do not use this function from within an interrupt context. If you need
-+ * an asynchronous message, or need to send a message from within interrupt
-+ * context, use usb_submit_urb(). If a thread in your driver uses this call,
-+ * make sure your disconnect() method can wait for it to complete. Since you
-+ * don't have a handle on the URB used, you can't cancel the request.
-+ *
-+ * The data pointer can be made to a reference on the stack, or anywhere else,
-+ * as it will not be modified at all.  This does not have the restriction that
-+ * usb_control_msg() has where the data pointer must be to dynamically allocated
-+ * memory (i.e. memory that can be successfully DMAed to a device).
-+ *
-+ * Return: If successful, 0 is returned, Otherwise, a negative error number.
-+ */
-+int usb_control_msg_send(struct usb_device *dev, __u8 endpoint, __u8 request,
-+			 __u8 requesttype, __u16 value, __u16 index,
-+			 const void *driver_data, __u16 size, int timeout)
-+{
-+	unsigned int pipe = usb_sndctrlpipe(dev, endpoint);
-+	int ret;
-+	u8 *data = NULL;
-+
-+	if (usb_pipe_type_check(dev, pipe))
-+		return -EINVAL;
-+
-+	if (size) {
-+		data = kmemdup(driver_data, size, GFP_KERNEL);
-+		if (!data)
-+			return -ENOMEM;
-+	}
-+
-+	ret = usb_control_msg(dev, pipe, request, requesttype, value, index,
-+			      data, size, timeout);
-+	kfree(data);
-+
-+	if (ret < 0)
-+		return ret;
-+	if (ret == size)
-+		return 0;
-+	return -EINVAL;
-+}
-+EXPORT_SYMBOL_GPL(usb_control_msg_send);
-+
-+/**
-+ * usb_control_msg_recv - Builds a control "receive" message, sends it off and waits for completion
-+ * @dev: pointer to the usb device to send the message to
-+ * @endpoint: endpoint to send the message to
-+ * @request: USB message request value
-+ * @requesttype: USB message request type value
-+ * @value: USB message value
-+ * @index: USB message index value
-+ * @driver_data: pointer to the data to be filled in by the message
-+ * @size: length in bytes of the data to be received
-+ * @timeout: time in msecs to wait for the message to complete before timing
-+ *	out (if 0 the wait is forever)
-+ *
-+ * Context: !in_interrupt ()
-+ *
-+ * This function sends a control message to a specified endpoint that is
-+ * expected to fill in a response (i.e. a "receive message") and waits for the
-+ * message to complete, or timeout.
-+ *
-+ * Do not use this function from within an interrupt context. If you need
-+ * an asynchronous message, or need to send a message from within interrupt
-+ * context, use usb_submit_urb(). If a thread in your driver uses this call,
-+ * make sure your disconnect() method can wait for it to complete. Since you
-+ * don't have a handle on the URB used, you can't cancel the request.
-+ *
-+ * The data pointer can be made to a reference on the stack, or anywhere else
-+ * that can be successfully written to.  This function does not have the
-+ * restriction that usb_control_msg() has where the data pointer must be to
-+ * dynamically allocated memory (i.e. memory that can be successfully DMAed to a
-+ * device).
-+ *
-+ * The "whole" message must be properly received from the device in order for
-+ * this function to be successful.  If a device returns less than the expected
-+ * amount of data, then the function will fail.  Do not use this for messages
-+ * where a variable amount of data might be returned.
-+ *
-+ * Return: If successful, 0 is returned, Otherwise, a negative error number.
-+ */
-+int usb_control_msg_recv(struct usb_device *dev, __u8 endpoint, __u8 request,
-+			 __u8 requesttype, __u16 value, __u16 index,
-+			 void *driver_data, __u16 size, int timeout)
-+{
-+	unsigned int pipe = usb_rcvctrlpipe(dev, endpoint);
-+	int ret;
-+	u8 *data;
-+
-+	if (!size || !driver_data || usb_pipe_type_check(dev, pipe))
-+		return -EINVAL;
-+
-+	data = kmalloc(size, GFP_KERNEL);
-+	if (!data)
-+		return -ENOMEM;
-+
-+	ret = usb_control_msg(dev, pipe, request, requesttype, value, index,
-+			      data, size, timeout);
-+
-+	if (ret < 0)
-+		goto exit;
-+
-+	if (ret == size) {
-+		memcpy(driver_data, data, size);
-+		ret = 0;
-+	} else {
-+		ret = -EINVAL;
-+	}
-+
-+exit:
-+	kfree(data);
-+	return ret;
-+}
-+EXPORT_SYMBOL_GPL(usb_control_msg_recv);
-+
- /**
-  * usb_interrupt_msg - Builds an interrupt urb, sends it off and waits for completion
-  * @usb_dev: pointer to the usb device to send the message to
-diff --git a/include/linux/usb.h b/include/linux/usb.h
-index 0b3963d7ec38..a5460f08126e 100644
---- a/include/linux/usb.h
-+++ b/include/linux/usb.h
-@@ -1802,6 +1802,12 @@ extern int usb_bulk_msg(struct usb_device *usb_dev, unsigned int pipe,
- 	int timeout);
+-	return usb_control_msg(dev, usb_sndctrlpipe(dev, 0),
++	return usb_control_msg_send(dev, 0,
+ 			USB_REQ_SET_ISOCH_DELAY,
+ 			USB_DIR_OUT | USB_TYPE_STANDARD | USB_RECIP_DEVICE,
+ 			dev->hub_delay, 0, NULL, 0,
+@@ -1203,13 +1203,13 @@ int usb_clear_halt(struct usb_device *dev, int pipe)
+ 	 * (like some ibmcam model 1 units) seem to expect hosts to make
+ 	 * this request for iso endpoints, which can't halt!
+ 	 */
+-	result = usb_control_msg(dev, usb_sndctrlpipe(dev, 0),
+-		USB_REQ_CLEAR_FEATURE, USB_RECIP_ENDPOINT,
+-		USB_ENDPOINT_HALT, endp, NULL, 0,
+-		USB_CTRL_SET_TIMEOUT);
++	result = usb_control_msg_send(dev, 0,
++				      USB_REQ_CLEAR_FEATURE, USB_RECIP_ENDPOINT,
++				      USB_ENDPOINT_HALT, endp, NULL, 0,
++				      USB_CTRL_SET_TIMEOUT);
  
- /* wrappers around usb_control_msg() for the most common standard requests */
-+int usb_control_msg_send(struct usb_device *dev, __u8 endpoint, __u8 request,
-+			 __u8 requesttype, __u16 value, __u16 index,
-+			 const void *data, __u16 size, int timeout);
-+int usb_control_msg_recv(struct usb_device *dev, __u8 endpoint, __u8 request,
-+			 __u8 requesttype, __u16 value, __u16 index,
-+			 void *data, __u16 size, int timeout);
- extern int usb_get_descriptor(struct usb_device *dev, unsigned char desctype,
- 	unsigned char descindex, void *buf, int size);
- extern int usb_get_status(struct usb_device *dev,
+ 	/* don't un-halt or force to DATA0 except on success */
+-	if (result < 0)
++	if (result)
+ 		return result;
+ 
+ 	/* NOTE:  seems like Microsoft and Apple don't bother verifying
+@@ -1558,9 +1558,10 @@ int usb_set_interface(struct usb_device *dev, int interface, int alternate)
+ 	if (dev->quirks & USB_QUIRK_NO_SET_INTF)
+ 		ret = -EPIPE;
+ 	else
+-		ret = usb_control_msg(dev, usb_sndctrlpipe(dev, 0),
+-				   USB_REQ_SET_INTERFACE, USB_RECIP_INTERFACE,
+-				   alternate, interface, NULL, 0, 5000);
++		ret = usb_control_msg_send(dev, 0,
++					   USB_REQ_SET_INTERFACE,
++					   USB_RECIP_INTERFACE, alternate,
++					   interface, NULL, 0, 5000);
+ 
+ 	/* 9.4.10 says devices don't need this and are free to STALL the
+ 	 * request if the interface only has one alternate setting.
+@@ -1570,7 +1571,7 @@ int usb_set_interface(struct usb_device *dev, int interface, int alternate)
+ 			"manual set_interface for iface %d, alt %d\n",
+ 			interface, alternate);
+ 		manual = 1;
+-	} else if (ret < 0) {
++	} else if (ret) {
+ 		/* Re-instate the old alt setting */
+ 		usb_hcd_alloc_bandwidth(dev, NULL, alt, iface->cur_altsetting);
+ 		usb_enable_lpm(dev);
+@@ -1718,11 +1719,10 @@ int usb_reset_configuration(struct usb_device *dev)
+ 		mutex_unlock(hcd->bandwidth_mutex);
+ 		return retval;
+ 	}
+-	retval = usb_control_msg(dev, usb_sndctrlpipe(dev, 0),
+-			USB_REQ_SET_CONFIGURATION, 0,
+-			config->desc.bConfigurationValue, 0,
+-			NULL, 0, USB_CTRL_SET_TIMEOUT);
+-	if (retval < 0)
++	retval = usb_control_msg_send(dev, 0, USB_REQ_SET_CONFIGURATION, 0,
++				      config->desc.bConfigurationValue, 0,
++				      NULL, 0, USB_CTRL_SET_TIMEOUT);
++	if (retval)
+ 		goto reset_old_alts;
+ 	mutex_unlock(hcd->bandwidth_mutex);
+ 
+@@ -2103,10 +2103,10 @@ int usb_set_configuration(struct usb_device *dev, int configuration)
+ 	}
+ 	kfree(new_interfaces);
+ 
+-	ret = usb_control_msg(dev, usb_sndctrlpipe(dev, 0),
+-			      USB_REQ_SET_CONFIGURATION, 0, configuration, 0,
+-			      NULL, 0, USB_CTRL_SET_TIMEOUT);
+-	if (ret < 0 && cp) {
++	ret = usb_control_msg_send(dev, 0, USB_REQ_SET_CONFIGURATION, 0,
++				   configuration, 0, NULL, 0,
++				   USB_CTRL_SET_TIMEOUT);
++	if (ret && cp) {
+ 		/*
+ 		 * All the old state is gone, so what else can we do?
+ 		 * The device is probably useless now anyway.
 -- 
 2.28.0
 

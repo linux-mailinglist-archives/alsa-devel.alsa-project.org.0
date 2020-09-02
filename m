@@ -2,73 +2,61 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6759225AEB3
-	for <lists+alsa-devel@lfdr.de>; Wed,  2 Sep 2020 17:23:23 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C5AF525AEBA
+	for <lists+alsa-devel@lfdr.de>; Wed,  2 Sep 2020 17:24:07 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id BDDA41862;
-	Wed,  2 Sep 2020 17:22:32 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BDDA41862
+	by alsa0.perex.cz (Postfix) with ESMTPS id EA6E11874;
+	Wed,  2 Sep 2020 17:23:16 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EA6E11874
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1599060202;
-	bh=x3POqbn4b/hj4C4s0Hk+zf9rTRiYWs7wlVg18R4VMcU=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1599060247;
+	bh=KE9Q0pth6DRZRWh60WV96w+CqnN8UawO7GM59bYoj0c=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=m4KWGubNK7e7EbViMepHFVxtdxfLWv4/hmgfE6k4hBDKvW+lkFiAqjVaUHXZjeltP
-	 ZXEmpwSXjl0UyHGUUFzr1UdVuAw+lz28XlOD3MfBkmLB6pXPjqen32NlrwGTfiM9su
-	 qdaKHsLlb6PnjidOUlesBJM4jUKhVsjUq+IQqd/0=
+	b=Bu+tU2vxJgz7meItKQZ9eV7ItI8FqwLTcZlsquD/J1ePsI5HU1xEihwvejYPLVaza
+	 U8V4riT7TLBHKtW1gUAK/n9Nw0IYES1J9vDZcz0+iLENn9FMVZ6Mx8JXISKpMnQtur
+	 nZsmqAV58ITU+n5cZIjffrl08omqrYza0mlW3EyE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 04900F80257;
-	Wed,  2 Sep 2020 17:21:41 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id CD5ADF8024A;
+	Wed,  2 Sep 2020 17:22:13 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 3B474F8024A; Wed,  2 Sep 2020 17:21:40 +0200 (CEST)
+ id 0C2E3F8026F; Wed,  2 Sep 2020 17:22:13 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=disabled
+X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_MSPIKE_H3,
+ RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=disabled
  version=3.4.0
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 68AB0F801DA
- for <alsa-devel@alsa-project.org>; Wed,  2 Sep 2020 17:21:28 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 68AB0F801DA
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="q+zfeqOR"
-Received: from localhost (83-86-74-64.cable.dynamic.v4.ziggo.nl [83.86.74.64])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
- bits)) (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id EADBB20767;
- Wed,  2 Sep 2020 15:21:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1599060086;
- bh=x3POqbn4b/hj4C4s0Hk+zf9rTRiYWs7wlVg18R4VMcU=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=q+zfeqOR+6hdjoTVnVBLGhd8rHUGFE0NW2iqszVvebJ6RN7fOjeJ9cbCJm8RJFvFj
- xLJfjWXjni//s3sYQxALkrMTfpdpKnCC6TVeC0gPIy18dZyCtjQEVUFnOAp8OIj8Bt
- nL0PMy9kYEOiLpMAwsIIX0r/wXP85mGZBdf6ZENw=
-Date: Wed, 2 Sep 2020 17:21:51 +0200
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: Alan Stern <stern@rowland.harvard.edu>
-Subject: Re: [PATCH 04/10] USB: core: hub.c: use usb_control_msg_send() in a
- few places
-Message-ID: <20200902152151.GA2032878@kroah.com>
-References: <20200902110115.1994491-1-gregkh@linuxfoundation.org>
- <20200902110115.1994491-5-gregkh@linuxfoundation.org>
- <20200902145701.GA624583@rowland.harvard.edu>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20200902145701.GA624583@rowland.harvard.edu>
-Cc: alsa-devel@alsa-project.org, johan.hedberg@gmail.com,
- linux-kernel@vger.kernel.org, marcel@holtmann.org, linux-usb@vger.kernel.org,
- tiwai@suse.com, stern@rowland.harvard.ed, linux-bluetooth@vger.kernel.org,
- dvyukov@google.com, himadrispandya@gmail.com
+ by alsa1.perex.cz (Postfix) with ESMTPS id B6605F8024A
+ for <alsa-devel@alsa-project.org>; Wed,  2 Sep 2020 17:22:01 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B6605F8024A
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id 44BA3AD4A;
+ Wed,  2 Sep 2020 15:22:02 +0000 (UTC)
+Date: Wed, 02 Sep 2020 17:22:00 +0200
+Message-ID: <s5h36409pbb.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: maz@kernel.org
+Subject: Re: general protection fault in snd_ctl_release
+In-Reply-To: <000000000000c15ee205ae4f2531@google.com>
+References: <000000000000c15ee205ae4f2531@google.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
+ FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
+ (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
+Content-Type: text/plain; charset=US-ASCII
+Cc: alsa-devel@alsa-project.org, tiwai@suse.com,
+ syzkaller-bugs@googlegroups.com, linux-kernel@vger.kernel.org,
+ viro@zeniv.linux.org.uk, linux-fsdevel@vger.kernel.org,
+ dan.carpenter@oracle.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -84,56 +72,67 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Wed, Sep 02, 2020 at 10:57:01AM -0400, Alan Stern wrote:
-> On Wed, Sep 02, 2020 at 01:01:06PM +0200, Greg Kroah-Hartman wrote:
-> > There are a few calls to usb_control_msg() that can be converted to use
-> > usb_control_msg_send() instead, so do that in order to make the error
-> > checking a bit simpler and the code smaller.
-> > 
-> > Cc: Alan Stern <stern@rowland.harvard.edu>
-> > Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+On Wed, 02 Sep 2020 08:57:22 +0200,
+syzbot wrote:
 > 
-> One problem in this patch...
+> Hello,
 > 
-> > @@ -3896,27 +3875,14 @@ static int usb_req_set_sel(struct usb_device *udev, enum usb3_link_state state)
-> >  	if (u2_pel > USB3_LPM_MAX_U2_SEL_PEL)
-> >  		u2_pel = USB3_LPM_MAX_U2_SEL_PEL;
-> >  
-> > -	/*
-> > -	 * usb_enable_lpm() can be called as part of a failed device reset,
-> > -	 * which may be initiated by an error path of a mass storage driver.
-> > -	 * Therefore, use GFP_NOIO.
-> > -	 */
-> > -	sel_values = kmalloc(sizeof *(sel_values), GFP_NOIO);
-> > -	if (!sel_values)
-> > -		return -ENOMEM;
-> > -
-> > -	sel_values->u1_sel = u1_sel;
-> > -	sel_values->u1_pel = u1_pel;
-> > -	sel_values->u2_sel = cpu_to_le16(u2_sel);
-> > -	sel_values->u2_pel = cpu_to_le16(u2_pel);
-> > +	sel_values.u1_sel = u1_sel;
-> > +	sel_values.u1_pel = u1_pel;
-> > +	sel_values.u2_sel = cpu_to_le16(u2_sel);
-> > +	sel_values.u2_pel = cpu_to_le16(u2_pel);
-> >  
-> > -	ret = usb_control_msg(udev, usb_sndctrlpipe(udev, 0),
-> > -			USB_REQ_SET_SEL,
-> > -			USB_RECIP_DEVICE,
-> > -			0, 0,
-> > -			sel_values, sizeof *(sel_values),
-> > -			USB_CTRL_SET_TIMEOUT);
-> > -	kfree(sel_values);
-> > +	ret = usb_control_msg_send(udev, 0, USB_REQ_SET_SEL, USB_RECIP_DEVICE,
-> > +				   0, 0, &sel_values, sizeof(sel_values),
-> > +				   USB_CTRL_SET_TIMEOUT);
+> syzbot found the following issue on:
 > 
-> This effectively changes GFP_NOIO to GFP_KERNEL.  Probably you should
-> leave this particular call alone.
+> HEAD commit:    b51594df Merge tag 'docs-5.9-3' of git://git.lwn.net/linux
+> git tree:       upstream
+> console output: https://syzkaller.appspot.com/x/log.txt?x=172fea15900000
+> kernel config:  https://syzkaller.appspot.com/x/.config?x=3c5f6ce8d5b68299
+> dashboard link: https://syzkaller.appspot.com/bug?extid=dd94e1d44f61c258d538
+> compiler:       gcc (GCC) 10.1.0-syz 20200507
+> syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=179811c1900000
+> 
+> The issue was bisected to:
+> 
+> commit a9ed4a6560b8562b7e2e2bed9527e88001f7b682
+> Author: Marc Zyngier <maz@kernel.org>
+> Date:   Wed Aug 19 16:12:17 2020 +0000
+> 
+>     epoll: Keep a reference on files added to the check list
 
-I thought about that, but for some reason thought that usb_control_msg()
-would eventually call for an allocation with GFP_KERNEL, but I was
-wrong, usb_internal_control_msg() calls usb_alloc_urb() with GFP_NOIO,
-my fault.  I'll go fix this up, thanks for the review.
+Luckily, this one could be easily reproduced locally, and I confirmed
+that the commit above indeed brought a regression.
 
-greg k-h
+It seems that the same file gets closed twice after this patch, and
+KASAN caught the double-free.  With the debug patch below, the syz
+reproducer hits occasionally the first check point; it indicates that
+we're calling get_file() to the file being deleted.  Then fput() will
+be called again to this file, and it's deleted again in the end.
+
+Marc, Al, could you guys check this bug?
+
+
+Thanks!
+
+Takashi
+
+--- a/fs/eventpoll.c
++++ b/fs/eventpoll.c
+@@ -1995,9 +1995,13 @@ static int ep_loop_check_proc(void *priv, void *cookie, int call_nests)
+ 			 * during ep_insert().
+ 			 */
+ 			if (list_empty(&epi->ffd.file->f_tfile_llink)) {
++				if (!file_count(epi->ffd.file)) {
++					pr_err("XXX file being deleted\n");
++				} else {
+ 				get_file(epi->ffd.file);
+ 				list_add(&epi->ffd.file->f_tfile_llink,
+ 					 &tfile_check_list);
++				}
+ 			}
+ 		}
+ 	}
+@@ -2205,6 +2209,8 @@ int do_epoll_ctl(int epfd, int op, int fd, struct epoll_event *epds,
+ 				error = -ELOOP;
+ 				if (ep_loop_check(ep, tf.file) != 0)
+ 					goto error_tgt_fput;
++			} else if (!file_count(tf.file)) {
++				pr_err("XXX file being deleted #2\n");
+ 			} else {
+ 				get_file(tf.file);
+ 				list_add(&tf.file->f_tfile_llink,

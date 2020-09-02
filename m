@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id EFD9425B5DE
-	for <lists+alsa-devel@lfdr.de>; Wed,  2 Sep 2020 23:31:35 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 219AC25B5DD
+	for <lists+alsa-devel@lfdr.de>; Wed,  2 Sep 2020 23:31:11 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 8E5D1167A;
-	Wed,  2 Sep 2020 23:30:45 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8E5D1167A
+	by alsa0.perex.cz (Postfix) with ESMTPS id BA94D1897;
+	Wed,  2 Sep 2020 23:30:20 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BA94D1897
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1599082295;
-	bh=LobmKfKuqi3VzFfC78FZt/ivNW0WfYsw62vxZCRCYMU=;
+	s=default; t=1599082270;
+	bh=STL72+vaR3DvuXyR7x0NTMIOEw+sS1SURLZdAkvUyNw=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=gIMKVdYi25JjS52MvRuRkpIf4ufQxFJgPESmTAQQVjPuLhJvjSn+lqanQjym1zlGM
-	 QE+BKmL32EZWjf0vEzN+h/ncjyn5rQ7rnd8r7VTgcREm4c9ayNXngriiR9todbk8dB
-	 1GKEMiajkhlvpO8qLqOAdg4Gupxz0PIg7Q1k02kY=
+	b=UeryttXB7YkHeRGBByPMqH7rH43Mgc1HdgYWgQY2PrmYUUle0u3R85bQzFslL6FRp
+	 fLJXagp3K981Ud8uwIh/J+aW+NaSKpexmTdeolSS9bfegcct7yEZ4ECKqZRwy/ER7H
+	 RvhoFCT4ofVOtWfIDjEnak1nT9TIIyd8HBLgDCuY=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 5C3B1F80343;
-	Wed,  2 Sep 2020 23:22:56 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 5160AF8033F;
+	Wed,  2 Sep 2020 23:22:54 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id B17E1F80306; Wed,  2 Sep 2020 23:22:34 +0200 (CEST)
+ id 6C8B2F80307; Wed,  2 Sep 2020 23:22:33 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
@@ -33,30 +33,30 @@ X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
 Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 18D43F802E1
- for <alsa-devel@alsa-project.org>; Wed,  2 Sep 2020 23:22:17 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 18D43F802E1
-IronPort-SDR: 18OkODOZF3zn0pXH1SNn5EfrA83fRbL6TxCNOm6fEURv1KFr5DGcncE1ipQUpoew6iJ3P0wxu2
- 6lD6ltN81LeQ==
-X-IronPort-AV: E=McAfee;i="6000,8403,9732"; a="157482883"
-X-IronPort-AV: E=Sophos;i="5.76,384,1592895600"; d="scan'208";a="157482883"
+ by alsa1.perex.cz (Postfix) with ESMTPS id C56D9F802E3
+ for <alsa-devel@alsa-project.org>; Wed,  2 Sep 2020 23:22:18 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C56D9F802E3
+IronPort-SDR: JniAJygQzO+YBu/tC4dIU/XQqg5qBdhWhbWAswMK1Q/tmL8ErBOWKCYzIj0h87fWSWWldeU8rG
+ shk4JZOUp94w==
+X-IronPort-AV: E=McAfee;i="6000,8403,9732"; a="157482887"
+X-IronPort-AV: E=Sophos;i="5.76,384,1592895600"; d="scan'208";a="157482887"
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
 Received: from orsmga005.jf.intel.com ([10.7.209.41])
  by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 02 Sep 2020 14:22:09 -0700
-IronPort-SDR: 7fampBUinODS36hWHd8zfMNuizV7+1yyhIk2aFESyMZ10c6sAN491AxGODFYU66J4Gy2gzv9HO
- ZJJoCVW+2EvQ==
-X-IronPort-AV: E=Sophos;i="5.76,384,1592895600"; d="scan'208";a="477798292"
+ 02 Sep 2020 14:22:10 -0700
+IronPort-SDR: a6eWwE0Uwx7y8/ODhLdlYDAbjq4Y23VZO9y/PlsO+R2XPnfHOljGq6LdxDNnXyqByj1GVrPwle
+ fGbOMLFaO0ug==
+X-IronPort-AV: E=Sophos;i="5.76,384,1592895600"; d="scan'208";a="477798293"
 Received: from rnagarat-mobl.amr.corp.intel.com (HELO
  pbossart-mobl3.intel.com) ([10.212.56.27])
  by orsmga005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 02 Sep 2020 14:22:08 -0700
+ 02 Sep 2020 14:22:09 -0700
 From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 To: alsa-devel@alsa-project.org
-Subject: [PATCH 13/18] ALSA: ac97: (cosmetic) align argument names
-Date: Wed,  2 Sep 2020 16:21:28 -0500
-Message-Id: <20200902212133.30964-14-pierre-louis.bossart@linux.intel.com>
+Subject: [PATCH 14/18] ALSA: atmel: ac97: clarify operator precedence
+Date: Wed,  2 Sep 2020 16:21:29 -0500
+Message-Id: <20200902212133.30964-15-pierre-louis.bossart@linux.intel.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20200902212133.30964-1-pierre-louis.bossart@linux.intel.com>
 References: <20200902212133.30964-1-pierre-louis.bossart@linux.intel.com>
@@ -79,30 +79,90 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Fix cppcheck warning:
+Fix cppcheck warnings:
 
-sound/ac97/bus.c:133:60: style:inconclusive: Function
-'snd_ac97_bus_scan_one' argument 1 names different: declaration 'ac97'
-definition 'adrv'. [funcArgNamesDifferent]
+sound/atmel/ac97c.c:478:30: style: Clarify calculation precedence for
+'&' and '?'. [clarifyCalculation]
+    casr & AC97C_CSR_OVRUN   ? " OVRUN"   : "",
+                             ^
+sound/atmel/ac97c.c:479:30: style: Clarify calculation precedence for
+'&' and '?'. [clarifyCalculation]
+    casr & AC97C_CSR_RXRDY   ? " RXRDY"   : "",
+                             ^
+sound/atmel/ac97c.c:480:30: style: Clarify calculation precedence for
+'&' and '?'. [clarifyCalculation]
+    casr & AC97C_CSR_UNRUN   ? " UNRUN"   : "",
+                             ^
+sound/atmel/ac97c.c:481:30: style: Clarify calculation precedence for
+'&' and '?'. [clarifyCalculation]
+    casr & AC97C_CSR_TXEMPTY ? " TXEMPTY" : "",
+                             ^
+sound/atmel/ac97c.c:482:30: style: Clarify calculation precedence for
+'&' and '?'. [clarifyCalculation]
+    casr & AC97C_CSR_TXRDY   ? " TXRDY"   : "",
+                             ^
+sound/atmel/ac97c.c:524:30: style: Clarify calculation precedence for
+'&' and '?'. [clarifyCalculation]
+    cosr & AC97C_CSR_OVRUN   ? " OVRUN"   : "",
+                             ^
+sound/atmel/ac97c.c:525:30: style: Clarify calculation precedence for
+'&' and '?'. [clarifyCalculation]
+    cosr & AC97C_CSR_RXRDY   ? " RXRDY"   : "",
+                             ^
+sound/atmel/ac97c.c:526:30: style: Clarify calculation precedence for
+'&' and '?'. [clarifyCalculation]
+    cosr & AC97C_CSR_TXEMPTY ? " TXEMPTY" : "",
+                             ^
+sound/atmel/ac97c.c:527:30: style: Clarify calculation precedence for
+'&' and '?'. [clarifyCalculation]
+    cosr & AC97C_CSR_TXRDY   ? " TXRDY"   : "",
+                             ^
 
 Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 ---
- sound/ac97/ac97_core.h | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ sound/atmel/ac97c.c | 22 +++++++++++-----------
+ 1 file changed, 11 insertions(+), 11 deletions(-)
 
-diff --git a/sound/ac97/ac97_core.h b/sound/ac97/ac97_core.h
-index 0c5956e4b2f3..5a9677c3d4c3 100644
---- a/sound/ac97/ac97_core.h
-+++ b/sound/ac97/ac97_core.h
-@@ -3,7 +3,7 @@
-  * Copyright (C) 2016 Robert Jarzmik <robert.jarzmik@free.fr>
-  */
+diff --git a/sound/atmel/ac97c.c b/sound/atmel/ac97c.c
+index 1006458f7f85..66ecbd4d034e 100644
+--- a/sound/atmel/ac97c.c
++++ b/sound/atmel/ac97c.c
+@@ -475,12 +475,12 @@ static irqreturn_t atmel_ac97c_interrupt(int irq, void *dev)
+ 		struct snd_pcm_runtime *runtime;
+ 		int offset, next_period, block_size;
+ 		dev_dbg(&chip->pdev->dev, "channel A event%s%s%s%s%s%s\n",
+-				casr & AC97C_CSR_OVRUN   ? " OVRUN"   : "",
+-				casr & AC97C_CSR_RXRDY   ? " RXRDY"   : "",
+-				casr & AC97C_CSR_UNRUN   ? " UNRUN"   : "",
+-				casr & AC97C_CSR_TXEMPTY ? " TXEMPTY" : "",
+-				casr & AC97C_CSR_TXRDY   ? " TXRDY"   : "",
+-				!casr                    ? " NONE"    : "");
++			(casr & AC97C_CSR_OVRUN)   ? " OVRUN"   : "",
++			(casr & AC97C_CSR_RXRDY)   ? " RXRDY"   : "",
++			(casr & AC97C_CSR_UNRUN)   ? " UNRUN"   : "",
++			(casr & AC97C_CSR_TXEMPTY) ? " TXEMPTY" : "",
++			(casr & AC97C_CSR_TXRDY)   ? " TXRDY"   : "",
++			!casr                      ? " NONE"    : "");
+ 		if ((casr & camr) & AC97C_CSR_ENDTX) {
+ 			runtime = chip->playback_substream->runtime;
+ 			block_size = frames_to_bytes(runtime, runtime->period_size);
+@@ -521,11 +521,11 @@ static irqreturn_t atmel_ac97c_interrupt(int irq, void *dev)
  
--unsigned int snd_ac97_bus_scan_one(struct ac97_controller *ac97,
-+unsigned int snd_ac97_bus_scan_one(struct ac97_controller *adrv,
- 				   unsigned int codec_num);
+ 	if (sr & AC97C_SR_COEVT) {
+ 		dev_info(&chip->pdev->dev, "codec channel event%s%s%s%s%s\n",
+-				cosr & AC97C_CSR_OVRUN   ? " OVRUN"   : "",
+-				cosr & AC97C_CSR_RXRDY   ? " RXRDY"   : "",
+-				cosr & AC97C_CSR_TXEMPTY ? " TXEMPTY" : "",
+-				cosr & AC97C_CSR_TXRDY   ? " TXRDY"   : "",
+-				!cosr                    ? " NONE"    : "");
++			 (cosr & AC97C_CSR_OVRUN)   ? " OVRUN"   : "",
++			 (cosr & AC97C_CSR_RXRDY)   ? " RXRDY"   : "",
++			 (cosr & AC97C_CSR_TXEMPTY) ? " TXEMPTY" : "",
++			 (cosr & AC97C_CSR_TXRDY)   ? " TXRDY"   : "",
++			 !cosr                      ? " NONE"    : "");
+ 		retval = IRQ_HANDLED;
+ 	}
  
- static inline bool ac97_ids_match(unsigned int id1, unsigned int id2,
 -- 
 2.25.1
 

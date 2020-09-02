@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 21B3325B2FC
-	for <lists+alsa-devel@lfdr.de>; Wed,  2 Sep 2020 19:34:16 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9437725B2FE
+	for <lists+alsa-devel@lfdr.de>; Wed,  2 Sep 2020 19:34:54 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C66991894;
-	Wed,  2 Sep 2020 19:33:25 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C66991894
+	by alsa0.perex.cz (Postfix) with ESMTPS id 30CB81899;
+	Wed,  2 Sep 2020 19:34:04 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 30CB81899
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1599068055;
-	bh=gIOJKKYC0y1pf0cQPJ8wWZn0Qi5B/twGLr+vW4NRqfw=;
+	s=default; t=1599068094;
+	bh=v0QtplADo9BL9iFnJ25px1zVJEmrqGAyeVHl9NKiS6w=;
 	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=X9GodiNyvWxJxyiC/RBOgCLyOBH/JscitW/P7GLnGHAqQZbOMzHgg6r58MFt+1UiA
-	 mQCQ4DIPidPsFFt2AK/lQdVNPmcerztjnFDdvTcE8gCtHJUrMFuXtMjsvwBYP5aB1M
-	 ZLsOzIg71KyDkf4HNmQsTULqO95KWPGcsKTt7ueY=
+	b=PFYPbTaXLaT8i8MmCaoZzrUYQUmer5LoLm80r2yvIw8i4ZDLc+Gp21qHEl1BP3riX
+	 gCxuBVKLf6yMkoHf7LjCgbE3rZ8YuLt6rxEato3I0iWdy+uPNqMEbR8uQ9oyYSi8Xc
+	 BXHHiJTUh19BP2Bcci3AOigB+iy3/dG7Evgu1RbI=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 14A15F80268;
-	Wed,  2 Sep 2020 19:32:37 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id D58C5F802C4;
+	Wed,  2 Sep 2020 19:32:49 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 7BAE2F802C4; Wed,  2 Sep 2020 19:32:34 +0200 (CEST)
+ id 6B5C2F802DB; Wed,  2 Sep 2020 19:32:48 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_MSPIKE_H3,
@@ -34,20 +34,21 @@ X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_MSPIKE_H3,
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id AB39FF802BC
- for <alsa-devel@alsa-project.org>; Wed,  2 Sep 2020 19:32:28 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz AB39FF802BC
+ by alsa1.perex.cz (Postfix) with ESMTPS id 8EB2FF802D2
+ for <alsa-devel@alsa-project.org>; Wed,  2 Sep 2020 19:32:42 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8EB2FF802D2
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 6C9E1AFB2;
- Wed,  2 Sep 2020 17:32:29 +0000 (UTC)
-Date: Wed, 02 Sep 2020 19:32:28 +0200
-Message-ID: <s5hlfhs84pf.wl-tiwai@suse.de>
+ by mx2.suse.de (Postfix) with ESMTP id 4F686AFB2;
+ Wed,  2 Sep 2020 17:32:43 +0000 (UTC)
+Date: Wed, 02 Sep 2020 19:32:42 +0200
+Message-ID: <s5hk0xc84p1.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
 To: Kai Vehmanen <kai.vehmanen@linux.intel.com>
-Subject: Re: [PATCH] ALSA: hda: add dev_dbg log when driver is not selected
-In-Reply-To: <20200902154239.1440537-1-kai.vehmanen@linux.intel.com>
-References: <20200902154239.1440537-1-kai.vehmanen@linux.intel.com>
+Subject: Re: [PATCH] ALSA: hda: use consistent HDAudio spelling in
+ comments/docs
+In-Reply-To: <20200902154250.1440585-1-kai.vehmanen@linux.intel.com>
+References: <20200902154250.1440585-1-kai.vehmanen@linux.intel.com>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
  FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
  (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
@@ -71,21 +72,17 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Wed, 02 Sep 2020 17:42:39 +0200,
+On Wed, 02 Sep 2020 17:42:50 +0200,
 Kai Vehmanen wrote:
 > 
 > From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 > 
-> On SKL+ Intel platforms, the driver selection is handled by the
-> snd_intel_dspcfg, and when the HDaudio legacy driver is not selected,
-> be it with the auto-selection or user preferences with a kernel
-> parameter, the probe aborts with no logs, only a -ENODEV return value.
+> We use HDaudio and HDAudio, pick one to make searches easier.
+> No functionality change
 > 
-> Having no dmesg trace, even with dynamic debug enabled, makes support
-> more complicated than it needs to be, and even experienced users can
-> be fooled. A simple dev_dbg() trace solves this problem.
+> Also fix timestamping typo in documentation.
 > 
-> BugLink: https://github.com/thesofproject/linux/issues/2330
+> Reported-by: Guennadi Liakhovetski <guennadi.liakhovetski@linux.intel.com>
 > Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 > Reviewed-by: Bard Liao <yung-chuan.liao@linux.intel.com>
 > Reviewed-by: Guennadi Liakhovetski <guennadi.liakhovetski@linux.intel.com>

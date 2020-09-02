@@ -2,70 +2,88 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 28AEC25A3CF
-	for <lists+alsa-devel@lfdr.de>; Wed,  2 Sep 2020 05:08:15 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3077325A437
+	for <lists+alsa-devel@lfdr.de>; Wed,  2 Sep 2020 06:04:29 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D13EB17A9;
-	Wed,  2 Sep 2020 05:07:24 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D13EB17A9
+	by alsa0.perex.cz (Postfix) with ESMTPS id 764FD1815;
+	Wed,  2 Sep 2020 06:03:38 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 764FD1815
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1599016094;
-	bh=YrblmYMeZOYrrtNFUqtdtdv0Rc15KjUMcCCAcUUhpNU=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=c/txucXorZ2fU8sk+OFvezEdcO+um1/9kxnVbTeJnLXYEpVsP4bTe28M2jAyS2DRh
-	 hoF95xOkAZ74WI8oPJk6zKmouvwY0NTt+EjGOmRPloEy1vmG12wPncZkCy+d7rlQg5
-	 5cNNWxNjRxQmhLykOPeDYiI/mNSlR6zhOEkw37FQ=
+	s=default; t=1599019468;
+	bh=ntSAwP69kNrJTN1q32dLXJpp4kdBx9VHVfDeKsBcVJA=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=To21yoTHdWQNQ1AhXiGNTv4iDX7H6QTBG1qO5tQZmlyVRE3YPPQz+l/OZbKuwLfou
+	 OsE7jiKRgj5/mioABy9VN7nK/5Xejca1N4P01wAxuayqn0ZkRvM2C+Z0tR+NykByU9
+	 aRH3sLFbQ4p0iIlTtv0B/SK14ZrEfAlFotrYeCBM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 52B62F8033D;
-	Wed,  2 Sep 2020 05:00:41 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 8115AF80257;
+	Wed,  2 Sep 2020 06:02:47 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 9A12CF802C4; Wed,  2 Sep 2020 05:00:22 +0200 (CEST)
+ id 734E1F8024A; Wed,  2 Sep 2020 06:02:43 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: *
-X-Spam-Status: No, score=1.1 required=5.0 tests=DATE_IN_PAST_06_12,
- SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Level: 
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_PASS autolearn=disabled
+ version=3.4.0
+Received: from mail-pg1-x543.google.com (mail-pg1-x543.google.com
+ [IPv6:2607:f8b0:4864:20::543])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 2DB91F80276
- for <alsa-devel@alsa-project.org>; Wed,  2 Sep 2020 05:00:18 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2DB91F80276
-IronPort-SDR: +Gv5diK/QkjIxO/L4nYoCRFj+wm0hTKMKy2Oa5fYOiTFpjWqDBhoaUb3OTVY36oW7NUrL6yQQc
- KBWEWxL+d7ug==
-X-IronPort-AV: E=McAfee;i="6000,8403,9731"; a="156570821"
-X-IronPort-AV: E=Sophos;i="5.76,381,1592895600"; d="scan'208";a="156570821"
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from fmsmga008.fm.intel.com ([10.253.24.58])
- by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 01 Sep 2020 20:00:18 -0700
-IronPort-SDR: trsBgqnVY6Pv7wRnW6OJ7NaOEQqGaLZFqcK0tCR278Unvo6FHTEtr7ZWh75jb73MzQGLyXTj8X
- mRw+AFIxarAA==
-X-IronPort-AV: E=Sophos;i="5.76,381,1592895600"; d="scan'208";a="283588268"
-Received: from bard-ubuntu.sh.intel.com ([10.239.13.33])
- by fmsmga008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 01 Sep 2020 20:00:15 -0700
-From: Bard Liao <yung-chuan.liao@linux.intel.com>
-To: alsa-devel@alsa-project.org,
-	vkoul@kernel.org
-Subject: [PATCH v2 10/10] soundwire: intel: don't manage link power
- individually
-Date: Tue,  1 Sep 2020 23:05:56 +0800
-Message-Id: <20200901150556.19432-11-yung-chuan.liao@linux.intel.com>
-X-Mailer: git-send-email 2.17.1
-In-Reply-To: <20200901150556.19432-1-yung-chuan.liao@linux.intel.com>
-References: <20200901150556.19432-1-yung-chuan.liao@linux.intel.com>
-Cc: pierre-louis.bossart@linux.intel.com, vinod.koul@linaro.org, tiwai@suse.de,
- gregkh@linuxfoundation.org, linux-kernel@vger.kernel.org,
- ranjani.sridharan@linux.intel.com, hui.wang@canonical.com, broonie@kernel.org,
- srinivas.kandagatla@linaro.org, jank@cadence.com, mengdong.lin@intel.com,
- sanyog.r.kale@intel.com, rander.wang@linux.intel.com, bard.liao@intel.com
+ by alsa1.perex.cz (Postfix) with ESMTPS id B3BDDF801DA
+ for <alsa-devel@alsa-project.org>; Wed,  2 Sep 2020 06:02:34 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B3BDDF801DA
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
+ header.b="cxGijTf5"
+Received: by mail-pg1-x543.google.com with SMTP id l191so1865152pgd.5
+ for <alsa-devel@alsa-project.org>; Tue, 01 Sep 2020 21:02:34 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=a92rMmkgBaxQ0KF0jZFhP8Cjz7jmJSw15umu/HKGj/U=;
+ b=cxGijTf5wz24yWww5R57c2DzLi1cWLuughf/7vxF4fP+9VT3Vf4WuFx2hvzxBAlirt
+ 5+PIVPt2/6j+CnKikXcwfFZLFG8GSZkMxyx+nj6sDvaz/plKE9aAb7jNiA32wHPO7csL
+ CepajR1A95TN7blXXWVhU02FmKQ//aWv4Rzq1wEFiBSWYZ4kjZSsMKgyY+xEk27xjYyT
+ Wf8ziDIZhMqGp4jrNdJl0Elo72kjixx+eZgqWKgs0IMf14Ptyo43Wl5L3TNqShrMAB6E
+ PBh5JgSC7gZp28H92+zBgL136nDfTGaoXOe6BjO9dgyaO/+rURnuKg3ubRIStfmpD9St
+ 7q6Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=a92rMmkgBaxQ0KF0jZFhP8Cjz7jmJSw15umu/HKGj/U=;
+ b=BQAGNtSEtADLFoU1I5KhXTyIkE2ipnl+Kl4mZNbdtSrU0TNG6gt/Kd3uORh1vFr6QE
+ nkd7qsPPz8wQMhx5p70SMvePMGkOGaGqP7B4LM3Qblvn/DFJiwhPScCreVrUwd2v1MsV
+ 3vOVS67wOKu6OIm7Nw/DjgexeJS6u0u1vKiJUKQFwNVlYRpBGhSn3Wrf0ZnIg90ViLPp
+ xl8mYmDT7xdLIo1Y3AqgK8gbJNunHtXmbvSAlPGXtBkiXJOjNgiBCBwkYYRp0aqT8ZSS
+ IwqXsnrLl9lKei8sj3JS1/usV8vBueHd6yUyh0BtvNs1oZSPU9zC/8V7ILCLMm+cHvjp
+ 0o2A==
+X-Gm-Message-State: AOAM53372NXsSdw5mO5obOIrlTgAuXwNGjGYPfXhTLQa7XSFvFca8wko
+ /08xZH1idgz6ci0ErAiZ1DA=
+X-Google-Smtp-Source: ABdhPJwculL4P8SaxKnmwIXpSj6B8GGWhm4eXf8gYEvs/+TUpkx0bXRPiPGPdN2ZP/BQkjByUeMswQ==
+X-Received: by 2002:a65:4208:: with SMTP id c8mr419427pgq.266.1599019351695;
+ Tue, 01 Sep 2020 21:02:31 -0700 (PDT)
+Received: from localhost.localdomain ([49.207.196.170])
+ by smtp.gmail.com with ESMTPSA id q71sm3058350pjq.7.2020.09.01.21.02.28
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 01 Sep 2020 21:02:31 -0700 (PDT)
+From: Allen Pais <allen.lkml@gmail.com>
+To: perex@perex.cz,
+	tiwai@suse.com,
+	broonie@kernel.org
+Subject: [PATCH v2 00/10] ALSA: convert tasklets to use new
+Date: Wed,  2 Sep 2020 09:32:11 +0530
+Message-Id: <20200902040221.354941-1-allen.lkml@gmail.com>
+X-Mailer: git-send-email 2.25.1
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Cc: alsa-devel@alsa-project.org, timur@kernel.org, Xiubo.Lee@gmail.com,
+ clemens@ladisch.de, Allen Pais <allen.lkml@gmail.com>, nicoleotsuka@gmail.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -81,150 +99,40 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Commit 12cc923f1ccc ("tasklet: Introduce new initialization API")'
+introduced a new tasklet initialization API. This series converts
+all the sound drivers to use the new tasklet_setup() API
 
-Each link has separate power controls, but experimental results show
-we need to use an all-or-none approach to the link power management.
+The series is based on 5.9-rc3 (f75aef392f86) 
 
-This change has marginal power impacts, the DSP needs to be powered
-anyways before SoundWire links can be powered, and even when powered a
-link can be in clock-stopped mode.
+v2:
+  Fixed subject lines.
 
-Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Signed-off-by: Bard Liao <yung-chuan.liao@linux.intel.com>
----
- drivers/soundwire/intel.c | 70 +++++++++++++++++++++++++--------------
- 1 file changed, 46 insertions(+), 24 deletions(-)
+Allen Pais (10):
+  ALSA: core: convert tasklets to use new tasklet_setup() API
+  ALSA: firewire: convert tasklets to use new tasklet_setup() API
+  ALSA: pci/asihpi: convert tasklets to use new tasklet_setup() API
+  ALSA: riptide: convert tasklets to use new tasklet_setup() API
+  ALSA: hdsp: convert tasklets to use new tasklet_setup() API
+  ASoc: fsl_esai: convert tasklets to use new tasklet_setup() API
+  ASoC: siu: convert tasklets to use new tasklet_setup() API
+  ASoC: txx9: convert tasklets to use new tasklet_setup() API
+  ALSA: usb-audio: convert tasklets to use new tasklet_setup() API
+  ALSA: ua101: convert tasklets to use new tasklet_setup() API
 
-diff --git a/drivers/soundwire/intel.c b/drivers/soundwire/intel.c
-index 97c8cfc54ddd..710f5eba936b 100644
---- a/drivers/soundwire/intel.c
-+++ b/drivers/soundwire/intel.c
-@@ -63,7 +63,9 @@ MODULE_PARM_DESC(sdw_md_flags, "SoundWire Intel Master device flags (0x0 all off
- #define SDW_SHIM_WAKESTS		0x192
- 
- #define SDW_SHIM_LCTL_SPA		BIT(0)
-+#define SDW_SHIM_LCTL_SPA_MASK		GENMASK(3, 0)
- #define SDW_SHIM_LCTL_CPA		BIT(8)
-+#define SDW_SHIM_LCTL_CPA_MASK		GENMASK(11, 8)
- 
- #define SDW_SHIM_SYNC_SYNCPRD_VAL_24	(24000 / SDW_CADENCE_GSYNC_KHZ - 1)
- #define SDW_SHIM_SYNC_SYNCPRD_VAL_38_4	(38400 / SDW_CADENCE_GSYNC_KHZ - 1)
-@@ -295,8 +297,8 @@ static int intel_link_power_up(struct sdw_intel *sdw)
- 	u32 *shim_mask = sdw->link_res->shim_mask;
- 	struct sdw_bus *bus = &sdw->cdns.bus;
- 	struct sdw_master_prop *prop = &bus->prop;
--	int spa_mask, cpa_mask;
--	int link_control;
-+	u32 spa_mask, cpa_mask;
-+	u32 link_control;
- 	int ret = 0;
- 	u32 syncprd;
- 	u32 sync_reg;
-@@ -319,6 +321,8 @@ static int intel_link_power_up(struct sdw_intel *sdw)
- 		syncprd = SDW_SHIM_SYNC_SYNCPRD_VAL_24;
- 
- 	if (!*shim_mask) {
-+		dev_dbg(sdw->cdns.dev, "%s: powering up all links\n", __func__);
-+
- 		/* we first need to program the SyncPRD/CPU registers */
- 		dev_dbg(sdw->cdns.dev,
- 			"%s: first link up, programming SYNCPRD\n", __func__);
-@@ -331,21 +335,24 @@ static int intel_link_power_up(struct sdw_intel *sdw)
- 		/* Set SyncCPU bit */
- 		sync_reg |= SDW_SHIM_SYNC_SYNCCPU;
- 		intel_writel(shim, SDW_SHIM_SYNC, sync_reg);
--	}
- 
--	/* Link power up sequence */
--	link_control = intel_readl(shim, SDW_SHIM_LCTL);
--	spa_mask = (SDW_SHIM_LCTL_SPA << link_id);
--	cpa_mask = (SDW_SHIM_LCTL_CPA << link_id);
--	link_control |=  spa_mask;
-+		/* Link power up sequence */
-+		link_control = intel_readl(shim, SDW_SHIM_LCTL);
- 
--	ret = intel_set_bit(shim, SDW_SHIM_LCTL, link_control, cpa_mask);
--	if (ret < 0) {
--		dev_err(sdw->cdns.dev, "Failed to power up link: %d\n", ret);
--		goto out;
--	}
-+		/* only power-up enabled links */
-+		spa_mask = sdw->link_res->link_mask <<
-+			SDW_REG_SHIFT(SDW_SHIM_LCTL_SPA_MASK);
-+		cpa_mask = sdw->link_res->link_mask <<
-+			SDW_REG_SHIFT(SDW_SHIM_LCTL_CPA_MASK);
-+
-+		link_control |=  spa_mask;
-+
-+		ret = intel_set_bit(shim, SDW_SHIM_LCTL, link_control, cpa_mask);
-+		if (ret < 0) {
-+			dev_err(sdw->cdns.dev, "Failed to power up link: %d\n", ret);
-+			goto out;
-+		}
- 
--	if (!*shim_mask) {
- 		/* SyncCPU will change once link is active */
- 		ret = intel_wait_bit(shim, SDW_SHIM_SYNC,
- 				     SDW_SHIM_SYNC_SYNCCPU, 0);
-@@ -483,7 +490,7 @@ static void intel_shim_wake(struct sdw_intel *sdw, bool wake_enable)
- 
- static int intel_link_power_down(struct sdw_intel *sdw)
- {
--	int link_control, spa_mask, cpa_mask;
-+	u32 link_control, spa_mask, cpa_mask;
- 	unsigned int link_id = sdw->instance;
- 	void __iomem *shim = sdw->link_res->shim;
- 	u32 *shim_mask = sdw->link_res->shim_mask;
-@@ -493,24 +500,39 @@ static int intel_link_power_down(struct sdw_intel *sdw)
- 
- 	intel_shim_master_ip_to_glue(sdw);
- 
--	/* Link power down sequence */
--	link_control = intel_readl(shim, SDW_SHIM_LCTL);
--	spa_mask = ~(SDW_SHIM_LCTL_SPA << link_id);
--	cpa_mask = (SDW_SHIM_LCTL_CPA << link_id);
--	link_control &=  spa_mask;
--
--	ret = intel_clear_bit(shim, SDW_SHIM_LCTL, link_control, cpa_mask);
--
- 	if (!(*shim_mask & BIT(link_id)))
- 		dev_err(sdw->cdns.dev,
- 			"%s: Unbalanced power-up/down calls\n", __func__);
- 
- 	*shim_mask &= ~BIT(link_id);
- 
-+	if (!*shim_mask) {
-+
-+		dev_dbg(sdw->cdns.dev, "%s: powering down all links\n", __func__);
-+
-+		/* Link power down sequence */
-+		link_control = intel_readl(shim, SDW_SHIM_LCTL);
-+
-+		/* only power-down enabled links */
-+		spa_mask = (~sdw->link_res->link_mask) <<
-+			SDW_REG_SHIFT(SDW_SHIM_LCTL_SPA_MASK);
-+		cpa_mask = sdw->link_res->link_mask <<
-+			SDW_REG_SHIFT(SDW_SHIM_LCTL_CPA_MASK);
-+
-+		link_control &=  spa_mask;
-+
-+		ret = intel_clear_bit(shim, SDW_SHIM_LCTL, link_control, cpa_mask);
-+	}
-+
-+	link_control = intel_readl(shim, SDW_SHIM_LCTL);
-+
- 	mutex_unlock(sdw->link_res->shim_lock);
- 
--	if (ret < 0)
-+	if (ret < 0) {
-+		dev_err(sdw->cdns.dev, "%s: could not power down link\n", __func__);
-+
- 		return ret;
-+	}
- 
- 	sdw->cdns.link_up = false;
- 	return 0;
+ sound/core/timer.c            |  7 +++----
+ sound/firewire/amdtp-stream.c |  8 ++++----
+ sound/pci/asihpi/asihpi.c     |  9 ++++-----
+ sound/pci/riptide/riptide.c   |  6 +++---
+ sound/pci/rme9652/hdsp.c      |  6 +++---
+ sound/pci/rme9652/hdspm.c     |  7 +++----
+ sound/soc/fsl/fsl_esai.c      |  7 +++----
+ sound/soc/sh/siu_pcm.c        | 10 ++++------
+ sound/soc/txx9/txx9aclc.c     |  7 +++----
+ sound/usb/midi.c              |  7 +++----
+ sound/usb/misc/ua101.c        |  7 +++----
+ 11 files changed, 36 insertions(+), 45 deletions(-)
+
 -- 
-2.17.1
+2.25.1
 

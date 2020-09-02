@@ -2,70 +2,69 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4145725ACA1
-	for <lists+alsa-devel@lfdr.de>; Wed,  2 Sep 2020 16:12:13 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3E5E125AD50
+	for <lists+alsa-devel@lfdr.de>; Wed,  2 Sep 2020 16:37:33 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id DB5C71860;
-	Wed,  2 Sep 2020 16:11:22 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DB5C71860
+	by alsa0.perex.cz (Postfix) with ESMTPS id 9F82D1852;
+	Wed,  2 Sep 2020 16:36:42 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9F82D1852
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1599055932;
-	bh=klG/qfX0NtPht9eMiKJRx1ApVtrYY2/mEfTkzrMn0zI=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1599057452;
+	bh=A5RRUxueAs6CVZUIQRB16ugYNPT8XgcOHidFho/X+9A=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=osTtCod686jBTbVyBrnlYne2HUWfhvCVbxkVLJgOeODxM6uG80du87+kJzAsACLxI
-	 mefUJ9yvNBJKDbWf9TujUMb55YFg4vzNWjYXOLxk4aI4te18H/se3EpiqKEO4CtSny
-	 lzbzUvTU5cdMvGO17tUGSkwuY/6MiNI3Crf3fa6k=
+	b=DCMHZkH9HvkE5KO6T9vpBk0D/mt0KDTPehBXwJm5yLz85guQiETU2QRWqcFcXdoOF
+	 lF1MEje2GfTjxSEI2DzZ3YAUvs5x6SL5BxfkL3fyIG2M+p/Q6ReL7jFFeFeZDzeGbf
+	 tDau9xVOlS31AGQOrzLwST/yj7Jeii6Vep9d2H2Y=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id BC47AF80212;
-	Wed,  2 Sep 2020 16:09:42 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id DC598F801DA;
+	Wed,  2 Sep 2020 16:35:51 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id BFF33F80257; Wed,  2 Sep 2020 16:09:40 +0200 (CEST)
+ id 9AB24F8024A; Wed,  2 Sep 2020 16:35:49 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_MSPIKE_H3,
+ RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
+Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 7EF63F80257
- for <alsa-devel@alsa-project.org>; Wed,  2 Sep 2020 16:09:32 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7EF63F80257
-IronPort-SDR: MMF+STVY+ycZxm1c4EScx9z1z5E5Zu+wSDzXFdwRDahcdyjHyLGACrluC667jBmls7gBDBjazD
- /HKW6nNaXJeA==
-X-IronPort-AV: E=McAfee;i="6000,8403,9731"; a="156650013"
-X-IronPort-AV: E=Sophos;i="5.76,383,1592895600"; d="scan'208";a="156650013"
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from fmsmga003.fm.intel.com ([10.253.24.29])
- by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 02 Sep 2020 07:09:27 -0700
-IronPort-SDR: dm6JFk47xXeY7E/rMsXwqySF4mFA4Aiv96YJTfWQWG4JJSfQvThtaYSk/HQDY5Pi0YE0WyDmjo
- 31k3GCXbH2Gw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.76,383,1592895600"; d="scan'208";a="338934380"
-Received: from eliteleevi.tm.intel.com ([10.237.54.20])
- by FMSMGA003.fm.intel.com with ESMTP; 02 Sep 2020 07:09:26 -0700
-From: Kai Vehmanen <kai.vehmanen@linux.intel.com>
-To: alsa-devel@alsa-project.org,
-	broonie@kernel.org
-Subject: [PATCH 3/3] ASoC: SOF: topology: fix core enable sequence
-Date: Wed,  2 Sep 2020 17:07:56 +0300
-Message-Id: <20200902140756.1427005-4-kai.vehmanen@linux.intel.com>
-X-Mailer: git-send-email 2.27.0
-In-Reply-To: <20200902140756.1427005-1-kai.vehmanen@linux.intel.com>
-References: <20200902140756.1427005-1-kai.vehmanen@linux.intel.com>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Cc: Guennadi Liakhovetski <guennadi.liakhovetski@linux.intel.com>,
- kai.vehmanen@linux.intel.com, Keyon Jie <yang.jie@linux.intel.com>,
- pierre-louis.bossart@linux.intel.com, ranjani.sridharan@linux.intel.com,
- daniel.baluta@nxp.com, Rander Wang <rander.wang@linux.intel.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 2245FF801DA
+ for <alsa-devel@alsa-project.org>; Wed,  2 Sep 2020 16:35:35 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2245FF801DA
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id 4F2C7B1AE;
+ Wed,  2 Sep 2020 14:35:36 +0000 (UTC)
+Date: Wed, 02 Sep 2020 16:35:33 +0200
+Message-ID: <s5hh7sg9rgq.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Subject: Re: [PATCH 01/10] USB: move snd_usb_pipe_sanity_check into the USB
+ core
+In-Reply-To: <20200902110115.1994491-2-gregkh@linuxfoundation.org>
+References: <20200902110115.1994491-1-gregkh@linuxfoundation.org>
+ <20200902110115.1994491-2-gregkh@linuxfoundation.org>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
+ FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
+ (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
+Content-Type: text/plain; charset=US-ASCII
+Cc: alsa-devel@alsa-project.org, linux-usb@vger.kernel.org,
+ Jussi Laako <jussi@sonarnerd.net>, linux-kernel@vger.kernel.org,
+ Alexander Tsoy <alexander@tsoy.me>, Jesus Ramos <jesus-ramos@live.com>,
+ tiwai@suse.com, Alan Stern <stern@rowland.harvard.edu>,
+ Nick Kossifidis <mickflemm@gmail.com>, Dmitry Panchenko <dmitry@d-systems.ee>,
+ johan.hedberg@gmail.com, marcel@holtmann.org,
+ Eli Billauer <eli.billauer@gmail.com>, stern@rowland.harvard.ed,
+ dvyukov@google.com, himadrispandya@gmail.com, Chris Wulff <crwulff@gmail.com>,
+ "Gustavo A. R. Silva" <gustavoars@kernel.org>, linux-bluetooth@vger.kernel.org,
+ "Geoffrey D. Bennett" <g@b4.vu>, Emiliano Ingrassia <ingrassia@epigenesys.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -81,69 +80,231 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
+On Wed, 02 Sep 2020 13:01:03 +0200,
+Greg Kroah-Hartman wrote:
+> 
+> snd_usb_pipe_sanity_check() is a great function, so let's move it into
+> the USB core so that other parts of the kernel, including the USB core,
+> can call it.
+> 
+> Name it usb_pipe_type_check() to match the existing
+> usb_urb_ep_type_check() call, which now uses this function.
+> 
+> Cc: Jaroslav Kysela <perex@perex.cz>
+> Cc: Takashi Iwai <tiwai@suse.com>
+> Cc: "Gustavo A. R. Silva" <gustavoars@kernel.org>
+> Cc: Eli Billauer <eli.billauer@gmail.com>
+> Cc: Emiliano Ingrassia <ingrassia@epigenesys.com>
+> Cc: Alan Stern <stern@rowland.harvard.edu>
+> Cc: Alexander Tsoy <alexander@tsoy.me>
+> Cc: "Geoffrey D. Bennett" <g@b4.vu>
+> Cc: Jussi Laako <jussi@sonarnerd.net>
+> Cc: Nick Kossifidis <mickflemm@gmail.com>
+> Cc: Dmitry Panchenko <dmitry@d-systems.ee>
+> Cc: Chris Wulff <crwulff@gmail.com>
+> Cc: Jesus Ramos <jesus-ramos@live.com>
+> Cc: linux-usb@vger.kernel.org
+> Cc: linux-kernel@vger.kernel.org
+> Cc: alsa-devel@alsa-project.org
+> Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 
-Core power up involves 2 steps: The first step tries to
-power up the core by setting the ADSPCS.SPA bit for the host-managed
-cores. The second step involves sending the IPC to power up other
-cores that are not host managed. The enabled_cores_mask should
-be updated only when both these steps are successful. If the
-IPC to the DSP fails, the host-managed core that was powered in
-step 1 should be powered off before returning the error.
+Reviewed-by: Takashi Iwai <tiwai@suse.de>
 
-Signed-off-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
-Reviewed-by: Rander Wang <rander.wang@linux.intel.com>
-Reviewed-by: Guennadi Liakhovetski <guennadi.liakhovetski@linux.intel.com>
-Reviewed-by: Keyon Jie <yang.jie@linux.intel.com>
-Reviewed-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Signed-off-by: Kai Vehmanen <kai.vehmanen@linux.intel.com>
----
- sound/soc/sof/topology.c | 20 ++++++++++++++------
- 1 file changed, 14 insertions(+), 6 deletions(-)
 
-diff --git a/sound/soc/sof/topology.c b/sound/soc/sof/topology.c
-index 46468fb7b6d1..d47da407a1bd 100644
---- a/sound/soc/sof/topology.c
-+++ b/sound/soc/sof/topology.c
-@@ -1303,7 +1303,7 @@ static int sof_core_enable(struct snd_sof_dev *sdev, int core)
- 	if (sdev->enabled_cores_mask & BIT(core))
- 		return 0;
- 
--	/* power up the core */
-+	/* power up the core if it is host managed */
- 	ret = snd_sof_dsp_core_power_up(sdev, BIT(core));
- 	if (ret < 0) {
- 		dev_err(sdev->dev, "error: %d powering up core %d\n",
-@@ -1311,16 +1311,24 @@ static int sof_core_enable(struct snd_sof_dev *sdev, int core)
- 		return ret;
- 	}
- 
--	/* update enabled cores mask */
--	sdev->enabled_cores_mask |= BIT(core);
--
--	/* Now notify DSP that the core has been powered up */
-+	/* Now notify DSP */
- 	ret = sof_ipc_tx_message(sdev->ipc, pm_core_config.hdr.cmd,
- 				 &pm_core_config, sizeof(pm_core_config),
- 				 &pm_core_config, sizeof(pm_core_config));
--	if (ret < 0)
-+	if (ret < 0) {
- 		dev_err(sdev->dev, "error: core %d enable ipc failure %d\n",
- 			core, ret);
-+		goto err;
-+	}
-+
-+	/* update enabled cores mask */
-+	sdev->enabled_cores_mask |= BIT(core);
-+
-+	return ret;
-+err:
-+	/* power down core if it is host managed and return the original error if this fails too */
-+	if (snd_sof_dsp_core_power_down(sdev, BIT(core)) < 0)
-+		dev_err(sdev->dev, "error: powering down core %d\n", core);
- 
- 	return ret;
- }
--- 
-2.27.0
+thanks,
 
+Takashi
+
+
+> ---
+>  drivers/usb/core/urb.c          | 29 ++++++++++++++++++++++-------
+>  include/linux/usb.h             |  1 +
+>  sound/usb/helper.c              | 16 +---------------
+>  sound/usb/helper.h              |  1 -
+>  sound/usb/mixer_scarlett_gen2.c |  2 +-
+>  sound/usb/quirks.c              | 12 ++++++------
+>  6 files changed, 31 insertions(+), 30 deletions(-)
+> 
+> diff --git a/drivers/usb/core/urb.c b/drivers/usb/core/urb.c
+> index 27e83e55a590..45bc2914c1ba 100644
+> --- a/drivers/usb/core/urb.c
+> +++ b/drivers/usb/core/urb.c
+> @@ -192,24 +192,39 @@ static const int pipetypes[4] = {
+>  };
+>  
+>  /**
+> - * usb_urb_ep_type_check - sanity check of endpoint in the given urb
+> - * @urb: urb to be checked
+> + * usb_pipe_type_check - sanity check of a specific pipe for a usb device
+> + * @dev: struct usb_device to be checked
+> + * @pipe: pipe to check
+>   *
+>   * This performs a light-weight sanity check for the endpoint in the
+> - * given urb.  It returns 0 if the urb contains a valid endpoint, otherwise
+> - * a negative error code.
+> + * given usb device.  It returns 0 if the pipe is a valid for the specific usb
+> + * device, otherwise a negative error code.
+>   */
+> -int usb_urb_ep_type_check(const struct urb *urb)
+> +int usb_pipe_type_check(struct usb_device *dev, unsigned int pipe)
+>  {
+>  	const struct usb_host_endpoint *ep;
+>  
+> -	ep = usb_pipe_endpoint(urb->dev, urb->pipe);
+> +	ep = usb_pipe_endpoint(dev, pipe);
+>  	if (!ep)
+>  		return -EINVAL;
+> -	if (usb_pipetype(urb->pipe) != pipetypes[usb_endpoint_type(&ep->desc)])
+> +	if (usb_pipetype(pipe) != pipetypes[usb_endpoint_type(&ep->desc)])
+>  		return -EINVAL;
+>  	return 0;
+>  }
+> +EXPORT_SYMBOL_GPL(usb_pipe_type_check);
+> +
+> +/**
+> + * usb_urb_ep_type_check - sanity check of endpoint in the given urb
+> + * @urb: urb to be checked
+> + *
+> + * This performs a light-weight sanity check for the endpoint in the
+> + * given urb.  It returns 0 if the urb contains a valid endpoint, otherwise
+> + * a negative error code.
+> + */
+> +int usb_urb_ep_type_check(const struct urb *urb)
+> +{
+> +	return usb_pipe_type_check(urb->dev, urb->pipe);
+> +}
+>  EXPORT_SYMBOL_GPL(usb_urb_ep_type_check);
+>  
+>  /**
+> diff --git a/include/linux/usb.h b/include/linux/usb.h
+> index 20c555db4621..0b3963d7ec38 100644
+> --- a/include/linux/usb.h
+> +++ b/include/linux/usb.h
+> @@ -1764,6 +1764,7 @@ static inline int usb_urb_dir_out(struct urb *urb)
+>  	return (urb->transfer_flags & URB_DIR_MASK) == URB_DIR_OUT;
+>  }
+>  
+> +int usb_pipe_type_check(struct usb_device *dev, unsigned int pipe);
+>  int usb_urb_ep_type_check(const struct urb *urb);
+>  
+>  void *usb_alloc_coherent(struct usb_device *dev, size_t size,
+> diff --git a/sound/usb/helper.c b/sound/usb/helper.c
+> index 4c12cc5b53fd..cf92d7110773 100644
+> --- a/sound/usb/helper.c
+> +++ b/sound/usb/helper.c
+> @@ -63,20 +63,6 @@ void *snd_usb_find_csint_desc(void *buffer, int buflen, void *after, u8 dsubtype
+>  	return NULL;
+>  }
+>  
+> -/* check the validity of pipe and EP types */
+> -int snd_usb_pipe_sanity_check(struct usb_device *dev, unsigned int pipe)
+> -{
+> -	static const int pipetypes[4] = {
+> -		PIPE_CONTROL, PIPE_ISOCHRONOUS, PIPE_BULK, PIPE_INTERRUPT
+> -	};
+> -	struct usb_host_endpoint *ep;
+> -
+> -	ep = usb_pipe_endpoint(dev, pipe);
+> -	if (!ep || usb_pipetype(pipe) != pipetypes[usb_endpoint_type(&ep->desc)])
+> -		return -EINVAL;
+> -	return 0;
+> -}
+> -
+>  /*
+>   * Wrapper for usb_control_msg().
+>   * Allocates a temp buffer to prevent dmaing from/to the stack.
+> @@ -89,7 +75,7 @@ int snd_usb_ctl_msg(struct usb_device *dev, unsigned int pipe, __u8 request,
+>  	void *buf = NULL;
+>  	int timeout;
+>  
+> -	if (snd_usb_pipe_sanity_check(dev, pipe))
+> +	if (usb_pipe_type_check(dev, pipe))
+>  		return -EINVAL;
+>  
+>  	if (size > 0) {
+> diff --git a/sound/usb/helper.h b/sound/usb/helper.h
+> index 5e8a18b4e7b9..f5b4c6647e4d 100644
+> --- a/sound/usb/helper.h
+> +++ b/sound/usb/helper.h
+> @@ -7,7 +7,6 @@ unsigned int snd_usb_combine_bytes(unsigned char *bytes, int size);
+>  void *snd_usb_find_desc(void *descstart, int desclen, void *after, u8 dtype);
+>  void *snd_usb_find_csint_desc(void *descstart, int desclen, void *after, u8 dsubtype);
+>  
+> -int snd_usb_pipe_sanity_check(struct usb_device *dev, unsigned int pipe);
+>  int snd_usb_ctl_msg(struct usb_device *dev, unsigned int pipe,
+>  		    __u8 request, __u8 requesttype, __u16 value, __u16 index,
+>  		    void *data, __u16 size);
+> diff --git a/sound/usb/mixer_scarlett_gen2.c b/sound/usb/mixer_scarlett_gen2.c
+> index 0ffff7640892..9609c6d9655c 100644
+> --- a/sound/usb/mixer_scarlett_gen2.c
+> +++ b/sound/usb/mixer_scarlett_gen2.c
+> @@ -1978,7 +1978,7 @@ static int scarlett2_mixer_status_create(struct usb_mixer_interface *mixer)
+>  		return 0;
+>  	}
+>  
+> -	if (snd_usb_pipe_sanity_check(dev, pipe))
+> +	if (usb_pipe_type_check(dev, pipe))
+>  		return -EINVAL;
+>  
+>  	mixer->urb = usb_alloc_urb(0, GFP_KERNEL);
+> diff --git a/sound/usb/quirks.c b/sound/usb/quirks.c
+> index abf99b814a0f..fc3aab04a0bc 100644
+> --- a/sound/usb/quirks.c
+> +++ b/sound/usb/quirks.c
+> @@ -846,7 +846,7 @@ static int snd_usb_accessmusic_boot_quirk(struct usb_device *dev)
+>  	static const u8 seq[] = { 0x4e, 0x73, 0x52, 0x01 };
+>  	void *buf;
+>  
+> -	if (snd_usb_pipe_sanity_check(dev, usb_sndintpipe(dev, 0x05)))
+> +	if (usb_pipe_type_check(dev, usb_sndintpipe(dev, 0x05)))
+>  		return -EINVAL;
+>  	buf = kmemdup(seq, ARRAY_SIZE(seq), GFP_KERNEL);
+>  	if (!buf)
+> @@ -875,7 +875,7 @@ static int snd_usb_nativeinstruments_boot_quirk(struct usb_device *dev)
+>  {
+>  	int ret;
+>  
+> -	if (snd_usb_pipe_sanity_check(dev, usb_sndctrlpipe(dev, 0)))
+> +	if (usb_pipe_type_check(dev, usb_sndctrlpipe(dev, 0)))
+>  		return -EINVAL;
+>  	ret = usb_control_msg(dev, usb_sndctrlpipe(dev, 0),
+>  				  0xaf, USB_TYPE_VENDOR | USB_RECIP_DEVICE,
+> @@ -984,7 +984,7 @@ static int snd_usb_axefx3_boot_quirk(struct usb_device *dev)
+>  
+>  	dev_dbg(&dev->dev, "Waiting for Axe-Fx III to boot up...\n");
+>  
+> -	if (snd_usb_pipe_sanity_check(dev, usb_sndctrlpipe(dev, 0)))
+> +	if (usb_pipe_type_check(dev, usb_sndctrlpipe(dev, 0)))
+>  		return -EINVAL;
+>  	/* If the Axe-Fx III has not fully booted, it will timeout when trying
+>  	 * to enable the audio streaming interface. A more generous timeout is
+> @@ -1018,7 +1018,7 @@ static int snd_usb_motu_microbookii_communicate(struct usb_device *dev, u8 *buf,
+>  {
+>  	int err, actual_length;
+>  
+> -	if (snd_usb_pipe_sanity_check(dev, usb_sndintpipe(dev, 0x01)))
+> +	if (usb_pipe_type_check(dev, usb_sndintpipe(dev, 0x01)))
+>  		return -EINVAL;
+>  	err = usb_interrupt_msg(dev, usb_sndintpipe(dev, 0x01), buf, *length,
+>  				&actual_length, 1000);
+> @@ -1030,7 +1030,7 @@ static int snd_usb_motu_microbookii_communicate(struct usb_device *dev, u8 *buf,
+>  
+>  	memset(buf, 0, buf_size);
+>  
+> -	if (snd_usb_pipe_sanity_check(dev, usb_rcvintpipe(dev, 0x82)))
+> +	if (usb_pipe_type_check(dev, usb_rcvintpipe(dev, 0x82)))
+>  		return -EINVAL;
+>  	err = usb_interrupt_msg(dev, usb_rcvintpipe(dev, 0x82), buf, buf_size,
+>  				&actual_length, 1000);
+> @@ -1117,7 +1117,7 @@ static int snd_usb_motu_m_series_boot_quirk(struct usb_device *dev)
+>  {
+>  	int ret;
+>  
+> -	if (snd_usb_pipe_sanity_check(dev, usb_sndctrlpipe(dev, 0)))
+> +	if (usb_pipe_type_check(dev, usb_sndctrlpipe(dev, 0)))
+>  		return -EINVAL;
+>  	ret = usb_control_msg(dev, usb_sndctrlpipe(dev, 0),
+>  			      1, USB_TYPE_VENDOR | USB_RECIP_DEVICE,
+> -- 
+> 2.28.0
+> 

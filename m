@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id F315125AD56
-	for <lists+alsa-devel@lfdr.de>; Wed,  2 Sep 2020 16:38:16 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7C3C825AD59
+	for <lists+alsa-devel@lfdr.de>; Wed,  2 Sep 2020 16:38:55 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 919C7186F;
-	Wed,  2 Sep 2020 16:37:26 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 919C7186F
+	by alsa0.perex.cz (Postfix) with ESMTPS id 10C81176C;
+	Wed,  2 Sep 2020 16:38:05 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 10C81176C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1599057496;
-	bh=EUwzPb9EwBOXRZMna6ORcJqY620q4AQFdE/DtKS8Dsw=;
+	s=default; t=1599057535;
+	bh=iimJzJXn/1xVnGWuynSmt06LztKB59A9OpTMlpfh1Ss=;
 	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=gTnyiJY7lA9yQaGsIHDMCe+YCZvfprueKacDR+H99o9Yxuj1vDIllFk/lNxeM4Vr7
-	 Yp8apzT/A371WieI2f2MT2ejLNuU6SZ4HldVy6SdFnOHZJH9WfXom2H1ZkuPndmgtw
-	 gON06K99qX6TGEHbm8V+sYQb9BBpX4/TmTMHy8gs=
+	b=pPfZOcLyKIxp3ioxjorSj1mcYN+Qas7AWKnx7HxTrqivJUS2ScpgGqFiCIpsHZczJ
+	 peY/oeVayizRPpi2tgKb2Yd9E8skcekB0YFGgJOA0Yx2tohX/92wM3ACktrP2oEa3e
+	 ncP0fZGyO86ooaa2l0yddsnRtgaLSumFgRoEQVkA=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id DDA92F80276;
-	Wed,  2 Sep 2020 16:36:31 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 7981EF802DD;
+	Wed,  2 Sep 2020 16:37:07 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id D9B8DF8026F; Wed,  2 Sep 2020 16:36:29 +0200 (CEST)
+ id 6AD22F802DC; Wed,  2 Sep 2020 16:37:05 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_MSPIKE_H3,
@@ -34,21 +34,22 @@ X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_MSPIKE_H3,
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 20B12F80257
- for <alsa-devel@alsa-project.org>; Wed,  2 Sep 2020 16:36:23 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 20B12F80257
+ by alsa1.perex.cz (Postfix) with ESMTPS id E93A1F80212
+ for <alsa-devel@alsa-project.org>; Wed,  2 Sep 2020 16:36:58 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E93A1F80212
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id CAF8BB1AE;
- Wed,  2 Sep 2020 14:36:23 +0000 (UTC)
-Date: Wed, 02 Sep 2020 16:36:22 +0200
-Message-ID: <s5hft809rfd.wl-tiwai@suse.de>
+ by mx2.suse.de (Postfix) with ESMTP id 9AC6FB1AE;
+ Wed,  2 Sep 2020 14:36:59 +0000 (UTC)
+Date: Wed, 02 Sep 2020 16:36:58 +0200
+Message-ID: <s5heenk9red.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
 To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Subject: Re: [PATCH 06/10] sound: usx2y: move to use usb_control_msg_send()
-In-Reply-To: <20200902110115.1994491-7-gregkh@linuxfoundation.org>
+Subject: Re: [PATCH 07/10] sound: 6fire: move to use usb_control_msg_send()
+ and usb_control_msg_recv()
+In-Reply-To: <20200902110115.1994491-8-gregkh@linuxfoundation.org>
 References: <20200902110115.1994491-1-gregkh@linuxfoundation.org>
- <20200902110115.1994491-7-gregkh@linuxfoundation.org>
+ <20200902110115.1994491-8-gregkh@linuxfoundation.org>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
  FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
  (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
@@ -73,13 +74,16 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Wed, 02 Sep 2020 13:01:08 +0200,
+On Wed, 02 Sep 2020 13:01:09 +0200,
 Greg Kroah-Hartman wrote:
 > 
-> The usb_control_msg_send() call can handle data on the stack, as well as
-> returning an error if a "short" write happens, so move the driver over
-> to using that call instead.  This ends up removing a helper function
-> that is no longer needed.
+> The usb_control_msg_send() and usb_control_msg_recv() calls can return
+> an error if a "short" write/read happens, so move the driver over to
+> using those calls instead, saving some logic in the wrapper functions
+> that were being used in this driver.
+> 
+> This also resolves a long-staging bug where data on the stack was being
+> sent in a USB control message, which was not allowed.
 > 
 > Cc: Jaroslav Kysela <perex@perex.cz>
 > Cc: Takashi Iwai <tiwai@suse.com>
@@ -93,74 +97,114 @@ thanks,
 
 Takashi
 
+
 > ---
->  sound/usb/usx2y/us122l.c | 42 ++++++++--------------------------------
->  1 file changed, 8 insertions(+), 34 deletions(-)
+>  sound/usb/6fire/firmware.c | 38 +++++++++++++-------------------------
+>  1 file changed, 13 insertions(+), 25 deletions(-)
 > 
-> diff --git a/sound/usb/usx2y/us122l.c b/sound/usb/usx2y/us122l.c
-> index f86f7a61fb36..e5c5a0d03d8a 100644
-> --- a/sound/usb/usx2y/us122l.c
-> +++ b/sound/usb/usx2y/us122l.c
-> @@ -82,40 +82,13 @@ static int us144_create_usbmidi(struct snd_card *card)
->  				  &US122L(card)->midi_list, &quirk);
->  }
->  
-> -/*
-> - * Wrapper for usb_control_msg().
-> - * Allocates a temp buffer to prevent dmaing from/to the stack.
-> - */
-> -static int us122l_ctl_msg(struct usb_device *dev, unsigned int pipe,
-> -			  __u8 request, __u8 requesttype,
-> -			  __u16 value, __u16 index, void *data,
-> -			  __u16 size, int timeout)
-> -{
-> -	int err;
-> -	void *buf = NULL;
-> -
-> -	if (size > 0) {
-> -		buf = kmemdup(data, size, GFP_KERNEL);
-> -		if (!buf)
-> -			return -ENOMEM;
-> -	}
-> -	err = usb_control_msg(dev, pipe, request, requesttype,
-> -			      value, index, buf, size, timeout);
-> -	if (size > 0) {
-> -		memcpy(data, buf, size);
-> -		kfree(buf);
-> -	}
-> -	return err;
-> -}
-> -
->  static void pt_info_set(struct usb_device *dev, u8 v)
+> diff --git a/sound/usb/6fire/firmware.c b/sound/usb/6fire/firmware.c
+> index 69137c14d0dc..5b8994070c96 100644
+> --- a/sound/usb/6fire/firmware.c
+> +++ b/sound/usb/6fire/firmware.c
+> @@ -158,29 +158,17 @@ static int usb6fire_fw_ihex_init(const struct firmware *fw,
+>  static int usb6fire_fw_ezusb_write(struct usb_device *device,
+>  		int type, int value, char *data, int len)
 >  {
->  	int ret;
->  
-> -	ret = usb_control_msg(dev, usb_sndctrlpipe(dev, 0),
-> -			      'I',
-> -			      USB_DIR_OUT | USB_TYPE_VENDOR | USB_RECIP_DEVICE,
-> -			      v, 0, NULL, 0, 1000);
-> +	ret = usb_control_msg_send(dev, 0, 'I',
-> +				   USB_DIR_OUT | USB_TYPE_VENDOR | USB_RECIP_DEVICE,
-> +				   v, 0, NULL, 0, 1000);
->  	snd_printdd(KERN_DEBUG "%i\n", ret);
+> -	int ret;
+> -
+> -	ret = usb_control_msg(device, usb_sndctrlpipe(device, 0), type,
+> -			USB_DIR_OUT | USB_TYPE_VENDOR | USB_RECIP_DEVICE,
+> -			value, 0, data, len, HZ);
+> -	if (ret < 0)
+> -		return ret;
+> -	else if (ret != len)
+> -		return -EIO;
+> -	return 0;
+> +	return usb_control_msg_send(device, 0, type,
+> +				    USB_DIR_OUT | USB_TYPE_VENDOR | USB_RECIP_DEVICE,
+> +				    value, 0, data, len, HZ);
 >  }
 >  
-> @@ -305,10 +278,11 @@ static int us122l_set_sample_rate(struct usb_device *dev, int rate)
->  	data[0] = rate;
->  	data[1] = rate >> 8;
->  	data[2] = rate >> 16;
-> -	err = us122l_ctl_msg(dev, usb_sndctrlpipe(dev, 0), UAC_SET_CUR,
-> -			     USB_TYPE_CLASS|USB_RECIP_ENDPOINT|USB_DIR_OUT,
-> -			     UAC_EP_CS_ATTR_SAMPLE_RATE << 8, ep, data, 3, 1000);
-> -	if (err < 0)
-> +	err = usb_control_msg_send(dev, 0, UAC_SET_CUR,
-> +				   USB_TYPE_CLASS|USB_RECIP_ENDPOINT|USB_DIR_OUT,
-> +				   UAC_EP_CS_ATTR_SAMPLE_RATE << 8, ep, data, 3,
-> +				   1000);
-> +	if (err)
->  		snd_printk(KERN_ERR "%d: cannot set freq %d to ep 0x%x\n",
->  			   dev->devnum, rate, ep);
->  	return err;
+>  static int usb6fire_fw_ezusb_read(struct usb_device *device,
+>  		int type, int value, char *data, int len)
+>  {
+> -	int ret = usb_control_msg(device, usb_rcvctrlpipe(device, 0), type,
+> -			USB_DIR_IN | USB_TYPE_VENDOR | USB_RECIP_DEVICE, value,
+> -			0, data, len, HZ);
+> -	if (ret < 0)
+> -		return ret;
+> -	else if (ret != len)
+> -		return -EIO;
+> -	return 0;
+> +	return usb_control_msg_recv(device, 0, type,
+> +				    USB_DIR_IN | USB_TYPE_VENDOR | USB_RECIP_DEVICE,
+> +				    value, 0, data, len, HZ);
+>  }
+>  
+>  static int usb6fire_fw_fpga_write(struct usb_device *device,
+> @@ -230,7 +218,7 @@ static int usb6fire_fw_ezusb_upload(
+>  	/* upload firmware image */
+>  	data = 0x01; /* stop ezusb cpu */
+>  	ret = usb6fire_fw_ezusb_write(device, 0xa0, 0xe600, &data, 1);
+> -	if (ret < 0) {
+> +	if (ret) {
+>  		kfree(rec);
+>  		release_firmware(fw);
+>  		dev_err(&intf->dev,
+> @@ -242,7 +230,7 @@ static int usb6fire_fw_ezusb_upload(
+>  	while (usb6fire_fw_ihex_next_record(rec)) { /* write firmware */
+>  		ret = usb6fire_fw_ezusb_write(device, 0xa0, rec->address,
+>  				rec->data, rec->len);
+> -		if (ret < 0) {
+> +		if (ret) {
+>  			kfree(rec);
+>  			release_firmware(fw);
+>  			dev_err(&intf->dev,
+> @@ -257,7 +245,7 @@ static int usb6fire_fw_ezusb_upload(
+>  	if (postdata) { /* write data after firmware has been uploaded */
+>  		ret = usb6fire_fw_ezusb_write(device, 0xa0, postaddr,
+>  				postdata, postlen);
+> -		if (ret < 0) {
+> +		if (ret) {
+>  			dev_err(&intf->dev,
+>  				"unable to upload ezusb firmware %s: post urb.\n",
+>  				fwname);
+> @@ -267,7 +255,7 @@ static int usb6fire_fw_ezusb_upload(
+>  
+>  	data = 0x00; /* resume ezusb cpu */
+>  	ret = usb6fire_fw_ezusb_write(device, 0xa0, 0xe600, &data, 1);
+> -	if (ret < 0) {
+> +	if (ret) {
+>  		dev_err(&intf->dev,
+>  			"unable to upload ezusb firmware %s: end message.\n",
+>  			fwname);
+> @@ -302,7 +290,7 @@ static int usb6fire_fw_fpga_upload(
+>  	end = fw->data + fw->size;
+>  
+>  	ret = usb6fire_fw_ezusb_write(device, 8, 0, NULL, 0);
+> -	if (ret < 0) {
+> +	if (ret) {
+>  		kfree(buffer);
+>  		release_firmware(fw);
+>  		dev_err(&intf->dev,
+> @@ -327,7 +315,7 @@ static int usb6fire_fw_fpga_upload(
+>  	kfree(buffer);
+>  
+>  	ret = usb6fire_fw_ezusb_write(device, 9, 0, NULL, 0);
+> -	if (ret < 0) {
+> +	if (ret) {
+>  		dev_err(&intf->dev,
+>  			"unable to upload fpga firmware: end urb.\n");
+>  		return ret;
+> @@ -363,7 +351,7 @@ int usb6fire_fw_init(struct usb_interface *intf)
+>  	u8 buffer[12];
+>  
+>  	ret = usb6fire_fw_ezusb_read(device, 1, 0, buffer, 8);
+> -	if (ret < 0) {
+> +	if (ret) {
+>  		dev_err(&intf->dev,
+>  			"unable to receive device firmware state.\n");
+>  		return ret;
 > -- 
 > 2.28.0
 > 

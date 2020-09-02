@@ -2,68 +2,67 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2542725ABDA
-	for <lists+alsa-devel@lfdr.de>; Wed,  2 Sep 2020 15:13:36 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5208F25ABDE
+	for <lists+alsa-devel@lfdr.de>; Wed,  2 Sep 2020 15:14:19 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 00CF017F9;
-	Wed,  2 Sep 2020 15:12:45 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 00CF017F9
+	by alsa0.perex.cz (Postfix) with ESMTPS id EB9111800;
+	Wed,  2 Sep 2020 15:13:28 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EB9111800
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1599052415;
-	bh=PPwlHlVBZ0UNE5iTrTX04Ku/ZiD3BLN1g7sfR17Nh4I=;
-	h=Subject:From:To:Date:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1599052459;
+	bh=l8yfDgubi4D1wTCiCEn6opPM45yetzQqr5YG0cwFPNY=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=EizC6Z659fs+72MV4iGIVWWVFFsh8Mho+itYz1gOK5OWujMKJIMpsB802tvNYEfLM
-	 EC9LTcFgkIt+QtWqZn43MV74NKDp9/D0aOnol088IJQRnUzoL6fQ/MtK/AC0seHu4Q
-	 nj0Av/HJ1fQgh4u9WARKi1Bwv5NMkPhcYfTe7dvY=
+	b=mM3Qimb49JmO0Wbh6JDEMg+IbpKpQOQg6co82EDZ5M52FJIY0hMut8Vsvz2CfZSlV
+	 sX4zyWtyTvJN5UEGO5700jfDtMOnuIRk5fgM6x755s3GBosXYK2EHcfowbKXT6/YWh
+	 xT9MvtSYZdfHPLQVlXIZ2JMwwLFEHEXzHFq8OOLM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 292EDF801DA;
-	Wed,  2 Sep 2020 15:11:54 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 25D23F8026F;
+	Wed,  2 Sep 2020 15:13:08 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id B760CF80212; Wed,  2 Sep 2020 15:11:51 +0200 (CEST)
+ id EE518F80268; Wed,  2 Sep 2020 15:13:06 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_MSPIKE_H3,
- RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
+ RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=disabled
  version=3.4.0
-Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id AE4C5F800BA
- for <alsa-devel@alsa-project.org>; Wed,  2 Sep 2020 15:11:43 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz AE4C5F800BA
-IronPort-SDR: aG0iTbAiNl19GjcwheqVzNkFnx2/PF3ztFlaGuMbzb4NFtr/rFsF99RMGPJcGIQ3H+Zb+ZgjHA
- hMxoWEtjJvTg==
-X-IronPort-AV: E=McAfee;i="6000,8403,9731"; a="175429781"
-X-IronPort-AV: E=Sophos;i="5.76,383,1592895600"; d="scan'208";a="175429781"
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from fmsmga005.fm.intel.com ([10.253.24.32])
- by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 02 Sep 2020 06:11:41 -0700
-IronPort-SDR: yq3/0isfLYJ9qTMHVw2S5kiGnVlQkby6ppw2nAUvd3nsk7U0Ap/p/2CZb0/qxuY3qPBE+dFlpk
- ePZlCUxgS8UQ==
-X-IronPort-AV: E=Sophos;i="5.76,383,1592895600"; d="scan'208";a="502668857"
-Received: from ntishkev-mobl.ger.corp.intel.com ([10.254.144.112])
- by fmsmga005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 02 Sep 2020 06:11:38 -0700
-Message-ID: <5acf3d02b1705ee4be362d0bd57a62fd3b133667.camel@linux.intel.com>
-Subject: Re: [PATCH] Revert "ASoC: Intel: haswell: Power transition refactor"
-From: Liam Girdwood <liam.r.girdwood@linux.intel.com>
-To: Cezary Rojewski <cezary.rojewski@intel.com>, alsa-devel@alsa-project.org
-Date: Wed, 02 Sep 2020 14:11:33 +0100
-In-Reply-To: <20200901153041.14771-1-cezary.rojewski@intel.com>
-References: <20200901153041.14771-1-cezary.rojewski@intel.com>
-Content-Type: text/plain; charset="UTF-8"
-User-Agent: Evolution 3.36.2-0ubuntu1 
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Cc: broonie@kernel.org, tiwai@suse.com, pierre-louis.bossart@linux.intel.com
+ by alsa1.perex.cz (Postfix) with ESMTPS id ADC5FF800F3
+ for <alsa-devel@alsa-project.org>; Wed,  2 Sep 2020 15:12:59 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz ADC5FF800F3
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id CA076AF72;
+ Wed,  2 Sep 2020 13:12:59 +0000 (UTC)
+Date: Wed, 02 Sep 2020 15:12:58 +0200
+Message-ID: <s5hpn749vad.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Jaroslav Kysela <perex@perex.cz>
+Subject: Re: [PATCH] ALSA: hda/realtek - Add control fixup for Lenovo Thinkpad
+ X1 Carbon 7th
+In-Reply-To: <3e999b99-0ce7-68b8-a923-07ba2f4d798d@perex.cz>
+References: <20200829112746.3118-1-benjamin.poirier@gmail.com>
+ <32b649db-ede6-d3ea-a963-d0bac331e4b4@perex.cz>
+ <s5hft81czh8.wl-tiwai@suse.de> <s5hlfhsbn0u.wl-tiwai@suse.de>
+ <3e999b99-0ce7-68b8-a923-07ba2f4d798d@perex.cz>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
+ FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
+ (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
+Content-Type: text/plain; charset=US-ASCII
+Cc: alsa-devel@alsa-project.org, Kailang Yang <kailang@realtek.com>,
+ Hui Wang <hui.wang@canonical.com>,
+ Benjamin Poirier <benjamin.poirier@gmail.com>,
+ Kai-Heng Feng <kai.heng.feng@canonical.com>,
+ Vincent Bernat <vincent@bernat.ch>, Even Brenden <evenbrenden@gmail.com>,
+ Mark Pearson <mpearson@lenovo.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -79,30 +78,166 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Tue, 2020-09-01 at 17:30 +0200, Cezary Rojewski wrote:
-> This reverts commit 8ec7d6043263ecf250b9b7c0dd8ade899487538a.
+On Wed, 02 Sep 2020 14:55:19 +0200,
+Jaroslav Kysela wrote:
 > 
+> Dne 02. 09. 20 v 10:28 Takashi Iwai napsal(a):
+> > On Tue, 01 Sep 2020 17:01:55 +0200,
+> > Takashi Iwai wrote:
+> >>
+> >> On Tue, 01 Sep 2020 15:52:09 +0200,
+> >> Jaroslav Kysela wrote:
+> >>>
+> >>>> +}
+> >>>> +
+> >>>> +static int tpx1_dual_speaker_vol_put(struct snd_kcontrol *kcontrol,
+> >>>> +				     struct snd_ctl_elem_value *ucontrol)
+> >>>> +{
+> >>>> +	struct tpx1_dual_speaker *speaker_priv = snd_kcontrol_chip(kcontrol);
+> >>>> +	int err;
+> >>>> +
+> >>>> +	/* Control tweeter volume */
+> >>>> +	err = speaker_priv->underlying.put(&speaker_priv->underlying,
+> >>>> +					   ucontrol);
+> >>>> +	if (err < 0)
+> >>>> +		return err;
+> >>>> +
+> >>>> +	/* Control woofer volume (shared with headphone) */
+> >>>> +	err = speaker_priv->hp_vol.put(&speaker_priv->hp_vol, ucontrol);
+> >>>> +	if (err < 0)
+> >>>> +		return err;
+> >>>> +
+> >>>> +	snd_ctl_notify(speaker_priv->codec->card, SNDRV_CTL_EVENT_MASK_VALUE,
+> >>>> +		       &speaker_priv->hp_vol.id);
+> >>>> +	return err;
+> >>>> +}
+> >>>> +
+> >>>> +static int tpx1_dual_speaker_vol_tlv(struct snd_kcontrol *kcontrol,
+> >>>> +				     int op_flag, unsigned int size,
+> >>>> +				     unsigned int __user *tlv)
+> >>>> +{
+> >>>> +	struct tpx1_dual_speaker *speaker_priv = snd_kcontrol_chip(kcontrol);
+> >>>> +
+> >>>> +	return speaker_priv->underlying.tlv.c(&speaker_priv->underlying,
+> >>>> +					      op_flag, size, tlv);
+> >>>> +}
+> >>>> +
+> >>>> +static void tpx1_dual_speaker_vol_free(struct snd_kcontrol *kcontrol)
+> >>>> +{
+> >>>> +	struct tpx1_dual_speaker *speaker_priv = snd_kcontrol_chip(kcontrol);
+> >>>> +
+> >>>> +	if (speaker_priv->underlying.private_free)
+> >>>> +		speaker_priv->underlying.private_free(
+> >>>> +			&speaker_priv->underlying);
+> >>>> +	kfree(speaker_priv);
+> >>>> +}
+> >>>> +
+> >>>> +static int tpx1_dual_override_speaker_vol(struct hda_codec *codec,
+> >>>> +					  struct snd_kcontrol *speaker_vol,
+> >>>> +					  struct snd_kcontrol *hp_vol)
+> >>>> +{
+> >>>> +	struct tpx1_dual_speaker *speaker_priv;
+> >>>> +
+> >>>> +	speaker_priv = kmalloc(sizeof(struct tpx1_dual_speaker), GFP_KERNEL);
+> >>>> +	if (!speaker_priv)
+> >>>> +		return -ENOMEM;
+> >>>> +	speaker_priv->codec = codec;
+> >>>> +	memcpy(&speaker_priv->underlying, speaker_vol,
+> >>>> +	       sizeof(struct snd_kcontrol));
+> >>>> +	memcpy(&speaker_priv->hp_vol, hp_vol, sizeof(struct snd_kcontrol));
+> >>>
+> >>> This is a bit clumsy part. It would be probably nice to have a helper in the
+> >>> upper control code to clone the original control safely. Takashi?
+> >>
+> >> The purpose of those is to have two controls managing the same amp and
+> >> get notified with each other at other's update, right?  The missing
+> >> piece is only about notification, and that could be done in the common
+> >> code somehow, too.  For example, we can reduce the 16bit usage of NID
+> >> to 8 bit embedded in private_value, then we'll have 8 bit space for
+> >> storing the coupled kctl nid or some other tag for notification.
+> >>
+> >> However, the approach by this patch has minor problems, as far as I
+> >> see:
+> >>
+> >> - The notification may be issued unnecessarily for Master volume
+> >>   change;
+> >>   when you change Master volume, it'll notify Headphone and/or Speaker
+> >>   as well although those (virtual) values aren't changed.
+> >>   It's a minor issue and can be almost negligible, though.
+> >>
+> >> - The volume status depends on the operation order;
+> >>   e.g. when switching the output from speaker to headphone, at first
+> >>   mute and set volume zero Speaker, then unmute/raise Headphone.
+> >>   But if we do unmute/raise Headphone at first, then mute/zero
+> >>   Speaker, the headphone output will be also zero volume out of
+> >>   sudden.
+> >>   It seems that PA does in the former way, so the current approach
+> >>   might work practically, but it can be a pitfall in some corner
+> >>   cases.
+> > 
+> > After testing the actual patch with hda-emu, I noticed that the
+> > Speaker volume changes the volume of both speakers, and it's also tied
+> > with Headphone, too.  That said, basically this is de facto Master
+> > volume, and we basically don't need to control the individual amp.
+> > 
+> > If that's the case, the following patch may work instead (checked only
+> > via hda-emu).  It applies the workaround to fix the routing, then
+> > rename the half-working volume controls that aren't touched by PA.  If
+> > user definitely needs to adjust the individual amp, they can still
+> > change the renamed kctl (DAC1 and DAC2), but this must be a rare
+> > requirement.
 > 
+> This patch works with and without UCM and the code is really straight now.
+> Nice idea. Please, apply it to upstream.
 > 
-> While addressing existing power-cycle limitations for
+> Reviewed-by: Jaroslav Kysela <perex@perex.cz>
 > 
-> sound/soc/intel/haswell solution, change brings regression for standard
+> > 
+> > 
+> > Takashi
+> > 
+> > --- a/sound/pci/hda/patch_realtek.c
+> > +++ b/sound/pci/hda/patch_realtek.c
+> > @@ -5867,6 +5867,39 @@ static void alc275_fixup_gpio4_off(struct hda_codec *codec,
+> >  	}
+> >  }
+> >  
+> > +/* Quirk for Thinkpad X1 7th and 8th Gen
+> > + * The following fixed routing needed
+> > + * DAC1 (NID 0x02) -> Speaker (NID 0x14); some eq applied secretly
+> > + * DAC2 (NID 0x03) -> Bass (NID 0x17) & Headphone (NID 0x21); sharing a DAC
+> > + * DAC3 (NID 0x06) -> Unused, due to the lack of volume amp
+> > + */
+> > +static void alc285_fixup_thinkpad_x1_gen7(struct hda_codec *codec,
+> > +					  const struct hda_fixup *fix, int action)
+> > +{
+> > +	static const hda_nid_t conn[] = { 0x02, 0x03 }; /* exclude 0x06 */
 > 
-> audio userspace flows e.g.: when using PulseAudio.
+> It seems that NID 0x17 should be forced to 0x03 only for this hardware.
+>
+> > +	static const hda_nid_t preferred_pairs[] = {
+> > +		0x14, 0x02, 0x17, 0x03, 0x21, 0x03, 0
+> > +	};
 > 
-> 
-> 
-> Occasional sound-card initialization fail is still better than
-> 
-> pernament audio distortions, so revert the change.
-> 
-> 
-> 
-> Fixes: 8ec7d6043263 ("ASoC: Intel: haswell: Power transition refactor")
-> 
-> Reported-by: Christian Bundy <christianbundy@fraction.io>
-> 
-> Signed-off-by: Cezary Rojewski <cezary.rojewski@intel.com>
+> But you're preferring this here..
 
-Acked-by: Liam Girdwood <liam.r.girdwood@linux.intel.com>
+Right, but the above both of two are really needed.
 
+The reason why only setting preferred_pairs doesn't suffice is because
+of the generic parser's nature: the individual DACs would have a
+better score than the shared DAC at evaluating the routes.   So we
+need to exclude NID 0x06, and then pass preferred_pairs.
+
+Of course, we may enforce it by overriding the connection list with a
+single item, too.  But then you'd have to correct the index again as
+in Benjamin's v2 patch.  The above two sequences are a bit simpler
+than that, IMO.
+
+
+I'm going to submit a formal patch once when Benjamin is happy with
+this approach.
+
+
+thanks,
+
+Takashi

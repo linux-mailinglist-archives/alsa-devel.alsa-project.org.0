@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D1BFC25BF54
-	for <lists+alsa-devel@lfdr.de>; Thu,  3 Sep 2020 12:47:34 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C8C3525BF58
+	for <lists+alsa-devel@lfdr.de>; Thu,  3 Sep 2020 12:48:31 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 750431905;
-	Thu,  3 Sep 2020 12:46:44 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 750431905
+	by alsa0.perex.cz (Postfix) with ESMTPS id 729951691;
+	Thu,  3 Sep 2020 12:47:41 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 729951691
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1599130054;
-	bh=6B/hpgJH+QZgIa5PtXKYgCgesLTs5+jOMT40L/1fSBM=;
+	s=default; t=1599130111;
+	bh=zUU+BwCS1hadZ3lnsdUfcFEROQ9zVY/8IIEjNSJCE1I=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=RIrA+ujkOt3BV+zGUqM3xPoYBRdIaRhsDdwfzbo3m/CiV+9J0l1zWoKRv15Gp3diw
-	 O+rtGPcwOq8e29DeNrvzcqHBSupwJrxIe7t3/AJf9azvWoeQfF4OfXHYrZlfngsoz6
-	 o/eaxsYfeXJwCFsej+o48D6bHJ1LfeZjU+6lHR2Y=
+	b=qFuW3hRQ5Qxy25VBcCVvNfQlvt67IYq57ND9F1RfV4Q+Fzsc2GlYiAaW3jC1dDnsc
+	 2bjKZjo1Js+8UGrdlTMKOITucZCc5Wy1Bar9b+s6P8U5KX526YZmmu/LDoU7otCnq1
+	 qwqLgVbSFyxdKmuA+r5xN+jif9nomGwzmRGdBRLM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id C195BF80305;
-	Thu,  3 Sep 2020 12:42:09 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id B040FF80322;
+	Thu,  3 Sep 2020 12:42:11 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 0F4B1F802E1; Thu,  3 Sep 2020 12:42:00 +0200 (CEST)
+ id 1C187F802BC; Thu,  3 Sep 2020 12:42:08 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_MSPIKE_H3,
@@ -34,18 +34,18 @@ X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_MSPIKE_H3,
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id C116CF80278
+ by alsa1.perex.cz (Postfix) with ESMTPS id ED37FF802C4
  for <alsa-devel@alsa-project.org>; Thu,  3 Sep 2020 12:41:43 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C116CF80278
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz ED37FF802C4
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id F1EB4B15D;
- Thu,  3 Sep 2020 10:41:38 +0000 (UTC)
+ by mx2.suse.de (Postfix) with ESMTP id 0CE9EB15E;
+ Thu,  3 Sep 2020 10:41:39 +0000 (UTC)
 From: Takashi Iwai <tiwai@suse.de>
 To: alsa-devel@alsa-project.org
-Subject: [PATCH 09/11] ALSA: asihpi: Replace tasklet with threaded irq
-Date: Thu,  3 Sep 2020 12:41:29 +0200
-Message-Id: <20200903104131.21097-10-tiwai@suse.de>
+Subject: [PATCH 10/11] ALSA: firewire: Replace tasklet with work
+Date: Thu,  3 Sep 2020 12:41:30 +0200
+Message-Id: <20200903104131.21097-11-tiwai@suse.de>
 X-Mailer: git-send-email 2.16.4
 In-Reply-To: <20200903104131.21097-1-tiwai@suse.de>
 References: <20200903104131.21097-1-tiwai@suse.de>
@@ -66,146 +66,145 @@ Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 The tasklet is an old API that should be deprecated, usually can be
-converted to another decent API.  In ASIHPI driver, a tasklet is
-still used for offloading the PCM IRQ handling.  It can be achieved
-gracefully with a threaded IRQ, too.
+converted to another decent API.  In FireWire driver, a tasklet is
+still used for offloading the AMDTP PCM stream handling.  It can be
+achieved gracefully with a work queued, too.
 
-This patch replaces the tasklet usage in asihpi driver with a threaded
-IRQ.  It also simplified some call patterns.
+This patch replaces the tasklet usage in firewire-lib driver with a
+simple work.  The conversion is fairly straightforward but for the
+in_interrupt() checks that are replaced with the check using the
+current_work().
 
 Signed-off-by: Takashi Iwai <tiwai@suse.de>
 ---
- sound/pci/asihpi/asihpi.c  | 28 +++-------------------------
- sound/pci/asihpi/hpioctl.c | 16 +++++++++++++---
- 2 files changed, 16 insertions(+), 28 deletions(-)
+ sound/firewire/amdtp-stream-trace.h |  2 +-
+ sound/firewire/amdtp-stream.c       | 25 +++++++++++++------------
+ sound/firewire/amdtp-stream.h       |  2 +-
+ 3 files changed, 15 insertions(+), 14 deletions(-)
 
-diff --git a/sound/pci/asihpi/asihpi.c b/sound/pci/asihpi/asihpi.c
-index 35e76480306e..46d8166ceaeb 100644
---- a/sound/pci/asihpi/asihpi.c
-+++ b/sound/pci/asihpi/asihpi.c
-@@ -117,7 +117,6 @@ struct snd_card_asihpi {
- 	 * snd_card_asihpi_timer_function().
- 	 */
- 	struct snd_card_asihpi_pcm *llmode_streampriv;
--	struct tasklet_struct t;
- 	void (*pcm_start)(struct snd_pcm_substream *substream);
- 	void (*pcm_stop)(struct snd_pcm_substream *substream);
+diff --git a/sound/firewire/amdtp-stream-trace.h b/sound/firewire/amdtp-stream-trace.h
+index 26e7cb555d3c..5386d548cada 100644
+--- a/sound/firewire/amdtp-stream-trace.h
++++ b/sound/firewire/amdtp-stream-trace.h
+@@ -49,7 +49,7 @@ TRACE_EVENT(amdtp_packet,
+ 		__entry->data_blocks = data_blocks;
+ 		__entry->data_block_counter = data_block_counter,
+ 		__entry->packet_index = s->packet_index;
+-		__entry->irq = !!in_interrupt();
++		__entry->irq = (current_work() == &s->period_work);
+ 		__entry->index = index;
+ 	),
+ 	TP_printk(
+diff --git a/sound/firewire/amdtp-stream.c b/sound/firewire/amdtp-stream.c
+index ee1c428b1fd3..4e2f2bb7879f 100644
+--- a/sound/firewire/amdtp-stream.c
++++ b/sound/firewire/amdtp-stream.c
+@@ -64,7 +64,7 @@
+ #define IT_PKT_HEADER_SIZE_CIP		8 // For 2 CIP header.
+ #define IT_PKT_HEADER_SIZE_NO_CIP	0 // Nothing.
  
-@@ -547,9 +546,7 @@ static void snd_card_asihpi_pcm_int_start(struct snd_pcm_substream *substream)
- 	card = snd_pcm_substream_chip(substream);
+-static void pcm_period_tasklet(struct tasklet_struct *t);
++static void pcm_period_work(struct work_struct *work);
  
- 	WARN_ON(in_interrupt());
--	tasklet_disable(&card->t);
- 	card->llmode_streampriv = dpcm;
--	tasklet_enable(&card->t);
+ /**
+  * amdtp_stream_init - initialize an AMDTP stream structure
+@@ -94,7 +94,7 @@ int amdtp_stream_init(struct amdtp_stream *s, struct fw_unit *unit,
+ 	s->flags = flags;
+ 	s->context = ERR_PTR(-1);
+ 	mutex_init(&s->mutex);
+-	tasklet_setup(&s->period_tasklet, pcm_period_tasklet);
++	INIT_WORK(&s->period_work, pcm_period_work);
+ 	s->packet_index = 0;
  
- 	hpi_handle_error(hpi_adapter_set_property(card->hpi->adapter->index,
- 		HPI_ADAPTER_PROPERTY_IRQ_RATE,
-@@ -565,13 +562,7 @@ static void snd_card_asihpi_pcm_int_stop(struct snd_pcm_substream *substream)
- 	hpi_handle_error(hpi_adapter_set_property(card->hpi->adapter->index,
- 		HPI_ADAPTER_PROPERTY_IRQ_RATE, 0, 0));
+ 	init_waitqueue_head(&s->callback_wait);
+@@ -203,7 +203,7 @@ int amdtp_stream_add_pcm_hw_constraints(struct amdtp_stream *s,
  
+ 	// Linux driver for 1394 OHCI controller voluntarily flushes isoc
+ 	// context when total size of accumulated context header reaches
+-	// PAGE_SIZE. This kicks tasklet for the isoc context and brings
++	// PAGE_SIZE. This kicks work for the isoc context and brings
+ 	// callback in the middle of scheduled interrupts.
+ 	// Although AMDTP streams in the same domain use the same events per
+ 	// IRQ, use the largest size of context header between IT/IR contexts.
+@@ -333,7 +333,7 @@ EXPORT_SYMBOL(amdtp_stream_get_max_payload);
+  */
+ void amdtp_stream_pcm_prepare(struct amdtp_stream *s)
+ {
+-	tasklet_kill(&s->period_tasklet);
++	cancel_work_sync(&s->period_work);
+ 	s->pcm_buffer_pointer = 0;
+ 	s->pcm_period_pointer = 0;
+ }
+@@ -437,13 +437,14 @@ static void update_pcm_pointers(struct amdtp_stream *s,
+ 	s->pcm_period_pointer += frames;
+ 	if (s->pcm_period_pointer >= pcm->runtime->period_size) {
+ 		s->pcm_period_pointer -= pcm->runtime->period_size;
+-		tasklet_hi_schedule(&s->period_tasklet);
++		queue_work(system_highpri_wq, &s->period_work);
+ 	}
+ }
+ 
+-static void pcm_period_tasklet(struct tasklet_struct *t)
++static void pcm_period_work(struct work_struct *work)
+ {
+-	struct amdtp_stream *s = from_tasklet(s, t, period_tasklet);
++	struct amdtp_stream *s = container_of(work, struct amdtp_stream,
++					      period_work);
+ 	struct snd_pcm_substream *pcm = READ_ONCE(s->pcm);
+ 
+ 	if (pcm)
+@@ -794,7 +795,7 @@ static void generate_pkt_descs(struct amdtp_stream *s, struct pkt_desc *descs,
+ static inline void cancel_stream(struct amdtp_stream *s)
+ {
+ 	s->packet_index = -1;
 -	if (in_interrupt())
--		card->llmode_streampriv = NULL;
--	else {
--		tasklet_disable(&card->t);
--		card->llmode_streampriv = NULL;
--		tasklet_enable(&card->t);
--	}
-+	card->llmode_streampriv = NULL;
++	if (current_work() == &s->period_work)
+ 		amdtp_stream_pcm_abort(s);
+ 	WRITE_ONCE(s->pcm_buffer_pointer, SNDRV_PCM_POS_XRUN);
  }
+@@ -1184,7 +1185,7 @@ unsigned long amdtp_domain_stream_pcm_pointer(struct amdtp_domain *d,
  
- static int snd_card_asihpi_trigger(struct snd_pcm_substream *substream,
-@@ -921,10 +912,9 @@ static void snd_card_asihpi_timer_function(struct timer_list *t)
- 		add_timer(&dpcm->timer);
- }
- 
--static void snd_card_asihpi_int_task(struct tasklet_struct *t)
-+static void snd_card_asihpi_isr(struct hpi_adapter *a)
- {
--	struct snd_card_asihpi *asihpi = from_tasklet(asihpi, t, t);
--	struct hpi_adapter *a = asihpi->hpi;
-+	struct snd_card_asihpi *asihpi;
- 
- 	WARN_ON(!a || !a->snd_card || !a->snd_card->private_data);
- 	asihpi = (struct snd_card_asihpi *)a->snd_card->private_data;
-@@ -933,15 +923,6 @@ static void snd_card_asihpi_int_task(struct tasklet_struct *t)
- 			&asihpi->llmode_streampriv->timer);
- }
- 
--static void snd_card_asihpi_isr(struct hpi_adapter *a)
--{
--	struct snd_card_asihpi *asihpi;
--
--	WARN_ON(!a || !a->snd_card || !a->snd_card->private_data);
--	asihpi = (struct snd_card_asihpi *)a->snd_card->private_data;
--	tasklet_schedule(&asihpi->t);
--}
--
- /***************************** PLAYBACK OPS ****************/
- static int snd_card_asihpi_playback_prepare(struct snd_pcm_substream *
- 					    substream)
-@@ -2871,7 +2852,6 @@ static int snd_asihpi_probe(struct pci_dev *pci_dev,
- 	if (hpi->interrupt_mode) {
- 		asihpi->pcm_start = snd_card_asihpi_pcm_int_start;
- 		asihpi->pcm_stop = snd_card_asihpi_pcm_int_stop;
--		tasklet_setup(&asihpi->t, snd_card_asihpi_int_task);
- 		hpi->interrupt_callback = snd_card_asihpi_isr;
- 	} else {
- 		asihpi->pcm_start = snd_card_asihpi_pcm_timer_start;
-@@ -2960,14 +2940,12 @@ static int snd_asihpi_probe(struct pci_dev *pci_dev,
- static void snd_asihpi_remove(struct pci_dev *pci_dev)
- {
- 	struct hpi_adapter *hpi = pci_get_drvdata(pci_dev);
--	struct snd_card_asihpi *asihpi = hpi->snd_card->private_data;
- 
- 	/* Stop interrupts */
- 	if (hpi->interrupt_mode) {
- 		hpi->interrupt_callback = NULL;
- 		hpi_handle_error(hpi_adapter_set_property(hpi->adapter->index,
- 			HPI_ADAPTER_PROPERTY_IRQ_RATE, 0, 0));
--		tasklet_kill(&asihpi->t);
+ 	if (irq_target && amdtp_stream_running(irq_target)) {
+ 		// This function is called in software IRQ context of
+-		// period_tasklet or process context.
++		// period_work or process context.
+ 		//
+ 		// When the software IRQ context was scheduled by software IRQ
+ 		// context of IT contexts, queued packets were already handled.
+@@ -1195,9 +1196,9 @@ unsigned long amdtp_domain_stream_pcm_pointer(struct amdtp_domain *d,
+ 		// immediately to keep better granularity of PCM pointer.
+ 		//
+ 		// Later, the process context will sometimes schedules software
+-		// IRQ context of the period_tasklet. Then, no need to flush the
++		// IRQ context of the period_work. Then, no need to flush the
+ 		// queue by the same reason as described in the above
+-		if (!in_interrupt()) {
++		if (current_work() != &s->period_work) {
+ 			// Queued packet should be processed without any kernel
+ 			// preemption to keep latency against bus cycle.
+ 			preempt_disable();
+@@ -1263,7 +1264,7 @@ static void amdtp_stream_stop(struct amdtp_stream *s)
+ 		return;
  	}
  
- 	snd_card_free(hpi->snd_card);
-diff --git a/sound/pci/asihpi/hpioctl.c b/sound/pci/asihpi/hpioctl.c
-index 496dcde9715d..6cc2b6964bb5 100644
---- a/sound/pci/asihpi/hpioctl.c
-+++ b/sound/pci/asihpi/hpioctl.c
-@@ -329,11 +329,20 @@ static irqreturn_t asihpi_isr(int irq, void *dev_id)
- 	   asihpi_irq_count, a->adapter->type, a->adapter->index); */
+-	tasklet_kill(&s->period_tasklet);
++	cancel_work_sync(&s->period_work);
+ 	fw_iso_context_stop(s->context);
+ 	fw_iso_context_destroy(s->context);
+ 	s->context = ERR_PTR(-1);
+diff --git a/sound/firewire/amdtp-stream.h b/sound/firewire/amdtp-stream.h
+index 703b710aaf7f..2ceb57d1d58e 100644
+--- a/sound/firewire/amdtp-stream.h
++++ b/sound/firewire/amdtp-stream.h
+@@ -163,7 +163,7 @@ struct amdtp_stream {
  
- 	if (a->interrupt_callback)
--		a->interrupt_callback(a);
-+		return IRQ_WAKE_THREAD;
+ 	/* For a PCM substream processing. */
+ 	struct snd_pcm_substream *pcm;
+-	struct tasklet_struct period_tasklet;
++	struct work_struct period_work;
+ 	snd_pcm_uframes_t pcm_buffer_pointer;
+ 	unsigned int pcm_period_pointer;
  
- 	return IRQ_HANDLED;
- }
- 
-+static irqreturn_t asihpi_isr_thread(int irq, void *dev_id)
-+{
-+	struct hpi_adapter *a = dev_id;
-+
-+	if (a->interrupt_callback)
-+		a->interrupt_callback(a);
-+	return IRQ_HANDLED;
-+}
-+
- int asihpi_adapter_probe(struct pci_dev *pci_dev,
- 			 const struct pci_device_id *pci_id)
- {
-@@ -478,8 +487,9 @@ int asihpi_adapter_probe(struct pci_dev *pci_dev,
- 		}
- 
- 		/* Note: request_irq calls asihpi_isr here */
--		if (request_irq(pci_dev->irq, asihpi_isr, IRQF_SHARED,
--				"asihpi", &adapters[adapter_index])) {
-+		if (request_threaded_irq(pci_dev->irq, asihpi_isr,
-+					 asihpi_isr_thread, IRQF_SHARED,
-+					 "asihpi", &adapters[adapter_index])) {
- 			dev_err(&pci_dev->dev, "request_irq(%d) failed\n",
- 				pci_dev->irq);
- 			goto err;
 -- 
 2.16.4
 

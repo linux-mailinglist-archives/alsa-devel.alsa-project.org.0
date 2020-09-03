@@ -2,58 +2,59 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7FA7025B8DF
-	for <lists+alsa-devel@lfdr.de>; Thu,  3 Sep 2020 04:50:20 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2461525B915
+	for <lists+alsa-devel@lfdr.de>; Thu,  3 Sep 2020 05:17:19 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E54FD18B4;
-	Thu,  3 Sep 2020 04:49:29 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E54FD18B4
+	by alsa0.perex.cz (Postfix) with ESMTPS id A54FE18B2;
+	Thu,  3 Sep 2020 05:16:28 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A54FE18B2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1599101420;
-	bh=wR7idVxyX2tTDfBSzRp5AFE0S58IGRZ2MpDsYw7/ppA=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=OjssYSjepZq+kkapKTATH3ZpXm8wFS0XrdsnNMHlaSc/aW03gEeaAqYUTNguojxuO
-	 odCXdMnXFwqNNb9QhX5Ko2x+eeWJCF5feJj0t7NxmMymT7c5fX8I63JKbAVRN2ptxW
-	 9/8JGCK5ZmFNkxM2eNE5ikT8guZYYMmIkV11yC6Q=
+	s=default; t=1599103038;
+	bh=UhGZPrOkOSfA8AA6JMk2OKPT9mtTH7McWaiXXvwEPYk=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=StY8Sz2qXP+79dJjY2aHS4BoiIAF8wR2ZE1FcQjG7+UppYFkCH9ikc6Foh9Z9qBng
+	 M99Az0ihWH2WaojoqylWwckZOWWEYaLCQLGtg4VgmkY+HJbPtBOop56/gXwvALo4q6
+	 pQGh08RlamNNx0T4rFyRSpomZE0kIwzt8FdHyXcM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 2131BF8021D;
-	Thu,  3 Sep 2020 04:48:39 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id CD355F8020D;
+	Thu,  3 Sep 2020 05:15:37 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id AB771F80217; Thu,  3 Sep 2020 04:48:35 +0200 (CEST)
+ id E9BE2F800F0; Thu,  3 Sep 2020 05:15:33 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=FREEMAIL_FROM,SPF_HELO_NONE,
- SPF_PASS,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from r3-20.sinamail.sina.com.cn (r3-20.sinamail.sina.com.cn
- [202.108.3.20]) by alsa1.perex.cz (Postfix) with SMTP id 7D5ADF800BA
- for <alsa-devel@alsa-project.org>; Thu,  3 Sep 2020 04:48:23 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7D5ADF800BA
-Received: from unknown (HELO localhost.localdomain)([123.115.164.148])
- by sina.com with ESMTP
- id 5F50596B00017011; Thu, 3 Sep 2020 10:48:18 +0800 (CST)
-X-Sender: hdanton@sina.com
-X-Auth-ID: hdanton@sina.com
-X-SMAIL-MID: 54947415074172
-From: Hillf Danton <hdanton@sina.com>
-To: trix@redhat.com
-Subject: Re: [PATCH v2] soundwire: fix double free of dangling pointer
-Date: Thu,  3 Sep 2020 10:48:01 +0800
-Message-Id: <20200903024801.9032-1-hdanton@sina.com>
-In-Reply-To: <20200902202650.14189-1-trix@redhat.com>
-References: <20200902202650.14189-1-trix@redhat.com>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Cc: alsa-devel@alsa-project.org, ndesaulniers@google.com,
- pierre-louis.bossart@linux.intel.com, hdanton@sina.com,
- linux-kernel@vger.kernel.org, clang-built-linux@googlegroups.com,
- vkoul@kernel.org, shreyas.nc@intel.com, natechancellor@gmail.com,
- yung-chuan.liao@linux.intel.com, sanyog.r.kale@intel.com
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from inva020.nxp.com (inva020.nxp.com [92.121.34.13])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id E0377F800F0
+ for <alsa-devel@alsa-project.org>; Thu,  3 Sep 2020 05:15:26 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E0377F800F0
+Received: from inva020.nxp.com (localhost [127.0.0.1])
+ by inva020.eu-rdc02.nxp.com (Postfix) with ESMTP id B02C91A028C;
+ Thu,  3 Sep 2020 05:15:25 +0200 (CEST)
+Received: from invc005.ap-rdc01.nxp.com (invc005.ap-rdc01.nxp.com
+ [165.114.16.14])
+ by inva020.eu-rdc02.nxp.com (Postfix) with ESMTP id 321811A028B;
+ Thu,  3 Sep 2020 05:15:21 +0200 (CEST)
+Received: from 10.192.242.69 (shlinux2.ap.freescale.net [10.192.224.44])
+ by invc005.ap-rdc01.nxp.com (Postfix) with ESMTP id 56C2840249;
+ Thu,  3 Sep 2020 05:15:15 +0200 (CEST)
+From: Shengjiu Wang <shengjiu.wang@nxp.com>
+To: timur@kernel.org, nicoleotsuka@gmail.com, Xiubo.Lee@gmail.com,
+ festevam@gmail.com, broonie@kernel.org, perex@perex.cz, tiwai@suse.com,
+ alsa-devel@alsa-project.org, lgirdwood@gmail.com
+Subject: [PATCH] ASoC: fsl_sai: Set SAI Channel Mode to Output Mode
+Date: Thu,  3 Sep 2020 11:09:15 +0800
+Message-Id: <1599102555-17178-1-git-send-email-shengjiu.wang@nxp.com>
+X-Mailer: git-send-email 2.7.4
+X-Virus-Scanned: ClamAV using ClamSMTP
+Cc: linuxppc-dev@lists.ozlabs.org, linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -69,90 +70,69 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+Transmit data pins will output zero when slots are masked or channels
+are disabled. In CHMOD TDM mode, transmit data pins are tri-stated when
+slots are masked or channels are disabled. When data pins are tri-stated,
+there is noise on some channels when FS clock value is high and data is
+read while fsclk is transitioning from high to low.
 
-Wed,  2 Sep 2020 13:26:50 -0700
-> From: Tom Rix <trix@redhat.com>
-> 
-> clang static analysis flags this problem
-> 
-> stream.c:844:9: warning: Use of memory after
->   it is freed
->         kfree(bus->defer_msg.msg->buf);
->               ^~~~~~~~~~~~~~~~~~~~~~~
-> 
-> This happens in an error handler cleaning up memory
-> allocated for elements in a list.
-> 
-> 	list_for_each_entry(m_rt, &stream->master_list, stream_node) {
-> 		bus = m_rt->bus;
-> 
-> 		kfree(bus->defer_msg.msg->buf);
-> 		kfree(bus->defer_msg.msg);
-> 	}
-> 
-> And is triggered when the call to sdw_bank_switch() fails.
-> There are a two problems.
-> 
-> First, when sdw_bank_switch() fails, though it frees memory it
-> does not clear bus's reference 'defer_msg.msg' to that memory.
-> 
-> The second problem is the freeing msg->buf. In some cases
-> msg will be NULL so this will dereference a null pointer.
-> Need to check before freeing.
-> 
-> Fixes: 99b8a5d608a6 ("soundwire: Add bank switch routine")
-> Signed-off-by: Tom Rix <trix@redhat.com>
-> Reviewed-by: Nick Desaulniers <ndesaulniers@google.com>
-> Reviewed-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-> ---
-> v2 : change title, was 'soundwire: fix error handling'
-> ---
-> drivers/soundwire/stream.c | 8 +++++---
->  1 file changed, 5 insertions(+), 3 deletions(-)
-> 
-> diff --git a/drivers/soundwire/stream.c b/drivers/soundwire/stream.c
-> index 37290a799023..6e36deb505b1 100644
-> --- a/drivers/soundwire/stream.c
-> +++ b/drivers/soundwire/stream.c
-> @@ -717,6 +717,7 @@ static int sdw_bank_switch(struct sdw_bus *bus, int m_rt_count)
->  	kfree(wbuf);
->  error_1:
->  	kfree(wr_msg);
-> +	bus->defer_msg.msg = NULL;
->  	return ret;
->  }
->  
-> @@ -840,9 +841,10 @@ static int do_bank_switch(struct sdw_stream_runtime *stream)
->  error:
->  	list_for_each_entry(m_rt, &stream->master_list, stream_node) {
->  		bus = m_rt->bus;
-> -
-> -		kfree(bus->defer_msg.msg->buf);
-> -		kfree(bus->defer_msg.msg);
-> +		if (bus->defer_msg.msg) {
-> +			kfree(bus->defer_msg.msg->buf);
-> +			kfree(bus->defer_msg.msg);
-> +		}
->  	}
->  
->  msg_unlock:
-> -- 
-> 2.18.1
+Signed-off-by: Cosmin-Gabriel Samoila <cosmin.samoila@nxp.com>
+Signed-off-by: Shengjiu Wang <shengjiu.wang@nxp.com>
+---
+ sound/soc/fsl/fsl_sai.c | 12 ++++++++++--
+ sound/soc/fsl/fsl_sai.h |  2 ++
+ 2 files changed, 12 insertions(+), 2 deletions(-)
 
-Looks like it needs also to release the current buf before putting the new
-one into place.
-
---- a/drivers/soundwire/stream.c
-+++ b/drivers/soundwire/stream.c
-@@ -665,6 +665,10 @@ static int sdw_bank_switch(struct sdw_bu
- 	if (!wr_msg)
- 		return -ENOMEM;
+diff --git a/sound/soc/fsl/fsl_sai.c b/sound/soc/fsl/fsl_sai.c
+index 62c5fdb678fc..33b194a5c1dc 100644
+--- a/sound/soc/fsl/fsl_sai.c
++++ b/sound/soc/fsl/fsl_sai.c
+@@ -486,6 +486,12 @@ static int fsl_sai_hw_params(struct snd_pcm_substream *substream,
  
-+	if (bus->defer_msg.msg) {
-+		kfree(bus->defer_msg.msg->buf);
-+		kfree(bus->defer_msg.msg);
-+	}
- 	bus->defer_msg.msg = wr_msg;
+ 	val_cr4 |= FSL_SAI_CR4_FRSZ(slots);
  
- 	wbuf = kzalloc(sizeof(*wbuf), GFP_KERNEL);
++	/* Output Mode - data pins transmit 0 when slots are masked
++	 * or channels are disabled
++	 */
++	if (tx)
++		val_cr4 |= FSL_SAI_CR4_CHMOD;
++
+ 	/*
+ 	 * For SAI master mode, when Tx(Rx) sync with Rx(Tx) clock, Rx(Tx) will
+ 	 * generate bclk and frame clock for Tx(Rx), we should set RCR4(TCR4),
+@@ -494,7 +500,8 @@ static int fsl_sai_hw_params(struct snd_pcm_substream *substream,
+ 
+ 	if (!sai->is_slave_mode && fsl_sai_dir_is_synced(sai, adir)) {
+ 		regmap_update_bits(sai->regmap, FSL_SAI_xCR4(!tx, ofs),
+-				   FSL_SAI_CR4_SYWD_MASK | FSL_SAI_CR4_FRSZ_MASK,
++				   FSL_SAI_CR4_SYWD_MASK | FSL_SAI_CR4_FRSZ_MASK |
++				   FSL_SAI_CR4_CHMOD_MASK,
+ 				   val_cr4);
+ 		regmap_update_bits(sai->regmap, FSL_SAI_xCR5(!tx, ofs),
+ 				   FSL_SAI_CR5_WNW_MASK | FSL_SAI_CR5_W0W_MASK |
+@@ -502,7 +509,8 @@ static int fsl_sai_hw_params(struct snd_pcm_substream *substream,
+ 	}
+ 
+ 	regmap_update_bits(sai->regmap, FSL_SAI_xCR4(tx, ofs),
+-			   FSL_SAI_CR4_SYWD_MASK | FSL_SAI_CR4_FRSZ_MASK,
++			   FSL_SAI_CR4_SYWD_MASK | FSL_SAI_CR4_FRSZ_MASK |
++			   FSL_SAI_CR4_CHMOD_MASK,
+ 			   val_cr4);
+ 	regmap_update_bits(sai->regmap, FSL_SAI_xCR5(tx, ofs),
+ 			   FSL_SAI_CR5_WNW_MASK | FSL_SAI_CR5_W0W_MASK |
+diff --git a/sound/soc/fsl/fsl_sai.h b/sound/soc/fsl/fsl_sai.h
+index 6aba7d28f5f3..19cd4e1bbff9 100644
+--- a/sound/soc/fsl/fsl_sai.h
++++ b/sound/soc/fsl/fsl_sai.h
+@@ -119,6 +119,8 @@
+ #define FSL_SAI_CR4_FRSZ_MASK	(0x1f << 16)
+ #define FSL_SAI_CR4_SYWD(x)	(((x) - 1) << 8)
+ #define FSL_SAI_CR4_SYWD_MASK	(0x1f << 8)
++#define FSL_SAI_CR4_CHMOD       BIT(5)
++#define FSL_SAI_CR4_CHMOD_MASK  BIT(5)
+ #define FSL_SAI_CR4_MF		BIT(4)
+ #define FSL_SAI_CR4_FSE		BIT(3)
+ #define FSL_SAI_CR4_FSP		BIT(1)
+-- 
+2.27.0
 

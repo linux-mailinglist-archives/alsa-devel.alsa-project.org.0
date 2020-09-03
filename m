@@ -2,95 +2,79 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3B89625BBBD
-	for <lists+alsa-devel@lfdr.de>; Thu,  3 Sep 2020 09:32:58 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7528D25BBBE
+	for <lists+alsa-devel@lfdr.de>; Thu,  3 Sep 2020 09:33:41 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 1ED0618CC;
-	Thu,  3 Sep 2020 09:32:07 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1ED0618CC
+	by alsa0.perex.cz (Postfix) with ESMTPS id 1916018DA;
+	Thu,  3 Sep 2020 09:32:51 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1916018DA
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1599118377;
-	bh=HoA69lv80afhN1L2O1t1wLyEATdorSOc7HndTSHMZYQ=;
+	s=default; t=1599118421;
+	bh=a6NQokr4jM352XqY6vw/Xjc9tnmlUORQvxTKs8y3VmQ=;
 	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=rlAzF3Mm4IYlk1a3ROPPJrjuqsvgMZql2wJ8j/CCBLMPvu8vVZ384t1pHdIPFeRjU
-	 RyIv18HCepHDth6ifoOIoxaRzKCJJqE911h9wdKqwlYWqDCzTLtqkpiyODvULs8AQL
-	 Ccj0qErzKEtDM/5zXyQKoqvgK2DzQvaqHkQU5OVE=
+	b=aevHMZ1NjNioL75Gb0mosaBEqWb+IK1+lDhG6GKH7QBYXWYWneEN+LOYq4or/qqo0
+	 msqsq9iHkmm/o086vOwLaQge3U3BnnuaaQKwpxeG1gVM4Jk5aMgh9oXYmm1njljOpn
+	 SYybQQzy3X/hHsV1RM/5nOp3ZukKKcQaH5k2DSpE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 55883F8021D;
-	Thu,  3 Sep 2020 09:31:16 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id EE96FF8020D;
+	Thu,  3 Sep 2020 09:32:45 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 4BDF4F80217; Thu,  3 Sep 2020 09:31:13 +0200 (CEST)
+ id 127E0F8025F; Thu,  3 Sep 2020 09:32:43 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_PASS autolearn=disabled
+X-Spam-Status: No, score=0.0 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+ DKIM_VALID,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=disabled
  version=3.4.0
-Received: from mail-pf1-x442.google.com (mail-pf1-x442.google.com
- [IPv6:2607:f8b0:4864:20::442])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id D1693F800BA
- for <alsa-devel@alsa-project.org>; Thu,  3 Sep 2020 09:31:08 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D1693F800BA
+ by alsa1.perex.cz (Postfix) with ESMTPS id CFF22F800F0
+ for <alsa-devel@alsa-project.org>; Thu,  3 Sep 2020 09:32:35 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CFF22F800F0
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="Fyg3uVtj"
-Received: by mail-pf1-x442.google.com with SMTP id o68so1599047pfg.2
- for <alsa-devel@alsa-project.org>; Thu, 03 Sep 2020 00:31:08 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=date:from:to:cc:subject:message-id:references:mime-version
- :content-disposition:in-reply-to;
- bh=eWgR4tSVODMFTW14quEFYhG5PeWt22bZJ48zs+tX/wI=;
- b=Fyg3uVtjGbwvuRttgW8YMbm9VlOOQYyfTMjQqOnhFxrt3Or2GWPV1KLR0UPDHdFyZx
- 9FSrKv20fuLrsCDeuAOESNgb1Tfi1ZqN+vrOf9EGH7SjaEREqb4ptZ7Ydnso1Pe3PYzM
- +CRAdoiRdQar2BB48FouIrTAuzLYMcovGRw0GU5YiHdPmof9lf0mmn4v3Aigf/X2xiqs
- q3lAQ8G9qJIrc4CBCtbl6hQeta5WrVhgO0A9UIShyBHcLdvRFnfhh/l9ae+P+Tbozf1H
- xa5Tj8vfaDMJGoq8SE/VA0uV+JF/H0NymHSVYEPkyglx5pRHpwPaJ1HiPyO2ub4LMov/
- z44A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to;
- bh=eWgR4tSVODMFTW14quEFYhG5PeWt22bZJ48zs+tX/wI=;
- b=oJjJu9bG2swHSt3Ocam0KnX/SBgaeD4ggrB1R1ioFl5UVCHGzBLbw8NueATVU09Szw
- /TLzUpSdRk621Er71xlalMm8Yd2t6oHon660rqLuxR5fxQaq18XeIbRne/IZsMyHheiv
- ssmlyyAaAkI3nbr9yQGXP1q6KfWPge51vnyV/02Jk340ID09CgnXnSKGMmamDd6KZ8VJ
- Q2Hx4au6SGATAVQrJ+qW1n0gcPmar5uL0xmw1HrlAwWmw2K7AWCgnjdo/SJqOuQ6n+6S
- +FdGG8E/40zsel2H9mSGgRdRBpFqixOr6Ke7EfXiQwtRlDLShrmXmdhxWlXOgoBHOGls
- kPIQ==
-X-Gm-Message-State: AOAM531EiozsPGOg69rzhvfRM1MUS1XgyjvzSgvU8lLT8YCy+SeCZz9V
- 592+iLIBchRU2kgwo2gXVvQ=
-X-Google-Smtp-Source: ABdhPJy2kLox/0S1Uckt9aAjNOmbc6sFpW1bAZtVarJyv0yrCPfc3l7gaW6zsf+hprFMkE8V4wgfCw==
-X-Received: by 2002:a17:902:b405:: with SMTP id
- x5mr2495136plr.267.1599118265088; 
- Thu, 03 Sep 2020 00:31:05 -0700 (PDT)
-Received: from f3 (ae055068.dynamic.ppp.asahi-net.or.jp. [14.3.55.68])
- by smtp.gmail.com with ESMTPSA id y203sm1986801pfb.58.2020.09.03.00.31.01
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 03 Sep 2020 00:31:04 -0700 (PDT)
-Date: Thu, 3 Sep 2020 16:30:59 +0900
-From: Benjamin Poirier <benjamin.poirier@gmail.com>
-To: Takashi Iwai <tiwai@suse.de>
-Subject: Re: [PATCH] ALSA: hda/realtek - Add control fixup for Lenovo
- Thinkpad X1 Carbon 7th
-Message-ID: <20200903073059.GA3612@f3>
-References: <20200829112746.3118-1-benjamin.poirier@gmail.com>
- <32b649db-ede6-d3ea-a963-d0bac331e4b4@perex.cz>
- <s5hft81czh8.wl-tiwai@suse.de> <s5hlfhsbn0u.wl-tiwai@suse.de>
+ dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="lY2nENn4"
+Received: from localhost (83-86-74-64.cable.dynamic.v4.ziggo.nl [83.86.74.64])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
+ bits)) (No client certificate requested)
+ by mail.kernel.org (Postfix) with ESMTPSA id B389420775;
+ Thu,  3 Sep 2020 07:32:32 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=default; t=1599118353;
+ bh=a6NQokr4jM352XqY6vw/Xjc9tnmlUORQvxTKs8y3VmQ=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=lY2nENn4PyQnLe86tGBsy7BegX4EZ7tvxXVlNM7BZv6S3N+PmLZ0sqWiCET8GGqTk
+ o68zMMnRNYD7BkFKDl2ntBWB2Sy6A0ODNnz4eHdZJOHHBJgh+vXLe7u5kUJqQS+zhd
+ 95RgxEBPX+1UU5R2KEx32QhMc60fTKCtZT9/LTMc=
+Date: Thu, 3 Sep 2020 09:32:30 +0200
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: Alan Stern <stern@rowland.harvard.edu>
+Subject: Re: [PATCH 01/10] USB: move snd_usb_pipe_sanity_check into the USB
+ core
+Message-ID: <20200903073230.GA162335@kroah.com>
+References: <20200902110115.1994491-1-gregkh@linuxfoundation.org>
+ <20200902110115.1994491-2-gregkh@linuxfoundation.org>
+ <20200903004553.GA642955@rowland.harvard.edu>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <s5hlfhsbn0u.wl-tiwai@suse.de>
-Cc: alsa-devel@alsa-project.org, Kailang Yang <kailang@realtek.com>,
- Hui Wang <hui.wang@canonical.com>, Kai-Heng Feng <kai.heng.feng@canonical.com>,
- Vincent Bernat <vincent@bernat.ch>, Even Brenden <evenbrenden@gmail.com>,
- Mark Pearson <mpearson@lenovo.com>
+In-Reply-To: <20200903004553.GA642955@rowland.harvard.edu>
+Cc: alsa-devel@alsa-project.org, "Gustavo A. R. Silva" <gustavoars@kernel.org>,
+ Jesus Ramos <jesus-ramos@live.com>, johan.hedberg@gmail.com,
+ Chris Wulff <crwulff@gmail.com>, Nick Kossifidis <mickflemm@gmail.com>,
+ marcel@holtmann.org, linux-usb@vger.kernel.org,
+ Dmitry Panchenko <dmitry@d-systems.ee>, linux-kernel@vger.kernel.org,
+ Jussi Laako <jussi@sonarnerd.net>, linux-bluetooth@vger.kernel.org,
+ Eli Billauer <eli.billauer@gmail.com>,
+ Emiliano Ingrassia <ingrassia@epigenesys.com>,
+ Alexander Tsoy <alexander@tsoy.me>, tiwai@suse.com,
+ "Geoffrey D. Bennett" <g@b4.vu>, dvyukov@google.com, himadrispandya@gmail.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -106,84 +90,129 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 2020-09-02 10:28 +0200, Takashi Iwai wrote:
-[...]
+On Wed, Sep 02, 2020 at 08:45:53PM -0400, Alan Stern wrote:
+> On Wed, Sep 02, 2020 at 01:01:03PM +0200, Greg Kroah-Hartman wrote:
+> > snd_usb_pipe_sanity_check() is a great function, so let's move it into
+> > the USB core so that other parts of the kernel, including the USB core,
+> > can call it.
+> > 
+> > Name it usb_pipe_type_check() to match the existing
+> > usb_urb_ep_type_check() call, which now uses this function.
+> > 
+> > Cc: Jaroslav Kysela <perex@perex.cz>
+> > Cc: Takashi Iwai <tiwai@suse.com>
+> > Cc: "Gustavo A. R. Silva" <gustavoars@kernel.org>
+> > Cc: Eli Billauer <eli.billauer@gmail.com>
+> > Cc: Emiliano Ingrassia <ingrassia@epigenesys.com>
+> > Cc: Alan Stern <stern@rowland.harvard.edu>
+> > Cc: Alexander Tsoy <alexander@tsoy.me>
+> > Cc: "Geoffrey D. Bennett" <g@b4.vu>
+> > Cc: Jussi Laako <jussi@sonarnerd.net>
+> > Cc: Nick Kossifidis <mickflemm@gmail.com>
+> > Cc: Dmitry Panchenko <dmitry@d-systems.ee>
+> > Cc: Chris Wulff <crwulff@gmail.com>
+> > Cc: Jesus Ramos <jesus-ramos@live.com>
+> > Cc: linux-usb@vger.kernel.org
+> > Cc: linux-kernel@vger.kernel.org
+> > Cc: alsa-devel@alsa-project.org
+> > Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+> > ---
 > 
-> After testing the actual patch with hda-emu, I noticed that the
-> Speaker volume changes the volume of both speakers, and it's also tied
-> with Headphone, too.  That said, basically this is de facto Master
-> volume, and we basically don't need to control the individual amp.
-> 
-> If that's the case, the following patch may work instead (checked only
-> via hda-emu).  It applies the workaround to fix the routing, then
-> rename the half-working volume controls that aren't touched by PA.  If
-> user definitely needs to adjust the individual amp, they can still
-> change the renamed kctl (DAC1 and DAC2), but this must be a rare
-> requirement.
-> 
-> 
-> Takashi
-> 
-> --- a/sound/pci/hda/patch_realtek.c
-> +++ b/sound/pci/hda/patch_realtek.c
-> @@ -5867,6 +5867,39 @@ static void alc275_fixup_gpio4_off(struct hda_codec *codec,
->  	}
->  }
->  
-> +/* Quirk for Thinkpad X1 7th and 8th Gen
-> + * The following fixed routing needed
-> + * DAC1 (NID 0x02) -> Speaker (NID 0x14); some eq applied secretly
-> + * DAC2 (NID 0x03) -> Bass (NID 0x17) & Headphone (NID 0x21); sharing a DAC
-> + * DAC3 (NID 0x06) -> Unused, due to the lack of volume amp
-> + */
-> +static void alc285_fixup_thinkpad_x1_gen7(struct hda_codec *codec,
-> +					  const struct hda_fixup *fix, int action)
-> +{
-> +	static const hda_nid_t conn[] = { 0x02, 0x03 }; /* exclude 0x06 */
-> +	static const hda_nid_t preferred_pairs[] = {
-> +		0x14, 0x02, 0x17, 0x03, 0x21, 0x03, 0
-> +	};
-> +	struct alc_spec *spec = codec->spec;
-> +
-> +	switch (action) {
-> +	case HDA_FIXUP_ACT_PRE_PROBE:
-> +		snd_hda_override_conn_list(codec, 0x17, ARRAY_SIZE(conn), conn);
-> +		spec->gen.preferred_dacs = preferred_pairs;
-> +		break;
-> +	case HDA_FIXUP_ACT_BUILD:
-> +		/* The generic parser creates somewhat unintuitive volume ctls
-> +		 * with the fixed routing above, and the shared DAC2 may be
-> +		 * confusing for PA.
-> +		 * Rename those to unique names so that PA don't touch them
-                                                           ^ doesn't
-> +		 * and use only Master volume.
-> +		 */
-> +		rename_ctl(codec, "Front Playback Volume", "DAC1 Playback Volume");
-> +		rename_ctl(codec, "Bass Speaker Playback Volume", "DAC2 Playback Volume");
-> +		break;
-> +	}
-> +}
-> +
-[...]
+> > diff --git a/drivers/usb/core/urb.c b/drivers/usb/core/urb.c
+> > index 27e83e55a590..45bc2914c1ba 100644
+> > --- a/drivers/usb/core/urb.c
+> > +++ b/drivers/usb/core/urb.c
+> > @@ -192,24 +192,39 @@ static const int pipetypes[4] = {
+> >  };
+> >  
+> >  /**
+> > - * usb_urb_ep_type_check - sanity check of endpoint in the given urb
+> > - * @urb: urb to be checked
+> > + * usb_pipe_type_check - sanity check of a specific pipe for a usb device
+> > + * @dev: struct usb_device to be checked
+> > + * @pipe: pipe to check
+> >   *
+> >   * This performs a light-weight sanity check for the endpoint in the
+> > - * given urb.  It returns 0 if the urb contains a valid endpoint, otherwise
+> > - * a negative error code.
+> > + * given usb device.  It returns 0 if the pipe is a valid for the specific usb
+> -----------------------------------------------------^
+> Typo.
 
-I've tested that the following all work:
-* DAC1/DAC2 volume controls in all 4 speakers/headphones
-* 3 mute controls
-* mute led
-* plugging/unplugging headphones while PA is running switches outputs as
-  expected
-* loud volume, of course
+Oops, will fix, thanks.
 
-... as well as some of the corner cases that I had tripped on when
-working on my patches:
-* headphone sound "wobble" due to the "secret" equalizer on output 0x02:
-  not present with this patch; connection 0x03 is used for headphones as
-  expected from the code
-* resume after s3 suspend (which resets the codec): desired connections
-  are still used
 
-Everything looks good.
-Your patch is simple yet effective; I'm humbled, thank you. You're a
-true HDA ninja!
+> 
+> > + * device, otherwise a negative error code.
+> >   */
+> > -int usb_urb_ep_type_check(const struct urb *urb)
+> > +int usb_pipe_type_check(struct usb_device *dev, unsigned int pipe)
+> >  {
+> >  	const struct usb_host_endpoint *ep;
+> >  
+> > -	ep = usb_pipe_endpoint(urb->dev, urb->pipe);
+> > +	ep = usb_pipe_endpoint(dev, pipe);
+> >  	if (!ep)
+> >  		return -EINVAL;
+> > -	if (usb_pipetype(urb->pipe) != pipetypes[usb_endpoint_type(&ep->desc)])
+> > +	if (usb_pipetype(pipe) != pipetypes[usb_endpoint_type(&ep->desc)])
+> >  		return -EINVAL;
+> >  	return 0;
+> >  }
+> > +EXPORT_SYMBOL_GPL(usb_pipe_type_check);
+> > +
+> > +/**
+> > + * usb_urb_ep_type_check - sanity check of endpoint in the given urb
+> > + * @urb: urb to be checked
+> > + *
+> > + * This performs a light-weight sanity check for the endpoint in the
+> > + * given urb.  It returns 0 if the urb contains a valid endpoint, otherwise
+> > + * a negative error code.
+> > + */
+> > +int usb_urb_ep_type_check(const struct urb *urb)
+> > +{
+> > +	return usb_pipe_type_check(urb->dev, urb->pipe);
+> > +}
+> >  EXPORT_SYMBOL_GPL(usb_urb_ep_type_check);
+> 
+> Since this routine is used in only one place in the entire kernel, you 
+> might as well inline the code there and get rid of the function 
+> entirely.
 
-Tested-by: Benjamin Poirier <benjamin.poirier@gmail.com>
+Good idea, will do.
+
+> > diff --git a/sound/usb/quirks.c b/sound/usb/quirks.c
+> > index abf99b814a0f..fc3aab04a0bc 100644
+> > --- a/sound/usb/quirks.c
+> > +++ b/sound/usb/quirks.c
+> > @@ -846,7 +846,7 @@ static int snd_usb_accessmusic_boot_quirk(struct usb_device *dev)
+> >  	static const u8 seq[] = { 0x4e, 0x73, 0x52, 0x01 };
+> >  	void *buf;
+> >  
+> > -	if (snd_usb_pipe_sanity_check(dev, usb_sndintpipe(dev, 0x05)))
+> > +	if (usb_pipe_type_check(dev, usb_sndintpipe(dev, 0x05)))
+> >  		return -EINVAL;
+> >  	buf = kmemdup(seq, ARRAY_SIZE(seq), GFP_KERNEL);
+> >  	if (!buf)
+> > @@ -875,7 +875,7 @@ static int snd_usb_nativeinstruments_boot_quirk(struct usb_device *dev)
+> >  {
+> >  	int ret;
+> >  
+> > -	if (snd_usb_pipe_sanity_check(dev, usb_sndctrlpipe(dev, 0)))
+> > +	if (usb_pipe_type_check(dev, usb_sndctrlpipe(dev, 0)))
+> >  		return -EINVAL;
+> 
+> In a few places here this check is completely unnecessary.  All it does 
+> is verify that the device does have an endpoint 0 and the the type of 
+> the endpoint matches the type of the pipe.  Well, every USB device 
+> always has an endpoint 0, and it is always a bidirectional control 
+> endpoint.
+
+I think this was probably added to handle syzbot issues.  As long as the
+USB core does ensure that a USB device has endpoint 0, I agree, these
+can be removed.  I'll go check that and add a follow-on patch to the
+series to do this, thanks.
+
+thanks,
+
+greg k-h

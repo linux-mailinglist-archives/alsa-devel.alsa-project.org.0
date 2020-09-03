@@ -2,52 +2,71 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 04C0B25BD5D
-	for <lists+alsa-devel@lfdr.de>; Thu,  3 Sep 2020 10:34:16 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0320F25BD81
+	for <lists+alsa-devel@lfdr.de>; Thu,  3 Sep 2020 10:42:26 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 98E3618EA;
-	Thu,  3 Sep 2020 10:33:25 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 98E3618EA
+	by alsa0.perex.cz (Postfix) with ESMTPS id 8468118D3;
+	Thu,  3 Sep 2020 10:41:35 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8468118D3
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1599122055;
-	bh=8CI5dt1ZOkRcb/O18HzS10d/hu+IMqyGHEHlBXUkcJE=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=LnBrr9NjqX3jeKI59X9PfRXbbKD6ZK9g+8rSFXZ9lf1yXmFM1OF0fkddylp8V4U9k
-	 2TAwaiXm8Cq+F4mmcsjYv6u0erSxjxkbMJC4Xc+cqQeSTX/DzV/1FfP3dQYaBctNgw
-	 YKFfsshXitzVVg+x/n8IJBOfXX7UrJWdqrK3Lkh0=
+	s=default; t=1599122545;
+	bh=/RhL1+Os0ZHjkfhSyZSXiOAfORqfkCbABBv7SoNeSus=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=eHa5tdxnosTgqZ7/0NKBclAIDc0spp7xyUtV5PooUt48PWnrRPUqDkphXrAuttgHn
+	 fDj569aXPXoj0Wkl2IuJjHTFInCEsa+wjw3yjYRYVTZhRMOp32mQB+thEorfSLGyXh
+	 rTUYGYcQ61fJwRTRFnvbufZPWnu43iW17JDM9VLc=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id E708AF80278;
-	Thu,  3 Sep 2020 10:33:15 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id B2A62F801DA;
+	Thu,  3 Sep 2020 10:40:44 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 81F5FF8025F; Thu,  3 Sep 2020 10:33:13 +0200 (CEST)
+ id 0D0D8F80217; Thu,  3 Sep 2020 10:40:42 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_MSPIKE_H3,
- RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=disabled
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+ DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled
  version=3.4.0
-Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id E3455F801DA
- for <alsa-devel@alsa-project.org>; Thu,  3 Sep 2020 10:33:02 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E3455F801DA
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 3D022AFA8;
- Thu,  3 Sep 2020 08:33:03 +0000 (UTC)
-From: Takashi Iwai <tiwai@suse.de>
-To: alsa-devel@alsa-project.org
-Subject: [PATCH] ALSA: hda/realtek - Improved routing for Thinkpad X1 7th/8th
- Gen
-Date: Thu,  3 Sep 2020 10:33:00 +0200
-Message-Id: <20200903083300.6333-1-tiwai@suse.de>
-X-Mailer: git-send-email 2.16.4
-Cc: Benjamin Poirier <benjamin.poirier@gmail.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id AB83FF801DA
+ for <alsa-devel@alsa-project.org>; Thu,  3 Sep 2020 10:40:39 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz AB83FF801DA
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="Bqv3xA8Z"
+Received: from localhost (unknown [122.171.179.172])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by mail.kernel.org (Postfix) with ESMTPSA id 8A650206C0;
+ Thu,  3 Sep 2020 08:40:36 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=default; t=1599122437;
+ bh=/RhL1+Os0ZHjkfhSyZSXiOAfORqfkCbABBv7SoNeSus=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=Bqv3xA8ZsbL4xC45ykIHJ3xL4LxR6kgq8JH3vNz6QsLqABuwb+j0v/e8bQtPJcnO4
+ uIEC6+0nhPjNhUTiHlLZCuF18W+QHuyFLqrkKvJdff1OkX6DfTs4JFuXfaFflrpavS
+ nrDQ/cuSnGXpIB5oSpsCKMZEsQDwLNImH5lnrzM8=
+Date: Thu, 3 Sep 2020 14:10:33 +0530
+From: Vinod Koul <vkoul@kernel.org>
+To: trix@redhat.com
+Subject: Re: [PATCH v2] soundwire: fix double free of dangling pointer
+Message-ID: <20200903084033.GN2639@vkoul-mobl>
+References: <20200902202650.14189-1-trix@redhat.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20200902202650.14189-1-trix@redhat.com>
+Cc: alsa-devel@alsa-project.org, ndesaulniers@google.com,
+ pierre-louis.bossart@linux.intel.com, linux-kernel@vger.kernel.org,
+ clang-built-linux@googlegroups.com, shreyas.nc@intel.com,
+ natechancellor@gmail.com, yung-chuan.liao@linux.intel.com,
+ sanyog.r.kale@intel.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -63,132 +82,37 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-There've been quite a few regression reports about the lowered volume
-(reduced to ca 65% from the previous level) on Lenovo Thinkpad X1
-after the commit d2cd795c4ece ("ALSA: hda - fixup for the bass speaker
-on Lenovo Carbon X1 7th gen").  Although the commit itself does the
-right thing from HD-audio POV in order to have a volume control for
-bass speakers, it seems that the machine has some secret recipe under
-the hood.
+On 02-09-20, 13:26, trix@redhat.com wrote:
+> From: Tom Rix <trix@redhat.com>
+> 
+> clang static analysis flags this problem
+> 
+> stream.c:844:9: warning: Use of memory after
+>   it is freed
+>         kfree(bus->defer_msg.msg->buf);
+>               ^~~~~~~~~~~~~~~~~~~~~~~
+> 
+> This happens in an error handler cleaning up memory
+> allocated for elements in a list.
+> 
+> 	list_for_each_entry(m_rt, &stream->master_list, stream_node) {
+> 		bus = m_rt->bus;
+> 
+> 		kfree(bus->defer_msg.msg->buf);
+> 		kfree(bus->defer_msg.msg);
+> 	}
+> 
+> And is triggered when the call to sdw_bank_switch() fails.
+> There are a two problems.
+> 
+> First, when sdw_bank_switch() fails, though it frees memory it
+> does not clear bus's reference 'defer_msg.msg' to that memory.
+> 
+> The second problem is the freeing msg->buf. In some cases
+> msg will be NULL so this will dereference a null pointer.
+> Need to check before freeing.
 
-Through experiments, Benjamin Poirier found out that the following
-routing gives the best result:
-* DAC1 (NID 0x02) -> Speaker pin (NID 0x14)
-* DAC2 (NID 0x03) -> Shared by both Bass Speaker pin (NID 0x17) &
-                     Headphone pin (0x21)
-* DAC3 (NID 0x06) -> Unused
+Applied, thanks
 
-DAC1 seems to have some equalizer internally applied, and you'd get
-again the output in a bad quality if you connect this to the
-headphone pin.  Hence the headphone is connected to DAC2, which is now
-shared with the bass speaker pin.  DAC3 has no volume amp, hence it's
-not connected at all.
-
-For achieving the routing above, this patch introduced a couple of
-workarounds:
-
-* The connection list of bass speaker pin (NID 0x17) is reduced not to
-  include DAC3 (NID 0x06)
-* Pass preferred_pairs array to specify the fixed connection
-
-Here, both workarounds are needed because the generic parser prefers
-the individual DAC assignment over others.
-
-When the routing above is applied, the generic parser creates the two
-volume controls "Front" and "Bass Speaker".  Since we have only two
-DACs for three output pins, those are not fully controlling each
-output individually, and it would confuse PulseAudio.  For avoiding
-the pitfall, in this patch, we rename those volume controls to some
-unique ones ("DAC1" and "DAC2").  Then PulseAudio ignore them and
-concentrate only on the still good-working "Master" volume control.
-If a user still wants to control each DAC volume, they can still
-change manually via "DAC1" and "DAC2" volume controls.
-
-Fixes: d2cd795c4ece ("ALSA: hda - fixup for the bass speaker on Lenovo Carbon X1 7th gen")
-Reported-by: Benjamin Poirier <benjamin.poirier@gmail.com>
-Reviewed-by: Jaroslav Kysela <perex@perex.cz>
-Tested-by: Benjamin Poirier <benjamin.poirier@gmail.com>
-Cc: <stable@vger.kernel.org>
-BugLink: https://bugzilla.kernel.org/show_bug.cgi?id=207407#c10
-BugLink: https://gist.github.com/hamidzr/dd81e429dc86f4327ded7a2030e7d7d9#gistcomment-3214171
-BugLink: https://gist.github.com/hamidzr/dd81e429dc86f4327ded7a2030e7d7d9#gistcomment-3276276
-Link: https://lore/kernel.org/r/20200829112746.3118-1-benjamin.poirier@gmail.com
-Signed-off-by: Takashi Iwai <tiwai@suse.de>
----
- sound/pci/hda/patch_realtek.c | 42 +++++++++++++++++++++++++++++++++++++++++-
- 1 file changed, 41 insertions(+), 1 deletion(-)
-
-diff --git a/sound/pci/hda/patch_realtek.c b/sound/pci/hda/patch_realtek.c
-index 2ef8b080d84b..c521a1f17096 100644
---- a/sound/pci/hda/patch_realtek.c
-+++ b/sound/pci/hda/patch_realtek.c
-@@ -5868,6 +5868,39 @@ static void alc275_fixup_gpio4_off(struct hda_codec *codec,
- 	}
- }
- 
-+/* Quirk for Thinkpad X1 7th and 8th Gen
-+ * The following fixed routing needed
-+ * DAC1 (NID 0x02) -> Speaker (NID 0x14); some eq applied secretly
-+ * DAC2 (NID 0x03) -> Bass (NID 0x17) & Headphone (NID 0x21); sharing a DAC
-+ * DAC3 (NID 0x06) -> Unused, due to the lack of volume amp
-+ */
-+static void alc285_fixup_thinkpad_x1_gen7(struct hda_codec *codec,
-+					  const struct hda_fixup *fix, int action)
-+{
-+	static const hda_nid_t conn[] = { 0x02, 0x03 }; /* exclude 0x06 */
-+	static const hda_nid_t preferred_pairs[] = {
-+		0x14, 0x02, 0x17, 0x03, 0x21, 0x03, 0
-+	};
-+	struct alc_spec *spec = codec->spec;
-+
-+	switch (action) {
-+	case HDA_FIXUP_ACT_PRE_PROBE:
-+		snd_hda_override_conn_list(codec, 0x17, ARRAY_SIZE(conn), conn);
-+		spec->gen.preferred_dacs = preferred_pairs;
-+		break;
-+	case HDA_FIXUP_ACT_BUILD:
-+		/* The generic parser creates somewhat unintuitive volume ctls
-+		 * with the fixed routing above, and the shared DAC2 may be
-+		 * confusing for PA.
-+		 * Rename those to unique names so that PA doesn't touch them
-+		 * and use only Master volume.
-+		 */
-+		rename_ctl(codec, "Front Playback Volume", "DAC1 Playback Volume");
-+		rename_ctl(codec, "Bass Speaker Playback Volume", "DAC2 Playback Volume");
-+		break;
-+	}
-+}
-+
- static void alc233_alc662_fixup_lenovo_dual_codecs(struct hda_codec *codec,
- 					 const struct hda_fixup *fix,
- 					 int action)
-@@ -6136,6 +6169,7 @@ enum {
- 	ALC289_FIXUP_DUAL_SPK,
- 	ALC294_FIXUP_SPK2_TO_DAC1,
- 	ALC294_FIXUP_ASUS_DUAL_SPK,
-+	ALC285_FIXUP_THINKPAD_X1_GEN7,
- 	ALC285_FIXUP_THINKPAD_HEADSET_JACK,
- 	ALC294_FIXUP_ASUS_HPE,
- 	ALC294_FIXUP_ASUS_COEF_1B,
-@@ -7281,11 +7315,17 @@ static const struct hda_fixup alc269_fixups[] = {
- 		.chained = true,
- 		.chain_id = ALC294_FIXUP_SPK2_TO_DAC1
- 	},
-+	[ALC285_FIXUP_THINKPAD_X1_GEN7] = {
-+		.type = HDA_FIXUP_FUNC,
-+		.v.func = alc285_fixup_thinkpad_x1_gen7,
-+		.chained = true,
-+		.chain_id = ALC269_FIXUP_THINKPAD_ACPI
-+	},
- 	[ALC285_FIXUP_THINKPAD_HEADSET_JACK] = {
- 		.type = HDA_FIXUP_FUNC,
- 		.v.func = alc_fixup_headset_jack,
- 		.chained = true,
--		.chain_id = ALC285_FIXUP_SPEAKER2_TO_DAC1
-+		.chain_id = ALC285_FIXUP_THINKPAD_X1_GEN7
- 	},
- 	[ALC294_FIXUP_ASUS_HPE] = {
- 		.type = HDA_FIXUP_VERBS,
 -- 
-2.16.4
-
+~Vinod

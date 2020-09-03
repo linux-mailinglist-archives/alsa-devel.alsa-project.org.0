@@ -2,85 +2,85 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 24C2525CAFA
-	for <lists+alsa-devel@lfdr.de>; Thu,  3 Sep 2020 22:37:22 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4AE4C25CB43
+	for <lists+alsa-devel@lfdr.de>; Thu,  3 Sep 2020 22:40:10 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C8B7A192B;
-	Thu,  3 Sep 2020 22:36:31 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C8B7A192B
+	by alsa0.perex.cz (Postfix) with ESMTPS id 034CE1AAA;
+	Thu,  3 Sep 2020 22:39:15 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 034CE1AAA
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1599165441;
-	bh=K4dmeNGtrcbmftZRBPeJGLx+M++AXOW7aIu4gnDm/Kk=;
+	s=default; t=1599165605;
+	bh=Ffu0p009uCbD0lcNfaK6xKfJNWxF0SG5XCL5X9Lp6GY=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=vNPKbZZXQiTyV89tZlEuv2h1fAI6KUHiWmz3vCMJqSqSpsdWKRI5rJOeyv1LigqGJ
-	 fCdlBDvlycQvAiEmFpl9m1RkY2894RELiP0FYzVcv/zg5EaOZ6qJeigFs8hdKUC6GV
-	 /279c4b2JrJwAm4Bb7ZAMlJJvjPvkxluOeDVzLDE=
+	b=NhpV+sr4SP9KT6UNikJVQYrLQymwUqffBIokLjSGiNh5hCGh0y27SomQ06wAYo0tu
+	 RccEOqaJ/dvIgx6FLsgcxzEZ8AYzo6C2udGfQRs8hqgW+qDPmKAD1+vPMdlUBaF/Zz
+	 TNGICaxfcF5nrfy3iLSbKwNAdZyE4B6uznk6upKc=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 9A37CF8033D;
-	Thu,  3 Sep 2020 22:31:15 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 25D7AF8034F;
+	Thu,  3 Sep 2020 22:31:29 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 642A6F80338; Thu,  3 Sep 2020 22:31:13 +0200 (CEST)
+ id 20EBCF80346; Thu,  3 Sep 2020 22:31:24 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_PASS autolearn=disabled
  version=3.4.0
-Received: from mail-wr1-x444.google.com (mail-wr1-x444.google.com
- [IPv6:2a00:1450:4864:20::444])
+Received: from mail-wm1-x343.google.com (mail-wm1-x343.google.com
+ [IPv6:2a00:1450:4864:20::343])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 83870F802F8
- for <alsa-devel@alsa-project.org>; Thu,  3 Sep 2020 22:31:00 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 83870F802F8
+ by alsa1.perex.cz (Postfix) with ESMTPS id 4D775F802C4
+ for <alsa-devel@alsa-project.org>; Thu,  3 Sep 2020 22:31:01 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4D775F802C4
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="WyrthnaZ"
-Received: by mail-wr1-x444.google.com with SMTP id w5so4573698wrp.8
- for <alsa-devel@alsa-project.org>; Thu, 03 Sep 2020 13:31:00 -0700 (PDT)
+ header.b="O0aIAKeZ"
+Received: by mail-wm1-x343.google.com with SMTP id w2so4134419wmi.1
+ for <alsa-devel@alsa-project.org>; Thu, 03 Sep 2020 13:31:01 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=4HdI15SBEuyVNQNB+e23d+K5pgBDpyUoqfbF257aXR4=;
- b=WyrthnaZYSFEr7XddYF7H50hOI5GPE+Pd6cDfZvu4PnQF0Psq5EF8p+RpdbuBXkK+/
- ia3x8aYxZm6VnrBWzUiTkhyelVCLcQW3ICV9JNF8XvdMaiJwwHeUBWuBZxOJuJyXQIVn
- HhvWKkZ5sWEyp98yw1kWt3E/1d0jRChRYpYnldSHC+UnvXRdQ/I4wol3ON/0QxcN94TY
- dyWN2ySMCsNUQW7ZFFHhOcReTI+ZP8TrNDygFxNr3QQiEKQ15O0+x7qaxJsPfuU2T5/0
- 3FuDrAg/+zCRQcmevfiqKs+bir8srVfRPxrJeSaYahVPrXe5JLRwdukunX2sHHpszb16
- b3zQ==
+ bh=ZKqv9b9ye6nXeHQ0sv780xJ1tkZxHw2igrPZLKbetcg=;
+ b=O0aIAKeZyRNk7s9q8EZqQBEC/clHIDc8DdK7q9xpLt4BdmEh5sK9RmICcgAEITQigF
+ IjzCcyi0HtNrESluB8FrQS36PWGA5qUgjamBvc35j2hh37RYxg0PF2EmgMxN9mkRbx1s
+ hRwQ8y+6iMxrUOduNrhX6aTGkgSc+663j5tTNlAc7iM+rF9afhNH5cpkOxfpN8YaAV2j
+ FynxtTlWPmvEJ39aOTTFJ4fBbGrkDWP3xbKsZt2H07yOzd4zkA4zc+yemiP90EkDAVfj
+ gmV6c/KRgxIMO8mM36+4DOG1gfa+YTfswGvilmcURlve/J41Jw0OqFq+N0XOD4SE4Yis
+ VNpQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=4HdI15SBEuyVNQNB+e23d+K5pgBDpyUoqfbF257aXR4=;
- b=hHVg3jWVO5Y1CfC4mPoCUqwHzQavZ6G5oXxv4O/sDJIPCiAZRbmGAdJI3VQa0EyHvu
- L1hZu3w0gVYcaTumbEn2QnrMlKspa8OVqOJwJPPuPFFsmio12q+wTCxjDylhm1TlaIbp
- 9HRzywXiqo2ZDFed/V0/u2rBtigaCqcL7JE7EUxErR9D720Xdbp2mVN/DLzECvWX8KOK
- BRsQgWNytWTHKzmHGvvKWY506wdfi5E1h/Wsw0c3L0Pv8vgTpdZfKk4N+Up9RkY7b1iR
- CXXb5AH3hDqUIQyqIE3bNaqrjyEP7OzdmPov7KYOdSyV+agH9Thm/4de4N0f0z1xLYaI
- aTMQ==
-X-Gm-Message-State: AOAM530dvXNOwCbeuE2i5FHWYBN8IzcLGpS19UiSurPB54J84Z3Vgv7l
- +lXbU5j8VZYeAiZx5Oas3Ro=
-X-Google-Smtp-Source: ABdhPJyRYKqLTYuj65U35HowZN4mMgwJQgbTH6FKusmQCLCKBfVDNA7p4bBA6gxOvKQPOqkec1Ho9w==
-X-Received: by 2002:a5d:4ccb:: with SMTP id c11mr4175622wrt.159.1599165059655; 
- Thu, 03 Sep 2020 13:30:59 -0700 (PDT)
+ bh=ZKqv9b9ye6nXeHQ0sv780xJ1tkZxHw2igrPZLKbetcg=;
+ b=Wbr1AFJBSQPHvx4YQek8wEWsFHDoHfTpWua29EuAM2uAUfvpwKV2MkC7my//UxMqjb
+ MQEJubjaFpl2DWrOQXWSNVnA1NWtZxu2pCrWr+DdBlnV8Z4v5CzP5su+iKI2+iPHy/0K
+ XrrTNtFywhGC3GqgBhT6OkIxVyISrKegbq2j0w/+hCY1OR/rwEboyqz9LFfQCC8QOoxJ
+ jkRrBoJsW0u8Ncof4XnDpptICCjrfxPTWMSojt0uOy7s9lQUtxXrWyDBq8vlcOhqimnV
+ KEU4vU2E9TFAYWyn4C7cKUmhbWRzEyW6sxtR83ME+vq/gYauQCIJopLWJSluu1X6cfWq
+ tw2w==
+X-Gm-Message-State: AOAM530z5dBNNTZmxevFKG9iEPvkAnBgmKNtdCekgAZObwG7XN09+NtU
+ xXjMKnEGMz+KVlD0kfg5f/Q=
+X-Google-Smtp-Source: ABdhPJxa1EVUcgTCV2q8x5mnFjfUNgDGgjSILnbXs8nPpEpQiRI50TKDBegx1b73F86O67npyqTcCA==
+X-Received: by 2002:a1c:8003:: with SMTP id b3mr4498954wmd.121.1599165060920; 
+ Thu, 03 Sep 2020 13:31:00 -0700 (PDT)
 Received: from clement-Latitude-7490.numericable.fr
  (213-245-241-245.rev.numericable.fr. [213.245.241.245])
- by smtp.gmail.com with ESMTPSA id q186sm6818274wma.45.2020.09.03.13.30.58
+ by smtp.gmail.com with ESMTPSA id q186sm6818274wma.45.2020.09.03.13.30.59
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 03 Sep 2020 13:30:58 -0700 (PDT)
+ Thu, 03 Sep 2020 13:31:00 -0700 (PDT)
 From: =?UTF-8?q?Cl=C3=A9ment=20P=C3=A9ron?= <peron.clem@gmail.com>
 To: Maxime Ripard <mripard@kernel.org>, Chen-Yu Tsai <wens@csie.org>,
  Rob Herring <robh+dt@kernel.org>, Mark Brown <broonie@kernel.org>,
  Liam Girdwood <lgirdwood@gmail.com>
-Subject: [PATCH v2 14/20] arm: sun8i: h3: Add HDMI audio to Orange Pi 2
-Date: Thu,  3 Sep 2020 22:30:28 +0200
-Message-Id: <20200903203034.1057334-15-peron.clem@gmail.com>
+Subject: [PATCH v2 15/20] arm: sun8i: h3: Add HDMI audio to Beelink X2
+Date: Thu,  3 Sep 2020 22:30:29 +0200
+Message-Id: <20200903203034.1057334-16-peron.clem@gmail.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20200903203034.1057334-1-peron.clem@gmail.com>
 References: <20200903203034.1057334-1-peron.clem@gmail.com>
@@ -110,19 +110,19 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 From: Marcus Cooper <codekipper@gmail.com>
 
-Enable HDMI audio on the Orange Pi 2.
+Enable HDMI audio on the Beelink X2.
 
 Signed-off-by: Marcus Cooper <codekipper@gmail.com>
 Signed-off-by: Clément Péron <peron.clem@gmail.com>
 ---
- arch/arm/boot/dts/sun8i-h3-orangepi-2.dts | 8 ++++++++
+ arch/arm/boot/dts/sun8i-h3-beelink-x2.dts | 8 ++++++++
  1 file changed, 8 insertions(+)
 
-diff --git a/arch/arm/boot/dts/sun8i-h3-orangepi-2.dts b/arch/arm/boot/dts/sun8i-h3-orangepi-2.dts
-index 597c425d08ec..64e8e2829f27 100644
---- a/arch/arm/boot/dts/sun8i-h3-orangepi-2.dts
-+++ b/arch/arm/boot/dts/sun8i-h3-orangepi-2.dts
-@@ -144,6 +144,14 @@ hdmi_out_con: endpoint {
+diff --git a/arch/arm/boot/dts/sun8i-h3-beelink-x2.dts b/arch/arm/boot/dts/sun8i-h3-beelink-x2.dts
+index 45a24441ff18..f9bec6935120 100644
+--- a/arch/arm/boot/dts/sun8i-h3-beelink-x2.dts
++++ b/arch/arm/boot/dts/sun8i-h3-beelink-x2.dts
+@@ -142,6 +142,14 @@ hdmi_out_con: endpoint {
  	};
  };
  
@@ -135,8 +135,8 @@ index 597c425d08ec..64e8e2829f27 100644
 +};
 +
  &ir {
+ 	linux,rc-map-name = "rc-tanix-tx3mini";
  	pinctrl-names = "default";
- 	pinctrl-0 = <&r_ir_rx_pin>;
 -- 
 2.25.1
 

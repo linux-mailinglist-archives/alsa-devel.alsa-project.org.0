@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B540B25BB79
-	for <lists+alsa-devel@lfdr.de>; Thu,  3 Sep 2020 09:17:16 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 163B125BB7B
+	for <lists+alsa-devel@lfdr.de>; Thu,  3 Sep 2020 09:18:00 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 6B8DC18CA;
-	Thu,  3 Sep 2020 09:16:25 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6B8DC18CA
+	by alsa0.perex.cz (Postfix) with ESMTPS id 9D01618D1;
+	Thu,  3 Sep 2020 09:17:09 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9D01618D1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1599117435;
-	bh=M+OLokO0JzelfAaLkE0hbVtHaal8Lf7Zm012JDcebeo=;
+	s=default; t=1599117479;
+	bh=q6A7zveueuX4F1owm/FTR1TFOOPZakKqoJc7fcc/X58=;
 	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=dtqIiSk2DicqtNAF96lxE6kLshXaEtjUzY3hPURdbNoDlWflAgdIjIqRJDbij283D
-	 vMM5mOkKluKXHgYhBQEkqRL/WMsdciXbI3IAEFL/36Nrx18tR8W3KCi+pD/F83knEJ
-	 t6kwUzQqt+QxDKFNWBJNhzBwlvuNETc2ryAMwB80=
+	b=AccfsWPujwIvgTM5u1x3gvy/AJ+yp65IOPobGeGAnzrb645c13ltXgoNmMjaadKin
+	 mHHweE9qs4CPkil2i2Q43+qDEUfE+vIoXRDpjzGCY9RWZEMmUtadehkGxqAlf6//v+
+	 nM8lydo3BQAR0spXij3fGSPH2MOYfBsyVGTXu3jg=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id AED58F800BA;
-	Thu,  3 Sep 2020 09:15:34 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id D49CCF800F0;
+	Thu,  3 Sep 2020 09:16:06 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 236A7F800F0; Thu,  3 Sep 2020 09:15:32 +0200 (CEST)
+ id 2B3BEF80278; Thu,  3 Sep 2020 09:16:04 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_MSPIKE_H3,
@@ -34,21 +34,21 @@ X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_MSPIKE_H3,
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 2C74EF800F0
- for <alsa-devel@alsa-project.org>; Thu,  3 Sep 2020 09:15:24 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2C74EF800F0
+ by alsa1.perex.cz (Postfix) with ESMTPS id 71130F8021D
+ for <alsa-devel@alsa-project.org>; Thu,  3 Sep 2020 09:15:58 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 71130F8021D
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id AC778ABC4;
- Thu,  3 Sep 2020 07:15:25 +0000 (UTC)
-Date: Thu, 03 Sep 2020 09:15:24 +0200
-Message-ID: <s5hzh6772lv.wl-tiwai@suse.de>
+ by mx2.suse.de (Postfix) with ESMTP id 2ED80ABC4;
+ Thu,  3 Sep 2020 07:15:59 +0000 (UTC)
+Date: Thu, 03 Sep 2020 09:15:58 +0200
+Message-ID: <s5hy2lr72kx.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
 To: "Tanjeff-N. Moos" <tanjeff@cccmz.de>
-Subject: Re: [PATCH 1/2] control: Improve general control interface
- documentation.
-In-Reply-To: <20200902092727.2732-1-tanjeff@cccmz.de>
+Subject: Re: [PATCH 2/2] control: Add documentation for snd_ctl_elem_value_*.
+In-Reply-To: <20200902092727.2732-2-tanjeff@cccmz.de>
 References: <20200902092727.2732-1-tanjeff@cccmz.de>
+ <20200902092727.2732-2-tanjeff@cccmz.de>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
  FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
  (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
@@ -70,14 +70,12 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Wed, 02 Sep 2020 11:27:26 +0200,
+On Wed, 02 Sep 2020 11:27:27 +0200,
 Tanjeff-N. Moos wrote:
 > 
 > Signed-off-by: Tanjeff-N. Moos <tanjeff@cccmz.de>
 
-Thanks, applied now.  The added / modified texts are excellent, but at
-the next time, please give some more description in the patch itself.
-An empty patch description is always a sign of a bad patch.
+Thanks, applied this one, too.
 
 
 Takashi

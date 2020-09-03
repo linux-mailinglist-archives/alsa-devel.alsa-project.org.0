@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id BBA5E25C08A
-	for <lists+alsa-devel@lfdr.de>; Thu,  3 Sep 2020 13:48:12 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E94B525C091
+	for <lists+alsa-devel@lfdr.de>; Thu,  3 Sep 2020 13:49:31 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 5C505192A;
-	Thu,  3 Sep 2020 13:47:22 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5C505192A
+	by alsa0.perex.cz (Postfix) with ESMTPS id 8B81F1924;
+	Thu,  3 Sep 2020 13:48:41 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8B81F1924
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1599133692;
-	bh=5tXXIUaHC2GpLhwQ/tJLbgRXJIwV75JIFYUvxhsL1YY=;
+	s=default; t=1599133771;
+	bh=K+qFth2pKLnlWnbldq+mrSwf1SKpwwoieT1RHMshyCQ=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=Q7H+V8CntRqsX3c5oRQFGaZ8DX3ltJd2iHmfnwwm21em8hVcZKFWGUQKSYsp+pYOt
-	 8lJB98LtzDaSlQajNCl731lqvnFyPYVVdPEsdOiVsWUVCYdRJJyHmPHANBhEsOAYom
-	 qdhEw9iJFS0Fuv1BLSVlE6hXir6kE2U2rZKyRMhw=
+	b=ufWR5x1ny6zmFdjz9zrWHThS0KjCZsfVVx8Y3bBfRFeoKRszfEfxjErlZjnELop0I
+	 2cvlvehPKgactpfGKcLyCmG+tjjJhxYVq5TPsgIDlvMqQZDge9yf5I/DdVGPpSFpjz
+	 F9iD5ymIzMKxBiS5v32l8jmkmlXYt6hiETb41Xoo=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 3C74EF802C4;
-	Thu,  3 Sep 2020 13:45:36 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 6748DF802EC;
+	Thu,  3 Sep 2020 13:45:38 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id DDBF0F802A1; Thu,  3 Sep 2020 13:45:31 +0200 (CEST)
+ id 02A62F802C4; Thu,  3 Sep 2020 13:45:34 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -34,29 +34,29 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 346EFF801DA
- for <alsa-devel@alsa-project.org>; Thu,  3 Sep 2020 13:45:29 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 346EFF801DA
+ by alsa1.perex.cz (Postfix) with ESMTPS id 44AFBF802C4
+ for <alsa-devel@alsa-project.org>; Thu,  3 Sep 2020 13:45:32 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 44AFBF802C4
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="GaBclLxN"
+ header.b="gHT4G23U"
 Received: from localhost.localdomain (unknown [122.171.179.172])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 3A23D20709;
- Thu,  3 Sep 2020 11:45:24 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id 6517D206EB;
+ Thu,  3 Sep 2020 11:45:28 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1599133527;
- bh=5tXXIUaHC2GpLhwQ/tJLbgRXJIwV75JIFYUvxhsL1YY=;
+ s=default; t=1599133530;
+ bh=K+qFth2pKLnlWnbldq+mrSwf1SKpwwoieT1RHMshyCQ=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=GaBclLxNxySy2FhRJ/w6F9eaM6Ca8cTL00X/O7hGFs4hCxxAFPQ3XiWs6G+wae0fi
- 86Ooiku1vtS/G2CXVBK9V83uCB6rVcXPibYy13aOO4alP0l5nDtf4MaXox0cisTDYA
- jV6S62TqSnAjsscovuVyQOFCSQyNCLN45eqsZbd4=
+ b=gHT4G23Ulwecu9CVgglNtHCovBRJXqH9PfOn1Ze55izROdPZrlnVDzLae3u+qnR+A
+ N395AB8csPFWn0kaESUlsFStxPr2R9mKdBAgk7nj6UsaDOYcBpEdhqZwKdvIqvH2LG
+ EDCWv5d2/TZG3GDTSp8Kie18ph+/K+PpGeWBrujw=
 From: Vinod Koul <vkoul@kernel.org>
 To: alsa-devel@alsa-project.org
-Subject: [PATCH v2 3/9] soundwire: slave: use SDW_DISCO_LINK_ID()
-Date: Thu,  3 Sep 2020 17:14:58 +0530
-Message-Id: <20200903114504.1202143-4-vkoul@kernel.org>
+Subject: [PATCH v2 4/9] soundwire: stream: use FIELD_{GET|PREP}
+Date: Thu,  3 Sep 2020 17:14:59 +0530
+Message-Id: <20200903114504.1202143-5-vkoul@kernel.org>
 X-Mailer: git-send-email 2.26.2
 In-Reply-To: <20200903114504.1202143-1-vkoul@kernel.org>
 References: <20200903114504.1202143-1-vkoul@kernel.org>
@@ -82,27 +82,52 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-use SDW_DISCO_LINK_ID() in slave code to extract field values instead of
-open coding masks and shift operations to extract link_id
+use FIELD_{GET|PREP} in stream code to get/set field values instead of
+open coding masks and shift operations.
 
 Signed-off-by: Vinod Koul <vkoul@kernel.org>
 ---
- drivers/soundwire/slave.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/soundwire/stream.c | 13 +++++--------
+ 1 file changed, 5 insertions(+), 8 deletions(-)
 
-diff --git a/drivers/soundwire/slave.c b/drivers/soundwire/slave.c
-index a762ee24e6fa..2191dd6e7aa4 100644
---- a/drivers/soundwire/slave.c
-+++ b/drivers/soundwire/slave.c
-@@ -106,7 +106,7 @@ static bool find_slave(struct sdw_bus *bus,
+diff --git a/drivers/soundwire/stream.c b/drivers/soundwire/stream.c
+index e4cf484f5905..afb95febb0d3 100644
+--- a/drivers/soundwire/stream.c
++++ b/drivers/soundwire/stream.c
+@@ -100,9 +100,7 @@ static int _sdw_program_slave_port_params(struct sdw_bus *bus,
+ 		return ret;
+ 
+ 	/* Program DPN_SampleCtrl2 register */
+-	wbuf = (t_params->sample_interval - 1);
+-	wbuf &= SDW_DPN_SAMPLECTRL_HIGH;
+-	wbuf >>= SDW_REG_SHIFT(SDW_DPN_SAMPLECTRL_HIGH);
++	wbuf = FIELD_GET(SDW_DPN_SAMPLECTRL_HIGH, t_params->sample_interval - 1);
+ 
+ 	ret = sdw_write(slave, addr3, wbuf);
+ 	if (ret < 0) {
+@@ -111,9 +109,8 @@ static int _sdw_program_slave_port_params(struct sdw_bus *bus,
  	}
  
- 	/* Extract link id from ADR, Bit 51 to 48 (included) */
--	link_id = (addr >> 48) & GENMASK(3, 0);
-+	link_id = SDW_DISCO_LINK_ID(addr);
+ 	/* Program DPN_HCtrl register */
+-	wbuf = t_params->hstart;
+-	wbuf <<= SDW_REG_SHIFT(SDW_DPN_HCTRL_HSTART);
+-	wbuf |= t_params->hstop;
++	wbuf = FIELD_PREP(SDW_DPN_HCTRL_HSTART, t_params->hstart);
++	wbuf |= FIELD_PREP(SDW_DPN_HCTRL_HSTOP, t_params->hstop);
  
- 	/* Check for link_id match */
- 	if (link_id != bus->link_id)
+ 	ret = sdw_write(slave, addr4, wbuf);
+ 	if (ret < 0)
+@@ -157,8 +154,8 @@ static int sdw_program_slave_port_params(struct sdw_bus *bus,
+ 	}
+ 
+ 	/* Program DPN_PortCtrl register */
+-	wbuf = p_params->data_mode << SDW_REG_SHIFT(SDW_DPN_PORTCTRL_DATAMODE);
+-	wbuf |= p_params->flow_mode;
++	wbuf = FIELD_PREP(SDW_DPN_PORTCTRL_DATAMODE, p_params->data_mode);
++	wbuf |= FIELD_PREP(SDW_DPN_PORTCTRL_FLOWMODE, p_params->flow_mode);
+ 
+ 	ret = sdw_update(s_rt->slave, addr1, 0xF, wbuf);
+ 	if (ret < 0) {
 -- 
 2.26.2
 

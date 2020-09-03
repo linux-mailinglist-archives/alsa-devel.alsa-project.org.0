@@ -2,73 +2,119 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 75D8925C1E4
-	for <lists+alsa-devel@lfdr.de>; Thu,  3 Sep 2020 15:52:12 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id BAC8525C332
+	for <lists+alsa-devel@lfdr.de>; Thu,  3 Sep 2020 16:47:01 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 86B24193A;
-	Thu,  3 Sep 2020 15:51:20 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 86B24193A
+	by alsa0.perex.cz (Postfix) with ESMTPS id 3DDBA1930;
+	Thu,  3 Sep 2020 16:46:11 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3DDBA1930
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1599141130;
-	bh=liNY7FLSdHRdX4Cnhw9WiPzs2IYQ4bTl9yopIqeiJ+g=;
+	s=default; t=1599144421;
+	bh=SRYvuXPRwjA+7v4/SljP/c2fYJI1K+isrqTF1x/JR1E=;
 	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=LoYRyFenaJtrIHswxfemqHTpJktwl0EqM7RlFkgGetrElI+M1iTdveq7+qb7D3whE
-	 L9RXx7lPIpJueKXHoBfoVry09HiQTQF6w71WbiAiQdfc3tBiWcInfBKbUz09MyjXVS
-	 XxpgEr5Y3nHF2rupl9+/SltEOTEkn86I/9dZqCp0=
+	b=fE+KqpXlGG5ZlsL3geN4u2F5m6Oas3NtyaTRFvvj35o6sCCBa6dlXCXK4+yIjDu9s
+	 7n/Ukhcte9fpGQpYTQJR+Mg2TE2cLxie2GNd2eg0/4pglo6MMaQ6lqU7La+IamE7VG
+	 1kS4yT2EKjUkC0HeHe/dHmjyQoAl2iUuIROY1Ozg=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 29C4FF801DA;
-	Thu,  3 Sep 2020 15:51:20 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 6B2A5F800BA;
+	Thu,  3 Sep 2020 16:45:20 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id DF579F80217; Thu,  3 Sep 2020 15:51:17 +0200 (CEST)
+ id D3691F80217; Thu,  3 Sep 2020 16:45:17 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.3 required=5.0 tests=NICE_REPLY_A,SPF_HELO_NONE,
- SPF_NONE autolearn=disabled version=3.4.0
-Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
+X-Spam-Status: No, score=-0.4 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from mail.cccmz.de (mail.cccmz.de [5.9.50.157])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id B2A5BF801DA
- for <alsa-devel@alsa-project.org>; Thu,  3 Sep 2020 15:51:07 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B2A5BF801DA
-IronPort-SDR: wlkvHGktr8nIx2RBRsPi22H2y/I/BG78Yx82FPabCagYGTvH6wnrrJTpxSAZS5NRBi7nJNnjCn
- kEC45OFKwd3g==
-X-IronPort-AV: E=McAfee;i="6000,8403,9732"; a="154974688"
-X-IronPort-AV: E=Sophos;i="5.76,386,1592895600"; d="scan'208";a="154974688"
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from fmsmga003.fm.intel.com ([10.253.24.29])
- by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 03 Sep 2020 06:51:04 -0700
-IronPort-SDR: MSO9JBH5b0ka+Q1jWl14asalj024iN8jaC7XfOus0u1NdKpap1zDjqFI9GhzXYb1+vY7WY8YFa
- F40ZHPJL8YxA==
-X-IronPort-AV: E=Sophos;i="5.76,386,1592895600"; d="scan'208";a="339288441"
-Received: from corteszu-mobl.amr.corp.intel.com (HELO [10.213.169.41])
- ([10.213.169.41])
- by fmsmga003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 03 Sep 2020 06:51:04 -0700
-Subject: Re: [PATCH v2 0/3] regmap: add SoundWire 1.2 MBQ support
-To: Vinod Koul <vkoul@kernel.org>
-References: <20200901162225.33343-1-pierre-louis.bossart@linux.intel.com>
- <20200903103617.GP2639@vkoul-mobl>
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Message-ID: <32ba445b-2bb3-592a-8f5e-dca458f7193a@linux.intel.com>
-Date: Thu, 3 Sep 2020 08:51:03 -0500
+ by alsa1.perex.cz (Postfix) with ESMTPS id 8CB68F800F0
+ for <alsa-devel@alsa-project.org>; Thu,  3 Sep 2020 16:45:10 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8CB68F800F0
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=cccmz.de header.i=@cccmz.de
+ header.b="K4QiryZQ"
+Received: from [192.168.178.45] (x4db43e9b.dyn.telefonica.de [77.180.62.155])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128
+ bits)) (No client certificate requested)
+ (Authenticated sender: tanjeff@cccmz.de)
+ by mail.cccmz.de (Postfix) with ESMTPSA id 47B4017A2984;
+ Thu,  3 Sep 2020 16:45:06 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cccmz.de; s=2019;
+ t=1599144306;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=UAgc881jmDd0Q09JEsrBvcJf2n6/0ZaIzzV+Xg5A7gw=;
+ b=K4QiryZQtsXEYx3JliWxkaKw5Gbjmgi6w/yeiCwg8eMGLdbbz0i36YFTMFqCh6cwGpbcKx
+ 5vC9XuAvRG6fnVh5jk62EKMSp+OXD2RbWTBc4tvTh/LQwh2fqfs0+Ou1/l4eX7FtWRL0So
+ BarhWqCcvZtfPzrevVsI1CmlEysSiVM=
+Subject: Re: [PATCH 1/2] control: Improve general control interface
+ documentation.
+To: Takashi Iwai <tiwai@suse.de>
+References: <20200902092727.2732-1-tanjeff@cccmz.de>
+ <s5hzh6772lv.wl-tiwai@suse.de>
+From: Tanjeff Moos <tanjeff@cccmz.de>
+Autocrypt: addr=tanjeff@cccmz.de; prefer-encrypt=mutual; keydata=
+ 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
+ YAC/BUWuon8xl+Sm7fKHytJTyQ==
+Message-ID: <c319593a-a744-1f1c-6cce-f3eff87ec8e0@cccmz.de>
+Date: Thu, 3 Sep 2020 16:45:05 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
  Thunderbird/68.10.0
 MIME-Version: 1.0
-In-Reply-To: <20200903103617.GP2639@vkoul-mobl>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
+In-Reply-To: <s5hzh6772lv.wl-tiwai@suse.de>
+Content-Type: text/plain; charset=utf-8
+Content-Language: de-DE
 Content-Transfer-Encoding: 7bit
-Cc: alsa-devel@alsa-project.org, tiwai@suse.de, gregkh@linuxfoundation.org,
- broonie@kernel.org, Bard liao <yung-chuan.liao@linux.intel.com>,
- Rander Wang <rander.wang@linux.intel.com>
+Cc: alsa-devel@alsa-project.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -84,64 +130,25 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+Hi,
+
+you are right, I should have added some description. I'm still learning.
+
+Thanks for applying anyway, it's a great motivation for me.
+
+Regards, Tanjeff
 
 
-On 9/3/20 5:36 AM, Vinod Koul wrote:
-> On 01-09-20, 11:22, Pierre-Louis Bossart wrote:
->> In preparation of the upstream contribution of SDCA (SoundWire Device
->> Class for Audio) ASoC codec drivers [1] [2], add regmap support
->> SoundWire 1.2 MBQ support. The MBQ (Multi-Byte Quantity) registers
->> need to be handled in a different way from regular 8-bit SoundWire
->> registers, their main application is going to be for volume/gain
->> controls.
+On 03/09/2020 09:15, Takashi Iwai wrote:
+> On Wed, 02 Sep 2020 11:27:26 +0200,
+> Tanjeff-N. Moos wrote:
 >>
->> The second patch was initially suggested for inclusion in the
->> SoundWire tree, and was modified to add more background information on
->> SDCA in the commit message as requested by Vinod Koul.
+>> Signed-off-by: Tanjeff-N. Moos <tanjeff@cccmz.de>
 > 
-> Is this targetted towards the sdw tree or regmap tree, I think it may
-> have dependencies so sdw can be used.
+> Thanks, applied now.  The added / modified texts are excellent, but at
+> the next time, please give some more description in the patch itself.
+> An empty patch description is always a sign of a bad patch.
 > 
-> It would be nice to mention these things here in cover
-
-It was intended for the regmap tree (the cover letter does not include 
-the soundwire: prefix).
-
-Patch2 would need the ack of SoundWire maintainers (Bard already provide 
-his tag).
-
-The dependencies are regmap->ASoC for codec integration. There will be 
-no dependencies for the SoundWire core proper, SDCA is really about the 
-device side of things beyond what the bus provides.
-
-Thanks!
-
 > 
->>
->> Changes since v1:
->> Rebased on regmap tree (conflict with SPI stuff).
->> Removed mod_devicetable.h header
->> Removed -EOPNOTSUPP error codes, use -ENOTSUPP
->> Added long description of SDCA
->> Used FIELD_PREP/GET as suggested by Vinod Koul
->> Added Bard Liao's Acked-by tag.
->>
->> Pierre-Louis Bossart (3):
->>    regmap: sdw: add required header files
->>    soundwire: SDCA: add helper macro to access controls
->>    regmap: sdw: add support for SoundWire 1.2 MBQ
->>
->>   drivers/base/regmap/Kconfig             |   6 +-
->>   drivers/base/regmap/Makefile            |   1 +
->>   drivers/base/regmap/regmap-sdw-mbq.c    | 101 ++++++++++++++++++++++++
->>   drivers/base/regmap/regmap-sdw.c        |   2 +
->>   include/linux/regmap.h                  |  21 +++++
->>   include/linux/soundwire/sdw_registers.h |  33 ++++++++
->>   6 files changed, 163 insertions(+), 1 deletion(-)
->>   create mode 100644 drivers/base/regmap/regmap-sdw-mbq.c
->>
->>
->> base-commit: d17343b87da422a59d99a3ed130573dbeb96c582
->> -- 
->> 2.25.1
+> Takashi
 > 

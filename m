@@ -2,95 +2,96 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7760625CB58
-	for <lists+alsa-devel@lfdr.de>; Thu,  3 Sep 2020 22:41:02 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3C0DA25CB52
+	for <lists+alsa-devel@lfdr.de>; Thu,  3 Sep 2020 22:40:42 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 209061AB8;
-	Thu,  3 Sep 2020 22:40:12 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 209061AB8
+	by alsa0.perex.cz (Postfix) with ESMTPS id CE8DB1728;
+	Thu,  3 Sep 2020 22:39:51 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CE8DB1728
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1599165662;
-	bh=Rb5wXmBrtBKDogUuv7UZhOrx+urFeYY/Tiyvce3YfbA=;
+	s=default; t=1599165641;
+	bh=vyTcdY3VF/rxQ5ORthPlvZQrjnmGeE5460vP0xUmqj4=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=YOUjoNGy4iQ6vwO/5DVEi8N/mnzaa6UR0hIPta4NybN3HmdIoHWR3oSwRybqKGcWu
-	 zqDCqVkhB8T32isx8uPQJYBUWnsnZ02W5f51B8Yml0TdPMZbswEFFqwfbxwNWQCf0r
-	 +VZh8QLZkx9r59JQMin5JVdnM2MlUQ16xhPPA2gg=
+	b=cFFdD5NUKU6DnVHcE52/tqWcYhY7SVTGh8DGqdwLq9WFFFTw9Q/a55Vl3kUZGlqEt
+	 S8tvTSFFD/0RKMGa+uBNey39ZUNU2sUk0VZlRebf6tHvs6J63fgNjSolDo3jHVY+N9
+	 EbmLknQ0YnamDAmiTI4Mwu+xhMYV/KBYqiD8W4/M=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id F1D42F80367;
-	Thu,  3 Sep 2020 22:31:33 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id AB0F7F80360;
+	Thu,  3 Sep 2020 22:31:31 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 86163F80361; Thu,  3 Sep 2020 22:31:30 +0200 (CEST)
+ id BFBDAF80360; Thu,  3 Sep 2020 22:31:29 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_FROM,PRX_BODY_26,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
+ DKIM_VALID_AU,FREEMAIL_FROM,PRX_BODY_26,SPF_HELO_NONE,SPF_PASS
  autolearn=disabled version=3.4.0
-Received: from mail-wm1-x344.google.com (mail-wm1-x344.google.com
- [IPv6:2a00:1450:4864:20::344])
+Received: from mail-wm1-x342.google.com (mail-wm1-x342.google.com
+ [IPv6:2a00:1450:4864:20::342])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id DD407F80323
- for <alsa-devel@alsa-project.org>; Thu,  3 Sep 2020 22:31:06 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DD407F80323
+ by alsa1.perex.cz (Postfix) with ESMTPS id CB8F4F80328
+ for <alsa-devel@alsa-project.org>; Thu,  3 Sep 2020 22:31:07 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CB8F4F80328
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="K5vk9jAu"
-Received: by mail-wm1-x344.google.com with SMTP id b79so4119724wmb.4
- for <alsa-devel@alsa-project.org>; Thu, 03 Sep 2020 13:31:06 -0700 (PDT)
+ header.b="pzyYq+Ka"
+Received: by mail-wm1-x342.google.com with SMTP id q9so4120464wmj.2
+ for <alsa-devel@alsa-project.org>; Thu, 03 Sep 2020 13:31:07 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=JRfXBGFiqY7c/El7z89zWfrRGF9fF+u62x7PKZnaUzI=;
- b=K5vk9jAuMg+7u4ZOKCzRhzqDjr3f7Qc8HprHbYh4Y+5TVknoECOVpj0q2LEw4rSYUw
- NFp9jVoFOx/WNltsI3+i5YlWvLBV5wYXhf9KTrXPITe4lMKTvJRHCEoXF2NPPlEbF/LN
- RNK3E3jc5Tcqp5tp7CrGybxG7OuPpGXQXBB1pkmzjHGxrsDQuFSMAXn61NxGqKLHdWIv
- TU46VFL1X19Tg4phIRMZIDRBn6jO5c5QrlSuLDcFt5wH7GEBcVHIGEXO1rKRMTht4F39
- 16CfA5wDD3fdRhnmckByJn3bRx2LocdtnnVDmxB68FD2p/VVXhAFZnolcAZuqngmEziB
- pcIg==
+ bh=5IYak11rFzawAh9fCR1gi4F4Oa4pOW/pvtZIichIlV0=;
+ b=pzyYq+KaGPIgvObH/Te0U/33+5xx6ZAbGyUsLa4mRSRnyCwSM5AgxcMgDzPU24Zx9y
+ /Gw2/qKtPZ/e7vTKokOQp3ZwJktnHuv8qXYTxUiYITgYXx08sH98htb1pfcUDvpHzdE2
+ /LMyPtBHF+mEvb5guDq/66ZQKnSfkDQoQmc+WBEQFUhVjqPjZVlzz+qwPwV9V/OieUeU
+ p3G8wDB61e8aeG7pz796+n2EhYn129DBPnSFvFfVZZcndskHBZtq8OsJtUKAmcLQ8lW4
+ uyuLG1XRVSva3V3cS/MD07LkvHwzLM93EPdK3M++fjzk53+nw3d2jZskQd36mWx1xw4w
+ VQaA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=JRfXBGFiqY7c/El7z89zWfrRGF9fF+u62x7PKZnaUzI=;
- b=nyZmZorAeWsEEvzgn6MUvoagEDdTc+GP6tAEWH9MPjzN9o/6EEYxMtiLZjN/goQW8f
- 2i4Vn/Padq6IKu7Fkbt//b+aqEZC2t66wAUTbTbWvuKKBun60i3vsZOE2l0ySygM3VCW
- NtUk+RZ/pN+5FOSWZwl96To3bdUmR5TLEwcHktY65IK+J6sAYywipqBu6QWtbKVPRpFx
- 0McycUTAKKx0hsrtixk8IgO/kEmL6a7ClWFbW8lddD4bYVB8Vjzc7cuiaMybkVcF8vlz
- ya32x10Pbr6Iaj/Q7j2eXuIIoXSqc6b9ZJCACbw5q/B6ZzDC1605oUm1uX+P7wZk/yFJ
- Vr0A==
-X-Gm-Message-State: AOAM531c50JMUZ6+SAR/QHAGQB6syqAFvNSqGw2j8zgIYSCBveE/6LdI
- cP7CODfrr9JJsTOEkpE3/tU=
-X-Google-Smtp-Source: ABdhPJxs+lMWm9287ep2HEvwgo5E2HLax3EG19m3cXREGOmgBv7K/F0wW+lCpLavoAx8uLTvvIBc2g==
-X-Received: by 2002:a1c:bcd4:: with SMTP id m203mr4202979wmf.75.1599165065932; 
- Thu, 03 Sep 2020 13:31:05 -0700 (PDT)
+ bh=5IYak11rFzawAh9fCR1gi4F4Oa4pOW/pvtZIichIlV0=;
+ b=B/3Y7voRT0yCPTYF0Vy+oR2SZQQ/v0YZwC+nKsDeP0feCEhyEHgf9BELQcnF8yWb9A
+ mnWO6qaFQcw1dHmUtJ3P7WS7Gawhl3eLM1UAQg54MWEDa9VQSglsYBw747rEZjDyzSVR
+ TS1w/vNiIauhZuDrEiG3T2Dk0MWAUaydqiZY/+JuRTYhiedWtnbZWCHofdSedrmkbe/B
+ r5yP5GEZ0G62Jsew4fxTQRxL4VieE5nhBJF9rNcYlt8wGSN4pXVMkr10RWxZM1BajNvp
+ MKX7JKw45nqGqbn33g6W8Ztuvb0ScD7lwIoDjNZp+DUMzRTMUcu5BK0wnndVDZyh+Dai
+ vacQ==
+X-Gm-Message-State: AOAM533F5nyAhxmkrQxL2fPrg8Ce1JiAqs9c1wYffKi5l3siXiRAp54D
+ rxhwNFmOg25CN19jT/Z2iEU=
+X-Google-Smtp-Source: ABdhPJxmuEEdH4QpFHEEFgjUw40D/E8UZi7btVLBAArqpLdAt3NR8lscjeIE7Qodwx7RuSbye8eVFA==
+X-Received: by 2002:a05:600c:414e:: with SMTP id
+ h14mr4116090wmm.2.1599165067180; 
+ Thu, 03 Sep 2020 13:31:07 -0700 (PDT)
 Received: from clement-Latitude-7490.numericable.fr
  (213-245-241-245.rev.numericable.fr. [213.245.241.245])
- by smtp.gmail.com with ESMTPSA id q186sm6818274wma.45.2020.09.03.13.31.04
+ by smtp.gmail.com with ESMTPSA id q186sm6818274wma.45.2020.09.03.13.31.06
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 03 Sep 2020 13:31:05 -0700 (PDT)
+ Thu, 03 Sep 2020 13:31:06 -0700 (PDT)
 From: =?UTF-8?q?Cl=C3=A9ment=20P=C3=A9ron?= <peron.clem@gmail.com>
 To: Maxime Ripard <mripard@kernel.org>, Chen-Yu Tsai <wens@csie.org>,
  Rob Herring <robh+dt@kernel.org>, Mark Brown <broonie@kernel.org>,
  Liam Girdwood <lgirdwood@gmail.com>
-Subject: [PATCH v2 19/20] arm64: dts: sun50i-h6-orangepi-3: Enable HDMI audio
-Date: Thu,  3 Sep 2020 22:30:33 +0200
-Message-Id: <20200903203034.1057334-20-peron.clem@gmail.com>
+Subject: [PATCH v2 20/20] arm64: defconfig: Enable Allwinner i2s driver
+Date: Thu,  3 Sep 2020 22:30:34 +0200
+Message-Id: <20200903203034.1057334-21-peron.clem@gmail.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20200903203034.1057334-1-peron.clem@gmail.com>
 References: <20200903203034.1057334-1-peron.clem@gmail.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Cc: Ondrej Jirman <megous@megous.com>, devicetree@vger.kernel.org,
- Jernej Skrabec <jernej.skrabec@siol.net>, alsa-devel@alsa-project.org,
- Takashi Iwai <tiwai@suse.com>, linux-kernel@vger.kernel.org,
- Marcus Cooper <codekipper@gmail.com>, linux-sunxi@googlegroups.com,
+Cc: devicetree@vger.kernel.org, Jernej Skrabec <jernej.skrabec@siol.net>,
+ alsa-devel@alsa-project.org, Takashi Iwai <tiwai@suse.com>,
+ linux-kernel@vger.kernel.org, Marcus Cooper <codekipper@gmail.com>,
+ linux-sunxi@googlegroups.com,
  =?UTF-8?q?Cl=C3=A9ment=20P=C3=A9ron?= <peron.clem@gmail.com>,
  linux-arm-kernel@lists.infradead.org
 X-BeenThere: alsa-devel@alsa-project.org
@@ -108,35 +109,25 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: Ondrej Jirman <megous@megous.com>
+Enable Allwinner I2S driver for arm64 defconfig.
 
-The board has HDMI output, enable audio on it.
-
-Signed-off-by: Ondrej Jirman <megous@megous.com>
 Signed-off-by: Clément Péron <peron.clem@gmail.com>
 ---
- arch/arm64/boot/dts/allwinner/sun50i-h6-orangepi-3.dts | 8 ++++++++
- 1 file changed, 8 insertions(+)
+ arch/arm64/configs/defconfig | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/arch/arm64/boot/dts/allwinner/sun50i-h6-orangepi-3.dts b/arch/arm64/boot/dts/allwinner/sun50i-h6-orangepi-3.dts
-index 15c9dd8c4479..193587e78031 100644
---- a/arch/arm64/boot/dts/allwinner/sun50i-h6-orangepi-3.dts
-+++ b/arch/arm64/boot/dts/allwinner/sun50i-h6-orangepi-3.dts
-@@ -128,6 +128,14 @@ hdmi_out_con: endpoint {
- 	};
- };
- 
-+&hdmi_sound {
-+	status = "okay";
-+};
-+
-+&i2s1 {
-+	status = "okay";
-+};
-+
- &mmc0 {
- 	vmmc-supply = <&reg_cldo1>;
- 	cd-gpios = <&pio 5 6 GPIO_ACTIVE_LOW>; /* PF6 */
+diff --git a/arch/arm64/configs/defconfig b/arch/arm64/configs/defconfig
+index 5828b42f5243..4eaac49dccbb 100644
+--- a/arch/arm64/configs/defconfig
++++ b/arch/arm64/configs/defconfig
+@@ -691,6 +691,7 @@ CONFIG_SND_SOC_ROCKCHIP_RT5645=m
+ CONFIG_SND_SOC_RK3399_GRU_SOUND=m
+ CONFIG_SND_SOC_SAMSUNG=y
+ CONFIG_SND_SOC_RCAR=m
++CONFIG_SND_SUN4I_I2S=m
+ CONFIG_SND_SUN4I_SPDIF=m
+ CONFIG_SND_SOC_AK4613=m
+ CONFIG_SND_SOC_ES7134=m
 -- 
 2.25.1
 

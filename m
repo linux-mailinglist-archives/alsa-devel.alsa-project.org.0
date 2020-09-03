@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0AC0C25BF61
-	for <lists+alsa-devel@lfdr.de>; Thu,  3 Sep 2020 12:50:18 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5914425BF65
+	for <lists+alsa-devel@lfdr.de>; Thu,  3 Sep 2020 12:50:53 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 9C0AC18FB;
-	Thu,  3 Sep 2020 12:49:27 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9C0AC18FB
+	by alsa0.perex.cz (Postfix) with ESMTPS id F124D191C;
+	Thu,  3 Sep 2020 12:50:02 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz F124D191C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1599130217;
-	bh=Y17fOItbzHxWxDdPgwuBKoBEommCrq+F8Xn4jHcXZAI=;
+	s=default; t=1599130253;
+	bh=+niwvcTwlWvSoZv6kAV2JhpMuJDFPstWYms2USZ7d24=;
 	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=PAUzEscPkSmw8L6qXQvLlpRLYZgfvcvrYQWg3DC1fnIGcmSb5ZX7m5sBdUr1lsHGk
-	 R0AutGlUXU22p0p7ljbnjbaLlhay8n0jeykH9XHvPmA4UB/yPlBTf0lEbKSWpBk0Hf
-	 A+WZP7qmgNzwIPL2IW2xgqFfibScvI1JcZGMuooI=
+	b=V2INd+be8yOYyCmI4dlNV/D7YbpuFXLdWzk6awyrAEvUepdyXCuEKOfs/n98E6eL3
+	 aJXXiTv/S98+7z+m4TOwxNXzFGEp6f6Z5uLqcUordKCIOMotcUG2itdYIA1wWGrt71
+	 7gIWxL591+pL60uZUTMLnFfJnTD4VxVMasuonjRs=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 4A91CF8033F;
-	Thu,  3 Sep 2020 12:43:03 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 8158EF800BA;
+	Thu,  3 Sep 2020 12:45:07 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 518BDF8033E; Thu,  3 Sep 2020 12:43:01 +0200 (CEST)
+ id CB682F8021D; Thu,  3 Sep 2020 12:45:04 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -34,34 +34,34 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 171B3F802DC
- for <alsa-devel@alsa-project.org>; Thu,  3 Sep 2020 12:42:55 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 171B3F802DC
+ by alsa1.perex.cz (Postfix) with ESMTPS id CE045F8020D
+ for <alsa-devel@alsa-project.org>; Thu,  3 Sep 2020 12:45:01 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CE045F8020D
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="OJ1xUt//"
+ header.b="ny980hjy"
 Received: from localhost (unknown [122.171.179.172])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 6F72D20767;
- Thu,  3 Sep 2020 10:42:52 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id 1D9F320716;
+ Thu,  3 Sep 2020 10:44:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1599129773;
- bh=Y17fOItbzHxWxDdPgwuBKoBEommCrq+F8Xn4jHcXZAI=;
+ s=default; t=1599129900;
+ bh=+niwvcTwlWvSoZv6kAV2JhpMuJDFPstWYms2USZ7d24=;
  h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=OJ1xUt//QkPMx0Cfc4p/DXpBnaafHLIK6mBMO4UnmugYOZ0hJi4IYYDgPYjBHzZS7
- qoCUTd5cy14V3mj7Xs5Ax+ZdUenLGKJngmE15ChxdkThCBPQJA1475Xkaook6vHjVS
- mAo2GA4iU++XEza0AFZqh0jHjA67DZPjqkPqoVyw=
-Date: Thu, 3 Sep 2020 16:12:48 +0530
+ b=ny980hjyju00iDOjfOO3hsBIP++lWvh948a0EcV7re146EvnnvB0w+0AWdukZNNGJ
+ cNrxyewXQ5B+/FLfYF5pxQOoP7uc3817+kQdOkZur7UaRTNv4sYS3aX5cHXwXFzSUK
+ aVxoy9hfzbDeHwcf4pFlS2Iw6UBrcSskCz5MATJk=
+Date: Thu, 3 Sep 2020 16:14:56 +0530
 From: Vinod Koul <vkoul@kernel.org>
 To: Bard Liao <yung-chuan.liao@linux.intel.com>
-Subject: Re: [PATCH 0/7] ASoC: soundwire: Move sdw stream operations to
-Message-ID: <20200903104248.GQ2639@vkoul-mobl>
-References: <20200901150240.19288-1-yung-chuan.liao@linux.intel.com>
+Subject: Re: [PATCH v2 00/10] soundwire: intel: add multi-link support
+Message-ID: <20200903104456.GR2639@vkoul-mobl>
+References: <20200901150556.19432-1-yung-chuan.liao@linux.intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20200901150240.19288-1-yung-chuan.liao@linux.intel.com>
+In-Reply-To: <20200901150556.19432-1-yung-chuan.liao@linux.intel.com>
 Cc: pierre-louis.bossart@linux.intel.com, alsa-devel@alsa-project.org,
  tiwai@suse.de, gregkh@linuxfoundation.org, linux-kernel@vger.kernel.org,
  ranjani.sridharan@linux.intel.com, hui.wang@canonical.com, broonie@kernel.org,
@@ -82,31 +82,37 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 01-09-20, 23:02, Bard Liao wrote:
-> sdw stream operation APIs can be called once per stream. dailink
-> callbacks are good places to call these APIs.
+On 01-09-20, 23:05, Bard Liao wrote:
+> This series enables multi-link support for Intel platforms.
 
-Again, please mention here if this is to be merged thru sdw tree or ASoC
-tree
+Applied all, thanks
 
 > 
-> Pierre-Louis Bossart (7):
->   ASoC: soc-dai: clarify return value for get_sdw_stream()
->   soundwire: stream: fix NULL/IS_ERR confusion
->   soundwire: intel: fix NULL/ERR_PTR confusion
->   ASOC: Intel: sof_sdw: add dailink .trigger callback
->   ASOC: Intel: sof_sdw: add dailink .prepare and .hw_free callback
-
-These should be ASoC
-
->   soundwire: intel: remove .trigger operation
->   soundwire: intel: remove stream handling from .prepare and .hw_free
+> Changes in v2:
+> - Remove the "soundwire: intel: Only call sdw stream APIs for the first
+>   cpu_dai" patch form this series. We will move the sounwdire stream
+>   operations to machine driver in another series.
+> - Update the commit message and title of "soundwire: intel: add error log
+>   for clock-stop invalid configs"
 > 
->  drivers/soundwire/intel.c        | 60 ++++-------------------
->  drivers/soundwire/stream.c       |  2 +-
->  include/sound/soc-dai.h          |  3 +-
->  sound/soc/intel/boards/sof_sdw.c | 81 ++++++++++++++++++++++++++++++++
->  4 files changed, 92 insertions(+), 54 deletions(-)
+> Pierre-Louis Bossart (10):
+>   soundwire: intel: disable shim wake on suspend
+>   soundwire: intel: ignore software command retries
+>   soundwire: intel: add multi-link support
+>   soundwire: intel: add missing support for all clock stop modes
+>   soundwire: bus: update multi-link definition with hw sync details
+>   soundwire: intel: add multi-link hw_synchronization information
+>   soundwire: stream: enable hw_sync as needed by hardware
+>   soundwire: intel: add error log for clock-stop invalid configs
+>   soundwire: intel: pass link_mask information to each master
+>   soundwire: intel: don't manage link power individually
+> 
+>  drivers/soundwire/intel.c      | 264 ++++++++++++++++++++++++++++-----
+>  drivers/soundwire/intel.h      |   2 +
+>  drivers/soundwire/intel_init.c |   1 +
+>  drivers/soundwire/stream.c     |  15 +-
+>  include/linux/soundwire/sdw.h  |   6 +
+>  5 files changed, 243 insertions(+), 45 deletions(-)
 > 
 > -- 
 > 2.17.1

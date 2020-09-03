@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 21C0C25BF42
-	for <lists+alsa-devel@lfdr.de>; Thu,  3 Sep 2020 12:44:28 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 01BB225BF50
+	for <lists+alsa-devel@lfdr.de>; Thu,  3 Sep 2020 12:46:51 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 6277B1907;
-	Thu,  3 Sep 2020 12:43:37 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6277B1907
+	by alsa0.perex.cz (Postfix) with ESMTPS id 648011904;
+	Thu,  3 Sep 2020 12:46:00 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 648011904
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1599129867;
-	bh=TPd8PjBkIYJV3XBWK4HkPCFBwxa7eK/A77Wvp74cZWc=;
+	s=default; t=1599130010;
+	bh=EDE6xyrAnUN47IzzlU68NcUTwnzUKIsPsiEdEtf2KUg=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=pNXIDsYi7ouzaJDVYhJzOFjQxEMOyOXipclPH44TcnDH+SYYgFfX8wHcSWfqujBJY
-	 7zcHtasCo3LqZ31sPQR56AdT2V5uTdre/Ahotk+IlChhx6jHnrwYRJ/7yZsjjz3vcm
-	 xDySlZoYZVUB5HbhsCj8rgU8ymgavaJV5MM1yRNY=
+	b=gQjDL7wHtaRz29S9CEbXO+6oJ0wshklr9Msk6rkh0ZRMUQB4roMfvBSmiZHgnHADD
+	 Md9ig3EqSiZDy6iOogjRaVb4/Ib03QeKOTzSOsmB4cSIJLuAm+E6qWYcUVN02QizCN
+	 RDA/rOSsvIt7uy/F+D5LTu05MPujQX9g1r6k5eLc=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id A6C98F802A9;
-	Thu,  3 Sep 2020 12:41:58 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id B6FDEF802F7;
+	Thu,  3 Sep 2020 12:42:07 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 05C6CF802E2; Thu,  3 Sep 2020 12:41:55 +0200 (CEST)
+ id 40B93F802E1; Thu,  3 Sep 2020 12:41:57 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_MSPIKE_H3,
@@ -34,18 +34,18 @@ X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_MSPIKE_H3,
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id B51B4F802A9
+ by alsa1.perex.cz (Postfix) with ESMTPS id B4663F800F0
  for <alsa-devel@alsa-project.org>; Thu,  3 Sep 2020 12:41:43 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B51B4F802A9
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B4663F800F0
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id DD8BCB152;
+ by mx2.suse.de (Postfix) with ESMTP id E7E85B15A;
  Thu,  3 Sep 2020 10:41:38 +0000 (UTC)
 From: Takashi Iwai <tiwai@suse.de>
 To: alsa-devel@alsa-project.org
-Subject: [PATCH 07/11] ALSA: hdspm: Replace tasklet with work
-Date: Thu,  3 Sep 2020 12:41:27 +0200
-Message-Id: <20200903104131.21097-8-tiwai@suse.de>
+Subject: [PATCH 08/11] ALSA: riptide: Replace tasklet with threaded irq
+Date: Thu,  3 Sep 2020 12:41:28 +0200
+Message-Id: <20200903104131.21097-9-tiwai@suse.de>
 X-Mailer: git-send-email 2.16.4
 In-Reply-To: <20200903104131.21097-1-tiwai@suse.de>
 References: <20200903104131.21097-1-tiwai@suse.de>
@@ -66,81 +66,105 @@ Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 The tasklet is an old API that should be deprecated, usually can be
-converted to another decent API.  In HDSP-MADI driver, a tasklet is
-still used for offloading the MIDI I/O handling (optional via mixer
-switch).  It can be achieved gracefully with a work queued, too.
+converted to another decent API.  In Riptide driver, a tasklet is
+still used for offloading the PCM IRQ handling.  It can be achieved
+gracefully with a threaded IRQ, too.
 
-This patch replaces the tasklet usage in HDSP-MADI driver with a
-simple work.  The conversion is fairly straightforward.  The only
-significant difference is that the work initialization is moved to the
-right place in snd_hdspm_create() and cancel_work_sync() is always
-called in snd_hdspm_free() to assure killing the pending works.
+This patch replaces the tasklet usage in riptide driver with a
+threaded IRQ.
 
 Signed-off-by: Takashi Iwai <tiwai@suse.de>
 ---
- sound/pci/rme9652/hdspm.c | 13 ++++++-------
- 1 file changed, 6 insertions(+), 7 deletions(-)
+ sound/pci/riptide/riptide.c | 20 +++++++++++---------
+ 1 file changed, 11 insertions(+), 9 deletions(-)
 
-diff --git a/sound/pci/rme9652/hdspm.c b/sound/pci/rme9652/hdspm.c
-index 572350aaf18d..e532312a5e1c 100644
---- a/sound/pci/rme9652/hdspm.c
-+++ b/sound/pci/rme9652/hdspm.c
-@@ -997,7 +997,7 @@ struct hdspm {
- 	u32 settings_register;  /* cached value for AIO / RayDat (sync reference, master/slave) */
+diff --git a/sound/pci/riptide/riptide.c b/sound/pci/riptide/riptide.c
+index 098c69b3b7aa..fcc2073c5025 100644
+--- a/sound/pci/riptide/riptide.c
++++ b/sound/pci/riptide/riptide.c
+@@ -445,7 +445,6 @@ struct snd_riptide {
+ 	union firmware_version firmware;
  
- 	struct hdspm_midi midi[4];
--	struct tasklet_struct midi_tasklet;
-+	struct work_struct midi_work;
+ 	spinlock_t lock;
+-	struct tasklet_struct riptide_tq;
+ 	struct snd_info_entry *proc_entry;
  
- 	size_t period_bytes;
- 	unsigned char ss_in_channels;
-@@ -2169,9 +2169,9 @@ static int snd_hdspm_create_midi(struct snd_card *card,
+ 	unsigned long received_irqs;
+@@ -1070,9 +1069,9 @@ getmixer(struct cmdif *cif, short num, unsigned short *rval,
+ 	return 0;
  }
  
- 
--static void hdspm_midi_tasklet(struct tasklet_struct *t)
-+static void hdspm_midi_work(struct work_struct *work)
+-static void riptide_handleirq(struct tasklet_struct *t)
++static irqreturn_t riptide_handleirq(int irq, void *dev_id)
  {
--	struct hdspm *hdspm = from_tasklet(hdspm, t, midi_tasklet);
-+	struct hdspm *hdspm = container_of(work, struct hdspm, midi_work);
- 	int i = 0;
+-	struct snd_riptide *chip = from_tasklet(chip, t, riptide_tq);
++	struct snd_riptide *chip = dev_id;
+ 	struct cmdif *cif = chip->cif;
+ 	struct snd_pcm_substream *substream[PLAYBACK_SUBSTREAMS + 1];
+ 	struct snd_pcm_runtime *runtime;
+@@ -1083,7 +1082,7 @@ static void riptide_handleirq(struct tasklet_struct *t)
+ 	unsigned int flag;
  
- 	while (i < hdspm->midiPorts) {
-@@ -5449,7 +5449,7 @@ static irqreturn_t snd_hdspm_interrupt(int irq, void *dev_id)
+ 	if (!cif)
+-		return;
++		return IRQ_HANDLED;
+ 
+ 	for (i = 0; i < PLAYBACK_SUBSTREAMS; i++)
+ 		substream[i] = chip->playback_substream[i];
+@@ -1134,6 +1133,8 @@ static void riptide_handleirq(struct tasklet_struct *t)
+ 			}
  		}
- 
- 		if (schedule)
--			tasklet_hi_schedule(&hdspm->midi_tasklet);
-+			queue_work(system_highpri_wq, &hdspm->midi_work);
  	}
++
++	return IRQ_HANDLED;
+ }
  
- 	return IRQ_HANDLED;
-@@ -6538,6 +6538,7 @@ static int snd_hdspm_create(struct snd_card *card,
- 	hdspm->card = card;
- 
- 	spin_lock_init(&hdspm->lock);
-+	INIT_WORK(&hdspm->midi_work, hdspm_midi_work);
- 
- 	pci_read_config_word(hdspm->pci,
- 			PCI_CLASS_REVISION, &hdspm->firmware_rev);
-@@ -6836,9 +6837,6 @@ static int snd_hdspm_create(struct snd_card *card,
- 
- 	}
- 
--	tasklet_setup(&hdspm->midi_tasklet, hdspm_midi_tasklet);
--
--
- 	if (hdspm->io_type != MADIface) {
- 		hdspm->serial = (hdspm_read(hdspm,
- 				HDSPM_midiStatusIn0)>>8) & 0xFFFFFF;
-@@ -6873,6 +6871,7 @@ static int snd_hdspm_free(struct hdspm * hdspm)
+ #ifdef CONFIG_PM_SLEEP
+@@ -1699,13 +1700,14 @@ snd_riptide_interrupt(int irq, void *dev_id)
  {
+ 	struct snd_riptide *chip = dev_id;
+ 	struct cmdif *cif = chip->cif;
++	irqreturn_t ret = IRQ_HANDLED;
  
- 	if (hdspm->port) {
-+		cancel_work_sync(&hdspm->midi_work);
+ 	if (cif) {
+ 		chip->received_irqs++;
+ 		if (IS_EOBIRQ(cif->hwport) || IS_EOSIRQ(cif->hwport) ||
+ 		    IS_EOCIRQ(cif->hwport)) {
+ 			chip->handled_irqs++;
+-			tasklet_schedule(&chip->riptide_tq);
++			ret = IRQ_WAKE_THREAD;
+ 		}
+ 		if (chip->rmidi && IS_MPUIRQ(cif->hwport)) {
+ 			chip->handled_irqs++;
+@@ -1714,7 +1716,7 @@ snd_riptide_interrupt(int irq, void *dev_id)
+ 		}
+ 		SET_AIACK(cif->hwport);
+ 	}
+-	return IRQ_HANDLED;
++	return ret;
+ }
  
- 		/* stop th audio, and cancel all interrupts */
- 		hdspm->control_register &=
+ static void
+@@ -1843,7 +1845,6 @@ snd_riptide_create(struct snd_card *card, struct pci_dev *pci,
+ 	chip->received_irqs = 0;
+ 	chip->handled_irqs = 0;
+ 	chip->cif = NULL;
+-	tasklet_setup(&chip->riptide_tq, riptide_handleirq);
+ 
+ 	if ((chip->res_port =
+ 	     request_region(chip->port, 64, "RIPTIDE")) == NULL) {
+@@ -1856,8 +1857,9 @@ snd_riptide_create(struct snd_card *card, struct pci_dev *pci,
+ 	hwport = (struct riptideport *)chip->port;
+ 	UNSET_AIE(hwport);
+ 
+-	if (request_irq(pci->irq, snd_riptide_interrupt, IRQF_SHARED,
+-			KBUILD_MODNAME, chip)) {
++	if (request_threaded_irq(pci->irq, snd_riptide_interrupt,
++				 riptide_handleirq, IRQF_SHARED,
++				 KBUILD_MODNAME, chip)) {
+ 		snd_printk(KERN_ERR "Riptide: unable to grab IRQ %d\n",
+ 			   pci->irq);
+ 		snd_riptide_free(chip);
 -- 
 2.16.4
 

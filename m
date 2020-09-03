@@ -2,120 +2,72 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8AFDB25CBB4
-	for <lists+alsa-devel@lfdr.de>; Thu,  3 Sep 2020 23:00:16 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3ADA425CC55
+	for <lists+alsa-devel@lfdr.de>; Thu,  3 Sep 2020 23:34:18 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 311881AD8;
-	Thu,  3 Sep 2020 22:59:26 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 311881AD8
+	by alsa0.perex.cz (Postfix) with ESMTPS id 128571AAD;
+	Thu,  3 Sep 2020 23:33:27 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 128571AAD
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1599166816;
-	bh=VwxK7QroUxSvB5XSFFWIZuc3sg2iHrKhE1ibkbUE2jI=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1599168857;
+	bh=hgsM6WUyatqzZIVCn6QKUM2E8s+CFOQQE+wNmeXwRto=;
+	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=BYwi4yrnEIdUQz30sBl9vw5XyTQtmjZhCFObxSoiego+QFY/67Cdu20KlpqLE6Hz0
-	 Ko9RQE7vo4aJce6OZ8u3BW1SpBcSQ9/SDrfNdzFjSSWIzl4Kz+Pfgubh3ZGGCdcTxU
-	 mJTrRFxBuqV//re33ZAKPJ/o5E9kNHIv4XMkPlVE=
+	b=qe8jzhRyeC9O8bqEv1nRHgO6aNu+WPHwtI9W6vr3SRDHPZRSuTA/W7i3e3XN7pSIG
+	 iQxr7kQMAtT0Rkz/4WWN8LjbGYDIX3yTQYrNFrRaNBhGGQ3b8xL3ZtVf1ASei6lRhx
+	 St5MGHMcOmmAcqssWqSPFddIdzAJ9Q574pSf3UOY=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 8916DF8021D;
-	Thu,  3 Sep 2020 22:59:03 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 42EFCF8020D;
+	Thu,  3 Sep 2020 23:32:36 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 79164F8025F; Thu,  3 Sep 2020 22:59:01 +0200 (CEST)
+ id 1C73BF80217; Thu,  3 Sep 2020 23:32:34 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,PRX_BODY_76,SPF_HELO_PASS,SPF_PASS autolearn=disabled
- version=3.4.0
-Received: from wnew4-smtp.messagingengine.com (wnew4-smtp.messagingengine.com
- [64.147.123.18])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+X-Spam-Status: No, score=-0.3 required=5.0 tests=NICE_REPLY_A,SPF_HELO_NONE,
+ SPF_NONE autolearn=disabled version=3.4.0
+Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 74395F800F0
- for <alsa-devel@alsa-project.org>; Thu,  3 Sep 2020 22:58:58 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 74395F800F0
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=cerno.tech header.i=@cerno.tech
- header.b="kaAYVjpV"; 
- dkim=pass (2048-bit key) header.d=messagingengine.com
- header.i=@messagingengine.com header.b="imnAfMHY"
-Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
- by mailnew.west.internal (Postfix) with ESMTP id A707BEC7;
- Thu,  3 Sep 2020 16:58:54 -0400 (EDT)
-Received: from mailfrontend2 ([10.202.2.163])
- by compute4.internal (MEProxy); Thu, 03 Sep 2020 16:58:55 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cerno.tech; h=
- date:from:to:cc:subject:message-id:references:mime-version
- :content-type:in-reply-to; s=fm3; bh=VwxK7QroUxSvB5XSFFWIZuc3sg2
- iHrKhE1ibkbUE2jI=; b=kaAYVjpVfI2zt0FEA9hLZs2AJlQ34nNhGLX6/6CCzsn
- 86d/hqmwwLcFpORvk/XzLnAWT0DRhb7gaDEy7rEculzXeXdK/acD/bG2+Fbc7P3H
- qCl77rWvDp7eCENzxaIcrxbFkGJewXhpo4UdYXn4v8W/almc0Uxpg6heec6DrZPJ
- KJjv7F5wy/ec5mVaVCQrWtGYjHLGwmpaBF1XYfjVFBLpmiBERKF7kpazcLFnPR1l
- p8GLp16T9x3JJqh99bGs0F6vVwavkFC/puPbejl8fX3Aar0edMWZqb7366kHcZGa
- GyIovwwxUF6wf61NhLWS+BpoWzb4KJI0ld+FO35OT7w==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to:x-me-proxy
- :x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; bh=VwxK7Q
- roUxSvB5XSFFWIZuc3sg2iHrKhE1ibkbUE2jI=; b=imnAfMHYZQvPJefQiiNTWu
- OV8c6MzWKCvYWL1NR7gRebuvx69vPz12mXaIWTf3ZYXCwOr3+b84dqT12jv8e+kP
- QcWcieNiAV3xi8BPu5i/bAeihFE9SJU1oJrLLYDYx4U7mf6Xw0pmtNBPif0AZzdZ
- hStgKhAazmw14Jy0U8pmNg4HI2rzVHuRgxHnAm0eierZMwjW7ngEH6cGfuobXP/j
- TUT9InSAxO5mhBOckCmS+E60b44I/o/pnNHmlaVUg/xXc0lw2d6hlf0mANKOaQV4
- 3iH/++plLCZrOqlEmpq8DkCG+XaOxLR/PXETD41bU4Y/s02vLLYV9meiiuvuWo4w
- ==
-X-ME-Sender: <xms:DVlRX2UpGHtqR86oT_wWmrdqkihvJFYhQ6sn66f7Cok5zhUe14HzQw>
- <xme:DVlRXyl6jCVnbBauNKahWIgfMWeZLHT3CQ1bBJMuKCEB0XlyA87lP9670WUi6Jmzn
- NMEV6IcOUlyJMgKoAo>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeduiedrudeguddgudehjecutefuodetggdotefrod
- ftvfcurfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfgh
- necuuegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmd
- enucfjughrpeffhffvuffkfhggtggujgesghdtreertddtudenucfhrhhomhepofgrgihi
- mhgvucftihhprghrugcuoehmrgigihhmvgestggvrhhnohdrthgvtghhqeenucggtffrrg
- htthgvrhhnpeetgfejtdelgeffffeitdfhtddvfeeijeffteelkefhledvvefggfdujeeg
- ieeghfenucffohhmrghinhepghhithhhuhgsrdgtohhmnecukfhppeeltddrkeelrdeike
- drjeeinecuvehluhhsthgvrhfuihiivgeptdenucfrrghrrghmpehmrghilhhfrhhomhep
- mhgrgihimhgvsegtvghrnhhordhtvggthh
-X-ME-Proxy: <xmx:DVlRX6YxvVUhMIsL56aRp57nzY_7m4dxdwDF7ElxsQArBTCPrjwYCw>
- <xmx:DVlRX9WzFHpKtpaqiZWI7uocjM-GMXzwJBDZC3DEjb4AmpoU9B9oxg>
- <xmx:DVlRXwm0AU8ggWRCDcdavdaKMC8RTew-bUFhQGdYxC1sOfoEkb0RIA>
- <xmx:DllRX5daUZfHprawJieS9Oxs15ms0GAGlDUVL0O87nBddtefOiEwqz1RaJ4>
-Received: from localhost (lfbn-tou-1-1502-76.w90-89.abo.wanadoo.fr
- [90.89.68.76])
- by mail.messagingengine.com (Postfix) with ESMTPA id 273C33060060;
- Thu,  3 Sep 2020 16:58:53 -0400 (EDT)
-Date: Thu, 3 Sep 2020 22:58:51 +0200
-From: Maxime Ripard <maxime@cerno.tech>
-To: =?utf-8?B?Q2zDqW1lbnQgUMOpcm9u?= <peron.clem@gmail.com>
-Subject: Re: [PATCH v3 3/7] ASoC: sun4i-i2s: Add support for H6 I2S
-Message-ID: <20200903205851.gdnpthserywsxrbs@gilmour.lan>
-References: <CAJiuCcdVs_drs40Q6537BYfz24F7NmC6B8S5-Lt4V4ggs-FXWA@mail.gmail.com>
- <20200429123529.y24dpy63wxq7uvkt@gilmour.lan>
- <CAJiuCcfXqizcq_JuXRCsqEqM2562cr1SGJ0pmy07jcJxAXojOw@mail.gmail.com>
- <20200430084600.samghw4zxb5zdbez@gilmour.lan>
- <CAJiuCcf_LHrJ6QdZgH8HyN6TRiT+GiD+t4UggFCrz-VwVHXV6w@mail.gmail.com>
- <20200504120942.lnrxnnmykqnvw3fb@gilmour.lan>
- <CAJiuCceF340FiLvyeXNZtvqftQMAmk=MtFDLT_9696ix+eH1Yw@mail.gmail.com>
- <20200729143927.47f5tbuaob4ph3lp@gilmour.lan>
- <20200729151548.GB5612@sirena.org.uk>
- <CAJiuCcdf=TNLPTUPzHP9NzPHqdxG06TRDkQfONY+ScK0DV_v5w@mail.gmail.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id ADE20F801DA
+ for <alsa-devel@alsa-project.org>; Thu,  3 Sep 2020 23:32:28 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz ADE20F801DA
+IronPort-SDR: 46HDBq5AilW8/iKT4adF4tQjLBOGY71POIBYUiuYiVo+zB4030ji8ypRlMNlTohE8V4N3nBoXH
+ S/rw/D4+cT2g==
+X-IronPort-AV: E=McAfee;i="6000,8403,9733"; a="242480823"
+X-IronPort-AV: E=Sophos;i="5.76,387,1592895600"; d="scan'208";a="242480823"
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from orsmga005.jf.intel.com ([10.7.209.41])
+ by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 03 Sep 2020 14:32:23 -0700
+IronPort-SDR: e8awDXon4Mr1mhSyZCzHoSe2rfJtQS+wW9vg6JZYBEsCK0w09YCsblZffNwWi/gZA9w+b250VA
+ ZJbS6czWjUHg==
+X-IronPort-AV: E=Sophos;i="5.76,387,1592895600"; d="scan'208";a="478208877"
+Received: from mrcordie-mobl1.amr.corp.intel.com (HELO [10.212.195.28])
+ ([10.212.195.28])
+ by orsmga005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 03 Sep 2020 14:32:23 -0700
+Subject: Re: [RFC PATCH 0/3] alsa-lib/ASoC: use inclusive language for
+ bclk/fsync/topology
+To: Jaroslav Kysela <perex@perex.cz>, alsa-devel@alsa-project.org
+References: <20200903201024.1109914-1-pierre-louis.bossart@linux.intel.com>
+ <cac824a4-3882-85dd-dc0b-8366090dce94@perex.cz>
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Message-ID: <9d1c96ad-6860-7a98-4e22-5f566665e7e7@linux.intel.com>
+Date: Thu, 3 Sep 2020 16:32:22 -0500
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.10.0
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature"; boundary="5oio2pfekr4xg52a"
-Content-Disposition: inline
-In-Reply-To: <CAJiuCcdf=TNLPTUPzHP9NzPHqdxG06TRDkQfONY+ScK0DV_v5w@mail.gmail.com>
-Cc: devicetree <devicetree@vger.kernel.org>,
- Linux-ALSA <alsa-devel@alsa-project.org>,
- linux-kernel <linux-kernel@vger.kernel.org>,
- Jernej Skrabec <jernej.skrabec@siol.net>, Takashi Iwai <tiwai@suse.com>,
- Rob Herring <robh+dt@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>,
- Marcus Cooper <codekipper@gmail.com>, Chen-Yu Tsai <wens@csie.org>,
- Mark Brown <broonie@kernel.org>,
- linux-arm-kernel <linux-arm-kernel@lists.infradead.org>
+In-Reply-To: <cac824a4-3882-85dd-dc0b-8366090dce94@perex.cz>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
+Cc: tiwai@suse.de, broonie@kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -132,51 +84,34 @@ Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 
---5oio2pfekr4xg52a
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
 
-On Thu, Sep 03, 2020 at 10:02:31PM +0200, Cl=E9ment P=E9ron wrote:
-> Hi Maxime,
->=20
-> On Wed, 29 Jul 2020 at 17:16, Mark Brown <broonie@kernel.org> wrote:
-> >
-> > On Wed, Jul 29, 2020 at 04:39:27PM +0200, Maxime Ripard wrote:
-> >
-> > > It really looks like the polarity of LRCK is fine though. The first w=
-ord
-> > > is sent with LRCK low, and then high, so we have channel 0 and then
-> > > channel 1 which seems to be the proper ordering?
-> >
-> > Yes, that's normal.
->=20
-> Thank you very much for this test.
->=20
-> So I will revert the following commit:
->=20
-> ASoC: sun4i-i2s: Fix the LRCK polarity
->=20
-> https://github.com/clementperon/linux/commit/dd657eae8164f7e4bafe8b875031=
-a7c6c50646a9
+On 9/3/20 3:42 PM, Jaroslav Kysela wrote:
+> Dne 03. 09. 20 v 22:10 Pierre-Louis Bossart napsal(a):
+>> The SOF (Sound Open Firmware) tree contains a lot of references in
+>> topology files to 'codec_slave'/'codec_master' terms, which in turn
+>> come from alsa-lib and ALSA/ASoC topology support at the kernel
+>> level. These terms are no longer compatible with the guidelines
+>> adopted by the kernel community [1] and need to change in
+>> backwards-compatible ways.
+>>
+>> The main/secondary terms typically suggested in guidelines don't mean
+>> anything for clocks, this patchset suggests instead the use of
+>> 'provider' and 'follower' terms, with the 'codec' prefix kept to make
+>> it clear that the codec is the reference. The CM/CF suffixes are also
+>> replaced by CP/CF.
+> 
+> Only my 2 cents: It's just another word combo. See bellow for sources for others.
+> 
+> I would prefer probably provider/consumer . It sounds more technic.
 
-Like I said, the current code is working as expected with regard to the
-LRCK polarity. The issue is that the samples are delayed and start to be
-transmitted on the wrong phase of the signal.
+Thanks Jaroslav for chiming in. I had a similar set of comments in 
+internal reviews, but we didn't really have any consensus and I have not 
+seen good guidance specifically for clocks.
 
-But the LRCK polarity is fine.
+Provider/consumer is typically used for discrete data exchange with some 
+sort of locking and buffer fullness metric, but for clocks we'd want 
+something that hints at one device following the timing defined by another.
 
-Maxime
+"follow" or "track" seem clearer than 'consume' IMHO, but I will side 
+with the majority, this is an RFC which can be modified at will.
 
---5oio2pfekr4xg52a
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYIAB0WIQRcEzekXsqa64kGDp7j7w1vZxhRxQUCX1FZCwAKCRDj7w1vZxhR
-xWQVAQDmT/g2buALylg6CCaeD1ezTtMOaioshw6NnfrtEevsQAEApNN0CLywNAjR
-fL54Dcath7my334lJ2MhPvnoA5PHLQY=
-=euKd
------END PGP SIGNATURE-----
-
---5oio2pfekr4xg52a--

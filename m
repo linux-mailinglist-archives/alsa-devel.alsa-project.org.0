@@ -2,92 +2,108 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C23D525CB8D
-	for <lists+alsa-devel@lfdr.de>; Thu,  3 Sep 2020 22:56:26 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8EDC925CBA4
+	for <lists+alsa-devel@lfdr.de>; Thu,  3 Sep 2020 22:59:35 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 605491ADE;
-	Thu,  3 Sep 2020 22:55:36 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 605491ADE
+	by alsa0.perex.cz (Postfix) with ESMTPS id 95B2A1AB9;
+	Thu,  3 Sep 2020 22:58:44 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 95B2A1AB9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1599166586;
-	bh=TrIh8ZKIcUopSkHo6kTsQupk75l6HAp2zNT+yxtPfSI=;
-	h=In-Reply-To:References:Date:From:To:Subject:Cc:List-Id:
+	s=default; t=1599166774;
+	bh=7xx2c+sURY2BGLNN4PINqRBclr9XFzFHQ6iOqlHyL/E=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=cZw1ys/B1Lnej0CTZJ8Xn9bN5uJxHpNom9z2MJCTFgv7so71SI5PSiJR4MgZwsS8Y
-	 VlBJ3VRESzWNcx0vOScaFG6v84ON0sma9ZnMHz4Lea9ghddaWGP+IXXYgvqXGWfxqx
-	 PB7HO066LQE8vGLZv7KK70Cbiarnfyh2pTsZurhY=
+	b=p7vXem0iPqFb3N5aQuDQeXCKyroWzQEAWvdfp0nKdyblHFYWbIFHbeHRhcK36nqwC
+	 SgQ4uXn+1VrJF/vDr9lrwKuPNTkL85zckHINe9o3JN80zPswbNZP3Kl/aKnbF2A8gF
+	 z5zqzND4bjZYxhunQwNnduBgsB2UeWCAMkkG/Tjk=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id A6E19F80217;
-	Thu,  3 Sep 2020 22:54:45 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id C6449F8020D;
+	Thu,  3 Sep 2020 22:57:53 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id C2C1FF80217; Thu,  3 Sep 2020 22:54:43 +0200 (CEST)
+ id AC1CCF80217; Thu,  3 Sep 2020 22:57:51 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- RCVD_IN_MSPIKE_H3,RCVD_IN_MSPIKE_WL,SPF_HELO_PASS,SPF_PASS,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from wout4-smtp.messagingengine.com (wout4-smtp.messagingengine.com
- [64.147.123.20])
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_PASS,SPF_PASS autolearn=disabled version=3.4.0
+Received: from wnew4-smtp.messagingengine.com (wnew4-smtp.messagingengine.com
+ [64.147.123.18])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id D2417F800F0
- for <alsa-devel@alsa-project.org>; Thu,  3 Sep 2020 22:54:37 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D2417F800F0
+ by alsa1.perex.cz (Postfix) with ESMTPS id 98271F801DA
+ for <alsa-devel@alsa-project.org>; Thu,  3 Sep 2020 22:57:48 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 98271F801DA
 Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=cerno.tech header.i=@cerno.tech
+ header.b="Aa5DMMRr"; 
  dkim=pass (2048-bit key) header.d=messagingengine.com
- header.i=@messagingengine.com header.b="fB4ITS2n"
+ header.i=@messagingengine.com header.b="b2QNltio"
 Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
- by mailout.west.internal (Postfix) with ESMTP id D99FEEAD;
- Thu,  3 Sep 2020 16:54:35 -0400 (EDT)
-Received: from imap2 ([10.202.2.52])
- by compute4.internal (MEProxy); Thu, 03 Sep 2020 16:54:36 -0400
+ by mailnew.west.internal (Postfix) with ESMTP id A9C25EBC;
+ Thu,  3 Sep 2020 16:57:43 -0400 (EDT)
+Received: from mailfrontend1 ([10.202.2.162])
+ by compute4.internal (MEProxy); Thu, 03 Sep 2020 16:57:44 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cerno.tech; h=
+ date:from:to:cc:subject:message-id:references:mime-version
+ :content-type:in-reply-to; s=fm3; bh=7xx2c+sURY2BGLNN4PINqRBclr9
+ XFzFHQ6iOqlHyL/E=; b=Aa5DMMRrbjGVB7O78paeHjAcMcuE3VSjemEERDLYO8m
+ 6um7dmOKlNqWoVzfXLgP6aRQ/nL26kK7PtNYQ4Xy6zoqDcvRYaCEdGwcgmw9dPLr
+ VTgWwg7kgbtP3oel2lU1s6uqH5K2xoQ/n2cURuHL6rS3o/XO+ZpMpIE7bN6GZbMn
+ MVhN1k+xThBbA5GD1VGI63Eu/ayGD9IKjjDxSLM3KnumRWovxtYkwcieHksCy/Oe
+ ws9C8/Z8VTMwOol64EmSUDN0QB3uhPmdiV7QQIwDVyFhkOwBf+FxghY0TqNV02LI
+ 01gF4juWRM03K7r080Wq3Bv11OzvbRbjSq9hBHBvNpA==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
  messagingengine.com; h=cc:content-type:date:from:in-reply-to
  :message-id:mime-version:references:subject:to:x-me-proxy
- :x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; bh=bC/Q4h
- DX0GMR7dks5P+l16taks+sXUSlK86EFQpgdnU=; b=fB4ITS2nBpW2R/tZXfN0w4
- XK7qH1PTiZaOiTUcWggTqZGzKmrXTt3RyttVn4qEh7g129dEqaPOnqMn38QHTaim
- DDa72QnrKWmDgGqRWpejYXyeDrDBhv4CbrIwE/W14Rw7wwyKMn/JE+X8b3rv0Ugu
- Ij2XWxcPfv7rncb3t4OjNfQr/77QNEoTFaPdj1LH2mmJ/dAoTEPN/RynySqNIg/m
- VazBItnEQOj7unWODj6I36+snYwUecCebYTUpffXRjjQYRaeZA3W3NlUZQaBv4DB
- iax8ybjkyWwnhSsfaIkD3fXvLERfAwKL7s5l4QO/M36tkZFjlPwmUWOyVD7dd5DQ
+ :x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; bh=7xx2c+
+ sURY2BGLNN4PINqRBclr9XFzFHQ6iOqlHyL/E=; b=b2QNltio4/RPP3JKHAkMrp
+ wrIS3Qp35QbrpaCiS38VD+1OBiCZX0CSgDuNMfWn1hvvbbRaxRFjx5vNYnbSv6HJ
+ xj4/fxOywREePlYj/T9uVOAzM4+1Cwk2M1eQymJnWr36w0jGbeZ699sHKQ8Ngfb7
+ +ZEZt1lnDWrtZJgiRGUF7tcdhzoe2naW3Svrt46kriNPZQCqZqprzVtu5MXhwaUy
+ sUlbQhFjdLZ/2orkAj7nKKltSmJl9jaw+xbPFOdJtiKFWD2YRwTOgqeUYI20ZC12
+ +298NjS4IxOgDDyGYxKjjNE+SwjxkLBnc8Zc5CmMffD8RIm9DH60JH1dskx+MvpQ
  ==
-X-ME-Sender: <xms:C1hRX4zJxOuG_szAw0LSqSXPxanzygZoxSq-jPl2i1DaOAaqzfhwFA>
- <xme:C1hRX8S046wmybzsIXxVdw_qWkCeHN7V3pIyP3qo2lej855JY_tz_dVAYne7FJ-yq
- DC-a_hylV93nSpRdg>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeduiedrudeguddgudehiecutefuodetggdotefrod
+X-ME-Sender: <xms:xVhRXxjCm6r1tCIN1HtYKG7k_qtkIKI9k7rpAusVr8OMvSWLKv4nMA>
+ <xme:xVhRX2BQyZqqFejYyfukF74HDH8WqayTVExiXIrDPHOaRVSOOVoVj_xc4n3kRgaL-
+ PSk2E8iFB7aMeb5l-0>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeduiedrudeguddgudehjecutefuodetggdotefrod
  ftvfcurfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfgh
- necuuegrihhlohhuthemuceftddtnecunecujfgurhepofgfggfkjghffffhvffutgesth
- dtredtreerjeenucfhrhhomhepfdflvghrvghmhicuufholhhlvghrfdcuoehjvghrvghm
- hiesshihshhtvghmjeeirdgtohhmqeenucggtffrrghtthgvrhhnpedthfeuhfehteeihf
- efgeejjeduhfehjedvveejteegffekgfeggeefuefhkeeitdenucevlhhushhtvghrufhi
- iigvpedunecurfgrrhgrmhepmhgrihhlfhhrohhmpehjvghrvghmhiesshihshhtvghmje
- eirdgtohhm
-X-ME-Proxy: <xmx:C1hRX6VnbMV6rvRQWe1ZzkelP0yGXhoQeh7C6o4sgEykwOsS9DuJoA>
- <xmx:C1hRX2jLRVtIItPBsSwIU0bPZIuJZ8yFLBHLi6JGmhSAS10Nm-0awg>
- <xmx:C1hRX6DPmoG1YkK2kDrDJyClv6SDwcy26qVDbaaVaU7jiOoXomvb5A>
- <xmx:C1hRXx88uALFams8dSl2utr5E-OqJbG56EmWdhKSh0MgnJDJRp4gjg>
-Received: by mailuser.nyi.internal (Postfix, from userid 501)
- id 2F2BBE00EC; Thu,  3 Sep 2020 16:54:35 -0400 (EDT)
-X-Mailer: MessagingEngine.com Webmail Interface
-User-Agent: Cyrus-JMAP/3.3.0-259-g88fbbfa-fm-20200903.003-g88fbbfa3
-Mime-Version: 1.0
-Message-Id: <7e8def27-dd27-425f-a202-12248f81cadb@www.fastmail.com>
-In-Reply-To: <624b02a6-d3a3-4717-aaf9-dada14df421a@www.fastmail.com>
-References: <86a53327-0c15-4ea7-a158-2c6eb61aaa85@www.fastmail.com>
- <624b02a6-d3a3-4717-aaf9-dada14df421a@www.fastmail.com>
-Date: Thu, 03 Sep 2020 14:54:14 -0600
-From: "Jeremy Soller" <jeremy@system76.com>
-To: alsa-devel@alsa-project.org
-Subject: =?UTF-8?Q?[PATCH_3/3]_ALSA:_hda/realtek:_Add_quirk_for_System76_Serval_W?=
- =?UTF-8?Q?S_(serw12)?=
-Content-Type: text/plain
-Cc: =?UTF-8?Q?Bj=C3=B6rn_Lindfors?= <productdev@system76.com>
+ necuuegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmd
+ enucfjughrpeffhffvuffkfhggtggujgesghdtreertddtudenucfhrhhomhepofgrgihi
+ mhgvucftihhprghrugcuoehmrgigihhmvgestggvrhhnohdrthgvtghhqeenucggtffrrg
+ htthgvrhhnpeduvdduhfekkeehgffftefflefgffdtheffudffgeevteffheeuiedvvdej
+ vdfgveenucfkphepledtrdekledrieekrdejieenucevlhhushhtvghrufhiiigvpedtne
+ curfgrrhgrmhepmhgrihhlfhhrohhmpehmrgigihhmvgestggvrhhnohdrthgvtghh
+X-ME-Proxy: <xmx:xVhRXxHRzRXNCI0aMtcKIBktnk3ChjEHqZIwJlfJkx3RiAD-y-uzmg>
+ <xmx:xVhRX2S2BvHIgUnn9IpWfTupyg_A__TT3BnBsP3wVXa76k6X0KLD5Q>
+ <xmx:xVhRX-xELcAVnIE3LwDwq9nyaibYrlrJvIvNeaMjZBRnAgXSAk4dUg>
+ <xmx:x1hRXzrqXnGkVGSfM5_915DTstig_aeLw-XMgvLtvSbJAxdmpC8QArpXB-s>
+Received: from localhost (lfbn-tou-1-1502-76.w90-89.abo.wanadoo.fr
+ [90.89.68.76])
+ by mail.messagingengine.com (Postfix) with ESMTPA id A19873280063;
+ Thu,  3 Sep 2020 16:57:41 -0400 (EDT)
+Date: Thu, 3 Sep 2020 22:57:39 +0200
+From: Maxime Ripard <maxime@cerno.tech>
+To: =?utf-8?B?Q2zDqW1lbnQgUMOpcm9u?= <peron.clem@gmail.com>
+Subject: Re: [PATCH v2 01/20] Revert "ASoC: sun4i-i2s: Fix the LRCK polarity"
+Message-ID: <20200903205739.43dnsu7du6m44u5c@gilmour.lan>
+References: <20200903203034.1057334-1-peron.clem@gmail.com>
+ <20200903203034.1057334-2-peron.clem@gmail.com>
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature"; boundary="p6v5j2ugxblige7u"
+Content-Disposition: inline
+In-Reply-To: <20200903203034.1057334-2-peron.clem@gmail.com>
+Cc: devicetree@vger.kernel.org, Jernej Skrabec <jernej.skrabec@siol.net>,
+ linux-sunxi@googlegroups.com, alsa-devel@alsa-project.org,
+ Mark Brown <broonie@kernel.org>, Takashi Iwai <tiwai@suse.com>,
+ Liam Girdwood <lgirdwood@gmail.com>, linux-kernel@vger.kernel.org,
+ Marcus Cooper <codekipper@gmail.com>, Chen-Yu Tsai <wens@csie.org>,
+ Rob Herring <robh+dt@kernel.org>, linux-arm-kernel@lists.infradead.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -103,21 +119,34 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-The System76 Serval WS (serw12) requires the
-ALC293_FIXUP_SYSTEM76_MIC_NO_PRESENCE quirk for the headset microphone
-to function.
 
-Signed-off-by: Jeremy Soller <jeremy@system76.com>
----
-diff --git a/sound/pci/hda/patch_realtek.c b/sound/pci/hda/patch_realtek.c
-index de880eb92d95..a7ac46af5876 100644
---- a/sound/pci/hda/patch_realtek.c
-+++ b/sound/pci/hda/patch_realtek.c
-@@ -7703,6 +7703,7 @@ static const struct snd_pci_quirk alc269_fixup_tbl[] = {
- 	SND_PCI_QUIRK(0x1462, 0xb171, "Cubi N 8GL (MS-B171)", ALC283_FIXUP_HEADSET_MIC),
- 	SND_PCI_QUIRK(0x1558, 0x1325, "System76 Darter Pro (darp5)", ALC293_FIXUP_SYSTEM76_MIC_NO_PRESENCE),
- 	SND_PCI_QUIRK(0x1558, 0x1401, "System76 Lemur Pro (lemp9)", ALC269_FIXUP_HEADSET_MODE_NO_HP_MIC),
-+	SND_PCI_QUIRK(0x1558, 0x50f0, "System76 Serval WS (serw12)", ALC293_FIXUP_SYSTEM76_MIC_NO_PRESENCE),
- 	SND_PCI_QUIRK(0x1558, 0x8520, "System76 Gazelle (gaze15)", ALC293_FIXUP_SYSTEM76_MIC_NO_PRESENCE),
- 	SND_PCI_QUIRK(0x1558, 0x8521, "System76 Gazelle (gaze15)", ALC293_FIXUP_SYSTEM76_MIC_NO_PRESENCE),
- 	SND_PCI_QUIRK(0x1558, 0x8535, "System76 Gazelle (gaze15)", ALC293_FIXUP_SYSTEM76_MIC_NO_PRESENCE),
+--p6v5j2ugxblige7u
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+
+Hi
+
+On Thu, Sep 03, 2020 at 10:30:15PM +0200, Cl=E9ment P=E9ron wrote:
+> This reverts commit dd657eae8164f7e4bafe8b875031a7c6c50646a9.
+>=20
+> There was a misinterpretation of the analysis using a scope.
+> After rechecking this using a logical analyzer the LRCK polarity is
+> fine.
+
+Yes, it's fine indeed, so there's no need to change anything?
+
+Maxime
+
+--p6v5j2ugxblige7u
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYIAB0WIQRcEzekXsqa64kGDp7j7w1vZxhRxQUCX1FYwwAKCRDj7w1vZxhR
+xbBKAQCBV+rE9UZoCrdpdAa3jQ9KOPalRBYJ5WnRoj1MUDwpXwEAi95nCcuHlPwE
+O/UMdDgPQbAc4AnYf7asF/A+X7ZbSg4=
+=kbla
+-----END PGP SIGNATURE-----
+
+--p6v5j2ugxblige7u--

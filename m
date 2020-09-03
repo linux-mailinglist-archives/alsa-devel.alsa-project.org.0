@@ -2,71 +2,73 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0320F25BD81
-	for <lists+alsa-devel@lfdr.de>; Thu,  3 Sep 2020 10:42:26 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E98D325BD9A
+	for <lists+alsa-devel@lfdr.de>; Thu,  3 Sep 2020 10:44:15 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 8468118D3;
-	Thu,  3 Sep 2020 10:41:35 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8468118D3
+	by alsa0.perex.cz (Postfix) with ESMTPS id 8F97818E5;
+	Thu,  3 Sep 2020 10:43:25 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8F97818E5
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1599122545;
-	bh=/RhL1+Os0ZHjkfhSyZSXiOAfORqfkCbABBv7SoNeSus=;
+	s=default; t=1599122655;
+	bh=KWKQwnqvJnx/QhZ5+RbyfmbTY2Ory0CV5zRTjI4Qnc4=;
 	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=eHa5tdxnosTgqZ7/0NKBclAIDc0spp7xyUtV5PooUt48PWnrRPUqDkphXrAuttgHn
-	 fDj569aXPXoj0Wkl2IuJjHTFInCEsa+wjw3yjYRYVTZhRMOp32mQB+thEorfSLGyXh
-	 rTUYGYcQ61fJwRTRFnvbufZPWnu43iW17JDM9VLc=
+	b=kIxB+o567OrE77wpVnCvBIrO3ex7QFbR66p8oBTPVqjCEP1jGAlETU9hh6FkgudKy
+	 mrGvRXihWHApIfkfEFpTaQjlPbRFZKZPoUQV0x8uHGJ/ZEKH05YU622YdUCCI3TfDt
+	 yHLp0Kq0wJs0YE/PnV7jEjW8RDCjclGcjBgq9yJ8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id B2A62F801DA;
-	Thu,  3 Sep 2020 10:40:44 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id DC84DF8021D;
+	Thu,  3 Sep 2020 10:42:34 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 0D0D8F80217; Thu,  3 Sep 2020 10:40:42 +0200 (CEST)
+ id CB3CEF8021D; Thu,  3 Sep 2020 10:42:31 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled
- version=3.4.0
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE
+ autolearn=disabled version=3.4.0
+Received: from verein.lst.de (verein.lst.de [213.95.11.211])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id AB83FF801DA
- for <alsa-devel@alsa-project.org>; Thu,  3 Sep 2020 10:40:39 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz AB83FF801DA
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="Bqv3xA8Z"
-Received: from localhost (unknown [122.171.179.172])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 8A650206C0;
- Thu,  3 Sep 2020 08:40:36 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1599122437;
- bh=/RhL1+Os0ZHjkfhSyZSXiOAfORqfkCbABBv7SoNeSus=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=Bqv3xA8ZsbL4xC45ykIHJ3xL4LxR6kgq8JH3vNz6QsLqABuwb+j0v/e8bQtPJcnO4
- uIEC6+0nhPjNhUTiHlLZCuF18W+QHuyFLqrkKvJdff1OkX6DfTs4JFuXfaFflrpavS
- nrDQ/cuSnGXpIB5oSpsCKMZEsQDwLNImH5lnrzM8=
-Date: Thu, 3 Sep 2020 14:10:33 +0530
-From: Vinod Koul <vkoul@kernel.org>
-To: trix@redhat.com
-Subject: Re: [PATCH v2] soundwire: fix double free of dangling pointer
-Message-ID: <20200903084033.GN2639@vkoul-mobl>
-References: <20200902202650.14189-1-trix@redhat.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 664E6F800BA
+ for <alsa-devel@alsa-project.org>; Thu,  3 Sep 2020 10:42:28 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 664E6F800BA
+Received: by verein.lst.de (Postfix, from userid 2407)
+ id 2B13F68BEB; Thu,  3 Sep 2020 10:42:27 +0200 (CEST)
+Date: Thu, 3 Sep 2020 10:42:26 +0200
+From: Christoph Hellwig <hch@lst.de>
+To: Thomas Bogendoerfer <tsbogend@alpha.franken.de>
+Subject: Re: [PATCH 22/28] sgiseeq: convert from dma_cache_sync to
+ dma_sync_single_for_device
+Message-ID: <20200903084226.GA24410@lst.de>
+References: <20200819065555.1802761-1-hch@lst.de>
+ <20200819065555.1802761-23-hch@lst.de>
+ <20200901152209.GA14288@alpha.franken.de>
+ <20200901171241.GA20685@alpha.franken.de> <20200901171627.GA8255@lst.de>
+ <20200901173810.GA25282@alpha.franken.de>
+ <20200902213809.GA7998@alpha.franken.de>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20200902202650.14189-1-trix@redhat.com>
-Cc: alsa-devel@alsa-project.org, ndesaulniers@google.com,
- pierre-louis.bossart@linux.intel.com, linux-kernel@vger.kernel.org,
- clang-built-linux@googlegroups.com, shreyas.nc@intel.com,
- natechancellor@gmail.com, yung-chuan.liao@linux.intel.com,
- sanyog.r.kale@intel.com
+In-Reply-To: <20200902213809.GA7998@alpha.franken.de>
+User-Agent: Mutt/1.5.17 (2007-11-01)
+Cc: alsa-devel@alsa-project.org, linux-ia64@vger.kernel.org,
+ linux-doc@vger.kernel.org, nouveau@lists.freedesktop.org,
+ linux-nvme@lists.infradead.org, linux-mips@vger.kernel.org,
+ "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>,
+ linux-mm@kvack.org, Christoph Hellwig <hch@lst.de>,
+ Marek Szyprowski <m.szyprowski@samsung.com>, linux-samsung-soc@vger.kernel.org,
+ Joonyoung Shim <jy0922.shim@samsung.com>, linux-scsi@vger.kernel.org,
+ iommu@lists.linux-foundation.org, Ben Skeggs <bskeggs@redhat.com>,
+ Matt Porter <mporter@kernel.crashing.org>, linux-media@vger.kernel.org,
+ Tom Lendacky <thomas.lendacky@amd.com>, Pawel Osciak <pawel@osciak.com>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>,
+ linux-arm-kernel@lists.infradead.org, linux-parisc@vger.kernel.org,
+ netdev@vger.kernel.org, Seung-Woo Kim <sw0312.kim@samsung.com>,
+ linux-kernel@vger.kernel.org, Kyungmin Park <kyungmin.park@samsung.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -82,37 +84,39 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 02-09-20, 13:26, trix@redhat.com wrote:
-> From: Tom Rix <trix@redhat.com>
-> 
-> clang static analysis flags this problem
-> 
-> stream.c:844:9: warning: Use of memory after
->   it is freed
->         kfree(bus->defer_msg.msg->buf);
->               ^~~~~~~~~~~~~~~~~~~~~~~
-> 
-> This happens in an error handler cleaning up memory
-> allocated for elements in a list.
-> 
-> 	list_for_each_entry(m_rt, &stream->master_list, stream_node) {
-> 		bus = m_rt->bus;
-> 
-> 		kfree(bus->defer_msg.msg->buf);
-> 		kfree(bus->defer_msg.msg);
-> 	}
-> 
-> And is triggered when the call to sdw_bank_switch() fails.
-> There are a two problems.
-> 
-> First, when sdw_bank_switch() fails, though it frees memory it
-> does not clear bus's reference 'defer_msg.msg' to that memory.
-> 
-> The second problem is the freeing msg->buf. In some cases
-> msg will be NULL so this will dereference a null pointer.
-> Need to check before freeing.
+On Wed, Sep 02, 2020 at 11:38:09PM +0200, Thomas Bogendoerfer wrote:
+> the patch below fixes the problem.
 
-Applied, thanks
+But is very wrong unfortunately.
 
--- 
-~Vinod
+>  static inline void dma_sync_desc_cpu(struct net_device *dev, void *addr)
+>  {
+> -       dma_cache_sync(dev->dev.parent, addr, sizeof(struct sgiseeq_rx_desc),
+> -                      DMA_FROM_DEVICE);
+> +       struct sgiseeq_private *sp = netdev_priv(dev);
+> +
+> +       dma_sync_single_for_device(dev->dev.parent, VIRT_TO_DMA(sp, addr),
+> +                       sizeof(struct sgiseeq_rx_desc), DMA_FROM_DEVICE);
+>  }
+>  
+>  static inline void dma_sync_desc_dev(struct net_device *dev, void *addr)
+>  {
+> -       dma_cache_sync(dev->dev.parent, addr, sizeof(struct sgiseeq_rx_desc),
+> -                      DMA_TO_DEVICE);
+> +       struct sgiseeq_private *sp = netdev_priv(dev);
+> +
+> +       dma_sync_single_for_device(dev->dev.parent, VIRT_TO_DMA(sp, addr),
+> +                       sizeof(struct sgiseeq_rx_desc), DMA_TO_DEVICE);
+
+This is not how the DMA API works.  You can only call
+dma_sync_single_for_{device,cpu} with the direction that the memory
+was mapped.  It then transfer ownership to the device or the cpu,
+and the ownership of the memory is a fundamental concept that allows
+for reasoning about the caching interaction.
+
+>  }
+>  
+> -- 
+> Crap can work. Given enough thrust pigs will fly, but it's not necessarily a
+> good idea.                                                [ RFC1925, 2.3 ]
+---end quoted text---

@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 01BB225BF50
-	for <lists+alsa-devel@lfdr.de>; Thu,  3 Sep 2020 12:46:51 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D1BFC25BF54
+	for <lists+alsa-devel@lfdr.de>; Thu,  3 Sep 2020 12:47:34 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 648011904;
-	Thu,  3 Sep 2020 12:46:00 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 648011904
+	by alsa0.perex.cz (Postfix) with ESMTPS id 750431905;
+	Thu,  3 Sep 2020 12:46:44 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 750431905
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1599130010;
-	bh=EDE6xyrAnUN47IzzlU68NcUTwnzUKIsPsiEdEtf2KUg=;
+	s=default; t=1599130054;
+	bh=6B/hpgJH+QZgIa5PtXKYgCgesLTs5+jOMT40L/1fSBM=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=gQjDL7wHtaRz29S9CEbXO+6oJ0wshklr9Msk6rkh0ZRMUQB4roMfvBSmiZHgnHADD
-	 Md9ig3EqSiZDy6iOogjRaVb4/Ib03QeKOTzSOsmB4cSIJLuAm+E6qWYcUVN02QizCN
-	 RDA/rOSsvIt7uy/F+D5LTu05MPujQX9g1r6k5eLc=
+	b=RIrA+ujkOt3BV+zGUqM3xPoYBRdIaRhsDdwfzbo3m/CiV+9J0l1zWoKRv15Gp3diw
+	 O+rtGPcwOq8e29DeNrvzcqHBSupwJrxIe7t3/AJf9azvWoeQfF4OfXHYrZlfngsoz6
+	 o/eaxsYfeXJwCFsej+o48D6bHJ1LfeZjU+6lHR2Y=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id B6FDEF802F7;
-	Thu,  3 Sep 2020 12:42:07 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id C195BF80305;
+	Thu,  3 Sep 2020 12:42:09 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 40B93F802E1; Thu,  3 Sep 2020 12:41:57 +0200 (CEST)
+ id 0F4B1F802E1; Thu,  3 Sep 2020 12:42:00 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_MSPIKE_H3,
@@ -34,18 +34,18 @@ X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_MSPIKE_H3,
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id B4663F800F0
+ by alsa1.perex.cz (Postfix) with ESMTPS id C116CF80278
  for <alsa-devel@alsa-project.org>; Thu,  3 Sep 2020 12:41:43 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B4663F800F0
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C116CF80278
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id E7E85B15A;
+ by mx2.suse.de (Postfix) with ESMTP id F1EB4B15D;
  Thu,  3 Sep 2020 10:41:38 +0000 (UTC)
 From: Takashi Iwai <tiwai@suse.de>
 To: alsa-devel@alsa-project.org
-Subject: [PATCH 08/11] ALSA: riptide: Replace tasklet with threaded irq
-Date: Thu,  3 Sep 2020 12:41:28 +0200
-Message-Id: <20200903104131.21097-9-tiwai@suse.de>
+Subject: [PATCH 09/11] ALSA: asihpi: Replace tasklet with threaded irq
+Date: Thu,  3 Sep 2020 12:41:29 +0200
+Message-Id: <20200903104131.21097-10-tiwai@suse.de>
 X-Mailer: git-send-email 2.16.4
 In-Reply-To: <20200903104131.21097-1-tiwai@suse.de>
 References: <20200903104131.21097-1-tiwai@suse.de>
@@ -66,105 +66,146 @@ Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 The tasklet is an old API that should be deprecated, usually can be
-converted to another decent API.  In Riptide driver, a tasklet is
+converted to another decent API.  In ASIHPI driver, a tasklet is
 still used for offloading the PCM IRQ handling.  It can be achieved
 gracefully with a threaded IRQ, too.
 
-This patch replaces the tasklet usage in riptide driver with a
-threaded IRQ.
+This patch replaces the tasklet usage in asihpi driver with a threaded
+IRQ.  It also simplified some call patterns.
 
 Signed-off-by: Takashi Iwai <tiwai@suse.de>
 ---
- sound/pci/riptide/riptide.c | 20 +++++++++++---------
- 1 file changed, 11 insertions(+), 9 deletions(-)
+ sound/pci/asihpi/asihpi.c  | 28 +++-------------------------
+ sound/pci/asihpi/hpioctl.c | 16 +++++++++++++---
+ 2 files changed, 16 insertions(+), 28 deletions(-)
 
-diff --git a/sound/pci/riptide/riptide.c b/sound/pci/riptide/riptide.c
-index 098c69b3b7aa..fcc2073c5025 100644
---- a/sound/pci/riptide/riptide.c
-+++ b/sound/pci/riptide/riptide.c
-@@ -445,7 +445,6 @@ struct snd_riptide {
- 	union firmware_version firmware;
+diff --git a/sound/pci/asihpi/asihpi.c b/sound/pci/asihpi/asihpi.c
+index 35e76480306e..46d8166ceaeb 100644
+--- a/sound/pci/asihpi/asihpi.c
++++ b/sound/pci/asihpi/asihpi.c
+@@ -117,7 +117,6 @@ struct snd_card_asihpi {
+ 	 * snd_card_asihpi_timer_function().
+ 	 */
+ 	struct snd_card_asihpi_pcm *llmode_streampriv;
+-	struct tasklet_struct t;
+ 	void (*pcm_start)(struct snd_pcm_substream *substream);
+ 	void (*pcm_stop)(struct snd_pcm_substream *substream);
  
- 	spinlock_t lock;
--	struct tasklet_struct riptide_tq;
- 	struct snd_info_entry *proc_entry;
+@@ -547,9 +546,7 @@ static void snd_card_asihpi_pcm_int_start(struct snd_pcm_substream *substream)
+ 	card = snd_pcm_substream_chip(substream);
  
- 	unsigned long received_irqs;
-@@ -1070,9 +1069,9 @@ getmixer(struct cmdif *cif, short num, unsigned short *rval,
- 	return 0;
+ 	WARN_ON(in_interrupt());
+-	tasklet_disable(&card->t);
+ 	card->llmode_streampriv = dpcm;
+-	tasklet_enable(&card->t);
+ 
+ 	hpi_handle_error(hpi_adapter_set_property(card->hpi->adapter->index,
+ 		HPI_ADAPTER_PROPERTY_IRQ_RATE,
+@@ -565,13 +562,7 @@ static void snd_card_asihpi_pcm_int_stop(struct snd_pcm_substream *substream)
+ 	hpi_handle_error(hpi_adapter_set_property(card->hpi->adapter->index,
+ 		HPI_ADAPTER_PROPERTY_IRQ_RATE, 0, 0));
+ 
+-	if (in_interrupt())
+-		card->llmode_streampriv = NULL;
+-	else {
+-		tasklet_disable(&card->t);
+-		card->llmode_streampriv = NULL;
+-		tasklet_enable(&card->t);
+-	}
++	card->llmode_streampriv = NULL;
  }
  
--static void riptide_handleirq(struct tasklet_struct *t)
-+static irqreturn_t riptide_handleirq(int irq, void *dev_id)
+ static int snd_card_asihpi_trigger(struct snd_pcm_substream *substream,
+@@ -921,10 +912,9 @@ static void snd_card_asihpi_timer_function(struct timer_list *t)
+ 		add_timer(&dpcm->timer);
+ }
+ 
+-static void snd_card_asihpi_int_task(struct tasklet_struct *t)
++static void snd_card_asihpi_isr(struct hpi_adapter *a)
  {
--	struct snd_riptide *chip = from_tasklet(chip, t, riptide_tq);
-+	struct snd_riptide *chip = dev_id;
- 	struct cmdif *cif = chip->cif;
- 	struct snd_pcm_substream *substream[PLAYBACK_SUBSTREAMS + 1];
- 	struct snd_pcm_runtime *runtime;
-@@ -1083,7 +1082,7 @@ static void riptide_handleirq(struct tasklet_struct *t)
- 	unsigned int flag;
+-	struct snd_card_asihpi *asihpi = from_tasklet(asihpi, t, t);
+-	struct hpi_adapter *a = asihpi->hpi;
++	struct snd_card_asihpi *asihpi;
  
- 	if (!cif)
--		return;
-+		return IRQ_HANDLED;
+ 	WARN_ON(!a || !a->snd_card || !a->snd_card->private_data);
+ 	asihpi = (struct snd_card_asihpi *)a->snd_card->private_data;
+@@ -933,15 +923,6 @@ static void snd_card_asihpi_int_task(struct tasklet_struct *t)
+ 			&asihpi->llmode_streampriv->timer);
+ }
  
- 	for (i = 0; i < PLAYBACK_SUBSTREAMS; i++)
- 		substream[i] = chip->playback_substream[i];
-@@ -1134,6 +1133,8 @@ static void riptide_handleirq(struct tasklet_struct *t)
- 			}
- 		}
+-static void snd_card_asihpi_isr(struct hpi_adapter *a)
+-{
+-	struct snd_card_asihpi *asihpi;
+-
+-	WARN_ON(!a || !a->snd_card || !a->snd_card->private_data);
+-	asihpi = (struct snd_card_asihpi *)a->snd_card->private_data;
+-	tasklet_schedule(&asihpi->t);
+-}
+-
+ /***************************** PLAYBACK OPS ****************/
+ static int snd_card_asihpi_playback_prepare(struct snd_pcm_substream *
+ 					    substream)
+@@ -2871,7 +2852,6 @@ static int snd_asihpi_probe(struct pci_dev *pci_dev,
+ 	if (hpi->interrupt_mode) {
+ 		asihpi->pcm_start = snd_card_asihpi_pcm_int_start;
+ 		asihpi->pcm_stop = snd_card_asihpi_pcm_int_stop;
+-		tasklet_setup(&asihpi->t, snd_card_asihpi_int_task);
+ 		hpi->interrupt_callback = snd_card_asihpi_isr;
+ 	} else {
+ 		asihpi->pcm_start = snd_card_asihpi_pcm_timer_start;
+@@ -2960,14 +2940,12 @@ static int snd_asihpi_probe(struct pci_dev *pci_dev,
+ static void snd_asihpi_remove(struct pci_dev *pci_dev)
+ {
+ 	struct hpi_adapter *hpi = pci_get_drvdata(pci_dev);
+-	struct snd_card_asihpi *asihpi = hpi->snd_card->private_data;
+ 
+ 	/* Stop interrupts */
+ 	if (hpi->interrupt_mode) {
+ 		hpi->interrupt_callback = NULL;
+ 		hpi_handle_error(hpi_adapter_set_property(hpi->adapter->index,
+ 			HPI_ADAPTER_PROPERTY_IRQ_RATE, 0, 0));
+-		tasklet_kill(&asihpi->t);
  	}
+ 
+ 	snd_card_free(hpi->snd_card);
+diff --git a/sound/pci/asihpi/hpioctl.c b/sound/pci/asihpi/hpioctl.c
+index 496dcde9715d..6cc2b6964bb5 100644
+--- a/sound/pci/asihpi/hpioctl.c
++++ b/sound/pci/asihpi/hpioctl.c
+@@ -329,11 +329,20 @@ static irqreturn_t asihpi_isr(int irq, void *dev_id)
+ 	   asihpi_irq_count, a->adapter->type, a->adapter->index); */
+ 
+ 	if (a->interrupt_callback)
+-		a->interrupt_callback(a);
++		return IRQ_WAKE_THREAD;
+ 
+ 	return IRQ_HANDLED;
+ }
+ 
++static irqreturn_t asihpi_isr_thread(int irq, void *dev_id)
++{
++	struct hpi_adapter *a = dev_id;
 +
++	if (a->interrupt_callback)
++		a->interrupt_callback(a);
 +	return IRQ_HANDLED;
- }
- 
- #ifdef CONFIG_PM_SLEEP
-@@ -1699,13 +1700,14 @@ snd_riptide_interrupt(int irq, void *dev_id)
++}
++
+ int asihpi_adapter_probe(struct pci_dev *pci_dev,
+ 			 const struct pci_device_id *pci_id)
  {
- 	struct snd_riptide *chip = dev_id;
- 	struct cmdif *cif = chip->cif;
-+	irqreturn_t ret = IRQ_HANDLED;
- 
- 	if (cif) {
- 		chip->received_irqs++;
- 		if (IS_EOBIRQ(cif->hwport) || IS_EOSIRQ(cif->hwport) ||
- 		    IS_EOCIRQ(cif->hwport)) {
- 			chip->handled_irqs++;
--			tasklet_schedule(&chip->riptide_tq);
-+			ret = IRQ_WAKE_THREAD;
+@@ -478,8 +487,9 @@ int asihpi_adapter_probe(struct pci_dev *pci_dev,
  		}
- 		if (chip->rmidi && IS_MPUIRQ(cif->hwport)) {
- 			chip->handled_irqs++;
-@@ -1714,7 +1716,7 @@ snd_riptide_interrupt(int irq, void *dev_id)
- 		}
- 		SET_AIACK(cif->hwport);
- 	}
--	return IRQ_HANDLED;
-+	return ret;
- }
  
- static void
-@@ -1843,7 +1845,6 @@ snd_riptide_create(struct snd_card *card, struct pci_dev *pci,
- 	chip->received_irqs = 0;
- 	chip->handled_irqs = 0;
- 	chip->cif = NULL;
--	tasklet_setup(&chip->riptide_tq, riptide_handleirq);
- 
- 	if ((chip->res_port =
- 	     request_region(chip->port, 64, "RIPTIDE")) == NULL) {
-@@ -1856,8 +1857,9 @@ snd_riptide_create(struct snd_card *card, struct pci_dev *pci,
- 	hwport = (struct riptideport *)chip->port;
- 	UNSET_AIE(hwport);
- 
--	if (request_irq(pci->irq, snd_riptide_interrupt, IRQF_SHARED,
--			KBUILD_MODNAME, chip)) {
-+	if (request_threaded_irq(pci->irq, snd_riptide_interrupt,
-+				 riptide_handleirq, IRQF_SHARED,
-+				 KBUILD_MODNAME, chip)) {
- 		snd_printk(KERN_ERR "Riptide: unable to grab IRQ %d\n",
- 			   pci->irq);
- 		snd_riptide_free(chip);
+ 		/* Note: request_irq calls asihpi_isr here */
+-		if (request_irq(pci_dev->irq, asihpi_isr, IRQF_SHARED,
+-				"asihpi", &adapters[adapter_index])) {
++		if (request_threaded_irq(pci_dev->irq, asihpi_isr,
++					 asihpi_isr_thread, IRQF_SHARED,
++					 "asihpi", &adapters[adapter_index])) {
+ 			dev_err(&pci_dev->dev, "request_irq(%d) failed\n",
+ 				pci_dev->irq);
+ 			goto err;
 -- 
 2.16.4
 

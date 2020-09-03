@@ -2,59 +2,69 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 30ED025BAB6
-	for <lists+alsa-devel@lfdr.de>; Thu,  3 Sep 2020 08:02:02 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0795325BB31
+	for <lists+alsa-devel@lfdr.de>; Thu,  3 Sep 2020 08:42:30 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 95D3518C3;
-	Thu,  3 Sep 2020 08:01:11 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 95D3518C3
+	by alsa0.perex.cz (Postfix) with ESMTPS id 7F95F18BE;
+	Thu,  3 Sep 2020 08:41:39 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7F95F18BE
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1599112921;
-	bh=rq36m7BKmboY910Vb8Opi5A6IOT3svT9UqDqZdOXpok=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=ncqtovEid2uokYfO07qM/grl7bQIspRfTF1G1GwymloACwj9dIV+Jb3LBeVZpddRm
-	 sCAscYKaUfC9TZLn2ybiFzP0XN0u1f+TEMhvEIZcFtfWsG2X8I+KbAVnvqbqvgb5AR
-	 EcabrYYePxELaw+HQa22L5XH1klLhLa4gcKSJ7HQ=
+	s=default; t=1599115349;
+	bh=NseSZWFA6vBjx6cYGY4+x/QnBuAOf3bAnai7bIaj70g=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=kBv1pcV4jrrutLapcX5xwFn14BMLrmXRFQyAuUq59dOAzYF2HazCrk3Gwpr+7CDDl
+	 qfIMewxEq6ZGFZi37385mqZnREO+iLpKXGnC8lTwlz9Aj+VINFVps4F76q0Om/CDWb
+	 tkZ2vdVYE9JDxiIRmhanGxM42F+keW95Xb4Qiwkc=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id C93BEF800F0;
-	Thu,  3 Sep 2020 08:00:20 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id BD785F800BA;
+	Thu,  3 Sep 2020 08:40:48 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 6F124F80217; Thu,  3 Sep 2020 08:00:18 +0200 (CEST)
+ id 4560AF80217; Thu,  3 Sep 2020 08:40:46 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from inva021.nxp.com (inva021.nxp.com [92.121.34.21])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_MSPIKE_H3,
+ RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
+Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 0D94FF801DA
- for <alsa-devel@alsa-project.org>; Thu,  3 Sep 2020 08:00:07 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0D94FF801DA
-Received: from inva021.nxp.com (localhost [127.0.0.1])
- by inva021.eu-rdc02.nxp.com (Postfix) with ESMTP id 410A3201134;
- Thu,  3 Sep 2020 08:00:07 +0200 (CEST)
-Received: from invc005.ap-rdc01.nxp.com (invc005.ap-rdc01.nxp.com
- [165.114.16.14])
- by inva021.eu-rdc02.nxp.com (Postfix) with ESMTP id C8C9D201149;
- Thu,  3 Sep 2020 08:00:02 +0200 (CEST)
-Received: from 10.192.242.69 (shlinux2.ap.freescale.net [10.192.224.44])
- by invc005.ap-rdc01.nxp.com (Postfix) with ESMTP id 0B22C402AE;
- Thu,  3 Sep 2020 07:59:56 +0200 (CEST)
-From: Shengjiu Wang <shengjiu.wang@nxp.com>
-To: timur@kernel.org, nicoleotsuka@gmail.com, Xiubo.Lee@gmail.com,
- festevam@gmail.com, broonie@kernel.org, perex@perex.cz, tiwai@suse.com,
- alsa-devel@alsa-project.org, lgirdwood@gmail.com
-Subject: [PATCH v2] ASoC: fsl_sai: Set SAI Channel Mode to Output Mode
-Date: Thu,  3 Sep 2020 13:53:47 +0800
-Message-Id: <1599112427-22038-1-git-send-email-shengjiu.wang@nxp.com>
-X-Mailer: git-send-email 2.7.4
-X-Virus-Scanned: ClamAV using ClamSMTP
-Cc: linuxppc-dev@lists.ozlabs.org, linux-kernel@vger.kernel.org
+ by alsa1.perex.cz (Postfix) with ESMTPS id 90B1DF801DA
+ for <alsa-devel@alsa-project.org>; Thu,  3 Sep 2020 08:40:38 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 90B1DF801DA
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id 225EBAC1F;
+ Thu,  3 Sep 2020 06:40:37 +0000 (UTC)
+Date: Thu, 03 Sep 2020 08:40:34 +0200
+Message-ID: <s5h5z8v8isd.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Alan Stern <stern@rowland.harvard.edu>
+Subject: Re: [PATCH 01/10] USB: move snd_usb_pipe_sanity_check into the USB
+ core
+In-Reply-To: <20200903004553.GA642955@rowland.harvard.edu>
+References: <20200902110115.1994491-1-gregkh@linuxfoundation.org>
+ <20200902110115.1994491-2-gregkh@linuxfoundation.org>
+ <20200903004553.GA642955@rowland.harvard.edu>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
+ FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
+ (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
+Content-Type: text/plain; charset=US-ASCII
+Cc: alsa-devel@alsa-project.org, "Gustavo A. R. Silva" <gustavoars@kernel.org>,
+ linux-kernel@vger.kernel.org, johan.hedberg@gmail.com,
+ Chris Wulff <crwulff@gmail.com>, Jesus Ramos <jesus-ramos@live.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, marcel@holtmann.org,
+ linux-usb@vger.kernel.org, Dmitry Panchenko <dmitry@d-systems.ee>,
+ tiwai@suse.com, linux-bluetooth@vger.kernel.org,
+ Eli Billauer <eli.billauer@gmail.com>, Nick Kossifidis <mickflemm@gmail.com>,
+ Emiliano Ingrassia <ingrassia@epigenesys.com>,
+ Alexander Tsoy <alexander@tsoy.me>, Jussi Laako <jussi@sonarnerd.net>,
+ "Geoffrey D. Bennett" <g@b4.vu>, dvyukov@google.com, himadrispandya@gmail.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -70,72 +80,22 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Transmit data pins will output zero when slots are masked or channels
-are disabled. In CHMOD TDM mode, transmit data pins are tri-stated when
-slots are masked or channels are disabled. When data pins are tri-stated,
-there is noise on some channels when FS clock value is high and data is
-read while fsclk is transitioning from high to low.
+On Thu, 03 Sep 2020 02:45:53 +0200,
+Alan Stern wrote:
+> 
+> In a few places here this check is completely unnecessary.  All it does 
+> is verify that the device does have an endpoint 0 and the the type of 
+> the endpoint matches the type of the pipe.  Well, every USB device 
+> always has an endpoint 0, and it is always a bidirectional control 
+> endpoint.  Therefore a simple static check is all you need: There's no 
+> point calling usb_pipe_type_check() when the pipe is of the form 
+> usb_{snd|rcv}ctrlpipe(dev, 0).
+> 
+> In short, this check should be removed completely; it does nothing.
 
-Signed-off-by: Cosmin-Gabriel Samoila <cosmin.samoila@nxp.com>
-Signed-off-by: Shengjiu Wang <shengjiu.wang@nxp.com>
-Acked-by: Nicolin Chen <nicoleotsuka@gmail.com>
----
-changes in v2
-- update note
-- add acked-by Nicolin
+Fair enough, but I think those removals should be in another patch.
 
- sound/soc/fsl/fsl_sai.c | 10 ++++++++--
- sound/soc/fsl/fsl_sai.h |  2 ++
- 2 files changed, 10 insertions(+), 2 deletions(-)
 
-diff --git a/sound/soc/fsl/fsl_sai.c b/sound/soc/fsl/fsl_sai.c
-index 38c7bcbb361d..b2d65e53dbc4 100644
---- a/sound/soc/fsl/fsl_sai.c
-+++ b/sound/soc/fsl/fsl_sai.c
-@@ -489,6 +489,10 @@ static int fsl_sai_hw_params(struct snd_pcm_substream *substream,
- 
- 	val_cr4 |= FSL_SAI_CR4_FRSZ(slots);
- 
-+	/* Set to output mode to avoid tri-stated data pins */
-+	if (tx)
-+		val_cr4 |= FSL_SAI_CR4_CHMOD;
-+
- 	/*
- 	 * For SAI master mode, when Tx(Rx) sync with Rx(Tx) clock, Rx(Tx) will
- 	 * generate bclk and frame clock for Tx(Rx), we should set RCR4(TCR4),
-@@ -497,7 +501,8 @@ static int fsl_sai_hw_params(struct snd_pcm_substream *substream,
- 
- 	if (!sai->is_slave_mode && fsl_sai_dir_is_synced(sai, adir)) {
- 		regmap_update_bits(sai->regmap, FSL_SAI_xCR4(!tx, ofs),
--				   FSL_SAI_CR4_SYWD_MASK | FSL_SAI_CR4_FRSZ_MASK,
-+				   FSL_SAI_CR4_SYWD_MASK | FSL_SAI_CR4_FRSZ_MASK |
-+				   FSL_SAI_CR4_CHMOD_MASK,
- 				   val_cr4);
- 		regmap_update_bits(sai->regmap, FSL_SAI_xCR5(!tx, ofs),
- 				   FSL_SAI_CR5_WNW_MASK | FSL_SAI_CR5_W0W_MASK |
-@@ -508,7 +513,8 @@ static int fsl_sai_hw_params(struct snd_pcm_substream *substream,
- 			   FSL_SAI_CR3_TRCE_MASK,
- 			   FSL_SAI_CR3_TRCE((1 << pins) - 1));
- 	regmap_update_bits(sai->regmap, FSL_SAI_xCR4(tx, ofs),
--			   FSL_SAI_CR4_SYWD_MASK | FSL_SAI_CR4_FRSZ_MASK,
-+			   FSL_SAI_CR4_SYWD_MASK | FSL_SAI_CR4_FRSZ_MASK |
-+			   FSL_SAI_CR4_CHMOD_MASK,
- 			   val_cr4);
- 	regmap_update_bits(sai->regmap, FSL_SAI_xCR5(tx, ofs),
- 			   FSL_SAI_CR5_WNW_MASK | FSL_SAI_CR5_W0W_MASK |
-diff --git a/sound/soc/fsl/fsl_sai.h b/sound/soc/fsl/fsl_sai.h
-index 5f630be74853..736a437450c8 100644
---- a/sound/soc/fsl/fsl_sai.h
-+++ b/sound/soc/fsl/fsl_sai.h
-@@ -119,6 +119,8 @@
- #define FSL_SAI_CR4_FRSZ_MASK	(0x1f << 16)
- #define FSL_SAI_CR4_SYWD(x)	(((x) - 1) << 8)
- #define FSL_SAI_CR4_SYWD_MASK	(0x1f << 8)
-+#define FSL_SAI_CR4_CHMOD       BIT(5)
-+#define FSL_SAI_CR4_CHMOD_MASK  BIT(5)
- #define FSL_SAI_CR4_MF		BIT(4)
- #define FSL_SAI_CR4_FSE		BIT(3)
- #define FSL_SAI_CR4_FSP		BIT(1)
--- 
-2.27.0
+thanks,
 
+Takashi

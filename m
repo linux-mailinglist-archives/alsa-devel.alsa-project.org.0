@@ -2,66 +2,73 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5E60125C1E2
-	for <lists+alsa-devel@lfdr.de>; Thu,  3 Sep 2020 15:51:35 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 75D8925C1E4
+	for <lists+alsa-devel@lfdr.de>; Thu,  3 Sep 2020 15:52:12 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E4F33191B;
-	Thu,  3 Sep 2020 15:50:44 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E4F33191B
+	by alsa0.perex.cz (Postfix) with ESMTPS id 86B24193A;
+	Thu,  3 Sep 2020 15:51:20 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 86B24193A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1599141095;
-	bh=wx3edxGRbnkP+0ghqdokdIw1oQlPriAUWdZG5DLAQ+4=;
-	h=Date:From:To:In-Reply-To:References:Subject:Cc:List-Id:
+	s=default; t=1599141130;
+	bh=liNY7FLSdHRdX4Cnhw9WiPzs2IYQ4bTl9yopIqeiJ+g=;
+	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=lyEi1JZIbNeUnYT5t+XlkIR+Kus7q3GiM52n5omZZJJX65ctSgYi+pYhW4Za1Rk56
-	 VJa+aVRFfQULAnjjaODiKbbakI+goReu/hmBB4pf6pPqaihlg+nAwortYagr9Cxtez
-	 S/oJncDGIeu9/pn463tfSenqxoC/TDPpMlDjheqQ=
+	b=LoYRyFenaJtrIHswxfemqHTpJktwl0EqM7RlFkgGetrElI+M1iTdveq7+qb7D3whE
+	 L9RXx7lPIpJueKXHoBfoVry09HiQTQF6w71WbiAiQdfc3tBiWcInfBKbUz09MyjXVS
+	 XxpgEr5Y3nHF2rupl9+/SltEOTEkn86I/9dZqCp0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 19ED1F802A9;
-	Thu,  3 Sep 2020 15:49:11 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 29C4FF801DA;
+	Thu,  3 Sep 2020 15:51:20 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id B9525F80217; Thu,  3 Sep 2020 15:49:07 +0200 (CEST)
+ id DF579F80217; Thu,  3 Sep 2020 15:51:17 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled
- version=3.4.0
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id A1296F800F0
- for <alsa-devel@alsa-project.org>; Thu,  3 Sep 2020 15:49:03 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A1296F800F0
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="2i4GX0iX"
-Received: from localhost (fw-tnat.cambridge.arm.com [217.140.96.140])
+X-Spam-Status: No, score=-0.3 required=5.0 tests=NICE_REPLY_A,SPF_HELO_NONE,
+ SPF_NONE autolearn=disabled version=3.4.0
+Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 6222520758;
- Thu,  3 Sep 2020 13:49:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1599140941;
- bh=wx3edxGRbnkP+0ghqdokdIw1oQlPriAUWdZG5DLAQ+4=;
- h=Date:From:To:Cc:In-Reply-To:References:Subject:From;
- b=2i4GX0iXPOGtmQ5pAwrqoBAyG80F5eBnZVCT2zJjp/ljVNd0G2yUtiQbCoIrVfjLF
- 6nVEBg0M5/P0qMEMAYndtAxt7U18R4YJ+WU68ZbQp5sUVr3y4zzCc/jRkExX2Tw4Zr
- QCF09Okl9ralGJSC0y5PecV3eHAmyNfBfhyys/6s=
-Date: Thu, 03 Sep 2020 14:48:20 +0100
-From: Mark Brown <broonie@kernel.org>
-To: alsa-devel@alsa-project.org, tiwai@suse.com, timur@kernel.org,
- festevam@gmail.com, nicoleotsuka@gmail.com, Xiubo.Lee@gmail.com,
- lgirdwood@gmail.com, perex@perex.cz, Shengjiu Wang <shengjiu.wang@nxp.com>
-In-Reply-To: <1599112427-22038-1-git-send-email-shengjiu.wang@nxp.com>
-References: <1599112427-22038-1-git-send-email-shengjiu.wang@nxp.com>
-Subject: Re: [PATCH v2] ASoC: fsl_sai: Set SAI Channel Mode to Output Mode
-Message-Id: <159914089549.45733.5564781801193033736.b4-ty@kernel.org>
-Cc: linuxppc-dev@lists.ozlabs.org, linux-kernel@vger.kernel.org
+ by alsa1.perex.cz (Postfix) with ESMTPS id B2A5BF801DA
+ for <alsa-devel@alsa-project.org>; Thu,  3 Sep 2020 15:51:07 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B2A5BF801DA
+IronPort-SDR: wlkvHGktr8nIx2RBRsPi22H2y/I/BG78Yx82FPabCagYGTvH6wnrrJTpxSAZS5NRBi7nJNnjCn
+ kEC45OFKwd3g==
+X-IronPort-AV: E=McAfee;i="6000,8403,9732"; a="154974688"
+X-IronPort-AV: E=Sophos;i="5.76,386,1592895600"; d="scan'208";a="154974688"
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from fmsmga003.fm.intel.com ([10.253.24.29])
+ by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 03 Sep 2020 06:51:04 -0700
+IronPort-SDR: MSO9JBH5b0ka+Q1jWl14asalj024iN8jaC7XfOus0u1NdKpap1zDjqFI9GhzXYb1+vY7WY8YFa
+ F40ZHPJL8YxA==
+X-IronPort-AV: E=Sophos;i="5.76,386,1592895600"; d="scan'208";a="339288441"
+Received: from corteszu-mobl.amr.corp.intel.com (HELO [10.213.169.41])
+ ([10.213.169.41])
+ by fmsmga003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 03 Sep 2020 06:51:04 -0700
+Subject: Re: [PATCH v2 0/3] regmap: add SoundWire 1.2 MBQ support
+To: Vinod Koul <vkoul@kernel.org>
+References: <20200901162225.33343-1-pierre-louis.bossart@linux.intel.com>
+ <20200903103617.GP2639@vkoul-mobl>
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Message-ID: <32ba445b-2bb3-592a-8f5e-dca458f7193a@linux.intel.com>
+Date: Thu, 3 Sep 2020 08:51:03 -0500
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.10.0
+MIME-Version: 1.0
+In-Reply-To: <20200903103617.GP2639@vkoul-mobl>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
+Cc: alsa-devel@alsa-project.org, tiwai@suse.de, gregkh@linuxfoundation.org,
+ broonie@kernel.org, Bard liao <yung-chuan.liao@linux.intel.com>,
+ Rander Wang <rander.wang@linux.intel.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -77,37 +84,64 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Thu, 3 Sep 2020 13:53:47 +0800, Shengjiu Wang wrote:
-> Transmit data pins will output zero when slots are masked or channels
-> are disabled. In CHMOD TDM mode, transmit data pins are tri-stated when
-> slots are masked or channels are disabled. When data pins are tri-stated,
-> there is noise on some channels when FS clock value is high and data is
-> read while fsclk is transitioning from high to low.
 
-Applied to
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
+On 9/3/20 5:36 AM, Vinod Koul wrote:
+> On 01-09-20, 11:22, Pierre-Louis Bossart wrote:
+>> In preparation of the upstream contribution of SDCA (SoundWire Device
+>> Class for Audio) ASoC codec drivers [1] [2], add regmap support
+>> SoundWire 1.2 MBQ support. The MBQ (Multi-Byte Quantity) registers
+>> need to be handled in a different way from regular 8-bit SoundWire
+>> registers, their main application is going to be for volume/gain
+>> controls.
+>>
+>> The second patch was initially suggested for inclusion in the
+>> SoundWire tree, and was modified to add more background information on
+>> SDCA in the commit message as requested by Vinod Koul.
+> 
+> Is this targetted towards the sdw tree or regmap tree, I think it may
+> have dependencies so sdw can be used.
+> 
+> It would be nice to mention these things here in cover
+
+It was intended for the regmap tree (the cover letter does not include 
+the soundwire: prefix).
+
+Patch2 would need the ack of SoundWire maintainers (Bard already provide 
+his tag).
+
+The dependencies are regmap->ASoC for codec integration. There will be 
+no dependencies for the SoundWire core proper, SDCA is really about the 
+device side of things beyond what the bus provides.
 
 Thanks!
 
-[1/1] ASoC: fsl_sai: Set SAI Channel Mode to Output Mode
-      commit: f4c4b1bb2f5a7f034f039c302b56f82344a6dc8c
-
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
-
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
-
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
-
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-Thanks,
-Mark
+> 
+>>
+>> Changes since v1:
+>> Rebased on regmap tree (conflict with SPI stuff).
+>> Removed mod_devicetable.h header
+>> Removed -EOPNOTSUPP error codes, use -ENOTSUPP
+>> Added long description of SDCA
+>> Used FIELD_PREP/GET as suggested by Vinod Koul
+>> Added Bard Liao's Acked-by tag.
+>>
+>> Pierre-Louis Bossart (3):
+>>    regmap: sdw: add required header files
+>>    soundwire: SDCA: add helper macro to access controls
+>>    regmap: sdw: add support for SoundWire 1.2 MBQ
+>>
+>>   drivers/base/regmap/Kconfig             |   6 +-
+>>   drivers/base/regmap/Makefile            |   1 +
+>>   drivers/base/regmap/regmap-sdw-mbq.c    | 101 ++++++++++++++++++++++++
+>>   drivers/base/regmap/regmap-sdw.c        |   2 +
+>>   include/linux/regmap.h                  |  21 +++++
+>>   include/linux/soundwire/sdw_registers.h |  33 ++++++++
+>>   6 files changed, 163 insertions(+), 1 deletion(-)
+>>   create mode 100644 drivers/base/regmap/regmap-sdw-mbq.c
+>>
+>>
+>> base-commit: d17343b87da422a59d99a3ed130573dbeb96c582
+>> -- 
+>> 2.25.1
+> 

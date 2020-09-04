@@ -2,73 +2,59 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7727D25D3FE
-	for <lists+alsa-devel@lfdr.de>; Fri,  4 Sep 2020 10:53:30 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id F0CA325D45A
+	for <lists+alsa-devel@lfdr.de>; Fri,  4 Sep 2020 11:11:56 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id F0FCA1AE9;
-	Fri,  4 Sep 2020 10:52:39 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz F0FCA1AE9
+	by alsa0.perex.cz (Postfix) with ESMTPS id 8F95E1AE8;
+	Fri,  4 Sep 2020 11:11:05 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8F95E1AE8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1599209610;
-	bh=PhnaNKA7rh3rCmuBd9zqv2v0Wg8ZgqsYufgBwArPwbM=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1599210715;
+	bh=CWQXr6NKX/ZFEYge82gykHQvM5rf1/cpOe75/pqHh0k=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=WpLWBqGNcT2kBwi97hQpxrXr3ZOtpEakrQ4QxpoDxDUEvKXOVhcQEUYHh1NHqwRAH
-	 jtiIwc3sWv8G6jk7GgF6/VyDn5rzDRvLeXiWsUjXaA7nEJ2GPpU5PNLTvcsR8ikADo
-	 be1MLyglnZbzgTIdfUMT5lDoTv/2kkOWuNUFuEoI=
+	b=EddoH2jxh68hhsbErhcg8JlA2/Ev0md2DTob2yigOr5UD7FYBLJH4GJmG2F7qyM4q
+	 XuXvApMSJtM70MqujL51PSJRrGK4KsbazoF6FkLhoNE7Licn0sWYGsknEz8mgvLwwk
+	 Tq3aKhpZekTBvKtHfVYe0ox8CIZ71K5LxFj3K8C8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 28A94F8024A;
-	Fri,  4 Sep 2020 10:51:49 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 9B8E1F80257;
+	Fri,  4 Sep 2020 11:10:14 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 97CA5F8024A; Fri,  4 Sep 2020 10:51:46 +0200 (CEST)
+ id 4161CF8024A; Fri,  4 Sep 2020 11:10:12 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled
+X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_MSPIKE_H3,
+ RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=disabled
  version=3.4.0
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 3CDBDF800F0
- for <alsa-devel@alsa-project.org>; Fri,  4 Sep 2020 10:51:42 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3CDBDF800F0
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="xMNCTVYo"
-Received: from localhost (fw-tnat.cambridge.arm.com [217.140.96.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 77C3B20722;
- Fri,  4 Sep 2020 08:51:39 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1599209500;
- bh=PhnaNKA7rh3rCmuBd9zqv2v0Wg8ZgqsYufgBwArPwbM=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=xMNCTVYoGPXOo41ItsVPDv5S7/3Oi934cJg4QiWeIaG5jb/fo3hWwiMpuMg7JqJpX
- Ub+9eOf9TKnsp2792rx76tDtRnSpeJ09Z7mhPnvQ1JJnCBv+T5RfcdJJB8Y248eeC7
- Hz82Jt4oHqO38x17Z1HMoSgxXZoLZFEhExzmH9rI=
-Date: Fri, 4 Sep 2020 09:50:58 +0100
-From: Mark Brown <broonie@kernel.org>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 328E3F801DA
+ for <alsa-devel@alsa-project.org>; Fri,  4 Sep 2020 11:10:05 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 328E3F801DA
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id 0367DB080;
+ Fri,  4 Sep 2020 09:10:06 +0000 (UTC)
+Date: Fri, 04 Sep 2020 11:10:04 +0200
+Message-ID: <s5hd03152mr.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
 To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Subject: Re: [RFC PATCH 0/3] alsa-lib/ASoC: use inclusive language for
- bclk/fsync/topology
-Message-ID: <20200904085058.GA4625@sirena.org.uk>
+Subject: Re: [RFC PATCH 1/3] topology: use inclusive language for bclk
+In-Reply-To: <20200903201024.1109914-2-pierre-louis.bossart@linux.intel.com>
 References: <20200903201024.1109914-1-pierre-louis.bossart@linux.intel.com>
- <cac824a4-3882-85dd-dc0b-8366090dce94@perex.cz>
- <9d1c96ad-6860-7a98-4e22-5f566665e7e7@linux.intel.com>
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="Dxnq1zWXvFF0Q93v"
-Content-Disposition: inline
-In-Reply-To: <9d1c96ad-6860-7a98-4e22-5f566665e7e7@linux.intel.com>
-X-Cookie: Heisenberg might have been here.
-User-Agent: Mutt/1.10.1 (2018-07-13)
-Cc: tiwai@suse.de, alsa-devel@alsa-project.org
+ <20200903201024.1109914-2-pierre-louis.bossart@linux.intel.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
+ FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
+ (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
+Content-Type: text/plain; charset=US-ASCII
+Cc: alsa-devel@alsa-project.org, broonie@kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -84,52 +70,61 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+On Thu, 03 Sep 2020 22:10:22 +0200,
+Pierre-Louis Bossart wrote:
+> 
+> use bclk_provider for structure fields, 'codec_provider' and
+> 'codec_follower' for options and modify #defines to use CP and CF
+> suffixes.
+> 
+> Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+> ---
+>  include/sound/uapi/asoc.h | 11 +++++++----
+>  include/topology.h        |  2 +-
+>  src/topology/pcm.c        | 37 +++++++++++++++++++++++++++----------
+>  3 files changed, 35 insertions(+), 15 deletions(-)
+> 
+> diff --git a/include/sound/uapi/asoc.h b/include/sound/uapi/asoc.h
+> index 4efb4ec4..8558992f 100644
+> --- a/include/sound/uapi/asoc.h
+> +++ b/include/sound/uapi/asoc.h
+> @@ -169,10 +169,13 @@
+>  #define SND_SOC_TPLG_LNK_FLGBIT_VOICE_WAKEUP            (1 << 3)
+>  
+>  /* DAI topology BCLK parameter
+> - * For the backwards capability, by default codec is bclk master
+> + * For the backwards capability, by default codec is bclk provider
+>   */
+> -#define SND_SOC_TPLG_BCLK_CM         0 /* codec is bclk master */
+> -#define SND_SOC_TPLG_BCLK_CS         1 /* codec is bclk slave */
+> +#define SND_SOC_TPLG_BCLK_CP         0 /* codec is bclk provider */
+> +#define SND_SOC_TPLG_BCLK_CF         1 /* codec is bclk follower */
+> +/* keep previous definitions for compatibility */
+> +#define SND_SOC_TPLG_BCLK_CM         SND_SOC_TPLG_BCLK_CP
+> +#define SND_SOC_TPLG_BCLK_CS         SND_SOC_TPLG_BCLK_CF
 
---Dxnq1zWXvFF0Q93v
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Those change are indeed backward compatible, but ...
 
-On Thu, Sep 03, 2020 at 04:32:22PM -0500, Pierre-Louis Bossart wrote:
-> On 9/3/20 3:42 PM, Jaroslav Kysela wrote:
+>  
+>  /* DAI topology FSYNC parameter
+>   * For the backwards capability, by default codec is fsync master
+> @@ -335,7 +338,7 @@ struct snd_soc_tplg_hw_config {
+>  	__u8 clock_gated;	/* SND_SOC_TPLG_DAI_CLK_GATE_ value */
+>  	__u8 invert_bclk;	/* 1 for inverted BCLK, 0 for normal */
+>  	__u8 invert_fsync;	/* 1 for inverted frame clock, 0 for normal */
+> -	__u8 bclk_master;	/* SND_SOC_TPLG_BCLK_ value */
+> +	__u8 bclk_provider;	/* SND_SOC_TPLG_BCLK_ value */
+>  	__u8 fsync_master;	/* SND_SOC_TPLG_FSYNC_ value */
+>  	__u8 mclk_direction;    /* SND_SOC_TPLG_MCLK_ value */
+>  	__le16 reserved;	/* for 32bit alignment */
 
-> >=20
-> > Only my 2 cents: It's just another word combo. See bellow for sources f=
-or others.
-> >=20
-> > I would prefer probably provider/consumer . It sounds more technic.
+Is it 100% compatible?  Note that the uapi/* header is a copy from the
+kernel header, and it means that we'll change the same for the kernel,
+too.
 
-> Thanks Jaroslav for chiming in. I had a similar set of comments in intern=
-al
-> reviews, but we didn't really have any consensus and I have not seen good
-> guidance specifically for clocks.
+The similar argument applied to the patch 2, too.
 
-> Provider/consumer is typically used for discrete data exchange with some
-> sort of locking and buffer fullness metric, but for clocks we'd want
-> something that hints at one device following the timing defined by anothe=
-r.
 
-> "follow" or "track" seem clearer than 'consume' IMHO, but I will side with
-> the majority, this is an RFC which can be modified at will.
+thanks,
 
-Producer/consumer is already quite widely used for clocks (possibly
-following the regulator API which was templated off the clock API and
-uses consumer).  The follow/track stuff definitely seems awkward to me.
-Have we seen any movement from anyone like CODEC vendors on this?
-
---Dxnq1zWXvFF0Q93v
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl9R//EACgkQJNaLcl1U
-h9D8zgf+JOQUT7KJ1tzh+5VcgoVfDtQHrz8gBAzitfUG2Z4fZHjDVnoIp+nPcMq/
-Y9hPutTex7i//BGOfSm2qcUooiPOZtCnIh4WZb+QYTE8Y6wymYpQZUFJhJ2jUqxO
-7eWZZKGMVUe/O7nnvZDUleYfNo7wDBPQ1hflXbSJsABdy6cDoDZmOsCMn2IJx98m
-zrC6DaEBKrk55JXNRjUxfN9ZvR10IBVJjSd3SKoTs9sd0DD05UBrCGQtbEO1orB2
-WglbdyF4GRn6ZerarRnPwgg0sgrjdG6Su/vb9A2ZO3wVyheBjd5C/yQu5noorZKY
-pEB5Ll1XU1pItDX9K4WmuZz3rB7Tpw==
-=QC7L
------END PGP SIGNATURE-----
-
---Dxnq1zWXvFF0Q93v--
+Takashi

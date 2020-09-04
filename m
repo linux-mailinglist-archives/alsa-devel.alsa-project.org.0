@@ -2,73 +2,74 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 30A0D25D4D5
-	for <lists+alsa-devel@lfdr.de>; Fri,  4 Sep 2020 11:28:11 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 337AD25D540
+	for <lists+alsa-devel@lfdr.de>; Fri,  4 Sep 2020 11:37:30 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 5B2841746;
-	Fri,  4 Sep 2020 11:27:20 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5B2841746
+	by alsa0.perex.cz (Postfix) with ESMTPS id AF9281AF9;
+	Fri,  4 Sep 2020 11:36:39 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AF9281AF9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1599211690;
-	bh=4PTJ1XJ+HWOyuTE1GmwLHh+FAQUzDaWamJMZYkIFE4A=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1599212249;
+	bh=ZdHfR51xTZqj/wKjInIbSf7hwSoIOCbabwFDy8sREQs=;
+	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=BX8sq9pNLqQBWvBNNFebudWnR98CB9VO05GpsScp4OJemxol5gxGHVUlM15oWGAaE
-	 mqFT2TPQsA16mSCPkd0nPN+BZJC+r0DCR+7aJnzgCzCJ+U6EB3331FkUSmg87Pb/vL
-	 ANOgbCRmUNXIb+iQ54AiwBzGLf7lGRb1tWmTB7MQ=
+	b=D4UBdCtrPXLo7iaX/Nv3drMiFjgYep6QywXdbqt2AEVlIbX3z2tBPdk0cyJf63WjL
+	 9zi5tf9YQGHIfHzJKOjPWocUFoMMqQKDxfRe8/PyhvNNmi+MFDi0mW2Toit7Gk5ks/
+	 jO8PkD8pLS4LxYRNVrpqvwjMAJyYQQfliIU1fIyo=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 9B7AFF8024A;
-	Fri,  4 Sep 2020 11:26:29 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id D86E6F801DA;
+	Fri,  4 Sep 2020 11:35:48 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 1E6DFF8024A; Fri,  4 Sep 2020 11:26:24 +0200 (CEST)
+ id 7119FF8024A; Fri,  4 Sep 2020 11:35:46 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,PRX_BODY_76,SPF_HELO_NONE,SPF_PASS
- autolearn=disabled version=3.4.0
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id D3C55F800F0
- for <alsa-devel@alsa-project.org>; Fri,  4 Sep 2020 11:26:17 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D3C55F800F0
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="HKvcHO/N"
-Received: from localhost (fw-tnat.cambridge.arm.com [217.140.96.140])
+X-Spam-Status: No, score=-2.4 required=5.0 tests=NICE_REPLY_A,SPF_HELO_NONE,
+ SPF_PASS,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id D5A77206B8;
- Fri,  4 Sep 2020 09:26:14 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1599211575;
- bh=4PTJ1XJ+HWOyuTE1GmwLHh+FAQUzDaWamJMZYkIFE4A=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=HKvcHO/NcTcGPgNBRnTdAAXQ5jjUTx/zgO19sDZ8z6f3BpsUnk24IlLbGzQ7TlQck
- b80VqGNi0aco7VNqJtncUonqgkL7LiCCyAeujCkK6FKHTXCJat6v/PIZIYHldSnrUg
- alpciBZ3LHTiwqTgSsedYh9G68harCgIqAFC5xhI=
-Date: Fri, 4 Sep 2020 10:25:33 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id EAE4EF800F0
+ for <alsa-devel@alsa-project.org>; Fri,  4 Sep 2020 11:35:35 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EAE4EF800F0
+IronPort-SDR: Vn8AYkj6gVFAaQvZ1u8NAbD1FMpcA6mnppTs6VyMjOwgN5VURdHH7RkocUEDdhJgSE953SxB+g
+ vYOcgqzZoAmg==
+X-IronPort-AV: E=McAfee;i="6000,8403,9733"; a="156980602"
+X-IronPort-AV: E=Sophos;i="5.76,389,1592895600"; d="scan'208";a="156980602"
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from orsmga004.jf.intel.com ([10.7.209.38])
+ by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 04 Sep 2020 02:35:32 -0700
+IronPort-SDR: Y1WOmM1Dhvgz5S9ctMQvq4G6ofkhKHd1szetLwNvv6IkMMjAaD760f68GdOSQOyH6oxNAeGOQd
+ Tejvb6yrCggg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.76,389,1592895600"; d="scan'208";a="447246232"
+Received: from crojewsk-mobl1.ger.corp.intel.com (HELO [10.213.13.55])
+ ([10.213.13.55])
+ by orsmga004.jf.intel.com with ESMTP; 04 Sep 2020 02:35:30 -0700
 Subject: Re: [RFC] soc_pcm_open: error path behavior change since v5.6
-Message-ID: <20200904092533.GB4625@sirena.org.uk>
+To: Mark Brown <broonie@kernel.org>
 References: <48810933-41cf-265c-1784-2e2acf979720@intel.com>
- <87a6y6mmzt.wl-kuninori.morimoto.gx@renesas.com>
+ <20200903131633.GA4771@sirena.org.uk>
+From: Cezary Rojewski <cezary.rojewski@intel.com>
+Message-ID: <f9a67925-046c-69d4-bc55-5d5e24d75425@intel.com>
+Date: Fri, 4 Sep 2020 11:35:30 +0200
+User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:68.0) Gecko/20100101
+ Thunderbird/68.12.0
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="Yylu36WmvOXNoKYn"
-Content-Disposition: inline
-In-Reply-To: <87a6y6mmzt.wl-kuninori.morimoto.gx@renesas.com>
-X-Cookie: Heisenberg might have been here.
-User-Agent: Mutt/1.10.1 (2018-07-13)
-Cc: Cezary Rojewski <cezary.rojewski@intel.com>, Takashi Iwai <tiwai@suse.com>,
- "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+In-Reply-To: <20200903131633.GA4771@sirena.org.uk>
+Content-Type: text/plain; charset=windows-1252; format=flowed
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
+Cc: "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
+ Takashi Iwai <tiwai@suse.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -84,43 +85,120 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+On 2020-09-03 3:16 PM, Mark Brown wrote:
+> On Thu, Sep 03, 2020 at 10:31:35AM +0200, Cezary Rojewski wrote:
+> 
+>> Some time ago negative-tests found out that behavior of soc_pcm_open has
+>> changed, quite sure this might be a regression hence my email. Till v5.6
+>> soc_pcm_open was invoking ::shutdown() for cpu_dai in error path only if
+>> ::startup() succeeded first (label: 'out'). After addition of commit:
+> 
+> Please don't invent new notation that nobody else uses, it just makes
+> your messages harder to read.
+> 
+>> Should dai's ::shutdown() be introducing some kind of state-check from now
+>> on? - similarly to how developers deal with some of the core pcm operations
+>> e.g.: ::prepare() (as it may get invoked multiple times in a row so check is
+>> there to prevent redundancy).
+> 
+> If there are stateful things it's probably better to do that from a
+> robustness point of view whatever is going on.
+> 
+>> Or, perhaps behavior change should be reverted with ::shutdown() routine
+>> again being called only after successful ::startup()?
+> 
+> IIRC part of the thinking there was that we were getting the keeping
+> track part of things wrong and sometimes missing things that should be
+> being shut down in error paths.  Anything that tries to stop extra calls
+> would need to be very clearly robust and easily maintainable.
+> 
 
---Yylu36WmvOXNoKYn
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+I'm sorry if my explanation was somewhat lackluster. In fact, thread's 
+name is misleading too -> regression sincec v5.7, not v5.6. Comparison 
+of code pieces found below should make it clearer:
 
-On Fri, Sep 04, 2020 at 09:01:03AM +0900, Kuninori Morimoto wrote:
+v5.6 soc_pcm_open:
+https://elixir.bootlin.com/linux/v5.6.19/source/sound/soc/soc-pcm.c#L534
 
-> > Should dai's ::shutdown() be introducing some kind of state-check from
-> > now on? - similarly to how developers deal with some of the core pcm
-> > operations e.g.: ::prepare() (as it may get invoked multiple times in
-> > a row so check is there to prevent redundancy).
-> > Or, perhaps behavior change should be reverted with ::shutdown()
-> > routine again being called only after successful ::startup()?
+static int soc_pcm_open(struct snd_pcm_substream *substream)
+{
 
-> I'm sorry but I couldn't 100% understand your opinion.
-> But I understand that it is related to rollback order.
-> Now I'm posting patch for it. It is not yet 100% but 1st step.
-> Does it help for you ?
+(...)
 
-> https://lore.kernel.org/r/87wo1kvozz.wl-kuninori.morimoto.gx@renesas.com
+	/* startup the audio subsystem */
+	ret = snd_soc_dai_startup(cpu_dai, substream);
+	if (ret < 0) {
+		dev_err(cpu_dai->dev, "ASoC: can't open interface %s: %d\n",
+			cpu_dai->name, ret);
+		goto out;
+	}
 
-It's not just the ordering, it's more the fact that we will clean up
-things which failed to initialize.
+	ret = soc_pcm_components_open(substream, &component);
+	if (ret < 0)
+		goto component_err;
 
---Yylu36WmvOXNoKYn
-Content-Type: application/pgp-signature; name="signature.asc"
+	for_each_rtd_codec_dai(rtd, i, codec_dai) {
+		ret = snd_soc_dai_startup(codec_dai, substream);
+		if (ret < 0) {
+			dev_err(codec_dai->dev,
+				"ASoC: can't open codec %s: %d\n",
+				codec_dai->name, ret);
+			goto codec_dai_err;
+		}
 
------BEGIN PGP SIGNATURE-----
+(...)
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl9SCA0ACgkQJNaLcl1U
-h9DF0Af+Nj+6aHHMOZjB7Ybay8bliGqHbUxzgvRO/AOsMhkRW5pOj7k+8uOrKlw1
-L0tqqNTGA9LYhDOiNGnOej6Ndxt0bYcB2vmqsLdjMW2+DRCNe6aIkl749+PbY4b0
-4B2RGNU/p/e0ozm5hpGVFz97+3gsD90type9ucU4wc+SQIj1PdmDw8PV89ye0V7t
-PjiA6dC+qLD9QR8QIOlBoRy2p661mbLzaoSfnMD3iiUt9T0C90MAsLqVjLVglhtB
-znL45Kzc+JXWqhLIl0KXVAEfdsMCbikxXidqLBWIIij1ZYgeeHThUHA9i5fNs6Hu
-EL/igNBf303qx5rhht85qs5/Uj8uug==
-=Z/K8
------END PGP SIGNATURE-----
+codec_dai_err:
+	for_each_rtd_codec_dai_rollback(rtd, i, codec_dai)
+		snd_soc_dai_shutdown(codec_dai, substream);
 
---Yylu36WmvOXNoKYn--
+component_err:
+	soc_pcm_components_close(substream, component);
+
+	snd_soc_dai_shutdown(cpu_dai, substream);
+out:
+	mutex_unlock(&rtd->card->pcm_mutex);
+
+
+-
+
+Now the equivalent from newer kernel e.g. v5.8:
+https://elixir.bootlin.com/linux/v5.8.6/source/sound/soc/soc-pcm.c#L711
+
+static int soc_pcm_open(struct snd_pcm_substream *substream)
+{
+
+(...)
+
+	/* startup the audio subsystem */
+	for_each_rtd_dais(rtd, i, dai) {
+		ret = snd_soc_dai_startup(dai, substream);
+		if (ret < 0) {
+			dev_err(dai->dev,
+				"ASoC: can't open DAI %s: %d\n",
+				dai->name, ret);
+			goto config_err;
+		}
+
+		if (substream->stream == SNDRV_PCM_STREAM_PLAYBACK)
+			dai->tx_mask = 0;
+		else
+			dai->rx_mask = 0;
+	}
+
+(...)
+
+config_err:
+	for_each_rtd_dais(rtd, i, dai)
+		snd_soc_dai_shutdown(dai, substream);
+
+-
+
+Let's assume we have 10 dais. In newer kernels, if snd_soc_dai_startup() 
+fails at i=5, error path will attempt to perform snd_soc_dai_shutdown() 
+for all dais (all 10) regardless if respective dai was opened or not. 
+This is a clear behavior change when compared to v5.6 where cpu_dai was 
+cleaned-up only if it was previously started successfully. Due to usage 
+of for_each_rtd_codec_dai_rollback macro, the same applies to codec_dais.
+
+Czarek

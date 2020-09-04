@@ -2,84 +2,66 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id ABDBB25DFC4
-	for <lists+alsa-devel@lfdr.de>; Fri,  4 Sep 2020 18:26:27 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6C38925E5C9
+	for <lists+alsa-devel@lfdr.de>; Sat,  5 Sep 2020 08:24:35 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 3EF941EEC;
-	Fri,  4 Sep 2020 18:25:37 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3EF941EEC
+	by alsa0.perex.cz (Postfix) with ESMTPS id 90CF31B00;
+	Sat,  5 Sep 2020 08:23:44 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 90CF31B00
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1599236787;
-	bh=NAOttNi68dxtCKh5TVKg8sTqUmu57wOh79f7YPBx69A=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=TsiQR1AVnHccFm2X36S0ZS0V5VfQS73BthLGwDCToA76Z+8Z8jYIz2uubVDOAK35y
-	 QQAp+eeyIQeRpT8FvieNZe5IicssfCMufSAnAZoJ7G9siSispvhsdCexmSn/ns7iNl
-	 IVUhP3sQJXgBIWilIL0asveMxuu/Q5pOerIMaIjM=
+	s=default; t=1599287074;
+	bh=U6Q2Wr9a/VdbnvlxtEk3mWuk3mXh0Jn2UWxxsjFfnRs=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=a0xdNbrerJQo00aXEjjrFCtSrHfrc0x29XxCw2K0BfMOhRuqzJ/bMMsmKlq5fZmS+
+	 zyN4T6Ui0Ra5oczZRqTyV8Kmv5yQKSWsrkYUlArbRFIo3iL/ZwLsgnINcwohgqc5cF
+	 8BpG+wANTjDUpF4OJzZDNsfrhYkoNJkvExFDpLRQ=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 800E0F80257;
-	Fri,  4 Sep 2020 18:24:46 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 95F23F8020D;
+	Sat,  5 Sep 2020 08:22:53 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id D55DAF8024A; Fri,  4 Sep 2020 18:24:44 +0200 (CEST)
+ id 1F626F8021D; Sat,  5 Sep 2020 08:22:49 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled
- version=3.4.0
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id C65F9F801DA
- for <alsa-devel@alsa-project.org>; Fri,  4 Sep 2020 18:24:38 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C65F9F801DA
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="CYBhS4JD"
-Received: from localhost (fw-tnat.cambridge.arm.com [217.140.96.140])
+X-Spam-Level: *
+X-Spam-Status: No, score=1.1 required=5.0 tests=DATE_IN_PAST_06_12,
+ SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
+Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id C209D2067C;
- Fri,  4 Sep 2020 16:24:36 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1599236677;
- bh=NAOttNi68dxtCKh5TVKg8sTqUmu57wOh79f7YPBx69A=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=CYBhS4JDiuXs0mCoO/vaMRF73YWXpersz+FpF0smRVDdj7C9Ct+RwCWCL3X2yFNpp
- 7RuUQEAMeqFGccOyhwlo/nsrxfWtbcHDQIrarHS1M3nKpBWnXBaE8LuoBBGgKq6XxP
- NCq1YqJ3YwJNIFyhB0NyeT4pw3aHQdww+TdLgZFw=
-Date: Fri, 4 Sep 2020 17:23:55 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Charles Keepax <ckeepax@opensource.cirrus.com>
-Subject: Re: [linux-sunxi] [PATCH 05/16] ASoc: sun4i-i2s: Add 20 and 24 bit
- support
-Message-ID: <20200904162355.GA49830@sirena.org.uk>
-References: <20200704113902.336911-1-peron.clem@gmail.com>
- <20200704113902.336911-6-peron.clem@gmail.com>
- <1e320dfd-9388-54b2-dba9-7def0bf4bbad@sholland.org>
- <9148679.oVN3Z7rve9@kista>
- <fd714cb6-3650-1eb9-616d-33c00f1442eb@sholland.org>
- <20200903074023.jccqp45br3er4h3g@gilmour.lan>
- <20200904161649.GL10899@ediswmail.ad.cirrus.com>
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="dDRMvlgZJXvWKvBx"
-Content-Disposition: inline
-In-Reply-To: <20200904161649.GL10899@ediswmail.ad.cirrus.com>
-X-Cookie: Restaurant package, not for resale.
-User-Agent: Mutt/1.10.1 (2018-07-13)
-Cc: devicetree@vger.kernel.org,
- Jernej =?utf-8?Q?=C5=A0krabec?= <jernej.skrabec@siol.net>,
- alsa-devel@alsa-project.org, Samuel Holland <samuel@sholland.org>,
- Liam Girdwood <lgirdwood@gmail.com>, linux-kernel@vger.kernel.org,
- Takashi Iwai <tiwai@suse.com>, Marcus Cooper <codekipper@gmail.com>,
- linux-sunxi@googlegroups.com, Rob Herring <robh+dt@kernel.org>,
- peron.clem@gmail.com, Maxime Ripard <maxime@cerno.tech>,
- Chen-Yu Tsai <wens@csie.org>, linux-arm-kernel@lists.infradead.org
+ by alsa1.perex.cz (Postfix) with ESMTPS id 9DAEDF800F0
+ for <alsa-devel@alsa-project.org>; Sat,  5 Sep 2020 08:22:42 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9DAEDF800F0
+IronPort-SDR: SWWj9JefihNidCf/dYtmvvynGpH3DAlXMuPa2Y/FIAWVXTUZgqlr3DNp0U1NfiG2r4nuOOQlgw
+ bL4f0ZmJu3sQ==
+X-IronPort-AV: E=McAfee;i="6000,8403,9734"; a="145547446"
+X-IronPort-AV: E=Sophos;i="5.76,392,1592895600"; d="scan'208";a="145547446"
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from orsmga005.jf.intel.com ([10.7.209.41])
+ by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 04 Sep 2020 23:22:38 -0700
+IronPort-SDR: qBfk4V88ad0EdfwQ664HMYngiqPrwKfm/nVJvAk06BqB7KKuCwZ1dt6dXlfU8UinYPQ/N7ns/q
+ l+bUQvvprtyg==
+X-IronPort-AV: E=Sophos;i="5.76,392,1592895600"; d="scan'208";a="478804250"
+Received: from bard-ubuntu.sh.intel.com ([10.239.13.33])
+ by orsmga005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 04 Sep 2020 23:22:33 -0700
+From: Bard Liao <yung-chuan.liao@linux.intel.com>
+To: alsa-devel@alsa-project.org,
+	vkoul@kernel.org
+Subject: [PATCH v3 0/3] ASoC: Add sdw stream operations to dailink ops.
+Date: Sat,  5 Sep 2020 02:28:51 +0800
+Message-Id: <20200904182854.3944-1-yung-chuan.liao@linux.intel.com>
+X-Mailer: git-send-email 2.17.1
+Cc: pierre-louis.bossart@linux.intel.com, vinod.koul@linaro.org, tiwai@suse.de,
+ gregkh@linuxfoundation.org, linux-kernel@vger.kernel.org,
+ ranjani.sridharan@linux.intel.com, hui.wang@canonical.com, broonie@kernel.org,
+ srinivas.kandagatla@linaro.org, jank@cadence.com, mengdong.lin@intel.com,
+ sanyog.r.kale@intel.com, rander.wang@linux.intel.com, bard.liao@intel.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -95,36 +77,24 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+Sdw stream operation APIs can be called once per stream. Move these
+operations to dailink ops. The linked series is "soundwire: Remove sdw
+stream operations from Intel soundwire dai".
 
---dDRMvlgZJXvWKvBx
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Reviewed-by: Vinod Koul <vkoul@kernel.org>
 
-On Fri, Sep 04, 2020 at 04:16:49PM +0000, Charles Keepax wrote:
+Changes in v3:
+ - s/ASOC/ASoC
 
-> My understanding is physical_width refers to the in memory
-> representation, but shouldn't be used to control the slot width
-> on the bus. If not specified otherwise (say through the set_tdm
-> callback), and if the appropriate BCLK is supported, then the slot
-> should be just large enough to hold the data.
+Pierre-Louis Bossart (3):
+  ASoC: soc-dai: clarify return value for get_sdw_stream()
+  ASoC: Intel: sof_sdw: add dailink .trigger callback
+  ASoC: Intel: sof_sdw: add dailink .prepare and .hw_free callback
 
-Indeed.  The framework isn't great here in tying the memory and wire
-formats together, ideally there would be more support for them being
-unrelated without DPCM.
+ include/sound/soc-dai.h          |  3 +-
+ sound/soc/intel/boards/sof_sdw.c | 81 ++++++++++++++++++++++++++++++++
+ 2 files changed, 83 insertions(+), 1 deletion(-)
 
---dDRMvlgZJXvWKvBx
-Content-Type: application/pgp-signature; name="signature.asc"
+-- 
+2.17.1
 
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl9SahoACgkQJNaLcl1U
-h9Aivgf9FE+zKg/2HauJXtYNKTV6F5tpg9YlM9zZm1mgrfejgquDBl3k34Y9d14k
-4p2wjhqoKPTGoY7Y33weRBkyBmk9KcLMfQaZRO84B1W0h1/AgaTVY8hgUbucsDld
-X0x3qA/ejP71NUBv1yNuMVVmhwISIg7WLJONku57+1KvdsciUFLgqcK1lesXV/hO
-lpemO67BlytBjZKc71yFEQtFEelOOdZmbe1GGDQtDP6wEtlzzbuJuyw9qLQBAfwC
-Ron6ds5hgj+K0tk7jdrtOzoW5GGN2U3d+cXn0gmQax72PwEefzjIBAR7n0TAAPcV
-Mh3pFSi3xyQSRAv64SY2qiJFAt8TBw==
-=ZBOH
------END PGP SIGNATURE-----
-
---dDRMvlgZJXvWKvBx--

@@ -2,68 +2,68 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 89DC025D6F8
-	for <lists+alsa-devel@lfdr.de>; Fri,  4 Sep 2020 13:04:32 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8462F25D717
+	for <lists+alsa-devel@lfdr.de>; Fri,  4 Sep 2020 13:23:07 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 0775A1B02;
-	Fri,  4 Sep 2020 13:03:42 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0775A1B02
+	by alsa0.perex.cz (Postfix) with ESMTPS id ED87D1B03;
+	Fri,  4 Sep 2020 13:22:16 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz ED87D1B03
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1599217472;
-	bh=Q7ONTmdE5O3zyLoRbKjUDWi27jlQPvzVzwB8xEHuo3M=;
+	s=default; t=1599218587;
+	bh=8pVmz0o3OoIQ5HbXtj/1WjtjF6Iyr+tVEffv2fUGSQw=;
 	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=Vv9+QeH00MiJmkz0ly4yPjlliEN5BnGC30v8/uvHMx2OGeoNEMiGYrC4o966882aA
-	 +bXU/gNa/6gYNWu9Qxd9zgluggYAqSMlPgdATVKPAT5MoHSEoRIZ9w1OBVWOmH0pGa
-	 XEEG0yVhyEzcdmnkSkhdqdFmtPJ61uL446NeZV4M=
+	b=ZXI6mukK0B7V2kMXfiS3TBs+Cs3RqEaUSun7xqV3kOp46LpDWSPII9s6VzEi0D6XD
+	 2n5p8LZYnb1bivkLLF9ibLfCd/H36B4YwiCKGlh9lNeO6s4sFve1mEu4Yv8aecvIcR
+	 cLMTJRvtaKaz/ne0ejTOxuPMZH4rqNdRIQ+75qAg=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 2EA5BF80257;
-	Fri,  4 Sep 2020 13:02:51 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 306D2F801DA;
+	Fri,  4 Sep 2020 13:21:26 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 92C8CF8024A; Fri,  4 Sep 2020 13:02:49 +0200 (CEST)
+ id 29B6CF8024A; Fri,  4 Sep 2020 13:21:23 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,FORGED_MUA_MOZILLA,HEADER_FROM_DIFFERENT_DOMAINS,NICE_REPLY_A,
- RCVD_IN_MSPIKE_H4,RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
+ RCVD_IN_MSPIKE_H5,RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
  autolearn=disabled version=3.4.0
-Received: from a27-187.smtp-out.us-west-2.amazonses.com
- (a27-187.smtp-out.us-west-2.amazonses.com [54.240.27.187])
+Received: from a27-18.smtp-out.us-west-2.amazonses.com
+ (a27-18.smtp-out.us-west-2.amazonses.com [54.240.27.18])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 8EEA6F800F0
- for <alsa-devel@alsa-project.org>; Fri,  4 Sep 2020 13:02:38 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8EEA6F800F0
+ by alsa1.perex.cz (Postfix) with ESMTPS id CE38DF801DA
+ for <alsa-devel@alsa-project.org>; Fri,  4 Sep 2020 13:21:12 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CE38DF801DA
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=codeaurora.org header.i=@codeaurora.org
- header.b="kXB43n87"; 
+ header.b="NI8hdYvZ"; 
  dkim=pass (1024-bit key) header.d=amazonses.com header.i=@amazonses.com
- header.b="YIP2kujt"
+ header.b="O+K8UB+C"
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/simple;
- s=zsmsymrwgfyinv5wlfyidntwsjeeldzt; d=codeaurora.org; t=1599217355;
+ s=zsmsymrwgfyinv5wlfyidntwsjeeldzt; d=codeaurora.org; t=1599218469;
  h=Subject:To:Cc:References:From:Message-ID:Date:MIME-Version:In-Reply-To:Content-Type:Content-Transfer-Encoding;
- bh=Q7ONTmdE5O3zyLoRbKjUDWi27jlQPvzVzwB8xEHuo3M=;
- b=kXB43n87Orn/9OQb0pADGqQfwQz9Rk7J0lM0ZXlA5FX4UmY1pWDvvdg1VRI6Ft+K
- Cvq6H8MWSnPGA5WNJ5cGvKLuMOElfV2Wt+3ok2vvIm2h0wB1k8yeNOMBwnGcB+N2Za6
- qnEpZvrkVW1LtOvR+PEEFkC6QgLuU518KsbaKYRI=
+ bh=8pVmz0o3OoIQ5HbXtj/1WjtjF6Iyr+tVEffv2fUGSQw=;
+ b=NI8hdYvZzz4LRN1uMPKrkj3ikxmXX13JSC/1yWOWeB2LxkV7NshLhn7ItJv8XiiK
+ c88t6drJBgiqhMMSfjdWEtmt+pNdWDDExnkhpLggvLdBdcr8nVKvdkR1pZDoCQxnrlS
+ eby+CDSv4fiRymsEE27dTCzrW6Fb3WPwc6GCDBpg=
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/simple;
- s=hsbnp7p3ensaochzwyq5wwmceodymuwv; d=amazonses.com; t=1599217355;
+ s=hsbnp7p3ensaochzwyq5wwmceodymuwv; d=amazonses.com; t=1599218469;
  h=Subject:To:Cc:References:From:Message-ID:Date:MIME-Version:In-Reply-To:Content-Type:Content-Transfer-Encoding:Feedback-ID;
- bh=Q7ONTmdE5O3zyLoRbKjUDWi27jlQPvzVzwB8xEHuo3M=;
- b=YIP2kujta/7HoBz7KpcaIastdkB0nZmXGfIwbjRkK29sDB2c8Y0lwTVSEFybFxZm
- bVEYopwGeHg3dLzKXvMqE7RuWTZyD3RC74QVI+eg3Nw2ljiRmq4UbGafvg7ApKXYF63
- IUuU0q4DdescQHb/rTOr5/KGcq4zup5tW7uDPsbE=
-DMARC-Filter: OpenDMARC Filter v1.3.2 smtp.codeaurora.org D1056C43222
+ bh=8pVmz0o3OoIQ5HbXtj/1WjtjF6Iyr+tVEffv2fUGSQw=;
+ b=O+K8UB+Crou5eaGDv634ai5Hx7Ow9osaMoABDmwJjqZ2dcJL7Kr9LuzMQpEh72Z2
+ 21uN0ZhyotLbIwi0yhuxqaJRWYfl0870/ehlRkNRBpFkTlWrPm+Z9GHHMsXf4H1/99R
+ GlBXXdRTHP3fOqUv/X82h5CWFinTVEeaOtYxg0Pc=
+DMARC-Filter: OpenDMARC Filter v1.3.2 smtp.codeaurora.org D58BDC433CA
 Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
  dmarc=none (p=none dis=none) header.from=codeaurora.org
 Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
  spf=fail smtp.mailfrom=srivasam@codeaurora.org
-Subject: Re: [PATCH v3 2/5] ASoC: dt-bindings: Add dt binding for lpass hdmi
+Subject: Re: [PATCH v3 3/5] ASoC: qcom: Add support for lpass hdmi driver
 To: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>, agross@kernel.org,
  bjorn.andersson@linaro.org, lgirdwood@gmail.com, broonie@kernel.org,
  robh+dt@kernel.org, plai@codeaurora.org, bgoswami@codeaurora.org,
@@ -71,20 +71,20 @@ To: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>, agross@kernel.org,
  linux-arm-msm@vger.kernel.org, alsa-devel@alsa-project.org,
  devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
 References: <1598855964-1042-1-git-send-email-srivasam@codeaurora.org>
- <1598855964-1042-3-git-send-email-srivasam@codeaurora.org>
- <0aa914dd-6a6e-208d-d29f-214a84dfd8a2@linaro.org>
+ <1598855964-1042-4-git-send-email-srivasam@codeaurora.org>
+ <ac1f0b9a-8e07-464c-b0df-6b8e5665a632@linaro.org>
 From: Srinivasa Rao Mandadapu <srivasam@codeaurora.org>
 Organization: Qualcomm India Private Limited
-Message-ID: <0101017458c84b59-6e3b362d-ba24-4f71-ad32-cfaca8649db1-000000@us-west-2.amazonses.com>
-Date: Fri, 4 Sep 2020 11:02:35 +0000
+Message-ID: <0101017458d94a50-5b66b039-ef71-4af0-9120-40c9e6c4fda1-000000@us-west-2.amazonses.com>
+Date: Fri, 4 Sep 2020 11:21:09 +0000
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
  Thunderbird/78.2.1
 MIME-Version: 1.0
-In-Reply-To: <0aa914dd-6a6e-208d-d29f-214a84dfd8a2@linaro.org>
+In-Reply-To: <ac1f0b9a-8e07-464c-b0df-6b8e5665a632@linaro.org>
 Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Transfer-Encoding: 8bit
 Content-Language: en-US
-X-SES-Outgoing: 2020.09.04-54.240.27.187
+X-SES-Outgoing: 2020.09.04-54.240.27.18
 Feedback-ID: 1.us-west-2.CZuq2qbDmUIuT3qdvXlRHZZCpfZqZ4GtG9v3VKgRyF0=:AmazonSES
 Cc: V Sujith Kumar Reddy <vsujithk@codeaurora.org>
 X-BeenThere: alsa-devel@alsa-project.org
@@ -110,111 +110,101 @@ On 9/4/2020 4:11 PM, Srinivas Kandagatla wrote:
 > On 31/08/2020 07:39, Srinivasa Rao Mandadapu wrote:
 >> From: V Sujith Kumar Reddy <vsujithk@codeaurora.org>
 >>
->> Adds bindings for lpass hdmi interface
->> which can support audio path over dp.
+>> Upadate lpass cpu and platform driver to support audio over dp.
+>> Also add lpass-hdmi.c and lpass-hdmi.h.
 >>
 >> Signed-off-by: Srinivasa Rao <srivasam@codeaurora.org>
 >> Signed-off-by: V Sujith Kumar Reddy <vsujithk@codeaurora.org>
 >> ---
->>   .../devicetree/bindings/sound/qcom,lpass-cpu.yaml  | 51 
->> ++++++++++++++++++++--
->>   1 file changed, 47 insertions(+), 4 deletions(-)
+>>   sound/soc/qcom/Kconfig           |   5 +
+>>   sound/soc/qcom/Makefile          |   2 +
+>>   sound/soc/qcom/lpass-apq8016.c   |   1 +
+>>   sound/soc/qcom/lpass-cpu.c       |  64 ++--
+>>   sound/soc/qcom/lpass-hdmi.c      | 684 
+>> +++++++++++++++++++++++++++++++++++++++
+>>   sound/soc/qcom/lpass-hdmi.h      | 129 ++++++++
+>>   sound/soc/qcom/lpass-ipq806x.c   |   1 +
+>>   sound/soc/qcom/lpass-lpaif-reg.h |  48 ++-
+>>   sound/soc/qcom/lpass-platform.c  | 287 ++++++++++++----
+>>   sound/soc/qcom/lpass.h           |  88 ++++-
+>>   10 files changed, 1225 insertions(+), 84 deletions(-)
+>>   create mode 100644 sound/soc/qcom/lpass-hdmi.c
+>>   create mode 100644 sound/soc/qcom/lpass-hdmi.h
 >>
->> diff --git 
->> a/Documentation/devicetree/bindings/sound/qcom,lpass-cpu.yaml 
->> b/Documentation/devicetree/bindings/sound/qcom,lpass-cpu.yaml
->> index 09c9bd2..7c2ac0c 100644
->> --- a/Documentation/devicetree/bindings/sound/qcom,lpass-cpu.yaml
->> +++ b/Documentation/devicetree/bindings/sound/qcom,lpass-cpu.yaml
->> @@ -22,6 +22,7 @@ properties:
->>         - qcom,lpass-cpu
->>         - qcom,apq8016-lpass-cpu
->>         - qcom,sc7180-lpass-cpu
->> +      - qcom,sc7180-lpass-hdmi
+>> diff --git a/sound/soc/qcom/Kconfig b/sound/soc/qcom/Kconfig
+>> index a607ace..509584c 100644
+>> --- a/sound/soc/qcom/Kconfig
+>> +++ b/sound/soc/qcom/Kconfig
+>> @@ -12,6 +12,10 @@ config SND_SOC_LPASS_CPU
+>>       tristate
+>>       select REGMAP_MMIO
+>>   +config SND_SOC_LPASS_HDMI
+>> +    tristate
+>> +    select REGMAP_MMIO
+>> +
+>>   config SND_SOC_LPASS_PLATFORM
+>>       tristate
+>>       select REGMAP_MMIO
+>> @@ -30,6 +34,7 @@ config SND_SOC_LPASS_SC7180
+>>       tristate
+>>       select SND_SOC_LPASS_CPU
+>>       select SND_SOC_LPASS_PLATFORM
+>> +    select SND_SOC_LPASS_HDMI
+>>     config SND_SOC_STORM
+>>       tristate "ASoC I2S support for Storm boards"
+>> diff --git a/sound/soc/qcom/Makefile b/sound/soc/qcom/Makefile
+>> index 7972c94..0bd90d7 100644
+>> --- a/sound/soc/qcom/Makefile
+>> +++ b/sound/soc/qcom/Makefile
+>> @@ -1,12 +1,14 @@
+>>   # SPDX-License-Identifier: GPL-2.0
+>>   # Platform
+>>   snd-soc-lpass-cpu-objs := lpass-cpu.o
+>> +snd-soc-lpass-hdmi-objs := lpass-hdmi.o
+>>   snd-soc-lpass-platform-objs := lpass-platform.o
+>>   snd-soc-lpass-ipq806x-objs := lpass-ipq806x.o
+>>   snd-soc-lpass-apq8016-objs := lpass-apq8016.o
+>>   snd-soc-lpass-sc7180-objs := lpass-sc7180.o
+>>     obj-$(CONFIG_SND_SOC_LPASS_CPU) += snd-soc-lpass-cpu.o
+>> +obj-$(CONFIG_SND_SOC_LPASS_HDMI) += snd-soc-lpass-hdmi.o
+>>   obj-$(CONFIG_SND_SOC_LPASS_PLATFORM) += snd-soc-lpass-platform.o
+>>   obj-$(CONFIG_SND_SOC_LPASS_IPQ806X) += snd-soc-lpass-ipq806x.o
+>>   obj-$(CONFIG_SND_SOC_LPASS_APQ8016) += snd-soc-lpass-apq8016.o
+>> diff --git a/sound/soc/qcom/lpass-apq8016.c 
+>> b/sound/soc/qcom/lpass-apq8016.c
+>> index 5c8ae22..a1bc7e2 100644
+>> --- a/sound/soc/qcom/lpass-apq8016.c
+>> +++ b/sound/soc/qcom/lpass-apq8016.c
+>> @@ -289,6 +289,7 @@ static struct lpass_variant apq8016_data = {
+>>       .exit            = apq8016_lpass_exit,
+>>       .alloc_dma_channel    = apq8016_lpass_alloc_dma_channel,
+>>       .free_dma_channel    = apq8016_lpass_free_dma_channel,
+>> +    .id            = I2S_INTERFACE,
 >
-> Why do we need a new compatible per interface, IMO, you should just 
-> use the existing compatible.
-> Or please explain the reasons why we need this?
-Two compatible strings are used because iommu's are different for I2S 
-and HDMI.
+> Before going into detail review, I see real issue in the overall 
+> approach here to add new interface to exiting lpass!!
 >
->>       reg:
->>       maxItems: 1
->> @@ -60,10 +61,12 @@ properties:
->>       const: 0
->>     patternProperties:
->> -  "(^mi2s-[0-9a-f]$|mi2s)":
->> +  "^dai@[0-9a-f]$":
->>       type: object
->> -    description: Required properties for each DAI
->> -
->> +    description: |
->> +      LPASS CPU dai node for each I2S device. Bindings of each node
->> +      depends on the specific driver providing the functionality and
->> +      properties.
->>       properties:
->>         reg:
->>           maxItems: 1
->> @@ -145,6 +148,22 @@ allOf:
->>           - iommus
->>           - power-domains
->>   +  - if:
->> +      properties:
->> +        compatible:
->> +          contains:
->> +            const: qcom,sc7180-lpass-hdmi
->> +    then:
->> +      properties:
->> +        clock-names:
->> +          items:
->> +            - const: pcnoc-sway-clk
->> +            - const: audio-core
->> +            - const: pcnoc-mport-clk
->> +      required:
->> +        - iommus
->> +        - power-domains
->> +
->>   examples:
->>     - |
->>       #include <dt-bindings/sound/sc7180-lpass.h>
->> @@ -178,12 +197,36 @@ examples:
->>               #address-cells = <1>;
->>               #size-cells = <0>;
->>               /* Optional to set different MI2S SD lines */
->> -            mi2s-primary@0 {
->> +            dai@mi2s-primary {
->>                   reg = <MI2S_PRIMARY>;
->>                   qcom,playback-sd-lines = <1>;
->>                   qcom,capture-sd-lines = <0>;
->>               };
->>           };
->> +
->> +        lpassh@62d87000 {
->> +            compatible = "qcom,sc7180-lpass-hdmi";
->> +
->> +            reg = <0 0x62d87000 0 0x68000>;
->> +
->> +            iommus = <&apps_smmu 0x1032 0>;
->> +
->> +            power-domains = <&lpass_hm 0>;
->> +
->> +            clocks = <&gcc 131>,
->> +                 <&lpasscc 6>,
->> +                 <&lpasscc 10>;
->> +
->> +            clock-names = "pcnoc-sway-clk", "audio-core",
->> +                          "pcnoc-mport-clk";
->> +
->> +            #sound-dai-cells = <1>;
->> +
->> +            #address-cells = <1>;
->> +            #size-cells = <0>;
->> +
->> +            interrupts = <0 268 1>;
->> +        };
->>       };
->>     ...
->>
+> Intention of struct lpass_variant is to address differences between 
+> SoCs or different lpass versions. But you should not duplicate this 
+> and use it for addressing differences between each lpass interfaces!
+> All the dai related register offsets should still go in to this 
+> structure and driver should be able to know which dai its talking to 
+> based on snd_soc_dai_driver id and select correct register offset.
+>
+Do You suggest to use separate structure like struct 
+lpass_hdmi_interface in lpass_data?
+> Also on the other note, can you please split the patch if possible so 
+> that it will be easy for review. Specially I would like to see header 
+> file changes specific to adding new interface to be separate then 
+> followed by the actual interface implementation  and then the user.
+Okay, will split the patch.
+>
+> I also see some unrelated changes like changing buffer sizes, which 
+> should go into different patch!
+Okay we will separate the patch.
+>
+> --srini
+
 -- 
 Qualcomm India Private Limited, on behalf of Qualcomm Innovation Center, Inc.,
 is a member of Code Aurora Forum, a Linux Foundation Collaborative Project.

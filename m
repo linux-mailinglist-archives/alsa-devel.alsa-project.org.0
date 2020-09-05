@@ -2,93 +2,94 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A944E25EE61
-	for <lists+alsa-devel@lfdr.de>; Sun,  6 Sep 2020 16:57:56 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B3E2E25EE63
+	for <lists+alsa-devel@lfdr.de>; Sun,  6 Sep 2020 16:58:41 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D2141182E;
-	Sun,  6 Sep 2020 16:57:05 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D2141182E
+	by alsa0.perex.cz (Postfix) with ESMTPS id 0B62616F7;
+	Sun,  6 Sep 2020 16:57:50 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0B62616F7
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1599404275;
-	bh=Djz7zedIEqrat6LZ7Spm0YM1wUVnvhD9650PuqnoIiI=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=Y2gUoqo5dcEKuDpWOgRNEaS+FdZXhS30i4d+EV194bcxaxgyDcp682PqbcyID4m9t
-	 0jLL1YP1CHV1mHiT4SsMvUoiCX+DbIPmg6Zkxxn4S7Szobm5KAzY1Qcs9UMNH/WtoS
-	 G9+1SabocSsCoTq8EaqFJf02mK2kTBw3CLH/ZX4E=
+	s=default; t=1599404320;
+	bh=v/FDH+c2doE/6yujT3oE4Lns3BucZB9ANJaur8sLrKo=;
+	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=QiE2Ki6qtkUmNBHg3V7pzhHPaYB9LPUQEUovVSjFoIqtgAb2VyymDK4HiFJCQcXw4
+	 3K9gw62waIpzQ+sdiykgfNJHYa59xZzz9XWd9n3B+fT9Wgi2w3qk/bRm3OH2rT5BJA
+	 chJ18OSsJ7t2kvd5kEFF8NGNvqWTC0dtD4GWDtnQ=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 18BC8F800B4;
+	by alsa1.perex.cz (Postfix) with ESMTP id E7A76F8028E;
 	Sun,  6 Sep 2020 16:56:15 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id BC4BDF8021D; Sat,  5 Sep 2020 19:40:10 +0200 (CEST)
+ id B98DBF8028A; Sat,  5 Sep 2020 19:40:14 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
-Received: from mail-qk1-x742.google.com (mail-qk1-x742.google.com
- [IPv6:2607:f8b0:4864:20::742])
+ SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mail-qt1-x841.google.com (mail-qt1-x841.google.com
+ [IPv6:2607:f8b0:4864:20::841])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 973E7F800F0
- for <alsa-devel@alsa-project.org>; Sat,  5 Sep 2020 19:40:06 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 973E7F800F0
+ by alsa1.perex.cz (Postfix) with ESMTPS id A7019F800B4
+ for <alsa-devel@alsa-project.org>; Sat,  5 Sep 2020 19:40:07 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A7019F800B4
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=marek-ca.20150623.gappssmtp.com
- header.i=@marek-ca.20150623.gappssmtp.com header.b="srHQREj2"
-Received: by mail-qk1-x742.google.com with SMTP id u3so9398859qkd.9
- for <alsa-devel@alsa-project.org>; Sat, 05 Sep 2020 10:40:06 -0700 (PDT)
+ header.i=@marek-ca.20150623.gappssmtp.com header.b="PQI3pEBu"
+Received: by mail-qt1-x841.google.com with SMTP id p65so7205053qtd.2
+ for <alsa-devel@alsa-project.org>; Sat, 05 Sep 2020 10:40:07 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=marek-ca.20150623.gappssmtp.com; s=20150623;
- h=from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=oQro0KvCecashCGNg/PcVjIspfzorn2YBuMdQvvHTl8=;
- b=srHQREj2hm0W+uI7LdTFJ9F0DKd0AlV6pwGNbUXc3rUIVL9GDEUrBmquCnRQyChgwF
- 3MRZZ3A/sFDT28zANbCD5IT2BxHZKj0ZQjq7Xyy/mW+Zw/PITa0mTGo0oP8Xe0G/t5Qk
- Ne+RK35wEDCSnndnUkKNJM+zFe/FO7ucF6x/C5OgzSlolGLvvi4Gg4Bec3eO6jnG/Hn1
- ZzL2Xxmmm/0ghLM4wRRYA1pD1Xu+GkfX27BtMSNhMbu7zPamJYehmYXIYfFuXcVOyC9w
- Jim1mFqNRzrHwdbb5V4KYdm7gTEeF8SeQE86PCJupPPjIGmssG+2rg6Oliwa9O1cnEEm
- pwpw==
+ h=from:to:cc:subject:date:message-id:in-reply-to:references
+ :mime-version:content-transfer-encoding;
+ bh=0O2sDN9MRUJx80UJH/oPfzt4dGApmPFTm8Og0trLMlM=;
+ b=PQI3pEBu3s9c3wGVmIuNH334mS4Xc4eJzP8j71PrrLcxVfR5EeZBMcR+Auusaw6/Ff
+ 1Fw+D1h5tmrw410p9aWH+jF5Z6dnxjbIEeE8J+In0S47NcWyOr0vBighN1vBS3/I+N8t
+ n9VYeGfCxt7F4CbUBDAUk9DlIoEz+kJfWhdIGY/EY2XPGAsDrKhZQlUhDEf/ez9cb9Z0
+ +hIc9YK3pnmY/ms0/Uo1h0c7mEiEpKJx0wPTUtky8whMSvqzRf3vJ0tXk2/adb+V0Xkl
+ nyEaTca83iCgVUT5X2KZzNhHyEgCmexoxmyxXY5r6kPXh9lsiSd/W+eN1IAo++f2Wkiy
+ iW9w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=oQro0KvCecashCGNg/PcVjIspfzorn2YBuMdQvvHTl8=;
- b=jpyWbfjcaVXwq24Viz4dSt66U/Z0rqKXkIZ+cUCgwLwDMilQhYX6PDMBUfdCFgBSUU
- RQv8+9vJhZfZ+5xV1cnr4824Jy2St6wyuiOWJ/9Is8gQ+3rFEGMmDFUJD1oSIYhz1L4s
- moYRPQe2JP8VN3z6fSj8TB4YM/pRW96MjAVqvVpl45goG8V9fuGRXXTZAsH59Eqz+bgE
- JZqO2ThLjsdYfc+7PqXDk+kUEFoCuELJGsZVlNEidEiZSHmfdkax2QnrMJiHpvcJy9IO
- 8r1XV3HMKsIXP7uYUABOwle6fWwxMU5Yc4/23UDGPmH6AhIfeTO19/luJtuIcqtqxT5V
- t5zw==
-X-Gm-Message-State: AOAM530v8AFr3KphZSyfUH7/yT+asxi/LAsNLnIDuO6urH8aizLCvmhR
- jUGNuIliGNft8JmAKPqiuxAJ+A==
-X-Google-Smtp-Source: ABdhPJz+AoKdk7U3xzEnEhwLVI+mA45wdHjbSYoaWKhRvxjshzsYjE8/yNT4RO4odN3yDb0/RtiSwQ==
-X-Received: by 2002:a05:620a:1381:: with SMTP id
- k1mr13315111qki.140.1599327604804; 
- Sat, 05 Sep 2020 10:40:04 -0700 (PDT)
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
+ :references:mime-version:content-transfer-encoding;
+ bh=0O2sDN9MRUJx80UJH/oPfzt4dGApmPFTm8Og0trLMlM=;
+ b=ATEl8oUCHCQR/U4SNr+yLOgRPgw3bfhgH9GJ8CGjd7tk+kS08nAReebPkq7EPzrMRx
+ L82fyEps6HzXiqgDjIbW3Y4YdukdTurpAF5qrwaj68AdipC2Pj2VYrz2AagsrZDz4kPB
+ 1inpEjgetJLMlIbRT0cdICoIIcbE1Xb21JpTLRaxgdcKH7o7dE8bjIvOzv6FNbiQTkPj
+ VDqqCBCTsI3XA1BXN7YolI3jHnfe9ktzzfQoY93DS4hqT3CX/5eJ+Ip+7ZbIBBgb5nMr
+ QEDpBFGi4HzFoAAK8Q+o+bO1FTI7e3q/Aor22qEykxw5vsk/9sYsd6VXjuYvw1eV1P3m
+ KvLg==
+X-Gm-Message-State: AOAM5338XKjxlhfE9kMLU65EbJvfqHzavXURRDpj3MOrEZAIDIsxYzT/
+ op4703LfeYF79/CMBGFqyag3vGgb677DkhlJM+g=
+X-Google-Smtp-Source: ABdhPJxvu7IqOsyVda774F6SOjLfLez3tafKaihOLf6twPF1uFQYTPqcfzR9nDz531vmBmKxjwOt6w==
+X-Received: by 2002:aed:2d06:: with SMTP id h6mr14027558qtd.301.1599327605930; 
+ Sat, 05 Sep 2020 10:40:05 -0700 (PDT)
 Received: from localhost.localdomain ([147.253.86.153])
- by smtp.gmail.com with ESMTPSA id k22sm4612076qkk.13.2020.09.05.10.40.03
+ by smtp.gmail.com with ESMTPSA id k22sm4612076qkk.13.2020.09.05.10.40.05
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 05 Sep 2020 10:40:04 -0700 (PDT)
+ Sat, 05 Sep 2020 10:40:05 -0700 (PDT)
 From: Jonathan Marek <jonathan@marek.ca>
 To: linux-arm-msm@vger.kernel.org
-Subject: [PATCH v2 0/4] soundwire: qcom: add support for mmio soundwire master
-Date: Sat,  5 Sep 2020 13:39:01 -0400
-Message-Id: <20200905173905.16541-1-jonathan@marek.ca>
+Subject: [PATCH v2 1/4] soundwire: qcom: fix abh/ahb typo
+Date: Sat,  5 Sep 2020 13:39:02 -0400
+Message-Id: <20200905173905.16541-2-jonathan@marek.ca>
 X-Mailer: git-send-email 2.26.1
+In-Reply-To: <20200905173905.16541-1-jonathan@marek.ca>
+References: <20200905173905.16541-1-jonathan@marek.ca>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Sun, 06 Sep 2020 16:56:12 +0200
-Cc: "open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS"
- <devicetree@vger.kernel.org>,
- "moderated list:SOUNDWIRE SUBSYSTEM" <alsa-devel@alsa-project.org>,
- open list <linux-kernel@vger.kernel.org>, Rob Herring <robh+dt@kernel.org>,
+Cc: "moderated list:SOUNDWIRE SUBSYSTEM" <alsa-devel@alsa-project.org>,
+ open list <linux-kernel@vger.kernel.org>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
  Bjorn Andersson <bjorn.andersson@linaro.org>, Vinod Koul <vkoul@kernel.org>,
  Andy Gross <agross@kernel.org>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
  Sanyog Kale <sanyog.r.kale@intel.com>,
  Bard Liao <yung-chuan.liao@linux.intel.com>
 X-BeenThere: alsa-devel@alsa-project.org
@@ -106,26 +107,36 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-This adds initial support for soundwire device on sm8250.
+The function name qcom_swrm_abh_reg_read should say ahb, fix that.
 
-Tested with the "wsa" sdw device, which is simpler than the others.
+Signed-off-by: Jonathan Marek <jonathan@marek.ca>
+Reviewed-by: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
+---
+ drivers/soundwire/qcom.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-v2 addresses some feedback, but I kept this series as simple as possible.
-In particular, I didn't implement CMD_NACKED from FIFO_STATUS, because
-the downstream driver doesn't define this bit, so I can't implement it.
-Soundwire works without it and It shouldn't be difficult to implement later.
-
-Jonathan Marek (4):
-  soundwire: qcom: fix abh/ahb typo
-  soundwire: qcom: avoid dependency on CONFIG_SLIMBUS
-  soundwire: qcom: add support for mmio soundwire master devices
-  soundwire: qcom: add v1.5.1 compatible
-
- .../bindings/soundwire/qcom,sdw.txt           |  1 +
- drivers/soundwire/Kconfig                     |  2 +-
- drivers/soundwire/qcom.c                      | 38 +++++++++++++++++--
- 3 files changed, 36 insertions(+), 5 deletions(-)
-
+diff --git a/drivers/soundwire/qcom.c b/drivers/soundwire/qcom.c
+index 915c2cf0c274..d1e33ef1afac 100644
+--- a/drivers/soundwire/qcom.c
++++ b/drivers/soundwire/qcom.c
+@@ -114,7 +114,7 @@ struct qcom_swrm_ctrl {
+ 
+ #define to_qcom_sdw(b)	container_of(b, struct qcom_swrm_ctrl, bus)
+ 
+-static int qcom_swrm_abh_reg_read(struct qcom_swrm_ctrl *ctrl, int reg,
++static int qcom_swrm_ahb_reg_read(struct qcom_swrm_ctrl *ctrl, int reg,
+ 				  u32 *val)
+ {
+ 	struct regmap *wcd_regmap = ctrl->regmap;
+@@ -754,7 +754,7 @@ static int qcom_swrm_probe(struct platform_device *pdev)
+ 		return -ENOMEM;
+ 
+ 	if (dev->parent->bus == &slimbus_bus) {
+-		ctrl->reg_read = qcom_swrm_abh_reg_read;
++		ctrl->reg_read = qcom_swrm_ahb_reg_read;
+ 		ctrl->reg_write = qcom_swrm_ahb_reg_write;
+ 		ctrl->regmap = dev_get_regmap(dev->parent, NULL);
+ 		if (!ctrl->regmap)
 -- 
 2.26.1
 

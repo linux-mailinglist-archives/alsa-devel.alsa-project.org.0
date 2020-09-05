@@ -2,106 +2,95 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id DAAF625ED59
-	for <lists+alsa-devel@lfdr.de>; Sun,  6 Sep 2020 10:28:24 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A944E25EE61
+	for <lists+alsa-devel@lfdr.de>; Sun,  6 Sep 2020 16:57:56 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 893B818C6;
-	Sun,  6 Sep 2020 10:27:33 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 893B818C6
+	by alsa0.perex.cz (Postfix) with ESMTPS id D2141182E;
+	Sun,  6 Sep 2020 16:57:05 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D2141182E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1599380903;
-	bh=YFTWaepUEMGW0Y3BHOL9kIPdCkM64/6ZWc32F4SGPNA=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=q8tkvheLhNLawGrhE/u3S9BmPDi+5jasC7AAIihpLDeawzGQsTRn8yjwFwoYE3H/3
-	 NWV4ljkUU03LkX5FpOnvxrMxhSoCwYOpbAXaKIiFxggtPpdnMlfXN2TQkmpgUAEvGV
-	 wjCJf8wtTrRZ46/n67rkDNMXuq4wN1HUHH0OJ89Y=
+	s=default; t=1599404275;
+	bh=Djz7zedIEqrat6LZ7Spm0YM1wUVnvhD9650PuqnoIiI=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=Y2gUoqo5dcEKuDpWOgRNEaS+FdZXhS30i4d+EV194bcxaxgyDcp682PqbcyID4m9t
+	 0jLL1YP1CHV1mHiT4SsMvUoiCX+DbIPmg6Zkxxn4S7Szobm5KAzY1Qcs9UMNH/WtoS
+	 G9+1SabocSsCoTq8EaqFJf02mK2kTBw3CLH/ZX4E=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id A3B21F80272;
-	Sun,  6 Sep 2020 10:26:42 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 18BC8F800B4;
+	Sun,  6 Sep 2020 16:56:15 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id A947EF800B4; Sun,  6 Sep 2020 10:26:40 +0200 (CEST)
+ id BC4BDF8021D; Sat,  5 Sep 2020 19:40:10 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,RCVD_IN_MSPIKE_H3,RCVD_IN_MSPIKE_WL,SPF_HELO_PASS,SPF_PASS,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from out2-smtp.messagingengine.com (out2-smtp.messagingengine.com
- [66.111.4.26])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
+Received: from mail-qk1-x742.google.com (mail-qk1-x742.google.com
+ [IPv6:2607:f8b0:4864:20::742])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 471B9F800B4
- for <alsa-devel@alsa-project.org>; Sun,  6 Sep 2020 10:26:33 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 471B9F800B4
+ by alsa1.perex.cz (Postfix) with ESMTPS id 973E7F800F0
+ for <alsa-devel@alsa-project.org>; Sat,  5 Sep 2020 19:40:06 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 973E7F800F0
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=sakamocchi.jp header.i=@sakamocchi.jp
- header.b="YcaZaV4/"; 
- dkim=pass (2048-bit key) header.d=messagingengine.com
- header.i=@messagingengine.com header.b="DwDn9rj3"
-Received: from compute2.internal (compute2.nyi.internal [10.202.2.42])
- by mailout.nyi.internal (Postfix) with ESMTP id 8A93C5C00D7;
- Sun,  6 Sep 2020 04:26:32 -0400 (EDT)
-Received: from mailfrontend2 ([10.202.2.163])
- by compute2.internal (MEProxy); Sun, 06 Sep 2020 04:26:32 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sakamocchi.jp;
- h=date:from:to:cc:subject:message-id:references:mime-version
- :content-type:in-reply-to; s=fm2; bh=QAiKe6CHIQSEn8Mbur/PD3vOSY1
- ycjFuPQahywT0Dj0=; b=YcaZaV4/mqFCPJjQZ9afCUL//P6aSKoocFjeNu+oKjv
- iJeb2gsWCGdvW6B2d+9vw2VbC5XBfmHqZqcdxwp6IrUjlUEGXg4tuMrvLzpGNeJH
- sbeLGu9Mu5bPYlI15O7JC1q3KHIMwCPK/KHalyFx/oljO/1l9Lt7fT2OJi/qVzlK
- M5CMvv+D9bK4aomIjsuFJd8D1mwNx1W2SB2xcK2oY0Ki8kUPdDb+0fm7QqIf2Bm5
- DUiVRUBWSegjDtVieDGAJkUtsFo8YtSOJ7bbhfQwZQ3sqWO65pfjOLFP0n6+6K4/
- GGKmqr9DIxPLvnYL2fATaCJMmWZY7xCUlzC6u+eSuIQ==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to:x-me-proxy
- :x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; bh=QAiKe6
- CHIQSEn8Mbur/PD3vOSY1ycjFuPQahywT0Dj0=; b=DwDn9rj3VwuF6YgOM2Bc+e
- gkYRxqrW2hWTi31jwngiNGNUfiAoTksugWA7qYHfseFwO1tYczaBUfrIh5voGxyj
- L8XnP7QxttmaSfPJyX4C9DQTSyS/wvn6u2ZgjZ8KwO9wNyUvHO7HES/LBzmIztQ8
- lZtw4hwmF6pgolRwR/uwl7b7iOD9jPKtmzFStuOYAISlJT2WyzJTbTJBejPa0a8K
- souHPQIHWzO/chStiEOlt05U5H4U4tfreT5C/aAY6y0elUvXxz0qF96NCI7n/3/e
- CzZdRMhhx2lLtvcOQjDhbDnsVyORAoyxAz1VB2NtFYE6nOSDnkO0c+ET/u5IrEjw
- ==
-X-ME-Sender: <xms:N51UX5ufR6v54uBN4hMhLHcwsoBjwig9qyuHgZ7St8l3eAdejj5TaA>
- <xme:N51UXydTvhugG2H2TNuSQVa5A1wzUSizOf8XtiQgKjApEXsaHv1A-gLMS-B3pqcRB
- 9eVFE08o3UbjvjIKvE>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeduiedrudegjedgtdegucetufdoteggodetrfdotf
- fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
- uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
- cujfgurhepfffhvffukfhfgggtuggjsehttdertddttddvnecuhfhrohhmpefvrghkrghs
- hhhiucfurghkrghmohhtohcuoehoqdhtrghkrghshhhisehsrghkrghmohgttghhihdrjh
- hpqeenucggtffrrghtthgvrhhnpeelhfeugedvjefgjefgudekfedutedvtddutdeuieev
- tddtgeetjeekvdefgeefhfenucfkphepudektddrvdefhedrfedrheegnecuvehluhhsth
- gvrhfuihiivgeptdenucfrrghrrghmpehmrghilhhfrhhomhepohdqthgrkhgrshhhihes
- shgrkhgrmhhotggthhhirdhjph
-X-ME-Proxy: <xmx:N51UX8zJEkCuAEHR6l7_Onm1kET7hITxtFzZzN88xRPciqiMU21rKg>
- <xmx:N51UXwOgQF4jGO69Sjf87lusHLtwXmAr6m33vvxMLiAogZ_REUL0fg>
- <xmx:N51UX5-XTorDVoWMYbFE6BMCIQ9EUh__a1LqsII15TOvFNDuJU9S-w>
- <xmx:OJ1UX2HUivRI0use4hLmvTHiXRsfuKLnNT0CiJRT-ACwwY-hgwmy9Q>
-Received: from workstation (ad003054.dynamic.ppp.asahi-net.or.jp
- [180.235.3.54])
- by mail.messagingengine.com (Postfix) with ESMTPA id EF9463064610;
- Sun,  6 Sep 2020 04:26:30 -0400 (EDT)
-Date: Sun, 6 Sep 2020 17:26:28 +0900
-From: Takashi Sakamoto <o-takashi@sakamocchi.jp>
-To: Takashi Iwai <tiwai@suse.de>
-Subject: Re: [PATCH 10/11] ALSA: firewire: Replace tasklet with work
-Message-ID: <20200906082628.GA74660@workstation>
-Mail-Followup-To: Takashi Iwai <tiwai@suse.de>, alsa-devel@alsa-project.org,
- Clemens Ladisch <clemens@ladisch.de>
-References: <20200903104131.21097-1-tiwai@suse.de>
- <20200903104131.21097-11-tiwai@suse.de>
+ dkim=pass (2048-bit key) header.d=marek-ca.20150623.gappssmtp.com
+ header.i=@marek-ca.20150623.gappssmtp.com header.b="srHQREj2"
+Received: by mail-qk1-x742.google.com with SMTP id u3so9398859qkd.9
+ for <alsa-devel@alsa-project.org>; Sat, 05 Sep 2020 10:40:06 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=marek-ca.20150623.gappssmtp.com; s=20150623;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=oQro0KvCecashCGNg/PcVjIspfzorn2YBuMdQvvHTl8=;
+ b=srHQREj2hm0W+uI7LdTFJ9F0DKd0AlV6pwGNbUXc3rUIVL9GDEUrBmquCnRQyChgwF
+ 3MRZZ3A/sFDT28zANbCD5IT2BxHZKj0ZQjq7Xyy/mW+Zw/PITa0mTGo0oP8Xe0G/t5Qk
+ Ne+RK35wEDCSnndnUkKNJM+zFe/FO7ucF6x/C5OgzSlolGLvvi4Gg4Bec3eO6jnG/Hn1
+ ZzL2Xxmmm/0ghLM4wRRYA1pD1Xu+GkfX27BtMSNhMbu7zPamJYehmYXIYfFuXcVOyC9w
+ Jim1mFqNRzrHwdbb5V4KYdm7gTEeF8SeQE86PCJupPPjIGmssG+2rg6Oliwa9O1cnEEm
+ pwpw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=oQro0KvCecashCGNg/PcVjIspfzorn2YBuMdQvvHTl8=;
+ b=jpyWbfjcaVXwq24Viz4dSt66U/Z0rqKXkIZ+cUCgwLwDMilQhYX6PDMBUfdCFgBSUU
+ RQv8+9vJhZfZ+5xV1cnr4824Jy2St6wyuiOWJ/9Is8gQ+3rFEGMmDFUJD1oSIYhz1L4s
+ moYRPQe2JP8VN3z6fSj8TB4YM/pRW96MjAVqvVpl45goG8V9fuGRXXTZAsH59Eqz+bgE
+ JZqO2ThLjsdYfc+7PqXDk+kUEFoCuELJGsZVlNEidEiZSHmfdkax2QnrMJiHpvcJy9IO
+ 8r1XV3HMKsIXP7uYUABOwle6fWwxMU5Yc4/23UDGPmH6AhIfeTO19/luJtuIcqtqxT5V
+ t5zw==
+X-Gm-Message-State: AOAM530v8AFr3KphZSyfUH7/yT+asxi/LAsNLnIDuO6urH8aizLCvmhR
+ jUGNuIliGNft8JmAKPqiuxAJ+A==
+X-Google-Smtp-Source: ABdhPJz+AoKdk7U3xzEnEhwLVI+mA45wdHjbSYoaWKhRvxjshzsYjE8/yNT4RO4odN3yDb0/RtiSwQ==
+X-Received: by 2002:a05:620a:1381:: with SMTP id
+ k1mr13315111qki.140.1599327604804; 
+ Sat, 05 Sep 2020 10:40:04 -0700 (PDT)
+Received: from localhost.localdomain ([147.253.86.153])
+ by smtp.gmail.com with ESMTPSA id k22sm4612076qkk.13.2020.09.05.10.40.03
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sat, 05 Sep 2020 10:40:04 -0700 (PDT)
+From: Jonathan Marek <jonathan@marek.ca>
+To: linux-arm-msm@vger.kernel.org
+Subject: [PATCH v2 0/4] soundwire: qcom: add support for mmio soundwire master
+Date: Sat,  5 Sep 2020 13:39:01 -0400
+Message-Id: <20200905173905.16541-1-jonathan@marek.ca>
+X-Mailer: git-send-email 2.26.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20200903104131.21097-11-tiwai@suse.de>
-Cc: alsa-devel@alsa-project.org, Clemens Ladisch <clemens@ladisch.de>
+Content-Transfer-Encoding: 8bit
+X-Mailman-Approved-At: Sun, 06 Sep 2020 16:56:12 +0200
+Cc: "open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS"
+ <devicetree@vger.kernel.org>,
+ "moderated list:SOUNDWIRE SUBSYSTEM" <alsa-devel@alsa-project.org>,
+ open list <linux-kernel@vger.kernel.org>, Rob Herring <robh+dt@kernel.org>,
+ Bjorn Andersson <bjorn.andersson@linaro.org>, Vinod Koul <vkoul@kernel.org>,
+ Andy Gross <agross@kernel.org>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ Sanyog Kale <sanyog.r.kale@intel.com>,
+ Bard Liao <yung-chuan.liao@linux.intel.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -117,79 +106,26 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hi,
+This adds initial support for soundwire device on sm8250.
 
-On Thu, Sep 03, 2020 at 12:41:30PM +0200, Takashi Iwai wrote:
-> The tasklet is an old API that should be deprecated, usually can be
-> converted to another decent API.  In FireWire driver, a tasklet is
-> still used for offloading the AMDTP PCM stream handling.  It can be
-> achieved gracefully with a work queued, too.
-> 
-> This patch replaces the tasklet usage in firewire-lib driver with a
-> simple work.  The conversion is fairly straightforward but for the
-> in_interrupt() checks that are replaced with the check using the
-> current_work().
-> 
-> Signed-off-by: Takashi Iwai <tiwai@suse.de>
-> ---
->  sound/firewire/amdtp-stream-trace.h |  2 +-
->  sound/firewire/amdtp-stream.c       | 25 +++++++++++++------------
->  sound/firewire/amdtp-stream.h       |  2 +-
->  3 files changed, 15 insertions(+), 14 deletions(-)
+Tested with the "wsa" sdw device, which is simpler than the others.
 
-After testing this patch, I agree with the usage of
-'(current_work() == &s->period_work)' as an alternative of 'in_interrupt()'.
+v2 addresses some feedback, but I kept this series as simple as possible.
+In particular, I didn't implement CMD_NACKED from FIFO_STATUS, because
+the downstream driver doesn't define this bit, so I can't implement it.
+Soundwire works without it and It shouldn't be difficult to implement later.
 
-However, the usage is not appropriate for tracepoints event in the case.
+Jonathan Marek (4):
+  soundwire: qcom: fix abh/ahb typo
+  soundwire: qcom: avoid dependency on CONFIG_SLIMBUS
+  soundwire: qcom: add support for mmio soundwire master devices
+  soundwire: qcom: add v1.5.1 compatible
 
-> diff --git a/sound/firewire/amdtp-stream-trace.h b/sound/firewire/amdtp-stream-trace.h
-> index 26e7cb555d3c..5386d548cada 100644
-> --- a/sound/firewire/amdtp-stream-trace.h
-> +++ b/sound/firewire/amdtp-stream-trace.h
-> @@ -49,7 +49,7 @@ TRACE_EVENT(amdtp_packet,
->  		__entry->data_blocks = data_blocks;
->  		__entry->data_block_counter = data_block_counter,
->  		__entry->packet_index = s->packet_index;
-> -		__entry->irq = !!in_interrupt();
-> +		__entry->irq = (current_work() == &s->period_work);
->  		__entry->index = index;
->  	),
->  	TP_printk(
+ .../bindings/soundwire/qcom,sdw.txt           |  1 +
+ drivers/soundwire/Kconfig                     |  2 +-
+ drivers/soundwire/qcom.c                      | 38 +++++++++++++++++--
+ 3 files changed, 36 insertions(+), 5 deletions(-)
 
-The tracepoints event is probed in two contexts:
- * softirq for isochronous context to process hardware events of 1394 OHCI.
- * user task of ALSA PCM applications.
+-- 
+2.26.1
 
-However, it's not probed in the workqueue task since the case is already
-avoided carefully in below patch:
-
-> @@ -1184,7 +1185,7 @@ unsigned long amdtp_domain_stream_pcm_pointer(struct amdtp_domain *d,
->  
->  	if (irq_target && amdtp_stream_running(irq_target)) {
->  		// This function is called in software IRQ context of
-> -		// period_tasklet or process context.
-> +		// period_work or process context.
->  		//
->  		// When the software IRQ context was scheduled by software IRQ
->  		// context of IT contexts, queued packets were already handled.
-> @@ -1195,9 +1196,9 @@ unsigned long amdtp_domain_stream_pcm_pointer(struct amdtp_domain *d,
->  		// immediately to keep better granularity of PCM pointer.
->  		//
->  		// Later, the process context will sometimes schedules software
-> -		// IRQ context of the period_tasklet. Then, no need to flush the
-> +		// IRQ context of the period_work. Then, no need to flush the
->  		// queue by the same reason as described in the above
-> -		if (!in_interrupt()) {
-> +		if (current_work() != &s->period_work) {
->  			// Queued packet should be processed without any kernel
->  			// preemption to keep latency against bus cycle.
->  			preempt_disable();
-
-as long as testing, I can see no logs for the trancepoints event with the 'irq' field is 1.
-I would like you to leave 'amdtp-stream-trace.h' as is by dropping the above change since
-the irq field should record whether the context is softirq or user task.
-
-
-Thanks
-
-Takashi Sakamoto

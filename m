@@ -2,97 +2,89 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E78FA25EE6A
-	for <lists+alsa-devel@lfdr.de>; Sun,  6 Sep 2020 17:00:17 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 186A725EE6B
+	for <lists+alsa-devel@lfdr.de>; Sun,  6 Sep 2020 17:00:30 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 5959D173A;
-	Sun,  6 Sep 2020 16:59:27 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5959D173A
+	by alsa0.perex.cz (Postfix) with ESMTPS id A2626186E;
+	Sun,  6 Sep 2020 16:59:39 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A2626186E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1599404417;
-	bh=1HMiG1sAZtH3NqA99cbxYEoKhmf3G43H/4a34CA0wFg=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=jjBIHT3qIMJ1IzU36ORaSo60eDBDX/nnjWWNief2yXHq2ecO/z+5mZqezb1geM47X
-	 3uDvH2lKe+gJqXmzus6zx7nMctF1cCDb08bGoVkK0V3majZB9v1gkzYi96h518UAn9
-	 mZRZuFKOpisdUAhz64oskPtW3VqJOxljNaA1LEsk=
+	s=default; t=1599404429;
+	bh=vZhmV7AgQ51vYV6J5vrr5kpCpZ4xvs54gctNoU8crxo=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=Fu1lNsKejEfBcgKMFWjwtVH/nY3oRdo2tRG30cybdcnsQCJCIjFmUXZOFz2XYAnzY
+	 STszQZ5lhOJB9rDqGyLLC1nP3fEd1rbAH+y2WragZSXvXM0E2sDPjeQOkksOgiSMA2
+	 NTMGZeIFZTBYdFtuFD0OSilaxmM1npLwTWDkQmeQ=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 9A36DF802DB;
-	Sun,  6 Sep 2020 16:56:18 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 7926DF802E9;
+	Sun,  6 Sep 2020 16:56:19 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 24F96F80217; Sat,  5 Sep 2020 19:40:20 +0200 (CEST)
+ id 79723F8026F; Sun,  6 Sep 2020 10:25:38 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mail-qv1-xf42.google.com (mail-qv1-xf42.google.com
- [IPv6:2607:f8b0:4864:20::f42])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ RCVD_IN_MSPIKE_H3,RCVD_IN_MSPIKE_WL,SPF_HELO_PASS,SPF_NONE,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from out2-smtp.messagingengine.com (out2-smtp.messagingengine.com
+ [66.111.4.26])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 449A0F8021D
- for <alsa-devel@alsa-project.org>; Sat,  5 Sep 2020 19:40:11 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 449A0F8021D
+ by alsa1.perex.cz (Postfix) with ESMTPS id 76C58F800B4
+ for <alsa-devel@alsa-project.org>; Sun,  6 Sep 2020 10:25:31 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 76C58F800B4
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=marek-ca.20150623.gappssmtp.com
- header.i=@marek-ca.20150623.gappssmtp.com header.b="PuHiboVv"
-Received: by mail-qv1-xf42.google.com with SMTP id z18so1125620qvp.6
- for <alsa-devel@alsa-project.org>; Sat, 05 Sep 2020 10:40:11 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=marek-ca.20150623.gappssmtp.com; s=20150623;
- h=from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding;
- bh=RD8l2fQQKOKDdGKnl9LX5y5DxoMGyqywKhbieLOAYr0=;
- b=PuHiboVvZl6Td+/ckTlRqbM9dwWXBWl4PN09T0xtiWJgefJnVhpJXu5vM3U0vAqw6H
- ZjrAAxYAEzRXxJW3vx2JJkznP/wiioILpGd9nSkKf55fGA9rUQQ7/OqWo3dBmT8yDT9I
- cmrWs4iNIE9Dlalqoa4IAnvnmSTHSE/Ea4gc5eeoBCmxN7H5wpekwjsXUcxkXE6h73V2
- SlJrQ0F9LucPIBPU2rqpDUEU/vLDc41HHqaxAVE0SIdsGKpWpRbWUioJ3dgBm4Y/yDAC
- aBnOzrm54i4p7O4NM5WwpOq3/C25gbO9aHDCMlKatvwvdMC4lv4j3d0rnht9jvM5zB1X
- bh9w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
- :references:mime-version:content-transfer-encoding;
- bh=RD8l2fQQKOKDdGKnl9LX5y5DxoMGyqywKhbieLOAYr0=;
- b=bhOAeTaRzTLt0+Wvve5x1V5vVkwESygx/q8pua0faCiaHxU/pi/pAty0SVCnWOhCED
- J2w2LhMCuJ0wmZZ23x9W06SryxunDhL4KER3Nby75lkohc2gsT8x+HFNX2qO27R56uBo
- bITMEKPp26QSMgm/f8qHZIf6zjv11ZgSHDRUUq3E7sHG8I0e8vMINFYvRd/iTB06txq+
- m9Oc+zyP9AT0mvXvo8+sVGkMxZDJboCerdpmTkBtoiKmuG1VTyM9swe2BND7/8N3EMyI
- SaNuXz7RmuED4AIJGHZR7BnDt11PguU4RyI1BJEeJiwykhrLsOAEGARzS0NpGCiEZ6wn
- qpfg==
-X-Gm-Message-State: AOAM531Vl5olI5MUqswd9wERqxQrrwz02OIMnBSjdjtxDpCXdQShA8i2
- +j0Sk5Lqng/jyXYj4mT2yWcR2g==
-X-Google-Smtp-Source: ABdhPJyuTKQWKjzMrkVdkHqOR6fCSGGE/V7bCG1Lo7qkVruNXgOL6QgxAZm9hgFSj6oY52+0zPPJNA==
-X-Received: by 2002:a0c:9ac5:: with SMTP id k5mr13293584qvf.112.1599327609464; 
- Sat, 05 Sep 2020 10:40:09 -0700 (PDT)
-Received: from localhost.localdomain ([147.253.86.153])
- by smtp.gmail.com with ESMTPSA id k22sm4612076qkk.13.2020.09.05.10.40.08
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 05 Sep 2020 10:40:09 -0700 (PDT)
-From: Jonathan Marek <jonathan@marek.ca>
-To: linux-arm-msm@vger.kernel.org
-Subject: [PATCH v2 4/4] soundwire: qcom: add v1.5.1 compatible
-Date: Sat,  5 Sep 2020 13:39:05 -0400
-Message-Id: <20200905173905.16541-5-jonathan@marek.ca>
-X-Mailer: git-send-email 2.26.1
-In-Reply-To: <20200905173905.16541-1-jonathan@marek.ca>
-References: <20200905173905.16541-1-jonathan@marek.ca>
+ dkim=pass (2048-bit key) header.d=messagingengine.com
+ header.i=@messagingengine.com header.b="mo14MIsd"
+Received: from compute7.internal (compute7.nyi.internal [10.202.2.47])
+ by mailout.nyi.internal (Postfix) with ESMTP id F171C5C013F;
+ Sun,  6 Sep 2020 04:25:29 -0400 (EDT)
+Received: from mailfrontend1 ([10.202.2.162])
+ by compute7.internal (MEProxy); Sun, 06 Sep 2020 04:25:29 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:content-transfer-encoding:date:from
+ :message-id:mime-version:subject:to:x-me-proxy:x-me-proxy
+ :x-me-sender:x-me-sender:x-sasl-enc; s=fm3; bh=oWXnsoc0PY4Vz0E0s
+ tb/GE8LVAEz0pVt/LmEzv64ANc=; b=mo14MIsdPrVmnf86J2jq/eY+5+NAbTcIa
+ ankoJXxpg8co+vKgsbw64bajyCVQJZfmUrHVGJSt0jXy1XRf8OpbaniLv6A8NrYZ
+ 3b9kHO5gkZBrn2K2N/YCkhs3xjxwqvg0sLybWb5fULIGEJ/lvgxuOAVm0Rkl+ccK
+ 5hD7aJn1MUSgqd9f4/JTxLICyKRa0wZCiUyoTzY/UJlG9vOZb7i6fgTl0UZMrdij
+ OMl0la1iLr5yWFUcGw6MgUMd3ZzcSNSh2pj6QZHYj2E8UgIV4VO9SlE/DH6SdUn7
+ tMn0dcfa7IQ6AOHSmz0NYbkaC/K1xv7TptxlB29F19QNY7rc2/iFQ==
+X-ME-Sender: <xms:-JxUXzcYIVRvnRVb1STvGfoDAH5P5_i_HpWtIEdI1Hm1XMHAUtv-cA>
+ <xme:-JxUX5PVgtrfqF1h05RQ_eW1z8MqPO3lClNUHIBZoi5w-wWbIqoQSYmkYiAZnq-Mw
+ UgdP0hG2u9UjRdXwYk>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeduiedrudegjedgtdegucetufdoteggodetrfdotf
+ fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
+ uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
+ cujfgurhephffvufffkffoggfgsedtkeertdertddtnecuhfhrohhmpefnuhhkvgculfho
+ nhgvshcuoehluhhkvgeslhhjohhnvghsrdguvghvqeenucggtffrrghtthgvrhhnpedvtd
+ dvuefhgefggfehhfdugeekjeelueegtdeuteevgeefvddtlefhgfdvvdefkeenucfkphep
+ vddtfedruddugedrudeguddrudeinecuvehluhhsthgvrhfuihiivgeptdenucfrrghrrg
+ hmpehmrghilhhfrhhomheplhhukhgvsehljhhonhgvshdruggvvh
+X-ME-Proxy: <xmx:-JxUX8hZe-rh5rCREYk74YwOB82afpXIsMUEpwkzPtTxNIFKNyEAeg>
+ <xmx:-JxUX09WciKe6aMIjgZXBs-HQr0MNHpPW3HIPnCJLKcmpeVaPDwUUQ>
+ <xmx:-JxUX_t9UbOA0ww0h2nCAgSU9kyciiSByMfHJd9DYoKrcfFEHjJcqA>
+ <xmx:-ZxUX44v0pHtxw8JR4IFbeJKkGvIEDX_26LTHHBf3u1tZ0-N0SP_FA>
+Received: from localhost.localdomain (203-114-141-16.sta.inspire.net.nz
+ [203.114.141.16])
+ by mail.messagingengine.com (Postfix) with ESMTPA id 81DE53280059;
+ Sun,  6 Sep 2020 04:25:25 -0400 (EDT)
+From: Luke Jones <luke@ljones.dev>
+To: alsa-devel@alsa-project.org,
+	tiwai@suse.com
+Subject: [PATCH] ALSA: hda: fixup headset for ASUS GX502 laptop
+Date: Sun,  6 Sep 2020 20:25:07 +1200
+Message-Id: <20200906082507.38091-1-luke@ljones.dev>
+X-Mailer: git-send-email 2.26.2
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Sun, 06 Sep 2020 16:56:12 +0200
-Cc: "open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS"
- <devicetree@vger.kernel.org>,
- "moderated list:SOUNDWIRE SUBSYSTEM" <alsa-devel@alsa-project.org>,
- open list <linux-kernel@vger.kernel.org>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- Rob Herring <robh+dt@kernel.org>, Bjorn Andersson <bjorn.andersson@linaro.org>,
- Vinod Koul <vkoul@kernel.org>, Andy Gross <agross@kernel.org>,
- Sanyog Kale <sanyog.r.kale@intel.com>,
- Bard Liao <yung-chuan.liao@linux.intel.com>
+Cc: hui.wang@canonical.com, Luke D Jones <luke@ljones.dev>, kailang@realtek.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -108,38 +100,127 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Add a compatible string for HW version v1.5.1 on sm8250 SoCs.
+From: Luke D Jones <luke@ljones.dev>
 
-Signed-off-by: Jonathan Marek <jonathan@marek.ca>
+The GX502 requires a few steps to enable the headset i/o: pincfg,
+verbs to enable and unmute the amp used for headpone out, and
+a jacksense callback to toggle output via internal or jack using
+a verb.
+
+Signed-off-by: Luke Jones <luke@ljones.dev>
 ---
- Documentation/devicetree/bindings/soundwire/qcom,sdw.txt | 1 +
- drivers/soundwire/qcom.c                                 | 1 +
- 2 files changed, 2 insertions(+)
+ sound/pci/hda/patch_realtek.c | 70 ++++++++++++++++++++++++++++++++++-
+ 1 file changed, 69 insertions(+), 1 deletion(-)
 
-diff --git a/Documentation/devicetree/bindings/soundwire/qcom,sdw.txt b/Documentation/devicetree/bindings/soundwire/qcom,sdw.txt
-index 436547f3b155..b104be131235 100644
---- a/Documentation/devicetree/bindings/soundwire/qcom,sdw.txt
-+++ b/Documentation/devicetree/bindings/soundwire/qcom,sdw.txt
-@@ -11,6 +11,7 @@ board specific bus parameters.
- 		    Example:
- 			"qcom,soundwire-v1.3.0"
- 			"qcom,soundwire-v1.5.0"
-+			"qcom,soundwire-v1.5.1"
- 			"qcom,soundwire-v1.6.0"
- - reg:
- 	Usage: required
-diff --git a/drivers/soundwire/qcom.c b/drivers/soundwire/qcom.c
-index ff28794868ca..41dda3b85413 100644
---- a/drivers/soundwire/qcom.c
-+++ b/drivers/soundwire/qcom.c
-@@ -888,6 +888,7 @@ static int qcom_swrm_remove(struct platform_device *pdev)
+diff --git a/sound/pci/hda/patch_realtek.c b/sound/pci/hda/patch_realtek.c
+index c521a1f17096..d2052a6e3b13 100644
+--- a/sound/pci/hda/patch_realtek.c
++++ b/sound/pci/hda/patch_realtek.c
+@@ -5424,7 +5424,7 @@ static void alc_fixup_headset_mode_alc255_no_hp_mic(struct hda_codec *codec,
+ 		struct alc_spec *spec = codec->spec;
+ 		spec->parse_flags |= HDA_PINCFG_HEADSET_MIC;
+ 		alc255_set_default_jack_type(codec);
+-	} 
++	}
+ 	else
+ 		alc_fixup_headset_mode(codec, fix, action);
+ }
+@@ -5993,6 +5993,41 @@ static void alc_fixup_disable_mic_vref(struct hda_codec *codec,
+ 		snd_hda_codec_set_pin_target(codec, 0x19, PIN_VREFHIZ);
+ }
  
- static const struct of_device_id qcom_swrm_of_match[] = {
- 	{ .compatible = "qcom,soundwire-v1.3.0", },
-+	{ .compatible = "qcom,soundwire-v1.5.1", },
- 	{/* sentinel */},
- };
- 
++
++static void alc294_gx502_toggle_output(struct hda_codec *codec,
++					struct hda_jack_callback *cb)
++{
++	/* The Windows driver sets the codec up in a very different way where
++	 * it appears to leave 0x10 = 0x8a20 set. For Linux we need to toggle it
++	 */
++	if (snd_hda_jack_detect_state(codec, 0x21) == HDA_JACK_PRESENT) {
++		alc_write_coef_idx(codec, 0x10, 0x8a20);
++	} else {
++		alc_write_coef_idx(codec, 0x10, 0x0a20);
++	}
++}
++
++static void alc294_fixup_gx502_hp(struct hda_codec *codec,
++					const struct hda_fixup *fix, int action)
++{
++	/* Pin 0x21: headphones/headset mic */
++	if (!is_jack_detectable(codec, 0x21))
++		return;
++
++	switch (action) {
++	case HDA_FIXUP_ACT_PRE_PROBE:
++		snd_hda_jack_detect_enable_callback(codec, 0x21,
++				alc294_gx502_toggle_output);
++		break;
++	case HDA_FIXUP_ACT_INIT:
++		/* Make sure to start in a correct state, i.e. if
++		 * headphones have been plugged in before powering up the system
++		 */
++		alc294_gx502_toggle_output(codec, NULL);
++		break;
++	}
++}
++
+ static void  alc285_fixup_hp_gpio_amp_init(struct hda_codec *codec,
+ 			      const struct hda_fixup *fix, int action)
+ {
+@@ -6172,6 +6207,9 @@ enum {
+ 	ALC285_FIXUP_THINKPAD_X1_GEN7,
+ 	ALC285_FIXUP_THINKPAD_HEADSET_JACK,
+ 	ALC294_FIXUP_ASUS_HPE,
++	ALC294_FIXUP_ASUS_GX502_HP,
++	ALC294_FIXUP_ASUS_GX502_PINS,
++	ALC294_FIXUP_ASUS_GX502_VERBS,
+ 	ALC294_FIXUP_ASUS_COEF_1B,
+ 	ALC285_FIXUP_HP_GPIO_LED,
+ 	ALC285_FIXUP_HP_MUTE_LED,
+@@ -7338,6 +7376,35 @@ static const struct hda_fixup alc269_fixups[] = {
+ 		.chained = true,
+ 		.chain_id = ALC294_FIXUP_ASUS_HEADSET_MIC
+ 	},
++	[ALC294_FIXUP_ASUS_GX502_PINS] = {
++		.type = HDA_FIXUP_PINS,
++		.v.pins = (const struct hda_pintbl[]) {
++			{ 0x19, 0x03a11050 }, /* front HP mic */
++			{ 0x1a, 0x01a11830 }, //0x00a11030 }, /* rear external mic */
++			{ 0x21, 0x03211020 }, /* HP out */
++			{ }
++		},
++		.chained = true,
++		.chain_id = ALC294_FIXUP_ASUS_GX502_VERBS
++	},
++	[ALC294_FIXUP_ASUS_GX502_VERBS] = {
++		.type = HDA_FIXUP_VERBS,
++		.v.verbs = (const struct hda_verb[]) {
++		    /* set 0x15 to HP-OUT ctrl */
++			{ 0x15, AC_VERB_SET_PIN_WIDGET_CONTROL, 0xc0 },
++			/* unmute the 0x15 amp */
++			{ 0x15, AC_VERB_SET_AMP_GAIN_MUTE, 0xb000 },
++			/* set 0x0a input converter to digital */
++			{ 0x0a, 0x70d, 0x01 },
++			{ }
++		},
++		.chained = true,
++		.chain_id = ALC294_FIXUP_ASUS_GX502_HP
++	},
++	[ALC294_FIXUP_ASUS_GX502_HP] = {
++		.type = HDA_FIXUP_FUNC,
++		.v.func = alc294_fixup_gx502_hp,
++	},
+ 	[ALC294_FIXUP_ASUS_COEF_1B] = {
+ 		.type = HDA_FIXUP_VERBS,
+ 		.v.verbs = (const struct hda_verb[]) {
+@@ -7711,6 +7778,7 @@ static const struct snd_pci_quirk alc269_fixup_tbl[] = {
+ 	SND_PCI_QUIRK(0x1043, 0x1ccd, "ASUS X555UB", ALC256_FIXUP_ASUS_MIC),
+ 	SND_PCI_QUIRK(0x1043, 0x1e11, "ASUS Zephyrus G15", ALC289_FIXUP_ASUS_GA502),
+ 	SND_PCI_QUIRK(0x1043, 0x1f11, "ASUS Zephyrus G14", ALC289_FIXUP_ASUS_GA401),
++	SND_PCI_QUIRK(0x1043, 0x1881, "ASUS Zephyrus S/M", ALC294_FIXUP_ASUS_GX502_PINS),
+ 	SND_PCI_QUIRK(0x1043, 0x3030, "ASUS ZN270IE", ALC256_FIXUP_ASUS_AIO_GPIO2),
+ 	SND_PCI_QUIRK(0x1043, 0x831a, "ASUS P901", ALC269_FIXUP_STEREO_DMIC),
+ 	SND_PCI_QUIRK(0x1043, 0x834a, "ASUS S101", ALC269_FIXUP_STEREO_DMIC),
 -- 
-2.26.1
+2.26.2
 

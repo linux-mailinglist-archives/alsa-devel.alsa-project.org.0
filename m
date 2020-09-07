@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3797325FFFD
-	for <lists+alsa-devel@lfdr.de>; Mon,  7 Sep 2020 18:42:26 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 00DDF260003
+	for <lists+alsa-devel@lfdr.de>; Mon,  7 Sep 2020 18:42:53 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id BB1A3172D;
-	Mon,  7 Sep 2020 18:41:35 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BB1A3172D
+	by alsa0.perex.cz (Postfix) with ESMTPS id 8833E182C;
+	Mon,  7 Sep 2020 18:42:02 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8833E182C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1599496945;
-	bh=TVnKCrca6QmsDHJbAgCNBC+xjTCV29vzRJqeIcvo8bg=;
+	s=default; t=1599496972;
+	bh=M0PtdWcYxeBelsDbpwDJEsRn7qwzPiUFqHU6byxnTwI=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=t7OIuZl3QfiEAfXnLg/BIJCe+3a98QMeKGKM5HUj0rTh6FydHo1B+YRnzSy7P5pPK
-	 kQK5aCCiqPfPaf+bQp3+xMdXDfiCQwzVtb+LZcYUnDERYvgM6RyFgKYJgFfwL9FdH5
-	 lKeYswGmvAG7AsLIParsiqddomBMqTCRDEGoe1DM=
+	b=IWt7JHBxCzJVR8Rop7ep9qycI9TGvUTCtRtAeOYZraMXYDsobPXyj3v4miBUnYgj/
+	 FsaPHcIlffGX0AY1wPfQS/cBdE24PUpO4cWvKoL0pUZ527wnmpJre5lLwwN0llEvBX
+	 nyFQWd8ZYc4D/hXTuJgIGAEt+MFzogttp4J+FUqk=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 40F7CF8033D;
-	Mon,  7 Sep 2020 18:35:51 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 34884F8033F;
+	Mon,  7 Sep 2020 18:36:07 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 0D1EAF80338; Mon,  7 Sep 2020 18:35:49 +0200 (CEST)
+ id 3FA3EF8033E; Mon,  7 Sep 2020 18:36:04 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -34,35 +34,35 @@ X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 24D8CF80336
- for <alsa-devel@alsa-project.org>; Mon,  7 Sep 2020 18:35:43 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 24D8CF80336
+ by alsa1.perex.cz (Postfix) with ESMTPS id 228E1F802DC
+ for <alsa-devel@alsa-project.org>; Mon,  7 Sep 2020 18:35:58 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 228E1F802DC
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="GuUCkaR8"
+ header.b="y5OXdxQG"
 Received: from sasha-vm.mshome.net (c-73-47-72-35.hsd1.nh.comcast.net
  [73.47.72.35])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 58E9521927;
- Mon,  7 Sep 2020 16:35:40 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id 51F2321D95;
+ Mon,  7 Sep 2020 16:35:55 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1599496541;
- bh=TVnKCrca6QmsDHJbAgCNBC+xjTCV29vzRJqeIcvo8bg=;
+ s=default; t=1599496556;
+ bh=M0PtdWcYxeBelsDbpwDJEsRn7qwzPiUFqHU6byxnTwI=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=GuUCkaR8LcB3PpHy5KgYhAJVXwjji7td0tAlWQ0gitmO18hxsxLNNXHsNKtJYQ2Ur
- ESwUEB9Ga6kJ5/LQ7ToSW0/xYMlJUbvNILbw9ZahRQ1jseaUsXVChiRkShXHO2fNNL
- 3gCDmFliCCrTVcAs5UWvuheWyYXg1M2t/uxAalLA=
+ b=y5OXdxQGo8nZbgr7qiMk2cNjYo+7/Zj4I8JMlo+KVRS97fPt6ZfBdSoAHj+4Pb99/
+ kbOpsaKg1ohN9v8+gi/DWAloX75SVCZdttUKH+3StGvi2JTZMlHfnt++41LCzlNjae
+ TrFAJ1fyd+rNMCX+A2/KJAQGPAt8v9ZL9zqJ1hnI=
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 4.9 12/13] ALSA: hda: fix a runtime pm issue in SOF
+Subject: [PATCH AUTOSEL 4.4 09/10] ALSA: hda: fix a runtime pm issue in SOF
  when integrated GPU is disabled
-Date: Mon,  7 Sep 2020 12:35:23 -0400
-Message-Id: <20200907163524.1281734-12-sashal@kernel.org>
+Date: Mon,  7 Sep 2020 12:35:42 -0400
+Message-Id: <20200907163543.1281889-9-sashal@kernel.org>
 X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20200907163524.1281734-1-sashal@kernel.org>
-References: <20200907163524.1281734-1-sashal@kernel.org>
+In-Reply-To: <20200907163543.1281889-1-sashal@kernel.org>
+References: <20200907163543.1281889-1-sashal@kernel.org>
 MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
@@ -121,7 +121,7 @@ Signed-off-by: Sasha Levin <sashal@kernel.org>
  1 file changed, 2 insertions(+)
 
 diff --git a/sound/hda/hdac_device.c b/sound/hda/hdac_device.c
-index 03c9872c31cfe..73264d5f58f81 100644
+index e361024eabb63..020ec48f39048 100644
 --- a/sound/hda/hdac_device.c
 +++ b/sound/hda/hdac_device.c
 @@ -123,6 +123,8 @@ EXPORT_SYMBOL_GPL(snd_hdac_device_init);

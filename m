@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 444EB25FF9A
-	for <lists+alsa-devel@lfdr.de>; Mon,  7 Sep 2020 18:35:17 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E324525FF9D
+	for <lists+alsa-devel@lfdr.de>; Mon,  7 Sep 2020 18:35:25 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 8A41717CC;
-	Mon,  7 Sep 2020 18:34:25 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8A41717CC
+	by alsa0.perex.cz (Postfix) with ESMTPS id 7577617E1;
+	Mon,  7 Sep 2020 18:34:35 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7577617E1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1599496515;
-	bh=58wy6+NLVtxqoBa6LJfUWGbvwTcc7WuVJSuHWnbCVhw=;
+	s=default; t=1599496525;
+	bh=KQmWqFsh67g1BabHwcHHUq6n7JreumRIkobZbwU9yX0=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=dT2AidTdduJfrfxHxLavtlID4AFBurbBb/XjdvqpKKtQnoPiw8FWj8gIuMREYKJDA
-	 8CfwXtxyj2l1jUxn/bJap0OMx69kld+qTU53vWvqYd6DbRafas1KKiBLRa/lPUxLt5
-	 FTPDK5UAcFccG93JaIq6duIPjXAUMP2fxnGSgji8=
+	b=PJk8iYTGQGDdhyxtUSaKSMTFToLPtSjWjJlsfbypuc6vbVjhDbZnkyT4yVOuRUcPR
+	 mGEBCqQrXeRLAXni7QMViKZgAwDg2sdxdEftGAsYmOK/34A0PukC4e3FZ7SmXG3EUS
+	 N5TK4PLlxOuoHcsjafckPkRUND/zLc9jM0B1c6pQ=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 47B45F802C3;
-	Mon,  7 Sep 2020 18:32:51 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 576B8F800D3;
+	Mon,  7 Sep 2020 18:33:30 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 4B793F80256; Mon,  7 Sep 2020 18:32:48 +0200 (CEST)
+ id BE957F802C4; Mon,  7 Sep 2020 18:33:27 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -34,32 +34,31 @@ X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 78F9DF8021C
- for <alsa-devel@alsa-project.org>; Mon,  7 Sep 2020 18:32:37 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 78F9DF8021C
+ by alsa1.perex.cz (Postfix) with ESMTPS id 804D6F800D3
+ for <alsa-devel@alsa-project.org>; Mon,  7 Sep 2020 18:33:21 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 804D6F800D3
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="ZBkz5tnd"
+ header.b="Elcjyz0o"
 Received: from sasha-vm.mshome.net (c-73-47-72-35.hsd1.nh.comcast.net
  [73.47.72.35])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 75109218AC;
- Mon,  7 Sep 2020 16:32:35 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id 0168A21D24;
+ Mon,  7 Sep 2020 16:33:17 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1599496356;
- bh=58wy6+NLVtxqoBa6LJfUWGbvwTcc7WuVJSuHWnbCVhw=;
+ s=default; t=1599496399;
+ bh=KQmWqFsh67g1BabHwcHHUq6n7JreumRIkobZbwU9yX0=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=ZBkz5tndOsWLCklhjnhiTod6ZxxExhjS93XnIfCyTVxinlIyhE/prn1lPJHLSz/v3
- kuJOemtdwWbRVM58SOpTm2g9SBei63fN/RdF/cbm8xK1SK5lVAo9AXoaASEwWT3szT
- i20sabq0HjAfE/lhydlUNgBNvMTDpVv36t2QO3LI=
+ b=Elcjyz0o4/YOJJqnfKeNxMxqQUj0nGU5ASlFQcpJZ5ZufGHwJM0276dqZ6dvpOEpt
+ W48HD0FDYhYnh+Tk2ZiM+5QWa48lONlrnge26UaNGDtvwccPlAj603TZILz7NbMZ6C
+ LQI+4ItyfJq7xds6mQ7hsRpTAOr1wXcVrKW+uV6o=
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 5.8 12/53] ALSA: hda/tegra: Program WAKEEN register
- for Tegra
-Date: Mon,  7 Sep 2020 12:31:38 -0400
-Message-Id: <20200907163220.1280412-12-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 5.8 46/53] ALSA: hda: hdmi - add Rocketlake support
+Date: Mon,  7 Sep 2020 12:32:12 -0400
+Message-Id: <20200907163220.1280412-46-sashal@kernel.org>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20200907163220.1280412-1-sashal@kernel.org>
 References: <20200907163220.1280412-1-sashal@kernel.org>
@@ -68,8 +67,10 @@ X-stable: review
 X-Patchwork-Hint: Ignore
 Content-Transfer-Encoding: 8bit
 Cc: Sasha Levin <sashal@kernel.org>, alsa-devel@alsa-project.org,
- Takashi Iwai <tiwai@suse.de>, Sameer Pujar <spujar@nvidia.com>,
- linux-tegra@vger.kernel.org, Mohan Kumar <mkumard@nvidia.com>
+ Kai Vehmanen <kai.vehmanen@linux.intel.com>, Takashi Iwai <tiwai@suse.de>,
+ Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ Rander Wang <rander.wang@intel.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -85,49 +86,36 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: Mohan Kumar <mkumard@nvidia.com>
+From: Rander Wang <rander.wang@intel.com>
 
-[ Upstream commit 23d63a31d9f44d7daeac0d1fb65c6a73c70e5216 ]
+[ Upstream commit f804a324a41a880c1ab43cc5145d8b3e5790430d ]
 
-The WAKEEN bits are used to indicate which bits in the
-STATESTS register may cause wake event during the codec
-state change request. Configure the WAKEEN register for
-the Tegra to detect the wake events.
+Add Rocketlake HDMI codec support. Rocketlake shares
+the pin-to-port mapping table with Tigerlake.
 
-Signed-off-by: Mohan Kumar <mkumard@nvidia.com>
-Acked-by: Sameer Pujar <spujar@nvidia.com>
-Link: https://lore.kernel.org/r/20200825052415.20626-3-mkumard@nvidia.com
+Signed-off-by: Rander Wang <rander.wang@intel.com>
+Reviewed-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Reviewed-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
+Signed-off-by: Kai Vehmanen <kai.vehmanen@linux.intel.com>
+Link: https://lore.kernel.org/r/20200902154207.1440393-1-kai.vehmanen@linux.intel.com
 Signed-off-by: Takashi Iwai <tiwai@suse.de>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- sound/pci/hda/hda_tegra.c | 7 +++++++
- 1 file changed, 7 insertions(+)
+ sound/pci/hda/patch_hdmi.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/sound/pci/hda/hda_tegra.c b/sound/pci/hda/hda_tegra.c
-index 0cc5fad1af8a9..ae40ca3f29837 100644
---- a/sound/pci/hda/hda_tegra.c
-+++ b/sound/pci/hda/hda_tegra.c
-@@ -179,6 +179,10 @@ static int __maybe_unused hda_tegra_runtime_suspend(struct device *dev)
- 	struct hda_tegra *hda = container_of(chip, struct hda_tegra, chip);
- 
- 	if (chip && chip->running) {
-+		/* enable controller wake up event */
-+		azx_writew(chip, WAKEEN, azx_readw(chip, WAKEEN) |
-+			   STATESTS_INT_MASK);
-+
- 		azx_stop_chip(chip);
- 		azx_enter_link_reset(chip);
- 	}
-@@ -200,6 +204,9 @@ static int __maybe_unused hda_tegra_runtime_resume(struct device *dev)
- 	if (chip && chip->running) {
- 		hda_tegra_init(hda);
- 		azx_init_chip(chip, 1);
-+		/* disable controller wake up event*/
-+		azx_writew(chip, WAKEEN, azx_readw(chip, WAKEEN) &
-+			   ~STATESTS_INT_MASK);
- 	}
- 
- 	return 0;
+diff --git a/sound/pci/hda/patch_hdmi.c b/sound/pci/hda/patch_hdmi.c
+index 9442127d9b15d..43ae35338a383 100644
+--- a/sound/pci/hda/patch_hdmi.c
++++ b/sound/pci/hda/patch_hdmi.c
+@@ -4204,6 +4204,7 @@ HDA_CODEC_ENTRY(0x8086280c, "Cannonlake HDMI",	patch_i915_glk_hdmi),
+ HDA_CODEC_ENTRY(0x8086280d, "Geminilake HDMI",	patch_i915_glk_hdmi),
+ HDA_CODEC_ENTRY(0x8086280f, "Icelake HDMI",	patch_i915_icl_hdmi),
+ HDA_CODEC_ENTRY(0x80862812, "Tigerlake HDMI",	patch_i915_tgl_hdmi),
++HDA_CODEC_ENTRY(0x80862816, "Rocketlake HDMI",	patch_i915_tgl_hdmi),
+ HDA_CODEC_ENTRY(0x8086281a, "Jasperlake HDMI",	patch_i915_icl_hdmi),
+ HDA_CODEC_ENTRY(0x8086281b, "Elkhartlake HDMI",	patch_i915_icl_hdmi),
+ HDA_CODEC_ENTRY(0x80862880, "CedarTrail HDMI",	patch_generic_hdmi),
 -- 
 2.25.1
 

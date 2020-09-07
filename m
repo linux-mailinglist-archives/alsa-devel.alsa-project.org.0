@@ -2,109 +2,122 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id DF8D125FC05
-	for <lists+alsa-devel@lfdr.de>; Mon,  7 Sep 2020 16:27:12 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3371D25FC78
+	for <lists+alsa-devel@lfdr.de>; Mon,  7 Sep 2020 17:00:29 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id DC3E6179A;
-	Mon,  7 Sep 2020 16:26:21 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DC3E6179A
+	by alsa0.perex.cz (Postfix) with ESMTPS id 1538017D4;
+	Mon,  7 Sep 2020 16:59:37 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1538017D4
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1599488832;
-	bh=6pZbIYH2TbSxpjkQwYZo+czD5iqa6On9EHl5MPcyeDY=;
-	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=o4jgWTE3kHOepHi0ewFC3JYZQug+Sqgu2h+HuCsq36IgxINypwiwfFOSG3J+vPGPj
-	 5Ff7DmO3FHQ2MV9a+Ao4PaWKJVNMm6r7gZBsW+gKvUw68VjW1+1XIu8JYt1R28Ctgb
-	 Lqr+6fRKGlHtEPkferTvX8uc5518e6YkIv9iYaa0=
+	s=default; t=1599490827;
+	bh=gGmPo0rlpMEGrQGaxCoLa2kxZkWjzMZUDEuPjznIhvU=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=Ry3ArIOR/vrseTor6UdpFIZ5mcOohUHo8sQYO1j3NL5GFt2pmum1VjyV5uM8sR5Ao
+	 +nrB/Vc3gdZr3Ea7D0qbNsLsifbb+U8v616eEN1VJubykrxaT8rT+FblFdOIvCs0dI
+	 +as8b1tFe8v0jGFfEemyMwgdgPE96h2+UbJ0q2ZY=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id F0A31F800FD;
-	Mon,  7 Sep 2020 16:26:20 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 9DBA4F8028B;
+	Mon,  7 Sep 2020 16:59:36 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 075F3F80256; Mon,  7 Sep 2020 16:26:16 +0200 (CEST)
+ id 8A9CFF80227; Mon,  7 Sep 2020 15:10:35 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.9 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,NICE_REPLY_A,RCVD_IN_MSPIKE_H2,SPF_HELO_NONE,
- SPF_NONE autolearn=disabled version=3.4.0
-Received: from us-smtp-delivery-1.mimecast.com (us-smtp-2.mimecast.com
- [207.211.31.81])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
+X-Spam-Status: No, score=0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU, FREEMAIL_ENVFROM_END_DIGIT, FREEMAIL_FROM, MSGID_FROM_MTA_HEADER,
+ RCVD_IN_MSPIKE_H2,SPF_HELO_PASS,SPF_PASS autolearn=disabled version=3.4.0
+Received: from APC01-HK2-obe.outbound.protection.outlook.com
+ (mail-oln040092255086.outbound.protection.outlook.com [40.92.255.86])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 1ACB9F8021C
- for <alsa-devel@alsa-project.org>; Mon,  7 Sep 2020 16:26:05 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1ACB9F8021C
+ by alsa1.perex.cz (Postfix) with ESMTPS id EC6D7F800FD
+ for <alsa-devel@alsa-project.org>; Mon,  7 Sep 2020 15:10:23 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EC6D7F800FD
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com
- header.b="cdboRjN+"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1599488764;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=zTmBPadsM0369P4dgmmlV6u5vQHhp1sa+9yqI7VZ1Zk=;
- b=cdboRjN+jFkmDdy3Ss9SYupEsnkOd8kYKVAtUv3NAf0u2/OPLK9mR5WOoT4SCF+4q2xmE+
- Me+C7zJ9aqUOFGEtBiq7hVMafl9cp7HMIJY9zRqPqNUzNQ8jU6rF1WYjMBSKdkNsfOAso9
- I+wsQXhmbZNMI2n9rWDKvEQU2XLODug=
-Received: from mail-qv1-f69.google.com (mail-qv1-f69.google.com
- [209.85.219.69]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-515-NwapBHvIMsW2kb3fUiz4tw-1; Mon, 07 Sep 2020 10:26:03 -0400
-X-MC-Unique: NwapBHvIMsW2kb3fUiz4tw-1
-Received: by mail-qv1-f69.google.com with SMTP id v14so1703702qvq.10
- for <alsa-devel@alsa-project.org>; Mon, 07 Sep 2020 07:26:03 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:subject:to:cc:references:from:message-id:date
- :user-agent:mime-version:in-reply-to:content-transfer-encoding
- :content-language;
- bh=zTmBPadsM0369P4dgmmlV6u5vQHhp1sa+9yqI7VZ1Zk=;
- b=cHRJYDyRW9aK4/gDFGKCs++j1dA/DTnOUFMgXrObOcJj9nteuiRauGd8JTj6VahsKH
- NUrNYJg5eNHpOk2tW3xUgUvoVwhZir/fQQXsiaoXJFUm82axo+dsXAGvHa2GesDQYmLN
- nv2v0q0jfggl5tZSUcVFLJl35E8tO69Ld4pPqHFgl7rY5ji9RWyBF0zGBDzs/jXp5+v0
- CLCW22FsR9df1snNLrcNihWC8Vx2qzofA1UgAedXXIUDOWrAuKK8HrqoYlKyV+ewISe7
- USqpA0a+wrY/DIUzdf2m5xAxqATGkIiQc2VKvTILtLMN6be7LYstsWLSpK9sSe1YH4K4
- kOAw==
-X-Gm-Message-State: AOAM5309SJDzK8RLZeAE+c0WQCNpdFmDYsRMBTR+9Y4nOj0XyPob0QLS
- jPtO0oAKCdWMjRChkw5wS5Q1JFyFRMItTg8OdFsP4PlD7U/nEfZQ/tdda2q6KrXETYcP393MV7b
- hzhG/7kZECiaeKLNgB425aN8=
-X-Received: by 2002:ac8:501:: with SMTP id u1mr21438796qtg.261.1599488762562; 
- Mon, 07 Sep 2020 07:26:02 -0700 (PDT)
-X-Google-Smtp-Source: ABdhPJyhGRYnA5hTdPLhq0TFkWqjOkagkQnP39SW4Ctvj8U0kr+dtoORI0W4y5NuudcQmcnN+v9EwA==
-X-Received: by 2002:ac8:501:: with SMTP id u1mr21438763qtg.261.1599488762185; 
- Mon, 07 Sep 2020 07:26:02 -0700 (PDT)
-Received: from trix.remote.csb (075-142-250-213.res.spectrum.com.
- [75.142.250.213])
- by smtp.gmail.com with ESMTPSA id k48sm12271020qtk.44.2020.09.07.07.26.00
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 07 Sep 2020 07:26:01 -0700 (PDT)
-Subject: Re: [PATCH] soundwire: stream: fix an invalid free
-To: Vinod Koul <vkoul@kernel.org>
-References: <20200905192613.420-1-trix@redhat.com>
- <20200907141402.GC2639@vkoul-mobl>
-From: Tom Rix <trix@redhat.com>
-Message-ID: <93b672ef-76c9-e87c-4526-897b0af01945@redhat.com>
-Date: Mon, 7 Sep 2020 07:25:59 -0700
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.6.0
+ dkim=pass (2048-bit key) header.d=outlook.com header.i=@outlook.com
+ header.b="Jem9FxZ1"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=js78pOZ4pYWnyHAu6RUmHVCN0IloHkXCZzm0ZjSNjiWVpbeOSUym1KkI/P+K1tJv5gZ76PyjQo/je1y5F2weGF7vvCq2ujeRs0RUTM00V1brAOigKvJ6E+kVWNPLFRWN+iYGaEpMbyT42SLrsttbHm2kgAQrQsGwjXxtJKwdxaDUjwwb/s1/zc400uTFEJPg5CJb/JndK+DUGu2KVO0T9EnR2IYGtYkjIOuyP6Nq4586MA6EehZcSQm5yWBQVo8IVENMEqhgOFLvoZFvn3J4U4HRm+u+TWJm8LH7ly6SRinUN19MjMyhnN/jzTIEiTGD/7ouzCBTMc1c0kLSYE1j9g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=xM++dEIvB1D6MZvpG9mUZiNZaEEB6SGlisJUyHaGXqA=;
+ b=HCxSit34cvK0MlrVd0wkZTXVmQRfsXgoSFZiTYBT8lMKMLoHvdQUC6KQT+1EJzejMGsTxQRNuYYja1cL0nJltQdihietSeMV3dIjHJ9PTuQzTlLfdC+tBtkKXwvUGSO/HFTeyEfBTz4BWojHtss/ekyCgAAf0Fcqd9gZBpNJfcenSMvH4Ttk8UAvQ4Pxy5AdARnZiKNQNc0Sfn7hpVK2boNAKQBtU6HBzh0HHGZUmles2sCEH5PEZffwE9pjmbPO8d4wcroIq3zYI8fMPcRq9bOpUhqPiji/EM8mZLB48rRcHCXhssbsow1S2QYojAXN5ohhZqW4scQQm5R6Bh3mVg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
+ dkim=none; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=outlook.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=xM++dEIvB1D6MZvpG9mUZiNZaEEB6SGlisJUyHaGXqA=;
+ b=Jem9FxZ1dG1iVo7+K4ivX+2X/qwz9tmYN2xW2nF59kU1Th99kL5te7yMAHct2eN6H0vJZVOtkhVya2ajBA4unrgZ40wGyx3NFq9N9tSFeiHZTXSjK1ZLzZzz456ZU4hqmo6I5zBstyMVBRz4Vuq9l3rHXMYXIr5H5WBjY6TTo97l/t2D9WZgg8A+ImFKpfVDmYYzHAHffNxuiUEJrtoyC7W00PDAJIiqDDG454QlH4ukXRAucwOIIe8sBX83sowWWi3K63pr4fQRKFM4AzxNgKbDw/6Gjj2wNU1h/L8nYsThq1PJ/anRSOb319WMcWVV8fnfggC+sVKlE7pQwi9tQQ==
+Received: from HK2APC01FT011.eop-APC01.prod.protection.outlook.com
+ (2a01:111:e400:7ebc::4d) by
+ HK2APC01HT102.eop-APC01.prod.protection.outlook.com (2a01:111:e400:7ebc::291)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3348.16; Mon, 7 Sep
+ 2020 13:10:14 +0000
+Received: from TY2PR04MB4029.apcprd04.prod.outlook.com
+ (2a01:111:e400:7ebc::46) by HK2APC01FT011.mail.protection.outlook.com
+ (2a01:111:e400:7ebc::153) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3348.16 via Frontend
+ Transport; Mon, 7 Sep 2020 13:10:14 +0000
+X-IncomingTopHeaderMarker: OriginalChecksum:B6E8F06CE9A02A73162C4D2DDE247661788504803B6EDEDEAD9F6063A94F1B77;
+ UpperCasedChecksum:3BCD6C970AB85451360DD602DF6B751DF150374E86099C5F102DAFF5775664CE;
+ SizeAsReceived:7641; Count:46
+Received: from TY2PR04MB4029.apcprd04.prod.outlook.com
+ ([fe80::f89c:3b41:cc1b:bf10]) by TY2PR04MB4029.apcprd04.prod.outlook.com
+ ([fe80::f89c:3b41:cc1b:bf10%3]) with mapi id 15.20.3348.019; Mon, 7 Sep 2020
+ 13:10:14 +0000
+From: Tuo Li <tuoli96@outlook.com>
+To: lgirdwood@gmail.com, broonie@kernel.org, perex@perex.cz, tiwai@suse.com,
+ heiko@sntech.de, islituo@163.com, baijiaju1990@163.com
+Subject: [PATCH] ALSA: rockchip_i2s: fix a possible divide-by-zero bug in
+ rockchip_i2s_hw_params()
+Date: Mon,  7 Sep 2020 21:09:37 +0800
+Message-ID: <TY2PR04MB4029799E60A5BCAAD5B7B5BBB8280@TY2PR04MB4029.apcprd04.prod.outlook.com>
+X-Mailer: git-send-email 2.17.1
+Content-Type: text/plain
+X-ClientProxiedBy: BYAPR08CA0018.namprd08.prod.outlook.com
+ (2603:10b6:a03:100::31) To TY2PR04MB4029.apcprd04.prod.outlook.com
+ (2603:1096:404:8005::13)
+X-Microsoft-Original-Message-ID: <20200907130937.8571-1-tuoli96@outlook.com>
 MIME-Version: 1.0
-In-Reply-To: <20200907141402.GC2639@vkoul-mobl>
-Authentication-Results: relay.mimecast.com;
- auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=trix@redhat.com
-X-Mimecast-Spam-Score: 0.002
-X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: 8bit
-Content-Language: en-US
-Cc: guennadi.liakhovetski@linux.intel.com, alsa-devel@alsa-project.org,
- kai.vehmanen@linux.intel.com, ndesaulniers@google.com,
- pierre-louis.bossart@linux.intel.com, linux-kernel@vger.kernel.org,
- clang-built-linux@googlegroups.com, natechancellor@gmail.com,
- yung-chuan.liao@linux.intel.com, sanyog.r.kale@intel.com
+X-MS-Exchange-MessageSentRepresentingType: 1
+Received: from oslab.tsinghua.edu.cn (166.111.139.154) by
+ BYAPR08CA0018.namprd08.prod.outlook.com (2603:10b6:a03:100::31) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3348.16 via Frontend
+ Transport; Mon, 7 Sep 2020 13:10:08 +0000
+X-Mailer: git-send-email 2.17.1
+X-Microsoft-Original-Message-ID: <20200907130937.8571-1-tuoli96@outlook.com>
+X-TMN: [4iHdCKPT0OLf+f0DeaUlQVsAZGFSHNHYbHoR1SjYg2U=]
+X-MS-PublicTrafficType: Email
+X-IncomingHeaderCount: 46
+X-EOPAttributedMessage: 0
+X-MS-Office365-Filtering-Correlation-Id: f30e2ed6-ea85-48ca-d6b5-08d8532f5b2a
+X-MS-Exchange-SLBlob-MailProps: 6H6McBavlAgH38auFqsg93Z/iiafy1GfONNCBBwmamBg9zvLbel49YlABEMf84D08WhkwY5HHi1m6kKeaKlAxZFRQUCdP8eNnzb9cvcBbOoX5dBHgfwEhchGwJ98XQCm+zNgNu962yB8lwZCnH2tGKHK2Kt/ydBwjuKOac0EWfMeaM2LXwqVjCli07aN9N6jRygjOVSTkHwCtdJPACFwokMnJOe1QPlkCiKeDU2RnNdNwlxsVCPq5fVEfuedLWALDJSkC2/RQSJrrnWQFe7Zs77hlXzGFX84aQWmgv1J5eW5soH5Ofo1Nz1iEdirji/BnCQr0ZSBE+keqmtzo0NTAoQxrMBwbIOyejF2gVeWs2UqZ79XaeDVaAmINt/dx5mJFqEiKsPFjAqHvDS7ikas0oYrPs7ty2vg728Mn58kOsj6NNLvWZ2KSuUBv/P1Dk+ZO0D5/TFQKgcLr91QMZwJzsomVoC9ev583H8FPb3dvT7owKvJaRWP+YyM8gDhH9edK6RHdRV4Zp7EVIrH5Kk7V+oix+UDwdPiVBUMAqi0FvoPxa+FUEuK2qwklBLGrxgy4IXb1knQsaPQFFjUw1fWQFR/Ip9mOISO0BOYZhuq8YONugpiBROS2xkcCMuFwms7PRrAk88dpdUhYEunmVLUnI7KQuwsY37hL60Era0GskXHJXZwMLKiAu0qbw+5uEQ77DkFb0qsqNfdLcSRC2wlzjEWE1/p090Pp/7L0kvoBQUwWUB7kA2r5rfxpQR+5FUIp7QeMj7X1pA=
+X-MS-TrafficTypeDiagnostic: HK2APC01HT102:
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: uK//X/gBgyTWRKyZ2pQnRmwZax/lmb2B5oCxGwvzQpky8lPmxfDD77tQRyVid/ouH4PeubsNsuckYpd1kODKN/AS2lx8QLqjDsJYakkXWdlB8Bu3DxQzbNTnhhhgwkNnMboD5rkCX/4/gocSiey0fEP12J0h95YspLzxZ1xtGhNINgG5NX0dNY9b6fsyE71PmQY9+MqT1h1fk/Y/UnRqAg==
+X-MS-Exchange-AntiSpam-MessageData: StIP0lYp7vK9bq505sJvfNu2x/y7S0UX+ulC4ZV78Dv2DE+go86ju//zs9qih7mK1/2fP7zXQ6d+MdEiBQ8c4U8Z1Tc+0izZzSDZ/ne//cfwIJzOfILKOixk89VcOis+LKwcC6JjV52q0uGkHRZV8w==
+X-OriginatorOrg: outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: f30e2ed6-ea85-48ca-d6b5-08d8532f5b2a
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Sep 2020 13:10:14.3403 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa
+X-MS-Exchange-CrossTenant-AuthSource: HK2APC01FT011.eop-APC01.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: Internet
+X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg: 00000000-0000-0000-0000-000000000000
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: HK2APC01HT102
+X-Mailman-Approved-At: Mon, 07 Sep 2020 16:59:34 +0200
+Cc: linux-rockchip@lists.infradead.org, alsa-devel@alsa-project.org,
+ Tuo Li <tuoli96@outlook.com>, linux-kernel@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -120,64 +133,34 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+The variable bclk_rate is checked in:
+  if (bclk_rate && mclk_rate % bclk_rate)
 
-On 9/7/20 7:14 AM, Vinod Koul wrote:
-> Hello Tom,
->
-> On 05-09-20, 12:26, trix@redhat.com wrote:
->> From: Tom Rix <trix@redhat.com>
->>
->> clang static analyzer reports this problem
->>
->> stream.c:872:2: warning: Argument to kfree() is a constant
->>   address (18446744073709551092), which is not memory
->>   allocated by malloc()
->>         kfree(stream);
->>         ^~~~~~~~~~~~~
->>
->> In sdw_shutdown_stream() the stream to free is set by
->> a call to snd_soc_dai_get_sdw_stream().  The problem block
->> is the check if the call was successful.
->>
->> 	if (!sdw_stream) {
->> 		dev_err(rtd->dev, "no stream found...
->> 		return;
->> 	}
->>
->> When snd_soc_dai_get_sdw_stream() fails, it does not
->> always return null, sometimes it returns -ENOTSUPP.
->>
->> So also check for error codes.
->> Fixes: 4550569bd779 ("soundwire: stream: add helper to startup/shutdown streams")
->> Signed-off-by: Tom Rix <trix@redhat.com>
->> ---
->>  drivers/soundwire/stream.c | 2 +-
->>  1 file changed, 1 insertion(+), 1 deletion(-)
->>
->> diff --git a/drivers/soundwire/stream.c b/drivers/soundwire/stream.c
->> index 6e36deb505b1..950231d593c2 100644
->> --- a/drivers/soundwire/stream.c
->> +++ b/drivers/soundwire/stream.c
->> @@ -1913,7 +1913,7 @@ void sdw_shutdown_stream(void *sdw_substream)
->>  
->>  	sdw_stream = snd_soc_dai_get_sdw_stream(dai, substream->stream);
->>  
->> -	if (!sdw_stream) {
->> +	if (IS_ERR_OR_NULL(sdw_stream)) {
-> Thanks for the patch. Please see commit 3471d2a192ba ("soundwire:
-> stream: fix NULL/IS_ERR confusion") in soundwire-next. This has already
-> been updated to IS_ERR() and Bard has already sent patches for
-> snd_soc_dai_get_sdw_stream() to return proper values.
->
-> So I you can rerun this on next, you should see this fixed.
+This indicates that bclk_rate can be zero.
+If so, a divide-by-zero bug will occur:
+  div_bclk = mclk_rate / bclk_rate;
 
-I am working on linux-next, so I will see Bard's patch when it lands there.
+To fix this possible bug, the function returns -EINVAL when bclk_rate is
+zero.
 
-Sorry for not working on soundwire-next, but since i am fixing everywhere linux-next is easiest. 
+Signed-off-by: Tuo Li <tuoli96@outlook.com>
+---
+ sound/soc/rockchip/rockchip_i2s.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-Thank you for the update.
-
-Tom
-
->
+diff --git a/sound/soc/rockchip/rockchip_i2s.c b/sound/soc/rockchip/rockchip_i2s.c
+index d1438753edb4..593299675b8c 100644
+--- a/sound/soc/rockchip/rockchip_i2s.c
++++ b/sound/soc/rockchip/rockchip_i2s.c
+@@ -279,7 +279,7 @@ static int rockchip_i2s_hw_params(struct snd_pcm_substream *substream,
+ 	if (i2s->is_master_mode) {
+ 		mclk_rate = clk_get_rate(i2s->mclk);
+ 		bclk_rate = 2 * 32 * params_rate(params);
+-		if (bclk_rate && mclk_rate % bclk_rate)
++		if (bclk_rate == 0 || mclk_rate % bclk_rate)
+ 			return -EINVAL;
+ 
+ 		div_bclk = mclk_rate / bclk_rate;
+-- 
+2.17.1
 

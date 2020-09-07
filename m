@@ -2,72 +2,58 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6F45225F372
-	for <lists+alsa-devel@lfdr.de>; Mon,  7 Sep 2020 08:57:54 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A91FE25F390
+	for <lists+alsa-devel@lfdr.de>; Mon,  7 Sep 2020 09:05:01 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E39E517A2;
-	Mon,  7 Sep 2020 08:57:03 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E39E517A2
+	by alsa0.perex.cz (Postfix) with ESMTPS id 35D7517A6;
+	Mon,  7 Sep 2020 09:04:11 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 35D7517A6
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1599461874;
-	bh=O2tRFycCZHbAI+HkoDdeb6T7YOlYwSXs02gQoG6xPGw=;
-	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
+	s=default; t=1599462301;
+	bh=th2YrTSomkJlK75/Hz54rqyCqUsUC7qQs4EsvruKWZY=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=u0HAG7F1wF29CRMthSYzoPlzCvP+VRKNcICzrbEl5Zk+LTqIbyQ2/paSeasBRaXHZ
-	 Sg7cG2zhmXxy0FCjMB5bIsVyfFWmYF47N1Z3xBOM4gwqYGiQTGTsrV50kMbnH6lMeC
-	 0vJ7ftbI5jWGSQ1y1dtagSCO1gHqpSSEC/bnlM2E=
+	b=YbxV90QhXp+ioRrd4U0pWsT7dNnhu39aC8YUq7bP5iABQlQV23o2o0vXKpQU+r9Fy
+	 9lfwcxgnHu1X10paXJUqGxHWKyZrtdz0NRkL2qbG/ghJbXAZuU7QD5meIrCLwtim9J
+	 AZ7HYoifdwXVWAoR89JwfoYGSyWXYuDtOKiMb9hY=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 1ABD5F800D3;
-	Mon,  7 Sep 2020 08:56:13 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 757D0F800FD;
+	Mon,  7 Sep 2020 09:03:20 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 26699F80227; Mon,  7 Sep 2020 08:56:10 +0200 (CEST)
+ id 2A0F9F80227; Mon,  7 Sep 2020 09:03:18 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.7 required=5.0 tests=NICE_REPLY_A,SPF_HELO_NONE,
- SPF_PASS autolearn=disabled version=3.4.0
-Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-0.0 required=5.0 tests=RCVD_IN_MSPIKE_H3,
+ RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
+Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 017CBF800D3
- for <alsa-devel@alsa-project.org>; Mon,  7 Sep 2020 08:56:01 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 017CBF800D3
-IronPort-SDR: VeqHW0z+KhZ13gwdn/K1SgZCmmSjTLgACbTLyrixcw2s0sQMPWWQIBj3zipl1vAHlE58+qyxQ6
- xbR/8uCCuS2w==
-X-IronPort-AV: E=McAfee;i="6000,8403,9736"; a="157226468"
-X-IronPort-AV: E=Sophos;i="5.76,401,1592895600"; d="scan'208";a="157226468"
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from orsmga006.jf.intel.com ([10.7.209.51])
- by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 06 Sep 2020 23:55:57 -0700
-IronPort-SDR: Lb4w1+QuW7lx1jayQ5wXV2NBoNhdnugYCgFcSXddlUXGj+967Wxlztg0pTdeXWzLJ/A4wiXy2H
- 0vZO4pGeZdtQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.76,401,1592895600"; d="scan'208";a="303640874"
-Received: from oliviapo-mobl.ger.corp.intel.com (HELO [10.213.16.209])
- ([10.213.16.209])
- by orsmga006.jf.intel.com with ESMTP; 06 Sep 2020 23:55:55 -0700
-Subject: Re: [PATCH] [RFC] ASoC: core: Do not cleanup uninitialized dais on
- soc_pcm_open failure
-To: broonie@kernel.org
-References: <20200904123854.26742-1-cezary.rojewski@intel.com>
-From: Cezary Rojewski <cezary.rojewski@intel.com>
-Message-ID: <c7d05b64-5e1e-e4a8-0685-5693ecfb8c91@intel.com>
-Date: Mon, 7 Sep 2020 08:55:58 +0200
-User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:68.0) Gecko/20100101
- Thunderbird/68.12.0
-MIME-Version: 1.0
-In-Reply-To: <20200904123854.26742-1-cezary.rojewski@intel.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
-Cc: lgirdwood@gmail.com, alsa-devel@alsa-project.org, tiwai@suse.com,
- kuninori.morimoto.gx@renesas.com, pierre-louis.bossart@linux.intel.com
+ by alsa1.perex.cz (Postfix) with ESMTPS id 261C2F800FD
+ for <alsa-devel@alsa-project.org>; Mon,  7 Sep 2020 09:03:07 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 261C2F800FD
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id 40080AA55;
+ Mon,  7 Sep 2020 07:03:06 +0000 (UTC)
+Date: Mon, 07 Sep 2020 09:03:05 +0200
+Message-ID: <s5ha6y2132u.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Luke Jones <luke@ljones.dev>
+Subject: Re: [PATCH] ALSA: hda: fixup headset for ASUS GX502 laptop
+In-Reply-To: <20200906082507.38091-1-luke@ljones.dev>
+References: <20200906082507.38091-1-luke@ljones.dev>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
+ FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
+ (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
+Content-Type: text/plain; charset=US-ASCII
+Cc: hui.wang@canonical.com, alsa-devel@alsa-project.org, kailang@realtek.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -83,17 +69,87 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 2020-09-04 2:38 PM, Cezary Rojewski wrote:
-> Introduce for_each_rtd_dais_rollback macro which behaves exactly like
-> for_each_codec_dais_rollback and its cpu_dais equivalent but for all
-> dais instead.
+On Sun, 06 Sep 2020 10:25:07 +0200,
+Luke Jones wrote:
 > 
-> Use newly added macro to fix soc_pcm_open error path and prevent
-> uninitialized dais from being cleaned-up.
+> From: Luke D Jones <luke@ljones.dev>
 > 
+> The GX502 requires a few steps to enable the headset i/o: pincfg,
+> verbs to enable and unmute the amp used for headpone out, and
+> a jacksense callback to toggle output via internal or jack using
+> a verb.
 
-Mark, may I re-send this patch with a quick update - append 'Fixes' and 
-remove '[RFC]' tags - before this gets merged? Change would fill 
-complete with these updates.
+Thanks for the patch.  The code changes look mostly good, but a few
+minor coding problems (mostly coding style) are seen.
+Could you resubmit with fixes?
 
-Czarek
+> Signed-off-by: Luke Jones <luke@ljones.dev>
+
+The SOB doesn't match with From line.  Is it intentional?
+
+....
+> --- a/sound/pci/hda/patch_realtek.c
+> +++ b/sound/pci/hda/patch_realtek.c
+> @@ -5424,7 +5424,7 @@ static void alc_fixup_headset_mode_alc255_no_hp_mic(struct hda_codec *codec,
+>  		struct alc_spec *spec = codec->spec;
+>  		spec->parse_flags |= HDA_PINCFG_HEADSET_MIC;
+>  		alc255_set_default_jack_type(codec);
+> -	} 
+> +	}
+>  	else
+>  		alc_fixup_headset_mode(codec, fix, action);
+>  }
+
+Please drop the unrelated change.
+
+....
+> +static void alc294_gx502_toggle_output(struct hda_codec *codec,
+> +					struct hda_jack_callback *cb)
+> +{
+> +	/* The Windows driver sets the codec up in a very different way where
+> +	 * it appears to leave 0x10 = 0x8a20 set. For Linux we need to toggle it
+> +	 */
+> +	if (snd_hda_jack_detect_state(codec, 0x21) == HDA_JACK_PRESENT) {
+> +		alc_write_coef_idx(codec, 0x10, 0x8a20);
+> +	} else {
+> +		alc_write_coef_idx(codec, 0x10, 0x0a20);
+> +	}
+
+Remove braces for a single if line.  Checkpatch would suggest it, too.
+
+....
+> @@ -7338,6 +7376,35 @@ static const struct hda_fixup alc269_fixups[] = {
+>  		.chained = true,
+>  		.chain_id = ALC294_FIXUP_ASUS_HEADSET_MIC
+>  	},
+> +	[ALC294_FIXUP_ASUS_GX502_PINS] = {
+> +		.type = HDA_FIXUP_PINS,
+> +		.v.pins = (const struct hda_pintbl[]) {
+> +			{ 0x19, 0x03a11050 }, /* front HP mic */
+> +			{ 0x1a, 0x01a11830 }, //0x00a11030 }, /* rear external mic */
+
+The doubly comments look awkward.  Please reformat it.
+
+....
+> +	[ALC294_FIXUP_ASUS_GX502_VERBS] = {
+> +		.type = HDA_FIXUP_VERBS,
+> +		.v.verbs = (const struct hda_verb[]) {
+> +		    /* set 0x15 to HP-OUT ctrl */
+
+Please align the comment at the right tab.
+
+> +			{ 0x15, AC_VERB_SET_PIN_WIDGET_CONTROL, 0xc0 },
+> +			/* unmute the 0x15 amp */
+> +			{ 0x15, AC_VERB_SET_AMP_GAIN_MUTE, 0xb000 },
+> +			/* set 0x0a input converter to digital */
+> +			{ 0x0a, 0x70d, 0x01 },
+
+Use AC_VERB_SET_DIGI_CONVERT_1.
+And, how is this related with the headset fix?  Is this really
+mandatory?  If this widget is really wired, usually the digital I/O is
+controlled via IEC9158 status mixer.
+
+
+thanks,
+
+Takashi

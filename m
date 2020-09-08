@@ -2,88 +2,64 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 573C926131E
-	for <lists+alsa-devel@lfdr.de>; Tue,  8 Sep 2020 17:00:50 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id BB28E26131F
+	for <lists+alsa-devel@lfdr.de>; Tue,  8 Sep 2020 17:01:31 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D215817BD;
-	Tue,  8 Sep 2020 16:59:59 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D215817BD
+	by alsa0.perex.cz (Postfix) with ESMTPS id 5CB6A17BF;
+	Tue,  8 Sep 2020 17:00:41 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5CB6A17BF
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1599577249;
-	bh=cwoxDQpdGVX0ANxIPNQoLEaU5vGtQ2qRoEe7iDEszXM=;
-	h=Subject:From:To:References:Date:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=S6gDOiRzSKIY+4zRfk2B558KkqFFXxUVP1vKwmYHggieGMKd68yvUZVFMR1xpaAVA
-	 ZRaO3mVn9BQuY6EoYVdA+T/1ok49Il0VPcMnk69EJNhIeSDVZSalbTCKrm7MZ9AH/r
-	 5Wkmr2cak/HTtgCcqJAzvPCBQ7FEm091QlAGQiiU=
+	s=default; t=1599577291;
+	bh=M1E3QlEcopkB9Ss9cwMDRhMIEQp6FQqI/zsyQ4VIOes=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=T5mzehCa1gXBqDnQRAa/S51S+KUCjGBRbGTY+Rpwr9BIOy4Br1wJH3I7a521jf62l
+	 hFGVAsF8IP2PSxIVM+DnD8BpoBJJkq6WFIvS4AQszzsd3+5rLIYIHqxMs24nm+TyAQ
+	 L8OWNoeSF4imkDYeABJvJIz05okgb5q3nsu6c71A=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id E7343F8026F;
-	Tue,  8 Sep 2020 16:59:08 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 3CA03F802C2;
+	Tue,  8 Sep 2020 17:00:09 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 73A64F80264; Tue,  8 Sep 2020 16:59:06 +0200 (CEST)
+ id C96F7F8028E; Tue,  8 Sep 2020 17:00:05 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-1.7 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,NICE_REPLY_A,RCVD_IN_MSPIKE_H4,RCVD_IN_MSPIKE_WL,
- SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from lelv0142.ext.ti.com (lelv0142.ext.ti.com [198.47.23.249])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+ DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled
+ version=3.4.0
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 25F80F8015F
- for <alsa-devel@alsa-project.org>; Tue,  8 Sep 2020 16:58:59 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 25F80F8015F
+ by alsa1.perex.cz (Postfix) with ESMTPS id 34C07F801F2
+ for <alsa-devel@alsa-project.org>; Tue,  8 Sep 2020 17:00:00 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 34C07F801F2
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b="u5cgThpU"
-Received: from fllv0034.itg.ti.com ([10.64.40.246])
- by lelv0142.ext.ti.com (8.15.2/8.15.2) with ESMTP id 088Ewtci011590;
- Tue, 8 Sep 2020 09:58:55 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com;
- s=ti-com-17Q1; t=1599577135;
- bh=fKarsEyMOJcKTwtf5n0tGq73QBl/jjsYYqxZnKWLtfU=;
- h=Subject:From:To:CC:References:Date:In-Reply-To;
- b=u5cgThpU3AlHzuETTDonZHqMfFUtNgZRBjQwQyWHhuJeOoNft0cOIeqIVbic0RiB7
- JvMJ80lOItnioC30vw/zZJU6VnY303X8j/ZkIqIZ0T2otDT/oYoekdZHQJC3wYPGEa
- UqbCO2fBUSWG8TEtgpZNpcBy843k6qnVy/gatlt8=
-Received: from DFLE105.ent.ti.com (dfle105.ent.ti.com [10.64.6.26])
- by fllv0034.itg.ti.com (8.15.2/8.15.2) with ESMTPS id 088EwtaO121227
- (version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=FAIL);
- Tue, 8 Sep 2020 09:58:55 -0500
-Received: from DFLE100.ent.ti.com (10.64.6.21) by DFLE105.ent.ti.com
- (10.64.6.26) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.1979.3; Tue, 8 Sep
- 2020 09:58:55 -0500
-Received: from fllv0039.itg.ti.com (10.64.41.19) by DFLE100.ent.ti.com
- (10.64.6.21) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.1979.3 via
- Frontend Transport; Tue, 8 Sep 2020 09:58:55 -0500
-Received: from [10.250.38.37] (ileax41-snat.itg.ti.com [10.172.224.153])
- by fllv0039.itg.ti.com (8.15.2/8.15.2) with ESMTP id 088EwtuK053861;
- Tue, 8 Sep 2020 09:58:55 -0500
-Subject: Re: [PATCH 2/2] ASoC: tlv320adcx140: Wake up codec before accessing
- register
-From: Dan Murphy <dmurphy@ti.com>
-To: Camel Guo <camel.guo@axis.com>, <lgirdwood@gmail.com>,
- <broonie@kernel.org>, <tiwai@suse.com>
-References: <20200908083521.14105-1-camel.guo@axis.com>
- <20200908083521.14105-2-camel.guo@axis.com>
- <89f8cce0-2407-15f5-a8e5-0aa17a2eb2c4@ti.com>
-Message-ID: <8160bf81-a72d-2db0-0767-79b0509ff143@ti.com>
-Date: Tue, 8 Sep 2020 09:58:55 -0500
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.10.0
-MIME-Version: 1.0
-In-Reply-To: <89f8cce0-2407-15f5-a8e5-0aa17a2eb2c4@ti.com>
-Content-Type: text/plain; charset="utf-8"; format=flowed
-Content-Transfer-Encoding: 8bit
-Content-Language: en-US
-X-EXCLAIMER-MD-CONFIG: e1e8a2fd-e40a-4ac6-ac9b-f7e9cc9ee180
-Cc: alsa-devel@alsa-project.org, kernel@axis.com, linux-kernel@vger.kernel.org,
- Camel Guo <camelg@axis.com>
+ dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="CCHK8NRN"
+Received: from localhost.localdomain (unknown [194.230.155.174])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested)
+ by mail.kernel.org (Postfix) with ESMTPSA id 8297E22BF3;
+ Tue,  8 Sep 2020 14:59:57 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=default; t=1599577199;
+ bh=M1E3QlEcopkB9Ss9cwMDRhMIEQp6FQqI/zsyQ4VIOes=;
+ h=From:To:Cc:Subject:Date:From;
+ b=CCHK8NRNe+g16m0fl8p/+qr8DXPm6O+ZWmX5mXl9dowWRiVB5eqVd22tZ4QmhZme/
+ bectj1Ex58awbfrGqq2hFsweAsiG4LqEkbPv8OmAp2ECeWXGv8KxYZtjOVqW4yCqjC
+ aU0U4erElfxRY9UTBIXT8N1Hg/JhWY3O0Nb5sZaQ=
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+ Rob Herring <robh+dt@kernel.org>, alsa-devel@alsa-project.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: [PATCH] ASoC: dt-bindings:  Correct interrupt flags in examples
+Date: Tue,  8 Sep 2020 16:59:54 +0200
+Message-Id: <20200908145954.4629-1-krzk@kernel.org>
+X-Mailer: git-send-email 2.17.1
+Cc: Krzysztof Kozlowski <krzk@kernel.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -99,42 +75,116 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Camel
+GPIO_ACTIVE_x flags are not correct in the context of interrupt flags.
+These are simple defines so they could be used in DTS but they will not
+have the same meaning:
+1. GPIO_ACTIVE_HIGH = 0 = IRQ_TYPE_NONE
+2. GPIO_ACTIVE_LOW  = 1 = IRQ_TYPE_EDGE_RISING
 
-On 9/8/20 6:49 AM, Dan Murphy wrote:
-> Camel
->
-> On 9/8/20 3:35 AM, Camel Guo wrote:
->> From: Camel Guo <camelg@axis.com>
->>
->> According to its datasheet, after reset this codec goes into sleep
->> mode. In this mode, any register accessing should be avoided except for
->> exiting sleep mode. Hence this commit moves SLEEP_CFG access before any
->> register accessing.
->
-> This is interesting because our HW team suggested putting the device 
-> into sleep mode when doing register writes/reads because they were 
-> finding abnormalities in the register settings when the device is active.
->
-> I have a local patch that changes this as well that the HW team 
-> requested.
+Correct the interrupt flags, assuming the author of the code wanted some
+logical behavior behind the name "ACTIVE_xxx", this is:
+  ACTIVE_HIGH => IRQ_TYPE_LEVEL_HIGH
 
+Signed-off-by: Krzysztof Kozlowski <krzk@kernel.org>
+---
+ Documentation/devicetree/bindings/sound/max98090.txt | 2 +-
+ Documentation/devicetree/bindings/sound/rt5640.txt   | 2 +-
+ Documentation/devicetree/bindings/sound/rt5659.txt   | 2 +-
+ Documentation/devicetree/bindings/sound/rt5665.txt   | 2 +-
+ Documentation/devicetree/bindings/sound/rt5668.txt   | 2 +-
+ Documentation/devicetree/bindings/sound/rt5677.txt   | 2 +-
+ Documentation/devicetree/bindings/sound/rt5682.txt   | 2 +-
+ 7 files changed, 7 insertions(+), 7 deletions(-)
 
-OK I have clarification on this now.  Their original request was 
-incorrect they indicate the BIAS, ADC and PLLs be powered down during 
-writes and reads.
+diff --git a/Documentation/devicetree/bindings/sound/max98090.txt b/Documentation/devicetree/bindings/sound/max98090.txt
+index 7e1bbd5c27fd..39d640294c62 100644
+--- a/Documentation/devicetree/bindings/sound/max98090.txt
++++ b/Documentation/devicetree/bindings/sound/max98090.txt
+@@ -55,5 +55,5 @@ audio-codec@10 {
+ 	compatible = "maxim,max98090";
+ 	reg = <0x10>;
+ 	interrupt-parent = <&gpio>;
+-	interrupts = <TEGRA_GPIO(H, 4) GPIO_ACTIVE_HIGH>;
++	interrupts = <TEGRA_GPIO(H, 4) IRQ_TYPE_LEVEL_HIGH>;
+ };
+diff --git a/Documentation/devicetree/bindings/sound/rt5640.txt b/Documentation/devicetree/bindings/sound/rt5640.txt
+index e40e4893eed8..ff1228713f7e 100644
+--- a/Documentation/devicetree/bindings/sound/rt5640.txt
++++ b/Documentation/devicetree/bindings/sound/rt5640.txt
+@@ -88,7 +88,7 @@ rt5640 {
+ 	compatible = "realtek,rt5640";
+ 	reg = <0x1c>;
+ 	interrupt-parent = <&gpio>;
+-	interrupts = <TEGRA_GPIO(W, 3) GPIO_ACTIVE_HIGH>;
++	interrupts = <TEGRA_GPIO(W, 3) IRQ_TYPE_LEVEL_HIGH>;
+ 	realtek,ldo1-en-gpios =
+ 		<&gpio TEGRA_GPIO(V, 3) GPIO_ACTIVE_HIGH>;
+ };
+diff --git a/Documentation/devicetree/bindings/sound/rt5659.txt b/Documentation/devicetree/bindings/sound/rt5659.txt
+index 1766e0543fc5..56788f50b6cf 100644
+--- a/Documentation/devicetree/bindings/sound/rt5659.txt
++++ b/Documentation/devicetree/bindings/sound/rt5659.txt
+@@ -72,7 +72,7 @@ rt5659 {
+ 	compatible = "realtek,rt5659";
+ 	reg = <0x1b>;
+ 	interrupt-parent = <&gpio>;
+-	interrupts = <TEGRA_GPIO(W, 3) GPIO_ACTIVE_HIGH>;
++	interrupts = <TEGRA_GPIO(W, 3) IRQ_TYPE_LEVEL_HIGH>;
+ 	realtek,ldo1-en-gpios =
+ 		<&gpio TEGRA_GPIO(V, 3) GPIO_ACTIVE_HIGH>;
+ };
+diff --git a/Documentation/devicetree/bindings/sound/rt5665.txt b/Documentation/devicetree/bindings/sound/rt5665.txt
+index 8df170506986..f6ca96b4ce98 100644
+--- a/Documentation/devicetree/bindings/sound/rt5665.txt
++++ b/Documentation/devicetree/bindings/sound/rt5665.txt
+@@ -62,7 +62,7 @@ rt5659 {
+ 	compatible = "realtek,rt5665";
+ 	reg = <0x1b>;
+ 	interrupt-parent = <&gpio>;
+-	interrupts = <TEGRA_GPIO(W, 3) GPIO_ACTIVE_HIGH>;
++	interrupts = <TEGRA_GPIO(W, 3) IRQ_TYPE_LEVEL_HIGH>;
+ 	realtek,ldo1-en-gpios =
+ 		<&gpio TEGRA_GPIO(V, 3) GPIO_ACTIVE_HIGH>;
+ };
+diff --git a/Documentation/devicetree/bindings/sound/rt5668.txt b/Documentation/devicetree/bindings/sound/rt5668.txt
+index c88b96e7764b..a2b7e9a2f2f3 100644
+--- a/Documentation/devicetree/bindings/sound/rt5668.txt
++++ b/Documentation/devicetree/bindings/sound/rt5668.txt
+@@ -41,7 +41,7 @@ rt5668 {
+ 	compatible = "realtek,rt5668b";
+ 	reg = <0x1a>;
+ 	interrupt-parent = <&gpio>;
+-	interrupts = <TEGRA_GPIO(U, 6) GPIO_ACTIVE_HIGH>;
++	interrupts = <TEGRA_GPIO(U, 6) IRQ_TYPE_LEVEL_HIGH>;
+ 	realtek,ldo1-en-gpios =
+ 		<&gpio TEGRA_GPIO(R, 2) GPIO_ACTIVE_HIGH>;
+ 	realtek,dmic1-data-pin = <1>;
+diff --git a/Documentation/devicetree/bindings/sound/rt5677.txt b/Documentation/devicetree/bindings/sound/rt5677.txt
+index 1b3c13d206ff..da2430099181 100644
+--- a/Documentation/devicetree/bindings/sound/rt5677.txt
++++ b/Documentation/devicetree/bindings/sound/rt5677.txt
+@@ -64,7 +64,7 @@ rt5677 {
+ 	compatible = "realtek,rt5677";
+ 	reg = <0x2c>;
+ 	interrupt-parent = <&gpio>;
+-	interrupts = <TEGRA_GPIO(W, 3) GPIO_ACTIVE_HIGH>;
++	interrupts = <TEGRA_GPIO(W, 3) IRQ_TYPE_LEVEL_HIGH>;
+ 
+ 	gpio-controller;
+ 	#gpio-cells = <2>;
+diff --git a/Documentation/devicetree/bindings/sound/rt5682.txt b/Documentation/devicetree/bindings/sound/rt5682.txt
+index ade1ece8b45f..707fa98d1310 100644
+--- a/Documentation/devicetree/bindings/sound/rt5682.txt
++++ b/Documentation/devicetree/bindings/sound/rt5682.txt
+@@ -58,7 +58,7 @@ rt5682 {
+ 	compatible = "realtek,rt5682i";
+ 	reg = <0x1a>;
+ 	interrupt-parent = <&gpio>;
+-	interrupts = <TEGRA_GPIO(U, 6) GPIO_ACTIVE_HIGH>;
++	interrupts = <TEGRA_GPIO(U, 6) IRQ_TYPE_LEVEL_HIGH>;
+ 	realtek,ldo1-en-gpios =
+ 		<&gpio TEGRA_GPIO(R, 2) GPIO_ACTIVE_HIGH>;
+ 	realtek,dmic1-data-pin = <1>;
+-- 
+2.17.1
 
-
->
-> Mark
->
-> Let me run this by the HW team first before applying this patch.
-
-Mark
-
-Acked-by: Dan Murphy <dmurphy@ti.com>
-
-
->
-> Dan
->

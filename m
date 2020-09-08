@@ -2,81 +2,66 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 190D126238C
-	for <lists+alsa-devel@lfdr.de>; Wed,  9 Sep 2020 01:24:25 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id CA235262465
+	for <lists+alsa-devel@lfdr.de>; Wed,  9 Sep 2020 03:10:59 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 91A6E16F3;
-	Wed,  9 Sep 2020 01:23:34 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 91A6E16F3
+	by alsa0.perex.cz (Postfix) with ESMTPS id 3ED4216F0;
+	Wed,  9 Sep 2020 03:10:09 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3ED4216F0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1599607464;
-	bh=oKozU8pnPDcVf+ZSeQVOIkhcmhMRfRYM4YyyqYz3qY4=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=V6etbvQxlEDrgTpIeeWFCnxg0RLaxnQ2fxq7jLw8fGS5y1dHKsVvRjTSvThkbIV/L
-	 VGTFijZSt8yDgrrhVNVQKK3xOe65h5UYSGaZY2smt2M4Yf4i9p4DI0lTwNQVBJvVSj
-	 LCPZilLUMoDJPCF0/1CbuPCilnd9S2jqm2e5Xzqk=
+	s=default; t=1599613859;
+	bh=S64deDkGbSHEDKCnPGEVAqXn822DayTf4ULjmrAm8xA=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=tmVxJqVBILCPxesBsk86IEgbujqCo8FWyBkQ+MIeID+uzbJ0Xu8JP60Kvf41Fr3PG
+	 GKTWb45mVpyTXbYMnz+DqwCoYoqZlQubFbt2+CRY6qfB+q8OSVijThMoLadC7XONFC
+	 k+fZs9OG7v5LV1lSSoUpY2H+LqxteIw/9LuKmzhw=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 8B65FF8026F;
-	Wed,  9 Sep 2020 01:22:43 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 53165F8026F;
+	Wed,  9 Sep 2020 03:09:18 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 491BDF80264; Wed,  9 Sep 2020 01:22:41 +0200 (CEST)
+ id 0DD9DF80264; Wed,  9 Sep 2020 03:09:15 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=0.7 required=5.0 tests=FREEMAIL_ENVFROM_END_DIGIT,
- FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,
- RCVD_IN_MSPIKE_H2,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from mail-il1-f193.google.com (mail-il1-f193.google.com
- [209.85.166.193])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Level: *
+X-Spam-Status: No, score=1.1 required=5.0 tests=DATE_IN_PAST_06_12,
+ SPF_HELO_PASS,SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id C98D9F8015F
- for <alsa-devel@alsa-project.org>; Wed,  9 Sep 2020 01:22:34 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C98D9F8015F
-Received: by mail-il1-f193.google.com with SMTP id p13so590933ils.3
- for <alsa-devel@alsa-project.org>; Tue, 08 Sep 2020 16:22:34 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to;
- bh=475M7QAJ8JQw+tL7rewTxK9xaiJsW+RAU40+QK/Uk88=;
- b=UVGadJ2+BfdTIHsaFsl8BziqtJ4EV7Q+45tj6kWB640959geJ+teb4IBMzUKvt/t96
- iIQEE4pLAvLz8Eg+wV2HPL3MqdKnFv9LA0XURYLKz4RUjWMc4Yd51/X9X3mI4J/b4srr
- ucMxi+/TH6d/z86kccmCd3JFTQL+AR0aratvjcXZyKDXgvF7OlpfJQIDX3QKrTx1LCCA
- AU0TT9ziwR/r913IBFoMsOvHCZpThFgTfmRJCXuGfHDizV999U6GMt1X6VSYmkff/RF9
- 8fAe50Yak8CLUdEqF7owFcMM6a+m+6QztybU/c+uTSq6HVL72/02bUReYSjPibhldxJ2
- hyuQ==
-X-Gm-Message-State: AOAM533VuFbn06g+UfFXhnYuN/vauC/G+Ko7wOktaDTFREX3qiBdiq9B
- now8rF+IKaBtXTev4k1U0A==
-X-Google-Smtp-Source: ABdhPJzciYnMl3ZMUrB/cdDUiKwLWpNoD4XzyHC9L72Pg08pio95F+1hx1weerdPq67dS+kdQ+9w/Q==
-X-Received: by 2002:a92:4b0f:: with SMTP id m15mr1148450ilg.140.1599607352884; 
- Tue, 08 Sep 2020 16:22:32 -0700 (PDT)
-Received: from xps15 ([64.188.179.251])
- by smtp.gmail.com with ESMTPSA id v24sm386231ioh.21.2020.09.08.16.22.29
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 08 Sep 2020 16:22:32 -0700 (PDT)
-Received: (nullmailer pid 1135274 invoked by uid 1000);
- Tue, 08 Sep 2020 23:22:25 -0000
-Date: Tue, 8 Sep 2020 17:22:25 -0600
-From: Rob Herring <robh@kernel.org>
-To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Subject: Re: [PATCH v2 2/2] ASoC: dt-bindings: renesas,rsnd: switch to yaml
- base Documentation
-Message-ID: <20200908232225.GA1122966@bogus>
-References: <878se1vsy6.wl-kuninori.morimoto.gx@renesas.com>
- <875z95vsx2.wl-kuninori.morimoto.gx@renesas.com>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <875z95vsx2.wl-kuninori.morimoto.gx@renesas.com>
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- Mark Brown <broonie@kernel.org>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 442B8F8015F
+ for <alsa-devel@alsa-project.org>; Wed,  9 Sep 2020 03:09:08 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 442B8F8015F
+IronPort-SDR: JRVaRZaJZC7QjcOfyAKAkIqJxSAstI2iE8AWmh61ZisIhNeiDx8KZjdFyfVSDO9PuZakof6H9J
+ DOB6iPEqpBIQ==
+X-IronPort-AV: E=McAfee;i="6000,8403,9738"; a="137768204"
+X-IronPort-AV: E=Sophos;i="5.76,407,1592895600"; d="scan'208";a="137768204"
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from fmsmga003.fm.intel.com ([10.253.24.29])
+ by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 08 Sep 2020 18:09:03 -0700
+IronPort-SDR: ipT0LPg7lMmubGMcmbJ8WaHahRZaOd7luyYZhCquZMm1UDyMtI9fp0oZmvzr8hR8cPiaUhh2gv
+ gZ1P9SDwi41w==
+X-IronPort-AV: E=Sophos;i="5.76,407,1592895600"; d="scan'208";a="341380867"
+Received: from bard-ubuntu.sh.intel.com ([10.239.13.33])
+ by fmsmga003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 08 Sep 2020 18:09:00 -0700
+From: Bard Liao <yung-chuan.liao@linux.intel.com>
+To: alsa-devel@alsa-project.org,
+	vkoul@kernel.org
+Subject: [PATCH] soundwire: Add generic bandwidth allocation algorithm
+Date: Tue,  8 Sep 2020 21:15:20 +0800
+Message-Id: <20200908131520.5712-1-yung-chuan.liao@linux.intel.com>
+X-Mailer: git-send-email 2.17.1
+Cc: pierre-louis.bossart@linux.intel.com, vinod.koul@linaro.org,
+ gregkh@linuxfoundation.org, linux-kernel@vger.kernel.org,
+ ranjani.sridharan@linux.intel.com, hui.wang@canonical.com,
+ srinivas.kandagatla@linaro.org, jank@cadence.com, mengdong.lin@intel.com,
+ sanyog.r.kale@intel.com, rander.wang@linux.intel.com, bard.liao@intel.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -92,1042 +77,642 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Thu, Aug 27, 2020 at 09:25:12AM +0900, Kuninori Morimoto wrote:
-> From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-> 
-> This patch switches from .txt base to .yaml base Document.
-> It is still keeping detail explanations at .txt
-> 
-> Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-> ---
->  .../bindings/sound/renesas,rsnd.txt           | 520 ------------------
->  .../bindings/sound/renesas,rsnd.yaml          | 454 +++++++++++++++
->  2 files changed, 454 insertions(+), 520 deletions(-)
->  create mode 100644 Documentation/devicetree/bindings/sound/renesas,rsnd.yaml
-> 
-> diff --git a/Documentation/devicetree/bindings/sound/renesas,rsnd.txt b/Documentation/devicetree/bindings/sound/renesas,rsnd.txt
-> index b39743d3f7c4..b731f16aea84 100644
-> --- a/Documentation/devicetree/bindings/sound/renesas,rsnd.txt
-> +++ b/Documentation/devicetree/bindings/sound/renesas,rsnd.txt
-> @@ -253,523 +253,3 @@ This is example of TDM 6ch.
->  Driver can automatically switches TDM <-> stereo mode in this case.
->  
->  see "Example: simple sound card for TDM"
-> -
-> -=============================================
-> -Required properties:
-> -=============================================
-> -
-> -- compatible			: "renesas,rcar_sound-<soctype>", fallbacks
-> -				  "renesas,rcar_sound-gen1" if generation1, and
-> -				  "renesas,rcar_sound-gen2" if generation2 (or RZ/G1)
-> -				  "renesas,rcar_sound-gen3" if generation3 (or RZ/G2)
-> -				  Examples with soctypes are:
-> -				    - "renesas,rcar_sound-r8a7742" (RZ/G1H)
-> -				    - "renesas,rcar_sound-r8a7743" (RZ/G1M)
-> -				    - "renesas,rcar_sound-r8a7744" (RZ/G1N)
-> -				    - "renesas,rcar_sound-r8a7745" (RZ/G1E)
-> -				    - "renesas,rcar_sound-r8a77470" (RZ/G1C)
-> -				    - "renesas,rcar_sound-r8a774a1" (RZ/G2M)
-> -				    - "renesas,rcar_sound-r8a774b1" (RZ/G2N)
-> -				    - "renesas,rcar_sound-r8a774c0" (RZ/G2E)
-> -				    - "renesas,rcar_sound-r8a774e1" (RZ/G2H)
-> -				    - "renesas,rcar_sound-r8a7778" (R-Car M1A)
-> -				    - "renesas,rcar_sound-r8a7779" (R-Car H1)
-> -				    - "renesas,rcar_sound-r8a7790" (R-Car H2)
-> -				    - "renesas,rcar_sound-r8a7791" (R-Car M2-W)
-> -				    - "renesas,rcar_sound-r8a7793" (R-Car M2-N)
-> -				    - "renesas,rcar_sound-r8a7794" (R-Car E2)
-> -				    - "renesas,rcar_sound-r8a7795" (R-Car H3)
-> -				    - "renesas,rcar_sound-r8a7796" (R-Car M3-W)
-> -				    - "renesas,rcar_sound-r8a77965" (R-Car M3-N)
-> -				    - "renesas,rcar_sound-r8a77990" (R-Car E3)
-> -				    - "renesas,rcar_sound-r8a77995" (R-Car D3)
-> -- reg				: Should contain the register physical address.
-> -				  required register is
-> -				   SRU/ADG/SSI      if generation1
-> -				   SRU/ADG/SSIU/SSI/AUDIO-DMAC-periperi if generation2/generation3
-> -				   Select extended AUDIO-DMAC-periperi address if SoC has it,
-> -				   otherwise select normal AUDIO-DMAC-periperi address.
-> -- reg-names			: Should contain the register names.
-> -				   scu/adg/ssi	if generation1
-> -				   scu/adg/ssiu/ssi/audmapp if generation2/generation3
-> -- rcar_sound,ssi		: Should contain SSI feature.
-> -				  The number of SSI subnode should be same as HW.
-> -				  see below for detail.
-> -- rcar_sound,ssiu		: Should contain SSIU feature.
-> -				  The number of SSIU subnode should be same as HW.
-> -				  see below for detail.
-> -- rcar_sound,src		: Should contain SRC feature.
-> -				  The number of SRC subnode should be same as HW.
-> -				  see below for detail.
-> -- rcar_sound,ctu		: Should contain CTU feature.
-> -				  The number of CTU subnode should be same as HW.
-> -				  see below for detail.
-> -- rcar_sound,mix		: Should contain MIX feature.
-> -				  The number of MIX subnode should be same as HW.
-> -				  see below for detail.
-> -- rcar_sound,dvc		: Should contain DVC feature.
-> -				  The number of DVC subnode should be same as HW.
-> -				  see below for detail.
-> -- rcar_sound,dai		: DAI contents.
-> -				  The number of DAI subnode should be same as HW.
-> -				  see below for detail.
-> -- #sound-dai-cells		: it must be 0 if your system is using single DAI
-> -				  it must be 1 if your system is using multi  DAI
-> -- clocks			: References to SSI/SRC/MIX/CTU/DVC/AUDIO_CLK clocks.
-> -- clock-names			: List of necessary clock names.
-> -				  "ssi-all", "ssi.X", "src.X", "mix.X", "ctu.X",
-> -				  "dvc.X", "clk_a", "clk_b", "clk_c", "clk_i"
-> -
-> -Optional properties:
-> -- #clock-cells			: it must be 0 if your system has audio_clkout
-> -				  it must be 1 if your system has audio_clkout0/1/2/3
-> -- clock-frequency		: for all audio_clkout0/1/2/3
-> -- clkout-lr-asynchronous	: boolean property. it indicates that audio_clkoutn
-> -				  is asynchronizes with lr-clock.
-> -- resets			: References to SSI resets.
-> -- reset-names			: List of valid reset names.
-> -				  "ssi-all", "ssi.X"
-> -
-> -SSI subnode properties:
-> -- interrupts			: Should contain SSI interrupt for PIO transfer
-> -- shared-pin			: if shared clock pin
-> -- pio-transfer			: use PIO transfer mode
-> -- no-busif			: BUSIF is not ussed when [mem -> SSI] via DMA case
-> -- dma				: Should contain Audio DMAC entry
-> -- dma-names			: SSI  case "rx"  (=playback), "tx"  (=capture)
-> -				  Deprecated: see SSIU subnode properties
-> -				  SSIU case "rxu" (=playback), "txu" (=capture)
-> -
-> -SSIU subnode properties:
-> -- dma				: Should contain Audio DMAC entry
-> -- dma-names			: "rx" (=playback), "tx" (=capture)
-> -
-> -SRC subnode properties:
-> -- dma				: Should contain Audio DMAC entry
-> -- dma-names			: "rx" (=playback), "tx" (=capture)
-> -
-> -DVC subnode properties:
-> -- dma				: Should contain Audio DMAC entry
-> -- dma-names			: "tx" (=playback/capture)
-> -
-> -DAI subnode properties:
-> -- playback			: list of playback modules
-> -- capture			: list of capture  modules
-> -
-> -
-> -=============================================
-> -Example:
-> -=============================================
-> -
-> -rcar_sound: sound@ec500000 {
-> -	#sound-dai-cells = <1>;
-> -	compatible = "renesas,rcar_sound-r8a7791", "renesas,rcar_sound-gen2";
-> -	reg =	<0 0xec500000 0 0x1000>, /* SCU */
-> -		<0 0xec5a0000 0 0x100>,  /* ADG */
-> -		<0 0xec540000 0 0x1000>, /* SSIU */
-> -		<0 0xec541000 0 0x1280>, /* SSI */
-> -		<0 0xec740000 0 0x200>;  /* Audio DMAC peri peri*/
-> -	reg-names = "scu", "adg", "ssiu", "ssi", "audmapp";
-> -
-> -	clocks = <&mstp10_clks R8A7790_CLK_SSI_ALL>,
-> -		<&mstp10_clks R8A7790_CLK_SSI9>, <&mstp10_clks R8A7790_CLK_SSI8>,
-> -		<&mstp10_clks R8A7790_CLK_SSI7>, <&mstp10_clks R8A7790_CLK_SSI6>,
-> -		<&mstp10_clks R8A7790_CLK_SSI5>, <&mstp10_clks R8A7790_CLK_SSI4>,
-> -		<&mstp10_clks R8A7790_CLK_SSI3>, <&mstp10_clks R8A7790_CLK_SSI2>,
-> -		<&mstp10_clks R8A7790_CLK_SSI1>, <&mstp10_clks R8A7790_CLK_SSI0>,
-> -		<&mstp10_clks R8A7790_CLK_SCU_SRC9>, <&mstp10_clks R8A7790_CLK_SCU_SRC8>,
-> -		<&mstp10_clks R8A7790_CLK_SCU_SRC7>, <&mstp10_clks R8A7790_CLK_SCU_SRC6>,
-> -		<&mstp10_clks R8A7790_CLK_SCU_SRC5>, <&mstp10_clks R8A7790_CLK_SCU_SRC4>,
-> -		<&mstp10_clks R8A7790_CLK_SCU_SRC3>, <&mstp10_clks R8A7790_CLK_SCU_SRC2>,
-> -		<&mstp10_clks R8A7790_CLK_SCU_SRC1>, <&mstp10_clks R8A7790_CLK_SCU_SRC0>,
-> -		<&mstp10_clks R8A7790_CLK_SCU_DVC0>, <&mstp10_clks R8A7790_CLK_SCU_DVC1>,
-> -		<&audio_clk_a>, <&audio_clk_b>, <&audio_clk_c>, <&m2_clk>;
-> -	clock-names = "ssi-all",
-> -			"ssi.9", "ssi.8", "ssi.7", "ssi.6", "ssi.5",
-> -			"ssi.4", "ssi.3", "ssi.2", "ssi.1", "ssi.0",
-> -			"src.9", "src.8", "src.7", "src.6", "src.5",
-> -			"src.4", "src.3", "src.2", "src.1", "src.0",
-> -			"dvc.0", "dvc.1",
-> -			"clk_a", "clk_b", "clk_c", "clk_i";
-> -
-> -	rcar_sound,dvc {
-> -		dvc0: dvc-0 {
-> -			dmas = <&audma0 0xbc>;
-> -			dma-names = "tx";
-> -		};
-> -		dvc1: dvc-1 {
-> -			dmas = <&audma0 0xbe>;
-> -			dma-names = "tx";
-> -		};
-> -	};
-> -
-> -	rcar_sound,mix {
-> -		mix0: mix-0 { };
-> -		mix1: mix-1 { };
-> -	};
-> -
-> -	rcar_sound,ctu {
-> -		ctu00: ctu-0 { };
-> -		ctu01: ctu-1 { };
-> -		ctu02: ctu-2 { };
-> -		ctu03: ctu-3 { };
-> -		ctu10: ctu-4 { };
-> -		ctu11: ctu-5 { };
-> -		ctu12: ctu-6 { };
-> -		ctu13: ctu-7 { };
-> -	};
-> -
-> -	rcar_sound,src {
-> -		src0: src-0 {
-> -			interrupts = <0 352 IRQ_TYPE_LEVEL_HIGH>;
-> -			dmas = <&audma0 0x85>, <&audma1 0x9a>;
-> -			dma-names = "rx", "tx";
-> -		};
-> -		src1: src-1 {
-> -			interrupts = <0 353 IRQ_TYPE_LEVEL_HIGH>;
-> -			dmas = <&audma0 0x87>, <&audma1 0x9c>;
-> -			dma-names = "rx", "tx";
-> -		};
-> -		src2: src-2 {
-> -			interrupts = <0 354 IRQ_TYPE_LEVEL_HIGH>;
-> -			dmas = <&audma0 0x89>, <&audma1 0x9e>;
-> -			dma-names = "rx", "tx";
-> -		};
-> -		src3: src-3 {
-> -			interrupts = <0 355 IRQ_TYPE_LEVEL_HIGH>;
-> -			dmas = <&audma0 0x8b>, <&audma1 0xa0>;
-> -			dma-names = "rx", "tx";
-> -		};
-> -		src4: src-4 {
-> -			interrupts = <0 356 IRQ_TYPE_LEVEL_HIGH>;
-> -			dmas = <&audma0 0x8d>, <&audma1 0xb0>;
-> -			dma-names = "rx", "tx";
-> -		};
-> -		src5: src-5 {
-> -			interrupts = <0 357 IRQ_TYPE_LEVEL_HIGH>;
-> -			dmas = <&audma0 0x8f>, <&audma1 0xb2>;
-> -			dma-names = "rx", "tx";
-> -		};
-> -		src6: src-6 {
-> -			interrupts = <0 358 IRQ_TYPE_LEVEL_HIGH>;
-> -			dmas = <&audma0 0x91>, <&audma1 0xb4>;
-> -			dma-names = "rx", "tx";
-> -		};
-> -		src7: src-7 {
-> -			interrupts = <0 359 IRQ_TYPE_LEVEL_HIGH>;
-> -			dmas = <&audma0 0x93>, <&audma1 0xb6>;
-> -			dma-names = "rx", "tx";
-> -		};
-> -		src8: src-8 {
-> -			interrupts = <0 360 IRQ_TYPE_LEVEL_HIGH>;
-> -			dmas = <&audma0 0x95>, <&audma1 0xb8>;
-> -			dma-names = "rx", "tx";
-> -		};
-> -		src9: src-9 {
-> -			interrupts = <0 361 IRQ_TYPE_LEVEL_HIGH>;
-> -			dmas = <&audma0 0x97>, <&audma1 0xba>;
-> -			dma-names = "rx", "tx";
-> -		};
-> -	};
-> -
-> -	rcar_sound,ssiu {
-> -		ssiu00: ssiu-0 {
-> -			dmas = <&audma0 0x15>, <&audma1 0x16>;
-> -			dma-names = "rx", "tx";
-> -		};
-> -		ssiu01: ssiu-1 {
-> -			dmas = <&audma0 0x35>, <&audma1 0x36>;
-> -			dma-names = "rx", "tx";
-> -		};
-> -
-> -		...
-> -
-> -		ssiu95: ssiu-49 {
-> -			dmas = <&audma0 0xA5>, <&audma1 0xA6>;
-> -			dma-names = "rx", "tx";
-> -		};
-> -		ssiu96: ssiu-50 {
-> -			dmas = <&audma0 0xA7>, <&audma1 0xA8>;
-> -			dma-names = "rx", "tx";
-> -		};
-> -		ssiu97: ssiu-51 {
-> -			dmas = <&audma0 0xA9>, <&audma1 0xAA>;
-> -			dma-names = "rx", "tx";
-> -		};
-> -	};
-> -
-> -	rcar_sound,ssi {
-> -		ssi0: ssi-0 {
-> -			interrupts = <0 370 IRQ_TYPE_LEVEL_HIGH>;
-> -			dmas = <&audma0 0x01>, <&audma1 0x02>;
-> -			dma-names = "rx", "tx";
-> -		};
-> -		ssi1: ssi-1 {
-> -			interrupts = <0 371 IRQ_TYPE_LEVEL_HIGH>;
-> -			dmas = <&audma0 0x03>, <&audma1 0x04>;
-> -			dma-names = "rx", "tx";
-> -		};
-> -
-> -		...
-> -
-> -		ssi8: ssi-8 {
-> -			interrupts = <0 378 IRQ_TYPE_LEVEL_HIGH>;
-> -			dmas = <&audma0 0x11>, <&audma1 0x12>;
-> -			dma-names = "rx", "tx";
-> -		};
-> -		ssi9: ssi-9 {
-> -			interrupts = <0 379 IRQ_TYPE_LEVEL_HIGH>;
-> -			dmas = <&audma0 0x13>, <&audma1 0x14>;
-> -			dma-names = "rx", "tx";
-> -		};
-> -	};
-> -
-> -	rcar_sound,dai {
-> -		dai0 {
-> -			playback = <&ssi5 &src5>;
-> -			capture  = <&ssi6>;
-> -		};
-> -		dai1 {
-> -			playback = <&ssi3>;
-> -		};
-> -		dai2 {
-> -			capture  = <&ssi4>;
-> -		};
-> -		dai3 {
-> -			playback = <&ssi7>;
-> -		};
-> -		dai4 {
-> -			capture  = <&ssi8>;
-> -		};
-> -	};
-> -};
-> -
-> -=============================================
-> -Example: simple sound card
-> -=============================================
-> -
-> -	rsnd_ak4643: sound {
-> -		compatible = "simple-audio-card";
-> -
-> -		simple-audio-card,format = "left_j";
-> -		simple-audio-card,bitclock-master = <&sndcodec>;
-> -		simple-audio-card,frame-master = <&sndcodec>;
-> -
-> -		sndcpu: simple-audio-card,cpu {
-> -			sound-dai = <&rcar_sound>;
-> -		};
-> -
-> -		sndcodec: simple-audio-card,codec {
-> -			sound-dai = <&ak4643>;
-> -			clocks = <&audio_clock>;
-> -		};
-> -	};
-> -
-> -&rcar_sound {
-> -	pinctrl-0 = <&sound_pins &sound_clk_pins>;
-> -	pinctrl-names = "default";
-> -
-> -	/* Single DAI */
-> -	#sound-dai-cells = <0>;
-> -
-> -
-> -	rcar_sound,dai {
-> -		dai0 {
-> -			playback = <&ssi0 &src2 &dvc0>;
-> -			capture  = <&ssi1 &src3 &dvc1>;
-> -		};
-> -	};
-> -};
-> -
-> -&ssi1 {
-> -	shared-pin;
-> -};
-> -
-> -=============================================
-> -Example: simple sound card for Asynchronous mode
-> -=============================================
-> -
-> -sound {
-> -	compatible = "simple-scu-audio-card";
-> -	...
-> -	/*
-> -	 * SRC Asynchronous mode setting
-> -	 * Playback:
-> -	 * All input data will be converted to 48kHz
-> -	 * Capture:
-> -	 * Inputed 48kHz data will be converted to
-> -	 * system specified Hz
-> -	 */
-> -	simple-audio-card,convert-rate = <48000>;
-> -	...
-> -	simple-audio-card,cpu {
-> -		sound-dai = <&rcar_sound>;
-> -	};
-> -	simple-audio-card,codec {
-> -		...
-> -	};
-> -};
-> -
-> -=============================================
-> -Example: simple sound card for channel convert
-> -=============================================
-> -
-> -sound {
-> -	compatible = "simple-scu-audio-card";
-> -	...
-> -	/*
-> -	 * CTU setting
-> -	 * All input data will be converted to 2ch
-> -	 * as output data
-> -	 */
-> -	simple-audio-card,convert-channels = <2>;
-> -	...
-> -	simple-audio-card,cpu {
-> -		sound-dai = <&rcar_sound>;
-> -	};
-> -	simple-audio-card,codec {
-> -		...
-> -	};
-> -};
-> -
-> -=============================================
-> -Example: simple sound card for MIXer
-> -=============================================
-> -
-> -sound {
-> -	compatible = "simple-scu-audio-card";
-> -	...
-> -	simple-audio-card,cpu@0 {
-> -		sound-dai = <&rcar_sound 0>;
-> -	};
-> -	simple-audio-card,cpu@1 {
-> -		sound-dai = <&rcar_sound 1>;
-> -	};
-> -	simple-audio-card,codec {
-> -		...
-> -	};
-> -};
-> -
-> -&rcar_sound {
-> -	...
-> -	rcar_sound,dai {
-> -		dai0 {
-> -			playback = <&src1 &ctu02 &mix0 &dvc0 &ssi0>;
-> -		};
-> -		dai1 {
-> -			playback = <&src2 &ctu03 &mix0 &dvc0 &ssi0>;
-> -		};
-> -	};
-> -};
-> -
-> -=============================================
-> -Example: simple sound card for TDM
-> -=============================================
-> -
-> -rsnd_tdm: sound {
-> -	compatible = "simple-audio-card";
-> -
-> -	simple-audio-card,format = "left_j";
-> -	simple-audio-card,bitclock-master = <&sndcodec>;
-> -	simple-audio-card,frame-master = <&sndcodec>;
-> -
-> -	sndcpu: simple-audio-card,cpu {
-> -		sound-dai = <&rcar_sound>;
-> -		dai-tdm-slot-num = <6>;
-> -	};
-> -
-> -	sndcodec: simple-audio-card,codec {
-> -		sound-dai = <&xxx>;
-> -	};
-> -};
-> -
-> -=============================================
-> -Example: simple sound card for TDM Split
-> -=============================================
-> -
-> -sound_card: sound {
-> -	compatible = "audio-graph-scu-card";
-> -	prefix = "xxxx";
-> -	routing = "xxxx Playback", "DAI0 Playback",
-> -		  "xxxx Playback", "DAI1 Playback",
-> -		  "xxxx Playback", "DAI2 Playback",
-> -		  "xxxx Playback", "DAI3 Playback";
-> -	convert-channels = <8>; /* TDM Split */
-> -
-> -	dais = <&rsnd_port0     /* playback ch1/ch2 */
-> -		&rsnd_port1     /* playback ch3/ch4 */
-> -		&rsnd_port2     /* playback ch5/ch6 */
-> -		&rsnd_port3     /* playback ch7/ch8 */
-> -		>;
-> -};
-> -
-> -audio-codec {
-> -	...
-> -	port {
-> -		codec_0: endpoint@1 {
-> -			remote-endpoint = <&rsnd_ep0>;
-> -		};
-> -		codec_1: endpoint@2 {
-> -			remote-endpoint = <&rsnd_ep1>;
-> -		};
-> -		codec_2: endpoint@3 {
-> -			remote-endpoint = <&rsnd_ep2>;
-> -		};
-> -		codec_3: endpoint@4 {
-> -			remote-endpoint = <&rsnd_ep3>;
-> -		};
-> -	};
-> -};
-> -
-> -&rcar_sound {
-> -	...
-> -	ports {
-> -		rsnd_port0: port@0 {
-> -			rsnd_ep0: endpoint {
-> -				remote-endpoint = <&codec_0>;
-> -				...
-> -				playback = <&ssiu30 &ssi3>;
-> -			};
-> -		};
-> -		rsnd_port1: port@1 {
-> -			rsnd_ep1: endpoint {
-> -				remote-endpoint = <&codec_1>;
-> -				...
-> -				playback = <&ssiu31 &ssi3>;
-> -			};
-> -		};
-> -		rsnd_port2: port@2 {
-> -			rsnd_ep2: endpoint {
-> -				remote-endpoint = <&codec_2>;
-> -				...
-> -				playback = <&ssiu32 &ssi3>;
-> -			};
-> -		};
-> -		rsnd_port3: port@3 {
-> -			rsnd_ep3: endpoint {
-> -				remote-endpoint = <&codec_3>;
-> -				...
-> -				playback = <&ssiu33 &ssi3>;
-> -			};
-> -		};
-> -	};
-> -};
-> -
-> -=============================================
-> -Example: simple sound card for Multi channel
-> -=============================================
-> -
-> -&rcar_sound {
-> -	pinctrl-0 = <&sound_pins &sound_clk_pins>;
-> -	pinctrl-names = "default";
-> -
-> -	/* Single DAI */
-> -	#sound-dai-cells = <0>;
-> -
-> -
-> -	rcar_sound,dai {
-> -		dai0 {
-> -			playback = <&ssi0 &ssi1 &ssi2 &src0 &dvc0>;
-> -		};
-> -	};
-> -};
-> diff --git a/Documentation/devicetree/bindings/sound/renesas,rsnd.yaml b/Documentation/devicetree/bindings/sound/renesas,rsnd.yaml
-> new file mode 100644
-> index 000000000000..3f37f314b580
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/sound/renesas,rsnd.yaml
-> @@ -0,0 +1,454 @@
-> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/sound/renesas,rsnd.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: Renesas R-Car Sound Driver Device Tree Bindings
-> +
-> +maintainers:
-> +  - Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-> +
-> +properties:
-> +
-> +  compatible:
-> +    oneOf:
-> +      # for Gen1 SoC
-> +      - items:
-> +          - enum:
-> +            - renesas,rcar_sound-r8a7778   # R-Car M1A
-> +            - renesas,rcar_sound-r8a7779   # R-Car H1
-> +          - enum:
-> +            - renesas,rcar_sound-gen1
-> +      # for Gen2 SoC
-> +      - items:
-> +          - enum:
-> +              - renesas,rcar_sound-r8a7742   # RZ/G1H
-> +              - renesas,rcar_sound-r8a7743   # RZ/G1M
-> +              - renesas,rcar_sound-r8a7744   # RZ/G1N
-> +              - renesas,rcar_sound-r8a7745   # RZ/G1E
-> +              - renesas,rcar_sound-r8a77470  # RZ/G1C
-> +              - renesas,rcar_sound-r8a7790   # R-Car H2
-> +              - renesas,rcar_sound-r8a7791   # R-Car M2-W
-> +              - renesas,rcar_sound-r8a7793   # R-Car M2-N
-> +              - renesas,rcar_sound-r8a7794   # R-Car E2
-> +          - enum:
-> +              - renesas,rcar_sound-gen2
-> +      # for Gen3 SoC
-> +      - items:
-> +          - enum:
-> +              - renesas,rcar_sound-r8a774a1  # RZ/G2M
-> +              - renesas,rcar_sound-r8a774b1  # RZ/G2N
-> +              - renesas,rcar_sound-r8a774c0  # RZ/G2E
-> +              - renesas,rcar_sound-r8a774e1  # RZ/G2H
-> +              - renesas,rcar_sound-r8a7795   # R-Car H3
-> +              - renesas,rcar_sound-r8a7796   # R-Car M3-W
-> +              - renesas,rcar_sound-r8a77965  # R-Car M3-N
-> +              - renesas,rcar_sound-r8a77990  # R-Car E3
-> +              - renesas,rcar_sound-r8a77995  # R-Car D3
-> +          - enum:
-> +              - renesas,rcar_sound-gen3
-> +      # for Generic
-> +      - items:
-> +          - enum:
-> +              - renesas,rcar_sound-gen1
-> +              - renesas,rcar_sound-gen2
-> +              - renesas,rcar_sound-gen3
-> +
-> +  reg:
-> +    minItems: 3 # Gen1
-> +    maxItems: 5 # Gen2/Gen3
-> +
-> +  reg-names:
-> +    description: |
-> +      Should contain the register names.
-> +      scu/adg/ssi              if generation1
-> +      scu/adg/ssiu/ssi/audmapp if generation2/generation3
+This algorithm computes bus parameters like clock frequency, frame
+shape and port transport parameters based on active stream(s) running
+on the bus.
 
-The schema describes this, no need to duplicate here.
+Developers can also implement their own .compute_params() callback for
+specific resource management algorithm, and set if before calling
+sdw_add_bus_master()
 
-> +    minItems: 3 # Gen1
-> +    maxItems: 5 # Gen2/Gen3
-> +    oneOf:
-> +      # for Gen1
-> +      - allOf:
-> +        - items:
+Credits: this patch is based on an earlier internal contribution by
+Vinod Koul, Sanyog Kale, Shreyas Nc and Hardik Shah. All hard-coded
+values were removed from the initial contribution to use BIOS
+information instead.
 
-Don't need 'allOf' if only 1 entry.
+Signed-off-by: Bard Liao <yung-chuan.liao@linux.intel.com>
+---
+ drivers/soundwire/Kconfig                     |   5 +
+ drivers/soundwire/Makefile                    |   3 +
+ drivers/soundwire/bus.c                       |   6 +
+ drivers/soundwire/bus.h                       |  46 +-
+ .../soundwire/generic_bandwidth_allocation.c  | 427 ++++++++++++++++++
+ drivers/soundwire/intel.c                     |   3 +
+ drivers/soundwire/stream.c                    |  12 +
+ include/linux/soundwire/sdw.h                 |   3 +
+ 8 files changed, 503 insertions(+), 2 deletions(-)
+ create mode 100644 drivers/soundwire/generic_bandwidth_allocation.c
 
-> +            enum:
-> +              - scu
-> +              - adg
-> +              - ssi
-> +      # for Gen2/Gen3
-> +      - allOf:
-> +        - items:
-> +            enum:
-> +              - scu
-> +              - adg
-> +              - ssiu
-> +              - ssi
-> +              - audmapp
+diff --git a/drivers/soundwire/Kconfig b/drivers/soundwire/Kconfig
+index f83d02c9c60a..016e74230bb7 100644
+--- a/drivers/soundwire/Kconfig
++++ b/drivers/soundwire/Kconfig
+@@ -24,6 +24,7 @@ config SOUNDWIRE_CADENCE
+ config SOUNDWIRE_INTEL
+ 	tristate "Intel SoundWire Master driver"
+ 	select SOUNDWIRE_CADENCE
++	select SOUNDWIRE_GENERIC_ALLOCATION
+ 	depends on ACPI && SND_SOC
+ 	help
+ 	  SoundWire Intel Master driver.
+@@ -40,4 +41,8 @@ config SOUNDWIRE_QCOM
+ 	  If you have an Qualcomm platform which has a SoundWire Master then
+ 	  enable this config option to get the SoundWire support for that
+ 	  device
++
++config SOUNDWIRE_GENERIC_ALLOCATION
++	tristate
++
+ endif
+diff --git a/drivers/soundwire/Makefile b/drivers/soundwire/Makefile
+index 7c53ffae9f50..bf1e250d50dd 100644
+--- a/drivers/soundwire/Makefile
++++ b/drivers/soundwire/Makefile
+@@ -8,6 +8,9 @@ soundwire-bus-y := bus_type.o bus.o master.o slave.o mipi_disco.o stream.o  \
+ 			sysfs_slave.o sysfs_slave_dpn.o
+ obj-$(CONFIG_SOUNDWIRE) += soundwire-bus.o
+ 
++soundwire-generic-allocation-objs := generic_bandwidth_allocation.o
++obj-$(CONFIG_SOUNDWIRE_GENERIC_ALLOCATION) += soundwire-generic-allocation.o
++
+ ifdef CONFIG_DEBUG_FS
+ soundwire-bus-y += debugfs.o
+ endif
+diff --git a/drivers/soundwire/bus.c b/drivers/soundwire/bus.c
+index d808f0256ba0..11c5a402afcd 100644
+--- a/drivers/soundwire/bus.c
++++ b/drivers/soundwire/bus.c
+@@ -61,6 +61,12 @@ int sdw_bus_master_add(struct sdw_bus *bus, struct device *parent,
+ 		return -EINVAL;
+ 	}
+ 
++	if (!bus->compute_params) {
++		dev_err(bus->dev,
++			"Bandwidth allocation not configured, compute_params no set\n");
++		return -EINVAL;
++	}
++
+ 	mutex_init(&bus->msg_lock);
+ 	mutex_init(&bus->bus_lock);
+ 	INIT_LIST_HEAD(&bus->slaves);
+diff --git a/drivers/soundwire/bus.h b/drivers/soundwire/bus.h
+index 82484f741168..d2fda8c69f0d 100644
+--- a/drivers/soundwire/bus.h
++++ b/drivers/soundwire/bus.h
+@@ -69,6 +69,7 @@ struct sdw_msg {
+ };
+ 
+ #define SDW_DOUBLE_RATE_FACTOR		2
++#define SDW_STRM_RATE_GROUPING		1
+ 
+ extern int sdw_rows[SDW_FRAME_ROWS];
+ extern int sdw_cols[SDW_FRAME_COLS];
+@@ -154,9 +155,50 @@ int sdw_transfer_defer(struct sdw_bus *bus, struct sdw_msg *msg,
+ int sdw_fill_msg(struct sdw_msg *msg, struct sdw_slave *slave,
+ 		 u32 addr, size_t count, u16 dev_num, u8 flags, u8 *buf);
+ 
++/* Retrieve and return channel count from channel mask */
++static inline int sdw_ch_mask_to_ch(int ch_mask)
++{
++	int c = 0;
++
++	for (c = 0; ch_mask; ch_mask >>= 1)
++		c += ch_mask & 1;
++
++	return c;
++}
++
++/* Fill transport parameter data structure */
++static inline void sdw_fill_xport_params(struct sdw_transport_params *params,
++					 int port_num, bool grp_ctrl_valid,
++					 int grp_ctrl, int sample_int,
++					 int off1, int off2,
++					 int hstart, int hstop,
++					 int pack_mode, int lane_ctrl)
++{
++	params->port_num = port_num;
++	params->blk_grp_ctrl_valid = grp_ctrl_valid;
++	params->blk_grp_ctrl = grp_ctrl;
++	params->sample_interval = sample_int;
++	params->offset1 = off1;
++	params->offset2 = off2;
++	params->hstart = hstart;
++	params->hstop = hstop;
++	params->blk_pkg_mode = pack_mode;
++	params->lane_ctrl = lane_ctrl;
++}
++
++/* Fill port parameter data structure */
++static inline void sdw_fill_port_params(struct sdw_port_params *params,
++					int port_num, int bps,
++					int flow_mode, int data_mode)
++{
++	params->num = port_num;
++	params->bps = bps;
++	params->flow_mode = flow_mode;
++	params->data_mode = data_mode;
++}
++
+ /* Read-Modify-Write Slave register */
+-static inline int
+-sdw_update(struct sdw_slave *slave, u32 addr, u8 mask, u8 val)
++static inline int sdw_update(struct sdw_slave *slave, u32 addr, u8 mask, u8 val)
+ {
+ 	int tmp;
+ 
+diff --git a/drivers/soundwire/generic_bandwidth_allocation.c b/drivers/soundwire/generic_bandwidth_allocation.c
+new file mode 100644
+index 000000000000..6088775b67a5
+--- /dev/null
++++ b/drivers/soundwire/generic_bandwidth_allocation.c
+@@ -0,0 +1,427 @@
++// SPDX-License-Identifier: (GPL-2.0-only OR BSD-3-Clause)
++// Copyright(c) 2015-2020 Intel Corporation.
++
++/*
++ * Bandwidth management algorithm based on 2^n gears
++ *
++ */
++
++#include <linux/device.h>
++#include <linux/module.h>
++#include <linux/mod_devicetable.h>
++#include <linux/slab.h>
++#include <linux/soundwire/sdw.h>
++#include "bus.h"
++
++#define SDW_STRM_RATE_GROUPING		1
++
++struct sdw_group_params {
++	unsigned int rate;
++	int full_bw;
++	int payload_bw;
++	int hwidth;
++};
++
++struct sdw_group {
++	unsigned int count;
++	unsigned int max_size;
++	unsigned int *rates;
++};
++
++struct sdw_transport_data {
++	int hstart;
++	int hstop;
++	int block_offset;
++	int sub_block_offset;
++};
++
++static void sdw_compute_slave_ports(struct sdw_master_runtime *m_rt,
++				    struct sdw_transport_data *t_data)
++{
++	struct sdw_slave_runtime *s_rt = NULL;
++	struct sdw_port_runtime *p_rt;
++	int port_bo, sample_int;
++	unsigned int rate, bps, ch = 0;
++	unsigned int slave_total_ch;
++
++	port_bo = t_data->block_offset;
++
++	list_for_each_entry(s_rt, &m_rt->slave_rt_list, m_rt_node) {
++		rate = m_rt->stream->params.rate;
++		bps = m_rt->stream->params.bps;
++		sample_int = (m_rt->bus->params.curr_dr_freq / rate);
++		slave_total_ch = 0;
++
++		list_for_each_entry(p_rt, &s_rt->port_list, port_node) {
++			ch = sdw_ch_mask_to_ch(p_rt->ch_mask);
++
++			sdw_fill_xport_params(&p_rt->transport_params,
++					      p_rt->num, false,
++					      SDW_BLK_GRP_CNT_1,
++					      sample_int, port_bo, port_bo >> 8,
++					      t_data->hstart,
++					      t_data->hstop,
++					      (SDW_BLK_GRP_CNT_1 * ch), 0x0);
++
++			sdw_fill_port_params(&p_rt->port_params,
++					     p_rt->num, bps,
++					     SDW_PORT_FLOW_MODE_ISOCH,
++					     SDW_PORT_DATA_MODE_NORMAL);
++
++			port_bo += bps * ch;
++			slave_total_ch += ch;
++		}
++
++		if (m_rt->direction == SDW_DATA_DIR_TX &&
++		    m_rt->ch_count == slave_total_ch) {
++			/*
++			 * Slave devices were configured to access all channels
++			 * of the stream, which indicates that they operate in
++			 * 'mirror mode'. Make sure we reset the port offset for
++			 * the next device in the list
++			 */
++			port_bo = t_data->block_offset;
++		}
++	}
++}
++
++static void sdw_compute_master_ports(struct sdw_master_runtime *m_rt,
++				     struct sdw_group_params *params,
++				     int port_bo, int hstop)
++{
++	struct sdw_transport_data t_data = {0};
++	struct sdw_port_runtime *p_rt;
++	struct sdw_bus *bus = m_rt->bus;
++	int sample_int, hstart = 0;
++	unsigned int rate, bps, ch, no_ch;
++
++	rate = m_rt->stream->params.rate;
++	bps = m_rt->stream->params.bps;
++	ch = m_rt->ch_count;
++	sample_int = (bus->params.curr_dr_freq / rate);
++
++	if (rate != params->rate)
++		return;
++
++	t_data.hstop = hstop;
++	hstart = hstop - params->hwidth + 1;
++	t_data.hstart = hstart;
++
++	list_for_each_entry(p_rt, &m_rt->port_list, port_node) {
++		no_ch = sdw_ch_mask_to_ch(p_rt->ch_mask);
++
++		sdw_fill_xport_params(&p_rt->transport_params, p_rt->num,
++				      false, SDW_BLK_GRP_CNT_1, sample_int,
++				      port_bo, port_bo >> 8, hstart, hstop,
++				      (SDW_BLK_GRP_CNT_1 * no_ch), 0x0);
++
++		sdw_fill_port_params(&p_rt->port_params,
++				     p_rt->num, bps,
++				     SDW_PORT_FLOW_MODE_ISOCH,
++				     SDW_PORT_DATA_MODE_NORMAL);
++
++		/* Check for first entry */
++		if (!(p_rt == list_first_entry(&m_rt->port_list,
++					       struct sdw_port_runtime,
++					       port_node))) {
++			port_bo += bps * ch;
++			continue;
++		}
++
++		t_data.hstart = hstart;
++		t_data.hstop = hstop;
++		t_data.block_offset = port_bo;
++		t_data.sub_block_offset = 0;
++		port_bo += bps * ch;
++	}
++
++	sdw_compute_slave_ports(m_rt, &t_data);
++}
++
++static void _sdw_compute_port_params(struct sdw_bus *bus,
++				     struct sdw_group_params *params, int count)
++{
++	struct sdw_master_runtime *m_rt = NULL;
++	int hstop = bus->params.col - 1;
++	int block_offset, port_bo, i;
++
++	/* Run loop for all groups to compute transport parameters */
++	for (i = 0; i < count; i++) {
++		port_bo = 1;
++		block_offset = 1;
++
++		list_for_each_entry(m_rt, &bus->m_rt_list, bus_node) {
++			sdw_compute_master_ports(m_rt, &params[i],
++						 port_bo, hstop);
++
++			block_offset += m_rt->ch_count *
++					m_rt->stream->params.bps;
++			port_bo = block_offset;
++		}
++
++		hstop = hstop - params[i].hwidth;
++	}
++}
++
++static int sdw_compute_group_params(struct sdw_bus *bus,
++				    struct sdw_group_params *params,
++				    int *rates, int count)
++{
++	struct sdw_master_runtime *m_rt = NULL;
++	int sel_col = bus->params.col;
++	unsigned int rate, bps, ch;
++	int i, column_needed = 0;
++
++	/* Calculate bandwidth per group */
++	for (i = 0; i < count; i++) {
++		params[i].rate = rates[i];
++		params[i].full_bw = bus->params.curr_dr_freq / params[i].rate;
++	}
++
++	list_for_each_entry(m_rt, &bus->m_rt_list, bus_node) {
++		rate = m_rt->stream->params.rate;
++		bps = m_rt->stream->params.bps;
++		ch = m_rt->ch_count;
++
++		for (i = 0; i < count; i++) {
++			if (rate == params[i].rate)
++				params[i].payload_bw += bps * ch;
++		}
++	}
++
++	for (i = 0; i < count; i++) {
++		params[i].hwidth = (sel_col *
++			params[i].payload_bw + params[i].full_bw - 1) /
++			params[i].full_bw;
++
++		column_needed += params[i].hwidth;
++	}
++
++	if (column_needed > sel_col - 1)
++		return -EINVAL;
++
++	return 0;
++}
++
++static int sdw_add_element_group_count(struct sdw_group *group,
++				       unsigned int rate)
++{
++	int num = group->count;
++	int i;
++
++	for (i = 0; i <= num; i++) {
++		if (rate == group->rates[i])
++			break;
++
++		if (i != num)
++			continue;
++
++		if (group->count >= group->max_size) {
++			unsigned int *rates;
++
++			group->max_size += 1;
++			rates = krealloc(group->rates,
++					 (sizeof(int) * group->max_size),
++					 GFP_KERNEL);
++			if (!rates)
++				return -ENOMEM;
++			group->rates = rates;
++		}
++
++		group->rates[group->count++] = rate;
++	}
++
++	return 0;
++}
++
++static int sdw_get_group_count(struct sdw_bus *bus,
++			       struct sdw_group *group)
++{
++	struct sdw_master_runtime *m_rt;
++	unsigned int rate;
++	int ret = 0;
++
++	group->count = 0;
++	group->max_size = SDW_STRM_RATE_GROUPING;
++	group->rates = kcalloc(group->max_size, sizeof(int), GFP_KERNEL);
++	if (!group->rates)
++		return -ENOMEM;
++
++	list_for_each_entry(m_rt, &bus->m_rt_list, bus_node) {
++		rate = m_rt->stream->params.rate;
++		if (m_rt == list_first_entry(&bus->m_rt_list,
++					     struct sdw_master_runtime,
++					     bus_node)) {
++			group->rates[group->count++] = rate;
++
++		} else {
++			ret = sdw_add_element_group_count(group, rate);
++			if (ret < 0) {
++				kfree(group->rates);
++				return ret;
++			}
++		}
++	}
++
++	return ret;
++}
++
++/**
++ * sdw_compute_port_params: Compute transport and port parameters
++ *
++ * @bus: SDW Bus instance
++ */
++static int sdw_compute_port_params(struct sdw_bus *bus)
++{
++	struct sdw_group_params *params = NULL;
++	struct sdw_group group;
++	int ret;
++
++	ret = sdw_get_group_count(bus, &group);
++	if (ret < 0)
++		return ret;
++
++	if (group.count == 0)
++		goto out;
++
++	params = kcalloc(group.count, sizeof(*params), GFP_KERNEL);
++	if (!params) {
++		ret = -ENOMEM;
++		goto out;
++	}
++
++	/* Compute transport parameters for grouped streams */
++	ret = sdw_compute_group_params(bus, params,
++				       &group.rates[0], group.count);
++	if (ret < 0)
++		goto free_params;
++
++	_sdw_compute_port_params(bus, params, group.count);
++
++free_params:
++	kfree(params);
++out:
++	kfree(group.rates);
++
++	return ret;
++}
++
++static int sdw_select_row_col(struct sdw_bus *bus, int clk_freq)
++{
++	struct sdw_master_prop *prop = &bus->prop;
++	int frame_int, frame_freq;
++	int r, c;
++
++	for (c = 0; c < SDW_FRAME_COLS; c++) {
++		for (r = 0; r < SDW_FRAME_ROWS; r++) {
++			if (sdw_rows[r] != prop->default_row ||
++			    sdw_cols[c] != prop->default_col)
++				continue;
++
++			frame_int = sdw_rows[r] * sdw_cols[c];
++			frame_freq = clk_freq / frame_int;
++
++			if ((clk_freq - (frame_freq * SDW_FRAME_CTRL_BITS)) <
++			    bus->params.bandwidth)
++				continue;
++
++			bus->params.row = sdw_rows[r];
++			bus->params.col = sdw_cols[c];
++			return 0;
++		}
++	}
++
++	return -EINVAL;
++}
++
++/**
++ * sdw_compute_bus_params: Compute bus parameters
++ *
++ * @bus: SDW Bus instance
++ */
++static int sdw_compute_bus_params(struct sdw_bus *bus)
++{
++	unsigned int max_dr_freq, curr_dr_freq = 0;
++	struct sdw_master_prop *mstr_prop = NULL;
++	int i, clk_values, ret;
++	bool is_gear = false;
++	u32 *clk_buf;
++
++	mstr_prop = &bus->prop;
++	if (!mstr_prop)
++		return -EINVAL;
++
++	if (mstr_prop->num_clk_gears) {
++		clk_values = mstr_prop->num_clk_gears;
++		clk_buf = mstr_prop->clk_gears;
++		is_gear = true;
++	} else if (mstr_prop->num_clk_freq) {
++		clk_values = mstr_prop->num_clk_freq;
++		clk_buf = mstr_prop->clk_freq;
++	} else {
++		clk_values = 1;
++		clk_buf = NULL;
++	}
++
++	max_dr_freq = mstr_prop->max_clk_freq * SDW_DOUBLE_RATE_FACTOR;
++
++	for (i = 0; i < clk_values; i++) {
++		if (!clk_buf)
++			curr_dr_freq = max_dr_freq;
++		else
++			curr_dr_freq = (is_gear) ?
++				(max_dr_freq >>  clk_buf[i]) :
++				clk_buf[i] * SDW_DOUBLE_RATE_FACTOR;
++
++		if (curr_dr_freq <= bus->params.bandwidth)
++			continue;
++
++		break;
++
++		/*
++		 * TODO: Check all the Slave(s) port(s) audio modes and find
++		 * whether given clock rate is supported with glitchless
++		 * transition.
++		 */
++	}
++
++	if (i == clk_values)
++		return -EINVAL;
++
++	ret = sdw_select_row_col(bus, curr_dr_freq);
++	if (ret < 0)
++		return -EINVAL;
++
++	bus->params.curr_dr_freq = curr_dr_freq;
++	return 0;
++}
++
++/**
++ * sdw_compute_params: Compute bus, transport and port parameters
++ *
++ * @bus: SDW Bus instance
++ */
++int sdw_compute_params(struct sdw_bus *bus)
++{
++	int ret;
++
++	/* Computes clock frequency, frame shape and frame frequency */
++	ret = sdw_compute_bus_params(bus);
++	if (ret < 0) {
++		dev_err(bus->dev, "Compute bus params failed: %d", ret);
++		return ret;
++	}
++
++	/* Compute transport and port params */
++	ret = sdw_compute_port_params(bus);
++	if (ret < 0) {
++		dev_err(bus->dev, "Compute transport params failed: %d", ret);
++		return ret;
++	}
++
++	return 0;
++}
++EXPORT_SYMBOL(sdw_compute_params);
++
++MODULE_LICENSE("Dual BSD/GPL");
++MODULE_DESCRIPTION("SoundWire Generic Bandwidth Allocation");
+diff --git a/drivers/soundwire/intel.c b/drivers/soundwire/intel.c
+index e047910d73f5..1211d114ff59 100644
+--- a/drivers/soundwire/intel.c
++++ b/drivers/soundwire/intel.c
+@@ -1318,6 +1318,9 @@ static int intel_master_probe(struct platform_device *pdev)
+ 	/* set driver data, accessed by snd_soc_dai_get_drvdata() */
+ 	dev_set_drvdata(dev, cdns);
+ 
++	/* use generic bandwidth allocation algorithm */
++	sdw->cdns.bus.compute_params = sdw_compute_params;
++
+ 	ret = sdw_bus_master_add(bus, dev, dev->fwnode);
+ 	if (ret) {
+ 		dev_err(dev, "sdw_bus_master_add fail: %d\n", ret);
+diff --git a/drivers/soundwire/stream.c b/drivers/soundwire/stream.c
+index b8b1973e3ee2..f3219d1fa63b 100644
+--- a/drivers/soundwire/stream.c
++++ b/drivers/soundwire/stream.c
+@@ -25,8 +25,10 @@
+ int sdw_rows[SDW_FRAME_ROWS] = {48, 50, 60, 64, 75, 80, 125, 147,
+ 			96, 100, 120, 128, 150, 160, 250, 0,
+ 			192, 200, 240, 256, 72, 144, 90, 180};
++EXPORT_SYMBOL(sdw_rows);
+ 
+ int sdw_cols[SDW_FRAME_COLS] = {2, 4, 6, 8, 10, 12, 14, 16};
++EXPORT_SYMBOL(sdw_cols);
+ 
+ int sdw_find_col_index(int col)
+ {
+@@ -1782,6 +1784,16 @@ static int _sdw_deprepare_stream(struct sdw_stream_runtime *stream)
+ 		bus->params.bandwidth -= m_rt->stream->params.rate *
+ 			m_rt->ch_count * m_rt->stream->params.bps;
+ 
++		/* Compute params */
++		if (bus->compute_params) {
++			ret = bus->compute_params(bus);
++			if (ret < 0) {
++				dev_err(bus->dev, "Compute params failed: %d",
++					ret);
++				return ret;
++			}
++		}
++
+ 		/* Program params */
+ 		ret = sdw_program_params(bus, false);
+ 		if (ret < 0) {
+diff --git a/include/linux/soundwire/sdw.h b/include/linux/soundwire/sdw.h
+index 1e9010c139f0..3fa1b18f7f97 100644
+--- a/include/linux/soundwire/sdw.h
++++ b/include/linux/soundwire/sdw.h
+@@ -955,6 +955,9 @@ struct sdw_stream_runtime {
+ 
+ struct sdw_stream_runtime *sdw_alloc_stream(const char *stream_name);
+ void sdw_release_stream(struct sdw_stream_runtime *stream);
++
++int sdw_compute_params(struct sdw_bus *bus);
++
+ int sdw_stream_add_master(struct sdw_bus *bus,
+ 		struct sdw_stream_config *stream_config,
+ 		struct sdw_port_config *port_config,
+-- 
+2.17.1
 
-We'd normally define these with an if/then schema based on the 
-compatibles.
-
-> +
-> +  "#sound-dai-cells":
-> +    description: |
-> +      it must be 0 if your system is using single DAI
-> +      it must be 1 if your system is using multi  DAIs
-> +    enum: [0, 1]
-> +
-> +  "#clock-cells":
-> +    description: |
-> +      it must be 0 if your system has audio_clkout
-> +      it must be 1 if your system has audio_clkout0/1/2/3
-> +    enum: [0, 1]
-> +
-> +  clock-frequency:
-> +    description: for audio_clkout0/1/2/3
-> +    $ref: /schemas/types.yaml#/definitions/uint32-array
-> +
-> +  clkout-lr-asynchronous:
-> +    description: audio_clkoutn is asynchronizes with lr-clock.
-> +    $ref: /schemas/types.yaml#/definitions/flag
-> +
-> +  power-domains: true
-> +
-> +  resets:
-> +    description: References to SSI resets
-> +    $ref: /schemas/types.yaml#/definitions/phandle-array
-
-'resets' already has a type. Just need to know how many and what each 
-one is.
-
-> +
-> +  reset-names:
-> +    description: List of valid reset names.
-> +    allOf:
-> +      - items:
-> +         oneOf:
-> +           - pattern: '^ssi(-all|\.[0-9])$'
-
-Just:
-
-reset-names:
-  maxItems: ??
-  items:
-    pattern: '^ssi(-all|\.[0-9])$'
-
-
-> +
-> +  clocks:
-> +    description: References to SSI/SRC/MIX/CTU/DVC/AUDIO_CLK clocks.
-> +    minItems:  1
-> +    maxItems: 31
-> +
-> +  clock-names:
-> +    description: List of necessary clock names.
-> +    minItems:  1
-> +    maxItems: 31
-> +    allOf:
-> +      - items:
-
-Don't need 'allOf'.
-
-> +         oneOf:
-> +           - const:   ssi-all
-> +           - pattern: '^ssi\.[0-9]$'
-> +           - pattern: '^src\.[0-9]$'
-> +           - pattern: '^mix\.[0-1]$'
-> +           - pattern: '^ctu\.[0-1]$'
-> +           - pattern: '^dvc\.[0-1]$'
-> +           - pattern: '^clk_(a|b|c|i)$'
-> +
-> +  # For OF-graph
-> +  port:
-> +    description: OF-Graph subnode
-> +    $ref: "audio-graph-card.yaml#/definitions/port"
-
-Something like this should work (at the top-level):
-
-allOf:
-  - $ref: "audio-graph-card.yaml#
-
-> +
-> +  # For multi OF-graph
-> +  ports:
-> +    description: multi OF-Graph subnode
-> +    $ref: "audio-graph-card.yaml#/definitions/ports"
-> +
-> +# use patternProperties to avoid naming "xxx,yyy"
-> +patternProperties:
-> +  "^rcar_sound,dvc$":
-
-None of these are patterns.
-
-> +    description: DVC subnode.
-> +    type: object
-> +    patternProperties:
-> +      "^dvc-[0-1]$":
-> +        type: object
-> +        properties:
-> +          dmas:
-> +            maxItems: 1
-> +          dma-names:
-> +            const: "tx"
-> +        required:
-> +          - dmas
-> +          - dma-names
-> +    additionalProperties: false
-> +
-> +  "^rcar_sound,mix$":
-> +    description: MIX subnode.
-> +    type: object
-> +    patternProperties:
-> +      "^mix-[0-1]$":
-> +        type: object
-> +        # no propaties
-> +    additionalProperties: false
-> +
-> +  "^rcar_sound,ctu$":
-> +    description: CTU subnode.
-> +    type: object
-> +    patternProperties:
-> +      "^ctu-[0-7]$":
-> +        type: object
-> +        # no propaties
-> +    additionalProperties: false
-> +
-> +  "^rcar_sound,src$":
-> +    description: SRC subnode.
-> +    type: object
-> +    patternProperties:
-> +      "^src-[0-9]$":
-> +        type: object
-> +        properties:
-> +          interrupts:
-> +            maxItems: 1
-> +          dmas:
-> +            maxItems: 2
-> +          dma-names:
-> +            allOf:
-> +              - items:
-> +                  enum:
-> +                    - tx
-> +                    - rx
-> +        allOf:
-> +          - if:
-> +              properties:
-> +                status:
-> +                  const: "ok"
-> +            then:
-> +              required:
-> +                - interrupts
-> +                - dmas
-> +                - dma-names
-> +    additionalProperties: false
-> +
-> +  "^rcar_sound,ssiu$":
-> +    description: SSIU subnode.
-> +    type: object
-> +    patternProperties:
-> +      "^ssiu-[0-9]+$":
-> +        type: object
-> +        properties:
-> +          dmas:
-> +            maxItems: 2
-> +          dma-names:
-> +            allOf:
-> +              - items:
-> +                  enum:
-> +                    - tx
-> +                    - rx
-> +        required:
-> +          - dmas
-> +          - dma-names
-> +    additionalProperties: false
-> +
-> +  "^rcar_sound,ssi$":
-> +    description: SSI subnode.
-> +    type: object
-> +    patternProperties:
-> +      "^ssi-[0-9]$":
-> +        type: object
-> +        properties:
-> +          interrupts:
-> +            maxItems: 1
-> +          dmas:
-> +            minItems: 2
-> +            maxItems: 4
-> +          dma-names:
-> +            allOf:
-> +              - items:
-> +                  enum:
-> +                    - tx
-> +                    - rx
-> +                    - txu # if no ssiu node
-> +                    - rxu # if no ssiu node
-> +
-> +          shared-pin:
-> +            description: shared clock pin
-> +            $ref: /schemas/types.yaml#/definitions/flag
-> +          pio-transfer:
-> +            description: PIO transfer mode
-> +            $ref: /schemas/types.yaml#/definitions/flag
-> +          no-busif:
-> +            description: BUSIF is not used when [mem -> SSI] via DMA case
-> +            $ref: /schemas/types.yaml#/definitions/flag
-> +        required:
-> +          - interrupts
-> +          - dmas
-> +          - dma-names
-> +    additionalProperties: false
-> +
-> +  # For DAI base
-> +  "^rcar_sound,dai$":
-> +    description: DAI subnode.
-> +    type: object
-> +    patternProperties:
-> +      "^dai([0-9]+)?$":
-> +        type: object
-> +        properties:
-> +          playback:
-> +            $ref: /schemas/types.yaml#/definitions/phandle-array
-> +          capture:
-> +            $ref: /schemas/types.yaml#/definitions/phandle-array
-> +        anyOf:
-> +          - required:
-> +              - playback
-> +          - required:
-> +              - capture
-> +    additionalProperties: false
-> +
-> +required:
-> +  - compatible
-> +  - reg
-> +  - reg-names
-> +  - clocks
-> +  - clock-names
-> +  - "#sound-dai-cells"
-> +
-> +additionalProperties: false
-> +
-> +examples:
-> +  - |
-> +    rcar_sound: sound@ec500000 {
-> +        #sound-dai-cells = <1>;
-> +        compatible = "renesas,rcar_sound-r8a7790", "renesas,rcar_sound-gen2";
-> +        reg = <0xec500000 0x1000>, /* SCU  */
-> +              <0xec5a0000 0x100>,  /* ADG  */
-> +              <0xec540000 0x1000>, /* SSIU */
-> +              <0xec541000 0x1280>, /* SSI  */
-> +              <0xec740000 0x200>;  /* Audio DMAC peri peri*/
-> +        reg-names = "scu", "adg", "ssiu", "ssi", "audmapp";
-> +
-> +        clocks = <&mstp10_clks 1005>,                      /* SSI-ALL    */
-> +                 <&mstp10_clks 1006>, <&mstp10_clks 1007>, /* SSI9, SSI8 */
-> +                 <&mstp10_clks 1008>, <&mstp10_clks 1009>, /* SSI7, SSI6 */
-> +                 <&mstp10_clks 1010>, <&mstp10_clks 1011>, /* SSI5, SSI4 */
-> +                 <&mstp10_clks 1012>, <&mstp10_clks 1013>, /* SSI3, SSI2 */
-> +                 <&mstp10_clks 1014>, <&mstp10_clks 1015>, /* SSI1, SSI0 */
-> +                 <&mstp10_clks 1022>, <&mstp10_clks 1023>, /* SRC9, SRC8 */
-> +                 <&mstp10_clks 1024>, <&mstp10_clks 1025>, /* SRC7, SRC6 */
-> +                 <&mstp10_clks 1026>, <&mstp10_clks 1027>, /* SRC5, SRC4 */
-> +                 <&mstp10_clks 1028>, <&mstp10_clks 1029>, /* SRC3, SRC2 */
-> +                 <&mstp10_clks 1030>, <&mstp10_clks 1031>, /* SRC1, SRC0 */
-> +                 <&mstp10_clks 1020>, <&mstp10_clks 1021>, /* MIX1, MIX0 */
-> +                 <&mstp10_clks 1020>, <&mstp10_clks 1021>, /* CTU1, CTU0 */
-> +                 <&mstp10_clks 1019>, <&mstp10_clks 1018>, /* DVC0, DVC1 */
-> +                 <&audio_clk_a>, <&audio_clk_b>,           /* CLKA, CLKB */
-> +                 <&audio_clk_c>, <&audio_clk_i>;           /* CLKC, CLKI */
-> +
-> +        clock-names = "ssi-all",
-> +                      "ssi.9", "ssi.8",
-> +                      "ssi.7", "ssi.6",
-> +                      "ssi.5", "ssi.4",
-> +                      "ssi.3", "ssi.2",
-> +                      "ssi.1", "ssi.0",
-> +                      "src.9", "src.8",
-> +                      "src.7", "src.6",
-> +                      "src.5", "src.4",
-> +                      "src.3", "src.2",
-> +                      "src.1", "src.0",
-> +                      "mix.1", "mix.0",
-> +                      "ctu.1", "ctu.0",
-> +                      "dvc.0", "dvc.1",
-> +                      "clk_a", "clk_b",
-> +                      "clk_c", "clk_i";
-> +
-> +        rcar_sound,dvc {
-> +               dvc0: dvc-0 {
-> +                    dmas = <&audma0 0xbc>;
-> +                    dma-names = "tx";
-> +               };
-> +               dvc1: dvc-1 {
-> +                    dmas = <&audma0 0xbe>;
-> +                    dma-names = "tx";
-> +               };
-> +        };
-> +
-> +        rcar_sound,mix {
-> +            mix0: mix-0 { };
-> +            mix1: mix-1 { };
-> +        };
-> +
-> +        rcar_sound,ctu {
-> +            ctu00: ctu-0 { };
-> +            ctu01: ctu-1 { };
-> +            ctu02: ctu-2 { };
-> +            ctu03: ctu-3 { };
-> +            ctu10: ctu-4 { };
-> +            ctu11: ctu-5 { };
-> +            ctu12: ctu-6 { };
-> +            ctu13: ctu-7 { };
-> +        };
-> +
-> +        rcar_sound,src {
-> +            src0: src-0 {
-> +                status = "disabled";
-> +            };
-> +            src1: src-1 {
-> +                interrupts = <0 353 0>;
-> +                dmas = <&audma0 0x87>, <&audma1 0x9c>;
-> +                dma-names = "rx", "tx";
-> +            };
-> +            /* skip after src-2 */
-> +        };
-> +
-> +        rcar_sound,ssiu {
-> +            ssiu00: ssiu-0 {
-> +                dmas = <&audma0 0x15>, <&audma1 0x16>;
-> +                dma-names = "rx", "tx";
-> +            };
-> +            ssiu01: ssiu-1 {
-> +                dmas = <&audma0 0x35>, <&audma1 0x36>;
-> +                dma-names = "rx", "tx";
-> +            };
-> +            /* skip after ssiu-2 */
-> +        };
-> +
-> +        rcar_sound,ssi {
-> +            ssi0: ssi-0 {
-> +                interrupts = <0 370 1>;
-> +                dmas = <&audma0 0x01>, <&audma1 0x02>;
-> +                dma-names = "rx", "tx";
-> +            };
-> +            ssi1: ssi-1 {
-> +                interrupts = <0 371 1>;
-> +                dmas = <&audma0 0x03>, <&audma1 0x04>;
-> +                dma-names = "rx", "tx";
-> +            };
-> +            /* skip other ssi-2 */
-> +        };
-> +
-> +        /* DAI base */
-> +        rcar_sound,dai {
-> +            dai0 {
-> +                playback = <&ssi5 &src5>;
-> +                capture  = <&ssi6>;
-> +            };
-> +            dai1 {
-> +                playback = <&ssi3>;
-> +            };
-> +            dai2 {
-> +                capture  = <&ssi4>;
-> +            };
-> +            dai3 {
-> +                playback = <&ssi7>;
-> +            };
-> +            dai4 {
-> +                capture  = <&ssi8>;
-> +            };
-> +        };
-> +
-> +        /* assume audio-graph */
-> +        port {
-> +            rsnd_endpoint: endpoint {
-> +                remote-endpoint = <&codec_endpoint>;
-> +
-> +                dai-format = "left_j";
-> +                bitclock-master = <&rsnd_endpoint0>;
-> +                frame-master = <&rsnd_endpoint0>;
-> +
-> +                playback = <&ssi0 &src0 &dvc0>;
-> +                capture  = <&ssi1 &src1 &dvc1>;
-> +            };
-> +        };
-> +    };
-> +
-> +
-> +    /* assume audio-graph */
-> +    codec {
-> +        port {
-> +            codec_endpoint: endpoint {
-> +                remote-endpoint = <&rsnd_endpoint>;
-> +            };
-> +        };
-> +    };
-> -- 
-> 2.25.1
-> 

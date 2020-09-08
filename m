@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3B8612616F2
-	for <lists+alsa-devel@lfdr.de>; Tue,  8 Sep 2020 19:22:58 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 03BC42616FE
+	for <lists+alsa-devel@lfdr.de>; Tue,  8 Sep 2020 19:23:51 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 74DAB16C9;
-	Tue,  8 Sep 2020 19:22:07 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 74DAB16C9
+	by alsa0.perex.cz (Postfix) with ESMTPS id 8D11116A4;
+	Tue,  8 Sep 2020 19:23:00 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8D11116A4
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1599585777;
-	bh=433yfRoWVWryEQg8hs/2ulN02niAHi18hwgI4BieteI=;
+	s=default; t=1599585830;
+	bh=FRrR/gm873YhEFtx/MNcIgfeGL7tH6eKVHNpb/jaGXc=;
 	h=Date:From:To:In-Reply-To:References:Subject:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=o+amtH7i0D3wXAXLjVTRqBrqwxZ2LAxSbz03mq3GP0CuhgqcIdkjzmZ0W+IPpZQmb
-	 MQs33MZI/yYlGRKEvfNPdJRcB501tU9GaxAMvqKeMlfIzCUgQsqNzpmV3c0jC7z3ZF
-	 OcsfpQ/K9Iko28gvWHWllFHgCwAHRtaOQK3zRM3M=
+	b=DL9IC/a5C5Ls7CZyYs8KAdg9hVajFjD+Mi4qwJtoEcb4uV2yAaUM6NqZ8YmN1vhFz
+	 eSegAUkxcL/GS1jmDrgaTPlzYz5t35yr9BHyxHt+UTaSljmtgg8YpIK2iKE2Cb6XHm
+	 ub11scqtX4tE/R4VjaSci4VywyuUBz67Elj4Jt5U=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 8C933F800FD;
-	Tue,  8 Sep 2020 19:21:16 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id EBFA3F8029B;
+	Tue,  8 Sep 2020 19:21:20 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 223BAF8026F; Tue,  8 Sep 2020 19:21:14 +0200 (CEST)
+ id 30D49F802C3; Tue,  8 Sep 2020 19:21:19 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -34,32 +34,32 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id C2C2DF8015F
- for <alsa-devel@alsa-project.org>; Tue,  8 Sep 2020 19:21:11 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C2C2DF8015F
+ by alsa1.perex.cz (Postfix) with ESMTPS id 7F493F8026F
+ for <alsa-devel@alsa-project.org>; Tue,  8 Sep 2020 19:21:16 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7F493F8026F
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="VLhBb9p/"
+ header.b="fn3Kv+Em"
 Received: from localhost (fw-tnat.cambridge.arm.com [217.140.96.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 58E1020768;
- Tue,  8 Sep 2020 17:21:09 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id 4FA76206B5;
+ Tue,  8 Sep 2020 17:21:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1599585669;
- bh=433yfRoWVWryEQg8hs/2ulN02niAHi18hwgI4BieteI=;
+ s=default; t=1599585674;
+ bh=FRrR/gm873YhEFtx/MNcIgfeGL7tH6eKVHNpb/jaGXc=;
  h=Date:From:To:Cc:In-Reply-To:References:Subject:From;
- b=VLhBb9p/sivJUYkANXKukUGp/30WFb806IyMFX7vN65qHwUQH1fH9d9OsFI/dV4cp
- hczKfc0lmVZ+d93cDGqveF1eCHZqvlZ2SQMX813XLl9+3eC7GHCNAoknhCUOClsYV2
- C6x9v4flIm6X3/hA6xC6dfakT6kh3WOJ5tz7iREo=
-Date: Tue, 08 Sep 2020 18:20:25 +0100
+ b=fn3Kv+EmHzWP8d/vhtTEA8W49k911Mm62NoROvnxuwg4OQZfAKuvGB3XI+OishuJW
+ a+Hyc9jco9ni3lYWXg/rx/pXZglieAL+mr3K0XJZzKTCgo/1rrH4/N/YvMTHZ2icCc
+ zLM8uSg49lPIHXkzE8oBzfImMlvxeYJDlnL3Rztk=
+Date: Tue, 08 Sep 2020 18:20:30 +0100
 From: Mark Brown <broonie@kernel.org>
 To: lgirdwood@gmail.com, Peter Ujfalusi <peter.ujfalusi@ti.com>
-In-Reply-To: <20200908112526.9853-1-peter.ujfalusi@ti.com>
-References: <20200908112526.9853-1-peter.ujfalusi@ti.com>
-Subject: Re: [PATCH] ASoC: ti: Kconfig: Allow the j721e machine driver to be
- used no K3 platform
-Message-Id: <159958562064.16576.17968851366680832500.b4-ty@kernel.org>
+In-Reply-To: <20200908113204.12012-1-peter.ujfalusi@ti.com>
+References: <20200908113204.12012-1-peter.ujfalusi@ti.com>
+Subject: Re: [PATCH v2] ASoC: ti: Kconfig: Allow the j721e machine driver to
+ be used on K3 platform
+Message-Id: <159958562064.16576.385341776960852845.b4-ty@kernel.org>
 Cc: alsa-devel@alsa-project.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
@@ -76,9 +76,9 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Tue, 8 Sep 2020 14:25:26 +0300, Peter Ujfalusi wrote:
+On Tue, 8 Sep 2020 14:32:04 +0300, Peter Ujfalusi wrote:
 > The initial machine driver supports only j721e-cpb and the ivi addon, but
-> other EVMs for different K3 SoC can have similar audio support which can
+> other EVMs for different K3 SoC can have similar audio setup which can
 > be supported by the driver with small or no modification.
 
 Applied to

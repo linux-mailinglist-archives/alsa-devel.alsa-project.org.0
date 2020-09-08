@@ -2,92 +2,80 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 174EC262138
-	for <lists+alsa-devel@lfdr.de>; Tue,  8 Sep 2020 22:35:59 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E4ED12621A4
+	for <lists+alsa-devel@lfdr.de>; Tue,  8 Sep 2020 23:01:34 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C71B01710;
-	Tue,  8 Sep 2020 22:35:07 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C71B01710
+	by alsa0.perex.cz (Postfix) with ESMTPS id C31271705;
+	Tue,  8 Sep 2020 23:00:43 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C31271705
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1599597357;
-	bh=oeMukUNCsEcmOKOZa4BXbmL4i8tsEpncJUS7M3Q9Uz4=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1599598893;
+	bh=MMv22+8LyKFQH/GdAoYxO5omZAeLiWgLcE7EprHmXGQ=;
+	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=s/pUE+fRH+lUuZd0PW5nBbhCjKFKZrFSgiK1uGlFwLx0yijco1eh2xKm2y2Z7jQ4n
-	 6IlfIEmKY2sP9FwKGzvMJX/f39bUiWdWfjoEOrx3/EUGmkGbgRiBZo4FVY1abfL7FQ
-	 qtjly8LKrIv7wAmWnNmAK/ADXZQK9EvI4/y12FTs=
+	b=d7DpltKvzvk0ZnNtckmzedk3VwNU79pVJ3dpwy18jBA0kZBA1nF/s5xISTnTPF26/
+	 eNWqZ3W3a2RRtj83UsMJRa1qMUYfflsLVIyGLzM+ho7kA+ioXWA9JKHYs2shWZyq9d
+	 nko7Eqj/V2L/fAv1NoNDlzKSyNt12IEojNMEFe/w=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id DC7ADF8015F;
-	Tue,  8 Sep 2020 22:34:16 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id D7D9AF8026F;
+	Tue,  8 Sep 2020 22:59:52 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id D06C8F80264; Tue,  8 Sep 2020 22:34:14 +0200 (CEST)
+ id 118FEF80264; Tue,  8 Sep 2020 22:59:51 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.7 required=5.0 tests=FREEMAIL_ENVFROM_END_DIGIT,
- FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,
- RCVD_IN_MSPIKE_H2,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from mail-il1-f194.google.com (mail-il1-f194.google.com
- [209.85.166.194])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=-1.6 required=5.0 tests=NICE_REPLY_A,SPF_HELO_NONE,
+ SPF_NONE autolearn=disabled version=3.4.0
+Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id A115DF800FD
- for <alsa-devel@alsa-project.org>; Tue,  8 Sep 2020 22:34:04 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A115DF800FD
-Received: by mail-il1-f194.google.com with SMTP id t16so165511ilf.13
- for <alsa-devel@alsa-project.org>; Tue, 08 Sep 2020 13:34:04 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to;
- bh=gleTakc4Nn6mTISuQkejPMu6ISZTqy+j8/Bxw7G61oU=;
- b=Ckqs5LfPCPjXJ+KBrMovnttJMvUn+Gc3w7AoJaxVro0XNhlH9xGhz9hfiSOkAyaYUm
- lLcUjweFCodwObkgBs2vk6czG1II+A24tIQDrvXnrR56oGo2jrFzPrgUvemh5jjbw/5T
- 5iSoEBnekbgdFJX8mDwUz/t9M98LDFJeLjFD0eRxGAjbodb0u3A8pH2kcNb62BQuqJnA
- PePjMIKcboG2W4GdpV4jVKyo8+whn5t7FfZ0nMCIzZ2YnP6UHGxKDh7i6d3MbFRTPEz2
- izfpeR1AiejE9e5YCwXMDAfCagKscRTALZ6tVfJy5wiSJR1kW36FT5WsyQEDphEUhHGK
- dAZw==
-X-Gm-Message-State: AOAM533Lwk9jjYvDaUSlAGZFhczxgSB8OaTTlO+hbxwlgZOsMddo3lHS
- r/p9Soh0lpSBFRNeyiiXEQ==
-X-Google-Smtp-Source: ABdhPJzCHoj/ZvrJj7t400J/VsMUBFrd75e5tcT3ln+3OZZL67b775TNHUe3xKteGxNcW5bAkZ322A==
-X-Received: by 2002:a92:c049:: with SMTP id o9mr483817ilf.193.1599597242634;
- Tue, 08 Sep 2020 13:34:02 -0700 (PDT)
-Received: from xps15 ([64.188.179.251])
- by smtp.gmail.com with ESMTPSA id k14sm217738ioa.7.2020.09.08.13.33.59
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 08 Sep 2020 13:34:02 -0700 (PDT)
-Received: (nullmailer pid 868500 invoked by uid 1000);
- Tue, 08 Sep 2020 20:33:57 -0000
-Date: Tue, 8 Sep 2020 14:33:57 -0600
-From: Rob Herring <robh@kernel.org>
-To: Cheng-Yi Chiang <cychiang@chromium.org>
-Subject: Re: [PATCH v7 2/3] ASoC: qcom: dt-bindings: Add sc7180 machine
- bindings
-Message-ID: <20200908203357.GA861143@bogus>
-References: <20200907100039.1731457-1-cychiang@chromium.org>
- <20200907100039.1731457-3-cychiang@chromium.org>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 3E41BF8010B
+ for <alsa-devel@alsa-project.org>; Tue,  8 Sep 2020 22:59:46 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3E41BF8010B
+IronPort-SDR: 6gFk/Ae0bVnl9X29qIJJQOvpkpJ+hFDEdQSLp6KvHK5BONQTHfX/9zBIbpImU8fMtu/lSLb08m
+ 3D17ZN+GoEYQ==
+X-IronPort-AV: E=McAfee;i="6000,8403,9738"; a="157501701"
+X-IronPort-AV: E=Sophos;i="5.76,407,1592895600"; d="scan'208";a="157501701"
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from fmsmga006.fm.intel.com ([10.253.24.20])
+ by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 08 Sep 2020 13:59:43 -0700
+IronPort-SDR: y6hZDRdeztSDI9qEbOW7puJWdEwvMxonv1KDJltNB5uCftszS+MGKmKHSNxRlJQ8kXrPsfdSYF
+ rHqN8Ota+BTQ==
+X-IronPort-AV: E=Sophos;i="5.76,407,1592895600"; d="scan'208";a="504506013"
+Received: from mschen-mobl2.amr.corp.intel.com (HELO [10.213.174.122])
+ ([10.213.174.122])
+ by fmsmga006-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 08 Sep 2020 13:59:42 -0700
+Subject: Re: [PATCH V3] ASoC: Intel: boards: Use FS as nau8825 sysclk in
+ nau88125_* machine
+To: Radoslaw Biernacki <rad@semihalf.com>,
+ Liam Girdwood <liam.r.girdwood@linux.intel.com>,
+ Jie Yang <yang.jie@linux.intel.com>, Jaroslav Kysela <perex@perex.cz>,
+ Takashi Iwai <tiwai@suse.com>
+References: <20200908200314.22771-1-rad@semihalf.com>
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Message-ID: <50db252a-1274-f681-d5e7-e7fba839c0ee@linux.intel.com>
+Date: Tue, 8 Sep 2020 15:59:40 -0500
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.10.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20200907100039.1731457-3-cychiang@chromium.org>
-Cc: Taniya Das <tdas@codeaurora.org>, alsa-devel@alsa-project.org,
- Banajit Goswami <bgoswami@codeaurora.org>, Heiko Stuebner <heiko@sntech.de>,
- Takashi Iwai <tiwai@suse.com>, Rohit kumar <rohitkr@codeaurora.org>,
- Patrick Lai <plai@codeaurora.org>, linux-rockchip@lists.infradead.org,
- Andy Gross <agross@kernel.org>, dgreid@chromium.org,
- devicetree@vger.kernel.org, tzungbi@chromium.org,
- Stephan Gerhold <stephan@gerhold.net>, linux-arm-msm@vger.kernel.org,
- Mark Brown <broonie@kernel.org>, linux-mediatek@lists.infradead.org,
- Matthias Brugger <matthias.bgg@gmail.com>,
- Bjorn Andersson <bjorn.andersson@linaro.org>,
- linux-arm-kernel@lists.infradead.org, dianders@chromium.org,
- Liam Girdwood <lgirdwood@gmail.com>, linux-kernel@vger.kernel.org,
- Srini Kandagatla <srinivas.kandagatla@linaro.org>
+In-Reply-To: <20200908200314.22771-1-rad@semihalf.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
+Cc: Lech Betlej <Lech.Betlej@intel.com>, alsa-devel@alsa-project.org,
+ Todd Broch <tbroch@google.com>, Harshapriya <harshapriya.n@intel.com>,
+ Alex Levin <levinale@google.com>, John Hsu <KCHSU0@nuvoton.com>,
+ linux-kernel@vger.kernel.org, michal.sienkiewicz@intel.com,
+ Ben Zhang <benzh@chromium.org>, Mac Chiang <mac.chiang@intel.com>,
+ Marcin Wojtas <mw@semihalf.com>,
+ Vamshi Krishna <vamshi.krishna.gopal@intel.com>, Yong Zhi <yong.zhi@intel.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -103,61 +91,76 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Mon, Sep 07, 2020 at 06:00:38PM +0800, Cheng-Yi Chiang wrote:
-> Add devicetree bindings documentation file for sc7180 sound card.
-> 
-> Signed-off-by: Cheng-Yi Chiang <cychiang@chromium.org>
-> ---
->  .../bindings/sound/qcom,sc7180.yaml           | 143 ++++++++++++++++++
->  1 file changed, 143 insertions(+)
->  create mode 100644 Documentation/devicetree/bindings/sound/qcom,sc7180.yaml
-> 
-> diff --git a/Documentation/devicetree/bindings/sound/qcom,sc7180.yaml b/Documentation/devicetree/bindings/sound/qcom,sc7180.yaml
-> new file mode 100644
-> index 000000000000..ae809346ca80
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/sound/qcom,sc7180.yaml
-> @@ -0,0 +1,143 @@
-> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/sound/qcom,sc7180.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: Qualcomm Technologies Inc. SC7180 ASoC sound card driver
-> +
-> +maintainers:
-> +  - Rohit kumar <rohitkr@codeaurora.org>
-> +  - Cheng-Yi Chiang <cychiang@chromium.org>
-> +
-> +description:
-> +  This binding describes the SC7180 sound card which uses LPASS for audio.
-> +
-> +properties:
-> +  compatible:
-> +    const: qcom,sc7180-sndcard
-> +
-> +  audio-routing:
-> +    $ref: /schemas/types.yaml#/definitions/non-unique-string-array
-> +    description:
-> +      A list of the connections between audio components. Each entry is a
-> +      pair of strings, the first being the connection's sink, the second
-> +      being the connection's source.
-> +
-> +  model:
-> +    $ref: /schemas/types.yaml#/definitions/string
-> +    description: User specified audio sound card name
-> +
-> +  headset-jack:
-> +    $ref: /schemas/types.yaml#/definitions/phandle
-> +    description: phandle of the codec for headset detection
-> +
-> +  hdmi-jack:
-> +    $ref: /schemas/types.yaml#/definitions/phandle
-> +    description: phandle of the codec for hdmi jack detection
+Sorry, I couldn't resist adding three more comments to improve further:
 
-You already have links to these devices. Why duplicate it here? 
+> -static int skylake_nau8825_hw_params(struct snd_pcm_substream *substream,
+> -	struct snd_pcm_hw_params *params)
+> +static int skylake_nau8825_trigger(struct snd_pcm_substream *substream, int cmd)
+>   {
+>   	struct snd_soc_pcm_runtime *rtd = substream->private_data;
+> +	struct snd_pcm_runtime *runtime = substream->runtime;
+>   	struct snd_soc_dai *codec_dai = asoc_rtd_to_codec(rtd, 0);
+> -	int ret;
+> -
+> -	ret = snd_soc_dai_set_sysclk(codec_dai,
+> -			NAU8825_CLK_MCLK, 24000000, SND_SOC_CLOCK_IN);
+> +	int ret = 0;
+>   
+> -	if (ret < 0)
+> -		dev_err(rtd->dev, "snd_soc_dai_set_sysclk err = %d\n", ret);
+> +	switch (cmd) {
+> +	case SNDRV_PCM_TRIGGER_START:
+> +		ret = snd_soc_dai_set_sysclk(codec_dai, NAU8825_CLK_FLL_FS, 0,
+> +					     SND_SOC_CLOCK_IN);
 
-What if you had 2 headsets? This doesn't scale.
+Maybe a simple comment to explain what this does?
 
-Rob
+> +		if (ret < 0) {
+> +			dev_err(codec_dai->dev, "can't set FS clock %d\n", ret);
+> +			break;
+> +		}
+> +		ret = snd_soc_dai_set_pll(codec_dai, 0, 0, runtime->rate,
+> +					  runtime->rate * 256);
+> +		if (ret < 0)
+> +			dev_err(codec_dai->dev, "can't set FLL: %d\n", ret);
+> +		break;
+
+You could replace this by a /* fallthrough */ statement?
+
+> +	case SNDRV_PCM_TRIGGER_RESUME:
+> +		ret = snd_soc_dai_set_pll(codec_dai, 0, 0, runtime->rate,
+> +					  runtime->rate * 256);
+> +		if (ret < 0)
+> +			dev_err(codec_dai->dev, "can't set FLL: %d\n", ret);
+> +		break;
+> +	}
+
+> +static int __maybe_unused skylake_nau8825_resume_post(struct snd_soc_card *card)
+> +{
+> +	struct snd_soc_dai *codec_dai;
+> +
+> +	codec_dai = snd_soc_card_get_codec_dai(card, SKL_NUVOTON_CODEC_DAI);
+> +	if (!codec_dai) {
+> +		dev_err(card->dev, "Codec dai not found\n");
+> +		return -EIO;
+> +	}
+> +
+> +	dev_dbg(codec_dai->dev, "playback_active:%d playback_widget->active:%d codec_dai->rate:%d\n",
+> +		codec_dai->stream_active[SNDRV_PCM_STREAM_PLAYBACK],
+> +		codec_dai->playback_widget->active,
+> +		codec_dai->rate);
+> +
+> +	if (codec_dai->stream_active[SNDRV_PCM_STREAM_PLAYBACK] &&
+> +	    codec_dai->playback_widget->active)
+> +		snd_soc_dai_set_sysclk(codec_dai, NAU8825_CLK_FLL_FS, 0,
+> +				       SND_SOC_CLOCK_IN);
+
+And that part is also worthy of a comment, e.g. why not do this as part 
+of the TRIGGER_RESUME and why only for playback?
+
+
+> --- a/sound/soc/intel/boards/skl_nau88l25_ssm4567.c
+> +++ b/sound/soc/intel/boards/skl_nau88l25_ssm4567.c
+
+same comments for this other machine driver.
+

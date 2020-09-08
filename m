@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id CAAC926110A
-	for <lists+alsa-devel@lfdr.de>; Tue,  8 Sep 2020 14:01:21 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 23ED5261110
+	for <lists+alsa-devel@lfdr.de>; Tue,  8 Sep 2020 14:05:28 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 66A05176C;
-	Tue,  8 Sep 2020 14:00:31 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 66A05176C
+	by alsa0.perex.cz (Postfix) with ESMTPS id 9D380175C;
+	Tue,  8 Sep 2020 14:04:37 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9D380175C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1599566481;
-	bh=+2bvQTYaEMj1r0d1YkcFRCxnubM+u38i1mAVjLZlk4g=;
-	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
+	s=default; t=1599566727;
+	bh=q2QxXkEBBSwufOXUF4prFgslxCzFvzOU3WELUM8zvAw=;
+	h=Subject:From:To:References:Date:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=RJS0Dvg+klWV9a3qWS4p6oHTi/RX1UpVvo1QfekOJu5QaBk3eYMxJ2ZcN+MfI+Cl0
-	 6Mps1jlaAB2Y62FGYOsNH2pXBGzB9diU0LjXNnksNd4KaxoOpeGfSF8aUf2MeEUWIc
-	 3WTTVIA9XWaDrClSN/kNxzOwZmt9LYYA9uaWnUZo=
+	b=Ug+pFQQElSMSCrSeP9ag/yd47p/r/yIjJO46t6F75qTK7fvszq99Vl9Igu34f1HGp
+	 ajHV+zPfm63fMZP/EQIrI5PCKbu2nrhK+7ihjLycuYnTfxLQCrwxFlBcSuWmeqOC78
+	 4C1jpltjt1xyTVJGjRYRsM2mb9VT+CxmzQlgFDLA=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id E6667F8015F;
-	Tue,  8 Sep 2020 14:00:06 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id AC0F0F8026F;
+	Tue,  8 Sep 2020 14:03:46 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 8FEF1F80272; Tue,  8 Sep 2020 14:00:00 +0200 (CEST)
+ id B99B7F80264; Tue,  8 Sep 2020 14:03:43 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-1.5 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -35,49 +35,50 @@ X-Spam-Status: No, score=-1.5 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 Received: from fllv0016.ext.ti.com (fllv0016.ext.ti.com [198.47.19.142])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 63697F8015F
- for <alsa-devel@alsa-project.org>; Tue,  8 Sep 2020 13:59:54 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 63697F8015F
+ by alsa1.perex.cz (Postfix) with ESMTPS id 77BDEF800FD
+ for <alsa-devel@alsa-project.org>; Tue,  8 Sep 2020 14:03:32 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 77BDEF800FD
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b="xlLdRIqa"
+ dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b="ia2HCvqT"
 Received: from fllv0034.itg.ti.com ([10.64.40.246])
- by fllv0016.ext.ti.com (8.15.2/8.15.2) with ESMTP id 088Bxpk5003236;
- Tue, 8 Sep 2020 06:59:51 -0500
+ by fllv0016.ext.ti.com (8.15.2/8.15.2) with ESMTP id 088C3VsW004198;
+ Tue, 8 Sep 2020 07:03:31 -0500
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com;
- s=ti-com-17Q1; t=1599566391;
- bh=GHYJnMapkkdtwKbXaCf924QThmz/JpeI2hL/70NG150=;
- h=Subject:To:CC:References:From:Date:In-Reply-To;
- b=xlLdRIqazwVVbzo7UeRzA2/7sMEVFq7YrBOd3qDrFyS4bBFAcKmwBXV2FraRpCHE3
- W8efGNVqWeo3YfMaB6LbtIvI/DNgAkYD8fuXwlUwLsRC/jyyDYbCSPxcKlt6PCzZzF
- yVvYn/xstctyldCJuCRHc9cqh/M+TvJH3haidCfY=
+ s=ti-com-17Q1; t=1599566611;
+ bh=nsqPY6o4grvE2pz2lannxuY5WsjPIahg4+RoCYp/mc4=;
+ h=Subject:From:To:CC:References:Date:In-Reply-To;
+ b=ia2HCvqTdT2aSCL0/porgUy55z/i+UNq4fGm51IBwnjCi49OkizTxLE8QrQf5pLhG
+ tNYc8imMXyJknGPW8h8Bjtcf/u01AeRfbs9KUtXdyT/+siXEYWnKXnxY9GGFMd0Cgj
+ bZSQ1blN0Ra3RX6g1cY8xR/cDa84TcLT/G/RdfnA=
 Received: from DFLE115.ent.ti.com (dfle115.ent.ti.com [10.64.6.36])
- by fllv0034.itg.ti.com (8.15.2/8.15.2) with ESMTPS id 088BxpDV112728
+ by fllv0034.itg.ti.com (8.15.2/8.15.2) with ESMTPS id 088C3V75118701
  (version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=FAIL);
- Tue, 8 Sep 2020 06:59:51 -0500
-Received: from DFLE104.ent.ti.com (10.64.6.25) by DFLE115.ent.ti.com
+ Tue, 8 Sep 2020 07:03:31 -0500
+Received: from DFLE110.ent.ti.com (10.64.6.31) by DFLE115.ent.ti.com
  (10.64.6.36) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.1979.3; Tue, 8 Sep
- 2020 06:59:51 -0500
-Received: from lelv0327.itg.ti.com (10.180.67.183) by DFLE104.ent.ti.com
- (10.64.6.25) with Microsoft SMTP Server (version=TLS1_2,
+ 2020 07:03:31 -0500
+Received: from lelv0327.itg.ti.com (10.180.67.183) by DFLE110.ent.ti.com
+ (10.64.6.31) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.1979.3 via
- Frontend Transport; Tue, 8 Sep 2020 06:59:51 -0500
+ Frontend Transport; Tue, 8 Sep 2020 07:03:31 -0500
 Received: from [192.168.2.6] (ileax41-snat.itg.ti.com [10.172.224.153])
- by lelv0327.itg.ti.com (8.15.2/8.15.2) with ESMTP id 088BxmR5107470;
- Tue, 8 Sep 2020 06:59:49 -0500
+ by lelv0327.itg.ti.com (8.15.2/8.15.2) with ESMTP id 088C3SxG114548;
+ Tue, 8 Sep 2020 07:03:29 -0500
 Subject: Re: [PATCH 1/2] ASoC: tlv320adcx140: Avoid accessing invalid
  gpio_reset
+From: Peter Ujfalusi <peter.ujfalusi@ti.com>
 To: Camel Guo <camel.guo@axis.com>, <lgirdwood@gmail.com>,
  <broonie@kernel.org>, <tiwai@suse.com>, <dmurphy@ti.com>
 References: <20200908083521.14105-1-camel.guo@axis.com>
-From: Peter Ujfalusi <peter.ujfalusi@ti.com>
+ <7bb93489-dbd5-d1a5-5df6-e62470bd2252@ti.com>
 X-Pep-Version: 2.0
-Message-ID: <7bb93489-dbd5-d1a5-5df6-e62470bd2252@ti.com>
-Date: Tue, 8 Sep 2020 14:59:48 +0300
+Message-ID: <e791162b-1292-e1c4-3fca-b8936beeeb45@ti.com>
+Date: Tue, 8 Sep 2020 15:03:28 +0300
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
  Thunderbird/68.12.0
 MIME-Version: 1.0
-In-Reply-To: <20200908083521.14105-1-camel.guo@axis.com>
+In-Reply-To: <7bb93489-dbd5-d1a5-5df6-e62470bd2252@ti.com>
 Content-Type: text/plain; charset="utf-8"
 Content-Language: en-US
 Content-Transfer-Encoding: quoted-printable
@@ -99,49 +100,61 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+Hi,
 
-
-On 08/09/2020 11.35, Camel Guo wrote:
-> From: Camel Guo <camelg@axis.com>
+On 08/09/2020 14.59, Peter Ujfalusi wrote:
 >=20
-> When gpio_reset is not well defined in devicetree, the
-> adcx140->gpio_reset is an error code instead of NULL. In this case,
-> adcx140->gpio_reset should not be used by adcx140_reset. This commit
-> sets it NULL to avoid accessing an invalid variable.
 >=20
-> Signed-off-by: Camel Guo <camelg@axis.com>
-> ---
->  sound/soc/codecs/tlv320adcx140.c | 4 +++-
->  1 file changed, 3 insertions(+), 1 deletion(-)
+> On 08/09/2020 11.35, Camel Guo wrote:
+>> From: Camel Guo <camelg@axis.com>
+>>
+>> When gpio_reset is not well defined in devicetree, the
+>> adcx140->gpio_reset is an error code instead of NULL. In this case,
+>> adcx140->gpio_reset should not be used by adcx140_reset. This commit
+>> sets it NULL to avoid accessing an invalid variable.
+>>
+>> Signed-off-by: Camel Guo <camelg@axis.com>
+>> ---
+>>  sound/soc/codecs/tlv320adcx140.c | 4 +++-
+>>  1 file changed, 3 insertions(+), 1 deletion(-)
+>>
+>> diff --git a/sound/soc/codecs/tlv320adcx140.c b/sound/soc/codecs/tlv32=
+0adcx140.c
+>> index 7ae6ec374be3..597dd1062943 100644
+>> --- a/sound/soc/codecs/tlv320adcx140.c
+>> +++ b/sound/soc/codecs/tlv320adcx140.c
+>> @@ -984,8 +984,10 @@ static int adcx140_i2c_probe(struct i2c_client *i=
+2c,
+>> =20
+>>  	adcx140->gpio_reset =3D devm_gpiod_get_optional(adcx140->dev,
+>>  						      "reset", GPIOD_OUT_LOW);
+>> -	if (IS_ERR(adcx140->gpio_reset))
+>> +	if (IS_ERR(adcx140->gpio_reset) || adcx140->gpio_reset =3D=3D NULL) =
+{
+>>  		dev_info(&i2c->dev, "Reset GPIO not defined\n");
+>> +		adcx140->gpio_reset =3D NULL;
 >=20
-> diff --git a/sound/soc/codecs/tlv320adcx140.c b/sound/soc/codecs/tlv320=
-adcx140.c
-> index 7ae6ec374be3..597dd1062943 100644
-> --- a/sound/soc/codecs/tlv320adcx140.c
-> +++ b/sound/soc/codecs/tlv320adcx140.c
-> @@ -984,8 +984,10 @@ static int adcx140_i2c_probe(struct i2c_client *i2=
-c,
-> =20
->  	adcx140->gpio_reset =3D devm_gpiod_get_optional(adcx140->dev,
->  						      "reset", GPIOD_OUT_LOW);
-> -	if (IS_ERR(adcx140->gpio_reset))
-> +	if (IS_ERR(adcx140->gpio_reset) || adcx140->gpio_reset =3D=3D NULL) {=
+> the correct fix is to:
+> 	dev_err(&i2c->dev, "Reset GPIO not defined\n");
 
->  		dev_info(&i2c->dev, "Reset GPIO not defined\n");
-> +		adcx140->gpio_reset =3D NULL;
+no need to print, I think gpio core will do that.
 
-the correct fix is to:
-	dev_err(&i2c->dev, "Reset GPIO not defined\n");
-	return PTR_ERR(adcx140->gpio_reset);
-
-If the reset GPIO is specified and you get error when requesting it as
-optional, there is a reason for that.
-For example deferred probing.
-
-> +	}
-> =20
->  	adcx140->supply_areg =3D devm_regulator_get_optional(adcx140->dev,
->  							   "areg");
+> 	return PTR_ERR(adcx140->gpio_reset);
+>=20
+> If the reset GPIO is specified and you get error when requesting it as
+> optional, there is a reason for that.
+> For example deferred probing.
+>=20
+>> +	}
+>> =20
+>>  	adcx140->supply_areg =3D devm_regulator_get_optional(adcx140->dev,
+>>  							   "areg");
+>>
+>=20
+> - P=C3=A9ter
+>=20
+> Texas Instruments Finland Oy, Porkkalankatu 22, 00180 Helsinki.
+> Y-tunnus/Business ID: 0615521-4. Kotipaikka/Domicile: Helsinki
 >=20
 
 - P=C3=A9ter

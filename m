@@ -2,73 +2,90 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4FBFC26129F
-	for <lists+alsa-devel@lfdr.de>; Tue,  8 Sep 2020 16:24:22 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8BE48261267
+	for <lists+alsa-devel@lfdr.de>; Tue,  8 Sep 2020 16:11:24 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id DAA271792;
-	Tue,  8 Sep 2020 16:23:31 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DAA271792
+	by alsa0.perex.cz (Postfix) with ESMTPS id 52344175E;
+	Tue,  8 Sep 2020 16:10:33 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 52344175E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1599575061;
-	bh=d2WoSnF+sJyfhm362v/0Te7p052EtZ6aCcVs+WFCdRE=;
-	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=CB4yCFecB/8rEIZwbIqSfk9x18AKZ0eEH+Q4b3el3xwJlgVa+k0TYTnQEywpiNYJj
-	 iwE8SfOHCrCz0s/EptTVvLazJbrWML9eN83crpble1TK7X0sdCc0aRBKZy56RXdvYS
-	 mXTLcxgT5FPhlbEDd6sEpgZHTCsPMFjKDdh/XDQs=
+	s=default; t=1599574283;
+	bh=ukUJuFjgUyOo1gDEv9Qkiw/fCabzlJI3AUIJfVzFzRk=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=MDmC7Ze4psYqeKsR8N2fRBaHQ7qF3ca/eozUFBrTcbsuTuG+oQNmcvlP+IO7LkoJ0
+	 qc/h8tSwAehHA4k7Aqh9PuC4S5ROXNavW7TrVLeYBMJ5/sOMSp7VpYFoViEgHtbvKV
+	 lTpWL0dTpT4qXTkBJ1fh0JDbz0oCwH3ZyvrCvKNM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 29F89F802C4;
-	Tue,  8 Sep 2020 16:21:52 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 57C74F8010B;
+	Tue,  8 Sep 2020 16:09:42 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 2CFCCF80277; Tue,  8 Sep 2020 16:21:47 +0200 (CEST)
+ id E36FFF80264; Tue,  8 Sep 2020 16:09:39 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-1.6 required=5.0 tests=NICE_REPLY_A,
- RCVD_IN_MSPIKE_H3, RCVD_IN_MSPIKE_WL, SPF_HELO_NONE,
- SPF_NONE autolearn=disabled version=3.4.0
-Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mail-qv1-xf44.google.com (mail-qv1-xf44.google.com
+ [IPv6:2607:f8b0:4864:20::f44])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 55188F801F2
- for <alsa-devel@alsa-project.org>; Tue,  8 Sep 2020 16:21:41 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 55188F801F2
-IronPort-SDR: khL4NL3zGUE8rwxPAxOTJnlr6aN5KdEiKM6Zr4VVsKI/OUn6OPGbQMaQAG5z4xf+JT3Jh1Gpyt
- LulmWH/UV9pg==
-X-IronPort-AV: E=McAfee;i="6000,8403,9737"; a="159106187"
-X-IronPort-AV: E=Sophos;i="5.76,406,1592895600"; d="scan'208";a="159106187"
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from orsmga004.jf.intel.com ([10.7.209.38])
- by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 08 Sep 2020 07:21:37 -0700
-IronPort-SDR: Jlr6cLUOaTW1MGk/PTu3PoKiu7Df7IKWpl/6fWCb0o3Mws6srCxC5FJRdz4OpuKICxzUP6/TVR
- RLqGwXD6ExFQ==
-X-IronPort-AV: E=Sophos;i="5.76,406,1592895600"; d="scan'208";a="448802366"
-Received: from mgarber-mobl1.amr.corp.intel.com (HELO [10.212.179.134])
- ([10.212.179.134])
- by orsmga004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 08 Sep 2020 07:21:36 -0700
-Subject: Re: [RFC PATCH 1/3] topology: use inclusive language for bclk
-To: Takashi Iwai <tiwai@suse.de>
-References: <20200903201024.1109914-1-pierre-louis.bossart@linux.intel.com>
- <20200903201024.1109914-2-pierre-louis.bossart@linux.intel.com>
- <s5hd03152mr.wl-tiwai@suse.de>
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Message-ID: <deaae562-80f2-a934-d551-ac5d9a047bbf@linux.intel.com>
-Date: Tue, 8 Sep 2020 08:39:13 -0500
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.10.0
+ by alsa1.perex.cz (Postfix) with ESMTPS id 4D73AF8010B
+ for <alsa-devel@alsa-project.org>; Tue,  8 Sep 2020 16:09:32 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4D73AF8010B
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=marek-ca.20150623.gappssmtp.com
+ header.i=@marek-ca.20150623.gappssmtp.com header.b="DgR0IsQj"
+Received: by mail-qv1-xf44.google.com with SMTP id j10so7826871qvk.11
+ for <alsa-devel@alsa-project.org>; Tue, 08 Sep 2020 07:09:32 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=marek-ca.20150623.gappssmtp.com; s=20150623;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=kA7YBuYMq9b3mZzCv9QQfgvbcIlMMupkbIGoGou1wKo=;
+ b=DgR0IsQjxrfz3z5ThPdVC/EGBKu1Cil2pH0g/Pfa0AUeKE5hMigysm6ESL863n4gSW
+ ZFelUzvaCcKKt+R+vd3kVgnbR87hZPYasZ9DG1QkrhGu9kBZy1QhQWT1dbmJhLRleTl6
+ 0bqm2gKnliloULfvqnwEcNpa2e8VSxe8qQGwMAz1MDJLWFwu6nLPpEiIFrJJyq7wMvdd
+ CMZy7v1PRgsLtziIdbnzOTSWT9OkvrhZsvc03OxKLr7HCwlv1ZNdBnZh8+oQeT8psZ3E
+ Ki7Yaz6n+VL+ZMiMJDEhBz7VDZ0OFChwHRZPHUb+QJ3GeH0h7aZb4l/g3U3b0Ub3y2QV
+ dq4A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=kA7YBuYMq9b3mZzCv9QQfgvbcIlMMupkbIGoGou1wKo=;
+ b=HM/Ed+mNMX9e0os1mlNh0Qr2dvce55b+OqWqeBrGNg3/9aletpOSX2L3UVB2vmNajc
+ SHI/WRTg4MO92irvW6qyBiVk0AMmoueFMlvn6i2omEexehK5Q4ckwGUp6jKgP8tYdYXF
+ IUPzz9r3hvpD8AXICuJOxU+rb2h95y09/2uqGKgSekDHuSwg+kfKMVWg67z5kOKvJ3Z5
+ JfFhY5DUjaxQF6MfIZtUxP2OxIXWa+U5ySFOTNXjTQbFFJqllL9nmOURaHB7lyaiVHZO
+ AkLbnbsGoQf7aEmE2Jq2Aljhe2xw46YugzswfNapciFQPw8CIwbzzLSRs3mxuBNjhwGt
+ NRsg==
+X-Gm-Message-State: AOAM532OOS55q/bsBE/arPRvqWDc3JaokYyqzU7wGwdk5GEYIBSebZr7
+ IuEHNjjUibbYdY1VvQ1r5oRRlQ==
+X-Google-Smtp-Source: ABdhPJwDTbXK3AYjXreftxuSFRet1m2rtpDGlXYZDBJkXYObWLBHJ8LTS7P+wSPf/tV6q4xpuTYdsA==
+X-Received: by 2002:ad4:534c:: with SMTP id v12mr270078qvs.14.1599574170698;
+ Tue, 08 Sep 2020 07:09:30 -0700 (PDT)
+Received: from localhost.localdomain ([147.253.86.153])
+ by smtp.gmail.com with ESMTPSA id r24sm14447276qtm.70.2020.09.08.07.09.29
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 08 Sep 2020 07:09:30 -0700 (PDT)
+From: Jonathan Marek <jonathan@marek.ca>
+To: linux-arm-msm@vger.kernel.org
+Subject: [PATCH] soundwire: qcom: fix SLIBMUS/SLIMBUS typo
+Date: Tue,  8 Sep 2020 10:08:17 -0400
+Message-Id: <20200908140818.28373-1-jonathan@marek.ca>
+X-Mailer: git-send-email 2.26.1
 MIME-Version: 1.0
-In-Reply-To: <s5hd03152mr.wl-tiwai@suse.de>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
-Cc: alsa-devel@alsa-project.org, broonie@kernel.org
+Content-Transfer-Encoding: 8bit
+Cc: "moderated list:SOUNDWIRE SUBSYSTEM" <alsa-devel@alsa-project.org>,
+ open list <linux-kernel@vger.kernel.org>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ Bjorn Andersson <bjorn.andersson@linaro.org>, Vinod Koul <vkoul@kernel.org>,
+ Andy Gross <agross@kernel.org>, Sanyog Kale <sanyog.r.kale@intel.com>,
+ Bard Liao <yung-chuan.liao@linux.intel.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -84,26 +101,31 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+Fix slimbus case being broken thanks to a typo.
 
+Fixes: 5bd773242f75 ("soundwire: qcom: avoid dependency on CONFIG_SLIMBUS")
 
+Signed-off-by: Jonathan Marek <jonathan@marek.ca>
+---
+This should be squashed into the problematic patch if possible,
+but I'm not sure if that's possible since its already in linux-next?
 
->>   /* DAI topology FSYNC parameter
->>    * For the backwards capability, by default codec is fsync master
->> @@ -335,7 +338,7 @@ struct snd_soc_tplg_hw_config {
->>   	__u8 clock_gated;	/* SND_SOC_TPLG_DAI_CLK_GATE_ value */
->>   	__u8 invert_bclk;	/* 1 for inverted BCLK, 0 for normal */
->>   	__u8 invert_fsync;	/* 1 for inverted frame clock, 0 for normal */
->> -	__u8 bclk_master;	/* SND_SOC_TPLG_BCLK_ value */
->> +	__u8 bclk_provider;	/* SND_SOC_TPLG_BCLK_ value */
->>   	__u8 fsync_master;	/* SND_SOC_TPLG_FSYNC_ value */
->>   	__u8 mclk_direction;    /* SND_SOC_TPLG_MCLK_ value */
->>   	__le16 reserved;	/* for 32bit alignment */
-> 
-> Is it 100% compatible?  Note that the uapi/* header is a copy from the
-> kernel header, and it means that we'll change the same for the kernel,
-> too.
+ drivers/soundwire/qcom.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-It's absolutely 100% compatible by design.
-I was planning to update the kernel uapi header to align changes, but 
-the volume of code is much lower on the alsa-lib side. Will resubmit 
-with the preferred provider/consumer wording.
+diff --git a/drivers/soundwire/qcom.c b/drivers/soundwire/qcom.c
+index 100af93a5eab..c406a079d237 100644
+--- a/drivers/soundwire/qcom.c
++++ b/drivers/soundwire/qcom.c
+@@ -780,7 +780,7 @@ static int qcom_swrm_probe(struct platform_device *pdev)
+ 	if (!ctrl)
+ 		return -ENOMEM;
+ 
+-#if IS_ENABLED(CONFIG_SLIBMUS)
++#if IS_ENABLED(CONFIG_SLIMBUS)
+ 	if (dev->parent->bus == &slimbus_bus) {
+ #else
+ 	if (false) {
+-- 
+2.26.1
+

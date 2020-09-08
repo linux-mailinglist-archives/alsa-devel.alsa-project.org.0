@@ -2,84 +2,69 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A0A08261396
-	for <lists+alsa-devel@lfdr.de>; Tue,  8 Sep 2020 17:35:21 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0392B2616FC
+	for <lists+alsa-devel@lfdr.de>; Tue,  8 Sep 2020 19:23:42 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 1E8B31795;
-	Tue,  8 Sep 2020 17:34:31 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1E8B31795
+	by alsa0.perex.cz (Postfix) with ESMTPS id 6A43915E4;
+	Tue,  8 Sep 2020 19:22:51 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6A43915E4
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1599579321;
-	bh=PIsUJCHEWZm+jaskcSzu6wMDFhw0KfoBzIILP8lK1CI=;
-	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
+	s=default; t=1599585821;
+	bh=Ja9hL6KF26G2I1GvZlGJGPbFxGYhbjPc5NzEgAnOSfU=;
+	h=Date:From:To:In-Reply-To:References:Subject:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=Koa/K259iD/omi3dE0CnbYIQ1qBu5/AyI+3CLSnNszhu69FfU8H9El2Pc2ynR5usy
-	 jgdFDk+iNQFpGjN/1I3VShysOuQUQBXS5KtiP5TsUcuis1MutypenVAEIgWYfF1kfe
-	 iUVZg+RAAoTAI4r8dRUMH46LCxy23QSXjmYV2eGc=
+	b=Zh7V6UzVgrHmiSrhf9uSYgGenCgPzF3GFbSDHR5ZT3LFsMRW6OfL3P+q9rxI2y2+7
+	 X+7hRqpdm//qS3wwMnkmyt/ZV0hY3otzn8S96ru3UlFmbTm/xk7xDlbucGMfAcyQVO
+	 CNJyrqUFUti0KUNW3abGmXXvOWrqGaPhE6s9IZ+4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 390C1F801F2;
-	Tue,  8 Sep 2020 17:33:40 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id C12C0F8015F;
+	Tue,  8 Sep 2020 19:21:18 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 513F4F80264; Tue,  8 Sep 2020 17:33:37 +0200 (CEST)
+ id D956DF80264; Tue,  8 Sep 2020 19:21:14 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-1.6 required=5.0 tests=NICE_REPLY_A,
- RCVD_IN_MSPIKE_H3, RCVD_IN_MSPIKE_WL, SPF_HELO_NONE,
- SPF_NONE autolearn=disabled version=3.4.0
-Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+ DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled
+ version=3.4.0
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id C4707F800FD
+ for <alsa-devel@alsa-project.org>; Tue,  8 Sep 2020 19:21:07 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C4707F800FD
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="11JAGinw"
+Received: from localhost (fw-tnat.cambridge.arm.com [217.140.96.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 483DEF8015F
- for <alsa-devel@alsa-project.org>; Tue,  8 Sep 2020 17:33:29 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 483DEF8015F
-IronPort-SDR: WN1CAsQnJKg6vd/WjTJD+Zgp8Q/bI6S7Ge+OiTzlc56WhZcTIOqDTfCyI0aBcsMEXGczH6CKpj
- pN1HXh5LIjEQ==
-X-IronPort-AV: E=McAfee;i="6000,8403,9738"; a="176213227"
-X-IronPort-AV: E=Sophos;i="5.76,406,1592895600"; d="scan'208";a="176213227"
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from orsmga004.jf.intel.com ([10.7.209.38])
- by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 08 Sep 2020 08:33:24 -0700
-IronPort-SDR: vw0zCnDsR3rSALWyjSRKlBGHJJL1ap4kPMjhz/Azq2iirmf8bzzpQaFK6CAeQrc5BskNEvTCo8
- y98Oog5bQdZg==
-X-IronPort-AV: E=Sophos;i="5.76,406,1592895600"; d="scan'208";a="448829315"
-Received: from mgarber-mobl1.amr.corp.intel.com (HELO [10.212.179.134])
- ([10.212.179.134])
- by orsmga004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 08 Sep 2020 08:33:20 -0700
-Subject: Re: [PATCH 1/7] soundwire: bus: use property to set interrupt masks
-To: Mark Brown <broonie@kernel.org>
-References: <20200818140656.29014-1-yung-chuan.liao@linux.intel.com>
- <20200818140656.29014-2-yung-chuan.liao@linux.intel.com>
- <20200828065125.GI2639@vkoul-mobl>
- <ec5fe867-f2e4-4278-0376-e54bcdd7f94d@perex.cz>
- <20200908121133.GA5551@sirena.org.uk>
- <1950b662-ec59-6603-36c7-7a41d9e8460c@perex.cz>
- <20200908143312.GC5551@sirena.org.uk>
- <ce68a159-de6d-2d8a-c8a2-3e527cb1239e@linux.intel.com>
- <20200908151412.GE5551@sirena.org.uk>
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Message-ID: <973b1a09-40a9-1d10-4975-3f6d5a9340b1@linux.intel.com>
-Date: Tue, 8 Sep 2020 10:33:19 -0500
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.10.0
-MIME-Version: 1.0
-In-Reply-To: <20200908151412.GE5551@sirena.org.uk>
-Content-Type: text/plain; charset=windows-1252; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
-Cc: alsa-devel@alsa-project.org, tiwai@suse.de, gregkh@linuxfoundation.org,
- linux-kernel@vger.kernel.org, hui.wang@canonical.com,
- Vinod Koul <vkoul@kernel.org>, srinivas.kandagatla@linaro.org,
- ranjani.sridharan@linux.intel.com, jank@cadence.com, mengdong.lin@intel.com,
- sanyog.r.kale@intel.com, Bard Liao <yung-chuan.liao@linux.intel.com>,
- rander.wang@linux.intel.com, bard.liao@intel.com
+ by mail.kernel.org (Postfix) with ESMTPSA id 53DF8206B5;
+ Tue,  8 Sep 2020 17:21:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=default; t=1599585664;
+ bh=Ja9hL6KF26G2I1GvZlGJGPbFxGYhbjPc5NzEgAnOSfU=;
+ h=Date:From:To:Cc:In-Reply-To:References:Subject:From;
+ b=11JAGinwUI6ZZ8FvZzaS1tGG+gQBE+k1ZhDNyE/n1ots5Wq3+3T2GJ0Kx7/eRikzG
+ 63b4w5c2R85aI3LbkUfXHehRLL47tQQS6gAroQhXL+LQtFzIWuKarfG+Q9XCxmv97X
+ IVT03qfQQIp6VtlW9jUbmbLy+5F+he+Xpfm9pagM=
+Date: Tue, 08 Sep 2020 18:20:20 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Stephan Gerhold <stephan@gerhold.net>
+In-Reply-To: <20200826095141.94017-1-stephan@gerhold.net>
+References: <20200826095141.94017-1-stephan@gerhold.net>
+Subject: Re: [PATCH v2 0/2] ASoC: qcom: common: Parse auxiliary devices from
+ device tree
+Message-Id: <159958562064.16576.531530312246805516.b4-ty@kernel.org>
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
+ Banajit Goswami <bgoswami@codeaurora.org>, linux-arm-msm@vger.kernel.org,
+ Patrick Lai <plai@codeaurora.org>, Liam Girdwood <lgirdwood@gmail.com>,
+ Rob Herring <robh+dt@kernel.org>,
+ Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -95,18 +80,43 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-
-
->>>>> I don't have this patch and since I seem to get copied on quite a lot of
->>>>> soundwire only serieses I just delete them unread mostly.
+On Wed, 26 Aug 2020 11:51:39 +0200, Stephan Gerhold wrote:
+> In some cases we need to probe additional audio components that do
+> not appear as part of the DAI links specified in the device tree.
+> Examples for this are auxiliary devices such as analog amplifiers
+> or codecs.
 > 
->> We now try to use the ASoC/SoundWire prefix for cover letters to highlight
->> that a patchset changes things across two trees, does this help or do we
->> need a different way of flagging these patches?
+> The ASoC core provides a way to probe these components by adding
+> them to snd_soc_card->aux_dev.
 > 
-> I think the issue is mainly where the patch itself touches both, if some
-> of the patches mention ASoC I'll generally notice them but Soundwire is
-> one of these things I get so many random CCs for I just zone it out so
-> highlighting the individual patches would help.
+> [...]
 
-ok, we'll highlight individual patches then and better explain dependencies.
+Applied to
+
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
+
+Thanks!
+
+[1/2] ASoC: dt-bindings: qcom: Document "aux-devs" property
+      commit: cdd3b8daf26e5eb2e97b6a37dfdb83597bcbdc52
+[2/2] ASoC: qcom: common: Parse auxiliary devices from device tree
+      commit: 1b839d3e15fd48e4278c83190725467713a5b3c6
+
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
+
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
+
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
+
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
+
+Thanks,
+Mark

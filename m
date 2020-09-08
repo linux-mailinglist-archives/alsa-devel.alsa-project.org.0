@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id CB32C26170A
-	for <lists+alsa-devel@lfdr.de>; Tue,  8 Sep 2020 19:24:37 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5CB71261716
+	for <lists+alsa-devel@lfdr.de>; Tue,  8 Sep 2020 19:25:23 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 6ED4116FD;
-	Tue,  8 Sep 2020 19:23:47 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6ED4116FD
+	by alsa0.perex.cz (Postfix) with ESMTPS id 6FBFE169A;
+	Tue,  8 Sep 2020 19:24:32 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6FBFE169A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1599585877;
-	bh=l5Q+9JBKRPoCD6QymRFJVpPNknfC6qEsMVteCOdwfp8=;
+	s=default; t=1599585922;
+	bh=LBPJd0L8n/8XJ1Qd3rukDT67d+MY/Hku7khI6Rr1pvo=;
 	h=Date:From:To:In-Reply-To:References:Subject:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=L/KVppB/gRr34DFIrc48664e2wjQZo7ufuJ0+vLFvY7JRhTNdKELo0kF6/PiLBmfk
-	 wY6iH9gLLd6pqu+vp0H5HtDZVt2j0q01JQVSwhY4dkJkJR3zgcuCSoUmGdMs7ittI8
-	 9uau4g/FCSq1W6sP2B/BE70XVvo5HXiq17BkJITA=
+	b=VUPHmzRSP7rdunsyy0UNGyUNcCzKPp30iOGd99r2lmUf3p4OlAyJnUrfSouQDUWan
+	 TwYfoyyXy5RGEy+HIEkTi0v6uepmJyPxK2SSAdjlDBQ9NZQSi9XdixDM6TleCAzpNe
+	 SfzA4Nv1sCIC4VvDPRwJZue0yoXhsG2JLEdW92W8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id C30E3F802DD;
-	Tue,  8 Sep 2020 19:21:26 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 573D4F802EC;
+	Tue,  8 Sep 2020 19:21:33 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id DCD0FF802DC; Tue,  8 Sep 2020 19:21:23 +0200 (CEST)
+ id 00509F802EA; Tue,  8 Sep 2020 19:21:31 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -34,39 +34,32 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 8812AF802C4
- for <alsa-devel@alsa-project.org>; Tue,  8 Sep 2020 19:21:21 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8812AF802C4
+ by alsa1.perex.cz (Postfix) with ESMTPS id F15CAF802DF
+ for <alsa-devel@alsa-project.org>; Tue,  8 Sep 2020 19:21:25 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz F15CAF802DF
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="L8+4aczg"
+ header.b="HtUemtIh"
 Received: from localhost (fw-tnat.cambridge.arm.com [217.140.96.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 2E757206B5;
- Tue,  8 Sep 2020 17:21:19 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id 25B7820768;
+ Tue,  8 Sep 2020 17:21:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1599585679;
- bh=l5Q+9JBKRPoCD6QymRFJVpPNknfC6qEsMVteCOdwfp8=;
+ s=default; t=1599585684;
+ bh=LBPJd0L8n/8XJ1Qd3rukDT67d+MY/Hku7khI6Rr1pvo=;
  h=Date:From:To:Cc:In-Reply-To:References:Subject:From;
- b=L8+4aczgivxtFFzt6J8jzxpFMUENyq/HhBGekGW9/9I+NxKIqJmk5IgRVkwEVxBzD
- LsGocg1cJ8V1KkWcHUDwZQ3MmqVUi1TbsAZ63bvPXTz/Q2PddnRChMjljXf3wAjyb9
- jgnrkTYj1E6uMVIN3jnNF+LsnoXAeVZfD7s3hUMk=
-Date: Tue, 08 Sep 2020 18:20:35 +0100
+ b=HtUemtIhp+/hT1zo7fMsAvV1/P2t8geWpqWRJNFCRVaCs+dO9tRGWD9gFCy0gEB37
+ uzjBk4oL9gzFS20og6n+M4rJtRp6ZM0nLVoLZAhpOCBz6gq++wArsmpJsEISni19dE
+ muQ+yMftQS70NQ9zd1uS3feRxASh/HRh/Rj93AG4=
+Date: Tue, 08 Sep 2020 18:20:40 +0100
 From: Mark Brown <broonie@kernel.org>
-To: kernel@pengutronix.de, lgirdwood@gmail.com, xobs@kosagi.com,
- nicoleotsuka@gmail.com, linux-imx@nxp.com, shengjiu.wang@gmail.com,
- tiwai@suse.com, s.hauer@pengutronix.de, timur@kernel.org, festevam@gmail.com,
- perex@perex.cz, Yu Kuai <yukuai3@huawei.com>, shawnguo@kernel.org,
- Xiubo.Lee@gmail.com
-In-Reply-To: <20200825130224.1488694-1-yukuai3@huawei.com>
-References: <20200825130224.1488694-1-yukuai3@huawei.com>
-Subject: Re: [PATCH V2] ASoC: fsl: imx-es8328: add missing put_device() call
- in imx_es8328_probe()
-Message-Id: <159958562064.16576.4755759237768710693.b4-ty@kernel.org>
-Cc: alsa-devel@alsa-project.org, linuxppc-dev@lists.ozlabs.org,
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- yi.zhang@huawei.com
+To: Tzung-Bi Shih <tzungbi@google.com>
+In-Reply-To: <20200908070044.1142644-1-tzungbi@google.com>
+References: <20200908070044.1142644-1-tzungbi@google.com>
+Subject: Re: [PATCH] ASoC: mt6359: fix failed to parse DT properties
+Message-Id: <159958562063.16576.3044446748020736063.b4-ty@kernel.org>
+Cc: alsa-devel@alsa-project.org, jiaxin.yu@mediatek.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -82,10 +75,12 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Tue, 25 Aug 2020 21:02:24 +0800, Yu Kuai wrote:
-> if of_find_device_by_node() succeed, imx_es8328_probe() doesn't have
-> a corresponding put_device(). Thus add a jump target to fix the exception
-> handling for this function implementation.
+On Tue, 8 Sep 2020 15:00:44 +0800, Tzung-Bi Shih wrote:
+> Mt6359 platform device is instantiated by mfd_add_devices().  In the
+> case, dev->of_node is NULL so that mt6359_parse_dt() always fails to
+> parse the desired DT properties.
+> 
+> Gets the DT properties via dev->parent->of_node.
 
 Applied to
 
@@ -93,8 +88,8 @@ Applied to
 
 Thanks!
 
-[1/1] ASoC: fsl: imx-es8328: add missing put_device() call in imx_es8328_probe()
-      commit: e525db7e4b44c5b2b5aac0dad24e23cb58c54d22
+[1/1] ASoC: mt6359: fix failed to parse DT properties
+      commit: 6835302853169441069e11bc4642300c22009c2e
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

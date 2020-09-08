@@ -2,63 +2,62 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id AB39C261804
-	for <lists+alsa-devel@lfdr.de>; Tue,  8 Sep 2020 19:47:08 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id ADCC4261806
+	for <lists+alsa-devel@lfdr.de>; Tue,  8 Sep 2020 19:47:21 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 57FA716D8;
-	Tue,  8 Sep 2020 19:46:18 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 57FA716D8
+	by alsa0.perex.cz (Postfix) with ESMTPS id 46C2916E7;
+	Tue,  8 Sep 2020 19:46:31 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 46C2916E7
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1599587228;
-	bh=efKqBny9Xuy7qd1R1neLKwB6INAiegIZcN0JH6viFMY=;
+	s=default; t=1599587241;
+	bh=GwlrLGiTjEkmVdhowLWQgBVSehfdYkNzrSeuywvPmKY=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=E+fTdOVVqR/SGsyCydpn4hEz7Wfv0U+jtcb1wsIwpe7R1diZ45PaO7AiGVMbuLVq5
-	 0hACRrALuxs9n9dC4P2E60Q5t2wRNiqP8mSTf04RKhfg9KtxsV8HSPIQ21TqdZEZRz
-	 w4T78fmbPMWFixjJuA/ZqUGc3ju6HqBubtwuSXjI=
+	b=sK6eEJJvgU2bzz6pvHrmVUm5xw9VO87DM5wSpd4+Wp/c2iLFV8L9RYsJ9TqvlsAEL
+	 fd9hHbgeBD+Eaj2E7f7fWVtERCZRrw0ysM78ti0RCeG2ppAGy4uazeqWcTJQmSkWzX
+	 H9FLd3LilLS42q+38LhcFELGigwLQz9Nig5yVHY8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id EA0A9F802DC;
-	Tue,  8 Sep 2020 19:44:53 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id B5BB4F802E3;
+	Tue,  8 Sep 2020 19:45:07 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 9DD86F802C3; Tue,  8 Sep 2020 19:44:52 +0200 (CEST)
+ id 61CA9F802E1; Tue,  8 Sep 2020 19:45:04 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,RCVD_IN_MSPIKE_H5,
- RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from a27-56.smtp-out.us-west-2.amazonses.com
- (a27-56.smtp-out.us-west-2.amazonses.com [54.240.27.56])
+X-Spam-Status: No, score=0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,RCVD_IN_MSPIKE_H2,SPF_HELO_NONE,
+ SPF_PASS,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from a27-185.smtp-out.us-west-2.amazonses.com
+ (a27-185.smtp-out.us-west-2.amazonses.com [54.240.27.185])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 9505FF801F2
- for <alsa-devel@alsa-project.org>; Tue,  8 Sep 2020 19:44:41 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9505FF801F2
+ by alsa1.perex.cz (Postfix) with ESMTPS id D55CEF80277
+ for <alsa-devel@alsa-project.org>; Tue,  8 Sep 2020 19:44:53 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D55CEF80277
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=codeaurora.org header.i=@codeaurora.org
- header.b="mbwiOehu"; 
+ header.b="J+ylMBPH"; 
  dkim=pass (1024-bit key) header.d=amazonses.com header.i=@amazonses.com
- header.b="kUgUgOwM"
+ header.b="M874jvm/"
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/simple;
- s=zsmsymrwgfyinv5wlfyidntwsjeeldzt; d=codeaurora.org; t=1599587078;
+ s=zsmsymrwgfyinv5wlfyidntwsjeeldzt; d=codeaurora.org; t=1599587090;
  h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References;
- bh=efKqBny9Xuy7qd1R1neLKwB6INAiegIZcN0JH6viFMY=;
- b=mbwiOehuiuoj+0moMSUuVL28JosbPUuu06VtgLQBSprnkXZ+cqvqTg3BquZgEE+T
- HtGFUQhvjkXQ9Nh9nJzOmq5h156vXqL5x5hDti1hZzogMGbsusY5xWdIEhWB78419o7
- KhSFvT4A/SZGTL94LzARJ7ipFx4gvlkkio31Y2G4=
+ bh=GwlrLGiTjEkmVdhowLWQgBVSehfdYkNzrSeuywvPmKY=;
+ b=J+ylMBPH25qNh8h8LRyYz59/a1nc7rY24bmS8NyMqld19SX3yXr+yIExe1ANd7uS
+ kze1THLEvTb3XHV3XHIJYLpazRaYg2kXMR1xJ2TNuy0G0IBtWRmtEXQDRYRqjWk0Evg
+ SPu5KBgr1StZd6so3pwOlgxrCJTLnEnJ5NrziIRY=
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/simple;
- s=hsbnp7p3ensaochzwyq5wwmceodymuwv; d=amazonses.com; t=1599587078;
+ s=hsbnp7p3ensaochzwyq5wwmceodymuwv; d=amazonses.com; t=1599587090;
  h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:Feedback-ID;
- bh=efKqBny9Xuy7qd1R1neLKwB6INAiegIZcN0JH6viFMY=;
- b=kUgUgOwMyx3/mQc3OMUrdpvBuJvZxQJV+p8L/Ku3Csqi/29YZZDSeSXVAgKpG/36
- 6GhYnUX9eEMhrd7rlbV3nDOUNJU+UvQF/H9Emn6M4eynuhx9YXpFxbvC7Dl7/qLuhYn
- ERfxKFjdixu0TwrxKZmXh5N035iDgwZWFwL5fECQ=
-DMARC-Filter: OpenDMARC Filter v1.3.2 smtp.codeaurora.org 97A8CC43387
+ bh=GwlrLGiTjEkmVdhowLWQgBVSehfdYkNzrSeuywvPmKY=;
+ b=M874jvm/lq7vu56A/C20l/RLfCPycI+6ReKJXQOf+iaDtfMHSTvqStENfutmsxto
+ ZjIWZ13qR67l9biPnGGoMyX9R6BA+5FrgYQcpGsSDmz6VgcOdN5R9adgNSzvr7aB7c0
+ he0RxuGU0NL1yv1fsiIAeFE0dH7Pu8aZitUkI7LE=
+DMARC-Filter: OpenDMARC Filter v1.3.2 smtp.codeaurora.org 4C96AC433FF
 Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
  dmarc=none (p=none dis=none) header.from=codeaurora.org
 Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
@@ -70,13 +69,13 @@ To: agross@kernel.org, bjorn.andersson@linaro.org, lgirdwood@gmail.com,
  srinivas.kandagatla@linaro.org, rohitkr@codeaurora.org,
  linux-arm-msm@vger.kernel.org, alsa-devel@alsa-project.org,
  devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: [PATCH v4 2/5] ASoC: dt-bindings: Add dt binding for lpass hdmi
-Date: Tue, 8 Sep 2020 17:44:38 +0000
-Message-ID: <010101746ed1d218-22e96ac9-b0f1-4a23-a4b5-e2780a8c7a60-000000@us-west-2.amazonses.com>
+Subject: [PATCH v4 4/5] ASoC: qcom: Add support for audio over DP
+Date: Tue, 8 Sep 2020 17:44:50 +0000
+Message-ID: <010101746ed20067-9e78a6ed-95e1-42fe-8012-839ce9cc876c-000000@us-west-2.amazonses.com>
 X-Mailer: git-send-email 2.7.4
 In-Reply-To: <1599587037-6742-1-git-send-email-srivasam@codeaurora.org>
 References: <1599587037-6742-1-git-send-email-srivasam@codeaurora.org>
-X-SES-Outgoing: 2020.09.08-54.240.27.56
+X-SES-Outgoing: 2020.09.08-54.240.27.185
 Feedback-ID: 1.us-west-2.CZuq2qbDmUIuT3qdvXlRHZZCpfZqZ4GtG9v3VKgRyF0=:AmazonSES
 Cc: V Sujith Kumar Reddy <vsujithk@codeaurora.org>,
  Srinivasa Rao <srivasam@codeaurora.org>
@@ -97,104 +96,169 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 From: V Sujith Kumar Reddy <vsujithk@codeaurora.org>
 
-Adds bindings for lpass hdmi interface
-which can support audio path over dp.
+Add support for audio playback over DP in lpass sc7180 platform driver.
+Add lpass_variant structure for hdmi data configuaration.
 
 Signed-off-by: Srinivasa Rao <srivasam@codeaurora.org>
 Signed-off-by: V Sujith Kumar Reddy <vsujithk@codeaurora.org>
+Reviewed-by: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
 ---
- .../devicetree/bindings/sound/qcom,lpass-cpu.yaml  | 51 ++++++++++++++++++++--
- 1 file changed, 47 insertions(+), 4 deletions(-)
+ sound/soc/qcom/lpass-sc7180.c | 119 ++++++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 119 insertions(+)
 
-diff --git a/Documentation/devicetree/bindings/sound/qcom,lpass-cpu.yaml b/Documentation/devicetree/bindings/sound/qcom,lpass-cpu.yaml
-index 09c9bd2..7c2ac0c 100644
---- a/Documentation/devicetree/bindings/sound/qcom,lpass-cpu.yaml
-+++ b/Documentation/devicetree/bindings/sound/qcom,lpass-cpu.yaml
-@@ -22,6 +22,7 @@ properties:
-       - qcom,lpass-cpu
-       - qcom,apq8016-lpass-cpu
-       - qcom,sc7180-lpass-cpu
-+      - qcom,sc7180-lpass-hdmi
+diff --git a/sound/soc/qcom/lpass-sc7180.c b/sound/soc/qcom/lpass-sc7180.c
+index 167bf2c..34db061 100644
+--- a/sound/soc/qcom/lpass-sc7180.c
++++ b/sound/soc/qcom/lpass-sc7180.c
+@@ -62,6 +62,24 @@ static struct snd_soc_dai_driver sc7180_lpass_cpu_dai_driver[] = {
+ 	},
+ };
  
-   reg:
-     maxItems: 1
-@@ -60,10 +61,12 @@ properties:
-     const: 0
++static struct snd_soc_dai_driver sc7180_lpass_cpu_hdmi_dai_driver[] = {
++	[0] = {
++		.id = HDMI,
++		.name = "Hdmi",
++		.playback = {
++			.stream_name = "Hdmi Playback",
++			.formats	= SNDRV_PCM_FMTBIT_S24_3LE |
++							SNDRV_PCM_FMTBIT_S24_LE,
++			.rates = SNDRV_PCM_RATE_48000,
++			.rate_min	= 48000,
++			.rate_max	= 48000,
++			.channels_min	= 2,
++			.channels_max	= 2,
++		},
++		.ops    = &asoc_qcom_lpass_hdmi_dai_ops,
++	},
++};
++
+ static int sc7180_lpass_alloc_dma_channel(struct lpass_data *drvdata,
+ 					   int direction)
+ {
+@@ -88,13 +106,37 @@ static int sc7180_lpass_alloc_dma_channel(struct lpass_data *drvdata,
  
- patternProperties:
--  "(^mi2s-[0-9a-f]$|mi2s)":
-+  "^dai@[0-9a-f]$":
-     type: object
--    description: Required properties for each DAI
--
-+    description: |
-+      LPASS CPU dai node for each I2S device. Bindings of each node
-+      depends on the specific driver providing the functionality and
-+      properties.
-     properties:
-       reg:
-         maxItems: 1
-@@ -145,6 +148,22 @@ allOf:
-         - iommus
-         - power-domains
+ 	return chan;
+ }
++static int sc7180_lpass_alloc_hdmi_dma_channel(struct lpass_data *drvdata,
++					   int direction)
++{
++	struct lpass_variant *v = drvdata->variant;
++	int chan = 0;
++
++	if (direction == SNDRV_PCM_STREAM_PLAYBACK) {
++		chan = find_first_zero_bit(&drvdata->dma_ch_bit_map,
++					v->rdma_channels);
++
++		if (chan >= v->rdma_channels)
++			return -EBUSY;
++	}
++	set_bit(chan, &drvdata->dma_ch_bit_map);
++
++	return chan;
  
-+  - if:
-+      properties:
-+        compatible:
-+          contains:
-+            const: qcom,sc7180-lpass-hdmi
-+    then:
-+      properties:
-+        clock-names:
-+          items:
-+            - const: pcnoc-sway-clk
-+            - const: audio-core
-+            - const: pcnoc-mport-clk
-+      required:
-+        - iommus
-+        - power-domains
-+
- examples:
-   - |
-     #include <dt-bindings/sound/sc7180-lpass.h>
-@@ -178,12 +197,36 @@ examples:
-             #address-cells = <1>;
-             #size-cells = <0>;
-             /* Optional to set different MI2S SD lines */
--            mi2s-primary@0 {
-+            dai@mi2s-primary {
-                 reg = <MI2S_PRIMARY>;
-                 qcom,playback-sd-lines = <1>;
-                 qcom,capture-sd-lines = <0>;
-             };
-         };
-+
-+        lpassh@62d87000 {
-+            compatible = "qcom,sc7180-lpass-hdmi";
-+
-+            reg = <0 0x62d87000 0 0x68000>;
-+
-+            iommus = <&apps_smmu 0x1032 0>;
-+
-+            power-domains = <&lpass_hm 0>;
-+
-+            clocks = <&gcc 131>,
-+                 <&lpasscc 6>,
-+                 <&lpasscc 10>;
-+
-+            clock-names = "pcnoc-sway-clk", "audio-core",
-+                          "pcnoc-mport-clk";
-+
-+            #sound-dai-cells = <1>;
-+
-+            #address-cells = <1>;
-+            #size-cells = <0>;
-+
-+            interrupts = <0 268 1>;
-+        };
-     };
++}
+ static int sc7180_lpass_free_dma_channel(struct lpass_data *drvdata, int chan)
+ {
+ 	clear_bit(chan, &drvdata->dma_ch_bit_map);
  
- ...
+ 	return 0;
+ }
++static int sc7180_lpass_free_hdmi_dma_channel(struct lpass_data *drvdata, int chan)
++{
++	clear_bit(chan, &drvdata->dma_ch_bit_map);
++
++	return 0;
++}
++
+ 
+ static int sc7180_lpass_init(struct platform_device *pdev)
+ {
+@@ -196,8 +238,85 @@ static struct lpass_variant sc7180_data = {
+ 	.free_dma_channel	= sc7180_lpass_free_dma_channel,
+ };
+ 
++static const struct lpass_variant sc7180_hdmi_data = {
++	.hdmi_tx_ctl_addr	= 0x1000,
++	.hdmi_legacy_addr	= 0x1008,
++	.hdmi_vbit_addr		= 0x610c0,
++	.hdmi_ch_lsb_addr	= 0x61048,
++	.hdmi_ch_msb_addr	= 0x6104c,
++	.ch_stride		= 0x8,
++	.hdmi_parity_addr	= 0x61034,
++	.hdmi_dmactl_addr	= 0x61038,
++	.hdmi_dma_stride	= 0x4,
++	.hdmi_DP_addr		= 0x610c8,
++	.hdmi_sstream_addr	= 0x6101c,
++	.irq_reg_base		= 0x63000,
++	.irq_ports		= 1,
++	.rdma_reg_base		= 0x64000,
++	.rdma_reg_stride	= 0x1000,
++	.rdma_channels		= 4,
++
++	.rdma_dyncclk		= REG_FIELD_ID(0x64000, 14, 14, 4, 0x1000),
++	.rdma_bursten		= REG_FIELD_ID(0x64000, 13, 13, 4, 0x1000),
++	.rdma_burst8		= REG_FIELD_ID(0x64000, 15, 15, 4, 0x1000),
++	.rdma_burst16		= REG_FIELD_ID(0x64000, 16, 16, 4, 0x1000),
++	.rdma_dynburst		= REG_FIELD_ID(0x64000, 18, 18, 4, 0x1000),
++	.rdma_wpscnt		= REG_FIELD_ID(0x64000, 10, 12, 4, 0x1000),
++	.rdma_fifowm		= REG_FIELD_ID(0x64000, 1, 5, 4, 0x1000),
++	.rdma_enable		= REG_FIELD_ID(0x64000, 0, 0, 4, 0x1000),
++
++	.sstream_en		= REG_FIELD(0x6101c, 0, 0),
++	.dma_sel			= REG_FIELD(0x6101c, 1, 2),
++	.auto_bbit_en	= REG_FIELD(0x6101c, 3, 3),
++	.layout			= REG_FIELD(0x6101c, 4, 4),
++	.layout_sp		= REG_FIELD(0x6101c, 5, 8),
++	.set_sp_on_en	= REG_FIELD(0x6101c, 10, 10),
++	.dp_audio		= REG_FIELD(0x6101c, 11, 11),
++	.dp_staffing_en	= REG_FIELD(0x6101c, 12, 12),
++	.dp_sp_b_hw_en	= REG_FIELD(0x6101c, 13, 13),
++
++	.mute			= REG_FIELD(0x610c8, 0, 0),
++	.as_sdp_cc		= REG_FIELD(0x610c8, 1, 3),
++	.as_sdp_ct		= REG_FIELD(0x610c8, 4, 7),
++	.aif_db4			= REG_FIELD(0x610c8, 8, 15),
++	.frequency		= REG_FIELD(0x610c8, 16, 21),
++	.mst_index		= REG_FIELD(0x610c8, 28, 29),
++	.dptx_index		= REG_FIELD(0x610c8, 30, 31),
++
++	.soft_reset		= REG_FIELD(0x1000, 31, 31),
++	.force_reset	= REG_FIELD(0x1000, 30, 30),
++
++	.use_hw_chs		= REG_FIELD(0x61038, 0, 0),
++	.use_hw_usr		= REG_FIELD(0x61038, 1, 1),
++	.hw_chs_sel		= REG_FIELD(0x61038, 2, 4),
++	.hw_usr_sel		= REG_FIELD(0x61038, 5, 6),
++
++	.replace_vbit	= REG_FIELD(0x610c0, 0, 0),
++	.vbit_stream	= REG_FIELD(0x610c0, 1, 1),
++
++	.legacy_en		=  REG_FIELD(0x1008, 0, 0),
++	.calc_en		=  REG_FIELD(0x61034, 0, 0),
++	.lsb_bits		=  REG_FIELD(0x61048, 0, 31),
++	.msb_bits		=  REG_FIELD(0x6104c, 0, 31),
++
++	.clk_name		= (const char*[]) {
++					"pcnoc-sway-clk",
++					"audio-core",
++					"pcnoc-mport-clk",
++				},
++	.num_clks		= 3,
++	.dai_driver		= sc7180_lpass_cpu_hdmi_dai_driver,
++	.num_dai		= ARRAY_SIZE(sc7180_lpass_cpu_hdmi_dai_driver),
++	.init			= sc7180_lpass_init,
++	.exit			= sc7180_lpass_exit,
++	.alloc_dma_channel = sc7180_lpass_alloc_hdmi_dma_channel,
++	.free_dma_channel = sc7180_lpass_free_hdmi_dma_channel,
++
++};
++
+ static const struct of_device_id sc7180_lpass_cpu_device_id[] = {
+ 	{.compatible = "qcom,sc7180-lpass-cpu", .data = &sc7180_data},
++	{.compatible = "qcom,sc7180-lpass-hdmi", .data = &sc7180_hdmi_data},
+ 	{}
+ };
+ 
 -- 
 Qualcomm India Private Limited, on behalf of Qualcomm Innovation Center, Inc.,
 is a member of Code Aurora Forum, a Linux Foundation Collaborative Project.

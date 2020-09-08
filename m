@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1915126249B
-	for <lists+alsa-devel@lfdr.de>; Wed,  9 Sep 2020 03:43:43 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3B60F26249D
+	for <lists+alsa-devel@lfdr.de>; Wed,  9 Sep 2020 03:44:26 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A472B16FB;
-	Wed,  9 Sep 2020 03:42:52 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A472B16FB
+	by alsa0.perex.cz (Postfix) with ESMTPS id C45A6171E;
+	Wed,  9 Sep 2020 03:43:35 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C45A6171E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1599615822;
-	bh=PZ2d1bDEhNRzwHB/XDhMu+rZKXgbn/IgHcbbZgorTCU=;
+	s=default; t=1599615865;
+	bh=P+ySu6bO8+7aoL8YTj5ItQhSoZj/2oLg9zoq2TA2e2M=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=VK9PINsQL7epvVJIF4gsrX7pbotWnDr9YGbXOxSlFw6nImpryqvg4c86V8slUAOrh
-	 aoI69uZn/8Qsq4/tZ1qNvbTjTPnTMCFqVrqvChLZIak/53DjwdN48IxcOUeseWeAcp
-	 2lzqd7o4V2WdugxUeOt2Mox/ODQJzdijBUSxvQAU=
+	b=p4wL6Pjo7cynhSvp2sPWPwjZu5xSzjWQ11YHAzefPVRSGpEvhDV75YbcDVKhFt0Cj
+	 P+xDwD0ZuMuLoZTyQSRA2vAkaN/vBt8xEWgqx72cmL2XwJmExsYWuaL/ier5vepQgO
+	 y+gXeS7yJ+Mog82A7wjTMuQfK9vfdAFdf7w3NO9E=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id B5095F802F9;
-	Wed,  9 Sep 2020 03:39:33 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id D6DF2F80303;
+	Wed,  9 Sep 2020 03:39:34 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 5DCFFF802E2; Wed,  9 Sep 2020 03:39:29 +0200 (CEST)
+ id E7FB8F802F7; Wed,  9 Sep 2020 03:39:31 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: *
 X-Spam-Status: No, score=1.1 required=5.0 tests=DATE_IN_PAST_06_12,
@@ -33,31 +33,31 @@ X-Spam-Status: No, score=1.1 required=5.0 tests=DATE_IN_PAST_06_12,
 Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 3E3E8F802C4
- for <alsa-devel@alsa-project.org>; Wed,  9 Sep 2020 03:39:26 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3E3E8F802C4
-IronPort-SDR: x+2L08sh59W+fBZD21QFrs1vJ0Uqz5ClfVQDZtsHlSdFRJ1VTXdtQ4SDAfsHWaCsmwCJJQky6f
- ucaGmj9+LPsg==
-X-IronPort-AV: E=McAfee;i="6000,8403,9738"; a="222458471"
-X-IronPort-AV: E=Sophos;i="5.76,407,1592895600"; d="scan'208";a="222458471"
+ by alsa1.perex.cz (Postfix) with ESMTPS id ED4FDF802DF
+ for <alsa-devel@alsa-project.org>; Wed,  9 Sep 2020 03:39:28 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz ED4FDF802DF
+IronPort-SDR: oPnc8C9LLTQunOqw1/GTsXfdD01uwRrFZ4a5r5zKa3qI+7hkscJcKKRvzZBzybAWHks/umhV03
+ WbO5OTrASxNQ==
+X-IronPort-AV: E=McAfee;i="6000,8403,9738"; a="222458474"
+X-IronPort-AV: E=Sophos;i="5.76,407,1592895600"; d="scan'208";a="222458474"
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
 Received: from orsmga004.jf.intel.com ([10.7.209.38])
  by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 08 Sep 2020 18:39:24 -0700
-IronPort-SDR: ozjnOh4U0DPpyy2aFTunLf651Vh0Q38T9PdgOSqk8pwu86Itu/D84R0rgJelNdVB6YiaG7/7ei
- OB9HOJEsmzUQ==
-X-IronPort-AV: E=Sophos;i="5.76,407,1592895600"; d="scan'208";a="449018113"
+ 08 Sep 2020 18:39:28 -0700
+IronPort-SDR: bUrXS8YdK4dT8w2redZuhe1b8ZGPc5iTH3WV6ecsIgccWJpnDaxG+g+oAwVFSpfhEQQeY3YXNb
+ UaTqReYlxtFQ==
+X-IronPort-AV: E=Sophos;i="5.76,407,1592895600"; d="scan'208";a="449018128"
 Received: from bard-ubuntu.sh.intel.com ([10.239.13.33])
  by orsmga004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 08 Sep 2020 18:39:20 -0700
+ 08 Sep 2020 18:39:24 -0700
 From: Bard Liao <yung-chuan.liao@linux.intel.com>
 To: alsa-devel@alsa-project.org,
 	vkoul@kernel.org
-Subject: [PATCH v2 5/7] ASoC: codecs: realtek-soundwire: ignore initial PARITY
- errors
-Date: Tue,  8 Sep 2020 21:45:19 +0800
-Message-Id: <20200908134521.6781-6-yung-chuan.liao@linux.intel.com>
+Subject: [PATCH v2 6/7] soundwire: bus: export broadcast read/write capability
+ for tests
+Date: Tue,  8 Sep 2020 21:45:20 +0800
+Message-Id: <20200908134521.6781-7-yung-chuan.liao@linux.intel.com>
 X-Mailer: git-send-email 2.17.1
 In-Reply-To: <20200908134521.6781-1-yung-chuan.liao@linux.intel.com>
 References: <20200908134521.6781-1-yung-chuan.liao@linux.intel.com>
@@ -83,84 +83,115 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 
-The parity calculation is not reset on a Severe Reset, which leads to
-misleading/harmless errors reported on startup. The addition of a
-quirk helps filter out such errors while leaving the error checks on
-in steady-state.
+Provide prototype and export symbol to enable tests. The bus lock is
+handled externally to avoid conflicts e.g. between kernel-generated
+traffic and test traffic.
 
 Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 Reviewed-by: Kai Vehmanen <kai.vehmanen@linux.intel.com>
 Reviewed-by: Guennadi Liakhovetski <guennadi.liakhovetski@linux.intel.com>
 Signed-off-by: Bard Liao <yung-chuan.liao@linux.intel.com>
-Acked-by: Mark Brown <broonie@kernel.org>
 ---
- sound/soc/codecs/rt1308-sdw.c | 1 +
- sound/soc/codecs/rt5682-sdw.c | 1 +
- sound/soc/codecs/rt700-sdw.c  | 1 +
- sound/soc/codecs/rt711-sdw.c  | 1 +
- sound/soc/codecs/rt715-sdw.c  | 1 +
- 5 files changed, 5 insertions(+)
+ drivers/soundwire/bus.c | 56 +++++++++++++++++++++++++++++++++++------
+ drivers/soundwire/bus.h |  4 +++
+ 2 files changed, 53 insertions(+), 7 deletions(-)
 
-diff --git a/sound/soc/codecs/rt1308-sdw.c b/sound/soc/codecs/rt1308-sdw.c
-index e02b325240df..c74685b016af 100644
---- a/sound/soc/codecs/rt1308-sdw.c
-+++ b/sound/soc/codecs/rt1308-sdw.c
-@@ -124,6 +124,7 @@ static int rt1308_read_prop(struct sdw_slave *slave)
- 	struct sdw_dpn_prop *dpn;
+diff --git a/drivers/soundwire/bus.c b/drivers/soundwire/bus.c
+index 09185e5cfd70..02574b4bb179 100644
+--- a/drivers/soundwire/bus.c
++++ b/drivers/soundwire/bus.c
+@@ -255,6 +255,21 @@ static int sdw_reset_page(struct sdw_bus *bus, u16 dev_num)
+ 	return ret;
+ }
  
- 	prop->scp_int1_mask = SDW_SCP_INT1_BUS_CLASH | SDW_SCP_INT1_PARITY;
-+	prop->quirks = SDW_SLAVE_QUIRKS_INVALID_INITIAL_PARITY;
++static int sdw_transfer_unlocked(struct sdw_bus *bus, struct sdw_msg *msg)
++{
++	int ret;
++
++	ret = do_transfer(bus, msg);
++	if (ret != 0 && ret != -ENODATA)
++		dev_err(bus->dev, "trf on Slave %d failed:%d\n",
++			msg->dev_num, ret);
++
++	if (msg->page)
++		sdw_reset_page(bus, msg->dev_num);
++
++	return ret;
++}
++
+ /**
+  * sdw_transfer() - Synchronous transfer message to a SDW Slave device
+  * @bus: SDW bus
+@@ -266,13 +281,7 @@ int sdw_transfer(struct sdw_bus *bus, struct sdw_msg *msg)
  
- 	prop->paging_support = true;
+ 	mutex_lock(&bus->msg_lock);
  
-diff --git a/sound/soc/codecs/rt5682-sdw.c b/sound/soc/codecs/rt5682-sdw.c
-index 8d4ea46bc6b5..feb2db95829e 100644
---- a/sound/soc/codecs/rt5682-sdw.c
-+++ b/sound/soc/codecs/rt5682-sdw.c
-@@ -545,6 +545,7 @@ static int rt5682_read_prop(struct sdw_slave *slave)
+-	ret = do_transfer(bus, msg);
+-	if (ret != 0 && ret != -ENODATA)
+-		dev_err(bus->dev, "trf on Slave %d failed:%d\n",
+-			msg->dev_num, ret);
+-
+-	if (msg->page)
+-		sdw_reset_page(bus, msg->dev_num);
++	ret = sdw_transfer_unlocked(bus, msg);
  
- 	prop->scp_int1_mask = SDW_SCP_INT1_IMPL_DEF | SDW_SCP_INT1_BUS_CLASH |
- 		SDW_SCP_INT1_PARITY;
-+	prop->quirks = SDW_SLAVE_QUIRKS_INVALID_INITIAL_PARITY;
+ 	mutex_unlock(&bus->msg_lock);
  
- 	prop->paging_support = false;
+@@ -428,6 +437,39 @@ sdw_bwrite_no_pm(struct sdw_bus *bus, u16 dev_num, u32 addr, u8 value)
+ 	return sdw_transfer(bus, &msg);
+ }
  
-diff --git a/sound/soc/codecs/rt700-sdw.c b/sound/soc/codecs/rt700-sdw.c
-index 8d9678d1f3c7..c6fd22058b62 100644
---- a/sound/soc/codecs/rt700-sdw.c
-+++ b/sound/soc/codecs/rt700-sdw.c
-@@ -341,6 +341,7 @@ static int rt700_read_prop(struct sdw_slave *slave)
++int sdw_bread_no_pm_unlocked(struct sdw_bus *bus, u16 dev_num, u32 addr)
++{
++	struct sdw_msg msg;
++	u8 buf;
++	int ret;
++
++	ret = sdw_fill_msg(&msg, NULL, addr, 1, dev_num,
++			   SDW_MSG_FLAG_READ, &buf);
++	if (ret)
++		return ret;
++
++	ret = sdw_transfer_unlocked(bus, &msg);
++	if (ret < 0)
++		return ret;
++
++	return buf;
++}
++EXPORT_SYMBOL(sdw_bread_no_pm_unlocked);
++
++int sdw_bwrite_no_pm_unlocked(struct sdw_bus *bus, u16 dev_num, u32 addr, u8 value)
++{
++	struct sdw_msg msg;
++	int ret;
++
++	ret = sdw_fill_msg(&msg, NULL, addr, 1, dev_num,
++			   SDW_MSG_FLAG_WRITE, &value);
++	if (ret)
++		return ret;
++
++	return sdw_transfer_unlocked(bus, &msg);
++}
++EXPORT_SYMBOL(sdw_bwrite_no_pm_unlocked);
++
+ static int
+ sdw_read_no_pm(struct sdw_slave *slave, u32 addr)
+ {
+diff --git a/drivers/soundwire/bus.h b/drivers/soundwire/bus.h
+index 82484f741168..c53345fbc4c7 100644
+--- a/drivers/soundwire/bus.h
++++ b/drivers/soundwire/bus.h
+@@ -168,6 +168,10 @@ sdw_update(struct sdw_slave *slave, u32 addr, u8 mask, u8 val)
+ 	return sdw_write(slave, addr, tmp);
+ }
  
- 	prop->scp_int1_mask = SDW_SCP_INT1_IMPL_DEF | SDW_SCP_INT1_BUS_CLASH |
- 		SDW_SCP_INT1_PARITY;
-+	prop->quirks = SDW_SLAVE_QUIRKS_INVALID_INITIAL_PARITY;
- 
- 	prop->paging_support = false;
- 
-diff --git a/sound/soc/codecs/rt711-sdw.c b/sound/soc/codecs/rt711-sdw.c
-index d4b3d7716cac..10435d97f9ab 100644
---- a/sound/soc/codecs/rt711-sdw.c
-+++ b/sound/soc/codecs/rt711-sdw.c
-@@ -345,6 +345,7 @@ static int rt711_read_prop(struct sdw_slave *slave)
- 
- 	prop->scp_int1_mask = SDW_SCP_INT1_IMPL_DEF | SDW_SCP_INT1_BUS_CLASH |
- 		SDW_SCP_INT1_PARITY;
-+	prop->quirks = SDW_SLAVE_QUIRKS_INVALID_INITIAL_PARITY;
- 
- 	prop->paging_support = false;
- 
-diff --git a/sound/soc/codecs/rt715-sdw.c b/sound/soc/codecs/rt715-sdw.c
-index 0e5c75f85926..9fb14a0d7334 100644
---- a/sound/soc/codecs/rt715-sdw.c
-+++ b/sound/soc/codecs/rt715-sdw.c
-@@ -439,6 +439,7 @@ static int rt715_read_prop(struct sdw_slave *slave)
- 
- 	prop->scp_int1_mask = SDW_SCP_INT1_IMPL_DEF | SDW_SCP_INT1_BUS_CLASH |
- 		SDW_SCP_INT1_PARITY;
-+	prop->quirks = SDW_SLAVE_QUIRKS_INVALID_INITIAL_PARITY;
- 
- 	prop->paging_support = false;
- 
++/* broadcast read/write for tests */
++int sdw_bread_no_pm_unlocked(struct sdw_bus *bus, u16 dev_num, u32 addr);
++int sdw_bwrite_no_pm_unlocked(struct sdw_bus *bus, u16 dev_num, u32 addr, u8 value);
++
+ /*
+  * At the moment we only track Master-initiated hw_reset.
+  * Additional fields can be added as needed
 -- 
 2.17.1
 

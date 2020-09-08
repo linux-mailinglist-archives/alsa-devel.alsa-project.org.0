@@ -2,81 +2,93 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id AFF7C2612F1
-	for <lists+alsa-devel@lfdr.de>; Tue,  8 Sep 2020 16:48:34 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3548226130E
+	for <lists+alsa-devel@lfdr.de>; Tue,  8 Sep 2020 16:56:52 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 9B1021784;
-	Tue,  8 Sep 2020 16:47:43 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9B1021784
+	by alsa0.perex.cz (Postfix) with ESMTPS id 9D49517B3;
+	Tue,  8 Sep 2020 16:56:01 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9D49517B3
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1599576513;
-	bh=y4/Pa+n3xUEUAnWtG++kxSjz3o0wM1M1/dE2m8ghb3w=;
-	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
+	s=default; t=1599577011;
+	bh=K8VquZ6/8I9+LS76cRptF2Rs06tzVmp3UqJDC8fmBEA=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=NmJtdi7ykIBM5LrMKIphzONVdt1Li6+F7Up3Wz/FwG3mwXwrQQ7IyJm25KSgHDzMK
-	 7G6k6jEe/P8V7DVWmmg12wVH2g0oYLHTniv91tjH3kG65D5RYRuUvPdPuMCeW7jpWj
-	 vT0oy6SSIBWQUXOdHIQfVtmk9L+4//kUVWlKu+zM=
+	b=VX9KGR+IOa2Y5CyKwvWM/zoP6y23IjM4t1ygYDMmR3JT9Wzdv3QPyUznD6zXa5rms
+	 UGM2w/YrUygcRZNnOR0ThjYSaVlxBHIBQEeEOct+WA4SiyY8hXGSkELtC/7mflZKS0
+	 usBrpBeCpfkBQGbLEd/C0BSjjvyguh2DZrAGlC1Q=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id DF22AF8010B;
-	Tue,  8 Sep 2020 16:47:28 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id B06EEF8026F;
+	Tue,  8 Sep 2020 16:55:10 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id F3B57F80272; Tue,  8 Sep 2020 16:47:26 +0200 (CEST)
+ id 5FA9FF80264; Tue,  8 Sep 2020 16:55:08 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-1.6 required=5.0 tests=NICE_REPLY_A,SPF_HELO_NONE,
- SPF_NONE autolearn=disabled version=3.4.0
-Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
+Received: from mail-oi1-x241.google.com (mail-oi1-x241.google.com
+ [IPv6:2607:f8b0:4864:20::241])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 84D03F801F2
- for <alsa-devel@alsa-project.org>; Tue,  8 Sep 2020 16:47:19 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 84D03F801F2
-IronPort-SDR: GizWbcKGZRN6uq8gO73YxxSUpHQFUV4LX1BSACb+lDIppn+lmc47KGtPjzE9SYatmlM2wUVmGV
- SAuv3drApUFg==
-X-IronPort-AV: E=McAfee;i="6000,8403,9738"; a="222350544"
-X-IronPort-AV: E=Sophos;i="5.76,406,1592895600"; d="scan'208";a="222350544"
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from orsmga004.jf.intel.com ([10.7.209.38])
- by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 08 Sep 2020 07:47:16 -0700
-IronPort-SDR: puPDPc9u2j1rpXBb9lkAFy9hUk9VxiuIy5q/f3cgrvaUGVA1uCpxSlgSAOXrarnxTE+c5vsTim
- B/lcp8Cq+Crw==
-X-IronPort-AV: E=Sophos;i="5.76,406,1592895600"; d="scan'208";a="448812218"
-Received: from mgarber-mobl1.amr.corp.intel.com (HELO [10.212.179.134])
- ([10.212.179.134])
- by orsmga004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 08 Sep 2020 07:47:15 -0700
-Subject: Re: [PATCH 1/7] soundwire: bus: use property to set interrupt masks
-To: Mark Brown <broonie@kernel.org>, Jaroslav Kysela <perex@perex.cz>
-References: <20200818140656.29014-1-yung-chuan.liao@linux.intel.com>
- <20200818140656.29014-2-yung-chuan.liao@linux.intel.com>
- <20200828065125.GI2639@vkoul-mobl>
- <ec5fe867-f2e4-4278-0376-e54bcdd7f94d@perex.cz>
- <20200908121133.GA5551@sirena.org.uk>
- <1950b662-ec59-6603-36c7-7a41d9e8460c@perex.cz>
- <20200908143312.GC5551@sirena.org.uk>
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Message-ID: <ce68a159-de6d-2d8a-c8a2-3e527cb1239e@linux.intel.com>
-Date: Tue, 8 Sep 2020 09:47:13 -0500
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.10.0
+ by alsa1.perex.cz (Postfix) with ESMTPS id 20F9EF8015F
+ for <alsa-devel@alsa-project.org>; Tue,  8 Sep 2020 16:54:57 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 20F9EF8015F
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org
+ header.b="gEjB2PVR"
+Received: by mail-oi1-x241.google.com with SMTP id a3so11041923oib.4
+ for <alsa-devel@alsa-project.org>; Tue, 08 Sep 2020 07:54:57 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=date:from:to:cc:subject:message-id:references:mime-version
+ :content-disposition:in-reply-to;
+ bh=w5WD7mYu1UZ17o5IwyM77lKheQXm/FoO3alEWArs8d8=;
+ b=gEjB2PVRSfcdabC2to0ytgzJqyIE1We/Z9N99i/QXWyfZI29q9ILSekgH2UoRUTGo1
+ mTSM6e38qq85pZ/1eQaDy5C9Ri71lBuFgqahCU3dDMEpfMcdod4JVa9HEaInoH/SEQwl
+ Vh+EggBAgwVJ02di4FQXo38idBxXJArYd4VMOiIOZLi0ViL4a5UwDGnd0P5ZZiwoK6Ce
+ IVuzaRE6dO5Er+fpuifC/1vBBr848mgts7QN0VCcqSs/Uf8+mrE8pvTPpMphF6Y6rwxu
+ Ld+/jSsFye84Q/SxKreWOUnNkIEfxQWleKPBpMSNTFUHQVum/1MC+NmkLK4MmJsI7COx
+ fgWA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to;
+ bh=w5WD7mYu1UZ17o5IwyM77lKheQXm/FoO3alEWArs8d8=;
+ b=V1xHQZDiBICBULCdb4rVBd5C0H8wlLr3MkW+SsYM9XEgVTf9AH5Mv2OQ53m10Nrb/W
+ oRtGKzZy8DOlrhYAYb8EvE0v+IISwHnGXyhDfTnc3miKA/Y2D10r69iR/hjXzF9iUL0z
+ ngzhhqjh71IHhuB2I5d08mVEId4NjbdB04gjdTSUKu5IIfCecwlQR7HcH1ElR46/HOZD
+ hUhrvO6MjkTXCymuXI8zgowMqotRsnphImqD6dnwU3vYVZcJSEUfi5UOhWj5MXMk7DBA
+ VmZYHiuWT4k5WQma0HjMphA7XreBnjC7pJCQt6UMy/Wfgh4avdjEjp5u2uLgmE7dqdN+
+ sFQQ==
+X-Gm-Message-State: AOAM532UgWm+4v8nopVPeqa1PVzLZ/Ez+2txcBw8gIi0SYKaVl+6ZQzK
+ 0VID3fXVCxzDI1m0fFtP8mj8/w==
+X-Google-Smtp-Source: ABdhPJwfgX5hiHCKByDlCicvW5Vmn/1mu2VuOJ8ql9YPirRsdRzLX51mj7XJnCv+3+D49GSpE6m/uA==
+X-Received: by 2002:aca:df84:: with SMTP id w126mr1740500oig.103.1599576894821; 
+ Tue, 08 Sep 2020 07:54:54 -0700 (PDT)
+Received: from yoga ([2605:6000:e5cb:c100:8898:14ff:fe6d:34e])
+ by smtp.gmail.com with ESMTPSA id l5sm3498342otj.40.2020.09.08.07.54.52
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 08 Sep 2020 07:54:54 -0700 (PDT)
+Date: Tue, 8 Sep 2020 09:54:50 -0500
+From: Bjorn Andersson <bjorn.andersson@linaro.org>
+To: Jonathan Marek <jonathan@marek.ca>
+Subject: Re: [PATCH] soundwire: qcom: fix SLIBMUS/SLIMBUS typo
+Message-ID: <20200908145450.GM3715@yoga>
+References: <20200908140818.28373-1-jonathan@marek.ca>
 MIME-Version: 1.0
-In-Reply-To: <20200908143312.GC5551@sirena.org.uk>
-Content-Type: text/plain; charset=windows-1252; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
-Cc: alsa-devel@alsa-project.org, tiwai@suse.de, gregkh@linuxfoundation.org,
- linux-kernel@vger.kernel.org, ranjani.sridharan@linux.intel.com,
- hui.wang@canonical.com, Vinod Koul <vkoul@kernel.org>,
- srinivas.kandagatla@linaro.org, jank@cadence.com, mengdong.lin@intel.com,
- sanyog.r.kale@intel.com, Bard Liao <yung-chuan.liao@linux.intel.com>,
- rander.wang@linux.intel.com, bard.liao@intel.com
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20200908140818.28373-1-jonathan@marek.ca>
+Cc: "moderated list:SOUNDWIRE SUBSYSTEM" <alsa-devel@alsa-project.org>,
+ linux-arm-msm@vger.kernel.org,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ open list <linux-kernel@vger.kernel.org>, Vinod Koul <vkoul@kernel.org>,
+ Andy Gross <agross@kernel.org>, Sanyog Kale <sanyog.r.kale@intel.com>,
+ Bard Liao <yung-chuan.liao@linux.intel.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -92,23 +104,36 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+On Tue 08 Sep 09:08 CDT 2020, Jonathan Marek wrote:
 
-
-On 9/8/20 9:33 AM, Mark Brown wrote:
-> On Tue, Sep 08, 2020 at 02:28:48PM +0200, Jaroslav Kysela wrote:
->> Dne 08. 09. 20 v 14:11 Mark Brown napsal(a):
+> Fix slimbus case being broken thanks to a typo.
 > 
->>> I don't have this patch and since I seem to get copied on quite a lot of
->>> soundwire only serieses I just delete them unread mostly.
-
-We now try to use the ASoC/SoundWire prefix for cover letters to 
-highlight that a patchset changes things across two trees, does this 
-help or do we need a different way of flagging these patches?
-
->> It can be fetched from lore (mbox format):
+> Fixes: 5bd773242f75 ("soundwire: qcom: avoid dependency on CONFIG_SLIMBUS")
 > 
->> https://lore.kernel.org/alsa-devel/20200818140656.29014-2-yung-chuan.liao@linux.intel.com/raw
+
+Reviewed-by: Bjorn Andersson <bjorn.andersson@linaro.org>
+
+> Signed-off-by: Jonathan Marek <jonathan@marek.ca>
+> ---
+> This should be squashed into the problematic patch if possible,
+> but I'm not sure if that's possible since its already in linux-next?
 > 
-> Sure, I can go get stuff from the list archives but my list of things to
-> go through is in my inbox.
+>  drivers/soundwire/qcom.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/drivers/soundwire/qcom.c b/drivers/soundwire/qcom.c
+> index 100af93a5eab..c406a079d237 100644
+> --- a/drivers/soundwire/qcom.c
+> +++ b/drivers/soundwire/qcom.c
+> @@ -780,7 +780,7 @@ static int qcom_swrm_probe(struct platform_device *pdev)
+>  	if (!ctrl)
+>  		return -ENOMEM;
+>  
+> -#if IS_ENABLED(CONFIG_SLIBMUS)
+> +#if IS_ENABLED(CONFIG_SLIMBUS)
+>  	if (dev->parent->bus == &slimbus_bus) {
+>  #else
+>  	if (false) {
+> -- 
+> 2.26.1
 > 

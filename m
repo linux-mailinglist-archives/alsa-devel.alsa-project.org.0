@@ -2,90 +2,81 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8BE48261267
-	for <lists+alsa-devel@lfdr.de>; Tue,  8 Sep 2020 16:11:24 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 28BC32612C8
+	for <lists+alsa-devel@lfdr.de>; Tue,  8 Sep 2020 16:35:56 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 52344175E;
-	Tue,  8 Sep 2020 16:10:33 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 52344175E
+	by alsa0.perex.cz (Postfix) with ESMTPS id 99E771780;
+	Tue,  8 Sep 2020 16:35:04 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 99E771780
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1599574283;
-	bh=ukUJuFjgUyOo1gDEv9Qkiw/fCabzlJI3AUIJfVzFzRk=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=MDmC7Ze4psYqeKsR8N2fRBaHQ7qF3ca/eozUFBrTcbsuTuG+oQNmcvlP+IO7LkoJ0
-	 qc/h8tSwAehHA4k7Aqh9PuC4S5ROXNavW7TrVLeYBMJ5/sOMSp7VpYFoViEgHtbvKV
-	 lTpWL0dTpT4qXTkBJ1fh0JDbz0oCwH3ZyvrCvKNM=
+	s=default; t=1599575754;
+	bh=P6Ih3ybR3Q0tpfGmAB9O9MzAREGP8DJDgLwT78Y8q/s=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=GCktAHXT2ED/tvD1E3AZLTHHKYEkyVOZVJNUCCl7dCy/5gkkbEZfbSDs6PAu2Q9fZ
+	 P6iORwWe0RIanbFXfTx1P5OAktY65aqTC/0pJbBKuXfx9Th47Mx7lHVy8KAoHgsCBD
+	 rM03KfghEBzbE30E6Af4S1/6nAJppw96ZsxJTdRQ=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 57C74F8010B;
-	Tue,  8 Sep 2020 16:09:42 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 99728F8015F;
+	Tue,  8 Sep 2020 16:34:13 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id E36FFF80264; Tue,  8 Sep 2020 16:09:39 +0200 (CEST)
+ id 2CDB9F80264; Tue,  8 Sep 2020 16:34:11 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mail-qv1-xf44.google.com (mail-qv1-xf44.google.com
- [IPv6:2607:f8b0:4864:20::f44])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+ DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled
+ version=3.4.0
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 4D73AF8010B
- for <alsa-devel@alsa-project.org>; Tue,  8 Sep 2020 16:09:32 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4D73AF8010B
+ by alsa1.perex.cz (Postfix) with ESMTPS id 0D337F8010B
+ for <alsa-devel@alsa-project.org>; Tue,  8 Sep 2020 16:34:00 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0D337F8010B
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=marek-ca.20150623.gappssmtp.com
- header.i=@marek-ca.20150623.gappssmtp.com header.b="DgR0IsQj"
-Received: by mail-qv1-xf44.google.com with SMTP id j10so7826871qvk.11
- for <alsa-devel@alsa-project.org>; Tue, 08 Sep 2020 07:09:32 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=marek-ca.20150623.gappssmtp.com; s=20150623;
- h=from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=kA7YBuYMq9b3mZzCv9QQfgvbcIlMMupkbIGoGou1wKo=;
- b=DgR0IsQjxrfz3z5ThPdVC/EGBKu1Cil2pH0g/Pfa0AUeKE5hMigysm6ESL863n4gSW
- ZFelUzvaCcKKt+R+vd3kVgnbR87hZPYasZ9DG1QkrhGu9kBZy1QhQWT1dbmJhLRleTl6
- 0bqm2gKnliloULfvqnwEcNpa2e8VSxe8qQGwMAz1MDJLWFwu6nLPpEiIFrJJyq7wMvdd
- CMZy7v1PRgsLtziIdbnzOTSWT9OkvrhZsvc03OxKLr7HCwlv1ZNdBnZh8+oQeT8psZ3E
- Ki7Yaz6n+VL+ZMiMJDEhBz7VDZ0OFChwHRZPHUb+QJ3GeH0h7aZb4l/g3U3b0Ub3y2QV
- dq4A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=kA7YBuYMq9b3mZzCv9QQfgvbcIlMMupkbIGoGou1wKo=;
- b=HM/Ed+mNMX9e0os1mlNh0Qr2dvce55b+OqWqeBrGNg3/9aletpOSX2L3UVB2vmNajc
- SHI/WRTg4MO92irvW6qyBiVk0AMmoueFMlvn6i2omEexehK5Q4ckwGUp6jKgP8tYdYXF
- IUPzz9r3hvpD8AXICuJOxU+rb2h95y09/2uqGKgSekDHuSwg+kfKMVWg67z5kOKvJ3Z5
- JfFhY5DUjaxQF6MfIZtUxP2OxIXWa+U5ySFOTNXjTQbFFJqllL9nmOURaHB7lyaiVHZO
- AkLbnbsGoQf7aEmE2Jq2Aljhe2xw46YugzswfNapciFQPw8CIwbzzLSRs3mxuBNjhwGt
- NRsg==
-X-Gm-Message-State: AOAM532OOS55q/bsBE/arPRvqWDc3JaokYyqzU7wGwdk5GEYIBSebZr7
- IuEHNjjUibbYdY1VvQ1r5oRRlQ==
-X-Google-Smtp-Source: ABdhPJwDTbXK3AYjXreftxuSFRet1m2rtpDGlXYZDBJkXYObWLBHJ8LTS7P+wSPf/tV6q4xpuTYdsA==
-X-Received: by 2002:ad4:534c:: with SMTP id v12mr270078qvs.14.1599574170698;
- Tue, 08 Sep 2020 07:09:30 -0700 (PDT)
-Received: from localhost.localdomain ([147.253.86.153])
- by smtp.gmail.com with ESMTPSA id r24sm14447276qtm.70.2020.09.08.07.09.29
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 08 Sep 2020 07:09:30 -0700 (PDT)
-From: Jonathan Marek <jonathan@marek.ca>
-To: linux-arm-msm@vger.kernel.org
-Subject: [PATCH] soundwire: qcom: fix SLIBMUS/SLIMBUS typo
-Date: Tue,  8 Sep 2020 10:08:17 -0400
-Message-Id: <20200908140818.28373-1-jonathan@marek.ca>
-X-Mailer: git-send-email 2.26.1
+ dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="SQbbjUN0"
+Received: from localhost (fw-tnat.cambridge.arm.com [217.140.96.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by mail.kernel.org (Postfix) with ESMTPSA id 1483322A83;
+ Tue,  8 Sep 2020 14:33:57 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=default; t=1599575637;
+ bh=P6Ih3ybR3Q0tpfGmAB9O9MzAREGP8DJDgLwT78Y8q/s=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=SQbbjUN0w2+++8eS4F2+HqX3/5wupr6MhkPYnfoLTICk9jCZc7nzEsOvAqjGd64Jq
+ 9Ad0YPtEXzZiVKpCB3n/26cYJsP18mXmLh4+Tk/x+M9q2/nHh2qPK5WREd2qR12Mov
+ +FJjTJ+CpN/pXtomNlmzgIVJmiRn+rI0u+dBS5e8=
+Date: Tue, 8 Sep 2020 15:33:13 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Jaroslav Kysela <perex@perex.cz>
+Subject: Re: [PATCH 1/7] soundwire: bus: use property to set interrupt masks
+Message-ID: <20200908143312.GC5551@sirena.org.uk>
+References: <20200818140656.29014-1-yung-chuan.liao@linux.intel.com>
+ <20200818140656.29014-2-yung-chuan.liao@linux.intel.com>
+ <20200828065125.GI2639@vkoul-mobl>
+ <ec5fe867-f2e4-4278-0376-e54bcdd7f94d@perex.cz>
+ <20200908121133.GA5551@sirena.org.uk>
+ <1950b662-ec59-6603-36c7-7a41d9e8460c@perex.cz>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Cc: "moderated list:SOUNDWIRE SUBSYSTEM" <alsa-devel@alsa-project.org>,
- open list <linux-kernel@vger.kernel.org>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- Bjorn Andersson <bjorn.andersson@linaro.org>, Vinod Koul <vkoul@kernel.org>,
- Andy Gross <agross@kernel.org>, Sanyog Kale <sanyog.r.kale@intel.com>,
- Bard Liao <yung-chuan.liao@linux.intel.com>
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="bAmEntskrkuBymla"
+Content-Disposition: inline
+In-Reply-To: <1950b662-ec59-6603-36c7-7a41d9e8460c@perex.cz>
+X-Cookie: Vini, vidi, Linux!
+User-Agent: Mutt/1.10.1 (2018-07-13)
+Cc: alsa-devel@alsa-project.org, tiwai@suse.de, gregkh@linuxfoundation.org,
+ pierre-louis.bossart@linux.intel.com, linux-kernel@vger.kernel.org,
+ hui.wang@canonical.com, Vinod Koul <vkoul@kernel.org>,
+ srinivas.kandagatla@linaro.org, ranjani.sridharan@linux.intel.com,
+ jank@cadence.com, mengdong.lin@intel.com, sanyog.r.kale@intel.com,
+ Bard Liao <yung-chuan.liao@linux.intel.com>, rander.wang@linux.intel.com,
+ bard.liao@intel.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -101,31 +92,37 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Fix slimbus case being broken thanks to a typo.
 
-Fixes: 5bd773242f75 ("soundwire: qcom: avoid dependency on CONFIG_SLIMBUS")
+--bAmEntskrkuBymla
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-Signed-off-by: Jonathan Marek <jonathan@marek.ca>
----
-This should be squashed into the problematic patch if possible,
-but I'm not sure if that's possible since its already in linux-next?
+On Tue, Sep 08, 2020 at 02:28:48PM +0200, Jaroslav Kysela wrote:
+> Dne 08. 09. 20 v 14:11 Mark Brown napsal(a):
 
- drivers/soundwire/qcom.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+> > I don't have this patch and since I seem to get copied on quite a lot of
+> > soundwire only serieses I just delete them unread mostly.
 
-diff --git a/drivers/soundwire/qcom.c b/drivers/soundwire/qcom.c
-index 100af93a5eab..c406a079d237 100644
---- a/drivers/soundwire/qcom.c
-+++ b/drivers/soundwire/qcom.c
-@@ -780,7 +780,7 @@ static int qcom_swrm_probe(struct platform_device *pdev)
- 	if (!ctrl)
- 		return -ENOMEM;
- 
--#if IS_ENABLED(CONFIG_SLIBMUS)
-+#if IS_ENABLED(CONFIG_SLIMBUS)
- 	if (dev->parent->bus == &slimbus_bus) {
- #else
- 	if (false) {
--- 
-2.26.1
+> It can be fetched from lore (mbox format):
 
+> https://lore.kernel.org/alsa-devel/20200818140656.29014-2-yung-chuan.liao@linux.intel.com/raw
+
+Sure, I can go get stuff from the list archives but my list of things to
+go through is in my inbox.
+
+--bAmEntskrkuBymla
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl9XligACgkQJNaLcl1U
+h9Bv+gf8DTCBNgYdd/v4aDuaMyXv6CqPVU+U14UjTNqUUDstwuDd15nP/+11+Ovp
+cYACg3bu24coO3wH/h4PhoI19PadHctIBRSGojJL6CYzT20jPzzvRWjR6A+fTecU
+T6jIGEQMjGypi1MbM2J6f4dty76zSKysy2fW8dlG8+8HqLXQQ8Oh0XKEPUysvL8t
+CK5SLnsVK8AHcxLZT6wFcJ0qzBRFoA4FDvEhke0xEiYvXJ96wGc5vCClew+oRCIA
+LDw4jwqaQmFEggYz+/7JLqPetUU5D+xE2L3ulkiUzTd+cg9+5k1LqMd6528LlwxJ
+aNZtrusstwa3q9udD2R0zKMgM/4NRA==
+=ODCF
+-----END PGP SIGNATURE-----
+
+--bAmEntskrkuBymla--

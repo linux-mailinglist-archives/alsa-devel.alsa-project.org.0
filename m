@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 09D0C26293B
-	for <lists+alsa-devel@lfdr.de>; Wed,  9 Sep 2020 09:51:25 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 62115262963
+	for <lists+alsa-devel@lfdr.de>; Wed,  9 Sep 2020 09:58:03 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E5FA21706;
-	Wed,  9 Sep 2020 09:50:33 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E5FA21706
+	by alsa0.perex.cz (Postfix) with ESMTPS id D009F1707;
+	Wed,  9 Sep 2020 09:57:12 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D009F1707
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1599637884;
-	bh=Ujzu08sFRyCMDhvVsoI1m0iKA5o9FG6NKI6n+mvre50=;
+	s=default; t=1599638282;
+	bh=JARiYueBjjGPlebhXcfjdVe1PdGZejQ1v9IQ50hAApA=;
 	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=Jg19w8HGRKbnwXW8OIK7/4AFz+hVkH1eMFFu9VK9/azhHxKwfvaYm+JneLz3/h1DK
-	 YvQ+p8m3iC9z4m0LwvpJ1LRzlih9mMJrKbWAj6VmOnBLA9pIjUcdfYcDD2eLlfujAS
-	 s3bKq8fu3U48vCyqq4EMJuKGRYjACo6kFFpm/0tA=
+	b=nXvGPeMXMnLKkyZCYtcnNy6JNHz3benzfidieAP0FyOPe34HYVebj3mSm82zinzMp
+	 Uv+6vQ+RQLBOxzaGcYFgf8OOPCvb9KZRC2OBSW4M8KXigdTx2hr9eFWJi5bIHyhUG1
+	 z6tiCcqBmr7iUtEe5A091BHc5XncQqtawHjiAXRM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id EDF4AF80240;
-	Wed,  9 Sep 2020 09:49:42 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id E2248F800FD;
+	Wed,  9 Sep 2020 09:56:21 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 1C3DCF80227; Wed,  9 Sep 2020 09:49:40 +0200 (CEST)
+ id D0D4DF80227; Wed,  9 Sep 2020 09:56:17 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: *
 X-Spam-Status: No, score=1.4 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -34,41 +34,45 @@ X-Spam-Status: No, score=1.4 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 2F2AAF800FD
- for <alsa-devel@alsa-project.org>; Wed,  9 Sep 2020 09:49:29 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2F2AAF800FD
+ by alsa1.perex.cz (Postfix) with ESMTPS id CB798F800FD
+ for <alsa-devel@alsa-project.org>; Wed,  9 Sep 2020 09:56:07 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CB798F800FD
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="qWC5m8O3"
+ header.b="xDYefFct"
 Received: from localhost (unknown [122.179.21.149])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 0297620732;
- Wed,  9 Sep 2020 07:49:25 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id 7508F2087C;
+ Wed,  9 Sep 2020 07:56:04 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1599637766;
- bh=Ujzu08sFRyCMDhvVsoI1m0iKA5o9FG6NKI6n+mvre50=;
+ s=default; t=1599638165;
+ bh=JARiYueBjjGPlebhXcfjdVe1PdGZejQ1v9IQ50hAApA=;
  h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=qWC5m8O3Px8t6xUn6sKDugGjmYp7K7Be5rDCf/75V9oDDKcRRfVGENN8ile3NHh+E
- TKPHDonJGeYrvwU9Xl6Z3DHI9WtM+HRwc1I3IOqq45oHvRg1NdH0FpCfVHTbCYfbZJ
- fna6S1rlo4q/If2O98KCX6AHc8Yr+3YOGd1pm0dA=
-Date: Wed, 9 Sep 2020 13:19:18 +0530
+ b=xDYefFctxhwXQbotzFIaWwJRSkw/f/qoeiMWJ8/r6KjzfmC4qqvetpY5qNmqI6l+J
+ i4WnFSoEuohmVoItnSzX23DYn3OawZOmywupJUQN3/9nNiD9L8FkUnNMTWXesGCzF5
+ MFDGj9q6EdlJ+6MdFNJFpgWVyORi0/LIdgzO9ldM=
+Date: Wed, 9 Sep 2020 13:25:55 +0530
 From: Vinod Koul <vkoul@kernel.org>
-To: Jaroslav Kysela <perex@perex.cz>
-Subject: Re: [PATCH v3 0/3] ASoC: Add sdw stream operations to dailink ops.
-Message-ID: <20200909074918.GJ77521@vkoul-mobl>
-References: <20200904182854.3944-1-yung-chuan.liao@linux.intel.com>
- <46f44acb-7d4b-965c-a6e2-98a4da79e6cc@perex.cz>
+To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Subject: Re: [PATCH v2 2/3] soundwire: SDCA: add helper macro to access
+ controls
+Message-ID: <20200909075555.GK77521@vkoul-mobl>
+References: <20200901162225.33343-1-pierre-louis.bossart@linux.intel.com>
+ <20200901162225.33343-3-pierre-louis.bossart@linux.intel.com>
+ <20200904050244.GT2639@vkoul-mobl>
+ <f35a0ae7-2779-0c69-9ef3-0d0e298888ac@linux.intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <46f44acb-7d4b-965c-a6e2-98a4da79e6cc@perex.cz>
-Cc: alsa-devel@alsa-project.org, tiwai@suse.de, gregkh@linuxfoundation.org,
- pierre-louis.bossart@linux.intel.com, linux-kernel@vger.kernel.org,
- hui.wang@canonical.com, broonie@kernel.org, srinivas.kandagatla@linaro.org,
- ranjani.sridharan@linux.intel.com, jank@cadence.com, mengdong.lin@intel.com,
- sanyog.r.kale@intel.com, Bard Liao <yung-chuan.liao@linux.intel.com>,
- rander.wang@linux.intel.com, bard.liao@intel.com
+In-Reply-To: <f35a0ae7-2779-0c69-9ef3-0d0e298888ac@linux.intel.com>
+Cc: Guennadi Liakhovetski <guennadi.liakhovetski@linux.intel.com>,
+ alsa-devel@alsa-project.org, Kai Vehmanen <kai.vehmanen@linux.intel.com>,
+ tiwai@suse.de, gregkh@linuxfoundation.org,
+ open list <linux-kernel@vger.kernel.org>, broonie@kernel.org,
+ Sanyog Kale <sanyog.r.kale@intel.com>,
+ Bard liao <yung-chuan.liao@linux.intel.com>,
+ Rander Wang <rander.wang@linux.intel.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -84,47 +88,103 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 08-09-20, 14:26, Jaroslav Kysela wrote:
-> Dne 04. 09. 20 v 20:28 Bard Liao napsal(a):
-> > Sdw stream operation APIs can be called once per stream. Move these
-> > operations to dailink ops. The linked series is "soundwire: Remove sdw
-> > stream operations from Intel soundwire dai".
-> > 
-> > Reviewed-by: Vinod Koul <vkoul@kernel.org>
-> > 
-> > Changes in v3:
-> >  - s/ASOC/ASoC
-> > 
-> > Pierre-Louis Bossart (3):
-> >   ASoC: soc-dai: clarify return value for get_sdw_stream()
-> >   ASoC: Intel: sof_sdw: add dailink .trigger callback
-> >   ASoC: Intel: sof_sdw: add dailink .prepare and .hw_free callback
-> > 
-> >  include/sound/soc-dai.h          |  3 +-
-> >  sound/soc/intel/boards/sof_sdw.c | 81 ++++++++++++++++++++++++++++++++
-> >  2 files changed, 83 insertions(+), 1 deletion(-)
-> > 
+On 08-09-20, 08:33, Pierre-Louis Bossart wrote:
+> Thanks for the review Vinod,
 > 
-> This patchset depends on the SoundWire patchset
->   "[PATCH v2 0/4] soundwire: Remove sdw stream operations from Intel" and
-> cannot be used standalone. I believe that one maintainer should accept it or
-> there should be a co-ordination between Mark and Vinod to push this in sync.
-> We should really settle, how to accept such changes. I believe that Vinod
-> should take it with the ack from Mark for this case. Please, don't require to
-> split changes which depends on each other.
+> > This is good, thanks for adding it in changelog. Can you also add this
+> > description to Documentation (that can come as an individual patch),
+> 
+> ok
+> 
+> > > +/*
+> > > + * v1.2 device - SDCA address mapping
+> > > + *
+> > > + * Spec definition
+> > > + *	Bits		Contents
+> > > + *	31		0 (required by addressing range)
+> > > + *	30:26		0b10000 (Control Prefix)
+> > 
+> > So this is for 30:26
+> 
+> I don't get the comment, sorry.
 
-I did ask about dependencies, and IIRC looking at code there were none.
-Yes you need both the parts to make it work, but both the trees build
-fine and these will go for 5.10, so I think these merged are okay.
+I should have added see below.
+
+> > 
+> > > + *	25		0 (Reserved)
+> > > + *	24:22		Function Number [2:0]
+> > > + *	21		Entity[6]
+> > > + *	20:19		Control Selector[5:4]
+> > > + *	18		0 (Reserved)
+> > > + *	17:15		Control Number[5:3]
+> > > + *	14		Next
+> > > + *	13		MBQ
+> > > + *	12:7		Entity[5:0]
+> > > + *	6:3		Control Selector[3:0]
+> > > + *	2:0		Control Number[2:0]
+> > > + */
+> > > +
+> > > +#define SDW_SDCA_CTL(fun, ent, ctl, ch)						\
+> > > +	(BIT(30)							|	\
+> > 
+> > Programmatically this is fine, but then since we are defining for the
+> > description above, IMO it would actually make sense for this to be defined
+> > as FIELD_PREP:
+> > 
+> >          FIELD_PREP(GENMASK(30, 26), 1)
+> > 
+> > or better
+> > 
+> >          u32_encode_bits(GENMASK(30, 26), 1)
+> > 
+> > > +	FIELD_PREP(GENMASK(24, 22), FIELD_GET(GENMASK(2, 0), (fun)))	|	\
+> > 
+> > Why not use u32_encode_bits(GENMASK(24, 22), (fun)) instead for this and
+> > below?
+> 
+> Because your comment for the v1 review was to use FIELD_PREP/FIELD_GET, and
+> your other patches for bitfield access only use FIELD_PREP/FIELD_GET.
+
+yes and looking at this, I feel u32_encode_bits(GENMASK(24, 22), (fun))
+would look better than FIELD_PREP(GENMASK(24, 22), FIELD_GET(GENMASK(2, 0), (fun)))
+
+Do you agree?
 
 > 
-> For all above patches (I tested them):
+> I really don't care about which macro is used but it wouldn't hurt to have
+> some level of consistency between different parts of the code? Why not use
+> FIELD_PREP/GET everywhere?
 > 
-> Acked-by: Jaroslav Kysela <perex@perex.cz>
+> > > +	FIELD_PREP(BIT(21), FIELD_GET(BIT(6), (ent)))			|	\
+> > > +	FIELD_PREP(GENMASK(20, 19), FIELD_GET(GENMASK(5, 4), (ctl)))	|	\
+> > > +	FIELD_PREP(GENMASK(17, 15), FIELD_GET(GENMASK(5, 3), (ch)))	|	\
+> > > +	FIELD_PREP(GENMASK(12, 7), FIELD_GET(GENMASK(5, 0), (ent)))	|	\
+> > > +	FIELD_PREP(GENMASK(6, 3), FIELD_GET(GENMASK(3, 0), (ctl)))	|	\
+> > > +	FIELD_PREP(GENMASK(2, 0), FIELD_GET(GENMASK(2, 0), (ch))))
+> > 
+> > Also, can we rather have a nice function for this, that would look much
+> > cleaner
 > 
-> -- 
-> Jaroslav Kysela <perex@perex.cz>
-> Linux Sound Maintainer; ALSA Project; Red Hat, Inc.
+> I am not sure what would be cleaner but fine.
+
+Ok
+
+> > And while at it, consider defining masks for various fields rather than
+> > using numbers in GENMASK() above, that would look better, be more
+> > readable and people can reuse it.
+> 
+> Actually on this one I disagree. These fields are not intended to be used by
+> anyone, the goal is precisely to hide them behind regmap, and the use of raw
+> numbers makes it easier to cross-check the documentation and the code.
+> Adding a separate set of definitions would not increase readability.
+
+Which one would you prefer:
+
+        #define SDCA_FUN_MASK           GENMASK(24, 22)
+
+        foo |= u32_encode_bits(SDCA_FUN_MASK, fun)
+
+Or the one proposed...?
 
 -- 
 ~Vinod

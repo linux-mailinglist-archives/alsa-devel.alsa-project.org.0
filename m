@@ -2,58 +2,56 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 495C8262F61
-	for <lists+alsa-devel@lfdr.de>; Wed,  9 Sep 2020 15:53:08 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 62965262F70
+	for <lists+alsa-devel@lfdr.de>; Wed,  9 Sep 2020 16:00:05 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D3C03171F;
-	Wed,  9 Sep 2020 15:52:17 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D3C03171F
+	by alsa0.perex.cz (Postfix) with ESMTPS id C4DF616D0;
+	Wed,  9 Sep 2020 15:59:14 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C4DF616D0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1599659587;
-	bh=gTz0gPHOiW2tCDkuV+0GcmXwF5l+3JuuhN/rzonFxvk=;
+	s=default; t=1599660004;
+	bh=Z0H5Hi0FFAc4DYYdhT+B7VAvXfyMGbm+vI5QzAbWAH4=;
 	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
 	 List-Post:List-Help:List-Subscribe:From;
-	b=FH80ZPMJ/dj4rjaP16FkDkLlBMCJg2UWT3azdJavznFbxvUX2NKqtrmCee2FXVjd8
-	 cWaZyt1aJ1DcL2oKLspSo28IoVXo8t9dVudMvY7xdQiWjhBO1BgrPOM4U+utBrJmFD
-	 useW2azjA6rogvt7V2JQCClVPC84w62C8/Xy5wGM=
+	b=kPvWbCUOBc5Ub3vO1UiPAj567uYNSDuyjOiI+3CHUYAk2fkG9d1YOuV92YjutWfwU
+	 fkhvFb/v7kWvJokHdLijcil3nhMyAGdgdopAwNPHUXntBX+PtP3u0qyvkkDwT3WZvq
+	 inJMzQhwqKL5SS3FfR9xafpwzBdbpuOWq2/osHgg=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 08240F802DD;
-	Wed,  9 Sep 2020 15:50:19 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id C1F32F800E9;
+	Wed,  9 Sep 2020 15:58:23 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 12683F802DC; Wed,  9 Sep 2020 15:49:59 +0200 (CEST)
+ id 9F843F80256; Wed,  9 Sep 2020 15:58:20 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_MSPIKE_H4,
  RCVD_IN_MSPIKE_WL,SPF_HELO_PASS,SPF_PASS autolearn=disabled version=3.4.0
-Received: from huawei.com (szxga06-in.huawei.com [45.249.212.32])
+Received: from huawei.com (szxga04-in.huawei.com [45.249.212.190])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id F2489F8028D
- for <alsa-devel@alsa-project.org>; Wed,  9 Sep 2020 15:49:44 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz F2489F8028D
-Received: from DGGEMS409-HUB.china.huawei.com (unknown [172.30.72.58])
- by Forcepoint Email with ESMTP id 1F16DD5670B8A6110164;
- Wed,  9 Sep 2020 21:49:36 +0800 (CST)
-Received: from localhost (10.174.179.108) by DGGEMS409-HUB.china.huawei.com
- (10.3.19.209) with Microsoft SMTP Server id 14.3.487.0; Wed, 9 Sep 2020
- 21:49:29 +0800
+ by alsa1.perex.cz (Postfix) with ESMTPS id 3594DF800E9
+ for <alsa-devel@alsa-project.org>; Wed,  9 Sep 2020 15:58:09 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3594DF800E9
+Received: from DGGEMS405-HUB.china.huawei.com (unknown [172.30.72.60])
+ by Forcepoint Email with ESMTP id 94AA83FBFB2294DE67E2;
+ Wed,  9 Sep 2020 21:58:05 +0800 (CST)
+Received: from localhost (10.174.179.108) by DGGEMS405-HUB.china.huawei.com
+ (10.3.19.205) with Microsoft SMTP Server id 14.3.487.0; Wed, 9 Sep 2020
+ 21:57:58 +0800
 From: YueHaibing <yuehaibing@huawei.com>
-To: <perex@perex.cz>, <tiwai@suse.com>
-Subject: [PATCH 09/19] ALSA: pci/asihpi: Remove unused function
- hpi_stream_group_get_map()
-Date: Wed, 9 Sep 2020 21:49:27 +0800
-Message-ID: <20200909134927.33964-1-yuehaibing@huawei.com>
+To: <perex@perex.cz>, <tiwai@suse.com>, <yuehaibing@huawei.com>
+Subject: [PATCH 04/19] ALSA: pcm: Remove unused inline function snd_mask_sizeof
+Date: Wed, 9 Sep 2020 21:57:44 +0800
+Message-ID: <20200909135744.33464-1-yuehaibing@huawei.com>
 X-Mailer: git-send-email 2.10.2.windows.1
 MIME-Version: 1.0
 Content-Type: text/plain
 X-Originating-IP: [10.174.179.108]
 X-CFilter-Loop: Reflected
-Cc: alsa-devel@alsa-project.org, YueHaibing <yuehaibing@huawei.com>,
- linux-kernel@vger.kernel.org
+Cc: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -73,29 +71,25 @@ There is no caller in tree, so can remove it.
 
 Signed-off-by: YueHaibing <yuehaibing@huawei.com>
 ---
- sound/pci/asihpi/asihpi.c | 9 ---------
- 1 file changed, 9 deletions(-)
+ include/sound/pcm_params.h | 5 -----
+ 1 file changed, 5 deletions(-)
 
-diff --git a/sound/pci/asihpi/asihpi.c b/sound/pci/asihpi/asihpi.c
-index 35e76480306e..8bacd4f47540 100644
---- a/sound/pci/asihpi/asihpi.c
-+++ b/sound/pci/asihpi/asihpi.c
-@@ -258,15 +258,6 @@ static inline u16 hpi_stream_group_reset(u32 h_stream)
- 		return hpi_instream_group_reset(h_stream);
- }
+diff --git a/include/sound/pcm_params.h b/include/sound/pcm_params.h
+index 36f94735d23d..ba184f49f7e1 100644
+--- a/include/sound/pcm_params.h
++++ b/include/sound/pcm_params.h
+@@ -23,11 +23,6 @@ int snd_pcm_hw_param_value(const struct snd_pcm_hw_params *params,
+ #define MASK_OFS(i)	((i) >> 5)
+ #define MASK_BIT(i)	(1U << ((i) & 31))
  
--static inline u16 hpi_stream_group_get_map(
--				u32 h_stream, u32 *mo, u32 *mi)
+-static inline size_t snd_mask_sizeof(void)
 -{
--	if (hpi_handle_object(h_stream) ==  HPI_OBJ_OSTREAM)
--		return hpi_outstream_group_get_map(h_stream, mo, mi);
--	else
--		return hpi_instream_group_get_map(h_stream, mo, mi);
+-	return sizeof(struct snd_mask);
 -}
 -
- static u16 handle_error(u16 err, int line, char *filename)
+ static inline void snd_mask_none(struct snd_mask *mask)
  {
- 	if (err)
+ 	memset(mask, 0, sizeof(*mask));
 -- 
 2.17.1
 

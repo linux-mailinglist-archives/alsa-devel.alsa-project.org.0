@@ -2,81 +2,58 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7DB3A262F5D
-	for <lists+alsa-devel@lfdr.de>; Wed,  9 Sep 2020 15:52:13 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 495C8262F61
+	for <lists+alsa-devel@lfdr.de>; Wed,  9 Sep 2020 15:53:08 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 0734C16E6;
-	Wed,  9 Sep 2020 15:51:22 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0734C16E6
+	by alsa0.perex.cz (Postfix) with ESMTPS id D3C03171F;
+	Wed,  9 Sep 2020 15:52:17 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D3C03171F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1599659532;
-	bh=csbk76HPxEpVjZcdTZair9543gmoXwhOjntdqutj4o4=;
-	h=From:Subject:To:References:Date:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=My6Bg0seMTpS7p9UTERuGKO+2AECdaiQETkFxjCkYm1y+vbdEYiHkjSdtp7/SncSU
-	 /uvApTX8imSRGU9ugfEXm7Ft3YHgXxKaYeDaysMUfEOJDDsPokRLbgZ1Dc+Y0t2u9F
-	 +Tdpt1riBLmFch7JThcOfkoaO3xYfRZh0faqZk4Y=
+	s=default; t=1599659587;
+	bh=gTz0gPHOiW2tCDkuV+0GcmXwF5l+3JuuhN/rzonFxvk=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=FH80ZPMJ/dj4rjaP16FkDkLlBMCJg2UWT3azdJavznFbxvUX2NKqtrmCee2FXVjd8
+	 cWaZyt1aJ1DcL2oKLspSo28IoVXo8t9dVudMvY7xdQiWjhBO1BgrPOM4U+utBrJmFD
+	 useW2azjA6rogvt7V2JQCClVPC84w62C8/Xy5wGM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 0FE34F800FD;
-	Wed,  9 Sep 2020 15:49:53 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 08240F802DD;
+	Wed,  9 Sep 2020 15:50:19 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id A7EB9F80240; Wed,  9 Sep 2020 15:49:44 +0200 (CEST)
+ id 12683F802DC; Wed,  9 Sep 2020 15:49:59 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-1.6 required=5.0 tests=NICE_REPLY_A,SPF_HELO_NONE,
- SPF_NONE autolearn=disabled version=3.4.0
-Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
+X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_MSPIKE_H4,
+ RCVD_IN_MSPIKE_WL,SPF_HELO_PASS,SPF_PASS autolearn=disabled version=3.4.0
+Received: from huawei.com (szxga06-in.huawei.com [45.249.212.32])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 442C6F800E9
- for <alsa-devel@alsa-project.org>; Wed,  9 Sep 2020 15:49:38 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 442C6F800E9
-IronPort-SDR: WycWT5DZbJzonyX5X2vj43Dl72Ux7PxrZOF+g2VRjpn0GzSgQsDPqsGUN4vtYcgSFvmh5MB6W4
- tfru+0tcHjEA==
-X-IronPort-AV: E=McAfee;i="6000,8403,9738"; a="158362305"
-X-IronPort-AV: E=Sophos;i="5.76,409,1592895600"; d="scan'208";a="158362305"
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from fmsmga005.fm.intel.com ([10.253.24.32])
- by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 09 Sep 2020 06:49:28 -0700
-IronPort-SDR: sFssLIFzQLYHtp+bRlAXqcPi/JwshKYi+q1O0Z7KA8MEtPD+GjaYyUqC2hHShd7TpC0EuB8aNu
- qKQrZjtKeNnQ==
-X-IronPort-AV: E=Sophos;i="5.76,409,1592895600"; d="scan'208";a="505456876"
-Received: from rsetyawa-mobl1.amr.corp.intel.com (HELO [10.212.20.145])
- ([10.212.20.145])
- by fmsmga005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 09 Sep 2020 06:49:27 -0700
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Subject: Re: [PATCH v2 2/3] soundwire: SDCA: add helper macro to access
- controls
-To: Vinod Koul <vkoul@kernel.org>
-References: <20200901162225.33343-1-pierre-louis.bossart@linux.intel.com>
- <20200901162225.33343-3-pierre-louis.bossart@linux.intel.com>
- <20200904050244.GT2639@vkoul-mobl>
- <f35a0ae7-2779-0c69-9ef3-0d0e298888ac@linux.intel.com>
- <20200909075555.GK77521@vkoul-mobl>
-Message-ID: <184867c2-9f0c-bffe-2eb7-e9c5735614b0@linux.intel.com>
-Date: Wed, 9 Sep 2020 08:48:21 -0500
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.10.0
+ by alsa1.perex.cz (Postfix) with ESMTPS id F2489F8028D
+ for <alsa-devel@alsa-project.org>; Wed,  9 Sep 2020 15:49:44 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz F2489F8028D
+Received: from DGGEMS409-HUB.china.huawei.com (unknown [172.30.72.58])
+ by Forcepoint Email with ESMTP id 1F16DD5670B8A6110164;
+ Wed,  9 Sep 2020 21:49:36 +0800 (CST)
+Received: from localhost (10.174.179.108) by DGGEMS409-HUB.china.huawei.com
+ (10.3.19.209) with Microsoft SMTP Server id 14.3.487.0; Wed, 9 Sep 2020
+ 21:49:29 +0800
+From: YueHaibing <yuehaibing@huawei.com>
+To: <perex@perex.cz>, <tiwai@suse.com>
+Subject: [PATCH 09/19] ALSA: pci/asihpi: Remove unused function
+ hpi_stream_group_get_map()
+Date: Wed, 9 Sep 2020 21:49:27 +0800
+Message-ID: <20200909134927.33964-1-yuehaibing@huawei.com>
+X-Mailer: git-send-email 2.10.2.windows.1
 MIME-Version: 1.0
-In-Reply-To: <20200909075555.GK77521@vkoul-mobl>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
-Cc: Guennadi Liakhovetski <guennadi.liakhovetski@linux.intel.com>,
- alsa-devel@alsa-project.org, Kai Vehmanen <kai.vehmanen@linux.intel.com>,
- tiwai@suse.de, gregkh@linuxfoundation.org,
- open list <linux-kernel@vger.kernel.org>, broonie@kernel.org,
- Sanyog Kale <sanyog.r.kale@intel.com>,
- Bard liao <yung-chuan.liao@linux.intel.com>,
- Rander Wang <rander.wang@linux.intel.com>
+Content-Type: text/plain
+X-Originating-IP: [10.174.179.108]
+X-CFilter-Loop: Reflected
+Cc: alsa-devel@alsa-project.org, YueHaibing <yuehaibing@huawei.com>,
+ linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -92,109 +69,34 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+There is no caller in tree, so can remove it.
 
->>>> + *	25		0 (Reserved)
->>>> + *	24:22		Function Number [2:0]
->>>> + *	21		Entity[6]
->>>> + *	20:19		Control Selector[5:4]
->>>> + *	18		0 (Reserved)
->>>> + *	17:15		Control Number[5:3]
->>>> + *	14		Next
->>>> + *	13		MBQ
->>>> + *	12:7		Entity[5:0]
->>>> + *	6:3		Control Selector[3:0]
->>>> + *	2:0		Control Number[2:0]
->>>> + */
->>>> +
->>>> +#define SDW_SDCA_CTL(fun, ent, ctl, ch)						\
->>>> +	(BIT(30)							|	\
->>>
->>> Programmatically this is fine, but then since we are defining for the
->>> description above, IMO it would actually make sense for this to be defined
->>> as FIELD_PREP:
->>>
->>>           FIELD_PREP(GENMASK(30, 26), 1)
->>>
->>> or better
->>>
->>>           u32_encode_bits(GENMASK(30, 26), 1)
->>>
->>>> +	FIELD_PREP(GENMASK(24, 22), FIELD_GET(GENMASK(2, 0), (fun)))	|	\
->>>
->>> Why not use u32_encode_bits(GENMASK(24, 22), (fun)) instead for this and
->>> below?
->>
->> Because your comment for the v1 review was to use FIELD_PREP/FIELD_GET, and
->> your other patches for bitfield access only use FIELD_PREP/FIELD_GET.
-> 
-> yes and looking at this, I feel u32_encode_bits(GENMASK(24, 22), (fun))
-> would look better than FIELD_PREP(GENMASK(24, 22), FIELD_GET(GENMASK(2, 0), (fun)))
-> 
-> Do you agree?
+Signed-off-by: YueHaibing <yuehaibing@huawei.com>
+---
+ sound/pci/asihpi/asihpi.c | 9 ---------
+ 1 file changed, 9 deletions(-)
 
-The Function (fun) case is the easy one: the value is not split in two.
+diff --git a/sound/pci/asihpi/asihpi.c b/sound/pci/asihpi/asihpi.c
+index 35e76480306e..8bacd4f47540 100644
+--- a/sound/pci/asihpi/asihpi.c
++++ b/sound/pci/asihpi/asihpi.c
+@@ -258,15 +258,6 @@ static inline u16 hpi_stream_group_reset(u32 h_stream)
+ 		return hpi_instream_group_reset(h_stream);
+ }
+ 
+-static inline u16 hpi_stream_group_get_map(
+-				u32 h_stream, u32 *mo, u32 *mi)
+-{
+-	if (hpi_handle_object(h_stream) ==  HPI_OBJ_OSTREAM)
+-		return hpi_outstream_group_get_map(h_stream, mo, mi);
+-	else
+-		return hpi_instream_group_get_map(h_stream, mo, mi);
+-}
+-
+ static u16 handle_error(u16 err, int line, char *filename)
+ {
+ 	if (err)
+-- 
+2.17.1
 
-But look at the entity case, it's split in two:
-
-FIELD_PREP(BIT(21), FIELD_GET(BIT(6), (ent)))			FIELD_PREP(GENMASK(12, 
-7), FIELD_GET(GENMASK(5, 0), (ent)))
-
-same for control
-
-FIELD_PREP(GENMASK(20, 19), FIELD_GET(GENMASK(5, 4), (ctl)))	|	
-FIELD_PREP(GENMASK(6, 3), FIELD_GET(GENMASK(3, 0), (ctl)))	|	
-
-and same for channel number
-
-FIELD_PREP(GENMASK(17, 15), FIELD_GET(GENMASK(5, 3), (ch)))	|	
-FIELD_PREP(GENMASK(2, 0), FIELD_GET(GENMASK(2, 0), (ch))))
-
-I don't see how we can avoid using the FIELD_GET to extract the relevant 
-bits from entity, control, channel number values.
-
-Or I am missing your point completely.
-
-
->>> And while at it, consider defining masks for various fields rather than
->>> using numbers in GENMASK() above, that would look better, be more
->>> readable and people can reuse it.
->>
->> Actually on this one I disagree. These fields are not intended to be used by
->> anyone, the goal is precisely to hide them behind regmap, and the use of raw
->> numbers makes it easier to cross-check the documentation and the code.
->> Adding a separate set of definitions would not increase readability.
-> 
-> Which one would you prefer:
-> 
->          #define SDCA_FUN_MASK           GENMASK(24, 22)
-> 
->          foo |= u32_encode_bits(SDCA_FUN_MASK, fun)
-> 
-> Or the one proposed...?
-
-Same as above, let's see what this does with the control case where we'd 
-need to have four definitions:
-
-#define SDCA_CONTROL_DEST_MASK1 GENMASK(20, 19)
-#define SDCA_CONTROL_ORIG_MASK1 GENMASK(5, 4)
-#define SDCA_CONTROL_DEST_MASK2 GENMASK(6, 3)
-#define SDCA_CONTROL_ORIG_MASK2 GENMASK(3, 0)
-
-And the code would look like
-
-foo |= u32_encode_bits(SDCA_CONTROL_DEST_MASK1, 
-FIELD_GET(SDCA_CONTROL_ORIG_MASK1, fun));
-foo |= u32_encode_bits(SDCA_CONTROL_DEST_MASK2, 
-FIELD_GET(SDCA_CONTROL_ORIG_MASK2, fun));
-
-The original suggestion was:
-
-FIELD_PREP(GENMASK(20, 19), FIELD_GET(GENMASK(5, 4), (ctl)))	|	
-FIELD_PREP(GENMASK(6, 3), FIELD_GET(GENMASK(3, 0), (ctl)))	|	
-
-I prefer the original... Adding these defines doesn't really add value 
-because
-a) the values will not be reused anywhere else.
-b) we need 12 of those defines
-b) we need a prefix for those defines which makes the code heavier
 

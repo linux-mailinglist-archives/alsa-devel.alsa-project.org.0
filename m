@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 868A32632D1
-	for <lists+alsa-devel@lfdr.de>; Wed,  9 Sep 2020 18:51:38 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5069B2632C5
+	for <lists+alsa-devel@lfdr.de>; Wed,  9 Sep 2020 18:50:55 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 29FF515F2;
-	Wed,  9 Sep 2020 18:50:48 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 29FF515F2
+	by alsa0.perex.cz (Postfix) with ESMTPS id 2D8C316BC;
+	Wed,  9 Sep 2020 18:50:04 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2D8C316BC
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1599670298;
-	bh=iwquHq+M3gdlgks1zL6xp8MghsvXnPEJw8VBzHIcMQo=;
+	s=default; t=1599670254;
+	bh=BpYTfDEXMA6s3cszSkJYCvTAaW1UIuR240HATVX1ll4=;
 	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=XatVQpbh5qJPuYTRKve/d0t3IiWaOsbqtx3xkrvQ2nen376DdlS6qcRkIeN41coXu
-	 gJaMhJuhfjkmUGRTVXj2HBIJ46KfuMgBAeH24ynMHDz12I8aXQ3f5s9xrUcnhSu+1E
-	 PdD83PrUI6y0KoyFDXGpk2ubInN1hnu/IXVY4+Xg=
+	b=GRkbooFfl7S6fEPTSEMfrJyw87FqNFeM+F1aTcqFy8SEjGdHW/3UK4ZIfwOa4twE/
+	 f/m3JA6tLzHactTOSTv2lvKF20ELrdA5Zn0c6/mY/BoE0SDA9/PBKwvDupZW724A1z
+	 YN2pG0TTf2RlOf9PuN20AZ2DqH4QWRT8dSIGvKEU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 1D5F0F80256;
-	Wed,  9 Sep 2020 18:49:14 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 459ECF80240;
+	Wed,  9 Sep 2020 18:49:13 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 356D2F8015F; Wed,  9 Sep 2020 18:49:11 +0200 (CEST)
+ id 290E3F80256; Wed,  9 Sep 2020 18:49:11 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_MSPIKE_H3,
@@ -33,21 +33,21 @@ X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_MSPIKE_H3,
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id EF776F800E9
+ by alsa1.perex.cz (Postfix) with ESMTPS id F23BAF8021C
  for <alsa-devel@alsa-project.org>; Wed,  9 Sep 2020 18:49:00 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EF776F800E9
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz F23BAF8021C
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id CFD7CAE18;
+ by mx2.suse.de (Postfix) with ESMTP id D2178AE59;
  Wed,  9 Sep 2020 16:49:15 +0000 (UTC)
-Date: Wed, 09 Sep 2020 18:44:02 +0200
-Message-ID: <s5hwo12rjcd.wl-tiwai@suse.de>
+Date: Wed, 09 Sep 2020 18:44:15 +0200
+Message-ID: <s5hv9gmrjc0.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
 To: YueHaibing <yuehaibing@huawei.com>
-Subject: Re: [PATCH 09/19] ALSA: pci/asihpi: Remove unused function
- hpi_stream_group_get_map()
-In-Reply-To: <20200909134927.33964-1-yuehaibing@huawei.com>
-References: <20200909134927.33964-1-yuehaibing@huawei.com>
+Subject: Re: [PATCH 04/19] ALSA: pcm: Remove unused inline function
+ snd_mask_sizeof
+In-Reply-To: <20200909135744.33464-1-yuehaibing@huawei.com>
+References: <20200909135744.33464-1-yuehaibing@huawei.com>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
  FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
  (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
@@ -69,7 +69,7 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Wed, 09 Sep 2020 15:49:27 +0200,
+On Wed, 09 Sep 2020 15:57:44 +0200,
 YueHaibing wrote:
 > 
 > There is no caller in tree, so can remove it.

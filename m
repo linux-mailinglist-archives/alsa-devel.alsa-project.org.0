@@ -2,70 +2,49 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6BCC426318F
-	for <lists+alsa-devel@lfdr.de>; Wed,  9 Sep 2020 18:19:14 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 852CC263242
+	for <lists+alsa-devel@lfdr.de>; Wed,  9 Sep 2020 18:38:58 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id EB9E6173E;
-	Wed,  9 Sep 2020 18:18:23 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EB9E6173E
+	by alsa0.perex.cz (Postfix) with ESMTPS id 14035173D;
+	Wed,  9 Sep 2020 18:38:08 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 14035173D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1599668354;
-	bh=ZWI8ZIwwaG0xk3zDY/v0B7Ja0OHPsLcZD8PYPK+ImiM=;
-	h=Date:From:To:In-Reply-To:References:Subject:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=RqUH1chTsRwZrKocqQUdCulqq05E/XuTdG5H9pPUwic87CF1XUrKH9w4nA30DiPPb
-	 rWr1P1Voc6ChKjY9mrvY7qbjFrI4ck8dWzwF7v5PVm71/CciCFRuNU6xF/J8Ho5TgJ
-	 n+UdCSl+xIYBM0oQQw3zbZunnEsD+bdJqvVYGT7w=
+	s=default; t=1599669538;
+	bh=UszfHOzkF+ciHxjJko6NwV4roknniJy5WMh2eemFPVk=;
+	h=From:To:Subject:Date:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=RgZ+DGJ6FkXvnm3CFbx42FVKaH3RWbFIyWHyGSpdXZcazFFbYAgtFZKf6ZYHObEWO
+	 dZzNCDEoTxNVaPxlTy68FJtCXoW39C75pX5TaRzwGCrMXw4YIGXG8Ej22IP0YDHbdD
+	 dpggqaUvqD0yZnQuHeMm1zbspQ4GcKJFhlf9rOQ8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 07AFEF80227;
-	Wed,  9 Sep 2020 18:17:33 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 14703F800E9;
+	Wed,  9 Sep 2020 18:37:17 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 40B4EF8021C; Wed,  9 Sep 2020 18:17:29 +0200 (CEST)
+ id A8EE1F80227; Wed,  9 Sep 2020 18:37:13 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled
- version=3.4.0
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_MSPIKE_H3,
+ RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
+Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 0FF53F800E9
- for <alsa-devel@alsa-project.org>; Wed,  9 Sep 2020 18:17:22 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0FF53F800E9
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="mviIVirC"
-Received: from localhost (fw-tnat.cambridge.arm.com [217.140.96.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 459B3206A2;
- Wed,  9 Sep 2020 16:17:20 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1599668240;
- bh=ZWI8ZIwwaG0xk3zDY/v0B7Ja0OHPsLcZD8PYPK+ImiM=;
- h=Date:From:To:Cc:In-Reply-To:References:Subject:From;
- b=mviIVirCVmP0xqdQRsgVrxrWvJf3fZlkLSRYDAmQKaurnCBPjlwrNAjI7tAGt5VTt
- O4QUFP4EMiyuaNE4nOc2qS1kKCAI9R8ljt4PptFEUIIe+52cPzmh65awNDDKRi2SfD
- JW+rckVFPgX+7omG043GtVSFGaiBGj7GSkM8P834=
-Date: Wed, 09 Sep 2020 17:16:35 +0100
-From: Mark Brown <broonie@kernel.org>
-To: linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- alsa-devel@alsa-project.org,
- Codrin Ciubotariu <codrin.ciubotariu@microchip.com>,
- devicetree@vger.kernel.org
-In-Reply-To: <20200909145348.367033-1-codrin.ciubotariu@microchip.com>
-References: <20200909145348.367033-1-codrin.ciubotariu@microchip.com>
-Subject: Re: [PATCH v4 1/2] dt-bindings: sound: add DT bindings for Microchip
- S/PDIF TX Controller
-Message-Id: <159966819527.17677.10566984537165572569.b4-ty@kernel.org>
-Cc: Rob Herring <robh@kernel.org>, alexandre.belloni@bootlin.com,
- lgirdwood@gmail.com, nicolas.ferre@microchip.com, tiwai@suse.com,
- ludovic.desroches@microchip.com, robh+dt@kernel.org
+ by alsa1.perex.cz (Postfix) with ESMTPS id 55EB6F8015F
+ for <alsa-devel@alsa-project.org>; Wed,  9 Sep 2020 18:37:06 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 55EB6F8015F
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id 1BD65AD1A;
+ Wed,  9 Sep 2020 16:37:22 +0000 (UTC)
+From: Takashi Iwai <tiwai@suse.de>
+To: alsa-devel@alsa-project.org
+Subject: [PATCH v2] ALSA: firewire: Replace tasklet with work
+Date: Wed,  9 Sep 2020 18:36:59 +0200
+Message-Id: <20200909163659.21708-1-tiwai@suse.de>
+X-Mailer: git-send-email 2.16.4
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -81,36 +60,139 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Wed, 9 Sep 2020 17:53:47 +0300, Codrin Ciubotariu wrote:
-> This patch adds DT bindings for the new Microchip S/PDIF TX Controller
-> embedded inside sama7g5 SoCs.
+The tasklet is an old API that should be deprecated, usually can be
+converted to another decent API.  In FireWire driver, a tasklet is
+still used for offloading the AMDTP PCM stream handling.  It can be
+achieved gracefully with a work queued, too.
 
-Applied to
+This patch replaces the tasklet usage in firewire-lib driver with a
+simple work.  The conversion is fairly straightforward but for the
+in_interrupt() checks that are replaced with the check using the
+current_work().
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
+Note that in_interrupt() in amdtp_packet tracepoint is still kept as
+is.  This is the place that is probed by both softirq of 1394 OHCI and
+a user task of a PCM application, and the work handling is already
+filtered in amdtp_domain_stream_pcm_pointer().
 
-Thanks!
+Signed-off-by: Takashi Iwai <tiwai@suse.de>
+---
+v1->v2: Drop in_interrupt() conversion in tracepoint
 
-[1/2] ASoC: add DT bindings for Microchip S/PDIF TX Controller
-      commit: 7a8cca56f75ec9fe94550f846e66d62bc3a2778c
-[2/2] ASoC: mchp-spdiftx: add driver for S/PDIF TX Controller
-      commit: 06ca24e98e6bcc17c32ebe4b2fc579e5bf9ff5b2
+ sound/firewire/amdtp-stream.c | 25 +++++++++++++------------
+ sound/firewire/amdtp-stream.h |  2 +-
+ 2 files changed, 14 insertions(+), 13 deletions(-)
 
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
+diff --git a/sound/firewire/amdtp-stream.c b/sound/firewire/amdtp-stream.c
+index ee1c428b1fd3..4e2f2bb7879f 100644
+--- a/sound/firewire/amdtp-stream.c
++++ b/sound/firewire/amdtp-stream.c
+@@ -64,7 +64,7 @@
+ #define IT_PKT_HEADER_SIZE_CIP		8 // For 2 CIP header.
+ #define IT_PKT_HEADER_SIZE_NO_CIP	0 // Nothing.
+ 
+-static void pcm_period_tasklet(struct tasklet_struct *t);
++static void pcm_period_work(struct work_struct *work);
+ 
+ /**
+  * amdtp_stream_init - initialize an AMDTP stream structure
+@@ -94,7 +94,7 @@ int amdtp_stream_init(struct amdtp_stream *s, struct fw_unit *unit,
+ 	s->flags = flags;
+ 	s->context = ERR_PTR(-1);
+ 	mutex_init(&s->mutex);
+-	tasklet_setup(&s->period_tasklet, pcm_period_tasklet);
++	INIT_WORK(&s->period_work, pcm_period_work);
+ 	s->packet_index = 0;
+ 
+ 	init_waitqueue_head(&s->callback_wait);
+@@ -203,7 +203,7 @@ int amdtp_stream_add_pcm_hw_constraints(struct amdtp_stream *s,
+ 
+ 	// Linux driver for 1394 OHCI controller voluntarily flushes isoc
+ 	// context when total size of accumulated context header reaches
+-	// PAGE_SIZE. This kicks tasklet for the isoc context and brings
++	// PAGE_SIZE. This kicks work for the isoc context and brings
+ 	// callback in the middle of scheduled interrupts.
+ 	// Although AMDTP streams in the same domain use the same events per
+ 	// IRQ, use the largest size of context header between IT/IR contexts.
+@@ -333,7 +333,7 @@ EXPORT_SYMBOL(amdtp_stream_get_max_payload);
+  */
+ void amdtp_stream_pcm_prepare(struct amdtp_stream *s)
+ {
+-	tasklet_kill(&s->period_tasklet);
++	cancel_work_sync(&s->period_work);
+ 	s->pcm_buffer_pointer = 0;
+ 	s->pcm_period_pointer = 0;
+ }
+@@ -437,13 +437,14 @@ static void update_pcm_pointers(struct amdtp_stream *s,
+ 	s->pcm_period_pointer += frames;
+ 	if (s->pcm_period_pointer >= pcm->runtime->period_size) {
+ 		s->pcm_period_pointer -= pcm->runtime->period_size;
+-		tasklet_hi_schedule(&s->period_tasklet);
++		queue_work(system_highpri_wq, &s->period_work);
+ 	}
+ }
+ 
+-static void pcm_period_tasklet(struct tasklet_struct *t)
++static void pcm_period_work(struct work_struct *work)
+ {
+-	struct amdtp_stream *s = from_tasklet(s, t, period_tasklet);
++	struct amdtp_stream *s = container_of(work, struct amdtp_stream,
++					      period_work);
+ 	struct snd_pcm_substream *pcm = READ_ONCE(s->pcm);
+ 
+ 	if (pcm)
+@@ -794,7 +795,7 @@ static void generate_pkt_descs(struct amdtp_stream *s, struct pkt_desc *descs,
+ static inline void cancel_stream(struct amdtp_stream *s)
+ {
+ 	s->packet_index = -1;
+-	if (in_interrupt())
++	if (current_work() == &s->period_work)
+ 		amdtp_stream_pcm_abort(s);
+ 	WRITE_ONCE(s->pcm_buffer_pointer, SNDRV_PCM_POS_XRUN);
+ }
+@@ -1184,7 +1185,7 @@ unsigned long amdtp_domain_stream_pcm_pointer(struct amdtp_domain *d,
+ 
+ 	if (irq_target && amdtp_stream_running(irq_target)) {
+ 		// This function is called in software IRQ context of
+-		// period_tasklet or process context.
++		// period_work or process context.
+ 		//
+ 		// When the software IRQ context was scheduled by software IRQ
+ 		// context of IT contexts, queued packets were already handled.
+@@ -1195,9 +1196,9 @@ unsigned long amdtp_domain_stream_pcm_pointer(struct amdtp_domain *d,
+ 		// immediately to keep better granularity of PCM pointer.
+ 		//
+ 		// Later, the process context will sometimes schedules software
+-		// IRQ context of the period_tasklet. Then, no need to flush the
++		// IRQ context of the period_work. Then, no need to flush the
+ 		// queue by the same reason as described in the above
+-		if (!in_interrupt()) {
++		if (current_work() != &s->period_work) {
+ 			// Queued packet should be processed without any kernel
+ 			// preemption to keep latency against bus cycle.
+ 			preempt_disable();
+@@ -1263,7 +1264,7 @@ static void amdtp_stream_stop(struct amdtp_stream *s)
+ 		return;
+ 	}
+ 
+-	tasklet_kill(&s->period_tasklet);
++	cancel_work_sync(&s->period_work);
+ 	fw_iso_context_stop(s->context);
+ 	fw_iso_context_destroy(s->context);
+ 	s->context = ERR_PTR(-1);
+diff --git a/sound/firewire/amdtp-stream.h b/sound/firewire/amdtp-stream.h
+index 703b710aaf7f..2ceb57d1d58e 100644
+--- a/sound/firewire/amdtp-stream.h
++++ b/sound/firewire/amdtp-stream.h
+@@ -163,7 +163,7 @@ struct amdtp_stream {
+ 
+ 	/* For a PCM substream processing. */
+ 	struct snd_pcm_substream *pcm;
+-	struct tasklet_struct period_tasklet;
++	struct work_struct period_work;
+ 	snd_pcm_uframes_t pcm_buffer_pointer;
+ 	unsigned int pcm_period_pointer;
+ 
+-- 
+2.16.4
 
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
-
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
-
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-Thanks,
-Mark

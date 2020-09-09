@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E57BA263092
-	for <lists+alsa-devel@lfdr.de>; Wed,  9 Sep 2020 17:31:38 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 30B812630AE
+	for <lists+alsa-devel@lfdr.de>; Wed,  9 Sep 2020 17:38:07 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 4FBC41727;
-	Wed,  9 Sep 2020 17:30:48 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4FBC41727
+	by alsa0.perex.cz (Postfix) with ESMTPS id 72CDB1728;
+	Wed,  9 Sep 2020 17:37:16 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 72CDB1728
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1599665498;
-	bh=Jr/FIdFu7b5EpKxwrPHoPS0ApvfENs027hYFxggipgg=;
-	h=Date:From:To:In-Reply-To:References:Subject:Cc:List-Id:
+	s=default; t=1599665886;
+	bh=3HW7/YZpNR5PKfJypmmXKtFx2FgzoWRoaPzw05ImMYU=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=Pw3qpOgdRypdQYZHaRLn+IXh9v0mUTqVZ7BENRi9cAMXEHt7jQ9TfbYgwCCBm0slM
-	 Gn6GMyloXmIm5OHA2pAaKtdh50tl0H+aCglhud/9MIn+QsRcVNxgqOACbaKr48Kn9E
-	 qUco32p297CMRCleW1hot2JJifR+SfbHSezzzN8Q=
+	b=AfvPaLIREgFGQOP8G5CBUEN8PfQSJLEyupWFPoGBa4gVVgY2Ex2TNVjsfIkk2kNt1
+	 m7xiq6VxTd2YLxLyKzJGCg6y0BOxuwpNeb0qsXgE4IQj9ksj9sPX7j6X2AudVJykIh
+	 ZGHHKuFgq8saDYA5s2DM3928JAzoTqgJ0oUVuHRU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 50016F800FD;
-	Wed,  9 Sep 2020 17:29:57 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 8A9C0F800FD;
+	Wed,  9 Sep 2020 17:36:25 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id DA9C4F80227; Wed,  9 Sep 2020 17:29:50 +0200 (CEST)
+ id 96A34F80227; Wed,  9 Sep 2020 17:36:22 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -34,34 +34,40 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id E912EF800FD
- for <alsa-devel@alsa-project.org>; Wed,  9 Sep 2020 17:29:39 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E912EF800FD
+ by alsa1.perex.cz (Postfix) with ESMTPS id 6B2A6F8015F
+ for <alsa-devel@alsa-project.org>; Wed,  9 Sep 2020 17:36:13 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6B2A6F8015F
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="TxbqpeA2"
+ header.b="wLzlH809"
 Received: from localhost (fw-tnat.cambridge.arm.com [217.140.96.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 02204218AC;
- Wed,  9 Sep 2020 15:29:27 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id 00C142078E;
+ Wed,  9 Sep 2020 15:36:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1599665368;
- bh=Jr/FIdFu7b5EpKxwrPHoPS0ApvfENs027hYFxggipgg=;
- h=Date:From:To:Cc:In-Reply-To:References:Subject:From;
- b=TxbqpeA2d8xL6Elb9+59XYE5M7Gkw/C4XvhKEvStFtI/S0FII0ubxl80UtCJvgVfX
- tzKCd3UZSpmRzVUtUwjba2yfDlgFVFiMdsHJJJU/DWpGZzJUBNXEX1xr8AALagN44T
- YyjsysjW4ccIAybOCr5AldSdvDmZLQgww//fo8YM=
-Date: Wed, 09 Sep 2020 16:28:43 +0100
+ s=default; t=1599665771;
+ bh=3HW7/YZpNR5PKfJypmmXKtFx2FgzoWRoaPzw05ImMYU=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=wLzlH809IZZ8Q09B/sG7jf9PBljl6iCXX/4tdxMzMRKUtkG2wiGZR4Cc90e61dTy5
+ 1dUPctUxZ8MElnHsnXk2AIxOxLjiSoNmcaIMcOMyywsWtCaAc//woQfJxCoEJg7YY+
+ UF4UtexqtQji6PJ8oc/lVuKjdWwKoCies9lvjLG8=
+Date: Wed, 9 Sep 2020 16:35:25 +0100
 From: Mark Brown <broonie@kernel.org>
-To: alsa-devel@alsa-project.org, Takashi Iwai <tiwai@suse.de>
-In-Reply-To: <20200903104749.21435-1-tiwai@suse.de>
-References: <20200903104749.21435-1-tiwai@suse.de>
-Subject: Re: [PATCH 0/3] ASoC: Kill tasklet usage
-Message-Id: <159966532312.54306.11433641510365688720.b4-ty@kernel.org>
-Cc: Nicolin Chen <nicoleotsuka@gmail.com>,
- Shengjiu Wang <shengjiu.wang@gmail.com>, Timur Tabi <timur@kernel.org>,
- Xiubo Li <Xiubo.Lee@gmail.com>
+To: Dan Murphy <dmurphy@ti.com>
+Subject: Re: [RFC] Device addition to the tlv320adcx140 and tas2562
+Message-ID: <20200909153525.GF4926@sirena.org.uk>
+References: <8c47c81f-5f83-2cf4-7bf1-62201b35bed3@ti.com>
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="sDKAb4OeUBrWWL6P"
+Content-Disposition: inline
+In-Reply-To: <8c47c81f-5f83-2cf4-7bf1-62201b35bed3@ti.com>
+X-Cookie: MIT:
+User-Agent: Mutt/1.10.1 (2018-07-13)
+Cc: LKML <linux-kernel@vger.kernel.org>,
+ "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
+ Liam Girdwood <lgirdwood@gmail.com>, "tiwai@suse.com" <tiwai@suse.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -77,44 +83,49 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Thu, 3 Sep 2020 12:47:46 +0200, Takashi Iwai wrote:
-> this is another series of patches to kill tasklet usages in sound
-> tree, at this time, applied to ASoC drivers.
-> The patches are applied on top the tasklet API conversion patches,
-> found in topic/tasklet-convert branch of sound git tree, which will be
-> included in 5.9-rc4.
-> 
-> 
-> [...]
 
-Applied to
+--sDKAb4OeUBrWWL6P
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
+On Wed, Sep 09, 2020 at 10:01:51AM -0500, Dan Murphy wrote:
 
-Thanks!
+> For the TLV320adcx140 driver I have another device which is register and
+> bitmap compatible but it does not support Analog microphones or Line In l=
+ike
+> the x140.
 
-[1/3] ASoC: fsl: Replace tasklet with work
-      commit: a3d1f931ea4af3a9cae0098a957ce55293ce9ab6
-[2/3] ASoC: sh: Replace tasklet with work
-      commit: d668e640d50a981e35ccf0c87d2742b0ad26fe0c
-[3/3] ASoC: txx9: Replace tasklet with work
-      commit: dd8c0c0b37f1692a1202ea2c6f9d43aa0485faac
+> Should I add a new driver specifically for this part or should I add the =
+new
+> audio maps, widgets and controls to the existing driver?=A0 This would ma=
+ke
+> this existing driver really big in terms of LoC and object size.
 
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
+Are they sharing anything (eg, the code is the same but the data tables
+vary) or is it just two unrelated devices?
 
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
+> Similar question for the TAS2562.=A0 I have a new device that is register=
+ and
+> bitmap compatible but removes the I/V sense. Adding this new device to the
+> existing driver wouldn't be as intrusive as the x140 as the audio map and
+> controls are much simpler
 
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
+That definitely sounds like sharing the driver makes sense.
 
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
+--sDKAb4OeUBrWWL6P
+Content-Type: application/pgp-signature; name="signature.asc"
 
-Thanks,
-Mark
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl9Y9jwACgkQJNaLcl1U
+h9BRGgf/a6zuU0wHCq5OOO1RymVVtslMfSmac1WHzxfuSkO69/NsPCzFN75Hf+aU
+41aKjkomQcSwL+xAhIG5dvAKqtgxWUpJ/SmMtFT3EVIv3vwerr2aMlK25j1Im444
+IJzswJ5J7U+FbLc7Ie8bs18+QX3Vnq/iRyt3tgT6sqEvlpPOQuWeS9a0WSVyYpKc
+Ay6Rju4a2WzTYF5+B3XUsNZwpmlBG2UgG+thli0zqg8z/4brKGBSiethg40D6XcV
+NeqLIj0x5pe2H/5T61++/KSibVi0HQZoKeUYnLwHM9am0fqxJtk4I2hFCC0d4wHS
+kMEY/ad8Gny5AGUphwwmp9WxtI3XdQ==
+=kQP4
+-----END PGP SIGNATURE-----
+
+--sDKAb4OeUBrWWL6P--

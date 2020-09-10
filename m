@@ -2,83 +2,83 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 23C302643CB
-	for <lists+alsa-devel@lfdr.de>; Thu, 10 Sep 2020 12:22:23 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D3C782643AF
+	for <lists+alsa-devel@lfdr.de>; Thu, 10 Sep 2020 12:19:42 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B9FDF1692;
-	Thu, 10 Sep 2020 12:21:32 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B9FDF1692
+	by alsa0.perex.cz (Postfix) with ESMTPS id 3FA1F1673;
+	Thu, 10 Sep 2020 12:18:52 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3FA1F1673
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1599733342;
-	bh=QQLeeA3954mWJcS5/niX7iYx8vKvyQ5ieThsHDg58W0=;
+	s=default; t=1599733182;
+	bh=rhrEcdBOQ6Wwzo5QEkrWrr1c4R2mFPZitCYPMWW5mxA=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=XXH5D7feNs1NhA3QIPaIdwtTL0pY59fIas7KOUs8DzlUhPcxHPLGJqgOHXQS1G7Kc
-	 Qb9VORiTS3l4/gRlf07+dAHj/2vvvvZOAX5+V9csdwjUNujSpOlKNzG5y3Qr61lu9k
-	 n3LvwRmD1k092TEOohL9DaJcFaarIMltiWZ9grK8=
+	b=TdpbA4J2dPVIF8auTqjnOxcV6a3rYVCgt1SA+mHtySHvz6T7PigOsv45tI8qQ/wmC
+	 nXzkVgUYy5W5NBLg0bWFjwdvlnz+EVsqDPlFIVaYFH0880+GzNUNdOY7KVqHi65X/o
+	 hSyR7f7vhGZHKkSNDovCxAxR2TR5s/tVQ0v7alww=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 42D92F802EC;
-	Thu, 10 Sep 2020 12:18:17 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 14DBCF800E9;
+	Thu, 10 Sep 2020 12:18:01 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 7FA8DF802DF; Thu, 10 Sep 2020 12:18:08 +0200 (CEST)
+ id 070F1F802C2; Thu, 10 Sep 2020 12:17:58 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=disabled
  version=3.4.0
-Received: from mail-wr1-x436.google.com (mail-wr1-x436.google.com
- [IPv6:2a00:1450:4864:20::436])
+Received: from mail-wr1-x442.google.com (mail-wr1-x442.google.com
+ [IPv6:2a00:1450:4864:20::442])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 4F953F801F2
- for <alsa-devel@alsa-project.org>; Thu, 10 Sep 2020 12:17:49 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4F953F801F2
+ by alsa1.perex.cz (Postfix) with ESMTPS id CFECCF800D0
+ for <alsa-devel@alsa-project.org>; Thu, 10 Sep 2020 12:17:50 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CFECCF800D0
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org
- header.b="y49qLon9"
-Received: by mail-wr1-x436.google.com with SMTP id t10so6095048wrv.1
- for <alsa-devel@alsa-project.org>; Thu, 10 Sep 2020 03:17:49 -0700 (PDT)
+ header.b="FWqAdG33"
+Received: by mail-wr1-x442.google.com with SMTP id s12so6043603wrw.11
+ for <alsa-devel@alsa-project.org>; Thu, 10 Sep 2020 03:17:50 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=zHBmx055sbBg7MqNM/uYc59WPPRKIM4LLsW0G6hMtvg=;
- b=y49qLon9Y4Etak0KwvCgdmRAo1Pq/cipmeh1cqbXkWTIG5zuMIGASeDjTmIS83m5Kg
- 62z6dAzb7pb53LWlRZBQ4Ykbf40jVFYp3DNY91VtyzZ/QMdW2wYOLVtjukcMTfMoY38r
- zyuuMjqA+IDbOrLNEGNtr6MVmnBm+LO/YycDzuDZIvH2RuV3nWFID0UmfpqdKQeGwwuH
- 49qkQyc1mCakmJ19LP9N9QfJcg25xU200US+bjTV42GlIZsY3FLFgHyrJKMiZJM4VWkr
- KxxbvjVzAfKxMzZJOSk48JLuK/Hke24sWdK4A1bbzEh0lmy3ObRjPM8A2ng6JY+k3QuD
- rZdA==
+ bh=XiTDwe0DE6I7Qq6iJehCoT2zSGDBsTZiTs0CApOPA1I=;
+ b=FWqAdG33IxMr+QgyxdRqUDWiYgJsK8hTsj1WMNseY5YWkHruSHbiEken0vXLzsuv3L
+ CWDZaqI+bxxqe24R2Lu++jFMvrDaTD4qiZnN/4Xv1Citx8DDaz8LapDrZIsAgMfq06nP
+ KtXqkfwDhaTfoYWS5LNXGWaIVZmyg7lYXYbvzLZU0+0phvgbKG+WVpEhG3YDYrUD4/Pb
+ b5IWVUFMHez3kOAmU8bGxtrpgZrPOjQUITEQsJP/5/Ecxx75H5DOSHxqPVHaSPQYz9xa
+ 8XmL0dfz1BtqFgCUikJAQKHCuI1fhsmjHiI6kBmeZwf1wex3MQpzOLdqpVfEd++3f42Z
+ 0r4Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=zHBmx055sbBg7MqNM/uYc59WPPRKIM4LLsW0G6hMtvg=;
- b=iPalIr9f9D0FktIAuAJLoPEMckeL2dg+H5+HGg6GcdGHYgbGVuc5T2E7TERoO+IzG4
- owu1A7Z7vA2La1S4cgBllZyq9eLyBc7lYb44vUqiTQoUXijMEUy71JzzC6AKt74YQZYX
- P2CM7sTwRSSsRq5GKxZH2ygrjtwgFKzzWW6ADCTXTUzauJUDN4oZCNIvxW7fyxV7NOvH
- 5UH7TsUsJ9izPz62ErzTZExoEXroMP8HhYjkKR76BJaqAHL4ifGSh/i2LLTRTC148CJG
- Ixo7ynTC7cpInc/L1XPI/cnCby531EPftUqYUqad74trfDyLA/J29wycs/x/CA7z9IYS
- dRUQ==
-X-Gm-Message-State: AOAM5316c9eXNJYvVbmhsqKjNEzxuOPvcPrlu3Cosek5LuC/aS2DwHMu
- XvV6AojtsMjYB2ZnNZmabzlTaw==
-X-Google-Smtp-Source: ABdhPJxE6xAn8FhlHViC8YqDPkyu5r9y93x+ZpcBSaE5gk4i+oOB70VUqDZL0NkNpuuhkUb39yTOZQ==
-X-Received: by 2002:a5d:4591:: with SMTP id p17mr8083560wrq.408.1599733068711; 
- Thu, 10 Sep 2020 03:17:48 -0700 (PDT)
+ bh=XiTDwe0DE6I7Qq6iJehCoT2zSGDBsTZiTs0CApOPA1I=;
+ b=BmFsK0d2ILRyNwGDwluFKEWDAdG/HkNSo2qhBemdCAkSxgv3vWEhonkYrU7N1AvVe3
+ Zo6OxVQU+AbbyXFRSUR1z6hkaGEljvKtv2mC//+Pf8RmmEX2gHA9kiiEeMxRXe+Mb5Ds
+ Ye26WZQEzhduO3QiWK31j5a2A7dQB5wniv+OzSSb7qpBGrqVKNRs7mbu6At4Q9FXYmge
+ JPTkv/tII3WYgAkcEOOFZzW7VQSFXADYWCoz/0X4ANHR9+cqef19PqIERaHlp6rx9Rzl
+ LUTFJMQxdICt0RG7jeDDz4HkvQd3j9Ky8CUqMOFzdhI0tRNW15rJfasalLucxUo5+dOx
+ jqzw==
+X-Gm-Message-State: AOAM530KgVxPRPxafXKvzUJYDHfLBPUzfgq6nJVMYtdG3Fs6wmVyhYT4
+ SMSYnIEaOUuBdCUelaD8zpnfLg==
+X-Google-Smtp-Source: ABdhPJz9heXgS8rFxJS0nXHKUiSQmu7ZR9KnDg2SgCKZBNu8QkHR6CIg7pqKUo9m1ZUWj95R+WtbyA==
+X-Received: by 2002:a5d:4910:: with SMTP id x16mr9051472wrq.204.1599733069852; 
+ Thu, 10 Sep 2020 03:17:49 -0700 (PDT)
 Received: from srini-hackbox.lan
  (cpc86377-aztw32-2-0-cust226.18-1.cable.virginm.net. [92.233.226.227])
- by smtp.gmail.com with ESMTPSA id m4sm8851731wro.18.2020.09.10.03.17.47
+ by smtp.gmail.com with ESMTPSA id m4sm8851731wro.18.2020.09.10.03.17.48
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 10 Sep 2020 03:17:48 -0700 (PDT)
+ Thu, 10 Sep 2020 03:17:49 -0700 (PDT)
 From: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
 To: broonie@kernel.org
-Subject: [PATCH 1/8] ASoC: q6dsp: q6afe: add support to Codec DMA ports
-Date: Thu, 10 Sep 2020 11:17:25 +0100
-Message-Id: <20200910101732.23484-2-srinivas.kandagatla@linaro.org>
+Subject: [PATCH 2/8] ASoC: q6dsp: q6routing: add support to Codec DMA ports
+Date: Thu, 10 Sep 2020 11:17:26 +0100
+Message-Id: <20200910101732.23484-3-srinivas.kandagatla@linaro.org>
 X-Mailer: git-send-email 2.21.0
 In-Reply-To: <20200910101732.23484-1-srinivas.kandagatla@linaro.org>
 References: <20200910101732.23484-1-srinivas.kandagatla@linaro.org>
@@ -103,278 +103,171 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-New LPASS supports various codec macros, DSP firmware already
-has support to those ports. Add corresponding configuration
-support to those ports in adsp drivers.
-
 Signed-off-by: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
 ---
- include/dt-bindings/sound/qcom,q6afe.h |  22 +++++
- sound/soc/qcom/qdsp6/q6afe.c           | 127 ++++++++++++++++++++++++-
- sound/soc/qcom/qdsp6/q6afe.h           |  14 ++-
- 3 files changed, 161 insertions(+), 2 deletions(-)
+ sound/soc/qcom/qdsp6/q6routing.c | 121 ++++++++++++++++++++++++++++++-
+ 1 file changed, 120 insertions(+), 1 deletion(-)
 
-diff --git a/include/dt-bindings/sound/qcom,q6afe.h b/include/dt-bindings/sound/qcom,q6afe.h
-index 1df06f8ad5c3..7207ab2b57bf 100644
---- a/include/dt-bindings/sound/qcom,q6afe.h
-+++ b/include/dt-bindings/sound/qcom,q6afe.h
-@@ -107,6 +107,28 @@
- #define QUINARY_TDM_RX_7	102
- #define QUINARY_TDM_TX_7	103
- #define DISPLAY_PORT_RX		104
-+#define WSA_CODEC_DMA_RX_0	105
-+#define WSA_CODEC_DMA_TX_0	106
-+#define WSA_CODEC_DMA_RX_1	107
-+#define WSA_CODEC_DMA_TX_1	108
-+#define WSA_CODEC_DMA_TX_2	109
-+#define VA_CODEC_DMA_TX_0	110
-+#define VA_CODEC_DMA_TX_1	111
-+#define VA_CODEC_DMA_TX_2	112
-+#define RX_CODEC_DMA_RX_0	113
-+#define TX_CODEC_DMA_TX_0	114
-+#define RX_CODEC_DMA_RX_1	115
-+#define TX_CODEC_DMA_TX_1	116
-+#define RX_CODEC_DMA_RX_2	117
-+#define TX_CODEC_DMA_TX_2	118
-+#define RX_CODEC_DMA_RX_3	119
-+#define TX_CODEC_DMA_TX_3	120
-+#define RX_CODEC_DMA_RX_4	121
-+#define TX_CODEC_DMA_TX_4	122
-+#define RX_CODEC_DMA_RX_5	123
-+#define TX_CODEC_DMA_TX_5	124
-+#define RX_CODEC_DMA_RX_6	125
-+#define RX_CODEC_DMA_RX_7	126
+diff --git a/sound/soc/qcom/qdsp6/q6routing.c b/sound/soc/qcom/qdsp6/q6routing.c
+index 25d23e0266c7..b12539fae6ed 100644
+--- a/sound/soc/qcom/qdsp6/q6routing.c
++++ b/sound/soc/qcom/qdsp6/q6routing.c
+@@ -113,7 +113,19 @@
+ 	{ mix_name, "QUIN_TDM_TX_4", "QUIN_TDM_TX_4"},		\
+ 	{ mix_name, "QUIN_TDM_TX_5", "QUIN_TDM_TX_5"},		\
+ 	{ mix_name, "QUIN_TDM_TX_6", "QUIN_TDM_TX_6"},		\
+-	{ mix_name, "QUIN_TDM_TX_7", "QUIN_TDM_TX_7"}
++	{ mix_name, "QUIN_TDM_TX_7", "QUIN_TDM_TX_7"},		\
++	{ mix_name, "WSA_CODEC_DMA_TX_0", "WSA_CODEC_DMA_TX_0"},	\
++	{ mix_name, "WSA_CODEC_DMA_TX_1", "WSA_CODEC_DMA_TX_1"},	\
++	{ mix_name, "WSA_CODEC_DMA_TX_2", "WSA_CODEC_DMA_TX_2"},	\
++	{ mix_name, "VA_CODEC_DMA_TX_0", "VA_CODEC_DMA_TX_0"},	\
++	{ mix_name, "VA_CODEC_DMA_TX_1", "VA_CODEC_DMA_TX_1"},	\
++	{ mix_name, "VA_CODEC_DMA_TX_2", "VA_CODEC_DMA_TX_2"},	\
++	{ mix_name, "TX_CODEC_DMA_TX_0", "TX_CODEC_DMA_TX_0"},	\
++	{ mix_name, "TX_CODEC_DMA_TX_1", "TX_CODEC_DMA_TX_1"},	\
++	{ mix_name, "TX_CODEC_DMA_TX_2", "TX_CODEC_DMA_TX_2"},	\
++	{ mix_name, "TX_CODEC_DMA_TX_3", "TX_CODEC_DMA_TX_3"},	\
++	{ mix_name, "TX_CODEC_DMA_TX_4", "TX_CODEC_DMA_TX_4"},	\
++	{ mix_name, "TX_CODEC_DMA_TX_5", "TX_CODEC_DMA_TX_5"}
  
- #endif /* __DT_BINDINGS_Q6_AFE_H__ */
+ #define Q6ROUTING_TX_MIXERS(id)						\
+ 	SOC_SINGLE_EXT("PRI_MI2S_TX", PRIMARY_MI2S_TX,			\
+@@ -267,6 +279,42 @@
+ 		id, 1, 0, msm_routing_get_audio_mixer,			\
+ 		msm_routing_put_audio_mixer),				\
+ 	SOC_SINGLE_EXT("QUIN_TDM_TX_7", QUINARY_TDM_TX_7,		\
++		id, 1, 0, msm_routing_get_audio_mixer,			\
++		msm_routing_put_audio_mixer),				\
++	SOC_SINGLE_EXT("WSA_CODEC_DMA_TX_0", WSA_CODEC_DMA_TX_0,	\
++		id, 1, 0, msm_routing_get_audio_mixer,			\
++		msm_routing_put_audio_mixer),				\
++	SOC_SINGLE_EXT("WSA_CODEC_DMA_TX_1", WSA_CODEC_DMA_TX_1,	\
++		id, 1, 0, msm_routing_get_audio_mixer,			\
++		msm_routing_put_audio_mixer),				\
++	SOC_SINGLE_EXT("WSA_CODEC_DMA_TX_2", WSA_CODEC_DMA_TX_2,	\
++		id, 1, 0, msm_routing_get_audio_mixer,			\
++		msm_routing_put_audio_mixer),				\
++	SOC_SINGLE_EXT("VA_CODEC_DMA_TX_0", VA_CODEC_DMA_TX_0,		\
++		id, 1, 0, msm_routing_get_audio_mixer,			\
++		msm_routing_put_audio_mixer),				\
++	SOC_SINGLE_EXT("VA_CODEC_DMA_TX_1", VA_CODEC_DMA_TX_1,		\
++		id, 1, 0, msm_routing_get_audio_mixer,			\
++		msm_routing_put_audio_mixer),				\
++	SOC_SINGLE_EXT("VA_CODEC_DMA_TX_2", VA_CODEC_DMA_TX_2,		\
++		id, 1, 0, msm_routing_get_audio_mixer,			\
++		msm_routing_put_audio_mixer),				\
++	SOC_SINGLE_EXT("TX_CODEC_DMA_TX_0", TX_CODEC_DMA_TX_0,		\
++		id, 1, 0, msm_routing_get_audio_mixer,			\
++		msm_routing_put_audio_mixer),				\
++	SOC_SINGLE_EXT("TX_CODEC_DMA_TX_1", TX_CODEC_DMA_TX_1,		\
++		id, 1, 0, msm_routing_get_audio_mixer,			\
++		msm_routing_put_audio_mixer),				\
++	SOC_SINGLE_EXT("TX_CODEC_DMA_TX_2", TX_CODEC_DMA_TX_2,		\
++		id, 1, 0, msm_routing_get_audio_mixer,			\
++		msm_routing_put_audio_mixer),				\
++	SOC_SINGLE_EXT("TX_CODEC_DMA_TX_3", TX_CODEC_DMA_TX_3,		\
++		id, 1, 0, msm_routing_get_audio_mixer,			\
++		msm_routing_put_audio_mixer),				\
++	SOC_SINGLE_EXT("TX_CODEC_DMA_TX_4", TX_CODEC_DMA_TX_4,		\
++		id, 1, 0, msm_routing_get_audio_mixer,			\
++		msm_routing_put_audio_mixer),				\
++	SOC_SINGLE_EXT("TX_CODEC_DMA_TX_5", TX_CODEC_DMA_TX_5,		\
+ 		id, 1, 0, msm_routing_get_audio_mixer,			\
+ 		msm_routing_put_audio_mixer),
  
-diff --git a/sound/soc/qcom/qdsp6/q6afe.c b/sound/soc/qcom/qdsp6/q6afe.c
-index e0945f7a58c8..8ceefb431bcb 100644
---- a/sound/soc/qcom/qdsp6/q6afe.c
-+++ b/sound/soc/qcom/qdsp6/q6afe.c
-@@ -42,6 +42,7 @@
- #define AFE_PARAM_ID_I2S_CONFIG	0x0001020D
- #define AFE_PARAM_ID_TDM_CONFIG	0x0001029D
- #define AFE_PARAM_ID_PORT_SLOT_MAPPING_CONFIG	0x00010297
-+#define AFE_PARAM_ID_CODEC_DMA_CONFIG	0x000102B8
+@@ -609,6 +657,36 @@ static const struct snd_kcontrol_new quin_tdm_rx_6_mixer_controls[] = {
+ static const struct snd_kcontrol_new quin_tdm_rx_7_mixer_controls[] = {
+ 	Q6ROUTING_RX_MIXERS(QUINARY_TDM_RX_7) };
  
- /* I2S config specific */
- #define AFE_API_VERSION_I2S_CONFIG	0x1
-@@ -299,12 +300,58 @@
- #define AFE_PORT_ID_QUINARY_TDM_TX_7 \
- 	(AFE_PORT_ID_QUINARY_TDM_TX + 0x0E)
- 
-+/* AFE WSA Codec DMA Rx port 0 */
-+#define AFE_PORT_ID_WSA_CODEC_DMA_RX_0	0xB000
-+/* AFE WSA Codec DMA Tx port 0 */
-+#define AFE_PORT_ID_WSA_CODEC_DMA_TX_0	0xB001
-+/* AFE WSA Codec DMA Rx port 1 */
-+#define AFE_PORT_ID_WSA_CODEC_DMA_RX_1	0xB002
-+/* AFE WSA Codec DMA Tx port 1 */
-+#define AFE_PORT_ID_WSA_CODEC_DMA_TX_1	0xB003
-+/* AFE WSA Codec DMA Tx port 2 */
-+#define AFE_PORT_ID_WSA_CODEC_DMA_TX_2	0xB005
-+/* AFE VA Codec DMA Tx port 0 */
-+#define AFE_PORT_ID_VA_CODEC_DMA_TX_0	0xB021
-+/* AFE VA Codec DMA Tx port 1 */
-+#define AFE_PORT_ID_VA_CODEC_DMA_TX_1	0xB023
-+/* AFE VA Codec DMA Tx port 2 */
-+#define AFE_PORT_ID_VA_CODEC_DMA_TX_2	0xB025
-+/* AFE Rx Codec DMA Rx port 0 */
-+#define AFE_PORT_ID_RX_CODEC_DMA_RX_0	0xB030
-+/* AFE Tx Codec DMA Tx port 0 */
-+#define AFE_PORT_ID_TX_CODEC_DMA_TX_0	0xB031
-+/* AFE Rx Codec DMA Rx port 1 */
-+#define AFE_PORT_ID_RX_CODEC_DMA_RX_1	0xB032
-+/* AFE Tx Codec DMA Tx port 1 */
-+#define AFE_PORT_ID_TX_CODEC_DMA_TX_1	0xB033
-+/* AFE Rx Codec DMA Rx port 2 */
-+#define AFE_PORT_ID_RX_CODEC_DMA_RX_2	0xB034
-+/* AFE Tx Codec DMA Tx port 2 */
-+#define AFE_PORT_ID_TX_CODEC_DMA_TX_2	0xB035
-+/* AFE Rx Codec DMA Rx port 3 */
-+#define AFE_PORT_ID_RX_CODEC_DMA_RX_3	0xB036
-+/* AFE Tx Codec DMA Tx port 3 */
-+#define AFE_PORT_ID_TX_CODEC_DMA_TX_3	0xB037
-+/* AFE Rx Codec DMA Rx port 4 */
-+#define AFE_PORT_ID_RX_CODEC_DMA_RX_4	0xB038
-+/* AFE Tx Codec DMA Tx port 4 */
-+#define AFE_PORT_ID_TX_CODEC_DMA_TX_4	0xB039
-+/* AFE Rx Codec DMA Rx port 5 */
-+#define AFE_PORT_ID_RX_CODEC_DMA_RX_5	0xB03A
-+/* AFE Tx Codec DMA Tx port 5 */
-+#define AFE_PORT_ID_TX_CODEC_DMA_TX_5	0xB03B
-+/* AFE Rx Codec DMA Rx port 6 */
-+#define AFE_PORT_ID_RX_CODEC_DMA_RX_6	0xB03C
-+/* AFE Rx Codec DMA Rx port 7 */
-+#define AFE_PORT_ID_RX_CODEC_DMA_RX_7	0xB03E
++static const struct snd_kcontrol_new wsa_codec_dma_rx_0_mixer_controls[] = {
++	Q6ROUTING_RX_MIXERS(WSA_CODEC_DMA_RX_0) };
 +
- #define Q6AFE_LPASS_MODE_CLK1_VALID 1
- #define Q6AFE_LPASS_MODE_CLK2_VALID 2
- #define Q6AFE_LPASS_CLK_SRC_INTERNAL 1
- #define Q6AFE_LPASS_CLK_ROOT_DEFAULT 0
- #define AFE_API_VERSION_TDM_CONFIG              1
- #define AFE_API_VERSION_SLOT_MAPPING_CONFIG	1
-+#define AFE_API_VERSION_CODEC_DMA_CONFIG	1
- 
- #define TIMEOUT_MS 1000
- #define AFE_CMD_RESP_AVAIL	0
-@@ -448,11 +495,21 @@ struct afe_param_id_tdm_cfg {
- 	u32	slot_mask;
- } __packed;
- 
-+struct afe_param_id_cdc_dma_cfg {
-+	u32	cdc_dma_cfg_minor_version;
-+	u32	sample_rate;
-+	u16	bit_width;
-+	u16	data_format;
-+	u16	num_channels;
-+	u16	active_channels_mask;
-+} __packed;
++static const struct snd_kcontrol_new wsa_codec_dma_rx_1_mixer_controls[] = {
++	Q6ROUTING_RX_MIXERS(WSA_CODEC_DMA_RX_1) };
 +
- union afe_port_config {
- 	struct afe_param_id_hdmi_multi_chan_audio_cfg hdmi_multi_ch;
- 	struct afe_param_id_slimbus_cfg           slim_cfg;
- 	struct afe_param_id_i2s_cfg	i2s_cfg;
- 	struct afe_param_id_tdm_cfg	tdm_cfg;
-+	struct afe_param_id_cdc_dma_cfg	dma_cfg;
- } __packed;
- 
- 
-@@ -707,6 +764,50 @@ static struct afe_port_map port_maps[AFE_PORT_MAX] = {
- 				QUINARY_TDM_TX_7, 0, 1},
- 	[DISPLAY_PORT_RX] = { AFE_PORT_ID_HDMI_OVER_DP_RX,
- 				DISPLAY_PORT_RX, 1, 1},
-+	[WSA_CODEC_DMA_RX_0] = { AFE_PORT_ID_WSA_CODEC_DMA_RX_0,
-+				WSA_CODEC_DMA_RX_0, 1, 1},
-+	[WSA_CODEC_DMA_TX_0] = { AFE_PORT_ID_WSA_CODEC_DMA_TX_0,
-+				WSA_CODEC_DMA_TX_0, 0, 1},
-+	[WSA_CODEC_DMA_RX_1] = { AFE_PORT_ID_WSA_CODEC_DMA_RX_1,
-+				WSA_CODEC_DMA_RX_1, 1, 1},
-+	[WSA_CODEC_DMA_TX_1] = { AFE_PORT_ID_WSA_CODEC_DMA_TX_1,
-+				WSA_CODEC_DMA_TX_1, 0, 1},
-+	[WSA_CODEC_DMA_TX_2] = { AFE_PORT_ID_WSA_CODEC_DMA_TX_2,
-+				WSA_CODEC_DMA_TX_2, 0, 1},
-+	[VA_CODEC_DMA_TX_0] = { AFE_PORT_ID_VA_CODEC_DMA_TX_0,
-+				VA_CODEC_DMA_TX_0, 0, 1},
-+	[VA_CODEC_DMA_TX_1] = { AFE_PORT_ID_VA_CODEC_DMA_TX_1,
-+				VA_CODEC_DMA_TX_1, 0, 1},
-+	[VA_CODEC_DMA_TX_2] = { AFE_PORT_ID_VA_CODEC_DMA_TX_2,
-+				VA_CODEC_DMA_TX_2, 0, 1},
-+	[RX_CODEC_DMA_RX_0] = { AFE_PORT_ID_RX_CODEC_DMA_RX_0,
-+				RX_CODEC_DMA_RX_0, 1, 1},
-+	[TX_CODEC_DMA_TX_0] = { AFE_PORT_ID_TX_CODEC_DMA_TX_0,
-+				TX_CODEC_DMA_TX_0, 0, 1},
-+	[RX_CODEC_DMA_RX_1] = { AFE_PORT_ID_RX_CODEC_DMA_RX_1,
-+				RX_CODEC_DMA_RX_1, 1, 1},
-+	[TX_CODEC_DMA_TX_1] = { AFE_PORT_ID_TX_CODEC_DMA_TX_1,
-+				TX_CODEC_DMA_TX_1, 0, 1},
-+	[RX_CODEC_DMA_RX_2] = { AFE_PORT_ID_RX_CODEC_DMA_RX_2,
-+				RX_CODEC_DMA_RX_2, 1, 1},
-+	[TX_CODEC_DMA_TX_2] = { AFE_PORT_ID_TX_CODEC_DMA_TX_2,
-+				TX_CODEC_DMA_TX_2, 0, 1},
-+	[RX_CODEC_DMA_RX_3] = { AFE_PORT_ID_RX_CODEC_DMA_RX_3,
-+				RX_CODEC_DMA_RX_3, 1, 1},
-+	[TX_CODEC_DMA_TX_3] = { AFE_PORT_ID_TX_CODEC_DMA_TX_3,
-+				TX_CODEC_DMA_TX_3, 0, 1},
-+	[RX_CODEC_DMA_RX_4] = { AFE_PORT_ID_RX_CODEC_DMA_RX_4,
-+				RX_CODEC_DMA_RX_4, 1, 1},
-+	[TX_CODEC_DMA_TX_4] = { AFE_PORT_ID_TX_CODEC_DMA_TX_4,
-+				TX_CODEC_DMA_TX_4, 0, 1},
-+	[RX_CODEC_DMA_RX_5] = { AFE_PORT_ID_RX_CODEC_DMA_RX_5,
-+				RX_CODEC_DMA_RX_5, 1, 1},
-+	[TX_CODEC_DMA_TX_5] = { AFE_PORT_ID_TX_CODEC_DMA_TX_5,
-+				TX_CODEC_DMA_TX_5, 0, 1},
-+	[RX_CODEC_DMA_RX_6] = { AFE_PORT_ID_RX_CODEC_DMA_RX_6,
-+				RX_CODEC_DMA_RX_6, 1, 1},
-+	[RX_CODEC_DMA_RX_7] = { AFE_PORT_ID_RX_CODEC_DMA_RX_7,
-+				RX_CODEC_DMA_RX_7, 1, 1},
- };
- 
- static void q6afe_port_free(struct kref *ref)
-@@ -1288,6 +1389,28 @@ int q6afe_i2s_port_prepare(struct q6afe_port *port, struct q6afe_i2s_cfg *cfg)
- }
- EXPORT_SYMBOL_GPL(q6afe_i2s_port_prepare);
- 
-+/**
-+ * q6afe_dam_port_prepare() - Prepare dma afe port.
-+ *
-+ * @port: Instance of afe port
-+ * @cfg: DMA configuration for the afe port
-+ *
-+ */
-+void q6afe_cdc_dma_port_prepare(struct q6afe_port *port,
-+				struct q6afe_cdc_dma_cfg *cfg)
-+{
-+	union afe_port_config *pcfg = &port->port_cfg;
-+	struct afe_param_id_cdc_dma_cfg *dma_cfg = &pcfg->dma_cfg;
++static const struct snd_kcontrol_new rx_codec_dma_rx_0_mixer_controls[] = {
++	Q6ROUTING_RX_MIXERS(RX_CODEC_DMA_RX_0) };
 +
-+	dma_cfg->cdc_dma_cfg_minor_version = AFE_API_VERSION_CODEC_DMA_CONFIG;
-+	dma_cfg->sample_rate = cfg->sample_rate;
-+	dma_cfg->bit_width = cfg->bit_width;
-+	dma_cfg->data_format = cfg->data_format;
-+	dma_cfg->num_channels = cfg->num_channels;
-+	if (!cfg->active_channels_mask)
-+		dma_cfg->active_channels_mask = (1 << cfg->num_channels) - 1;
-+}
-+EXPORT_SYMBOL_GPL(q6afe_cdc_dma_port_prepare);
- /**
-  * q6afe_port_start() - Start a afe port
-  *
-@@ -1420,7 +1543,9 @@ struct q6afe_port *q6afe_port_get_from_id(struct device *dev, int id)
- 	case AFE_PORT_ID_PRIMARY_TDM_RX ... AFE_PORT_ID_QUINARY_TDM_TX_7:
- 		cfg_type = AFE_PARAM_ID_TDM_CONFIG;
- 		break;
--
-+	case AFE_PORT_ID_WSA_CODEC_DMA_RX_0 ... AFE_PORT_ID_RX_CODEC_DMA_RX_7:
-+		cfg_type = AFE_PARAM_ID_CODEC_DMA_CONFIG;
-+	break;
- 	default:
- 		dev_err(dev, "Invalid port id 0x%x\n", port_id);
- 		return ERR_PTR(-EINVAL);
-diff --git a/sound/soc/qcom/qdsp6/q6afe.h b/sound/soc/qcom/qdsp6/q6afe.h
-index c7ed5422baff..1f7cbed9335d 100644
---- a/sound/soc/qcom/qdsp6/q6afe.h
-+++ b/sound/soc/qcom/qdsp6/q6afe.h
-@@ -5,7 +5,7 @@
- 
- #include <dt-bindings/sound/qcom,q6afe.h>
- 
--#define AFE_PORT_MAX		105
-+#define AFE_PORT_MAX		127
- 
- #define MSM_AFE_PORT_TYPE_RX 0
- #define MSM_AFE_PORT_TYPE_TX 1
-@@ -184,11 +184,21 @@ struct q6afe_tdm_cfg {
- 	u16	ch_mapping[AFE_MAX_CHAN_COUNT];
- };
- 
-+struct q6afe_cdc_dma_cfg {
-+	u16	sample_rate;
-+	u16	bit_width;
-+	u16	data_format;
-+	u16	num_channels;
-+	u16	active_channels_mask;
-+};
++static const struct snd_kcontrol_new rx_codec_dma_rx_1_mixer_controls[] = {
++	Q6ROUTING_RX_MIXERS(RX_CODEC_DMA_RX_1) };
 +
++static const struct snd_kcontrol_new rx_codec_dma_rx_2_mixer_controls[] = {
++	Q6ROUTING_RX_MIXERS(RX_CODEC_DMA_RX_2) };
 +
- struct q6afe_port_config {
- 	struct q6afe_hdmi_cfg hdmi;
- 	struct q6afe_slim_cfg slim;
- 	struct q6afe_i2s_cfg i2s_cfg;
- 	struct q6afe_tdm_cfg tdm;
-+	struct q6afe_cdc_dma_cfg dma_cfg;
- };
++static const struct snd_kcontrol_new rx_codec_dma_rx_3_mixer_controls[] = {
++	Q6ROUTING_RX_MIXERS(RX_CODEC_DMA_RX_3) };
++
++static const struct snd_kcontrol_new rx_codec_dma_rx_4_mixer_controls[] = {
++	Q6ROUTING_RX_MIXERS(RX_CODEC_DMA_RX_4) };
++
++static const struct snd_kcontrol_new rx_codec_dma_rx_5_mixer_controls[] = {
++	Q6ROUTING_RX_MIXERS(RX_CODEC_DMA_RX_5) };
++
++static const struct snd_kcontrol_new rxcodec_dma_rx_6_mixer_controls[] = {
++	Q6ROUTING_RX_MIXERS(RX_CODEC_DMA_RX_6) };
++
++static const struct snd_kcontrol_new rx_codec_dma_rx_7_mixer_controls[] = {
++	Q6ROUTING_RX_MIXERS(RX_CODEC_DMA_RX_7) };
++
  
- struct q6afe_port;
-@@ -204,6 +214,8 @@ void q6afe_slim_port_prepare(struct q6afe_port *port,
- 			  struct q6afe_slim_cfg *cfg);
- int q6afe_i2s_port_prepare(struct q6afe_port *port, struct q6afe_i2s_cfg *cfg);
- void q6afe_tdm_port_prepare(struct q6afe_port *port, struct q6afe_tdm_cfg *cfg);
-+void q6afe_cdc_dma_port_prepare(struct q6afe_port *port,
-+				struct q6afe_cdc_dma_cfg *cfg);
- 
- int q6afe_port_set_sysclk(struct q6afe_port *port, int clk_id,
- 			  int clk_src, int clk_root,
+ static const struct snd_kcontrol_new mmul1_mixer_controls[] = {
+ 	Q6ROUTING_TX_MIXERS(MSM_FRONTEND_DAI_MULTIMEDIA1) };
+@@ -819,6 +897,37 @@ static const struct snd_soc_dapm_widget msm_qdsp6_widgets[] = {
+ 	SND_SOC_DAPM_MIXER("QUIN_TDM_RX_7 Audio Mixer", SND_SOC_NOPM, 0, 0,
+ 				quin_tdm_rx_7_mixer_controls,
+ 				ARRAY_SIZE(quin_tdm_rx_7_mixer_controls)),
++
++	SND_SOC_DAPM_MIXER("WSA_CODEC_DMA_RX_0 Audio Mixer", SND_SOC_NOPM, 0, 0,
++		wsa_codec_dma_rx_0_mixer_controls,
++		ARRAY_SIZE(wsa_codec_dma_rx_0_mixer_controls)),
++	SND_SOC_DAPM_MIXER("WSA_CODEC_DMA_RX_1 Audio Mixer", SND_SOC_NOPM, 0, 0,
++		wsa_codec_dma_rx_1_mixer_controls,
++		ARRAY_SIZE(wsa_codec_dma_rx_1_mixer_controls)),
++	SND_SOC_DAPM_MIXER("RX_CODEC_DMA_RX_0 Audio Mixer", SND_SOC_NOPM, 0, 0,
++		rx_codec_dma_rx_0_mixer_controls,
++		ARRAY_SIZE(rx_codec_dma_rx_0_mixer_controls)),
++	SND_SOC_DAPM_MIXER("RX_CODEC_DMA_RX_1 Audio Mixer", SND_SOC_NOPM, 0, 0,
++		rx_codec_dma_rx_1_mixer_controls,
++		ARRAY_SIZE(rx_codec_dma_rx_1_mixer_controls)),
++	SND_SOC_DAPM_MIXER("RX_CODEC_DMA_RX_2 Audio Mixer", SND_SOC_NOPM, 0, 0,
++		rx_codec_dma_rx_2_mixer_controls,
++		ARRAY_SIZE(rx_codec_dma_rx_2_mixer_controls)),
++	SND_SOC_DAPM_MIXER("RX_CODEC_DMA_RX_3 Audio Mixer", SND_SOC_NOPM, 0, 0,
++		rx_codec_dma_rx_3_mixer_controls,
++		ARRAY_SIZE(rx_codec_dma_rx_3_mixer_controls)),
++	SND_SOC_DAPM_MIXER("RX_CODEC_DMA_RX_4 Audio Mixer", SND_SOC_NOPM, 0, 0,
++		rx_codec_dma_rx_4_mixer_controls,
++		ARRAY_SIZE(rx_codec_dma_rx_4_mixer_controls)),
++	SND_SOC_DAPM_MIXER("RX_CODEC_DMA_RX_5 Audio Mixer", SND_SOC_NOPM, 0, 0,
++		rx_codec_dma_rx_5_mixer_controls,
++		ARRAY_SIZE(rx_codec_dma_rx_5_mixer_controls)),
++	SND_SOC_DAPM_MIXER("RX_CODEC_DMA_RX_6 Audio Mixer", SND_SOC_NOPM, 0, 0,
++		rxcodec_dma_rx_6_mixer_controls,
++		ARRAY_SIZE(rxcodec_dma_rx_6_mixer_controls)),
++	SND_SOC_DAPM_MIXER("RX_CODEC_DMA_RX_7 Audio Mixer", SND_SOC_NOPM, 0, 0,
++		rx_codec_dma_rx_7_mixer_controls,
++		ARRAY_SIZE(rx_codec_dma_rx_7_mixer_controls)),
+ 	SND_SOC_DAPM_MIXER("MultiMedia1 Mixer", SND_SOC_NOPM, 0, 0,
+ 		mmul1_mixer_controls, ARRAY_SIZE(mmul1_mixer_controls)),
+ 	SND_SOC_DAPM_MIXER("MultiMedia2 Mixer", SND_SOC_NOPM, 0, 0,
+@@ -901,6 +1010,16 @@ static const struct snd_soc_dapm_route intercon[] = {
+ 	Q6ROUTING_RX_DAPM_ROUTE("QUIN_TDM_RX_5 Audio Mixer", "QUIN_TDM_RX_5"),
+ 	Q6ROUTING_RX_DAPM_ROUTE("QUIN_TDM_RX_6 Audio Mixer", "QUIN_TDM_RX_6"),
+ 	Q6ROUTING_RX_DAPM_ROUTE("QUIN_TDM_RX_7 Audio Mixer", "QUIN_TDM_RX_7"),
++	Q6ROUTING_RX_DAPM_ROUTE("WSA_CODEC_DMA_RX_0 Audio Mixer", "WSA_CODEC_DMA_RX_0"),
++	Q6ROUTING_RX_DAPM_ROUTE("WSA_CODEC_DMA_RX_1 Audio Mixer", "WSA_CODEC_DMA_RX_1"),
++	Q6ROUTING_RX_DAPM_ROUTE("RX_CODEC_DMA_RX_0 Audio Mixer", "RX_CODEC_DMA_RX_0"),
++	Q6ROUTING_RX_DAPM_ROUTE("RX_CODEC_DMA_RX_1 Audio Mixer", "RX_CODEC_DMA_RX_1"),
++	Q6ROUTING_RX_DAPM_ROUTE("RX_CODEC_DMA_RX_2 Audio Mixer", "RX_CODEC_DMA_RX_2"),
++	Q6ROUTING_RX_DAPM_ROUTE("RX_CODEC_DMA_RX_3 Audio Mixer", "RX_CODEC_DMA_RX_3"),
++	Q6ROUTING_RX_DAPM_ROUTE("RX_CODEC_DMA_RX_4 Audio Mixer", "RX_CODEC_DMA_RX_4"),
++	Q6ROUTING_RX_DAPM_ROUTE("RX_CODEC_DMA_RX_5 Audio Mixer", "RX_CODEC_DMA_RX_5"),
++	Q6ROUTING_RX_DAPM_ROUTE("RX_CODEC_DMA_RX_6 Audio Mixer", "RX_CODEC_DMA_RX_6"),
++	Q6ROUTING_RX_DAPM_ROUTE("RX_CODEC_DMA_RX_7 Audio Mixer", "RX_CODEC_DMA_RX_7"),
+ 	Q6ROUTING_TX_DAPM_ROUTE("MultiMedia1 Mixer"),
+ 	Q6ROUTING_TX_DAPM_ROUTE("MultiMedia2 Mixer"),
+ 	Q6ROUTING_TX_DAPM_ROUTE("MultiMedia3 Mixer"),
 -- 
 2.21.0
 

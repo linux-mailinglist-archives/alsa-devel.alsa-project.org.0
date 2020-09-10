@@ -2,66 +2,79 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3EA5F263CFF
-	for <lists+alsa-devel@lfdr.de>; Thu, 10 Sep 2020 08:12:20 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0CE4A263D31
+	for <lists+alsa-devel@lfdr.de>; Thu, 10 Sep 2020 08:24:19 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A5E32166D;
-	Thu, 10 Sep 2020 08:11:29 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A5E32166D
+	by alsa0.perex.cz (Postfix) with ESMTPS id 8DC301670;
+	Thu, 10 Sep 2020 08:23:28 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8DC301670
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1599718339;
-	bh=teOcE870TEDhGYL4dKl7ayfpQ4oyGiHH5r1H602fobQ=;
-	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
+	s=default; t=1599719058;
+	bh=4IPFakKxzCsxB21yUqCQDDxngDYpAepaZS+PAyfbns4=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=d1n6NkPoSbT21i3yT+ew+T0UEaXgpWf7aNS5ULW3HvlPgFRqJy4Gyzi6s3lJYsjCc
-	 IMRT1I4kH42x9FczW0Y9k2mg5osgwrbSTxXkP3wzITyeDaR/x2OnCov4+Q//M/R7RO
-	 euANHdL2JNcuyjHtQ0Z27ZwAN5HIxE598LX4Xsrg=
+	b=pdoAeJ9UCWSqTgTl5GoPtpIbxyfNSZE2eXcpjpMbvtGgT6/EptQrwSVTsgY9trFgE
+	 nmOQf8dLJdDC+8jeirdjAKrr1AuGic8wdy6AABAnAv7QS3Hs0ZealEa9e24UAyIjFf
+	 pfGggFInL8KwV6sHM2HvrwZq8EBxOe/o9Q8F49c4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id D868BF80264;
-	Thu, 10 Sep 2020 08:10:38 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id AAC0FF8026F;
+	Thu, 10 Sep 2020 08:22:37 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id E0263F80264; Thu, 10 Sep 2020 08:10:36 +0200 (CEST)
+ id 8FF25F80264; Thu, 10 Sep 2020 08:22:34 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.6 required=5.0 tests=CTE_8BIT_MISMATCH,
- NICE_REPLY_A,RCVD_IN_MSPIKE_H4,RCVD_IN_MSPIKE_WL,SPF_HELO_PASS,SPF_PASS
- autolearn=disabled version=3.4.0
-Received: from huawei.com (szxga07-in.huawei.com [45.249.212.35])
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+ DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled
+ version=3.4.0
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id CC746F8010E
+ for <alsa-devel@alsa-project.org>; Thu, 10 Sep 2020 08:22:30 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CC746F8010E
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="PkPFlWhb"
+Received: from localhost (unknown [122.179.50.55])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id B6B9BF8010E
- for <alsa-devel@alsa-project.org>; Thu, 10 Sep 2020 08:10:26 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B6B9BF8010E
-Received: from DGGEMS405-HUB.china.huawei.com (unknown [172.30.72.60])
- by Forcepoint Email with ESMTP id 7035FF0881900A77EB36;
- Thu, 10 Sep 2020 14:10:19 +0800 (CST)
-Received: from [127.0.0.1] (10.174.179.108) by DGGEMS405-HUB.china.huawei.com
- (10.3.19.205) with Microsoft SMTP Server id 14.3.487.0;
- Thu, 10 Sep 2020 14:10:17 +0800
-Subject: Re: [PATCH -next] soundwire: intel: Remove ununsed function
-To: Vinod Koul <vkoul@kernel.org>, Pierre-Louis Bossart
- <pierre-louis.bossart@linux.intel.com>
-References: <20200909131531.31380-1-yuehaibing@huawei.com>
- <14a09132-d0ed-7129-73df-cbeb3154429b@linux.intel.com>
- <20200910055215.GP77521@vkoul-mobl>
-From: Yuehaibing <yuehaibing@huawei.com>
-Message-ID: <d93c14e6-c05f-8ccb-e122-1b2ea013be90@huawei.com>
-Date: Thu, 10 Sep 2020 14:10:16 +0800
-User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:45.0) Gecko/20100101
- Thunderbird/45.8.0
+ by mail.kernel.org (Postfix) with ESMTPSA id CD041207DE;
+ Thu, 10 Sep 2020 06:22:27 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=default; t=1599718948;
+ bh=4IPFakKxzCsxB21yUqCQDDxngDYpAepaZS+PAyfbns4=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=PkPFlWhbcUUDju8orcFfc7uiu2NTNaneNNJk9inedNMHK+CDwlUq3lfrRKix2KCyB
+ bwbWqD5oaZ51QvBOjO9CJMz2RXQsytp2DJN6ur266+wcEvZHBs9ASTLDsZWUzWQykM
+ aIsAANuZF5golAhB7qrlTDwnhu48fF6oSj0xJT8U=
+Date: Thu, 10 Sep 2020 11:52:23 +0530
+From: Vinod Koul <vkoul@kernel.org>
+To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Subject: Re: [PATCH v2 2/3] soundwire: SDCA: add helper macro to access
+ controls
+Message-ID: <20200910062223.GQ77521@vkoul-mobl>
+References: <20200901162225.33343-1-pierre-louis.bossart@linux.intel.com>
+ <20200901162225.33343-3-pierre-louis.bossart@linux.intel.com>
+ <20200904050244.GT2639@vkoul-mobl>
+ <f35a0ae7-2779-0c69-9ef3-0d0e298888ac@linux.intel.com>
+ <20200909075555.GK77521@vkoul-mobl>
+ <184867c2-9f0c-bffe-2eb7-e9c5735614b0@linux.intel.com>
 MIME-Version: 1.0
-In-Reply-To: <20200910055215.GP77521@vkoul-mobl>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 7bit
-X-Originating-IP: [10.174.179.108]
-X-CFilter-Loop: Reflected
-Cc: sanyog.r.kale@intel.com, yung-chuan.liao@linux.intel.com,
- alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <184867c2-9f0c-bffe-2eb7-e9c5735614b0@linux.intel.com>
+Cc: Guennadi Liakhovetski <guennadi.liakhovetski@linux.intel.com>,
+ alsa-devel@alsa-project.org, Kai Vehmanen <kai.vehmanen@linux.intel.com>,
+ tiwai@suse.de, gregkh@linuxfoundation.org,
+ open list <linux-kernel@vger.kernel.org>, broonie@kernel.org,
+ Sanyog Kale <sanyog.r.kale@intel.com>,
+ Bard liao <yung-chuan.liao@linux.intel.com>,
+ Rander Wang <rander.wang@linux.intel.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -77,27 +90,129 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 2020/9/10 13:52, Vinod Koul wrote:
-> On 09-09-20, 08:46, Pierre-Louis Bossart wrote:
->>
->>
->> On 9/9/20 8:15 AM, YueHaibing wrote:
->>> If CONFIG_PM is not set, build warns:
->>>
->>> drivers/soundwire/intel.c:488:12: warning: 'intel_link_power_down' defined but not used [-Wunused-function]
->>>
->>> Move this to #ifdef block.
->>
->> Yes, thanks for the report, it's a valid issue, but maybe the fix is to add
->> __maybe_unused more consistently and remove the CONFIG_PM dependency.
->>
->> Vinod, what would you prefer?
+On 09-09-20, 08:48, Pierre-Louis Bossart wrote:
 > 
-> __maybe_unused is the recommendation, it should be updated to use that
+> > > > > + *	25		0 (Reserved)
+> > > > > + *	24:22		Function Number [2:0]
+> > > > > + *	21		Entity[6]
+> > > > > + *	20:19		Control Selector[5:4]
+> > > > > + *	18		0 (Reserved)
+> > > > > + *	17:15		Control Number[5:3]
+> > > > > + *	14		Next
+> > > > > + *	13		MBQ
+> > > > > + *	12:7		Entity[5:0]
+> > > > > + *	6:3		Control Selector[3:0]
+> > > > > + *	2:0		Control Number[2:0]
+> > > > > + */
+> > > > > +
+> > > > > +#define SDW_SDCA_CTL(fun, ent, ctl, ch)						\
+> > > > > +	(BIT(30)							|	\
+> > > > 
+> > > > Programmatically this is fine, but then since we are defining for the
+> > > > description above, IMO it would actually make sense for this to be defined
+> > > > as FIELD_PREP:
+> > > > 
+> > > >           FIELD_PREP(GENMASK(30, 26), 1)
+> > > > 
+> > > > or better
+> > > > 
+> > > >           u32_encode_bits(GENMASK(30, 26), 1)
+> > > > 
+> > > > > +	FIELD_PREP(GENMASK(24, 22), FIELD_GET(GENMASK(2, 0), (fun)))	|	\
+> > > > 
+> > > > Why not use u32_encode_bits(GENMASK(24, 22), (fun)) instead for this and
+> > > > below?
+> > > 
+> > > Because your comment for the v1 review was to use FIELD_PREP/FIELD_GET, and
+> > > your other patches for bitfield access only use FIELD_PREP/FIELD_GET.
+> > 
+> > yes and looking at this, I feel u32_encode_bits(GENMASK(24, 22), (fun))
+> > would look better than FIELD_PREP(GENMASK(24, 22), FIELD_GET(GENMASK(2, 0), (fun)))
+> > 
+> > Do you agree?
+> 
+> The Function (fun) case is the easy one: the value is not split in two.
+> 
+> But look at the entity case, it's split in two:
+> 
+> FIELD_PREP(BIT(21), FIELD_GET(BIT(6), (ent)))			FIELD_PREP(GENMASK(12, 7),
+> FIELD_GET(GENMASK(5, 0), (ent)))
+> 
+> same for control
+> 
+> FIELD_PREP(GENMASK(20, 19), FIELD_GET(GENMASK(5, 4), (ctl)))	|	
+> FIELD_PREP(GENMASK(6, 3), FIELD_GET(GENMASK(3, 0), (ctl)))	|	
+> 
+> and same for channel number
+> 
+> FIELD_PREP(GENMASK(17, 15), FIELD_GET(GENMASK(5, 3), (ch)))	|	
+> FIELD_PREP(GENMASK(2, 0), FIELD_GET(GENMASK(2, 0), (ch))))
+> 
+> I don't see how we can avoid using the FIELD_GET to extract the relevant
+> bits from entity, control, channel number values.
 
-Ok， will respin.
+No, you dont need FIELD_GET, that would be pointless for this helper if
+that was the case
 
 > 
-> Thanks
-> 
+> Or I am missing your point completely.
 
+Correct
+
+It should be:
+
+        foo |= u32_encode_bits(val, FOO_MASK_A);
+
+which would write val into bits represented by FOO_MASK_A by
+appropriately shifting val and masking it with FOO_MASK_A
+
+So net result is bits in FOO_MASK_A are modified with val, rest of the
+bits are not touched
+
+> 
+> 
+> > > > And while at it, consider defining masks for various fields rather than
+> > > > using numbers in GENMASK() above, that would look better, be more
+> > > > readable and people can reuse it.
+> > > 
+> > > Actually on this one I disagree. These fields are not intended to be used by
+> > > anyone, the goal is precisely to hide them behind regmap, and the use of raw
+> > > numbers makes it easier to cross-check the documentation and the code.
+> > > Adding a separate set of definitions would not increase readability.
+> > 
+> > Which one would you prefer:
+> > 
+> >          #define SDCA_FUN_MASK           GENMASK(24, 22)
+> > 
+> >          foo |= u32_encode_bits(SDCA_FUN_MASK, fun)
+> > 
+> > Or the one proposed...?
+> 
+> Same as above, let's see what this does with the control case where we'd
+> need to have four definitions:
+> 
+> #define SDCA_CONTROL_DEST_MASK1 GENMASK(20, 19)
+> #define SDCA_CONTROL_ORIG_MASK1 GENMASK(5, 4)
+> #define SDCA_CONTROL_DEST_MASK2 GENMASK(6, 3)
+> #define SDCA_CONTROL_ORIG_MASK2 GENMASK(3, 0)
+> 
+> And the code would look like
+> 
+> foo |= u32_encode_bits(SDCA_CONTROL_DEST_MASK1,
+> FIELD_GET(SDCA_CONTROL_ORIG_MASK1, fun));
+> foo |= u32_encode_bits(SDCA_CONTROL_DEST_MASK2,
+> FIELD_GET(SDCA_CONTROL_ORIG_MASK2, fun));
+> 
+> The original suggestion was:
+> 
+> FIELD_PREP(GENMASK(20, 19), FIELD_GET(GENMASK(5, 4), (ctl)))	|	
+> FIELD_PREP(GENMASK(6, 3), FIELD_GET(GENMASK(3, 0), (ctl)))	|	
+> 
+> I prefer the original... Adding these defines doesn't really add value
+> because
+> a) the values will not be reused anywhere else.
+> b) we need 12 of those defines
+> b) we need a prefix for those defines which makes the code heavier
+
+-- 
+~Vinod

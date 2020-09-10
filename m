@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1BF68263CC2
-	for <lists+alsa-devel@lfdr.de>; Thu, 10 Sep 2020 07:53:29 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 668A3263CC9
+	for <lists+alsa-devel@lfdr.de>; Thu, 10 Sep 2020 07:54:12 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 854221671;
-	Thu, 10 Sep 2020 07:52:38 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 854221671
+	by alsa0.perex.cz (Postfix) with ESMTPS id 16409166A;
+	Thu, 10 Sep 2020 07:53:22 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 16409166A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1599717208;
-	bh=JtaFlJSviOb7OWFjFxocygPpOA+gRQz5TGSHiD2R484=;
+	s=default; t=1599717252;
+	bh=Rr43ETN5BnzQnh/AFr/VfVFBOAJWVE/smD7x0ee6+uw=;
 	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=oI2GvF1YzX9IMnvOsTb3VxN2QEEiv9hOhvYDh49CIxDdLj1cGCrbI7qk/fkQyYsNb
-	 7PtH3hT/5ESjIhI0EVx3fxCOP5VwZrJYFSMmWevxebLYwCE6WLSm+CIXDkY0E6ZVOy
-	 hP2MrqchV7gvTakiCugI0EYx0umFac2U+xTn0e9k=
+	b=n1n7f94LrHhfHKOe3Cpe1jC+VPZ8RRRnPA3kEPA/cERuRvhhKYo9CLTJHPEVF8Yn/
+	 opjNkmc5cNv6xy06T+2WO9wtR0GhBBksORtvDXTzBa8TinKoUqzFFJ/ytB4OjxM3fi
+	 NqVlKmW4EWUQnWEzn3gUjDhw53rulEO3hwjKZ+Qc=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 7B065F800D0;
-	Thu, 10 Sep 2020 07:51:47 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id D5874F8026F;
+	Thu, 10 Sep 2020 07:52:33 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id E4D8EF80264; Thu, 10 Sep 2020 07:51:44 +0200 (CEST)
+ id 7A17FF8026F; Thu, 10 Sep 2020 07:52:31 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -34,39 +34,38 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 80324F800D0
- for <alsa-devel@alsa-project.org>; Thu, 10 Sep 2020 07:51:33 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 80324F800D0
+ by alsa1.perex.cz (Postfix) with ESMTPS id E7B0FF8026F
+ for <alsa-devel@alsa-project.org>; Thu, 10 Sep 2020 07:52:25 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E7B0FF8026F
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="n6aZqukn"
+ header.b="azvVm+IW"
 Received: from localhost (unknown [122.179.50.55])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id BBA6A2075B;
- Thu, 10 Sep 2020 05:51:29 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id 95A3A2080A;
+ Thu, 10 Sep 2020 05:52:22 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1599717090;
- bh=JtaFlJSviOb7OWFjFxocygPpOA+gRQz5TGSHiD2R484=;
+ s=default; t=1599717143;
+ bh=Rr43ETN5BnzQnh/AFr/VfVFBOAJWVE/smD7x0ee6+uw=;
  h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=n6aZquknwoSsKlYrQLwioTINY6mxQoOZBhPmB/Ip3oYRy3o2QmaBXjnHnYBK+mvIw
- LvsrH2yk5CYPZiUu7h/XLMnFvIbDGBXzfniKoqKj8xSkrxSIl0ZVXpHwvr1EOK7Quz
- gqL+31FTXo4flsvjyNOb+kuhptRsddNJRSn+UrJ4=
-Date: Thu, 10 Sep 2020 11:21:22 +0530
+ b=azvVm+IWvehvYY+s1HCB4ERwEKVwMQ5t9T1K3DBKkeP1KKsj+f4itjrORb7vzMxDm
+ 6dyZwRwHF1To/S7EAf0hqf5w/FLkkvVMwYFQHo3s8XTjnY88179Z3DOt8SERJY8H0h
+ qgISUJwBsyUeD3yj2ZFrbUgEu3M8YR2JF1g6AMC0=
+Date: Thu, 10 Sep 2020 11:22:15 +0530
 From: Vinod Koul <vkoul@kernel.org>
-To: Bard Liao <yung-chuan.liao@linux.intel.com>
-Subject: Re: [PATCH v2 0/7] ASoC/soundwire: filter out invalid PARITY errors
-Message-ID: <20200910055122.GO77521@vkoul-mobl>
-References: <20200908134521.6781-1-yung-chuan.liao@linux.intel.com>
+To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Subject: Re: [PATCH -next] soundwire: intel: Remove ununsed function
+Message-ID: <20200910055215.GP77521@vkoul-mobl>
+References: <20200909131531.31380-1-yuehaibing@huawei.com>
+ <14a09132-d0ed-7129-73df-cbeb3154429b@linux.intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20200908134521.6781-1-yung-chuan.liao@linux.intel.com>
-Cc: pierre-louis.bossart@linux.intel.com, alsa-devel@alsa-project.org,
- tiwai@suse.de, gregkh@linuxfoundation.org, linux-kernel@vger.kernel.org,
- ranjani.sridharan@linux.intel.com, hui.wang@canonical.com, broonie@kernel.org,
- srinivas.kandagatla@linaro.org, jank@cadence.com, mengdong.lin@intel.com,
- sanyog.r.kale@intel.com, rander.wang@linux.intel.com, bard.liao@intel.com
+In-Reply-To: <14a09132-d0ed-7129-73df-cbeb3154429b@linux.intel.com>
+Cc: yung-chuan.liao@linux.intel.com, sanyog.r.kale@intel.com,
+ YueHaibing <yuehaibing@huawei.com>, alsa-devel@alsa-project.org,
+ linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -82,11 +81,23 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 08-09-20, 21:45, Bard Liao wrote:
-> Some codecs may report fake PARITY errors in the initial state. This
-> series will filter them out.
+On 09-09-20, 08:46, Pierre-Louis Bossart wrote:
+> 
+> 
+> On 9/9/20 8:15 AM, YueHaibing wrote:
+> > If CONFIG_PM is not set, build warns:
+> > 
+> > drivers/soundwire/intel.c:488:12: warning: 'intel_link_power_down' defined but not used [-Wunused-function]
+> > 
+> > Move this to #ifdef block.
+> 
+> Yes, thanks for the report, it's a valid issue, but maybe the fix is to add
+> __maybe_unused more consistently and remove the CONFIG_PM dependency.
+> 
+> Vinod, what would you prefer?
 
-Applied, thanks
+__maybe_unused is the recommendation, it should be updated to use that
 
+Thanks
 -- 
 ~Vinod

@@ -2,61 +2,77 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D4E49263ECE
-	for <lists+alsa-devel@lfdr.de>; Thu, 10 Sep 2020 09:31:40 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6770F263F2E
+	for <lists+alsa-devel@lfdr.de>; Thu, 10 Sep 2020 09:57:26 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 78445166C;
-	Thu, 10 Sep 2020 09:30:49 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 78445166C
+	by alsa0.perex.cz (Postfix) with ESMTPS id F19891686;
+	Thu, 10 Sep 2020 09:56:35 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz F19891686
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1599723099;
-	bh=Ef8TkvKH+Gu2gMwmaDkICNJPw3AcfMtnVdzuI+raO6k=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=rb4pHsLMlEZOhua5OiraHccbOFoJxukFtxdjZy5dYqgRfQkZs8fL7/8CyKXP8cRYO
-	 zfTL0XenMoDEjaKIfy2FQkxatp9F3f8Q90cPpARDM76sQaES+N3pZWQKT3EW1p4ESP
-	 9401N7fH785jaWuDV/Drb+22Ihu8FIKwvJM/eDBU=
+	s=default; t=1599724646;
+	bh=EIVAu80ZZAnKZCw30xDCRNxn76x5kWo7Ht/KFkkUMKQ=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=ExGVfbu22qKseii+ZQHDZfvY8s9MQ0SgAoBPf1zdJvGMoZjx8PzUDjfr32+hWridu
+	 ZHp855R4IuMS+d7ylWaAQC0BILF4UTzbfyQUUuq93ItkLy+VUQO37JGz+5DQd2j89G
+	 2KilmpK2WThRlec+77XX25T7iUuRcXpzT1eyW/3Q=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 75199F800D0;
-	Thu, 10 Sep 2020 09:29:58 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 8E726F8028E;
+	Thu, 10 Sep 2020 09:54:56 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 4C38CF80264; Thu, 10 Sep 2020 09:29:52 +0200 (CEST)
+ id C608DF801F2; Thu, 10 Sep 2020 09:54:50 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_MSPIKE_H4,
- RCVD_IN_MSPIKE_WL,SPF_HELO_PASS,SPF_PASS,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from huawei.com (szxga04-in.huawei.com [45.249.212.190])
+X-Spam-Status: No, score=0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+ DKIM_VALID,DKIM_VALID_AU,PRX_BODY_78,RCVD_IN_MSPIKE_H3,RCVD_IN_MSPIKE_WL,
+ SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
+Received: from fllv0016.ext.ti.com (fllv0016.ext.ti.com [198.47.19.142])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 4C2F8F800D0
- for <alsa-devel@alsa-project.org>; Thu, 10 Sep 2020 09:29:44 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4C2F8F800D0
-Received: from DGGEMS403-HUB.china.huawei.com (unknown [172.30.72.59])
- by Forcepoint Email with ESMTP id 63B7C9D187AFAC1DC36D;
- Thu, 10 Sep 2020 15:29:38 +0800 (CST)
-Received: from localhost (10.174.179.108) by DGGEMS403-HUB.china.huawei.com
- (10.3.19.203) with Microsoft SMTP Server id 14.3.487.0; Thu, 10 Sep 2020
- 15:29:31 +0800
-From: YueHaibing <yuehaibing@huawei.com>
-To: <vkoul@kernel.org>, <yung-chuan.liao@linux.intel.com>,
- <pierre-louis.bossart@linux.intel.com>, <sanyog.r.kale@intel.com>
-Subject: [PATCH -next] soundwire: intel: Fix -Wunused-function warning
-Date: Thu, 10 Sep 2020 15:29:06 +0800
-Message-ID: <20200910072906.28284-1-yuehaibing@huawei.com>
-X-Mailer: git-send-email 2.10.2.windows.1
-In-Reply-To: <20200909131531.31380-1-yuehaibing@huawei.com>
-References: <20200909131531.31380-1-yuehaibing@huawei.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 6BC73F80264
+ for <alsa-devel@alsa-project.org>; Thu, 10 Sep 2020 09:54:39 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6BC73F80264
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b="n/jZExQU"
+Received: from fllv0035.itg.ti.com ([10.64.41.0])
+ by fllv0016.ext.ti.com (8.15.2/8.15.2) with ESMTP id 08A7saLh078055;
+ Thu, 10 Sep 2020 02:54:36 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com;
+ s=ti-com-17Q1; t=1599724476;
+ bh=d8aaEEEqhdAcIGs3M4AAwCP4B/RKpo4KytEfLks0u/o=;
+ h=From:To:CC:Subject:Date;
+ b=n/jZExQUK4HfNhmsPpOXJgQQ8M5ykyLZ8FsnXi83OqPkooYHCFZnO/DU2vso2jvbC
+ KCTqFI06S+ns857rgoRoz6SCZdki8CYum6gqvixoFQaGw/69+oIs2ir7cbnpCquj12
+ 5WwO216dqsfdSL3hmiswKCMUT53OQ2z/e84fAQ8E=
+Received: from DLEE105.ent.ti.com (dlee105.ent.ti.com [157.170.170.35])
+ by fllv0035.itg.ti.com (8.15.2/8.15.2) with ESMTP id 08A7saDo110099;
+ Thu, 10 Sep 2020 02:54:36 -0500
+Received: from DLEE113.ent.ti.com (157.170.170.24) by DLEE105.ent.ti.com
+ (157.170.170.35) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.1979.3; Thu, 10
+ Sep 2020 02:54:35 -0500
+Received: from lelv0327.itg.ti.com (10.180.67.183) by DLEE113.ent.ti.com
+ (157.170.170.24) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.1979.3 via
+ Frontend Transport; Thu, 10 Sep 2020 02:54:35 -0500
+Received: from feketebors.ti.com (ileax41-snat.itg.ti.com [10.172.224.153])
+ by lelv0327.itg.ti.com (8.15.2/8.15.2) with ESMTP id 08A7sXCS123142;
+ Thu, 10 Sep 2020 02:54:34 -0500
+From: Peter Ujfalusi <peter.ujfalusi@ti.com>
+To: <broonie@kernel.org>, <lgirdwood@gmail.com>, <robh+dt@kernel.org>
+Subject: [PATCH 0/2] ASoC: ti: j721e-evm: Support for j7200 variant
+Date: Thu, 10 Sep 2020 10:54:31 +0300
+Message-ID: <20200910075433.26718-1-peter.ujfalusi@ti.com>
+X-Mailer: git-send-email 2.28.0
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
-X-Originating-IP: [10.174.179.108]
-X-CFilter-Loop: Reflected
-Cc: alsa-devel@alsa-project.org, YueHaibing <yuehaibing@huawei.com>,
+X-EXCLAIMER-MD-CONFIG: e1e8a2fd-e40a-4ac6-ac9b-f7e9cc9ee180
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
  linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
@@ -73,76 +89,28 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-If CONFIG_PM is not set, build warns:
+Hi,
 
-drivers/soundwire/intel.c:488:12: warning: 'intel_link_power_down' defined but not used [-Wunused-function]
+When j7200 SOM is connected to the CPB, the audio setup is a bit different:
+Only 48KHz family have clock path, 44.1KHz is not supported.
 
-Mark the functions __maybe_unused and remove the CONFIG_PM dependency.
+Update the binding documentation and add support for the j7200 version of CPB
+to the driver.
 
-Signed-off-by: YueHaibing <yuehaibing@huawei.com>
+Regards,
+Peter
 ---
- drivers/soundwire/intel.c | 12 ++++--------
- 1 file changed, 4 insertions(+), 8 deletions(-)
+Peter Ujfalusi (2):
+  ASoC: dt-bindings: ti,j721e-cpb-audio: Document support for j7200-cpb
+  ASoC: ti: j721e-evm: Add support for j7200-cpb audio
 
-diff --git a/drivers/soundwire/intel.c b/drivers/soundwire/intel.c
-index e047910d73f5..48ae8800594a 100644
---- a/drivers/soundwire/intel.c
-+++ b/drivers/soundwire/intel.c
-@@ -400,7 +400,7 @@ static void intel_shim_glue_to_master_ip(struct sdw_intel *sdw)
- }
- 
- /* this needs to be called with shim_lock */
--static void intel_shim_master_ip_to_glue(struct sdw_intel *sdw)
-+static void __maybe_unused intel_shim_master_ip_to_glue(struct sdw_intel *sdw)
- {
- 	unsigned int link_id = sdw->instance;
- 	void __iomem *shim = sdw->link_res->shim;
-@@ -485,7 +485,7 @@ static void intel_shim_wake(struct sdw_intel *sdw, bool wake_enable)
- 	mutex_unlock(sdw->link_res->shim_lock);
- }
- 
--static int intel_link_power_down(struct sdw_intel *sdw)
-+static int __maybe_unused intel_link_power_down(struct sdw_intel *sdw)
- {
- 	u32 link_control, spa_mask, cpa_mask;
- 	unsigned int link_id = sdw->instance;
-@@ -1540,8 +1540,6 @@ int intel_master_process_wakeen_event(struct platform_device *pdev)
-  * PM calls
-  */
- 
--#ifdef CONFIG_PM
--
- static int __maybe_unused intel_suspend(struct device *dev)
- {
- 	struct sdw_cdns *cdns = dev_get_drvdata(dev);
-@@ -1596,7 +1594,7 @@ static int __maybe_unused intel_suspend(struct device *dev)
- 	return 0;
- }
- 
--static int intel_suspend_runtime(struct device *dev)
-+static int __maybe_unused intel_suspend_runtime(struct device *dev)
- {
- 	struct sdw_cdns *cdns = dev_get_drvdata(dev);
- 	struct sdw_intel *sdw = cdns_to_intel(cdns);
-@@ -1751,7 +1749,7 @@ static int __maybe_unused intel_resume(struct device *dev)
- 	return ret;
- }
- 
--static int intel_resume_runtime(struct device *dev)
-+static int __maybe_unused intel_resume_runtime(struct device *dev)
- {
- 	struct sdw_cdns *cdns = dev_get_drvdata(dev);
- 	struct sdw_intel *sdw = cdns_to_intel(cdns);
-@@ -1924,8 +1922,6 @@ static int intel_resume_runtime(struct device *dev)
- 	return ret;
- }
- 
--#endif
--
- static const struct dev_pm_ops intel_pm = {
- 	SET_SYSTEM_SLEEP_PM_OPS(intel_suspend, intel_resume)
- 	SET_RUNTIME_PM_OPS(intel_suspend_runtime, intel_resume_runtime, NULL)
+ .../bindings/sound/ti,j721e-cpb-audio.yaml    | 92 ++++++++++++++-----
+ sound/soc/ti/j721e-evm.c                      | 11 +++
+ 2 files changed, 81 insertions(+), 22 deletions(-)
+
 -- 
-2.17.1
+Peter
 
+Texas Instruments Finland Oy, Porkkalankatu 22, 00180 Helsinki.
+Y-tunnus/Business ID: 0615521-4. Kotipaikka/Domicile: Helsinki
 

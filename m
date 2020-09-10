@@ -2,93 +2,104 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8B132264509
-	for <lists+alsa-devel@lfdr.de>; Thu, 10 Sep 2020 13:05:21 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B64FB26456F
+	for <lists+alsa-devel@lfdr.de>; Thu, 10 Sep 2020 13:46:02 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id F2C3A1696;
-	Thu, 10 Sep 2020 13:04:30 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz F2C3A1696
+	by alsa0.perex.cz (Postfix) with ESMTPS id 326E8168F;
+	Thu, 10 Sep 2020 13:45:12 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 326E8168F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1599735921;
-	bh=dmrwyQMyeJMFMQp1EmqKFdckpq9rAe0lbenAUyImoHI=;
+	s=default; t=1599738362;
+	bh=bTEkbH6HW2DF1vdX3JYDJeAfUG5HiHQcw2e4k35usng=;
 	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=BRi53VptmhCeI1oatlzVK6+mXRiBg4pKLQqVl9mGqVXSXRAoyW46IVA9dDjgGGSkf
-	 Hr8Q8o2X9lVDsSQYqyf9IaFlujOqDdcSqlABwB2EeH4qxv70HsxDjcGrfHGMBrt9C9
-	 zx6pj8yuz6E0YURbyYiMK6/Zvv+m0zvBkm0i0KOY=
+	b=PcEtmAfGxgPbTja2eXJOYlNmlYxLKTheT2/JBBqDX85r3KjcVCgFkzridbDeS8fLK
+	 zUMDtFVwQ+MDGDOkq0J5A3FBNOSIUHbr4qSew3RIEj/hs7HRP+7jz2lN3VdACnALBo
+	 zeQtxxmkpLwZXOfa1TWmM0PIqq/49y2oypEPat6k=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 13942F800D0;
-	Thu, 10 Sep 2020 13:03:39 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 5CC69F8026F;
+	Thu, 10 Sep 2020 13:44:21 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 2B030F80264; Thu, 10 Sep 2020 13:03:38 +0200 (CEST)
+ id A4C0FF80264; Thu, 10 Sep 2020 13:44:19 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled
- version=3.4.0
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,RCVD_IN_MSPIKE_H2,SPF_HELO_PASS,SPF_PASS,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from wout5-smtp.messagingengine.com (wout5-smtp.messagingengine.com
+ [64.147.123.21])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 42D90F800D0
- for <alsa-devel@alsa-project.org>; Thu, 10 Sep 2020 13:03:30 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 42D90F800D0
+ by alsa1.perex.cz (Postfix) with ESMTPS id BCCAEF800E9
+ for <alsa-devel@alsa-project.org>; Thu, 10 Sep 2020 13:44:07 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BCCAEF800E9
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="18mUZhE8"
-Received: from localhost (fw-tnat.cambridge.arm.com [217.140.96.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id F2DFF20720;
- Thu, 10 Sep 2020 11:03:26 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1599735807;
- bh=dmrwyQMyeJMFMQp1EmqKFdckpq9rAe0lbenAUyImoHI=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=18mUZhE89SuUR9AkRIvaLcq0CV19oM50ifpHaALiIug/IWYJwyy6/yKbEXGWUq0e2
- ySMgHwdgAHR53xxhtsjqglHPRZ6z18CuVQ19qtjnOwsiniC5WkrCRFiC2Lm3RUg9ox
- sGG3YwHzjYvnF+tl2rakOguBKLp+KG5CEGtVhy5w=
-Date: Thu, 10 Sep 2020 12:02:41 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Rob Herring <robh@kernel.org>
-Subject: Re: [PATCH v7 2/3] ASoC: qcom: dt-bindings: Add sc7180 machine
- bindings
-Message-ID: <20200910110241.GA4898@sirena.org.uk>
-References: <20200907100039.1731457-1-cychiang@chromium.org>
- <20200907100039.1731457-3-cychiang@chromium.org>
- <20200908203357.GA861143@bogus>
- <CAFv8NwLMAkFhVT-ML7QHbnSkqmgh=5SrNSik5eSCTHB1=DGQ0A@mail.gmail.com>
- <CAL_JsqKW2bpHP60MX4eFmtfzkvaHJ670m6e8H29=u=mDAYg63w@mail.gmail.com>
+ dkim=pass (2048-bit key) header.d=sakamocchi.jp header.i=@sakamocchi.jp
+ header.b="is4L3/we"; 
+ dkim=pass (2048-bit key) header.d=messagingengine.com
+ header.i=@messagingengine.com header.b="N9nu+XDe"
+Received: from compute2.internal (compute2.nyi.internal [10.202.2.42])
+ by mailout.west.internal (Postfix) with ESMTP id 15634A63;
+ Thu, 10 Sep 2020 07:44:04 -0400 (EDT)
+Received: from mailfrontend2 ([10.202.2.163])
+ by compute2.internal (MEProxy); Thu, 10 Sep 2020 07:44:04 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sakamocchi.jp;
+ h=date:from:to:cc:subject:message-id:references:mime-version
+ :content-type:in-reply-to; s=fm2; bh=L6aec+5VNbg1vuEtr0xqvRZBfyk
+ s20mU6sou+wJVr80=; b=is4L3/welnEADmGHMW7dOsdulV5uq8EMbOE7hRlp5XM
+ tJXb44jh0k9Q6qWn6M/oKft4ZjZvz2PXqh6y/vnwdkinPbInJcd4biLK3SfJ9DY2
+ XHDe3zZNU+X46D51BxwSmHAdStIpjCWO592Yq2dgwfPrZvOfIqReX1VjBkusw1gt
+ x8gtKXdDIRDLgEP580YN4u2NFHwTIDZdNZUpEiNKU6IBEIUHpervcd1ViS6NgruO
+ jWtcfOZJUfoyhsI68e8A0gqTowloyx7m93lffCmpl0avLy0S6T1Py8X2+xWrYBWb
+ kTm6Uu0nukizM8V816JQ/OHRlR48+d2lxSEXxksqCMw==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to:x-me-proxy
+ :x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; bh=L6aec+
+ 5VNbg1vuEtr0xqvRZBfyks20mU6sou+wJVr80=; b=N9nu+XDemjwZm2oO2kQXBz
+ FcCqOUerb1lPfTEJTWcjH0qE/mTtTgjgthejVQak6AwOakYoaBKQwh5u7F9BCtP9
+ q7JP3TUqIK7BykRVQgMNfa6H3QxM3X03i/zbQ8amgcGUL0EvZGmDJQoKwSE9QBB1
+ kjQRJbbgvOoSldRHrE5zyFhQ10ITvjxbUWXU1s8NQ9asFZfwJ7OamRJ4U7v3q+Vj
+ S8le0OUs6LxEIEQYuvKLlQsvyTLx+u3chTOXNgvaSIAmlDM4FkzA4oiUj3z53/uy
+ rEVkWoddarPBZWoSL36PvgDe756b9JXLGm53MRYejHxp8nUudcE+nwF7f1Zb+UFQ
+ ==
+X-ME-Sender: <xms:gxFaX2UYmMo8QgFyEPXB6USjfDR63af5QCqmPRAMvwYh5e48QxawZg>
+ <xme:gxFaXyk9v0NznOgmBkWtGpHspuOns4xGC5JfGJ6kZlPnoqXDz2oZvm-MtHXYEdaBI
+ 5DA5anZ-w6mnCmidEU>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeduiedrudehjedgfeejucetufdoteggodetrfdotf
+ fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
+ uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
+ cujfgurhepfffhvffukfhfgggtuggjsehttdertddttddvnecuhfhrohhmpefvrghkrghs
+ hhhiucfurghkrghmohhtohcuoehoqdhtrghkrghshhhisehsrghkrghmohgttghhihdrjh
+ hpqeenucggtffrrghtthgvrhhnpeelhfeugedvjefgjefgudekfedutedvtddutdeuieev
+ tddtgeetjeekvdefgeefhfenucfkphepudektddrvdefhedrfedrheegnecuvehluhhsth
+ gvrhfuihiivgeptdenucfrrghrrghmpehmrghilhhfrhhomhepohdqthgrkhgrshhhihes
+ shgrkhgrmhhotggthhhirdhjph
+X-ME-Proxy: <xmx:gxFaX6Y4jJAEkthB_8ppNwiK2CGOvaxeZDzQH4O-Sz0an99LEFpUAg>
+ <xmx:gxFaX9WuhPhvYhvd831v8DeKlXcejINhKCG9YtUsrA0N98Nfpn3B1Q>
+ <xmx:gxFaXwmTMSSY9vML_mB5ER3UAzxEFSa6WKpHz49Ie9l4mfHCxYZfVA>
+ <xmx:gxFaXySMVEACoArhjWqnf5oLEVWQOxOcLKpiHWwWDeEZWm2rCp4YNg>
+Received: from workstation (ad003054.dynamic.ppp.asahi-net.or.jp
+ [180.235.3.54])
+ by mail.messagingengine.com (Postfix) with ESMTPA id 681A73064685;
+ Thu, 10 Sep 2020 07:44:02 -0400 (EDT)
+Date: Thu, 10 Sep 2020 20:43:59 +0900
+From: Takashi Sakamoto <o-takashi@sakamocchi.jp>
+To: Takashi Iwai <tiwai@suse.de>
+Subject: Re: [PATCH v2] ALSA: firewire: Replace tasklet with work
+Message-ID: <20200910114359.GA16550@workstation>
+Mail-Followup-To: Takashi Iwai <tiwai@suse.de>, alsa-devel@alsa-project.org
+References: <20200909163659.21708-1-tiwai@suse.de>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="cNdxnHkX5QqsyA0e"
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <CAL_JsqKW2bpHP60MX4eFmtfzkvaHJ670m6e8H29=u=mDAYg63w@mail.gmail.com>
-X-Cookie: I disagree with unanimity.
-User-Agent: Mutt/1.10.1 (2018-07-13)
-Cc: Taniya Das <tdas@codeaurora.org>,
- "moderated list:SOUND - SOC LAYER / DYNAMIC AUDIO POWER MANAGEM..."
- <alsa-devel@alsa-project.org>, Banajit Goswami <bgoswami@codeaurora.org>,
- Heiko Stuebner <heiko@sntech.de>, Takashi Iwai <tiwai@suse.com>,
- Rohit kumar <rohitkr@codeaurora.org>, Cheng-yi Chiang <cychiang@chromium.org>,
- Patrick Lai <plai@codeaurora.org>,
- "open list:ARM/Rockchip SoC..." <linux-rockchip@lists.infradead.org>,
- Andy Gross <agross@kernel.org>, Dylan Reid <dgreid@chromium.org>,
- "open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS"
- <devicetree@vger.kernel.org>, Tzung-Bi Shih <tzungbi@chromium.org>,
- Stephan Gerhold <stephan@gerhold.net>,
- linux-arm-msm <linux-arm-msm@vger.kernel.org>,
- "moderated list:ARM/Mediatek SoC support" <linux-mediatek@lists.infradead.org>,
- Matthias Brugger <matthias.bgg@gmail.com>,
- Bjorn Andersson <bjorn.andersson@linaro.org>,
- Linux ARM <linux-arm-kernel@lists.infradead.org>,
- Doug Anderson <dianders@chromium.org>, Liam Girdwood <lgirdwood@gmail.com>,
- linux-kernel <linux-kernel@vger.kernel.org>,
- Srini Kandagatla <srinivas.kandagatla@linaro.org>
+In-Reply-To: <20200909163659.21708-1-tiwai@suse.de>
+Cc: alsa-devel@alsa-project.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -104,38 +115,40 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+Hi,
 
---cNdxnHkX5QqsyA0e
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+On Wed, Sep 09, 2020 at 06:36:59PM +0200, Takashi Iwai wrote:
+> The tasklet is an old API that should be deprecated, usually can be
+> converted to another decent API.  In FireWire driver, a tasklet is
+> still used for offloading the AMDTP PCM stream handling.  It can be
+> achieved gracefully with a work queued, too.
+> 
+> This patch replaces the tasklet usage in firewire-lib driver with a
+> simple work.  The conversion is fairly straightforward but for the
+> in_interrupt() checks that are replaced with the check using the
+> current_work().
+> 
+> Note that in_interrupt() in amdtp_packet tracepoint is still kept as
+> is.  This is the place that is probed by both softirq of 1394 OHCI and
+> a user task of a PCM application, and the work handling is already
+> filtered in amdtp_domain_stream_pcm_pointer().
+> 
+> Signed-off-by: Takashi Iwai <tiwai@suse.de>
+> ---
+> v1->v2: Drop in_interrupt() conversion in tracepoint
+> 
+>  sound/firewire/amdtp-stream.c | 25 +++++++++++++------------
+>  sound/firewire/amdtp-stream.h |  2 +-
+>  2 files changed, 14 insertions(+), 13 deletions(-)
 
-On Wed, Sep 09, 2020 at 11:49:22AM -0600, Rob Herring wrote:
+The v2 patch looks good to me.
 
-> I would assume a codec to be similar. The codec node (the alc5682
-> node) should have any jack related properties (or possibly implicitly
-> support it by default).
+Tested-by: Takashi Sakamoto <o-takashi@sakamocchi.jp>
+Acked-by: Takashi Sakamoto <o-takashi@sakamocchi.jp>
 
-This isn't always clear - some jack detection is implemented entirely by
-integrating simple components like GPIOs and ADCs or by integrating
-limited support in one device with some external components to get more
-features (like bolting an ADC on the side for button detect).  I would
-not expect to ever see a device with jack detection support that could
-just be unconditionally enabled, it will always require some board level
-wiring up to provide the connections required to function.
+Thanks for your work!
 
---cNdxnHkX5QqsyA0e
-Content-Type: application/pgp-signature; name="signature.asc"
 
------BEGIN PGP SIGNATURE-----
+Regards
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl9aB9EACgkQJNaLcl1U
-h9AQugf/fpoDHSobmOyj7a1nUYga227O6hgeON+vz+LB7a1JnX599O2oELAe1IGT
-xOV8DGUJpwdKUP1XWMHb/vMrtaS71E8m6Qsulc3s+Hdt6F38ObT5+z7zu0grr0rm
-wN1qRoyWHkPhFczDkvF95J2xO+lbs+5DbmfT/YVL+npWCtyYRVgKDwhmwWvqk/Sv
-5H7dVBlF1ivTTc4mAbG0FGGVlSL9hsg87i9b30jChkitX7BDRyvj41eVOdQs0Dpz
-ghIR+b6ZFI4iihIbFj8kBDL6y6cekl0Cs9YUA5YLsDxSjSJUidnCiuX1UK3NNOW2
-HiD76k32T+eskJVotOs6/DwV7UQS4A==
-=knP8
------END PGP SIGNATURE-----
-
---cNdxnHkX5QqsyA0e--
+Takashi Sakamoto

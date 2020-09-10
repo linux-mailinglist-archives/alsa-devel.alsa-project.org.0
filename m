@@ -2,83 +2,84 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D3C782643AF
-	for <lists+alsa-devel@lfdr.de>; Thu, 10 Sep 2020 12:19:42 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3EE312643CA
+	for <lists+alsa-devel@lfdr.de>; Thu, 10 Sep 2020 12:22:06 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 3FA1F1673;
-	Thu, 10 Sep 2020 12:18:52 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3FA1F1673
+	by alsa0.perex.cz (Postfix) with ESMTPS id C8D041687;
+	Thu, 10 Sep 2020 12:21:15 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C8D041687
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1599733182;
-	bh=rhrEcdBOQ6Wwzo5QEkrWrr1c4R2mFPZitCYPMWW5mxA=;
+	s=default; t=1599733325;
+	bh=KZtSlzSXkXFx9K6eLkTfrhxWBUhV+bRbyl8qR7DR/mw=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=TdpbA4J2dPVIF8auTqjnOxcV6a3rYVCgt1SA+mHtySHvz6T7PigOsv45tI8qQ/wmC
-	 nXzkVgUYy5W5NBLg0bWFjwdvlnz+EVsqDPlFIVaYFH0880+GzNUNdOY7KVqHi65X/o
-	 hSyR7f7vhGZHKkSNDovCxAxR2TR5s/tVQ0v7alww=
+	b=WIBeogKy/bMBfSLrAC9mkcQPJzmLKxWkrDmE2wHpv2L+9+/RvDQz3NrDJcnBZuwEo
+	 LJKa72WAhnxIKlsNZMd8r/+OAmQ7awhYujR8ZltvmT1nkyFTRBpScovh7ECsqBUddn
+	 OEGMXHmRVQqiDTMZs8EFqGfGT7Sf+3CuNkNUIJSg=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 14DBCF800E9;
-	Thu, 10 Sep 2020 12:18:01 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 38B26F802E2;
+	Thu, 10 Sep 2020 12:18:15 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 070F1F802C2; Thu, 10 Sep 2020 12:17:58 +0200 (CEST)
+ id 3065CF8026F; Thu, 10 Sep 2020 12:18:07 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=disabled
  version=3.4.0
-Received: from mail-wr1-x442.google.com (mail-wr1-x442.google.com
- [IPv6:2a00:1450:4864:20::442])
+Received: from mail-wr1-x441.google.com (mail-wr1-x441.google.com
+ [IPv6:2a00:1450:4864:20::441])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id CFECCF800D0
- for <alsa-devel@alsa-project.org>; Thu, 10 Sep 2020 12:17:50 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CFECCF800D0
+ by alsa1.perex.cz (Postfix) with ESMTPS id AE62DF8026F
+ for <alsa-devel@alsa-project.org>; Thu, 10 Sep 2020 12:17:51 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz AE62DF8026F
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org
- header.b="FWqAdG33"
-Received: by mail-wr1-x442.google.com with SMTP id s12so6043603wrw.11
- for <alsa-devel@alsa-project.org>; Thu, 10 Sep 2020 03:17:50 -0700 (PDT)
+ header.b="qytJ0anu"
+Received: by mail-wr1-x441.google.com with SMTP id e16so6103315wrm.2
+ for <alsa-devel@alsa-project.org>; Thu, 10 Sep 2020 03:17:51 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=XiTDwe0DE6I7Qq6iJehCoT2zSGDBsTZiTs0CApOPA1I=;
- b=FWqAdG33IxMr+QgyxdRqUDWiYgJsK8hTsj1WMNseY5YWkHruSHbiEken0vXLzsuv3L
- CWDZaqI+bxxqe24R2Lu++jFMvrDaTD4qiZnN/4Xv1Citx8DDaz8LapDrZIsAgMfq06nP
- KtXqkfwDhaTfoYWS5LNXGWaIVZmyg7lYXYbvzLZU0+0phvgbKG+WVpEhG3YDYrUD4/Pb
- b5IWVUFMHez3kOAmU8bGxtrpgZrPOjQUITEQsJP/5/Ecxx75H5DOSHxqPVHaSPQYz9xa
- 8XmL0dfz1BtqFgCUikJAQKHCuI1fhsmjHiI6kBmeZwf1wex3MQpzOLdqpVfEd++3f42Z
- 0r4Q==
+ bh=35FP4zv+pwkbGr1a0ICMd6sQ90vGjx362WgHWWdE2EE=;
+ b=qytJ0anu0r8iejL2J6YFmry4i70Yz/OxSO1hg0YXgpdvILS87SEuM+OW/N06uatodz
+ PxYfg+QYPOwoxehP3B4PVH7HPiFr7AvPe1OGaELzxBmV8IGd8EGASeJC12C9VE6aOfXj
+ ELoDnCUfz2fhMZxAnb0fX9axz9fdFuTIrGUY6ncQU1vrXqrNMWGwHirCdtdDrcF5tLwt
+ nz4alzp1i/jrRUVE8npi1+JiG6oduIEDZHsIgpN3crEIVyP/DG9cituiP4B3LG7sL2MR
+ o0ZODSoIXBmYK62jfACiBuEneyDJHaaSJLAwewbUAyCOlxYo1NvpAwkeppcil4ggIabb
+ WFPg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=XiTDwe0DE6I7Qq6iJehCoT2zSGDBsTZiTs0CApOPA1I=;
- b=BmFsK0d2ILRyNwGDwluFKEWDAdG/HkNSo2qhBemdCAkSxgv3vWEhonkYrU7N1AvVe3
- Zo6OxVQU+AbbyXFRSUR1z6hkaGEljvKtv2mC//+Pf8RmmEX2gHA9kiiEeMxRXe+Mb5Ds
- Ye26WZQEzhduO3QiWK31j5a2A7dQB5wniv+OzSSb7qpBGrqVKNRs7mbu6At4Q9FXYmge
- JPTkv/tII3WYgAkcEOOFZzW7VQSFXADYWCoz/0X4ANHR9+cqef19PqIERaHlp6rx9Rzl
- LUTFJMQxdICt0RG7jeDDz4HkvQd3j9Ky8CUqMOFzdhI0tRNW15rJfasalLucxUo5+dOx
- jqzw==
-X-Gm-Message-State: AOAM530KgVxPRPxafXKvzUJYDHfLBPUzfgq6nJVMYtdG3Fs6wmVyhYT4
- SMSYnIEaOUuBdCUelaD8zpnfLg==
-X-Google-Smtp-Source: ABdhPJz9heXgS8rFxJS0nXHKUiSQmu7ZR9KnDg2SgCKZBNu8QkHR6CIg7pqKUo9m1ZUWj95R+WtbyA==
-X-Received: by 2002:a5d:4910:: with SMTP id x16mr9051472wrq.204.1599733069852; 
- Thu, 10 Sep 2020 03:17:49 -0700 (PDT)
+ bh=35FP4zv+pwkbGr1a0ICMd6sQ90vGjx362WgHWWdE2EE=;
+ b=AAXO4NzLIIwJNdYwkvE90RJCY40K8bCLcwjwHfuskPOfPLjFX/EB7NDATLd7F0Sn+/
+ IA6ssjbWUbNDCpDtrpzpe3ByrYO87iEq1bQOL/Ab50iHHgZI/kI+rDa60kJ6hVT6VShw
+ 1o+rKY/WRumgjeHoO2H/NyjbGGJHSq0+huRFaORcr9igXKJ0zqJeG1r5EHlAhyRtPPtO
+ Lcj/mZMzubKmNLp5OpTn8YLbpr1imFQ5GfVOvRy+uVll1CqAUarAVjpkmlWpzUg1mnaT
+ FDyG7si2kVreSyGdpx2m5dzPY6FjwNz17ObE7FlDSW9uBkLB1NslWEEp4quPj4+Vwm1Q
+ Y+sg==
+X-Gm-Message-State: AOAM532SBUNgtMBYa0teb1kH6eLSd+faVMhOmnl4G81pYsTLc020WR43
+ 524HECiGXeXrDQDnRMAQ83TSog==
+X-Google-Smtp-Source: ABdhPJwwyy6FJ4lFjbkvIsHCWHQE2fqsNe40JDp5tIgVLRzzrHZGi8Opl4fcPMyaHoVU6nJlbkLJtg==
+X-Received: by 2002:adf:9e43:: with SMTP id v3mr8377833wre.306.1599733071084; 
+ Thu, 10 Sep 2020 03:17:51 -0700 (PDT)
 Received: from srini-hackbox.lan
  (cpc86377-aztw32-2-0-cust226.18-1.cable.virginm.net. [92.233.226.227])
- by smtp.gmail.com with ESMTPSA id m4sm8851731wro.18.2020.09.10.03.17.48
+ by smtp.gmail.com with ESMTPSA id m4sm8851731wro.18.2020.09.10.03.17.49
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 10 Sep 2020 03:17:49 -0700 (PDT)
+ Thu, 10 Sep 2020 03:17:50 -0700 (PDT)
 From: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
 To: broonie@kernel.org
-Subject: [PATCH 2/8] ASoC: q6dsp: q6routing: add support to Codec DMA ports
-Date: Thu, 10 Sep 2020 11:17:26 +0100
-Message-Id: <20200910101732.23484-3-srinivas.kandagatla@linaro.org>
+Subject: [PATCH 3/8] ASoC: q6dsp: q6afe: prepare afe_apr_send_pkt to take
+ response opcode
+Date: Thu, 10 Sep 2020 11:17:27 +0100
+Message-Id: <20200910101732.23484-4-srinivas.kandagatla@linaro.org>
 X-Mailer: git-send-email 2.21.0
 In-Reply-To: <20200910101732.23484-1-srinivas.kandagatla@linaro.org>
 References: <20200910101732.23484-1-srinivas.kandagatla@linaro.org>
@@ -103,171 +104,76 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+Update afe_apr_send_pkt() to take response opcode that it should wait for.
+This is helpful in cases where we expect response other than the
+actual command opcode.
+
 Signed-off-by: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
 ---
- sound/soc/qcom/qdsp6/q6routing.c | 121 ++++++++++++++++++++++++++++++-
- 1 file changed, 120 insertions(+), 1 deletion(-)
+ sound/soc/qcom/qdsp6/q6afe.c | 13 ++++++-------
+ 1 file changed, 6 insertions(+), 7 deletions(-)
 
-diff --git a/sound/soc/qcom/qdsp6/q6routing.c b/sound/soc/qcom/qdsp6/q6routing.c
-index 25d23e0266c7..b12539fae6ed 100644
---- a/sound/soc/qcom/qdsp6/q6routing.c
-+++ b/sound/soc/qcom/qdsp6/q6routing.c
-@@ -113,7 +113,19 @@
- 	{ mix_name, "QUIN_TDM_TX_4", "QUIN_TDM_TX_4"},		\
- 	{ mix_name, "QUIN_TDM_TX_5", "QUIN_TDM_TX_5"},		\
- 	{ mix_name, "QUIN_TDM_TX_6", "QUIN_TDM_TX_6"},		\
--	{ mix_name, "QUIN_TDM_TX_7", "QUIN_TDM_TX_7"}
-+	{ mix_name, "QUIN_TDM_TX_7", "QUIN_TDM_TX_7"},		\
-+	{ mix_name, "WSA_CODEC_DMA_TX_0", "WSA_CODEC_DMA_TX_0"},	\
-+	{ mix_name, "WSA_CODEC_DMA_TX_1", "WSA_CODEC_DMA_TX_1"},	\
-+	{ mix_name, "WSA_CODEC_DMA_TX_2", "WSA_CODEC_DMA_TX_2"},	\
-+	{ mix_name, "VA_CODEC_DMA_TX_0", "VA_CODEC_DMA_TX_0"},	\
-+	{ mix_name, "VA_CODEC_DMA_TX_1", "VA_CODEC_DMA_TX_1"},	\
-+	{ mix_name, "VA_CODEC_DMA_TX_2", "VA_CODEC_DMA_TX_2"},	\
-+	{ mix_name, "TX_CODEC_DMA_TX_0", "TX_CODEC_DMA_TX_0"},	\
-+	{ mix_name, "TX_CODEC_DMA_TX_1", "TX_CODEC_DMA_TX_1"},	\
-+	{ mix_name, "TX_CODEC_DMA_TX_2", "TX_CODEC_DMA_TX_2"},	\
-+	{ mix_name, "TX_CODEC_DMA_TX_3", "TX_CODEC_DMA_TX_3"},	\
-+	{ mix_name, "TX_CODEC_DMA_TX_4", "TX_CODEC_DMA_TX_4"},	\
-+	{ mix_name, "TX_CODEC_DMA_TX_5", "TX_CODEC_DMA_TX_5"}
+diff --git a/sound/soc/qcom/qdsp6/q6afe.c b/sound/soc/qcom/qdsp6/q6afe.c
+index 8ceefb431bcb..f934c69f0a14 100644
+--- a/sound/soc/qcom/qdsp6/q6afe.c
++++ b/sound/soc/qcom/qdsp6/q6afe.c
+@@ -902,10 +902,9 @@ int q6afe_get_port_id(int index)
+ EXPORT_SYMBOL_GPL(q6afe_get_port_id);
  
- #define Q6ROUTING_TX_MIXERS(id)						\
- 	SOC_SINGLE_EXT("PRI_MI2S_TX", PRIMARY_MI2S_TX,			\
-@@ -267,6 +279,42 @@
- 		id, 1, 0, msm_routing_get_audio_mixer,			\
- 		msm_routing_put_audio_mixer),				\
- 	SOC_SINGLE_EXT("QUIN_TDM_TX_7", QUINARY_TDM_TX_7,		\
-+		id, 1, 0, msm_routing_get_audio_mixer,			\
-+		msm_routing_put_audio_mixer),				\
-+	SOC_SINGLE_EXT("WSA_CODEC_DMA_TX_0", WSA_CODEC_DMA_TX_0,	\
-+		id, 1, 0, msm_routing_get_audio_mixer,			\
-+		msm_routing_put_audio_mixer),				\
-+	SOC_SINGLE_EXT("WSA_CODEC_DMA_TX_1", WSA_CODEC_DMA_TX_1,	\
-+		id, 1, 0, msm_routing_get_audio_mixer,			\
-+		msm_routing_put_audio_mixer),				\
-+	SOC_SINGLE_EXT("WSA_CODEC_DMA_TX_2", WSA_CODEC_DMA_TX_2,	\
-+		id, 1, 0, msm_routing_get_audio_mixer,			\
-+		msm_routing_put_audio_mixer),				\
-+	SOC_SINGLE_EXT("VA_CODEC_DMA_TX_0", VA_CODEC_DMA_TX_0,		\
-+		id, 1, 0, msm_routing_get_audio_mixer,			\
-+		msm_routing_put_audio_mixer),				\
-+	SOC_SINGLE_EXT("VA_CODEC_DMA_TX_1", VA_CODEC_DMA_TX_1,		\
-+		id, 1, 0, msm_routing_get_audio_mixer,			\
-+		msm_routing_put_audio_mixer),				\
-+	SOC_SINGLE_EXT("VA_CODEC_DMA_TX_2", VA_CODEC_DMA_TX_2,		\
-+		id, 1, 0, msm_routing_get_audio_mixer,			\
-+		msm_routing_put_audio_mixer),				\
-+	SOC_SINGLE_EXT("TX_CODEC_DMA_TX_0", TX_CODEC_DMA_TX_0,		\
-+		id, 1, 0, msm_routing_get_audio_mixer,			\
-+		msm_routing_put_audio_mixer),				\
-+	SOC_SINGLE_EXT("TX_CODEC_DMA_TX_1", TX_CODEC_DMA_TX_1,		\
-+		id, 1, 0, msm_routing_get_audio_mixer,			\
-+		msm_routing_put_audio_mixer),				\
-+	SOC_SINGLE_EXT("TX_CODEC_DMA_TX_2", TX_CODEC_DMA_TX_2,		\
-+		id, 1, 0, msm_routing_get_audio_mixer,			\
-+		msm_routing_put_audio_mixer),				\
-+	SOC_SINGLE_EXT("TX_CODEC_DMA_TX_3", TX_CODEC_DMA_TX_3,		\
-+		id, 1, 0, msm_routing_get_audio_mixer,			\
-+		msm_routing_put_audio_mixer),				\
-+	SOC_SINGLE_EXT("TX_CODEC_DMA_TX_4", TX_CODEC_DMA_TX_4,		\
-+		id, 1, 0, msm_routing_get_audio_mixer,			\
-+		msm_routing_put_audio_mixer),				\
-+	SOC_SINGLE_EXT("TX_CODEC_DMA_TX_5", TX_CODEC_DMA_TX_5,		\
- 		id, 1, 0, msm_routing_get_audio_mixer,			\
- 		msm_routing_put_audio_mixer),
+ static int afe_apr_send_pkt(struct q6afe *afe, struct apr_pkt *pkt,
+-			    struct q6afe_port *port)
++			    struct q6afe_port *port, uint32_t rsp_opcode)
+ {
+ 	wait_queue_head_t *wait = &port->wait;
+-	struct apr_hdr *hdr = &pkt->hdr;
+ 	int ret;
  
-@@ -609,6 +657,36 @@ static const struct snd_kcontrol_new quin_tdm_rx_6_mixer_controls[] = {
- static const struct snd_kcontrol_new quin_tdm_rx_7_mixer_controls[] = {
- 	Q6ROUTING_RX_MIXERS(QUINARY_TDM_RX_7) };
+ 	mutex_lock(&afe->lock);
+@@ -919,7 +918,7 @@ static int afe_apr_send_pkt(struct q6afe *afe, struct apr_pkt *pkt,
+ 		goto err;
+ 	}
  
-+static const struct snd_kcontrol_new wsa_codec_dma_rx_0_mixer_controls[] = {
-+	Q6ROUTING_RX_MIXERS(WSA_CODEC_DMA_RX_0) };
-+
-+static const struct snd_kcontrol_new wsa_codec_dma_rx_1_mixer_controls[] = {
-+	Q6ROUTING_RX_MIXERS(WSA_CODEC_DMA_RX_1) };
-+
-+static const struct snd_kcontrol_new rx_codec_dma_rx_0_mixer_controls[] = {
-+	Q6ROUTING_RX_MIXERS(RX_CODEC_DMA_RX_0) };
-+
-+static const struct snd_kcontrol_new rx_codec_dma_rx_1_mixer_controls[] = {
-+	Q6ROUTING_RX_MIXERS(RX_CODEC_DMA_RX_1) };
-+
-+static const struct snd_kcontrol_new rx_codec_dma_rx_2_mixer_controls[] = {
-+	Q6ROUTING_RX_MIXERS(RX_CODEC_DMA_RX_2) };
-+
-+static const struct snd_kcontrol_new rx_codec_dma_rx_3_mixer_controls[] = {
-+	Q6ROUTING_RX_MIXERS(RX_CODEC_DMA_RX_3) };
-+
-+static const struct snd_kcontrol_new rx_codec_dma_rx_4_mixer_controls[] = {
-+	Q6ROUTING_RX_MIXERS(RX_CODEC_DMA_RX_4) };
-+
-+static const struct snd_kcontrol_new rx_codec_dma_rx_5_mixer_controls[] = {
-+	Q6ROUTING_RX_MIXERS(RX_CODEC_DMA_RX_5) };
-+
-+static const struct snd_kcontrol_new rxcodec_dma_rx_6_mixer_controls[] = {
-+	Q6ROUTING_RX_MIXERS(RX_CODEC_DMA_RX_6) };
-+
-+static const struct snd_kcontrol_new rx_codec_dma_rx_7_mixer_controls[] = {
-+	Q6ROUTING_RX_MIXERS(RX_CODEC_DMA_RX_7) };
-+
+-	ret = wait_event_timeout(*wait, (port->result.opcode == hdr->opcode),
++	ret = wait_event_timeout(*wait, (port->result.opcode == rsp_opcode),
+ 				 msecs_to_jiffies(TIMEOUT_MS));
+ 	if (!ret) {
+ 		ret = -ETIMEDOUT;
+@@ -976,7 +975,7 @@ static int q6afe_port_set_param(struct q6afe_port *port, void *data,
+ 	pdata->param_id = param_id;
+ 	pdata->param_size = psize;
  
- static const struct snd_kcontrol_new mmul1_mixer_controls[] = {
- 	Q6ROUTING_TX_MIXERS(MSM_FRONTEND_DAI_MULTIMEDIA1) };
-@@ -819,6 +897,37 @@ static const struct snd_soc_dapm_widget msm_qdsp6_widgets[] = {
- 	SND_SOC_DAPM_MIXER("QUIN_TDM_RX_7 Audio Mixer", SND_SOC_NOPM, 0, 0,
- 				quin_tdm_rx_7_mixer_controls,
- 				ARRAY_SIZE(quin_tdm_rx_7_mixer_controls)),
-+
-+	SND_SOC_DAPM_MIXER("WSA_CODEC_DMA_RX_0 Audio Mixer", SND_SOC_NOPM, 0, 0,
-+		wsa_codec_dma_rx_0_mixer_controls,
-+		ARRAY_SIZE(wsa_codec_dma_rx_0_mixer_controls)),
-+	SND_SOC_DAPM_MIXER("WSA_CODEC_DMA_RX_1 Audio Mixer", SND_SOC_NOPM, 0, 0,
-+		wsa_codec_dma_rx_1_mixer_controls,
-+		ARRAY_SIZE(wsa_codec_dma_rx_1_mixer_controls)),
-+	SND_SOC_DAPM_MIXER("RX_CODEC_DMA_RX_0 Audio Mixer", SND_SOC_NOPM, 0, 0,
-+		rx_codec_dma_rx_0_mixer_controls,
-+		ARRAY_SIZE(rx_codec_dma_rx_0_mixer_controls)),
-+	SND_SOC_DAPM_MIXER("RX_CODEC_DMA_RX_1 Audio Mixer", SND_SOC_NOPM, 0, 0,
-+		rx_codec_dma_rx_1_mixer_controls,
-+		ARRAY_SIZE(rx_codec_dma_rx_1_mixer_controls)),
-+	SND_SOC_DAPM_MIXER("RX_CODEC_DMA_RX_2 Audio Mixer", SND_SOC_NOPM, 0, 0,
-+		rx_codec_dma_rx_2_mixer_controls,
-+		ARRAY_SIZE(rx_codec_dma_rx_2_mixer_controls)),
-+	SND_SOC_DAPM_MIXER("RX_CODEC_DMA_RX_3 Audio Mixer", SND_SOC_NOPM, 0, 0,
-+		rx_codec_dma_rx_3_mixer_controls,
-+		ARRAY_SIZE(rx_codec_dma_rx_3_mixer_controls)),
-+	SND_SOC_DAPM_MIXER("RX_CODEC_DMA_RX_4 Audio Mixer", SND_SOC_NOPM, 0, 0,
-+		rx_codec_dma_rx_4_mixer_controls,
-+		ARRAY_SIZE(rx_codec_dma_rx_4_mixer_controls)),
-+	SND_SOC_DAPM_MIXER("RX_CODEC_DMA_RX_5 Audio Mixer", SND_SOC_NOPM, 0, 0,
-+		rx_codec_dma_rx_5_mixer_controls,
-+		ARRAY_SIZE(rx_codec_dma_rx_5_mixer_controls)),
-+	SND_SOC_DAPM_MIXER("RX_CODEC_DMA_RX_6 Audio Mixer", SND_SOC_NOPM, 0, 0,
-+		rxcodec_dma_rx_6_mixer_controls,
-+		ARRAY_SIZE(rxcodec_dma_rx_6_mixer_controls)),
-+	SND_SOC_DAPM_MIXER("RX_CODEC_DMA_RX_7 Audio Mixer", SND_SOC_NOPM, 0, 0,
-+		rx_codec_dma_rx_7_mixer_controls,
-+		ARRAY_SIZE(rx_codec_dma_rx_7_mixer_controls)),
- 	SND_SOC_DAPM_MIXER("MultiMedia1 Mixer", SND_SOC_NOPM, 0, 0,
- 		mmul1_mixer_controls, ARRAY_SIZE(mmul1_mixer_controls)),
- 	SND_SOC_DAPM_MIXER("MultiMedia2 Mixer", SND_SOC_NOPM, 0, 0,
-@@ -901,6 +1010,16 @@ static const struct snd_soc_dapm_route intercon[] = {
- 	Q6ROUTING_RX_DAPM_ROUTE("QUIN_TDM_RX_5 Audio Mixer", "QUIN_TDM_RX_5"),
- 	Q6ROUTING_RX_DAPM_ROUTE("QUIN_TDM_RX_6 Audio Mixer", "QUIN_TDM_RX_6"),
- 	Q6ROUTING_RX_DAPM_ROUTE("QUIN_TDM_RX_7 Audio Mixer", "QUIN_TDM_RX_7"),
-+	Q6ROUTING_RX_DAPM_ROUTE("WSA_CODEC_DMA_RX_0 Audio Mixer", "WSA_CODEC_DMA_RX_0"),
-+	Q6ROUTING_RX_DAPM_ROUTE("WSA_CODEC_DMA_RX_1 Audio Mixer", "WSA_CODEC_DMA_RX_1"),
-+	Q6ROUTING_RX_DAPM_ROUTE("RX_CODEC_DMA_RX_0 Audio Mixer", "RX_CODEC_DMA_RX_0"),
-+	Q6ROUTING_RX_DAPM_ROUTE("RX_CODEC_DMA_RX_1 Audio Mixer", "RX_CODEC_DMA_RX_1"),
-+	Q6ROUTING_RX_DAPM_ROUTE("RX_CODEC_DMA_RX_2 Audio Mixer", "RX_CODEC_DMA_RX_2"),
-+	Q6ROUTING_RX_DAPM_ROUTE("RX_CODEC_DMA_RX_3 Audio Mixer", "RX_CODEC_DMA_RX_3"),
-+	Q6ROUTING_RX_DAPM_ROUTE("RX_CODEC_DMA_RX_4 Audio Mixer", "RX_CODEC_DMA_RX_4"),
-+	Q6ROUTING_RX_DAPM_ROUTE("RX_CODEC_DMA_RX_5 Audio Mixer", "RX_CODEC_DMA_RX_5"),
-+	Q6ROUTING_RX_DAPM_ROUTE("RX_CODEC_DMA_RX_6 Audio Mixer", "RX_CODEC_DMA_RX_6"),
-+	Q6ROUTING_RX_DAPM_ROUTE("RX_CODEC_DMA_RX_7 Audio Mixer", "RX_CODEC_DMA_RX_7"),
- 	Q6ROUTING_TX_DAPM_ROUTE("MultiMedia1 Mixer"),
- 	Q6ROUTING_TX_DAPM_ROUTE("MultiMedia2 Mixer"),
- 	Q6ROUTING_TX_DAPM_ROUTE("MultiMedia3 Mixer"),
+-	ret = afe_apr_send_pkt(afe, pkt, port);
++	ret = afe_apr_send_pkt(afe, pkt, port, AFE_SVC_CMD_SET_PARAM);
+ 	if (ret)
+ 		dev_err(afe->dev, "AFE enable for port 0x%x failed %d\n",
+ 		       port_id, ret);
+@@ -1025,7 +1024,7 @@ static int q6afe_port_set_param_v2(struct q6afe_port *port, void *data,
+ 	pdata->param_id = param_id;
+ 	pdata->param_size = psize;
+ 
+-	ret = afe_apr_send_pkt(afe, pkt, port);
++	ret = afe_apr_send_pkt(afe, pkt, port, AFE_PORT_CMD_SET_PARAM_V2);
+ 	if (ret)
+ 		dev_err(afe->dev, "AFE enable for port 0x%x failed %d\n",
+ 		       port_id, ret);
+@@ -1155,7 +1154,7 @@ int q6afe_port_stop(struct q6afe_port *port)
+ 	stop->port_id = port_id;
+ 	stop->reserved = 0;
+ 
+-	ret = afe_apr_send_pkt(afe, pkt, port);
++	ret = afe_apr_send_pkt(afe, pkt, port, AFE_PORT_CMD_DEVICE_STOP);
+ 	if (ret)
+ 		dev_err(afe->dev, "AFE close failed %d\n", ret);
+ 
+@@ -1467,7 +1466,7 @@ int q6afe_port_start(struct q6afe_port *port)
+ 
+ 	start->port_id = port_id;
+ 
+-	ret = afe_apr_send_pkt(afe, pkt, port);
++	ret = afe_apr_send_pkt(afe, pkt, port, AFE_PORT_CMD_DEVICE_START);
+ 	if (ret)
+ 		dev_err(afe->dev, "AFE enable for port 0x%x failed %d\n",
+ 			port_id, ret);
 -- 
 2.21.0
 

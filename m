@@ -2,55 +2,83 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7F13C265024
-	for <lists+alsa-devel@lfdr.de>; Thu, 10 Sep 2020 22:05:26 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A2E9F26571F
+	for <lists+alsa-devel@lfdr.de>; Fri, 11 Sep 2020 04:50:43 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E044B1675;
-	Thu, 10 Sep 2020 22:04:35 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E044B1675
+	by alsa0.perex.cz (Postfix) with ESMTPS id 05B421673;
+	Fri, 11 Sep 2020 04:49:53 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 05B421673
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1599768326;
-	bh=Xv+saT2B6I0S85FQru/9bt6bhfGNjM5blHXJvP2ry/4=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	s=default; t=1599792643;
+	bh=DUCrnnRvTGJakxtg1kqNCoUvlKaoBoyqkG8BZwDVfK8=;
+	h=Date:Subject:From:To:Cc:List-Id:List-Unsubscribe:List-Archive:
 	 List-Post:List-Help:List-Subscribe:From;
-	b=Y+VKilJ4wh3DHmoWOrYkagvL9M1js7sZZkWGpYAdoLpl9l/BeDRnyWRf2eBBypZPb
-	 NXQKhKPmCt2iFLnKRI+XboK9sQk9MbOqauCCpYLqm7RgTS0PE2LjXZlKzagxvFNfJP
-	 jCal5usJodqjOzgVy1aH3swRe/oCNAWjWIYnbj5E=
+	b=tUBAWZvo5SdEUGih5ZltCddVxp/wxxIUKSAJg7FKn6+y+OvI37eYZz2YKmeFgVnId
+	 qGteplv/hduEphCr/B9FStE3i4JKDkGnN3k6wWaI3Qq1nf6LSU68iF9k0TYcI5Ar7Y
+	 3Ha6HeB/ayT/yA2+PWe1oVTrTvDueCVUIBnUAAzI=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id EFE54F8010E;
-	Thu, 10 Sep 2020 22:03:44 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id F370BF8021C;
+	Fri, 11 Sep 2020 04:49:01 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 4E128F80264; Thu, 10 Sep 2020 22:03:42 +0200 (CEST)
+ id C554DF800E9; Fri, 11 Sep 2020 04:48:56 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_PASS,SPF_PASS,
- UNPARSEABLE_RELAY,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from bhuna.collabora.co.uk (bhuna.collabora.co.uk
- [IPv6:2a00:1098:0:82:1000:25:2eeb:e3e3])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-7.6 required=5.0 tests=DKIMWL_WL_MED,DKIM_SIGNED,
+ DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,USER_IN_DEF_DKIM_WL
+ autolearn=disabled version=3.4.0
+Received: from mail-pf1-x449.google.com (mail-pf1-x449.google.com
+ [IPv6:2607:f8b0:4864:20::449])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 7CD49F8010E
- for <alsa-devel@alsa-project.org>; Thu, 10 Sep 2020 22:03:31 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7CD49F8010E
-Received: from [127.0.0.1] (localhost [127.0.0.1])
- (Authenticated sender: dafna) with ESMTPSA id 426C529B6F0
-From: Dafna Hirschfeld <dafna.hirschfeld@collabora.com>
-To: linux-kernel@vger.kernel.org, alsa-devel@alsa-project.org,
- broonie@kernel.org
-Subject: [PATCH] ASoC: core: Optionaly add the component driver name to the
- component name
-Date: Thu, 10 Sep 2020 22:03:08 +0200
-Message-Id: <20200910200308.9125-1-dafna.hirschfeld@collabora.com>
-X-Mailer: git-send-email 2.17.1
-Cc: Dafna Hirschfeld <dafna.hirschfeld@collabora.com>, lgirdwood@gmail.com,
- dafna3@gmail.com, tiwai@suse.com, matthias.bgg@gmail.com,
- linux-mediatek@lists.infradead.org, ranjani.sridharan@linux.intel.com,
- enric.balletbo@collabora.com, dmitry.baryshkov@linaro.org,
- kernel@collabora.com
+ by alsa1.perex.cz (Postfix) with ESMTPS id 5090CF800E9
+ for <alsa-devel@alsa-project.org>; Fri, 11 Sep 2020 04:48:52 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5090CF800E9
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=google.com header.i=@google.com
+ header.b="YCPcf4zW"
+Received: by mail-pf1-x449.google.com with SMTP id 8so5878007pfx.6
+ for <alsa-devel@alsa-project.org>; Thu, 10 Sep 2020 19:48:52 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
+ h=sender:date:message-id:mime-version:subject:from:to:cc;
+ bh=bLNTRYbIes188tpc0mDmg8PeKqWkLkLsLS+cEmRfJ4Q=;
+ b=YCPcf4zW9n2xKiuS5+Sk6CHvfpFrQXUtAG/znA41cDBEii323Cv+ykNKyUkB3Q5pbd
+ vTxTyvi+ZeQTvz26dBGf43cou2OZ128LsjlxxL1DcuH/Echu1+uSnS3hk45Lg2aahSqM
+ mr0yVHhFOM6TWFkxi3QJI7EK/LuguF4NyPg6TKV5wt2gOfNRZKBnHeBymysJileSGytE
+ YGCIlyEHvzkc2ZsvBC84VwRA9U/HNNP9XBXIIUqwEA0ck/pg2hJLlhQ/5VPiLkMtvHN5
+ P/RAOiKrliU8Nxr1woz73U+1dNizWjUCpLgg+YUgJrZuLQKSFk5uZum+4wv5veQHFdM+
+ KB8w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:sender:date:message-id:mime-version:subject:from
+ :to:cc;
+ bh=bLNTRYbIes188tpc0mDmg8PeKqWkLkLsLS+cEmRfJ4Q=;
+ b=uYfQdY1YsdZ6QYio9KxlazdbQH3jPHXYeZnFhEXrbq6sbUmsPeqHzghMk8+fI8JrEW
+ dkwC2X3WcUivPmvec8c4yXblBHBCsC23ZRNuwcW8oUkjzTQjnuXRXYlMjkPRS4KuE1yD
+ EDma6BRHjUjBAbUd6M1p+MX372EDJHl1pPpkmaK8KaGw76n/N73H9LqDYYuEnKGg4C7S
+ qB8oiFh8C41exVNJNw5afdqbR19wanyQxXKf6L4UmC69KeuCmlMruY1Qe5M+8UmuBqsL
+ Ym81/XS2N4rJ1euuWKQpLzn6oYeLhgwT6CoTOna42Cr/qt108RKboXWgwEQA4BlaBM8g
+ /IOg==
+X-Gm-Message-State: AOAM533ygW2Fy4Li680A8CXFwKwzXbcNoRBnEV2gcCWPyeMlzu8cdCmr
+ EoDMBBRcIRryF8bW6Qbc1wM+kDiBkqY+
+X-Google-Smtp-Source: ABdhPJyIfmz+RgSdsE9dxfSUuq4vYwku/EgyIMRrTQZW+Sp90HxOGM4j3hTDem3RAzXvTIqjnn63jWgqGf2s
+X-Received: from tzungbi-z840.tpe.corp.google.com
+ ([2401:fa00:1:10:725a:fff:fe41:c6a5])
+ (user=tzungbi job=sendgmr) by 2002:a17:90b:941:: with SMTP id
+ dw1mr602456pjb.1.1599792528048; Thu, 10 Sep 2020 19:48:48 -0700 (PDT)
+Date: Fri, 11 Sep 2020 10:48:31 +0800
+Message-Id: <20200911024833.1673961-1-tzungbi@google.com>
+Mime-Version: 1.0
+X-Mailer: git-send-email 2.28.0.526.ge36021eeef-goog
+Subject: [PATCH 0/2] ASoC: mediatek: mt8183-da7219: support machine driver for
+ rt1015p
+From: Tzung-Bi Shih <tzungbi@google.com>
+To: broonie@kernel.org, robh+dt@kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org, tzungbi@google.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -66,64 +94,23 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-The ASoC platform driver for Mediatek MT8173 registers
-several components with identical name. This cause an
-error:
-"Directory '11220000.audio-controller' with parent 'mtk-rt5650' already present!"
-when adding debugfs directory for those components.
-To fix this, the function 'fmt_single_name' can receive the name
-of the component driver and concatenate it to the name of the debugfs
-directory for the component.
+The series reuses mt8183-da7219-max98357.c for supporting machine
+driver with rt1015p speaker amplifier.
 
-Signed-off-by: Dafna Hirschfeld <dafna.hirschfeld@collabora.com>
----
- sound/soc/soc-core.c | 12 +++++++++---
- 1 file changed, 9 insertions(+), 3 deletions(-)
+The 1st patch adds document for the new proposed compatible string.
 
-diff --git a/sound/soc/soc-core.c b/sound/soc/soc-core.c
-index 74df22486e30..f470e713b030 100644
---- a/sound/soc/soc-core.c
-+++ b/sound/soc/soc-core.c
-@@ -2227,7 +2227,7 @@ EXPORT_SYMBOL_GPL(snd_soc_unregister_card);
-  * Simplify DAI link configuration by removing ".-1" from device names
-  * and sanitizing names.
-  */
--static char *fmt_single_name(struct device *dev, int *id)
-+static char *fmt_single_name(struct device *dev, int *id, const char *component_driver_name)
- {
- 	const char *devname = dev_name(dev);
- 	char *found, *name;
-@@ -2263,6 +2263,12 @@ static char *fmt_single_name(struct device *dev, int *id)
- 		*id = 0;
- 	}
- 
-+	if (component_driver_name) {
-+		char *tmp = name;
-+
-+		name = devm_kasprintf(dev, GFP_KERNEL, "%s-%s", name, component_driver_name);
-+		devm_kfree(dev, tmp);
-+	}
- 	return name;
- }
- 
-@@ -2327,7 +2333,7 @@ struct snd_soc_dai *snd_soc_register_dai(struct snd_soc_component *component,
- 	 */
- 	if (legacy_dai_naming &&
- 	    (dai_drv->id == 0 || dai_drv->name == NULL)) {
--		dai->name = fmt_single_name(dev, &dai->id);
-+		dai->name = fmt_single_name(dev, &dai->id, NULL);
- 	} else {
- 		dai->name = fmt_multiple_name(dev, dai_drv);
- 		if (dai_drv->id)
-@@ -2460,7 +2466,7 @@ int snd_soc_component_initialize(struct snd_soc_component *component,
- 	INIT_LIST_HEAD(&component->card_list);
- 	mutex_init(&component->io_mutex);
- 
--	component->name = fmt_single_name(dev, &component->id);
-+	component->name = fmt_single_name(dev, &component->id, driver->name);
- 	if (!component->name) {
- 		dev_err(dev, "ASoC: Failed to allocate name\n");
- 		return -ENOMEM;
+The 2nd patch changes the machine driver to support "RT1015P" codec.
+
+Tzung-Bi Shih (2):
+  ASoC: dt-bindings: mt8183-da7219: add compatible string for using
+    rt1015p
+  ASoC: mediatek: mt8183-da7219: support machine driver with rt1015p
+
+ .../bindings/sound/mt8183-da7219-max98357.txt |  1 +
+ sound/soc/mediatek/Kconfig                    |  1 +
+ .../mediatek/mt8183/mt8183-da7219-max98357.c  | 40 +++++++++++++++++++
+ 3 files changed, 42 insertions(+)
+
 -- 
-2.17.1
+2.28.0.526.ge36021eeef-goog
 

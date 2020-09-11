@@ -2,86 +2,88 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8B24C2661D4
-	for <lists+alsa-devel@lfdr.de>; Fri, 11 Sep 2020 17:09:27 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2071B2661BE
+	for <lists+alsa-devel@lfdr.de>; Fri, 11 Sep 2020 17:02:47 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id EF6AE167A;
-	Fri, 11 Sep 2020 17:08:36 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EF6AE167A
+	by alsa0.perex.cz (Postfix) with ESMTPS id 03F55167E;
+	Fri, 11 Sep 2020 17:01:56 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 03F55167E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1599836967;
-	bh=haWnPufh9ckeb4AOwdBXLbLUphdQ0AhB8WMlrBk7HDI=;
-	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
+	s=default; t=1599836566;
+	bh=iGb8HuJ7X7LzZ4AWD/qyB7dYBPM8KsWv1aeswN6DIhw=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=NhcZpqk2Vj9ny0+GERFAW/+0DZKRsrkSu72aNK8D5Bs09YOnwU8kUQy5FqwRBI4WZ
-	 MQVA/laSED4sNqmKMEAgYHM6zbIHSJrbhRZ85VURvj2xif3duu95AfG257muooUTg8
-	 KMrzaoS61Id/6i5x1i9kdunsVuy3es2/wDidqIXY=
+	b=WsKfir0PAQhrofN6v2bVA3AUBcxkf4P1oHLAmlXVJokxdQNfPTB1Hvlmq7+8jkJJG
+	 6c4RHxexDRO3HVQxpmPI62ve7Yb5a46if1Gi9b2h+OGlemGj3pY4TJuxyRXsx7DZa6
+	 pyshreA1DUxtIv2yI6rRUAuNOAeKNqv0RIlU7sZ0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id DB818F800E9;
-	Fri, 11 Sep 2020 17:07:45 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 29F9AF80240;
+	Fri, 11 Sep 2020 17:01:05 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 8EE21F80274; Fri, 11 Sep 2020 17:07:43 +0200 (CEST)
+ id A71AEF80227; Fri, 11 Sep 2020 17:01:02 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.1 required=5.0 tests=NICE_REPLY_A,PRX_BODY_21,
- RCVD_IN_MSPIKE_H3, RCVD_IN_MSPIKE_WL, SPF_HELO_NONE,
- SPF_NONE autolearn=disabled version=3.4.0
-Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,RCVD_IN_MSPIKE_H3,RCVD_IN_MSPIKE_WL,SPF_HELO_PASS,SPF_NONE,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mo4-p02-ob.smtp.rzone.de (mo4-p02-ob.smtp.rzone.de
+ [81.169.146.168])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id BA3BCF80115
- for <alsa-devel@alsa-project.org>; Fri, 11 Sep 2020 17:07:28 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BA3BCF80115
-IronPort-SDR: z7LLeZVGyCpACynQPtbdhVAveqstyuLaawZDSh4G1adEAJFfYOMZRtmjPDFpS5D5cIJde+JUSl
- E93QO9Bo38rw==
-X-IronPort-AV: E=McAfee;i="6000,8403,9740"; a="146464770"
-X-IronPort-AV: E=Sophos;i="5.76,415,1592895600"; d="scan'208";a="146464770"
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from orsmga005.jf.intel.com ([10.7.209.41])
- by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 11 Sep 2020 08:07:25 -0700
-IronPort-SDR: 4KNDny10BFkK+iQr+jUnPuRNxmW38V+91ARLv0S5o0x27rJZE6uaJy/wazA7H7JwpmBuamyGOO
- UV+MIBei0Lcg==
-X-IronPort-AV: E=Sophos;i="5.76,416,1592895600"; d="scan'208";a="481354710"
-Received: from basudipt-mobl1.gar.corp.intel.com (HELO [10.212.223.238])
- ([10.212.223.238])
- by orsmga005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 11 Sep 2020 08:07:24 -0700
-Subject: Re: [PATCH v2 2/3] soundwire: SDCA: add helper macro to access
- controls
-To: Vinod Koul <vkoul@kernel.org>
-References: <20200901162225.33343-1-pierre-louis.bossart@linux.intel.com>
- <20200901162225.33343-3-pierre-louis.bossart@linux.intel.com>
- <20200904050244.GT2639@vkoul-mobl>
- <f35a0ae7-2779-0c69-9ef3-0d0e298888ac@linux.intel.com>
- <20200909075555.GK77521@vkoul-mobl>
- <184867c2-9f0c-bffe-2eb7-e9c5735614b0@linux.intel.com>
- <20200910062223.GQ77521@vkoul-mobl>
- <adf51127-2813-cdf0-e5a6-f5ec3b0d33fa@linux.intel.com>
- <20200911070649.GU77521@vkoul-mobl>
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Message-ID: <21606609-8aaf-c7b2-ffaf-c7d37de1fa3f@linux.intel.com>
-Date: Fri, 11 Sep 2020 09:50:54 -0500
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.10.0
+ by alsa1.perex.cz (Postfix) with ESMTPS id 30BEEF80115
+ for <alsa-devel@alsa-project.org>; Fri, 11 Sep 2020 17:00:51 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 30BEEF80115
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=gerhold.net header.i=@gerhold.net
+ header.b="BWefztCf"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1599836450;
+ s=strato-dkim-0002; d=gerhold.net;
+ h=In-Reply-To:References:Message-ID:Subject:Cc:To:From:Date:
+ X-RZG-CLASS-ID:X-RZG-AUTH:From:Subject:Sender;
+ bh=HxVrrGD2kLhJ6RXz9xL0pT6u48do7GUFCv4skGWY/sQ=;
+ b=BWefztCfwQHLIv2tGMjJGz6GvLEFgMgukGG9aSxralCBttQHLy6H4xXoSTezxxmQhe
+ r81AOEyQDMhvMlc0hzlonQZl0Wz8MmDa/ucPGrF8NQDTmQV6CWyjRRvV+Dz4HpM85VIu
+ ZBM5dVGqKUOX76yTsXHQP0qgboOPku5/subxQOorCHzTrr7yaz01EWxQ+WjVaLgfLA2y
+ Gjig/GmxZkPJwtp/U/qKd2S0H+Nx4boNVa3hnP9veLF3g3vOx7/xJ3MIPIX3aoe5b8Rr
+ ZY39dqh63G2U669tOEtQtNMxFilkORmoQnG75YTJ8fJUSDxJmZEXzW4Dj3Pn7BwpjYkY
+ NkGw==
+X-RZG-AUTH: ":P3gBZUipdd93FF5ZZvYFPugejmSTVR2nRPhVOQ/OcYgojyw4j34+u26zEIdhPgVC7iy9yGr7ESbX"
+X-RZG-CLASS-ID: mo00
+Received: from gerhold.net by smtp.strato.de (RZmta 46.10.7 DYNA|AUTH)
+ with ESMTPSA id g0b6c1w8BF0mNYQ
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256 bits))
+ (Client did not present a certificate);
+ Fri, 11 Sep 2020 17:00:48 +0200 (CEST)
+Date: Fri, 11 Sep 2020 17:00:44 +0200
+From: Stephan Gerhold <stephan@gerhold.net>
+To: Cheng-Yi Chiang <cychiang@chromium.org>
+Subject: Re: [PATCH v9 3/3] ASoC: qcom: sc7180: Add machine driver for sound
+ card registration
+Message-ID: <20200911150044.GA2352@gerhold.net>
+References: <20200911102259.3667381-1-cychiang@chromium.org>
+ <20200911102259.3667381-4-cychiang@chromium.org>
 MIME-Version: 1.0
-In-Reply-To: <20200911070649.GU77521@vkoul-mobl>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
-Cc: Guennadi Liakhovetski <guennadi.liakhovetski@linux.intel.com>,
- alsa-devel@alsa-project.org, Kai Vehmanen <kai.vehmanen@linux.intel.com>,
- tiwai@suse.de, gregkh@linuxfoundation.org,
- open list <linux-kernel@vger.kernel.org>, broonie@kernel.org,
- Sanyog Kale <sanyog.r.kale@intel.com>,
- Bard liao <yung-chuan.liao@linux.intel.com>,
- Rander Wang <rander.wang@linux.intel.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20200911102259.3667381-4-cychiang@chromium.org>
+Cc: Taniya Das <tdas@codeaurora.org>, alsa-devel@alsa-project.org,
+ Banajit Goswami <bgoswami@codeaurora.org>, Heiko Stuebner <heiko@sntech.de>,
+ Takashi Iwai <tiwai@suse.com>, Rohit kumar <rohitkr@codeaurora.org>,
+ Patrick Lai <plai@codeaurora.org>, Ajit Pandey <ajitp@codeaurora.org>,
+ linux-rockchip@lists.infradead.org, Andy Gross <agross@kernel.org>,
+ dgreid@chromium.org, devicetree@vger.kernel.org, tzungbi@chromium.org,
+ linux-arm-msm@vger.kernel.org, Rob Herring <robh+dt@kernel.org>,
+ linux-mediatek@lists.infradead.org, Matthias Brugger <matthias.bgg@gmail.com>,
+ Bjorn Andersson <bjorn.andersson@linaro.org>,
+ linux-arm-kernel@lists.infradead.org, dianders@chromium.org,
+ Liam Girdwood <lgirdwood@gmail.com>, linux-kernel@vger.kernel.org,
+ Mark Brown <broonie@kernel.org>,
+ Srini Kandagatla <srinivas.kandagatla@linaro.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -97,71 +99,175 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hi Vinod,
+Hi,
 
->>>>>>>> + *	25		0 (Reserved)
->>>>>>>> + *	24:22		Function Number [2:0]
->>>>>>>> + *	21		Entity[6]
->>>>>>>> + *	20:19		Control Selector[5:4]
->>>>>>>> + *	18		0 (Reserved)
->>>>>>>> + *	17:15		Control Number[5:3]
->>>>>>>> + *	14		Next
->>>>>>>> + *	13		MBQ
->>>>>>>> + *	12:7		Entity[5:0]
->>>>>>>> + *	6:3		Control Selector[3:0]
->>>>>>>> + *	2:0		Control Number[2:0]
+Thanks for removing the weird use of auxilliary devices :)
+
+On Fri, Sep 11, 2020 at 06:22:59PM +0800, Cheng-Yi Chiang wrote:
+> From: Ajit Pandey <ajitp@codeaurora.org>
+> 
+> Add new driver to register sound card on sc7180 trogdor board and
+> do the required configuration for lpass cpu dai and external codecs
+> connected over MI2S interfaces.
+> 
+> Signed-off-by: Ajit Pandey <ajitp@codeaurora.org>
+> Signed-off-by: Cheng-Yi Chiang <cychiang@chromium.org>
+> ---
+>  sound/soc/qcom/Kconfig  |  12 ++
+>  sound/soc/qcom/Makefile |   2 +
+>  sound/soc/qcom/sc7180.c | 267 ++++++++++++++++++++++++++++++++++++++++
+>  3 files changed, 281 insertions(+)
+>  create mode 100644 sound/soc/qcom/sc7180.c
+> 
+> diff --git a/sound/soc/qcom/Kconfig b/sound/soc/qcom/Kconfig
+> index a607ace8b089..0459185ee243 100644
+> --- a/sound/soc/qcom/Kconfig
+> +++ b/sound/soc/qcom/Kconfig
+> @@ -116,4 +116,16 @@ config SND_SOC_SDM845
+>  	  SDM845 SoC-based systems.
+>  	  Say Y if you want to use audio device on this SoCs.
+>  
+> +config SND_SOC_SC7180
+> +	tristate "SoC Machine driver for SC7180 boards"
+> +	depends on I2C
+> +	select SND_SOC_QCOM_COMMON
+> +	select SND_SOC_LPASS_SC7180
+> +	select SND_SOC_MAX98357A
+> +	select SND_SOC_RT5682_I2C
+> +	help
+> +	  To add support for audio on Qualcomm Technologies Inc.
+> +	  SC7180 SoC-based systems.
+> +	  Say Y if you want to use audio device on this SoCs.
+> +
+>  endif #SND_SOC_QCOM
+> diff --git a/sound/soc/qcom/Makefile b/sound/soc/qcom/Makefile
+> index 7972c9479ab0..0cdcbf367ef1 100644
+> --- a/sound/soc/qcom/Makefile
+> +++ b/sound/soc/qcom/Makefile
+> @@ -17,12 +17,14 @@ snd-soc-storm-objs := storm.o
+>  snd-soc-apq8016-sbc-objs := apq8016_sbc.o
+>  snd-soc-apq8096-objs := apq8096.o
+>  snd-soc-sdm845-objs := sdm845.o
+> +snd-soc-sc7180-objs := sc7180.o
+>  snd-soc-qcom-common-objs := common.o
+>  
+>  obj-$(CONFIG_SND_SOC_STORM) += snd-soc-storm.o
+>  obj-$(CONFIG_SND_SOC_APQ8016_SBC) += snd-soc-apq8016-sbc.o
+>  obj-$(CONFIG_SND_SOC_MSM8996) += snd-soc-apq8096.o
+>  obj-$(CONFIG_SND_SOC_SDM845) += snd-soc-sdm845.o
+> +obj-$(CONFIG_SND_SOC_SC7180) += snd-soc-sc7180.o
+>  obj-$(CONFIG_SND_SOC_QCOM_COMMON) += snd-soc-qcom-common.o
+>  
+>  #DSP lib
+> diff --git a/sound/soc/qcom/sc7180.c b/sound/soc/qcom/sc7180.c
+> new file mode 100644
+> index 000000000000..40bc4fc98842
+> --- /dev/null
+> +++ b/sound/soc/qcom/sc7180.c
+> @@ -0,0 +1,267 @@
+> +// SPDX-License-Identifier: GPL-2.0-only
+> +//
+> +// Copyright (c) 2020, The Linux Foundation. All rights reserved.
+> +//
+> +// sc7180.c -- ALSA SoC Machine driver for SC7180
+> +
+> +#include <dt-bindings/sound/sc7180-lpass.h>
+> +#include <linux/module.h>
+> +#include <linux/of_device.h>
+> +#include <linux/platform_device.h>
+> +#include <sound/core.h>
+> +#include <sound/jack.h>
+> +#include <sound/pcm.h>
+> +#include <sound/pcm_params.h>
+> +#include <sound/soc.h>
+> +#include <uapi/linux/input-event-codes.h>
+> +
+> +#include "../codecs/rt5682.h"
+> +#include "common.h"
+> +#include "lpass.h"
+> +
+> +#define DEFAULT_SAMPLE_RATE_48K		48000
+> +#define DEFAULT_MCLK_RATE		19200000
+> +#define RT5682_PLL1_FREQ (48000 * 512)
+> +
+> +struct sc7180_snd_data {
+> +	u32 pri_mi2s_clk_count;
+> +	struct snd_soc_jack hs_jack;
+> +	struct snd_soc_jack hdmi_jack;
+> +};
 
 [...]
 
->>>>
->>>> #define SDCA_CONTROL_DEST_MASK1 GENMASK(20, 19)
->>>> #define SDCA_CONTROL_ORIG_MASK1 GENMASK(5, 4)
->>>> #define SDCA_CONTROL_DEST_MASK2 GENMASK(6, 3)
->>>> #define SDCA_CONTROL_ORIG_MASK2 GENMASK(3, 0)
-> 
-> I think I missed ORIG and DEST stuff, what does this mean here?
+> +
+> +static const struct snd_soc_ops sc7180_ops = {
+> +	.startup = sc7180_snd_startup,
+> +	.shutdown = sc7180_snd_shutdown,
+> +};
+> +
+> +static const struct snd_soc_dapm_widget sc7180_snd_widgets[] = {
+> +	SND_SOC_DAPM_HP("Headphone Jack", NULL),
+> +	SND_SOC_DAPM_MIC("Headset Mic", NULL),
+> +};
+> +
+> +static struct snd_soc_card sc7180_card = {
+> +	.owner = THIS_MODULE,
+> +	.dapm_widgets = sc7180_snd_widgets,
+> +	.num_dapm_widgets = ARRAY_SIZE(sc7180_snd_widgets),
+> +};
 
-If you missed this, it means my explanations are not good enough and I 
-need to make it clearer in the commit log/documentation. Point taken, 
-I'll improve this for the next version.
+Given that you modify this struct and already allocate some memory
+dynamically (sc7810_snd_data), it might be a bit cleaner to avoid
+modifying global memory and instead allocate snd_soc_card dynamically as
+well. Could just add it to sc7180_snd_data for example (see e.g. apq8016_sbc)
 
-> Relooking at the bit definition, for example 'Control Number' is defined
-> in both 17:15 as well as 2:0, why is that. Is it split?
-> 
-> How does one program a control number into this?
+> +
+> +static void sc7180_add_ops(struct snd_soc_card *card)
+> +{
+> +	struct snd_soc_dai_link *link;
+> +	int i;
+> +
+> +	for_each_card_prelinks(card, i, link) {
+> +		link->ops = &sc7180_ops;
+> +		link->init = sc7180_init;
+> +	}
+> +}
+> +
+> +static int sc7180_snd_platform_probe(struct platform_device *pdev)
+> +{
+> +	struct snd_soc_card *card = &sc7180_card;
+> +	struct sc7180_snd_data *data;
+> +	struct device *dev = &pdev->dev;
+> +	int ret;
+> +
+> +	/* Allocate the private data */
+> +	data = devm_kzalloc(dev, sizeof(*data), GFP_KERNEL);
+> +	if (!data)
+> +		return -ENOMEM;
+> +
+> +	card->dev = dev;
+> +	snd_soc_card_set_drvdata(card, data);
+> +
+> +	ret = qcom_snd_parse_of(card);
+> +	if (ret) {
+> +		dev_err(dev, "Error parsing OF data\n");
 
-A Control Number is represented on 6 bits.
+This will just add noise in case of probe deferral. qcom_snd_parse_of()
+already logs a message for most errors so you can just remove this one.
 
-See the documentation above.
+> +		return ret;
+> +	}
+> +
+> +	sc7180_add_ops(card);
+> +
+> +	return devm_snd_soc_register_card(dev, card);
+> +}
+> +
+> +static const struct of_device_id sc7180_snd_device_id[]  = {
+> +	{ .compatible = "qcom,sc7180-sndcard" },
 
-	17:15		Control Selector[5:3]
-	2:0		Control Selector[2:0]
+Will all SC7180 use the configuration in this driver? (With RT5682,
+HDMI, the jack configuration etc). Otherwise a more specific compatible
+string might be better, so other device-specific ones can be added later.
 
-The 3 MSBs for into bits 17:15 of the address, and the 3 LSBs into bits 
-2:0 of the address. The second part is simpler for Control Number but 
-for entities and control selectors the LSB positions don't match.
-
-Yes it's convoluted but it was well-intended: in most cases, there is a 
-limited number of entities, control selectors, channel numbers, and 
-putting the LSBs together in the 16-LSB of the address helps avoid 
-reprogramming paging registers: all the addresses for a given function 
-typically map into the same page.
-
-That said, I am not sure the optimization is that great in the end, 
-because we end-up having to play with bits for each address. Fewer 
-changes of the paging registers but tons of operations in the core.
-
-I wasn't around when this mapping was defined, and it is what is is now. 
-There's hardware built based on this formula so we have to make it work.
-
-Does this clarify the usage?
-
-If you have a better suggestion that the FIELD_PREP/FIELD_GET use, I am 
-all ears. At the end of the day, the mapping is pre-defined and we don't 
-have any degree of freedom. What I do want is that this macro/inline 
-function is shared by all codec drivers so that we don't have different 
-interpretations of how the address is constructed.
-
-Thanks,
--Pierre
-
+Thanks!
+Stephan

@@ -2,62 +2,84 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6C941265F79
-	for <lists+alsa-devel@lfdr.de>; Fri, 11 Sep 2020 14:25:00 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2A64826617C
+	for <lists+alsa-devel@lfdr.de>; Fri, 11 Sep 2020 16:48:14 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C5F661676;
-	Fri, 11 Sep 2020 14:24:09 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C5F661676
+	by alsa0.perex.cz (Postfix) with ESMTPS id 9AB04167A;
+	Fri, 11 Sep 2020 16:47:23 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9AB04167A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1599827099;
-	bh=TUBU5cM8qNYk9fQ8DAHx2Me4fR6Z9HvCieD9ftOFJdM=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=fsaN4AcQ7e2s+tHTHchTzqDXJ2YM8htUFgtTLHtNEhcR8SUmva8SHyjV3fOjaDqk8
-	 kfMWdIsx3Do9xmk2j/XpCQeWmorU1hQAMxQoEkrZDpfYBC0lfqbIH3iGSxbn7kV2F2
-	 eIL31VR61gP9UzbEHv9bxDI3JOfSq0NxOf8QfR+E=
+	s=default; t=1599835693;
+	bh=HRfFjDvRE3Y1G/dU9gHF3Q6FH9eUzpiD5TRGNq1jAZA=;
+	h=Date:From:To:Subject:References:In-Reply-To:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=Vwk9BnCVIT+xz0bzWjWaxOwUlzpLMhy+Ltm0Gi4Zn+zFD7YV2kc8BqAXaj5uce32u
+	 6Bij5SCeiBm4XnuqbyWhWzgz+P694VOL7TrERNpfjpK07kGEMyvlbwxIqUFpx8yNDb
+	 9SNvzyud+s+Mo0W9LersoNVfgShRp6RhVMjR4n9k=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id E4BBFF800E9;
-	Fri, 11 Sep 2020 14:23:18 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id B8B94F80240;
+	Fri, 11 Sep 2020 16:46:32 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 07597F80227; Fri, 11 Sep 2020 14:23:16 +0200 (CEST)
+ id 03C5FF80227; Fri, 11 Sep 2020 16:46:29 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled
- version=3.4.0
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+X-Spam-Status: No, score=0.5 required=5.0 tests=FREEMAIL_FORGED_FROMDOMAIN,
+ FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,RCVD_IN_MSPIKE_H2,SPF_HELO_NONE,
+ SPF_PASS autolearn=disabled version=3.4.0
+Received: from mail-ed1-f65.google.com (mail-ed1-f65.google.com
+ [209.85.208.65])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id AA130F80115
- for <alsa-devel@alsa-project.org>; Fri, 11 Sep 2020 14:23:04 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz AA130F80115
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="GsM7uYm/"
-Received: from localhost (fw-tnat.cambridge.arm.com [217.140.96.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id CED8622204;
- Fri, 11 Sep 2020 12:23:00 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1599826981;
- bh=TUBU5cM8qNYk9fQ8DAHx2Me4fR6Z9HvCieD9ftOFJdM=;
- h=From:To:Cc:Subject:Date:From;
- b=GsM7uYm/isu0D/zj+EJ5ohVglB1Xkbv34XIgbUER6PejMzOAuz5ZSb0O9ToklwsmP
- goagV0XFhOQWUuxadAgZanYZNZzLTs4Sg/KyfBAZa3WyapVsrViy8yccQ8Cbz+fSfj
- vLkWwjK4OE7erpPQzwHMqpIWT4L3SXji0d0Qqxso=
-From: Mark Brown <broonie@kernel.org>
-To: Takashi Iwai <tiwai@suse.de>
-Subject: [GIT PULL] ASoC fixes for v5.9-rc4
-Date: Fri, 11 Sep 2020 13:22:09 +0100
-Message-Id: <20200911122300.CED8622204@mail.kernel.org>
-Cc: alsa-devel@alsa-project.org, Mark Brown <broonie@kernel.org>,
- Liam Girdwood <lgirdwood@gmail.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 8B2EEF80115
+ for <alsa-devel@alsa-project.org>; Fri, 11 Sep 2020 16:46:14 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8B2EEF80115
+Received: by mail-ed1-f65.google.com with SMTP id w1so10257889edr.3
+ for <alsa-devel@alsa-project.org>; Fri, 11 Sep 2020 07:46:14 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:date:from:to:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to:user-agent;
+ bh=0ZsoGj1RzPrf2TRsjqQZWuaKEAUJYQqnu3wsCh7rZCw=;
+ b=GCuLmZ5kK1ObK7ozX726eZGugWkIrZjXKfNFNcKqKA+YtPVoeIeraruKwve6iooRqF
+ l/SwT5O0dKkVS+wS1UjTEEOGdAJ5BI67BLuJgt5Ks6Oq9HdMsJthHHbJgCkQ2Hsx7gvs
+ vjWEJjjQsmgvdi8PS17RbK5YZEyGYecc+ntW1Xxl1IWg35eGX6mCq3tmWKhVCpnMcrg0
+ 4aRY4kJwj6qZunNifTVJj8e4LMrVZmu+uVJXXRWr2ETDnFqDFxKs5cGAxpq+9521wsoO
+ oeq5MYRudgGLOC4WEhmhBh0AhzoEPmhXSk1t9tQBm5Nfzjr4IwtM6HPQsoLkPmokcgDS
+ WUeA==
+X-Gm-Message-State: AOAM533mAbneu9O7cRK3oxDOOxvaoZ/S+31WFQ4LApCCDWx6XH8Ofj/t
+ r2kt5fMi7oOo0sVppbvxTw4=
+X-Google-Smtp-Source: ABdhPJwZHiY5Rfa19iuLEAR/VPmA/pAeV2n2uyQ7Ar6ijYqLwqvPzkQh/DM3V9GvYiSZDa+BoTXlCg==
+X-Received: by 2002:a05:6402:78b:: with SMTP id
+ d11mr2469596edy.341.1599835573944; 
+ Fri, 11 Sep 2020 07:46:13 -0700 (PDT)
+Received: from kozik-lap ([194.230.155.174])
+ by smtp.googlemail.com with ESMTPSA id d24sm1818951edp.17.2020.09.11.07.46.12
+ (version=TLS1_2 cipher=ECDHE-ECDSA-CHACHA20-POLY1305 bits=256/256);
+ Fri, 11 Sep 2020 07:46:12 -0700 (PDT)
+Date: Fri, 11 Sep 2020 16:46:10 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Sangbeom Kim <sbkim73@samsung.com>,
+ Sylwester Nawrocki <s.nawrocki@samsung.com>,
+ Liam Girdwood <lgirdwood@gmail.com>,
+ Mark Brown <broonie@kernel.org>, Rob Herring <robh+dt@kernel.org>,
+ Kukjin Kim <kgene@kernel.org>, alsa-devel@alsa-project.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-samsung-soc@vger.kernel.org
+Subject: Re: [PATCH 3/4] arm64: dts: exynos: Remove undocumented i2s
+ properties in Exynos5433
+Message-ID: <20200911144610.GA15290@kozik-lap>
+References: <20200903203250.19830-1-krzk@kernel.org>
+ <20200903203250.19830-3-krzk@kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20200903203250.19830-3-krzk@kernel.org>
+User-Agent: Mutt/1.9.4 (2018-02-28)
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -73,99 +95,20 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-The following changes since commit d012a7190fc1fd72ed48911e77ca97ba4521bccd:
+On Thu, Sep 03, 2020 at 10:32:49PM +0200, Krzysztof Kozlowski wrote:
+> Few I2S device node properties were not documented and not used by any
+> of the drivers.  Remove them to fix dtbs_check warning:
+> 
+>   arch/arm64/boot/dts/exynos/exynos5433-tm2.dt.yaml: i2s@14d60000:
+>     Additional properties are not allowed ('samsung,supports-rstclr', 'samsung,supports-tdm',
+>     'samsung,supports-6ch', 'samsung,supports-low-rfs' were unexpected)
+> 
+> Signed-off-by: Krzysztof Kozlowski <krzk@kernel.org>
+> ---
+>  arch/arm64/boot/dts/exynos/exynos5433.dtsi | 4 ----
 
-  Linux 5.9-rc2 (2020-08-23 14:08:43 -0700)
+Applied.
 
-are available in the Git repository at:
+Best regards,
+Krzysztof
 
-  https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git tags/asoc-fix-v5.9-rc4
-
-for you to fetch changes up to 1a5ce48fd667128e369fdc7fb87e21539aed21b5:
-
-  ASoC: tlv320adcx140: Wake up codec before accessing register (2020-09-08 17:26:03 +0100)
-
-----------------------------------------------------------------
-ASoC: Fixes for v5.9
-
-Most of this is various driver specific fixes, none of which are
-terribly exciting in themselves, plus one core fix adding and using a
-new DAI lookup function to deal with a lockdep warning.
-
-----------------------------------------------------------------
-Brent Lu (1):
-      ASoC: intel: atom: Add period size constraint
-
-Camel Guo (2):
-      ASoC: tlv320adcx140: Fix accessing uninitialized adcx140->dev
-      ASoC: tlv320adcx140: Wake up codec before accessing register
-
-Cezary Rojewski (2):
-      ASoC: Intel: haswell: Fix power transition refactor
-      ASoC: core: Do not cleanup uninitialized dais on soc_pcm_open failure
-
-Dinghao Liu (1):
-      ASoC: qcom: common: Fix refcount imbalance on error
-
-Hans de Goede (1):
-      ASoC: Intel: bytcr_rt5640: Add quirk for MPMAN Converter9 2-in-1
-
-Jerome Brunet (1):
-      ASoC: meson: axg-toddr: fix channel order on g12 platforms
-
-Kuninori Morimoto (3):
-      ASoC: pcm3168a: ignore 0 Hz settings
-      ASoC: ti: fixup ams_delta_mute() function name
-      ASoC: soc-core: add snd_soc_find_dai_with_mutex()
-
-Mark Brown (2):
-      Merge tag 'v5.9-rc2' into asoc-5.9
-      Merge series "ASoC: Fix return check for devm_regmap_init_sdw()" from Vinod Koul <vkoul@kernel.org>:
-
-Mateusz Gorski (1):
-      ASoC: Intel: skl_hda_dsp_generic: Fix NULLptr dereference in autosuspend delay
-
-Rander Wang (1):
-      ASoC: Intel: tgl_max98373: fix a runtime pm issue in multi-thread case
-
-Stephan Gerhold (1):
-      ASoC: qcom: Set card->owner to avoid warnings
-
-Sylwester Nawrocki (2):
-      ASoC: wm8994: Skip setting of the WM8994_MICBIAS register for WM1811
-      ASoC: wm8994: Ensure the device is resumed in wm89xx_mic_detect functions
-
-Vinod Koul (5):
-      ASoC: max98373: Fix return check for devm_regmap_init_sdw()
-      ASoC: rt1308-sdw: Fix return check for devm_regmap_init_sdw()
-      ASoC: rt711: Fix return check for devm_regmap_init_sdw()
-      ASoC: rt715: Fix return check for devm_regmap_init_sdw()
-      ASoC: rt700: Fix return check for devm_regmap_init_sdw()
-
- include/sound/soc.h                          |   4 +
- sound/soc/codecs/max98373-sdw.c              |   4 +-
- sound/soc/codecs/pcm3168a.c                  |   7 +
- sound/soc/codecs/rt1308-sdw.c                |   4 +-
- sound/soc/codecs/rt700-sdw.c                 |   4 +-
- sound/soc/codecs/rt711-sdw.c                 |   4 +-
- sound/soc/codecs/rt715-sdw.c                 |   4 +-
- sound/soc/codecs/tlv320adcx140.c             |  28 ++--
- sound/soc/codecs/wm8994.c                    |  10 ++
- sound/soc/codecs/wm_hubs.c                   |   3 +
- sound/soc/codecs/wm_hubs.h                   |   1 +
- sound/soc/intel/atom/sst-mfld-platform-pcm.c |  11 ++
- sound/soc/intel/boards/bytcr_rt5640.c        |  10 ++
- sound/soc/intel/boards/skl_hda_dsp_generic.c |   2 +-
- sound/soc/intel/boards/sof_maxim_common.c    |   7 +-
- sound/soc/intel/haswell/sst-haswell-dsp.c    | 185 ++++++++++++---------------
- sound/soc/meson/axg-toddr.c                  |  24 +++-
- sound/soc/qcom/apq8016_sbc.c                 |   1 +
- sound/soc/qcom/apq8096.c                     |   1 +
- sound/soc/qcom/common.c                      |   6 +-
- sound/soc/qcom/sdm845.c                      |   1 +
- sound/soc/qcom/storm.c                       |   1 +
- sound/soc/soc-core.c                         |  13 ++
- sound/soc/soc-dai.c                          |   4 +-
- sound/soc/soc-pcm.c                          |   2 +-
- sound/soc/ti/ams-delta.c                     |   4 +-
- 26 files changed, 206 insertions(+), 139 deletions(-)

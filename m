@@ -2,29 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D5363265B32
-	for <lists+alsa-devel@lfdr.de>; Fri, 11 Sep 2020 10:09:56 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id BC87D265B33
+	for <lists+alsa-devel@lfdr.de>; Fri, 11 Sep 2020 10:10:38 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id CE1661676;
-	Fri, 11 Sep 2020 10:09:05 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CE1661676
+	by alsa0.perex.cz (Postfix) with ESMTPS id 5EED21672;
+	Fri, 11 Sep 2020 10:09:48 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5EED21672
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1599811795;
-	bh=C5m3RosdUvw/L8jpqQPJR6i8hfS4Qd3wM9VnYLKpAjQ=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=SMuItT9oOzD027d4MQw/6ZOdfT+r93HynXxqJ+klNGSB0HKCMn6aVxJVBdpgZadqo
-	 ARPp+B+afvWKmMaQ1V1mWPXf0HovxrwxUEipjGfUwQpJa6Tfj3rz474KqxM0ZSE26G
-	 1qaQdlX76kWp9YAbDQ67pOO3eGgbWRdoP6nSjDG8=
+	s=default; t=1599811838;
+	bh=T9Qjmi/ypZqJU9IPkTR/CUaWWvilplcYtqLbTSyD+XU=;
+	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=Pm63dQHRwzQlWipjkj3Mlgxf+QXOz48WsVMztMsXC/7L0tIcHKDpt30kEqZfBaZCt
+	 hVHv3lNMfeELblwW6mVWv7XA+w2T4ifpGxAl25iMR8fZgetELIx+3NvtkGOKuLbkTO
+	 Vd+1H/haYMUFvkO8pcMapFSWmP1Tfdfg8DJ45i3w=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id A4D49F80256;
-	Fri, 11 Sep 2020 10:08:14 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 272DDF80274;
+	Fri, 11 Sep 2020 10:08:17 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id C3283F80240; Fri, 11 Sep 2020 10:08:10 +0200 (CEST)
+ id 88D8EF8021C; Fri, 11 Sep 2020 10:08:14 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -33,38 +34,40 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from smtp1.axis.com (smtp1.axis.com [195.60.68.17])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id CB66DF80115
- for <alsa-devel@alsa-project.org>; Fri, 11 Sep 2020 10:08:03 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CB66DF80115
+ by alsa1.perex.cz (Postfix) with ESMTPS id 72D79F8021C
+ for <alsa-devel@alsa-project.org>; Fri, 11 Sep 2020 10:08:08 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 72D79F8021C
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=axis.com header.i=@axis.com
- header.b="TMbNTQfP"
+ header.b="n4BdKmCW"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=axis.com; l=2770; q=dns/txt; s=axis-central1;
- t=1599811684; x=1631347684;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=cPa4cUMFiotpZ68Fm/qKTiIofFwHyG7dO+acVYumhHg=;
- b=TMbNTQfPV3HcwVwEfOLVVtdj3X4q0Ip7QoKH5fcduBYr4gK+i0irCMEt
- s8vPwTny3dhkCk7iDGdD0yXcgwGkpk+9RSuWDi9OsMySwlPDAaXpcUfKK
- jGcD8XbzeCj0uGfewINj3dTwoSlryDBzwz7lORw3py/bddD/WLiomZf1H
- EZFz3sC2/Z4ou9vr3kDwoToOfHsT0H3RlF3shz8Mm4FRSr26ExbVXB66b
- TzXFO7mzd+LXbs8KfRe8ktVeIAt+MXI7FI5rX2+VCa52juabvfFpt89Km
- EB2Gl8LLEheWL55H9K2lW75HpoW5EZW0TjnxN1ZNVb5+iRIvakM9KUklB w==;
-IronPort-SDR: 3tkqyX7XKLPM/R6pI8Xcz34ofl09t0Fwhm+XpilNpZqxb+Pa6otPLkk4027QJuX553TRbIioiQ
- z+y5l2YxCN97cn+I1nhuY/7QwdyDkP4UpLAwN/h5hZ5vCefBBq4EYjMDbIVbAAvAF2Klk5Ngra
- /lWUI20C163PB9adsex6cX+505NFBlMuPQTGpoELj5eg7kTw7lhh6jZq4QUXFyR9sLqlQdnQOy
- ctmei6aGyoYN+R6Yf65C4GKTMY7uHk4BxRB+KsPUOX6QjSaApUMesrk9WiG76y8obKquwrvAIX
- n9g=
-X-IronPort-AV: E=Sophos;i="5.76,414,1592863200"; d="scan'208";a="12818358"
+ d=axis.com; l=2561; q=dns/txt; s=axis-central1;
+ t=1599811689; x=1631347689;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=GWBdvjMgI+JP9kgF51iEb5ue97etB2/mb8U6CHpN/hI=;
+ b=n4BdKmCWWk1jk/sNZk3r+1at4o7MseCCN0RK9IHaN9I7qPlshDzf5+jy
+ /FaQmd9hLO33CKKzfzZE8OxJfYOxS/j/S3fWSPxgVTXVWdegINvfxH8cA
+ ALMYJB000J3C6Wr0/eqSnf/0+2iVTLUEueps5wsnyoGbMkrEeiEdzXWSl
+ hxf4ecO9nYugjqRSybBYkbJyux1p12t4CWW7wno+974kDFcz64RiQoi3w
+ MOiOnKLTuKAC5NFmopJaS9WJ5s4FN9JivGcqPWTFEoFbhtD/0WJYs70LW
+ Wd+1uz1KIRk99jQ6Q0EpHO2O0DLfLiV9GixfuCOOH7LR9fhe8KeO+HllS w==;
+IronPort-SDR: BnKEjPvVZxmSMPmALemYWoYMsfP1TELibKrRlQoks6qxAV//kiy6uMQ0GTli5SCk6uimuC/xtS
+ qCm3LqGWCS1mvMbzSh1Y2aT28dhxqmxZGc/bL6ZJ5bk+4HgXB9NX+1x4vcP7nPcWSrrkFOYJT3
+ /LlKjgAsNG39TEEP4d6JfvZx7/4t/9DvpYzMD0kikQIoB+6Dh9CkWj0dppvsTbdJvvq5t8k7Eo
+ xJueWhdyMF06BPehVvBON+jekPq6UdtqWOUFDBJXXzR9dh/5X0eOfslW827MoML4YkPbgSIufg
+ bsk=
+X-IronPort-AV: E=Sophos;i="5.76,414,1592863200"; d="scan'208";a="12818398"
 From: Camel Guo <camel.guo@axis.com>
 To: <lgirdwood@gmail.com>, <broonie@kernel.org>, <tiwai@suse.com>,
  <dmurphy@ti.com>
-Subject: [PATCH v2 1/3] dt-bindings: tlv320adcx140: Add GPIO config and drive
- config
-Date: Fri, 11 Sep 2020 10:07:51 +0200
-Message-ID: <20200911080753.30342-1-camel.guo@axis.com>
+Subject: [PATCH v2 2/3] ASoC: tlv320adcx140: Add support for configuring GPIO
+ pin
+Date: Fri, 11 Sep 2020 10:07:52 +0200
+Message-ID: <20200911080753.30342-2-camel.guo@axis.com>
 X-Mailer: git-send-email 2.20.1
+In-Reply-To: <20200911080753.30342-1-camel.guo@axis.com>
+References: <20200911080753.30342-1-camel.guo@axis.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
@@ -87,76 +90,92 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 From: Camel Guo <camelg@axis.com>
 
-Add properties for configuring the General Purpose Input Outputs (GPIO).
-There are 2 settings for GPIO, configuration and the output drive type.
+Add support to configure the GPIO pin to the specific configuration.
+The GPIO pin can be configured as GPO, IRQ, SDOUT2, PDMCLK, MICBASE_EN,
+GPI, MCLK, SDIN, PDMDIN1, PDMDIN2, PDMDIN3 or PDMDIN4 and the output
+drive can be configured with various configuration.
 
 Signed-off-by: Camel Guo <camelg@axis.com>
 ---
- .../bindings/sound/tlv320adcx140.yaml         | 44 +++++++++++++++++++
- 1 file changed, 44 insertions(+)
+ sound/soc/codecs/tlv320adcx140.c | 44 ++++++++++++++++++++++++++++++++
+ sound/soc/codecs/tlv320adcx140.h |  4 +++
+ 2 files changed, 48 insertions(+)
 
-diff --git a/Documentation/devicetree/bindings/sound/tlv320adcx140.yaml b/Documentation/devicetree/bindings/sound/tlv320adcx140.yaml
-index f578f17f3e04..7b0b4554da59 100644
---- a/Documentation/devicetree/bindings/sound/tlv320adcx140.yaml
-+++ b/Documentation/devicetree/bindings/sound/tlv320adcx140.yaml
-@@ -134,6 +134,49 @@ patternProperties:
-        4d - Drive weak low and active high
-        5d - Drive Hi-Z and active high
+diff --git a/sound/soc/codecs/tlv320adcx140.c b/sound/soc/codecs/tlv320adcx140.c
+index f33ee604ee78..97f16fbba441 100644
+--- a/sound/soc/codecs/tlv320adcx140.c
++++ b/sound/soc/codecs/tlv320adcx140.c
+@@ -837,6 +837,46 @@ static int adcx140_configure_gpo(struct adcx140_priv *adcx140)
  
-+  ti,gpio-config:
-+    description: |
-+       Defines the configuration and output driver for the general purpose
-+       input and output pin (GPIO1). Its value is a pair, the first value is for
-+       the configuration type and the second value is for the output drive
-+       type. The array is defined as <GPIO1_CFG GPIO1_DRV>
+ }
+ 
++static int adcx140_configure_gpio(struct adcx140_priv *adcx140)
++{
++	int gpio_count = 0;
++	u32 gpio_outputs[2];
++	u32 gpio_output_val = 0;
++	int ret;
 +
-+       configuration for the GPIO pin can be one of the following:
-+       0 - disabled
-+       1 - GPIO1 is configured as a general-purpose output (GPO)
-+       2 - (default) GPIO1 is configured as a device interrupt output (IRQ)
-+       3 - GPIO1 is configured as a secondary ASI output (SDOUT2)
-+       4 - GPIO1 is configured as a PDM clock output (PDMCLK)
-+       8 - GPIO1 is configured as an input to control when MICBIAS turns on or
-+           off (MICBIAS_EN)
-+       9 - GPIO1 is configured as a general-purpose input (GPI)
-+       10 - GPIO1 is configured as a master clock input (MCLK)
-+       11 - GPIO1 is configured as an ASI input for daisy-chain (SDIN)
-+       12 - GPIO1 is configured as a PDM data input for channel 1 and channel 2
-+            (PDMDIN1)
-+       13 - GPIO1 is configured as a PDM data input for channel 3 and channel 4
-+            (PDMDIN2)
-+       14 - GPIO1 is configured as a PDM data input for channel 5 and channel 6
-+            (PDMDIN3)
-+       15 - GPIO1 is configured as a PDM data input for channel 7 and channel 8
-+            (PDMDIN4)
++	gpio_count = device_property_count_u32(adcx140->dev,
++			"ti,gpio-config");
++	if (gpio_count == 0)
++		return 0;
 +
-+       output drive type for the GPIO pin can be one of the following:
-+       0 - Hi-Z output
-+       1 - Drive active low and active high
-+       2 - (default) Drive active low and weak high
-+       3 - Drive active low and Hi-Z
-+       4 - Drive weak low and active high
-+       5 - Drive Hi-Z and active high
++	if (gpio_count != 2)
++		return -EINVAL;
 +
-+    allOf:
-+      - $ref: /schemas/types.yaml#/definitions/uint32-array
-+      - minItems: 2
-+        maxItems: 2
-+        items:
-+          maximum: 15
-+        default: [2, 2]
++	ret = device_property_read_u32_array(adcx140->dev, "ti,gpio-config",
++			gpio_outputs, gpio_count);
++	if (ret)
++		return ret;
 +
- required:
-   - compatible
-   - reg
-@@ -150,6 +193,7 @@ examples:
-         ti,mic-bias-source = <6>;
-         ti,pdm-edge-select = <0 1 0 1>;
-         ti,gpi-config = <4 5 6 7>;
-+        ti,gpio-config = <10 2>;
-         ti,gpo-config-1 = <0 0>;
-         ti,gpo-config-2 = <0 0>;
-         reset-gpios = <&gpio0 14 GPIO_ACTIVE_HIGH>;
++	if (gpio_outputs[0] > ADCX140_GPIO_CFG_MAX) {
++		dev_err(adcx140->dev, "GPIO config out of range\n");
++		return -EINVAL;
++	}
++
++	if (gpio_outputs[1] > ADCX140_GPIO_DRV_MAX) {
++		dev_err(adcx140->dev, "GPIO drive out of range\n");
++		return -EINVAL;
++	}
++
++	gpio_output_val = gpio_outputs[0] << ADCX140_GPIO_SHIFT
++		| gpio_outputs[1];
++
++	ret = regmap_write(adcx140->regmap, ADCX140_GPIO_CFG0, gpio_output_val);
++	if (ret)
++		return ret;
++
++	return 0;
++}
++
+ static int adcx140_codec_probe(struct snd_soc_component *component)
+ {
+ 	struct adcx140_priv *adcx140 = snd_soc_component_get_drvdata(component);
+@@ -934,6 +974,10 @@ static int adcx140_codec_probe(struct snd_soc_component *component)
+ 			return ret;
+ 	}
+ 
++	ret = adcx140_configure_gpio(adcx140);
++	if (ret)
++		return ret;
++
+ 	ret = adcx140_configure_gpo(adcx140);
+ 	if (ret)
+ 		goto out;
+diff --git a/sound/soc/codecs/tlv320adcx140.h b/sound/soc/codecs/tlv320adcx140.h
+index eedbc1d7221f..96f067e65e2a 100644
+--- a/sound/soc/codecs/tlv320adcx140.h
++++ b/sound/soc/codecs/tlv320adcx140.h
+@@ -145,4 +145,8 @@
+ #define ADCX140_GPO_CFG_MAX		4
+ #define ADCX140_GPO_DRV_MAX		5
+ 
++#define ADCX140_GPIO_SHIFT		4
++#define ADCX140_GPIO_CFG_MAX		15
++#define ADCX140_GPIO_DRV_MAX		5
++
+ #endif /* _TLV320ADCX140_ */
 -- 
 2.20.1
 

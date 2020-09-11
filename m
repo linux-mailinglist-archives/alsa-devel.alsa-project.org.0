@@ -2,81 +2,117 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 84BA4265A0E
-	for <lists+alsa-devel@lfdr.de>; Fri, 11 Sep 2020 09:08:30 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 52457265AFD
+	for <lists+alsa-devel@lfdr.de>; Fri, 11 Sep 2020 10:00:54 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 12997168A;
-	Fri, 11 Sep 2020 09:07:40 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 12997168A
+	by alsa0.perex.cz (Postfix) with ESMTPS id AEB4C1671;
+	Fri, 11 Sep 2020 10:00:03 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AEB4C1671
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1599808110;
-	bh=sjqV0GB5LWy9Y+Y+VZXjDFlCM8T7Rs5jW8drzQU4DmE=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1599811253;
+	bh=gnzFfN2dUhiNvASfTahDkBgrQaM9A654KJlUCOP79vU=;
+	h=From:To:Subject:Date:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=Ev6AcOF+CuYBUK4eJcfdc0iDmyV47an604A0YyTH+UCQduV9Vk4ix/0Tl4a4sVkdb
-	 3InBS112PV9LXVZ0mDIuIsppqdauOw7AivceO60jAsLPVmebRJeUlj3m3dXK3phfTD
-	 Rnp1JNNejcgCoLYO/9FsehRYKPE4FXaeqNOUH+9Q=
+	b=IrrSWLNk+CX0ltk6Q4IcyCUp8ffi1CcZOhg/netzdVpgu0WviH9zFqRXDdI0Qifyx
+	 Y66xh9ZZZAhTbSQdPWEU3889BeNn8hwC/q1lYzI7zrpj9K6wNtt/cf57oNQELbhUrb
+	 IK9GpzVfmNQnXrXcImugpSmOpZ7wHE8u0lESJ5jk=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id AAC22F802C2;
-	Fri, 11 Sep 2020 09:07:11 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 96190F80240;
+	Fri, 11 Sep 2020 09:59:12 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id E4E51F802A2; Fri, 11 Sep 2020 09:07:08 +0200 (CEST)
+ id 90F92F80227; Fri, 11 Sep 2020 09:59:10 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,RCVD_IN_MSPIKE_H2,SPF_HELO_PASS,SPF_PASS autolearn=disabled
  version=3.4.0
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 685EFF800E9
- for <alsa-devel@alsa-project.org>; Fri, 11 Sep 2020 09:06:59 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 685EFF800E9
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="w0mRUTXp"
-Received: from localhost (unknown [122.171.196.109])
+Received: from NAM12-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam12on2069.outbound.protection.outlook.com [40.107.237.69])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 15B4F221EF;
- Fri, 11 Sep 2020 07:06:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1599808018;
- bh=sjqV0GB5LWy9Y+Y+VZXjDFlCM8T7Rs5jW8drzQU4DmE=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=w0mRUTXpcRgBGxgmQR40EBkDq6X5G6BNJ6JAUjYORtBcNEKFbPLJVVbb3b0GjslYz
- NNvRg1o9VqZcV/ovioJuXhnY+YxRWPLoMBgDtLc3bB6/LLbmoMMMKxfrVE4e7yO1Fa
- 9xnzi0qvaqGrRpofjgvVosesM32iMd4q/9IkbETk=
-Date: Fri, 11 Sep 2020 12:36:49 +0530
-From: Vinod Koul <vkoul@kernel.org>
-To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Subject: Re: [PATCH v2 2/3] soundwire: SDCA: add helper macro to access
- controls
-Message-ID: <20200911070649.GU77521@vkoul-mobl>
-References: <20200901162225.33343-1-pierre-louis.bossart@linux.intel.com>
- <20200901162225.33343-3-pierre-louis.bossart@linux.intel.com>
- <20200904050244.GT2639@vkoul-mobl>
- <f35a0ae7-2779-0c69-9ef3-0d0e298888ac@linux.intel.com>
- <20200909075555.GK77521@vkoul-mobl>
- <184867c2-9f0c-bffe-2eb7-e9c5735614b0@linux.intel.com>
- <20200910062223.GQ77521@vkoul-mobl>
- <adf51127-2813-cdf0-e5a6-f5ec3b0d33fa@linux.intel.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 2A952F80100
+ for <alsa-devel@alsa-project.org>; Fri, 11 Sep 2020 09:59:06 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2A952F80100
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=infinera.com header.i=@infinera.com
+ header.b="BpZDE7HX"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=OTriLkgbgcTv7HzYQFmAP+3Kgjp8HaPideVlFBGAU4Ytx99xgfVGkBkXuDNdX1XaPsLZ/7xD1SuGvy8TfFVw3Vany9YIe92i5xsX9THmCDk5+YtHmYbkkqxcaW39IsA9z2E+/p53Yk82mJ4lJVadqWNeLFj4EL+uDd3y5/dxaivcoQ5pyyPcqNUso1FJFsgoqolvh+qR1S5TklvaevbX7HcJoSSyfySwcUTf/HhoaqqZo5cBQg+YmsI4aGA6ZDuAGBQ/7tzXx/yGACIq5+TeMcy0E2VLIp6a0tQYTkkjOPncYxfk98c0OKgqYlo+4P+zXL3OsuxMkzVVOJFMgYjuTg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=gnzFfN2dUhiNvASfTahDkBgrQaM9A654KJlUCOP79vU=;
+ b=Kh1FWygTwHyflxJWV8lFB71VC+/BnybiqxOWaUN366cFZinsMImF/9hI5Cmc9q6IMZuhhDPNJP5gOJdprEcVe7KlEhI5TsY2DHMztzrIuIs4kvWqXeLUlfkOGDzM6ahyGToHVJk8Ji8gdKkjrtJV9hvB5mP9tWwq0OGcv5QnXmOyn9m95JfoPPj3qggkiMenqi0dmJSVute7eeI2zVil9K05eVaI7w1DN9bu4TisDi9YCkeycRmuHAYnMLPLqI7ovV/aFbOBQTL1VF7uSc5rfP72Kde49FUW1ImC0fj3MugMOSgx9ARPYfwKriIEcV48mbdF1/PTgmNn/zC9+xmdHg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=infinera.com; dmarc=pass action=none header.from=infinera.com;
+ dkim=pass header.d=infinera.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=infinera.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=gnzFfN2dUhiNvASfTahDkBgrQaM9A654KJlUCOP79vU=;
+ b=BpZDE7HX/SZ/WHwSM1U5F7ifW6Ti0Cax0euxg5G6UTZoW5SFlfncYA612b0c7f5RlcecU0s6nsWeLsOh7yk4/iW9uo/oTLgviVDhAPa5oZkMqSuJrxAZJEy29gWv9Kp6WrKXurTVgEeEXg68r51tBYThzhowCit2oVmajFsXXNA=
+Received: from CY4PR1001MB2389.namprd10.prod.outlook.com
+ (2603:10b6:910:45::21) by CY4PR10MB2022.namprd10.prod.outlook.com
+ (2603:10b6:903:123::18) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3370.16; Fri, 11 Sep
+ 2020 07:59:03 +0000
+Received: from CY4PR1001MB2389.namprd10.prod.outlook.com
+ ([fe80::7c3b:e8e3:3d1b:284d]) by CY4PR1001MB2389.namprd10.prod.outlook.com
+ ([fe80::7c3b:e8e3:3d1b:284d%7]) with mapi id 15.20.3326.026; Fri, 11 Sep 2020
+ 07:59:03 +0000
+From: Joakim Tjernlund <Joakim.Tjernlund@infinera.com>
+To: "sashal@kernel.org" <sashal@kernel.org>, "alsa-devel@alsa-project.org"
+ <alsa-devel@alsa-project.org>
+Subject: Re: [PATCH] ALSA: usb-audio: Add delay quirk for H570e USB headsets
+Thread-Topic: [PATCH] ALSA: usb-audio: Add delay quirk for H570e USB headsets
+Thread-Index: AQHWh0/fePjx1NowkkyEsKM5VQOxhqliEdiAgAECWwA=
+Date: Fri, 11 Sep 2020 07:59:03 +0000
+Message-ID: <776286f5c8102c7eb19687da0441bff0fe6abbf5.camel@infinera.com>
+References: <20200910085328.19188-1-joakim.tjernlund@infinera.com>
+ <20200910163421.C2E45221E7@mail.kernel.org>
+In-Reply-To: <20200910163421.C2E45221E7@mail.kernel.org>
+Accept-Language: en-GB, en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+user-agent: Evolution 3.37.92 
+authentication-results: kernel.org; dkim=none (message not signed)
+ header.d=none;kernel.org; dmarc=none action=none header.from=infinera.com;
+x-originating-ip: [88.131.87.201]
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-correlation-id: cb2a35b2-95fb-42d8-8a17-08d856288d04
+x-ms-traffictypediagnostic: CY4PR10MB2022:
+x-microsoft-antispam-prvs: <CY4PR10MB20223E95C86D47A645AD44FAF4240@CY4PR10MB2022.namprd10.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:1923;
+x-ms-exchange-senderadcheck: 1
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: 66MWRITj7OQbJ+fkTUpB4CReFufsr2wJdG36/d/HwzWImPU3DysbpMFCM4jPWWAW8kTkLusSNrTxa+DMM1NODK7E9I82HJRdtdSu6TUHAx61Y5kHwEFb0oU480Mt95/BnkIMXMrtOH4IhpRYUkHtb5A76Gq37tAsPXI8rTFEn3M3EFsoepJSjIzCfZzGt1srvBa3MuC3Gwj67IWsk7A6KfIqPOeME5tfAOAIglWEqoqfrxEgxqSgvsdkFo4O+vEm5g1hzVCZUCCPWKj7ZS1KjEO+PLIJMAifwMVQ1pC9tGdZDAcTa+8yGRUC0mx63Bd5
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:CY4PR1001MB2389.namprd10.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(346002)(396003)(366004)(136003)(376002)(39860400002)(6506007)(8676002)(478600001)(6486002)(186003)(110136005)(4326008)(26005)(2906002)(71200400001)(86362001)(6512007)(36756003)(76116006)(91956017)(66446008)(64756008)(66556008)(66476007)(66946007)(5660300002)(2616005)(8936002)(316002);
+ DIR:OUT; SFP:1101; 
+x-ms-exchange-antispam-messagedata: kysBHXHyvW9Dx+F4DQ/VGsYdYdYpXiC6Ds2o903x6wrmo8bYMVEy/KYlkyC5SAHiiJ46YL4vGs07IY39PSonbemvUxOjBmVl9zKHm166W/eiFcdqUeUH0HXlUlJazmE+P2rtlugaowf01Ei7fX7LpgO8wA96vc2oqlx7FFK1e2ZbQdmwhdNpzlP0xic4LEBIjCXGfoZIcbJ/wDZrc0gVmKCbQ4eHd5RaZC5osDrcITH06II/m38KpZjrdiPnEQpRt+7Y5LwKXEAGVw9RSgrXgljXDZp9VaShfZJQbmH/4SsPARvDAlziJGTAnXQm+8VCTxuIGD1kT+XcIA7gO+ZgHYLySUzFXgGh13DomeldHOdsio1Szjeg1QaOUn6HEVtirrEQ0APxQVfZIFEnBjRLnLhLIgLlxKPC6nxOwzQ1Yu8sHj/sRtPVcs2w1fCp3CcZcO9Dh9GB3WSY3d1uGvIzatWrMozTFr42MsVqvA4AzmbRKbgOhCPz22eJb7pxGB08xxg1+N5mzI37B7u2tiMvLSESthTrjO5ACRak9rW3VOE4SBz1jd7NbHunt+RwKGc9Gyhy+2ZbdMD+aKRCaBYip26IR3rF4VGCspzuQptuiLyI3RCB4WfktzzOzOR7JtcpCCWwldkj01oGT9tCZrsYzw==
+x-ms-exchange-transport-forked: True
+Content-Type: text/plain; charset="utf-8"
+Content-ID: <AE1ECC3F68A0ED4B8F3AD9B290EBEB8B@namprd10.prod.outlook.com>
+Content-Transfer-Encoding: base64
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <adf51127-2813-cdf0-e5a6-f5ec3b0d33fa@linux.intel.com>
-Cc: Guennadi Liakhovetski <guennadi.liakhovetski@linux.intel.com>,
- alsa-devel@alsa-project.org, Kai Vehmanen <kai.vehmanen@linux.intel.com>,
- tiwai@suse.de, gregkh@linuxfoundation.org,
- open list <linux-kernel@vger.kernel.org>, broonie@kernel.org,
- Sanyog Kale <sanyog.r.kale@intel.com>,
- Bard liao <yung-chuan.liao@linux.intel.com>,
- Rander Wang <rander.wang@linux.intel.com>
+X-OriginatorOrg: infinera.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: CY4PR1001MB2389.namprd10.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: cb2a35b2-95fb-42d8-8a17-08d856288d04
+X-MS-Exchange-CrossTenant-originalarrivaltime: 11 Sep 2020 07:59:03.5701 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 285643de-5f5b-4b03-a153-0ae2dc8aaf77
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: fOMKHI2UIXq9vLLX4AlXNLbnNrFnB8K1M1gsS1IueUh+gDgGAPMKCiTKVi9zcGKrDOk/azd0hVZqVX3u+Tqt0A==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY4PR10MB2022
+Cc: "stable@vger.kernel.org" <stable@vger.kernel.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -92,155 +128,33 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 10-09-20, 08:53, Pierre-Louis Bossart wrote:
-> 
-> 
-> On 9/10/20 1:22 AM, Vinod Koul wrote:
-> > On 09-09-20, 08:48, Pierre-Louis Bossart wrote:
-> > > 
-> > > > > > > + *	25		0 (Reserved)
-> > > > > > > + *	24:22		Function Number [2:0]
-> > > > > > > + *	21		Entity[6]
-> > > > > > > + *	20:19		Control Selector[5:4]
-> > > > > > > + *	18		0 (Reserved)
-> > > > > > > + *	17:15		Control Number[5:3]
-> > > > > > > + *	14		Next
-> > > > > > > + *	13		MBQ
-> > > > > > > + *	12:7		Entity[5:0]
-> > > > > > > + *	6:3		Control Selector[3:0]
-> > > > > > > + *	2:0		Control Number[2:0]
-> > > > > > > + */
-> > > > > > > +
-> > > > > > > +#define SDW_SDCA_CTL(fun, ent, ctl, ch)						\
-> > > > > > > +	(BIT(30)							|	\
-> > > > > > 
-> > > > > > Programmatically this is fine, but then since we are defining for the
-> > > > > > description above, IMO it would actually make sense for this to be defined
-> > > > > > as FIELD_PREP:
-> > > > > > 
-> > > > > >            FIELD_PREP(GENMASK(30, 26), 1)
-> > > > > > 
-> > > > > > or better
-> > > > > > 
-> > > > > >            u32_encode_bits(GENMASK(30, 26), 1)
-> > > > > > 
-> > > > > > > +	FIELD_PREP(GENMASK(24, 22), FIELD_GET(GENMASK(2, 0), (fun)))	|	\
-> > > > > > 
-> > > > > > Why not use u32_encode_bits(GENMASK(24, 22), (fun)) instead for this and
-> > > > > > below?
-> > > > > 
-> > > > > Because your comment for the v1 review was to use FIELD_PREP/FIELD_GET, and
-> > > > > your other patches for bitfield access only use FIELD_PREP/FIELD_GET.
-> > > > 
-> > > > yes and looking at this, I feel u32_encode_bits(GENMASK(24, 22), (fun))
-> > > > would look better than FIELD_PREP(GENMASK(24, 22), FIELD_GET(GENMASK(2, 0), (fun)))
-> > > > 
-> > > > Do you agree?
-> > > 
-> > > The Function (fun) case is the easy one: the value is not split in two.
-> > > 
-> > > But look at the entity case, it's split in two:
-> > > 
-> > > FIELD_PREP(BIT(21), FIELD_GET(BIT(6), (ent)))			FIELD_PREP(GENMASK(12, 7),
-> > > FIELD_GET(GENMASK(5, 0), (ent)))
-> > > 
-> > > same for control
-> > > 
-> > > FIELD_PREP(GENMASK(20, 19), FIELD_GET(GENMASK(5, 4), (ctl)))	|	
-> > > FIELD_PREP(GENMASK(6, 3), FIELD_GET(GENMASK(3, 0), (ctl)))	|	
-> > > 
-> > > and same for channel number
-> > > 
-> > > FIELD_PREP(GENMASK(17, 15), FIELD_GET(GENMASK(5, 3), (ch)))	|	
-> > > FIELD_PREP(GENMASK(2, 0), FIELD_GET(GENMASK(2, 0), (ch))))
-> > > 
-> > > I don't see how we can avoid using the FIELD_GET to extract the relevant
-> > > bits from entity, control, channel number values.
-> > 
-> > No, you dont need FIELD_GET, that would be pointless for this helper if
-> > that was the case
-> 
-> I don't get how one would specify which parts of the original value are
-> extracted?
-> 
-> > 
-> > > 
-> > > Or I am missing your point completely.
-> > 
-> > Correct
-> > 
-> > It should be:
-> > 
-> >          foo |= u32_encode_bits(val, FOO_MASK_A);
-> > 
-> > which would write val into bits represented by FOO_MASK_A by
-> > appropriately shifting val and masking it with FOO_MASK_A
-> > 
-> > So net result is bits in FOO_MASK_A are modified with val, rest of the
-> > bits are not touched
-> 
-> Vinod, please see the explanation below [1], we need to split the original
-> value in two and insert the bits in two separate locations.
-> 
-> You only considered the simple case for the functions, your proposal will
-> not work for entities, controls and channel numbers.
-> 
-> > > 
-> > > 
-> > > > > > And while at it, consider defining masks for various fields rather than
-> > > > > > using numbers in GENMASK() above, that would look better, be more
-> > > > > > readable and people can reuse it.
-> > > > > 
-> > > > > Actually on this one I disagree. These fields are not intended to be used by
-> > > > > anyone, the goal is precisely to hide them behind regmap, and the use of raw
-> > > > > numbers makes it easier to cross-check the documentation and the code.
-> > > > > Adding a separate set of definitions would not increase readability.
-> > > > 
-> > > > Which one would you prefer:
-> > > > 
-> > > >           #define SDCA_FUN_MASK           GENMASK(24, 22)
-> > > > 
-> > > >           foo |= u32_encode_bits(SDCA_FUN_MASK, fun)
-> > > > 
-> > > > Or the one proposed...?
-> > > 
-> > > Same as above, let's see what this does with the control case where we'd
-> > > need to have four definitions:
-> 
-> [1]
-> 
-> > > 
-> > > #define SDCA_CONTROL_DEST_MASK1 GENMASK(20, 19)
-> > > #define SDCA_CONTROL_ORIG_MASK1 GENMASK(5, 4)
-> > > #define SDCA_CONTROL_DEST_MASK2 GENMASK(6, 3)
-> > > #define SDCA_CONTROL_ORIG_MASK2 GENMASK(3, 0)
-
-I think I missed ORIG and DEST stuff, what does this mean here?
-
-Relooking at the bit definition, for example 'Control Number' is defined
-in both 17:15 as well as 2:0, why is that. Is it split?
-
-How does one program a control number into this?
-
-> > > 
-> > > And the code would look like
-> > > 
-> > > foo |= u32_encode_bits(SDCA_CONTROL_DEST_MASK1,
-> > > FIELD_GET(SDCA_CONTROL_ORIG_MASK1, fun));
-> > > foo |= u32_encode_bits(SDCA_CONTROL_DEST_MASK2,
-> > > FIELD_GET(SDCA_CONTROL_ORIG_MASK2, fun));
-> > > 
-> > > The original suggestion was:
-> > > 
-> > > FIELD_PREP(GENMASK(20, 19), FIELD_GET(GENMASK(5, 4), (ctl)))	|	
-> > > FIELD_PREP(GENMASK(6, 3), FIELD_GET(GENMASK(3, 0), (ctl)))	|	
-> > > 
-> > > I prefer the original... Adding these defines doesn't really add value
-> > > because
-> > > a) the values will not be reused anywhere else.
-> > > b) we need 12 of those defines
-> > > b) we need a prefix for those defines which makes the code heavier
-> > 
-
--- 
-~Vinod
+T24gVGh1LCAyMDIwLTA5LTEwIGF0IDE2OjM0ICswMDAwLCBTYXNoYSBMZXZpbiB3cm90ZToNCj4g
+Q0FVVElPTjogVGhpcyBlbWFpbCBvcmlnaW5hdGVkIGZyb20gb3V0c2lkZSBvZiB0aGUgb3JnYW5p
+emF0aW9uLiBEbyBub3QgY2xpY2sgbGlua3Mgb3Igb3BlbiBhdHRhY2htZW50cyB1bmxlc3MgeW91
+IHJlY29nbml6ZSB0aGUgc2VuZGVyIGFuZCBrbm93IHRoZSBjb250ZW50IGlzIHNhZmUuDQo+IA0K
+PiANCj4gSGkNCj4gDQo+IFtUaGlzIGlzIGFuIGF1dG9tYXRlZCBlbWFpbF0NCj4gDQo+IFRoaXMg
+Y29tbWl0IGhhcyBiZWVuIHByb2Nlc3NlZCBiZWNhdXNlIGl0IGNvbnRhaW5zIGEgLXN0YWJsZSB0
+YWcuDQo+IFRoZSBzdGFibGUgdGFnIGluZGljYXRlcyB0aGF0IGl0J3MgcmVsZXZhbnQgZm9yIHRo
+ZSBmb2xsb3dpbmcgdHJlZXM6IGFsbA0KPiANCj4gVGhlIGJvdCBoYXMgdGVzdGVkIHRoZSBmb2xs
+b3dpbmcgdHJlZXM6IHY1LjguNywgdjUuNC42MywgdjQuMTkuMTQzLCB2NC4xNC4xOTYsIHY0Ljku
+MjM1LCB2NC40LjIzNS4NCj4gDQo+IHY1LjguNzogQnVpbGQgT0shDQo+IHY1LjQuNjM6IEJ1aWxk
+IE9LIQ0KPiB2NC4xOS4xNDM6IEJ1aWxkIE9LIQ0KPiB2NC4xNC4xOTY6IEJ1aWxkIE9LIQ0KPiB2
+NC45LjIzNTogQnVpbGQgT0shDQo+IHY0LjQuMjM1OiBGYWlsZWQgdG8gYXBwbHkhIFBvc3NpYmxl
+IGRlcGVuZGVuY2llczoNCj4gwqDCoMKgwqA3MTQyNjUzNWY0OWYgKCJBTFNBOiB1c2ItYXVkaW86
+IEFkZCBuYXRpdmUgRFNEIHN1cHBvcnQgZm9yIEx1eG1hbiBEQS0wNiIpDQo+IMKgwqDCoMKgNzRk
+YzcxZjgzZTUwICgiQUxTQTogdXNiLWF1ZGlvOiBGSVggbmF0aXZlIERTRCBzdXBwb3J0IGZvciBU
+RUFDIFVELTUwMSBEQUMiKQ0KPiDCoMKgwqDCoDc5Mjg5ZTI0MTk0YSAoIkFMU0E6IHVzYi1hdWRp
+bzogUmVmZXIgdG8gY2hpcC0+dXNiX2lkIGZvciBxdWlya3MgYW5kIE1JREkgY3JlYXRpb24iKQ0K
+PiDCoMKgwqDCoDdmMzhjYTA0N2IwYyAoIkFMU0E6IHVzYi1hdWRpbzogQWRkIG5hdGl2ZSBEU0Qg
+c3VwcG9ydCBmb3IgVEVBQyA1MDEvNTAzIERBQyIpDQo+IMKgwqDCoMKgODY2ZjdlZDdkNjc5ICgi
+QUxTQTogdXNiLWF1ZGlvOiBBZGQgbmF0aXZlIERTRCBzdXBwb3J0IGZvciBFc290ZXJpYyBELTA1
+WCIpDQo+IMKgwqDCoMKgYjAwMjE0ODY1ZDY1ICgiQUxTQTogdXNiLWF1ZGlvOiBBZGQgbmF0aXZl
+IERTRCBzdXBwb3J0IGZvciBURUFDIFVELTMwMSIpDQo+IMKgwqDCoMKgZGYzZjAzNDdmZDg1ICgi
+QUxTQTogdXNiLWF1ZGlvOiBxdWlya3M6IFJlcGxhY2UgbWRlbGF5KCkgd2l0aCBtc2xlZXAoKSBh
+bmQgdXNsZWVwX3JhbmdlKCkiKQ0KPiDCoMKgwqDCoGYzYjkwNmQ3MjBlNCAoIkFMU0E6IHVzYi1h
+dWRpbzogSW50ZWdyYXRlIG5hdGl2ZSBEU0Qgc3VwcG9ydCBmb3IgSVRGLVVTQiBiYXNlZCBEQUNz
+LiIpDQo+IA0KPiANCj4gTk9URTogVGhlIHBhdGNoIHdpbGwgbm90IGJlIHF1ZXVlZCB0byBzdGFi
+bGUgdHJlZXMgdW50aWwgaXQgaXMgdXBzdHJlYW0uDQo+IA0KPiBIb3cgc2hvdWxkIHdlIHByb2Nl
+ZWQgd2l0aCB0aGlzIHBhdGNoPw0KDQpCYWNrcG9ydGluZyB0byA0LjkgYW4gbm8gbW9yZSBpcyBm
+aW5lIHdpdGggbWUsIHBhdGNoIGp1c3QgZml4ZXMgYSBzbWFsbCBlcnJvciBmb3IgYSBuZXdlciBV
+U0IgaGVhZHNldA0KDQogSm9ja2UNCg==

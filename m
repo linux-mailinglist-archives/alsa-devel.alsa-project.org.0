@@ -2,124 +2,111 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 18D7E267C3F
-	for <lists+alsa-devel@lfdr.de>; Sat, 12 Sep 2020 22:31:51 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4BC4B267FD0
+	for <lists+alsa-devel@lfdr.de>; Sun, 13 Sep 2020 16:43:52 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 9BD211674;
-	Sat, 12 Sep 2020 22:30:59 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9BD211674
+	by alsa0.perex.cz (Postfix) with ESMTPS id A5E201677;
+	Sun, 13 Sep 2020 16:42:59 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A5E201677
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1599942709;
-	bh=H9mEPtlkZkHnv48+xtIxVB4lFk4WqA6sVIcI4ahJs2U=;
-	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=DtnxticOPBfud38XAROvze9HiuuLxk+AEsncJr1dCOSRQMHbNPsSmEKd2eNHL4SqN
-	 vojEy6y2YyK8UvU+oLVhIDaGZYH90bZAw2lqKvLT8trwi7+HM526ixaAPmEurWAikd
-	 /8EpjcAq2qBk6K8LZpGG6DFP/+hr008IicxEN72w=
+	s=default; t=1600008229;
+	bh=+eGOjecLTmY2+BWXWlXou0VA07sv66upzwKAU3Y1Ytw=;
+	h=From:Subject:To:Date:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=rk+3mvz0M9Kq1mfEOI6TDh+NBmLPYJYnNFQxr9xGdtTxDzEtfPQsnImtDl3UnZrrk
+	 fwA5EueIwwizklPP3SfMVUAW3qnrz9J2YQ88qBkPongZ2cHtG/zoIF/9cP+ZcTU6Vu
+	 PNpivNibVKtG6H5RiNrnZoNSzeSGu23VaK9c7rvc=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 8D805F80100;
-	Sat, 12 Sep 2020 22:30:08 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id B6214F800F1;
+	Sun, 13 Sep 2020 16:42:08 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id E504AF80264; Sat, 12 Sep 2020 22:30:05 +0200 (CEST)
+ id E2A28F8025E; Sun, 13 Sep 2020 16:42:04 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-1.4 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,NICE_REPLY_A,PRX_BODY_26,PRX_BODY_76,RCVD_IN_MSPIKE_H4,
- RCVD_IN_MSPIKE_WL,SPF_HELO_PASS,SPF_PASS autolearn=disabled version=3.4.0
-Received: from new3-smtp.messagingengine.com (new3-smtp.messagingengine.com
- [66.111.4.229])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
+Received: from mail.cccmz.de (mail.cccmz.de [IPv6:2a01:4f8:161:4283:1000::108])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 9E2DFF80100
- for <alsa-devel@alsa-project.org>; Sat, 12 Sep 2020 22:30:00 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9E2DFF80100
+ by alsa1.perex.cz (Postfix) with ESMTPS id 5002BF800F1
+ for <alsa-devel@alsa-project.org>; Sun, 13 Sep 2020 16:42:01 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5002BF800F1
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=sholland.org header.i=@sholland.org
- header.b="JqKaZgMA"; 
- dkim=pass (2048-bit key) header.d=messagingengine.com
- header.i=@messagingengine.com header.b="VSpScBqL"
-Received: from compute3.internal (compute3.nyi.internal [10.202.2.43])
- by mailnew.nyi.internal (Postfix) with ESMTP id 86DF5580325;
- Sat, 12 Sep 2020 16:29:58 -0400 (EDT)
-Received: from mailfrontend1 ([10.202.2.162])
- by compute3.internal (MEProxy); Sat, 12 Sep 2020 16:29:58 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sholland.org; h=
- subject:to:cc:references:from:message-id:date:mime-version
- :in-reply-to:content-type:content-transfer-encoding; s=fm3; bh=5
- mCG9J9WZRXStCP3oo6BwMCg/UTfEFWOfJogf9Cxk4A=; b=JqKaZgMAyVoSXFJmf
- j2RCuI7D4ffirixPHrLfWJpTs0BlBhFdM2uvpWDEBa/xJ/xcuUYwi0I4BSHlQOEa
- zMg/Zo43nmfVOCqnmZU+6+ukA6X8VR1FB9Woshrd9yp6sFS5knywehlb+8AascPJ
- NGmwdEVz1OtiL3qeQ+P067J5dJ10rfFsjM6aigY080S4X0xn99gJXiGhA02rxE0S
- NofTBtaZSjmonlGWEkF53ZMP5Zlm1iXwxh22WzJdufYtIhtSE+rEto20FwMO4iLf
- ghVBNVtu06luDLmXhJm2hFVXr+dlXVc+VOAKn5ORsUe4vi6XrbFtxgsUF1xBB8cb
- xsgJA==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:content-transfer-encoding:content-type
- :date:from:in-reply-to:message-id:mime-version:references
- :subject:to:x-me-proxy:x-me-proxy:x-me-sender:x-me-sender
- :x-sasl-enc; s=fm3; bh=5mCG9J9WZRXStCP3oo6BwMCg/UTfEFWOfJogf9Cxk
- 4A=; b=VSpScBqL7Al/3NxfviQ6cTPLRui3u/bUuNnF1lSD6CVNBDlzslc9CqcyI
- dhmGGUwRu0tYyyikDo+BB0aBlBVAtQszwvB9MeF5DmQ2CqPdohXpIRyg6QgbiS9C
- Rz893kxSI2AwJOpbFsizbq8XU/NB1xRV8hbwiHYkOR7Rd9fTwWxjQjRJzUbWsMqQ
- Awug1gbxbYluHv8d8eVzSXPAYeOD2hrXWsiriIoMtKTYhLB1kjBwg0zK+RjHgL5M
- jPWlZ+6zMQK3UMeCWo1qWNEcQirpOk3hjZMaPaRvomYyTcstDoJmwW0b12pc/OBB
- bUtKNyL9UKWDzkTpia1c2FX+bXjEA==
-X-ME-Sender: <xms:xC9dXzupv5rZz2PFg-zJGQf3q44GBg2XwdpBDr9QsnSKcQf24r7dGQ>
- <xme:xC9dX0csAIqI732GK8VZ5w-GPqaoiMVzVNBJWGzNj-coU9JTesfqDNV0TZHMHsba_
- j91MaB1pBMDG5y_aQ>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeduiedrudeiuddgudehudcutefuodetggdotefrod
- ftvfcurfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfgh
- necuuegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmd
- enucfjughrpefuvfhfhffkffgfgggjtgfgsehtkeertddtfeejnecuhfhrohhmpefurghm
- uhgvlhcujfholhhlrghnugcuoehsrghmuhgvlhesshhhohhllhgrnhgurdhorhhgqeenuc
- ggtffrrghtthgvrhhnpeduvdelffekjefhudeileehjeetheelfeeiieekgfetueeghfdt
- veekfeevgfehieenucffohhmrghinhepghhithhhuhgsrdgtohhmnecukfhppeejtddrud
- efhedrudegkedrudehudenucevlhhushhtvghrufhiiigvpedtnecurfgrrhgrmhepmhgr
- ihhlfhhrohhmpehsrghmuhgvlhesshhhohhllhgrnhgurdhorhhg
-X-ME-Proxy: <xmx:xC9dX2z8rkTdeq05Y7Sy0xZlKLverWAcPok7ROAgvgELP5MGImCLgA>
- <xmx:xC9dXyPuvRWDEDWygJpOBUqcGrVVwrNTKxwDJnH5App5l9wfxRYSCQ>
- <xmx:xC9dXz-bWQRorOFWCNSHXeiuGJ7iEIt29sOW35hT5hLJznepcyNkew>
- <xmx:xi9dXyW2qmtj314Yd5cGnuxsjmMz_UrsJmR-mr6gw7ySP-hGyf0ReA>
-Received: from [192.168.50.169]
- (70-135-148-151.lightspeed.stlsmo.sbcglobal.net [70.135.148.151])
- by mail.messagingengine.com (Postfix) with ESMTPA id 080E6328005A;
- Sat, 12 Sep 2020 16:29:55 -0400 (EDT)
-Subject: Re: [PATCH v3 3/7] ASoC: sun4i-i2s: Add support for H6 I2S
-To: Maxime Ripard <maxime@cerno.tech>
-References: <CAJiuCcfXqizcq_JuXRCsqEqM2562cr1SGJ0pmy07jcJxAXojOw@mail.gmail.com>
- <20200430084600.samghw4zxb5zdbez@gilmour.lan>
- <CAJiuCcf_LHrJ6QdZgH8HyN6TRiT+GiD+t4UggFCrz-VwVHXV6w@mail.gmail.com>
- <20200504120942.lnrxnnmykqnvw3fb@gilmour.lan>
- <CAJiuCceF340FiLvyeXNZtvqftQMAmk=MtFDLT_9696ix+eH1Yw@mail.gmail.com>
- <20200729143927.47f5tbuaob4ph3lp@gilmour.lan>
- <20200729151548.GB5612@sirena.org.uk>
- <CAJiuCcdf=TNLPTUPzHP9NzPHqdxG06TRDkQfONY+ScK0DV_v5w@mail.gmail.com>
- <20200903205851.gdnpthserywsxrbs@gilmour.lan>
- <80b5a4e3-c8bc-9521-4ff1-12bb6424516f@sholland.org>
- <20200910143314.qku7po6htiiq5lzf@gilmour.lan>
-From: Samuel Holland <samuel@sholland.org>
-Message-ID: <57f8bdeb-14dc-583e-ffa8-43d7a9f1bb24@sholland.org>
-Date: Sat, 12 Sep 2020 15:29:55 -0500
+ dkim=pass (1024-bit key) header.d=cccmz.de header.i=@cccmz.de
+ header.b="c8VWr6Fc"
+Received: from [192.168.178.45] (x4db99e97.dyn.telefonica.de [77.185.158.151])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128
+ bits)) (No client certificate requested)
+ (Authenticated sender: tanjeff@cccmz.de)
+ by mail.cccmz.de (Postfix) with ESMTPSA id 4738017A1DC0
+ for <alsa-devel@alsa-project.org>; Sun, 13 Sep 2020 16:41:57 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cccmz.de; s=2019;
+ t=1600008117;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:autocrypt:autocrypt;
+ bh=+eGOjecLTmY2+BWXWlXou0VA07sv66upzwKAU3Y1Ytw=;
+ b=c8VWr6Fcx5H8Q9b5LeHFNdJSVcUZx66PKJ4NGwKdsi3n5qcS4IfFX/ucoGMxcwnw902c3/
+ xlGoNndo/1wQLRilMHdv+k1mzuXe1vh3V7cwPScj62FiPj6iWfatyptJ7FjPtzJMJhJCG0
+ deKjMGTKp4Us/y3OSZfxPUhYQVbpu34=
+From: Tanjeff Moos <tanjeff@cccmz.de>
+Autocrypt: addr=tanjeff@cccmz.de; prefer-encrypt=mutual; keydata=
+ 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
+ YAC/BUWuon8xl+Sm7fKHytJTyQ==
+Subject: control: snd_ctl_open(): which names are acceptable?
+To: alsa-devel@alsa-project.org
+Message-ID: <b0202d71-7af1-1461-51fb-962f918a5ca0@cccmz.de>
+Date: Sun, 13 Sep 2020 16:41:56 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.6.0
+ Thunderbird/68.10.0
 MIME-Version: 1.0
-In-Reply-To: <20200910143314.qku7po6htiiq5lzf@gilmour.lan>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
 Content-Transfer-Encoding: 8bit
-Cc: devicetree <devicetree@vger.kernel.org>,
- Linux-ALSA <alsa-devel@alsa-project.org>,
- linux-kernel <linux-kernel@vger.kernel.org>, Takashi Iwai <tiwai@suse.com>,
- Jernej Skrabec <jernej.skrabec@siol.net>, Liam Girdwood <lgirdwood@gmail.com>,
- Rob Herring <robh+dt@kernel.org>, Marcus Cooper <codekipper@gmail.com>,
- Chen-Yu Tsai <wens@csie.org>, Mark Brown <broonie@kernel.org>,
- =?UTF-8?B?Q2zDqW1lbnQgUMOpcm9u?= <peron.clem@gmail.com>,
- linux-arm-kernel <linux-arm-kernel@lists.infradead.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -135,95 +122,17 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Maxime,
+Hello Alsa developers,
 
-On 9/10/20 9:33 AM, Maxime Ripard wrote:
-> On Thu, Sep 03, 2020 at 09:54:39PM -0500, Samuel Holland wrote:
->> On 9/3/20 3:58 PM, Maxime Ripard wrote:
->>> On Thu, Sep 03, 2020 at 10:02:31PM +0200, Clément Péron wrote:
->>>> Hi Maxime,
->>>>
->>>> On Wed, 29 Jul 2020 at 17:16, Mark Brown <broonie@kernel.org> wrote:
->>>>>
->>>>> On Wed, Jul 29, 2020 at 04:39:27PM +0200, Maxime Ripard wrote:
->>>>>
->>>>>> It really looks like the polarity of LRCK is fine though. The first word
->>>>>> is sent with LRCK low, and then high, so we have channel 0 and then
->>>>>> channel 1 which seems to be the proper ordering?
->>
->> Which image file is this in reference to?
->>
->>>>> Yes, that's normal.
->>>>
->>>> Thank you very much for this test.
->>>>
->>>> So I will revert the following commit:
->>>>
->>>> ASoC: sun4i-i2s: Fix the LRCK polarity
->>>>
->>>> https://github.com/clementperon/linux/commit/dd657eae8164f7e4bafe8b875031a7c6c50646a9
->>>
->>> Like I said, the current code is working as expected with regard to the
->>> LRCK polarity. The issue is that the samples are delayed and start to be
->>> transmitted on the wrong phase of the signal.
->>
->> Since an I2S LRCK frame is radially symmetric, "wrong phase" and "inverted
->> polarity" look the same. The only way to definitively distinguish them is by
->> looking at the sample data.
->>
->> In "i2s-h6.png", the samples are all zeroes, so you're assuming that the first
->> sample transmitted (that is, when the bit clock starts transitioning) was a
->> "left" sample.
->>
->> However, in "h6-i2s-start-data.png", there are pairs of samples we can look at.
->> I'm still assuming that similar samples are a left/right pair, but that's
->> probably a safe assumption. Here we see the first sample in each pair is
->> transmitted with LRCK *high*, and the second sample in the pair is transmitted
->> with LRCK *low*. This is the opposite of your claim above.
->>
->> An ideal test would put left/right markers and frame numbers in the data
->> channel. The Python script below can generate such a file. Then you would know
->> how much startup delay there is, which channel the "first sample" came from, and
->> how each channel maps to the LRCK level.
->>
->> It would also be helpful to test DSP_A mode, where the LRCK signal is
->> asymmetric and an inversion would be obvious.
-> 
-> I had no idea that there was a wave module in Python, that's a great
-> suggestion, thanks!
-> 
-> You'll find attached the screenshots for both the I2S and DSP_A formats.
-> I zoomed out a bit to be able to have the first valid samples, but it
-> should be readable.
-> 
-> The code I used is there:
-> https://github.com/mripard/linux/tree/sunxi/h6-i2s-test
-> 
-> It's basically the v3, plus the DT bits.
-> 
-> As you can see, in the i2s case, LRCK starts low and then goes up, with
-> the first channel (0x2*** samples) transmitted first, so everything
-> looks right here.
-> 
-> On the DSP_A screenshot, LRCK will be low with small bursts high, and
-> once again with the first channel being transmitted first, so it looks
-> right to me too.
+I'm currently enhancing the libalsa API documentation. In the process, I
+try to understand how each API function works and what the underlying
+concepts are.
 
-Indeed, for H6 i2s0 with LRCK inversion in software, everything looks correct on
-the wire.
+The snd_ctl_open() call takes a name, which is a C string (const char*).
+For my sound card, the names "hw:CARD=PCH" and as well as "hw:2" (2 is
+the card index) worked.
 
-It's still concerning to me that the BSP has no evidence of this inversion,
-either for i2s0 or i2s1[1]. And the inversion seems not to be required for HDMI
-audio on mainline either (but there could be an inversion on the HDMI side or on
-the interconnect).
+Which strings are acceptable as name? Are there maybe even more formats?
+Is there some documentation on this?
 
-Even so, your research is sufficient justification for me that the code is
-correct as-is (with the inversion). Thank you very much for collecting the data!
-
-Cheers,
-Samuel
-
-[1]:
-https://github.com/Allwinner-Homlet/H6-BSP4.9-linux/blob/e634a960316dddd1eb50f2a6cf237f2f1c6da3e6/sound/soc/sunxi/sunxi-daudio.c#L1062
-where 1 == SND_SOC_DAIFMT_NB_NF, and there's no inversion in
-sunxi_daudio_init_fmt().
+Regards, Tanjeff

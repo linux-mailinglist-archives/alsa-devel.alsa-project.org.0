@@ -2,80 +2,97 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 60638268F6A
-	for <lists+alsa-devel@lfdr.de>; Mon, 14 Sep 2020 17:16:08 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id EA4DE268FA1
+	for <lists+alsa-devel@lfdr.de>; Mon, 14 Sep 2020 17:22:39 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 6B82316BD;
-	Mon, 14 Sep 2020 17:15:17 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6B82316BD
+	by alsa0.perex.cz (Postfix) with ESMTPS id 05EFE16B8;
+	Mon, 14 Sep 2020 17:21:49 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 05EFE16B8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1600096567;
-	bh=wKF7XIaOy0gAjv6xNtGZTxaznrYzIXcRahrfEUOcZm4=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1600096959;
+	bh=GKXYjllCOYoz9s1DCxjF5LhZlRPIv8wDG6prJomb0DU=;
+	h=Subject:From:To:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=CPaUYS9W2UdAG0iy0FyGmUnimxQi9WmZMvVM9BtF2Eue8V9ktQ9CdTTkm+whf1DAV
-	 8rRAg89oGlVbvPpniwEj8H1oy/a4kjTbzqLfo7YCzL9nPCpa3zcWW4hZ/4wtp2Sy1W
-	 RtjGjPSAFRoVoZ1WSNkf1IfmOz16xooTn9lf+V7I=
+	b=JMFFGvf078EV8Lbtv9skcUuvTJhybQsA3na50+4zgb6wQLur0F3Ri44tO2GsdkzEr
+	 FnX6eXzKgjA08cdXPX8yTwKOIvG4kNZV8KML8gLA1J2GneLa9wWH9t7e1SwWyf0d98
+	 HxYx5YFrWWsU1rGFBguvbxzOV9qLi6YJFRJlXGrs=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 94194F801F7;
-	Mon, 14 Sep 2020 17:14:40 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 23C82F802A9;
+	Mon, 14 Sep 2020 17:20:44 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id BDD1EF8015D; Mon, 14 Sep 2020 17:14:37 +0200 (CEST)
+ id 5A464F8015C; Mon, 14 Sep 2020 17:20:41 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
-Received: from casper.infradead.org (casper.infradead.org
- [IPv6:2001:8b0:10b:1236::1])
+ DKIM_VALID_AU,SPF_HELO_PASS autolearn=disabled version=3.4.0
+Received: from bedivere.hansenpartnership.com (bedivere.hansenpartnership.com
+ [66.63.167.143])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 55858F8015C
+ for <alsa-devel@alsa-project.org>; Mon, 14 Sep 2020 17:20:24 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 55858F8015C
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=hansenpartnership.com
+ header.i=@hansenpartnership.com header.b="MwCEKT1C"; 
+ dkim=pass (1024-bit key) header.d=hansenpartnership.com
+ header.i=@hansenpartnership.com header.b="MwCEKT1C"
+Received: from localhost (localhost [127.0.0.1])
+ by bedivere.hansenpartnership.com (Postfix) with ESMTP id D94B18EE188;
+ Mon, 14 Sep 2020 08:20:20 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=hansenpartnership.com;
+ s=20151216; t=1600096820;
+ bh=GKXYjllCOYoz9s1DCxjF5LhZlRPIv8wDG6prJomb0DU=;
+ h=Subject:From:To:Cc:Date:In-Reply-To:References:From;
+ b=MwCEKT1C51gNQI4k2c/TW5TFLSyvCL+DaM8jG72BtMupIn9VJeN1dkJcyAJV4JkG0
+ n6sSw+D1WaOUFen3nc5d+f9REcdFZ8Klept06jhzp/Us0zXjri6r0Pype5gmTqA+88
+ YuaiMKfDE+athYdKXtMltIVOrUi9whs+u8kR+5FU=
+Received: from bedivere.hansenpartnership.com ([127.0.0.1])
+ by localhost (bedivere.hansenpartnership.com [127.0.0.1]) (amavisd-new,
+ port 10024)
+ with ESMTP id d819rpRvd1Od; Mon, 14 Sep 2020 08:20:20 -0700 (PDT)
+Received: from [153.66.254.174] (c-73-35-198-56.hsd1.wa.comcast.net
+ [73.35.198.56])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id CCC23F800AA
- for <alsa-devel@alsa-project.org>; Mon, 14 Sep 2020 17:14:31 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CCC23F800AA
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org
- header.b="JD1+mg3m"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=infradead.org; s=casper.20170209; h=In-Reply-To:Content-Type:MIME-Version:
- References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
- Content-Transfer-Encoding:Content-ID:Content-Description;
- bh=qoTdF1K8QZfe59Hsr5727q9mC8g2Jr5rOYMLLk2l1RQ=; b=JD1+mg3m8jvSPy3g4VSjTLAnne
- 36W7CEcoAjxEVt2IAtPzrSLLevxJXWdpbHQIw28Hd8heE9NT0eLFI3udQPI9fiPX78IfhNKa6ks+t
- B6qOI+lbhHblw0gjtrh7b4QFmisAWGkdYGLVZMa2FALPb3LmhFrZ/EhI1n0frpG3jT/9G2onhyqti
- +JAkxxX8vEDs8hVliKzd7NKSOO7+clLbM8f4UpsVvfAezc/NiKnlHpgaH4hmhufya8Q6/AXWqwdjv
- 2yxTbv35hihTfi1UKALD5FKKVyct2R0rgRXAei//GMv4/Wl+PzWkc0P9X7kAFL7918W/mYBUUblZB
- Ej1HafoQ==;
-Received: from willy by casper.infradead.org with local (Exim 4.92.3 #3 (Red
- Hat Linux)) id 1kHqB4-0003Xz-OV; Mon, 14 Sep 2020 15:13:58 +0000
-Date: Mon, 14 Sep 2020 16:13:58 +0100
-From: Matthew Wilcox <willy@infradead.org>
-To: Christoph Hellwig <hch@lst.de>
-Subject: Re: [PATCH 11/17] sgiseeq: convert to dma_alloc_noncoherent
-Message-ID: <20200914151358.GQ6583@casper.infradead.org>
+ by bedivere.hansenpartnership.com (Postfix) with ESMTPSA id 4E7098EE111;
+ Mon, 14 Sep 2020 08:20:19 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=hansenpartnership.com;
+ s=20151216; t=1600096820;
+ bh=GKXYjllCOYoz9s1DCxjF5LhZlRPIv8wDG6prJomb0DU=;
+ h=Subject:From:To:Cc:Date:In-Reply-To:References:From;
+ b=MwCEKT1C51gNQI4k2c/TW5TFLSyvCL+DaM8jG72BtMupIn9VJeN1dkJcyAJV4JkG0
+ n6sSw+D1WaOUFen3nc5d+f9REcdFZ8Klept06jhzp/Us0zXjri6r0Pype5gmTqA+88
+ YuaiMKfDE+athYdKXtMltIVOrUi9whs+u8kR+5FU=
+Message-ID: <1600096818.4061.7.camel@HansenPartnership.com>
+Subject: Re: [PATCH 07/17] 53c700: improve non-coherent DMA handling
+From: James Bottomley <James.Bottomley@HansenPartnership.com>
+To: Christoph Hellwig <hch@lst.de>, Mauro Carvalho Chehab
+ <mchehab@kernel.org>,  Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
+ Joonyoung Shim <jy0922.shim@samsung.com>, Seung-Woo Kim
+ <sw0312.kim@samsung.com>, Ben Skeggs <bskeggs@redhat.com>, Marek Szyprowski
+ <m.szyprowski@samsung.com>, Tomasz Figa <tfiga@chromium.org>, Matt Porter
+ <mporter@kernel.crashing.org>, iommu@lists.linux-foundation.org
+Date: Mon, 14 Sep 2020 08:20:18 -0700
+In-Reply-To: <20200914144433.1622958-8-hch@lst.de>
 References: <20200914144433.1622958-1-hch@lst.de>
- <20200914144433.1622958-12-hch@lst.de>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20200914144433.1622958-12-hch@lst.de>
-Cc: alsa-devel@alsa-project.org, linux-doc@vger.kernel.org,
- nouveau@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- "James E.J. Bottomley" <James.Bottomley@hansenpartnership.com>,
- linux-mm@kvack.org, linux1394-devel@lists.sourceforge.net,
- Marek Szyprowski <m.szyprowski@samsung.com>, linux-samsung-soc@vger.kernel.org,
- Joonyoung Shim <jy0922.shim@samsung.com>, linux-scsi@vger.kernel.org,
- Ben Skeggs <bskeggs@redhat.com>, Matt Porter <mporter@kernel.crashing.org>,
- linux-media@vger.kernel.org, Mauro Carvalho Chehab <mchehab@kernel.org>,
- linux-arm-kernel@lists.infradead.org,
- Thomas Bogendoerfer <tsbogend@alpha.franken.de>, linux-parisc@vger.kernel.org,
- netdev@vger.kernel.org, Seung-Woo Kim <sw0312.kim@samsung.com>,
- linux-mips@vger.kernel.org, Tomasz Figa <tfiga@chromium.org>,
- iommu@lists.linux-foundation.org, Stefan Richter <stefanr@s5r6.in-berlin.de>
+ <20200914144433.1622958-8-hch@lst.de>
+Content-Type: text/plain; charset="UTF-8"
+X-Mailer: Evolution 3.26.6 
+Mime-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Cc: alsa-devel@alsa-project.org, linux-samsung-soc@vger.kernel.org,
+ linux-scsi@vger.kernel.org, linux-parisc@vger.kernel.org,
+ linux-doc@vger.kernel.org, nouveau@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, linux-mips@vger.kernel.org, linux-mm@kvack.org,
+ Stefan Richter <stefanr@s5r6.in-berlin.de>, netdev@vger.kernel.org,
+ linux1394-devel@lists.sourceforge.net, linux-arm-kernel@lists.infradead.org,
+ linux-media@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -91,12 +108,65 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Mon, Sep 14, 2020 at 04:44:27PM +0200, Christoph Hellwig wrote:
->  drivers/net/ethernet/i825xx/lasi_82596.c |  25 ++---
->  drivers/net/ethernet/i825xx/lib82596.c   | 114 ++++++++++++++---------
->  drivers/net/ethernet/i825xx/sni_82596.c  |   4 -
->  drivers/net/ethernet/seeq/sgiseeq.c      |  28 ++++--
->  drivers/scsi/53c700.c                    |   9 +-
->  5 files changed, 103 insertions(+), 77 deletions(-)
+On Mon, 2020-09-14 at 16:44 +0200, Christoph Hellwig wrote:
+> @@ -429,7 +430,7 @@ struct NCR_700_Host_Parameters {
+>  	for(i=0; i< (sizeof(A_##symbol##_used) / sizeof(__u32));
+> i++) { \
+>  		__u32 val =
+> bS_to_cpu((script)[A_##symbol##_used[i]]) + da; \
+>  		(script)[A_##symbol##_used[i]] = bS_to_host(val); \
+> -		dma_cache_sync((dev),
+> &(script)[A_##symbol##_used[i]], 4, DMA_TO_DEVICE); \
+> +		dma_sync_to_dev((dev),
+> &(script)[A_##symbol##_used[i]], 4); \
+>  		DEBUG((" script, patching %s at %d to %pad\n", \
+>  		       #symbol, A_##symbol##_used[i], &da)); \
+>  	} \
+> @@ -441,7 +442,7 @@ struct NCR_700_Host_Parameters {
+>  	dma_addr_t da = value; \
+>  	for(i=0; i< (sizeof(A_##symbol##_used) / sizeof(__u32));
+> i++) { \
+>  		(script)[A_##symbol##_used[i]] = bS_to_host(da); \
+> -		dma_cache_sync((dev),
+> &(script)[A_##symbol##_used[i]], 4, DMA_TO_DEVICE); \
+> +		dma_sync_to_dev((dev),
+> &(script)[A_##symbol##_used[i]], 4); \
+>  		DEBUG((" script, patching %s at %d to %pad\n", \
+>  		       #symbol, A_##symbol##_used[i], &da)); \
+>  	} \
+> @@ -456,7 +457,7 @@ struct NCR_700_Host_Parameters {
+>  		val &= 0xff00ffff; \
+>  		val |= ((value) & 0xff) << 16; \
+>  		(script)[A_##symbol##_used[i]] = bS_to_host(val); \
+> -		dma_cache_sync((dev),
+> &(script)[A_##symbol##_used[i]], 4, DMA_TO_DEVICE); \
+> +		dma_sync_to_dev((dev),
+> &(script)[A_##symbol##_used[i]], 4); \
+>  		DEBUG((" script, patching ID field %s at %d to
+> 0x%x\n", \
+>  		       #symbol, A_##symbol##_used[i], val)); \
+>  	} \
+> @@ -470,7 +471,7 @@ struct NCR_700_Host_Parameters {
+>  		val &= 0xffff0000; \
+>  		val |= ((value) & 0xffff); \
+>  		(script)[A_##symbol##_used[i]] = bS_to_host(val); \
+> -		dma_cache_sync((dev),
+> &(script)[A_##symbol##_used[i]], 4, DMA_TO_DEVICE); \
+> +		dma_sync_to_dev((dev),
+> &(script)[A_##symbol##_used[i]], 4); \
+>  		DEBUG((" script, patching short field %s at %d to
+> 0x%x\n", \
+>  		       #symbol, A_##symbol##_used[i], val)); \
+>  	} \
 
-I think your patch slicing-and-dicing went wrong here ;-(
+If you're going to change the macros from taking a device to taking a
+hostdata structure then the descriptive argument name needs to change
+... it can't be dev anymore.  I'm happy with it simply becoming 'h' if
+hostdata is too long.
+
+I already asked for this on the first go around:
+
+https://lore.kernel.org/alsa-devel/1598971960.4238.5.camel@HansenPartnership.com/
+
+James
+

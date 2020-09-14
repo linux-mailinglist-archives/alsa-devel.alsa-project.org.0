@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C0D8A268E9C
-	for <lists+alsa-devel@lfdr.de>; Mon, 14 Sep 2020 16:58:04 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 158AB268EAE
+	for <lists+alsa-devel@lfdr.de>; Mon, 14 Sep 2020 16:59:24 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 5391F16AD;
-	Mon, 14 Sep 2020 16:57:14 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5391F16AD
+	by alsa0.perex.cz (Postfix) with ESMTPS id 99C5C16AA;
+	Mon, 14 Sep 2020 16:58:33 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 99C5C16AA
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1600095484;
-	bh=OIuo8OhHNwLkmIMA3AGgkQsRTHs1eXkvwvuq+6m74b4=;
+	s=default; t=1600095563;
+	bh=LH0NaDnKAHcVRn3lT3rDdtXF2qEXbg0yWEOD4MwwB8g=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=dyZgZKLBNFzHtwewAsXQB3tucvkqPAYWbe/eOfMsUK2P5KUmovzvSikSMMfb5xSEO
-	 umehJG862CpGAQZ/kQSDw7TNZ3d/UVFh8FXpYs22wvVqqoJypWVtRzpYhKIpqdFRrW
-	 3O+NIbmySVqYduG44DX0rIXgictj6kCk3D5fxBuE=
+	b=lfnpY5yJr868/RZ07b9xYUbr0IQJ4dNrAFEfo+ZzfjWnJfwBz9CW/JFh5j1toERkw
+	 pEscQlRGsCoObxN6mKyF53YQB7Ikud9zmEJC/6IWexJ5RmFhxuEP589OVnQtddg8Cs
+	 YCaCw/cURC5OnTsyfvGo0nwyup1tGrTdoS5wisHI=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 9B50BF8020B;
-	Mon, 14 Sep 2020 16:54:02 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id EC6F4F802D2;
+	Mon, 14 Sep 2020 16:56:16 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 8F60FF8015C; Mon, 14 Sep 2020 16:53:59 +0200 (CEST)
+ id CB0C5F802C3; Mon, 14 Sep 2020 16:56:14 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -35,26 +35,26 @@ Received: from casper.infradead.org (casper.infradead.org
  [IPv6:2001:8b0:10b:1236::1])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 59C67F800AA
- for <alsa-devel@alsa-project.org>; Mon, 14 Sep 2020 16:53:53 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 59C67F800AA
+ by alsa1.perex.cz (Postfix) with ESMTPS id E0E13F802C4
+ for <alsa-devel@alsa-project.org>; Mon, 14 Sep 2020 16:56:04 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E0E13F802C4
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org
- header.b="ifsAl2Rr"
+ header.b="mhT31ujO"
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=infradead.org; s=casper.20170209; h=Content-Transfer-Encoding:MIME-Version:
  References:In-Reply-To:Message-Id:Date:Subject:Cc:To:From:Sender:Reply-To:
  Content-Type:Content-ID:Content-Description;
- bh=wWR7H3WZih9ZGlGO6OHg+MKLXPw0ngda85sKeqyd2Cw=; b=ifsAl2RrU7KnR1yT2uKbMkDdPl
- XkvmPaEnJfciEndlUDneY+5JqCj8WbUratm+mlOoljGDnRpAblVkHJt5HxwZP88i+1ZeUkb3Q4kPB
- Q0hYtsUAwLyA82WBlvmT34I76tDhu2XUUL+Wln8SIqaM03pjRT6I+XF4gy3lM7lEonWUAF1QtO3nM
- lnZ4Uw3pVPI+sKkkInM9hz/97JfUtGChXNAZFyOdPolUcrlDaG+zPS8jdMSC2Jpjzh5wD/nEzvhrb
- HoIjUlPKR9uBUiALYFS7+3bG6ZWkYeISVrlgBbD0hWEq5oDJFe5+qpgK8BhcxaG9TxulgvC3/PSP2
- H5/a4Rbw==;
+ bh=eBdiOi8NPtkzomu53YzYl2srwsK9DIz9xkGY00o46Kk=; b=mhT31ujOX1b/Ylsrk64JksEtAs
+ 9CsPlcH5hAWD0aGXvHImC3hCRVvIHTJrcou6cXnGT54zAGvwj93b4D9EhPcRhshY3Bs3eyUJoDDyp
+ /nP9B5kyV1bnmLEL7rLke8gT4SbmI5kPok0oRcdYsOzZhnvD9awZgmS7snbozBo6+h50CW3ovdNEQ
+ rNvm9WYDfrFebi3DEiL1j7UwRmtNNj8nVOQuwfdDkaun+xRqe4fJEwflFg4tSbH6LwHenuvtKtx+3
+ Mi3qOKO7kSBa3khR/+Da8yUmsINC/i/NvEQMvxt0qK0LL1lZ69X5uBkVi4w6Gw41ABUYpEPOn6KWS
+ UikZ1UiA==;
 Received: from 089144214092.atnat0023.highway.a1.net ([89.144.214.92]
  helo=localhost)
  by casper.infradead.org with esmtpsa (Exim 4.92.3 #3 (Red Hat Linux))
- id 1kHpr7-0001jw-Ar; Mon, 14 Sep 2020 14:53:21 +0000
+ id 1kHptG-0001vR-DT; Mon, 14 Sep 2020 14:55:34 +0000
 From: Christoph Hellwig <hch@lst.de>
 To: Mauro Carvalho Chehab <mchehab@kernel.org>,
  Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
@@ -64,9 +64,9 @@ To: Mauro Carvalho Chehab <mchehab@kernel.org>,
  Marek Szyprowski <m.szyprowski@samsung.com>,
  Tomasz Figa <tfiga@chromium.org>,
  Matt Porter <mporter@kernel.crashing.org>, iommu@lists.linux-foundation.org
-Subject: [PATCH 03/17] drm/exynos: stop setting DMA_ATTR_NON_CONSISTENT
-Date: Mon, 14 Sep 2020 16:44:19 +0200
-Message-Id: <20200914144433.1622958-4-hch@lst.de>
+Subject: [PATCH 04/17] drm/nouveau/gk20a: stop setting DMA_ATTR_NON_CONSISTENT
+Date: Mon, 14 Sep 2020 16:44:20 +0200
+Message-Id: <20200914144433.1622958-5-hch@lst.de>
 X-Mailer: git-send-email 2.28.0
 In-Reply-To: <20200914144433.1622958-1-hch@lst.de>
 References: <20200914144433.1622958-1-hch@lst.de>
@@ -97,26 +97,27 @@ Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 DMA_ATTR_NON_CONSISTENT is a no-op except on PARISC and some mips
-configs, so don't set it in this ARM specific driver.
+configs, so don't set it in this ARM specific driver part.
 
 Signed-off-by: Christoph Hellwig <hch@lst.de>
 ---
- drivers/gpu/drm/exynos/exynos_drm_gem.c | 2 --
- 1 file changed, 2 deletions(-)
+ drivers/gpu/drm/nouveau/nvkm/subdev/instmem/gk20a.c | 3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/exynos/exynos_drm_gem.c b/drivers/gpu/drm/exynos/exynos_drm_gem.c
-index efa476858db54b..07073222b8f691 100644
---- a/drivers/gpu/drm/exynos/exynos_drm_gem.c
-+++ b/drivers/gpu/drm/exynos/exynos_drm_gem.c
-@@ -42,8 +42,6 @@ static int exynos_drm_alloc_buf(struct exynos_drm_gem *exynos_gem, bool kvmap)
- 	if (exynos_gem->flags & EXYNOS_BO_WC ||
- 			!(exynos_gem->flags & EXYNOS_BO_CACHABLE))
- 		attr |= DMA_ATTR_WRITE_COMBINE;
--	else
--		attr |= DMA_ATTR_NON_CONSISTENT;
+diff --git a/drivers/gpu/drm/nouveau/nvkm/subdev/instmem/gk20a.c b/drivers/gpu/drm/nouveau/nvkm/subdev/instmem/gk20a.c
+index 985f2990ab0dda..13d4d7ac0697b4 100644
+--- a/drivers/gpu/drm/nouveau/nvkm/subdev/instmem/gk20a.c
++++ b/drivers/gpu/drm/nouveau/nvkm/subdev/instmem/gk20a.c
+@@ -594,8 +594,7 @@ gk20a_instmem_new(struct nvkm_device *device, int index,
  
- 	/* FBDev emulation requires kernel mapping */
- 	if (!kvmap)
+ 		nvkm_info(&imem->base.subdev, "using IOMMU\n");
+ 	} else {
+-		imem->attrs = DMA_ATTR_NON_CONSISTENT |
+-			      DMA_ATTR_WEAK_ORDERING |
++		imem->attrs = DMA_ATTR_WEAK_ORDERING |
+ 			      DMA_ATTR_WRITE_COMBINE;
+ 
+ 		nvkm_info(&imem->base.subdev, "using DMA API\n");
 -- 
 2.28.0
 

@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 76B74268E7F
-	for <lists+alsa-devel@lfdr.de>; Mon, 14 Sep 2020 16:56:05 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8BCA3268E82
+	for <lists+alsa-devel@lfdr.de>; Mon, 14 Sep 2020 16:56:16 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E83561687;
-	Mon, 14 Sep 2020 16:55:14 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E83561687
+	by alsa0.perex.cz (Postfix) with ESMTPS id 25F9D16A2;
+	Mon, 14 Sep 2020 16:55:26 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 25F9D16A2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1600095365;
-	bh=0Rdhj23dSlc9B+I6Z1sKv+n1S1msaVOGFY5Rifck8UY=;
+	s=default; t=1600095376;
+	bh=reCFGQsdm/FQSMiTmTYTWSoEk4KOIZ92Cihs2TyWIQM=;
 	h=Date:From:To:In-Reply-To:References:Subject:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=NWB7OHwonEXdn+xD2KDLI26HB9VVxoD+l4HauDucJyPY8lsGeCJYbBCpBn0Jzu2J8
-	 obs7zlxfiAXlewCcsExsW1I4z5+jF76cwvk7UBnS0XkUjphWmp+7U6nSnBvO1PHhOB
-	 f82aLDwtn5pGWpkppXpw3eEA9Qz/omL5Sj6A3W+w=
+	b=QRyEQ/L2SxhsU8y3Euv4YOceLm5RXqr90YdN4MBmuy0hdaYNv+yUGrMGe1PkzkCYl
+	 1PvVUiKS7s8FYSo1zM7UHFWcxYTEXhLIyqYYOirDSv6JUsJIN8045CTPbnusOv83nT
+	 0maWtciAhKPKIQK3ofDZwYueQBcqXLeVeryOZ9HM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id C741FF802E2;
-	Mon, 14 Sep 2020 16:52:23 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id D514BF802E9;
+	Mon, 14 Sep 2020 16:52:25 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id AC29AF802E2; Mon, 14 Sep 2020 16:52:21 +0200 (CEST)
+ id 9310CF802E1; Mon, 14 Sep 2020 16:52:22 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-1.8 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -34,33 +34,35 @@ X-Spam-Status: No, score=-1.8 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 15924F802DD
- for <alsa-devel@alsa-project.org>; Mon, 14 Sep 2020 16:52:15 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 15924F802DD
+ by alsa1.perex.cz (Postfix) with ESMTPS id F17C2F802E0
+ for <alsa-devel@alsa-project.org>; Mon, 14 Sep 2020 16:52:19 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz F17C2F802E0
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="fHEYHty1"
+ header.b="jEb9gTfE"
 Received: from localhost (fw-tnat.cambridge.arm.com [217.140.96.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 24C3320829;
- Mon, 14 Sep 2020 14:52:12 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id 23904216C4;
+ Mon, 14 Sep 2020 14:52:17 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1600095133;
- bh=0Rdhj23dSlc9B+I6Z1sKv+n1S1msaVOGFY5Rifck8UY=;
+ s=default; t=1600095138;
+ bh=reCFGQsdm/FQSMiTmTYTWSoEk4KOIZ92Cihs2TyWIQM=;
  h=Date:From:To:Cc:In-Reply-To:References:Subject:From;
- b=fHEYHty1PVdcEQnikpPvfiPNka9hST336BpqbxHDCMnUueClin5G5K5kX2SKqMrj8
- jsuZ/zPMJHvowVIOH3/2O/2zvMvRtCaCuFp+uzqWxLkRq9yBg4vxOJSLZ1QQR3jVmA
- /cQV/jesqMRC/2qgYMcibLfSSnzrVbtumNbPSyU0=
-Date: Mon, 14 Sep 2020 15:51:25 +0100
+ b=jEb9gTfERrOMksBHtj41rYFZv5bXRcDE5Gw+J/G50tdVPRIx8pbXu+UV/QdqObFH1
+ D0ImwhMdcGlW2kKo9cadC3xmCyIZcIfHGgjYFdkdc/6N/Xu3V6BzwjWCKApQxJSa3P
+ ff0AVYyhoHZtPu3CD0p6SwCyzHk8+UUUL5QAcr+s=
+Date: Mon, 14 Sep 2020 15:51:30 +0100
 From: Mark Brown <broonie@kernel.org>
-To: robh+dt@kernel.org, Tzung-Bi Shih <tzungbi@google.com>
-In-Reply-To: <20200911024833.1673961-1-tzungbi@google.com>
-References: <20200911024833.1673961-1-tzungbi@google.com>
-Subject: Re: [PATCH 0/2] ASoC: mediatek: mt8183-da7219: support machine driver
- for rt1015p
-Message-Id: <160009506912.439.1847050038899323133.b4-ty@kernel.org>
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org
+To: Kai Vehmanen <kai.vehmanen@linux.intel.com>, alsa-devel@alsa-project.org
+In-Reply-To: <20200910162705.2026036-1-kai.vehmanen@linux.intel.com>
+References: <20200910162705.2026036-1-kai.vehmanen@linux.intel.com>
+Subject: Re: [PATCH] ASoC: SOF: Intel: Use DMI oem string search for
+ tgl_max98373_rt5682
+Message-Id: <160009506911.439.9001583222831808483.b4-ty@kernel.org>
+Cc: lgirdwood@gmail.com,
+ Sathyanarayana Nujella <sathyanarayana.nujella@intel.com>,
+ ranjani.sridharan@linux.intel.com, pierre-louis.bossart@linux.intel.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -76,15 +78,12 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Fri, 11 Sep 2020 10:48:31 +0800, Tzung-Bi Shih wrote:
-> The series reuses mt8183-da7219-max98357.c for supporting machine
-> driver with rt1015p speaker amplifier.
-> 
-> The 1st patch adds document for the new proposed compatible string.
-> 
-> The 2nd patch changes the machine driver to support "RT1015P" codec.
-> 
-> [...]
+On Thu, 10 Sep 2020 19:27:05 +0300, Kai Vehmanen wrote:
+> DMI product name is used to support system variants based out of
+> tgl_max98373_rt5682 in current implementation. Replace this DMI search with
+> DMI_OEM_STRING. Coreboot(BIOS used in these systems) is
+> setting the needed DMI_OEM_STRING field to uniquely identify these
+> systems.
 
 Applied to
 
@@ -92,10 +91,8 @@ Applied to
 
 Thanks!
 
-[1/2] ASoC: dt-bindings: mt8183-da7219: add compatible string for using rt1015p
-      commit: 5d1e0557520862c3a73b8b6a809807be1b522c3f
-[2/2] ASoC: mediatek: mt8183-da7219: support machine driver with rt1015p
-      commit: 7e5bfdddd8772011a2d38cf6be821d616db6cf8c
+[1/1] ASoC: SOF: Intel: Use DMI oem string search for tgl_max98373_rt5682
+      commit: 2a4b91a26403fa3e7b07271700c3ca7103664bba
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

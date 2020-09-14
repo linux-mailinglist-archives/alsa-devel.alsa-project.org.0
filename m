@@ -2,74 +2,86 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2A741268EA6
-	for <lists+alsa-devel@lfdr.de>; Mon, 14 Sep 2020 16:58:42 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4EAAD268EC9
+	for <lists+alsa-devel@lfdr.de>; Mon, 14 Sep 2020 17:02:28 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C699416B5;
-	Mon, 14 Sep 2020 16:57:51 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C699416B5
+	by alsa0.perex.cz (Postfix) with ESMTPS id C03A816AC;
+	Mon, 14 Sep 2020 17:01:37 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C03A816AC
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1600095521;
-	bh=KWJqdkCZgyPNohCJGNbpJs+BDsJjwqiEDY4HQiidrKA=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1600095747;
+	bh=chuiUaf9fnA4whbiFvAix0IxDIX5vuuIWKH3zQf/YMA=;
+	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=tdjmUOdqCs9RyTf7Id6a9fAcFsZR6qqXowh/gbBE3umP96ao2dio4+kCtgtAElwi2
-	 W7elpGrZFoDEcfEN/DCEKtvPf3nUbAR7y2oWlg+skVB2LdGQZxffMPrlSwnwffrQV1
-	 fAu64T3f7o1S4An8desRV9JFU06E5v+Xnszhwm9Y=
+	b=ZnRIoZ13zm7xIFU4nPgL7F8fM2fNI561rYh2dAXeueqTNPxJJbfLplQP2/xtsvxBv
+	 7FSfpipDT2/2Jq1BQIxSzndXXFYu8bqoCkvUO8u0uPJ6fOOx+I/SpmPVPGxs0xdk6T
+	 0trSgQ8Ijt9OWVRBsEsBTe3bqznhRY87eTUl+w38=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 17F50F801F7;
-	Mon, 14 Sep 2020 16:56:04 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 00580F80150;
+	Mon, 14 Sep 2020 17:00:46 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 874CAF801F7; Mon, 14 Sep 2020 16:56:02 +0200 (CEST)
+ id 76C0AF8015A; Mon, 14 Sep 2020 17:00:44 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-1.8 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled
- version=3.4.0
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id AAF1CF80150
- for <alsa-devel@alsa-project.org>; Mon, 14 Sep 2020 16:55:56 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz AAF1CF80150
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="nMgC1upo"
-Received: from localhost (fw-tnat.cambridge.arm.com [217.140.96.140])
+X-Spam-Status: No, score=0.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ HEADER_FROM_DIFFERENT_DOMAINS,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from casper.infradead.org (casper.infradead.org
+ [IPv6:2001:8b0:10b:1236::1])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id A4152206BE;
- Mon, 14 Sep 2020 14:55:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1600095355;
- bh=KWJqdkCZgyPNohCJGNbpJs+BDsJjwqiEDY4HQiidrKA=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=nMgC1upoTFCiy5eHK/tlQaqhKy3LYIebNGb4AsZoIG0TZg+BAQvAmGQSGZG+lYuJj
- R1W9ZAwpOQPRg47m0w8k0XP4gtIL96YXA57/PFPOVgY9yPKoaZryyww5EY6CqzBE6a
- nWbqPjP5tT8Lapr348vslBaMpk9/fJh09rj592pg=
-Date: Mon, 14 Sep 2020 15:55:06 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Chanho Park <parkch98@gmail.com>
-Subject: Re: [PATCH] ASoC: tas6424: disable regulators when probe error
-Message-ID: <20200914145506.GF4821@sirena.org.uk>
-References: <20200912023151.213930-1-chanho61.park@samsung.com>
- <20200914112709.GA4821@sirena.org.uk>
- <CAPTzV144n2z--Us6OpK-FKb64Bsz+x+CQu1HiBDr2XHETQmTvw@mail.gmail.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id A3F8CF80105
+ for <alsa-devel@alsa-project.org>; Mon, 14 Sep 2020 17:00:38 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A3F8CF80105
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org
+ header.b="HIz6wke9"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=infradead.org; s=casper.20170209; h=Content-Transfer-Encoding:MIME-Version:
+ References:In-Reply-To:Message-Id:Date:Subject:Cc:To:From:Sender:Reply-To:
+ Content-Type:Content-ID:Content-Description;
+ bh=jNO1brRzt5ng659lhtl+4oBfakGzrKMS1ATQw8TQgTw=; b=HIz6wke9iAtfdEQkH5SQhbb1rq
+ opMCl+x82958lVnA4aljn7W8oe8/QbpwparD4iR6fOZ4E09Lz3gw3Bk23dcQwy/A30gZ/ffXlkvah
+ ZZev3bmBXqnvgch/BNMDycqeM1ZgF3l5e8xXDRnlcCz3zJhv+bWNymmhPAlj/EsYUXA0D+hQB1bjG
+ 4nVKJlBloB2GU7OtCGerGV41obO1J/rX7+Eii6eZNuOtmJ8KZ0SlifDHc7kyPnylID6vSSpRqbdnf
+ MHykLbz/arJkucLZ4kMBJiByeb0ep6XpXe6KVUgvXftPdto4HDHQzIbI1R4HjyOhmEGtoBheeQp0D
+ 9TXJ2Muw==;
+Received: from 089144214092.atnat0023.highway.a1.net ([89.144.214.92]
+ helo=localhost)
+ by casper.infradead.org with esmtpsa (Exim 4.92.3 #3 (Red Hat Linux))
+ id 1kHpxU-0002Br-IH; Mon, 14 Sep 2020 14:59:56 +0000
+From: Christoph Hellwig <hch@lst.de>
+To: Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
+ "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>,
+ Joonyoung Shim <jy0922.shim@samsung.com>,
+ Seung-Woo Kim <sw0312.kim@samsung.com>, Ben Skeggs <bskeggs@redhat.com>,
+ Marek Szyprowski <m.szyprowski@samsung.com>,
+ Tomasz Figa <tfiga@chromium.org>,
+ Matt Porter <mporter@kernel.crashing.org>, iommu@lists.linux-foundation.org
+Subject: [PATCH 06/17] lib82596: move DMA allocation into the callers of
+ i82596_probe
+Date: Mon, 14 Sep 2020 16:44:22 +0200
+Message-Id: <20200914144433.1622958-7-hch@lst.de>
+X-Mailer: git-send-email 2.28.0
+In-Reply-To: <20200914144433.1622958-1-hch@lst.de>
+References: <20200914144433.1622958-1-hch@lst.de>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="XuV1QlJbYrcVoo+x"
-Content-Disposition: inline
-In-Reply-To: <CAPTzV144n2z--Us6OpK-FKb64Bsz+x+CQu1HiBDr2XHETQmTvw@mail.gmail.com>
-X-Cookie: Disc space -- the final frontier!
-User-Agent: Mutt/1.10.1 (2018-07-13)
-Cc: Rob Herring <robh@kernel.org>, alsa-devel@alsa-project.org,
- lgirdwood@gmail.com, Chanho Park <chanho61.park@samsung.com>,
- dannenberg@ti.com
+Content-Transfer-Encoding: 8bit
+X-SRS-Rewrite: SMTP reverse-path rewritten from <hch@infradead.org> by
+ casper.infradead.org. See http://www.infradead.org/rpr.html
+Cc: alsa-devel@alsa-project.org, linux-samsung-soc@vger.kernel.org,
+ linux-scsi@vger.kernel.org, linux-parisc@vger.kernel.org,
+ linux-doc@vger.kernel.org, nouveau@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, linux-mips@vger.kernel.org, linux-mm@kvack.org,
+ Stefan Richter <stefanr@s5r6.in-berlin.de>, netdev@vger.kernel.org,
+ linux1394-devel@lists.sourceforge.net, linux-arm-kernel@lists.infradead.org,
+ linux-media@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -85,40 +97,187 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+This allows us to get rid of the LIB82596_DMA_ATTR defined and prepare
+for untangling the coherent vs non-coherent DMA allocation API.
 
---XuV1QlJbYrcVoo+x
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Signed-off-by: Christoph Hellwig <hch@lst.de>
+---
+ drivers/net/ethernet/i825xx/lasi_82596.c | 24 ++++++++++------
+ drivers/net/ethernet/i825xx/lib82596.c   | 36 ++++++++----------------
+ drivers/net/ethernet/i825xx/sni_82596.c  | 19 +++++++++----
+ 3 files changed, 40 insertions(+), 39 deletions(-)
 
-On Mon, Sep 14, 2020 at 11:52:15PM +0900, Chanho Park wrote:
-> On Mon, Sep 14, 2020 at 8:27 PM Mark Brown <broonie@kernel.org> wrote:
+diff --git a/drivers/net/ethernet/i825xx/lasi_82596.c b/drivers/net/ethernet/i825xx/lasi_82596.c
+index aec7e98bcc853a..a12218e940a2fa 100644
+--- a/drivers/net/ethernet/i825xx/lasi_82596.c
++++ b/drivers/net/ethernet/i825xx/lasi_82596.c
+@@ -96,8 +96,6 @@
+ 
+ #define OPT_SWAP_PORT	0x0001	/* Need to wordswp on the MPU port */
+ 
+-#define LIB82596_DMA_ATTR	DMA_ATTR_NON_CONSISTENT
+-
+ #define DMA_WBACK(ndev, addr, len) \
+ 	do { dma_cache_sync((ndev)->dev.parent, (void *)addr, len, DMA_TO_DEVICE); } while (0)
+ 
+@@ -155,7 +153,7 @@ lan_init_chip(struct parisc_device *dev)
+ {
+ 	struct	net_device *netdevice;
+ 	struct i596_private *lp;
+-	int	retval;
++	int retval = -ENOMEM;
+ 	int i;
+ 
+ 	if (!dev->irq) {
+@@ -186,12 +184,22 @@ lan_init_chip(struct parisc_device *dev)
+ 
+ 	lp = netdev_priv(netdevice);
+ 	lp->options = dev->id.sversion == 0x72 ? OPT_SWAP_PORT : 0;
++	lp->dma = dma_alloc_attrs(&dev->dev, sizeof(struct i596_dma),
++			      &lp->dma_addr, GFP_KERNEL,
++			      DMA_ATTR_NON_CONSISTENT);
++	if (!lp->dma)
++		goto out_free_netdev;
+ 
+ 	retval = i82596_probe(netdevice);
+-	if (retval) {
+-		free_netdev(netdevice);
+-		return -ENODEV;
+-	}
++	if (retval)
++		goto out_free_dma;
++	return 0;
++
++out_free_dma:
++	dma_free_attrs(&dev->dev, sizeof(struct i596_dma), lp->dma,
++			lp->dma_addr, DMA_ATTR_NON_CONSISTENT);
++out_free_netdev:
++	free_netdev(netdevice);
+ 	return retval;
+ }
+ 
+@@ -202,7 +210,7 @@ static int __exit lan_remove_chip(struct parisc_device *pdev)
+ 
+ 	unregister_netdev (dev);
+ 	dma_free_attrs(&pdev->dev, sizeof(struct i596_private), lp->dma,
+-		       lp->dma_addr, LIB82596_DMA_ATTR);
++		       lp->dma_addr, DMA_ATTR_NON_CONSISTENT);
+ 	free_netdev (dev);
+ 	return 0;
+ }
+diff --git a/drivers/net/ethernet/i825xx/lib82596.c b/drivers/net/ethernet/i825xx/lib82596.c
+index b03757e169e475..b4e4b3eb5758b5 100644
+--- a/drivers/net/ethernet/i825xx/lib82596.c
++++ b/drivers/net/ethernet/i825xx/lib82596.c
+@@ -1047,9 +1047,8 @@ static const struct net_device_ops i596_netdev_ops = {
+ 
+ static int i82596_probe(struct net_device *dev)
+ {
+-	int i;
+ 	struct i596_private *lp = netdev_priv(dev);
+-	struct i596_dma *dma;
++	int ret;
+ 
+ 	/* This lot is ensure things have been cache line aligned. */
+ 	BUILD_BUG_ON(sizeof(struct i596_rfd) != 32);
+@@ -1063,41 +1062,28 @@ static int i82596_probe(struct net_device *dev)
+ 	if (!dev->base_addr || !dev->irq)
+ 		return -ENODEV;
+ 
+-	dma = dma_alloc_attrs(dev->dev.parent, sizeof(struct i596_dma),
+-			      &lp->dma_addr, GFP_KERNEL,
+-			      LIB82596_DMA_ATTR);
+-	if (!dma) {
+-		printk(KERN_ERR "%s: Couldn't get shared memory\n", __FILE__);
+-		return -ENOMEM;
+-	}
+-
+ 	dev->netdev_ops = &i596_netdev_ops;
+ 	dev->watchdog_timeo = TX_TIMEOUT;
+ 
+-	memset(dma, 0, sizeof(struct i596_dma));
+-	lp->dma = dma;
+-
+-	dma->scb.command = 0;
+-	dma->scb.cmd = I596_NULL;
+-	dma->scb.rfd = I596_NULL;
++	memset(lp->dma, 0, sizeof(struct i596_dma));
++	lp->dma->scb.command = 0;
++	lp->dma->scb.cmd = I596_NULL;
++	lp->dma->scb.rfd = I596_NULL;
+ 	spin_lock_init(&lp->lock);
+ 
+-	DMA_WBACK_INV(dev, dma, sizeof(struct i596_dma));
++	DMA_WBACK_INV(dev, lp->dma, sizeof(struct i596_dma));
+ 
+-	i = register_netdev(dev);
+-	if (i) {
+-		dma_free_attrs(dev->dev.parent, sizeof(struct i596_dma),
+-			       dma, lp->dma_addr, LIB82596_DMA_ATTR);
+-		return i;
+-	}
++	ret = register_netdev(dev);
++	if (ret)
++		return ret;
+ 
+ 	DEB(DEB_PROBE, printk(KERN_INFO "%s: 82596 at %#3lx, %pM IRQ %d.\n",
+ 			      dev->name, dev->base_addr, dev->dev_addr,
+ 			      dev->irq));
+ 	DEB(DEB_INIT, printk(KERN_INFO
+ 			     "%s: dma at 0x%p (%d bytes), lp->scb at 0x%p\n",
+-			     dev->name, dma, (int)sizeof(struct i596_dma),
+-			     &dma->scb));
++			     dev->name, lp->dma, (int)sizeof(struct i596_dma),
++			     &lp->dma->scb));
+ 
+ 	return 0;
+ }
+diff --git a/drivers/net/ethernet/i825xx/sni_82596.c b/drivers/net/ethernet/i825xx/sni_82596.c
+index 22f5887578b2bd..4b9ac0c6557731 100644
+--- a/drivers/net/ethernet/i825xx/sni_82596.c
++++ b/drivers/net/ethernet/i825xx/sni_82596.c
+@@ -24,8 +24,6 @@
+ 
+ static const char sni_82596_string[] = "snirm_82596";
+ 
+-#define LIB82596_DMA_ATTR	0
+-
+ #define DMA_WBACK(priv, addr, len)     do { } while (0)
+ #define DMA_INV(priv, addr, len)       do { } while (0)
+ #define DMA_WBACK_INV(priv, addr, len) do { } while (0)
+@@ -134,10 +132,19 @@ static int sni_82596_probe(struct platform_device *dev)
+ 	lp->ca = ca_addr;
+ 	lp->mpu_port = mpu_addr;
+ 
++	lp->dma = dma_alloc_coherent(&dev->dev, sizeof(struct i596_dma),
++				     &lp->dma_addr, GFP_KERNEL);
++	if (!lp->dma)
++		goto probe_failed;
++
+ 	retval = i82596_probe(netdevice);
+-	if (retval == 0)
+-		return 0;
++	if (retval)
++		goto probe_failed_free_dma;
++	return 0;
+ 
++probe_failed_free_dma:
++	dma_free_coherent(&dev->dev, sizeof(struct i596_dma), lp->dma,
++			  lp->dma_addr);
+ probe_failed:
+ 	free_netdev(netdevice);
+ probe_failed_free_ca:
+@@ -153,8 +160,8 @@ static int sni_82596_driver_remove(struct platform_device *pdev)
+ 	struct i596_private *lp = netdev_priv(dev);
+ 
+ 	unregister_netdev(dev);
+-	dma_free_attrs(dev->dev.parent, sizeof(struct i596_private), lp->dma,
+-		       lp->dma_addr, LIB82596_DMA_ATTR);
++	dma_free_coherent(&pdev->dev, sizeof(struct i596_private), lp->dma,
++			  lp->dma_addr);
+ 	iounmap(lp->ca);
+ 	iounmap(lp->mpu_port);
+ 	free_netdev (dev);
+-- 
+2.28.0
 
-> > Please think hard before including complete backtraces in upstream
-> > reports, they are very large and contain almost no useful information
-> > relative to their size so often obscure the relevant content in your
-> > message. If part of the backtrace is usefully illustrative (it often is
-> > for search engines if nothing else) then it's usually better to pull out
-> > the relevant sections.
-
-> Thanks for your suggestion.
-> I'll respin this patch without the call stack messages.
-
-It's fine, I've already applied it - just please bear this in mind for
-future things.
-
---XuV1QlJbYrcVoo+x
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl9fhEkACgkQJNaLcl1U
-h9AtNQf9HgxmzZxTVQlfjBNeFM5yBqURDHqgtUJbisZOOpjn+VX48uJl8byD0z4I
-6IEUlXwCEAg4WXDF7PgnKXmG3hkmLCDfYkJtkcU2qjgNgDxDsa59javXplzGs+oV
-a8chwo357spK9SogK4HAHe2nizTi3w5g9S29X70i4bIStGAbZOAcAlAT1JgCA09W
-Mv7H2gmhxr8cffv+OQ31/Jy/PbeIc0zEgXDEZsrGi/zE5mcKdVelPUf7PnO20zra
-zJU0mDXZogBMQCrTXPSr+qCjhUGPVAHsk/Pxa9PoymvJ/6e2EYUehu/VcHXdD6UR
-R6HSvX6mo5dJtvQptcF2oqjNnaKXJg==
-=s88B
------END PGP SIGNATURE-----
-
---XuV1QlJbYrcVoo+x--

@@ -2,79 +2,87 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7ED82268FDE
-	for <lists+alsa-devel@lfdr.de>; Mon, 14 Sep 2020 17:28:40 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3D62326908B
+	for <lists+alsa-devel@lfdr.de>; Mon, 14 Sep 2020 17:46:46 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A96F216C8;
-	Mon, 14 Sep 2020 17:27:49 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A96F216C8
+	by alsa0.perex.cz (Postfix) with ESMTPS id D6DD616D1;
+	Mon, 14 Sep 2020 17:45:55 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D6DD616D1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1600097319;
-	bh=+fuKzsdD6GGAWfgaunNdIsI1FDobsMLAJmSSvG7gzGU=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1600098405;
+	bh=k+2dSlb2yKmfUR60eKdG9LwHSuyZh2w01VWnrzRoNr4=;
+	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=EbuCrfa8cfuDI5GfhRCoI8rDAlLc+tZxRzW2LtaaBib5FqPIpSPnXG67Y9FWEbjze
-	 /8XPyNpgW8jOibDBiPALLADUQjYOlXTYARkcHa9/CvuJVrUkiGnU2KeS/2B95ODnd/
-	 ybKZIX8vpcm95dDacoQSu+HZ7hFK+wlCz0rKuci8=
+	b=qBXK3ZodoADFx1rW7UtWQxcnIYW65KQDSC2+vucIJUUEilVUqt4f3odedesgSAsj6
+	 FK8l1llsszt+JU0dJfQU2yexU2CD1QEoqzq3i9sFDTmqANoEyeFbFGDah6BpDJDlJz
+	 W2rQ5MM96uOSneRAyoiBuka1VC7pGsq53VP5LTrw=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 6515EF8015C;
-	Mon, 14 Sep 2020 17:26:57 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 71E2FF800AA;
+	Mon, 14 Sep 2020 17:43:11 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 45098F8015A; Mon, 14 Sep 2020 17:26:55 +0200 (CEST)
+ id 9FAB0F8015A; Mon, 14 Sep 2020 17:43:09 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
-Received: from casper.infradead.org (casper.infradead.org
- [IPv6:2001:8b0:10b:1236::1])
+X-Spam-Level: *
+X-Spam-Status: No, score=1.6 required=5.0 tests=NICE_REPLY_A,PRX_BODY_21,
+ PRX_BODY_72,SPF_HELO_PASS,SPF_NONE autolearn=disabled version=3.4.0
+Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id B7047F80105
- for <alsa-devel@alsa-project.org>; Mon, 14 Sep 2020 17:26:48 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B7047F80105
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org
- header.b="M80c+D3B"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=infradead.org; s=casper.20170209; h=In-Reply-To:Content-Type:MIME-Version:
- References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
- Content-Transfer-Encoding:Content-ID:Content-Description;
- bh=7O2Rc307Jq8KkaDn7zbVItvtt/ecHc/too3yP9zxMNw=; b=M80c+D3BqJySppi+H3eNYCcnH/
- gkfi1LX5tkOxqiYr7vGlDhimfScWmyFoD4H7IZc29yxj59fxiZw4CTf73qE/Frs6kv2D1VP9Z0cDk
- mxHwC6y23VXZp0GWVeuCJj/TuYsYfRbshYeLxTfn4NkxNbZt/mCYZDG48aAzhZnPSD26Tjx+8/mwu
- 2BX9yzKsoQKr11uV/Bwnigc9od3UdV8s2rG69+T+l2QU+9l3XPVzWYgBbLqR3TeV+3H8nv+hHYZRQ
- AbZDHlAxP767K2OWIVLYATsG32mlziFsc93sPs4pmGxH1oa7RFwa/hq19KGZWcLA7yuKXtQ9v35Ul
- oAwe3FdQ==;
-Received: from willy by casper.infradead.org with local (Exim 4.92.3 #3 (Red
- Hat Linux)) id 1kHqN0-0004bK-27; Mon, 14 Sep 2020 15:26:18 +0000
-Date: Mon, 14 Sep 2020 16:26:17 +0100
-From: Matthew Wilcox <willy@infradead.org>
-To: Christoph Hellwig <hch@lst.de>
-Subject: Re: a saner API for allocating DMA addressable pages v2
-Message-ID: <20200914152617.GR6583@casper.infradead.org>
-References: <20200914144433.1622958-1-hch@lst.de>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 2625FF800AA
+ for <alsa-devel@alsa-project.org>; Mon, 14 Sep 2020 17:42:58 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2625FF800AA
+IronPort-SDR: H5KL9cmb9uKpw67CDUwJNbEucOfcxBs9M5spStA7Dq1f+d10UfgJXOMOEYHGW3ql+/g63nRNZa
+ 0cnc0S2G5KEg==
+X-IronPort-AV: E=McAfee;i="6000,8403,9744"; a="138604418"
+X-IronPort-AV: E=Sophos;i="5.76,426,1592895600"; d="scan'208";a="138604418"
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from fmsmga004.fm.intel.com ([10.253.24.48])
+ by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 14 Sep 2020 08:42:55 -0700
+IronPort-SDR: PJW7bs0i3dSNhSmViT/GRcRHTeCds7hgHgmSdl79tx4Vm+dJyhAgL6TAup0YjwMj2y7H2M/cMX
+ jOPyLp9mBI5Q==
+X-IronPort-AV: E=Sophos;i="5.76,426,1592895600"; d="scan'208";a="330788739"
+Received: from flaurent-mobl3.amr.corp.intel.com (HELO [10.212.243.224])
+ ([10.212.243.224])
+ by fmsmga004-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 14 Sep 2020 08:42:54 -0700
+Subject: Re: [PATCH v2 2/3] soundwire: SDCA: add helper macro to access
+ controls
+To: Vinod Koul <vkoul@kernel.org>
+References: <20200901162225.33343-1-pierre-louis.bossart@linux.intel.com>
+ <20200901162225.33343-3-pierre-louis.bossart@linux.intel.com>
+ <20200904050244.GT2639@vkoul-mobl>
+ <f35a0ae7-2779-0c69-9ef3-0d0e298888ac@linux.intel.com>
+ <20200909075555.GK77521@vkoul-mobl>
+ <184867c2-9f0c-bffe-2eb7-e9c5735614b0@linux.intel.com>
+ <20200910062223.GQ77521@vkoul-mobl>
+ <adf51127-2813-cdf0-e5a6-f5ec3b0d33fa@linux.intel.com>
+ <20200911070649.GU77521@vkoul-mobl>
+ <21606609-8aaf-c7b2-ffaf-c7d37de1fa3f@linux.intel.com>
+ <20200914050825.GA2968@vkoul-mobl>
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Message-ID: <11feabb2-dc8b-7acc-6e4d-0903fc435b00@linux.intel.com>
+Date: Mon, 14 Sep 2020 09:44:58 -0500
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.10.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20200914144433.1622958-1-hch@lst.de>
-Cc: alsa-devel@alsa-project.org, linux-doc@vger.kernel.org,
- nouveau@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- "James E.J. Bottomley" <James.Bottomley@hansenpartnership.com>,
- linux-mm@kvack.org, linux1394-devel@lists.sourceforge.net,
- Marek Szyprowski <m.szyprowski@samsung.com>, linux-samsung-soc@vger.kernel.org,
- Joonyoung Shim <jy0922.shim@samsung.com>, linux-scsi@vger.kernel.org,
- Ben Skeggs <bskeggs@redhat.com>, Matt Porter <mporter@kernel.crashing.org>,
- linux-media@vger.kernel.org, Mauro Carvalho Chehab <mchehab@kernel.org>,
- linux-arm-kernel@lists.infradead.org,
- Thomas Bogendoerfer <tsbogend@alpha.franken.de>, linux-parisc@vger.kernel.org,
- netdev@vger.kernel.org, Seung-Woo Kim <sw0312.kim@samsung.com>,
- linux-mips@vger.kernel.org, Tomasz Figa <tfiga@chromium.org>,
- iommu@lists.linux-foundation.org, Stefan Richter <stefanr@s5r6.in-berlin.de>
+In-Reply-To: <20200914050825.GA2968@vkoul-mobl>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
+Cc: Guennadi Liakhovetski <guennadi.liakhovetski@linux.intel.com>,
+ alsa-devel@alsa-project.org, Kai Vehmanen <kai.vehmanen@linux.intel.com>,
+ tiwai@suse.de, gregkh@linuxfoundation.org,
+ open list <linux-kernel@vger.kernel.org>, broonie@kernel.org,
+ Sanyog Kale <sanyog.r.kale@intel.com>,
+ Bard liao <yung-chuan.liao@linux.intel.com>,
+ Rander Wang <rander.wang@linux.intel.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -90,36 +98,49 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Mon, Sep 14, 2020 at 04:44:16PM +0200, Christoph Hellwig wrote:
-> I'm still a little unsure about the API naming, as alloc_pages sort of
-> implies a struct page return value, but we return a kernel virtual
-> address.
 
-Erm ... dma_alloc_pages() returns a struct page, so is this sentence
-stale?
 
-From patch 14:
 
-+struct page *dma_alloc_pages(struct device *dev, size_t size,
-+               dma_addr_t *dma_handle, enum dma_data_direction dir, gfp_t gfp);
+> For LSB bits, I dont think this is an issue. I expect it to work, for example:
+> #define CONTROL_LSB_MASK  GENMASK(2, 0)
+>          foo |= u32_encode_bits(control, CONTROL_LSB_MASK);
+> 
+> would mask the control value and program that in specific bitfeild.
+> 
+> But for MSB bits, I am not sure above will work so, you may need to extract
+> the bits and then use, for example:
+> #define CONTROL_MSB_BITS        GENMASK(5, 3)
+> #define CONTROL_MSB_MASK        GENMASK(17, 15)
+> 
+>          control = FIELD_GET(CONTROL_MSB_BITS, control);
+>          foo |= u32_encode_bits(control, CONTROL_MSB_MASK);
+> 
+>> If you have a better suggestion that the FIELD_PREP/FIELD_GET use, I am all
+>> ears. At the end of the day, the mapping is pre-defined and we don't have
+>> any degree of freedom. What I do want is that this macro/inline function is
+>> shared by all codec drivers so that we don't have different interpretations
+>> of how the address is constructed.
+> 
+> Absolutely, this need to be defined here and used by everyone else.
 
-> The other alternative would be to name the API
-> dma_alloc_noncoherent, but the whole non-coherent naming seems to put
-> people off.
+Compare:
 
-You say that like it's a bad thing.  I think the problem is more that
-people don't understand what non-coherent means and think they're
-supporting it when they're not.
+#define SDCA_CONTROL_MSB_BITS        GENMASK(5, 3)
+#define SDCA_CONTROL_MSB_MASK        GENMASK(17, 15)
+#define SDCA_CONTROL_LSB_MASK        GENMASK(2, 0)
 
-dma_alloc_manual_flushing()?
+foo |= u32_encode_bits(control, SDCA_CONTROL_LSB_MASK);
+control = FIELD_GET(SDCA_CONTROL_MSB_BITS, control);
+foo |= u32_encode_bits(control, SDCA_CONTROL_MSB_MASK);
 
-> As a follow up I plan to move the implementation of the
-> DMA_ATTR_NO_KERNEL_MAPPING flag over to this framework as well, given
-> that is also is a fundamentally non coherent allocation.  The replacement
-> for that flag would then return a struct page, as it is allowed to
-> actually return pages without a kernel mapping as the name suggested
-> (although most of the time they will actually have a kernel mapping..)
+with the original proposal:
 
-If the page doesn't have a kernel mapping, shouldn't it return a PFN
-or a phys_addr?
+foo |= FIELD_GET(GENMASK(2, 0), control))	
+foo |= FIELD_PREP(GENMASK(17, 15), FIELD_GET(GENMASK(5, 3), control))	
 
+it gets worse when the LSB positions don't match, you need another 
+variable and an additional mask.
+
+I don't see how this improves readability? I get that hard-coding magic 
+numbers is a bad thing in general, but in this case there are limited 
+benefits to the use of additional defines.

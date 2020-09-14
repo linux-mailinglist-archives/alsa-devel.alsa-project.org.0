@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8BCA3268E82
-	for <lists+alsa-devel@lfdr.de>; Mon, 14 Sep 2020 16:56:16 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 022BD268E8A
+	for <lists+alsa-devel@lfdr.de>; Mon, 14 Sep 2020 16:57:01 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 25F9D16A2;
-	Mon, 14 Sep 2020 16:55:26 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 25F9D16A2
+	by alsa0.perex.cz (Postfix) with ESMTPS id 85F1F16AC;
+	Mon, 14 Sep 2020 16:56:10 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 85F1F16AC
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1600095376;
-	bh=reCFGQsdm/FQSMiTmTYTWSoEk4KOIZ92Cihs2TyWIQM=;
+	s=default; t=1600095420;
+	bh=GQgg18t6IepIuJqTo3WsF4/hmvzz/TMRvii6j1KD30Y=;
 	h=Date:From:To:In-Reply-To:References:Subject:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=QRyEQ/L2SxhsU8y3Euv4YOceLm5RXqr90YdN4MBmuy0hdaYNv+yUGrMGe1PkzkCYl
-	 1PvVUiKS7s8FYSo1zM7UHFWcxYTEXhLIyqYYOirDSv6JUsJIN8045CTPbnusOv83nT
-	 0maWtciAhKPKIQK3ofDZwYueQBcqXLeVeryOZ9HM=
+	b=RIUzWJ0kobgSalcgFs7M/9WKroP2eO7AwWCLbhzwSnn8z+/LT7oTNfUBrG6z0PG7Q
+	 EgmP4WzIAZDl7aFtNTovmiOICnmHlkobedr8e4mW8fDqh3BKZEgNSy2r+ETKwSgwAD
+	 mZddBlgsN0g8RDRcB1Br8savilcO7iiDxS3QJog0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id D514BF802E9;
-	Mon, 14 Sep 2020 16:52:25 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id BCFD3F802F8;
+	Mon, 14 Sep 2020 16:52:29 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 9310CF802E1; Mon, 14 Sep 2020 16:52:22 +0200 (CEST)
+ id B9E24F802F7; Mon, 14 Sep 2020 16:52:27 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-1.8 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -34,34 +34,32 @@ X-Spam-Status: No, score=-1.8 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id F17C2F802E0
- for <alsa-devel@alsa-project.org>; Mon, 14 Sep 2020 16:52:19 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz F17C2F802E0
+ by alsa1.perex.cz (Postfix) with ESMTPS id 40A5AF802EB
+ for <alsa-devel@alsa-project.org>; Mon, 14 Sep 2020 16:52:25 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 40A5AF802EB
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="jEb9gTfE"
+ header.b="u9y3mI3X"
 Received: from localhost (fw-tnat.cambridge.arm.com [217.140.96.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 23904216C4;
- Mon, 14 Sep 2020 14:52:17 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id 34E9F20829;
+ Mon, 14 Sep 2020 14:52:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1600095138;
- bh=reCFGQsdm/FQSMiTmTYTWSoEk4KOIZ92Cihs2TyWIQM=;
+ s=default; t=1600095143;
+ bh=GQgg18t6IepIuJqTo3WsF4/hmvzz/TMRvii6j1KD30Y=;
  h=Date:From:To:Cc:In-Reply-To:References:Subject:From;
- b=jEb9gTfERrOMksBHtj41rYFZv5bXRcDE5Gw+J/G50tdVPRIx8pbXu+UV/QdqObFH1
- D0ImwhMdcGlW2kKo9cadC3xmCyIZcIfHGgjYFdkdc/6N/Xu3V6BzwjWCKApQxJSa3P
- ff0AVYyhoHZtPu3CD0p6SwCyzHk8+UUUL5QAcr+s=
-Date: Mon, 14 Sep 2020 15:51:30 +0100
+ b=u9y3mI3XJtOX4+vJ75aLGyvyxZE4LegTudHJMJrLNFeaYEYJQGxB7qqDRQ9b0D7Td
+ uH3XuaMImDCfSH2JmmA+cBDZpcVsevdGtEoUnv+Z8vPbuSKXP1XGeBttCW4Y+LUkmv
+ rYKgOrbvLREvO9EnnkMzY5q3UZQYrl/EUU1ZXbSg=
+Date: Mon, 14 Sep 2020 15:51:35 +0100
 From: Mark Brown <broonie@kernel.org>
 To: Kai Vehmanen <kai.vehmanen@linux.intel.com>, alsa-devel@alsa-project.org
-In-Reply-To: <20200910162705.2026036-1-kai.vehmanen@linux.intel.com>
-References: <20200910162705.2026036-1-kai.vehmanen@linux.intel.com>
-Subject: Re: [PATCH] ASoC: SOF: Intel: Use DMI oem string search for
- tgl_max98373_rt5682
-Message-Id: <160009506911.439.9001583222831808483.b4-ty@kernel.org>
-Cc: lgirdwood@gmail.com,
- Sathyanarayana Nujella <sathyanarayana.nujella@intel.com>,
+In-Reply-To: <20200910164125.2033062-1-kai.vehmanen@linux.intel.com>
+References: <20200910164125.2033062-1-kai.vehmanen@linux.intel.com>
+Subject: Re: [PATCH 0/4] ASoC: SOF: DSP core management fixes for 5.10
+Message-Id: <160009506912.439.5239831825478892470.b4-ty@kernel.org>
+Cc: lgirdwood@gmail.com, daniel.baluta@nxp.com,
  ranjani.sridharan@linux.intel.com, pierre-louis.bossart@linux.intel.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
@@ -78,12 +76,15 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Thu, 10 Sep 2020 19:27:05 +0300, Kai Vehmanen wrote:
-> DMI product name is used to support system variants based out of
-> tgl_max98373_rt5682 in current implementation. Replace this DMI search with
-> DMI_OEM_STRING. Coreboot(BIOS used in these systems) is
-> setting the needed DMI_OEM_STRING field to uniquely identify these
-> systems.
+On Thu, 10 Sep 2020 19:41:21 +0300, Kai Vehmanen wrote:
+> This series contains some improvements to how DSP core management
+> is done in SOF, and adds a distinction between cores managed by
+> the host versus cores managed by the DSP.
+> 
+> Pierre-Louis Bossart (1):
+>   ASoC: SOF: Intel: hda-loader: s/master/primary
+> 
+> [...]
 
 Applied to
 
@@ -91,8 +92,14 @@ Applied to
 
 Thanks!
 
-[1/1] ASoC: SOF: Intel: Use DMI oem string search for tgl_max98373_rt5682
-      commit: 2a4b91a26403fa3e7b07271700c3ca7103664bba
+[1/4] ASoC: SOF: rename cores_mask to host_managed_cores_mask
+      commit: 64b969177c744a76142f45823dd9d94c38f79cd0
+[2/4] ASoC: SOF: Intel: hda: modify core_power_up/down op
+      commit: 914fab3b43633d03eb40e3216cc2857864589c60
+[3/4] ASoC: SOF: Intel: remove the HDA_DSP_CORE_MASK() macro
+      commit: fde106552845b7c369c2385b27062b1c2130a4dd
+[4/4] ASoC: SOF: Intel: hda-loader: s/master/primary
+      commit: 52e4d0ae6255446efaaaa2a7a1da7cc1640f78b5
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

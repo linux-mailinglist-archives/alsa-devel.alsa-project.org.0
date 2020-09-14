@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id DDF44269048
-	for <lists+alsa-devel@lfdr.de>; Mon, 14 Sep 2020 17:42:43 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D65D3269055
+	for <lists+alsa-devel@lfdr.de>; Mon, 14 Sep 2020 17:43:18 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 7D44116D1;
-	Mon, 14 Sep 2020 17:41:53 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7D44116D1
+	by alsa0.perex.cz (Postfix) with ESMTPS id 662D516E7;
+	Mon, 14 Sep 2020 17:42:28 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 662D516E7
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1600098163;
-	bh=CYH1CsDc34T5/TtGxDDRATTjQ8lmYfcbJULfT9sMhfA=;
+	s=default; t=1600098198;
+	bh=XYLL0KUMv9QFPVZiQoCBglWmF6MD1JN+dd5eHYK5nys=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=GlAXAEg+ImLBhuqSruc+b+wRpHal71jhbVPkVa/jZkrXtH3IvFhgEU37+wKBmFKPq
-	 neWidsQ5fv/xC/asWtG2RTtbcuyPpxRa/C53RrKgV4qChVUkfAftg4F1NUaZAh9X5p
-	 heA+gSsSGJGrbFmgC2tRkhIBb/gTU9rzX0OHnMKw=
+	b=T2QFgsMNYuR+zIWVQqcQnpsYX188MrHACGy+sYMYW+su4/c1js6jtPGYYioFK+t7M
+	 VjqWwao0tqBEARscW4YmJ6WL3NmQgwdp/NE2MKb49haIK9O2tEbA+GnmDrVOg6yldk
+	 9CRVoDBip49dkYm3dd2fnEjmLbM1gZRhxcfoT2ho=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 2BAC5F802EB;
-	Mon, 14 Sep 2020 17:38:29 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id D5F40F80305;
+	Mon, 14 Sep 2020 17:38:30 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 6A947F802DD; Mon, 14 Sep 2020 17:38:22 +0200 (CEST)
+ id CDDC9F802F8; Mon, 14 Sep 2020 17:38:24 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-1.7 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -34,43 +34,41 @@ X-Spam-Status: No, score=-1.7 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 9ED52F802A9
- for <alsa-devel@alsa-project.org>; Mon, 14 Sep 2020 17:38:15 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9ED52F802A9
+ by alsa1.perex.cz (Postfix) with ESMTPS id ECD06F802C4
+ for <alsa-devel@alsa-project.org>; Mon, 14 Sep 2020 17:38:17 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz ECD06F802C4
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="OO5CdqsX"
+ header.b="0RLRsiGw"
 Received: from localhost (83-86-74-64.cable.dynamic.v4.ziggo.nl [83.86.74.64])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
  bits)) (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id BB2BB21D1B;
- Mon, 14 Sep 2020 15:38:13 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id CC3DB21D41;
+ Mon, 14 Sep 2020 15:38:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1600097894;
- bh=CYH1CsDc34T5/TtGxDDRATTjQ8lmYfcbJULfT9sMhfA=;
+ s=default; t=1600097896;
+ bh=XYLL0KUMv9QFPVZiQoCBglWmF6MD1JN+dd5eHYK5nys=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=OO5CdqsX4I7wtBZYJAWDR7ATAHG4GgHsny6IA9UlBIgUXXkeKY6KUdkufxzkJgcD3
- iJRCXa0q66paNHfIDTNMWgQoIMjfB1PP5gMUFsITSuCjjEd5Sqtq2rGsm3c79riJ1S
- GV3cRB75CKBRdjKtTTFjyutxxDcZ65xqetS/CeQQ=
+ b=0RLRsiGw9J2HBRKIUDSkJWq/Wk+SLqdTbiRnMNsax1+8/6zw0h38/xrtWyJsYH7ir
+ j2EtHv9H2WhVDq5qBZLxfUo1+xEFswCPCdKLRRmeMryiXmTolxO5IB2E4cJd1qCTR+
+ 5C/KkJF39VnFJy6YJBV/l40mEs1Eju5mU018bPFo=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: himadrispandya@gmail.com,
 	dvyukov@google.com,
 	linux-usb@vger.kernel.org
-Subject: [PATCH v3 03/11] USB: core: message.c: use usb_control_msg_send() in
- a few places
-Date: Mon, 14 Sep 2020 17:37:48 +0200
-Message-Id: <20200914153756.3412156-4-gregkh@linuxfoundation.org>
+Subject: [PATCH v3 04/11] USB: core: hub.c: use usb_control_msg_send() in a
+ few places
+Date: Mon, 14 Sep 2020 17:37:49 +0200
+Message-Id: <20200914153756.3412156-5-gregkh@linuxfoundation.org>
 X-Mailer: git-send-email 2.28.0
 In-Reply-To: <20200914153756.3412156-1-gregkh@linuxfoundation.org>
 References: <20200914153756.3412156-1-gregkh@linuxfoundation.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Cc: alsa-devel@alsa-project.org,
- Andy Shevchenko <andriy.shevchenko@linux.intel.com>, johan.hedberg@gmail.com,
+Cc: alsa-devel@alsa-project.org, johan.hedberg@gmail.com,
  Greg Kroah-Hartman <gregkh@linuxfoundation.org>, marcel@holtmann.org,
- "Rafael J. Wysocki" <rafael.j.wysocki@intel.com>, linux-kernel@vger.kernel.org,
- tiwai@suse.com, stern@rowland.harvard.ed, linux-bluetooth@vger.kernel.org,
- Alan Stern <stern@rowland.harvard.edu>
+ linux-kernel@vger.kernel.org, tiwai@suse.com, stern@rowland.harvard.ed,
+ linux-bluetooth@vger.kernel.org, Alan Stern <stern@rowland.harvard.edu>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -88,109 +86,207 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 There are a few calls to usb_control_msg() that can be converted to use
 usb_control_msg_send() instead, so do that in order to make the error
-checking a bit simpler.
+checking a bit simpler and the code smaller.
 
 Cc: Alan Stern <stern@rowland.harvard.edu>
-Cc: "Rafael J. Wysocki" <rafael.j.wysocki@intel.com>
-Reviewed-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-Cc: linux-usb@vger.kernel.org
 Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 ---
 v3:
- - Added Andy's Reviewed-by:
+ - drop change in usb_enable_link_state() as it was not needed now
+   thanks to review from Alan
+ - minor changes requested by checkpatch.pl
 
 v2:
- - no change from v1
+ - dropped changes to usb_req_set_sel() thanks to review from Alan
 
- drivers/usb/core/message.c | 38 +++++++++++++++++++-------------------
- 1 file changed, 19 insertions(+), 19 deletions(-)
+ drivers/usb/core/hub.c | 99 +++++++++++++++++-------------------------
+ 1 file changed, 40 insertions(+), 59 deletions(-)
 
-diff --git a/drivers/usb/core/message.c b/drivers/usb/core/message.c
-index 1dc53b12a26a..1580694e3b95 100644
---- a/drivers/usb/core/message.c
-+++ b/drivers/usb/core/message.c
-@@ -1081,7 +1081,7 @@ int usb_set_isoch_delay(struct usb_device *dev)
- 	if (dev->speed < USB_SPEED_SUPER)
+diff --git a/drivers/usb/core/hub.c b/drivers/usb/core/hub.c
+index 5b768b80d1ee..5742ddeb0455 100644
+--- a/drivers/usb/core/hub.c
++++ b/drivers/usb/core/hub.c
+@@ -410,8 +410,8 @@ static int get_hub_descriptor(struct usb_device *hdev,
+  */
+ static int clear_hub_feature(struct usb_device *hdev, int feature)
+ {
+-	return usb_control_msg(hdev, usb_sndctrlpipe(hdev, 0),
+-		USB_REQ_CLEAR_FEATURE, USB_RT_HUB, feature, 0, NULL, 0, 1000);
++	return usb_control_msg_send(hdev, 0, USB_REQ_CLEAR_FEATURE, USB_RT_HUB,
++				    feature, 0, NULL, 0, 1000);
+ }
+ 
+ /*
+@@ -419,9 +419,8 @@ static int clear_hub_feature(struct usb_device *hdev, int feature)
+  */
+ int usb_clear_port_feature(struct usb_device *hdev, int port1, int feature)
+ {
+-	return usb_control_msg(hdev, usb_sndctrlpipe(hdev, 0),
+-		USB_REQ_CLEAR_FEATURE, USB_RT_PORT, feature, port1,
+-		NULL, 0, 1000);
++	return usb_control_msg_send(hdev, 0, USB_REQ_CLEAR_FEATURE, USB_RT_PORT,
++				    feature, port1, NULL, 0, 1000);
+ }
+ 
+ /*
+@@ -429,9 +428,8 @@ int usb_clear_port_feature(struct usb_device *hdev, int port1, int feature)
+  */
+ static int set_port_feature(struct usb_device *hdev, int port1, int feature)
+ {
+-	return usb_control_msg(hdev, usb_sndctrlpipe(hdev, 0),
+-		USB_REQ_SET_FEATURE, USB_RT_PORT, feature, port1,
+-		NULL, 0, 1000);
++	return usb_control_msg_send(hdev, 0, USB_REQ_SET_FEATURE, USB_RT_PORT,
++				    feature, port1, NULL, 0, 1000);
+ }
+ 
+ static char *to_led_name(int selector)
+@@ -755,15 +753,14 @@ hub_clear_tt_buffer(struct usb_device *hdev, u16 devinfo, u16 tt)
+ 	/* Need to clear both directions for control ep */
+ 	if (((devinfo >> 11) & USB_ENDPOINT_XFERTYPE_MASK) ==
+ 			USB_ENDPOINT_XFER_CONTROL) {
+-		int status = usb_control_msg(hdev, usb_sndctrlpipe(hdev, 0),
+-				HUB_CLEAR_TT_BUFFER, USB_RT_PORT,
+-				devinfo ^ 0x8000, tt, NULL, 0, 1000);
++		int status = usb_control_msg_send(hdev, 0,
++						  HUB_CLEAR_TT_BUFFER, USB_RT_PORT,
++						  devinfo ^ 0x8000, tt, NULL, 0, 1000);
+ 		if (status)
+ 			return status;
+ 	}
+-	return usb_control_msg(hdev, usb_sndctrlpipe(hdev, 0),
+-			       HUB_CLEAR_TT_BUFFER, USB_RT_PORT, devinfo,
+-			       tt, NULL, 0, 1000);
++	return usb_control_msg_send(hdev, 0, HUB_CLEAR_TT_BUFFER, USB_RT_PORT,
++				    devinfo, tt, NULL, 0, 1000);
+ }
+ 
+ /*
+@@ -1049,11 +1046,10 @@ static void hub_activate(struct usb_hub *hub, enum hub_activation_type type)
+ 	 */
+ 	if (type != HUB_RESUME) {
+ 		if (hdev->parent && hub_is_superspeed(hdev)) {
+-			ret = usb_control_msg(hdev, usb_sndctrlpipe(hdev, 0),
+-					HUB_SET_DEPTH, USB_RT_HUB,
+-					hdev->level - 1, 0, NULL, 0,
+-					USB_CTRL_SET_TIMEOUT);
+-			if (ret < 0)
++			ret = usb_control_msg_send(hdev, 0, HUB_SET_DEPTH, USB_RT_HUB,
++						   hdev->level - 1, 0, NULL, 0,
++						   USB_CTRL_SET_TIMEOUT);
++			if (ret)
+ 				dev_err(hub->intfdev,
+ 						"set hub depth failed\n");
+ 		}
+@@ -2329,13 +2325,10 @@ static int usb_enumerate_device_otg(struct usb_device *udev)
+ 		/* enable HNP before suspend, it's simpler */
+ 		if (port1 == bus->otg_port) {
+ 			bus->b_hnp_enable = 1;
+-			err = usb_control_msg(udev,
+-				usb_sndctrlpipe(udev, 0),
+-				USB_REQ_SET_FEATURE, 0,
+-				USB_DEVICE_B_HNP_ENABLE,
+-				0, NULL, 0,
+-				USB_CTRL_SET_TIMEOUT);
+-			if (err < 0) {
++			err = usb_control_msg_send(udev, 0, USB_REQ_SET_FEATURE, 0,
++						   USB_DEVICE_B_HNP_ENABLE, 0,
++						   NULL, 0, USB_CTRL_SET_TIMEOUT);
++			if (err) {
+ 				/*
+ 				 * OTG MESSAGE: report errors here,
+ 				 * customize to match your product.
+@@ -2347,13 +2340,10 @@ static int usb_enumerate_device_otg(struct usb_device *udev)
+ 		} else if (desc->bLength == sizeof
+ 				(struct usb_otg_descriptor)) {
+ 			/* Set a_alt_hnp_support for legacy otg device */
+-			err = usb_control_msg(udev,
+-				usb_sndctrlpipe(udev, 0),
+-				USB_REQ_SET_FEATURE, 0,
+-				USB_DEVICE_A_ALT_HNP_SUPPORT,
+-				0, NULL, 0,
+-				USB_CTRL_SET_TIMEOUT);
+-			if (err < 0)
++			err = usb_control_msg_send(udev, 0, USB_REQ_SET_FEATURE, 0,
++						   USB_DEVICE_A_ALT_HNP_SUPPORT, 0,
++						   NULL, 0, USB_CTRL_SET_TIMEOUT);
++			if (err)
+ 				dev_err(&udev->dev,
+ 					"set a_alt_hnp_support failed: %d\n",
+ 					err);
+@@ -3121,10 +3111,8 @@ int usb_disable_ltm(struct usb_device *udev)
+ 	if (!udev->actconfig)
  		return 0;
  
--	return usb_control_msg(dev, usb_sndctrlpipe(dev, 0),
-+	return usb_control_msg_send(dev, 0,
- 			USB_REQ_SET_ISOCH_DELAY,
- 			USB_DIR_OUT | USB_TYPE_STANDARD | USB_RECIP_DEVICE,
- 			dev->hub_delay, 0, NULL, 0,
-@@ -1203,13 +1203,13 @@ int usb_clear_halt(struct usb_device *dev, int pipe)
- 	 * (like some ibmcam model 1 units) seem to expect hosts to make
- 	 * this request for iso endpoints, which can't halt!
- 	 */
--	result = usb_control_msg(dev, usb_sndctrlpipe(dev, 0),
--		USB_REQ_CLEAR_FEATURE, USB_RECIP_ENDPOINT,
--		USB_ENDPOINT_HALT, endp, NULL, 0,
--		USB_CTRL_SET_TIMEOUT);
-+	result = usb_control_msg_send(dev, 0,
-+				      USB_REQ_CLEAR_FEATURE, USB_RECIP_ENDPOINT,
-+				      USB_ENDPOINT_HALT, endp, NULL, 0,
-+				      USB_CTRL_SET_TIMEOUT);
+-	return usb_control_msg(udev, usb_sndctrlpipe(udev, 0),
+-			USB_REQ_CLEAR_FEATURE, USB_RECIP_DEVICE,
+-			USB_DEVICE_LTM_ENABLE, 0, NULL, 0,
+-			USB_CTRL_SET_TIMEOUT);
++	return usb_control_msg_send(udev, 0, USB_REQ_CLEAR_FEATURE, USB_RECIP_DEVICE,
++				    USB_DEVICE_LTM_ENABLE, 0, NULL, 0, USB_CTRL_SET_TIMEOUT);
+ }
+ EXPORT_SYMBOL_GPL(usb_disable_ltm);
  
- 	/* don't un-halt or force to DATA0 except on success */
--	if (result < 0)
-+	if (result)
- 		return result;
+@@ -3143,10 +3131,8 @@ void usb_enable_ltm(struct usb_device *udev)
+ 	if (!udev->actconfig)
+ 		return;
  
- 	/* NOTE:  seems like Microsoft and Apple don't bother verifying
-@@ -1571,9 +1571,10 @@ int usb_set_interface(struct usb_device *dev, int interface, int alternate)
- 	if (dev->quirks & USB_QUIRK_NO_SET_INTF)
- 		ret = -EPIPE;
+-	usb_control_msg(udev, usb_sndctrlpipe(udev, 0),
+-			USB_REQ_SET_FEATURE, USB_RECIP_DEVICE,
+-			USB_DEVICE_LTM_ENABLE, 0, NULL, 0,
+-			USB_CTRL_SET_TIMEOUT);
++	usb_control_msg_send(udev, 0, USB_REQ_SET_FEATURE, USB_RECIP_DEVICE,
++			     USB_DEVICE_LTM_ENABLE, 0, NULL, 0, USB_CTRL_SET_TIMEOUT);
+ }
+ EXPORT_SYMBOL_GPL(usb_enable_ltm);
+ 
+@@ -3163,17 +3149,14 @@ EXPORT_SYMBOL_GPL(usb_enable_ltm);
+ static int usb_enable_remote_wakeup(struct usb_device *udev)
+ {
+ 	if (udev->speed < USB_SPEED_SUPER)
+-		return usb_control_msg(udev, usb_sndctrlpipe(udev, 0),
+-				USB_REQ_SET_FEATURE, USB_RECIP_DEVICE,
+-				USB_DEVICE_REMOTE_WAKEUP, 0, NULL, 0,
+-				USB_CTRL_SET_TIMEOUT);
++		return usb_control_msg_send(udev, 0, USB_REQ_SET_FEATURE, USB_RECIP_DEVICE,
++					    USB_DEVICE_REMOTE_WAKEUP, 0,
++					    NULL, 0, USB_CTRL_SET_TIMEOUT);
  	else
--		ret = usb_control_msg(dev, usb_sndctrlpipe(dev, 0),
--				   USB_REQ_SET_INTERFACE, USB_RECIP_INTERFACE,
--				   alternate, interface, NULL, 0, 5000);
-+		ret = usb_control_msg_send(dev, 0,
-+					   USB_REQ_SET_INTERFACE,
-+					   USB_RECIP_INTERFACE, alternate,
-+					   interface, NULL, 0, 5000);
+-		return usb_control_msg(udev, usb_sndctrlpipe(udev, 0),
+-				USB_REQ_SET_FEATURE, USB_RECIP_INTERFACE,
+-				USB_INTRF_FUNC_SUSPEND,
+-				USB_INTRF_FUNC_SUSPEND_RW |
+-					USB_INTRF_FUNC_SUSPEND_LP,
+-				NULL, 0, USB_CTRL_SET_TIMEOUT);
++		return usb_control_msg_send(udev, 0, USB_REQ_SET_FEATURE, USB_RECIP_INTERFACE,
++					    USB_INTRF_FUNC_SUSPEND,
++					    USB_INTRF_FUNC_SUSPEND_RW | USB_INTRF_FUNC_SUSPEND_LP,
++					    NULL, 0, USB_CTRL_SET_TIMEOUT);
+ }
  
- 	/* 9.4.10 says devices don't need this and are free to STALL the
- 	 * request if the interface only has one alternate setting.
-@@ -1583,7 +1584,7 @@ int usb_set_interface(struct usb_device *dev, int interface, int alternate)
- 			"manual set_interface for iface %d, alt %d\n",
- 			interface, alternate);
- 		manual = 1;
--	} else if (ret < 0) {
-+	} else if (ret) {
- 		/* Re-instate the old alt setting */
- 		usb_hcd_alloc_bandwidth(dev, NULL, alt, iface->cur_altsetting);
- 		usb_enable_lpm(dev);
-@@ -1707,11 +1708,10 @@ int usb_reset_configuration(struct usb_device *dev)
- 		mutex_unlock(hcd->bandwidth_mutex);
- 		return retval;
- 	}
--	retval = usb_control_msg(dev, usb_sndctrlpipe(dev, 0),
--			USB_REQ_SET_CONFIGURATION, 0,
--			config->desc.bConfigurationValue, 0,
--			NULL, 0, USB_CTRL_SET_TIMEOUT);
--	if (retval < 0) {
-+	retval = usb_control_msg_send(dev, 0, USB_REQ_SET_CONFIGURATION, 0,
-+				      config->desc.bConfigurationValue, 0,
-+				      NULL, 0, USB_CTRL_SET_TIMEOUT);
-+	if (retval) {
- 		usb_hcd_alloc_bandwidth(dev, NULL, NULL, NULL);
- 		usb_enable_lpm(dev);
- 		mutex_unlock(hcd->bandwidth_mutex);
-@@ -2096,10 +2096,10 @@ int usb_set_configuration(struct usb_device *dev, int configuration)
- 	}
- 	kfree(new_interfaces);
+ /*
+@@ -3189,15 +3172,13 @@ static int usb_enable_remote_wakeup(struct usb_device *udev)
+ static int usb_disable_remote_wakeup(struct usb_device *udev)
+ {
+ 	if (udev->speed < USB_SPEED_SUPER)
+-		return usb_control_msg(udev, usb_sndctrlpipe(udev, 0),
+-				USB_REQ_CLEAR_FEATURE, USB_RECIP_DEVICE,
+-				USB_DEVICE_REMOTE_WAKEUP, 0, NULL, 0,
+-				USB_CTRL_SET_TIMEOUT);
++		return usb_control_msg_send(udev, 0, USB_REQ_CLEAR_FEATURE, USB_RECIP_DEVICE,
++					    USB_DEVICE_REMOTE_WAKEUP, 0, NULL, 0,
++					    USB_CTRL_SET_TIMEOUT);
+ 	else
+-		return usb_control_msg(udev, usb_sndctrlpipe(udev, 0),
+-				USB_REQ_SET_FEATURE, USB_RECIP_INTERFACE,
+-				USB_INTRF_FUNC_SUSPEND,	0, NULL, 0,
+-				USB_CTRL_SET_TIMEOUT);
++		return usb_control_msg_send(udev, 0, USB_REQ_SET_FEATURE, USB_RECIP_INTERFACE,
++					    USB_INTRF_FUNC_SUSPEND, 0, NULL, 0,
++					    USB_CTRL_SET_TIMEOUT);
+ }
  
--	ret = usb_control_msg(dev, usb_sndctrlpipe(dev, 0),
--			      USB_REQ_SET_CONFIGURATION, 0, configuration, 0,
--			      NULL, 0, USB_CTRL_SET_TIMEOUT);
--	if (ret < 0 && cp) {
-+	ret = usb_control_msg_send(dev, 0, USB_REQ_SET_CONFIGURATION, 0,
-+				   configuration, 0, NULL, 0,
-+				   USB_CTRL_SET_TIMEOUT);
-+	if (ret && cp) {
- 		/*
- 		 * All the old state is gone, so what else can we do?
- 		 * The device is probably useless now anyway.
+ /* Count of wakeup-enabled devices at or below udev */
 -- 
 2.28.0
 

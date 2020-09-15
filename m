@@ -2,79 +2,82 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3947226A910
-	for <lists+alsa-devel@lfdr.de>; Tue, 15 Sep 2020 17:49:43 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A9A0026A92B
+	for <lists+alsa-devel@lfdr.de>; Tue, 15 Sep 2020 17:56:13 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 96E321676;
-	Tue, 15 Sep 2020 17:48:52 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 96E321676
+	by alsa0.perex.cz (Postfix) with ESMTPS id A2A681680;
+	Tue, 15 Sep 2020 17:55:22 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A2A681680
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1600184982;
-	bh=J7nP3T7lsrE/sKq6YXt1lyfPigmOJ4Hm7RJIV5FMhgw=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=qjeEnrTRPMKefI5k5fAhIHYyh1u8HjWWdbpDGIUJ4fE3Xcoil81c8s2mMTuefSnwX
-	 56zXOr1Ze81xeqIGp54nQE5nBnF5a8i2ZsUUn17/+sWzF998IHPww1wFwbjTAWWLkm
-	 U4Fj2voh0xDNHF2bdLNc/Jl2x9ASt4Csx3zxsDMg=
+	s=default; t=1600185372;
+	bh=9sbNUI8QMoKHeQzaDIvGyE4ld0mzTxPOciQ6zHPc+2c=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=u1HYx0ykcXqQsdU2Eft7W666OFrYwXNk5aOqrpskVHzOYI5L12Agr2nj7YVHpa2Ht
+	 pDNaI9mPiNvCLTt5rNlvhfoqHXN6HIh0hwf1gsi4QWKnBLbYLVw9OGDVsJd2GOPGWx
+	 IsUSRwVWE1TB4PrjLkY7J6noVLryVCc0AVBCkzsc=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id B3B84F8025E;
-	Tue, 15 Sep 2020 17:48:01 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 03C77F800F1;
+	Tue, 15 Sep 2020 17:54:31 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id B3243F80212; Tue, 15 Sep 2020 17:47:56 +0200 (CEST)
+ id 37C94F80212; Tue, 15 Sep 2020 17:54:28 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-1.9 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled
- version=3.4.0
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 9C3BEF80146
- for <alsa-devel@alsa-project.org>; Tue, 15 Sep 2020 17:47:49 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9C3BEF80146
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="qMuxCJIN"
-Received: from localhost (fw-tnat.cambridge.arm.com [217.140.96.140])
+X-Spam-Status: No, score=0.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ HEADER_FROM_DIFFERENT_DOMAINS,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from casper.infradead.org (casper.infradead.org
+ [IPv6:2001:8b0:10b:1236::1])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id BE02E206A1;
- Tue, 15 Sep 2020 15:47:45 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1600184866;
- bh=J7nP3T7lsrE/sKq6YXt1lyfPigmOJ4Hm7RJIV5FMhgw=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=qMuxCJINcntVKNrVdGyngDXzCMeQz63bTwZO98dhVLsFCc8OVvxRBT1TLF/bDfQ8u
- Os5gE23Fx1Rrn7vjOqzGtZEBRfupVjGHHusecAVc4hmsLfnenLgmoYfNtlirO+AZY7
- 9V0bw8u/X/+259WywbhxGrs7VEErZaPGcjtsbksk=
-Date: Tue, 15 Sep 2020 16:46:56 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Alexandre Belloni <alexandre.belloni@bootlin.com>
-Subject: Re: [PATCH 3/3] ASoC: tlv320aic32x4: Enable fast charge
-Message-ID: <20200915154656.GC4913@sirena.org.uk>
-References: <20200911173140.29984-1-miquel.raynal@bootlin.com>
- <20200911173140.29984-4-miquel.raynal@bootlin.com>
- <20200915082602.GH4230@piout.net>
- <20200915115034.GA5576@sirena.org.uk>
- <20200915130207.GA9675@piout.net>
- <20200915141025.GB4913@sirena.org.uk>
- <20200915161401.54f6d4f3@xps13> <20200915142743.GB9675@piout.net>
+ by alsa1.perex.cz (Postfix) with ESMTPS id E5EB6F800F1
+ for <alsa-devel@alsa-project.org>; Tue, 15 Sep 2020 17:54:20 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E5EB6F800F1
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org
+ header.b="oc+kgjLw"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=infradead.org; s=casper.20170209; h=Content-Transfer-Encoding:MIME-Version:
+ Message-Id:Date:Subject:Cc:To:From:Sender:Reply-To:Content-Type:Content-ID:
+ Content-Description:In-Reply-To:References;
+ bh=2UlbGdiZDTOnbAr3xs1aHbeR9XTzI0Lit7D+l7hf2I4=; b=oc+kgjLwN6z7KfpzJBCa7G7OBj
+ xMg3Fwxams8c4EpKokR8UZQx2ybyjDj6drc+aW/2LIv1O+PR2BmjXm+WhI4RUptwlI8TGWRoAeWLn
+ tDzzTX6C7Wcaz+wjCgZzqB/SScThzcLyj8JgUrilV2pjnlwL2WrjnmkdPgkjiBopQKBs17NlwGyrT
+ ONpkConNykQRC+jrpDpmqw3ajb1dphcelbcTILjH85oTRbiw7nNGsu7203+03im4y0uv272kq3shG
+ s0VEBKB5Z/ya3O5D9oa/TJdMgnhrtizoC8G9P+/zAzkC5+arP3EQvUavmCF3BtD/B11AifbDQWTH6
+ Z2mcOZcw==;
+Received: from 089144214092.atnat0023.highway.a1.net ([89.144.214.92]
+ helo=localhost)
+ by casper.infradead.org with esmtpsa (Exim 4.92.3 #3 (Red Hat Linux))
+ id 1kIDGv-0003AQ-TI; Tue, 15 Sep 2020 15:53:34 +0000
+From: Christoph Hellwig <hch@lst.de>
+To: Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
+ "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>,
+ Joonyoung Shim <jy0922.shim@samsung.com>,
+ Seung-Woo Kim <sw0312.kim@samsung.com>, Ben Skeggs <bskeggs@redhat.com>,
+ Marek Szyprowski <m.szyprowski@samsung.com>,
+ Tomasz Figa <tfiga@chromium.org>,
+ Matt Porter <mporter@kernel.crashing.org>, iommu@lists.linux-foundation.org
+Subject: a saner API for allocating DMA addressable pages v3
+Date: Tue, 15 Sep 2020 17:51:04 +0200
+Message-Id: <20200915155122.1768241-1-hch@lst.de>
+X-Mailer: git-send-email 2.28.0
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="6zdv2QT/q3FMhpsV"
-Content-Disposition: inline
-In-Reply-To: <20200915142743.GB9675@piout.net>
-X-Cookie: Linux is obsolete
-User-Agent: Mutt/1.10.1 (2018-07-13)
-Cc: alsa-devel@alsa-project.org, Liam Girdwood <lgirdwood@gmail.com>,
- linux-kernel@vger.kernel.org, Takashi Iwai <tiwai@suse.com>,
- Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
- Miquel Raynal <miquel.raynal@bootlin.com>
+Content-Transfer-Encoding: 8bit
+X-SRS-Rewrite: SMTP reverse-path rewritten from <hch@infradead.org> by
+ casper.infradead.org. See http://www.infradead.org/rpr.html
+Cc: alsa-devel@alsa-project.org, linux-samsung-soc@vger.kernel.org,
+ linux-scsi@vger.kernel.org, linux-parisc@vger.kernel.org,
+ linux-doc@vger.kernel.org, nouveau@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, linux-mips@vger.kernel.org, linux-mm@kvack.org,
+ Stefan Richter <stefanr@s5r6.in-berlin.de>, netdev@vger.kernel.org,
+ linux1394-devel@lists.sourceforge.net, linux-arm-kernel@lists.infradead.org,
+ linux-media@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -90,39 +93,53 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+Hi all,
 
---6zdv2QT/q3FMhpsV
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+this series replaced the DMA_ATTR_NON_CONSISTENT flag to dma_alloc_attrs
+with a separate new dma_alloc_pages API, which is available on all
+platforms.  In addition to cleaning up the convoluted code path, this
+ensures that other drivers that have asked for better support for
+non-coherent DMA to pages with incurring bounce buffering over can finally
+be properly supported.
 
-On Tue, Sep 15, 2020 at 04:27:43PM +0200, Alexandre Belloni wrote:
-> On 15/09/2020 16:14:01+0200, Miquel Raynal wrote:
+As a follow up I plan to move the implementation of the
+DMA_ATTR_NO_KERNEL_MAPPING flag over to this framework as well, given
+that is also is a fundamentally non coherent allocation.  The replacement
+for that flag would then return a struct page, as it is allowed to
+actually return pages without a kernel mapping as the name suggested
+(although most of the time they will actually have a kernel mapping..)
 
-> > Indeed, it is just affecting the ramp (peak current is bigger).
+In addition to the conversions of the existing non-coherent DMA users,
+I've also added a patch to convert the firewire ohci driver to use
+the new dma_alloc_pages API.
 
-> However, forcing powerup at probe time versus at play time means that
-> you consume power even when not playing audio.
+The first patch is queued up for 5.9 in the media tree, but included here
+for completeness.
 
-With older VMID referenced devices like this one seems to be there's
-usually not really any good tradeoffs.  You have to balance audible
-noise on the outputs when starting audio, idle power consumption and the
-time taken to get the device live either on starting a stream or boot.
-Generally for a given device there's a fairly clear optimum and trying
-to support multiple options makes things more complex and less robust.
 
---6zdv2QT/q3FMhpsV
-Content-Type: application/pgp-signature; name="signature.asc"
+A git tree is available here:
 
------BEGIN PGP SIGNATURE-----
+    git://git.infradead.org/users/hch/misc.git dma_alloc_pages
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl9g4fAACgkQJNaLcl1U
-h9DdOAf9EVOfUlhMpdtlwozgCQMUiBstCWWdfsHuYkiaenqDqEclIDYnBhtmN2Cc
-MliADocQVfBqlOkfLxmwSgRoCaHaIc76NuTNqgjtqeU09o/sET6wOiBUPH9GN721
-SyBQjncjYFYPbbAg0Fph7wouJOFFNz7kG2mhvGZnDHZNJr5h2cgEbo34uoD29e2W
-sD2t5jnRUcjnV3u3t25hEcEpAoAhJJ2BZDonislVQTai3qizCU3W0KMFEjKm2jNz
-tjL/JCUqp8u+Gg5KMCw8r7BTCEXVsFbu51I7OPLiJnPZtjhOyz9P985lJNtn6N0c
-9SMOCPxvAKoxhxjwCbg99BTcb3Difw==
-=lTzY
------END PGP SIGNATURE-----
+Gitweb:
 
---6zdv2QT/q3FMhpsV--
+    http://git.infradead.org/users/hch/misc.git/shortlog/refs/heads/dma_alloc_pages
+
+
+Changes since v2:
+ - fix up the patch reshuffle which wasn't quite correct
+ - fix up a few commit messages
+
+Changes since v1:
+ - rebased on the latests dma-mapping tree, which merged many of the
+   cleanups
+ - fix an argument passing typo in 53c700, caught by sparse
+ - rename a few macro arguments in 53c700
+ - pass the right device to the DMA API in the lib82596 drivers
+ - fix memory ownershiptransfers in sgiseeq
+ - better document what a page in the direct kernel mapping means
+ - split into dma_alloc_pages that returns a struct page and is in the
+   direct mapping vs dma_alloc_noncoherent that can be vmapped
+ - conver the firewire ohci driver to dma_alloc_pages
+
+Diffstat:

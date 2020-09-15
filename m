@@ -2,57 +2,85 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5B922269AB9
-	for <lists+alsa-devel@lfdr.de>; Tue, 15 Sep 2020 02:52:46 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A3B00269B5A
+	for <lists+alsa-devel@lfdr.de>; Tue, 15 Sep 2020 03:43:14 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D1646168A;
-	Tue, 15 Sep 2020 02:51:55 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D1646168A
+	by alsa0.perex.cz (Postfix) with ESMTPS id 198E7168C;
+	Tue, 15 Sep 2020 03:42:24 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 198E7168C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1600131165;
-	bh=KzuinrcQUIl08H1/piWa3D509mK7/2Jb9Nns7YiXlsw=;
-	h=Subject:From:To:References:Date:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=N1Fbbk7n1vdPVLWW2/gCugO/F1jhSfQt2qQtn8Ahv7A+N8YtV9s7yRWYbGK8jsMlU
-	 ZsdO8Kl0//pjiqWyBHQrdBxVOjfj06m8yVxbs70CSsof5DtZ2mce2RscmLO9gx3CUS
-	 ZTTaxKdjNbVTCew2/2eSoXOLJSMD42owpgxj9iXc=
+	s=default; t=1600134194;
+	bh=7wbLw+2QaVa0blZR9W4jxKWDsRD7Yiqluh8ks6eHwb0=;
+	h=To:From:Subject:Date:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=ofToi36REO1JbvubbQyvIuRxpTYKX7ZnyODKb1LBwnHuTw4ojbs/k38r+LwWVVNk0
+	 LAJozPltDVGk5KN0tbEQhU4Zv4XSjyCVjrlYlmQyZNYd37zAr7/hHCqB7dTLPMbHfC
+	 EDjCJj9aVarlsytBE/qIacSXJ5imEb6qyjw75VhY=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 01FBAF8015D;
-	Tue, 15 Sep 2020 02:51:05 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 09FF3F8025E;
+	Tue, 15 Sep 2020 03:41:33 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 4A650F80150; Tue, 15 Sep 2020 02:50:58 +0200 (CEST)
-Received: from youngberry.canonical.com (youngberry.canonical.com
- [91.189.89.112])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
+ id D6559F80212; Tue, 15 Sep 2020 03:41:30 +0200 (CEST)
+Received: from mail-wr1-x42e.google.com (mail-wr1-x42e.google.com
+ [IPv6:2a00:1450:4864:20::42e])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id CFA1AF80150
- for <alsa-devel@alsa-project.org>; Tue, 15 Sep 2020 02:40:51 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CFA1AF80150
-Received: from [123.112.108.22] (helo=[192.168.0.106])
- by youngberry.canonical.com with esmtpsa
- (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.86_2)
- (envelope-from <hui.wang@canonical.com>)
- id 1kHz1b-0008CV-Oa; Tue, 15 Sep 2020 00:40:48 +0000
-Subject: Re: [PATCH 1/2] leds: trigger: audio: Add audio jack plugging
- indicator led
-From: Hui Wang <hui.wang@canonical.com>
-To: alsa-devel@alsa-project.org, tiwai@suse.de, pavel@ucw.cz
-References: <20200914080655.14576-1-hui.wang@canonical.com>
-Message-ID: <31db3c5a-a664-e01d-298d-2e3a02525b47@canonical.com>
-Date: Tue, 15 Sep 2020 08:40:41 +0800
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.10.0
+ by alsa1.perex.cz (Postfix) with ESMTPS id 39A76F80146
+ for <alsa-devel@alsa-project.org>; Tue, 15 Sep 2020 03:31:28 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 39A76F80146
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
+ header.b="Kq8lKLuY"
+Received: by mail-wr1-x42e.google.com with SMTP id w5so1495010wrp.8
+ for <alsa-devel@alsa-project.org>; Mon, 14 Sep 2020 18:31:28 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=to:from:subject:message-id:date:user-agent:mime-version
+ :content-language;
+ bh=gZcUb3wY7rSgGBEWOPBR3fSf32+6cwmAqXyaXOY2pWc=;
+ b=Kq8lKLuYVvLqboFmlROlsv9feFUvDw2cfWP872KqTMnFWgI6lEelRtin+xl53BsbEg
+ wZd5Nd8oRY4gRMVRUXvMrSoZJd9HVUtqT4v4A8QOayQ+pDmiIIgPnro6iHWjyC0kiicr
+ hNdl/9AnQYyQNLIcuAYhvIv3TSyDdM+8rGPNo4F0nQeajosOlhrLgpMnHA4mUg3++Gch
+ ij/xCGB/YXJCKIgHarzORqvXotQpepMXLXYZWBzYZet+RKL45lhjP0rJencln9fGrXKY
+ 4HxRCgqH0aZ+MXfgy0XNBYmVHGlHl764w43TI7EuR1pgyEbkR1hKLaNptUHBdBdkgMC0
+ MNPg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:to:from:subject:message-id:date:user-agent
+ :mime-version:content-language;
+ bh=gZcUb3wY7rSgGBEWOPBR3fSf32+6cwmAqXyaXOY2pWc=;
+ b=mc5DFL/GjaJdNJ2GG943Uuil04MxlHi2QKuDQXEWTsuy2JWXP71Ucw4fxYG9aK2PFW
+ F3esMJTGsGhbXc3Q8fYKbh5hYfcQjGVJpLSH8TyCljDmx+1T77SBFkJ6sBUYA/nsvbNJ
+ Sph7sAv416fzSRISUIZ+/oTUJyP7LGeof7cmGNkcuOEVkIkKoxS65XUC5CLGhT3Q9p2X
+ h3auuRq44cJibz13X8Zw7ZBec9NrYeuYCXsAuqLrBVipcRMdIQsQYeVd7xgSyJzeuOHR
+ eYMOXY/VvxDAi3Yin6gIdFD+4YW0kvve1kIIOSD25TFZOoM3DErC7/jTrh74r2XtFZY9
+ 2IAw==
+X-Gm-Message-State: AOAM5320yULe9kkwOYJ7UW5825tvs4AQEa4dW448Tb9IgP0F4ZA4duxf
+ faDgdjVZLnLNxkYlCJ/QS4gBmOOBbuE=
+X-Google-Smtp-Source: ABdhPJy4fAZqklM1YJwKx1hvlTnIPt0sLrS0bz/WRXngHZOLOmeoALOKtEvXUE6lg1wRa4TyWLoEEQ==
+X-Received: by 2002:a5d:43cf:: with SMTP id v15mr20150175wrr.149.1600133486725; 
+ Mon, 14 Sep 2020 18:31:26 -0700 (PDT)
+Received: from ?IPv6:2a01:cb10:469:be00:2641:8cff:fe08:f9f3?
+ ([2a01:cb10:469:be00:2641:8cff:fe08:f9f3])
+ by smtp.gmail.com with ESMTPSA id e18sm27163840wra.36.2020.09.14.18.31.25
+ for <alsa-devel@alsa-project.org>
+ (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+ Mon, 14 Sep 2020 18:31:26 -0700 (PDT)
+To: alsa-devel@alsa-project.org
+From: Olivier SCHMITT <sc.olivier@gmail.com>
+Subject: Possible bug for ubuntu 20.04 with CONFIG_SND_MAX_CARDS=256
+Message-ID: <c9c7d62e-29eb-8dcc-063d-c8bc3651d7fd@gmail.com>
+Date: Tue, 15 Sep 2020 03:31:24 +0200
+User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:60.0) Gecko/20100101
+ Thunderbird/60.9.1
 MIME-Version: 1.0
-In-Reply-To: <20200914080655.14576-1-hui.wang@canonical.com>
+Content-Language: fr
 Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 8bit
-Content-Language: en-US
-Cc: kai.heng.feng@canonical.com, linux-leds@vger.kernel.org
+Content-Transfer-Encoding: 7bit
+X-Content-Filtered-By: Mailman/MimeDel 2.1.15
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -68,93 +96,21 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Please ignore this patchset,  our QA retested this led under Windows, 
-the led was always on after booting no matter users plug in or plug out.
+Hello dear all,
 
-If the led could change under Windows in future, I will resend the patchset.
+I have been compiling kernels for a long time with CONFIG_SND_MAX_CARDS 
+= 256 and increasing the sample rate.
+I switched to ubuntu 20.04 server lts.
 
-Thanks,
+Everything is working fine until I compile alsa-lib.
 
-Hui.
+git clone git: //git.alsa-project.org/alsa-lib.git alsa-lib
+./gitcompile --with-max-cards = 256
 
+But after the make install, the plughw, dmix and dnsoop disappear.
 
-On 2020/9/14 下午4:06, Hui Wang wrote:
-> On the Lenovo P520 front panel, there is a headset plugging indicator
-> led. According to LENOVO's requirement, this led should be on if the
-> front headset audio jack is plugged, otherwise the led should be off.
->
-> We tested with windows, if we plugged a headphone/headset in that
-> jack, the led was on, if we removed the headphone/headset from that
-> jack, the led was off.
->
-> Here we add JACKPLUG led in the ledtrig_audio, then we could call
-> ledtrig_audio_set() in the alsa driver to control that led.
->
-> Signed-off-by: Hui Wang <hui.wang@canonical.com>
-> ---
->   drivers/leds/trigger/Kconfig         | 4 ++--
->   drivers/leds/trigger/ledtrig-audio.c | 7 +++++--
->   include/linux/leds.h                 | 1 +
->   3 files changed, 8 insertions(+), 4 deletions(-)
->
-> diff --git a/drivers/leds/trigger/Kconfig b/drivers/leds/trigger/Kconfig
-> index ce9429ca6dde..a61893a6e3e4 100644
-> --- a/drivers/leds/trigger/Kconfig
-> +++ b/drivers/leds/trigger/Kconfig
-> @@ -138,10 +138,10 @@ config LEDS_TRIGGER_PATTERN
->   	  If unsure, say N
->   
->   config LEDS_TRIGGER_AUDIO
-> -	tristate "Audio Mute LED Trigger"
-> +	tristate "Audio Mute and Jack Plugging LED Trigger"
->   	help
->   	  This allows LEDs to be controlled by audio drivers for following
-> -	  the audio mute and mic-mute changes.
-> +	  the audio mute, mic-mute and jack plugging changes.
->   	  If unsure, say N
->   
->   endif # LEDS_TRIGGERS
-> diff --git a/drivers/leds/trigger/ledtrig-audio.c b/drivers/leds/trigger/ledtrig-audio.c
-> index f76621e88482..fa66bb982400 100644
-> --- a/drivers/leds/trigger/ledtrig-audio.c
-> +++ b/drivers/leds/trigger/ledtrig-audio.c
-> @@ -1,6 +1,6 @@
->   // SPDX-License-Identifier: GPL-2.0
->   //
-> -// Audio Mute LED trigger
-> +// Audio Mute And Jack Plugging LED trigger
->   //
->   
->   #include <linux/kernel.h>
-> @@ -29,6 +29,8 @@ static int __init ledtrig_audio_init(void)
->   				    &ledtrig_audio[LED_AUDIO_MUTE]);
->   	led_trigger_register_simple("audio-micmute",
->   				    &ledtrig_audio[LED_AUDIO_MICMUTE]);
-> +	led_trigger_register_simple("audio-jackplug",
-> +				    &ledtrig_audio[LED_AUDIO_JACKPLUG]);
->   	return 0;
->   }
->   module_init(ledtrig_audio_init);
-> @@ -37,8 +39,9 @@ static void __exit ledtrig_audio_exit(void)
->   {
->   	led_trigger_unregister_simple(ledtrig_audio[LED_AUDIO_MUTE]);
->   	led_trigger_unregister_simple(ledtrig_audio[LED_AUDIO_MICMUTE]);
-> +	led_trigger_unregister_simple(ledtrig_audio[LED_AUDIO_JACKPLUG]);
->   }
->   module_exit(ledtrig_audio_exit);
->   
-> -MODULE_DESCRIPTION("LED trigger for audio mute control");
-> +MODULE_DESCRIPTION("LED trigger for audio mute and jack plugging control");
->   MODULE_LICENSE("GPL v2");
-> diff --git a/include/linux/leds.h b/include/linux/leds.h
-> index 6a8d6409c993..1858c2d30ecd 100644
-> --- a/include/linux/leds.h
-> +++ b/include/linux/leds.h
-> @@ -584,6 +584,7 @@ struct led_pattern {
->   enum led_audio {
->   	LED_AUDIO_MUTE,		/* master mute LED */
->   	LED_AUDIO_MICMUTE,	/* mic mute LED */
-> +	LED_AUDIO_JACKPLUG,	/* audio jack plug indicator LED */
->   	NUM_AUDIO_LEDS
->   };
->   
+Do you have an idea? I uploaded alsa-info on:
+
+http://alsa-project.org/db/?f=8860b8bbb5abd5a84d3002717d68206db7da4a9c
+
+Thanks in advance.

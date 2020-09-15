@@ -2,29 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id AE25526AD09
-	for <lists+alsa-devel@lfdr.de>; Tue, 15 Sep 2020 21:08:42 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8022226AD07
+	for <lists+alsa-devel@lfdr.de>; Tue, 15 Sep 2020 21:08:33 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 5519C1691;
-	Tue, 15 Sep 2020 21:07:52 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5519C1691
+	by alsa0.perex.cz (Postfix) with ESMTPS id 160251612;
+	Tue, 15 Sep 2020 21:07:43 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 160251612
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1600196922;
-	bh=oS4D//hyf71ysZQMO1QisiVTl1TUMq3VTNlpWnOXZKQ=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=dgWqAwxaalkdD1gArPI50DJEjLLMo6AQxqKLugH79/mWUC9sXdTSn+B/qk3mzE6c7
-	 nXuClIz6w3ybPj/smrt2D6N2kMBmypgxXGQwFyN+ykSULRQQOchJMTYTiUZVXB1b2O
-	 r4tL8Bxaf8cqhOLfQkpV8jNU/56QF6KAPOO15Kao=
+	s=default; t=1600196913;
+	bh=eFKRLsM1wi5VpXmo7Rx+cZCFXk0sF3mV9/p1jJ+if5s=;
+	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=WmTZbjvfdjkc1ZpH+4WbaYZIAh7mTJa1tgKzBKuk6NKykB7Me5MdWUqAHISlUiLIE
+	 nJMu7O7gqsjDUVHvvvltmTi3IQHck9EVObeQ35LXROZzRvN4FQj60tUtVJw9AX4wgd
+	 t2vBsb2+wv62y1Jvtq0UkirPF3OgBv+1e/25HupY=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 4E29CF802D2;
-	Tue, 15 Sep 2020 21:06:29 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 37E41F8028B;
+	Tue, 15 Sep 2020 21:06:28 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 38BCFF80146; Tue, 15 Sep 2020 21:06:25 +0200 (CEST)
+ id 34CADF80290; Tue, 15 Sep 2020 21:06:25 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-1.9 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -33,44 +34,45 @@ X-Spam-Status: No, score=-1.9 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 Received: from lelv0142.ext.ti.com (lelv0142.ext.ti.com [198.47.23.249])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 9EADBF80146
- for <alsa-devel@alsa-project.org>; Tue, 15 Sep 2020 21:06:13 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9EADBF80146
+ by alsa1.perex.cz (Postfix) with ESMTPS id 1E6F6F8025E
+ for <alsa-devel@alsa-project.org>; Tue, 15 Sep 2020 21:06:18 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1E6F6F8025E
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b="DZmw5M9R"
-Received: from lelv0265.itg.ti.com ([10.180.67.224])
- by lelv0142.ext.ti.com (8.15.2/8.15.2) with ESMTP id 08FJ6COP013395;
- Tue, 15 Sep 2020 14:06:12 -0500
+ dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b="dJDHqhDL"
+Received: from lelv0266.itg.ti.com ([10.180.67.225])
+ by lelv0142.ext.ti.com (8.15.2/8.15.2) with ESMTP id 08FJ6HwF013519;
+ Tue, 15 Sep 2020 14:06:17 -0500
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com;
- s=ti-com-17Q1; t=1600196772;
- bh=EAXQSylEvOtZPY7n6DOnauI/m1zyOC+7tLJj6RWm6wE=;
- h=From:To:CC:Subject:Date;
- b=DZmw5M9R5+Yt4l3T8wjwVFBtFLlLpA/o/5ILZWGQY9kKgeOtiOOXdOCeaHR7bQdvW
- JujFy96Q0B9SBmpHOTyMH1TpYW6W8fxproNal+NKFkBFpRxg1kGlbKmS/nW+99cZJU
- Fw36sZ23yGRxrghMWgKFDbtoMgBrx4i8xjRoFpuo=
-Received: from DFLE113.ent.ti.com (dfle113.ent.ti.com [10.64.6.34])
- by lelv0265.itg.ti.com (8.15.2/8.15.2) with ESMTPS id 08FJ6CoV073700
+ s=ti-com-17Q1; t=1600196777;
+ bh=DkyZu5LoKU5RAM9n+bYIZ61osvE1080309ep6aCvTeQ=;
+ h=From:To:CC:Subject:Date:In-Reply-To:References;
+ b=dJDHqhDLlbu/voylnBEqiHCcamsxrLf7XEuptb+xoVF1Dy5AtnD6Zdb+GfFaiKH14
+ 0mQ8Swajq7q18FBSuLLnOa7qwHAJPg/3/+xrEPYEoHHisv5tqt5I0parp7Hs2OuFUF
+ boZeL5akkfU/5gvYj5CbHftCbDOExC0ehAQB9neo=
+Received: from DLEE112.ent.ti.com (dlee112.ent.ti.com [157.170.170.23])
+ by lelv0266.itg.ti.com (8.15.2/8.15.2) with ESMTPS id 08FJ6HI8060486
  (version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=FAIL);
- Tue, 15 Sep 2020 14:06:12 -0500
-Received: from DFLE113.ent.ti.com (10.64.6.34) by DFLE113.ent.ti.com
- (10.64.6.34) with Microsoft SMTP Server (version=TLS1_2,
+ Tue, 15 Sep 2020 14:06:17 -0500
+Received: from DLEE108.ent.ti.com (157.170.170.38) by DLEE112.ent.ti.com
+ (157.170.170.23) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.1979.3; Tue, 15
- Sep 2020 14:06:12 -0500
-Received: from lelv0326.itg.ti.com (10.180.67.84) by DFLE113.ent.ti.com
- (10.64.6.34) with Microsoft SMTP Server (version=TLS1_2,
+ Sep 2020 14:06:17 -0500
+Received: from lelv0327.itg.ti.com (10.180.67.183) by DLEE108.ent.ti.com
+ (157.170.170.38) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.1979.3 via
- Frontend Transport; Tue, 15 Sep 2020 14:06:12 -0500
+ Frontend Transport; Tue, 15 Sep 2020 14:06:17 -0500
 Received: from localhost (ileax41-snat.itg.ti.com [10.172.224.153])
- by lelv0326.itg.ti.com (8.15.2/8.15.2) with ESMTP id 08FJ6Bkp085621;
- Tue, 15 Sep 2020 14:06:11 -0500
+ by lelv0327.itg.ti.com (8.15.2/8.15.2) with ESMTP id 08FJ6HpF008040;
+ Tue, 15 Sep 2020 14:06:17 -0500
 From: Dan Murphy <dmurphy@ti.com>
 To: <lgirdwood@gmail.com>, <broonie@kernel.org>, <tiwai@suse.com>,
  <robh+dt@kernel.org>
-Subject: [PATCH 1/6] ASoC: tlv320adcx140: Idle the device while writing
- registers
-Date: Tue, 15 Sep 2020 14:06:01 -0500
-Message-ID: <20200915190606.1744-1-dmurphy@ti.com>
+Subject: [PATCH 2/6] ASoC: tlv320adcx140: Fix BCLK inversion for DSP modes
+Date: Tue, 15 Sep 2020 14:06:02 -0500
+Message-ID: <20200915190606.1744-2-dmurphy@ti.com>
 X-Mailer: git-send-email 2.27.0
+In-Reply-To: <20200915190606.1744-1-dmurphy@ti.com>
+References: <20200915190606.1744-1-dmurphy@ti.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
@@ -92,158 +94,109 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-It was observed that if the device was active and register writes were
-performed there were some unwanted behaviors particularly when writing
-the word length and some filter options. So when writing to the device
-the device should be placed in sleep mode and then exit sleep mode once
-the register update is complete.
+Fix the BCLK inversion for DSP modes
+This is how it is defined by ASoC:
+ * BCLK:
+ * - "normal" polarity means signal is available at rising edge of BCLK
+ * - "inverted" polarity means signal is available at falling edge of BCLK
+
+The adcx140 defines the BCLK edge based on coding type.
+The PCM (DSP_A/B) should drive on rising and sample on falling edge, so
+from ASoC pov, it is IB_NF. But from the codec pov if it is configured in
+DSP mode, then the BCLK should not be inverted, defaults to the coding
+standard.
+
+For i2s, it is NB_NF from ASoC pov (drive on falling, sample on rising).
+From the codec's pov BCLK should not invert either, as this is the default
+for the coding.
+
+So, inversion must take the format into account:
+IB_NF + DSP_A/B == the codec bclk inversion should be disabled
+NB_NF + DSP_A/B == the codec bclk inversion should be enabled
+NB_NF + I2S == the codec bclk inversion should be disabled
 
 Signed-off-by: Dan Murphy <dmurphy@ti.com>
 ---
- sound/soc/codecs/tlv320adcx140.c | 43 ++++++++++++++++++++++++--------
- sound/soc/codecs/tlv320adcx140.h |  2 ++
- 2 files changed, 34 insertions(+), 11 deletions(-)
+ sound/soc/codecs/tlv320adcx140.c | 44 +++++++++++++++++---------------
+ 1 file changed, 23 insertions(+), 21 deletions(-)
 
 diff --git a/sound/soc/codecs/tlv320adcx140.c b/sound/soc/codecs/tlv320adcx140.c
-index 8efe20605f9b..3909c1cf52be 100644
+index 3909c1cf52be..73d18e8002e4 100644
 --- a/sound/soc/codecs/tlv320adcx140.c
 +++ b/sound/soc/codecs/tlv320adcx140.c
-@@ -30,7 +30,7 @@ struct adcx140_priv {
- 	struct regmap *regmap;
- 	struct device *dev;
+@@ -673,7 +673,7 @@ static int adcx140_set_dai_fmt(struct snd_soc_dai *codec_dai,
+ 	u8 iface_reg1 = 0;
+ 	u8 iface_reg2 = 0;
+ 	int offset = 0;
+-	int width = adcx140->slot_width;
++	bool inverted_bclk = false;
  
--	int micbias_vg;
-+	bool micbias_vg;
- 
- 	unsigned int dai_fmt;
- 	unsigned int tdm_delay;
-@@ -614,11 +614,26 @@ static int adcx140_reset(struct adcx140_priv *adcx140)
- 	return ret;
- }
- 
-+static void adcx140_pwr_ctrl(struct adcx140_priv *adcx140, bool power_state)
-+{
-+	int pwr_ctrl = 0;
-+
-+	if (power_state)
-+		pwr_ctrl = ADCX140_PWR_CFG_ADC_PDZ | ADCX140_PWR_CFG_PLL_PDZ;
-+
-+	if (adcx140->micbias_vg && power_state)
-+		pwr_ctrl |= ADCX140_PWR_CFG_BIAS_PDZ;
-+
-+	regmap_update_bits(adcx140->regmap, ADCX140_PWR_CFG,
-+			   ADCX140_PWR_CTRL_MSK, pwr_ctrl);
-+}
-+
- static int adcx140_hw_params(struct snd_pcm_substream *substream,
- 			     struct snd_pcm_hw_params *params,
- 			     struct snd_soc_dai *dai)
- {
- 	struct snd_soc_component *component = dai->component;
-+	struct adcx140_priv *adcx140 = snd_soc_component_get_drvdata(component);
- 	u8 data = 0;
- 
- 	switch (params_width(params)) {
-@@ -640,9 +655,13 @@ static int adcx140_hw_params(struct snd_pcm_substream *substream,
+ 	/* set master/slave audio interface */
+ 	switch (fmt & SND_SOC_DAIFMT_MASTER_MASK) {
+@@ -689,24 +689,6 @@ static int adcx140_set_dai_fmt(struct snd_soc_dai *codec_dai,
  		return -EINVAL;
  	}
  
-+	adcx140_pwr_ctrl(adcx140, false);
+-	/* signal polarity */
+-	switch (fmt & SND_SOC_DAIFMT_INV_MASK) {
+-	case SND_SOC_DAIFMT_NB_IF:
+-		iface_reg1 |= ADCX140_FSYNCINV_BIT;
+-		break;
+-	case SND_SOC_DAIFMT_IB_IF:
+-		iface_reg1 |= ADCX140_BCLKINV_BIT | ADCX140_FSYNCINV_BIT;
+-		break;
+-	case SND_SOC_DAIFMT_IB_NF:
+-		iface_reg1 |= ADCX140_BCLKINV_BIT;
+-		break;
+-	case SND_SOC_DAIFMT_NB_NF:
+-		break;
+-	default:
+-		dev_err(component->dev, "Invalid DAI clock signal polarity\n");
+-		return -EINVAL;
+-	}
+-
+ 	/* interface format */
+ 	switch (fmt & SND_SOC_DAIFMT_FORMAT_MASK) {
+ 	case SND_SOC_DAIFMT_I2S:
+@@ -716,16 +698,36 @@ static int adcx140_set_dai_fmt(struct snd_soc_dai *codec_dai,
+ 		iface_reg1 |= ADCX140_LEFT_JUST_BIT;
+ 		break;
+ 	case SND_SOC_DAIFMT_DSP_A:
+-		offset += (adcx140->tdm_delay * width + 1);
++		offset = 1;
++		inverted_bclk = true;
+ 		break;
+ 	case SND_SOC_DAIFMT_DSP_B:
+-		offset += adcx140->tdm_delay * width;
++		inverted_bclk = true;
+ 		break;
+ 	default:
+ 		dev_err(component->dev, "Invalid DAI interface format\n");
+ 		return -EINVAL;
+ 	}
+ 
++	/* signal polarity */
++	switch (fmt & SND_SOC_DAIFMT_INV_MASK) {
++	case SND_SOC_DAIFMT_IB_NF:
++	case SND_SOC_DAIFMT_IB_IF:
++		inverted_bclk = !inverted_bclk;
++		break;
++	case SND_SOC_DAIFMT_NB_IF:
++		iface_reg1 |= ADCX140_FSYNCINV_BIT;
++		break;
++	case SND_SOC_DAIFMT_NB_NF:
++		break;
++	default:
++		dev_err(component->dev, "Invalid DAI clock signal polarity\n");
++		return -EINVAL;
++	}
 +
- 	snd_soc_component_update_bits(component, ADCX140_ASI_CFG0,
- 			    ADCX140_WORD_LEN_MSK, data);
- 
-+	adcx140_pwr_ctrl(adcx140, true);
++	if (inverted_bclk)
++		iface_reg1 |= ADCX140_BCLKINV_BIT;
 +
- 	return 0;
- }
- 
-@@ -709,6 +728,8 @@ static int adcx140_set_dai_fmt(struct snd_soc_dai *codec_dai,
- 
  	adcx140->dai_fmt = fmt & SND_SOC_DAIFMT_FORMAT_MASK;
  
-+	adcx140_pwr_ctrl(adcx140, false);
-+
- 	snd_soc_component_update_bits(component, ADCX140_ASI_CFG0,
- 				      ADCX140_FSYNCINV_BIT |
- 				      ADCX140_BCLKINV_BIT |
-@@ -721,6 +742,7 @@ static int adcx140_set_dai_fmt(struct snd_soc_dai *codec_dai,
- 	snd_soc_component_update_bits(component, ADCX140_ASI_CFG1,
- 				      ADCX140_TX_OFFSET_MASK, offset);
- 
-+	adcx140_pwr_ctrl(adcx140, true);
- 
- 	return 0;
- }
-@@ -818,12 +840,11 @@ static int adcx140_codec_probe(struct snd_soc_component *component)
- 
- 	ret = device_property_read_u32(adcx140->dev, "ti,mic-bias-source",
- 				      &bias_source);
--	if (ret)
-+	if (ret || bias_source > ADCX140_MIC_BIAS_VAL_AVDD) {
- 		bias_source = ADCX140_MIC_BIAS_VAL_VREF;
--
--	if (bias_source > ADCX140_MIC_BIAS_VAL_AVDD) {
--		dev_err(adcx140->dev, "Mic Bias source value is invalid\n");
--		return -EINVAL;
-+		adcx140->micbias_vg = false;
-+	} else {
-+		adcx140->micbias_vg = true;
- 	}
- 
- 	ret = device_property_read_u32(adcx140->dev, "ti,vref-source",
-@@ -906,6 +927,8 @@ static int adcx140_codec_probe(struct snd_soc_component *component)
- 				ADCX140_MIC_BIAS_VREF_MSK, bias_cfg);
- 	if (ret)
- 		dev_err(adcx140->dev, "setting MIC bias failed %d\n", ret);
-+
-+	adcx140_pwr_ctrl(adcx140, true);
- out:
- 	return ret;
- }
-@@ -914,21 +937,19 @@ static int adcx140_set_bias_level(struct snd_soc_component *component,
- 				  enum snd_soc_bias_level level)
- {
- 	struct adcx140_priv *adcx140 = snd_soc_component_get_drvdata(component);
--	int pwr_cfg = 0;
- 
- 	switch (level) {
- 	case SND_SOC_BIAS_ON:
- 	case SND_SOC_BIAS_PREPARE:
- 	case SND_SOC_BIAS_STANDBY:
--		pwr_cfg = ADCX140_PWR_CFG_BIAS_PDZ | ADCX140_PWR_CFG_PLL_PDZ |
--			  ADCX140_PWR_CFG_ADC_PDZ;
-+		adcx140_pwr_ctrl(adcx140, true);
- 		break;
- 	case SND_SOC_BIAS_OFF:
--		pwr_cfg = 0x0;
-+		adcx140_pwr_ctrl(adcx140, false);
- 		break;
- 	}
- 
--	return regmap_write(adcx140->regmap, ADCX140_PWR_CFG, pwr_cfg);
-+	return 0;
- }
- 
- static const struct snd_soc_component_driver soc_codec_driver_adcx140 = {
-diff --git a/sound/soc/codecs/tlv320adcx140.h b/sound/soc/codecs/tlv320adcx140.h
-index eedbc1d7221f..94c6d1fd2977 100644
---- a/sound/soc/codecs/tlv320adcx140.h
-+++ b/sound/soc/codecs/tlv320adcx140.h
-@@ -123,6 +123,7 @@
- #define ADCX140_MIC_BIAS_VREF_1375V	2
- #define ADCX140_MIC_BIAS_VREF_MSK GENMASK(1, 0)
- 
-+#define ADCX140_PWR_CTRL_MSK    GENMASK(7, 5)
- #define ADCX140_PWR_CFG_BIAS_PDZ	BIT(7)
- #define ADCX140_PWR_CFG_ADC_PDZ		BIT(6)
- #define ADCX140_PWR_CFG_PLL_PDZ		BIT(5)
-@@ -145,4 +146,5 @@
- #define ADCX140_GPO_CFG_MAX		4
- #define ADCX140_GPO_DRV_MAX		5
- 
-+
- #endif /* _TLV320ADCX140_ */
+ 	adcx140_pwr_ctrl(adcx140, false);
 -- 
 2.28.0
 

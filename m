@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A7B0126A962
-	for <lists+alsa-devel@lfdr.de>; Tue, 15 Sep 2020 18:13:29 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C9FCB26A96F
+	for <lists+alsa-devel@lfdr.de>; Tue, 15 Sep 2020 18:15:35 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 41572168C;
-	Tue, 15 Sep 2020 18:12:39 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 41572168C
+	by alsa0.perex.cz (Postfix) with ESMTPS id 658A61695;
+	Tue, 15 Sep 2020 18:14:45 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 658A61695
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1600186409;
-	bh=d/fx/+OjCyvMemSeRCOP2vZjQojM+QoJzcLV113oyZE=;
+	s=default; t=1600186535;
+	bh=jIlj9x74m/aIrhkFcp/OezA/Rt9J+f/TGKCsABpj9Nw=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=nXMVKPtCGF0yT/9Okq4pDQ4EKpGhrNSaetZTGDeYOnaSyr97FEApIB+e/sZYi0ReQ
-	 h/ndebX2To/dXRrk1wjSN0QaK6zfJeEzuEW2btnuDX/6TES9TNr056vRBVQT9rW+rM
-	 22Ld9eLUKy4/qPhDJNlteoAzh37S8E0E7A9xANxo=
+	b=N+6fFYGIsRwa2P7i2BVCC0Q7oh/nlsDmVu+ZggKg1V5EH0APzq+qzST/B/jzqSq2V
+	 9OAbMFP6CLdyfOsaNuFiKTvKypI70ywmz4/6ss/1qtUiIFlMXBUR2gcS2TryCn3EDf
+	 VtxUfdLGOzrlzo2ABuYFduIIm8OLQe0P0eHzP84E=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 5A0D4F80212;
-	Tue, 15 Sep 2020 18:11:48 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id A673DF80146;
+	Tue, 15 Sep 2020 18:13:54 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id E749AF8025E; Tue, 15 Sep 2020 18:11:45 +0200 (CEST)
+ id 86EB1F80212; Tue, 15 Sep 2020 18:13:52 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -35,26 +35,26 @@ Received: from casper.infradead.org (casper.infradead.org
  [IPv6:2001:8b0:10b:1236::1])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id C73A9F80146
- for <alsa-devel@alsa-project.org>; Tue, 15 Sep 2020 18:11:35 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C73A9F80146
+ by alsa1.perex.cz (Postfix) with ESMTPS id 10770F80146
+ for <alsa-devel@alsa-project.org>; Tue, 15 Sep 2020 18:13:43 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 10770F80146
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org
- header.b="DkmB3YTM"
+ header.b="Itp/Q3JR"
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=infradead.org; s=casper.20170209; h=Content-Transfer-Encoding:MIME-Version:
  References:In-Reply-To:Message-Id:Date:Subject:Cc:To:From:Sender:Reply-To:
  Content-Type:Content-ID:Content-Description;
- bh=I03vZyMCQXixsKgB+vAi29QqwSDPgVkGV9+ViaS1CMg=; b=DkmB3YTM4x4P/03PR0YpgL495M
- EfAecJ6/RbGViN36w0QSd/Tr391/7C3qp+8l6E51mioxfYFEf84qweB7rrRnnk+XS4NrRJAxVL9or
- eM1zmit6nOvg6b55NFhpo114VioVSvnslqOCa1VQJwriMKfnb1O5WFoJuez65V/sByOexHLk1aG12
- kIJoLn37eUqAXIXtLeRRXw1BLM962vL4dorybD0panUqncIhUNKnleKBHKVtAPesBxrCrYXQozSDG
- Ht+YUL90n+pvTplQ82CtOCFOCta92rwWzKpTg+cQVDksvP2loDwB8A2oyP92wwnyQJsL9Bj01w7CB
- wY2hcvmw==;
+ bh=Guqxj07xwr5MuMGWT2PdBQLUVmSBHz1SxHMxp26SQAM=; b=Itp/Q3JRcH/NoLIHSU3m7qeF67
+ gdhEr5XoAv7CiO4A0JxQ9Ti91ecohZg09mmgvHrQ+qoZ6uxG9jjAF5CYBRkGY4hkrZ8oLusOXawRu
+ itEmIISOfcaM1ZycQkbekQzpocP6mbHhti1ust7wPgdCSXc66m8BGmkDx98nY/j8QwaRK1bMXlU+m
+ bYtvv7XU/3VQJbFpljGBOuuUeAEg3A3Iw5CUCndXJ/8B9we1WY5JyUIiuhTRei/9HurInzcXik9Ju
+ uioPNWsVFBKt3ob9SdqR4jaV4K2ad4/sztjOMkemAO/dxqRpZQjqa6xUWACYYBfwxKEGU2wvZU38V
+ 7RUXb+ng==;
 Received: from 089144214092.atnat0023.highway.a1.net ([89.144.214.92]
  helo=localhost)
  by casper.infradead.org with esmtpsa (Exim 4.92.3 #3 (Red Hat Linux))
- id 1kIDXq-0004bk-Fp; Tue, 15 Sep 2020 16:11:02 +0000
+ id 1kIDZx-0004jl-Hl; Tue, 15 Sep 2020 16:13:13 +0000
 From: Christoph Hellwig <hch@lst.de>
 To: Mauro Carvalho Chehab <mchehab@kernel.org>,
  Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
@@ -64,9 +64,9 @@ To: Mauro Carvalho Chehab <mchehab@kernel.org>,
  Marek Szyprowski <m.szyprowski@samsung.com>,
  Tomasz Figa <tfiga@chromium.org>,
  Matt Porter <mporter@kernel.crashing.org>, iommu@lists.linux-foundation.org
-Subject: [PATCH 08/18] dma-mapping: add a new dma_alloc_noncoherent API
-Date: Tue, 15 Sep 2020 17:51:12 +0200
-Message-Id: <20200915155122.1768241-9-hch@lst.de>
+Subject: [PATCH 09/18] sgiwd93: convert to dma_alloc_noncoherent
+Date: Tue, 15 Sep 2020 17:51:13 +0200
+Message-Id: <20200915155122.1768241-10-hch@lst.de>
 X-Mailer: git-send-email 2.28.0
 In-Reply-To: <20200915155122.1768241-1-hch@lst.de>
 References: <20200915155122.1768241-1-hch@lst.de>
@@ -96,155 +96,61 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Add a new API to allocate and free memory that is guaranteed to be
-addressable by a device, but which potentially is not cache coherent
-for DMA.
-
-To transfer ownership to and from the device, the existing streaming
-DMA API calls dma_sync_single_for_device and dma_sync_single_for_cpu
-must be used.
-
-For now the new calls are implemented on top of dma_alloc_attrs just
-like the old-noncoherent API, but once all drivers are switched to
-the new API it will be replaced with a better working implementation
-that is available on all architectures.
+Use the new non-coherent DMA API including proper ownership transfers.
+This also means we can allocate the memory as DMA_TO_DEVICE instead
+of bidirectional.
 
 Signed-off-by: Christoph Hellwig <hch@lst.de>
 ---
- Documentation/core-api/dma-api.rst | 75 ++++++++++++++----------------
- include/linux/dma-mapping.h        | 12 +++++
- 2 files changed, 48 insertions(+), 39 deletions(-)
+ drivers/scsi/sgiwd93.c | 14 +++++++-------
+ 1 file changed, 7 insertions(+), 7 deletions(-)
 
-diff --git a/Documentation/core-api/dma-api.rst b/Documentation/core-api/dma-api.rst
-index 90239348b30f6f..ea0413276ddb70 100644
---- a/Documentation/core-api/dma-api.rst
-+++ b/Documentation/core-api/dma-api.rst
-@@ -516,48 +516,56 @@ routines, e.g.:::
- 	}
- 
- 
--Part II - Advanced dma usage
------------------------------
-+Part II - Non-coherent DMA allocations
-+--------------------------------------
- 
--Warning: These pieces of the DMA API should not be used in the
--majority of cases, since they cater for unlikely corner cases that
--don't belong in usual drivers.
-+These APIs allow to allocate pages in the kernel direct mapping that are
-+guaranteed to be DMA addressable.  This means that unlike dma_alloc_coherent,
-+virt_to_page can be called on the resulting address, and the resulting
-+struct page can be used for everything a struct page is suitable for.
- 
--If you don't understand how cache line coherency works between a
--processor and an I/O device, you should not be using this part of the
--API at all.
-+If you don't understand how cache line coherency works between a processor and
-+an I/O device, you should not be using this part of the API.
- 
- ::
- 
- 	void *
--	dma_alloc_attrs(struct device *dev, size_t size, dma_addr_t *dma_handle,
--			gfp_t flag, unsigned long attrs)
-+	dma_alloc_noncoherent(struct device *dev, size_t size,
-+			dma_addr_t *dma_handle, enum dma_data_direction dir,
-+			gfp_t gfp)
- 
--Identical to dma_alloc_coherent() except that when the
--DMA_ATTR_NON_CONSISTENT flags is passed in the attrs argument, the
--platform will choose to return either consistent or non-consistent memory
--as it sees fit.  By using this API, you are guaranteeing to the platform
--that you have all the correct and necessary sync points for this memory
--in the driver should it choose to return non-consistent memory.
-+This routine allocates a region of <size> bytes of consistent memory.  It
-+returns a pointer to the allocated region (in the processor's virtual address
-+space) or NULL if the allocation failed.  The returned memory may or may not
-+be in the kernels direct mapping.  Drivers must not call virt_to_page on
-+the returned memory region.
- 
--Note: where the platform can return consistent memory, it will
--guarantee that the sync points become nops.
-+It also returns a <dma_handle> which may be cast to an unsigned integer the
-+same width as the bus and given to the device as the DMA address base of
-+the region.
- 
--Warning:  Handling non-consistent memory is a real pain.  You should
--only use this API if you positively know your driver will be
--required to work on one of the rare (usually non-PCI) architectures
--that simply cannot make consistent memory.
-+The dir parameter specified if data is read and/or written by the device,
-+see dma_map_single() for details.
-+
-+The gfp parameter allows the caller to specify the ``GFP_`` flags (see
-+kmalloc()) for the allocation, but rejects flags used to specify a memory
-+zone such as GFP_DMA or GFP_HIGHMEM.
-+
-+Before giving the memory to the device, dma_sync_single_for_device() needs
-+to be called, and before reading memory written by the device,
-+dma_sync_single_for_cpu(), just like for streaming DMA mappings that are
-+reused.
- 
- ::
- 
- 	void
--	dma_free_attrs(struct device *dev, size_t size, void *cpu_addr,
--		       dma_addr_t dma_handle, unsigned long attrs)
-+	dma_free_noncoherent(struct device *dev, size_t size, void *cpu_addr,
-+			dma_addr_t dma_handle, enum dma_data_direction dir)
- 
--Free memory allocated by the dma_alloc_attrs().  All common
--parameters must be identical to those otherwise passed to dma_free_coherent,
--and the attrs argument must be identical to the attrs passed to
--dma_alloc_attrs().
-+Free a region of memory previously allocated using dma_alloc_noncoherent().
-+dev, size and dma_handle and dir must all be the same as those passed into
-+dma_alloc_noncoherent().  cpu_addr must be the virtual address returned by
-+the dma_alloc_noncoherent().
- 
- ::
- 
-@@ -575,17 +583,6 @@ memory or doing partial flushes.
- 	into the width returned by this call.  It will also always be a power
- 	of two for easy alignment.
- 
--::
--
--	void
--	dma_cache_sync(struct device *dev, void *vaddr, size_t size,
--		       enum dma_data_direction direction)
--
--Do a partial sync of memory that was allocated by dma_alloc_attrs() with
--the DMA_ATTR_NON_CONSISTENT flag starting at virtual address vaddr and
--continuing on for size.  Again, you *must* observe the cache line
--boundaries when doing this.
--
- 
- Part III - Debug drivers use of the DMA-API
- -------------------------------------------
-diff --git a/include/linux/dma-mapping.h b/include/linux/dma-mapping.h
-index df0bff2ea750e0..4e1de194b45cbf 100644
---- a/include/linux/dma-mapping.h
-+++ b/include/linux/dma-mapping.h
-@@ -389,6 +389,18 @@ static inline unsigned long dma_get_merge_boundary(struct device *dev)
+diff --git a/drivers/scsi/sgiwd93.c b/drivers/scsi/sgiwd93.c
+index 3bdf0deb8f1529..cf1030c9dda17f 100644
+--- a/drivers/scsi/sgiwd93.c
++++ b/drivers/scsi/sgiwd93.c
+@@ -95,7 +95,7 @@ void fill_hpc_entries(struct ip22_hostdata *hd, struct scsi_cmnd *cmd, int din)
+ 	 */
+ 	hcp->desc.pbuf = 0;
+ 	hcp->desc.cntinfo = HPCDMA_EOX;
+-	dma_cache_sync(hd->dev, hd->cpu,
++	dma_sync_single_for_device(hd->dev, hd->dma,
+ 		       (unsigned long)(hcp + 1) - (unsigned long)hd->cpu,
+ 		       DMA_TO_DEVICE);
  }
- #endif /* CONFIG_HAS_DMA */
+@@ -234,8 +234,8 @@ static int sgiwd93_probe(struct platform_device *pdev)
  
-+static inline void *dma_alloc_noncoherent(struct device *dev, size_t size,
-+		dma_addr_t *dma_handle, enum dma_data_direction dir, gfp_t gfp)
-+{
-+	return dma_alloc_attrs(dev, size, dma_handle, gfp,
-+			DMA_ATTR_NON_CONSISTENT);
-+}
-+static inline void dma_free_noncoherent(struct device *dev, size_t size,
-+		void *vaddr, dma_addr_t dma_handle, enum dma_data_direction dir)
-+{
-+	dma_free_attrs(dev, size, vaddr, dma_handle, DMA_ATTR_NON_CONSISTENT);
-+}
-+
- static inline dma_addr_t dma_map_single_attrs(struct device *dev, void *ptr,
- 		size_t size, enum dma_data_direction dir, unsigned long attrs)
- {
+ 	hdata = host_to_hostdata(host);
+ 	hdata->dev = &pdev->dev;
+-	hdata->cpu = dma_alloc_attrs(&pdev->dev, HPC_DMA_SIZE, &hdata->dma,
+-				     GFP_KERNEL, DMA_ATTR_NON_CONSISTENT);
++	hdata->cpu = dma_alloc_noncoherent(&pdev->dev, HPC_DMA_SIZE,
++				&hdata->dma, DMA_TO_DEVICE, GFP_KERNEL);
+ 	if (!hdata->cpu) {
+ 		printk(KERN_WARNING "sgiwd93: Could not allocate memory for "
+ 		       "host %d buffer.\n", unit);
+@@ -274,8 +274,8 @@ static int sgiwd93_probe(struct platform_device *pdev)
+ out_irq:
+ 	free_irq(irq, host);
+ out_free:
+-	dma_free_attrs(&pdev->dev, HPC_DMA_SIZE, hdata->cpu, hdata->dma,
+-		       DMA_ATTR_NON_CONSISTENT);
++	dma_free_noncoherent(&pdev->dev, HPC_DMA_SIZE, hdata->cpu, hdata->dma,
++			DMA_TO_DEVICE);
+ out_put:
+ 	scsi_host_put(host);
+ out:
+@@ -291,8 +291,8 @@ static int sgiwd93_remove(struct platform_device *pdev)
+ 
+ 	scsi_remove_host(host);
+ 	free_irq(pd->irq, host);
+-	dma_free_attrs(&pdev->dev, HPC_DMA_SIZE, hdata->cpu, hdata->dma,
+-		       DMA_ATTR_NON_CONSISTENT);
++	dma_free_noncoherent(&pdev->dev, HPC_DMA_SIZE, hdata->cpu, hdata->dma,
++			DMA_TO_DEVICE);
+ 	scsi_host_put(host);
+ 	return 0;
+ }
 -- 
 2.28.0
 

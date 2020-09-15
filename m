@@ -2,63 +2,57 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id CFBF8269AA5
-	for <lists+alsa-devel@lfdr.de>; Tue, 15 Sep 2020 02:45:52 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5B922269AB9
+	for <lists+alsa-devel@lfdr.de>; Tue, 15 Sep 2020 02:52:46 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 35323168D;
-	Tue, 15 Sep 2020 02:45:02 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 35323168D
+	by alsa0.perex.cz (Postfix) with ESMTPS id D1646168A;
+	Tue, 15 Sep 2020 02:51:55 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D1646168A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1600130752;
-	bh=r8OpBFUJaw9trizu1ZU7tomg1B6moUMLg7v27LTPZmg=;
-	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
+	s=default; t=1600131165;
+	bh=KzuinrcQUIl08H1/piWa3D509mK7/2Jb9Nns7YiXlsw=;
+	h=Subject:From:To:References:Date:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=GibywNTBYTkKrHlESEylN5qDguTX3XQDVXnHxvI9R5LBBTVdEHp3Nc32aRXKepQ5m
-	 SPyOOx2FLpt+FOaix4uBcCzkIFYU0HETPVX0TZR/8hRbG7q0X9Sv5VtUWqDp2J6xx0
-	 55tB2vvxXRENp07PJLDQQm+ld5eOhlDjFnrybuXU=
+	b=N1Fbbk7n1vdPVLWW2/gCugO/F1jhSfQt2qQtn8Ahv7A+N8YtV9s7yRWYbGK8jsMlU
+	 ZsdO8Kl0//pjiqWyBHQrdBxVOjfj06m8yVxbs70CSsof5DtZ2mce2RscmLO9gx3CUS
+	 ZTTaxKdjNbVTCew2/2eSoXOLJSMD42owpgxj9iXc=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 26FE0F800F1;
-	Tue, 15 Sep 2020 02:44:11 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 01FBAF8015D;
+	Tue, 15 Sep 2020 02:51:05 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 648B1F8015C; Tue, 15 Sep 2020 02:44:07 +0200 (CEST)
+ id 4A650F80150; Tue, 15 Sep 2020 02:50:58 +0200 (CEST)
 Received: from youngberry.canonical.com (youngberry.canonical.com
  [91.189.89.112])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id E9000F800AA
- for <alsa-devel@alsa-project.org>; Tue, 15 Sep 2020 02:34:04 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E9000F800AA
+ by alsa1.perex.cz (Postfix) with ESMTPS id CFA1AF80150
+ for <alsa-devel@alsa-project.org>; Tue, 15 Sep 2020 02:40:51 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CFA1AF80150
 Received: from [123.112.108.22] (helo=[192.168.0.106])
  by youngberry.canonical.com with esmtpsa
  (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.86_2)
  (envelope-from <hui.wang@canonical.com>)
- id 1kHyuw-0007LQ-2C; Tue, 15 Sep 2020 00:33:54 +0000
-Subject: Re: [PATCH] ALSA: hda/realtek: Enable front panel headset LED on
- Lenovo ThinkStation P520
-To: Kai-Heng Feng <kai.heng.feng@canonical.com>
-References: <20200914070231.13192-1-kai.heng.feng@canonical.com>
- <c4a9ed79-1c9d-8fbc-8c3b-eab191bd56bd@canonical.com>
- <07CC762F-BA94-43C0-A8C8-5B3C43291F3E@canonical.com>
+ id 1kHz1b-0008CV-Oa; Tue, 15 Sep 2020 00:40:48 +0000
+Subject: Re: [PATCH 1/2] leds: trigger: audio: Add audio jack plugging
+ indicator led
 From: Hui Wang <hui.wang@canonical.com>
-Message-ID: <b3d97430-027e-a753-9c07-c16142735c5e@canonical.com>
-Date: Tue, 15 Sep 2020 08:33:44 +0800
+To: alsa-devel@alsa-project.org, tiwai@suse.de, pavel@ucw.cz
+References: <20200914080655.14576-1-hui.wang@canonical.com>
+Message-ID: <31db3c5a-a664-e01d-298d-2e3a02525b47@canonical.com>
+Date: Tue, 15 Sep 2020 08:40:41 +0800
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
  Thunderbird/68.10.0
 MIME-Version: 1.0
-In-Reply-To: <07CC762F-BA94-43C0-A8C8-5B3C43291F3E@canonical.com>
+In-Reply-To: <20200914080655.14576-1-hui.wang@canonical.com>
 Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Transfer-Encoding: 8bit
 Content-Language: en-US
-Cc: "moderated list:SOUND" <alsa-devel@alsa-project.org>,
- Kailang Yang <kailang@realtek.com>, tiwai@suse.com,
- open list <linux-kernel@vger.kernel.org>, Thomas Hebb <tommyhebb@gmail.com>,
- Huacai Chen <chenhc@lemote.com>, Jian-Hong Pan <jian-hong@endlessm.com>,
- =?UTF-8?B?TWljaGHFgiBNaXJvc8WCYXc=?= <mirq-linux@rere.qmqm.pl>
+Cc: kai.heng.feng@canonical.com, linux-leds@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -74,66 +68,93 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-OK,  then looks fine to me.
+Please ignore this patchset,  our QA retested this led under Windows, 
+the led was always on after booting no matter users plug in or plug out.
 
-Acked-by:Hui Wang <hui.wang@canonical.com>
+If the led could change under Windows in future, I will resend the patchset.
 
-On 2020/9/14 下午4:07, Kai-Heng Feng wrote:
-> Hi Hui,
+Thanks,
+
+Hui.
+
+
+On 2020/9/14 下午4:06, Hui Wang wrote:
+> On the Lenovo P520 front panel, there is a headset plugging indicator
+> led. According to LENOVO's requirement, this led should be on if the
+> front headset audio jack is plugged, otherwise the led should be off.
 >
->> On Sep 14, 2020, at 16:04, Hui Wang <hui.wang@canonical.com> wrote:
->>
->> Thanks Kaiheng, and we just had one P520 in the Beijing office and I also worked on this issue happenly. Does the led change according to jack plugging in or plugging out with your patch?
-> No, the LED won't reflect the jack plugging status.
+> We tested with windows, if we plugged a headphone/headset in that
+> jack, the led was on, if we removed the headphone/headset from that
+> jack, the led was off.
 >
-> The LED is always on under Windows, so we are doing the same here.
+> Here we add JACKPLUG led in the ledtrig_audio, then we could call
+> ledtrig_audio_set() in the alsa driver to control that led.
 >
-> Kai-Heng
+> Signed-off-by: Hui Wang <hui.wang@canonical.com>
+> ---
+>   drivers/leds/trigger/Kconfig         | 4 ++--
+>   drivers/leds/trigger/ledtrig-audio.c | 7 +++++--
+>   include/linux/leds.h                 | 1 +
+>   3 files changed, 8 insertions(+), 4 deletions(-)
 >
->> I also prepared a patchset but my patchset has more code than yours, please take a look. :-)
->>
->> Thanks.
->>
->> Hui.
->>
->> On 2020/9/14 下午3:02, Kai-Heng Feng wrote:
->>> On Lenovo P520, the front panel headset LED isn't lit up right now.
->>>
->>> Realtek states that the LED needs to be enabled by ALC233's GPIO2, so
->>> let's do it accordingly to light the LED up.
->>>
->>> Signed-off-by: Kai-Heng Feng <kai.heng.feng@canonical.com>
->>> ---
->>>   sound/pci/hda/patch_realtek.c | 7 +++++++
->>>   1 file changed, 7 insertions(+)
->>>
->>> diff --git a/sound/pci/hda/patch_realtek.c b/sound/pci/hda/patch_realtek.c
->>> index c521a1f17096..ba941bd0b792 100644
->>> --- a/sound/pci/hda/patch_realtek.c
->>> +++ b/sound/pci/hda/patch_realtek.c
->>> @@ -6017,6 +6017,7 @@ static void alc_fixup_thinkpad_acpi(struct hda_codec *codec,
->>>   #include "hp_x360_helper.c"
->>>     enum {
->>> +	ALC269_FIXUP_GPIO2,
->>>   	ALC269_FIXUP_SONY_VAIO,
->>>   	ALC275_FIXUP_SONY_VAIO_GPIO2,
->>>   	ALC269_FIXUP_DELL_M101Z,
->>> @@ -6194,6 +6195,10 @@ enum {
->>>   };
->>>     static const struct hda_fixup alc269_fixups[] = {
->>> +	[ALC269_FIXUP_GPIO2] = {
->>> +		.type = HDA_FIXUP_FUNC,
->>> +		.v.func = alc_fixup_gpio2,
->>> +	},
->>>   	[ALC269_FIXUP_SONY_VAIO] = {
->>>   		.type = HDA_FIXUP_PINCTLS,
->>>   		.v.pins = (const struct hda_pintbl[]) {
->>> @@ -7013,6 +7018,8 @@ static const struct hda_fixup alc269_fixups[] = {
->>>   	[ALC233_FIXUP_LENOVO_MULTI_CODECS] = {
->>>   		.type = HDA_FIXUP_FUNC,
->>>   		.v.func = alc233_alc662_fixup_lenovo_dual_codecs,
->>> +		.chained = true,
->>> +		.chain_id = ALC269_FIXUP_GPIO2
->>>   	},
->>>   	[ALC233_FIXUP_ACER_HEADSET_MIC] = {
->>>   		.type = HDA_FIXUP_VERBS,
+> diff --git a/drivers/leds/trigger/Kconfig b/drivers/leds/trigger/Kconfig
+> index ce9429ca6dde..a61893a6e3e4 100644
+> --- a/drivers/leds/trigger/Kconfig
+> +++ b/drivers/leds/trigger/Kconfig
+> @@ -138,10 +138,10 @@ config LEDS_TRIGGER_PATTERN
+>   	  If unsure, say N
+>   
+>   config LEDS_TRIGGER_AUDIO
+> -	tristate "Audio Mute LED Trigger"
+> +	tristate "Audio Mute and Jack Plugging LED Trigger"
+>   	help
+>   	  This allows LEDs to be controlled by audio drivers for following
+> -	  the audio mute and mic-mute changes.
+> +	  the audio mute, mic-mute and jack plugging changes.
+>   	  If unsure, say N
+>   
+>   endif # LEDS_TRIGGERS
+> diff --git a/drivers/leds/trigger/ledtrig-audio.c b/drivers/leds/trigger/ledtrig-audio.c
+> index f76621e88482..fa66bb982400 100644
+> --- a/drivers/leds/trigger/ledtrig-audio.c
+> +++ b/drivers/leds/trigger/ledtrig-audio.c
+> @@ -1,6 +1,6 @@
+>   // SPDX-License-Identifier: GPL-2.0
+>   //
+> -// Audio Mute LED trigger
+> +// Audio Mute And Jack Plugging LED trigger
+>   //
+>   
+>   #include <linux/kernel.h>
+> @@ -29,6 +29,8 @@ static int __init ledtrig_audio_init(void)
+>   				    &ledtrig_audio[LED_AUDIO_MUTE]);
+>   	led_trigger_register_simple("audio-micmute",
+>   				    &ledtrig_audio[LED_AUDIO_MICMUTE]);
+> +	led_trigger_register_simple("audio-jackplug",
+> +				    &ledtrig_audio[LED_AUDIO_JACKPLUG]);
+>   	return 0;
+>   }
+>   module_init(ledtrig_audio_init);
+> @@ -37,8 +39,9 @@ static void __exit ledtrig_audio_exit(void)
+>   {
+>   	led_trigger_unregister_simple(ledtrig_audio[LED_AUDIO_MUTE]);
+>   	led_trigger_unregister_simple(ledtrig_audio[LED_AUDIO_MICMUTE]);
+> +	led_trigger_unregister_simple(ledtrig_audio[LED_AUDIO_JACKPLUG]);
+>   }
+>   module_exit(ledtrig_audio_exit);
+>   
+> -MODULE_DESCRIPTION("LED trigger for audio mute control");
+> +MODULE_DESCRIPTION("LED trigger for audio mute and jack plugging control");
+>   MODULE_LICENSE("GPL v2");
+> diff --git a/include/linux/leds.h b/include/linux/leds.h
+> index 6a8d6409c993..1858c2d30ecd 100644
+> --- a/include/linux/leds.h
+> +++ b/include/linux/leds.h
+> @@ -584,6 +584,7 @@ struct led_pattern {
+>   enum led_audio {
+>   	LED_AUDIO_MUTE,		/* master mute LED */
+>   	LED_AUDIO_MICMUTE,	/* mic mute LED */
+> +	LED_AUDIO_JACKPLUG,	/* audio jack plug indicator LED */
+>   	NUM_AUDIO_LEDS
+>   };
+>   

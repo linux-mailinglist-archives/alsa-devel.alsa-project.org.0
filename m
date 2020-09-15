@@ -2,75 +2,102 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B3A0426A46F
-	for <lists+alsa-devel@lfdr.de>; Tue, 15 Sep 2020 13:53:16 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1478A26A57D
+	for <lists+alsa-devel@lfdr.de>; Tue, 15 Sep 2020 14:47:05 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 5D01A167A;
-	Tue, 15 Sep 2020 13:52:25 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5D01A167A
+	by alsa0.perex.cz (Postfix) with ESMTPS id 8527D844;
+	Tue, 15 Sep 2020 14:46:14 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8527D844
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1600170795;
-	bh=4AdVvb9OpJlCLAFzmltxBUT5yXR5yQZ90HPJkguTE/g=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1600174024;
+	bh=OfnmzC0DheBXXPtE8cIXi2pWYzEdYrpbb9yo5UKplHg=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=CZlYoRd4J5nSLGvj3bxBaaB2IsmjAb8KZAUZDWTT2DF5b+TZ989UXIyFaE78xJhuS
-	 B+vdt2z2eH8ZlcQW02zGcpBLUkUjFYTys+b8XXVfz+UCfEako5j/XcdD1GLgVZuqFA
-	 O1FPBRlG09MLfIGUG29NTiSaAFOh9+6kELBOQut0=
+	b=dJQgoyvpMrJwXRTUQrFGmr3bjOnaO5AlCkg++C/DgSm1FII5dh/vpT2d4mIy3F9St
+	 KL5AH0VE4UUpSPXUObozZvT/Ix8zlCnOqbfKLTkb6cnAb+exSoIf3iWS4fH4iIT8gc
+	 r+7GYP9+nikwEBSMIlm9Fmgq0oyEHdxtrx+ZW5K8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 65DEAF8025E;
-	Tue, 15 Sep 2020 13:51:34 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 99F0CF80146;
+	Tue, 15 Sep 2020 14:45:23 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 69046F80212; Tue, 15 Sep 2020 13:51:32 +0200 (CEST)
+ id 32DF7F80212; Tue, 15 Sep 2020 14:45:21 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-1.9 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled
- version=3.4.0
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+X-Spam-Status: No, score=-9.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+ DKIM_VALID, DKIM_VALID_AU, HEADER_FROM_DIFFERENT_DOMAINS, SPF_HELO_NONE,
+ SPF_PASS, 
+ URIBL_BLOCKED,USER_IN_DEF_SPF_WL autolearn=disabled version=3.4.0
+Received: from mail-wr1-x442.google.com (mail-wr1-x442.google.com
+ [IPv6:2a00:1450:4864:20::442])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id ED91EF800F1
- for <alsa-devel@alsa-project.org>; Tue, 15 Sep 2020 13:51:25 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz ED91EF800F1
+ by alsa1.perex.cz (Postfix) with ESMTPS id 971ADF800E5
+ for <alsa-devel@alsa-project.org>; Tue, 15 Sep 2020 14:45:10 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 971ADF800E5
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="S6Oi9kNO"
-Received: from localhost (fw-tnat.cambridge.arm.com [217.140.96.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 4F9A620732;
- Tue, 15 Sep 2020 11:51:22 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1600170682;
- bh=4AdVvb9OpJlCLAFzmltxBUT5yXR5yQZ90HPJkguTE/g=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=S6Oi9kNO6jEJRVa0oQ7wJE9zm2k9LSZ8fHzXrkc2iG9HPQCC/RL9evS85vQ0UuNqa
- j0mC1xGz7Qh2AnPRsfQMYXHpoEL0Ai0tYEKoFtleucmMt7+LFODhK4cqpKchawBdTE
- EkHzNEW5D1KsyGkYeHyF3nW60lzX0wZVECcvkhSw=
-Date: Tue, 15 Sep 2020 12:50:34 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Alexandre Belloni <alexandre.belloni@bootlin.com>
-Subject: Re: [PATCH 3/3] ASoC: tlv320aic32x4: Enable fast charge
-Message-ID: <20200915115034.GA5576@sirena.org.uk>
-References: <20200911173140.29984-1-miquel.raynal@bootlin.com>
- <20200911173140.29984-4-miquel.raynal@bootlin.com>
- <20200915082602.GH4230@piout.net>
+ dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org
+ header.b="Q1VROlQW"
+Received: by mail-wr1-x442.google.com with SMTP id j2so3151857wrx.7
+ for <alsa-devel@alsa-project.org>; Tue, 15 Sep 2020 05:45:10 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=prgbbLEwgblX++DIA6lSNe0xZAiKfHZki6I+StVAnLE=;
+ b=Q1VROlQWfmlbZeeOVVji/0iVuQbrzHv3LyXlzJKB/jZyIl7jlwtq83iMQNIuBTtIDU
+ mMJrv6XDPjLmOFIIlreqHabqlek6mVxO/yH3LCwl6pXubX3sxPWzQx+BTKkXXjULprxE
+ a9hVqPQTocex/KOq6CV5LbnS1W7amLkZEXuFg=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=prgbbLEwgblX++DIA6lSNe0xZAiKfHZki6I+StVAnLE=;
+ b=ohQCMMLZEZgGa23v8lxOMy4nB657XJTjjHNDRw4hJdSV4FsuFSUbVfFoFsMXlHFrWY
+ 8p6eDlQVhzmZm+yEjlfCzkAlmrcPz0b100hUM2SuMAQlvWzxsRlrO1c473iYsI5GR58p
+ 33pnbXEELY41fhxWZoQb/HDtDiwgaBQih4QlV0ep51bT6sJjob3PVSjbc2Qi0qICs1vU
+ c5vaoPiWrB/L+B25fQwJgu56SNK+qnPqXKm/HtKk3t1bUFjmeRXF4LAW/zyxKoZ8DDH+
+ RqwiVccuBgmtb7tndfG4DwOloIsTTgKOu56eHeytzl/orF/su35Wu5Ogz0NwSNyNsytr
+ j4Ew==
+X-Gm-Message-State: AOAM5300MXwW8I3fIHLFxSNKWdvx1VOtq1/7TtCOqZ5u7+RC8i3gj9Rp
+ pJEJawqWtASUFFbcFKRkYQfhSwF7LEFsbtDM/1ATjQ==
+X-Google-Smtp-Source: ABdhPJywvAYnO/cUJA6n7jjsXdnAk2rhTKdrXd0MShhk2rxfYd1+ycLgavEuhL4DeOkvtc7FxftmCne4Gau4Rvcai7s=
+X-Received: by 2002:a5d:510d:: with SMTP id s13mr21605335wrt.177.1600173908051; 
+ Tue, 15 Sep 2020 05:45:08 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="C7zPtVaVf+AK4Oqc"
-Content-Disposition: inline
-In-Reply-To: <20200915082602.GH4230@piout.net>
-X-Cookie: Where am I?  Who am I?  Am I?  I
-User-Agent: Mutt/1.10.1 (2018-07-13)
-Cc: alsa-devel@alsa-project.org, Liam Girdwood <lgirdwood@gmail.com>,
- linux-kernel@vger.kernel.org, Takashi Iwai <tiwai@suse.com>,
- Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
- Miquel Raynal <miquel.raynal@bootlin.com>
+References: <20200914080619.4178587-1-cychiang@chromium.org>
+ <20200914080619.4178587-3-cychiang@chromium.org>
+ <20200914174812.GA4125843@bogus>
+In-Reply-To: <20200914174812.GA4125843@bogus>
+From: Cheng-yi Chiang <cychiang@chromium.org>
+Date: Tue, 15 Sep 2020 20:44:37 +0800
+Message-ID: <CAFv8NwLb4zKqc8BbRq5_B4PnGR+BAMZa2RpB0qjLez921j-diA@mail.gmail.com>
+Subject: Re: [PATCH v11 2/3] ASoC: qcom: dt-bindings: Add sc7180 machine
+ bindings
+To: Rob Herring <robh@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Cc: Taniya Das <tdas@codeaurora.org>,
+ "moderated list:SOUND - SOC LAYER / DYNAMIC AUDIO POWER MANAGEM..."
+ <alsa-devel@alsa-project.org>, Banajit Goswami <bgoswami@codeaurora.org>,
+ Heiko Stuebner <heiko@sntech.de>, Liam Girdwood <lgirdwood@gmail.com>,
+ Takashi Iwai <tiwai@suse.com>, Rohit kumar <rohitkr@codeaurora.org>,
+ Patrick Lai <plai@codeaurora.org>,
+ "open list:ARM/Rockchip SoC..." <linux-rockchip@lists.infradead.org>,
+ Andy Gross <agross@kernel.org>, Dylan Reid <dgreid@chromium.org>,
+ "open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS"
+ <devicetree@vger.kernel.org>, Tzung-Bi Shih <tzungbi@chromium.org>,
+ Srinivasa Rao <srivasam@codeaurora.org>, Stephan Gerhold <stephan@gerhold.net>,
+ linux-arm-msm <linux-arm-msm@vger.kernel.org>,
+ Rob Herring <robh+dt@kernel.org>,
+ "moderated list:ARM/Mediatek SoC support" <linux-mediatek@lists.infradead.org>,
+ Matthias Brugger <matthias.bgg@gmail.com>,
+ Bjorn Andersson <bjorn.andersson@linaro.org>,
+ Linux ARM <linux-arm-kernel@lists.infradead.org>,
+ Doug Anderson <dianders@chromium.org>,
+ linux-kernel <linux-kernel@vger.kernel.org>, Mark Brown <broonie@kernel.org>,
+ Srini Kandagatla <srinivas.kandagatla@linaro.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -86,51 +113,36 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+On Tue, Sep 15, 2020 at 1:48 AM Rob Herring <robh@kernel.org> wrote:
+>
+> On Mon, 14 Sep 2020 16:06:18 +0800, Cheng-Yi Chiang wrote:
+> > Add devicetree bindings documentation file for sc7180 sound card.
+> >
+> > Signed-off-by: Cheng-Yi Chiang <cychiang@chromium.org>
+> > ---
+> >  .../bindings/sound/qcom,sc7180.yaml           | 130 ++++++++++++++++++
+> >  1 file changed, 130 insertions(+)
+> >  create mode 100644 Documentation/devicetree/bindings/sound/qcom,sc7180.yaml
+> >
+>
+>
+> Please add Acked-by/Reviewed-by tags when posting new versions. However,
+> there's no need to repost patches *only* to add the tags. The upstream
+> maintainer will do that for acks received on the version they apply.
+>
+> If a tag was not added on purpose, please state why and what changed.
+>
 
---C7zPtVaVf+AK4Oqc
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Hi Rob,
+There was a change between v9 and v10 on compatible string so I did
+not add your Reviewed-by.
+Now it is "qcom,sc7180-sndcard-rt5682-m98357-1mic" following Stephan's
+comment in
 
-On Tue, Sep 15, 2020 at 10:26:02AM +0200, Alexandre Belloni wrote:
-> On 11/09/2020 19:31:40+0200, Miquel Raynal wrote:
+https://patchwork.kernel.org/comment/23608881/
 
-> > +	/*
-> > +	 * Enable the fast charging feature and ensure the needed 40ms ellaps=
-ed
-> > +	 * before using the analog circuits.
-> > +	 */
-> > +	snd_soc_component_write(component, AIC32X4_REFPOWERUP,
-> > +				AIC32X4_REFPOWERUP_40MS);
-> > +	msleep(40);
-> > +
-
-> Maybe the actual REFPOWERUP value could be exposed as a control so
-> userspace has a way to set the policy?=20
-
-We very rarely do this, there's not usially anything=20
-
-> I'm not sure it make sense to have the delay in probe because it is not
-> enable the analog part of the codec. The delay should probable be after
-> the clocks have been set up because the datasheet says that it is mdac
-> and madc that is starting the analog circuitry.
-
-Deferring the delay to a workqueue is the usual thing where there's
-concerns about slowing down boot.
-
---C7zPtVaVf+AK4Oqc
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl9gqokACgkQJNaLcl1U
-h9BxmAf/UcMuAW76u6rLlk8ONETf/rGaWtTY69AB4XXcR3C5KFDbnlRR+se+WUaZ
-jaaNRa0HzZQIRqTCHz6SaGc2hXvR1Ua6uFT6KEroJkRtfyxVdNS70PEyykyNPe09
-u12QaUYrzpQ3PVGZ3ngEXk3jFnb+8NziK5riqM8S8GqD8bwl9H47rDBReMNDY2Lq
-UKP52Nv0qFYzK0cj7dBtPLYozZSXDNi+Vyve6jxnmE1iRHIc+VZvGZFBNBMb+vfY
-RS9ojAe/BNibV+4sT/2SBQAyIc/AKjYn8crR9m43onChyuuryn0sS9Dn2Qkh1/25
-+RYK+VVmlF/4DjcJSUjfcS9l/H4Q9g==
-=5ecU
------END PGP SIGNATURE-----
-
---C7zPtVaVf+AK4Oqc--
+to make compatible string more specific to board configuration.
+I only add the note to the cover letter. Sorry the cover letter became
+too long to follow.
+I will add the note in patch mail itself for future changes.
+Thanks for taking a look again.

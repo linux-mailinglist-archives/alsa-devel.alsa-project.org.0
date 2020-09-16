@@ -2,130 +2,89 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9095B26C05B
-	for <lists+alsa-devel@lfdr.de>; Wed, 16 Sep 2020 11:20:55 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D187C26C06C
+	for <lists+alsa-devel@lfdr.de>; Wed, 16 Sep 2020 11:24:26 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 2ED431697;
-	Wed, 16 Sep 2020 11:20:05 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2ED431697
+	by alsa0.perex.cz (Postfix) with ESMTPS id 64CDF1674;
+	Wed, 16 Sep 2020 11:23:36 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 64CDF1674
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1600248055;
-	bh=Tpm3WgyV+D1Yz1oGmvVymtLsWRvv2PGidwvIMr/mzS4=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=dBiDEuh+u1ku5WYMFscelfSqP5puIAeoWp5QjMJmxAxpITpy7PJ9BoMvjbd0dGde2
-	 NHgIKmp4hOObHIOyYHQ524Q73nekpjn0zUQLaBJy9X7ddy54iaJdAqWDCCFIxwZZhN
-	 Azka2JBLgOgL6awsTP3uiRIPULUq6JOE87UHH9R0=
+	s=default; t=1600248266;
+	bh=ST44XWI4JEq9jDCOsNTEzqbIQc3wrwZ3vQpyZ+GQc5I=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=YHjzk6kz9xxJx9kOjImBxiPH2cYm07mIJeflGLcLKq0C7dKrqc+B8ZwetRDtDxS4z
+	 eq4OJtfGplBOLQKnY775cSFCv8etT2WzGnR4ENssTVN1IIDP5qtANHPVWcQ2Achff3
+	 2Wsor4cm4J2SFk+C2W7u+3chnxd7hkZQBkxaAwF8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 22372F802C4;
-	Wed, 16 Sep 2020 11:18:31 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 62838F802BE;
+	Wed, 16 Sep 2020 11:22:04 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 57FFDF801F7; Wed, 16 Sep 2020 11:18:28 +0200 (CEST)
+ id D5440F800E8; Wed, 16 Sep 2020 11:21:58 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- MSGID_FROM_MTA_HEADER,RCVD_IN_MSPIKE_H2,SPF_HELO_PASS,SPF_PASS,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from EUR01-HE1-obe.outbound.protection.outlook.com
- (mail-eopbgr130052.outbound.protection.outlook.com [40.107.13.52])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
+Received: from mail-wr1-x42d.google.com (mail-wr1-x42d.google.com
+ [IPv6:2a00:1450:4864:20::42d])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id D3F55F8015D
- for <alsa-devel@alsa-project.org>; Wed, 16 Sep 2020 11:18:21 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D3F55F8015D
+ by alsa1.perex.cz (Postfix) with ESMTPS id A9FB4F800F1
+ for <alsa-devel@alsa-project.org>; Wed, 16 Sep 2020 11:21:49 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A9FB4F800F1
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=NXP1.onmicrosoft.com
- header.i=@NXP1.onmicrosoft.com header.b="cc4fYAc4"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=W3ChNmPZJ9TEbpPQv1Sp+S+1a5hx3t+8sYX0MKNZa4DqSQxCy6J992nrkwT7tWUZa0PnJU5JMNgWprhmBcrt9g6m+4ukkmjDU2iOwvzk+6Cq+gVA9kNDfSjRW49z9ur8Dh5KTmiiiU0NxyM1sFJwU7Us3Nz1/HFms6ybGz0fwmYE7xmpMaqXc5aKCqun0lNP3XAk+uGdujXY4seq9dW5OfFX3tMAITYUEXD8UxOo7iukFat0TNzKMb2suQmXO8hGMi5WsKCj2pKZR2UTvXO0jqYZTyaWJuuP2/lHMOfccPr64e7kdi/qHCM32TU4GpSmozuVj9vi3t1eUTKotQbDnw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=SPdkg5pM26NwSoPKyxFUwwxgafCPSJtpAoNaGFtS4i8=;
- b=UHtgLK1B4M66FGm6TPi+b3MYCFI7QBJd5RVTjeer2dbfcv3Evkdr/DDF89EyXyk4730mtZXtFJGTG5Zu65JZ67RZO7bU+BpIFLYsXqNYlv6v7874Rb5C3Q6IVsPH+ptxYmya3eoSVV2dceJPv7fb3jNPnLlEpsdOI3/mwNFZZt4x4Np4U8wYdPQOLBHYw8gimbz7O1P6gFZq4MpU4M2dYRamXUE8/PeL7ju0j5L+FGLh7eV1qESr8bbfH6jj4MssIrX5u0DdLEzZ/QLlXmx3Pd2yL8N0ekYIkDCifZGSrM3U7J9N9FMVS47o7LI6ztI28NOvCWM5ixvLTxeqFaCc7w==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com; 
- s=selector2-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=SPdkg5pM26NwSoPKyxFUwwxgafCPSJtpAoNaGFtS4i8=;
- b=cc4fYAc4wzqDKLaF19cmOivfFKpY6phyAp06vwzMkIilCjg2f/nWN49RaOFHe7NVluq0fTBbpyP2Tan6Uso5EEHYeBq51ghARgii8jcaGdpQRFgNDnaeuEjnFKGzOq/ROw+u7ln8TPbIGYLi7A0bltWqOKXHtLNsc6u2Y7uO0lI=
-Authentication-Results: gmail.com; dkim=none (message not signed)
- header.d=none;gmail.com; dmarc=none action=none header.from=oss.nxp.com;
-Received: from VI1PR0401MB2272.eurprd04.prod.outlook.com
- (2603:10a6:800:31::12) by VI1PR0402MB3630.eurprd04.prod.outlook.com
- (2603:10a6:803:d::20) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3370.18; Wed, 16 Sep
- 2020 09:18:14 +0000
-Received: from VI1PR0401MB2272.eurprd04.prod.outlook.com
- ([fe80::e00e:ad13:489b:8000]) by VI1PR0401MB2272.eurprd04.prod.outlook.com
- ([fe80::e00e:ad13:489b:8000%6]) with mapi id 15.20.3391.011; Wed, 16 Sep 2020
- 09:18:14 +0000
-From: "Viorel Suman (OSS)" <viorel.suman@oss.nxp.com>
-To: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
- Rob Herring <robh+dt@kernel.org>, Jaroslav Kysela <perex@perex.cz>,
- Takashi Iwai <tiwai@suse.com>, Timur Tabi <timur@kernel.org>,
- Nicolin Chen <nicoleotsuka@gmail.com>, Xiubo Li <Xiubo.Lee@gmail.com>,
- Fabio Estevam <festevam@gmail.com>,
- Shengjiu Wang <shengjiu.wang@gmail.com>,
- Philipp Zabel <p.zabel@pengutronix.de>,
- Matthias Schiffer <matthias.schiffer@ew.tq-group.com>,
- Cosmin-Gabriel Samoila <cosmin.samoila@nxp.com>,
- Viorel Suman <viorel.suman@nxp.com>, alsa-devel@alsa-project.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linuxppc-dev@lists.ozlabs.org
-Subject: [PATCH 2/2] ASoC: dt-bindings: fsl_xcvr: Add document for XCVR
-Date: Wed, 16 Sep 2020 12:17:56 +0300
-Message-Id: <1600247876-8013-3-git-send-email-viorel.suman@oss.nxp.com>
-X-Mailer: git-send-email 2.7.4
-In-Reply-To: <1600247876-8013-1-git-send-email-viorel.suman@oss.nxp.com>
-References: <1600247876-8013-1-git-send-email-viorel.suman@oss.nxp.com>
-Content-Type: text/plain
-X-ClientProxiedBy: AM0PR01CA0158.eurprd01.prod.exchangelabs.com
- (2603:10a6:208:aa::27) To VI1PR0401MB2272.eurprd04.prod.outlook.com
- (2603:10a6:800:31::12)
+ dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org
+ header.b="zwpPinI/"
+Received: by mail-wr1-x42d.google.com with SMTP id g4so6124076wrs.5
+ for <alsa-devel@alsa-project.org>; Wed, 16 Sep 2020 02:21:49 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=QcLuhNnrX/nQCZhthEE8aR8w/AwdzuMVVfrZbO3TD9g=;
+ b=zwpPinI/Rr9H8iwdQqSgkeJmlIy6IG6vrUVdUIT8CJAniqdNZru9Waie7WlTmyyT1S
+ Nug/KefJnhLLIoDZ2hqapgVx3xE9lSEoMX3AWOv7ZC+TyZc/6H5pvGPsGuXFv/C0KQT6
+ ds804bTLAjuXkMty18ffemSkElCgDebaL6XPpqiNgr+YPSuMW14nwpACjiHu5buFb+u+
+ l6cN2v5iIrJfjl077t+XwqGqbO7ZYbdr98esIhyh1G67UtA15RMhbXGjoCn4l7I70fEw
+ aFY2KjAQOMlJfO0+6KcsfM5GFVks9TY+KQSRKTlAWzKIVHqtdLiSDZn/f/+E1KXdEZrE
+ jygw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=QcLuhNnrX/nQCZhthEE8aR8w/AwdzuMVVfrZbO3TD9g=;
+ b=gu8v/UkXMP7LUzTnD475u6BurYxYhyGwS2tPDyC6BcHmZwwts9lDxbU19SevbK6IdI
+ 5YXKkjQXo+bArMNdkwxx+0ZGbuwFid9nVWWqbrrQGXN+hmYXnjtk1iKam6229b1sK+da
+ tDhqrv5YPc68jlx2EHOz1+hyT96m84JJDwtd1EtA4miI9ngg8WSktAvFixTe/JIdsX2s
+ 9k7rzjyRzg22S4PgpbGPLD0FhK3kaoKkKiD7e0jJVCr0FbkjAkGlVwAh/1dkxjukunbG
+ dUO+VCiFrAQY0oIj5SZzqodhOHVBG+Fhdp9p+VNAmNqIgfQru1b4WPN1x6OMeC3M4gxK
+ 1rrQ==
+X-Gm-Message-State: AOAM532NTaiQMPpFzu24O+4hCDeRsfHq0uIhTZDK5LTDurD1+C96ZnH1
+ H+LocS6r+dJcddyA4dzcLiPHKg==
+X-Google-Smtp-Source: ABdhPJy5m+mdqlv4OG5JdIdq8YqyOLfF8S9OUft4LXq72Toaw/0mXAlfmewTtZX/SaRKGmW8bN6d1Q==
+X-Received: by 2002:adf:e449:: with SMTP id t9mr26130245wrm.154.1600248108935; 
+ Wed, 16 Sep 2020 02:21:48 -0700 (PDT)
+Received: from srini-hackbox.lan
+ (cpc86377-aztw32-2-0-cust226.18-1.cable.virginm.net. [92.233.226.227])
+ by smtp.gmail.com with ESMTPSA id f6sm32181670wro.5.2020.09.16.02.21.47
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 16 Sep 2020 02:21:48 -0700 (PDT)
+From: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
+To: vkoul@kernel.org,
+	yung-chuan.liao@linux.intel.com
+Subject: [PATCH v2 0/3] soundwire: qcom: fix IP version v1.5.1 support
+Date: Wed, 16 Sep 2020 10:21:22 +0100
+Message-Id: <20200916092125.30898-1-srinivas.kandagatla@linaro.org>
+X-Mailer: git-send-email 2.21.0
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-Received: from fsr-ub1664-116.ea.freescale.net (83.217.231.2) by
- AM0PR01CA0158.eurprd01.prod.exchangelabs.com (2603:10a6:208:aa::27) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256) id 15.20.3391.11 via Frontend
- Transport; Wed, 16 Sep 2020 09:18:12 +0000
-X-Mailer: git-send-email 2.7.4
-X-Originating-IP: [83.217.231.2]
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-HT: Tenant
-X-MS-Office365-Filtering-Correlation-Id: 8d2fe603-d556-413e-4666-08d85a2170b0
-X-MS-TrafficTypeDiagnostic: VI1PR0402MB3630:
-X-MS-Exchange-SharedMailbox-RoutingAgent-Processed: True
-X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <VI1PR0402MB36301A4D8C614EF909763BC8D3210@VI1PR0402MB3630.eurprd04.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:3044;
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 3qWh1zl4oLA1fMTLGPksLHV5vAg5ZqMtYzofmSGSaw+onmIlb7onq0T99V6+Mm2rViQGvczZnR/QoNDZhZQ1aF8Enl2dyEmkqpdg1cBF1lg1MCA65Rh+5Q0X6L1/fq4Bx+5bp0LC/BpcbIyXc8YIlBsJzNH6KUzXmCQGt42zIxtvzDfqBLF6L0ahADNTHIk80tlgs3QRcjCJDOxNRLcjHOase9bi/l/laN5h44p4lwVpuUnPbi7/1ug+Mqk8+fFLrvhtFWwvuReWr2Vvm7ra/vDTrxmUuzKBt4/qNsx3jRzxAEKmARnJRzw4Y/6C9FVj8/RMwlsYEwqu/YsNEBtYIY5kTzbwfMHaBf8E2G1Biz8rC8Y/SpkdmyPrhM3z17aoV0z+2RR8htKKmncNzKytjCu3PTvOqT4iehPQsOLg0dmGG9WidFEVWvq9b05EqhU7VVOSKgKTfGFu+oTAuOLEGr5CNa5Um1LteZzPfyZQiV6dm9IQTSor8D9hiC1ujWFi
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:VI1PR0401MB2272.eurprd04.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(366004)(6512007)(6486002)(4326008)(966005)(8676002)(8936002)(2906002)(66476007)(66556008)(66946007)(6666004)(2616005)(956004)(86362001)(16526019)(83380400001)(5660300002)(6506007)(7416002)(54906003)(110136005)(26005)(186003)(52116002)(498600001)(921003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData: lf2kdOgKBJewUYiykcQcSOj0TEO6+BgVqyI5k/GZtIZAwWfG0k6FyCkIgqZqHHGT1YjS/EUZow7XIZYB15kq5S+IF7aESbwJS/gZABBncbQL+GGqK1JrSr25Ub6ZAz3aGObxEcPKnjnA0tuLqfHxIo+CtexOTIXX5ZmntIy+l3X3mMukYxZpf4s2U3TcUe8+FQMFX9QXhgpY3AQnGkXHstx0D7KOyAJPVO1x7jbGTg5dLJl/7RQsI6D1KFUYF5X2ToDDKa1zmFPRaP26RwUXYBbJaBMzKnfNu3CdPXIIW1MJTScYW+biyKVr5akxV/1Ovry2G2lJ00sUDS13NSclFtFxlcoqzbaDG+Zy0MPFpAe6sIgs7Hk6tnpXrYlfrkCU+NLQfl2o3fSMYB8p1x8rkEgUQ1VlFEkNNGADV9yHWkln3dw+cbwI1yPLxLyaxCSAc51Wd007MHNR13wBPyXBrkj19LcAz+PydQx5+R0p45hdMqeqzNGw3QCI8Od74hZiA0qWPnkQFcfII5rIpDL0CN5DPCBAiL94bEPmpYDFzKBwqGYjqa2kMCIpJfUFNZ92L/bVW2Z7skrgcqOZMnBPEabrRwxt5+Dpc/qCM7wqLDbt/Uvw/M5F7xBgZK8MuPutGZ4eWJi1Q86MFE3039P24Q==
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 8d2fe603-d556-413e-4666-08d85a2170b0
-X-MS-Exchange-CrossTenant-AuthSource: VI1PR0401MB2272.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Sep 2020 09:18:14.5415 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: rjOs/DAfFw+324fDSNwv6L6mym7M3g6e1BtSDZoBFJIILmjF2I2Bmx2KYuVuKhOj7RzlA9OoSYcMWW1hWKcuhQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR0402MB3630
-Cc: Viorel Suman <viorel.suman@gmail.com>, NXP Linux Team <linux-imx@nxp.com>
+Content-Transfer-Encoding: 8bit
+Cc: sanyog.r.kale@intel.com,
+ Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
+ pierre-louis.bossart@linux.intel.com, alsa-devel@alsa-project.org,
+ linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -141,126 +100,30 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: Viorel Suman <viorel.suman@nxp.com>
+While testing Qualcomm soundwire controller version 1.5.1, found two issue,
+Firstly the frame shape information configured vs the bus parameters
+are out of sync. secondly some ports on this ip version require
+block packing mode support.
 
-XCVR (Audio Transceiver) is a new IP module found on i.MX8MP.
+With this patchset I was able to test 2 WSA speakers!
 
-Signed-off-by: Viorel Suman <viorel.suman@nxp.com>
----
- .../devicetree/bindings/sound/fsl,xcvr.yaml        | 104 +++++++++++++++++++++
- 1 file changed, 104 insertions(+)
- create mode 100644 Documentation/devicetree/bindings/sound/fsl,xcvr.yaml
+Also I found a regression due to move to REG_FIELD, which patch 1 fixes it!
 
-diff --git a/Documentation/devicetree/bindings/sound/fsl,xcvr.yaml b/Documentation/devicetree/bindings/sound/fsl,xcvr.yaml
-new file mode 100644
-index 00000000..d4bb792
---- /dev/null
-+++ b/Documentation/devicetree/bindings/sound/fsl,xcvr.yaml
-@@ -0,0 +1,104 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/sound/fsl,xcvr.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: NXP Audio Transceiver (XCVR) Controller
-+
-+maintainers:
-+  - Viorel Suman <viorel.suman@nxp.com>
-+
-+properties:
-+  $nodename:
-+    pattern: "^xcvr@.*"
-+
-+  compatible:
-+    const: fsl,imx8mp-xcvr
-+
-+  reg:
-+    items:
-+      - description: 20K RAM for code and data
-+      - description: registers space
-+      - description: RX FIFO address
-+      - description: TX FIFO address
-+
-+  reg-names:
-+    items:
-+      - const: ram
-+      - const: regs
-+      - const: rxfifo
-+      - const: txfifo
-+
-+  interrupts:
-+    maxItems: 3
-+
-+  clocks:
-+    items:
-+      - description: Peripheral clock
-+      - description: PHY clock
-+      - description: SPBA clock
-+      - description: PLL clock
-+
-+  clock-names:
-+    items:
-+      - const: ipg
-+      - const: phy
-+      - const: spba
-+      - const: pll_ipg
-+
-+  dmas:
-+    maxItems: 2
-+
-+  dma-names:
-+    items:
-+      - const: rx
-+      - const: tx
-+
-+  firmware-name:
-+    $ref: /schemas/types.yaml#/definitions/string
-+    const: imx/xcvr/xcvr-imx8mp.bin
-+    description: |
-+      Should contain the name of the default firmware image
-+      file located on the firmware search path
-+
-+  resets:
-+    maxItems: 1
-+
-+required:
-+  - compatible
-+  - reg
-+  - reg-names
-+  - interrupts
-+  - clocks
-+  - clock-names
-+  - dmas
-+  - dma-names
-+  - firmware-name
-+  - resets
-+
-+examples:
-+  - |
-+    #include <dt-bindings/clock/imx8mp-clock.h>
-+    #include <dt-bindings/reset/imx8mp-reset.h>
-+
-+    xcvr: xcvr@30cc0000 {
-+           compatible = "fsl,imx8mp-xcvr";
-+           reg = <0x30cc0000 0x800>,
-+                 <0x30cc0800 0x400>,
-+                 <0x30cc0c00 0x080>,
-+                 <0x30cc0e00 0x080>;
-+           reg-names = "ram", "regs", "rxfifo", "txfifo";
-+           interrupts = <GIC_SPI 128 IRQ_TYPE_LEVEL_HIGH>, /* XCVR IRQ 0 */
-+                        <GIC_SPI 129 IRQ_TYPE_LEVEL_HIGH>, /* XCVR IRQ 1 */
-+                        <GIC_SPI 146 IRQ_TYPE_LEVEL_HIGH>; /* XCVR PHY - SPDIF wakeup IRQ */
-+           clocks = <&audiomix_clk IMX8MP_CLK_AUDIOMIX_EARC_IPG>,
-+                    <&audiomix_clk IMX8MP_CLK_AUDIOMIX_EARC_PHY>,
-+                    <&audiomix_clk IMX8MP_CLK_AUDIOMIX_SPBA2_ROOT>,
-+                    <&audiomix_clk IMX8MP_CLK_AUDIOMIX_AUDPLL_ROOT>;
-+           clock-names = "ipg", "phy", "spba", "pll_ipg";
-+           dmas = <&sdma2 30 2 0>, <&sdma2 31 2 0>;
-+           dma-names = "rx", "tx";
-+           firmware-name = "imx/xcvr/xcvr-imx8mp.bin";
-+           resets = <&audiomix_reset 0>;
-+    };
+thanks,
+srini
+
+Changes since v1:
+ - rebased on top of REG_FILED patch or soundwire-next branch
+ - udated qcom_swrm_data to use u32 instead of int as suggested by VKoul
+
+Srinivas Kandagatla (3):
+  soundwire: qcom: clear BIT FIELDs before value set.
+  soundwire: qcom: add support to block packing mode
+  soundwire: qcom: get max rows and cols info from compatible
+
+ drivers/soundwire/qcom.c | 76 ++++++++++++++++++++++++++++++----------
+ 1 file changed, 58 insertions(+), 18 deletions(-)
+
 -- 
-2.7.4
+2.21.0
 

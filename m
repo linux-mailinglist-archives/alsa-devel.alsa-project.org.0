@@ -2,94 +2,78 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id DA9A426C47B
-	for <lists+alsa-devel@lfdr.de>; Wed, 16 Sep 2020 17:44:39 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2354526C47D
+	for <lists+alsa-devel@lfdr.de>; Wed, 16 Sep 2020 17:45:30 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 790551663;
-	Wed, 16 Sep 2020 17:43:49 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 790551663
+	by alsa0.perex.cz (Postfix) with ESMTPS id 991C91681;
+	Wed, 16 Sep 2020 17:44:38 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 991C91681
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1600271079;
-	bh=EbHvEEo/9t9IH8ZxixuFj6Tqz5BodAfxexsSnx6LRd8=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1600271128;
+	bh=HFk5casZiTsfb5s8kl8Kz7rfmF0fuunZn7GB32urFB8=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=H2EOmvudWWPlY+tSoBDUHvjh2TefadXv/DziyeMacUeZ1jYS1vrKA3QWSD+4Vsv7i
-	 8HuduvhiB+bVSQVRGs6dobphmslZXclqea1+wJ1JBBaUwj8bTVhfasKLHtuhKxWX+7
-	 fzYRTxlbTSscpGlr7jn9duIOxYvalntLcGV6YvoI=
+	b=HSErNCrMi1leoGXzaajlQzaShODeJboyrAez/oWTSZev6p5c5gduLnRY0Il2WkjY3
+	 XqZqY5qaAv1GLJsWH0MPNZyJqEpcEa4wL8DUrj28ejpdBA0gewtZG2f+q8hHHeqyTF
+	 7kHo47CkXlp0tVqz9DvImuGlD7nJSFkcuI69k13Q=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id BB9A8F802E7;
-	Wed, 16 Sep 2020 17:41:24 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 22CC8F8020B;
+	Wed, 16 Sep 2020 17:44:38 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id B34A3F802E3; Wed, 16 Sep 2020 17:41:23 +0200 (CEST)
+ id 2A250F8015C; Wed, 16 Sep 2020 17:44:35 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=disabled
+X-Spam-Level: *
+X-Spam-Status: No, score=1.0 required=5.0 tests=PRX_BODY_30, RCVD_IN_MSPIKE_H3,
+ RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
  version=3.4.0
-Received: from mail-wr1-x444.google.com (mail-wr1-x444.google.com
- [IPv6:2a00:1450:4864:20::444])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id B947CF8015D
- for <alsa-devel@alsa-project.org>; Wed, 16 Sep 2020 17:41:12 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B947CF8015D
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org
- header.b="zcjWfK5j"
-Received: by mail-wr1-x444.google.com with SMTP id a17so7419085wrn.6
- for <alsa-devel@alsa-project.org>; Wed, 16 Sep 2020 08:41:12 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding;
- bh=j7U04XxCq+61JwDLpYnpauOtw8AQMg5GwCJMJAegysE=;
- b=zcjWfK5jdTcoSX69FvF8etBcZ0/k01BHqXFlUvcOL8WjJUhxJVPyXschbpxMX0NvPg
- aIc/MyPaqkNDZyxHFYf0nxmEwArRKcgyiy11a+MzDC+XdXZxcHgiTFjVnj+PcyxNw3+X
- +C7HuA623CZFdi/P3/thUpCJJkLVf59MPfhDD5lv2qcSheCCE73i8U6vowq6aqSzlNNZ
- 4a47k+BTEr1H+q0KnHBSNPCf4yEgC89gw5CLjYXNcEbq708A3wA2iWGcuXW+HRTtU/VF
- hS1WdKT1hnTF+GyglvkYEumVjggZYx+mNOwKrzgOo1UMFlJ5MkC+nlb2f4dF+IXz/ahe
- ITUQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
- :references:mime-version:content-transfer-encoding;
- bh=j7U04XxCq+61JwDLpYnpauOtw8AQMg5GwCJMJAegysE=;
- b=FkGIqA5MKUOT/+OETGQuJM7Ez0geagviwAX+BX2/JSY4ePaTRCFHepKnVw/6PE1TdK
- k/PmkfR09lP8Evq2AY4MqnEXBgDwWJKySxDmk3CVJ4Q60TW7JHAb1d5jZU6n7lme+RuZ
- KZjiNCorHOeL/mDhQfsq1zW7oSM+CMD7Z/SZ5YAWOYndZuK42WS5eBLxEU3oG22a5KT0
- G9++bNhRt4nyPgR77hSa1v1FpRhh73ZK7oLRhvasrp2hkSba0ElhiVs4apcFuE3Yea2g
- ibEWWO3pfG/VqZfKtw4GagI6qTT5M+6uTfXoH+GtF426aDsoE8ZvHwnJ4UI6w9aIqkEA
- 8PmQ==
-X-Gm-Message-State: AOAM531IP1fEyF/UGpjNy94Y4ujF5j78B6SIP+yNwpv8bp7w+AJYdcCy
- 9UK3GDrKb9U1TUMuRYN/gVog3Q==
-X-Google-Smtp-Source: ABdhPJxxkkIzx3lElJ4LtY9VVWlYPU45BQqngRTlRJSr1UcBdag1LOfRXz1qqaLisniM93cpf/LuTQ==
-X-Received: by 2002:a5d:5106:: with SMTP id s6mr29222629wrt.166.1600270871654; 
- Wed, 16 Sep 2020 08:41:11 -0700 (PDT)
-Received: from srini-hackbox.lan
- (cpc86377-aztw32-2-0-cust226.18-1.cable.virginm.net. [92.233.226.227])
- by smtp.gmail.com with ESMTPSA id t22sm7223901wmt.1.2020.09.16.08.41.10
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 16 Sep 2020 08:41:10 -0700 (PDT)
-From: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
-To: vkoul@kernel.org,
-	yung-chuan.liao@linux.intel.com
-Subject: [PATCH v3 3/3] soundwire: qcom: get max rows and cols info from
- compatible
-Date: Wed, 16 Sep 2020 16:41:01 +0100
-Message-Id: <20200916154101.2254-4-srinivas.kandagatla@linaro.org>
-X-Mailer: git-send-email 2.21.0
-In-Reply-To: <20200916154101.2254-1-srinivas.kandagatla@linaro.org>
-References: <20200916154101.2254-1-srinivas.kandagatla@linaro.org>
+ by alsa1.perex.cz (Postfix) with ESMTPS id B778BF800BB
+ for <alsa-devel@alsa-project.org>; Wed, 16 Sep 2020 17:44:22 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B778BF800BB
+IronPort-SDR: RCabaVBq66sMlCfXzHAPZfUDhu4tgLGFNicMsQr4pt1A+23S6gB5rJO1Jrhf2LC7nNZFLTHWA2
+ UdWtQO3t3fgQ==
+X-IronPort-AV: E=McAfee;i="6000,8403,9746"; a="160424383"
+X-IronPort-AV: E=Sophos;i="5.76,433,1592895600"; d="scan'208";a="160424383"
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from orsmga008.jf.intel.com ([10.7.209.65])
+ by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 16 Sep 2020 08:44:16 -0700
+IronPort-SDR: NLkmt4ZHPVv0LF3V37koUkBJSReB4Ghtk/rOnMyD/xAg6GrJk2RA9FvDzFliwczY/HHIb3T+5B
+ oiBPO3mlHxbg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.76,433,1592895600"; d="scan'208";a="336065288"
+Received: from smile.fi.intel.com (HELO smile) ([10.237.68.40])
+ by orsmga008.jf.intel.com with ESMTP; 16 Sep 2020 08:44:12 -0700
+Received: from andy by smile with local (Exim 4.94)
+ (envelope-from <andriy.shevchenko@linux.intel.com>)
+ id 1kIZbN-00H7Cx-68; Wed, 16 Sep 2020 18:44:09 +0300
+Date: Wed, 16 Sep 2020 18:44:09 +0300
+From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+To: Cezary Rojewski <cezary.rojewski@intel.com>
+Subject: Re: [PATCH v5 02/13] ASoC: Intel: catpt: Define DSP operations
+Message-ID: <20200916154409.GQ3956970@smile.fi.intel.com>
+References: <20200915162944.16241-1-cezary.rojewski@intel.com>
+ <20200915162944.16241-3-cezary.rojewski@intel.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Cc: sanyog.r.kale@intel.com,
- Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
- pierre-louis.bossart@linux.intel.com, alsa-devel@alsa-project.org,
- linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20200915162944.16241-3-cezary.rojewski@intel.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
+Cc: pierre-louis.bossart@linux.intel.com, alsa-devel@alsa-project.org,
+ filip.kaczmarski@intel.com, harshapriya.n@intel.com, marcin.barlik@intel.com,
+ zwisler@google.com, lgirdwood@gmail.com, tiwai@suse.com,
+ filip.proborszcz@intel.com, broonie@kernel.org,
+ amadeuszx.slawinski@linux.intel.com, michal.wasko@intel.com,
+ cujomalainey@chromium.org, krzysztof.hejmowski@intel.com,
+ ppapierkowski@habana.ai, vamshi.krishna.gopal@intel.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -105,135 +89,533 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-currently the max rows and cols values are hardcoded. In reality
-these values depend on the IP version. So get these based on
-device tree compatible strings.
+On Tue, Sep 15, 2020 at 06:29:33PM +0200, Cezary Rojewski wrote:
+> Implement dsp lifecycle functions such as core RESET and STALL,
+> SRAM power control and LP clock selection. This also adds functions for
+> handling transport over DW DMA controller.
 
-Signed-off-by: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
----
- drivers/soundwire/qcom.c | 46 +++++++++++++++++++++++++++-------------
- 1 file changed, 31 insertions(+), 15 deletions(-)
+Some nit-picks below. FWIW,
+Reviewed-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
 
-diff --git a/drivers/soundwire/qcom.c b/drivers/soundwire/qcom.c
-index 5a61d82310fd..88ea31265941 100644
---- a/drivers/soundwire/qcom.c
-+++ b/drivers/soundwire/qcom.c
-@@ -66,11 +66,6 @@
- #define SWRM_REG_VAL_PACK(data, dev, id, reg)	\
- 			((reg) | ((id) << 16) | ((dev) << 20) | ((data) << 24))
- 
--#define SWRM_MAX_ROW_VAL	0 /* Rows = 48 */
--#define SWRM_DEFAULT_ROWS	48
--#define SWRM_MIN_COL_VAL	0 /* Cols = 2 */
--#define SWRM_DEFAULT_COL	16
--#define SWRM_MAX_COL_VAL	7
- #define SWRM_SPECIAL_CMD_ID	0xF
- #define MAX_FREQ_NUM		1
- #define TIMEOUT_MS		(2 * HZ)
-@@ -104,6 +99,8 @@ struct qcom_swrm_ctrl {
- 	unsigned int version;
- 	int num_din_ports;
- 	int num_dout_ports;
-+	int cols_index;
-+	int rows_index;
- 	unsigned long dout_port_mask;
- 	unsigned long din_port_mask;
- 	struct qcom_swrm_port_config pconfig[QCOM_SDW_MAX_PORTS];
-@@ -113,6 +110,21 @@ struct qcom_swrm_ctrl {
- 	int (*reg_write)(struct qcom_swrm_ctrl *ctrl, int reg, int val);
- };
- 
-+struct qcom_swrm_data {
-+	u32 default_cols;
-+	u32 default_rows;
-+};
-+
-+static struct qcom_swrm_data swrm_v1_3_data = {
-+	.default_rows = 48,
-+	.default_cols = 16,
-+};
-+
-+static struct qcom_swrm_data swrm_v1_5_data = {
-+	.default_rows = 50,
-+	.default_cols = 16,
-+};
-+
- #define to_qcom_sdw(b)	container_of(b, struct qcom_swrm_ctrl, bus)
- 
- static int qcom_swrm_ahb_reg_read(struct qcom_swrm_ctrl *ctrl, int reg,
-@@ -299,8 +311,8 @@ static int qcom_swrm_init(struct qcom_swrm_ctrl *ctrl)
- 	u32 val;
- 
- 	/* Clear Rows and Cols */
--	val = FIELD_PREP(SWRM_MCP_FRAME_CTRL_BANK_ROW_CTRL_BMSK, SWRM_MAX_ROW_VAL);
--	val |= FIELD_PREP(SWRM_MCP_FRAME_CTRL_BANK_COL_CTRL_BMSK, SWRM_MIN_COL_VAL);
-+	val = FIELD_PREP(SWRM_MCP_FRAME_CTRL_BANK_ROW_CTRL_BMSK, ctrl->rows_index);
-+	val |= FIELD_PREP(SWRM_MCP_FRAME_CTRL_BANK_COL_CTRL_BMSK, ctrl->cols_index);
- 
- 	ctrl->reg_write(ctrl, SWRM_MCP_FRAME_CTRL_BANK_ADDR(0), val);
- 
-@@ -374,8 +386,8 @@ static int qcom_swrm_pre_bank_switch(struct sdw_bus *bus)
- 
- 	ctrl->reg_read(ctrl, reg, &val);
- 
--	val = u32_replace_bits(val, SWRM_MAX_COL_VAL, SWRM_MCP_FRAME_CTRL_BANK_COL_CTRL_BMSK);
--	val = u32_replace_bits(val, SWRM_MAX_ROW_VAL, SWRM_MCP_FRAME_CTRL_BANK_ROW_CTRL_BMSK);
-+	val = u32_replace_bits(val, ctrl->cols_index, SWRM_MCP_FRAME_CTRL_BANK_COL_CTRL_BMSK);
-+	val = u32_replace_bits(val, ctrl->rows_index, SWRM_MCP_FRAME_CTRL_BANK_ROW_CTRL_BMSK);
- 
- 	return ctrl->reg_write(ctrl, reg, val);
- }
-@@ -776,6 +788,7 @@ static int qcom_swrm_probe(struct platform_device *pdev)
- 	struct sdw_master_prop *prop;
- 	struct sdw_bus_params *params;
- 	struct qcom_swrm_ctrl *ctrl;
-+	const struct qcom_swrm_data *data;
- 	int ret;
- 	u32 val;
- 
-@@ -783,6 +796,9 @@ static int qcom_swrm_probe(struct platform_device *pdev)
- 	if (!ctrl)
- 		return -ENOMEM;
- 
-+	data = of_device_get_match_data(dev);
-+	ctrl->rows_index = sdw_find_row_index(data->default_rows);
-+	ctrl->cols_index = sdw_find_col_index(data->default_cols);
- #if IS_ENABLED(CONFIG_SLIMBUS)
- 	if (dev->parent->bus == &slimbus_bus) {
- #else
-@@ -832,8 +848,8 @@ static int qcom_swrm_probe(struct platform_device *pdev)
- 	params = &ctrl->bus.params;
- 	params->max_dr_freq = DEFAULT_CLK_FREQ;
- 	params->curr_dr_freq = DEFAULT_CLK_FREQ;
--	params->col = SWRM_DEFAULT_COL;
--	params->row = SWRM_DEFAULT_ROWS;
-+	params->col = data->default_cols;
-+	params->row = data->default_rows;
- 	ctrl->reg_read(ctrl, SWRM_MCP_STATUS, &val);
- 	params->curr_bank = val & SWRM_MCP_STATUS_BANK_NUM_MASK;
- 	params->next_bank = !params->curr_bank;
-@@ -843,8 +859,8 @@ static int qcom_swrm_probe(struct platform_device *pdev)
- 	prop->num_clk_gears = 0;
- 	prop->num_clk_freq = MAX_FREQ_NUM;
- 	prop->clk_freq = &qcom_swrm_freq_tbl[0];
--	prop->default_col = SWRM_DEFAULT_COL;
--	prop->default_row = SWRM_DEFAULT_ROWS;
-+	prop->default_col = data->default_cols;
-+	prop->default_row = data->default_rows;
- 
- 	ctrl->reg_read(ctrl, SWRM_COMP_HW_VERSION, &ctrl->version);
- 
-@@ -895,8 +911,8 @@ static int qcom_swrm_remove(struct platform_device *pdev)
- }
- 
- static const struct of_device_id qcom_swrm_of_match[] = {
--	{ .compatible = "qcom,soundwire-v1.3.0", },
--	{ .compatible = "qcom,soundwire-v1.5.1", },
-+	{ .compatible = "qcom,soundwire-v1.3.0", .data = &swrm_v1_3_data },
-+	{ .compatible = "qcom,soundwire-v1.5.1", .data = &swrm_v1_5_data },
- 	{/* sentinel */},
- };
- 
+> Signed-off-by: Cezary Rojewski <cezary.rojewski@intel.com>
+> ---
+>  sound/soc/intel/catpt/dsp.c | 473 ++++++++++++++++++++++++++++++++++++
+>  1 file changed, 473 insertions(+)
+>  create mode 100644 sound/soc/intel/catpt/dsp.c
+> 
+> diff --git a/sound/soc/intel/catpt/dsp.c b/sound/soc/intel/catpt/dsp.c
+> new file mode 100644
+> index 000000000000..202d90bb51b4
+> --- /dev/null
+> +++ b/sound/soc/intel/catpt/dsp.c
+> @@ -0,0 +1,473 @@
+> +// SPDX-License-Identifier: GPL-2.0-only
+> +//
+> +// Copyright(c) 2020 Intel Corporation. All rights reserved.
+> +//
+> +// Author: Cezary Rojewski <cezary.rojewski@intel.com>
+> +//
+> +
+> +#include <linux/dma-mapping.h>
+> +#include <linux/firmware.h>
+> +#include <linux/pci.h>
+> +#include <linux/pxa2xx_ssp.h>
+> +#include "core.h"
+> +#include "messages.h"
+> +#include "registers.h"
+> +
+> +static bool catpt_dma_filter(struct dma_chan *chan, void *param)
+> +{
+> +	return param == chan->device->dev;
+> +}
+> +
+> +/*
+> + * Either engine 0 or 1 can be used for image loading.
+> + * Align with Windows driver equivalent and stick to engine 1.
+> + */
+> +#define CATPT_DMA_DEVID		1
+> +#define CATPT_DMA_DSP_ADDR_MASK	GENMASK(31, 20)
+> +
+> +struct dma_chan *catpt_dma_request_config_chan(struct catpt_dev *cdev)
+> +{
+> +	struct dma_slave_config config;
+> +	struct dma_chan *chan;
+> +	dma_cap_mask_t mask;
+> +	int ret;
+> +
+> +	dma_cap_zero(mask);
+> +	dma_cap_set(DMA_MEMCPY, mask);
+> +
+> +	chan = dma_request_channel(mask, catpt_dma_filter, cdev->dev);
+> +	if (!chan) {
+> +		dev_err(cdev->dev, "request channel failed\n");
+> +		return ERR_PTR(-EPROBE_DEFER);
+> +	}
+> +
+> +	memset(&config, 0, sizeof(config));
+> +	config.direction = DMA_MEM_TO_DEV;
+> +	config.src_addr_width = DMA_SLAVE_BUSWIDTH_4_BYTES;
+> +	config.dst_addr_width = DMA_SLAVE_BUSWIDTH_4_BYTES;
+> +	config.src_maxburst = 16;
+> +	config.dst_maxburst = 16;
+> +
+> +	ret = dmaengine_slave_config(chan, &config);
+> +	if (ret) {
+> +		dev_err(cdev->dev, "slave config failed: %d\n", ret);
+> +		dma_release_channel(chan);
+> +		return ERR_PTR(ret);
+> +	}
+> +
+> +	return chan;
+> +}
+> +
+> +static int catpt_dma_memcpy(struct catpt_dev *cdev, struct dma_chan *chan,
+> +			    dma_addr_t dst_addr, dma_addr_t src_addr,
+> +			    size_t size)
+> +{
+> +	struct dma_async_tx_descriptor *desc;
+> +	enum dma_status status;
+> +
+> +	desc = dmaengine_prep_dma_memcpy(chan, dst_addr, src_addr, size,
+> +					 DMA_CTRL_ACK);
+> +	if (!desc) {
+> +		dev_err(cdev->dev, "prep dma memcpy failed\n");
+> +		return -EIO;
+> +	}
+> +
+> +	/* enable demand mode for dma channel */
+> +	catpt_updatel_shim(cdev, HMDC,
+> +			   CATPT_HMDC_HDDA(CATPT_DMA_DEVID, chan->chan_id),
+> +			   CATPT_HMDC_HDDA(CATPT_DMA_DEVID, chan->chan_id));
+> +	dmaengine_submit(desc);
+> +	status = dma_wait_for_async_tx(desc);
+> +	/* regardless of status, disable access to HOST memory in demand mode */
+> +	catpt_updatel_shim(cdev, HMDC,
+> +			   CATPT_HMDC_HDDA(CATPT_DMA_DEVID, chan->chan_id), 0);
+> +
+> +	return (status == DMA_COMPLETE) ? 0 : -EPROTO;
+> +}
+> +
+> +int catpt_dma_memcpy_todsp(struct catpt_dev *cdev, struct dma_chan *chan,
+> +			   dma_addr_t dst_addr, dma_addr_t src_addr,
+> +			   size_t size)
+> +{
+> +	return catpt_dma_memcpy(cdev, chan, dst_addr | CATPT_DMA_DSP_ADDR_MASK,
+> +				src_addr, size);
+> +}
+> +
+> +int catpt_dma_memcpy_fromdsp(struct catpt_dev *cdev, struct dma_chan *chan,
+> +			     dma_addr_t dst_addr, dma_addr_t src_addr,
+> +			     size_t size)
+> +{
+> +	return catpt_dma_memcpy(cdev, chan, dst_addr,
+> +				src_addr | CATPT_DMA_DSP_ADDR_MASK, size);
+> +}
+> +
+> +int catpt_dmac_probe(struct catpt_dev *cdev)
+> +{
+> +	struct dw_dma_chip *dmac;
+> +	int ret;
+> +
+> +	dmac = devm_kzalloc(cdev->dev, sizeof(*dmac), GFP_KERNEL);
+> +	if (!dmac)
+> +		return -ENOMEM;
+
+> +	dmac->regs = cdev->lpe_ba +
+> +		     cdev->spec->host_dma_offset[CATPT_DMA_DEVID];
+
+One line?
+
+> +	dmac->dev = cdev->dev;
+> +	dmac->irq = cdev->irq;
+> +
+> +	ret = dma_coerce_mask_and_coherent(cdev->dev, DMA_BIT_MASK(31));
+> +	if (ret)
+> +		return ret;
+> +	/*
+> +	 * Caller is responsible for putting device in D0 to allow
+> +	 * for I/O and memory access before probing DW.
+> +	 */
+> +	ret = dw_dma_probe(dmac);
+> +	if (ret)
+> +		return ret;
+> +
+> +	cdev->dmac = dmac;
+> +	return 0;
+> +}
+> +
+> +void catpt_dmac_remove(struct catpt_dev *cdev)
+> +{
+> +	/*
+> +	 * As do_dma_remove() juggles with pm_runtime_get_xxx() and
+> +	 * pm_runtime_put_xxx() while both ADSP and DW 'devices' are part of
+> +	 * the same module, caller makes sure pm_runtime_disable() is invoked
+> +	 * before removing DW to prevent postmortem resume and suspend.
+> +	 */
+> +	dw_dma_remove(cdev->dmac);
+> +}
+> +
+> +static void catpt_dsp_set_srampge(struct catpt_dev *cdev, struct resource *sram,
+> +				  unsigned long mask, unsigned long new)
+> +{
+> +	unsigned long old;
+> +	u32 off = sram->start;
+> +	u32 b = __ffs(mask);
+> +
+> +	old = catpt_readl_pci(cdev, VDRTCTL0) & mask;
+
+> +	dev_dbg(cdev->dev, "SRAMPGE [0x%08lx] 0x%08lx -> 0x%08lx",
+> +		mask, old, new);
+
+I saw use of trace points, this looks like non-production leftover.
+
+> +	if (old == new)
+> +		return;
+> +
+> +	catpt_updatel_pci(cdev, VDRTCTL0, mask, new);
+> +	/* wait for SRAM power gating to propagate */
+> +	udelay(60);
+> +
+> +	/*
+> +	 * Dummy read as the very first access after block enable
+> +	 * to prevent byte loss in future operations.
+> +	 */
+> +	for_each_clear_bit_from(b, &new, fls_long(mask)) {
+> +		u8 buf[4];
+> +
+> +		/* newly enabled: new bit=0 while old bit=1 */
+> +		if (test_bit(b, &old)) {
+
+> +			dev_dbg(cdev->dev, "sanitize block %ld: off 0x%08x\n",
+> +				b - __ffs(mask), off);
+
+So does this.
+
+> +			memcpy_fromio(buf, cdev->lpe_ba + off, sizeof(buf));
+> +		}
+> +		off += CATPT_MEMBLOCK_SIZE;
+> +	}
+> +}
+> +
+> +void catpt_dsp_update_srampge(struct catpt_dev *cdev, struct resource *sram,
+> +			      unsigned long mask)
+> +{
+> +	struct resource *res;
+> +	unsigned long new = 0;
+> +
+> +	/* flag all busy blocks */
+> +	for (res = sram->child; res; res = res->sibling) {
+> +		u32 h, l;
+> +
+> +		h = (res->end - sram->start) / CATPT_MEMBLOCK_SIZE;
+> +		l = (res->start - sram->start) / CATPT_MEMBLOCK_SIZE;
+> +		new |= GENMASK(h, l);
+
+I think better assembly will be generated with
+
+	(BIT(h - l + 1) - 1) << l
+
+Looking at the above calculus it seems (needs to be carefully checked!) can be
+
+	u32 bits = DIV_ROUND_UP(resource_size(res), CATPT_MEMBLOCK_SIZE);
+	u32 shift = (res->start - sram->start) / CATPT_MEMBLOCK_SIZE;
+
+	new |= (BIT(bits) - 1) << shift;
+
+Note, your approach is also good from readability point of view, so just weight
+pros and cons and choose best one.
+
+> +	}
+> +
+> +	/* offset value given mask's start and invert it as ON=b0 */
+> +	new = ~(new << __ffs(mask)) & mask;
+> +
+> +	/* disable core clock gating */
+> +	catpt_updatel_pci(cdev, VDRTCTL2, CATPT_VDRTCTL2_DCLCGE, 0);
+> +
+> +	catpt_dsp_set_srampge(cdev, sram, mask, new);
+> +
+> +	/* enable core clock gating */
+> +	catpt_updatel_pci(cdev, VDRTCTL2, CATPT_VDRTCTL2_DCLCGE,
+> +			  CATPT_VDRTCTL2_DCLCGE);
+> +}
+> +
+> +int catpt_dsp_stall(struct catpt_dev *cdev, bool stall)
+> +{
+> +	u32 reg, val;
+> +
+> +	val = stall ? CATPT_CS_STALL : 0;
+> +	catpt_updatel_shim(cdev, CS1, CATPT_CS_STALL, val);
+> +
+> +	return catpt_readl_poll_shim(cdev, CS1,
+> +				     reg, (reg & CATPT_CS_STALL) == val,
+> +				     500, 10000);
+> +}
+> +
+> +static int catpt_dsp_reset(struct catpt_dev *cdev, bool reset)
+> +{
+> +	u32 reg, val;
+> +
+> +	val = reset ? CATPT_CS_RST : 0;
+> +	catpt_updatel_shim(cdev, CS1, CATPT_CS_RST, val);
+> +
+> +	return catpt_readl_poll_shim(cdev, CS1,
+> +				     reg, (reg & CATPT_CS_RST) == val,
+> +				     500, 10000);
+> +}
+> +
+> +void lpt_dsp_pll_shutdown(struct catpt_dev *cdev, bool enable)
+> +{
+> +	u32 val;
+> +
+> +	val = enable ? LPT_VDRTCTL0_APLLSE : 0;
+> +	catpt_updatel_pci(cdev, VDRTCTL0, LPT_VDRTCTL0_APLLSE, val);
+> +}
+> +
+> +void wpt_dsp_pll_shutdown(struct catpt_dev *cdev, bool enable)
+> +{
+> +	u32 val;
+> +
+> +	val = enable ? WPT_VDRTCTL2_APLLSE : 0;
+> +	catpt_updatel_pci(cdev, VDRTCTL2, WPT_VDRTCTL2_APLLSE, val);
+> +}
+> +
+> +static int catpt_dsp_select_lpclock(struct catpt_dev *cdev, bool lp, bool waiti)
+> +{
+> +	u32 mask, reg, val;
+> +	int ret;
+> +
+> +	mutex_lock(&cdev->clk_mutex);
+> +
+> +	val = lp ? CATPT_CS_LPCS : 0;
+> +	reg = catpt_readl_shim(cdev, CS1) & CATPT_CS_LPCS;
+
+> +	dev_dbg(cdev->dev, "LPCS [0x%08lx] 0x%08x -> 0x%08x",
+> +		CATPT_CS_LPCS, reg, val);
+
+Leftover?
+
+> +	if (reg == val) {
+> +		mutex_unlock(&cdev->clk_mutex);
+> +		return 0;
+> +	}
+> +
+> +	if (waiti) {
+> +		/* wait for DSP to signal WAIT state */
+> +		ret = catpt_readl_poll_shim(cdev, ISD,
+> +					    reg, (reg & CATPT_ISD_DCPWM),
+> +					    500, 10000);
+> +		if (ret) {
+> +			dev_err(cdev->dev, "await WAITI timeout\n");
+> +			mutex_unlock(&cdev->clk_mutex);
+> +			return ret;
+> +		}
+> +	}
+> +
+> +	ret = catpt_readl_poll_shim(cdev, CLKCTL,
+> +				    reg, !(reg & CATPT_CLKCTL_CFCIP),
+> +				    500, 10000);
+> +	if (ret)
+> +		dev_warn(cdev->dev, "clock change still in progress\n");
+> +
+> +	/* default to DSP core & audio fabric high clock */
+> +	val |= CATPT_CS_DCS_HIGH;
+> +	mask = CATPT_CS_LPCS | CATPT_CS_DCS;
+> +	catpt_updatel_shim(cdev, CS1, mask, val);
+> +
+> +	ret = catpt_readl_poll_shim(cdev, CLKCTL,
+> +				    reg, !(reg & CATPT_CLKCTL_CFCIP),
+> +				    500, 10000);
+> +	if (ret)
+> +		dev_warn(cdev->dev, "clock change still in progress\n");
+> +
+> +	/* update PLL accordingly */
+> +	cdev->spec->pll_shutdown(cdev, lp);
+> +
+> +	mutex_unlock(&cdev->clk_mutex);
+> +	return 0;
+> +}
+> +
+> +int catpt_dsp_update_lpclock(struct catpt_dev *cdev)
+> +{
+> +	struct catpt_stream_runtime *stream;
+> +
+> +	list_for_each_entry(stream, &cdev->stream_list, node)
+> +		if (stream->prepared)
+> +			return catpt_dsp_select_lpclock(cdev, false, true);
+> +
+> +	return catpt_dsp_select_lpclock(cdev, true, true);
+> +}
+> +
+> +/* bring registers to their defaults as HW won't reset itself */
+> +static void catpt_dsp_set_regs_defaults(struct catpt_dev *cdev)
+> +{
+> +	int i;
+> +
+> +	catpt_writel_shim(cdev, CS1, CATPT_CS_DEFAULT);
+> +	catpt_writel_shim(cdev, ISC, CATPT_ISC_DEFAULT);
+> +	catpt_writel_shim(cdev, ISD, CATPT_ISD_DEFAULT);
+> +	catpt_writel_shim(cdev, IMC, CATPT_IMC_DEFAULT);
+> +	catpt_writel_shim(cdev, IMD, CATPT_IMD_DEFAULT);
+> +	catpt_writel_shim(cdev, IPCC, CATPT_IPCC_DEFAULT);
+> +	catpt_writel_shim(cdev, IPCD, CATPT_IPCD_DEFAULT);
+> +	catpt_writel_shim(cdev, CLKCTL, CATPT_CLKCTL_DEFAULT);
+> +	catpt_writel_shim(cdev, CS2, CATPT_CS2_DEFAULT);
+> +	catpt_writel_shim(cdev, LTRC, CATPT_LTRC_DEFAULT);
+> +	catpt_writel_shim(cdev, HMDC, CATPT_HMDC_DEFAULT);
+> +
+> +	for (i = 0; i < CATPT_SSP_COUNT; i++) {
+> +		catpt_writel_ssp(cdev, i, SSCR0, CATPT_SSC0_DEFAULT);
+> +		catpt_writel_ssp(cdev, i, SSCR1, CATPT_SSC1_DEFAULT);
+> +		catpt_writel_ssp(cdev, i, SSSR, CATPT_SSS_DEFAULT);
+> +		catpt_writel_ssp(cdev, i, SSITR, CATPT_SSIT_DEFAULT);
+> +		catpt_writel_ssp(cdev, i, SSDR, CATPT_SSD_DEFAULT);
+> +		catpt_writel_ssp(cdev, i, SSTO, CATPT_SSTO_DEFAULT);
+> +		catpt_writel_ssp(cdev, i, SSPSP, CATPT_SSPSP_DEFAULT);
+> +		catpt_writel_ssp(cdev, i, SSTSA, CATPT_SSTSA_DEFAULT);
+> +		catpt_writel_ssp(cdev, i, SSRSA, CATPT_SSRSA_DEFAULT);
+> +		catpt_writel_ssp(cdev, i, SSTSS, CATPT_SSTSS_DEFAULT);
+> +		catpt_writel_ssp(cdev, i, SSCR2, CATPT_SSCR2_DEFAULT);
+> +		catpt_writel_ssp(cdev, i, SSPSP2, CATPT_SSPSP2_DEFAULT);
+> +	}
+> +}
+> +
+> +int lpt_dsp_power_down(struct catpt_dev *cdev)
+> +{
+> +	catpt_dsp_reset(cdev, true);
+> +
+> +	/* set 24Mhz clock for both SSPs */
+> +	catpt_updatel_shim(cdev, CS1, CATPT_CS_SBCS(0) | CATPT_CS_SBCS(1),
+> +			   CATPT_CS_SBCS(0) | CATPT_CS_SBCS(1));
+> +	catpt_dsp_select_lpclock(cdev, true, false);
+> +
+> +	/* DRAM power gating all */
+> +	catpt_dsp_set_srampge(cdev, &cdev->dram, cdev->spec->dram_mask,
+> +			      cdev->spec->dram_mask);
+> +	catpt_dsp_set_srampge(cdev, &cdev->iram, cdev->spec->iram_mask,
+> +			      cdev->spec->iram_mask);
+> +
+> +	catpt_updatel_pci(cdev, PMCS, PCI_PM_CTRL_STATE_MASK, PCI_D3hot);
+> +	/* give hw time to drop off */
+> +	udelay(50);
+> +
+> +	return 0;
+> +}
+> +
+> +int lpt_dsp_power_up(struct catpt_dev *cdev)
+> +{
+> +	/* SRAM power gating none */
+> +	catpt_dsp_set_srampge(cdev, &cdev->dram, cdev->spec->dram_mask, 0);
+> +	catpt_dsp_set_srampge(cdev, &cdev->iram, cdev->spec->iram_mask, 0);
+> +
+> +	catpt_updatel_pci(cdev, PMCS, PCI_PM_CTRL_STATE_MASK, PCI_D0);
+> +	/* give hw time to wake up */
+> +	udelay(100);
+> +
+> +	catpt_dsp_select_lpclock(cdev, false, false);
+> +	catpt_updatel_shim(cdev, CS1,
+> +			CATPT_CS_SBCS(0) | CATPT_CS_SBCS(1),
+> +			CATPT_CS_SBCS(0) | CATPT_CS_SBCS(1));
+> +	/* stagger DSP reset after clock selection */
+> +	udelay(50);
+> +
+> +	catpt_dsp_reset(cdev, false);
+> +	/* generate int deassert msg to fix inversed int logic */
+> +	catpt_updatel_shim(cdev, IMC, CATPT_IMC_IPCDB | CATPT_IMC_IPCCD, 0);
+> +
+> +	return 0;
+> +}
+> +
+> +int wpt_dsp_power_down(struct catpt_dev *cdev)
+> +{
+> +	u32 mask, val;
+> +
+> +	/* disable core clock gating */
+> +	catpt_updatel_pci(cdev, VDRTCTL2, CATPT_VDRTCTL2_DCLCGE, 0);
+> +
+> +	catpt_dsp_reset(cdev, true);
+> +	/* set 24Mhz clock for both SSPs */
+> +	catpt_updatel_shim(cdev, CS1, CATPT_CS_SBCS(0) | CATPT_CS_SBCS(1),
+> +			   CATPT_CS_SBCS(0) | CATPT_CS_SBCS(1));
+> +	catpt_dsp_select_lpclock(cdev, true, false);
+> +	/* disable MCLK */
+> +	catpt_updatel_shim(cdev, CLKCTL, CATPT_CLKCTL_SMOS, 0);
+> +
+> +	catpt_dsp_set_regs_defaults(cdev);
+> +
+> +	/* switch clock gating */
+> +	mask = CATPT_VDRTCTL2_CGEALL & (~CATPT_VDRTCTL2_DCLCGE);
+> +	val = mask & (~CATPT_VDRTCTL2_DTCGE);
+> +	catpt_updatel_pci(cdev, VDRTCTL2, mask, val);
+> +	/* enable DTCGE separatelly */
+> +	catpt_updatel_pci(cdev, VDRTCTL2, CATPT_VDRTCTL2_DTCGE,
+> +			  CATPT_VDRTCTL2_DTCGE);
+> +
+> +	/* SRAM power gating all */
+> +	catpt_dsp_set_srampge(cdev, &cdev->dram, cdev->spec->dram_mask,
+> +			      cdev->spec->dram_mask);
+> +	catpt_dsp_set_srampge(cdev, &cdev->iram, cdev->spec->iram_mask,
+> +			      cdev->spec->iram_mask);
+> +	mask = WPT_VDRTCTL0_D3SRAMPGD | WPT_VDRTCTL0_D3PGD;
+> +	catpt_updatel_pci(cdev, VDRTCTL0, mask, WPT_VDRTCTL0_D3PGD);
+> +
+> +	catpt_updatel_pci(cdev, PMCS, PCI_PM_CTRL_STATE_MASK, PCI_D3hot);
+> +	/* give hw time to drop off */
+> +	udelay(50);
+> +
+> +	/* enable core clock gating */
+> +	catpt_updatel_pci(cdev, VDRTCTL2, CATPT_VDRTCTL2_DCLCGE,
+> +			  CATPT_VDRTCTL2_DCLCGE);
+> +	udelay(50);
+> +
+> +	return 0;
+> +}
+> +
+> +int wpt_dsp_power_up(struct catpt_dev *cdev)
+> +{
+> +	u32 mask, val;
+> +
+> +	/* disable core clock gating */
+> +	catpt_updatel_pci(cdev, VDRTCTL2, CATPT_VDRTCTL2_DCLCGE, 0);
+> +
+> +	/* switch clock gating */
+> +	mask = CATPT_VDRTCTL2_CGEALL & (~CATPT_VDRTCTL2_DCLCGE);
+> +	val = mask & (~CATPT_VDRTCTL2_DTCGE);
+> +	catpt_updatel_pci(cdev, VDRTCTL2, mask, val);
+> +
+> +	catpt_updatel_pci(cdev, PMCS, PCI_PM_CTRL_STATE_MASK, PCI_D0);
+> +
+> +	/* SRAM power gating none */
+> +	mask = WPT_VDRTCTL0_D3SRAMPGD | WPT_VDRTCTL0_D3PGD;
+> +	catpt_updatel_pci(cdev, VDRTCTL0, mask, mask);
+> +	catpt_dsp_set_srampge(cdev, &cdev->dram, cdev->spec->dram_mask, 0);
+> +	catpt_dsp_set_srampge(cdev, &cdev->iram, cdev->spec->iram_mask, 0);
+> +
+> +	catpt_dsp_set_regs_defaults(cdev);
+> +
+> +	/* restore MCLK */
+> +	catpt_updatel_shim(cdev, CLKCTL, CATPT_CLKCTL_SMOS, CATPT_CLKCTL_SMOS);
+> +	catpt_dsp_select_lpclock(cdev, false, false);
+> +	/* set 24Mhz clock for both SSPs */
+> +	catpt_updatel_shim(cdev, CS1, CATPT_CS_SBCS(0) | CATPT_CS_SBCS(1),
+> +			   CATPT_CS_SBCS(0) | CATPT_CS_SBCS(1));
+> +	catpt_dsp_reset(cdev, false);
+> +
+> +	/* enable core clock gating */
+> +	catpt_updatel_pci(cdev, VDRTCTL2, CATPT_VDRTCTL2_DCLCGE,
+> +			  CATPT_VDRTCTL2_DCLCGE);
+> +
+> +	/* generate int deassert msg to fix inversed int logic */
+> +	catpt_updatel_shim(cdev, IMC, CATPT_IMC_IPCDB | CATPT_IMC_IPCCD, 0);
+> +
+> +	return 0;
+> +}
+> -- 
+> 2.17.1
+> 
+
 -- 
-2.21.0
+With Best Regards,
+Andy Shevchenko
+
 

@@ -2,62 +2,91 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7A45B26C197
-	for <lists+alsa-devel@lfdr.de>; Wed, 16 Sep 2020 12:26:16 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id ADEF426C244
+	for <lists+alsa-devel@lfdr.de>; Wed, 16 Sep 2020 13:48:38 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 268B216A6;
-	Wed, 16 Sep 2020 12:25:26 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 268B216A6
+	by alsa0.perex.cz (Postfix) with ESMTPS id 3135A1695;
+	Wed, 16 Sep 2020 13:47:48 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3135A1695
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1600251976;
-	bh=a1k0EIQMkEpWPKLzCiejJTxY5oTF1McuMz4tLSG2Ank=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1600256918;
+	bh=w7XuHkweMYu5TotGlDL+IWoGFu3Ys6N3VsreCGyY0Hc=;
+	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=ay8HKPKjYu9ZWXUTfQTgJ6S3X1egH+1FgO5uLoGZgkODNtb90bfDIYu/jM6x8STel
-	 vi+lnKlxTheZZ6D1h59rdB7DUePeJdLunqnXDhJUI0jAhD8h+bVrSx8bxLCGJIEW03
-	 /B+v8NnGyXAxDonAfo/uk5e42/f6L9DRQOmRdt4Q=
+	b=MrTldGs392j3PgZ1EQv9TelhA5Di4QsU07yr2iZs+uNfV1RaPyd6aD0Hk4/adexHC
+	 XXt3h1PBVHifnIXcCVjvMUYi4UhRpokvOjV/JYKVO0kbKrHmz4mMQ5ivXGJ6mpb3KX
+	 EUCpS3Oqv8dwL+xz9o7IGVwSmjhEq2nuHxktDJOY=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 6F9A5F800BB;
-	Wed, 16 Sep 2020 12:23:47 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 4A258F800E8;
+	Wed, 16 Sep 2020 13:46:57 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id B18ACF800BB; Wed, 16 Sep 2020 12:23:44 +0200 (CEST)
+ id 8C9DDF8015A; Wed, 16 Sep 2020 13:46:54 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from inva021.nxp.com (inva021.nxp.com [92.121.34.21])
+X-Spam-Status: No, score=-3.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+ DKIM_VALID,DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS
+ autolearn=disabled version=3.4.0
+Received: from lelv0143.ext.ti.com (lelv0143.ext.ti.com [198.47.23.248])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id AAB27F8015A
- for <alsa-devel@alsa-project.org>; Wed, 16 Sep 2020 12:23:30 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz AAB27F8015A
-Received: from inva021.nxp.com (localhost [127.0.0.1])
- by inva021.eu-rdc02.nxp.com (Postfix) with ESMTP id 1CC0B2004DA;
- Wed, 16 Sep 2020 12:23:30 +0200 (CEST)
-Received: from invc005.ap-rdc01.nxp.com (invc005.ap-rdc01.nxp.com
- [165.114.16.14])
- by inva021.eu-rdc02.nxp.com (Postfix) with ESMTP id 873DA200036;
- Wed, 16 Sep 2020 12:23:25 +0200 (CEST)
-Received: from 10.192.242.69 (shlinux2.ap.freescale.net [10.192.224.44])
- by invc005.ap-rdc01.nxp.com (Postfix) with ESMTP id EFF6F4030D;
- Wed, 16 Sep 2020 12:23:19 +0200 (CEST)
-From: Shengjiu Wang <shengjiu.wang@nxp.com>
-To: timur@kernel.org, nicoleotsuka@gmail.com, Xiubo.Lee@gmail.com,
- festevam@gmail.com, broonie@kernel.org, perex@perex.cz, tiwai@suse.com,
- alsa-devel@alsa-project.org, lgirdwood@gmail.com
-Subject: [PATCH 3/3] ASoC: fsl_sai: Set MCLK input or output direction
-Date: Wed, 16 Sep 2020 18:16:27 +0800
-Message-Id: <1600251387-1863-4-git-send-email-shengjiu.wang@nxp.com>
-X-Mailer: git-send-email 2.7.4
-In-Reply-To: <1600251387-1863-1-git-send-email-shengjiu.wang@nxp.com>
-References: <1600251387-1863-1-git-send-email-shengjiu.wang@nxp.com>
-X-Virus-Scanned: ClamAV using ClamSMTP
-Cc: linuxppc-dev@lists.ozlabs.org, linux-kernel@vger.kernel.org
+ by alsa1.perex.cz (Postfix) with ESMTPS id F32C6F800F1
+ for <alsa-devel@alsa-project.org>; Wed, 16 Sep 2020 13:46:43 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz F32C6F800F1
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b="QXK9GTpN"
+Received: from lelv0266.itg.ti.com ([10.180.67.225])
+ by lelv0143.ext.ti.com (8.15.2/8.15.2) with ESMTP id 08GBkfEo058813;
+ Wed, 16 Sep 2020 06:46:41 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com;
+ s=ti-com-17Q1; t=1600256801;
+ bh=f39L0NtWeT8nBr11AnFqXf2qSwpEqyvlCAO4NHzHrU0=;
+ h=Subject:To:CC:References:From:Date:In-Reply-To;
+ b=QXK9GTpNryajUTxJIsXPNZHPLqrQAG++6RL8xwA3V9ppbIcLLnB/lOtyNJULXStcr
+ 71TU6C9oESqozmPi6m/I/lr9VojL59oyE9CKQbphi4U/1AYCGmRqH6HvYSf8qgoKtJ
+ XqPHG9p7MayDqEuA/U40mJJGTe/kr0o8ciEqgf6Q=
+Received: from DLEE105.ent.ti.com (dlee105.ent.ti.com [157.170.170.35])
+ by lelv0266.itg.ti.com (8.15.2/8.15.2) with ESMTPS id 08GBkfmm116875
+ (version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=FAIL);
+ Wed, 16 Sep 2020 06:46:41 -0500
+Received: from DLEE106.ent.ti.com (157.170.170.36) by DLEE105.ent.ti.com
+ (157.170.170.35) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.1979.3; Wed, 16
+ Sep 2020 06:46:40 -0500
+Received: from fllv0040.itg.ti.com (10.64.41.20) by DLEE106.ent.ti.com
+ (157.170.170.36) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.1979.3 via
+ Frontend Transport; Wed, 16 Sep 2020 06:46:40 -0500
+Received: from [10.250.71.177] (ileax41-snat.itg.ti.com [10.172.224.153])
+ by fllv0040.itg.ti.com (8.15.2/8.15.2) with ESMTP id 08GBkekj049033;
+ Wed, 16 Sep 2020 06:46:40 -0500
+Subject: Re: [PATCH v2 3/3] ASoC: tlv320adcx140: Add proper support for master
+ mode
+To: Camel Guo <camelg@axis.com>, Camel Guo <Camel.Guo@axis.com>,
+ "lgirdwood@gmail.com" <lgirdwood@gmail.com>, "broonie@kernel.org"
+ <broonie@kernel.org>, "tiwai@suse.com" <tiwai@suse.com>
+References: <20200911080753.30342-1-camel.guo@axis.com>
+ <20200911080753.30342-3-camel.guo@axis.com>
+ <c2fb617e-fa61-e9d1-449f-7d8806168b9a@ti.com>
+ <507f2f53-e236-f894-cb17-4fc84cf00326@axis.com>
+From: Dan Murphy <dmurphy@ti.com>
+Message-ID: <7065684e-5e57-8c63-daef-89f4b2ab1605@ti.com>
+Date: Wed, 16 Sep 2020 06:46:40 -0500
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.10.0
+MIME-Version: 1.0
+In-Reply-To: <507f2f53-e236-f894-cb17-4fc84cf00326@axis.com>
+Content-Type: text/plain; charset="utf-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+Content-Language: en-US
+X-EXCLAIMER-MD-CONFIG: e1e8a2fd-e40a-4ac6-ac9b-f7e9cc9ee180
+Cc: "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
+ kernel <kernel@axis.com>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -73,33 +102,18 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-SAI support select MCLK direction with version.major > 3
-and version.minor > 1, the default direction is input,
-set it to be output according to DT property.
+Camel
 
-Signed-off-by: Shengjiu Wang <shengjiu.wang@nxp.com>
----
- sound/soc/fsl/fsl_sai.c | 7 +++++++
- 1 file changed, 7 insertions(+)
+On 9/16/20 2:52 AM, Camel Guo wrote:
+> Please forget about this patch since Dan will upload a similar one.
+>
+> @Dan, see my comment below.
+>
+I have cc'd you on my patchset and as you can see I did not add any of 
+the master mode programming only setting of the master mode bits.
 
-diff --git a/sound/soc/fsl/fsl_sai.c b/sound/soc/fsl/fsl_sai.c
-index 738b4dda7847..5117c1cd5682 100644
---- a/sound/soc/fsl/fsl_sai.c
-+++ b/sound/soc/fsl/fsl_sai.c
-@@ -1117,6 +1117,13 @@ static int fsl_sai_probe(struct platform_device *pdev)
- 	if (ret < 0)
- 		dev_warn(&pdev->dev, "Error reading SAI version: %d\n", ret);
- 
-+	/* Select MCLK direction */
-+	if (of_find_property(np, "fsl,sai-mclk-direction-output", NULL) &&
-+	    sai->verid.major >= 3 && sai->verid.minor >= 1) {
-+		regmap_update_bits(sai->regmap, FSL_SAI_MCTL,
-+				   FSL_SAI_MCTL_MCLK_EN, FSL_SAI_MCTL_MCLK_EN);
-+	}
-+
- 	pm_runtime_enable(&pdev->dev);
- 	regcache_cache_only(sai->regmap, true);
- 
--- 
-2.27.0
+So this patch is still viable it's just the master mode bit programming 
+that needs to be looked at.
+
+Dan
 

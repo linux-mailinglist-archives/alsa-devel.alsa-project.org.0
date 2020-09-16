@@ -2,78 +2,88 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 75BFE26C57A
-	for <lists+alsa-devel@lfdr.de>; Wed, 16 Sep 2020 19:00:24 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8AF9326C58C
+	for <lists+alsa-devel@lfdr.de>; Wed, 16 Sep 2020 19:06:01 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 9B5281672;
-	Wed, 16 Sep 2020 18:59:33 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9B5281672
+	by alsa0.perex.cz (Postfix) with ESMTPS id 045D71675;
+	Wed, 16 Sep 2020 19:05:11 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 045D71675
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1600275624;
-	bh=B39+ZoAmciQEiydpcbr6v7EmXaVff2cxa6KQ0PPRVxw=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1600275961;
+	bh=oUrT5gwD52MsR1wVTFrUE/WFQvwScZ/Kn5UNNx4HIXA=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=AxD1OvC09zzsSViSiKw/vC07eLjBA8xuCKXH+YGmVGxtDGz/XWkXsarlM9pZK3zvX
-	 LabYNS4yrHmWO01LLd2cOZFsTVK57h8lgWAgkEaWeVJqEjs72ud7em+FIctUOSQAm4
-	 B/1n4oRMW9tsnt8j5YhORjuabYyqF8u15z5iCDj4=
+	b=DLY2bSLY3ubbkY1qcOJujYQfChWoLzjEZGZL9Ju6Ase4L4dXrIUp+YTzHEYPHqFoT
+	 IDFaJo56LioNhziMNI7YktuVaYZ8bMrS55K1tDkYmKqyG79ic2d8FS5n/mjN6GwLO4
+	 t3jjBUESFBGTXT+ZIkvqnFfH3iqwfJyvzBj30zs8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 8E52BF80150;
-	Wed, 16 Sep 2020 18:58:42 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 1FD35F80150;
+	Wed, 16 Sep 2020 19:04:20 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 07FFCF8015A; Wed, 16 Sep 2020 18:58:40 +0200 (CEST)
+ id 8FFD8F80150; Wed, 16 Sep 2020 19:04:18 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_PASS,SPF_NONE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from mail-lj1-x241.google.com (mail-lj1-x241.google.com
+ [IPv6:2a00:1450:4864:20::241])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 9FFC4F800E8
- for <alsa-devel@alsa-project.org>; Wed, 16 Sep 2020 18:58:31 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9FFC4F800E8
-IronPort-SDR: Q/Qk+djkXuSvlaKc51gt8HaEClgFkHpyvuExI6EfoBfRdJ2ev2BFzS2U3w/g8LraVquhlUe8up
- uB4QTqn6be+Q==
-X-IronPort-AV: E=McAfee;i="6000,8403,9746"; a="139028113"
-X-IronPort-AV: E=Sophos;i="5.76,433,1592895600"; d="scan'208";a="139028113"
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from orsmga008.jf.intel.com ([10.7.209.65])
- by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 16 Sep 2020 09:58:28 -0700
-IronPort-SDR: OeWarnK8LxZpy8ndgtG8KsIK2JOuE2BCWyZkfdm1zFQ0WOxfz1/gQdQcP1RwEeZRMyjvmZuSxI
- VPzbiRpbHeLQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.76,433,1592895600"; d="scan'208";a="336087535"
-Received: from smile.fi.intel.com (HELO smile) ([10.237.68.40])
- by orsmga008.jf.intel.com with ESMTP; 16 Sep 2020 09:58:24 -0700
-Received: from andy by smile with local (Exim 4.94)
- (envelope-from <andriy.shevchenko@linux.intel.com>)
- id 1kIalA-00H82O-Rg; Wed, 16 Sep 2020 19:58:20 +0300
-Date: Wed, 16 Sep 2020 19:58:20 +0300
-From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-To: Cezary Rojewski <cezary.rojewski@intel.com>
-Subject: Re: [PATCH v5 03/13] ASoC: Intel: catpt: Firmware loading and
- context restore
-Message-ID: <20200916165820.GD3956970@smile.fi.intel.com>
-References: <20200915162944.16241-1-cezary.rojewski@intel.com>
- <20200915162944.16241-4-cezary.rojewski@intel.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 7303BF800BB
+ for <alsa-devel@alsa-project.org>; Wed, 16 Sep 2020 19:04:06 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7303BF800BB
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
+ header.b="JjID6Ilf"
+Received: by mail-lj1-x241.google.com with SMTP id k25so6530896ljg.9
+ for <alsa-devel@alsa-project.org>; Wed, 16 Sep 2020 10:04:06 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=oUrT5gwD52MsR1wVTFrUE/WFQvwScZ/Kn5UNNx4HIXA=;
+ b=JjID6IlfOKBWQ4lGtoBOpv1ttQeatHSDCajwiJ0azKXbH3YYrtGydW+Gxgc9Piel58
+ YFhSrOBPjpmjpppbHq0U1XIL2d7aM4huBXm1h4WWTeRveWVq+kXGVPdqcbZUiqkY8pop
+ Wd86Q/TDYKOncWV1Y5HGdXg4ibithp/E8iohuJpujgMxmv3d/X2gB4S8O8jMFW/FikAq
+ FYHhoI1jGVqUqtPlRtThH8ISjo9nJmtJbc7R8zCOsqzCnsiOS6x38RzgGJY6PcCS1z4h
+ LRNXYbtrV+wpzUFIBRj6Vj/XisBq07u82l92zuLu4ecwxS7qL7Y5yT/EKsYpV7mrhasE
+ K9sg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=oUrT5gwD52MsR1wVTFrUE/WFQvwScZ/Kn5UNNx4HIXA=;
+ b=RoxNnYugN+EkOnFjnCE8rIMkANNL+XD+Qz4u9bpMiiCRQcWqnFPFxWpgpCaxxA1n7V
+ 5ApEmYtIX0RLguC3Y5N/OEq+9EE1iJwFQ/+A3RH+tf4XgLo4XKMHHuoRXPb06CwNcWob
+ dZ4j9J7UuaTeb8HOcb+vRvHmd15e5r/KTnzbtHT1nk5W5WgtviA90W+HdJmr3rQC/ZDS
+ KH/HLvqk29k8IwQghuh4PW0Owf7WXyHpGGgG+EBNE/rAzKLl0qvLwF2bQxY1MtZVyxG2
+ GRB3gh4+t/QoKEsYljafWQlO4lEjevyOC09RBTaCRCDPApSYNpv9YEqZR4pYG9xVdAJp
+ xRuA==
+X-Gm-Message-State: AOAM532pa0KhCjWzJFjTcon91JFOjd6Dlpf3haFBjD98aVrvcWxnLd/2
+ HBqKm2ud85NIT9zbtNlR4R5oybieBQjAKKNQG30=
+X-Google-Smtp-Source: ABdhPJyHd0Ooh4IK/vHvj2P4gv3lfDfIBiO8RqhPNolmmBPPICV/UOwNTXFmvzSGmOtJPgxjXHBzXE9TuLHprQ7UyvE=
+X-Received: by 2002:a2e:a550:: with SMTP id e16mr9601438ljn.125.1600275845628; 
+ Wed, 16 Sep 2020 10:04:05 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20200915162944.16241-4-cezary.rojewski@intel.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
-Cc: pierre-louis.bossart@linux.intel.com, alsa-devel@alsa-project.org,
- filip.kaczmarski@intel.com, harshapriya.n@intel.com, marcin.barlik@intel.com,
- zwisler@google.com, lgirdwood@gmail.com, tiwai@suse.com,
- filip.proborszcz@intel.com, broonie@kernel.org,
- amadeuszx.slawinski@linux.intel.com, michal.wasko@intel.com,
- cujomalainey@chromium.org, krzysztof.hejmowski@intel.com,
- ppapierkowski@habana.ai, vamshi.krishna.gopal@intel.com
+References: <1600251387-1863-1-git-send-email-shengjiu.wang@nxp.com>
+ <1600251387-1863-2-git-send-email-shengjiu.wang@nxp.com>
+In-Reply-To: <1600251387-1863-2-git-send-email-shengjiu.wang@nxp.com>
+From: Fabio Estevam <festevam@gmail.com>
+Date: Wed, 16 Sep 2020 14:03:54 -0300
+Message-ID: <CAOMZO5CZtdxbZdnXrckgYE7bzW-PDo2XOfQobuTf91C1hp462g@mail.gmail.com>
+Subject: Re: [PATCH 1/3] ASoC: fsl_sai: Add new added registers and new bit
+ definition
+To: Shengjiu Wang <shengjiu.wang@nxp.com>
+Content-Type: text/plain; charset="UTF-8"
+Cc: Linux-ALSA <alsa-devel@alsa-project.org>, Timur Tabi <timur@kernel.org>,
+ Xiubo Li <Xiubo.Lee@gmail.com>, Liam Girdwood <lgirdwood@gmail.com>,
+ Takashi Iwai <tiwai@suse.com>, Nicolin Chen <nicoleotsuka@gmail.com>,
+ Mark Brown <broonie@kernel.org>, linuxppc-dev@lists.ozlabs.org,
+ linux-kernel <linux-kernel@vger.kernel.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -89,728 +99,10 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Tue, Sep 15, 2020 at 06:29:34PM +0200, Cezary Rojewski wrote:
-> For Lynxpoint and Wildcat Point solution, is it host's responsibility to
-> allocate SRAM regions and ensure those already taken are not overwritten
-> with other data until released. Blocks are transferred to SRAM - either
-> IRAM or DRAM - via DW DMA controller. Once basefw is booted, ownership
-> of DMA transfer is lost in favour of DSP.
-> 
-> Hosts reponsibilities don't end on initial block allocation and binary
-> transfer. During Dx transitions host must store FW runtime context from
-> DRAM before putting AudioDSP subsystem into lower power state. Said
-> context gets flashed after D0 entry to bring DSP right where it was just
-> before suspending.
-> 
-> Load and restore procedures are finalized with SRAM power gating and
-> adequate clock level selection. This power gates unused EBBs and clock
-> speed effectively reducing power consumption.
-> 
-> Signed-off-by: Cezary Rojewski <cezary.rojewski@intel.com>
-> ---
->  sound/soc/intel/catpt/loader.c | 673 +++++++++++++++++++++++++++++++++
->  1 file changed, 673 insertions(+)
->  create mode 100644 sound/soc/intel/catpt/loader.c
-> 
-> diff --git a/sound/soc/intel/catpt/loader.c b/sound/soc/intel/catpt/loader.c
-> new file mode 100644
-> index 000000000000..9d21637215ab
-> --- /dev/null
-> +++ b/sound/soc/intel/catpt/loader.c
-> @@ -0,0 +1,673 @@
-> +// SPDX-License-Identifier: GPL-2.0-only
-> +//
-> +// Copyright(c) 2020 Intel Corporation. All rights reserved.
-> +//
-> +// Author: Cezary Rojewski <cezary.rojewski@intel.com>
-> +//
-> +
-> +#include <linux/dma-mapping.h>
-> +#include <linux/firmware.h>
-> +#include <linux/slab.h>
-> +#include "core.h"
-> +#include "registers.h"
-> +
-> +/* FW load (200ms) plus operational delays */
-> +#define FW_READY_TIMEOUT_MSECS	250
-> +
-> +#define FW_SIGNATURE	"$SST"
-> +#define FW_SIGNATURE_SIZE 4
-> +
-> +/* some nice binary layout picture here */
-> +
-> +struct catpt_fw_hdr {
-> +	char signature[FW_SIGNATURE_SIZE];
-> +	u32 file_size;
-> +	u32 modules;
-> +	u32 file_format;
-> +	u32 reserved[4];
-> +} __packed;
-> +
-> +struct catpt_fw_mod_hdr {
-> +	char signature[FW_SIGNATURE_SIZE];
-> +	u32 mod_size;
-> +	u32 blocks;
-> +	u16 slot;
-> +	enum catpt_module_id id:16;
-> +	u32 entry_point;
-> +	u32 persistent_size;
-> +	u32 scratch_size;
-> +} __packed;
-> +
-> +enum catpt_ram_type {
-> +	CATPT_RAM_TYPE_IRAM = 1,
-> +	CATPT_RAM_TYPE_DRAM = 2,
-> +	/* DRAM with module's initial state */
-> +	CATPT_RAM_TYPE_INSTANCE = 3,
-> +};
-> +
-> +struct catpt_fw_block_hdr {
-> +	enum catpt_ram_type type __aligned(4);
-> +	u32 size;
-> +	u32 ram_offset;
-> +	u32 rsvd;
-> +} __packed;
+Hi Shengjiu,
 
-> +void catpt_sram_init(struct resource *sram, u32 start, u32 size)
-> +{
-> +	sram->start = start;
-> +	sram->end = start + size - 1;
-> +}
+On Wed, Sep 16, 2020 at 7:23 AM Shengjiu Wang <shengjiu.wang@nxp.com> wrote:
+>
+> On i.MX850/i.MX815/i.MX845 platform, the sai IP is upgraded.
 
-No user of this.
-
-Note I wrote this before looking closer into previous patches. So, I stopped
-reviewing the series due to the mess with function declarations and who knows
-what other W=1 or bisectability issues this series has. Hence waiting for v6
-with all that addressed.
-
-> +void catpt_sram_free(struct resource *sram)
-> +{
-> +	struct resource *res, *save;
-> +
-> +	for (res = sram->child; res;) {
-> +		save = res->sibling;
-> +		release_resource(res);
-> +		kfree(res);
-> +		res = save;
-> +	}
-> +}
-
-Ditto.
-
-> +struct resource *
-> +catpt_request_region(struct resource *root, resource_size_t size)
-> +{
-> +	struct resource *res = root->child;
-> +	resource_size_t addr = root->start;
-> +
-> +	for (;;) {
-> +		if (res->start - addr >= size)
-> +			break;
-> +		addr = res->end + 1;
-> +		res = res->sibling;
-> +		if (!res)
-> +			return NULL;
-> +	}
-> +
-> +	return __request_region(root, addr, size, NULL, 0);
-> +}
-
-Ditto.
-
-> +int catpt_store_streams_context(struct catpt_dev *cdev, struct dma_chan *chan)
-> +{
-> +	struct catpt_stream_runtime *stream;
-> +
-> +	list_for_each_entry(stream, &cdev->stream_list, node) {
-> +		u32 off, size;
-> +		int ret;
-> +
-> +		off = stream->persistent->start;
-> +		size = resource_size(stream->persistent);
-> +		dev_dbg(cdev->dev, "storing stream %d ctx: off 0x%08x size %d\n",
-> +			stream->info.stream_hw_id, off, size);
-> +
-> +		ret = catpt_dma_memcpy_fromdsp(cdev, chan,
-> +					       cdev->dxbuf_paddr + off,
-> +					       cdev->lpe_base + off,
-> +					       ALIGN(size, 4));
-> +		if (ret) {
-> +			dev_err(cdev->dev, "memcpy fromdsp failed: %d\n", ret);
-> +			return ret;
-> +		}
-> +	}
-> +
-> +	return 0;
-> +}
-> +
-> +int catpt_store_module_states(struct catpt_dev *cdev, struct dma_chan *chan)
-> +{
-> +	int i;
-> +
-> +	for (i = 0; i < ARRAY_SIZE(cdev->modules); i++) {
-> +		struct catpt_module_type *type;
-> +		u32 off;
-> +		int ret;
-> +
-> +		type = &cdev->modules[i];
-> +		if (!type->loaded || !type->state_size)
-> +			continue;
-> +
-> +		off = type->state_offset;
-> +		dev_dbg(cdev->dev, "storing mod %d state: off 0x%08x size %d\n",
-> +			i, off, type->state_size);
-> +
-> +		ret = catpt_dma_memcpy_fromdsp(cdev, chan,
-> +					       cdev->dxbuf_paddr + off,
-> +					       cdev->lpe_base + off,
-> +					       ALIGN(type->state_size, 4));
-> +		if (ret) {
-> +			dev_err(cdev->dev, "memcpy fromdsp failed: %d\n", ret);
-> +			return ret;
-> +		}
-> +	}
-> +
-> +	return 0;
-> +}
-> +
-> +int catpt_store_memdumps(struct catpt_dev *cdev, struct dma_chan *chan)
-> +{
-> +	int i;
-> +
-> +	for (i = 0; i < cdev->dx_ctx.num_meminfo; i++) {
-> +		struct catpt_save_meminfo *info;
-> +		u32 off;
-> +		int ret;
-> +
-> +		info = &cdev->dx_ctx.meminfo[i];
-> +		if (info->source != CATPT_DX_TYPE_MEMORY_DUMP)
-> +			continue;
-> +
-> +		off = catpt_to_host_offset(info->offset);
-> +		if (off < cdev->dram.start || off > cdev->dram.end)
-> +			continue;
-> +
-> +		dev_dbg(cdev->dev, "storing memdump: off 0x%08x size %d\n",
-> +			off, info->size);
-> +
-> +		ret = catpt_dma_memcpy_fromdsp(cdev, chan,
-> +					       cdev->dxbuf_paddr + off,
-> +					       cdev->lpe_base + off,
-> +					       ALIGN(info->size, 4));
-> +		if (ret) {
-> +			dev_err(cdev->dev, "memcpy fromdsp failed: %d\n", ret);
-> +			return ret;
-> +		}
-> +	}
-> +
-> +	return 0;
-> +}
-> +
-> +static int
-> +catpt_restore_streams_context(struct catpt_dev *cdev, struct dma_chan *chan)
-> +{
-> +	struct catpt_stream_runtime *stream;
-> +
-> +	list_for_each_entry(stream, &cdev->stream_list, node) {
-> +		u32 off, size;
-> +		int ret;
-> +
-> +		off = stream->persistent->start;
-> +		size = resource_size(stream->persistent);
-> +		dev_dbg(cdev->dev, "restoring stream %d ctx: off 0x%08x size %d\n",
-> +			stream->info.stream_hw_id, off, size);
-> +
-> +		ret = catpt_dma_memcpy_todsp(cdev, chan,
-> +					     cdev->lpe_base + off,
-> +					     cdev->dxbuf_paddr + off,
-> +					     ALIGN(size, 4));
-> +		if (ret) {
-> +			dev_err(cdev->dev, "memcpy fromdsp failed: %d\n", ret);
-> +			return ret;
-> +		}
-> +	}
-> +
-> +	return 0;
-> +}
-> +
-> +static int catpt_restore_memdumps(struct catpt_dev *cdev, struct dma_chan *chan)
-> +{
-> +	int i;
-> +
-> +	for (i = 0; i < cdev->dx_ctx.num_meminfo; i++) {
-> +		struct catpt_save_meminfo *info;
-> +		u32 off;
-> +		int ret;
-> +
-> +		info = &cdev->dx_ctx.meminfo[i];
-> +		if (info->source != CATPT_DX_TYPE_MEMORY_DUMP)
-> +			continue;
-> +
-> +		off = catpt_to_host_offset(info->offset);
-> +		if (off < cdev->dram.start || off > cdev->dram.end)
-> +			continue;
-> +
-> +		dev_dbg(cdev->dev, "restoring memdump: off 0x%08x size %d\n",
-> +			off, info->size);
-> +
-> +		ret = catpt_dma_memcpy_todsp(cdev, chan,
-> +					     cdev->lpe_base + off,
-> +					     cdev->dxbuf_paddr + off,
-> +					     ALIGN(info->size, 4));
-> +		if (ret) {
-> +			dev_err(cdev->dev, "restore block failed: %d\n", ret);
-> +			return ret;
-> +		}
-> +	}
-> +
-> +	return 0;
-> +}
-> +
-> +static int catpt_restore_fwimage(struct catpt_dev *cdev,
-> +				 struct dma_chan *chan, dma_addr_t paddr,
-> +				 struct catpt_fw_block_hdr *blk)
-> +{
-> +	struct resource r1, r2, common;
-> +	int i;
-> +
-> +	print_hex_dump_debug(__func__, DUMP_PREFIX_OFFSET, 8, 4,
-> +			     blk, sizeof(*blk), false);
-> +
-> +	r1.start = cdev->dram.start + blk->ram_offset;
-> +	r1.end = r1.start + blk->size - 1;
-> +	/* advance to data area */
-> +	paddr += sizeof(*blk);
-> +
-> +	for (i = 0; i < cdev->dx_ctx.num_meminfo; i++) {
-> +		struct catpt_save_meminfo *info;
-> +		u32 off;
-> +		int ret;
-> +
-> +		info = &cdev->dx_ctx.meminfo[i];
-> +
-> +		if (info->source != CATPT_DX_TYPE_FW_IMAGE)
-> +			continue;
-> +
-> +		off = catpt_to_host_offset(info->offset);
-> +		if (off < cdev->dram.start || off > cdev->dram.end)
-> +			continue;
-> +
-> +		r2.start = off;
-> +		r2.end = r2.start + info->size - 1;
-> +
-> +		if (!catpt_resource_overlapping(&r2, &r1, &common))
-> +			continue;
-> +		/* calculate start offset of common data area */
-> +		off = common.start - r1.start;
-> +
-> +		dev_dbg(cdev->dev, "restoring fwimage: %pr\n", &common);
-> +
-> +		ret = catpt_dma_memcpy_todsp(cdev, chan, common.start,
-> +					     paddr + off,
-> +					     resource_size(&common));
-> +		if (ret) {
-> +			dev_err(cdev->dev, "memcpy todsp failed: %d\n", ret);
-> +			return ret;
-> +		}
-> +	}
-> +
-> +	return 0;
-> +}
-> +
-> +static int catpt_load_block(struct catpt_dev *cdev,
-> +			    struct dma_chan *chan, dma_addr_t paddr,
-> +			    struct catpt_fw_block_hdr *blk, bool alloc)
-> +{
-> +	struct resource *sram, *res;
-> +	dma_addr_t dst_addr;
-> +	int ret;
-> +
-> +	print_hex_dump_debug(__func__, DUMP_PREFIX_OFFSET, 8, 4,
-> +			     blk, sizeof(*blk), false);
-> +
-> +	switch (blk->type) {
-> +	case CATPT_RAM_TYPE_IRAM:
-> +		sram = &cdev->iram;
-> +		break;
-> +	default:
-> +		sram = &cdev->dram;
-> +		break;
-> +	};
-> +
-> +	dst_addr = sram->start + blk->ram_offset;
-> +	if (alloc) {
-> +		res = __request_region(sram, dst_addr, blk->size, NULL, 0);
-> +		if (!res)
-> +			return -EBUSY;
-> +	}
-> +
-> +	/* advance to data area */
-> +	paddr += sizeof(*blk);
-> +
-> +	ret = catpt_dma_memcpy_todsp(cdev, chan, dst_addr, paddr, blk->size);
-> +	if (ret) {
-> +		dev_err(cdev->dev, "memcpy error: %d\n", ret);
-> +		__release_region(sram, dst_addr, blk->size);
-> +	}
-> +
-> +	return ret;
-> +}
-> +
-> +static int catpt_restore_basefw(struct catpt_dev *cdev,
-> +				struct dma_chan *chan, dma_addr_t paddr,
-> +				struct catpt_fw_mod_hdr *basefw)
-> +{
-> +	u32 offset = sizeof(*basefw);
-> +	int ret, i;
-> +
-> +	print_hex_dump_debug(__func__, DUMP_PREFIX_OFFSET, 8, 4,
-> +			     basefw, sizeof(*basefw), false);
-> +
-> +	/* restore basefw image */
-> +	for (i = 0; i < basefw->blocks; i++) {
-> +		struct catpt_fw_block_hdr *blk;
-> +
-> +		blk = (struct catpt_fw_block_hdr *)((u8 *)basefw + offset);
-> +
-> +		switch (blk->type) {
-> +		case CATPT_RAM_TYPE_IRAM:
-> +			ret = catpt_load_block(cdev, chan, paddr + offset,
-> +					       blk, false);
-> +			break;
-> +		default:
-> +			ret = catpt_restore_fwimage(cdev, chan, paddr + offset,
-> +						    blk);
-> +			break;
-> +		}
-> +
-> +		if (ret) {
-> +			dev_err(cdev->dev, "restore block failed: %d\n", ret);
-> +			return ret;
-> +		}
-> +
-> +		offset += sizeof(*blk) + blk->size;
-> +	}
-> +
-> +	/* then proceed with memory dumps */
-> +	ret = catpt_restore_memdumps(cdev, chan);
-> +	if (ret)
-> +		dev_err(cdev->dev, "restore memdumps failed: %d\n", ret);
-> +
-> +	return ret;
-> +}
-> +
-> +static int catpt_restore_module(struct catpt_dev *cdev,
-> +				struct dma_chan *chan, dma_addr_t paddr,
-> +				struct catpt_fw_mod_hdr *mod)
-> +{
-> +	u32 offset = sizeof(*mod);
-> +	int i;
-> +
-> +	print_hex_dump_debug(__func__, DUMP_PREFIX_OFFSET, 8, 4,
-> +			     mod, sizeof(*mod), false);
-> +
-> +	for (i = 0; i < mod->blocks; i++) {
-> +		struct catpt_fw_block_hdr *blk;
-> +		int ret;
-> +
-> +		blk = (struct catpt_fw_block_hdr *)((u8 *)mod + offset);
-> +
-> +		switch (blk->type) {
-> +		case CATPT_RAM_TYPE_INSTANCE:
-> +			/* restore module state */
-> +			ret = catpt_dma_memcpy_todsp(cdev, chan,
-> +					cdev->lpe_base + blk->ram_offset,
-> +					cdev->dxbuf_paddr + blk->ram_offset,
-> +					ALIGN(blk->size, 4));
-> +			break;
-> +		default:
-> +			ret = catpt_load_block(cdev, chan, paddr + offset,
-> +					       blk, false);
-> +			break;
-> +		}
-> +
-> +		if (ret) {
-> +			dev_err(cdev->dev, "restore block failed: %d\n", ret);
-> +			return ret;
-> +		}
-> +
-> +		offset += sizeof(*blk) + blk->size;
-> +	}
-> +
-> +	return 0;
-> +}
-> +
-> +static int catpt_load_module(struct catpt_dev *cdev,
-> +			     struct dma_chan *chan, dma_addr_t paddr,
-> +			     struct catpt_fw_mod_hdr *mod)
-> +{
-> +	struct catpt_module_type *type;
-> +	u32 offset = sizeof(*mod);
-> +	int i;
-> +
-> +	print_hex_dump_debug(__func__, DUMP_PREFIX_OFFSET, 8, 4,
-> +			     mod, sizeof(*mod), false);
-> +
-> +	type = &cdev->modules[mod->id];
-> +
-> +	for (i = 0; i < mod->blocks; i++) {
-> +		struct catpt_fw_block_hdr *blk;
-> +		int ret;
-> +
-> +		blk = (struct catpt_fw_block_hdr *)((u8 *)mod + offset);
-> +
-> +		ret = catpt_load_block(cdev, chan, paddr + offset, blk, true);
-> +		if (ret) {
-> +			dev_err(cdev->dev, "load block failed: %d\n", ret);
-> +			return ret;
-> +		}
-> +
-> +		/*
-> +		 * Save state window coordinates - these will be
-> +		 * used to capture module state on D0 exit.
-> +		 */
-> +		if (blk->type == CATPT_RAM_TYPE_INSTANCE) {
-> +			type->state_offset = blk->ram_offset;
-> +			type->state_size = blk->size;
-> +		}
-> +
-> +		offset += sizeof(*blk) + blk->size;
-> +	}
-> +
-> +	/* init module type static info */
-> +	type->loaded = true;
-> +	/* DSP expects address from module header substracted by 4 */
-> +	type->entry_point = mod->entry_point - 4;
-> +	type->persistent_size = mod->persistent_size;
-> +	type->scratch_size = mod->scratch_size;
-> +
-> +	return 0;
-> +}
-> +
-> +static int catpt_restore_firmware(struct catpt_dev *cdev,
-> +				  struct dma_chan *chan, dma_addr_t paddr,
-> +				  struct catpt_fw_hdr *fw)
-> +{
-> +	u32 offset = sizeof(*fw);
-> +	int i;
-> +
-> +	print_hex_dump_debug(__func__, DUMP_PREFIX_OFFSET, 8, 4,
-> +			     fw, sizeof(*fw), false);
-> +
-> +	for (i = 0; i < fw->modules; i++) {
-> +		struct catpt_fw_mod_hdr *mod;
-> +		int ret;
-> +
-> +		mod = (struct catpt_fw_mod_hdr *)((u8 *)fw + offset);
-> +		if (strncmp(fw->signature, mod->signature,
-> +			    FW_SIGNATURE_SIZE)) {
-> +			dev_err(cdev->dev, "module signature mismatch\n");
-> +			return -EINVAL;
-> +		}
-> +
-> +		if (mod->id > CATPT_MODID_LAST)
-> +			return -EINVAL;
-> +
-> +		switch (mod->id) {
-> +		case CATPT_MODID_BASE_FW:
-> +			ret = catpt_restore_basefw(cdev, chan, paddr + offset,
-> +						   mod);
-> +			break;
-> +		default:
-> +			ret = catpt_restore_module(cdev, chan, paddr + offset,
-> +						   mod);
-> +			break;
-> +		}
-> +
-> +		if (ret) {
-> +			dev_err(cdev->dev, "restore module failed: %d\n", ret);
-> +			return ret;
-> +		}
-> +
-> +		offset += sizeof(*mod) + mod->mod_size;
-> +	}
-> +
-> +	return 0;
-> +}
-> +
-> +static int catpt_load_firmware(struct catpt_dev *cdev,
-> +			       struct dma_chan *chan, dma_addr_t paddr,
-> +			       struct catpt_fw_hdr *fw)
-> +{
-> +	u32 offset = sizeof(*fw);
-> +	int i;
-> +
-> +	print_hex_dump_debug(__func__, DUMP_PREFIX_OFFSET, 8, 4,
-> +			     fw, sizeof(*fw), false);
-> +
-> +	for (i = 0; i < fw->modules; i++) {
-> +		struct catpt_fw_mod_hdr *mod;
-> +		int ret;
-> +
-> +		mod = (struct catpt_fw_mod_hdr *)((u8 *)fw + offset);
-> +		if (strncmp(fw->signature, mod->signature,
-> +			    FW_SIGNATURE_SIZE)) {
-> +			dev_err(cdev->dev, "module signature mismatch\n");
-> +			return -EINVAL;
-> +		}
-> +
-> +		if (mod->id > CATPT_MODID_LAST)
-> +			return -EINVAL;
-> +
-> +		ret = catpt_load_module(cdev, chan, paddr + offset, mod);
-> +		if (ret) {
-> +			dev_err(cdev->dev, "load module failed: %d\n", ret);
-> +			return ret;
-> +		}
-> +
-> +		offset += sizeof(*mod) + mod->mod_size;
-> +	}
-> +
-> +	return 0;
-> +}
-> +
-> +static int catpt_load_image(struct catpt_dev *cdev, struct dma_chan *chan,
-> +			    const char *name, const char *signature,
-> +			    bool restore)
-> +{
-> +	struct catpt_fw_hdr *fw;
-> +	struct firmware *img;
-> +	dma_addr_t paddr;
-> +	void *vaddr;
-> +	int ret;
-> +
-> +	ret = request_firmware((const struct firmware **)&img, name, cdev->dev);
-> +	if (ret)
-> +		return ret;
-> +
-> +	fw = (struct catpt_fw_hdr *)img->data;
-> +	if (strncmp(fw->signature, signature, FW_SIGNATURE_SIZE)) {
-> +		dev_err(cdev->dev, "firmware signature mismatch\n");
-> +		ret = -EINVAL;
-> +		goto release_fw;
-> +	}
-> +
-> +	vaddr = dma_alloc_coherent(cdev->dev, img->size, &paddr, GFP_KERNEL);
-> +	if (!vaddr) {
-> +		ret = -ENOMEM;
-> +		goto release_fw;
-> +	}
-> +
-> +	memcpy(vaddr, img->data, img->size);
-> +	fw = (struct catpt_fw_hdr *)vaddr;
-> +	if (restore)
-> +		ret = catpt_restore_firmware(cdev, chan, paddr, fw);
-> +	else
-> +		ret = catpt_load_firmware(cdev, chan, paddr, fw);
-> +
-> +	dma_free_coherent(cdev->dev, img->size, vaddr, paddr);
-> +release_fw:
-> +	release_firmware(img);
-> +	return ret;
-> +}
-> +
-> +static int catpt_load_images(struct catpt_dev *cdev, bool restore)
-> +{
-> +	static const char *const names[] = {
-> +		"intel/IntcSST1.bin",
-> +		"intel/IntcSST2.bin",
-> +	};
-> +	struct dma_chan *chan;
-> +	int ret;
-> +
-> +	chan = catpt_dma_request_config_chan(cdev);
-> +	if (IS_ERR(chan))
-> +		return PTR_ERR(chan);
-> +
-> +	ret = catpt_load_image(cdev, chan, names[cdev->spec->core_id - 1],
-> +			       FW_SIGNATURE, restore);
-> +	if (ret)
-> +		goto exit;
-> +
-> +	if (!restore)
-> +		goto exit;
-> +	ret = catpt_restore_streams_context(cdev, chan);
-> +	if (ret)
-> +		dev_err(cdev->dev, "restore streams ctx failed: %d\n", ret);
-> +exit:
-> +	dma_release_channel(chan);
-> +	return ret;
-> +}
-> +
-> +int catpt_boot_firmware(struct catpt_dev *cdev, bool restore)
-
-static?
-
-> +{
-> +	int ret;
-> +
-> +	catpt_dsp_stall(cdev, true);
-> +
-> +	ret = catpt_load_images(cdev, restore);
-> +	if (ret) {
-> +		dev_err(cdev->dev, "load binaries failed: %d\n", ret);
-> +		return ret;
-> +	}
-> +
-> +	reinit_completion(&cdev->fw_ready);
-> +	catpt_dsp_stall(cdev, false);
-> +
-> +	ret = wait_for_completion_timeout(&cdev->fw_ready,
-> +			msecs_to_jiffies(FW_READY_TIMEOUT_MSECS));
-> +	if (!ret) {
-> +		dev_err(cdev->dev, "firmware ready timeout\n");
-> +		return -ETIMEDOUT;
-> +	}
-> +
-> +	/* update sram pg & clock once done booting */
-> +	catpt_dsp_update_srampge(cdev, &cdev->dram, cdev->spec->dram_mask);
-> +	catpt_dsp_update_srampge(cdev, &cdev->iram, cdev->spec->iram_mask);
-> +
-> +	return catpt_dsp_update_lpclock(cdev);
-> +}
-> +
-> +int catpt_first_boot_firmware(struct catpt_dev *cdev)
-> +{
-> +	struct resource *res;
-> +	int ret;
-> +
-> +	ret = catpt_boot_firmware(cdev, false);
-> +	if (ret) {
-> +		dev_err(cdev->dev, "basefw boot failed: %d\n", ret);
-> +		return ret;
-> +	}
-> +
-> +	/* restrict FW Core dump area */
-> +	__request_region(&cdev->dram, 0, 0x200, NULL, 0);
-> +	/* restrict entire area following BASE_FW - highest offset in DRAM */
-> +	for (res = cdev->dram.child; res->sibling; res = res->sibling)
-> +		;
-> +	__request_region(&cdev->dram, res->end + 1,
-> +			 cdev->dram.end - res->end, NULL, 0);
-> +
-> +	ret = catpt_ipc_get_mixer_stream_info(cdev, &cdev->mixer);
-> +	if (ret)
-> +		return CATPT_IPC_ERROR(ret);
-> +
-> +	ret = catpt_arm_stream_templates(cdev);
-> +	if (ret) {
-> +		dev_err(cdev->dev, "arm templates failed: %d\n", ret);
-> +		return ret;
-> +	}
-> +
-> +	/* update dram pg for scratch and restricted regions */
-> +	catpt_dsp_update_srampge(cdev, &cdev->dram, cdev->spec->dram_mask);
-> +
-> +	return 0;
-> +}
-> -- 
-> 2.17.1
-> 
-
--- 
-With Best Regards,
-Andy Shevchenko
-
-
+Please avoid such internal SoC namings and use i.MX8MQ/i.MX8MN/iMX8MM instead.

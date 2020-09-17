@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2B178271DD3
-	for <lists+alsa-devel@lfdr.de>; Mon, 21 Sep 2020 10:23:46 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id EC875271DD4
+	for <lists+alsa-devel@lfdr.de>; Mon, 21 Sep 2020 10:24:24 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 7E2B017A6;
-	Mon, 21 Sep 2020 10:22:55 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7E2B017A6
+	by alsa0.perex.cz (Postfix) with ESMTPS id 7CE7A17C3;
+	Mon, 21 Sep 2020 10:23:34 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7CE7A17C3
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1600676625;
-	bh=3CcSAgmJymqX4erpPOGNuiR94tStAH1tIhGienjiYwc=;
+	s=default; t=1600676664;
+	bh=xuQmgvom3JUoAvAV6bjHRGM2H4w5dmPc0B4gmkTYQ6w=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=FaS4/dfoqxXWpoeQbWjdCCMUpyHA9EZOPz959K9jCMZDSUiB/Gw5P/WnHN/ud0PFw
-	 uMq6JzIvQiN/rhHKr3bMYbkFYlPnNc8sEM1iOLhP6rpHY7jEtEtwZk3T58uEai5WsA
-	 3OQ88V6bmgamPUpSa9LmQkbbiOwC/AFtquzY7Ijk=
+	b=XIxm0otVjm2J4LYaB4os6zAf+X/w/kLiQdzn1uAksvah6u4vso+VSLolySek0v1L7
+	 3ygETxTgvgN29Je5GEAx6SldLpntU+Nmvq2SD8O4eVNgPA72z0TKYNSKigWaes0PC1
+	 EPZEPReu0QTh0GYajFiwBbkVCCd43/KqZL9BmRQA=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 37FD7F80377;
-	Mon, 21 Sep 2020 10:11:03 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 3F348F80383;
+	Mon, 21 Sep 2020 10:11:05 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 1D547F80212; Thu, 17 Sep 2020 18:57:02 +0200 (CEST)
+ id 76B0AF80212; Thu, 17 Sep 2020 18:57:17 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-3.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -34,24 +34,24 @@ X-Spam-Status: No, score=-3.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 07D23F80134
- for <alsa-devel@alsa-project.org>; Thu, 17 Sep 2020 18:56:57 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 07D23F80134
+ by alsa1.perex.cz (Postfix) with ESMTPS id 5BE31F800E8
+ for <alsa-devel@alsa-project.org>; Thu, 17 Sep 2020 18:57:11 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5BE31F800E8
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="ehh/IOcV"
+ header.b="2nIdFuBm"
 Received: from kozik-lap.mshome.net (unknown [194.230.155.191])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 7E0292220E;
- Thu, 17 Sep 2020 16:56:42 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id 1792E21D24;
+ Thu, 17 Sep 2020 16:56:55 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1600361815;
- bh=3CcSAgmJymqX4erpPOGNuiR94tStAH1tIhGienjiYwc=;
+ s=default; t=1600361829;
+ bh=xuQmgvom3JUoAvAV6bjHRGM2H4w5dmPc0B4gmkTYQ6w=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=ehh/IOcVlyp+UzApCJd2uZjTnmaJ85CG1bFw5Xp5VD6lgKUEw8ObK1OdLXYqAxsAI
- /FQXYjYHs/evznTntqzPiI+ybw3MYVG6jh3P53c2dKcURoHyEflt5A0qgMIexJ4Coz
- hWB1F8aIxFFehtu2IMK2+HseBdDD+lc6ZKAlu6is=
+ b=2nIdFuBmgTsOPstR3DJ+GBSMq0yPAAhpUFrSGg0/b5nEQXGzDWyo4URkovlz+zduY
+ TiGAzEIOjw5bQjqHndSbUTi23mZ6M981+fWk5OusyN4pN88Q7mqlhPf5azB2u/j/H4
+ 4bm/uys6PrWVv1lr1jiHQLAtdsXBSRv6ObSzXVeg=
 From: Krzysztof Kozlowski <krzk@kernel.org>
 To: Linus Walleij <linus.walleij@linaro.org>,
  Bartosz Golaszewski <bgolaszewski@baylibre.com>,
@@ -104,10 +104,9 @@ To: Linus Walleij <linus.walleij@linaro.org>,
  linux-media@vger.kernel.org, alsa-devel@alsa-project.org,
  linux-stm32@st-md-mailman.stormreply.com,
  linux-mediatek@lists.infradead.org, linux-renesas-soc@vger.kernel.org
-Subject: [PATCH v2 12/13] arm64: dts: imx8mq-librem5: align GPIO hog names
- with dtschema
-Date: Thu, 17 Sep 2020 18:53:00 +0200
-Message-Id: <20200917165301.23100-13-krzk@kernel.org>
+Subject: [PATCH v2 13/13] ARM: dts: imx: align GPIO hog names with dtschema
+Date: Thu, 17 Sep 2020 18:53:01 +0200
+Message-Id: <20200917165301.23100-14-krzk@kernel.org>
 X-Mailer: git-send-email 2.17.1
 In-Reply-To: <20200917165301.23100-1-krzk@kernel.org>
 References: <20200917165301.23100-1-krzk@kernel.org>
@@ -128,26 +127,79 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-dtschema expects GPIO hogs to end with 'hog' suffix.
+dtschema for GPIO controllers expects GPIO hogs to end with 'hog'
+suffix.
 
 Signed-off-by: Krzysztof Kozlowski <krzk@kernel.org>
 ---
- arch/arm64/boot/dts/freescale/imx8mq-librem5.dtsi | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ arch/arm/boot/dts/imx51-zii-rdu1.dts        | 2 +-
+ arch/arm/boot/dts/imx6qdl-zii-rdu2.dtsi     | 8 ++++----
+ arch/arm/boot/dts/imx6ul-ccimx6ulsbcpro.dts | 2 +-
+ 3 files changed, 6 insertions(+), 6 deletions(-)
 
-diff --git a/arch/arm64/boot/dts/freescale/imx8mq-librem5.dtsi b/arch/arm64/boot/dts/freescale/imx8mq-librem5.dtsi
-index e4dedcb58f76..6cbcee2fb938 100644
---- a/arch/arm64/boot/dts/freescale/imx8mq-librem5.dtsi
-+++ b/arch/arm64/boot/dts/freescale/imx8mq-librem5.dtsi
-@@ -249,7 +249,7 @@
- 	pinctrl-names = "default";
- 	pinctrl-0 = <&pinctrl_pmic_5v>;
+diff --git a/arch/arm/boot/dts/imx51-zii-rdu1.dts b/arch/arm/boot/dts/imx51-zii-rdu1.dts
+index e559ab0c3645..ec8ca3ac2c1c 100644
+--- a/arch/arm/boot/dts/imx51-zii-rdu1.dts
++++ b/arch/arm/boot/dts/imx51-zii-rdu1.dts
+@@ -451,7 +451,7 @@
+ 			  "", "", "", "",
+ 			  "", "", "", "";
  
--	pmic-5v {
-+	pmic-5v-hog {
+-	unused-sd3-wp-gpio {
++	unused-sd3-wp-hog {
+ 		/*
+ 		 * See pinctrl_esdhc1 below for more details on this
+ 		 */
+diff --git a/arch/arm/boot/dts/imx6qdl-zii-rdu2.dtsi b/arch/arm/boot/dts/imx6qdl-zii-rdu2.dtsi
+index 66b15748e287..c0a76202e16b 100644
+--- a/arch/arm/boot/dts/imx6qdl-zii-rdu2.dtsi
++++ b/arch/arm/boot/dts/imx6qdl-zii-rdu2.dtsi
+@@ -330,28 +330,28 @@
+ 	pinctrl-names = "default";
+ 	pinctrl-0 = <&pinctrl_gpio3_hog>;
+ 
+-	usb-emulation {
++	usb-emulation-hog {
  		gpio-hog;
- 		gpios = <&gpio1 1 GPIO_ACTIVE_HIGH>;
- 		input;
+ 		gpios = <19 GPIO_ACTIVE_HIGH>;
+ 		output-low;
+ 		line-name = "usb-emulation";
+ 	};
+ 
+-	usb-mode1 {
++	usb-mode1-hog {
+ 		gpio-hog;
+ 		gpios = <20 GPIO_ACTIVE_HIGH>;
+ 		output-high;
+ 		line-name = "usb-mode1";
+ 	};
+ 
+-	usb-pwr {
++	usb-pwr-hog {
+ 		gpio-hog;
+ 		gpios = <22 GPIO_ACTIVE_LOW>;
+ 		output-high;
+ 		line-name = "usb-pwr-ctrl-en-n";
+ 	};
+ 
+-	usb-mode2 {
++	usb-mode2-hog {
+ 		gpio-hog;
+ 		gpios = <23 GPIO_ACTIVE_HIGH>;
+ 		output-high;
+diff --git a/arch/arm/boot/dts/imx6ul-ccimx6ulsbcpro.dts b/arch/arm/boot/dts/imx6ul-ccimx6ulsbcpro.dts
+index a0bbec57ddc7..3ec042bfccba 100644
+--- a/arch/arm/boot/dts/imx6ul-ccimx6ulsbcpro.dts
++++ b/arch/arm/boot/dts/imx6ul-ccimx6ulsbcpro.dts
+@@ -110,7 +110,7 @@
+ };
+ 
+ &gpio5 {
+-	emmc-usd-mux {
++	emmc-usd-mux-hog {
+ 		gpio-hog;
+ 		gpios = <1 GPIO_ACTIVE_LOW>;
+ 		output-high;
 -- 
 2.17.1
 

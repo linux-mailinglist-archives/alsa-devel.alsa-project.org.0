@@ -2,90 +2,113 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E385E271DB1
-	for <lists+alsa-devel@lfdr.de>; Mon, 21 Sep 2020 10:16:12 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2EBBD271DB3
+	for <lists+alsa-devel@lfdr.de>; Mon, 21 Sep 2020 10:16:55 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 83803167B;
-	Mon, 21 Sep 2020 10:15:22 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 83803167B
+	by alsa0.perex.cz (Postfix) with ESMTPS id C13E51684;
+	Mon, 21 Sep 2020 10:16:04 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C13E51684
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1600676172;
-	bh=C80Dy7apqk6dg+gWzX7fICrl89osqssnzRXg7TSaDA4=;
+	s=default; t=1600676214;
+	bh=P6t4EObPuKTAtjmptm4+AFH+z1+4hhhtxhJjS4UyDF0=;
 	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
 	 List-Post:List-Help:List-Subscribe:From;
-	b=ePGI6/mivQXSxJ8rzG2xRX6RP3Wlms7Wz5Z/ZOdBBNRuJjF2P/izU05ZB9h7F6QwV
-	 8vbWeigh7HJR6VCQiD15zBp1GZvAgRQNc47HwL+SJZPB8fPoBGPeHO0FcC+i+IEsuM
-	 h8Jifw0OV1XUByVqZpJCukdMSwEej0g8etwFPJgs=
+	b=TsdCivmtvox/qRejKeDM6xdE4ExBAbHY+75h8cIqpi0zOfj4kCB9PeE7csoHxnMFR
+	 c896wqGx7Nm8U5G/gpFSZrutFexXhlKRiQyHHVF7X7gc70WLhmargA7pxqkHmut4pm
+	 sx6Caj9/g+rrKCV1MY8GIyryb6AFvUKG/GYmyOc0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 85C14F8031A;
-	Mon, 21 Sep 2020 10:10:42 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id A5CD6F80328;
+	Mon, 21 Sep 2020 10:10:43 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id D9CFBF80329; Thu, 17 Sep 2020 16:19:29 +0200 (CEST)
+ id AB2E3F80212; Thu, 17 Sep 2020 18:53:36 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_PASS autolearn=disabled
- version=3.4.0
-Received: from mail-ej1-x642.google.com (mail-ej1-x642.google.com
- [IPv6:2a00:1450:4864:20::642])
+X-Spam-Status: No, score=-2.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+ DKIM_VALID,DKIM_VALID_AU,PRX_BODY_26,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 71AF4F80134
+ for <alsa-devel@alsa-project.org>; Thu, 17 Sep 2020 18:53:29 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 71AF4F80134
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="QWWMJnyn"
+Received: from kozik-lap.mshome.net (unknown [194.230.155.191])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 42B03F8032A
- for <alsa-devel@alsa-project.org>; Thu, 17 Sep 2020 16:19:17 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 42B03F8032A
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="D9Cnb7fg"
-Received: by mail-ej1-x642.google.com with SMTP id lo4so3517860ejb.8
- for <alsa-devel@alsa-project.org>; Thu, 17 Sep 2020 07:19:17 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=4QdmLHNgHWV7EyDtK4mu8SWh5osx/6ArPk9SW2Wk9JU=;
- b=D9Cnb7fgSHrvuQt0e1Tnf0E5ipLGZaJKw+XvFXRqkdYGdK7C8Nn3GXQ/YWDZdYk1M8
- uIICO/VqVzPETutVmfHYjeJKQgxxtchOj/8REl0Mz1L9KfqIPsHSF/Ce9ie35frZKAd0
- qRGHJTXLvfDgvtzArrDFUp3NT04cRD7BkjXVp5JltB/HTNjMrq0flignNFWCcdaOWpLb
- XSfb16AscCIv7WzkxG/2cPTHSIQIiYh4yJpv6YBfAgLk9baCGNDKO7dPkPmovGdX9SDy
- dxXdn1Y2g6xqR8WNdJmlXWr2fYT5JQMlQjU51a9hVOoArjj6UGQV6MgsHvxPE0UAPbyQ
- +v2w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=4QdmLHNgHWV7EyDtK4mu8SWh5osx/6ArPk9SW2Wk9JU=;
- b=IgXuAJRzfD8GMRCLuYHmUDmZD+FnjqRbjxeAmheAEG1iU5zK86EgydTKAZaxwwK4M4
- 6m6JY39tINMR5DBRh1Xtr9ANc5+PtCf06z8+OIh4VBIIZVAfVZHb3GUv1lkTCIQXeWRx
- OzHC87LphByE/sIpc45gF7nniXDU2/sXoFwfOAYXT0OZ4FdxiPg0wAoYt9caVWsHfnUC
- IgEbbdM+G1YaORfGSJ6EC+BSbtQm3ByYHGaN4VTTxdK45zw62L47SkbCWtovlqb3jzxl
- pd1WBGbgJJr1FNYxI0aHoa7QtGjhFAy/YxkuKTmyo4Aa86PaaeMbIArKNi9OIc/JO2IR
- RJ4w==
-X-Gm-Message-State: AOAM530x0jYDZq4ZZeJQgXCam23EAJQGJio12w/oc6XewPZ8OXkBQKqc
- csrKDl/LmoU8mFFY4Ox0Tkg=
-X-Google-Smtp-Source: ABdhPJyLUxBjXuAJW1BD8Nd5aF9NxUTWesVyqfUAkVN5f650FWip28Le9/P6ASLfBJ8o03MyXSzPvQ==
-X-Received: by 2002:a17:906:250a:: with SMTP id
- i10mr30382001ejb.202.1600352356709; 
- Thu, 17 Sep 2020 07:19:16 -0700 (PDT)
-Received: from localhost.localdomain ([85.153.229.188])
- by smtp.gmail.com with ESMTPSA id j14sm16675661edr.91.2020.09.17.07.19.14
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 17 Sep 2020 07:19:15 -0700 (PDT)
-From: Necip Fazil Yildiran <fazilyildiran@gmail.com>
-To: broonie@kernel.org
-Subject: [PATCH] ASoC: cros_ec_codec: fix kconfig dependency warning for
- SND_SOC_CROS_EC_CODEC
-Date: Thu, 17 Sep 2020 17:18:04 +0300
-Message-Id: <20200917141803.92889-1-fazilyildiran@gmail.com>
-X-Mailer: git-send-email 2.25.1
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Mon, 21 Sep 2020 10:10:23 +0200
-Cc: alsa-devel@alsa-project.org, paul@pgazz.com,
- Necip Fazil Yildiran <fazilyildiran@gmail.com>, linux-kernel@vger.kernel.org,
- jeho@cs.utexas.edu, ardb@kernel.org
+ by mail.kernel.org (Postfix) with ESMTPSA id 39C1520708;
+ Thu, 17 Sep 2020 16:53:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=default; t=1600361605;
+ bh=P6t4EObPuKTAtjmptm4+AFH+z1+4hhhtxhJjS4UyDF0=;
+ h=From:To:Cc:Subject:Date:From;
+ b=QWWMJnynLqLOQxMCeIhdb30C/fJHQKsRzanwLdTpwbhaMyXT+tXpbqbOYpkb+Ly2M
+ aBumK6+zCHsWhNp6ZfqN5QXKUzl+nO1TwJgKiLkTRKlRiFxwyqIPdifsq9tCyheivp
+ WIbwLhtE7vcm3MGDi0wpAwkD5yRasj8RADVLwNo8=
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Linus Walleij <linus.walleij@linaro.org>,
+ Bartosz Golaszewski <bgolaszewski@baylibre.com>,
+ Rob Herring <robh+dt@kernel.org>, Ray Jui <rjui@broadcom.com>,
+ Scott Branden <sbranden@broadcom.com>,
+ bcm-kernel-feedback-list@broadcom.com, Shawn Guo <shawnguo@kernel.org>,
+ Sascha Hauer <s.hauer@pengutronix.de>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Fabio Estevam <festevam@gmail.com>, NXP Linux Team <linux-imx@nxp.com>,
+ Manivannan Sadhasivam <manivannan.sadhasivam@linaro.org>,
+ Andy Gross <agross@kernel.org>,
+ Bjorn Andersson <bjorn.andersson@linaro.org>,
+ Palmer Dabbelt <palmer@dabbelt.com>,
+ Paul Walmsley <paul.walmsley@sifive.com>,
+ Hoan Tran <hoan@os.amperecomputing.com>,
+ Serge Semin <fancer.lancer@gmail.com>,
+ Masahiro Yamada <yamada.masahiro@socionext.com>,
+ Jacopo Mondi <jacopo+renesas@jmondi.org>,
+ Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>,
+ Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>,
+ =?UTF-8?q?Niklas=20S=C3=B6derlund?= <niklas.soderlund+renesas@ragnatech.se>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Charles Keepax <ckeepax@opensource.cirrus.com>,
+ Richard Fitzgerald <rf@opensource.cirrus.com>,
+ Lee Jones <lee.jones@linaro.org>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Alexandre Torgue <alexandre.torgue@st.com>,
+ =?UTF-8?q?Andreas=20F=C3=A4rber?= <afaerber@suse.de>,
+ Maxime Ripard <mripard@kernel.org>, Chen-Yu Tsai <wens@csie.org>,
+ Matthias Brugger <matthias.bgg@gmail.com>,
+ Geert Uytterhoeven <geert+renesas@glider.be>,
+ Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+ Chris Packham <chris.packham@alliedtelesis.co.nz>,
+ Anson Huang <Anson.Huang@nxp.com>, Sungbo Eo <mans0n@gorani.run>,
+ Stefan Agner <stefan@agner.ch>,
+ Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
+ Magnus Damm <magnus.damm@gmail.com>, Yash Shah <yash.shah@sifive.com>,
+ Paul Kocialkowski <paul.kocialkowski@bootlin.com>,
+ - <patches@opensource.cirrus.com>,
+ Matti Vaittinen <matti.vaittinen@fi.rohmeurope.com>,
+ Amelie Delaunay <amelie.delaunay@st.com>,
+ Cristian Ciocaltea <cristian.ciocaltea@gmail.com>,
+ Paul Cercueil <paul@crapouillou.net>, Andy Teng <andy.teng@mediatek.com>,
+ Sean Wang <sean.wang@mediatek.com>, Sricharan R <sricharan@codeaurora.org>,
+ Chris Brandt <chris.brandt@renesas.com>, Jaroslav Kysela <perex@perex.cz>,
+ Takashi Iwai <tiwai@suse.com>, linux-gpio@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-kernel@vger.kernel.org, linux-unisoc@lists.infradead.org,
+ linux-arm-msm@vger.kernel.org, linux-riscv@lists.infradead.org,
+ linux-media@vger.kernel.org, alsa-devel@alsa-project.org,
+ linux-stm32@st-md-mailman.stormreply.com,
+ linux-mediatek@lists.infradead.org, linux-renesas-soc@vger.kernel.org
+Subject: [PATCH v2 00/13] gpio: add common dtschema
+Date: Thu, 17 Sep 2020 18:52:48 +0200
+Message-Id: <20200917165301.23100-1-krzk@kernel.org>
+X-Mailer: git-send-email 2.17.1
+X-Mailman-Approved-At: Mon, 21 Sep 2020 10:10:22 +0200
+Cc: Krzysztof Kozlowski <krzk@kernel.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -101,38 +124,82 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-When SND_SOC_CROS_EC_CODEC is enabled and CRYPTO is disabled, it results
-in the following Kbuild warning:
+Hi,
 
-WARNING: unmet direct dependencies detected for CRYPTO_LIB_SHA256
-  Depends on [n]: CRYPTO [=n]
-  Selected by [y]:
-  - SND_SOC_CROS_EC_CODEC [=y] && SOUND [=y] && !UML && SND [=y] && SND_SOC [=y] && CROS_EC [=y]
+Changes since v1
+================
+1. Use common schema in bindings outside of gpio/ (new patches).
+2. Minor fixes - see individual patches for changelogs.
 
-The reason is that SND_SOC_CROS_EC_CODEC selects CRYPTO_LIB_SHA256 without
-depending on or selecting CRYPTO while CRYPTO_LIB_SHA256 is subordinate to
-CRYPTO.
 
-Honor the kconfig menu hierarchy to remove kconfig dependency warnings.
+Notes
+=====
+This is independent work of pca953x bindings:
+https://lore.kernel.org/lkml/20200916155715.21009-1-krzk@kernel.org/T/#u
 
-Fixes: 93fa0af4790a ("ASoC: cros_ec_codec: switch to library API for SHA-256")
-Signed-off-by: Necip Fazil Yildiran <fazilyildiran@gmail.com>
----
- sound/soc/codecs/Kconfig | 1 +
- 1 file changed, 1 insertion(+)
+The DTS patches can be also applied independently.
+The bindings patches depend on first one, adding common schema.
 
-diff --git a/sound/soc/codecs/Kconfig b/sound/soc/codecs/Kconfig
-index 946a70210f49..601ea45d3ea6 100644
---- a/sound/soc/codecs/Kconfig
-+++ b/sound/soc/codecs/Kconfig
-@@ -540,6 +540,7 @@ config SND_SOC_CQ0093VC
- config SND_SOC_CROS_EC_CODEC
- 	tristate "codec driver for ChromeOS EC"
- 	depends on CROS_EC
-+	select CRYPTO
- 	select CRYPTO_LIB_SHA256
- 	help
- 	  If you say yes here you will get support for the
+Best regards,
+Krzysztof
+
+Krzysztof Kozlowski (13):
+  dt-bindings: gpio: add common schema for GPIO controllers
+  dt-bindings: gpio: include common schema in GPIO controllers
+  dt-bindings: gpio: pl061: add missing properties and include common
+    schema
+  dt-bindings: gpio: fsl-imx-gpio: add i.MX ARMv6 and ARMv7 compatibles
+  dt-bindings: gpio: fsl-imx-gpio: add gpio-line-names
+  dt-bindings: gpio: gpio-vf610: fix iMX 7ULP compatible matching
+  dt-bindings: media: include common schema in GPIO controllers
+  dt-bindings: mfd: include common schema in GPIO controllers
+  dt-bindings: pinctrl: include common schema in GPIO controllers
+  ASoC: dt-bindings: zl38060: include common schema in GPIO controllers
+  arm64: dts: imx8mq-librem5: correct GPIO hog property
+  arm64: dts: imx8mq-librem5: align GPIO hog names with dtschema
+  ARM: dts: imx: align GPIO hog names with dtschema
+
+ .../bindings/gpio/brcm,xgs-iproc-gpio.yaml    |   3 +
+ .../bindings/gpio/fsl-imx-gpio.yaml           |  17 ++-
+ .../devicetree/bindings/gpio/gpio-common.yaml | 125 ++++++++++++++++++
+ .../devicetree/bindings/gpio/gpio-mxs.yaml    |   4 +
+ .../bindings/gpio/gpio-pca9570.yaml           |   3 +
+ .../devicetree/bindings/gpio/gpio-rda.yaml    |   3 +
+ .../devicetree/bindings/gpio/gpio-vf610.yaml  |  11 +-
+ .../devicetree/bindings/gpio/mrvl-gpio.yaml   |   1 +
+ .../devicetree/bindings/gpio/pl061-gpio.yaml  |   6 +
+ .../bindings/gpio/qcom,wcd934x-gpio.yaml      |   3 +
+ .../bindings/gpio/renesas,em-gio.yaml         |   3 +
+ .../bindings/gpio/renesas,rcar-gpio.yaml      |   3 +
+ .../devicetree/bindings/gpio/sifive,gpio.yaml |   3 +
+ .../bindings/gpio/snps,dw-apb-gpio.yaml       |   3 +
+ .../gpio/socionext,uniphier-gpio.yaml         |   3 +
+ .../bindings/gpio/xylon,logicvc-gpio.yaml     |   3 +
+ .../bindings/media/i2c/maxim,max9286.yaml     |   3 +
+ .../bindings/mfd/cirrus,madera.yaml           |   1 +
+ .../devicetree/bindings/mfd/max77650.yaml     |   3 +
+ .../bindings/mfd/rohm,bd71828-pmic.yaml       |   3 +
+ .../devicetree/bindings/mfd/st,stmfx.yaml     |   2 +
+ .../devicetree/bindings/mfd/wlf,arizona.yaml  |   1 +
+ .../pinctrl/actions,s500-pinctrl.yaml         |   3 +
+ .../pinctrl/allwinner,sun4i-a10-pinctrl.yaml  |   1 +
+ .../bindings/pinctrl/cirrus,lochnagar.yaml    |   3 +
+ .../bindings/pinctrl/ingenic,pinctrl.yaml     |   3 +
+ .../pinctrl/mediatek,mt6779-pinctrl.yaml      |   3 +
+ .../bindings/pinctrl/pinctrl-mt8192.yaml      |   3 +
+ .../pinctrl/qcom,ipq6018-pinctrl.yaml         |   3 +
+ .../pinctrl/qcom,msm8226-pinctrl.yaml         |   3 +
+ .../bindings/pinctrl/qcom,sm8250-pinctrl.yaml |   3 +
+ .../pinctrl/renesas,rza2-pinctrl.yaml         |   3 +
+ .../bindings/pinctrl/st,stm32-pinctrl.yaml    |   3 +
+ .../devicetree/bindings/sound/zl38060.yaml    |   3 +
+ arch/arm/boot/dts/imx51-zii-rdu1.dts          |   2 +-
+ arch/arm/boot/dts/imx6qdl-zii-rdu2.dtsi       |   8 +-
+ arch/arm/boot/dts/imx6ul-ccimx6ulsbcpro.dts   |   2 +-
+ .../boot/dts/freescale/imx8mq-librem5.dtsi    |   4 +-
+ 38 files changed, 245 insertions(+), 12 deletions(-)
+ create mode 100644 Documentation/devicetree/bindings/gpio/gpio-common.yaml
+
 -- 
-2.25.1
+2.17.1
 

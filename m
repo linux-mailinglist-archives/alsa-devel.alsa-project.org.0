@@ -2,86 +2,99 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D0DF426DF6A
-	for <lists+alsa-devel@lfdr.de>; Thu, 17 Sep 2020 17:17:28 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 80ACD26DFAF
+	for <lists+alsa-devel@lfdr.de>; Thu, 17 Sep 2020 17:31:41 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 7336116AA;
-	Thu, 17 Sep 2020 17:16:37 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7336116AA
+	by alsa0.perex.cz (Postfix) with ESMTPS id 659CC16B1;
+	Thu, 17 Sep 2020 17:30:50 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 659CC16B1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1600355847;
-	bh=bPYFxc2nUhlnEcR1Xw96u98jDeriVIG6jPqaEebTnYE=;
-	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
+	s=default; t=1600356700;
+	bh=xqnaVuMFxfmnGwaK5XCFxXNuxqM60JqlvXRUCEv24bI=;
+	h=From:To:Subject:Date:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=UZRpFiwAEmq81u4EXhtjsXLXnHhXiFvuowK8230DnQDMW0lVYv4E6IfO88doBAlmg
-	 mK9+mndXOPuS7Rkgcfk1xHQBFKrlzAEJg6YVBNmo7g/ZQSeMA+xonTeM+WVss1Mixn
-	 34nrn8gVD7erEe0xobbC5wyZXY74ZoTcrKWfZ5gc=
+	b=HxZ82FDB+3CEz3CitjPjqBaZe3Q2qIH7ag8Ufbp1LaN/Slmx01IotRD0YH+XAHfE7
+	 2mGBjOxu8SjmeLAf1KYrvlp9Q85pS5ZTgtREEDbsw5ZX3WDA6kCEvmzPh35De/iJj8
+	 JfmGYmXNwrVeNuLsRcxCQmVWNBpeDhuJNANeYRQk=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 46310F80276;
-	Thu, 17 Sep 2020 17:15:46 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 4B0DDF800E8;
+	Thu, 17 Sep 2020 17:29:59 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 30DBFF80134; Thu, 17 Sep 2020 17:15:44 +0200 (CEST)
+ id 18675F80212; Thu, 17 Sep 2020 17:29:55 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-3.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS
- autolearn=disabled version=3.4.0
-Received: from fllv0015.ext.ti.com (fllv0015.ext.ti.com [198.47.19.141])
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mga06.intel.com (mga06.intel.com [134.134.136.31])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 57431F800E8
- for <alsa-devel@alsa-project.org>; Thu, 17 Sep 2020 17:15:36 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 57431F800E8
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b="BeCOCdSy"
-Received: from fllv0035.itg.ti.com ([10.64.41.0])
- by fllv0015.ext.ti.com (8.15.2/8.15.2) with ESMTP id 08HFFXRu101141;
- Thu, 17 Sep 2020 10:15:33 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com;
- s=ti-com-17Q1; t=1600355733;
- bh=zJUvUPlDG3fjTS6W6hFpNIPLT9BdATy27+PbP+vGrPs=;
- h=Subject:To:CC:References:From:Date:In-Reply-To;
- b=BeCOCdSyBx881M4VX9eLbF/b3wotePX5ouLGLCmPnRF1IEbV4bxpZrJdGfR/FHZ7V
- wjyNgtTgNVK1fFFL2wjQSVXP87c0bIbKLNy5ogG3Gl7zGB+bUH4vonwcM91+kWfH2M
- y8V/6HIYDzMWzK74m9gaHS5hE9C9Rh+7WETtmg50=
-Received: from DLEE113.ent.ti.com (dlee113.ent.ti.com [157.170.170.24])
- by fllv0035.itg.ti.com (8.15.2/8.15.2) with ESMTP id 08HFFXSS120076;
- Thu, 17 Sep 2020 10:15:33 -0500
-Received: from DLEE107.ent.ti.com (157.170.170.37) by DLEE113.ent.ti.com
- (157.170.170.24) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.1979.3; Thu, 17
- Sep 2020 10:15:33 -0500
-Received: from lelv0326.itg.ti.com (10.180.67.84) by DLEE107.ent.ti.com
- (157.170.170.37) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.1979.3 via
- Frontend Transport; Thu, 17 Sep 2020 10:15:33 -0500
-Received: from [10.250.32.129] (ileax41-snat.itg.ti.com [10.172.224.153])
- by lelv0326.itg.ti.com (8.15.2/8.15.2) with ESMTP id 08HFFWuJ008246;
- Thu, 17 Sep 2020 10:15:32 -0500
-Subject: Re: [PATCH 5/6] dt-bindings: tlv320adcx140: Add slot programming
- property
-To: Mark Brown <broonie@kernel.org>
-References: <20200915190606.1744-1-dmurphy@ti.com>
- <20200915190606.1744-5-dmurphy@ti.com> <20200917130236.GA2954@sirena.org.uk>
-From: Dan Murphy <dmurphy@ti.com>
-Message-ID: <f4a83c01-58e2-1b7a-677e-44d5bde7b175@ti.com>
-Date: Thu, 17 Sep 2020 10:15:27 -0500
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.10.0
-MIME-Version: 1.0
-In-Reply-To: <20200917130236.GA2954@sirena.org.uk>
-Content-Type: text/plain; charset="windows-1252"; format=flowed
-Content-Transfer-Encoding: 7bit
+ by alsa1.perex.cz (Postfix) with ESMTPS id E6453F80134
+ for <alsa-devel@alsa-project.org>; Thu, 17 Sep 2020 17:29:43 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E6453F80134
+IronPort-SDR: sgRheoZBXgYeHg2TRC0sq0q9zcZLrlN1r06/JrrG7zM9yNpdU6Qd3yxFO4lLu/sEYNz3VxycsV
+ zgJKUMOA1GiQ==
+X-IronPort-AV: E=McAfee;i="6000,8403,9747"; a="221270924"
+X-IronPort-AV: E=Sophos;i="5.77,271,1596524400"; d="scan'208";a="221270924"
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from orsmga002.jf.intel.com ([10.7.209.21])
+ by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 17 Sep 2020 08:29:39 -0700
+IronPort-SDR: 15tWBKuLbRiil3HRgMKliUCqNU81jhIYXe3ryDwKOs4fjqnMXDtPV6tSPKXMdG4UD7DRLoJcaN
+ Yd6QyQ/M6+bw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.77,271,1596524400"; d="scan'208";a="320260504"
+Received: from irsmsx605.ger.corp.intel.com ([163.33.146.138])
+ by orsmga002.jf.intel.com with ESMTP; 17 Sep 2020 08:29:38 -0700
+Received: from irsmsx601.ger.corp.intel.com (163.33.146.7) by
+ IRSMSX605.ger.corp.intel.com (163.33.146.138) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.1713.5; Thu, 17 Sep 2020 16:29:36 +0100
+Received: from irsmsx601.ger.corp.intel.com ([163.33.146.7]) by
+ irsmsx601.ger.corp.intel.com ([163.33.146.7]) with mapi id 15.01.1713.004;
+ Thu, 17 Sep 2020 16:29:36 +0100
+From: "Rojewski, Cezary" <cezary.rojewski@intel.com>
+To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+Subject: RE: [PATCH v5 02/13] ASoC: Intel: catpt: Define DSP operations
+Thread-Topic: [PATCH v5 02/13] ASoC: Intel: catpt: Define DSP operations
+Thread-Index: AQHWi32IyHHVImF91k6rxcFTJOLC7alrWLCAgAGd/EA=
+Date: Thu, 17 Sep 2020 15:29:36 +0000
+Message-ID: <96ee725f1aa746c78ee380bb8e754ff3@intel.com>
+References: <20200915162944.16241-1-cezary.rojewski@intel.com>
+ <20200915162944.16241-3-cezary.rojewski@intel.com>
+ <20200916154409.GQ3956970@smile.fi.intel.com>
+In-Reply-To: <20200916154409.GQ3956970@smile.fi.intel.com>
+Accept-Language: en-US
 Content-Language: en-US
-X-EXCLAIMER-MD-CONFIG: e1e8a2fd-e40a-4ac6-ac9b-f7e9cc9ee180
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org, tiwai@suse.com,
- lgirdwood@gmail.com, linux-kernel@vger.kernel.org, robh+dt@kernel.org,
- camel.guo@axis.com
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+dlp-product: dlpe-windows
+dlp-reaction: no-action
+dlp-version: 11.5.1.3
+x-originating-ip: [163.33.253.164]
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
+Cc: "pierre-louis.bossart@linux.intel.com"
+ <pierre-louis.bossart@linux.intel.com>,
+ "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>, "Kaczmarski,
+ Filip" <filip.kaczmarski@intel.com>, "N,
+ Harshapriya" <harshapriya.n@intel.com>, "Barlik,
+ Marcin" <marcin.barlik@intel.com>, "zwisler@google.com" <zwisler@google.com>,
+ "lgirdwood@gmail.com" <lgirdwood@gmail.com>, "tiwai@suse.com" <tiwai@suse.com>,
+ "Proborszcz, Filip" <filip.proborszcz@intel.com>,
+ "broonie@kernel.org" <broonie@kernel.org>,
+ "amadeuszx.slawinski@linux.intel.com" <amadeuszx.slawinski@linux.intel.com>,
+ "Wasko, Michal" <michal.wasko@intel.com>,
+ "cujomalainey@chromium.org" <cujomalainey@chromium.org>, "Hejmowski,
+ Krzysztof" <krzysztof.hejmowski@intel.com>, "Papierkowski,
+ Piotr \(Habana\)" <ppapierkowski@habana.ai>, "Gopal, 
+ Vamshi Krishna" <vamshi.krishna.gopal@intel.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -97,45 +110,226 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Mark
+On 2020-09-16 5:44 PM, Andy Shevchenko wrote:
+> On Tue, Sep 15, 2020 at 06:29:33PM +0200, Cezary Rojewski wrote:
+>> Implement dsp lifecycle functions such as core RESET and STALL,
+>> SRAM power control and LP clock selection. This also adds functions for
+>> handling transport over DW DMA controller.
+>=20
+> Some nit-picks below. FWIW,
+> Reviewed-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+>=20
+...
 
-On 9/17/20 8:02 AM, Mark Brown wrote:
-> On Tue, Sep 15, 2020 at 02:06:05PM -0500, Dan Murphy wrote:
->
->> +  ti,slot-mapping:
->> +    type: boolean
->> +    description: |
->> +      Each channel can be assigned a specific TDM slot for either a left or
->> +      right channel. The left channel values are from 0-31d and the right
->> +      channel values are from 32-63d. If the right channel value is 32 then the
->> +      right channel slot will be slot 31.
->> +      The array index is sequential audio channel to be set.
->> +      [ch1, ch2, ch3, ch4, ch5, ch6, ch7, ch8]
->> +      If the channel is not to be used then the channel should be set to it's
->> +      default value.
-> This is something I'd expect to be done by the machine driver rather
-> than in the CODEC specific DT bindings, and apart from anything else
-> everything involved in the DAI will need to agree on the mapping so this
-> doesn't look like something that should be done in a device specific
-> binding.
+>> +
+>> +int catpt_dmac_probe(struct catpt_dev *cdev)
+>> +{
+>> +	struct dw_dma_chip *dmac;
+>> +	int ret;
+>> +
+>> +	dmac =3D devm_kzalloc(cdev->dev, sizeof(*dmac), GFP_KERNEL);
+>> +	if (!dmac)
+>> +		return -ENOMEM;
+>=20
+>> +	dmac->regs =3D cdev->lpe_ba +
+>> +		     cdev->spec->host_dma_offset[CATPT_DMA_DEVID];
+>=20
+> One line?
+>=20
+It's exactly 81 after one-lining - that's why I kept it as is.
 
-Here is the use case from our customers
+>> +	dmac->dev =3D cdev->dev;
+>> +	dmac->irq =3D cdev->irq;
+>> +
+>> +	ret =3D dma_coerce_mask_and_coherent(cdev->dev, DMA_BIT_MASK(31));
+>> +	if (ret)
+>> +		return ret;
+>> +	/*
+>> +	 * Caller is responsible for putting device in D0 to allow
+>> +	 * for I/O and memory access before probing DW.
+>> +	 */
+>> +	ret =3D dw_dma_probe(dmac);
+>> +	if (ret)
+>> +		return ret;
+>> +
+>> +	cdev->dmac =3D dmac;
+>> +	return 0;
+>> +}
+>> +
+>> +void catpt_dmac_remove(struct catpt_dev *cdev)
+>> +{
+>> +	/*
+>> +	 * As do_dma_remove() juggles with pm_runtime_get_xxx() and
+>> +	 * pm_runtime_put_xxx() while both ADSP and DW 'devices' are part of
+>> +	 * the same module, caller makes sure pm_runtime_disable() is invoked
+>> +	 * before removing DW to prevent postmortem resume and suspend.
+>> +	 */
+>> +	dw_dma_remove(cdev->dmac);
+>> +}
+>> +
+>> +static void catpt_dsp_set_srampge(struct catpt_dev *cdev, struct resour=
+ce *sram,
+>> +				  unsigned long mask, unsigned long new)
+>> +{
+>> +	unsigned long old;
+>> +	u32 off =3D sram->start;
+>> +	u32 b =3D __ffs(mask);
+>> +
+>> +	old =3D catpt_readl_pci(cdev, VDRTCTL0) & mask;
+>=20
+>> +	dev_dbg(cdev->dev, "SRAMPGE [0x%08lx] 0x%08lx -> 0x%08lx",
+>> +		mask, old, new);
+>=20
+> I saw use of trace points, this looks like non-production leftover.
+>=20
 
-Customers need the ability to not transmit on a TDM slot, since another 
-device could be using the slot.
-For example, the customer has an amp and dig microphone sharing one TDM 
-bus. The amp uses slot 0 while dig microphone use slots 1-3.
-In another example, customers use 2 dig microphones. One device 
-transmits on slots 0-3, the second device transmits on slots 4-7.
-In a third example, customers use 4 dig microphones. Device 1 uses Slots 
-0-3, Device 2 uses Slots 4-7, Device 3 uses Slots 8-11, and Device 4 
-uses Slots 12-15.
+In case of all dev_dbg(s) you had mentioned here, I've added these
+intentionally - this is similar to ASoC core logging: entire DAI and
+board connection process is logged via dev_dbg as there is no need to
+show these to user by default. Logging SRAMPGE/LPCS and block
+sanitization is useful for developers.
 
-The dai-tdm-slot-num would be a good candidate to add to the sound card 
-to define the slot number but it's definition is "Number of slots in 
-use." So it is not really setting the needed slot.
-I am not finding any good way to assign specific slots to specific channels.
+I've given thought to traces on several occasions and ultimately decided
+to leave this only for IPC communication with ADSP.
 
-I can add DAI slot numbering parameter for specific codecs.
+>> +	if (old =3D=3D new)
+>> +		return;
+>> +
+>> +	catpt_updatel_pci(cdev, VDRTCTL0, mask, new);
+>> +	/* wait for SRAM power gating to propagate */
+>> +	udelay(60);
+>> +
+>> +	/*
+>> +	 * Dummy read as the very first access after block enable
+>> +	 * to prevent byte loss in future operations.
+>> +	 */
+>> +	for_each_clear_bit_from(b, &new, fls_long(mask)) {
+>> +		u8 buf[4];
+>> +
+>> +		/* newly enabled: new bit=3D0 while old bit=3D1 */
+>> +		if (test_bit(b, &old)) {
+>=20
+>> +			dev_dbg(cdev->dev, "sanitize block %ld: off 0x%08x\n",
+>> +				b - __ffs(mask), off);
+>=20
+> So does this.
+>=20
 
-Dan
+Please see above.
+
+>> +			memcpy_fromio(buf, cdev->lpe_ba + off, sizeof(buf));
+>> +		}
+>> +		off +=3D CATPT_MEMBLOCK_SIZE;
+>> +	}
+>> +}
+>> +
+>> +void catpt_dsp_update_srampge(struct catpt_dev *cdev, struct resource *=
+sram,
+>> +			      unsigned long mask)
+>> +{
+>> +	struct resource *res;
+>> +	unsigned long new =3D 0;
+>> +
+>> +	/* flag all busy blocks */
+>> +	for (res =3D sram->child; res; res =3D res->sibling) {
+>> +		u32 h, l;
+>> +
+>> +		h =3D (res->end - sram->start) / CATPT_MEMBLOCK_SIZE;
+>> +		l =3D (res->start - sram->start) / CATPT_MEMBLOCK_SIZE;
+>> +		new |=3D GENMASK(h, l);
+>=20
+> I think better assembly will be generated with
+>=20
+> 	(BIT(h - l + 1) - 1) << l
+>=20
+> Looking at the above calculus it seems (needs to be carefully checked!) c=
+an be
+>=20
+> 	u32 bits =3D DIV_ROUND_UP(resource_size(res), CATPT_MEMBLOCK_SIZE);
+> 	u32 shift =3D (res->start - sram->start) / CATPT_MEMBLOCK_SIZE;
+>=20
+> 	new |=3D (BIT(bits) - 1) << shift;
+>=20
+> Note, your approach is also good from readability point of view, so just =
+weight
+> pros and cons and choose best one.
+>=20
+
+I'm up for performance change later on - I'm still yet to complete all
+the missing pieces for FW and SW flow documentation. Code as it is
+written now helps me during that process. Once docs are done,
+performance could overtake readability here and there.
+
+>> +	}
+>> +
+>> +	/* offset value given mask's start and invert it as ON=3Db0 */
+>> +	new =3D ~(new << __ffs(mask)) & mask;
+>> +
+>> +	/* disable core clock gating */
+>> +	catpt_updatel_pci(cdev, VDRTCTL2, CATPT_VDRTCTL2_DCLCGE, 0);
+>> +
+>> +	catpt_dsp_set_srampge(cdev, sram, mask, new);
+>> +
+>> +	/* enable core clock gating */
+>> +	catpt_updatel_pci(cdev, VDRTCTL2, CATPT_VDRTCTL2_DCLCGE,
+>> +			  CATPT_VDRTCTL2_DCLCGE);
+>> +}
+>> +
+>> +int catpt_dsp_stall(struct catpt_dev *cdev, bool stall)
+>> +{
+>> +	u32 reg, val;
+>> +
+>> +	val =3D stall ? CATPT_CS_STALL : 0;
+>> +	catpt_updatel_shim(cdev, CS1, CATPT_CS_STALL, val);
+>> +
+>> +	return catpt_readl_poll_shim(cdev, CS1,
+>> +				     reg, (reg & CATPT_CS_STALL) =3D=3D val,
+>> +				     500, 10000);
+>> +}
+>> +
+>> +static int catpt_dsp_reset(struct catpt_dev *cdev, bool reset)
+>> +{
+>> +	u32 reg, val;
+>> +
+>> +	val =3D reset ? CATPT_CS_RST : 0;
+>> +	catpt_updatel_shim(cdev, CS1, CATPT_CS_RST, val);
+>> +
+>> +	return catpt_readl_poll_shim(cdev, CS1,
+>> +				     reg, (reg & CATPT_CS_RST) =3D=3D val,
+>> +				     500, 10000);
+>> +}
+>> +
+>> +void lpt_dsp_pll_shutdown(struct catpt_dev *cdev, bool enable)
+>> +{
+>> +	u32 val;
+>> +
+>> +	val =3D enable ? LPT_VDRTCTL0_APLLSE : 0;
+>> +	catpt_updatel_pci(cdev, VDRTCTL0, LPT_VDRTCTL0_APLLSE, val);
+>> +}
+>> +
+>> +void wpt_dsp_pll_shutdown(struct catpt_dev *cdev, bool enable)
+>> +{
+>> +	u32 val;
+>> +
+>> +	val =3D enable ? WPT_VDRTCTL2_APLLSE : 0;
+>> +	catpt_updatel_pci(cdev, VDRTCTL2, WPT_VDRTCTL2_APLLSE, val);
+>> +}
+>> +
+>> +static int catpt_dsp_select_lpclock(struct catpt_dev *cdev, bool lp, bo=
+ol waiti)
+>> +{
+>> +	u32 mask, reg, val;
+>> +	int ret;
+>> +
+>> +	mutex_lock(&cdev->clk_mutex);
+>> +
+>> +	val =3D lp ? CATPT_CS_LPCS : 0;
+>> +	reg =3D catpt_readl_shim(cdev, CS1) & CATPT_CS_LPCS;
+>=20
+>> +	dev_dbg(cdev->dev, "LPCS [0x%08lx] 0x%08x -> 0x%08x",
+>> +		CATPT_CS_LPCS, reg, val);
+>=20
+> Leftover?
+>=20
+Please see the above (dev_dbg chapter).
+

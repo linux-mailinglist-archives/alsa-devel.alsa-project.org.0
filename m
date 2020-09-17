@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 029D726DB0D
-	for <lists+alsa-devel@lfdr.de>; Thu, 17 Sep 2020 14:06:30 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4CFD426DB14
+	for <lists+alsa-devel@lfdr.de>; Thu, 17 Sep 2020 14:06:56 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 8C9031658;
-	Thu, 17 Sep 2020 14:05:39 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8C9031658
+	by alsa0.perex.cz (Postfix) with ESMTPS id E4D9F167A;
+	Thu, 17 Sep 2020 14:06:05 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E4D9F167A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1600344389;
-	bh=35LkgZEuEzyFHGZ0lDP79vzRBZtP2Lt00h+sOd5yb5M=;
+	s=default; t=1600344416;
+	bh=78qtzeKRkRNwsvQiXtOt2CVpYBGVSGTOPg60lRX+q4Q=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=ekAfk+B+KOkCIFmtJ4N8oRz/P5tuBcdmI5aJZGJH427lLuwoorj0YTdgWe32zYP8r
-	 mPpqAR2LsLLmWzujt1Q+1HuGNNPPSaDXBRs7prDlKDMEBb7aGU2ocAG+u5cbx9Ddvf
-	 oBBzwcY8tvFue8atwa5K4FDtA0VRYg+bUs9rnOIQ=
+	b=Cch1N9L8B4ZR//3iGcvc5RnF2RehQHSriuP1TKIVd7ADFnLrl0X8ffrtOk3kZAnu+
+	 hC4PAg7DU6ufxxoM8WNQFrOb2x1z5UdTSURAwkpJc32zeEwV8AguIJocH7Jfa6ytkO
+	 VNwCO76vko9hpIpLu1S4TqaoMQHWo3Zt55qPSoyM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 08105F802F8;
-	Thu, 17 Sep 2020 14:02:15 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id D4114F802FF;
+	Thu, 17 Sep 2020 14:02:16 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 0495CF802F7; Thu, 17 Sep 2020 14:02:12 +0200 (CEST)
+ id DF532F802FE; Thu, 17 Sep 2020 14:02:15 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-3.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -34,29 +34,29 @@ X-Spam-Status: No, score=-3.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 92EBFF802E9
- for <alsa-devel@alsa-project.org>; Thu, 17 Sep 2020 14:02:06 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 92EBFF802E9
+ by alsa1.perex.cz (Postfix) with ESMTPS id BF739F802E1
+ for <alsa-devel@alsa-project.org>; Thu, 17 Sep 2020 14:02:09 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BF739F802E1
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="n5AFKV16"
+ header.b="cnq60uFp"
 Received: from localhost.localdomain (unknown [136.185.111.192])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 306C4208DB;
- Thu, 17 Sep 2020 12:02:01 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id 3C21721D7F;
+ Thu, 17 Sep 2020 12:02:04 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1600344124;
- bh=35LkgZEuEzyFHGZ0lDP79vzRBZtP2Lt00h+sOd5yb5M=;
+ s=default; t=1600344127;
+ bh=78qtzeKRkRNwsvQiXtOt2CVpYBGVSGTOPg60lRX+q4Q=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=n5AFKV163FKfDBG0zcNp4dTgU+bOY7z4mvoSThTfmycQUCaZ1UQx2IRKFANnpFFfh
- /g2OrO2dTRx+wj3KNWnR9KixJCShQrCtQlA+a71xPQBpcLDVKnKkOu23jRWdjreMnq
- sYh+4k0aCzfjpvou0TjTZ38ArtuYN+RLnDa9EsTI=
+ b=cnq60uFpdMbhblMaErMXp+Z3mVJnxPIIh83cD6vyvHQ9eaG/hfFDrTCJef1rCidke
+ 65xpwvUYxkqVUqeFKHbX79GLqOaLHvwlpl1fRM7xO4Krp+ao3D5jfDHU5Y8n0azli0
+ mRjwrwLQtZjVE+m169Kg6mjYnvQHvQP1sl/Pv3E0=
 From: Vinod Koul <vkoul@kernel.org>
 To: alsa-devel@alsa-project.org
-Subject: [PATCH v2 1/2] soundwire: cadence: use u32p_replace_bits
-Date: Thu, 17 Sep 2020 17:31:45 +0530
-Message-Id: <20200917120146.1780323-2-vkoul@kernel.org>
+Subject: [PATCH v2 2/2] soundwire: intel: use {u32|u16}p_replace_bits
+Date: Thu, 17 Sep 2020 17:31:46 +0530
+Message-Id: <20200917120146.1780323-3-vkoul@kernel.org>
 X-Mailer: git-send-email 2.26.2
 In-Reply-To: <20200917120146.1780323-1-vkoul@kernel.org>
 References: <20200917120146.1780323-1-vkoul@kernel.org>
@@ -85,57 +85,60 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 FIELD_PREP() does not replace the bits so it is not apt in case where we
 modify a register.
 
-Use u32p_replace_bits() instead.
+Use u32_replace_bits() or u16_replace_bits() instead.
 
-Fixes: 3cf25d63b1b9 ("soundwire: cadence: use FIELD_{GET|PREP}")
+Fixes: 3b4979cabd4b ("soundwire: intel: use FIELD_{GET|PREP}")
 Signed-off-by: Vinod Koul <vkoul@kernel.org>
 ---
- drivers/soundwire/cadence_master.c | 21 ++++++++++-----------
- 1 file changed, 10 insertions(+), 11 deletions(-)
+ drivers/soundwire/intel.c | 14 +++++++-------
+ 1 file changed, 7 insertions(+), 7 deletions(-)
 
-diff --git a/drivers/soundwire/cadence_master.c b/drivers/soundwire/cadence_master.c
-index f1efe5beead6..19d445ef6764 100644
---- a/drivers/soundwire/cadence_master.c
-+++ b/drivers/soundwire/cadence_master.c
-@@ -1278,9 +1278,9 @@ static int cdns_port_params(struct sdw_bus *bus,
+diff --git a/drivers/soundwire/intel.c b/drivers/soundwire/intel.c
+index e047910d73f5..5a5a645bdb3f 100644
+--- a/drivers/soundwire/intel.c
++++ b/drivers/soundwire/intel.c
+@@ -329,7 +329,7 @@ static int intel_link_power_up(struct sdw_intel *sdw)
  
- 	dpn_config = cdns_readl(cdns, dpn_config_off);
+ 		/* set SyncPRD period */
+ 		sync_reg = intel_readl(shim, SDW_SHIM_SYNC);
+-		sync_reg |= FIELD_PREP(SDW_SHIM_SYNC_SYNCPRD, syncprd);
++		u32p_replace_bits(&sync_reg, syncprd, SDW_SHIM_SYNC_SYNCPRD);
  
--	dpn_config |= FIELD_PREP(CDNS_DPN_CONFIG_WL, (p_params->bps - 1));
--	dpn_config |= FIELD_PREP(CDNS_DPN_CONFIG_PORT_FLOW, p_params->flow_mode);
--	dpn_config |= FIELD_PREP(CDNS_DPN_CONFIG_PORT_DAT, p_params->data_mode);
-+	u32p_replace_bits(&dpn_config, (p_params->bps - 1), CDNS_DPN_CONFIG_WL);
-+	u32p_replace_bits(&dpn_config, p_params->flow_mode, CDNS_DPN_CONFIG_PORT_FLOW);
-+	u32p_replace_bits(&dpn_config, p_params->data_mode, CDNS_DPN_CONFIG_PORT_DAT);
+ 		/* Set SyncCPU bit */
+ 		sync_reg |= SDW_SHIM_SYNC_SYNCCPU;
+@@ -448,7 +448,7 @@ static int intel_shim_init(struct sdw_intel *sdw, bool clock_stop)
  
- 	cdns_writel(cdns, dpn_config_off, dpn_config);
+ 	intel_shim_glue_to_master_ip(sdw);
  
-@@ -1316,18 +1316,17 @@ static int cdns_transport_params(struct sdw_bus *bus,
- 	}
+-	act |= FIELD_PREP(SDW_SHIM_CTMCTL_DOAIS, 0x1);
++	u16p_replace_bits(&act, 0x1, SDW_SHIM_CTMCTL_DOAIS);
+ 	act |= SDW_SHIM_CTMCTL_DACTQE;
+ 	act |= SDW_SHIM_CTMCTL_DODS;
+ 	intel_writew(shim, SDW_SHIM_CTMCTL(link_id), act);
+@@ -712,9 +712,9 @@ intel_pdi_shim_configure(struct sdw_intel *sdw, struct sdw_cdns_pdi *pdi)
+ 	else
+ 		pdi_conf &= ~(SDW_SHIM_PCMSYCM_DIR);
  
- 	dpn_config = cdns_readl(cdns, dpn_config_off);
--
--	dpn_config |= FIELD_PREP(CDNS_DPN_CONFIG_BGC, t_params->blk_grp_ctrl);
--	dpn_config |= FIELD_PREP(CDNS_DPN_CONFIG_BPM, t_params->blk_pkg_mode);
-+	u32p_replace_bits(&dpn_config, t_params->blk_grp_ctrl, CDNS_DPN_CONFIG_BGC);
-+	u32p_replace_bits(&dpn_config, t_params->blk_pkg_mode, CDNS_DPN_CONFIG_BPM);
- 	cdns_writel(cdns, dpn_config_off, dpn_config);
+-	pdi_conf |= FIELD_PREP(SDW_SHIM_PCMSYCM_STREAM, pdi->intel_alh_id);
+-	pdi_conf |= FIELD_PREP(SDW_SHIM_PCMSYCM_LCHN, pdi->l_ch_num);
+-	pdi_conf |= FIELD_PREP(SDW_SHIM_PCMSYCM_HCHN, pdi->h_ch_num);
++	u32p_replace_bits(&pdi_conf, pdi->intel_alh_id, SDW_SHIM_PCMSYCM_STREAM);
++	u32p_replace_bits(&pdi_conf, pdi->l_ch_num, SDW_SHIM_PCMSYCM_LCHN);
++	u32p_replace_bits(&pdi_conf, pdi->h_ch_num, SDW_SHIM_PCMSYCM_HCHN);
  
--	dpn_offsetctrl |= FIELD_PREP(CDNS_DPN_OFFSET_CTRL_1, t_params->offset1);
--	dpn_offsetctrl |= FIELD_PREP(CDNS_DPN_OFFSET_CTRL_2, t_params->offset2);
-+	u32p_replace_bits(&dpn_offsetctrl, t_params->offset1, CDNS_DPN_OFFSET_CTRL_1);
-+	u32p_replace_bits(&dpn_offsetctrl, t_params->offset2, CDNS_DPN_OFFSET_CTRL_2);
- 	cdns_writel(cdns, dpn_offsetctrl_off,  dpn_offsetctrl);
+ 	intel_writew(shim, SDW_SHIM_PCMSYCHM(link_id, pdi->num), pdi_conf);
+ }
+@@ -734,8 +734,8 @@ intel_pdi_alh_configure(struct sdw_intel *sdw, struct sdw_cdns_pdi *pdi)
+ 	/* Program Stream config ALH register */
+ 	conf = intel_readl(alh, SDW_ALH_STRMZCFG(pdi->intel_alh_id));
  
--	dpn_hctrl |= FIELD_PREP(CDNS_DPN_HCTRL_HSTART, t_params->hstart);
--	dpn_hctrl |= FIELD_PREP(CDNS_DPN_HCTRL_HSTOP, t_params->hstop);
--	dpn_hctrl |= FIELD_PREP(CDNS_DPN_HCTRL_LCTRL, t_params->lane_ctrl);
-+	u32p_replace_bits(&dpn_hctrl, t_params->hstart, CDNS_DPN_HCTRL_HSTART);
-+	u32p_replace_bits(&dpn_hctrl, t_params->hstop, CDNS_DPN_HCTRL_HSTOP);
-+	u32p_replace_bits(&dpn_hctrl, t_params->lane_ctrl, CDNS_DPN_HCTRL_LCTRL);
+-	conf |= FIELD_PREP(SDW_ALH_STRMZCFG_DMAT, SDW_ALH_STRMZCFG_DMAT_VAL);
+-	conf |= FIELD_PREP(SDW_ALH_STRMZCFG_CHN, pdi->ch_count - 1);
++	u32p_replace_bits(&conf, SDW_ALH_STRMZCFG_DMAT_VAL, SDW_ALH_STRMZCFG_DMAT);
++	u32p_replace_bits(&conf, pdi->ch_count - 1, SDW_ALH_STRMZCFG_CHN);
  
- 	cdns_writel(cdns, dpn_hctrl_off, dpn_hctrl);
- 	cdns_writel(cdns, dpn_samplectrl_off, (t_params->sample_interval - 1));
+ 	intel_writel(alh, SDW_ALH_STRMZCFG(pdi->intel_alh_id), conf);
+ }
 -- 
 2.26.2
 

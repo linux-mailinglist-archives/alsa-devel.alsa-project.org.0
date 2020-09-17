@@ -2,56 +2,56 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E40C0271DCE
-	for <lists+alsa-devel@lfdr.de>; Mon, 21 Sep 2020 10:22:47 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id DDD7C271DD2
+	for <lists+alsa-devel@lfdr.de>; Mon, 21 Sep 2020 10:23:10 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 8F5321774;
-	Mon, 21 Sep 2020 10:21:57 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8F5321774
+	by alsa0.perex.cz (Postfix) with ESMTPS id 806CF178E;
+	Mon, 21 Sep 2020 10:22:20 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 806CF178E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1600676567;
-	bh=BHBvTl9J5bVNGcjbgF1Wrd0LOUeqr0pjrgInbdXE4tc=;
+	s=default; t=1600676590;
+	bh=4dW5n48JqvNP10b6scxas3MFTEWsL4Xf/7dxjZPBmik=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=UqiQoPuNpM3nyuj/Bs2PSCPVNJIBuFkhoxR5d3E8dgspJLQ0NXLvG2FlxGU1QF4pY
-	 mS6L8ay6p1muBnH66c+Yon6p8y5CbyiKdh9LT2XvOv7/LuUjarAOvVFg7vC7qCRJ5B
-	 zzHwtTEhLvxpgBxKiCeq3wQEYSjghbHmwQLpyetw=
+	b=KiF2cGJOoqpKq/82MXgrR37UA7QAUo0hUURwiRPmbXuaY8B9fUzS8rVRIm3FqvrtP
+	 Udmp8Z2hAEPd30c9I6c55swTITAPueMwVwaNMhy6WjXElJ59iA5LwxmjkimWRsAv4C
+	 G6hDmxhpWhz8NWTFGumVkBSoxNyK+/FJCGGHywkM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 5B638F8036C;
-	Mon, 21 Sep 2020 10:11:00 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id AC82FF8036D;
+	Mon, 21 Sep 2020 10:11:01 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id E9C5EF80212; Thu, 17 Sep 2020 18:56:34 +0200 (CEST)
+ id 8CD3EF80212; Thu, 17 Sep 2020 18:56:48 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-3.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
+ DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled
+ version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 9B065F800E8
- for <alsa-devel@alsa-project.org>; Thu, 17 Sep 2020 18:56:28 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9B065F800E8
+ by alsa1.perex.cz (Postfix) with ESMTPS id 8A100F80134
+ for <alsa-devel@alsa-project.org>; Thu, 17 Sep 2020 18:56:43 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8A100F80134
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="GRH/P+hm"
+ header.b="voWH5Mj8"
 Received: from kozik-lap.mshome.net (unknown [194.230.155.191])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id C26952078D;
- Thu, 17 Sep 2020 16:56:13 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id 9D4092064B;
+ Thu, 17 Sep 2020 16:56:27 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1600361787;
- bh=BHBvTl9J5bVNGcjbgF1Wrd0LOUeqr0pjrgInbdXE4tc=;
+ s=default; t=1600361802;
+ bh=4dW5n48JqvNP10b6scxas3MFTEWsL4Xf/7dxjZPBmik=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=GRH/P+hmbkvZV1XUdX3hrXr/M7yIadjWJCzkILNlNjfuSFyrmNOxxyOBSVjiJTn4J
- gKvBNwbvbYzo0IGdWxTLE2oG9gmZ6oXMt70NrCbSqHARK+31sF7Rx0nhtl11Izm9do
- rhuxXTc0Y62DIAey7vczzig9Bz3xjl9vz5LWXWP8=
+ b=voWH5Mj8BlY0YQbektVPJVIihTg4JqOT0bdGzRFdwEuQJQYXAZe22zdzn6SIFqo+L
+ WYVQYHdMqQ9HBxLjIUTDxVs7XjFArq2WAuDZpxQHcbFzeZs98yKrot5dAlXsjPI6pH
+ sALQqtb7ax8x+xX+P3HSx9zP5MxhbwecFqbmuxQE=
 From: Krzysztof Kozlowski <krzk@kernel.org>
 To: Linus Walleij <linus.walleij@linaro.org>,
  Bartosz Golaszewski <bgolaszewski@baylibre.com>,
@@ -104,10 +104,9 @@ To: Linus Walleij <linus.walleij@linaro.org>,
  linux-media@vger.kernel.org, alsa-devel@alsa-project.org,
  linux-stm32@st-md-mailman.stormreply.com,
  linux-mediatek@lists.infradead.org, linux-renesas-soc@vger.kernel.org
-Subject: [PATCH v2 10/13] ASoC: dt-bindings: zl38060: include common schema in
- GPIO controllers
-Date: Thu, 17 Sep 2020 18:52:58 +0200
-Message-Id: <20200917165301.23100-11-krzk@kernel.org>
+Subject: [PATCH v2 11/13] arm64: dts: imx8mq-librem5: correct GPIO hog property
+Date: Thu, 17 Sep 2020 18:52:59 +0200
+Message-Id: <20200917165301.23100-12-krzk@kernel.org>
 X-Mailer: git-send-email 2.17.1
 In-Reply-To: <20200917165301.23100-1-krzk@kernel.org>
 References: <20200917165301.23100-1-krzk@kernel.org>
@@ -128,33 +127,26 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Include the common GPIO schema in GPIO controllers to be sure all common
-properties are properly validated.
+Correct the name of property for GPIO specifier in GPIO hog.
 
 Signed-off-by: Krzysztof Kozlowski <krzk@kernel.org>
-
 ---
+ arch/arm64/boot/dts/freescale/imx8mq-librem5.dtsi | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-Changes since v1:
-1. New patch
----
- Documentation/devicetree/bindings/sound/zl38060.yaml | 3 +++
- 1 file changed, 3 insertions(+)
-
-diff --git a/Documentation/devicetree/bindings/sound/zl38060.yaml b/Documentation/devicetree/bindings/sound/zl38060.yaml
-index 338e2a13c775..0e3d8c854806 100644
---- a/Documentation/devicetree/bindings/sound/zl38060.yaml
-+++ b/Documentation/devicetree/bindings/sound/zl38060.yaml
-@@ -15,6 +15,9 @@ maintainers:
-   - Jaroslav Kysela <perex@perex.cz>
-   - Takashi Iwai <tiwai@suse.com>
+diff --git a/arch/arm64/boot/dts/freescale/imx8mq-librem5.dtsi b/arch/arm64/boot/dts/freescale/imx8mq-librem5.dtsi
+index 56295dd2fa8f..e4dedcb58f76 100644
+--- a/arch/arm64/boot/dts/freescale/imx8mq-librem5.dtsi
++++ b/arch/arm64/boot/dts/freescale/imx8mq-librem5.dtsi
+@@ -251,7 +251,7 @@
  
-+allOf:
-+  - $ref: /schemas/gpio/gpio-common.yaml#
-+
- properties:
-   compatible:
-     const: mscc,zl38060
+ 	pmic-5v {
+ 		gpio-hog;
+-		gpio = <&gpio1 1 GPIO_ACTIVE_HIGH>;
++		gpios = <&gpio1 1 GPIO_ACTIVE_HIGH>;
+ 		input;
+ 	};
+ };
 -- 
 2.17.1
 

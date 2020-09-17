@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2B2E426E4CF
-	for <lists+alsa-devel@lfdr.de>; Thu, 17 Sep 2020 20:59:28 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8E8EC26E4D7
+	for <lists+alsa-devel@lfdr.de>; Thu, 17 Sep 2020 21:00:12 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 47225168F;
-	Thu, 17 Sep 2020 20:58:37 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 47225168F
+	by alsa0.perex.cz (Postfix) with ESMTPS id 21BCB1680;
+	Thu, 17 Sep 2020 20:59:21 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 21BCB1680
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1600369167;
-	bh=1Nm5DuMtr1PlxTTNs8gMFv0c8l9FhJlPgFCI/Q8itOU=;
+	s=default; t=1600369211;
+	bh=SJN4xfUdkl7bi48FKRfNPPAsTv9Fk8jme/sg3RpIUiI=;
 	h=Date:From:To:In-Reply-To:References:Subject:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=gYStkPxtUtYMfcu5ISo3JOxp4EC2svUIb6pJyT7KpqOL3c5Hx7jgf74xfrZInoqpQ
-	 KyjYDCUvH/hG12jMmXRx87GmyGvAUB9iq9CuGd2ofNJP+5yEa7j5zph0t9aGMMDU1Q
-	 KKP4cBETxfRclTNdVSs9bLl+I7je4SCAVYHCKPXc=
+	b=If53nlyqwxv9wmqN6ZPHApC7ahDGeeiAbFjW167iix1UPQdtMRxC5lnmeJq69HXVX
+	 KCqcVPvZqfqaLh34+zjn51geNQJz9GxVJLNLXO0u1z81xyB/jtQbHybUkYtcyeCU6E
+	 zvfXrKZ9BkLiBVEm2c72YyQgbTuN4Tvg/zuJKN0I=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 3D59AF8013A;
-	Thu, 17 Sep 2020 20:57:46 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 5D617F8028B;
+	Thu, 17 Sep 2020 20:57:50 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id B8CCBF8025E; Thu, 17 Sep 2020 20:57:43 +0200 (CEST)
+ id 50279F8027C; Thu, 17 Sep 2020 20:57:48 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-3.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -34,36 +34,36 @@ X-Spam-Status: No, score=-3.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id B176EF801EC
- for <alsa-devel@alsa-project.org>; Thu, 17 Sep 2020 20:57:40 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B176EF801EC
+ by alsa1.perex.cz (Postfix) with ESMTPS id D037AF8025E
+ for <alsa-devel@alsa-project.org>; Thu, 17 Sep 2020 20:57:45 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D037AF8025E
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="Vtb3BzL7"
+ header.b="xZiC/FkG"
 Received: from localhost (fw-tnat.cambridge.arm.com [217.140.96.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id A83D9221E3;
- Thu, 17 Sep 2020 18:57:38 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id CC5B3206A1;
+ Thu, 17 Sep 2020 18:57:43 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1600369059;
- bh=1Nm5DuMtr1PlxTTNs8gMFv0c8l9FhJlPgFCI/Q8itOU=;
+ s=default; t=1600369064;
+ bh=SJN4xfUdkl7bi48FKRfNPPAsTv9Fk8jme/sg3RpIUiI=;
  h=Date:From:To:Cc:In-Reply-To:References:Subject:From;
- b=Vtb3BzL7FS2QeWVT1yDylx8bPI5y/AHz7JEJ/koaMLfltNt5MdKLLUvdrydjMBqQn
- t63AecMVIazXh/+m8X4oXM7NQhPPsSq+mswHd5Dep1cxkgCAO+CjGa86njE1vtCUnX
- hicha6sdZzwXAwgdd9bjGMwPS3rpxYL59v1Z3ofM=
-Date: Thu, 17 Sep 2020 19:56:49 +0100
+ b=xZiC/FkGQ0IWa40HGPG6OTJ68weDC26g+OAq/cpzzemPVP5Sdmya55zK6KGh1plmO
+ VOFswtms6tVavILDSklQIXy4GxHQshtKaI32zl4jzteOyI/cDbVdzKrPXEisBwv3td
+ BvkyJF8ttDOFDWWynnKVUhGDXof61/P8A97Uwk4U=
+Date: Thu, 17 Sep 2020 19:56:54 +0100
 From: Mark Brown <broonie@kernel.org>
-To: alsa-devel@alsa-project.org, Kai Vehmanen <kai.vehmanen@linux.intel.com>
-In-Reply-To: <20200917103912.2565907-1-kai.vehmanen@linux.intel.com>
-References: <20200917103912.2565907-1-kai.vehmanen@linux.intel.com>
-Subject: Re: [PATCH] ASoC: topology: disable size checks for bytes_ext
- controls if needed
-Message-Id: <160036900933.20113.2386576080734363523.b4-ty@kernel.org>
-Cc: Jaska Uimonen <jaska.uimonen@intel.com>, Takashi Iwai <tiwai@suse.de>,
- daniel.baluta@nxp.com, pierre-louis.bossart@linux.intel.com,
- lgirdwood@gmail.com, ranjani.sridharan@linux.intel.com,
- Bard Liao <yung-chuan.liao@linux.intel.com>
+To: Matthias Schiffer <matthias.schiffer@ew.tq-group.com>,
+ Takashi Iwai <tiwai@suse.com>, Liam Girdwood <lgirdwood@gmail.com>,
+ Jaroslav Kysela <perex@perex.cz>
+In-Reply-To: <20200902133043.19504-1-matthias.schiffer@ew.tq-group.com>
+References: <20200902133043.19504-1-matthias.schiffer@ew.tq-group.com>
+Subject: Re: [PATCH 1/2] ASoC: codec: tlv320aic32x4: fix missing
+ aic32x4_disable_regulators() in error path
+Message-Id: <160036900935.20113.2391843531663465832.b4-ty@kernel.org>
+Cc: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
+ Michael Sit Wei Hong <michael.wei.hong.sit@intel.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -79,15 +79,9 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Thu, 17 Sep 2020 13:39:12 +0300, Kai Vehmanen wrote:
-> When CONFIG_SND_CTL_VALIDATION is set, accesses to extended bytes
-> control generate spurious error messages when the size exceeds 512
-> bytes, such as
-> 
-> [ 11.224223] sof_sdw sof_sdw: control 2:0:0:EQIIR5.0 eqiir_coef_5:0:
-> invalid count 1024
-> 
-> [...]
+On Wed, 2 Sep 2020 15:30:42 +0200, Matthias Schiffer wrote:
+> The regulators need to be disabled in the aic32x4_register_clocks()
+> failure case as well.
 
 Applied to
 
@@ -95,8 +89,10 @@ Applied to
 
 Thanks!
 
-[1/1] ASoC: topology: disable size checks for bytes_ext controls if needed
-      commit: 6788fc1a66a0c1d1cec7a0f84f94b517eae8611c
+[1/2] ASoC: codec: tlv320aic32x4: fix missing aic32x4_disable_regulators() in error path
+      commit: 251e5c8694db01cd10828e39c07f90d958d7b303
+[2/2] ASoC: codec: tlv320aic32x4: do software reset before clock registration
+      commit: df44bc16e616809172cda90fd816596ded4ea219
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

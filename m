@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id DAD7A26E4E5
-	for <lists+alsa-devel@lfdr.de>; Thu, 17 Sep 2020 21:02:08 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7376826E4ED
+	for <lists+alsa-devel@lfdr.de>; Thu, 17 Sep 2020 21:02:51 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 7E0CC1689;
-	Thu, 17 Sep 2020 21:01:18 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7E0CC1689
+	by alsa0.perex.cz (Postfix) with ESMTPS id 06ED716AD;
+	Thu, 17 Sep 2020 21:02:01 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 06ED716AD
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1600369328;
-	bh=P4cVWJU8Vy0KqO0qWa8CEv9MKWSQemRligTWGadOC1Y=;
-	h=Date:From:To:In-Reply-To:References:Subject:List-Id:
+	s=default; t=1600369371;
+	bh=Hb/K8ZsiBzGs+A5mWIRqpLkTh6KT3vAf24qrmwesNvE=;
+	h=Date:From:To:In-Reply-To:References:Subject:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=jqU5eoyi/T6Gkm56PQTCMH7HdxFMp3am3jrtFGdKRWm6Z5pruixpxKhtpVEOqCqQh
-	 d2bOkYArlYZFJzLYJrtJ1ndeWwUtCtNfuOGZhjWMn6Llb+Ta0eAGBCFcvpcmQ8qHzM
-	 0FwHaBDWLtT/zziMmx+wwzgNUUgirCB7sbB9j4Qg=
+	b=Fd8zlS61oy9FYdbtYOySfPuGeU9HOaiQgSQt3lZMuWAn3kHcDojnTpRSR3XNUABKm
+	 Ysg3k6XCN4qqd/1+bYuazXcrNdYYxBUf7feyv5KL7VqEptVwarE0bSNHYur3kxEqP2
+	 fAXUOTqetC+O1BLrjKeaUG3yqJ7P/UcHHDUeSLm0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 56D0CF802EA;
-	Thu, 17 Sep 2020 20:58:13 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 8C4CFF802FF;
+	Thu, 17 Sep 2020 20:58:18 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 6530DF802F8; Thu, 17 Sep 2020 20:58:11 +0200 (CEST)
+ id 90634F802FE; Thu, 17 Sep 2020 20:58:16 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-3.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -34,33 +34,34 @@ X-Spam-Status: No, score=-3.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id CD926F802EA
- for <alsa-devel@alsa-project.org>; Thu, 17 Sep 2020 20:58:08 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CD926F802EA
+ by alsa1.perex.cz (Postfix) with ESMTPS id 2CBA7F802FB
+ for <alsa-devel@alsa-project.org>; Thu, 17 Sep 2020 20:58:14 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2CBA7F802FB
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="lW9r8afL"
+ header.b="BTpzay5L"
 Received: from localhost (fw-tnat.cambridge.arm.com [217.140.96.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id BC9B521973;
- Thu, 17 Sep 2020 18:58:06 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id 1B2E4221E3;
+ Thu, 17 Sep 2020 18:58:11 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1600369087;
- bh=P4cVWJU8Vy0KqO0qWa8CEv9MKWSQemRligTWGadOC1Y=;
+ s=default; t=1600369092;
+ bh=Hb/K8ZsiBzGs+A5mWIRqpLkTh6KT3vAf24qrmwesNvE=;
  h=Date:From:To:Cc:In-Reply-To:References:Subject:From;
- b=lW9r8afLTaOWjSq8T5o8+myt++LzeHQ4NyKuv7vowIG53OmtlCc0oITkYIXPt9gGm
- xYATJtxnubKHgP/JRhc1JbnILZiRi0kBR2/9KEuuYcdjWQKHYEkVLw5cYOQJSLiEBe
- FmaGF4jWq2BtFf50Xt35HSshq88Zmmi0ZJk3X5lM=
-Date: Thu, 17 Sep 2020 19:57:17 +0100
+ b=BTpzay5LMze2Qc0LojFYSVs1cLmpi/TeZgso+vxk5eNTufS9xvOIeKxt9hgzgsH/6
+ WAit93JeSDMdDkQsyni4UTi5OJrI+H6D9t0qO0i6dSJ8UVUqd90vuCa3RWc8OSzJkP
+ 897soZrlyBX7b4pp7fqIn9mA2EasrUMwf57T3o3k=
+Date: Thu, 17 Sep 2020 19:57:22 +0100
 From: Mark Brown <broonie@kernel.org>
-To: tiwai@suse.com, lgirdwood@gmail.com, perex@perex.cz, robh+dt@kernel.org,
- Shengjiu Wang <shengjiu.wang@nxp.com>, linux-kernel@vger.kernel.org,
- devicetree@vger.kernel.org, alsa-devel@alsa-project.org
-In-Reply-To: <1600178220-28973-1-git-send-email-shengjiu.wang@nxp.com>
-References: <1600178220-28973-1-git-send-email-shengjiu.wang@nxp.com>
-Subject: Re: [PATCH v3 1/2] ASoC: dt-bindings: ak4458: Add dsd-path property
-Message-Id: <160036900934.20113.2210224805843126757.b4-ty@kernel.org>
+To: tiwai@suse.com, lgirdwood@gmail.com, Camel Guo <camel.guo@axis.com>,
+ dmurphy@ti.com
+In-Reply-To: <20200908090417.16695-1-camel.guo@axis.com>
+References: <20200908090417.16695-1-camel.guo@axis.com>
+Subject: Re: [PATCH] ASoC: tlv320adcx140: Fix digital gain range
+Message-Id: <160036900935.20113.13746695477949199568.b4-ty@kernel.org>
+Cc: alsa-devel@alsa-project.org, kernel@axis.com, linux-kernel@vger.kernel.org,
+ Camel Guo <camelg@axis.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -76,9 +77,11 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Tue, 15 Sep 2020 21:56:59 +0800, Shengjiu Wang wrote:
-> Add "dsd-path" property, which is used for ak4497 codec
-> to select the DSD input pin.
+On Tue, 8 Sep 2020 11:04:17 +0200, Camel Guo wrote:
+> According to its datasheet, the digital gain should be -100 dB when
+> CHx_DVOL is 1 and 27 dB when CHx_DVOL is 255. But with the current
+> dig_vol_tlv, "Digital CHx Out Volume" shows 27.5 dB if CHx_DVOL is 255
+> and -95.5 dB if CHx_DVOL is 1. This commit fixes this bug.
 
 Applied to
 
@@ -86,10 +89,8 @@ Applied to
 
 Thanks!
 
-[1/2] ASoC: dt-bindings: ak4458: Add dsd-path property
-      commit: fc50e26de9677206ae43a261ddc4181ed7e4af78
-[2/2] ASoC: ak4458: Add DSD support for ak4458 and ak4497
-      commit: 337d348b8399adf1a19c8d65f6407939b4743fc9
+[1/1] ASoC: tlv320adcx140: Fix digital gain range
+      commit: 73154aca4a03a2ab4833fd36683feb884af06d4b
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

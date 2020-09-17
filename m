@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4A93426DDD4
-	for <lists+alsa-devel@lfdr.de>; Thu, 17 Sep 2020 16:17:50 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id BC77126DDD6
+	for <lists+alsa-devel@lfdr.de>; Thu, 17 Sep 2020 16:18:09 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D1E50167D;
-	Thu, 17 Sep 2020 16:16:59 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D1E50167D
+	by alsa0.perex.cz (Postfix) with ESMTPS id 5EC401694;
+	Thu, 17 Sep 2020 16:17:19 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5EC401694
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1600352269;
-	bh=QL0XnhQKrnhqBugc5pn7OV05ZZcg2hHiaqF3vbj7k60=;
+	s=default; t=1600352289;
+	bh=WaO5P2stU2cnjh7a4E/IbyN5yPKCR8s80+czcxNVdcA=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=PQjMQodTheuqgakN8IHPj2beXf8Q8oQEXb2Yih4OZvQCFc+20qqpoGhT6HEt8Oz74
-	 /JOTLm0wYXF7sFlh26UksG+ARZ08pYU4ZyUA9v++/FDA7HNv01PQ04YxtSo/r4AThK
-	 UcZMCxS6TMbYmMv8P7iGPSnywArq29NFdzP6F5iA=
+	b=goSY0ANWOWw+0TVnouh1tamIdMjADT2F2DLWXalIZfAJ7mnNJOQcYSfm0xcpVNiZA
+	 BDVRJ8mtvjk+vW2ntHg7Xoj65sbUBQp8mIyZRf0HQCD7l2SXTDrMu/gzzktU3HrRmM
+	 za59SkjFLHQPW4Iych2aPx7gJKfOEwJF+2AjaC1A=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 3A710F802EC;
-	Thu, 17 Sep 2020 16:13:59 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 4A3DAF80306;
+	Thu, 17 Sep 2020 16:14:04 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 5054CF802EB; Thu, 17 Sep 2020 16:13:57 +0200 (CEST)
+ id E9B7EF80304; Thu, 17 Sep 2020 16:14:01 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
@@ -33,29 +33,30 @@ X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
 Received: from mga06.intel.com (mga06.intel.com [134.134.136.31])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 971E3F802DD
- for <alsa-devel@alsa-project.org>; Thu, 17 Sep 2020 16:13:50 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 971E3F802DD
-IronPort-SDR: W8GmQvt21UmPWJjPhIpVjqmsaKnrQZ6WRS4EaGAOqiGJGrWQev/FA8WV0pJmR3u5wEELFDnlIp
- 5wjo5mXfuLwA==
-X-IronPort-AV: E=McAfee;i="6000,8403,9746"; a="221251219"
-X-IronPort-AV: E=Sophos;i="5.76,437,1592895600"; d="scan'208";a="221251219"
+ by alsa1.perex.cz (Postfix) with ESMTPS id AF9EAF802E9
+ for <alsa-devel@alsa-project.org>; Thu, 17 Sep 2020 16:13:54 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz AF9EAF802E9
+IronPort-SDR: 7nq/tfniX7qqC7xr+oH1wrlXdB6QdtoXTCBlfYJydR1rhwjdg/BAzJTOFWN1WD6Nj5x+UVuqpo
+ oezL4vaeI5cw==
+X-IronPort-AV: E=McAfee;i="6000,8403,9746"; a="221251224"
+X-IronPort-AV: E=Sophos;i="5.76,437,1592895600"; d="scan'208";a="221251224"
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
 Received: from orsmga004.jf.intel.com ([10.7.209.38])
  by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 17 Sep 2020 07:13:50 -0700
-IronPort-SDR: 6v8MpJaUWcxnVAwVEtoMCHxxiHR6wh2imId6k+FhtWKAOTUOOvrxopuFvzRK5DGhD6kC5UcUGw
- hUjQMmge7Keg==
+ 17 Sep 2020 07:13:54 -0700
+IronPort-SDR: IcDs28eHRka69Erx6y1yp1Igs+JK3jwzJtKzly1AD2MaB1mfXi2FgRIrbEL6pIKUgoaKgxpbnZ
+ nwsCiDrpVORQ==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.76,437,1592895600"; d="scan'208";a="452318115"
+X-IronPort-AV: E=Sophos;i="5.76,437,1592895600"; d="scan'208";a="452318146"
 Received: from crojewsk-ctrl.igk.intel.com ([10.102.9.28])
- by orsmga004.jf.intel.com with ESMTP; 17 Sep 2020 07:13:46 -0700
+ by orsmga004.jf.intel.com with ESMTP; 17 Sep 2020 07:13:50 -0700
 From: Cezary Rojewski <cezary.rojewski@intel.com>
 To: alsa-devel@alsa-project.org
-Subject: [PATCH v6 10/14] ASoC: Intel: Select catpt and deprecate haswell
-Date: Thu, 17 Sep 2020 16:12:38 +0200
-Message-Id: <20200917141242.9081-11-cezary.rojewski@intel.com>
+Subject: [PATCH v6 11/14] ASoC: Intel: haswell: Remove haswell-solution
+ specific code
+Date: Thu, 17 Sep 2020 16:12:39 +0200
+Message-Id: <20200917141242.9081-12-cezary.rojewski@intel.com>
 X-Mailer: git-send-email 2.17.1
 In-Reply-To: <20200917141242.9081-1-cezary.rojewski@intel.com>
 References: <20200917141242.9081-1-cezary.rojewski@intel.com>
@@ -82,124 +83,84 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Prevent sound/soc/intel/haswell code compile and select catpt instead as
-a recommended solution. Userspace-exposed members are compatible with
-what is exposed by deprecated solution thus no harm is done. The only
-visible difference is the newly added 'Loopback Mute' kcontrol.
+Remove code specific to sound/soc/intel/haswell. Update BE dai_link
+definition to provide seamless transition to catpt solution.
 
 Signed-off-by: Cezary Rojewski <cezary.rojewski@intel.com>
+Reviewed-by: Andy Shevchenko <andriy.shevchenko@intel.com>
 ---
 
-Changes in v5:
-- remove DMADEVICES depends on: DW_DMAC_CORE already covers that
-- add optional COMPILE_TEST depends on
+No changes since initial version.
 
- sound/soc/intel/Kconfig        | 24 ++++++++++++------------
- sound/soc/intel/Makefile       |  2 +-
- sound/soc/intel/boards/Kconfig |  8 ++++----
- sound/soc/intel/catpt/Makefile |  6 ++++++
- 4 files changed, 23 insertions(+), 17 deletions(-)
- create mode 100644 sound/soc/intel/catpt/Makefile
+ sound/soc/intel/boards/haswell.c | 28 ++++------------------------
+ 1 file changed, 4 insertions(+), 24 deletions(-)
 
-diff --git a/sound/soc/intel/Kconfig b/sound/soc/intel/Kconfig
-index 0e48c4f532ce..dfc20f2bb859 100644
---- a/sound/soc/intel/Kconfig
-+++ b/sound/soc/intel/Kconfig
-@@ -47,21 +47,21 @@ config SND_SOC_INTEL_SST_FIRMWARE
- 	# Haswell/Broadwell/Baytrail legacy and will be set
- 	# when these platforms are enabled
+diff --git a/sound/soc/intel/boards/haswell.c b/sound/soc/intel/boards/haswell.c
+index 744b7b5b8106..c268405e5594 100644
+--- a/sound/soc/intel/boards/haswell.c
++++ b/sound/soc/intel/boards/haswell.c
+@@ -13,9 +13,6 @@
+ #include <sound/soc-acpi.h>
+ #include <sound/pcm_params.h>
  
--config SND_SOC_INTEL_HASWELL
--	tristate "Haswell/Broadwell Platforms"
-+config SND_SOC_INTEL_CATPT
-+	tristate "Haswell and Broadwell"
-+	depends on ACPI || COMPILE_TEST
- 	depends on SND_DMA_SGBUF
--	depends on DMADEVICES && ACPI
--	select SND_SOC_INTEL_SST
--	select SND_SOC_INTEL_SST_ACPI
--	select SND_SOC_INTEL_SST_FIRMWARE
-+	select DW_DMAC_CORE
- 	select SND_SOC_ACPI_INTEL_MATCH
- 	help
--	  If you have a Intel Haswell or Broadwell platform connected to
--	  an I2S codec, then enable this option by saying Y or m. This is
--	  typically used for Chromebooks. This is a recommended option.
--	  This option is mutually exclusive with the SOF support on
--	  Broadwell. If you want to enable SOF on Broadwell, you need to
--	  deselect this option first.
-+	  Enable support for Intel(R) Haswell and Broadwell platforms
-+	  with I2S codec present. This is a recommended option.
-+	  Say Y or m if you have such device.
-+	  If unsure, say N.
+-#include "../common/sst-dsp.h"
+-#include "../haswell/sst-haswell-ipc.h"
+-
+ #include "../../codecs/rt5640.h"
+ 
+ /* Haswell ULT platforms have a Headphone and Mic jack */
+@@ -77,25 +74,6 @@ static const struct snd_soc_ops haswell_rt5640_ops = {
+ 	.hw_params = haswell_rt5640_hw_params,
+ };
+ 
+-static int haswell_rtd_init(struct snd_soc_pcm_runtime *rtd)
+-{
+-	struct snd_soc_component *component = snd_soc_rtdcom_lookup(rtd, DRV_NAME);
+-	struct sst_pdata *pdata = dev_get_platdata(component->dev);
+-	struct sst_hsw *haswell = pdata->dsp;
+-	int ret;
+-
+-	/* Set ADSP SSP port settings */
+-	ret = sst_hsw_device_set_config(haswell, SST_HSW_DEVICE_SSP_0,
+-		SST_HSW_DEVICE_MCLK_FREQ_24_MHZ,
+-		SST_HSW_DEVICE_CLOCK_MASTER, 9);
+-	if (ret < 0) {
+-		dev_err(rtd->dev, "failed to set device config\n");
+-		return ret;
+-	}
+-
+-	return 0;
+-}
+-
+ SND_SOC_DAILINK_DEF(dummy,
+ 	DAILINK_COMP_ARRAY(COMP_DUMMY()));
+ 
+@@ -117,13 +95,15 @@ SND_SOC_DAILINK_DEF(codec,
+ SND_SOC_DAILINK_DEF(platform,
+ 	DAILINK_COMP_ARRAY(COMP_PLATFORM("haswell-pcm-audio")));
+ 
++SND_SOC_DAILINK_DEF(ssp0_port,
++	    DAILINK_COMP_ARRAY(COMP_CPU("ssp0-port")));
 +
-+config SND_SOC_INTEL_HASWELL
-+	tristate
-+	select SND_SOC_INTEL_CATPT
+ static struct snd_soc_dai_link haswell_rt5640_dais[] = {
+ 	/* Front End DAI links */
+ 	{
+ 		.name = "System",
+ 		.stream_name = "System Playback/Capture",
+ 		.dynamic = 1,
+-		.init = haswell_rtd_init,
+ 		.trigger = {SND_SOC_DPCM_TRIGGER_POST, SND_SOC_DPCM_TRIGGER_POST},
+ 		.dpcm_playback = 1,
+ 		.dpcm_capture = 1,
+@@ -167,7 +147,7 @@ static struct snd_soc_dai_link haswell_rt5640_dais[] = {
+ 		.ops = &haswell_rt5640_ops,
+ 		.dpcm_playback = 1,
+ 		.dpcm_capture = 1,
+-		SND_SOC_DAILINK_REG(dummy, codec, dummy),
++		SND_SOC_DAILINK_REG(ssp0_port, codec, platform),
+ 	},
+ };
  
- config SND_SOC_INTEL_BAYTRAIL
- 	tristate "Baytrail (legacy) Platforms"
-diff --git a/sound/soc/intel/Makefile b/sound/soc/intel/Makefile
-index 04ee48204fc9..c88c615f85f7 100644
---- a/sound/soc/intel/Makefile
-+++ b/sound/soc/intel/Makefile
-@@ -3,9 +3,9 @@
- obj-$(CONFIG_SND_SOC) += common/
- 
- # Platform Support
--obj-$(CONFIG_SND_SOC_INTEL_HASWELL) += haswell/
- obj-$(CONFIG_SND_SOC_INTEL_BAYTRAIL) += baytrail/
- obj-$(CONFIG_SND_SST_ATOM_HIFI2_PLATFORM) += atom/
-+obj-$(CONFIG_SND_SOC_INTEL_CATPT) += catpt/
- obj-$(CONFIG_SND_SOC_INTEL_SKYLAKE) += skylake/
- obj-$(CONFIG_SND_SOC_INTEL_KEEMBAY) += keembay/
- 
-diff --git a/sound/soc/intel/boards/Kconfig b/sound/soc/intel/boards/Kconfig
-index 12dd41796e82..6afdd9ac4478 100644
---- a/sound/soc/intel/boards/Kconfig
-+++ b/sound/soc/intel/boards/Kconfig
-@@ -26,7 +26,7 @@ config SND_SOC_INTEL_USER_FRIENDLY_LONG_NAMES
- 	  interface.
- 	  If unsure select N.
- 
--if SND_SOC_INTEL_HASWELL
-+if SND_SOC_INTEL_CATPT
- 
- config SND_SOC_INTEL_HASWELL_MACH
- 	tristate "Haswell Lynxpoint"
-@@ -40,9 +40,9 @@ config SND_SOC_INTEL_HASWELL_MACH
- 	  Say Y or m if you have such a device.
- 	  If unsure select "N".
- 
--endif ## SND_SOC_INTEL_HASWELL
-+endif ## SND_SOC_INTEL_CATPT
- 
--if SND_SOC_INTEL_HASWELL || SND_SOC_SOF_BROADWELL
-+if SND_SOC_INTEL_CATPT || SND_SOC_SOF_BROADWELL
- 
- config SND_SOC_INTEL_BDW_RT5650_MACH
- 	tristate "Broadwell with RT5650 codec"
-@@ -83,7 +83,7 @@ config SND_SOC_INTEL_BROADWELL_MACH
- 	  Ultrabook platforms.
- 	  Say Y or m if you have such a device. This is a recommended option.
- 	  If unsure select "N".
--endif ## SND_SOC_INTEL_HASWELL || SND_SOC_SOF_BROADWELL
-+endif ## SND_SOC_INTEL_CATPT || SND_SOC_SOF_BROADWELL
- 
- if SND_SOC_INTEL_BAYTRAIL
- 
-diff --git a/sound/soc/intel/catpt/Makefile b/sound/soc/intel/catpt/Makefile
-new file mode 100644
-index 000000000000..0717190106d9
---- /dev/null
-+++ b/sound/soc/intel/catpt/Makefile
-@@ -0,0 +1,6 @@
-+snd-soc-catpt-objs := device.o dsp.o loader.o ipc.o messages.o pcm.o fs.o
-+
-+# tell define_trace.h where to find the trace header
-+CFLAGS_device.o := -I$(src)
-+
-+obj-$(CONFIG_SND_SOC_INTEL_CATPT) += snd-soc-catpt.o
 -- 
 2.17.1
 

@@ -2,87 +2,80 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2BE6026DCFB
-	for <lists+alsa-devel@lfdr.de>; Thu, 17 Sep 2020 15:41:50 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 444F426DD3B
+	for <lists+alsa-devel@lfdr.de>; Thu, 17 Sep 2020 15:55:54 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B31611684;
-	Thu, 17 Sep 2020 15:40:59 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B31611684
+	by alsa0.perex.cz (Postfix) with ESMTPS id 165F1167B;
+	Thu, 17 Sep 2020 15:55:03 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 165F1167B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1600350109;
-	bh=OM2syvWJ6THGiuDPNGXJGp4KtxCVGRjQIxVP8Z6wYvc=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1600350953;
+	bh=567iHiAWyDp59eFqXBlSZ8neDwsGf0EzI2aQ/7XzLV0=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=vVg4/+zJL60Xl7hDURvJb7m1B2OT2u/3N6BHpA07Vl5Iwu+JiHrdCabRuQPmhbKrd
-	 NazWkHWcDYwput7VWlnlvcwqDrrJZAuJZ+YoEN/v3QffScWYiTRShCEdbMeGlEQk1z
-	 PJxb00hthZ2ZDw+ojJix8bVJLKpL5XjlVER63aX4=
+	b=RQBeO9QdciN4E/OSCqx/Xd9ag2TfKZW9XnHy1H9N5rmmZusgOssy9tJ+EylQ5tkP+
+	 IlKosepsPFxPpGhJmB/GORducGumz/FqgVmAb0A43AsCfopzujLSMmEfK05pIyAKab
+	 ayTV4DoMcApsiTvze+GO05EMyqe3yNjh3vI3Lrsk=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id C02FFF802E2;
-	Thu, 17 Sep 2020 15:38:20 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id E21B3F8013A;
+	Thu, 17 Sep 2020 15:54:11 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 8B349F802E1; Thu, 17 Sep 2020 15:38:16 +0200 (CEST)
+ id E3AC3F80134; Thu, 17 Sep 2020 15:54:09 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- RCVD_IN_MSPIKE_H2,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from m43-7.mailgun.net (m43-7.mailgun.net [69.72.43.7])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=-2.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+ DKIM_VALID,DKIM_VALID_AU,PRX_BODY_30,SPF_HELO_NONE,SPF_PASS
+ autolearn=disabled version=3.4.0
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 67AECF802DF
- for <alsa-devel@alsa-project.org>; Thu, 17 Sep 2020 15:38:09 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 67AECF802DF
+ by alsa1.perex.cz (Postfix) with ESMTPS id 57CD9F80134
+ for <alsa-devel@alsa-project.org>; Thu, 17 Sep 2020 15:53:58 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 57CD9F80134
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=mg.codeaurora.org
- header.i=@mg.codeaurora.org header.b="Fym3PSlh"
-DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
- q=dns/txt; 
- s=smtp; t=1600349891; h=References: In-Reply-To: Message-Id: Date:
- Subject: Cc: To: From: Sender;
- bh=7Sm5zlmuS6dtNCaEUMlHA+OIjhjC9XiXWyfX26b/NUQ=;
- b=Fym3PSlhETFZoJCocPGHj8JezYShq4oxcmuj1FVCDfiO5APmBS1BwTGScXi3xlFLP6p0cJQ6
- +1CMwaZTc0lGwaOaYG8lB9yJw1b3ys229ai6RszBeDdPLPFy7CVAJ+PsWKtqLJZ7Q/YSCfGr
- GpT8U17XaCPAqKqF2WpqNXlDzgw=
-X-Mailgun-Sending-Ip: 69.72.43.7
-X-Mailgun-Sid: WyI4ZmE2ZSIsICJhbHNhLWRldmVsQGFsc2EtcHJvamVjdC5vcmciLCAiYmU5ZTRhIl0=
-Received: from smtp.codeaurora.org
- (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171]) by
- smtp-out-n03.prod.us-east-1.postgun.com with SMTP id
- 5f6366b76ace44caccc007ce (version=TLS1.2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Thu, 17 Sep 2020 13:37:59
- GMT
-Received: by smtp.codeaurora.org (Postfix, from userid 1001)
- id AF23CC43382; Thu, 17 Sep 2020 13:37:58 +0000 (UTC)
-Received: from hyd-lnxbld210.qualcomm.com (unknown [202.46.22.19])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-SHA256 (128/128 bits))
- (No client certificate requested) (Authenticated sender: srivasam)
- by smtp.codeaurora.org (Postfix) with ESMTPSA id 0A175C433CA;
- Thu, 17 Sep 2020 13:37:52 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 smtp.codeaurora.org 0A175C433CA
-Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
- dmarc=none (p=none dis=none) header.from=codeaurora.org
-Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
- spf=fail smtp.mailfrom=srivasam@codeaurora.org
-From: Srinivasa Rao Mandadapu <srivasam@codeaurora.org>
-To: agross@kernel.org, bjorn.andersson@linaro.org, lgirdwood@gmail.com,
- broonie@kernel.org, robh+dt@kernel.org, plai@codeaurora.org,
- bgoswami@codeaurora.org, perex@perex.cz, tiwai@suse.com,
- srinivas.kandagatla@linaro.org, rohitkr@codeaurora.org,
- linux-arm-msm@vger.kernel.org, alsa-devel@alsa-project.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: [PATCH v5 5/5] ASoC: qcom: sc7180: Add support for audio over DP
-Date: Thu, 17 Sep 2020 19:07:08 +0530
-Message-Id: <1600349828-10727-6-git-send-email-srivasam@codeaurora.org>
-X-Mailer: git-send-email 2.7.4
-In-Reply-To: <1600349828-10727-1-git-send-email-srivasam@codeaurora.org>
-References: <1600349828-10727-1-git-send-email-srivasam@codeaurora.org>
-Cc: V Sujith Kumar Reddy <vsujithk@codeaurora.org>,
- Srinivasa Rao <srivasam@codeaurora.org>
+ dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="Vwu5yG/t"
+Received: from localhost (fw-tnat.cambridge.arm.com [217.140.96.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by mail.kernel.org (Postfix) with ESMTPSA id E3C3121582;
+ Thu, 17 Sep 2020 13:53:55 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=default; t=1600350836;
+ bh=567iHiAWyDp59eFqXBlSZ8neDwsGf0EzI2aQ/7XzLV0=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=Vwu5yG/tAflmeRVU4EIqOy+F2BFwqoi+8IEq1XlAtXHvXk9xEtf7dXFo9/LZWJchF
+ xMhgpAfJSsBKYS5wtYDAimNipKBseUZ6JJMiOEqfg2CqHVyRTQf4g/M6dgyFKO1kzG
+ lvHDP5TiMBV5wGMsMxb9/j98aew4DjSjNuinmLzQ=
+Date: Thu, 17 Sep 2020 14:53:06 +0100
+From: Mark Brown <broonie@kernel.org>
+To: "Viorel Suman (OSS)" <viorel.suman@oss.nxp.com>
+Subject: Re: [PATCH 1/2] ASoC: fsl_xcvr: Add XCVR ASoC CPU DAI driver
+Message-ID: <20200917135306.GF4755@sirena.org.uk>
+References: <1600247876-8013-1-git-send-email-viorel.suman@oss.nxp.com>
+ <1600247876-8013-2-git-send-email-viorel.suman@oss.nxp.com>
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="+jhVVhN62yS6hEJ8"
+Content-Disposition: inline
+In-Reply-To: <1600247876-8013-2-git-send-email-viorel.suman@oss.nxp.com>
+X-Cookie: If you fail to plan, plan to fail.
+User-Agent: Mutt/1.10.1 (2018-07-13)
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
+ Matthias Schiffer <matthias.schiffer@ew.tq-group.com>,
+ Viorel Suman <viorel.suman@nxp.com>, Timur Tabi <timur@kernel.org>,
+ Xiubo Li <Xiubo.Lee@gmail.com>, Shengjiu Wang <shengjiu.wang@gmail.com>,
+ linuxppc-dev@lists.ozlabs.org, Takashi Iwai <tiwai@suse.com>,
+ Liam Girdwood <lgirdwood@gmail.com>, Nicolin Chen <nicoleotsuka@gmail.com>,
+ Rob Herring <robh+dt@kernel.org>, NXP Linux Team <linux-imx@nxp.com>,
+ Philipp Zabel <p.zabel@pengutronix.de>, Viorel Suman <viorel.suman@gmail.com>,
+ Cosmin-Gabriel Samoila <cosmin.samoila@nxp.com>,
+ Fabio Estevam <festevam@gmail.com>, linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -98,185 +91,91 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: V Sujith Kumar Reddy <vsujithk@codeaurora.org>
 
-Add support for audio playback over DP in lpass sc7180 platform driver.
-Update lpass_variant structure for hdmi data configuaration.
+--+jhVVhN62yS6hEJ8
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-Signed-off-by: Srinivasa Rao <srivasam@codeaurora.org>
-Signed-off-by: V Sujith Kumar Reddy <vsujithk@codeaurora.org>
----
- sound/soc/qcom/lpass-sc7180.c | 116 +++++++++++++++++++++++++++++++++++++-----
- 1 file changed, 102 insertions(+), 14 deletions(-)
+On Wed, Sep 16, 2020 at 12:17:55PM +0300, Viorel Suman (OSS) wrote:
 
-diff --git a/sound/soc/qcom/lpass-sc7180.c b/sound/soc/qcom/lpass-sc7180.c
-index 167bf2c..59f115e 100644
---- a/sound/soc/qcom/lpass-sc7180.c
-+++ b/sound/soc/qcom/lpass-sc7180.c
-@@ -60,38 +60,65 @@ static struct snd_soc_dai_driver sc7180_lpass_cpu_dai_driver[] = {
- 		.probe	= &asoc_qcom_lpass_cpu_dai_probe,
- 		.ops    = &asoc_qcom_lpass_cpu_dai_ops,
- 	},
-+	[LPASS_DP_RX] = {
-+		.id = LPASS_DP_RX,
-+		.name = "Hdmi",
-+		.playback = {
-+			.stream_name = "Hdmi Playback",
-+			.formats	= SNDRV_PCM_FMTBIT_S24,
-+			.rates = SNDRV_PCM_RATE_48000,
-+			.rate_min	= 48000,
-+			.rate_max	= 48000,
-+			.channels_min	= 2,
-+			.channels_max	= 2,
-+		},
-+		.ops    = &asoc_qcom_lpass_hdmi_dai_ops,
-+	},
- };
- 
- static int sc7180_lpass_alloc_dma_channel(struct lpass_data *drvdata,
--					   int direction)
-+					   int direction, unsigned int dai_id)
- {
- 	struct lpass_variant *v = drvdata->variant;
- 	int chan = 0;
- 
--	if (direction == SNDRV_PCM_STREAM_PLAYBACK) {
--		chan = find_first_zero_bit(&drvdata->dma_ch_bit_map,
--					v->rdma_channels);
-+	if (dai_id == LPASS_DP_RX) {
-+		if (direction == SNDRV_PCM_STREAM_PLAYBACK) {
-+			chan = find_first_zero_bit(&drvdata->hdmi_dma_ch_bit_map,
-+						v->hdmi_rdma_channels);
-+
-+			if (chan >= v->hdmi_rdma_channels)
-+				return -EBUSY;
-+		}
-+		set_bit(chan, &drvdata->hdmi_dma_ch_bit_map);
-+	} else {
-+		if (direction == SNDRV_PCM_STREAM_PLAYBACK) {
-+			chan = find_first_zero_bit(&drvdata->dma_ch_bit_map,
-+						v->rdma_channels);
- 
- 		if (chan >= v->rdma_channels)
- 			return -EBUSY;
--	} else {
--		chan = find_next_zero_bit(&drvdata->dma_ch_bit_map,
-+		} else {
-+			chan = find_next_zero_bit(&drvdata->dma_ch_bit_map,
- 					v->wrdma_channel_start +
- 					v->wrdma_channels,
- 					v->wrdma_channel_start);
- 
--		if (chan >=  v->wrdma_channel_start + v->wrdma_channels)
--			return -EBUSY;
--	}
--
--	set_bit(chan, &drvdata->dma_ch_bit_map);
-+			if (chan >=  v->wrdma_channel_start + v->wrdma_channels)
-+				return -EBUSY;
-+		}
- 
-+		set_bit(chan, &drvdata->dma_ch_bit_map);
-+	}
- 	return chan;
- }
- 
--static int sc7180_lpass_free_dma_channel(struct lpass_data *drvdata, int chan)
-+static int sc7180_lpass_free_dma_channel(struct lpass_data *drvdata, int chan, unsigned int dai_id)
- {
--	clear_bit(chan, &drvdata->dma_ch_bit_map);
-+	if (dai_id == LPASS_DP_RX)
-+		clear_bit(chan, &drvdata->hdmi_dma_ch_bit_map);
-+	else
-+		clear_bit(chan, &drvdata->dma_ch_bit_map);
- 
- 	return 0;
- }
-@@ -144,6 +171,9 @@ static struct lpass_variant sc7180_data = {
- 	.rdma_reg_base		= 0xC000,
- 	.rdma_reg_stride	= 0x1000,
- 	.rdma_channels		= 5,
-+	.hdmi_rdma_reg_base		= 0x64000,
-+	.hdmi_rdma_reg_stride	= 0x1000,
-+	.hdmi_rdma_channels		= 4,
- 	.dmactl_audif_start	= 1,
- 	.wrdma_reg_base		= 0x18000,
- 	.wrdma_reg_stride	= 0x1000,
-@@ -163,7 +193,7 @@ static struct lpass_variant sc7180_data = {
- 	.rdma_dyncclk		= REG_FIELD_ID(0xC000, 21, 21, 5, 0x1000),
- 	.rdma_bursten		= REG_FIELD_ID(0xC000, 20, 20, 5, 0x1000),
- 	.rdma_wpscnt		= REG_FIELD_ID(0xC000, 16, 19, 5, 0x1000),
--	.rdma_intf		= REG_FIELD_ID(0xC000, 12, 15, 5, 0x1000),
-+	.rdma_intf			= REG_FIELD_ID(0xC000, 12, 15, 5, 0x1000),
- 	.rdma_fifowm		= REG_FIELD_ID(0xC000, 1, 5, 5, 0x1000),
- 	.rdma_enable		= REG_FIELD_ID(0xC000, 0, 0, 5, 0x1000),
- 
-@@ -174,6 +204,64 @@ static struct lpass_variant sc7180_data = {
- 	.wrdma_fifowm		= REG_FIELD_ID(0x18000, 1, 5, 4, 0x1000),
- 	.wrdma_enable		= REG_FIELD_ID(0x18000, 0, 0, 4, 0x1000),
- 
-+	.hdmi_tx_ctl_addr	= 0x1000,
-+	.hdmi_legacy_addr	= 0x1008,
-+	.hdmi_vbit_addr		= 0x610c0,
-+	.hdmi_ch_lsb_addr	= 0x61048,
-+	.hdmi_ch_msb_addr	= 0x6104c,
-+	.ch_stride		= 0x8,
-+	.hdmi_parity_addr	= 0x61034,
-+	.hdmi_dmactl_addr	= 0x61038,
-+	.hdmi_dma_stride	= 0x4,
-+	.hdmi_DP_addr		= 0x610c8,
-+	.hdmi_sstream_addr	= 0x6101c,
-+	.hdmi_irq_reg_base		= 0x63000,
-+	.hdmi_irq_ports		= 1,
-+
-+	.hdmi_rdma_dyncclk		= REG_FIELD_ID(0x64000, 14, 14, 4, 0x1000),
-+	.hdmi_rdma_bursten		= REG_FIELD_ID(0x64000, 13, 13, 4, 0x1000),
-+	.hdmi_rdma_burst8		= REG_FIELD_ID(0x64000, 15, 15, 4, 0x1000),
-+	.hdmi_rdma_burst16		= REG_FIELD_ID(0x64000, 16, 16, 4, 0x1000),
-+	.hdmi_rdma_dynburst		= REG_FIELD_ID(0x64000, 18, 18, 4, 0x1000),
-+	.hdmi_rdma_wpscnt		= REG_FIELD_ID(0x64000, 10, 12, 4, 0x1000),
-+	.hdmi_rdma_fifowm		= REG_FIELD_ID(0x64000, 1, 5, 4, 0x1000),
-+	.hdmi_rdma_enable		= REG_FIELD_ID(0x64000, 0, 0, 4, 0x1000),
-+
-+	.sstream_en		= REG_FIELD(0x6101c, 0, 0),
-+	.dma_sel			= REG_FIELD(0x6101c, 1, 2),
-+	.auto_bbit_en	= REG_FIELD(0x6101c, 3, 3),
-+	.layout			= REG_FIELD(0x6101c, 4, 4),
-+	.layout_sp		= REG_FIELD(0x6101c, 5, 8),
-+	.set_sp_on_en	= REG_FIELD(0x6101c, 10, 10),
-+	.dp_audio		= REG_FIELD(0x6101c, 11, 11),
-+	.dp_staffing_en	= REG_FIELD(0x6101c, 12, 12),
-+	.dp_sp_b_hw_en	= REG_FIELD(0x6101c, 13, 13),
-+
-+	.mute			= REG_FIELD(0x610c8, 0, 0),
-+	.as_sdp_cc		= REG_FIELD(0x610c8, 1, 3),
-+	.as_sdp_ct		= REG_FIELD(0x610c8, 4, 7),
-+	.aif_db4			= REG_FIELD(0x610c8, 8, 15),
-+	.frequency		= REG_FIELD(0x610c8, 16, 21),
-+	.mst_index		= REG_FIELD(0x610c8, 28, 29),
-+	.dptx_index		= REG_FIELD(0x610c8, 30, 31),
-+
-+	.soft_reset		= REG_FIELD(0x1000, 31, 31),
-+	.force_reset	= REG_FIELD(0x1000, 30, 30),
-+
-+	.use_hw_chs		= REG_FIELD(0x61038, 0, 0),
-+	.use_hw_usr		= REG_FIELD(0x61038, 1, 1),
-+	.hw_chs_sel		= REG_FIELD(0x61038, 2, 4),
-+	.hw_usr_sel		= REG_FIELD(0x61038, 5, 6),
-+
-+	.replace_vbit	= REG_FIELD(0x610c0, 0, 0),
-+	.vbit_stream	= REG_FIELD(0x610c0, 1, 1),
-+
-+	.legacy_en		=  REG_FIELD(0x1008, 0, 0),
-+	.calc_en		=  REG_FIELD(0x61034, 0, 0),
-+	.lsb_bits		=  REG_FIELD(0x61048, 0, 31),
-+	.msb_bits		=  REG_FIELD(0x6104c, 0, 31),
-+
-+
- 	.clk_name		= (const char*[]) {
- 				   "pcnoc-sway-clk",
- 				   "audio-core",
--- 
-Qualcomm India Private Limited, on behalf of Qualcomm Innovation Center, Inc.,
-is a member of Code Aurora Forum, a Linux Foundation Collaborative Project.
+This looks mostly good, a few smallish things below but nothing major.
 
+> +static int fsl_xcvr_load_firmware(struct fsl_xcvr *xcvr)
+> +{
+> +	struct device *dev = &xcvr->pdev->dev;
+> +	const struct firmware *fw;
+> +	int ret = 0, rem, off, out, page = 0, size = FSL_XCVR_REG_OFFSET;
+> +	u32 mask, val;
+> +
+> +	ret = request_firmware(&fw, xcvr->fw_name, dev);
+> +	if (ret) {
+> +		dev_err(dev, "failed to request firmware.\n");
+> +		return ret;
+> +	}
+> +
+> +	rem = fw->size;
+
+It would be good to see some explicit validation of the image size, at
+least printing an error message if the image is bigger than can be
+loaded.  The code should be safe in that it won't overflow the device
+region it's writing to but it feels like it'd be better to tell people
+if we spot a problem rather than just silently truncating the file.
+
+> +	/* RAM is 20KiB => max 10 pages 2KiB each */
+> +	for (page = 0; page < 10; page++) {
+> +		ret = regmap_update_bits(xcvr->regmap, FSL_XCVR_EXT_CTRL,
+> +					 FSL_XCVR_EXT_CTRL_PAGE_MASK,
+> +					 FSL_XCVR_EXT_CTRL_PAGE(page));
+
+regmap does have paging support, though given that this is currently the
+only place where paging is used this probably doesn't matter too much.
+
+> +static irqreturn_t irq0_isr(int irq, void *devid)
+> +{
+> +	struct fsl_xcvr *xcvr = (struct fsl_xcvr *)devid;
+> +	struct device *dev = &xcvr->pdev->dev;
+> +	struct regmap *regmap = xcvr->regmap;
+> +	void __iomem *reg_ctrl, *reg_buff;
+> +	u32 isr, val, i;
+> +
+> +	regmap_read(regmap, FSL_XCVR_EXT_ISR, &isr);
+> +	regmap_write(regmap, FSL_XCVR_EXT_ISR_CLR, isr);
+
+This will unconditionally clear any interrupts, even those we don't
+understand - it might be better to only clear bits that are supported so
+the IRQ core can complain if there's something unexpected showing up.
+
+> +	if (isr & FSL_XCVR_IRQ_FIFO_UOFL_ERR)
+> +		dev_dbg(dev, "RX/TX FIFO full/empty\n");
+
+Should this be dev_err()?
+
+> +static irqreturn_t irq1_isr(int irq, void *devid)
+> +{
+> +	struct fsl_xcvr *xcvr = (struct fsl_xcvr *)devid;
+> +	struct device *dev = &xcvr->pdev->dev;
+> +
+> +	dev_dbg(dev, "irq[1]: %d\n", irq);
+> +
+> +	return IRQ_HANDLED;
+> +}
+
+Is there any value in even requesting this and irq2 given the lack of
+meaningful handling?
+
+--+jhVVhN62yS6hEJ8
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl9jakEACgkQJNaLcl1U
+h9AOQwf8C2EY+mr/CBR/vucNQj6SnLjTIsUA05x+jItQcyz0JDy2n4lqlPS8RD0b
+IbnHx6/L4jBlMMq5IjtDQXLxNX6WeYW6LtMiuWqnWXsB58c9iXZik7MjpZHJ6YcD
+rbPPo2PJzuSfo5lsq+AhbomjE1pA+D1svb08dBdNmHzFEtLfdAhf3gqWNGbDYym7
+SDoSP88YDa4aX+ZPXx6lhmObJslBveq6Sh4Ue/cIFM82PH733ksR5CQlFTFNcWXm
+63cnKl6dC5eq+aJATsV2rKGOQXosb1lVCLwl+nadXle+sUqGl/IR8Il3fGUVTWMR
+pVSVqMvsDNIWAiBmP8CbHysZBj3k4A==
+=5N/w
+-----END PGP SIGNATURE-----
+
+--+jhVVhN62yS6hEJ8--

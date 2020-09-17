@@ -2,56 +2,56 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 245F4271DBD
-	for <lists+alsa-devel@lfdr.de>; Mon, 21 Sep 2020 10:18:49 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id EEE25271DC0
+	for <lists+alsa-devel@lfdr.de>; Mon, 21 Sep 2020 10:19:30 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id BB3FC16E0;
-	Mon, 21 Sep 2020 10:17:58 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BB3FC16E0
+	by alsa0.perex.cz (Postfix) with ESMTPS id 8C42316FF;
+	Mon, 21 Sep 2020 10:18:40 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8C42316FF
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1600676328;
-	bh=fNcuVWkN1TjhyVwmEX+PcPTSMs1C1wjtAwGI/ZRYd+M=;
+	s=default; t=1600676370;
+	bh=HczLzPQr6OtHbam5qOdkdD+vA7dPuNPd8y9fq4tyixw=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=aoiTtjWy2ic0k6pWpY+tsn6qr014NXohmN4rz4UX25u8A8/1duIltLcv1h2yQKYid
-	 3BlQ9z1MSiAGY/jLeFgak8GQaOj2sb4ObxDyi0F4kzveRqe9VZBk3ruiuwgrjSVB5p
-	 GL2XU1HBAEoZKxnfVXJ1je6Jl9piDW02Gg0ebrkc=
+	b=LjdATcA9QMsiZ5mx4yot7sJPU6+kN3bOEsaTxkXvrhqaTFj4YaZG6m26oYDRfqENX
+	 IW+TIx6j9pqrG94GFNOW91+UdasXTxxJIRjqDbru6GQNA7bkqgzIZMfDyvd0IZRHlk
+	 A9XKINOlcVWKOy6HVFbzvvrBRaVKZ5oXrzYMOEpU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 72AA8F8033E;
-	Mon, 21 Sep 2020 10:10:47 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 36C42F80345;
+	Mon, 21 Sep 2020 10:10:49 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 251F7F80212; Thu, 17 Sep 2020 18:55:05 +0200 (CEST)
+ id C5D03F80212; Thu, 17 Sep 2020 18:55:17 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-3.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
+ DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled
+ version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id B765FF800E8
- for <alsa-devel@alsa-project.org>; Thu, 17 Sep 2020 18:54:58 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B765FF800E8
+ by alsa1.perex.cz (Postfix) with ESMTPS id 4EDE1F800E8
+ for <alsa-devel@alsa-project.org>; Thu, 17 Sep 2020 18:55:15 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4EDE1F800E8
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="zpxZ/+ZX"
+ header.b="iuy5p0+E"
 Received: from kozik-lap.mshome.net (unknown [194.230.155.191])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id A726C2220E;
- Thu, 17 Sep 2020 16:54:17 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id CE174221E7;
+ Thu, 17 Sep 2020 16:54:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1600361696;
- bh=fNcuVWkN1TjhyVwmEX+PcPTSMs1C1wjtAwGI/ZRYd+M=;
+ s=default; t=1600361713;
+ bh=HczLzPQr6OtHbam5qOdkdD+vA7dPuNPd8y9fq4tyixw=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=zpxZ/+ZXGlBj5MNaI/974Dki8/8VL5VyYoNaEF/LZxSaNVvXInAY18Uz37fXnnux7
- jL3dTTS6yVo7Kwm3rNyarw+MJZaHMeDWD8JypkrYWvy8w/sFIymtEtQRmXo2sPuFhQ
- K+zaRu6fODRoRA66uRciZ8w7dD7YuswX0ETQb5us=
+ b=iuy5p0+Ez3XMnKjk08wzzH6pMKBcMSmcBzBBWZcw06qb8eATzdQsyeG9aZ85bT4hW
+ pzU2ynkwfqqkI3EYoJgoOZJzpq2CFcQ0Gp/XY+1Gpqr1vebfRY/wroBvMS2AHGEVvi
+ YCKCmQK5gyP55HfTJ9BhRkNS8uT2a5HUIDR0Sudo=
 From: Krzysztof Kozlowski <krzk@kernel.org>
 To: Linus Walleij <linus.walleij@linaro.org>,
  Bartosz Golaszewski <bgolaszewski@baylibre.com>,
@@ -104,10 +104,9 @@ To: Linus Walleij <linus.walleij@linaro.org>,
  linux-media@vger.kernel.org, alsa-devel@alsa-project.org,
  linux-stm32@st-md-mailman.stormreply.com,
  linux-mediatek@lists.infradead.org, linux-renesas-soc@vger.kernel.org
-Subject: [PATCH v2 04/13] dt-bindings: gpio: fsl-imx-gpio: add i.MX ARMv6 and
- ARMv7 compatibles
-Date: Thu, 17 Sep 2020 18:52:52 +0200
-Message-Id: <20200917165301.23100-5-krzk@kernel.org>
+Subject: [PATCH v2 05/13] dt-bindings: gpio: fsl-imx-gpio: add gpio-line-names
+Date: Thu, 17 Sep 2020 18:52:53 +0200
+Message-Id: <20200917165301.23100-6-krzk@kernel.org>
 X-Mailer: git-send-email 2.17.1
 In-Reply-To: <20200917165301.23100-1-krzk@kernel.org>
 References: <20200917165301.23100-1-krzk@kernel.org>
@@ -128,45 +127,30 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Several DTSes with ARMv6 and ARMv7 i.MX SoCs introduce their own
-compatibles so add them to fix dtbs_check warnings like:
+Describe common "gpio-line-names" property to fix dtbs_check warnings
+like:
 
-  arch/arm/boot/dts/imx35-pdk.dt.yaml: gpio@53fa4000:
-    compatible: ['fsl,imx35-gpio', 'fsl,imx31-gpio'] is not valid under any of the given schemas
-
-  arch/arm/boot/dts/imx51-babbage.dt.yaml: gpio@73f90000:
-    compatible: ['fsl,imx51-gpio', 'fsl,imx35-gpio'] is not valid under any of the given schemas
+  arch/arm/boot/dts/imx53-m53menlo.dt.yaml: gpio@53f84000:
+    'gpio-line-names' does not match any of the regexes: '^(hog-[0-9]+|.+-hog(-[0-9]+)?)$', 'pinctrl-[0-9]+'
 
 Signed-off-by: Krzysztof Kozlowski <krzk@kernel.org>
 ---
- .../devicetree/bindings/gpio/fsl-imx-gpio.yaml       | 12 ++++++++++++
- 1 file changed, 12 insertions(+)
+ Documentation/devicetree/bindings/gpio/fsl-imx-gpio.yaml | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/Documentation/devicetree/bindings/gpio/fsl-imx-gpio.yaml b/Documentation/devicetree/bindings/gpio/fsl-imx-gpio.yaml
-index 737756e081fb..ad761e2f380a 100644
+index ad761e2f380a..347f059d347a 100644
 --- a/Documentation/devicetree/bindings/gpio/fsl-imx-gpio.yaml
 +++ b/Documentation/devicetree/bindings/gpio/fsl-imx-gpio.yaml
-@@ -21,8 +21,20 @@ properties:
-           - fsl,imx31-gpio
-           - fsl,imx35-gpio
-           - fsl,imx7d-gpio
-+      - items:
-+          - const: fsl,imx35-gpio
-+          - const: fsl,imx31-gpio
-       - items:
-           - enum:
-+              - fsl,imx50-gpio
-+              - fsl,imx51-gpio
-+              - fsl,imx53-gpio
-+              - fsl,imx6q-gpio
-+              - fsl,imx6sl-gpio
-+              - fsl,imx6sll-gpio
-+              - fsl,imx6sx-gpio
-+              - fsl,imx6ul-gpio
-+              - fsl,imx7d-gpio
-               - fsl,imx8mm-gpio
-               - fsl,imx8mn-gpio
-               - fsl,imx8mp-gpio
+@@ -65,7 +65,7 @@ properties:
+     const: 2
+ 
+   gpio-controller: true
+-
++  gpio-line-names: true
+   gpio-ranges: true
+ 
+   power-domains:
 -- 
 2.17.1
 

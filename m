@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 62D0826E4FF
-	for <lists+alsa-devel@lfdr.de>; Thu, 17 Sep 2020 21:05:25 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 35D8226E506
+	for <lists+alsa-devel@lfdr.de>; Thu, 17 Sep 2020 21:06:08 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 05EFB16BB;
-	Thu, 17 Sep 2020 21:04:35 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 05EFB16BB
+	by alsa0.perex.cz (Postfix) with ESMTPS id C285816AD;
+	Thu, 17 Sep 2020 21:05:17 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C285816AD
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1600369525;
-	bh=WzQSueMrPjH1L0bv8gkr24oYRFWKRtRXu3TB/kv+Fws=;
+	s=default; t=1600369567;
+	bh=araJfiJ+kmWz4pIb/SGg02CpwFKtGCvtcajg+qf9GYw=;
 	h=Date:From:To:In-Reply-To:References:Subject:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=Ol0J4W4tdJa1EO8hlO3U6gt48Aga9EKN8SxDKRAbdv3ZzN8YigbT1lZz4GSxKSyRR
-	 7cJ0prD9jckXlMz1eDyhBGplUbhd/c1+YC6MPiQ+TbZDjkuHOHThhJvCyej3xvnfh8
-	 Ih17herW+F3XNps7p298GScfqLHLiZEHPhay8vwE=
+	b=ZijbEsyAu2twYhJNDLdoYQUAhk5/UqSt5ouU4ah5pOT56ulIPAZHqCxBAypzWzYD4
+	 q5A1U3UT6kaUsQ97EVltkzOGrq8ihWUK+XxrXUkLgX9SBo/b/pkUxXO8SlkAY1Fd9t
+	 xCa/QzxPqMa42MAyOV1rUnn2Gx0OydmCoOrDgOnw=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 8C2F3F80329;
-	Thu, 17 Sep 2020 20:58:44 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 913A3F80333;
+	Thu, 17 Sep 2020 20:58:49 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 08F49F80331; Thu, 17 Sep 2020 20:58:42 +0200 (CEST)
+ id 90B0FF80335; Thu, 17 Sep 2020 20:58:47 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-3.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -34,38 +34,34 @@ X-Spam-Status: No, score=-3.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id E03DCF8032A
- for <alsa-devel@alsa-project.org>; Thu, 17 Sep 2020 20:58:39 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E03DCF8032A
+ by alsa1.perex.cz (Postfix) with ESMTPS id 1BC12F80333
+ for <alsa-devel@alsa-project.org>; Thu, 17 Sep 2020 20:58:45 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1BC12F80333
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="KvMZfo4k"
+ header.b="zj9ZNv8l"
 Received: from localhost (fw-tnat.cambridge.arm.com [217.140.96.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 0020F22208;
- Thu, 17 Sep 2020 18:58:37 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id 104AB206A1;
+ Thu, 17 Sep 2020 18:58:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1600369118;
- bh=WzQSueMrPjH1L0bv8gkr24oYRFWKRtRXu3TB/kv+Fws=;
+ s=default; t=1600369123;
+ bh=araJfiJ+kmWz4pIb/SGg02CpwFKtGCvtcajg+qf9GYw=;
  h=Date:From:To:Cc:In-Reply-To:References:Subject:From;
- b=KvMZfo4kro2jTQb5Wgt+VFDai1DJo7YYwmtvW3jtJMW8zaJqwHI8+l85SzRbpn/BS
- lUU/oqMaCrHn5ly2TQ81LBThPqH282ocOnCeL8oXxylFcSnPfSnwkPZZnVy6Q/yaCZ
- VQ2yEsjJx+uXouSwzqwgRIBEQuiXwJAsP58Jdo5U=
-Date: Thu, 17 Sep 2020 19:57:48 +0100
+ b=zj9ZNv8lweI4Sr+NvvM6UEgFWEf2eI3JkmwiJE4OZg/jTvgS2FNAHLy5LpFpVn0nf
+ yYnLR1jtk+posThYcFbTj1St3H2vuDmFQnyTMzWBKd76qH/Gh0+220DfpIRguOPwey
+ 4KpItyWpzI5Pb75LTx+ZEuYYDqCZQUQiqPgBxWkM=
+Date: Thu, 17 Sep 2020 19:57:53 +0100
 From: Mark Brown <broonie@kernel.org>
-To: Xiubo Li <Xiubo.Lee@gmail.com>, Nicolin Chen <nicoleotsuka@gmail.com>,
- linuxppc-dev@lists.ozlabs.org, Jaroslav Kysela <perex@perex.cz>,
- Takashi Iwai <tiwai@suse.com>, "Viorel Suman (OSS)" <viorel.suman@oss.nxp.com>,
- Liam Girdwood <lgirdwood@gmail.com>, Shengjiu Wang <shengjiu.wang@gmail.com>,
- Timur Tabi <timur@kernel.org>, linux-kernel@vger.kernel.org,
- alsa-devel@alsa-project.org, Fabio Estevam <festevam@gmail.com>
-In-Reply-To: <1600104274-13110-1-git-send-email-viorel.suman@oss.nxp.com>
-References: <1600104274-13110-1-git-send-email-viorel.suman@oss.nxp.com>
-Subject: Re: [PATCH] ASoC: fsl_audmix: make clock and output src write only
-Message-Id: <160036900934.20113.8635457303400843609.b4-ty@kernel.org>
-Cc: Viorel Suman <viorel.suman@gmail.com>, NXP Linux Team <linux-imx@nxp.com>,
- Viorel Suman <viorel.suman@nxp.com>
+To: tiwai@suse.com, lgirdwood@gmail.com, perex@perex.cz, timur@kernel.org,
+ Shengjiu Wang <shengjiu.wang@nxp.com>, Xiubo.Lee@gmail.com, festevam@gmail.com,
+ nicoleotsuka@gmail.com, alsa-devel@alsa-project.org
+In-Reply-To: <1600323079-5317-1-git-send-email-shengjiu.wang@nxp.com>
+References: <1600323079-5317-1-git-send-email-shengjiu.wang@nxp.com>
+Subject: Re: [PATCH v2 0/3] ASoC: fsl_sai: update the register list
+Message-Id: <160036900933.20113.13971334794679632002.b4-ty@kernel.org>
+Cc: linuxppc-dev@lists.ozlabs.org, linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -81,11 +77,15 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Mon, 14 Sep 2020 20:24:34 +0300, Viorel Suman (OSS) wrote:
-> "alsactl -f state.conf store/restore" sequence fails because setting
-> "mixing clock source" and "output source" requires active TDM clock
-> being started for configuration propagation. Make these two controls
-> write only so that their values are not stored at "alsactl store".
+On Thu, 17 Sep 2020 14:11:16 +0800, Shengjiu Wang wrote:
+> As sai ip is upgraded, so update sai register list.
+> 
+> Shengjiu Wang (3):
+>   ASoC: fsl_sai: Add new added registers and new bit definition
+>   ASoC: fsl_sai: Add fsl_sai_check_version function
+>   ASoC: fsl_sai: Set MCLK input or output direction
+> 
+> [...]
 
 Applied to
 
@@ -93,8 +93,12 @@ Applied to
 
 Thanks!
 
-[1/1] ASoC: fsl_audmix: make clock and output src write only
-      commit: 944c517b8c838832a166f1c89afbf8724f4a6b49
+[1/3] ASoC: fsl_sai: Add new added registers and new bit definition
+      commit: 0b2cbce6898600aae5e87285f1c2000162d59c76
+[2/3] ASoC: fsl_sai: Add fsl_sai_check_version function
+      commit: 1dc658b13c1c365274b27bfc3c4d4f2955348fb8
+[3/3] ASoC: fsl_sai: Set MCLK input or output direction
+      commit: a57d4e8730c1a55b2547ff81aef4753b67121cb8
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

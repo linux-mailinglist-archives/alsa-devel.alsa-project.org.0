@@ -2,80 +2,100 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 444F426DD3B
-	for <lists+alsa-devel@lfdr.de>; Thu, 17 Sep 2020 15:55:54 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id AAB1B26DD4A
+	for <lists+alsa-devel@lfdr.de>; Thu, 17 Sep 2020 15:57:50 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 165F1167B;
-	Thu, 17 Sep 2020 15:55:03 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 165F1167B
+	by alsa0.perex.cz (Postfix) with ESMTPS id 517A91681;
+	Thu, 17 Sep 2020 15:57:00 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 517A91681
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1600350953;
-	bh=567iHiAWyDp59eFqXBlSZ8neDwsGf0EzI2aQ/7XzLV0=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1600351070;
+	bh=2jrBKqKQYC6+vUb3ebXkO1vJePh1ZuqzCyAnBTQWz08=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=RQBeO9QdciN4E/OSCqx/Xd9ag2TfKZW9XnHy1H9N5rmmZusgOssy9tJ+EylQ5tkP+
-	 IlKosepsPFxPpGhJmB/GORducGumz/FqgVmAb0A43AsCfopzujLSMmEfK05pIyAKab
-	 ayTV4DoMcApsiTvze+GO05EMyqe3yNjh3vI3Lrsk=
+	b=LIpzUA6S7bfRz/lkUhmO6w528BUjhKvL8QUttCrWAH38WGY35xBTG3zYMa2jnNFaZ
+	 Hk7YkjfKVmYUFCNqi0Y6NWW88r+t7xrhFD9jRYBpwpCxeGLocqrtmmqJIQL6bnniX0
+	 JjZXeI3niKpO5E6Fh8kvR1txJ3kX6g9XumU8eGz0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id E21B3F8013A;
-	Thu, 17 Sep 2020 15:54:11 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 55BA6F8025E;
+	Thu, 17 Sep 2020 15:56:09 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id E3AC3F80134; Thu, 17 Sep 2020 15:54:09 +0200 (CEST)
+ id D6025F80212; Thu, 17 Sep 2020 15:56:06 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,PRX_BODY_30,SPF_HELO_NONE,SPF_PASS
+X-Spam-Status: No, score=0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,FREEMAIL_FROM,PRX_BODY_76,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
  autolearn=disabled version=3.4.0
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+Received: from mail-io1-xd44.google.com (mail-io1-xd44.google.com
+ [IPv6:2607:f8b0:4864:20::d44])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 57CD9F80134
- for <alsa-devel@alsa-project.org>; Thu, 17 Sep 2020 15:53:58 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 57CD9F80134
+ by alsa1.perex.cz (Postfix) with ESMTPS id 1EC93F80134
+ for <alsa-devel@alsa-project.org>; Thu, 17 Sep 2020 15:55:58 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1EC93F80134
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="Vwu5yG/t"
-Received: from localhost (fw-tnat.cambridge.arm.com [217.140.96.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id E3C3121582;
- Thu, 17 Sep 2020 13:53:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1600350836;
- bh=567iHiAWyDp59eFqXBlSZ8neDwsGf0EzI2aQ/7XzLV0=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=Vwu5yG/tAflmeRVU4EIqOy+F2BFwqoi+8IEq1XlAtXHvXk9xEtf7dXFo9/LZWJchF
- xMhgpAfJSsBKYS5wtYDAimNipKBseUZ6JJMiOEqfg2CqHVyRTQf4g/M6dgyFKO1kzG
- lvHDP5TiMBV5wGMsMxb9/j98aew4DjSjNuinmLzQ=
-Date: Thu, 17 Sep 2020 14:53:06 +0100
-From: Mark Brown <broonie@kernel.org>
-To: "Viorel Suman (OSS)" <viorel.suman@oss.nxp.com>
-Subject: Re: [PATCH 1/2] ASoC: fsl_xcvr: Add XCVR ASoC CPU DAI driver
-Message-ID: <20200917135306.GF4755@sirena.org.uk>
-References: <1600247876-8013-1-git-send-email-viorel.suman@oss.nxp.com>
- <1600247876-8013-2-git-send-email-viorel.suman@oss.nxp.com>
+ dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
+ header.b="bPyMVM6N"
+Received: by mail-io1-xd44.google.com with SMTP id z25so2230948iol.10
+ for <alsa-devel@alsa-project.org>; Thu, 17 Sep 2020 06:55:58 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc:content-transfer-encoding;
+ bh=2jrBKqKQYC6+vUb3ebXkO1vJePh1ZuqzCyAnBTQWz08=;
+ b=bPyMVM6NEQR7Qz2I3gkQq4PfWQkY4ABpxZkCX364BqmAgtMi3KZ0pLxHIuPiKB8kVz
+ LBf0pQhZcPaJJ/FY2KYphDrKPh3vHE1dGBICHj0CP3JvDw5EpF8zpb7HEFjRgrGrmBEr
+ 45x2kaUN8dtZl+IcF0csmcG08cMruUza9vV5LlVKvCOGPH9mYqKz1veGOa9tusBefxsx
+ y5RP0Z3xCABg3Cpf9F27onzefISiQzqOXJAj6vSKLSipFwJNK8vAXUSTVZg2Bq0IWVxF
+ Wovdj4MNnaLZ6+LP388lBagSDtz4/3n8QmCvI23AP7FUMHhUdv+MwZFmhTolt+SLPCvP
+ PiLg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc:content-transfer-encoding;
+ bh=2jrBKqKQYC6+vUb3ebXkO1vJePh1ZuqzCyAnBTQWz08=;
+ b=j6mwz6dOmkOo15d57gqaPywitl5bgz0tbUC4TDwJ42KUTMLM5HXdxr/NRlM4L7klgh
+ 8T49raWUer6zY1vY/kAF3537MsGgQ34wBmLWt5xTTsM//u9BXDvRK9ON36lzaR0RulAq
+ Ys6RUc/ZzBPYhOyTx7KKD/Yr2yOK7CGXpMhTmDZvy1UTVusmZ27cGkCDTGUCDTRxZXAi
+ coe18YGQ4CIdlSoAFNms5loLRVoJnKLXp9ljGqEjF1xZWrKYq8HxgllPFPQcZGpc3gMs
+ BNOG66k8PKi9i5cvVMx4U2YuO6hi1SFpO1X9I6DVqqFek7PL+nEfxzrZBM6+eOnYqiZ1
+ vJbg==
+X-Gm-Message-State: AOAM5313ej3EsCzaHEKXZq+YtLfqcvBDDApaR5OfkUuyit5xdO0rO4jU
+ rkqUJz2ngigX6Vu2tQhF1Nzh8XAF5UoacQF3YEY=
+X-Google-Smtp-Source: ABdhPJw38P4GTdYIQhTX2C1j1TDaFP7ucC25qrcwBgz9aXTHrGXpHgn8N9b40QJ1hCeE5yPvuPYIiKqxNafH8lnCiDw=
+X-Received: by 2002:a02:734f:: with SMTP id a15mr27150294jae.120.1600350956955; 
+ Thu, 17 Sep 2020 06:55:56 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="+jhVVhN62yS6hEJ8"
-Content-Disposition: inline
-In-Reply-To: <1600247876-8013-2-git-send-email-viorel.suman@oss.nxp.com>
-X-Cookie: If you fail to plan, plan to fail.
-User-Agent: Mutt/1.10.1 (2018-07-13)
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- Matthias Schiffer <matthias.schiffer@ew.tq-group.com>,
- Viorel Suman <viorel.suman@nxp.com>, Timur Tabi <timur@kernel.org>,
- Xiubo Li <Xiubo.Lee@gmail.com>, Shengjiu Wang <shengjiu.wang@gmail.com>,
- linuxppc-dev@lists.ozlabs.org, Takashi Iwai <tiwai@suse.com>,
- Liam Girdwood <lgirdwood@gmail.com>, Nicolin Chen <nicoleotsuka@gmail.com>,
- Rob Herring <robh+dt@kernel.org>, NXP Linux Team <linux-imx@nxp.com>,
- Philipp Zabel <p.zabel@pengutronix.de>, Viorel Suman <viorel.suman@gmail.com>,
- Cosmin-Gabriel Samoila <cosmin.samoila@nxp.com>,
- Fabio Estevam <festevam@gmail.com>, linux-kernel@vger.kernel.org
+References: <CAJiuCcf_LHrJ6QdZgH8HyN6TRiT+GiD+t4UggFCrz-VwVHXV6w@mail.gmail.com>
+ <20200504120942.lnrxnnmykqnvw3fb@gilmour.lan>
+ <CAJiuCceF340FiLvyeXNZtvqftQMAmk=MtFDLT_9696ix+eH1Yw@mail.gmail.com>
+ <20200729143927.47f5tbuaob4ph3lp@gilmour.lan>
+ <20200729151548.GB5612@sirena.org.uk>
+ <CAJiuCcdf=TNLPTUPzHP9NzPHqdxG06TRDkQfONY+ScK0DV_v5w@mail.gmail.com>
+ <20200903205851.gdnpthserywsxrbs@gilmour.lan>
+ <80b5a4e3-c8bc-9521-4ff1-12bb6424516f@sholland.org>
+ <20200910143314.qku7po6htiiq5lzf@gilmour.lan>
+ <57f8bdeb-14dc-583e-ffa8-43d7a9f1bb24@sholland.org>
+ <20200917132128.e6z4gwoluipbzigm@gilmour.lan>
+In-Reply-To: <20200917132128.e6z4gwoluipbzigm@gilmour.lan>
+From: =?UTF-8?B?Q2zDqW1lbnQgUMOpcm9u?= <peron.clem@gmail.com>
+Date: Thu, 17 Sep 2020 15:55:45 +0200
+Message-ID: <CAJiuCcdWQRVMeTLvxibZ37CF9BMiC_L2bWBDiin2Uz0CWq2FuQ@mail.gmail.com>
+Subject: Re: [PATCH v3 3/7] ASoC: sun4i-i2s: Add support for H6 I2S
+To: Maxime Ripard <maxime@cerno.tech>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+Cc: devicetree <devicetree@vger.kernel.org>,
+ Linux-ALSA <alsa-devel@alsa-project.org>, Samuel Holland <samuel@sholland.org>,
+ linux-kernel <linux-kernel@vger.kernel.org>, Takashi Iwai <tiwai@suse.com>,
+ Jernej Skrabec <jernej.skrabec@siol.net>, Liam Girdwood <lgirdwood@gmail.com>,
+ Rob Herring <robh+dt@kernel.org>, Marcus Cooper <codekipper@gmail.com>,
+ Chen-Yu Tsai <wens@csie.org>, Mark Brown <broonie@kernel.org>,
+ linux-arm-kernel <linux-arm-kernel@lists.infradead.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -91,91 +111,142 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+Hi Maxime and Samuel,
 
---+jhVVhN62yS6hEJ8
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+On Thu, 17 Sep 2020 at 15:21, Maxime Ripard <maxime@cerno.tech> wrote:
+>
+> Hi,
+>
+> On Sat, Sep 12, 2020 at 03:29:55PM -0500, Samuel Holland wrote:
+> > On 9/10/20 9:33 AM, Maxime Ripard wrote:
+> > > On Thu, Sep 03, 2020 at 09:54:39PM -0500, Samuel Holland wrote:
+> > >> On 9/3/20 3:58 PM, Maxime Ripard wrote:
+> > >>> On Thu, Sep 03, 2020 at 10:02:31PM +0200, Cl=C3=A9ment P=C3=A9ron w=
+rote:
+> > >>>> Hi Maxime,
+> > >>>>
+> > >>>> On Wed, 29 Jul 2020 at 17:16, Mark Brown <broonie@kernel.org> wrot=
+e:
+> > >>>>>
+> > >>>>> On Wed, Jul 29, 2020 at 04:39:27PM +0200, Maxime Ripard wrote:
+> > >>>>>
+> > >>>>>> It really looks like the polarity of LRCK is fine though. The fi=
+rst word
+> > >>>>>> is sent with LRCK low, and then high, so we have channel 0 and t=
+hen
+> > >>>>>> channel 1 which seems to be the proper ordering?
+> > >>
+> > >> Which image file is this in reference to?
+> > >>
+> > >>>>> Yes, that's normal.
+> > >>>>
+> > >>>> Thank you very much for this test.
+> > >>>>
+> > >>>> So I will revert the following commit:
+> > >>>>
+> > >>>> ASoC: sun4i-i2s: Fix the LRCK polarity
+> > >>>>
+> > >>>> https://github.com/clementperon/linux/commit/dd657eae8164f7e4bafe8=
+b875031a7c6c50646a9
+> > >>>
+> > >>> Like I said, the current code is working as expected with regard to=
+ the
+> > >>> LRCK polarity. The issue is that the samples are delayed and start =
+to be
+> > >>> transmitted on the wrong phase of the signal.
+> > >>
+> > >> Since an I2S LRCK frame is radially symmetric, "wrong phase" and "in=
+verted
+> > >> polarity" look the same. The only way to definitively distinguish th=
+em is by
+> > >> looking at the sample data.
+> > >>
+> > >> In "i2s-h6.png", the samples are all zeroes, so you're assuming that=
+ the first
+> > >> sample transmitted (that is, when the bit clock starts transitioning=
+) was a
+> > >> "left" sample.
+> > >>
+> > >> However, in "h6-i2s-start-data.png", there are pairs of samples we c=
+an look at.
+> > >> I'm still assuming that similar samples are a left/right pair, but t=
+hat's
+> > >> probably a safe assumption. Here we see the first sample in each pai=
+r is
+> > >> transmitted with LRCK *high*, and the second sample in the pair is t=
+ransmitted
+> > >> with LRCK *low*. This is the opposite of your claim above.
+> > >>
+> > >> An ideal test would put left/right markers and frame numbers in the =
+data
+> > >> channel. The Python script below can generate such a file. Then you =
+would know
+> > >> how much startup delay there is, which channel the "first sample" ca=
+me from, and
+> > >> how each channel maps to the LRCK level.
+> > >>
+> > >> It would also be helpful to test DSP_A mode, where the LRCK signal i=
+s
+> > >> asymmetric and an inversion would be obvious.
+> > >
+> > > I had no idea that there was a wave module in Python, that's a great
+> > > suggestion, thanks!
+> > >
+> > > You'll find attached the screenshots for both the I2S and DSP_A forma=
+ts.
+> > > I zoomed out a bit to be able to have the first valid samples, but it
+> > > should be readable.
+> > >
+> > > The code I used is there:
+> > > https://github.com/mripard/linux/tree/sunxi/h6-i2s-test
+> > >
+> > > It's basically the v3, plus the DT bits.
+> > >
+> > > As you can see, in the i2s case, LRCK starts low and then goes up, wi=
+th
+> > > the first channel (0x2*** samples) transmitted first, so everything
+> > > looks right here.
+> > >
+> > > On the DSP_A screenshot, LRCK will be low with small bursts high, and
+> > > once again with the first channel being transmitted first, so it look=
+s
+> > > right to me too.
+> >
+> > Indeed, for H6 i2s0 with LRCK inversion in software, everything looks c=
+orrect on
+> > the wire.
+> >
+> > It's still concerning to me that the BSP has no evidence of this invers=
+ion,
+> > either for i2s0 or i2s1[1]. And the inversion seems not to be required =
+for HDMI
+> > audio on mainline either (but there could be an inversion on the HDMI s=
+ide or on
+> > the interconnect).
+>
+> One can only guess here, but it's also quite easy to fix it at the card
+> level (or maybe there's a similar inversion in the codecs, or whatever).
 
-On Wed, Sep 16, 2020 at 12:17:55PM +0300, Viorel Suman (OSS) wrote:
+Thanks for the test and the explanation.
 
-This looks mostly good, a few smallish things below but nothing major.
+Quite disturbing that there is no evidence of the LRCK inversion in
+kernel vendor indeed...
+Could it be an issue with the mainline code?
 
-> +static int fsl_xcvr_load_firmware(struct fsl_xcvr *xcvr)
-> +{
-> +	struct device *dev = &xcvr->pdev->dev;
-> +	const struct firmware *fw;
-> +	int ret = 0, rem, off, out, page = 0, size = FSL_XCVR_REG_OFFSET;
-> +	u32 mask, val;
-> +
-> +	ret = request_firmware(&fw, xcvr->fw_name, dev);
-> +	if (ret) {
-> +		dev_err(dev, "failed to request firmware.\n");
-> +		return ret;
-> +	}
-> +
-> +	rem = fw->size;
+But still regarding the kernel vendor, it seems logical to have a
+frame-inversion in the device-tree for the HDMI I2S node.
+I will drop the revert patch and re-add the frame inversion in the next ser=
+ies.
 
-It would be good to see some explicit validation of the image size, at
-least printing an error message if the image is bigger than can be
-loaded.  The code should be safe in that it won't overflow the device
-region it's writing to but it feels like it'd be better to tell people
-if we spot a problem rather than just silently truncating the file.
+Regards,
+Clement
 
-> +	/* RAM is 20KiB => max 10 pages 2KiB each */
-> +	for (page = 0; page < 10; page++) {
-> +		ret = regmap_update_bits(xcvr->regmap, FSL_XCVR_EXT_CTRL,
-> +					 FSL_XCVR_EXT_CTRL_PAGE_MASK,
-> +					 FSL_XCVR_EXT_CTRL_PAGE(page));
-
-regmap does have paging support, though given that this is currently the
-only place where paging is used this probably doesn't matter too much.
-
-> +static irqreturn_t irq0_isr(int irq, void *devid)
-> +{
-> +	struct fsl_xcvr *xcvr = (struct fsl_xcvr *)devid;
-> +	struct device *dev = &xcvr->pdev->dev;
-> +	struct regmap *regmap = xcvr->regmap;
-> +	void __iomem *reg_ctrl, *reg_buff;
-> +	u32 isr, val, i;
-> +
-> +	regmap_read(regmap, FSL_XCVR_EXT_ISR, &isr);
-> +	regmap_write(regmap, FSL_XCVR_EXT_ISR_CLR, isr);
-
-This will unconditionally clear any interrupts, even those we don't
-understand - it might be better to only clear bits that are supported so
-the IRQ core can complain if there's something unexpected showing up.
-
-> +	if (isr & FSL_XCVR_IRQ_FIFO_UOFL_ERR)
-> +		dev_dbg(dev, "RX/TX FIFO full/empty\n");
-
-Should this be dev_err()?
-
-> +static irqreturn_t irq1_isr(int irq, void *devid)
-> +{
-> +	struct fsl_xcvr *xcvr = (struct fsl_xcvr *)devid;
-> +	struct device *dev = &xcvr->pdev->dev;
-> +
-> +	dev_dbg(dev, "irq[1]: %d\n", irq);
-> +
-> +	return IRQ_HANDLED;
-> +}
-
-Is there any value in even requesting this and irq2 given the lack of
-meaningful handling?
-
---+jhVVhN62yS6hEJ8
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl9jakEACgkQJNaLcl1U
-h9AOQwf8C2EY+mr/CBR/vucNQj6SnLjTIsUA05x+jItQcyz0JDy2n4lqlPS8RD0b
-IbnHx6/L4jBlMMq5IjtDQXLxNX6WeYW6LtMiuWqnWXsB58c9iXZik7MjpZHJ6YcD
-rbPPo2PJzuSfo5lsq+AhbomjE1pA+D1svb08dBdNmHzFEtLfdAhf3gqWNGbDYym7
-SDoSP88YDa4aX+ZPXx6lhmObJslBveq6Sh4Ue/cIFM82PH733ksR5CQlFTFNcWXm
-63cnKl6dC5eq+aJATsV2rKGOQXosb1lVCLwl+nadXle+sUqGl/IR8Il3fGUVTWMR
-pVSVqMvsDNIWAiBmP8CbHysZBj3k4A==
-=5N/w
------END PGP SIGNATURE-----
-
---+jhVVhN62yS6hEJ8--
+>
+> > Even so, your research is sufficient justification for me that the code=
+ is
+> > correct as-is (with the inversion). Thank you very much for collecting =
+the data!
+>
+> You're welcome, thanks for that script :)
+>
+> maxime

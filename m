@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7376826E4ED
-	for <lists+alsa-devel@lfdr.de>; Thu, 17 Sep 2020 21:02:51 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5270926E4F4
+	for <lists+alsa-devel@lfdr.de>; Thu, 17 Sep 2020 21:03:33 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 06ED716AD;
-	Thu, 17 Sep 2020 21:02:01 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 06ED716AD
+	by alsa0.perex.cz (Postfix) with ESMTPS id E1022169C;
+	Thu, 17 Sep 2020 21:02:42 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E1022169C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1600369371;
-	bh=Hb/K8ZsiBzGs+A5mWIRqpLkTh6KT3vAf24qrmwesNvE=;
-	h=Date:From:To:In-Reply-To:References:Subject:Cc:List-Id:
+	s=default; t=1600369413;
+	bh=nwlmr/nrxCKk3FOZ0xka91UMZCHg4uCL4upZMkWRGEc=;
+	h=Date:From:To:In-Reply-To:References:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=Fd8zlS61oy9FYdbtYOySfPuGeU9HOaiQgSQt3lZMuWAn3kHcDojnTpRSR3XNUABKm
-	 Ysg3k6XCN4qqd/1+bYuazXcrNdYYxBUf7feyv5KL7VqEptVwarE0bSNHYur3kxEqP2
-	 fAXUOTqetC+O1BLrjKeaUG3yqJ7P/UcHHDUeSLm0=
+	b=oFwoHXyp2sQjQX1FqLHfoV9RvJeqC3vuUoLmpaigV2t6HybJEYl3U6bomC+zT6OJW
+	 82plmt2ELSjph+wO3XQKWHJ+IrQ7QhbWzL7FA+A/aLMAZCLRgte375PnSkNuYDCuju
+	 nExpuW5/tjaLWfBY+InA4O6Koi/WF8GN+US9z2EE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 8C4CFF802FF;
-	Thu, 17 Sep 2020 20:58:18 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id E527AF802FE;
+	Thu, 17 Sep 2020 20:58:24 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 90634F802FE; Thu, 17 Sep 2020 20:58:16 +0200 (CEST)
+ id 3C5D5F802FE; Thu, 17 Sep 2020 20:58:22 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-3.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -34,34 +34,33 @@ X-Spam-Status: No, score=-3.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 2CBA7F802FB
- for <alsa-devel@alsa-project.org>; Thu, 17 Sep 2020 20:58:14 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2CBA7F802FB
+ by alsa1.perex.cz (Postfix) with ESMTPS id E5248F802FE
+ for <alsa-devel@alsa-project.org>; Thu, 17 Sep 2020 20:58:19 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E5248F802FE
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="BTpzay5L"
+ header.b="PGjs5BHC"
 Received: from localhost (fw-tnat.cambridge.arm.com [217.140.96.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 1B2E4221E3;
- Thu, 17 Sep 2020 18:58:11 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id 7D39E2072E;
+ Thu, 17 Sep 2020 18:58:17 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1600369092;
- bh=Hb/K8ZsiBzGs+A5mWIRqpLkTh6KT3vAf24qrmwesNvE=;
+ s=default; t=1600369098;
+ bh=nwlmr/nrxCKk3FOZ0xka91UMZCHg4uCL4upZMkWRGEc=;
  h=Date:From:To:Cc:In-Reply-To:References:Subject:From;
- b=BTpzay5LMze2Qc0LojFYSVs1cLmpi/TeZgso+vxk5eNTufS9xvOIeKxt9hgzgsH/6
- WAit93JeSDMdDkQsyni4UTi5OJrI+H6D9t0qO0i6dSJ8UVUqd90vuCa3RWc8OSzJkP
- 897soZrlyBX7b4pp7fqIn9mA2EasrUMwf57T3o3k=
-Date: Thu, 17 Sep 2020 19:57:22 +0100
+ b=PGjs5BHCobqirbFWM8mpEUuKBKpfISGdqiLYg5GVueXj14qZKKjVYgkK8hspbq+oU
+ l7Kjmy4rvVEZAGXgQ1lwZwa04qgiins9mBoyBeCwa4mDl0TEi8ubaN4pCgpW40qXYx
+ VJRqAHHl9TmR7N1JlJD1iboIldCahMLIi6SASZ5Y=
+Date: Thu, 17 Sep 2020 19:57:28 +0100
 From: Mark Brown <broonie@kernel.org>
-To: tiwai@suse.com, lgirdwood@gmail.com, Camel Guo <camel.guo@axis.com>,
- dmurphy@ti.com
-In-Reply-To: <20200908090417.16695-1-camel.guo@axis.com>
-References: <20200908090417.16695-1-camel.guo@axis.com>
-Subject: Re: [PATCH] ASoC: tlv320adcx140: Fix digital gain range
-Message-Id: <160036900935.20113.13746695477949199568.b4-ty@kernel.org>
-Cc: alsa-devel@alsa-project.org, kernel@axis.com, linux-kernel@vger.kernel.org,
- Camel Guo <camelg@axis.com>
+To: Rob Herring <robh+dt@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>,
+ linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
+ alsa-devel@alsa-project.org, Krzysztof Kozlowski <krzk@kernel.org>
+In-Reply-To: <20200908145954.4629-1-krzk@kernel.org>
+References: <20200908145954.4629-1-krzk@kernel.org>
+Subject: Re: [PATCH] ASoC: dt-bindings: Correct interrupt flags in examples
+Message-Id: <160036900934.20113.12883722261775477796.b4-ty@kernel.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -77,11 +76,16 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Tue, 8 Sep 2020 11:04:17 +0200, Camel Guo wrote:
-> According to its datasheet, the digital gain should be -100 dB when
-> CHx_DVOL is 1 and 27 dB when CHx_DVOL is 255. But with the current
-> dig_vol_tlv, "Digital CHx Out Volume" shows 27.5 dB if CHx_DVOL is 255
-> and -95.5 dB if CHx_DVOL is 1. This commit fixes this bug.
+On Tue, 8 Sep 2020 16:59:54 +0200, Krzysztof Kozlowski wrote:
+> GPIO_ACTIVE_x flags are not correct in the context of interrupt flags.
+> These are simple defines so they could be used in DTS but they will not
+> have the same meaning:
+> 1. GPIO_ACTIVE_HIGH = 0 = IRQ_TYPE_NONE
+> 2. GPIO_ACTIVE_LOW  = 1 = IRQ_TYPE_EDGE_RISING
+> 
+> Correct the interrupt flags, assuming the author of the code wanted some
+> logical behavior behind the name "ACTIVE_xxx", this is:
+>   ACTIVE_HIGH => IRQ_TYPE_LEVEL_HIGH
 
 Applied to
 
@@ -89,8 +93,8 @@ Applied to
 
 Thanks!
 
-[1/1] ASoC: tlv320adcx140: Fix digital gain range
-      commit: 73154aca4a03a2ab4833fd36683feb884af06d4b
+[1/1] ASoC: dt-bindings: Correct interrupt flags in examples
+      commit: abe42b09118914f01246f880dd9029150fdc727c
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

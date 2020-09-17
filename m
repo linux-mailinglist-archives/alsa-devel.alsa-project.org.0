@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id DDD7C271DD2
-	for <lists+alsa-devel@lfdr.de>; Mon, 21 Sep 2020 10:23:10 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2B178271DD3
+	for <lists+alsa-devel@lfdr.de>; Mon, 21 Sep 2020 10:23:46 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 806CF178E;
-	Mon, 21 Sep 2020 10:22:20 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 806CF178E
+	by alsa0.perex.cz (Postfix) with ESMTPS id 7E2B017A6;
+	Mon, 21 Sep 2020 10:22:55 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7E2B017A6
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1600676590;
-	bh=4dW5n48JqvNP10b6scxas3MFTEWsL4Xf/7dxjZPBmik=;
+	s=default; t=1600676625;
+	bh=3CcSAgmJymqX4erpPOGNuiR94tStAH1tIhGienjiYwc=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=KiF2cGJOoqpKq/82MXgrR37UA7QAUo0hUURwiRPmbXuaY8B9fUzS8rVRIm3FqvrtP
-	 Udmp8Z2hAEPd30c9I6c55swTITAPueMwVwaNMhy6WjXElJ59iA5LwxmjkimWRsAv4C
-	 G6hDmxhpWhz8NWTFGumVkBSoxNyK+/FJCGGHywkM=
+	b=FaS4/dfoqxXWpoeQbWjdCCMUpyHA9EZOPz959K9jCMZDSUiB/Gw5P/WnHN/ud0PFw
+	 uMq6JzIvQiN/rhHKr3bMYbkFYlPnNc8sEM1iOLhP6rpHY7jEtEtwZk3T58uEai5WsA
+	 3OQ88V6bmgamPUpSa9LmQkbbiOwC/AFtquzY7Ijk=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id AC82FF8036D;
-	Mon, 21 Sep 2020 10:11:01 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 37FD7F80377;
+	Mon, 21 Sep 2020 10:11:03 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 8CD3EF80212; Thu, 17 Sep 2020 18:56:48 +0200 (CEST)
+ id 1D547F80212; Thu, 17 Sep 2020 18:57:02 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-3.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -34,24 +34,24 @@ X-Spam-Status: No, score=-3.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 8A100F80134
- for <alsa-devel@alsa-project.org>; Thu, 17 Sep 2020 18:56:43 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8A100F80134
+ by alsa1.perex.cz (Postfix) with ESMTPS id 07D23F80134
+ for <alsa-devel@alsa-project.org>; Thu, 17 Sep 2020 18:56:57 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 07D23F80134
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="voWH5Mj8"
+ header.b="ehh/IOcV"
 Received: from kozik-lap.mshome.net (unknown [194.230.155.191])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 9D4092064B;
- Thu, 17 Sep 2020 16:56:27 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id 7E0292220E;
+ Thu, 17 Sep 2020 16:56:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1600361802;
- bh=4dW5n48JqvNP10b6scxas3MFTEWsL4Xf/7dxjZPBmik=;
+ s=default; t=1600361815;
+ bh=3CcSAgmJymqX4erpPOGNuiR94tStAH1tIhGienjiYwc=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=voWH5Mj8BlY0YQbektVPJVIihTg4JqOT0bdGzRFdwEuQJQYXAZe22zdzn6SIFqo+L
- WYVQYHdMqQ9HBxLjIUTDxVs7XjFArq2WAuDZpxQHcbFzeZs98yKrot5dAlXsjPI6pH
- sALQqtb7ax8x+xX+P3HSx9zP5MxhbwecFqbmuxQE=
+ b=ehh/IOcVlyp+UzApCJd2uZjTnmaJ85CG1bFw5Xp5VD6lgKUEw8ObK1OdLXYqAxsAI
+ /FQXYjYHs/evznTntqzPiI+ybw3MYVG6jh3P53c2dKcURoHyEflt5A0qgMIexJ4Coz
+ hWB1F8aIxFFehtu2IMK2+HseBdDD+lc6ZKAlu6is=
 From: Krzysztof Kozlowski <krzk@kernel.org>
 To: Linus Walleij <linus.walleij@linaro.org>,
  Bartosz Golaszewski <bgolaszewski@baylibre.com>,
@@ -104,9 +104,10 @@ To: Linus Walleij <linus.walleij@linaro.org>,
  linux-media@vger.kernel.org, alsa-devel@alsa-project.org,
  linux-stm32@st-md-mailman.stormreply.com,
  linux-mediatek@lists.infradead.org, linux-renesas-soc@vger.kernel.org
-Subject: [PATCH v2 11/13] arm64: dts: imx8mq-librem5: correct GPIO hog property
-Date: Thu, 17 Sep 2020 18:52:59 +0200
-Message-Id: <20200917165301.23100-12-krzk@kernel.org>
+Subject: [PATCH v2 12/13] arm64: dts: imx8mq-librem5: align GPIO hog names
+ with dtschema
+Date: Thu, 17 Sep 2020 18:53:00 +0200
+Message-Id: <20200917165301.23100-13-krzk@kernel.org>
 X-Mailer: git-send-email 2.17.1
 In-Reply-To: <20200917165301.23100-1-krzk@kernel.org>
 References: <20200917165301.23100-1-krzk@kernel.org>
@@ -127,7 +128,7 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Correct the name of property for GPIO specifier in GPIO hog.
+dtschema expects GPIO hogs to end with 'hog' suffix.
 
 Signed-off-by: Krzysztof Kozlowski <krzk@kernel.org>
 ---
@@ -135,18 +136,18 @@ Signed-off-by: Krzysztof Kozlowski <krzk@kernel.org>
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/arch/arm64/boot/dts/freescale/imx8mq-librem5.dtsi b/arch/arm64/boot/dts/freescale/imx8mq-librem5.dtsi
-index 56295dd2fa8f..e4dedcb58f76 100644
+index e4dedcb58f76..6cbcee2fb938 100644
 --- a/arch/arm64/boot/dts/freescale/imx8mq-librem5.dtsi
 +++ b/arch/arm64/boot/dts/freescale/imx8mq-librem5.dtsi
-@@ -251,7 +251,7 @@
+@@ -249,7 +249,7 @@
+ 	pinctrl-names = "default";
+ 	pinctrl-0 = <&pinctrl_pmic_5v>;
  
- 	pmic-5v {
+-	pmic-5v {
++	pmic-5v-hog {
  		gpio-hog;
--		gpio = <&gpio1 1 GPIO_ACTIVE_HIGH>;
-+		gpios = <&gpio1 1 GPIO_ACTIVE_HIGH>;
+ 		gpios = <&gpio1 1 GPIO_ACTIVE_HIGH>;
  		input;
- 	};
- };
 -- 
 2.17.1
 

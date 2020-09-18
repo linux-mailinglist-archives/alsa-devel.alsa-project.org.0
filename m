@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4884226EBAF
-	for <lists+alsa-devel@lfdr.de>; Fri, 18 Sep 2020 04:07:51 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C6A8426EBB3
+	for <lists+alsa-devel@lfdr.de>; Fri, 18 Sep 2020 04:08:31 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E556916D5;
-	Fri, 18 Sep 2020 04:07:00 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E556916D5
+	by alsa0.perex.cz (Postfix) with ESMTPS id 6AB5D16EC;
+	Fri, 18 Sep 2020 04:07:41 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6AB5D16EC
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1600394871;
-	bh=xR3JxS7dReW87Az2A8LeOTHlQ0QfKGc3fI+787wEz9Q=;
+	s=default; t=1600394911;
+	bh=HRxq0ht/+5yrMdIpMbPQqA0bDRkCKb/DJ6jydnj2H9A=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=IqsP1rnxyVJHCoAWmGIEH1g2REHnRJV9GOrfsmDU5CFDw3eh1yMQngUI7NPgBw1/K
-	 jhmKWQLpWMEy26N2fV4gligCNgkR2/Vkwh14zi58LfPjqgi+wbdAv1k0dZm3SHIfyy
-	 dVwTI2bZLYNoKJn0IeqPOocPyg8B1SHmM0zemCDY=
+	b=lyczkY0OBGybU6r0XY2KkGJWksz69TdQgNV8zIr2toZ1gsC/mhqx4gCL+M+i0YXue
+	 ehKTvvwsZBTERarvG4HPQ8IVnuffWuFBUF5Jq2a5JYMrUUBl63N9bFX9bgiGyuLOEr
+	 QpJ3EI6yi/qbpPNiwl4f4Q4WpWkYo5FePBOkX25k=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id AC86EF802A7;
-	Fri, 18 Sep 2020 04:06:44 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id EB3A4F802BE;
+	Fri, 18 Sep 2020 04:07:32 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 1E65DF802BE; Fri, 18 Sep 2020 04:06:42 +0200 (CEST)
+ id 616F1F8015C; Fri, 18 Sep 2020 04:07:29 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-3.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -34,32 +34,32 @@ X-Spam-Status: No, score=-3.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 82FB3F8012D
- for <alsa-devel@alsa-project.org>; Fri, 18 Sep 2020 04:06:39 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 82FB3F8012D
+ by alsa1.perex.cz (Postfix) with ESMTPS id 4D736F8012D
+ for <alsa-devel@alsa-project.org>; Fri, 18 Sep 2020 04:07:23 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4D736F8012D
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="xRcKCo1z"
+ header.b="FxvgzwtE"
 Received: from sasha-vm.mshome.net (c-73-47-72-35.hsd1.nh.comcast.net
  [73.47.72.35])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 5F3BC238A1;
- Fri, 18 Sep 2020 02:06:37 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id 136C7238E5;
+ Fri, 18 Sep 2020 02:07:20 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1600394798;
- bh=xR3JxS7dReW87Az2A8LeOTHlQ0QfKGc3fI+787wEz9Q=;
+ s=default; t=1600394841;
+ bh=HRxq0ht/+5yrMdIpMbPQqA0bDRkCKb/DJ6jydnj2H9A=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=xRcKCo1zfQpEJ0vOb8FUUiiEeetZtoF9MoW5/W3sdlnjaziEo336cZ56OTiAHTcGF
- 2uNYa4ZK63co6xy2hf86t8ZinvHt9s4ZeLfVUvkniPOLS1BTDPE7cjlWDnVQLzAy/0
- gBThZ60xD5fgqOQ/70C9m5Tc38suj+XqfBnHw8V8=
+ b=FxvgzwtEqgWsTY6jiPgdJFapAWW7GkBXHeMVOg/TixZtNdsOJnvHtKbNBvXyLq207
+ j+DhSSUQPEc5rx7Mar9atRRrKG67KBttmont+PHJixjQJnpRO6yEONphWQipeO8DN6
+ 7wdbWDMeLE1CvFU4s2x9ipOvi32GGx7YNjoTw9S4=
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 5.4 267/330] ALSA: hda: Fix potential race in unsol
- event handler
-Date: Thu, 17 Sep 2020 22:00:07 -0400
-Message-Id: <20200918020110.2063155-267-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 5.4 299/330] ASoC: img-i2s-out: Fix runtime PM
+ imbalance on error
+Date: Thu, 17 Sep 2020 22:00:39 -0400
+Message-Id: <20200918020110.2063155-299-sashal@kernel.org>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20200918020110.2063155-1-sashal@kernel.org>
 References: <20200918020110.2063155-1-sashal@kernel.org>
@@ -67,8 +67,8 @@ MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
 Content-Transfer-Encoding: 8bit
-Cc: Takashi Iwai <tiwai@suse.de>, Sasha Levin <sashal@kernel.org>,
- alsa-devel@alsa-project.org
+Cc: Sasha Levin <sashal@kernel.org>, alsa-devel@alsa-project.org,
+ Mark Brown <broonie@kernel.org>, Dinghao Liu <dinghao.liu@zju.edu.cn>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -84,53 +84,50 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: Takashi Iwai <tiwai@suse.de>
+From: Dinghao Liu <dinghao.liu@zju.edu.cn>
 
-[ Upstream commit c637fa151259c0f74665fde7cba5b7eac1417ae5 ]
+[ Upstream commit 65bd91dd6957390c42a0491b9622cf31a2cdb140 ]
 
-The unsol event handling code has a loop retrieving the read/write
-indices and the arrays without locking while the append to the array
-may happen concurrently.  This may lead to some inconsistency.
-Although there hasn't been any proof of this bad results, it's still
-safer to protect the racy accesses.
+pm_runtime_get_sync() increments the runtime PM usage counter even
+the call returns an error code. Thus a pairing decrement is needed
+on the error handling path to keep the counter balanced.
 
-This patch adds the spinlock protection around the unsol handling loop
-for addressing it.  Here we take bus->reg_lock as the writer side
-snd_hdac_bus_queue_event() is also protected by that lock.
-
-Link: https://lore.kernel.org/r/20200516062556.30951-1-tiwai@suse.de
-Signed-off-by: Takashi Iwai <tiwai@suse.de>
+Signed-off-by: Dinghao Liu <dinghao.liu@zju.edu.cn>
+Link: https://lore.kernel.org/r/20200529012230.5863-1-dinghao.liu@zju.edu.cn
+Signed-off-by: Mark Brown <broonie@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- sound/hda/hdac_bus.c | 4 ++++
- 1 file changed, 4 insertions(+)
+ sound/soc/img/img-i2s-out.c | 8 ++++++--
+ 1 file changed, 6 insertions(+), 2 deletions(-)
 
-diff --git a/sound/hda/hdac_bus.c b/sound/hda/hdac_bus.c
-index 8f19876244ebe..53be2cac98e7c 100644
---- a/sound/hda/hdac_bus.c
-+++ b/sound/hda/hdac_bus.c
-@@ -158,6 +158,7 @@ static void snd_hdac_bus_process_unsol_events(struct work_struct *work)
- 	struct hdac_driver *drv;
- 	unsigned int rp, caddr, res;
+diff --git a/sound/soc/img/img-i2s-out.c b/sound/soc/img/img-i2s-out.c
+index 4b18534096336..9c4212f2f7269 100644
+--- a/sound/soc/img/img-i2s-out.c
++++ b/sound/soc/img/img-i2s-out.c
+@@ -347,8 +347,10 @@ static int img_i2s_out_set_fmt(struct snd_soc_dai *dai, unsigned int fmt)
+ 	chan_control_mask = IMG_I2S_OUT_CHAN_CTL_CLKT_MASK;
  
-+	spin_lock_irq(&bus->reg_lock);
- 	while (bus->unsol_rp != bus->unsol_wp) {
- 		rp = (bus->unsol_rp + 1) % HDA_UNSOL_QUEUE_SIZE;
- 		bus->unsol_rp = rp;
-@@ -169,10 +170,13 @@ static void snd_hdac_bus_process_unsol_events(struct work_struct *work)
- 		codec = bus->caddr_tbl[caddr & 0x0f];
- 		if (!codec || !codec->dev.driver)
- 			continue;
-+		spin_unlock_irq(&bus->reg_lock);
- 		drv = drv_to_hdac_driver(codec->dev.driver);
- 		if (drv->unsol_event)
- 			drv->unsol_event(codec, res);
-+		spin_lock_irq(&bus->reg_lock);
+ 	ret = pm_runtime_get_sync(i2s->dev);
+-	if (ret < 0)
++	if (ret < 0) {
++		pm_runtime_put_noidle(i2s->dev);
+ 		return ret;
++	}
+ 
+ 	img_i2s_out_disable(i2s);
+ 
+@@ -488,8 +490,10 @@ static int img_i2s_out_probe(struct platform_device *pdev)
+ 			goto err_pm_disable;
  	}
-+	spin_unlock_irq(&bus->reg_lock);
- }
+ 	ret = pm_runtime_get_sync(&pdev->dev);
+-	if (ret < 0)
++	if (ret < 0) {
++		pm_runtime_put_noidle(&pdev->dev);
+ 		goto err_suspend;
++	}
  
- /**
+ 	reg = IMG_I2S_OUT_CTL_FRM_SIZE_MASK;
+ 	img_i2s_out_writel(i2s, reg, IMG_I2S_OUT_CTL);
 -- 
 2.25.1
 

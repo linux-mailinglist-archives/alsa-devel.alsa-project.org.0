@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 25AFB26EC5A
-	for <lists+alsa-devel@lfdr.de>; Fri, 18 Sep 2020 04:13:58 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id DF64626EC5D
+	for <lists+alsa-devel@lfdr.de>; Fri, 18 Sep 2020 04:14:20 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id BA4561772;
-	Fri, 18 Sep 2020 04:13:02 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BA4561772
+	by alsa0.perex.cz (Postfix) with ESMTPS id 85EF21786;
+	Fri, 18 Sep 2020 04:13:30 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 85EF21786
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1600395232;
-	bh=/iP9Ag19GgBHLvoiSq8lhc67xp8mDrrl8ZQW/1k9LsQ=;
+	s=default; t=1600395260;
+	bh=B7Tmup4JVXwLfB4ORrdTHZPeQN2+VNzwXUp4AOeovjU=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=uSpo+Td/6yLdVI48pEgeydV1+sWd4i2+29NYnl9v1jgvw3qfb9k2k2DGR59NPxSSB
-	 FWRN3UF2SEwBB91s6hUZ0Q9Oa8HSmQHHYzPn0DlMPD128XSiNJzp/eg5LFfCIT7vsU
-	 yn2gMZCnvqE+jT5V1eeaXj3A8Qbu4nM021EAbPyc=
+	b=CPeluuJ/ELuekfaKEHdRs0FOW+FDUMFmq8al6jjgiCHxLcrFQ5zghP3ADFPEZElbZ
+	 +XFIEDX1J4xEpyJcxy0quwEB+EFV/H0fcVrTSP6XOIUDb+Am3+vTVDWG9EJibGFgqM
+	 UAS10qS2rmUloLwWBvjK8zG/ww6Y9Oe3KB0uZ5rQ=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id E96CDF802D2;
-	Fri, 18 Sep 2020 04:12:00 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 4A60BF802DB;
+	Fri, 18 Sep 2020 04:12:36 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 2697FF802D2; Fri, 18 Sep 2020 04:11:59 +0200 (CEST)
+ id 25739F802DB; Fri, 18 Sep 2020 04:12:34 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-3.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -34,41 +34,40 @@ X-Spam-Status: No, score=-3.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 0F482F800E8
- for <alsa-devel@alsa-project.org>; Fri, 18 Sep 2020 04:11:53 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0F482F800E8
+ by alsa1.perex.cz (Postfix) with ESMTPS id CD33DF8020B
+ for <alsa-devel@alsa-project.org>; Fri, 18 Sep 2020 04:12:27 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CD33DF8020B
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="C2r5w3JB"
+ header.b="0yUfPrDB"
 Received: from sasha-vm.mshome.net (c-73-47-72-35.hsd1.nh.comcast.net
  [73.47.72.35])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id ECB74208E4;
- Fri, 18 Sep 2020 02:11:50 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id A436C208E4;
+ Fri, 18 Sep 2020 02:12:25 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1600395111;
- bh=/iP9Ag19GgBHLvoiSq8lhc67xp8mDrrl8ZQW/1k9LsQ=;
+ s=default; t=1600395146;
+ bh=B7Tmup4JVXwLfB4ORrdTHZPeQN2+VNzwXUp4AOeovjU=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=C2r5w3JBt1m/iQ32nKbrzswZWsp2vfR9nxkYyHda6nsE2WaSTeSWz+DeMC1uFkbkP
- 9TtGZ/6f45eTKCsIpvlbl91uupNQuex4TA070BocLIR9yPeP1kDY6E1MoTlgWydblH
- oI/RkzEN1Vjc5A4Ykz9m00/WAKG/m5htCUyhsp10=
+ b=0yUfPrDBSEd/lWbGR4FwsqGd2vqHmhAGrnG6VH0iE5PAfLlNvpJvvGKxmKKH7yzqK
+ XJX8LALQsRnLVJW6t3rgqnKpmN81rygo26FQN9z915pJIde5Jt2vcro3A7EtCwBYZK
+ ikMRdzz0rfcGleKWF969JWyJ7cZO7vOGKIgxOrK8=
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 4.19 185/206] ASoC: img-i2s-out: Fix runtime PM
- imbalance on error
-Date: Thu, 17 Sep 2020 22:07:41 -0400
-Message-Id: <20200918020802.2065198-185-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 4.14 005/127] ASoC: kirkwood: fix IRQ error handling
+Date: Thu, 17 Sep 2020 22:10:18 -0400
+Message-Id: <20200918021220.2066485-5-sashal@kernel.org>
 X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20200918020802.2065198-1-sashal@kernel.org>
-References: <20200918020802.2065198-1-sashal@kernel.org>
+In-Reply-To: <20200918021220.2066485-1-sashal@kernel.org>
+References: <20200918021220.2066485-1-sashal@kernel.org>
 MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
 Content-Transfer-Encoding: 8bit
-Cc: Sasha Levin <sashal@kernel.org>, alsa-devel@alsa-project.org,
- Mark Brown <broonie@kernel.org>, Dinghao Liu <dinghao.liu@zju.edu.cn>
+Cc: Sasha Levin <sashal@kernel.org>, Russell King <rmk+kernel@armlinux.org.uk>,
+ Mark Brown <broonie@kernel.org>, alsa-devel@alsa-project.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -84,50 +83,34 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: Dinghao Liu <dinghao.liu@zju.edu.cn>
+From: Russell King <rmk+kernel@armlinux.org.uk>
 
-[ Upstream commit 65bd91dd6957390c42a0491b9622cf31a2cdb140 ]
+[ Upstream commit 175fc928198236037174e5c5c066fe3c4691903e ]
 
-pm_runtime_get_sync() increments the runtime PM usage counter even
-the call returns an error code. Thus a pairing decrement is needed
-on the error handling path to keep the counter balanced.
+Propagate the error code from request_irq(), rather than returning
+-EBUSY.
 
-Signed-off-by: Dinghao Liu <dinghao.liu@zju.edu.cn>
-Link: https://lore.kernel.org/r/20200529012230.5863-1-dinghao.liu@zju.edu.cn
+Signed-off-by: Russell King <rmk+kernel@armlinux.org.uk>
+Link: https://lore.kernel.org/r/E1iNIqh-0000tW-EZ@rmk-PC.armlinux.org.uk
 Signed-off-by: Mark Brown <broonie@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- sound/soc/img/img-i2s-out.c | 8 ++++++--
- 1 file changed, 6 insertions(+), 2 deletions(-)
+ sound/soc/kirkwood/kirkwood-dma.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/sound/soc/img/img-i2s-out.c b/sound/soc/img/img-i2s-out.c
-index fc2d1dac63339..798ab579564cb 100644
---- a/sound/soc/img/img-i2s-out.c
-+++ b/sound/soc/img/img-i2s-out.c
-@@ -350,8 +350,10 @@ static int img_i2s_out_set_fmt(struct snd_soc_dai *dai, unsigned int fmt)
- 	chan_control_mask = IMG_I2S_OUT_CHAN_CTL_CLKT_MASK;
+diff --git a/sound/soc/kirkwood/kirkwood-dma.c b/sound/soc/kirkwood/kirkwood-dma.c
+index cf23af159acf4..35ca8e8bb5e52 100644
+--- a/sound/soc/kirkwood/kirkwood-dma.c
++++ b/sound/soc/kirkwood/kirkwood-dma.c
+@@ -136,7 +136,7 @@ static int kirkwood_dma_open(struct snd_pcm_substream *substream)
+ 		err = request_irq(priv->irq, kirkwood_dma_irq, IRQF_SHARED,
+ 				  "kirkwood-i2s", priv);
+ 		if (err)
+-			return -EBUSY;
++			return err;
  
- 	ret = pm_runtime_get_sync(i2s->dev);
--	if (ret < 0)
-+	if (ret < 0) {
-+		pm_runtime_put_noidle(i2s->dev);
- 		return ret;
-+	}
- 
- 	img_i2s_out_disable(i2s);
- 
-@@ -491,8 +493,10 @@ static int img_i2s_out_probe(struct platform_device *pdev)
- 			goto err_pm_disable;
- 	}
- 	ret = pm_runtime_get_sync(&pdev->dev);
--	if (ret < 0)
-+	if (ret < 0) {
-+		pm_runtime_put_noidle(&pdev->dev);
- 		goto err_suspend;
-+	}
- 
- 	reg = IMG_I2S_OUT_CTL_FRM_SIZE_MASK;
- 	img_i2s_out_writel(i2s, reg, IMG_I2S_OUT_CTL);
+ 		/*
+ 		 * Enable Error interrupts. We're only ack'ing them but
 -- 
 2.25.1
 

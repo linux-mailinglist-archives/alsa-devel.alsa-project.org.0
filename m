@@ -2,82 +2,84 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9C1BC2704C8
-	for <lists+alsa-devel@lfdr.de>; Fri, 18 Sep 2020 21:12:47 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id AE5D82704D8
+	for <lists+alsa-devel@lfdr.de>; Fri, 18 Sep 2020 21:15:24 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B5311168D;
-	Fri, 18 Sep 2020 21:11:51 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B5311168D
+	by alsa0.perex.cz (Postfix) with ESMTPS id 214B3169E;
+	Fri, 18 Sep 2020 21:14:34 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 214B3169E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1600456362;
-	bh=rWVNUmfw/FDYSSyIUeZgQecQ6kHzzOEPtU5d7NWU0/s=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1600456524;
+	bh=ZR7M7zQyOKcNT8YRZT1I+IPq01wJDvlFNvzVuNNQbzA=;
+	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=tU8ztuIhwPhomwT/96RnXObK6FjBHd1OJYA9WZEiahddu3OSd3j5u504sPT+TCHpm
-	 Fs9avlfPXw4GyCwaQz+hPlELb/Kv8oEPWcI1hNtvcVHsLIbIVECGWOWivVSMqeBV7Z
-	 WgwcyR3iIXm6zNU6aaqf4JdDAsVTuPAIuhFxLgwM=
+	b=DFK18YzdmpeHSG5JYwqIA/oxk2S+2+IQOYg9bATqls8vY0w9FWQexpdaLCOdTzoH6
+	 OZ8HdKBHZuyKNpshyTSdmo6yVqMQ479y1swuy/WbiGR9Ntd+7cfWc9+gLg3X+kfjOU
+	 w41d0+ERL9JF7tYzopVD1UO6dj2UrG5iQO80eoVI=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 9FED9F80316;
-	Fri, 18 Sep 2020 21:06:42 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 5D89DF8015C;
+	Fri, 18 Sep 2020 21:13:43 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 7C4D3F80323; Fri, 18 Sep 2020 21:06:41 +0200 (CEST)
+ id B7BB6F8015A; Fri, 18 Sep 2020 21:13:41 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-3.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
+ DKIM_VALID,DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS
  autolearn=disabled version=3.4.0
 Received: from fllv0015.ext.ti.com (fllv0015.ext.ti.com [198.47.19.141])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id E540EF80316
- for <alsa-devel@alsa-project.org>; Fri, 18 Sep 2020 21:06:29 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E540EF80316
+ by alsa1.perex.cz (Postfix) with ESMTPS id 60489F80150
+ for <alsa-devel@alsa-project.org>; Fri, 18 Sep 2020 21:13:38 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 60489F80150
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b="K22qfhh0"
+ dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b="dKhxMio8"
 Received: from fllv0035.itg.ti.com ([10.64.41.0])
- by fllv0015.ext.ti.com (8.15.2/8.15.2) with ESMTP id 08IJ6SQW084878;
- Fri, 18 Sep 2020 14:06:28 -0500
+ by fllv0015.ext.ti.com (8.15.2/8.15.2) with ESMTP id 08IJDbN2086743;
+ Fri, 18 Sep 2020 14:13:37 -0500
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com;
- s=ti-com-17Q1; t=1600455988;
- bh=g4j02rh2c3KYgw9HISkgKOgsc2HItFd1z0XOZrS0lCM=;
- h=From:To:CC:Subject:Date:In-Reply-To:References;
- b=K22qfhh0dV6KthpVYtwk7eNbOZRZjtW7OZ0umS71Y4s50AFbsnDxyaU8Btk9mxbKe
- Pv6JgKo+lMWU6MYuc0UdgRyIlsPFZYetzqroWr/59xs9uCkzpVhOdN1TxYdKDAEYqx
- Tp5hrKLYJv+H4RzAA8Myj9s7y56ieJQTnQotezHw=
-Received: from DLEE108.ent.ti.com (dlee108.ent.ti.com [157.170.170.38])
- by fllv0035.itg.ti.com (8.15.2/8.15.2) with ESMTP id 08IJ6Sik101568;
- Fri, 18 Sep 2020 14:06:28 -0500
-Received: from DLEE104.ent.ti.com (157.170.170.34) by DLEE108.ent.ti.com
- (157.170.170.38) with Microsoft SMTP Server (version=TLS1_2,
+ s=ti-com-17Q1; t=1600456417;
+ bh=AHq/5X/zt7ouB8G4cT7Ae9eA79pwUrSvwVhNR0JQuWk=;
+ h=Subject:To:CC:References:From:Date:In-Reply-To;
+ b=dKhxMio8DpXhdFrvlOPT7PeTHaFsgOu/ybn/oNVNgrpXqJlPChoqCEPDAe8J+Jj7C
+ O2YCzNyAwei+j4Ngx/eF1qYv7AkXCqS/o0ZnOZGMttn06jcaW6REb+6oz02zoQsus6
+ EsAyMoOUZqp4mHTVv5w+lk5olvoOfM1hXPUQYuVQ=
+Received: from DLEE114.ent.ti.com (dlee114.ent.ti.com [157.170.170.25])
+ by fllv0035.itg.ti.com (8.15.2/8.15.2) with ESMTP id 08IJDbPs110407;
+ Fri, 18 Sep 2020 14:13:37 -0500
+Received: from DLEE107.ent.ti.com (157.170.170.37) by DLEE114.ent.ti.com
+ (157.170.170.25) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.1979.3; Fri, 18
- Sep 2020 14:06:28 -0500
-Received: from fllv0039.itg.ti.com (10.64.41.19) by DLEE104.ent.ti.com
- (157.170.170.34) with Microsoft SMTP Server (version=TLS1_2,
+ Sep 2020 14:13:37 -0500
+Received: from lelv0326.itg.ti.com (10.180.67.84) by DLEE107.ent.ti.com
+ (157.170.170.37) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.1979.3 via
- Frontend Transport; Fri, 18 Sep 2020 14:06:28 -0500
-Received: from localhost (ileax41-snat.itg.ti.com [10.172.224.153])
- by fllv0039.itg.ti.com (8.15.2/8.15.2) with ESMTP id 08IJ6SI7025072;
- Fri, 18 Sep 2020 14:06:28 -0500
-From: Dan Murphy <dmurphy@ti.com>
+ Frontend Transport; Fri, 18 Sep 2020 14:13:36 -0500
+Received: from [10.250.35.164] (ileax41-snat.itg.ti.com [10.172.224.153])
+ by lelv0326.itg.ti.com (8.15.2/8.15.2) with ESMTP id 08IJDamK028660;
+ Fri, 18 Sep 2020 14:13:36 -0500
+Subject: Re: [PATCH] dt-bindings: tas2770: Fix I2C addresses for the TAS2770
 To: <lgirdwood@gmail.com>, <broonie@kernel.org>, <tiwai@suse.com>,
  <robh+dt@kernel.org>
-Subject: [PATCH 9/9] ASoC: tas2770: Refactor sample rate function
-Date: Fri, 18 Sep 2020 14:05:48 -0500
-Message-ID: <20200918190548.12598-9-dmurphy@ti.com>
-X-Mailer: git-send-email 2.27.0
-In-Reply-To: <20200918190548.12598-1-dmurphy@ti.com>
-References: <20200918190548.12598-1-dmurphy@ti.com>
+References: <20200918164320.11577-1-dmurphy@ti.com>
+From: Dan Murphy <dmurphy@ti.com>
+Message-ID: <bcae2b35-8b64-6736-4fc1-23cfa5912924@ti.com>
+Date: Fri, 18 Sep 2020 14:13:36 -0500
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.10.0
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
+In-Reply-To: <20200918164320.11577-1-dmurphy@ti.com>
+Content-Type: text/plain; charset="utf-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+Content-Language: en-US
 X-EXCLAIMER-MD-CONFIG: e1e8a2fd-e40a-4ac6-ac9b-f7e9cc9ee180
 Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- linux-kernel@vger.kernel.org, Dan Murphy <dmurphy@ti.com>
+ linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -93,120 +95,17 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Refactor the tas2770_set_samplerate to simplify the code and access the
-I2C bus only once per rate request. The ramp rate and sample rate bits
-are contained in the same register so a single call to the
-snd_soc_update_bits function is all that is needed
+All
 
-Signed-off-by: Dan Murphy <dmurphy@ti.com>
----
- sound/soc/codecs/tas2770.c | 75 ++++++++++----------------------------
- 1 file changed, 19 insertions(+), 56 deletions(-)
+On 9/18/20 11:43 AM, Dan Murphy wrote:
+> The I2C addresses listed in the yaml are not correct. The addresses can
+> range from 0x41 through 0x48 based on register configurations. Fix the
+> example and the description.
 
-diff --git a/sound/soc/codecs/tas2770.c b/sound/soc/codecs/tas2770.c
-index b17cf0a7f785..386aaa11fa08 100644
---- a/sound/soc/codecs/tas2770.c
-+++ b/sound/soc/codecs/tas2770.c
-@@ -252,80 +252,43 @@ static int tas2770_set_bitwidth(struct tas2770_priv *tas2770, int bitwidth)
- 
- static int tas2770_set_samplerate(struct tas2770_priv *tas2770, int samplerate)
- {
--	int ret;
- 	struct snd_soc_component *component = tas2770->component;
-+	int ramp_rate_val;
-+	int ret;
- 
- 	switch (samplerate) {
- 	case 48000:
--		ret = snd_soc_component_update_bits(component, TAS2770_TDM_CFG_REG0,
--						    TAS2770_TDM_CFG_REG0_SMP_MASK,
--						    TAS2770_TDM_CFG_REG0_SMP_48KHZ);
--		if (ret < 0)
--			return ret;
--
--		ret = snd_soc_component_update_bits(component, TAS2770_TDM_CFG_REG0,
--						    TAS2770_TDM_CFG_REG0_31_MASK,
--						    TAS2770_TDM_CFG_REG0_31_44_1_48KHZ);
-+		ramp_rate_val = TAS2770_TDM_CFG_REG0_SMP_48KHZ |
-+				TAS2770_TDM_CFG_REG0_31_44_1_48KHZ;
- 		break;
- 	case 44100:
--		ret = snd_soc_component_update_bits(component, TAS2770_TDM_CFG_REG0,
--						    TAS2770_TDM_CFG_REG0_SMP_MASK,
--						    TAS2770_TDM_CFG_REG0_SMP_44_1KHZ);
--		if (ret < 0)
--			return ret;
--
--		ret = snd_soc_component_update_bits(component, TAS2770_TDM_CFG_REG0,
--						    TAS2770_TDM_CFG_REG0_31_MASK,
--						    TAS2770_TDM_CFG_REG0_31_44_1_48KHZ);
-+		ramp_rate_val = TAS2770_TDM_CFG_REG0_SMP_44_1KHZ |
-+				TAS2770_TDM_CFG_REG0_31_44_1_48KHZ;
- 		break;
- 	case 96000:
--		ret = snd_soc_component_update_bits(component, TAS2770_TDM_CFG_REG0,
--						    TAS2770_TDM_CFG_REG0_SMP_MASK,
--						    TAS2770_TDM_CFG_REG0_SMP_48KHZ);
--		if (ret < 0)
--			return ret;
--
--		ret = snd_soc_component_update_bits(component, TAS2770_TDM_CFG_REG0,
--						    TAS2770_TDM_CFG_REG0_31_MASK,
--						    TAS2770_TDM_CFG_REG0_31_88_2_96KHZ);
-+		ramp_rate_val = TAS2770_TDM_CFG_REG0_SMP_48KHZ |
-+				TAS2770_TDM_CFG_REG0_31_88_2_96KHZ;
- 		break;
- 	case 88200:
--		ret = snd_soc_component_update_bits(component, TAS2770_TDM_CFG_REG0,
--						    TAS2770_TDM_CFG_REG0_SMP_MASK,
--						    TAS2770_TDM_CFG_REG0_SMP_44_1KHZ);
--		if (ret < 0)
--			return ret;
--
--		ret = snd_soc_component_update_bits(component, TAS2770_TDM_CFG_REG0,
--						    TAS2770_TDM_CFG_REG0_31_MASK,
--						    TAS2770_TDM_CFG_REG0_31_88_2_96KHZ);
-+		ramp_rate_val = TAS2770_TDM_CFG_REG0_SMP_44_1KHZ |
-+				TAS2770_TDM_CFG_REG0_31_88_2_96KHZ;
- 		break;
- 	case 19200:
--		ret = snd_soc_component_update_bits(component, TAS2770_TDM_CFG_REG0,
--						    TAS2770_TDM_CFG_REG0_SMP_MASK,
--						    TAS2770_TDM_CFG_REG0_SMP_48KHZ);
--		if (ret < 0)
--			return ret;
--
--		ret = snd_soc_component_update_bits(component, TAS2770_TDM_CFG_REG0,
--						    TAS2770_TDM_CFG_REG0_31_MASK,
--						    TAS2770_TDM_CFG_REG0_31_176_4_192KHZ);
-+		ramp_rate_val = TAS2770_TDM_CFG_REG0_SMP_48KHZ |
-+				TAS2770_TDM_CFG_REG0_31_176_4_192KHZ;
- 		break;
- 	case 17640:
--		ret = snd_soc_component_update_bits(component, TAS2770_TDM_CFG_REG0,
--						    TAS2770_TDM_CFG_REG0_SMP_MASK,
--						    TAS2770_TDM_CFG_REG0_SMP_44_1KHZ);
--		if (ret < 0)
--			return ret;
--
--		ret = snd_soc_component_update_bits(component, TAS2770_TDM_CFG_REG0,
--						    TAS2770_TDM_CFG_REG0_31_MASK,
--						    TAS2770_TDM_CFG_REG0_31_176_4_192KHZ);
-+		ramp_rate_val = TAS2770_TDM_CFG_REG0_SMP_44_1KHZ |
-+				TAS2770_TDM_CFG_REG0_31_176_4_192KHZ;
- 		break;
- 	default:
--		ret = -EINVAL;
-+		return -EINVAL;
- 	}
- 
-+	ret = snd_soc_component_update_bits(component, TAS2770_TDM_CFG_REG0,
-+					    TAS2770_TDM_CFG_REG0_SMP_MASK |
-+					    TAS2770_TDM_CFG_REG0_31_MASK,
-+					    ramp_rate_val);
- 	if (ret < 0)
- 		return ret;
- 
--- 
-2.28.0
+Please ignore this patch I added this patch intp a different patch 
+series because there were just that many fixes.
+
+https://lore.kernel.org/patchwork/project/lkml/list/?series=463738
+
+Dan
 

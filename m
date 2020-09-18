@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0E68026EB43
-	for <lists+alsa-devel@lfdr.de>; Fri, 18 Sep 2020 04:05:08 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 24E7226EB47
+	for <lists+alsa-devel@lfdr.de>; Fri, 18 Sep 2020 04:05:53 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 980A816B9;
-	Fri, 18 Sep 2020 04:04:17 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 980A816B9
+	by alsa0.perex.cz (Postfix) with ESMTPS id BAD961694;
+	Fri, 18 Sep 2020 04:05:02 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BAD961694
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1600394707;
-	bh=RQR8VA1lndg1uehp5I/ycFWXH/+9/WdrVm0E3mtajoE=;
+	s=default; t=1600394752;
+	bh=FH1ZAFozw3UmdYRa+SC+Sc5mujLG3AFb2GJovZPNwD8=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=RF82nPdCFRYWdooWUkp1Nk1CYhEJ0EyeUU6Ztu1FZIeWzc6nmAgnocZzYwJYdEDO3
-	 aph0rVIGd0+gTo/Cyc4iEIhEQuXJg/jTl+KvDchjczTx3LCtceu2r9V/wFadIQNfze
-	 HNYcMdQP3REHolEuRSmtjWtUjqY18kHyLY2D8piE=
+	b=ak1SqvBgVTOc6pf+qIqqWXapgxt29fd097s1/OqPe+XtjLKGwh08mEBBgw4oRy6Xk
+	 5XjVNocGtcsrIg0yiZ/78+CPAnWHNdxe4/qLWxJ8osBgZ5Ce96WE0SvxIaBi6BVxlc
+	 SG4jmmQv7mKnw57bz2y0BOhWemjBO6vlHc+LkzYk=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 9F03EF80150;
-	Fri, 18 Sep 2020 04:03:44 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id A15F4F802D2;
+	Fri, 18 Sep 2020 04:03:57 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id C0F0EF80150; Fri, 18 Sep 2020 04:03:41 +0200 (CEST)
+ id 78D37F802C4; Fri, 18 Sep 2020 04:03:55 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-3.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -34,32 +34,32 @@ X-Spam-Status: No, score=-3.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 7E6E1F800E8
- for <alsa-devel@alsa-project.org>; Fri, 18 Sep 2020 04:03:35 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7E6E1F800E8
+ by alsa1.perex.cz (Postfix) with ESMTPS id 00394F800E8
+ for <alsa-devel@alsa-project.org>; Fri, 18 Sep 2020 04:03:52 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 00394F800E8
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="C5m97RuJ"
+ header.b="xZvslDl1"
 Received: from sasha-vm.mshome.net (c-73-47-72-35.hsd1.nh.comcast.net
  [73.47.72.35])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id C7AE4235F7;
- Fri, 18 Sep 2020 02:03:32 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id AF44023770;
+ Fri, 18 Sep 2020 02:03:50 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1600394613;
- bh=RQR8VA1lndg1uehp5I/ycFWXH/+9/WdrVm0E3mtajoE=;
+ s=default; t=1600394631;
+ bh=FH1ZAFozw3UmdYRa+SC+Sc5mujLG3AFb2GJovZPNwD8=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=C5m97RuJS7iiibzhqtUXYFRyigZJ71zYD615sxs0dNdJzD7Dlmg8OjRc/eWUddKS0
- 5Gnb4UuLRYI+vYXAk9xLaSlzVDTqunCyn6TTmhz2z3hxLcS/f1gSjIe4wf1VAItcBn
- 9d2aWfC/4nfSHbU+C+F7jWmL0BRGxiNFc7CS9IBQ=
+ b=xZvslDl1zhgJiZOAwN8ld35R4KJFI9hI4Tbd8TkHhJK1KscDQIq366GtKifTgIgq3
+ HgciS4/kBV4rraRT4ML8ci9NkWriveJNlGEOMAeaI2xCZzEFcdI1QCRZBdq1bubX4m
+ lcSS3VKlO3wFKg7jruRYPNi7DyafKdkNs+l4+GiU=
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 5.4 116/330] ALSA: hda: Clear RIRB status before
- reading WP
-Date: Thu, 17 Sep 2020 21:57:36 -0400
-Message-Id: <20200918020110.2063155-116-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 5.4 131/330] ALSA: usb-audio: Don't create a mixer
+ element with bogus volume range
+Date: Thu, 17 Sep 2020 21:57:51 -0400
+Message-Id: <20200918020110.2063155-131-sashal@kernel.org>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20200918020110.2063155-1-sashal@kernel.org>
 References: <20200918020110.2063155-1-sashal@kernel.org>
@@ -67,9 +67,8 @@ MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
 Content-Transfer-Encoding: 8bit
-Cc: Viswanath L <viswanathl@nvidia.com>, Takashi Iwai <tiwai@suse.de>,
- alsa-devel@alsa-project.org, Mohan Kumar <mkumard@nvidia.com>,
- Sasha Levin <sashal@kernel.org>
+Cc: Takashi Iwai <tiwai@suse.de>, Sasha Levin <sashal@kernel.org>,
+ alsa-devel@alsa-project.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -85,55 +84,43 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: Mohan Kumar <mkumard@nvidia.com>
+From: Takashi Iwai <tiwai@suse.de>
 
-[ Upstream commit 6d011d5057ff88ee556c000ac6fe0be23bdfcd72 ]
+[ Upstream commit e9a0ef0b5ddcbc0d56c65aefc0f18d16e6f71207 ]
 
-RIRB interrupt status getting cleared after the write pointer is read
-causes a race condition, where last response(s) into RIRB may remain
-unserviced by IRQ, eventually causing azx_rirb_get_response to fall
-back to polling mode. Clearing the RIRB interrupt status ahead of
-write pointer access ensures that this condition is avoided.
+Some USB-audio descriptors provide a bogus volume range (e.g. volume
+min and max are identical), which confuses user-space.
+This patch makes the driver skipping such a control element.
 
-Signed-off-by: Mohan Kumar <mkumard@nvidia.com>
-Signed-off-by: Viswanath L <viswanathl@nvidia.com>
-Link: https://lore.kernel.org/r/1580983853-351-1-git-send-email-viswanathl@nvidia.com
+BugLink: https://bugzilla.kernel.org/show_bug.cgi?id=206221
+Link: https://lore.kernel.org/r/20200214144928.23628-1-tiwai@suse.de
 Signed-off-by: Takashi Iwai <tiwai@suse.de>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- sound/pci/hda/hda_controller.c | 11 +++++++++--
- 1 file changed, 9 insertions(+), 2 deletions(-)
+ sound/usb/mixer.c | 10 ++++++++++
+ 1 file changed, 10 insertions(+)
 
-diff --git a/sound/pci/hda/hda_controller.c b/sound/pci/hda/hda_controller.c
-index 76b507058cb4d..5e6081750bd9b 100644
---- a/sound/pci/hda/hda_controller.c
-+++ b/sound/pci/hda/hda_controller.c
-@@ -1159,16 +1159,23 @@ irqreturn_t azx_interrupt(int irq, void *dev_id)
- 		if (snd_hdac_bus_handle_stream_irq(bus, status, stream_update))
- 			active = true;
+diff --git a/sound/usb/mixer.c b/sound/usb/mixer.c
+index 9079c380228fc..8aa96ed0b1b56 100644
+--- a/sound/usb/mixer.c
++++ b/sound/usb/mixer.c
+@@ -1684,6 +1684,16 @@ static void __build_feature_ctl(struct usb_mixer_interface *mixer,
+ 	/* get min/max values */
+ 	get_min_max_with_quirks(cval, 0, kctl);
  
--		/* clear rirb int */
- 		status = azx_readb(chip, RIRBSTS);
- 		if (status & RIRB_INT_MASK) {
-+			/*
-+			 * Clearing the interrupt status here ensures that no
-+			 * interrupt gets masked after the RIRB wp is read in
-+			 * snd_hdac_bus_update_rirb. This avoids a possible
-+			 * race condition where codec response in RIRB may
-+			 * remain unserviced by IRQ, eventually falling back
-+			 * to polling mode in azx_rirb_get_response.
-+			 */
-+			azx_writeb(chip, RIRBSTS, RIRB_INT_MASK);
- 			active = true;
- 			if (status & RIRB_INT_RESPONSE) {
- 				if (chip->driver_caps & AZX_DCAPS_CTX_WORKAROUND)
- 					udelay(80);
- 				snd_hdac_bus_update_rirb(bus);
- 			}
--			azx_writeb(chip, RIRBSTS, RIRB_INT_MASK);
- 		}
- 	} while (active && ++repeat < 10);
- 
++	/* skip a bogus volume range */
++	if (cval->max <= cval->min) {
++		usb_audio_dbg(mixer->chip,
++			      "[%d] FU [%s] skipped due to invalid volume\n",
++			      cval->head.id, kctl->id.name);
++		snd_ctl_free_one(kctl);
++		return;
++	}
++
++
+ 	if (control == UAC_FU_VOLUME) {
+ 		check_mapped_dB(map, cval);
+ 		if (cval->dBmin < cval->dBmax || !cval->initialized) {
 -- 
 2.25.1
 

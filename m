@@ -2,85 +2,99 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6542C2700D3
-	for <lists+alsa-devel@lfdr.de>; Fri, 18 Sep 2020 17:22:47 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 288F22700D6
+	for <lists+alsa-devel@lfdr.de>; Fri, 18 Sep 2020 17:23:31 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 85ACF16D3;
-	Fri, 18 Sep 2020 17:21:56 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 85ACF16D3
+	by alsa0.perex.cz (Postfix) with ESMTPS id 4930E16DC;
+	Fri, 18 Sep 2020 17:22:40 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4930E16DC
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1600442566;
-	bh=fHdy2jgIL1gT8eHlMhxL5qzlAZKIso5bkMdmqKFANCs=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1600442610;
+	bh=r0MyRC2fn8FICeMRgtqJ6sQMW/m3cQQSNVNn+iJ0G/g=;
+	h=From:To:Subject:Date:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=ChoUS0yscYSl4OykveR/HaAgqsGLhbF+7JhfeuTjyYYIsGwSuja15oSxyzsprwPTX
-	 Jup7qbzWZMQ2q/4INf0n0ixkqBwRqBh5P2hwj7urLiRDkYNbM12jZWL9TSBSlLF0Xa
-	 fpzFEoxdfQjRkeJjn0rSlK6OoQiFDjMFyEwhKyfM=
+	b=P1Wgv3cKGJB7HHW6tZlcsgYFGgKP2hiP/NoqFjv4A/nLjA5ToUA3SDz1jsVFSr4to
+	 omE5cpOXZo6yiIxV1HQBY/sbXADiZARYmdkQl5LJ/4E6BC6erYT7dBKPiE9nd3zGop
+	 MqYjN8/NMaw6D4VBinP2DsWHjN5R15STrhPVSi4g=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 639FFF8015C;
-	Fri, 18 Sep 2020 17:21:05 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id A134BF8012D;
+	Fri, 18 Sep 2020 17:22:34 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 33B47F8015A; Fri, 18 Sep 2020 17:21:04 +0200 (CEST)
+ id C496AF8012D; Fri, 18 Sep 2020 17:22:31 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,PRX_BODY_30,SPF_HELO_NONE,SPF_PASS
- autolearn=disabled version=3.4.0
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 96DBBF8013A
- for <alsa-devel@alsa-project.org>; Fri, 18 Sep 2020 17:20:57 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 96DBBF8013A
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="SHVKBgUM"
-Received: from localhost (fw-tnat.cambridge.arm.com [217.140.96.140])
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 53E9620717;
- Fri, 18 Sep 2020 15:20:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1600442454;
- bh=fHdy2jgIL1gT8eHlMhxL5qzlAZKIso5bkMdmqKFANCs=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=SHVKBgUMSO00ctM08cOUUSoNTfkDuOLL7/22rOM01uTF7AXeQQ8gRbAoi5767i7wB
- dj6OPjX4HmjlgJuxcJhpzalHzL7M3gdVDj1Z54sOnM06KgI5gf3YJdHfv/0c1v7CF5
- IP8DVBlE5snSVSIZ/SyJQhcgnUlqRdnsAsqoWWgU=
-Date: Fri, 18 Sep 2020 16:20:04 +0100
-From: Mark Brown <broonie@kernel.org>
-To: "Viorel Suman (OSS)" <viorel.suman@oss.nxp.com>
-Subject: Re: [PATCH 1/2] ASoC: fsl_xcvr: Add XCVR ASoC CPU DAI driver
-Message-ID: <20200918152004.GJ5703@sirena.org.uk>
-References: <1600247876-8013-1-git-send-email-viorel.suman@oss.nxp.com>
- <1600247876-8013-2-git-send-email-viorel.suman@oss.nxp.com>
- <20200917135306.GF4755@sirena.org.uk>
- <VI1PR0401MB22726CC099099547A0502C27923F0@VI1PR0401MB2272.eurprd04.prod.outlook.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id CAF53F8012D
+ for <alsa-devel@alsa-project.org>; Fri, 18 Sep 2020 17:22:20 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CAF53F8012D
+IronPort-SDR: IAxBq595p/q1i0vqyhAbLhX6f3DftETFtBMwDMCnEIpekhpeCslaXftoPkZEbQeVuUYB8yhl+e
+ 8DZ9ma2nMVHw==
+X-IronPort-AV: E=McAfee;i="6000,8403,9748"; a="157351959"
+X-IronPort-AV: E=Sophos;i="5.77,274,1596524400"; d="scan'208";a="157351959"
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from orsmga004.jf.intel.com ([10.7.209.38])
+ by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 18 Sep 2020 08:22:17 -0700
+IronPort-SDR: xVnlChdUEvt6aXNwxLaXEQ54vyiyMV0610mIm/0uGlRKiCFxvIqqAHy+G0pDoT8hwoOiJuhovc
+ Us8Tj1/G0AQQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.77,274,1596524400"; d="scan'208";a="452782935"
+Received: from irsmsx605.ger.corp.intel.com ([163.33.146.138])
+ by orsmga004.jf.intel.com with ESMTP; 18 Sep 2020 08:22:15 -0700
+Received: from irsmsx601.ger.corp.intel.com (163.33.146.7) by
+ IRSMSX605.ger.corp.intel.com (163.33.146.138) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.1713.5; Fri, 18 Sep 2020 16:22:13 +0100
+Received: from irsmsx601.ger.corp.intel.com ([163.33.146.7]) by
+ irsmsx601.ger.corp.intel.com ([163.33.146.7]) with mapi id 15.01.1713.004;
+ Fri, 18 Sep 2020 16:22:13 +0100
+From: "Rojewski, Cezary" <cezary.rojewski@intel.com>
+To: "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
+ "gregkh@linuxfoundation.org" <gregkh@linuxfoundation.org>
+Subject: RE: [PATCH v6 09/14] ASoC: Intel: catpt: Simple sysfs attributes
+Thread-Topic: [PATCH v6 09/14] ASoC: Intel: catpt: Simple sysfs attributes
+Thread-Index: AQHWjPzCfOElt79Vrk6OmpeehWJryalugCYg
+Date: Fri, 18 Sep 2020 15:22:13 +0000
+Message-ID: <8edff9bc51ea441dac454cbb6869317f@intel.com>
+References: <20200917141242.9081-1-cezary.rojewski@intel.com>
+ <20200917141242.9081-10-cezary.rojewski@intel.com>
+In-Reply-To: <20200917141242.9081-10-cezary.rojewski@intel.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+dlp-product: dlpe-windows
+dlp-reaction: no-action
+dlp-version: 11.5.1.3
+x-originating-ip: [163.33.253.164]
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="F4+N/OgRSdC8YnqX"
-Content-Disposition: inline
-In-Reply-To: <VI1PR0401MB22726CC099099547A0502C27923F0@VI1PR0401MB2272.eurprd04.prod.outlook.com>
-X-Cookie: Beware of geeks bearing graft.
-User-Agent: Mutt/1.10.1 (2018-07-13)
-Cc: "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
- "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
- Matthias Schiffer <matthias.schiffer@ew.tq-group.com>,
- Timur Tabi <timur@kernel.org>, Xiubo Li <Xiubo.Lee@gmail.com>,
- Shengjiu Wang <shengjiu.wang@gmail.com>,
- "linuxppc-dev@lists.ozlabs.org" <linuxppc-dev@lists.ozlabs.org>,
- Takashi Iwai <tiwai@suse.com>, Liam Girdwood <lgirdwood@gmail.com>,
- Nicolin Chen <nicoleotsuka@gmail.com>, Rob Herring <robh+dt@kernel.org>,
- dl-linux-imx <linux-imx@nxp.com>, Philipp Zabel <p.zabel@pengutronix.de>,
- Viorel Suman <viorel.suman@gmail.com>,
- Cosmin-Gabriel Samoila <cosmin.samoila@nxp.com>,
- Fabio Estevam <festevam@gmail.com>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+Cc: "pierre-louis.bossart@linux.intel.com"
+ <pierre-louis.bossart@linux.intel.com>,
+ "andriy.shevchenko@linux.intel.com" <andriy.shevchenko@linux.intel.com>,
+ "Kaczmarski, Filip" <filip.kaczmarski@intel.com>, "N,
+ Harshapriya" <harshapriya.n@intel.com>, "Barlik,
+ Marcin" <marcin.barlik@intel.com>, "zwisler@google.com" <zwisler@google.com>,
+ "lgirdwood@gmail.com" <lgirdwood@gmail.com>, "tiwai@suse.com" <tiwai@suse.com>,
+ "Proborszcz, Filip" <filip.proborszcz@intel.com>,
+ "broonie@kernel.org" <broonie@kernel.org>,
+ "amadeuszx.slawinski@linux.intel.com" <amadeuszx.slawinski@linux.intel.com>,
+ "Wasko, Michal" <michal.wasko@intel.com>,
+ "cujomalainey@chromium.org" <cujomalainey@chromium.org>, "Hejmowski,
+ Krzysztof" <krzysztof.hejmowski@intel.com>, "Papierkowski,
+ Piotr \(Habana\)" <ppapierkowski@habana.ai>, "Gopal, 
+ Vamshi Krishna" <vamshi.krishna.gopal@intel.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -96,71 +110,176 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+On 2020-09-17 4:12 PM, Cezary Rojewski wrote:
+> Add sysfs entries for displaying version of FW currently in use as well
+> as binary dump of entire version info, including build and log providers
+> hashes.
+>=20
+> Signed-off-by: Cezary Rojewski <cezary.rojewski@intel.com>
+> ---
+>=20
+> Changes in v6:
+> - functions declaration and usage now part of this patch instead of
+>    being separated from it
+>=20
+> Changes in v2:
+> - fixed size provided to memcpy() in fw_build_read() as reported by Mark
+>=20
 
---F4+N/OgRSdC8YnqX
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
++Greg KH
 
-On Fri, Sep 18, 2020 at 03:02:39PM +0000, Viorel Suman (OSS) wrote:
+Greg, would you mind taking a look at these sysfs entries added for new
+catpt driver (Audio DSP driver for Haswell and Broadwell machines)?
 
-Please fix your mail client to word wrap within paragraphs at something
-substantially less than 80 columns.  Doing this makes your messages much
-easier to read and reply to.
+Link to opening post for the series:
+[PATCH v6 00/14] ASoC: Intel: Catpt - Lynx and Wildcat point
+https://www.spinics.net/lists/alsa-devel/msg115765.html
 
-> > > +	regmap_read(regmap, FSL_XCVR_EXT_ISR, &isr);
-> > > +	regmap_write(regmap, FSL_XCVR_EXT_ISR_CLR, isr);
+Let me give you a quick introduction to the catpt's fs code:
+During power-up sequence a handshake is made between host (kernel device
+driver) and DSP (firmware) side. Two sysfs entries are generated which
+expose running DSP firmware version and its build info - information
+obtained during said handshake.
 
-> > This will unconditionally clear any interrupts, even those we don't und=
-erstand - it
-> > might be better to only clear bits that are supported so the IRQ core c=
-an
-> > complain if there's something unexpected showing up.
+Much like devices (such as those of PCI-type) expose sysfs entries for
+their easy identification, catpt provides entries to identify DSP FW it
+is dealing with.
 
-> The ARM core registers itself in "fsl_xcvr_prepare" (the code below) just=
- for a subset of all supported interrupts:=20
-> =3D=3D=3D=3D=3D
-> 	ret =3D regmap_update_bits(xcvr->regmap, FSL_XCVR_EXT_IER0,
-> 				 FSL_XCVR_IRQ_EARC_ALL, FSL_XCVR_IRQ_EARC_ALL);
-> =3D=3D=3D=3D=3D
-> FSL_XCVR_IRQ_EARC_ALL - this mask represents all the interrupts we are in=
-terested in and we handle in interrupt handler,
-> But this is just a subset of all interrupts the M0+ core is able to asser=
-t. Not very intuitive, I think I need to reword it somehow.
+Thanks,
+Czarek
 
-That's not the issue, the issue is that if we get into the ISR we just
-ack all the bits that are flagged by the hardware regardless of if we
-actually handled them.  This won't work if there are ever systems that
-share the interrupt and it works against safety/debugging features that
-the interrupt has in case something goes wrong and we get spurious
-interrupts.
-
-> > > +	if (isr & FSL_XCVR_IRQ_FIFO_UOFL_ERR)
-> > > +		dev_dbg(dev, "RX/TX FIFO full/empty\n");
-
-> > Should this be dev_err()?
-
-> The interrupt may be asserted right before DMA starts to fill the TX FIFO=
- if I recall correctly.
-> I've added it just to debug the IP behavior, will check and change it to =
-err it in next version if it is the case.
-
-If it does come up normally then a comment or something to explain why
-this happens normally would probably be good.
-
---F4+N/OgRSdC8YnqX
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl9k0CMACgkQJNaLcl1U
-h9DcBgf+Mec3OgimxY8yiVXyrZUIW0gGGPBXQrAkJUznWhSE7X28lGpkKn3aYFA0
-Ywc1L43catYkwLHqYo0yTeOHxOsSmsT91+59bNq+DQdrGlaS2VSn929TPSTuBS0P
-MrxaWOCZrXVZGhnAM4EbDDiXxwpB6Z0NQ62KFDRPpzov/K3lNHNpKu2vocEO3Wp9
-1yND+bQGnXrdBbdnMMSPwAVdstUjh1NjuFTEJFWM/WnYxqTbhlKpe5RJnVhebpip
-t+rRT2GJcQzQzL/fU/19eqPQvEBoc5EewDRtbfd6Cnkw4Ej0XLtbwxXEJWVkBj+5
-jlIwADk7NAla1AraL4grDGLJvM/Y+Q==
-=riPP
------END PGP SIGNATURE-----
-
---F4+N/OgRSdC8YnqX--
+>   sound/soc/intel/catpt/core.h   |  3 ++
+>   sound/soc/intel/catpt/device.c |  6 +++
+>   sound/soc/intel/catpt/fs.c     | 79 ++++++++++++++++++++++++++++++++++
+>   3 files changed, 88 insertions(+)
+>   create mode 100644 sound/soc/intel/catpt/fs.c
+>=20
+> diff --git a/sound/soc/intel/catpt/core.h b/sound/soc/intel/catpt/core.h
+> index a29b4c0232cb..1f0f1ac92341 100644
+> --- a/sound/soc/intel/catpt/core.h
+> +++ b/sound/soc/intel/catpt/core.h
+> @@ -155,6 +155,9 @@ int catpt_store_module_states(struct catpt_dev *cdev,=
+ struct dma_chan *chan);
+>   int catpt_store_memdumps(struct catpt_dev *cdev, struct dma_chan *chan)=
+;
+>   int catpt_coredump(struct catpt_dev *cdev);
+>  =20
+> +int catpt_sysfs_create(struct catpt_dev *cdev);
+> +void catpt_sysfs_remove(struct catpt_dev *cdev);
+> +
+>   #include <sound/memalloc.h>
+>   #include <uapi/sound/asound.h>
+>  =20
+> diff --git a/sound/soc/intel/catpt/device.c b/sound/soc/intel/catpt/devic=
+e.c
+> index 7c7ddbabaf55..e9b7c1f474e0 100644
+> --- a/sound/soc/intel/catpt/device.c
+> +++ b/sound/soc/intel/catpt/device.c
+> @@ -184,6 +184,10 @@ static int catpt_probe_components(struct catpt_dev *=
+cdev)
+>   		goto board_err;
+>   	}
+>  =20
+> +	ret =3D catpt_sysfs_create(cdev);
+> +	if (ret)
+> +		goto board_err;
+> +
+>   	/* reflect actual ADSP state in pm_runtime */
+>   	pm_runtime_set_active(cdev->dev);
+>  =20
+> @@ -292,6 +296,8 @@ static int catpt_acpi_remove(struct platform_device *=
+pdev)
+>   	catpt_sram_free(&cdev->iram);
+>   	catpt_sram_free(&cdev->dram);
+>  =20
+> +	catpt_sysfs_remove(cdev);
+> +
+>   	return 0;
+>   }
+>  =20
+> diff --git a/sound/soc/intel/catpt/fs.c b/sound/soc/intel/catpt/fs.c
+> new file mode 100644
+> index 000000000000..d73493687f4a
+> --- /dev/null
+> +++ b/sound/soc/intel/catpt/fs.c
+> @@ -0,0 +1,79 @@
+> +// SPDX-License-Identifier: GPL-2.0-pcm
+> +//
+> +// Copyright(c) 2020 Intel Corporation. All rights reserved.
+> +//
+> +// Author: Cezary Rojewski <cezary.rojewski@intel.com>
+> +//
+> +
+> +#include <linux/pm_runtime.h>
+> +#include "core.h"
+> +
+> +static ssize_t fw_version_show(struct device *dev,
+> +			       struct device_attribute *attr, char *buf)
+> +{
+> +	struct catpt_dev *cdev =3D dev_get_drvdata(dev);
+> +	struct catpt_fw_version version;
+> +	int ret;
+> +
+> +	pm_runtime_get_sync(cdev->dev);
+> +
+> +	ret =3D catpt_ipc_get_fw_version(cdev, &version);
+> +
+> +	pm_runtime_mark_last_busy(cdev->dev);
+> +	pm_runtime_put_autosuspend(cdev->dev);
+> +
+> +	if (ret)
+> +		return CATPT_IPC_ERROR(ret);
+> +
+> +	return sprintf(buf, "%d.%d.%d.%d\n", version.type, version.major,
+> +		       version.minor, version.build);
+> +}
+> +
+> +static DEVICE_ATTR_RO(fw_version);
+> +
+> +static ssize_t fw_build_read(struct file *filp, struct kobject *kobj,
+> +			     struct bin_attribute *bin_attr, char *buf,
+> +			     loff_t off, size_t count)
+> +{
+> +	struct catpt_dev *cdev =3D dev_get_drvdata(kobj_to_dev(kobj));
+> +	struct catpt_fw_version version;
+> +	int ret;
+> +
+> +	pm_runtime_get_sync(cdev->dev);
+> +
+> +	ret =3D catpt_ipc_get_fw_version(cdev, &version);
+> +
+> +	pm_runtime_mark_last_busy(cdev->dev);
+> +	pm_runtime_put_autosuspend(cdev->dev);
+> +
+> +	if (ret)
+> +		return CATPT_IPC_ERROR(ret);
+> +
+> +	memcpy(buf, &version, sizeof(version));
+> +	return count;
+> +}
+> +
+> +static BIN_ATTR_RO(fw_build, sizeof(struct catpt_fw_version));
+> +
+> +int catpt_sysfs_create(struct catpt_dev *cdev)
+> +{
+> +	int ret;
+> +
+> +	ret =3D sysfs_create_file(&cdev->dev->kobj, &dev_attr_fw_version.attr);
+> +	if (ret)
+> +		return ret;
+> +
+> +	ret =3D sysfs_create_bin_file(&cdev->dev->kobj, &bin_attr_fw_build);
+> +	if (ret) {
+> +		sysfs_remove_file(&cdev->dev->kobj, &dev_attr_fw_version.attr);
+> +		return ret;
+> +	}
+> +
+> +	return 0;
+> +}
+> +
+> +void catpt_sysfs_remove(struct catpt_dev *cdev)
+> +{
+> +	sysfs_remove_bin_file(&cdev->dev->kobj, &bin_attr_fw_build);
+> +	sysfs_remove_file(&cdev->dev->kobj, &dev_attr_fw_version.attr);
+> +}
+>

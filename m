@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4C7362704B5
-	for <lists+alsa-devel@lfdr.de>; Fri, 18 Sep 2020 21:09:34 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 213F02704B7
+	for <lists+alsa-devel@lfdr.de>; Fri, 18 Sep 2020 21:10:20 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D355D16AC;
-	Fri, 18 Sep 2020 21:08:43 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D355D16AC
+	by alsa0.perex.cz (Postfix) with ESMTPS id 3D5611689;
+	Fri, 18 Sep 2020 21:09:29 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3D5611689
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1600456173;
-	bh=Nakj6fW1uUbcSrmIpd1Iatz+ofdGOWgvbVCOIMME2S8=;
+	s=default; t=1600456219;
+	bh=qtCpf3WLBu6T8rj5OoMcRWafR4vzkprDWqD5EQqWo4c=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=iWHYy8FhcAfDIVhXRsb+mEg5ENdxVezE7rAj+WM9i6CVP51ClV6jn1G/1k1Pi72xS
-	 vrHreRnMYNSeOHAO3045HNAvTFIJ53wFsp2tIf0q5p0QF7ofIjWqgcxzE8GoMSpCZJ
-	 V1simxfW0Yj+UCQiaB2fv1gE8ml9kCdNElzsuR80=
+	b=vXDbB5K/sxiMiYwgzX52dN6LOE3iQQJN9UOZSc09NYCaUEFzXbcdIhzmGejn35EK1
+	 LKabEjqsqj6wWHkGZpOn8+FfCwlPw9Ombe2NfnmhIKq1z7+IdVEZ8Ae68bEcTfYpwm
+	 +cJVcqkCDPvh+75JwMyd8l545i8mAzndIwWdZfYU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 8586DF802DF;
-	Fri, 18 Sep 2020 21:06:20 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id E4B97F802E7;
+	Fri, 18 Sep 2020 21:06:28 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 046A6F802A7; Fri, 18 Sep 2020 21:06:15 +0200 (CEST)
+ id 0D09DF802E3; Fri, 18 Sep 2020 21:06:25 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-3.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -34,42 +34,41 @@ X-Spam-Status: No, score=-3.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 Received: from fllv0016.ext.ti.com (fllv0016.ext.ti.com [198.47.19.142])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 391ECF8015C
- for <alsa-devel@alsa-project.org>; Fri, 18 Sep 2020 21:06:08 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 391ECF8015C
+ by alsa1.perex.cz (Postfix) with ESMTPS id 19289F8013A
+ for <alsa-devel@alsa-project.org>; Fri, 18 Sep 2020 21:06:12 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 19289F8013A
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b="Huqcok7F"
-Received: from fllv0034.itg.ti.com ([10.64.40.246])
- by fllv0016.ext.ti.com (8.15.2/8.15.2) with ESMTP id 08IJ67l5067319;
- Fri, 18 Sep 2020 14:06:07 -0500
+ dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b="O215L2To"
+Received: from fllv0035.itg.ti.com ([10.64.41.0])
+ by fllv0016.ext.ti.com (8.15.2/8.15.2) with ESMTP id 08IJ6B1Z067330;
+ Fri, 18 Sep 2020 14:06:11 -0500
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com;
- s=ti-com-17Q1; t=1600455967;
- bh=SuC07PDfmDmZkHNGotu4rKFFSf7BkH+mxsA1p5rSHEg=;
+ s=ti-com-17Q1; t=1600455971;
+ bh=8MJa9OWUfuKyK2DPvT28uonc54QcPfadLbC0Yzo+5bQ=;
  h=From:To:CC:Subject:Date:In-Reply-To:References;
- b=Huqcok7FCnC3sfGezQGWF6DFpYbkswS3JO203HqCc+MTtmOhC1VoEADqlBnmHQlPn
- MmToFYW0N/fBzVzNQCcWPDuLZEtmJFh8to9FdXfekwgC6dlD34d20bKbLx3BNK4yHN
- z62Gr1bdEz6Bul47QRMxb521J2zZr8tTYqb21B/g=
-Received: from DLEE114.ent.ti.com (dlee114.ent.ti.com [157.170.170.25])
- by fllv0034.itg.ti.com (8.15.2/8.15.2) with ESMTPS id 08IJ66Ir078852
- (version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=FAIL);
- Fri, 18 Sep 2020 14:06:06 -0500
-Received: from DLEE106.ent.ti.com (157.170.170.36) by DLEE114.ent.ti.com
- (157.170.170.25) with Microsoft SMTP Server (version=TLS1_2,
+ b=O215L2To8zCa8R5KyzGRA93eQCtffCw8cdTpbeTC/dy0mHQD6M0jlnyMRBXVXdiS/
+ NsjdmzeLVIOC2EOK28qBVW04QO8mF+Jckq9ZNBStOZnQbwTMXv4cSw7OkiPs0N3MXZ
+ 6BNxWcHv8zV/DKT/ElStYSpu5VH3O5LFzttSiWWs=
+Received: from DFLE115.ent.ti.com (dfle115.ent.ti.com [10.64.6.36])
+ by fllv0035.itg.ti.com (8.15.2/8.15.2) with ESMTP id 08IJ6BsY101189;
+ Fri, 18 Sep 2020 14:06:11 -0500
+Received: from DFLE110.ent.ti.com (10.64.6.31) by DFLE115.ent.ti.com
+ (10.64.6.36) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.1979.3; Fri, 18
- Sep 2020 14:06:06 -0500
-Received: from lelv0326.itg.ti.com (10.180.67.84) by DLEE106.ent.ti.com
- (157.170.170.36) with Microsoft SMTP Server (version=TLS1_2,
+ Sep 2020 14:06:11 -0500
+Received: from fllv0040.itg.ti.com (10.64.41.20) by DFLE110.ent.ti.com
+ (10.64.6.31) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.1979.3 via
- Frontend Transport; Fri, 18 Sep 2020 14:06:05 -0500
+ Frontend Transport; Fri, 18 Sep 2020 14:06:11 -0500
 Received: from localhost (ileax41-snat.itg.ti.com [10.172.224.153])
- by lelv0326.itg.ti.com (8.15.2/8.15.2) with ESMTP id 08IJ65Yv013112;
- Fri, 18 Sep 2020 14:06:05 -0500
+ by fllv0040.itg.ti.com (8.15.2/8.15.2) with ESMTP id 08IJ6AKS083581;
+ Fri, 18 Sep 2020 14:06:11 -0500
 From: Dan Murphy <dmurphy@ti.com>
 To: <lgirdwood@gmail.com>, <broonie@kernel.org>, <tiwai@suse.com>,
  <robh+dt@kernel.org>
-Subject: [PATCH 4/9] ASoC: tas2770: Fix required DT properties in the code
-Date: Fri, 18 Sep 2020 14:05:43 -0500
-Message-ID: <20200918190548.12598-4-dmurphy@ti.com>
+Subject: [PATCH 5/9] ASoC: tas2770: Fix unbalanced calls to pm_runtime
+Date: Fri, 18 Sep 2020 14:05:44 -0500
+Message-ID: <20200918190548.12598-5-dmurphy@ti.com>
 X-Mailer: git-send-email 2.27.0
 In-Reply-To: <20200918190548.12598-1-dmurphy@ti.com>
 References: <20200918190548.12598-1-dmurphy@ti.com>
@@ -94,62 +93,50 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-The devicetree binding indicates that the ti,asi-format, ti,imon-slot-no
-and ti,vmon-slot-no are not required but the driver requires them or it
-fails to probe. Honor the binding and allow these entries to be optional
-and set the corresponding values to the default values for each as defined
-in the data sheet.
+Fix the unbalanced call to the pm_runtime_disable when removing the
+module.  pm_runtime_enable is not called nor is the pm_runtime setup in
+the code.  Remove the i2c_remove function and the pm_runtime_disable.
 
 Fixes: 1a476abc723e6 ("tas2770: add tas2770 smart PA kernel driver")
 Signed-off-by: Dan Murphy <dmurphy@ti.com>
 ---
- sound/soc/codecs/tas2770.c | 21 ++++++++++-----------
- 1 file changed, 10 insertions(+), 11 deletions(-)
+ sound/soc/codecs/tas2770.c | 9 ---------
+ 1 file changed, 9 deletions(-)
 
 diff --git a/sound/soc/codecs/tas2770.c b/sound/soc/codecs/tas2770.c
-index 7c6f61946ab3..bdfdad5f4f64 100644
+index bdfdad5f4f64..16979583cd68 100644
 --- a/sound/soc/codecs/tas2770.c
 +++ b/sound/soc/codecs/tas2770.c
-@@ -708,29 +708,28 @@ static int tas2770_parse_dt(struct device *dev, struct tas2770_priv *tas2770)
- 	rc = fwnode_property_read_u32(dev->fwnode, "ti,asi-format",
- 					&tas2770->asi_format);
- 	if (rc) {
--		dev_err(tas2770->dev, "Looking up %s property failed %d\n",
--			"ti,asi-format", rc);
--		goto end;
-+		dev_info(tas2770->dev, "Property %s is missing setting default slot\n",
-+			"ti,asi-format");
-+		tas2770->asi_format = 0;
- 	}
- 
- 	rc = fwnode_property_read_u32(dev->fwnode, "ti,imon-slot-no",
- 			&tas2770->i_sense_slot);
- 	if (rc) {
--		dev_err(tas2770->dev, "Looking up %s property failed %d\n",
--			"ti,imon-slot-no", rc);
--		goto end;
-+		dev_info(tas2770->dev, "Property %s is missing setting default slot\n",
-+			"ti,imon-slot-no");
-+		tas2770->i_sense_slot = 0;
- 	}
- 
- 	rc = fwnode_property_read_u32(dev->fwnode, "ti,vmon-slot-no",
- 				&tas2770->v_sense_slot);
- 	if (rc) {
--		dev_err(tas2770->dev, "Looking up %s property failed %d\n",
--			"ti,vmon-slot-no", rc);
--		goto end;
-+		dev_info(tas2770->dev, "Property %s is missing setting default slot\n",
-+			"ti,vmon-slot-no");
-+		tas2770->v_sense_slot = 2;
- 	}
- 
--end:
--	return rc;
-+	return 0;
+@@ -16,7 +16,6 @@
+ #include <linux/i2c.h>
+ #include <linux/gpio.h>
+ #include <linux/gpio/consumer.h>
+-#include <linux/pm_runtime.h>
+ #include <linux/regulator/consumer.h>
+ #include <linux/firmware.h>
+ #include <linux/regmap.h>
+@@ -785,13 +784,6 @@ static int tas2770_i2c_probe(struct i2c_client *client,
+ 	return result;
  }
  
- static int tas2770_i2c_probe(struct i2c_client *client,
+-static int tas2770_i2c_remove(struct i2c_client *client)
+-{
+-	pm_runtime_disable(&client->dev);
+-	return 0;
+-}
+-
+-
+ static const struct i2c_device_id tas2770_i2c_id[] = {
+ 	{ "tas2770", 0},
+ 	{ }
+@@ -812,7 +804,6 @@ static struct i2c_driver tas2770_i2c_driver = {
+ 		.of_match_table = of_match_ptr(tas2770_of_match),
+ 	},
+ 	.probe      = tas2770_i2c_probe,
+-	.remove     = tas2770_i2c_remove,
+ 	.id_table   = tas2770_i2c_id,
+ };
+ 
 -- 
 2.28.0
 

@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D212126EB3C
-	for <lists+alsa-devel@lfdr.de>; Fri, 18 Sep 2020 04:04:21 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0E68026EB43
+	for <lists+alsa-devel@lfdr.de>; Fri, 18 Sep 2020 04:05:08 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 732B616BC;
-	Fri, 18 Sep 2020 04:03:31 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 732B616BC
+	by alsa0.perex.cz (Postfix) with ESMTPS id 980A816B9;
+	Fri, 18 Sep 2020 04:04:17 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 980A816B9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1600394661;
-	bh=kvljy/+dKd5hVOBCgeK3ADPEBHeF/kDaMYGcYzXQcjA=;
+	s=default; t=1600394707;
+	bh=RQR8VA1lndg1uehp5I/ycFWXH/+9/WdrVm0E3mtajoE=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=mq8+JqAXKXaavAfc5ASsF0upWAxgBPJlBcYL65uo/HGTvDhu1xezuAi42GN4wU955
-	 A43Zjs/tk5K/IbEwcU7Ztk8bRZ4qz5dR5quOYo8dCO1aQ4oYIPTERMg8nEsWXNwHo3
-	 Rdl9f4KyiYB4iKUEgaO7V1H0t6PqOyEaXqwfrT2Y=
+	b=RF82nPdCFRYWdooWUkp1Nk1CYhEJ0EyeUU6Ztu1FZIeWzc6nmAgnocZzYwJYdEDO3
+	 aph0rVIGd0+gTo/Cyc4iEIhEQuXJg/jTl+KvDchjczTx3LCtceu2r9V/wFadIQNfze
+	 HNYcMdQP3REHolEuRSmtjWtUjqY18kHyLY2D8piE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 302CBF802A7;
-	Fri, 18 Sep 2020 04:02:54 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 9F03EF80150;
+	Fri, 18 Sep 2020 04:03:44 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id CA2ACF802A7; Fri, 18 Sep 2020 04:02:51 +0200 (CEST)
+ id C0F0EF80150; Fri, 18 Sep 2020 04:03:41 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-3.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -34,31 +34,32 @@ X-Spam-Status: No, score=-3.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 50410F8015C
- for <alsa-devel@alsa-project.org>; Fri, 18 Sep 2020 04:02:46 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 50410F8015C
+ by alsa1.perex.cz (Postfix) with ESMTPS id 7E6E1F800E8
+ for <alsa-devel@alsa-project.org>; Fri, 18 Sep 2020 04:03:35 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7E6E1F800E8
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="h2M8ZSs8"
+ header.b="C5m97RuJ"
 Received: from sasha-vm.mshome.net (c-73-47-72-35.hsd1.nh.comcast.net
  [73.47.72.35])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 21EF722211;
- Fri, 18 Sep 2020 02:02:44 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id C7AE4235F7;
+ Fri, 18 Sep 2020 02:03:32 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1600394564;
- bh=kvljy/+dKd5hVOBCgeK3ADPEBHeF/kDaMYGcYzXQcjA=;
+ s=default; t=1600394613;
+ bh=RQR8VA1lndg1uehp5I/ycFWXH/+9/WdrVm0E3mtajoE=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=h2M8ZSs8dPKaXlTLyyqTSsGcztx/u+DBwbR4YMLdG6fuDvwcK6Kyb+/+SfovXKFu+
- 1dOKpJ7jLpcTY4oL1HLSz5LQmjVYeaVhhDfmBe7lsK1M+BqV56oOi5fNwemUKyWuvs
- quve2Hk4vh/sty9gVDcSRF2ljJ5ZPVqmTFNeDGsA=
+ b=C5m97RuJS7iiibzhqtUXYFRyigZJ71zYD615sxs0dNdJzD7Dlmg8OjRc/eWUddKS0
+ 5Gnb4UuLRYI+vYXAk9xLaSlzVDTqunCyn6TTmhz2z3hxLcS/f1gSjIe4wf1VAItcBn
+ 9d2aWfC/4nfSHbU+C+F7jWmL0BRGxiNFc7CS9IBQ=
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 5.4 077/330] ALSA: hda: enable regmap internal locking
-Date: Thu, 17 Sep 2020 21:56:57 -0400
-Message-Id: <20200918020110.2063155-77-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 5.4 116/330] ALSA: hda: Clear RIRB status before
+ reading WP
+Date: Thu, 17 Sep 2020 21:57:36 -0400
+Message-Id: <20200918020110.2063155-116-sashal@kernel.org>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20200918020110.2063155-1-sashal@kernel.org>
 References: <20200918020110.2063155-1-sashal@kernel.org>
@@ -66,8 +67,9 @@ MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
 Content-Transfer-Encoding: 8bit
-Cc: Takashi Iwai <tiwai@suse.de>, Sasha Levin <sashal@kernel.org>,
- alsa-devel@alsa-project.org, Kai Vehmanen <kai.vehmanen@linux.intel.com>
+Cc: Viswanath L <viswanathl@nvidia.com>, Takashi Iwai <tiwai@suse.de>,
+ alsa-devel@alsa-project.org, Mohan Kumar <mkumard@nvidia.com>,
+ Sasha Levin <sashal@kernel.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -83,45 +85,55 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: Kai Vehmanen <kai.vehmanen@linux.intel.com>
+From: Mohan Kumar <mkumard@nvidia.com>
 
-[ Upstream commit 8e85def5723eccea30ebf22645673692ab8cb3e2 ]
+[ Upstream commit 6d011d5057ff88ee556c000ac6fe0be23bdfcd72 ]
 
-This reverts commit 42ec336f1f9d ("ALSA: hda: Disable regmap
-internal locking").
+RIRB interrupt status getting cleared after the write pointer is read
+causes a race condition, where last response(s) into RIRB may remain
+unserviced by IRQ, eventually causing azx_rirb_get_response to fall
+back to polling mode. Clearing the RIRB interrupt status ahead of
+write pointer access ensures that this condition is avoided.
 
-Without regmap locking, there is a race between snd_hda_codec_amp_init()
-and PM callbacks issuing regcache_sync(). This was caught by
-following kernel warning trace:
-
-<4> [358.080081] WARNING: CPU: 2 PID: 4157 at drivers/base/regmap/regcache.c:498 regcache_cache_only+0xf5/0x130
-[...]
-<4> [358.080148] Call Trace:
-<4> [358.080158]  snd_hda_codec_amp_init+0x4e/0x100 [snd_hda_codec]
-<4> [358.080169]  snd_hda_codec_amp_init_stereo+0x40/0x80 [snd_hda_codec]
-
-Suggested-by: Takashi Iwai <tiwai@suse.de>
-BugLink: https://gitlab.freedesktop.org/drm/intel/issues/592
-Signed-off-by: Kai Vehmanen <kai.vehmanen@linux.intel.com>
-Link: https://lore.kernel.org/r/20200108180856.5194-1-kai.vehmanen@linux.intel.com
+Signed-off-by: Mohan Kumar <mkumard@nvidia.com>
+Signed-off-by: Viswanath L <viswanathl@nvidia.com>
+Link: https://lore.kernel.org/r/1580983853-351-1-git-send-email-viswanathl@nvidia.com
 Signed-off-by: Takashi Iwai <tiwai@suse.de>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- sound/hda/hdac_regmap.c | 1 -
- 1 file changed, 1 deletion(-)
+ sound/pci/hda/hda_controller.c | 11 +++++++++--
+ 1 file changed, 9 insertions(+), 2 deletions(-)
 
-diff --git a/sound/hda/hdac_regmap.c b/sound/hda/hdac_regmap.c
-index 2596a881186fa..49780399c2849 100644
---- a/sound/hda/hdac_regmap.c
-+++ b/sound/hda/hdac_regmap.c
-@@ -363,7 +363,6 @@ static const struct regmap_config hda_regmap_cfg = {
- 	.reg_write = hda_reg_write,
- 	.use_single_read = true,
- 	.use_single_write = true,
--	.disable_locking = true,
- };
+diff --git a/sound/pci/hda/hda_controller.c b/sound/pci/hda/hda_controller.c
+index 76b507058cb4d..5e6081750bd9b 100644
+--- a/sound/pci/hda/hda_controller.c
++++ b/sound/pci/hda/hda_controller.c
+@@ -1159,16 +1159,23 @@ irqreturn_t azx_interrupt(int irq, void *dev_id)
+ 		if (snd_hdac_bus_handle_stream_irq(bus, status, stream_update))
+ 			active = true;
  
- /**
+-		/* clear rirb int */
+ 		status = azx_readb(chip, RIRBSTS);
+ 		if (status & RIRB_INT_MASK) {
++			/*
++			 * Clearing the interrupt status here ensures that no
++			 * interrupt gets masked after the RIRB wp is read in
++			 * snd_hdac_bus_update_rirb. This avoids a possible
++			 * race condition where codec response in RIRB may
++			 * remain unserviced by IRQ, eventually falling back
++			 * to polling mode in azx_rirb_get_response.
++			 */
++			azx_writeb(chip, RIRBSTS, RIRB_INT_MASK);
+ 			active = true;
+ 			if (status & RIRB_INT_RESPONSE) {
+ 				if (chip->driver_caps & AZX_DCAPS_CTX_WORKAROUND)
+ 					udelay(80);
+ 				snd_hdac_bus_update_rirb(bus);
+ 			}
+-			azx_writeb(chip, RIRBSTS, RIRB_INT_MASK);
+ 		}
+ 	} while (active && ++repeat < 10);
+ 
 -- 
 2.25.1
 

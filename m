@@ -2,88 +2,116 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 10F9B271DED
-	for <lists+alsa-devel@lfdr.de>; Mon, 21 Sep 2020 10:27:36 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 458CB271DAE
+	for <lists+alsa-devel@lfdr.de>; Mon, 21 Sep 2020 10:14:41 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 9C6A017EF;
-	Mon, 21 Sep 2020 10:26:45 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9C6A017EF
+	by alsa0.perex.cz (Postfix) with ESMTPS id CA46E169C;
+	Mon, 21 Sep 2020 10:13:50 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CA46E169C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1600676855;
-	bh=EEM99riwTvUHxfmDwjStK4pTCU0mJ095/iumT0sU8zw=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=XzJsVPk+ufbb6CVwzDZ7WVMx3RdbiR0ldLsQ5FOa5RjmAz7d2Fg8hTRueBFXtj1QJ
-	 P8MZoD67QnI3tv2rWzSKQIlZ1VWJoqPNl/DI9Ca6jgswlu/ScQB96tOUjPSNG4tTdG
-	 eG8bCuJ0yeNlKYDgf1CjVlVX47qSGd+NI9E/Serc=
+	s=default; t=1600676080;
+	bh=fIZGQZZYM2FyHIfA+1pya2D9PN88lhv1BbBbmjKpOQY=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=BHMqJOLbUFSSMNU9k1RVi0D+8gwz+vGB1Lmflg3G9LsW/MJfg1Totf5nsnkAeL3sS
+	 b1qmyW5DtV49VD2JhWr7hNpqpqA7/Yqr9NMjiSIQ0RCw9Nnklnpfn10H42kGpayiZ0
+	 X0a/u1+y8XdcQxPZdOjRcJO7L/WAOypYh0UyQX0A=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 665ADF803CB;
-	Mon, 21 Sep 2020 10:11:16 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 53DCAF802E9;
+	Mon, 21 Sep 2020 10:10:33 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id F1CC9F8015A; Fri, 18 Sep 2020 15:14:19 +0200 (CEST)
+ id 9878AF8015A; Fri, 18 Sep 2020 16:19:28 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_PASS autolearn=disabled
- version=3.4.0
-Received: from mail-ej1-x643.google.com (mail-ej1-x643.google.com
- [IPv6:2a00:1450:4864:20::643])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ DKIM_VALID_AU,SPF_HELO_PASS,SPF_PASS autolearn=disabled version=3.4.0
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com
+ [213.167.242.64])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 499F0F8012D
- for <alsa-devel@alsa-project.org>; Fri, 18 Sep 2020 15:14:09 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 499F0F8012D
+ by alsa1.perex.cz (Postfix) with ESMTPS id 2C6BAF800E8
+ for <alsa-devel@alsa-project.org>; Fri, 18 Sep 2020 16:19:21 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2C6BAF800E8
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="aYwKf0it"
-Received: by mail-ej1-x643.google.com with SMTP id lo4so8032282ejb.8
- for <alsa-devel@alsa-project.org>; Fri, 18 Sep 2020 06:14:09 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=h9RM0lB/HRjVWapVwauDh3GcmVkeqJuprfSIbmmhiDw=;
- b=aYwKf0itNWEbbNcpboiYR4ONcLbgu3ObEd8tjxkeDdZnZ6Ev9olACStb/a/TzbN+BN
- ZU15wqlx+uG+mxetzn8hNmbTk/gvwv/O3ujdy+KQJFSU3BBEB+I5Sz4NzI+Ez2SlOjeC
- DIqh08RTMQyIXUIgIAgggQEAO4t2wFb2dC2cvPKkV2/Pkh1VIko0DXj+V0h/FX9P4ZKO
- Kr9kzPae0p5JquoI4C/TMHIcE4BYyzrB5GK8L8z6wQ9eRcJ4VFCtHWtVBVlz7eqcLaHI
- VP59D/Ztj/r6qADoQ3AAUSKlHMTeEJ9Q4Ynp4lEGxCBIIl0JaQFUjRGST6mssueHLRHQ
- Uyzg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=h9RM0lB/HRjVWapVwauDh3GcmVkeqJuprfSIbmmhiDw=;
- b=e9MwVweie18kCesrUq/xQMmfN+EmLs0bn1YAAwhq+Qpfi4/Ngie0rAgrGgXYUR6853
- AF4TP9MmclFWefxgPy8oEgZinVY1mXAYmDsXywHXVGMysJsuOZTxPqLtcxNvntRjb2MF
- C81Kp9F4j+clu7CTngCsLamNUEgImkfiU/fuomGAyG3qgVqzbxMYDaB0Kt47rlHTptJP
- cqdRu5WSQC4qWAelxPQtrnhqB2tZ5rg3hhZWXM8fQNTY5hailtInwbpVwy73fe1JiEoW
- G93q2dBrEd3SeqepzELtrHe04DaLARGMMfk3jN/abBZ53OGI9/7LKFcrp2uqfvWtAKio
- 5h3Q==
-X-Gm-Message-State: AOAM530cQ8RjnfPF88F1tCvWfw+8wuguDzJxJL68EJiuYmsfxWmRq9bN
- LPSGUpdCHHXSQgdMDOFwexQ=
-X-Google-Smtp-Source: ABdhPJxFvCYXn6QKQxQjig9/JET66Bd4HCmh6BMLITBLNBgrZEU132Msm0GVujJ6ehpBMuGZV8HT3g==
-X-Received: by 2002:a17:906:cf8b:: with SMTP id
- um11mr37458262ejb.540.1600434848122; 
- Fri, 18 Sep 2020 06:14:08 -0700 (PDT)
-Received: from localhost.localdomain ([85.153.229.188])
- by smtp.gmail.com with ESMTPSA id s14sm1530082eju.84.2020.09.18.06.14.06
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 18 Sep 2020 06:14:07 -0700 (PDT)
-From: Necip Fazil Yildiran <fazilyildiran@gmail.com>
-To: broonie@kernel.org
-Subject: [PATCH] ASoC: fix kconfig dependency warnings for SND_SOC_WM8731
-Date: Fri, 18 Sep 2020 16:12:58 +0300
-Message-Id: <20200918131257.5860-1-fazilyildiran@gmail.com>
-X-Mailer: git-send-email 2.25.1
+ dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com
+ header.b="E/Zvmkqb"
+Received: from pendragon.ideasonboard.com (62-78-145-57.bb.dnainternet.fi
+ [62.78.145.57])
+ by perceval.ideasonboard.com (Postfix) with ESMTPSA id 5EC382D7;
+ Fri, 18 Sep 2020 16:19:18 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+ s=mail; t=1600438758;
+ bh=fIZGQZZYM2FyHIfA+1pya2D9PN88lhv1BbBbmjKpOQY=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=E/ZvmkqbpHcJAzSJWAcR9DD4mJds6aQ4ZFQLl81hgVUiAjz1lfibYnZHTp00xOuII
+ mcjifMkOztY3aI9rZ53HCbQjoKLmJZelTc6VG1oDpdrdIMGDhNOqDxzZ/QnX7EXqLb
+ tevVCNbQW2u28SmRYp6swCcNwEWZ9cVPc2mEccA8=
+Date: Fri, 18 Sep 2020 17:18:47 +0300
+From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Subject: Re: [PATCH v2 01/13] dt-bindings: gpio: add common schema for GPIO
+ controllers
+Message-ID: <20200918141847.GE28436@pendragon.ideasonboard.com>
+References: <20200917165301.23100-1-krzk@kernel.org>
+ <20200917165301.23100-2-krzk@kernel.org>
+ <20200917200936.GF3969@pendragon.ideasonboard.com>
+ <CAJKOXPc=o0vtU0VKE5b5Ro3nF=ra-p7UnbFfjj_++onw8MeSKQ@mail.gmail.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Mon, 21 Sep 2020 10:10:23 +0200
-Cc: paul@pgazz.com, alsa-devel@alsa-project.org, jeho@cs.utexas.edu,
- linux-kernel@vger.kernel.org, Necip Fazil Yildiran <fazilyildiran@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <CAJKOXPc=o0vtU0VKE5b5Ro3nF=ra-p7UnbFfjj_++onw8MeSKQ@mail.gmail.com>
+X-Mailman-Approved-At: Mon, 21 Sep 2020 10:10:22 +0200
+Cc: Amelie Delaunay <amelie.delaunay@st.com>,
+ Geert Uytterhoeven <geert+renesas@glider.be>,
+ Matti Vaittinen <matti.vaittinen@fi.rohmeurope.com>,
+ Linus Walleij <linus.walleij@linaro.org>, alsa-devel@alsa-project.org,
+ Stefan Agner <stefan@agner.ch>, Bjorn Andersson <bjorn.andersson@linaro.org>,
+ Paul Cercueil <paul@crapouillou.net>,
+ Masahiro Yamada <yamada.masahiro@socionext.com>,
+ Chris Brandt <chris.brandt@renesas.com>,
+ Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
+ Manivannan Sadhasivam <manivannan.sadhasivam@linaro.org>,
+ linux-riscv@lists.infradead.org, Fabio Estevam <festevam@gmail.com>,
+ linux-stm32@st-md-mailman.stormreply.com,
+ Alexandre Torgue <alexandre.torgue@st.com>, linux-renesas-soc@vger.kernel.org,
+ Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>,
+ Anson Huang <Anson.Huang@nxp.com>, Lee Jones <lee.jones@linaro.org>,
+ Takashi Iwai <tiwai@suse.com>, Magnus Damm <magnus.damm@gmail.com>,
+ Bartosz Golaszewski <bgolaszewski@baylibre.com>, Chen-Yu Tsai <wens@csie.org>,
+ Andy Gross <agross@kernel.org>, bcm-kernel-feedback-list@broadcom.com,
+ NXP Linux Team <linux-imx@nxp.com>, Andy Teng <andy.teng@mediatek.com>,
+ Jacopo Mondi <jacopo+renesas@jmondi.org>, Sungbo Eo <mans0n@gorani.run>,
+ linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+ Cristian Ciocaltea <cristian.ciocaltea@gmail.com>,
+ Charles Keepax <ckeepax@opensource.cirrus.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, Ray Jui <rjui@broadcom.com>,
+ Sascha Hauer <s.hauer@pengutronix.de>, Sean Wang <sean.wang@mediatek.com>,
+ Maxime Ripard <mripard@kernel.org>, linux-gpio@vger.kernel.org,
+ Richard Fitzgerald <rf@opensource.cirrus.com>,
+ Rob Herring <robh+dt@kernel.org>, linux-mediatek@lists.infradead.org,
+ Paul Walmsley <paul.walmsley@sifive.com>,
+ Matthias Brugger <matthias.bgg@gmail.com>,
+ Sricharan R <sricharan@codeaurora.org>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Hoan Tran <hoan@os.amperecomputing.com>, linux-arm-kernel@lists.infradead.org,
+ Niklas =?utf-8?Q?S=C3=B6derlund?= <niklas.soderlund+renesas@ragnatech.se>,
+ Scott Branden <sbranden@broadcom.com>, linux-unisoc@lists.infradead.org,
+ - <patches@opensource.cirrus.com>,
+ Chris Packham <chris.packham@alliedtelesis.co.nz>,
+ Liam Girdwood <lgirdwood@gmail.com>, Serge Semin <fancer.lancer@gmail.com>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ Paul Kocialkowski <paul.kocialkowski@bootlin.com>,
+ Yash Shah <yash.shah@sifive.com>,
+ Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>,
+ Palmer Dabbelt <palmer@dabbelt.com>, Mark Brown <broonie@kernel.org>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>, linux-media@vger.kernel.org,
+ Shawn Guo <shawnguo@kernel.org>,
+ Andreas =?utf-8?Q?F=C3=A4rber?= <afaerber@suse.de>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -99,106 +127,44 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-SND_SOC_WM8731 was made visible and dependent on other symbols with commit
-1291e14175e6 ("ASoC: codecs: Make OF supported CODECs visible in Kconfig").
-To this respect, the symbols selecting SND_SOC_WM8731 turned out to be
-overlooking its dependencies.
+Hi Krzysztof,
 
-For example, enabling SND_SOC_DB1200 and disabling SND_SOC_I2C_AND_SPI
-results in the following Kconfig warning since SND_SOC_DB1200 selects
-SND_SOC_WM8731 but does not account for its dependencies:
+On Fri, Sep 18, 2020 at 09:52:57AM +0200, Krzysztof Kozlowski wrote:
+> On Thu, 17 Sep 2020 at 22:10, Laurent Pinchart wrote:
+> > On Thu, Sep 17, 2020 at 06:52:49PM +0200, Krzysztof Kozlowski wrote:
+> > > Convert parts of gpio.txt bindings into common dtschema file for GPIO
+> > > controllers.
+> >
+> > How about deleting the part that has been converted from gpio.txt ?
+> 
+> I did not move everything from the gpio.txt and it is really nicely
+> explained there. I think to leave it as it works as a overview/guide
+> better than YAML.
 
-WARNING: unmet direct dependencies detected for SND_SOC_WM8731
-  Depends on [n]: SOUND [=y] && !UML && SND [=y] && SND_SOC [=y] && SND_SOC_I2C_AND_SPI [=n]
-  Selected by [y]:
-  - SND_SOC_DB1200 [=y] && SOUND [=y] && !UML && SND [=y] && SND_SOC [=y] && SND_SOC_AU1XPSC [=y]
+I'm just a bit worried that duplicating some of the information in two
+places will lead to them becoming out of sync, but maybe the risk isn't
+that high.
 
-Switch reverse dependencies on SND_SOC_WM8731 to normal dependencies.
+> > > The schema enforces proper naming of GPIO controller nodes and GPIO
+> > > hogs.
+> > >
+> > > The schema should be included by specific GPIO controllers bindings.
+> >
+> > Instead of including it manually, could we use a conditional select: to
+> > apply the schema automatically when a gpio-controller property is
+> > present ?
+> 
+> You mean the same way as generic schema for GPIO controllers work?
+> This could be done but the point is to enforce the GPIO controller
+> bindings in GPIO controllers, so also in cases when someone forgets to
+> add "gpio-controller" property. Although, if given GPIO controller
+> schema requires "gpio-controller" then indeed select would work...
 
-Fixes: 1291e14175e6 ("ASoC: codecs: Make OF supported CODECs visible in Kconfig")
-Signed-off-by: Necip Fazil Yildiran <fazilyildiran@gmail.com>
----
- sound/soc/atmel/Kconfig | 7 +++----
- sound/soc/au1x/Kconfig  | 3 +--
- sound/soc/pxa/Kconfig   | 4 ++--
- 3 files changed, 6 insertions(+), 8 deletions(-)
+You could just make gpio-controller mandatory in the schema, and get
+everything else automatically selected based on that, without needing a
+manual $ref.
 
-diff --git a/sound/soc/atmel/Kconfig b/sound/soc/atmel/Kconfig
-index 71f2d42188c4..abb1284835c0 100644
---- a/sound/soc/atmel/Kconfig
-+++ b/sound/soc/atmel/Kconfig
-@@ -44,8 +44,8 @@ config SND_AT91_SOC_SAM9G20_WM8731
- 	tristate "SoC Audio support for WM8731-based At91sam9g20 evaluation board"
- 	depends on ARCH_AT91 || COMPILE_TEST
- 	depends on ATMEL_SSC && SND_SOC_I2C_AND_SPI
-+	depends on SND_SOC_WM8731
- 	select SND_ATMEL_SOC_SSC_PDC
--	select SND_SOC_WM8731
- 	help
- 	  Say Y if you want to add support for SoC audio on WM8731-based
- 	  AT91sam9g20 evaluation board.
-@@ -64,8 +64,8 @@ config SND_AT91_SOC_SAM9X5_WM8731
- 	tristate "SoC Audio support for WM8731-based at91sam9x5 board"
- 	depends on ARCH_AT91 || COMPILE_TEST
- 	depends on ATMEL_SSC && SND_SOC_I2C_AND_SPI
-+	depends on SND_SOC_WM8731
- 	select SND_ATMEL_SOC_SSC_DMA
--	select SND_SOC_WM8731
- 	help
- 	  Say Y if you want to add support for audio SoC on an
- 	  at91sam9x5 based board that is using WM8731 codec.
-@@ -110,8 +110,7 @@ config SND_ATMEL_SOC_I2S
- config SND_SOC_MIKROE_PROTO
- 	tristate "Support for Mikroe-PROTO board"
- 	depends on OF
--	depends on SND_SOC_I2C_AND_SPI
--	select SND_SOC_WM8731
-+	depends on SND_SOC_I2C_AND_SPI && SND_SOC_WM8731
- 	help
- 	  Say Y or M if you want to add support for MikroElektronika PROTO Audio
- 	  Board. This board contains the WM8731 codec, which can be configured
-diff --git a/sound/soc/au1x/Kconfig b/sound/soc/au1x/Kconfig
-index 38de7c0efbc7..749e59fddfcd 100644
---- a/sound/soc/au1x/Kconfig
-+++ b/sound/soc/au1x/Kconfig
-@@ -53,12 +53,11 @@ config SND_SOC_DB1000
- 
- config SND_SOC_DB1200
- 	tristate "DB1200/DB1300/DB1550 Audio support"
--	depends on SND_SOC_AU1XPSC
-+	depends on SND_SOC_AU1XPSC && SND_SOC_WM8731
- 	select SND_SOC_AU1XPSC_AC97
- 	select SND_SOC_AC97_CODEC
- 	select SND_SOC_WM9712
- 	select SND_SOC_AU1XPSC_I2S
--	select SND_SOC_WM8731
- 	help
- 	  Select this option to enable audio (AC97 and I2S) on the
- 	  Alchemy/AMD/RMI/NetLogic Db1200, Db1550 and Db1300 evaluation boards.
-diff --git a/sound/soc/pxa/Kconfig b/sound/soc/pxa/Kconfig
-index 0ac85eada75c..eeb1dde59468 100644
---- a/sound/soc/pxa/Kconfig
-+++ b/sound/soc/pxa/Kconfig
-@@ -44,8 +44,8 @@ config SND_MMP_SOC_SSPA
- config SND_PXA2XX_SOC_CORGI
- 	tristate "SoC Audio support for Sharp Zaurus SL-C7x0"
- 	depends on SND_PXA2XX_SOC && PXA_SHARP_C7xx && I2C
-+	depends on SND_SOC_WM8731
- 	select SND_PXA2XX_SOC_I2S
--	select SND_SOC_WM8731
- 	help
- 	  Say Y if you want to add support for SoC audio on Sharp
- 	  Zaurus SL-C7x0 models (Corgi, Shepherd, Husky).
-@@ -70,8 +70,8 @@ config SND_PXA2XX_SOC_Z2
- config SND_PXA2XX_SOC_POODLE
- 	tristate "SoC Audio support for Poodle"
- 	depends on SND_PXA2XX_SOC && MACH_POODLE && I2C
-+	depends on SND_SOC_WM8731
- 	select SND_PXA2XX_SOC_I2S
--	select SND_SOC_WM8731
- 	help
- 	  Say Y if you want to add support for SoC audio on Sharp
- 	  Zaurus SL-5600 model (Poodle).
 -- 
-2.25.1
+Regards,
 
+Laurent Pinchart

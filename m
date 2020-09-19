@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 29EEB270D37
-	for <lists+alsa-devel@lfdr.de>; Sat, 19 Sep 2020 12:48:23 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B1736270D41
+	for <lists+alsa-devel@lfdr.de>; Sat, 19 Sep 2020 12:52:24 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 8D2051693;
-	Sat, 19 Sep 2020 12:47:32 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8D2051693
+	by alsa0.perex.cz (Postfix) with ESMTPS id 3EF65169B;
+	Sat, 19 Sep 2020 12:51:34 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3EF65169B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1600512502;
-	bh=xP3XMGOjANbVc6relE9Ar8XbG7l2OOMl4cMvmVlAjqQ=;
+	s=default; t=1600512744;
+	bh=cXOWZBDWuMCwDJpRiI6UZd0XLI8GlWckYYW8wIU0EcA=;
 	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=thvYxFhB85TyZG24/u/Eb+zOMRBwir74KovLNnVDlkkzoQfZsKVdG/fiLoN26rPvb
-	 cqTsC84ndv+kQxZpGLIKXAq3WLivMxXhl3fRb/Art/SfVeiqQa2xc66+/qMb0lSw6Y
-	 9o0PV/MVfYVrN3CYOvmEYuM5CM2XS/eCQRir4fxQ=
+	b=mRkFZYnBFSdYAMdMPgNxvYz1ObICBVur6sG0tsEEUMWZDlsR88dN7/P+uZDkX6wkq
+	 NEIb/VIsT/8p9X7MvBP/ye88UXhZlPkqkgK/KwP2ztHqDMf58pHJjb3wAN0hIikMVH
+	 GGQ4L+B/izjtIMmY9IpE4X8g7IF/5UyMRwnaARzQ=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id A927EF800EA;
-	Sat, 19 Sep 2020 12:46:41 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 5B5C2F8013A;
+	Sat, 19 Sep 2020 12:50:43 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 1D03BF80212; Sat, 19 Sep 2020 12:46:39 +0200 (CEST)
+ id 28EFDF80212; Sat, 19 Sep 2020 12:50:41 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -35,50 +35,49 @@ Received: from mail-yb1-xb41.google.com (mail-yb1-xb41.google.com
  [IPv6:2607:f8b0:4864:20::b41])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 7FFFAF800EA
- for <alsa-devel@alsa-project.org>; Sat, 19 Sep 2020 12:46:32 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7FFFAF800EA
+ by alsa1.perex.cz (Postfix) with ESMTPS id E157DF8013A
+ for <alsa-devel@alsa-project.org>; Sat, 19 Sep 2020 12:50:33 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E157DF8013A
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="RbMN5zRW"
-Received: by mail-yb1-xb41.google.com with SMTP id e11so6361503ybk.1
- for <alsa-devel@alsa-project.org>; Sat, 19 Sep 2020 03:46:32 -0700 (PDT)
+ header.b="h+fZZUH6"
+Received: by mail-yb1-xb41.google.com with SMTP id x20so6349491ybs.8
+ for <alsa-devel@alsa-project.org>; Sat, 19 Sep 2020 03:50:33 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=0S4Ht4NHIpyZ6tU7+DqxhQ4MU+jt5ffLJy99tEJzOgU=;
- b=RbMN5zRWTm+yR39er0gdwyqlNcRtPlWXgaCF8b88WKxXhoRLE6Mn2AJPtrz4kxyyiY
- P2bgIO58FWIfV2Ob4gx9iFfTuPA4mnLP7u054ZYJHmosYKD4YIXgggwrTTYX1tv4Za3W
- YTFtkHvEB9PSsmaog8XNcYGLU9zaztr4gm1EdalTFWIariXDmB2qMfzDI1CvL1lszS73
- H68oGFMn98K9SaHCrSQhZWPgXKaBQ1E07ns448nMyUAyVZ5Ov59JWfhx4VGh4YMjVsbw
- jvDwFBQmliitx24i5JRU80wShJZMIVfHv7Muhuu+XzCEnTAzqDugUZKqjeq5hv9Jsz3m
- gIHw==
+ :cc; bh=sR4Cf468ttlcnEpD2lR99lnNDLzNYlhl55SIm3LLtd4=;
+ b=h+fZZUH6fIgq13gs2kd6hFQTg0H8gYjImJcdR9Qx9rZwfTAIwjI8eKphpv8/Emi18V
+ 0DMzO+0vOJM9E70MeDuMpUTA/o/QImw4KbEQb17KSGwmDqyVrxWujJvSyZzrbQwNVwEf
+ wUe112+xxfMWXK3OtZ2FiwQGtV1fIcJeiXlkb3Zf3471cBTjE3U3lKsg4BuEhoXXuhx1
+ MwwdopqSI5Dl/C5SUF/KCzvYgj0fJVHi/c0efCcBCPbiYbQzxBymh5K3mTb1FYR3yzA1
+ r1V1FPoYQiJALJIgv1PcjJUIFAgyuRHwbGhpD40ZordPqVYibzS1BsHx6yi/xkiBds8b
+ suJw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc;
- bh=0S4Ht4NHIpyZ6tU7+DqxhQ4MU+jt5ffLJy99tEJzOgU=;
- b=MXCwHvXwyyNXMwXB/MeDuc9kIkSx2rfYaJsYolTV7YD658VqaIl9S5oyIv9pW8V2tY
- +3aysQOzuEkhG6Nr6JO5Bt8vdLJEbVZh9BrXwCJaW2bkCnY54BNoUj5azkcJw4r1zOtS
- GB/46R7HopQ42Byk+0EPGtaPKAKM7eYTKzJj+DVw652E09zVQN55C/ojfc0itQt+agxO
- c7FoVizm/d3zKZHIQ+w4zSGm+YYHVXDPRfnvsTjTLKXX99EYdpGiOY/mUaKoWfFlHOX5
- v8WdHXQWJMhLObTzwUvYNT1VWYqkaLynK6QVY4mS/z+DtLGujZcVUcVNy9/6gFuDb3yJ
- t+yw==
-X-Gm-Message-State: AOAM5307ShXtU2jpUgavPOYADRC1kxvajr2dL19vX2gpPIQIm3qnz2bN
- g0fdlheprPopEDq3cClAAcwi+fByohhsoaWmtqQ=
-X-Google-Smtp-Source: ABdhPJxBzwAMJjSTYjRHy/WAC+nDOGo9k/2nrLlIMxBf5lqxiHWLl+BIDV5S+hhsFapjrr4zITsBsmLzEi7nEIvg5Zw=
-X-Received: by 2002:a25:23cb:: with SMTP id
- j194mr47717339ybj.445.1600512390461; 
- Sat, 19 Sep 2020 03:46:30 -0700 (PDT)
+ bh=sR4Cf468ttlcnEpD2lR99lnNDLzNYlhl55SIm3LLtd4=;
+ b=fXAzo2YcYlQyLzD+VqbcB8EpeqBwtJAIXPTb6311ZFGeOzubOEMeI84E/JLRLIK31Q
+ 9bJAN5TnXUQH7WsN9BIHgqdK2UnMPNZwgRmrJ+XGl0qpmRxt1ON6EtpoVyj4x4VzIWur
+ sDRKTGelu8epFQvfFqQvMW+4CUJmw2D502UiDF/nNjwJXRlQ3zmAlR6LhZ4kOX49zXoH
+ CHbQ6zJEYjzjW/SctaEoFCpx5Rrvh+txTEM4lfxcoxLvNHHs3/PDmo1BjEIHesMhcG6m
+ GgyDb+vXJdvmBonHMuRV4CxH2t5BRac9E/+QcmG5cQbTDkaK060e4rGBTUdkjK5Zb/VP
+ eEMA==
+X-Gm-Message-State: AOAM530CujeCpkCmq3etU9an7jFAnDXTdRcKYFCIiTd84VbvZszvrf5V
+ wPWYivqKzlqGPRooYvsBN7pPgf0iXVkeFFWaKUhhLf5/YO6yPIK/
+X-Google-Smtp-Source: ABdhPJyE4U9ZnryEOY+zR+FUEkyCD/GHbSRKQqLTyhRoWySjkq/s2si4GtaVgrchY1J9veY4efVDKa+2G+W/Xi8n3pw=
+X-Received: by 2002:a25:c487:: with SMTP id u129mr3406786ybf.25.1600512632850; 
+ Sat, 19 Sep 2020 03:50:32 -0700 (PDT)
 MIME-Version: 1.0
 References: <1594919915-5225-1-git-send-email-prabhakar.mahadev-lad.rj@bp.renesas.com>
- <1594919915-5225-2-git-send-email-prabhakar.mahadev-lad.rj@bp.renesas.com>
-In-Reply-To: <1594919915-5225-2-git-send-email-prabhakar.mahadev-lad.rj@bp.renesas.com>
+ <1594919915-5225-8-git-send-email-prabhakar.mahadev-lad.rj@bp.renesas.com>
+In-Reply-To: <1594919915-5225-8-git-send-email-prabhakar.mahadev-lad.rj@bp.renesas.com>
 From: "Lad, Prabhakar" <prabhakar.csengg@gmail.com>
-Date: Sat, 19 Sep 2020 11:46:04 +0100
-Message-ID: <CA+V-a8vtGZ8Tfptj6evmhZOWC+6w9M8uVQ_ob05j0UJwZnSWyQ@mail.gmail.com>
-Subject: Re: [PATCH 01/20] dt-bindings: pci: rcar-pci: Add device tree support
- for r8a774e1
-To: Lorenzo Pieralisi <lorenzo.pieralisi@arm.com>
+Date: Sat, 19 Sep 2020 11:50:07 +0100
+Message-ID: <CA+V-a8vJ2n3KEL8P+XmVob2zjoWaX+s4a6c1TV_WoPFkwdkZmA@mail.gmail.com>
+Subject: Re: [PATCH 07/20] dt-bindings: usb: renesas,usb3-peri: Document
+ r8a774e1 support
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 Content-Type: text/plain; charset="UTF-8"
 Cc: alsa-devel <alsa-devel@alsa-project.org>,
  Geert Uytterhoeven <geert+renesas@glider.be>,
@@ -93,7 +92,6 @@ Cc: alsa-devel <alsa-devel@alsa-project.org>,
  Niklas <niklas.soderlund@ragnatech.se>, Rob Herring <robh+dt@kernel.org>,
  Bjorn Helgaas <bhelgaas@google.com>,
  Mauro Carvalho Chehab <mchehab@kernel.org>, Jens Axboe <axboe@kernel.dk>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
  Yoshihiro Shimoda <yoshihiro.shimoda.uh@renesas.com>,
  USB list <linux-usb@vger.kernel.org>, Liam Girdwood <lgirdwood@gmail.com>,
  Linux-Renesas <linux-renesas-soc@vger.kernel.org>,
@@ -114,36 +112,36 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hi Lorenzo,
+Hi Greg,
 
-On Thu, Jul 16, 2020 at 6:18 PM Lad Prabhakar
+On Thu, Jul 16, 2020 at 6:19 PM Lad Prabhakar
 <prabhakar.mahadev-lad.rj@bp.renesas.com> wrote:
 >
-> Add PCIe support for the RZ/G2H (a.k.a. R8A774E1).
+> Document RZ/G2H (R8A774E1) SoC bindings.
 >
 > Signed-off-by: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
 > Reviewed-by: Marian-Cristian Rotariu <marian-cristian.rotariu.rb@bp.renesas.com>
 > ---
->  Documentation/devicetree/bindings/pci/rcar-pci.txt | 1 +
+>  Documentation/devicetree/bindings/usb/renesas,usb3-peri.yaml | 1 +
 >  1 file changed, 1 insertion(+)
 >
 Could you please pick this patch.
 
 Cheers,
---Prabhakar Lad
+Prabhakar
 
-> diff --git a/Documentation/devicetree/bindings/pci/rcar-pci.txt b/Documentation/devicetree/bindings/pci/rcar-pci.txt
-> index 1041c44a614f..64bb87e7dd06 100644
-> --- a/Documentation/devicetree/bindings/pci/rcar-pci.txt
-> +++ b/Documentation/devicetree/bindings/pci/rcar-pci.txt
-> @@ -6,6 +6,7 @@ compatible: "renesas,pcie-r8a7743" for the R8A7743 SoC;
->             "renesas,pcie-r8a774a1" for the R8A774A1 SoC;
->             "renesas,pcie-r8a774b1" for the R8A774B1 SoC;
->             "renesas,pcie-r8a774c0" for the R8A774C0 SoC;
-> +           "renesas,pcie-r8a774e1" for the R8A774E1 SoC;
->             "renesas,pcie-r8a7779" for the R8A7779 SoC;
->             "renesas,pcie-r8a7790" for the R8A7790 SoC;
->             "renesas,pcie-r8a7791" for the R8A7791 SoC;
+> diff --git a/Documentation/devicetree/bindings/usb/renesas,usb3-peri.yaml b/Documentation/devicetree/bindings/usb/renesas,usb3-peri.yaml
+> index e3cdeab1199f..b9a008e8469f 100644
+> --- a/Documentation/devicetree/bindings/usb/renesas,usb3-peri.yaml
+> +++ b/Documentation/devicetree/bindings/usb/renesas,usb3-peri.yaml
+> @@ -16,6 +16,7 @@ properties:
+>            - renesas,r8a774a1-usb3-peri # RZ/G2M
+>            - renesas,r8a774b1-usb3-peri # RZ/G2N
+>            - renesas,r8a774c0-usb3-peri # RZ/G2E
+> +          - renesas,r8a774e1-usb3-peri # RZ/G2H
+>            - renesas,r8a7795-usb3-peri  # R-Car H3
+>            - renesas,r8a7796-usb3-peri  # R-Car M3-W
+>            - renesas,r8a77961-usb3-peri # R-Car M3-W+
 > --
 > 2.17.1
 >

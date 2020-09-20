@@ -2,100 +2,94 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8837F2717A4
-	for <lists+alsa-devel@lfdr.de>; Sun, 20 Sep 2020 21:41:07 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6C73F2717C7
+	for <lists+alsa-devel@lfdr.de>; Sun, 20 Sep 2020 22:07:53 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 196E3167C;
-	Sun, 20 Sep 2020 21:40:17 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 196E3167C
+	by alsa0.perex.cz (Postfix) with ESMTPS id B8B94167F;
+	Sun, 20 Sep 2020 22:07:02 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B8B94167F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1600630867;
-	bh=/cIIYM6g4nY0eCyGI1R5FR0FtH5zkjZ+AwFjSpPoAkM=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1600632472;
+	bh=hCwVHbukvDaf8SGiVbk6ZXPv0A/iqqQHVOAJ7mjOuHk=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=WDRdOEoFxhyGvecRnaLD+ihjFKKKQLtZOooBeU45UxSNRt96ZXp7xkIQMHEVOaLc/
-	 Uj2bUrssuXeeUWe2QYGS5p4Rh32uRPuuEJPHaSUWV+1bTF4qNfw9QlrPVLCY4cFScO
-	 M0bWU/yMiml0avUvmQ7mRr4ZAsLEQxcD7T5O1jHE=
+	b=pFPNmB2BGkTBs2j2ymGp+WLY2jjLxB/yd3RUcXnC2bLLc4BqX7jU70WjcEcvqE9KJ
+	 zv2QYvvtr8pmXqbFXHI67W2CF3cQs7cZzBNzFk6G1e3/B+dgIHVK9+fwb6i+cema+K
+	 iP4oswiZNYFpGErN2jPjxABjFy8Mcr87bco/GpYo=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id E7E49F80256;
-	Sun, 20 Sep 2020 21:39:25 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id E5CE9F801EC;
+	Sun, 20 Sep 2020 22:06:11 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id F142FF80256; Sun, 20 Sep 2020 21:39:23 +0200 (CEST)
+ id A8C8BF80232; Sun, 20 Sep 2020 22:06:09 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.5 required=5.0 tests=FREEMAIL_FORGED_FROMDOMAIN,
- FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,RCVD_IN_MSPIKE_H2,SPF_HELO_NONE,
- SPF_PASS autolearn=disabled version=3.4.0
-Received: from mail-ed1-f67.google.com (mail-ed1-f67.google.com
- [209.85.208.67])
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from mail-il1-x143.google.com (mail-il1-x143.google.com
+ [IPv6:2607:f8b0:4864:20::143])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 3FBADF80232
- for <alsa-devel@alsa-project.org>; Sun, 20 Sep 2020 21:39:19 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3FBADF80232
-Received: by mail-ed1-f67.google.com with SMTP id g4so10886290edk.0
- for <alsa-devel@alsa-project.org>; Sun, 20 Sep 2020 12:39:19 -0700 (PDT)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 3191EF801EC
+ for <alsa-devel@alsa-project.org>; Sun, 20 Sep 2020 22:06:02 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3191EF801EC
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
+ header.b="Bd8j3+i2"
+Received: by mail-il1-x143.google.com with SMTP id t13so11699416ile.9
+ for <alsa-devel@alsa-project.org>; Sun, 20 Sep 2020 13:06:02 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc:content-transfer-encoding;
+ bh=wP4gZRkOAWgiW0xnyA5/8lMVxtrC05P+MT5wMJXn4Ks=;
+ b=Bd8j3+i27Pi1JS6swpqa39XxIyg0FnZZehxsQB73iY8qx/SIdpXwyAUGFpNpx96Gso
+ dd9ZVKY8Nme0wkY9hzNyw5MO8P5F6knorU7JkKKpSE/Vx8N/CRiRqsO0YRP535/8UJet
+ SFJfTzgprcgbI/OODHFMJYR7yJ5gx04jPohWq9haKdZA6VrpVQz6z4/N4RSVroJoYv0X
+ z+HkA+WgVdpDWBusI2arko6gwI9AVmhiuRToSvB8KMCWFxpHXbcbpzvWJI0YYCJuX9bJ
+ 4MkTJZJdirUOJbP71WkN0dIY0xNzvXwdDmXtw7l4ssBeVBNFy9VRD2vioJj25AFeT6Oh
+ P9Qg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to:user-agent;
- bh=EjOn6uRQVdPuymFl16y3sShxeseL+O0M4hlLdZpwFpM=;
- b=t7RyBglIoqj6EY8m6/Yj5a7uBGnF02mJsA9SKpUTaPE22d2hXx2pOwe7/OVf5nbW/S
- c1P8zfZlNBfy4opvQ2DTat1nS7SmwB9lOsbKLMep6SkN/AlvuIwHMIXbuKsBQjR8nIHQ
- hrWjU/hHPO4CETXMDAf1Hwyd/0exQEVfujkZHdq8lnv7h/xmziRory2kbtnW0ExkDb20
- lTE7PVoDbfgs3vmphWM8Tb3df78/1wP13prxLSLGLkIshlhjtvmOf6U0fqb4ex7GBrdb
- nNOXqEf4dwG0YEB6jHQZ0oUPY5F8RDXdZTiNBw8a9AwJsExb9q61CngMEI24Dvs+yzF+
- C4Vw==
-X-Gm-Message-State: AOAM530X4w6WrPGaLD9C9QJXtRr3MBjv7B/ObF4Arm20+fnOV4Oj3xJs
- XmXYt4McjDndbTG665Llqdg=
-X-Google-Smtp-Source: ABdhPJxm64DrxO2BCAhB/Z2FKAFGkrjja3e7GI7Mop9Y1YiJS/Mzx02Jc3rgIeVCd0fm8AibxTyTyA==
-X-Received: by 2002:a05:6402:326:: with SMTP id
- q6mr48977643edw.216.1600630759279; 
- Sun, 20 Sep 2020 12:39:19 -0700 (PDT)
-Received: from kozik-lap ([194.230.155.191])
- by smtp.googlemail.com with ESMTPSA id bf25sm6956900edb.95.2020.09.20.12.39.16
- (version=TLS1_2 cipher=ECDHE-ECDSA-CHACHA20-POLY1305 bits=256/256);
- Sun, 20 Sep 2020 12:39:18 -0700 (PDT)
-Date: Sun, 20 Sep 2020 21:39:15 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Rob Herring <robh+dt@kernel.org>
-Subject: Re: [PATCH v2 01/13] dt-bindings: gpio: add common schema for GPIO
- controllers
-Message-ID: <20200920193915.GA31074@kozik-lap>
-References: <20200917165301.23100-1-krzk@kernel.org>
- <20200917165301.23100-2-krzk@kernel.org>
- <CAL_JsqJCLgf6syqV=jNPHPyu02ygwWCDDV+U9VCm0qRpLkirSQ@mail.gmail.com>
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc:content-transfer-encoding;
+ bh=wP4gZRkOAWgiW0xnyA5/8lMVxtrC05P+MT5wMJXn4Ks=;
+ b=pKLqmyADFzyxqTtDSWkzseIn4Mm5ICfDCnG33drT0mjOm1mVAQTRuBY4RkaUQw/nLc
+ OMLPfOncCyuZmVmJeOlnrAzsSr8mXoCnxSEQWTwbxShYRkwzCz5VcwxMQfhG9hnNv/zy
+ FlUKuA240yizFJ49f8bSBxCB5qhQKw8y4e0zT1DZ6JTU8VTxlJMDX7qYJtfIIeyG9o1s
+ VrnoR6ju5q6ADbssUfIP/PA775bSpIb/aExKcnrHHsiGuHf2rbLLjeUcpp38LcKHSyE6
+ tOvDWHZMCsFYDy7Ylko+0G6JXb9r6PRKZmXczTiVc5ZWHI4Y27TErCMvl6UuS0JPovKv
+ Epkw==
+X-Gm-Message-State: AOAM531PDIiqDXldh1GFatAfzTxkMfTAacC6DGnQq1rGArStYSTxll3o
+ u1sFNSH5paSODdfyiKtPb+UTz11AGm6i1ineBrE=
+X-Google-Smtp-Source: ABdhPJxuV8GsyADygtnzpUmWSuBmmFfyYdRFN3/asdGXDpCMeaS/zYguGIj04QJ5JTCpS6h53VBfbQWyhYeFuOPh728=
+X-Received: by 2002:a92:217:: with SMTP id 23mr38815570ilc.118.1600632359330; 
+ Sun, 20 Sep 2020 13:05:59 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <CAL_JsqJCLgf6syqV=jNPHPyu02ygwWCDDV+U9VCm0qRpLkirSQ@mail.gmail.com>
-User-Agent: Mutt/1.9.4 (2018-02-28)
-Cc: Linux-ALSA <alsa-devel@alsa-project.org>,
- Linus Walleij <linus.walleij@linaro.org>,
- linux-riscv <linux-riscv@lists.infradead.org>,
- Fabio Estevam <festevam@gmail.com>, "moderated list:ARM/STM32 ARCHITECTURE"
- <linux-stm32@st-md-mailman.stormreply.com>,
- Bartosz Golaszewski <bgolaszewski@baylibre.com>,
- "maintainer:BROADCOM BCM7XXX ARM ARCHITECTURE"
- <bcm-kernel-feedback-list@broadcom.com>, NXP Linux Team <linux-imx@nxp.com>,
- linux-arm-msm <linux-arm-msm@vger.kernel.org>,
- Linux Media Mailing List <linux-media@vger.kernel.org>,
- devicetree@vger.kernel.org, Ray Jui <rjui@broadcom.com>,
- Sascha Hauer <s.hauer@pengutronix.de>, linux-unisoc@lists.infradead.org,
- "moderated list:ARM/Mediatek SoC support" <linux-mediatek@lists.infradead.org>,
- linux-arm-kernel <linux-arm-kernel@lists.infradead.org>,
- Scott Branden <sbranden@broadcom.com>,
- "open list:GPIO SUBSYSTEM" <linux-gpio@vger.kernel.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "open list:MEDIA DRIVERS FOR RENESAS - FCP"
- <linux-renesas-soc@vger.kernel.org>,
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- Shawn Guo <shawnguo@kernel.org>
+References: <20200920180758.592217-1-peron.clem@gmail.com>
+ <20200920180758.592217-7-peron.clem@gmail.com>
+ <497a7062-4acf-d928-c2ee-ec595ed6799b@sholland.org>
+In-Reply-To: <497a7062-4acf-d928-c2ee-ec595ed6799b@sholland.org>
+From: =?UTF-8?B?Q2zDqW1lbnQgUMOpcm9u?= <peron.clem@gmail.com>
+Date: Sun, 20 Sep 2020 22:05:48 +0200
+Message-ID: <CAJiuCccEVOcD38DZLru2PirGhRBaeJqFAug_aZjW+QY0xHTb1g@mail.gmail.com>
+Subject: Re: [PATCH v3 06/19] ASoC: sun4i-i2s: Fix sun8i volatile regs
+To: Samuel Holland <samuel@sholland.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+Cc: devicetree <devicetree@vger.kernel.org>,
+ Jernej Skrabec <jernej.skrabec@siol.net>,
+ linux-sunxi <linux-sunxi@googlegroups.com>,
+ Linux-ALSA <alsa-devel@alsa-project.org>,
+ linux-kernel <linux-kernel@vger.kernel.org>, Mark Brown <broonie@kernel.org>,
+ Takashi Iwai <tiwai@suse.com>, Liam Girdwood <lgirdwood@gmail.com>,
+ Maxime Ripard <mripard@kernel.org>, Marcus Cooper <codekipper@gmail.com>,
+ Chen-Yu Tsai <wens@csie.org>, Rob Herring <robh+dt@kernel.org>,
+ linux-arm-kernel <linux-arm-kernel@lists.infradead.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -111,32 +105,85 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Fri, Sep 18, 2020 at 08:30:02AM -0600, Rob Herring wrote:
-> On Thu, Sep 17, 2020 at 10:53 AM Krzysztof Kozlowski <krzk@kernel.org> wrote:
+Hi Samuel,
+
+On Sun, 20 Sep 2020 at 20:52, Samuel Holland <samuel@sholland.org> wrote:
+>
+> On 9/20/20 1:07 PM, Cl=C3=A9ment P=C3=A9ron wrote:
+> > The FIFO TX reg is volatile and sun8i i2s register
+> > mapping is different from sun4i.
 > >
-> > Convert parts of gpio.txt bindings into common dtschema file for GPIO
-> > controllers.  The schema enforces proper naming of GPIO controller nodes
-> > and GPIO hogs.
-> 
-> Did you not see my previous reply about a common schema? We already
-> have a common GPIO and hog schema in dtschema. Please add to it
-> whatever is missing.
+> > Even if in this case it's doesn't create an issue,
+> > Avoid setting some regs that are undefined in sun8i.
+> >
+> > Signed-off-by: Cl=C3=A9ment P=C3=A9ron <peron.clem@gmail.com>
+> > Acked-by: Maxime Ripard <mripard@kernel.org>
+> > ---
+> >  sound/soc/sunxi/sun4i-i2s.c | 15 +++++++++++----
+> >  1 file changed, 11 insertions(+), 4 deletions(-)
+> >
+> > diff --git a/sound/soc/sunxi/sun4i-i2s.c b/sound/soc/sunxi/sun4i-i2s.c
+> > index ce4913f0ffe4..a35be0e2baf5 100644
+> > --- a/sound/soc/sunxi/sun4i-i2s.c
+> > +++ b/sound/soc/sunxi/sun4i-i2s.c
+> > @@ -1126,12 +1126,19 @@ static bool sun8i_i2s_rd_reg(struct device *dev=
+, unsigned int reg)
+> >
+> >  static bool sun8i_i2s_volatile_reg(struct device *dev, unsigned int re=
+g)
+> >  {
+> > -     if (reg =3D=3D SUN8I_I2S_INT_STA_REG)
+> > +     switch (reg) {
+> > +     case SUN4I_I2S_FIFO_CTRL_REG:
+>
+> Please check if this breaks audio recording with runtime PM enabled. I no=
+ticed
+> this with an older revision of the series that also changed
+> sun4i_i2s_volatile_reg. Marking SUN4I_I2S_FIFO_CTRL_REG as volatile broke
+> setting of SUN4I_I2S_FIFO_CTRL_TX_MODE/RX_MODE, because the set_fmt() cal=
+lback
+> is not run with a runtime PM reference held, and volatile registers are n=
+ot
+> written by regcache_sync() during sun4i_i2s_runtime_resume().
+>
+> As a workaround, I moved the TX_MODE/RX_MODE initialization to hw_params(=
+), but
+> I am not sure it is the right thing to do:
 
-Indeed, I'll enhance the dt-schema.
+Thanks for the catch,
+I never tried to suspend/resume my board actually.
+But your explanation and the fix seems legit to me.
 
-The trouble is that each in-kernel YAML file still has to mention
-possible gpio-hogs nodes. Is the proper solution to put them in common
-YAML inside kernel sources?
+I don't think it's a workaround as settings the fifo size is not
+related to set_fmt and could also be set in hw_params.
 
-> 
-> My goal is all common schema end up in dtschema, but I haven't pushed
-> folks to do that yet. Ones I've done are there though. One issue is
-> what's in dtschema should be GPL/BSD and the existing text bindings
-> are default GPL, so there's a relicensing exercise. In some cases, the
-> schema is there but I haven't copied over the descriptions.
+I will add your fix in the next version.
 
-Right, I'll skip the descriptions when posting to dt-schema.
+Regards,
+Clement
 
-Best regards,
-Krzysztof
-
+>
+> https://github.com/smaeul/linux/commit/5e40ac610986.patch
+>
+> Cheers,
+> Samuel
+>
+> > +     case SUN4I_I2S_FIFO_RX_REG:
+> > +     case SUN4I_I2S_FIFO_STA_REG:
+> > +     case SUN4I_I2S_RX_CNT_REG:
+> > +     case SUN4I_I2S_TX_CNT_REG:
+> > +     case SUN8I_I2S_FIFO_TX_REG:
+> > +     case SUN8I_I2S_INT_STA_REG:
+> >               return true;
+> > -     if (reg =3D=3D SUN8I_I2S_FIFO_TX_REG)
+> > -             return false;
+> >
+> > -     return sun4i_i2s_volatile_reg(dev, reg);
+> > +     default:
+> > +             return false;
+> > +     }
+> >  }
+> >
+> >  static const struct reg_default sun4i_i2s_reg_defaults[] =3D {
+> >
+>

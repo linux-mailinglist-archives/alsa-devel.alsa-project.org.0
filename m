@@ -2,78 +2,62 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1DFCF272F01
-	for <lists+alsa-devel@lfdr.de>; Mon, 21 Sep 2020 18:54:26 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 542E2272D3A
+	for <lists+alsa-devel@lfdr.de>; Mon, 21 Sep 2020 18:38:33 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A9B3416C1;
-	Mon, 21 Sep 2020 18:53:34 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A9B3416C1
+	by alsa0.perex.cz (Postfix) with ESMTPS id C55B21685;
+	Mon, 21 Sep 2020 18:37:42 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C55B21685
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1600707264;
-	bh=IQn+yqrHL+AEilk4mqAzjmr2JtB0Gltl+WwJqv/CkxA=;
-	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
+	s=default; t=1600706312;
+	bh=zaubCWqenOWOm4ZGNAVQRzNUe5u4XHqFKVJ3h7fOtHs=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=GlQGkTCRUz6Sb7jF2b5p8Qubv1kf2hr5wpnMAsdViQdJROvnKzJY7sAyLdKoiOX+u
-	 pcvdcuMhe1wiYlZ4z2DMXn1l3JRXM6Htk5kJYHGyaFdYFP6S6E1Z5UWcCCItl2mky+
-	 dKPcMkGTe4wcP1gBrBgHXZa9I4h7Cn7pza9hY2Tg=
+	b=BENewtYY5p4pNK1aOQykCi7S2fldTRg9wUabbjiiX9gH3XCOB+qhFXXKR6JDxea2X
+	 fAhtbYksdks9SXC5ph8KKlU0sqp4YD+hMr6wjotKuVVlc/A5+qnLoTLaUuiKkfbApe
+	 djQmCXd8QjxxMZ9GHAyknxQuEfn2CQJxkA/2cmn8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id B4B09F8010A;
-	Mon, 21 Sep 2020 18:52:43 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id DC4C6F80161;
+	Mon, 21 Sep 2020 18:36:51 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 3699BF801EC; Mon, 21 Sep 2020 18:52:41 +0200 (CEST)
+ id 172E9F80162; Mon, 21 Sep 2020 18:36:50 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=NICE_REPLY_A,SPF_HELO_NONE,
- SPF_NONE autolearn=disabled version=3.4.0
-Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-0.0 required=5.0 tests=RCVD_IN_MSPIKE_H3,
+ RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
+Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id EA82FF800B2
- for <alsa-devel@alsa-project.org>; Mon, 21 Sep 2020 18:52:33 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EA82FF800B2
-IronPort-SDR: aCzhh8Zx2ciwfgoy5207TRw/LfkZibPvtjGGZ9lOqFYMnG8ws5qu3URqQBD2h/max0Fr8WR3w5
- hVP3VdPzkc+w==
-X-IronPort-AV: E=McAfee;i="6000,8403,9751"; a="160495340"
-X-IronPort-AV: E=Sophos;i="5.77,287,1596524400"; d="scan'208";a="160495340"
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from orsmga002.jf.intel.com ([10.7.209.21])
- by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 21 Sep 2020 09:52:32 -0700
-IronPort-SDR: Yj537wcWxqKa6hm3YVno1hHVE1yNyBpDtrielHNhBe3rOmSEhnMIBQ7OY2klZhLuyLNpt9/26H
- +wZjaOjCN1FA==
-X-IronPort-AV: E=Sophos;i="5.77,287,1596524400"; d="scan'208";a="321831247"
-Received: from apatwary-mobl.amr.corp.intel.com (HELO [10.212.120.65])
- ([10.212.120.65])
- by orsmga002-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 21 Sep 2020 09:52:31 -0700
-Subject: Re: [PATCH v2 2/2] soundwire: sysfs: add slave status and device
- number before probe
-To: Vinod Koul <vkoul@kernel.org>
-References: <20200917160007.153106-1-pierre-louis.bossart@linux.intel.com>
- <20200917160007.153106-3-pierre-louis.bossart@linux.intel.com>
- <20200918121614.GS2968@vkoul-mobl>
- <c8729c1d-6d36-ad34-34c3-899ba0f5366d@linux.intel.com>
- <20200919111911.GW2968@vkoul-mobl>
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Message-ID: <2ef2e1e8-d7cc-a08f-4176-240750d640a5@linux.intel.com>
-Date: Mon, 21 Sep 2020 09:34:06 -0500
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.10.0
-MIME-Version: 1.0
-In-Reply-To: <20200919111911.GW2968@vkoul-mobl>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
-Cc: alsa-devel@alsa-project.org, tiwai@suse.de, gregkh@linuxfoundation.org,
- broonie@kernel.org, srinivas.kandagatla@linaro.org,
- Bard liao <yung-chuan.liao@linux.intel.com>,
- Rander Wang <rander.wang@linux.intel.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id ACF09F8015F
+ for <alsa-devel@alsa-project.org>; Mon, 21 Sep 2020 18:36:38 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz ACF09F8015F
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id D5BA4AD83;
+ Mon, 21 Sep 2020 16:37:13 +0000 (UTC)
+Date: Mon, 21 Sep 2020 18:36:37 +0200
+Message-ID: <s5ha6xjnl2i.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: =?UTF-8?B?RnJhbnRpxaFlayBLdcSNZXJh?= <konference@frantovo.cz>
+Subject: Re: [PATCH] ALSA: usb-audio: Add mixer support for Pioneer DJ
+ DJM-250MK2
+In-Reply-To: <20200921161612.19450-1-konference@frantovo.cz>
+References: <20200921161612.19450-1-konference@frantovo.cz>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
+ FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
+ (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+Cc: alsa-devel@alsa-project.org, Dmitry Panchenko <dmitry@d-systems.ee>,
+ =?UTF-8?B?RnJhbnRpxaFlayBLdcSNZXJh?= <franta-linux@frantovo.cz>,
+ Fabian Lesniak <fabian@lesniak-it.de>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -89,47 +73,240 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-
-
-On 9/19/20 6:19 AM, Vinod Koul wrote:
-> On 18-09-20, 09:21, Pierre-Louis Bossart wrote:
->>
->>
->>
->>>>     * Base file is device
->>>>     *	|---- modalias
->>>> + *	|---- dev-status
->>>> + *		|---- status
->>>> + *		|---- device_number
->>>
->>> Any reason why we want this under dev-status.
->>>
->>> Both the status and device_number belong to the device, so we can
->>> put them under device and use device properties
->>
->> We already use directories for device-level and port-level properties, I
->> just thought it be cleaner to continue this model. We might also expand the
->> information later on, e.g. provide interrupt status.
+On Mon, 21 Sep 2020 18:16:12 +0200,
+František Kučera wrote:
 > 
-> Right now we have directories for N ports (needs a dir due to nature of
-> N ports) and 'properties' derived from Disco/firmware.
-> So Nport and properties makes sense. But for generic device level stuff
-> like device number, status and future interrupt or anything should be at
-> device level.
+> From: František Kučera <franta-linux@frantovo.cz>
 > 
->> I don't mind if we remove the directory and move everything up one level,
->> but it wouldn't be consistent with the previous work.
+> This patch extends support for DJM-250MK2 and allows mapping
+> playback and capture channels to available sources.
+> Configures the card through USB commands.
+
+Could you run scripts/checkpatch.pl, fix the suggested items and
+resubmit?
+
+
+thanks,
+
+Takashi
+
+
+> ---
+>  sound/usb/mixer_quirks.c | 194 +++++++++++++++++++++++++++++++++++++++
+>  1 file changed, 194 insertions(+)
 > 
-> Just because we had directory for a reason, adding a directory to
-> conform to that does make it better. IMO device files should be at
-> device directory
-
-We have a "dev-properties" directory, which is added after the driver 
-probe, and describes MIPI DisCo values at the device level.
-
-Either we remove this dev-properties and move it to the device level - 
-to be consistent with your recommendation - or we keep separate 
-directories, one which is populated on device registration and the other 
-on driver probe.
-
-
+> diff --git a/sound/usb/mixer_quirks.c b/sound/usb/mixer_quirks.c
+> index 199cdbfdc761..f2aeb5ac3611 100644
+> --- a/sound/usb/mixer_quirks.c
+> +++ b/sound/usb/mixer_quirks.c
+> @@ -2602,6 +2602,197 @@ static int snd_bbfpro_controls_create(struct usb_mixer_interface *mixer)
+>  	return 0;
+>  }
+>  
+> +/*
+> + * Pioneer DJ DJM-250MK2 and maybe other DJM models
+> + * 
+> + * For playback, no duplicate mapping should be set.
+> + * There are three mixer stereo channels (CH1, CH2, AUX) and three stereo sources (PLAYBACK 1-2, PLAYBACK 3-4, PLAYBACK 5-6).
+> + * Each channel should be mapped just once to one source.
+> + * If mapped multiple times, only one source will play on given channel (sources are not mixed together).
+> + * 
+> + * For recording, duplicate mapping is OK. We will get the same signal multiple times.
+> + * 
+> + * Channels 7-8 are in both directions fixed to FX SEND / FX RETURN.
+> + * 
+> + * See also notes in the quirks-table.h file.
+> + */
+> +
+> +typedef struct {
+> +	const u16 wIndex;
+> +	const u16 wValue;
+> +	const char *name;
+> +} snd_pioneer_djm_option;
+> +
+> +static const snd_pioneer_djm_option SND_PIONEER_DJM_OPTIONS_CAPTURE_LEVEL[] = {
+> +	{ .name =  "-5 dB",                  .wValue = 0x0300, .wIndex = 0x8003 },
+> +	{ .name = "-10 dB",                  .wValue = 0x0200, .wIndex = 0x8003 },
+> +	{ .name = "-15 dB",                  .wValue = 0x0100, .wIndex = 0x8003 },
+> +	{ .name = "-19 dB",                  .wValue = 0x0000, .wIndex = 0x8003 }
+> +};
+> +
+> +static const snd_pioneer_djm_option SND_PIONEER_DJM_OPTIONS_CAPTURE_CH12[] = {
+> +	{ .name =  "CH1 Control Tone PHONO", .wValue = 0x0103, .wIndex = 0x8002 },
+> +	{ .name =  "CH1 Control Tone LINE",  .wValue = 0x0100, .wIndex = 0x8002 },
+> +	{ .name =  "Post CH1 Fader",         .wValue = 0x0106, .wIndex = 0x8002 },
+> +	{ .name =  "Cross Fader A",          .wValue = 0x0107, .wIndex = 0x8002 },
+> +	{ .name =  "Cross Fader B",          .wValue = 0x0108, .wIndex = 0x8002 },
+> +	{ .name =  "MIC",                    .wValue = 0x0109, .wIndex = 0x8002 },
+> +	{ .name =  "AUX",                    .wValue = 0x010d, .wIndex = 0x8002 },
+> +	{ .name =  "REC OUT",                .wValue = 0x010a, .wIndex = 0x8002 }
+> +};
+> +
+> +static const snd_pioneer_djm_option SND_PIONEER_DJM_OPTIONS_CAPTURE_CH34[] = {
+> +	{ .name =  "CH2 Control Tone PHONO", .wValue = 0x0203, .wIndex = 0x8002 },
+> +	{ .name =  "CH2 Control Tone LINE",  .wValue = 0x0200, .wIndex = 0x8002 },
+> +	{ .name =  "Post CH2 Fader",         .wValue = 0x0206, .wIndex = 0x8002 },
+> +	{ .name =  "Cross Fader A",          .wValue = 0x0207, .wIndex = 0x8002 },
+> +	{ .name =  "Cross Fader B",          .wValue = 0x0208, .wIndex = 0x8002 },
+> +	{ .name =  "MIC",                    .wValue = 0x0209, .wIndex = 0x8002 },
+> +	{ .name =  "AUX",                    .wValue = 0x020d, .wIndex = 0x8002 },
+> +	{ .name =  "REC OUT",                .wValue = 0x020a, .wIndex = 0x8002 }
+> +};
+> +
+> +static const snd_pioneer_djm_option SND_PIONEER_DJM_OPTIONS_CAPTURE_CH56[] = {
+> +	{ .name =  "REC OUT",                .wValue = 0x030a, .wIndex = 0x8002 },
+> +	{ .name =  "Post CH1 Fader",         .wValue = 0x0311, .wIndex = 0x8002 },
+> +	{ .name =  "Post CH2 Fader",         .wValue = 0x0312, .wIndex = 0x8002 },
+> +	{ .name =  "Cross Fader A",          .wValue = 0x0307, .wIndex = 0x8002 },
+> +	{ .name =  "Cross Fader B",          .wValue = 0x0308, .wIndex = 0x8002 },
+> +	{ .name =  "MIC",                    .wValue = 0x0309, .wIndex = 0x8002 },
+> +	{ .name =  "AUX",                    .wValue = 0x030d, .wIndex = 0x8002 }
+> +};
+> +
+> +static const snd_pioneer_djm_option SND_PIONEER_DJM_OPTIONS_PLAYBACK_12[] = {
+> +	{ .name =  "CH1",                    .wValue = 0x0100, .wIndex = 0x8016 },
+> +	{ .name =  "CH2",                    .wValue = 0x0101, .wIndex = 0x8016 },
+> +	{ .name =  "AUX",                    .wValue = 0x0104, .wIndex = 0x8016 }
+> +};
+> +
+> +static const snd_pioneer_djm_option SND_PIONEER_DJM_OPTIONS_PLAYBACK_34[] = {
+> +	{ .name =  "CH1",                    .wValue = 0x0200, .wIndex = 0x8016 },
+> +	{ .name =  "CH2",                    .wValue = 0x0201, .wIndex = 0x8016 },
+> +	{ .name =  "AUX",                    .wValue = 0x0204, .wIndex = 0x8016 }
+> +};
+> +
+> +static const snd_pioneer_djm_option SND_PIONEER_DJM_OPTIONS_PLAYBACK_56[] = {
+> +	{ .name =  "CH1",                    .wValue = 0x0300, .wIndex = 0x8016 },
+> +	{ .name =  "CH2",                    .wValue = 0x0301, .wIndex = 0x8016 },
+> +	{ .name =  "AUX",                    .wValue = 0x0304, .wIndex = 0x8016 }
+> +};
+> +
+> +typedef struct {
+> +	const char *name;
+> +	const snd_pioneer_djm_option *options;
+> +	const size_t count;
+> +	const u16 default_value;
+> +} snd_pioneer_djm_option_group;
+> +
+> +#define SND_PIONEER_DJM_OPTION_GROUP_ITEM(_name, suffix, _default_value) \
+> +	{ .name = _name, .options = SND_PIONEER_DJM_OPTIONS_##suffix, .count = ARRAY_SIZE(SND_PIONEER_DJM_OPTIONS_##suffix), .default_value = _default_value }
+> +
+> +static const snd_pioneer_djm_option_group SND_PIONEER_DJM_OPTION_GROUPS[] = {
+> +	SND_PIONEER_DJM_OPTION_GROUP_ITEM("Master Capture Level Capture Switch",  CAPTURE_LEVEL,  0),
+> +	SND_PIONEER_DJM_OPTION_GROUP_ITEM("Capture 1-2 Capture Switch",           CAPTURE_CH12,   2),
+> +	SND_PIONEER_DJM_OPTION_GROUP_ITEM("Capture 3-4 Capture Switch",           CAPTURE_CH34,   2),
+> +	SND_PIONEER_DJM_OPTION_GROUP_ITEM("Capture 5-6 Capture Switch",           CAPTURE_CH56,   0),
+> +	SND_PIONEER_DJM_OPTION_GROUP_ITEM("Playback 1-2 Playback Switch",         PLAYBACK_12,    0),
+> +	SND_PIONEER_DJM_OPTION_GROUP_ITEM("Playback 3-4 Playback Switch",         PLAYBACK_34,    1),
+> +	SND_PIONEER_DJM_OPTION_GROUP_ITEM("Playback 5-6 Playback Switch",         PLAYBACK_56,    2)
+> +};
+> +
+> +// layout of the kcontrol->private_value:
+> +#define SND_PIONEER_DJM_VALUE_MASK 0x0000ffff
+> +#define SND_PIONEER_DJM_GROUP_MASK 0xffff0000
+> +#define SND_PIONEER_DJM_GROUP_SHIFT 16
+> +
+> +static int snd_pioneer_djm_controls_info(struct snd_kcontrol *kcontrol, struct snd_ctl_elem_info *info) 
+> +{
+> +	u16 group = kcontrol->private_value >> SND_PIONEER_DJM_GROUP_SHIFT;
+> +	size_t count;
+> +	const char *name;
+> +	if (group < ARRAY_SIZE(SND_PIONEER_DJM_OPTION_GROUPS)) {
+> +		count = SND_PIONEER_DJM_OPTION_GROUPS[group].count;
+> +		if (info->value.enumerated.item >= count) info->value.enumerated.item = count - 1;
+> +		name = SND_PIONEER_DJM_OPTION_GROUPS[group].options[info->value.enumerated.item].name;
+> +		strlcpy(info->value.enumerated.name, name, sizeof (info->value.enumerated.name));
+> +		info->type = SNDRV_CTL_ELEM_TYPE_ENUMERATED;
+> +		info->count = 1;
+> +		info->value.enumerated.items = count;
+> +		return 0;
+> +	} else {
+> +		return -EINVAL;
+> +	}
+> +}
+> +
+> +static int snd_pioneer_djm_controls_update(struct usb_mixer_interface *mixer, u16 group, u16 value)
+> +{
+> +	int err;
+> +	if (group < ARRAY_SIZE(SND_PIONEER_DJM_OPTION_GROUPS) && value < SND_PIONEER_DJM_OPTION_GROUPS[group].count) {
+> +		err = snd_usb_lock_shutdown(mixer->chip);
+> +		if (err) return err;
+> +		
+> +		err = snd_usb_ctl_msg(
+> +			mixer->chip->dev, usb_sndctrlpipe(mixer->chip->dev, 0),
+> +			USB_REQ_SET_FEATURE,
+> +			USB_DIR_OUT | USB_TYPE_VENDOR | USB_RECIP_DEVICE,
+> +			SND_PIONEER_DJM_OPTION_GROUPS[group].options[value].wValue,
+> +			SND_PIONEER_DJM_OPTION_GROUPS[group].options[value].wIndex,
+> +			NULL, 0);
+> +		
+> +		snd_usb_unlock_shutdown(mixer->chip);
+> +		return err;
+> +	} else {
+> +		return -EINVAL;
+> +	}
+> +}
+> +
+> +static int snd_pioneer_djm_controls_get(struct snd_kcontrol *kcontrol, struct snd_ctl_elem_value *ucontrol)
+> +{
+> +	ucontrol->value.enumerated.item[0] = kcontrol->private_value & SND_PIONEER_DJM_VALUE_MASK;
+> +	return 0;
+> +}
+> +
+> +static int snd_pioneer_djm_controls_put(struct snd_kcontrol *kcontrol, struct snd_ctl_elem_value *ucontrol)
+> +{
+> +	struct usb_mixer_elem_list *list = snd_kcontrol_chip(kcontrol);
+> +	struct usb_mixer_interface *mixer = list->mixer;
+> +	
+> +	u16 group = (kcontrol->private_value & SND_PIONEER_DJM_GROUP_MASK) >> SND_PIONEER_DJM_GROUP_SHIFT;
+> +	u16 value = ucontrol->value.enumerated.item[0];
+> +	kcontrol->private_value = group << SND_PIONEER_DJM_GROUP_SHIFT | value;
+> +	
+> +	return snd_pioneer_djm_controls_update(mixer, group, value);
+> +}
+> +
+> +static int snd_pioneer_djm_controls_resume(struct usb_mixer_elem_list *list)
+> +{
+> +	u16 group = (list->kctl->private_value & SND_PIONEER_DJM_GROUP_MASK) >> SND_PIONEER_DJM_GROUP_SHIFT;
+> +	u16 value = (list->kctl->private_value & SND_PIONEER_DJM_VALUE_MASK);
+> +	return snd_pioneer_djm_controls_update(list->mixer, group, value);
+> +}
+> +
+> +static int snd_pioneer_djm_controls_create(struct usb_mixer_interface *mixer)
+> +{
+> +	int err, group;
+> +	for (group = 0; group < ARRAY_SIZE(SND_PIONEER_DJM_OPTION_GROUPS); group++ ) {
+> +		struct snd_kcontrol_new knew = {
+> +			.iface  = SNDRV_CTL_ELEM_IFACE_MIXER,
+> +			.access = SNDRV_CTL_ELEM_ACCESS_READWRITE,
+> +			.index = 0,
+> +			.info = snd_pioneer_djm_controls_info,
+> +			.get  = snd_pioneer_djm_controls_get,
+> +			.put  = snd_pioneer_djm_controls_put,
+> +			.name = SND_PIONEER_DJM_OPTION_GROUPS[group].name,
+> +			.private_value = group << SND_PIONEER_DJM_GROUP_SHIFT | SND_PIONEER_DJM_OPTION_GROUPS[group].default_value
+> +		};
+> +		err = snd_pioneer_djm_controls_update(mixer, group, SND_PIONEER_DJM_OPTION_GROUPS[group].default_value);
+> +		if (err) return err;
+> +		err = add_single_ctl_with_resume(mixer, 0, snd_pioneer_djm_controls_resume, &knew, NULL);
+> +		if (err) return err;
+> +	}
+> +	return 0;
+> +}
+> +
+>  int snd_usb_mixer_apply_create_quirk(struct usb_mixer_interface *mixer)
+>  {
+>  	int err = 0;
+> @@ -2706,6 +2897,9 @@ int snd_usb_mixer_apply_create_quirk(struct usb_mixer_interface *mixer)
+>  	case USB_ID(0x2a39, 0x3fb0): /* RME Babyface Pro FS */
+>  		err = snd_bbfpro_controls_create(mixer);
+>  		break;
+> +	case USB_ID(0x2b73, 0x0017): /* Pioneer DJ DJM-250MK2 */
+> +		err = snd_pioneer_djm_controls_create(mixer);
+> +		break;
+>  	}
+>  
+>  	return err;
+> -- 
+> 2.20.1
+> 

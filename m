@@ -2,69 +2,69 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 40186272477
-	for <lists+alsa-devel@lfdr.de>; Mon, 21 Sep 2020 15:01:36 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id DE25227247E
+	for <lists+alsa-devel@lfdr.de>; Mon, 21 Sep 2020 15:02:19 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 818AB16B8;
-	Mon, 21 Sep 2020 15:00:45 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 818AB16B8
+	by alsa0.perex.cz (Postfix) with ESMTPS id 87AE216D9;
+	Mon, 21 Sep 2020 15:01:29 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 87AE216D9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1600693295;
-	bh=svrj3r6JyRBmZ8VN3Nh2iqOg7zSUGfTuSDwsPvcXwr8=;
+	s=default; t=1600693339;
+	bh=dKUpyNcvmEQFDuH9YL+4AzWweRxEYSfjrfrDcU0kO9k=;
 	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=XL06EOgw7iqj/6Vs5MOIUVcN75KolSJmHK6CZ57FOXn77e5ll6gj+lO1c0fRHHhAV
-	 Ym6qW8JZvXznlly5YPf7BZqFHUwq/bf2RrW3DlCGb8HU+0PcIibnKRJkTvUn8MzXEJ
-	 QoHq0ln96qFJ9Zkj23XU8W8X+kHPgFGiN+F74bPU=
+	b=ZxQnXq/Es4DVU1/N4h3XF8hJ+pBeKLp96IcSJ6OBcLgHpRTEchsM05QiCYAptC1om
+	 noLxMbKjz+DmoMunqoUtkbjIM6nzaYuBfzGoLBR0ekHsxXdpld9rgsn1EkxSvYpSPi
+	 Wjw/E4jNIbQe5AIF5LnHWDoWKBT23ZxKIkbFqw84=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id A8716F80161;
-	Mon, 21 Sep 2020 14:59:54 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id E8A8AF80171;
+	Mon, 21 Sep 2020 15:01:12 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id EC768F80162; Mon, 21 Sep 2020 14:59:52 +0200 (CEST)
+ id 646FBF801EC; Mon, 21 Sep 2020 15:01:10 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE
- autolearn=disabled version=3.4.0
-Received: from mga06.intel.com (mga06.intel.com [134.134.136.31])
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id F3B1CF8015F
- for <alsa-devel@alsa-project.org>; Mon, 21 Sep 2020 14:59:48 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz F3B1CF8015F
-IronPort-SDR: k2daiR0aAl2DjBiFuVk45P5oJNPVniqwFwsRtPHyvPOjKaWhgV0AX0pfGoOyRhQ7hnXTvSEKRu
- N/w/0FvY6hQA==
-X-IronPort-AV: E=McAfee;i="6000,8403,9750"; a="221963446"
-X-IronPort-AV: E=Sophos;i="5.77,286,1596524400"; d="scan'208";a="221963446"
+ by alsa1.perex.cz (Postfix) with ESMTPS id 804E7F800B2
+ for <alsa-devel@alsa-project.org>; Mon, 21 Sep 2020 15:00:58 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 804E7F800B2
+IronPort-SDR: e+1tEqOL0m5adNa+kgQB/vFG9AkEGQky59BL/jZ+RyShpDZpB7I/dGJ6agf2FG96t6JKbtzoqN
+ v0X8aWq8qI+A==
+X-IronPort-AV: E=McAfee;i="6000,8403,9750"; a="159667494"
+X-IronPort-AV: E=Sophos;i="5.77,286,1596524400"; d="scan'208";a="159667494"
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
 Received: from orsmga008.jf.intel.com ([10.7.209.65])
- by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 21 Sep 2020 05:59:42 -0700
-IronPort-SDR: sS3j5H/CzRksm/RC66KPFqE0HBp2zgnsBaOjra1dxDJDZTbpD4ObRZCjoj6jjuIo4dwPWDDJZA
- nWSt/N7ie06A==
+ by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 21 Sep 2020 06:00:49 -0700
+IronPort-SDR: JIgJ7sugBEFO46+QompPCZeYeOoUoLgE/Ockd2PqRRaVJa+qkXnrbJNd8LCNO2aouDS1EtYHER
+ 7WzV4pRUSR3g==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.77,286,1596524400"; d="scan'208";a="337879149"
+X-IronPort-AV: E=Sophos;i="5.77,286,1596524400"; d="scan'208";a="337879761"
 Received: from smile.fi.intel.com (HELO smile) ([10.237.68.40])
- by orsmga008.jf.intel.com with ESMTP; 21 Sep 2020 05:59:37 -0700
+ by orsmga008.jf.intel.com with ESMTP; 21 Sep 2020 06:00:44 -0700
 Received: from andy by smile with local (Exim 4.94)
  (envelope-from <andriy.shevchenko@linux.intel.com>)
- id 1kKLPq-000jlf-2q; Mon, 21 Sep 2020 15:59:34 +0300
-Date: Mon, 21 Sep 2020 15:59:34 +0300
+ id 1kKLQu-000jmU-Ec; Mon, 21 Sep 2020 16:00:40 +0300
+Date: Mon, 21 Sep 2020 16:00:40 +0300
 From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
 To: Cezary Rojewski <cezary.rojewski@intel.com>
-Subject: Re: [PATCH v7 03/14] ASoC: Intel: catpt: Add IPC message handlers
-Message-ID: <20200921125934.GT3956970@smile.fi.intel.com>
+Subject: Re: [PATCH v7 02/14] ASoC: Intel: catpt: Implement IPC protocol
+Message-ID: <20200921130040.GU3956970@smile.fi.intel.com>
 References: <20200921115424.4105-1-cezary.rojewski@intel.com>
- <20200921115424.4105-4-cezary.rojewski@intel.com>
+ <20200921115424.4105-3-cezary.rojewski@intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20200921115424.4105-4-cezary.rojewski@intel.com>
+In-Reply-To: <20200921115424.4105-3-cezary.rojewski@intel.com>
 Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
 Cc: pierre-louis.bossart@linux.intel.com, alsa-devel@alsa-project.org,
  filip.kaczmarski@intel.com, harshapriya.n@intel.com,
@@ -89,120 +89,776 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Mon, Sep 21, 2020 at 01:54:13PM +0200, Cezary Rojewski wrote:
-> Declare global and stream IPC message handlers for all known message
-> types.
-
-...
-
-> +int catpt_coredump(struct catpt_dev *cdev)
-> +{
-> +	struct catpt_dump_section_hdr *hdr;
-> +	size_t dump_size, regs_size;
-> +	u8 *dump, *pos;
-> +	int i, j;
+On Mon, Sep 21, 2020 at 01:54:12PM +0200, Cezary Rojewski wrote:
+> Implement IRQ handlers for immediate and delayed replies and
+> notifications. Communication is synchronous and allows for serialization
+> of maximum one message at a time.
+> 
+> DSP may respond with ADSP_PENDING status for a request - known as
+> delayed reply - and when situation occurs, framework keeps the lock and
+> awaits upcoming response through IPCD channel which is handled in
+> bottom-half. Immediate replies spawn no BH at all as their processing is
+> very short.
+> 
+> Signed-off-by: Cezary Rojewski <cezary.rojewski@intel.com>
+> ---
+>  sound/soc/intel/catpt/core.h      |  43 ++++
+>  sound/soc/intel/catpt/ipc.c       | 246 ++++++++++++++++++
+>  sound/soc/intel/catpt/messages.h  | 401 ++++++++++++++++++++++++++++++
+>  sound/soc/intel/catpt/registers.h |   1 -
+>  4 files changed, 690 insertions(+), 1 deletion(-)
+>  create mode 100644 sound/soc/intel/catpt/ipc.c
+>  create mode 100644 sound/soc/intel/catpt/messages.h
+> 
+> diff --git a/sound/soc/intel/catpt/core.h b/sound/soc/intel/catpt/core.h
+> index 48952e93d86f..0953989e24b3 100644
+> --- a/sound/soc/intel/catpt/core.h
+> +++ b/sound/soc/intel/catpt/core.h
+> @@ -9,6 +9,7 @@
+>  #define __SND_SOC_INTEL_CATPT_CORE_H
+>  
+>  #include <linux/dma/dw.h>
+> +#include "messages.h"
+>  #include "registers.h"
+>  
+>  struct catpt_dev;
+> @@ -29,6 +30,31 @@ static inline bool catpt_resource_overlapping(struct resource *r1,
+>  	return true;
+>  }
+>  
+> +struct catpt_ipc_msg {
+> +	union {
+> +		u32 header;
+> +		union catpt_global_msg rsp;
+> +	};
+> +	void *data;
+> +	size_t size;
+> +};
 > +
-> +	regs_size = CATPT_SHIM_REGS_SIZE;
-> +	regs_size += CATPT_DMA_COUNT * CATPT_DMA_REGS_SIZE;
-> +	regs_size += CATPT_SSP_COUNT * CATPT_SSP_REGS_SIZE;
-> +	dump_size = resource_size(&cdev->dram);
-> +	dump_size += resource_size(&cdev->iram);
-> +	dump_size += regs_size;
+> +struct catpt_ipc {
+> +	struct device *dev;
+> +
+> +	struct catpt_ipc_msg rx;
+> +	struct catpt_fw_ready config;
+> +	u32 default_timeout;
+> +	bool ready;
+> +
+> +	spinlock_t lock;
+> +	struct mutex mutex;
+> +	struct completion done_completion;
+> +	struct completion busy_completion;
+> +};
+> +
+> +void catpt_ipc_init(struct catpt_ipc *ipc, struct device *dev);
+> +
+>  struct catpt_module_type {
+>  	bool loaded;
+>  	u32 entry_point;
+> @@ -59,6 +85,7 @@ struct catpt_spec {
+>  struct catpt_dev {
+>  	struct device *dev;
+>  	struct dw_dma_chip *dmac;
+> +	struct catpt_ipc ipc;
+>  
+>  	void __iomem *pci_ba;
+>  	void __iomem *lpe_ba;
+> @@ -83,4 +110,20 @@ int catpt_dma_memcpy_fromdsp(struct catpt_dev *cdev, struct dma_chan *chan,
+>  			     dma_addr_t dst_addr, dma_addr_t src_addr,
+>  			     size_t size);
+>  
+> +irqreturn_t catpt_dsp_irq_handler(int irq, void *dev_id);
+> +irqreturn_t catpt_dsp_irq_thread(int irq, void *dev_id);
+> +
+> +/*
+> + * IPC handlers may return positive values which denote successful
+> + * HOST <-> DSP communication yet failure to process specific request.
+> + * Use below macro to convert returned non-zero values appropriately
+> + */
+> +#define CATPT_IPC_ERROR(err) (((err) < 0) ? (err) : -EREMOTEIO)
+> +
+> +int catpt_dsp_send_msg_timeout(struct catpt_dev *cdev,
+> +			       struct catpt_ipc_msg request,
+> +			       struct catpt_ipc_msg *reply, int timeout);
+> +int catpt_dsp_send_msg(struct catpt_dev *cdev, struct catpt_ipc_msg request,
+> +		       struct catpt_ipc_msg *reply);
+> +
+>  #endif
+> diff --git a/sound/soc/intel/catpt/ipc.c b/sound/soc/intel/catpt/ipc.c
+> new file mode 100644
+> index 000000000000..500d4845a7cf
+> --- /dev/null
+> +++ b/sound/soc/intel/catpt/ipc.c
+> @@ -0,0 +1,246 @@
+> +// SPDX-License-Identifier: GPL-2.0-only
+> +//
+> +// Copyright(c) 2020 Intel Corporation. All rights reserved.
+> +//
+> +// Author: Cezary Rojewski <cezary.rojewski@intel.com>
+> +//
+> +
+> +#include <linux/irqreturn.h>
+> +#include "core.h"
+> +#include "messages.h"
+> +#include "registers.h"
+> +
+> +#define CATPT_IPC_TIMEOUT_MSECS	300
 
-> +	dump_size += 4 * sizeof(*hdr) + 20; /* hdrs and fw hash */
+A nit-pick: _MS is enough.
 
-Function is full of hard coded 20s. Can you provide descriptive macro?
-
-> +	dump = vzalloc(dump_size);
-> +	if (!dump)
+> +void catpt_ipc_init(struct catpt_ipc *ipc, struct device *dev)
+> +{
+> +	ipc->dev = dev;
+> +	ipc->ready = false;
+> +	ipc->default_timeout = CATPT_IPC_TIMEOUT_MSECS;
+> +	init_completion(&ipc->done_completion);
+> +	init_completion(&ipc->busy_completion);
+> +	spin_lock_init(&ipc->lock);
+> +	mutex_init(&ipc->mutex);
+> +}
+> +
+> +static int catpt_ipc_arm(struct catpt_ipc *ipc, struct catpt_fw_ready *config)
+> +{
+> +	/*
+> +	 * Both tx and rx are put into and received from outbox. Inbox is
+> +	 * only used for notifications where payload size is known upfront,
+> +	 * thus no separate buffer is allocated for it.
+> +	 */
+> +	ipc->rx.data = devm_kzalloc(ipc->dev, config->outbox_size, GFP_KERNEL);
+> +	if (!ipc->rx.data)
 > +		return -ENOMEM;
 > +
-> +	pos = dump;
-> +
-> +	hdr = (struct catpt_dump_section_hdr *)pos;
-> +	hdr->magic = CATPT_DUMP_MAGIC;
-> +	hdr->core_id = cdev->spec->core_id;
-> +	hdr->section_id = CATPT_DUMP_SECTION_ID_FILE;
-> +	hdr->size = dump_size - sizeof(*hdr);
-> +	pos += sizeof(*hdr);
-> +
-> +	for (i = j = 0; i < FW_INFO_SIZE_MAX; i++)
-> +		if (cdev->ipc.config.fw_info[i] == ' ')
-> +			if (++j == 4)
-> +				break;
-
-> +	for (j = ++i; j < FW_INFO_SIZE_MAX && j - i < 20; j++) {
-
-This should have static_assert() at the place where you define both constants
-(2nd is mentioned above 20).
-
-> +		if (cdev->ipc.config.fw_info[j] == ' ')
-> +			break;
-> +		*(pos + j - i) = cdev->ipc.config.fw_info[j];
-> +	}
-> +	pos += 20;
-
-These two for-loops should have some comment to explain what's going on.
-
-> +	hdr = (struct catpt_dump_section_hdr *)pos;
-> +	hdr->magic = CATPT_DUMP_MAGIC;
-> +	hdr->core_id = cdev->spec->core_id;
-> +	hdr->section_id = CATPT_DUMP_SECTION_ID_IRAM;
-> +	hdr->size = resource_size(&cdev->iram);
-> +	pos += sizeof(*hdr);
-> +
-> +	memcpy_fromio(pos, cdev->lpe_ba + cdev->iram.start, hdr->size);
-> +	pos += hdr->size;
-> +
-> +	hdr = (struct catpt_dump_section_hdr *)pos;
-> +	hdr->magic = CATPT_DUMP_MAGIC;
-> +	hdr->core_id = cdev->spec->core_id;
-> +	hdr->section_id = CATPT_DUMP_SECTION_ID_DRAM;
-> +	hdr->size = resource_size(&cdev->dram);
-> +	pos += sizeof(*hdr);
-> +
-> +	memcpy_fromio(pos, cdev->lpe_ba + cdev->dram.start, hdr->size);
-> +	pos += hdr->size;
-> +
-> +	hdr = (struct catpt_dump_section_hdr *)pos;
-> +	hdr->magic = CATPT_DUMP_MAGIC;
-> +	hdr->core_id = cdev->spec->core_id;
-> +	hdr->section_id = CATPT_DUMP_SECTION_ID_REGS;
-> +	hdr->size = regs_size;
-> +	pos += sizeof(*hdr);
-> +
-> +	memcpy_fromio(pos, catpt_shim_addr(cdev), CATPT_SHIM_REGS_SIZE);
-> +	pos += CATPT_SHIM_REGS_SIZE;
-> +
-> +	for (i = 0; i < CATPT_SSP_COUNT; i++) {
-> +		memcpy_fromio(pos, catpt_ssp_addr(cdev, i),
-> +			      CATPT_SSP_REGS_SIZE);
-> +		pos += CATPT_SSP_REGS_SIZE;
-> +	}
-> +	for (i = 0; i < CATPT_DMA_COUNT; i++) {
-> +		memcpy_fromio(pos, catpt_dma_addr(cdev, i),
-> +			      CATPT_DMA_REGS_SIZE);
-> +		pos += CATPT_DMA_REGS_SIZE;
-> +	}
-> +
-> +	dev_coredumpv(cdev->dev, dump, dump_size, GFP_KERNEL);
+> +	memcpy(&ipc->config, config, sizeof(*config));
+> +	ipc->ready = true;
 > +
 > +	return 0;
 > +}
-
-...
-
-> +struct catpt_set_volume_input {
-> +	u32 channel;
-> +	u32 target_volume;
-> +	u64 curve_duration;
-> +	enum catpt_audio_curve_type curve_type __aligned(4);
-
+> +
+> +static void catpt_ipc_msg_init(struct catpt_ipc *ipc,
+> +			       struct catpt_ipc_msg *reply)
+> +{
+> +	lockdep_assert_held(&ipc->lock);
+> +
+> +	ipc->rx.header = 0;
+> +	ipc->rx.size = reply ? reply->size : 0;
+> +	reinit_completion(&ipc->done_completion);
+> +	reinit_completion(&ipc->busy_completion);
+> +}
+> +
+> +static void catpt_dsp_send_tx(struct catpt_dev *cdev,
+> +			      const struct catpt_ipc_msg *tx)
+> +{
+> +	u32 header = tx->header | CATPT_IPCC_BUSY;
+> +
+> +	if (tx->size)
+> +		memcpy_toio(catpt_outbox_addr(cdev), tx->data, tx->size);
+> +	catpt_writel_shim(cdev, IPCC, header);
+> +}
+> +
+> +static int catpt_wait_msg_completion(struct catpt_dev *cdev, int timeout)
+> +{
+> +	struct catpt_ipc *ipc = &cdev->ipc;
+> +	int ret;
+> +
+> +	ret = wait_for_completion_timeout(&ipc->done_completion,
+> +					  msecs_to_jiffies(timeout));
+> +	if (!ret)
+> +		return -ETIMEDOUT;
+> +	if (ipc->rx.rsp.status != CATPT_REPLY_PENDING)
+> +		return 0;
+> +
+> +	/* wait for delayed reply */
+> +	ret = wait_for_completion_timeout(&ipc->busy_completion,
+> +					  msecs_to_jiffies(timeout));
+> +	return ret ? 0 : -ETIMEDOUT;
+> +}
+> +
+> +static int catpt_dsp_do_send_msg(struct catpt_dev *cdev,
+> +				 struct catpt_ipc_msg request,
+> +				 struct catpt_ipc_msg *reply, int timeout)
+> +{
+> +	struct catpt_ipc *ipc = &cdev->ipc;
+> +	unsigned long flags;
+> +	int ret;
+> +
+> +	if (!ipc->ready)
+> +		return -EPERM;
+> +	if (request.size > ipc->config.outbox_size ||
+> +	    (reply && reply->size > ipc->config.outbox_size))
+> +		return -EINVAL;
+> +
+> +	spin_lock_irqsave(&ipc->lock, flags);
+> +	catpt_ipc_msg_init(ipc, reply);
+> +	catpt_dsp_send_tx(cdev, &request);
+> +	spin_unlock_irqrestore(&ipc->lock, flags);
+> +
+> +	ret = catpt_wait_msg_completion(cdev, timeout);
+> +	if (ret) {
+> +		dev_crit(cdev->dev, "communication severed: %d, rebooting dsp..\n",
+> +			 ret);
+> +		ipc->ready = false;
+> +		/* TODO: attempt recovery */
+> +		return ret;
+> +	}
+> +
+> +	ret = ipc->rx.rsp.status;
+> +	if (reply) {
+> +		reply->header = ipc->rx.header;
+> +		if (!ret && reply->data && reply->size)
+> +			memcpy(reply->data, ipc->rx.data, ipc->rx.size);
+> +	}
+> +
+> +	return ret;
+> +}
+> +
+> +int catpt_dsp_send_msg_timeout(struct catpt_dev *cdev,
+> +			       struct catpt_ipc_msg request,
+> +			       struct catpt_ipc_msg *reply, int timeout)
+> +{
+> +	struct catpt_ipc *ipc = &cdev->ipc;
+> +	int ret;
+> +
+> +	mutex_lock(&ipc->mutex);
+> +	ret = catpt_dsp_do_send_msg(cdev, request, reply, timeout);
+> +	mutex_unlock(&ipc->mutex);
+> +
+> +	return ret;
+> +}
+> +
+> +int catpt_dsp_send_msg(struct catpt_dev *cdev, struct catpt_ipc_msg request,
+> +		       struct catpt_ipc_msg *reply)
+> +{
+> +	return catpt_dsp_send_msg_timeout(cdev, request, reply,
+> +					  cdev->ipc.default_timeout);
+> +}
+> +
+> +static void catpt_dsp_copy_rx(struct catpt_dev *cdev, u32 header)
+> +{
+> +	struct catpt_ipc *ipc = &cdev->ipc;
+> +
+> +	ipc->rx.header = header;
+> +	if (ipc->rx.size && ipc->rx.rsp.status == CATPT_REPLY_SUCCESS) {
+> +		memcpy_fromio(ipc->rx.data, catpt_outbox_addr(cdev),
+> +			      ipc->rx.size);
+> +	}
+> +}
+> +
+> +static void catpt_dsp_process_response(struct catpt_dev *cdev, u32 header)
+> +{
+> +	union catpt_notify_msg msg = CATPT_MSG(header);
+> +	struct catpt_ipc *ipc = &cdev->ipc;
+> +
+> +	if (msg.fw_ready) {
+> +		struct catpt_fw_ready config;
+> +		/* to fit 32b header original address is shifted right by 3 */
+> +		u32 off = msg.mailbox_address << 3;
+> +
+> +		memcpy_fromio(&config, cdev->lpe_ba + off, sizeof(config));
+> +
+> +		catpt_ipc_arm(ipc, &config);
+> +		complete(&cdev->fw_ready);
+> +		return;
+> +	}
+> +
+> +	switch (msg.type) {
+> +	case CATPT_GLB_REQUEST_CORE_DUMP:
+> +		break;
+> +
+> +	case CATPT_GLB_STREAM_MESSAGE:
+> +		switch (msg.subtype) {
+> +		case CATPT_STRM_NOTIFICATION:
+> +			break;
+> +		default:
+> +			catpt_dsp_copy_rx(cdev, header);
+> +			/* signal completion of delayed reply */
+> +			complete(&ipc->busy_completion);
+> +			break;
+> +		}
+> +		break;
+> +
+> +	default:
+> +		dev_warn(cdev->dev, "unknown response: %d received\n",
+> +			 msg.type);
+> +		break;
+> +	}
+> +}
+> +
+> +irqreturn_t catpt_dsp_irq_thread(int irq, void *dev_id)
+> +{
+> +	struct catpt_dev *cdev = dev_id;
+> +	u32 ipcd;
+> +
+> +	ipcd = catpt_readl_shim(cdev, IPCD);
+> +
+> +	/* ensure there is delayed reply or notification to process */
+> +	if (!(ipcd & CATPT_IPCD_BUSY))
+> +		return IRQ_NONE;
+> +
+> +	catpt_dsp_process_response(cdev, ipcd);
+> +
+> +	/* tell DSP processing is completed */
+> +	catpt_updatel_shim(cdev, IPCD, CATPT_IPCD_BUSY | CATPT_IPCD_DONE,
+> +			   CATPT_IPCD_DONE);
+> +	/* unmask dsp BUSY interrupt */
+> +	catpt_updatel_shim(cdev, IMC, CATPT_IMC_IPCDB, 0);
+> +
+> +	return IRQ_HANDLED;
+> +}
+> +
+> +irqreturn_t catpt_dsp_irq_handler(int irq, void *dev_id)
+> +{
+> +	struct catpt_dev *cdev = dev_id;
+> +	irqreturn_t ret = IRQ_NONE;
+> +	u32 isc, ipcc;
+> +
+> +	isc = catpt_readl_shim(cdev, ISC);
+> +
+> +	/* immediate reply */
+> +	if (isc & CATPT_ISC_IPCCD) {
+> +		/* mask host DONE interrupt */
+> +		catpt_updatel_shim(cdev, IMC, CATPT_IMC_IPCCD, CATPT_IMC_IPCCD);
+> +
+> +		ipcc = catpt_readl_shim(cdev, IPCC);
+> +		catpt_dsp_copy_rx(cdev, ipcc);
+> +		complete(&cdev->ipc.done_completion);
+> +
+> +		/* tell DSP processing is completed */
+> +		catpt_updatel_shim(cdev, IPCC, CATPT_IPCC_DONE, 0);
+> +		/* unmask host DONE interrupt */
+> +		catpt_updatel_shim(cdev, IMC, CATPT_IMC_IPCCD, 0);
+> +		ret = IRQ_HANDLED;
+> +	}
+> +
+> +	/* delayed reply or notification */
+> +	if (isc & CATPT_ISC_IPCDB) {
+> +		/* mask dsp BUSY interrupt */
+> +		catpt_updatel_shim(cdev, IMC, CATPT_IMC_IPCDB, CATPT_IMC_IPCDB);
+> +		ret = IRQ_WAKE_THREAD;
+> +	}
+> +
+> +	return ret;
+> +}
+> diff --git a/sound/soc/intel/catpt/messages.h b/sound/soc/intel/catpt/messages.h
+> new file mode 100644
+> index 000000000000..5ce56e033ad2
+> --- /dev/null
+> +++ b/sound/soc/intel/catpt/messages.h
+> @@ -0,0 +1,401 @@
+> +/* SPDX-License-Identifier: GPL-2.0-only */
+> +/*
+> + * Copyright(c) 2020 Intel Corporation. All rights reserved.
+> + *
+> + * Author: Cezary Rojewski <cezary.rojewski@intel.com>
+> + */
+> +
+> +#ifndef __SND_SOC_INTEL_CATPT_MSG_H
+> +#define __SND_SOC_INTEL_CATPT_MSG_H
+> +
+> +struct catpt_dev;
+> +
+> +/* IPC messages base types  */
+> +
+> +enum catpt_reply_status {
+> +	CATPT_REPLY_SUCCESS = 0,
+> +	CATPT_REPLY_ERROR_INVALID_PARAM = 1,
+> +	CATPT_REPLY_UNKNOWN_MESSAGE_TYPE = 2,
+> +	CATPT_REPLY_OUT_OF_RESOURCES = 3,
+> +	CATPT_REPLY_BUSY = 4,
+> +	CATPT_REPLY_PENDING = 5,
+> +	CATPT_REPLY_FAILURE = 6,
+> +	CATPT_REPLY_INVALID_REQUEST = 7,
+> +	CATPT_REPLY_UNINITIALIZED = 8,
+> +	CATPT_REPLY_NOT_FOUND = 9,
+> +	CATPT_REPLY_SOURCE_NOT_STARTED = 10,
+> +};
+> +
+> +/* GLOBAL messages */
+> +
+> +enum catpt_global_msg_type {
+> +	CATPT_GLB_GET_FW_VERSION = 0,
+> +	CATPT_GLB_ALLOCATE_STREAM = 3,
+> +	CATPT_GLB_FREE_STREAM = 4,
+> +	CATPT_GLB_STREAM_MESSAGE = 6,
+> +	CATPT_GLB_REQUEST_CORE_DUMP = 7,
+> +	CATPT_GLB_SET_DEVICE_FORMATS = 10,
+> +	CATPT_GLB_ENTER_DX_STATE = 12,
+> +	CATPT_GLB_GET_MIXER_STREAM_INFO = 13,
+> +};
+> +
+> +union catpt_global_msg {
+> +	u32 val;
+> +	struct {
+> +		enum catpt_reply_status status:5;
+> +		u32 context:19; /* stream or module specific */
+> +		enum catpt_global_msg_type type:5;
+> +		u32 fw_ready:1;
+> +		u32 done:1;
+> +		u32 busy:1;
+> +	};
 > +} __packed;
-
-How this __packed changes anything? In general __packed doesn't make sense for
-in-kernel data structures. Otherwise you have to use proper (POD) types for
-data. Ditto for all similar cases.
+> +
+> +#define CATPT_MSG(hdr) { .val = hdr }
+> +#define CATPT_GLOBAL_MSG(msg_type) \
+> +	{ .type = CATPT_GLB_##msg_type }
+> +
+> +#define BUILD_HASH_SIZE		40
+> +
+> +struct catpt_fw_version {
+> +	u8 build;
+> +	u8 minor;
+> +	u8 major;
+> +	u8 type;
+> +	u8 build_hash[BUILD_HASH_SIZE];
+> +	u32 log_providers_hash;
+> +} __packed;
+> +
+> +int catpt_ipc_get_fw_version(struct catpt_dev *cdev,
+> +			     struct catpt_fw_version *version);
+> +
+> +enum catpt_pin_id {
+> +	CATPT_PIN_ID_SYSTEM = 0,
+> +	CATPT_PIN_ID_REFERENCE = 1,
+> +	CATPT_PIN_ID_CAPTURE1 = 2,
+> +	CATPT_PIN_ID_CAPTURE2 = 3,
+> +	CATPT_PIN_ID_OFFLOAD1 = 4,
+> +	CATPT_PIN_ID_OFFLOAD2 = 5,
+> +	CATPT_PIN_ID_MIXER = 7,
+> +	CATPT_PIN_ID_BLUETOOTH_CAPTURE = 8,
+> +	CATPT_PIN_ID_BLUETOOTH_RENDER = 9,
+> +};
+> +
+> +enum catpt_path_id {
+> +	CATPT_PATH_SSP0_OUT = 0,
+> +	CATPT_PATH_SSP0_IN = 1,
+> +	CATPT_PATH_SSP1_OUT = 2,
+> +	CATPT_PATH_SSP1_IN = 3,
+> +	/* duplicated audio in capture path */
+> +	CATPT_PATH_SSP0_IN_DUP = 4,
+> +};
+> +
+> +enum catpt_stream_type {
+> +	CATPT_STRM_TYPE_RENDER = 0, /* offload */
+> +	CATPT_STRM_TYPE_SYSTEM = 1,
+> +	CATPT_STRM_TYPE_CAPTURE = 2,
+> +	CATPT_STRM_TYPE_LOOPBACK = 3,
+> +	CATPT_STRM_TYPE_BLUETOOTH_RENDER = 4,
+> +	CATPT_STRM_TYPE_BLUETOOTH_CAPTURE = 5,
+> +};
+> +
+> +enum catpt_format_id {
+> +	CATPT_FORMAT_PCM = 0,
+> +	CATPT_FORMAT_MP3 = 1,
+> +	CATPT_FORMAT_AAC = 2,
+> +	CATPT_FORMAT_WMA = 3,
+> +};
+> +
+> +enum catpt_channel_index {
+> +	CATPT_CHANNEL_LEFT = 0x0,
+> +	CATPT_CHANNEL_CENTER = 0x1,
+> +	CATPT_CHANNEL_RIGHT = 0x2,
+> +	CATPT_CHANNEL_LEFT_SURROUND = 0x3,
+> +	CATPT_CHANNEL_CENTER_SURROUND = 0x3,
+> +	CATPT_CHANNEL_RIGHT_SURROUND = 0x4,
+> +	CATPT_CHANNEL_LFE = 0x7,
+> +	CATPT_CHANNEL_INVALID = 0xF,
+> +};
+> +
+> +enum catpt_channel_config {
+> +	CATPT_CHANNEL_CONFIG_MONO	= 0, /* One channel only */
+> +	CATPT_CHANNEL_CONFIG_STEREO	= 1, /* L & R */
+> +	CATPT_CHANNEL_CONFIG_2_POINT_1	= 2, /* L, R & LFE; PCM only */
+> +	CATPT_CHANNEL_CONFIG_3_POINT_0	= 3, /* L, C & R; MP3 & AAC only */
+> +	CATPT_CHANNEL_CONFIG_3_POINT_1	= 4, /* L, C, R & LFE; PCM only */
+> +	CATPT_CHANNEL_CONFIG_QUATRO	= 5, /* L, R, Ls & Rs; PCM only */
+> +	CATPT_CHANNEL_CONFIG_4_POINT_0	= 6, /* L, C, R & Cs; MP3 & AAC only */
+> +	CATPT_CHANNEL_CONFIG_5_POINT_0	= 7, /* L, C, R, Ls & Rs */
+> +	CATPT_CHANNEL_CONFIG_5_POINT_1	= 8, /* L, C, R, Ls, Rs & LFE */
+> +	CATPT_CHANNEL_CONFIG_DUAL_MONO	= 9, /* One channel replicated in two */
+> +	CATPT_CHANNEL_CONFIG_INVALID	= 10,
+> +};
+> +
+> +enum catpt_interleaving_style {
+> +	CATPT_INTERLEAVING_PER_CHANNEL = 0,
+> +	CATPT_INTERLEAVING_PER_SAMPLE  = 1,
+> +};
+> +
+> +struct catpt_audio_format {
+> +	u32 sample_rate;
+> +	u32 bit_depth;
+> +	u32 channel_map;
+> +	enum catpt_channel_config channel_config __aligned(4);
+> +	enum catpt_interleaving_style interleaving __aligned(4);
+> +	u8 num_channels;
+> +	u8 valid_bit_depth;
+> +	u8 reserved[2];
+> +} __packed;
+> +
+> +struct catpt_ring_info {
+> +	u32 page_table_addr;
+> +	u32 num_pages;
+> +	u32 size;
+> +	u32 offset;
+> +	u32 ring_first_page_pfn;
+> +} __packed;
+> +
+> +#define CATPT_MODULE_COUNT (CATPT_MODID_LAST + 1)
+> +
+> +enum catpt_module_id {
+> +	CATPT_MODID_BASE_FW = 0x0,
+> +	CATPT_MODID_MP3 = 0x1,
+> +	CATPT_MODID_AAC_5_1 = 0x2,
+> +	CATPT_MODID_AAC_2_0 = 0x3,
+> +	CATPT_MODID_SRC = 0x4,
+> +	CATPT_MODID_WAVES = 0x5,
+> +	CATPT_MODID_DOLBY = 0x6,
+> +	CATPT_MODID_BOOST = 0x7,
+> +	CATPT_MODID_LPAL = 0x8,
+> +	CATPT_MODID_DTS = 0x9,
+> +	CATPT_MODID_PCM_CAPTURE = 0xA,
+> +	CATPT_MODID_PCM_SYSTEM = 0xB,
+> +	CATPT_MODID_PCM_REFERENCE = 0xC,
+> +	CATPT_MODID_PCM = 0xD, /* offload */
+> +	CATPT_MODID_BLUETOOTH_RENDER = 0xE,
+> +	CATPT_MODID_BLUETOOTH_CAPTURE = 0xF,
+> +	CATPT_MODID_LAST = CATPT_MODID_BLUETOOTH_CAPTURE,
+> +};
+> +
+> +struct catpt_module_entry {
+> +	enum catpt_module_id module_id __aligned(4);
+> +	u32 entry_point;
+> +} __packed;
+> +
+> +struct catpt_module_map {
+> +	u8 num_entries;
+> +	struct catpt_module_entry entries[];
+> +} __packed;
+> +
+> +struct catpt_memory_info {
+> +	u32 offset;
+> +	u32 size;
+> +} __packed;
+> +
+> +#define CATPT_CHANNELS_MAX	4
+> +#define CATPT_ALL_CHANNELS_MASK	UINT_MAX
+> +
+> +struct catpt_stream_info {
+> +	u32 stream_hw_id;
+> +	u32 reserved;
+> +	u32 read_pos_regaddr;
+> +	u32 pres_pos_regaddr;
+> +	u32 peak_meter_regaddr[CATPT_CHANNELS_MAX];
+> +	u32 volume_regaddr[CATPT_CHANNELS_MAX];
+> +} __packed;
+> +
+> +int catpt_ipc_alloc_stream(struct catpt_dev *cdev,
+> +			   enum catpt_path_id path_id,
+> +			   enum catpt_stream_type type,
+> +			   struct catpt_audio_format *afmt,
+> +			   struct catpt_ring_info *rinfo,
+> +			   u8 num_modules,
+> +			   struct catpt_module_entry *modules,
+> +			   struct resource *persistent,
+> +			   struct resource *scratch,
+> +			   struct catpt_stream_info *sinfo);
+> +int catpt_ipc_free_stream(struct catpt_dev *cdev, u8 stream_hw_id);
+> +
+> +enum catpt_ssp_iface {
+> +	CATPT_SSP_IFACE_0 = 0,
+> +	CATPT_SSP_IFACE_1 = 1,
+> +	CATPT_SSP_IFACE_LAST = CATPT_SSP_IFACE_1,
+> +};
+> +
+> +#define CATPT_SSP_COUNT (CATPT_SSP_IFACE_LAST + 1)
+> +
+> +enum catpt_mclk_frequency {
+> +	CATPT_MCLK_OFF = 0,
+> +	CATPT_MCLK_FREQ_6_MHZ = 1,
+> +	CATPT_MCLK_FREQ_21_MHZ = 2,
+> +	CATPT_MCLK_FREQ_24_MHZ = 3,
+> +};
+> +
+> +enum catpt_ssp_mode {
+> +	CATPT_SSP_MODE_I2S_CONSUMER = 0,
+> +	CATPT_SSP_MODE_I2S_PROVIDER = 1,
+> +	CATPT_SSP_MODE_TDM_PROVIDER = 2,
+> +};
+> +
+> +struct catpt_ssp_device_format {
+> +	enum catpt_ssp_iface iface;
+> +	enum catpt_mclk_frequency mclk;
+> +	enum catpt_ssp_mode mode;
+> +	u16 clock_divider;
+> +	u8 channels;
+> +} __packed;
+> +
+> +int catpt_ipc_set_device_format(struct catpt_dev *cdev,
+> +				struct catpt_ssp_device_format *devfmt);
+> +
+> +enum catpt_dx_state {
+> +	CATPT_DX_STATE_D3 = 3,
+> +};
+> +
+> +enum catpt_dx_type {
+> +	CATPT_DX_TYPE_FW_IMAGE = 0,
+> +	CATPT_DX_TYPE_MEMORY_DUMP = 1,
+> +};
+> +
+> +struct catpt_save_meminfo {
+> +	u32 offset;
+> +	u32 size;
+> +	enum catpt_dx_type source __aligned(4);
+> +} __packed;
+> +
+> +#define SAVE_MEMINFO_MAX	14
+> +
+> +struct catpt_dx_context {
+> +	u32 num_meminfo;
+> +	struct catpt_save_meminfo meminfo[SAVE_MEMINFO_MAX];
+> +} __packed;
+> +
+> +int catpt_ipc_enter_dxstate(struct catpt_dev *cdev, enum catpt_dx_state state,
+> +			    struct catpt_dx_context *context);
+> +
+> +struct catpt_mixer_stream_info {
+> +	u32 mixer_hw_id;
+> +	u32 peak_meter_regaddr[CATPT_CHANNELS_MAX];
+> +	u32 volume_regaddr[CATPT_CHANNELS_MAX];
+> +} __packed;
+> +
+> +int catpt_ipc_get_mixer_stream_info(struct catpt_dev *cdev,
+> +				    struct catpt_mixer_stream_info *info);
+> +
+> +/* STREAM messages */
+> +
+> +enum catpt_stream_msg_type {
+> +	CATPT_STRM_RESET_STREAM = 0,
+> +	CATPT_STRM_PAUSE_STREAM = 1,
+> +	CATPT_STRM_RESUME_STREAM = 2,
+> +	CATPT_STRM_STAGE_MESSAGE = 3,
+> +	CATPT_STRM_NOTIFICATION = 4,
+> +};
+> +
+> +enum catpt_stage_action {
+> +	CATPT_STG_SET_VOLUME = 1,
+> +	CATPT_STG_SET_WRITE_POSITION = 2,
+> +	CATPT_STG_MUTE_LOOPBACK = 3,
+> +};
+> +
+> +union catpt_stream_msg {
+> +	u32 val;
+> +	struct {
+> +		enum catpt_reply_status status:5;
+> +		u32 reserved:7;
+> +		enum catpt_stage_action stage_action:4;
+> +		u32 stream_hw_id:4;
+> +		enum catpt_stream_msg_type subtype:4;
+> +		enum catpt_global_msg_type type:5;
+> +		u32 fw_ready:1;
+> +		u32 done:1;
+> +		u32 busy:1;
+> +	};
+> +} __packed;
+> +
+> +#define CATPT_STREAM_MSG(msg_type) \
+> +{ \
+> +	.subtype = CATPT_STRM_##msg_type, \
+> +	.type = CATPT_GLB_STREAM_MESSAGE }
+> +#define CATPT_STAGE_MSG(msg_type) \
+> +{ \
+> +	.stage_action = CATPT_STG_##msg_type, \
+> +	.subtype = CATPT_STRM_STAGE_MESSAGE, \
+> +	.type = CATPT_GLB_STREAM_MESSAGE }
+> +
+> +int catpt_ipc_reset_stream(struct catpt_dev *cdev, u8 stream_hw_id);
+> +int catpt_ipc_pause_stream(struct catpt_dev *cdev, u8 stream_hw_id);
+> +int catpt_ipc_resume_stream(struct catpt_dev *cdev, u8 stream_hw_id);
+> +
+> +/* STREAM messages - STAGE subtype */
+> +
+> +enum catpt_audio_curve_type {
+> +	CATPT_AUDIO_CURVE_NONE = 0,
+> +	CATPT_AUDIO_CURVE_WINDOWS_FADE = 1,
+> +};
+> +
+> +int catpt_ipc_set_volume(struct catpt_dev *cdev, u8 stream_hw_id,
+> +			 u32 channel, u32 volume,
+> +			 u32 curve_duration,
+> +			 enum catpt_audio_curve_type curve_type);
+> +
+> +int catpt_ipc_set_write_pos(struct catpt_dev *cdev, u8 stream_hw_id,
+> +			    u32 pos, bool eob, bool ll);
+> +
+> +int catpt_ipc_mute_loopback(struct catpt_dev *cdev, u8 stream_hw_id, bool mute);
+> +
+> +/* NOTIFICATION messages */
+> +
+> +enum catpt_notify_reason {
+> +	CATPT_NOTIFY_POSITION_CHANGED = 0,
+> +	CATPT_NOTIFY_GLITCH_OCCURRED = 1,
+> +};
+> +
+> +union catpt_notify_msg {
+> +	u32 val;
+> +	struct {
+> +		u32 mailbox_address:29;
+> +		u32 fw_ready:1;
+> +		u32 done:1;
+> +		u32 busy:1;
+> +	};
+> +	struct {
+> +		enum catpt_reply_status status:5;
+> +		u32 reserved:7;
+> +		enum catpt_notify_reason notify_reason:4;
+> +		u32 stream_hw_id:4;
+> +		enum catpt_stream_msg_type subtype:4;
+> +		enum catpt_global_msg_type type:5;
+> +		u32 hdr:3; /* fw_ready, done, busy */
+> +	};
+> +} __packed;
+> +
+> +#define FW_INFO_SIZE_MAX	100
+> +
+> +struct catpt_fw_ready {
+> +	u32 inbox_offset;
+> +	u32 outbox_offset;
+> +	u32 inbox_size;
+> +	u32 outbox_size;
+> +	u32 fw_info_size;
+> +	char fw_info[FW_INFO_SIZE_MAX];
+> +} __packed;
+> +
+> +struct catpt_notify_position {
+> +	u32 stream_position;
+> +	u32 fw_cycle_count;
+> +} __packed;
+> +
+> +enum catpt_glitch_type {
+> +	CATPT_GLITCH_UNDERRUN = 1,
+> +	CATPT_GLITCH_DECODER_ERROR = 2,
+> +	CATPT_GLITCH_DOUBLED_WRITE_POS = 3,
+> +};
+> +
+> +struct catpt_notify_glitch {
+> +	enum catpt_glitch_type type __aligned(4);
+> +	u64 presentation_pos;
+> +	u32 write_pos;
+> +} __packed;
+> +
+> +#endif
+> diff --git a/sound/soc/intel/catpt/registers.h b/sound/soc/intel/catpt/registers.h
+> index a051d8b36d88..47280d82842e 100644
+> --- a/sound/soc/intel/catpt/registers.h
+> +++ b/sound/soc/intel/catpt/registers.h
+> @@ -15,7 +15,6 @@
+>  #define CATPT_SHIM_REGS_SIZE	4096
+>  #define CATPT_DMA_REGS_SIZE	1024
+>  #define CATPT_DMA_COUNT		2
+> -#define CATPT_SSP_COUNT		2
+>  #define CATPT_SSP_REGS_SIZE	512
+>  
+>  /* DSP Shim registers */
+> -- 
+> 2.17.1
+> 
 
 -- 
 With Best Regards,

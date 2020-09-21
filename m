@@ -2,69 +2,91 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id DA438271BC2
-	for <lists+alsa-devel@lfdr.de>; Mon, 21 Sep 2020 09:28:38 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id AB41F271BDC
+	for <lists+alsa-devel@lfdr.de>; Mon, 21 Sep 2020 09:31:41 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 76E1916A3;
-	Mon, 21 Sep 2020 09:27:48 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 76E1916A3
+	by alsa0.perex.cz (Postfix) with ESMTPS id 49B031684;
+	Mon, 21 Sep 2020 09:30:51 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 49B031684
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1600673318;
-	bh=9m1Bq1+lLKjkQjdVZ2BzCZY4sKlgaipmgohvZ14YkZI=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1600673501;
+	bh=eZovonrUWNuH+G8+edaDB+AVr2Pp+AjC1w1pRtuKOCc=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=RqKIsNlmBW2fCvNrOYGcFa8sKcXGQ7oGA4BJPOND1FJIwmGtjBvR9fdHyvTy7Y/5g
-	 Ivy5CArOhtJmV9hpkbjUU93HyMkfCjNDRVBaiHFYXqpv6Xa94CF1Mu7RRUNHu0Tw6d
-	 82ZD02tcg/Yjkoq5Jt72qYB2FCOG9T+8nBHz9PeU=
+	b=X5TlcooBqrGrstC7TkrY+Mic6A1N9HVWiOFbBFeIUVaPF9DfegYK5LtHG4dtNcGBu
+	 8SIKnOu39BIxmT3NPIFKvGvRCI7GBtS4PffQuFVCY6hU4RJg5kreVLIM3XPUs6xA1H
+	 bCl2G46V9kH+OMjvG+cyFr7/ITayym6YiNdi4jyU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id C9BD0F802C4;
-	Mon, 21 Sep 2020 09:26:09 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 53EF9F80162;
+	Mon, 21 Sep 2020 09:30:00 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 64834F8028D; Mon, 21 Sep 2020 09:26:06 +0200 (CEST)
+ id B9DEBF80161; Mon, 21 Sep 2020 09:29:57 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: *
-X-Spam-Status: No, score=1.1 required=5.0 tests=DATE_IN_PAST_06_12,
- SPF_HELO_PASS,SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Level: 
+X-Spam-Status: No, score=0.8 required=5.0 tests=FREEMAIL_FORGED_FROMDOMAIN,
+ FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,PRX_BODY_135,RCVD_IN_MSPIKE_H2,
+ SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mail-oi1-f194.google.com (mail-oi1-f194.google.com
+ [209.85.167.194])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 46F4BF80171
- for <alsa-devel@alsa-project.org>; Mon, 21 Sep 2020 09:25:58 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 46F4BF80171
-IronPort-SDR: glRKwYo0uwnNeDtSVnC6uGasetOWoHirU1OeDkH4xVZWflHDj2LY69PPCh13LdeP8OQ2WSXgpP
- 12QMJBefauKQ==
-X-IronPort-AV: E=McAfee;i="6000,8403,9750"; a="139824327"
-X-IronPort-AV: E=Sophos;i="5.77,286,1596524400"; d="scan'208";a="139824327"
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from orsmga005.jf.intel.com ([10.7.209.41])
- by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 21 Sep 2020 00:25:57 -0700
-IronPort-SDR: qVMxYWARWXK3ntzuJG4+M42B4oPESz9UEp+IA1jqDd0eQrWGJnmu0VmYIBu/apJxn1DcW/raU1
- nXuZrG66+RrQ==
-X-IronPort-AV: E=Sophos;i="5.77,286,1596524400"; d="scan'208";a="485325712"
-Received: from bard-ubuntu.sh.intel.com ([10.239.13.33])
- by orsmga005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 21 Sep 2020 00:25:54 -0700
-From: Bard Liao <yung-chuan.liao@linux.intel.com>
-To: alsa-devel@alsa-project.org,
-	vkoul@kernel.org
-Subject: [PATCH 3/3] soundwire: cadence: add data port test fail interrupt
-Date: Mon, 21 Sep 2020 03:32:07 +0800
-Message-Id: <20200920193207.31241-4-yung-chuan.liao@linux.intel.com>
-X-Mailer: git-send-email 2.17.1
-In-Reply-To: <20200920193207.31241-1-yung-chuan.liao@linux.intel.com>
-References: <20200920193207.31241-1-yung-chuan.liao@linux.intel.com>
-Cc: pierre-louis.bossart@linux.intel.com, vinod.koul@linaro.org,
- gregkh@linuxfoundation.org, linux-kernel@vger.kernel.org,
- ranjani.sridharan@linux.intel.com, hui.wang@canonical.com,
- srinivas.kandagatla@linaro.org, jank@cadence.com, mengdong.lin@intel.com,
- sanyog.r.kale@intel.com, rander.wang@linux.intel.com, bard.liao@intel.com
+ by alsa1.perex.cz (Postfix) with ESMTPS id 5948CF80171
+ for <alsa-devel@alsa-project.org>; Mon, 21 Sep 2020 09:29:49 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5948CF80171
+Received: by mail-oi1-f194.google.com with SMTP id i17so15874186oig.10
+ for <alsa-devel@alsa-project.org>; Mon, 21 Sep 2020 00:29:49 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=90EhcBzbpe2vvxa0ohP9B+Dh75rNdKfJSEph9k8z+pM=;
+ b=J9DEuAJhuBgO0jC5o+Y/eRCqcdUZjKi0IPAy2ntVWcyvGON7v7uOlJDzgiJNQ48cnM
+ rwV/tOO7fBdR0xlY698+8TB9u/yWsZYU7vFJ1XS5W+OYYNqyRaCoZg+ar6qN3ocic4RB
+ dggPOuL9yePkghitn97biQd4RvaFzQbcHLtjQkHTJthAxw4EfoyUZfOh1/1SKFrnkA35
+ fMX9ea2CAirGoJ7po56tozcG/M37oFWX+jIu6WrluMvA21r0ZOpQbmztstVCL0RkAwZf
+ NV+dChc2C5Yt6MSJL7A4e6X4rDca3O7iSsu3hYv1suCDXdgpkSwcvL30c2J/GqPuSSpC
+ AvFA==
+X-Gm-Message-State: AOAM53365wU407YhPYvL06AoVY1m/sNjchkVYsgR78KL2mahFJAz0hlx
+ Z190PK5YXn48NUsXB/vDox2gM7/0nOcprs1kzZs=
+X-Google-Smtp-Source: ABdhPJyf/sKRes03lyRebHMYTTNhwUI3iObyZWkgpxFfbC1QJaXNYOyLYBpf0EYemOiZ0DhKCpWF7uMdeYorWHg/2u4=
+X-Received: by 2002:aca:52d6:: with SMTP id g205mr16832418oib.54.1600673388389; 
+ Mon, 21 Sep 2020 00:29:48 -0700 (PDT)
+MIME-Version: 1.0
+References: <1594919915-5225-1-git-send-email-prabhakar.mahadev-lad.rj@bp.renesas.com>
+ <1594919915-5225-12-git-send-email-prabhakar.mahadev-lad.rj@bp.renesas.com>
+ <CA+V-a8vuR-7vqxNnrqQ5Ysf3Xjvhp3xRZ33i8+6nEGFLJciT3A@mail.gmail.com>
+ <20200920140846.GB2915460@kroah.com>
+In-Reply-To: <20200920140846.GB2915460@kroah.com>
+From: Geert Uytterhoeven <geert@linux-m68k.org>
+Date: Mon, 21 Sep 2020 09:29:36 +0200
+Message-ID: <CAMuHMdUNvODmaJDaLi45Q8wpCaZaTA4HnmW_Y0BLwkXw8UxgEQ@mail.gmail.com>
+Subject: Re: [PATCH 11/20] dt-bindings: usb: renesas,
+ usbhs: Add r8a774e1 support
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Content-Type: text/plain; charset="UTF-8"
+Cc: alsa-devel <alsa-devel@alsa-project.org>,
+ linux-pci <linux-pci@vger.kernel.org>, LKML <linux-kernel@vger.kernel.org>,
+ linux-ide@vger.kernel.org, "Lad, Prabhakar" <prabhakar.csengg@gmail.com>,
+ Linux I2C <linux-i2c@vger.kernel.org>,
+ Marek Vasut <marek.vasut+renesas@gmail.com>,
+ Magnus Damm <magnus.damm@gmail.com>, Kishon Vijay Abraham I <kishon@ti.com>,
+ linux-media <linux-media@vger.kernel.org>,
+ "open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS"
+ <devicetree@vger.kernel.org>,
+ Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>,
+ Niklas <niklas.soderlund@ragnatech.se>, Rob Herring <robh+dt@kernel.org>,
+ Bjorn Helgaas <bhelgaas@google.com>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>, Jens Axboe <axboe@kernel.dk>,
+ Yoshihiro Shimoda <yoshihiro.shimoda.uh@renesas.com>,
+ USB list <linux-usb@vger.kernel.org>, Liam Girdwood <lgirdwood@gmail.com>,
+ Linux-Renesas <linux-renesas-soc@vger.kernel.org>,
+ Vinod Koul <vkoul@kernel.org>, Mark Brown <broonie@kernel.org>,
+ dmaengine <dmaengine@vger.kernel.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -80,82 +102,36 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Hi Greg,
 
-The Master ports can report errors in test data modes, enable the
-interrupt and just log a message. This capability is useful for Master
-sink ports only (Master source ports generate data).
+On Sun, Sep 20, 2020 at 4:08 PM Greg Kroah-Hartman
+<gregkh@linuxfoundation.org> wrote:
+> On Sat, Sep 19, 2020 at 11:54:05AM +0100, Lad, Prabhakar wrote:
+> > On Thu, Jul 16, 2020 at 6:19 PM Lad Prabhakar
+> > <prabhakar.mahadev-lad.rj@bp.renesas.com> wrote:
+> > >
+> > > Document RZ/G2H (R8A774E1) SoC bindings.
+> > >
+> > > Signed-off-by: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+> > > Reviewed-by: Marian-Cristian Rotariu <marian-cristian.rotariu.rb@bp.renesas.com>
+> > > ---
+> > >  Documentation/devicetree/bindings/usb/renesas,usbhs.yaml | 1 +
+> > >  1 file changed, 1 insertion(+)
+> > >
+> > Could you please pick this patch.
+>
+> Same here, doesn't a DT maintainer have to ack this?
 
-Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Reviewed-by: Guennadi Liakhovetski <guennadi.liakhovetski@linux.intel.com>
-Reviewed-by: Rander Wang <rander.wang@linux.intel.com>
-Signed-off-by: Bard Liao <yung-chuan.liao@linux.intel.com>
----
- drivers/soundwire/cadence_master.c | 27 ++++++++++++++++++++++++---
- 1 file changed, 24 insertions(+), 3 deletions(-)
+And so *he did:
+https://lore.kernel.org/r/20200721033544.GA3505976@bogus
 
-diff --git a/drivers/soundwire/cadence_master.c b/drivers/soundwire/cadence_master.c
-index 19d445ef6764..9fa55164354a 100644
---- a/drivers/soundwire/cadence_master.c
-+++ b/drivers/soundwire/cadence_master.c
-@@ -175,6 +175,7 @@ MODULE_PARM_DESC(cdns_mcp_int_mask, "Cadence MCP IntMask");
- #define CDNS_DPN_HCTRL_LCTRL			GENMASK(10, 8)
- 
- #define CDNS_PORTCTRL				0x130
-+#define CDNS_PORTCTRL_TEST_FAILED		BIT(1)
- #define CDNS_PORTCTRL_DIRN			BIT(7)
- #define CDNS_PORTCTRL_BANK_INVERT		BIT(8)
- 
-@@ -870,6 +871,19 @@ irqreturn_t sdw_cdns_irq(int irq, void *dev_id)
- 		dev_err_ratelimited(cdns->dev, "Bus clash for data word\n");
- 	}
- 
-+	if (cdns->bus.params.m_data_mode != SDW_PORT_DATA_MODE_NORMAL &&
-+	    int_status & CDNS_MCP_INT_DPINT) {
-+		u32 port_intstat;
-+
-+		/* just log which ports report an error */
-+		port_intstat = cdns_readl(cdns, CDNS_MCP_PORT_INTSTAT);
-+		dev_err_ratelimited(cdns->dev, "DP interrupt: PortIntStat %8x\n",
-+				    port_intstat);
-+
-+		/* clear status w/ write1 */
-+		cdns_writel(cdns, CDNS_MCP_PORT_INTSTAT, port_intstat);
-+	}
-+
- 	if (int_status & CDNS_MCP_INT_SLAVE_MASK) {
- 		/* Mask the Slave interrupt and wake thread */
- 		cdns_updatel(cdns, CDNS_MCP_INTMASK,
-@@ -994,7 +1008,9 @@ int sdw_cdns_enable_interrupt(struct sdw_cdns *cdns, bool state)
- 	mask |= CDNS_MCP_INT_CTRL_CLASH | CDNS_MCP_INT_DATA_CLASH |
- 		CDNS_MCP_INT_PARITY;
- 
--	/* no detection of port interrupts for now */
-+	/* port interrupt limited to test modes for now */
-+	if (cdns->bus.params.m_data_mode != SDW_PORT_DATA_MODE_NORMAL)
-+		mask |= CDNS_MCP_INT_DPINT;
- 
- 	/* enable detection of RX fifo level */
- 	mask |= CDNS_MCP_INT_RX_WL;
-@@ -1624,11 +1640,16 @@ void sdw_cdns_config_stream(struct sdw_cdns *cdns,
- {
- 	u32 offset, val = 0;
- 
--	if (dir == SDW_DATA_DIR_RX)
-+	if (dir == SDW_DATA_DIR_RX) {
- 		val = CDNS_PORTCTRL_DIRN;
- 
-+		if (cdns->bus.params.m_data_mode != SDW_PORT_DATA_MODE_NORMAL)
-+			val |= CDNS_PORTCTRL_TEST_FAILED;
-+	}
- 	offset = CDNS_PORTCTRL + pdi->num * CDNS_PORT_OFFSET;
--	cdns_updatel(cdns, offset, CDNS_PORTCTRL_DIRN, val);
-+	cdns_updatel(cdns, offset,
-+		     CDNS_PORTCTRL_DIRN | CDNS_PORTCTRL_TEST_FAILED,
-+		     val);
- 
- 	val = pdi->num;
- 	val |= CDNS_PDI_CONFIG_SOFT_RESET;
+Gr{oetje,eeting}s,
+
+                        Geert
+
 -- 
-2.17.1
+Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
 
+In personal conversations with technical people, I call myself a hacker. But
+when I'm talking to journalists I just say "programmer" or something like that.
+                                -- Linus Torvalds

@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 95A16273014
-	for <lists+alsa-devel@lfdr.de>; Mon, 21 Sep 2020 19:02:51 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id AFC05273015
+	for <lists+alsa-devel@lfdr.de>; Mon, 21 Sep 2020 19:03:00 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C02BA16CB;
-	Mon, 21 Sep 2020 19:02:00 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C02BA16CB
+	by alsa0.perex.cz (Postfix) with ESMTPS id 53A3416DB;
+	Mon, 21 Sep 2020 19:02:10 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 53A3416DB
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1600707770;
-	bh=jBvTMb6BSyyzBMg1bmcGhFcyq8Z54iV6+nKI7nSpAMA=;
+	s=default; t=1600707780;
+	bh=+knWzm3xj2gskwUc9VYhgeLl1eQQ+hq8DGmvHZBEvB0=;
 	h=Date:From:To:In-Reply-To:References:Subject:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=bmE/fjAQADY3gPw7WRgP0iaszJ3U0djxHJL4i0e0EZ3wusR0UtVJghitdbpow+0bL
-	 K+657mOs4xw1K8gVwmmbn5DF490ofglWmiRWRHtUcNwIvsnYkyT3qf1gCcMX5YNlhd
-	 t7ydabZOFTFarAXjRtEO911A2A9WHQH1Iv/cwZ6Y=
+	b=Ohlr3+85D54QiH8XhZ2H1LlGBMkBJkL/P460QbyLKEV6mfb5vclSXbkA5edp0gbhE
+	 MZCsf+0nc522M+z0ujGr1kbWNSP7PcJztEyS8DkM8dWMWTqD6Ws0N8HC7xnICJRI7C
+	 JEA672R1PHT+Ak+pKoCI/VnJU0cZT7IHuKfZKuGs=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 3251CF802DF;
-	Mon, 21 Sep 2020 18:59:01 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 91A2AF802E8;
+	Mon, 21 Sep 2020 18:59:06 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 67F0DF802E2; Mon, 21 Sep 2020 18:58:58 +0200 (CEST)
+ id 0461FF802E1; Mon, 21 Sep 2020 18:58:59 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-1.6 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -34,35 +34,35 @@ X-Spam-Status: No, score=-1.6 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 4B154F802DD
- for <alsa-devel@alsa-project.org>; Mon, 21 Sep 2020 18:58:52 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4B154F802DD
+ by alsa1.perex.cz (Postfix) with ESMTPS id 2B03BF802DF
+ for <alsa-devel@alsa-project.org>; Mon, 21 Sep 2020 18:58:57 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2B03BF802DF
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="yg3oJvW5"
+ header.b="DR67Vkjk"
 Received: from localhost (fw-tnat.cambridge.arm.com [217.140.96.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 48A662223E;
- Mon, 21 Sep 2020 16:58:50 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id 4BB8420C09;
+ Mon, 21 Sep 2020 16:58:55 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1600707530;
- bh=jBvTMb6BSyyzBMg1bmcGhFcyq8Z54iV6+nKI7nSpAMA=;
+ s=default; t=1600707535;
+ bh=+knWzm3xj2gskwUc9VYhgeLl1eQQ+hq8DGmvHZBEvB0=;
  h=Date:From:To:Cc:In-Reply-To:References:Subject:From;
- b=yg3oJvW5Lr1N1++gn6kiiQCbI2x01EE1M4MTbSGe+uk9MqyENcSjxgNUiXMobQE9h
- OzW1kNiO34HzLBVgYO7LCBAH9nZDt6nc8h0wE01TCQE7q1zuQftM6qDn6I+Rq8chFg
- bx+6jFuf4Q2JVd9l8JQlzkTKGsvDWzufQ59vtmNY=
-Date: Mon, 21 Sep 2020 17:57:58 +0100
+ b=DR67VkjkH2w8LYQ91CjXT9tVvpO+pyX9G1WD4sFJ/5T2McpNoiwky20+SpLMX6Gsj
+ Kv9I3eDtc0/QRK+Yr3NmiTW0pNy+HPzOECEQpPlfsmMfLolofmbWAK2ozffESGYl6Q
+ oZWmtT2AwIrkUBmmIRWXCYr0XaJn6QQXLC6y6f6w=
+Date: Mon, 21 Sep 2020 17:58:03 +0100
 From: Mark Brown <broonie@kernel.org>
-To: lgirdwood@gmail.com, dmurphy@ti.com, Camel Guo <camel.guo@axis.com>,
- tiwai@suse.com, robh+dt@kernel.org
-In-Reply-To: <20200918114025.18205-1-camel.guo@axis.com>
-References: <20200918114025.18205-1-camel.guo@axis.com>
-Subject: Re: [PATCH v5 1/2] dt-bindings: tlv320adcx140: Add GPIO config and
+To: devicetree@vger.kernel.org, lgirdwood@gmail.com, dmurphy@ti.com,
+ Camel Guo <camel.guo@axis.com>, tiwai@suse.com, robh+dt@kernel.org
+In-Reply-To: <20200916075949.28479-1-camel.guo@axis.com>
+References: <20200916075949.28479-1-camel.guo@axis.com>
+Subject: Re: [PATCH v3 1/2] dt-bindings: tlv320adcx140: Add GPIO config and
  drive config
-Message-Id: <160070745846.56122.3144589484342330182.b4-ty@kernel.org>
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org, kernel@axis.com,
- linux-kernel@vger.kernel.org, Camel Guo <camelg@axis.com>
+Message-Id: <160070745846.56122.15642862327141755501.b4-ty@kernel.org>
+Cc: alsa-devel@alsa-project.org, kernel@axis.com, linux-kernel@vger.kernel.org,
+ Camel Guo <camelg@axis.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -78,7 +78,7 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Fri, 18 Sep 2020 13:40:24 +0200, Camel Guo wrote:
+On Wed, 16 Sep 2020 09:59:48 +0200, Camel Guo wrote:
 > Add properties for configuring the General Purpose Input Output (GPIO).
 > There are 2 settings for GPIO, configuration and the output drive type.
 

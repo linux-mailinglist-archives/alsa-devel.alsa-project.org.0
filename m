@@ -2,130 +2,65 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 762A7273287
-	for <lists+alsa-devel@lfdr.de>; Mon, 21 Sep 2020 21:12:04 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2C293273288
+	for <lists+alsa-devel@lfdr.de>; Mon, 21 Sep 2020 21:12:22 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 151BF16C2;
-	Mon, 21 Sep 2020 21:11:14 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 151BF16C2
+	by alsa0.perex.cz (Postfix) with ESMTPS id B0F5D16E7;
+	Mon, 21 Sep 2020 21:11:31 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B0F5D16E7
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1600715524;
-	bh=EXRtnD85RLpz5LRv7TD27JC3sVJGaEwLUx1vdCVegqA=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=deu15UCaCQyr793Y/oHPOLSj/KAC+BjD40/hecL00W7CkQhbF7jz0Qw/iMgFKHVL3
-	 DRB4NG6KZDAZRgXNqWyilw527v6UfazNl6cl1e+4JoHJqu2Kx01oM60TKbAdmX7Yho
-	 L45zgZiRROM91Jc37SHVGfRVK83ju3oKMsAYtqWA=
+	s=default; t=1600715541;
+	bh=MpQ1Xad5NYbNrd1FNW5HC71FgmvCYGQMszuOUbA/2rA=;
+	h=From:To:Subject:Date:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=KsKd3jd8v2yF4MI/4QQEcGyMOmyn1eWDaQnV7XvaVDkCk9eps2UbBZeMqujkEjHjU
+	 dmadokFuVOyFiynLFrS9sutNVLfM8oTmKU6DLduSx4gpUIIfPI5NRR1IWbd7Spd/ne
+	 lg33UsODZRDeQLVVDLIhTDwHawV6cBARBAjKm3sw=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 81C66F802E0;
-	Mon, 21 Sep 2020 21:09:03 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 41610F80162;
+	Mon, 21 Sep 2020 21:09:55 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id AD74EF802DB; Mon, 21 Sep 2020 21:08:59 +0200 (CEST)
+ id 8D9D2F802E1; Mon, 21 Sep 2020 21:09:52 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- MSGID_FROM_MTA_HEADER,RCVD_IN_MSPIKE_H2,SPF_HELO_PASS,SPF_PASS,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from EUR02-AM5-obe.outbound.protection.outlook.com
- (mail-eopbgr00057.outbound.protection.outlook.com [40.107.0.57])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
+Received: from posta.frantovo.cz (czf.frantovo.cz [91.219.244.97])
+ (using TLSv1.1 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 62602F80161
- for <alsa-devel@alsa-project.org>; Mon, 21 Sep 2020 21:08:50 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 62602F80161
+ by alsa1.perex.cz (Postfix) with ESMTPS id D7A42F80162
+ for <alsa-devel@alsa-project.org>; Mon, 21 Sep 2020 21:09:41 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D7A42F80162
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=NXP1.onmicrosoft.com
- header.i=@NXP1.onmicrosoft.com header.b="NQfRBgzH"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=HzrSWTzva/Hz4uRyKeQO+G0FBlf2zQukqzYkLZrJrh4fQ+V7OGJS9zKxwLPNsQfcNOvSRZsG6VUF8TAwJcxV8uGkIg92/kq0qEBnC/hmyLxUV5l+RcJEHtOxceEtwcApIH8SyYTJl3QCfGuItgEEFuyPgsEhluEgQMwlq/7Ct22UbM6JVErrLPF7ZfoMRXevcrl6SJ+9Ab39yma6Nn8PewjK53JcxfGsY8eF7nktIrfsaA2TE2RPhMQyiRlMAVr8IUeBpd9tsiGzQdVVeQM6/As+Phfgss/R8E1Lv3myC/tO20eOjKZYhA1R4GHZ9BWs/HomIK8LcIXxaC/TFwTW9g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=MNiJax0QLjM78wUbXKwzY6w1aZBNGq+Rsq4aqvMBrVE=;
- b=cQcBGQF5o4PrtB0BFzAC7LiZoQ61mXLISLhQnxS1zt1YrTbzfJIgnbbmL6U4Ka0w7M9Z+DgLXFqXtbjDTFc0fgkvjaDOwYgbH5bckkzsE+rC6BIjWb4HFDdMe7Ra2S0C2OcGNyQ44XEFNaW/e5p6PIdeS5nbHGMR58+3nsYMQT/oscUJqyLTodnLTMzNLt3jmw/sfcoHTFttWF2e+0HLKyj6568Yh7RBpMSDeFhhk4Ii2VSFqJP5t2Fqtj+9Itsy+RpS+PiO0L+A6IaiapkF1g788lsUPRqy8T8aDDA3+pf050JYEgUZsme8153/+/LdCqBrKVsjGQQn/3HWqdQTzw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com; 
- s=selector2-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=MNiJax0QLjM78wUbXKwzY6w1aZBNGq+Rsq4aqvMBrVE=;
- b=NQfRBgzH+dxRjuPvkzIWiStvFTpuaB01ej4H5Xx8JM1HOJ3FyQfD8Yvz4t6KslHgq2cURf0AJC/hjXGKhpsIiFnAw643g/5WOYDHOTmMOw/JPtZMnG4ZtvcrddMW9bVSwPxI3GI7bTJtBNJ4y8E6VmXIsR9tb9Y9i4Iuv9ail+M=
-Authentication-Results: gmail.com; dkim=none (message not signed)
- header.d=none;gmail.com; dmarc=none action=none header.from=oss.nxp.com;
-Received: from VI1PR0401MB2272.eurprd04.prod.outlook.com
- (2603:10a6:800:31::12) by VI1PR04MB5984.eurprd04.prod.outlook.com
- (2603:10a6:803:d6::31) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3391.14; Mon, 21 Sep
- 2020 19:08:46 +0000
-Received: from VI1PR0401MB2272.eurprd04.prod.outlook.com
- ([fe80::e00e:ad13:489b:8000]) by VI1PR0401MB2272.eurprd04.prod.outlook.com
- ([fe80::e00e:ad13:489b:8000%6]) with mapi id 15.20.3391.011; Mon, 21 Sep 2020
- 19:08:46 +0000
-From: "Viorel Suman (OSS)" <viorel.suman@oss.nxp.com>
-To: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
- Rob Herring <robh+dt@kernel.org>, Jaroslav Kysela <perex@perex.cz>,
- Takashi Iwai <tiwai@suse.com>, Timur Tabi <timur@kernel.org>,
- Nicolin Chen <nicoleotsuka@gmail.com>, Xiubo Li <Xiubo.Lee@gmail.com>,
- Fabio Estevam <festevam@gmail.com>,
- Shengjiu Wang <shengjiu.wang@gmail.com>,
- Philipp Zabel <p.zabel@pengutronix.de>,
- Viorel Suman <viorel.suman@nxp.com>,
- Matthias Schiffer <matthias.schiffer@ew.tq-group.com>,
- Cosmin-Gabriel Samoila <cosmin.samoila@nxp.com>,
- alsa-devel@alsa-project.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linuxppc-dev@lists.ozlabs.org
-Subject: [PATCH v2 2/2] ASoC: dt-bindings: fsl_xcvr: Add document for XCVR
-Date: Mon, 21 Sep 2020 22:08:12 +0300
-Message-Id: <1600715292-28529-3-git-send-email-viorel.suman@oss.nxp.com>
-X-Mailer: git-send-email 2.7.4
-In-Reply-To: <1600715292-28529-1-git-send-email-viorel.suman@oss.nxp.com>
-References: <1600715292-28529-1-git-send-email-viorel.suman@oss.nxp.com>
-Content-Type: text/plain
-X-ClientProxiedBy: AM0PR10CA0041.EURPRD10.PROD.OUTLOOK.COM
- (2603:10a6:20b:150::21) To VI1PR0401MB2272.eurprd04.prod.outlook.com
- (2603:10a6:800:31::12)
+ dkim=pass (1024-bit key) header.d=frantovo.cz header.i=@frantovo.cz
+ header.b="bNr9OH0S"
+Received: from posta.frantovo.cz (localhost [127.0.0.1])
+ by posta.frantovo.cz (Postfix) with ESMTP id 623A91A5DB0;
+ Mon, 21 Sep 2020 21:09:35 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=frantovo.cz;
+ s=default; t=1600715375;
+ bh=MpQ1Xad5NYbNrd1FNW5HC71FgmvCYGQMszuOUbA/2rA=;
+ h=From:To:Subject:Date;
+ b=bNr9OH0S63HKXt55m4dFsWEmpB6NxGpx9va8SKbWTPfie2gIwZirExq8e5ma8LkhG
+ Nno7XoBZUwjY0A5J6GZzN9MlFyoXU24dK5aYnBwknzCFOhkwcfuYje8O6mgp5zCqS8
+ oZYpd/5CoB89ZI26ewAcZlMmU/G0GYBDK0AMB9lY=
+From: =?UTF-8?q?Franti=C5=A1ek=20Ku=C4=8Dera?= <konference@frantovo.cz>
+To: alsa-devel@alsa-project.org, Takashi Iwai <tiwai@suse.de>,
+ =?UTF-8?q?Franti=C5=A1ek=20Ku=C4=8Dera?= <franta-linux@frantovo.cz>
+Subject: [PATCH] ALSA: usb-audio: Add mixer support for Pioneer DJ DJM-250MK2
+Date: Mon, 21 Sep 2020 21:09:36 +0200
+Message-Id: <20200921190936.5110-1-konference@frantovo.cz>
+X-Mailer: git-send-email 2.20.1
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-Received: from fsr-ub1664-116.ea.freescale.net (83.217.231.2) by
- AM0PR10CA0041.EURPRD10.PROD.OUTLOOK.COM (2603:10a6:20b:150::21) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256) id 15.20.3391.11 via Frontend
- Transport; Mon, 21 Sep 2020 19:08:44 +0000
-X-Mailer: git-send-email 2.7.4
-X-Originating-IP: [83.217.231.2]
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-HT: Tenant
-X-MS-Office365-Filtering-Correlation-Id: f13c9b29-48ec-4bff-6b83-08d85e61c3c3
-X-MS-TrafficTypeDiagnostic: VI1PR04MB5984:
-X-MS-Exchange-SharedMailbox-RoutingAgent-Processed: True
-X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <VI1PR04MB5984443F978B9CC1470772D2D33A0@VI1PR04MB5984.eurprd04.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:3044;
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: TWa7pcbnPd0f8Vp5EcJ750ga6jHEmBXHgUlaqJsXfQCUJeSSoPTewtM5nwhwLE0N4tZhhuuw1DK2aqe5e9oGzSu3utDDSyqLzkROZd5AutiAx1cI1NMXqY0TwUD8uYhVa1OkczMnP+VKpd1cHMjnI7V2bz0+WQkSE2gIbpMurvaEMHNklZApbRMf7M1CFIC2ZVVz28Z6NoDDXRBRsQ1EyvmlHyqetCkXR6NHY3PPc8S6tg7Xjx5rFF3xzqLgOQnpwSn/AOeO6dG1WKtS0mD7rXZjAeWa/GRJWw3SqQ7Wh8wbPMuXHoYgNR0EG9EaNM1xdYKxPqdtQl6ZXnNensdBbKpJx3jG2kSQNiny6O+pk6OX0yLZpQ8MDyHlF1qqKOMYF2w3tQsHX49Fj1llDztoB5cE8HDqgczsiaReuhX0jhAyooFeFIa5VWX6P2vOipqXbRJPWVWFRRjIHwuHAINhAazStcv6UvZ8qTaC9E1TgkavA4dvNX1TjSeXW0VXvGdS
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:VI1PR0401MB2272.eurprd04.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(396003)(39860400002)(136003)(346002)(376002)(366004)(8676002)(26005)(7416002)(66556008)(478600001)(316002)(52116002)(54906003)(110136005)(2906002)(956004)(6506007)(966005)(86362001)(66946007)(2616005)(66476007)(186003)(16526019)(6512007)(8936002)(6666004)(6486002)(5660300002)(4326008)(83380400001)(921003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData: imajBIK/MtWuJUoBpWaduDWNG5CjejP1a2nAwzj0NSjN29L5KDezraTLdicR8n10u0jUhwoUSkReLP5IEsH1ou0yaMs8hKmKVNc6Q3/0Q/kGEzKkpbte0Vr8qw1PyXKFqK+SHBUby8Sz142Lr1KDNN+BrNkkGHjFSxA1dh4gQZXw/TH3mhvqFOw158b4FWGK9QlLZol+ssSXC5Fs1vDnKzPkJ/WL80BLbgimioQLqXUzZrwYAkvbUrufajpTkfpMgZw92Xu9pgTO/GeJZf6/hxzoCJs/W+fhV0dYYauENiOEWSHCe9s5eWjB0oE2va/9K5hN1GCEUvxTtBiVXfCH/9y4Mc3R/S6GLBjdOge6SZo6XtTypk2SKLRwMUbYJORCREY4mz67XX7S0whqCQEQb/MNSfdsG8T5pHWxANFOeY325STCU6EPDfqSNhbA8hipp2Q4cm5ePmU2wyft4hx2s7Dfn/EcqwkTKlw4IGIJUZ4BVwMidlTJ5c1fc2Hq7Qbd2swaZFBU8ORiV0CVRk7wUm0VzTawrMD1ww+AurKoqM0TX6Z8jUUBW26U7KMN3JnnkG4bFVEl4PgIzNh4QMWIyKzVnGbSSx0lagSKZAaM1JzAy3DcTQlVko+zGpYyoc9MYdg2dI7sTz9uya+p9I00Gw==
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: f13c9b29-48ec-4bff-6b83-08d85e61c3c3
-X-MS-Exchange-CrossTenant-AuthSource: VI1PR0401MB2272.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Sep 2020 19:08:46.4387 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: MoDfSk9/pLbrTwcAWpIiGp0AsYau/+1bvmGRVr+8597cEnvaumlKBbLnkGzU3zTBQ9ILwTQa6OrPZK+gJYehpg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR04MB5984
-Cc: Viorel Suman <viorel.suman@gmail.com>, NXP Linux Team <linux-imx@nxp.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-Virus-Scanned: clamav-milter 0.98.1 at posta
+X-Virus-Status: Clean
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -141,125 +76,249 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: Viorel Suman <viorel.suman@nxp.com>
+From: František Kučera <franta-linux@frantovo.cz>
 
-XCVR (Audio Transceiver) is a new IP module found on i.MX8MP.
-
-Signed-off-by: Viorel Suman <viorel.suman@nxp.com>
+This patch extends support for DJM-250MK2 and allows mapping
+playback and capture channels to available sources.
+Configures the card through USB commands.
 ---
- .../devicetree/bindings/sound/fsl,xcvr.yaml        | 103 +++++++++++++++++++++
- 1 file changed, 103 insertions(+)
- create mode 100644 Documentation/devicetree/bindings/sound/fsl,xcvr.yaml
+ sound/usb/mixer_quirks.c | 216 +++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 216 insertions(+)
 
-diff --git a/Documentation/devicetree/bindings/sound/fsl,xcvr.yaml b/Documentation/devicetree/bindings/sound/fsl,xcvr.yaml
-new file mode 100644
-index 00000000..8abab2d
---- /dev/null
-+++ b/Documentation/devicetree/bindings/sound/fsl,xcvr.yaml
-@@ -0,0 +1,103 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/sound/fsl,xcvr.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
+diff --git a/sound/usb/mixer_quirks.c b/sound/usb/mixer_quirks.c
+index 199cdbfdc761..8d705d5f60f2 100644
+--- a/sound/usb/mixer_quirks.c
++++ b/sound/usb/mixer_quirks.c
+@@ -2602,6 +2602,219 @@ static int snd_bbfpro_controls_create(struct usb_mixer_interface *mixer)
+ 	return 0;
+ }
+ 
++/*
++ * Pioneer DJ DJM-250MK2 and maybe other DJM models
++ *
++ * For playback, no duplicate mapping should be set.
++ * There are three mixer stereo channels (CH1, CH2, AUX)
++ * and three stereo sources (Playback 1-2, Playback 3-4, Playback 5-6).
++ * Each channel should be mapped just once to one source.
++ * If mapped multiple times, only one source will play on given channel
++ * (sources are not mixed together).
++ *
++ * For recording, duplicate mapping is OK. We will get the same signal multiple times.
++ *
++ * Channels 7-8 are in both directions fixed to FX SEND / FX RETURN.
++ *
++ * See also notes in the quirks-table.h file.
++ */
 +
-+title: NXP Audio Transceiver (XCVR) Controller
++struct snd_pioneer_djm_option {
++	const u16 wIndex;
++	const u16 wValue;
++	const char *name;
++};
 +
-+maintainers:
-+  - Viorel Suman <viorel.suman@nxp.com>
++static const struct snd_pioneer_djm_option SND_PIONEER_DJM_OPTIONS_CAPTURE_LEVEL[] = {
++	{ .name =  "-5 dB",                  .wValue = 0x0300, .wIndex = 0x8003 },
++	{ .name = "-10 dB",                  .wValue = 0x0200, .wIndex = 0x8003 },
++	{ .name = "-15 dB",                  .wValue = 0x0100, .wIndex = 0x8003 },
++	{ .name = "-19 dB",                  .wValue = 0x0000, .wIndex = 0x8003 }
++};
 +
-+properties:
-+  $nodename:
-+    pattern: "^xcvr@.*"
++static const struct snd_pioneer_djm_option SND_PIONEER_DJM_OPTIONS_CAPTURE_CH12[] = {
++	{ .name =  "CH1 Control Tone PHONO", .wValue = 0x0103, .wIndex = 0x8002 },
++	{ .name =  "CH1 Control Tone LINE",  .wValue = 0x0100, .wIndex = 0x8002 },
++	{ .name =  "Post CH1 Fader",         .wValue = 0x0106, .wIndex = 0x8002 },
++	{ .name =  "Cross Fader A",          .wValue = 0x0107, .wIndex = 0x8002 },
++	{ .name =  "Cross Fader B",          .wValue = 0x0108, .wIndex = 0x8002 },
++	{ .name =  "MIC",                    .wValue = 0x0109, .wIndex = 0x8002 },
++	{ .name =  "AUX",                    .wValue = 0x010d, .wIndex = 0x8002 },
++	{ .name =  "REC OUT",                .wValue = 0x010a, .wIndex = 0x8002 }
++};
 +
-+  compatible:
-+    const: fsl,imx8mp-xcvr
++static const struct snd_pioneer_djm_option SND_PIONEER_DJM_OPTIONS_CAPTURE_CH34[] = {
++	{ .name =  "CH2 Control Tone PHONO", .wValue = 0x0203, .wIndex = 0x8002 },
++	{ .name =  "CH2 Control Tone LINE",  .wValue = 0x0200, .wIndex = 0x8002 },
++	{ .name =  "Post CH2 Fader",         .wValue = 0x0206, .wIndex = 0x8002 },
++	{ .name =  "Cross Fader A",          .wValue = 0x0207, .wIndex = 0x8002 },
++	{ .name =  "Cross Fader B",          .wValue = 0x0208, .wIndex = 0x8002 },
++	{ .name =  "MIC",                    .wValue = 0x0209, .wIndex = 0x8002 },
++	{ .name =  "AUX",                    .wValue = 0x020d, .wIndex = 0x8002 },
++	{ .name =  "REC OUT",                .wValue = 0x020a, .wIndex = 0x8002 }
++};
 +
-+  reg:
-+    items:
-+      - description: 20K RAM for code and data
-+      - description: registers space
-+      - description: RX FIFO address
-+      - description: TX FIFO address
++static const struct snd_pioneer_djm_option SND_PIONEER_DJM_OPTIONS_CAPTURE_CH56[] = {
++	{ .name =  "REC OUT",                .wValue = 0x030a, .wIndex = 0x8002 },
++	{ .name =  "Post CH1 Fader",         .wValue = 0x0311, .wIndex = 0x8002 },
++	{ .name =  "Post CH2 Fader",         .wValue = 0x0312, .wIndex = 0x8002 },
++	{ .name =  "Cross Fader A",          .wValue = 0x0307, .wIndex = 0x8002 },
++	{ .name =  "Cross Fader B",          .wValue = 0x0308, .wIndex = 0x8002 },
++	{ .name =  "MIC",                    .wValue = 0x0309, .wIndex = 0x8002 },
++	{ .name =  "AUX",                    .wValue = 0x030d, .wIndex = 0x8002 }
++};
 +
-+  reg-names:
-+    items:
-+      - const: ram
-+      - const: regs
-+      - const: rxfifo
-+      - const: txfifo
++static const struct snd_pioneer_djm_option SND_PIONEER_DJM_OPTIONS_PLAYBACK_12[] = {
++	{ .name =  "CH1",                    .wValue = 0x0100, .wIndex = 0x8016 },
++	{ .name =  "CH2",                    .wValue = 0x0101, .wIndex = 0x8016 },
++	{ .name =  "AUX",                    .wValue = 0x0104, .wIndex = 0x8016 }
++};
 +
-+  interrupts:
-+    maxItems: 1
++static const struct snd_pioneer_djm_option SND_PIONEER_DJM_OPTIONS_PLAYBACK_34[] = {
++	{ .name =  "CH1",                    .wValue = 0x0200, .wIndex = 0x8016 },
++	{ .name =  "CH2",                    .wValue = 0x0201, .wIndex = 0x8016 },
++	{ .name =  "AUX",                    .wValue = 0x0204, .wIndex = 0x8016 }
++};
 +
-+  clocks:
-+    items:
-+      - description: Peripheral clock
-+      - description: PHY clock
-+      - description: SPBA clock
-+      - description: PLL clock
++static const struct snd_pioneer_djm_option SND_PIONEER_DJM_OPTIONS_PLAYBACK_56[] = {
++	{ .name =  "CH1",                    .wValue = 0x0300, .wIndex = 0x8016 },
++	{ .name =  "CH2",                    .wValue = 0x0301, .wIndex = 0x8016 },
++	{ .name =  "AUX",                    .wValue = 0x0304, .wIndex = 0x8016 }
++};
 +
-+  clock-names:
-+    items:
-+      - const: ipg
-+      - const: phy
-+      - const: spba
-+      - const: pll_ipg
++struct snd_pioneer_djm_option_group {
++	const char *name;
++	const struct snd_pioneer_djm_option *options;
++	const size_t count;
++	const u16 default_value;
++} snd_pioneer_djm_option_group;
 +
-+  dmas:
-+    maxItems: 2
++#define SND_PIONEER_DJM_OPTION_GROUP_ITEM(_name, suffix, _default_value) { \
++	.name = _name, \
++	.options = SND_PIONEER_DJM_OPTIONS_##suffix, \
++	.count = ARRAY_SIZE(SND_PIONEER_DJM_OPTIONS_##suffix), \
++	.default_value = _default_value }
 +
-+  dma-names:
-+    items:
-+      - const: rx
-+      - const: tx
++static const struct snd_pioneer_djm_option_group SND_PIONEER_DJM_OPTION_GROUPS[] = {
++	SND_PIONEER_DJM_OPTION_GROUP_ITEM("Master Capture Level Capture Switch", CAPTURE_LEVEL, 0),
++	SND_PIONEER_DJM_OPTION_GROUP_ITEM("Capture 1-2 Capture Switch",          CAPTURE_CH12,  2),
++	SND_PIONEER_DJM_OPTION_GROUP_ITEM("Capture 3-4 Capture Switch",          CAPTURE_CH34,  2),
++	SND_PIONEER_DJM_OPTION_GROUP_ITEM("Capture 5-6 Capture Switch",          CAPTURE_CH56,  0),
++	SND_PIONEER_DJM_OPTION_GROUP_ITEM("Playback 1-2 Playback Switch",        PLAYBACK_12,   0),
++	SND_PIONEER_DJM_OPTION_GROUP_ITEM("Playback 3-4 Playback Switch",        PLAYBACK_34,   1),
++	SND_PIONEER_DJM_OPTION_GROUP_ITEM("Playback 5-6 Playback Switch",        PLAYBACK_56,   2)
++};
 +
-+  firmware-name:
-+    $ref: /schemas/types.yaml#/definitions/string
-+    const: imx/xcvr/xcvr-imx8mp.bin
-+    description: |
-+      Should contain the name of the default firmware image
-+      file located on the firmware search path
++// layout of the kcontrol->private_value:
++#define SND_PIONEER_DJM_VALUE_MASK 0x0000ffff
++#define SND_PIONEER_DJM_GROUP_MASK 0xffff0000
++#define SND_PIONEER_DJM_GROUP_SHIFT 16
 +
-+  resets:
-+    maxItems: 1
++static int snd_pioneer_djm_controls_info(struct snd_kcontrol *kctl, struct snd_ctl_elem_info *info)
++{
++	u16 group_index = kctl->private_value >> SND_PIONEER_DJM_GROUP_SHIFT;
++	size_t count;
++	const char *name;
++	const struct snd_pioneer_djm_option_group *group;
 +
-+required:
-+  - compatible
-+  - reg
-+  - reg-names
-+  - interrupts
-+  - clocks
-+  - clock-names
-+  - dmas
-+  - dma-names
-+  - firmware-name
-+  - resets
++	if (group_index < ARRAY_SIZE(SND_PIONEER_DJM_OPTION_GROUPS)) {
++		group = &SND_PIONEER_DJM_OPTION_GROUPS[group_index];
++		count = group->count;
++		if (info->value.enumerated.item >= count)
++			info->value.enumerated.item = count - 1;
++		name = group->options[info->value.enumerated.item].name;
++		strlcpy(info->value.enumerated.name, name, sizeof(info->value.enumerated.name));
++		info->type = SNDRV_CTL_ELEM_TYPE_ENUMERATED;
++		info->count = 1;
++		info->value.enumerated.items = count;
++		return 0;
++	} else {
++		return -EINVAL;
++	}
++}
 +
-+examples:
-+  - |
-+    #include <dt-bindings/interrupt-controller/arm-gic.h>
-+    #include <dt-bindings/clock/imx8mp-clock.h>
-+    #include <dt-bindings/reset/imx8mp-reset.h>
++static int snd_pioneer_djm_controls_update(struct usb_mixer_interface *mixer, u16 group, u16 value)
++{
++	int err;
 +
-+    xcvr: xcvr@30cc0000 {
-+           compatible = "fsl,imx8mp-xcvr";
-+           reg = <0x30cc0000 0x800>,
-+                 <0x30cc0800 0x400>,
-+                 <0x30cc0c00 0x080>,
-+                 <0x30cc0e00 0x080>;
-+           reg-names = "ram", "regs", "rxfifo", "txfifo";
-+           interrupts = <0x0 128 IRQ_TYPE_LEVEL_HIGH>;
-+           clocks = <&audiomix_clk IMX8MP_CLK_AUDIOMIX_EARC_IPG>,
-+                    <&audiomix_clk IMX8MP_CLK_AUDIOMIX_EARC_PHY>,
-+                    <&audiomix_clk IMX8MP_CLK_AUDIOMIX_SPBA2_ROOT>,
-+                    <&audiomix_clk IMX8MP_CLK_AUDIOMIX_AUDPLL_ROOT>;
-+           clock-names = "ipg", "phy", "spba", "pll_ipg";
-+           dmas = <&sdma2 30 2 0>, <&sdma2 31 2 0>;
-+           dma-names = "rx", "tx";
-+           firmware-name = "imx/xcvr/xcvr-imx8mp.bin";
-+           resets = <&audiomix_reset 0>;
-+    };
++	if (group < ARRAY_SIZE(SND_PIONEER_DJM_OPTION_GROUPS)
++			&& value < SND_PIONEER_DJM_OPTION_GROUPS[group].count) {
++		err = snd_usb_lock_shutdown(mixer->chip);
++		if (err)
++			return err;
++
++		err = snd_usb_ctl_msg(
++			mixer->chip->dev, usb_sndctrlpipe(mixer->chip->dev, 0),
++			USB_REQ_SET_FEATURE,
++			USB_DIR_OUT | USB_TYPE_VENDOR | USB_RECIP_DEVICE,
++			SND_PIONEER_DJM_OPTION_GROUPS[group].options[value].wValue,
++			SND_PIONEER_DJM_OPTION_GROUPS[group].options[value].wIndex,
++			NULL, 0);
++
++		snd_usb_unlock_shutdown(mixer->chip);
++		return err;
++	} else {
++		return -EINVAL;
++	}
++}
++
++static int snd_pioneer_djm_controls_get(struct snd_kcontrol *kctl, struct snd_ctl_elem_value *elem)
++{
++	elem->value.enumerated.item[0] = kctl->private_value & SND_PIONEER_DJM_VALUE_MASK;
++	return 0;
++}
++
++static int snd_pioneer_djm_controls_put(struct snd_kcontrol *kctl, struct snd_ctl_elem_value *elem)
++{
++	struct usb_mixer_elem_list *list = snd_kcontrol_chip(kctl);
++	struct usb_mixer_interface *mixer = list->mixer;
++	unsigned long private_value = kctl->private_value;
++
++	u16 group = (private_value & SND_PIONEER_DJM_GROUP_MASK) >> SND_PIONEER_DJM_GROUP_SHIFT;
++	u16 value = elem->value.enumerated.item[0];
++
++	kctl->private_value = group << SND_PIONEER_DJM_GROUP_SHIFT | value;
++
++	return snd_pioneer_djm_controls_update(mixer, group, value);
++}
++
++static int snd_pioneer_djm_controls_resume(struct usb_mixer_elem_list *list)
++{
++	unsigned long private_value = list->kctl->private_value;
++	u16 group = (private_value & SND_PIONEER_DJM_GROUP_MASK) >> SND_PIONEER_DJM_GROUP_SHIFT;
++	u16 value = (private_value & SND_PIONEER_DJM_VALUE_MASK);
++
++	return snd_pioneer_djm_controls_update(list->mixer, group, value);
++}
++
++static int snd_pioneer_djm_controls_create(struct usb_mixer_interface *mixer)
++{
++	int err, i;
++	const struct snd_pioneer_djm_option_group *group;
++	struct snd_kcontrol_new knew = {
++		.iface  = SNDRV_CTL_ELEM_IFACE_MIXER,
++		.access = SNDRV_CTL_ELEM_ACCESS_READWRITE,
++		.index = 0,
++		.info = snd_pioneer_djm_controls_info,
++		.get  = snd_pioneer_djm_controls_get,
++		.put  = snd_pioneer_djm_controls_put
++	};
++
++	for (i = 0; i < ARRAY_SIZE(SND_PIONEER_DJM_OPTION_GROUPS); i++) {
++		group = &SND_PIONEER_DJM_OPTION_GROUPS[i];
++		knew.name = group->name;
++		knew.private_value = i << SND_PIONEER_DJM_GROUP_SHIFT | group->default_value;
++		err = snd_pioneer_djm_controls_update(mixer, i, group->default_value);
++		if (err)
++			return err;
++		err = add_single_ctl_with_resume(mixer, 0, snd_pioneer_djm_controls_resume,
++						 &knew, NULL);
++		if (err)
++			return err;
++	}
++	return 0;
++}
++
+ int snd_usb_mixer_apply_create_quirk(struct usb_mixer_interface *mixer)
+ {
+ 	int err = 0;
+@@ -2706,6 +2919,9 @@ int snd_usb_mixer_apply_create_quirk(struct usb_mixer_interface *mixer)
+ 	case USB_ID(0x2a39, 0x3fb0): /* RME Babyface Pro FS */
+ 		err = snd_bbfpro_controls_create(mixer);
+ 		break;
++	case USB_ID(0x2b73, 0x0017): /* Pioneer DJ DJM-250MK2 */
++		err = snd_pioneer_djm_controls_create(mixer);
++		break;
+ 	}
+ 
+ 	return err;
 -- 
-2.7.4
+2.20.1
 

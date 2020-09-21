@@ -2,30 +2,29 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 572A9272897
-	for <lists+alsa-devel@lfdr.de>; Mon, 21 Sep 2020 16:45:44 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C1FD42728C1
+	for <lists+alsa-devel@lfdr.de>; Mon, 21 Sep 2020 16:46:44 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id DF61516D5;
-	Mon, 21 Sep 2020 16:44:53 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DF61516D5
+	by alsa0.perex.cz (Postfix) with ESMTPS id 5389916D3;
+	Mon, 21 Sep 2020 16:45:54 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5389916D3
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1600699544;
-	bh=Mvp27jXAUA961Wpq7Px/syL4hfJjcknjgb34/tfBJWg=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=oWCL3HNLkDeEqPD4Di8SKj5CUK05GF9GrMxPxwwB+Qv84wdNkmaaB/nnl0VGxi2gl
-	 ZXqQpPh2VTm6rt79SrLKvYWDXC+KF46VKYJy6Axj4shMk4usc/aTVcSSMDWOguHZ4h
-	 g1hFV2fsVRPikY0R9LKPnbPKvbQjmhF6INene+FU=
+	s=default; t=1600699604;
+	bh=n4ccT9AAlLEmEj4CplM7KOfPW9h4l6di6si+GpkT5jE=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=RN4hnp+kltYeXg3XhEe8+JjgZ6R/m0Q6EQLOc4FEOnTnep2No4VX0xbTBi35n5jhy
+	 3K5H9Tvczbrwg2VUePamt4dEQCc5AYuyaaB8JESM2MYm9gL/0ZP5ByDk1OiHk3OAZ9
+	 lD9GVXFrYax6yH4BlcUJTGRQKGMe4RPJVbcn41Wk=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 6A547F802EC;
-	Mon, 21 Sep 2020 16:41:15 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 3A216F80321;
+	Mon, 21 Sep 2020 16:41:28 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 98755F802FB; Mon, 21 Sep 2020 16:41:10 +0200 (CEST)
+ id 537A6F80329; Mon, 21 Sep 2020 16:41:25 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-1.6 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -34,42 +33,40 @@ X-Spam-Status: No, score=-1.6 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 64FC0F802EB
- for <alsa-devel@alsa-project.org>; Mon, 21 Sep 2020 16:41:03 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 64FC0F802EB
+ by alsa1.perex.cz (Postfix) with ESMTPS id C71F3F8031A
+ for <alsa-devel@alsa-project.org>; Mon, 21 Sep 2020 16:41:18 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C71F3F8031A
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="PMv9Ftvx"
+ header.b="V1yKOsJL"
 Received: from sasha-vm.mshome.net (c-73-47-72-35.hsd1.nh.comcast.net
  [73.47.72.35])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id C92812389E;
- Mon, 21 Sep 2020 14:41:00 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id D4578221EC;
+ Mon, 21 Sep 2020 14:41:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1600699261;
- bh=Mvp27jXAUA961Wpq7Px/syL4hfJjcknjgb34/tfBJWg=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=PMv9FtvxGoIVTLn8c5lH6F/O5rbbxfo+K3t92Ly8qRqY6n0V7pnlRo6a/4IELY4or
- N2/douVg1hMxkRUWsgGuavjOklYKXU/5j4sDTCzc9aDYt7Ve1LTgn3O5rzBLjBW0q6
- rrYbMwoThSyi/0lTCwEYoa2WV5y+hG5jo+TOCEp8=
+ s=default; t=1600699276;
+ bh=n4ccT9AAlLEmEj4CplM7KOfPW9h4l6di6si+GpkT5jE=;
+ h=From:To:Cc:Subject:Date:From;
+ b=V1yKOsJLd/QYngFzExG4KW39pDoq4D3D5s6hgNPwq594atkmgmpZ3n/y/s/knJ5Aq
+ vYlL+VygxEuPctkzxntnhvLfNw7Jr8/yXu1q5tEjLFAw4quY7cfbvSyNgJt6EEXYka
+ T/G29s1aj0YaJpsAHbnmzETi5sfyUd+7AJXInZfw=
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 5.4 05/15] ASoC: Intel: bytcr_rt5640: Add quirk for
- MPMAN Converter9 2-in-1
-Date: Mon, 21 Sep 2020 10:40:44 -0400
-Message-Id: <20200921144054.2135602-5-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 4.19 1/9] ASoC: wm8994: Skip setting of the
+ WM8994_MICBIAS register for WM1811
+Date: Mon, 21 Sep 2020 10:41:06 -0400
+Message-Id: <20200921144114.2135773-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20200921144054.2135602-1-sashal@kernel.org>
-References: <20200921144054.2135602-1-sashal@kernel.org>
 MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
 Content-Transfer-Encoding: 8bit
-Cc: Sasha Levin <sashal@kernel.org>, Hans de Goede <hdegoede@redhat.com>,
- alsa-devel@alsa-project.org, Mark Brown <broonie@kernel.org>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Cc: Sasha Levin <sashal@kernel.org>, alsa-devel@alsa-project.org,
+ Charles Keepax <ckeepax@opensource.cirrus.com>, patches@opensource.cirrus.com,
+ Krzysztof Kozlowski <krzk@kernel.org>, Mark Brown <broonie@kernel.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -85,46 +82,71 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: Hans de Goede <hdegoede@redhat.com>
+From: Sylwester Nawrocki <s.nawrocki@samsung.com>
 
-[ Upstream commit 6a0137101f47301fff2da6ba4b9048383d569909 ]
+[ Upstream commit 811c5494436789e7149487c06e0602b507ce274b ]
 
-The MPMAN Converter9 2-in-1 almost fully works with out default settings.
-The only problem is that it has only 1 speaker so any sounds only playing
-on the right channel get lost.
+The WM8994_MICBIAS register is not available in the WM1811 CODEC so skip
+initialization of that register for that device.
+This suppresses an error during boot:
+"wm8994-codec: ASoC: error at snd_soc_component_update_bits on wm8994-codec"
 
-Add a quirk for this model using the default settings + MONO_SPEAKER.
-
-Signed-off-by: Hans de Goede <hdegoede@redhat.com>
-Acked-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Link: https://lore.kernel.org/r/20200901080623.4987-1-hdegoede@redhat.com
+Signed-off-by: Sylwester Nawrocki <s.nawrocki@samsung.com>
+Acked-by: Krzysztof Kozlowski <krzk@kernel.org>
+Acked-by: Charles Keepax <ckeepax@opensource.cirrus.com>
+Link: https://lore.kernel.org/r/20200827173357.31891-1-s.nawrocki@samsung.com
 Signed-off-by: Mark Brown <broonie@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- sound/soc/intel/boards/bytcr_rt5640.c | 10 ++++++++++
- 1 file changed, 10 insertions(+)
+ sound/soc/codecs/wm8994.c  | 2 ++
+ sound/soc/codecs/wm_hubs.c | 3 +++
+ sound/soc/codecs/wm_hubs.h | 1 +
+ 3 files changed, 6 insertions(+)
 
-diff --git a/sound/soc/intel/boards/bytcr_rt5640.c b/sound/soc/intel/boards/bytcr_rt5640.c
-index f7964d1ec486f..6012367f6fe48 100644
---- a/sound/soc/intel/boards/bytcr_rt5640.c
-+++ b/sound/soc/intel/boards/bytcr_rt5640.c
-@@ -591,6 +591,16 @@ static const struct dmi_system_id byt_rt5640_quirk_table[] = {
- 					BYT_RT5640_SSP0_AIF1 |
- 					BYT_RT5640_MCLK_EN),
- 	},
-+	{	/* MPMAN Converter 9, similar hw as the I.T.Works TW891 2-in-1 */
-+		.matches = {
-+			DMI_MATCH(DMI_SYS_VENDOR, "MPMAN"),
-+			DMI_MATCH(DMI_PRODUCT_NAME, "Converter9"),
-+		},
-+		.driver_data = (void *)(BYTCR_INPUT_DEFAULTS |
-+					BYT_RT5640_MONO_SPEAKER |
-+					BYT_RT5640_SSP0_AIF1 |
-+					BYT_RT5640_MCLK_EN),
-+	},
- 	{
- 		/* MPMAN MPWIN895CL */
- 		.matches = {
+diff --git a/sound/soc/codecs/wm8994.c b/sound/soc/codecs/wm8994.c
+index 01acb8da2f48e..cd089b4143029 100644
+--- a/sound/soc/codecs/wm8994.c
++++ b/sound/soc/codecs/wm8994.c
+@@ -4051,11 +4051,13 @@ static int wm8994_component_probe(struct snd_soc_component *component)
+ 			wm8994->hubs.dcs_readback_mode = 2;
+ 			break;
+ 		}
++		wm8994->hubs.micd_scthr = true;
+ 		break;
+ 
+ 	case WM8958:
+ 		wm8994->hubs.dcs_readback_mode = 1;
+ 		wm8994->hubs.hp_startup_mode = 1;
++		wm8994->hubs.micd_scthr = true;
+ 
+ 		switch (control->revision) {
+ 		case 0:
+diff --git a/sound/soc/codecs/wm_hubs.c b/sound/soc/codecs/wm_hubs.c
+index fed6ea9b019f7..da7fa6f5459e6 100644
+--- a/sound/soc/codecs/wm_hubs.c
++++ b/sound/soc/codecs/wm_hubs.c
+@@ -1227,6 +1227,9 @@ int wm_hubs_handle_analogue_pdata(struct snd_soc_component *component,
+ 		snd_soc_component_update_bits(component, WM8993_ADDITIONAL_CONTROL,
+ 				    WM8993_LINEOUT2_FB, WM8993_LINEOUT2_FB);
+ 
++	if (!hubs->micd_scthr)
++		return 0;
++
+ 	snd_soc_component_update_bits(component, WM8993_MICBIAS,
+ 			    WM8993_JD_SCTHR_MASK | WM8993_JD_THR_MASK |
+ 			    WM8993_MICB1_LVL | WM8993_MICB2_LVL,
+diff --git a/sound/soc/codecs/wm_hubs.h b/sound/soc/codecs/wm_hubs.h
+index ee339ad8514d1..1433d73e09bf8 100644
+--- a/sound/soc/codecs/wm_hubs.h
++++ b/sound/soc/codecs/wm_hubs.h
+@@ -31,6 +31,7 @@ struct wm_hubs_data {
+ 	int hp_startup_mode;
+ 	int series_startup;
+ 	int no_series_update;
++	bool micd_scthr;
+ 
+ 	bool no_cache_dac_hp_direct;
+ 	struct list_head dcs_cache;
 -- 
 2.25.1
 

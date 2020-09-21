@@ -2,66 +2,93 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5120F27302D
-	for <lists+alsa-devel@lfdr.de>; Mon, 21 Sep 2020 19:03:46 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 118D02730B4
+	for <lists+alsa-devel@lfdr.de>; Mon, 21 Sep 2020 19:17:22 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id DC7EF16DF;
-	Mon, 21 Sep 2020 19:02:55 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DC7EF16DF
+	by alsa0.perex.cz (Postfix) with ESMTPS id B5DF016C8;
+	Mon, 21 Sep 2020 19:16:30 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B5DF016C8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1600707826;
-	bh=2aslu1ivz1KEDe+tgjaIkEZwIP4cmYNaWXIHYB/Mrvs=;
-	h=Date:From:To:In-Reply-To:References:Subject:Cc:List-Id:
+	s=default; t=1600708641;
+	bh=9HWmOQH7e587AlVY6KVBtHvZovBVBdabTljJbYGF9/U=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=YcE1SdB4Wu2kng2GEY5yGhq4Oml0Y+8cIqPc5Sm7aiWJN80cvCuovPrFiga5mE7MU
-	 +TMj97F97Prz/2mo9BU6QdKxdLNfEAZAlJwP9sXmBhqjQaMvzIruEAExZTNIYVJwdd
-	 az6gm4gbTl2SBZtCxTn3rmiRQ3NTmRZSNVg17jVc=
+	b=j3g3W89PQgRfOn9EXTRIaCmkH5QPJRD+jDP4iY8EfJ779XZNehpkwwQCctpO4wykz
+	 Nedx0YnfVq9nHkPaKKvjNu79u4UodSZdDgOVcSvGB7y3gqtI90WIjoEwNMTbwolg3k
+	 KN7B9TtBPzW2q1jh5t2mWbaiYwlFaDHnbc4PypBo=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 168B1F802FF;
-	Mon, 21 Sep 2020 18:59:12 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id D5502F80171;
+	Mon, 21 Sep 2020 19:15:39 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 2EA6BF802FE; Mon, 21 Sep 2020 18:59:10 +0200 (CEST)
+ id 3357FF80162; Mon, 21 Sep 2020 19:15:37 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-1.6 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
  autolearn=disabled version=3.4.0
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+Received: from mail-io1-xd41.google.com (mail-io1-xd41.google.com
+ [IPv6:2607:f8b0:4864:20::d41])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 4484AF802E2
- for <alsa-devel@alsa-project.org>; Mon, 21 Sep 2020 18:59:02 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4484AF802E2
+ by alsa1.perex.cz (Postfix) with ESMTPS id E73F0F800B2
+ for <alsa-devel@alsa-project.org>; Mon, 21 Sep 2020 19:15:26 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E73F0F800B2
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="Mdrq8lxr"
-Received: from localhost (fw-tnat.cambridge.arm.com [217.140.96.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 43BE22223E;
- Mon, 21 Sep 2020 16:59:00 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1600707540;
- bh=2aslu1ivz1KEDe+tgjaIkEZwIP4cmYNaWXIHYB/Mrvs=;
- h=Date:From:To:Cc:In-Reply-To:References:Subject:From;
- b=Mdrq8lxrcFaRKCbAdI1pJrMMTz13ehyh4nVZMmxjWt4U6fqycdz6vbLR+6kNpG+Rn
- dTPR7lbLWUlqzgGV/pYdbh1Z0wQuPpJZFbIRR3hUkYcZy31bVBaSQdToxYafAsyvzk
- nRXK0149eFO7ZwAr+k07G/1hp8j8EgI/RKnBaYds=
-Date: Mon, 21 Sep 2020 17:58:08 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Kai Vehmanen <kai.vehmanen@linux.intel.com>, alsa-devel@alsa-project.org
-In-Reply-To: <20200921105038.2909899-1-kai.vehmanen@linux.intel.com>
-References: <20200921105038.2909899-1-kai.vehmanen@linux.intel.com>
-Subject: Re: [PATCH] ASoC: SOF: pm: Fix prepare callback behavior for OF
- usecase
-Message-Id: <160070745847.56122.5442062495067528588.b4-ty@kernel.org>
-Cc: ranjani.sridharan@linux.intel.com, daniel.baluta@nxp.com,
- pierre-louis.bossart@linux.intel.com, lgirdwood@gmail.com
+ dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
+ header.b="a1xvXmos"
+Received: by mail-io1-xd41.google.com with SMTP id g7so16184723iov.13
+ for <alsa-devel@alsa-project.org>; Mon, 21 Sep 2020 10:15:26 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc:content-transfer-encoding;
+ bh=OfjpKCjgpFcyIPadh1UeQQlqIJ/XQ8FTUIY77xhbs1M=;
+ b=a1xvXmosY39aq2upt7jpTrsD4onvVX8CyT0/UwKVqUS7KlrTR0AIZii4mUTvT32hmA
+ i/0S+WQLWmKm3JW8G8i16TOuvz/hze0R9QTcDctff7exS5RH9aTEon6Ks4J2C1XrLpIq
+ xFqUaJfXncTM1HMMug97koDCv/+ZeV9t5l7roUlBfTvxjwg2gkiOFv0kNRzglmFEmxoN
+ En3Z/sxR3CXjsx4MCibYjSY7G0OvMc6K/zvr4xIUxmel8A8XPK7XyJDlKGlgPX/pOj4W
+ qo32rdACDgyvcH4JPfCUN+ic9b57C4nWB5JEB9lk0ckIlmA52RJokQdnJ+2vUXBLEiBn
+ bWAg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc:content-transfer-encoding;
+ bh=OfjpKCjgpFcyIPadh1UeQQlqIJ/XQ8FTUIY77xhbs1M=;
+ b=m19N6g/G8/1GEG96O1KlehhNlqwDDfFjyfh1+67c2zbphLzrDWAkLuyPjAliQw4mo6
+ 5RA6JqLc6Famiboey1ObDpj5q1VgarXKow5ve9Clvf4sm3fppUexK00BgYtUtWSOXvXK
+ J7Rxoz9FBjkfHgjziEIvyWAZfNLTfREofd3gNuCCXMLS5/7wFm4DEO/CDoyEwXyasQqA
+ H3kS8GIksbn5LFHIuZ8Ufm1jpjjNp9kZ7HRxSqgOf/wAEaM4hPA/nKyrmXmSvWSa+UjD
+ 4m2RLCJ5KQi7xg5w8VhQ8dI26PP068r/G+f+zyH64SFnemPXRMFYkK1TXdTQFQka5InQ
+ rURQ==
+X-Gm-Message-State: AOAM532EQoxllKeac7h2rNq4W7G57v2EgFwFd+cL7uY6gSVs7271xlH/
+ uRUE9PKRmZC/sRpgUOZKQueac3CcUH9OFngKBZE=
+X-Google-Smtp-Source: ABdhPJxZBxQ1fxsquRrTgaINgoIJXJR0GXEKUzOWZH8kFP5ZkKMxh6FQDWwyDbq36aMx3Yi3EhEDiEA2U3q/7QrGEac=
+X-Received: by 2002:a02:734f:: with SMTP id a15mr907939jae.120.1600708524243; 
+ Mon, 21 Sep 2020 10:15:24 -0700 (PDT)
+MIME-Version: 1.0
+References: <20200921102731.747736-1-peron.clem@gmail.com>
+ <20200921102731.747736-3-peron.clem@gmail.com>
+ <20200921122918.kzzu623wui277nwr@gilmour.lan>
+In-Reply-To: <20200921122918.kzzu623wui277nwr@gilmour.lan>
+From: =?UTF-8?B?Q2zDqW1lbnQgUMOpcm9u?= <peron.clem@gmail.com>
+Date: Mon, 21 Sep 2020 19:15:13 +0200
+Message-ID: <CAJiuCce0thGcH19vMtDX0X8-9S32Y7kC2bnWo_6-SHozF8uDAA@mail.gmail.com>
+Subject: Re: [PATCH v4 02/22] ASoC: sun4i-i2s: Change set_chan_cfg() params
+To: Maxime Ripard <maxime@cerno.tech>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+Cc: devicetree <devicetree@vger.kernel.org>,
+ Jernej Skrabec <jernej.skrabec@siol.net>,
+ Linux-ALSA <alsa-devel@alsa-project.org>, Liam Girdwood <lgirdwood@gmail.com>,
+ linux-kernel <linux-kernel@vger.kernel.org>, Mark Brown <broonie@kernel.org>,
+ linux-sunxi <linux-sunxi@googlegroups.com>, Takashi Iwai <tiwai@suse.com>,
+ Marcus Cooper <codekipper@gmail.com>, Chen-Yu Tsai <wens@csie.org>,
+ Rob Herring <robh+dt@kernel.org>, Samuel Holland <samuel@sholland.org>,
+ linux-arm-kernel <linux-arm-kernel@lists.infradead.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -77,36 +104,41 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Mon, 21 Sep 2020 13:50:38 +0300, Kai Vehmanen wrote:
-> On i.MX platforms PM is not managed via ACPI although CONFIG_ACPI
-> can be set. So, in order to correctly set the system target state
-> we introduce a flag for platforms that require to use acpi target
-> states.
+Hi Maxime,
 
-Applied to
+On Mon, 21 Sep 2020 at 14:29, Maxime Ripard <maxime@cerno.tech> wrote:
+>
+> On Mon, Sep 21, 2020 at 12:27:11PM +0200, Cl=C3=A9ment P=C3=A9ron wrote:
+> > As slots and slot_width can be overwritter in case set_tdm() is
+> > called. Avoid to have this logic in set_chan_cfg().
+> >
+> > Instead pass the required values as params to set_chan_cfg().
+>
+> It's not really clear here what the issue is, and how passing the slots
+> and slot_width as arguments addresses it
+>
+> > This also fix a bug when i2s->slot_width is set for TDM but not
+> > properly used in set_chan_cfg().
+>
+> Which bug?
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
+Do you mean my commit log is too short or is it a real question to understa=
+nd ?
 
-Thanks!
+To answer if set_tdm() is called then we set the i2s->slot_width and i2s->s=
+lots.
+But we use lrck_period =3D params_physical_width(params)
+instead of lrck_period =3D i2s->slot_width ?  i2s->slot_width :
+params_physical_width(params);
 
-[1/1] ASoC: SOF: pm: Fix prepare callback behavior for OF usecase
-      commit: 43437d0417a36bc9174deedce4ecc2c516ffde57
+>
+> Also, Fixes tag?
 
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
+I think this only happens when 20/24bit is enabled so the issue has been
+introduced in this series.
 
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
+Clement
 
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
-
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-Thanks,
-Mark
+>
+> Thanks!
+> Maxime

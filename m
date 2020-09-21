@@ -2,73 +2,78 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 58A83272F38
-	for <lists+alsa-devel@lfdr.de>; Mon, 21 Sep 2020 18:55:51 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1DFCF272F01
+	for <lists+alsa-devel@lfdr.de>; Mon, 21 Sep 2020 18:54:26 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id EADED1683;
-	Mon, 21 Sep 2020 18:55:00 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EADED1683
+	by alsa0.perex.cz (Postfix) with ESMTPS id A9B3416C1;
+	Mon, 21 Sep 2020 18:53:34 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A9B3416C1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1600707351;
-	bh=5smeGkczUozFteBSVQaVEdcxJ0HN486aJhTyVi3BbOk=;
+	s=default; t=1600707264;
+	bh=IQn+yqrHL+AEilk4mqAzjmr2JtB0Gltl+WwJqv/CkxA=;
 	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=ZnuMeMA8XH+DarRb2C8YlT318fbaiIK9Z28VY8+a9NRj8yBXi+xTlboUa5GyuuQrA
-	 fgT+fPDakJJfw53WCK8M5KNkPqHn0TPtj0S/Wp1co9NIYfB7PNhzbgQOwoLWaDE6DY
-	 VE44gM2NbCQP6XSdqZAv+rPu+pmFydkLPx4kys10=
+	b=GlQGkTCRUz6Sb7jF2b5p8Qubv1kf2hr5wpnMAsdViQdJROvnKzJY7sAyLdKoiOX+u
+	 pcvdcuMhe1wiYlZ4z2DMXn1l3JRXM6Htk5kJYHGyaFdYFP6S6E1Z5UWcCCItl2mky+
+	 dKPcMkGTe4wcP1gBrBgHXZa9I4h7Cn7pza9hY2Tg=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 1CB1EF802E0;
-	Mon, 21 Sep 2020 18:52:51 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id B4B09F8010A;
+	Mon, 21 Sep 2020 18:52:43 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 49300F802DF; Mon, 21 Sep 2020 18:52:47 +0200 (CEST)
+ id 3699BF801EC; Mon, 21 Sep 2020 18:52:41 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=NICE_REPLY_A,SPF_HELO_NONE,
- SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
+ SPF_NONE autolearn=disabled version=3.4.0
 Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id BDD72F80162
- for <alsa-devel@alsa-project.org>; Mon, 21 Sep 2020 18:52:31 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BDD72F80162
-IronPort-SDR: ZoUkDTJCs+6yMEm4Wcd9Il2nooNMZI1Sr0eHa2v/ZohcqJVxitmtOowPfdtR2AN/UeH0mgVHcR
- iFK+SHjFyIzg==
-X-IronPort-AV: E=McAfee;i="6000,8403,9751"; a="160495333"
-X-IronPort-AV: E=Sophos;i="5.77,287,1596524400"; d="scan'208";a="160495333"
+ by alsa1.perex.cz (Postfix) with ESMTPS id EA82FF800B2
+ for <alsa-devel@alsa-project.org>; Mon, 21 Sep 2020 18:52:33 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EA82FF800B2
+IronPort-SDR: aCzhh8Zx2ciwfgoy5207TRw/LfkZibPvtjGGZ9lOqFYMnG8ws5qu3URqQBD2h/max0Fr8WR3w5
+ hVP3VdPzkc+w==
+X-IronPort-AV: E=McAfee;i="6000,8403,9751"; a="160495340"
+X-IronPort-AV: E=Sophos;i="5.77,287,1596524400"; d="scan'208";a="160495340"
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
 Received: from orsmga002.jf.intel.com ([10.7.209.21])
  by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 21 Sep 2020 09:52:30 -0700
-IronPort-SDR: 5RJiOTTblBblCOCLdCqeZdpTODNvGfTvttUdF8y2+pblkkxeROo1AqGfoGTx5NCGrX/TOYoNAC
- jLRYRnfD8sKw==
-X-IronPort-AV: E=Sophos;i="5.77,287,1596524400"; d="scan'208";a="321831242"
+ 21 Sep 2020 09:52:32 -0700
+IronPort-SDR: Yj537wcWxqKa6hm3YVno1hHVE1yNyBpDtrielHNhBe3rOmSEhnMIBQ7OY2klZhLuyLNpt9/26H
+ +wZjaOjCN1FA==
+X-IronPort-AV: E=Sophos;i="5.77,287,1596524400"; d="scan'208";a="321831247"
 Received: from apatwary-mobl.amr.corp.intel.com (HELO [10.212.120.65])
  ([10.212.120.65])
  by orsmga002-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 21 Sep 2020 09:52:28 -0700
-Subject: Re: [PATCH 1/2] ASoC: rt700: wait for the delayed work to finish when
- the system suspends
-To: shumingf@realtek.com, broonie@kernel.org, lgirdwood@gmail.com
-References: <20200921094244.31869-1-shumingf@realtek.com>
+ 21 Sep 2020 09:52:31 -0700
+Subject: Re: [PATCH v2 2/2] soundwire: sysfs: add slave status and device
+ number before probe
+To: Vinod Koul <vkoul@kernel.org>
+References: <20200917160007.153106-1-pierre-louis.bossart@linux.intel.com>
+ <20200917160007.153106-3-pierre-louis.bossart@linux.intel.com>
+ <20200918121614.GS2968@vkoul-mobl>
+ <c8729c1d-6d36-ad34-34c3-899ba0f5366d@linux.intel.com>
+ <20200919111911.GW2968@vkoul-mobl>
 From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Message-ID: <087c1c6b-e108-22d8-c251-7c8c0a61fee4@linux.intel.com>
-Date: Mon, 21 Sep 2020 09:29:41 -0500
+Message-ID: <2ef2e1e8-d7cc-a08f-4176-240750d640a5@linux.intel.com>
+Date: Mon, 21 Sep 2020 09:34:06 -0500
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
  Thunderbird/68.10.0
 MIME-Version: 1.0
-In-Reply-To: <20200921094244.31869-1-shumingf@realtek.com>
+In-Reply-To: <20200919111911.GW2968@vkoul-mobl>
 Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Language: en-US
 Content-Transfer-Encoding: 7bit
-Cc: oder_chiou@realtek.com, jack.yu@realtek.com, alsa-devel@alsa-project.org,
- lars@metafoo.de, mengdong.lin@intel.com, derek.fang@realtek.com,
- flove@realtek.com, pierre-louis.bossart@intel.com
+Cc: alsa-devel@alsa-project.org, tiwai@suse.de, gregkh@linuxfoundation.org,
+ broonie@kernel.org, srinivas.kandagatla@linaro.org,
+ Bard liao <yung-chuan.liao@linux.intel.com>,
+ Rander Wang <rander.wang@linux.intel.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -86,31 +91,45 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 
 
-On 9/21/20 4:42 AM, shumingf@realtek.com wrote:
-> From: Shuming Fan <shumingf@realtek.com>
+On 9/19/20 6:19 AM, Vinod Koul wrote:
+> On 18-09-20, 09:21, Pierre-Louis Bossart wrote:
+>>
+>>
+>>
+>>>>     * Base file is device
+>>>>     *	|---- modalias
+>>>> + *	|---- dev-status
+>>>> + *		|---- status
+>>>> + *		|---- device_number
+>>>
+>>> Any reason why we want this under dev-status.
+>>>
+>>> Both the status and device_number belong to the device, so we can
+>>> put them under device and use device properties
+>>
+>> We already use directories for device-level and port-level properties, I
+>> just thought it be cleaner to continue this model. We might also expand the
+>> information later on, e.g. provide interrupt status.
 > 
-> To avoid the IO error, we need to cancel the delayed work and wait for it to finish.
+> Right now we have directories for N ports (needs a dir due to nature of
+> N ports) and 'properties' derived from Disco/firmware.
+> So Nport and properties makes sense. But for generic device level stuff
+> like device number, status and future interrupt or anything should be at
+> device level.
 > 
-> Signed-off-by: Shuming Fan <shumingf@realtek.com>
+>> I don't mind if we remove the directory and move everything up one level,
+>> but it wouldn't be consistent with the previous work.
+> 
+> Just because we had directory for a reason, adding a directory to
+> conform to that does make it better. IMO device files should be at
+> device directory
 
-Reviewed-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+We have a "dev-properties" directory, which is added after the driver 
+probe, and describes MIPI DisCo values at the device level.
 
-> ---
->   sound/soc/codecs/rt700-sdw.c | 3 +++
->   1 file changed, 3 insertions(+)
-> 
-> diff --git a/sound/soc/codecs/rt700-sdw.c b/sound/soc/codecs/rt700-sdw.c
-> index ead4918bbf90..c7deb4e4fcf1 100644
-> --- a/sound/soc/codecs/rt700-sdw.c
-> +++ b/sound/soc/codecs/rt700-sdw.c
-> @@ -490,6 +490,9 @@ static int __maybe_unused rt700_dev_suspend(struct device *dev)
->   	if (!rt700->hw_init)
->   		return 0;
->   
-> +	cancel_delayed_work_sync(&rt700->jack_detect_work);
-> +	cancel_delayed_work_sync(&rt700->jack_btn_check_work);
-> +
->   	regcache_cache_only(rt700->regmap, true);
->   
->   	return 0;
-> 
+Either we remove this dev-properties and move it to the device level - 
+to be consistent with your recommendation - or we keep separate 
+directories, one which is populated on device registration and the other 
+on driver probe.
+
+

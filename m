@@ -2,66 +2,67 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 26E70272FEC
-	for <lists+alsa-devel@lfdr.de>; Mon, 21 Sep 2020 19:01:20 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5DBF8272FFE
+	for <lists+alsa-devel@lfdr.de>; Mon, 21 Sep 2020 19:02:05 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B679A16D7;
-	Mon, 21 Sep 2020 19:00:29 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B679A16D7
+	by alsa0.perex.cz (Postfix) with ESMTPS id 077AB16DE;
+	Mon, 21 Sep 2020 19:01:15 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 077AB16DE
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1600707679;
-	bh=rHnCQQxmqQ4FO+8lSjKPTWiOcy5M5QzJyOTnSRJlL7U=;
+	s=default; t=1600707725;
+	bh=SWeIiCM3jgEYyBNOr14mLMrIAeeCIi1+egzgTKT/beQ=;
 	h=Date:From:To:In-Reply-To:References:Subject:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=c2ld84Q1O7f9UV2zXXs5bxwGqTKb5ft550JG5rg5dvJ+HaA7lLEcV9vqcVgxM1Rz8
-	 KlCZFlxvXcSDXknh7zpMpebiQVnZIeQVfePLnp6ibdFZWX3M+T+X7fPpF3Z1fZ3gX0
-	 ISrORIqvbkrAEexjDA9hdLwmJgZDgWBFpBIyCNXo=
+	b=B2eIC/dyH5U8MuiAlgwhwEK3Xxw+D3LUl7xScoP0huCt9vKDC58skKvckvP/7MTO5
+	 mFgVDpInfp+3FkvW5tQjA5mFk0uTWXRXGtHl4e0GxKcbIlioPkSoBeZYpeSGpVFCwJ
+	 hjqfwD91Ge55YcV7GhflOPW4sydd4Lb9Q3IwbH5Y=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 83311F802C3;
-	Mon, 21 Sep 2020 18:58:50 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 8B036F802D2;
+	Mon, 21 Sep 2020 18:58:53 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 1F4BBF8010A; Mon, 21 Sep 2020 18:58:45 +0200 (CEST)
+ id 7EFC6F800B2; Mon, 21 Sep 2020 18:58:49 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-1.3 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,MIME_8BIT_HEADER,SPF_HELO_NONE,SPF_PASS
- autolearn=disabled version=3.4.0
+X-Spam-Status: No, score=-1.6 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+ DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled
+ version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 46EBFF8010A
- for <alsa-devel@alsa-project.org>; Mon, 21 Sep 2020 18:58:42 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 46EBFF8010A
+ by alsa1.perex.cz (Postfix) with ESMTPS id 14F13F800B2
+ for <alsa-devel@alsa-project.org>; Mon, 21 Sep 2020 18:58:47 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 14F13F800B2
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="t4nuyaUX"
+ header.b="0wNjDQm/"
 Received: from localhost (fw-tnat.cambridge.arm.com [217.140.96.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 4AABA23718;
- Mon, 21 Sep 2020 16:58:40 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id 37B5C20C09;
+ Mon, 21 Sep 2020 16:58:45 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1600707520;
- bh=rHnCQQxmqQ4FO+8lSjKPTWiOcy5M5QzJyOTnSRJlL7U=;
+ s=default; t=1600707525;
+ bh=SWeIiCM3jgEYyBNOr14mLMrIAeeCIi1+egzgTKT/beQ=;
  h=Date:From:To:Cc:In-Reply-To:References:Subject:From;
- b=t4nuyaUXO69tCa5faaWGAEK9f7HgvjIdk7qC0YHt+nFMXf6CQNFneXdogUpeni8/7
- bo0Z8IY/zHa5hr9qSEHu2ibBxwLrX0fzXNButlfMkHv7qMRSe9R024K4nVuaFmY2SG
- t4tVnDvIrYi3O1hxnJSnwvaYaKp6JEsawG35qipM=
-Date: Mon, 21 Sep 2020 17:57:48 +0100
+ b=0wNjDQm/UohWqg+xIGKsAonhHQj/Xf2W0/dZGy842UzPF2dLERAX4ylxd7rVtrgRV
+ LDLMPocz/V1tkWNL5s7I4WBVV4S4iMruDOQ2pPhz4X0GcaZtVoCQNvU1DtEWuq7pMc
+ imYRBIhTV+/Wx9GJZWG2g0qxD944yQeM/J8jRifk=
+Date: Mon, 21 Sep 2020 17:57:53 +0100
 From: Mark Brown <broonie@kernel.org>
-To: Guillermo Rodríguez <guille.rodriguez@gmail.com>, alsa-devel@alsa-project.org
-In-Reply-To: <20200918134317.22574-1-guille.rodriguez@gmail.com>
-References: <20200918134317.22574-1-guille.rodriguez@gmail.com>
-Subject: Re: [PATCH] ASoC: cs42l51: add additional ADC volume controls
-Message-Id: <160070745847.56122.16753460502091716768.b4-ty@kernel.org>
-Cc: Liam Girdwood <lgirdwood@gmail.com>,
- James Schulman <james.schulman@cirrus.com>, Takashi Iwai <tiwai@suse.com>,
- David Rhodes <david.rhodes@cirrus.com>
+To: Kai Vehmanen <kai.vehmanen@linux.intel.com>, alsa-devel@alsa-project.org
+In-Reply-To: <20200921104746.2903507-1-kai.vehmanen@linux.intel.com>
+References: <20200921104746.2903507-1-kai.vehmanen@linux.intel.com>
+Subject: Re: [PATCH] ASoC: SOF: imx: add missing MODULE_LICENSE() for
+ imx-common
+Message-Id: <160070745847.56122.12830031389898392354.b4-ty@kernel.org>
+Cc: Stephen Rothwell <sfr@canb.auug.org.au>,
+ Daniel Baluta <daniel.baluta@gmail.com>, pierre-louis.bossart@linux.intel.com,
+ lgirdwood@gmail.com, ranjani.sridharan@linux.intel.com, daniel.baluta@nxp.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -77,10 +78,9 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Fri, 18 Sep 2020 15:43:16 +0200, Guillermo Rodríguez wrote:
-> Add volume controls for:
-> - Analog programmable gain amplifier (PGA) (-3 .. +12 dB)
-> - ADC attenuator (0 .. -96 dB)
+On Mon, 21 Sep 2020 13:47:46 +0300, Kai Vehmanen wrote:
+> Fix build warning:
+> WARNING: modpost: missing MODULE_LICENSE() in sound/soc/sof/imx/imx-common.o
 
 Applied to
 
@@ -88,8 +88,8 @@ Applied to
 
 Thanks!
 
-[1/1] ASoC: cs42l51: add additional ADC volume controls
-      commit: 641088722244f59fed00b68f7f5aaa3d56c1d73d
+[1/1] ASoC: SOF: imx: add missing MODULE_LICENSE() for imx-common
+      commit: 5b51b9221f711d205e361f8d1182fd6aea667296
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

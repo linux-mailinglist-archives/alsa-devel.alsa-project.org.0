@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2E96E273516
-	for <lists+alsa-devel@lfdr.de>; Mon, 21 Sep 2020 23:43:24 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 32DE6273711
+	for <lists+alsa-devel@lfdr.de>; Tue, 22 Sep 2020 02:08:11 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 9CFCB16D4;
-	Mon, 21 Sep 2020 23:42:33 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9CFCB16D4
+	by alsa0.perex.cz (Postfix) with ESMTPS id 4CB3F16D2;
+	Tue, 22 Sep 2020 02:07:20 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4CB3F16D2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1600724603;
-	bh=CnYDBVW2rYjgRoaGJx/XhCKqd7MzAZDqUTLvs1cvdDU=;
+	s=default; t=1600733290;
+	bh=puHOFQFO8c+3FJiXRCoOWFvOPzC6ktrPZjVmalHSDO8=;
 	h=Date:From:To:In-Reply-To:References:Subject:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=LOsJbccKgRFtow434a4W0Zs3fOk8yIIotpBvTFA+JbmcmW8FcavYeqJZvFWktqNOq
-	 HYRqqLAxhxSNtVLZYrOyvZknPtZtRoljJEEpO6nwjPFx4LZkJOTU9ND3Y13L3aMM3Y
-	 JPg989wzz+Gv2e8ieN0j41HglzDJ1Wy0dE3oEKYw=
+	b=HyqWOCry/0uW6XumRtg11GL28k+o9UCkcEaIzg1QjqagTZ/SRxJGFcwC7OrniUhpF
+	 GUWeGPMItOkZSBKnsKlEa6AlZXpw52faF/1e1qwGyH9tc5tVyomh/BPIA62vDtZL9H
+	 vOimXQL2SK/4g9wzeEdEztgynvm1JCY9qom7KGYg=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id B02FAF80171;
-	Mon, 21 Sep 2020 23:41:42 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 6C385F801EC;
+	Tue, 22 Sep 2020 02:06:29 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 8A0C0F80162; Mon, 21 Sep 2020 23:41:40 +0200 (CEST)
+ id F1692F80162; Tue, 22 Sep 2020 02:06:26 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-1.6 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -34,35 +34,34 @@ X-Spam-Status: No, score=-1.6 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 7B7B7F800B2
- for <alsa-devel@alsa-project.org>; Mon, 21 Sep 2020 23:41:36 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7B7B7F800B2
+ by alsa1.perex.cz (Postfix) with ESMTPS id 7AAF8F800B2
+ for <alsa-devel@alsa-project.org>; Tue, 22 Sep 2020 02:06:23 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7AAF8F800B2
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="n9BjRmSc"
+ header.b="sy0uzIp0"
 Received: from localhost (fw-tnat.cambridge.arm.com [217.140.96.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 906FD23A60;
- Mon, 21 Sep 2020 21:41:33 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id 36335207C4;
+ Tue, 22 Sep 2020 00:06:20 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1600724494;
- bh=CnYDBVW2rYjgRoaGJx/XhCKqd7MzAZDqUTLvs1cvdDU=;
+ s=default; t=1600733180;
+ bh=puHOFQFO8c+3FJiXRCoOWFvOPzC6ktrPZjVmalHSDO8=;
  h=Date:From:To:Cc:In-Reply-To:References:Subject:From;
- b=n9BjRmScECzUdhuU2SJpgQAUggFS/xhcv1JB9RcwcrTWLnOGK3KEIXpEzB2RR4iYP
- 0G1kXTcDgykM3OU4z8YlGA9DMin2EL3PpX/H6HyrsM5oP8Z6XvCNZuQ+ibb4NFd0pa
- GjO01Kbr5GhtGczG4h1tvHr2LI8b+D4CzRlh5OZY=
-Date: Mon, 21 Sep 2020 22:40:40 +0100
+ b=sy0uzIp0fsyWHl12/CpfdGikWyMQ/W2aiRNDPTSxkMSV224v7u73vbtp7iLgSC2kE
+ PxS9EvJ4jc5k7fKQafho5jlmRb5rWaLt2GD47PpisZ6DHy2wZdZE49vmNvIdWds04d
+ ztyY9NWXiF/GepSCM2qdjcmMd5TCr+MX0EiQTWA4=
+Date: Tue, 22 Sep 2020 01:05:28 +0100
 From: Mark Brown <broonie@kernel.org>
-To: Liam Girdwood <lgirdwood@gmail.com>, Jaroslav Kysela <perex@perex.cz>,
- Miquel Raynal <miquel.raynal@bootlin.com>, Takashi Iwai <tiwai@suse.com>
-In-Reply-To: <20200911173140.29984-1-miquel.raynal@bootlin.com>
-References: <20200911173140.29984-1-miquel.raynal@bootlin.com>
-Subject: Re: [PATCH 0/3] tlv320aic3xx4 updates
-Message-Id: <160072444039.56872.6911878141107050314.b4-ty@kernel.org>
-Cc: Alexandre Belloni <alexandre.belloni@bootlin.com>,
- alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
- Thomas Petazzoni <thomas.petazzoni@bootlin.com>
+To: robh+dt@kernel.org, tiwai@suse.com, lgirdwood@gmail.com,
+ Dan Murphy <dmurphy@ti.com>
+In-Reply-To: <20200921153820.18357-1-dmurphy@ti.com>
+References: <20200921153820.18357-1-dmurphy@ti.com>
+Subject: Re: [PATCH 1/2] dt-bindings: tas2562: Add the TAS2110 amplifier
+Message-Id: <160073312817.6173.18247828257698591331.b4-ty@kernel.org>
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
+ linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -78,16 +77,8 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Fri, 11 Sep 2020 19:31:37 +0200, Miquel Raynal wrote:
-> While doing a kernel update on a sama5-based board I figured out the
-> sound system was not working anymore, the debug session led me to the
-> following commits. As I am not an audio expert at all, I am fully open
-> to comments and suggestions.
-> 
-> Thanks,
-> Miquèl
-> 
-> [...]
+On Mon, 21 Sep 2020 10:38:19 -0500, Dan Murphy wrote:
+> Add the TAS2110 amplifier compatible.
 
 Applied to
 
@@ -95,12 +86,10 @@ Applied to
 
 Thanks!
 
-[1/3] ASoC: tlv320aic32x4: Ensure a minimum delay before clock stabilization
-      commit: 5b4458ebb4c8007dae7eaeb88cb52b2bb4879894
-[2/3] ASoC: tlv320aic32x4: Fix bdiv clock rate derivation
-      commit: 40b37136287ba6b34aa2f1f6123f3d6d205dc2f0
-[3/3] ASoC: tlv320aic32x4: Enable fast charge
-      commit: ec96690de82cee2cb028c07b1e72cb4a446ad03a
+[1/2] dt-bindings: tas2562: Add the TAS2110 amplifier
+      commit: 9074a078435eb9c4e16862ec08faaf19aee6190f
+[2/2] ASoC: tas2562: Add the TAS2110 class-D amplifier
+      commit: 8adcdbe63aa7745ecd253b6dcf03cd2d30ece8f5
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

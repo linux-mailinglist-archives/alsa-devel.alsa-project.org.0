@@ -2,69 +2,69 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7FD5E2758C4
-	for <lists+alsa-devel@lfdr.de>; Wed, 23 Sep 2020 15:33:11 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A87B42758C9
+	for <lists+alsa-devel@lfdr.de>; Wed, 23 Sep 2020 15:33:52 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 108E71765;
-	Wed, 23 Sep 2020 15:32:21 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 108E71765
+	by alsa0.perex.cz (Postfix) with ESMTPS id 475FD174D;
+	Wed, 23 Sep 2020 15:33:02 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 475FD174D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1600867991;
-	bh=/wmf+cF82NUYJFFVsw72g9y7AnszG8xhrBONAzWPvpo=;
+	s=default; t=1600868032;
+	bh=Fx0yfh4UjsK7nbMcgPO2WNHjaoBbHkEaZ1tnKyVVYu8=;
 	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=vUpwA8SCxxgmv64Bfxcknq566GKGBGEWzn0uKwgGarqjXgbNpVJPvO2UOjstMEbSs
-	 WtedLiYrisTfjSxS+o1B68Tt1I/usnunie+8AjcED54EilLFFxkVi3b8wL0K5+41vM
-	 mK4tLzZwdIfHypP8EUDzY0Tsp+UrrMVZK2sx3u6M=
+	b=J05fhdsvhBySwsdMfS64nIOa58BlIkrkypbHizzGOap03/pBUBzcr9mFx0pOJbzzt
+	 hK84+oft3w2yNE+Gh78awoHhbANffm73hqYDUt1+eUb0547qRszuMQexM4xhUPgJH7
+	 WDuDkFdTPV9w0yWEUalzBMDW9UJLuk2zvyF55wII=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 63103F802DF;
-	Wed, 23 Sep 2020 15:30:13 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 4FE8AF802E1;
+	Wed, 23 Sep 2020 15:31:47 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id C4A96F802DD; Wed, 23 Sep 2020 15:30:11 +0200 (CEST)
+ id A3943F802DD; Wed, 23 Sep 2020 15:31:43 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
  URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
+Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 493B8F8010A
- for <alsa-devel@alsa-project.org>; Wed, 23 Sep 2020 15:30:07 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 493B8F8010A
-IronPort-SDR: 0FC/jMUgJNnDMgg7Q8HaSVP7o4DPISiPux5H55z0CFwvVY14f2N5dWzx7Chpie0ECcSg+v5yNO
- suPQ7L9oxEIg==
-X-IronPort-AV: E=McAfee;i="6000,8403,9752"; a="160167246"
-X-IronPort-AV: E=Sophos;i="5.77,293,1596524400"; d="scan'208";a="160167246"
+ by alsa1.perex.cz (Postfix) with ESMTPS id 31B58F802DC
+ for <alsa-devel@alsa-project.org>; Wed, 23 Sep 2020 15:31:35 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 31B58F802DC
+IronPort-SDR: dJZNla4XblViFZpRAB2+uKS1MyRaFZT15/mrkTJsZBs/nEhfVTwWNpNnxdpaUlkVVnfrnh3t7o
+ nLmo1vf1bsKQ==
+X-IronPort-AV: E=McAfee;i="6000,8403,9752"; a="148626910"
+X-IronPort-AV: E=Sophos;i="5.77,293,1596524400"; d="scan'208";a="148626910"
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
 Received: from orsmga008.jf.intel.com ([10.7.209.65])
- by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 23 Sep 2020 06:30:05 -0700
-IronPort-SDR: nW51Fb1rpPz5ESxWwe+K9B6Bi7D20vT8/SvMyjj/YJAnqLtdURwBdD8LrWasSp5Cwru5bOWZXv
- 3jcnWsJ48Yjg==
+ by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 23 Sep 2020 06:31:33 -0700
+IronPort-SDR: fT4zQUv5/otAk56Tpv9ds+PRG8g14vZwew9ur2M0mx/jxCj8Yz2bnnMR0BqnaYfzMZK0mwFLxL
+ Yo+utiyHlpjg==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.77,293,1596524400"; d="scan'208";a="338659483"
+X-IronPort-AV: E=Sophos;i="5.77,293,1596524400"; d="scan'208";a="338659950"
 Received: from smile.fi.intel.com (HELO smile) ([10.237.68.40])
- by orsmga008.jf.intel.com with ESMTP; 23 Sep 2020 06:30:01 -0700
+ by orsmga008.jf.intel.com with ESMTP; 23 Sep 2020 06:31:29 -0700
 Received: from andy by smile with local (Exim 4.94)
  (envelope-from <andriy.shevchenko@linux.intel.com>)
- id 1kL4qL-001P7a-F5; Wed, 23 Sep 2020 16:29:57 +0300
-Date: Wed, 23 Sep 2020 16:29:57 +0300
+ id 1kL4rl-001P8w-Hz; Wed, 23 Sep 2020 16:31:25 +0300
+Date: Wed, 23 Sep 2020 16:31:25 +0300
 From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
 To: Cezary Rojewski <cezary.rojewski@intel.com>
-Subject: Re: [PATCH v8 08/14] ASoC: Intel: catpt: Event tracing
-Message-ID: <20200923132957.GJ3956970@smile.fi.intel.com>
+Subject: Re: [PATCH v8 07/14] ASoC: Intel: catpt: Device driver lifecycle
+Message-ID: <20200923133125.GK3956970@smile.fi.intel.com>
 References: <20200923122508.3360-1-cezary.rojewski@intel.com>
- <20200923122508.3360-9-cezary.rojewski@intel.com>
+ <20200923122508.3360-8-cezary.rojewski@intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20200923122508.3360-9-cezary.rojewski@intel.com>
+In-Reply-To: <20200923122508.3360-8-cezary.rojewski@intel.com>
 Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
 Cc: pierre-louis.bossart@linux.intel.com, alsa-devel@alsa-project.org,
  filip.kaczmarski@intel.com, harshapriya.n@intel.com,
@@ -89,210 +89,370 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Wed, Sep 23, 2020 at 02:25:02PM +0200, Cezary Rojewski wrote:
-> Define tracing macros for easy catpt debug. These cover all IPC message
-> types: requests, replies and notifications.
+On Wed, Sep 23, 2020 at 02:25:01PM +0200, Cezary Rojewski wrote:
+> Implement ACPI device probing and removal functions as well as handlers
+> for its PM capabilities. Device probing also takes care of enumerating
+> ADSP subsystem components.
 
 FWIW,
 Reviewed-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
 
 > Signed-off-by: Cezary Rojewski <cezary.rojewski@intel.com>
 > ---
-> 
-> Changes in v6:
-> - trace usage now part of this patch instead of being separated from it
-> 
-> Changes in v2:
-> - trace.h events for updating registers have been removed and usages
->   replaced by dev_dbg (SRAMPGE/ LPCS)
-> - trace.h events for catpt_mbank and catpt_mregion have been removed
-> 
->  sound/soc/intel/catpt/device.c |  3 ++
->  sound/soc/intel/catpt/ipc.c    | 11 +++++
->  sound/soc/intel/catpt/trace.h  | 83 ++++++++++++++++++++++++++++++++++
->  3 files changed, 97 insertions(+)
->  create mode 100644 sound/soc/intel/catpt/trace.h
+>  sound/soc/intel/catpt/device.c | 344 +++++++++++++++++++++++++++++++++
+>  1 file changed, 344 insertions(+)
+>  create mode 100644 sound/soc/intel/catpt/device.c
 > 
 > diff --git a/sound/soc/intel/catpt/device.c b/sound/soc/intel/catpt/device.c
-> index e7dc2fb69ea8..c02d46e5bc81 100644
-> --- a/sound/soc/intel/catpt/device.c
-> +++ b/sound/soc/intel/catpt/device.c
-> @@ -25,6 +25,9 @@
->  #include "core.h"
->  #include "registers.h"
->  
-> +#define CREATE_TRACE_POINTS
-> +#include "trace.h"
-> +
->  static int __maybe_unused catpt_suspend(struct device *dev)
->  {
->  	struct catpt_dev *cdev = dev_get_drvdata(dev);
-> diff --git a/sound/soc/intel/catpt/ipc.c b/sound/soc/intel/catpt/ipc.c
-> index e4569be02bbc..925a193a9932 100644
-> --- a/sound/soc/intel/catpt/ipc.c
-> +++ b/sound/soc/intel/catpt/ipc.c
-> @@ -9,6 +9,7 @@
->  #include "core.h"
->  #include "messages.h"
->  #include "registers.h"
-> +#include "trace.h"
->  
->  #define CATPT_IPC_TIMEOUT_MS	300
->  
-> @@ -56,6 +57,9 @@ static void catpt_dsp_send_tx(struct catpt_dev *cdev,
->  {
->  	u32 header = tx->header | CATPT_IPCC_BUSY;
->  
-> +	trace_catpt_ipc_request(header);
-> +	trace_catpt_ipc_payload(tx->data, tx->size);
-> +
->  	if (tx->size)
->  		memcpy_toio(catpt_outbox_addr(cdev), tx->data, tx->size);
->  	catpt_writel_shim(cdev, IPCC, header);
-> @@ -155,12 +159,14 @@ catpt_dsp_notify_stream(struct catpt_dev *cdev, union catpt_notify_msg msg)
->  	switch (msg.notify_reason) {
->  	case CATPT_NOTIFY_POSITION_CHANGED:
->  		memcpy_fromio(&pos, catpt_inbox_addr(cdev), sizeof(pos));
-> +		trace_catpt_ipc_payload((u8 *)&pos, sizeof(pos));
->  
->  		catpt_stream_update_position(cdev, stream, &pos);
->  		break;
->  
->  	case CATPT_NOTIFY_GLITCH_OCCURRED:
->  		memcpy_fromio(&glitch, catpt_inbox_addr(cdev), sizeof(glitch));
-> +		trace_catpt_ipc_payload((u8 *)&glitch, sizeof(glitch));
->  
->  		dev_warn(cdev->dev, "glitch %d at pos: 0x%08llx, wp: 0x%08x\n",
->  			 glitch.type, glitch.presentation_pos,
-> @@ -182,6 +188,7 @@ static void catpt_dsp_copy_rx(struct catpt_dev *cdev, u32 header)
->  	if (ipc->rx.size && ipc->rx.rsp.status == CATPT_REPLY_SUCCESS) {
->  		memcpy_fromio(ipc->rx.data, catpt_outbox_addr(cdev),
->  			      ipc->rx.size);
-> +		trace_catpt_ipc_payload(ipc->rx.data, ipc->rx.size);
->  	}
->  }
->  
-> @@ -196,6 +203,7 @@ static void catpt_dsp_process_response(struct catpt_dev *cdev, u32 header)
->  		u32 off = msg.mailbox_address << 3;
->  
->  		memcpy_fromio(&config, cdev->lpe_ba + off, sizeof(config));
-> +		trace_catpt_ipc_payload((u8 *)&config, sizeof(config));
->  
->  		catpt_ipc_arm(ipc, &config);
->  		complete(&cdev->fw_ready);
-> @@ -236,6 +244,7 @@ irqreturn_t catpt_dsp_irq_thread(int irq, void *dev_id)
->  	u32 ipcd;
->  
->  	ipcd = catpt_readl_shim(cdev, IPCD);
-> +	trace_catpt_ipc_notify(ipcd);
->  
->  	/* ensure there is delayed reply or notification to process */
->  	if (!(ipcd & CATPT_IPCD_BUSY))
-> @@ -259,6 +268,7 @@ irqreturn_t catpt_dsp_irq_handler(int irq, void *dev_id)
->  	u32 isc, ipcc;
->  
->  	isc = catpt_readl_shim(cdev, ISC);
-> +	trace_catpt_irq(isc);
->  
->  	/* immediate reply */
->  	if (isc & CATPT_ISC_IPCCD) {
-> @@ -266,6 +276,7 @@ irqreturn_t catpt_dsp_irq_handler(int irq, void *dev_id)
->  		catpt_updatel_shim(cdev, IMC, CATPT_IMC_IPCCD, CATPT_IMC_IPCCD);
->  
->  		ipcc = catpt_readl_shim(cdev, IPCC);
-> +		trace_catpt_ipc_reply(ipcc);
->  		catpt_dsp_copy_rx(cdev, ipcc);
->  		complete(&cdev->ipc.done_completion);
->  
-> diff --git a/sound/soc/intel/catpt/trace.h b/sound/soc/intel/catpt/trace.h
 > new file mode 100644
-> index 000000000000..bb3d627dbeaf
+> index 000000000000..e7dc2fb69ea8
 > --- /dev/null
-> +++ b/sound/soc/intel/catpt/trace.h
-> @@ -0,0 +1,83 @@
-> +/* SPDX-License-Identifier: GPL-2.0-only */
-> +/*
-> + * Copyright(c) 2020 Intel Corporation. All rights reserved.
-> + *
-> + * Author: Cezary Rojewski <cezary.rojewski@intel.com>
-> + */
+> +++ b/sound/soc/intel/catpt/device.c
+> @@ -0,0 +1,344 @@
+> +// SPDX-License-Identifier: GPL-2.0-only
+> +//
+> +// Copyright(c) 2020 Intel Corporation. All rights reserved.
+> +//
+> +// Author: Cezary Rojewski <cezary.rojewski@intel.com>
+> +//
+> +// Special thanks to:
+> +//    Marcin Barlik <marcin.barlik@intel.com>
+> +//    Piotr Papierkowski <piotr.papierkowski@intel.com>
+> +//
+> +// for sharing LPT-LP and WTP-LP AudioDSP architecture expertise and
+> +// helping backtrack its historical background
+> +//
 > +
-> +#undef TRACE_SYSTEM
-> +#define TRACE_SYSTEM intel_catpt
+> +#include <linux/acpi.h>
+> +#include <linux/dma-mapping.h>
+> +#include <linux/interrupt.h>
+> +#include <linux/module.h>
+> +#include <linux/pci.h>
+> +#include <linux/platform_device.h>
+> +#include <linux/pm_runtime.h>
+> +#include <sound/soc.h>
+> +#include <sound/soc-acpi.h>
+> +#include <sound/soc-acpi-intel-match.h>
+> +#include "core.h"
+> +#include "registers.h"
 > +
-> +#if !defined(__SND_SOC_INTEL_CATPT_TRACE_H) || defined(TRACE_HEADER_MULTI_READ)
-> +#define __SND_SOC_INTEL_CATPT_TRACE_H
+> +static int __maybe_unused catpt_suspend(struct device *dev)
+> +{
+> +	struct catpt_dev *cdev = dev_get_drvdata(dev);
+> +	struct dma_chan *chan;
+> +	int ret;
 > +
-> +#include <linux/types.h>
-> +#include <linux/tracepoint.h>
+> +	chan = catpt_dma_request_config_chan(cdev);
+> +	if (IS_ERR(chan))
+> +		return PTR_ERR(chan);
 > +
-> +DECLARE_EVENT_CLASS(catpt_ipc_msg,
+> +	memset(&cdev->dx_ctx, 0, sizeof(cdev->dx_ctx));
+> +	ret = catpt_ipc_enter_dxstate(cdev, CATPT_DX_STATE_D3, &cdev->dx_ctx);
+> +	if (ret) {
+> +		ret = CATPT_IPC_ERROR(ret);
+> +		goto release_dma_chan;
+> +	}
 > +
-> +	TP_PROTO(u32 header),
+> +	ret = catpt_dsp_stall(cdev, true);
+> +	if (ret)
+> +		goto release_dma_chan;
 > +
-> +	TP_ARGS(header),
+> +	ret = catpt_store_memdumps(cdev, chan);
+> +	if (ret) {
+> +		dev_err(cdev->dev, "store memdumps failed: %d\n", ret);
+> +		goto release_dma_chan;
+> +	}
 > +
-> +	TP_STRUCT__entry(
-> +		__field(u32, header)
-> +	),
+> +	ret = catpt_store_module_states(cdev, chan);
+> +	if (ret) {
+> +		dev_err(cdev->dev, "store module states failed: %d\n", ret);
+> +		goto release_dma_chan;
+> +	}
 > +
-> +	TP_fast_assign(
-> +		__entry->header = header;
-> +	),
+> +	ret = catpt_store_streams_context(cdev, chan);
+> +	if (ret)
+> +		dev_err(cdev->dev, "store streams ctx failed: %d\n", ret);
 > +
-> +	TP_printk("0x%08x", __entry->header)
-> +);
+> +release_dma_chan:
+> +	dma_release_channel(chan);
+> +	if (ret)
+> +		return ret;
+> +	return cdev->spec->power_down(cdev);
+> +}
 > +
-> +DEFINE_EVENT(catpt_ipc_msg, catpt_irq,
-> +	TP_PROTO(u32 header),
-> +	TP_ARGS(header)
-> +);
+> +static int __maybe_unused catpt_resume(struct device *dev)
+> +{
+> +	struct catpt_dev *cdev = dev_get_drvdata(dev);
+> +	int ret, i;
 > +
-> +DEFINE_EVENT(catpt_ipc_msg, catpt_ipc_request,
-> +	TP_PROTO(u32 header),
-> +	TP_ARGS(header)
-> +);
+> +	ret = cdev->spec->power_up(cdev);
+> +	if (ret)
+> +		return ret;
 > +
-> +DEFINE_EVENT(catpt_ipc_msg, catpt_ipc_reply,
-> +	TP_PROTO(u32 header),
-> +	TP_ARGS(header)
-> +);
+> +	if (!module_is_live(dev->driver->owner)) {
+> +		dev_info(dev, "module unloading, skipping fw boot\n");
+> +		return 0;
+> +	}
 > +
-> +DEFINE_EVENT(catpt_ipc_msg, catpt_ipc_notify,
-> +	TP_PROTO(u32 header),
-> +	TP_ARGS(header)
-> +);
+> +	ret = catpt_boot_firmware(cdev, true);
+> +	if (ret) {
+> +		dev_err(cdev->dev, "boot firmware failed: %d\n", ret);
+> +		return ret;
+> +	}
 > +
-> +TRACE_EVENT_CONDITION(catpt_ipc_payload,
+> +	/* reconfigure SSP devices after Dx transition */
+> +	for (i = 0; i < CATPT_SSP_COUNT; i++) {
+> +		if (cdev->devfmt[i].iface == UINT_MAX)
+> +			continue;
 > +
-> +	TP_PROTO(const u8 *data, size_t size),
+> +		ret = catpt_ipc_set_device_format(cdev, &cdev->devfmt[i]);
+> +		if (ret)
+> +			return CATPT_IPC_ERROR(ret);
+> +	}
 > +
-> +	TP_ARGS(data, size),
+> +	return 0;
+> +}
 > +
-> +	TP_CONDITION(data && size),
+> +static int __maybe_unused catpt_runtime_suspend(struct device *dev)
+> +{
+> +	return catpt_suspend(dev);
+> +}
 > +
-> +	TP_STRUCT__entry(
-> +		__dynamic_array(u8, buf, size)
-> +	),
+> +static int __maybe_unused catpt_runtime_resume(struct device *dev)
+> +{
+> +	return catpt_resume(dev);
+> +}
 > +
-> +	TP_fast_assign(
-> +		memcpy(__get_dynamic_array(buf), data, size);
-> +	),
+> +static const struct dev_pm_ops catpt_dev_pm = {
+> +	SET_SYSTEM_SLEEP_PM_OPS(catpt_suspend, catpt_resume)
+> +	SET_RUNTIME_PM_OPS(catpt_runtime_suspend, catpt_runtime_resume, NULL)
+> +};
 > +
-> +	TP_printk("%u byte(s)%s",
-> +		  __get_dynamic_array_len(buf),
-> +		  __print_hex_dump("", DUMP_PREFIX_NONE, 16, 4,
-> +				   __get_dynamic_array(buf),
-> +				   __get_dynamic_array_len(buf), false))
-> +);
+> +/* machine board owned by CATPT is removed with this hook */
+> +static void board_pdev_unregister(void *data)
+> +{
+> +	platform_device_unregister(data);
+> +}
 > +
-> +#endif /* __SND_SOC_INTEL_CATPT_TRACE_H */
+> +static int catpt_register_board(struct catpt_dev *cdev)
+> +{
+> +	const struct catpt_spec *spec = cdev->spec;
+> +	struct snd_soc_acpi_mach *mach;
+> +	struct platform_device *board;
 > +
-> +/* This part must be outside protection */
-> +#undef TRACE_INCLUDE_PATH
-> +#define TRACE_INCLUDE_PATH .
-> +#define TRACE_INCLUDE_FILE trace
-> +#include <trace/define_trace.h>
+> +	mach = snd_soc_acpi_find_machine(spec->machines);
+> +	if (!mach) {
+> +		dev_info(cdev->dev, "no machines present\n");
+> +		return 0;
+> +	}
+> +
+> +	mach->mach_params.platform = "catpt-platform";
+> +	board = platform_device_register_data(NULL, mach->drv_name,
+> +					PLATFORM_DEVID_NONE,
+> +					(const void *)mach, sizeof(*mach));
+> +	if (IS_ERR(board)) {
+> +		dev_err(cdev->dev, "board register failed\n");
+> +		return PTR_ERR(board);
+> +	}
+> +
+> +	return devm_add_action_or_reset(cdev->dev, board_pdev_unregister,
+> +					board);
+> +}
+> +
+> +static int catpt_probe_components(struct catpt_dev *cdev)
+> +{
+> +	int ret;
+> +
+> +	ret = cdev->spec->power_up(cdev);
+> +	if (ret)
+> +		return ret;
+> +
+> +	ret = catpt_dmac_probe(cdev);
+> +	if (ret) {
+> +		dev_err(cdev->dev, "DMAC probe failed: %d\n", ret);
+> +		goto err_dmac_probe;
+> +	}
+> +
+> +	ret = catpt_first_boot_firmware(cdev);
+> +	if (ret) {
+> +		dev_err(cdev->dev, "first fw boot failed: %d\n", ret);
+> +		goto err_boot_fw;
+> +	}
+> +
+> +	ret = catpt_register_plat_component(cdev);
+> +	if (ret) {
+> +		dev_err(cdev->dev, "register plat comp failed: %d\n", ret);
+> +		goto err_boot_fw;
+> +	}
+> +
+> +	ret = catpt_register_board(cdev);
+> +	if (ret) {
+> +		dev_err(cdev->dev, "register board failed: %d\n", ret);
+> +		goto err_reg_board;
+> +	}
+> +
+> +	/* reflect actual ADSP state in pm_runtime */
+> +	pm_runtime_set_active(cdev->dev);
+> +
+> +	pm_runtime_set_autosuspend_delay(cdev->dev, 2000);
+> +	pm_runtime_use_autosuspend(cdev->dev);
+> +	pm_runtime_mark_last_busy(cdev->dev);
+> +	pm_runtime_enable(cdev->dev);
+> +	return 0;
+> +
+> +err_reg_board:
+> +	snd_soc_unregister_component(cdev->dev);
+> +err_boot_fw:
+> +	catpt_dmac_remove(cdev);
+> +err_dmac_probe:
+> +	cdev->spec->power_down(cdev);
+> +
+> +	return ret;
+> +}
+> +
+> +static void catpt_dev_init(struct catpt_dev *cdev, struct device *dev,
+> +			   const struct catpt_spec *spec)
+> +{
+> +	cdev->dev = dev;
+> +	cdev->spec = spec;
+> +	init_completion(&cdev->fw_ready);
+> +	INIT_LIST_HEAD(&cdev->stream_list);
+> +	spin_lock_init(&cdev->list_lock);
+> +	mutex_init(&cdev->clk_mutex);
+> +
+> +	/*
+> +	 * Mark both device formats as uninitialized. Once corresponding
+> +	 * cpu_dai's pcm is created, proper values are assigned.
+> +	 */
+> +	cdev->devfmt[CATPT_SSP_IFACE_0].iface = UINT_MAX;
+> +	cdev->devfmt[CATPT_SSP_IFACE_1].iface = UINT_MAX;
+> +
+> +	catpt_ipc_init(&cdev->ipc, dev);
+> +
+> +	catpt_sram_init(&cdev->dram, spec->host_dram_offset,
+> +			catpt_dram_size(cdev));
+> +	catpt_sram_init(&cdev->iram, spec->host_iram_offset,
+> +			catpt_iram_size(cdev));
+> +}
+> +
+> +static int catpt_acpi_probe(struct platform_device *pdev)
+> +{
+> +	const struct catpt_spec *spec;
+> +	struct catpt_dev *cdev;
+> +	struct device *dev = &pdev->dev;
+> +	struct resource *res;
+> +	int ret;
+> +
+> +	spec = device_get_match_data(dev);
+> +	if (!spec)
+> +		return -ENODEV;
+> +
+> +	cdev = devm_kzalloc(dev, sizeof(*cdev), GFP_KERNEL);
+> +	if (!cdev)
+> +		return -ENOMEM;
+> +
+> +	catpt_dev_init(cdev, dev, spec);
+> +
+> +	/* map DSP bar address */
+> +	cdev->lpe_ba = devm_platform_get_and_ioremap_resource(pdev, 0, &res);
+> +	if (IS_ERR(cdev->lpe_ba))
+> +		return PTR_ERR(cdev->lpe_ba);
+> +	cdev->lpe_base = res->start;
+> +
+> +	/* map PCI bar address */
+> +	cdev->pci_ba = devm_platform_ioremap_resource(pdev, 1);
+> +	if (IS_ERR(cdev->pci_ba))
+> +		return PTR_ERR(cdev->pci_ba);
+> +
+> +	/* alloc buffer for storing DRAM context during dx transitions */
+> +	cdev->dxbuf_vaddr = dmam_alloc_coherent(dev, catpt_dram_size(cdev),
+> +						&cdev->dxbuf_paddr, GFP_KERNEL);
+> +	if (!cdev->dxbuf_vaddr)
+> +		return -ENOMEM;
+> +
+> +	ret = platform_get_irq(pdev, 0);
+> +	if (ret < 0)
+> +		return ret;
+> +	cdev->irq = ret;
+> +
+> +	platform_set_drvdata(pdev, cdev);
+> +
+> +	ret = devm_request_threaded_irq(dev, cdev->irq, catpt_dsp_irq_handler,
+> +					catpt_dsp_irq_thread,
+> +					IRQF_SHARED, "AudioDSP", cdev);
+> +	if (ret)
+> +		return ret;
+> +
+> +	return catpt_probe_components(cdev);
+> +}
+> +
+> +static int catpt_acpi_remove(struct platform_device *pdev)
+> +{
+> +	struct catpt_dev *cdev = platform_get_drvdata(pdev);
+> +
+> +	pm_runtime_disable(cdev->dev);
+> +
+> +	snd_soc_unregister_component(cdev->dev);
+> +	catpt_dmac_remove(cdev);
+> +	cdev->spec->power_down(cdev);
+> +
+> +	catpt_sram_free(&cdev->iram);
+> +	catpt_sram_free(&cdev->dram);
+> +
+> +	return 0;
+> +}
+> +
+> +static struct catpt_spec lpt_desc = {
+> +	.machines = snd_soc_acpi_intel_haswell_machines,
+> +	.core_id = 0x01,
+> +	.host_dram_offset = 0x000000,
+> +	.host_iram_offset = 0x080000,
+> +	.host_shim_offset = 0x0E7000,
+> +	.host_dma_offset = { 0x0F0000, 0x0F8000 },
+> +	.host_ssp_offset = { 0x0E8000, 0x0E9000 },
+> +	.dram_mask = LPT_VDRTCTL0_DSRAMPGE_MASK,
+> +	.iram_mask = LPT_VDRTCTL0_ISRAMPGE_MASK,
+> +	.pll_shutdown = lpt_dsp_pll_shutdown,
+> +	.power_up = lpt_dsp_power_up,
+> +	.power_down = lpt_dsp_power_down,
+> +};
+> +
+> +static struct catpt_spec wpt_desc = {
+> +	.machines = snd_soc_acpi_intel_broadwell_machines,
+> +	.core_id = 0x02,
+> +	.host_dram_offset = 0x000000,
+> +	.host_iram_offset = 0x0A0000,
+> +	.host_shim_offset = 0x0FB000,
+> +	.host_dma_offset = { 0x0FE000, 0x0FF000 },
+> +	.host_ssp_offset = { 0x0FC000, 0x0FD000 },
+> +	.dram_mask = WPT_VDRTCTL0_DSRAMPGE_MASK,
+> +	.iram_mask = WPT_VDRTCTL0_ISRAMPGE_MASK,
+> +	.pll_shutdown = wpt_dsp_pll_shutdown,
+> +	.power_up = wpt_dsp_power_up,
+> +	.power_down = wpt_dsp_power_down,
+> +};
+> +
+> +static const struct acpi_device_id catpt_ids[] = {
+> +	{ "INT33C8", (unsigned long)&lpt_desc },
+> +	{ "INT3438", (unsigned long)&wpt_desc },
+> +	{ }
+> +};
+> +MODULE_DEVICE_TABLE(acpi, catpt_ids);
+> +
+> +static struct platform_driver catpt_acpi_driver = {
+> +	.probe = catpt_acpi_probe,
+> +	.remove = catpt_acpi_remove,
+> +	.driver = {
+> +		.name = "intel_catpt",
+> +		.acpi_match_table = catpt_ids,
+> +		.pm = &catpt_dev_pm,
+> +	},
+> +};
+> +module_platform_driver(catpt_acpi_driver);
+> +
+> +MODULE_AUTHOR("Cezary Rojewski <cezary.rojewski@intel.com>");
+> +MODULE_DESCRIPTION("Intel LPT/WPT AudioDSP driver");
+> +MODULE_LICENSE("GPL v2");
 > -- 
 > 2.17.1
 > 

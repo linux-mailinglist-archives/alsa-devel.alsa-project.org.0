@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 63BDA2752F7
-	for <lists+alsa-devel@lfdr.de>; Wed, 23 Sep 2020 10:10:37 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id AF56E2752FB
+	for <lists+alsa-devel@lfdr.de>; Wed, 23 Sep 2020 10:11:50 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 045CE1740;
-	Wed, 23 Sep 2020 10:09:47 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 045CE1740
+	by alsa0.perex.cz (Postfix) with ESMTPS id 51FD716FD;
+	Wed, 23 Sep 2020 10:11:00 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 51FD716FD
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1600848637;
-	bh=GU9Lb/LbbBYtmtefwnV6PFjvKULxF/WtEVyQHgqtsrI=;
+	s=default; t=1600848710;
+	bh=3IO+knDuCFLTeruAhWehFc+YqHwiVTp3lRuUbVs6qJc=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=KAfqcUWlsPl43xS8L3MU+UXfzGucw0VOnn3WgvZKohxna44SHEz48ABy6TwevVLYO
-	 B0exFlOnCJwYlopMZz6CWL8N+bCSGz5ISAOoK9nFYIU/Z9damRj1KXlzAgPJQ9MkjV
-	 KO7dYFIHHrKTWSlVI+ZBBZSqeiRXRDJF8mUboGTw=
+	b=KvKm7ZCBDIB9yQFaEJ0v7PkSzqghI9g9CxuN3a2FjQB5Ipflz+bLPIvCEWxeCYr8G
+	 wGbaSGVEgBePrLxt9PJz9fji4p5g4RxN96adOyJu1KlZcS9Quwi8xh3ot3wvlSy9R9
+	 ME+BtHPypLwHa5XJfh0a7OHusa2cAEYBC8ZNmDFE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id E5A57F802E8;
-	Wed, 23 Sep 2020 10:07:22 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 92C1FF8010A;
+	Wed, 23 Sep 2020 10:07:45 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 0B913F802E2; Wed, 23 Sep 2020 10:07:20 +0200 (CEST)
+ id B827DF802FB; Wed, 23 Sep 2020 10:07:43 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
@@ -33,30 +33,31 @@ X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
 Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id D9648F8021C
- for <alsa-devel@alsa-project.org>; Wed, 23 Sep 2020 10:07:12 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D9648F8021C
-IronPort-SDR: quYP2uHrkXOfI+cpWr3MbQu1BCcyrUAkhBmd4zF7XWVemG+dxJzpsaQ+nDw9AsoCdWLg2d+xdG
- K5Y/bsybDIEg==
-X-IronPort-AV: E=McAfee;i="6000,8403,9752"; a="158178515"
-X-IronPort-AV: E=Sophos;i="5.77,293,1596524400"; d="scan'208";a="158178515"
+ by alsa1.perex.cz (Postfix) with ESMTPS id 53B32F802C4
+ for <alsa-devel@alsa-project.org>; Wed, 23 Sep 2020 10:07:16 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 53B32F802C4
+IronPort-SDR: hofuH6F+oXvmtS14mGpZqgsm85AdU80gsaRf6HFKbucp7+H+v/VVazlSwJwTm0/knm248TkeUi
+ S+kX+uFz2jyw==
+X-IronPort-AV: E=McAfee;i="6000,8403,9752"; a="158178521"
+X-IronPort-AV: E=Sophos;i="5.77,293,1596524400"; d="scan'208";a="158178521"
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
 Received: from fmsmga004.fm.intel.com ([10.253.24.48])
  by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 23 Sep 2020 01:07:12 -0700
-IronPort-SDR: Q5tjekwsjXep/ZagCav4D3ZWMncN6f/m2k+d9xdAG10JxsnRVxWOGk8CgkxNW6UeFQBkrZLeAn
- rGrbbQVwINFg==
+ 23 Sep 2020 01:07:14 -0700
+IronPort-SDR: vXbaZ5m3g5qmnWSMVlgbRSqB+L2i8wymn+bcP498hq+6zXASfDCmlXA2ixACxkS65TPlxISD5D
+ n3wpuk79zGfg==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.77,293,1596524400"; d="scan'208";a="335371254"
+X-IronPort-AV: E=Sophos;i="5.77,293,1596524400"; d="scan'208";a="335371259"
 Received: from eliteleevi.tm.intel.com ([10.237.54.20])
- by fmsmga004.fm.intel.com with ESMTP; 23 Sep 2020 01:07:10 -0700
+ by fmsmga004.fm.intel.com with ESMTP; 23 Sep 2020 01:07:12 -0700
 From: Kai Vehmanen <kai.vehmanen@linux.intel.com>
 To: alsa-devel@alsa-project.org,
 	broonie@kernel.org
-Subject: [PATCH 5/6] ASoC: Intel: sof_sdw_rt700: add codec prefix
-Date: Wed, 23 Sep 2020 11:05:13 +0300
-Message-Id: <20200923080514.3242858-6-kai.vehmanen@linux.intel.com>
+Subject: [PATCH 6/6] ASoC: Intel: add support for new SoundWire hardware
+ layout on TGL
+Date: Wed, 23 Sep 2020 11:05:14 +0300
+Message-Id: <20200923080514.3242858-7-kai.vehmanen@linux.intel.com>
 X-Mailer: git-send-email 2.27.0
 In-Reply-To: <20200923080514.3242858-1-kai.vehmanen@linux.intel.com>
 References: <20200923080514.3242858-1-kai.vehmanen@linux.intel.com>
@@ -81,39 +82,137 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+From: Bard Liao <yung-chuan.liao@linux.intel.com>
 
-Somehow for this codec we never used any prefix for the controls,
-likely because the test platform has a single SoundWire device.
+The creativity of hardware folks is endless, with a complete
+permutation of rt711 (was link0 now link1), rt1308 (was link1 now
+link2) and rt715 (was link3 now link0).
 
-Follow the convention and use the codec prefix across the board to
-avoid possible conflicts.
+Someday we will get all this information from platform firmware, for
+now let's add the mapping table.
 
+Signed-off-by: Bard Liao <yung-chuan.liao@linux.intel.com>
 Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 Reviewed-by: Bard Liao <yung-chuan.liao@linux.intel.com>
 Reviewed-by: Guennadi Liakhovetski <guennadi.liakhovetski@linux.intel.com>
 Signed-off-by: Kai Vehmanen <kai.vehmanen@linux.intel.com>
 ---
- sound/soc/intel/boards/sof_sdw_rt700.c | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+ sound/soc/intel/boards/sof_sdw.c              |  9 ++++
+ .../intel/common/soc-acpi-intel-tgl-match.c   | 53 +++++++++++++++++++
+ 2 files changed, 62 insertions(+)
 
-diff --git a/sound/soc/intel/boards/sof_sdw_rt700.c b/sound/soc/intel/boards/sof_sdw_rt700.c
-index bff69cfe27f4..21e7e4a81779 100644
---- a/sound/soc/intel/boards/sof_sdw_rt700.c
-+++ b/sound/soc/intel/boards/sof_sdw_rt700.c
-@@ -23,9 +23,9 @@ static const struct snd_soc_dapm_widget rt700_widgets[] = {
+diff --git a/sound/soc/intel/boards/sof_sdw.c b/sound/soc/intel/boards/sof_sdw.c
+index 8e191a8d5dc5..b56df04775c2 100644
+--- a/sound/soc/intel/boards/sof_sdw.c
++++ b/sound/soc/intel/boards/sof_sdw.c
+@@ -48,6 +48,15 @@ static int sof_sdw_quirk_cb(const struct dmi_system_id *id)
+ }
  
- static const struct snd_soc_dapm_route rt700_map[] = {
- 	/* Headphones */
--	{ "Headphones", NULL, "HP" },
--	{ "Speaker", NULL, "SPK" },
--	{ "MIC2", NULL, "AMIC" },
-+	{ "Headphones", NULL, "rt700 HP" },
-+	{ "Speaker", NULL, "rt700 SPK" },
-+	{ "rt700 MIC2", NULL, "AMIC" },
+ static const struct dmi_system_id sof_sdw_quirk_table[] = {
++	{
++		.callback = sof_sdw_quirk_cb,
++		.matches = {
++			DMI_MATCH(DMI_SYS_VENDOR, "Dell Inc"),
++			DMI_EXACT_MATCH(DMI_PRODUCT_SKU, "0A3E")
++		},
++		.driver_data = (void *)(SOF_RT711_JD_SRC_JD2 |
++					SOF_RT715_DAI_ID_FIX),
++	},
+ 	{
+ 		.callback = sof_sdw_quirk_cb,
+ 		.matches = {
+diff --git a/sound/soc/intel/common/soc-acpi-intel-tgl-match.c b/sound/soc/intel/common/soc-acpi-intel-tgl-match.c
+index 76f4eaf684b0..9f243e60b95c 100644
+--- a/sound/soc/intel/common/soc-acpi-intel-tgl-match.c
++++ b/sound/soc/intel/common/soc-acpi-intel-tgl-match.c
+@@ -44,6 +44,15 @@ static const struct snd_soc_acpi_adr_device rt711_0_adr[] = {
+ 	}
  };
  
- static const struct snd_kcontrol_new rt700_controls[] = {
++static const struct snd_soc_acpi_adr_device rt711_1_adr[] = {
++	{
++		.adr = 0x000120025D071100,
++		.num_endpoints = 1,
++		.endpoints = &single_endpoint,
++		.name_prefix = "rt711"
++	}
++};
++
+ static const struct snd_soc_acpi_adr_device rt1308_1_dual_adr[] = {
+ 	{
+ 		.adr = 0x000120025D130800,
+@@ -68,6 +77,15 @@ static const struct snd_soc_acpi_adr_device rt1308_1_single_adr[] = {
+ 	}
+ };
+ 
++static const struct snd_soc_acpi_adr_device rt1308_2_single_adr[] = {
++	{
++		.adr = 0x000220025D130800,
++		.num_endpoints = 1,
++		.endpoints = &single_endpoint,
++		.name_prefix = "rt1308-1"
++	}
++};
++
+ static const struct snd_soc_acpi_adr_device rt1308_1_group1_adr[] = {
+ 	{
+ 		.adr = 0x000120025D130800,
+@@ -86,6 +104,15 @@ static const struct snd_soc_acpi_adr_device rt1308_2_group1_adr[] = {
+ 	}
+ };
+ 
++static const struct snd_soc_acpi_adr_device rt715_0_adr[] = {
++	{
++		.adr = 0x000021025D071500,
++		.num_endpoints = 1,
++		.endpoints = &single_endpoint,
++		.name_prefix = "rt715"
++	}
++};
++
+ static const struct snd_soc_acpi_adr_device rt715_3_adr[] = {
+ 	{
+ 		.adr = 0x000320025D071500,
+@@ -235,6 +262,25 @@ static const struct snd_soc_acpi_link_adr tgl_3_in_1_mono_amp[] = {
+ 	{}
+ };
+ 
++static const struct snd_soc_acpi_link_adr tgl_sdw_rt711_link1_rt1308_link2_rt715_link0[] = {
++	{
++		.mask = BIT(1),
++		.num_adr = ARRAY_SIZE(rt711_1_adr),
++		.adr_d = rt711_1_adr,
++	},
++	{
++		.mask = BIT(2),
++		.num_adr = ARRAY_SIZE(rt1308_2_single_adr),
++		.adr_d = rt1308_2_single_adr,
++	},
++	{
++		.mask = BIT(0),
++		.num_adr = ARRAY_SIZE(rt715_0_adr),
++		.adr_d = rt715_0_adr,
++	},
++	{}
++};
++
+ static const struct snd_soc_acpi_link_adr tgl_3_in_1_sdca[] = {
+ 	{
+ 		.mask = BIT(0),
+@@ -295,6 +341,13 @@ EXPORT_SYMBOL_GPL(snd_soc_acpi_intel_tgl_machines);
+ 
+ /* this table is used when there is no I2S codec present */
+ struct snd_soc_acpi_mach snd_soc_acpi_intel_tgl_sdw_machines[] = {
++	{
++		.link_mask = 0x7,
++		.links = tgl_sdw_rt711_link1_rt1308_link2_rt715_link0,
++		.drv_name = "sof_sdw",
++		.sof_fw_filename = "sof-tgl.ri",
++		.sof_tplg_filename = "sof-tgl-rt715-rt711-rt1308-mono.tplg",
++	},
+ 	{
+ 		.link_mask = 0xF, /* 4 active links required */
+ 		.links = tgl_3_in_1_default,
 -- 
 2.27.0
 

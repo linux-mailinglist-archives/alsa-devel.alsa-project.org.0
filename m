@@ -2,101 +2,84 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 03BF6276126
-	for <lists+alsa-devel@lfdr.de>; Wed, 23 Sep 2020 21:35:24 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8F535276257
+	for <lists+alsa-devel@lfdr.de>; Wed, 23 Sep 2020 22:43:50 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 6310A17B5;
-	Wed, 23 Sep 2020 21:34:33 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6310A17B5
+	by alsa0.perex.cz (Postfix) with ESMTPS id 0E06B179B;
+	Wed, 23 Sep 2020 22:43:00 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0E06B179B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1600889723;
-	bh=T77+MwvHnb4tnIyKC9DuDkwS+Kt4h6wrR2DnvGi/m9g=;
-	h=From:To:Subject:Date:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1600893830;
+	bh=zSdSXomTkt9IjD/fU3MeFBG3a2G3skjOyABD0YFRF4E=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=qdg3UUV7Z0OBesgEiAdjfl3Ka9faMUQaJT04GEzafuwtXJDyz3yLexbTxh4SS7jOv
-	 3G/vjcxNoaWvkGLcmrZeHZRuSJ7DdIYLN9p4zh2LxBY6JavwAXCesBkq3LXu55IqKX
-	 MHAdFKIqgaNuihq1DBClC7KDvSa0YU9S+ZS8iinc=
+	b=C5WqTdyrerJIGI3PWTIZLOybGkI/AlKrKIbW2pUYTO6B96q/6JljaervlUVKz+A2B
+	 93UBcfnrGgTBQjA9CiuX+KyYsCnfxl7M2dLHW2rN0+zXL7tw9xOEce5Mqfi1EGotJo
+	 9klyfX2jHJojT7v5N8Xg8BGMD61sw4rgGkU87oQY=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 6F21EF801EB;
-	Wed, 23 Sep 2020 21:33:42 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 342CFF8015F;
+	Wed, 23 Sep 2020 22:42:09 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id DA659F80171; Wed, 23 Sep 2020 21:33:39 +0200 (CEST)
+ id 8A3AFF80171; Wed, 23 Sep 2020 22:42:07 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.0 required=5.0 tests=SPF_HELO_PASS,SPF_PASS
- autolearn=disabled version=3.4.0
-Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=0.7 required=5.0 tests=FREEMAIL_ENVFROM_END_DIGIT,
+ FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,
+ RCVD_IN_MSPIKE_H2,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
+Received: from mail-io1-f67.google.com (mail-io1-f67.google.com
+ [209.85.166.67])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id E5580F8010A
- for <alsa-devel@alsa-project.org>; Wed, 23 Sep 2020 21:33:30 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E5580F8010A
-IronPort-SDR: EIuiQTtHCJSH50sIQ7DJ7GdMZRS5K2O6ey81UFWGIVQivXHPCEFsAedF5XV931592eIwVKdh5J
- 7Ke/LEam2Gow==
-X-IronPort-AV: E=McAfee;i="6000,8403,9753"; a="140466535"
-X-IronPort-AV: E=Sophos;i="5.77,293,1596524400"; d="scan'208";a="140466535"
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from fmsmga003.fm.intel.com ([10.253.24.29])
- by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 23 Sep 2020 12:33:26 -0700
-IronPort-SDR: Xn6xJ9Jofg5bSOKGQFNBGvngqBcYiDINR+S3SNNhYhTzxCjm4plhsAaYPLQazHbIz1UwpOt1tL
- pF2Yk23/dpyA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.77,293,1596524400"; d="scan'208";a="347474770"
-Received: from irsmsx601.ger.corp.intel.com ([163.33.146.7])
- by FMSMGA003.fm.intel.com with ESMTP; 23 Sep 2020 12:33:24 -0700
-Received: from irsmsx601.ger.corp.intel.com (163.33.146.7) by
- irsmsx601.ger.corp.intel.com (163.33.146.7) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.1713.5; Wed, 23 Sep 2020 20:33:23 +0100
-Received: from irsmsx601.ger.corp.intel.com ([163.33.146.7]) by
- irsmsx601.ger.corp.intel.com ([163.33.146.7]) with mapi id 15.01.1713.004;
- Wed, 23 Sep 2020 20:33:23 +0100
-From: "Rojewski, Cezary" <cezary.rojewski@intel.com>
-To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-Subject: RE: [PATCH v8 02/14] ASoC: Intel: catpt: Implement IPC protocol
-Thread-Topic: [PATCH v8 02/14] ASoC: Intel: catpt: Implement IPC protocol
-Thread-Index: AQHWkaS0J+WhWsgCJEmY/BXBACbAu6l2I7uAgAB2RmCAAAM2wA==
-Date: Wed, 23 Sep 2020 19:33:23 +0000
-Message-ID: <e6f4354189ac4ed8bf453d22513fa9b1@intel.com>
-References: <20200923122508.3360-1-cezary.rojewski@intel.com>
- <20200923122508.3360-3-cezary.rojewski@intel.com>
- <20200923131731.GE3956970@smile.fi.intel.com>
- <39bfea09d0a54c5dae3930408e45b10d@intel.com>
-In-Reply-To: <39bfea09d0a54c5dae3930408e45b10d@intel.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-dlp-product: dlpe-windows
-dlp-reaction: no-action
-dlp-version: 11.5.1.3
-x-originating-ip: [163.33.253.164]
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+ by alsa1.perex.cz (Postfix) with ESMTPS id 04BB7F8015F
+ for <alsa-devel@alsa-project.org>; Wed, 23 Sep 2020 22:42:00 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 04BB7F8015F
+Received: by mail-io1-f67.google.com with SMTP id d190so977178iof.3
+ for <alsa-devel@alsa-project.org>; Wed, 23 Sep 2020 13:41:59 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to;
+ bh=RlUZjMU4duw214AYO6t6QWSC1dLgrNo875Jdwc3bxEc=;
+ b=Z9ZvF7L2FvHFQ7dC2cfYc+Guvh14VxOJYBpwcd6TEUt2RIWRTtVZNa0cwipM81kJEC
+ XCAwSN1zJanOjsc9n68/qOemft7Zl0oL5ek10JwXDcCMEg/Uz5iShg9aKBy4+ho12Ot0
+ 0QERTiWrUpSjCTjxdB8Rl5tbK8iRV5a5/gAJwlnkXr6Y6W9GSc8egPE+yaGFuCWSj6gy
+ Ddm1hzyEMmJxGkSjQmMmjS1MvCE/bzzyRdjAYOqrXxKYxj2RI9wDd9sgSjAz3gCKeg3C
+ zjzMVfcEYwPKgkzX4oZspfKQvqQdtUwGF26Uq/3ZlSJgbtt3zoh8u/2ywDPCiy0t+W+S
+ 2Jmg==
+X-Gm-Message-State: AOAM5324tQXsCyw6khqOUFmw/EZKLVCiRe+NEhVjNpLRdK7mskNl1LCi
+ 7Z5qqcVIp84NTHP4Gq3j1Q==
+X-Google-Smtp-Source: ABdhPJzMbLLYzgaphJVeHdGZ0Hi9G2/IgrFv27w4wrBHlwuEdliGpnuCLuOMx4lZHWCobKET72hNtg==
+X-Received: by 2002:a02:11c2:: with SMTP id 185mr974444jaf.35.1600893718143;
+ Wed, 23 Sep 2020 13:41:58 -0700 (PDT)
+Received: from xps15 ([64.188.179.253])
+ by smtp.gmail.com with ESMTPSA id s17sm425424ilb.24.2020.09.23.13.41.55
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 23 Sep 2020 13:41:57 -0700 (PDT)
+Received: (nullmailer pid 1269697 invoked by uid 1000);
+ Wed, 23 Sep 2020 20:41:54 -0000
+Date: Wed, 23 Sep 2020 14:41:54 -0600
+From: Rob Herring <robh@kernel.org>
+To: Srinivasa Rao Mandadapu <srivasam@codeaurora.org>
+Subject: Re: [PATCH v6 2/5] ASoC: dt-bindings: Add dt binding for lpass hdmi
+Message-ID: <20200923204154.GA1263348@bogus>
+References: <1600409084-29093-1-git-send-email-srivasam@codeaurora.org>
+ <1600409084-29093-3-git-send-email-srivasam@codeaurora.org>
 MIME-Version: 1.0
-Cc: "pierre-louis.bossart@linux.intel.com"
- <pierre-louis.bossart@linux.intel.com>,
- "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>, "Kaczmarski,
- Filip" <filip.kaczmarski@intel.com>, "N,
- Harshapriya" <harshapriya.n@intel.com>,
- "gregkh@linuxfoundation.org" <gregkh@linuxfoundation.org>, "Barlik,
- Marcin" <marcin.barlik@intel.com>, "zwisler@google.com" <zwisler@google.com>,
- "lgirdwood@gmail.com" <lgirdwood@gmail.com>, "tiwai@suse.com" <tiwai@suse.com>,
- "Proborszcz, Filip" <filip.proborszcz@intel.com>,
- "broonie@kernel.org" <broonie@kernel.org>,
- "amadeuszx.slawinski@linux.intel.com" <amadeuszx.slawinski@linux.intel.com>,
- "Wasko, Michal" <michal.wasko@intel.com>,
- "cujomalainey@chromium.org" <cujomalainey@chromium.org>, "Hejmowski,
- Krzysztof" <krzysztof.hejmowski@intel.com>,
- "ppapierkowski@habana.ai" <ppapierkowski@habana.ai>, "Gopal, 
- Vamshi Krishna" <vamshi.krishna.gopal@intel.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <1600409084-29093-3-git-send-email-srivasam@codeaurora.org>
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
+ bgoswami@codeaurora.org, V Sujith Kumar Reddy <vsujithk@codeaurora.org>,
+ linux-arm-msm@vger.kernel.org, plai@codeaurora.org, tiwai@suse.com,
+ agross@kernel.org, lgirdwood@gmail.com, broonie@kernel.org,
+ srinivas.kandagatla@linaro.org, rohitkr@codeaurora.org,
+ bjorn.andersson@linaro.org, linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -112,51 +95,172 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 2020-09-23 9:24 PM, Rojewski, Cezary wrote:
-> On 2020-09-23 3:17 PM, Andy Shevchenko wrote:
->> On Wed, Sep 23, 2020 at 02:24:56PM +0200, Cezary Rojewski wrote:
->>> Implement IRQ handlers for immediate and delayed replies and
->>> notifications. Communication is synchronous and allows for serializatio=
-n
->>> of maximum one message at a time.
->>>
+On Fri, Sep 18, 2020 at 11:34:41AM +0530, Srinivasa Rao Mandadapu wrote:
+> From: V Sujith Kumar Reddy <vsujithk@codeaurora.org>
+> 
+> Adds bindings for lpass hdmi interface
+> which can support audio path over dp.
+> 
+> Signed-off-by: Srinivasa Rao <srivasam@codeaurora.org>
+> Signed-off-by: V Sujith Kumar Reddy <vsujithk@codeaurora.org>
+> ---
+>  .../devicetree/bindings/sound/qcom,lpass-cpu.yaml  | 74 +++++++++++++++-------
+>  1 file changed, 52 insertions(+), 22 deletions(-)
+> 
+> diff --git a/Documentation/devicetree/bindings/sound/qcom,lpass-cpu.yaml b/Documentation/devicetree/bindings/sound/qcom,lpass-cpu.yaml
+> index 09c9bd2..f95ef70 100644
+> --- a/Documentation/devicetree/bindings/sound/qcom,lpass-cpu.yaml
+> +++ b/Documentation/devicetree/bindings/sound/qcom,lpass-cpu.yaml
+> @@ -24,9 +24,10 @@ properties:
+>        - qcom,sc7180-lpass-cpu
+>  
+>    reg:
+> -    maxItems: 1
+> +    maxItems: 2
+>      description: LPAIF core registers
+> -
+> +  reg-names:
+> +     maxItems: 2
+>    clocks:
+>      minItems: 3
+>      maxItems: 6
+> @@ -36,15 +37,16 @@ properties:
+>      maxItems: 6
+>  
+>    interrupts:
+> -    maxItems: 1
+> +    maxItems: 2
+>      description: LPAIF DMA buffer interrupt
+> -
+> +  interrupt-names:
+> +    maxItems: 2
+>    qcom,adsp:
+>      $ref: /schemas/types.yaml#/definitions/phandle
+>      description: Phandle for the audio DSP node
+>  
+>    iommus:
+> -    maxItems: 1
+> +    maxItems: 2
+>      description: Phandle to apps_smmu node with sid mask
+>  
+>    power-domains:
+> @@ -60,10 +62,12 @@ properties:
+>      const: 0
+>  
+>  patternProperties:
+> -  "(^mi2s-[0-9a-f]$|mi2s)":
+> +  "^dai-link@[0-9a-f]$":
+>      type: object
+> -    description: Required properties for each DAI
+> -
+> +    description: |
+> +      LPASS CPU dai node for each I2S device. Bindings of each node
+> +      depends on the specific driver providing the functionality and
+> +      properties.
+>      properties:
+>        reg:
+>          maxItems: 1
+> @@ -85,9 +89,11 @@ patternProperties:
+>  required:
+>    - compatible
+>    - reg
+> +  - reg-names
+>    - clocks
+>    - clock-names
+>    - interrupts
+> +  - interrupt-names
+>    - '#sound-dai-cells'
+>  
+>  additionalProperties: false
+> @@ -134,13 +140,32 @@ allOf:
+>      then:
+>        properties:
+>          clock-names:
+> -          items:
+> -            - const: pcnoc-sway-clk
+> -            - const: audio-core
+> -            - const: mclk0
+> -            - const: pcnoc-mport-clk
+> -            - const: mi2s-bit-clk0
+> -            - const: mi2s-bit-clk1
+> +          oneOf:
+> +           - items:   #for I2S
+> +              - const: pcnoc-sway-clk
+> +              - const: audio-core
+> +              - const: mclk0
+> +              - const: pcnoc-mport-clk
+> +              - const: mi2s-bit-clk0
+> +              - const: mi2s-bit-clk1
+> +           - items:   #for HDMI
+> +              - const: pcnoc-sway-clk
+> +              - const: audio-core
+> +              - const: pcnoc-mport-clk
+> +        reg-names:
+> +          anyOf:
+> +            - items:   #for I2S and HDMI
+> +              - const: lpass-hdmiif
+> +              - const: lpass-lpaif
 
-...
+It would be a bit cleaner if you switch the order. Then you are just 
+adding on to the end.
 
->>> +		if (!ret && reply->data && reply->size)
->>
->>> +			memcpy(reply->data, ipc->rx.data, ipc->rx.size);
->>
->> This I didn't get. You copy data by using source size?!
->>
->>> +	}
->>> +
->>> +	return ret;
->>
->> I guess the above piece may be refactored, but I don't know how until it=
- is
->> clear why it's written like this.
->>
->> ...
->>
->=20
-> Well, ipc->rx.size equals reply->size as long as IPC procedure is in
-> progress and reply !=3D NULL. So either ipc->rx.size or reply->size
-> suffices.
->=20
-> IPC protocol is quite simple here (albeit cAVS arguably is even simpler):
->=20
-> OUTBOX <channel: request - reply model>
-> TX: copy request header to appropriate register, copy payload to outbox
-> <IRQ>
-> RX: copy reply header, copy returned payload only in successful case
->=20
+Otherwise,
 
-Forgotten to mention: yes OUTBOX's TX =3D=3D OUTBOX's RX (HOST owns the
-space during the request phase and yields the ownership to DSP once
-IPCC_BUSY bit is set).
+Reviewed-by: Rob Herring <robh@kernel.org>
 
-No ownership juggling in INBOX case.
-
-Czarek
-
+> +            - items:   #for I2S
+> +              - const: lpass-lpaif
+> +        interrupt-names:
+> +          anyOf:
+> +            - items:   #for I2S and HDMI
+> +              - const: lpass-irq-lpaif
+> +              - const: lpass-irq-hdmi
+> +            - items:   #for I2S
+> +              - const: lpass-irq-lpaif
+>        required:
+>          - iommus
+>          - power-domains
+> @@ -152,12 +177,15 @@ examples:
+>      soc {
+>          #address-cells = <2>;
+>          #size-cells = <2>;
+> -        lpass@62f00000 {
+> +        lpass@62d80000 {
+>              compatible = "qcom,sc7180-lpass-cpu";
+>  
+> -            reg = <0 0x62f00000  0 0x29000>;
+> -
+> -            iommus = <&apps_smmu 0x1020 0>;
+> +            reg = <0 0x62d87000 0 0x68000>,
+> +                  <0 0x62f00000 0 0x29000>;
+> +            reg-names = "lpass-hdmiif",
+> +                        "lpass-lpaif";
+> +            iommus = <&apps_smmu 0x1020 0>,
+> +                     <&apps_smmu 0x1032 0>;
+>              power-domains = <&lpass_hm 0>;
+>  
+>              clocks = <&gcc 131>,
+> @@ -171,14 +199,16 @@ examples:
+>                            "mclk0", "pcnoc-mport-clk",
+>                            "mi2s-bit-clk0", "mi2s-bit-clk1";
+>  
+> -            interrupts = <0 160 1>;
+> -
+> +            interrupts = <0 160 1>,
+> +                         <0 268 1>;
+> +            interrupt-names = "lpass-irq-lpaif",
+> +                              "lpass-irq-hdmi";
+>              #sound-dai-cells = <1>;
+>  
+>              #address-cells = <1>;
+>              #size-cells = <0>;
+>              /* Optional to set different MI2S SD lines */
+> -            mi2s-primary@0 {
+> +            dai-link@0 {
+>                  reg = <MI2S_PRIMARY>;
+>                  qcom,playback-sd-lines = <1>;
+>                  qcom,capture-sd-lines = <0>;
+> -- 
+> Qualcomm India Private Limited, on behalf of Qualcomm Innovation Center, Inc.,
+> is a member of Code Aurora Forum, a Linux Foundation Collaborative Project.
+> 

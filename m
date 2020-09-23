@@ -2,71 +2,98 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id AF56E2752FB
-	for <lists+alsa-devel@lfdr.de>; Wed, 23 Sep 2020 10:11:50 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1A1F327534B
+	for <lists+alsa-devel@lfdr.de>; Wed, 23 Sep 2020 10:34:44 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 51FD716FD;
-	Wed, 23 Sep 2020 10:11:00 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 51FD716FD
+	by alsa0.perex.cz (Postfix) with ESMTPS id 67B86171E;
+	Wed, 23 Sep 2020 10:33:53 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 67B86171E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1600848710;
-	bh=3IO+knDuCFLTeruAhWehFc+YqHwiVTp3lRuUbVs6qJc=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=KvKm7ZCBDIB9yQFaEJ0v7PkSzqghI9g9CxuN3a2FjQB5Ipflz+bLPIvCEWxeCYr8G
-	 wGbaSGVEgBePrLxt9PJz9fji4p5g4RxN96adOyJu1KlZcS9Quwi8xh3ot3wvlSy9R9
-	 ME+BtHPypLwHa5XJfh0a7OHusa2cAEYBC8ZNmDFE=
+	s=default; t=1600850083;
+	bh=U//EXy7tHJRso7X6jKrQ53leXqv7JnK42q4790hMryI=;
+	h=Date:From:To:Subject:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=PmveSBbkmT5JwcVkSDegBsW5gm/JhZ1muWVEFPhP+70BzSuDPJ0L3V/TKTwSGvK2t
+	 1Ljg++YYETKmuYWDTI89GUn/UNxwNKcA+TNE+VlbM+hULV1kOfp4Sf7orSzgKEN89X
+	 XBGqnnpINkzlSxhUzy87sx48qaxyTn++ARI2/eAo=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 92C1FF8010A;
-	Wed, 23 Sep 2020 10:07:45 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 82809F8015F;
+	Wed, 23 Sep 2020 10:33:02 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id B827DF802FB; Wed, 23 Sep 2020 10:07:43 +0200 (CEST)
+ id 5AB8DF80171; Wed, 23 Sep 2020 10:32:59 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
+X-Spam-Status: No, score=-1.6 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+ DKIM_VALID,DKIM_VALID_AU,SPF_HELO_PASS,SPF_NONE,UNPARSEABLE_RELAY
+ autolearn=disabled version=3.4.0
+Received: from userp2120.oracle.com (userp2120.oracle.com [156.151.31.85])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 53B32F802C4
- for <alsa-devel@alsa-project.org>; Wed, 23 Sep 2020 10:07:16 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 53B32F802C4
-IronPort-SDR: hofuH6F+oXvmtS14mGpZqgsm85AdU80gsaRf6HFKbucp7+H+v/VVazlSwJwTm0/knm248TkeUi
- S+kX+uFz2jyw==
-X-IronPort-AV: E=McAfee;i="6000,8403,9752"; a="158178521"
-X-IronPort-AV: E=Sophos;i="5.77,293,1596524400"; d="scan'208";a="158178521"
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from fmsmga004.fm.intel.com ([10.253.24.48])
- by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 23 Sep 2020 01:07:14 -0700
-IronPort-SDR: vXbaZ5m3g5qmnWSMVlgbRSqB+L2i8wymn+bcP498hq+6zXASfDCmlXA2ixACxkS65TPlxISD5D
- n3wpuk79zGfg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.77,293,1596524400"; d="scan'208";a="335371259"
-Received: from eliteleevi.tm.intel.com ([10.237.54.20])
- by fmsmga004.fm.intel.com with ESMTP; 23 Sep 2020 01:07:12 -0700
-From: Kai Vehmanen <kai.vehmanen@linux.intel.com>
-To: alsa-devel@alsa-project.org,
-	broonie@kernel.org
-Subject: [PATCH 6/6] ASoC: Intel: add support for new SoundWire hardware
- layout on TGL
-Date: Wed, 23 Sep 2020 11:05:14 +0300
-Message-Id: <20200923080514.3242858-7-kai.vehmanen@linux.intel.com>
-X-Mailer: git-send-email 2.27.0
-In-Reply-To: <20200923080514.3242858-1-kai.vehmanen@linux.intel.com>
-References: <20200923080514.3242858-1-kai.vehmanen@linux.intel.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 8FA22F8015F
+ for <alsa-devel@alsa-project.org>; Wed, 23 Sep 2020 10:32:50 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8FA22F8015F
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=oracle.com header.i=@oracle.com
+ header.b="k77NYtKg"
+Received: from pps.filterd (userp2120.oracle.com [127.0.0.1])
+ by userp2120.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 08N8Shb2108840;
+ Wed, 23 Sep 2020 08:32:48 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com;
+ h=date : from : to : cc
+ : subject : message-id : mime-version : content-type; s=corp-2020-01-29;
+ bh=NdXDzPdjbfkaULNKbSWYA1LbQygF53AGsX+jS6bcmYs=;
+ b=k77NYtKg3nNRzgM7+tlEDwtNYdlHE+Urg9at7ZfO1hQAEhAJRtKzH4iMdrbfjxsV3gKr
+ XeOoDRDEhnBq43fAp7qrr3/uXWamQxtjvekjOJb5chsmCYlKZr9YW8v7NKRTwdETDiLL
+ Q8eBstv16ac+deqOeVNn3h8YEIGDIpEwguvO38aeJ/xULvhKWKnJj9WJcLeBX0WaILFv
+ 6pg+BnvjBPQEXUMv0+s7GFeaLlSRZOfwR2mxl2rm2stZ3UP2Go8JK3beC1a3VeaPWkYs
+ WD4qEGbGLzocySeSAQOBb6hVR7virCD0AjzwrkoRJ+gH0wV14dAB4B/HYMXK2cPpUXsP yw== 
+Received: from aserp3020.oracle.com (aserp3020.oracle.com [141.146.126.70])
+ by userp2120.oracle.com with ESMTP id 33ndnuh3qq-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
+ Wed, 23 Sep 2020 08:32:48 +0000
+Received: from pps.filterd (aserp3020.oracle.com [127.0.0.1])
+ by aserp3020.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 08N8U1nh016306;
+ Wed, 23 Sep 2020 08:32:47 GMT
+Received: from aserv0121.oracle.com (aserv0121.oracle.com [141.146.126.235])
+ by aserp3020.oracle.com with ESMTP id 33r28uu7qm-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Wed, 23 Sep 2020 08:32:47 +0000
+Received: from abhmp0001.oracle.com (abhmp0001.oracle.com [141.146.116.7])
+ by aserv0121.oracle.com (8.14.4/8.13.8) with ESMTP id 08N8WghJ003938;
+ Wed, 23 Sep 2020 08:32:46 GMT
+Received: from mwanda (/41.57.98.10) by default (Oracle Beehive Gateway v4.0)
+ with ESMTP ; Wed, 23 Sep 2020 01:32:42 -0700
+Date: Wed, 23 Sep 2020 11:32:35 +0300
+From: Dan Carpenter <dan.carpenter@oracle.com>
+To: Vinod Koul <vkoul@kernel.org>, Bard Liao <yung-chuan.liao@linux.intel.com>
+Subject: [PATCH] soundwire: remove an unnecessary NULL check
+Message-ID: <20200923083235.GB1454948@mwanda>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Cc: Guennadi Liakhovetski <guennadi.liakhovetski@linux.intel.com>,
- kai.vehmanen@linux.intel.com, daniel.baluta@nxp.com, lgirdwood@gmail.com,
- pierre-louis.bossart@linux.intel.com, ranjani.sridharan@linux.intel.com,
- Bard Liao <yung-chuan.liao@linux.intel.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+X-Mailer: git-send-email haha only kidding
+X-Proofpoint-Virus-Version: vendor=nai engine=6000 definitions=9752
+ signatures=668679
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 mlxscore=0
+ mlxlogscore=999
+ suspectscore=0 adultscore=0 bulkscore=0 malwarescore=0 spamscore=0
+ phishscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.12.0-2006250000 definitions=main-2009230069
+X-Proofpoint-Virus-Version: vendor=nai engine=6000 definitions=9752
+ signatures=668679
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0
+ priorityscore=1501 malwarescore=0
+ lowpriorityscore=0 phishscore=0 adultscore=0 suspectscore=0 bulkscore=0
+ clxscore=1011 impostorscore=0 mlxlogscore=999 mlxscore=0 spamscore=0
+ classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2006250000
+ definitions=main-2009230069
+Cc: Sanyog Kale <sanyog.r.kale@intel.com>, kernel-janitors@vger.kernel.org,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ alsa-devel@alsa-project.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -82,137 +109,35 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: Bard Liao <yung-chuan.liao@linux.intel.com>
+The "bus" pointer isn't NULL so the address to a non-zero offset in
+middle of "bus" cannot be NULL.  Delete the NULL check.
 
-The creativity of hardware folks is endless, with a complete
-permutation of rt711 (was link0 now link1), rt1308 (was link1 now
-link2) and rt715 (was link3 now link0).
-
-Someday we will get all this information from platform firmware, for
-now let's add the mapping table.
-
-Signed-off-by: Bard Liao <yung-chuan.liao@linux.intel.com>
-Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Reviewed-by: Bard Liao <yung-chuan.liao@linux.intel.com>
-Reviewed-by: Guennadi Liakhovetski <guennadi.liakhovetski@linux.intel.com>
-Signed-off-by: Kai Vehmanen <kai.vehmanen@linux.intel.com>
+Signed-off-by: Dan Carpenter <dan.carpenter@oracle.com>
 ---
- sound/soc/intel/boards/sof_sdw.c              |  9 ++++
- .../intel/common/soc-acpi-intel-tgl-match.c   | 53 +++++++++++++++++++
- 2 files changed, 62 insertions(+)
+ drivers/soundwire/generic_bandwidth_allocation.c | 6 +-----
+ 1 file changed, 1 insertion(+), 5 deletions(-)
 
-diff --git a/sound/soc/intel/boards/sof_sdw.c b/sound/soc/intel/boards/sof_sdw.c
-index 8e191a8d5dc5..b56df04775c2 100644
---- a/sound/soc/intel/boards/sof_sdw.c
-+++ b/sound/soc/intel/boards/sof_sdw.c
-@@ -48,6 +48,15 @@ static int sof_sdw_quirk_cb(const struct dmi_system_id *id)
- }
+diff --git a/drivers/soundwire/generic_bandwidth_allocation.c b/drivers/soundwire/generic_bandwidth_allocation.c
+index 6088775b67a5..fdc0db71360e 100644
+--- a/drivers/soundwire/generic_bandwidth_allocation.c
++++ b/drivers/soundwire/generic_bandwidth_allocation.c
+@@ -342,15 +342,11 @@ static int sdw_select_row_col(struct sdw_bus *bus, int clk_freq)
+ static int sdw_compute_bus_params(struct sdw_bus *bus)
+ {
+ 	unsigned int max_dr_freq, curr_dr_freq = 0;
+-	struct sdw_master_prop *mstr_prop = NULL;
++	struct sdw_master_prop *mstr_prop = &bus->prop;
+ 	int i, clk_values, ret;
+ 	bool is_gear = false;
+ 	u32 *clk_buf;
  
- static const struct dmi_system_id sof_sdw_quirk_table[] = {
-+	{
-+		.callback = sof_sdw_quirk_cb,
-+		.matches = {
-+			DMI_MATCH(DMI_SYS_VENDOR, "Dell Inc"),
-+			DMI_EXACT_MATCH(DMI_PRODUCT_SKU, "0A3E")
-+		},
-+		.driver_data = (void *)(SOF_RT711_JD_SRC_JD2 |
-+					SOF_RT715_DAI_ID_FIX),
-+	},
- 	{
- 		.callback = sof_sdw_quirk_cb,
- 		.matches = {
-diff --git a/sound/soc/intel/common/soc-acpi-intel-tgl-match.c b/sound/soc/intel/common/soc-acpi-intel-tgl-match.c
-index 76f4eaf684b0..9f243e60b95c 100644
---- a/sound/soc/intel/common/soc-acpi-intel-tgl-match.c
-+++ b/sound/soc/intel/common/soc-acpi-intel-tgl-match.c
-@@ -44,6 +44,15 @@ static const struct snd_soc_acpi_adr_device rt711_0_adr[] = {
- 	}
- };
- 
-+static const struct snd_soc_acpi_adr_device rt711_1_adr[] = {
-+	{
-+		.adr = 0x000120025D071100,
-+		.num_endpoints = 1,
-+		.endpoints = &single_endpoint,
-+		.name_prefix = "rt711"
-+	}
-+};
-+
- static const struct snd_soc_acpi_adr_device rt1308_1_dual_adr[] = {
- 	{
- 		.adr = 0x000120025D130800,
-@@ -68,6 +77,15 @@ static const struct snd_soc_acpi_adr_device rt1308_1_single_adr[] = {
- 	}
- };
- 
-+static const struct snd_soc_acpi_adr_device rt1308_2_single_adr[] = {
-+	{
-+		.adr = 0x000220025D130800,
-+		.num_endpoints = 1,
-+		.endpoints = &single_endpoint,
-+		.name_prefix = "rt1308-1"
-+	}
-+};
-+
- static const struct snd_soc_acpi_adr_device rt1308_1_group1_adr[] = {
- 	{
- 		.adr = 0x000120025D130800,
-@@ -86,6 +104,15 @@ static const struct snd_soc_acpi_adr_device rt1308_2_group1_adr[] = {
- 	}
- };
- 
-+static const struct snd_soc_acpi_adr_device rt715_0_adr[] = {
-+	{
-+		.adr = 0x000021025D071500,
-+		.num_endpoints = 1,
-+		.endpoints = &single_endpoint,
-+		.name_prefix = "rt715"
-+	}
-+};
-+
- static const struct snd_soc_acpi_adr_device rt715_3_adr[] = {
- 	{
- 		.adr = 0x000320025D071500,
-@@ -235,6 +262,25 @@ static const struct snd_soc_acpi_link_adr tgl_3_in_1_mono_amp[] = {
- 	{}
- };
- 
-+static const struct snd_soc_acpi_link_adr tgl_sdw_rt711_link1_rt1308_link2_rt715_link0[] = {
-+	{
-+		.mask = BIT(1),
-+		.num_adr = ARRAY_SIZE(rt711_1_adr),
-+		.adr_d = rt711_1_adr,
-+	},
-+	{
-+		.mask = BIT(2),
-+		.num_adr = ARRAY_SIZE(rt1308_2_single_adr),
-+		.adr_d = rt1308_2_single_adr,
-+	},
-+	{
-+		.mask = BIT(0),
-+		.num_adr = ARRAY_SIZE(rt715_0_adr),
-+		.adr_d = rt715_0_adr,
-+	},
-+	{}
-+};
-+
- static const struct snd_soc_acpi_link_adr tgl_3_in_1_sdca[] = {
- 	{
- 		.mask = BIT(0),
-@@ -295,6 +341,13 @@ EXPORT_SYMBOL_GPL(snd_soc_acpi_intel_tgl_machines);
- 
- /* this table is used when there is no I2S codec present */
- struct snd_soc_acpi_mach snd_soc_acpi_intel_tgl_sdw_machines[] = {
-+	{
-+		.link_mask = 0x7,
-+		.links = tgl_sdw_rt711_link1_rt1308_link2_rt715_link0,
-+		.drv_name = "sof_sdw",
-+		.sof_fw_filename = "sof-tgl.ri",
-+		.sof_tplg_filename = "sof-tgl-rt715-rt711-rt1308-mono.tplg",
-+	},
- 	{
- 		.link_mask = 0xF, /* 4 active links required */
- 		.links = tgl_3_in_1_default,
+-	mstr_prop = &bus->prop;
+-	if (!mstr_prop)
+-		return -EINVAL;
+-
+ 	if (mstr_prop->num_clk_gears) {
+ 		clk_values = mstr_prop->num_clk_gears;
+ 		clk_buf = mstr_prop->clk_gears;
 -- 
-2.27.0
+2.28.0
 

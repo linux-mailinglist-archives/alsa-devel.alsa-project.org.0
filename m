@@ -2,70 +2,69 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8B5DD2758C3
-	for <lists+alsa-devel@lfdr.de>; Wed, 23 Sep 2020 15:32:48 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7FD5E2758C4
+	for <lists+alsa-devel@lfdr.de>; Wed, 23 Sep 2020 15:33:11 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 253EA165D;
-	Wed, 23 Sep 2020 15:31:58 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 253EA165D
+	by alsa0.perex.cz (Postfix) with ESMTPS id 108E71765;
+	Wed, 23 Sep 2020 15:32:21 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 108E71765
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1600867968;
-	bh=BOSYhawvSxcMQqNPOy/V13TL5SDkTHhiJjDhzu6Q9o0=;
+	s=default; t=1600867991;
+	bh=/wmf+cF82NUYJFFVsw72g9y7AnszG8xhrBONAzWPvpo=;
 	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=sHVHosU5Jr8hv8cjBovtAXzxzjIp+3Qig58TCe1oElzEu3IECNUkBCfHgnLZKK03M
-	 oBv4qhCmEjDDAfLc4eWkc7uFH7ABjCRW9nv5QSWDa1shbF+nvCCQPEsn9SE9hDxgKV
-	 bNplfQA8kuf/7nPOAytZ46CANASQa53U5x3IDvWY=
+	b=vUpwA8SCxxgmv64Bfxcknq566GKGBGEWzn0uKwgGarqjXgbNpVJPvO2UOjstMEbSs
+	 WtedLiYrisTfjSxS+o1B68Tt1I/usnunie+8AjcED54EilLFFxkVi3b8wL0K5+41vM
+	 mK4tLzZwdIfHypP8EUDzY0Tsp+UrrMVZK2sx3u6M=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id A9953F80171;
-	Wed, 23 Sep 2020 15:29:25 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 63103F802DF;
+	Wed, 23 Sep 2020 15:30:13 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id D37A3F801EC; Wed, 23 Sep 2020 15:29:23 +0200 (CEST)
+ id C4A96F802DD; Wed, 23 Sep 2020 15:30:11 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
  URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
+Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id B7109F80171
- for <alsa-devel@alsa-project.org>; Wed, 23 Sep 2020 15:29:14 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B7109F80171
-IronPort-SDR: vUa3TLFqSkeLzluk139O7Je2k/6m3mSVZBRf5Zc97FypWc4sTyh6AjQ4G6QqSaxcCha2TRvtBu
- 8vsJNtSc7v6Q==
-X-IronPort-AV: E=McAfee;i="6000,8403,9752"; a="148626300"
-X-IronPort-AV: E=Sophos;i="5.77,293,1596524400"; d="scan'208";a="148626300"
+ by alsa1.perex.cz (Postfix) with ESMTPS id 493B8F8010A
+ for <alsa-devel@alsa-project.org>; Wed, 23 Sep 2020 15:30:07 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 493B8F8010A
+IronPort-SDR: 0FC/jMUgJNnDMgg7Q8HaSVP7o4DPISiPux5H55z0CFwvVY14f2N5dWzx7Chpie0ECcSg+v5yNO
+ suPQ7L9oxEIg==
+X-IronPort-AV: E=McAfee;i="6000,8403,9752"; a="160167246"
+X-IronPort-AV: E=Sophos;i="5.77,293,1596524400"; d="scan'208";a="160167246"
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
 Received: from orsmga008.jf.intel.com ([10.7.209.65])
- by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 23 Sep 2020 06:29:12 -0700
-IronPort-SDR: cVbbuC51+LLnMa0YUN2GV/K0CTFOg3gICGo0vU+vzk5/udYnJdYGcShBvkbp8zgfscsnI9OZTM
- pbnahWTE/EeQ==
+ by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 23 Sep 2020 06:30:05 -0700
+IronPort-SDR: nW51Fb1rpPz5ESxWwe+K9B6Bi7D20vT8/SvMyjj/YJAnqLtdURwBdD8LrWasSp5Cwru5bOWZXv
+ 3jcnWsJ48Yjg==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.77,293,1596524400"; d="scan'208";a="338659250"
+X-IronPort-AV: E=Sophos;i="5.77,293,1596524400"; d="scan'208";a="338659483"
 Received: from smile.fi.intel.com (HELO smile) ([10.237.68.40])
- by orsmga008.jf.intel.com with ESMTP; 23 Sep 2020 06:29:08 -0700
+ by orsmga008.jf.intel.com with ESMTP; 23 Sep 2020 06:30:01 -0700
 Received: from andy by smile with local (Exim 4.94)
  (envelope-from <andriy.shevchenko@linux.intel.com>)
- id 1kL4pU-001P6m-CA; Wed, 23 Sep 2020 16:29:04 +0300
-Date: Wed, 23 Sep 2020 16:29:04 +0300
+ id 1kL4qL-001P7a-F5; Wed, 23 Sep 2020 16:29:57 +0300
+Date: Wed, 23 Sep 2020 16:29:57 +0300
 From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
 To: Cezary Rojewski <cezary.rojewski@intel.com>
-Subject: Re: [PATCH v8 05/14] ASoC: Intel: catpt: Firmware loading and
- context restore
-Message-ID: <20200923132904.GI3956970@smile.fi.intel.com>
+Subject: Re: [PATCH v8 08/14] ASoC: Intel: catpt: Event tracing
+Message-ID: <20200923132957.GJ3956970@smile.fi.intel.com>
 References: <20200923122508.3360-1-cezary.rojewski@intel.com>
- <20200923122508.3360-6-cezary.rojewski@intel.com>
+ <20200923122508.3360-9-cezary.rojewski@intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20200923122508.3360-6-cezary.rojewski@intel.com>
+In-Reply-To: <20200923122508.3360-9-cezary.rojewski@intel.com>
 Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
 Cc: pierre-louis.bossart@linux.intel.com, alsa-devel@alsa-project.org,
  filip.kaczmarski@intel.com, harshapriya.n@intel.com,
@@ -90,701 +89,210 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Wed, Sep 23, 2020 at 02:24:59PM +0200, Cezary Rojewski wrote:
-> For Lynxpoint and Wildcat Point solution, is it host's responsibility to
-> allocate SRAM regions and ensure those already taken are not overwritten
-> with other data until released. Blocks are transferred to SRAM - either
-> IRAM or DRAM - via DW DMA controller. Once basefw is booted, ownership
-> of DMA transfer is lost in favour of DSP.
-> 
-> Hosts reponsibilities don't end on initial block allocation and binary
-> transfer. During Dx transitions host must store FW runtime context from
-> DRAM before putting AudioDSP subsystem into lower power state. Said
-> context gets flashed after D0 entry to bring DSP right where it was just
-> before suspending.
-> 
-> Load and restore procedures are finalized with SRAM power gating and
-> adequate clock level selection. This power gates unused EBBs and clock
-> speed effectively reducing power consumption.
+On Wed, Sep 23, 2020 at 02:25:02PM +0200, Cezary Rojewski wrote:
+> Define tracing macros for easy catpt debug. These cover all IPC message
+> types: requests, replies and notifications.
 
 FWIW,
 Reviewed-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
 
 > Signed-off-by: Cezary Rojewski <cezary.rojewski@intel.com>
 > ---
->  sound/soc/intel/catpt/core.h   |  12 +
->  sound/soc/intel/catpt/loader.c | 619 +++++++++++++++++++++++++++++++++
->  2 files changed, 631 insertions(+)
 > 
-> diff --git a/sound/soc/intel/catpt/core.h b/sound/soc/intel/catpt/core.h
-> index 9e9b3dceedce..260e5ae94a2c 100644
-> --- a/sound/soc/intel/catpt/core.h
-> +++ b/sound/soc/intel/catpt/core.h
-> @@ -100,9 +100,16 @@ struct catpt_dev {
->  	struct resource iram;
->  	struct resource *scratch;
->  
-> +	struct catpt_mixer_stream_info mixer;
-> +	struct catpt_module_type modules[CATPT_MODULE_COUNT];
-> +	struct catpt_ssp_device_format devfmt[CATPT_SSP_COUNT];
->  	struct list_head stream_list;
->  	spinlock_t list_lock;
->  	struct mutex clk_mutex;
-> +
-> +	struct catpt_dx_context dx_ctx;
-> +	void *dxbuf_vaddr;
-> +	dma_addr_t dxbuf_paddr;
->  };
->  
->  int catpt_dmac_probe(struct catpt_dev *cdev);
-> @@ -141,6 +148,11 @@ int catpt_dsp_send_msg_timeout(struct catpt_dev *cdev,
->  int catpt_dsp_send_msg(struct catpt_dev *cdev, struct catpt_ipc_msg request,
->  		       struct catpt_ipc_msg *reply);
->  
-> +int catpt_first_boot_firmware(struct catpt_dev *cdev);
-> +int catpt_boot_firmware(struct catpt_dev *cdev, bool restore);
-> +int catpt_store_streams_context(struct catpt_dev *cdev, struct dma_chan *chan);
-> +int catpt_store_module_states(struct catpt_dev *cdev, struct dma_chan *chan);
-> +int catpt_store_memdumps(struct catpt_dev *cdev, struct dma_chan *chan);
->  int catpt_coredump(struct catpt_dev *cdev);
->  
->  #include <sound/memalloc.h>
-> diff --git a/sound/soc/intel/catpt/loader.c b/sound/soc/intel/catpt/loader.c
-> index 3a7e5b396a86..473e842e9901 100644
-> --- a/sound/soc/intel/catpt/loader.c
-> +++ b/sound/soc/intel/catpt/loader.c
-> @@ -6,8 +6,49 @@
->  //
->  
->  #include <linux/dma-mapping.h>
-> +#include <linux/firmware.h>
->  #include <linux/slab.h>
+> Changes in v6:
+> - trace usage now part of this patch instead of being separated from it
+> 
+> Changes in v2:
+> - trace.h events for updating registers have been removed and usages
+>   replaced by dev_dbg (SRAMPGE/ LPCS)
+> - trace.h events for catpt_mbank and catpt_mregion have been removed
+> 
+>  sound/soc/intel/catpt/device.c |  3 ++
+>  sound/soc/intel/catpt/ipc.c    | 11 +++++
+>  sound/soc/intel/catpt/trace.h  | 83 ++++++++++++++++++++++++++++++++++
+>  3 files changed, 97 insertions(+)
+>  create mode 100644 sound/soc/intel/catpt/trace.h
+> 
+> diff --git a/sound/soc/intel/catpt/device.c b/sound/soc/intel/catpt/device.c
+> index e7dc2fb69ea8..c02d46e5bc81 100644
+> --- a/sound/soc/intel/catpt/device.c
+> +++ b/sound/soc/intel/catpt/device.c
+> @@ -25,6 +25,9 @@
 >  #include "core.h"
-> +#include "registers.h"
-> +
-> +/* FW load (200ms) plus operational delays */
-> +#define FW_READY_TIMEOUT_MS	250
-> +
-> +#define FW_SIGNATURE		"$SST"
-> +#define FW_SIGNATURE_SIZE	4
-> +
-> +struct catpt_fw_hdr {
-> +	char signature[FW_SIGNATURE_SIZE];
-> +	u32 file_size;
-> +	u32 modules;
-> +	u32 file_format;
-> +	u32 reserved[4];
-> +} __packed;
-> +
-> +struct catpt_fw_mod_hdr {
-> +	char signature[FW_SIGNATURE_SIZE];
-> +	u32 mod_size;
-> +	u32 blocks;
-> +	u16 slot;
-> +	u16 module_id;
-> +	u32 entry_point;
-> +	u32 persistent_size;
-> +	u32 scratch_size;
-> +} __packed;
-> +
-> +enum catpt_ram_type {
-> +	CATPT_RAM_TYPE_IRAM = 1,
-> +	CATPT_RAM_TYPE_DRAM = 2,
-> +	/* DRAM with module's initial state */
-> +	CATPT_RAM_TYPE_INSTANCE = 3,
-> +};
-> +
-> +struct catpt_fw_block_hdr {
-> +	u32 ram_type;
-> +	u32 size;
-> +	u32 ram_offset;
-> +	u32 rsvd;
-> +} __packed;
+>  #include "registers.h"
 >  
->  void catpt_sram_init(struct resource *sram, u32 start, u32 size)
+> +#define CREATE_TRACE_POINTS
+> +#include "trace.h"
+> +
+>  static int __maybe_unused catpt_suspend(struct device *dev)
 >  {
-> @@ -44,3 +85,581 @@ catpt_request_region(struct resource *root, resource_size_t size)
+>  	struct catpt_dev *cdev = dev_get_drvdata(dev);
+> diff --git a/sound/soc/intel/catpt/ipc.c b/sound/soc/intel/catpt/ipc.c
+> index e4569be02bbc..925a193a9932 100644
+> --- a/sound/soc/intel/catpt/ipc.c
+> +++ b/sound/soc/intel/catpt/ipc.c
+> @@ -9,6 +9,7 @@
+>  #include "core.h"
+>  #include "messages.h"
+>  #include "registers.h"
+> +#include "trace.h"
 >  
->  	return __request_region(root, addr, size, NULL, 0);
+>  #define CATPT_IPC_TIMEOUT_MS	300
+>  
+> @@ -56,6 +57,9 @@ static void catpt_dsp_send_tx(struct catpt_dev *cdev,
+>  {
+>  	u32 header = tx->header | CATPT_IPCC_BUSY;
+>  
+> +	trace_catpt_ipc_request(header);
+> +	trace_catpt_ipc_payload(tx->data, tx->size);
+> +
+>  	if (tx->size)
+>  		memcpy_toio(catpt_outbox_addr(cdev), tx->data, tx->size);
+>  	catpt_writel_shim(cdev, IPCC, header);
+> @@ -155,12 +159,14 @@ catpt_dsp_notify_stream(struct catpt_dev *cdev, union catpt_notify_msg msg)
+>  	switch (msg.notify_reason) {
+>  	case CATPT_NOTIFY_POSITION_CHANGED:
+>  		memcpy_fromio(&pos, catpt_inbox_addr(cdev), sizeof(pos));
+> +		trace_catpt_ipc_payload((u8 *)&pos, sizeof(pos));
+>  
+>  		catpt_stream_update_position(cdev, stream, &pos);
+>  		break;
+>  
+>  	case CATPT_NOTIFY_GLITCH_OCCURRED:
+>  		memcpy_fromio(&glitch, catpt_inbox_addr(cdev), sizeof(glitch));
+> +		trace_catpt_ipc_payload((u8 *)&glitch, sizeof(glitch));
+>  
+>  		dev_warn(cdev->dev, "glitch %d at pos: 0x%08llx, wp: 0x%08x\n",
+>  			 glitch.type, glitch.presentation_pos,
+> @@ -182,6 +188,7 @@ static void catpt_dsp_copy_rx(struct catpt_dev *cdev, u32 header)
+>  	if (ipc->rx.size && ipc->rx.rsp.status == CATPT_REPLY_SUCCESS) {
+>  		memcpy_fromio(ipc->rx.data, catpt_outbox_addr(cdev),
+>  			      ipc->rx.size);
+> +		trace_catpt_ipc_payload(ipc->rx.data, ipc->rx.size);
+>  	}
 >  }
-> +
-> +int catpt_store_streams_context(struct catpt_dev *cdev, struct dma_chan *chan)
-> +{
-> +	struct catpt_stream_runtime *stream;
-> +
-> +	list_for_each_entry(stream, &cdev->stream_list, node) {
-> +		u32 off, size;
-> +		int ret;
-> +
-> +		off = stream->persistent->start;
-> +		size = resource_size(stream->persistent);
-> +		dev_dbg(cdev->dev, "storing stream %d ctx: off 0x%08x size %d\n",
-> +			stream->info.stream_hw_id, off, size);
-> +
-> +		ret = catpt_dma_memcpy_fromdsp(cdev, chan,
-> +					       cdev->dxbuf_paddr + off,
-> +					       cdev->lpe_base + off,
-> +					       ALIGN(size, 4));
-> +		if (ret) {
-> +			dev_err(cdev->dev, "memcpy fromdsp failed: %d\n", ret);
-> +			return ret;
-> +		}
-> +	}
-> +
-> +	return 0;
-> +}
-> +
-> +int catpt_store_module_states(struct catpt_dev *cdev, struct dma_chan *chan)
-> +{
-> +	int i;
-> +
-> +	for (i = 0; i < ARRAY_SIZE(cdev->modules); i++) {
-> +		struct catpt_module_type *type;
-> +		u32 off;
-> +		int ret;
-> +
-> +		type = &cdev->modules[i];
-> +		if (!type->loaded || !type->state_size)
-> +			continue;
-> +
-> +		off = type->state_offset;
-> +		dev_dbg(cdev->dev, "storing mod %d state: off 0x%08x size %d\n",
-> +			i, off, type->state_size);
-> +
-> +		ret = catpt_dma_memcpy_fromdsp(cdev, chan,
-> +					       cdev->dxbuf_paddr + off,
-> +					       cdev->lpe_base + off,
-> +					       ALIGN(type->state_size, 4));
-> +		if (ret) {
-> +			dev_err(cdev->dev, "memcpy fromdsp failed: %d\n", ret);
-> +			return ret;
-> +		}
-> +	}
-> +
-> +	return 0;
-> +}
-> +
-> +int catpt_store_memdumps(struct catpt_dev *cdev, struct dma_chan *chan)
-> +{
-> +	int i;
-> +
-> +	for (i = 0; i < cdev->dx_ctx.num_meminfo; i++) {
-> +		struct catpt_save_meminfo *info;
-> +		u32 off;
-> +		int ret;
-> +
-> +		info = &cdev->dx_ctx.meminfo[i];
-> +		if (info->source != CATPT_DX_TYPE_MEMORY_DUMP)
-> +			continue;
-> +
-> +		off = catpt_to_host_offset(info->offset);
-> +		if (off < cdev->dram.start || off > cdev->dram.end)
-> +			continue;
-> +
-> +		dev_dbg(cdev->dev, "storing memdump: off 0x%08x size %d\n",
-> +			off, info->size);
-> +
-> +		ret = catpt_dma_memcpy_fromdsp(cdev, chan,
-> +					       cdev->dxbuf_paddr + off,
-> +					       cdev->lpe_base + off,
-> +					       ALIGN(info->size, 4));
-> +		if (ret) {
-> +			dev_err(cdev->dev, "memcpy fromdsp failed: %d\n", ret);
-> +			return ret;
-> +		}
-> +	}
-> +
-> +	return 0;
-> +}
-> +
-> +static int
-> +catpt_restore_streams_context(struct catpt_dev *cdev, struct dma_chan *chan)
-> +{
-> +	struct catpt_stream_runtime *stream;
-> +
-> +	list_for_each_entry(stream, &cdev->stream_list, node) {
-> +		u32 off, size;
-> +		int ret;
-> +
-> +		off = stream->persistent->start;
-> +		size = resource_size(stream->persistent);
-> +		dev_dbg(cdev->dev, "restoring stream %d ctx: off 0x%08x size %d\n",
-> +			stream->info.stream_hw_id, off, size);
-> +
-> +		ret = catpt_dma_memcpy_todsp(cdev, chan,
-> +					     cdev->lpe_base + off,
-> +					     cdev->dxbuf_paddr + off,
-> +					     ALIGN(size, 4));
-> +		if (ret) {
-> +			dev_err(cdev->dev, "memcpy fromdsp failed: %d\n", ret);
-> +			return ret;
-> +		}
-> +	}
-> +
-> +	return 0;
-> +}
-> +
-> +static int catpt_restore_memdumps(struct catpt_dev *cdev, struct dma_chan *chan)
-> +{
-> +	int i;
-> +
-> +	for (i = 0; i < cdev->dx_ctx.num_meminfo; i++) {
-> +		struct catpt_save_meminfo *info;
-> +		u32 off;
-> +		int ret;
-> +
-> +		info = &cdev->dx_ctx.meminfo[i];
-> +		if (info->source != CATPT_DX_TYPE_MEMORY_DUMP)
-> +			continue;
-> +
-> +		off = catpt_to_host_offset(info->offset);
-> +		if (off < cdev->dram.start || off > cdev->dram.end)
-> +			continue;
-> +
-> +		dev_dbg(cdev->dev, "restoring memdump: off 0x%08x size %d\n",
-> +			off, info->size);
-> +
-> +		ret = catpt_dma_memcpy_todsp(cdev, chan,
-> +					     cdev->lpe_base + off,
-> +					     cdev->dxbuf_paddr + off,
-> +					     ALIGN(info->size, 4));
-> +		if (ret) {
-> +			dev_err(cdev->dev, "restore block failed: %d\n", ret);
-> +			return ret;
-> +		}
-> +	}
-> +
-> +	return 0;
-> +}
-> +
-> +static int catpt_restore_fwimage(struct catpt_dev *cdev,
-> +				 struct dma_chan *chan, dma_addr_t paddr,
-> +				 struct catpt_fw_block_hdr *blk)
-> +{
-> +	struct resource r1, r2, common;
-> +	int i;
-> +
-> +	print_hex_dump_debug(__func__, DUMP_PREFIX_OFFSET, 8, 4,
-> +			     blk, sizeof(*blk), false);
-> +
-> +	r1.start = cdev->dram.start + blk->ram_offset;
-> +	r1.end = r1.start + blk->size - 1;
-> +	/* advance to data area */
-> +	paddr += sizeof(*blk);
-> +
-> +	for (i = 0; i < cdev->dx_ctx.num_meminfo; i++) {
-> +		struct catpt_save_meminfo *info;
-> +		u32 off;
-> +		int ret;
-> +
-> +		info = &cdev->dx_ctx.meminfo[i];
-> +
-> +		if (info->source != CATPT_DX_TYPE_FW_IMAGE)
-> +			continue;
-> +
-> +		off = catpt_to_host_offset(info->offset);
-> +		if (off < cdev->dram.start || off > cdev->dram.end)
-> +			continue;
-> +
-> +		r2.start = off;
-> +		r2.end = r2.start + info->size - 1;
-> +
-> +		if (!catpt_resource_overlapping(&r2, &r1, &common))
-> +			continue;
-> +		/* calculate start offset of common data area */
-> +		off = common.start - r1.start;
-> +
-> +		dev_dbg(cdev->dev, "restoring fwimage: %pr\n", &common);
-> +
-> +		ret = catpt_dma_memcpy_todsp(cdev, chan, common.start,
-> +					     paddr + off,
-> +					     resource_size(&common));
-> +		if (ret) {
-> +			dev_err(cdev->dev, "memcpy todsp failed: %d\n", ret);
-> +			return ret;
-> +		}
-> +	}
-> +
-> +	return 0;
-> +}
-> +
-> +static int catpt_load_block(struct catpt_dev *cdev,
-> +			    struct dma_chan *chan, dma_addr_t paddr,
-> +			    struct catpt_fw_block_hdr *blk, bool alloc)
-> +{
-> +	struct resource *sram, *res;
-> +	dma_addr_t dst_addr;
-> +	int ret;
-> +
-> +	print_hex_dump_debug(__func__, DUMP_PREFIX_OFFSET, 8, 4,
-> +			     blk, sizeof(*blk), false);
-> +
-> +	switch (blk->ram_type) {
-> +	case CATPT_RAM_TYPE_IRAM:
-> +		sram = &cdev->iram;
-> +		break;
-> +	default:
-> +		sram = &cdev->dram;
-> +		break;
-> +	};
-> +
-> +	dst_addr = sram->start + blk->ram_offset;
-> +	if (alloc) {
-> +		res = __request_region(sram, dst_addr, blk->size, NULL, 0);
-> +		if (!res)
-> +			return -EBUSY;
-> +	}
-> +
-> +	/* advance to data area */
-> +	paddr += sizeof(*blk);
-> +
-> +	ret = catpt_dma_memcpy_todsp(cdev, chan, dst_addr, paddr, blk->size);
-> +	if (ret) {
-> +		dev_err(cdev->dev, "memcpy error: %d\n", ret);
-> +		__release_region(sram, dst_addr, blk->size);
-> +	}
-> +
-> +	return ret;
-> +}
-> +
-> +static int catpt_restore_basefw(struct catpt_dev *cdev,
-> +				struct dma_chan *chan, dma_addr_t paddr,
-> +				struct catpt_fw_mod_hdr *basefw)
-> +{
-> +	u32 offset = sizeof(*basefw);
-> +	int ret, i;
-> +
-> +	print_hex_dump_debug(__func__, DUMP_PREFIX_OFFSET, 8, 4,
-> +			     basefw, sizeof(*basefw), false);
-> +
-> +	/* restore basefw image */
-> +	for (i = 0; i < basefw->blocks; i++) {
-> +		struct catpt_fw_block_hdr *blk;
-> +
-> +		blk = (struct catpt_fw_block_hdr *)((u8 *)basefw + offset);
-> +
-> +		switch (blk->ram_type) {
-> +		case CATPT_RAM_TYPE_IRAM:
-> +			ret = catpt_load_block(cdev, chan, paddr + offset,
-> +					       blk, false);
-> +			break;
-> +		default:
-> +			ret = catpt_restore_fwimage(cdev, chan, paddr + offset,
-> +						    blk);
-> +			break;
-> +		}
-> +
-> +		if (ret) {
-> +			dev_err(cdev->dev, "restore block failed: %d\n", ret);
-> +			return ret;
-> +		}
-> +
-> +		offset += sizeof(*blk) + blk->size;
-> +	}
-> +
-> +	/* then proceed with memory dumps */
-> +	ret = catpt_restore_memdumps(cdev, chan);
-> +	if (ret)
-> +		dev_err(cdev->dev, "restore memdumps failed: %d\n", ret);
-> +
-> +	return ret;
-> +}
-> +
-> +static int catpt_restore_module(struct catpt_dev *cdev,
-> +				struct dma_chan *chan, dma_addr_t paddr,
-> +				struct catpt_fw_mod_hdr *mod)
-> +{
-> +	u32 offset = sizeof(*mod);
-> +	int i;
-> +
-> +	print_hex_dump_debug(__func__, DUMP_PREFIX_OFFSET, 8, 4,
-> +			     mod, sizeof(*mod), false);
-> +
-> +	for (i = 0; i < mod->blocks; i++) {
-> +		struct catpt_fw_block_hdr *blk;
-> +		int ret;
-> +
-> +		blk = (struct catpt_fw_block_hdr *)((u8 *)mod + offset);
-> +
-> +		switch (blk->ram_type) {
-> +		case CATPT_RAM_TYPE_INSTANCE:
-> +			/* restore module state */
-> +			ret = catpt_dma_memcpy_todsp(cdev, chan,
-> +					cdev->lpe_base + blk->ram_offset,
-> +					cdev->dxbuf_paddr + blk->ram_offset,
-> +					ALIGN(blk->size, 4));
-> +			break;
-> +		default:
-> +			ret = catpt_load_block(cdev, chan, paddr + offset,
-> +					       blk, false);
-> +			break;
-> +		}
-> +
-> +		if (ret) {
-> +			dev_err(cdev->dev, "restore block failed: %d\n", ret);
-> +			return ret;
-> +		}
-> +
-> +		offset += sizeof(*blk) + blk->size;
-> +	}
-> +
-> +	return 0;
-> +}
-> +
-> +static int catpt_load_module(struct catpt_dev *cdev,
-> +			     struct dma_chan *chan, dma_addr_t paddr,
-> +			     struct catpt_fw_mod_hdr *mod)
-> +{
-> +	struct catpt_module_type *type;
-> +	u32 offset = sizeof(*mod);
-> +	int i;
-> +
-> +	print_hex_dump_debug(__func__, DUMP_PREFIX_OFFSET, 8, 4,
-> +			     mod, sizeof(*mod), false);
-> +
-> +	type = &cdev->modules[mod->module_id];
-> +
-> +	for (i = 0; i < mod->blocks; i++) {
-> +		struct catpt_fw_block_hdr *blk;
-> +		int ret;
-> +
-> +		blk = (struct catpt_fw_block_hdr *)((u8 *)mod + offset);
-> +
-> +		ret = catpt_load_block(cdev, chan, paddr + offset, blk, true);
-> +		if (ret) {
-> +			dev_err(cdev->dev, "load block failed: %d\n", ret);
-> +			return ret;
-> +		}
-> +
-> +		/*
-> +		 * Save state window coordinates - these will be
-> +		 * used to capture module state on D0 exit.
-> +		 */
-> +		if (blk->ram_type == CATPT_RAM_TYPE_INSTANCE) {
-> +			type->state_offset = blk->ram_offset;
-> +			type->state_size = blk->size;
-> +		}
-> +
-> +		offset += sizeof(*blk) + blk->size;
-> +	}
-> +
-> +	/* init module type static info */
-> +	type->loaded = true;
-> +	/* DSP expects address from module header substracted by 4 */
-> +	type->entry_point = mod->entry_point - 4;
-> +	type->persistent_size = mod->persistent_size;
-> +	type->scratch_size = mod->scratch_size;
-> +
-> +	return 0;
-> +}
-> +
-> +static int catpt_restore_firmware(struct catpt_dev *cdev,
-> +				  struct dma_chan *chan, dma_addr_t paddr,
-> +				  struct catpt_fw_hdr *fw)
-> +{
-> +	u32 offset = sizeof(*fw);
-> +	int i;
-> +
-> +	print_hex_dump_debug(__func__, DUMP_PREFIX_OFFSET, 8, 4,
-> +			     fw, sizeof(*fw), false);
-> +
-> +	for (i = 0; i < fw->modules; i++) {
-> +		struct catpt_fw_mod_hdr *mod;
-> +		int ret;
-> +
-> +		mod = (struct catpt_fw_mod_hdr *)((u8 *)fw + offset);
-> +		if (strncmp(fw->signature, mod->signature,
-> +			    FW_SIGNATURE_SIZE)) {
-> +			dev_err(cdev->dev, "module signature mismatch\n");
-> +			return -EINVAL;
-> +		}
-> +
-> +		if (mod->module_id > CATPT_MODID_LAST)
-> +			return -EINVAL;
-> +
-> +		switch (mod->module_id) {
-> +		case CATPT_MODID_BASE_FW:
-> +			ret = catpt_restore_basefw(cdev, chan, paddr + offset,
-> +						   mod);
-> +			break;
-> +		default:
-> +			ret = catpt_restore_module(cdev, chan, paddr + offset,
-> +						   mod);
-> +			break;
-> +		}
-> +
-> +		if (ret) {
-> +			dev_err(cdev->dev, "restore module failed: %d\n", ret);
-> +			return ret;
-> +		}
-> +
-> +		offset += sizeof(*mod) + mod->mod_size;
-> +	}
-> +
-> +	return 0;
-> +}
-> +
-> +static int catpt_load_firmware(struct catpt_dev *cdev,
-> +			       struct dma_chan *chan, dma_addr_t paddr,
-> +			       struct catpt_fw_hdr *fw)
-> +{
-> +	u32 offset = sizeof(*fw);
-> +	int i;
-> +
-> +	print_hex_dump_debug(__func__, DUMP_PREFIX_OFFSET, 8, 4,
-> +			     fw, sizeof(*fw), false);
-> +
-> +	for (i = 0; i < fw->modules; i++) {
-> +		struct catpt_fw_mod_hdr *mod;
-> +		int ret;
-> +
-> +		mod = (struct catpt_fw_mod_hdr *)((u8 *)fw + offset);
-> +		if (strncmp(fw->signature, mod->signature,
-> +			    FW_SIGNATURE_SIZE)) {
-> +			dev_err(cdev->dev, "module signature mismatch\n");
-> +			return -EINVAL;
-> +		}
-> +
-> +		if (mod->module_id > CATPT_MODID_LAST)
-> +			return -EINVAL;
-> +
-> +		ret = catpt_load_module(cdev, chan, paddr + offset, mod);
-> +		if (ret) {
-> +			dev_err(cdev->dev, "load module failed: %d\n", ret);
-> +			return ret;
-> +		}
-> +
-> +		offset += sizeof(*mod) + mod->mod_size;
-> +	}
-> +
-> +	return 0;
-> +}
-> +
-> +static int catpt_load_image(struct catpt_dev *cdev, struct dma_chan *chan,
-> +			    const char *name, const char *signature,
-> +			    bool restore)
-> +{
-> +	struct catpt_fw_hdr *fw;
-> +	struct firmware *img;
-> +	dma_addr_t paddr;
-> +	void *vaddr;
-> +	int ret;
-> +
-> +	ret = request_firmware((const struct firmware **)&img, name, cdev->dev);
-> +	if (ret)
-> +		return ret;
-> +
-> +	fw = (struct catpt_fw_hdr *)img->data;
-> +	if (strncmp(fw->signature, signature, FW_SIGNATURE_SIZE)) {
-> +		dev_err(cdev->dev, "firmware signature mismatch\n");
-> +		ret = -EINVAL;
-> +		goto release_fw;
-> +	}
-> +
-> +	vaddr = dma_alloc_coherent(cdev->dev, img->size, &paddr, GFP_KERNEL);
-> +	if (!vaddr) {
-> +		ret = -ENOMEM;
-> +		goto release_fw;
-> +	}
-> +
-> +	memcpy(vaddr, img->data, img->size);
-> +	fw = (struct catpt_fw_hdr *)vaddr;
-> +	if (restore)
-> +		ret = catpt_restore_firmware(cdev, chan, paddr, fw);
-> +	else
-> +		ret = catpt_load_firmware(cdev, chan, paddr, fw);
-> +
-> +	dma_free_coherent(cdev->dev, img->size, vaddr, paddr);
-> +release_fw:
-> +	release_firmware(img);
-> +	return ret;
-> +}
-> +
-> +static int catpt_load_images(struct catpt_dev *cdev, bool restore)
-> +{
-> +	static const char *const names[] = {
-> +		"intel/IntcSST1.bin",
-> +		"intel/IntcSST2.bin",
-> +	};
-> +	struct dma_chan *chan;
-> +	int ret;
-> +
-> +	chan = catpt_dma_request_config_chan(cdev);
-> +	if (IS_ERR(chan))
-> +		return PTR_ERR(chan);
-> +
-> +	ret = catpt_load_image(cdev, chan, names[cdev->spec->core_id - 1],
-> +			       FW_SIGNATURE, restore);
-> +	if (ret)
-> +		goto release_dma_chan;
-> +
-> +	if (!restore)
-> +		goto release_dma_chan;
-> +	ret = catpt_restore_streams_context(cdev, chan);
-> +	if (ret)
-> +		dev_err(cdev->dev, "restore streams ctx failed: %d\n", ret);
-> +release_dma_chan:
-> +	dma_release_channel(chan);
-> +	return ret;
-> +}
-> +
-> +int catpt_boot_firmware(struct catpt_dev *cdev, bool restore)
-> +{
-> +	int ret;
-> +
-> +	catpt_dsp_stall(cdev, true);
-> +
-> +	ret = catpt_load_images(cdev, restore);
-> +	if (ret) {
-> +		dev_err(cdev->dev, "load binaries failed: %d\n", ret);
-> +		return ret;
-> +	}
-> +
-> +	reinit_completion(&cdev->fw_ready);
-> +	catpt_dsp_stall(cdev, false);
-> +
-> +	ret = wait_for_completion_timeout(&cdev->fw_ready,
-> +			msecs_to_jiffies(FW_READY_TIMEOUT_MS));
-> +	if (!ret) {
-> +		dev_err(cdev->dev, "firmware ready timeout\n");
-> +		return -ETIMEDOUT;
-> +	}
-> +
-> +	/* update sram pg & clock once done booting */
-> +	catpt_dsp_update_srampge(cdev, &cdev->dram, cdev->spec->dram_mask);
-> +	catpt_dsp_update_srampge(cdev, &cdev->iram, cdev->spec->iram_mask);
-> +
-> +	return catpt_dsp_update_lpclock(cdev);
-> +}
-> +
-> +int catpt_first_boot_firmware(struct catpt_dev *cdev)
-> +{
-> +	struct resource *res;
-> +	int ret;
-> +
-> +	ret = catpt_boot_firmware(cdev, false);
-> +	if (ret) {
-> +		dev_err(cdev->dev, "basefw boot failed: %d\n", ret);
-> +		return ret;
-> +	}
-> +
-> +	/* restrict FW Core dump area */
-> +	__request_region(&cdev->dram, 0, 0x200, NULL, 0);
-> +	/* restrict entire area following BASE_FW - highest offset in DRAM */
-> +	for (res = cdev->dram.child; res->sibling; res = res->sibling)
-> +		;
-> +	__request_region(&cdev->dram, res->end + 1,
-> +			 cdev->dram.end - res->end, NULL, 0);
-> +
-> +	ret = catpt_ipc_get_mixer_stream_info(cdev, &cdev->mixer);
-> +	if (ret)
-> +		return CATPT_IPC_ERROR(ret);
-> +
-> +	/* update dram pg for scratch and restricted regions */
-> +	catpt_dsp_update_srampge(cdev, &cdev->dram, cdev->spec->dram_mask);
-> +
-> +	return 0;
-> +}
+>  
+> @@ -196,6 +203,7 @@ static void catpt_dsp_process_response(struct catpt_dev *cdev, u32 header)
+>  		u32 off = msg.mailbox_address << 3;
+>  
+>  		memcpy_fromio(&config, cdev->lpe_ba + off, sizeof(config));
+> +		trace_catpt_ipc_payload((u8 *)&config, sizeof(config));
+>  
+>  		catpt_ipc_arm(ipc, &config);
+>  		complete(&cdev->fw_ready);
+> @@ -236,6 +244,7 @@ irqreturn_t catpt_dsp_irq_thread(int irq, void *dev_id)
+>  	u32 ipcd;
+>  
+>  	ipcd = catpt_readl_shim(cdev, IPCD);
+> +	trace_catpt_ipc_notify(ipcd);
+>  
+>  	/* ensure there is delayed reply or notification to process */
+>  	if (!(ipcd & CATPT_IPCD_BUSY))
+> @@ -259,6 +268,7 @@ irqreturn_t catpt_dsp_irq_handler(int irq, void *dev_id)
+>  	u32 isc, ipcc;
+>  
+>  	isc = catpt_readl_shim(cdev, ISC);
+> +	trace_catpt_irq(isc);
+>  
+>  	/* immediate reply */
+>  	if (isc & CATPT_ISC_IPCCD) {
+> @@ -266,6 +276,7 @@ irqreturn_t catpt_dsp_irq_handler(int irq, void *dev_id)
+>  		catpt_updatel_shim(cdev, IMC, CATPT_IMC_IPCCD, CATPT_IMC_IPCCD);
+>  
+>  		ipcc = catpt_readl_shim(cdev, IPCC);
+> +		trace_catpt_ipc_reply(ipcc);
+>  		catpt_dsp_copy_rx(cdev, ipcc);
+>  		complete(&cdev->ipc.done_completion);
+>  
+> diff --git a/sound/soc/intel/catpt/trace.h b/sound/soc/intel/catpt/trace.h
+> new file mode 100644
+> index 000000000000..bb3d627dbeaf
+> --- /dev/null
+> +++ b/sound/soc/intel/catpt/trace.h
+> @@ -0,0 +1,83 @@
+> +/* SPDX-License-Identifier: GPL-2.0-only */
+> +/*
+> + * Copyright(c) 2020 Intel Corporation. All rights reserved.
+> + *
+> + * Author: Cezary Rojewski <cezary.rojewski@intel.com>
+> + */
+> +
+> +#undef TRACE_SYSTEM
+> +#define TRACE_SYSTEM intel_catpt
+> +
+> +#if !defined(__SND_SOC_INTEL_CATPT_TRACE_H) || defined(TRACE_HEADER_MULTI_READ)
+> +#define __SND_SOC_INTEL_CATPT_TRACE_H
+> +
+> +#include <linux/types.h>
+> +#include <linux/tracepoint.h>
+> +
+> +DECLARE_EVENT_CLASS(catpt_ipc_msg,
+> +
+> +	TP_PROTO(u32 header),
+> +
+> +	TP_ARGS(header),
+> +
+> +	TP_STRUCT__entry(
+> +		__field(u32, header)
+> +	),
+> +
+> +	TP_fast_assign(
+> +		__entry->header = header;
+> +	),
+> +
+> +	TP_printk("0x%08x", __entry->header)
+> +);
+> +
+> +DEFINE_EVENT(catpt_ipc_msg, catpt_irq,
+> +	TP_PROTO(u32 header),
+> +	TP_ARGS(header)
+> +);
+> +
+> +DEFINE_EVENT(catpt_ipc_msg, catpt_ipc_request,
+> +	TP_PROTO(u32 header),
+> +	TP_ARGS(header)
+> +);
+> +
+> +DEFINE_EVENT(catpt_ipc_msg, catpt_ipc_reply,
+> +	TP_PROTO(u32 header),
+> +	TP_ARGS(header)
+> +);
+> +
+> +DEFINE_EVENT(catpt_ipc_msg, catpt_ipc_notify,
+> +	TP_PROTO(u32 header),
+> +	TP_ARGS(header)
+> +);
+> +
+> +TRACE_EVENT_CONDITION(catpt_ipc_payload,
+> +
+> +	TP_PROTO(const u8 *data, size_t size),
+> +
+> +	TP_ARGS(data, size),
+> +
+> +	TP_CONDITION(data && size),
+> +
+> +	TP_STRUCT__entry(
+> +		__dynamic_array(u8, buf, size)
+> +	),
+> +
+> +	TP_fast_assign(
+> +		memcpy(__get_dynamic_array(buf), data, size);
+> +	),
+> +
+> +	TP_printk("%u byte(s)%s",
+> +		  __get_dynamic_array_len(buf),
+> +		  __print_hex_dump("", DUMP_PREFIX_NONE, 16, 4,
+> +				   __get_dynamic_array(buf),
+> +				   __get_dynamic_array_len(buf), false))
+> +);
+> +
+> +#endif /* __SND_SOC_INTEL_CATPT_TRACE_H */
+> +
+> +/* This part must be outside protection */
+> +#undef TRACE_INCLUDE_PATH
+> +#define TRACE_INCLUDE_PATH .
+> +#define TRACE_INCLUDE_FILE trace
+> +#include <trace/define_trace.h>
 > -- 
 > 2.17.1
 > 

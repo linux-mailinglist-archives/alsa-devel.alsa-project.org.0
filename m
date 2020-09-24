@@ -2,48 +2,71 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 04FB42765EA
-	for <lists+alsa-devel@lfdr.de>; Thu, 24 Sep 2020 03:37:24 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id DD804276890
+	for <lists+alsa-devel@lfdr.de>; Thu, 24 Sep 2020 07:49:20 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 5944E17A0;
-	Thu, 24 Sep 2020 03:36:33 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5944E17A0
+	by alsa0.perex.cz (Postfix) with ESMTPS id 51AE017A4;
+	Thu, 24 Sep 2020 07:48:30 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 51AE017A4
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1600911443;
-	bh=hQVrC/yKY8jU/TpOJOrqo8zVkMArNlfFc22TFCiybb0=;
-	h=From:To:In-Reply-To:References:Subject:Date:List-Id:
+	s=default; t=1600926560;
+	bh=1W64pjvAof5OsM4DMhjZ2MZtg1c2Pj/Xl5RtkbnGoZQ=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=FMDrdpUJIkClYgj1VFtxfQC6AFvwD8jYVHwjFWgbyYZJ/htMZC4kaRHJYZYJZOhAM
-	 FJmK/OdR8SKT2/zvCB8I6nTByuxP2juLWjwkp4j5IiuYzphK6BkEOTtE6lgtnBhq1G
-	 nlKJhxkU8TsFoPoJs5ZdwcIu/qR3qQXr7Gs2P0L8=
+	b=Of1LmE/nSSlIU27qIa/UfgIsnr20PzO3yLH2swBGtCx21gF8eZzwSD6a03iSk67IH
+	 8+Aeu3Utgi3voFBmRDH30/WJoRlxqVgN306eGzK8P7/GIUxwiICAap2ZcjKvbaOPYW
+	 8GexPqdAD4cae+pKmjf4UM/Z6hKApaz+8KbEqqH8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 69E3BF800DA;
-	Thu, 24 Sep 2020 03:35:42 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 70F44F8015F;
+	Thu, 24 Sep 2020 07:47:39 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id B4063F80232; Thu, 24 Sep 2020 03:35:39 +0200 (CEST)
+ id 7FFCAF80232; Thu, 24 Sep 2020 07:47:37 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: **
-X-Spam-Status: No, score=2.5 required=5.0 tests=MISSING_DATE,MISSING_MID,
- SPF_FAIL,SPF_HELO_NONE autolearn=disabled version=3.4.0
-Received: from webhooks-bot.alsa-project.org (gate.perex.cz [77.48.224.242])
- by alsa1.perex.cz (Postfix) with ESMTP id 757D8F800DA
- for <alsa-devel@alsa-project.org>; Thu, 24 Sep 2020 03:35:34 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 757D8F800DA
+X-Spam-Level: 
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE
+ autolearn=disabled version=3.4.0
+Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 55994F8015F
+ for <alsa-devel@alsa-project.org>; Thu, 24 Sep 2020 07:47:19 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 55994F8015F
+IronPort-SDR: ajrSPJodEgL1cyMDIys+vFLRQmEBlLEIAdbRRb50ZoN2sHCTH8xcEDVxrILAnlyN4oq9vLsGKE
+ p7bJzRk+wckQ==
+X-IronPort-AV: E=McAfee;i="6000,8403,9753"; a="148856165"
+X-IronPort-AV: E=Sophos;i="5.77,296,1596524400"; d="scan'208";a="148856165"
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from fmsmga004.fm.intel.com ([10.253.24.48])
+ by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 23 Sep 2020 22:47:15 -0700
+IronPort-SDR: TMF/A4RtDGVTWyhNudwXWNKE1zbZCxG85du9qJrSJ77RIlTPaoashV8l/KZSdRTm0jP6Xg78RO
+ fvz+BTnA5kkA==
+X-IronPort-AV: E=Sophos;i="5.77,296,1596524400"; d="scan'208";a="335801799"
+Received: from eliteleevi.tm.intel.com ([10.237.54.20])
+ by fmsmga004-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 23 Sep 2020 22:47:13 -0700
+Date: Thu, 24 Sep 2020 08:45:30 +0300 (EEST)
+From: Kai Vehmanen <kai.vehmanen@linux.intel.com>
+X-X-Sender: kvehmane@eliteleevi.tm.intel.com
+To: Mark Brown <broonie@kernel.org>
+Subject: Re: [PATCH 0/5] ASoC: SOF: fix kcontrol size checks
+In-Reply-To: <160073312817.6173.14263034136602358389.b4-ty@kernel.org>
+Message-ID: <alpine.DEB.2.22.394.2009240841280.3186@eliteleevi.tm.intel.com>
+References: <20200921110814.2910477-1-kai.vehmanen@linux.intel.com>
+ <160073312817.6173.14263034136602358389.b4-ty@kernel.org>
+User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
+Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7 02160 Espoo
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
-From: GitHub issues - opened <github@alsa-project.org>
-To: alsa-devel@alsa-project.org
-In-Reply-To: <1600911332298629999-webhooks-bot@alsa-project.org>
-References: <1600911332298629999-webhooks-bot@alsa-project.org>
-Subject: support the Roland UA-4FX2 card
-Message-Id: <20200924013539.B4063F80232@alsa1.perex.cz>
-Date: Thu, 24 Sep 2020 03:35:39 +0200 (CEST)
+Content-Type: text/plain; charset=US-ASCII
+Cc: pierre-louis.bossart@linux.intel.com, alsa-devel@alsa-project.org,
+ Kai Vehmanen <kai.vehmanen@linux.intel.com>, lgirdwood@gmail.com,
+ ranjani.sridharan@linux.intel.com, daniel.baluta@nxp.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -59,44 +82,24 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-alsa-project/alsa-lib issue #81 was opened from kalashnikov2:
+Hi Mark,
 
-hi
+On Tue, 22 Sep 2020, Mark Brown wrote:
 
-i'm trying to use this audio card with a Raspberry pi and y get this from the command dmesg on linux console
+> [3/5] ASoC: SOF: control: add size checks for ext_bytes control .put()
+>       commit: 2ca210112ad91880d2d5a3f85fecc838600afbce
+> [4/5] ASoC: SOF: control: remove const in sizeof()
+>       (no commit info)
+> [5/5] ASoC: SOF: topology: remove const in sizeof()
+>       (no commit info)
+[...]
+> Applied to                                                                                                                                                                                   
+>                                                                                                                                                                                             
+>   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next  
 
-```
-usb 3-2: new high-speed USB device number 6 using xhci_hcd
-usb 3-2: New USB device found, idVendor=0582, idProduct=01e2, bcdDevice= 0.2b
-usb 3-2: New USB device strings: Mfr=1, Product=2, SerialNumber=0
-usb 3-2: Product: UA-4FX2
-usb 3-2: Manufacturer: ROLAND
-mc: Linux media interface: v0.10
-usbcore: registered new interface driver snd-usb-audio
-usb 3-2: Unable to change format on ep #8e: already in use
-usb 3-2: Unable to change format on ep #8e: already in use
-:
-:
-```
+I wonder what happened here...? Patches 4 and 5 didn't end up applied 
+although they were in the sent series. I can send them again no prob, but 
+wondering if there was something wrong in the original series, so I can 
+avoid the problem in the future.
 
-and when i try to select the device on a program get this
-
-```
-ALSA lib pcm.c:2642:(snd_pcm_open_noupdate) Unknown PCM cards.pcm.rear
-ALSA lib pcm.c:2642:(snd_pcm_open_noupdate) Unknown PCM cards.pcm.center_lfe
-ALSA lib pcm.c:2642:(snd_pcm_open_noupdate) Unknown PCM cards.pcm.side
-ALSA lib pcm_route.c:869:(find_matching_chmap) Found no matching channel map
-ALSA lib pcm_oss.c:377:(_snd_pcm_oss_open) Unknown field port
-ALSA lib pcm_oss.c:377:(_snd_pcm_oss_open) Unknown field port
-ALSA lib pcm_usb_stream.c:486:(_snd_pcm_usb_stream_open) Invalid type for card
-ALSA lib pcm_usb_stream.c:486:(_snd_pcm_usb_stream_open) Invalid type for card
-```
-it seems that the card is not supported by ALSA lib.
-How is the procedure to add new cards to the driver?
-
-How can I help to do this?
-
-Thank you
-
-Issue URL     : https://github.com/alsa-project/alsa-lib/issues/81
-Repository URL: https://github.com/alsa-project/alsa-lib
+Br, Kai

@@ -2,53 +2,53 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 160D82778E0
-	for <lists+alsa-devel@lfdr.de>; Thu, 24 Sep 2020 21:01:25 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3320B2778E4
+	for <lists+alsa-devel@lfdr.de>; Thu, 24 Sep 2020 21:02:08 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 7E3AD180F;
-	Thu, 24 Sep 2020 21:00:34 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7E3AD180F
+	by alsa0.perex.cz (Postfix) with ESMTPS id 561001801;
+	Thu, 24 Sep 2020 21:01:17 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 561001801
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1600974084;
-	bh=drdZFYKCUf46Kiuv70288PSzjYDnB44xGAHXB+fFoOg=;
+	s=default; t=1600974127;
+	bh=bpAM3jJAPTPGXCu8/MNppW5u5zfPAmvoNN1k9+dQFCk=;
 	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=DMqV+x3GcAOGWmwWl0oUdUCvCU0oYtzug5+7CCx+inhXgLnbXYQyvfLdmGcbreBQa
-	 2C6ZlA5RuB5EbnfTcJMcBOH/0JnFCaCKCQvNBE7Zzb+r3fYvEuryM1R8OUlwZtrOdp
-	 iGkCx/gxqz5StY00GAAl/1MrwnfP3kGiwC4oPxYA=
+	b=q0NoFlNlysKHmISTNyyQ730kjXuqH7G4aia4yKVRxKtYLJPGYXVw49OxTKtqCuD0V
+	 yLhn5R4XMz3B3EsAqcaIET6db7UbIcV+hYGz0DIr2UBBStBtphbmmB3hl++AmGZBON
+	 6b/VVxLl64O+UHhTAbw4OLhbIrWrOOup+QU+Rum8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 7DA7EF80234;
-	Thu, 24 Sep 2020 20:59:43 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 46142F80259;
+	Thu, 24 Sep 2020 21:00:19 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 3B8A4F80232; Thu, 24 Sep 2020 20:59:40 +0200 (CEST)
+ id 526F9F80256; Thu, 24 Sep 2020 21:00:17 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_MSPIKE_H3,
- RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
+ RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 82F50F8015F
- for <alsa-devel@alsa-project.org>; Thu, 24 Sep 2020 20:59:36 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 82F50F8015F
+ by alsa1.perex.cz (Postfix) with ESMTPS id 8DCC0F800B4
+ for <alsa-devel@alsa-project.org>; Thu, 24 Sep 2020 21:00:10 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8DCC0F800B4
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id F2E3DAFD7;
- Thu, 24 Sep 2020 18:59:35 +0000 (UTC)
-Date: Thu, 24 Sep 2020 20:59:35 +0200
-Message-ID: <s5hy2kzq9uw.wl-tiwai@suse.de>
+ by mx2.suse.de (Postfix) with ESMTP id 48541AFD7;
+ Thu, 24 Sep 2020 19:00:10 +0000 (UTC)
+Date: Thu, 24 Sep 2020 21:00:10 +0200
+Message-ID: <s5hwo0jq9tx.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
 To: Kai Vehmanen <kai.vehmanen@linux.intel.com>
-Subject: Re: [PATCH] ALSA: hda - add missing documentation to hdac_i915
-In-Reply-To: <alpine.DEB.2.22.394.2009241910100.3186@eliteleevi.tm.intel.com>
-References: <20200924154043.3392898-1-kai.vehmanen@linux.intel.com>
- <s5h1rirrx97.wl-tiwai@suse.de>
- <alpine.DEB.2.22.394.2009241910100.3186@eliteleevi.tm.intel.com>
+Subject: Re: [PATCH v2] ALSA: hda - remove kerneldoc for internal hdac_i915
+ function
+In-Reply-To: <20200924161027.3402260-1-kai.vehmanen@linux.intel.com>
+References: <20200924161027.3402260-1-kai.vehmanen@linux.intel.com>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
  FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
  (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
@@ -70,30 +70,19 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Thu, 24 Sep 2020 18:10:19 +0200,
+On Thu, 24 Sep 2020 18:10:27 +0200,
 Kai Vehmanen wrote:
 > 
-> Hey,
+> Drop the kerneldoc markup for connectivity_check() as it's an
+> static helper function. Fixes the following make W=1 warning:
 > 
-> On Thu, 24 Sep 2020, Takashi Iwai wrote:
+> sound/hda/hdac_i915.c:80: warning: Function parameter or member 'i915' not described in 'connectivity_check'
+> sound/hda/hdac_i915.c:80: warning: Function parameter or member 'hdac' not described in 'connectivity_check'
 > 
-> > On Thu, 24 Sep 2020 17:40:43 +0200, Kai Vehmanen wrote:
-> > > Document missing function arguments and fix make W=1
-> > > warning:
-> > 
-> > Do we really need to put this internal function in the API documents?
-> > If not, the right fix would be to drop the kerneldoc marker instead.
-> 
-> I was puzzled at this as well. I took a look at some static internal
-> functions and there were both with (e.g. snd_hdac_make_cmd()) and without 
-> kerneldoc markers.
+> Fixes: 7b882fe3e3e8 ('ALSA: hda - handle multiple i915 device instances')
+> Signed-off-by: Kai Vehmanen <kai.vehmanen@linux.intel.com>
 
-Some might have been exported functions in the past.
-
-> But, but, granted, this is without any name prefix, so 
-> maybe better to drop the kerneldoc. Let me send a v2.
-
-OK, thanks.
+Thanks, applied.
 
 
 Takashi

@@ -2,65 +2,74 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id AA72D27765B
-	for <lists+alsa-devel@lfdr.de>; Thu, 24 Sep 2020 18:14:31 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id CF3B827765C
+	for <lists+alsa-devel@lfdr.de>; Thu, 24 Sep 2020 18:14:56 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 4A4AF17FB;
-	Thu, 24 Sep 2020 18:13:41 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4A4AF17FB
+	by alsa0.perex.cz (Postfix) with ESMTPS id D06BC1812;
+	Thu, 24 Sep 2020 18:14:05 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D06BC1812
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1600964071;
-	bh=SH1rdXBligHHMW32C6eJHcRKTxNusL2DiyZJKh90clY=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=a+IcV/R6deS6hXtKYpJP8jjDRNx2uhVdDEwGVXYp/fK8TpDeBKsBP7HW8SsHKD/Qn
-	 kvErIBn6g1frKOLynRLsLsD6zqjgxMM/P9DJX9IcFjxddBS3rl9estISZkVw6W6uPf
-	 8nvkSYvgPRCALGJYlSuOnlUHB861OMq0kQPDRtpA=
+	s=default; t=1600964095;
+	bh=HATEJboxOjdhNSGz2l0g/RJsS3n5T59PRj0uzzAMhUw=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=S8nSr930yrcnnOUult2E48bB+UvBD6srxP0e2e8uJvS4cOLij4kNV5Z4Nuag+cIZr
+	 MGlVv8wVrqnKyQ5vHNxvrnDHjx4uGCUzDZl7b9vsLKZuFaj+pPzPS9UbdeVpRFZWCY
+	 lUFI4AcSYPVhD2NamSZP1RGLkjNk497ymC9ZN8Zo=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id B950EF80259;
-	Thu, 24 Sep 2020 18:12:19 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 0C8E7F8023E;
+	Thu, 24 Sep 2020 18:14:05 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 92500F80256; Thu, 24 Sep 2020 18:12:18 +0200 (CEST)
+ id 6FE3FF80229; Thu, 24 Sep 2020 18:13:59 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
+X-Spam-Status: No, score=-1.3 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+ DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled
+ version=3.4.0
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id C89E9F800DA
+ for <alsa-devel@alsa-project.org>; Thu, 24 Sep 2020 18:13:46 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C89E9F800DA
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="YI4ID7HR"
+Received: from localhost (fw-tnat.cambridge.arm.com [217.140.96.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 05CC0F80229
- for <alsa-devel@alsa-project.org>; Thu, 24 Sep 2020 18:12:05 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 05CC0F80229
-IronPort-SDR: ThtrT8AvXsbGEgEPJGbP7knzJjlEk7WQCBfoJx9vnxUhcSOAChZuAuQEb08+gGjx45ExlSuXD3
- jzQhHDWvzMpA==
-X-IronPort-AV: E=McAfee;i="6000,8403,9753"; a="246053519"
-X-IronPort-AV: E=Sophos;i="5.77,298,1596524400"; d="scan'208";a="246053519"
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from orsmga001.jf.intel.com ([10.7.209.18])
- by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 24 Sep 2020 09:12:01 -0700
-IronPort-SDR: pJ2XnV5RlvYgaNSHVmG++HhkLXla6vLeMAjC8038Sbq7qO4rE3130RanCFZ9cyFLkgz4In9k+k
- BZWCPsm5Sfyw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.77,298,1596524400"; d="scan'208";a="383112452"
-Received: from eliteleevi.tm.intel.com ([10.237.54.20])
- by orsmga001.jf.intel.com with ESMTP; 24 Sep 2020 09:12:00 -0700
-From: Kai Vehmanen <kai.vehmanen@linux.intel.com>
-To: alsa-devel@alsa-project.org,
-	tiwai@suse.de
-Subject: [PATCH v2] ALSA: hda - remove kerneldoc for internal hdac_i915
- function
-Date: Thu, 24 Sep 2020 19:10:27 +0300
-Message-Id: <20200924161027.3402260-1-kai.vehmanen@linux.intel.com>
-X-Mailer: git-send-email 2.27.0
+ by mail.kernel.org (Postfix) with ESMTPSA id 2CA9B206C3;
+ Thu, 24 Sep 2020 16:13:44 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=default; t=1600964024;
+ bh=HATEJboxOjdhNSGz2l0g/RJsS3n5T59PRj0uzzAMhUw=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=YI4ID7HR/7kd0ZthQQQUyaGlQTvG2r/Cx+xE7NC4h4PcP07HTaDxJZzh0q9HYW1k+
+ tbmydK5TdZAjo0UXyEZcWBawBRfFhwxHtnQArM6BfObTklpYmSuSfcESrwUQ80NLw2
+ Oje3lqWzirG6S9OqTyS0petbKKTMY8unvSpjUXbo=
+Date: Thu, 24 Sep 2020 17:12:49 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Joe Perches <joe@perches.com>
+Subject: Re: [PATCH] sound/soc/codecs: fix spelling typo in comments
+Message-ID: <20200924161249.GG4754@sirena.org.uk>
+References: <1600929860-28862-1-git-send-email-wangqing@vivo.com>
+ <20200924123346.GE4754@sirena.org.uk>
+ <062568971307793dcc80337f85545c4765241933.camel@perches.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Cc: kai.vehmanen@linux.intel.com
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="lHGcFxmlz1yfXmOs"
+Content-Disposition: inline
+In-Reply-To: <062568971307793dcc80337f85545c4765241933.camel@perches.com>
+X-Cookie: Programmers do it bit by bit.
+User-Agent: Mutt/1.10.1 (2018-07-13)
+Cc: alsa-devel@alsa-project.org, Liam Girdwood <lgirdwood@gmail.com>,
+ linux-kernel@vger.kernel.org, Takashi Iwai <tiwai@suse.com>,
+ Wang Qing <wangqing@vivo.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -76,33 +85,37 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Drop the kerneldoc markup for connectivity_check() as it's an
-static helper function. Fixes the following make W=1 warning:
 
-sound/hda/hdac_i915.c:80: warning: Function parameter or member 'i915' not described in 'connectivity_check'
-sound/hda/hdac_i915.c:80: warning: Function parameter or member 'hdac' not described in 'connectivity_check'
+--lHGcFxmlz1yfXmOs
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-Fixes: 7b882fe3e3e8 ('ALSA: hda - handle multiple i915 device instances')
-Signed-off-by: Kai Vehmanen <kai.vehmanen@linux.intel.com>
----
- sound/hda/hdac_i915.c | 4 +---
- 1 file changed, 1 insertion(+), 3 deletions(-)
+On Thu, Sep 24, 2020 at 09:01:21AM -0700, Joe Perches wrote:
+> On Thu, 2020-09-24 at 13:33 +0100, Mark Brown wrote:
 
-diff --git a/sound/hda/hdac_i915.c b/sound/hda/hdac_i915.c
-index d236e497435d..5f0a1aa6ad84 100644
---- a/sound/hda/hdac_i915.c
-+++ b/sound/hda/hdac_i915.c
-@@ -73,9 +73,7 @@ void snd_hdac_i915_set_bclk(struct hdac_bus *bus)
- }
- EXPORT_SYMBOL_GPL(snd_hdac_i915_set_bclk);
- 
--/**
-- * Returns true if the devices can be connected for audio.
-- */
-+/* returns true if the devices can be connected for audio */
- static bool connectivity_check(struct pci_dev *i915, struct pci_dev *hdac)
- {
- 	struct pci_bus *bus_a = i915->bus, *bus_b = hdac->bus;
--- 
-2.27.0
+> > and compliment appears to be the one that
+> > is used in the datasheet for this part...=20
 
+> It's difficult to fix datasheet typos.
+
+Right, and if we search for the thing in the datasheet we should find
+the thing in the datasheet so it's best to follow the datsheet even if
+we don't think it's correct.
+
+--lHGcFxmlz1yfXmOs
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl9sxYAACgkQJNaLcl1U
+h9CCaQf+LLzkqnUGpFjawsKtPZWnUeywEzgLkvxTAL3xcZnTzLmuaJ5/fUJV4Fox
+gDppXiRJMYzk4OfMOR+VFbgzIn4q9ePxRSlJAFOsSmZv8YWUAtpfB17R07Av/Kgz
++pAiXLXLBj+jgUiSUP26gKa4GJ1Pfd/Y52UKs8HK+E6dJ6KIzR/NXb1rY9BlYUy2
+AXERvogxODOAd2JkSU3au5gv4OhqM9Bfi7y3UZ+uU804vVSWU+3MjiWCiFbYMLSS
+/IEtHjK20TxChyGLjy3e2pF4X7ntIovx3aqfklSSNW/e+n0FnYzEFWsgQeQ8AoIO
+FqQysHyj5A4ww0mUPmS/ZZite0Zgww==
+=H+Mo
+-----END PGP SIGNATURE-----
+
+--lHGcFxmlz1yfXmOs--

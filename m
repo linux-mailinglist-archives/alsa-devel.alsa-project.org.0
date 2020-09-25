@@ -2,101 +2,73 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B2650278D8F
-	for <lists+alsa-devel@lfdr.de>; Fri, 25 Sep 2020 18:04:18 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 57631278E42
+	for <lists+alsa-devel@lfdr.de>; Fri, 25 Sep 2020 18:20:35 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C1FEC18BB;
-	Fri, 25 Sep 2020 18:03:27 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C1FEC18BB
+	by alsa0.perex.cz (Postfix) with ESMTPS id E75D218C1;
+	Fri, 25 Sep 2020 18:19:44 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E75D218C1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1601049857;
-	bh=zLnMeg7VnJGUcGjhwq/5nFZUEbcDedsvnPhjnL16H+A=;
-	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
+	s=default; t=1601050835;
+	bh=pARXzuQweWzMGyLglB+Cl1uA4InYoHIq2Zz9Hovb3XA=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=sDwBNVeMs5h9ITTJteWu0jUIkwyVrEv+1/xTkaYdlAe4n7oTu52YkvOVbw0FRwsg+
-	 5FcGVm3UsuE0NOA20/hRDjfRDrUQew25K2b4n/E0OrvrXqQnrQ0In9i7bo1l5XOEtu
-	 BXsdRtKybfbtHG01hRCrGowmiMbaBGVD8yuTTJhU=
+	b=nWLLIaE/SaPdz4hDOx3mFk9kAZgRnYsKMB8Qgf+8jA3E3oB4Pb3EWvEXwvCMjXpRP
+	 BSkQ4e4Zhq13tArSKD3pfY8Q1Oar6/60bU5hoZA1pXfrYoK/NGcsk99qHUkzKM/PRP
+	 h6sMC8y++0B8pjKwYTR/VAm2xPxyuuEFwEqKsLnA=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id E7CC5F800F6;
-	Fri, 25 Sep 2020 18:02:36 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 5A9B0F801EB;
+	Fri, 25 Sep 2020 18:18:43 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id B8E52F801EB; Fri, 25 Sep 2020 18:02:34 +0200 (CEST)
+ id 99DEDF80254; Fri, 25 Sep 2020 18:18:40 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from mail-io1-xd41.google.com (mail-io1-xd41.google.com
- [IPv6:2607:f8b0:4864:20::d41])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=-1.3 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+ DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled
+ version=3.4.0
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 0C0FBF800F6
- for <alsa-devel@alsa-project.org>; Fri, 25 Sep 2020 18:02:27 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0C0FBF800F6
+ by alsa1.perex.cz (Postfix) with ESMTPS id 7F984F801EB
+ for <alsa-devel@alsa-project.org>; Fri, 25 Sep 2020 18:18:33 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7F984F801EB
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org
- header.b="sVLJdXvN"
-Received: by mail-io1-xd41.google.com with SMTP id q4so3309267iop.5
- for <alsa-devel@alsa-project.org>; Fri, 25 Sep 2020 09:02:27 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=subject:to:cc:references:from:message-id:date:user-agent
- :mime-version:in-reply-to:content-language:content-transfer-encoding;
- bh=KKM36HMFNo7IvqfCBLe5UvX13jWEuh671Vjt/sAVWGU=;
- b=sVLJdXvNc4vI/tTRzJH1n5umDfoQzc0lsxFSySSDfM9g8sfMF5bGtV3YOz+Mq/yTg4
- mYfcO/hDl7+K7I1RppX5dH3wOKDaTFqUPdQKU1USHqHhuZvVZbj3nhzZazC7ljqr4AlM
- GdlaWb5cSbBxU6iq0y28UrZceThjvQPmG7di6bcrCYiIIAFjPeOHRGTrcggy82+Br2qc
- pO9SSfO2nxkYF86cfQ3NVBcx6W+y8z2+LeCKIg2IjlcHcpesTx4STeu9RltEEOvgaG4h
- oNdbnMlPqiqt4flmlon3yktUtP8FabrmBXTYKLGv3bQWD+UpGzCfP4/D6QMEp89fwKBC
- i4aQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:subject:to:cc:references:from:message-id:date
- :user-agent:mime-version:in-reply-to:content-language
- :content-transfer-encoding;
- bh=KKM36HMFNo7IvqfCBLe5UvX13jWEuh671Vjt/sAVWGU=;
- b=KhjWeZtxfxFCVxk2na2GpMdKD+WTmvOB/8ugdn4V9GLJHiLjtJKwBEQaC7carayFkD
- 2++jMQPFTeoiqGr4A8Ylf6fwUxC7mFGPpQlHV2LrxK6H32GtppKKDRKz+R1q+xm1Ca52
- UrfvfUHSVemqITc1Z4jo82H39B508zRgT0cn0iUoww6o+kLsGWfuwx5m5G+BeL+tbfg5
- FWlv6NOaT61xsM58BPPMxdeEkRa0WVm9Y/4IGhG9PDmICU0noq46eH8fiheqyxmjPvH+
- 306Z0EiF9u88g/0Sr+iuGu9GBL9wZCnbtXI9r0aeERUDWHRwB5oKiSyd25LNB4aEKhJd
- Ckmg==
-X-Gm-Message-State: AOAM532YwiNRELUdLFAmiOEFUyKebNgzK8767qqsbHwQLFORb6nto4mj
- 21KkpY6m9edu6rH4KwvLcOEGvg==
-X-Google-Smtp-Source: ABdhPJw116LnPqm4dNs1MVsCzNLg8V45rQtN1gWgLkN5mnf5844SsTjgU2eBKcngEh17i/akpuiSGA==
-X-Received: by 2002:a02:1004:: with SMTP id 4mr411804jay.127.1601049745262;
- Fri, 25 Sep 2020 09:02:25 -0700 (PDT)
-Received: from [172.22.22.4] (c-73-185-129-58.hsd1.mn.comcast.net.
- [73.185.129.58])
- by smtp.googlemail.com with ESMTPSA id c12sm1720817ili.48.2020.09.25.09.02.24
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 25 Sep 2020 09:02:24 -0700 (PDT)
-Subject: Re: [greybus-dev] [PATCH 3/3] [PATCH] staging: greybus: __u8 is
- sufficient for snd_ctl_elem_type_t and snd_ctl_elem_iface_t
-To: Coiby Xu <coiby.xu@gmail.com>, David Laight <David.Laight@aculab.com>
-References: <20200924102039.43895-1-coiby.xu@gmail.com>
- <20200924102039.43895-3-coiby.xu@gmail.com>
- <0175c477851243baa8a92177667d6312@AcuMS.aculab.com>
- <20200925141125.vfm5sjnsfvxo2ras@Rk>
-From: Alex Elder <elder@linaro.org>
-Message-ID: <160c222d-79e4-c5f0-344f-1a69821db039@linaro.org>
-Date: Fri, 25 Sep 2020 11:02:23 -0500
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.10.0
+ dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="TCbvTnIJ"
+Received: from localhost (fw-tnat.cambridge.arm.com [217.140.96.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by mail.kernel.org (Postfix) with ESMTPSA id E47B32076B;
+ Fri, 25 Sep 2020 16:18:30 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=default; t=1601050711;
+ bh=pARXzuQweWzMGyLglB+Cl1uA4InYoHIq2Zz9Hovb3XA=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=TCbvTnIJ434Xjb01nThujbP9Fzc2PhllL/uHmfxCbcAl+ceWtDjlIbIYQvy9NN6K0
+ ZBBcRYoe3eszWUxlsqe4AJOq4aEEcbkiSw9+7tXZR2KrDh94O+ifThsCoStdxRPx0U
+ BpYR4fjCFjKTeWEHiAexquW9xlOhGtF+G2rEgn2c=
+Date: Fri, 25 Sep 2020 17:17:36 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
+Subject: Re: [PATCH 1/2] ASoC: qdsp6: Drop of_match_ptr to fix
+ -Wunused-const-variable
+Message-ID: <20200925161736.GE4841@sirena.org.uk>
+References: <20200925084925.26926-1-srinivas.kandagatla@linaro.org>
+ <20200925084925.26926-2-srinivas.kandagatla@linaro.org>
 MIME-Version: 1.0
-In-Reply-To: <20200925141125.vfm5sjnsfvxo2ras@Rk>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 8bit
-Cc: "devel@driverdev.osuosl.org" <devel@driverdev.osuosl.org>,
- "moderated list:SOUND" <alsa-devel@alsa-project.org>,
- Alex Elder <elder@kernel.org>, open list <linux-kernel@vger.kernel.org>,
- Takashi Iwai <tiwai@suse.com>, Johan Hovold <johan@kernel.org>,
- "moderated list:GREYBUS SUBSYSTEM" <greybus-dev@lists.linaro.org>
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="JcvBIhDvR6w3jUPA"
+Content-Disposition: inline
+In-Reply-To: <20200925084925.26926-2-srinivas.kandagatla@linaro.org>
+X-Cookie: Onward through the fog.
+User-Agent: Mutt/1.10.1 (2018-07-13)
+Cc: linux-kernel@vger.kernel.org, alsa-devel@alsa-project.org,
+ kernel test robot <lkp@intel.com>, tiwai@suse.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -112,63 +84,32 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 9/25/20 9:11 AM, Coiby Xu wrote:
-> On Thu, Sep 24, 2020 at 10:54:50AM +0000, David Laight wrote:
->> From: Coiby Xu
->>> Sent: 24 September 2020 11:21
->>> Use __8 to replace int and remove the unnecessary __bitwise type 
->>> attribute.
->>>
->>> Found by sparse,
->> ...
->>> diff --git a/include/uapi/sound/asound.h b/include/uapi/sound/asound.h
->>> index 535a7229e1d9..8e71a95644ab 100644
->>> --- a/include/uapi/sound/asound.h
->>> +++ b/include/uapi/sound/asound.h
->>> @@ -950,7 +950,7 @@ struct snd_ctl_card_info {
->>>      unsigned char components[128];    /* card components / fine 
->>> identification, delimited with one
->>> space (AC97 etc..) */
->>>  };
->>>
->>> -typedef int __bitwise snd_ctl_elem_type_t;
->>> +typedef __u8 snd_ctl_elem_type_t;
->>>  #define    SNDRV_CTL_ELEM_TYPE_NONE    ((__force 
->>> snd_ctl_elem_type_t) 0) /* invalid */
->>>  #define    SNDRV_CTL_ELEM_TYPE_BOOLEAN    ((__force 
->>> snd_ctl_elem_type_t) 1) /* boolean type */
->>>  #define    SNDRV_CTL_ELEM_TYPE_INTEGER    ((__force 
->>> snd_ctl_elem_type_t) 2) /* integer type */
->>
->> WTF is all that about anyway??
->> What is wrong with:
->> #define    SNDRV_CTL_ELEM_TYPE_NONE    0u /* invalid */
-> 
-> I'm sorry I don't quite understand you. Are you suggesting 
-> SNDRV_CTL_ELEM_TYPE_NONE
-> isn't needed in the first place?
 
-I think David is asking why it's defined the way it is,
-and I'd guess it's to have the compiler issue an error
-if you attempt to assign one of these values to a variable
-or field of the wrong type.
+--JcvBIhDvR6w3jUPA
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-No, you should not attempt to change this.
+On Fri, Sep 25, 2020 at 09:49:24AM +0100, Srinivas Kandagatla wrote:
+> The of_device_id is included unconditionally by of.h header and used
+> in the driver as well.  Remove of_match_ptr to fix W=1 compile test
+> warning with !CONFIG_OF:
 
-					-Alex
->>     David
->>
->> -
->> Registered Address Lakeside, Bramley Road, Mount Farm, Milton Keynes, 
->> MK1 1PT, UK
->> Registration No: 1397386 (Wales)
->>
-> 
-> -- 
-> Best regards,
-> Coiby
-> _______________________________________________
-> greybus-dev mailing list
-> greybus-dev@lists.linaro.org
-> https://lists.linaro.org/mailman/listinfo/greybus-dev
+It's better to fix this by adding #ifdefs around the table so that we
+don't have unneeded bloat from the match table in !OF cases.
 
+--JcvBIhDvR6w3jUPA
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl9uGB8ACgkQJNaLcl1U
+h9D5mQf7BN4ggDuq0D7tgkLzPkFtKb1QByqki2VZPAvHhk9BfXQvZze88i1f4v9m
+PJUnVApRXyrSeBEnbVE84U6c0YlBjqLtfcuPB1k4OJNHfC/HYmRhDcxYs3UzOfkE
+42e2sLaxZCEtywxU1KI8C0ZA6v88A9UTKarqQ6UoMuR3fK6zvypAtcYQgFMYLd9Z
+CESA+BxYeR52+mZNzjGe4YWvs7L94N2KsoZgXe/Ti1K0IPgmjHdx18wDf8LsFbCt
+Q4/mbKDCubywsQzha9IGILFbPByAnjceD2qtptSYWl8mrcrMz+be0KGhyGzUDnyD
+N94QdvaIZYVuH+t+AiD+ziRSFsbkWw==
+=+N7A
+-----END PGP SIGNATURE-----
+
+--JcvBIhDvR6w3jUPA--

@@ -2,90 +2,75 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0C4C8278EC5
-	for <lists+alsa-devel@lfdr.de>; Fri, 25 Sep 2020 18:38:30 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 51093278EF1
+	for <lists+alsa-devel@lfdr.de>; Fri, 25 Sep 2020 18:44:21 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 8385018C7;
-	Fri, 25 Sep 2020 18:37:39 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8385018C7
+	by alsa0.perex.cz (Postfix) with ESMTPS id CF75718CA;
+	Fri, 25 Sep 2020 18:43:30 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CF75718CA
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1601051909;
-	bh=DYZHGee6JflFh5i59WU+G5RDa2yQ80VdjNCocW/mIxs=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1601052260;
+	bh=c2rgj1TrFsx3rd7S+ls7DxSAVWsEziKWugveJnbh7kQ=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=RSYoxF0h9CPOlQJhZ4Cmn8QKIZc37BDH7C8E2UtnySURHAJNzcqN/Kl1GauKCg5Nm
-	 vSBjZ4J/VnUxYcQAaN05ysBjMd71LQBSH0mswzqtnXxdpZmB1iK1JDHw8RQSLPh55B
-	 3ryagIVtjg4L0UuC8vYWT/00+FlHl0oIdCcSpqpo=
+	b=YJP1SVd0RThWpNj+W6lMLMFliAlL9n+pXG2WuvVAYJnkrcZ1C47XgMvpUKkAAjp88
+	 pNGIZf+zzJgDNxDpI533LweqXdeinEKEHSX579MUc2a82KtCQRK58y3bt+N1ex0JR/
+	 y52+MDcVrY4NLAmkhStGXU6nyYNdy9+lYDT8Bgg8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id A5785F8028F;
-	Fri, 25 Sep 2020 18:36:11 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id F3A46F801EC;
+	Fri, 25 Sep 2020 18:42:39 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id DB08FF8028F; Fri, 25 Sep 2020 18:36:08 +0200 (CEST)
+ id BE6C0F801EB; Fri, 25 Sep 2020 18:42:36 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from mail-wr1-x442.google.com (mail-wr1-x442.google.com
- [IPv6:2a00:1450:4864:20::442])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=-0.3 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+ DKIM_VALID,DKIM_VALID_AU,PRX_BODY_30,SPF_HELO_NONE,SPF_PASS
+ autolearn=disabled version=3.4.0
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id CF449F80162
- for <alsa-devel@alsa-project.org>; Fri, 25 Sep 2020 18:35:58 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CF449F80162
+ by alsa1.perex.cz (Postfix) with ESMTPS id 0A255F800DA
+ for <alsa-devel@alsa-project.org>; Fri, 25 Sep 2020 18:42:26 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0A255F800DA
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org
- header.b="QftbfSRh"
-Received: by mail-wr1-x442.google.com with SMTP id o5so4224696wrn.13
- for <alsa-devel@alsa-project.org>; Fri, 25 Sep 2020 09:35:58 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding;
- bh=kFHi/Lnlt8f1kQDKiGDd11Cptp9H00xnl26W3F/tZaI=;
- b=QftbfSRhc9RJbjqj2FGPZckdcjn/yMYTBEzTjgy3SeATCPxuZswj0/GK4vByczRtu7
- LwkStd+D2xxSr5/g7eU2P8ZDHTc67ZodPKerkMtkO5S3eMRDTdphXErY9xG+GJl9OWwd
- +T60/crKY5Q0DldxVYYyPnOwlIikybVQ7NCtYrsYKbQCugyG4z9dN5o0ZnvHtfTPoXTy
- s7QlaSQsIsx+DzkDS2L/FSPiqQJONOyovX8r47ve+nqSCpHNLHM9ujvSY7+Nqhv2cANL
- d4nj4UY42/ZtFin2Kx5qb3MlP0vgp35WIe8Ii8fr/0HxX8Gm6ksnELcmN/tL6trt7ekZ
- qtPA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
- :references:mime-version:content-transfer-encoding;
- bh=kFHi/Lnlt8f1kQDKiGDd11Cptp9H00xnl26W3F/tZaI=;
- b=lEz2jKKxftDzl9sFOUmquc7t7+74uoRcv+9bF3xpWfJeRzSqgqoWEFml2YRZZlxsLO
- iPRctUcGy3a+5HXk0UWfx+JOTjno84SCw+qQn5X5A80qRkKORZbsbgfMM3yrhCLTAVXi
- C67gIm1zI00rjCWnPh6lPwWYjRDbTdlwuusW6BKLkTpgI5B8OoLgFqS1Qc0YaI3uap6D
- WzQ2gbRH/VbtrsHEXGLNExvQpP3e9souLRlwgAUEBPPgo3StNbxZ5vZJ4ccLpJ/LuVN8
- mUK94/qtDF0d2pFO70mC/6/lfHEFGjYJPXV5gjMww7CMlHQJe7KR5PpZNZl+ivZ5svNI
- Zljg==
-X-Gm-Message-State: AOAM530bfnVcJj81Br1A2ix/b50ojMmlGh69CEovTwyrDylAk/l4swll
- xMR3ADcEeU4S+kvZl5WuwO0fcw==
-X-Google-Smtp-Source: ABdhPJwDUNZy1TRZ9PrSR+BOSCCszXZM2mAcvg9nXER2+5EpX7pDXX6x3SrXpFgEaorXLaSXqG88bQ==
-X-Received: by 2002:adf:8544:: with SMTP id 62mr5416564wrh.262.1601051757907; 
- Fri, 25 Sep 2020 09:35:57 -0700 (PDT)
-Received: from srini-hackbox.lan
- (cpc86377-aztw32-2-0-cust226.18-1.cable.virginm.net. [92.233.226.227])
- by smtp.gmail.com with ESMTPSA id m4sm3733883wro.18.2020.09.25.09.35.56
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 25 Sep 2020 09:35:57 -0700 (PDT)
-From: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
-To: broonie@kernel.org
-Subject: [PATCH v2 2/2] ASoC: q6asm: fix kernel doc warnings
-Date: Fri, 25 Sep 2020 17:35:52 +0100
-Message-Id: <20200925163552.20717-3-srinivas.kandagatla@linaro.org>
-X-Mailer: git-send-email 2.21.0
-In-Reply-To: <20200925163552.20717-1-srinivas.kandagatla@linaro.org>
-References: <20200925163552.20717-1-srinivas.kandagatla@linaro.org>
+ dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="nefj7iIN"
+Received: from localhost (fw-tnat.cambridge.arm.com [217.140.96.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by mail.kernel.org (Postfix) with ESMTPSA id BB53A2075F;
+ Fri, 25 Sep 2020 16:42:23 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=default; t=1601052144;
+ bh=c2rgj1TrFsx3rd7S+ls7DxSAVWsEziKWugveJnbh7kQ=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=nefj7iINudouOnBVczHq0yRaRFAX3LLVlPa9t1Dh3TEwpgDSCalLiOGeQADo7qjQL
+ HZNAxK6TRR8mZtf4CaynVgxNpRebRR0dMp7FLvAKRYzgQuFC+EBjCPqvWIJII3T0SV
+ 8p9EtjNCfIHQ9iGeluJREcYmSk89R0R8yE0I7Vl4=
+Date: Fri, 25 Sep 2020 17:41:29 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Richard Fitzgerald <rf@opensource.cirrus.com>
+Subject: Re: [PATCH 2/3] ASoC: cs4234: Add support for Cirrus Logic CS4234
+ codec
+Message-ID: <20200925164129.GG4841@sirena.org.uk>
+References: <20200925105908.20640-1-rf@opensource.cirrus.com>
+ <20200925105908.20640-2-rf@opensource.cirrus.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Cc: linux-kernel@vger.kernel.org, alsa-devel@alsa-project.org,
- Srinivas Kandagatla <srinivas.kandagatla@linaro.org>, tiwai@suse.com
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="LiQwW4YX+w4axhAx"
+Content-Disposition: inline
+In-Reply-To: <20200925105908.20640-2-rf@opensource.cirrus.com>
+X-Cookie: Onward through the fog.
+User-Agent: Mutt/1.10.1 (2018-07-13)
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
+ Charles Keepax <ckeepax@opensource.cirrus.com>,
+ Lucas Tanure <tanureal@opensource.cirrus.com>, patches@opensource.cirrus.com,
+ linux-kernel@vger.kernel.org, robh+dt@kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -101,44 +86,53 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-This patch fixes below kernel doc warnings on not describing all the parmeters
 
-sound/soc/qcom/qdsp6/q6asm.c:927: warning: Function parameter or member
- 'stream_id' not described in 'q6asm_open_write'
-sound/soc/qcom/qdsp6/q6asm.c:927: warning: Function parameter or member
- 'is_gapless' not described in 'q6asm_open_write'
-sound/soc/qcom/qdsp6/q6asm.c:1053: warning: Function parameter or member
- 'stream_id' not described in 'q6asm_run'
+--LiQwW4YX+w4axhAx
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-Signed-off-by: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
----
- sound/soc/qcom/qdsp6/q6asm.c | 3 +++
- 1 file changed, 3 insertions(+)
+On Fri, Sep 25, 2020 at 11:59:07AM +0100, Richard Fitzgerald wrote:
 
-diff --git a/sound/soc/qcom/qdsp6/q6asm.c b/sound/soc/qcom/qdsp6/q6asm.c
-index 790abc135223..c547c560cb24 100644
---- a/sound/soc/qcom/qdsp6/q6asm.c
-+++ b/sound/soc/qcom/qdsp6/q6asm.c
-@@ -915,9 +915,11 @@ static int q6asm_ac_send_cmd_sync(struct audio_client *ac, struct apr_pkt *pkt)
- /**
-  * q6asm_open_write() - Open audio client for writing
-  * @ac: audio client pointer
-+ * @stream_id: stream id of q6asm session
-  * @format: audio sample format
-  * @codec_profile: compressed format profile
-  * @bits_per_sample: bits per sample
-+ * @is_gapless: flag to indicate if this is a gapless stream
-  *
-  * Return: Will be an negative value on error or zero on success
-  */
-@@ -1042,6 +1044,7 @@ static int __q6asm_run(struct audio_client *ac, uint32_t stream_id,
-  * q6asm_run() - start the audio client
-  *
-  * @ac: audio client pointer
-+ * @stream_id: stream id of q6asm session
-  * @flags: flags associated with write
-  * @msw_ts: timestamp msw
-  * @lsw_ts: timestamp lsw
--- 
-2.21.0
+This looks very good, a couple of small nits below which should be easy
+to address:
 
+> @@ -282,7 +283,6 @@ config SND_SOC_ALL_CODECS
+>  	  uses them is also built since they are only usable with a machine
+>  	  driver.  Selecting this option will allow these drivers to be built
+>  	  without an explicit machine driver for test and development purposes.
+> -
+>  	  Support for the bus types used to access the codecs to be built must
+>  	  be selected separately.
+> =20
+
+Unrelated whitespace change.
+
+> +static int cs4234_i2c_remove(struct i2c_client *i2c_client)
+> +{
+> +	struct cs4234 *cs4234 =3D i2c_get_clientdata(i2c_client);
+> +
+> +	pm_runtime_disable(&i2c_client->dev);
+> +	cs4234_shutdown(cs4234);
+
+You used devm_snd_soc_register_component() which means that you won't
+unregister utill after this force powered down the device which isn't
+great - you should use snd_soc_register_component() and manually
+unregister here before force powering the device down.
+
+--LiQwW4YX+w4axhAx
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl9uHbgACgkQJNaLcl1U
+h9BwAgf/cvrCRNPtVmQZoCMjhnRTU3sG6jDhpuGmfUrnOdGyu8jSiZLkPqX/tWRI
+BXpR19icljIVCFyLzA/Y1W77ry9U8oGrywn6hVNLxp6cYntlPzTNiY+ZXHhZTv2i
+SNYxq6g1Bx3CRIg42QPO79PRQ6rxZgiuuXPieN1+m4mfdCTDdgYt9hhhMyYLpkDu
+9oAXiUlcvyWmVyPmlwq3MebWms77Mo7/9qH6TruQXZDXGAnAH7UcMdxrejFF481i
+6Cv9Ym39lubA20QU0w/AALqPvIxHyvme2ERSxXWBpTnYkotdC5X3dd2K1ewKwQ/+
+H8J6WqhPI3hSArB0Xr7yTMtdqpRYvA==
+=j4b0
+-----END PGP SIGNATURE-----
+
+--LiQwW4YX+w4axhAx--

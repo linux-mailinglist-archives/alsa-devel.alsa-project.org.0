@@ -2,90 +2,93 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0650D278342
-	for <lists+alsa-devel@lfdr.de>; Fri, 25 Sep 2020 10:52:25 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8113A2783BB
+	for <lists+alsa-devel@lfdr.de>; Fri, 25 Sep 2020 11:15:13 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A59CC183D;
-	Fri, 25 Sep 2020 10:51:34 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A59CC183D
+	by alsa0.perex.cz (Postfix) with ESMTPS id F3FBD184D;
+	Fri, 25 Sep 2020 11:14:22 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz F3FBD184D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1601023944;
-	bh=+zJ8FWYNpYlCLv0Y6BDibFkbaeDFB989v55Bv6m7Urs=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1601025313;
+	bh=4gpvJ3XuNcvYz1r8KhBvkHAho2pnQGwQkyanMmkTCdc=;
+	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=l29sp3Ve2A5Mhvo6dN6NVpf8c/ArtEglHnq6hpfAFlctWCXaoImy9dlQG7EUaMemq
-	 td/XjrmIBI2Y0rmqVYt8mQ1DiWdYiHMgxQDhUXE2rtskEDb9lkbeS4Kf9tGM6L1sYY
-	 lSroiM4WWAxBU9gr7iVTgL8fsdf9S2E85wRCpnws=
+	b=cLONo84puzWwDo0MLsnMLpB4KQTcmoqKgubEnV8AobsUEG64FFo5fzi9zOkzZRIoD
+	 PkUZsiOSFBmi8vcDjguWR37kqRrz3TJ2bMnQhpJfPQe3pFEyJewiOReoXVQ3WcYtJr
+	 6USv+jVcMsF+h5YOkcF7zWSJDUuGZQl92dbtjOb4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 09B9BF80254;
-	Fri, 25 Sep 2020 10:50:04 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 3E4BFF801EC;
+	Fri, 25 Sep 2020 11:13:31 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 6308AF800F6; Fri, 25 Sep 2020 10:49:47 +0200 (CEST)
+ id D1F3BF801EB; Fri, 25 Sep 2020 11:13:28 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=disabled
+X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=disabled
  version=3.4.0
-Received: from mail-wr1-x441.google.com (mail-wr1-x441.google.com
- [IPv6:2a00:1450:4864:20::441])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0b-001ae601.pphosted.com (mx0a-001ae601.pphosted.com
+ [67.231.149.25])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 79C66F800DA
- for <alsa-devel@alsa-project.org>; Fri, 25 Sep 2020 10:49:40 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 79C66F800DA
+ by alsa1.perex.cz (Postfix) with ESMTPS id 9CDAEF800DA
+ for <alsa-devel@alsa-project.org>; Fri, 25 Sep 2020 11:13:18 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9CDAEF800DA
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org
- header.b="BBP+yI6T"
-Received: by mail-wr1-x441.google.com with SMTP id z4so2692695wrr.4
- for <alsa-devel@alsa-project.org>; Fri, 25 Sep 2020 01:49:40 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding;
- bh=Qms1gS4lsjyq2EFAJKsceqVkipGb5r5O0I7UP489Fdo=;
- b=BBP+yI6T825MLog7mvJ2vPGBwhstGthx3TiYbLE+w4tC+KUeJrjlznXJdb2pJGr/eK
- nGCix7rYk/S85var/SyzggRGil9X64GgXXmegH0YJ9B0kkLT0T6Qu9y/gHH1e7tfbrfG
- eK2JtFV44g5y5SWZT+5ZiJG8wXq+oJN23qN5t/xgjABTcJqDpBVg6fpw0whlMCsQitdJ
- 9GVlreIwbD94a8srsHqEnEf5Fgr2lSx6gWfaLWxdinjheICfaKyqrf9iv0+9BFouVLt/
- QgiWwgRT6ja5UV5zViXMC0jHqzDGhW0LFcsK2trOEcbmtvoWYYGUSLN/uDtN2JNGN8/W
- Q6UA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
- :references:mime-version:content-transfer-encoding;
- bh=Qms1gS4lsjyq2EFAJKsceqVkipGb5r5O0I7UP489Fdo=;
- b=XC/oo3ycYWiovlvueMJwnT+7lBW572eUIoV479GoW/Kjr6IhIYicFt6y+/2vwH9q2k
- lKGLMwHuKOctxWX2WkOpPIvepZxiR9Xj50XfjisYPq2DirI0DRRneObTzjHKhmapUjrQ
- Dj6hVRgJ8iGhhtHAqy/AGi/OCYELGL3noikSu7QaikmKvaKbbnupFAigT3zIoW2C2SOt
- usJ1XLmul4Jk/flCa6WYfUh7yJX+fO9D7pHzrTMmEi5CnEO+dkiVAAMtpnGCsC/OJdw+
- sfQMf725732a4Z39yxL5Bdtcb48EZq9iEixkXWdQRp+wlqPaHaItowsUmcN/voDbKFZx
- lhZA==
-X-Gm-Message-State: AOAM531GMibnlJosJcnTCE+ASTLmGEOB4OGBtd5QGJ4giv+JJ/iGqP//
- yW/rUSf89lCW6ihxOz43wDRGAg==
-X-Google-Smtp-Source: ABdhPJxLFlslsmO+Ox1jM3w42tqn00wRtzs/jJ3tbNAy+X7g7nDVd+oB16s/z79eu4Gd5JZTqB+V+w==
-X-Received: by 2002:adf:fdcc:: with SMTP id i12mr3159750wrs.281.1601023776824; 
- Fri, 25 Sep 2020 01:49:36 -0700 (PDT)
-Received: from srini-hackbox.lan
- (cpc86377-aztw32-2-0-cust226.18-1.cable.virginm.net. [92.233.226.227])
- by smtp.gmail.com with ESMTPSA id u66sm2048623wme.12.2020.09.25.01.49.35
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 25 Sep 2020 01:49:36 -0700 (PDT)
-From: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
-To: broonie@kernel.org
-Subject: [PATCH 2/2] ASoC: q6asm: fix kernel doc warnings
-Date: Fri, 25 Sep 2020 09:49:25 +0100
-Message-Id: <20200925084925.26926-3-srinivas.kandagatla@linaro.org>
-X-Mailer: git-send-email 2.21.0
-In-Reply-To: <20200925084925.26926-1-srinivas.kandagatla@linaro.org>
-References: <20200925084925.26926-1-srinivas.kandagatla@linaro.org>
+ dkim=pass (2048-bit key) header.d=cirrus.com header.i=@cirrus.com
+ header.b="ZADbOy3Z"
+Received: from pps.filterd (m0077473.ppops.net [127.0.0.1])
+ by mx0a-001ae601.pphosted.com (8.16.0.43/8.16.0.43) with SMTP id
+ 08P9CxNk015637; Fri, 25 Sep 2020 04:13:16 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com;
+ h=subject : to : cc :
+ references : from : message-id : date : mime-version : in-reply-to :
+ content-type : content-transfer-encoding; s=PODMain02222019;
+ bh=VTW9Z6nATiVptXlBJyBdVT3cUrJAxe10jV7AlRQnnRI=;
+ b=ZADbOy3Zf1lcfYzr11OnLyQmw6SuSaASuvyjQpxSHu3El/NyAyd7T65x3UlTxBicERkg
+ IaKHK480QL43xet1M7IF/AfZpXW4bQNGeLYPhXr8kb3H0rfQ/VEsRZkZBARCpwewy3D2
+ 1OEaTP9oDHjJKYZlxj954TrCniLuJCBl6N6xpPOemgnCc5dcP4dEJFUqGfXTIQrXdonb
+ UmP6TS1Gm13B/5M3B65KsovdL4Pp2PASWkvnawgqQlHaayer2u4S3tK83o+ix7hKaqNE
+ hsWgfK4DSefmOPF2qVWc1efH5w/Fj0u4ADeY/bbYupELnn3YN7DHT+9lQ0Zgipi8lcTC pg== 
+Received: from ediex02.ad.cirrus.com ([87.246.76.36])
+ by mx0a-001ae601.pphosted.com with ESMTP id 33nfd285dy-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT);
+ Fri, 25 Sep 2020 04:13:16 -0500
+Received: from EDIEX01.ad.cirrus.com (198.61.84.80) by EDIEX02.ad.cirrus.com
+ (198.61.84.81) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1913.5; Fri, 25 Sep
+ 2020 10:13:14 +0100
+Received: from ediswmail.ad.cirrus.com (198.61.86.93) by EDIEX01.ad.cirrus.com
+ (198.61.84.80) with Microsoft SMTP Server id 15.1.1913.5 via Frontend
+ Transport; Fri, 25 Sep 2020 10:13:14 +0100
+Received: from [10.0.2.15] (ausnpc0lsnw1.ad.cirrus.com [198.61.64.158])
+ by ediswmail.ad.cirrus.com (Postfix) with ESMTP id D10ED2A1;
+ Fri, 25 Sep 2020 09:13:13 +0000 (UTC)
+Subject: Re: [RFC PATCH 1/2] ASoC: cs47l15: Fix EPOUT->HPOUT1 Mono Mux routing
+To: <broonie@kernel.org>
+References: <20200925083410.3987-1-rf@opensource.cirrus.com>
+From: Richard Fitzgerald <rf@opensource.cirrus.com>
+Message-ID: <70e57c4e-c4ec-e2f4-aeda-3b6b0afdd417@opensource.cirrus.com>
+Date: Fri, 25 Sep 2020 10:13:08 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.11.0
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Cc: linux-kernel@vger.kernel.org, alsa-devel@alsa-project.org,
- Srinivas Kandagatla <srinivas.kandagatla@linaro.org>, tiwai@suse.com
+In-Reply-To: <20200925083410.3987-1-rf@opensource.cirrus.com>
+Content-Type: text/plain; charset="utf-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+Content-Language: en-US
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 spamscore=0
+ bulkscore=0
+ priorityscore=1501 impostorscore=0 phishscore=0 suspectscore=1
+ mlxlogscore=999 adultscore=0 clxscore=1015 malwarescore=0 mlxscore=0
+ lowpriorityscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.12.0-2006250000 definitions=main-2009250064
+Cc: patches@opensource.cirrus.com, alsa-devel@alsa-project.org,
+ linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -101,44 +104,35 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-This patch fixes below kernel doc warnings on not describing all the parmeters
+Sorry. Left a stray "RFC" on the email title. I'm going to kick myself 
+and then re-send.
 
-sound/soc/qcom/qdsp6/q6asm.c:927: warning: Function parameter or member
- 'stream_id' not described in 'q6asm_open_write'
-sound/soc/qcom/qdsp6/q6asm.c:927: warning: Function parameter or member
- 'is_gapless' not described in 'q6asm_open_write'
-sound/soc/qcom/qdsp6/q6asm.c:1053: warning: Function parameter or member
- 'stream_id' not described in 'q6asm_run'
-
-Signed-off-by: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
----
- sound/soc/qcom/qdsp6/q6asm.c | 3 +++
- 1 file changed, 3 insertions(+)
-
-diff --git a/sound/soc/qcom/qdsp6/q6asm.c b/sound/soc/qcom/qdsp6/q6asm.c
-index 34a6e894242e..91999c9f016c 100644
---- a/sound/soc/qcom/qdsp6/q6asm.c
-+++ b/sound/soc/qcom/qdsp6/q6asm.c
-@@ -915,9 +915,11 @@ static int q6asm_ac_send_cmd_sync(struct audio_client *ac, struct apr_pkt *pkt)
- /**
-  * q6asm_open_write() - Open audio client for writing
-  * @ac: audio client pointer
-+ * @stream_id: stream id of q6asm session
-  * @format: audio sample format
-  * @codec_profile: compressed format profile
-  * @bits_per_sample: bits per sample
-+ * @is_gapless: flag to indicate if this is a gapless stream
-  *
-  * Return: Will be an negative value on error or zero on success
-  */
-@@ -1042,6 +1044,7 @@ static int __q6asm_run(struct audio_client *ac, uint32_t stream_id,
-  * q6asm_run() - start the audio client
-  *
-  * @ac: audio client pointer
-+ * @stream_id: stream id of q6asm session
-  * @flags: flags associated with write
-  * @msw_ts: timestamp msw
-  * @lsw_ts: timestamp lsw
--- 
-2.21.0
-
+On 25/09/2020 09:34, Richard Fitzgerald wrote:
+> EPOUT is always mono so should have a permanent routing through the
+> HPOUT1 Mono Mux.
+>
+> Signed-off-by: Richard Fitzgerald <rf@opensource.cirrus.com>
+> ---
+>   sound/soc/codecs/cs47l15.c | 2 +-
+>   1 file changed, 1 insertion(+), 1 deletion(-)
+>
+> diff --git a/sound/soc/codecs/cs47l15.c b/sound/soc/codecs/cs47l15.c
+> index a591e7457d11..254f9d96e766 100644
+> --- a/sound/soc/codecs/cs47l15.c
+> +++ b/sound/soc/codecs/cs47l15.c
+> @@ -1089,6 +1089,7 @@ static const struct snd_soc_dapm_route cs47l15_dapm_routes[] = {
+>   	{ "HPOUT1 Demux", NULL, "OUT1R" },
+>   
+>   	{ "OUT1R", NULL, "HPOUT1 Mono Mux" },
+> +	{ "HPOUT1 Mono Mux", "EPOUT", "OUT1L" },
+>   
+>   	{ "HPOUTL", "HPOUT", "HPOUT1 Demux" },
+>   	{ "HPOUTR", "HPOUT", "HPOUT1 Demux" },
+> @@ -1268,7 +1269,6 @@ static irqreturn_t cs47l15_adsp2_irq(int irq, void *data)
+>   
+>   static const struct snd_soc_dapm_route cs47l15_mono_routes[] = {
+>   	{ "HPOUT1 Mono Mux", "HPOUT", "OUT1L" },
+> -	{ "HPOUT1 Mono Mux", "EPOUT", "OUT1L" },
+>   };
+>   
+>   static int cs47l15_component_probe(struct snd_soc_component *component)

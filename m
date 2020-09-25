@@ -2,91 +2,90 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 936CD278EC6
-	for <lists+alsa-devel@lfdr.de>; Fri, 25 Sep 2020 18:38:40 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0C4C8278EC5
+	for <lists+alsa-devel@lfdr.de>; Fri, 25 Sep 2020 18:38:30 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 3ACDD18E3;
-	Fri, 25 Sep 2020 18:37:50 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3ACDD18E3
+	by alsa0.perex.cz (Postfix) with ESMTPS id 8385018C7;
+	Fri, 25 Sep 2020 18:37:39 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8385018C7
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1601051920;
-	bh=RYQGin5uAJR7bU8GEwvchS+SF7GB1wo9XZwKDyxdVHs=;
+	s=default; t=1601051909;
+	bh=DYZHGee6JflFh5i59WU+G5RDa2yQ80VdjNCocW/mIxs=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=R2n2fJCVBUaDEPb1bhx+FoPzVm4vFrJ3iS+voIoNIIi5AfnZAJykM53LdvyWX0/6n
-	 bZlJU/6hCaSbFEEr0sXfPgWeHSgjxBkvO0hR7fOoL760DS7IUEJegDR+WoMNldM6Hk
-	 ujFNUJKgipiw5mSrqdx3gxrNCvnxkanKHTkBU2Vk=
+	b=RSYoxF0h9CPOlQJhZ4Cmn8QKIZc37BDH7C8E2UtnySURHAJNzcqN/Kl1GauKCg5Nm
+	 vSBjZ4J/VnUxYcQAaN05ysBjMd71LQBSH0mswzqtnXxdpZmB1iK1JDHw8RQSLPh55B
+	 3ryagIVtjg4L0UuC8vYWT/00+FlHl0oIdCcSpqpo=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id AD8C0F802A2;
-	Fri, 25 Sep 2020 18:36:14 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id A5785F8028F;
+	Fri, 25 Sep 2020 18:36:11 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 5404DF80254; Fri, 25 Sep 2020 18:36:10 +0200 (CEST)
+ id DB08FF8028F; Fri, 25 Sep 2020 18:36:08 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=disabled
  version=3.4.0
-Received: from mail-wm1-x342.google.com (mail-wm1-x342.google.com
- [IPv6:2a00:1450:4864:20::342])
+Received: from mail-wr1-x442.google.com (mail-wr1-x442.google.com
+ [IPv6:2a00:1450:4864:20::442])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id D2D36F801EC
+ by alsa1.perex.cz (Postfix) with ESMTPS id CF449F80162
  for <alsa-devel@alsa-project.org>; Fri, 25 Sep 2020 18:35:58 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D2D36F801EC
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CF449F80162
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org
- header.b="zyX82bt+"
-Received: by mail-wm1-x342.google.com with SMTP id w2so3678727wmi.1
+ header.b="QftbfSRh"
+Received: by mail-wr1-x442.google.com with SMTP id o5so4224696wrn.13
  for <alsa-devel@alsa-project.org>; Fri, 25 Sep 2020 09:35:58 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=Bpd0ex9vvY6SQ5en4jWq2M6OKTm6oUME3P+ZpZGPI6s=;
- b=zyX82bt+ytgyrk0f8RwzH58E0OfhMMqY4i9QNq2hlE+OzJ6A8byCHFixtWFxJji7ab
- 9lHFpmIwEE2gEvUpODGZlnvcnITt98a0hj4+cHsCbUBOwDDIdy5dGUaZGKy0R5bC0Llg
- BNwqX3OJlS1wL/zTNpAl0icxs88BJJq/Li0k14roL19lJDDq4gOb1RZvJfytWg4vkOUw
- 2mAmGK6NDbgLICCJ7AuO/Q/SO23Q4K8bk4Togq7ifTrtQ49tLHevh09d4J08vGU0akeR
- 5YPZDCS/YBWOKGg2A5CoEKkiHUKl/RA6sHJUKGYLFojRFF0ZGSPX1D603DFAk/XiNgrG
- sv8Q==
+ bh=kFHi/Lnlt8f1kQDKiGDd11Cptp9H00xnl26W3F/tZaI=;
+ b=QftbfSRhc9RJbjqj2FGPZckdcjn/yMYTBEzTjgy3SeATCPxuZswj0/GK4vByczRtu7
+ LwkStd+D2xxSr5/g7eU2P8ZDHTc67ZodPKerkMtkO5S3eMRDTdphXErY9xG+GJl9OWwd
+ +T60/crKY5Q0DldxVYYyPnOwlIikybVQ7NCtYrsYKbQCugyG4z9dN5o0ZnvHtfTPoXTy
+ s7QlaSQsIsx+DzkDS2L/FSPiqQJONOyovX8r47ve+nqSCpHNLHM9ujvSY7+Nqhv2cANL
+ d4nj4UY42/ZtFin2Kx5qb3MlP0vgp35WIe8Ii8fr/0HxX8Gm6ksnELcmN/tL6trt7ekZ
+ qtPA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=Bpd0ex9vvY6SQ5en4jWq2M6OKTm6oUME3P+ZpZGPI6s=;
- b=NjA6+EOWhPv8kFtX1O/pFA213at0QTn7zu6co+Ttt57T8NUi2AAEXzU9Eh7a+DtAWM
- cPPeoYOFq3GKyFFn8ZBjpOjxrjPB+6+bHUlQG+rPtsn/Dkbj6Ed69nCD1jWls+2Vd4Vc
- C6QKy3j0E2rnlMH4xsNQRTJ/YTRhYWEfXMx1M6rtqXVLl6/Hqnqbwcwc5QsDfE0A5tc8
- 6Cce95EbpHe+ty36qQxxsBR+6cl3TF+KaFhKPx+lJRXly0HArfSVCK0q1FhcZRArYJLc
- ondl5+yEVLmHC6Iwy2tqI38ecAECKJ5/YrTM4/b8Taq+6ZfZbgL1erx/ZKQUzLKr1PNI
- IOLQ==
-X-Gm-Message-State: AOAM533QyAKEkmh3J9Oy1H/5mwhchhtVIBrVAF1nfgSVSKE6m2x4+SHF
- 010JHueJ0oEMIE2BkRZDzcv35Q==
-X-Google-Smtp-Source: ABdhPJxCqksHMhJ5v/p3c6y2QZzOnEUWDGqb0X0nE9xPUfRvg+gK84eHkkl2RNzUwq5OiElLpfIAjg==
-X-Received: by 2002:a1c:e108:: with SMTP id y8mr4075058wmg.178.1601051756621; 
- Fri, 25 Sep 2020 09:35:56 -0700 (PDT)
+ bh=kFHi/Lnlt8f1kQDKiGDd11Cptp9H00xnl26W3F/tZaI=;
+ b=lEz2jKKxftDzl9sFOUmquc7t7+74uoRcv+9bF3xpWfJeRzSqgqoWEFml2YRZZlxsLO
+ iPRctUcGy3a+5HXk0UWfx+JOTjno84SCw+qQn5X5A80qRkKORZbsbgfMM3yrhCLTAVXi
+ C67gIm1zI00rjCWnPh6lPwWYjRDbTdlwuusW6BKLkTpgI5B8OoLgFqS1Qc0YaI3uap6D
+ WzQ2gbRH/VbtrsHEXGLNExvQpP3e9souLRlwgAUEBPPgo3StNbxZ5vZJ4ccLpJ/LuVN8
+ mUK94/qtDF0d2pFO70mC/6/lfHEFGjYJPXV5gjMww7CMlHQJe7KR5PpZNZl+ivZ5svNI
+ Zljg==
+X-Gm-Message-State: AOAM530bfnVcJj81Br1A2ix/b50ojMmlGh69CEovTwyrDylAk/l4swll
+ xMR3ADcEeU4S+kvZl5WuwO0fcw==
+X-Google-Smtp-Source: ABdhPJwDUNZy1TRZ9PrSR+BOSCCszXZM2mAcvg9nXER2+5EpX7pDXX6x3SrXpFgEaorXLaSXqG88bQ==
+X-Received: by 2002:adf:8544:: with SMTP id 62mr5416564wrh.262.1601051757907; 
+ Fri, 25 Sep 2020 09:35:57 -0700 (PDT)
 Received: from srini-hackbox.lan
  (cpc86377-aztw32-2-0-cust226.18-1.cable.virginm.net. [92.233.226.227])
- by smtp.gmail.com with ESMTPSA id m4sm3733883wro.18.2020.09.25.09.35.55
+ by smtp.gmail.com with ESMTPSA id m4sm3733883wro.18.2020.09.25.09.35.56
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 25 Sep 2020 09:35:55 -0700 (PDT)
+ Fri, 25 Sep 2020 09:35:57 -0700 (PDT)
 From: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
 To: broonie@kernel.org
-Subject: [PATCH v2 1/2] ASoC: qdsp6: add ifdef CONFIG_OF around of_device_id
-Date: Fri, 25 Sep 2020 17:35:51 +0100
-Message-Id: <20200925163552.20717-2-srinivas.kandagatla@linaro.org>
+Subject: [PATCH v2 2/2] ASoC: q6asm: fix kernel doc warnings
+Date: Fri, 25 Sep 2020 17:35:52 +0100
+Message-Id: <20200925163552.20717-3-srinivas.kandagatla@linaro.org>
 X-Mailer: git-send-email 2.21.0
 In-Reply-To: <20200925163552.20717-1-srinivas.kandagatla@linaro.org>
 References: <20200925163552.20717-1-srinivas.kandagatla@linaro.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Cc: alsa-devel@alsa-project.org, kernel test robot <lkp@intel.com>,
- linux-kernel@vger.kernel.org, tiwai@suse.com,
- Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
+Cc: linux-kernel@vger.kernel.org, alsa-devel@alsa-project.org,
+ Srinivas Kandagatla <srinivas.kandagatla@linaro.org>, tiwai@suse.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -102,172 +101,44 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Add ifdef CONFIG_OF around of_device_id table to fix below
-W=1 compile test warning with !CONFIG_OF:
+This patch fixes below kernel doc warnings on not describing all the parmeters
 
-sound/soc/qcom/qdsp6/q6afe-clocks.c:254:34: warning: unused variable
- 'q6afe_clock_device_id' [-Wunused-const-variable]
+sound/soc/qcom/qdsp6/q6asm.c:927: warning: Function parameter or member
+ 'stream_id' not described in 'q6asm_open_write'
+sound/soc/qcom/qdsp6/q6asm.c:927: warning: Function parameter or member
+ 'is_gapless' not described in 'q6asm_open_write'
+sound/soc/qcom/qdsp6/q6asm.c:1053: warning: Function parameter or member
+ 'stream_id' not described in 'q6asm_run'
 
-Fix this warning for across all qdsp6 drivers.
-
-Reported-by: kernel test robot <lkp@intel.com>
 Signed-off-by: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
 ---
- sound/soc/qcom/qdsp6/q6adm.c        | 2 ++
- sound/soc/qcom/qdsp6/q6afe-clocks.c | 2 ++
- sound/soc/qcom/qdsp6/q6afe-dai.c    | 2 ++
- sound/soc/qcom/qdsp6/q6afe.c        | 2 ++
- sound/soc/qcom/qdsp6/q6asm-dai.c    | 2 ++
- sound/soc/qcom/qdsp6/q6asm.c        | 3 +++
- sound/soc/qcom/qdsp6/q6core.c       | 2 ++
- sound/soc/qcom/qdsp6/q6routing.c    | 2 ++
- 8 files changed, 17 insertions(+)
+ sound/soc/qcom/qdsp6/q6asm.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
-diff --git a/sound/soc/qcom/qdsp6/q6adm.c b/sound/soc/qcom/qdsp6/q6adm.c
-index 2f3ea6beb066..72f29720398c 100644
---- a/sound/soc/qcom/qdsp6/q6adm.c
-+++ b/sound/soc/qcom/qdsp6/q6adm.c
-@@ -611,11 +611,13 @@ static int q6adm_remove(struct apr_device *adev)
- 	return 0;
- }
- 
-+#ifdef CONFIG_OF
- static const struct of_device_id q6adm_device_id[]  = {
- 	{ .compatible = "qcom,q6adm" },
- 	{},
- };
- MODULE_DEVICE_TABLE(of, q6adm_device_id);
-+#endif
- 
- static struct apr_driver qcom_q6adm_driver = {
- 	.probe = q6adm_probe,
-diff --git a/sound/soc/qcom/qdsp6/q6afe-clocks.c b/sound/soc/qcom/qdsp6/q6afe-clocks.c
-index 2967f4546af5..25b409597d51 100644
---- a/sound/soc/qcom/qdsp6/q6afe-clocks.c
-+++ b/sound/soc/qcom/qdsp6/q6afe-clocks.c
-@@ -251,11 +251,13 @@ static int q6afe_clock_dev_probe(struct platform_device *pdev)
- 	return 0;
- }
- 
-+#ifdef CONFIG_OF
- static const struct of_device_id q6afe_clock_device_id[] = {
- 	{ .compatible = "qcom,q6afe-clocks" },
- 	{},
- };
- MODULE_DEVICE_TABLE(of, q6afe_clock_device_id);
-+#endif
- 
- static struct platform_driver q6afe_clock_platform_driver = {
- 	.driver = {
-diff --git a/sound/soc/qcom/qdsp6/q6afe-dai.c b/sound/soc/qcom/qdsp6/q6afe-dai.c
-index d58b86a98114..4e1f101281e7 100644
---- a/sound/soc/qcom/qdsp6/q6afe-dai.c
-+++ b/sound/soc/qcom/qdsp6/q6afe-dai.c
-@@ -1689,11 +1689,13 @@ static int q6afe_dai_dev_probe(struct platform_device *pdev)
- 					  q6afe_dais, ARRAY_SIZE(q6afe_dais));
- }
- 
-+#ifdef CONFIG_OF
- static const struct of_device_id q6afe_dai_device_id[] = {
- 	{ .compatible = "qcom,q6afe-dais" },
- 	{},
- };
- MODULE_DEVICE_TABLE(of, q6afe_dai_device_id);
-+#endif
- 
- static struct platform_driver q6afe_dai_platform_driver = {
- 	.driver = {
-diff --git a/sound/soc/qcom/qdsp6/q6afe.c b/sound/soc/qcom/qdsp6/q6afe.c
-index 688878a002a4..0ca1e4aae518 100644
---- a/sound/soc/qcom/qdsp6/q6afe.c
-+++ b/sound/soc/qcom/qdsp6/q6afe.c
-@@ -1750,11 +1750,13 @@ static int q6afe_remove(struct apr_device *adev)
- 	return 0;
- }
- 
-+#ifdef CONFIG_OF
- static const struct of_device_id q6afe_device_id[]  = {
- 	{ .compatible = "qcom,q6afe" },
- 	{},
- };
- MODULE_DEVICE_TABLE(of, q6afe_device_id);
-+#endif
- 
- static struct apr_driver qcom_q6afe_driver = {
- 	.probe = q6afe_probe,
-diff --git a/sound/soc/qcom/qdsp6/q6asm-dai.c b/sound/soc/qcom/qdsp6/q6asm-dai.c
-index a1dd31f306ce..c9ac9c1d26c4 100644
---- a/sound/soc/qcom/qdsp6/q6asm-dai.c
-+++ b/sound/soc/qcom/qdsp6/q6asm-dai.c
-@@ -1334,11 +1334,13 @@ static int q6asm_dai_probe(struct platform_device *pdev)
- 					       pdata->dais, pdata->num_dais);
- }
- 
-+#ifdef CONFIG_OF
- static const struct of_device_id q6asm_dai_device_id[] = {
- 	{ .compatible = "qcom,q6asm-dais" },
- 	{},
- };
- MODULE_DEVICE_TABLE(of, q6asm_dai_device_id);
-+#endif
- 
- static struct platform_driver q6asm_dai_platform_driver = {
- 	.driver = {
 diff --git a/sound/soc/qcom/qdsp6/q6asm.c b/sound/soc/qcom/qdsp6/q6asm.c
-index d745a02fcd5f..790abc135223 100644
+index 790abc135223..c547c560cb24 100644
 --- a/sound/soc/qcom/qdsp6/q6asm.c
 +++ b/sound/soc/qcom/qdsp6/q6asm.c
-@@ -1733,11 +1733,14 @@ static int q6asm_remove(struct apr_device *adev)
- 
- 	return 0;
- }
-+
-+#ifdef CONFIG_OF
- static const struct of_device_id q6asm_device_id[]  = {
- 	{ .compatible = "qcom,q6asm" },
- 	{},
- };
- MODULE_DEVICE_TABLE(of, q6asm_device_id);
-+#endif
- 
- static struct apr_driver qcom_q6asm_driver = {
- 	.probe = q6asm_probe,
-diff --git a/sound/soc/qcom/qdsp6/q6core.c b/sound/soc/qcom/qdsp6/q6core.c
-index ae314a652efe..5358fefd4210 100644
---- a/sound/soc/qcom/qdsp6/q6core.c
-+++ b/sound/soc/qcom/qdsp6/q6core.c
-@@ -354,11 +354,13 @@ static int q6core_exit(struct apr_device *adev)
- 	return 0;
- }
- 
-+#ifdef CONFIG_OF
- static const struct of_device_id q6core_device_id[]  = {
- 	{ .compatible = "qcom,q6core" },
- 	{},
- };
- MODULE_DEVICE_TABLE(of, q6core_device_id);
-+#endif
- 
- static struct apr_driver qcom_q6core_driver = {
- 	.probe = q6core_probe,
-diff --git a/sound/soc/qcom/qdsp6/q6routing.c b/sound/soc/qcom/qdsp6/q6routing.c
-index b12539fae6ed..53185e26fea1 100644
---- a/sound/soc/qcom/qdsp6/q6routing.c
-+++ b/sound/soc/qcom/qdsp6/q6routing.c
-@@ -1143,11 +1143,13 @@ static int q6pcm_routing_remove(struct platform_device *pdev)
- 	return 0;
- }
- 
-+#ifdef CONFIG_OF
- static const struct of_device_id q6pcm_routing_device_id[] = {
- 	{ .compatible = "qcom,q6adm-routing" },
- 	{},
- };
- MODULE_DEVICE_TABLE(of, q6pcm_routing_device_id);
-+#endif
- 
- static struct platform_driver q6pcm_routing_platform_driver = {
- 	.driver = {
+@@ -915,9 +915,11 @@ static int q6asm_ac_send_cmd_sync(struct audio_client *ac, struct apr_pkt *pkt)
+ /**
+  * q6asm_open_write() - Open audio client for writing
+  * @ac: audio client pointer
++ * @stream_id: stream id of q6asm session
+  * @format: audio sample format
+  * @codec_profile: compressed format profile
+  * @bits_per_sample: bits per sample
++ * @is_gapless: flag to indicate if this is a gapless stream
+  *
+  * Return: Will be an negative value on error or zero on success
+  */
+@@ -1042,6 +1044,7 @@ static int __q6asm_run(struct audio_client *ac, uint32_t stream_id,
+  * q6asm_run() - start the audio client
+  *
+  * @ac: audio client pointer
++ * @stream_id: stream id of q6asm session
+  * @flags: flags associated with write
+  * @msw_ts: timestamp msw
+  * @lsw_ts: timestamp lsw
 -- 
 2.21.0
 

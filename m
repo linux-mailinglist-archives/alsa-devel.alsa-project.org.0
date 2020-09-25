@@ -2,72 +2,60 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2B9922779AC
-	for <lists+alsa-devel@lfdr.de>; Thu, 24 Sep 2020 21:48:04 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 59DB9277DB9
+	for <lists+alsa-devel@lfdr.de>; Fri, 25 Sep 2020 03:45:57 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A641D180E;
-	Thu, 24 Sep 2020 21:47:13 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A641D180E
+	by alsa0.perex.cz (Postfix) with ESMTPS id 8EE3C181C;
+	Fri, 25 Sep 2020 03:45:06 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8EE3C181C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1600976883;
-	bh=9tFLmUA75wPyNhEDLpTm8lxfNvvPtdxMlY36t09nc2c=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1600998356;
+	bh=tHptu6eWJxoa/15NBNtkBA4JYhx6G+6i0B9pUrX8dsY=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=nFQvQHDZsZMWrMGi5uScBRMvnd6bIkIJd/C/CgS+lpnUewUN/J7EBwhg5HFq4SmLB
-	 Sg+UKlUTgczTL51YAvboUYSgbU2kqzbpf1m5W+Qb7Uc9oWiHEJ0DXzcbgYFyJB4bjD
-	 S/bJrv96WMU6jY6YN92dg+i5uiE79uJlYRazkKVY=
+	b=cEuy7lFw7VmCLZehV96YKG/PmuT5JpxubUyIjRJpmufkF247JRq0AF/CieTWerzGU
+	 V8EvfspwNG7Rigd22P0LwLfo2UjgT2DfTXOuplP9MxrjL1d4Wu4HzOOwQBSWbzSEp4
+	 oeSUxj0aUftrK6lLDk8c7oXAgk2xLJmPfeamE6bw=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id DFCE7F802DC;
-	Thu, 24 Sep 2020 21:45:07 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id A3AEFF80162;
+	Fri, 25 Sep 2020 03:44:15 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id BEACEF8015F; Thu, 24 Sep 2020 21:45:01 +0200 (CEST)
+ id 2CB77F801EB; Fri, 25 Sep 2020 03:44:13 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id E77DEF80232
- for <alsa-devel@alsa-project.org>; Thu, 24 Sep 2020 21:44:52 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E77DEF80232
-IronPort-SDR: Q5aJeMAxmZjHbn59m+ky0LMV+GC9dBf/Tf3bFERXBJlvGoKD94CqX7QQZSD0NXicwEBWYTtUDm
- /D96+r+bgrYQ==
-X-IronPort-AV: E=McAfee;i="6000,8403,9754"; a="141336271"
-X-IronPort-AV: E=Sophos;i="5.77,299,1596524400"; d="scan'208";a="141336271"
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from fmsmga007.fm.intel.com ([10.253.24.52])
- by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 24 Sep 2020 12:44:47 -0700
-IronPort-SDR: ShEPvySRaEZ3562oAWok7+pKVELFSeZUR/KcLvL5WP6jm9n5QMNTvx8UaynHzde+IJJhjTk0ra
- xNfUT+tmlPQQ==
-X-IronPort-AV: E=Sophos;i="5.77,299,1596524400"; d="scan'208";a="291360682"
-Received: from inwhanki-mobl1.amr.corp.intel.com (HELO
- pbossart-mobl3.intel.com) ([10.209.115.252])
- by fmsmga007-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 24 Sep 2020 12:44:45 -0700
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-To: alsa-devel@alsa-project.org,
-	srinivas.kandagatla@linaro.org
-Subject: [PATCH v3 2/2] soundwire: sysfs: add slave status and device number
- before probe
-Date: Thu, 24 Sep 2020 14:44:30 -0500
-Message-Id: <20200924194430.121058-3-pierre-louis.bossart@linux.intel.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20200924194430.121058-1-pierre-louis.bossart@linux.intel.com>
-References: <20200924194430.121058-1-pierre-louis.bossart@linux.intel.com>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Cc: tiwai@suse.de, gregkh@linuxfoundation.org,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>, vkoul@kernel.org,
- broonie@kernel.org, Bard liao <yung-chuan.liao@linux.intel.com>,
- Rander Wang <rander.wang@linux.intel.com>
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS
+ autolearn=disabled version=3.4.0
+Received: from relmlie5.idc.renesas.com (relmlor1.renesas.com
+ [210.160.252.171])
+ by alsa1.perex.cz (Postfix) with ESMTP id 42948F80162
+ for <alsa-devel@alsa-project.org>; Fri, 25 Sep 2020 03:44:04 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 42948F80162
+Date: 25 Sep 2020 10:43:59 +0900
+X-IronPort-AV: E=Sophos;i="5.77,300,1596466800"; d="scan'208";a="58101632"
+Received: from unknown (HELO relmlir6.idc.renesas.com) ([10.200.68.152])
+ by relmlie5.idc.renesas.com with ESMTP; 25 Sep 2020 10:43:59 +0900
+Received: from mercury.renesas.com (unknown [10.166.252.133])
+ by relmlir6.idc.renesas.com (Postfix) with ESMTP id BA408415DFB9;
+ Fri, 25 Sep 2020 10:43:59 +0900 (JST)
+Message-ID: <87blhuljkb.wl-kuninori.morimoto.gx@renesas.com>
+From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+To: Sameer Pujar <spujar@nvidia.com>
+Subject: Re: More Generic Audio Graph Sound Card idea
+In-Reply-To: <87imdczd4i.wl-kuninori.morimoto.gx@renesas.com>
+References: <87k0xszlep.wl-kuninori.morimoto.gx@renesas.com>
+ <097e3fc4-4a84-e101-e6b6-045c3e9e5bfc@nvidia.com>
+ <87imdczd4i.wl-kuninori.morimoto.gx@renesas.com>
+User-Agent: Wanderlust/2.15.9 Emacs/26.3 Mule/6.0
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+Cc: Linux-ALSA <alsa-devel@alsa-project.org>, Mark Brown <broonie@kernel.org>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ jonathanh@nvidia.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -83,170 +71,221 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-The MIPI DisCo device properties that are read by the driver from
-platform firmware, or hard-coded in the driver, should only be
-provided as sysfs entries when a driver probes successfully.
 
-However the device status and device number is updated even when there
-is no driver present, and hence can be updated when a Slave device is
-detected on the bus without being described in platform firmware and
-without any driver registered/probed.
+Hi
 
-As suggested by GregKH, the attribute group for Slave status and
-device number is is added by default upon device registration.
+For more generic Auido Graph Sound Card, I'm thinking about
+Multi-CPU/Codec now.
+(Need to think about Codec-to-Codec later, but it is next task)
+I want to know your idea, opinion, etc, etc...
 
-Credits to Vinod Koul for the status_show() function, shared in a
-separate patch and used as is here. The status table was modified to
-remove an unnecessary enum and status_show() is handled in a different
-group attribute than what was suggested by Vinod.
+> > Please note that asoc_simple_init_dai_link_params() makes the link
+> > codec-to-codec if any component involved has 'non_legacy_dai_naming'
+> > flag enabled. It is used by both audio-graph and simple-card. So it is
+> > a combination of three (DPCM, normal and codec-to-codec). To avoid all
+> > this complication, I am treating all links as DPCM in the series [0] I
+> > sent.
+> 
+> Ahh, we want to consider codec-to-codec..
+> And I noticed multi-CPU / multi-Codec case too (= for normal connection).
+> Do we have sample code ? > Mark
 
-Tested-by: Srinivas Kandgatla <srinivas.kandagatla@linaro.org>
-Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Co-developed-by: Vinod Koul <vkoul@kernel.org>
-Signed-off-by: Vinod Koul <vkoul@kernel.org>
+First idea is using "ports".
+In such case, I think multi-CPU side is not big issue,
+because "dais" selects "port" (and "ports") instead of "endpoint".
+(Note: here have no compatible to "-scu-" of audio-graph)
+
+	CPU0-1 <------> Codec0
+	CPU0-2 <---/
+	CPU0-3 <---/
+
+	sound {
+		compatible = "audio-graph-card2";
+
+=>		dais = <&cpu0>;
+	};
+
+	cpu-device {
+		/*
+		 * use "ports" for Multi-CPU
+		 */
+=>		cpu0: ports {
+			port@0 { cpu0_1: endpoint { remote-endpoint = <&codec0_1>; }; };
+			port@1 { cpu0_2: endpoint { remote-endpoint = <&codec0_2>; }; };
+			port@2 { cpu0_3: endpoint { remote-endpoint = <&codec0_3>; }; };
+		};
+
+		/*
+		 * According to graph.txt, 
+		 * we can use other "port" and/or "ports" for non multi-CPU.
+		 */
+		port@x { };
+		port@x { };
+		ports {
+			port { };
+			...
+		};
+	};
+
+	codec-device {
+		port {	codec0_1: endpoint@0 { remote-endpoint = <&cpu0_1>; };
+			codec0_2: endpoint@0 { remote-endpoint = <&cpu0_2>; }; 
+			codec0_3: endpoint@0 { remote-endpoint = <&cpu0_3>; }; };
+	};
+
+
+But multi-Codec side is difficult.
+Because it is selected via "endpoint" via CPU.
+No way to select it via "port" and/or "ports".
+
+	CPU1 <------> Codec1-1
+	        \---> Codec1-2
+	        \---> Codec1-3
+
+	sound {
+		compatible = "audio-graph-card2";
+
+		dais = <&cpu1>;
+	};
+
+	cpu-device {
+		/*
+		 * CPU selects Codec by "endpoints".
+		 */
+		cpu1: port {	cpu1_1: endpoint { remote-endpoint = <&codec1_1>; };
+				cpu1_2: endpoint { remote-endpoint = <&codec1_2>; };
+				cpu1_3: endpoint { remote-endpoint = <&codec1_3>; };
+		};
+	};
+
+	codec-device {
+		/*
+		 * Codec is selected via CPU.
+		 * It is best if we can select "codec1" (= port / ports) from CPU.
+		 * But is selected via "endpoint" in reality,
+		 * using "ports" is not enough for Multi-Codec.
+		 * because see below
+		 */
+		codec1: ports {
+			port@0 { codec1_1: endpoint { remote-endpoint = <&dai0_0>; }; };
+			port@1 { codec1_2: endpoint { remote-endpoint = <&dai0_1>; }; };
+			port@2 { codec1_3: endpoint { remote-endpoint = <&dai0_2>; }; };
+		};
+
+		/*
+		 * Because "ports" is used to for non Multi-xxx too.
+		 * How to know the "ports" was for Multi-xxx or not ?
+		 */
+		ports {
+			port@1 { for device1 };
+			port@2 { for device2 };
+			port@3 { for device3 };
+		};
+	};
+
+We might want to select Multi-CPU/Codec by using multi deivces ?
+in such case, using "ports" idea is not enough.
+
+Using extra device like DSP can be more generic ?
+
+	<--- multi-CPU --->
+	            *******
+	CPU0-1 <--> *     * <--> Codec0
+	CPU0-2 <--> *     *
+	CPU0-3 <--> *     *
+	            *******
+
+	sound {
+		compatible = "audio-graph-card2";
+
+		dais = <&cpu0>;
+	};
+
+	cpu-device {
+		ports {
+			/* for multi-CPU */
+			port@0 { cpu0_1: endpoint { remote-endpoint = <&multi_cpu_1>; }; };
+			port@1 { cpu0_2: endpoint { remote-endpoint = <&multi_cpu_2>; }; };
+			port@2 { cpu0_3: endpoint { remote-endpoint = <&multi_cpu_3>; }; };
+
+			/* for others */
+			port@3 { ... };
+		};
+	};
+
+	multi-cpu {
+		compatible = "audio-graph-card2-multi";
+
+		/* CPU side */
+		cpu0: ports@0 {
+			port@0 { multi_cpu_1: endpoint { remote-endpoint = <&cpu0_1>; }; };
+			port@1 { multi_cpu_2: endpoint { remote-endpoint = <&cpu0_2>; }; };
+			port@2 { multi_cpu_3: endpoint { remote-endpoint = <&cpu0_3>; }; };
+		};
+
+		/* Codec side */
+		ports@1 {
+			port@0 { multi_cpu0: endpoint { remote-endpoint = <&codec0>; }; };
+		};
+	};
+
+	codec-device {
+		ports {
+			port@0 { codec0: endpoint { remote-endpoint = <&multi_cpu0>; }; };
+			port@1 { ... };
+		};
+	};
+
+
+	          <--- multi-Codec --->
+	          *******
+	CPU1 <--> *     * <--> Codec1-1
+	          *     * <--> Codec1-2
+	          *     * <--> Codec1-3
+	          *******
+
+	sound {
+		compatible = "audio-graph-card2";
+
+		dais = <&cpu1>;
+	};
+
+	cpu-device {
+		ports {
+			cpu1: port@0 { cpu1_0: endpoint { remote-endpoint = <&multi_codec1>; }; };
+			      port@1 { ... };
+		};
+	};
+
+	multi-cpu {
+		compatible = "audio-graph-card2-multi";
+
+		/* Front End */
+		ports@0 {
+			port { multi_codec1: endpoint { remote-endpoint = <&cpu1_0>; }; };
+		};
+
+		/* Back End */
+		ports@1 {
+			port@0 { multi_codec1_1: endpoint { remote-endpoint = <&codec1_1>; }; };
+			port@1 { multi_codec1_2: endpoint { remote-endpoint = <&codec1_2>; }; };
+			port@2 { multi_codec1_3: endpoint { remote-endpoint = <&codec1_3>; }; };
+		};
+	};
+
+	codec-device {
+		ports {
+			port@0 { codec1_1: endpoint { remote-endpoint = <&multi_codec1_1>; }; };
+			port@0 { codec1_2: endpoint { remote-endpoint = <&multi_codec1_2>; }; };
+			port@0 { codec1_3: endpoint { remote-endpoint = <&multi_codec1_3>; }; };
+			port@1 { ... };
+		};
+	};
+
+
+
+Thank you for your help !!
+
+Best regards
 ---
- .../ABI/testing/sysfs-bus-soundwire-slave     | 18 ++++++
- drivers/soundwire/slave.c                     |  2 +
- drivers/soundwire/sysfs_local.h               |  4 ++
- drivers/soundwire/sysfs_slave.c               | 58 ++++++++++++++++++-
- 4 files changed, 81 insertions(+), 1 deletion(-)
-
-diff --git a/Documentation/ABI/testing/sysfs-bus-soundwire-slave b/Documentation/ABI/testing/sysfs-bus-soundwire-slave
-index db4c9511d1aa..d324aa0b678f 100644
---- a/Documentation/ABI/testing/sysfs-bus-soundwire-slave
-+++ b/Documentation/ABI/testing/sysfs-bus-soundwire-slave
-@@ -1,3 +1,21 @@
-+What:		/sys/bus/soundwire/devices/sdw:.../status
-+		/sys/bus/soundwire/devices/sdw:.../device_number
-+
-+Date:		September 2020
-+
-+Contact:	Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-+		Bard Liao <yung-chuan.liao@linux.intel.com>
-+		Vinod Koul <vkoul@kernel.org>
-+
-+Description:	SoundWire Slave status
-+
-+		These properties report the Slave status, e.g. if it
-+		is UNATTACHED or not, and in the latter case show the
-+		device_number. This status information is useful to
-+		detect devices exposed by platform firmware but not
-+		physically present on the bus, and conversely devices
-+		not exposed in platform firmware but enumerated.
-+
- What:		/sys/bus/soundwire/devices/sdw:.../dev-properties/mipi_revision
- 		/sys/bus/soundwire/devices/sdw:.../dev-properties/wake_capable
- 		/sys/bus/soundwire/devices/sdw:.../dev-properties/test_mode_capable
-diff --git a/drivers/soundwire/slave.c b/drivers/soundwire/slave.c
-index 19b012310c29..a08f4081c1c4 100644
---- a/drivers/soundwire/slave.c
-+++ b/drivers/soundwire/slave.c
-@@ -6,6 +6,7 @@
- #include <linux/soundwire/sdw.h>
- #include <linux/soundwire/sdw_type.h>
- #include "bus.h"
-+#include "sysfs_local.h"
- 
- static void sdw_slave_release(struct device *dev)
- {
-@@ -51,6 +52,7 @@ int sdw_slave_add(struct sdw_bus *bus,
- 	slave->dev.bus = &sdw_bus_type;
- 	slave->dev.of_node = of_node_get(to_of_node(fwnode));
- 	slave->dev.type = &sdw_slave_type;
-+	slave->dev.groups = sdw_slave_status_attr_groups;
- 	slave->bus = bus;
- 	slave->status = SDW_SLAVE_UNATTACHED;
- 	init_completion(&slave->enumeration_complete);
-diff --git a/drivers/soundwire/sysfs_local.h b/drivers/soundwire/sysfs_local.h
-index ff60adee3c41..7268bc24c538 100644
---- a/drivers/soundwire/sysfs_local.h
-+++ b/drivers/soundwire/sysfs_local.h
-@@ -8,6 +8,10 @@
-  * SDW sysfs APIs -
-  */
- 
-+/* basic attributes to report status of Slave (attachment, dev_num) */
-+extern const struct attribute_group *sdw_slave_status_attr_groups[];
-+
-+/* additional device-managed properties reported after driver probe */
- int sdw_slave_sysfs_init(struct sdw_slave *slave);
- int sdw_slave_sysfs_dpn_init(struct sdw_slave *slave);
- 
-diff --git a/drivers/soundwire/sysfs_slave.c b/drivers/soundwire/sysfs_slave.c
-index f510071b0add..b48b6617a396 100644
---- a/drivers/soundwire/sysfs_slave.c
-+++ b/drivers/soundwire/sysfs_slave.c
-@@ -16,9 +16,13 @@
- 
- /*
-  * The sysfs for Slave reflects the MIPI description as given
-- * in the MIPI DisCo spec
-+ * in the MIPI DisCo spec.
-+ * status and device_number come directly from the MIPI SoundWire
-+ * 1.x specification.
-  *
-  * Base file is device
-+ *	|---- status
-+ *	|---- device_number
-  *	|---- modalias
-  *	|---- dev-properties
-  *		|---- mipi_revision
-@@ -212,3 +216,55 @@ int sdw_slave_sysfs_init(struct sdw_slave *slave)
- 
- 	return 0;
- }
-+
-+/*
-+ * the status is shown in capital letters for UNATTACHED and RESERVED
-+ * on purpose, to highligh users to the fact that these status values
-+ * are not expected.
-+ */
-+static const char *const slave_status[] = {
-+	[SDW_SLAVE_UNATTACHED] =  "UNATTACHED",
-+	[SDW_SLAVE_ATTACHED] = "Attached",
-+	[SDW_SLAVE_ALERT] = "Alert",
-+	[SDW_SLAVE_RESERVED] = "RESERVED",
-+};
-+
-+static ssize_t status_show(struct device *dev,
-+			   struct device_attribute *attr, char *buf)
-+{
-+	struct sdw_slave *slave = dev_to_sdw_dev(dev);
-+
-+	return sprintf(buf, "%s\n", slave_status[slave->status]);
-+}
-+static DEVICE_ATTR_RO(status);
-+
-+static ssize_t device_number_show(struct device *dev,
-+				  struct device_attribute *attr, char *buf)
-+{
-+	struct sdw_slave *slave = dev_to_sdw_dev(dev);
-+
-+	if (slave->status == SDW_SLAVE_UNATTACHED)
-+		return sprintf(buf, "%s", "N/A");
-+	else
-+		return sprintf(buf, "%d", slave->dev_num);
-+}
-+static DEVICE_ATTR_RO(device_number);
-+
-+static struct attribute *slave_status_attrs[] = {
-+	&dev_attr_status.attr,
-+	&dev_attr_device_number.attr,
-+	NULL,
-+};
-+
-+/*
-+ * we don't use ATTRIBUTES_GROUP here since the group is used in a
-+ * separate file and can't be handled as a static.
-+ */
-+static const struct attribute_group sdw_slave_status_attr_group = {
-+	.attrs	= slave_status_attrs,
-+};
-+
-+const struct attribute_group *sdw_slave_status_attr_groups[] = {
-+	&sdw_slave_status_attr_group,
-+	NULL
-+};
--- 
-2.25.1
-
+Kuninori Morimoto

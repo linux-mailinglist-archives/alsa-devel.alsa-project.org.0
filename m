@@ -2,102 +2,70 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 44958279804
-	for <lists+alsa-devel@lfdr.de>; Sat, 26 Sep 2020 10:54:30 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7C098279809
+	for <lists+alsa-devel@lfdr.de>; Sat, 26 Sep 2020 11:01:10 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 6A8AF18FC;
-	Sat, 26 Sep 2020 10:53:39 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6A8AF18FC
+	by alsa0.perex.cz (Postfix) with ESMTPS id 2EAA51907;
+	Sat, 26 Sep 2020 11:00:19 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2EAA51907
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1601110469;
-	bh=hEuTJSk6ewsUDdb9hn31vzy/7GcABS0d/uGoWc+m6tQ=;
-	h=From:To:Subject:Date:References:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=M5b/MYKjmTSwIkV21oZo6XtI3teWshJ5jco9fv+9MRlsDJT+N3Hwc7uSMmgZRXnDG
-	 BOMrBXChJ0udGH2085csEgGtbxWo/QLDLLJ7mDCjOlg0tmVuk+7kAMM3iy1LxonRRa
-	 0SwgIuCvwPzuPximAZGlUpCjMQ1D86YL+A1/YmBs=
+	s=default; t=1601110869;
+	bh=moY0bIocWzd5pccEQEd3UITJeMLviNi5BwVDgszuzf8=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=YxAQm9Q59odKXYWn301GeEVbQeXulN/hm+aFWiIi+Lf3mIIEs0m9mb3K0pRVHlTC6
+	 KFEHpEF6yK7zbFAZwPvyclvMTESschWk4lxqVJLhuTR4n2KfIYivgjEMhRxRxEQHqc
+	 desDAa+utrrR1KeBkRLvGBHOasTaboFuChdmYj/k=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 8DE1AF80234;
-	Sat, 26 Sep 2020 10:52:48 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 40201F80256;
+	Sat, 26 Sep 2020 10:59:28 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 50CF0F80232; Sat, 26 Sep 2020 10:52:46 +0200 (CEST)
+ id 8535DF80234; Sat, 26 Sep 2020 10:59:25 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.1 required=5.0 tests=PRX_BODY_72, RCVD_IN_MSPIKE_H3,
- RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
+X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_MSPIKE_H3,
+ RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
 Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id E9614F80162
- for <alsa-devel@alsa-project.org>; Sat, 26 Sep 2020 10:52:39 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E9614F80162
-IronPort-SDR: Hdp+JM8UMi9c53QU8J2Ns2H8rl8IzKiewtfainUX0kmY5K2spPU43DRD5A/0zDEHNdVef54/Wl
- SDz1m/5V/+vg==
-X-IronPort-AV: E=McAfee;i="6000,8403,9755"; a="149388916"
-X-IronPort-AV: E=Sophos;i="5.77,305,1596524400"; d="scan'208";a="149388916"
+ by alsa1.perex.cz (Postfix) with ESMTPS id E0A50F80162
+ for <alsa-devel@alsa-project.org>; Sat, 26 Sep 2020 10:59:18 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E0A50F80162
+IronPort-SDR: Wsu4xjQAMz1WyqQundzGNnNsmGOhVWy959fE/Qf5CuzrcjjqgqwMJxo9b2QCLat+RLrd2dyzdQ
+ bp8vupcFxa1Q==
+X-IronPort-AV: E=McAfee;i="6000,8403,9755"; a="149389314"
+X-IronPort-AV: E=Sophos;i="5.77,305,1596524400"; d="scan'208";a="149389314"
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
-Received: from fmsmga004.fm.intel.com ([10.253.24.48])
+Received: from fmsmga001.fm.intel.com ([10.253.24.23])
  by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 26 Sep 2020 01:52:35 -0700
-IronPort-SDR: cImhc46IJrfn8yrTULuxt4rI1CtOzPVfcukjLQR1wUmXy8zZxCCZ4ANfHj0w1R3YgCuNtaMvTn
- 78fBmtJXAugQ==
+ 26 Sep 2020 01:59:16 -0700
+IronPort-SDR: soFh6iouFWMJRmmFMuI7rqj9afeCYVMaCNUP02qv4lcAQBfxGb2HQfZIrYvy0giyQ+iqceoAoV
+ wT0aPwsJZfhw==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.77,305,1596524400"; d="scan'208";a="337313313"
-Received: from irsmsx606.ger.corp.intel.com ([163.33.146.139])
- by fmsmga004.fm.intel.com with ESMTP; 26 Sep 2020 01:52:33 -0700
-Received: from irsmsx601.ger.corp.intel.com (163.33.146.7) by
- IRSMSX606.ger.corp.intel.com (163.33.146.139) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.1713.5; Sat, 26 Sep 2020 09:52:32 +0100
-Received: from irsmsx601.ger.corp.intel.com ([163.33.146.7]) by
- irsmsx601.ger.corp.intel.com ([163.33.146.7]) with mapi id 15.01.1713.004;
- Sat, 26 Sep 2020 09:52:32 +0100
-From: "Rojewski, Cezary" <cezary.rojewski@intel.com>
-To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-Subject: RE: [PATCH v8 06/14] ASoC: Intel: catpt: PCM operations
-Thread-Topic: [PATCH v8 06/14] ASoC: Intel: catpt: PCM operations
-Thread-Index: AQHWkaS+5APyIDnUPUWmt/ijNOLtz6l2LgcAgABaW+CAAT+zgIAC2MUg
-Date: Sat, 26 Sep 2020 08:52:32 +0000
-Message-ID: <e3d40c4aafc74913b0cc2c3f6a1004bf@intel.com>
-References: <20200923122508.3360-1-cezary.rojewski@intel.com>
- <20200923122508.3360-7-cezary.rojewski@intel.com>
- <20200923135422.GM3956970@smile.fi.intel.com>
- <bd5b35fd96be42579bf6d7861379772f@intel.com>
- <20200924142201.GU3956970@smile.fi.intel.com>
-In-Reply-To: <20200924142201.GU3956970@smile.fi.intel.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-dlp-product: dlpe-windows
-dlp-reaction: no-action
-dlp-version: 11.5.1.3
-x-originating-ip: [163.33.253.164]
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-MIME-Version: 1.0
-Cc: "pierre-louis.bossart@linux.intel.com"
- <pierre-louis.bossart@linux.intel.com>,
- "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>, "Kaczmarski,
- Filip" <filip.kaczmarski@intel.com>, "N,
- Harshapriya" <harshapriya.n@intel.com>,
- "gregkh@linuxfoundation.org" <gregkh@linuxfoundation.org>, "Barlik,
- Marcin" <marcin.barlik@intel.com>, "zwisler@google.com" <zwisler@google.com>,
- "lgirdwood@gmail.com" <lgirdwood@gmail.com>, "tiwai@suse.com" <tiwai@suse.com>,
- "Proborszcz, Filip" <filip.proborszcz@intel.com>,
- "broonie@kernel.org" <broonie@kernel.org>,
- "amadeuszx.slawinski@linux.intel.com" <amadeuszx.slawinski@linux.intel.com>,
- "Wasko, Michal" <michal.wasko@intel.com>,
- "cujomalainey@chromium.org" <cujomalainey@chromium.org>, "Hejmowski,
- Krzysztof" <krzysztof.hejmowski@intel.com>,
- "ppapierkowski@habana.ai" <ppapierkowski@habana.ai>, "Gopal, 
- Vamshi Krishna" <vamshi.krishna.gopal@intel.com>
+X-IronPort-AV: E=Sophos;i="5.77,305,1596524400"; d="scan'208";a="414198384"
+Received: from crojewsk-ctrl.igk.intel.com ([10.102.9.28])
+ by fmsmga001.fm.intel.com with ESMTP; 26 Sep 2020 01:59:12 -0700
+From: Cezary Rojewski <cezary.rojewski@intel.com>
+To: alsa-devel@alsa-project.org
+Subject: [PATCH v9 00/14] ASoC: Intel: Catpt - Lynx and Wildcat point
+Date: Sat, 26 Sep 2020 10:58:56 +0200
+Message-Id: <20200926085910.21948-1-cezary.rojewski@intel.com>
+X-Mailer: git-send-email 2.17.1
+Cc: pierre-louis.bossart@linux.intel.com,
+ Cezary Rojewski <cezary.rojewski@intel.com>, andriy.shevchenko@linux.intel.com,
+ filip.kaczmarski@intel.com, harshapriya.n@intel.com,
+ gregkh@linuxfoundation.org, marcin.barlik@intel.com, zwisler@google.com,
+ lgirdwood@gmail.com, tiwai@suse.com, filip.proborszcz@intel.com,
+ broonie@kernel.org, amadeuszx.slawinski@linux.intel.com,
+ michal.wasko@intel.com, cujomalainey@chromium.org,
+ krzysztof.hejmowski@intel.com, ppapierkowski@habana.ai,
+ vamshi.krishna.gopal@intel.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -113,204 +81,286 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 2020-09-24 4:22 PM, Andy Shevchenko wrote:
-> On Wed, Sep 23, 2020 at 06:23:22PM +0000, Rojewski, Cezary wrote:
->> On 2020-09-23 3:54 PM, Andy Shevchenko wrote:
->>> On Wed, Sep 23, 2020 at 02:25:00PM +0200, Cezary Rojewski wrote:
->>>> DSP designed for Lynxpoint and Wildcat Point offers no dynamic topolog=
-y
->>>> i.e. all pipelines are already defined within firmware and host is
->>>> relegated to allocing stream for predefined pins. This is represented =
-by
->>>> 'catpt_topology' member.
+Implement support for Lynxpoint and Wildcat Point AudioDSP. Catpt
+solution deprecates existing sound/soc/intel/haswell which is removed in
+the following series.
 
-...
+Due to high range of errors and desynchronization from recommendations
+set by Windows solution, re-write came as a lower-cost solution compared
+to refactoring /haswell/ with several series of patches.
 
->>>> +static u32 catpt_get_channel_map(enum catpt_channel_config config)
->>>> +{
->>>> +	switch (config) {
->>>> +	case CATPT_CHANNEL_CONFIG_MONO:
->>>> +		return (GENMASK(31, 4) | CATPT_CHANNEL_CENTER);
->>>
->>> In all cases outer parentheses are not needed. Also I expected to see D=
-UAL MONO
->>> case here, rather than below.
->>>
->>
->> Ack for the parentheses but what's wrong with the sweet '_STEREO' name?
->> This function is based on internal equivalent. As I aim to ease any
->> further debug/development by aligning with Windows equivalent, name
->> changes for no real reason do not help with that goal.
->>
->> If I'm missing something about 'DUAL MONO', feel free to correct me.
->=20
-> Nothing wrong with stereo. What I'm talking about is to move DUAL MONO fr=
-om below to here because it looks more logical to have sequence by increasi=
-ng amount of channels in use.
->=20
+Series is dependent on linux-spi change:
+spi: pxa2xx: Add SSC2 and SSPSP2 SSP registers
+https://www.spinics.net/lists/linux-spi/msg23885.html
+which has been already merged and is now part of linux-spi tree.
 
-_DUAL_MONO is so far below that even I - who is very familiar with the
-catpt's code : ) - forgotten about it. Relocating below _MONO as
-suggested.
+Bulk of series content is device driver core code - everything up to
+patch 7/14 - with fs entries and trace macros introduced right after.
+While each core patch is shaped in such a way that no unavailable
+members are ever called, until patch 14/14 is applied, no code
+compilation can occur as no Makefile is present. Once said patch is
+added, Makefile and Kconfig are implemented and driver module compiles
+as expected.
 
->>>> +	case CATPT_CHANNEL_CONFIG_STEREO:
->>>> +		return (GENMASK(31, 8) | CATPT_CHANNEL_LEFT
->>>> +				       | (CATPT_CHANNEL_RIGHT << 4));
->>>> +
->>>> +	case CATPT_CHANNEL_CONFIG_2_POINT_1:
->>>> +		return (GENMASK(31, 12) | CATPT_CHANNEL_LEFT
->>>> +					| (CATPT_CHANNEL_RIGHT << 4)
->>>> +					| (CATPT_CHANNEL_LFE << 8));
->>>> +
->>>> +	case CATPT_CHANNEL_CONFIG_3_POINT_0:
->>>> +		return (GENMASK(31, 12) | CATPT_CHANNEL_LEFT
->>>> +					| (CATPT_CHANNEL_CENTER << 4)
->>>> +					| (CATPT_CHANNEL_RIGHT << 8));
->>>> +
->>>> +	case CATPT_CHANNEL_CONFIG_3_POINT_1:
->>>> +		return (GENMASK(31, 16) | CATPT_CHANNEL_LEFT
->>>> +					| (CATPT_CHANNEL_CENTER << 4)
->>>> +					| (CATPT_CHANNEL_RIGHT << 8)
->>>> +					| (CATPT_CHANNEL_LFE << 12));
->>>> +
->>>> +	case CATPT_CHANNEL_CONFIG_QUATRO:
->>>> +		return (GENMASK(31, 16) | CATPT_CHANNEL_LEFT
->>>> +					| (CATPT_CHANNEL_RIGHT << 4)
->>>> +					| (CATPT_CHANNEL_LEFT_SURROUND << 8)
->>>> +					| (CATPT_CHANNEL_RIGHT_SURROUND << 12));
->>>> +
->>>> +	case CATPT_CHANNEL_CONFIG_4_POINT_0:
->>>> +		return (GENMASK(31, 16) | CATPT_CHANNEL_LEFT
->>>> +					| (CATPT_CHANNEL_CENTER << 4)
->>>> +					| (CATPT_CHANNEL_RIGHT << 8)
->>>> +					| (CATPT_CHANNEL_CENTER_SURROUND << 12));
->>>> +
->>>> +	case CATPT_CHANNEL_CONFIG_5_POINT_0:
->>>> +		return (GENMASK(31, 20) | CATPT_CHANNEL_LEFT
->>>> +					| (CATPT_CHANNEL_CENTER << 4)
->>>> +					| (CATPT_CHANNEL_RIGHT << 8)
->>>> +					| (CATPT_CHANNEL_LEFT_SURROUND << 12)
->>>> +					| (CATPT_CHANNEL_RIGHT_SURROUND << 16));
->>>> +
->>>> +	case CATPT_CHANNEL_CONFIG_5_POINT_1:
->>>> +		return (GENMASK(31, 24) | CATPT_CHANNEL_CENTER
->>>> +					| (CATPT_CHANNEL_LEFT << 4)
->>>> +					| (CATPT_CHANNEL_RIGHT << 8)
->>>> +					| (CATPT_CHANNEL_LEFT_SURROUND << 12)
->>>> +					| (CATPT_CHANNEL_RIGHT_SURROUND << 16)
->>>> +					| (CATPT_CHANNEL_LFE << 20));
->>>> +
->>>> +	case CATPT_CHANNEL_CONFIG_DUAL_MONO:
->>>> +		return (GENMASK(31, 8) | CATPT_CHANNEL_LEFT
->>>> +				       | (CATPT_CHANNEL_LEFT << 4));
->>>> +
->>>> +	default:
->>>> +		return U32_MAX;
->>>> +	}
->>>> +}
->>>> +
 
-...
+Special thanks go to Marcin Barlik and Piotr Papierkowski for sharing
+their LPT/WPT AudioDSP architecture expertise as well as helping
+backtrack its historical background.
+My thanks go to Amadeusz Slawinski for reviews and improvements proposed
+on and off the internal list. Most of internal diff below is his
+contribution.
+Krzysztof Hejmowski helped me setup my own Xtensa environment and
+recompile LPT/WPT FW binary sources what sped up the development greatly.
 
->>>> +#define DSP_VOLUME_MAX	S32_MAX /* 0db */
->>>
->>>> +static const u32 volume_map[] =3D {
->>>> +	DSP_VOLUME_MAX >> 30,
->>>> +	DSP_VOLUME_MAX >> 29,
->>>> +	DSP_VOLUME_MAX >> 28,
->>>> +	DSP_VOLUME_MAX >> 27,
->>>> +	DSP_VOLUME_MAX >> 26,
->>>> +	DSP_VOLUME_MAX >> 25,
->>>> +	DSP_VOLUME_MAX >> 24,
->>>> +	DSP_VOLUME_MAX >> 23,
->>>> +	DSP_VOLUME_MAX >> 22,
->>>> +	DSP_VOLUME_MAX >> 21,
->>>> +	DSP_VOLUME_MAX >> 20,
->>>> +	DSP_VOLUME_MAX >> 19,
->>>> +	DSP_VOLUME_MAX >> 18,
->>>> +	DSP_VOLUME_MAX >> 17,
->>>> +	DSP_VOLUME_MAX >> 16,
->>>> +	DSP_VOLUME_MAX >> 15,
->>>> +	DSP_VOLUME_MAX >> 14,
->>>> +	DSP_VOLUME_MAX >> 13,
->>>> +	DSP_VOLUME_MAX >> 12,
->>>> +	DSP_VOLUME_MAX >> 11,
->>>> +	DSP_VOLUME_MAX >> 10,
->>>> +	DSP_VOLUME_MAX >> 9,
->>>> +	DSP_VOLUME_MAX >> 8,
->>>> +	DSP_VOLUME_MAX >> 7,
->>>> +	DSP_VOLUME_MAX >> 6,
->>>> +	DSP_VOLUME_MAX >> 5,
->>>> +	DSP_VOLUME_MAX >> 4,
->>>> +	DSP_VOLUME_MAX >> 3,
->>>> +	DSP_VOLUME_MAX >> 2,
->>>> +	DSP_VOLUME_MAX >> 1,
->>>> +	DSP_VOLUME_MAX >> 0,
->>>> +};
->>>
->>> Why not to get rid of this table completely?
->>>
->>
->> I don't see anything wrong with this lookup table. If you insist I can
->> get rid of it - that's the last piece of /haswell/ that survived the
->> "cleanup" afterall..
->=20
-> Because it's simply not needed. I specifically asked about gaps, now I do=
-n't
-> see any possible justification why to keep the table. What are the benefi=
-ts?
->=20
+This would not have been possible without help from these champions,
+especially considering how quickly the catpt was written: 2 weeks
+features, 3 weeks optimizations. Thank you.
 
-volume_map no longer with us in v9, thanks.
+Userspace-exposed members are compatible with what is exposed by
+deprecated solution as well as FW binary being re-used thus no harm is
+done. The only visible differences are: the newly added 'Loopback Mute'
+kcontrol and volume support extending to quad from stereo.
 
->>>> +static u32 ctlvol_to_dspvol(u32 value)
->>>> +{
->>>> +	if (value >=3D ARRAY_SIZE(volume_map))
->>>> +		value =3D 0;
->>>> +	return volume_map[value];
->>>
->>> 	if (value > 30)
->>> 		value =3D 0;
->>> 	return DSP_VOLUME_MAX >> (30 - value);
->>
->> I suppose 'DSP_VOLUME_STEP_MAX 30' is to be defined right next to
->> DSP_VOLUME_MAX.
->=20
-> Yes.
->=20
->> As I said in earlier responses, please note size of this table is
->> helpful when assigning kcontrol info in catpt_volume_info(). Macro will
->> take its place then.
->=20
->>>> +}
->>>> +
->>>> +static u32 dspvol_to_ctlvol(u32 volume)
->>>> +{
->>>> +	int i;
->>>> +
->>>> +	for (i =3D 0; i < ARRAY_SIZE(volume_map); i++)
->>>> +		if (volume_map[i] >=3D volume)
->>>> +			return i;
->>>> +	return i - 1;
->>>
->>> fls() ?
->>>
->>
->> Well, fls(DSP_VOLUME_MAX) yields 31 which is inappropriate for
->> kcontrol with value range: 0-30.
->>
->> Guess you meant: __fls(). Following is the implementation (accounting
->> for edge cases):
->> 	if (volume > DSP_VOLUME_MAX)
->> 		return DSP_VOLUME_STEP_MAX;
->> 	return volume ? __fls(volume) : 0;
->=20
-> No, I meant fls() due to defined respond to 0 value.
-> But maybe __fls() works better in this case.
->=20
+On top of fixing erros and design flows, catpt also adds module reload,
+dynamic SRAM memory allocation during PCM runtime and exposes missing
+userspace API: 'Loopback Mute' kcontrol, quad volume controls and sysfs
+fw-version entries. Event tracing is provided to ease solution
+debugging.
 
-__fls() is the method of choice in v9 for reasons above.
+Following are not included in this update and are scheduled as later
+addition:
+- fw logging
+- module (library) support
 
-Thanks,
-Czarek
+Note: LPT power up/down sequences might get aligned with WPT once enough
+testing is done as capabilities are shared for both DSPs.
+Note #2: Both LPT and WPT power up/down sequences may get optimized in
+future updates as thanks to help from the Windows team, most of nuances
+behind why/what/when in regard to hw registers have been backtracked and
+reviewed again.
+
+Link to developer's deep dive message:
+https://www.spinics.net/lists/alsa-devel/msg113563.html
+
+
+Changes in v9:
+- fixed newlines in sysfs as requested by Andy, left tags as no other
+  changes done
+- removed volume_map and replaced by simple formulas for volume kcontrol
+  calculations
+- removed redundant parentheses in catpt_get_channel_map() and
+  relocated DUAL_MONO case
+- runtime suspend no longer called during module unload
+- removed redundant size checks for catpt_dsp_send_tx() and
+  catpt_dsp_copy_rx()
+
+
+Changes in v8:
+https://www.spinics.net/lists/alsa-devel/msg116168.html
+- updated catpt_arrange_page_table() with GENMASK and U32_MAX usage
+- made use of PFN_DOWN() replacing explicit right shitfs by PAGE_SIZE
+- made fw hash dumping in catpt_coredump() more readable and removed
+  hardcodes
+- catpt_coredump() dumps fw hash now only if said segment has been found
+  within fw_info
+- shortened _MSECS suffixes to _MS
+- IPC structs no longer contain enum members
+- simplified definition of catpt_set_dspvol()
+
+
+Changes in v7:
+https://www.spinics.net/lists/alsa-devel/msg116019.html
+- fixed licence header for fs.c
+- renamed fs.c to sysfs.c to better match its purpose
+- added documentation within Documentation/ABI/testing for entries
+  exposed by catpt
+- bin_attribute fw_build replaced by attribute fw_info:
+  fw_info contains full FW information and after successful handshake,
+  it's always available (stored in driver data) so no need to invoke
+  GET_FW_VERSION IPC again, just dump the stored information
+- rather than manually creating and removing sysfs files, now makes use
+  of dev_groups member of struct device_driver 
+- patch: 10/14 'ASoC: Intel: Select catpt and deprecate haswell' has
+  been moved to the back of the list: enable catpt after machine boards
+  have been prepared for it first
+- improved readability of several goto labels
+
+
+Changes in v6:
+https://www.spinics.net/lists/alsa-devel/msg115765.html
+- reordered and reorganized code for patches 1/13 - 8/13 of v5, so each
+  patches makes use of no member or function which is unavailable to it.
+  Series size increased from 13 to 14 patches: addition of base members
+  e.g.: registers has been split from addition of device.c file which
+  describes acpi device behavior
+
+
+Changes in v5:
+https://www.spinics.net/lists/alsa-devel/msg115621.html
+Basically everything below is result of Andy's review. Thank you Andy
+for taking time into this detailed review
+
+- catpt now makes use of common linux/pxa2xx_ssp.h header file, removing
+  redundant SSP register declarations in the process. As stated in the
+  opening, this is dependent upon linux-spi change:
+  spi: pxa2xx: Add SSC2 and SSPSP2 SSP registers
+
+- updated Kconfig by removing DMADEVICES and adding COMPILE_TEST
+  as optional depends-on
+- updated all register macros definitions to be more safe against common
+  arithmetics when specifying macro's parameters
+- removed CONFIG_PM and CONFIG_PM_SLEEP usage in favor of __maybe_unused
+- all 'if (ret < 0)' converted to simple 'if (ret)' whenever possible
+- fixed erroneous check for platform_device_register_data within
+  catpt_register_board()
+- _SLAVE/_MASTER replaced with more inclusive _CONSUMER/_PROVIDER for
+  enum catpt_ssp_mode
+- catpt_acpi_probe() is now making use of high-level wrappers for
+  ioremapping and resource assignment, reducing function's code size
+- due to improved catpt_acpi_probe() behavior, catpt_acpi_remove() needs
+  not to cast dma_free_coherent() any longer
+- DMA source and destrination maxburst now of value 16, see:
+https://www.spinics.net/lists/alsa-devel/msg114394.html
+
+- simplified catpt_dsp_update_lpclock() as list_for_each_entry() is
+  empty-safe by default
+- dropped '_SSP_' from all names of all CATPT_SSP_SSXXX_DEFAULT macros
+- catpt_updatel_pci now makes use of linux/pci.h and uapi/linux/pci.h
+  constants such as: PCI_PM_CTRL_STATE_MASK and PCI_D3hot
+
+
+Changes in v4:
+https://www.spinics.net/lists/alsa-devel/msg113762.html
+- fixed compilation with i386 kconfig (conflicting names)
+- streamlined naming for SHIM and PCI registers to match SSP ones
+  (SHIM_REG -> SHIM)
+- catpt_component_probe removed and kcontrols again initializzed
+  statically via snd_kcontrol_new array: this is to remove
+  kctl->id.device shenanigans
+- renamed catpt_set_ctlvol to catpt_set_dspvol - function name wasn't
+  matching its purpose
+
+
+Changes in v3:
+- fixed IRAM mask usage in lpt_dsp_power_up (dsp.c)
+- updated dbg message formatting in catpt_restore_fwimage as suggested
+  by Andy
+- fixed alignment for struct catpt_ssp_device_format
+- catpt_set_ctlvol now verifies all-equal scenario based on all
+  channels rather than just first two as requested by Amadeo
+- fixed SPDX for registers.h
+
+
+Changes in v2:
+https://www.spinics.net/lists/alsa-devel/msg113660.html
+- fixed SPDX formatting for all header files as well as pcm.c
+- fixed size provided to memcpy() in fw_build_read() as reported by Mark
+- renamed struct catpt_pdata to struct catpt_spec (cosmetic)
+- fixed erroneous path in catpt_load_block: region is properly released
+- trace.h events for updating registers have been removed and usages
+  replaced by dev_dbg (SRAMPGE/ LPCS)
+
+- as requested by Andy, struct resource has replaced struct catpt_mbank
+  and struct catpt_mregion. This change cascaded into:
+
+  - catpt_mbank_size and catpt_mregion_size replaced by resource_size
+  - catpt_mregion_intersects replaced by resource_overlaps
+  - all catpt_mbank_ and catpt_mregion_ handlers found in loader.c
+    (_request, _reserve, _release, _extract, _split, _join) have been
+    removed
+  - __request_region and __release_region have been enlisted in their
+    place
+  - catpt_mregion_intersecting renamed to catpt_resource_overlapping
+  - catpt_request_region helper has been provided to deal with -size
+    based requests
+      o haven't found direct replacements in resource.c/ ioport.h for
+      both functions
+
+  - catpt_mbank_create and catpt_mbank_remove renamed to catpt_sram_init
+    and catpt_sram_free respectively
+  - catpt_sram_init now returns void instead of int and has been
+    converted to simple initialized. This change ultimately cascaded
+    into:
+      o both SRAM banks initialization being moved to catpt_dev_init
+        from catpt_acpi_probe (device.c)
+      o catpt_dev::spec is now initialized first, with catpt_dev_init
+        following it soon after
+      o catpt_acpi_probe erroneous path has been simplified as SRAM
+        banks no longer need to be freed
+
+  - catpt_sram_free now frees all resources via child -> sibling
+    enumeration rather than region_list iteration
+  - catpt_dsp_update_srampge and catpt_dsp_set_srampge now accept new
+    argument: unsigned long mask. Caused by removal of catpt_mbank -
+    mask is taken directly from catpt_dev::spec::d/iram_mask
+  - trace.h events for catpt_mbank and catpt_mregion have been removed
+
+
+Diff against last drop on internal list:
+https://www.spinics.net/lists/alsa-devel/msg113549.html
+- replaced spinlock with mutex for mregion allocation and release to
+  address sleeping in atomic context warnings
+- fixed coredump fw_hash dumping
+- kcontrol values are now always stored regardless of stream of interest
+  is running or not
+- kcontrol values are now applied after stream is prepared instead of
+  ignoring what has been set by user initially
+- catpt_pdata instances have been renamed from hsw_ and bdw_ to lpt_ and
+  wpt_ respectively
+- reordered Makefile .o(s) (cosmetic)
+
+
+Cezary Rojewski (14):
+  ASoC: Intel: Add catpt base members
+  ASoC: Intel: catpt: Implement IPC protocol
+  ASoC: Intel: catpt: Add IPC message handlers
+  ASoC: Intel: catpt: Define DSP operations
+  ASoC: Intel: catpt: Firmware loading and context restore
+  ASoC: Intel: catpt: PCM operations
+  ASoC: Intel: catpt: Device driver lifecycle
+  ASoC: Intel: catpt: Event tracing
+  ASoC: Intel: catpt: Simple sysfs attributes
+  ASoC: Intel: haswell: Remove haswell-solution specific code
+  ASoC: Intel: broadwell: Remove haswell-solution specific code
+  ASoC: Intel: bdw-5650: Remove haswell-solution specific code
+  ASoC: Intel: bdw-5677: Remove haswell-solution specific code
+  ASoC: Intel: Select catpt and deprecate haswell
+
+ .../ABI/testing/sysfs-bus-pci-devices-catpt   |   16 +
+ sound/soc/intel/Kconfig                       |   24 +-
+ sound/soc/intel/Makefile                      |    2 +-
+ sound/soc/intel/boards/Kconfig                |    8 +-
+ sound/soc/intel/boards/bdw-rt5650.c           |   36 -
+ sound/soc/intel/boards/bdw-rt5677.c           |   33 -
+ sound/soc/intel/boards/broadwell.c            |   33 -
+ sound/soc/intel/boards/haswell.c              |   28 +-
+ sound/soc/intel/catpt/Makefile                |    6 +
+ sound/soc/intel/catpt/core.h                  |  188 +++
+ sound/soc/intel/catpt/device.c                |  352 +++++
+ sound/soc/intel/catpt/dsp.c                   |  578 ++++++++
+ sound/soc/intel/catpt/ipc.c                   |  297 +++++
+ sound/soc/intel/catpt/loader.c                |  671 ++++++++++
+ sound/soc/intel/catpt/messages.c              |  313 +++++
+ sound/soc/intel/catpt/messages.h              |  401 ++++++
+ sound/soc/intel/catpt/pcm.c                   | 1175 +++++++++++++++++
+ sound/soc/intel/catpt/registers.h             |  178 +++
+ sound/soc/intel/catpt/sysfs.c                 |   55 +
+ sound/soc/intel/catpt/trace.h                 |   83 ++
+ 20 files changed, 4334 insertions(+), 143 deletions(-)
+ create mode 100644 Documentation/ABI/testing/sysfs-bus-pci-devices-catpt
+ create mode 100644 sound/soc/intel/catpt/Makefile
+ create mode 100644 sound/soc/intel/catpt/core.h
+ create mode 100644 sound/soc/intel/catpt/device.c
+ create mode 100644 sound/soc/intel/catpt/dsp.c
+ create mode 100644 sound/soc/intel/catpt/ipc.c
+ create mode 100644 sound/soc/intel/catpt/loader.c
+ create mode 100644 sound/soc/intel/catpt/messages.c
+ create mode 100644 sound/soc/intel/catpt/messages.h
+ create mode 100644 sound/soc/intel/catpt/pcm.c
+ create mode 100644 sound/soc/intel/catpt/registers.h
+ create mode 100644 sound/soc/intel/catpt/sysfs.c
+ create mode 100644 sound/soc/intel/catpt/trace.h
+
+-- 
+2.17.1
 

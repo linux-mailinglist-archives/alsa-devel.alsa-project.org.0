@@ -2,49 +2,69 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id CD7C3279975
-	for <lists+alsa-devel@lfdr.de>; Sat, 26 Sep 2020 15:03:55 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id AAE83279A11
+	for <lists+alsa-devel@lfdr.de>; Sat, 26 Sep 2020 16:16:22 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 64A651A94;
-	Sat, 26 Sep 2020 15:03:04 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 64A651A94
+	by alsa0.perex.cz (Postfix) with ESMTPS id A54241A9B;
+	Sat, 26 Sep 2020 16:15:31 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A54241A9B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1601125434;
-	bh=3PFG3N7XwK6O4p1fn6Zp0ZDTTM5E9MZj+kTkguS9S00=;
-	h=From:To:In-Reply-To:References:Subject:Date:List-Id:
+	s=default; t=1601129781;
+	bh=m/pWUM2bMReEv8jncKYWTiA7rHF48rneBW1KwjAdpvo=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=XhZhJDXhwbt1biNQvzl6CqIfpl/pTU7ST2Vl6Mk9oJKeNuvM/IoTzcPHHUiLRdqGY
-	 HMQY9gY0K//KGxCMabeOUZD+uPupqdftDPK59pE5s4vJy4UlaD6ESUtKE081R1CgGZ
-	 EZac8WxbGDAQU5xurgCUQ6IwMhJgXbvOJQDP9URk=
+	b=HEfvz/jdIFi/5kKu64H9mvO9G3KncFbaxbI+HyBGPimfgUXGrjEZN9N4G+L9xXASt
+	 0RA/lW2sAp4HXvbuGuYiZR4tZUU6W/HHBjbYLIVZdMfcQwri+WQKwKyVbYqj3RMyDU
+	 PxN6XpRdixRp/xWDi4C9iPaCESAsxniipJMka9QU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 84B64F80162;
-	Sat, 26 Sep 2020 15:02:13 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 93FBFF80234;
+	Sat, 26 Sep 2020 16:14:40 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 55BE8F80229; Sat, 26 Sep 2020 15:02:11 +0200 (CEST)
+ id 2C9E2F80232; Sat, 26 Sep 2020 16:14:38 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: **
-X-Spam-Status: No, score=2.5 required=5.0 tests=MISSING_DATE,MISSING_MID,
- SPF_FAIL,SPF_HELO_NONE autolearn=disabled version=3.4.0
-Received: from webhooks-bot.alsa-project.org (gate.perex.cz [77.48.224.242])
- by alsa1.perex.cz (Postfix) with ESMTP id E8C9EF800FD
- for <alsa-devel@alsa-project.org>; Sat, 26 Sep 2020 15:02:07 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E8C9EF800FD
+X-Spam-Level: 
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE
+ autolearn=disabled version=3.4.0
+Received: from verein.lst.de (verein.lst.de [213.95.11.211])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id BD76BF800FD
+ for <alsa-devel@alsa-project.org>; Sat, 26 Sep 2020 16:14:32 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BD76BF800FD
+Received: by verein.lst.de (Postfix, from userid 2407)
+ id 6B5EE68B05; Sat, 26 Sep 2020 16:14:29 +0200 (CEST)
+Date: Sat, 26 Sep 2020 16:14:28 +0200
+From: Christoph Hellwig <hch@lst.de>
+To: Tomasz Figa <tfiga@chromium.org>
+Subject: Re: [PATCH 17/18] dma-iommu: implement ->alloc_noncoherent
+Message-ID: <20200926141428.GB10379@lst.de>
+References: <20200915155122.1768241-1-hch@lst.de>
+ <20200915155122.1768241-18-hch@lst.de>
+ <20200925184622.GB3607091@chromium.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
-From: GitHub issues - opened <github@alsa-project.org>
-To: alsa-devel@alsa-project.org
-In-Reply-To: <1601125327433012009-webhooks-bot@alsa-project.org>
-References: <1601125327433012009-webhooks-bot@alsa-project.org>
-Subject: Ability to set ALSA PLUGIN DIR,
- etc. at runtime via environment variables
-Message-Id: <20200926130211.55BE8F80229@alsa1.perex.cz>
-Date: Sat, 26 Sep 2020 15:02:11 +0200 (CEST)
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20200925184622.GB3607091@chromium.org>
+User-Agent: Mutt/1.5.17 (2007-11-01)
+Cc: alsa-devel@alsa-project.org, linux-doc@vger.kernel.org,
+ nouveau@lists.freedesktop.org, linux-mips@vger.kernel.org,
+ "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>,
+ linux-mm@kvack.org, linux1394-devel@lists.sourceforge.net,
+ Christoph Hellwig <hch@lst.de>, Marek Szyprowski <m.szyprowski@samsung.com>,
+ linux-samsung-soc@vger.kernel.org, Joonyoung Shim <jy0922.shim@samsung.com>,
+ linux-scsi@vger.kernel.org, Ben Skeggs <bskeggs@redhat.com>,
+ Matt Porter <mporter@kernel.crashing.org>, linux-media@vger.kernel.org,
+ Mauro Carvalho Chehab <mchehab@kernel.org>,
+ linux-arm-kernel@lists.infradead.org,
+ Thomas Bogendoerfer <tsbogend@alpha.franken.de>, linux-parisc@vger.kernel.org,
+ netdev@vger.kernel.org, Seung-Woo Kim <sw0312.kim@samsung.com>,
+ linux-kernel@vger.kernel.org, iommu@lists.linux-foundation.org,
+ Stefan Richter <stefanr@s5r6.in-berlin.de>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -60,13 +80,31 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-alsa-project/alsa-lib issue #82 was opened from peanutbutterandcrackers:
+On Fri, Sep 25, 2020 at 06:46:22PM +0000, Tomasz Figa wrote:
+> > +static void *iommu_dma_alloc_noncoherent(struct device *dev, size_t size,
+> > +		dma_addr_t *handle, enum dma_data_direction dir, gfp_t gfp)
+> > +{
+> > +	if (!gfpflags_allow_blocking(gfp)) {
+> > +		struct page *page;
+> > +
+> > +		page = dma_common_alloc_pages(dev, size, handle, dir, gfp);
+> > +		if (!page)
+> > +			return NULL;
+> > +		return page_address(page);
+> > +	}
+> > +
+> > +	return iommu_dma_alloc_remap(dev, size, handle, gfp | __GFP_ZERO,
+> > +				     PAGE_KERNEL, 0);
+> 
+> iommu_dma_alloc_remap() makes use of the DMA_ATTR_ALLOC_SINGLE_PAGES attribute
+> to optimize the allocations for devices which don't care about how contiguous
+> the backing memory is. Do you think we could add an attrs argument to this
+> function and pass it there?
+> 
+> As ARM is being moved to the common iommu-dma layer as well, we'll probably
+> make use of the argument to support the DMA_ATTR_NO_KERNEL_MAPPING attribute to
+> conserve the vmalloc area.
 
-Hello there,
-
-I would like to request a feature to set things like `ALSA_PLUGIN_DIR` etc during runtime using environment variables. Currently, these seem to be set-able only at build-time, or by using a `.asoundrc` file.
-
-Or, if something like that is already possible, please do point me to the relevant documentation. Thank you very much.
-
-Issue URL     : https://github.com/alsa-project/alsa-lib/issues/82
-Repository URL: https://github.com/alsa-project/alsa-lib
+We could probably at it.  However I wonder why this is something the
+drivers should care about.  Isn't this really something that should
+be a kernel-wide policy for a given system?

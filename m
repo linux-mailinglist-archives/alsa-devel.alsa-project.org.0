@@ -2,65 +2,62 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id CBC80279DD1
-	for <lists+alsa-devel@lfdr.de>; Sun, 27 Sep 2020 05:53:51 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4E875279F22
+	for <lists+alsa-devel@lfdr.de>; Sun, 27 Sep 2020 09:08:57 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 445641AAC;
-	Sun, 27 Sep 2020 05:53:01 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 445641AAC
+	by alsa0.perex.cz (Postfix) with ESMTPS id B54DB1AAC;
+	Sun, 27 Sep 2020 09:08:06 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B54DB1AAC
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1601178831;
-	bh=0VV5NvL22FXSB8BoHBg8xDUIyGqpTdKyTCeNonPh61w=;
-	h=Subject:From:To:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=fMoZ7SuhH8dXP1LzsrxwJgePciK9EDdKmczyG8TOaGmgw7YBGdgPJBCo5XLkthems
-	 y4gRga1z8N0VjPfXk0Up4sYxEQIb4FpFJaHUhwU/hdeHCtlUJQVxzNEP0qP+S6mvrL
-	 nZvjXpUR4lN3SCNZMPaCl0OkCxpZIiRStBeXywGs=
+	s=default; t=1601190536;
+	bh=+cDNapmqqzTI8yRi42v2wT16LJpxn6k2FX+41rkcGh4=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=IfODRlLJ6/KYCjYEIxc9UMqq01swSQOFa7vWF71GISfloJ0Gm7lqLyKfeR1B+J50O
+	 g8Y8M8uP1nfL1FOiKHV06yBBK7X04sv1UOC4pJPurnVUl3yZ7SQ1cHnphFJjXlCmjt
+	 NOhWOAA++nldq9AWD6GEA6rb8647zGJHV+hmkNt8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 4F55BF800FD;
-	Sun, 27 Sep 2020 05:52:10 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id D3539F800B5;
+	Sun, 27 Sep 2020 09:07:15 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 4B180F801F5; Sun, 27 Sep 2020 05:52:06 +0200 (CEST)
+ id E7499F800FD; Sun, 27 Sep 2020 09:07:13 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: *
-X-Spam-Status: No, score=1.5 required=5.0 tests=KHOP_HELO_FCRDNS,
- RCVD_IN_MSPIKE_H3,RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_NONE,UPPERCASE_75_100,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from smtprelay.hostedemail.com (smtprelay0217.hostedemail.com
- [216.40.44.217])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Level: 
+X-Spam-Status: No, score=-0.0 required=5.0 tests=RCVD_IN_MSPIKE_H3,
+ RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
+Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id CCDE1F800FD
- for <alsa-devel@alsa-project.org>; Sun, 27 Sep 2020 05:52:01 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CCDE1F800FD
-Received: from filter.hostedemail.com (clb03-v110.bra.tucows.net
- [216.40.38.60])
- by smtprelay04.hostedemail.com (Postfix) with ESMTP id D18FD1800E618;
- Sun, 27 Sep 2020 03:51:58 +0000 (UTC)
-X-Session-Marker: 6A6F6540706572636865732E636F6D
-X-HE-Tag: club21_1e16c5727175
-X-Filterd-Recvd-Size: 10671
-Received: from XPS-9350.home (unknown [47.151.133.149])
- (Authenticated sender: joe@perches.com)
- by omf04.hostedemail.com (Postfix) with ESMTPA;
- Sun, 27 Sep 2020 03:51:57 +0000 (UTC)
-Message-ID: <8021c01c20a28b956591ccf76d4396f1835c8e81.camel@perches.com>
-Subject: [PATCH] ASoC: q6afe-clocks: Reduce code duplication via macro
-From: Joe Perches <joe@perches.com>
-To: Patrick Lai <plai@codeaurora.org>, Banajit Goswami
- <bgoswami@codeaurora.org>
-Date: Sat, 26 Sep 2020 20:51:56 -0700
-Content-Type: text/plain; charset="ISO-8859-1"
-User-Agent: Evolution 3.36.4-0ubuntu1 
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Cc: alsa-devel@alsa-project.org, Liam Girdwood <lgirdwood@gmail.com>,
- linux-kernel <linux-kernel@vger.kernel.org>, Takashi Iwai <tiwai@suse.com>,
- Mark Brown <broonie@kernel.org>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 321D0F800FD
+ for <alsa-devel@alsa-project.org>; Sun, 27 Sep 2020 09:07:03 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 321D0F800FD
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id 9BB1AABAD;
+ Sun, 27 Sep 2020 07:07:02 +0000 (UTC)
+Date: Sun, 27 Sep 2020 09:07:02 +0200
+Message-ID: <s5htuvjpujt.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: syzbot <syzbot+f816042a7ae2225f25ba@syzkaller.appspotmail.com>
+Subject: Re: BUG: unable to handle kernel paging request in dqput
+In-Reply-To: <00000000000067becf05b03d8dd6@google.com>
+References: <00000000000067becf05b03d8dd6@google.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
+ FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
+ (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
+Content-Type: text/plain; charset=US-ASCII
+Cc: alsa-devel@alsa-project.org, netdev@vger.kernel.org, adi@adirat.com,
+ kadlec@blackhole.kfki.hu, syzkaller-bugs@googlegroups.com,
+ linux-kernel@vger.kernel.org, davem@davemloft.net, coreteam@netfilter.org,
+ netfilter-devel@vger.kernel.org, jack@suse.com, tiwai@suse.com,
+ kaber@trash.net, pablo@netfilter.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -76,229 +73,132 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-The existing macro uses duplicate the index value so
-move the index into the macro to reduce any possible
-copy/paste and typo defects.
+On Sat, 26 Sep 2020 22:48:15 +0200,
+syzbot wrote:
+> 
+> Hello,
+> 
+> syzbot found the following issue on:
+> 
+> HEAD commit:    98477740 Merge branch 'rcu/urgent' of git://git.kernel.org..
+> git tree:       upstream
+> console output: https://syzkaller.appspot.com/x/log.txt?x=17930875900000
+> kernel config:  https://syzkaller.appspot.com/x/.config?x=af502ec9a451c9fc
+> dashboard link: https://syzkaller.appspot.com/bug?extid=f816042a7ae2225f25ba
+> compiler:       clang version 10.0.0 (https://github.com/llvm/llvm-project/ c2443155a0fb245c8f17f2c1c72b6ea391e86e81)
+> syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=133783ab900000
+> C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=13bb5973900000
+> 
+> The issue was bisected to:
+> 
+> commit 1d0f953086f090a022f2c0e1448300c15372db46
+> Author: Ioan-Adrian Ratiu <adi@adirat.com>
+> Date:   Wed Jan 4 22:37:46 2017 +0000
+> 
+>     ALSA: usb-audio: Fix irq/process data synchronization
+> 
+> bisection log:  https://syzkaller.appspot.com/x/bisect.txt?x=133362c3900000
+> final oops:     https://syzkaller.appspot.com/x/report.txt?x=10b362c3900000
+> console output: https://syzkaller.appspot.com/x/log.txt?x=173362c3900000
 
-Miscellanea:
-
-o Neaten macro
-
-Signed-off-by: Joe Perches <joe@perches.com>
----
- sound/soc/qcom/qdsp6/q6afe-clocks.c | 191 ++++++++++++++++++-----------
--------
- 1 file changed, 93 insertions(+), 98 deletions(-)
-
-diff --git a/sound/soc/qcom/qdsp6/q6afe-clocks.c b/sound/soc/qcom/qdsp6/q6afe-clocks.c
-index 2967f4546af5..4d897d6dad56 100644
---- a/sound/soc/qcom/qdsp6/q6afe-clocks.c
-+++ b/sound/soc/qcom/qdsp6/q6afe-clocks.c
-@@ -11,27 +11,6 @@
- #include <linux/slab.h>
- #include "q6afe.h"
- 
--#define Q6AFE_CLK(id) &(struct q6afe_clk) {		\
--		.clk_id	= id,				\
--		.afe_clk_id	= Q6AFE_##id,		\
--		.name = #id,				\
--		.attributes = LPASS_CLK_ATTRIBUTE_COUPLE_NO, \
--		.hw.init = &(struct clk_init_data) {	\
--			.ops = &clk_q6afe_ops,		\
--			.name = #id,			\
--		},					\
--	}
--
--#define Q6AFE_VOTE_CLK(id, blkid, n) &(struct q6afe_clk) { \
--		.clk_id	= id,				\
--		.afe_clk_id = blkid,			\
--		.name = #n,				\
--		.hw.init = &(struct clk_init_data) {	\
--			.ops = &clk_vote_q6afe_ops,	\
--			.name = #id,			\
--		},					\
--	}
--
- struct q6afe_clk {
- 	struct device *dev;
- 	int clk_id;
-@@ -119,84 +98,100 @@ static const struct clk_ops clk_vote_q6afe_ops = {
- 	.unprepare	= clk_unvote_q6afe_block,
- };
- 
-+#define Q6AFE_CLK(id)							\
-+	[id] = &(struct q6afe_clk) {					\
-+		.clk_id	= id,						\
-+		.afe_clk_id = Q6AFE_##id,				\
-+		.name = #id,						\
-+		.attributes = LPASS_CLK_ATTRIBUTE_COUPLE_NO,		\
-+		.hw.init = &(struct clk_init_data) {			\
-+			.ops = &clk_q6afe_ops,				\
-+			.name = #id,					\
-+		},							\
-+	}
-+
-+#define Q6AFE_VOTE_CLK(id, blkid, n)					\
-+	[id] = &(struct q6afe_clk) {					\
-+		.clk_id	= id,						\
-+		.afe_clk_id = blkid,					\
-+		.name = #n,						\
-+		.hw.init = &(struct clk_init_data) {			\
-+			.ops = &clk_vote_q6afe_ops,			\
-+			.name = #id,					\
-+		},							\
-+	}
-+
- struct q6afe_clk *q6afe_clks[Q6AFE_MAX_CLK_ID] = {
--	[LPASS_CLK_ID_PRI_MI2S_IBIT] = Q6AFE_CLK(LPASS_CLK_ID_PRI_MI2S_IBIT),
--	[LPASS_CLK_ID_PRI_MI2S_EBIT] = Q6AFE_CLK(LPASS_CLK_ID_PRI_MI2S_EBIT),
--	[LPASS_CLK_ID_SEC_MI2S_IBIT] = Q6AFE_CLK(LPASS_CLK_ID_SEC_MI2S_IBIT),
--	[LPASS_CLK_ID_SEC_MI2S_EBIT] = Q6AFE_CLK(LPASS_CLK_ID_SEC_MI2S_EBIT),
--	[LPASS_CLK_ID_TER_MI2S_IBIT] = Q6AFE_CLK(LPASS_CLK_ID_TER_MI2S_IBIT),
--	[LPASS_CLK_ID_TER_MI2S_EBIT] = Q6AFE_CLK(LPASS_CLK_ID_TER_MI2S_EBIT),
--	[LPASS_CLK_ID_QUAD_MI2S_IBIT] = Q6AFE_CLK(LPASS_CLK_ID_QUAD_MI2S_IBIT),
--	[LPASS_CLK_ID_QUAD_MI2S_EBIT] = Q6AFE_CLK(LPASS_CLK_ID_QUAD_MI2S_EBIT),
--	[LPASS_CLK_ID_SPEAKER_I2S_IBIT] =
--				Q6AFE_CLK(LPASS_CLK_ID_SPEAKER_I2S_IBIT),
--	[LPASS_CLK_ID_SPEAKER_I2S_EBIT] =
--				Q6AFE_CLK(LPASS_CLK_ID_SPEAKER_I2S_EBIT),
--	[LPASS_CLK_ID_SPEAKER_I2S_OSR] =
--				Q6AFE_CLK(LPASS_CLK_ID_SPEAKER_I2S_OSR),
--	[LPASS_CLK_ID_QUI_MI2S_IBIT] = Q6AFE_CLK(LPASS_CLK_ID_QUI_MI2S_IBIT),
--	[LPASS_CLK_ID_QUI_MI2S_EBIT] = Q6AFE_CLK(LPASS_CLK_ID_QUI_MI2S_EBIT),
--	[LPASS_CLK_ID_SEN_MI2S_IBIT] = Q6AFE_CLK(LPASS_CLK_ID_SEN_MI2S_IBIT),
--	[LPASS_CLK_ID_SEN_MI2S_EBIT] = Q6AFE_CLK(LPASS_CLK_ID_SEN_MI2S_EBIT),
--	[LPASS_CLK_ID_INT0_MI2S_IBIT] = Q6AFE_CLK(LPASS_CLK_ID_INT0_MI2S_IBIT),
--	[LPASS_CLK_ID_INT1_MI2S_IBIT] = Q6AFE_CLK(LPASS_CLK_ID_INT1_MI2S_IBIT),
--	[LPASS_CLK_ID_INT2_MI2S_IBIT] = Q6AFE_CLK(LPASS_CLK_ID_INT2_MI2S_IBIT),
--	[LPASS_CLK_ID_INT3_MI2S_IBIT] = Q6AFE_CLK(LPASS_CLK_ID_INT3_MI2S_IBIT),
--	[LPASS_CLK_ID_INT4_MI2S_IBIT] = Q6AFE_CLK(LPASS_CLK_ID_INT4_MI2S_IBIT),
--	[LPASS_CLK_ID_INT5_MI2S_IBIT] = Q6AFE_CLK(LPASS_CLK_ID_INT5_MI2S_IBIT),
--	[LPASS_CLK_ID_INT6_MI2S_IBIT] = Q6AFE_CLK(LPASS_CLK_ID_INT6_MI2S_IBIT),
--	[LPASS_CLK_ID_QUI_MI2S_OSR] = Q6AFE_CLK(LPASS_CLK_ID_QUI_MI2S_OSR),
--	[LPASS_CLK_ID_PRI_PCM_IBIT] = Q6AFE_CLK(LPASS_CLK_ID_PRI_PCM_IBIT),
--	[LPASS_CLK_ID_PRI_PCM_EBIT] = Q6AFE_CLK(LPASS_CLK_ID_PRI_PCM_EBIT),
--	[LPASS_CLK_ID_SEC_PCM_IBIT] = Q6AFE_CLK(LPASS_CLK_ID_SEC_PCM_IBIT),
--	[LPASS_CLK_ID_SEC_PCM_EBIT] = Q6AFE_CLK(LPASS_CLK_ID_SEC_PCM_EBIT),
--	[LPASS_CLK_ID_TER_PCM_IBIT] = Q6AFE_CLK(LPASS_CLK_ID_TER_PCM_IBIT),
--	[LPASS_CLK_ID_TER_PCM_EBIT] = Q6AFE_CLK(LPASS_CLK_ID_TER_PCM_EBIT),
--	[LPASS_CLK_ID_QUAD_PCM_IBIT] = Q6AFE_CLK(LPASS_CLK_ID_QUAD_PCM_IBIT),
--	[LPASS_CLK_ID_QUAD_PCM_EBIT] = Q6AFE_CLK(LPASS_CLK_ID_QUAD_PCM_EBIT),
--	[LPASS_CLK_ID_QUIN_PCM_IBIT] = Q6AFE_CLK(LPASS_CLK_ID_QUIN_PCM_IBIT),
--	[LPASS_CLK_ID_QUIN_PCM_EBIT] = Q6AFE_CLK(LPASS_CLK_ID_QUIN_PCM_EBIT),
--	[LPASS_CLK_ID_QUI_PCM_OSR] = Q6AFE_CLK(LPASS_CLK_ID_QUI_PCM_OSR),
--	[LPASS_CLK_ID_PRI_TDM_IBIT] = Q6AFE_CLK(LPASS_CLK_ID_PRI_TDM_IBIT),
--	[LPASS_CLK_ID_PRI_TDM_EBIT] = Q6AFE_CLK(LPASS_CLK_ID_PRI_TDM_EBIT),
--	[LPASS_CLK_ID_SEC_TDM_IBIT] = Q6AFE_CLK(LPASS_CLK_ID_SEC_TDM_IBIT),
--	[LPASS_CLK_ID_SEC_TDM_EBIT] = Q6AFE_CLK(LPASS_CLK_ID_SEC_TDM_EBIT),
--	[LPASS_CLK_ID_TER_TDM_IBIT] = Q6AFE_CLK(LPASS_CLK_ID_TER_TDM_IBIT),
--	[LPASS_CLK_ID_TER_TDM_EBIT] = Q6AFE_CLK(LPASS_CLK_ID_TER_TDM_EBIT),
--	[LPASS_CLK_ID_QUAD_TDM_IBIT] = Q6AFE_CLK(LPASS_CLK_ID_QUAD_TDM_IBIT),
--	[LPASS_CLK_ID_QUAD_TDM_EBIT] = Q6AFE_CLK(LPASS_CLK_ID_QUAD_TDM_EBIT),
--	[LPASS_CLK_ID_QUIN_TDM_IBIT] = Q6AFE_CLK(LPASS_CLK_ID_QUIN_TDM_IBIT),
--	[LPASS_CLK_ID_QUIN_TDM_EBIT] = Q6AFE_CLK(LPASS_CLK_ID_QUIN_TDM_EBIT),
--	[LPASS_CLK_ID_QUIN_TDM_OSR] = Q6AFE_CLK(LPASS_CLK_ID_QUIN_TDM_OSR),
--	[LPASS_CLK_ID_MCLK_1] = Q6AFE_CLK(LPASS_CLK_ID_MCLK_1),
--	[LPASS_CLK_ID_MCLK_2] = Q6AFE_CLK(LPASS_CLK_ID_MCLK_2),
--	[LPASS_CLK_ID_MCLK_3] = Q6AFE_CLK(LPASS_CLK_ID_MCLK_3),
--	[LPASS_CLK_ID_MCLK_4] = Q6AFE_CLK(LPASS_CLK_ID_MCLK_4),
--	[LPASS_CLK_ID_INTERNAL_DIGITAL_CODEC_CORE] =
--		Q6AFE_CLK(LPASS_CLK_ID_INTERNAL_DIGITAL_CODEC_CORE),
--	[LPASS_CLK_ID_INT_MCLK_0] = Q6AFE_CLK(LPASS_CLK_ID_INT_MCLK_0),
--	[LPASS_CLK_ID_INT_MCLK_1] = Q6AFE_CLK(LPASS_CLK_ID_INT_MCLK_1),
--	[LPASS_CLK_ID_WSA_CORE_MCLK] = Q6AFE_CLK(LPASS_CLK_ID_WSA_CORE_MCLK),
--	[LPASS_CLK_ID_WSA_CORE_NPL_MCLK] =
--				Q6AFE_CLK(LPASS_CLK_ID_WSA_CORE_NPL_MCLK),
--	[LPASS_CLK_ID_VA_CORE_MCLK] = Q6AFE_CLK(LPASS_CLK_ID_VA_CORE_MCLK),
--	[LPASS_CLK_ID_TX_CORE_MCLK] = Q6AFE_CLK(LPASS_CLK_ID_TX_CORE_MCLK),
--	[LPASS_CLK_ID_TX_CORE_NPL_MCLK] =
--			Q6AFE_CLK(LPASS_CLK_ID_TX_CORE_NPL_MCLK),
--	[LPASS_CLK_ID_RX_CORE_MCLK] = Q6AFE_CLK(LPASS_CLK_ID_RX_CORE_MCLK),
--	[LPASS_CLK_ID_RX_CORE_NPL_MCLK] =
--				Q6AFE_CLK(LPASS_CLK_ID_RX_CORE_NPL_MCLK),
--	[LPASS_CLK_ID_VA_CORE_2X_MCLK] =
--				Q6AFE_CLK(LPASS_CLK_ID_VA_CORE_2X_MCLK),
--	[LPASS_HW_AVTIMER_VOTE] = Q6AFE_VOTE_CLK(LPASS_HW_AVTIMER_VOTE,
--						 Q6AFE_LPASS_CORE_AVTIMER_BLOCK,
--						 "LPASS_AVTIMER_MACRO"),
--	[LPASS_HW_MACRO_VOTE] = Q6AFE_VOTE_CLK(LPASS_HW_MACRO_VOTE,
--						Q6AFE_LPASS_CORE_HW_MACRO_BLOCK,
--						"LPASS_HW_MACRO"),
--	[LPASS_HW_DCODEC_VOTE] = Q6AFE_VOTE_CLK(LPASS_HW_DCODEC_VOTE,
--					Q6AFE_LPASS_CORE_HW_DCODEC_BLOCK,
--					"LPASS_HW_DCODEC"),
-+	Q6AFE_CLK(LPASS_CLK_ID_PRI_MI2S_IBIT),
-+	Q6AFE_CLK(LPASS_CLK_ID_PRI_MI2S_EBIT),
-+	Q6AFE_CLK(LPASS_CLK_ID_SEC_MI2S_IBIT),
-+	Q6AFE_CLK(LPASS_CLK_ID_SEC_MI2S_EBIT),
-+	Q6AFE_CLK(LPASS_CLK_ID_TER_MI2S_IBIT),
-+	Q6AFE_CLK(LPASS_CLK_ID_TER_MI2S_EBIT),
-+	Q6AFE_CLK(LPASS_CLK_ID_QUAD_MI2S_IBIT),
-+	Q6AFE_CLK(LPASS_CLK_ID_QUAD_MI2S_EBIT),
-+	Q6AFE_CLK(LPASS_CLK_ID_SPEAKER_I2S_IBIT),
-+	Q6AFE_CLK(LPASS_CLK_ID_SPEAKER_I2S_EBIT),
-+	Q6AFE_CLK(LPASS_CLK_ID_SPEAKER_I2S_OSR),
-+	Q6AFE_CLK(LPASS_CLK_ID_QUI_MI2S_IBIT),
-+	Q6AFE_CLK(LPASS_CLK_ID_QUI_MI2S_EBIT),
-+	Q6AFE_CLK(LPASS_CLK_ID_SEN_MI2S_IBIT),
-+	Q6AFE_CLK(LPASS_CLK_ID_SEN_MI2S_EBIT),
-+	Q6AFE_CLK(LPASS_CLK_ID_INT0_MI2S_IBIT),
-+	Q6AFE_CLK(LPASS_CLK_ID_INT1_MI2S_IBIT),
-+	Q6AFE_CLK(LPASS_CLK_ID_INT2_MI2S_IBIT),
-+	Q6AFE_CLK(LPASS_CLK_ID_INT3_MI2S_IBIT),
-+	Q6AFE_CLK(LPASS_CLK_ID_INT4_MI2S_IBIT),
-+	Q6AFE_CLK(LPASS_CLK_ID_INT5_MI2S_IBIT),
-+	Q6AFE_CLK(LPASS_CLK_ID_INT6_MI2S_IBIT),
-+	Q6AFE_CLK(LPASS_CLK_ID_QUI_MI2S_OSR),
-+	Q6AFE_CLK(LPASS_CLK_ID_PRI_PCM_IBIT),
-+	Q6AFE_CLK(LPASS_CLK_ID_PRI_PCM_EBIT),
-+	Q6AFE_CLK(LPASS_CLK_ID_SEC_PCM_IBIT),
-+	Q6AFE_CLK(LPASS_CLK_ID_SEC_PCM_EBIT),
-+	Q6AFE_CLK(LPASS_CLK_ID_TER_PCM_IBIT),
-+	Q6AFE_CLK(LPASS_CLK_ID_TER_PCM_EBIT),
-+	Q6AFE_CLK(LPASS_CLK_ID_QUAD_PCM_IBIT),
-+	Q6AFE_CLK(LPASS_CLK_ID_QUAD_PCM_EBIT),
-+	Q6AFE_CLK(LPASS_CLK_ID_QUIN_PCM_IBIT),
-+	Q6AFE_CLK(LPASS_CLK_ID_QUIN_PCM_EBIT),
-+	Q6AFE_CLK(LPASS_CLK_ID_QUI_PCM_OSR),
-+	Q6AFE_CLK(LPASS_CLK_ID_PRI_TDM_IBIT),
-+	Q6AFE_CLK(LPASS_CLK_ID_PRI_TDM_EBIT),
-+	Q6AFE_CLK(LPASS_CLK_ID_SEC_TDM_IBIT),
-+	Q6AFE_CLK(LPASS_CLK_ID_SEC_TDM_EBIT),
-+	Q6AFE_CLK(LPASS_CLK_ID_TER_TDM_IBIT),
-+	Q6AFE_CLK(LPASS_CLK_ID_TER_TDM_EBIT),
-+	Q6AFE_CLK(LPASS_CLK_ID_QUAD_TDM_IBIT),
-+	Q6AFE_CLK(LPASS_CLK_ID_QUAD_TDM_EBIT),
-+	Q6AFE_CLK(LPASS_CLK_ID_QUIN_TDM_IBIT),
-+	Q6AFE_CLK(LPASS_CLK_ID_QUIN_TDM_EBIT),
-+	Q6AFE_CLK(LPASS_CLK_ID_QUIN_TDM_OSR),
-+	Q6AFE_CLK(LPASS_CLK_ID_MCLK_1),
-+	Q6AFE_CLK(LPASS_CLK_ID_MCLK_2),
-+	Q6AFE_CLK(LPASS_CLK_ID_MCLK_3),
-+	Q6AFE_CLK(LPASS_CLK_ID_MCLK_4),
-+	Q6AFE_CLK(LPASS_CLK_ID_INTERNAL_DIGITAL_CODEC_CORE),
-+	Q6AFE_CLK(LPASS_CLK_ID_INT_MCLK_0),
-+	Q6AFE_CLK(LPASS_CLK_ID_INT_MCLK_1),
-+	Q6AFE_CLK(LPASS_CLK_ID_WSA_CORE_MCLK),
-+	Q6AFE_CLK(LPASS_CLK_ID_WSA_CORE_NPL_MCLK),
-+	Q6AFE_CLK(LPASS_CLK_ID_VA_CORE_MCLK),
-+	Q6AFE_CLK(LPASS_CLK_ID_TX_CORE_MCLK),
-+	Q6AFE_CLK(LPASS_CLK_ID_TX_CORE_NPL_MCLK),
-+	Q6AFE_CLK(LPASS_CLK_ID_RX_CORE_MCLK),
-+	Q6AFE_CLK(LPASS_CLK_ID_RX_CORE_NPL_MCLK),
-+	Q6AFE_CLK(LPASS_CLK_ID_VA_CORE_2X_MCLK),
-+
-+	Q6AFE_VOTE_CLK(LPASS_HW_AVTIMER_VOTE,
-+		       Q6AFE_LPASS_CORE_AVTIMER_BLOCK,
-+		       "LPASS_AVTIMER_MACRO"),
-+	Q6AFE_VOTE_CLK(LPASS_HW_MACRO_VOTE,
-+		       Q6AFE_LPASS_CORE_HW_MACRO_BLOCK,
-+		       "LPASS_HW_MACRO"),
-+	Q6AFE_VOTE_CLK(LPASS_HW_DCODEC_VOTE,
-+		       Q6AFE_LPASS_CORE_HW_DCODEC_BLOCK,
-+		       "LPASS_HW_DCODEC"),
- };
- 
- static struct clk_hw *q6afe_of_clk_hw_get(struct of_phandle_args *clkspec,
+This commit looks really irrelevant from the Oops code path.
+It must be a different reason.
 
 
+thanks,
+
+Takashi
+
+
+> IMPORTANT: if you fix the issue, please add the following tag to the commit:
+> Reported-by: syzbot+f816042a7ae2225f25ba@syzkaller.appspotmail.com
+> Fixes: 1d0f953086f0 ("ALSA: usb-audio: Fix irq/process data synchronization")
+> 
+> EXT4-fs (loop0): mounted filesystem without journal. Opts: ,errors=continue
+> Quota error (device loop0): qtree_write_dquot: Error -1622674347 occurred while creating quota
+> Quota error (device loop0): dq_insert_tree: Quota tree root isn't allocated!
+> Quota error (device loop0): qtree_write_dquot: Error -5 occurred while creating quota
+> BUG: unable to handle page fault for address: fffffbfff3e8feac
+> #PF: supervisor read access in kernel mode
+> #PF: error_code(0x0000) - not-present page
+> PGD 21ffe5067 P4D 21ffe5067 PUD 21ffe4067 PMD 0 
+> Oops: 0000 [#1] PREEMPT SMP KASAN
+> CPU: 1 PID: 6845 Comm: syz-executor636 Not tainted 5.9.0-rc6-syzkaller #0
+> Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 01/01/2011
+> RIP: 0010:bytes_is_nonzero mm/kasan/generic.c:91 [inline]
+> RIP: 0010:memory_is_nonzero mm/kasan/generic.c:108 [inline]
+> RIP: 0010:memory_is_poisoned_n mm/kasan/generic.c:134 [inline]
+> RIP: 0010:memory_is_poisoned mm/kasan/generic.c:165 [inline]
+> RIP: 0010:check_memory_region_inline mm/kasan/generic.c:183 [inline]
+> RIP: 0010:check_memory_region+0x80/0x2f0 mm/kasan/generic.c:192
+> Code: 01 00 00 00 00 fc ff df 4d 01 ea 4d 89 d6 4d 29 ce 49 83 fe 10 7f 2d 4d 85 f6 0f 84 ab 01 00 00 4c 89 cb 4c 29 d3 0f 1f 40 00 <45> 0f b6 19 45 84 db 0f 85 f3 01 00 00 49 ff c1 48 ff c3 75 eb e9
+> RSP: 0018:ffffc90001fdf9d0 EFLAGS: 00010293
+> RAX: 2234ff0efb3ccc01 RBX: fffffffffffffffe RCX: ffffffff81e00c97
+> RDX: 0000000000000000 RSI: 0000000000000004 RDI: ffffffff9f47f565
+> RBP: ffffffff9f47f455 R08: dffffc0000000000 R09: fffffbfff3e8feac
+> R10: fffffbfff3e8feae R11: 0000000000000000 R12: 1ffffffff3e8feac
+> R13: dffffc0000000001 R14: 0000000000000002 R15: ffffffff9f47f565
+> FS:  00000000009ac880(0000) GS:ffff8880ae900000(0000) knlGS:0000000000000000
+> CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+> CR2: fffffbfff3e8feac CR3: 000000009f30a000 CR4: 00000000001506e0
+> DR0: 0000000000000000 DR1: 0000000000000000 DR2: 0000000000000000
+> DR3: 0000000000000000 DR6: 00000000fffe0ff0 DR7: 0000000000000400
+> Call Trace:
+>  instrument_atomic_read include/linux/instrumented.h:56 [inline]
+>  atomic_read include/asm-generic/atomic-instrumented.h:27 [inline]
+>  dqput+0x77/0x770 fs/quota/dquot.c:770
+>  dqput_all fs/quota/dquot.c:397 [inline]
+>  __dquot_initialize+0x9e6/0xc30 fs/quota/dquot.c:1530
+>  ext4_xattr_set+0x9b/0x300 fs/ext4/xattr.c:2474
+>  __vfs_setxattr+0x3be/0x400 fs/xattr.c:177
+>  __vfs_setxattr_noperm+0x11e/0x4b0 fs/xattr.c:208
+>  vfs_setxattr+0xde/0x270 fs/xattr.c:283
+>  setxattr+0x167/0x350 fs/xattr.c:548
+>  path_setxattr+0x109/0x1c0 fs/xattr.c:567
+>  __do_sys_setxattr fs/xattr.c:582 [inline]
+>  __se_sys_setxattr fs/xattr.c:578 [inline]
+>  __x64_sys_setxattr+0xb7/0xd0 fs/xattr.c:578
+>  do_syscall_64+0x31/0x70 arch/x86/entry/common.c:46
+>  entry_SYSCALL_64_after_hwframe+0x44/0xa9
+> RIP: 0033:0x4447e9
+> Code: 8d d7 fb ff c3 66 2e 0f 1f 84 00 00 00 00 00 66 90 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 0f 83 5b d7 fb ff c3 66 2e 0f 1f 84 00 00 00 00
+> RSP: 002b:00007ffcd4905408 EFLAGS: 00000246 ORIG_RAX: 00000000000000bc
+> RAX: ffffffffffffffda RBX: 0030656c69662f2e RCX: 00000000004447e9
+> RDX: 0000000000000000 RSI: 0000000020000140 RDI: 00000000200000c0
+> RBP: 00000000006cf018 R08: 0000000000000000 R09: 0000000000000000
+> R10: 0000000000000000 R11: 0000000000000246 R12: 00000000004023d0
+> R13: 0000000000402460 R14: 0000000000000000 R15: 0000000000000000
+> Modules linked in:
+> CR2: fffffbfff3e8feac
+> ---[ end trace a52409661d306995 ]---
+> RIP: 0010:bytes_is_nonzero mm/kasan/generic.c:91 [inline]
+> RIP: 0010:memory_is_nonzero mm/kasan/generic.c:108 [inline]
+> RIP: 0010:memory_is_poisoned_n mm/kasan/generic.c:134 [inline]
+> RIP: 0010:memory_is_poisoned mm/kasan/generic.c:165 [inline]
+> RIP: 0010:check_memory_region_inline mm/kasan/generic.c:183 [inline]
+> RIP: 0010:check_memory_region+0x80/0x2f0 mm/kasan/generic.c:192
+> Code: 01 00 00 00 00 fc ff df 4d 01 ea 4d 89 d6 4d 29 ce 49 83 fe 10 7f 2d 4d 85 f6 0f 84 ab 01 00 00 4c 89 cb 4c 29 d3 0f 1f 40 00 <45> 0f b6 19 45 84 db 0f 85 f3 01 00 00 49 ff c1 48 ff c3 75 eb e9
+> RSP: 0018:ffffc90001fdf9d0 EFLAGS: 00010293
+> RAX: 2234ff0efb3ccc01 RBX: fffffffffffffffe RCX: ffffffff81e00c97
+> RDX: 0000000000000000 RSI: 0000000000000004 RDI: ffffffff9f47f565
+> RBP: ffffffff9f47f455 R08: dffffc0000000000 R09: fffffbfff3e8feac
+> R10: fffffbfff3e8feae R11: 0000000000000000 R12: 1ffffffff3e8feac
+> R13: dffffc0000000001 R14: 0000000000000002 R15: ffffffff9f47f565
+> FS:  00000000009ac880(0000) GS:ffff8880ae900000(0000) knlGS:0000000000000000
+> CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+> CR2: fffffbfff3e8feac CR3: 000000009f30a000 CR4: 00000000001506e0
+> DR0: 0000000000000000 DR1: 0000000000000000 DR2: 0000000000000000
+> DR3: 0000000000000000 DR6: 00000000fffe0ff0 DR7: 0000000000000400
+> 
+> 
+> ---
+> This report is generated by a bot. It may contain errors.
+> See https://goo.gl/tpsmEJ for more information about syzbot.
+> syzbot engineers can be reached at syzkaller@googlegroups.com.
+> 
+> syzbot will keep track of this issue. See:
+> https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
+> For information about bisection process see: https://goo.gl/tpsmEJ#bisection
+> syzbot can test patches for this issue, for details see:
+> https://goo.gl/tpsmEJ#testing-patches
+> 

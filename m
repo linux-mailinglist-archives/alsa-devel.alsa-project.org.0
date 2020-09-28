@@ -2,70 +2,93 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A837A27A717
-	for <lists+alsa-devel@lfdr.de>; Mon, 28 Sep 2020 07:51:31 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D118927A7E9
+	for <lists+alsa-devel@lfdr.de>; Mon, 28 Sep 2020 08:51:48 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 2A0061ED5;
-	Mon, 28 Sep 2020 07:50:41 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2A0061ED5
+	by alsa0.perex.cz (Postfix) with ESMTPS id 360A21E91;
+	Mon, 28 Sep 2020 08:50:58 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 360A21E91
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1601272291;
-	bh=DZwNX7Zm7AQR4iYmxgQo4rofJ2VIk5bvpkNSoYmOCxc=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1601275908;
+	bh=0sGL25OAFSU0NyKSRPgNVNAwmqv5+p5DkVqXN1iipGQ=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=a80RaXvZYTC+wZMWihGpCmspLgY6UmOoo0FIKZfEEohleE48zw4Aq4LkqEsKAQknJ
-	 9uBzNArJn4eFzCy8MhbpkWDV4zK9kNxSXAGun4i37ypnHZroOFo3Ylzlc1REPF1ptW
-	 bjnZyxD6I7CQqdgM/6D0bm1RFIr5ew4wfxJfyRHg=
+	b=VAb7YQ08witYGSFvwDpWISgTCGPUko7V3DXyE+WTVuL/LH9scNlR3SQ/dEzLUILWU
+	 giD0CfvR4DghYYyS8eWVawqULhjhkWYIqB7QPmPCGX6zYG9Rhi9Vm/U3jDFfVGDJRb
+	 DuYlYdiN8oiBepB2wrH/KWBFqu+JE9N2rlqTIIQU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 3F7BFF80228;
-	Mon, 28 Sep 2020 07:49:50 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 131C3F800FD;
+	Mon, 28 Sep 2020 08:50:07 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id A7DC5F801F9; Mon, 28 Sep 2020 07:49:47 +0200 (CEST)
+ id 02DB6F801F9; Mon, 28 Sep 2020 08:50:03 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.7 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled
+X-Spam-Status: No, score=0.1 required=5.0 tests=FREEMAIL_ENVFROM_END_DIGIT,
+ FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,
+ RCVD_IN_MSPIKE_H2,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=disabled
  version=3.4.0
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+Received: from mail-lj1-f193.google.com (mail-lj1-f193.google.com
+ [209.85.208.193])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 4FCF9F800DF
- for <alsa-devel@alsa-project.org>; Mon, 28 Sep 2020 07:49:37 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4FCF9F800DF
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="ja+P0jxP"
-Received: from localhost (unknown [122.179.43.1])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 1E17F2068E;
- Mon, 28 Sep 2020 05:49:33 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1601272174;
- bh=DZwNX7Zm7AQR4iYmxgQo4rofJ2VIk5bvpkNSoYmOCxc=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=ja+P0jxPMmj/pz97W1p9rHlsI9o7u08LpR7gBW+v8unF3/b/FfgypDB2d/KRcmgX7
- ubZbVcvqrfGkcdsWSjoAHiCnGty5IfYCZNqOx7N2M9SJy6ybF4CjLrSuwaLO3FEV4C
- JGY8oAQfIpL3W0o7DIYGzd9JclAN+f74G6HbnMz0=
-Date: Mon, 28 Sep 2020 11:19:22 +0530
-From: Vinod Koul <vkoul@kernel.org>
-To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Subject: Re: [PATCH v3 0/2] soundwire: sysfs: expose device number and status
-Message-ID: <20200928054922.GI2968@vkoul-mobl>
-References: <20200924194430.121058-1-pierre-louis.bossart@linux.intel.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id C6C5FF800FD
+ for <alsa-devel@alsa-project.org>; Mon, 28 Sep 2020 08:49:53 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C6C5FF800FD
+Received: by mail-lj1-f193.google.com with SMTP id n25so110307ljj.4
+ for <alsa-devel@alsa-project.org>; Sun, 27 Sep 2020 23:49:53 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc:content-transfer-encoding;
+ bh=0sGL25OAFSU0NyKSRPgNVNAwmqv5+p5DkVqXN1iipGQ=;
+ b=MQuk3NgdRH5X5iAiqUNfabqV4AD0WDbckysMy0BvnssCUm9m/UwBZRHtM1eZSdGup1
+ K3eGiCATxwLx5JJyiG5W9afXSYLppb5+5XiFdAPvYFFRTY2wRE42Pi9R7XMOFQoRvcQe
+ fUJzZyb/5gt0HJQrRp9lkxQSpNXBdFPesUmU8rcFdXlVDzGSmyxPZfGFIAwFvB+AXS5W
+ EuzSOHXsF4TfIZG+kQxeOA+buSyKO383DSRbqh177dHbuU011oQwLob5yaqGgAIv/242
+ cZsxax9drfhGX0K2F/RGE6GgvaS6PDU9dFww6DiwAdE037nPdic/GIKP6c6GMqFNG+HO
+ JJMQ==
+X-Gm-Message-State: AOAM530j4ZkUqB6cQHWcE7T+mj66E/LL2Xk0nS9qRFVQ06WrC2A0foNT
+ ugH/GCUqHf8MNYOgCs0c+RHWnsEHkJ1nPA==
+X-Google-Smtp-Source: ABdhPJzxMdiB1Z5Fxu4sH5m5L+t2dElBcobnJjiCIyHWxKdCn6IMmpMqPbRrAVkPvl6HUz8anzZ0wg==
+X-Received: by 2002:a2e:8607:: with SMTP id a7mr2110lji.122.1601275792765;
+ Sun, 27 Sep 2020 23:49:52 -0700 (PDT)
+Received: from mail-lj1-f172.google.com (mail-lj1-f172.google.com.
+ [209.85.208.172])
+ by smtp.gmail.com with ESMTPSA id t12sm2741323lfk.26.2020.09.27.23.49.52
+ for <alsa-devel@alsa-project.org>
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Sun, 27 Sep 2020 23:49:52 -0700 (PDT)
+Received: by mail-lj1-f172.google.com with SMTP id s205so103376lja.7
+ for <alsa-devel@alsa-project.org>; Sun, 27 Sep 2020 23:49:52 -0700 (PDT)
+X-Received: by 2002:a2e:a550:: with SMTP id e16mr4737780ljn.125.1601275792241; 
+ Sun, 27 Sep 2020 23:49:52 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20200924194430.121058-1-pierre-louis.bossart@linux.intel.com>
-Cc: alsa-devel@alsa-project.org, tiwai@suse.de, gregkh@linuxfoundation.org,
- broonie@kernel.org, srinivas.kandagatla@linaro.org,
- Bard liao <yung-chuan.liao@linux.intel.com>,
- Rander Wang <rander.wang@linux.intel.com>
+References: <20200927192912.46323-1-peron.clem@gmail.com>
+ <20200927192912.46323-8-peron.clem@gmail.com>
+In-Reply-To: <20200927192912.46323-8-peron.clem@gmail.com>
+From: Chen-Yu Tsai <wens@csie.org>
+Date: Mon, 28 Sep 2020 14:49:40 +0800
+X-Gmail-Original-Message-ID: <CAGb2v65FOois4RXZWZBu1x1TGy4Kb6Orw_FyHBu=yz_dXJ7HWw@mail.gmail.com>
+Message-ID: <CAGb2v65FOois4RXZWZBu1x1TGy4Kb6Orw_FyHBu=yz_dXJ7HWw@mail.gmail.com>
+Subject: Re: [linux-sunxi] [PATCH v5 07/20] ASoC: sun4i-i2s: Fix sun8i
+ volatile regs
+To: =?UTF-8?B?Q2zDqW1lbnQgUMOpcm9u?= <peron.clem@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+Cc: devicetree <devicetree@vger.kernel.org>,
+ Jernej Skrabec <jernej.skrabec@siol.net>,
+ Linux-ALSA <alsa-devel@alsa-project.org>,
+ linux-kernel <linux-kernel@vger.kernel.org>, Takashi Iwai <tiwai@suse.com>,
+ Rob Herring <robh+dt@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>,
+ Marcus Cooper <codekipper@gmail.com>,
+ linux-sunxi <linux-sunxi@googlegroups.com>, Mark Brown <broonie@kernel.org>,
+ Maxime Ripard <mripard@kernel.org>,
+ linux-arm-kernel <linux-arm-kernel@lists.infradead.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -81,23 +104,16 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 24-09-20, 14:44, Pierre-Louis Bossart wrote:
-> This patchset combines three contributions:
-> 
-> Srinivas Kandagalta suggested creating a device even it's detected on
-> the bus but not described in platform firmware. I suggested adding the
-> device number and status to show the difference with 'ghost' devices,
-> described in firmware but not physically present. Vinod suggested a
-> simpler way to report the status.
-> 
-> I did not keep Vinod's patch separate since it was using the same
-> group attribute as the other properties, which prevents status and
-> device number from being reported if there is no firmware and no
-> driver.
-> 
-> These patches were tested on Qualcomm and Intel platforms.
+On Mon, Sep 28, 2020 at 3:29 AM Cl=C3=A9ment P=C3=A9ron <peron.clem@gmail.c=
+om> wrote:
+>
+> The FIFO TX reg is volatile and sun8i i2s register
+> mapping is different from sun4i.
+>
+> Even if in this case it's doesn't create an issue,
+> Avoid setting some regs that are undefined in sun8i.
+>
+> Signed-off-by: Cl=C3=A9ment P=C3=A9ron <peron.clem@gmail.com>
+> Acked-by: Maxime Ripard <mripard@kernel.org>
 
-Applied, thanks
-
--- 
-~Vinod
+Reviewed-by: Chen-Yu Tsai <wens@csie.org>

@@ -2,93 +2,66 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id ACA2027A702
-	for <lists+alsa-devel@lfdr.de>; Mon, 28 Sep 2020 07:34:55 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8E03C27A703
+	for <lists+alsa-devel@lfdr.de>; Mon, 28 Sep 2020 07:41:23 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 3F4C61B10;
-	Mon, 28 Sep 2020 07:34:05 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3F4C61B10
+	by alsa0.perex.cz (Postfix) with ESMTPS id 8566D18A1;
+	Mon, 28 Sep 2020 07:40:32 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8566D18A1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1601271295;
-	bh=+x7QAn2uYVocNUkCVMeJdKDwZojnJ6iZ+Nm6GD4zjj8=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=oUj9VXis9nUgLvLlU1aWbWB8mkmLaGjxRYVEU03Ndfw7fvugtaulqvP5KnDVHWgXt
-	 dPFfv6cDf9IBfSDfkBnjf3bnajA67Dwom//nA+Bbj7TvSMjLBdyQ+f3noY7dNXFXoX
-	 cgITRgxke/bMvTPulNY1oNOi6l3AV5wjP9+HlsVc=
+	s=default; t=1601271682;
+	bh=moKBLfxVo04PCNiD4wLraPe+ysalwkJWuWYpG7MF3vM=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=Oxy6St+20h2RKl3QkUWt3MK6e8hZGI93XWb78mZhe7I671t7mGLtZGjQuIZx0pFQW
+	 UOJKLMdCEMP7piETUwhWHlnj3odWDiauEZE+vuVjSCyWrW2uccVHUGjGqDJ6da9i/h
+	 aaDMmpEL8n6UgaoFp3VjbZ7GvmBOIHF0Du5KUiG0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id BFD33F802DB;
-	Mon, 28 Sep 2020 07:32:55 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 680FCF800FD;
+	Mon, 28 Sep 2020 07:39:41 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 9BF21F802D2; Mon, 28 Sep 2020 07:32:53 +0200 (CEST)
+ id 357BFF801F9; Mon, 28 Sep 2020 07:39:38 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.1 required=5.0 tests=FREEMAIL_ENVFROM_END_DIGIT,
- FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,
- RCVD_IN_MSPIKE_H2,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from mail-lj1-f193.google.com (mail-lj1-f193.google.com
- [209.85.208.193])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id E456DF800FD
- for <alsa-devel@alsa-project.org>; Mon, 28 Sep 2020 07:32:42 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E456DF800FD
-Received: by mail-lj1-f193.google.com with SMTP id k25so7222948ljg.9
- for <alsa-devel@alsa-project.org>; Sun, 27 Sep 2020 22:32:42 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc:content-transfer-encoding;
- bh=+x7QAn2uYVocNUkCVMeJdKDwZojnJ6iZ+Nm6GD4zjj8=;
- b=erLAootG1gxM5AWmhVcMbxMVKoq/Yxo385kFQAASCD0xnIjMRIoaxh0VBv0/WFcQWg
- XBd3H8evV9JdnN1OilkiJlKx5bdTKx2dYS0S6oO0zBrLPNdnaHc8u+mK0tBtrpFrWTmj
- oXtZtvUwysCz4IiDtwD3W7ZFKnVuKpB3m+5RLY001bVQs4NPodFhlitN25YJaf/7SBxE
- TXDejV160/MYpmU/d0++DFrrzsA52CHZFSbYehj+pNbvUwtox4RjDH2+SJkd07eZQsZH
- WTKK7g8aFuf3ToafR3eeZUBfibNxKwWSHcPOed7tZrBqTMytd6Zf/tq8wHdsAXrvBh/H
- DvqQ==
-X-Gm-Message-State: AOAM531EV+ldg3DglKWHdl+Ki2/TJwTZilZHINZkYFTfuTy6vEYjFi9/
- pHmkPCge9NgAdBGexOkdfofbRsnsnhtVqQ==
-X-Google-Smtp-Source: ABdhPJxYhl6jHEd3q0qsvWGzYwO6QdDC+9Spo5k4uJZTKI4qDskg/e8DJbwzQTq7ZhJOHoUnAl6hpA==
-X-Received: by 2002:a2e:a288:: with SMTP id k8mr4571633lja.234.1601271161567; 
- Sun, 27 Sep 2020 22:32:41 -0700 (PDT)
-Received: from mail-lj1-f170.google.com (mail-lj1-f170.google.com.
- [209.85.208.170])
- by smtp.gmail.com with ESMTPSA id v18sm2728277lfa.238.2020.09.27.22.32.41
- for <alsa-devel@alsa-project.org>
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Sun, 27 Sep 2020 22:32:41 -0700 (PDT)
-Received: by mail-lj1-f170.google.com with SMTP id w3so7244328ljo.5
- for <alsa-devel@alsa-project.org>; Sun, 27 Sep 2020 22:32:41 -0700 (PDT)
-X-Received: by 2002:a2e:760e:: with SMTP id r14mr4070333ljc.331.1601271160985; 
- Sun, 27 Sep 2020 22:32:40 -0700 (PDT)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 794D3F800FD
+ for <alsa-devel@alsa-project.org>; Mon, 28 Sep 2020 07:39:26 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 794D3F800FD
+Authenticated-By: 
+X-SpamFilter-By: ArmorX SpamTrap 5.69 with qID 08S5dKjB5023640,
+ This message is accepted by code: ctloc85258
+Received: from mail.realtek.com (rtexmb01.realtek.com.tw[172.21.6.94])
+ by rtits2.realtek.com.tw (8.15.2/2.66/5.86) with ESMTPS id 08S5dKjB5023640
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT);
+ Mon, 28 Sep 2020 13:39:20 +0800
+Received: from localhost.localdomain (172.22.102.1) by RTEXMB01.realtek.com.tw
+ (172.21.6.94) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2044.4; Mon, 28 Sep
+ 2020 13:39:20 +0800
+From: Oder Chiou <oder_chiou@realtek.com>
+To: <broonie@kernel.org>, <lgirdwood@gmail.com>
+Subject: [PATCH] ASoC: rt5682: Enable the power of "MICBIAS" and "Vref2" for
+ the DMIC clock
+Date: Mon, 28 Sep 2020 13:39:12 +0800
+Message-ID: <20200928053912.16664-1-oder_chiou@realtek.com>
+X-Mailer: git-send-email 2.28.0
 MIME-Version: 1.0
-References: <20200927192912.46323-1-peron.clem@gmail.com>
- <20200927192912.46323-11-peron.clem@gmail.com>
-In-Reply-To: <20200927192912.46323-11-peron.clem@gmail.com>
-From: Chen-Yu Tsai <wens@csie.org>
-Date: Mon, 28 Sep 2020 13:32:29 +0800
-X-Gmail-Original-Message-ID: <CAGb2v67_9phiOxDTDmCLwSuFzADDXqLwW+d48OUNZ_1m2vPCMQ@mail.gmail.com>
-Message-ID: <CAGb2v67_9phiOxDTDmCLwSuFzADDXqLwW+d48OUNZ_1m2vPCMQ@mail.gmail.com>
-Subject: Re: [linux-sunxi] [PATCH v5 10/20] arm64: dts: allwinner: h6: Enable
- HDMI sound for Beelink GS1
-To: =?UTF-8?B?Q2zDqW1lbnQgUMOpcm9u?= <peron.clem@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-Cc: devicetree <devicetree@vger.kernel.org>,
- Jernej Skrabec <jernej.skrabec@siol.net>,
- Linux-ALSA <alsa-devel@alsa-project.org>,
- linux-kernel <linux-kernel@vger.kernel.org>, Takashi Iwai <tiwai@suse.com>,
- Rob Herring <robh+dt@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>,
- Marcus Cooper <codekipper@gmail.com>,
- linux-sunxi <linux-sunxi@googlegroups.com>, Mark Brown <broonie@kernel.org>,
- Maxime Ripard <mripard@kernel.org>,
- linux-arm-kernel <linux-arm-kernel@lists.infradead.org>
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [172.22.102.1]
+X-ClientProxiedBy: RTEXMB01.realtek.com.tw (172.21.6.94) To
+ RTEXMB01.realtek.com.tw (172.21.6.94)
+Cc: Oder Chiou <oder_chiou@realtek.com>, jack.yu@realtek.com,
+ alsa-devel@alsa-project.org, cychiang@google.com, albertchen@realtek.com,
+ derek.fang@realtek.com, shumingf@realtek.com, flove@realtek.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -104,12 +77,65 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Mon, Sep 28, 2020 at 3:29 AM Cl=C3=A9ment P=C3=A9ron <peron.clem@gmail.c=
-om> wrote:
->
-> Now that HDMI sound node is available in the SoC dtsi.
-> Enable it for this board.
->
-> Signed-off-by: Cl=C3=A9ment P=C3=A9ron <peron.clem@gmail.com>
+The power of "MICBIAS" and "Vref2" was needed while the DMIC clcok was from
+the PLL output.
 
-Acked-by: Chen-Yu Tsai <wens@csie.org>
+Signed-off-by: Oder Chiou <oder_chiou@realtek.com>
+---
+ sound/soc/codecs/rt5682.c | 24 ++++++++++++++++++++++--
+ 1 file changed, 22 insertions(+), 2 deletions(-)
+
+diff --git a/sound/soc/codecs/rt5682.c b/sound/soc/codecs/rt5682.c
+index 93ebf0279b62..a9acce7b6cca 100644
+--- a/sound/soc/codecs/rt5682.c
++++ b/sound/soc/codecs/rt5682.c
+@@ -1529,16 +1529,35 @@ static int set_dmic_power(struct snd_soc_dapm_widget *w,
+ 	struct snd_soc_component *component =
+ 		snd_soc_dapm_to_component(w->dapm);
+ 	struct rt5682_priv *rt5682 = snd_soc_component_get_drvdata(component);
+-	unsigned int delay = 50;
++	unsigned int delay = 50, val;
+ 
+ 	if (rt5682->pdata.dmic_delay)
+ 		delay = rt5682->pdata.dmic_delay;
+ 
+ 	switch (event) {
+ 	case SND_SOC_DAPM_POST_PMU:
++		val = snd_soc_component_read(component, RT5682_GLB_CLK);
++		val &= RT5682_SCLK_SRC_MASK;
++		if (val == RT5682_SCLK_SRC_PLL1 || val == RT5682_SCLK_SRC_PLL2)
++			snd_soc_component_update_bits(component,
++				RT5682_PWR_ANLG_1,
++				RT5682_PWR_VREF2 | RT5682_PWR_MB,
++				RT5682_PWR_VREF2 | RT5682_PWR_MB);
++
+ 		/*Add delay to avoid pop noise*/
+ 		msleep(delay);
+ 		break;
++
++	case SND_SOC_DAPM_POST_PMD:
++		if (!rt5682->jack_type) {
++			if (!snd_soc_dapm_get_pin_status(w->dapm, "MICBIAS"))
++				snd_soc_component_update_bits(component,
++					RT5682_PWR_ANLG_1, RT5682_PWR_MB, 0);
++			if (!snd_soc_dapm_get_pin_status(w->dapm, "Vref2"))
++				snd_soc_component_update_bits(component,
++					RT5682_PWR_ANLG_1, RT5682_PWR_VREF2, 0);
++		}
++		break;
+ 	}
+ 
+ 	return 0;
+@@ -1644,7 +1663,8 @@ static const struct snd_soc_dapm_widget rt5682_dapm_widgets[] = {
+ 	SND_SOC_DAPM_SUPPLY("DMIC CLK", SND_SOC_NOPM, 0, 0,
+ 		set_dmic_clk, SND_SOC_DAPM_PRE_PMU),
+ 	SND_SOC_DAPM_SUPPLY("DMIC1 Power", RT5682_DMIC_CTRL_1,
+-		RT5682_DMIC_1_EN_SFT, 0, set_dmic_power, SND_SOC_DAPM_POST_PMU),
++		RT5682_DMIC_1_EN_SFT, 0, set_dmic_power,
++		SND_SOC_DAPM_POST_PMU | SND_SOC_DAPM_POST_PMD),
+ 
+ 	/* Boost */
+ 	SND_SOC_DAPM_PGA("BST1 CBJ", SND_SOC_NOPM,
+-- 
+2.28.0
+

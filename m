@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 81D0E27AB55
-	for <lists+alsa-devel@lfdr.de>; Mon, 28 Sep 2020 11:56:43 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C142A27AB5B
+	for <lists+alsa-devel@lfdr.de>; Mon, 28 Sep 2020 11:58:14 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 0C9391EF4;
-	Mon, 28 Sep 2020 11:55:53 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0C9391EF4
+	by alsa0.perex.cz (Postfix) with ESMTPS id 5E6331F0F;
+	Mon, 28 Sep 2020 11:57:24 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5E6331F0F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1601287003;
-	bh=39qNuveGcekF2/vDIxkkoYnWdjHbsYNvRygnnBh1EAA=;
+	s=default; t=1601287094;
+	bh=isv3W9Zlc6c5Hq0hGkh9OMFQDLsu5rplp7xYRoBMOWU=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=Ucqdu7zCHTnLE68WI//zfFOhnDXZNz4E+Ku3OKultPNsTyBlunsmeLHzlsefyDDeJ
-	 yr8h+g0nluR9Z/aIK/jvNCu0VwzmyNAyelSaKkWPZHvc3Wd8R4uXEZObbEQtYvHHiO
-	 +MYE5LfnlUJXctoTg4dv5rsmyjxcHTYt0gvS/TSw=
+	b=Dz++DuqJr9c0HPcLMBtsAFxr5OGpob2X5TanrLgk6uxiWJL3K6q9yJpoFU2deksiL
+	 PdE3EGiLfawl48HjkfIJA1wgwCIwKXW/PbY7eWNkn4ZZiJX3A3NeHiRide0mAaN5Sr
+	 s/88Qc4F6elUA2ND7K73IDjE+MRMrwJUO/zzFn2I=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 7712AF802C4;
-	Mon, 28 Sep 2020 11:54:14 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id AB7CDF802EB;
+	Mon, 28 Sep 2020 11:54:31 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 5F297F801F9; Mon, 28 Sep 2020 11:54:11 +0200 (CEST)
+ id 6F2D4F802EB; Mon, 28 Sep 2020 11:54:29 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.5 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,36 +34,36 @@ X-Spam-Status: No, score=-0.5 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from m42-4.mailgun.net (m42-4.mailgun.net [69.72.42.4])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id E71DCF801ED
- for <alsa-devel@alsa-project.org>; Mon, 28 Sep 2020 11:54:01 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E71DCF801ED
+ by alsa1.perex.cz (Postfix) with ESMTPS id 05CD1F802E2
+ for <alsa-devel@alsa-project.org>; Mon, 28 Sep 2020 11:54:17 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 05CD1F802E2
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=mg.codeaurora.org
- header.i=@mg.codeaurora.org header.b="r/a61t74"
+ header.i=@mg.codeaurora.org header.b="NxfuR9BZ"
 DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
  q=dns/txt; 
- s=smtp; t=1601286841; h=References: In-Reply-To: Message-Id: Date:
+ s=smtp; t=1601286864; h=References: In-Reply-To: Message-Id: Date:
  Subject: Cc: To: From: Sender;
- bh=Eue6OXobtSODzsRRtxONbVDKk/A4RNjBLFr7AI3Uwek=;
- b=r/a61t743dti+tIE153jxmR1VDded5t1TPKL7LzpUZFDBUCtR3goLEtY5XzkXfGbrP/uisXk
- 33i7ZjFG58AnazjucteKGEqTavw1yApUZO/RJqtn/v5a+tM3O9JBWK+7c6icmFg8ZvuPOcjT
- v9cH3hgpvQmbVWc3G4MH0P2TQmA=
+ bh=lTpp6p4jIxGLT+264TxVTrGqHO646v4pl1NjRSaQbbU=;
+ b=NxfuR9BZwuR5AXzcbX97yS/ZtcezuDs0BXWQAHeJOsJqzvHyPshzT8wtYew3cBk4gj7aUGQj
+ mrKGNCboE6D4kvOVSJLIs2iUqU58wAXs7r2FBkR5jIl1n4AtppYlpxRXPqyQzWT7FaVTZiRb
+ wTQpGCVXC2j4CAdezu/M6bVywGs=
 X-Mailgun-Sending-Ip: 69.72.42.4
 X-Mailgun-Sid: WyI4ZmE2ZSIsICJhbHNhLWRldmVsQGFsc2EtcHJvamVjdC5vcmciLCAiYmU5ZTRhIl0=
 Received: from smtp.codeaurora.org
  (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171]) by
- smtp-out-n06.prod.us-east-1.postgun.com with SMTP id
- 5f71b2b89cd44bf51a9969c1 (version=TLS1.2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Mon, 28 Sep 2020 09:54:00
+ smtp-out-n01.prod.us-west-2.postgun.com with SMTP id
+ 5f71b2bd09b313196489cad9 (version=TLS1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Mon, 28 Sep 2020 09:54:05
  GMT
 Received: by smtp.codeaurora.org (Postfix, from userid 1001)
- id C9923C433F1; Mon, 28 Sep 2020 09:53:59 +0000 (UTC)
+ id 36427C43395; Mon, 28 Sep 2020 09:54:05 +0000 (UTC)
 Received: from hyd-lnxbld210.qualcomm.com (unknown [202.46.22.19])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-SHA256 (128/128 bits))
  (No client certificate requested) (Authenticated sender: srivasam)
- by smtp.codeaurora.org (Postfix) with ESMTPSA id 1136EC43385;
- Mon, 28 Sep 2020 09:53:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 smtp.codeaurora.org 1136EC43385
+ by smtp.codeaurora.org (Postfix) with ESMTPSA id 74315C433CA;
+ Mon, 28 Sep 2020 09:53:59 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 smtp.codeaurora.org 74315C433CA
 Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
  dmarc=none (p=none dis=none) header.from=codeaurora.org
 Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
@@ -75,9 +75,9 @@ To: agross@kernel.org, bjorn.andersson@linaro.org, lgirdwood@gmail.com,
  srinivas.kandagatla@linaro.org, rohitkr@codeaurora.org,
  linux-arm-msm@vger.kernel.org, alsa-devel@alsa-project.org,
  devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: [PATCH v7 2/6] ASoC: dt-bindings: Add dt binding for lpass hdmi
-Date: Mon, 28 Sep 2020 15:23:27 +0530
-Message-Id: <1601286811-25962-3-git-send-email-srivasam@codeaurora.org>
+Subject: [PATCH v7 3/6] Asoc:qcom:lpass-cpu:Update dts property read API
+Date: Mon, 28 Sep 2020 15:23:28 +0530
+Message-Id: <1601286811-25962-4-git-send-email-srivasam@codeaurora.org>
 X-Mailer: git-send-email 2.7.4
 In-Reply-To: <1601286811-25962-1-git-send-email-srivasam@codeaurora.org>
 References: <1601286811-25962-1-git-send-email-srivasam@codeaurora.org>
@@ -100,161 +100,43 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 From: V Sujith Kumar Reddy <vsujithk@codeaurora.org>
 
-Adds bindings for lpass hdmi interface
-which can support audio path over dp.
+Update dts property read API call with platform get property
+by name, as it make code more readable and avoid conflicts
+when array of properties to be used.
 
 Signed-off-by: V Sujith Kumar Reddy <vsujithk@codeaurora.org>
-Reviewed-by: Rob Herring <robh@kernel.org>
 Signed-off-by: Srinivasa Rao <srivasam@codeaurora.org>
 ---
- .../devicetree/bindings/sound/qcom,lpass-cpu.yaml  | 74 +++++++++++++++-------
- 1 file changed, 52 insertions(+), 22 deletions(-)
+ sound/soc/qcom/lpass-cpu.c      | 2 +-
+ sound/soc/qcom/lpass-platform.c | 2 +-
+ 2 files changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/Documentation/devicetree/bindings/sound/qcom,lpass-cpu.yaml b/Documentation/devicetree/bindings/sound/qcom,lpass-cpu.yaml
-index 09c9bd2..f6f9fb4 100644
---- a/Documentation/devicetree/bindings/sound/qcom,lpass-cpu.yaml
-+++ b/Documentation/devicetree/bindings/sound/qcom,lpass-cpu.yaml
-@@ -24,9 +24,10 @@ properties:
-       - qcom,sc7180-lpass-cpu
+diff --git a/sound/soc/qcom/lpass-cpu.c b/sound/soc/qcom/lpass-cpu.c
+index 0718a0f..12950d2 100644
+--- a/sound/soc/qcom/lpass-cpu.c
++++ b/sound/soc/qcom/lpass-cpu.c
+@@ -575,7 +575,7 @@ int asoc_qcom_lpass_cpu_platform_probe(struct platform_device *pdev)
  
-   reg:
--    maxItems: 1
-+    maxItems: 2
-     description: LPAIF core registers
--
-+  reg-names:
-+     maxItems: 2
-   clocks:
-     minItems: 3
-     maxItems: 6
-@@ -36,15 +37,16 @@ properties:
-     maxItems: 6
+ 	of_lpass_cpu_parse_dai_data(dev, drvdata);
  
-   interrupts:
--    maxItems: 1
-+    maxItems: 2
-     description: LPAIF DMA buffer interrupt
--
-+  interrupt-names:
-+    maxItems: 2
-   qcom,adsp:
-     $ref: /schemas/types.yaml#/definitions/phandle
-     description: Phandle for the audio DSP node
+-	res = platform_get_resource(pdev, IORESOURCE_MEM, 0);
++	res = platform_get_resource_byname(pdev, IORESOURCE_MEM, "lpass-lpaif");
  
-   iommus:
--    maxItems: 1
-+    maxItems: 2
-     description: Phandle to apps_smmu node with sid mask
+ 	drvdata->lpaif = devm_ioremap_resource(dev, res);
+ 	if (IS_ERR((void const __force *)drvdata->lpaif)) {
+diff --git a/sound/soc/qcom/lpass-platform.c b/sound/soc/qcom/lpass-platform.c
+index 7ac2629..e7cf4e5 100644
+--- a/sound/soc/qcom/lpass-platform.c
++++ b/sound/soc/qcom/lpass-platform.c
+@@ -621,7 +621,7 @@ int asoc_qcom_lpass_platform_register(struct platform_device *pdev)
+ 	struct lpass_variant *v = drvdata->variant;
+ 	int ret;
  
-   power-domains:
-@@ -60,10 +62,12 @@ properties:
-     const: 0
+-	drvdata->lpaif_irq = platform_get_irq(pdev, 0);
++	drvdata->lpaif_irq = platform_get_irq_byname(pdev, "lpass-irq-lpaif");
+ 	if (drvdata->lpaif_irq < 0)
+ 		return -ENODEV;
  
- patternProperties:
--  "(^mi2s-[0-9a-f]$|mi2s)":
-+  "^dai-link@[0-9a-f]$":
-     type: object
--    description: Required properties for each DAI
--
-+    description: |
-+      LPASS CPU dai node for each I2S device. Bindings of each node
-+      depends on the specific driver providing the functionality and
-+      properties.
-     properties:
-       reg:
-         maxItems: 1
-@@ -85,9 +89,11 @@ patternProperties:
- required:
-   - compatible
-   - reg
-+  - reg-names
-   - clocks
-   - clock-names
-   - interrupts
-+  - interrupt-names
-   - '#sound-dai-cells'
- 
- additionalProperties: false
-@@ -134,13 +140,32 @@ allOf:
-     then:
-       properties:
-         clock-names:
--          items:
--            - const: pcnoc-sway-clk
--            - const: audio-core
--            - const: mclk0
--            - const: pcnoc-mport-clk
--            - const: mi2s-bit-clk0
--            - const: mi2s-bit-clk1
-+          oneOf:
-+           - items:   #for I2S
-+              - const: pcnoc-sway-clk
-+              - const: audio-core
-+              - const: mclk0
-+              - const: pcnoc-mport-clk
-+              - const: mi2s-bit-clk0
-+              - const: mi2s-bit-clk1
-+           - items:   #for HDMI
-+              - const: pcnoc-sway-clk
-+              - const: audio-core
-+              - const: pcnoc-mport-clk
-+        reg-names:
-+          anyOf:
-+            - items:   #for I2S
-+              - const: lpass-lpaif
-+            - items:   #for I2S and HDMI
-+              - const: lpass-hdmiif
-+              - const: lpass-lpaif
-+        interrupt-names:
-+          anyOf:
-+            - items:   #for I2S
-+              - const: lpass-irq-lpaif
-+            - items:   #for I2S and HDMI
-+              - const: lpass-irq-lpaif
-+              - const: lpass-irq-hdmi
-       required:
-         - iommus
-         - power-domains
-@@ -152,12 +177,15 @@ examples:
-     soc {
-         #address-cells = <2>;
-         #size-cells = <2>;
--        lpass@62f00000 {
-+        lpass@62d80000 {
-             compatible = "qcom,sc7180-lpass-cpu";
- 
--            reg = <0 0x62f00000  0 0x29000>;
--
--            iommus = <&apps_smmu 0x1020 0>;
-+            reg = <0 0x62d87000 0 0x68000>,
-+                  <0 0x62f00000 0 0x29000>;
-+            reg-names = "lpass-hdmiif",
-+                        "lpass-lpaif";
-+            iommus = <&apps_smmu 0x1020 0>,
-+                     <&apps_smmu 0x1032 0>;
-             power-domains = <&lpass_hm 0>;
- 
-             clocks = <&gcc 131>,
-@@ -171,14 +199,16 @@ examples:
-                           "mclk0", "pcnoc-mport-clk",
-                           "mi2s-bit-clk0", "mi2s-bit-clk1";
- 
--            interrupts = <0 160 1>;
--
-+            interrupts = <0 160 1>,
-+                         <0 268 1>;
-+            interrupt-names = "lpass-irq-lpaif",
-+                              "lpass-irq-hdmi";
-             #sound-dai-cells = <1>;
- 
-             #address-cells = <1>;
-             #size-cells = <0>;
-             /* Optional to set different MI2S SD lines */
--            mi2s-primary@0 {
-+            dai-link@0 {
-                 reg = <MI2S_PRIMARY>;
-                 qcom,playback-sd-lines = <1>;
-                 qcom,capture-sd-lines = <0>;
 -- 
 Qualcomm India Private Limited, on behalf of Qualcomm Innovation Center, Inc.,
 is a member of Code Aurora Forum, a Linux Foundation Collaborative Project.

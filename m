@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7471A27B57F
-	for <lists+alsa-devel@lfdr.de>; Mon, 28 Sep 2020 21:39:12 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8C84727B580
+	for <lists+alsa-devel@lfdr.de>; Mon, 28 Sep 2020 21:39:55 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 0FBFE1889;
-	Mon, 28 Sep 2020 21:38:22 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0FBFE1889
+	by alsa0.perex.cz (Postfix) with ESMTPS id 275E4186E;
+	Mon, 28 Sep 2020 21:39:05 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 275E4186E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1601321952;
-	bh=eb4KPVAJh97urPybGYCkAyei3EZUU+NAGt7oeK2z6cE=;
-	h=Date:From:To:In-Reply-To:References:Subject:List-Id:
+	s=default; t=1601321995;
+	bh=lAI06F3qb6LpwpM9MrrzxKHv7dM8IzJK13Nh++HlPLo=;
+	h=Date:From:To:In-Reply-To:References:Subject:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=Cr6JeAQKxICd9xhobzyaEM1CfSZwnDmVSwN51r16dcUXP+eHHNDjYYQ6AL8njyafU
-	 HqRfaHaVQA/o9rBW+mmSf5yOWb5m/P4sPxCPExnYAFtP7K9gBLMyJJKH5tdcmZ98qI
-	 6swQ96pOYlUOVPlWXQZdZp5iodal0GKrnBoQoxww=
+	b=nZdZHaePoVAwQsQS7+S7CR73wA7gs2GofYGz77Gi8kVg9hA4Pn0pUbnJAdWn+6Cc7
+	 un/JxUMyr59Xwhd2Lgj2Q0sEjP6yfKPyWZ2PVYvcqK7kDPNVfDIJypwMXmnb8IaEKH
+	 E4Obxf8zCyyaAXvk3mFp0R8zzDf7bdaCWq8h1HZE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 3CB57F802D2;
-	Mon, 28 Sep 2020 21:36:05 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 1AB9BF802DF;
+	Mon, 28 Sep 2020 21:36:10 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id EE169F802DD; Mon, 28 Sep 2020 21:36:02 +0200 (CEST)
+ id A19D2F802E0; Mon, 28 Sep 2020 21:36:04 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.7 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -34,34 +34,34 @@ X-Spam-Status: No, score=-0.7 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 5961BF800DF
- for <alsa-devel@alsa-project.org>; Mon, 28 Sep 2020 21:35:56 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5961BF800DF
+ by alsa1.perex.cz (Postfix) with ESMTPS id A08FCF802D2
+ for <alsa-devel@alsa-project.org>; Mon, 28 Sep 2020 21:36:01 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A08FCF802D2
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="KaT4LjPW"
+ header.b="EFSzjanC"
 Received: from localhost (fw-tnat.cambridge.arm.com [217.140.96.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 209352075F;
- Mon, 28 Sep 2020 19:35:53 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id 4002C2075F;
+ Mon, 28 Sep 2020 19:35:59 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1601321754;
- bh=eb4KPVAJh97urPybGYCkAyei3EZUU+NAGt7oeK2z6cE=;
+ s=default; t=1601321759;
+ bh=lAI06F3qb6LpwpM9MrrzxKHv7dM8IzJK13Nh++HlPLo=;
  h=Date:From:To:Cc:In-Reply-To:References:Subject:From;
- b=KaT4LjPWz8mQsvw+IpPMoAC/B8kTosTqegEyqb+lYWNy3NJUcWvCyPEGmkQKuazRJ
- mSHPRgJMsTRZWriVpiiHNavx83yPL7K6UXuYytoyKAEdtdEy9Mt/MwnfRMTiZ1AQpf
- mJqVRlruuGn7KqWR9Clqia6rYPZ+xXkOHAx/S6ho=
-Date: Mon, 28 Sep 2020 20:34:57 +0100
+ b=EFSzjanCXxnXF1kwKXY+K9ugGFSYhmZ1PRyYdWftcBDt6jOsfh+ecFXbtHmI9sxZc
+ vrCO2VImgdrZVQAMWUwUQ43mTYHliptDGjmvvwaEoIhGyZ1w9BLAqy01YLL2Y6mDQ/
+ 4o+7Vertp3qlQYezkDTcrJoT5RsYf2Lo9rvfiME4=
+Date: Mon, 28 Sep 2020 20:35:02 +0100
 From: Mark Brown <broonie@kernel.org>
-To: alsa-devel@alsa-project.org, Fabio Estevam <festevam@gmail.com>,
- devicetree@vger.kernel.org, Krzysztof Kozlowski <krzk@kernel.org>,
- linux-kernel@vger.kernel.org, Rob Herring <robh+dt@kernel.org>,
- Liam Girdwood <lgirdwood@gmail.com>
-In-Reply-To: <20200925212719.23286-1-krzk@kernel.org>
-References: <20200925212719.23286-1-krzk@kernel.org>
-Subject: Re: [PATCH] ASoC: dt-bindings: sgtl5000: Add common clock properties
-Message-Id: <160132168198.55254.15502764557761339058.b4-ty@kernel.org>
+To: robh+dt@kernel.org, Richard Fitzgerald <rf@opensource.cirrus.com>
+In-Reply-To: <20200928111821.26967-1-rf@opensource.cirrus.com>
+References: <20200928111821.26967-1-rf@opensource.cirrus.com>
+Subject: Re: [PATCH v2 1/2] ASoC: cs4234: Add dtschema binding document
+Message-Id: <160132168199.55254.6586119876179093156.b4-ty@kernel.org>
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
+ Charles Keepax <ckeepax@opensource.cirrus.com>, linux-kernel@vger.kernel.org,
+ patches@opensource.cirrus.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -77,12 +77,8 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Fri, 25 Sep 2020 23:27:19 +0200, Krzysztof Kozlowski wrote:
-> Add common properties appearing in DTSes (assigned-clocks and similar)
-> to fix dtbs_check warnings like:
-> 
->   arch/arm64/boot/dts/freescale/imx8mq-librem5-devkit.dt.yaml: audio-codec@a:
->     'assigned-clock-parents', 'assigned-clock-rates', 'assigned-clocks' do not match any of the regexes: 'pinctrl-[0-9]+'
+On Mon, 28 Sep 2020 12:18:20 +0100, Richard Fitzgerald wrote:
+> Document the bindings for the CS4234 ASoC codec driver.
 
 Applied to
 
@@ -90,8 +86,10 @@ Applied to
 
 Thanks!
 
-[1/1] ASoC: dt-bindings: sgtl5000: Add common clock properties
-      commit: 3bf7b94293922e436556b5ac06081af2a3775225
+[1/2] ASoC: cs4234: Add dtschema binding document
+      commit: 5ebba5e7d71c965763f722e68cc60b8a4aa9cb31
+[2/2] ASoC: cs4234: Add support for Cirrus Logic CS4234 codec
+      commit: d4edae9c508c845d92bd59c60c4089c3addad6a8
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

@@ -2,77 +2,97 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D60DD28002D
-	for <lists+alsa-devel@lfdr.de>; Thu,  1 Oct 2020 15:30:35 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E4A45280055
+	for <lists+alsa-devel@lfdr.de>; Thu,  1 Oct 2020 15:42:02 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 2A0471873;
-	Thu,  1 Oct 2020 15:29:45 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2A0471873
+	by alsa0.perex.cz (Postfix) with ESMTPS id 867CF1873;
+	Thu,  1 Oct 2020 15:41:12 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 867CF1873
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1601559035;
-	bh=nvbuJCPx83pE7ndEe4+ksCvMCJ2S56k7vfTdDPeJets=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=CARAip2mHC83+kMiSeGoNESgidF8xPTWW3zipEPDshnpHrzg1O3BLxpByBE1iMAk1
-	 vrB4Wq90Mfj1945cVNe4NJ1C3YYm51zEKsQll6YsvjKf5rrMV8Xd21krWCKat/xIFp
-	 bPKs4OHo/fA9mH8dWxEBSpSH6p3pL/DxosHkJpzs=
+	s=default; t=1601559722;
+	bh=kocCE7/sL3zqYYMB9j3DFscW/pkqSVZBSOKjzj3rOlY=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=Dyi9W+2CG8AXarSc9yU3l/Su3dNQiNg7c+tqPxmKa0gs3iKWg4xKg6yFUt67fWzzv
+	 iCstroWZT6gInvfyslE7G4wYPRXHo9bpJAxslbuEpSSszkVoMvSXf8kuToNPT9u6IS
+	 gsYrJJjL+5Mddb2yAkf7SkFs06N2Kc5pTzvUKovA=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id C8179F802DD;
-	Thu,  1 Oct 2020 15:28:20 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 72DE4F80273;
+	Thu,  1 Oct 2020 15:40:10 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 45A08F802D2; Thu,  1 Oct 2020 15:28:18 +0200 (CEST)
+ id B330EF80228; Mon, 28 Sep 2020 08:38:16 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.6 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled
- version=3.4.0
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from mail-pg1-x541.google.com (mail-pg1-x541.google.com
+ [IPv6:2607:f8b0:4864:20::541])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 6C225F801D8
- for <alsa-devel@alsa-project.org>; Thu,  1 Oct 2020 15:28:11 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6C225F801D8
+ by alsa1.perex.cz (Postfix) with ESMTPS id 93D72F800DF
+ for <alsa-devel@alsa-project.org>; Mon, 28 Sep 2020 08:38:04 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 93D72F800DF
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="DlLkSHbn"
-Received: from localhost (fw-tnat.cambridge.arm.com [217.140.96.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 2241920754;
- Thu,  1 Oct 2020 13:28:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1601558888;
- bh=nvbuJCPx83pE7ndEe4+ksCvMCJ2S56k7vfTdDPeJets=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=DlLkSHbn/qgKv4PDG/uD9L+LgKG373h2D9xFff9JxcQC7A6WIqeeR0YQ1SAvGKAbw
- 7dOGPm7CKteJwAY3TCrCK0csJgzq3G0UooBguSq4mcOtaTQe4jZKIwotAtdzsrYlij
- AbaDeIkT4vLR+bKzRp/DVS5DW7eyHJax+B1qSbCo=
-Date: Thu, 1 Oct 2020 14:27:09 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Dave Ertman <david.m.ertman@intel.com>
-Subject: Re: [PATCH 1/6] Add ancillary bus support
-Message-ID: <20201001132709.GG6715@sirena.org.uk>
-References: <20200930225051.889607-1-david.m.ertman@intel.com>
- <20200930225051.889607-2-david.m.ertman@intel.com>
+ dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
+ header.b="M/fOxg41"
+Received: by mail-pg1-x541.google.com with SMTP id m34so7416398pgl.9
+ for <alsa-devel@alsa-project.org>; Sun, 27 Sep 2020 23:38:03 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=b0chtk5rr8XDTzC1Vz9PdERcVqFOmea/OCGt+6P6mjE=;
+ b=M/fOxg41yJtwIweGfkUXKS4DhCzSmqY2kkbgvMY2OTdmDMRgkr6K7VKGmkzPx9128L
+ 5lhw4DYpVejne21gL5f3/OUDy279MdWqYeG0dEpng6IVhVk/t6YhS92dhsN17eHRwtB4
+ myxZmB3Bs0kkOOTBjK3sYS+9+K6BpKP6gKFvCKSrttYPhYqT6Uk3vpdbftTym7bMA1jM
+ lHTTa7lyZScNA1gLd76jTM4Rr4nNcIp6Z1i9Dr/ZMPZv1eJuijohynSMjEu5xLidIfrO
+ E8cQ+6vAof+HbiNW2q+7H6EK0/zh4ZK+DryCYccV6Vr/OvXX8frUC6l/EyChq3Ddy/+Y
+ xiGA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=b0chtk5rr8XDTzC1Vz9PdERcVqFOmea/OCGt+6P6mjE=;
+ b=eHTzybKGaddt98QaJOL73ElNV4cHZ/lILGLcYJIn0yW+G/G79VgaawmpHO3kHCcAAI
+ pVrtaT6EftaZ/e9LMk7H/bugtHNPUun9QDJGob2RQN0A+m8m68YQJKIeyit/MZIxciiN
+ exd5rqqO95Re3wzzWYbx/ayVFZ7rpjYNxBhl5tn70dWDBixN4SVHO5wx0tRjcFHfctqe
+ MLiZi4Af8XUqQO9AGPDh0/1pycuWyTN3BZz8mhURVoRHriUz5jZJFTX0P/3geDIju4OF
+ GKh+hz9lIEljdaZaC0BLFVthOtOdUKF1vPlHID57P/4EuPjw3RRkPXkg5WW/B068S0ob
+ 69ew==
+X-Gm-Message-State: AOAM533mtVqxVjgMy0Y/g9NTkoDD3YsznEvHeEsed16TraQFHBE9/aTG
+ g85/PTFeWklJ1YPDU+7p7Sw=
+X-Google-Smtp-Source: ABdhPJyj1jBgh+AJFzEXL5d8eOV13dyDzQzXUtModYjoFV8sYvwq0POiaz94Z4R+8E8xiDjHI1/+CQ==
+X-Received: by 2002:a63:4854:: with SMTP id x20mr138642pgk.220.1601275080603; 
+ Sun, 27 Sep 2020 23:38:00 -0700 (PDT)
+Received: from localhost (114-34-18-97.HINET-IP.hinet.net. [114.34.18.97])
+ by smtp.gmail.com with ESMTPSA id g26sm192663pfr.105.2020.09.27.23.37.59
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sun, 27 Sep 2020 23:37:59 -0700 (PDT)
+From: Ajye Huang <ajye.huang@gmail.com>
+X-Google-Original-From: Ajye Huang <ajye_huang@compal.corp-partner.google.com>
+To: linux-kernel@vger.kernel.org
+Subject: [PATCH v1 0/2] Modify documentation and machine driver for SC7180
+ sound card
+Date: Mon, 28 Sep 2020 14:37:42 +0800
+Message-Id: <20200928063744.525700-1-ajye_huang@compal.corp-partner.google.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="hK8Uo4Yp55NZU70L"
-Content-Disposition: inline
-In-Reply-To: <20200930225051.889607-2-david.m.ertman@intel.com>
-X-Cookie: Stay away from flying saucers today.
-User-Agent: Mutt/1.10.1 (2018-07-13)
-Cc: alsa-devel@alsa-project.org, Kiran Patil <kiran.patil@intel.com>,
- tiwai@suse.de, gregkh@linuxfoundation.org, ranjani.sridharan@intel.com,
- pierre-louis.bossart@linux.intel.com,
- Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
- Fred Oh <fred.oh@linux.intel.com>, parav@nvidia.com, jgg@nvidia.com,
- Dan Williams <dan.j.williams@intel.com>,
- Shiraz Saleem <shiraz.saleem@intel.com>, Parav Pandit <parav@mellanox.com>
+Content-Transfer-Encoding: 8bit
+X-Mailman-Approved-At: Thu, 01 Oct 2020 15:40:07 +0200
+Cc: dianders@chromium.org, devicetree@vger.kernel.org,
+ alsa-devel@alsa-project.org, Banajit Goswami <bgoswami@codeaurora.org>,
+ Srinivasa Rao Mandadapu <srivasam@codeaurora.org>,
+ Liam Girdwood <lgirdwood@gmail.com>, linux-arm-msm@vger.kernel.org,
+ Patrick Lai <plai@codeaurora.org>,
+ Ajye Huang <ajye_huang@compal.corp-partner.google.com>,
+ Andy Gross <agross@kernel.org>, Rob Herring <robh+dt@kernel.org>,
+ Bjorn Andersson <bjorn.andersson@linaro.org>, Mark Brown <broonie@kernel.org>,
+ Rohit kumar <rohitkr@codeaurora.org>, tzungbi@chromium.org,
+ linux-arm-kernel@lists.infradead.org, cychiang@chromium.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -88,59 +108,26 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+Note:
+- This patch depends on this patch series 
+ ASoC: qcom: dt-bindings: Add sc7180 machine bindings
+ https://patchwork.kernel.org/patch/11773221/
+ ASoC: qcom: sc7180: Add machine driver for sound card registration
+ https://patchwork.kernel.org/patch/11773223/
+- The patch is made by the collaboration of
+ Ajye Huang <ajye_huang@compal.corp-partner.google.com>
+ Cheng-Yi Chiang <cychiang@chromium.org>
 
---hK8Uo4Yp55NZU70L
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Thanks for the review!
 
-On Wed, Sep 30, 2020 at 03:50:46PM -0700, Dave Ertman wrote:
+Ajye Huang (2):
+  ASoC: qcom: dt-bindings: Modify sc7180 machine bindings
+  ASoC: qcom: sc7180: Modify machine driver for 2mic
 
->  Documentation/driver-api/ancillary_bus.rst | 230 +++++++++++++++++++++
->  Documentation/driver-api/index.rst         |   1 +
+ .../bindings/sound/qcom,sc7180.yaml           | 64 ++++++++++++++++++-
+ sound/soc/qcom/sc7180.c                       | 60 +++++++++++++++++
+ 2 files changed, 123 insertions(+), 1 deletion(-)
 
-It would probably be useful to have the documentation in a separate
-patch, it's a huge proportion of the patch and would make it much more
-approachable.
+-- 
+2.25.1
 
-> +are controlled by DT/ACPI. The same argument applies for not using MFD in this
-> +scenario as MFD relies on individual function devices being physical devices
-> +that are DT enumerated.
-
-See my commments on the cover letter about MFD, this is just not true.
-
-> +An example for this kind of requirement is the audio subsystem where a single
-> +IP is handling multiple entities such as HDMI, Soundwire, local devices such as
-> +mics/speakers etc. The split for the core's functionality can be arbitrary or
-
-This is not a requirement of the audio subsystem, this is to do with how
-the Intel audio hardware has been implemented on their modern SoCs.
-
-> +int ancillary_device_initialize(struct ancillary_device *ancildev)
-> +{
-
-> +int __ancillary_device_add(struct ancillary_device *ancildev, const char *modname)
-> +{
-
-It can be useful to have this split but there's also going to be plenty
-of cases where people just need to register a device based on the struct
-ancilliary_device straight away so it would be good to at least have a
-standard ancilliary_device_new() (or whatever) that does both steps in
-one.  As Greg said in his review this split model is a bit more fiddly
-to use and frequently leads to error handling problems in drivers.
-
---hK8Uo4Yp55NZU70L
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl912SwACgkQJNaLcl1U
-h9DvcQf/Sphve8mdhn3UFbvbhCK4cib3j+Ittrlo2xPuot13fLVmquU4v6iFoL1F
-Nfq5FiEHMrrhX1Z0ttbBpEMiGSn/mksuQUhc3qJtT+1fnBr7YxPfS+PY6+/Jb0JS
-FpCRY/Tt1o0x+5Od8C8P9KsXlfzXSx3nxRTS28xPYM14Pm4Ix8911TJtFgWCIipY
-h+NuED+nLyeNaDsnw4XnxOEk7STg49Z1QFSu3DXesFoJghpUlbD/dT0dLO0oPLc5
-TAjv0LOpghENQ97C4l84RVGeFTqemEpeBAmrp/++zF0gAQ/V4Z0m1I9wUa7KjUnH
-2j0uI0jc+oQ0Bpc5WvilXkFouqMuMg==
-=XrlR
------END PGP SIGNATURE-----
-
---hK8Uo4Yp55NZU70L--

@@ -2,78 +2,95 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2790B27AF55
-	for <lists+alsa-devel@lfdr.de>; Mon, 28 Sep 2020 15:46:37 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9A20327AFFC
+	for <lists+alsa-devel@lfdr.de>; Mon, 28 Sep 2020 16:29:59 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D50A51853;
-	Mon, 28 Sep 2020 15:45:45 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D50A51853
+	by alsa0.perex.cz (Postfix) with ESMTPS id E714818CF;
+	Mon, 28 Sep 2020 16:29:08 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E714818CF
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1601300795;
-	bh=5VA99diFkPcsf3ZEVSMqCjz5tX2UVbFJrVbUgwg4+58=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1601303399;
+	bh=lC/H4lhipuFLcG7i7/wRlckWXhY7RDOeyiXinRFCV/w=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=jBoSr9N0w6DVIk5MfR3MIrUywxv9NPpUa8e0i+M/hAG1PRyGK/km4umIUZ8X5gakV
-	 bpY1U+UMpaAZA0C4l4mD7if93i5C8Eg4JwaNXIF8o2KvhWXxfvgTgZ1/cIBeAMbqbX
-	 +XqLeR8wPwXMcW5kZj0NnfM4Jx918/xxcpkKnsGw=
+	b=lfAyPNmqLmGJYK6+CyzzOPTh+qAr3RO014cgNQNGSVuX9axJMOT6rcZdV//TYglUm
+	 Yw7Xyeu1+d7761GBfpm8HMdN9rhqajw1ujfnM1tK0Rhw8Y9b94jDBTL8v5kfm2NqXG
+	 tuT+xz7CyxWam5T4i9h07Ldkfwhaiu4Esk6RZzAM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id F3C82F800FD;
-	Mon, 28 Sep 2020 15:44:54 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id DBE12F801F9;
+	Mon, 28 Sep 2020 16:28:17 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 90720F801F9; Mon, 28 Sep 2020 15:44:51 +0200 (CEST)
+ id 32D5EF801ED; Mon, 28 Sep 2020 16:28:12 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE
+X-Spam-Status: No, score=0.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,FREEMAIL_FROM,PRX_BODY_26,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
  autolearn=disabled version=3.4.0
-Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-il1-x143.google.com (mail-il1-x143.google.com
+ [IPv6:2607:f8b0:4864:20::143])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id DE304F800FD
- for <alsa-devel@alsa-project.org>; Mon, 28 Sep 2020 15:44:39 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DE304F800FD
-IronPort-SDR: 7ZffS9npMQrt4mUk3kGbJuNAowxz7khZR2XWC36LiNsdnEfj9iWiU40YKpRciLRrNviq9yWuou
- qkcxeuVX16ww==
-X-IronPort-AV: E=McAfee;i="6000,8403,9757"; a="149768158"
-X-IronPort-AV: E=Sophos;i="5.77,313,1596524400"; d="scan'208";a="149768158"
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from fmsmga006.fm.intel.com ([10.253.24.20])
- by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 28 Sep 2020 06:44:34 -0700
-IronPort-SDR: YTwDXtk//BfzgeGQ5MONmhJXILT4wkfys6xN0ptoKRXSRuYdOXHV3zTglQcQExYxB9pvRQN4qJ
- R9ULMhtbPZvw==
-X-IronPort-AV: E=Sophos;i="5.77,313,1596524400"; d="scan'208";a="513448706"
-Received: from smile.fi.intel.com (HELO smile) ([10.237.68.40])
- by fmsmga006-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 28 Sep 2020 06:44:30 -0700
-Received: from andy by smile with local (Exim 4.94)
- (envelope-from <andriy.shevchenko@linux.intel.com>)
- id 1kMtS4-002ZVU-PV; Mon, 28 Sep 2020 16:44:24 +0300
-Date: Mon, 28 Sep 2020 16:44:24 +0300
-From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-To: Cezary Rojewski <cezary.rojewski@intel.com>
-Subject: Re: [PATCH v9 02/14] ASoC: Intel: catpt: Implement IPC protocol
-Message-ID: <20200928134424.GM3956970@smile.fi.intel.com>
-References: <20200926085910.21948-1-cezary.rojewski@intel.com>
- <20200926085910.21948-3-cezary.rojewski@intel.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 4D098F800FD
+ for <alsa-devel@alsa-project.org>; Mon, 28 Sep 2020 16:27:56 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4D098F800FD
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
+ header.b="BOKMig27"
+Received: by mail-il1-x143.google.com with SMTP id t12so1430368ilh.3
+ for <alsa-devel@alsa-project.org>; Mon, 28 Sep 2020 07:27:56 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc:content-transfer-encoding;
+ bh=swpXeTWHWCNF6KXrz68zf9yRkpoPYhiTjW+lMQcubDQ=;
+ b=BOKMig27yWnniwJh3B4l/zCp7mHNUCUubmP8fwzAFvtftEdZrq/J5g9GHUBm8+rBuS
+ 7amT5mIVNrvgC4h1nJVlIySswEDjj9KrXY7EYQiVaVvuH7TBrJ6dfBuiWOfpA6V2IDOx
+ x9LC2kOWZB0ps5+Cyr6Xg+yjE8OMl6kIbLSj/ATKUBG5HsSlyCEdJfEQK70juLfljq5j
+ 1dQF4HWNgPah2G3fS8Xd50ag91nSTfdiRRC+sj1wUizOwipypUqx7Pk3IoeV7D/SwCNf
+ U3/X/j+AwtDaXBvH5eeOcRi5yscC+RRR6tBZQYohGmJfwYktf4JYiFAbARckHIswggK1
+ P8ww==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc:content-transfer-encoding;
+ bh=swpXeTWHWCNF6KXrz68zf9yRkpoPYhiTjW+lMQcubDQ=;
+ b=CjyIQpn0Q9G5GDg88IJkFAs1skZQUR/MYrLcxksMLvFLGx5rlwSNM5tPHAg5l6uX/m
+ CQCg6I3f9nHlMuTKCy9IMb0DAy1Rx/j5m5dVh+GBjgkUppB0hInT/GZ5Uhg+erLdTGZw
+ eL7E6IE4jhEoxjyp+MGc6+xlG5ItrVPx1oUsLG0rp3o6oH6xyRX1YkF6583TFFrCXWAE
+ DSDcd6EdvTNjm4oy95vgCRJo6Wohw9DMobr3BfVVwcEcqAByzeIkQCGKMsK2+GYYOEu/
+ 3sF4x+doMK4nmdMHFQbSrHe7b+RgPKT2vHtU235MFNxZz/ljeccAHKkD4BMTrcrcgwAp
+ XFAg==
+X-Gm-Message-State: AOAM5328M7b/fgkGMNBM5XY0Dy05Amxp8FeQ8BMOS6xyi8sy//H8X07k
+ Z6rRo5wEO3/96fiPBdMfVDSYl5k8IG9jFD7f5UI=
+X-Google-Smtp-Source: ABdhPJzOveX0je2bblXhCXBXIiaCyUUc4S3JAXPSmt4lEfMi8iabOV8HZOiVHqjpmvDzsFtEhoueN56owxsQKZojPH0=
+X-Received: by 2002:a92:d68b:: with SMTP id p11mr1294955iln.59.1601303274202; 
+ Mon, 28 Sep 2020 07:27:54 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20200926085910.21948-3-cezary.rojewski@intel.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
-Cc: pierre-louis.bossart@linux.intel.com, alsa-devel@alsa-project.org,
- filip.kaczmarski@intel.com, harshapriya.n@intel.com,
- gregkh@linuxfoundation.org, marcin.barlik@intel.com, zwisler@google.com,
- lgirdwood@gmail.com, tiwai@suse.com, filip.proborszcz@intel.com,
- broonie@kernel.org, amadeuszx.slawinski@linux.intel.com,
- michal.wasko@intel.com, cujomalainey@chromium.org,
- krzysztof.hejmowski@intel.com, ppapierkowski@habana.ai,
- vamshi.krishna.gopal@intel.com
+References: <20200921102731.747736-1-peron.clem@gmail.com>
+ <20200921135925.q7mde2cnt5jtzkb5@gilmour.lan>
+ <CAJiuCcfz9A_Vmzq=s3LK2kGB_1tZPkC9Ux+Brdocp9py0fovAg@mail.gmail.com>
+ <59286578.E0qSRroNqr@kista> <20200928084308.eipnvlfqe3c5lfmg@gilmour.lan>
+In-Reply-To: <20200928084308.eipnvlfqe3c5lfmg@gilmour.lan>
+From: =?UTF-8?B?Q2zDqW1lbnQgUMOpcm9u?= <peron.clem@gmail.com>
+Date: Mon, 28 Sep 2020 16:27:42 +0200
+Message-ID: <CAJiuCceHXr_5PvG-FW+hRNV7Q33hGrp8kLbO0EgfqqBxF7wbqQ@mail.gmail.com>
+Subject: Re: [PATCH v4 09/22] arm64: dts: allwinner: h6: Add HDMI audio node
+To: Maxime Ripard <maxime@cerno.tech>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+Cc: devicetree <devicetree@vger.kernel.org>,
+ =?UTF-8?Q?Jernej_=C5=A0krabec?= <jernej.skrabec@siol.net>,
+ linux-sunxi <linux-sunxi@googlegroups.com>,
+ Linux-ALSA <alsa-devel@alsa-project.org>,
+ linux-kernel <linux-kernel@vger.kernel.org>, Mark Brown <broonie@kernel.org>,
+ Takashi Iwai <tiwai@suse.com>, Liam Girdwood <lgirdwood@gmail.com>,
+ Marcus Cooper <codekipper@gmail.com>, Chen-Yu Tsai <wens@csie.org>,
+ Rob Herring <robh+dt@kernel.org>,
+ linux-arm-kernel <linux-arm-kernel@lists.infradead.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -89,149 +106,87 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Sat, Sep 26, 2020 at 10:58:58AM +0200, Cezary Rojewski wrote:
-> Implement IRQ handlers for immediate and delayed replies and
-> notifications. Communication is synchronous and allows for serialization
-> of maximum one message at a time.
-> 
-> DSP may respond with ADSP_PENDING status for a request - known as
-> delayed reply - and when situation occurs, framework keeps the lock and
-> awaits upcoming response through IPCD channel which is handled in
-> bottom-half. Immediate replies spawn no BH at all as their processing is
-> very short.
+Hi Maxime,
 
-...
+On Mon, 28 Sep 2020 at 10:43, Maxime Ripard <maxime@cerno.tech> wrote:
+>
+> On Mon, Sep 21, 2020 at 08:37:09PM +0200, Jernej =C5=A0krabec wrote:
+> > Dne ponedeljek, 21. september 2020 ob 19:23:49 CEST je Cl=C3=A9ment P=
+=C3=A9ron
+> > napisal(a):
+> > > Hi Maxime,
+> > >
+> > > On Mon, 21 Sep 2020 at 15:59, Maxime Ripard <maxime@cerno.tech> wrote=
+:
+> > > >
+> > > > On Mon, Sep 21, 2020 at 12:27:18PM +0200, Cl=C3=A9ment P=C3=A9ron w=
+rote:
+> > > > > From: Jernej Skrabec <jernej.skrabec@siol.net>
+> > > > >
+> > > > > Add a simple-soundcard to link audio between HDMI and I2S.
+> > > > >
+> > > > > Signed-off-by: Jernej Skrabec <jernej.skrabec@siol.net>
+> > > > > Signed-off-by: Marcus Cooper <codekipper@gmail.com>
+> > > > > Signed-off-by: Cl=C3=A9ment P=C3=A9ron <peron.clem@gmail.com>
+> > > > > ---
+> > > > >  arch/arm64/boot/dts/allwinner/sun50i-h6.dtsi | 33 ++++++++++++++=
+++++++
+> > > > >  1 file changed, 33 insertions(+)
+> > > > >
+> > > > > diff --git a/arch/arm64/boot/dts/allwinner/sun50i-h6.dtsi b/arch/=
+arm64/
+> > boot/dts/allwinner/sun50i-h6.dtsi
+> > > > > index 28c77d6872f6..a8853ee7885a 100644
+> > > > > --- a/arch/arm64/boot/dts/allwinner/sun50i-h6.dtsi
+> > > > > +++ b/arch/arm64/boot/dts/allwinner/sun50i-h6.dtsi
+> > > > > @@ -67,6 +67,25 @@ de: display-engine {
+> > > > >               status =3D "disabled";
+> > > > >       };
+> > > > >
+> > > > > +     hdmi_sound: hdmi-sound {
+> > > > > +             compatible =3D "simple-audio-card";
+> > > > > +             simple-audio-card,format =3D "i2s";
+> > > > > +             simple-audio-card,name =3D "sun50i-h6-hdmi";
+> > > > > +             simple-audio-card,mclk-fs =3D <128>;
+> > > > > +             simple-audio-card,frame-inversion;
+> > > > > +             status =3D "disabled";
+> > > > > +
+> > > > > +             simple-audio-card,codec {
+> > > > > +                     sound-dai =3D <&hdmi>;
+> > > > > +             };
+> > > > > +
+> > > > > +             simple-audio-card,cpu {
+> > > > > +                     sound-dai =3D <&i2s1>;
+> > > > > +                     dai-tdm-slot-num =3D <2>;
+> > > > > +                     dai-tdm-slot-width =3D <32>;
+> > > >
+> > > > It looks weird to have both some TDM setup here, and yet the format=
+ in
+> > > > i2s?
+> > >
+> > > Yes, I agree I will check if it's really needed.
+> >
+> > I think this was explained before.
+>
+> Possibly, but this should be in a comment or at least the commit log
+>
+> > Anyway, this is needed to force width to 32, no matter actual sample
+> > width. That's a requirement of HDMI codec. I believe Marcus Cooper
+> > have another codec which also needs fixed width.
+> >
+> > There is no similar property for I2S, so TDM one is used here.
+>
+> Except it's really dedicated to the TDM mode and doesn't really make
+> much sense here.
+>
+> If we have special requirements like this on the codec setup, that
+> sounds like a good justification for creating a custom codec instead of
+> shoehorning it into simple-card
 
-> +static int catpt_dsp_do_send_msg(struct catpt_dev *cdev,
-> +				 struct catpt_ipc_msg request,
-> +				 struct catpt_ipc_msg *reply, int timeout)
-> +{
-> +	struct catpt_ipc *ipc = &cdev->ipc;
-> +	unsigned long flags;
-> +	int ret;
-> +
-> +	if (!ipc->ready)
-> +		return -EPERM;
-> +	if (request.size > ipc->config.outbox_size ||
-> +	    (reply && reply->size > ipc->config.outbox_size))
-> +		return -EINVAL;
-> +
-> +	spin_lock_irqsave(&ipc->lock, flags);
-> +	catpt_ipc_msg_init(ipc, reply);
-> +	catpt_dsp_send_tx(cdev, &request);
-> +	spin_unlock_irqrestore(&ipc->lock, flags);
-> +
-> +	ret = catpt_wait_msg_completion(cdev, timeout);
-> +	if (ret) {
-> +		dev_crit(cdev->dev, "communication severed: %d, rebooting dsp..\n",
-> +			 ret);
-> +		ipc->ready = false;
-> +		/* TODO: attempt recovery */
-> +		return ret;
-> +	}
+When all the remarks are fixed would it be possible to merge the rest
+of the series without the dts changes ?
 
-> +	ret = ipc->rx.rsp.status;
-> +	if (reply) {
-> +		reply->header = ipc->rx.header;
-> +		if (!ret && reply->data)
-> +			memcpy(reply->data, ipc->rx.data, reply->size);
-> +	}
-> +
-> +	return ret;
+I will propose another series to introduce a dedicated codec for that.
 
-One more looking into this... What about
-
-	if (reply)
-		reply->header = ipc->rx.header;
-
-	ret = ipc->rx.rsp.status; // or even directly if (status) return status.
-	if (ret)
-		return ret;
-
-	if (reply->data)
-		memcpy(reply->data, ipc->rx.data, reply->size);
-
-	return 0;
-
-It may be verbose but I think readability is better here.
-
-> +}
-
-...
-
-> +	CATPT_CHANNEL_CONFIG_5_POINT_0	= 7, /* L, C, R, Ls & Rs */
-> +	CATPT_CHANNEL_CONFIG_5_POINT_1	= 8, /* L, C, R, Ls, Rs & LFE */
-> +	CATPT_CHANNEL_CONFIG_DUAL_MONO	= 9, /* One channel replicated in two */
-> +	CATPT_CHANNEL_CONFIG_INVALID	= 10,
-
-Hmm... I think I got the point why DUAL_MONO was at the end of the switch-case.
-
-...
-
-> +enum catpt_module_id {
-> +	CATPT_MODID_BASE_FW = 0x0,
-> +	CATPT_MODID_MP3 = 0x1,
-> +	CATPT_MODID_AAC_5_1 = 0x2,
-> +	CATPT_MODID_AAC_2_0 = 0x3,
-> +	CATPT_MODID_SRC = 0x4,
-> +	CATPT_MODID_WAVES = 0x5,
-> +	CATPT_MODID_DOLBY = 0x6,
-> +	CATPT_MODID_BOOST = 0x7,
-> +	CATPT_MODID_LPAL = 0x8,
-> +	CATPT_MODID_DTS = 0x9,
-> +	CATPT_MODID_PCM_CAPTURE = 0xA,
-> +	CATPT_MODID_PCM_SYSTEM = 0xB,
-> +	CATPT_MODID_PCM_REFERENCE = 0xC,
-> +	CATPT_MODID_PCM = 0xD, /* offload */
-> +	CATPT_MODID_BLUETOOTH_RENDER = 0xE,
-> +	CATPT_MODID_BLUETOOTH_CAPTURE = 0xF,
-> +	CATPT_MODID_LAST = CATPT_MODID_BLUETOOTH_CAPTURE,
-> +};
-
-if you indent the values to be on the same column it will increase readability.
-
-...
-
-> +enum catpt_mclk_frequency {
-> +	CATPT_MCLK_OFF = 0,
-> +	CATPT_MCLK_FREQ_6_MHZ = 1,
-> +	CATPT_MCLK_FREQ_21_MHZ = 2,
-> +	CATPT_MCLK_FREQ_24_MHZ = 3,
-> +};
-
-Looks like a 3 MHz as base frequency with multiplicators 0, 2, 7, 8. 
-
-...
-
-> +#define CATPT_STREAM_MSG(msg_type) \
-> +{ \
-> +	.stream_msg_type = CATPT_STRM_##msg_type, \
-> +	.global_msg_type = CATPT_GLB_STREAM_MESSAGE }
-> +#define CATPT_STAGE_MSG(msg_type) \
-> +{ \
-> +	.stage_action = CATPT_STG_##msg_type, \
-> +	.stream_msg_type = CATPT_STRM_STAGE_MESSAGE, \
-> +	.global_msg_type = CATPT_GLB_STREAM_MESSAGE }
-
-Hmm... This split is interesting. I would rather move } to a new line.
-
-...
-
-> @@ -15,7 +15,6 @@
->  #define CATPT_SHIM_REGS_SIZE	4096
->  #define CATPT_DMA_REGS_SIZE	1024
->  #define CATPT_DMA_COUNT		2
-
-> -#define CATPT_SSP_COUNT		2
-
-Why is this?
-
->  #define CATPT_SSP_REGS_SIZE	512
->  
->  /* DSP Shim registers */
-
--- 
-With Best Regards,
-Andy Shevchenko
-
-
+>
+> Maxime

@@ -2,67 +2,72 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 37C2027D133
-	for <lists+alsa-devel@lfdr.de>; Tue, 29 Sep 2020 16:33:16 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8864727D2ED
+	for <lists+alsa-devel@lfdr.de>; Tue, 29 Sep 2020 17:39:39 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id CF84718DE;
-	Tue, 29 Sep 2020 16:32:24 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CF84718DE
+	by alsa0.perex.cz (Postfix) with ESMTPS id A5A381818;
+	Tue, 29 Sep 2020 17:38:48 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A5A381818
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1601389994;
-	bh=814w1jG/aY0loFakmcXm75kdNgcMGtoFRLdrZOFy2XE=;
-	h=Subject:From:To:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=MN4VOwKocSrV2CdiB+Dw4yTcn0xf0Clhx1RHudyJp+GGyO4K2hYBVQPR/99PkoKxR
-	 03y0DtyifsWSPSvC19bGl1v+mO8bCWZZa/s2S8Pz0a75Z65Gk8Q/l6Bud8mv5CHFKo
-	 P3W5V26ne7YaGv792ETHYXamvrMsjmbaBPH3hMzk=
+	s=default; t=1601393978;
+	bh=cjoHGY1W/tvheF4P+Sb6EaXD96tgmol/c0xnuAyiofM=;
+	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=fUaW4E3Se84Atrh97h+lUdL5VgOXCOzG9wMgpzw2SYo5yaiudMKliFcgVm1MKd5wT
+	 kKcioTfhNC5Sk+KGI4OlwG/9/AqSc9az5VP/ZqXWvX8t0VdqN+036k94jVlYKPBOMI
+	 Lam/sDZLR7e8n7RCC05h9SoMBYYouJKZPt70Zc2Y=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 595FAF80115;
-	Tue, 29 Sep 2020 16:32:24 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 884B0F801DB;
+	Tue, 29 Sep 2020 17:37:57 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id F320CF801F5; Tue, 29 Sep 2020 16:32:21 +0200 (CEST)
+ id 856C3F8020C; Tue, 29 Sep 2020 17:37:55 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE
- autolearn=disabled version=3.4.0
-Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
+X-Spam-Status: No, score=0.0 required=5.0 tests=NICE_REPLY_A,SPF_HELO_NONE,
+ SPF_NONE autolearn=disabled version=3.4.0
+Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 41FB5F80115;
- Tue, 29 Sep 2020 16:32:09 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 41FB5F80115
-IronPort-SDR: xbnV+irtWJE+rBXMYorXavsyW56hG09tXHzxQnK7zzYjYppLTB29cjB3Lm0Ki1NCbqvWe94crL
- XusZp4tWV8Ew==
-X-IronPort-AV: E=McAfee;i="6000,8403,9758"; a="159531227"
-X-IronPort-AV: E=Sophos;i="5.77,318,1596524400"; d="scan'208";a="159531227"
+ by alsa1.perex.cz (Postfix) with ESMTPS id 81544F80115
+ for <alsa-devel@alsa-project.org>; Tue, 29 Sep 2020 17:37:46 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 81544F80115
+IronPort-SDR: CHYXgJLqGHkiT2hfp+C1JGoTyH5JDz+/Bma77/93urkAaQAxqoPFn/TgJos0QPGLklmeXrmpWa
+ hX4csARDcklw==
+X-IronPort-AV: E=McAfee;i="6000,8403,9759"; a="159592391"
+X-IronPort-AV: E=Sophos;i="5.77,319,1596524400"; d="scan'208";a="159592391"
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
-Received: from orsmga005.jf.intel.com ([10.7.209.41])
- by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 29 Sep 2020 07:32:06 -0700
-IronPort-SDR: SJLzmZHQPwrdpmKI6yUYPdPqVl5UAXro+ekMqsDxaZQxLE11AYLmYn1TJ3AlF57zwYEDeebg2G
- ffV9nl6M2sVA==
-X-IronPort-AV: E=Sophos;i="5.77,318,1596524400"; d="scan'208";a="491479092"
-Received: from sotmazgi-mobl1.ger.corp.intel.com ([10.214.222.17])
- by orsmga005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 29 Sep 2020 07:32:02 -0700
-Message-ID: <ac84d208a5da9fc26e68b3368918ae518f1b3e9b.camel@linux.intel.com>
-Subject: [ANNOUNCE] SOF v1.6-rc3 released
-From: Liam Girdwood <liam.r.girdwood@linux.intel.com>
-To: alsa-devel <alsa-devel@alsa-project.org>, sound-open-firmware
- <sound-open-firmware@alsa-project.org>
-Date: Tue, 29 Sep 2020 15:31:56 +0100
-Content-Type: text/plain; charset="UTF-8"
-User-Agent: Evolution 3.36.4-0ubuntu1 
+Received: from fmsmga008.fm.intel.com ([10.253.24.58])
+ by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 29 Sep 2020 08:37:44 -0700
+IronPort-SDR: u7zGSKpjL66lO6ha/ka5RsQpPa+zXCvTTE2FEr3Ybgrxkfb88LmlWyXSc2u6lON9y7VOJN+DPH
+ 4dzsPVeHimmA==
+X-IronPort-AV: E=Sophos;i="5.77,319,1596524400"; d="scan'208";a="294299052"
+Received: from sinayosx-desk3.amr.corp.intel.com (HELO [10.212.155.136])
+ ([10.212.155.136])
+ by fmsmga008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 29 Sep 2020 08:37:44 -0700
+Subject: Re: [PATCH 0/3] alsa-lib/ASoC: use inclusive language for
+ bclk/fsync/topology
+To: Takashi Iwai <tiwai@suse.de>
+References: <20200918212832.249184-1-pierre-louis.bossart@linux.intel.com>
+ <s5hlfgtkq4r.wl-tiwai@suse.de>
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Message-ID: <70ed2326-3271-e237-323e-09e17d501b7f@linux.intel.com>
+Date: Tue, 29 Sep 2020 08:44:36 -0500
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.10.0
 MIME-Version: 1.0
+In-Reply-To: <s5hlfgtkq4r.wl-tiwai@suse.de>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-US
 Content-Transfer-Encoding: 7bit
-Cc: Takashi Iwai <tiwai@suse.de>, Anthony Wong <anthony.wong@canonical.com>,
- Hui Wang <hui.wang@canonical.com>, Rex Tsai <rex.tsai@canonical.com>,
- Daniel Baluta <daniel.baluta@nxp.com>
+Cc: alsa-devel@alsa-project.org, broonie@kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -78,33 +83,41 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-The SOF developers are pleased to announce the release of our first
-signed release candidate for v1.6. i.e v1.6-rc3
 
-Binaries can be found here.
+>> The SOF (Sound Open Firmware) tree contains a lot of references in
+>> topology files to 'codec_slave'/'codec_master' terms, which in turn
+>> come from alsa-lib and ALSA/ASoC topology support at the kernel
+>> level. These terms are no longer compatible with the guidelines
+>> adopted by the kernel community [1] and need to change in
+>> backwards-compatible ways.
+>>
+>> The main/secondary terms typically suggested in guidelines don't mean
+>> anything for clocks, this patchset suggests instead the use of
+>> 'provider' and 'consumer' terms, with the 'codec' prefix kept to make
+>> it clear that the codec is the reference. The CM/CS suffixes are also
+>> replaced by CP/CC.
+>>
+>> It can be argued that the change of suffix is invasive, but finding a
+>> replacement that keeps the M and S shortcuts has proven difficult in
+>> quite a few contexts.
+>>
+>> The previous definitions are kept for backwards-compatibility so this
+>> change should not have any functional impact. It is suggested that new
+>> contributions only use the new terms but there is no requirement to
+>> transition immediately to the new definitions for existing code. Intel
+>> will however update all its past contributions related to bit
+>> clock/frame sync configurations immediately.
+>>
+>> This suggestion is easier to review first at the alsa-lib level, and
+>> if agreed follow-up contributions for the Linux kernel [2] and SOF
+>> firmware [3] will be provided.
+> 
+> It's OK from alsa-lib POV; although the uapi header change isn't 100%
+> safe, the user of this header is really our ones, so it's practically
+> acceptable, I suppose.
+> 
+> Could you submit the changes for kernel, so that it can be merged in
+> time?  Basically alsa-lib is synced with kernel, so the kernel should
+> be changed at first.
 
-https://github.com/thesofproject/sof-bin/tree/stable-v1.6
-
-New features are
-
-* Support for Intel Tigerlake
-* Support for Maxim Smart Amplifiers
-* Beamformer Microphone support.
-* DC blocker audio processing component.
-* Major feature and performance improvements for ASRC, KWD and FIR/IIR.
-* Numerous bug fixes and performance improvements for Intel and NXP
-platforms.
-
-In a change from the previous release process, the later release
-candidates will now be signed by Intel so that users can have the
-chance to test drive prior to v1.6 final. This will also give
-distributions more time to integrate and resolve any issues.
-
-Firmware issues can be reported here.
-
-https://github.com/thesofproject/sof/issues
-
-Thanks
-
-Liam 
-
+Ack, will do, thanks for the review.

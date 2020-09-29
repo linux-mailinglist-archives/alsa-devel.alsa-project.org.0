@@ -2,48 +2,48 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D4A3727D439
-	for <lists+alsa-devel@lfdr.de>; Tue, 29 Sep 2020 19:15:01 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1F1C127D454
+	for <lists+alsa-devel@lfdr.de>; Tue, 29 Sep 2020 19:22:00 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D20BB1804;
-	Tue, 29 Sep 2020 19:14:10 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D20BB1804
+	by alsa0.perex.cz (Postfix) with ESMTPS id A15321804;
+	Tue, 29 Sep 2020 19:21:09 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A15321804
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1601399700;
-	bh=ie8LzgdI5+SHr6RUxzpsj7sdKO/mDWGoH1OYPXGHpJ4=;
+	s=default; t=1601400119;
+	bh=nDiMOhQBRKgwSBZCxNPzZsXtT6UwaxO8IaV8vgECK/c=;
 	h=From:To:In-Reply-To:References:Subject:Date:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=RITYvPDwATaMrhrDI67UYIHSnFD0GD3tmUg+xa2GZWt8MtfZn92kNejjEXNKszqkf
-	 n2jt++PYeAayBZ9JXOIBkkq4EFnfZYQvCHisyNHlMdpKbOgrDyEHmNgHVJuiz5Nj/R
-	 MBV2nlPoSaQq/ZQzXJqFUSMsdEQWTkTkMux2iUZI=
+	b=G49bX6EtqydCw00FD9gyUyWnh3GDnZQhnnfXBgqP6icOwHyCGgwmLw67P4mI+v9ZY
+	 arhXI2DWSA44AvRZPSR94hsCqwTNAqKv/4Pnmj6Hj1fo6MXFZE0TIo0drJBE/8X2Di
+	 HoL2aAcys3s42srTznfklCHQWBZX63KGJDEQKTjE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 03C1FF800AB;
-	Tue, 29 Sep 2020 19:13:19 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id D5CACF800AB;
+	Tue, 29 Sep 2020 19:20:18 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 462D3F801F5; Tue, 29 Sep 2020 19:13:18 +0200 (CEST)
+ id 50B66F801F5; Tue, 29 Sep 2020 19:20:16 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: **
 X-Spam-Status: No, score=2.5 required=5.0 tests=MISSING_DATE,MISSING_MID,
  SPF_FAIL,SPF_HELO_NONE autolearn=disabled version=3.4.0
 Received: from webhooks-bot.alsa-project.org (gate.perex.cz [77.48.224.242])
- by alsa1.perex.cz (Postfix) with ESMTP id 438DFF800AB
- for <alsa-devel@alsa-project.org>; Tue, 29 Sep 2020 19:13:07 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 438DFF800AB
+ by alsa1.perex.cz (Postfix) with ESMTP id B5E43F80115
+ for <alsa-devel@alsa-project.org>; Tue, 29 Sep 2020 19:20:10 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B5E43F80115
 MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 From: GitHub pull_request - edited <github@alsa-project.org>
 To: alsa-devel@alsa-project.org
-In-Reply-To: <1601399585529434919-webhooks-bot@alsa-project.org>
-References: <1601399585529434919-webhooks-bot@alsa-project.org>
+In-Reply-To: <1601400010346405029-webhooks-bot@alsa-project.org>
+References: <1601400010346405029-webhooks-bot@alsa-project.org>
 Subject: bdw-rt5677: add SOF support
-Message-Id: <20200929171318.462D3F801F5@alsa1.perex.cz>
-Date: Tue, 29 Sep 2020 19:13:18 +0200 (CEST)
+Message-Id: <20200929172016.50B66F801F5@alsa1.perex.cz>
+Date: Tue, 29 Sep 2020 19:20:16 +0200 (CEST)
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -61,7 +61,7 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 alsa-project/alsa-ucm-conf pull request #53 was edited from caseorum:
 
-I believe this is the "mechanism" intended in 898602208888da63d758ff3c293b5ad2ec6e6c19.
+I believe this is the mechanism intended in 898602208888da63d758ff3c293b5ad2ec6e6c19.
 
 Request URL   : https://github.com/alsa-project/alsa-ucm-conf/pull/53
 Patch URL     : https://github.com/alsa-project/alsa-ucm-conf/pull/53.patch

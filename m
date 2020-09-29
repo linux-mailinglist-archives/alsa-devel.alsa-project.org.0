@@ -2,50 +2,49 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 86C6527BC19
-	for <lists+alsa-devel@lfdr.de>; Tue, 29 Sep 2020 06:35:01 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9731427BC1C
+	for <lists+alsa-devel@lfdr.de>; Tue, 29 Sep 2020 06:35:14 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 282E11841;
-	Tue, 29 Sep 2020 06:34:11 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 282E11841
+	by alsa0.perex.cz (Postfix) with ESMTPS id 37C7B188C;
+	Tue, 29 Sep 2020 06:34:24 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 37C7B188C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1601354101;
-	bh=/ssUSE+1gLDbJ3bN9nFokZFCrYziGeUyELKFwpUzs/I=;
+	s=default; t=1601354114;
+	bh=c4wgILrAM3IiRc9qwbEHFaVjgKTdYRJFzLz9dlwA+BA=;
 	h=Date:From:Subject:To:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=ReChMrdwttUTIkPVKeGwqt+dCG2eUIt0NBGJz55l7ncQHfHxBxClDPUz9K3BQRjif
-	 uVjObkMfXtNPdVtaMYAI4BaYw58J6RynlojLfDcE2J7ZyD5Bq5jTYCDtoNX/3uRfnU
-	 pGGZ+msl9siymh2Cw4Yq1V1Wz4fzY6SH4M1NAh4E=
+	b=ie5NKoMI/KW+c6b1xGANmHzGphKg+kDbMnn9E70PbMhJ97UswMVvp2lHpmkJEfDzN
+	 x62eDP2heU8AcYYYZ3zMZ0BXw0UK8l9OwFRG0VfHIFkmDxJNuNXuAO15Etbqx3ZOF0
+	 ZD4fc2roroWgC6ZXedf3ROWE1iE73h+7UpfK4meA=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 57534F802E2;
-	Tue, 29 Sep 2020 06:31:49 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 93F20F802E8;
+	Tue, 29 Sep 2020 06:32:06 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 7B9FFF802E1; Tue, 29 Sep 2020 06:31:46 +0200 (CEST)
+ id AB790F802E7; Tue, 29 Sep 2020 06:32:02 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
  URIBL_BLOCKED autolearn=disabled version=3.4.0
 Received: from relmlie6.idc.renesas.com (relmlor2.renesas.com
  [210.160.252.172])
- by alsa1.perex.cz (Postfix) with ESMTP id 96020F802DF
- for <alsa-devel@alsa-project.org>; Tue, 29 Sep 2020 06:31:42 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 96020F802DF
-Date: 29 Sep 2020 13:31:41 +0900
-X-IronPort-AV: E=Sophos;i="5.77,316,1596466800"; d="scan'208";a="58205668"
-Received: from unknown (HELO relmlir5.idc.renesas.com) ([10.200.68.151])
- by relmlie6.idc.renesas.com with ESMTP; 29 Sep 2020 13:31:41 +0900
+ by alsa1.perex.cz (Postfix) with ESMTP id 6A7D8F801DB
+ for <alsa-devel@alsa-project.org>; Tue, 29 Sep 2020 06:31:55 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6A7D8F801DB
+Date: 29 Sep 2020 13:31:53 +0900
+X-IronPort-AV: E=Sophos;i="5.77,316,1596466800"; d="scan'208";a="58205681"
+Received: from unknown (HELO relmlir6.idc.renesas.com) ([10.200.68.152])
+ by relmlie6.idc.renesas.com with ESMTP; 29 Sep 2020 13:31:53 +0900
 Received: from mercury.renesas.com (unknown [10.166.252.133])
- by relmlir5.idc.renesas.com (Postfix) with ESMTP id 2339E40061AD;
- Tue, 29 Sep 2020 13:31:41 +0900 (JST)
-Message-ID: <87k0wdgqav.wl-kuninori.morimoto.gx@renesas.com>
+ by relmlir6.idc.renesas.com (Postfix) with ESMTP id EC5884193550;
+ Tue, 29 Sep 2020 13:31:53 +0900 (JST)
+Message-ID: <87imbxgqai.wl-kuninori.morimoto.gx@renesas.com>
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Subject: [PATCH 4/6] ASoC: soc-component: add mark for
- snd_soc_pcm_component_hw_params/free()
+Subject: [PATCH 5/6] ASoC: soc-dai: add mark for snd_soc_dai_hw_params/free()
 User-Agent: Wanderlust/2.15.9 Emacs/26.3 Mule/6.0
 To: Mark Brown <broonie@kernel.org>
 In-Reply-To: <87pn65gqcj.wl-kuninori.morimoto.gx@renesas.com>
@@ -67,6 +66,7 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
+
 
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 
@@ -99,10 +99,10 @@ thus, we want to share soc_pcm_hw_free() and rollback.
 
 Now, soc_pcm_hw_params/free() are handling
 	1) snd_soc_link_hw_params/free()
-=>	2) snd_soc_pcm_component_hw_params/free()
-	3) snd_soc_dai_hw_params/free()
+	2) snd_soc_pcm_component_hw_params/free()
+=>	3) snd_soc_dai_hw_params/free()
 
-This patch is for 2) snd_soc_pcm_component_hw_params/free().
+This patch is for 3) snd_soc_dai_hw_params/free().
 
 The idea of having bit-flag or counter is not enough for this purpose.
 For example if one DAI is used for 2xPlaybacks for some reasons,
@@ -124,131 +124,117 @@ update.
 
 Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 ---
- include/sound/soc-component.h |  6 +++---
- sound/soc/soc-component.c     | 19 ++++++++++---------
- sound/soc/soc-pcm.c           |  7 +++----
- 3 files changed, 16 insertions(+), 16 deletions(-)
+ include/sound/soc-dai.h |  4 +++-
+ sound/soc/soc-dai.c     | 13 ++++++++++++-
+ sound/soc/soc-dapm.c    |  4 ++--
+ sound/soc/soc-pcm.c     |  6 +++---
+ 4 files changed, 20 insertions(+), 7 deletions(-)
 
-diff --git a/include/sound/soc-component.h b/include/sound/soc-component.h
-index 2c790ce95259..21f1d120b68e 100644
---- a/include/sound/soc-component.h
-+++ b/include/sound/soc-component.h
-@@ -220,6 +220,7 @@ struct snd_soc_component {
+diff --git a/include/sound/soc-dai.h b/include/sound/soc-dai.h
+index 2150bd4c7a05..7a85a6f83ca8 100644
+--- a/include/sound/soc-dai.h
++++ b/include/sound/soc-dai.h
+@@ -149,7 +149,8 @@ int snd_soc_dai_hw_params(struct snd_soc_dai *dai,
+ 			  struct snd_pcm_substream *substream,
+ 			  struct snd_pcm_hw_params *params);
+ void snd_soc_dai_hw_free(struct snd_soc_dai *dai,
+-			 struct snd_pcm_substream *substream);
++			 struct snd_pcm_substream *substream,
++			 int rollback);
+ int snd_soc_dai_startup(struct snd_soc_dai *dai,
+ 			struct snd_pcm_substream *substream);
+ void snd_soc_dai_shutdown(struct snd_soc_dai *dai,
+@@ -390,6 +391,7 @@ struct snd_soc_dai {
+ 
  	/* function mark */
- 	struct snd_pcm_substream *mark_module;
- 	struct snd_pcm_substream *mark_open;
+ 	struct snd_pcm_substream *mark_startup;
 +	struct snd_pcm_substream *mark_hw_params;
- 	void *mark_pm;
  
- #ifdef CONFIG_DEBUG_FS
-@@ -459,10 +460,9 @@ int snd_soc_pcm_component_new(struct snd_soc_pcm_runtime *rtd);
- void snd_soc_pcm_component_free(struct snd_soc_pcm_runtime *rtd);
- int snd_soc_pcm_component_prepare(struct snd_pcm_substream *substream);
- int snd_soc_pcm_component_hw_params(struct snd_pcm_substream *substream,
--				    struct snd_pcm_hw_params *params,
--				    struct snd_soc_component **last);
-+				    struct snd_pcm_hw_params *params);
- void snd_soc_pcm_component_hw_free(struct snd_pcm_substream *substream,
--				   struct snd_soc_component *last);
-+				   int rollback);
- int snd_soc_pcm_component_trigger(struct snd_pcm_substream *substream,
- 				  int cmd);
- int snd_soc_pcm_component_pm_runtime_get(struct snd_soc_pcm_runtime *rtd,
-diff --git a/sound/soc/soc-component.c b/sound/soc/soc-component.c
-index 728e93f35ffb..6d719c2db92e 100644
---- a/sound/soc/soc-component.c
-+++ b/sound/soc/soc-component.c
-@@ -779,8 +779,7 @@ int snd_soc_pcm_component_prepare(struct snd_pcm_substream *substream)
- }
- 
- int snd_soc_pcm_component_hw_params(struct snd_pcm_substream *substream,
--				    struct snd_pcm_hw_params *params,
--				    struct snd_soc_component **last)
-+				    struct snd_pcm_hw_params *params)
- {
- 	struct snd_soc_pcm_runtime *rtd = asoc_substream_to_rtd(substream);
- 	struct snd_soc_component *component;
-@@ -790,33 +789,35 @@ int snd_soc_pcm_component_hw_params(struct snd_pcm_substream *substream,
- 		if (component->driver->hw_params) {
- 			ret = component->driver->hw_params(component,
- 							   substream, params);
--			if (ret < 0) {
--				*last = component;
-+			if (ret < 0)
- 				return soc_component_ret(component, ret);
--			}
- 		}
-+		/* mark substream if succeeded */
-+		soc_component_mark_push(component, substream, hw_params);
- 	}
- 
--	*last = NULL;
- 	return 0;
- }
- 
- void snd_soc_pcm_component_hw_free(struct snd_pcm_substream *substream,
--				   struct snd_soc_component *last)
-+				   int rollback)
- {
- 	struct snd_soc_pcm_runtime *rtd = asoc_substream_to_rtd(substream);
- 	struct snd_soc_component *component;
- 	int i, ret;
- 
- 	for_each_rtd_components(rtd, i, component) {
--		if (component == last)
--			break;
-+		if (rollback && !soc_component_mark_match(component, substream, hw_params))
-+			continue;
- 
- 		if (component->driver->hw_free) {
- 			ret = component->driver->hw_free(component, substream);
- 			if (ret < 0)
- 				soc_component_ret(component, ret);
- 		}
+ 	/* bit field */
+ 	unsigned int probed:1;
+diff --git a/sound/soc/soc-dai.c b/sound/soc/soc-dai.c
+index 4705c3da6280..2686a566649b 100644
+--- a/sound/soc/soc-dai.c
++++ b/sound/soc/soc-dai.c
+@@ -335,16 +335,27 @@ int snd_soc_dai_hw_params(struct snd_soc_dai *dai,
+ 	if (dai->driver->ops &&
+ 	    dai->driver->ops->hw_params)
+ 		ret = dai->driver->ops->hw_params(substream, params, dai);
 +
-+		/* remove marked substream */
-+		soc_component_mark_pop(component, substream, hw_params);
- 	}
++	/* mark substream if succeeded */
++	if (ret == 0)
++		soc_dai_mark_push(dai, substream, hw_params);
+ end:
+ 	return soc_dai_ret(dai, ret);
  }
  
+ void snd_soc_dai_hw_free(struct snd_soc_dai *dai,
+-			 struct snd_pcm_substream *substream)
++			 struct snd_pcm_substream *substream,
++			 int rollback)
+ {
++	if (rollback && !soc_dai_mark_match(dai, substream, hw_params))
++		return;
++
+ 	if (dai->driver->ops &&
+ 	    dai->driver->ops->hw_free)
+ 		dai->driver->ops->hw_free(substream, dai);
++
++	/* remove marked substream */
++	soc_dai_mark_pop(dai, substream, hw_params);
+ }
+ 
+ int snd_soc_dai_startup(struct snd_soc_dai *dai,
+diff --git a/sound/soc/soc-dapm.c b/sound/soc/soc-dapm.c
+index 980f2c330b87..471ac8d9b669 100644
+--- a/sound/soc/soc-dapm.c
++++ b/sound/soc/soc-dapm.c
+@@ -3955,13 +3955,13 @@ static int snd_soc_dai_link_event(struct snd_soc_dapm_widget *w,
+ 		substream->stream = SNDRV_PCM_STREAM_CAPTURE;
+ 		snd_soc_dapm_widget_for_each_source_path(w, path) {
+ 			source = path->source->priv;
+-			snd_soc_dai_hw_free(source, substream);
++			snd_soc_dai_hw_free(source, substream, 0);
+ 		}
+ 
+ 		substream->stream = SNDRV_PCM_STREAM_PLAYBACK;
+ 		snd_soc_dapm_widget_for_each_sink_path(w, path) {
+ 			sink = path->sink->priv;
+-			snd_soc_dai_hw_free(sink, substream);
++			snd_soc_dai_hw_free(sink, substream, 0);
+ 		}
+ 
+ 		substream->stream = SNDRV_PCM_STREAM_CAPTURE;
 diff --git a/sound/soc/soc-pcm.c b/sound/soc/soc-pcm.c
-index 969f5774cd00..5d4d0a95891a 100644
+index 5d4d0a95891a..80337d0cd0d2 100644
 --- a/sound/soc/soc-pcm.c
 +++ b/sound/soc/soc-pcm.c
-@@ -888,7 +888,7 @@ static int soc_pcm_hw_free(struct snd_pcm_substream *substream)
- 	snd_soc_link_hw_free(substream, 0);
+@@ -895,7 +895,7 @@ static int soc_pcm_hw_free(struct snd_pcm_substream *substream)
+ 		if (!snd_soc_dai_stream_valid(dai, substream->stream))
+ 			continue;
  
- 	/* free any component resources */
--	snd_soc_pcm_component_hw_free(substream, NULL);
-+	snd_soc_pcm_component_hw_free(substream, 0);
- 
- 	/* now free hw params for the DAIs  */
- 	for_each_rtd_dais(rtd, i, dai) {
-@@ -911,7 +911,6 @@ static int soc_pcm_hw_params(struct snd_pcm_substream *substream,
- 				struct snd_pcm_hw_params *params)
- {
- 	struct snd_soc_pcm_runtime *rtd = asoc_substream_to_rtd(substream);
--	struct snd_soc_component *component;
- 	struct snd_soc_dai *cpu_dai;
- 	struct snd_soc_dai *codec_dai;
- 	int i, ret = 0;
-@@ -994,7 +993,7 @@ static int soc_pcm_hw_params(struct snd_pcm_substream *substream,
- 		snd_soc_dapm_update_dai(substream, params, cpu_dai);
+-		snd_soc_dai_hw_free(dai, substream);
++		snd_soc_dai_hw_free(dai, substream, 0);
  	}
  
--	ret = snd_soc_pcm_component_hw_params(substream, params, &component);
-+	ret = snd_soc_pcm_component_hw_params(substream, params);
- 	if (ret < 0)
- 		goto component_err;
+ 	mutex_unlock(&rtd->card->pcm_mutex);
+@@ -1011,7 +1011,7 @@ static int soc_pcm_hw_params(struct snd_pcm_substream *substream,
+ 		if (!snd_soc_dai_stream_valid(cpu_dai, substream->stream))
+ 			continue;
  
-@@ -1003,7 +1002,7 @@ static int soc_pcm_hw_params(struct snd_pcm_substream *substream,
- 	return ret;
+-		snd_soc_dai_hw_free(cpu_dai, substream);
++		snd_soc_dai_hw_free(cpu_dai, substream, 1);
+ 		cpu_dai->rate = 0;
+ 	}
  
- component_err:
--	snd_soc_pcm_component_hw_free(substream, component);
-+	snd_soc_pcm_component_hw_free(substream, 1);
+@@ -1022,7 +1022,7 @@ static int soc_pcm_hw_params(struct snd_pcm_substream *substream,
+ 		if (!snd_soc_dai_stream_valid(codec_dai, substream->stream))
+ 			continue;
  
- 	i = rtd->num_cpus;
+-		snd_soc_dai_hw_free(codec_dai, substream);
++		snd_soc_dai_hw_free(codec_dai, substream, 1);
+ 		codec_dai->rate = 0;
+ 	}
  
 -- 
 2.25.1

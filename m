@@ -2,49 +2,50 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0E0FB27BC15
-	for <lists+alsa-devel@lfdr.de>; Tue, 29 Sep 2020 06:33:24 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8911C27BC16
+	for <lists+alsa-devel@lfdr.de>; Tue, 29 Sep 2020 06:33:33 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 94EF71855;
-	Tue, 29 Sep 2020 06:32:33 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 94EF71855
+	by alsa0.perex.cz (Postfix) with ESMTPS id 2BC64187F;
+	Tue, 29 Sep 2020 06:32:43 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2BC64187F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1601354003;
-	bh=mJVqQ6ACf9KEirF/V4aktLJP70S6ftoPqjYMRm5/XTA=;
+	s=default; t=1601354013;
+	bh=RsmGdPzuU73EpbFrZ67UJ4Mu4AsUOU71IMtTVHsO5vM=;
 	h=Date:From:Subject:To:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=up1BLbbgViLtzmFn3C4yA50cKettbuEcpEVQDmdyB6L39+h/YVqa2S2zFkZaow3P5
-	 6kyHXSmH2dH6+F0//cem+bJjzwyc6WWIS+xcJq4IXXmzhI+Bw9qt9jwKKeyYAl8cZz
-	 /YB4K1Fdi4KhcS3C7T5V0GPbzj/oerVUkriShghg=
+	b=bIBRH+KEoFCQfaBV4s7kpsxuTAbR6ToBwm/cMpBctC7rngFVJ/YrPyWHShUlXKEvp
+	 DrZ2VDCk5RCyL4EPFC8R8p7igB+9lcJ83VNkdbTnO9srOPDOwE28jHHqB+toNaM+Ff
+	 Fudcd6Y8JF8rfKPvIgxvwFU1UJvGKe/qucfyUUig=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id E3528F8022B;
-	Tue, 29 Sep 2020 06:31:24 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 4D8E2F802D2;
+	Tue, 29 Sep 2020 06:31:30 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 8B349F8022D; Tue, 29 Sep 2020 06:31:20 +0200 (CEST)
+ id 0F3A0F802C3; Tue, 29 Sep 2020 06:31:27 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
  URIBL_BLOCKED autolearn=disabled version=3.4.0
 Received: from relmlie5.idc.renesas.com (relmlor1.renesas.com
  [210.160.252.171])
- by alsa1.perex.cz (Postfix) with ESMTP id AEA90F800DD
- for <alsa-devel@alsa-project.org>; Tue, 29 Sep 2020 06:31:13 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz AEA90F800DD
-Date: 29 Sep 2020 13:31:11 +0900
-X-IronPort-AV: E=Sophos;i="5.77,316,1596466800"; d="scan'208";a="58421916"
-Received: from unknown (HELO relmlir6.idc.renesas.com) ([10.200.68.152])
- by relmlie5.idc.renesas.com with ESMTP; 29 Sep 2020 13:31:11 +0900
+ by alsa1.perex.cz (Postfix) with ESMTP id BA832F800DD
+ for <alsa-devel@alsa-project.org>; Tue, 29 Sep 2020 06:31:19 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BA832F800DD
+Date: 29 Sep 2020 13:31:19 +0900
+X-IronPort-AV: E=Sophos;i="5.77,316,1596466800"; d="scan'208";a="58421928"
+Received: from unknown (HELO relmlir5.idc.renesas.com) ([10.200.68.151])
+ by relmlie5.idc.renesas.com with ESMTP; 29 Sep 2020 13:31:19 +0900
 Received: from mercury.renesas.com (unknown [10.166.252.133])
- by relmlir6.idc.renesas.com (Postfix) with ESMTP id 55B764193554;
- Tue, 29 Sep 2020 13:31:11 +0900 (JST)
-Message-ID: <87o8lpgqbp.wl-kuninori.morimoto.gx@renesas.com>
+ by relmlir5.idc.renesas.com (Postfix) with ESMTP id 52D3740061AD;
+ Tue, 29 Sep 2020 13:31:19 +0900 (JST)
+Message-ID: <87mu19gqbh.wl-kuninori.morimoto.gx@renesas.com>
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Subject: [PATCH 1/6] ASoC: soc.h: remove for_each_rtd_dais_rollback()
+Subject: [PATCH 2/6] ASoC: soc-pcm: move soc_pcm_hw_free() next to
+ soc_pcm_hw_params()
 User-Agent: Wanderlust/2.15.9 Emacs/26.3 Mule/6.0
 To: Mark Brown <broonie@kernel.org>
 In-Reply-To: <87pn65gqcj.wl-kuninori.morimoto.gx@renesas.com>
@@ -67,32 +68,120 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 
-commit 140a4532cdb8 ("ASoC: soc-pcm: add soc_pcm_clean() and call it
-from soc_pcm_open/close()") uses soc_pcm_clean() and then
-for_each_rtd_dais_rollback() is no longer used.
-This patch removes it.
+This patch moves soc_pcm_hw_free() next to soc_pcm_hw_params().
+This is prepare for soc_pcm_hw_params() cleanup
 
 Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 ---
- include/sound/soc.h | 2 --
- 1 file changed, 2 deletions(-)
+ sound/soc/soc-pcm.c | 86 ++++++++++++++++++++++-----------------------
+ 1 file changed, 43 insertions(+), 43 deletions(-)
 
-diff --git a/include/sound/soc.h b/include/sound/soc.h
-index 3b038c563ae1..7541c71c9eb8 100644
---- a/include/sound/soc.h
-+++ b/include/sound/soc.h
-@@ -1196,8 +1196,6 @@ struct snd_soc_pcm_runtime {
- 	     ((i) < (rtd)->num_cpus + (rtd)->num_codecs) &&		\
- 		     ((dai) = (rtd)->dais[i]);				\
- 	     (i)++)
--#define for_each_rtd_dais_rollback(rtd, i, dai)		\
--	for (; (--(i) >= 0) && ((dai) = (rtd)->dais[i]);)
+diff --git a/sound/soc/soc-pcm.c b/sound/soc/soc-pcm.c
+index 09e8d703a502..65a6eebafefc 100644
+--- a/sound/soc/soc-pcm.c
++++ b/sound/soc/soc-pcm.c
+@@ -859,6 +859,49 @@ static void soc_pcm_codec_params_fixup(struct snd_pcm_hw_params *params,
+ 	interval->max = channels;
+ }
  
- void snd_soc_close_delayed_work(struct snd_soc_pcm_runtime *rtd);
++/*
++ * Frees resources allocated by hw_params, can be called multiple times
++ */
++static int soc_pcm_hw_free(struct snd_pcm_substream *substream)
++{
++	struct snd_soc_pcm_runtime *rtd = asoc_substream_to_rtd(substream);
++	struct snd_soc_dai *dai;
++	int i;
++
++	mutex_lock_nested(&rtd->card->pcm_mutex, rtd->card->pcm_subclass);
++
++	/* clear the corresponding DAIs parameters when going to be inactive */
++	for_each_rtd_dais(rtd, i, dai) {
++		int active = snd_soc_dai_stream_active(dai, substream->stream);
++
++		if (snd_soc_dai_active(dai) == 1) {
++			dai->rate = 0;
++			dai->channels = 0;
++			dai->sample_bits = 0;
++		}
++
++		if (active == 1)
++			snd_soc_dai_digital_mute(dai, 1, substream->stream);
++	}
++
++	/* free any machine hw params */
++	snd_soc_link_hw_free(substream);
++
++	/* free any component resources */
++	snd_soc_pcm_component_hw_free(substream, NULL);
++
++	/* now free hw params for the DAIs  */
++	for_each_rtd_dais(rtd, i, dai) {
++		if (!snd_soc_dai_stream_valid(dai, substream->stream))
++			continue;
++
++		snd_soc_dai_hw_free(dai, substream);
++	}
++
++	mutex_unlock(&rtd->card->pcm_mutex);
++	return 0;
++}
++
+ /*
+  * Called by ALSA when the hardware params are set by application. This
+  * function can also be called multiple times and can allocate buffers
+@@ -990,49 +1033,6 @@ static int soc_pcm_hw_params(struct snd_pcm_substream *substream,
+ 	return ret;
+ }
  
+-/*
+- * Frees resources allocated by hw_params, can be called multiple times
+- */
+-static int soc_pcm_hw_free(struct snd_pcm_substream *substream)
+-{
+-	struct snd_soc_pcm_runtime *rtd = asoc_substream_to_rtd(substream);
+-	struct snd_soc_dai *dai;
+-	int i;
+-
+-	mutex_lock_nested(&rtd->card->pcm_mutex, rtd->card->pcm_subclass);
+-
+-	/* clear the corresponding DAIs parameters when going to be inactive */
+-	for_each_rtd_dais(rtd, i, dai) {
+-		int active = snd_soc_dai_stream_active(dai, substream->stream);
+-
+-		if (snd_soc_dai_active(dai) == 1) {
+-			dai->rate = 0;
+-			dai->channels = 0;
+-			dai->sample_bits = 0;
+-		}
+-
+-		if (active == 1)
+-			snd_soc_dai_digital_mute(dai, 1, substream->stream);
+-	}
+-
+-	/* free any machine hw params */
+-	snd_soc_link_hw_free(substream);
+-
+-	/* free any component resources */
+-	snd_soc_pcm_component_hw_free(substream, NULL);
+-
+-	/* now free hw params for the DAIs  */
+-	for_each_rtd_dais(rtd, i, dai) {
+-		if (!snd_soc_dai_stream_valid(dai, substream->stream))
+-			continue;
+-
+-		snd_soc_dai_hw_free(dai, substream);
+-	}
+-
+-	mutex_unlock(&rtd->card->pcm_mutex);
+-	return 0;
+-}
+-
+ static int soc_pcm_trigger(struct snd_pcm_substream *substream, int cmd)
+ {
+ 	int ret = -EINVAL;
 -- 
 2.25.1
 

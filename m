@@ -2,100 +2,67 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4E514280058
-	for <lists+alsa-devel@lfdr.de>; Thu,  1 Oct 2020 15:42:57 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4C979280065
+	for <lists+alsa-devel@lfdr.de>; Thu,  1 Oct 2020 15:45:38 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D534B1780;
-	Thu,  1 Oct 2020 15:42:06 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D534B1780
+	by alsa0.perex.cz (Postfix) with ESMTPS id 8442418C3;
+	Thu,  1 Oct 2020 15:44:47 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8442418C3
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1601559776;
-	bh=CPrVwiv6VlqSx5aT6PrclPflGjg6welF73XcV6VbWLc=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=qS3VnSbg6lm599r8vqi4lKrGzdj7xLpahbOthU12kHZqw1TlTQLOkAzwgUIv/apaD
-	 C9cfn/6c9LdJr5/jABj4k2iN6YlonLZAdj22oEZ3oRfaVW5LmvIX5WhRp1lQSd4HX2
-	 diJphSLLmMrw8zhA+fMBmYWXtnf5c0PMWOXrI2Rs=
+	s=default; t=1601559937;
+	bh=uim+/G+9qxLETm9LsUIncFj6SUdCGpnVJJECPQweDI8=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=Okfh5jkqpI+RkFUOZrSia2jFy9HBp5gDLyuZmznKKQf5xO6AlipVLwcTTtrt7dPF2
+	 slb8xVEQWHLYICfofj1mJK55YyKJwBsZJADfmNZilkFwVtsCzgGnL3HiRoizSsLEyT
+	 GyBj+/uwZs57VhScbzHxwflNtFBC8GEfeo9nehCo=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 68970F802E0;
-	Thu,  1 Oct 2020 15:40:13 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 18DDFF80316;
+	Thu,  1 Oct 2020 15:40:25 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 9C62DF800DF; Mon, 28 Sep 2020 08:38:30 +0200 (CEST)
+ id A34EDF800AB; Tue, 29 Sep 2020 13:30:01 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_PASS autolearn=disabled
+X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_MSPIKE_H4,
+ RCVD_IN_MSPIKE_WL,SPF_HELO_PASS,SPF_PASS,URIBL_BLOCKED autolearn=disabled
  version=3.4.0
-Received: from mail-pf1-x443.google.com (mail-pf1-x443.google.com
- [IPv6:2607:f8b0:4864:20::443])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from huawei.com (szxga07-in.huawei.com [45.249.212.35])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 0A46EF800DF
- for <alsa-devel@alsa-project.org>; Mon, 28 Sep 2020 08:38:21 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0A46EF800DF
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="G3rybhcS"
-Received: by mail-pf1-x443.google.com with SMTP id f18so9927pfa.10
- for <alsa-devel@alsa-project.org>; Sun, 27 Sep 2020 23:38:21 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding;
- bh=4BsT30it0uqVB1WMYTnRzRInhOP9DiMllB30Hf1GBMc=;
- b=G3rybhcS1SH9bwJ4tVWLrGwn2MQphTWU1S5C/QyTbUk+mAEcCpKN8EbP7LQZ9Rp8No
- s5G54j/6KtPNuy8C/Ex3NwfyiJr1A+nbBepFRf++TNBBeD9PXEoM6UGz9R7H5VvR4xY1
- t5irZFrjhe5NYkswtb+p/hg77pWYfgwBvs5noUNtw2AW0ac3G0x9NokpNaXFVm5CDMi5
- 4mH7yzJZvV+lsYdE7ucVBCTkVlFIt8tsvp9oKtbGxN6frqqBRLrAEez88EBC2BahjInf
- l83hpmKJhAd0zQJ4Sx8q9aSYVcpNkpyDzYcCYsyP0/xOdnPN9Zle/RdqxZoDTFZsMatf
- GalQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
- :references:mime-version:content-transfer-encoding;
- bh=4BsT30it0uqVB1WMYTnRzRInhOP9DiMllB30Hf1GBMc=;
- b=DKOy9enEhFRkw97m1YZlQDD/R5yBD+CJVQNKtIWzySTqyzii2VLA7m6aun+esfccDn
- sk9Z9SCnvGAKgrm5DS9ffY09oOMh9BwGZmyKaCKWNy816fXOz/Mxje/J0Jg0Jtpv6Abb
- H+hUed4tfPPZkUQsMNl/747vrmhrQM/iC1F73XWNPPXwxc7XDuMSlpIVJBWQ7OD36rhl
- roIs8FbhuoN70bldvzjYWxpfTBWvlcg6qPumkrj798eg1I0BOxw/IMo0Dy7Hnm/O891u
- p2fViosLDW5H2reRsmSULjWHUXKOhtdEgBDct8TXjbfvL++ZjVa9ig5HtTSFibOzgTv4
- XfiQ==
-X-Gm-Message-State: AOAM531tCezF2UgeleeV5JpGNuisrvv9as/FvhN8g8MzO0hpMdcxkcJu
- XngA7+oQqaUDrwThtEnS2b4=
-X-Google-Smtp-Source: ABdhPJyxgmFyFSLKz/iCCPDLGbVs1DgwaczFEGBnOyQJvl6b2b0LZG0bNsqw01cruin/PlcQ+T2gBw==
-X-Received: by 2002:a62:dd01:0:b029:13c:f607:5fff with SMTP id
- w1-20020a62dd010000b029013cf6075fffmr203229pff.3.1601275100351; 
- Sun, 27 Sep 2020 23:38:20 -0700 (PDT)
-Received: from localhost (114-34-18-97.HINET-IP.hinet.net. [114.34.18.97])
- by smtp.gmail.com with ESMTPSA id x3sm67652pgg.54.2020.09.27.23.38.19
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 27 Sep 2020 23:38:19 -0700 (PDT)
-From: Ajye Huang <ajye.huang@gmail.com>
-X-Google-Original-From: Ajye Huang <ajye_huang@compal.corp-partner.google.com>
-To: linux-kernel@vger.kernel.org
-Subject: [PATCH v1 2/2] ASoC: qcom: sc7180: Modify machine driver for 2mic
-Date: Mon, 28 Sep 2020 14:37:44 +0800
-Message-Id: <20200928063744.525700-3-ajye_huang@compal.corp-partner.google.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20200928063744.525700-1-ajye_huang@compal.corp-partner.google.com>
-References: <20200928063744.525700-1-ajye_huang@compal.corp-partner.google.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id F1008F801F5
+ for <alsa-devel@alsa-project.org>; Tue, 29 Sep 2020 13:29:46 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz F1008F801F5
+Received: from DGGEMS402-HUB.china.huawei.com (unknown [172.30.72.60])
+ by Forcepoint Email with ESMTP id 5097DC68BBB112D265BD;
+ Tue, 29 Sep 2020 19:29:43 +0800 (CST)
+Received: from localhost.localdomain.localdomain (10.175.113.25) by
+ DGGEMS402-HUB.china.huawei.com (10.3.19.202) with Microsoft SMTP Server id
+ 14.3.487.0; Tue, 29 Sep 2020 19:29:32 +0800
+From: Qinglang Miao <miaoqinglang@huawei.com>
+To: Timur Tabi <timur@kernel.org>, Nicolin Chen <nicoleotsuka@gmail.com>,
+ Xiubo Li <Xiubo.Lee@gmail.com>, Fabio Estevam <festevam@gmail.com>,
+ "Shengjiu Wang" <shengjiu.wang@gmail.com>, Liam Girdwood
+ <lgirdwood@gmail.com>, "Mark Brown" <broonie@kernel.org>, Jaroslav Kysela
+ <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, Shawn Guo
+ <shawnguo@kernel.org>, Sascha Hauer <s.hauer@pengutronix.de>, Pengutronix
+ Kernel Team <kernel@pengutronix.de>, NXP Linux Team <linux-imx@nxp.com>
+Subject: [PATCH -next] ASoC: fsl: imx-mc13783: use devm_snd_soc_register_card()
+Date: Tue, 29 Sep 2020 19:29:30 +0800
+Message-ID: <20200929112930.46848-1-miaoqinglang@huawei.com>
+X-Mailer: git-send-email 2.20.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Thu, 01 Oct 2020 15:40:07 +0200
-Cc: dianders@chromium.org, devicetree@vger.kernel.org,
- alsa-devel@alsa-project.org, Banajit Goswami <bgoswami@codeaurora.org>,
- Srinivasa Rao Mandadapu <srivasam@codeaurora.org>,
- Liam Girdwood <lgirdwood@gmail.com>, linux-arm-msm@vger.kernel.org,
- Patrick Lai <plai@codeaurora.org>,
- Ajye Huang <ajye_huang@compal.corp-partner.google.com>,
- Andy Gross <agross@kernel.org>, Rob Herring <robh+dt@kernel.org>,
- Bjorn Andersson <bjorn.andersson@linaro.org>, Mark Brown <broonie@kernel.org>,
- Rohit kumar <rohitkr@codeaurora.org>, tzungbi@chromium.org,
- linux-arm-kernel@lists.infradead.org, cychiang@chromium.org
+Content-Type: text/plain
+X-Originating-IP: [10.175.113.25]
+X-CFilter-Loop: Reflected
+X-Mailman-Approved-At: Thu, 01 Oct 2020 15:40:08 +0200
+Cc: alsa-devel@alsa-project.org, Qinglang Miao <miaoqinglang@huawei.com>,
+ linuxppc-dev@lists.ozlabs.org, linux-kernel@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -111,127 +78,47 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-In addition, having mixer control to switch between DMICs for
-"qcom,sc7180-sndcard-rt5682-m98357-2mic" 2mic case.
+Using devm_snd_soc_register_card() can make the code
+shorter and cleaner.
 
-Refer to this one as an example,
-commit b7a742cff3f6 ("ASoC: AMD: Use mixer control to switch between DMICs")
-
-Signed-off-by: Ajye Huang <ajye_huang@compal.corp-partner.google.com>
+Signed-off-by: Qinglang Miao <miaoqinglang@huawei.com>
 ---
-This patch depends on this patch series
-https://patchwork.kernel.org/patch/11773223/ .
+ sound/soc/fsl/imx-mc13783.c | 10 +---------
+ 1 file changed, 1 insertion(+), 9 deletions(-)
 
-
- sound/soc/qcom/sc7180.c | 60 +++++++++++++++++++++++++++++++++++++++++
- 1 file changed, 60 insertions(+)
-
-diff --git a/sound/soc/qcom/sc7180.c b/sound/soc/qcom/sc7180.c
-index 0e90448523b0..c8751fb9f9bf 100644
---- a/sound/soc/qcom/sc7180.c
-+++ b/sound/soc/qcom/sc7180.c
-@@ -5,6 +5,8 @@
- // sc7180.c -- ALSA SoC Machine driver for SC7180
+diff --git a/sound/soc/fsl/imx-mc13783.c b/sound/soc/fsl/imx-mc13783.c
+index dd9c1ac81..d9dca7bbc 100644
+--- a/sound/soc/fsl/imx-mc13783.c
++++ b/sound/soc/fsl/imx-mc13783.c
+@@ -96,7 +96,7 @@ static int imx_mc13783_probe(struct platform_device *pdev)
  
- #include <dt-bindings/sound/sc7180-lpass.h>
-+#include <linux/gpio.h>
-+#include <linux/gpio/consumer.h>
- #include <linux/module.h>
- #include <linux/of_device.h>
- #include <linux/platform_device.h>
-@@ -24,6 +26,9 @@
- // This will be defined in include/dt-bindings/sound/sc7180-lpass.h
- #define LPASS_DP_RX 2
+ 	imx_mc13783.dev = &pdev->dev;
  
-+static struct gpio_desc *dmic_sel;
-+static int dmic_switch;
-+
- struct sc7180_snd_data {
- 	struct snd_soc_card card;
- 	u32 pri_mi2s_clk_count;
-@@ -170,6 +175,23 @@ static int sc7180_snd_startup(struct snd_pcm_substream *substream)
- 	return 0;
+-	ret = snd_soc_register_card(&imx_mc13783);
++	ret = devm_snd_soc_register_card(&pdev->dev, &imx_mc13783);
+ 	if (ret) {
+ 		dev_err(&pdev->dev, "snd_soc_register_card failed (%d)\n",
+ 			ret);
+@@ -140,19 +140,11 @@ static int imx_mc13783_probe(struct platform_device *pdev)
+ 	return ret;
  }
  
-+static int dmic_get(struct snd_kcontrol *kcontrol,
-+		    struct snd_ctl_elem_value *ucontrol)
-+{
-+	ucontrol->value.integer.value[0] = dmic_switch;
-+	return 0;
-+}
-+
-+static int dmic_set(struct snd_kcontrol *kcontrol,
-+		    struct snd_ctl_elem_value *ucontrol)
-+{
-+	if (dmic_sel) {
-+		dmic_switch = ucontrol->value.integer.value[0];
-+		gpiod_set_value(dmic_sel, dmic_switch);
-+	}
-+	return 0;
-+}
-+
- static void sc7180_snd_shutdown(struct snd_pcm_substream *substream)
- {
- 	struct snd_soc_pcm_runtime *rtd = substream->private_data;
-@@ -207,6 +229,30 @@ static const struct snd_soc_dapm_widget sc7180_snd_widgets[] = {
- 	SND_SOC_DAPM_MIC("Headset Mic", NULL),
+-static int imx_mc13783_remove(struct platform_device *pdev)
+-{
+-	snd_soc_unregister_card(&imx_mc13783);
+-
+-	return 0;
+-}
+-
+ static struct platform_driver imx_mc13783_audio_driver = {
+ 	.driver = {
+ 		.name = "imx_mc13783",
+ 	},
+ 	.probe = imx_mc13783_probe,
+-	.remove = imx_mc13783_remove
  };
  
-+static const char * const dmic_mux_text[] = {
-+	"Front Mic",
-+	"Rear Mic",
-+};
-+
-+static SOC_ENUM_SINGLE_DECL(sc7180_dmic_enum,
-+			    SND_SOC_NOPM, 0, dmic_mux_text);
-+
-+static const struct snd_kcontrol_new sc7180_dmic_mux_control =
-+	SOC_DAPM_ENUM_EXT("DMIC Select Mux", sc7180_dmic_enum,
-+			  dmic_get, dmic_set);
-+
-+static const struct snd_soc_dapm_widget sc7180_snd_dual_mic_widgets[] = {
-+	SND_SOC_DAPM_HP("Headphone Jack", NULL),
-+	SND_SOC_DAPM_MIC("Headset Mic", NULL),
-+	SND_SOC_DAPM_MIC("DMIC", NULL),
-+	SND_SOC_DAPM_MUX("Dmic Mux", SND_SOC_NOPM, 0, 0, &sc7180_dmic_mux_control),
-+};
-+
-+static const struct snd_soc_dapm_route sc7180_snd_dual_mic_audio_route[] = {
-+	{"Dmic Mux", "Front Mic", "DMIC"},
-+	{"Dmic Mux", "Rear Mic", "DMIC"},
-+};
-+
- static void sc7180_add_ops(struct snd_soc_card *card)
- {
- 	struct snd_soc_dai_link *link;
-@@ -238,6 +284,19 @@ static int sc7180_snd_platform_probe(struct platform_device *pdev)
- 	card->dapm_widgets = sc7180_snd_widgets;
- 	card->num_dapm_widgets = ARRAY_SIZE(sc7180_snd_widgets);
- 
-+	if (of_device_is_compatible(dev->of_node, "qcom,sc7180-sndcard-rt5682-m98357-2mic")) {
-+		card->dapm_widgets = sc7180_snd_dual_mic_widgets,
-+		card->num_dapm_widgets = ARRAY_SIZE(sc7180_snd_dual_mic_widgets),
-+		card->dapm_routes = sc7180_snd_dual_mic_audio_route,
-+		card->num_dapm_routes = ARRAY_SIZE(sc7180_snd_dual_mic_audio_route),
-+		dmic_sel = devm_gpiod_get(&pdev->dev, "dmic", GPIOD_OUT_LOW);
-+		if (IS_ERR(dmic_sel)) {
-+			dev_err(&pdev->dev, "DMIC gpio failed err=%d\n",
-+				PTR_ERR(dmic_sel));
-+				return PTR_ERR(dmic_sel);
-+		}
-+	}
-+
- 	ret = qcom_snd_parse_of(card);
- 	if (ret)
- 		return ret;
-@@ -249,6 +308,7 @@ static int sc7180_snd_platform_probe(struct platform_device *pdev)
- 
- static const struct of_device_id sc7180_snd_device_id[]  = {
- 	{ .compatible = "qcom,sc7180-sndcard-rt5682-m98357-1mic" },
-+	{ .compatible = "qcom,sc7180-sndcard-rt5682-m98357-2mic" },
- 	{},
- };
- MODULE_DEVICE_TABLE(of, sc7180_snd_device_id);
+ module_platform_driver(imx_mc13783_audio_driver);
 -- 
-2.25.1
+2.23.0
 

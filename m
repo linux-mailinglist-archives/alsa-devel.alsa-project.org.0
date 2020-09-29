@@ -2,143 +2,126 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5ECCE27C0E4
-	for <lists+alsa-devel@lfdr.de>; Tue, 29 Sep 2020 11:19:31 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id F28DC27C0F3
+	for <lists+alsa-devel@lfdr.de>; Tue, 29 Sep 2020 11:21:47 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E3B6C1899;
-	Tue, 29 Sep 2020 11:18:39 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E3B6C1899
+	by alsa0.perex.cz (Postfix) with ESMTPS id 8CD7718A0;
+	Tue, 29 Sep 2020 11:20:57 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8CD7718A0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1601371170;
-	bh=LBRUFJBYh07sdj7GtfBBIJmCCCpOAQpkelfVoYeFMu4=;
-	h=From:To:In-Reply-To:Subject:Date:References:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=K7jCEHrMUgEkHoHKn03kLxij1UI1JbrDlQXUfld3t+BohUfMy3hN6PGnufnDLWXmr
-	 /H5YJFZMBlsMIFhc5p3TyDU3kPfs/MKKM1ClnI/btfmP5RhE6eb/7ElZA2aFTF8qqR
-	 CnhJDV2sW4ue/nHXNBJ7UBNPjNajhoBWVLlUsD9s=
+	s=default; t=1601371307;
+	bh=vg71eMPQPIdqqDnxMZR+1a2tQJeun83XFpLNpurkEwM=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=G8RF7jwKliOJQjPZlnS517omsfUCdnYvGc3UoTI+qMwrnWM26MO50ZvRPgIlZG394
+	 13Neh5Xzf69MiKhAgTi2OtJiwXDvNCZXKNYoWd7jgEHauJ7qLHXaHsY5/dGWbiKykw
+	 XLZgXPgLz0CLo3K0pGWO63Ty2/FC5TVzQalFNGUk=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id F3F67F800DD;
-	Tue, 29 Sep 2020 11:17:48 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id B66AEF800DD;
+	Tue, 29 Sep 2020 11:20:06 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 2FBB1F800DD; Tue, 29 Sep 2020 11:17:46 +0200 (CEST)
+ id A7175F801F5; Tue, 29 Sep 2020 11:20:03 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.8 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,RCVD_IN_MSPIKE_H3,RCVD_IN_MSPIKE_WL,SPF_HELO_PASS,
- SPF_PASS,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mailout2.samsung.com (mailout2.samsung.com [203.254.224.25])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+X-Spam-Status: No, score=-0.6 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ MSGID_FROM_MTA_HEADER,RCVD_IN_MSPIKE_H2,SPF_HELO_PASS,SPF_PASS,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from EUR05-AM6-obe.outbound.protection.outlook.com
+ (mail-am6eur05on2088.outbound.protection.outlook.com [40.107.22.88])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 870FAF800DD
- for <alsa-devel@alsa-project.org>; Tue, 29 Sep 2020 11:17:33 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 870FAF800DD
+ by alsa1.perex.cz (Postfix) with ESMTPS id 19E19F800AB
+ for <alsa-devel@alsa-project.org>; Tue, 29 Sep 2020 11:19:56 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 19E19F800AB
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com
- header.b="PVTY/wLr"
-Received: from epcas2p4.samsung.com (unknown [182.195.41.56])
- by mailout2.samsung.com (KnoxPortal) with ESMTP id
- 20200929091728epoutp02788995b938fd73f9e50b79bcec6075cc~5NnvhC-0k2790127901epoutp02e
- for <alsa-devel@alsa-project.org>; Tue, 29 Sep 2020 09:17:28 +0000 (GMT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mailout2.samsung.com
- 20200929091728epoutp02788995b938fd73f9e50b79bcec6075cc~5NnvhC-0k2790127901epoutp02e
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
- s=mail20170921; t=1601371048;
- bh=r7nsufpQhX/j5vjr4/HkZdFhZyF+t8W+LkzurRDKdlE=;
- h=From:To:Cc:In-Reply-To:Subject:Date:References:From;
- b=PVTY/wLrYyfk4fjpl6KHYY7rQ/TvEk17q08sNXgkMTZ4/mAohg2JnIXvJaxJxYhJf
- yoJOMl05jGG7IpSIF4kHmVM2khVy8GFw3ihnAY98WCFCF9OzHKnj/aStIPiM4bSIAj
- foB/Q0AmtVoejbRu9TsBI9/yry4auwoxyYat62d8=
-Received: from epsnrtp3.localdomain (unknown [182.195.42.164]) by
- epcas2p4.samsung.com (KnoxPortal) with ESMTP id
- 20200929091727epcas2p414ff05bb675768e0db6612afbe4c49cd~5Nnuh2vld2101821018epcas2p4E;
- Tue, 29 Sep 2020 09:17:27 +0000 (GMT)
-Received: from epsmges2p4.samsung.com (unknown [182.195.40.182]) by
- epsnrtp3.localdomain (Postfix) with ESMTP id 4C0v111Tt1zMqYkf; Tue, 29 Sep
- 2020 09:17:25 +0000 (GMT)
-Received: from epcas2p3.samsung.com ( [182.195.41.55]) by
- epsmges2p4.samsung.com (Symantec Messaging Gateway) with SMTP id
- 9B.0A.09908.5ABF27F5; Tue, 29 Sep 2020 18:17:25 +0900 (KST)
-Received: from epsmtrp2.samsung.com (unknown [182.195.40.14]) by
- epcas2p2.samsung.com (KnoxPortal) with ESMTPA id
- 20200929091724epcas2p2b1bddaf3f94929619721d4696036e74b~5NnsBn-hN0329303293epcas2p2k;
- Tue, 29 Sep 2020 09:17:24 +0000 (GMT)
-Received: from epsmgms1p2.samsung.com (unknown [182.195.42.42]) by
- epsmtrp2.samsung.com (KnoxPortal) with ESMTP id
- 20200929091724epsmtrp298c233b5e9008be2682abd01c4385097~5NnsA14iG3014530145epsmtrp2i;
- Tue, 29 Sep 2020 09:17:24 +0000 (GMT)
-X-AuditID: b6c32a48-139ff700000026b4-53-5f72fba5a991
-Received: from epsmtip2.samsung.com ( [182.195.34.31]) by
- epsmgms1p2.samsung.com (Symantec Messaging Gateway) with SMTP id
- 82.57.08745.4ABF27F5; Tue, 29 Sep 2020 18:17:24 +0900 (KST)
-Received: from KORDO025540 (unknown [12.36.182.130]) by epsmtip2.samsung.com
- (KnoxPortal) with ESMTPA id
- 20200929091724epsmtip2ca474ce97fcf2385c28d7010a48496df~5Nnry_VvJ2515925159epsmtip2u;
- Tue, 29 Sep 2020 09:17:24 +0000 (GMT)
-From: "Gyeongtaek Lee" <gt82.lee@samsung.com>
-To: "'Takashi Iwai'" <tiwai@suse.de>
-In-Reply-To: <s5heemlklo0.wl-tiwai@suse.de>
-Subject: RE: [PATCH] ALSA: compress: allow pause and resume during draining
-Date: Tue, 29 Sep 2020 18:17:24 +0900
-Message-ID: <000501d69641$57b66460$07232d20$@samsung.com>
+ dkim=pass (1024-bit key) header.d=NXP1.onmicrosoft.com
+ header.i=@NXP1.onmicrosoft.com header.b="OtnF6HjY"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=RGHxeUbKdfK5aH5IZQAUWC6w9XQ2HmMRE5XMTl40PGtff8eAdHcRBoiHeiBgPXngPS5/+iAxxcfB6d184Bv7qrYtUUETwe+z3b+mV6qtoOr0rNE7jRP4u9KoOKFoVCzEf6DNovF7/2e/uKKIgCv2Z/rX/tTS+dV3FgE9Ia3CM2xNZdAP4gXBaMFL0IMW3uZsuW+UXkh6N35n3FUY7xigFHQq2xlxrbjPlqs4eEHft5RR4Y0mNdP7aBDqQXKTvZWT3+zkO2vDfdr7y6OU3Il400tly+WoNn6y+MYms/01LyiZLVEzB1GOoCUMyUtOtk88spnBkATK9UpKVY5NfKOgMA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=9e6TA/KBCGUY9d1AxH2UpbczpkCHYLx9Ze6RG1rtEVs=;
+ b=MdpFZ4N/xPJGTNlSDRNBDN7ryg7BqbYnb4bW/AtQvdIpqTqR7vdiozH1jC0uxUFwhBLwYTe2g4EPo1lv5oIx0ajUm6gZQHsx1lflLbo2msPX3+Fd0sEA3/a40dxdCrqAJ2DbAhbKngMdBQCMCM0EUjdwib+FBYm90TztmhPS3PCnp0mIiYaKElzzTX0Gj5HsjjrTBjC62B2ei7BR7vypnj0v5E6MxEdyNt4n0B+mzPnpdsszvnENS6k8tqOd+TMAt99pL36zLtdjGUELlTI1eNFoczdIU+XsSpAjh7M6bYzfmUBnlOqfdooLGTH9epg7nubF+tiXQ2y/O4xVMz1nAg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com; 
+ s=selector2-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=9e6TA/KBCGUY9d1AxH2UpbczpkCHYLx9Ze6RG1rtEVs=;
+ b=OtnF6HjY1ayofZYhlP0DGK+c7MlQY93nFqD+oiZuA4VyfUb3epjj9bxlZb012p/9vbIKCr/ibI9qYfa+5oqk4CMcgKp4dp1CyB6UaGi0z5tL0Dzh8vVXB9VmGX9v5FAsVZ8cVj8NszMFUhssh7y63jjR8JkDfDAXEhdSAPNRZzo=
+Authentication-Results: gmail.com; dkim=none (message not signed)
+ header.d=none;gmail.com; dmarc=none action=none header.from=oss.nxp.com;
+Received: from VI1PR0401MB2272.eurprd04.prod.outlook.com
+ (2603:10a6:800:31::12) by VI1PR04MB6335.eurprd04.prod.outlook.com
+ (2603:10a6:803:f9::17) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3412.20; Tue, 29 Sep
+ 2020 09:19:52 +0000
+Received: from VI1PR0401MB2272.eurprd04.prod.outlook.com
+ ([fe80::e00e:ad13:489b:8000]) by VI1PR0401MB2272.eurprd04.prod.outlook.com
+ ([fe80::e00e:ad13:489b:8000%6]) with mapi id 15.20.3412.029; Tue, 29 Sep 2020
+ 09:19:51 +0000
+From: "Viorel Suman (OSS)" <viorel.suman@oss.nxp.com>
+To: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+ Rob Herring <robh+dt@kernel.org>, Jaroslav Kysela <perex@perex.cz>,
+ Takashi Iwai <tiwai@suse.com>, Timur Tabi <timur@kernel.org>,
+ Nicolin Chen <nicoleotsuka@gmail.com>, Xiubo Li <Xiubo.Lee@gmail.com>,
+ Fabio Estevam <festevam@gmail.com>,
+ Shengjiu Wang <shengjiu.wang@gmail.com>,
+ Philipp Zabel <p.zabel@pengutronix.de>,
+ Cosmin-Gabriel Samoila <cosmin.samoila@nxp.com>,
+ Viorel Suman <viorel.suman@nxp.com>,
+ Matthias Schiffer <matthias.schiffer@ew.tq-group.com>,
+ alsa-devel@alsa-project.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linuxppc-dev@lists.ozlabs.org
+Subject: [PATCH v3 0/2] DAI driver for new XCVR IP
+Date: Tue, 29 Sep 2020 12:19:25 +0300
+Message-Id: <1601371167-32239-1-git-send-email-viorel.suman@oss.nxp.com>
+X-Mailer: git-send-email 2.7.4
+Content-Type: text/plain
+X-ClientProxiedBy: AM0PR03CA0065.eurprd03.prod.outlook.com (2603:10a6:208::42)
+ To VI1PR0401MB2272.eurprd04.prod.outlook.com
+ (2603:10a6:800:31::12)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-X-Mailer: Microsoft Outlook 16.0
-Thread-Index: AQIUfoZK8dcLaUFmbqZ4zOMZA20dmgNDBv+0Ad0z+Bmo2oLHEA==
-Content-Language: ko
-X-Brightmail-Tracker: H4sIAAAAAAAAA+NgFtrBJsWRmVeSWpSXmKPExsWy7bCmue7S30XxBr8vs1tcuXiIyWLGtm4W
- i8Z7E9gsVl/dwmTx7UoHk8Wv/8+YLI5eXMxk0XC3md1iw/e1jBYvN79hsjjSOIXJYuedE8wO
- PB4bPjexeeycdZfdY9OqTjaPeScDPfq2rGL0WL/lKovH5tPVAexROTYZqYkpqUUKqXnJ+SmZ
- eem2St7B8c7xpmYGhrqGlhbmSgp5ibmptkouPgG6bpk5QIcqKZQl5pQChQISi4uV9O1sivJL
- S1IVMvKLS2yVUgtScgoMDQv0ihNzi0vz0vWS83OtDA0MjEyBKhNyMj6/1i344FSx9+0CtgbG
- V6ZdjJwcEgImErNerGHuYuTiEBLYwSjx5vtcNgjnE6PEvCm/2SGcz4wSM08/Z4JpmXrwJVTL
- LkaJ2bOOMEI4Lxklli/rZAGpYhPQlfhy7w4ziC0ioCLxtHcdWDezwFYmiTcbU0FsTgFtiQkX
- p7OC2MIC3hI/j34CGsTBwSKgKjH/RBFImFfAUqLv3GMWCFtQ4uTMJywQY+Qltr+dwwxxkILE
- z6fLWCFWOUlsPt0MtUpEYnZnG9ihEgJnOCSOH+thgWhwkWic2wP1jbDEq+Nb2CFsKYnP7/ay
- QTQ0M0q8O/sHKjGFUaKzWwjCNpbYMvcUE8ihzAKaEut36YOYEgLKEkduQd3GJ9Fx+C87RJhX
- oqMNqlFJYuOpf0wQYQmJeRvYJzAqzULy2Cwkj81C8sAshFULGFlWMYqlFhTnpqcWGxWYIEf1
- JkZwEtby2ME4++0HvUOMTByMhxglOJiVRHh9cwrihXhTEiurUovy44tKc1KLDzGaAkN6IrOU
- aHI+MA/klcQbmhqZmRlYmlqYmhlZKInzvrO6ECckkJ5YkpqdmlqQWgTTx8TBKdXAtOSN0/V4
- tifZN7qy5I8ZlxmUiDMca1H7mpxVvCj0d9vLB7PKzfyldrSf1TMzmhb4q0zQ5fnLaQ/rzrW4
- 29xpX5IZe2riM4svlxeUZvyw333k8UUvWX+//j2bGVxvPd3/eXO345qKSbsiqywe92+ZkJTh
- /OLj/3fLtG+4mRWsDZqUMG2puNehez9N2iwZ5bNnrm6Z428+K/7Vugm32GON9607tdZpKv/6
- p+7SuSwNFxd1pCzYINZ7M+enqtX5hhebnURly6JXWXatblmxMJWteWWHsUyMbfIzRY87iwul
- +2cbn9FMKNvxnem0+w/lDdsCxUPfPJG5kWlW3bmp8ZCg/DmJ4yuW9W9zFJv7K+IGnxJLcUai
- oRZzUXEiACEQP0ZLBAAA
-X-Brightmail-Tracker: H4sIAAAAAAAAA+NgFlrMIsWRmVeSWpSXmKPExsWy7bCSvO6S30XxBmuniFhcuXiIyWLGtm4W
- i8Z7E9gsVl/dwmTx7UoHk8Wv/8+YLI5eXMxk0XC3md1iw/e1jBYvN79hsjjSOIXJYuedE8wO
- PB4bPjexeeycdZfdY9OqTjaPeScDPfq2rGL0WL/lKovH5tPVAexRXDYpqTmZZalF+nYJXBmf
- X+sWfHCq2Pt2AVsD4yvTLkZODgkBE4mpB18ydzFycQgJ7GCUuHNlMjNEQkLiw/wz7BC2sMT9
- liOsEEXPGSV2z/nJApJgE9CV+HLvDliDiICKxNPedUwgRcwCB5kkXvyaCDV2FaPE9d0P2UCq
- OAW0JSZcnM4KYgsLeEv8PPqJsYuRg4NFQFVi/okikDCvgKVE37nHLBC2oMTJmU9YQEqYBfQk
- 2jYygoSZBeQltr+dA3WogsTPp8tYIW5wkth8upkJokZEYnZnG/MERuFZSCbNQpg0C8mkWUg6
- FjCyrGKUTC0ozk3PLTYsMMpLLdcrTswtLs1L10vOz93ECI5HLa0djHtWfdA7xMjEwXiIUYKD
- WUmE1zenIF6INyWxsiq1KD++qDQntfgQozQHi5I479dZC+OEBNITS1KzU1MLUotgskwcnFIN
- TIf5g5x2VEhND9CZz3nF5/3aPZ4ZPjeTl9SmM6daVzqsmB8hz7f/q5po8/vY4/vOW6qX5rwr
- 1vaM3S1+9bb8OtPGI33+j0obWS8uYbjZ1bqGIeHDNJc50QpHzL9+unvX+dt/BkeOspDP4k9f
- PdqfG8NQF+CdE8zx7NGCOZtrM6ccWrfAfVJCeYuZRULoTt40xTq3nZ2r3Vu83zPuV/Y+IWax
- oK/NUW+Ky9E1KbXruX8KJDy++ZHr5+d7//qnH/LedOlKxecXr5znnV8wwcEtKdw2M2LRfSP5
- /nf2z96IXUsX9fbVZi7fasz6K34Ht9TBB+3fZgRc/byWPeaPktsUxWfMj8+9L5n9zrU9ZG1e
- gRJLcUaioRZzUXEiAJ0sXt82AwAA
-X-CMS-MailID: 20200929091724epcas2p2b1bddaf3f94929619721d4696036e74b
-X-Msg-Generator: CA
-Content-Type: text/plain; charset="utf-8"
-X-Sendblock-Type: AUTO_CONFIDENTIAL
-CMS-TYPE: 102P
-DLP-Filter: Pass
-X-CFilter-Loop: Reflected
-X-CMS-RootMailID: 20200929084051epcas2p35fb2228ed1bdfce6a7ddf5b37c944823
-References: <CGME20200929084051epcas2p35fb2228ed1bdfce6a7ddf5b37c944823@epcas2p3.samsung.com>
- <000001d6963c$3cc53690$b64fa3b0$@samsung.com> <s5heemlklo0.wl-tiwai@suse.de>
-Cc: alsa-devel@alsa-project.org, khw0178.kim@samsung.com, lgirdwood@gmail.com,
- kimty@samsung.com,
- 'Pierre-Louis Bossart' <pierre-louis.bossart@linux.intel.com>, tiwai@suse.com,
- vkoul@kernel.org, hmseo@samsung.com, tkjung@samsung.com,
- pilsun.jang@samsung.com, s47.kang@samsung.com
+X-MS-Exchange-MessageSentRepresentingType: 1
+Received: from fsr-ub1664-116.ea.freescale.net (83.217.231.2) by
+ AM0PR03CA0065.eurprd03.prod.outlook.com (2603:10a6:208::42) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256) id
+ 15.20.3412.22 via Frontend Transport; Tue, 29 Sep 2020 09:19:49 +0000
+X-Mailer: git-send-email 2.7.4
+X-Originating-IP: [83.217.231.2]
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-HT: Tenant
+X-MS-Office365-Filtering-Correlation-Id: 53f90cd4-bcd9-4cc8-4889-08d86458d1e2
+X-MS-TrafficTypeDiagnostic: VI1PR04MB6335:
+X-MS-Exchange-SharedMailbox-RoutingAgent-Processed: True
+X-MS-Exchange-Transport-Forked: True
+X-Microsoft-Antispam-PRVS: <VI1PR04MB6335E8AA514C6AE11FA0BFB3D3320@VI1PR04MB6335.eurprd04.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:2582;
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: QWwlIXYDuCiFRBR+OH9Br8tx7l9NWHWrbE/A2ee/sT3S8W7YEEk7SFfdLAp1WOpBQbDSEgkwg2RJrexHwHAFTYhFj1Xw3ITieUr5kve+iJoJURiDnJ+Nf/hRQ1GJxDN2qOP1tBELYGMfcX9VRb2TnJdepBjTxwiV0e0sugHx05qOgAg7w2HEaRrZWD9mv7/XcbQ76z1dOKuwmdxgHBEHjTkL3344Bfol5QpN+ewW/IGLJee/ryQKat6jWClvVkJpPqRZDRlLG45Je5QB2S9Ga8YLQAPsWILOmtyGDoaQCeCrFtvkJQ4sv3uzIuAtm6OQvA6Xu84tm5oRs/F9EdLCnkK5c4ajI90RXtRWn+zwRMziKaAZr/0Nz8VukV239Uim5eZlwPYzcieogU5hEHJdRe+Gd4EgP6EXJbZuIE+a6Wo=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:VI1PR0401MB2272.eurprd04.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(366004)(39860400002)(396003)(376002)(346002)(136003)(5660300002)(66946007)(7416002)(4326008)(8936002)(8676002)(4744005)(83380400001)(66556008)(316002)(478600001)(2906002)(54906003)(110136005)(52116002)(186003)(86362001)(6666004)(6512007)(26005)(6506007)(16526019)(956004)(6486002)(66476007)(2616005)(921003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData: MfqkXEQh8PoFsdMwBRFAK5TwxwG1DLrj2ya1QHYDefqTdamTQem/dnl0h0hz96gxfAWNDkwC9WMoaVZGdzZUl47jcA2SPkYfYdrEIonajCmFemcmXCPiurcHDbdbDP66k16PH+fj+s/CBicduONtdw+dgInQRokW7s7GVtwjEnUAaXOiM5Wzy2ZZJKvF70HmBrVsLwjR7O1HdzAiOsKgX04NE9WYsMRadRXKDz01haWnnUTy3A0h1Jv14wqXWTdRKDGIm6345i8Dmou2jVlziVZAIvQ2r0PsIhasKOcqWlAKN0EA9AoEZ41KVCqW/idD6Jy41wi0ZzyF1hTb/J86t8HjoKLlEsTOKccr26NQTzAuOb0dhco7Zh/N+puUxa7ZHumaYWiXYX1bsg8M1hA3cn8lDrf/CjL3gFVK4nptCCB/j6Nsst4DpgOGgocjWVqLQCVf2GcxyHeRHcr4mF89XuhZeXEzvuz/P1sqaIGKPscdksl+ODl+wns8U/giuYgjorMdnKzeLIo/Cj8HUF8XbJsdmQ6G2hPgsOERTxTXD/3PocKb71dn2oBf48UfPbrpgulehv0uQN2RlRVTtod84v/25bmTYPszI6bgOXQz7SBM8qgRxujatdSPzsVXWSv97npCtj/uQwrO7O0NR30KhA==
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 53f90cd4-bcd9-4cc8-4889-08d86458d1e2
+X-MS-Exchange-CrossTenant-AuthSource: VI1PR0401MB2272.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Sep 2020 09:19:51.7511 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: cL4c+CIv1d3sKxdVBrlvwuCrhWr8dq323iqT2xbeJPDOyoIt1SCH/I8PvW+2fDrbP+X3ngHb9sgReiaIPcKTwg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR04MB6335
+Cc: Viorel Suman <viorel.suman@gmail.com>, NXP Linux Team <linux-imx@nxp.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -154,218 +137,36 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 9/29/20 06:14 PM, Takashi Iwai wrote:
->On Tue, 29 Sep 2020 10:40:51 +0200,
->Gyeongtaek Lee wrote:
->> 
->> On 9/29/20 04:13 PM, Takashi Iwai wrote:
->> >On Tue, 29 Sep 2020 03:51:35 +0200,
->> >Gyeongtaek Lee wrote:
->> >> 
->> >> On 9/28/20 11:35 PM, Pierre-Louis Bossart wrote:
->> >> >On 9/28/20 6:13 AM, Jaroslav Kysela wrote:
->> >> >> Dne 28. 09. 20 v 12:50 Gyeongtaek Lee napsal(a):
->> >> >>> With a stream with low bitrate, user can't pause or resume the stream
->> >> >>> near the end of the stream because current ALSA doesn't allow it.
->> >> >>> If the stream has very low bitrate enough to store whole stream into
->> >> >>> the buffer, user can't do anything except stop the stream and then
->> >> >>> restart it from the first.
->> >> >>> If pause and resume is allowed during draining, user experience can be
->> >> >>> enhanced.
->> >> >> 
->> >> >> It seems that we need a new state to handle the pause + drain condition for
->> >> >> this case.
->> >> >> 
->> >> >> With this proposed change, the pause state in drain is invisible.
->> >> >
->> >> >Indeed it's be much nicer to have a new state, e..g 
->> >> >SNDRV_PCM_STATE_DRAINING_PAUSED.
->> >> Ok. I will add the new state.
->> >> >
->> >> >One concern is that states are defined in uapi/sound/asoc.h, so wouldn't 
->> >> >this have impacts on userspace as well? We'd change the value of 
->> >> >SNDRV_PCM_STATE_LAST.
->> >> >
->> >> I also agree that adding new state and increase LAST value in the header of uapi
->> >> could be dangerous. So, I added it to comress_offload.h for now.
->> >> It could be merged into snd_pcm_state_t in someday with big changes.
->> >> Could you review the fixed patch below?
->> >
->> >Hrm, this resulted in rather more complex changes than the original
->> >patch.  It shows that introducing yet another state is no good idea
->> >for this particular case.
->> >
->> >Since the possible application's behavior after this pause is as same
->> >as the normal pause (i.e. either resuming pause or dropping), I find
->> >it OK to take the original approach.
->> Thank you for the review.
->> I think that I should resend the original patch.
->
->Let's wait a bit for other opinions.  We may add rather a new flag
->instead of introducing a new state, too, for example.
->
->Also, I'm not sure about any side-effect to drivers that expect the
->pause only during the running state.  We might need some check for a
->capability flag?
-Ok. I will wait for more opinion and then resend fixed patch.
->
->In anyway, the timing is bad; it's too late for 5.10 to apply such a
->core change.  Can we postpone this for 5.11?
-No problem. Actually I need this patch on 5.4 stable.
->
->
->thanks,
->
->Takashi
->
->
->> Am I right?
->> >
->> >
->> >thanks,
->> >
->> >Takashi
->> >
->> >> With a stream with low bitrate, user can't pause or resume the stream
->> >> near the end of the stream because current ALSA doesn't allow it.
->> >> If the stream has very low bitrate enough to store whole stream into
->> >> the buffer, user can't do anything except stop the stream and then
->> >> restart it from first.
->> >> If pause, resume are allowed during draining, user experience can be
->> >> enhanced.
->> >> 
->> >> New state for pause during draining is defined in compress_offload.h for
->> >> now. If PCM_STATEs in uapi/sound/asound.h is changed, pcm libraries and
->> >> userspace application will be affected.
->> >> 
->> >> Signed-off-by: Gyeongtaek Lee <gt82.lee@samsung.com>
->> >> Cc: stable@vger.kernel.org
->> >> ---
->> >>  include/uapi/sound/compress_offload.h |  3 ++
->> >>  sound/core/compress_offload.c         | 47 ++++++++++++++++++++++-----
->> >>  2 files changed, 41 insertions(+), 9 deletions(-)
->> >> 
->> >> diff --git a/include/uapi/sound/compress_offload.h b/include/uapi/sound/compress_offload.h
->> >> index 7184265c0b0d..f30b9851d1d7 100644
->> >> --- a/include/uapi/sound/compress_offload.h
->> >> +++ b/include/uapi/sound/compress_offload.h
->> >> @@ -189,4 +189,7 @@ struct snd_compr_metadata {
->> >>  #define SND_COMPR_TRIGGER_DRAIN 7 /*FIXME move this to pcm.h */
->> >>  #define SND_COMPR_TRIGGER_NEXT_TRACK 8
->> >>  #define SND_COMPR_TRIGGER_PARTIAL_DRAIN 9
->> >> +
->> >> +/* FIXME move this to asound.h */
->> >> +#define	SNDRV_PCM_STATE_DRAINING_PAUSED	(SNDRV_PCM_STATE_LAST + 1)
->> >>  #endif
->> >> diff --git a/sound/core/compress_offload.c b/sound/core/compress_offload.c
->> >> index 0e53f6f31916..58fbe0d99431 100644
->> >> --- a/sound/core/compress_offload.c
->> >> +++ b/sound/core/compress_offload.c
->> >> @@ -151,6 +151,7 @@ static int snd_compr_free(struct inode *inode, struct file *f)
->> >>  	case SNDRV_PCM_STATE_RUNNING:
->> >>  	case SNDRV_PCM_STATE_DRAINING:
->> >>  	case SNDRV_PCM_STATE_PAUSED:
->> >> +	case SNDRV_PCM_STATE_DRAINING_PAUSED:
->> >>  		data->stream.ops->trigger(&data->stream, SNDRV_PCM_TRIGGER_STOP);
->> >>  		break;
->> >>  	default:
->> >> @@ -431,6 +432,7 @@ static __poll_t snd_compr_poll(struct file *f, poll_table *wait)
->> >>  	case SNDRV_PCM_STATE_RUNNING:
->> >>  	case SNDRV_PCM_STATE_PREPARED:
->> >>  	case SNDRV_PCM_STATE_PAUSED:
->> >> +	case SNDRV_PCM_STATE_DRAINING_PAUSED:
->> >>  		if (avail >= stream->runtime->fragment_size)
->> >>  			retval = snd_compr_get_poll(stream);
->> >>  		break;
->> >> @@ -708,11 +710,23 @@ static int snd_compr_pause(struct snd_compr_stream *stream)
->> >>  {
->> >>  	int retval;
->> >>  
->> >> -	if (stream->runtime->state != SNDRV_PCM_STATE_RUNNING)
->> >> +	switch (stream->runtime->state) {
->> >> +	case SNDRV_PCM_STATE_RUNNING:
->> >> +		retval = stream->ops->trigger(stream,
->> >> +			SNDRV_PCM_TRIGGER_PAUSE_PUSH);
->> >> +		if (!retval)
->> >> +			stream->runtime->state = SNDRV_PCM_STATE_PAUSED;
->> >> +		break;
->> >> +	case SNDRV_PCM_STATE_DRAINING:
->> >> +		retval = stream->ops->trigger(stream,
->> >> +			SNDRV_PCM_TRIGGER_PAUSE_PUSH);
->> >> +		if (!retval)
->> >> +			stream->runtime->state =
->> >> +				SNDRV_PCM_STATE_DRAINING_PAUSED;
->> >> +		break;
->> >> +	default:
->> >>  		return -EPERM;
->> >> -	retval = stream->ops->trigger(stream, SNDRV_PCM_TRIGGER_PAUSE_PUSH);
->> >> -	if (!retval)
->> >> -		stream->runtime->state = SNDRV_PCM_STATE_PAUSED;
->> >> +	}
->> >>  	return retval;
->> >>  }
->> >>  
->> >> @@ -720,11 +734,22 @@ static int snd_compr_resume(struct snd_compr_stream *stream)
->> >>  {
->> >>  	int retval;
->> >>  
->> >> -	if (stream->runtime->state != SNDRV_PCM_STATE_PAUSED)
->> >> +	switch (stream->runtime->state) {
->> >> +	case SNDRV_PCM_STATE_PAUSED:
->> >> +		retval = stream->ops->trigger(stream,
->> >> +			SNDRV_PCM_TRIGGER_PAUSE_RELEASE);
->> >> +		if (!retval)
->> >> +			stream->runtime->state = SNDRV_PCM_STATE_RUNNING;
->> >> +		break;
->> >> +	case SNDRV_PCM_STATE_DRAINING_PAUSED:
->> >> +		retval = stream->ops->trigger(stream,
->> >> +			SNDRV_PCM_TRIGGER_PAUSE_RELEASE);
->> >> +		if (!retval)
->> >> +			stream->runtime->state = SNDRV_PCM_STATE_DRAINING;
->> >> +		break;
->> >> +	default:
->> >>  		return -EPERM;
->> >> -	retval = stream->ops->trigger(stream, SNDRV_PCM_TRIGGER_PAUSE_RELEASE);
->> >> -	if (!retval)
->> >> -		stream->runtime->state = SNDRV_PCM_STATE_RUNNING;
->> >> +	}
->> >>  	return retval;
->> >>  }
->> >>  
->> >> @@ -835,7 +860,9 @@ static int snd_compress_wait_for_drain(struct snd_compr_stream *stream)
->> >>  	 */
->> >>  
->> >>  	ret = wait_event_interruptible(stream->runtime->sleep,
->> >> -			(stream->runtime->state != SNDRV_PCM_STATE_DRAINING));
->> >> +			(stream->runtime->state != SNDRV_PCM_STATE_DRAINING) &&
->> >> +			(stream->runtime->state !=
->> >> +				SNDRV_PCM_STATE_DRAINING_PAUSED));
->> >>  	if (ret == -ERESTARTSYS)
->> >>  		pr_debug("wait aborted by a signal\n");
->> >>  	else if (ret)
->> >> @@ -857,6 +884,7 @@ static int snd_compr_drain(struct snd_compr_stream *stream)
->> >>  	case SNDRV_PCM_STATE_SETUP:
->> >>  	case SNDRV_PCM_STATE_PREPARED:
->> >>  	case SNDRV_PCM_STATE_PAUSED:
->> >> +	case SNDRV_PCM_STATE_DRAINING_PAUSED:
->> >>  		return -EPERM;
->> >>  	case SNDRV_PCM_STATE_XRUN:
->> >>  		return -EPIPE;
->> >> @@ -909,6 +937,7 @@ static int snd_compr_partial_drain(struct snd_compr_stream *stream)
->> >>  	case SNDRV_PCM_STATE_SETUP:
->> >>  	case SNDRV_PCM_STATE_PREPARED:
->> >>  	case SNDRV_PCM_STATE_PAUSED:
->> >> +	case SNDRV_PCM_STATE_DRAINING_PAUSED:
->> >>  		return -EPERM;
->> >>  	case SNDRV_PCM_STATE_XRUN:
->> >>  		return -EPIPE;
->> >> 
->> >> base-commit: a1b8638ba1320e6684aa98233c15255eb803fac7
->> >> -- 
->> >> 2.21.0
->> >> 
->> >> 
->> >
->> 
->
+From: Viorel Suman <viorel.suman@nxp.com>
+
+DAI driver for new XCVR IP found in i.MX8MP.
+
+Viorel Suman (2):
+  ASoC: fsl_xcvr: Add XCVR ASoC CPU DAI driver
+  ASoC: dt-bindings: fsl_xcvr: Add document for XCVR
+
+Changes since v1:
+ - improved 6- and 12-ch layout comment
+ - used regmap polling function, improved
+   clocks handling in runtime_resume
+ - added FW size check in FW load function,
+   improved IRQ handler, removed dummy IRQ handlers
+ - fixed yaml file
+
+Changes since v2:
+ - used devm_reset_control_get_exclusive instead of of_reset_control_get
+ - moved reset_control_assert into runtime_suspend
+
+ .../devicetree/bindings/sound/fsl,xcvr.yaml        |  103 ++
+ sound/soc/fsl/Kconfig                              |   10 +
+ sound/soc/fsl/Makefile                             |    2 +
+ sound/soc/fsl/fsl_xcvr.c                           | 1356 ++++++++++++++++++++
+ sound/soc/fsl/fsl_xcvr.h                           |  266 ++++
+ 5 files changed, 1737 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/sound/fsl,xcvr.yaml
+ create mode 100644 sound/soc/fsl/fsl_xcvr.c
+ create mode 100644 sound/soc/fsl/fsl_xcvr.h
+
+-- 
+2.7.4
 

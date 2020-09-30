@@ -2,79 +2,116 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 15B2B27E5DA
-	for <lists+alsa-devel@lfdr.de>; Wed, 30 Sep 2020 11:59:53 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8BB7227E677
+	for <lists+alsa-devel@lfdr.de>; Wed, 30 Sep 2020 12:21:16 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 8B5F61807;
-	Wed, 30 Sep 2020 11:59:02 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8B5F61807
+	by alsa0.perex.cz (Postfix) with ESMTPS id 18C4416DF;
+	Wed, 30 Sep 2020 12:20:26 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 18C4416DF
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1601459992;
-	bh=Kw/iisq+YROnv987ANGYK0Co0nV6wgq9QqsZ+54LWkQ=;
-	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
+	s=default; t=1601461276;
+	bh=x4Bx/kxLeqOKKqIOSthLZslbzqkefEqlpXpGazmmUCE=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=lX6/cD6LVyYwSsHkqPzE1XawqQ2sGFtVJjMy1Oasjzt19r9RVkT7f1dIfW/9pB8y7
-	 rNFcY8nfMwxfydsxtmV2rMBYKrccw68pRGrv8pMU36HrY9zjR6lJ6uA+h/MI+PJNRY
-	 rv9DWNK8Ob/gEtRIIwQXPfewzbCBONuDo1ZrSGc4=
+	b=FSLfKMIWVflJRQ9h/FrppEoQcB4iADUWTwIehs+9YEmPygMHddFuiWov2ztBrJvdL
+	 sK5Fg5u7T8sU6X9G8vK6D3NpPsGhVNKyJ1UdjW8hcb7xvknlA1mjobHNf4zL3QW6xa
+	 H5IxSh64AEYjNfAN/vTDJQqzbRyHU0RGR2DtN0n0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id AE7D7F80110;
-	Wed, 30 Sep 2020 11:58:11 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 4083DF801F9;
+	Wed, 30 Sep 2020 12:19:35 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id E5EB4F801ED; Wed, 30 Sep 2020 11:58:09 +0200 (CEST)
+ id 48104F801ED; Wed, 30 Sep 2020 12:19:32 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_PASS,SPF_PASS,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from mail1.perex.cz (mail1.perex.cz [77.48.224.245])
+X-Spam-Status: No, score=0.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,PRX_BODY_26,RCVD_IN_MSPIKE_H4,RCVD_IN_MSPIKE_WL,SPF_HELO_PASS,
+ SPF_PASS,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from new3-smtp.messagingengine.com (new3-smtp.messagingengine.com
+ [66.111.4.229])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id CA29EF800DF
- for <alsa-devel@alsa-project.org>; Wed, 30 Sep 2020 11:57:59 +0200 (CEST)
-Received: from mail1.perex.cz (localhost [127.0.0.1])
- by smtp1.perex.cz (Perex's E-mail Delivery System) with ESMTP id 4F70AA003F;
- Wed, 30 Sep 2020 11:57:58 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 smtp1.perex.cz 4F70AA003F
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=perex.cz; s=default;
- t=1601459878; bh=61/l0uIp/AeCLrGVectcy+g8F8ERfBm4swx2eWIy/8A=;
- h=Subject:To:Cc:References:From:Date:In-Reply-To:From;
- b=rH54AUGsbjEzzLUZGGCvRuqn2KkMotb1RlmiBj/LmUBgO8Xg6BOtPAYpBVRLNnG5S
- DLCd/FeYUsV19PpXiq1A/XYk2TWWmKOOnLMbc8+mPhpfYAUHbR0ovUITSb1qkW4SYl
- l32hLmE1NnAXOFj+dP06qdRSCV1/aYgHXbQDtcBs=
-Received: from p1gen2.perex-int.cz (unknown [192.168.100.98])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested) (Authenticated sender: perex)
- by mail1.perex.cz (Perex's E-mail Delivery System) with ESMTPSA;
- Wed, 30 Sep 2020 11:57:45 +0200 (CEST)
-Subject: Re: [PATCH] ALSA: compress: allow pause and resume during draining
-To: Takashi Iwai <tiwai@suse.de>
-References: <CGME20200928105009epcas2p4a65d50d9d09800281395a490d1844ef3@epcas2p4.samsung.com>
- <000c01d69585$228db6b0$67a92410$@samsung.com>
- <7ba714ce-8b33-1b64-7503-6b155bf43909@perex.cz>
- <eaa35431-01f4-f858-0673-cc3b4ddf1c5a@linux.intel.com>
- <000f01d69603$10573fb0$3105bf10$@samsung.com> <s5ho8lpkqdv.wl-tiwai@suse.de>
- <e0c15222-6604-6c59-0d29-575337f7b58b@perex.cz>
- <s5h7dsbip4i.wl-tiwai@suse.de>
-From: Jaroslav Kysela <perex@perex.cz>
-Message-ID: <fcea8be1-cfca-1643-847c-6ca4a63f37af@perex.cz>
-Date: Wed, 30 Sep 2020 11:57:45 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.11.0
+ by alsa1.perex.cz (Postfix) with ESMTPS id B7C65F80110
+ for <alsa-devel@alsa-project.org>; Wed, 30 Sep 2020 12:19:22 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B7C65F80110
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=cerno.tech header.i=@cerno.tech
+ header.b="WASw4mxJ"; 
+ dkim=pass (2048-bit key) header.d=messagingengine.com
+ header.i=@messagingengine.com header.b="crhmRSve"
+Received: from compute3.internal (compute3.nyi.internal [10.202.2.43])
+ by mailnew.nyi.internal (Postfix) with ESMTP id 85A535803DF;
+ Wed, 30 Sep 2020 06:19:20 -0400 (EDT)
+Received: from mailfrontend2 ([10.202.2.163])
+ by compute3.internal (MEProxy); Wed, 30 Sep 2020 06:19:20 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cerno.tech; h=
+ date:from:to:cc:subject:message-id:references:mime-version
+ :content-type:in-reply-to; s=fm1; bh=51hsmLqz9/nNSWtqEjjDNGJdPsf
+ EI5fyVu8+ZU5LqF8=; b=WASw4mxJEzKv4bds0eEWxanJSnI/2TKzJEUgsQAGns3
+ K+soucfi0bPYbyYRo3hhV+xWYaT33ApNtXXs0Nwba1F8Zksphw19wtwMpkEsRBg9
+ lfpEtRSCKY4/T9hUOJsdx6p5qqsl6mwJEHx+wL0hv8ZsLItEPeRPGfttTYL76Wun
+ vp9EGkBesq3JUdmRxSllCZxfVr79dt1jIxQ5LXt1qgIMbkifknSO0OHRhTaIxMkQ
+ Z62wwYaL6kNA80yXBYi7bMK/F7LamFV4YvBfBxITQqsorF32KBBxwp1eUVvAPNkK
+ qrVY1iYj9S7tG1DV6Wu589+KH8z47or6lWkQ2ZMBp9g==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to:x-me-proxy
+ :x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; bh=51hsmL
+ qz9/nNSWtqEjjDNGJdPsfEI5fyVu8+ZU5LqF8=; b=crhmRSvelGLaAGFWUJPjgv
+ uKnov9mX1EL8WL3DMWP4wGDzRygCbY+R3BBNyNp8e6SZ5YyDlmaBdHd7pRLVSexy
+ uf1uy4/HahQgkbJtTVqAXk1MW8OFvbd5jW+fqwG8q4CslwHXdhnh0eJMcLU2g8hl
+ QNJifjA98V9QC4UF2Dj2S+BxJ1MwwLhQz0dqAh18KUiKRk33ZRekQexvjFRvU6JY
+ lqIAseNkZv1gUIoj5tdvF9Zd7K+VxNePb6JCHDU6J+/h5N1Qd29hTAKKt2lYcY0T
+ osQNm6Pngnm0e8/OvFhJgEnNkjwhpwv8akNAfEXMnArnqwOlolFb1CWgoUi8lc2A
+ ==
+X-ME-Sender: <xms:pFt0X4Wd3qhT-TZ9qhPg1BHxHw5GZnFD-mu5cJuwUNnFxliKqpP_Tw>
+ <xme:pFt0X8mr4LxPywLl8iEgImh4u6YQ24Z_WBREKKhrYQs5O-mtuMcfMt54-mXbYC5tt
+ ce1coA8CNO0u9W3_F0>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedujedrfedvgddvvdcutefuodetggdotefrodftvf
+ curfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfghnecu
+ uegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenuc
+ fjughrpeffhffvuffkfhggtggujgesghdtreertddtjeenucfhrhhomhepofgrgihimhgv
+ ucftihhprghrugcuoehmrgigihhmvgestggvrhhnohdrthgvtghhqeenucggtffrrghtth
+ gvrhhnpeeutdfgjeeuudehvefgvedvtedtudelfffgffekledtffekgedukeejueevieeg
+ udenucfkphepledtrdekledrieekrdejieenucevlhhushhtvghrufhiiigvpedtnecurf
+ grrhgrmhepmhgrihhlfhhrohhmpehmrgigihhmvgestggvrhhnohdrthgvtghh
+X-ME-Proxy: <xmx:pFt0X8YSrOhdFUqfBftZwAhGIXgEEZ8MDTkZ_uSwZUYh06GHd5LYlw>
+ <xmx:pFt0X3VOjfFbtLGDHhxUKGnbzDG8fI_0kK79xe_6SvsU4o1RsdQmQw>
+ <xmx:pFt0XylKx9OjYan_RZVkAEgxf2-wJhuoDE2P1M_S3lBLa3LemWj8CA>
+ <xmx:qFt0X0cYfcm7CApF1P6Xth7KOw2Aw1dfv1k0FyBcsce4IyYa2QbvNA>
+Received: from localhost (lfbn-tou-1-1502-76.w90-89.abo.wanadoo.fr
+ [90.89.68.76])
+ by mail.messagingengine.com (Postfix) with ESMTPA id A2C33306467E;
+ Wed, 30 Sep 2020 06:19:16 -0400 (EDT)
+Date: Wed, 30 Sep 2020 12:19:15 +0200
+From: Maxime Ripard <maxime@cerno.tech>
+To: =?utf-8?B?Q2zDqW1lbnQgUMOpcm9u?= <peron.clem@gmail.com>
+Subject: Re: [PATCH v4 09/22] arm64: dts: allwinner: h6: Add HDMI audio node
+Message-ID: <20200930101915.sultshdvxgu5u2rs@gilmour.lan>
+References: <20200921102731.747736-1-peron.clem@gmail.com>
+ <20200921135925.q7mde2cnt5jtzkb5@gilmour.lan>
+ <CAJiuCcfz9A_Vmzq=s3LK2kGB_1tZPkC9Ux+Brdocp9py0fovAg@mail.gmail.com>
+ <59286578.E0qSRroNqr@kista>
+ <20200928084308.eipnvlfqe3c5lfmg@gilmour.lan>
+ <CAJiuCceHXr_5PvG-FW+hRNV7Q33hGrp8kLbO0EgfqqBxF7wbqQ@mail.gmail.com>
 MIME-Version: 1.0
-In-Reply-To: <s5h7dsbip4i.wl-tiwai@suse.de>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
-Cc: alsa-devel@alsa-project.org, khw0178.kim@samsung.com, lgirdwood@gmail.com,
- kimty@samsung.com, s47.kang@samsung.com,
- 'Pierre-Louis Bossart' <pierre-louis.bossart@linux.intel.com>, tiwai@suse.com,
- vkoul@kernel.org, hmseo@samsung.com, Gyeongtaek Lee <gt82.lee@samsung.com>,
- pilsun.jang@samsung.com, tkjung@samsung.com
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature"; boundary="we3fv24y4dnxqond"
+Content-Disposition: inline
+In-Reply-To: <CAJiuCceHXr_5PvG-FW+hRNV7Q33hGrp8kLbO0EgfqqBxF7wbqQ@mail.gmail.com>
+Cc: devicetree <devicetree@vger.kernel.org>,
+ Jernej =?utf-8?Q?=C5=A0krabec?= <jernej.skrabec@siol.net>,
+ linux-sunxi <linux-sunxi@googlegroups.com>,
+ Linux-ALSA <alsa-devel@alsa-project.org>,
+ linux-kernel <linux-kernel@vger.kernel.org>, Mark Brown <broonie@kernel.org>,
+ Takashi Iwai <tiwai@suse.com>, Liam Girdwood <lgirdwood@gmail.com>,
+ Marcus Cooper <codekipper@gmail.com>, Chen-Yu Tsai <wens@csie.org>,
+ Rob Herring <robh+dt@kernel.org>,
+ linux-arm-kernel <linux-arm-kernel@lists.infradead.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -90,97 +127,106 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Dne 30. 09. 20 v 11:35 Takashi Iwai napsal(a):
-> On Tue, 29 Sep 2020 19:27:17 +0200,
-> Jaroslav Kysela wrote:
->>
->> Dne 29. 09. 20 v 9:12 Takashi Iwai napsal(a):
->>> On Tue, 29 Sep 2020 03:51:35 +0200,
->>> Gyeongtaek Lee wrote:
->>>>
->>>> On 9/28/20 11:35 PM, Pierre-Louis Bossart wrote:
->>>>> On 9/28/20 6:13 AM, Jaroslav Kysela wrote:
->>>>>> Dne 28. 09. 20 v 12:50 Gyeongtaek Lee napsal(a):
->>>>>>> With a stream with low bitrate, user can't pause or resume the stream
->>>>>>> near the end of the stream because current ALSA doesn't allow it.
->>>>>>> If the stream has very low bitrate enough to store whole stream into
->>>>>>> the buffer, user can't do anything except stop the stream and then
->>>>>>> restart it from the first.
->>>>>>> If pause and resume is allowed during draining, user experience can be
->>>>>>> enhanced.
->>>>>>
->>>>>> It seems that we need a new state to handle the pause + drain condition for
->>>>>> this case.
->>>>>>
->>>>>> With this proposed change, the pause state in drain is invisible.
->>>>>
->>>>> Indeed it's be much nicer to have a new state, e..g 
->>>>> SNDRV_PCM_STATE_DRAINING_PAUSED.
->>>> Ok. I will add the new state.
->>>>>
->>>>> One concern is that states are defined in uapi/sound/asoc.h, so wouldn't 
->>>>> this have impacts on userspace as well? We'd change the value of 
->>>>> SNDRV_PCM_STATE_LAST.
->>>>>
->>>> I also agree that adding new state and increase LAST value in the header of uapi
->>>> could be dangerous. So, I added it to comress_offload.h for now.
->>>> It could be merged into snd_pcm_state_t in someday with big changes.
->>>> Could you review the fixed patch below?
->>
->> I don't see a big problem to improve the API, but don't forget to increase the
->> SNDRV_COMPRESS_VERSION, so the user space apps can check for this new behaviour.
->>
->>> Hrm, this resulted in rather more complex changes than the original
->>> patch.  It shows that introducing yet another state is no good idea
->>> for this particular case.
->>
->> I don't think so. The states should be isolated and it's clearly a new state
->> and the resulted code at least gives a commented idea, what's going on. It
->> seems that the compress driver state is not exported to the user space at the
->> moment, so I would consider this extension as harmless. We can add this state
->> to asound.h so the user space can be updated. We may use this state for the
->> standard PCM devices one day, too. It makes sense to reserve it sooner than later.
-> 
-> Well, adding a new state can be cumbersome sometimes. For example, the
-> code like below may hit a segfault out of sudden after the upgrade:
-> 
-> 	const char *states[SNDRV_PCM_STATE_LAST + 1] = {
-> 		[SNDRV_PCM_STATE_RUNNING] = "running",
-> 		....
-> 	};
-> 
-> 	printf("current state = %s\n", states[s]);
-> 
-> It's not much frequent breakage, but this can give certainly some
-> incompatibilities even in the source code level.
 
-alsa-lib has already the correct protection for this case:
+--we3fv24y4dnxqond
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-const char *snd_pcm_state_name(const snd_pcm_state_t state)
-{
-        if (state > SND_PCM_STATE_LAST)
-                return NULL;
-        return snd_pcm_state_names[state];
-}
+On Mon, Sep 28, 2020 at 04:27:42PM +0200, Cl=C3=A9ment P=C3=A9ron wrote:
+> On Mon, 28 Sep 2020 at 10:43, Maxime Ripard <maxime@cerno.tech> wrote:
+> >
+> > On Mon, Sep 21, 2020 at 08:37:09PM +0200, Jernej =C5=A0krabec wrote:
+> > > Dne ponedeljek, 21. september 2020 ob 19:23:49 CEST je Cl=C3=A9ment P=
+=C3=A9ron
+> > > napisal(a):
+> > > > Hi Maxime,
+> > > >
+> > > > On Mon, 21 Sep 2020 at 15:59, Maxime Ripard <maxime@cerno.tech> wro=
+te:
+> > > > >
+> > > > > On Mon, Sep 21, 2020 at 12:27:18PM +0200, Cl=C3=A9ment P=C3=A9ron=
+ wrote:
+> > > > > > From: Jernej Skrabec <jernej.skrabec@siol.net>
+> > > > > >
+> > > > > > Add a simple-soundcard to link audio between HDMI and I2S.
+> > > > > >
+> > > > > > Signed-off-by: Jernej Skrabec <jernej.skrabec@siol.net>
+> > > > > > Signed-off-by: Marcus Cooper <codekipper@gmail.com>
+> > > > > > Signed-off-by: Cl=C3=A9ment P=C3=A9ron <peron.clem@gmail.com>
+> > > > > > ---
+> > > > > >  arch/arm64/boot/dts/allwinner/sun50i-h6.dtsi | 33 ++++++++++++=
+++++++++
+> > > > > >  1 file changed, 33 insertions(+)
+> > > > > >
+> > > > > > diff --git a/arch/arm64/boot/dts/allwinner/sun50i-h6.dtsi b/arc=
+h/arm64/
+> > > boot/dts/allwinner/sun50i-h6.dtsi
+> > > > > > index 28c77d6872f6..a8853ee7885a 100644
+> > > > > > --- a/arch/arm64/boot/dts/allwinner/sun50i-h6.dtsi
+> > > > > > +++ b/arch/arm64/boot/dts/allwinner/sun50i-h6.dtsi
+> > > > > > @@ -67,6 +67,25 @@ de: display-engine {
+> > > > > >               status =3D "disabled";
+> > > > > >       };
+> > > > > >
+> > > > > > +     hdmi_sound: hdmi-sound {
+> > > > > > +             compatible =3D "simple-audio-card";
+> > > > > > +             simple-audio-card,format =3D "i2s";
+> > > > > > +             simple-audio-card,name =3D "sun50i-h6-hdmi";
+> > > > > > +             simple-audio-card,mclk-fs =3D <128>;
+> > > > > > +             simple-audio-card,frame-inversion;
+> > > > > > +             status =3D "disabled";
+> > > > > > +
+> > > > > > +             simple-audio-card,codec {
+> > > > > > +                     sound-dai =3D <&hdmi>;
+> > > > > > +             };
+> > > > > > +
+> > > > > > +             simple-audio-card,cpu {
+> > > > > > +                     sound-dai =3D <&i2s1>;
+> > > > > > +                     dai-tdm-slot-num =3D <2>;
+> > > > > > +                     dai-tdm-slot-width =3D <32>;
+> > > > >
+> > > > > It looks weird to have both some TDM setup here, and yet the form=
+at in
+> > > > > i2s?
+> > > >
+> > > > Yes, I agree I will check if it's really needed.
+> > >
+> > > I think this was explained before.
+> >
+> > Possibly, but this should be in a comment or at least the commit log
+> >
+> > > Anyway, this is needed to force width to 32, no matter actual sample
+> > > width. That's a requirement of HDMI codec. I believe Marcus Cooper
+> > > have another codec which also needs fixed width.
+> > >
+> > > There is no similar property for I2S, so TDM one is used here.
+> >
+> > Except it's really dedicated to the TDM mode and doesn't really make
+> > much sense here.
+> >
+> > If we have special requirements like this on the codec setup, that
+> > sounds like a good justification for creating a custom codec instead of
+> > shoehorning it into simple-card
+>=20
+> When all the remarks are fixed would it be possible to merge the rest
+> of the series without the dts changes ?
+>=20
+> I will propose another series to introduce a dedicated codec for that.
 
-If there's no check, it's a clear bug.
+Yeah, sure
 
-> That's the reason I'm reluctant to add a new state unless it's a must.
-> As mentioned, the expected application's behavior is just like the
-> normal pause state, either resuming pause or dropping.  The only case
-> where a new state would help for application is at most that they may
-> foresee beforehand which state it'll go after the resume, to drain or
-> to running.  If this is a must-to-have feature, we can reconsider.
+Maxime
 
-I don't agree here. It's much better to not hide the state related transitions
-even in the kernel in my eyes. For example drivers may behave differently when
-they resume from running+pause or drain+pause states.
+--we3fv24y4dnxqond
+Content-Type: application/pgp-signature; name="signature.asc"
 
-The correct SNDRV_PCM_STATE_LAST is just an implementation issue, which can be
-easily solved.
+-----BEGIN PGP SIGNATURE-----
 
-					Jaroslav
+iHUEABYIAB0WIQRcEzekXsqa64kGDp7j7w1vZxhRxQUCX3RbogAKCRDj7w1vZxhR
+xQ1TAQCXyCe5QVWRsk4Xo0kYUfS4nqr+j6X8lC7NGSFSHCXQbQD/fNe30ApybdwS
+uWFA5qC2rFHZegZ7IFIgsScWh32Hag0=
+=Tk4P
+-----END PGP SIGNATURE-----
 
--- 
-Jaroslav Kysela <perex@perex.cz>
-Linux Sound Maintainer; ALSA Project; Red Hat, Inc.
+--we3fv24y4dnxqond--

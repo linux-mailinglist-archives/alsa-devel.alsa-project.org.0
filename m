@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 51FBD27EB9F
-	for <lists+alsa-devel@lfdr.de>; Wed, 30 Sep 2020 16:59:53 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A65DF27EBB3
+	for <lists+alsa-devel@lfdr.de>; Wed, 30 Sep 2020 17:01:48 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D8AC71804;
-	Wed, 30 Sep 2020 16:59:02 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D8AC71804
+	by alsa0.perex.cz (Postfix) with ESMTPS id 406261826;
+	Wed, 30 Sep 2020 17:00:58 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 406261826
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1601477992;
-	bh=+2c4rR0PSI8hKDHZpc0G6lXquyurQCb+eF3BtHQ0m70=;
+	s=default; t=1601478108;
+	bh=2wzZIuCSV+VRwbcJc9tbNmUFlJumfTYqyUs6IvdiKxs=;
 	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=ug8IMjFAh3mHcpQz7kiq8BmOilJjWDZzlnTQm47UGqneqAveDWdWp2QZI+rjnFQgk
-	 hAbIRc7rWRO/mpAWalJEHWQtZcj2vb+j7wD+3YeEvwHurH+16xRWQHAsZoQOvQli9X
-	 18KD9VKphDoWMNg3CZpz2uqz51Camj5SAZJiqtMU=
+	b=KcTAgTnkqXKQZeX2Cw92QaSm0C1v8YoG9OuQx9yyEnO0B6oHdGdEPZrD/Qlfz6Cwx
+	 zma+sth9ULPPVvh3rN8JXW3o+peB96cYztU7wcqzb0vy7vNavmEsBAAnxIrx/4iv5c
+	 bzNNNZgT/TvMw4NsWd9p/lPfQGWT0i6vnvIRe7B4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id A7D4EF801D8;
-	Wed, 30 Sep 2020 16:58:31 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 8C4D5F801D8;
+	Wed, 30 Sep 2020 17:00:07 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 33A10F80228; Wed, 30 Sep 2020 16:58:29 +0200 (CEST)
+ id 16AD9F801ED; Wed, 30 Sep 2020 17:00:05 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_MSPIKE_H3,
@@ -34,22 +34,22 @@ X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_MSPIKE_H3,
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id CFC09F80110
- for <alsa-devel@alsa-project.org>; Wed, 30 Sep 2020 16:58:22 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CFC09F80110
+ by alsa1.perex.cz (Postfix) with ESMTPS id C8F7AF801D8
+ for <alsa-devel@alsa-project.org>; Wed, 30 Sep 2020 16:59:59 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C8F7AF801D8
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id D5AA4B2DC;
- Wed, 30 Sep 2020 14:58:20 +0000 (UTC)
-Date: Wed, 30 Sep 2020 16:58:20 +0200
-Message-ID: <s5ha6x7gvlf.wl-tiwai@suse.de>
+ by mx2.suse.de (Postfix) with ESMTP id 7E873AFA0;
+ Wed, 30 Sep 2020 14:59:59 +0000 (UTC)
+Date: Wed, 30 Sep 2020 16:59:59 +0200
+Message-ID: <s5h8scrgvio.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
 To: Mauro Carvalho Chehab <mchehab+huawei@kernel.org>
-Subject: Re: [PATCH v4 39/52] docs: writing-an-alsa-driver.rst: fix some bad
- c:func: markups
-In-Reply-To: <9c68c182ae5aa978d68b64695b1e3292fcf58e76.1601467849.git.mchehab+huawei@kernel.org>
+Subject: Re: [PATCH v4 37/52] docs: sound: writing-an-alsa-driver.rst: get rid
+ of :c:type
+In-Reply-To: <00f330aabda084ede41ceb1932d0d687c42266c3.1601467849.git.mchehab+huawei@kernel.org>
 References: <cover.1601467849.git.mchehab+huawei@kernel.org>
- <9c68c182ae5aa978d68b64695b1e3292fcf58e76.1601467849.git.mchehab+huawei@kernel.org>
+ <00f330aabda084ede41ceb1932d0d687c42266c3.1601467849.git.mchehab+huawei@kernel.org>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
  FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
  (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
@@ -74,24 +74,32 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Wed, 30 Sep 2020 15:25:02 +0200,
+On Wed, 30 Sep 2020 15:25:00 +0200,
 Mauro Carvalho Chehab wrote:
 > 
-> Some such markups are invalid, as reported by Sphinx:
+> the :c:type shouldn't be used with structs with Sphinx 3,
+> as the C domain there uses .. c:struct for structs.
 > 
-> 	./Documentation/sound/kernel-api/writing-an-alsa-driver.rst:3317: WARNING: Unparseable C cross-reference: 'snd_rawmidi_transmit*'
+> As we have the automarkup extension, let's just get rid of
+> all :c:type as a hole, as those will be automagically
+                   whole?
+
+> marked as such.
+> 
+> This solves a bunch of warnings with Sphinx 3, like those:
+> 
+> 	.../Documentation/sound/kernel-api/writing-an-alsa-driver.rst:490: WARNING: Unparseable C cross-reference: 'calling snd_card_free'
+> 	Invalid C declaration: Expected end of definition. [error at 8]
+> 	  calling snd_card_free
+> 	  --------^
+> 	.../Documentation/sound/kernel-api/writing-an-alsa-driver.rst:3328: WARNING: Unparseable C cross-reference: 'snd_rawmidi_transmit*'
 > 	Invalid C declaration: Expected end of definition. [error at 20]
 > 	  snd_rawmidi_transmit*
 > 	  --------------------^
-> 	./Documentation/sound/kernel-api/writing-an-alsa-driver.rst:3917: WARNING: Unparseable C cross-reference: 'copy_from/to_user'
+> 	.../Documentation/sound/kernel-api/writing-an-alsa-driver.rst:3928: WARNING: Unparseable C cross-reference: 'copy_from/to_user'
 > 	Invalid C declaration: Expected end of definition. [error at 9]
 > 	  copy_from/to_user
 > 	  ---------^
-> 
-> The first case seems to be better replaced by a literal.
-> 
-> For the second one, let's generate cross-references, by
-> spliting it in two.
 > 
 > Signed-off-by: Mauro Carvalho Chehab <mchehab+huawei@kernel.org>
 

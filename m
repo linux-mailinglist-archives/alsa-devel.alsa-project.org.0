@@ -2,59 +2,70 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 657E227EB80
-	for <lists+alsa-devel@lfdr.de>; Wed, 30 Sep 2020 16:55:35 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E710827EB9C
+	for <lists+alsa-devel@lfdr.de>; Wed, 30 Sep 2020 16:59:09 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C5B071818;
-	Wed, 30 Sep 2020 16:54:44 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C5B071818
+	by alsa0.perex.cz (Postfix) with ESMTPS id 60622181D;
+	Wed, 30 Sep 2020 16:58:19 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 60622181D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1601477734;
-	bh=PVaLrX+9nnoDA1goMMGnFwWu1Y0GcKPZQlNA7n6CwN4=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=KK0S1ZOCxc3oHThW80wJV5xj/9IqHWjI18yU5qjM25MThqGNVjQVLuYDDAnFIHQ1W
-	 8APMgNQ0T9tmDKpbx18jfudcUlr79jalipZc0Yo6Gfzrkz5DAZpkJE46/1qo8oWMPu
-	 4QrUk7q+pgCNwf4oedQ++FXNJfudOz2mzrDfwfLY=
+	s=default; t=1601477949;
+	bh=Z7/A99n/2kILNtM7KO/dyhtRRB0VHXXgUMVK9kgZoyw=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=Zwr7oj4kzYAd81wusxBWkRbXyTg6zpFkNQAQpsU1q6xOzoDYPXlp/hsGnRAB3mUc0
+	 n/0OgSfKAgtPfAb9C8nhpeKkPbPLkQMvqA5OX4XjjT3RRO9fg2WZuWdCuFc6OxFYSv
+	 /eTLae6FlbSgjAS7VPzjncNZKoKxESA4W2DfsiGE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id E3787F800DF;
-	Wed, 30 Sep 2020 16:53:53 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 62E7BF800DF;
+	Wed, 30 Sep 2020 16:57:28 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 5DD63F801ED; Wed, 30 Sep 2020 16:53:51 +0200 (CEST)
+ id 025C2F801ED; Wed, 30 Sep 2020 16:57:25 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_MSPIKE_H3,
  RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=disabled
  version=3.4.0
-Received: from relay12.mail.gandi.net (relay12.mail.gandi.net [217.70.178.232])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 0E6EBF800DF
- for <alsa-devel@alsa-project.org>; Wed, 30 Sep 2020 16:53:40 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0E6EBF800DF
-Received: from localhost (lfbn-lyo-1-1908-165.w90-65.abo.wanadoo.fr
- [90.65.88.165]) (Authenticated sender: alexandre.belloni@bootlin.com)
- by relay12.mail.gandi.net (Postfix) with ESMTPSA id 7D698200006;
- Wed, 30 Sep 2020 14:53:38 +0000 (UTC)
-From: Alexandre Belloni <alexandre.belloni@bootlin.com>
-To: Codrin Ciubotariu <codrin.ciubotariu@microchip.com>,
- Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
- Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
- Nicolas Ferre <nicolas.ferre@microchip.com>,
- Alexandre Belloni <alexandre.belloni@bootlin.com>,
- Ludovic Desroches <ludovic.desroches@microchip.com>
-Subject: [PATCH] ASoC: atmel-pcm: remove unnecessary include
-Date: Wed, 30 Sep 2020 16:53:30 +0200
-Message-Id: <20200930145330.3043528-1-alexandre.belloni@bootlin.com>
-X-Mailer: git-send-email 2.26.2
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Cc: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org
+ by alsa1.perex.cz (Postfix) with ESMTPS id D2049F80110
+ for <alsa-devel@alsa-project.org>; Wed, 30 Sep 2020 16:57:15 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D2049F80110
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id 36E98AB8F;
+ Wed, 30 Sep 2020 14:57:15 +0000 (UTC)
+Date: Wed, 30 Sep 2020 16:57:14 +0200
+Message-ID: <s5hblhngvn9.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Mauro Carvalho Chehab <mchehab+huawei@kernel.org>
+Subject: Re: [PATCH v4 28/52] docs: remove sound API duplication
+In-Reply-To: <3556fe29bfa0e71c8da26e2d228a021a10ba62e1.1601467849.git.mchehab+huawei@kernel.org>
+References: <cover.1601467849.git.mchehab+huawei@kernel.org>
+ <3556fe29bfa0e71c8da26e2d228a021a10ba62e1.1601467849.git.mchehab+huawei@kernel.org>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
+ FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
+ (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
+Content-Type: text/plain; charset=US-ASCII
+Cc: alsa-devel@alsa-project.org,
+ Heikki Krogerus <heikki.krogerus@linux.intel.com>,
+ Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
+ Jonathan Corbet <corbet@lwn.net>, linux-kernel@vger.kernel.org,
+ "rd.dunlab@gmail.com" <rd.dunlab@gmail.com>,
+ Linux Doc Mailing List <linux-doc@vger.kernel.org>,
+ Pragat Pandya <pragat.pandya@gmail.com>,
+ Jonathan =?UTF-8?B?TmV1c2Now6RmZXI=?= <j.neuschaefer@gmx.net>,
+ Jason Gunthorpe <jgg@ziepe.ca>, Michael Walle <michael@walle.cc>,
+ Mark Brown <broonie@kernel.org>, Randy Dunlap <rdunlap@infradead.org>,
+ Takashi Iwai <tiwai@suse.com>, Harald Seiler <hws@denx.de>,
+ Leonard Crestez <leonard.crestez@nxp.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -70,27 +81,24 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Since commit 95e0e07e710e ("ASoC: atmel-pcm: use generic dmaengine
-framework"), the driver is using dmaengine and is not using any definition
-from include/linux/platform_data/dma-atmel.h, stop including it.
+On Wed, 30 Sep 2020 15:24:51 +0200,
+Mauro Carvalho Chehab wrote:
+> 
+> The sound API is documented on two different parts:
+> under Documentation/driver-api/sound.rst and under
+> Documentation/sound/kernel-api/alsa-driver-api.rst.
+> 
+> The alsa-driver-api.rst seems more complete, and APIs
+> are split per type. There's just one missing kernel-doc
+> markup there.
+> 
+> Add it and drop the duplicated one.
+> 
+> Signed-off-by: Mauro Carvalho Chehab <mchehab+huawei@kernel.org>
 
-Signed-off-by: Alexandre Belloni <alexandre.belloni@bootlin.com>
----
- sound/soc/atmel/atmel-pcm-dma.c | 1 -
- 1 file changed, 1 deletion(-)
+Reviewed-by: Takashi Iwai <tiwai@suse.de>
 
-diff --git a/sound/soc/atmel/atmel-pcm-dma.c b/sound/soc/atmel/atmel-pcm-dma.c
-index e597e35459ce..96a8c7dba98f 100644
---- a/sound/soc/atmel/atmel-pcm-dma.c
-+++ b/sound/soc/atmel/atmel-pcm-dma.c
-@@ -18,7 +18,6 @@
- #include <linux/dma-mapping.h>
- #include <linux/dmaengine.h>
- #include <linux/atmel-ssc.h>
--#include <linux/platform_data/dma-atmel.h>
- 
- #include <sound/core.h>
- #include <sound/pcm.h>
--- 
-2.26.2
 
+thanks,
+
+Takashi

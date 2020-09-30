@@ -2,72 +2,67 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 768D227E529
-	for <lists+alsa-devel@lfdr.de>; Wed, 30 Sep 2020 11:31:02 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4D55327E544
+	for <lists+alsa-devel@lfdr.de>; Wed, 30 Sep 2020 11:37:01 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id EAEAA1810;
-	Wed, 30 Sep 2020 11:30:11 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EAEAA1810
+	by alsa0.perex.cz (Postfix) with ESMTPS id B85B317F2;
+	Wed, 30 Sep 2020 11:36:10 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B85B317F2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1601458262;
-	bh=E5jMR1uNTe1L1MFq42jTbhD0bCTDzkujetOYu/my4ds=;
-	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
+	s=default; t=1601458620;
+	bh=8t9is6OjWwxm4PEwAl87y/jIci2O5YskMtyCYuW8V2M=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=u0Sz8gWdSQekLogMlTvMXB9BP8DHpwus0oMpGnDMDMSKEOWWFjQUxZLnBpEwH/4pB
-	 sBqe26Iqk8UVLsr2uCDgomcMrrPKrzkJ0kiJ6o11DKfsbh4aWw8D8D0GgCqunTpk72
-	 wFKYVvHIeDry18HGkKLdd9q7q1b5hInGW13N5V7A=
+	b=PKF1gb32UvfcYQPVCvVO9rRLipbaP0X3zyTpKb76chpOncCZ66RKLkQz3OMTZBHB7
+	 jq6yJKCt4Xvgn7eIlJNqcFq3vFAd2fXyLzdxAQmi06tMiwb6M2D2IOgz+ktrHAVSuJ
+	 hUjzJ9g26M4Eofh5hNIS3yN19lvPrvr2A/anqRRI=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 1A591F801F9;
-	Wed, 30 Sep 2020 11:29:21 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id BE7E6F801F9;
+	Wed, 30 Sep 2020 11:35:19 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 44426F801ED; Wed, 30 Sep 2020 11:29:15 +0200 (CEST)
+ id 6294BF801ED; Wed, 30 Sep 2020 11:35:18 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,NICE_REPLY_A,PRX_BODY_30,SPF_HELO_PASS,SPF_PASS,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from mail1.perex.cz (mail1.perex.cz [77.48.224.245])
+X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_MSPIKE_H3,
+ RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
+Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 8A748F800DF
- for <alsa-devel@alsa-project.org>; Wed, 30 Sep 2020 11:29:03 +0200 (CEST)
-Received: from mail1.perex.cz (localhost [127.0.0.1])
- by smtp1.perex.cz (Perex's E-mail Delivery System) with ESMTP id 90D53A0040;
- Wed, 30 Sep 2020 11:29:02 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 smtp1.perex.cz 90D53A0040
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=perex.cz; s=default;
- t=1601458142; bh=bR9dESD5mFz5xQYDbACDEOfVajcRcrhIeUc/sCWsofI=;
- h=Subject:To:Cc:References:From:Date:In-Reply-To:From;
- b=387TcnaeTDrdYdqYn2nXodhlEedoxg3qLeKVpxHfoxFYnazFMyoa0hY6WEZFsS71t
- 7dK7FzbR1STgPw7remI6ndoxii+GU5fyOVExUx885UW4wNd8/HoCUqto3x7rFqLJmr
- uwS3vGISb6I+Zp1xZ7jedrUk6VwWk2lBYk5fqN88=
-Received: from p1gen2.perex-int.cz (unknown [192.168.100.98])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested) (Authenticated sender: perex)
- by mail1.perex.cz (Perex's E-mail Delivery System) with ESMTPSA;
- Wed, 30 Sep 2020 11:28:59 +0200 (CEST)
-Subject: Re: [PATCH] ALSA: hda - Don't register a cb func if it is registered
- already
-To: Takashi Iwai <tiwai@suse.de>
-References: <20200930055146.5665-1-hui.wang@canonical.com>
- <bd05e1be-96e8-14bf-011c-b43d165abf17@perex.cz>
- <s5h8scriprf.wl-tiwai@suse.de>
-From: Jaroslav Kysela <perex@perex.cz>
-Message-ID: <8da67a4f-d9a4-14a0-a4b0-d93f7cb649ce@perex.cz>
-Date: Wed, 30 Sep 2020 11:28:59 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.11.0
-MIME-Version: 1.0
-In-Reply-To: <s5h8scriprf.wl-tiwai@suse.de>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
-Cc: Hui Wang <hui.wang@canonical.com>, alsa-devel@alsa-project.org
+ by alsa1.perex.cz (Postfix) with ESMTPS id 4E10AF800DF
+ for <alsa-devel@alsa-project.org>; Wed, 30 Sep 2020 11:35:11 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4E10AF800DF
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id 58224AD73;
+ Wed, 30 Sep 2020 09:35:11 +0000 (UTC)
+Date: Wed, 30 Sep 2020 11:35:09 +0200
+Message-ID: <s5h7dsbip4i.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Jaroslav Kysela <perex@perex.cz>
+Subject: Re: [PATCH] ALSA: compress: allow pause and resume during draining
+In-Reply-To: <e0c15222-6604-6c59-0d29-575337f7b58b@perex.cz>
+References: <CGME20200928105009epcas2p4a65d50d9d09800281395a490d1844ef3@epcas2p4.samsung.com>
+ <000c01d69585$228db6b0$67a92410$@samsung.com>
+ <7ba714ce-8b33-1b64-7503-6b155bf43909@perex.cz>
+ <eaa35431-01f4-f858-0673-cc3b4ddf1c5a@linux.intel.com>
+ <000f01d69603$10573fb0$3105bf10$@samsung.com>
+ <s5ho8lpkqdv.wl-tiwai@suse.de>
+ <e0c15222-6604-6c59-0d29-575337f7b58b@perex.cz>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
+ FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
+ (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
+Content-Type: text/plain; charset=US-ASCII
+Cc: alsa-devel@alsa-project.org, khw0178.kim@samsung.com, lgirdwood@gmail.com,
+ kimty@samsung.com, s47.kang@samsung.com,
+ 'Pierre-Louis Bossart' <pierre-louis.bossart@linux.intel.com>, tiwai@suse.com,
+ vkoul@kernel.org, hmseo@samsung.com, Gyeongtaek Lee <gt82.lee@samsung.com>,
+ pilsun.jang@samsung.com, tkjung@samsung.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -83,34 +78,83 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Dne 30. 09. 20 v 11:21 Takashi Iwai napsal(a):
-> On Wed, 30 Sep 2020 09:19:50 +0200,
-> Jaroslav Kysela wrote:
->>
->> Dne 30. 09. 20 v 7:51 Hui Wang napsal(a):
->>> If the caller of enable_callback_mst() passes a cb func, the callee
->>> function will malloc memory and link this cb func to the list
->>> unconditionally. This will introduce problem if caller is in the
->>> hda_codec_ops.init() since the init() will be repeatedly called in the
->>> codec rt_resume().
->>>
->>> So far, the patch_hdmi.c and patch_ca0132.c call enable_callback_mst()
->>> in the hda_codec_ops.init().
->>
->> Won't be better to handle this double invocation at the callback call time? I
->> believe that some refcounting and pointing to one allocated callback structure
->> for all instances is better.
+On Tue, 29 Sep 2020 19:27:17 +0200,
+Jaroslav Kysela wrote:
 > 
-> IMO, Hui's fix is correct in this case; otherwise it'll result in
-> endless number of allocations at each time the runtime resume is
-> performed.  So I'm going to take it as is.
+> Dne 29. 09. 20 v 9:12 Takashi Iwai napsal(a):
+> > On Tue, 29 Sep 2020 03:51:35 +0200,
+> > Gyeongtaek Lee wrote:
+> >>
+> >> On 9/28/20 11:35 PM, Pierre-Louis Bossart wrote:
+> >>> On 9/28/20 6:13 AM, Jaroslav Kysela wrote:
+> >>>> Dne 28. 09. 20 v 12:50 Gyeongtaek Lee napsal(a):
+> >>>>> With a stream with low bitrate, user can't pause or resume the stream
+> >>>>> near the end of the stream because current ALSA doesn't allow it.
+> >>>>> If the stream has very low bitrate enough to store whole stream into
+> >>>>> the buffer, user can't do anything except stop the stream and then
+> >>>>> restart it from the first.
+> >>>>> If pause and resume is allowed during draining, user experience can be
+> >>>>> enhanced.
+> >>>>
+> >>>> It seems that we need a new state to handle the pause + drain condition for
+> >>>> this case.
+> >>>>
+> >>>> With this proposed change, the pause state in drain is invisible.
+> >>>
+> >>> Indeed it's be much nicer to have a new state, e..g 
+> >>> SNDRV_PCM_STATE_DRAINING_PAUSED.
+> >> Ok. I will add the new state.
+> >>>
+> >>> One concern is that states are defined in uapi/sound/asoc.h, so wouldn't 
+> >>> this have impacts on userspace as well? We'd change the value of 
+> >>> SNDRV_PCM_STATE_LAST.
+> >>>
+> >> I also agree that adding new state and increase LAST value in the header of uapi
+> >> could be dangerous. So, I added it to comress_offload.h for now.
+> >> It could be merged into snd_pcm_state_t in someday with big changes.
+> >> Could you review the fixed patch below?
+> 
+> I don't see a big problem to improve the API, but don't forget to increase the
+> SNDRV_COMPRESS_VERSION, so the user space apps can check for this new behaviour.
+> 
+> > Hrm, this resulted in rather more complex changes than the original
+> > patch.  It shows that introducing yet another state is no good idea
+> > for this particular case.
+> 
+> I don't think so. The states should be isolated and it's clearly a new state
+> and the resulted code at least gives a commented idea, what's going on. It
+> seems that the compress driver state is not exported to the user space at the
+> moment, so I would consider this extension as harmless. We can add this state
+> to asound.h so the user space can be updated. We may use this state for the
+> standard PCM devices one day, too. It makes sense to reserve it sooner than later.
 
-I meant to allocate the structure only once with refcounting and multiple
-invocation protection. In the proposed change, you lose the bindings. But as
-you prefer.
+Well, adding a new state can be cumbersome sometimes. For example, the
+code like below may hit a segfault out of sudden after the upgrade:
 
-					Jaroslav
+	const char *states[SNDRV_PCM_STATE_LAST + 1] = {
+		[SNDRV_PCM_STATE_RUNNING] = "running",
+		....
+	};
 
--- 
-Jaroslav Kysela <perex@perex.cz>
-Linux Sound Maintainer; ALSA Project; Red Hat, Inc.
+	printf("current state = %s\n", states[s]);
+
+It's not much frequent breakage, but this can give certainly some
+incompatibilities even in the source code level.
+
+That's the reason I'm reluctant to add a new state unless it's a must.
+As mentioned, the expected application's behavior is just like the
+normal pause state, either resuming pause or dropping.  The only case
+where a new state would help for application is at most that they may
+foresee beforehand which state it'll go after the resume, to drain or
+to running.  If this is a must-to-have feature, we can reconsider.
+
+> BTW: Offtopic - Why compress code returns EPERM if the state is not correct?
+> It's not about the permissions. The EBADFD is much better code in this case.
+
+Indeed that sounds inconsistent, but I'm afraid it too late to change?
+Suppose some code already depending on the error code.  Who knows...
+
+
+thanks,
+
+Takashi

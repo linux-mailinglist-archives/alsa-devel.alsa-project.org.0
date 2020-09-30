@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id BB73D27F588
-	for <lists+alsa-devel@lfdr.de>; Thu,  1 Oct 2020 00:54:13 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 54BB127F592
+	for <lists+alsa-devel@lfdr.de>; Thu,  1 Oct 2020 00:56:51 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 0850F17A2;
-	Thu,  1 Oct 2020 00:53:23 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0850F17A2
+	by alsa0.perex.cz (Postfix) with ESMTPS id E167F17B6;
+	Thu,  1 Oct 2020 00:56:00 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E167F17B6
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1601506453;
-	bh=tc4HYKqrdVc9n+T9+OaDo7SRBlaCCD9wQdXrVMID5K0=;
+	s=default; t=1601506611;
+	bh=CBdu+u3sY2Vdh8W64mojvBFbUGIlbSc0gdj7feh3hSY=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=KkCE33oI4QHtTrSy2WixNBo0Mn4MpEam6IGAKF15ob5fwKnO1mqDTeqqTV4jKbtLd
-	 4zmyLviBk3bPnncdAuhtoZ8MOphG76TzJrJqjlsqUWCfTpidyiVQXV9t4Dgw4y/Pnq
-	 u8badUsuKrZSdKw30M0nYIQjhO8KiXD9VvapZqEY=
+	b=RtNo7ON6nYgm1BYesezN+2IYrfw9RygW5oynGgRRCkYPwCz9EHoRy8pHZc5CE3g5z
+	 sEd0/iqJQMiW9AnTow22UOHt4+kAg7B4PjWKtUmaYiagHQfYviB2uNCVTSv7buRbW8
+	 gd9QNqbyeE5bjttXi5TTjn27yhvE01xSQUh63OKM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 3CF80F802C3;
-	Thu,  1 Oct 2020 00:51:52 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 09061F80315;
+	Thu,  1 Oct 2020 00:52:01 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 4569DF80228; Thu,  1 Oct 2020 00:51:46 +0200 (CEST)
+ id 68878F802E8; Thu,  1 Oct 2020 00:51:57 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
@@ -33,29 +33,29 @@ X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
 Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 7804BF800AB
- for <alsa-devel@alsa-project.org>; Thu,  1 Oct 2020 00:51:36 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7804BF800AB
-IronPort-SDR: kyttn4blU5h4sJzM7lyqqwraRgKmR6dei3AdsIz7Y0AIOk+zdLzA2nQGZDqCCD/XesBEyzU8tI
- H2aZAspKGHYg==
-X-IronPort-AV: E=McAfee;i="6000,8403,9760"; a="161811145"
-X-IronPort-AV: E=Sophos;i="5.77,322,1596524400"; d="scan'208";a="161811145"
+ by alsa1.perex.cz (Postfix) with ESMTPS id 075ADF801D8
+ for <alsa-devel@alsa-project.org>; Thu,  1 Oct 2020 00:51:45 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 075ADF801D8
+IronPort-SDR: 6PB3KUmGRD5sHTeGo+BUSkG7Dp8nSHAhnO+LDJoleSL/SbqYs7c16iAwdbf2/pR6i24TIahGa3
+ TD9YVncCmofw==
+X-IronPort-AV: E=McAfee;i="6000,8403,9760"; a="161811146"
+X-IronPort-AV: E=Sophos;i="5.77,322,1596524400"; d="scan'208";a="161811146"
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
 Received: from fmsmga003.fm.intel.com ([10.253.24.29])
  by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 30 Sep 2020 15:51:33 -0700
-IronPort-SDR: IeEEyQbK5a0GXuWQp7WAUEg46TVOzjS/lEjiAsjcTYalv227nc/+iDhP8NAYuEQ8gAixlCQ+r8
- Hx68EFmZPnrw==
+ 30 Sep 2020 15:51:34 -0700
+IronPort-SDR: eGMrGZo0kmqBImXgyWnNBujHjPq6vPlXDiDgfOaWqzfkUFyhHQDyXVCAHQp/OmfihOdMHUxqG2
+ Iujqtyo2zNLA==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.77,322,1596524400"; d="scan'208";a="350838149"
+X-IronPort-AV: E=Sophos;i="5.77,322,1596524400"; d="scan'208";a="350838152"
 Received: from dmert-dev.jf.intel.com ([10.166.241.5])
  by FMSMGA003.fm.intel.com with ESMTP; 30 Sep 2020 15:51:33 -0700
 From: Dave Ertman <david.m.ertman@intel.com>
 To: alsa-devel@alsa-project.org
-Subject: [PATCH 4/6] ASoC: SOF: ops: Add ops for client registration
-Date: Wed, 30 Sep 2020 15:50:49 -0700
-Message-Id: <20200930225051.889607-5-david.m.ertman@intel.com>
+Subject: [PATCH 5/6] ASoC: SOF: Intel: Define ops for client registration
+Date: Wed, 30 Sep 2020 15:50:50 -0700
+Message-Id: <20200930225051.889607-6-david.m.ertman@intel.com>
 X-Mailer: git-send-email 2.26.2
 In-Reply-To: <20200930225051.889607-1-david.m.ertman@intel.com>
 References: <20200930225051.889607-1-david.m.ertman@intel.com>
@@ -63,8 +63,9 @@ MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Cc: tiwai@suse.de, gregkh@linuxfoundation.org, ranjani.sridharan@intel.com,
  pierre-louis.bossart@linux.intel.com,
- Ranjani Sridharan <ranjani.sridharan@linux.intel.com>, broonie@kernel.org,
- parav@nvidia.com, jgg@nvidia.com
+ Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
+ Fred Oh <fred.oh@linux.intel.com>, broonie@kernel.org, parav@nvidia.com,
+ jgg@nvidia.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -82,88 +83,390 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 From: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
 
-Add new ops for registering/unregistering clients based
-on DSP capabilities and/or DT information.
+Define client ops for Intel platforms. For now, we only add
+2 IPC test clients that will be used for run tandem IPC flood
+tests for.
+
+For ACPI platforms, change the Kconfig to select
+SND_SOC_SOF_PROBE_WORK_QUEUE to allow the ancillary driver
+to probe when the client is registered.
 
 Reviewed-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 Signed-off-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
+Co-developed-by: Fred Oh <fred.oh@linux.intel.com>
+Signed-off-by: Fred Oh <fred.oh@linux.intel.com>
 Signed-off-by: Dave Ertman <david.m.ertman@intel.com>
 ---
- sound/soc/sof/core.c     | 10 ++++++++++
- sound/soc/sof/ops.h      | 14 ++++++++++++++
- sound/soc/sof/sof-priv.h |  4 ++++
- 3 files changed, 28 insertions(+)
+ sound/soc/sof/intel/Kconfig        |  9 ++++++
+ sound/soc/sof/intel/Makefile       |  3 ++
+ sound/soc/sof/intel/apl.c          | 18 +++++++++++
+ sound/soc/sof/intel/bdw.c          | 18 +++++++++++
+ sound/soc/sof/intel/byt.c          | 22 ++++++++++++++
+ sound/soc/sof/intel/cnl.c          | 18 +++++++++++
+ sound/soc/sof/intel/intel-client.c | 49 ++++++++++++++++++++++++++++++
+ sound/soc/sof/intel/intel-client.h | 26 ++++++++++++++++
+ 8 files changed, 163 insertions(+)
+ create mode 100644 sound/soc/sof/intel/intel-client.c
+ create mode 100644 sound/soc/sof/intel/intel-client.h
 
-diff --git a/sound/soc/sof/core.c b/sound/soc/sof/core.c
-index 72a97219395f..ddb9a12d5aac 100644
---- a/sound/soc/sof/core.c
-+++ b/sound/soc/sof/core.c
-@@ -246,8 +246,17 @@ static int sof_probe_continue(struct snd_sof_dev *sdev)
- 	if (plat_data->sof_probe_complete)
- 		plat_data->sof_probe_complete(sdev->dev);
+diff --git a/sound/soc/sof/intel/Kconfig b/sound/soc/sof/intel/Kconfig
+index 3aaf25e4f766..28aba42f4658 100644
+--- a/sound/soc/sof/intel/Kconfig
++++ b/sound/soc/sof/intel/Kconfig
+@@ -13,6 +13,8 @@ config SND_SOC_SOF_INTEL_ACPI
+ 	def_tristate SND_SOC_SOF_ACPI
+ 	select SND_SOC_SOF_BAYTRAIL  if SND_SOC_SOF_BAYTRAIL_SUPPORT
+ 	select SND_SOC_SOF_BROADWELL if SND_SOC_SOF_BROADWELL_SUPPORT
++	select SND_SOC_SOF_PROBE_WORK_QUEUE if SND_SOC_SOF_CLIENT
++	select SND_SOC_SOF_INTEL_CLIENT if SND_SOC_SOF_CLIENT
+ 	help
+ 	  This option is not user-selectable but automagically handled by
+ 	  'select' statements at a higher level
+@@ -29,6 +31,7 @@ config SND_SOC_SOF_INTEL_PCI
+ 	select SND_SOC_SOF_TIGERLAKE   if SND_SOC_SOF_TIGERLAKE_SUPPORT
+ 	select SND_SOC_SOF_ELKHARTLAKE if SND_SOC_SOF_ELKHARTLAKE_SUPPORT
+ 	select SND_SOC_SOF_JASPERLAKE  if SND_SOC_SOF_JASPERLAKE_SUPPORT
++	select SND_SOC_SOF_INTEL_CLIENT if SND_SOC_SOF_CLIENT
+ 	help
+ 	  This option is not user-selectable but automagically handled by
+ 	  'select' statements at a higher level
+@@ -57,6 +60,12 @@ config SND_SOC_SOF_INTEL_COMMON
+ 	  This option is not user-selectable but automagically handled by
+ 	  'select' statements at a higher level
  
-+	/* If registering certain clients fails, unregister the previously registered clients. */
-+	ret = snd_sof_register_clients(sdev);
-+	if (ret < 0) {
-+		dev_err(sdev->dev, "error: failed to register clients %d\n", ret);
-+		goto client_reg_err;
-+	}
++config SND_SOC_SOF_INTEL_CLIENT
++	tristate
++	help
++	  This option is not user-selectable but automagically handled by
++	  'select' statements at a higher level
 +
- 	return 0;
+ if SND_SOC_SOF_INTEL_ACPI
  
-+client_reg_err:
-+	snd_sof_unregister_clients(sdev);
- fw_trace_err:
- 	snd_sof_free_trace(sdev);
- fw_run_err:
-@@ -356,6 +365,7 @@ int snd_sof_device_remove(struct device *dev)
- 			dev_warn(dev, "error: %d failed to prepare DSP for device removal",
- 				 ret);
+ config SND_SOC_SOF_BAYTRAIL_SUPPORT
+diff --git a/sound/soc/sof/intel/Makefile b/sound/soc/sof/intel/Makefile
+index f7e9358f1f06..50e40caaa787 100644
+--- a/sound/soc/sof/intel/Makefile
++++ b/sound/soc/sof/intel/Makefile
+@@ -5,6 +5,8 @@ snd-sof-intel-bdw-objs := bdw.o
  
-+		snd_sof_unregister_clients(sdev);
- 		snd_sof_fw_unload(sdev);
- 		snd_sof_ipc_free(sdev);
- 		snd_sof_free_debug(sdev);
-diff --git a/sound/soc/sof/ops.h b/sound/soc/sof/ops.h
-index b21632f5511a..0e5660d7a2fd 100644
---- a/sound/soc/sof/ops.h
-+++ b/sound/soc/sof/ops.h
-@@ -470,6 +470,20 @@ snd_sof_set_mach_params(const struct snd_soc_acpi_mach *mach,
- 		sof_ops(sdev)->set_mach_params(mach, dev);
+ snd-sof-intel-ipc-objs := intel-ipc.o
+ 
++snd-sof-intel-client-objs := intel-client.o
++
+ snd-sof-intel-hda-common-objs := hda.o hda-loader.o hda-stream.o hda-trace.o \
+ 				 hda-dsp.o hda-ipc.o hda-ctrl.o hda-pcm.o \
+ 				 hda-dai.o hda-bus.o \
+@@ -18,3 +20,4 @@ obj-$(CONFIG_SND_SOC_SOF_BROADWELL) += snd-sof-intel-bdw.o
+ obj-$(CONFIG_SND_SOC_SOF_INTEL_HIFI_EP_IPC) += snd-sof-intel-ipc.o
+ obj-$(CONFIG_SND_SOC_SOF_HDA_COMMON) += snd-sof-intel-hda-common.o
+ obj-$(CONFIG_SND_SOC_SOF_HDA) += snd-sof-intel-hda.o
++obj-$(CONFIG_SND_SOC_SOF_INTEL_CLIENT) += snd-sof-intel-client.o
+diff --git a/sound/soc/sof/intel/apl.c b/sound/soc/sof/intel/apl.c
+index 9e29d4fd393a..b31353b1a3ea 100644
+--- a/sound/soc/sof/intel/apl.c
++++ b/sound/soc/sof/intel/apl.c
+@@ -15,9 +15,12 @@
+  * Hardware interface for audio DSP on Apollolake and GeminiLake
+  */
+ 
++#include <linux/list.h>
+ #include "../sof-priv.h"
+ #include "hda.h"
+ #include "../sof-audio.h"
++#include "../sof-client.h"
++#include "intel-client.h"
+ 
+ static const struct snd_sof_debugfs_map apl_dsp_debugfs[] = {
+ 	{"hda", HDA_DSP_HDA_BAR, 0, 0x4000, SOF_DEBUGFS_ACCESS_ALWAYS},
+@@ -25,6 +28,16 @@ static const struct snd_sof_debugfs_map apl_dsp_debugfs[] = {
+ 	{"dsp", HDA_DSP_BAR,  0, 0x10000, SOF_DEBUGFS_ACCESS_ALWAYS},
+ };
+ 
++static int apl_register_clients(struct snd_sof_dev *sdev)
++{
++	return intel_register_ipc_test_clients(sdev);
++}
++
++static void apl_unregister_clients(struct snd_sof_dev *sdev)
++{
++	intel_unregister_ipc_test_clients(sdev);
++}
++
+ /* apollolake ops */
+ const struct snd_sof_dsp_ops sof_apl_ops = {
+ 	/* probe and remove */
+@@ -101,6 +114,10 @@ const struct snd_sof_dsp_ops sof_apl_ops = {
+ 	.trace_release = hda_dsp_trace_release,
+ 	.trace_trigger = hda_dsp_trace_trigger,
+ 
++	/* client ops */
++	.register_clients = apl_register_clients,
++	.unregister_clients = apl_unregister_clients,
++
+ 	/* DAI drivers */
+ 	.drv		= skl_dai,
+ 	.num_drv	= SOF_SKL_NUM_DAIS,
+@@ -140,3 +157,4 @@ const struct sof_intel_dsp_desc apl_chip_info = {
+ 	.ssp_base_offset = APL_SSP_BASE_OFFSET,
+ };
+ EXPORT_SYMBOL_NS(apl_chip_info, SND_SOC_SOF_INTEL_HDA_COMMON);
++MODULE_IMPORT_NS(SND_SOC_SOF_INTEL_CLIENT);
+diff --git a/sound/soc/sof/intel/bdw.c b/sound/soc/sof/intel/bdw.c
+index 99fd0bd7276e..b14026c5fa97 100644
+--- a/sound/soc/sof/intel/bdw.c
++++ b/sound/soc/sof/intel/bdw.c
+@@ -12,12 +12,15 @@
+  * Hardware interface for audio DSP on Broadwell
+  */
+ 
++#include <linux/list.h>
+ #include <linux/module.h>
+ #include <sound/sof.h>
+ #include <sound/sof/xtensa.h>
+ #include "../ops.h"
+ #include "shim.h"
+ #include "../sof-audio.h"
++#include "../sof-client.h"
++#include "intel-client.h"
+ 
+ /* BARs */
+ #define BDW_DSP_BAR 0
+@@ -563,6 +566,16 @@ static void bdw_set_mach_params(const struct snd_soc_acpi_mach *mach,
+ 	mach_params->platform = dev_name(dev);
  }
  
-+static inline int snd_sof_register_clients(struct snd_sof_dev *sdev)
++static int bdw_register_clients(struct snd_sof_dev *sdev)
 +{
-+	if (sof_ops(sdev) && sof_ops(sdev)->register_clients)
-+		return sof_ops(sdev)->register_clients(sdev);
++	return intel_register_ipc_test_clients(sdev);
++}
 +
++static void bdw_unregister_clients(struct snd_sof_dev *sdev)
++{
++	intel_unregister_ipc_test_clients(sdev);
++}
++
+ /* Broadwell DAIs */
+ static struct snd_soc_dai_driver bdw_dai[] = {
+ {
+@@ -638,6 +651,10 @@ const struct snd_sof_dsp_ops sof_bdw_ops = {
+ 	/*Firmware loading */
+ 	.load_firmware	= snd_sof_load_firmware_memcpy,
+ 
++	/* client ops */
++	.register_clients = bdw_register_clients,
++	.unregister_clients = bdw_unregister_clients,
++
+ 	/* DAI drivers */
+ 	.drv = bdw_dai,
+ 	.num_drv = ARRAY_SIZE(bdw_dai),
+@@ -662,3 +679,4 @@ EXPORT_SYMBOL_NS(bdw_chip_info, SND_SOC_SOF_BROADWELL);
+ MODULE_LICENSE("Dual BSD/GPL");
+ MODULE_IMPORT_NS(SND_SOC_SOF_INTEL_HIFI_EP_IPC);
+ MODULE_IMPORT_NS(SND_SOC_SOF_XTENSA);
++MODULE_IMPORT_NS(SND_SOC_SOF_INTEL_CLIENT);
+diff --git a/sound/soc/sof/intel/byt.c b/sound/soc/sof/intel/byt.c
+index 49f67f1b94e0..8951f756d078 100644
+--- a/sound/soc/sof/intel/byt.c
++++ b/sound/soc/sof/intel/byt.c
+@@ -12,13 +12,16 @@
+  * Hardware interface for audio DSP on Baytrail, Braswell and Cherrytrail.
+  */
+ 
++#include <linux/list.h>
+ #include <linux/module.h>
+ #include <sound/sof.h>
+ #include <sound/sof/xtensa.h>
+ #include "../ops.h"
+ #include "shim.h"
+ #include "../sof-audio.h"
++#include "../sof-client.h"
+ #include "../../intel/common/soc-intel-quirks.h"
++#include "intel-client.h"
+ 
+ /* DSP memories */
+ #define IRAM_OFFSET		0x0C0000
+@@ -821,6 +824,16 @@ static int byt_acpi_probe(struct snd_sof_dev *sdev)
+ 	return ret;
+ }
+ 
++static int byt_register_clients(struct snd_sof_dev *sdev)
++{
++	return intel_register_ipc_test_clients(sdev);
++}
++
++static void byt_unregister_clients(struct snd_sof_dev *sdev)
++{
++	intel_unregister_ipc_test_clients(sdev);
++}
++
+ /* baytrail ops */
+ const struct snd_sof_dsp_ops sof_byt_ops = {
+ 	/* device init */
+@@ -879,6 +892,10 @@ const struct snd_sof_dsp_ops sof_byt_ops = {
+ 	.suspend = byt_suspend,
+ 	.resume = byt_resume,
+ 
++	/* client ops */
++	.register_clients = byt_register_clients,
++	.unregister_clients = byt_unregister_clients,
++
+ 	/* DAI drivers */
+ 	.drv = byt_dai,
+ 	.num_drv = 3, /* we have only 3 SSPs on byt*/
+@@ -958,6 +975,10 @@ const struct snd_sof_dsp_ops sof_cht_ops = {
+ 	.suspend = byt_suspend,
+ 	.resume = byt_resume,
+ 
++	/* client ops */
++	.register_clients = byt_register_clients,
++	.unregister_clients = byt_unregister_clients,
++
+ 	/* DAI drivers */
+ 	.drv = byt_dai,
+ 	/* all 6 SSPs may be available for cherrytrail */
+@@ -985,3 +1006,4 @@ EXPORT_SYMBOL_NS(cht_chip_info, SND_SOC_SOF_BAYTRAIL);
+ MODULE_LICENSE("Dual BSD/GPL");
+ MODULE_IMPORT_NS(SND_SOC_SOF_INTEL_HIFI_EP_IPC);
+ MODULE_IMPORT_NS(SND_SOC_SOF_XTENSA);
++MODULE_IMPORT_NS(SND_SOC_SOF_INTEL_CLIENT);
+diff --git a/sound/soc/sof/intel/cnl.c b/sound/soc/sof/intel/cnl.c
+index 16db0f50d139..5d7c2a667798 100644
+--- a/sound/soc/sof/intel/cnl.c
++++ b/sound/soc/sof/intel/cnl.c
+@@ -15,10 +15,13 @@
+  * Hardware interface for audio DSP on Cannonlake.
+  */
+ 
++#include <linux/list.h>
+ #include "../ops.h"
+ #include "hda.h"
+ #include "hda-ipc.h"
+ #include "../sof-audio.h"
++#include "../sof-client.h"
++#include "intel-client.h"
+ 
+ static const struct snd_sof_debugfs_map cnl_dsp_debugfs[] = {
+ 	{"hda", HDA_DSP_HDA_BAR, 0, 0x4000, SOF_DEBUGFS_ACCESS_ALWAYS},
+@@ -231,6 +234,16 @@ static void cnl_ipc_dump(struct snd_sof_dev *sdev)
+ 		hipcida, hipctdr, hipcctl);
+ }
+ 
++static int cnl_register_clients(struct snd_sof_dev *sdev)
++{
++	return intel_register_ipc_test_clients(sdev);
++}
++
++static void cnl_unregister_clients(struct snd_sof_dev *sdev)
++{
++	intel_unregister_ipc_test_clients(sdev);
++}
++
+ /* cannonlake ops */
+ const struct snd_sof_dsp_ops sof_cnl_ops = {
+ 	/* probe and remove */
+@@ -307,6 +320,10 @@ const struct snd_sof_dsp_ops sof_cnl_ops = {
+ 	.trace_release = hda_dsp_trace_release,
+ 	.trace_trigger = hda_dsp_trace_trigger,
+ 
++	/* client ops */
++	.register_clients = cnl_register_clients,
++	.unregister_clients = cnl_unregister_clients,
++
+ 	/* DAI drivers */
+ 	.drv		= skl_dai,
+ 	.num_drv	= SOF_SKL_NUM_DAIS,
+@@ -417,3 +434,4 @@ const struct sof_intel_dsp_desc jsl_chip_info = {
+ 	.ssp_base_offset = CNL_SSP_BASE_OFFSET,
+ };
+ EXPORT_SYMBOL_NS(jsl_chip_info, SND_SOC_SOF_INTEL_HDA_COMMON);
++MODULE_IMPORT_NS(SND_SOC_SOF_INTEL_CLIENT);
+diff --git a/sound/soc/sof/intel/intel-client.c b/sound/soc/sof/intel/intel-client.c
+new file mode 100644
+index 000000000000..76811fcf65a9
+--- /dev/null
++++ b/sound/soc/sof/intel/intel-client.c
+@@ -0,0 +1,49 @@
++// SPDX-License-Identifier: GPL-2.0-only
++//
++// Copyright(c) 2020 Intel Corporation. All rights reserved.
++//
++// Author: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
++//
++
++#include <linux/module.h>
++#include "../sof-priv.h"
++#include "../sof-client.h"
++#include "intel-client.h"
++
++#if IS_ENABLED(CONFIG_SND_SOC_SOF_DEBUG_IPC_FLOOD_TEST_CLIENT)
++DEFINE_IDA(sof_ipc_test_client_ida);
++
++int intel_register_ipc_test_clients(struct snd_sof_dev *sdev)
++{
++	int ret;
++
++	/*
++	 * Register 2 IPC clients to facilitate tandem flood test. The device name below is
++	 * appended with the device ID assigned automatically when the ancillary device is
++	 * registered making them unique.
++	 */
++	ret = sof_client_dev_register(sdev, "ipc_test", &sof_ipc_test_client_ida);
++	if (ret < 0)
++		return ret;
++
++	return sof_client_dev_register(sdev, "ipc_test", &sof_ipc_test_client_ida);
++}
++EXPORT_SYMBOL_NS_GPL(intel_register_ipc_test_clients, SND_SOC_SOF_INTEL_CLIENT);
++
++void intel_unregister_ipc_test_clients(struct snd_sof_dev *sdev)
++{
++	struct sof_client_dev *cdev, *_cdev;
++
++	/* unregister ipc_test clients */
++	list_for_each_entry_safe(cdev, _cdev, &sdev->client_list, list) {
++		if (!strcmp(cdev->ancildev.name, "ipc_test"))
++			sof_client_dev_unregister(cdev);
++	}
++
++	ida_destroy(&sof_ipc_test_client_ida);
++}
++EXPORT_SYMBOL_NS_GPL(intel_unregister_ipc_test_clients, SND_SOC_SOF_INTEL_CLIENT);
++#endif
++
++MODULE_LICENSE("GPL");
++MODULE_IMPORT_NS(SND_SOC_SOF_CLIENT);
+diff --git a/sound/soc/sof/intel/intel-client.h b/sound/soc/sof/intel/intel-client.h
+new file mode 100644
+index 000000000000..49b2c6c0dcc4
+--- /dev/null
++++ b/sound/soc/sof/intel/intel-client.h
+@@ -0,0 +1,26 @@
++/* SPDX-License-Identifier: (GPL-2.0-only OR BSD-3-Clause) */
++/*
++ * This file is provided under a dual BSD/GPLv2 license.  When using or
++ * redistributing this file, you may do so under either license.
++ *
++ * Copyright(c) 2020 Intel Corporation. All rights reserved.
++ *
++ * Author: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
++ */
++
++#ifndef __INTEL_CLIENT_H
++#define __INTEL_CLIENT_H
++
++#if IS_ENABLED(CONFIG_SND_SOC_SOF_DEBUG_IPC_FLOOD_TEST_CLIENT)
++int intel_register_ipc_test_clients(struct snd_sof_dev *sdev);
++void intel_unregister_ipc_test_clients(struct snd_sof_dev *sdev);
++#else
++static inline int intel_register_ipc_test_clients(struct snd_sof_dev *sdev)
++{
 +	return 0;
 +}
 +
-+static inline void snd_sof_unregister_clients(struct snd_sof_dev *sdev)
-+{
-+	if (sof_ops(sdev) && sof_ops(sdev)->unregister_clients)
-+		return sof_ops(sdev)->unregister_clients(sdev);
-+}
++static void intel_unregister_ipc_test_clients(struct snd_sof_dev *sdev) {}
++#endif
 +
- static inline const struct snd_sof_dsp_ops
- *sof_get_ops(const struct sof_dev_desc *d,
- 	     const struct sof_ops_table mach_ops[], int asize)
-diff --git a/sound/soc/sof/sof-priv.h b/sound/soc/sof/sof-priv.h
-index 043fcec5a288..151614224f47 100644
---- a/sound/soc/sof/sof-priv.h
-+++ b/sound/soc/sof/sof-priv.h
-@@ -249,6 +249,10 @@ struct snd_sof_dsp_ops {
- 	void (*set_mach_params)(const struct snd_soc_acpi_mach *mach,
- 				struct device *dev); /* optional */
- 
-+	/* client ops */
-+	int (*register_clients)(struct snd_sof_dev *sdev); /* optional */
-+	void (*unregister_clients)(struct snd_sof_dev *sdev); /* optional */
-+
- 	/* DAI ops */
- 	struct snd_soc_dai_driver *drv;
- 	int num_drv;
++#endif
 -- 
 2.26.2
 

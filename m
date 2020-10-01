@@ -2,83 +2,116 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 60A702805AF
-	for <lists+alsa-devel@lfdr.de>; Thu,  1 Oct 2020 19:42:16 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4FB212805BC
+	for <lists+alsa-devel@lfdr.de>; Thu,  1 Oct 2020 19:44:44 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 085A11AA7;
-	Thu,  1 Oct 2020 19:41:21 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 085A11AA7
+	by alsa0.perex.cz (Postfix) with ESMTPS id C6BF81AA7;
+	Thu,  1 Oct 2020 19:43:53 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C6BF81AA7
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1601574131;
-	bh=QzdYQoHUe7olF1N8MVeumubA2VrQxiPKk5rspNVzzmA=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1601574283;
+	bh=qMAeL7FV9IbsH2LxyoI36mspjNM8vEIzFh/17pb6DFE=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=U8DtuxIsVcF9JnyLvLUBtLfKCNfyzYQ7pz/Mczr07Uf8LByGiKIGh04HhBABrg/CU
-	 8x0p1NO86aDiIckEAqTojGhCKbx33ZW+07CJt3gicSiExijNzyRo062E0zy2GOnElf
-	 lg1BoZMVkwSlZtv3jDX21Re2nPVsQRgEurlgD15Q=
+	b=tlNgZFjyBDOjvPX/0r16MmE4GwdtyvPndb6Sl877TE0pUr00+1lJ2as4yw0K6LGQQ
+	 DcIJkgfVpKKQu/CppQ8aFd5C+Kk4RU6reQ0n8AhBgP2cupMRXLagfcpbYxrA+OINBe
+	 1z4ANlLywH5Atbjsj4Lxg+6YIn2Nf0Xs0NAOLnoE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 8142FF8033D;
-	Thu,  1 Oct 2020 19:36:01 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 042A9F801D8;
+	Thu,  1 Oct 2020 19:43:03 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 453DEF80340; Thu,  1 Oct 2020 19:35:59 +0200 (CEST)
+ id 2DB63F801F5; Thu,  1 Oct 2020 19:43:01 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.6 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from hqnvemgate26.nvidia.com (hqnvemgate26.nvidia.com
- [216.228.121.65])
+ DKIM_VALID,DKIM_VALID_AU,MSGID_FROM_MTA_HEADER,SPF_HELO_NONE,SPF_NONE,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from nat-hk.nvidia.com (nat-hk.nvidia.com [203.18.50.4])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id F1490F8033E
- for <alsa-devel@alsa-project.org>; Thu,  1 Oct 2020 19:35:47 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz F1490F8033E
+ by alsa1.perex.cz (Postfix) with ESMTPS id 73C82F801D8
+ for <alsa-devel@alsa-project.org>; Thu,  1 Oct 2020 19:42:49 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 73C82F801D8
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=nvidia.com header.i=@nvidia.com
- header.b="KDVNuZDL"
-Received: from hqmail.nvidia.com (Not Verified[216.228.121.13]) by
- hqnvemgate26.nvidia.com (using TLS: TLSv1.2, AES256-SHA)
- id <B5f7613650003>; Thu, 01 Oct 2020 10:35:33 -0700
-Received: from HQMAIL111.nvidia.com (172.20.187.18) by HQMAIL105.nvidia.com
- (172.20.187.12) with Microsoft SMTP Server (TLS) id 15.0.1473.3; Thu, 1 Oct
- 2020 17:35:44 +0000
-Received: from audio.nvidia.com (10.124.1.5) by mail.nvidia.com
- (172.20.187.18) with Microsoft SMTP Server id 15.0.1473.3 via Frontend
- Transport; Thu, 1 Oct 2020 17:35:39 +0000
-From: Sameer Pujar <spujar@nvidia.com>
-To: <broonie@kernel.org>, <lgirdwood@gmail.com>, <robh+dt@kernel.org>,
- <kuninori.morimoto.gx@renesas.com>, <pierre-louis.bossart@linux.intel.com>,
- <perex@perex.cz>, <tiwai@suse.com>, <thierry.reding@gmail.com>,
- <jonathanh@nvidia.com>
-Subject: [PATCH v3 13/13] arm64: tegra: Audio graph sound card for Jetson Nano
- and TX1
-Date: Thu, 1 Oct 2020 23:03:07 +0530
-Message-ID: <1601573587-15288-14-git-send-email-spujar@nvidia.com>
-X-Mailer: git-send-email 2.7.4
-In-Reply-To: <1601573587-15288-1-git-send-email-spujar@nvidia.com>
-References: <1601573587-15288-1-git-send-email-spujar@nvidia.com>
+ header.b="iotvgtZQ"
+Received: from HKMAIL101.nvidia.com (Not Verified[10.18.92.100]) by
+ nat-hk.nvidia.com (using TLS: TLSv1.2, AES256-SHA)
+ id <B5f7615130000>; Fri, 02 Oct 2020 01:42:43 +0800
+Received: from HKMAIL104.nvidia.com (10.18.16.13) by HKMAIL101.nvidia.com
+ (10.18.16.10) with Microsoft SMTP Server (TLS) id 15.0.1473.3; Thu, 1 Oct
+ 2020 17:42:42 +0000
+Received: from NAM10-BN7-obe.outbound.protection.outlook.com (104.47.70.102)
+ by HKMAIL104.nvidia.com (10.18.16.13) with Microsoft SMTP Server (TLS) id
+ 15.0.1473.3 via Frontend Transport; Thu, 1 Oct 2020 17:42:41 +0000
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=iem59dCUaauyQnaKrxXyEs11XwaKwoIV48R6ONU0l5S/lam82D0qTD6c6Y3OD6YxCQDqVX6cEEwYEaWSe879074U95sSzpMEOtVeqaZ2wBRWw+EwseK9qqm+b4OOf4JbikZCdbIDi+d+Hpz64jYOcm76JDEI3KvzcC5fIXp4jCp6BsGBaAy30n4ASfMsp+9508mzAi8hiHyOzoKbF/nk8x2dbtzguAmpsb6eVXgF9VxGjmwUgvtD9uRvI8FkbA10EVj8eUocsGAo331UOU24BvBlu3BqUC5k/Nqea35ldnDNN9ibbkSJRpurmePXHRBHfZJl3ajz4oPZGYER5YKNUg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=71r9j0YMg8MOj1X9Tecp4pTJPdrci9PWDNuK/y4/1Jo=;
+ b=h82sC1kGZ3+tWpo0r5GFFNiA9pPJ2pX6kBWuAWqphX2DQoLaKTJ8nvPj+i/IzKSGMh3no50/z69T0Zui8gWCp5asl3SuJQ+6p5yCdZzQABSOGEXShaa/TY9fFhYDz7jfw1nSbMbxxStinJrTHb/J4YWD7RCKn6h8Jt3VtETaJt7y0sw2uyZkJQWH2iE8o71+iBA6sF3/pkT9+lAH5PoYsUweUOjVqwRP3a73hgL4G1tXn03uMPptzUVHCoyuzEE4oLhHV4NTmfvwgokRzVEkIZ1hpmPvVjeU5vrIk1d3bTIK84k7f32wqjzIQHDxP4UmMH/2+FnHI2QyddlCXfevIA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+Received: from DM6PR12MB3834.namprd12.prod.outlook.com (2603:10b6:5:14a::12)
+ by DM6PR12MB3210.namprd12.prod.outlook.com (2603:10b6:5:185::10) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3412.22; Thu, 1 Oct
+ 2020 17:42:38 +0000
+Received: from DM6PR12MB3834.namprd12.prod.outlook.com
+ ([fe80::cdbe:f274:ad65:9a78]) by DM6PR12MB3834.namprd12.prod.outlook.com
+ ([fe80::cdbe:f274:ad65:9a78%7]) with mapi id 15.20.3433.032; Thu, 1 Oct 2020
+ 17:42:38 +0000
+Date: Thu, 1 Oct 2020 14:42:37 -0300
+From: Jason Gunthorpe <jgg@nvidia.com>
+To: Greg KH <gregkh@linuxfoundation.org>
+Subject: Re: [PATCH 1/6] Add ancillary bus support
+Message-ID: <20201001174237.GC1107577@nvidia.com>
+References: <20200930225051.889607-1-david.m.ertman@intel.com>
+ <20200930225051.889607-2-david.m.ertman@intel.com>
+ <20201001110551.GD1939744@kroah.com> <20201001115847.GY816047@nvidia.com>
+ <20201001121423.GA2375307@kroah.com> <20201001143334.GA1103926@nvidia.com>
+ <20201001143855.GA2398269@kroah.com>
+Content-Type: text/plain; charset="us-ascii"
+Content-Disposition: inline
+In-Reply-To: <20201001143855.GA2398269@kroah.com>
+X-ClientProxiedBy: MN2PR20CA0012.namprd20.prod.outlook.com
+ (2603:10b6:208:e8::25) To DM6PR12MB3834.namprd12.prod.outlook.com
+ (2603:10b6:5:14a::12)
 MIME-Version: 1.0
-Content-Type: text/plain
+X-MS-Exchange-MessageSentRepresentingType: 1
+Received: from mlx.ziepe.ca (156.34.48.30) by
+ MN2PR20CA0012.namprd20.prod.outlook.com (2603:10b6:208:e8::25) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.3433.32 via Frontend Transport; Thu, 1 Oct 2020 17:42:38 +0000
+Received: from jgg by mlx with local (Exim 4.94)	(envelope-from
+ <jgg@nvidia.com>)	id 1kO2bF-004irw-7v; Thu, 01 Oct 2020 14:42:37 -0300
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nvidia.com; s=n1;
- t=1601573733; bh=FVCTJ/LjockOVXWhbR6LZEgg4awLPuvPGT0FAOMXvyE=;
- h=From:To:CC:Subject:Date:Message-ID:X-Mailer:In-Reply-To:
- References:MIME-Version:Content-Type;
- b=KDVNuZDLJjpNyYXwTVztiqbm6E7/84pyostQnk2+Dc/PixpdG0N1MVZpnY7EusF6j
- +Wf2mkO6w8nXInPbcL6bAIaAMPBGJuudWhG//8nMA0/dyxyMc91TegPDOorGY3ykPu
- 18VSrgmrjth4IAzPCJJzQQSX1Kr7tDu06G/h8nlT935XmOP49nP6xmKI3NPewOwJiA
- Y/fNyOjJliyewJ5GMaYdsk6xheCL8tVNFAsw/3vtK05B2suq4xmqfpmkPDg0ioeCX6
- 33hnBMaDulbp+T1XXkrMx5QD+1DzbHRiVZG/9pAdTfzdywGFdKeKb0fIHDuN9Al2Zy
- Ht27tL339olUw==
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- nicoleotsuka@gmail.com, swarren@nvidia.com, Sameer Pujar <spujar@nvidia.com>,
- linux-kernel@vger.kernel.org, atalambedu@nvidia.com, viswanathl@nvidia.com,
- sharadg@nvidia.com, nwartikar@nvidia.com, linux-tegra@vger.kernel.org,
- rlokhande@nvidia.com, mkumard@nvidia.com, dramesh@nvidia.com
+ t=1601574163; bh=71r9j0YMg8MOj1X9Tecp4pTJPdrci9PWDNuK/y4/1Jo=;
+ h=ARC-Seal:ARC-Message-Signature:ARC-Authentication-Results:Date:
+ From:To:CC:Subject:Message-ID:References:Content-Type:
+ Content-Disposition:In-Reply-To:X-ClientProxiedBy:MIME-Version:
+ X-MS-Exchange-MessageSentRepresentingType;
+ b=iotvgtZQ6raXcdbp8QVPfoiKfr/zRx2fqou5nJuUJtw9CT5Ttgchflng8h4SgetzJ
+ 9ZijuzudJLGcd3u9XPq33EoodJ6J8ug5MNdfBocRCfnzBaUL5pYIzZG9QglKQ+8tfl
+ yyUZ+PSI4kDkmGIrfp6K8xFuBcpn1BkbHzDerdLT/kcTqAy7HmREEo9wWtpkvkR9k9
+ xH9HxqVYEwK4V/Fy0QrgCg8t1LLf7RXe4xczB5YxyCaCJ5xwuqpFyE+cXyBLw+wbFg
+ kSoGupiXKbh0R47xtQBp5/IzSormbl7J91P23wzL8c8gv+zqPq/DQkBRZJUjQpB3gC
+ UGt+08JKbI4Mw==
+Cc: alsa-devel@alsa-project.org, Kiran Patil <kiran.patil@intel.com>,
+ tiwai@suse.de, ranjani.sridharan@intel.com,
+ pierre-louis.bossart@linux.intel.com,
+ Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
+ Fred Oh <fred.oh@linux.intel.com>, broonie@kernel.org, parav@nvidia.com,
+ Dave Ertman <david.m.ertman@intel.com>,
+ Dan Williams <dan.j.williams@intel.com>,
+ Shiraz Saleem <shiraz.saleem@intel.com>, Parav Pandit <parav@mellanox.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -94,394 +127,71 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Enable support for audio-graph based sound card on Jetson-Nano and
-Jetson-TX1. Depending on the platform, required I/O interfaces are
-enabled.
+On Thu, Oct 01, 2020 at 04:38:55PM +0200, Greg KH wrote:
+> On Thu, Oct 01, 2020 at 11:33:34AM -0300, Jason Gunthorpe wrote:
+> > On Thu, Oct 01, 2020 at 02:14:23PM +0200, Greg KH wrote:
+> > > On Thu, Oct 01, 2020 at 08:58:47AM -0300, Jason Gunthorpe wrote:
+> > > > On Thu, Oct 01, 2020 at 01:05:51PM +0200, Greg KH wrote:
+> > > >  
+> > > > > You have to be _VERY_ careful after calling
+> > > > > ancillary_device_initialize(), as now you can not just free up the
+> > > > > memory if something goes wrong before ancillary_device_add() is called,
+> > > > > right?
+> > > > 
+> > > > I've looked at way too many versions of this patch and related. This
+> > > > is the only one so far that I didn't find various bugs on the error
+> > > > cases.
+> > > 
+> > > But you haven't seen the callers of this function.  Without this
+> > > documented, you will have problems.
+> > 
+> > I've seen the Intel irdma, both versions of the SOF stuff and an
+> > internal mlx5 patch..
+> > 
+> > Look at the SOF example, it has perfectly paired error unwinds. Each
+> > function has unwind that cleans up exactly what it creates. Every
+> > 'free' unwind is paired with an 'alloc' in the same function. Simple.
+> > Easy to audit. Easy to correctly enhance down the road. 
+> > 
+> > This is the common kernel goto error design pattern.
+> 
+> But that's where people get this wrong. 
 
- * Jetson-Nano: Enable I2S3, I2S4, DMIC1 and DMIC2.
- * Jetson-TX1: Enable all I2S and DMIC interfaces.
+People get everything wrong :( At least this pattern is easy to notice
+and review.
 
-Signed-off-by: Sameer Pujar <spujar@nvidia.com>
----
- arch/arm64/boot/dts/nvidia/tegra210-p2371-2180.dts | 219 +++++++++++++++++++++
- arch/arm64/boot/dts/nvidia/tegra210-p3450-0000.dts | 124 ++++++++++++
- 2 files changed, 343 insertions(+)
+> Once device_initialize() is called, the "free" can not be called,
+> something else must be, device_put().
 
-diff --git a/arch/arm64/boot/dts/nvidia/tegra210-p2371-2180.dts b/arch/arm64/boot/dts/nvidia/tegra210-p2371-2180.dts
-index 4c9c2a0..1233d67 100644
---- a/arch/arm64/boot/dts/nvidia/tegra210-p2371-2180.dts
-+++ b/arch/arm64/boot/dts/nvidia/tegra210-p2371-2180.dts
-@@ -3,6 +3,7 @@
- 
- #include "tegra210-p2180.dtsi"
- #include "tegra210-p2597.dtsi"
-+#include "tegra210-audio-graph.dtsi"
- 
- / {
- 	model = "NVIDIA Jetson TX1 Developer Kit";
-@@ -127,4 +128,222 @@
- 			status = "okay";
- 		};
- 	};
-+
-+	tegra_sound {
-+		status = "okay";
-+
-+		compatible = "nvidia,tegra210-audio-graph-card";
-+
-+		dais = /* FE */
-+		       <&admaif1_port>, <&admaif2_port>, <&admaif3_port>,
-+		       <&admaif4_port>, <&admaif5_port>, <&admaif6_port>,
-+		       <&admaif7_port>, <&admaif8_port>, <&admaif9_port>,
-+		       <&admaif10_port>,
-+		       /* Router */
-+		       <&xbar_i2s1_port>, <&xbar_i2s2_port>, <&xbar_i2s3_port>,
-+		       <&xbar_i2s4_port>, <&xbar_i2s5_port>, <&xbar_dmic1_port>,
-+		       <&xbar_dmic2_port>, <&xbar_dmic3_port>,
-+		       /* I/O DAP Ports */
-+		       <&i2s1_port>, <&i2s2_port>, <&i2s3_port>, <&i2s4_port>,
-+		       <&i2s5_port>, <&dmic1_port>, <&dmic2_port>, <&dmic3_port>;
-+
-+		label = "jetson-tx1-ape";
-+	};
-+};
-+
-+&tegra_admaif {
-+	status = "okay";
-+};
-+
-+&tegra_ahub {
-+	status = "okay";
-+
-+	ports {
-+		xbar_i2s1_port: port@a {
-+			reg = <0xa>;
-+			xbar_i2s1_ep: endpoint {
-+				remote-endpoint = <&i2s1_cif_ep>;
-+			};
-+		};
-+		xbar_i2s2_port: port@b {
-+			reg = <0xb>;
-+			xbar_i2s2_ep: endpoint {
-+				remote-endpoint = <&i2s2_cif_ep>;
-+			};
-+		};
-+		xbar_i2s3_port: port@c {
-+			reg = <0xc>;
-+			xbar_i2s3_ep: endpoint {
-+				remote-endpoint = <&i2s3_cif_ep>;
-+			};
-+		};
-+		xbar_i2s4_port: port@d {
-+			reg = <0xd>;
-+			xbar_i2s4_ep: endpoint {
-+				remote-endpoint = <&i2s4_cif_ep>;
-+			};
-+		};
-+		xbar_i2s5_port: port@e {
-+			reg = <0xe>;
-+			xbar_i2s5_ep: endpoint {
-+				remote-endpoint = <&i2s5_cif_ep>;
-+			};
-+		};
-+		xbar_dmic1_port: port@f {
-+			reg = <0xf>;
-+			xbar_dmic1_ep: endpoint {
-+				remote-endpoint = <&dmic1_cif_ep>;
-+			};
-+		};
-+		xbar_dmic2_port: port@10 {
-+			reg = <0x10>;
-+			xbar_dmic2_ep: endpoint {
-+				remote-endpoint = <&dmic2_cif_ep>;
-+			};
-+		};
-+		xbar_dmic3_port: port@11 {
-+			reg = <0x11>;
-+			xbar_dmic3_ep: endpoint {
-+				remote-endpoint = <&dmic3_cif_ep>;
-+			};
-+		};
-+	};
-+};
-+
-+&tegra_i2s1 {
-+	status = "okay";
-+
-+	port@0 {
-+		i2s1_cif_ep: endpoint {
-+			remote-endpoint = <&xbar_i2s1_ep>;
-+		};
-+	};
-+
-+	i2s1_port: port@1 {
-+		i2s1_dap: endpoint {
-+			dai-format = "i2s";
-+
-+			/* Placeholder for external Codec */
-+		};
-+	};
-+};
-+
-+&tegra_i2s2 {
-+	status = "okay";
-+
-+	port@0 {
-+		i2s2_cif_ep: endpoint {
-+			remote-endpoint = <&xbar_i2s2_ep>;
-+		};
-+	};
-+
-+	i2s2_port: port@1 {
-+		i2s2_dap: endpoint {
-+			dai-format = "i2s";
-+
-+			/* Placeholder for external Codec */
-+		};
-+	};
-+};
-+
-+&tegra_i2s3 {
-+	status = "okay";
-+
-+	port@0 {
-+		i2s3_cif_ep: endpoint {
-+			remote-endpoint = <&xbar_i2s3_ep>;
-+		};
-+	};
-+
-+	i2s3_port: port@1 {
-+		i2s3_dap_ep: endpoint {
-+			dai-format = "i2s";
-+
-+			/* Placeholder for external Codec */
-+		};
-+	};
-+};
-+
-+&tegra_i2s4 {
-+	status = "okay";
-+
-+	port@0 {
-+		i2s4_cif_ep: endpoint {
-+			remote-endpoint = <&xbar_i2s4_ep>;
-+		};
-+	};
-+
-+	i2s4_port: port@1 {
-+		i2s4_dap: endpoint {
-+			dai-format = "i2s";
-+
-+			/* Placeholder for external Codec */
-+		};
-+	};
-+};
-+
-+&tegra_i2s5 {
-+	status = "okay";
-+
-+	port@0 {
-+		i2s5_cif_ep: endpoint {
-+			remote-endpoint = <&xbar_i2s5_ep>;
-+		};
-+	};
-+
-+	i2s5_port: port@1 {
-+		i2s5_dap: endpoint {
-+			dai-format = "i2s";
-+
-+			/* Placeholder for external Codec */
-+		};
-+	};
-+};
-+
-+&tegra_dmic1 {
-+	status = "okay";
-+
-+	port@0 {
-+		dmic1_cif_ep: endpoint {
-+			remote-endpoint = <&xbar_dmic1_ep>;
-+		};
-+	};
-+
-+	dmic1_port: port@1 {
-+		dmic1_dap: endpoint {
-+			/* Placeholder for external Codec */
-+		};
-+	};
-+};
-+
-+&tegra_dmic2 {
-+	status = "okay";
-+
-+	port@0 {
-+		dmic2_cif_ep: endpoint {
-+			remote-endpoint = <&xbar_dmic2_ep>;
-+		};
-+	};
-+
-+	dmic2_port: port@1 {
-+		dmic2_dap: endpoint {
-+			/* Placeholder for external Codec */
-+		};
-+	};
-+};
-+
-+&tegra_dmic3 {
-+	status = "okay";
-+
-+	port@0 {
-+		dmic3_cif_ep: endpoint {
-+			remote-endpoint = <&xbar_dmic3_ep>;
-+		};
-+	};
-+
-+	dmic3_port: port@1 {
-+		dmic3_dap: endpoint {
-+			/* Placeholder for external Codec */
-+		};
-+	};
- };
-diff --git a/arch/arm64/boot/dts/nvidia/tegra210-p3450-0000.dts b/arch/arm64/boot/dts/nvidia/tegra210-p3450-0000.dts
-index 859241d..fcce8eed 100644
---- a/arch/arm64/boot/dts/nvidia/tegra210-p3450-0000.dts
-+++ b/arch/arm64/boot/dts/nvidia/tegra210-p3450-0000.dts
-@@ -6,6 +6,7 @@
- #include <dt-bindings/mfd/max77620.h>
- 
- #include "tegra210.dtsi"
-+#include "tegra210-audio-graph.dtsi"
- 
- / {
- 	model = "NVIDIA Jetson Nano Developer Kit";
-@@ -870,4 +871,127 @@
- 
- 		vin-supply = <&vdd_5v0_sys>;
- 	};
-+
-+	tegra_sound {
-+		status = "okay";
-+
-+		compatible = "nvidia,tegra210-audio-graph-card";
-+
-+		dais = /* FE */
-+		       <&admaif1_port>, <&admaif2_port>, <&admaif3_port>,
-+		       <&admaif4_port>, <&admaif5_port>, <&admaif6_port>,
-+		       <&admaif7_port>, <&admaif8_port>, <&admaif9_port>,
-+		       <&admaif10_port>,
-+		       /* Router */
-+		       <&xbar_i2s3_port>, <&xbar_i2s4_port>,
-+		       <&xbar_dmic1_port>, <&xbar_dmic2_port>,
-+		       /* I/O DAP Ports */
-+		       <&i2s3_port>, <&i2s4_port>,
-+		       <&dmic1_port>, <&dmic2_port>;
-+
-+		label = "jetson-nano-ape";
-+	};
-+};
-+
-+&tegra_admaif {
-+	status = "okay";
-+};
-+
-+&tegra_ahub {
-+	status = "okay";
-+
-+	ports {
-+		xbar_i2s3_port: port@c {
-+			reg = <0xc>;
-+			xbar_i2s3_ep: endpoint {
-+				remote-endpoint = <&i2s3_cif_ep>;
-+			};
-+		};
-+		xbar_i2s4_port: port@d {
-+			reg = <0xd>;
-+			xbar_i2s4_ep: endpoint {
-+				remote-endpoint = <&i2s4_cif_ep>;
-+			};
-+		};
-+		xbar_dmic1_port: port@f {
-+			reg = <0xf>;
-+			xbar_dmic1_ep: endpoint {
-+				remote-endpoint = <&dmic1_cif_ep>;
-+			};
-+		};
-+		xbar_dmic2_port: port@10 {
-+			reg = <0x10>;
-+			xbar_dmic2_ep: endpoint {
-+				remote-endpoint = <&dmic2_cif_ep>;
-+			};
-+		};
-+	};
-+};
-+
-+&tegra_i2s3 {
-+	status = "okay";
-+
-+	port@0 {
-+		i2s3_cif_ep: endpoint {
-+			remote-endpoint = <&xbar_i2s3_ep>;
-+		};
-+	};
-+
-+	i2s3_port: port@1 {
-+		i2s3_dap_ep: endpoint {
-+			dai-format = "i2s";
-+
-+			/* Placeholder for external Codec */
-+		};
-+	};
-+};
-+
-+&tegra_i2s4 {
-+	status = "okay";
-+
-+	port@0 {
-+		i2s4_cif_ep: endpoint {
-+			remote-endpoint = <&xbar_i2s4_ep>;
-+		};
-+	};
-+
-+	i2s4_port: port@1 {
-+		i2s4_dap: endpoint@0 {
-+			dai-format = "i2s";
-+
-+			/* Placeholder for external Codec */
-+		};
-+	};
-+};
-+
-+&tegra_dmic1 {
-+	status = "okay";
-+
-+	port@0 {
-+		dmic1_cif_ep: endpoint@0 {
-+			remote-endpoint = <&xbar_dmic1_ep>;
-+		};
-+	};
-+
-+	dmic1_port: port@1 {
-+		dmic1_dap: endpoint@0 {
-+			/* Placeholder for external Codec */
-+		};
-+	};
-+};
-+
-+&tegra_dmic2 {
-+	status = "okay";
-+
-+	port@0 {
-+		dmic2_cif_ep: endpoint@0 {
-+			remote-endpoint = <&xbar_dmic2_ep>;
-+		};
-+	};
-+
-+	dmic2_port: port@1 {
-+		dmic2_dap: endpoint@0 {
-+			/* Placeholder for external Codec */
-+		};
-+	};
- };
--- 
-2.7.4
+Yep! 
 
+However, with the one step device_register() pattern code usually
+makes this class of mistake:
+
+https://elixir.bootlin.com/linux/latest/source/drivers/firewire/core-device.c#L722
+
+'goto skip_unit' does kfree() on something that already has been
+device_initialized(). This is a real bug because this code called
+dev_set_name() on line 713 and not doing the put_device() leaked the
+name allocation. I think < v10 had this mistake.
+
+dev_set_name() is a common error, here is another version:
+
+https://elixir.bootlin.com/linux/latest/source/drivers/dma/idxd/cdev.c#L226
+
+This correctly gets the switch to put_device() after
+device_register(), but it calls kfree on line 220 after
+dev_set_name(). This leaks memory too. Something like v16 of this
+series had this bug as well.
+
+BTW, want a patch to add a kref_read(dev->kref) == 0 warning to
+dev_set_name() ? This seems pretty common, these were the first two
+random choices from LXR I checked :\
+
+> Sure, but without a real user that _NEEDS_ this two-step process, let's
+> not include it.  Why bake complexity into the system from the start that
+> is never used?
+
+It just needs to not have these common error unwind bugs :(
+
+Jason

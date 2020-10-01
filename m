@@ -2,74 +2,71 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B52632802BC
-	for <lists+alsa-devel@lfdr.de>; Thu,  1 Oct 2020 17:27:05 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 745EB2802CB
+	for <lists+alsa-devel@lfdr.de>; Thu,  1 Oct 2020 17:34:05 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 555911906;
-	Thu,  1 Oct 2020 17:26:15 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 555911906
+	by alsa0.perex.cz (Postfix) with ESMTPS id D68EE1903;
+	Thu,  1 Oct 2020 17:33:14 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D68EE1903
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1601566025;
-	bh=pLs0hMhl/WuVcGJqTFR8WN59rKno5gUpavgkjHXmd2Q=;
+	s=default; t=1601566444;
+	bh=XatKlmgvDwRPqCPfb0gkIDA+UvQzlq+614ULjHqZk8I=;
 	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=S56kAf4OA/cia+NNi60b8GH0ung+mZLzaOBhxIF4N7tOJoGEjkFTpxtE03Jd2ZpkT
-	 0AHshfBBn+qTPkoWU4XKo6trVFgo+ozaY1ZKoHP6YGN9QuiCDoAYPU3cKbz/bPNSi4
-	 g1evpxP2Gy3nyjIbAePqrUhLRp65JwT+izFiJIK8=
+	b=AOuYKppqwR9fAjIwieLTdgxRE5uqX1zzXkLCIgsgOWCiedFC7L76d8Iw0HJjdIu8U
+	 x14zYqf+hFxnOoaRN657oETisxVuAAmYg1Zkld5oCMDxecJ52kOu5w0sIY7ytMdQyj
+	 gMySsEYZnHU8xRWRtk01yY/WwnExHJRjixpxSJuc=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 64153F801DB;
-	Thu,  1 Oct 2020 17:25:57 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id ED313F801D8;
+	Thu,  1 Oct 2020 17:32:23 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 602FBF8022B; Thu,  1 Oct 2020 17:25:54 +0200 (CEST)
+ id 7B22EF801F5; Thu,  1 Oct 2020 17:32:21 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.6 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled
- version=3.4.0
+X-Spam-Status: No, score=-0.5 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+ DKIM_VALID,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 6DCB8F801DB
- for <alsa-devel@alsa-project.org>; Thu,  1 Oct 2020 17:25:51 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6DCB8F801DB
+ by alsa1.perex.cz (Postfix) with ESMTPS id 05DF8F801D8
+ for <alsa-devel@alsa-project.org>; Thu,  1 Oct 2020 17:32:07 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 05DF8F801D8
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="jbtSHDMM"
-Received: from localhost (fw-tnat.cambridge.arm.com [217.140.96.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 5809D20708;
- Thu,  1 Oct 2020 15:25:49 +0000 (UTC)
+ header.b="0SrUBEtE"
+Received: from localhost (83-86-74-64.cable.dynamic.v4.ziggo.nl [83.86.74.64])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
+ bits)) (No client certificate requested)
+ by mail.kernel.org (Postfix) with ESMTPSA id 2AE1A2074B;
+ Thu,  1 Oct 2020 15:32:05 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1601565949;
- bh=pLs0hMhl/WuVcGJqTFR8WN59rKno5gUpavgkjHXmd2Q=;
+ s=default; t=1601566325;
+ bh=XatKlmgvDwRPqCPfb0gkIDA+UvQzlq+614ULjHqZk8I=;
  h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=jbtSHDMMtCoOmUubr67+xLsfZ89MffkNG5RbovPl1Q484QdZLmBEp0lfbDVvMN4hI
- DkKSMiBPf9rhBkUD/uklahS/ER8xNamSszncz/7cIVDSFu2Kq0lMkPBAE1uKqhb2gY
- mzJ7rC49q3UcWmmTA0dB2PrpQznwn5TnyHhI0xq4=
-Date: Thu, 1 Oct 2020 16:24:50 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+ b=0SrUBEtEjOjsV8L9ixcvqs3D3evY6kruQkU1QY+e8kq/dL7l/loMTHrk+1oiBz07A
+ rjMCrWrw7zeyRB9gLV8JJavj+N0uqwxhfCzOqLg/RH5+p51Cyj+wupA9CM6KX7HL+K
+ 3ycF0yVif3nvcXO+8Eg1Doya8cF1eWFRy9sINpBA=
+Date: Thu, 1 Oct 2020 17:32:07 +0200
+From: Greg KH <gregkh@linuxfoundation.org>
+To: Mark Brown <broonie@kernel.org>
 Subject: Re: [PATCH 0/6] Ancillary bus implementation and SOF multi-client
  support
-Message-ID: <20201001152450.GK6715@sirena.org.uk>
+Message-ID: <20201001153207.GA2414635@kroah.com>
 References: <20200930225051.889607-1-david.m.ertman@intel.com>
  <20201001125038.GC6715@sirena.org.uk>
- <ddb019b8-4370-eca8-911f-38adf0531076@linux.intel.com>
+ <20201001131252.GA2382269@kroah.com>
+ <20201001144019.GJ6715@sirena.org.uk>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="ofZMSlrAVk9bLeVm"
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <ddb019b8-4370-eca8-911f-38adf0531076@linux.intel.com>
-X-Cookie: Stay away from flying saucers today.
-User-Agent: Mutt/1.10.1 (2018-07-13)
-Cc: alsa-devel@alsa-project.org, tiwai@suse.de, gregkh@linuxfoundation.org,
- ranjani.sridharan@intel.com, parav@nvidia.com, jgg@nvidia.com,
+In-Reply-To: <20201001144019.GJ6715@sirena.org.uk>
+Cc: alsa-devel@alsa-project.org, tiwai@suse.de, ranjani.sridharan@intel.com,
+ pierre-louis.bossart@linux.intel.com, parav@nvidia.com, jgg@nvidia.com,
  Dave Ertman <david.m.ertman@intel.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
@@ -86,47 +83,40 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+On Thu, Oct 01, 2020 at 03:40:19PM +0100, Mark Brown wrote:
+> On Thu, Oct 01, 2020 at 03:12:52PM +0200, Greg KH wrote:
+> > On Thu, Oct 01, 2020 at 01:50:38PM +0100, Mark Brown wrote:
+> 
+> > > That seems to result in some duplication, has some potential for devices
+> > > to need to churn between the two buses and for duplication in parent
+> > > devices if they need to create both platform and auxiliary devices.
+> > > What exactly is the problem we're trying to solve here beyond the
+> > > labelling one?  I can see that it's a bit messy but this whole area is a
+> > > bit messy and I'm not clear that we're not just pushing the mess around.
+> 
+> > This series doesn't really show how this is ment to be used, from what I
+> > can tell.
+> 
+> > The goal is to NOT need a platform device/bus as that's an
+> > overloaded/abused subsystem, and to just use a much lighter-weight
+> > subsystem that allows one "device" (PCI/USB/whatever) to have multiple
+> > child devices that then are bound to different subsystems (networking,
+> > tty, input, etc.)  Yes, there will be some core "sharing" needed, but
+> > that's up to the driver that implements this, not the generic code.
+> 
+> Right, so my concern is that as soon as we decide we want to pass some
+> resources or platform data through to one of the subdevices it needs to
+> move over into being a platform device and vice versa.  That feels like
+> something that's going to add to the mess for some of the uses.
 
---ofZMSlrAVk9bLeVm
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+There shouldn't be a need for resources or platform data to be passed
+that way as they are all "owned" by the parent device that creates
+these.
 
-On Thu, Oct 01, 2020 at 09:07:19AM -0500, Pierre-Louis Bossart wrote:
+I don't want to see platform devices become children of real devices
+(like PCI and USB and others), which is the goal here.  platform devices
+are overloaded and abused enough as it is, let's not make it worse.
 
-> > > are controlled by DT/ACPI. The same argument applies for not using MFD
-> > > in this scenario as it relies on individual function devices being
-> > > physical devices that are DT enumerated.
+thanks,
 
-> > MFD has no reliance on devices being DT enumerated, it works on systems
-> > that don't have DT and in many cases it's not clear that the split you'd
-
-...
-
-> To the best of my knowledge, the part of 'individual function devices being
-> physical devices' is correct though. MFDs typically expose different
-> functions on a single physical bus, and the functions are separated out by
-> register maps. In the case where there's no physical bus/device and no
-> register map it's unclear how MFDs would help?
-
-MFD doesn't care.  All MFD is doing is instantiating platform devices
-and providing mechanisms to pass resources through from the parent
-device to the child devices.  It doesn't really matter to it which if
-any combination of resources are being provided to the children or what
-the devices represent.
-
---ofZMSlrAVk9bLeVm
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl919MEACgkQJNaLcl1U
-h9Cqjgf/XAeFaN9Q2PEU20wt0+lf8oOEFmxdz3oUY93lINaCpc98Eo9ju5XGcidP
-+tOMkft/el3/8SjOC9xUUeLy7Zz+qdcitJEzDkInvFTiB6Zy07dlmAF3cUyhy4hP
-tlDq8TTcwoQhk/1crQyGK54m3URNTwMIa0VnWmAwJGHmaaGmWWDsjxYTU+XSD0ED
-uUD2GU25PixuXoJUD4p5Nq8ITT9KBUeekzOsC2bAk7LKEteqNKsfEX18/7lZco4G
-l6XF31Xwjy4AJ8q6KH3lJYpKXj2BwhKdLPNhB6gJvWtkols65XfZAX8GO1260c5/
-ewnA0yJrwBH2MxD1ISMtPq193WbZ3Q==
-=5qXn
------END PGP SIGNATURE-----
-
---ofZMSlrAVk9bLeVm--
+greg k-h

@@ -2,121 +2,124 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 646802822E2
-	for <lists+alsa-devel@lfdr.de>; Sat,  3 Oct 2020 11:07:58 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id CBFD42822E3
+	for <lists+alsa-devel@lfdr.de>; Sat,  3 Oct 2020 11:08:40 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 62C1C1900;
-	Sat,  3 Oct 2020 11:07:07 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 62C1C1900
+	by alsa0.perex.cz (Postfix) with ESMTPS id 6866418F9;
+	Sat,  3 Oct 2020 11:07:50 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6866418F9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1601716077;
-	bh=+3kxnkC1sHgyG1f1/K0eLeZqv2+hsYqG7sxKfOlRI+k=;
+	s=default; t=1601716120;
+	bh=TRHsbEJG3yBFC7ahOGE75VoJIVqFKlarGjJ/jrVnqJ0=;
 	h=From:To:Subject:Date:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=i908syul92aCuRp4LegFboIvzIvJ+J+uRUtd/IwjtOn2cgJT48h+T9HcBH2GLWKSZ
-	 wUSeY4UyUd61vU1//y2lMUaoeop/Lnx6rruSrPB4b77seUObVNzcmIESa05oGUb2KE
-	 hn2h665zF/pCGiV6ui/WRHOooToudOpF+Ie2K0WU=
+	b=tSqthpyw3dQOWHFrzxcBpUuw/8LDCmmzL5bT5F/6Tk2Gof4vtcXgurE/D41cYQrrz
+	 Y5dvVWDwbb9+F2ez4cc6IOYm1nPpncgRaWNdRvg427inRKQJMcrexmq8FKyjgo2ZBt
+	 pdXymzbJ3MRPv6Et9XeTbM4nb0VZpGy8laDJzofQ=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 75DD0F8020C;
-	Sat,  3 Oct 2020 11:06:16 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 395D7F80273;
+	Sat,  3 Oct 2020 11:06:17 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id A5044F8022B; Thu,  1 Oct 2020 16:39:30 +0200 (CEST)
+ id 76DBFF801F5; Thu,  1 Oct 2020 17:08:31 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.6 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
  DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED
  autolearn=disabled version=3.4.0
-Received: from hqnvemgate24.nvidia.com (hqnvemgate24.nvidia.com
- [216.228.121.143])
+Received: from nat-hk.nvidia.com (nat-hk.nvidia.com [203.18.50.4])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id A3A10F801F5
- for <alsa-devel@alsa-project.org>; Thu,  1 Oct 2020 16:39:15 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A3A10F801F5
+ by alsa1.perex.cz (Postfix) with ESMTPS id B701AF801D8
+ for <alsa-devel@alsa-project.org>; Thu,  1 Oct 2020 17:08:23 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B701AF801D8
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=nvidia.com header.i=@nvidia.com
- header.b="eFGgIOkE"
-Received: from hqmail.nvidia.com (Not Verified[216.228.121.13]) by
- hqnvemgate24.nvidia.com (using TLS: TLSv1.2, AES256-SHA)
- id <B5f75e9a90001>; Thu, 01 Oct 2020 07:37:29 -0700
-Received: from HQMAIL101.nvidia.com (172.20.187.10) by HQMAIL111.nvidia.com
- (172.20.187.18) with Microsoft SMTP Server (TLS) id 15.0.1473.3; Thu, 1 Oct
- 2020 14:39:07 +0000
-Received: from NAM10-MW2-obe.outbound.protection.outlook.com (104.47.55.102)
- by HQMAIL101.nvidia.com (172.20.187.10) with Microsoft SMTP Server (TLS) id
- 15.0.1473.3 via Frontend Transport; Thu, 1 Oct 2020 14:39:07 +0000
+ header.b="nvhI/WpZ"
+Received: from HKMAIL103.nvidia.com (Not Verified[10.18.92.9]) by
+ nat-hk.nvidia.com (using TLS: TLSv1.2, AES256-SHA)
+ id <B5f75f0dc0000>; Thu, 01 Oct 2020 23:08:12 +0800
+Received: from HKMAIL103.nvidia.com (10.18.16.12) by HKMAIL103.nvidia.com
+ (10.18.16.12) with Microsoft SMTP Server (TLS) id 15.0.1473.3; Thu, 1 Oct
+ 2020 15:08:11 +0000
+Received: from NAM10-MW2-obe.outbound.protection.outlook.com (104.47.55.107)
+ by HKMAIL103.nvidia.com (10.18.16.12) with Microsoft SMTP Server (TLS) id
+ 15.0.1473.3 via Frontend Transport; Thu, 1 Oct 2020 15:08:11 +0000
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=HBfKXIVe58kWsi35zyUGjnhH9ckU7Tycgtd25WX+3ohzB/ZRBSc5pW0NuzumqoVGDX6PwJk8hityFE3SLweTW9OV3SlT7LCtXB4YEDGBxyBRd1a43Bq0Ty2dERg6LhlRajYCP1ClrQsdxUbQP5IOmKQEkncdyBWqvtWgfdWFPno7wJ2J70QanwFKnZv7a7VZxYfMl+AV8kTsFpmkqjosXzbXeixNUxUzTtf3W1CpFBSgwJ1S++Q5TdtYx6/5LCprdEJ3PZ/hFc/nwYDpcOJIjZKVpWc+IAA1A4qH8rwHd/BoZ/ObtGn0hQBq3ETING50e1y9lXS69NrimW5U3PCS8w==
+ b=QMWkei0kPznHbta2qYTfttkG20oBq+Xzn0v3z9de7jiXQv+5gi/mfawK1eu11JDAu1Y+fsL7gWehXg+FUmU7aAfdxYTzsp3knE4EWOniT7ZIOFFPbM9R2RoWKK7b9lIKatjPa0G+J+TQoZ3WonGUqrzoQxFB/8/5jJP/VAoJp29I3Vdv4qx9M9TyiAJZMeyF7aRhB9YfD7NM4YX41JOxfyNSpdLsPQzfAmp2hEddS0jUzHmh6FOqtn8f6gYl38Nh//lrM54wiJLsxV3oSSh0v9Km+XVXX6V+FypYaSP50A0OscvyU6+ioC9fWzZfX1JSMgQyjXGHsuybTgwcKpM1xA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=R8opnJkdnx1BT5xdPsU0XPki8nAL1zE2nxRm/9z9CGI=;
- b=O1XJ+JT4hgwMn7cR/LW9cRTH4ib9bk459tymUYSbO4vWi7vJvYnCMdxB9IAEaG8zYPKN+g2xixb9ZdnYhNleLiAwmXKNEhR2QzADmFFaMQKQngib8prVDi1vJvucOXLRJcve3c8om86iORTFq5yRy9d6XjBaDQlOnmCbA/+qiWcCMQBJ+Mg1Ks8zqmuc7bmFMnFetqnPuTw51wIemnbAoGjYuXMnG1ybX7x7yRCrCt7DKdMq1dIiFM6OtqwxuRihD4fJg70qlS6R4eRRxPL2pI67DmtAo0o8EkLAZPfwTCqDtGHaA0GlFQL42x9IPFVmXm4HoZtjhx0qAl+g6LuP6g==
+ bh=90+1aztcslFDgPuqZORuJ1g//5iqr5ezSrcTRItvaZo=;
+ b=ik/NqIN3T/NGE0ijJePN9SPY7vlqdoDJbd5SFF3lCVFx+mivjoa8p7rs+NOguACAhoba8k8DhY0RNnTvvTTDZCG35rDS5Ot3RZE73h/gQ0bC69bue5f0a6Ia4YhZal1hLgpJ1GL/aKKjz5A5QoZP3wE20bt5X+ho9CWKAjBCuYLgs8VdBa9a/teICkGXX6VsRNRB5+LIn8fRTNP7Dt6tZUS72Zwi0Kxp7JZ18L09J4730w+oqW+5iclT35PD7f+Bmcxtop0t2VTSvaTiY6tMSdUSNfb6eYcBD0E3wFQuyfextOoJDUbkH502bAmVasiv3Zp7y6/CFGMauxvqO6BxBg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
  dkim=pass header.d=nvidia.com; arc=none
 Received: from BY5PR12MB4322.namprd12.prod.outlook.com (2603:10b6:a03:20a::20)
- by BY5PR12MB3811.namprd12.prod.outlook.com (2603:10b6:a03:1a1::27)
+ by BY5PR12MB4952.namprd12.prod.outlook.com (2603:10b6:a03:1d8::19)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3433.32; Thu, 1 Oct
- 2020 14:39:06 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3433.34; Thu, 1 Oct
+ 2020 15:08:10 +0000
 Received: from BY5PR12MB4322.namprd12.prod.outlook.com
  ([fe80::3c25:6e4c:d506:6105]) by BY5PR12MB4322.namprd12.prod.outlook.com
  ([fe80::3c25:6e4c:d506:6105%6]) with mapi id 15.20.3433.032; Thu, 1 Oct 2020
- 14:39:06 +0000
+ 15:08:10 +0000
 From: Parav Pandit <parav@nvidia.com>
-To: Jason Gunthorpe <jgg@nvidia.com>, Greg KH <gregkh@linuxfoundation.org>
-Subject: RE: [PATCH 1/6] Add ancillary bus support
-Thread-Topic: [PATCH 1/6] Add ancillary bus support
-Thread-Index: AQHWl3xK6PpW4GgCLkSFS7ZuYPaI7amClq2AgAAOyoCAAARcgIAAJuMAgAAAQ9A=
-Date: Thu, 1 Oct 2020 14:39:06 +0000
-Message-ID: <BY5PR12MB4322699D73AABCA62ED07BECDC300@BY5PR12MB4322.namprd12.prod.outlook.com>
+To: "gregkh@linuxfoundation.org" <gregkh@linuxfoundation.org>, Jason Gunthorpe
+ <jgg@nvidia.com>
+Subject: RE: [PATCH 0/6] Ancillary bus implementation and SOF multi-client
+ support
+Thread-Topic: [PATCH 0/6] Ancillary bus implementation and SOF multi-client
+ support
+Thread-Index: AQHWl3xKvomHiYgkD0WKJ7Q9Ugi47amChbyAgAAPJICAAB6eAIAAAc0AgAAXnJA=
+Date: Thu, 1 Oct 2020 15:08:09 +0000
+Message-ID: <BY5PR12MB4322954209FEBFDE26902A50DC300@BY5PR12MB4322.namprd12.prod.outlook.com>
 References: <20200930225051.889607-1-david.m.ertman@intel.com>
- <20200930225051.889607-2-david.m.ertman@intel.com>
- <20201001110551.GD1939744@kroah.com> <20201001115847.GY816047@nvidia.com>
- <20201001121423.GA2375307@kroah.com> <20201001143334.GA1103926@nvidia.com>
-In-Reply-To: <20201001143334.GA1103926@nvidia.com>
+ <8f34ae733db0447d93736f4f3f7524f9@intel.com>
+ <20201001105925.GA1939744@kroah.com> <20201001124900.GA816047@nvidia.com>
+ <20201001125526.GA2378679@kroah.com>
+In-Reply-To: <20201001125526.GA2378679@kroah.com>
 Accept-Language: en-US
 Content-Language: en-US
 X-MS-Has-Attach: 
 X-MS-TNEF-Correlator: 
-authentication-results: nvidia.com; dkim=none (message not signed)
- header.d=none;nvidia.com; dmarc=none action=none header.from=nvidia.com;
+authentication-results: linuxfoundation.org; dkim=none (message not signed)
+ header.d=none;linuxfoundation.org; dmarc=none action=none
+ header.from=nvidia.com;
 x-originating-ip: [122.172.151.10]
 x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: fb4dc286-114a-4e73-182e-08d86617bfe2
-x-ms-traffictypediagnostic: BY5PR12MB3811:
+x-ms-office365-filtering-correlation-id: 90580905-5873-40ed-dc98-08d8661bcf54
+x-ms-traffictypediagnostic: BY5PR12MB4952:
 x-ms-exchange-transport-forked: True
-x-microsoft-antispam-prvs: <BY5PR12MB381148D06E0D0F801112B084DC300@BY5PR12MB3811.namprd12.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:7691;
+x-microsoft-antispam-prvs: <BY5PR12MB4952D390783C354A6FA0599BDC300@BY5PR12MB4952.namprd12.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:9508;
 x-ms-exchange-senderadcheck: 1
 x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: aMAI5sXNbRWcys2sOn1KWDY6S5HsSGrfqEjv3jBYOOUzNTLOtOafPmy58k0EmZRjVS8Jqy31tdDtUxN1P932kJy2AHr3AOCTcCcyJrCQzYfkrgI+Zj8z9ebAd1Sgl37MRTPow3Nv5i4bFKAg6IKTeSEdfe5SaGCO9QLSefvv3XdpioEqBQYl6hs73EWLOF/mi0r7Vmw+wniAwlECGR1lVf6rOSE5QzefcC1Sv816YiI2NVxK7JdrvCUZVt3IrKLNWJcuWiO+POR0P75AwhyL7375CNN4zhasjYx8Rpzt1vZfB0/1MhWpj03G/Ej6qAjRKwL9oBTsLWV69ykXrWRYhQ==
+x-microsoft-antispam-message-info: vm+TA1XrUT8wWtNMhdAX27IgIzdN/bFGs9DQXoCpmNFQ5rfhnW+Z3od/ZvqiKVjGGO0kV161odPb6QEuOC9WAoJ0vPxaAzROuiYk8j7fwrD1pmaFUsi5J+3El/5dzirJ3dscQsxAZ/a6el5Datuauna1IDi5919GkTc0YjPSxw9ezOPvuqz1vMM8mCuk+/8SPa4rUTMKibkiAg4KMOXosCUrRzXX6HQmoUv8kPXRro7Fw4uhhQYCR8k414PBzHnSK5nr2Cf/OeiYcc0CaiRnkNOeuv//+h7e9v/kMTWDnEIzV9L9y5GYjYJpA/KLumINKHInqmotLtnO+s7zDRD1imUgvXC1XbpDow2rQU4VJe8QygaR8AW7PpNoyUEfdftJpZOAPxOpGKvAsSBz5sLBW2uc/LHKWs2ONAsTEBZ32vMgYDAo5+3+vy8ROpqEfxDhOxiPSYvVyt7KTS8lYGbRhQ==
 x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:BY5PR12MB4322.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(396003)(136003)(39860400002)(346002)(376002)(366004)(66556008)(83380400001)(66476007)(64756008)(66446008)(8676002)(66946007)(55016002)(86362001)(5660300002)(186003)(4326008)(76116006)(55236004)(71200400001)(26005)(6506007)(8936002)(7416002)(52536014)(316002)(2906002)(7696005)(9686003)(478600001)(110136005)(54906003)(33656002);
+ SFS:(4636009)(136003)(346002)(39860400002)(376002)(396003)(366004)(110136005)(55236004)(6506007)(26005)(54906003)(8936002)(86362001)(33656002)(478600001)(83080400001)(7696005)(83380400001)(2906002)(6636002)(4326008)(316002)(71200400001)(52536014)(186003)(55016002)(66556008)(66446008)(8676002)(76116006)(9686003)(66476007)(5660300002)(66946007)(64756008)(966005)(6606295002);
  DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata: oupxjMXxcGs+x8iT/mmm+ri8C/KgxZhcG+Q05LvKZceD7hQ+xEziaGTaJ1cKYUcShF6ekZqFkFE5s41iT9JlTyxeupSYk335HdTaRlCVK7jEpaKLWperP2HOZ/40iiURjmFIintGXl0/nCuw/XT+S7P57OmHqAQqrwmKgDEpfNoMjl5KtmsffoRH3fT1clM78Cuc6DJJHuKyNysMZGH32gjH+xsM5d0sB2Fqn7Fa4Ozp90tsyt6Qxxv8uniAtDej5+A2TCOCd88eo0nGL8xZLnnKnGBM8+UtbzWBHGtytcVPJqn8MjZGM+DVsYX6LxdujqeO1adm/Z8G7IQUFxeJ3vzBZTKgNg6mD4Y5vDe7Xo7MgoATtTNbbUtmjz68EU8fL86lPwPDWIHmBguerXr6VOTtjwqnJDmW7IEyBOzxJeUUznVimpblqEvhQKVN0QDBMngQvHAUos0SehNruaCPJiDgWhWT3n9Tl2MFiOnZo3Yk8kDeDW0KeBVVzw2suABy98XLP8w6zLlWkbhWcTPFWC9/8qbk0BFPcAdk+bopgHzw2zt5i7ua2eW3TfBp/xjRmKbJSTBaK4U2RtfmNe58dCqI2nmy+AtqLcJbM92Su3As5a0iRQWD5SiLuoXYcviipQlzLmxfKXupkykCf3VgkA==
+x-ms-exchange-antispam-messagedata: KXPdZJitU/ceb0KROApWQJGF4jU1lstX0WK/qE59LvJP1UEIYtlemvz+uA9RABWLUeVZx+U5dZE7z5qJPqjb5UeJJJ/pW4+tSxCw/pBZtpazapK3zCHCTWKKRZ282GjyvkyMmabWxmAr6qR2Kzjn3GMVHCG9lyKXjEgMS8EFONk2PiZE9xolZxNcj7zyxUGzcWfnMW1KT9ZSam8MHu8ceRTNFYQrvUiOMZThAAXRyG93bQgcjjD/8k5jofAEW+CG2cNPgfSDzOkz2HCgB+qB8y5h90kHh0jHet5pZxF/x7I4OGgaeihQL/K+buCUIjBsKDfI4AD538Q6aMGGSb8uXW1HAh2TPM76e7as0v4MBKVu39VWYD8mutSA4ltVcApq5AclgQ8BF8ovjeW3AY3nAmivuvbDiaSQmzty952kEpY0r9iDyJ684q5vLeKMQe4fco0q6bpwdIw4mvPVs3OVNNHCQjNlMe8yFORq92FwBt/eVrZ/l2V//GBTgZqmw8zvhrK5Xvg7IjCAuiFTfFBEN67Zqh7RaxgLuso2kOLGtwUDBMilQHT5L8xF5yP1vrIFrwxSkQM8riP3BaUxVslrKzCLAYq6HoMMin6E9n5TZbedimlLXjyTm63PXf83RThEptaC3kbCdBqPsVZfK+g13Q==
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
 X-MS-Exchange-CrossTenant-AuthAs: Internal
 X-MS-Exchange-CrossTenant-AuthSource: BY5PR12MB4322.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: fb4dc286-114a-4e73-182e-08d86617bfe2
-X-MS-Exchange-CrossTenant-originalarrivaltime: 01 Oct 2020 14:39:06.0639 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 90580905-5873-40ed-dc98-08d8661bcf54
+X-MS-Exchange-CrossTenant-originalarrivaltime: 01 Oct 2020 15:08:09.9917 (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
 X-MS-Exchange-CrossTenant-id: 43083d15-7273-40c1-b7db-39efd9ccc17a
 X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: QBJpbDD+U7g6Aqq+Eb5ErFh3TPXEocmcHpLALLP+Xxh0tPWz7CrYAJEvPcYbc5y4w3/+RDUd+uktNEbsXCY1DQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY5PR12MB3811
+X-MS-Exchange-CrossTenant-userprincipalname: x6Ct0mOq6IhbA9hhk7UfwCLOHI7KqnPngPIZNxy/DuBjLENWCjgORpbD2SiEOkE0ekv3N+Yx2qMz/o6MCV/UJw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY5PR12MB4952
 X-OriginatorOrg: Nvidia.com
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nvidia.com; s=n1;
- t=1601563049; bh=R8opnJkdnx1BT5xdPsU0XPki8nAL1zE2nxRm/9z9CGI=;
+ t=1601564892; bh=90+1aztcslFDgPuqZORuJ1g//5iqr5ezSrcTRItvaZo=;
  h=ARC-Seal:ARC-Message-Signature:ARC-Authentication-Results:From:To:
  CC:Subject:Thread-Topic:Thread-Index:Date:Message-ID:References:
  In-Reply-To:Accept-Language:Content-Language:X-MS-Has-Attach:
@@ -136,22 +139,20 @@ DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nvidia.com; s=n1;
  X-MS-Exchange-CrossTenant-id:X-MS-Exchange-CrossTenant-mailboxtype:
  X-MS-Exchange-CrossTenant-userprincipalname:
  X-MS-Exchange-Transport-CrossTenantHeadersStamped:X-OriginatorOrg;
- b=eFGgIOkEX/Jrfoz7Bl41sMUCDsnbZ1wFwrTSKAOGy8FjvZnpTgILRUB2iLrH2Wp5K
- C1f9nlumpF++lp58hZWx0BpvrEckuOrxTVr/j3ntUHwXsAwpjULcVYi3WPCgS6k3or
- BK6z12I6I+xjlX8JZwhboMnCbIZLJc3j998nd8Ww47PRna2edOQDWSH+NE28FBbXoe
- GC1Q/NwRwdNb702qF2LVUchl6ryhoz6QCIfd7JthmKYw0VQ1auG3NECkKLahuKyxig
- ljTs+R93dslALQrRyqGvHiUwzOZYA8a1POtVQV76oI85tmWonP8o9wAtKTb85VUrsB
- tGpGAyMwNRQXA==
+ b=nvhI/WpZ/tJFx5QfPavqNQQ3IgNrSkOQZVZhMQUPwp6+zUYz9ZLcarjJKFfvnnrbf
+ c7kU1NDM581Tx70tib3JG/CexSyHPZ54Xm4mFpJcbiJk+DJAr8LuUi5qrCkYsxvMcC
+ FPyECFi34uWoxo5kWqV5+qJbulrFIGxBhrLjbo4Kfbdirw6F/p88ToAfnTFsh4B+Yj
+ WJQ01j7IcFSyDPOr0k47bclcjXMBl/uCwVT3IrGsPGZ/5a/e9wXWf6WPkMRBHWUeOU
+ OJLRLwuDKtxvYjpPiBGEZjXppOgmAMp/AxL+Wmzsg/ujWh5xz0X27QWPmw3rh6os9f
+ Zr+VFzblwidrQ==
 X-Mailman-Approved-At: Sat, 03 Oct 2020 11:06:14 +0200
-Cc: "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
- Kiran Patil <kiran.patil@intel.com>, "tiwai@suse.de" <tiwai@suse.de>,
- "ranjani.sridharan@intel.com" <ranjani.sridharan@intel.com>,
+Cc: "Rojewski, Cezary" <cezary.rojewski@intel.com>,
+ "tiwai@suse.de" <tiwai@suse.de>, "Sridharan, 
+ Ranjani" <ranjani.sridharan@intel.com>,
+ "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
  "pierre-louis.bossart@linux.intel.com" <pierre-louis.bossart@linux.intel.com>,
- Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
- Fred Oh <fred.oh@linux.intel.com>, "broonie@kernel.org" <broonie@kernel.org>,
- Dave Ertman <david.m.ertman@intel.com>,
- Dan Williams <dan.j.williams@intel.com>,
- Shiraz Saleem <shiraz.saleem@intel.com>, Parav Pandit <parav@mellanox.com>
+ "broonie@kernel.org" <broonie@kernel.org>, "Ertman,
+ David M" <david.m.ertman@intel.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -167,75 +168,75 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-
-> From: Jason Gunthorpe <jgg@nvidia.com>
-> Sent: Thursday, October 1, 2020 8:04 PM
+> From: gregkh@linuxfoundation.org <gregkh@linuxfoundation.org>
+> Sent: Thursday, October 1, 2020 6:25 PM
 >=20
-> On Thu, Oct 01, 2020 at 02:14:23PM +0200, Greg KH wrote:
-> > On Thu, Oct 01, 2020 at 08:58:47AM -0300, Jason Gunthorpe wrote:
-> > > On Thu, Oct 01, 2020 at 01:05:51PM +0200, Greg KH wrote:
-> > >
-> > > > You have to be _VERY_ careful after calling
-> > > > ancillary_device_initialize(), as now you can not just free up the
-> > > > memory if something goes wrong before ancillary_device_add() is
-> > > > called, right?
-> > >
-> > > I've looked at way too many versions of this patch and related. This
-> > > is the only one so far that I didn't find various bugs on the error
-> > > cases.
+> On Thu, Oct 01, 2020 at 09:49:00AM -0300, Jason Gunthorpe wrote:
+> > On Thu, Oct 01, 2020 at 12:59:25PM +0200, gregkh@linuxfoundation.org
+> wrote:
+> > > We don't add infrastructure without users.  And the normal rule of
+> > > thumb of "if we have 3 users, then it is a semi-sane api" really appl=
+ies
+> here.
 > >
-> > But you haven't seen the callers of this function.  Without this
-> > documented, you will have problems.
+> > Based on recent discussions I'm expecting:
+> >  - Intel SOF
+> >  - New Intel RDMA driver
+> >  - mlx5 RDMA driver conversion
+> >  - mlx4 RDMA driver conversion
+> >  - mlx5 subdevice feature for netdev
+> >  - Intel IDXD vfio-mdev
+> >  - Habana Labs Gaudi netdev driver
+> >
+> > Will use this in the short term.
+> >
+> > I would like, but don't expect too see, the other RDMA RoCE drivers
+> > converted - cxgb3/4, i40iw, hns, ocrdma, and qedr. It solves an
+> > annoying module loading problem we have.
+> >
+> > We've seen the New Intel RDMA driver many months ago, if patch 1 is
+> > going to stay the same we should post some of the mlx items next week.
+> >
+> > It is hard to co-ordinate all of this already, having some general
+> > agreement that there is nothing fundamentally objectionable about
+> > ancillary bus will help alot.
 >=20
-> I've seen the Intel irdma, both versions of the SOF stuff and an internal=
- mlx5
-> patch..
->=20
-> Look at the SOF example, it has perfectly paired error unwinds. Each func=
-tion
-> has unwind that cleans up exactly what it creates. Every 'free' unwind is
-> paired with an 'alloc' in the same function. Simple.
-> Easy to audit. Easy to correctly enhance down the road.
->=20
-> This is the common kernel goto error design pattern.
->=20
-> > Why is this two-step process even needed here?
->=20
-> Initializing the refcount close to the allocation is a common design patt=
-ern as
-> is initializing it close to registration. Both options are tricky, both h=
-ave various
-> common subtle bugs, both have awkward elements.
->=20
-> At the end of the day, after something like 20 iterations, this is the fi=
-rst series
-> that actually doesn't have error unwind bugs.
->=20
-> Can we empower Dave to make this choice? It is not like it is wild or wei=
-rd,
-> the driver core already exposes _initialize and _add functions that work =
-in
-> exactly the same way.
+> I agree, but with just one user (in a very odd way I do have to say, more=
+ on
+> that on the review of that specific patch), it's hard to judge if this is=
+ useful are
+> not, right?
 >=20
 
-> > Why is this two-step process even needed here?
-> > Without this documented, you will have problems.
+As Jason mentioned above, mlx5 subdevice feature, I like to provide more co=
+ntext before posting the patches.
 
-And it is also documented in "Ancillary device" section in the Documentatio=
-n/driver-api/ancillary_bus.rst
-Below is the snippet from the patch.
+I have rebased and tested mlx5 subfunction devices for netdev to use ancill=
+ary device as per the RFC posted at [1].
+These subdevices are created dynamically on user request. Typically then ar=
+e in range of hundreds.
+Please grep for virtbus to see its intended use in [1].
 
-It is likely worth to add this part of the documentation using standard ker=
-nel kdoc format where export function definition of initialize() and add() =
-resides, so that it cannot be missed out.
+To refresh the memory, before working on the RFC [1], mlx5 subfunction use =
+is also discussed further with Greg at [2].
+Recently I further discussed ancillary bus (virtbus) intended use for mlx5 =
+subfunction with netdev community at [3] and summarized in [4] , jump to la=
+st slide 22.
 
-+Registering an ancillary_device is a two-step process.  First you must=20
-+call ancillary_device_initialize(), which will check several aspects of=20
-+the ancillary_device struct and perform a device_initialize().  After=20
-+this step completes, any error state must have a call to put_device()=20
-                                                                           =
-                         ^^^^^^^^^^^^
-+in its resolution path.  The second step in registering an=20
- +ancillary_device is to perform a call to ancillary_device_add(), which=20
-+will set the name of the device and add the device to the bus.
+mlx5 series is bit long and waiting for mainly ancillary bus to be availabl=
+e apart from some internal reviews to finish.
 
+[1] https://lore.kernel.org/netdev/20200519092258.GF4655@nanopsycho/
+[2] https://patchwork.kernel.org/patch/11280547/#23056985
+[3] https://netdevconf.info/0x14/pub/papers/45/0x14-paper45-talk-paper.pdf
+[4] https://netdevconf.info/0x14/pub/slides/45/sf_mgmt_using_devlink_netdev=
+conf_0x14.pdf
+
+> So, what happened to at least the Intel SOF driver usage?  That was the
+> original user of this bus (before it was renamed), surely that patchset s=
+hould
+> be floating around somewhere in Intel, right?
+>=20
+> thanks,
+>=20
+> greg k-h

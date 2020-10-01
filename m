@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D8C5827FE0E
-	for <lists+alsa-devel@lfdr.de>; Thu,  1 Oct 2020 13:03:47 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 88EDE27FE18
+	for <lists+alsa-devel@lfdr.de>; Thu,  1 Oct 2020 13:07:46 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 63FD61836;
-	Thu,  1 Oct 2020 13:02:57 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 63FD61836
+	by alsa0.perex.cz (Postfix) with ESMTPS id 103251833;
+	Thu,  1 Oct 2020 13:06:56 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 103251833
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1601550227;
-	bh=WkBk8Vi40JBynoZBeUsuVJJtNDUSqaPZkhlhsut6cSs=;
+	s=default; t=1601550466;
+	bh=3ECQoQwCVseXoEcUqFE1hyhxWsZULWEkHC2oSim//BQ=;
 	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=WaZ9xsU333T/P7FuQDWY57SQYyzgHZobuUIWrhOJP0j2kf3R5RFpih+wPYWFQ3Cdp
-	 NfnZ5nYIxI5r3rAOPc4QSQShQAkz1W0PaU5B5O0jmPPjEnYe9iDHcOPXluUuDIHNZe
-	 XwKAkTnPNNQtLq+Dgo6Zzv1RTK/AMeYeo5dGMEAY=
+	b=TjvuPPMUmDkx9gn8E0A1B5IBOHxDk6h/VQCoyebc3XZ3eYwtzs8VpfQTFFc+NfUnX
+	 e/6Zd0ATNnUbp3EEyo6wMGCeaUQhW1dgOllF5xxwBYioMFHkbYgZENxaBgZiUZ/1HT
+	 9BX2KN86dj7lx8OyMulTwi7C3REheEgZoYHrsKAc=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id EA492F8022D;
-	Thu,  1 Oct 2020 13:02:30 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 254A2F8020C;
+	Thu,  1 Oct 2020 13:06:05 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 6C342F8022B; Thu,  1 Oct 2020 13:02:29 +0200 (CEST)
+ id AF2EAF801F5; Thu,  1 Oct 2020 13:06:02 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.5 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -33,29 +33,29 @@ X-Spam-Status: No, score=-0.5 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id CA1F5F800AB
- for <alsa-devel@alsa-project.org>; Thu,  1 Oct 2020 13:02:26 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CA1F5F800AB
+ by alsa1.perex.cz (Postfix) with ESMTPS id 60312F800AB
+ for <alsa-devel@alsa-project.org>; Thu,  1 Oct 2020 13:05:52 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 60312F800AB
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="sLkbCjOC"
+ header.b="jAHVes4e"
 Received: from localhost (83-86-74-64.cable.dynamic.v4.ziggo.nl [83.86.74.64])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
  bits)) (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 256912087D;
- Thu,  1 Oct 2020 11:02:24 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id E7E112087D;
+ Thu,  1 Oct 2020 11:05:48 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1601550144;
- bh=WkBk8Vi40JBynoZBeUsuVJJtNDUSqaPZkhlhsut6cSs=;
+ s=default; t=1601550350;
+ bh=3ECQoQwCVseXoEcUqFE1hyhxWsZULWEkHC2oSim//BQ=;
  h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=sLkbCjOCPSbjJRJsp5tnpndaaHXcLxQBFFCUB1DjAqwB3vCMoAgBUT8KYifA8nmiw
- KzaaBPmg9M5z6lr7mA3J5XutSmOlndnmuvQEfCotiXxpeN/9bsDTUJzVmMSbnyBq4E
- rAV49i1ftCN3yS6b8zdv0dNwAIceWV80TchrmP2A=
-Date: Thu, 1 Oct 2020 13:02:26 +0200
+ b=jAHVes4eZ31oulaTus9df9E6PmWmEkV9KmGDdBLhmvac8icm77tVkNdMtMN1qkMRf
+ BHa8Y5kuJ5Xsve20J5Cokg3A82kSbRSN61HdP4U5nZof7fkqSoQ9IoJt8Bp6bb9YW5
+ rPSm3eov6izke5zDHy7n4JkFQkMlm3sxFnTaMndI=
+Date: Thu, 1 Oct 2020 13:05:51 +0200
 From: Greg KH <gregkh@linuxfoundation.org>
 To: Dave Ertman <david.m.ertman@intel.com>
 Subject: Re: [PATCH 1/6] Add ancillary bus support
-Message-ID: <20201001110226.GC1939744@kroah.com>
+Message-ID: <20201001110551.GD1939744@kroah.com>
 References: <20200930225051.889607-1-david.m.ertman@intel.com>
  <20200930225051.889607-2-david.m.ertman@intel.com>
 MIME-Version: 1.0
@@ -85,23 +85,20 @@ Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 On Wed, Sep 30, 2020 at 03:50:46PM -0700, Dave Ertman wrote:
-> diff --git a/drivers/bus/Makefile b/drivers/bus/Makefile
-> index 397e35392bff..1fd238094543 100644
-> --- a/drivers/bus/Makefile
-> +++ b/drivers/bus/Makefile
-> @@ -3,6 +3,9 @@
->  # Makefile for the bus drivers.
->  #
->  
-> +#Ancillary bus driver
+> +The parent device would then register the ancillary_device by calling
+> +ancillary_device_initialize(), and then ancillary_device_add(), with the pointer
+> +to the ancildev member of the above structure. The parent would provide a name
+> +for the ancillary_device that, combined with the parent's KBUILD_MODNAME, will
+> +create a match_name that will be used for matching and binding with a driver.
 
-Nit, you need a space :)
+Why do you split this into two different calls?
 
-> +obj-$(CONFIG_ANCILLARY_BUS)	+= ancillary.o
+You have to be _VERY_ careful after calling
+ancillary_device_initialize(), as now you can not just free up the
+memory if something goes wrong before ancillary_device_add() is called,
+right?
 
-And why not put this in drivers/base/?  Why way over here in
-drivers/bus?
-
-thanks,
+You need to document the heck out of that, otherwise people will get it
+wrong, and memory will leak.
 
 greg k-h

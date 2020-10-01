@@ -2,111 +2,113 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 749ED28006E
-	for <lists+alsa-devel@lfdr.de>; Thu,  1 Oct 2020 15:48:09 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B32A7280071
+	for <lists+alsa-devel@lfdr.de>; Thu,  1 Oct 2020 15:48:50 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 0B07218BD;
-	Thu,  1 Oct 2020 15:47:19 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0B07218BD
+	by alsa0.perex.cz (Postfix) with ESMTPS id 3DE7F18E8;
+	Thu,  1 Oct 2020 15:48:00 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3DE7F18E8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1601560089;
-	bh=3PTR5Cl17e07ofLBsEZgJk3tVo9FqSiuxjok+mOTxWE=;
+	s=default; t=1601560130;
+	bh=TS0vBFnENXfs3T3syn6MKMgHuDtc+OPqspw0e3j1Lwc=;
 	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=tC7TI6XasOizdQjsLUAWk9s2Fcl8wu9z9Dp6Famyrm5syT/oSMfXPPgA0+EUpDxSM
-	 o5Noa1QBlQkWhk/BVxYzo2DWJnRHaSGftnzWSJfHkoikPrtNk+1Ukt/qvp7+/c1QtZ
-	 RYkVSYU6tZ8T4xzWTxMeMOqVhvZ2mSiG88YkZVa4=
+	b=X8GlHqh90l6tDNVVrf5gDxUiwhBPSKuW9ujM47AqsGJcFC/ZbOqDR4M//NGMuBHKn
+	 Z0lb2OAbOpSnQm4w2nXPksDjR71npthB3FPxujiNSHubld03GB7MljRhr17dCeeTIW
+	 JvIo5osVWf4ZlKKARC0Gejl+FgumUqJtmiqQgoms=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 222CAF80339;
-	Thu,  1 Oct 2020 15:40:32 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id C57B3F80341;
+	Thu,  1 Oct 2020 15:40:33 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 41A80F801ED; Thu,  1 Oct 2020 01:06:08 +0200 (CEST)
+ id 129D3F801F5; Thu,  1 Oct 2020 13:46:32 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.6 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,MSGID_FROM_MTA_HEADER,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED,
- URIBL_SBL,URIBL_SBL_A autolearn=disabled version=3.4.0
+X-Spam-Status: No, score=-0.6 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+ DKIM_VALID,DKIM_VALID_AU,MSGID_FROM_MTA_HEADER,SPF_HELO_NONE,SPF_NONE
+ autolearn=disabled version=3.4.0
 Received: from nat-hk.nvidia.com (nat-hk.nvidia.com [203.18.50.4])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 9C459F800AB
- for <alsa-devel@alsa-project.org>; Thu,  1 Oct 2020 01:05:59 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9C459F800AB
+ by alsa1.perex.cz (Postfix) with ESMTPS id 738BCF80105
+ for <alsa-devel@alsa-project.org>; Thu,  1 Oct 2020 13:46:23 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 738BCF80105
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=nvidia.com header.i=@nvidia.com
- header.b="dLdnSeB2"
-Received: from HKMAIL104.nvidia.com (Not Verified[10.18.92.77]) by
+ header.b="AXVQZrQc"
+Received: from HKMAIL101.nvidia.com (Not Verified[10.18.92.9]) by
  nat-hk.nvidia.com (using TLS: TLSv1.2, AES256-SHA)
- id <B5f750f530000>; Thu, 01 Oct 2020 07:05:55 +0800
-Received: from HKMAIL103.nvidia.com (10.18.16.12) by HKMAIL104.nvidia.com
- (10.18.16.13) with Microsoft SMTP Server (TLS) id 15.0.1473.3; Wed, 30 Sep
- 2020 23:05:54 +0000
-Received: from NAM10-MW2-obe.outbound.protection.outlook.com (104.47.55.100)
- by HKMAIL103.nvidia.com (10.18.16.12) with Microsoft SMTP Server (TLS) id
- 15.0.1473.3 via Frontend Transport; Wed, 30 Sep 2020 23:05:54 +0000
+ id <B5f75c18a0000>; Thu, 01 Oct 2020 19:46:18 +0800
+Received: from HKMAIL103.nvidia.com (10.18.16.12) by HKMAIL101.nvidia.com
+ (10.18.16.10) with Microsoft SMTP Server (TLS) id 15.0.1473.3; Thu, 1 Oct
+ 2020 11:46:13 +0000
+Received: from NAM02-SN1-obe.outbound.protection.outlook.com (104.47.36.51) by
+ HKMAIL103.nvidia.com (10.18.16.12) with Microsoft SMTP Server (TLS)
+ id 15.0.1473.3 via Frontend Transport; Thu, 1 Oct 2020 11:46:12 +0000
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Bz/J6LugsruFoe7t+SQ0RUGSM5UXxlp+DGX90sqot8sC1dZTaW3Qf4q6DxVUeTuKXSCIDSdX/se1nVdYyuJ/edvvzmyYUycFSmVON5d+3N3RJRHgvseuMXjyZsMg/t/qHqKobzARRrpwDVlCRj1uujHlhs8baqm6wwMuhnBkrmWCB/ny3umLWK12/nFV5OuJkXMm1aVit6xrFCecYU8mF6pBihgUOzzDh8dcegI3GvQEhT0bSkPCDbCgagtYEDyKMrZFE6GSxutCbf2du3FpUO2SSj+4EP968lONQYeIE2673J0DMErPt595g2SO53niOB8yApl23d5/FKKLBPynng==
+ b=eRHwgi0hka8SfSI54NC+akbqbdUUJwb5mxYWk1FcW/6Em0tlCk60ntLAnwdXByM1k0ck1R1SqX59UWH9R/wwtfxaU2HjCWtzGYMhM+TgXohrxGXBc3cMtzveGJVTEfrB4eJG1CL6NHYswE7hlVAZVlad4W5qAW9EZUMGK5gT4iAGwGxSHl16gvH6w+MwgFSWeB4xLwi4ksF8YZNYASVvotMeQX7ChIPCsoGGRKAiYrmhVMDUSaApL2ww11Y2u1Kq7WqAnuzAq54mdd1GeYrhnmnf7wxyhSB+zhwugI9MC3t4ob5ptq5zq2oZ9vaiTzV7XKjpTfitUHmeJFXWJLjnqg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=eg/LzaO98vU8dRVkCRSzVgLEsC4bs2EWN/VtPzNeveI=;
- b=KemyJidU2wvEoUNWiLeRVoHh+l5PzWFmN2sakKWt9A8PXNTiTBhsoRjnyVpubCyAfmhQ82qio3RpJ6QDW1kCbmzT1bEuMUl6Zk6ZclzMLXZ4ZlgK7usaFsM+rCFmIjyQLVzFAlfU5MIUvDc2G523z/KbMeIKHuHVFIlSfw1po3QgM8vjJF/qrQLEp0g+vcW1hrPMxWEDUyzNzZDxK9YX+7okFSDHzpUPy2TuKglRMYdnzkFAvv5r4X1BtSQqg6C0+TIpMcAp4upEpqZ0uD/c4vY3F0PZWIDDB2OfjXTDv5ojzJxJO4dYvEqVXTiE/+Go/BXtLySSWGxxHZbUhM3OZg==
+ bh=3bWxLUdGAjj09r/COm/SLU7TOyiSNlBAAE1GHBIt/q8=;
+ b=UEPqFC1H8pCmO/hx+Wt1LhDwKxx4DhvSO51yK3fMPioo9IYRDClcCgooYJWu8IvBH6swUpb4NR6W+LPEa4GMGjoEEFVlG1WEyReeQHZve3r0wbT6QiVYdcZdPWB24r6+nTnnKceAUE1LPgJVV5F8sayE3zVNbyH+IIIW9XwUotc2YkC15NWQZUcdDY/N3eomiHDPiaQcxMoGqVvBSt84saVLBPEhOLt9MYr9r3mo7opo2+gxA1Q+xqEMPNsk3ItcLBjCwQjgl5DR8fDD4+GM98PSdTfmVTjNl6ThrKS42+eJwiM4B9I17Z56O+az8szGqSM1CgneXSVsVi96k4zMfg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
  dkim=pass header.d=nvidia.com; arc=none
 Received: from DM6PR12MB3834.namprd12.prod.outlook.com (2603:10b6:5:14a::12)
- by DM6PR12MB4009.namprd12.prod.outlook.com (2603:10b6:5:1cd::25) with
+ by DM6PR12MB3516.namprd12.prod.outlook.com (2603:10b6:5:18b::16) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3412.25; Wed, 30 Sep
- 2020 23:05:52 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3433.37; Thu, 1 Oct
+ 2020 11:46:10 +0000
 Received: from DM6PR12MB3834.namprd12.prod.outlook.com
  ([fe80::cdbe:f274:ad65:9a78]) by DM6PR12MB3834.namprd12.prod.outlook.com
- ([fe80::cdbe:f274:ad65:9a78%7]) with mapi id 15.20.3433.032; Wed, 30 Sep 2020
- 23:05:52 +0000
-Date: Wed, 30 Sep 2020 20:05:51 -0300
+ ([fe80::cdbe:f274:ad65:9a78%7]) with mapi id 15.20.3433.032; Thu, 1 Oct 2020
+ 11:46:10 +0000
+Date: Thu, 1 Oct 2020 08:46:08 -0300
 From: Jason Gunthorpe <jgg@nvidia.com>
-To: Dave Ertman <david.m.ertman@intel.com>
+To: Greg KH <gregkh@linuxfoundation.org>
 Subject: Re: [PATCH 1/6] Add ancillary bus support
-Message-ID: <20200930230551.GW816047@nvidia.com>
+Message-ID: <20201001114608.GX816047@nvidia.com>
 References: <20200930225051.889607-1-david.m.ertman@intel.com>
  <20200930225051.889607-2-david.m.ertman@intel.com>
+ <20201001110120.GB1939744@kroah.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Disposition: inline
-In-Reply-To: <20200930225051.889607-2-david.m.ertman@intel.com>
-X-ClientProxiedBy: MN2PR20CA0003.namprd20.prod.outlook.com
- (2603:10b6:208:e8::16) To DM6PR12MB3834.namprd12.prod.outlook.com
+In-Reply-To: <20201001110120.GB1939744@kroah.com>
+X-ClientProxiedBy: BL0PR02CA0019.namprd02.prod.outlook.com
+ (2603:10b6:207:3c::32) To DM6PR12MB3834.namprd12.prod.outlook.com
  (2603:10b6:5:14a::12)
 MIME-Version: 1.0
 X-MS-Exchange-MessageSentRepresentingType: 1
 Received: from mlx.ziepe.ca (156.34.48.30) by
- MN2PR20CA0003.namprd20.prod.outlook.com (2603:10b6:208:e8::16) with Microsoft
+ BL0PR02CA0019.namprd02.prod.outlook.com (2603:10b6:207:3c::32) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.3433.32 via Frontend Transport; Wed, 30 Sep 2020 23:05:52 +0000
+ 15.20.3433.32 via Frontend Transport; Thu, 1 Oct 2020 11:46:09 +0000
 Received: from jgg by mlx with local (Exim 4.94)	(envelope-from
- <jgg@nvidia.com>)	id 1kNlAV-004Oqf-8S; Wed, 30 Sep 2020 20:05:51 -0300
+ <jgg@nvidia.com>)	id 1kNx2G-004ci4-GP; Thu, 01 Oct 2020 08:46:08 -0300
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nvidia.com; s=n1;
- t=1601507155; bh=eg/LzaO98vU8dRVkCRSzVgLEsC4bs2EWN/VtPzNeveI=;
+ t=1601552778; bh=3bWxLUdGAjj09r/COm/SLU7TOyiSNlBAAE1GHBIt/q8=;
  h=ARC-Seal:ARC-Message-Signature:ARC-Authentication-Results:Date:
  From:To:CC:Subject:Message-ID:References:Content-Type:
  Content-Disposition:In-Reply-To:X-ClientProxiedBy:MIME-Version:
  X-MS-Exchange-MessageSentRepresentingType;
- b=dLdnSeB2iwTWIvNfRFXe0Svsf3cCeh/rqyC6Jm562hKi2HbnfkE3LsqkE88jKW9cN
- yinJuqUijliu0g6/zQvZHI7/SOabrxlG+w+Zso+4RLTJBQzXp7XaBYf1TCCR2yKnHy
- oM5Tdd36kZJJCnRnaJO8+yRVQOTGUxQahv5St1JL9V+Vrz8Rx14MNfjMu5zJx7D33j
- e3SLz2xPqSu6VYrXx8f51eVd1a7B7x8SI1yJdoAO8GOdvVbUEW4PaH5UA1LJ1nKq/n
- WRd5oJIX+oTIpMGZSXv5iccnoWRrHw97xSaQiSm0ZIeKwM4nw84/6Ms4wTA8xN0yZ/
- qiuXn3IghA9jA==
+ b=AXVQZrQcFXDPfKvGhdkK+QsP9OeXPnhiHMwiMTg2X0Vr1gpBLt+015fxe4Tm3OjvO
+ kmM0h37V7jcXkwfL5FeOSA21LRhH9NRiz5NVxQh5FZM6yhlv/CzA13HKuBFM5yzExm
+ 7zbNS2iL3pZIbPNdX6zM3APZRefCqSu43xBbI2XM8dE+arMjN9Fp2FkK0oCiA9/66Q
+ BJdNFgps4aXlueUvObKRE0tk/8uNMkK90CRMOx9Obn/pXVlf5QYtx95BY+hAIgPggy
+ Vh9fDvtbCsbfdGSsi8INNRlDqBWgQJFwzJ4Y8CA1a/hscUQ4eni/bjlx6/bcCuM3zs
+ 9PG3Se3ncBZ4Q==
 X-Mailman-Approved-At: Thu, 01 Oct 2020 15:40:08 +0200
 Cc: alsa-devel@alsa-project.org, Kiran Patil <kiran.patil@intel.com>,
- tiwai@suse.de, gregkh@linuxfoundation.org, ranjani.sridharan@intel.com,
+ tiwai@suse.de, ranjani.sridharan@intel.com,
  pierre-louis.bossart@linux.intel.com,
  Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
  Fred Oh <fred.oh@linux.intel.com>, broonie@kernel.org, parav@nvidia.com,
+ Dave Ertman <david.m.ertman@intel.com>,
  Dan Williams <dan.j.williams@intel.com>,
  Shiraz Saleem <shiraz.saleem@intel.com>, Parav Pandit <parav@mellanox.com>
 X-BeenThere: alsa-devel@alsa-project.org
@@ -124,44 +126,33 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Wed, Sep 30, 2020 at 03:50:46PM -0700, Dave Ertman wrote:
-> Add support for the Ancillary Bus, ancillary_device and ancillary_driver.
-> It enables drivers to create an ancillary_device and bind an
-> ancillary_driver to it.
+On Thu, Oct 01, 2020 at 01:01:20PM +0200, Greg KH wrote:
+> On Wed, Sep 30, 2020 at 03:50:46PM -0700, Dave Ertman wrote:
+> > +int ancillary_device_initialize(struct ancillary_device *ancildev)
+> > +{
+> > +	struct device *dev = &ancildev->dev;
+> > +
+> > +	dev->bus = &ancillary_bus_type;
+> > +
+> > +	if (WARN_ON(!dev->parent) || WARN_ON(!ancildev->name) ||
+> > +	    WARN_ON(!(dev->type && dev->type->release) && !dev->release))
+> > +		return -EINVAL;
 > 
-> The bus supports probe/remove shutdown and suspend/resume callbacks.
-> Each ancillary_device has a unique string based id; driver binds to
-> an ancillary_device based on this id through the bus.
-> 
-> Co-developed-by: Kiran Patil <kiran.patil@intel.com>
-> Signed-off-by: Kiran Patil <kiran.patil@intel.com>
-> Co-developed-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
-> Signed-off-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
-> Co-developed-by: Fred Oh <fred.oh@linux.intel.com>
-> Signed-off-by: Fred Oh <fred.oh@linux.intel.com>
-> Reviewed-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-> Reviewed-by: Shiraz Saleem <shiraz.saleem@intel.com>
-> Reviewed-by: Parav Pandit <parav@mellanox.com>
-> Reviewed-by: Dan Williams <dan.j.williams@intel.com>
-> Signed-off-by: Dave Ertman <david.m.ertman@intel.com>
-> ---
->  Documentation/driver-api/ancillary_bus.rst | 230 +++++++++++++++++++++
->  Documentation/driver-api/index.rst         |   1 +
->  drivers/bus/Kconfig                        |   3 +
->  drivers/bus/Makefile                       |   3 +
->  drivers/bus/ancillary.c                    | 191 +++++++++++++++++
->  include/linux/ancillary_bus.h              |  58 ++++++
->  include/linux/mod_devicetable.h            |   8 +
->  scripts/mod/devicetable-offsets.c          |   3 +
->  scripts/mod/file2alias.c                   |   8 +
->  9 files changed, 505 insertions(+)
->  create mode 100644 Documentation/driver-api/ancillary_bus.rst
->  create mode 100644 drivers/bus/ancillary.c
->  create mode 100644 include/linux/ancillary_bus.h
+> You have a lot of WARN_ON() calls in this patch.  That blows up anyone
+> who runs with panic-on-warn, right?
 
-I think you need to send this patch to a lot more mailing lists,
-netdev, rdma and linux-kernel at least
+AFAIK this is the standard pattern to code a "can't happen"
+assertion. Linus has been clear not to use BUG_ON, but to try and
+recover. The WARN_ON directly points to the faulty driver so it can be
+fixed. 
 
-The Intel IDXD team also needs this
+panic-on-warn is a good thing because it causes fuzzers to report a
+"can't happen" condition as a failure.
+
+In a real production system if any of these trigger it means the
+kernel has detected an internal integrity problem (corrupted memory,
+code, ROP attempt, etc). People using panic-on-warn absolutely want
+their kernel to stop of it is not functioning properly to protect
+data-integrity.
 
 Jason

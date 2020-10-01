@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id CCE9727F7F4
-	for <lists+alsa-devel@lfdr.de>; Thu,  1 Oct 2020 04:24:29 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 83D2827F7EF
+	for <lists+alsa-devel@lfdr.de>; Thu,  1 Oct 2020 04:22:17 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 701401893;
-	Thu,  1 Oct 2020 04:23:39 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 701401893
+	by alsa0.perex.cz (Postfix) with ESMTPS id 1F66D1877;
+	Thu,  1 Oct 2020 04:21:27 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1F66D1877
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1601519069;
-	bh=xGLVZFyDV0BSVoS718OQCQbUMUHZnGqU510AvvMR/U0=;
+	s=default; t=1601518937;
+	bh=owf0VURVWEbefKysSLpewDpLqJ8HHZtpxk7fl31EAP8=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=cumJxfrcf67pPWP+ySO+771q/McVZ3gNF+axOrcrVg1v6huTBP8TF5o/Qux4EXci8
-	 wv8wPewkVEZ1ha84R18+3OqazfKJv30Wh5wpFsnioMHQ39CAjNoISqrd8nErb6aMRY
-	 j8QZZEdgX6x/96mnSsz6rO07FvBfFKW5qA2CgsBs=
+	b=qDbSZSksL3SBHveMqD8Eb6+sycHUlMBplfc7d1tSt9VlfQHOjdbqWfVTo3mk6F5bb
+	 9DT4MmnSCz+Y1LlmRoXOteBqtVpdW0l6K3Ue5rVulfbh9ZV9BB5F0pKkq1OxCTb9Bu
+	 Uz/vRDW/PhR5d2Q6dkbrjIK4Tp5XECagHY3FuyK0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 3DB4FF803A6;
-	Thu,  1 Oct 2020 04:12:46 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 78DFBF8036E;
+	Thu,  1 Oct 2020 04:12:42 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 88BEBF80342; Thu,  1 Oct 2020 04:12:31 +0200 (CEST)
+ id AF591F8033E; Thu,  1 Oct 2020 04:12:27 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -35,42 +35,42 @@ Received: from new4-smtp.messagingengine.com (new4-smtp.messagingengine.com
  [66.111.4.230])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 11B82F802E8
+ by alsa1.perex.cz (Postfix) with ESMTPS id 0FD1BF802E7
  for <alsa-devel@alsa-project.org>; Thu,  1 Oct 2020 04:12:00 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 11B82F802E8
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0FD1BF802E7
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=sholland.org header.i=@sholland.org
- header.b="qGA6C8m2"; 
+ header.b="Zp+9l3F6"; 
  dkim=pass (2048-bit key) header.d=messagingengine.com
- header.i=@messagingengine.com header.b="SsKJouNO"
+ header.i=@messagingengine.com header.b="qwhAAlrK"
 Received: from compute5.internal (compute5.nyi.internal [10.202.2.45])
- by mailnew.nyi.internal (Postfix) with ESMTP id 970AE580393;
- Wed, 30 Sep 2020 22:11:58 -0400 (EDT)
+ by mailnew.nyi.internal (Postfix) with ESMTP id 10834580399;
+ Wed, 30 Sep 2020 22:11:59 -0400 (EDT)
 Received: from mailfrontend2 ([10.202.2.163])
- by compute5.internal (MEProxy); Wed, 30 Sep 2020 22:11:58 -0400
+ by compute5.internal (MEProxy); Wed, 30 Sep 2020 22:11:59 -0400
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sholland.org; h=
  from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding; s=fm3; bh=cWdCTNAZrNIgx
- +yimjpRtao7xCM3VJUZJGQ5NMK2IQ4=; b=qGA6C8m2pPBld8oJTvgDhCcW3Bog+
- 6tTXJeDUghZdgqW9P374/saD5XFhFy6gJM02rTgC5QCoUery8VsrpEjLN9hNaPqu
- pb4m5VeQsra9hG0fwcqbZrmiZzHrNmlCSQMa0bI6H7fMe+DveNc8PLGnttwfTYIN
- eS6GAUmYChm+6GRxkRpaw0tKqpGbufsRBXjpyv9kF3GeSoPbYiZNuzMVPko6jQY+
- i90Q/5Q6ACMWHmGyFKNcdo4J+7AgH9IICMkmTNoJ10ETf6xpYTilFU5kLEJeOJVw
- AHjeT4D8o9Muesj1FNUx1bJnZGOjT8WvTl3RptIKqXphQfJiYVHDtmfFA==
+ :mime-version:content-transfer-encoding; s=fm3; bh=/5PkmJdsATQhY
+ tiJ6QitOB2ll2wdiEKavDMfs3UWCw0=; b=Zp+9l3F6zMpMJOrUaAatP1J1Qo9l3
+ df+eLHw3+tuj1+Fi4wJ3bHGigyeyrl5hNFoGMWcu8jLIfswvLWgcFakTo799nlQe
+ 4+q9NSXG0mKJN+bkCyK4cAaSy6nqlowUxGxMl9YwHZjVg6XIEnA4r75SlbOkiArG
+ pKRt3k0LDyaEknfFnDNRgzu2+JCQ7+9uc4/iHYUk40SITSirLIupGlX3zNSZJQgE
+ 8tQy+EEDbsvfLaNwly/CIntEfA9CXgGKRgpHd0bajKbYy6nwRIUOiFbVpj87Yevc
+ 2+5y4vSsm0g051dpZxY6CdUYsAJ/ICI7F5QKyQB/CS/ZrDTwLG+DC+EYA==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
  messagingengine.com; h=cc:content-transfer-encoding:date:from
  :in-reply-to:message-id:mime-version:references:subject:to
  :x-me-proxy:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
- fm3; bh=cWdCTNAZrNIgx+yimjpRtao7xCM3VJUZJGQ5NMK2IQ4=; b=SsKJouNO
- jzGuWo/g5vfIhuOvCK1OC+6E6V/r+B46RCdTHItgEkM9Zwla+C8dqWfEBACyNZ4s
- 4JqVv31X15712LuFS+XNJjgyvNphstYrIIT8PCawx9wU+1/+nW1sQexIrl2zoJs0
- TJFbHU+PpjzYLxm9cOtSl45JXOgGj5EYI5fg6o3qObHSoyzNq7AmVVYAEAnv2aCJ
- VKz3Vp5jsFWiHG+TJfdxTHrkpdyoKWgV2v3UcD7371O0uzhXnWyojw3U8Kv68c+T
- ulBJZLqIhKTVdWIKONF3xgezz33+Vdp7anIXjkuP8Q7T97Jd0Q6VHJKXTGpO9lzH
- bpvprpwpzHg+/g==
-X-ME-Sender: <xms:7jp1X2c2fy6dxvA2lcUfBR5yx7Pod0E9TVZUCXdMUPG3Q19t99xWeA>
- <xme:7jp1XwPQ9NdYYK7t4rK3L5jfU1UDFNnVjkUwMz6Bs_WbgvlgRxSIhFi3U9tbNKwOj
- mB9CO4ueEMNuKAa5g>
+ fm3; bh=/5PkmJdsATQhYtiJ6QitOB2ll2wdiEKavDMfs3UWCw0=; b=qwhAAlrK
+ uoyDFlKLKJCgyf1UFR/fCWGBfO3jW+4cP/LoOBTx7aVRSLHmBAW7Wvp+HE6BAu2l
+ 4rQKFf4BKYWIS+daDjQKz8tKBqx7de/ugvpLVX3CPr1XAbWIQyMojKRDtnkSRAK/
+ jFPSazpnXnUSJYR4NDvJlboocT3L8RiTMXBVcSGBoIbHZsIo8xq/IwNMtZiweqoX
+ p1OdpWEjT0I1SyfDDa+H/fgmdy1ArlX+MlwZxnnKj9ikIi6vJK3zihDW9EWmKf/R
+ 4tbcCGPW8tkiNy+m1N0lWu+ZC7BehMdFUnN46N1nhCbaScHAiJl65VpGV2I0T2jD
+ sVevq+RoSNv2Vw==
+X-ME-Sender: <xms:7jp1X3Re49fTx0JBPykCZsXcPSaPTofdtbipRLOlERiegqNA1_a96Q>
+ <xme:7jp1X4yLkSUCMsL-P69yD_ml70wtGXE_gbd78DhtKMGEDw51UH_fwBheZKnILa-aP
+ VqOcwfIJ2_RqNkO7g>
 X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedujedrfeefgdehkecutefuodetggdotefrodftvf
  curfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfghnecu
  uegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenuc
@@ -80,22 +80,21 @@ X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedujedrfeefgdehkecutefuodetggdote
  jeehueeinecukfhppeejtddrudefhedrudegkedrudehudenucevlhhushhtvghrufhiii
  gvpedujeenucfrrghrrghmpehmrghilhhfrhhomhepshgrmhhuvghlsehshhholhhlrghn
  ugdrohhrgh
-X-ME-Proxy: <xmx:7jp1X3ibQzqY0FTdlhvpZaBOzyDbkbjWxkwQRc4-zUmUW31CwkAb4w>
- <xmx:7jp1Xz9u-jPOew2QG1YU6ZDOyai9zWVnfBp13I2nZxDpE2JootCtfQ>
- <xmx:7jp1XytPBaHISBT-AbM63QpTGztEC6Lxr_KFQ5VAR5C8bwShLS0uOA>
- <xmx:7jp1XwBScPzMwu_kbdivjjLMjO2sa0KWM5LJpntAopina4iuKCSKtQ>
+X-ME-Proxy: <xmx:7jp1X82KyMaI4CfK7Nz2bHxd5utCKKVxV2lJhtDF7EqaTlXxbTdGiQ>
+ <xmx:7jp1X3Cz9s8lFAGAMnq6u01H7mA7AbuLA9ibV8AYu5lSbJYyxuUuNA>
+ <xmx:7jp1XwjLxPhU8ObbV-Mf48iQS1_ZfnhOrv3Nh14coAXmTsBU3cknOw>
+ <xmx:7zp1X5XAkwbSUb2Hmvqj6SikI1-iMm_isqzi_fKjvkGc_Lj-hVBRig>
 Received: from titanium.stl.sholland.net
  (70-135-148-151.lightspeed.stlsmo.sbcglobal.net [70.135.148.151])
- by mail.messagingengine.com (Postfix) with ESMTPA id C82423064686;
- Wed, 30 Sep 2020 22:11:57 -0400 (EDT)
+ by mail.messagingengine.com (Postfix) with ESMTPA id 46BCA3064688;
+ Wed, 30 Sep 2020 22:11:58 -0400 (EDT)
 From: Samuel Holland <samuel@sholland.org>
 To: Mark Brown <broonie@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>,
  Maxime Ripard <mripard@kernel.org>, Chen-Yu Tsai <wens@csie.org>,
  Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>
-Subject: [PATCH 18/25] ASoC: sun8i-codec: Automatically set the system sample
- rate
-Date: Wed, 30 Sep 2020 21:11:41 -0500
-Message-Id: <20201001021148.15852-19-samuel@sholland.org>
+Subject: [PATCH 19/25] ASoC: sun8i-codec: Constrain to compatible sample rates
+Date: Wed, 30 Sep 2020 21:11:42 -0500
+Message-Id: <20201001021148.15852-20-samuel@sholland.org>
 X-Mailer: git-send-email 2.26.2
 In-Reply-To: <20201001021148.15852-1-samuel@sholland.org>
 References: <20201001021148.15852-1-samuel@sholland.org>
@@ -119,162 +118,132 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-The sun8i codec has three clock/sample rate domains:
- - The AIF1 domain, with a sample rate equal to AIF1 LRCK
- - The AIF2 domain, with a sample rate equal to AIF2 LRCK
- - The SYSCLK domain, containing the ADC, DAC, and effects (AGC/DRC),
-   with a sample rate given by a divisor from SYSCLK. The divisor is
-   controlled by the AIF1_FS or AIF2_FS field in SYS_SR_CTRL, depending
-   on if SYSCLK's source is AIF1CLK or AIF2CLK, respectively. The exact
-   sample rate depends on if SYSCLK is running at 22.6 MHz or 24.6 MHz.
-
-When an AIF (currently only AIF1) is active, the ADC and DAC should run
-at that sample rate to avoid artifacting. Sample rate conversion is only
-available when multiple AIFs are active and are routed to each other;
-this means the sample rate conversion hardware usually cannot be used.
-
-Only attach the event hook to the channel 0 AIF widgets, since we only
-need one event when a DAI stream starts or stops. Channel 0 is always
-brought up with a DAI stream, regardless of the number of channels in
-the stream.
-
-The ADC and DAC (along with their effects blocks) can be used even if
-no AIFs are in use. In that case, we should select an appropriate sample
-rate divisor, instead of keeping the last-used AIF sample rate.
-44.1/48 kHz was chosen to balance audio quality and power consumption.
-
-Since the sample rate is tied to active AIF paths, disabling pmdown_time
-allows switching to the optimal sample rate immediately, instead of
-after a 5 second delay.
+While another stream is active, only allow userspace to use sample rates
+that are compatible with the current SYSCLK frequency. This ensures the
+actual sample rate will always match what is given in hw_params.
 
 Signed-off-by: Samuel Holland <samuel@sholland.org>
 ---
- sound/soc/sunxi/sun8i-codec.c | 103 +++++++++++++++++++++++++++-------
- 1 file changed, 84 insertions(+), 19 deletions(-)
+ sound/soc/sunxi/sun8i-codec.c | 59 ++++++++++++++++++++++++++++++++---
+ 1 file changed, 55 insertions(+), 4 deletions(-)
 
 diff --git a/sound/soc/sunxi/sun8i-codec.c b/sound/soc/sunxi/sun8i-codec.c
-index f4b2a7cc9810..43b4319e3d84 100644
+index 43b4319e3d84..501af64d43a0 100644
 --- a/sound/soc/sunxi/sun8i-codec.c
 +++ b/sound/soc/sunxi/sun8i-codec.c
-@@ -89,31 +89,36 @@
- #define SUN8I_SYS_SR_CTRL_AIF1_FS_MASK		GENMASK(15, 12)
- #define SUN8I_SYS_SR_CTRL_AIF2_FS_MASK		GENMASK(11, 8)
- #define SUN8I_AIF1CLK_CTRL_AIF1_CLK_INV_MASK	GENMASK(14, 13)
- #define SUN8I_AIF1CLK_CTRL_AIF1_BCLK_DIV_MASK	GENMASK(12, 9)
- #define SUN8I_AIF1CLK_CTRL_AIF1_LRCK_DIV_MASK	GENMASK(8, 6)
- #define SUN8I_AIF1CLK_CTRL_AIF1_WORD_SIZ_MASK	GENMASK(5, 4)
- #define SUN8I_AIF1CLK_CTRL_AIF1_DATA_FMT_MASK	GENMASK(3, 2)
- 
-+#define SUN8I_CODEC_PASSTHROUGH_SAMPLE_RATE 48000
-+
- #define SUN8I_CODEC_PCM_RATES	(SNDRV_PCM_RATE_8000_48000|\
- 				 SNDRV_PCM_RATE_88200     |\
- 				 SNDRV_PCM_RATE_96000     |\
- 				 SNDRV_PCM_RATE_176400    |\
- 				 SNDRV_PCM_RATE_192000    |\
- 				 SNDRV_PCM_RATE_KNOT)
- 
- enum {
- 	AIF1,
- 	NAIFS
- };
- 
- struct sun8i_codec_aif {
-+	unsigned int	sample_rate;
- 	unsigned int	slots;
- 	unsigned int	slot_width;
-+	unsigned int	active_streams	: 2;
-+	unsigned int	open_streams	: 2;
- };
- 
- struct sun8i_codec_quirks {
- 	bool legacy_widgets	: 1;
+@@ -121,16 +121,18 @@ struct sun8i_codec_quirks {
  	bool lrck_inversion	: 1;
  };
  
  struct sun8i_codec {
-@@ -144,21 +149,19 @@ static int sun8i_codec_runtime_suspend(struct device *dev)
- 	struct sun8i_codec *scodec = dev_get_drvdata(dev);
+ 	struct regmap			*regmap;
+ 	struct clk			*clk_module;
+ 	const struct sun8i_codec_quirks	*quirks;
+ 	struct sun8i_codec_aif		aifs[NAIFS];
++	unsigned int			sysclk_rate;
++	int				sysclk_refcnt;
+ };
  
- 	regcache_cache_only(scodec->regmap, true);
- 	regcache_mark_dirty(scodec->regmap);
+ static int sun8i_codec_runtime_resume(struct device *dev)
+ {
+ 	struct sun8i_codec *scodec = dev_get_drvdata(dev);
+ 	int ret;
+ 
+ 	regcache_cache_only(scodec->regmap, false);
+@@ -319,16 +321,57 @@ static int sun8i_codec_set_tdm_slot(struct snd_soc_dai *dai,
+ 		return -EINVAL;
+ 
+ 	aif->slots = slots;
+ 	aif->slot_width = slot_width;
  
  	return 0;
  }
  
--static int sun8i_codec_get_hw_rate(struct snd_pcm_hw_params *params)
-+static int sun8i_codec_get_hw_rate(unsigned int sample_rate)
- {
--	unsigned int rate = params_rate(params);
--
--	switch (rate) {
-+	switch (sample_rate) {
- 	case 7350:
- 	case 8000:
- 		return 0x0;
- 	case 11025:
- 		return 0x1;
- 	case 12000:
- 		return 0x2;
- 	case 14700:
-@@ -181,16 +184,43 @@ static int sun8i_codec_get_hw_rate(struct snd_pcm_hw_params *params)
- 	case 176400:
- 	case 192000:
- 		return 0xa;
- 	default:
- 		return -EINVAL;
- 	}
- }
- 
-+static int sun8i_codec_update_sample_rate(struct sun8i_codec *scodec)
++static const unsigned int sun8i_codec_rates[] = {
++	  7350,   8000,  11025,  12000,  14700,  16000,  22050,  24000,
++	 29400,  32000,  44100,  48000,  88200,  96000, 176400, 192000,
++};
++
++static const struct snd_pcm_hw_constraint_list sun8i_codec_all_rates = {
++	.list	= sun8i_codec_rates,
++	.count	= ARRAY_SIZE(sun8i_codec_rates),
++};
++
++static const struct snd_pcm_hw_constraint_list sun8i_codec_22M_rates = {
++	.list	= sun8i_codec_rates,
++	.count	= ARRAY_SIZE(sun8i_codec_rates),
++	.mask	= 0x5555,
++};
++
++static const struct snd_pcm_hw_constraint_list sun8i_codec_24M_rates = {
++	.list	= sun8i_codec_rates,
++	.count	= ARRAY_SIZE(sun8i_codec_rates),
++	.mask	= 0xaaaa,
++};
++
++static int sun8i_codec_startup(struct snd_pcm_substream *substream,
++			       struct snd_soc_dai *dai)
 +{
-+	unsigned int max_rate = 0;
-+	int hw_rate, i;
++	struct sun8i_codec *scodec = snd_soc_dai_get_drvdata(dai);
++	const struct snd_pcm_hw_constraint_list *list;
 +
-+	for (i = AIF1; i < NAIFS; ++i) {
-+		struct sun8i_codec_aif *aif = &scodec->aifs[i];
++	if (!scodec->sysclk_refcnt)
++		list = &sun8i_codec_all_rates;
++	else if (scodec->sysclk_rate == 22579200)
++		list = &sun8i_codec_22M_rates;
++	else if (scodec->sysclk_rate == 24576000)
++		list = &sun8i_codec_24M_rates;
++	else
++		return -EINVAL;
 +
-+		if (aif->active_streams)
-+			max_rate = max(max_rate, aif->sample_rate);
-+	}
-+
-+	/* Set the sample rate for ADC->DAC passthrough when no AIF is active. */
-+	if (!max_rate)
-+		max_rate = SUN8I_CODEC_PASSTHROUGH_SAMPLE_RATE;
-+
-+	hw_rate = sun8i_codec_get_hw_rate(max_rate);
-+	if (hw_rate < 0)
-+		return hw_rate;
-+
-+	regmap_update_bits(scodec->regmap, SUN8I_SYS_SR_CTRL,
-+			   SUN8I_SYS_SR_CTRL_AIF1_FS_MASK,
-+			   hw_rate << SUN8I_SYS_SR_CTRL_AIF1_FS);
-+
-+	return 0;
++	return snd_pcm_hw_constraint_list(substream->runtime, 0,
++					  SNDRV_PCM_HW_PARAM_RATE, list);
 +}
 +
- static int sun8i_codec_set_fmt(struct snd_soc_dai *dai, unsigned int fmt)
+ struct sun8i_codec_clk_div {
+ 	u8	div;
+ 	u8	val;
+ };
+ 
+ static const struct sun8i_codec_clk_div sun8i_codec_bclk_div[] = {
+ 	{ .div = 1,	.val = 0 },
+ 	{ .div = 2,	.val = 1 },
+@@ -341,22 +384,21 @@ static const struct sun8i_codec_clk_div sun8i_codec_bclk_div[] = {
+ 	{ .div = 32,	.val = 8 },
+ 	{ .div = 48,	.val = 9 },
+ 	{ .div = 64,	.val = 10 },
+ 	{ .div = 96,	.val = 11 },
+ 	{ .div = 128,	.val = 12 },
+ 	{ .div = 192,	.val = 13 },
+ };
+ 
+-static u8 sun8i_codec_get_bclk_div(struct sun8i_codec *scodec,
++static u8 sun8i_codec_get_bclk_div(unsigned int sysclk_rate,
+ 				   unsigned int lrck_div_order,
+ 				   unsigned int sample_rate)
  {
- 	struct sun8i_codec *scodec = snd_soc_dai_get_drvdata(dai);
- 	u32 format, invert, value;
+-	unsigned long clk_rate = clk_get_rate(scodec->clk_module);
+-	unsigned int div = clk_rate / sample_rate >> lrck_div_order;
++	unsigned int div = sysclk_rate / sample_rate >> lrck_div_order;
+ 	unsigned int best_val = 0, best_diff = ~0;
+ 	int i;
  
- 	/* clock masters */
- 	switch (fmt & SND_SOC_DAIFMT_MASTER_MASK) {
- 	case SND_SOC_DAIFMT_CBS_CFS: /* Codec slave, DAI master */
-@@ -350,19 +380,20 @@ static int sun8i_codec_get_lrck_div_order(unsigned int slots,
- }
+ 	for (i = 0; i < ARRAY_SIZE(sun8i_codec_bclk_div); i++) {
+ 		const struct sun8i_codec_clk_div *bdiv = &sun8i_codec_bclk_div[i];
+ 		unsigned int diff = abs(bdiv->div - div);
  
- static int sun8i_codec_hw_params(struct snd_pcm_substream *substream,
+ 		if (diff < best_diff) {
+@@ -383,16 +425,17 @@ static int sun8i_codec_hw_params(struct snd_pcm_substream *substream,
  				 struct snd_pcm_hw_params *params,
  				 struct snd_soc_dai *dai)
  {
  	struct sun8i_codec *scodec = snd_soc_dai_get_drvdata(dai);
  	struct sun8i_codec_aif *aif = &scodec->aifs[dai->id];
-+	unsigned int sample_rate = params_rate(params);
+ 	unsigned int sample_rate = params_rate(params);
  	unsigned int slots = aif->slots ?: params_channels(params);
  	unsigned int slot_width = aif->slot_width ?: params_width(params);
--	int lrck_div_order, sample_rate, word_size;
-+	int lrck_div_order, word_size;
++	unsigned int sysclk_rate = clk_get_rate(scodec->clk_module);
+ 	int lrck_div_order, word_size;
  	u8 bclk_div;
  
  	/* word size */
@@ -282,8 +251,7 @@ index f4b2a7cc9810..43b4319e3d84 100644
  	case 8:
  		word_size = 0x0;
  		break;
- 	case 16:
-@@ -387,36 +418,48 @@ static int sun8i_codec_hw_params(struct snd_pcm_substream *substream,
+@@ -418,46 +461,54 @@ static int sun8i_codec_hw_params(struct snd_pcm_substream *substream,
  	if (lrck_div_order < 0)
  		return lrck_div_order;
  
@@ -292,167 +260,53 @@ index f4b2a7cc9810..43b4319e3d84 100644
  			   (lrck_div_order - 4) << SUN8I_AIF1CLK_CTRL_AIF1_LRCK_DIV);
  
  	/* BCLK divider (SYSCLK/BCLK ratio) */
--	bclk_div = sun8i_codec_get_bclk_div(scodec, lrck_div_order, params_rate(params));
-+	bclk_div = sun8i_codec_get_bclk_div(scodec, lrck_div_order, sample_rate);
+-	bclk_div = sun8i_codec_get_bclk_div(scodec, lrck_div_order, sample_rate);
++	bclk_div = sun8i_codec_get_bclk_div(sysclk_rate, lrck_div_order, sample_rate);
  	regmap_update_bits(scodec->regmap, SUN8I_AIF1CLK_CTRL,
  			   SUN8I_AIF1CLK_CTRL_AIF1_BCLK_DIV_MASK,
  			   bclk_div << SUN8I_AIF1CLK_CTRL_AIF1_BCLK_DIV);
  
--	sample_rate = sun8i_codec_get_hw_rate(params);
--	if (sample_rate < 0)
--		return sample_rate;
-+	aif->sample_rate = sample_rate;
-+	aif->open_streams |= BIT(substream->stream);
++	if (!aif->open_streams) {
++		scodec->sysclk_rate = sysclk_rate;
++		scodec->sysclk_refcnt++;
++	}
++
+ 	aif->sample_rate = sample_rate;
+ 	aif->open_streams |= BIT(substream->stream);
  
--	regmap_update_bits(scodec->regmap, SUN8I_SYS_SR_CTRL,
--			   SUN8I_SYS_SR_CTRL_AIF1_FS_MASK,
--			   sample_rate << SUN8I_SYS_SR_CTRL_AIF1_FS);
-+	return sun8i_codec_update_sample_rate(scodec);
-+}
-+
-+static int sun8i_codec_hw_free(struct snd_pcm_substream *substream,
-+			       struct snd_soc_dai *dai)
-+{
-+	struct sun8i_codec *scodec = snd_soc_dai_get_drvdata(dai);
-+	struct sun8i_codec_aif *aif = &scodec->aifs[dai->id];
-+
-+	if (aif->open_streams != BIT(substream->stream))
-+		goto done;
+ 	return sun8i_codec_update_sample_rate(scodec);
+ }
  
-+	aif->sample_rate = 0;
+ static int sun8i_codec_hw_free(struct snd_pcm_substream *substream,
+ 			       struct snd_soc_dai *dai)
+ {
+ 	struct sun8i_codec *scodec = snd_soc_dai_get_drvdata(dai);
+ 	struct sun8i_codec_aif *aif = &scodec->aifs[dai->id];
+ 
+ 	if (aif->open_streams != BIT(substream->stream))
+ 		goto done;
+ 
++	scodec->sysclk_refcnt--;
 +
-+done:
-+	aif->open_streams &= ~BIT(substream->stream);
+ 	aif->sample_rate = 0;
+ 
+ done:
+ 	aif->open_streams &= ~BIT(substream->stream);
  	return 0;
  }
  
  static const struct snd_soc_dai_ops sun8i_codec_dai_ops = {
  	.set_fmt	= sun8i_codec_set_fmt,
  	.set_tdm_slot	= sun8i_codec_set_tdm_slot,
++	.startup	= sun8i_codec_startup,
  	.hw_params	= sun8i_codec_hw_params,
-+	.hw_free	= sun8i_codec_hw_free,
+ 	.hw_free	= sun8i_codec_hw_free,
  };
  
  static struct snd_soc_dai_driver sun8i_codec_dais[] = {
  	{
  		.name	= "sun8i-codec-aif1",
  		.id	= AIF1,
- 		.ops	= &sun8i_codec_dai_ops,
- 		/* capture capabilities */
-@@ -437,16 +480,32 @@ static struct snd_soc_dai_driver sun8i_codec_dais[] = {
- 			.formats	= SNDRV_PCM_FMTBIT_S16_LE,
- 		},
- 		.symmetric_rates	= true,
- 		.symmetric_channels	= true,
- 		.symmetric_samplebits	= true,
- 	},
- };
- 
-+static int sun8i_codec_aif_event(struct snd_soc_dapm_widget *w,
-+				 struct snd_kcontrol *kcontrol, int event)
-+{
-+	struct snd_soc_component *component = snd_soc_dapm_to_component(w->dapm);
-+	struct sun8i_codec *scodec = snd_soc_component_get_drvdata(component);
-+	struct sun8i_codec_aif *aif = &scodec->aifs[w->sname[3] - '1'];
-+	int stream = w->id == snd_soc_dapm_aif_out;
-+
-+	if (SND_SOC_DAPM_EVENT_ON(event))
-+		aif->active_streams |= BIT(stream);
-+	else
-+		aif->active_streams &= ~BIT(stream);
-+
-+	return sun8i_codec_update_sample_rate(scodec);
-+}
-+
- static const char *const sun8i_aif_stereo_mux_enum_values[] = {
- 	"Stereo", "Reverse Stereo", "Sum Mono", "Mix Mono"
- };
- 
- static SOC_ENUM_DOUBLE_DECL(sun8i_aif1_ad0_stereo_mux_enum,
- 			    SUN8I_AIF1_ADCDAT_CTRL,
- 			    SUN8I_AIF1_ADCDAT_CTRL_AIF1_AD0L_SRC,
- 			    SUN8I_AIF1_ADCDAT_CTRL_AIF1_AD0R_SRC,
-@@ -539,19 +598,21 @@ static const struct snd_soc_dapm_widget sun8i_codec_dapm_widgets[] = {
- 	SND_SOC_DAPM_SUPPLY("ADC",
- 			    SUN8I_ADC_DIG_CTRL,
- 			    SUN8I_ADC_DIG_CTRL_ENAD, 0, NULL, 0),
- 	SND_SOC_DAPM_SUPPLY("DAC",
- 			    SUN8I_DAC_DIG_CTRL,
- 			    SUN8I_DAC_DIG_CTRL_ENDA, 0, NULL, 0),
- 
- 	/* AIF "ADC" Outputs */
--	SND_SOC_DAPM_AIF_OUT("AIF1 AD0L", "AIF1 Capture", 0,
--			     SUN8I_AIF1_ADCDAT_CTRL,
--			     SUN8I_AIF1_ADCDAT_CTRL_AIF1_AD0L_ENA, 0),
-+	SND_SOC_DAPM_AIF_OUT_E("AIF1 AD0L", "AIF1 Capture", 0,
-+			       SUN8I_AIF1_ADCDAT_CTRL,
-+			       SUN8I_AIF1_ADCDAT_CTRL_AIF1_AD0L_ENA, 0,
-+			       sun8i_codec_aif_event,
-+			       SND_SOC_DAPM_PRE_PMU | SND_SOC_DAPM_POST_PMD),
- 	SND_SOC_DAPM_AIF_OUT("AIF1 AD0R", "AIF1 Capture", 1,
- 			     SUN8I_AIF1_ADCDAT_CTRL,
- 			     SUN8I_AIF1_ADCDAT_CTRL_AIF1_AD0R_ENA, 0),
- 
- 	/* AIF "ADC" Mono/Stereo Muxes */
- 	SND_SOC_DAPM_MUX("AIF1 AD0L Stereo Mux", SND_SOC_NOPM, 0, 0,
- 			 &sun8i_aif1_ad0_stereo_mux_control),
- 	SND_SOC_DAPM_MUX("AIF1 AD0R Stereo Mux", SND_SOC_NOPM, 0, 0,
-@@ -565,19 +626,21 @@ static const struct snd_soc_dapm_widget sun8i_codec_dapm_widgets[] = {
- 
- 	/* AIF "DAC" Mono/Stereo Muxes */
- 	SND_SOC_DAPM_MUX("AIF1 DA0L Stereo Mux", SND_SOC_NOPM, 0, 0,
- 			 &sun8i_aif1_da0_stereo_mux_control),
- 	SND_SOC_DAPM_MUX("AIF1 DA0R Stereo Mux", SND_SOC_NOPM, 0, 0,
- 			 &sun8i_aif1_da0_stereo_mux_control),
- 
- 	/* AIF "DAC" Inputs */
--	SND_SOC_DAPM_AIF_IN("AIF1 DA0L", "AIF1 Playback", 0,
--			    SUN8I_AIF1_DACDAT_CTRL,
--			    SUN8I_AIF1_DACDAT_CTRL_AIF1_DA0L_ENA, 0),
-+	SND_SOC_DAPM_AIF_IN_E("AIF1 DA0L", "AIF1 Playback", 0,
-+			      SUN8I_AIF1_DACDAT_CTRL,
-+			      SUN8I_AIF1_DACDAT_CTRL_AIF1_DA0L_ENA, 0,
-+			      sun8i_codec_aif_event,
-+			      SND_SOC_DAPM_PRE_PMU | SND_SOC_DAPM_POST_PMD),
- 	SND_SOC_DAPM_AIF_IN("AIF1 DA0R", "AIF1 Playback", 1,
- 			    SUN8I_AIF1_DACDAT_CTRL,
- 			    SUN8I_AIF1_DACDAT_CTRL_AIF1_DA0R_ENA, 0),
- 
- 	/* ADC Inputs (connected to analog codec DAPM context) */
- 	SND_SOC_DAPM_ADC("ADCL", NULL, SND_SOC_NOPM, 0, 0),
- 	SND_SOC_DAPM_ADC("ADCR", NULL, SND_SOC_NOPM, 0, 0),
- 
-@@ -722,27 +785,29 @@ static int sun8i_codec_component_probe(struct snd_soc_component *component)
- 			   SUN8I_SYSCLK_CTL_AIF1CLK_SRC_PLL |
- 			   SUN8I_SYSCLK_CTL_AIF2CLK_SRC_PLL);
- 
- 	/* Use AIF1CLK as the SYSCLK parent since AIF1 is used most often. */
- 	regmap_update_bits(scodec->regmap, SUN8I_SYSCLK_CTL,
- 			   BIT(SUN8I_SYSCLK_CTL_SYSCLK_SRC),
- 			   SUN8I_SYSCLK_CTL_SYSCLK_SRC_AIF1CLK);
- 
-+	/* Program the default sample rate. */
-+	sun8i_codec_update_sample_rate(scodec);
-+
- 	return 0;
- }
- 
- static const struct snd_soc_component_driver sun8i_soc_component = {
- 	.dapm_widgets		= sun8i_codec_dapm_widgets,
- 	.num_dapm_widgets	= ARRAY_SIZE(sun8i_codec_dapm_widgets),
- 	.dapm_routes		= sun8i_codec_dapm_routes,
- 	.num_dapm_routes	= ARRAY_SIZE(sun8i_codec_dapm_routes),
- 	.probe			= sun8i_codec_component_probe,
- 	.idle_bias_on		= 1,
--	.use_pmdown_time	= 1,
- 	.endianness		= 1,
- 	.non_legacy_dai_naming	= 1,
- };
- 
- static const struct regmap_config sun8i_codec_regmap_config = {
- 	.reg_bits	= 32,
- 	.reg_stride	= 4,
- 	.val_bits	= 32,
 -- 
 2.26.2
 

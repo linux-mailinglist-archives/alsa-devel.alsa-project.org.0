@@ -2,106 +2,109 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B32A7280071
-	for <lists+alsa-devel@lfdr.de>; Thu,  1 Oct 2020 15:48:50 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3ABF3280073
+	for <lists+alsa-devel@lfdr.de>; Thu,  1 Oct 2020 15:49:30 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 3DE7F18E8;
-	Thu,  1 Oct 2020 15:48:00 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3DE7F18E8
+	by alsa0.perex.cz (Postfix) with ESMTPS id C2F8D18C8;
+	Thu,  1 Oct 2020 15:48:39 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C2F8D18C8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1601560130;
-	bh=TS0vBFnENXfs3T3syn6MKMgHuDtc+OPqspw0e3j1Lwc=;
+	s=default; t=1601560169;
+	bh=9P9svooEFIB2L/pJlC/T9hKrD59osQaESF/N5Bc7kz0=;
 	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=X8GlHqh90l6tDNVVrf5gDxUiwhBPSKuW9ujM47AqsGJcFC/ZbOqDR4M//NGMuBHKn
-	 Z0lb2OAbOpSnQm4w2nXPksDjR71npthB3FPxujiNSHubld03GB7MljRhr17dCeeTIW
-	 JvIo5osVWf4ZlKKARC0Gejl+FgumUqJtmiqQgoms=
+	b=uit2a+1GY3MRcBGd/4Ea88oyNvFfZTGvGaErBAmEfhTlKfYsn+Lag2lTUOMw4kPhu
+	 Bz1fRKGWpptw1/sydjIVUmA91/QgcOJ9pMCUzKo0q8cQEC924EKFyoKuXGZwcXESGt
+	 UKYCWCeHPbtxmxt+5LnRIXaMaHUbUZ2UzUq2uTzg=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id C57B3F80341;
-	Thu,  1 Oct 2020 15:40:33 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 66C5BF80342;
+	Thu,  1 Oct 2020 15:40:35 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 129D3F801F5; Thu,  1 Oct 2020 13:46:32 +0200 (CEST)
+ id CE566F801F5; Thu,  1 Oct 2020 13:59:06 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.6 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
  DKIM_VALID,DKIM_VALID_AU,MSGID_FROM_MTA_HEADER,SPF_HELO_NONE,SPF_NONE
  autolearn=disabled version=3.4.0
-Received: from nat-hk.nvidia.com (nat-hk.nvidia.com [203.18.50.4])
+Received: from hqnvemgate24.nvidia.com (hqnvemgate24.nvidia.com
+ [216.228.121.143])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 738BCF80105
- for <alsa-devel@alsa-project.org>; Thu,  1 Oct 2020 13:46:23 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 738BCF80105
+ by alsa1.perex.cz (Postfix) with ESMTPS id 4BB0EF80105
+ for <alsa-devel@alsa-project.org>; Thu,  1 Oct 2020 13:58:55 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4BB0EF80105
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=nvidia.com header.i=@nvidia.com
- header.b="AXVQZrQc"
-Received: from HKMAIL101.nvidia.com (Not Verified[10.18.92.9]) by
- nat-hk.nvidia.com (using TLS: TLSv1.2, AES256-SHA)
- id <B5f75c18a0000>; Thu, 01 Oct 2020 19:46:18 +0800
-Received: from HKMAIL103.nvidia.com (10.18.16.12) by HKMAIL101.nvidia.com
- (10.18.16.10) with Microsoft SMTP Server (TLS) id 15.0.1473.3; Thu, 1 Oct
- 2020 11:46:13 +0000
-Received: from NAM02-SN1-obe.outbound.protection.outlook.com (104.47.36.51) by
- HKMAIL103.nvidia.com (10.18.16.12) with Microsoft SMTP Server (TLS)
- id 15.0.1473.3 via Frontend Transport; Thu, 1 Oct 2020 11:46:12 +0000
+ header.b="C+aq7iTf"
+Received: from hqmail.nvidia.com (Not Verified[216.228.121.13]) by
+ hqnvemgate24.nvidia.com (using TLS: TLSv1.2, AES256-SHA)
+ id <B5f75c4150000>; Thu, 01 Oct 2020 04:57:09 -0700
+Received: from HQMAIL109.nvidia.com (172.20.187.15) by HQMAIL107.nvidia.com
+ (172.20.187.13) with Microsoft SMTP Server (TLS) id 15.0.1473.3; Thu, 1 Oct
+ 2020 11:58:51 +0000
+Received: from NAM02-SN1-obe.outbound.protection.outlook.com (104.47.36.57) by
+ HQMAIL109.nvidia.com (172.20.187.15) with Microsoft SMTP Server
+ (TLS) id
+ 15.0.1473.3 via Frontend Transport; Thu, 1 Oct 2020 11:58:50 +0000
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=eRHwgi0hka8SfSI54NC+akbqbdUUJwb5mxYWk1FcW/6Em0tlCk60ntLAnwdXByM1k0ck1R1SqX59UWH9R/wwtfxaU2HjCWtzGYMhM+TgXohrxGXBc3cMtzveGJVTEfrB4eJG1CL6NHYswE7hlVAZVlad4W5qAW9EZUMGK5gT4iAGwGxSHl16gvH6w+MwgFSWeB4xLwi4ksF8YZNYASVvotMeQX7ChIPCsoGGRKAiYrmhVMDUSaApL2ww11Y2u1Kq7WqAnuzAq54mdd1GeYrhnmnf7wxyhSB+zhwugI9MC3t4ob5ptq5zq2oZ9vaiTzV7XKjpTfitUHmeJFXWJLjnqg==
+ b=dXgvsSz1yyhuFRReXAXfaRG5GSIGc0dUdWC/JswCPTH7ihUmFK+Qr0+bYz7GbfQreboZ0+kn+itGcL0rpLHZ111+CW9JhdqTaV6wpzXoXEPp8patmuia5OA05fnneg1OxzWYZL1jky87lN8yjPPLe6UjyKId1MDmttuFscrsOy/e26x4DzmirsNJMi699Y7pleDu/gOGfaKfyhMnAO8OxVG4HEEPf3grwEUoYOE9iTsOMuAOs5DpBSM3mHaNzgG0eq2rLSW3QGEEwx/0D+SDlYeZnvYGuJ5UQGiLcPeCm21l2DrtKEFdYmpMKqJT6o+OA0QRLzyKYD4RTUpiyW0QZA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=3bWxLUdGAjj09r/COm/SLU7TOyiSNlBAAE1GHBIt/q8=;
- b=UEPqFC1H8pCmO/hx+Wt1LhDwKxx4DhvSO51yK3fMPioo9IYRDClcCgooYJWu8IvBH6swUpb4NR6W+LPEa4GMGjoEEFVlG1WEyReeQHZve3r0wbT6QiVYdcZdPWB24r6+nTnnKceAUE1LPgJVV5F8sayE3zVNbyH+IIIW9XwUotc2YkC15NWQZUcdDY/N3eomiHDPiaQcxMoGqVvBSt84saVLBPEhOLt9MYr9r3mo7opo2+gxA1Q+xqEMPNsk3ItcLBjCwQjgl5DR8fDD4+GM98PSdTfmVTjNl6ThrKS42+eJwiM4B9I17Z56O+az8szGqSM1CgneXSVsVi96k4zMfg==
+ bh=WXZhhBwANg6NfwmStrCig2aBZSagQ2lvLVTxPfk/4HU=;
+ b=YQXbrPjmvARe1ReLfJ2RAinpqJrZGWuk1h9bXyNroUjtbtx3m3QTEyD316+lpbrrjOpP0M9UzetX8AzBVR2xz5Ak0AsNaJhagxs4HKF6f7MAjL1fsboU7eOf2ifBvAxr6ZubSpU1MSlDyUouwhoXk7OdnO9vso6aIvFJRIh51928f7Q6T4sAjaCVy8y1fqGAeWOnXreEtVvjeSAyKslh6wExC/Sbd2V4TGDh7obtBeSVmKBMQT4PJe9dWeP8azlN6tvhb70C9XzPdkWV9OJE5HZb7fmjG55HrxwFTO7W+76F4nc1q3WMSNEPhUDuSpEnWNp8wqttticCEe2GzTTnlg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
  dkim=pass header.d=nvidia.com; arc=none
 Received: from DM6PR12MB3834.namprd12.prod.outlook.com (2603:10b6:5:14a::12)
- by DM6PR12MB3516.namprd12.prod.outlook.com (2603:10b6:5:18b::16) with
+ by DM6PR12MB4498.namprd12.prod.outlook.com (2603:10b6:5:2a2::17) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3433.37; Thu, 1 Oct
- 2020 11:46:10 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3433.32; Thu, 1 Oct
+ 2020 11:58:49 +0000
 Received: from DM6PR12MB3834.namprd12.prod.outlook.com
  ([fe80::cdbe:f274:ad65:9a78]) by DM6PR12MB3834.namprd12.prod.outlook.com
  ([fe80::cdbe:f274:ad65:9a78%7]) with mapi id 15.20.3433.032; Thu, 1 Oct 2020
- 11:46:10 +0000
-Date: Thu, 1 Oct 2020 08:46:08 -0300
+ 11:58:49 +0000
+Date: Thu, 1 Oct 2020 08:58:47 -0300
 From: Jason Gunthorpe <jgg@nvidia.com>
 To: Greg KH <gregkh@linuxfoundation.org>
 Subject: Re: [PATCH 1/6] Add ancillary bus support
-Message-ID: <20201001114608.GX816047@nvidia.com>
+Message-ID: <20201001115847.GY816047@nvidia.com>
 References: <20200930225051.889607-1-david.m.ertman@intel.com>
  <20200930225051.889607-2-david.m.ertman@intel.com>
- <20201001110120.GB1939744@kroah.com>
+ <20201001110551.GD1939744@kroah.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Disposition: inline
-In-Reply-To: <20201001110120.GB1939744@kroah.com>
-X-ClientProxiedBy: BL0PR02CA0019.namprd02.prod.outlook.com
- (2603:10b6:207:3c::32) To DM6PR12MB3834.namprd12.prod.outlook.com
+In-Reply-To: <20201001110551.GD1939744@kroah.com>
+X-ClientProxiedBy: BL1PR13CA0164.namprd13.prod.outlook.com
+ (2603:10b6:208:2bd::19) To DM6PR12MB3834.namprd12.prod.outlook.com
  (2603:10b6:5:14a::12)
 MIME-Version: 1.0
 X-MS-Exchange-MessageSentRepresentingType: 1
 Received: from mlx.ziepe.ca (156.34.48.30) by
- BL0PR02CA0019.namprd02.prod.outlook.com (2603:10b6:207:3c::32) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.3433.32 via Frontend Transport; Thu, 1 Oct 2020 11:46:09 +0000
+ BL1PR13CA0164.namprd13.prod.outlook.com (2603:10b6:208:2bd::19) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3412.22 via Frontend
+ Transport; Thu, 1 Oct 2020 11:58:48 +0000
 Received: from jgg by mlx with local (Exim 4.94)	(envelope-from
- <jgg@nvidia.com>)	id 1kNx2G-004ci4-GP; Thu, 01 Oct 2020 08:46:08 -0300
+ <jgg@nvidia.com>)	id 1kNxEV-004cvW-C8; Thu, 01 Oct 2020 08:58:47 -0300
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nvidia.com; s=n1;
- t=1601552778; bh=3bWxLUdGAjj09r/COm/SLU7TOyiSNlBAAE1GHBIt/q8=;
+ t=1601553429; bh=WXZhhBwANg6NfwmStrCig2aBZSagQ2lvLVTxPfk/4HU=;
  h=ARC-Seal:ARC-Message-Signature:ARC-Authentication-Results:Date:
  From:To:CC:Subject:Message-ID:References:Content-Type:
  Content-Disposition:In-Reply-To:X-ClientProxiedBy:MIME-Version:
  X-MS-Exchange-MessageSentRepresentingType;
- b=AXVQZrQcFXDPfKvGhdkK+QsP9OeXPnhiHMwiMTg2X0Vr1gpBLt+015fxe4Tm3OjvO
- kmM0h37V7jcXkwfL5FeOSA21LRhH9NRiz5NVxQh5FZM6yhlv/CzA13HKuBFM5yzExm
- 7zbNS2iL3pZIbPNdX6zM3APZRefCqSu43xBbI2XM8dE+arMjN9Fp2FkK0oCiA9/66Q
- BJdNFgps4aXlueUvObKRE0tk/8uNMkK90CRMOx9Obn/pXVlf5QYtx95BY+hAIgPggy
- Vh9fDvtbCsbfdGSsi8INNRlDqBWgQJFwzJ4Y8CA1a/hscUQ4eni/bjlx6/bcCuM3zs
- 9PG3Se3ncBZ4Q==
+ b=C+aq7iTfePIxHQUzkAnGM0j7+cj8VDuLLGugNNOJdgyhDN7E6lD93A8/fVWm44qnv
+ FEAYQGS3U4JsXoDpMO7m+rmlnQQymdt9XodY4jei//W10TKyGLTk85poa6iLrR7tUJ
+ J9RlQZxjJmNVKLNakcdv90AFgbzSwjC/qWvH8DEdZe9FYoPW2s3Pk3kBinaW5PuDli
+ urL+P9mLTNP56I7+bxQ3dslDgiWL1ooLh5TBTUn4V/iz60argpK/w3a6bzhuFcrP3k
+ xok+2K4P0RgQj213UrGXvR1fkhK1p5TDG1JKNO9hRHRyBwdEzabXzhHsbKYxUSqwcn
+ 9edPBor7ypnWA==
 X-Mailman-Approved-At: Thu, 01 Oct 2020 15:40:08 +0200
 Cc: alsa-devel@alsa-project.org, Kiran Patil <kiran.patil@intel.com>,
  tiwai@suse.de, ranjani.sridharan@intel.com,
@@ -126,33 +129,15 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Thu, Oct 01, 2020 at 01:01:20PM +0200, Greg KH wrote:
-> On Wed, Sep 30, 2020 at 03:50:46PM -0700, Dave Ertman wrote:
-> > +int ancillary_device_initialize(struct ancillary_device *ancildev)
-> > +{
-> > +	struct device *dev = &ancildev->dev;
-> > +
-> > +	dev->bus = &ancillary_bus_type;
-> > +
-> > +	if (WARN_ON(!dev->parent) || WARN_ON(!ancildev->name) ||
-> > +	    WARN_ON(!(dev->type && dev->type->release) && !dev->release))
-> > +		return -EINVAL;
-> 
-> You have a lot of WARN_ON() calls in this patch.  That blows up anyone
-> who runs with panic-on-warn, right?
+On Thu, Oct 01, 2020 at 01:05:51PM +0200, Greg KH wrote:
+ 
+> You have to be _VERY_ careful after calling
+> ancillary_device_initialize(), as now you can not just free up the
+> memory if something goes wrong before ancillary_device_add() is called,
+> right?
 
-AFAIK this is the standard pattern to code a "can't happen"
-assertion. Linus has been clear not to use BUG_ON, but to try and
-recover. The WARN_ON directly points to the faulty driver so it can be
-fixed. 
-
-panic-on-warn is a good thing because it causes fuzzers to report a
-"can't happen" condition as a failure.
-
-In a real production system if any of these trigger it means the
-kernel has detected an internal integrity problem (corrupted memory,
-code, ROP attempt, etc). People using panic-on-warn absolutely want
-their kernel to stop of it is not functioning properly to protect
-data-integrity.
+I've looked at way too many versions of this patch and related. This
+is the only one so far that I didn't find various bugs on the error
+cases.
 
 Jason

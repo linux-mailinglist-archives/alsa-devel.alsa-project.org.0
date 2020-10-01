@@ -2,78 +2,75 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A31AD27FD85
-	for <lists+alsa-devel@lfdr.de>; Thu,  1 Oct 2020 12:37:59 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4F91D27FDF8
+	for <lists+alsa-devel@lfdr.de>; Thu,  1 Oct 2020 13:01:17 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B34101817;
-	Thu,  1 Oct 2020 12:37:08 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B34101817
+	by alsa0.perex.cz (Postfix) with ESMTPS id CE472168D;
+	Thu,  1 Oct 2020 13:00:26 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CE472168D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1601548678;
-	bh=ewFY7O6DbqdErsFVkxZ7UW2BHGUEWRBqZ/rbJc1c+qg=;
+	s=default; t=1601550076;
+	bh=eenR6WOEsdGEyYYJ1uo5sv+fXHWPX+NcnxG4BbWP3yM=;
 	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=Dm80IogDWZCBQmpC4Jc2TFZUVNu3gurEaeNW2pi1PFwC8Hn5EaPVdpi7JNGBnn0OZ
-	 UPEl1sPZkpB7Q91CIPiSeUQXIKhlvd7RRAZCIM6C5OWq90N3ABg65Zd/JH2/ePVkN6
-	 ngVuIduZodeb7U8HHLsh8Na2431+NeovrlY0Kr00=
+	b=qTukIZW3U/AjqCrJ4Le7UwcKpwv3g+YWVs2y0lhXa0r7JgMbSwOkdJCylk9Lg8dMR
+	 3/bzk9eLX/njXajE1wiIkU6rbZZ09ylw2LbaH0yFDCywuVROr1GgY66NF8TDPDzRSj
+	 XzXANjltxN7qMSiHot+TjuEkeuSegyNII8m3OaGY=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id DF776F800AB;
-	Thu,  1 Oct 2020 12:36:17 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id F356FF800AB;
+	Thu,  1 Oct 2020 12:59:35 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 4C80BF801F5; Thu,  1 Oct 2020 12:36:15 +0200 (CEST)
+ id 90977F801F5; Thu,  1 Oct 2020 12:59:33 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.6 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled
- version=3.4.0
+X-Spam-Status: No, score=-0.5 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+ DKIM_VALID,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 33204F800AB
- for <alsa-devel@alsa-project.org>; Thu,  1 Oct 2020 12:36:04 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 33204F800AB
+ by alsa1.perex.cz (Postfix) with ESMTPS id 5D8E3F801D8
+ for <alsa-devel@alsa-project.org>; Thu,  1 Oct 2020 12:59:26 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5D8E3F801D8
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="LdxUUxgG"
-Received: from localhost (unknown [122.167.37.56])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id C181B20796;
- Thu,  1 Oct 2020 10:36:01 +0000 (UTC)
+ header.b="PgT4DfVs"
+Received: from localhost (83-86-74-64.cable.dynamic.v4.ziggo.nl [83.86.74.64])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
+ bits)) (No client certificate requested)
+ by mail.kernel.org (Postfix) with ESMTPSA id C0B94207DE;
+ Thu,  1 Oct 2020 10:59:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1601548562;
- bh=ewFY7O6DbqdErsFVkxZ7UW2BHGUEWRBqZ/rbJc1c+qg=;
+ s=default; t=1601549964;
+ bh=eenR6WOEsdGEyYYJ1uo5sv+fXHWPX+NcnxG4BbWP3yM=;
  h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=LdxUUxgGEYOvXW8zS8/4hUkJbMZBie2fIPUa5mEmHIxrLivocor+tdwIzp8qJeZVE
- Ihkow5DhEfH1IlJHwUEaKIYoAyFWGAYuetD2GEGxdA29RJOFYJaaSylVi5iBJHMwxa
- bTaKJh208W6rVXlWX1xf9FoXYfapbJK1+GyRP6V8=
-Date: Thu, 1 Oct 2020 16:05:58 +0530
-From: Vinod Koul <vkoul@kernel.org>
-To: Takashi Iwai <tiwai@suse.de>
-Subject: Re: [PATCH] ALSA: compress: allow pause and resume during draining
-Message-ID: <20201001103558.GV2968@vkoul-mobl>
-References: <CGME20200928105009epcas2p4a65d50d9d09800281395a490d1844ef3@epcas2p4.samsung.com>
- <000c01d69585$228db6b0$67a92410$@samsung.com>
- <7ba714ce-8b33-1b64-7503-6b155bf43909@perex.cz>
- <eaa35431-01f4-f858-0673-cc3b4ddf1c5a@linux.intel.com>
- <000f01d69603$10573fb0$3105bf10$@samsung.com>
- <s5ho8lpkqdv.wl-tiwai@suse.de>
- <e0c15222-6604-6c59-0d29-575337f7b58b@perex.cz>
- <s5h7dsbip4i.wl-tiwai@suse.de>
+ b=PgT4DfVsQqVTCHYv0DSYfX6Q+8RnntocZwsMEnyhIdLmtrhxbxoW0eEgx0pLtVRq9
+ q91Nbw7l5aegRnKpv/CVwrZYG7HfaKrp2CKotMJA7dYAdOgao4cAMMzarfzOM8MBpE
+ PE6P1i903Fw5UJ6HkPzrsIrekejHED/naKEZbLVk=
+Date: Thu, 1 Oct 2020 12:59:25 +0200
+From: "gregkh@linuxfoundation.org" <gregkh@linuxfoundation.org>
+To: "Rojewski, Cezary" <cezary.rojewski@intel.com>
+Subject: Re: [PATCH 0/6] Ancillary bus implementation and SOF multi-client
+ support
+Message-ID: <20201001105925.GA1939744@kroah.com>
+References: <20200930225051.889607-1-david.m.ertman@intel.com>
+ <8f34ae733db0447d93736f4f3f7524f9@intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <s5h7dsbip4i.wl-tiwai@suse.de>
-Cc: alsa-devel@alsa-project.org, khw0178.kim@samsung.com, lgirdwood@gmail.com,
- kimty@samsung.com, tiwai@suse.com,
- 'Pierre-Louis Bossart' <pierre-louis.bossart@linux.intel.com>,
- s47.kang@samsung.com, hmseo@samsung.com, Gyeongtaek Lee <gt82.lee@samsung.com>,
- pilsun.jang@samsung.com, tkjung@samsung.com
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <8f34ae733db0447d93736f4f3f7524f9@intel.com>
+Cc: "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
+ "tiwai@suse.de" <tiwai@suse.de>, "Sridharan,
+ Ranjani" <ranjani.sridharan@intel.com>,
+ "pierre-louis.bossart@linux.intel.com" <pierre-louis.bossart@linux.intel.com>,
+ "broonie@kernel.org" <broonie@kernel.org>,
+ "parav@nvidia.com" <parav@nvidia.com>, "jgg@nvidia.com" <jgg@nvidia.com>,
+ "Ertman, David M" <david.m.ertman@intel.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -89,25 +86,74 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 30-09-20, 11:35, Takashi Iwai wrote:
-> On Tue, 29 Sep 2020 19:27:17 +0200,
-> Jaroslav Kysela wrote:
-> > BTW: Offtopic - Why compress code returns EPERM if the state is not correct?
-> > It's not about the permissions. The EBADFD is much better code in this case.
+On Thu, Oct 01, 2020 at 10:05:13AM +0000, Rojewski, Cezary wrote:
+> On 2020-10-01 12:50 AM, Dave Ertman wrote:
+> > Brief history of Ancillary Bus
+> > ==============================
+> > The ancillary bus code was originally submitted upstream as virtual
+> > bus, and was submitted through the netdev tree.  This process generated
+> > up to v4.  This discussion can be found here:
+> >   https://lore.kernel.org/netdev/0200520070227.3392100-2-jeffrey.t.kirsher@intel.com/T/#u
+> > 
+> > At this point, GregKH requested that we take the review and revision
+> > process to an internal mailing list and garner the buy-in of a respected
+> > kernel contributor.
+> > 
+> > The ancillary bus (then known as virtual bus) was originally submitted
+> > along with implementation code for the ice driver and irdma drive,
+> > causing the complication of also having dependencies in the rdma tree.
+> > This new submission is utilizing an ancillary bus consumer in only the
+> > sound driver tree to create the initial implementation and a single
+> > user.
+> > 
+> > Since implementation work has started on this patch set, there have been
+> > multiple inquiries about the time frame of its completion.  It appears
+> > that there will be numerous consumers of this functionality.
+> > 
+> > The process of internal review and implementation using the sound
+> > drivers generated 19 internal versions.  The changes, including the name
+> > change from virtual bus to ancillary bus, from these versions can be
+> > summarized as the following:
+> > 
+> > - Fixed compilation and checkpatch errors
+> > - Improved documentation to address the motivation for virtual bus.
+> > - Renamed virtual bus to ancillary bus
+> > - increased maximum device name size
+> > - Correct order in Kconfig and Makefile
+> > - removed the mid-layer adev->release layer for device unregister
+> > - pushed adev->id management to parent driver
+> > - all error paths out of ancillary_device_register return error code
+> > - all error paths out of ancillary_device_register use put_device
+> > - added adev->name element
+> > - modname in register cannot be NULL
+> > - added KBUILD_MODNAME as prefix for match_name
+> > - push adev->id responsibility to registering driver
+> > - uevent now parses adev->dev name
+> > - match_id function now parses adev->dev name
+> > - changed drivers probe function to also take an ancillary_device_id param
+> > - split ancillary_device_register into device_initialize and device_add
+> > - adjusted what is done in device_initialize and device_add
+> > - change adev to ancildev and adrv to ancildrv
+> > - change adev to ancildev in documentation
+> > 
+> > This submission is the first time that this patch set will be sent to
+> > the alsa-devel mailing list, so it is currently being submitted as
+> > version 1.
+> > 
+> 
+> Given the description and number of possible users, one could safely
+> say: usage is assured. So, why not submit this bus as a standalone
+> patch? Isn't it better to first have a stable, complete version present
+> in Linus' tree and only then append the usage?
 
-That would be me ;-)
+Because I want to see patches that actually _use_ the new code.  So far
+the previous versions of this implementation have not shown how all of
+the code will be used, making it impossible to review to see if it fits
+the needs of people.
 
-> Indeed that sounds inconsistent, but I'm afraid it too late to change?
-> Suppose some code already depending on the error code.  Who knows...
+We don't add infrastructure without users.  And the normal rule of thumb
+of "if we have 3 users, then it is a semi-sane api" really applies here.
 
-The probability of that seems lesser ;D ... There are no public upstream
-users who would care about this. Only public use is QC dragon board and
-we use tinyplay, which does not care.
+thanks,
 
-Downstream Android HAL would care but chances of them looking at this
-error code are less (i will check with Qualcomm HAL to see)...
-
-Should we try fixing it?
-
--- 
-~Vinod
+greg k-h

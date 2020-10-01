@@ -2,91 +2,73 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 694A327FCD0
-	for <lists+alsa-devel@lfdr.de>; Thu,  1 Oct 2020 12:07:20 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4216C27FD52
+	for <lists+alsa-devel@lfdr.de>; Thu,  1 Oct 2020 12:31:41 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C3D571804;
-	Thu,  1 Oct 2020 12:06:29 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C3D571804
+	by alsa0.perex.cz (Postfix) with ESMTPS id F15A41817;
+	Thu,  1 Oct 2020 12:30:49 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz F15A41817
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1601546839;
-	bh=6WXjshtSMkbd8lRAij7Js+Q3sAcTAGUmW3p28KrPFME=;
-	h=From:To:Subject:Date:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1601548300;
+	bh=wshWGqaiqX88c/HEsMw/nUKQPigEuotjJNjjNz7MH04=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=kl8N2TkTkgAwekN57vNojn6+0f2VwJV6JOYYBREWpcdHcUuO1h1hsK3YKjqsneWQw
-	 JDwcaHu09s3i7RwfImtbvw6wRSPCwltQjmwXIQXfs6xH93Z6hz2t4OtRB1T3879Z+J
-	 JNPxGX5asl2xtA3i791Mcg5oSI+MW50EgdSyLxnQ=
+	b=MYGxaouNCswiu5jvAMiYqTsdDyPS34jXL+yy0pK7Bn1Z1HUULGONOggdPqgP8rkUn
+	 rYFPmK8c8khXUDGNNJ+NSwxD7Ul1IDkIghi8iEDSlnd/e+/UXnyz6cd0V85REzIFbQ
+	 XqKRHJWvxB+gzdkiNtoGsyVw5Q8oXMTI47J3hO2M=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id C770BF80105;
-	Thu,  1 Oct 2020 12:05:38 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 27795F8020C;
+	Thu,  1 Oct 2020 12:29:59 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 4F2A8F801F5; Thu,  1 Oct 2020 12:05:36 +0200 (CEST)
+ id 9742AF801F5; Thu,  1 Oct 2020 12:29:54 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS
- autolearn=disabled version=3.4.0
-Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
+X-Spam-Status: No, score=-0.6 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+ DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled
+ version=3.4.0
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 597CDF801D8
+ for <alsa-devel@alsa-project.org>; Thu,  1 Oct 2020 12:29:45 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 597CDF801D8
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="f700ps1U"
+Received: from localhost (unknown [122.167.37.56])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 2F1DFF80105
- for <alsa-devel@alsa-project.org>; Thu,  1 Oct 2020 12:05:20 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2F1DFF80105
-IronPort-SDR: mpqARpQsKkuKWPPkX4tD+7CnxCQNRa5+XhfwsHzAo1jgCSmsuo24eYPWc5PdvlXZl6KWhfn1tR
- SlY1OnVGiZlw==
-X-IronPort-AV: E=McAfee;i="6000,8403,9760"; a="150475108"
-X-IronPort-AV: E=Sophos;i="5.77,323,1596524400"; d="scan'208";a="150475108"
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from orsmga004.jf.intel.com ([10.7.209.38])
- by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 01 Oct 2020 03:05:16 -0700
-IronPort-SDR: ag3sCVjuLz11lKzJSnowcbKodyHTYdHf/6Q9XdiVlwf43Xkgr7c76crW/BuRxU7EoKlODl53F9
- DNcQ7UoVhAlw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.77,323,1596524400"; d="scan'208";a="458060173"
-Received: from irsmsx602.ger.corp.intel.com ([163.33.146.8])
- by orsmga004.jf.intel.com with ESMTP; 01 Oct 2020 03:05:14 -0700
-Received: from irsmsx601.ger.corp.intel.com (163.33.146.7) by
- irsmsx602.ger.corp.intel.com (163.33.146.8) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.1713.5; Thu, 1 Oct 2020 11:05:13 +0100
-Received: from irsmsx601.ger.corp.intel.com ([163.33.146.7]) by
- irsmsx601.ger.corp.intel.com ([163.33.146.7]) with mapi id 15.01.1713.004;
- Thu, 1 Oct 2020 11:05:13 +0100
-From: "Rojewski, Cezary" <cezary.rojewski@intel.com>
-To: "Ertman, David M" <david.m.ertman@intel.com>,
- "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>
-Subject: RE: [PATCH 0/6] Ancillary bus implementation and SOF multi-client
- support
-Thread-Topic: [PATCH 0/6] Ancillary bus implementation and SOF multi-client
- support
-Thread-Index: AQHWl3yerWanNFdKkEqDGy6MMnYs+amChDtQ
-Date: Thu, 1 Oct 2020 10:05:13 +0000
-Message-ID: <8f34ae733db0447d93736f4f3f7524f9@intel.com>
-References: <20200930225051.889607-1-david.m.ertman@intel.com>
-In-Reply-To: <20200930225051.889607-1-david.m.ertman@intel.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-dlp-product: dlpe-windows
-dlp-reaction: no-action
-dlp-version: 11.5.1.3
-x-originating-ip: [163.33.253.164]
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+ by mail.kernel.org (Postfix) with ESMTPSA id 2F88B2085B;
+ Thu,  1 Oct 2020 10:29:41 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=default; t=1601548183;
+ bh=wshWGqaiqX88c/HEsMw/nUKQPigEuotjJNjjNz7MH04=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=f700ps1UcRhQ3qDyg69tAro+wyQTf5I01MNvRx4zNTCCN/r+nybkRbuNXJ54DdBOR
+ c38cJTP+Vwc+XkdEouItEhrb42k1b6jTaZbtX66+DrjNmmHyJJltCk6GVUwl8mOK/4
+ sFT3RDTqB+B88wiYZpeFFc1s7V+MC9PpNU85wTPs=
+Date: Thu, 1 Oct 2020 15:59:38 +0530
+From: Vinod Koul <vkoul@kernel.org>
+To: Takashi Iwai <tiwai@suse.de>
+Subject: Re: [PATCH] ALSA: compress: allow pause and resume during draining
+Message-ID: <20201001102938.GU2968@vkoul-mobl>
+References: <CGME20200929084051epcas2p35fb2228ed1bdfce6a7ddf5b37c944823@epcas2p3.samsung.com>
+ <000001d6963c$3cc53690$b64fa3b0$@samsung.com>
+ <s5heemlklo0.wl-tiwai@suse.de>
 MIME-Version: 1.0
-Cc: "tiwai@suse.de" <tiwai@suse.de>,
- "gregkh@linuxfoundation.org" <gregkh@linuxfoundation.org>, "Sridharan,
- Ranjani" <ranjani.sridharan@intel.com>,
- "pierre-louis.bossart@linux.intel.com" <pierre-louis.bossart@linux.intel.com>,
- "broonie@kernel.org" <broonie@kernel.org>,
- "parav@nvidia.com" <parav@nvidia.com>, "jgg@nvidia.com" <jgg@nvidia.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <s5heemlklo0.wl-tiwai@suse.de>
+Cc: 'Pierre-Louis Bossart' <pierre-louis.bossart@linux.intel.com>,
+ alsa-devel@alsa-project.org, khw0178.kim@samsung.com, kimty@samsung.com,
+ s47.kang@samsung.com, lgirdwood@gmail.com, tiwai@suse.com, hmseo@samsung.com,
+ Gyeongtaek Lee <gt82.lee@samsung.com>, pilsun.jang@samsung.com,
+ tkjung@samsung.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -102,95 +84,82 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-T24gMjAyMC0xMC0wMSAxMjo1MCBBTSwgRGF2ZSBFcnRtYW4gd3JvdGU6DQo+IEJyaWVmIGhpc3Rv
-cnkgb2YgQW5jaWxsYXJ5IEJ1cw0KPiA9PT09PT09PT09PT09PT09PT09PT09PT09PT09PT0NCj4g
-VGhlIGFuY2lsbGFyeSBidXMgY29kZSB3YXMgb3JpZ2luYWxseSBzdWJtaXR0ZWQgdXBzdHJlYW0g
-YXMgdmlydHVhbA0KPiBidXMsIGFuZCB3YXMgc3VibWl0dGVkIHRocm91Z2ggdGhlIG5ldGRldiB0
-cmVlLiDigK9UaGlzIHByb2Nlc3MgZ2VuZXJhdGVkDQo+IHVwIHRvIHY0LiDigK9UaGlzIGRpc2N1
-c3Npb24gY2FuIGJlIGZvdW5kIGhlcmU6DQo+ICAgaHR0cHM6Ly9sb3JlLmtlcm5lbC5vcmcvbmV0
-ZGV2LzAyMDA1MjAwNzAyMjcuMzM5MjEwMC0yLWplZmZyZXkudC5raXJzaGVyQGludGVsLmNvbS9U
-LyN1DQo+IA0KPiBBdCB0aGlzIHBvaW50LCBHcmVnS0ggcmVxdWVzdGVkIHRoYXQgd2UgdGFrZSB0
-aGUgcmV2aWV3IGFuZCByZXZpc2lvbg0KPiBwcm9jZXNzIHRvIGFuIGludGVybmFsIG1haWxpbmcg
-bGlzdCBhbmQgZ2FybmVyIHRoZSBidXktaW4gb2YgYSByZXNwZWN0ZWQNCj4ga2VybmVsIGNvbnRy
-aWJ1dG9yLg0KPiANCj4gVGhlIGFuY2lsbGFyeSBidXMgKHRoZW4ga25vd24gYXMgdmlydHVhbCBi
-dXMpIHdhcyBvcmlnaW5hbGx5IHN1Ym1pdHRlZA0KPiBhbG9uZyB3aXRoIGltcGxlbWVudGF0aW9u
-IGNvZGUgZm9yIHRoZSBpY2UgZHJpdmVyIGFuZCBpcmRtYSBkcml2ZSwNCj4gY2F1c2luZyB0aGUg
-Y29tcGxpY2F0aW9uIG9mIGFsc28gaGF2aW5nIGRlcGVuZGVuY2llcyBpbiB0aGUgcmRtYSB0cmVl
-Lg0KPiBUaGlzIG5ldyBzdWJtaXNzaW9uIGlzIHV0aWxpemluZyBhbiBhbmNpbGxhcnkgYnVzIGNv
-bnN1bWVyIGluIG9ubHkgdGhlDQo+IHNvdW5kIGRyaXZlciB0cmVlIHRvIGNyZWF0ZSB0aGUgaW5p
-dGlhbCBpbXBsZW1lbnRhdGlvbiBhbmQgYSBzaW5nbGUNCj4gdXNlci4NCj4gDQo+IFNpbmNlIGlt
-cGxlbWVudGF0aW9uIHdvcmsgaGFzIHN0YXJ0ZWQgb24gdGhpcyBwYXRjaCBzZXQsIHRoZXJlIGhh
-dmUgYmVlbg0KPiBtdWx0aXBsZSBpbnF1aXJpZXMgYWJvdXQgdGhlIHRpbWUgZnJhbWUgb2YgaXRz
-IGNvbXBsZXRpb24uICBJdCBhcHBlYXJzDQo+IHRoYXQgdGhlcmUgd2lsbCBiZSBudW1lcm91cyBj
-b25zdW1lcnMgb2YgdGhpcyBmdW5jdGlvbmFsaXR5Lg0KPiANCj4gVGhlIHByb2Nlc3Mgb2YgaW50
-ZXJuYWwgcmV2aWV3IGFuZCBpbXBsZW1lbnRhdGlvbiB1c2luZyB0aGUgc291bmQNCj4gZHJpdmVy
-cyBnZW5lcmF0ZWQgMTkgaW50ZXJuYWwgdmVyc2lvbnMuIOKAr1RoZSBjaGFuZ2VzLCBpbmNsdWRp
-bmcgdGhlIG5hbWUNCj4gY2hhbmdlIGZyb20gdmlydHVhbCBidXMgdG8gYW5jaWxsYXJ5IGJ1cywg
-ZnJvbSB0aGVzZSB2ZXJzaW9ucyBjYW4gYmUNCj4gc3VtbWFyaXplZCBhcyB0aGUgZm9sbG93aW5n
-Og0KPiANCj4gLSBGaXhlZCBjb21waWxhdGlvbiBhbmQgY2hlY2twYXRjaCBlcnJvcnMNCj4gLSBJ
-bXByb3ZlZCBkb2N1bWVudGF0aW9uIHRvIGFkZHJlc3MgdGhlIG1vdGl2YXRpb24gZm9yIHZpcnR1
-YWwgYnVzLg0KPiAtIFJlbmFtZWQgdmlydHVhbCBidXMgdG8gYW5jaWxsYXJ5IGJ1cw0KPiAtIGlu
-Y3JlYXNlZCBtYXhpbXVtIGRldmljZSBuYW1lIHNpemUNCj4gLSBDb3JyZWN0IG9yZGVyIGluIEtj
-b25maWcgYW5kIE1ha2VmaWxlDQo+IC0gcmVtb3ZlZCB0aGUgbWlkLWxheWVyIGFkZXYtPnJlbGVh
-c2UgbGF5ZXIgZm9yIGRldmljZSB1bnJlZ2lzdGVyDQo+IC0gcHVzaGVkIGFkZXYtPmlkIG1hbmFn
-ZW1lbnQgdG8gcGFyZW50IGRyaXZlcg0KPiAtIGFsbCBlcnJvciBwYXRocyBvdXQgb2YgYW5jaWxs
-YXJ5X2RldmljZV9yZWdpc3RlciByZXR1cm4gZXJyb3IgY29kZQ0KPiAtIGFsbCBlcnJvciBwYXRo
-cyBvdXQgb2YgYW5jaWxsYXJ5X2RldmljZV9yZWdpc3RlciB1c2UgcHV0X2RldmljZQ0KPiAtIGFk
-ZGVkIGFkZXYtPm5hbWUgZWxlbWVudA0KPiAtIG1vZG5hbWUgaW4gcmVnaXN0ZXIgY2Fubm90IGJl
-IE5VTEwNCj4gLSBhZGRlZCBLQlVJTERfTU9ETkFNRSBhcyBwcmVmaXggZm9yIG1hdGNoX25hbWUN
-Cj4gLSBwdXNoIGFkZXYtPmlkIHJlc3BvbnNpYmlsaXR5IHRvIHJlZ2lzdGVyaW5nIGRyaXZlcg0K
-PiAtIHVldmVudCBub3cgcGFyc2VzIGFkZXYtPmRldiBuYW1lDQo+IC0gbWF0Y2hfaWQgZnVuY3Rp
-b24gbm93IHBhcnNlcyBhZGV2LT5kZXYgbmFtZQ0KPiAtIGNoYW5nZWQgZHJpdmVycyBwcm9iZSBm
-dW5jdGlvbiB0byBhbHNvIHRha2UgYW4gYW5jaWxsYXJ5X2RldmljZV9pZCBwYXJhbQ0KPiAtIHNw
-bGl0IGFuY2lsbGFyeV9kZXZpY2VfcmVnaXN0ZXIgaW50byBkZXZpY2VfaW5pdGlhbGl6ZSBhbmQg
-ZGV2aWNlX2FkZA0KPiAtIGFkanVzdGVkIHdoYXQgaXMgZG9uZSBpbiBkZXZpY2VfaW5pdGlhbGl6
-ZSBhbmQgZGV2aWNlX2FkZA0KPiAtIGNoYW5nZSBhZGV2IHRvIGFuY2lsZGV2IGFuZCBhZHJ2IHRv
-IGFuY2lsZHJ2DQo+IC0gY2hhbmdlIGFkZXYgdG8gYW5jaWxkZXYgaW4gZG9jdW1lbnRhdGlvbg0K
-PiANCj4gVGhpcyBzdWJtaXNzaW9uIGlzIHRoZSBmaXJzdCB0aW1lIHRoYXQgdGhpcyBwYXRjaCBz
-ZXQgd2lsbCBiZSBzZW50IHRvDQo+IHRoZSBhbHNhLWRldmVsIG1haWxpbmcgbGlzdCwgc28gaXQg
-aXMgY3VycmVudGx5IGJlaW5nIHN1Ym1pdHRlZCBhcw0KPiB2ZXJzaW9uIDEuDQo+IA0KDQpHaXZl
-biB0aGUgZGVzY3JpcHRpb24gYW5kIG51bWJlciBvZiBwb3NzaWJsZSB1c2Vycywgb25lIGNvdWxk
-IHNhZmVseQ0Kc2F5OiB1c2FnZSBpcyBhc3N1cmVkLiBTbywgd2h5IG5vdCBzdWJtaXQgdGhpcyBi
-dXMgYXMgYSBzdGFuZGFsb25lDQpwYXRjaD8gSXNuJ3QgaXQgYmV0dGVyIHRvIGZpcnN0IGhhdmUg
-YSBzdGFibGUsIGNvbXBsZXRlIHZlcnNpb24gcHJlc2VudA0KaW4gTGludXMnIHRyZWUgYW5kIG9u
-bHkgdGhlbiBhcHBlbmQgdGhlIHVzYWdlPw0KDQpBbGwgb3RoZXIgcGF0Y2hlcyB0YXJnZXQgQVNv
-QyBTT0Ygc29sdXRpb24gZGlyZWN0bHkgd2hpbGUgYXMgc3RhdGVkIGluDQp0aGUgY29tbWl0J3Mg
-bWVzc2FnZSwgdGhpcyBpc24ndCBTT0Ygc3BlY2lmaWMgLSBzZWUgdGhlIGRlbHRhIHByb3ZpZGVk
-DQphdCB0aGUgYm90dG9tIG9mIGNvdmVyLWxldHRlciBhbmQgYSB3aWRlIHJhbmdlIG9mIFNPRiBm
-aWxlcyBpdCB0b3VjaGVzLg0KDQpDemFyZWsNCg0KDQo+ICAgRG9jdW1lbnRhdGlvbi9kcml2ZXIt
-YXBpL2FuY2lsbGFyeV9idXMucnN0IHwgMjMwICsrKysrKysrKysrKysrKw0KPiAgIERvY3VtZW50
-YXRpb24vZHJpdmVyLWFwaS9pbmRleC5yc3QgICAgICAgICB8ICAgMSArDQo+ICAgZHJpdmVycy9i
-dXMvS2NvbmZpZyAgICAgICAgICAgICAgICAgICAgICAgIHwgICAzICsNCj4gICBkcml2ZXJzL2J1
-cy9NYWtlZmlsZSAgICAgICAgICAgICAgICAgICAgICAgfCAgIDMgKw0KPiAgIGRyaXZlcnMvYnVz
-L2FuY2lsbGFyeS5jICAgICAgICAgICAgICAgICAgICB8IDE5MSArKysrKysrKysrKysrDQo+ICAg
-aW5jbHVkZS9saW51eC9hbmNpbGxhcnlfYnVzLmggICAgICAgICAgICAgIHwgIDU4ICsrKysNCj4g
-ICBpbmNsdWRlL2xpbnV4L21vZF9kZXZpY2V0YWJsZS5oICAgICAgICAgICAgfCAgIDggKw0KPiAg
-IHNjcmlwdHMvbW9kL2RldmljZXRhYmxlLW9mZnNldHMuYyAgICAgICAgICB8ICAgMyArDQo+ICAg
-c2NyaXB0cy9tb2QvZmlsZTJhbGlhcy5jICAgICAgICAgICAgICAgICAgIHwgICA4ICsNCj4gICBz
-b3VuZC9zb2Mvc29mL0tjb25maWcgICAgICAgICAgICAgICAgICAgICAgfCAgMjkgKy0NCj4gICBz
-b3VuZC9zb2Mvc29mL01ha2VmaWxlICAgICAgICAgICAgICAgICAgICAgfCAgIDcgKw0KPiAgIHNv
-dW5kL3NvYy9zb2YvY29yZS5jICAgICAgICAgICAgICAgICAgICAgICB8ICAxMiArDQo+ICAgc291
-bmQvc29jL3NvZi9kZWJ1Zy5jICAgICAgICAgICAgICAgICAgICAgIHwgMjMwIC0tLS0tLS0tLS0t
-LS0tLQ0KPiAgIHNvdW5kL3NvYy9zb2YvaW50ZWwvS2NvbmZpZyAgICAgICAgICAgICAgICB8ICAg
-OSArDQo+ICAgc291bmQvc29jL3NvZi9pbnRlbC9NYWtlZmlsZSAgICAgICAgICAgICAgIHwgICAz
-ICsNCj4gICBzb3VuZC9zb2Mvc29mL2ludGVsL2FwbC5jICAgICAgICAgICAgICAgICAgfCAgMTgg
-KysNCj4gICBzb3VuZC9zb2Mvc29mL2ludGVsL2Jkdy5jICAgICAgICAgICAgICAgICAgfCAgMTgg
-KysNCj4gICBzb3VuZC9zb2Mvc29mL2ludGVsL2J5dC5jICAgICAgICAgICAgICAgICAgfCAgMjIg
-KysNCj4gICBzb3VuZC9zb2Mvc29mL2ludGVsL2NubC5jICAgICAgICAgICAgICAgICAgfCAgMTgg
-KysNCj4gICBzb3VuZC9zb2Mvc29mL2ludGVsL2ludGVsLWNsaWVudC5jICAgICAgICAgfCAgNDkg
-KysrKw0KPiAgIHNvdW5kL3NvYy9zb2YvaW50ZWwvaW50ZWwtY2xpZW50LmggICAgICAgICB8ICAy
-NiArKw0KPiAgIHNvdW5kL3NvYy9zb2Yvb3BzLmggICAgICAgICAgICAgICAgICAgICAgICB8ICAx
-NCArDQo+ICAgc291bmQvc29jL3NvZi9zb2YtY2xpZW50LmMgICAgICAgICAgICAgICAgIHwgMTE3
-ICsrKysrKysrDQo+ICAgc291bmQvc29jL3NvZi9zb2YtY2xpZW50LmggICAgICAgICAgICAgICAg
-IHwgIDY1ICsrKysrDQo+ICAgc291bmQvc29jL3NvZi9zb2YtaXBjLXRlc3QtY2xpZW50LmMgICAg
-ICAgIHwgMzE0ICsrKysrKysrKysrKysrKysrKysrKw0KPiAgIHNvdW5kL3NvYy9zb2Yvc29mLXBy
-aXYuaCAgICAgICAgICAgICAgICAgICB8ICAxNiArLQ0KPiAgIDI2IGZpbGVzIGNoYW5nZWQsIDEy
-MzMgaW5zZXJ0aW9ucygrKSwgMjM5IGRlbGV0aW9ucygtKQ0KPiAgIGNyZWF0ZSBtb2RlIDEwMDY0
-NCBEb2N1bWVudGF0aW9uL2RyaXZlci1hcGkvYW5jaWxsYXJ5X2J1cy5yc3QNCj4gICBjcmVhdGUg
-bW9kZSAxMDA2NDQgZHJpdmVycy9idXMvYW5jaWxsYXJ5LmMNCj4gICBjcmVhdGUgbW9kZSAxMDA2
-NDQgaW5jbHVkZS9saW51eC9hbmNpbGxhcnlfYnVzLmgNCj4gICBjcmVhdGUgbW9kZSAxMDA2NDQg
-c291bmQvc29jL3NvZi9pbnRlbC9pbnRlbC1jbGllbnQuYw0KPiAgIGNyZWF0ZSBtb2RlIDEwMDY0
-NCBzb3VuZC9zb2Mvc29mL2ludGVsL2ludGVsLWNsaWVudC5oDQo+ICAgY3JlYXRlIG1vZGUgMTAw
-NjQ0IHNvdW5kL3NvYy9zb2Yvc29mLWNsaWVudC5jDQo+ICAgY3JlYXRlIG1vZGUgMTAwNjQ0IHNv
-dW5kL3NvYy9zb2Yvc29mLWNsaWVudC5oDQo+ICAgY3JlYXRlIG1vZGUgMTAwNjQ0IHNvdW5kL3Nv
-Yy9zb2Yvc29mLWlwYy10ZXN0LWNsaWVudC5jDQo+DQo=
+On 29-09-20, 10:54, Takashi Iwai wrote:
+> On Tue, 29 Sep 2020 10:40:51 +0200,
+> Gyeongtaek Lee wrote:
+> > 
+> > On 9/29/20 04:13 PM, Takashi Iwai wrote:
+> > >On Tue, 29 Sep 2020 03:51:35 +0200,
+> > >Gyeongtaek Lee wrote:
+> > >> 
+> > >> On 9/28/20 11:35 PM, Pierre-Louis Bossart wrote:
+> > >> >On 9/28/20 6:13 AM, Jaroslav Kysela wrote:
+> > >> >> Dne 28. 09. 20 v 12:50 Gyeongtaek Lee napsal(a):
+> > >> >>> With a stream with low bitrate, user can't pause or resume the stream
+> > >> >>> near the end of the stream because current ALSA doesn't allow it.
+> > >> >>> If the stream has very low bitrate enough to store whole stream into
+> > >> >>> the buffer, user can't do anything except stop the stream and then
+> > >> >>> restart it from the first.
+> > >> >>> If pause and resume is allowed during draining, user experience can be
+> > >> >>> enhanced.
+> > >> >> 
+> > >> >> It seems that we need a new state to handle the pause + drain condition for
+> > >> >> this case.
+> > >> >> 
+> > >> >> With this proposed change, the pause state in drain is invisible.
+> > >> >
+> > >> >Indeed it's be much nicer to have a new state, e..g 
+> > >> >SNDRV_PCM_STATE_DRAINING_PAUSED.
+> > >> Ok. I will add the new state.
+> > >> >
+> > >> >One concern is that states are defined in uapi/sound/asoc.h, so wouldn't 
+> > >> >this have impacts on userspace as well? We'd change the value of 
+> > >> >SNDRV_PCM_STATE_LAST.
+> > >> >
+> > >> I also agree that adding new state and increase LAST value in the header of uapi
+> > >> could be dangerous. So, I added it to comress_offload.h for now.
+> > >> It could be merged into snd_pcm_state_t in someday with big changes.
+> > >> Could you review the fixed patch below?
+> > >
+> > >Hrm, this resulted in rather more complex changes than the original
+> > >patch.  It shows that introducing yet another state is no good idea
+> > >for this particular case.
+> > >
+> > >Since the possible application's behavior after this pause is as same
+> > >as the normal pause (i.e. either resuming pause or dropping), I find
+> > >it OK to take the original approach.
+> > Thank you for the review.
+> > I think that I should resend the original patch.
+> 
+> Let's wait a bit for other opinions.  We may add rather a new flag
+> instead of introducing a new state, too, for example.
+
+I was out for a week, back now ;-)
+
+So bigger question is if kernel should handle this change or we ask
+userspace to handle this. Userland knows that bit rate is less so small
+buffer can be for longer duration so instead of sending dumb X bytes,
+should it not scale the buffer based on bit rate?
+
+From that premise the partial_drain should be invoked only for last
+write().
+
+Also, I am bit skeptical for adding changes to states while we are
+draining (that too partial one)... is this change driving complex
+changes and should we push back to have this implemented better in
+userland..?
+
+> 
+> Also, I'm not sure about any side-effect to drivers that expect the
+> pause only during the running state.  We might need some check for a
+> capability flag?
+> 
+> In anyway, the timing is bad; it's too late for 5.10 to apply such a
+> core change.  Can we postpone this for 5.11?
+
+Yes this needs more thinking, I am still not convinced kernel should
+handle it!
+
+Regards
+-- 
+~Vinod

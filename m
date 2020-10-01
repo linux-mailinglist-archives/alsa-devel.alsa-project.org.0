@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 638BC280A8B
-	for <lists+alsa-devel@lfdr.de>; Fri,  2 Oct 2020 00:50:54 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B6417280A8E
+	for <lists+alsa-devel@lfdr.de>; Fri,  2 Oct 2020 00:51:38 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 0167E1AC3;
-	Fri,  2 Oct 2020 00:50:04 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0167E1AC3
+	by alsa0.perex.cz (Postfix) with ESMTPS id 613BB1ACD;
+	Fri,  2 Oct 2020 00:50:48 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 613BB1ACD
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1601592654;
-	bh=RD9luzNVf87Ca4XP2KaY9cKwpw8KleHtx/3I8dHND3g=;
+	s=default; t=1601592698;
+	bh=HaZK10shVaF0sGBaLYo+hXt29nlPICTj9C3MPvCxu7g=;
 	h=Date:From:To:In-Reply-To:References:Subject:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=We5lBrgg305wtwpTNcLmZCZHR0ox0OaPmlyjaImx3HpSzbtG8UskUlj50kGdmPpRV
-	 UsWkp7uIPV+s2nPNDsYE2t8f89i49Hn0PSm8E9UDxdyq62docBwvoMYbcxjssGAIxd
-	 Mve4n1s8DAhlrdIxO/pQ1UA0ZxKHh3SDVnl493KY=
+	b=XYfPVMtoHC4EoFFRBIvGbKRgLC5ADFvV2T7ccLEBOI8XSEYrev9NAzZyOyvWZuAkl
+	 nbzlr6fV8IO3uhIPYNHedVOdW8w3L187GA7m/XisVPnFLNwQ/k+wECNkyrFtsSX0IK
+	 1Duxg6fMAHtVXXxSwsTsfBOVu6x6jFKlG5HJ2Wm4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 9C843F802E7;
-	Fri,  2 Oct 2020 00:47:41 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id EDB70F802EB;
+	Fri,  2 Oct 2020 00:47:45 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id DD003F802E3; Fri,  2 Oct 2020 00:47:38 +0200 (CEST)
+ id 84F17F802E9; Fri,  2 Oct 2020 00:47:43 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.6 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -34,36 +34,36 @@ X-Spam-Status: No, score=-0.6 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 5DB0EF802DD
- for <alsa-devel@alsa-project.org>; Fri,  2 Oct 2020 00:47:36 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5DB0EF802DD
+ by alsa1.perex.cz (Postfix) with ESMTPS id 29AE8F802E3
+ for <alsa-devel@alsa-project.org>; Fri,  2 Oct 2020 00:47:41 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 29AE8F802E3
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="bC4IL06q"
+ header.b="unZSUCVl"
 Received: from localhost (fw-tnat.cambridge.arm.com [217.140.96.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 0BF322074B;
- Thu,  1 Oct 2020 22:47:33 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id F13172074B;
+ Thu,  1 Oct 2020 22:47:38 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1601592454;
- bh=RD9luzNVf87Ca4XP2KaY9cKwpw8KleHtx/3I8dHND3g=;
+ s=default; t=1601592459;
+ bh=HaZK10shVaF0sGBaLYo+hXt29nlPICTj9C3MPvCxu7g=;
  h=Date:From:To:Cc:In-Reply-To:References:Subject:From;
- b=bC4IL06q5ztwxIlThfO4r0IhpcbwSrbH6FvwhXGIzhA/ZaO2tNNXqhwfKFOP3XqKD
- U0A9VOmjPyI9lG3ki19ppoZUCDD6bp+RYgcUSHwCFkm2tAQY+oP+xpl/k27/zRQv2i
- 1b/6oDieDJbXJsdbtjeksfge20SG1+eNfvcb8u+k=
-Date: Thu, 01 Oct 2020 23:46:35 +0100
+ b=unZSUCVlkb3tzf5YIxFgWSj54QCJtrbpghNBF2+OQwr6GQDmuQEtpvZWl0vgvgsha
+ gE/2fTuvyM5PLlQlZP3EzNKr+fG+le7Q7ZUcjTgSRXlG/2Vh8oaImbVhMX7bh4uVw7
+ 76BSP5vprMUx0G+Q1wMZj8WfKDIhQlN1eXWj/oDo=
+Date: Thu, 01 Oct 2020 23:46:40 +0100
 From: Mark Brown <broonie@kernel.org>
-To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-In-Reply-To: <87ft6ya65z.wl-kuninori.morimoto.gx@renesas.com>
-References: <87ft6ya65z.wl-kuninori.morimoto.gx@renesas.com>
-Subject: Re: [PATCH] ASoC: soc-pcm: add missing ret=0 at soc_pcm_open()
-Message-Id: <160159237545.44588.1261211481702482189.b4-ty@kernel.org>
+To: devicetree@vger.kernel.org, Rob Herring <robh@kernel.org>
+In-Reply-To: <20200826184851.3431531-1-robh@kernel.org>
+References: <20200826184851.3431531-1-robh@kernel.org>
+Subject: Re: [PATCH 1/3] dt-bindings: sound: Remove unused 'linux,hdmi-audio'
+Message-Id: <160159237545.44588.11956509419329615135.b4-ty@kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Cc: Linux-ALSA <alsa-devel@alsa-project.org>,
- Marek Szyprowski <m.szyprowski@samsung.com>
+Cc: alsa-devel@alsa-project.org, Liam Girdwood <lgirdwood@gmail.com>,
+ linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -79,14 +79,8 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 01 Oct 2020 14:07:41 +0900, Kuninori Morimoto wrote:
-> commit 140a4532cdb8c ("ASoC: soc-pcm: add soc_pcm_clean() and call it
-> from soc_pcm_open/close()") switched to use soc_pcm_clean() at
-> soc_pcm_open().
-> 
-> But it removed "return 0", and missing "ret = 0",
-> because of it, it always return -EINVAL eventhough no error.
-> This patch adds missing "ret = 0" for success case.
+On Wed, 26 Aug 2020 12:48:49 -0600, Rob Herring wrote:
+> The binding was added in 2013 and has had no driver since 2015.
 
 Applied to
 
@@ -94,8 +88,8 @@ Applied to
 
 Thanks!
 
-[1/1] ASoC: soc-pcm: add missing ret=0 at soc_pcm_open()
-      commit: 8e7875ae373a3690397c4e593629d3b9ad5ccf42
+[1/1] ASoC: Remove unused 'linux,hdmi-audio'
+      commit: 08dd413b9ddf253ec3ee783a0a21df3754823be9
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

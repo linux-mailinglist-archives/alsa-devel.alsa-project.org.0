@@ -2,76 +2,63 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 63E06280CF6
-	for <lists+alsa-devel@lfdr.de>; Fri,  2 Oct 2020 06:55:56 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A27F2280D19
+	for <lists+alsa-devel@lfdr.de>; Fri,  2 Oct 2020 07:36:09 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D98721EE9;
-	Fri,  2 Oct 2020 06:55:05 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D98721EE9
+	by alsa0.perex.cz (Postfix) with ESMTPS id 1A7651EEE;
+	Fri,  2 Oct 2020 07:35:19 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1A7651EEE
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1601614555;
-	bh=bCmmWqAsFkwPqsZmxhmOuAbTTiibdUhS7KiD5F5hfaQ=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1601616969;
+	bh=O08fwH6kHG2ri3o9tQtKUHUpIO/LccQcRyNsUvDBvao=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=rb0EXrsXPwxMvNsxsRhUf62jt4UEXXb0oShEUgMux/nM49ThkbLYfKxV2TRnTYuah
-	 oX3hARCEECu981hMkqWwHCZGbTZ8xItJJjkWeS5U+A14mlmU4pFrtjHf1+0JYx+xKE
-	 06kWMLV8HjNKg4QgKOM+6U2X4ao/3KRRSDHk5mqI=
+	b=qZoNAJvxzJv00CJPaZSmVvjn6Dr6cK1x+IiR3I9aK2/lzh+OE+zqw/HbOfGIfsKdD
+	 0EoAQ/R0WxZQ3h4fdbLqtkqbm6JET1p8xAfRRp7S3XC0yxhMHGBFP+vTWoXyEBj4+n
+	 Nqqw7BR875CTFSAJRhYqybX2UXSMabjcnsdJ/IKU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id E8C4FF80228;
-	Fri,  2 Oct 2020 06:54:14 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id EFF86F800E5;
+	Fri,  2 Oct 2020 07:34:27 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 0F67EF801F9; Fri,  2 Oct 2020 06:54:12 +0200 (CEST)
+ id E1705F801F9; Fri,  2 Oct 2020 07:34:24 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 11FC7F800E5
- for <alsa-devel@alsa-project.org>; Fri,  2 Oct 2020 06:54:04 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 11FC7F800E5
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="nYKRuLwF"
-Received: from localhost (83-86-74-64.cable.dynamic.v4.ziggo.nl [83.86.74.64])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
- bits)) (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id DAB1820754;
- Fri,  2 Oct 2020 04:54:00 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1601614441;
- bh=bCmmWqAsFkwPqsZmxhmOuAbTTiibdUhS7KiD5F5hfaQ=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=nYKRuLwFbogHosqwkLqWvKfwCNh9fW7l4Zi1UZBuITD+/44VyP7f5SAmB5sbV15qf
- 5FE381fnJ7YhqOgoHV+2gFK7zcRkwRmuGIiyD+dFu3z/Mah0zk9X8lkiVN36tpsdFT
- Dj+Htly5929Jhlyg+pkJqsMhU5fyDCv4hGKjdau0=
-Date: Fri, 2 Oct 2020 06:53:57 +0200
-From: "gregkh@linuxfoundation.org" <gregkh@linuxfoundation.org>
-To: "Sridharan, Ranjani" <ranjani.sridharan@intel.com>
-Subject: Re: [PATCH 2/6] ASoC: SOF: Introduce descriptors for SOF client
-Message-ID: <20201002045357.GA34005@kroah.com>
-References: <20200930225051.889607-1-david.m.ertman@intel.com>
- <20200930225051.889607-3-david.m.ertman@intel.com>
- <20201001130245.GB2378679@kroah.com>
- <f3fa8df9fc8bcd789167f61b6c9d4df66b9b85c1.camel@intel.com>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <f3fa8df9fc8bcd789167f61b6c9d4df66b9b85c1.camel@intel.com>
-Cc: "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
- "tiwai@suse.de" <tiwai@suse.de>,
- "pierre-louis.bossart@linux.intel.com" <pierre-louis.bossart@linux.intel.com>,
- "fred.oh@linux.intel.com" <fred.oh@linux.intel.com>,
- "broonie@kernel.org" <broonie@kernel.org>,
- "parav@nvidia.com" <parav@nvidia.com>, "jgg@nvidia.com" <jgg@nvidia.com>,
- "Ertman, David M" <david.m.ertman@intel.com>
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS
+ autolearn=disabled version=3.4.0
+Received: from relmlie6.idc.renesas.com (relmlor2.renesas.com
+ [210.160.252.172])
+ by alsa1.perex.cz (Postfix) with ESMTP id EA0B8F800E5
+ for <alsa-devel@alsa-project.org>; Fri,  2 Oct 2020 07:34:12 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EA0B8F800E5
+Date: 02 Oct 2020 14:34:09 +0900
+X-IronPort-AV: E=Sophos;i="5.77,326,1596466800"; d="scan'208";a="58517478"
+Received: from unknown (HELO relmlir5.idc.renesas.com) ([10.200.68.151])
+ by relmlie6.idc.renesas.com with ESMTP; 02 Oct 2020 14:34:09 +0900
+Received: from mercury.renesas.com (unknown [10.166.252.133])
+ by relmlir5.idc.renesas.com (Postfix) with ESMTP id D5B8D4000A97;
+ Fri,  2 Oct 2020 14:34:08 +0900 (JST)
+Message-ID: <87362xkxdv.wl-kuninori.morimoto.gx@renesas.com>
+From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+To: Sameer Pujar <spujar@nvidia.com>
+Subject: Re: [PATCH v3 10/13] ASoC: tegra: Add audio graph based card driver
+In-Reply-To: <1601573587-15288-11-git-send-email-spujar@nvidia.com>
+References: <1601573587-15288-1-git-send-email-spujar@nvidia.com>
+ <1601573587-15288-11-git-send-email-spujar@nvidia.com>
+User-Agent: Wanderlust/2.15.9 Emacs/26.3 Mule/6.0
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+Cc: pierre-louis.bossart@linux.intel.com, alsa-devel@alsa-project.org,
+ atalambedu@nvidia.com, swarren@nvidia.com, lgirdwood@gmail.com,
+ nicoleotsuka@gmail.com, linux-kernel@vger.kernel.org, nwartikar@nvidia.com,
+ tiwai@suse.com, robh+dt@kernel.org, viswanathl@nvidia.com, sharadg@nvidia.com,
+ devicetree@vger.kernel.org, broonie@kernel.org, thierry.reding@gmail.com,
+ linux-tegra@vger.kernel.org, jonathanh@nvidia.com, rlokhande@nvidia.com,
+ mkumard@nvidia.com, dramesh@nvidia.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -87,54 +74,139 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Thu, Oct 01, 2020 at 10:16:00PM +0000, Sridharan, Ranjani wrote:
-> On Thu, 2020-10-01 at 15:02 +0200, Greg KH wrote:
-> > On Wed, Sep 30, 2020 at 03:50:47PM -0700, Dave Ertman wrote:
-> > > From: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
-> > > 
-> > > A client in the SOF (Sound Open Firmware) context is a
-> > > device that needs to communicate with the DSP via IPC
-> > > messages. The SOF core is responsible for serializing the
-> > > IPC messages to the DSP from the different clients. One
-> > > example of an SOF client would be an IPC test client that
-> > > floods the DSP with test IPC messages to validate if the
-> > > serialization works as expected. Multi-client support will
-> > > also add the ability to split the existing audio cards
-> > > into multiple ones, so as to e.g. to deal with HDMI with a
-> > > dedicated client instead of adding HDMI to all cards.
-> > > 
-> > > This patch introduces descriptors for SOF client driver
-> > > and SOF client device along with APIs for registering
-> > > and unregistering a SOF client driver, sending IPCs from
-> > > a client device and accessing the SOF core debugfs root entry.
-> > > 
-> > > Along with this, add a couple of new members to struct
-> > > snd_sof_dev that will be used for maintaining the list of
-> > > clients.
-> > > 
-> > > Reviewed-by: Pierre-Louis Bossart <
-> > > pierre-louis.bossart@linux.intel.com>
-> > > Signed-off-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com
-> > > >
-> > > Co-developed-by: Fred Oh <fred.oh@linux.intel.com>
-> > > Signed-off-by: Fred Oh <fred.oh@linux.intel.com>
-> > > Signed-off-by: Dave Ertman <david.m.ertman@intel.com>
-> > > ---
-> > >  sound/soc/sof/Kconfig      |  19 ++++++
-> > >  sound/soc/sof/Makefile     |   3 +
-> > >  sound/soc/sof/core.c       |   2 +
-> > >  sound/soc/sof/sof-client.c | 117
-> > > +++++++++++++++++++++++++++++++++++++
-> > >  sound/soc/sof/sof-client.h |  65 +++++++++++++++++++++
-> > >  sound/soc/sof/sof-priv.h   |   6 ++
-> > >  6 files changed, 212 insertions(+)
-> > >  create mode 100644 sound/soc/sof/sof-client.c
-> > >  create mode 100644 sound/soc/sof/sof-client.h
-> > 
-> > As you are creating new sysfs directories, you should have some
-> > documentation for them :(
-> Hi Greg,
-> 
-> We are not adding any sysfs entries in this series. 
 
-You added directories in sysfs, right?
+Hi Sameer
+
+> Add Tegra audio machine driver which is based on generic audio graph card
+> driver. It re-uses most of the common stuff from audio graph driver and
+> uses the same DT binding. Required Tegra specific customizations are done
+> in the driver.
+(snip)
+> +static const struct snd_soc_ops tegra_audio_graph_ops = {
+> +	.startup	= asoc_simple_startup,
+> +	.shutdown	= asoc_simple_shutdown,
+> +	.hw_params	= tegra_audio_graph_hw_params,
+> +};
+
+This is just an idea,
+but can we use hooks here somehow ?
+
+	.ops_hook_pre
+	.ops_hook_func
+	.ops_hook_post
+
+	if (priv->ops_hook_pre->func)
+		priv->ops_hook_pre->func_pre(...);
+
+	if (priv->ops_hook_func->func)
+		priv->ops_hook_func->func(...);	/* driver's function */
+	else
+		graph_func(...);	/* audio-graph function */
+		
+	if (priv->ops_hook_post->func)
+		priv->ops_hook_post->func(...);
+
+
+> +static int tegra_audio_graph_probe(struct platform_device *pdev)
+> +{
+> +	struct asoc_simple_priv *priv;
+> +	struct device *dev = &pdev->dev;
+> +	struct snd_soc_card *card;
+> +	struct link_info li;
+> +	int err;
+> +
+> +	/* Allocate the private data and the DAI link array */
+> +	priv = devm_kzalloc(dev, sizeof(*priv), GFP_KERNEL);
+> +	if (!priv)
+> +		return -ENOMEM;
+> +
+> +	priv->data = (struct tegra_audio_graph_data *)
+> +		devm_kzalloc(dev, sizeof(*priv->data), GFP_KERNEL);
+> +	if (!priv->data)
+> +		return -ENOMEM;
+> +
+> +	card = simple_priv_to_card(priv);
+> +
+> +	card->owner = THIS_MODULE;
+> +	card->dev = dev;
+> +	card->component_chaining = true;
+> +	card->probe = tegra_audio_graph_card_probe;
+> +
+> +	priv->ops = &tegra_audio_graph_ops;
+> +	priv->force_dpcm = 1;
+> +
+> +	memset(&li, 0, sizeof(li));
+> +	graph_get_dais_count(priv, &li);
+> +	if (!li.link || !li.dais)
+> +		return -EINVAL;
+> +
+> +	err = asoc_simple_init_priv(priv, &li);
+> +	if (err < 0)
+> +		return err;
+> +
+> +	err = graph_parse_of(priv);
+> +	if (err < 0) {
+> +		if (err != -EPROBE_DEFER)
+> +			dev_err(dev, "Parse error %d\n", err);
+> +		goto cleanup;
+> +	}
+> +
+> +	snd_soc_card_set_drvdata(card, priv);
+> +
+> +	asoc_simple_debug_info(priv);
+> +
+> +	err = devm_snd_soc_register_card(dev, card);
+> +	if (err < 0)
+> +		goto cleanup;
+> +
+> +	return 0;
+> +
+> +cleanup:
+> +	asoc_simple_clean_reference(card);
+> +
+> +	return err;
+> +}
+
+These are almost same as graph_probe().
+Maybe we can separate graph_probe() and export function ?
+
+	struct tegra_audio_graph_data
+	{
+		struct asoc_simple_priv simple;
+		...
+	};
+	#define simple_to_priv(_simple) container_of((_simple), struct my_priv, simple)
+
+	static int tegra_audio_graph_probe(struct platform_device *pdev)
+	{
+		struct tegra_audio_graph_data *data;
+		struct asoc_simple_priv *priv;
+
+		/* Allocate the private data */
+		data = devm_kzalloc(dev, sizeof(*data), GFP_KERNEL);
+		if (!data)
+			return -ENOMEM;
+
+		/* initial audio-graph */
+		ret = audio_graph_init(priv, pdev);
+		if (ret < 0)
+			return -xxx;
+
+		/* over-write for own settings */
+		card = simple_priv_to_card(priv);
+		card->component_chaining = true;
+		card->probe = tegra_audio_graph_card_probe;
+
+		priv = &data->simple;
+		priv->ops_hook_pre = &tegra_audio_graph_ops;
+		priv->force_dpcm = 1;
+
+		/* audio-graph remain */
+		return audio_graph_prove(priv, pdev);
+	}
+
+Thank you for your help !!
+
+Best regards
+---
+Kuninori Morimoto

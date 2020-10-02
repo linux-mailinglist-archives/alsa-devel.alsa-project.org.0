@@ -2,101 +2,88 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id CF7DC280F06
-	for <lists+alsa-devel@lfdr.de>; Fri,  2 Oct 2020 10:34:36 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 54983280F4B
+	for <lists+alsa-devel@lfdr.de>; Fri,  2 Oct 2020 10:52:55 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 46CD01EFC;
-	Fri,  2 Oct 2020 10:33:46 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 46CD01EFC
+	by alsa0.perex.cz (Postfix) with ESMTPS id 3B4E91EFF;
+	Fri,  2 Oct 2020 10:52:04 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3B4E91EFF
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1601627676;
-	bh=K4yxkYFP/FvRKDDEB+qGaIBu0tlzBlicCwTR2d5I6e0=;
-	h=From:To:Subject:Date:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1601628774;
+	bh=PvFeElEFS2USE9VjlDip+jwUSEhI08UCvWZTwNzyB5c=;
+	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=vEzkHjbSbm/D73l50C9oKkinGvdtsF7U/CuOWQnLBqmj3Yxk1Hoz0BzAo+5FeeHab
-	 lndxcn1ZEmceg81aAKWRcX/8fA7e2Y/T3UCZSlLilL4bUer00mL3Xjq7a/+D3wjtpG
-	 Xq7DfMKsSLV5iMprmzQsr67qgQemaMozl/GsmGvE=
+	b=Nfg8seATGstoBml9h42qwruG8TFuayrcEDs6mkzIprvj0ehxmsOHccC4ZrZhX9tBt
+	 +HxxxFQJV3fWJeB8grIigX5nw6zARHNdjzPKPYqyfahN+aMBFqeMmTSQbyceaJ5aER
+	 5fq/Q25H53Dn3+le1jsgHTxA5ocQG9B1NyFgpKrc=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 4752CF800AB;
-	Fri,  2 Oct 2020 10:32:55 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 3ED9EF801A3;
+	Fri,  2 Oct 2020 10:51:13 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id A15EEF801ED; Fri,  2 Oct 2020 10:32:52 +0200 (CEST)
+ id C6EBEF801F9; Fri,  2 Oct 2020 10:51:10 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_MSPIKE_H3,
- RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
-Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
+X-Spam-Status: No, score=-0.4 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+ DKIM_VALID,DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE
+ autolearn=disabled version=3.4.0
+Received: from hqnvemgate24.nvidia.com (hqnvemgate24.nvidia.com
+ [216.228.121.143])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id F2F06F800E5
- for <alsa-devel@alsa-project.org>; Fri,  2 Oct 2020 10:32:43 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz F2F06F800E5
-IronPort-SDR: 0pTlQ7JoOycgRT0GeyTU62Mg+ZLrQbHj6X/Tqfs1eMGkYrs3h+0jbhJVG4xG3Y8BLss6ksS2en
- P2SafAoSFOXA==
-X-IronPort-AV: E=McAfee;i="6000,8403,9761"; a="163807401"
-X-IronPort-AV: E=Sophos;i="5.77,326,1596524400"; d="scan'208";a="163807401"
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from orsmga003.jf.intel.com ([10.7.209.27])
- by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 02 Oct 2020 01:32:36 -0700
-IronPort-SDR: Ax+9t2RD6Yw5aZRRnEQD4vqo/adY/NJLc4vMBTPlYP2l7G3IMtJ3iwZ/YLS6SyWQwrfqc+ftYh
- 8zcYPXeQAHGA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.77,326,1596524400"; d="scan'208";a="308971022"
-Received: from irsmsx604.ger.corp.intel.com ([163.33.146.137])
- by orsmga003.jf.intel.com with ESMTP; 02 Oct 2020 01:32:35 -0700
-Received: from irsmsx601.ger.corp.intel.com (163.33.146.7) by
- IRSMSX604.ger.corp.intel.com (163.33.146.137) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.1713.5; Fri, 2 Oct 2020 09:32:34 +0100
-Received: from irsmsx601.ger.corp.intel.com ([163.33.146.7]) by
- irsmsx601.ger.corp.intel.com ([163.33.146.7]) with mapi id 15.01.1713.004;
- Fri, 2 Oct 2020 09:32:34 +0100
-From: "Rojewski, Cezary" <cezary.rojewski@intel.com>
-To: Mark Brown <broonie@kernel.org>, Andy Shevchenko
- <andriy.shevchenko@linux.intel.com>
-Subject: RE: [PATCH v10 14/14] ASoC: Intel: Select catpt and deprecate haswell
-Thread-Topic: [PATCH v10 14/14] ASoC: Intel: Select catpt and deprecate haswell
-Thread-Index: AQHWlmrLQob8q+OMl0uqglClvpPAzKmDBR2AgAAFx4CAAA9zgIAA5cCA
-Date: Fri, 2 Oct 2020 08:32:34 +0000
-Message-ID: <347145dee59c4dab900da84724382769@intel.com>
-References: <20200929141247.8058-1-cezary.rojewski@intel.com>
- <20200929141247.8058-15-cezary.rojewski@intel.com>
- <20201001183329.GA41046@sirena.org.uk>
- <20201001185409.GV3956970@smile.fi.intel.com>
- <20201001194927.GY6715@sirena.org.uk>
-In-Reply-To: <20201001194927.GY6715@sirena.org.uk>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-dlp-product: dlpe-windows
-dlp-reaction: no-action
-dlp-version: 11.5.1.3
-x-originating-ip: [163.33.253.164]
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+ by alsa1.perex.cz (Postfix) with ESMTPS id F1CF5F800E5
+ for <alsa-devel@alsa-project.org>; Fri,  2 Oct 2020 10:51:03 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz F1CF5F800E5
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=nvidia.com header.i=@nvidia.com
+ header.b="GKeHIFRB"
+Received: from hqmail.nvidia.com (Not Verified[216.228.121.13]) by
+ hqnvemgate24.nvidia.com (using TLS: TLSv1.2, AES256-SHA)
+ id <B5f76e98c0000>; Fri, 02 Oct 2020 01:49:16 -0700
+Received: from [10.25.97.216] (10.124.1.5) by HQMAIL107.nvidia.com
+ (172.20.187.13) with Microsoft SMTP Server (TLS) id 15.0.1473.3; Fri, 2 Oct
+ 2020 08:50:50 +0000
+Subject: Re: [PATCH v3 01/13] ASoC: soc-core: Fix component name_prefix parsing
+To: =?UTF-8?B?TWljaGHFgiBNaXJvc8WCYXc=?= <mirq-linux@rere.qmqm.pl>
+References: <1601573587-15288-1-git-send-email-spujar@nvidia.com>
+ <1601573587-15288-2-git-send-email-spujar@nvidia.com>
+ <20201001185308.GC23339@qmqm.qmqm.pl>
+From: Sameer Pujar <spujar@nvidia.com>
+Message-ID: <a63c8898-540c-f89b-8997-27d6385cb2c3@nvidia.com>
+Date: Fri, 2 Oct 2020 14:20:47 +0530
+User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:68.0) Gecko/20100101
+ Thunderbird/68.10.0
 MIME-Version: 1.0
-Cc: "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>, "Kaczmarski,
- Filip" <filip.kaczmarski@intel.com>, "N,
- Harshapriya" <harshapriya.n@intel.com>,
- "gregkh@linuxfoundation.org" <gregkh@linuxfoundation.org>,
- "ppapierkowski@habana.ai" <ppapierkowski@habana.ai>, "Barlik,
- Marcin" <marcin.barlik@intel.com>, "zwisler@google.com" <zwisler@google.com>,
- "pierre-louis.bossart@linux.intel.com" <pierre-louis.bossart@linux.intel.com>,
- "lgirdwood@gmail.com" <lgirdwood@gmail.com>, "Proborszcz,
- Filip" <filip.proborszcz@intel.com>,
- "amadeuszx.slawinski@linux.intel.com" <amadeuszx.slawinski@linux.intel.com>,
- "Wasko, Michal" <michal.wasko@intel.com>, "tiwai@suse.com" <tiwai@suse.com>,
- "Hejmowski, Krzysztof" <krzysztof.hejmowski@intel.com>,
- "cujomalainey@chromium.org" <cujomalainey@chromium.org>, "Gopal,
- Vamshi Krishna" <vamshi.krishna.gopal@intel.com>
+In-Reply-To: <20201001185308.GC23339@qmqm.qmqm.pl>
+Content-Type: text/plain; charset="iso-8859-2"; format=flowed
+Content-Transfer-Encoding: quoted-printable
+Content-Language: en-GB
+X-Originating-IP: [10.124.1.5]
+X-ClientProxiedBy: HQMAIL101.nvidia.com (172.20.187.10) To
+ HQMAIL107.nvidia.com (172.20.187.13)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nvidia.com; s=n1;
+ t=1601628556; bh=BI4fp6pD/W2VIRJQVhnrK4iPbG7U8OWA4NPdWAoCl4I=;
+ h=Subject:To:CC:References:From:Message-ID:Date:User-Agent:
+ MIME-Version:In-Reply-To:Content-Type:Content-Transfer-Encoding:
+ Content-Language:X-Originating-IP:X-ClientProxiedBy;
+ b=GKeHIFRBa0MxGfztlF548b8USZc5XGny2A7IUep8pOfpw2vGOX46cC9Ajb167YL1Q
+ b5DEJ5hTAB7ZH27nNMNvtdG+IKgiJV4y3d1UKqaRV9Lb4//rXSx6JrHZHVtKmD+wWk
+ eqyG/IzxhUrWUAi7RPWzxbPWfvOYPYfvZCpZpcAE7qAJ9GroRgorLmjl7E6/rFxiLx
+ MZRWLuUPagxloUc9yhKBi7Qu+xxDPax+fCeyA+GsvmRxE4p64qTdXJUS5KetSs4yEG
+ c3g8wKTvKSxgLfUF+gMF0uYkz4UEDFtf3kCyzq5yWYV0HVRJIwbmxFvqNnNmOtimAT
+ wB0CsooB6zk/A==
+Cc: alsa-devel@alsa-project.org, kuninori.morimoto.gx@renesas.com,
+ lgirdwood@gmail.com, atalambedu@nvidia.com, tiwai@suse.com,
+ thierry.reding@gmail.com, rlokhande@nvidia.com, swarren@nvidia.com,
+ pierre-louis.bossart@linux.intel.com, jonathanh@nvidia.com,
+ nwartikar@nvidia.com, devicetree@vger.kernel.org, nicoleotsuka@gmail.com,
+ robh+dt@kernel.org, linux-tegra@vger.kernel.org, mkumard@nvidia.com,
+ viswanathl@nvidia.com, linux-kernel@vger.kernel.org, broonie@kernel.org,
+ sharadg@nvidia.com, dramesh@nvidia.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -112,28 +99,36 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 2020-10-01 9:49 PM, Mark Brown wrote:
-> On Thu, Oct 01, 2020 at 09:54:09PM +0300, Andy Shevchenko wrote:
->=20
->> This has a dependency from SPI tree. Can you merge (cherry-pick) one pat=
-ch from
->> there to ASoC tree, please?
->=20
->> a2bee00cccf4 ("spi: pxa2xx: Add SSC2 and SSPSP2 SSP registers")
->=20
-> Ah, right - that was actually mentioned in the cover letter but got
-> missed (I think I didn't register that it was a SPI change and stopped
-> at the "already merged" bit).  It would have been helpful to highlight
-> this with the SPI change so it could have been applied as a separate
-> branch rather than on the main branch which would make this easier, this
-> sort of stuff is why I like to have per driver branches.
->=20
 
-While catpt's cover-letter mentioned this, indeed the SPI change was
-devoid of such note. Sorry for that, Mark.
+>> The "prefix" can be defined in DAI link node or it can be specified as
+>> part of the component node itself. Currently "sound-name-prefix" defined
+>> in a component is not taking effect. Actually the property is not gettin=
+g
+>> parsed. It can be fixed by parsing "sound-name-prefix" property whenever
+>> "prefix" is missing in DAI link Codec node.
+> [...]
+>> --- a/sound/soc/soc-core.c
+>> +++ b/sound/soc/soc-core.c
+>> @@ -1124,7 +1124,8 @@ static void soc_set_name_prefix(struct snd_soc_car=
+d *card,
+>>        for (i =3D 0; i < card->num_configs; i++) {
+>>                struct snd_soc_codec_conf *map =3D &card->codec_conf[i];
+>>
+>> -             if (snd_soc_is_matching_component(&map->dlc, component)) {
+>> +             if (snd_soc_is_matching_component(&map->dlc, component) &&
+>> +                 map->name_prefix) {
+>>                        component->name_prefix =3D map->name_prefix;
+>>                        return;
+>>                }
+> Hi,
+>
+> It is not obvious how the patch fixes the problem described. I guess now
+> map->name_prefix is NULL on some level and overrides prefix found earlier=
+?
+>
+> Best Regards,
+> Micha=B3 Miros=B3aw
 
-Is my action required?
-
-Regards,
-Czarek
-
+If map->name_prefix is NULL (which is the prefix defined for Codec DAI=20
+component in a DAI link), then go ahead and check if "sound-name-prefix"=20
+is provided under component device node itself.

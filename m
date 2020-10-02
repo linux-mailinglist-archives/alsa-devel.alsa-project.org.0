@@ -2,96 +2,87 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D7D1928175E
-	for <lists+alsa-devel@lfdr.de>; Fri,  2 Oct 2020 18:03:27 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7F8F428176A
+	for <lists+alsa-devel@lfdr.de>; Fri,  2 Oct 2020 18:05:12 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 521111F20;
-	Fri,  2 Oct 2020 18:02:37 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 521111F20
+	by alsa0.perex.cz (Postfix) with ESMTPS id 252E01F24;
+	Fri,  2 Oct 2020 18:04:22 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 252E01F24
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1601654607;
-	bh=Mm3SHjlM5PQ+AFMb3oi/JJNeF4drskX2sjL1B0PuVWk=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=cVJrcQWjBAch4HTx+bIHJEzzeo8WPcB34LDWKzDgnAQucaY5HUjREAnMEvUf8P6Yi
-	 e7y83FQtb1kbBugecox3wnQhWPbZMf35GuJmHezVC1wzGR9caugXz5rgC8wvM4+W5a
-	 xl6EjkeLXMYLdCl/qb6igeswE1/BM1U//FZkvAag=
+	s=default; t=1601654712;
+	bh=0xm80mI835j7RsnCf27YVapcCw5rmNqJqXj1F/aXJDg=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=HO6RD/4hEzq+Uv70uBmx99iBqxDyazfKPXBZO5oKedz8NAtlgPmBogtx57CDBu5JZ
+	 Azezt8R1LV22f30LYmtRfP1MaqjxicGclCDq5keh3v1vY843XMwTtzeuJ7qvqIfmct
+	 Ax7NSAFFhBcUASQTGw5ZaAPcM7l0xleLVrGjd2fs=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 73066F80228;
-	Fri,  2 Oct 2020 18:01:46 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 4B337F80247;
+	Fri,  2 Oct 2020 18:03:31 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id D58ACF801F9; Fri,  2 Oct 2020 18:01:43 +0200 (CEST)
+ id 9CE37F80228; Fri,  2 Oct 2020 18:03:29 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_FROM,PRX_BODY_26,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,RCVD_IN_MSPIKE_H3,RCVD_IN_MSPIKE_WL,SPF_HELO_PASS,SPF_PASS
  autolearn=disabled version=3.4.0
-Received: from mail-io1-xd43.google.com (mail-io1-xd43.google.com
- [IPv6:2607:f8b0:4864:20::d43])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from esa2.microchip.iphmx.com (esa2.microchip.iphmx.com
+ [68.232.149.84])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id E39AFF800AB
- for <alsa-devel@alsa-project.org>; Fri,  2 Oct 2020 18:01:35 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E39AFF800AB
+ by alsa1.perex.cz (Postfix) with ESMTPS id 48BE8F801ED
+ for <alsa-devel@alsa-project.org>; Fri,  2 Oct 2020 18:03:18 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 48BE8F801ED
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="VOR2gMTs"
-Received: by mail-io1-xd43.google.com with SMTP id l8so2047793ioh.11
- for <alsa-devel@alsa-project.org>; Fri, 02 Oct 2020 09:01:35 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc:content-transfer-encoding;
- bh=djx2E1NwbIz4/NZf9pUZHpgnzpKYA44NN+Q6dr4EQBY=;
- b=VOR2gMTsMF6YapeksUWrfxuuAonuvm7dyeNpVx9In8aGbHotqpoTp2kPpH9tJMnKd0
- MwlDHqMPU/qxAiLIrntySAJ2F3QSZMHfjitSZ4qs8HhpyDW9pLJEuOlnaUu9Fbx1STLP
- L7jG2/EywJPwzl57SDzNq8n3Q8upBdCBHO8SE4Q95EzDzHnekbehmmjpvQiJ38c4w3d5
- I06XIghpFSFn+xXvsH4An6TPEpaG3HwOekq32V+DavFdKvEgCnmw8WVJPhSpTungpf42
- FQ4BKfASHwV4Xcmx78Keu9hYXx+x6ftUzKcm1sp3K1nj+8x81GN7oc4yOO0YG0fHc/cu
- fu9w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc:content-transfer-encoding;
- bh=djx2E1NwbIz4/NZf9pUZHpgnzpKYA44NN+Q6dr4EQBY=;
- b=J3fHWpdrCZ60OfR43oxU3F5xZFb2z3V3q39z7T4TQFmy9e3szRzu9Wu3HnCR/jJSEM
- zUTi6eTU/V8pNDONIf8SnsB6IGGhI1kqjm+AZ/6lDK6+fCz+W9JKqnT+3QWIb8SpqsAQ
- YuIrPMMbinQec9sVEa+/NipRpxTdm4KpXtQOH3MU106pGCe9icfCI2pxkAVwfq2cM5GV
- SDRhs8+Aw3CZx4MizrIpyvhCyD6xgOhHqqLUPO27DbtpR+BRrf3Sz11lN22x1G/0kbUh
- hY+mMCsdj/09+fYnDVzqBkvnS90bScVWkZ3khxziv5wHx1Xf+ws5P+9ioEGntuAXuRrV
- KZAw==
-X-Gm-Message-State: AOAM531I4vN41Yr4VsUM2CjH6JfIcYocQNxxwaDTVYNG5HeNphbQY9C2
- uGDcgb3mnIFT5Yj/mgEio6OhyFAVeMN2s4a5bcI=
-X-Google-Smtp-Source: ABdhPJzr6hI4rDHBo9EOgqPBQNjU8Ul0TWnkEY/jKqZML69oSKgD/moghYTeu46CCisvwf7vmiU36Zt8SWWVPT/jWho=
-X-Received: by 2002:a5d:8ace:: with SMTP id e14mr2463373iot.124.1601654492346; 
- Fri, 02 Oct 2020 09:01:32 -0700 (PDT)
+ dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com
+ header.b="mj9pv+7e"
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+ d=microchip.com; i=@microchip.com; q=dns/txt; s=mchp;
+ t=1601654604; x=1633190604;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=0xm80mI835j7RsnCf27YVapcCw5rmNqJqXj1F/aXJDg=;
+ b=mj9pv+7e8eobfIDFrDUFZt8AORgi6LLkvXW6WVaUC+XYpmW+HDI8WS6b
+ cWESlIDfdQfN98ENNkLZYZYDPbCsoDRGpDUBbsU/Amep80ioacC0Rys0l
+ jhvvKiJHCnLsv4ISJV2HX1oW/bfYZF+bEvy7hmQYhCC4nNbBN04dhsJJe
+ 7IQgZdU1RMbsNqSUPDjZfP6t6EZiWhw0tCUNUebstq9RzAEV/5yvVe2ju
+ DAhxpAh5g+WtS/2s6jdkUP5xF1xlp0fxAm8/DqOCnV4uOelcNSTL3/UBk
+ zUHhyY4RaiTmrNM8sVYyyFywNIAfDM0rg2dxWHQcqagr4SIsVw1U47NIb A==;
+IronPort-SDR: ERktlbb9SHgHSVs1WBh0+wVf8cBcyCqMHlQ0klUWs2eYzPAhkilLDtnZI034NRrW9SYYQ4y/SF
+ TBt+4s0vOUCoF5b4iAub8CAdJeF3LMSgCGhCflj+y1KckMaVv/gZBLSs2WmVc58cyh3/TqQkXH
+ Btow4/O+EkpNSg0nOIOalDBdDP4fM/TsYK+FIfb/683JBP/fxGXObqLI650Ts7AjwLadhu+s60
+ iWqR7T1NuXSHaJz0MBE7xdmY2NnPhp7ejDVlFqG3q+dq4fomyPqB35UrgOLkvtpTTyRNxT4CC9
+ +EA=
+X-IronPort-AV: E=Sophos;i="5.77,328,1596524400"; d="scan'208";a="91238271"
+Received: from smtpout.microchip.com (HELO email.microchip.com)
+ ([198.175.253.82])
+ by esa2.microchip.iphmx.com with ESMTP/TLS/AES256-SHA256;
+ 02 Oct 2020 09:03:15 -0700
+Received: from chn-vm-ex01.mchp-main.com (10.10.85.143) by
+ chn-vm-ex04.mchp-main.com (10.10.85.152) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.1979.3; Fri, 2 Oct 2020 09:03:14 -0700
+Received: from rob-ult-m19940.amer.actel.com (10.10.115.15) by
+ chn-vm-ex01.mchp-main.com (10.10.85.143) with Microsoft SMTP Server id
+ 15.1.1979.3 via Frontend Transport; Fri, 2 Oct 2020 09:02:32 -0700
+From: Codrin Ciubotariu <codrin.ciubotariu@microchip.com>
+To: <alsa-devel@alsa-project.org>, <devicetree@vger.kernel.org>,
+ <linux-kernel@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>
+Subject: [PATCH 0/2] Add driver for Microchip S/PDIF RX
+Date: Fri, 2 Oct 2020 19:03:03 +0300
+Message-ID: <20201002160305.815523-1-codrin.ciubotariu@microchip.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-References: <20200927192912.46323-1-peron.clem@gmail.com>
- <20200927192912.46323-10-peron.clem@gmail.com>
- <CAGb2v64uAHUd=Ag2pQDqH=gjtPVso5dnKKdCn3ihyiVh8V8L=g@mail.gmail.com>
- <CAGb2v64U9b1Ayq-XNCHb3z6spsds6eDaz3C4EsV9xFOquHrB7w@mail.gmail.com>
-In-Reply-To: <CAGb2v64U9b1Ayq-XNCHb3z6spsds6eDaz3C4EsV9xFOquHrB7w@mail.gmail.com>
-From: =?UTF-8?B?Q2zDqW1lbnQgUMOpcm9u?= <peron.clem@gmail.com>
-Date: Fri, 2 Oct 2020 18:01:21 +0200
-Message-ID: <CAJiuCcfThSqpobeZW7ugnmokc4Xy0n9o+5jvOfP9eqzvDbu_BQ@mail.gmail.com>
-Subject: Re: [linux-sunxi] [PATCH v5 09/20] arm64: dts: allwinner: h6: Add DAI
- node and soundcard for HDMI
-To: Chen-Yu Tsai <wens@csie.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-Cc: devicetree <devicetree@vger.kernel.org>,
- Jernej Skrabec <jernej.skrabec@siol.net>,
- Linux-ALSA <alsa-devel@alsa-project.org>,
- linux-kernel <linux-kernel@vger.kernel.org>, Takashi Iwai <tiwai@suse.com>,
- Rob Herring <robh+dt@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>,
- Marcus Cooper <codekipper@gmail.com>,
- linux-sunxi <linux-sunxi@googlegroups.com>, Mark Brown <broonie@kernel.org>,
- Maxime Ripard <mripard@kernel.org>,
- linux-arm-kernel <linux-arm-kernel@lists.infradead.org>
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+Cc: alexandre.belloni@bootlin.com, lgirdwood@gmail.com,
+ nicolas.ferre@microchip.com, robh+dt@kernel.org, tiwai@suse.com,
+ ludovic.desroches@microchip.com, broonie@kernel.org, Codrin
+ Ciubotariu <codrin.ciubotariu@microchip.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -107,120 +98,36 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hi Chen-Yu,
+The Sony/Philips Digital Interface Receiver (SPDIFRX) is a serial port
+compliant with the IEC-60958 standard. Among its caracteristics, we
+mention the following:
+ - SPDIF/AES-EBU Compatible Serial Port
+ - 32 Samples FIFO
+ - Data Width Configurable to 24 bits, 20 bits or 16 bits
+ - Packed and Unpacked Data Support for System Memory Optimization
+ - Line State Events Report and Source of Interrupt
+ - Line Error Rate Report
+ - Full Memory Map of 192 bits for Channel 1 and Channel 2 Status and
+   User Data
+ - First 32-bit Status A, Status B Change Report and Source of Interrupt
+ - Line Digital Filter
+ - Register Write Protection
+ - Abnormal Software Access and Internal Sequencer Integrity Check Reports
 
-On Mon, 28 Sep 2020 at 07:42, Chen-Yu Tsai <wens@csie.org> wrote:
->
-> On Mon, Sep 28, 2020 at 1:32 PM Chen-Yu Tsai <wens@csie.org> wrote:
-> >
-> > On Mon, Sep 28, 2020 at 3:29 AM Cl=C3=A9ment P=C3=A9ron <peron.clem@gma=
-il.com> wrote:
-> > >
-> > > From: Jernej Skrabec <jernej.skrabec@siol.net>
-> > >
-> > > Add the I2S node used by the HDMI and a simple-soundcard to
-> > > link audio between HDMI and I2S.
-> > >
-> > > Note that the HDMI codec requires an inverted frame clock and
-> > > a fixed I2S width. As there is no such option for I2S we use
-> > > TDM property of the simple-soundcard to do that.
-> > >
-> > > Signed-off-by: Jernej Skrabec <jernej.skrabec@siol.net>
-> > > Signed-off-by: Marcus Cooper <codekipper@gmail.com>
-> > > Signed-off-by: Cl=C3=A9ment P=C3=A9ron <peron.clem@gmail.com>
-> > > ---
-> > >  arch/arm64/boot/dts/allwinner/sun50i-h6.dtsi | 33 ++++++++++++++++++=
-++
-> > >  1 file changed, 33 insertions(+)
-> > >
-> > > diff --git a/arch/arm64/boot/dts/allwinner/sun50i-h6.dtsi b/arch/arm6=
-4/boot/dts/allwinner/sun50i-h6.dtsi
-> > > index 28c77d6872f6..a8853ee7885a 100644
-> > > --- a/arch/arm64/boot/dts/allwinner/sun50i-h6.dtsi
-> > > +++ b/arch/arm64/boot/dts/allwinner/sun50i-h6.dtsi
-> > > @@ -67,6 +67,25 @@ de: display-engine {
-> > >                 status =3D "disabled";
-> > >         };
-> > >
-> > > +       hdmi_sound: hdmi-sound {
-> > > +               compatible =3D "simple-audio-card";
-> > > +               simple-audio-card,format =3D "i2s";
-> > > +               simple-audio-card,name =3D "sun50i-h6-hdmi";
-> > > +               simple-audio-card,mclk-fs =3D <128>;
-> > > +               simple-audio-card,frame-inversion;
-> > > +               status =3D "disabled";
-> > > +
-> > > +               simple-audio-card,codec {
-> > > +                       sound-dai =3D <&hdmi>;
-> > > +               };
-> > > +
-> > > +               simple-audio-card,cpu {
-> > > +                       sound-dai =3D <&i2s1>;
-> > > +                       dai-tdm-slot-num =3D <2>;
-> >
-> > Doesn't this end up limiting the number of audio channels HDMI can carr=
-y?
-> > AFAICT the TDM properties are all optional, so just leave it out.
-> >
-> > Same goes for the other two patches.
-> >
-> > > +                       dai-tdm-slot-width =3D <32>;
-> > > +               };
-> > > +       };
-> > > +
-> > >         osc24M: osc24M_clk {
-> > >                 #clock-cells =3D <0>;
-> > >                 compatible =3D "fixed-clock";
-> > > @@ -609,6 +628,19 @@ mdio: mdio {
-> > >                         };
-> > >                 };
-> > >
-> > > +               i2s1: i2s@5091000 {
-> > > +                       #sound-dai-cells =3D <0>;
-> > > +                       compatible =3D "allwinner,sun50i-h6-i2s";
-> > > +                       reg =3D <0x05091000 0x1000>;
-> > > +                       interrupts =3D <GIC_SPI 19 IRQ_TYPE_LEVEL_HIG=
-H>;
-> > > +                       clocks =3D <&ccu CLK_BUS_I2S1>, <&ccu CLK_I2S=
-1>;
-> > > +                       clock-names =3D "apb", "mod";
-> > > +                       dmas =3D <&dma 4>, <&dma 4>;
-> > > +                       resets =3D <&ccu RST_BUS_I2S1>;
-> > > +                       dma-names =3D "rx", "tx";
->
-> Sorry, missed this one.
->
-> Given that usage for this interface is transmit only, and there is no
-> RX DRQ number assigned to it, you should drop the RX DMA number and name.
+This interface is available in Microchip's SAMA7G5 SoC.
 
-Indeed if there is no DRQ number assigned we shouldn't have it in the
-device-tree
+Codrin Ciubotariu (2):
+  dt-bindings: sound: add DT bindings for Microchip S/PDIF RX Controller
+  ASoC: mchp-spdifrx: add driver for SPDIF RX
 
-but Samuel told me that the `make dtbs_check` reports:
+ .../bindings/sound/mchp,spdifrx.yaml          |  73 ++
+ sound/soc/atmel/Kconfig                       |  13 +
+ sound/soc/atmel/Makefile                      |   2 +
+ sound/soc/atmel/mchp-spdifrx.c                | 954 ++++++++++++++++++
+ 4 files changed, 1042 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/sound/mchp,spdifrx.yaml
+ create mode 100644 sound/soc/atmel/mchp-spdifrx.c
 
-i2s@1c22800: dma-names:0: 'rx' was expected
-i2s@1c22800: dma-names: ['tx'] is too short
-i2s@1c22800: dmas: [[28, 27]] is too short
+-- 
+2.25.1
 
-Should I fix the YAML so?
-
-Regards,
-Clement
-
->
-> > > +                       status =3D "disabled";
-> > > +               };
-> > > +
-> > >                 spdif: spdif@5093000 {
-> > >                         #sound-dai-cells =3D <0>;
-> > >                         compatible =3D "allwinner,sun50i-h6-spdif";
-> > > @@ -739,6 +771,7 @@ ohci3: usb@5311400 {
-> > >                 };
-> > >
-> > >                 hdmi: hdmi@6000000 {
-> > > +                       #sound-dai-cells =3D <0>;
-> > >                         compatible =3D "allwinner,sun50i-h6-dw-hdmi";
-> > >                         reg =3D <0x06000000 0x10000>;
-> > >                         reg-io-width =3D <1>;
-> >
-> > The rest of the patch looks OK.

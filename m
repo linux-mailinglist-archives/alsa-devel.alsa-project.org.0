@@ -2,64 +2,86 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0FDD72822E7
-	for <lists+alsa-devel@lfdr.de>; Sat,  3 Oct 2020 11:09:35 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 45D442816A4
+	for <lists+alsa-devel@lfdr.de>; Fri,  2 Oct 2020 17:31:11 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id AACF41910;
-	Sat,  3 Oct 2020 11:08:44 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AACF41910
+	by alsa0.perex.cz (Postfix) with ESMTPS id 8B0AF1F16;
+	Fri,  2 Oct 2020 17:30:20 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8B0AF1F16
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1601716174;
-	bh=ocLrftqbADq8hZAhQ14P5tQq1OTH6fafG00QQ3+Gus8=;
+	s=default; t=1601652670;
+	bh=n9czzZF7q6QV4Gp5JZeBJYRNQ7Yj2qgbCJIV2N1P2dE=;
 	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
 	 List-Post:List-Help:List-Subscribe:From;
-	b=puJEtzvXIeVWiOtVrd/zXOUgNqHwfqpl6W1W6nxYrKnyVMpQwz6TeWkgo0e1otEL2
-	 10p2odSRlao/MjDQSqMJaA7xxqZe1HnkvAzwpfOUyLpB6fdXETPMVA2LXheqnvsTvj
-	 el27rfKgO36xHuWLvxKMX+e49ndtDWJqC4X6FV98=
+	b=YsarzHQ5ew7vfLJd05HmbidpvRvOLaymgDPQSwqkXf8mGS4MQt4P5y3H2lsDflWGw
+	 w080apSG1sXpGoHAt9Ci2rSeQ7Rhua9jFw3ru1yYMoJ4zR1bZuqGilBS+aKfRS0zZZ
+	 435oNWBjI/gu2jCb9pyDokaU19xOH0EleZG9lPHI=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 8CFEEF802DC;
-	Sat,  3 Oct 2020 11:06:21 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id AB937F80228;
+	Fri,  2 Oct 2020 17:29:29 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 9A3DBF801F9; Fri,  2 Oct 2020 14:45:22 +0200 (CEST)
+ id 67FE8F801ED; Fri,  2 Oct 2020 17:29:19 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.0 required=5.0 tests=SPF_HELO_PASS,SPF_PASS,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from qq.com (smtpbg467.qq.com [59.36.132.50])
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
+Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
+ [91.207.212.93])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 91A4BF800AB
- for <alsa-devel@alsa-project.org>; Fri,  2 Oct 2020 14:45:05 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 91A4BF800AB
-X-QQ-mid: bizesmtp12t1601642697tq8zxrni
-Received: from localhost.localdomain (unknown [111.18.95.252])
- by esmtp6.qq.com (ESMTP) with 
- id ; Fri, 02 Oct 2020 20:44:56 +0800 (CST)
-X-QQ-SSF: 0140000000200050B000B00A0000000
-X-QQ-FEAT: pDrqMl8+oMGqCTa8V5HDW6z+OxSfqmTEjSEx+R4wgDEym9Ey52MAT6wLgqTJD
- p5NJS8gGJ2XioavrkPpg5i/1zUzf+ztGF2/EzeTES4aTDpdReN6KlGTXvKywp+VlHY3uFkp
- EEisDUCLxiF9mGaxN2EIdZJl8oB+hMUO9TVHyFZwLCj5ZoUkZKbN3CiNIFUI4oEdyGJ2GPE
- DapQ3Dq5yS+RqDaPhojOWLy7MNXr2p/c/dw9jyhVS4znKTfJms3e8L+vTInXI++YnIfOaiN
- bWEPrrlDV59NzoAmJO3ivRa1AB1opLVeMWlXDdGoQiDvpDyZSa+V9iQL/ZPJzrppTr3A==
-X-QQ-GoodBg: 2
-From: Qiu Wenbo <qiuwenbo@kylinos.com.cn>
-To: Takashi Iwai <tiwai@suse.com>, Jaroslav Kysela <perex@perex.cz>,
- Kailang Yang <kailang@realtek.com>
-Subject: [PATCH] ALSA: hda/realtek - Add mute Led support for HP Elitebook 845
- G7
-Date: Fri,  2 Oct 2020 20:44:54 +0800
-Message-Id: <20201002124454.7240-1-qiuwenbo@kylinos.com.cn>
-X-Mailer: git-send-email 2.28.0
+ by alsa1.perex.cz (Postfix) with ESMTPS id B642DF800AB
+ for <alsa-devel@alsa-project.org>; Fri,  2 Oct 2020 17:29:09 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B642DF800AB
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=st.com header.i=@st.com header.b="ZzjSrmru"
+Received: from pps.filterd (m0046660.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
+ 092FGmtG025137; Fri, 2 Oct 2020 17:29:08 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=st.com;
+ h=from : to : cc : subject
+ : date : message-id : mime-version : content-type; s=STMicroelectronics;
+ bh=rH5DRDsh0Q+Pmb7n88LdQ/t1cLnzwZVBzxVpYfSXUEM=;
+ b=ZzjSrmrul4W3cETzEbXmFH9DTGZprBTe7Axt5fLkFo93oKDdTeg5xhjLsV+ZtffYPcrC
+ rSAmqdhpV9yfTTHZQ9f6vpCeifvD1Nd04mK7Z863fS4YWDrp/60rx7e8zJ3duZTCuOpb
+ +nw8xZM3+YqizZGMs1/Te8qLDu/69Ix8VPWQnamtV6D1DWVml7HaCfCJ/2wyxtPEwuIy
+ h7K8VQVR6bRHE7ntHgxpRDp60H/iRAGuCc2V7OfddUenYkmsnhTXW9sVIU0DEPk72W8Y
+ YUIDsPHUBBnnWQ4QDGHnVRLy9D6LT/sFIspU/Kf1oeYlJd9tnl4fgMMvFlzAUrfC/3zZ ZQ== 
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+ by mx07-00178001.pphosted.com with ESMTP id 33sts8chy3-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Fri, 02 Oct 2020 17:29:08 +0200
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id E371010002A;
+ Fri,  2 Oct 2020 17:29:07 +0200 (CEST)
+Received: from Webmail-eu.st.com (sfhdag6node2.st.com [10.75.127.17])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id B69812A562F;
+ Fri,  2 Oct 2020 17:29:07 +0200 (CEST)
+Received: from localhost (10.75.127.44) by SFHDAG6NODE2.st.com (10.75.127.17)
+ with Microsoft SMTP Server (TLS) id 15.0.1473.3;
+ Fri, 2 Oct 2020 17:29:07 +0200
+From: Olivier Moysan <olivier.moysan@st.com>
+To: <lgirdwood@gmail.com>, <broonie@kernel.org>, <perex@perex.cz>,
+ <tiwai@suse.com>, <alexandre.torgue@st.com>, <olivier.moysan@st.com>,
+ <arnaud.patard@rtp-net.org>
+Subject: [PATCH 1/1] ASoC: cs42l51: add soft dependency declaration
+Date: Fri, 2 Oct 2020 17:29:04 +0200
+Message-ID: <20201002152904.16448-1-olivier.moysan@st.com>
+X-Mailer: git-send-email 2.17.1
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-QQ-SENDSIZE: 520
-Feedback-ID: bizesmtp:kylinos.com.cn:qybgweb:qybgweb14
-X-Mailman-Approved-At: Sat, 03 Oct 2020 11:06:14 +0200
-Cc: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain
+X-Originating-IP: [10.75.127.44]
+X-ClientProxiedBy: SFHDAG4NODE2.st.com (10.75.127.11) To SFHDAG6NODE2.st.com
+ (10.75.127.17)
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.235, 18.0.687
+ definitions=2020-10-02_10:2020-10-02,
+ 2020-10-02 signatures=0
+Cc: alsa-devel@alsa-project.org, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -75,27 +97,26 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-After installing archlinux, the mute led and micmute led are not working
-at all. This patch fix this issue by applying a fixup from similar
-model. These mute leds are confirmed working on HP Elitebook 845 G7.
+When configured as module, CS42L51 codec driver uses two modules
+snd-soc-cs42l51 and snd-soc-cs42l51-i2c.
+Add soft dependency on snd-soc-cs42l51-i2c in snd-soc-cs42l51,
+to allow smart module dependency solving.
 
-Signed-off-by: Qiu Wenbo <qiuwenbo@kylinos.com.cn>
+Signed-off-by: Olivier Moysan <olivier.moysan@st.com>
 ---
- sound/pci/hda/patch_realtek.c | 1 +
+ sound/soc/codecs/cs42l51.c | 1 +
  1 file changed, 1 insertion(+)
 
-diff --git a/sound/pci/hda/patch_realtek.c b/sound/pci/hda/patch_realtek.c
-index d4f17b465892..8239c4dd4a90 100644
---- a/sound/pci/hda/patch_realtek.c
-+++ b/sound/pci/hda/patch_realtek.c
-@@ -7763,6 +7763,7 @@ static const struct snd_pci_quirk alc269_fixup_tbl[] = {
- 	SND_PCI_QUIRK(0x103c, 0x869d, "HP", ALC236_FIXUP_HP_MUTE_LED),
- 	SND_PCI_QUIRK(0x103c, 0x8729, "HP", ALC285_FIXUP_HP_GPIO_LED),
- 	SND_PCI_QUIRK(0x103c, 0x8736, "HP", ALC285_FIXUP_HP_GPIO_AMP_INIT),
-+	SND_PCI_QUIRK(0x103c, 0x8760, "HP", ALC285_FIXUP_HP_MUTE_LED),
- 	SND_PCI_QUIRK(0x103c, 0x877a, "HP", ALC285_FIXUP_HP_MUTE_LED),
- 	SND_PCI_QUIRK(0x103c, 0x877d, "HP", ALC236_FIXUP_HP_MUTE_LED),
- 	SND_PCI_QUIRK(0x1043, 0x103e, "ASUS X540SA", ALC256_FIXUP_ASUS_MIC),
+diff --git a/sound/soc/codecs/cs42l51.c b/sound/soc/codecs/cs42l51.c
+index 097c4e8d9950..1630baad42e2 100644
+--- a/sound/soc/codecs/cs42l51.c
++++ b/sound/soc/codecs/cs42l51.c
+@@ -814,4 +814,5 @@ EXPORT_SYMBOL_GPL(cs42l51_of_match);
+ 
+ MODULE_AUTHOR("Arnaud Patard <arnaud.patard@rtp-net.org>");
+ MODULE_DESCRIPTION("Cirrus Logic CS42L51 ALSA SoC Codec Driver");
++MODULE_SOFTDEP("pre: snd-soc-cs42l51-i2c");
+ MODULE_LICENSE("GPL");
 -- 
-2.28.0
+2.17.1
 

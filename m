@@ -2,90 +2,115 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id AE24328176C
-	for <lists+alsa-devel@lfdr.de>; Fri,  2 Oct 2020 18:06:04 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id EBCE32817DE
+	for <lists+alsa-devel@lfdr.de>; Fri,  2 Oct 2020 18:26:34 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 5188D1F3A;
-	Fri,  2 Oct 2020 18:05:14 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5188D1F3A
+	by alsa0.perex.cz (Postfix) with ESMTPS id DDD281F28;
+	Fri,  2 Oct 2020 18:25:43 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DDD281F28
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1601654764;
-	bh=6uIPxE6DZ37X2OrqlewExvsDzZkresLHZ+X+TzLKgBE=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1601655994;
+	bh=u1WjUx+3rOAKZqau+ndT20fcoRcf5RnxKPih+3hbsJ0=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=VqU1U9oJOlbBk2jEy29Dsp9NstcCu66GfN0KZcgACnZtSqrmJfQUW3RYsFGmXfaBO
-	 P31jHpVKq90XBybSNzjWFNOBKi+sCMZzjP4AemQvvqbH76ARYnQAwUrf71+VdYwkVp
-	 B4jjPWkT5lF09H6vW3U11og6gL4eSGt5VK3XebFU=
+	b=voO8EaYENQRJLLTWBXrKziaarqM4mnTxuzoAHPaKKaRqe6N6+rpINDGhnlrQSora0
+	 WK7ul46d1gvqopx3gNk0PAdLqAMfcaJLQ4N6uFKwpftzSjQr8d7efx1WbOCx2+Ex87
+	 EIfwt9CY2q7gCTvGQ7xww40xvm1U43qhbLf8Q8xs=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id A52C3F800AB;
-	Fri,  2 Oct 2020 18:03:45 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 08CAEF800AB;
+	Fri,  2 Oct 2020 18:24:53 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 1AE60F802D2; Fri,  2 Oct 2020 18:03:44 +0200 (CEST)
+ id 9AB6DF801F9; Fri,  2 Oct 2020 18:24:50 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,RCVD_IN_MSPIKE_H3,RCVD_IN_MSPIKE_WL,SPF_HELO_PASS,SPF_PASS,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from esa2.microchip.iphmx.com (esa2.microchip.iphmx.com
- [68.232.149.84])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=0.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,PRX_BODY_26,RCVD_IN_MSPIKE_H4,RCVD_IN_MSPIKE_WL,SPF_HELO_PASS,
+ SPF_PASS,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from new3-smtp.messagingengine.com (new3-smtp.messagingengine.com
+ [66.111.4.229])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 44FE8F800AB
- for <alsa-devel@alsa-project.org>; Fri,  2 Oct 2020 18:03:32 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 44FE8F800AB
+ by alsa1.perex.cz (Postfix) with ESMTPS id 33A8FF800AB
+ for <alsa-devel@alsa-project.org>; Fri,  2 Oct 2020 18:24:38 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 33A8FF800AB
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com
- header.b="aLhxwOzh"
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
- d=microchip.com; i=@microchip.com; q=dns/txt; s=mchp;
- t=1601654618; x=1633190618;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=6uIPxE6DZ37X2OrqlewExvsDzZkresLHZ+X+TzLKgBE=;
- b=aLhxwOzhPCRydwjim+NVb5roCDw107Ww/LCsy7tj0alii9KNRggrGaCh
- 0Y0d4JmpRMXbWzZJNqv9CGhE/Bb1Z4/TMXe7OyjY3xXv6XnWLVejR1yPM
- s9H1RWkkVo9p3z/x88Pj+p3TYMsRg3Z1QrJMPfVXLybLP7/olXA9oSx7g
- sji2Of4vii52GcRCHrFIQVQdG6t/dFiZbqnuXJwuurOPP6dHCLoKlEhbU
- 05m6/w9ZoJdfEe3jjecLm17cddf+AoC8jtf3ecASawTHAl4Y8BRDg9nfx
- 1fluit4zOMJrONzD75SEyDXwBeKVyl9DUxJIsGptzUGU0fV4mHlNDb8BI Q==;
-IronPort-SDR: uCB0PA9GzB7hR0Ac4gee3pvbiPlidmJ14m8bwWsSvEicHC5EQtMQPDwDpDeQRnXnerkx583ncd
- AXqaRtvgWl0Zu/BZ8D0wVtt9U+mO3pQ4bO6qfg1OiuDdVwk4pzGjNI9IDGHXn2XZ04wkaTZSXe
- ACbxxJZps+MRfHv/m0qKqceJOdu0w4BKMw2b7YGFB2ZZvE9kk6zCK6YfLeFzx9ksdA/pWl8B90
- BbLpvHVANSW4O43dM2yKjySIDJbtF41brVZUustcdD2mZ51jOPkAry+R86whOJGECraXYniSz/
- e0g=
-X-IronPort-AV: E=Sophos;i="5.77,328,1596524400"; d="scan'208";a="91238341"
-Received: from smtpout.microchip.com (HELO email.microchip.com)
- ([198.175.253.82])
- by esa2.microchip.iphmx.com with ESMTP/TLS/AES256-SHA256;
- 02 Oct 2020 09:03:30 -0700
-Received: from chn-vm-ex01.mchp-main.com (10.10.85.143) by
- chn-vm-ex01.mchp-main.com (10.10.85.143) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.1979.3; Fri, 2 Oct 2020 09:02:55 -0700
-Received: from rob-ult-m19940.amer.actel.com (10.10.115.15) by
- chn-vm-ex01.mchp-main.com (10.10.85.143) with Microsoft SMTP Server id
- 15.1.1979.3 via Frontend Transport; Fri, 2 Oct 2020 09:02:45 -0700
-From: Codrin Ciubotariu <codrin.ciubotariu@microchip.com>
-To: <alsa-devel@alsa-project.org>, <devicetree@vger.kernel.org>,
- <linux-kernel@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>
-Subject: [PATCH 2/2] ASoC: mchp-spdifrx: add driver for SPDIF RX
-Date: Fri, 2 Oct 2020 19:03:05 +0300
-Message-ID: <20201002160305.815523-3-codrin.ciubotariu@microchip.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20201002160305.815523-1-codrin.ciubotariu@microchip.com>
-References: <20201002160305.815523-1-codrin.ciubotariu@microchip.com>
+ dkim=pass (2048-bit key) header.d=cerno.tech header.i=@cerno.tech
+ header.b="UYbCVYm6"; 
+ dkim=pass (2048-bit key) header.d=messagingengine.com
+ header.i=@messagingengine.com header.b="q8tHztdT"
+Received: from compute6.internal (compute6.nyi.internal [10.202.2.46])
+ by mailnew.nyi.internal (Postfix) with ESMTP id 2A1805804D8;
+ Fri,  2 Oct 2020 12:24:37 -0400 (EDT)
+Received: from mailfrontend2 ([10.202.2.163])
+ by compute6.internal (MEProxy); Fri, 02 Oct 2020 12:24:37 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cerno.tech; h=
+ date:from:to:cc:subject:message-id:references:mime-version
+ :content-type:in-reply-to; s=fm1; bh=/Na0kRC1+fJJK0wPJ9qf9WplU4t
+ XDhR5vxqGddIyCrw=; b=UYbCVYm6uNUvkTPT1CXHcpN0A0sKzZep1sloQWC7cc6
+ Z6uc+PYvwS0KSgqwVEwlhMkiniQ5ESzva50/bgItKjZMRUtQZbguqN3rkt1COM2h
+ LoPxtQyT1sAqQijVJKK3qEQ51wr/fbMtEXKZ+C8U7+cJDMozWup3fryix6QSLu3b
+ AO3zmBoBPRrhpGWyUN/OX0Rch68zojC6urfNY0D8TgOqYOWtQfo3GVZKCXh5kJ4a
+ nFeJjof00yf7ho3fgGoR9Sm8SmCRZJ5y7NbLfdBdMLNW+LmorYpAB6QE3YhjzZ34
+ +uU52c453RHi3+kzFWm5Z9eBvSICFKkMHi+a+/OocrA==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to:x-me-proxy
+ :x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; bh=/Na0kR
+ C1+fJJK0wPJ9qf9WplU4tXDhR5vxqGddIyCrw=; b=q8tHztdTShmOcPdui24ohx
+ oP0+pIQQj8HjoJ4NAkzJl8SDULqlbSlLYID/DfasQtM8vQX0oAWVvGiIcqT/9H4r
+ 0VDyV8KvwVqC1cuBkN30AisoY+IV6vR5Eq0Y3G/BCUpaBkEkV/Qbn3gMTnURoHua
+ ODfpLDWITDXnZYe2pSPvia1rAq1IYOQk2dsvx01/Qgtl6xOoSynVkV/WLynmjiPi
+ u8wj2Y1Jj7P80ZvGVY1pa3kuCuLhvU8a08H15rQvWhw/zJ+AcuKbCEXMGHpbf4Xs
+ DQ4jQunj7/DFFPVyETwMXnmk55G1X2SfG2omQxTVkMSzEySMXXkZDVOHUpKt8HrQ
+ ==
+X-ME-Sender: <xms:Q1R3X7mLLu01yp-vw2Tj3kYqkey0LNwvPaLk8USLY1gF1s7PKlye2w>
+ <xme:Q1R3X-3P21LmswRIA0T1zS5hJ5T-3SOr1Ha4cA-_1g-k3kCaxg4l3A0mS_Jm-uXRj
+ 8j2PBU-nZ6oDWsiobE>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedujedrfeeigddutddtucetufdoteggodetrfdotf
+ fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
+ uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
+ cujfgurhepfffhvffukfhfgggtuggjsehgtderredttddunecuhfhrohhmpeforgigihhm
+ vgcutfhiphgrrhguuceomhgrgihimhgvsegtvghrnhhordhtvggthheqnecuggftrfgrth
+ htvghrnhepuddvudfhkeekhefgffetffelgffftdehffduffegveetffehueeivddvjedv
+ gfevnecukfhppeeltddrkeelrdeikedrjeeinecuvehluhhsthgvrhfuihiivgeptdenuc
+ frrghrrghmpehmrghilhhfrhhomhepmhgrgihimhgvsegtvghrnhhordhtvggthh
+X-ME-Proxy: <xmx:Q1R3XxrOQvByt7kHXDVKybkFEFse2x8sVamnz9GrDwSGnNvifQqOyw>
+ <xmx:Q1R3XzmJeCJS-b2KxVLcZz7Am0HspgjV6lvgaKowFyzkql9C_OjYpQ>
+ <xmx:Q1R3X51nayNSCzWd6EgP_sv-1grfoQ1PTIVevCrISRzsNp4nSHWlGQ>
+ <xmx:RVR3X6s7SZjwuYtak9P9BMpHUFrmBG04UY6mcrE-fTmSXYNOrAxq6Q>
+Received: from localhost (lfbn-tou-1-1502-76.w90-89.abo.wanadoo.fr
+ [90.89.68.76])
+ by mail.messagingengine.com (Postfix) with ESMTPA id 6BADB3064610;
+ Fri,  2 Oct 2020 12:24:35 -0400 (EDT)
+Date: Fri, 2 Oct 2020 18:24:34 +0200
+From: Maxime Ripard <maxime@cerno.tech>
+To: =?utf-8?B?Q2zDqW1lbnQgUMOpcm9u?= <peron.clem@gmail.com>
+Subject: Re: [linux-sunxi] [PATCH v5 09/20] arm64: dts: allwinner: h6: Add
+ DAI node and soundcard for HDMI
+Message-ID: <20201002162434.3jeksuelrig6yyo5@gilmour.lan>
+References: <20200927192912.46323-1-peron.clem@gmail.com>
+ <20200927192912.46323-10-peron.clem@gmail.com>
+ <CAGb2v64uAHUd=Ag2pQDqH=gjtPVso5dnKKdCn3ihyiVh8V8L=g@mail.gmail.com>
+ <CAGb2v64U9b1Ayq-XNCHb3z6spsds6eDaz3C4EsV9xFOquHrB7w@mail.gmail.com>
+ <CAJiuCcfThSqpobeZW7ugnmokc4Xy0n9o+5jvOfP9eqzvDbu_BQ@mail.gmail.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-Cc: alexandre.belloni@bootlin.com, lgirdwood@gmail.com,
- nicolas.ferre@microchip.com, robh+dt@kernel.org, tiwai@suse.com,
- ludovic.desroches@microchip.com, broonie@kernel.org, Codrin
- Ciubotariu <codrin.ciubotariu@microchip.com>
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature"; boundary="pc2zpj5o3hm4cgp3"
+Content-Disposition: inline
+In-Reply-To: <CAJiuCcfThSqpobeZW7ugnmokc4Xy0n9o+5jvOfP9eqzvDbu_BQ@mail.gmail.com>
+Cc: devicetree <devicetree@vger.kernel.org>,
+ Jernej Skrabec <jernej.skrabec@siol.net>,
+ Linux-ALSA <alsa-devel@alsa-project.org>, Liam Girdwood <lgirdwood@gmail.com>,
+ linux-kernel <linux-kernel@vger.kernel.org>, Mark Brown <broonie@kernel.org>,
+ linux-sunxi <linux-sunxi@googlegroups.com>, Takashi Iwai <tiwai@suse.com>,
+ Marcus Cooper <codekipper@gmail.com>, Chen-Yu Tsai <wens@csie.org>,
+ Rob Herring <robh+dt@kernel.org>,
+ linux-arm-kernel <linux-arm-kernel@lists.infradead.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -101,1022 +126,124 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-The new SPDIF RX controller is a serial port compliant with the IEC-60958
-standard. It also supports programmable User Data and Channel Status
-fields.
 
-This IP is embedded in Microchip's sama7g5 SoC.
+--pc2zpj5o3hm4cgp3
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-Signed-off-by: Codrin Ciubotariu <codrin.ciubotariu@microchip.com>
----
- sound/soc/atmel/Kconfig        |  13 +
- sound/soc/atmel/Makefile       |   2 +
- sound/soc/atmel/mchp-spdifrx.c | 954 +++++++++++++++++++++++++++++++++
- 3 files changed, 969 insertions(+)
- create mode 100644 sound/soc/atmel/mchp-spdifrx.c
+On Fri, Oct 02, 2020 at 06:01:21PM +0200, Cl=E9ment P=E9ron wrote:
+> Hi Chen-Yu,
+>=20
+> On Mon, 28 Sep 2020 at 07:42, Chen-Yu Tsai <wens@csie.org> wrote:
+> >
+> > On Mon, Sep 28, 2020 at 1:32 PM Chen-Yu Tsai <wens@csie.org> wrote:
+> > >
+> > > On Mon, Sep 28, 2020 at 3:29 AM Cl=E9ment P=E9ron <peron.clem@gmail.c=
+om> wrote:
+> > > >
+> > > > From: Jernej Skrabec <jernej.skrabec@siol.net>
+> > > >
+> > > > Add the I2S node used by the HDMI and a simple-soundcard to
+> > > > link audio between HDMI and I2S.
+> > > >
+> > > > Note that the HDMI codec requires an inverted frame clock and
+> > > > a fixed I2S width. As there is no such option for I2S we use
+> > > > TDM property of the simple-soundcard to do that.
+> > > >
+> > > > Signed-off-by: Jernej Skrabec <jernej.skrabec@siol.net>
+> > > > Signed-off-by: Marcus Cooper <codekipper@gmail.com>
+> > > > Signed-off-by: Cl=E9ment P=E9ron <peron.clem@gmail.com>
+> > > > ---
+> > > >  arch/arm64/boot/dts/allwinner/sun50i-h6.dtsi | 33 ++++++++++++++++=
+++++
+> > > >  1 file changed, 33 insertions(+)
+> > > >
+> > > > diff --git a/arch/arm64/boot/dts/allwinner/sun50i-h6.dtsi b/arch/ar=
+m64/boot/dts/allwinner/sun50i-h6.dtsi
+> > > > index 28c77d6872f6..a8853ee7885a 100644
+> > > > --- a/arch/arm64/boot/dts/allwinner/sun50i-h6.dtsi
+> > > > +++ b/arch/arm64/boot/dts/allwinner/sun50i-h6.dtsi
+> > > > @@ -67,6 +67,25 @@ de: display-engine {
+> > > >                 status =3D "disabled";
+> > > >         };
+> > > >
+> > > > +       hdmi_sound: hdmi-sound {
+> > > > +               compatible =3D "simple-audio-card";
+> > > > +               simple-audio-card,format =3D "i2s";
+> > > > +               simple-audio-card,name =3D "sun50i-h6-hdmi";
+> > > > +               simple-audio-card,mclk-fs =3D <128>;
+> > > > +               simple-audio-card,frame-inversion;
+> > > > +               status =3D "disabled";
+> > > > +
+> > > > +               simple-audio-card,codec {
+> > > > +                       sound-dai =3D <&hdmi>;
+> > > > +               };
+> > > > +
+> > > > +               simple-audio-card,cpu {
+> > > > +                       sound-dai =3D <&i2s1>;
+> > > > +                       dai-tdm-slot-num =3D <2>;
+> > >
+> > > Doesn't this end up limiting the number of audio channels HDMI can ca=
+rry?
+> > > AFAICT the TDM properties are all optional, so just leave it out.
+> > >
+> > > Same goes for the other two patches.
+> > >
+> > > > +                       dai-tdm-slot-width =3D <32>;
+> > > > +               };
+> > > > +       };
+> > > > +
+> > > >         osc24M: osc24M_clk {
+> > > >                 #clock-cells =3D <0>;
+> > > >                 compatible =3D "fixed-clock";
+> > > > @@ -609,6 +628,19 @@ mdio: mdio {
+> > > >                         };
+> > > >                 };
+> > > >
+> > > > +               i2s1: i2s@5091000 {
+> > > > +                       #sound-dai-cells =3D <0>;
+> > > > +                       compatible =3D "allwinner,sun50i-h6-i2s";
+> > > > +                       reg =3D <0x05091000 0x1000>;
+> > > > +                       interrupts =3D <GIC_SPI 19 IRQ_TYPE_LEVEL_H=
+IGH>;
+> > > > +                       clocks =3D <&ccu CLK_BUS_I2S1>, <&ccu CLK_I=
+2S1>;
+> > > > +                       clock-names =3D "apb", "mod";
+> > > > +                       dmas =3D <&dma 4>, <&dma 4>;
+> > > > +                       resets =3D <&ccu RST_BUS_I2S1>;
+> > > > +                       dma-names =3D "rx", "tx";
+> >
+> > Sorry, missed this one.
+> >
+> > Given that usage for this interface is transmit only, and there is no
+> > RX DRQ number assigned to it, you should drop the RX DMA number and nam=
+e.
+>=20
+> Indeed if there is no DRQ number assigned we shouldn't have it in the
+> device-tree
+>=20
+> but Samuel told me that the `make dtbs_check` reports:
+>=20
+> i2s@1c22800: dma-names:0: 'rx' was expected
+> i2s@1c22800: dma-names: ['tx'] is too short
+> i2s@1c22800: dmas: [[28, 27]] is too short
+>=20
+> Should I fix the YAML so?
 
-diff --git a/sound/soc/atmel/Kconfig b/sound/soc/atmel/Kconfig
-index 93beb7d670a3..bd8854bfd2ee 100644
---- a/sound/soc/atmel/Kconfig
-+++ b/sound/soc/atmel/Kconfig
-@@ -144,4 +144,17 @@ config SND_MCHP_SOC_SPDIFTX
- 
- 	  This S/PDIF TX driver is compliant with IEC-60958 standard and
- 	  includes programable User Data and Channel Status fields.
-+
-+config SND_MCHP_SOC_SPDIFRX
-+	tristate "Microchip ASoC driver for boards using S/PDIF RX"
-+	depends on OF && (ARCH_AT91 || COMPILE_TEST)
-+	select SND_SOC_GENERIC_DMAENGINE_PCM
-+	select REGMAP_MMIO
-+	help
-+	  Say Y or M if you want to add support for Microchip S/PDIF RX ASoc
-+	  driver on the following Microchip platforms:
-+	  - sama7g5
-+
-+	  This S/PDIF RX driver is compliant with IEC-60958 standard and
-+	  includes programable User Data and Channel Status fields.
- endif
-diff --git a/sound/soc/atmel/Makefile b/sound/soc/atmel/Makefile
-index 3fd89a0063df..016188397210 100644
---- a/sound/soc/atmel/Makefile
-+++ b/sound/soc/atmel/Makefile
-@@ -6,6 +6,7 @@ snd-soc-atmel_ssc_dai-objs := atmel_ssc_dai.o
- snd-soc-atmel-i2s-objs := atmel-i2s.o
- snd-soc-mchp-i2s-mcc-objs := mchp-i2s-mcc.o
- snd-soc-mchp-spdiftx-objs := mchp-spdiftx.o
-+snd-soc-mchp-spdifrx-objs := mchp-spdifrx.o
- 
- # pdc and dma need to both be built-in if any user of
- # ssc is built-in.
-@@ -19,6 +20,7 @@ obj-$(CONFIG_SND_ATMEL_SOC_SSC) += snd-soc-atmel_ssc_dai.o
- obj-$(CONFIG_SND_ATMEL_SOC_I2S) += snd-soc-atmel-i2s.o
- obj-$(CONFIG_SND_MCHP_SOC_I2S_MCC) += snd-soc-mchp-i2s-mcc.o
- obj-$(CONFIG_SND_MCHP_SOC_SPDIFTX) += snd-soc-mchp-spdiftx.o
-+obj-$(CONFIG_SND_MCHP_SOC_SPDIFRX) += snd-soc-mchp-spdifrx.o
- 
- # AT91 Machine Support
- snd-soc-sam9g20-wm8731-objs := sam9g20_wm8731.o
-diff --git a/sound/soc/atmel/mchp-spdifrx.c b/sound/soc/atmel/mchp-spdifrx.c
-new file mode 100644
-index 000000000000..6776d89d56df
---- /dev/null
-+++ b/sound/soc/atmel/mchp-spdifrx.c
-@@ -0,0 +1,954 @@
-+// SPDX-License-Identifier: GPL-2.0
-+//
-+// Driver for Microchip S/PDIF RX Controller
-+//
-+// Copyright (C) 2020 Microchip Technology Inc. and its subsidiaries
-+//
-+// Author: Codrin Ciubotariu <codrin.ciubotariu@microchip.com>
-+
-+#include <linux/clk.h>
-+#include <linux/io.h>
-+#include <linux/module.h>
-+#include <linux/regmap.h>
-+#include <linux/spinlock.h>
-+
-+#include <sound/dmaengine_pcm.h>
-+#include <sound/pcm_params.h>
-+#include <sound/soc.h>
-+
-+/*
-+ * ---- S/PDIF Receiver Controller Register map ----
-+ */
-+#define SPDIFRX_CR			0x00	/* Control Register */
-+#define SPDIFRX_MR			0x04	/* Mode Register */
-+
-+#define SPDIFRX_IER			0x10	/* Interrupt Enable Register */
-+#define SPDIFRX_IDR			0x14	/* Interrupt Disable Register */
-+#define SPDIFRX_IMR			0x18	/* Interrupt Mask Register */
-+#define SPDIFRX_ISR			0x1c	/* Interrupt Status Register */
-+#define SPDIFRX_RSR			0x20	/* Status Register */
-+#define SPDIFRX_RHR			0x24	/* Holding Register */
-+
-+#define SPDIFRX_CHSR(channel, reg)	\
-+	(0x30 + (channel) * 0x30 + (reg) * 4)	/* Channel x Status Registers */
-+
-+#define SPDIFRX_CHUD(channel, reg)	\
-+	(0x48 + (channel) * 0x30 + (reg) * 4)	/* Channel x User Data Registers */
-+
-+#define SPDIFRX_WPMR			0xE4	/* Write Protection Mode Register */
-+#define SPDIFRX_WPSR			0xE8	/* Write Protection Status Register */
-+
-+#define SPDIFRX_VERSION			0xFC	/* Version Register */
-+
-+/*
-+ * ---- Control Register (Write-only) ----
-+ */
-+#define SPDIFRX_CR_SWRST		BIT(0)	/* Software Reset */
-+
-+/*
-+ * ---- Mode Register (Read/Write) ----
-+ */
-+/* Receive Enable */
-+#define SPDIFRX_MR_RXEN_MASK		GENMASK(0, 0)
-+#define SPDIFRX_MR_RXEN_DISABLE		(0 << 0)	/* SPDIF Receiver Disabled */
-+#define SPDIFRX_MR_RXEN_ENABLE		(1 << 0)	/* SPDIF Receiver Enabled */
-+
-+/* Validity Bit Mode */
-+#define SPDIFRX_MR_VBMODE_MASK		GENAMSK(1, 1)
-+#define SPDIFRX_MR_VBMODE_ALWAYS_LOAD \
-+	(0 << 1)	/* Load sample regardles of validity bit value */
-+#define SPDIFRX_MR_VBMODE_DISCARD_IF_VB1 \
-+	(1 << 1)	/* Load sample only if validity bit is 0 */
-+
-+/* Data Word Endian Mode */
-+#define SPDIFRX_MR_ENDIAN_MASK		GENMASK(2, 2)
-+#define SPDIFRX_MR_ENDIAN_LITTLE	(0 << 2)	/* Little Endian Mode */
-+#define SPDIFRX_MR_ENDIAN_BIG		(1 << 2)	/* Big Endian Mode */
-+
-+/* Parity Bit Mode */
-+#define SPDIFRX_MR_PBMODE_MASK		GENMASK(3, 3)
-+#define SPDIFRX_MR_PBMODE_PARCHECK	(0 << 3)	/* Parity Check Enabled */
-+#define SPDIFRX_MR_PBMODE_NOPARCHECK	(1 << 3)	/* Parity Check Disabled */
-+
-+/* Sample Data Width */
-+#define SPDIFRX_MR_DATAWIDTH_MASK	GENMASK(5, 4)
-+#define SPDIFRX_MR_DATAWIDTH(width) \
-+	(((6 - (width) / 4) << 4) & SPDIFRX_MR_DATAWIDTH_MASK)
-+
-+/* Packed Data Mode in Receive Holding Register */
-+#define SPDIFRX_MR_PACK_MASK		GENMASK(7, 7)
-+#define SPDIFRX_MR_PACK_DISABLED	(0 << 7)
-+#define SPDIFRX_MR_PACK_ENABLED		(1 << 7)
-+
-+/* Start of Block Bit Mode */
-+#define SPDIFRX_MR_SBMODE_MASK		GENMASK(8, 8)
-+#define SPDIFRX_MR_SBMODE_ALWAYS_LOAD	(0 << 8)
-+#define SPDIFRX_MR_SBMODE_DISCARD	(1 << 8)
-+
-+/* Consecutive Preamble Error Threshold Automatic Restart */
-+#define SPDIFRX_MR_AUTORST_MASK			GENMASK(24, 24)
-+#define SPDIFRX_MR_AUTORST_NOACTION		(0 << 24)
-+#define SPDIFRX_MR_AUTORST_UNLOCK_ON_PRE_ERR	(1 << 24)
-+
-+/*
-+ * ---- Interrupt Enable/Disable/Mask/Status Register (Write/Read-only) ----
-+ */
-+#define SPDIFRX_IR_RXRDY			BIT(0)
-+#define SPDIFRX_IR_LOCKED			BIT(1)
-+#define SPDIFRX_IR_LOSS				BIT(2)
-+#define SPDIFRX_IR_BLOCKEND			BIT(3)
-+#define SPDIFRX_IR_SFE				BIT(4)
-+#define SPDIFRX_IR_PAR_ERR			BIT(5)
-+#define SPDIFRX_IR_OVERRUN			BIT(6)
-+#define SPDIFRX_IR_RXFULL			BIT(7)
-+#define SPDIFRX_IR_CSC(ch)			BIT((ch) + 8)
-+#define SPDIFRX_IR_SECE				BIT(10)
-+#define SPDIFRX_IR_BLOCKST			BIT(11)
-+#define SPDIFRX_IR_NRZ_ERR			BIT(12)
-+#define SPDIFRX_IR_PRE_ERR			BIT(13)
-+#define SPDIFRX_IR_CP_ERR			BIT(14)
-+
-+/*
-+ * ---- Receiver Status Register (Read/Write) ----
-+ */
-+/* Enable Status */
-+#define SPDIFRX_RSR_ULOCK			BIT(0)
-+#define SPDIFRX_RSR_BADF			BIT(1)
-+#define SPDIFRX_RSR_LOWF			BIT(2)
-+#define SPDIFRX_RSR_NOSIGNAL			BIT(3)
-+#define SPDIFRX_RSR_IFS_MASK			GENMASK(27, 16)
-+#define SPDIFRX_RSR_IFS(reg)			\
-+	(((reg) & SPDIFRX_RSR_IFS_MASK) >> 16)
-+
-+/*
-+ *  ---- Version Register (Read-only) ----
-+ */
-+#define SPDIFRX_VERSION_MASK		GENMASK(11, 0)
-+#define SPDIFRX_VERSION_MFN_MASK	GENMASK(18, 16)
-+#define SPDIFRX_VERSION_MFN(reg)	(((reg) & SPDIFRX_VERSION_MFN_MASK) >> 16)
-+
-+static bool mchp_spdifrx_readable_reg(struct device *dev, unsigned int reg)
-+{
-+	switch (reg) {
-+	case SPDIFRX_MR:
-+	case SPDIFRX_IMR:
-+	case SPDIFRX_ISR:
-+	case SPDIFRX_RSR:
-+	case SPDIFRX_CHSR(0, 0):
-+	case SPDIFRX_CHSR(0, 1):
-+	case SPDIFRX_CHSR(0, 2):
-+	case SPDIFRX_CHSR(0, 3):
-+	case SPDIFRX_CHSR(0, 4):
-+	case SPDIFRX_CHSR(0, 5):
-+	case SPDIFRX_CHUD(0, 0):
-+	case SPDIFRX_CHUD(0, 1):
-+	case SPDIFRX_CHUD(0, 2):
-+	case SPDIFRX_CHUD(0, 3):
-+	case SPDIFRX_CHUD(0, 4):
-+	case SPDIFRX_CHUD(0, 5):
-+	case SPDIFRX_CHSR(1, 0):
-+	case SPDIFRX_CHSR(1, 1):
-+	case SPDIFRX_CHSR(1, 2):
-+	case SPDIFRX_CHSR(1, 3):
-+	case SPDIFRX_CHSR(1, 4):
-+	case SPDIFRX_CHSR(1, 5):
-+	case SPDIFRX_CHUD(1, 0):
-+	case SPDIFRX_CHUD(1, 1):
-+	case SPDIFRX_CHUD(1, 2):
-+	case SPDIFRX_CHUD(1, 3):
-+	case SPDIFRX_CHUD(1, 4):
-+	case SPDIFRX_CHUD(1, 5):
-+	case SPDIFRX_WPMR:
-+	case SPDIFRX_WPSR:
-+	case SPDIFRX_VERSION:
-+		return true;
-+	default:
-+		return false;
-+	}
-+}
-+
-+static bool mchp_spdifrx_writeable_reg(struct device *dev, unsigned int reg)
-+{
-+	switch (reg) {
-+	case SPDIFRX_CR:
-+	case SPDIFRX_MR:
-+	case SPDIFRX_IER:
-+	case SPDIFRX_IDR:
-+	case SPDIFRX_WPMR:
-+		return true;
-+	default:
-+		return false;
-+	}
-+}
-+
-+static bool mchp_spdifrx_precious_reg(struct device *dev, unsigned int reg)
-+{
-+	switch (reg) {
-+	case SPDIFRX_ISR:
-+	case SPDIFRX_RHR:
-+		return true;
-+	default:
-+		return false;
-+	}
-+}
-+
-+static const struct regmap_config mchp_spdifrx_regmap_config = {
-+	.reg_bits = 32,
-+	.reg_stride = 4,
-+	.val_bits = 32,
-+	.max_register = SPDIFRX_VERSION,
-+	.readable_reg = mchp_spdifrx_readable_reg,
-+	.writeable_reg = mchp_spdifrx_writeable_reg,
-+	.precious_reg = mchp_spdifrx_precious_reg,
-+};
-+
-+#define SPDIFRX_GCLK_RATIO_MIN	(12 * 64)
-+
-+#define SPDIFRX_CS_BITS		192
-+#define SPDIFRX_UD_BITS		192
-+
-+#define SPDIFRX_CHANNELS	2
-+
-+struct mchp_spdifrx_ch_stat {
-+	unsigned char data[SPDIFRX_CS_BITS / 8];
-+	struct completion done;
-+};
-+
-+struct mchp_spdifrx_user_data {
-+	unsigned char data[SPDIFRX_UD_BITS / 8];
-+	struct completion done;
-+	spinlock_t lock;	/* protect access to user data */
-+};
-+
-+struct mchp_spdifrx_mixer_control {
-+		struct mchp_spdifrx_ch_stat ch_stat[SPDIFRX_CHANNELS];
-+		struct mchp_spdifrx_user_data user_data[SPDIFRX_CHANNELS];
-+		bool ulock;
-+		bool badf;
-+		bool signal;
-+};
-+
-+struct mchp_spdifrx_dev {
-+	struct snd_dmaengine_dai_dma_data	capture;
-+	struct mchp_spdifrx_mixer_control	control;
-+	spinlock_t				blockend_lock;	/* protect access to blockend_refcount */
-+	int					blockend_refcount;
-+	struct device				*dev;
-+	struct regmap				*regmap;
-+	struct clk				*pclk;
-+	struct clk				*gclk;
-+	unsigned int				fmt;
-+	unsigned int				gclk_enabled:1;
-+};
-+
-+static void mchp_spdifrx_channel_status_read(struct mchp_spdifrx_dev *dev,
-+					     int channel)
-+{
-+	struct mchp_spdifrx_mixer_control *ctrl = &dev->control;
-+	u8 *ch_stat = &ctrl->ch_stat[channel].data[0];
-+	u32 val;
-+	int i;
-+
-+	for (i = 0; i < ARRAY_SIZE(ctrl->ch_stat[channel].data) / 4; i++) {
-+		regmap_read(dev->regmap, SPDIFRX_CHSR(channel, i), &val);
-+		*ch_stat++ = val & 0xFF;
-+		*ch_stat++ = (val >> 8) & 0xFF;
-+		*ch_stat++ = (val >> 16) & 0xFF;
-+		*ch_stat++ = (val >> 24) & 0xFF;
-+	}
-+}
-+
-+static void mchp_spdifrx_channel_user_data_read(struct mchp_spdifrx_dev *dev,
-+						int channel)
-+{
-+	struct mchp_spdifrx_mixer_control *ctrl = &dev->control;
-+	u8 *user_data = &ctrl->user_data[channel].data[0];
-+	u32 val;
-+	int i;
-+
-+	for (i = 0; i < ARRAY_SIZE(ctrl->user_data[channel].data) / 4; i++) {
-+		regmap_read(dev->regmap, SPDIFRX_CHUD(channel, i), &val);
-+		*user_data++ = val & 0xFF;
-+		*user_data++ = (val >> 8) & 0xFF;
-+		*user_data++ = (val >> 16) & 0xFF;
-+		*user_data++ = (val >> 24) & 0xFF;
-+	}
-+}
-+
-+/* called from non-atomic context only */
-+static void mchp_spdifrx_isr_blockend_en(struct mchp_spdifrx_dev *dev)
-+{
-+	unsigned long flags;
-+
-+	spin_lock_irqsave(&dev->blockend_lock, flags);
-+	dev->blockend_refcount++;
-+	/* don't enable BLOCKEND interrupt if it's already enabled */
-+	if (dev->blockend_refcount == 1)
-+		regmap_write(dev->regmap, SPDIFRX_IER, SPDIFRX_IR_BLOCKEND);
-+	spin_unlock_irqrestore(&dev->blockend_lock, flags);
-+}
-+
-+/* called from atomic context only */
-+static void mchp_spdifrx_isr_blockend_dis(struct mchp_spdifrx_dev *dev)
-+{
-+	spin_lock(&dev->blockend_lock);
-+	dev->blockend_refcount--;
-+	/* don't enable BLOCKEND interrupt if it's already enabled */
-+	if (dev->blockend_refcount == 0)
-+		regmap_write(dev->regmap, SPDIFRX_IDR, SPDIFRX_IR_BLOCKEND);
-+	spin_unlock(&dev->blockend_lock);
-+}
-+
-+static irqreturn_t mchp_spdif_interrupt(int irq, void *dev_id)
-+{
-+	struct mchp_spdifrx_dev *dev = dev_id;
-+	struct mchp_spdifrx_mixer_control *ctrl = &dev->control;
-+	u32 sr, imr, pending, idr = 0;
-+	irqreturn_t ret = IRQ_NONE;
-+	int ch;
-+
-+	regmap_read(dev->regmap, SPDIFRX_ISR, &sr);
-+	regmap_read(dev->regmap, SPDIFRX_IMR, &imr);
-+	pending = sr & imr;
-+	dev_dbg(dev->dev, "ISR: %#x, IMR: %#x, pending: %#x\n", sr, imr,
-+		pending);
-+
-+	if (!pending)
-+		return IRQ_NONE;
-+
-+	if (pending & SPDIFRX_IR_BLOCKEND) {
-+		for (ch = 0; ch < SPDIFRX_CHANNELS; ch++) {
-+			spin_lock(&ctrl->user_data[ch].lock);
-+			mchp_spdifrx_channel_user_data_read(dev, ch);
-+			spin_unlock(&ctrl->user_data[ch].lock);
-+
-+			complete(&ctrl->user_data[ch].done);
-+		}
-+		mchp_spdifrx_isr_blockend_dis(dev);
-+		ret = IRQ_HANDLED;
-+	}
-+
-+	for (ch = 0; ch < SPDIFRX_CHANNELS; ch++) {
-+		if (pending & SPDIFRX_IR_CSC(ch)) {
-+			mchp_spdifrx_channel_status_read(dev, ch);
-+			complete(&ctrl->ch_stat[ch].done);
-+			idr |= SPDIFRX_IR_CSC(ch);
-+			ret = IRQ_HANDLED;
-+		}
-+	}
-+
-+	if (pending & SPDIFRX_IR_OVERRUN) {
-+		dev_warn(dev->dev, "Overrrun detected\n");
-+		ret = IRQ_HANDLED;
-+	}
-+
-+	regmap_write(dev->regmap, SPDIFRX_IDR, idr);
-+
-+	return ret;
-+}
-+
-+static int mchp_spdifrx_trigger(struct snd_pcm_substream *substream, int cmd,
-+				struct snd_soc_dai *dai)
-+{
-+	struct mchp_spdifrx_dev *dev = snd_soc_dai_get_drvdata(dai);
-+	u32 mr;
-+	int running;
-+	int ret;
-+
-+	regmap_read(dev->regmap, SPDIFRX_MR, &mr);
-+	running = !!(mr & SPDIFRX_MR_RXEN_ENABLE);
-+
-+	switch (cmd) {
-+	case SNDRV_PCM_TRIGGER_START:
-+	case SNDRV_PCM_TRIGGER_RESUME:
-+	case SNDRV_PCM_TRIGGER_PAUSE_RELEASE:
-+		if (!running) {
-+			mr &= ~SPDIFRX_MR_RXEN_MASK;
-+			mr |= SPDIFRX_MR_RXEN_ENABLE;
-+			/* enable overrun interrupts */
-+			regmap_write(dev->regmap, SPDIFRX_IER,
-+				     SPDIFRX_IR_OVERRUN);
-+		}
-+		break;
-+	case SNDRV_PCM_TRIGGER_STOP:
-+	case SNDRV_PCM_TRIGGER_SUSPEND:
-+	case SNDRV_PCM_TRIGGER_PAUSE_PUSH:
-+		if (running) {
-+			mr &= ~SPDIFRX_MR_RXEN_MASK;
-+			mr |= SPDIFRX_MR_RXEN_DISABLE;
-+			/* disable overrun interrupts */
-+			regmap_write(dev->regmap, SPDIFRX_IDR,
-+				     SPDIFRX_IR_OVERRUN);
-+		}
-+		break;
-+	default:
-+		return -EINVAL;
-+	}
-+
-+	ret = regmap_write(dev->regmap, SPDIFRX_MR, mr);
-+	if (ret) {
-+		dev_err(dev->dev, "unable to enable/disable RX: %d\n", ret);
-+		return ret;
-+	}
-+
-+	return 0;
-+}
-+
-+static int mchp_spdifrx_hw_params(struct snd_pcm_substream *substream,
-+				  struct snd_pcm_hw_params *params,
-+				  struct snd_soc_dai *dai)
-+{
-+	struct mchp_spdifrx_dev *dev = snd_soc_dai_get_drvdata(dai);
-+	u32 mr;
-+	int ret;
-+
-+	dev_dbg(dev->dev, "%s() rate=%u format=%#x width=%u channels=%u\n",
-+		__func__, params_rate(params), params_format(params),
-+		params_width(params), params_channels(params));
-+
-+	if (substream->stream == SNDRV_PCM_STREAM_PLAYBACK) {
-+		dev_err(dev->dev, "Playback is not supported\n");
-+		return -EINVAL;
-+	}
-+
-+	regmap_read(dev->regmap, SPDIFRX_MR, &mr);
-+
-+	if (mr & SPDIFRX_MR_RXEN_ENABLE) {
-+		dev_err(dev->dev, "PCM already running\n");
-+		return -EBUSY;
-+	}
-+
-+	if (params_channels(params) != SPDIFRX_CHANNELS) {
-+		dev_err(dev->dev, "unsupported number of channels: %d\n",
-+			params_channels(params));
-+		return -EINVAL;
-+	}
-+
-+	switch (params_format(params)) {
-+	case SNDRV_PCM_FORMAT_S16_BE:
-+	case SNDRV_PCM_FORMAT_S20_3BE:
-+	case SNDRV_PCM_FORMAT_S24_3BE:
-+	case SNDRV_PCM_FORMAT_S24_BE:
-+		mr |= SPDIFRX_MR_ENDIAN_BIG;
-+		fallthrough;
-+	case SNDRV_PCM_FORMAT_S16_LE:
-+	case SNDRV_PCM_FORMAT_S20_3LE:
-+	case SNDRV_PCM_FORMAT_S24_3LE:
-+	case SNDRV_PCM_FORMAT_S24_LE:
-+		mr |= SPDIFRX_MR_DATAWIDTH(params_width(params));
-+		break;
-+	default:
-+		dev_err(dev->dev, "unsupported PCM format: %d\n",
-+			params_format(params));
-+		return -EINVAL;
-+	}
-+
-+	if (dev->gclk_enabled) {
-+		clk_disable_unprepare(dev->gclk);
-+		dev->gclk_enabled = 0;
-+	}
-+	ret = clk_set_min_rate(dev->gclk, params_rate(params) *
-+					  SPDIFRX_GCLK_RATIO_MIN + 1);
-+	if (ret) {
-+		dev_err(dev->dev,
-+			"unable to set gclk min rate: rate %u * ratio %u + 1\n",
-+			params_rate(params), SPDIFRX_GCLK_RATIO_MIN);
-+		return ret;
-+	}
-+	ret = clk_prepare_enable(dev->gclk);
-+	if (ret) {
-+		dev_err(dev->dev, "unable to enable gclk: %d\n", ret);
-+		return ret;
-+	}
-+	dev->gclk_enabled = 1;
-+
-+	dev_dbg(dev->dev, "GCLK range min set to %d\n",
-+		params_rate(params) * SPDIFRX_GCLK_RATIO_MIN + 1);
-+
-+	return regmap_write(dev->regmap, SPDIFRX_MR, mr);
-+}
-+
-+static int mchp_spdifrx_hw_free(struct snd_pcm_substream *substream,
-+				struct snd_soc_dai *dai)
-+{
-+	struct mchp_spdifrx_dev *dev = snd_soc_dai_get_drvdata(dai);
-+
-+	if (dev->gclk_enabled) {
-+		clk_disable_unprepare(dev->gclk);
-+		dev->gclk_enabled = 0;
-+	}
-+	return 0;
-+}
-+
-+static const struct snd_soc_dai_ops mchp_spdifrx_dai_ops = {
-+	.trigger	= mchp_spdifrx_trigger,
-+	.hw_params	= mchp_spdifrx_hw_params,
-+	.hw_free	= mchp_spdifrx_hw_free,
-+};
-+
-+#define MCHP_SPDIF_RATES	SNDRV_PCM_RATE_8000_192000
-+
-+#define MCHP_SPDIF_FORMATS	(SNDRV_PCM_FMTBIT_S16_LE |	\
-+				 SNDRV_PCM_FMTBIT_U16_BE |	\
-+				 SNDRV_PCM_FMTBIT_S20_3LE |	\
-+				 SNDRV_PCM_FMTBIT_S20_3BE |	\
-+				 SNDRV_PCM_FMTBIT_S24_3LE |	\
-+				 SNDRV_PCM_FMTBIT_S24_3BE |	\
-+				 SNDRV_PCM_FMTBIT_S24_LE |	\
-+				 SNDRV_PCM_FMTBIT_S24_BE	\
-+				)
-+
-+static int mchp_spdifrx_info(struct snd_kcontrol *kcontrol,
-+			     struct snd_ctl_elem_info *uinfo)
-+{
-+	uinfo->type = SNDRV_CTL_ELEM_TYPE_IEC958;
-+	uinfo->count = 1;
-+
-+	return 0;
-+}
-+
-+static int mchp_spdifrx_cs_get(struct mchp_spdifrx_dev *dev,
-+			       int channel,
-+			       struct snd_ctl_elem_value *uvalue)
-+{
-+	struct mchp_spdifrx_mixer_control *ctrl = &dev->control;
-+	struct mchp_spdifrx_ch_stat *ch_stat = &ctrl->ch_stat[channel];
-+	int ret;
-+
-+	regmap_write(dev->regmap, SPDIFRX_IER, SPDIFRX_IR_CSC(channel));
-+	/* check for new data available */
-+	ret = wait_for_completion_interruptible_timeout(&ch_stat->done,
-+							msecs_to_jiffies(100));
-+	/* IP might not be started or valid stream might not be prezent */
-+	if (ret < 0) {
-+		dev_dbg(dev->dev, "channel status for channel %d timeout\n",
-+			channel);
-+	}
-+
-+	memcpy(uvalue->value.iec958.status, ch_stat->data,
-+	       sizeof(ch_stat->data));
-+
-+	return 0;
-+}
-+
-+static int mchp_spdifrx_cs1_get(struct snd_kcontrol *kcontrol,
-+				struct snd_ctl_elem_value *uvalue)
-+{
-+	struct snd_soc_dai *dai = snd_kcontrol_chip(kcontrol);
-+	struct mchp_spdifrx_dev *dev = snd_soc_dai_get_drvdata(dai);
-+
-+	return mchp_spdifrx_cs_get(dev, 0, uvalue);
-+}
-+
-+static int mchp_spdifrx_cs2_get(struct snd_kcontrol *kcontrol,
-+				struct snd_ctl_elem_value *uvalue)
-+{
-+	struct snd_soc_dai *dai = snd_kcontrol_chip(kcontrol);
-+	struct mchp_spdifrx_dev *dev = snd_soc_dai_get_drvdata(dai);
-+
-+	return mchp_spdifrx_cs_get(dev, 1, uvalue);
-+}
-+
-+static int mchp_spdifrx_cs_mask(struct snd_kcontrol *kcontrol,
-+				struct snd_ctl_elem_value *uvalue)
-+{
-+	memset(uvalue->value.iec958.status, 0xff,
-+	       sizeof(uvalue->value.iec958.status));
-+
-+	return 0;
-+}
-+
-+static int mchp_spdifrx_subcode_ch_get(struct mchp_spdifrx_dev *dev,
-+				       int channel,
-+				       struct snd_ctl_elem_value *uvalue)
-+{
-+	unsigned long flags;
-+	struct mchp_spdifrx_mixer_control *ctrl = &dev->control;
-+	struct mchp_spdifrx_user_data *user_data = &ctrl->user_data[channel];
-+	int ret;
-+
-+	reinit_completion(&user_data->done);
-+	mchp_spdifrx_isr_blockend_en(dev);
-+	ret = wait_for_completion_interruptible_timeout(&user_data->done,
-+							msecs_to_jiffies(100));
-+	/* IP might not be started or valid stream might not be prezent */
-+	if (ret <= 0) {
-+		dev_dbg(dev->dev, "user data for channel %d timeout\n",
-+			channel);
-+		return ret;
-+	}
-+
-+	spin_lock_irqsave(&user_data->lock, flags);
-+	memcpy(uvalue->value.iec958.subcode, user_data->data,
-+	       sizeof(user_data->data));
-+	spin_unlock_irqrestore(&user_data->lock, flags);
-+
-+	return 0;
-+}
-+
-+static int mchp_spdifrx_subcode_ch1_get(struct snd_kcontrol *kcontrol,
-+					struct snd_ctl_elem_value *uvalue)
-+{
-+	struct snd_soc_dai *dai = snd_kcontrol_chip(kcontrol);
-+	struct mchp_spdifrx_dev *dev = snd_soc_dai_get_drvdata(dai);
-+
-+	return mchp_spdifrx_subcode_ch_get(dev, 0, uvalue);
-+}
-+
-+static int mchp_spdifrx_subcode_ch2_get(struct snd_kcontrol *kcontrol,
-+					struct snd_ctl_elem_value *uvalue)
-+{
-+	struct snd_soc_dai *dai = snd_kcontrol_chip(kcontrol);
-+	struct mchp_spdifrx_dev *dev = snd_soc_dai_get_drvdata(dai);
-+
-+	return mchp_spdifrx_subcode_ch_get(dev, 1, uvalue);
-+}
-+
-+static int mchp_spdifrx_boolean_info(struct snd_kcontrol *kcontrol,
-+				     struct snd_ctl_elem_info *uinfo)
-+{
-+	uinfo->type = SNDRV_CTL_ELEM_TYPE_BOOLEAN;
-+	uinfo->count = 1;
-+	uinfo->value.integer.min = 0;
-+	uinfo->value.integer.max = 1;
-+
-+	return 0;
-+}
-+
-+static int mchp_spdifrx_ulock_get(struct snd_kcontrol *kcontrol,
-+				  struct snd_ctl_elem_value *uvalue)
-+{
-+	struct snd_soc_dai *dai = snd_kcontrol_chip(kcontrol);
-+	struct mchp_spdifrx_dev *dev = snd_soc_dai_get_drvdata(dai);
-+	struct mchp_spdifrx_mixer_control *ctrl = &dev->control;
-+	u32 val;
-+	bool ulock_old = ctrl->ulock;
-+
-+	regmap_read(dev->regmap, SPDIFRX_RSR, &val);
-+	ctrl->ulock = !(val & SPDIFRX_RSR_ULOCK);
-+	uvalue->value.integer.value[0] = ctrl->ulock;
-+
-+	return ulock_old != ctrl->ulock;
-+}
-+
-+static int mchp_spdifrx_badf_get(struct snd_kcontrol *kcontrol,
-+				 struct snd_ctl_elem_value *uvalue)
-+{
-+	struct snd_soc_dai *dai = snd_kcontrol_chip(kcontrol);
-+	struct mchp_spdifrx_dev *dev = snd_soc_dai_get_drvdata(dai);
-+	struct mchp_spdifrx_mixer_control *ctrl = &dev->control;
-+	u32 val;
-+	bool badf_old = ctrl->badf;
-+
-+	regmap_read(dev->regmap, SPDIFRX_RSR, &val);
-+	ctrl->badf = !!(val & SPDIFRX_RSR_BADF);
-+	uvalue->value.integer.value[0] = ctrl->badf;
-+
-+	return badf_old != ctrl->badf;
-+}
-+
-+static int mchp_spdifrx_signal_get(struct snd_kcontrol *kcontrol,
-+				   struct snd_ctl_elem_value *uvalue)
-+{
-+	struct snd_soc_dai *dai = snd_kcontrol_chip(kcontrol);
-+	struct mchp_spdifrx_dev *dev = snd_soc_dai_get_drvdata(dai);
-+	struct mchp_spdifrx_mixer_control *ctrl = &dev->control;
-+	u32 val;
-+	bool signal_old = ctrl->signal;
-+
-+	regmap_read(dev->regmap, SPDIFRX_RSR, &val);
-+	ctrl->signal = !(val & SPDIFRX_RSR_NOSIGNAL);
-+	uvalue->value.integer.value[0] = ctrl->signal;
-+
-+	return signal_old != ctrl->signal;
-+}
-+
-+static int mchp_spdifrx_rate_info(struct snd_kcontrol *kcontrol,
-+				  struct snd_ctl_elem_info *uinfo)
-+{
-+	uinfo->type = SNDRV_CTL_ELEM_TYPE_INTEGER;
-+	uinfo->count = 1;
-+	uinfo->value.integer.min = 0;
-+	uinfo->value.integer.max = 192000;
-+
-+	return 0;
-+}
-+
-+static int mchp_spdifrx_rate_get(struct snd_kcontrol *kcontrol,
-+				 struct snd_ctl_elem_value *ucontrol)
-+{
-+	struct snd_soc_dai *dai = snd_kcontrol_chip(kcontrol);
-+	struct mchp_spdifrx_dev *dev = snd_soc_dai_get_drvdata(dai);
-+	u32 val;
-+	int rate;
-+
-+	regmap_read(dev->regmap, SPDIFRX_RSR, &val);
-+
-+	/* if the receiver is not locked, ISF data is invalid */
-+	if (val & SPDIFRX_RSR_ULOCK || !(val & SPDIFRX_RSR_IFS_MASK)) {
-+		ucontrol->value.integer.value[0] = 0;
-+		return 0;
-+	}
-+
-+	rate = clk_get_rate(dev->gclk);
-+
-+	ucontrol->value.integer.value[0] = rate / (32 * SPDIFRX_RSR_IFS(val));
-+
-+	return 0;
-+}
-+
-+static struct snd_kcontrol_new mchp_spdifrx_ctrls[] = {
-+	/* Channel status controller */
-+	{
-+		.iface = SNDRV_CTL_ELEM_IFACE_PCM,
-+		.name = SNDRV_CTL_NAME_IEC958("", CAPTURE, DEFAULT)
-+			" Channel 1",
-+		.access = SNDRV_CTL_ELEM_ACCESS_READ |
-+			SNDRV_CTL_ELEM_ACCESS_VOLATILE,
-+		.info = mchp_spdifrx_info,
-+		.get = mchp_spdifrx_cs1_get,
-+	},
-+	{
-+		.iface = SNDRV_CTL_ELEM_IFACE_PCM,
-+		.name = SNDRV_CTL_NAME_IEC958("", CAPTURE, DEFAULT)
-+			" Channel 2",
-+		.access = SNDRV_CTL_ELEM_ACCESS_READ |
-+			SNDRV_CTL_ELEM_ACCESS_VOLATILE,
-+		.info = mchp_spdifrx_info,
-+		.get = mchp_spdifrx_cs2_get,
-+	},
-+	{
-+		.iface = SNDRV_CTL_ELEM_IFACE_PCM,
-+		.name = SNDRV_CTL_NAME_IEC958("", CAPTURE, MASK),
-+		.access = SNDRV_CTL_ELEM_ACCESS_READ,
-+		.info = mchp_spdifrx_info,
-+		.get = mchp_spdifrx_cs_mask,
-+	},
-+	/* User bits controller */
-+	{
-+		.iface = SNDRV_CTL_ELEM_IFACE_PCM,
-+		.name = "IEC958 Subcode Capture Default Channel 1",
-+		.access = SNDRV_CTL_ELEM_ACCESS_READ |
-+			SNDRV_CTL_ELEM_ACCESS_VOLATILE,
-+		.info = mchp_spdifrx_info,
-+		.get = mchp_spdifrx_subcode_ch1_get,
-+	},
-+	{
-+		.iface = SNDRV_CTL_ELEM_IFACE_PCM,
-+		.name = "IEC958 Subcode Capture Default Channel 2",
-+		.access = SNDRV_CTL_ELEM_ACCESS_READ |
-+			SNDRV_CTL_ELEM_ACCESS_VOLATILE,
-+		.info = mchp_spdifrx_info,
-+		.get = mchp_spdifrx_subcode_ch2_get,
-+	},
-+	/* Lock status */
-+	{
-+		.iface = SNDRV_CTL_ELEM_IFACE_PCM,
-+		.name = SNDRV_CTL_NAME_IEC958("", CAPTURE, NONE) "Unlocked",
-+		.access = SNDRV_CTL_ELEM_ACCESS_READ |
-+			SNDRV_CTL_ELEM_ACCESS_VOLATILE,
-+		.info = mchp_spdifrx_boolean_info,
-+		.get = mchp_spdifrx_ulock_get,
-+	},
-+	/* Bad format */
-+	{
-+		.iface = SNDRV_CTL_ELEM_IFACE_PCM,
-+		.name = SNDRV_CTL_NAME_IEC958("", CAPTURE, NONE)"Bad Format",
-+		.access = SNDRV_CTL_ELEM_ACCESS_READ |
-+			SNDRV_CTL_ELEM_ACCESS_VOLATILE,
-+		.info = mchp_spdifrx_boolean_info,
-+		.get = mchp_spdifrx_badf_get,
-+	},
-+	/* Signal */
-+	{
-+		.iface = SNDRV_CTL_ELEM_IFACE_PCM,
-+		.name = SNDRV_CTL_NAME_IEC958("", CAPTURE, NONE) "Signal",
-+		.access = SNDRV_CTL_ELEM_ACCESS_READ |
-+			SNDRV_CTL_ELEM_ACCESS_VOLATILE,
-+		.info = mchp_spdifrx_boolean_info,
-+		.get = mchp_spdifrx_signal_get,
-+	},
-+	/* Sampling rate */
-+	{
-+		.iface = SNDRV_CTL_ELEM_IFACE_PCM,
-+		.name = SNDRV_CTL_NAME_IEC958("", CAPTURE, NONE) "Rate",
-+		.access = SNDRV_CTL_ELEM_ACCESS_READ |
-+			SNDRV_CTL_ELEM_ACCESS_VOLATILE,
-+		.info = mchp_spdifrx_rate_info,
-+		.get = mchp_spdifrx_rate_get,
-+	},
-+};
-+
-+static int mchp_spdifrx_dai_probe(struct snd_soc_dai *dai)
-+{
-+	struct mchp_spdifrx_dev *dev = snd_soc_dai_get_drvdata(dai);
-+	struct mchp_spdifrx_mixer_control *ctrl = &dev->control;
-+	int ch;
-+	int err;
-+
-+	err = clk_prepare_enable(dev->pclk);
-+	if (err) {
-+		dev_err(dev->dev,
-+			"failed to enable the peripheral clock: %d\n", err);
-+		return err;
-+	}
-+
-+	snd_soc_dai_init_dma_data(dai, NULL, &dev->capture);
-+
-+	/* Software reset the IP */
-+	regmap_write(dev->regmap, SPDIFRX_CR, SPDIFRX_CR_SWRST);
-+
-+	/* Default configuration */
-+	regmap_write(dev->regmap, SPDIFRX_MR,
-+		     SPDIFRX_MR_VBMODE_DISCARD_IF_VB1 |
-+		     SPDIFRX_MR_SBMODE_DISCARD |
-+		     SPDIFRX_MR_AUTORST_NOACTION |
-+		     SPDIFRX_MR_PACK_DISABLED);
-+
-+	dev->blockend_refcount = 0;
-+	for (ch = 0; ch < SPDIFRX_CHANNELS; ch++) {
-+		init_completion(&ctrl->ch_stat[ch].done);
-+		init_completion(&ctrl->user_data[ch].done);
-+		spin_lock_init(&ctrl->user_data[ch].lock);
-+	}
-+
-+	/* Add controls */
-+	snd_soc_add_dai_controls(dai, mchp_spdifrx_ctrls,
-+				 ARRAY_SIZE(mchp_spdifrx_ctrls));
-+
-+	return 0;
-+}
-+
-+static int mchp_spdifrx_dai_remove(struct snd_soc_dai *dai)
-+{
-+	struct mchp_spdifrx_dev *dev = snd_soc_dai_get_drvdata(dai);
-+
-+	/* Disable interrupts */
-+	regmap_write(dev->regmap, SPDIFRX_IDR, 0xFF);
-+
-+	clk_disable_unprepare(dev->pclk);
-+
-+	return 0;
-+}
-+
-+static struct snd_soc_dai_driver mchp_spdifrx_dai = {
-+	.name = "mchp-spdifrx",
-+	.probe	= mchp_spdifrx_dai_probe,
-+	.remove	= mchp_spdifrx_dai_remove,
-+	.capture = {
-+		.stream_name = "S/PDIF Capture",
-+		.channels_min = SPDIFRX_CHANNELS,
-+		.channels_max = SPDIFRX_CHANNELS,
-+		.rates = MCHP_SPDIF_RATES,
-+		.formats = MCHP_SPDIF_FORMATS,
-+	},
-+	.ops = &mchp_spdifrx_dai_ops,
-+};
-+
-+static const struct snd_soc_component_driver mchp_spdifrx_component = {
-+	.name		= "mchp-spdifrx",
-+};
-+
-+static const struct of_device_id mchp_spdifrx_dt_ids[] = {
-+	{
-+		.compatible = "microchip,sama7g5-spdifrx",
-+	},
-+	{ /* sentinel */ }
-+};
-+MODULE_DEVICE_TABLE(of, mchp_spdifrx_dt_ids);
-+
-+static int mchp_spdifrx_probe(struct platform_device *pdev)
-+{
-+	struct mchp_spdifrx_dev *dev;
-+	struct resource *mem;
-+	struct regmap *regmap;
-+	void __iomem *base;
-+	int irq;
-+	int err;
-+	u32 vers;
-+
-+	/* Get memory for driver data. */
-+	dev = devm_kzalloc(&pdev->dev, sizeof(*dev), GFP_KERNEL);
-+	if (!dev)
-+		return -ENOMEM;
-+
-+	/* Map I/O registers. */
-+	mem = platform_get_resource(pdev, IORESOURCE_MEM, 0);
-+	base = devm_ioremap_resource(&pdev->dev, mem);
-+	if (IS_ERR(base))
-+		return PTR_ERR(base);
-+
-+	regmap = devm_regmap_init_mmio(&pdev->dev, base,
-+				       &mchp_spdifrx_regmap_config);
-+	if (IS_ERR(regmap))
-+		return PTR_ERR(regmap);
-+
-+	/* Request IRQ. */
-+	irq = platform_get_irq(pdev, 0);
-+	if (irq < 0)
-+		return irq;
-+
-+	err = devm_request_irq(&pdev->dev, irq, mchp_spdif_interrupt, 0,
-+			       dev_name(&pdev->dev), dev);
-+	if (err)
-+		return err;
-+
-+	/* Get the peripheral clock */
-+	dev->pclk = devm_clk_get(&pdev->dev, "pclk");
-+	if (IS_ERR(dev->pclk)) {
-+		err = PTR_ERR(dev->pclk);
-+		dev_err(&pdev->dev, "failed to get the peripheral clock: %d\n",
-+			err);
-+		return err;
-+	}
-+
-+	/* Get the generated clock */
-+	dev->gclk = devm_clk_get(&pdev->dev, "gclk");
-+	if (IS_ERR(dev->gclk)) {
-+		err = PTR_ERR(dev->gclk);
-+		dev_err(&pdev->dev,
-+			"failed to get the PMC generated clock: %d\n", err);
-+		return err;
-+	}
-+	spin_lock_init(&dev->blockend_lock);
-+
-+	dev->dev = &pdev->dev;
-+	dev->regmap = regmap;
-+	platform_set_drvdata(pdev, dev);
-+
-+	dev->capture.addr	= (dma_addr_t)mem->start + SPDIFRX_RHR;
-+	dev->capture.maxburst	= 1;
-+
-+	err = devm_snd_dmaengine_pcm_register(&pdev->dev, NULL, 0);
-+	if (err) {
-+		dev_err(&pdev->dev, "failed to register PMC: %d\n", err);
-+		return err;
-+	}
-+
-+	err = devm_snd_soc_register_component(&pdev->dev,
-+					      &mchp_spdifrx_component,
-+					      &mchp_spdifrx_dai, 1);
-+	if (err) {
-+		dev_err(&pdev->dev, "fail to register dai\n");
-+		return err;
-+	}
-+
-+	regmap_read(regmap, SPDIFRX_VERSION, &vers);
-+	dev_info(&pdev->dev, "hw version: %#lx\n", vers & SPDIFRX_VERSION_MASK);
-+
-+	return 0;
-+}
-+
-+static struct platform_driver mchp_spdifrx_driver = {
-+	.probe	= mchp_spdifrx_probe,
-+	.driver	= {
-+		.name	= "mchp_spdifrx",
-+		.of_match_table = of_match_ptr(mchp_spdifrx_dt_ids),
-+	},
-+};
-+
-+module_platform_driver(mchp_spdifrx_driver);
-+
-+MODULE_AUTHOR("Codrin Ciubotariu <codrin.ciubotariu@microchip.com>");
-+MODULE_DESCRIPTION("Microchip S/PDIF RX Controller Driver");
-+MODULE_LICENSE("GPL v2");
--- 
-2.25.1
+Yep :)
 
+Maxime
+
+--pc2zpj5o3hm4cgp3
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYIAB0WIQRcEzekXsqa64kGDp7j7w1vZxhRxQUCX3dUQgAKCRDj7w1vZxhR
+xWNUAQDytEMJPPzTs+e8ZDtzT+2iNv0sKVHta5QD+LfuXZBmbgD/QisIsrbypwx5
+fKJkl2netB5EWbzdHHzRhBS1gkZtpgc=
+=1BCa
+-----END PGP SIGNATURE-----
+
+--pc2zpj5o3hm4cgp3--

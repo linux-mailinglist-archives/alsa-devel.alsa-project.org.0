@@ -2,85 +2,94 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id DE43C28118F
-	for <lists+alsa-devel@lfdr.de>; Fri,  2 Oct 2020 13:51:05 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5E93628134D
+	for <lists+alsa-devel@lfdr.de>; Fri,  2 Oct 2020 14:59:37 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 53AD41F15;
-	Fri,  2 Oct 2020 13:50:15 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 53AD41F15
+	by alsa0.perex.cz (Postfix) with ESMTPS id D31241F15;
+	Fri,  2 Oct 2020 14:58:46 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D31241F15
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1601639465;
-	bh=dfMF+gC69RMSXR2ZdWAeHaA1CgGYek6REsIfK7EMmmI=;
+	s=default; t=1601643576;
+	bh=I5cn5tJAmnSET/hqhq1rcBQTFfpSjCa/B4RGZVIBGLI=;
 	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=s1XSTVxXmnI84BTGdan/Y3C26mkRxpUKHOtRDHPB5S0MKlH9pjsaIsrN3yBbWNYlh
-	 gLvjuY8is3VM+fqywWTVMijJkjcrAmHyNi6JmhXza039Obdhgi0mc51M1XHZTEEWDd
-	 Sq69T24QBp9GgdxDZ9I2nOUCiOQXOSDlQgN1uVXU=
+	b=IJpQb4+xwNZfcn3LTORubeeNN3B+3vwqzRWl8/LFjfrAqPHrbpU9aOjZpu8Z8A5Mw
+	 oZHxT7kDXnD6I2Ek55wfxmmbt4S/EIdKWp8PXYeFoaR/o7cnPJghAZtWYqfSPK9XHe
+	 fFwwgyPIEDbIC/JHr0gME111e8ruUMfiWFIUtbTI=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 85F13F80228;
-	Fri,  2 Oct 2020 13:49:24 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 071F4F80228;
+	Fri,  2 Oct 2020 14:57:56 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id B1BDDF801F9; Fri,  2 Oct 2020 13:49:21 +0200 (CEST)
+ id A5E95F801F9; Fri,  2 Oct 2020 14:57:53 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.4 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS
+X-Spam-Status: No, score=-0.4 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
  autolearn=disabled version=3.4.0
-Received: from fllv0015.ext.ti.com (fllv0015.ext.ti.com [198.47.19.141])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-x341.google.com (mail-wm1-x341.google.com
+ [IPv6:2a00:1450:4864:20::341])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 8FD40F800AB
- for <alsa-devel@alsa-project.org>; Fri,  2 Oct 2020 13:49:10 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8FD40F800AB
+ by alsa1.perex.cz (Postfix) with ESMTPS id 2261BF800AB
+ for <alsa-devel@alsa-project.org>; Fri,  2 Oct 2020 14:57:42 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2261BF800AB
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b="Z5DrgLMv"
-Received: from lelv0266.itg.ti.com ([10.180.67.225])
- by fllv0015.ext.ti.com (8.15.2/8.15.2) with ESMTP id 092Bn8Hq080454;
- Fri, 2 Oct 2020 06:49:08 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com;
- s=ti-com-17Q1; t=1601639348;
- bh=s3DN3MeqQyiIvhI3oNKOPX1pPbCC/r3S5ZGQ31V60RA=;
- h=Subject:To:CC:References:From:Date:In-Reply-To;
- b=Z5DrgLMv56Poc2oWfXOawXuLHQ2/fFzYZ6+70o9HE4e29SH6nBoficclVL18S9A9q
- kx/JmBSOo7SvJUAuw7o1Z5lvnOnmOQrm5vEUhN7y84e9M6K0/bHMH5+2Th53P2PvFW
- j22qdYl3Vuxb4yZoPUo/8d1EjsFZc3s/cFriAzlU=
-Received: from DLEE115.ent.ti.com (dlee115.ent.ti.com [157.170.170.26])
- by lelv0266.itg.ti.com (8.15.2/8.15.2) with ESMTPS id 092Bn8UN009228
- (version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=FAIL);
- Fri, 2 Oct 2020 06:49:08 -0500
-Received: from DLEE109.ent.ti.com (157.170.170.41) by DLEE115.ent.ti.com
- (157.170.170.26) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.1979.3; Fri, 2 Oct
- 2020 06:49:07 -0500
-Received: from lelv0326.itg.ti.com (10.180.67.84) by DLEE109.ent.ti.com
- (157.170.170.41) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.1979.3 via
- Frontend Transport; Fri, 2 Oct 2020 06:49:08 -0500
-Received: from [10.250.71.177] (ileax41-snat.itg.ti.com [10.172.224.153])
- by lelv0326.itg.ti.com (8.15.2/8.15.2) with ESMTP id 092Bn7Vu054127;
- Fri, 2 Oct 2020 06:49:07 -0500
-Subject: Re: [PATCH 2/2] ASoC: tas2764: Add the driver for the TAS2764
-To: Mark Brown <broonie@kernel.org>
-References: <20200930163809.6978-1-dmurphy@ti.com>
- <20200930163809.6978-2-dmurphy@ti.com> <20201001162505.GO6715@sirena.org.uk>
-From: Dan Murphy <dmurphy@ti.com>
-Message-ID: <e579ca44-dbc8-f7ff-a4b5-3d19ce9b5d7a@ti.com>
-Date: Fri, 2 Oct 2020 06:49:07 -0500
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.10.0
+ dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org
+ header.b="GHcbG5RA"
+Received: by mail-wm1-x341.google.com with SMTP id j136so1669887wmj.2
+ for <alsa-devel@alsa-project.org>; Fri, 02 Oct 2020 05:57:42 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=subject:to:cc:references:from:message-id:date:user-agent
+ :mime-version:in-reply-to:content-language:content-transfer-encoding;
+ bh=43YMyAraFcnlRIgLFQOPJ4TtLA2BehQoYI4Q0ek9zDk=;
+ b=GHcbG5RACdnbf6XvhSlRxqvxF7cKprdivqsvJHAhDo6xLRSjfwNg7DDfHxTDXcBoJl
+ EAC5D38Nds6fBzl50XZrxTX3WTmlM0DmILA5kMIK92Rjzs9EiLSnp5MsctzRBQNLP1D1
+ pXPTFZ6DhQfYfGiMuRa3H2JJJbXp9F6M8IS7KHr5lw8Js/1/ibQ4wxnzPIWrfyAybytz
+ euNFqndzGb7DmbS3beJmOFj+YF5ePCtu6/pIozohlVDuPKBQ3wOUcfpwbgh4YUV/K/7k
+ Xqsqw4dagUyKwoSaLooIwz84AIOw+LkiMrj4Y+pUywSxdM22Nky84w7IOlGZwPMojsz5
+ ikOg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:subject:to:cc:references:from:message-id:date
+ :user-agent:mime-version:in-reply-to:content-language
+ :content-transfer-encoding;
+ bh=43YMyAraFcnlRIgLFQOPJ4TtLA2BehQoYI4Q0ek9zDk=;
+ b=g74BAtFQ3S5yx9Ec8mUv4jr0+BGUF0sRHQXiNz4Xkg7iFCX1WUh5VIg8qecaWG5vyW
+ Wror5wCvDm6R0cTrduk7k3kG8ULvUcSY7tcrA0FFx0JvCUz5FLfl9uIHCCV057e+N3fT
+ iUeHPjUhUOBCoQ07RFE5946rwWli6TDm8f2ioxWH8vBuXI0Arr2p7Q/eCC0hBrm02Sbu
+ 0IKzADA6n4U+HMGxtPC6vsR5Ua43F+A5ss0G0n5hpy1ZSiRKi8FVoNY3FKpmik/kmsjj
+ Og8JGvBKWjS963vxnLRK67FpjsxR+EDR9FiWZQ9g7KMMI4RONTJSeqvuB1eVZgClAWmG
+ 54uA==
+X-Gm-Message-State: AOAM5324/xo3qDK5KB94HD58duadlRAzi0I8f8fpOUhBK8Y2RxXrzWeJ
+ Dae7MqenW4uTWd5YfM/Kb/4xPYmDDyLzOA==
+X-Google-Smtp-Source: ABdhPJxD/MrPY3QcaILADFf85Aye8IYAKX/pGWFsiP5f10GYtQzE9IshZLLurZ3Vr0672gsG51qJPA==
+X-Received: by 2002:a1c:7912:: with SMTP id l18mr2782925wme.124.1601643461273; 
+ Fri, 02 Oct 2020 05:57:41 -0700 (PDT)
+Received: from [192.168.86.34]
+ (cpc86377-aztw32-2-0-cust226.18-1.cable.virginm.net. [92.233.226.227])
+ by smtp.googlemail.com with ESMTPSA id l19sm1704717wmi.8.2020.10.02.05.57.39
+ (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+ Fri, 02 Oct 2020 05:57:40 -0700 (PDT)
+Subject: Re: [PATCH -next] ASoC: qcom: fix SDM845 & QDSP6 dependencies more
+To: Randy Dunlap <rdunlap@infradead.org>, linux-kernel@vger.kernel.org
+References: <20201001183537.5781-1-rdunlap@infradead.org>
+From: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
+Message-ID: <602e1ffe-e916-17ed-a311-65dc3e3a3638@linaro.org>
+Date: Fri, 2 Oct 2020 13:57:39 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
+ Thunderbird/60.8.0
 MIME-Version: 1.0
-In-Reply-To: <20201001162505.GO6715@sirena.org.uk>
-Content-Type: text/plain; charset="windows-1252"; format=flowed
-Content-Transfer-Encoding: 7bit
+In-Reply-To: <20201001183537.5781-1-rdunlap@infradead.org>
+Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Language: en-US
-X-EXCLAIMER-MD-CONFIG: e1e8a2fd-e40a-4ac6-ac9b-f7e9cc9ee180
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org, tiwai@suse.com,
- lgirdwood@gmail.com, linux-kernel@vger.kernel.org, robh+dt@kernel.org
+Content-Transfer-Encoding: 7bit
+Cc: alsa-devel@alsa-project.org, Mark Brown <broonie@kernel.org>,
+ Takashi Iwai <tiwai@suse.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -96,69 +105,58 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Mark
-
-Thanks for the review
-
-On 10/1/20 11:25 AM, Mark Brown wrote:
-> On Wed, Sep 30, 2020 at 11:38:09AM -0500, Dan Murphy wrote:
->
-> This all looks good - a few very minor things below but nothing
-> substantial:
->
->> +	default:
->> +		dev_err(tas2764->dev, "Not supported evevt\n");
->> +		return -EINVAL;
-> evevt -> event
-OK
->
->> +static int tas2764_mute(struct snd_soc_dai *dai, int mute, int direction)
->> +{
->> +	struct snd_soc_component *component = dai->component;
->> +	int ret = snd_soc_component_update_bits(component, TAS2764_PWR_CTRL,
->> +						TAS2764_PWR_CTRL_MASK,
->> +						mute ? TAS2764_PWR_CTRL_MUTE : 0);
->> +
->> +	if (ret < 0)
->> +		return ret;
-> This looks weird with the ternery operator and extreme indentation -
-> could you please at least split the declaration of ret from the call to
-> make the line length a bit extreme?
-
-I will fix it up
 
 
->> +	switch (fmt & SND_SOC_DAIFMT_FORMAT_MASK) {
->> +	case SND_SOC_DAIFMT_I2S:
->> +	case SND_SOC_DAIFMT_DSP_A:
->> +		tdm_rx_start_slot = 1;
->> +		break;
->> +	case SND_SOC_DAIFMT_DSP_B:
->> +	case SND_SOC_DAIFMT_LEFT_J:
->> +		tdm_rx_start_slot = 0;
->> +		break;
-> I'm not seeing any other handling that distinguishes between the I2S and
-> DSP modes anywhere - I'm guessing this is because the device is really
-> only implementing the DSP modes but because it's mono this is compatible
-> with the I2S modes?  It'd be worth having a comment saying this since
-> while that would be OK not distinguishing between modes properly is a
-> common error in drivers so it'd help avoid cut'n'paste issues if someone
-> uses this code as a reference.
+On 01/10/2020 19:35, Randy Dunlap wrote:
+> Fix a build error and Kconfig warning in sound/soc/qcom/.
+> 
+> ld: sound/soc/qcom/qdsp6/q6afe-clocks.o: in function `q6afe_clock_dev_probe':
+> q6afe-clocks.c:(.text+0x182): undefined reference to `devm_clk_hw_register'
+> ld: q6afe-clocks.c:(.text+0x19d): undefined reference to `of_clk_add_hw_provider'
+> 
+> After adding "depends on COMMON_CLK" for SND_SOC_QDSP6, the Kconfig
+> warning appears because "select" does not honor any "depends on"
+> clauses, so fix the dependency for SND_SOC_SDM845 also.
+> 
+> WARNING: unmet direct dependencies detected for SND_SOC_QDSP6
+>    Depends on [n]: SOUND [=y] && !UML && SND [=y] && SND_SOC [=y] && SND_SOC_QCOM [=y] && QCOM_APR [=y] && COMMON_CLK [=n]
+>    Selected by [y]:
+>    - SND_SOC_SDM845 [=y] && SOUND [=y] && !UML && SND [=y] && SND_SOC [=y] && SND_SOC_QCOM [=y] && QCOM_APR [=y] && I2C [=y] && SOUNDWIRE [=y]
+> 
+> Fixes: 520a1c396d19 ("ASoC: q6afe-clocks: add q6afe clock controller")
+> Signed-off-by: Randy Dunlap <rdunlap@infradead.org>
+> Cc: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
+> Cc: Mark Brown <broonie@kernel.org>
+> Cc: Jaroslav Kysela <perex@perex.cz>
+> Cc: Takashi Iwai <tiwai@suse.com>
+> Cc: alsa-devel@alsa-project.org
 
-Ah it does do LEFT J and Right J so I will fix this
+Thanks Randy for fixing this!
+
+Reviewed-by: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
 
 
->> +static int tas2764_register_codec(struct tas2764_priv *tas2764)
->> +{
->> +	return devm_snd_soc_register_component(tas2764->dev,
->> +					       &soc_component_driver_tas2764,
->> +					       tas2764_dai_driver,
->> +					       ARRAY_SIZE(tas2764_dai_driver));
->> +}
-> This is a bit odd - can we not just inline the component registration
-> rather than having this function?
-
-I will eliminate this completely and move to i2c_probe
-
-Dan
-
+--srini
+> ---
+>   sound/soc/qcom/Kconfig |    2 ++
+>   1 file changed, 2 insertions(+)
+> 
+> --- linux-next-20201001.orig/sound/soc/qcom/Kconfig
+> +++ linux-next-20201001/sound/soc/qcom/Kconfig
+> @@ -82,6 +82,7 @@ config SND_SOC_QDSP6_ASM_DAI
+>   config SND_SOC_QDSP6
+>   	tristate "SoC ALSA audio driver for QDSP6"
+>   	depends on QCOM_APR
+> +	depends on COMMON_CLK
+>   	select SND_SOC_QDSP6_COMMON
+>   	select SND_SOC_QDSP6_CORE
+>   	select SND_SOC_QDSP6_AFE
+> @@ -110,6 +111,7 @@ config SND_SOC_MSM8996
+>   config SND_SOC_SDM845
+>   	tristate "SoC Machine driver for SDM845 boards"
+>   	depends on QCOM_APR && I2C && SOUNDWIRE
+> +	depends on COMMON_CLK
+>   	select SND_SOC_QDSP6
+>   	select SND_SOC_QCOM_COMMON
+>   	select SND_SOC_RT5663
+> 

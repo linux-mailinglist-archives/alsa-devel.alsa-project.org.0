@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 27BC62822ED
-	for <lists+alsa-devel@lfdr.de>; Sat,  3 Oct 2020 11:11:12 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0C1C92822D7
+	for <lists+alsa-devel@lfdr.de>; Sat,  3 Oct 2020 11:04:02 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 9FA8E191F;
-	Sat,  3 Oct 2020 11:10:21 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9FA8E191F
+	by alsa0.perex.cz (Postfix) with ESMTPS id 5A8C218FB;
+	Sat,  3 Oct 2020 11:03:11 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5A8C218FB
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1601716271;
-	bh=rSNbOsR9qrZbk/22kRR7H2mTyhHla1eb6pLRYw92C3A=;
+	s=default; t=1601715841;
+	bh=hqrEZaBVdP1bFOYZhSCJD7NnGqnDpmk80ug4DMaHxk8=;
 	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=QK7x8MzxgvsBq0/x9LlLhjLtDImWcSvJE1EgFNgztdgOxTbpAxmf3jZReXEbsVHLT
-	 mkJZ+rRJUmqetQzIpoQgvVpmeGzngRsqVwGMgTtH92zedvY8/qSP3RL5y+hkTBDd5h
-	 RUJPs2gE0umAtxAbeovUNJ9VyoiL2OBEEIhehsGA=
+	b=rrj9yoHmTxsrcOdhuitg4+x0lxW5pZiyVNOzPiu4nVz0u/xAXbeGSvqPAoWYzbbwg
+	 O0ihetQXZqpsx9e1ujSt6qxVDDRl71yAiBWfJYtSDamwMFBiFK42Be6zp/4WQN9tH2
+	 +SAWFYzryo10B5/rwxChBthL9bZCT5jLf42iC4lY=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 65005F802F9;
-	Sat,  3 Oct 2020 11:06:24 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 7A761F8020C;
+	Sat,  3 Oct 2020 11:02:20 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 5F0A6F801F5; Sat,  3 Oct 2020 09:49:15 +0200 (CEST)
+ id A136EF801F5; Sat,  3 Oct 2020 11:02:18 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -34,58 +34,46 @@ X-Spam-Status: No, score=0.0 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 72660F800E5
- for <alsa-devel@alsa-project.org>; Sat,  3 Oct 2020 09:49:08 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 72660F800E5
+ by alsa1.perex.cz (Postfix) with ESMTPS id 21629F801D8
+ for <alsa-devel@alsa-project.org>; Sat,  3 Oct 2020 11:02:07 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 21629F801D8
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="Xpfo7j5O"
+ header.b="shyrkCgg"
 Received: from localhost (83-86-74-64.cable.dynamic.v4.ziggo.nl [83.86.74.64])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
  bits)) (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 1CF12206CA;
- Sat,  3 Oct 2020 07:49:04 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id 2C6A5206F8;
+ Sat,  3 Oct 2020 09:02:03 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1601711345;
- bh=rSNbOsR9qrZbk/22kRR7H2mTyhHla1eb6pLRYw92C3A=;
+ s=default; t=1601715725;
+ bh=hqrEZaBVdP1bFOYZhSCJD7NnGqnDpmk80ug4DMaHxk8=;
  h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=Xpfo7j5Ogz+5FMLQE6JEcdCuZJLS220njFOGq0w4q/ezcS8/YUJxV/tVp00x1cRme
- PeytJ+bYJeETsXVwvFCvNmLXIxzaEU/n9jv+Ho+tcc1DWNdFus5jjW+U0OJ02cZ/dL
- cV4hpDQF2Gtg0pwq+PecAcI5R7GAWDWmhCugOA3g=
-Date: Sat, 3 Oct 2020 09:49:01 +0200
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: Rob Herring <robh@kernel.org>
-Subject: Re: [PATCH] dt-bindings: Another round of adding missing
- 'additionalProperties'
-Message-ID: <20201003074901.GA109727@kroah.com>
-References: <20201002234143.3570746-1-robh@kernel.org>
+ b=shyrkCggzPHV+MuJ+qh2IXhnAC19LCZtzVj5dXtzgmK8u7XHaZN/tP+6jPMmFMJkN
+ J2w6P0A2YaodSD/1UHoZoeh+bSD/H37GYgwfQse8TiER8a2sfodTRrVKAJcJuwLu6v
+ +dsGbRoitq+shp1WKW1bXnH1SNgpfmmR8jik8Oes=
+Date: Sat, 3 Oct 2020 11:02:01 +0200
+From: "gregkh@linuxfoundation.org" <gregkh@linuxfoundation.org>
+To: "Sridharan, Ranjani" <ranjani.sridharan@intel.com>
+Subject: Re: [PATCH 2/6] ASoC: SOF: Introduce descriptors for SOF client
+Message-ID: <20201003090201.GC114893@kroah.com>
+References: <20200930225051.889607-1-david.m.ertman@intel.com>
+ <20200930225051.889607-3-david.m.ertman@intel.com>
+ <20201001130245.GB2378679@kroah.com>
+ <f3fa8df9fc8bcd789167f61b6c9d4df66b9b85c1.camel@intel.com>
+ <20201002045357.GA34005@kroah.com>
+ <ad38db14921dc5afb424db1ecac53053f15bb753.camel@intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20201002234143.3570746-1-robh@kernel.org>
-X-Mailman-Approved-At: Sat, 03 Oct 2020 11:06:14 +0200
-Cc: Ulf Hansson <ulf.hansson@linaro.org>, linux-iio@vger.kernel.org,
- linux-pci@vger.kernel.org, Linus Walleij <linus.walleij@linaro.org>,
- linux-remoteproc@vger.kernel.org, alsa-devel@alsa-project.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- Thierry Reding <thierry.reding@gmail.com>, Lee Jones <lee.jones@linaro.org>,
- linux-clk@vger.kernel.org, linux-leds@vger.kernel.org,
- Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>,
- Daniel Lezcano <daniel.lezcano@linaro.org>,
- linux-stm32@st-md-mailman.stormreply.com, linux-rockchip@lists.infradead.org,
- linux-serial@vger.kernel.org, linux-mips@vger.kernel.org,
- Guenter Roeck <linux@roeck-us.net>, linux-media@vger.kernel.org,
- devicetree@vger.kernel.org, linux-pm@vger.kernel.org,
- Mauro Carvalho Chehab <mchehab@kernel.org>, linux-gpio@vger.kernel.org,
- Mark Brown <broonie@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>,
- openipmi-developer@lists.sourceforge.net,
- Bjorn Andersson <bjorn.andersson@linaro.org>, linux-hwmon@vger.kernel.org,
- Stephen Boyd <sboyd@kernel.org>, netdev@vger.kernel.org,
- linux-usb@vger.kernel.org, linux-mmc@vger.kernel.org,
- Liam Girdwood <lgirdwood@gmail.com>, linux-spi@vger.kernel.org,
- Vinod Koul <vkoul@kernel.org>, Baolin Wang <baolin.wang7@gmail.com>,
- Shawn Guo <shawnguo@kernel.org>, "David S. Miller" <davem@davemloft.net>,
- Jonathan Cameron <jic23@kernel.org>
+In-Reply-To: <ad38db14921dc5afb424db1ecac53053f15bb753.camel@intel.com>
+Cc: "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
+ "tiwai@suse.de" <tiwai@suse.de>,
+ "pierre-louis.bossart@linux.intel.com" <pierre-louis.bossart@linux.intel.com>,
+ "fred.oh@linux.intel.com" <fred.oh@linux.intel.com>,
+ "broonie@kernel.org" <broonie@kernel.org>,
+ "parav@nvidia.com" <parav@nvidia.com>, "jgg@nvidia.com" <jgg@nvidia.com>,
+ "Ertman, David M" <david.m.ertman@intel.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -101,55 +89,81 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Fri, Oct 02, 2020 at 06:41:43PM -0500, Rob Herring wrote:
-> Another round of wack-a-mole. The json-schema default is additional
-> unknown properties are allowed, but for DT all properties should be
-> defined.
+On Fri, Oct 02, 2020 at 05:07:13PM +0000, Sridharan, Ranjani wrote:
+> On Fri, 2020-10-02 at 06:53 +0200, gregkh@linuxfoundation.org wrote:
+> > On Thu, Oct 01, 2020 at 10:16:00PM +0000, Sridharan, Ranjani wrote:
+> > > On Thu, 2020-10-01 at 15:02 +0200, Greg KH wrote:
+> > > > On Wed, Sep 30, 2020 at 03:50:47PM -0700, Dave Ertman wrote:
+> > > > > From: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
+> > > > > 
+> > > > > A client in the SOF (Sound Open Firmware) context is a
+> > > > > device that needs to communicate with the DSP via IPC
+> > > > > messages. The SOF core is responsible for serializing the
+> > > > > IPC messages to the DSP from the different clients. One
+> > > > > example of an SOF client would be an IPC test client that
+> > > > > floods the DSP with test IPC messages to validate if the
+> > > > > serialization works as expected. Multi-client support will
+> > > > > also add the ability to split the existing audio cards
+> > > > > into multiple ones, so as to e.g. to deal with HDMI with a
+> > > > > dedicated client instead of adding HDMI to all cards.
+> > > > > 
+> > > > > This patch introduces descriptors for SOF client driver
+> > > > > and SOF client device along with APIs for registering
+> > > > > and unregistering a SOF client driver, sending IPCs from
+> > > > > a client device and accessing the SOF core debugfs root entry.
+> > > > > 
+> > > > > Along with this, add a couple of new members to struct
+> > > > > snd_sof_dev that will be used for maintaining the list of
+> > > > > clients.
+> > > > > 
+> > > > > Reviewed-by: Pierre-Louis Bossart <
+> > > > > pierre-louis.bossart@linux.intel.com>
+> > > > > Signed-off-by: Ranjani Sridharan <
+> > > > > ranjani.sridharan@linux.intel.com
+> > > > > Co-developed-by: Fred Oh <fred.oh@linux.intel.com>
+> > > > > Signed-off-by: Fred Oh <fred.oh@linux.intel.com>
+> > > > > Signed-off-by: Dave Ertman <david.m.ertman@intel.com>
+> > > > > ---
+> > > > >  sound/soc/sof/Kconfig      |  19 ++++++
+> > > > >  sound/soc/sof/Makefile     |   3 +
+> > > > >  sound/soc/sof/core.c       |   2 +
+> > > > >  sound/soc/sof/sof-client.c | 117
+> > > > > +++++++++++++++++++++++++++++++++++++
+> > > > >  sound/soc/sof/sof-client.h |  65 +++++++++++++++++++++
+> > > > >  sound/soc/sof/sof-priv.h   |   6 ++
+> > > > >  6 files changed, 212 insertions(+)
+> > > > >  create mode 100644 sound/soc/sof/sof-client.c
+> > > > >  create mode 100644 sound/soc/sof/sof-client.h
+> > > > 
+> > > > As you are creating new sysfs directories, you should have some
+> > > > documentation for them :(
+> > > Hi Greg,
+> > > 
+> > > We are not adding any sysfs entries in this series. 
+> > 
+> > You added directories in sysfs, right?
+> Hi Greg,
 > 
-> Cc: Thierry Reding <thierry.reding@gmail.com>
-> Cc: Linus Walleij <linus.walleij@linaro.org>
-> Cc: Stephen Boyd <sboyd@kernel.org>
-> Cc: Shawn Guo <shawnguo@kernel.org>
-> Cc: Bjorn Andersson <bjorn.andersson@linaro.org>
-> Cc: Baolin Wang <baolin.wang7@gmail.com>
-> Cc: Guenter Roeck <linux@roeck-us.net>
-> Cc: Jonathan Cameron <jic23@kernel.org>
-> Cc: Mauro Carvalho Chehab <mchehab@kernel.org>
-> Cc: Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
-> Cc: Lee Jones <lee.jones@linaro.org>
-> Cc: Ulf Hansson <ulf.hansson@linaro.org>
-> Cc: "David S. Miller" <davem@davemloft.net>
-> Cc: Bjorn Helgaas <bhelgaas@google.com>
-> Cc: Vinod Koul <vkoul@kernel.org>
-> Cc: Liam Girdwood <lgirdwood@gmail.com>
-> Cc: Mark Brown <broonie@kernel.org>
-> Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-> Cc: Daniel Lezcano <daniel.lezcano@linaro.org>
-> Cc: linux-clk@vger.kernel.org
-> Cc: dri-devel@lists.freedesktop.org
-> Cc: linux-spi@vger.kernel.org
-> Cc: linux-gpio@vger.kernel.org
-> Cc: linux-hwmon@vger.kernel.org
-> Cc: linux-iio@vger.kernel.org
-> Cc: openipmi-developer@lists.sourceforge.net
-> Cc: linux-leds@vger.kernel.org
-> Cc: linux-media@vger.kernel.org
-> Cc: linux-rockchip@lists.infradead.org
-> Cc: linux-stm32@st-md-mailman.stormreply.com
-> Cc: linux-mips@vger.kernel.org
-> Cc: linux-mmc@vger.kernel.org
-> Cc: netdev@vger.kernel.org
-> Cc: linux-pci@vger.kernel.org
-> Cc: linux-pm@vger.kernel.org
-> Cc: linux-remoteproc@vger.kernel.org
-> Cc: linux-serial@vger.kernel.org
-> Cc: alsa-devel@alsa-project.org
-> Cc: linux-usb@vger.kernel.org
-> Signed-off-by: Rob Herring <robh@kernel.org>
-> ---
+> We are not adding any sysfs directories.
+
+Really?  Then what does creating these new devices do in sysfs?  If
+nothing, then why are they being used at all?  :)
+
+> The only change in the /sys directory will be the new ancillary
+> devices created in the /sys/bus/ancillary/devices directory ie
+> snd_sof_client.ipc_test.0 and snd_sof_client.ipc_test.1.
+
+That is what I was referring to.
+
+> In the following patches, we're adding debugfs entries for the ipc
+> test clients but no other sysfs changes.
 > 
-> I'll take this thru the DT tree.
+> Is it required to add documentation for these as well?
 
-For USB:
+Why would you not document them?  If you don't do anything with these
+devices, then why even use them?  debugfs does not require sysfs
+entries, so I fail to see the need for using this api at all here...
 
-Reviewed-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+thanks,
+
+greg k-h

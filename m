@@ -2,94 +2,131 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1038C2836B0
-	for <lists+alsa-devel@lfdr.de>; Mon,  5 Oct 2020 15:37:31 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 803272836FA
+	for <lists+alsa-devel@lfdr.de>; Mon,  5 Oct 2020 15:54:05 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C22AB178A;
-	Mon,  5 Oct 2020 15:36:39 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C22AB178A
+	by alsa0.perex.cz (Postfix) with ESMTPS id EC49E17B7;
+	Mon,  5 Oct 2020 15:53:14 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EC49E17B7
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1601905049;
-	bh=mwIul+N387ddU/yrT7q96UPJ/loWE3EK07ZuwkF7LX8=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
+	s=default; t=1601906045;
+	bh=/DOvP8ZX/kdMlXfOqg26mOWMDCmsThijMtrFJJ7q67M=;
+	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=X+6rzhkODN4ddA+PUXalahaLLVfhL05X7EqWvekw5r2UjPJd4TRnZWbrvR0t5Emny
-	 dGtLSLbnb9nVVwjfOFhZMXaB6eSmJXZPuKjp3CWyjpfQGBrKh7uzUOr7LmVs1Q5iPJ
-	 jqAh6Py9Ivz6z2vtxK9yYSFXq0BDh1DNQoeS+mOU=
+	b=DtrWfdNDukYOQsgWyliQVrfM1zceeO1sCFusms+nM/1ynbrBx6cOtuVFnyMfuAJdw
+	 sHZ38jc+eQy3svm21/nkONHYasTZ6tqfIqzz4Boy4OSM2lnHofBnl23Zqdxun754KJ
+	 AYFQLVyuoYqgirTWdmTp+W9SfHaNmKsEQ39oh7J8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id EF999F80260;
-	Mon,  5 Oct 2020 15:35:48 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id EAA40F80260;
+	Mon,  5 Oct 2020 15:52:23 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id CE9DDF8025A; Mon,  5 Oct 2020 15:35:45 +0200 (CEST)
+ id 6F7D9F8025A; Mon,  5 Oct 2020 15:52:21 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from mail-il1-x143.google.com (mail-il1-x143.google.com
- [IPv6:2607:f8b0:4864:20::143])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=-0.0 required=5.0 tests=NICE_REPLY_A,SPF_HELO_NONE,
+ SPF_PASS autolearn=disabled version=3.4.0
+Received: from vps-vb.mhejs.net (vps-vb.mhejs.net [37.28.154.113])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 5DAEBF800C9
- for <alsa-devel@alsa-project.org>; Mon,  5 Oct 2020 15:35:32 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5DAEBF800C9
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="DBJ43NN7"
-Received: by mail-il1-x143.google.com with SMTP id o18so7811168ilg.0
- for <alsa-devel@alsa-project.org>; Mon, 05 Oct 2020 06:35:32 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc:content-transfer-encoding;
- bh=+ScH7spBRgEvoHiLBoomy6Y6xgrMwXDw74+hbCCfUCk=;
- b=DBJ43NN77a5Y46IUwb3kq/Qp3uJWgIzuawxQtEG6nwGa7uq2aIQmR6UpW23L0ekyuY
- doSQHQs6lf/+dHuw6A1tHvwaH1Yu/l+DaeniZwh4whDk2jt0wVcfQv4Quck/AvsT9jU9
- 9cJfb9X4vRG9HkoUww8dwwknFdjWFZVXsJvaqoX2htzh/0h1cqgLwk9hgO7ljHdFjJeI
- 1tOzJdb9z5oWu0fljA1FGxOpa5+D8VW2wgweIiXnl1RpkaP8IrNu0+WBXX5I8Wd3BTYn
- calvO5Bko05dm4ayeF4UpEj/YODvSw2Qb2ny8X1U3DhMUcRILhMjNKQHNTAIIzW5aE53
- WSRQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc:content-transfer-encoding;
- bh=+ScH7spBRgEvoHiLBoomy6Y6xgrMwXDw74+hbCCfUCk=;
- b=FeA0OLUILBz3fpotJVqx2UgLMKmyBUwjv+7JRUO5MLKtNWLuA1+dQEjDxfy5zfJDjt
- SDS7wHdrMMNska57cirpfp09LXjB+I2P5o0Bs6rdQwBGACtOYn8U8sp/HUU20pB2rEbn
- CB/hzFJeQQKIcbdX0wleEjhBQ675cRlBZYwc5bGqWuN61htMA3nW9XJ3eEa2pZ3/+sSP
- z/eesW1V1pc5UHo1AkeNkwMzQSu8CB+vuJf0QNDDQbOOMf4SKS9hQZYBlrMMfGqEfT0w
- CSjMG/yUjUwko/r1Kl6R6MZ9aZxUsDBq9bDfnIIe1U9dgK5EtKnaqAXTc/Bw3NI5eP7G
- 4wwg==
-X-Gm-Message-State: AOAM533vGmmd7PERJaFLIUSOx9W1s4pCvfl3rePKdphfqyk/Djn6tR+c
- lhTmm8S7ZrNA2fBzpNwXvQSDjqBB3PEAjPhS5AI=
-X-Google-Smtp-Source: ABdhPJySP0U5feN77FoosI4tYSbueu7xIwjyAToSotvdCVmiSn/MELKnPNsUll1WeogQTnwwCceaixNNSKw34nbMnDw=
-X-Received: by 2002:a92:b30c:: with SMTP id p12mr5278394ilh.35.1601904929683; 
- Mon, 05 Oct 2020 06:35:29 -0700 (PDT)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 7BE49F800C9
+ for <alsa-devel@alsa-project.org>; Mon,  5 Oct 2020 15:52:14 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7BE49F800C9
+Received: from MUA
+ by vps-vb.mhejs.net with esmtps (TLS1.2:ECDHE-RSA-AES128-GCM-SHA256:128)
+ (Exim 4.93.0.4) (envelope-from <mail@maciej.szmigiero.name>)
+ id 1kPQuL-00032n-SR; Mon, 05 Oct 2020 15:52:05 +0200
+Subject: Re: [PATCH 1/2] ASoC: fsl: fsl_ssi: add ac97 fixed mode support
+To: Primoz Fiser <primoz.fiser@norik.com>, Mark Brown <broonie@kernel.org>
+References: <20201005111644.3131604-1-primoz.fiser@norik.com>
+ <20201005114925.GC5139@sirena.org.uk>
+ <bc31e0f2-969c-4eb1-1dc0-cf4284427a4b@norik.com>
+From: "Maciej S. Szmigiero" <mail@maciej.szmigiero.name>
+Autocrypt: addr=mail@maciej.szmigiero.name; prefer-encrypt=mutual; keydata=
+ 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 Sg==
+Message-ID: <23907c70-4939-8732-5f91-c2cdd43449ad@maciej.szmigiero.name>
+Date: Mon, 5 Oct 2020 15:51:59 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.12.0
 MIME-Version: 1.0
-References: <20201003141950.455829-1-peron.clem@gmail.com>
- <20201003141950.455829-4-peron.clem@gmail.com>
- <20201005121419.mum4g5utdesvyg7a@gilmour.lan>
-In-Reply-To: <20201005121419.mum4g5utdesvyg7a@gilmour.lan>
-From: =?UTF-8?B?Q2zDqW1lbnQgUMOpcm9u?= <peron.clem@gmail.com>
-Date: Mon, 5 Oct 2020 15:35:18 +0200
-Message-ID: <CAJiuCcds_H-M6Y9Cb8eMmTgpsaC_ZQee97u260WvDe23yBVc7A@mail.gmail.com>
-Subject: Re: [PATCH v6 03/14] ASoC: sun4i-i2s: Change get_sr() and get_wss()
- to be more explicit
-To: Maxime Ripard <maxime@cerno.tech>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-Cc: devicetree <devicetree@vger.kernel.org>,
- Jernej Skrabec <jernej.skrabec@siol.net>,
- Linux-ALSA <alsa-devel@alsa-project.org>, Liam Girdwood <lgirdwood@gmail.com>,
- linux-kernel <linux-kernel@vger.kernel.org>, Mark Brown <broonie@kernel.org>,
- linux-sunxi <linux-sunxi@googlegroups.com>, Takashi Iwai <tiwai@suse.com>,
- Marcus Cooper <codekipper@gmail.com>, Chen-Yu Tsai <wens@csie.org>,
- Rob Herring <robh+dt@kernel.org>,
- linux-arm-kernel <linux-arm-kernel@lists.infradead.org>
+In-Reply-To: <bc31e0f2-969c-4eb1-1dc0-cf4284427a4b@norik.com>
+Content-Type: text/plain; charset=windows-1252
+Content-Language: en-US
+Content-Transfer-Encoding: 8bit
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
+ Timur Tabi <timur@kernel.org>, Xiubo Li <Xiubo.Lee@gmail.com>,
+ Fabio Estevam <festevam@gmail.com>, Takashi Iwai <tiwai@suse.com>,
+ Liam Girdwood <lgirdwood@gmail.com>, Nicolin Chen <nicoleotsuka@gmail.com>,
+ Rob Herring <robh+dt@kernel.org>, Shengjiu Wang <shengjiu.wang@gmail.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -105,106 +142,43 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hi Maxime,
+On 05.10.2020 14:59, Primoz Fiser wrote:
+> Hi Mark,
+> 
+> On 5. 10. 20 13:49, Mark Brown wrote:
+>> On Mon, Oct 05, 2020 at 01:16:43PM +0200, Primoz Fiser wrote:
+>>
+>>> bits. But in summary, when SSI operates in AC'97 variable mode of
+>>> operation, CODECs can sometimes send SLOTREQ bits for non-existent audio
+>>> slots which then "stick" in SSI and completely break audio output.
+>>
+>> If this is something that happens based on the CODEC shouldn't we be
+>> doing this by quirking based on the CODEC the system has rather than
+>> requiring people set a separate DT property?
+>>
+> 
+> To be totally honest, we are not 100% sure if this is only CODEC's fault or something else might be causing these issues.
+> 
+> For example, it could be some EMI/noise that causes SLOTREQ bits to flip spuriously. Or it could even be the buggy SSI itself (taking into account all the issues with channel slipping, slot filtering, AC'97 reg reading/writing, etc)?
+> 
+> We are just referencing commit 01ca485171e3 ("ASoC: fsl_ssi: only enable proper channel slots in AC'97 mode"), as we saw that UDOO board had the same problems. I added commit author to CC.
+> 
+> We were able to overcome those by programming SSI in AC'97 fixed mode which driver up to now completely ignored (it was using only AC'97 variable mode).
+> 
+> Additionally, we are using WM9712 codec and UDOO board is using VT1613, right? So these issues might not be CODEC related at all.
 
-On Mon, 5 Oct 2020 at 14:14, Maxime Ripard <maxime@cerno.tech> wrote:
->
-> On Sat, Oct 03, 2020 at 04:19:39PM +0200, Cl=C3=A9ment P=C3=A9ron wrote:
-> > We are actually using a complex formula to just return a bunch of
-> > simple values. Also this formula is wrong for sun4i when calling
-> > get_wss() the function return 4 instead of 3.
-> >
-> > Replace this with a simpler switch case.
-> >
-> > Also drop the i2s params which is unused and return a simple int as
-> > returning an error code could be out of range for an s8 and there is
-> > no optim to return a s8 here.
-> >
-> > Fixes: 619c15f7fac9 ("ASoC: sun4i-i2s: Change SR and WSS computation")
-> > Reviewed-by: Chen-Yu Tsai <wens@csie.org>
-> > Signed-off-by: Cl=C3=A9ment P=C3=A9ron <peron.clem@gmail.com>
-> > ---
-> >  sound/soc/sunxi/sun4i-i2s.c | 69 +++++++++++++++++++++++--------------
-> >  1 file changed, 44 insertions(+), 25 deletions(-)
-> >
-> > diff --git a/sound/soc/sunxi/sun4i-i2s.c b/sound/soc/sunxi/sun4i-i2s.c
-> > index 1f577dbc20a6..8e497fb3de09 100644
-> > --- a/sound/soc/sunxi/sun4i-i2s.c
-> > +++ b/sound/soc/sunxi/sun4i-i2s.c
-> > @@ -175,8 +175,8 @@ struct sun4i_i2s_quirks {
-> >       unsigned int                    num_mclk_dividers;
-> >
-> >       unsigned long (*get_bclk_parent_rate)(const struct sun4i_i2s *);
-> > -     s8      (*get_sr)(const struct sun4i_i2s *, int);
-> > -     s8      (*get_wss)(const struct sun4i_i2s *, int);
-> > +     int     (*get_sr)(unsigned int width);
-> > +     int     (*get_wss)(unsigned int width);
-> >       int     (*set_chan_cfg)(const struct sun4i_i2s *i2s,
-> >                               unsigned int channels,  unsigned int slot=
-s,
-> >                               unsigned int slot_width);
-> > @@ -381,37 +381,56 @@ static int sun4i_i2s_set_clk_rate(struct snd_soc_=
-dai *dai,
-> >       return 0;
-> >  }
-> >
-> > -static s8 sun4i_i2s_get_sr(const struct sun4i_i2s *i2s, int width)
-> > +static int sun4i_i2s_get_sr(unsigned int width)
-> >  {
-> > -     if (width < 16 || width > 24)
-> > -             return -EINVAL;
-> > -
-> > -     if (width % 4)
-> > -             return -EINVAL;
-> > +     switch (width) {
-> > +     case 16:
-> > +             return 0x0;
-> > +     case 20:
-> > +             return 0x1;
-> > +     case 24:
-> > +             return 0x2;
-> > +     }
-> >
-> > -     return (width - 16) / 4;
-> > +     return -EINVAL;
-> >  }
-> >
-> > -static s8 sun4i_i2s_get_wss(const struct sun4i_i2s *i2s, int width)
-> > +static int sun4i_i2s_get_wss(unsigned int width)
-> >  {
-> > -     if (width < 16 || width > 32)
-> > -             return -EINVAL;
-> > -
-> > -     if (width % 4)
-> > -             return -EINVAL;
-> > +     switch (width) {
-> > +     case 16:
-> > +             return 0x0;
-> > +     case 20:
-> > +             return 0x1;
-> > +     case 24:
-> > +             return 0x2;
-> > +     case 32:
-> > +             return 0x3;
-> > +     }
->
-> Like I said in the previous version, I'm not really sure why we need to
-> use the hexadecimal representation here?
+I remember that the AC'97 mode in SSI was riddled with bugs to a level of
+being barely usable.
 
-I'm not sure if there is a convention when to use hexa or when not to use i=
-t.
+Not only the channel slots would enable on their own, but the CODEC
+registers got randomly trashed from time to time (I think a register
+would get zeroed spontaneously).
 
-But these figures are taken from the User Manual where register
-descriptions are written in Base 2 and default values are written in
-Base 16.
+This happened even if an external CODEC, different than the boards
+VT1613, was connected.
+So these were definitely SSI problems, not CODEC ones.
 
-It's easier to read them and check that the code follows the documentation,=
- no ?
+That's why probably pretty much every board other than UDOO uses SSI
+in the I²S mode.
 
-Indeed with 2 bits this doesn't change anything.
-Do you want me to change them in decimal ?
-
-Clement
-
->
-> Maxime
+Maciej

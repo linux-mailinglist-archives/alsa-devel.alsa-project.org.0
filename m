@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B0D5C2833B1
-	for <lists+alsa-devel@lfdr.de>; Mon,  5 Oct 2020 11:56:33 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id AA1492833B8
+	for <lists+alsa-devel@lfdr.de>; Mon,  5 Oct 2020 11:59:17 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id BD9D81849;
-	Mon,  5 Oct 2020 11:55:42 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BD9D81849
+	by alsa0.perex.cz (Postfix) with ESMTPS id 428CB180A;
+	Mon,  5 Oct 2020 11:58:27 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 428CB180A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1601891792;
-	bh=ODmJmm1tBDFFN0m1eB2lf8tcUekrn2Iz7wKdI9sz+ZM=;
+	s=default; t=1601891957;
+	bh=jeiNWYte8XmCLmMRNCRlfoxJjvPZmkgA+c+vdcgDO8k=;
 	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=XWClFJ0Au0ZRMPUOafPrJXH2Czm4gKJZV+FApQUgOnZLs1Pkm6QCnglQ7ipElPeHc
-	 O1sycY0Idi224P5P3UQ4f+jWtUqlaZzaei1UZOXngEPwFtBg2P61lJb43PMxP6KPh4
-	 gLJ0kWrjGfodrpFacW2R4f3GKCmCvSTQDNG6T8C0=
+	b=SOCLh5pdekeW/qz+TLVhVMOE3OYmtQLxtEzj/YMgsSyEQvSC2eKCY6Nd6lXRUADw4
+	 z3YZNWvRFxU3ezxp3BK6dVGXyvEzeDg8a8AMWqQyE8Gpwy7dg4Srt6YxIw2FfZ+wDp
+	 jM/rgj2mOMgr8Vq3tZsRlaWx2SfYNLgaNVMCYmT0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id ABDF5F802E1;
-	Mon,  5 Oct 2020 11:55:10 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 7499FF80245;
+	Mon,  5 Oct 2020 11:57:36 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 3FA7DF802DF; Mon,  5 Oct 2020 11:55:08 +0200 (CEST)
+ id BCF7BF80260; Mon,  5 Oct 2020 11:57:33 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -35,71 +35,71 @@ Received: from out2-smtp.messagingengine.com (out2-smtp.messagingengine.com
  [66.111.4.26])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id B5380F80245
- for <alsa-devel@alsa-project.org>; Mon,  5 Oct 2020 11:55:01 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B5380F80245
+ by alsa1.perex.cz (Postfix) with ESMTPS id 6B84BF800EF
+ for <alsa-devel@alsa-project.org>; Mon,  5 Oct 2020 11:57:22 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6B84BF800EF
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=cerno.tech header.i=@cerno.tech
- header.b="OJMX7z0T"; 
+ header.b="ee6k2yLk"; 
  dkim=pass (2048-bit key) header.d=messagingengine.com
- header.i=@messagingengine.com header.b="cHoI2gDa"
+ header.i=@messagingengine.com header.b="Jzj1oGX8"
 Received: from compute6.internal (compute6.nyi.internal [10.202.2.46])
- by mailout.nyi.internal (Postfix) with ESMTP id D72965C00E3;
- Mon,  5 Oct 2020 05:55:00 -0400 (EDT)
-Received: from mailfrontend1 ([10.202.2.162])
- by compute6.internal (MEProxy); Mon, 05 Oct 2020 05:55:00 -0400
+ by mailout.nyi.internal (Postfix) with ESMTP id 2E4035C011D;
+ Mon,  5 Oct 2020 05:57:21 -0400 (EDT)
+Received: from mailfrontend2 ([10.202.2.163])
+ by compute6.internal (MEProxy); Mon, 05 Oct 2020 05:57:21 -0400
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cerno.tech; h=
  date:from:to:cc:subject:message-id:references:mime-version
- :content-type:in-reply-to; s=fm1; bh=ODmJmm1tBDFFN0m1eB2lf8tcUek
- rn2Iz7wKdI9sz+ZM=; b=OJMX7z0TQznbV3q9qUPjLKDR6g+cv9h7YMdggvv2RCo
- cuFWII9NdVJReWgrPmE7V2I80Lbn/Ov40PcrpUftYsOE6ofzxZRqwepl6c5FMmvh
- 7I27m8hAL1t7K3yo5y2wq1/R4DBHc9Ln0tIGyNhIST8BvbLldqitw/t20BDNNaW+
- Nwh0lo5EvUK2KybPxdPiy5S7vl2v+PI/tRgGoXnfAjjO3c6K7Lq6K7PVRvsmMgt6
- s57X5ezKKfOgrW3MbCX3nrH7kZhWDpPZuWwTbdKDODoVCHmoLQBqgXK4zJ3nPXh0
- g1vd/4Ucz+59VLc94VDo4NkVRx+qsIvh/mm0erZ7SXw==
+ :content-type:in-reply-to; s=fm1; bh=jeiNWYte8XmCLmMRNCRlfoxJjvP
+ ZmkgA+c+vdcgDO8k=; b=ee6k2yLk+LyqQFCNR7n2ySYFmgbTiWzg/1WobbI2ep+
+ ySDdHMJrNFkrY0Jnmk1UsuridMyp0lO6Ni9yNxAYOjarhbn+jGbcaI39KVNYV7Eh
+ hbr8gd98odoo7bKDFAFAG8u6or0ygADt5xMu8p9zOqtdVw2GmBdHh9MrHzhzxCnv
+ PEuOVYOa5/khDKaogV2IiJgFqNa7lJ5LEACyk8xIDs+yu6f6O/KuM2ml6+zifZqQ
+ UXZ/BxvyBBj9ZKBYAzDg3Svua8V0PO4t+sqAPQmK6xLP0wt5zH5Zjq3/ttLCrD3F
+ K+wuwWh0PZJ5omDlDvw8dv6MtDdoCdfZdqiX9elgo6Q==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
  messagingengine.com; h=cc:content-type:date:from:in-reply-to
  :message-id:mime-version:references:subject:to:x-me-proxy
- :x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; bh=ODmJmm
- 1tBDFFN0m1eB2lf8tcUekrn2Iz7wKdI9sz+ZM=; b=cHoI2gDazxvJJ/6OLoRFlo
- kiqcKP37eb7gdSVPMo11Bpk+HIHUUJqgnOWO/rK7mwL2RGvxQ38X/48hZiw8yVkz
- L+3M/AgvokAAUTxz3aGkhLxZcWw4dw3+0q8nAtldm+MuaTAMdhs9FVxZwFjMvnxA
- Agx0sdcUAJECwNCONCjvp5haFqa9c4uS5ZvhmE1RSR/fmpITjLuGnmBxxbD7VJdf
- LEHJPDBAzl49ZzCtFdADWFWjYp5Cj2KriUV2i4so2dDeiaFzg9X1jRwgfDq29X51
- JcuCzFGbwn0ANeb3+DePZB58LilWL46WgNkz4X2R4q/RzpGDU5ASqLKh0oAxeLIA
+ :x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; bh=jeiNWY
+ te8XmCLmMRNCRlfoxJjvPZmkgA+c+vdcgDO8k=; b=Jzj1oGX8BaQ38TxgfE3iY2
+ VepGaAr12WekXxuw0ieztCQGHv6LmDj3EEvRLeK8v+lNfPHyIN+ccUtlzenAvaNE
+ 1QRXomf5i0wD6uqhQl0uvM7rdUTwkazQe7eRAo4/7V46vNO8n8rG+W5EmXHvgeWD
+ lJTpbmTG2kLcSryFXrkAc/U3M6lp4PJaMmD5blZZZDuTuu+GpQgkqJBWo++9Gobd
+ T/43l4OBI7iy6OtLvaMmNiySSKhO48iRJLgVr32uDrnjP9oBU6eOryVWjHqRhK79
+ QMjpY/AiPgag2adgx2sTe+5bQDOD7OfUtFb7eqVXx1Cz1TkXxbrVIbKdmWIiOaZA
  ==
-X-ME-Sender: <xms:dO16X7vI8WMyNkPp-vtfNBmLvrpX_oe5MQyOUxWUwOBP686au82zlw>
- <xme:dO16X8eVpEbMa3AQ7O0GoVe6_B4CvnzCarhhfVDtm6q1VWCVRg10iFm_Ibg1z4KWw
- T_tMbue69BAlYWXmBQ>
+X-ME-Sender: <xms:AO56X3YiP8oWXWBNNzH2fFPOz-m01jFBKr410357aRZ5fncUjlS95A>
+ <xme:AO56X2bMlTatmkvbufrbIQuuSwXtT0uKjnnYQgQXXAJk70jc_I5C4vRwA8441Z3m7
+ NvWF686Vxa8m_QS7DA>
 X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedujedrgedvgddvfecutefuodetggdotefrodftvf
  curfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfghnecu
  uegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenuc
  fjughrpeffhffvuffkfhggtggujgesghdtreertddtvdenucfhrhhomhepofgrgihimhgv
  ucftihhprghrugcuoehmrgigihhmvgestggvrhhnohdrthgvtghhqeenucggtffrrghtth
  gvrhhnpeelkeeghefhuddtleejgfeljeffheffgfeijefhgfeufefhtdevteegheeiheeg
- udenucfkphepledtrdekledrieekrdejieenucevlhhushhtvghrufhiiigvpedvnecurf
+ udenucfkphepledtrdekledrieekrdejieenucevlhhushhtvghrufhiiigvpeefnecurf
  grrhgrmhepmhgrihhlfhhrohhmpehmrgigihhmvgestggvrhhnohdrthgvtghh
-X-ME-Proxy: <xmx:dO16X-zneI9aR6jNg6XZXuosIVtPk4WO-0CCdJBcMKDNddhRUC8EMw>
- <xmx:dO16X6MzTHHIsr__MIuZpZAqmE_WE_9hNWdMQqrdzP4S4z1A5OzjUA>
- <xmx:dO16X78yXuQ026RwACjNtzqXgss0iJLWZMXEW8ybE7gy7ORo2TxsQQ>
- <xmx:dO16X8Mfi6nIO-KEAFVJuyGU8a-9_lafIx9OyJawK_Z-66giWSZrNA>
+X-ME-Proxy: <xmx:AO56X58D1KxyK_RiWXekq1P28ReSfbvQd4Wibu1w7ZABg1T1JSZWxg>
+ <xmx:AO56X9rQ_Y5UUOKVEqQTzwg8aI05NLzj_WDY_f_GXXionkqqWgVNBQ>
+ <xmx:AO56XyqN8byaHVJBb1T4GZJgWpSiy2KZllBmC-LxV4MAxIMW7cZPEA>
+ <xmx:Ae56XyI8Q9iXvT4g1mOLxVJr6hi2ZoXISAykPVxgpCy-VWlvgmjO5w>
 Received: from localhost (lfbn-tou-1-1502-76.w90-89.abo.wanadoo.fr
  [90.89.68.76])
- by mail.messagingengine.com (Postfix) with ESMTPA id 5D1FD328005E;
- Mon,  5 Oct 2020 05:55:00 -0400 (EDT)
-Date: Mon, 5 Oct 2020 11:54:59 +0200
+ by mail.messagingengine.com (Postfix) with ESMTPA id A4C1E3064610;
+ Mon,  5 Oct 2020 05:57:20 -0400 (EDT)
+Date: Mon, 5 Oct 2020 11:57:19 +0200
 From: Maxime Ripard <maxime@cerno.tech>
 To: Samuel Holland <samuel@sholland.org>
-Subject: Re: [PATCH 03/25] ASoC: sun8i-codec: Sort DAPM controls, widgets,
+Subject: Re: [PATCH 04/25] ASoC: sun8i-codec: Consistently name DAPM widgets
  and routes
-Message-ID: <20201005095459.qnsyyitpizpdgs57@gilmour.lan>
+Message-ID: <20201005095719.7nkonjaeziyd4fld@gilmour.lan>
 References: <20201001021148.15852-1-samuel@sholland.org>
- <20201001021148.15852-4-samuel@sholland.org>
+ <20201001021148.15852-5-samuel@sholland.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature"; boundary="kucdcmwacaveldse"
+ protocol="application/pgp-signature"; boundary="veplexjr6kmshaoe"
 Content-Disposition: inline
-In-Reply-To: <20201001021148.15852-4-samuel@sholland.org>
+In-Reply-To: <20201001021148.15852-5-samuel@sholland.org>
 Cc: Ondrej Jirman <megous@megous.com>, alsa-devel@alsa-project.org,
  linux-kernel@vger.kernel.org, Takashi Iwai <tiwai@suse.com>,
  Liam Girdwood <lgirdwood@gmail.com>, Chen-Yu Tsai <wens@csie.org>,
@@ -120,20 +120,19 @@ Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 
---kucdcmwacaveldse
+--veplexjr6kmshaoe
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 
-On Wed, Sep 30, 2020 at 09:11:26PM -0500, Samuel Holland wrote:
-> Sort the remaining pieces of the DAPM driver so that they are all in the
-> same order among controls/widgets/routes, and so they roughly match the
-> register word and bit order of the hardware. This nicely separates the
-> AIF-related widgets from the ADC/DAC widgets, which allows the AIF
-> widgets to stay in a logical order as more AIFs are added to the driver.
+On Wed, Sep 30, 2020 at 09:11:27PM -0500, Samuel Holland wrote:
+> This cleans up the mixer widget names. The AIF1 AD0 Mixer names were
+> previously wrong -- they do not control the digital side of the ADC. The
+> DAC mixer widgets were not wrong, but they were verbose and did not
+> match the naming scheme of the other widgets.
 >=20
-> No widgets are renamed, to ease verification that this commit makes no
-> functional change.
+> The mixer controls are not renamed because they are exposed to
+> userspace.
 >=20
 > Signed-off-by: Samuel Holland <samuel@sholland.org>
 
@@ -141,15 +140,15 @@ Acked-by: Maxime Ripard <mripard@kernel.org>
 
 Maxime
 
---kucdcmwacaveldse
+--veplexjr6kmshaoe
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iHUEABYIAB0WIQRcEzekXsqa64kGDp7j7w1vZxhRxQUCX3rtcwAKCRDj7w1vZxhR
-xQdoAP9wDU5Pd9TTgeSgwBIK8Vwl4iYgXMJ4L+uonDPB0gHNygD/R6COTvszRw6v
-15hl7dBWlNQadtMZNespBQciQHOdQwc=
-=2dEz
+iHUEABYIAB0WIQRcEzekXsqa64kGDp7j7w1vZxhRxQUCX3rt/wAKCRDj7w1vZxhR
+xWniAQD5dzisALP1Tl/pOp1XFrNcyIPm590bbaTGMGrfaElJ0wEAmInRmA9Q9Ub6
+OLuQEDnFUgyCxQkMUSE4FCl+sAxDpwM=
+=oUY1
 -----END PGP SIGNATURE-----
 
---kucdcmwacaveldse--
+--veplexjr6kmshaoe--

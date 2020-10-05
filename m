@@ -2,109 +2,81 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 65AE128359C
-	for <lists+alsa-devel@lfdr.de>; Mon,  5 Oct 2020 14:16:12 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E1292283603
+	for <lists+alsa-devel@lfdr.de>; Mon,  5 Oct 2020 15:01:47 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id EF04A1800;
-	Mon,  5 Oct 2020 14:15:21 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EF04A1800
+	by alsa0.perex.cz (Postfix) with ESMTPS id 5DAC717CF;
+	Mon,  5 Oct 2020 15:00:57 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5DAC717CF
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1601900172;
-	bh=ss5xOBW/WUbyI+sqAnG3dhdUG/1ZeoV+/0ua+YhjLAg=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1601902907;
+	bh=uUGURdRKURyKgDW3DQIEFdCl4fFqMzZ7aCCajSfzXTQ=;
+	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=eZYghkDnqMZigy4TxYozGA5pXeSIMJ2S9OnJEBoksA6H9jM1+U8OQscRtX2vzCxQZ
-	 QiM8HstlOveGTqFjq6epGZDwb7pbGCYsaeNM7WqC9FnLpMTbGbtO+BkV0cGMKzWS0g
-	 3eCy/gCr8EdIRUecA9uiOF03NcSj+82AZwGDjKf4=
+	b=LSfy63G+PaVfpddVjTq/chJ4KgcSJ/xwvBCnLWpnbd4ZZIsu1ynjnIAuRImeRBH3f
+	 qb388cEEVOHVzTkr7hKdxLbUvZonClP8ByWNLWTZlwc55W0GMk+Jo3F9VX71+YnS8l
+	 SKZZrubw099k5SF4/YrrJHzUvGLlKXAZkTHcyiFU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 2E010F80269;
-	Mon,  5 Oct 2020 14:15:11 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 77B3CF80260;
+	Mon,  5 Oct 2020 15:00:06 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 62026F80269; Mon,  5 Oct 2020 14:15:08 +0200 (CEST)
+ id D08F7F8025A; Mon,  5 Oct 2020 15:00:03 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_PASS,SPF_PASS autolearn=disabled version=3.4.0
-Received: from new4-smtp.messagingengine.com (new4-smtp.messagingengine.com
- [66.111.4.230])
+X-Spam-Status: No, score=-0.0 required=5.0 tests=NICE_REPLY_A,
+ RCVD_IN_MSPIKE_H3, RCVD_IN_MSPIKE_WL, SPF_HELO_NONE,
+ SPF_PASS autolearn=disabled version=3.4.0
+Received: from out-2.mail.amis.net (out-2.mail.amis.net [212.18.32.14])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 1B098F80245
- for <alsa-devel@alsa-project.org>; Mon,  5 Oct 2020 14:15:01 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1B098F80245
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=cerno.tech header.i=@cerno.tech
- header.b="gGP4c3jX"; 
- dkim=pass (2048-bit key) header.d=messagingengine.com
- header.i=@messagingengine.com header.b="ZWwt3gNz"
-Received: from compute6.internal (compute6.nyi.internal [10.202.2.46])
- by mailnew.nyi.internal (Postfix) with ESMTP id 594E55800E8;
- Mon,  5 Oct 2020 08:14:59 -0400 (EDT)
-Received: from mailfrontend1 ([10.202.2.162])
- by compute6.internal (MEProxy); Mon, 05 Oct 2020 08:14:59 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cerno.tech; h=
- date:from:to:cc:subject:message-id:references:mime-version
- :content-type:in-reply-to; s=fm1; bh=ss5xOBW/WUbyI+sqAnG3dhdUG/1
- ZeoV+/0ua+YhjLAg=; b=gGP4c3jXp33tWZ9lx4tCQFiS8zHysT4bMIV3JrQRvfi
- eAr2/liTG+jEecjMB9g/H3Y37tqWqYTLBWJL1xZ0FTc8Eor2jGsIYZ1NjjoQb74y
- s/L/9BzdxQuNYKxoNcnBIkRm/IK6AOuqX587B5DJX2zEzDpoR+IuUK3VjQ6fBFoG
- cPLHrR2rV5dHRqN73wLHyNKQ5dpwYNmMWY+L2O/L6B0hArE1fYw92LkTdNBmH4hP
- 5Cqr/hsDlvw4SoiK5bcQUARVcHjqlLkxUgAx5arOKOOBctNh/iZX09a2vgX2QIVb
- dc7zDqOiaTBhVdskCROmY8RJ3hMuAqK6M9I/uil55hQ==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to:x-me-proxy
- :x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; bh=ss5xOB
- W/WUbyI+sqAnG3dhdUG/1ZeoV+/0ua+YhjLAg=; b=ZWwt3gNzEbRdF1kaZEfT37
- qd5TjSXt1JBvby8q5+jqAyrNrzP+FUvyUWq6bMiHadAsuNwERW4sVXlLNZ7HrXuX
- Fq8xupZCYUBuwnLo7OJxSTR1wAk8tsKOJXwmgeCAZpXPOhiYlULsf9EN1X/rKXLU
- wUm6zyxakNRc4IcYkuOfqGunZkuuzj2OYfm0Xeazbm/dYkk7zNcT1tP6lYC5Mea5
- Fl2+F/dTjd/bRi8bPDnJsfideb13b3gNNbKuMifpjRq9qfI2pPNtjwhS+NRh+Tvf
- vnvAU3uf5Ji+x2LIyYzy2VPtAKufFPj1+irJntV2ZYQ4vGBRhN3GyIGXMUJw/SDA
- ==
-X-ME-Sender: <xms:Qw57X-xgkmcbRT5VaK-FKevy-wh9Cc0QZ56I-rJlHWkt-HP5B9NBEw>
- <xme:Qw57X6Ro7eXLW6zWfvRgAOZbqWbbnU2JJZ-mEy6rLjmSncv0luZJ57HVPKe6Uyxg-
- pt8poksVLkVt7WhvGs>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedujedrgedvgdehudcutefuodetggdotefrodftvf
- curfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfghnecu
- uegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenuc
- fjughrpeffhffvuffkfhggtggujgesghdtreertddtudenucfhrhhomhepofgrgihimhgv
- ucftihhprghrugcuoehmrgigihhmvgestggvrhhnohdrthgvtghhqeenucggtffrrghtth
- gvrhhnpeduvdduhfekkeehgffftefflefgffdtheffudffgeevteffheeuiedvvdejvdfg
- veenucfkphepledtrdekledrieekrdejieenucevlhhushhtvghrufhiiigvpedvnecurf
- grrhgrmhepmhgrihhlfhhrohhmpehmrgigihhmvgestggvrhhnohdrthgvtghh
-X-ME-Proxy: <xmx:Qw57XwU-qdggpgCoRMLmX-btmWUQz5azDt2UtB1UlYMMmzFcMtCfkw>
- <xmx:Qw57X0hSRxVKGP_l4JqyKMiaN9FbRY2GgOMVr_ZCQsg6yFweeEj0-g>
- <xmx:Qw57XwB97qkEBB5YbcWpLpE1H561N0u7VW9r-2meZJcIckagqSNU8g>
- <xmx:Qw57X5LgHXOpVPEY26s8adN3g0gWtFkavI6MHaSZIGV-IHotk06EuA>
-Received: from localhost (lfbn-tou-1-1502-76.w90-89.abo.wanadoo.fr
- [90.89.68.76])
- by mail.messagingengine.com (Postfix) with ESMTPA id B5E983280067;
- Mon,  5 Oct 2020 08:14:58 -0400 (EDT)
-Date: Mon, 5 Oct 2020 14:14:57 +0200
-From: Maxime Ripard <maxime@cerno.tech>
-To: =?utf-8?B?Q2zDqW1lbnQgUMOpcm9u?= <peron.clem@gmail.com>
-Subject: Re: [PATCH v6 08/14] ASoC: sun4i-i2s: fix coding-style for callback
- definition
-Message-ID: <20201005121457.akbixtzf3rqwtq7t@gilmour.lan>
-References: <20201003141950.455829-1-peron.clem@gmail.com>
- <20201003141950.455829-9-peron.clem@gmail.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 4DDA6F80121
+ for <alsa-devel@alsa-project.org>; Mon,  5 Oct 2020 14:59:55 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4DDA6F80121
+Received: from in-4.mail.amis.net (in-4.mail.amis.net [212.18.32.23])
+ by out-2.mail.amis.net (Postfix) with ESMTP id B0AE9811FF;
+ Mon,  5 Oct 2020 14:59:54 +0200 (CEST)
+Received: from in-4.mail.amis.net (localhost [127.0.0.1])
+ by in-4.mail.amis.net (Postfix) with ESMTP id A6C0717048;
+ Mon,  5 Oct 2020 14:59:54 +0200 (CEST)
+X-Virus-Scanned: amavisd-new at amis.net
+Received: from in-4.mail.amis.net ([127.0.0.1])
+ by in-4.mail.amis.net (in-4.mail.amis.net [127.0.0.1]) (amavisd-new,
+ port 10024)
+ with ESMTP id CycFUBqLC64b; Mon,  5 Oct 2020 14:59:54 +0200 (CEST)
+Received: from smtp2.amis.net (smtp2.amis.net [212.18.32.44])
+ by in-4.mail.amis.net (Postfix) with ESMTP id 24D7417055;
+ Mon,  5 Oct 2020 14:59:54 +0200 (CEST)
+Received: from [192.168.69.116] (89-212-21-243.static.t-2.net [89.212.21.243])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128
+ bits)) (No client certificate requested)
+ by smtp2.amis.net (Postfix) with ESMTPSA id 9133C7FE59;
+ Mon,  5 Oct 2020 14:59:53 +0200 (CEST)
+Subject: Re: [PATCH 1/2] ASoC: fsl: fsl_ssi: add ac97 fixed mode support
+To: Mark Brown <broonie@kernel.org>
+References: <20201005111644.3131604-1-primoz.fiser@norik.com>
+ <20201005114925.GC5139@sirena.org.uk>
+From: Primoz Fiser <primoz.fiser@norik.com>
+Message-ID: <bc31e0f2-969c-4eb1-1dc0-cf4284427a4b@norik.com>
+Date: Mon, 5 Oct 2020 14:59:53 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.10.0
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature"; boundary="oaws3jxb46bccpfd"
-Content-Disposition: inline
-In-Reply-To: <20201003141950.455829-9-peron.clem@gmail.com>
-Cc: devicetree@vger.kernel.org, Jernej Skrabec <jernej.skrabec@siol.net>,
- alsa-devel@alsa-project.org, Liam Girdwood <lgirdwood@gmail.com>,
- linux-kernel@vger.kernel.org, Mark Brown <broonie@kernel.org>,
- linux-sunxi@googlegroups.com, Takashi Iwai <tiwai@suse.com>,
- Marcus Cooper <codekipper@gmail.com>, Chen-Yu Tsai <wens@csie.org>,
- Rob Herring <robh+dt@kernel.org>, linux-arm-kernel@lists.infradead.org
+In-Reply-To: <20201005114925.GC5139@sirena.org.uk>
+Content-Type: text/plain; charset=windows-1252; format=flowed
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
+ Timur Tabi <timur@kernel.org>, Xiubo Li <Xiubo.Lee@gmail.com>,
+ Fabio Estevam <festevam@gmail.com>, Takashi Iwai <tiwai@suse.com>,
+ Liam Girdwood <lgirdwood@gmail.com>, Nicolin Chen <nicoleotsuka@gmail.com>,
+ Rob Herring <robh+dt@kernel.org>,
+ "Maciej S. Szmigiero" <mail@maciej.szmigiero.name>,
+ Shengjiu Wang <shengjiu.wang@gmail.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -120,35 +92,42 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+Hi Mark,
 
---oaws3jxb46bccpfd
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+On 5. 10. 20 13:49, Mark Brown wrote:
+> On Mon, Oct 05, 2020 at 01:16:43PM +0200, Primoz Fiser wrote:
+> 
+>> bits. But in summary, when SSI operates in AC'97 variable mode of
+>> operation, CODECs can sometimes send SLOTREQ bits for non-existent audio
+>> slots which then "stick" in SSI and completely break audio output.
+> 
+> If this is something that happens based on the CODEC shouldn't we be
+> doing this by quirking based on the CODEC the system has rather than
+> requiring people set a separate DT property?
+> 
 
-On Sat, Oct 03, 2020 at 04:19:44PM +0200, Cl=E9ment P=E9ron wrote:
-> Checkpatch script produces warning:
-> WARNING: function definition argument 'const struct sun4i_i2s *'
-> should also have an identifier name.
->=20
-> Let's fix this by adding identifier name to get_bclk_parent_rate()
-> and set_fmt() callback definition.
->=20
-> Signed-off-by: Cl=E9ment P=E9ron <peron.clem@gmail.com>
+To be totally honest, we are not 100% sure if this is only CODEC's fault 
+or something else might be causing these issues.
 
-Acked-by: Maxime Ripard <mripard@kernel.org>
+For example, it could be some EMI/noise that causes SLOTREQ bits to flip 
+spuriously. Or it could even be the buggy SSI itself (taking into 
+account all the issues with channel slipping, slot filtering, AC'97 reg 
+reading/writing, etc)?
 
-Maxime
+We are just referencing commit 01ca485171e3 ("ASoC: fsl_ssi: only enable 
+proper channel slots in AC'97 mode"), as we saw that UDOO board had the 
+same problems. I added commit author to CC.
 
---oaws3jxb46bccpfd
-Content-Type: application/pgp-signature; name="signature.asc"
+We were able to overcome those by programming SSI in AC'97 fixed mode 
+which driver up to now completely ignored (it was using only AC'97 
+variable mode).
 
------BEGIN PGP SIGNATURE-----
+Additionally, we are using WM9712 codec and UDOO board is using VT1613, 
+right? So these issues might not be CODEC related at all.
 
-iHUEABYIAB0WIQRcEzekXsqa64kGDp7j7w1vZxhRxQUCX3sOQQAKCRDj7w1vZxhR
-xQI8AP9peje1FGUYiKYyd7X0xC7UqZYUpLKKGvsYwHL5Aky1UQEAuSUPd0mxp+bS
-mAn5oBpY/2OYS5TNxvsIbiEY6REDBAk=
-=drfJ
------END PGP SIGNATURE-----
+BR,
+Primoz
 
---oaws3jxb46bccpfd--
+
+
+

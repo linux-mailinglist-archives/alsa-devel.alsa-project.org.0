@@ -2,70 +2,70 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 254E6283DE3
-	for <lists+alsa-devel@lfdr.de>; Mon,  5 Oct 2020 19:59:06 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 88574283F96
+	for <lists+alsa-devel@lfdr.de>; Mon,  5 Oct 2020 21:25:39 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B1E621798;
-	Mon,  5 Oct 2020 19:58:15 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B1E621798
+	by alsa0.perex.cz (Postfix) with ESMTPS id 2026017C0;
+	Mon,  5 Oct 2020 21:24:49 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2026017C0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1601920745;
-	bh=WXHa6/wvYZth1GPUhzSzyB/GuNKAlqCbTCHovfE5AC8=;
-	h=Date:From:To:In-Reply-To:References:Subject:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=JQp+TElWLAFRrG5ik7XX5l8mVgDjMWiLlDgoB9ENZp0J7thcZErXbqZGky7yVnOvY
-	 M/LOqstoWhU6TDfVDRp9pSU0QWwCp1dOmhSIZySFkp6aeu22SEHoJdVQtGXMTVIW1i
-	 WjB1AUEPn8cNdWoMJIaXHD5eK3H8vf/Ncbq8p6VA=
+	s=default; t=1601925939;
+	bh=eMgbeUGSbXqcHSOBCyCgfyl7D9W2B6rYxXmGUI9G1LU=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=oB0FI+AuvLQPDm3VGFx9zFVQSNlOvrx2dMS1qrgtL4gpLpy4eQVSeLkJQJ7VKNYNj
+	 LbkZTLuCc12gOSoZBbtT0DZUTT80XrB6ttEGLeWnDyM5Ezo16nJDjPCUsd1p7hNXOl
+	 n6IdRLtmCeKwg3ck98/qkWWB61rBs5njmdLm3swk=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id E5B64F802EA;
-	Mon,  5 Oct 2020 19:55:22 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id C450CF802E2;
+	Mon,  5 Oct 2020 21:24:00 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 3C706F802E2; Mon,  5 Oct 2020 19:55:19 +0200 (CEST)
+ id 612E6F802DC; Mon,  5 Oct 2020 21:23:55 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.8 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled
- version=3.4.0
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id C2B08F802DC
- for <alsa-devel@alsa-project.org>; Mon,  5 Oct 2020 19:55:16 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C2B08F802DC
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="ixGwxmv8"
-Received: from localhost (fw-tnat.cambridge.arm.com [217.140.96.140])
+X-Spam-Status: No, score=-0.0 required=5.0 tests=RCVD_IN_MSPIKE_H3,
+ RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
+Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 9329E2083B;
- Mon,  5 Oct 2020 17:55:14 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1601920515;
- bh=WXHa6/wvYZth1GPUhzSzyB/GuNKAlqCbTCHovfE5AC8=;
- h=Date:From:To:Cc:In-Reply-To:References:Subject:From;
- b=ixGwxmv8lsFDsWrAjVGiNu94jjW5itloGmDVF//3U/sS8+NeX7d1BhHWyKHT65FaY
- TzVXByn88aOt4KHtq+Su7lJct727Uye5zYifQfEICK9W3dm1om1wRK/1lnT7/I/4hQ
- fyvapWMjuZSTbBbRuTF5pAPXB1CGfOFEZvnGTZ4w=
-Date: Mon, 05 Oct 2020 18:54:12 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Chen-Yu Tsai <wens@csie.org>, Takashi Iwai <tiwai@suse.com>,
- Liam Girdwood <lgirdwood@gmail.com>, Samuel Holland <samuel@sholland.org>,
- Jaroslav Kysela <perex@perex.cz>, Maxime Ripard <mripard@kernel.org>
-In-Reply-To: <20201001021148.15852-1-samuel@sholland.org>
-References: <20201001021148.15852-1-samuel@sholland.org>
-Subject: Re: [PATCH 00/25] ASoC: sun8i-codec: support for AIF2 and AIF3
-Message-Id: <160192043040.23051.6290933944339800097.b4-ty@kernel.org>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 0076DF8026A
+ for <alsa-devel@alsa-project.org>; Mon,  5 Oct 2020 21:23:49 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0076DF8026A
+IronPort-SDR: E0uxGfgoaa17S5vear84GvtXZTFmNnWHiHfjYUG/vyHk/6WJy5CsjdN3NMmVTQwOa/JyYkgQgK
+ IWqk+ucnbZYA==
+X-IronPort-AV: E=McAfee;i="6000,8403,9765"; a="181650143"
+X-IronPort-AV: E=Sophos;i="5.77,340,1596524400"; d="scan'208";a="181650143"
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from fmsmga004.fm.intel.com ([10.253.24.48])
+ by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 05 Oct 2020 12:19:26 -0700
+IronPort-SDR: utzDqmfOJRYOuu4H5wXH3pK14v+WEbOHUbsjD0S/p40f95xPYVH2NdAaz+Flk65v6eYuGhdpqs
+ 4nBObJyhsEdQ==
+X-IronPort-AV: E=Sophos;i="5.77,340,1596524400"; d="scan'208";a="341302299"
+Received: from dmert-dev.jf.intel.com ([10.166.241.5])
+ by fmsmga004-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 05 Oct 2020 11:26:11 -0700
+From: Dave Ertman <david.m.ertman@intel.com>
+To: alsa-devel@alsa-project.org
+Subject: [PATCH v2 0/6] Ancillary bus implementation and SOF multi-client
+ support
+Date: Mon,  5 Oct 2020 11:24:40 -0700
+Message-Id: <20201005182446.977325-1-david.m.ertman@intel.com>
+X-Mailer: git-send-email 2.26.2
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: 8bit
-Cc: Ondrej Jirman <megous@megous.com>, alsa-devel@alsa-project.org,
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org
+Cc: parav@mellanox.com, tiwai@suse.de, netdev@vger.kernel.org,
+ ranjani.sridharan@linux.intel.com, pierre-louis.bossart@linux.intel.com,
+ fred.oh@linux.intel.com, linux-rdma@vger.kernel.org, dledford@redhat.com,
+ broonie@kernel.org, jgg@nvidia.com, gregkh@linuxfoundation.org,
+ kuba@kernel.org, dan.j.williams@intel.com, shiraz.saleem@intel.com,
+ davem@davemloft.net, kiran.patil@intel.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -81,58 +81,173 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Wed, 30 Sep 2020 21:11:23 -0500, Samuel Holland wrote:
-> This series adds support the other two AIFs present in the sun8i codec,
-> which can be used for codec2codec DAI links.
-> 
-> This series first cleans up the DAPM component driver so there is an
-> organized place to put the new widgets. Then it fills out the DAI
-> driver, removing assumptions that were made for AIF1 (16 bits, 2
-> channels, certain clock inversions). Some new logic is required to
-> handle 3 DAIs and the ADC/DAC sharing the same clock. Finally, it adds
-> the new DAIs, and hooks them up with DAPM widgets and routes per the
-> hardware topology.
-> 
-> [...]
+Version 2 of this patchset is being pushed out when there are still
+some issues up in the air.  This push, along with the changes in the
+change log below, is to fix the broken distribution among mailing lists
+and individuals of the first version submission.
 
-Applied to
+At least two items still under discussion are:
+Final name for the bus
+Documentation of sysfs directories
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
+Brief history of Ancillary Bus
+==============================
+The ancillary bus code was originally submitted upstream as virtual
+bus, and was submitted through the netdev tree.  This process generated
+up to v4.  This discussion can be found here:
+https://lore.kernel.org/netdev/20191111192219.30259-1-jeffrey.t.kirsher@intel.com/#t
 
-Thanks!
+At this point, GregKH requested that we take the review and revision
+process to an internal mailing list and garner the buy-in of a respected
+kernel contributor.
 
-[1/8] ASoC: sun8i-codec: Set up clock tree at probe time
-      commit: d8f006825ac57e34f7ed5e63a1e16d889dc1508e
-[2/8] ASoC: sun8i-codec: Swap module clock/reset dependencies
-      commit: ed3caa3bd44c9ae1cebeb32d787adc5ed35e29fa
-[3/8] ASoC: sun8i-codec: Sort DAPM controls, widgets, and routes
-      commit: d58b7247087900414aa3e988e70ecba85e06f412
-[4/8] ASoC: sun8i-codec: Consistently name DAPM widgets and routes
-      commit: 7b51f3c7029fab706e7d9ac99f67cbcf8f29beca
-[5/8] ASoC: sun8i-codec: Correct DAPM widget types
-      commit: fc5668f62d089ba69b343f0e80146f5a3bc6fa71
-[6/8] ASoC: sun8i-codec: Fix AIF widget channel references
-      commit: 4ab60cef3149d57fe56add8c60ee7e6d45816f27
-[7/8] ASoC: sun8i-codec: Enable AIF mono/stereo control
-      commit: 18ebd62c30f0380da11d6c86e20b56c771ac1e18
-[8/8] ASoC: sun8i-codec: Use snd_soc_dai_get_drvdata
-      commit: a886990c9525e83146829c7711ce444ff652c98a
+The ancillary bus (then known as virtual bus) was originally submitted
+along with implementation code for the ice driver and irdma drive,
+causing the complication of also having dependencies in the rdma tree.
+This new submission is utilizing an ancillary bus consumer in only the
+sound driver tree to create the initial implementation and a single
+user.
 
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
+Since implementation work has started on this patch set, there have been
+multiple inquiries about the time frame of its completion.  It appears
+that there will be numerous consumers of this functionality.
 
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
+The process of internal review and implementation using the sound
+drivers generated 19 internal versions.  The changes, including the name
+change from virtual bus to ancillary bus, from these versions can be
+summarized as the following:
 
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
+- Fixed compilation and checkpatch errors
+- Improved documentation to address the motivation for virtual bus.
+- Renamed virtual bus to ancillary bus
+- increased maximum device name size
+- Correct order in Kconfig and Makefile
+- removed the mid-layer adev->release layer for device unregister
+- pushed adev->id management to parent driver
+- all error paths out of ancillary_device_register return error code
+- all error paths out of ancillary_device_register use put_device
+- added adev->name element
+- modname in register cannot be NULL
+- added KBUILD_MODNAME as prefix for match_name
+- push adev->id responsibility to registering driver
+- uevent now parses adev->dev name
+- match_id function now parses adev->dev name
+- changed drivers probe function to also take an ancillary_device_id
+  param
+- split ancillary_device_register into device_initialize and device_add
+- adjusted what is done in device_initialize and device_add
+- change adev to ancildev and adrv to ancildrv
+- change adev to ancildev in documentation
 
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
+==========================
 
-Thanks,
-Mark
+Introduces the ancillary bus implementation along with the example usage
+in the Sound Open Firmware(SOF) audio driver.
+
+In some subsystems, the functionality of the core device
+(PCI/ACPI/other) may be too complex for a single device to be managed as
+a monolithic block or a part of the functionality might need to be
+exposed to a different subsystem.  Splitting the functionality into
+smaller orthogonal devices makes it easier to manage data, power
+management and domain-specific communication with the hardware.  Also,
+common ancillary_device functionality across primary devices can be
+handled by a common ancillary_device. A key requirement for such a split
+is that there is no dependency on a physical bus, device, register
+accesses or regmap support. These individual devices split from the core
+cannot live on the platform bus as they are not physical devices that
+are controlled by DT/ACPI. The same argument applies for not using MFD
+in this scenario as it relies on individual function devices being
+physical devices that are DT enumerated.
+
+An example for this kind of requirement is the audio subsystem where a
+single IP handles multiple entities such as HDMI, Soundwire, local
+devices such as mics/speakers etc. The split for the core's
+functionality can be arbitrary or be defined by the DSP firmware
+topology and include hooks for test/debug. This allows for the audio
+core device to be minimal and tightly coupled with handling the
+hardware-specific logic and communication.
+
+The ancillary bus is intended to be minimal, generic and avoid
+domain-specific assumptions. Each ancillary bus device represents a part
+of its parent functionality. The generic behavior can be extended and
+specialized as needed by encapsulating an ancillary bus device within
+other domain-specific structures and the use of .ops callbacks.
+
+The SOF driver adopts the ancillary bus for implementing the
+multi-client support. A client in the context of the SOF driver
+represents a part of the core device's functionality. It is not a
+physical device but rather an ancillary device that needs to communicate
+with the DSP via IPCs. With multi-client support,the sound card can be
+separated into multiple orthogonal ancillary devices for local devices
+(mic/speakers etc), HDMI, sensing, probes, debug etc.  In this series,
+we demonstrate the usage of the ancillary bus with the help of the IPC
+test client which is used for testing the serialization of IPCs when
+multiple clients talk to the DSP at the same time.
+
+v2 changes:
+defined pr_fmt for kernel messages
+replaced WARN_ON calls in registration with pr_err calls
+adding kernel-doc function comments for device_initialize and device_add
+fix typo in documentation
+removed inaccurate line in documentation
+fixed formatting in drivers/bus/Makefile
+changed unwind path for sof_client_dev_alloc()
+improved comments for client list and mem freeing during client unreg
+removed debugfs entries in sof_ipc_test_client_drv during remove
+changed the signature of sof_debug_ipc_flood_test()
+fix a looping error in ancillary_match_id
+updated error value in sof_client_dev_register()
+mutex held while traversing client list when unregistering clients
+updated includes in sof-client.h
+
+Dave Ertman (1):
+  Add ancillary bus support
+
+Fred Oh (1):
+  ASoC: SOF: debug: Remove IPC flood test support in SOF core
+
+Ranjani Sridharan (4):
+  ASoC: SOF: Introduce descriptors for SOF client
+  ASoC: SOF: Create client driver for IPC test
+  ASoC: SOF: ops: Add ops for client registration
+  ASoC: SOF: Intel: Define ops for client registration
+
+ Documentation/driver-api/ancillary_bus.rst | 229 ++++++++++++++
+ Documentation/driver-api/index.rst         |   1 +
+ drivers/bus/Kconfig                        |   3 +
+ drivers/bus/Makefile                       |   3 +
+ drivers/bus/ancillary.c                    | 225 ++++++++++++++
+ include/linux/ancillary_bus.h              |  69 +++++
+ include/linux/mod_devicetable.h            |   8 +
+ scripts/mod/devicetable-offsets.c          |   3 +
+ scripts/mod/file2alias.c                   |   8 +
+ sound/soc/sof/Kconfig                      |  29 +-
+ sound/soc/sof/Makefile                     |   7 +
+ sound/soc/sof/core.c                       |  12 +
+ sound/soc/sof/debug.c                      | 230 --------------
+ sound/soc/sof/intel/Kconfig                |   9 +
+ sound/soc/sof/intel/Makefile               |   3 +
+ sound/soc/sof/intel/apl.c                  |  18 ++
+ sound/soc/sof/intel/bdw.c                  |  18 ++
+ sound/soc/sof/intel/byt.c                  |  22 ++
+ sound/soc/sof/intel/cnl.c                  |  18 ++
+ sound/soc/sof/intel/intel-client.c         |  53 ++++
+ sound/soc/sof/intel/intel-client.h         |  26 ++
+ sound/soc/sof/ops.h                        |  14 +
+ sound/soc/sof/sof-client.c                 | 119 ++++++++
+ sound/soc/sof/sof-client.h                 |  69 +++++
+ sound/soc/sof/sof-ipc-test-client.c        | 332 +++++++++++++++++++++
+ sound/soc/sof/sof-priv.h                   |  19 +-
+ 26 files changed, 1308 insertions(+), 239 deletions(-)
+ create mode 100644 Documentation/driver-api/ancillary_bus.rst
+ create mode 100644 drivers/bus/ancillary.c
+ create mode 100644 include/linux/ancillary_bus.h
+ create mode 100644 sound/soc/sof/intel/intel-client.c
+ create mode 100644 sound/soc/sof/intel/intel-client.h
+ create mode 100644 sound/soc/sof/sof-client.c
+ create mode 100644 sound/soc/sof/sof-client.h
+ create mode 100644 sound/soc/sof/sof-ipc-test-client.c
+
+-- 
+2.26.2
+

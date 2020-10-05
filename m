@@ -2,29 +2,29 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8B3E0283F62
-	for <lists+alsa-devel@lfdr.de>; Mon,  5 Oct 2020 21:14:25 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D3696283F67
+	for <lists+alsa-devel@lfdr.de>; Mon,  5 Oct 2020 21:15:08 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 2EBA717A8;
-	Mon,  5 Oct 2020 21:13:35 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2EBA717A8
+	by alsa0.perex.cz (Postfix) with ESMTPS id 7A0D71755;
+	Mon,  5 Oct 2020 21:14:18 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7A0D71755
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1601925265;
-	bh=DzI6kUPFR+Deij3dd4rqKmeqkVlfgE2/IByLk9NQ4gQ=;
+	s=default; t=1601925308;
+	bh=bAdU0KnsbJTZORMK2Xa7UWu9R1TZjhGEmqD1ayWxRgk=;
 	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
 	 List-Post:List-Help:List-Subscribe:From;
-	b=hnRMV4bbT1Jfpf+rMX/CpaFiKU847HxB2SMpwcftZ6VNPngmcu5jP/mshfm20PGDS
-	 2tOXXyE0Pp/bnw4H8/6wW8j4b2BvGY/2VnkZfRs+ZtSOaAD0B66zhIjhN+mSYyqoZY
-	 sw8tl8Z4Ly1mVrTXpIXariapvc0e/VtJNO20Potg=
+	b=aE3JP1kfO2dKnC+kxRsjAdf6LBhLwspLwi+OgW6SiXaWQApL+LW+Ingk3aR66h57U
+	 OynxoGIfPCgm/tZRszV8H5+3JVIgZ9WSLDrRMi4tIq0op3i41e3c5XubWnCYUKj9W4
+	 kSta63I/AMbOtWK/Ky7N14rDz5TriMFu0LPkNTt4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 4E3FDF80260;
-	Mon,  5 Oct 2020 21:12:44 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 6EDD6F8027B;
+	Mon,  5 Oct 2020 21:12:49 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 40457F8025A; Mon,  5 Oct 2020 21:12:41 +0200 (CEST)
+ id CBBF3F8025A; Mon,  5 Oct 2020 21:12:47 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,30 +34,30 @@ Received: from merlin.infradead.org (merlin.infradead.org
  [IPv6:2001:8b0:10b:1231::1])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 2E958F800EF
- for <alsa-devel@alsa-project.org>; Mon,  5 Oct 2020 21:12:35 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2E958F800EF
+ by alsa1.perex.cz (Postfix) with ESMTPS id ED58CF8025A
+ for <alsa-devel@alsa-project.org>; Mon,  5 Oct 2020 21:12:44 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz ED58CF8025A
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org
- header.b="iJdkPAuE"
+ header.b="PpQB70I4"
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=infradead.org; s=merlin.20170209; h=Content-Transfer-Encoding:MIME-Version:
  Message-Id:Date:Subject:Cc:To:From:Sender:Reply-To:Content-Type:Content-ID:
  Content-Description:In-Reply-To:References;
- bh=6CTiwZikzwOayCgM9BdSR2MAppz360/FLOkaH+kTKSU=; b=iJdkPAuElAvxnFH4lJK4mzijHu
- xdZhrR9d0mF4/UcoP8ijav8lW3aD6kBPrk26VxOU12FmBaYlMNT1rS1n7PTzmfQDL1T1Hf1k0oqGe
- ZIqEQ8xGZYv0q+v+fVwoi/ZLLOUUPwb4I/hnGc+q0a4w0wPygx/8RmJOOhVlie5zSikgI51uLPBIL
- LmxfghuXGgBmRuN9+SbhEpaRkqNKu+g4WMPkY+pMb0i4GGYYWtsAn9R2cFjT1cnA61X8X63kfiClz
- Q468bT2AVVk2H6qJvTgc8lnrzU0I2CzAriAo6cBx5Pn3Z7gsnOu1TGsTNXgfb6Fdc4IZjoG2LUseO
- mV2bFrzA==;
+ bh=Ot1efaYDsvjq482gOdoiX5oT+UdfmdDcyr15Je6NkZQ=; b=PpQB70I4VaC3UCCrlmu+5H8l6F
+ GOMwcinQddJahEiIJ29fsjwftgacq9j5vKrg1zl2WV+85YUGlQ6azUSjYx+jR3iPqjgeRW05g9WgG
+ zqUP21XdU17RacM3lMUi6zuozZL9HABJSW5JZDRzpTlo0w6KMBCiRlITgCvXZMmrO/1G3dZB9Av7N
+ WlEXwKqqUm8NlVGswUKe/6+Kf0Qc6EQhhGm1n/20QE8z6wDFH+uLWZBlaojMYNdrqJyU5tEZLHF33
+ vl8mXcPNCemn8Sqzq0w90qRTue8o8Jc+vfocE5jKd6pJnn9Pb7auyG+fSFB+ag//kW5TxM43lLMui
+ hXDdUTFA==;
 Received: from [2601:1c0:6280:3f0::2c9a] (helo=smtpauth.infradead.org)
  by merlin.infradead.org with esmtpsa (Exim 4.92.3 #3 (Red Hat Linux))
- id 1kPVuO-000774-3v; Mon, 05 Oct 2020 19:12:28 +0000
+ id 1kPVuY-00078v-TU; Mon, 05 Oct 2020 19:12:39 +0000
 From: Randy Dunlap <rdunlap@infradead.org>
 To: linux-kernel@vger.kernel.org
-Subject: [PATCH] sound: drivers: portman2x4: fix repeated word 'if'
-Date: Mon,  5 Oct 2020 12:12:23 -0700
-Message-Id: <20201005191223.21514-1-rdunlap@infradead.org>
+Subject: [PATCH] sound: sparc: dbri: fix repeated word 'the'
+Date: Mon,  5 Oct 2020 12:12:34 -0700
+Message-Id: <20201005191234.12715-1-rdunlap@infradead.org>
 X-Mailer: git-send-email 2.26.2
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
@@ -78,24 +78,24 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Correct duplicated word "if" to "if it".
+Drop the duplicated word "the".
 
 Signed-off-by: Randy Dunlap <rdunlap@infradead.org>
 Cc: Jaroslav Kysela <perex@perex.cz>
 Cc: Takashi Iwai <tiwai@suse.com>
 Cc: alsa-devel@alsa-project.org
 ---
- sound/drivers/portman2x4.c |    2 +-
+ sound/sparc/dbri.c |    2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
---- lnx-59-rc8.orig/sound/drivers/portman2x4.c
-+++ lnx-59-rc8/sound/drivers/portman2x4.c
-@@ -467,7 +467,7 @@ static int portman_probe(struct parport
- 	parport_write_control(p, 0);	/* Reset Strobe=0. */
+--- lnx-59-rc8.orig/sound/sparc/dbri.c
++++ lnx-59-rc8/sound/sparc/dbri.c
+@@ -620,7 +620,7 @@ A circular command buffer is used here.
+ while another can be executed. The scheme works by adding two WAIT commands
+ after each sent batch of commands. When the next batch is prepared it is
+ added after the WAIT commands then the WAITs are replaced with single JUMP
+-command to the new batch. The the DBRI is forced to reread the last WAIT
++command to the new batch. The DBRI is forced to reread the last WAIT
+ command (replaced by the JUMP by then). If the DBRI is still executing
+ previous commands the request to reread the WAIT command is ignored.
  
- 	/* Check if Tx circuitry is functioning properly.  If initialized 
--	 * unit TxEmpty is false, send out char and see if if goes true.
-+	 * unit TxEmpty is false, send out char and see if it goes true.
- 	 */
- 	/* 8 */
- 	parport_write_control(p, TXDATA0);	/* Tx channel 0, strobe off. */

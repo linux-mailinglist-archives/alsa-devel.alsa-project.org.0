@@ -2,86 +2,81 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 25737282FE2
-	for <lists+alsa-devel@lfdr.de>; Mon,  5 Oct 2020 06:53:56 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8B88C2830B7
+	for <lists+alsa-devel@lfdr.de>; Mon,  5 Oct 2020 09:14:41 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A940C16F3;
-	Mon,  5 Oct 2020 06:53:05 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A940C16F3
+	by alsa0.perex.cz (Postfix) with ESMTPS id ED41E1828;
+	Mon,  5 Oct 2020 09:13:50 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz ED41E1828
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1601873635;
-	bh=/vdSEvhe9iqZwj5GsZNYN8wEo4BZQA3P2+BldHcsrMI=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1601882081;
+	bh=2EX4piA/SgdYtX3F7rH0VHjPRUAhfAqRTNEDOgeubHU=;
+	h=Subject:To:References:From:Date:In-Reply-To:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=Tbvrq0qbtDJj/q6tRl6w9jNJBg/oRnAoVvKJahpMshHJKKFMl77UwdFQHfU3K+tui
-	 mlV28LKZ9MW2sPo4jMTQYpq36c6SyYyddQFo3PxF8SMOWSOGhKCaRhdIo9A9slvr/h
-	 a5Y2yeGayF0b8HqHJLuJ4G7NWTQdPBnaG8g3un2g=
+	b=DPGbc4sIH7bCthfZ2Have/MVeUrnJ6T11lfRvV76VKFCqJx5TcFuYrQHF8be3plXV
+	 4g/rwhGHSv9B9WxyOZ3y8ESDZZm0VxG3xDyP6gmNWpW3QMYrg8faxWVfGp4kpIIx6V
+	 sVtl2QbNURbQ4xf05fVBVv8bL3iMr6GXVW8PLLgY=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 9E7DAF802FE;
-	Mon,  5 Oct 2020 06:49:36 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 2652AF80121;
+	Mon,  5 Oct 2020 09:13:00 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 64BCFF80304; Mon,  5 Oct 2020 06:49:34 +0200 (CEST)
+ id DAA0AF8025A; Mon,  5 Oct 2020 09:12:57 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from m42-4.mailgun.net (m42-4.mailgun.net [69.72.42.4])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from cable.insite.cz (cable.insite.cz [84.242.75.189])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id C61F7F802FF
- for <alsa-devel@alsa-project.org>; Mon,  5 Oct 2020 06:49:30 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C61F7F802FF
+ by alsa1.perex.cz (Postfix) with ESMTPS id 51C61F80121
+ for <alsa-devel@alsa-project.org>; Mon,  5 Oct 2020 09:12:46 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 51C61F80121
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=mg.codeaurora.org
- header.i=@mg.codeaurora.org header.b="BOu0ywW2"
-DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
- q=dns/txt; 
- s=smtp; t=1601873370; h=References: In-Reply-To: Message-Id: Date:
- Subject: Cc: To: From: Sender;
- bh=fEiNiE7WcOtOuwWFNUUBWC5/RBsAGoYkHCbf1P9TbYE=;
- b=BOu0ywW2Cu45ehSZCoVBqoF8H8YwkQFbPHmBTLlTSJXr9GiMOJYAX1uGWm4k+u+WuJQVBxFV
- OQ88Kb5nm842OYiHIkIAtFsZwKHWyY6/OvC0gQPqCIfxmRQYr2hwsiUZ+pMzofU0NP16O+5g
- ZAXb/zloBbhDUOz99BoGpQuzxnk=
-X-Mailgun-Sending-Ip: 69.72.42.4
-X-Mailgun-Sid: WyI4ZmE2ZSIsICJhbHNhLWRldmVsQGFsc2EtcHJvamVjdC5vcmciLCAiYmU5ZTRhIl0=
-Received: from smtp.codeaurora.org
- (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171]) by
- smtp-out-n03.prod.us-east-1.postgun.com with SMTP id
- 5f7aa5da4fce93c117bac200 (version=TLS1.2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Mon, 05 Oct 2020 04:49:30
- GMT
-Received: by smtp.codeaurora.org (Postfix, from userid 1001)
- id 7308CC4339C; Mon,  5 Oct 2020 04:49:29 +0000 (UTC)
-Received: from hyd-lnxbld210.qualcomm.com (unknown [202.46.22.19])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-SHA256 (128/128 bits))
- (No client certificate requested) (Authenticated sender: srivasam)
- by smtp.codeaurora.org (Postfix) with ESMTPSA id 60175C433AD;
- Mon,  5 Oct 2020 04:49:22 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 smtp.codeaurora.org 60175C433AD
-Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
- dmarc=none (p=none dis=none) header.from=codeaurora.org
-Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
- spf=fail smtp.mailfrom=srivasam@codeaurora.org
-From: Srinivasa Rao Mandadapu <srivasam@codeaurora.org>
-To: agross@kernel.org, bjorn.andersson@linaro.org, lgirdwood@gmail.com,
- broonie@kernel.org, robh+dt@kernel.org, plai@codeaurora.org,
- bgoswami@codeaurora.org, perex@perex.cz, tiwai@suse.com,
- srinivas.kandagatla@linaro.org, rohitkr@codeaurora.org,
- linux-arm-msm@vger.kernel.org, alsa-devel@alsa-project.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: [PATCH v10 7/7] ASoC: qcom: sc7180: Add support for audio over DP
-Date: Mon,  5 Oct 2020 10:18:30 +0530
-Message-Id: <1601873310-1894-8-git-send-email-srivasam@codeaurora.org>
-X-Mailer: git-send-email 2.7.4
-In-Reply-To: <1601873310-1894-1-git-send-email-srivasam@codeaurora.org>
-References: <1601873310-1894-1-git-send-email-srivasam@codeaurora.org>
-Cc: V Sujith Kumar Reddy <vsujithk@codeaurora.org>,
- Srinivasa Rao <srivasam@codeaurora.org>
+ dkim=pass (1024-bit key) header.d=ivitera.com header.i=@ivitera.com
+ header.b="Q+deUAm7"; 
+ dkim=pass (1024-bit key) header.d=ivitera.com header.i=@ivitera.com
+ header.b="TDgNMw/8"
+Received: from localhost (localhost [127.0.0.1])
+ by cable.insite.cz (Postfix) with ESMTP id 24E03A4BC17A5;
+ Mon,  5 Oct 2020 09:12:46 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=ivitera.com; s=mail;
+ t=1601881966; bh=2EX4piA/SgdYtX3F7rH0VHjPRUAhfAqRTNEDOgeubHU=;
+ h=Subject:To:References:From:Date:In-Reply-To:From;
+ b=Q+deUAm7uVFRFjX2LmGdaf8kQzHgTwym0ohcCaSO+nyxTOgOl/GNKjEmiSO0wW+X1
+ lr7IpaXI+VrnyJiQx4joYKs23us0/635VOLD3E9Ud/EoN9MFvgwWrhvXVU7S1SmgPk
+ GdR9D22CIiM+jiUD5utxPc1bmHwzA52YriStt0jQ=
+Received: from cable.insite.cz ([84.242.75.189])
+ by localhost (server.insite.cz [127.0.0.1]) (amavisd-new, port 10024)
+ with ESMTP id LLTxUiuWDbKE; Mon,  5 Oct 2020 09:12:46 +0200 (CEST)
+Received: from [192.168.100.21] (unknown [192.168.100.21])
+ (Authenticated sender: pavel)
+ by cable.insite.cz (Postfix) with ESMTPSA id E8CD6A4BC17A0;
+ Mon,  5 Oct 2020 09:12:45 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=ivitera.com; s=mail;
+ t=1601881965; bh=2EX4piA/SgdYtX3F7rH0VHjPRUAhfAqRTNEDOgeubHU=;
+ h=Subject:To:References:From:Date:In-Reply-To:From;
+ b=TDgNMw/8Ncp+bIhltUAa9gd+W+35sT5m/XJbeR2GROUF6RCAlJ1fy1vjogWTZtPEH
+ d9Gbnrf+owhYmMpnaX/LbZrwUJaJX8utz8MoYly7roL37C0bi/DiCCRdKDWulFANLf
+ Fwv7wrIY5UculTZ0JUzmTfXJlJoq2UingMi9olSU=
+Subject: Re: Loopback device respond to changing parameters on the other end.
+To: alsa@scripple.org, alsa-devel@alsa-project.org
+References: <44f29dca-c238-d90c-4221-0f5265d61019@schells.com>
+From: Pavel Hofman <pavel.hofman@ivitera.com>
+Message-ID: <691bd7f1-cf08-014a-6d8d-da7c50fdab91@ivitera.com>
+Date: Mon, 5 Oct 2020 09:12:45 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.10.0
+MIME-Version: 1.0
+In-Reply-To: <44f29dca-c238-d90c-4221-0f5265d61019@schells.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: cs-CZ
+Content-Transfer-Encoding: 8bit
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -97,186 +92,44 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: V Sujith Kumar Reddy <vsujithk@codeaurora.org>
 
-Add support for audio playback over DP in lpass
-sc7180 platform driver. Update lpass_variant
-structure for hdmi data configuaration.
 
-Signed-off-by: V Sujith Kumar Reddy <vsujithk@codeaurora.org>
-Signed-off-by: Srinivasa Rao <srivasam@codeaurora.org>
----
- sound/soc/qcom/lpass-sc7180.c | 116 +++++++++++++++++++++++++++++++++++++-----
- 1 file changed, 102 insertions(+), 14 deletions(-)
+Dne 05. 10. 20 v 4:38 alsa@scripple.org napsal(a):
+> Hello,
+> 
+> Let me open by saying I am not an experienced ALSA developer so 
+> hopefully I'm just missing something really easy here.
+> 
+> I'm trying to use some DSP programs that insert themselves into the 
+> audio chain via the ALSA loopback device.  My understanding is that 
+> whichever program opens the loopback device first sets the parameters, 
+> so the DSP
+> program has to know what parameters any playback program is going to use 
+> before it opens its end of the loopback device.  And it has to know when 
+> to release the loopback device so that another (or the same) playback 
+> program can open the loopback device with possibly different parameters. 
+>   (The DSP program also needs to the know the audio parameters just to 
+> do the right thing of course.)
+> 
+> I'm not sure how best to accomplish this.  I don't want any form of 
+> auto-format conversion such as using a resampling or format conversion 
+> plugin.  I want the DSP program to access the raw PCM stream however it 
+> was configured by the playback program.
+> 
+> I was thinking I could use the PCM hook system to accomplish what I 
+> want.  Capture the SND_PCM_HOOK_TYPE_CLOSE (and possibly even use the
+> hook init) to tell the DSP program to close its end of the loopback 
+> device.  Capture the SND_PCM_HOOK_TYPE_HW_PARAMS to configure the DSP
+> program with the appropriate parameters and tell it to open the loopback 
+> device with those new parameters.
+> 
 
-diff --git a/sound/soc/qcom/lpass-sc7180.c b/sound/soc/qcom/lpass-sc7180.c
-index a8a3d8f..c6292f9e 100644
---- a/sound/soc/qcom/lpass-sc7180.c
-+++ b/sound/soc/qcom/lpass-sc7180.c
-@@ -60,38 +60,65 @@ static struct snd_soc_dai_driver sc7180_lpass_cpu_dai_driver[] = {
- 		.probe	= &asoc_qcom_lpass_cpu_dai_probe,
- 		.ops    = &asoc_qcom_lpass_cpu_dai_ops,
- 	},
-+	[LPASS_DP_RX] = {
-+		.id = LPASS_DP_RX,
-+		.name = "Hdmi",
-+		.playback = {
-+			.stream_name = "Hdmi Playback",
-+			.formats	= SNDRV_PCM_FMTBIT_S24,
-+			.rates = SNDRV_PCM_RATE_48000,
-+			.rate_min	= 48000,
-+			.rate_max	= 48000,
-+			.channels_min	= 2,
-+			.channels_max	= 2,
-+		},
-+		.ops    = &asoc_qcom_lpass_hdmi_dai_ops,
-+	},
- };
- 
- static int sc7180_lpass_alloc_dma_channel(struct lpass_data *drvdata,
--					   int direction)
-+					   int direction, unsigned int dai_id)
- {
- 	struct lpass_variant *v = drvdata->variant;
- 	int chan = 0;
- 
--	if (direction == SNDRV_PCM_STREAM_PLAYBACK) {
--		chan = find_first_zero_bit(&drvdata->dma_ch_bit_map,
--					v->rdma_channels);
-+	if (dai_id == LPASS_DP_RX) {
-+		if (direction == SNDRV_PCM_STREAM_PLAYBACK) {
-+			chan = find_first_zero_bit(&drvdata->hdmi_dma_ch_bit_map,
-+						v->hdmi_rdma_channels);
-+
-+			if (chan >= v->hdmi_rdma_channels)
-+				return -EBUSY;
-+		}
-+		set_bit(chan, &drvdata->hdmi_dma_ch_bit_map);
-+	} else {
-+		if (direction == SNDRV_PCM_STREAM_PLAYBACK) {
-+			chan = find_first_zero_bit(&drvdata->dma_ch_bit_map,
-+						v->rdma_channels);
- 
- 		if (chan >= v->rdma_channels)
- 			return -EBUSY;
--	} else {
--		chan = find_next_zero_bit(&drvdata->dma_ch_bit_map,
-+		} else {
-+			chan = find_next_zero_bit(&drvdata->dma_ch_bit_map,
- 					v->wrdma_channel_start +
- 					v->wrdma_channels,
- 					v->wrdma_channel_start);
- 
--		if (chan >=  v->wrdma_channel_start + v->wrdma_channels)
--			return -EBUSY;
--	}
--
--	set_bit(chan, &drvdata->dma_ch_bit_map);
-+			if (chan >=  v->wrdma_channel_start + v->wrdma_channels)
-+				return -EBUSY;
-+		}
- 
-+		set_bit(chan, &drvdata->dma_ch_bit_map);
-+	}
- 	return chan;
- }
- 
--static int sc7180_lpass_free_dma_channel(struct lpass_data *drvdata, int chan)
-+static int sc7180_lpass_free_dma_channel(struct lpass_data *drvdata, int chan, unsigned int dai_id)
- {
--	clear_bit(chan, &drvdata->dma_ch_bit_map);
-+	if (dai_id == LPASS_DP_RX)
-+		clear_bit(chan, &drvdata->hdmi_dma_ch_bit_map);
-+	else
-+		clear_bit(chan, &drvdata->dma_ch_bit_map);
- 
- 	return 0;
- }
-@@ -144,6 +171,9 @@ static struct lpass_variant sc7180_data = {
- 	.rdma_reg_base		= 0xC000,
- 	.rdma_reg_stride	= 0x1000,
- 	.rdma_channels		= 5,
-+	.hdmi_rdma_reg_base		= 0x64000,
-+	.hdmi_rdma_reg_stride	= 0x1000,
-+	.hdmi_rdma_channels		= 4,
- 	.dmactl_audif_start	= 1,
- 	.wrdma_reg_base		= 0x18000,
- 	.wrdma_reg_stride	= 0x1000,
-@@ -163,7 +193,7 @@ static struct lpass_variant sc7180_data = {
- 	.rdma_dyncclk		= REG_FIELD_ID(0xC000, 21, 21, 5, 0x1000),
- 	.rdma_bursten		= REG_FIELD_ID(0xC000, 20, 20, 5, 0x1000),
- 	.rdma_wpscnt		= REG_FIELD_ID(0xC000, 16, 19, 5, 0x1000),
--	.rdma_intf		= REG_FIELD_ID(0xC000, 12, 15, 5, 0x1000),
-+	.rdma_intf			= REG_FIELD_ID(0xC000, 12, 15, 5, 0x1000),
- 	.rdma_fifowm		= REG_FIELD_ID(0xC000, 1, 5, 5, 0x1000),
- 	.rdma_enable		= REG_FIELD_ID(0xC000, 0, 0, 5, 0x1000),
- 
-@@ -174,6 +204,64 @@ static struct lpass_variant sc7180_data = {
- 	.wrdma_fifowm		= REG_FIELD_ID(0x18000, 1, 5, 4, 0x1000),
- 	.wrdma_enable		= REG_FIELD_ID(0x18000, 0, 0, 4, 0x1000),
- 
-+	.hdmi_tx_ctl_addr	= 0x1000,
-+	.hdmi_legacy_addr	= 0x1008,
-+	.hdmi_vbit_addr		= 0x610c0,
-+	.hdmi_ch_lsb_addr	= 0x61048,
-+	.hdmi_ch_msb_addr	= 0x6104c,
-+	.ch_stride		= 0x8,
-+	.hdmi_parity_addr	= 0x61034,
-+	.hdmi_dmactl_addr	= 0x61038,
-+	.hdmi_dma_stride	= 0x4,
-+	.hdmi_DP_addr		= 0x610c8,
-+	.hdmi_sstream_addr	= 0x6101c,
-+	.hdmi_irq_reg_base		= 0x63000,
-+	.hdmi_irq_ports		= 1,
-+
-+	.hdmi_rdma_dyncclk		= REG_FIELD_ID(0x64000, 14, 14, 4, 0x1000),
-+	.hdmi_rdma_bursten		= REG_FIELD_ID(0x64000, 13, 13, 4, 0x1000),
-+	.hdmi_rdma_burst8		= REG_FIELD_ID(0x64000, 15, 15, 4, 0x1000),
-+	.hdmi_rdma_burst16		= REG_FIELD_ID(0x64000, 16, 16, 4, 0x1000),
-+	.hdmi_rdma_dynburst		= REG_FIELD_ID(0x64000, 18, 18, 4, 0x1000),
-+	.hdmi_rdma_wpscnt		= REG_FIELD_ID(0x64000, 10, 12, 4, 0x1000),
-+	.hdmi_rdma_fifowm		= REG_FIELD_ID(0x64000, 1, 5, 4, 0x1000),
-+	.hdmi_rdma_enable		= REG_FIELD_ID(0x64000, 0, 0, 4, 0x1000),
-+
-+	.sstream_en		= REG_FIELD(0x6101c, 0, 0),
-+	.dma_sel			= REG_FIELD(0x6101c, 1, 2),
-+	.auto_bbit_en	= REG_FIELD(0x6101c, 3, 3),
-+	.layout			= REG_FIELD(0x6101c, 4, 4),
-+	.layout_sp		= REG_FIELD(0x6101c, 5, 8),
-+	.set_sp_on_en	= REG_FIELD(0x6101c, 10, 10),
-+	.dp_audio		= REG_FIELD(0x6101c, 11, 11),
-+	.dp_staffing_en	= REG_FIELD(0x6101c, 12, 12),
-+	.dp_sp_b_hw_en	= REG_FIELD(0x6101c, 13, 13),
-+
-+	.mute			= REG_FIELD(0x610c8, 0, 0),
-+	.as_sdp_cc		= REG_FIELD(0x610c8, 1, 3),
-+	.as_sdp_ct		= REG_FIELD(0x610c8, 4, 7),
-+	.aif_db4			= REG_FIELD(0x610c8, 8, 15),
-+	.frequency		= REG_FIELD(0x610c8, 16, 21),
-+	.mst_index		= REG_FIELD(0x610c8, 28, 29),
-+	.dptx_index		= REG_FIELD(0x610c8, 30, 31),
-+
-+	.soft_reset		= REG_FIELD(0x1000, 31, 31),
-+	.force_reset	= REG_FIELD(0x1000, 30, 30),
-+
-+	.use_hw_chs		= REG_FIELD(0x61038, 0, 0),
-+	.use_hw_usr		= REG_FIELD(0x61038, 1, 1),
-+	.hw_chs_sel		= REG_FIELD(0x61038, 2, 4),
-+	.hw_usr_sel		= REG_FIELD(0x61038, 5, 6),
-+
-+	.replace_vbit	= REG_FIELD(0x610c0, 0, 0),
-+	.vbit_stream	= REG_FIELD(0x610c0, 1, 1),
-+
-+	.legacy_en		=  REG_FIELD(0x1008, 0, 0),
-+	.calc_en		=  REG_FIELD(0x61034, 0, 0),
-+	.lsb_bits		=  REG_FIELD(0x61048, 0, 31),
-+	.msb_bits		=  REG_FIELD(0x6104c, 0, 31),
-+
-+
- 	.clk_name		= (const char*[]) {
- 				   "pcnoc-sway-clk",
- 				   "audio-core",
--- 
-Qualcomm India Private Limited, on behalf of Qualcomm Innovation Center, Inc.,
-is a member of Code Aurora Forum, a Linux Foundation Collaborative Project.
+There used to be a notification module parameter (pcm_notify) which 
+closed the other loopback side if params changed 
+https://mailman.alsa-project.org/pipermail/alsa-devel/2020-March/165454.html
 
+I am afraid it remains to be fixed.
+
+Best regards,
+
+Pavel.

@@ -2,107 +2,88 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A1447283513
-	for <lists+alsa-devel@lfdr.de>; Mon,  5 Oct 2020 13:37:00 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C3B70283516
+	for <lists+alsa-devel@lfdr.de>; Mon,  5 Oct 2020 13:37:45 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 323F0181A;
-	Mon,  5 Oct 2020 13:36:10 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 323F0181A
+	by alsa0.perex.cz (Postfix) with ESMTPS id 5D8641827;
+	Mon,  5 Oct 2020 13:36:55 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5D8641827
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1601897820;
-	bh=ifyO2YZqYLdft9YmvXovOZ4UH+MlmzTcMafQ82WJ5Fc=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1601897865;
+	bh=zshXkx+u5XrvYryxtxL0PzHTQ83MbPU3DM5RBxMYRuE=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=TpebtrBdC8Kc6cEzFYsOG1yY9AjkkA9Bvalkjg9WBl2XpUVfxSoGEOiq+2TmIqJSy
-	 4t2hH73+fBmoUXVUETXcbyiCmx1V8sdDjDaZjyPXoRUhAlQ2vYsghc08Z25RK+a6Gc
-	 /2Mwf3C6NkAdEnYzskepgnDMsggRvJlwrdqZy5zQ=
+	b=W35rE5/2c84k/wGGROY5/LQ4y/5i79UZHnnZqIXn1l/midFYktZKYD786Ga3N8uP6
+	 0DJqEXDRBR7LmXBBXtbk0/sjhOWvzSCBOrq91eJkI7wuYvgQiGACYd3QlfHTfBcw4j
+	 CY6qnYstyBWfkDkM2f6iiJnCGgtVOExiwTy+ylR4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 85AB6F802DB;
-	Mon,  5 Oct 2020 13:34:56 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 555E3F80269;
+	Mon,  5 Oct 2020 13:36:19 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 09283F802D2; Mon,  5 Oct 2020 13:34:54 +0200 (CEST)
+ id B46CCF80260; Mon,  5 Oct 2020 13:36:17 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,RCVD_IN_MSPIKE_H3,RCVD_IN_MSPIKE_WL,SPF_HELO_PASS,SPF_PASS,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from out2-smtp.messagingengine.com (out2-smtp.messagingengine.com
- [66.111.4.26])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from mail-lf1-x143.google.com (mail-lf1-x143.google.com
+ [IPv6:2a00:1450:4864:20::143])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 76134F8027B
- for <alsa-devel@alsa-project.org>; Mon,  5 Oct 2020 13:34:51 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 76134F8027B
+ by alsa1.perex.cz (Postfix) with ESMTPS id 7CC6CF80245
+ for <alsa-devel@alsa-project.org>; Mon,  5 Oct 2020 13:36:10 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7CC6CF80245
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=cerno.tech header.i=@cerno.tech
- header.b="sDt7exSI"; 
- dkim=pass (2048-bit key) header.d=messagingengine.com
- header.i=@messagingengine.com header.b="T5Q/l2Ag"
-Received: from compute6.internal (compute6.nyi.internal [10.202.2.46])
- by mailout.nyi.internal (Postfix) with ESMTP id 26F275C0118;
- Mon,  5 Oct 2020 07:34:50 -0400 (EDT)
-Received: from mailfrontend1 ([10.202.2.162])
- by compute6.internal (MEProxy); Mon, 05 Oct 2020 07:34:50 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cerno.tech; h=
- date:from:to:cc:subject:message-id:references:mime-version
- :content-type:in-reply-to; s=fm1; bh=ifyO2YZqYLdft9YmvXovOZ4UH+M
- lmzTcMafQ82WJ5Fc=; b=sDt7exSIpv1iOp18EMCKRgVkYIH25NOOg7+8zY5/zOc
- 0bs0JGtb68EXcKQ01jHG0qv6FmGfk3Sk6PIQPbmkzJEb6KVJI8YJ8cpYtXvWGfIi
- 9X7b+M1WJVrDeFc0WKtXcFVRgjC6gxBfZFkewFWp2o/xLzRDGHhTMY+NNEWmrsZt
- DB4GQJ07vRpdOlD6nW8g1CyzIn0yExvolOtbQdjmtQnW9cPs2XMnZYR4OB4UoQTE
- aifYJWbFr72jdC1D+Hi3TRHBCJrJvVzn9vL0tQ6vzfbsqZMwyw+QFulthYh/2e2j
- Ze1Eu0Px1/PfliZ4SZWveiIr7mb54Y7IgHUuOl/LYpA==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to:x-me-proxy
- :x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; bh=ifyO2Y
- ZqYLdft9YmvXovOZ4UH+MlmzTcMafQ82WJ5Fc=; b=T5Q/l2AgLEz5SkUe7GsL7D
- Hll1HhaJz6VrSa1JcKdkaxEJswCghi1Io+oBMjg9JYmVJID1mPhbJC8CesefEnWZ
- F7VD62IngxgI5aCztdlQnphmC4MrF1eFOwoo9CcMP/xcowydY7Y+w6puRfq2HpIG
- /Terwq9llJkLhlX0BOarw2osEX+zYIf7UIyVWqrguPshr7QM/uZZ/2d+tbiwzWiO
- tonIacAXEo8ca+T4S0ybmeexRlNXMCKuD+clpCARToZFaj5n5jP2/BddsWiJo70S
- FYzl2lHj9lGxQwl+MHGMka9H334cT7eFPr5wvaXPvFTRC/HHG/Ceg7v6SihdcRnA
- ==
-X-ME-Sender: <xms:2QR7X26yNSOBV7PSwqB9tJWZWHBnNAKH5TRSq72JXigPHTxjdZT1CA>
- <xme:2QR7X_7oiWXYv_2QavIAtfW8grrrQKxpU_d9-WuC0b2dWy1DeCj-pzwl3kE-lYYbt
- IOsLRV6KscV8HTckqU>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedujedrgedvgdegfecutefuodetggdotefrodftvf
- curfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfghnecu
- uegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenuc
- fjughrpeffhffvuffkfhggtggujgesghdtreertddtvdenucfhrhhomhepofgrgihimhgv
- ucftihhprghrugcuoehmrgigihhmvgestggvrhhnohdrthgvtghhqeenucggtffrrghtth
- gvrhhnpeelkeeghefhuddtleejgfeljeffheffgfeijefhgfeufefhtdevteegheeiheeg
- udenucfkphepledtrdekledrieekrdejieenucevlhhushhtvghrufhiiigvpedunecurf
- grrhgrmhepmhgrihhlfhhrohhmpehmrgigihhmvgestggvrhhnohdrthgvtghh
-X-ME-Proxy: <xmx:2QR7X1fAlCjlgaxpZd1mU0HLG0eFPYhc-kzXh9Lxfp3MEpUIRBggIQ>
- <xmx:2QR7XzJ7O_O2w9Pg99DXmauIgojCEwCCkpOW9FMFzGuGXId6gj1Oxg>
- <xmx:2QR7X6IkXiu1GpEY6pWbvQsQ-g9w0lqQ-wHqv_JNEaE3muqojm4l7A>
- <xmx:2gR7X7quV6HfJdgxtOyXBIpy2aUG1tJ-BVGmDAi6bMrH3gSeaen_Zw>
-Received: from localhost (lfbn-tou-1-1502-76.w90-89.abo.wanadoo.fr
- [90.89.68.76])
- by mail.messagingengine.com (Postfix) with ESMTPA id A8DDC328005E;
- Mon,  5 Oct 2020 07:34:49 -0400 (EDT)
-Date: Mon, 5 Oct 2020 13:34:48 +0200
-From: Maxime Ripard <maxime@cerno.tech>
-To: Samuel Holland <samuel@sholland.org>
-Subject: Re: [PATCH 15/25] ASoC: sun8i-codec: Support the TDM slot binding
-Message-ID: <20201005113448.4v3llw57q2eucmj4@gilmour.lan>
-References: <20201001021148.15852-1-samuel@sholland.org>
- <20201001021148.15852-16-samuel@sholland.org>
+ dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
+ header.b="HCH8LrFO"
+Received: by mail-lf1-x143.google.com with SMTP id y11so10431031lfl.5
+ for <alsa-devel@alsa-project.org>; Mon, 05 Oct 2020 04:36:10 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=QWUIVzlGRQWxPn+b1ACG3xDtfN3nM73oyQh+/xMJ6f8=;
+ b=HCH8LrFO3R/ztzRAV9PAcOw5O5Vviirbs4HQWlEH3Au+DkBr8ueD2ielhoO0i2RPW6
+ LpwvVuBnoGPtz5g0qd7o8XIxmWQ8RbyJ0cOZBfbOQA0FzO2KDmQbU2mrEgIYWtCnwGD0
+ 6XZD+5KZUUSH0X6FqjriZgNW3bvomR8OEn0O+uh0Tt0p4zZH21xRslACPUWQNilr0Bt4
+ D2VvYdj4QGgntFwHqzj/4BGvb3hgoP65w3ukSwqNGM9WMkhWo41wc/J8wlfJWBqVzfKb
+ lQQwlvNLSSWM+DKbVsF3V3LByeL3WnitEER1JXpZJkA3E12NTEYAViZEfi0RV9+4lDz/
+ 9OAg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=QWUIVzlGRQWxPn+b1ACG3xDtfN3nM73oyQh+/xMJ6f8=;
+ b=dmrSP/NlhqnPhBStvHth6cbcqxSRZ4ae4AIYYyR2p4K/8ZfdVk+Rg6AEuEJit+tFbB
+ 0IXEebVd0mUPFWrloEzO01L7AVYhdued9Wae8RrJnopvZRBiYIPoVNtDcoD+41HvDB6e
+ nXvifkSGMbKl97x7psvxW6+9D+Ih0yHURTdeRzA//F0qr5oWX8skxzGZEw2cDkg0STMs
+ RHki1x5mYqM6Eqskgc6bOaO5i04bELGNsyHkwEtYdNEgK5X6NQ0BkU7K+WTZPcIt5WxJ
+ GOqii8ur/gDn4dl4TvFmAnjAZWhPkYoZa0yVXPFIFw2j2Ji7xX3jdlAfWRZU9Ek1wTTC
+ 0klQ==
+X-Gm-Message-State: AOAM532bA3Tkepy0aqqLwnC5VZ/nKOSCUItbLPkCCzzs0W0sDE6pVsCF
+ 2EdZmw3445Q4iMU2aFXeBwpULHJ6nJmfEB7l9LM=
+X-Google-Smtp-Source: ABdhPJyA4krJkKCasXMqip0QWH2CvXGO/9mR8gz3YpX36JyMZN9y+jEEA/PFRc94fP72ATphhoapuYVv/CkJaqwwZE4=
+X-Received: by 2002:a19:c355:: with SMTP id t82mr5932460lff.251.1601897769758; 
+ Mon, 05 Oct 2020 04:36:09 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature"; boundary="z4w6bfh7n4zwz26m"
-Content-Disposition: inline
-In-Reply-To: <20201001021148.15852-16-samuel@sholland.org>
-Cc: Ondrej Jirman <megous@megous.com>, alsa-devel@alsa-project.org,
- linux-kernel@vger.kernel.org, Takashi Iwai <tiwai@suse.com>,
- Liam Girdwood <lgirdwood@gmail.com>, Chen-Yu Tsai <wens@csie.org>,
- Mark Brown <broonie@kernel.org>, linux-arm-kernel@lists.infradead.org
+References: <20201005111644.3131604-1-primoz.fiser@norik.com>
+ <20201005111644.3131604-2-primoz.fiser@norik.com>
+In-Reply-To: <20201005111644.3131604-2-primoz.fiser@norik.com>
+From: Fabio Estevam <festevam@gmail.com>
+Date: Mon, 5 Oct 2020 08:35:58 -0300
+Message-ID: <CAOMZO5CQkh06TfKj3qR9P+0ZQOQo07NAg8v9j==KMrLCWBn0mg@mail.gmail.com>
+Subject: Re: [PATCH 2/2] ASoC: dt-bindings: fsl: add ac97 fixed mode support
+To: Primoz Fiser <primoz.fiser@norik.com>
+Content-Type: text/plain; charset="UTF-8"
+Cc: "open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS"
+ <devicetree@vger.kernel.org>, Linux-ALSA <alsa-devel@alsa-project.org>,
+ Timur Tabi <timur@kernel.org>, Xiubo Li <Xiubo.Lee@gmail.com>,
+ Takashi Iwai <tiwai@suse.com>, Liam Girdwood <lgirdwood@gmail.com>,
+ Rob Herring <robh+dt@kernel.org>, Nicolin Chen <nicoleotsuka@gmail.com>,
+ Mark Brown <broonie@kernel.org>, Shengjiu Wang <shengjiu.wang@gmail.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -118,32 +99,29 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+On Mon, Oct 5, 2020 at 8:16 AM Primoz Fiser <primoz.fiser@norik.com> wrote:
+>
+> Add devicetree bindings documentation for operating SSI in AC'97
+> variable/fixed mode of operation.
+>
+> Signed-off-by: Primoz Fiser <primoz.fiser@norik.com>
+> ---
+>  Documentation/devicetree/bindings/sound/fsl,ssi.txt | 5 +++++
+>  1 file changed, 5 insertions(+)
+>
+> diff --git a/Documentation/devicetree/bindings/sound/fsl,ssi.txt b/Documentation/devicetree/bindings/sound/fsl,ssi.txt
+> index 7e15a85cecd2..abc5abe11fb9 100644
+> --- a/Documentation/devicetree/bindings/sound/fsl,ssi.txt
+> +++ b/Documentation/devicetree/bindings/sound/fsl,ssi.txt
+> @@ -43,6 +43,11 @@ Optional properties:
+>  - fsl,mode:         The operating mode for the AC97 interface only.
+>                      "ac97-slave" - AC97 mode, SSI is clock slave
+>                      "ac97-master" - AC97 mode, SSI is clock master
+> +- fsl,ac97-mode:    SSI AC97 mode of operation.
+> +                    "variable" - AC97 Variable Mode, SLOTREQ bits determine
+> +                    next receive/transmit frame
+> +                    "fixed" - AC97 Fixed Mode, SSI transmits in accordance with
+> +                    AC97 Frame Rate Divider bits
 
---z4w6bfh7n4zwz26m
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-
-On Wed, Sep 30, 2020 at 09:11:38PM -0500, Samuel Holland wrote:
-> Now that BCLK and LRCK rate calculations can handle any
-> hardware-supported slot width and number of slots, enable
-> support for overriding these parameters from the device tree.
->=20
-> Signed-off-by: Samuel Holland <samuel@sholland.org>
-
-Acked-by: Maxime Ripard <mripard@kernel.org>
-
-Maxime
-
---z4w6bfh7n4zwz26m
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYIAB0WIQRcEzekXsqa64kGDp7j7w1vZxhRxQUCX3sE2AAKCRDj7w1vZxhR
-xYTIAP4xF3dpNPqtQmWgzulksPMnq3M+hJMpVypcETqDyTo4GQEAoKZ82DgAudDt
-EfED7ceftvG9034QICEpQOhxpKNaZQ4=
-=+Iyx
------END PGP SIGNATURE-----
-
---z4w6bfh7n4zwz26m--
+It would be good to mention what is the default mode when such
+property is absent.

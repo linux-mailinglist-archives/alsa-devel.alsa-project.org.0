@@ -2,107 +2,115 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id AC67D2833C5
-	for <lists+alsa-devel@lfdr.de>; Mon,  5 Oct 2020 12:02:45 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A5246283812
+	for <lists+alsa-devel@lfdr.de>; Mon,  5 Oct 2020 16:43:04 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 324C91845;
-	Mon,  5 Oct 2020 12:01:54 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 324C91845
+	by alsa0.perex.cz (Postfix) with ESMTPS id 416F417C5;
+	Mon,  5 Oct 2020 16:42:14 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 416F417C5
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1601892164;
-	bh=Tv5YsCcWo6WRZv1PwSAUDS7tU6QJqGqQ0fFfiYO4WrE=;
+	s=default; t=1601908984;
+	bh=zXcMNekq4BBEbayKNh0ZM0PQe6dlhY3ZtF3cDN6LKNM=;
 	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=oD+uTLT/psJzUP9tL4JojqIaVafD+X12XRFa4QCEI2lga4ALkY4lYzu8mKuDdzC/v
-	 h2J5JP0GcC2Qqjhfi/mwr9S64QQa+vu21M+hNYhY2iVJyvpMvKdbr2w1yPAoLscs9k
-	 njK6i0iGXok5+CvVNuIuM0cF+6Myumzd0om9pU3o=
+	b=FCnwnAvEU7SnIdASaZ8SAw+cgopCD0RCGZ7AOxN1U+FI3/CScYQnhHZASE9FJM9gS
+	 RepeElvvU6rHuMwjJG9+aQIK2IeggttJtoaWHYWPYmKMd4SB0t6FAYgV0ZOF9kG74K
+	 igEnBF2OwMFzRSeWfDDlrC4aB+dwysetMA/78KMg=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id BFC1EF8025A;
-	Mon,  5 Oct 2020 12:01:53 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 786A6F802F8;
+	Mon,  5 Oct 2020 16:38:55 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id A1F18F80269; Mon,  5 Oct 2020 12:01:51 +0200 (CEST)
+ id 2AA4EF8025A; Mon,  5 Oct 2020 12:37:17 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,RCVD_IN_MSPIKE_H3,RCVD_IN_MSPIKE_WL,SPF_HELO_PASS,SPF_PASS,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from out2-smtp.messagingengine.com (out2-smtp.messagingengine.com
- [66.111.4.26])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from mail-ej1-x643.google.com (mail-ej1-x643.google.com
+ [IPv6:2a00:1450:4864:20::643])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 8D61FF800EF
- for <alsa-devel@alsa-project.org>; Mon,  5 Oct 2020 12:01:45 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8D61FF800EF
+ by alsa1.perex.cz (Postfix) with ESMTPS id DC964F800C9
+ for <alsa-devel@alsa-project.org>; Mon,  5 Oct 2020 12:37:10 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DC964F800C9
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=cerno.tech header.i=@cerno.tech
- header.b="pX4VZaxn"; 
- dkim=pass (2048-bit key) header.d=messagingengine.com
- header.i=@messagingengine.com header.b="W/BoJW+3"
-Received: from compute6.internal (compute6.nyi.internal [10.202.2.46])
- by mailout.nyi.internal (Postfix) with ESMTP id 802135C013A;
- Mon,  5 Oct 2020 06:01:44 -0400 (EDT)
-Received: from mailfrontend1 ([10.202.2.162])
- by compute6.internal (MEProxy); Mon, 05 Oct 2020 06:01:44 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cerno.tech; h=
- date:from:to:cc:subject:message-id:references:mime-version
- :content-type:in-reply-to; s=fm1; bh=Tv5YsCcWo6WRZv1PwSAUDS7tU6Q
- JqGqQ0fFfiYO4WrE=; b=pX4VZaxnwok10dcaM/wLhs1hJqAyvUPlh9jizRPpXAk
- kYgMcWMIbq1dn9ARMnYGdfXXcJP+7HEmWSZ4ZpUMSYxR5Uwnsx+uaiJKvHd72VV7
- +0h93gzRwHMIfl0FNurK+ynWjOZLJNrf947bUn1VdeuYUqH7GKiaBqI9mmODfIxV
- kYdGwtYfyeQLt0sf1EjXcOqA1fEoEt8gqzpWR/eCh9vbkFTJvPvzkYBmFtv3u+cn
- CGkrgscMY7jOMgHUnd6IkF4Ga/n8PZsZEnkmfnsqVk8yVa9doTIxSCOFicSOTaXh
- JJpDCdj0BDA2zsQotJd3Ukj0u7f8wxHngwSA8B0vOcg==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to:x-me-proxy
- :x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; bh=Tv5YsC
- cWo6WRZv1PwSAUDS7tU6QJqGqQ0fFfiYO4WrE=; b=W/BoJW+3U7M0/LjqMpDo7X
- RZb7yITwu+MRYSMyd9L/okfuMMrctJzGYsslFtCVtHcTs/8RGzZi6MgjnhgblE+l
- z4Gr923jLQp5w76BrCmf0jJme7wyWeGWzzNnCaEZkurvyGnJL6fx4l1HASoadazQ
- aZbaWgnMZeSIij/mp1efnXIwzeZ10pqyIUx+JfH19jQxOYFpl+u9cShs11Vy7MJb
- ocOhlJMyh4NewhY89TpKVZ1U8KHBLQkOHpxoV04oPi8Pfh0R6CHhNuYfXF/2clvo
- F6rstuHrza1pEUq56fT5OFkZz29SKqIqhwCGkrpno4c0oPBhntU023J6IqpdrVpw
- ==
-X-ME-Sender: <xms:Bu96X_li5-X48d6gp7KOST8GWKOFfBIfKiftx5ypXugmT_uy4PUppw>
- <xme:Bu96Xy328jkg1ibFJQf-nzYRj4Ew7cMGVIj7a-HsE0Lin_xUZLfbWob9GsF-wy8iq
- zDue1SXJArYvlBFSN0>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedujedrgedvgddvgecutefuodetggdotefrodftvf
- curfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfghnecu
- uegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenuc
- fjughrpeffhffvuffkfhggtggujgesghdtreertddtvdenucfhrhhomhepofgrgihimhgv
- ucftihhprghrugcuoehmrgigihhmvgestggvrhhnohdrthgvtghhqeenucggtffrrghtth
- gvrhhnpeelkeeghefhuddtleejgfeljeffheffgfeijefhgfeufefhtdevteegheeiheeg
- udenucfkphepledtrdekledrieekrdejieenucevlhhushhtvghrufhiiigvpedvnecurf
- grrhgrmhepmhgrihhlfhhrohhmpehmrgigihhmvgestggvrhhnohdrthgvtghh
-X-ME-Proxy: <xmx:Bu96X1qXe-R2Uejs3uNPy9xNaZHpMl7Z4qqUDJwGF4ZmvvyTzRdi-g>
- <xmx:Bu96X3m5dSr1ZafVU6HhpDV2pD2oP0ovWCHqOIdsk7QdsCwSWnjYLQ>
- <xmx:Bu96X91ykv4kLM1nSvBrKovuq0I8K_MJEeGL_Z6FRjvjk1oSK-HIqQ>
- <xmx:CO96X6llavvbdjV2Crnjkjy4yyF1B9daKSqrsU9St8cMlaRdG_3zEg>
-Received: from localhost (lfbn-tou-1-1502-76.w90-89.abo.wanadoo.fr
- [90.89.68.76])
- by mail.messagingengine.com (Postfix) with ESMTPA id 9E825328005D;
- Mon,  5 Oct 2020 06:01:42 -0400 (EDT)
-Date: Mon, 5 Oct 2020 12:01:41 +0200
-From: Maxime Ripard <maxime@cerno.tech>
-To: Samuel Holland <samuel@sholland.org>
-Subject: Re: [PATCH 08/25] ASoC: sun8i-codec: Use snd_soc_dai_get_drvdata
-Message-ID: <20201005100141.oqsqotrwm554kyg6@gilmour.lan>
-References: <20201001021148.15852-1-samuel@sholland.org>
- <20201001021148.15852-9-samuel@sholland.org>
+ dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
+ header.b="JMXtpOzB"
+Received: by mail-ej1-x643.google.com with SMTP id lw21so7168369ejb.6
+ for <alsa-devel@alsa-project.org>; Mon, 05 Oct 2020 03:37:10 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=date:from:to:cc:subject:message-id:references:mime-version
+ :content-disposition:in-reply-to:user-agent;
+ bh=EQcMf3aBHGTHbFtiLcGPyEnLeByAfRIiKvJYpM7dHjI=;
+ b=JMXtpOzBphG2KW05zXFj2vXclgc2K+H8JNLe4wZm7v+D9biCrsBBlunvumrZBdu1ay
+ dGsC3P+vCBgpuvq8Us5VYT17QD/j1PGdTs3yayROXo3Im6WBME+yzVPRs9dhmCnhv+Kp
+ deAaGEl4mX/k8HNSg+lcAp97KgIlUIgmSSwwdLTGDqN7XE8+lWKnDQvOaVfL9MZ14U+a
+ QRIvo/0Rw3hXEZYEYP0VkWPlkV5tVRSOzoq3CiZiRn3rvyx0WeBnBNIUIK3FrMGOYn9N
+ QIQdKyuVIgtZvtCvpApddnOAphNZZn8AUAHtmpPXbjSAxqojzQj+J6GDsnofUdkYSHTP
+ MAYQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to:user-agent;
+ bh=EQcMf3aBHGTHbFtiLcGPyEnLeByAfRIiKvJYpM7dHjI=;
+ b=Vl8pLz+jh8Me00sI9oaupOjQwpZteakWHFPOCHTbVEE70nSfA+oM5vx9AHy6JNJhVe
+ BL4rlr3UBi+LE5IwMFdHKpyt3TKQXf0aTXfBOjM1Fw202p69e65uWAyZ5jbwReQ7bWFP
+ /KJORd4gtmw8m5hnzHvXqCafH9eSO5b1jJuu7c7hYEZVBXJIj62m5/BcdbsGlThOLqPP
+ yfsH/ZjHMDr0hQqMf5CUTlAk2b7eqJPOhoFmITJKpzcDrCTo/bFo6S8yCtl7roYjaO1P
+ RoSz1ZyV9XXRzAf3S1ppuM3m4uluIIYMqO1bLHQf5YUgkABbALgDn2WK1pUkkwLPeoe5
+ Wlhg==
+X-Gm-Message-State: AOAM530sYI+1BnzAUPc6LxgT/FV//o+oov4cEJcZGo0bzYmEXC58fA8z
+ HxE9FhAUKbJHIKcj9GS28g0=
+X-Google-Smtp-Source: ABdhPJyAUrA9v+oT7mNxthuQoeotTCXMOOGXsGx3LdAG3pM2W9hPKJEenugRGvwJUGZXAZHqegPZ7g==
+X-Received: by 2002:a17:906:6545:: with SMTP id
+ u5mr14725364ejn.346.1601894226145; 
+ Mon, 05 Oct 2020 03:37:06 -0700 (PDT)
+Received: from localhost ([217.111.27.204])
+ by smtp.gmail.com with ESMTPSA id yz15sm7567670ejb.9.2020.10.05.03.37.04
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 05 Oct 2020 03:37:04 -0700 (PDT)
+Date: Mon, 5 Oct 2020 12:37:03 +0200
+From: Thierry Reding <thierry.reding@gmail.com>
+To: Rob Herring <robh@kernel.org>
+Subject: Re: [PATCH] dt-bindings: Another round of adding missing
+ 'additionalProperties'
+Message-ID: <20201005103703.GN425362@ulmo>
+References: <20201002234143.3570746-1-robh@kernel.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature"; boundary="mkyrlyq2ktvpl2wp"
+ protocol="application/pgp-signature"; boundary="CQDko/0aYvuiEzgn"
 Content-Disposition: inline
-In-Reply-To: <20201001021148.15852-9-samuel@sholland.org>
-Cc: Ondrej Jirman <megous@megous.com>, alsa-devel@alsa-project.org,
- linux-kernel@vger.kernel.org, Takashi Iwai <tiwai@suse.com>,
- Liam Girdwood <lgirdwood@gmail.com>, Chen-Yu Tsai <wens@csie.org>,
- Mark Brown <broonie@kernel.org>, linux-arm-kernel@lists.infradead.org
+In-Reply-To: <20201002234143.3570746-1-robh@kernel.org>
+User-Agent: Mutt/1.14.7 (2020-08-29)
+X-Mailman-Approved-At: Mon, 05 Oct 2020 16:38:46 +0200
+Cc: Ulf Hansson <ulf.hansson@linaro.org>, linux-iio@vger.kernel.org,
+ linux-pci@vger.kernel.org, Linus Walleij <linus.walleij@linaro.org>,
+ linux-remoteproc@vger.kernel.org, alsa-devel@alsa-project.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ Lee Jones <lee.jones@linaro.org>, linux-clk@vger.kernel.org,
+ linux-leds@vger.kernel.org,
+ Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>,
+ Daniel Lezcano <daniel.lezcano@linaro.org>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-rockchip@lists.infradead.org,
+ linux-serial@vger.kernel.org, linux-mips@vger.kernel.org,
+ Guenter Roeck <linux@roeck-us.net>, linux-media@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-pm@vger.kernel.org,
+ Mauro Carvalho Chehab <mchehab@kernel.org>, linux-gpio@vger.kernel.org,
+ Mark Brown <broonie@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>,
+ openipmi-developer@lists.sourceforge.net,
+ Bjorn Andersson <bjorn.andersson@linaro.org>, linux-hwmon@vger.kernel.org,
+ Stephen Boyd <sboyd@kernel.org>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, linux-usb@vger.kernel.org,
+ linux-mmc@vger.kernel.org, Liam Girdwood <lgirdwood@gmail.com>,
+ linux-spi@vger.kernel.org, Vinod Koul <vkoul@kernel.org>,
+ netdev@vger.kernel.org, Baolin Wang <baolin.wang7@gmail.com>,
+ Shawn Guo <shawnguo@kernel.org>, "David S. Miller" <davem@davemloft.net>,
+ Jonathan Cameron <jic23@kernel.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -119,30 +127,42 @@ Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 
---mkyrlyq2ktvpl2wp
+--CQDko/0aYvuiEzgn
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
 
-On Wed, Sep 30, 2020 at 09:11:31PM -0500, Samuel Holland wrote:
-> Remove a level of indirection by getting the device directly from the
-> passed-in struct snd_soc_dai, instead of going through its component.
->=20
-> Signed-off-by: Samuel Holland <samuel@sholland.org>
+On Fri, Oct 02, 2020 at 06:41:43PM -0500, Rob Herring wrote:
+[...]
+>  .../arm/tegra/nvidia,tegra20-pmc.yaml         |  2 ++
+[...]
+>  .../bindings/sound/nvidia,tegra186-dspk.yaml  |  2 ++
+>  .../sound/nvidia,tegra210-admaif.yaml         |  2 ++
+>  .../bindings/sound/nvidia,tegra210-dmic.yaml  |  2 ++
+>  .../bindings/sound/nvidia,tegra210-i2s.yaml   |  2 ++
+[...]
+>  .../bindings/usb/nvidia,tegra-xudc.yaml       |  2 ++
+[...]
 
-Acked-by: Maxime Ripard <mripard@kernel.org>
+Acked-by: Thierry Reding <treding@nvidia.com>
 
-Maxime
-
---mkyrlyq2ktvpl2wp
+--CQDko/0aYvuiEzgn
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iHUEABYIAB0WIQRcEzekXsqa64kGDp7j7w1vZxhRxQUCX3rvBQAKCRDj7w1vZxhR
-xYhIAP4676GM9XSaAbSnJd3DmX4+jzabMNIHgp5HE5XSMzveXAD/bOUzRWgFE+UD
-29qy4CVPR2kI7xBoRbCA3EmQR6agHw8=
-=mRgD
+iQIzBAABCAAdFiEEiOrDCAFJzPfAjcif3SOs138+s6EFAl96908ACgkQ3SOs138+
+s6Hn/g/+OAyAW+yLaNZ0EuRduaLOLtd19HpvVqZdf68FWcAxWHANPdIKnVuc++CF
+2r+nHjgPy4zI3LGP1bGlgPufCdAapy2QTx9sGt/VeTEOuo9uTjb6J4Y7xXC11qQT
+pVI+v4ofSi48FN6vY6VWsotDscDJFLkJy/eZdb1RRuU44SG4dw04Z3fn1STm9wAN
+PS6hKtpUTbZYzgI0hngx2Ph30t7fyu18NIRPsKZ6/3WgR4HwD8cdpVi+06ThN3GQ
+s5CEQ/J7l9z1tfQhUypxLic1JV21su9fCERZQd96CKyIvcpJ5RByk7d7EnnZ4A53
+ZDRzwiymRP29X0IUzvEoHc7XvUP/mIZIkRNtTc3tLGZHZ34+Gc805Hcy5slbzhRz
+V+Gl3oXG56OhWLSbyNQXOOlbJJAmdFS1IDAoV752G6kq5fFZ397AW34DLF5YJX0k
+lYF3NWBTpuxxWCGuceKkACfscLE1dAifN2Rtgf9mbM1k2mIG7mVa6tdpxJ3sjf8Y
+1T0v3HYAwfOKTajaYUY4UYLMIJcZNjjJsw/olvcM6a9c8x/g79W3BgSjS6F/pEww
+DtuObW8366dl2WoqlYTJ9eWvKXSbCHRBhPpYLamHRBOBj7HKqGSHyyq0hEGPvd6X
+Hr+OJUghj7CHS+5vXEq5oNiT4bE6x9ytJdHNf5hIiRchRu6TeOQ=
+=hMJa
 -----END PGP SIGNATURE-----
 
---mkyrlyq2ktvpl2wp--
+--CQDko/0aYvuiEzgn--

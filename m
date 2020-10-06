@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7C7C1284F89
-	for <lists+alsa-devel@lfdr.de>; Tue,  6 Oct 2020 18:10:42 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id EBC61284F8F
+	for <lists+alsa-devel@lfdr.de>; Tue,  6 Oct 2020 18:11:30 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id F07941727;
-	Tue,  6 Oct 2020 18:09:51 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz F07941727
+	by alsa0.perex.cz (Postfix) with ESMTPS id 60FF51730;
+	Tue,  6 Oct 2020 18:10:40 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 60FF51730
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1602000642;
-	bh=l7rA0ekbG7xnYY6ryfhTgC+iym3ixvv3xKF30ZytTMc=;
+	s=default; t=1602000690;
+	bh=D5r5aRXKSKnmCqzBZsD9QkhpBuZsCGOFNTVk5QEsFqI=;
 	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=NSsags9SL9iKFkFU53E8N4YSrxBfGxhA/oJQXATFgfX55n79Z/eSN3h7uEiO0HHhc
-	 dykWpbe4j8fa80dxI7O6XMKkU7ir9P8e3hhnpaatAFIl+C2k6G2b/gX9qeO8krex1L
-	 orxNoca1jrH4O3DjArXO/KOI7tPxvhHw07OC8zok=
+	b=PXQAv74jqqjwVcCie8EFNh7XdjCsx9gLshkeBKQo73vdw1Tr93AkwwhserdrMd9vn
+	 Nd4SZYSCYt8Y0/RiuTQ4aeiTs+x2+5pKgZ5T5/+QTrPttSaBZbwtKgCvBljsLOkQcq
+	 +YK4/Iy6ytVKB8gf+lvePkxkDTDSFJszc8KLkRds=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id E420EF80128;
-	Tue,  6 Oct 2020 18:09:01 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id D9912F80127;
+	Tue,  6 Oct 2020 18:10:38 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 29A8AF8012A; Tue,  6 Oct 2020 18:08:59 +0200 (CEST)
+ id 91348F8015B; Tue,  6 Oct 2020 18:10:33 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_MSPIKE_H3,
@@ -34,20 +34,20 @@ X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_MSPIKE_H3,
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 48464F80127
- for <alsa-devel@alsa-project.org>; Tue,  6 Oct 2020 18:08:47 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 48464F80127
+ by alsa1.perex.cz (Postfix) with ESMTPS id B5667F80129
+ for <alsa-devel@alsa-project.org>; Tue,  6 Oct 2020 18:10:22 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B5667F80129
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 5EA63AC55;
- Tue,  6 Oct 2020 16:08:47 +0000 (UTC)
-Date: Tue, 06 Oct 2020 18:08:47 +0200
-Message-ID: <s5ho8lf49rk.wl-tiwai@suse.de>
+ by mx2.suse.de (Postfix) with ESMTP id 09858AC8C;
+ Tue,  6 Oct 2020 16:10:22 +0000 (UTC)
+Date: Tue, 06 Oct 2020 18:10:21 +0200
+Message-ID: <s5hmu0z49oy.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
 To: Randy Dunlap <rdunlap@infradead.org>
-Subject: Re: [PATCH] sound: drivers: portman2x4: fix repeated word 'if'
-In-Reply-To: <20201005191223.21514-1-rdunlap@infradead.org>
-References: <20201005191223.21514-1-rdunlap@infradead.org>
+Subject: Re: [PATCH] sound: usb: endpoint.c: fix repeated word 'there'
+In-Reply-To: <20201005191244.23902-1-rdunlap@infradead.org>
+References: <20201005191244.23902-1-rdunlap@infradead.org>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
  FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
  (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
@@ -70,10 +70,10 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Mon, 05 Oct 2020 21:12:23 +0200,
+On Mon, 05 Oct 2020 21:12:44 +0200,
 Randy Dunlap wrote:
 > 
-> Correct duplicated word "if" to "if it".
+> Drop the duplicated word "there".
 > 
 > Signed-off-by: Randy Dunlap <rdunlap@infradead.org>
 > Cc: Jaroslav Kysela <perex@perex.cz>

@@ -2,74 +2,68 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 578F22845F4
-	for <lists+alsa-devel@lfdr.de>; Tue,  6 Oct 2020 08:23:00 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3D57B28464C
+	for <lists+alsa-devel@lfdr.de>; Tue,  6 Oct 2020 08:51:38 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D1B64176E;
-	Tue,  6 Oct 2020 08:22:09 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D1B64176E
+	by alsa0.perex.cz (Postfix) with ESMTPS id DC69A176E;
+	Tue,  6 Oct 2020 08:50:47 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DC69A176E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1601965379;
-	bh=kseTSq4ZoQgAMTbzp+IGzWV39cBms3xzRqYsfrXY9UY=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=kaJXoAVD8qUfI079kENwaqdfvG28CnO3LP+8Led6vyMpxLNPfTmnIWa4drxTHe6vN
-	 jHExOcwf7ifLpdYQ1dsoZFdsJSgIptiKNsLECsdqXgrfK8otA44ibAoSlsobLhtF2k
-	 jWrWHUn8IBxacSXBvfE0uiK2bb1XAMHYxiRighwk=
+	s=default; t=1601967097;
+	bh=eIHiGn8ClsQW4HMCXu8UVvddPLZE0ZDua9qCIPfKidI=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=nCaM/v+DQILC3aNFh4kZF4LnPE760h7RdN3l9EgtPO88sPUuJSGnfR3am54ceLCxj
+	 UUHEHdeSYJq0xi9WmVfR58H6s0Y9LQS60uFjxHV+BZXRPvqnWsiQewe7g6hrSOFyJ5
+	 Q9sP7C4IK9JV3sCDLYPsEX8nZvnTMbDF0miUCXD0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 00CC9F8015B;
-	Tue,  6 Oct 2020 08:21:18 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 85871F80253;
+	Tue,  6 Oct 2020 08:49:57 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 152A5F80246; Tue,  6 Oct 2020 08:21:16 +0200 (CEST)
+ id EF627F80246; Tue,  6 Oct 2020 08:49:55 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.8 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled
- version=3.4.0
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 294D2F8015B
- for <alsa-devel@alsa-project.org>; Tue,  6 Oct 2020 08:21:12 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 294D2F8015B
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="A+ZE2KaS"
-Received: from localhost (unknown [122.167.144.92])
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 05AA320796;
- Tue,  6 Oct 2020 06:21:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1601965269;
- bh=kseTSq4ZoQgAMTbzp+IGzWV39cBms3xzRqYsfrXY9UY=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=A+ZE2KaSvisWzO2ss8iSPsD1ZGOBPTV2wp/3ft+f+60Y5cMNzl5tJ8sOgQEJMTil8
- vxTvZDxee+CTpq4W6u3QJa+OblT69TkKS1xD6J9yBzOHn2lnx1arcqlr5Xg1oJBLB1
- rk40WEmTvZ9kifk79+g+9/Zf4ZssH6fvJeLHu7Ug=
-Date: Tue, 6 Oct 2020 11:51:05 +0530
-From: Vinod Koul <vkoul@kernel.org>
-To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Subject: Re: [PATCH] ALSA: compress: allow pause and resume during draining
-Message-ID: <20201006062105.GQ2968@vkoul-mobl>
-References: <CGME20200929084051epcas2p35fb2228ed1bdfce6a7ddf5b37c944823@epcas2p3.samsung.com>
- <000001d6963c$3cc53690$b64fa3b0$@samsung.com>
- <s5heemlklo0.wl-tiwai@suse.de> <20201001102938.GU2968@vkoul-mobl>
- <2bf52360-bd11-b4cd-b255-8a5610b4aa5f@linux.intel.com>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <2bf52360-bd11-b4cd-b255-8a5610b4aa5f@linux.intel.com>
-Cc: alsa-devel@alsa-project.org, khw0178.kim@samsung.com,
- Takashi Iwai <tiwai@suse.de>, s47.kang@samsung.com, lgirdwood@gmail.com,
- tiwai@suse.com, kimty@samsung.com, hmseo@samsung.com,
- Gyeongtaek Lee <gt82.lee@samsung.com>, pilsun.jang@samsung.com,
- tkjung@samsung.com
+ by alsa1.perex.cz (Postfix) with ESMTPS id 0C434F8015B
+ for <alsa-devel@alsa-project.org>; Tue,  6 Oct 2020 08:49:47 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0C434F8015B
+IronPort-SDR: 2v4nClu72WZZ5pcVsMXAwZQwEYNeqI38cjUUGAk6NaeOqfds/FtXcu3OSdWn/VeXIru/Sz+pVx
+ gOhfXhiyE+Kg==
+X-IronPort-AV: E=McAfee;i="6000,8403,9765"; a="164458087"
+X-IronPort-AV: E=Sophos;i="5.77,342,1596524400"; d="scan'208";a="164458087"
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from orsmga006.jf.intel.com ([10.7.209.51])
+ by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 05 Oct 2020 23:49:45 -0700
+IronPort-SDR: SHmMxtHZ903eKnU3I2ve0iDJqo3AnHBynfXZ1lwZNSzKq3TNb8kP2AeCASmJ+5DgBAIvh8Jiw5
+ uKdZQz+0ve1A==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.77,342,1596524400"; d="scan'208";a="315491030"
+Received: from crojewsk-ctrl.igk.intel.com ([10.102.9.28])
+ by orsmga006.jf.intel.com with ESMTP; 05 Oct 2020 23:49:40 -0700
+From: Cezary Rojewski <cezary.rojewski@intel.com>
+To: alsa-devel@alsa-project.org
+Subject: [PATCH v2 00/13] ASoC: Intel: Remove obsolete solutions and components
+Date: Tue,  6 Oct 2020 08:48:54 +0200
+Message-Id: <20201006064907.16277-1-cezary.rojewski@intel.com>
+X-Mailer: git-send-email 2.17.1
+Cc: pierre-louis.bossart@linux.intel.com,
+ Cezary Rojewski <cezary.rojewski@intel.com>, andriy.shevchenko@linux.intel.com,
+ filip.kaczmarski@intel.com, harshapriya.n@intel.com, marcin.barlik@intel.com,
+ zwisler@google.com, lgirdwood@gmail.com, tiwai@suse.com,
+ filip.proborszcz@intel.com, broonie@kernel.org,
+ amadeuszx.slawinski@linux.intel.com, michal.wasko@intel.com,
+ cujomalainey@chromium.org, krzysztof.hejmowski@intel.com,
+ ppapierkowski@habana.ai, vamshi.krishna.gopal@intel.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -85,49 +79,102 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 01-10-20, 10:28, Pierre-Louis Bossart wrote:
-> 
-> 
-> 
-> > > > > Hrm, this resulted in rather more complex changes than the original
-> > > > > patch.  It shows that introducing yet another state is no good idea
-> > > > > for this particular case.
-> > > > > 
-> > > > > Since the possible application's behavior after this pause is as same
-> > > > > as the normal pause (i.e. either resuming pause or dropping), I find
-> > > > > it OK to take the original approach.
-> > > > Thank you for the review.
-> > > > I think that I should resend the original patch.
-> > > 
-> > > Let's wait a bit for other opinions.  We may add rather a new flag
-> > > instead of introducing a new state, too, for example.
-> > 
-> > I was out for a week, back now ;-)
-> > 
-> > So bigger question is if kernel should handle this change or we ask
-> > userspace to handle this. Userland knows that bit rate is less so small
-> > buffer can be for longer duration so instead of sending dumb X bytes,
-> > should it not scale the buffer based on bit rate?
-> 
-> what about variable bit-rate? or cases where you have a 'bit reservoir' in
-> previous frames?
-> 
-> You really cannot in general translate bytes to time with compressed data,
-> which is the reason we introduced the API in the first place...
-> 
-> Userspace *may* know the duration for specific formats or based on metadata,
-> but in some cases the only way to know is actually to decode the data.
-> 
-> I suggest we keep the compressed API based on bytes and non-periodic events
-> when the bytes were consumed/generated.
+Follow up to catpt series as mentioned in:
+[PATCH v10 00/14] ASoC: Intel: Catpt - Lynx and Wildcat point
+https://www.spinics.net/lists/alsa-devel/msg116440.html
 
-Changing the API away from bytes was not proposed so not sure...
+As catpt is a direct replacement to sound/soc/intel/haswell, it leaves a
+lot of code redudant. The second legacy solution - baytrail - is
+deprecated for a long time by sound/soc/intel/atom with SOF flavor
+available too.
 
-The SM in kernel might be bit more convoluted so was wondering if we can
-handle this in userland. The changelog for this patch says that for
-test case was sending whole file, surely that is not an optimal approach.
-Should we allow folks to send whole file to kernel and then issue
-partial drain?
+This series addresses the redudancy and removes obsolete code. Along
+with the legacy solutions, all orphaned components are removed too.
+
+As a consequence, further cleanups are unlocked: sound/soc/intel/skylake
+becomes the sole user of processing code found in
+sound/soc/intel/common. Those are not part of this series.
+
+
+Changes in v2:
+- just a rebase so patch 04/13 applies cleanly
+- left the tags as no actual changes done in between
+
+
+Cezary Rojewski (13):
+  ASoC: Intel: Remove haswell solution
+  ASoC: Intel: Remove max98090 support for baytrail solution
+  ASoC: Intel: Remove rt5640 support for baytrail solution
+  ASoC: Intel: Remove baytrail solution
+  ASoC: Intel: Remove SST ACPI component
+  ASoC: Intel: Remove SST firmware components
+  ASoC: Intel: Skylake: Unassign ram_read and read_write ops
+  ASoC: Intel: Remove unused DSP operations
+  ASoC: Intel: Remove unused DSP interface fields
+  ASoC: Intel: Remove SST-legacy specific constants
+  ASoC: Intel: Make atom components independent of sst-dsp
+  ASoC: Intel: Remove sst_pdata structure
+  ASoC: Intel: Remove sst_dsp_get_thread_context
+
+ include/sound/soc-acpi-intel-match.h          |    1 -
+ include/trace/events/hswadsp.h                |  385 ---
+ sound/soc/intel/Kconfig                       |   26 -
+ sound/soc/intel/Makefile                      |    1 -
+ sound/soc/intel/atom/sst/sst.c                |    1 -
+ sound/soc/intel/atom/sst/sst.h                |    7 +
+ sound/soc/intel/atom/sst/sst_acpi.c           |    1 -
+ sound/soc/intel/atom/sst/sst_drv_interface.c  |    3 -
+ sound/soc/intel/atom/sst/sst_ipc.c            |    1 -
+ sound/soc/intel/atom/sst/sst_loader.c         |    1 -
+ sound/soc/intel/atom/sst/sst_pvt.c            |    1 -
+ sound/soc/intel/atom/sst/sst_stream.c         |    1 -
+ sound/soc/intel/baytrail/Makefile             |    5 -
+ sound/soc/intel/baytrail/sst-baytrail-dsp.c   |  358 ---
+ sound/soc/intel/baytrail/sst-baytrail-ipc.c   |  772 ------
+ sound/soc/intel/baytrail/sst-baytrail-ipc.h   |   64 -
+ sound/soc/intel/baytrail/sst-baytrail-pcm.c   |  459 ----
+ sound/soc/intel/boards/Kconfig                |   25 -
+ sound/soc/intel/boards/Makefile               |    4 -
+ sound/soc/intel/boards/byt-max98090.c         |  182 --
+ sound/soc/intel/boards/byt-rt5640.c           |  224 --
+ sound/soc/intel/boards/bytcht_es8316.c        |    1 -
+ sound/soc/intel/boards/bytcr_rt5640.c         |    1 -
+ sound/soc/intel/common/Makefile               |    4 -
+ .../intel/common/soc-acpi-intel-byt-match.c   |   15 -
+ sound/soc/intel/common/sst-acpi.c             |  236 --
+ sound/soc/intel/common/sst-dsp-priv.h         |  284 +--
+ sound/soc/intel/common/sst-dsp.c              |  162 --
+ sound/soc/intel/common/sst-dsp.h              |  222 --
+ sound/soc/intel/common/sst-firmware.c         | 1273 ----------
+ sound/soc/intel/common/sst-ipc.c              |   27 -
+ sound/soc/intel/common/sst-ipc.h              |    3 -
+ sound/soc/intel/haswell/Makefile              |    5 -
+ sound/soc/intel/haswell/sst-haswell-dsp.c     |  705 ------
+ sound/soc/intel/haswell/sst-haswell-ipc.c     | 2222 -----------------
+ sound/soc/intel/haswell/sst-haswell-ipc.h     |  527 ----
+ sound/soc/intel/haswell/sst-haswell-pcm.c     | 1369 ----------
+ sound/soc/intel/skylake/bxt-sst.c             |    2 -
+ sound/soc/intel/skylake/cnl-sst.c             |    4 +-
+ sound/soc/intel/skylake/skl-sst-dsp.c         |    2 +-
+ sound/soc/intel/skylake/skl-sst-ipc.c         |    2 +-
+ sound/soc/intel/skylake/skl-sst.c             |    2 -
+ 42 files changed, 11 insertions(+), 9579 deletions(-)
+ delete mode 100644 include/trace/events/hswadsp.h
+ delete mode 100644 sound/soc/intel/baytrail/Makefile
+ delete mode 100644 sound/soc/intel/baytrail/sst-baytrail-dsp.c
+ delete mode 100644 sound/soc/intel/baytrail/sst-baytrail-ipc.c
+ delete mode 100644 sound/soc/intel/baytrail/sst-baytrail-ipc.h
+ delete mode 100644 sound/soc/intel/baytrail/sst-baytrail-pcm.c
+ delete mode 100644 sound/soc/intel/boards/byt-max98090.c
+ delete mode 100644 sound/soc/intel/boards/byt-rt5640.c
+ delete mode 100644 sound/soc/intel/common/sst-acpi.c
+ delete mode 100644 sound/soc/intel/common/sst-firmware.c
+ delete mode 100644 sound/soc/intel/haswell/Makefile
+ delete mode 100644 sound/soc/intel/haswell/sst-haswell-dsp.c
+ delete mode 100644 sound/soc/intel/haswell/sst-haswell-ipc.c
+ delete mode 100644 sound/soc/intel/haswell/sst-haswell-ipc.h
+ delete mode 100644 sound/soc/intel/haswell/sst-haswell-pcm.c
 
 -- 
-~Vinod
+2.17.1
+

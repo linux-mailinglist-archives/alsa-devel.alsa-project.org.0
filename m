@@ -2,68 +2,57 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 33030284AFE
-	for <lists+alsa-devel@lfdr.de>; Tue,  6 Oct 2020 13:35:13 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B861A284B7E
+	for <lists+alsa-devel@lfdr.de>; Tue,  6 Oct 2020 14:15:29 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id BF9791752;
-	Tue,  6 Oct 2020 13:34:22 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BF9791752
+	by alsa0.perex.cz (Postfix) with ESMTPS id 120451760;
+	Tue,  6 Oct 2020 14:14:39 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 120451760
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1601984112;
-	bh=6fY0AL8El51jR8+7VKbaRWNL56TXVZB6GvVDJkPsnQM=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1601986529;
+	bh=g+EpKnXsfOfCioUksWmQsDovMHafDSAuh/xxhLyv0VA=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=QIsytr/atrAx5cro0eq3qO8IsPIB96VkcssB2Z8ljJ5pvyhBJz6lxZyq4JUaXRlUz
-	 eNNqzQMCXVotBUWCdjVihBH4LATU2aIa2mPcdrcjTvWuAQGxXkJPekOtvW7av02eLb
-	 PnxIVuvR5MY73Auar1K2H2WJ5IeKEV8chBtGa4HI=
+	b=sOaAY3npB5WzerZeTxfIZquaWxTA1B1hpeBFhfSc24zThjrxdDR0TckwLi5QHqRbe
+	 z+MJvTrinGB+8HxHdvoZr3vPgHEMLMzwREdPas+vnQFyagS1Cv3dUF86pLfaSQ4MVB
+	 oSwblwYXbfMj5rBnICoLPLI71VicMWOe28tOcjnw=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 465AEF8015B;
-	Tue,  6 Oct 2020 13:32:52 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 9D650F80053;
+	Tue,  6 Oct 2020 14:13:48 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id B0032F8012B; Tue,  6 Oct 2020 13:32:47 +0200 (CEST)
+ id F2A30F8012A; Tue,  6 Oct 2020 14:13:45 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_MSPIKE_H3,
+ RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
+Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id C214FF80053
- for <alsa-devel@alsa-project.org>; Tue,  6 Oct 2020 13:32:44 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C214FF80053
-IronPort-SDR: M7ckcz4d5PBGGGJa0WtIW5QVSQ+iO3g0eXPeXyEeOtqMMm/GiUjKd0bHyPA5xPEocPaPWvH16p
- MquyuYojdZog==
-X-IronPort-AV: E=McAfee;i="6000,8403,9765"; a="163682601"
-X-IronPort-AV: E=Sophos;i="5.77,343,1596524400"; d="scan'208";a="163682601"
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from orsmga004.jf.intel.com ([10.7.209.38])
- by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 06 Oct 2020 04:32:30 -0700
-IronPort-SDR: rTEJ2ByDI1oBACzvtRc7Qs8XmRM9lzWtI2kZBHnyLi5xjIegFL7DjydImp49YeJV2Q+u275Koy
- MBYU0CJ4NADQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.77,343,1596524400"; d="scan'208";a="460759629"
-Received: from eliteleevi.tm.intel.com ([10.237.54.20])
- by orsmga004.jf.intel.com with ESMTP; 06 Oct 2020 04:32:29 -0700
-From: Kai Vehmanen <kai.vehmanen@linux.intel.com>
-To: alsa-devel@alsa-project.org,
-	tiwai@suse.de
-Subject: [RFC PATCH 2/2] ALSA: hda/i915 - fix list corruption with concurrent
- probes
-Date: Tue,  6 Oct 2020 14:30:42 +0300
-Message-Id: <20201006113042.471718-3-kai.vehmanen@linux.intel.com>
-X-Mailer: git-send-email 2.28.0
+ by alsa1.perex.cz (Postfix) with ESMTPS id 81397F80053
+ for <alsa-devel@alsa-project.org>; Tue,  6 Oct 2020 14:13:41 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 81397F80053
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id AE2FBAA55;
+ Tue,  6 Oct 2020 12:13:40 +0000 (UTC)
+Date: Tue, 06 Oct 2020 14:13:40 +0200
+Message-ID: <s5hpn5v5z7v.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Kai Vehmanen <kai.vehmanen@linux.intel.com>
+Subject: Re: [RFC PATCH 0/2] ALSA: hda - acomp probe fix for i915
 In-Reply-To: <20201006113042.471718-1-kai.vehmanen@linux.intel.com>
 References: <20201006113042.471718-1-kai.vehmanen@linux.intel.com>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Cc: Kai Vehmanen <kai.vehmanen@linux.intel.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
+ FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
+ (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
+Content-Type: text/plain; charset=US-ASCII
+Cc: alsa-devel@alsa-project.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -79,90 +68,54 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Current hdac_i915 uses a static completion instance to synchronous
-communication with i915 driver. This design is not safe if multiple
-HDA controllers are active and talking to different i915 instances,
-and can lead to list corruption and failed audio driver probe.
+On Tue, 06 Oct 2020 13:30:40 +0200,
+Kai Vehmanen wrote:
+> 
+> Hi,
+> 
+> this simple bugfix started to feel a bit like getting stuck in quicksand,
+> so I'm looking for some early input via this RFC series.
+> 
+> Basicly hdac_i915.c should not use global state to track communication
+> with i915 driver. But how to get handle of "hdac_bus*? I considered
+> a few options:
+> 
+>   1) add hdac_bus as a member of drm_audio_component.h
+> 	-> seems wrong as this is really an audio side implementation)
+> 
+>   2) embed copy of drm_audio_component to 'struct hdac_bus', so
+>      I could use container_of() on the device handle to get
+>      to the bus 
+> 	-> wasted space to keep a copy at hdac_bus level
+> 	   (note: snd-hda-codec-hdmi do this by embedding a copy
+> 	    of ops to "struct hdmi_spec")
+> 
+>   3) add another devres entry to store the hdac_bus directly
+>      in acomp_init and a new helper function to query it
+> 
+> I now implemented option 3 in this RFC series as it seemed cleanest
+> and most local to hdac_component.c, where the problem stems from. It's still
+> somewhat messy, and I'm wondering if I'm overlooking some obvious alternative.
+> We could dig this deeper into i915 specific code, but OTOH, hdac_bus is
+> an argument snd_hdac_acomp_init(), so it's common for all.
+> 
+> Kai Vehmanen (2):
+>   ALSA: hda - keep track of HDA core bus instance in acomp
+>   ALSA: hda/i915 - fix list corruption with concurrent probes
 
-Fix the design by storing the completion object to hdac_bus,
-and signaling completions on a per-bus basis.
+Another option would be to move the completion into the common acomp
+helper from i915-specific one.  That is,
 
-Signed-off-by: Kai Vehmanen <kai.vehmanen@linux.intel.com>
----
- include/sound/hdaudio.h |  2 ++
- sound/hda/hdac_i915.c   | 16 +++++++++-------
- 2 files changed, 11 insertions(+), 7 deletions(-)
+- Add bind_complete field into struct drm_audio_component,
+  initialize it at snd_hdac_acomp_init()
 
-diff --git a/include/sound/hdaudio.h b/include/sound/hdaudio.h
-index 6eed61e6cf8a..116c89074d79 100644
---- a/include/sound/hdaudio.h
-+++ b/include/sound/hdaudio.h
-@@ -6,6 +6,7 @@
- #ifndef __SOUND_HDAUDIO_H
- #define __SOUND_HDAUDIO_H
- 
-+#include <linux/completion.h>
- #include <linux/device.h>
- #include <linux/interrupt.h>
- #include <linux/io.h>
-@@ -359,6 +360,7 @@ struct hdac_bus {
- 	struct drm_audio_component *audio_component;
- 	long display_power_status;
- 	unsigned long display_power_active;
-+	struct completion display_bind_complete;
- 
- 	/* parameters required for enhanced capabilities */
- 	int num_streams;
-diff --git a/sound/hda/hdac_i915.c b/sound/hda/hdac_i915.c
-index 5f0a1aa6ad84..fee3d379d7e0 100644
---- a/sound/hda/hdac_i915.c
-+++ b/sound/hda/hdac_i915.c
-@@ -11,8 +11,6 @@
- #include <sound/hda_i915.h>
- #include <sound/hda_register.h>
- 
--static struct completion bind_complete;
--
- #define IS_HSW_CONTROLLER(pci) (((pci)->device == 0x0a0c) || \
- 				((pci)->device == 0x0c0c) || \
- 				((pci)->device == 0x0d0c) || \
-@@ -133,9 +131,14 @@ static bool i915_gfx_present(void)
- static int i915_master_bind(struct device *dev,
- 			    struct drm_audio_component *acomp)
- {
--	complete_all(&bind_complete);
-+	struct hdac_bus *bus = snd_hdac_acomp_get_bus(dev);
-+
-+	if (!bus)
-+		return -EINVAL;
-+	complete_all(&bus->display_bind_complete);
- 	/* clear audio_ops here as it was needed only for completion call */
- 	acomp->audio_ops = NULL;
-+
- 	return 0;
- }
- 
-@@ -163,8 +166,7 @@ int snd_hdac_i915_init(struct hdac_bus *bus)
- 	if (!i915_gfx_present())
- 		return -ENODEV;
- 
--	init_completion(&bind_complete);
--
-+	init_completion(&bus->display_bind_complete);
- 	err = snd_hdac_acomp_init(bus, &i915_init_ops,
- 				  i915_component_master_match,
- 				  sizeof(struct i915_audio_component) - sizeof(*acomp));
-@@ -177,8 +179,8 @@ int snd_hdac_i915_init(struct hdac_bus *bus)
- 		if (!IS_ENABLED(CONFIG_MODULES) ||
- 		    !request_module("i915")) {
- 			/* 60s timeout */
--			wait_for_completion_timeout(&bind_complete,
--						   msecs_to_jiffies(60 * 1000));
-+			wait_for_completion_timeout(&bus->display_bind_complete,
-+						    msecs_to_jiffies(60 * 1000));
- 		}
- 	}
- 	if (!acomp->ops) {
--- 
-2.28.0
+- Call complete_all(&acomp->bind_complete) at the end of
+  hdac_component_master_bind()
 
+- Remove / replace i915's own completion with the hdac's one.
+  The i915_init_ops can be dropped.
+
+
+thanks,
+
+Takashi

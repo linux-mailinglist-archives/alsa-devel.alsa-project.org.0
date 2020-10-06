@@ -2,74 +2,67 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3277E284ED7
-	for <lists+alsa-devel@lfdr.de>; Tue,  6 Oct 2020 17:23:05 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5ECCE284ED8
+	for <lists+alsa-devel@lfdr.de>; Tue,  6 Oct 2020 17:23:35 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C502C1737;
-	Tue,  6 Oct 2020 17:22:14 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C502C1737
+	by alsa0.perex.cz (Postfix) with ESMTPS id E257F1726;
+	Tue,  6 Oct 2020 17:22:44 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E257F1726
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1601997784;
-	bh=NwFwjLXKZ+sORKSd26tHgs3LHpxnvB8CIoyhvuMpDlw=;
+	s=default; t=1601997815;
+	bh=IL1qUaq16zUuaudsbYu3xsH7hhilOeFElEGAdB2ZSW0=;
 	h=Date:From:To:In-Reply-To:References:Subject:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=lOw1jMQCVGyws8ZxIoMIciDhWmZ8LeJFZmOhxSLjcgo7GAAr5ZI+/fvWhhjZClAye
-	 ZI61U/PyqMdvIMxvJIUIqJtF2GbDyFcpcNNXeoe1KD52dBNLrYlJ242vdXMsh4/R+X
-	 cRdisQYVsJZVLL3zlLf6x9IS7je8epMSV5uc1Oxo=
+	b=rzq4HFYAC4EZ0AptJ6CUTzcbOduauLd/Ev8M2mc01A43VNYsrdiGzj7n7BbaYZ+OC
+	 VjNvGLodBKzGXN/mGAZdIQDQArb+pOrvr28T3lKGvPEIiqQZexX2tq8BB+Gpz1rO1j
+	 s8WNO5PkbWW0V/drUrpDv8Kzx/PuiHQiX+3mDJ4U=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 7E91FF8012B;
-	Tue,  6 Oct 2020 17:22:01 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 8C143F80164;
+	Tue,  6 Oct 2020 17:22:03 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 8F8CDF8015B; Tue,  6 Oct 2020 17:21:59 +0200 (CEST)
+ id CB516F8015B; Tue,  6 Oct 2020 17:22:00 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.8 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
+ DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled
+ version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 3DBFEF80129
- for <alsa-devel@alsa-project.org>; Tue,  6 Oct 2020 17:21:52 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3DBFEF80129
+ by alsa1.perex.cz (Postfix) with ESMTPS id 9D95DF8012B
+ for <alsa-devel@alsa-project.org>; Tue,  6 Oct 2020 17:21:57 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9D95DF8012B
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="rp55/t+N"
+ header.b="0lH4RAry"
 Received: from localhost (fw-tnat.cambridge.arm.com [217.140.96.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id F158F206D4;
- Tue,  6 Oct 2020 15:21:49 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id 6B02B20789;
+ Tue,  6 Oct 2020 15:21:55 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1601997710;
- bh=NwFwjLXKZ+sORKSd26tHgs3LHpxnvB8CIoyhvuMpDlw=;
+ s=default; t=1601997715;
+ bh=IL1qUaq16zUuaudsbYu3xsH7hhilOeFElEGAdB2ZSW0=;
  h=Date:From:To:Cc:In-Reply-To:References:Subject:From;
- b=rp55/t+NnF2mDwJVq7D/vBRyBk+TCRCji9yMfpVGKcWkOZfXI78caMYHEatkOCGtY
- zrVDbioN1r8ffkmcwKMEmzXIysdNIo2Po9hqAQduZSDLP7k9MzKYgYx3xe82VUnwQO
- 5nHlH+rDby6n5eHdTkaq3rfgf/e9c6+kFz+M1Se8=
-Date: Tue, 06 Oct 2020 16:20:46 +0100
+ b=0lH4RAry/3jk/7lNm/uCSFWxzMhkOHkHY1QWm2a3yKVRgVYe63NARW6c9fc26vVEL
+ iVJz4/tLGsDAjWblxHzlCTs5H8M89tKPjvYRkLjMT6aI3rDyZK68TU/W3FJgwMgVVV
+ XcPAzEZI+KaiLSaQxeNgVFw2eEd1hlUgMF9ywYU8=
+Date: Tue, 06 Oct 2020 16:20:53 +0100
 From: Mark Brown <broonie@kernel.org>
-To: Cezary Rojewski <cezary.rojewski@intel.com>, alsa-devel@alsa-project.org
-In-Reply-To: <20201006064907.16277-1-cezary.rojewski@intel.com>
-References: <20201006064907.16277-1-cezary.rojewski@intel.com>
-Subject: Re: [PATCH v2 00/13] ASoC: Intel: Remove obsolete solutions and
- components
-Message-Id: <160199764658.51353.18358531158611769260.b4-ty@kernel.org>
+To: Tzung-Bi Shih <tzungbi@google.com>
+In-Reply-To: <20201006101252.1890385-1-tzungbi@google.com>
+References: <20201006101252.1890385-1-tzungbi@google.com>
+Subject: Re: [PATCH] ASoC: mediatek: mt8183-da7219: fix wrong ops for I2S3
+Message-Id: <160199764658.51353.13573290899066355390.b4-ty@kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Cc: tiwai@suse.com, krzysztof.hejmowski@intel.com, filip.kaczmarski@intel.com,
- harshapriya.n@intel.com, marcin.barlik@intel.com, zwisler@google.com,
- lgirdwood@gmail.com, pierre-louis.bossart@linux.intel.com,
- filip.proborszcz@intel.com, amadeuszx.slawinski@linux.intel.com,
- michal.wasko@intel.com, cujomalainey@chromium.org,
- andriy.shevchenko@linux.intel.com, ppapierkowski@habana.ai,
- vamshi.krishna.gopal@intel.com
+Cc: alsa-devel@alsa-project.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -85,15 +78,15 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Tue, 6 Oct 2020 08:48:54 +0200, Cezary Rojewski wrote:
-> Follow up to catpt series as mentioned in:
-> [PATCH v10 00/14] ASoC: Intel: Catpt - Lynx and Wildcat point
-> https://www.spinics.net/lists/alsa-devel/msg116440.html
-> 
-> As catpt is a direct replacement to sound/soc/intel/haswell, it leaves a
-> lot of code redudant. The second legacy solution - baytrail - is
-> deprecated for a long time by sound/soc/intel/atom with SOF flavor
-> available too.
+On Tue, 6 Oct 2020 18:12:52 +0800, Tzung-Bi Shih wrote:
+> DA7219 uses I2S2 and I2S3 for input and output respectively.  Commit
+> 9e30251fb22e ("ASoC: mediatek: mt8183-da7219: support machine driver
+> with rt1015") introduces a bug that:
+> - If using I2S2 solely, MCLK to DA7219 is 256FS.
+> - If using I2S3 solely, MCLK to DA7219 is 128FS.
+> - If using I2S3 first and then I2S2, the MCLK changes from 128FS to
+>   256FS.  As a result, no sound output to the headset.  Also no sound
+>   input from the headset microphone.
 > 
 > [...]
 
@@ -103,32 +96,8 @@ Applied to
 
 Thanks!
 
-[01/13] ASoC: Intel: Remove haswell solution
-        commit: ca756120d4bcf28dfde5e3df8882153303d4010f
-[02/13] ASoC: Intel: Remove max98090 support for baytrail solution
-        commit: 5f3941b63c25d8123ebe4406a714c603525b1b90
-[03/13] ASoC: Intel: Remove rt5640 support for baytrail solution
-        commit: 3056cb0082feccee9a0012440ee5e4ca6a6e80ac
-[04/13] ASoC: Intel: Remove baytrail solution
-        commit: 07833cd0569bb73cc9f82814cdab921abb3dfb4a
-[05/13] ASoC: Intel: Remove SST ACPI component
-        commit: 05668be1b3644f9bd25b22f62e79ad7a5adbd3e2
-[06/13] ASoC: Intel: Remove SST firmware components
-        commit: fb94b7b11c6a20b786c6a8aec3d701ced8854419
-[07/13] ASoC: Intel: Skylake: Unassign ram_read and read_write ops
-        commit: a4bebce26d560a4a1dff557ad7822bab90dd1c3f
-[08/13] ASoC: Intel: Remove unused DSP operations
-        commit: 37465972015cf7aeb586a9245da2a87d3b531959
-[09/13] ASoC: Intel: Remove unused DSP interface fields
-        commit: b4e60807182a243d9dfe985e9e13d295f5868f81
-[10/13] ASoC: Intel: Remove SST-legacy specific constants
-        commit: 7d07f9c1ba0e670d1a967f16eda53e5c87411753
-[11/13] ASoC: Intel: Make atom components independent of sst-dsp
-        commit: b972153d6c53a89dc92d991c466a6b4800a9c91f
-[12/13] ASoC: Intel: Remove sst_pdata structure
-        commit: 720811f0e4ac5a31d38aaee20905692dd7150997
-[13/13] ASoC: Intel: Remove sst_dsp_get_thread_context
-        commit: eb062e47f7c8cc28f19ba8f897481c22d13db1ec
+[1/1] ASoC: mediatek: mt8183-da7219: fix wrong ops for I2S3
+      commit: ebb11d1d9fe2d6b4a47755f7f09b2b631046e308
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

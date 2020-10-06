@@ -2,61 +2,60 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B2156284665
-	for <lists+alsa-devel@lfdr.de>; Tue,  6 Oct 2020 08:57:17 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 099EB284666
+	for <lists+alsa-devel@lfdr.de>; Tue,  6 Oct 2020 08:57:45 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 4159F176E;
-	Tue,  6 Oct 2020 08:56:27 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4159F176E
+	by alsa0.perex.cz (Postfix) with ESMTPS id 3A478178D;
+	Tue,  6 Oct 2020 08:56:54 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3A478178D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1601967437;
-	bh=4SjNKtb35pmPeFmUD4OAfSYPgCTjzlYSSZJ8NnwdFr0=;
+	s=default; t=1601967464;
+	bh=dC2d9Qk1rV1cogMw/OtOrsgfAtYRoxM669LTUExcN+8=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=A75ehBYWzNZl+Jkm4IaghoPL/RRQaBUJ18P0IoVAI1ZJ0VYuRxf5QRk/Tistkv48k
-	 cSZkGsgkniQGsQcQg0JQ45qN/EoBAZvsV7T5Pw8uiZd5/682jsLd2dh7l6Rv8B+trJ
-	 lvlNltFqNFEzBClO0TFirfSEDXaMmOLBga4Yemk0=
+	b=u+KyKgBfaZKakdSfkWsc1iHhm1Np3ubCIfwx8pqjBfxhKinQwADwIwRm1TM0vR1D7
+	 926PraS4xeULbo7zSQrCeyccDMONt4izKQXU7fRR/JZk57f2snq5WEbYGY28/EXYmF
+	 +QWpGyvwDd5GE5YwJPza/4bW5kUo1k4hx2SulrxQ=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id A8F17F80349;
-	Tue,  6 Oct 2020 08:50:45 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 34280F80218;
+	Tue,  6 Oct 2020 08:50:48 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 785E9F80321; Tue,  6 Oct 2020 08:50:37 +0200 (CEST)
+ id 51E64F80335; Tue,  6 Oct 2020 08:50:40 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.3 required=5.0 tests=PRX_BODY_65,SPF_HELO_NONE,
- SPF_PASS,URIBL_BLOCKED autolearn=disabled version=3.4.0
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
 Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id DF079F80307
- for <alsa-devel@alsa-project.org>; Tue,  6 Oct 2020 08:50:32 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DF079F80307
-IronPort-SDR: nEUtG46pVRFaIBOan0Uojw7IJql67uLS1oZEiE2F9CohOMxWYUbodbdytQAXATsjSexH33SnpF
- J7X+wr//O2jw==
-X-IronPort-AV: E=McAfee;i="6000,8403,9765"; a="249091348"
-X-IronPort-AV: E=Sophos;i="5.77,342,1596524400"; d="scan'208";a="249091348"
+ by alsa1.perex.cz (Postfix) with ESMTPS id D9B15F80317
+ for <alsa-devel@alsa-project.org>; Tue,  6 Oct 2020 08:50:36 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D9B15F80317
+IronPort-SDR: IA5JmvHlQtAjIqj4nzozQEWPBF1t1UZg8l1c57xcVOEc950fgRMv/yB3eiZs2IWDFt85eTorFc
+ P+Y6f+ar1ULQ==
+X-IronPort-AV: E=McAfee;i="6000,8403,9765"; a="249091371"
+X-IronPort-AV: E=Sophos;i="5.77,342,1596524400"; d="scan'208";a="249091371"
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
 Received: from orsmga006.jf.intel.com ([10.7.209.51])
  by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 05 Oct 2020 23:50:32 -0700
-IronPort-SDR: 9hbiMbS9o5CczUlGmKOSn56VuU1sst/2Wj8hkvbkTiJ0dteEV/y/1ZfiLOxyjYgNcWYHxkEVvd
- ap9NXRdXpmjQ==
+ 05 Oct 2020 23:50:36 -0700
+IronPort-SDR: nh1w+vMu5gCBo3CR+S4gRG6/zwUoaE27LytkoKxK4Z8ytl6TCNmk+4T8CIxBC4PVUmU9so/oLC
+ euOa+9XBY3AA==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.77,342,1596524400"; d="scan'208";a="315491313"
+X-IronPort-AV: E=Sophos;i="5.77,342,1596524400"; d="scan'208";a="315491323"
 Received: from crojewsk-ctrl.igk.intel.com ([10.102.9.28])
- by orsmga006.jf.intel.com with ESMTP; 05 Oct 2020 23:50:28 -0700
+ by orsmga006.jf.intel.com with ESMTP; 05 Oct 2020 23:50:32 -0700
 From: Cezary Rojewski <cezary.rojewski@intel.com>
 To: alsa-devel@alsa-project.org
-Subject: [PATCH v2 11/13] ASoC: Intel: Make atom components independent of
- sst-dsp
-Date: Tue,  6 Oct 2020 08:49:05 +0200
-Message-Id: <20201006064907.16277-12-cezary.rojewski@intel.com>
+Subject: [PATCH v2 12/13] ASoC: Intel: Remove sst_pdata structure
+Date: Tue,  6 Oct 2020 08:49:06 +0200
+Message-Id: <20201006064907.16277-13-cezary.rojewski@intel.com>
 X-Mailer: git-send-email 2.17.1
 In-Reply-To: <20201006064907.16277-1-cezary.rojewski@intel.com>
 References: <20201006064907.16277-1-cezary.rojewski@intel.com>
@@ -83,175 +82,82 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-With sound/soc/intel/haswell and /baytrail gone, registers left within
-sst-dsp header are atom-specific. Relocate these to atom internal header
-to make atom truely independent of sound/soc/common processing code.
+struct sst_pdata is unused among remaining /sound/soc/intel solution so
+remove it.
 
 Signed-off-by: Cezary Rojewski <cezary.rojewski@intel.com>
 Reviewed-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
 ---
- sound/soc/intel/atom/sst/sst.c               |  1 -
- sound/soc/intel/atom/sst/sst.h               |  7 +++++++
- sound/soc/intel/atom/sst/sst_acpi.c          |  1 -
- sound/soc/intel/atom/sst/sst_drv_interface.c |  3 ---
- sound/soc/intel/atom/sst/sst_ipc.c           |  1 -
- sound/soc/intel/atom/sst/sst_loader.c        |  1 -
- sound/soc/intel/atom/sst/sst_pvt.c           |  1 -
- sound/soc/intel/atom/sst/sst_stream.c        |  1 -
- sound/soc/intel/boards/bytcht_es8316.c       |  1 -
- sound/soc/intel/boards/bytcr_rt5640.c        |  1 -
- sound/soc/intel/common/sst-dsp.h             | 10 ----------
- 11 files changed, 7 insertions(+), 21 deletions(-)
+ sound/soc/intel/common/sst-dsp-priv.h |  2 +-
+ sound/soc/intel/common/sst-dsp.h      | 28 ---------------------------
+ sound/soc/intel/skylake/skl-sst-dsp.c |  2 +-
+ 3 files changed, 2 insertions(+), 30 deletions(-)
 
-diff --git a/sound/soc/intel/atom/sst/sst.c b/sound/soc/intel/atom/sst/sst.c
-index d450b9848028..e90590559185 100644
---- a/sound/soc/intel/atom/sst/sst.c
-+++ b/sound/soc/intel/atom/sst/sst.c
-@@ -26,7 +26,6 @@
- #include <asm/platform_sst_audio.h>
- #include "../sst-mfld-platform.h"
- #include "sst.h"
--#include "../../common/sst-dsp.h"
+diff --git a/sound/soc/intel/common/sst-dsp-priv.h b/sound/soc/intel/common/sst-dsp-priv.h
+index 7d9834509f4a..5a5ce5069f9f 100644
+--- a/sound/soc/intel/common/sst-dsp-priv.h
++++ b/sound/soc/intel/common/sst-dsp-priv.h
+@@ -27,7 +27,7 @@ struct sst_ops {
+ 	irqreturn_t (*irq_handler)(int irq, void *context);
  
- MODULE_AUTHOR("Vinod Koul <vinod.koul@intel.com>");
- MODULE_AUTHOR("Harsha Priya <priya.harsha@intel.com>");
-diff --git a/sound/soc/intel/atom/sst/sst.h b/sound/soc/intel/atom/sst/sst.h
-index 2bee646e81b8..4d37d39fd8f4 100644
---- a/sound/soc/intel/atom/sst/sst.h
-+++ b/sound/soc/intel/atom/sst/sst.h
-@@ -34,6 +34,13 @@
- #define MRFLD_FW_FEATURE_BASE_OFFSET 0x4
- #define MRFLD_FW_BSS_RESET_BIT 0
+ 	/* SST init and free */
+-	int (*init)(struct sst_dsp *sst, struct sst_pdata *pdata);
++	int (*init)(struct sst_dsp *sst);
+ 	void (*free)(struct sst_dsp *sst);
+ };
  
-+/* SST Shim register map */
-+#define SST_CSR			0x00
-+#define SST_ISRX		0x18
-+#define SST_IMRX		0x28
-+#define SST_IPCX		0x38 /* IPC IA -> SST */
-+#define SST_IPCD		0x40 /* IPC SST -> IA */
-+
- extern const struct dev_pm_ops intel_sst_pm;
- enum sst_states {
- 	SST_FW_LOADING = 1,
-diff --git a/sound/soc/intel/atom/sst/sst_acpi.c b/sound/soc/intel/atom/sst/sst_acpi.c
-index f3cfe83b9ac6..f943a0884976 100644
---- a/sound/soc/intel/atom/sst/sst_acpi.c
-+++ b/sound/soc/intel/atom/sst/sst_acpi.c
-@@ -31,7 +31,6 @@
- #include <sound/soc-acpi.h>
- #include <sound/soc-acpi-intel-match.h>
- #include "../sst-mfld-platform.h"
--#include "../../common/sst-dsp.h"
- #include "../../common/soc-intel-quirks.h"
- #include "sst.h"
- 
-diff --git a/sound/soc/intel/atom/sst/sst_drv_interface.c b/sound/soc/intel/atom/sst/sst_drv_interface.c
-index 762495385d5c..0af618dd8073 100644
---- a/sound/soc/intel/atom/sst/sst_drv_interface.c
-+++ b/sound/soc/intel/atom/sst/sst_drv_interface.c
-@@ -24,9 +24,6 @@
- #include <asm/platform_sst_audio.h>
- #include "../sst-mfld-platform.h"
- #include "sst.h"
--#include "../../common/sst-dsp.h"
--
--
- 
- #define NUM_CODEC 2
- #define MIN_FRAGMENT 2
-diff --git a/sound/soc/intel/atom/sst/sst_ipc.c b/sound/soc/intel/atom/sst/sst_ipc.c
-index c2851a829a64..a8a9aa0057d3 100644
---- a/sound/soc/intel/atom/sst/sst_ipc.c
-+++ b/sound/soc/intel/atom/sst/sst_ipc.c
-@@ -24,7 +24,6 @@
- #include <asm/platform_sst_audio.h>
- #include "../sst-mfld-platform.h"
- #include "sst.h"
--#include "../../common/sst-dsp.h"
- 
- struct sst_block *sst_create_block(struct intel_sst_drv *ctx,
- 					u32 msg_id, u32 drv_id)
-diff --git a/sound/soc/intel/atom/sst/sst_loader.c b/sound/soc/intel/atom/sst/sst_loader.c
-index 5c42cce90ce2..1c9b0c9ec483 100644
---- a/sound/soc/intel/atom/sst/sst_loader.c
-+++ b/sound/soc/intel/atom/sst/sst_loader.c
-@@ -29,7 +29,6 @@
- #include <asm/platform_sst_audio.h>
- #include "../sst-mfld-platform.h"
- #include "sst.h"
--#include "../../common/sst-dsp.h"
- 
- void memcpy32_toio(void __iomem *dst, const void *src, int count)
- {
-diff --git a/sound/soc/intel/atom/sst/sst_pvt.c b/sound/soc/intel/atom/sst/sst_pvt.c
-index c099f7df6168..e6a5c18a7018 100644
---- a/sound/soc/intel/atom/sst/sst_pvt.c
-+++ b/sound/soc/intel/atom/sst/sst_pvt.c
-@@ -26,7 +26,6 @@
- #include <asm/platform_sst_audio.h>
- #include "../sst-mfld-platform.h"
- #include "sst.h"
--#include "../../common/sst-dsp.h"
- 
- int sst_shim_write(void __iomem *addr, int offset, int value)
- {
-diff --git a/sound/soc/intel/atom/sst/sst_stream.c b/sound/soc/intel/atom/sst/sst_stream.c
-index c0221e103e79..ea1ef8a61fa6 100644
---- a/sound/soc/intel/atom/sst/sst_stream.c
-+++ b/sound/soc/intel/atom/sst/sst_stream.c
-@@ -23,7 +23,6 @@
- #include <asm/platform_sst_audio.h>
- #include "../sst-mfld-platform.h"
- #include "sst.h"
--#include "../../common/sst-dsp.h"
- 
- int sst_alloc_stream_mrfld(struct intel_sst_drv *sst_drv_ctx, void *params)
- {
-diff --git a/sound/soc/intel/boards/bytcht_es8316.c b/sound/soc/intel/boards/bytcht_es8316.c
-index 414ae4bb5224..9c09b44b4d33 100644
---- a/sound/soc/intel/boards/bytcht_es8316.c
-+++ b/sound/soc/intel/boards/bytcht_es8316.c
-@@ -28,7 +28,6 @@
- #include <sound/soc.h>
- #include <sound/soc-acpi.h>
- #include "../atom/sst-atom-controls.h"
--#include "../common/sst-dsp.h"
- #include "../common/soc-intel-quirks.h"
- 
- /* jd-inv + terminating entry */
-diff --git a/sound/soc/intel/boards/bytcr_rt5640.c b/sound/soc/intel/boards/bytcr_rt5640.c
-index fc202747ba83..9dadf6561444 100644
---- a/sound/soc/intel/boards/bytcr_rt5640.c
-+++ b/sound/soc/intel/boards/bytcr_rt5640.c
-@@ -28,7 +28,6 @@
- #include <dt-bindings/sound/rt5640.h>
- #include "../../codecs/rt5640.h"
- #include "../atom/sst-atom-controls.h"
--#include "../common/sst-dsp.h"
- #include "../common/soc-intel-quirks.h"
- 
- enum {
 diff --git a/sound/soc/intel/common/sst-dsp.h b/sound/soc/intel/common/sst-dsp.h
-index f580e718b183..021a36b2398a 100644
+index 021a36b2398a..f111fd3f334b 100644
 --- a/sound/soc/intel/common/sst-dsp.h
 +++ b/sound/soc/intel/common/sst-dsp.h
-@@ -12,16 +12,6 @@
- #include <linux/types.h>
- #include <linux/interrupt.h>
+@@ -26,34 +26,6 @@ struct sst_dsp_device {
+ 	void *thread_context;
+ };
  
--/* SST Shim register map
-- * The register naming can differ between products. Some products also
-- * contain extra functionality.
+-/*
+- * SST Platform Data.
 - */
--#define SST_CSR			0x00
--#define SST_ISRX		0x18
--#define SST_IMRX		0x28
--#define SST_IPCX		0x38 /* IPC IA -> SST */
--#define SST_IPCD		0x40 /* IPC SST -> IA */
+-struct sst_pdata {
+-	/* ACPI data */
+-	u32 lpe_base;
+-	u32 lpe_size;
+-	u32 pcicfg_base;
+-	u32 pcicfg_size;
+-	u32 fw_base;
+-	u32 fw_size;
+-	int irq;
 -
- struct sst_dsp;
+-	/* Firmware */
+-	const struct firmware *fw;
+-
+-	/* DMA */
+-	int resindex_dma_base; /* other fields invalid if equals to -1 */
+-	u32 dma_base;
+-	u32 dma_size;
+-	int dma_engine;
+-	struct device *dma_dev;
+-
+-	/* DSP */
+-	u32 id;
+-	void *dsp;
+-};
+-
+ /* SHIM Read / Write */
+ void sst_dsp_shim_write(struct sst_dsp *sst, u32 offset, u32 value);
+ u32 sst_dsp_shim_read(struct sst_dsp *sst, u32 offset);
+diff --git a/sound/soc/intel/skylake/skl-sst-dsp.c b/sound/soc/intel/skylake/skl-sst-dsp.c
+index 225706d148d8..4ae3eae0d1fd 100644
+--- a/sound/soc/intel/skylake/skl-sst-dsp.c
++++ b/sound/soc/intel/skylake/skl-sst-dsp.c
+@@ -422,7 +422,7 @@ struct sst_dsp *skl_dsp_ctx_init(struct device *dev,
  
- /*
+ 	/* Initialise SST Audio DSP */
+ 	if (sst->ops->init) {
+-		ret = sst->ops->init(sst, NULL);
++		ret = sst->ops->init(sst);
+ 		if (ret < 0)
+ 			return NULL;
+ 	}
 -- 
 2.17.1
 

@@ -2,91 +2,82 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 778EF2862BF
-	for <lists+alsa-devel@lfdr.de>; Wed,  7 Oct 2020 17:57:19 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 94742284A37
+	for <lists+alsa-devel@lfdr.de>; Tue,  6 Oct 2020 12:14:49 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E57C416DD;
-	Wed,  7 Oct 2020 17:56:28 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E57C416DD
+	by alsa0.perex.cz (Postfix) with ESMTPS id 168991768;
+	Tue,  6 Oct 2020 12:13:59 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 168991768
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1602086239;
-	bh=98rFKXMPiqC15og4YIXkljwFjSEyr2DDiNvqAxS67Q0=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	s=default; t=1601979289;
+	bh=FFIN7ykisjUA1LJ8XTK7nTILol98Xu3XABpIi5JJHmY=;
+	h=Date:Subject:From:To:Cc:List-Id:List-Unsubscribe:List-Archive:
 	 List-Post:List-Help:List-Subscribe:From;
-	b=kJZCqAgNm40LWRsa6j61XVdYeZYSXmzW7fy2uyBK8fTrybCh2WXU7iBlXbEr+XTpd
-	 bLpX7id8pLFabtgen7Rzj1jjp0rCKJH1/F2JiSLRuL6ZAL0piTx7xUNuOfp0pel6t9
-	 DXGiiRtxUBB4tiLsDVw+Yql5F23PQXrFrALoeuiM=
+	b=WPFXrktk0Yffd+YFIY1t7k1IhhSRK/O/PbClILiXKKtVyuqwLt/SO0WStbCA0LO/C
+	 cE3vjh4B7y+bYIzoyTPp0UVyjh94DDJx28tydoAoDpoeMoNsK6cOatnYdhcqV2+kMj
+	 t+Cg4O7QUI3KY79oUfTEORTQe47yjjzVl3q4Gv7c=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id C4A62F8025A;
-	Wed,  7 Oct 2020 17:54:50 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id AAD11F8012B;
+	Tue,  6 Oct 2020 12:13:08 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id A1931F8012A; Tue,  6 Oct 2020 09:56:22 +0200 (CEST)
+ id F005BF8012A; Tue,  6 Oct 2020 12:13:06 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mail-pg1-x542.google.com (mail-pg1-x542.google.com
- [IPv6:2607:f8b0:4864:20::542])
+X-Spam-Status: No, score=-7.6 required=5.0 tests=DKIMWL_WL_MED,DKIM_SIGNED,
+ DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,USER_IN_DEF_DKIM_WL
+ autolearn=disabled version=3.4.0
+Received: from mail-qk1-x749.google.com (mail-qk1-x749.google.com
+ [IPv6:2607:f8b0:4864:20::749])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 241FCF80128
- for <alsa-devel@alsa-project.org>; Tue,  6 Oct 2020 09:56:15 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 241FCF80128
+ by alsa1.perex.cz (Postfix) with ESMTPS id 42E7FF80127
+ for <alsa-devel@alsa-project.org>; Tue,  6 Oct 2020 12:13:03 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 42E7FF80127
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=endlessos-org.20150623.gappssmtp.com
- header.i=@endlessos-org.20150623.gappssmtp.com header.b="bgGP3X3d"
-Received: by mail-pg1-x542.google.com with SMTP id o25so7553903pgm.0
- for <alsa-devel@alsa-project.org>; Tue, 06 Oct 2020 00:56:15 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=endlessos-org.20150623.gappssmtp.com; s=20150623;
- h=from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=t5k1TjFGfKLHv3RvX/XEqm6WMW98Ka1st8yEK6IBJ2w=;
- b=bgGP3X3dHLY2qGFBCDETgUuZnETOhBrm5SSdHeWbTTxBk/0woDrgJHT2uz6IknHzoF
- xLKHawWZGhi/41XIYsdchOctVgDI3fK7TRqBCZwtNAy/QS3ScWLiAZm9GdUq4I4Qmz+k
- 6QOrlFQhgFAwOvPBHIjWUt8ozTG/9rJfVrPbaE17OLc+u2s7W+eADPxPp0L7JdYE0p5b
- yBIeoSBtbs8B1Fkelb8lykJir4bBNcQNomZ2Er3wbL+4w3SnayfGn3VMGO7qdowtiBqi
- gu42n6MqDCdfrvCXlhuPGqJoTrQz21ecrqm1Z8TQx6kUBlykRRv2u5KJ+d2SJK8cJiKV
- htEg==
+ dkim=pass (2048-bit key) header.d=google.com header.i=@google.com
+ header.b="KIPJZlvA"
+Received: by mail-qk1-x749.google.com with SMTP id d22so8810344qkb.18
+ for <alsa-devel@alsa-project.org>; Tue, 06 Oct 2020 03:13:03 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
+ h=sender:date:message-id:mime-version:subject:from:to:cc;
+ bh=AibVLWCpvCmlfgrsvKgXujQLNlseYi+yF+LjVwpYD/U=;
+ b=KIPJZlvAMwgCihJN5x6pXCsquP9BEWQyRjWMIC9EIMwdvBKo7VN9tK3fkxnp4obC7B
+ OePf0ns50VAeveSbSchwGwi/FIh3ABhFm6bj0JqpkrxmrKkBdmSvZdstA1yopcfeaTTp
+ YQNE0pi+HGIlL/VOP70aaFQP6Xx4y5FHQD6ogLlvnnULK2jHZpj26Jl9Z5rLhKS/aqoY
+ pwTjclggROf/f2UZS5Q+VcViyOzdhxsi7y/A+RTnPViSqYIG5/24NIJTg9WE/Js5vJWf
+ QFAL169sxsRPTNAg4uybJ275fvUqLt8gr/ETOoS0JqbrcWeXnSXiy9G2KODwNpiyoCI9
+ b3Ig==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=t5k1TjFGfKLHv3RvX/XEqm6WMW98Ka1st8yEK6IBJ2w=;
- b=oG+QrLdR+nJX5418rHy7jDWysmMVaVAqn/Di+ty3S1MTbhav9GDmA7bntfY6zMYcWH
- y940SxVL6NarSqmeHJqCCypuaz0RSGTWUWkmSlSTpwQJIB8eSvIhvLH6L1sZ/4YX65iH
- 4XZXXtL67prH2k+LoIX1oNoKycczhHFJnByTK3F2pbi+So1Ij0kdjESTxze7CHNSj4Ma
- k7nwP8AYYQLyQ+4Apc8a4V2ieNU3fIb1LyWP8ktf6r9E3xMWK0Vh/86ZY+A0qnGWzfGG
- zys4Uj5ZssEjViZjfk9G6/D6PI646EU/ihxODtpyBPUIEReeBbWwquuhm2xhXfDeIDGY
- 36yw==
-X-Gm-Message-State: AOAM530pqalFUmKpOPt9QB0XNNSAz1qmiw4NtGSO866auA2hDlRR0yoM
- trLZT+MOvlqEV59Q5sFV4Ai/3g==
-X-Google-Smtp-Source: ABdhPJwtHzUm2cAS9e4kkuQt6lVyfV8Hv9Sh5DvNjZO+3EmmvkTTAL2WCvuFcrnFCISreK4hCjW0Jg==
-X-Received: by 2002:aa7:8e9c:0:b029:152:8a25:548d with SMTP id
- a28-20020aa78e9c0000b02901528a25548dmr3655973pfr.73.1601970973435; 
- Tue, 06 Oct 2020 00:56:13 -0700 (PDT)
-Received: from starnight.localdomain (123-204-46-122.static.seed.net.tw.
- [123.204.46.122])
- by smtp.googlemail.com with ESMTPSA id n2sm1875377pja.41.2020.10.06.00.56.11
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 06 Oct 2020 00:56:12 -0700 (PDT)
-From: Jian-Hong Pan <jhp@endlessos.org>
-To: Takashi Iwai <tiwai@suse.com>
-Subject: [PATCH] ALSA: hda/realtek: Enable audio jacks of ASUS D700SA with
- ALC887
-Date: Tue,  6 Oct 2020 15:53:35 +0800
-Message-Id: <20201006075334.92933-1-jhp@endlessos.org>
-X-Mailer: git-send-email 2.28.0
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Wed, 07 Oct 2020 17:54:46 +0200
-Cc: alsa-devel@alsa-project.org, Kailang Yang <kailang@realtek.com>,
- linux@endlessm.com, linux-kernel@vger.kernel.org,
- Jian-Hong Pan <jhp@endlessos.org>
+ h=x-gm-message-state:sender:date:message-id:mime-version:subject:from
+ :to:cc;
+ bh=AibVLWCpvCmlfgrsvKgXujQLNlseYi+yF+LjVwpYD/U=;
+ b=gD234sDHbraKnnPAtCQcfsLvj6ybw7PEXIO0OOku3jkAG1mfbrbGjKOOJwouKnkOG8
+ IfRojcJWcMd0JBpkpLt0/rBSBj/Pbhb3KuVvNNlyfANVuk9vKMsiUpKPKXFHZ7rZzDxm
+ qTp0guXdq/WmBtm4miqAmt2iGm2l3wrLwu6FlFf6DhFxFbKd5ziav5KY13v7bbSNne9P
+ 94X6mS6Z2sdvrrl/DRU01HSRM1yfWSkqMqKHYBW1840YuClTF9pKLO3fKxGizEZIkupg
+ KjhuSpe7kchHui4arw3ZD3FDt35k5EyQFGFYuxl6jBxT2R/n1RHpw4+WzBldUdM2oQUU
+ JwXw==
+X-Gm-Message-State: AOAM533aHQHjurNjuLQweMSV02RZ3gZpIYEat4drp+2iXJkKm3UrK+4Y
+ 9XJg4QKHgWaQbCWr88ZX6rLJSu+JKmZB
+X-Google-Smtp-Source: ABdhPJx4TvwdzSZDJm3gGZk/2tU7Fm+WGLN1G8gFvHWlVXaWC0VOFWU0i0yXa7foxEJ++mLuBDOcbyT/XgTV
+X-Received: from tzungbi-z840.tpe.corp.google.com
+ ([2401:fa00:1:10:725a:fff:fe41:c6a5])
+ (user=tzungbi job=sendgmr) by 2002:a0c:9a4e:: with SMTP id
+ q14mr3741792qvd.22.1601979182022; Tue, 06 Oct 2020 03:13:02 -0700 (PDT)
+Date: Tue,  6 Oct 2020 18:12:52 +0800
+Message-Id: <20201006101252.1890385-1-tzungbi@google.com>
+Mime-Version: 1.0
+X-Mailer: git-send-email 2.28.0.806.g8561365e88-goog
+Subject: [PATCH] ASoC: mediatek: mt8183-da7219: fix wrong ops for I2S3
+From: Tzung-Bi Shih <tzungbi@google.com>
+To: broonie@kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Cc: tzungbi@google.com, alsa-devel@alsa-project.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -102,92 +93,37 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-The ASUS D700SA desktop's audio (1043:2390) with ALC887 cannot detect
-the headset microphone and another headphone jack until
-ALC887_FIXUP_ASUS_HMIC and ALC887_FIXUP_ASUS_AUDIO quirks are applied.
-The NID 0x15 maps as the headset microphone and NID 0x19 maps as another
-headphone jack. Also need the function like alc887_fixup_asus_jack to
-enable the audio jacks.
+DA7219 uses I2S2 and I2S3 for input and output respectively.  Commit
+9e30251fb22e ("ASoC: mediatek: mt8183-da7219: support machine driver
+with rt1015") introduces a bug that:
+- If using I2S2 solely, MCLK to DA7219 is 256FS.
+- If using I2S3 solely, MCLK to DA7219 is 128FS.
+- If using I2S3 first and then I2S2, the MCLK changes from 128FS to
+  256FS.  As a result, no sound output to the headset.  Also no sound
+  input from the headset microphone.
 
-Signed-off-by: Jian-Hong Pan <jhp@endlessos.org>
-Signed-off-by: Kailang Yang <kailang@realtek.com>
+Both I2S2 and I2S3 should set MCLK to 256FS.  Fixes the wrong ops for
+I2S3.
+
+Fixes: 9e30251fb22e ("ASoC: mediatek: mt8183-da7219: support machine driver with rt1015")
+Signed-off-by: Tzung-Bi Shih <tzungbi@google.com>
 ---
- sound/pci/hda/patch_realtek.c | 41 +++++++++++++++++++++++++++++++++++
- 1 file changed, 41 insertions(+)
+ sound/soc/mediatek/mt8183/mt8183-da7219-max98357.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/sound/pci/hda/patch_realtek.c b/sound/pci/hda/patch_realtek.c
-index d4f17b465892..8d0928bdc9ff 100644
---- a/sound/pci/hda/patch_realtek.c
-+++ b/sound/pci/hda/patch_realtek.c
-@@ -1929,6 +1929,8 @@ enum {
- 	ALC1220_FIXUP_CLEVO_P950,
- 	ALC1220_FIXUP_CLEVO_PB51ED,
- 	ALC1220_FIXUP_CLEVO_PB51ED_PINS,
-+	ALC887_FIXUP_ASUS_AUDIO,
-+	ALC887_FIXUP_ASUS_HMIC,
- };
- 
- static void alc889_fixup_coef(struct hda_codec *codec,
-@@ -2141,6 +2143,30 @@ static void alc1220_fixup_clevo_pb51ed(struct hda_codec *codec,
- 	alc_fixup_headset_mode_no_hp_mic(codec, fix, action);
- }
- 
-+static void alc887_asus_hp_automute_hook(struct hda_codec *codec,
-+					 struct hda_jack_callback *jack)
-+{
-+	struct alc_spec *spec = codec->spec;
-+	int vref;
-+
-+	snd_hda_gen_hp_automute(codec, jack);
-+
-+	vref = spec->gen.hp_jack_present ? 0xc4 : 0xc0;
-+	snd_hda_codec_write(codec, 0x19, 0, AC_VERB_SET_PIN_WIDGET_CONTROL,
-+			    vref);
-+}
-+
-+static void alc887_fixup_asus_jack(struct hda_codec *codec,
-+				     const struct hda_fixup *fix, int action)
-+{
-+	struct alc_spec *spec = codec->spec;
-+	if (action != HDA_FIXUP_ACT_PROBE)
-+		return;
-+	snd_hda_codec_write(codec, 0x1b, 0, AC_VERB_SET_PIN_WIDGET_CONTROL,
-+			    0xc0);
-+	spec->gen.hp_automute_hook = alc887_asus_hp_automute_hook;
-+}
-+
- static const struct hda_fixup alc882_fixups[] = {
- 	[ALC882_FIXUP_ABIT_AW9D_MAX] = {
- 		.type = HDA_FIXUP_PINS,
-@@ -2398,6 +2424,20 @@ static const struct hda_fixup alc882_fixups[] = {
- 		.chained = true,
- 		.chain_id = ALC1220_FIXUP_CLEVO_PB51ED,
- 	},
-+	[ALC887_FIXUP_ASUS_AUDIO] = {
-+		.type = HDA_FIXUP_PINS,
-+		.v.pins = (const struct hda_pintbl[]) {
-+			{ 0x15, 0x02a14150 }, /* use as headset mic, without its own jack detect */
-+			{ 0x19, 0x22219420 },
-+			{}
-+		},
-+	},
-+	[ALC887_FIXUP_ASUS_HMIC] = {
-+		.type = HDA_FIXUP_FUNC,
-+		.v.func = alc887_fixup_asus_jack,
-+		.chained = true,
-+		.chain_id = ALC887_FIXUP_ASUS_AUDIO,
-+	},
- };
- 
- static const struct snd_pci_quirk alc882_fixup_tbl[] = {
-@@ -2431,6 +2471,7 @@ static const struct snd_pci_quirk alc882_fixup_tbl[] = {
- 	SND_PCI_QUIRK(0x1043, 0x13c2, "Asus A7M", ALC882_FIXUP_EAPD),
- 	SND_PCI_QUIRK(0x1043, 0x1873, "ASUS W90V", ALC882_FIXUP_ASUS_W90V),
- 	SND_PCI_QUIRK(0x1043, 0x1971, "Asus W2JC", ALC882_FIXUP_ASUS_W2JC),
-+	SND_PCI_QUIRK(0x1043, 0x2390, "Asus D700SA", ALC887_FIXUP_ASUS_HMIC),
- 	SND_PCI_QUIRK(0x1043, 0x835f, "Asus Eee 1601", ALC888_FIXUP_EEE1601),
- 	SND_PCI_QUIRK(0x1043, 0x84bc, "ASUS ET2700", ALC887_FIXUP_ASUS_BASS),
- 	SND_PCI_QUIRK(0x1043, 0x8691, "ASUS ROG Ranger VIII", ALC882_FIXUP_GPIO3),
+diff --git a/sound/soc/mediatek/mt8183/mt8183-da7219-max98357.c b/sound/soc/mediatek/mt8183/mt8183-da7219-max98357.c
+index 4d69ea31bfe4..c2c1eb16fcc0 100644
+--- a/sound/soc/mediatek/mt8183/mt8183-da7219-max98357.c
++++ b/sound/soc/mediatek/mt8183/mt8183-da7219-max98357.c
+@@ -696,7 +696,7 @@ static int mt8183_da7219_max98357_dev_probe(struct platform_device *pdev)
+ 			if (card == &mt8183_da7219_max98357_card) {
+ 				dai_link->be_hw_params_fixup =
+ 					mt8183_i2s_hw_params_fixup;
+-				dai_link->ops = &mt8183_mt6358_i2s_ops;
++				dai_link->ops = &mt8183_da7219_i2s_ops;
+ 				dai_link->cpus = i2s3_max98357a_cpus;
+ 				dai_link->num_cpus =
+ 					ARRAY_SIZE(i2s3_max98357a_cpus);
 -- 
-2.28.0
+2.28.0.806.g8561365e88-goog
 

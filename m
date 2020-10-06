@@ -2,61 +2,60 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id EE4EB28464F
-	for <lists+alsa-devel@lfdr.de>; Tue,  6 Oct 2020 08:52:32 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2BC7A28465C
+	for <lists+alsa-devel@lfdr.de>; Tue,  6 Oct 2020 08:55:02 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A815A177F;
-	Tue,  6 Oct 2020 08:51:41 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A815A177F
+	by alsa0.perex.cz (Postfix) with ESMTPS id 518091785;
+	Tue,  6 Oct 2020 08:54:11 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 518091785
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1601967151;
-	bh=kouBKKCa+Fa8LFf6VjqIPsYz9L/Ac7e98dyKmMgwlsg=;
+	s=default; t=1601967301;
+	bh=1HLk7ms3wbly03f1JXTorwr3JWIrZbtmlT8lkTLNp8s=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=I5j6ZHHpw7ky9pIH5JzGYf011htcwFwdYXBd5IZ2vcuwh3xBx8WB1PdHzMbK4QRtM
-	 Z/N8XEgA/JSazLQtwqCKdATxjmb3B4TP8N2S7hu6wLcJxaZcPi0tSkPq6VGpdvoP38
-	 7+vhRGFtf8i/d1norGGFlMS5iThFs73MCZUOgEjU=
+	b=jl5OPVtT4kZB0vKb9nuDDgWTqVGqaG5UPn2miXsm0V/5jDiR7FL20UtHorxsvHELL
+	 EouPKT1ZY9bh+pLkaS8pv3Iu9+he8q2VYSmrqJmVeg7aeiwtxVffit/NznM6wwAeAV
+	 5gFz/hzJPuR1Ev4W4Xcvl/BM9moisHiKV59PWSj0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id E0935F802E9;
-	Tue,  6 Oct 2020 08:50:18 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id E9AD2F80321;
+	Tue,  6 Oct 2020 08:50:38 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 463E3F802DB; Tue,  6 Oct 2020 08:50:12 +0200 (CEST)
+ id 4FE1CF80307; Tue,  6 Oct 2020 08:50:31 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
+X-Spam-Status: No, score=0.3 required=5.0 tests=PRX_BODY_65,SPF_HELO_NONE,
+ SPF_PASS,URIBL_BLOCKED autolearn=disabled version=3.4.0
 Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 59198F80255
- for <alsa-devel@alsa-project.org>; Tue,  6 Oct 2020 08:50:00 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 59198F80255
-IronPort-SDR: /lATb56thF2YyDS0YWiJOSBfwFjS/u46Wj33fLDG5tgLdn8K0BoPCSEiDPbb+0ZvlJz9pr4g9e
- KUCMkIdyCOQg==
-X-IronPort-AV: E=McAfee;i="6000,8403,9765"; a="249091234"
-X-IronPort-AV: E=Sophos;i="5.77,342,1596524400"; d="scan'208";a="249091234"
+ by alsa1.perex.cz (Postfix) with ESMTPS id D454BF8015B
+ for <alsa-devel@alsa-project.org>; Tue,  6 Oct 2020 08:50:03 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D454BF8015B
+IronPort-SDR: XlrcK/uO2izp0271eohMDa7vbsnp4Bo7dQjf+SZsgVx5DuX2nKbmNDe0SrZzUQ0eroxWLa2diX
+ AeR8/LN0tBxA==
+X-IronPort-AV: E=McAfee;i="6000,8403,9765"; a="249091256"
+X-IronPort-AV: E=Sophos;i="5.77,342,1596524400"; d="scan'208";a="249091256"
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
 Received: from orsmga006.jf.intel.com ([10.7.209.51])
  by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 05 Oct 2020 23:49:58 -0700
-IronPort-SDR: b3g1mCw7d0OQIwffsvpZi/zMkNePptrlGmbf/IstQRUcHk9/iPd2/GZSuYH/ZgluaVC2hnu3fy
- 8Bqbl3b8bLTA==
+ 05 Oct 2020 23:50:03 -0700
+IronPort-SDR: +nlIJIZ1EsDytR8Dyor+xPlouRalqdngiVL5A4mTyJi90vgX4H/o9v3enC8yv6pJMQATgtskpi
+ 9Cg0YGxngfeg==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.77,342,1596524400"; d="scan'208";a="315491099"
+X-IronPort-AV: E=Sophos;i="5.77,342,1596524400"; d="scan'208";a="315491143"
 Received: from crojewsk-ctrl.igk.intel.com ([10.102.9.28])
- by orsmga006.jf.intel.com with ESMTP; 05 Oct 2020 23:49:54 -0700
+ by orsmga006.jf.intel.com with ESMTP; 05 Oct 2020 23:49:58 -0700
 From: Cezary Rojewski <cezary.rojewski@intel.com>
 To: alsa-devel@alsa-project.org
-Subject: [PATCH v2 03/13] ASoC: Intel: Remove rt5640 support for baytrail
- solution
-Date: Tue,  6 Oct 2020 08:48:57 +0200
-Message-Id: <20201006064907.16277-4-cezary.rojewski@intel.com>
+Subject: [PATCH v2 04/13] ASoC: Intel: Remove baytrail solution
+Date: Tue,  6 Oct 2020 08:48:58 +0200
+Message-Id: <20201006064907.16277-5-cezary.rojewski@intel.com>
 X-Mailer: git-send-email 2.17.1
 In-Reply-To: <20201006064907.16277-1-cezary.rojewski@intel.com>
 References: <20201006064907.16277-1-cezary.rojewski@intel.com>
@@ -83,328 +82,1754 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-byt-rt5640 is deprecated in favor of bytcr_rt5640 used by
-sound/soc/intel/atom and SOF solutions both. Remove redundant machine
-board and all related code.
+sound/soc/intel/baytrail is a niche solution which supports limited
+number of BYT products - as described by
+snd_soc_acpi_intel_baytrail_legacy_machines table. For a long time it's
+deprecated in favor of sound/soc/intel/atom solution with SOF providing
+support for some products too effectively rendering /baytrail/ redundant.
+Remove deprecated code from ASoC tree.
 
 Signed-off-by: Cezary Rojewski <cezary.rojewski@intel.com>
 Reviewed-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
 ---
- include/sound/soc-acpi-intel-match.h          |   1 -
- sound/soc/intel/boards/Kconfig                |  14 --
- sound/soc/intel/boards/Makefile               |   2 -
- sound/soc/intel/boards/byt-rt5640.c           | 224 ------------------
- .../intel/common/soc-acpi-intel-byt-match.c   |  10 -
- 5 files changed, 251 deletions(-)
- delete mode 100644 sound/soc/intel/boards/byt-rt5640.c
+ sound/soc/intel/Kconfig                     |  13 -
+ sound/soc/intel/Makefile                    |   1 -
+ sound/soc/intel/baytrail/Makefile           |   5 -
+ sound/soc/intel/baytrail/sst-baytrail-dsp.c | 358 ---------
+ sound/soc/intel/baytrail/sst-baytrail-ipc.c | 772 --------------------
+ sound/soc/intel/baytrail/sst-baytrail-ipc.h |  64 --
+ sound/soc/intel/baytrail/sst-baytrail-pcm.c | 459 ------------
+ 7 files changed, 1672 deletions(-)
+ delete mode 100644 sound/soc/intel/baytrail/Makefile
+ delete mode 100644 sound/soc/intel/baytrail/sst-baytrail-dsp.c
+ delete mode 100644 sound/soc/intel/baytrail/sst-baytrail-ipc.c
+ delete mode 100644 sound/soc/intel/baytrail/sst-baytrail-ipc.h
+ delete mode 100644 sound/soc/intel/baytrail/sst-baytrail-pcm.c
 
-diff --git a/include/sound/soc-acpi-intel-match.h b/include/sound/soc-acpi-intel-match.h
-index ab6f75a86611..5c49e7d78002 100644
---- a/include/sound/soc-acpi-intel-match.h
-+++ b/include/sound/soc-acpi-intel-match.h
-@@ -16,7 +16,6 @@
-  */
- extern struct snd_soc_acpi_mach snd_soc_acpi_intel_haswell_machines[];
- extern struct snd_soc_acpi_mach snd_soc_acpi_intel_broadwell_machines[];
--extern struct snd_soc_acpi_mach snd_soc_acpi_intel_baytrail_legacy_machines[];
- extern struct snd_soc_acpi_mach snd_soc_acpi_intel_baytrail_machines[];
- extern struct snd_soc_acpi_mach snd_soc_acpi_intel_cherrytrail_machines[];
- extern struct snd_soc_acpi_mach snd_soc_acpi_intel_skl_machines[];
-diff --git a/sound/soc/intel/boards/Kconfig b/sound/soc/intel/boards/Kconfig
-index a8da892441be..c10c37803c67 100644
---- a/sound/soc/intel/boards/Kconfig
-+++ b/sound/soc/intel/boards/Kconfig
-@@ -85,20 +85,6 @@ config SND_SOC_INTEL_BROADWELL_MACH
- 	  If unsure select "N".
- endif ## SND_SOC_INTEL_CATPT || SND_SOC_SOF_BROADWELL
+diff --git a/sound/soc/intel/Kconfig b/sound/soc/intel/Kconfig
+index dfc20f2bb859..41f9c286b34c 100644
+--- a/sound/soc/intel/Kconfig
++++ b/sound/soc/intel/Kconfig
+@@ -63,19 +63,6 @@ config SND_SOC_INTEL_HASWELL
+ 	tristate
+ 	select SND_SOC_INTEL_CATPT
  
--if SND_SOC_INTEL_BAYTRAIL
--
--config SND_SOC_INTEL_BYT_RT5640_MACH
--	tristate "Baytrail with RT5640 codec"
--	depends on I2C
--	depends on X86_INTEL_LPSS || COMPILE_TEST
--	select SND_SOC_RT5640
+-config SND_SOC_INTEL_BAYTRAIL
+-	tristate "Baytrail (legacy) Platforms"
+-	depends on DMADEVICES && ACPI && SND_SST_ATOM_HIFI2_PLATFORM=n && SND_SOC_SOF_BAYTRAIL=n
+-	select SND_SOC_INTEL_SST
+-	select SND_SOC_INTEL_SST_ACPI
+-	select SND_SOC_INTEL_SST_FIRMWARE
+-	select SND_SOC_ACPI_INTEL_MATCH
 -	help
--	  This adds audio driver for Intel Baytrail platform based boards
--	  with the RT5640 audio codec. This driver is deprecated, use
--	  SND_SOC_INTEL_BYTCR_RT5640_MACH instead for better functionality.
+-	  If you have a Intel Baytrail platform connected to an I2S codec,
+-	  then enable this option by saying Y or m. This was typically used
+-	  for Baytrail Chromebooks but this option is now deprecated and is
+-	  not recommended, use SND_SST_ATOM_HIFI2_PLATFORM instead.
 -
--endif ## SND_SOC_INTEL_BAYTRAIL
--
- if SND_SST_ATOM_HIFI2_PLATFORM || SND_SOC_SOF_BAYTRAIL
+ config SND_SST_ATOM_HIFI2_PLATFORM
+ 	tristate
+ 	select SND_SOC_COMPRESS
+diff --git a/sound/soc/intel/Makefile b/sound/soc/intel/Makefile
+index c88c615f85f7..4e0248d2accc 100644
+--- a/sound/soc/intel/Makefile
++++ b/sound/soc/intel/Makefile
+@@ -3,7 +3,6 @@
+ obj-$(CONFIG_SND_SOC) += common/
  
- config SND_SOC_INTEL_BYTCR_RT5640_MACH
-diff --git a/sound/soc/intel/boards/Makefile b/sound/soc/intel/boards/Makefile
-index b2e5709a097b..a58e4d22e9c8 100644
---- a/sound/soc/intel/boards/Makefile
-+++ b/sound/soc/intel/boards/Makefile
-@@ -1,6 +1,5 @@
- # SPDX-License-Identifier: GPL-2.0-only
- snd-soc-sst-haswell-objs := haswell.o
--snd-soc-sst-byt-rt5640-mach-objs := byt-rt5640.o
- snd-soc-sst-bdw-rt5650-mach-objs := bdw-rt5650.o
- snd-soc-sst-bdw-rt5677-mach-objs := bdw-rt5677.o
- snd-soc-sst-broadwell-objs := broadwell.o
-@@ -42,7 +41,6 @@ snd-soc-sof-sdw-objs += sof_sdw.o				\
- 			sof_sdw_dmic.o sof_sdw_hdmi.o hda_dsp_common.o
- obj-$(CONFIG_SND_SOC_INTEL_SOF_RT5682_MACH) += snd-soc-sof_rt5682.o
- obj-$(CONFIG_SND_SOC_INTEL_HASWELL_MACH) += snd-soc-sst-haswell.o
--obj-$(CONFIG_SND_SOC_INTEL_BYT_RT5640_MACH) += snd-soc-sst-byt-rt5640-mach.o
- obj-$(CONFIG_SND_SOC_INTEL_BXT_DA7219_MAX98357A_COMMON) += snd-soc-sst-bxt-da7219_max98357a.o
- obj-$(CONFIG_SND_SOC_INTEL_BXT_RT298_MACH) += snd-soc-sst-bxt-rt298.o
- obj-$(CONFIG_SND_SOC_INTEL_SOF_PCM512x_MACH) += snd-soc-sst-sof-pcm512x.o
-diff --git a/sound/soc/intel/boards/byt-rt5640.c b/sound/soc/intel/boards/byt-rt5640.c
+ # Platform Support
+-obj-$(CONFIG_SND_SOC_INTEL_BAYTRAIL) += baytrail/
+ obj-$(CONFIG_SND_SST_ATOM_HIFI2_PLATFORM) += atom/
+ obj-$(CONFIG_SND_SOC_INTEL_CATPT) += catpt/
+ obj-$(CONFIG_SND_SOC_INTEL_SKYLAKE) += skylake/
+diff --git a/sound/soc/intel/baytrail/Makefile b/sound/soc/intel/baytrail/Makefile
 deleted file mode 100644
-index 8851949f38e2..000000000000
---- a/sound/soc/intel/boards/byt-rt5640.c
+index 4d0806aac6bd..000000000000
+--- a/sound/soc/intel/baytrail/Makefile
 +++ /dev/null
-@@ -1,224 +0,0 @@
+@@ -1,5 +0,0 @@
+-# SPDX-License-Identifier: GPL-2.0-only
+-snd-soc-sst-baytrail-pcm-objs := \
+-	        sst-baytrail-ipc.o sst-baytrail-pcm.o sst-baytrail-dsp.o
+-
+-obj-$(CONFIG_SND_SOC_INTEL_BAYTRAIL) += snd-soc-sst-baytrail-pcm.o
+diff --git a/sound/soc/intel/baytrail/sst-baytrail-dsp.c b/sound/soc/intel/baytrail/sst-baytrail-dsp.c
+deleted file mode 100644
+index 4116ba66a4c2..000000000000
+--- a/sound/soc/intel/baytrail/sst-baytrail-dsp.c
++++ /dev/null
+@@ -1,358 +0,0 @@
 -// SPDX-License-Identifier: GPL-2.0-only
 -/*
-- * Intel Baytrail SST RT5640 machine driver
+- * Intel Baytrail SST DSP driver
 - * Copyright (c) 2014, Intel Corporation.
 - */
 -
--#include <linux/init.h>
--#include <linux/module.h>
--#include <linux/platform_device.h>
--#include <linux/acpi.h>
--#include <linux/device.h>
--#include <linux/dmi.h>
+-#include <linux/delay.h>
+-#include <linux/fs.h>
 -#include <linux/slab.h>
--#include <sound/pcm.h>
--#include <sound/pcm_params.h>
--#include <sound/soc.h>
--#include <sound/jack.h>
--#include "../../codecs/rt5640.h"
+-#include <linux/device.h>
+-#include <linux/interrupt.h>
+-#include <linux/module.h>
+-#include <linux/dma-mapping.h>
+-#include <linux/platform_device.h>
+-#include <linux/firmware.h>
 -
 -#include "../common/sst-dsp.h"
+-#include "../common/sst-dsp-priv.h"
+-#include "sst-baytrail-ipc.h"
 -
--static const struct snd_soc_dapm_widget byt_rt5640_widgets[] = {
--	SND_SOC_DAPM_HP("Headphone", NULL),
--	SND_SOC_DAPM_MIC("Headset Mic", NULL),
--	SND_SOC_DAPM_MIC("Internal Mic", NULL),
--	SND_SOC_DAPM_SPK("Speaker", NULL),
+-#define SST_BYT_FW_SIGNATURE_SIZE	4
+-#define SST_BYT_FW_SIGN			"$SST"
+-
+-#define SST_BYT_IRAM_OFFSET	0xC0000
+-#define SST_BYT_DRAM_OFFSET	0x100000
+-#define SST_BYT_SHIM_OFFSET	0x140000
+-
+-enum sst_ram_type {
+-	SST_BYT_IRAM	= 1,
+-	SST_BYT_DRAM	= 2,
+-	SST_BYT_CACHE	= 3,
 -};
 -
--static const struct snd_soc_dapm_route byt_rt5640_audio_map[] = {
--	{"Headset Mic", NULL, "MICBIAS1"},
--	{"IN2P", NULL, "Headset Mic"},
--	{"Headphone", NULL, "HPOL"},
--	{"Headphone", NULL, "HPOR"},
--	{"Speaker", NULL, "SPOLP"},
--	{"Speaker", NULL, "SPOLN"},
--	{"Speaker", NULL, "SPORP"},
--	{"Speaker", NULL, "SPORN"},
+-struct dma_block_info {
+-	enum sst_ram_type	type;	/* IRAM/DRAM */
+-	u32			size;	/* Bytes */
+-	u32			ram_offset; /* Offset in I/DRAM */
+-	u32			rsvd;	/* Reserved field */
 -};
 -
--static const struct snd_soc_dapm_route byt_rt5640_intmic_dmic1_map[] = {
--	{"DMIC1", NULL, "Internal Mic"},
+-struct fw_header {
+-	unsigned char signature[SST_BYT_FW_SIGNATURE_SIZE];
+-	u32 file_size; /* size of fw minus this header */
+-	u32 modules; /*  # of modules */
+-	u32 file_format; /* version of header format */
+-	u32 reserved[4];
 -};
 -
--static const struct snd_soc_dapm_route byt_rt5640_intmic_dmic2_map[] = {
--	{"DMIC2", NULL, "Internal Mic"},
+-struct sst_byt_fw_module_header {
+-	unsigned char signature[SST_BYT_FW_SIGNATURE_SIZE];
+-	u32 mod_size; /* size of module */
+-	u32 blocks; /* # of blocks */
+-	u32 type; /* codec type, pp lib */
+-	u32 entry_point;
 -};
 -
--static const struct snd_soc_dapm_route byt_rt5640_intmic_in1_map[] = {
--	{"Internal Mic", NULL, "MICBIAS1"},
--	{"IN1P", NULL, "Internal Mic"},
--};
--
--enum {
--	BYT_RT5640_DMIC1_MAP,
--	BYT_RT5640_DMIC2_MAP,
--	BYT_RT5640_IN1_MAP,
--};
--
--#define BYT_RT5640_MAP(quirk)	((quirk) & 0xff)
--#define BYT_RT5640_DMIC_EN	BIT(16)
--
--static unsigned long byt_rt5640_quirk = BYT_RT5640_DMIC1_MAP |
--					BYT_RT5640_DMIC_EN;
--
--static const struct snd_kcontrol_new byt_rt5640_controls[] = {
--	SOC_DAPM_PIN_SWITCH("Headphone"),
--	SOC_DAPM_PIN_SWITCH("Headset Mic"),
--	SOC_DAPM_PIN_SWITCH("Internal Mic"),
--	SOC_DAPM_PIN_SWITCH("Speaker"),
--};
--
--static int byt_rt5640_hw_params(struct snd_pcm_substream *substream,
--				struct snd_pcm_hw_params *params)
+-static int sst_byt_parse_module(struct sst_dsp *dsp, struct sst_fw *fw,
+-				struct sst_byt_fw_module_header *module)
 -{
--	struct snd_soc_pcm_runtime *rtd = asoc_substream_to_rtd(substream);
--	struct snd_soc_dai *codec_dai = asoc_rtd_to_codec(rtd, 0);
--	int ret;
+-	struct dma_block_info *block;
+-	struct sst_module *mod;
+-	struct sst_module_template template;
+-	int count;
 -
--	ret = snd_soc_dai_set_sysclk(codec_dai, RT5640_SCLK_S_PLL1,
--				     params_rate(params) * 256,
--				     SND_SOC_CLOCK_IN);
--	if (ret < 0) {
--		dev_err(codec_dai->dev, "can't set codec clock %d\n", ret);
--		return ret;
--	}
--	ret = snd_soc_dai_set_pll(codec_dai, 0, RT5640_PLL1_S_BCLK1,
--				  params_rate(params) * 64,
--				  params_rate(params) * 256);
--	if (ret < 0) {
--		dev_err(codec_dai->dev, "can't set codec pll: %d\n", ret);
--		return ret;
+-	memset(&template, 0, sizeof(template));
+-	template.id = module->type;
+-	template.entry = module->entry_point;
+-
+-	mod = sst_module_new(fw, &template, NULL);
+-	if (mod == NULL)
+-		return -ENOMEM;
+-
+-	block = (void *)module + sizeof(*module);
+-
+-	for (count = 0; count < module->blocks; count++) {
+-
+-		if (block->size <= 0) {
+-			dev_err(dsp->dev, "block %d size invalid\n", count);
+-			return -EINVAL;
+-		}
+-
+-		switch (block->type) {
+-		case SST_BYT_IRAM:
+-			mod->offset = block->ram_offset +
+-					    dsp->addr.iram_offset;
+-			mod->type = SST_MEM_IRAM;
+-			break;
+-		case SST_BYT_DRAM:
+-			mod->offset = block->ram_offset +
+-					    dsp->addr.dram_offset;
+-			mod->type = SST_MEM_DRAM;
+-			break;
+-		case SST_BYT_CACHE:
+-			mod->offset = block->ram_offset +
+-					    (dsp->addr.fw_ext - dsp->addr.lpe);
+-			mod->type = SST_MEM_CACHE;
+-			break;
+-		default:
+-			dev_err(dsp->dev, "wrong ram type 0x%x in block0x%x\n",
+-				block->type, count);
+-			return -EINVAL;
+-		}
+-
+-		mod->size = block->size;
+-		mod->data = (void *)block + sizeof(*block);
+-
+-		sst_module_alloc_blocks(mod);
+-
+-		block = (void *)block + sizeof(*block) + block->size;
 -	}
 -	return 0;
 -}
 -
--static int byt_rt5640_quirk_cb(const struct dmi_system_id *id)
+-static int sst_byt_parse_fw_image(struct sst_fw *sst_fw)
 -{
--	byt_rt5640_quirk = (unsigned long)id->driver_data;
--	return 1;
+-	struct fw_header *header;
+-	struct sst_byt_fw_module_header *module;
+-	struct sst_dsp *dsp = sst_fw->dsp;
+-	int ret, count;
+-
+-	/* Read the header information from the data pointer */
+-	header = (struct fw_header *)sst_fw->dma_buf;
+-
+-	/* verify FW */
+-	if ((strncmp(header->signature, SST_BYT_FW_SIGN, 4) != 0) ||
+-	    (sst_fw->size != header->file_size + sizeof(*header))) {
+-		/* Invalid FW signature */
+-		dev_err(dsp->dev, "Invalid FW sign/filesize mismatch\n");
+-		return -EINVAL;
+-	}
+-
+-	dev_dbg(dsp->dev,
+-		"header sign=%4s size=0x%x modules=0x%x fmt=0x%x size=%zu\n",
+-		header->signature, header->file_size, header->modules,
+-		header->file_format, sizeof(*header));
+-
+-	module = (void *)sst_fw->dma_buf + sizeof(*header);
+-	for (count = 0; count < header->modules; count++) {
+-		/* module */
+-		ret = sst_byt_parse_module(dsp, sst_fw, module);
+-		if (ret < 0) {
+-			dev_err(dsp->dev, "invalid module %d\n", count);
+-			return ret;
+-		}
+-		module = (void *)module + sizeof(*module) + module->mod_size;
+-	}
+-
+-	return 0;
 -}
 -
--static const struct dmi_system_id byt_rt5640_quirk_table[] = {
--	{
--		.callback = byt_rt5640_quirk_cb,
--		.matches = {
--			DMI_MATCH(DMI_SYS_VENDOR, "ASUSTeK COMPUTER INC."),
--			DMI_MATCH(DMI_PRODUCT_NAME, "T100TA"),
--		},
--		.driver_data = (unsigned long *)BYT_RT5640_IN1_MAP,
--	},
--	{
--		.callback = byt_rt5640_quirk_cb,
--		.matches = {
--			DMI_MATCH(DMI_SYS_VENDOR, "DellInc."),
--			DMI_MATCH(DMI_PRODUCT_NAME, "Venue 8 Pro 5830"),
--		},
--		.driver_data = (unsigned long *)(BYT_RT5640_DMIC2_MAP |
--						 BYT_RT5640_DMIC_EN),
--	},
--	{}
--};
--
--static int byt_rt5640_init(struct snd_soc_pcm_runtime *runtime)
+-static void sst_byt_dump_shim(struct sst_dsp *sst)
 -{
--	int ret;
--	struct snd_soc_component *component = asoc_rtd_to_codec(runtime, 0)->component;
--	struct snd_soc_card *card = runtime->card;
--	const struct snd_soc_dapm_route *custom_map;
--	int num_routes;
+-	int i;
+-	u64 reg;
 -
--	card->dapm.idle_bias_off = true;
--
--	ret = snd_soc_add_card_controls(card, byt_rt5640_controls,
--					ARRAY_SIZE(byt_rt5640_controls));
--	if (ret) {
--		dev_err(card->dev, "unable to add card controls\n");
--		return ret;
+-	for (i = 0; i <= 0xF0; i += 8) {
+-		reg = sst_dsp_shim_read64_unlocked(sst, i);
+-		if (reg)
+-			dev_dbg(sst->dev, "shim 0x%2.2x value 0x%16.16llx\n",
+-				i, reg);
 -	}
 -
--	dmi_check_system(byt_rt5640_quirk_table);
--	switch (BYT_RT5640_MAP(byt_rt5640_quirk)) {
--	case BYT_RT5640_IN1_MAP:
--		custom_map = byt_rt5640_intmic_in1_map;
--		num_routes = ARRAY_SIZE(byt_rt5640_intmic_in1_map);
--		break;
--	case BYT_RT5640_DMIC2_MAP:
--		custom_map = byt_rt5640_intmic_dmic2_map;
--		num_routes = ARRAY_SIZE(byt_rt5640_intmic_dmic2_map);
--		break;
--	default:
--		custom_map = byt_rt5640_intmic_dmic1_map;
--		num_routes = ARRAY_SIZE(byt_rt5640_intmic_dmic1_map);
+-	for (i = 0x00; i <= 0xff; i += 4) {
+-		reg = readl(sst->addr.pci_cfg + i);
+-		if (reg)
+-			dev_dbg(sst->dev, "pci 0x%2.2x value 0x%8.8x\n",
+-				i, (u32)reg);
+-	}
+-}
+-
+-static irqreturn_t sst_byt_irq(int irq, void *context)
+-{
+-	struct sst_dsp *sst = (struct sst_dsp *) context;
+-	u64 isrx;
+-	irqreturn_t ret = IRQ_NONE;
+-
+-	spin_lock(&sst->spinlock);
+-
+-	isrx = sst_dsp_shim_read64_unlocked(sst, SST_ISRX);
+-	if (isrx & SST_ISRX_DONE) {
+-		/* ADSP has processed the message request from IA */
+-		sst_dsp_shim_update_bits64_unlocked(sst, SST_IPCX,
+-						    SST_BYT_IPCX_DONE, 0);
+-		ret = IRQ_WAKE_THREAD;
+-	}
+-	if (isrx & SST_BYT_ISRX_REQUEST) {
+-		/* mask message request from ADSP and do processing later */
+-		sst_dsp_shim_update_bits64_unlocked(sst, SST_IMRX,
+-						    SST_BYT_IMRX_REQUEST,
+-						    SST_BYT_IMRX_REQUEST);
+-		ret = IRQ_WAKE_THREAD;
 -	}
 -
--	ret = snd_soc_dapm_add_routes(&card->dapm, custom_map, num_routes);
--	if (ret)
--		return ret;
--
--	if (byt_rt5640_quirk & BYT_RT5640_DMIC_EN) {
--		ret = rt5640_dmic_enable(component, 0, 0);
--		if (ret)
--			return ret;
--	}
--
--	snd_soc_dapm_ignore_suspend(&card->dapm, "Headphone");
--	snd_soc_dapm_ignore_suspend(&card->dapm, "Speaker");
+-	spin_unlock(&sst->spinlock);
 -
 -	return ret;
 -}
 -
--static struct snd_soc_ops byt_rt5640_ops = {
--	.hw_params = byt_rt5640_hw_params,
--};
--
--SND_SOC_DAILINK_DEFS(audio,
--	DAILINK_COMP_ARRAY(COMP_CPU("baytrail-pcm-audio")),
--	DAILINK_COMP_ARRAY(COMP_CODEC("i2c-10EC5640:00", "rt5640-aif1")),
--	DAILINK_COMP_ARRAY(COMP_PLATFORM("baytrail-pcm-audio")));
--
--static struct snd_soc_dai_link byt_rt5640_dais[] = {
--	{
--		.name = "Baytrail Audio",
--		.stream_name = "Audio",
--		.dai_fmt = SND_SOC_DAIFMT_I2S | SND_SOC_DAIFMT_NB_NF |
--			   SND_SOC_DAIFMT_CBS_CFS,
--		.init = byt_rt5640_init,
--		.ops = &byt_rt5640_ops,
--		SND_SOC_DAILINK_REG(audio),
--	},
--};
--
--static struct snd_soc_card byt_rt5640_card = {
--	.name = "byt-rt5640",
--	.owner = THIS_MODULE,
--	.dai_link = byt_rt5640_dais,
--	.num_links = ARRAY_SIZE(byt_rt5640_dais),
--	.dapm_widgets = byt_rt5640_widgets,
--	.num_dapm_widgets = ARRAY_SIZE(byt_rt5640_widgets),
--	.dapm_routes = byt_rt5640_audio_map,
--	.num_dapm_routes = ARRAY_SIZE(byt_rt5640_audio_map),
--	.fully_routed = true,
--};
--
--static int byt_rt5640_probe(struct platform_device *pdev)
+-static void sst_byt_boot(struct sst_dsp *sst)
 -{
--	struct snd_soc_card *card = &byt_rt5640_card;
+-	int tries = 10;
 -
--	card->dev = &pdev->dev;
--	return devm_snd_soc_register_card(&pdev->dev, card);
+-	/*
+-	 * save the physical address of extended firmware block in the first
+-	 * 4 bytes of the mailbox
+-	 */
+-	memcpy_toio(sst->addr.lpe + SST_BYT_MAILBOX_OFFSET,
+-	       &sst->pdata->fw_base, sizeof(u32));
+-
+-	/* release stall and wait to unstall */
+-	sst_dsp_shim_update_bits64(sst, SST_CSR, SST_BYT_CSR_STALL, 0x0);
+-	while (tries--) {
+-		if (!(sst_dsp_shim_read64(sst, SST_CSR) &
+-		      SST_BYT_CSR_PWAITMODE))
+-			break;
+-		msleep(100);
+-	}
+-	if (tries < 0) {
+-		dev_err(sst->dev, "unable to start DSP\n");
+-		sst_byt_dump_shim(sst);
+-	}
 -}
 -
--static struct platform_driver byt_rt5640_audio = {
--	.probe = byt_rt5640_probe,
--	.driver = {
--		.name = "byt-rt5640",
--		.pm = &snd_soc_pm_ops,
--	},
--};
--module_platform_driver(byt_rt5640_audio)
+-static void sst_byt_reset(struct sst_dsp *sst)
+-{
+-	/* put DSP into reset, set reset vector and stall */
+-	sst_dsp_shim_update_bits64(sst, SST_CSR,
+-		SST_BYT_CSR_RST | SST_BYT_CSR_VECTOR_SEL | SST_BYT_CSR_STALL,
+-		SST_BYT_CSR_RST | SST_BYT_CSR_VECTOR_SEL | SST_BYT_CSR_STALL);
 -
--MODULE_DESCRIPTION("ASoC Intel(R) Baytrail Machine driver");
--MODULE_AUTHOR("Omair Md Abdullah, Jarkko Nikula");
--MODULE_LICENSE("GPL v2");
--MODULE_ALIAS("platform:byt-rt5640");
-diff --git a/sound/soc/intel/common/soc-acpi-intel-byt-match.c b/sound/soc/intel/common/soc-acpi-intel-byt-match.c
-index 4043a1ab44b3..c348607b49a5 100644
---- a/sound/soc/intel/common/soc-acpi-intel-byt-match.c
-+++ b/sound/soc/intel/common/soc-acpi-intel-byt-match.c
-@@ -120,16 +120,6 @@ static struct snd_soc_acpi_mach *byt_quirk(void *arg)
- 	}
- }
- 
--struct snd_soc_acpi_mach snd_soc_acpi_intel_baytrail_legacy_machines[] = {
+-	udelay(10);
+-
+-	/* take DSP out of reset and keep stalled for FW loading */
+-	sst_dsp_shim_update_bits64(sst, SST_CSR, SST_BYT_CSR_RST, 0);
+-}
+-
+-struct sst_adsp_memregion {
+-	u32 start;
+-	u32 end;
+-	int blocks;
+-	enum sst_mem_type type;
+-};
+-
+-/* BYT test stuff */
+-static const struct sst_adsp_memregion byt_region[] = {
+-	{0xC0000, 0x100000, 8, SST_MEM_IRAM}, /* I-SRAM - 8 * 32kB */
+-	{0x100000, 0x140000, 8, SST_MEM_DRAM}, /* D-SRAM0 - 8 * 32kB */
+-};
+-
+-static int sst_byt_resource_map(struct sst_dsp *sst, struct sst_pdata *pdata)
+-{
+-	sst->addr.lpe_base = pdata->lpe_base;
+-	sst->addr.lpe = ioremap(pdata->lpe_base, pdata->lpe_size);
+-	if (!sst->addr.lpe)
+-		return -ENODEV;
+-
+-	/* ADSP PCI MMIO config space */
+-	sst->addr.pci_cfg = ioremap(pdata->pcicfg_base, pdata->pcicfg_size);
+-	if (!sst->addr.pci_cfg) {
+-		iounmap(sst->addr.lpe);
+-		return -ENODEV;
+-	}
+-
+-	/* SST Extended FW allocation */
+-	sst->addr.fw_ext = ioremap(pdata->fw_base, pdata->fw_size);
+-	if (!sst->addr.fw_ext) {
+-		iounmap(sst->addr.pci_cfg);
+-		iounmap(sst->addr.lpe);
+-		return -ENODEV;
+-	}
+-
+-	/* SST Shim */
+-	sst->addr.shim = sst->addr.lpe + sst->addr.shim_offset;
+-
+-	sst_dsp_mailbox_init(sst, SST_BYT_MAILBOX_OFFSET + 0x204,
+-			     SST_BYT_IPC_MAX_PAYLOAD_SIZE,
+-			     SST_BYT_MAILBOX_OFFSET,
+-			     SST_BYT_IPC_MAX_PAYLOAD_SIZE);
+-
+-	sst->irq = pdata->irq;
+-
+-	return 0;
+-}
+-
+-static int sst_byt_init(struct sst_dsp *sst, struct sst_pdata *pdata)
+-{
+-	const struct sst_adsp_memregion *region;
+-	struct device *dev;
+-	int ret = -ENODEV, i, j, region_count;
+-	u32 offset, size;
+-
+-	dev = sst->dev;
+-
+-	switch (sst->id) {
+-	case SST_DEV_ID_BYT:
+-		region = byt_region;
+-		region_count = ARRAY_SIZE(byt_region);
+-		sst->addr.iram_offset = SST_BYT_IRAM_OFFSET;
+-		sst->addr.dram_offset = SST_BYT_DRAM_OFFSET;
+-		sst->addr.shim_offset = SST_BYT_SHIM_OFFSET;
+-		break;
+-	default:
+-		dev_err(dev, "failed to get mem resources\n");
+-		return ret;
+-	}
+-
+-	ret = sst_byt_resource_map(sst, pdata);
+-	if (ret < 0) {
+-		dev_err(dev, "failed to map resources\n");
+-		return ret;
+-	}
+-
+-	ret = dma_coerce_mask_and_coherent(sst->dma_dev, DMA_BIT_MASK(32));
+-	if (ret)
+-		return ret;
+-
+-	/* enable Interrupt from both sides */
+-	sst_dsp_shim_update_bits64(sst, SST_IMRX, 0x3, 0x0);
+-	sst_dsp_shim_update_bits64(sst, SST_IMRD, 0x3, 0x0);
+-
+-	/* register DSP memory blocks - ideally we should get this from ACPI */
+-	for (i = 0; i < region_count; i++) {
+-		offset = region[i].start;
+-		size = (region[i].end - region[i].start) / region[i].blocks;
+-
+-		/* register individual memory blocks */
+-		for (j = 0; j < region[i].blocks; j++) {
+-			sst_mem_block_register(sst, offset, size,
+-					       region[i].type, NULL, j, sst);
+-			offset += size;
+-		}
+-	}
+-
+-	return 0;
+-}
+-
+-static void sst_byt_free(struct sst_dsp *sst)
+-{
+-	sst_mem_block_unregister_all(sst);
+-	iounmap(sst->addr.lpe);
+-	iounmap(sst->addr.pci_cfg);
+-	iounmap(sst->addr.fw_ext);
+-}
+-
+-struct sst_ops sst_byt_ops = {
+-	.reset = sst_byt_reset,
+-	.boot = sst_byt_boot,
+-	.write = sst_shim32_write,
+-	.read = sst_shim32_read,
+-	.write64 = sst_shim32_write64,
+-	.read64 = sst_shim32_read64,
+-	.ram_read = sst_memcpy_fromio_32,
+-	.ram_write = sst_memcpy_toio_32,
+-	.irq_handler = sst_byt_irq,
+-	.init = sst_byt_init,
+-	.free = sst_byt_free,
+-	.parse_fw = sst_byt_parse_fw_image,
+-};
+diff --git a/sound/soc/intel/baytrail/sst-baytrail-ipc.c b/sound/soc/intel/baytrail/sst-baytrail-ipc.c
+deleted file mode 100644
+index 34746fd871b0..000000000000
+--- a/sound/soc/intel/baytrail/sst-baytrail-ipc.c
++++ /dev/null
+@@ -1,772 +0,0 @@
+-// SPDX-License-Identifier: GPL-2.0-only
+-/*
+- * Intel Baytrail SST IPC Support
+- * Copyright (c) 2014, Intel Corporation.
+- */
+-
+-#include <linux/types.h>
+-#include <linux/kernel.h>
+-#include <linux/list.h>
+-#include <linux/device.h>
+-#include <linux/wait.h>
+-#include <linux/spinlock.h>
+-#include <linux/workqueue.h>
+-#include <linux/export.h>
+-#include <linux/slab.h>
+-#include <linux/delay.h>
+-#include <linux/platform_device.h>
+-#include <linux/firmware.h>
+-#include <linux/io.h>
+-#include <asm/div64.h>
+-
+-#include "sst-baytrail-ipc.h"
+-#include "../common/sst-dsp.h"
+-#include "../common/sst-dsp-priv.h"
+-#include "../common/sst-ipc.h"
+-
+-/* IPC message timeout */
+-#define IPC_TIMEOUT_MSECS	300
+-#define IPC_BOOT_MSECS		200
+-
+-#define IPC_EMPTY_LIST_SIZE	8
+-
+-/* IPC header bits */
+-#define IPC_HEADER_MSG_ID_MASK	0xff
+-#define IPC_HEADER_MSG_ID(x)	((x) & IPC_HEADER_MSG_ID_MASK)
+-#define IPC_HEADER_STR_ID_SHIFT	8
+-#define IPC_HEADER_STR_ID_MASK	0x1f
+-#define IPC_HEADER_STR_ID(x)	(((x) & 0x1f) << IPC_HEADER_STR_ID_SHIFT)
+-#define IPC_HEADER_LARGE_SHIFT	13
+-#define IPC_HEADER_LARGE(x)	(((x) & 0x1) << IPC_HEADER_LARGE_SHIFT)
+-#define IPC_HEADER_DATA_SHIFT	16
+-#define IPC_HEADER_DATA_MASK	0x3fff
+-#define IPC_HEADER_DATA(x)	(((x) & 0x3fff) << IPC_HEADER_DATA_SHIFT)
+-
+-/* mask for differentiating between notification and reply message */
+-#define IPC_NOTIFICATION	(0x1 << 7)
+-
+-/* I2L Stream config/control msgs */
+-#define IPC_IA_ALLOC_STREAM	0x20
+-#define IPC_IA_FREE_STREAM	0x21
+-#define IPC_IA_PAUSE_STREAM	0x24
+-#define IPC_IA_RESUME_STREAM	0x25
+-#define IPC_IA_DROP_STREAM	0x26
+-#define IPC_IA_START_STREAM	0x30
+-
+-/* notification messages */
+-#define IPC_IA_FW_INIT_CMPLT	0x81
+-#define IPC_SST_PERIOD_ELAPSED	0x97
+-
+-/* IPC messages between host and ADSP */
+-struct sst_byt_address_info {
+-	u32 addr;
+-	u32 size;
+-} __packed;
+-
+-struct sst_byt_str_type {
+-	u8 codec_type;
+-	u8 str_type;
+-	u8 operation;
+-	u8 protected_str;
+-	u8 time_slots;
+-	u8 reserved;
+-	u16 result;
+-} __packed;
+-
+-struct sst_byt_pcm_params {
+-	u8 num_chan;
+-	u8 pcm_wd_sz;
+-	u8 use_offload_path;
+-	u8 reserved;
+-	u32 sfreq;
+-	u8 channel_map[8];
+-} __packed;
+-
+-struct sst_byt_frames_info {
+-	u16 num_entries;
+-	u16 rsrvd;
+-	u32 frag_size;
+-	struct sst_byt_address_info ring_buf_info[8];
+-} __packed;
+-
+-struct sst_byt_alloc_params {
+-	struct sst_byt_str_type str_type;
+-	struct sst_byt_pcm_params pcm_params;
+-	struct sst_byt_frames_info frame_info;
+-} __packed;
+-
+-struct sst_byt_alloc_response {
+-	struct sst_byt_str_type str_type;
+-	u8 reserved[88];
+-} __packed;
+-
+-struct sst_byt_start_stream_params {
+-	u32 byte_offset;
+-} __packed;
+-
+-struct sst_byt_tstamp {
+-	u64 ring_buffer_counter;
+-	u64 hardware_counter;
+-	u64 frames_decoded;
+-	u64 bytes_decoded;
+-	u64 bytes_copied;
+-	u32 sampling_frequency;
+-	u32 channel_peak[8];
+-} __packed;
+-
+-struct sst_byt_fw_version {
+-	u8 build;
+-	u8 minor;
+-	u8 major;
+-	u8 type;
+-} __packed;
+-
+-struct sst_byt_fw_build_info {
+-	u8 date[16];
+-	u8 time[16];
+-} __packed;
+-
+-struct sst_byt_fw_init {
+-	struct sst_byt_fw_version fw_version;
+-	struct sst_byt_fw_build_info build_info;
+-	u16 result;
+-	u8 module_id;
+-	u8 debug_info;
+-} __packed;
+-
+-struct sst_byt_stream;
+-struct sst_byt;
+-
+-/* stream infomation */
+-struct sst_byt_stream {
+-	struct list_head node;
+-
+-	/* configuration */
+-	struct sst_byt_alloc_params request;
+-	struct sst_byt_alloc_response reply;
+-
+-	/* runtime info */
+-	struct sst_byt *byt;
+-	int str_id;
+-	bool commited;
+-	bool running;
+-
+-	/* driver callback */
+-	u32 (*notify_position)(struct sst_byt_stream *stream, void *data);
+-	void *pdata;
+-};
+-
+-/* SST Baytrail IPC data */
+-struct sst_byt {
+-	struct device *dev;
+-	struct sst_dsp *dsp;
+-
+-	/* stream */
+-	struct list_head stream_list;
+-
+-	/* boot */
+-	wait_queue_head_t boot_wait;
+-	bool boot_complete;
+-	struct sst_fw *fw;
+-
+-	/* IPC messaging */
+-	struct sst_generic_ipc ipc;
+-};
+-
+-static inline u64 sst_byt_header(int msg_id, int data, bool large, int str_id)
+-{
+-	return IPC_HEADER_MSG_ID(msg_id) | IPC_HEADER_STR_ID(str_id) |
+-	       IPC_HEADER_LARGE(large) | IPC_HEADER_DATA(data) |
+-	       SST_BYT_IPCX_BUSY;
+-}
+-
+-static inline u16 sst_byt_header_msg_id(u64 header)
+-{
+-	return header & IPC_HEADER_MSG_ID_MASK;
+-}
+-
+-static inline u8 sst_byt_header_str_id(u64 header)
+-{
+-	return (header >> IPC_HEADER_STR_ID_SHIFT) & IPC_HEADER_STR_ID_MASK;
+-}
+-
+-static inline u16 sst_byt_header_data(u64 header)
+-{
+-	return (header >> IPC_HEADER_DATA_SHIFT) & IPC_HEADER_DATA_MASK;
+-}
+-
+-static struct sst_byt_stream *sst_byt_get_stream(struct sst_byt *byt,
+-						 int stream_id)
+-{
+-	struct sst_byt_stream *stream;
+-
+-	list_for_each_entry(stream, &byt->stream_list, node) {
+-		if (stream->str_id == stream_id)
+-			return stream;
+-	}
+-
+-	return NULL;
+-}
+-
+-static void sst_byt_stream_update(struct sst_byt *byt, struct ipc_message *msg)
+-{
+-	struct sst_byt_stream *stream;
+-	u64 header = msg->tx.header;
+-	u8 stream_id = sst_byt_header_str_id(header);
+-	u8 stream_msg = sst_byt_header_msg_id(header);
+-
+-	stream = sst_byt_get_stream(byt, stream_id);
+-	if (stream == NULL)
+-		return;
+-
+-	switch (stream_msg) {
+-	case IPC_IA_DROP_STREAM:
+-	case IPC_IA_PAUSE_STREAM:
+-	case IPC_IA_FREE_STREAM:
+-		stream->running = false;
+-		break;
+-	case IPC_IA_START_STREAM:
+-	case IPC_IA_RESUME_STREAM:
+-		stream->running = true;
+-		break;
+-	}
+-}
+-
+-static int sst_byt_process_reply(struct sst_byt *byt, u64 header)
+-{
+-	struct ipc_message *msg;
+-
+-	msg = sst_ipc_reply_find_msg(&byt->ipc, header);
+-	if (msg == NULL)
+-		return 1;
+-
+-	msg->rx.header = header;
+-	if (header & IPC_HEADER_LARGE(true)) {
+-		msg->rx.size = sst_byt_header_data(header);
+-		sst_dsp_inbox_read(byt->dsp, msg->rx.data, msg->rx.size);
+-	}
+-
+-	/* update any stream states */
+-	sst_byt_stream_update(byt, msg);
+-
+-	list_del(&msg->list);
+-	/* wake up */
+-	sst_ipc_tx_msg_reply_complete(&byt->ipc, msg);
+-
+-	return 1;
+-}
+-
+-static void sst_byt_fw_ready(struct sst_byt *byt, u64 header)
+-{
+-	dev_dbg(byt->dev, "ipc: DSP is ready 0x%llX\n", header);
+-
+-	byt->boot_complete = true;
+-	wake_up(&byt->boot_wait);
+-}
+-
+-static int sst_byt_process_notification(struct sst_byt *byt,
+-					unsigned long *flags)
+-{
+-	struct sst_dsp *sst = byt->dsp;
+-	struct sst_byt_stream *stream;
+-	u64 header;
+-	u8 msg_id, stream_id;
+-
+-	header = sst_dsp_shim_read64_unlocked(sst, SST_IPCD);
+-	msg_id = sst_byt_header_msg_id(header);
+-
+-	switch (msg_id) {
+-	case IPC_SST_PERIOD_ELAPSED:
+-		stream_id = sst_byt_header_str_id(header);
+-		stream = sst_byt_get_stream(byt, stream_id);
+-		if (stream && stream->running && stream->notify_position) {
+-			spin_unlock_irqrestore(&sst->spinlock, *flags);
+-			stream->notify_position(stream, stream->pdata);
+-			spin_lock_irqsave(&sst->spinlock, *flags);
+-		}
+-		break;
+-	case IPC_IA_FW_INIT_CMPLT:
+-		sst_byt_fw_ready(byt, header);
+-		break;
+-	}
+-
+-	return 1;
+-}
+-
+-static irqreturn_t sst_byt_irq_thread(int irq, void *context)
+-{
+-	struct sst_dsp *sst = (struct sst_dsp *) context;
+-	struct sst_byt *byt = sst_dsp_get_thread_context(sst);
+-	struct sst_generic_ipc *ipc = &byt->ipc;
+-	u64 header;
+-	unsigned long flags;
+-
+-	spin_lock_irqsave(&sst->spinlock, flags);
+-
+-	header = sst_dsp_shim_read64_unlocked(sst, SST_IPCD);
+-	if (header & SST_BYT_IPCD_BUSY) {
+-		if (header & IPC_NOTIFICATION) {
+-			/* message from ADSP */
+-			sst_byt_process_notification(byt, &flags);
+-		} else {
+-			/* reply from ADSP */
+-			sst_byt_process_reply(byt, header);
+-		}
+-		/*
+-		 * clear IPCD BUSY bit and set DONE bit. Tell DSP we have
+-		 * processed the message and can accept new. Clear data part
+-		 * of the header
+-		 */
+-		sst_dsp_shim_update_bits64_unlocked(sst, SST_IPCD,
+-			SST_BYT_IPCD_DONE | SST_BYT_IPCD_BUSY |
+-			IPC_HEADER_DATA(IPC_HEADER_DATA_MASK),
+-			SST_BYT_IPCD_DONE);
+-		/* unmask message request interrupts */
+-		sst_dsp_shim_update_bits64_unlocked(sst, SST_IMRX,
+-			SST_BYT_IMRX_REQUEST, 0);
+-	}
+-
+-	spin_unlock_irqrestore(&sst->spinlock, flags);
+-
+-	/* continue to send any remaining messages... */
+-	schedule_work(&ipc->kwork);
+-
+-	return IRQ_HANDLED;
+-}
+-
+-/* stream API */
+-struct sst_byt_stream *sst_byt_stream_new(struct sst_byt *byt, int id,
+-	u32 (*notify_position)(struct sst_byt_stream *stream, void *data),
+-	void *data)
+-{
+-	struct sst_byt_stream *stream;
+-	struct sst_dsp *sst = byt->dsp;
+-	unsigned long flags;
+-
+-	stream = kzalloc(sizeof(*stream), GFP_KERNEL);
+-	if (stream == NULL)
+-		return NULL;
+-
+-	spin_lock_irqsave(&sst->spinlock, flags);
+-	list_add(&stream->node, &byt->stream_list);
+-	stream->notify_position = notify_position;
+-	stream->pdata = data;
+-	stream->byt = byt;
+-	stream->str_id = id;
+-	spin_unlock_irqrestore(&sst->spinlock, flags);
+-
+-	return stream;
+-}
+-
+-int sst_byt_stream_set_bits(struct sst_byt *byt, struct sst_byt_stream *stream,
+-			    int bits)
+-{
+-	stream->request.pcm_params.pcm_wd_sz = bits;
+-	return 0;
+-}
+-
+-int sst_byt_stream_set_channels(struct sst_byt *byt,
+-				struct sst_byt_stream *stream, u8 channels)
+-{
+-	stream->request.pcm_params.num_chan = channels;
+-	return 0;
+-}
+-
+-int sst_byt_stream_set_rate(struct sst_byt *byt, struct sst_byt_stream *stream,
+-			    unsigned int rate)
+-{
+-	stream->request.pcm_params.sfreq = rate;
+-	return 0;
+-}
+-
+-/* stream sonfiguration */
+-int sst_byt_stream_type(struct sst_byt *byt, struct sst_byt_stream *stream,
+-			int codec_type, int stream_type, int operation)
+-{
+-	stream->request.str_type.codec_type = codec_type;
+-	stream->request.str_type.str_type = stream_type;
+-	stream->request.str_type.operation = operation;
+-	stream->request.str_type.time_slots = 0xc;
+-
+-	return 0;
+-}
+-
+-int sst_byt_stream_buffer(struct sst_byt *byt, struct sst_byt_stream *stream,
+-			  uint32_t buffer_addr, uint32_t buffer_size)
+-{
+-	stream->request.frame_info.num_entries = 1;
+-	stream->request.frame_info.ring_buf_info[0].addr = buffer_addr;
+-	stream->request.frame_info.ring_buf_info[0].size = buffer_size;
+-	/* calculate bytes per 4 ms fragment */
+-	stream->request.frame_info.frag_size =
+-		stream->request.pcm_params.sfreq *
+-		stream->request.pcm_params.num_chan *
+-		stream->request.pcm_params.pcm_wd_sz / 8 *
+-		4 / 1000;
+-	return 0;
+-}
+-
+-int sst_byt_stream_commit(struct sst_byt *byt, struct sst_byt_stream *stream)
+-{
+-	struct sst_ipc_message request, reply = {0};
+-	int ret;
+-
+-	request.header = sst_byt_header(IPC_IA_ALLOC_STREAM,
+-				sizeof(stream->request) + sizeof(u32),
+-				true, stream->str_id);
+-	request.data = &stream->request;
+-	request.size = sizeof(stream->request);
+-	reply.data = &stream->reply;
+-	reply.size = sizeof(stream->reply);
+-
+-	ret = sst_ipc_tx_message_wait(&byt->ipc, request, &reply);
+-	if (ret < 0) {
+-		dev_err(byt->dev, "ipc: error stream commit failed\n");
+-		return ret;
+-	}
+-
+-	stream->commited = true;
+-
+-	return 0;
+-}
+-
+-int sst_byt_stream_free(struct sst_byt *byt, struct sst_byt_stream *stream)
+-{
+-	struct sst_ipc_message request = {0};
+-	int ret = 0;
+-	struct sst_dsp *sst = byt->dsp;
+-	unsigned long flags;
+-
+-	if (!stream->commited)
+-		goto out;
+-
+-	request.header = sst_byt_header(IPC_IA_FREE_STREAM,
+-			0, false, stream->str_id);
+-	ret = sst_ipc_tx_message_wait(&byt->ipc, request, NULL);
+-	if (ret < 0) {
+-		dev_err(byt->dev, "ipc: free stream %d failed\n",
+-			stream->str_id);
+-		return -EAGAIN;
+-	}
+-
+-	stream->commited = false;
+-out:
+-	spin_lock_irqsave(&sst->spinlock, flags);
+-	list_del(&stream->node);
+-	kfree(stream);
+-	spin_unlock_irqrestore(&sst->spinlock, flags);
+-
+-	return ret;
+-}
+-
+-static int sst_byt_stream_operations(struct sst_byt *byt, int type,
+-				     int stream_id, int wait)
+-{
+-	struct sst_ipc_message request = {0};
+-
+-	request.header = sst_byt_header(type, 0, false, stream_id);
+-	if (wait)
+-		return sst_ipc_tx_message_wait(&byt->ipc, request, NULL);
+-	else
+-		return sst_ipc_tx_message_nowait(&byt->ipc, request);
+-}
+-
+-/* stream ALSA trigger operations */
+-int sst_byt_stream_start(struct sst_byt *byt, struct sst_byt_stream *stream,
+-			 u32 start_offset)
+-{
+-	struct sst_byt_start_stream_params start_stream;
+-	struct sst_ipc_message request;
+-	int ret;
+-
+-	start_stream.byte_offset = start_offset;
+-	request.header = sst_byt_header(IPC_IA_START_STREAM,
+-				sizeof(start_stream) + sizeof(u32),
+-				true, stream->str_id);
+-	request.data = &start_stream;
+-	request.size = sizeof(start_stream);
+-
+-	ret = sst_ipc_tx_message_nowait(&byt->ipc, request);
+-	if (ret < 0)
+-		dev_err(byt->dev, "ipc: error failed to start stream %d\n",
+-			stream->str_id);
+-
+-	return ret;
+-}
+-
+-int sst_byt_stream_stop(struct sst_byt *byt, struct sst_byt_stream *stream)
+-{
+-	int ret;
+-
+-	/* don't stop streams that are not commited */
+-	if (!stream->commited)
+-		return 0;
+-
+-	ret = sst_byt_stream_operations(byt, IPC_IA_DROP_STREAM,
+-					stream->str_id, 0);
+-	if (ret < 0)
+-		dev_err(byt->dev, "ipc: error failed to stop stream %d\n",
+-			stream->str_id);
+-	return ret;
+-}
+-
+-int sst_byt_stream_pause(struct sst_byt *byt, struct sst_byt_stream *stream)
+-{
+-	int ret;
+-
+-	ret = sst_byt_stream_operations(byt, IPC_IA_PAUSE_STREAM,
+-					stream->str_id, 0);
+-	if (ret < 0)
+-		dev_err(byt->dev, "ipc: error failed to pause stream %d\n",
+-			stream->str_id);
+-
+-	return ret;
+-}
+-
+-int sst_byt_stream_resume(struct sst_byt *byt, struct sst_byt_stream *stream)
+-{
+-	int ret;
+-
+-	ret = sst_byt_stream_operations(byt, IPC_IA_RESUME_STREAM,
+-					stream->str_id, 0);
+-	if (ret < 0)
+-		dev_err(byt->dev, "ipc: error failed to resume stream %d\n",
+-			stream->str_id);
+-
+-	return ret;
+-}
+-
+-int sst_byt_get_dsp_position(struct sst_byt *byt,
+-			     struct sst_byt_stream *stream, int buffer_size)
+-{
+-	struct sst_dsp *sst = byt->dsp;
+-	struct sst_byt_tstamp fw_tstamp;
+-	u8 str_id = stream->str_id;
+-	u32 tstamp_offset;
+-
+-	tstamp_offset = SST_BYT_TIMESTAMP_OFFSET + str_id * sizeof(fw_tstamp);
+-	memcpy_fromio(&fw_tstamp,
+-		      sst->addr.lpe + tstamp_offset, sizeof(fw_tstamp));
+-
+-	return do_div(fw_tstamp.ring_buffer_counter, buffer_size);
+-}
+-
+-struct sst_dsp *sst_byt_get_dsp(struct sst_byt *byt)
+-{
+-	return byt->dsp;
+-}
+-
+-static struct sst_dsp_device byt_dev = {
+-	.thread = sst_byt_irq_thread,
+-	.ops = &sst_byt_ops,
+-};
+-
+-int sst_byt_dsp_suspend_late(struct device *dev, struct sst_pdata *pdata)
+-{
+-	struct sst_byt *byt = pdata->dsp;
+-
+-	dev_dbg(byt->dev, "dsp reset\n");
+-	sst_dsp_reset(byt->dsp);
+-	sst_ipc_drop_all(&byt->ipc);
+-	dev_dbg(byt->dev, "dsp in reset\n");
+-
+-	dev_dbg(byt->dev, "free all blocks and unload fw\n");
+-	sst_fw_unload(byt->fw);
+-
+-	return 0;
+-}
+-EXPORT_SYMBOL_GPL(sst_byt_dsp_suspend_late);
+-
+-int sst_byt_dsp_boot(struct device *dev, struct sst_pdata *pdata)
+-{
+-	struct sst_byt *byt = pdata->dsp;
+-	int ret;
+-
+-	dev_dbg(byt->dev, "reload dsp fw\n");
+-
+-	sst_dsp_reset(byt->dsp);
+-
+-	ret = sst_fw_reload(byt->fw);
+-	if (ret <  0) {
+-		dev_err(dev, "error: failed to reload firmware\n");
+-		return ret;
+-	}
+-
+-	/* wait for DSP boot completion */
+-	byt->boot_complete = false;
+-	sst_dsp_boot(byt->dsp);
+-	dev_dbg(byt->dev, "dsp booting...\n");
+-
+-	return 0;
+-}
+-EXPORT_SYMBOL_GPL(sst_byt_dsp_boot);
+-
+-int sst_byt_dsp_wait_for_ready(struct device *dev, struct sst_pdata *pdata)
+-{
+-	struct sst_byt *byt = pdata->dsp;
+-	int err;
+-
+-	dev_dbg(byt->dev, "wait for dsp reboot\n");
+-
+-	err = wait_event_timeout(byt->boot_wait, byt->boot_complete,
+-				 msecs_to_jiffies(IPC_BOOT_MSECS));
+-	if (err == 0) {
+-		dev_err(byt->dev, "ipc: error DSP boot timeout\n");
+-		return -EIO;
+-	}
+-
+-	dev_dbg(byt->dev, "dsp rebooted\n");
+-	return 0;
+-}
+-EXPORT_SYMBOL_GPL(sst_byt_dsp_wait_for_ready);
+-
+-static void byt_tx_msg(struct sst_generic_ipc *ipc, struct ipc_message *msg)
+-{
+-	if (msg->tx.header & IPC_HEADER_LARGE(true))
+-		sst_dsp_outbox_write(ipc->dsp, msg->tx.data, msg->tx.size);
+-
+-	sst_dsp_shim_write64_unlocked(ipc->dsp, SST_IPCX, msg->tx.header);
+-}
+-
+-static void byt_shim_dbg(struct sst_generic_ipc *ipc, const char *text)
+-{
+-	struct sst_dsp *sst = ipc->dsp;
+-	u64 isr, ipcd, imrx, ipcx;
+-
+-	ipcx = sst_dsp_shim_read64_unlocked(sst, SST_IPCX);
+-	isr = sst_dsp_shim_read64_unlocked(sst, SST_ISRX);
+-	ipcd = sst_dsp_shim_read64_unlocked(sst, SST_IPCD);
+-	imrx = sst_dsp_shim_read64_unlocked(sst, SST_IMRX);
+-
+-	dev_err(ipc->dev,
+-		"ipc: --%s-- ipcx 0x%llx isr 0x%llx ipcd 0x%llx imrx 0x%llx\n",
+-		text, ipcx, isr, ipcd, imrx);
+-}
+-
+-static void byt_tx_data_copy(struct ipc_message *msg, char *tx_data,
+-	size_t tx_size)
+-{
+-	/* msg content = lower 32-bit of the header + data */
+-	*(u32 *)msg->tx.data = (u32)(msg->tx.header & (u32)-1);
+-	memcpy(msg->tx.data + sizeof(u32), tx_data, tx_size);
+-	msg->tx.size += sizeof(u32);
+-}
+-
+-static u64 byt_reply_msg_match(u64 header, u64 *mask)
+-{
+-	/* match reply to message sent based on msg and stream IDs */
+-	*mask = IPC_HEADER_MSG_ID_MASK |
+-	       IPC_HEADER_STR_ID_MASK << IPC_HEADER_STR_ID_SHIFT;
+-	header &= *mask;
+-
+-	return header;
+-}
+-
+-static bool byt_is_dsp_busy(struct sst_dsp *dsp)
+-{
+-	u64 ipcx;
+-
+-	ipcx = sst_dsp_shim_read64_unlocked(dsp, SST_IPCX);
+-	return (ipcx & (SST_BYT_IPCX_BUSY | SST_BYT_IPCX_DONE));
+-}
+-
+-int sst_byt_dsp_init(struct device *dev, struct sst_pdata *pdata)
+-{
+-	struct sst_byt *byt;
+-	struct sst_generic_ipc *ipc;
+-	struct sst_fw *byt_sst_fw;
+-	struct sst_byt_fw_init init;
+-	int err;
+-
+-	dev_dbg(dev, "initialising Byt DSP IPC\n");
+-
+-	byt = devm_kzalloc(dev, sizeof(*byt), GFP_KERNEL);
+-	if (byt == NULL)
+-		return -ENOMEM;
+-
+-	byt->dev = dev;
+-
+-	ipc = &byt->ipc;
+-	ipc->dev = dev;
+-	ipc->ops.tx_msg = byt_tx_msg;
+-	ipc->ops.shim_dbg = byt_shim_dbg;
+-	ipc->ops.tx_data_copy = byt_tx_data_copy;
+-	ipc->ops.reply_msg_match = byt_reply_msg_match;
+-	ipc->ops.is_dsp_busy = byt_is_dsp_busy;
+-	ipc->tx_data_max_size = IPC_MAX_MAILBOX_BYTES;
+-	ipc->rx_data_max_size = IPC_MAX_MAILBOX_BYTES;
+-
+-	err = sst_ipc_init(ipc);
+-	if (err != 0)
+-		goto ipc_init_err;
+-
+-	INIT_LIST_HEAD(&byt->stream_list);
+-	init_waitqueue_head(&byt->boot_wait);
+-	byt_dev.thread_context = byt;
+-
+-	/* init SST shim */
+-	byt->dsp = sst_dsp_new(dev, &byt_dev, pdata);
+-	if (byt->dsp == NULL) {
+-		err = -ENODEV;
+-		goto dsp_new_err;
+-	}
+-
+-	ipc->dsp = byt->dsp;
+-
+-	/* keep the DSP in reset state for base FW loading */
+-	sst_dsp_reset(byt->dsp);
+-
+-	byt_sst_fw = sst_fw_new(byt->dsp, pdata->fw, byt);
+-	if (byt_sst_fw  == NULL) {
+-		err = -ENODEV;
+-		dev_err(dev, "error: failed to load firmware\n");
+-		goto fw_err;
+-	}
+-
+-	/* wait for DSP boot completion */
+-	sst_dsp_boot(byt->dsp);
+-	err = wait_event_timeout(byt->boot_wait, byt->boot_complete,
+-				 msecs_to_jiffies(IPC_BOOT_MSECS));
+-	if (err == 0) {
+-		err = -EIO;
+-		dev_err(byt->dev, "ipc: error DSP boot timeout\n");
+-		goto boot_err;
+-	}
+-
+-	/* show firmware information */
+-	sst_dsp_inbox_read(byt->dsp, &init, sizeof(init));
+-	dev_info(byt->dev, "FW version: %02x.%02x.%02x.%02x\n",
+-		 init.fw_version.major, init.fw_version.minor,
+-		 init.fw_version.build, init.fw_version.type);
+-	dev_info(byt->dev, "Build type: %x\n", init.fw_version.type);
+-	dev_info(byt->dev, "Build date: %s %s\n",
+-		 init.build_info.date, init.build_info.time);
+-
+-	pdata->dsp = byt;
+-	byt->fw = byt_sst_fw;
+-
+-	return 0;
+-
+-boot_err:
+-	sst_dsp_reset(byt->dsp);
+-	sst_fw_free(byt_sst_fw);
+-fw_err:
+-	sst_dsp_free(byt->dsp);
+-dsp_new_err:
+-	sst_ipc_fini(ipc);
+-ipc_init_err:
+-
+-	return err;
+-}
+-EXPORT_SYMBOL_GPL(sst_byt_dsp_init);
+-
+-void sst_byt_dsp_free(struct device *dev, struct sst_pdata *pdata)
+-{
+-	struct sst_byt *byt = pdata->dsp;
+-
+-	sst_dsp_reset(byt->dsp);
+-	sst_fw_free_all(byt->dsp);
+-	sst_dsp_free(byt->dsp);
+-	sst_ipc_fini(&byt->ipc);
+-}
+-EXPORT_SYMBOL_GPL(sst_byt_dsp_free);
+diff --git a/sound/soc/intel/baytrail/sst-baytrail-ipc.h b/sound/soc/intel/baytrail/sst-baytrail-ipc.h
+deleted file mode 100644
+index cc960b79e9e1..000000000000
+--- a/sound/soc/intel/baytrail/sst-baytrail-ipc.h
++++ /dev/null
+@@ -1,64 +0,0 @@
+-/* SPDX-License-Identifier: GPL-2.0-only */
+-/*
+- * Intel Baytrail SST IPC Support
+- * Copyright (c) 2014, Intel Corporation.
+- */
+-
+-#ifndef __SST_BYT_IPC_H
+-#define __SST_BYT_IPC_H
+-
+-#include <linux/types.h>
+-
+-struct sst_byt;
+-struct sst_byt_stream;
+-struct sst_pdata;
+-extern struct sst_ops sst_byt_ops;
+-
+-
+-#define SST_BYT_MAILBOX_OFFSET		0x144000
+-#define SST_BYT_TIMESTAMP_OFFSET	(SST_BYT_MAILBOX_OFFSET + 0x800)
+-
+-/**
+- * Upfront defined maximum message size that is
+- * expected by the in/out communication pipes in FW.
+- */
+-#define SST_BYT_IPC_MAX_PAYLOAD_SIZE	200
+-
+-/* stream API */
+-struct sst_byt_stream *sst_byt_stream_new(struct sst_byt *byt, int id,
+-	uint32_t (*notify_position)(struct sst_byt_stream *stream, void *data),
+-	void *data);
+-
+-/* stream configuration */
+-int sst_byt_stream_set_bits(struct sst_byt *byt, struct sst_byt_stream *stream,
+-			    int bits);
+-int sst_byt_stream_set_channels(struct sst_byt *byt,
+-				struct sst_byt_stream *stream, u8 channels);
+-int sst_byt_stream_set_rate(struct sst_byt *byt, struct sst_byt_stream *stream,
+-			    unsigned int rate);
+-int sst_byt_stream_type(struct sst_byt *byt, struct sst_byt_stream *stream,
+-			int codec_type, int stream_type, int operation);
+-int sst_byt_stream_buffer(struct sst_byt *byt, struct sst_byt_stream *stream,
+-			  uint32_t buffer_addr, uint32_t buffer_size);
+-int sst_byt_stream_commit(struct sst_byt *byt, struct sst_byt_stream *stream);
+-int sst_byt_stream_free(struct sst_byt *byt, struct sst_byt_stream *stream);
+-
+-/* stream ALSA trigger operations */
+-int sst_byt_stream_start(struct sst_byt *byt, struct sst_byt_stream *stream,
+-			 u32 start_offset);
+-int sst_byt_stream_stop(struct sst_byt *byt, struct sst_byt_stream *stream);
+-int sst_byt_stream_pause(struct sst_byt *byt, struct sst_byt_stream *stream);
+-int sst_byt_stream_resume(struct sst_byt *byt, struct sst_byt_stream *stream);
+-
+-int sst_byt_get_dsp_position(struct sst_byt *byt,
+-			     struct sst_byt_stream *stream, int buffer_size);
+-
+-/* init */
+-int sst_byt_dsp_init(struct device *dev, struct sst_pdata *pdata);
+-void sst_byt_dsp_free(struct device *dev, struct sst_pdata *pdata);
+-struct sst_dsp *sst_byt_get_dsp(struct sst_byt *byt);
+-int sst_byt_dsp_suspend_late(struct device *dev, struct sst_pdata *pdata);
+-int sst_byt_dsp_boot(struct device *dev, struct sst_pdata *pdata);
+-int sst_byt_dsp_wait_for_ready(struct device *dev, struct sst_pdata *pdata);
+-
+-#endif
+diff --git a/sound/soc/intel/baytrail/sst-baytrail-pcm.c b/sound/soc/intel/baytrail/sst-baytrail-pcm.c
+deleted file mode 100644
+index 54a66cc6db89..000000000000
+--- a/sound/soc/intel/baytrail/sst-baytrail-pcm.c
++++ /dev/null
+@@ -1,459 +0,0 @@
+-// SPDX-License-Identifier: GPL-2.0-only
+-/*
+- * Intel Baytrail SST PCM Support
+- * Copyright (c) 2014, Intel Corporation.
+- */
+-
+-#include <linux/module.h>
+-#include <linux/dma-mapping.h>
+-#include <linux/slab.h>
+-#include <sound/core.h>
+-#include <sound/pcm.h>
+-#include <sound/pcm_params.h>
+-#include <sound/soc.h>
+-#include "sst-baytrail-ipc.h"
+-#include "../common/sst-dsp-priv.h"
+-#include "../common/sst-dsp.h"
+-
+-#define DRV_NAME "byt-dai"
+-#define BYT_PCM_COUNT		2
+-
+-static const struct snd_pcm_hardware sst_byt_pcm_hardware = {
+-	.info			= SNDRV_PCM_INFO_MMAP |
+-				  SNDRV_PCM_INFO_MMAP_VALID |
+-				  SNDRV_PCM_INFO_INTERLEAVED |
+-				  SNDRV_PCM_INFO_PAUSE |
+-				  SNDRV_PCM_INFO_RESUME,
+-	.formats		= SNDRV_PCM_FMTBIT_S16_LE |
+-				  SNDRV_PCM_FMTBIT_S24_LE,
+-	.period_bytes_min	= 384,
+-	.period_bytes_max	= 48000,
+-	.periods_min		= 2,
+-	.periods_max		= 250,
+-	.buffer_bytes_max	= 96000,
+-};
+-
+-/* private data for each PCM DSP stream */
+-struct sst_byt_pcm_data {
+-	struct sst_byt_stream *stream;
+-	struct snd_pcm_substream *substream;
+-	struct mutex mutex;
+-
+-	/* latest DSP DMA hw pointer */
+-	u32 hw_ptr;
+-
+-	struct work_struct work;
+-};
+-
+-/* private data for the driver */
+-struct sst_byt_priv_data {
+-	/* runtime DSP */
+-	struct sst_byt *byt;
+-
+-	/* DAI data */
+-	struct sst_byt_pcm_data pcm[BYT_PCM_COUNT];
+-
+-	/* flag indicating is stream context restore needed after suspend */
+-	bool restore_stream;
+-};
+-
+-/* this may get called several times by oss emulation */
+-static int sst_byt_pcm_hw_params(struct snd_soc_component *component,
+-				 struct snd_pcm_substream *substream,
+-				 struct snd_pcm_hw_params *params)
+-{
+-	struct snd_soc_pcm_runtime *rtd = asoc_substream_to_rtd(substream);
+-	struct sst_byt_priv_data *pdata = snd_soc_component_get_drvdata(component);
+-	struct sst_byt_pcm_data *pcm_data = &pdata->pcm[substream->stream];
+-	struct sst_byt *byt = pdata->byt;
+-	u32 rate, bits;
+-	u8 channels;
+-	int ret, playback = (substream->stream == SNDRV_PCM_STREAM_PLAYBACK);
+-
+-	dev_dbg(rtd->dev, "PCM: hw_params, pcm_data %p\n", pcm_data);
+-
+-	ret = sst_byt_stream_type(byt, pcm_data->stream,
+-				  1, 1, !playback);
+-	if (ret < 0) {
+-		dev_err(rtd->dev, "failed to set stream format %d\n", ret);
+-		return ret;
+-	}
+-
+-	rate = params_rate(params);
+-	ret = sst_byt_stream_set_rate(byt, pcm_data->stream, rate);
+-	if (ret < 0) {
+-		dev_err(rtd->dev, "could not set rate %d\n", rate);
+-		return ret;
+-	}
+-
+-	bits = snd_pcm_format_width(params_format(params));
+-	ret = sst_byt_stream_set_bits(byt, pcm_data->stream, bits);
+-	if (ret < 0) {
+-		dev_err(rtd->dev, "could not set formats %d\n",
+-			params_rate(params));
+-		return ret;
+-	}
+-
+-	channels = (u8)(params_channels(params) & 0xF);
+-	ret = sst_byt_stream_set_channels(byt, pcm_data->stream, channels);
+-	if (ret < 0) {
+-		dev_err(rtd->dev, "could not set channels %d\n",
+-			params_rate(params));
+-		return ret;
+-	}
+-
+-	ret = sst_byt_stream_buffer(byt, pcm_data->stream,
+-				    substream->dma_buffer.addr,
+-				    params_buffer_bytes(params));
+-	if (ret < 0) {
+-		dev_err(rtd->dev, "PCM: failed to set DMA buffer %d\n", ret);
+-		return ret;
+-	}
+-
+-	ret = sst_byt_stream_commit(byt, pcm_data->stream);
+-	if (ret < 0) {
+-		dev_err(rtd->dev, "PCM: failed stream commit %d\n", ret);
+-		return ret;
+-	}
+-
+-	return 0;
+-}
+-
+-static int sst_byt_pcm_restore_stream_context(struct snd_pcm_substream *substream)
+-{
+-	struct snd_soc_pcm_runtime *rtd = asoc_substream_to_rtd(substream);
+-	struct snd_soc_component *component = snd_soc_rtdcom_lookup(rtd, DRV_NAME);
+-	struct sst_byt_priv_data *pdata = snd_soc_component_get_drvdata(component);
+-	struct sst_byt_pcm_data *pcm_data = &pdata->pcm[substream->stream];
+-	struct sst_byt *byt = pdata->byt;
+-	int ret;
+-
+-	/* commit stream using existing stream params */
+-	ret = sst_byt_stream_commit(byt, pcm_data->stream);
+-	if (ret < 0) {
+-		dev_err(rtd->dev, "PCM: failed stream commit %d\n", ret);
+-		return ret;
+-	}
+-
+-	sst_byt_stream_start(byt, pcm_data->stream, pcm_data->hw_ptr);
+-
+-	dev_dbg(rtd->dev, "stream context restored at offset %d\n",
+-		pcm_data->hw_ptr);
+-
+-	return 0;
+-}
+-
+-static void sst_byt_pcm_work(struct work_struct *work)
+-{
+-	struct sst_byt_pcm_data *pcm_data =
+-		container_of(work, struct sst_byt_pcm_data, work);
+-
+-	if (snd_pcm_running(pcm_data->substream))
+-		sst_byt_pcm_restore_stream_context(pcm_data->substream);
+-}
+-
+-static int sst_byt_pcm_trigger(struct snd_soc_component *component,
+-			       struct snd_pcm_substream *substream, int cmd)
+-{
+-	struct snd_soc_pcm_runtime *rtd = asoc_substream_to_rtd(substream);
+-	struct sst_byt_priv_data *pdata = snd_soc_component_get_drvdata(component);
+-	struct sst_byt_pcm_data *pcm_data = &pdata->pcm[substream->stream];
+-	struct sst_byt *byt = pdata->byt;
+-
+-	dev_dbg(rtd->dev, "PCM: trigger %d\n", cmd);
+-
+-	switch (cmd) {
+-	case SNDRV_PCM_TRIGGER_START:
+-		pcm_data->hw_ptr = 0;
+-		sst_byt_stream_start(byt, pcm_data->stream, 0);
+-		break;
+-	case SNDRV_PCM_TRIGGER_RESUME:
+-		if (pdata->restore_stream)
+-			schedule_work(&pcm_data->work);
+-		else
+-			sst_byt_stream_resume(byt, pcm_data->stream);
+-		break;
+-	case SNDRV_PCM_TRIGGER_PAUSE_RELEASE:
+-		sst_byt_stream_resume(byt, pcm_data->stream);
+-		break;
+-	case SNDRV_PCM_TRIGGER_STOP:
+-		sst_byt_stream_stop(byt, pcm_data->stream);
+-		break;
+-	case SNDRV_PCM_TRIGGER_SUSPEND:
+-		pdata->restore_stream = false;
+-		/* fallthrough */
+-	case SNDRV_PCM_TRIGGER_PAUSE_PUSH:
+-		sst_byt_stream_pause(byt, pcm_data->stream);
+-		break;
+-	default:
+-		break;
+-	}
+-
+-	return 0;
+-}
+-
+-static u32 byt_notify_pointer(struct sst_byt_stream *stream, void *data)
+-{
+-	struct sst_byt_pcm_data *pcm_data = data;
+-	struct snd_pcm_substream *substream = pcm_data->substream;
+-	struct snd_pcm_runtime *runtime = substream->runtime;
+-	struct snd_soc_pcm_runtime *rtd = asoc_substream_to_rtd(substream);
+-	struct snd_soc_component *component = snd_soc_rtdcom_lookup(rtd, DRV_NAME);
+-	struct sst_byt_priv_data *pdata = snd_soc_component_get_drvdata(component);
+-	struct sst_byt *byt = pdata->byt;
+-	u32 pos, hw_pos;
+-
+-	hw_pos = sst_byt_get_dsp_position(byt, pcm_data->stream,
+-					  snd_pcm_lib_buffer_bytes(substream));
+-	pcm_data->hw_ptr = hw_pos;
+-	pos = frames_to_bytes(runtime,
+-			      (runtime->control->appl_ptr %
+-			       runtime->buffer_size));
+-
+-	dev_dbg(rtd->dev, "PCM: App/DMA pointer %u/%u bytes\n", pos, hw_pos);
+-
+-	snd_pcm_period_elapsed(substream);
+-	return pos;
+-}
+-
+-static snd_pcm_uframes_t sst_byt_pcm_pointer(struct snd_soc_component *component,
+-					     struct snd_pcm_substream *substream)
+-{
+-	struct snd_soc_pcm_runtime *rtd = asoc_substream_to_rtd(substream);
+-	struct snd_pcm_runtime *runtime = substream->runtime;
+-	struct sst_byt_priv_data *pdata = snd_soc_component_get_drvdata(component);
+-	struct sst_byt_pcm_data *pcm_data = &pdata->pcm[substream->stream];
+-
+-	dev_dbg(rtd->dev, "PCM: DMA pointer %u bytes\n", pcm_data->hw_ptr);
+-
+-	return bytes_to_frames(runtime, pcm_data->hw_ptr);
+-}
+-
+-static int sst_byt_pcm_open(struct snd_soc_component *component,
+-			    struct snd_pcm_substream *substream)
+-{
+-	struct snd_soc_pcm_runtime *rtd = asoc_substream_to_rtd(substream);
+-	struct sst_byt_priv_data *pdata = snd_soc_component_get_drvdata(component);
+-	struct sst_byt_pcm_data *pcm_data = &pdata->pcm[substream->stream];
+-	struct sst_byt *byt = pdata->byt;
+-
+-	dev_dbg(rtd->dev, "PCM: open\n");
+-
+-	mutex_lock(&pcm_data->mutex);
+-
+-	pcm_data->substream = substream;
+-
+-	snd_soc_set_runtime_hwparams(substream, &sst_byt_pcm_hardware);
+-
+-	pcm_data->stream = sst_byt_stream_new(byt, substream->stream + 1,
+-					      byt_notify_pointer, pcm_data);
+-	if (pcm_data->stream == NULL) {
+-		dev_err(rtd->dev, "failed to create stream\n");
+-		mutex_unlock(&pcm_data->mutex);
+-		return -EINVAL;
+-	}
+-
+-	mutex_unlock(&pcm_data->mutex);
+-	return 0;
+-}
+-
+-static int sst_byt_pcm_close(struct snd_soc_component *component,
+-			     struct snd_pcm_substream *substream)
+-{
+-	struct snd_soc_pcm_runtime *rtd = asoc_substream_to_rtd(substream);
+-	struct sst_byt_priv_data *pdata = snd_soc_component_get_drvdata(component);
+-	struct sst_byt_pcm_data *pcm_data = &pdata->pcm[substream->stream];
+-	struct sst_byt *byt = pdata->byt;
+-	int ret;
+-
+-	dev_dbg(rtd->dev, "PCM: close\n");
+-
+-	cancel_work_sync(&pcm_data->work);
+-	mutex_lock(&pcm_data->mutex);
+-	ret = sst_byt_stream_free(byt, pcm_data->stream);
+-	if (ret < 0) {
+-		dev_dbg(rtd->dev, "Free stream fail\n");
+-		goto out;
+-	}
+-	pcm_data->stream = NULL;
+-
+-out:
+-	mutex_unlock(&pcm_data->mutex);
+-	return ret;
+-}
+-
+-static int sst_byt_pcm_mmap(struct snd_soc_component *component,
+-			    struct snd_pcm_substream *substream,
+-			    struct vm_area_struct *vma)
+-{
+-	struct snd_soc_pcm_runtime *rtd = asoc_substream_to_rtd(substream);
+-
+-	dev_dbg(rtd->dev, "PCM: mmap\n");
+-	return snd_pcm_lib_default_mmap(substream, vma);
+-}
+-
+-static int sst_byt_pcm_new(struct snd_soc_component *component,
+-			   struct snd_soc_pcm_runtime *rtd)
+-{
+-	struct snd_pcm *pcm = rtd->pcm;
+-	size_t size;
+-	struct sst_pdata *pdata = dev_get_platdata(component->dev);
+-
+-	if (pcm->streams[SNDRV_PCM_STREAM_PLAYBACK].substream ||
+-	    pcm->streams[SNDRV_PCM_STREAM_CAPTURE].substream) {
+-		size = sst_byt_pcm_hardware.buffer_bytes_max;
+-		snd_pcm_set_managed_buffer_all(pcm, SNDRV_DMA_TYPE_DEV,
+-					       pdata->dma_dev, size, size);
+-	}
+-
+-	return 0;
+-}
+-
+-static struct snd_soc_dai_driver byt_dais[] = {
 -	{
--		.id = "10EC5640",
--		.drv_name = "byt-rt5640",
--		.fw_filename = "intel/fw_sst_0f28.bin-48kHz_i2s_master",
+-		.name  = "Baytrail PCM",
+-		.playback = {
+-			.stream_name = "System Playback",
+-			.channels_min = 2,
+-			.channels_max = 2,
+-			.rates = SNDRV_PCM_RATE_48000,
+-			.formats = SNDRV_PCM_FMTBIT_S24_3LE |
+-				   SNDRV_PCM_FMTBIT_S16_LE,
+-		},
+-		.capture = {
+-			.stream_name = "Analog Capture",
+-			.channels_min = 2,
+-			.channels_max = 2,
+-			.rates = SNDRV_PCM_RATE_48000,
+-			.formats = SNDRV_PCM_FMTBIT_S16_LE,
+-		},
 -	},
--	{}
 -};
--EXPORT_SYMBOL_GPL(snd_soc_acpi_intel_baytrail_legacy_machines);
 -
- struct snd_soc_acpi_mach  snd_soc_acpi_intel_baytrail_machines[] = {
- 	{
- 		.id = "10EC5640",
+-static int sst_byt_pcm_probe(struct snd_soc_component *component)
+-{
+-	struct sst_pdata *plat_data = dev_get_platdata(component->dev);
+-	struct sst_byt_priv_data *priv_data;
+-	int i;
+-
+-	if (!plat_data)
+-		return -ENODEV;
+-
+-	priv_data = devm_kzalloc(component->dev, sizeof(*priv_data),
+-				 GFP_KERNEL);
+-	if (!priv_data)
+-		return -ENOMEM;
+-	priv_data->byt = plat_data->dsp;
+-	snd_soc_component_set_drvdata(component, priv_data);
+-
+-	for (i = 0; i < BYT_PCM_COUNT; i++) {
+-		mutex_init(&priv_data->pcm[i].mutex);
+-		INIT_WORK(&priv_data->pcm[i].work, sst_byt_pcm_work);
+-	}
+-
+-	return 0;
+-}
+-
+-static const struct snd_soc_component_driver byt_dai_component = {
+-	.name		= DRV_NAME,
+-	.probe		= sst_byt_pcm_probe,
+-	.open		= sst_byt_pcm_open,
+-	.close		= sst_byt_pcm_close,
+-	.hw_params	= sst_byt_pcm_hw_params,
+-	.trigger	= sst_byt_pcm_trigger,
+-	.pointer	= sst_byt_pcm_pointer,
+-	.mmap		= sst_byt_pcm_mmap,
+-	.pcm_construct	= sst_byt_pcm_new,
+-};
+-
+-#ifdef CONFIG_PM
+-static int sst_byt_pcm_dev_suspend_late(struct device *dev)
+-{
+-	struct sst_pdata *sst_pdata = dev_get_platdata(dev);
+-	struct sst_byt_priv_data *priv_data = dev_get_drvdata(dev);
+-	int ret;
+-
+-	dev_dbg(dev, "suspending late\n");
+-
+-	ret = sst_byt_dsp_suspend_late(dev, sst_pdata);
+-	if (ret < 0) {
+-		dev_err(dev, "failed to suspend %d\n", ret);
+-		return ret;
+-	}
+-
+-	priv_data->restore_stream = true;
+-
+-	return ret;
+-}
+-
+-static int sst_byt_pcm_dev_resume_early(struct device *dev)
+-{
+-	struct sst_pdata *sst_pdata = dev_get_platdata(dev);
+-	int ret;
+-
+-	dev_dbg(dev, "resume early\n");
+-
+-	/* load fw and boot DSP */
+-	ret = sst_byt_dsp_boot(dev, sst_pdata);
+-	if (ret)
+-		return ret;
+-
+-	/* wait for FW to finish booting */
+-	return sst_byt_dsp_wait_for_ready(dev, sst_pdata);
+-}
+-
+-static const struct dev_pm_ops sst_byt_pm_ops = {
+-	.suspend_late = sst_byt_pcm_dev_suspend_late,
+-	.resume_early = sst_byt_pcm_dev_resume_early,
+-};
+-
+-#define SST_BYT_PM_OPS	(&sst_byt_pm_ops)
+-#else
+-#define SST_BYT_PM_OPS	NULL
+-#endif
+-
+-static int sst_byt_pcm_dev_probe(struct platform_device *pdev)
+-{
+-	struct sst_pdata *sst_pdata = dev_get_platdata(&pdev->dev);
+-	int ret;
+-
+-	ret = sst_byt_dsp_init(&pdev->dev, sst_pdata);
+-	if (ret < 0)
+-		return -ENODEV;
+-
+-	ret = devm_snd_soc_register_component(&pdev->dev, &byt_dai_component,
+-					 byt_dais, ARRAY_SIZE(byt_dais));
+-	if (ret < 0)
+-		goto err_plat;
+-
+-	return 0;
+-
+-err_plat:
+-	sst_byt_dsp_free(&pdev->dev, sst_pdata);
+-	return ret;
+-}
+-
+-static int sst_byt_pcm_dev_remove(struct platform_device *pdev)
+-{
+-	struct sst_pdata *sst_pdata = dev_get_platdata(&pdev->dev);
+-
+-	sst_byt_dsp_free(&pdev->dev, sst_pdata);
+-
+-	return 0;
+-}
+-
+-static struct platform_driver sst_byt_pcm_driver = {
+-	.driver = {
+-		.name = "baytrail-pcm-audio",
+-		.pm = SST_BYT_PM_OPS,
+-	},
+-
+-	.probe = sst_byt_pcm_dev_probe,
+-	.remove = sst_byt_pcm_dev_remove,
+-};
+-module_platform_driver(sst_byt_pcm_driver);
+-
+-MODULE_AUTHOR("Jarkko Nikula");
+-MODULE_DESCRIPTION("Baytrail PCM");
+-MODULE_LICENSE("GPL v2");
+-MODULE_ALIAS("platform:baytrail-pcm-audio");
 -- 
 2.17.1
 

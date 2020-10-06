@@ -2,74 +2,61 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5736B284B92
-	for <lists+alsa-devel@lfdr.de>; Tue,  6 Oct 2020 14:24:49 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B921C284B97
+	for <lists+alsa-devel@lfdr.de>; Tue,  6 Oct 2020 14:26:32 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B94A41760;
-	Tue,  6 Oct 2020 14:23:58 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B94A41760
+	by alsa0.perex.cz (Postfix) with ESMTPS id 44A301762;
+	Tue,  6 Oct 2020 14:25:42 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 44A301762
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1601987088;
-	bh=/zKrEJEZkXvqneuHedMpe+cYrAwIfHmWbj1TtREWOYE=;
-	h=Subject:From:To:Date:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1601987192;
+	bh=4e+2j/NL5zBEF5jRbQPZHLvJrBwhGyVJCg40fbhy1Kw=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=OpnVVXvUTrDB1molyuk3pM3YD9HjjRLYPxv2J9KpPvqoIS2aeCtZLokCjVbZP8N0u
-	 Gv7svHJ9km/3laUOVtDF8yyZz5cLpCyPiJC7nljumyXHDNg+2Op2BjM0b2XV6PnNBo
-	 JP4wlfPURbHgW5OgyY9bPoOi3gBQqvFWbWd9xT3Q=
+	b=ayPPBrziEpnZWt4fi4AzTm8jwPrcwgP+/h5qmOmHmxtEFrVlO9D6lsPVUUucz5p2H
+	 gpk4W5T4MfrRgzQFudiIOOni9X+D4t29qy35DiiULh5sZkowociBIz890X0gNwD4EJ
+	 JO6lk3lWpz55drksTXWTXZOtJ0SWEIccBH4oG2J8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 64814F80127;
-	Tue,  6 Oct 2020 14:23:08 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id DA31BF8012B;
+	Tue,  6 Oct 2020 14:24:51 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 73EF5F8012A; Tue,  6 Oct 2020 14:23:06 +0200 (CEST)
+ id 31939F8012C; Tue,  6 Oct 2020 14:24:49 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_MSPIKE_H3,
+ RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
+Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 9D69DF80053
- for <alsa-devel@alsa-project.org>; Tue,  6 Oct 2020 14:22:57 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9D69DF80053
-IronPort-SDR: qPGadJ/x4acK04Ud08N+FG9H8R8sK/FFxNnPpi5k09jKkE0CbnUy4BdCSzrox2U0p8/Kiw+SXo
- YsyTlXR7Qd4Q==
-X-IronPort-AV: E=McAfee;i="6000,8403,9765"; a="163697325"
-X-IronPort-AV: E=Sophos;i="5.77,343,1596524400"; d="scan'208";a="163697325"
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from fmsmga008.fm.intel.com ([10.253.24.58])
- by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 06 Oct 2020 05:22:55 -0700
-IronPort-SDR: x0Z1125dYJ6sdjF2f9JTK/s8HMwFPhbvVPjx6zkOMGe2VKx0I1P9j5JtddUg4EwxdaDq5HctUl
- 2Tot/sLDxQFw==
-X-IronPort-AV: E=Sophos;i="5.77,343,1596524400"; d="scan'208";a="297078264"
-Received: from raystayl-mobl1.ger.corp.intel.com ([10.252.17.228])
- by fmsmga008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 06 Oct 2020 05:22:50 -0700
-Message-ID: <86e6ae9814f9e9a9b558d81947adbcfb7e10019b.camel@linux.intel.com>
-Subject: Re: [PATCH v2 00/13] ASoC: Intel: Remove obsolete solutions and
- components
-From: Liam Girdwood <liam.r.girdwood@linux.intel.com>
-To: Cezary Rojewski <cezary.rojewski@intel.com>, alsa-devel@alsa-project.org
-Date: Tue, 06 Oct 2020 13:22:48 +0100
-In-Reply-To: <20201006064907.16277-1-cezary.rojewski@intel.com>
-References: <20201006064907.16277-1-cezary.rojewski@intel.com>
-Content-Type: text/plain; charset="UTF-8"
-User-Agent: Evolution 3.36.4-0ubuntu1 
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Cc: krzysztof.hejmowski@intel.com, filip.kaczmarski@intel.com,
- harshapriya.n@intel.com, ppapierkowski@habana.ai, marcin.barlik@intel.com,
- zwisler@google.com, pierre-louis.bossart@linux.intel.com, lgirdwood@gmail.com,
- filip.proborszcz@intel.com, broonie@kernel.org,
- amadeuszx.slawinski@linux.intel.com, michal.wasko@intel.com, tiwai@suse.com,
- andriy.shevchenko@linux.intel.com, cujomalainey@chromium.org,
- vamshi.krishna.gopal@intel.com
+ by alsa1.perex.cz (Postfix) with ESMTPS id D7CBEF80053
+ for <alsa-devel@alsa-project.org>; Tue,  6 Oct 2020 14:24:42 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D7CBEF80053
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id DEB49B03B;
+ Tue,  6 Oct 2020 12:24:41 +0000 (UTC)
+Date: Tue, 06 Oct 2020 14:24:41 +0200
+Message-ID: <s5hmu0z5ypi.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Jian-Hong Pan <jhp@endlessos.org>
+Subject: Re: [PATCH] ALSA: hda/realtek: Enable audio jacks of ASUS D700SA with
+ ALC887
+In-Reply-To: <20201006075334.92933-1-jhp@endlessos.org>
+References: <20201006075334.92933-1-jhp@endlessos.org>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
+ FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
+ (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
+Content-Type: text/plain; charset=US-ASCII
+Cc: alsa-devel@alsa-project.org, Kailang Yang <kailang@realtek.com>,
+ linux@endlessm.com, Takashi Iwai <tiwai@suse.com>,
+ linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -85,38 +72,73 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Tue, 2020-10-06 at 08:48 +0200, Cezary Rojewski wrote:
-> Follow up to catpt series as mentioned in:
+On Tue, 06 Oct 2020 09:53:35 +0200,
+Jian-Hong Pan wrote:
 > 
-> [PATCH v10 00/14] ASoC: Intel: Catpt - Lynx and Wildcat point
+> The ASUS D700SA desktop's audio (1043:2390) with ALC887 cannot detect
+> the headset microphone and another headphone jack until
+> ALC887_FIXUP_ASUS_HMIC and ALC887_FIXUP_ASUS_AUDIO quirks are applied.
+> The NID 0x15 maps as the headset microphone and NID 0x19 maps as another
+> headphone jack. Also need the function like alc887_fixup_asus_jack to
+> enable the audio jacks.
 > 
-> https://www.spinics.net/lists/alsa-devel/msg116440.html
+> Signed-off-by: Jian-Hong Pan <jhp@endlessos.org>
+> Signed-off-by: Kailang Yang <kailang@realtek.com>
+> ---
+>  sound/pci/hda/patch_realtek.c | 41 +++++++++++++++++++++++++++++++++++
+>  1 file changed, 41 insertions(+)
 > 
-> 
-> 
-> As catpt is a direct replacement to sound/soc/intel/haswell, it leaves a
-> 
-> lot of code redudant. The second legacy solution - baytrail - is
-> 
-> deprecated for a long time by sound/soc/intel/atom with SOF flavor
-> 
-> available too.
-> 
-> 
-> 
-> This series addresses the redudancy and removes obsolete code. Along
-> 
-> with the legacy solutions, all orphaned components are removed too.
-> 
-> 
-> 
-> As a consequence, further cleanups are unlocked: sound/soc/intel/skylake
-> 
-> becomes the sole user of processing code found in
-> 
-> sound/soc/intel/common. Those are not part of this series.
+> diff --git a/sound/pci/hda/patch_realtek.c b/sound/pci/hda/patch_realtek.c
+> index d4f17b465892..8d0928bdc9ff 100644
+> --- a/sound/pci/hda/patch_realtek.c
+> +++ b/sound/pci/hda/patch_realtek.c
+> @@ -1929,6 +1929,8 @@ enum {
+>  	ALC1220_FIXUP_CLEVO_P950,
+>  	ALC1220_FIXUP_CLEVO_PB51ED,
+>  	ALC1220_FIXUP_CLEVO_PB51ED_PINS,
+> +	ALC887_FIXUP_ASUS_AUDIO,
+> +	ALC887_FIXUP_ASUS_HMIC,
+>  };
+>  
+>  static void alc889_fixup_coef(struct hda_codec *codec,
+> @@ -2141,6 +2143,30 @@ static void alc1220_fixup_clevo_pb51ed(struct hda_codec *codec,
+>  	alc_fixup_headset_mode_no_hp_mic(codec, fix, action);
+>  }
+>  
+> +static void alc887_asus_hp_automute_hook(struct hda_codec *codec,
+> +					 struct hda_jack_callback *jack)
+> +{
+> +	struct alc_spec *spec = codec->spec;
+> +	int vref;
+> +
+> +	snd_hda_gen_hp_automute(codec, jack);
+> +
+> +	vref = spec->gen.hp_jack_present ? 0xc4 : 0xc0;
 
-All 
+Use the AC_PINCTL_* instead of the raw numbers.  Some values are
+shortened form in hda_local.h, too (e.g. 0xc0 = PIN_HP).
 
-Acked-by: Liam Girdwood <liam.r.girdwood@intel.com>
 
+> +	snd_hda_codec_write(codec, 0x19, 0, AC_VERB_SET_PIN_WIDGET_CONTROL,
+> +			    vref);
+
+Better to use snd_hda_set_pin_ctl().
+
+> +}
+> +
+> +static void alc887_fixup_asus_jack(struct hda_codec *codec,
+> +				     const struct hda_fixup *fix, int action)
+> +{
+> +	struct alc_spec *spec = codec->spec;
+> +	if (action != HDA_FIXUP_ACT_PROBE)
+> +		return;
+> +	snd_hda_codec_write(codec, 0x1b, 0, AC_VERB_SET_PIN_WIDGET_CONTROL,
+> +			    0xc0);
+
+This one would be snd_hda_set_pin_ctl_cached(), so that it'll be
+restored at resume.
+
+
+thanks,
+
+Takashi

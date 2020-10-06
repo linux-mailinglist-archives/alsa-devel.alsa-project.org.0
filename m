@@ -2,88 +2,79 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2DCAA285256
-	for <lists+alsa-devel@lfdr.de>; Tue,  6 Oct 2020 21:22:30 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C031E285292
+	for <lists+alsa-devel@lfdr.de>; Tue,  6 Oct 2020 21:37:52 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A085016F5;
-	Tue,  6 Oct 2020 21:21:39 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A085016F5
+	by alsa0.perex.cz (Postfix) with ESMTPS id 3013016F2;
+	Tue,  6 Oct 2020 21:37:02 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3013016F2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1602012149;
-	bh=gTi6TGQ5uGxOAlj1bghUBAh7jPkrXH4Z6wm41afuJzI=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1602013072;
+	bh=P6p+EJ+rRP+CiVxxUP+I8crIL7r+PvBwYT3Hqksd1vg=;
+	h=Subject:From:To:References:Date:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=PuzAKOxVRD8sDbGa9OGcUE56DDCTyKuoFyN2fDxc4WK+jn5j9lJNiovyHkJQAydIm
-	 ruTAhox8aDwIn9OPlyqllkuaog3Z4dd0e7fBbHaqzIaGCsdRArDkWtxXMk9215EooT
-	 zr64iXCnLqekhEDoX9gcbcD1MFsrJEVI7Zyo6w0I=
+	b=sv5k0f4Ybx/DDFkA3GqFdQAFdZNDFevlaFPow0ls73pqkGcOkgOBz+sBiOvXDPTjL
+	 HSZmHuo/2Rneywz6ApwTTNZMV/Yf1r7bEzZ+PIXlFNWrsOcE1mbtVS1uVTRU2JAVXV
+	 vQmYCFRv1KnFGOPkh9JOaDWQBmfy5m6+xR+QRCcg=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 29F29F80053;
-	Tue,  6 Oct 2020 21:20:49 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id CA6BDF8012B;
+	Tue,  6 Oct 2020 21:36:11 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id B274FF80128; Tue,  6 Oct 2020 21:20:46 +0200 (CEST)
+ id 42BB3F8012A; Tue,  6 Oct 2020 21:36:09 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.8 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled
- version=3.4.0
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id ED7B0F80128
- for <alsa-devel@alsa-project.org>; Tue,  6 Oct 2020 21:20:43 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz ED7B0F80128
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="0YmRzaEw"
-Received: from localhost (unknown [213.57.247.131])
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from casper.infradead.org (casper.infradead.org
+ [IPv6:2001:8b0:10b:1236::1])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 91BE4206B5;
- Tue,  6 Oct 2020 19:20:39 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1602012040;
- bh=gTi6TGQ5uGxOAlj1bghUBAh7jPkrXH4Z6wm41afuJzI=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=0YmRzaEwDk60OeBAZemGG0lHKcBt/TDRMOeymj0dVaYr1u1Pv4BPjlkrBKLhMjfDm
- vxpyhRvnLGoBIBG4iprzsUPAoCSF52TsNVJ/Oq+mZG9LkyYVv21QEMUchasaxFSvpy
- R2cjN4J2qumXijg7yszKmCXmcTbFuEdlH5xozb1Y=
-Date: Tue, 6 Oct 2020 22:20:36 +0300
-From: Leon Romanovsky <leon@kernel.org>
-To: "Saleem, Shiraz" <shiraz.saleem@intel.com>
-Subject: Re: [PATCH v2 1/6] Add ancillary bus support
-Message-ID: <20201006192036.GQ1874917@unreal>
-References: <20201005182446.977325-1-david.m.ertman@intel.com>
- <20201005182446.977325-2-david.m.ertman@intel.com>
- <20201006071821.GI1874917@unreal>
- <b4f6b5d1-2cf4-ae7a-3e57-b66230a58453@linux.intel.com>
- <20201006170241.GM1874917@unreal>
- <BY5PR12MB43228E8DAA0B56BCF43AF3EFDC0D0@BY5PR12MB4322.namprd12.prod.outlook.com>
- <20201006172650.GO1874917@unreal>
- <3ff1445d86564ef3aae28d1d1a9a19ea@intel.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 2B368F80128
+ for <alsa-devel@alsa-project.org>; Tue,  6 Oct 2020 21:36:02 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2B368F80128
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org
+ header.b="bIBEUHlO"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=infradead.org; s=casper.20170209; h=Content-Transfer-Encoding:Content-Type:
+ In-Reply-To:MIME-Version:Date:Message-ID:References:Cc:To:From:Subject:Sender
+ :Reply-To:Content-ID:Content-Description;
+ bh=DJKJ8r3sz1KNUVoUA6+L/JRy5qYNTx6QHmLO0xUeMgk=; b=bIBEUHlO2Zq+nAPOB1WSpZCB+L
+ fOiT5gyGLPR/t2q6QgJyPt4+h6c6MpfaDpfQy/kiWI2E6hOD6cG/gaWefTPn08AMySXjTNO5ms8rq
+ UBHuRU75A7LtqJI+NvrAoKOQCxG74VOLFnd5QHz7YTDqMUQMDhWnJo+58CDFoNYYR2m4zUGqkYW/X
+ LB/UcFaj431QMvXb5NJIF6w73YmfK4F6JqD3CyUYC7CTg6YrPgiK0vhZ9rqoY8SZ0YMMmQgTkUT9x
+ zdwKWHZHjdVKznoG03Hkk5nF+OzekKsyjOCrMDc+Zuxr4OLvNCYt1VoUVkKA5LV0QLBI7n2rdUfZy
+ XJuNDiZQ==;
+Received: from [2601:1c0:6280:3f0::2c9a]
+ by casper.infradead.org with esmtpsa (Exim 4.92.3 #3 (Red Hat Linux))
+ id 1kPskc-0007RY-3H; Tue, 06 Oct 2020 19:35:54 +0000
+Subject: Re: linux-next: Tree for Oct 6 (sound/soc/intel/catpt/device.c)
+From: Randy Dunlap <rdunlap@infradead.org>
+To: Stephen Rothwell <sfr@canb.auug.org.au>,
+ Linux Next Mailing List <linux-next@vger.kernel.org>
+References: <20201006231234.701591b5@canb.auug.org.au>
+ <0d1072b7-c57c-6a50-0561-389ad6a3e414@infradead.org>
+Message-ID: <3cb00b47-2143-e867-433d-4e8ba026cb90@infradead.org>
+Date: Tue, 6 Oct 2020 12:35:50 -0700
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.12.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <3ff1445d86564ef3aae28d1d1a9a19ea@intel.com>
-Cc: "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
- "kuba@kernel.org" <kuba@kernel.org>, "parav@mellanox.com" <parav@mellanox.com>,
- "tiwai@suse.de" <tiwai@suse.de>,
- "netdev@vger.kernel.org" <netdev@vger.kernel.org>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- "ranjani.sridharan@linux.intel.com" <ranjani.sridharan@linux.intel.com>,
- "fred.oh@linux.intel.com" <fred.oh@linux.intel.com>,
- "linux-rdma@vger.kernel.org" <linux-rdma@vger.kernel.org>,
- "dledford@redhat.com" <dledford@redhat.com>,
- "broonie@kernel.org" <broonie@kernel.org>, Parav Pandit <parav@nvidia.com>,
- Jason Gunthorpe <jgg@nvidia.com>,
- "gregkh@linuxfoundation.org" <gregkh@linuxfoundation.org>, "Ertman,
- David M" <david.m.ertman@intel.com>, "Williams,
- Dan J" <dan.j.williams@intel.com>, "davem@davemloft.net" <davem@davemloft.net>,
- "Patil, Kiran" <kiran.patil@intel.com>
+In-Reply-To: <0d1072b7-c57c-6a50-0561-389ad6a3e414@infradead.org>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 8bit
+Cc: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ Cezary Rojewski <cezary.rojewski@intel.com>,
+ Jie Yang <yang.jie@linux.intel.com>,
+ moderated for non-subscribers <alsa-devel@alsa-project.org>,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ Liam Girdwood <liam.r.girdwood@linux.intel.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -99,53 +90,43 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Tue, Oct 06, 2020 at 05:41:00PM +0000, Saleem, Shiraz wrote:
-> > Subject: Re: [PATCH v2 1/6] Add ancillary bus support
-> >
-> > On Tue, Oct 06, 2020 at 05:09:09PM +0000, Parav Pandit wrote:
-> > >
-> > > > From: Leon Romanovsky <leon@kernel.org>
-> > > > Sent: Tuesday, October 6, 2020 10:33 PM
-> > > >
-> > > > On Tue, Oct 06, 2020 at 10:18:07AM -0500, Pierre-Louis Bossart wrote:
-> > > > > Thanks for the review Leon.
-> > > > >
-> > > > > > > Add support for the Ancillary Bus, ancillary_device and ancillary_driver.
-> > > > > > > It enables drivers to create an ancillary_device and bind an
-> > > > > > > ancillary_driver to it.
-> > > > > >
-> > > > > > I was under impression that this name is going to be changed.
-> > > > >
-> > > > > It's part of the opens stated in the cover letter.
-> > > >
-> > > > ok, so what are the variants?
-> > > > system bus (sysbus), sbsystem bus (subbus), crossbus ?
-> > > Since the intended use of this bus is to
-> > > (a) create sub devices that represent 'functional separation' and
-> > > (b) second use case for subfunctions from a pci device,
-> > >
-> > > I proposed below names in v1 of this patchset.
-> > >
-> > > (a) subdev_bus
-> >
-> > It sounds good, just can we avoid "_" in the name and call it subdev?
-> >
->
-> What is wrong with naming the bus 'ancillary bus'? I feel it's a fitting name.
-> An ancillary software bus for ancillary devices carved off a parent device registered on a primary bus.
+On 10/6/20 11:54 AM, Randy Dunlap wrote:
+> On 10/6/20 5:12 AM, Stephen Rothwell wrote:
+>> Hi all,
+>>
+>> Changes since 20201002:
+>>
+> 
+> on x86_64 or i386:
+> when CONFIG_MODULES is not set/enabled:
+> 
+> ../sound/soc/intel/catpt/device.c: In function ‘catpt_resume’:
+> ../sound/soc/intel/catpt/device.c:84:7: error: implicit declaration of function ‘module_is_live’; did you mean ‘module_driver’? [-Werror=implicit-function-declaration]
+>   if (!module_is_live(dev->driver->owner)) {
+>        ^~~~~~~~~~~~~~
+>        module_driver
+> 
+> 
+> You could see
+> commit cdb685cb9158fa67f6f4584ea39279ed7ae39253
+> Author: Danil Kipnis <danil.kipnis@cloud.ionos.com>
+> Date:   Thu May 21 20:59:09 2020 +0200
+> 
+>     RDMA/rnbd: Fix compilation error when CONFIG_MODULES is disabled
+> 
+> for a possible fix.
+> 
 
-Greg summarized it very well, every internal conversation about this patch
-with my colleagues (non-english speakers) starts with the question:
-"What does ancillary mean?"
-https://lore.kernel.org/alsa-devel/20201001071403.GC31191@kroah.com/
+I also just saw this:
 
-"For non-native english speakers this is going to be rough,
-given that I as a native english speaker had to go look up
-the word in a dictionary to fully understand what you are
-trying to do with that name."
+WARNING: unmet direct dependencies detected for DW_DMAC_CORE
+  Depends on [n]: DMADEVICES [=n]
+  Selected by [y]:
+  - SND_SOC_INTEL_CATPT [=y] && SOUND [=y] && !UML && SND [=y] && SND_SOC [=y] && SND_SOC_INTEL_SST_TOPLEVEL [=y] && (ACPI [=n] || COMPILE_TEST [=y]) && SND_DMA_SGBUF [=y]
 
-Thanks
+so SND_SOC_INTEL_CATPT should also depend on DMADEVICES.
 
->
->
->
+
+-- 
+~Randy
+Reported-by: Randy Dunlap <rdunlap@infradead.org>

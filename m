@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 984EB284664
-	for <lists+alsa-devel@lfdr.de>; Tue,  6 Oct 2020 08:56:46 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B2156284665
+	for <lists+alsa-devel@lfdr.de>; Tue,  6 Oct 2020 08:57:17 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 2FBF61772;
-	Tue,  6 Oct 2020 08:55:56 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2FBF61772
+	by alsa0.perex.cz (Postfix) with ESMTPS id 4159F176E;
+	Tue,  6 Oct 2020 08:56:27 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4159F176E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1601967406;
-	bh=Pjadb8xcJQakmiz2+PKOtXVlX/ulkCHe7DV7qBmHcJw=;
+	s=default; t=1601967437;
+	bh=4SjNKtb35pmPeFmUD4OAfSYPgCTjzlYSSZJ8NnwdFr0=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=qHCfHqpdOKsEFxrFPIYYsziBZgEbvLNJM8/1caJGbe5AC6f4wBEnvKNqRZKCGPexA
-	 TRphFtfNPgAzAnX+IUc0be9a5EGVHlgzBKniZEQBdRKG5XP01VLWMUYqFSiugRMZ1O
-	 qsVuzw+5DhIYUjXyIsw+5D1zchSal8B7h9Nsp6c8=
+	b=A75ehBYWzNZl+Jkm4IaghoPL/RRQaBUJ18P0IoVAI1ZJ0VYuRxf5QRk/Tistkv48k
+	 cSZkGsgkniQGsQcQg0JQ45qN/EoBAZvsV7T5Pw8uiZd5/682jsLd2dh7l6Rv8B+trJ
+	 lvlNltFqNFEzBClO0TFirfSEDXaMmOLBga4Yemk0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 49D47F80346;
-	Tue,  6 Oct 2020 08:50:44 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id A8F17F80349;
+	Tue,  6 Oct 2020 08:50:45 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id EF545F80321; Tue,  6 Oct 2020 08:50:35 +0200 (CEST)
+ id 785E9F80321; Tue,  6 Oct 2020 08:50:37 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.3 required=5.0 tests=PRX_BODY_65,SPF_HELO_NONE,
@@ -33,29 +33,30 @@ X-Spam-Status: No, score=0.3 required=5.0 tests=PRX_BODY_65,SPF_HELO_NONE,
 Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 8B60BF80255
- for <alsa-devel@alsa-project.org>; Tue,  6 Oct 2020 08:50:28 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8B60BF80255
-IronPort-SDR: kLyPLTohMECUSKVU5Sxj+jNU/Z9ex1pdJedeQFZ/JlhHYORr9hhZXJ5xPQW9mNsU0QmE4T9GrJ
- TW2bn2jXTF5g==
-X-IronPort-AV: E=McAfee;i="6000,8403,9765"; a="249091339"
-X-IronPort-AV: E=Sophos;i="5.77,342,1596524400"; d="scan'208";a="249091339"
+ by alsa1.perex.cz (Postfix) with ESMTPS id DF079F80307
+ for <alsa-devel@alsa-project.org>; Tue,  6 Oct 2020 08:50:32 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DF079F80307
+IronPort-SDR: nEUtG46pVRFaIBOan0Uojw7IJql67uLS1oZEiE2F9CohOMxWYUbodbdytQAXATsjSexH33SnpF
+ J7X+wr//O2jw==
+X-IronPort-AV: E=McAfee;i="6000,8403,9765"; a="249091348"
+X-IronPort-AV: E=Sophos;i="5.77,342,1596524400"; d="scan'208";a="249091348"
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
 Received: from orsmga006.jf.intel.com ([10.7.209.51])
  by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 05 Oct 2020 23:50:28 -0700
-IronPort-SDR: DhDerZKk4x//FhqWmN/FbhV0EynFPijebdDpHXdsJML0WlANxevUsdp3WHTnxG99yzXvcJOGL/
- zSwe1uRhZ6uw==
+ 05 Oct 2020 23:50:32 -0700
+IronPort-SDR: 9hbiMbS9o5CczUlGmKOSn56VuU1sst/2Wj8hkvbkTiJ0dteEV/y/1ZfiLOxyjYgNcWYHxkEVvd
+ ap9NXRdXpmjQ==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.77,342,1596524400"; d="scan'208";a="315491292"
+X-IronPort-AV: E=Sophos;i="5.77,342,1596524400"; d="scan'208";a="315491313"
 Received: from crojewsk-ctrl.igk.intel.com ([10.102.9.28])
- by orsmga006.jf.intel.com with ESMTP; 05 Oct 2020 23:50:24 -0700
+ by orsmga006.jf.intel.com with ESMTP; 05 Oct 2020 23:50:28 -0700
 From: Cezary Rojewski <cezary.rojewski@intel.com>
 To: alsa-devel@alsa-project.org
-Subject: [PATCH v2 10/13] ASoC: Intel: Remove SST-legacy specific constants
-Date: Tue,  6 Oct 2020 08:49:04 +0200
-Message-Id: <20201006064907.16277-11-cezary.rojewski@intel.com>
+Subject: [PATCH v2 11/13] ASoC: Intel: Make atom components independent of
+ sst-dsp
+Date: Tue,  6 Oct 2020 08:49:05 +0200
+Message-Id: <20201006064907.16277-12-cezary.rojewski@intel.com>
 X-Mailer: git-send-email 2.17.1
 In-Reply-To: <20201006064907.16277-1-cezary.rojewski@intel.com>
 References: <20201006064907.16277-1-cezary.rojewski@intel.com>
@@ -82,207 +83,175 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-As sound/soc/intel/haswell and /baytrail are no more, all SST-legacy
-specific constants and registers are redundant so remove them.
+With sound/soc/intel/haswell and /baytrail gone, registers left within
+sst-dsp header are atom-specific. Relocate these to atom internal header
+to make atom truely independent of sound/soc/common processing code.
 
 Signed-off-by: Cezary Rojewski <cezary.rojewski@intel.com>
 Reviewed-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
 ---
- sound/soc/intel/common/sst-dsp-priv.h |   3 -
- sound/soc/intel/common/sst-dsp.h      | 143 --------------------------
- sound/soc/intel/common/sst-ipc.h      |   2 -
- 3 files changed, 148 deletions(-)
+ sound/soc/intel/atom/sst/sst.c               |  1 -
+ sound/soc/intel/atom/sst/sst.h               |  7 +++++++
+ sound/soc/intel/atom/sst/sst_acpi.c          |  1 -
+ sound/soc/intel/atom/sst/sst_drv_interface.c |  3 ---
+ sound/soc/intel/atom/sst/sst_ipc.c           |  1 -
+ sound/soc/intel/atom/sst/sst_loader.c        |  1 -
+ sound/soc/intel/atom/sst/sst_pvt.c           |  1 -
+ sound/soc/intel/atom/sst/sst_stream.c        |  1 -
+ sound/soc/intel/boards/bytcht_es8316.c       |  1 -
+ sound/soc/intel/boards/bytcr_rt5640.c        |  1 -
+ sound/soc/intel/common/sst-dsp.h             | 10 ----------
+ 11 files changed, 7 insertions(+), 21 deletions(-)
 
-diff --git a/sound/soc/intel/common/sst-dsp-priv.h b/sound/soc/intel/common/sst-dsp-priv.h
-index 994698ff581e..7d9834509f4a 100644
---- a/sound/soc/intel/common/sst-dsp-priv.h
-+++ b/sound/soc/intel/common/sst-dsp-priv.h
-@@ -15,9 +15,6 @@
+diff --git a/sound/soc/intel/atom/sst/sst.c b/sound/soc/intel/atom/sst/sst.c
+index d450b9848028..e90590559185 100644
+--- a/sound/soc/intel/atom/sst/sst.c
++++ b/sound/soc/intel/atom/sst/sst.c
+@@ -26,7 +26,6 @@
+ #include <asm/platform_sst_audio.h>
+ #include "../sst-mfld-platform.h"
+ #include "sst.h"
+-#include "../../common/sst-dsp.h"
  
- #include "../skylake/skl-sst-dsp.h"
+ MODULE_AUTHOR("Vinod Koul <vinod.koul@intel.com>");
+ MODULE_AUTHOR("Harsha Priya <priya.harsha@intel.com>");
+diff --git a/sound/soc/intel/atom/sst/sst.h b/sound/soc/intel/atom/sst/sst.h
+index 2bee646e81b8..4d37d39fd8f4 100644
+--- a/sound/soc/intel/atom/sst/sst.h
++++ b/sound/soc/intel/atom/sst/sst.h
+@@ -34,6 +34,13 @@
+ #define MRFLD_FW_FEATURE_BASE_OFFSET 0x4
+ #define MRFLD_FW_BSS_RESET_BIT 0
  
--/* do we need to remove or keep */
--#define DSP_DRAM_ADDR_OFFSET		0x400000
++/* SST Shim register map */
++#define SST_CSR			0x00
++#define SST_ISRX		0x18
++#define SST_IMRX		0x28
++#define SST_IPCX		0x38 /* IPC IA -> SST */
++#define SST_IPCD		0x40 /* IPC SST -> IA */
++
+ extern const struct dev_pm_ops intel_sst_pm;
+ enum sst_states {
+ 	SST_FW_LOADING = 1,
+diff --git a/sound/soc/intel/atom/sst/sst_acpi.c b/sound/soc/intel/atom/sst/sst_acpi.c
+index f3cfe83b9ac6..f943a0884976 100644
+--- a/sound/soc/intel/atom/sst/sst_acpi.c
++++ b/sound/soc/intel/atom/sst/sst_acpi.c
+@@ -31,7 +31,6 @@
+ #include <sound/soc-acpi.h>
+ #include <sound/soc-acpi-intel-match.h>
+ #include "../sst-mfld-platform.h"
+-#include "../../common/sst-dsp.h"
+ #include "../../common/soc-intel-quirks.h"
+ #include "sst.h"
+ 
+diff --git a/sound/soc/intel/atom/sst/sst_drv_interface.c b/sound/soc/intel/atom/sst/sst_drv_interface.c
+index 762495385d5c..0af618dd8073 100644
+--- a/sound/soc/intel/atom/sst/sst_drv_interface.c
++++ b/sound/soc/intel/atom/sst/sst_drv_interface.c
+@@ -24,9 +24,6 @@
+ #include <asm/platform_sst_audio.h>
+ #include "../sst-mfld-platform.h"
+ #include "sst.h"
+-#include "../../common/sst-dsp.h"
 -
- /*
-  * DSP Operations exported by platform Audio DSP driver.
-  */
+-
+ 
+ #define NUM_CODEC 2
+ #define MIN_FRAGMENT 2
+diff --git a/sound/soc/intel/atom/sst/sst_ipc.c b/sound/soc/intel/atom/sst/sst_ipc.c
+index c2851a829a64..a8a9aa0057d3 100644
+--- a/sound/soc/intel/atom/sst/sst_ipc.c
++++ b/sound/soc/intel/atom/sst/sst_ipc.c
+@@ -24,7 +24,6 @@
+ #include <asm/platform_sst_audio.h>
+ #include "../sst-mfld-platform.h"
+ #include "sst.h"
+-#include "../../common/sst-dsp.h"
+ 
+ struct sst_block *sst_create_block(struct intel_sst_drv *ctx,
+ 					u32 msg_id, u32 drv_id)
+diff --git a/sound/soc/intel/atom/sst/sst_loader.c b/sound/soc/intel/atom/sst/sst_loader.c
+index 5c42cce90ce2..1c9b0c9ec483 100644
+--- a/sound/soc/intel/atom/sst/sst_loader.c
++++ b/sound/soc/intel/atom/sst/sst_loader.c
+@@ -29,7 +29,6 @@
+ #include <asm/platform_sst_audio.h>
+ #include "../sst-mfld-platform.h"
+ #include "sst.h"
+-#include "../../common/sst-dsp.h"
+ 
+ void memcpy32_toio(void __iomem *dst, const void *src, int count)
+ {
+diff --git a/sound/soc/intel/atom/sst/sst_pvt.c b/sound/soc/intel/atom/sst/sst_pvt.c
+index c099f7df6168..e6a5c18a7018 100644
+--- a/sound/soc/intel/atom/sst/sst_pvt.c
++++ b/sound/soc/intel/atom/sst/sst_pvt.c
+@@ -26,7 +26,6 @@
+ #include <asm/platform_sst_audio.h>
+ #include "../sst-mfld-platform.h"
+ #include "sst.h"
+-#include "../../common/sst-dsp.h"
+ 
+ int sst_shim_write(void __iomem *addr, int offset, int value)
+ {
+diff --git a/sound/soc/intel/atom/sst/sst_stream.c b/sound/soc/intel/atom/sst/sst_stream.c
+index c0221e103e79..ea1ef8a61fa6 100644
+--- a/sound/soc/intel/atom/sst/sst_stream.c
++++ b/sound/soc/intel/atom/sst/sst_stream.c
+@@ -23,7 +23,6 @@
+ #include <asm/platform_sst_audio.h>
+ #include "../sst-mfld-platform.h"
+ #include "sst.h"
+-#include "../../common/sst-dsp.h"
+ 
+ int sst_alloc_stream_mrfld(struct intel_sst_drv *sst_drv_ctx, void *params)
+ {
+diff --git a/sound/soc/intel/boards/bytcht_es8316.c b/sound/soc/intel/boards/bytcht_es8316.c
+index 414ae4bb5224..9c09b44b4d33 100644
+--- a/sound/soc/intel/boards/bytcht_es8316.c
++++ b/sound/soc/intel/boards/bytcht_es8316.c
+@@ -28,7 +28,6 @@
+ #include <sound/soc.h>
+ #include <sound/soc-acpi.h>
+ #include "../atom/sst-atom-controls.h"
+-#include "../common/sst-dsp.h"
+ #include "../common/soc-intel-quirks.h"
+ 
+ /* jd-inv + terminating entry */
+diff --git a/sound/soc/intel/boards/bytcr_rt5640.c b/sound/soc/intel/boards/bytcr_rt5640.c
+index fc202747ba83..9dadf6561444 100644
+--- a/sound/soc/intel/boards/bytcr_rt5640.c
++++ b/sound/soc/intel/boards/bytcr_rt5640.c
+@@ -28,7 +28,6 @@
+ #include <dt-bindings/sound/rt5640.h>
+ #include "../../codecs/rt5640.h"
+ #include "../atom/sst-atom-controls.h"
+-#include "../common/sst-dsp.h"
+ #include "../common/soc-intel-quirks.h"
+ 
+ enum {
 diff --git a/sound/soc/intel/common/sst-dsp.h b/sound/soc/intel/common/sst-dsp.h
-index 427970add9c7..f580e718b183 100644
+index f580e718b183..021a36b2398a 100644
 --- a/sound/soc/intel/common/sst-dsp.h
 +++ b/sound/soc/intel/common/sst-dsp.h
-@@ -12,158 +12,15 @@
+@@ -12,16 +12,6 @@
  #include <linux/types.h>
  #include <linux/interrupt.h>
  
--/* SST Device IDs  */
--#define SST_DEV_ID_LYNX_POINT		0x33C8
--#define SST_DEV_ID_WILDCAT_POINT	0x3438
--#define SST_DEV_ID_BYT			0x0F28
--
--/* Supported SST DMA Devices */
--#define SST_DMA_TYPE_DW		1
--
--/* autosuspend delay 5s*/
--#define SST_RUNTIME_SUSPEND_DELAY	(5 * 1000)
--
- /* SST Shim register map
-  * The register naming can differ between products. Some products also
-  * contain extra functionality.
-  */
- #define SST_CSR			0x00
--#define SST_PISR		0x08
--#define SST_PIMR		0x10
- #define SST_ISRX		0x18
--#define SST_ISRD		0x20
- #define SST_IMRX		0x28
--#define SST_IMRD		0x30
- #define SST_IPCX		0x38 /* IPC IA -> SST */
- #define SST_IPCD		0x40 /* IPC SST -> IA */
--#define SST_ISRSC		0x48
--#define SST_ISRLPESC		0x50
--#define SST_IMRSC		0x58
--#define SST_IMRLPESC		0x60
--#define SST_IPCSC		0x68
--#define SST_IPCLPESC		0x70
--#define SST_CLKCTL		0x78
--#define SST_CSR2		0x80
--#define SST_LTRC		0xE0
--#define SST_HMDC		0xE8
--
--#define SST_SHIM_BEGIN		SST_CSR
--#define SST_SHIM_END		SST_HDMC
--
--#define SST_DBGO		0xF0
--
--#define SST_SHIM_SIZE		0x100
--#define SST_PWMCTRL             0x1000
--
--/* SST Shim Register bits
-- * The register bit naming can differ between products. Some products also
+-/* SST Shim register map
+- * The register naming can differ between products. Some products also
 - * contain extra functionality.
 - */
+-#define SST_CSR			0x00
+-#define SST_ISRX		0x18
+-#define SST_IMRX		0x28
+-#define SST_IPCX		0x38 /* IPC IA -> SST */
+-#define SST_IPCD		0x40 /* IPC SST -> IA */
 -
--/* CSR / CS */
--#define SST_CSR_RST		(0x1 << 1)
--#define SST_CSR_SBCS0		(0x1 << 2)
--#define SST_CSR_SBCS1		(0x1 << 3)
--#define SST_CSR_DCS(x)		(x << 4)
--#define SST_CSR_DCS_MASK	(0x7 << 4)
--#define SST_CSR_STALL		(0x1 << 10)
--#define SST_CSR_S0IOCS		(0x1 << 21)
--#define SST_CSR_S1IOCS		(0x1 << 23)
--#define SST_CSR_LPCS		(0x1 << 31)
--#define SST_CSR_24MHZ_LPCS	(SST_CSR_SBCS0 | SST_CSR_SBCS1 | SST_CSR_LPCS)
--#define SST_CSR_24MHZ_NO_LPCS	(SST_CSR_SBCS0 | SST_CSR_SBCS1)
--#define SST_BYT_CSR_RST		(0x1 << 0)
--#define SST_BYT_CSR_VECTOR_SEL	(0x1 << 1)
--#define SST_BYT_CSR_STALL	(0x1 << 2)
--#define SST_BYT_CSR_PWAITMODE	(0x1 << 3)
--
--/*  ISRX / ISC */
--#define SST_ISRX_BUSY		(0x1 << 1)
--#define SST_ISRX_DONE		(0x1 << 0)
--#define SST_BYT_ISRX_REQUEST	(0x1 << 1)
--
--/*  ISRD / ISD */
--#define SST_ISRD_BUSY		(0x1 << 1)
--#define SST_ISRD_DONE		(0x1 << 0)
--
--/* IMRX / IMC */
--#define SST_IMRX_BUSY		(0x1 << 1)
--#define SST_IMRX_DONE		(0x1 << 0)
--#define SST_BYT_IMRX_REQUEST	(0x1 << 1)
--
--/* IMRD / IMD */
--#define SST_IMRD_DONE		(0x1 << 0)
--#define SST_IMRD_BUSY		(0x1 << 1)
--#define SST_IMRD_SSP0		(0x1 << 16)
--#define SST_IMRD_DMAC0		(0x1 << 21)
--#define SST_IMRD_DMAC1		(0x1 << 22)
--#define SST_IMRD_DMAC		(SST_IMRD_DMAC0 | SST_IMRD_DMAC1)
--
--/*  IPCX / IPCC */
--#define	SST_IPCX_DONE		(0x1 << 30)
--#define	SST_IPCX_BUSY		(0x1 << 31)
--#define SST_BYT_IPCX_DONE	((u64)0x1 << 62)
--#define SST_BYT_IPCX_BUSY	((u64)0x1 << 63)
--
--/*  IPCD */
--#define	SST_IPCD_DONE		(0x1 << 30)
--#define	SST_IPCD_BUSY		(0x1 << 31)
--#define SST_BYT_IPCD_DONE	((u64)0x1 << 62)
--#define SST_BYT_IPCD_BUSY	((u64)0x1 << 63)
--
--/* CLKCTL */
--#define SST_CLKCTL_SMOS(x)	(x << 24)
--#define SST_CLKCTL_MASK		(3 << 24)
--#define SST_CLKCTL_DCPLCG	(1 << 18)
--#define SST_CLKCTL_SCOE1	(1 << 17)
--#define SST_CLKCTL_SCOE0	(1 << 16)
--
--/* CSR2 / CS2 */
--#define SST_CSR2_SDFD_SSP0	(1 << 1)
--#define SST_CSR2_SDFD_SSP1	(1 << 2)
--
--/* LTRC */
--#define SST_LTRC_VAL(x)		(x << 0)
--
--/* HMDC */
--#define SST_HMDC_HDDA0(x)	(x << 0)
--#define SST_HMDC_HDDA1(x)	(x << 7)
--#define SST_HMDC_HDDA_E0_CH0	1
--#define SST_HMDC_HDDA_E0_CH1	2
--#define SST_HMDC_HDDA_E0_CH2	4
--#define SST_HMDC_HDDA_E0_CH3	8
--#define SST_HMDC_HDDA_E1_CH0	SST_HMDC_HDDA1(SST_HMDC_HDDA_E0_CH0)
--#define SST_HMDC_HDDA_E1_CH1	SST_HMDC_HDDA1(SST_HMDC_HDDA_E0_CH1)
--#define SST_HMDC_HDDA_E1_CH2	SST_HMDC_HDDA1(SST_HMDC_HDDA_E0_CH2)
--#define SST_HMDC_HDDA_E1_CH3	SST_HMDC_HDDA1(SST_HMDC_HDDA_E0_CH3)
--#define SST_HMDC_HDDA_E0_ALLCH	(SST_HMDC_HDDA_E0_CH0 | SST_HMDC_HDDA_E0_CH1 | \
--				 SST_HMDC_HDDA_E0_CH2 | SST_HMDC_HDDA_E0_CH3)
--#define SST_HMDC_HDDA_E1_ALLCH	(SST_HMDC_HDDA_E1_CH0 | SST_HMDC_HDDA_E1_CH1 | \
--				 SST_HMDC_HDDA_E1_CH2 | SST_HMDC_HDDA_E1_CH3)
--
--
--/* SST Vendor Defined Registers and bits */
--#define SST_VDRTCTL0		0xa0
--#define SST_VDRTCTL1		0xa4
--#define SST_VDRTCTL2		0xa8
--#define SST_VDRTCTL3		0xaC
--
--/* VDRTCTL0 */
--#define SST_VDRTCL0_D3PGD		(1 << 0)
--#define SST_VDRTCL0_D3SRAMPGD		(1 << 1)
--#define SST_VDRTCL0_DSRAMPGE_SHIFT	12
--#define SST_VDRTCL0_DSRAMPGE_MASK	(0xfffff << SST_VDRTCL0_DSRAMPGE_SHIFT)
--#define SST_VDRTCL0_ISRAMPGE_SHIFT	2
--#define SST_VDRTCL0_ISRAMPGE_MASK	(0x3ff << SST_VDRTCL0_ISRAMPGE_SHIFT)
--
--/* VDRTCTL2 */
--#define SST_VDRTCL2_DCLCGE		(1 << 1)
--#define SST_VDRTCL2_DTCGE		(1 << 10)
--#define SST_VDRTCL2_APLLSE_MASK		(1 << 31)
--
--/* PMCS */
--#define SST_PMCS		0x84
--#define SST_PMCS_PS_MASK	0x3
- 
  struct sst_dsp;
  
-diff --git a/sound/soc/intel/common/sst-ipc.h b/sound/soc/intel/common/sst-ipc.h
-index 9c1f59d88636..77d651e888f9 100644
---- a/sound/soc/intel/common/sst-ipc.h
-+++ b/sound/soc/intel/common/sst-ipc.h
-@@ -15,8 +15,6 @@
- #include <linux/workqueue.h>
- #include <linux/sched.h>
- 
--#define IPC_MAX_MAILBOX_BYTES	256
--
- struct sst_ipc_message {
- 	u64 header;
- 	void *data;
+ /*
 -- 
 2.17.1
 

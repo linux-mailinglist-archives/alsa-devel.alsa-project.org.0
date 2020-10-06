@@ -2,74 +2,71 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 327B9284709
-	for <lists+alsa-devel@lfdr.de>; Tue,  6 Oct 2020 09:20:43 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0E32C2847DD
+	for <lists+alsa-devel@lfdr.de>; Tue,  6 Oct 2020 09:53:03 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B390F1766;
-	Tue,  6 Oct 2020 09:19:52 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B390F1766
+	by alsa0.perex.cz (Postfix) with ESMTPS id 8CED51766;
+	Tue,  6 Oct 2020 09:52:12 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8CED51766
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1601968842;
-	bh=Epk7mmLybpZm8devrYnJqYl5QYS0lKuxBPqVzNkfSdM=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1601970782;
+	bh=rbJOmbMb//YrCPGaoP0rtg8XDPUxCAEU3m7aXm+blhE=;
+	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=a3qwjw+c0449CCmLRPJxVK2Y52g/xlEvcjrHAAWnHdtbxKwdTVRy2UzeDyZpW/RnF
-	 XkGWbAKBjSdydf02qRZQ9tMud8qQSisENoCLDifYYxektpRrSGeDOBsnee34CqQf3g
-	 WJkzC/XUxd5sFbTSZf+wphfi7QG5SaODuZR69lvw=
+	b=Ei2cDvqyoFeaTr5Q2RL4EmTSYoTgUco+kzeFwuULG7pGKWYSa4MUNb6oksUjmU320
+	 sK2eFSbIIRuoePcisWNr9VqCt06axazJ0xc7ysxsJa2D4WFYvNc+ZIVqv6qLYo+oFh
+	 6B0klPNRuQQ7O9fBF2/jTd9tO2QbbweBaN6mQpO8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 3D0B9F804E0;
-	Tue,  6 Oct 2020 09:19:02 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 33092F8012B;
+	Tue,  6 Oct 2020 09:51:22 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id B4773F804DF; Tue,  6 Oct 2020 09:18:56 +0200 (CEST)
+ id A08F3F8012A; Tue,  6 Oct 2020 09:51:20 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.8 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_PASS,SPF_PASS,URIBL_BLOCKED
  autolearn=disabled version=3.4.0
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+Received: from mail1.perex.cz (mail1.perex.cz [77.48.224.245])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 41C73F804CB
- for <alsa-devel@alsa-project.org>; Tue,  6 Oct 2020 09:18:29 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 41C73F804CB
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="eslIrEIu"
-Received: from localhost (unknown [213.57.247.131])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 57E1520760;
- Tue,  6 Oct 2020 07:18:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1601968706;
- bh=Epk7mmLybpZm8devrYnJqYl5QYS0lKuxBPqVzNkfSdM=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=eslIrEIuVV5ibB/L0zwPNUbbVXlPA3eKnDzpftpxaXctYFaNxGw86/ykHIYy5wThe
- IW009wFQcKces9ZxKTYTq69/7XEB5qf2EB2s7bUpNdJlYPmED3cVzjytgy6p2GazOt
- qPfH4OjM7eHksTtX+Pn5iipSy9hKtDzC88xBfatg=
-Date: Tue, 6 Oct 2020 10:18:21 +0300
-From: Leon Romanovsky <leon@kernel.org>
-To: Dave Ertman <david.m.ertman@intel.com>
-Subject: Re: [PATCH v2 1/6] Add ancillary bus support
-Message-ID: <20201006071821.GI1874917@unreal>
-References: <20201005182446.977325-1-david.m.ertman@intel.com>
- <20201005182446.977325-2-david.m.ertman@intel.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 8529CF80053
+ for <alsa-devel@alsa-project.org>; Tue,  6 Oct 2020 09:51:14 +0200 (CEST)
+Received: from mail1.perex.cz (localhost [127.0.0.1])
+ by smtp1.perex.cz (Perex's E-mail Delivery System) with ESMTP id 7D917A0058;
+ Tue,  6 Oct 2020 09:51:13 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 smtp1.perex.cz 7D917A0058
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=perex.cz; s=default;
+ t=1601970673; bh=Xczo9cg1NEbZtEGEIewk2rKJZntYp0xj08K0kuUFVT4=;
+ h=Subject:To:Cc:References:From:Date:In-Reply-To:From;
+ b=UoKWBNqV2IgRc8y34u/nrQ55HS0Z2k6We5NP4EZhbs2QJKMEEVDyvnQYG21Bz50RP
+ RcxoYbN7h0nt03KEKA+xp7RjZmzDwrN65/sRt4TlGGpZXryzjVQTfi1RzZyTgYc2Ik
+ NP1M0d6cByY7V9wuE/MRgpb0t1eOo0cKJ6A/6mY8=
+Received: from p1gen2.perex-int.cz (unknown [192.168.100.98])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested) (Authenticated sender: perex)
+ by mail1.perex.cz (Perex's E-mail Delivery System) with ESMTPSA;
+ Tue,  6 Oct 2020 09:51:06 +0200 (CEST)
+Subject: Re: [PATCH 0/4] ASoC: SOF: cleanups for 5.10
+To: Kai Vehmanen <kai.vehmanen@linux.intel.com>, alsa-devel@alsa-project.org, 
+ broonie@kernel.org
+References: <20200930152026.3902186-1-kai.vehmanen@linux.intel.com>
+From: Jaroslav Kysela <perex@perex.cz>
+Message-ID: <2abc3bb0-ac6e-c06a-059f-fd5a03b21447@perex.cz>
+Date: Tue, 6 Oct 2020 09:51:06 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.11.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20201005182446.977325-2-david.m.ertman@intel.com>
-Cc: alsa-devel@alsa-project.org, parav@mellanox.com, tiwai@suse.de,
- netdev@vger.kernel.org, ranjani.sridharan@linux.intel.com,
- pierre-louis.bossart@linux.intel.com, fred.oh@linux.intel.com,
- linux-rdma@vger.kernel.org, dledford@redhat.com, broonie@kernel.org,
- jgg@nvidia.com, gregkh@linuxfoundation.org, kuba@kernel.org,
- dan.j.williams@intel.com, shiraz.saleem@intel.com, davem@davemloft.net,
- kiran.patil@intel.com
+In-Reply-To: <20200930152026.3902186-1-kai.vehmanen@linux.intel.com>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
+Cc: ranjani.sridharan@linux.intel.com, daniel.baluta@nxp.com,
+ lgirdwood@gmail.com, pierre-louis.bossart@linux.intel.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -85,707 +82,32 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Mon, Oct 05, 2020 at 11:24:41AM -0700, Dave Ertman wrote:
-> Add support for the Ancillary Bus, ancillary_device and ancillary_driver.
-> It enables drivers to create an ancillary_device and bind an
-> ancillary_driver to it.
+Dne 30. 09. 20 v 17:20 Kai Vehmanen napsal(a):
+> Series with multiple code cleanups, plus one fix to remove
+> unnecessary kernel warnings related to firmware loading.
+> 
+> Bard Liao (1):
+>   ASoC: SOF: loader: handle all SOF_IPC_EXT types
+> 
+> Pierre-Louis Bossart (3):
+>   ASoC: SOF: control: remove const in sizeof()
+>   ASoC: SOF: topology: remove const in sizeof()
+>   ASoC: SOF: sof-audio: remove goto used for force-nocodec support
+> 
+>  sound/soc/sof/control.c   | 20 ++++++++++----------
+>  sound/soc/sof/loader.c    |  5 +++++
+>  sound/soc/sof/sof-audio.c | 10 +++-------
+>  sound/soc/sof/topology.c  |  2 +-
+>  4 files changed, 19 insertions(+), 18 deletions(-)
+> 
 
-I was under impression that this name is going to be changed.
+Acked-by: Jaroslav Kysela <perex@perex.cz>
+Tested-by: Jaroslav Kysela <perex@perex.cz>
 
->
-> The bus supports probe/remove shutdown and suspend/resume callbacks.
-> Each ancillary_device has a unique string based id; driver binds to
-> an ancillary_device based on this id through the bus.
->
-> Co-developed-by: Kiran Patil <kiran.patil@intel.com>
-> Signed-off-by: Kiran Patil <kiran.patil@intel.com>
-> Co-developed-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
-> Signed-off-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
-> Co-developed-by: Fred Oh <fred.oh@linux.intel.com>
-> Signed-off-by: Fred Oh <fred.oh@linux.intel.com>
-> Reviewed-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-> Reviewed-by: Shiraz Saleem <shiraz.saleem@intel.com>
-> Reviewed-by: Parav Pandit <parav@mellanox.com>
-> Reviewed-by: Dan Williams <dan.j.williams@intel.com>
-> Signed-off-by: Dave Ertman <david.m.ertman@intel.com>
-> ---
->  Documentation/driver-api/ancillary_bus.rst | 229 +++++++++++++++++++++
->  Documentation/driver-api/index.rst         |   1 +
->  drivers/bus/Kconfig                        |   3 +
->  drivers/bus/Makefile                       |   3 +
->  drivers/bus/ancillary.c                    | 225 ++++++++++++++++++++
->  include/linux/ancillary_bus.h              |  69 +++++++
->  include/linux/mod_devicetable.h            |   8 +
->  scripts/mod/devicetable-offsets.c          |   3 +
->  scripts/mod/file2alias.c                   |   8 +
->  9 files changed, 549 insertions(+)
->  create mode 100644 Documentation/driver-api/ancillary_bus.rst
->  create mode 100644 drivers/bus/ancillary.c
->  create mode 100644 include/linux/ancillary_bus.h
->
-> diff --git a/Documentation/driver-api/ancillary_bus.rst b/Documentation/driver-api/ancillary_bus.rst
-> new file mode 100644
-> index 000000000000..66f986e8672f
-> --- /dev/null
-> +++ b/Documentation/driver-api/ancillary_bus.rst
-> @@ -0,0 +1,229 @@
-> +.. SPDX-License-Identifier: GPL-2.0-only
-> +
-> +=============
-> +Ancillary Bus
-> +=============
-> +
-> +In some subsystems, the functionality of the core device (PCI/ACPI/other) is
-> +too complex for a single device to be managed as a monolithic block or a part of
-> +the functionality needs to be exposed to a different subsystem.  Splitting the
-> +functionality into smaller orthogonal devices would make it easier to manage
-> +data, power management and domain-specific interaction with the hardware. A key
-> +requirement for such a split is that there is no dependency on a physical bus,
-> +device, register accesses or regmap support. These individual devices split from
-> +the core cannot live on the platform bus as they are not physical devices that
-> +are controlled by DT/ACPI. The same argument applies for not using MFD in this
-> +scenario as MFD relies on individual function devices being physical devices.
-> +
-> +An example for this kind of requirement is the audio subsystem where a single
-> +IP is handling multiple entities such as HDMI, Soundwire, local devices such as
-> +mics/speakers etc. The split for the core's functionality can be arbitrary or
-> +be defined by the DSP firmware topology and include hooks for test/debug. This
-> +allows for the audio core device to be minimal and focused on hardware-specific
-> +control and communication.
-> +
-> +The ancillary bus is intended to be minimal, generic and avoid domain-specific
-> +assumptions. Each ancillary_device represents a part of its parent
-> +functionality. The generic behavior can be extended and specialized as needed
-> +by encapsulating an ancillary_device within other domain-specific structures and
-> +the use of .ops callbacks. Devices on the ancillary bus do not share any
-> +structures and the use of a communication channel with the parent is
-> +domain-specific.
-> +
-> +When Should the Ancillary Bus Be Used
-> +=====================================
-> +
-> +The ancillary bus is to be used when a driver and one or more kernel modules,
-> +who share a common header file with the driver, need a mechanism to connect and
-> +provide access to a shared object allocated by the ancillary_device's
-> +registering driver.  The registering driver for the ancillary_device(s) and the
-> +kernel module(s) registering ancillary_drivers can be from the same subsystem,
-> +or from multiple subsystems.
-> +
-> +The emphasis here is on a common generic interface that keeps subsystem
-> +customization out of the bus infrastructure.
-> +
-> +One example could be a multi-port PCI network device that is rdma-capable and
-> +needs to export this functionality and attach to an rdma driver in another
-> +subsystem.  The PCI driver will allocate and register an ancillary_device for
-> +each physical function on the NIC.  The rdma driver will register an
-> +ancillary_driver that will be matched with and probed for each of these
-> +ancillary_devices.  This will give the rdma driver access to the shared data/ops
-> +in the PCI drivers shared object to establish a connection with the PCI driver.
-> +
-> +Another use case is for the PCI device to be split out into multiple sub
-> +functions.  For each sub function an ancillary_device will be created.  A PCI
-> +sub function driver will bind to such devices that will create its own one or
-> +more class devices.  A PCI sub function ancillary device will likely be
-> +contained in a struct with additional attributes such as user defined sub
-> +function number and optional attributes such as resources and a link to the
-> +parent device.  These attributes could be used by systemd/udev; and hence should
-> +be initialized before a driver binds to an ancillary_device.
-> +
-> +Ancillary Device
-> +================
-> +
-> +An ancillary_device is created and registered to represent a part of its parent
-> +device's functionality. It is given a name that, combined with the registering
-> +drivers KBUILD_MODNAME, creates a match_name that is used for driver binding,
-> +and an id that combined with the match_name provide a unique name to register
-> +with the bus subsystem.
-> +
-> +Registering an ancillary_device is a two-step process.  First you must call
-> +ancillary_device_initialize(), which will check several aspects of the
-> +ancillary_device struct and perform a device_initialize().  After this step
-> +completes, any error state must have a call to put_device() in its resolution
-> +path.  The second step in registering an ancillary_device is to perform a call
-> +to ancillary_device_add(), which will set the name of the device and add the
-> +device to the bus.
-> +
-> +To unregister an ancillary_device, just a call to ancillary_device_unregister()
-> +is used.  This will perform both a device_del() and a put_device().
-> +
-> +.. code-block:: c
-> +
-> +	struct ancillary_device {
-> +		struct device dev;
-> +                const char *name;
-> +		u32 id;
-> +	};
-> +
-> +If two ancillary_devices both with a match_name "mod.foo" are registered onto
-> +the bus, they must have unique id values (e.g. "x" and "y") so that the
-> +registered devices names will be "mod.foo.x" and "mod.foo.y".  If match_name +
-> +id are not unique, then the device_add will fail and generate an error message.
-> +
-> +The ancillary_device.dev.type.release or ancillary_device.dev.release must be
-> +populated with a non-NULL pointer to successfully register the ancillary_device.
-> +
-> +The ancillary_device.dev.parent must also be populated.
-> +
-> +Ancillary Device Memory Model and Lifespan
-> +------------------------------------------
-> +
-> +When a kernel driver registers an ancillary_device on the ancillary bus, we will
-> +use the nomenclature to refer to this kernel driver as a registering driver.  It
-> +is the entity that will allocate memory for the ancillary_device and register it
-> +on the ancillary bus.  It is important to note that, as opposed to the platform
-> +bus, the registering driver is wholly responsible for the management for the
-> +memory used for the driver object.
-> +
-> +A parent object, defined in the shared header file, will contain the
-> +ancillary_device.  It will also contain a pointer to the shared object(s), which
-> +will also be defined in the shared header.  Both the parent object and the
-> +shared object(s) will be allocated by the registering driver.  This layout
-> +allows the ancillary_driver's registering module to perform a container_of()
-> +call to go from the pointer to the ancillary_device, that is passed during the
-> +call to the ancillary_driver's probe function, up to the parent object, and then
-> +have access to the shared object(s).
-> +
-> +The memory for the ancillary_device will be freed only in its release()
-> +callback flow as defined by its registering driver.
-> +
-> +The memory for the shared object(s) must have a lifespan equal to, or greater
-> +than, the lifespan of the memory for the ancillary_device.  The ancillary_driver
-> +should only consider that this shared object is valid as long as the
-> +ancillary_device is still registered on the ancillary bus.  It is up to the
-> +registering driver to manage (e.g. free or keep available) the memory for the
-> +shared object beyond the life of the ancillary_device.
-> +
-> +Registering driver must unregister all ancillary devices before its registering
-> +parent device's remove() is completed.
-> +
-> +Ancillary Drivers
-> +=================
-> +
-> +Ancillary drivers follow the standard driver model convention, where
-> +discovery/enumeration is handled by the core, and drivers
-> +provide probe() and remove() methods. They support power management
-> +and shutdown notifications using the standard conventions.
-> +
-> +.. code-block:: c
-> +
-> +	struct ancillary_driver {
-> +		int (*probe)(struct ancillary_device *,
-> +                             const struct ancillary_device_id *id);
-> +		int (*remove)(struct ancillary_device *);
-> +		void (*shutdown)(struct ancillary_device *);
-> +		int (*suspend)(struct ancillary_device *, pm_message_t);
-> +		int (*resume)(struct ancillary_device *);
-> +		struct device_driver driver;
-> +		const struct ancillary_device_id *id_table;
-> +	};
-> +
-> +Ancillary drivers register themselves with the bus by calling
-> +ancillary_driver_register(). The id_table contains the match_names of ancillary
-> +devices that a driver can bind with.
-> +
-> +Example Usage
-> +=============
-> +
-> +Ancillary devices are created and registered by a subsystem-level core device
-> +that needs to break up its functionality into smaller fragments. One way to
-> +extend the scope of an ancillary_device would be to encapsulate it within a
-> +domain-specific structure defined by the parent device. This structure contains
-> +the ancillary_device and any associated shared data/callbacks needed to
-> +establish the connection with the parent.
-> +
-> +An example would be:
-> +
-> +.. code-block:: c
-> +
-> +        struct foo {
-> +		struct ancillary_device ancildev;
-> +		void (*connect)(struct ancillary_device *ancildev);
-> +		void (*disconnect)(struct ancillary_device *ancildev);
-> +		void *data;
-> +        };
-> +
-> +The parent device would then register the ancillary_device by calling
-> +ancillary_device_initialize(), and then ancillary_device_add(), with the pointer
-> +to the ancildev member of the above structure. The parent would provide a name
-> +for the ancillary_device that, combined with the parent's KBUILD_MODNAME, will
-> +create a match_name that will be used for matching and binding with a driver.
-> +
-> +Whenever an ancillary_driver is registered, based on the match_name, the
-> +ancillary_driver's probe() is invoked for the matching devices.  The
-> +ancillary_driver can also be encapsulated inside custom drivers that make the
-> +core device's functionality extensible by adding additional domain-specific ops
-> +as follows:
-> +
-> +.. code-block:: c
-> +
-> +	struct my_ops {
-> +		void (*send)(struct ancillary_device *ancildev);
-> +		void (*receive)(struct ancillary_device *ancildev);
-> +	};
-> +
-> +
-> +	struct my_driver {
-> +		struct ancillary_driver ancillary_drv;
-> +		const struct my_ops ops;
-> +	};
-> +
-> +An example of this type of usage would be:
-> +
-> +.. code-block:: c
-> +
-> +	const struct ancillary_device_id my_ancillary_id_table[] = {
-> +		{ .name = "foo_mod.foo_dev" },
-> +		{ },
-> +	};
-> +
-> +	const struct my_ops my_custom_ops = {
-> +		.send = my_tx,
-> +		.receive = my_rx,
-> +	};
-> +
-> +	const struct my_driver my_drv = {
-> +		.ancillary_drv = {
-> +			.driver = {
-> +				.name = "myancillarydrv",
+Mark, apply, please.
 
-Why do we need to give control over driver name to the driver authors?
-It can be problematic if author puts name that already exists.
+					Jaroslav
 
-> +			},
-> +			.id_table = my_ancillary_id_table,
-> +			.probe = my_probe,
-> +			.remove = my_remove,
-> +			.shutdown = my_shutdown,
-> +		},
-> +		.ops = my_custom_ops,
-> +	};
-> diff --git a/Documentation/driver-api/index.rst b/Documentation/driver-api/index.rst
-> index 5ef2cfe3a16b..9584ac2ed1f5 100644
-> --- a/Documentation/driver-api/index.rst
-> +++ b/Documentation/driver-api/index.rst
-> @@ -74,6 +74,7 @@ available subsections can be seen below.
->     thermal/index
->     fpga/index
->     acpi/index
-> +   ancillary_bus
->     backlight/lp855x-driver.rst
->     connector
->     console
-> diff --git a/drivers/bus/Kconfig b/drivers/bus/Kconfig
-> index 0c262c2aeaf2..ba82a045b847 100644
-> --- a/drivers/bus/Kconfig
-> +++ b/drivers/bus/Kconfig
-> @@ -5,6 +5,9 @@
->
->  menu "Bus devices"
->
-> +config ANCILLARY_BUS
-> +       tristate
-> +
->  config ARM_CCI
->  	bool
->
-> diff --git a/drivers/bus/Makefile b/drivers/bus/Makefile
-> index 397e35392bff..7c217eb1dbb7 100644
-> --- a/drivers/bus/Makefile
-> +++ b/drivers/bus/Makefile
-> @@ -3,6 +3,9 @@
->  # Makefile for the bus drivers.
->  #
->
-> +# Ancillary bus driver
-> +obj-$(CONFIG_ANCILLARY_BUS)	+= ancillary.o
-> +
->  # Interconnect bus drivers for ARM platforms
->  obj-$(CONFIG_ARM_CCI)		+= arm-cci.o
->  obj-$(CONFIG_ARM_INTEGRATOR_LM)	+= arm-integrator-lm.o
-> diff --git a/drivers/bus/ancillary.c b/drivers/bus/ancillary.c
-> new file mode 100644
-> index 000000000000..93888ca36fb1
-> --- /dev/null
-> +++ b/drivers/bus/ancillary.c
-> @@ -0,0 +1,225 @@
-> +// SPDX-License-Identifier: GPL-2.0-only
-> +/*
-> + * Software based bus for Ancillary devices
-> + *
-> + * Copyright (c) 2019-2020 Intel Corporation
-> + *
-> + * Please see Documentation/driver-api/ancillary_bus.rst for more information.
-> + */
-> +
-> +#define pr_fmt(fmt) "%s:%s: " fmt, KBUILD_MODNAME, __func__
-> +
-> +#include <linux/device.h>
-> +#include <linux/init.h>
-> +#include <linux/module.h>
-> +#include <linux/pm_domain.h>
-> +#include <linux/pm_runtime.h>
-> +#include <linux/string.h>
-> +#include <linux/ancillary_bus.h>
-> +
-> +static const struct ancillary_device_id *ancillary_match_id(const struct ancillary_device_id *id,
-> +							    const struct ancillary_device *ancildev)
-> +{
-> +	while (id->name[0]) {
-> +		const char *p = strrchr(dev_name(&ancildev->dev), '.');
-> +		int match_size;
-> +
-> +		if (!p) {
-> +			id++;
-> +			continue;
-> +		}
-> +		match_size = p - dev_name(&ancildev->dev);
-> +
-> +		/* use dev_name(&ancildev->dev) prefix before last '.' char to match to */
-> +		if (!strncmp(dev_name(&ancildev->dev), id->name, match_size))
-> +			return id;
-> +		id++;
-> +	}
-> +	return NULL;
-> +}
-> +
-> +static int ancillary_match(struct device *dev, struct device_driver *drv)
-> +{
-> +	struct ancillary_device *ancildev = to_ancillary_dev(dev);
-> +	struct ancillary_driver *ancildrv = to_ancillary_drv(drv);
-> +
-> +	return !!ancillary_match_id(ancildrv->id_table, ancildev);
-> +}
-> +
-> +static int ancillary_uevent(struct device *dev, struct kobj_uevent_env *env)
-> +{
-> +	const char *name, *p;
-> +
-> +	name = dev_name(dev);
-> +	p = strrchr(name, '.');
-> +
-> +	return add_uevent_var(env, "MODALIAS=%s%.*s", ANCILLARY_MODULE_PREFIX, (int)(p - name),
-> +			      name);
-> +}
-> +
-> +static const struct dev_pm_ops ancillary_dev_pm_ops = {
-> +	SET_RUNTIME_PM_OPS(pm_generic_runtime_suspend, pm_generic_runtime_resume, NULL)
-> +	SET_SYSTEM_SLEEP_PM_OPS(pm_generic_suspend, pm_generic_resume)
-> +};
-> +
-> +struct bus_type ancillary_bus_type = {
-> +	.name = "ancillary",
-> +	.match = ancillary_match,
-> +	.uevent = ancillary_uevent,
-> +	.pm = &ancillary_dev_pm_ops,
-> +};
-> +
-> +/**
-> + * ancillary_device_initialize - check ancillary_device and initialize
-> + * @ancildev: ancillary device struct
-> + *
-> + * This is the first step in the two-step process to register an ancillary_device.
-> + *
-> + * When this function returns an error code, then the device_initialize will *not* have
-> + * been performed, and the caller will be responsible to free any memory allocated for the
-> + * ancillary_device in the error path directly.
-> + *
-> + * It returns 0 on success.  On success, the device_initialize has been performed.
-> + * After this point any error unwinding will need to include a call to put_device().
-> + * In this post-initialize error scenario, a call to the device's .release callback will be
-> + * triggered by put_device(), and all memory clean-up is expected to be handled there.
-> + */
-> +int ancillary_device_initialize(struct ancillary_device *ancildev)
-> +{
-> +	struct device *dev = &ancildev->dev;
-> +
-> +	dev->bus = &ancillary_bus_type;
-> +
-> +	if (!dev->parent) {
-> +		pr_err("ancillary_device has a NULL dev->parent\n");
-> +		return -EINVAL;
-> +	}
-> +
-> +	if (!ancildev->name) {
-> +		pr_err("acillary_device has a NULL name\n");
-> +		return -EINVAL;
-> +	}
-> +
-> +	if (!(dev->type && dev->type->release) && !dev->release) {
-> +		pr_err("ancillary_device does not have a release callback defined\n");
-> +		return -EINVAL;
-> +	}
-> +
-> +	device_initialize(&ancildev->dev);
-> +	return 0;
-> +}
-> +EXPORT_SYMBOL_GPL(ancillary_device_initialize);
-> +
-> +/**
-> + * __ancillary_device_add - add an ancillary bus device
-> + * @ancildev: ancillary bus device to add to the bus
-> + * @modname: name of the parent device's driver module
-> + *
-> + * This is the second step in the two-step process to register an ancillary_device.
-> + *
-> + * This function must be called after a successful call to ancillary_device_initialize(), which
-> + * will perform the device_initialize.  This means that if this returns an error code, then a
-> + * put_device must be performed so that the .release callback will be triggered to free the
-> + * memory associated with the ancillary_device.
-> + */
-> +int __ancillary_device_add(struct ancillary_device *ancildev, const char *modname)
-> +{
-> +	struct device *dev = &ancildev->dev;
-> +	int ret;
-> +
-> +	if (!modname) {
-> +		pr_err("ancillary device modname is NULL\n");
-> +		return -EINVAL;
-> +	}
-> +
-> +	ret = dev_set_name(dev, "%s.%s.%d", modname, ancildev->name, ancildev->id);
-> +	if (ret) {
-> +		pr_err("ancillary device dev_set_name failed: %d\n", ret);
-> +		return ret;
-> +	}
-> +
-> +	ret = device_add(dev);
-> +	if (ret)
-> +		dev_err(dev, "adding ancillary device failed!: %d\n", ret);
-> +
-> +	return ret;
-> +}
-
-Sorry, but this is very strange API that requires users to put
-internal call to "dev" that is buried inside "struct ancillary_device".
-
-For example in your next patch, you write this "put_device(&cdev->ancildev.dev);"
-
-I'm pretty sure that the amount of bugs in error unwind will be
-astonishing, so if you are doing wrappers over core code, better do not
-pass complexity to the users.
-
-> +EXPORT_SYMBOL_GPL(__ancillary_device_add);
-> +
-> +static int ancillary_probe_driver(struct device *dev)
-> +{
-> +	struct ancillary_driver *ancildrv = to_ancillary_drv(dev->driver);
-> +	struct ancillary_device *ancildev = to_ancillary_dev(dev);
-> +	int ret;
-> +
-> +	ret = dev_pm_domain_attach(dev, true);
-> +	if (ret) {
-> +		dev_warn(dev, "Failed to attach to PM Domain : %d\n", ret);
-> +		return ret;
-> +	}
-> +
-> +	ret = ancildrv->probe(ancildev, ancillary_match_id(ancildrv->id_table, ancildev));
-
-I don't think that you need to call ->probe() if ancillary_match_id()
-returned NULL and probably that check should be done before
-dev_pm_domain_attach().
-
-> +	if (ret)
-> +		dev_pm_domain_detach(dev, true);
-> +
-> +	return ret;
-> +}
-> +
-> +static int ancillary_remove_driver(struct device *dev)
-> +{
-> +	struct ancillary_driver *ancildrv = to_ancillary_drv(dev->driver);
-> +	struct ancillary_device *ancildev = to_ancillary_dev(dev);
-> +	int ret;
-> +
-> +	ret = ancildrv->remove(ancildev);
-> +	dev_pm_domain_detach(dev, true);
-> +
-> +	return ret;
-
-You returned an error to user and detached from PM, what will user do
-with this information? Should user ignore it? retry?
-
-> +}
-> +
-> +static void ancillary_shutdown_driver(struct device *dev)
-> +{
-> +	struct ancillary_driver *ancildrv = to_ancillary_drv(dev->driver);
-> +	struct ancillary_device *ancildev = to_ancillary_dev(dev);
-> +
-> +	ancildrv->shutdown(ancildev);
-> +}
-> +
-> +/**
-> + * __ancillary_driver_register - register a driver for ancillary bus devices
-> + * @ancildrv: ancillary_driver structure
-> + * @owner: owning module/driver
-> + */
-> +int __ancillary_driver_register(struct ancillary_driver *ancildrv, struct module *owner)
-> +{
-> +	if (WARN_ON(!ancildrv->probe) || WARN_ON(!ancildrv->remove) ||
-> +	    WARN_ON(!ancildrv->shutdown) || WARN_ON(!ancildrv->id_table))
-> +		return -EINVAL;
-> +
-> +	ancildrv->driver.owner = owner;
-> +	ancildrv->driver.bus = &ancillary_bus_type;
-> +	ancildrv->driver.probe = ancillary_probe_driver;
-> +	ancildrv->driver.remove = ancillary_remove_driver;
-> +	ancildrv->driver.shutdown = ancillary_shutdown_driver;
-> +
-> +	return driver_register(&ancildrv->driver);
-> +}
-> +EXPORT_SYMBOL_GPL(__ancillary_driver_register);
-> +
-> +static int __init ancillary_bus_init(void)
-> +{
-> +	return bus_register(&ancillary_bus_type);
-> +}
-> +
-> +static void __exit ancillary_bus_exit(void)
-> +{
-> +	bus_unregister(&ancillary_bus_type);
-> +}
-> +
-> +module_init(ancillary_bus_init);
-> +module_exit(ancillary_bus_exit);
-> +
-> +MODULE_LICENSE("GPL v2");
-> +MODULE_DESCRIPTION("Ancillary Bus");
-> +MODULE_AUTHOR("David Ertman <david.m.ertman@intel.com>");
-> +MODULE_AUTHOR("Kiran Patil <kiran.patil@intel.com>");
-> diff --git a/include/linux/ancillary_bus.h b/include/linux/ancillary_bus.h
-> new file mode 100644
-> index 000000000000..72169c8a5dfe
-> --- /dev/null
-> +++ b/include/linux/ancillary_bus.h
-> @@ -0,0 +1,69 @@
-> +/* SPDX-License-Identifier: GPL-2.0-only */
-> +/*
-> + * Copyright (c) 2019-2020 Intel Corporation
-> + *
-> + * Please see Documentation/driver-api/ancillary_bus.rst for more information.
-> + */
-> +
-> +#ifndef _ANCILLARY_BUS_H_
-> +#define _ANCILLARY_BUS_H_
-> +
-> +#include <linux/device.h>
-> +#include <linux/mod_devicetable.h>
-> +#include <linux/slab.h>
-> +
-> +struct ancillary_device {
-> +	struct device dev;
-> +	const char *name;
-> +	u32 id;
-> +};
-> +
-> +struct ancillary_driver {
-> +	int (*probe)(struct ancillary_device *ancildev, const struct ancillary_device_id *id);
-> +	int (*remove)(struct ancillary_device *ancildev);
-> +	void (*shutdown)(struct ancillary_device *ancildev);
-> +	int (*suspend)(struct ancillary_device *ancildev, pm_message_t state);
-> +	int (*resume)(struct ancillary_device *ancildev);
-> +	struct device_driver driver;
-> +	const struct ancillary_device_id *id_table;
-> +};
-> +
-> +static inline struct ancillary_device *to_ancillary_dev(struct device *dev)
-> +{
-> +	return container_of(dev, struct ancillary_device, dev);
-> +}
-> +
-> +static inline struct ancillary_driver *to_ancillary_drv(struct device_driver *drv)
-> +{
-> +	return container_of(drv, struct ancillary_driver, driver);
-> +}
-> +
-> +int ancillary_device_initialize(struct ancillary_device *ancildev);
-> +int __ancillary_device_add(struct ancillary_device *ancildev, const char *modname);
-> +#define ancillary_device_add(ancildev) __ancillary_device_add(ancildev, KBUILD_MODNAME)
-> +
-> +static inline void ancillary_device_unregister(struct ancillary_device *ancildev)
-> +{
-> +	device_unregister(&ancildev->dev);
-> +}
-> +
-> +int __ancillary_driver_register(struct ancillary_driver *ancildrv, struct module *owner);
-> +#define ancillary_driver_register(ancildrv) __ancillary_driver_register(ancildrv, THIS_MODULE)
-> +
-> +static inline void ancillary_driver_unregister(struct ancillary_driver *ancildrv)
-> +{
-> +	driver_unregister(&ancildrv->driver);
-> +}
-> +
-> +/**
-> + * module_ancillary_driver() - Helper macro for registering an ancillary driver
-> + * @__ancillary_driver: ancillary driver struct
-> + *
-> + * Helper macro for ancillary drivers which do not do anything special in
-> + * module init/exit. This eliminates a lot of boilerplate. Each module may only
-> + * use this macro once, and calling it replaces module_init() and module_exit()
-> + */
-> +#define module_ancillary_driver(__ancillary_driver) \
-> +	module_driver(__ancillary_driver, ancillary_driver_register, ancillary_driver_unregister)
-> +
-> +#endif /* _ANCILLARY_BUS_H_ */
-> diff --git a/include/linux/mod_devicetable.h b/include/linux/mod_devicetable.h
-> index 5b08a473cdba..7d596dc30833 100644
-> --- a/include/linux/mod_devicetable.h
-> +++ b/include/linux/mod_devicetable.h
-> @@ -838,4 +838,12 @@ struct mhi_device_id {
->  	kernel_ulong_t driver_data;
->  };
->
-> +#define ANCILLARY_NAME_SIZE 32
-> +#define ANCILLARY_MODULE_PREFIX "ancillary:"
-> +
-> +struct ancillary_device_id {
-> +	char name[ANCILLARY_NAME_SIZE];
-
-I hope that this be enough.
-
-> +	kernel_ulong_t driver_data;
-> +};
-> +
->  #endif /* LINUX_MOD_DEVICETABLE_H */
-> diff --git a/scripts/mod/devicetable-offsets.c b/scripts/mod/devicetable-offsets.c
-> index 27007c18e754..79e37c4c25b3 100644
-> --- a/scripts/mod/devicetable-offsets.c
-> +++ b/scripts/mod/devicetable-offsets.c
-> @@ -243,5 +243,8 @@ int main(void)
->  	DEVID(mhi_device_id);
->  	DEVID_FIELD(mhi_device_id, chan);
->
-> +	DEVID(ancillary_device_id);
-> +	DEVID_FIELD(ancillary_device_id, name);
-> +
->  	return 0;
->  }
-> diff --git a/scripts/mod/file2alias.c b/scripts/mod/file2alias.c
-> index 2417dd1dee33..99c4fcd82bf3 100644
-> --- a/scripts/mod/file2alias.c
-> +++ b/scripts/mod/file2alias.c
-> @@ -1364,6 +1364,13 @@ static int do_mhi_entry(const char *filename, void *symval, char *alias)
->  {
->  	DEF_FIELD_ADDR(symval, mhi_device_id, chan);
->  	sprintf(alias, MHI_DEVICE_MODALIAS_FMT, *chan);
-> +	return 1;
-> +}
-> +
-> +static int do_ancillary_entry(const char *filename, void *symval, char *alias)
-> +{
-> +	DEF_FIELD_ADDR(symval, ancillary_device_id, name);
-> +	sprintf(alias, ANCILLARY_MODULE_PREFIX "%s", *name);
->
->  	return 1;
->  }
-> @@ -1442,6 +1449,7 @@ static const struct devtable devtable[] = {
->  	{"tee", SIZE_tee_client_device_id, do_tee_entry},
->  	{"wmi", SIZE_wmi_device_id, do_wmi_entry},
->  	{"mhi", SIZE_mhi_device_id, do_mhi_entry},
-> +	{"ancillary", SIZE_ancillary_device_id, do_ancillary_entry},
->  };
->
->  /* Create MODULE_ALIAS() statements.
-> --
-> 2.26.2
->
+-- 
+Jaroslav Kysela <perex@perex.cz>
+Linux Sound Maintainer; ALSA Project; Red Hat, Inc.

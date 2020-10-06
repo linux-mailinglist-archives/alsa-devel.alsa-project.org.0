@@ -2,67 +2,79 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5ECCE284ED8
-	for <lists+alsa-devel@lfdr.de>; Tue,  6 Oct 2020 17:23:35 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 08F7B284F05
+	for <lists+alsa-devel@lfdr.de>; Tue,  6 Oct 2020 17:30:35 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E257F1726;
-	Tue,  6 Oct 2020 17:22:44 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E257F1726
+	by alsa0.perex.cz (Postfix) with ESMTPS id 719C41733;
+	Tue,  6 Oct 2020 17:29:44 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 719C41733
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1601997815;
-	bh=IL1qUaq16zUuaudsbYu3xsH7hhilOeFElEGAdB2ZSW0=;
-	h=Date:From:To:In-Reply-To:References:Subject:Cc:List-Id:
+	s=default; t=1601998234;
+	bh=ehsZUzIBhwN8SKJHBN+IfB7anI5w4E6xTpcD/NSRNXg=;
+	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=rzq4HFYAC4EZ0AptJ6CUTzcbOduauLd/Ev8M2mc01A43VNYsrdiGzj7n7BbaYZ+OC
-	 VjNvGLodBKzGXN/mGAZdIQDQArb+pOrvr28T3lKGvPEIiqQZexX2tq8BB+Gpz1rO1j
-	 s8WNO5PkbWW0V/drUrpDv8Kzx/PuiHQiX+3mDJ4U=
+	b=ocE7MbznZRFDYw7Yz/mgbUO9mZZxlKOSqPq6m/YSWqZjkUCV7NKLVlm3WI9+KCAO8
+	 K+g/WQvpCDgitrSJI6rhAhjiQefLBIdY0ykc87HRCpcCa8hocC5xdFxG+9ZovLObFX
+	 db3uvHZpZI0C9t5gB2eBel5oTDVxOCIInbfKeqBQ=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 8C143F80164;
-	Tue,  6 Oct 2020 17:22:03 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 06158F8012B;
+	Tue,  6 Oct 2020 17:28:54 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id CB516F8015B; Tue,  6 Oct 2020 17:22:00 +0200 (CEST)
+ id B01E8F8012A; Tue,  6 Oct 2020 17:28:51 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.8 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled
- version=3.4.0
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 9D95DF8012B
- for <alsa-devel@alsa-project.org>; Tue,  6 Oct 2020 17:21:57 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9D95DF8012B
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="0lH4RAry"
-Received: from localhost (fw-tnat.cambridge.arm.com [217.140.96.140])
+X-Spam-Status: No, score=0.0 required=5.0 tests=NICE_REPLY_A,SPF_HELO_NONE,
+ SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 6B02B20789;
- Tue,  6 Oct 2020 15:21:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1601997715;
- bh=IL1qUaq16zUuaudsbYu3xsH7hhilOeFElEGAdB2ZSW0=;
- h=Date:From:To:Cc:In-Reply-To:References:Subject:From;
- b=0lH4RAry/3jk/7lNm/uCSFWxzMhkOHkHY1QWm2a3yKVRgVYe63NARW6c9fc26vVEL
- iVJz4/tLGsDAjWblxHzlCTs5H8M89tKPjvYRkLjMT6aI3rDyZK68TU/W3FJgwMgVVV
- XcPAzEZI+KaiLSaQxeNgVFw2eEd1hlUgMF9ywYU8=
-Date: Tue, 06 Oct 2020 16:20:53 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Tzung-Bi Shih <tzungbi@google.com>
-In-Reply-To: <20201006101252.1890385-1-tzungbi@google.com>
-References: <20201006101252.1890385-1-tzungbi@google.com>
-Subject: Re: [PATCH] ASoC: mediatek: mt8183-da7219: fix wrong ops for I2S3
-Message-Id: <160199764658.51353.13573290899066355390.b4-ty@kernel.org>
+ by alsa1.perex.cz (Postfix) with ESMTPS id E3875F80127
+ for <alsa-devel@alsa-project.org>; Tue,  6 Oct 2020 17:28:43 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E3875F80127
+IronPort-SDR: 4Zg402b8sjNKaVmYRbrGjr5yWjT4CSLE88hnKYUEgqtDOnPKmrvYKkZqGIaZUa2m5YKEgkquBg
+ l2uRP6YuKBBw==
+X-IronPort-AV: E=McAfee;i="6000,8403,9765"; a="228672213"
+X-IronPort-AV: E=Sophos;i="5.77,343,1596524400"; d="scan'208";a="228672213"
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from orsmga004.jf.intel.com ([10.7.209.38])
+ by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 06 Oct 2020 08:22:28 -0700
+IronPort-SDR: MfHASKer46i6L/0ND0VWVs/j+3IeAajNxAlaSgPA75B186QiZ4mAzKjSAyQngoBU/VwAGP0erf
+ 1NdtpgNy3LuA==
+X-IronPort-AV: E=Sophos;i="5.77,343,1596524400"; d="scan'208";a="460842117"
+Received: from mforsman-mobl.amr.corp.intel.com (HELO [10.212.97.68])
+ ([10.212.97.68])
+ by orsmga004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 06 Oct 2020 08:22:26 -0700
+Subject: Re: [PATCH v2 00/13] ASoC: Intel: Remove obsolete solutions and
+ components
+To: Liam Girdwood <liam.r.girdwood@linux.intel.com>,
+ Cezary Rojewski <cezary.rojewski@intel.com>, alsa-devel@alsa-project.org
+References: <20201006064907.16277-1-cezary.rojewski@intel.com>
+ <86e6ae9814f9e9a9b558d81947adbcfb7e10019b.camel@linux.intel.com>
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Message-ID: <c41c0be2-6bab-ac6b-d3e5-e71a1ad1f6b9@linux.intel.com>
+Date: Tue, 6 Oct 2020 10:20:53 -0500
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.10.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Cc: alsa-devel@alsa-project.org
+In-Reply-To: <86e6ae9814f9e9a9b558d81947adbcfb7e10019b.camel@linux.intel.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
+Cc: krzysztof.hejmowski@intel.com, filip.kaczmarski@intel.com,
+ harshapriya.n@intel.com, marcin.barlik@intel.com, zwisler@google.com,
+ lgirdwood@gmail.com, tiwai@suse.com, filip.proborszcz@intel.com,
+ broonie@kernel.org, amadeuszx.slawinski@linux.intel.com,
+ michal.wasko@intel.com, cujomalainey@chromium.org,
+ andriy.shevchenko@linux.intel.com, ppapierkowski@habana.ai,
+ vamshi.krishna.gopal@intel.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -78,42 +90,44 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Tue, 6 Oct 2020 18:12:52 +0800, Tzung-Bi Shih wrote:
-> DA7219 uses I2S2 and I2S3 for input and output respectively.  Commit
-> 9e30251fb22e ("ASoC: mediatek: mt8183-da7219: support machine driver
-> with rt1015") introduces a bug that:
-> - If using I2S2 solely, MCLK to DA7219 is 256FS.
-> - If using I2S3 solely, MCLK to DA7219 is 128FS.
-> - If using I2S3 first and then I2S2, the MCLK changes from 128FS to
->   256FS.  As a result, no sound output to the headset.  Also no sound
->   input from the headset microphone.
+
+
+On 10/6/20 7:22 AM, Liam Girdwood wrote:
+> On Tue, 2020-10-06 at 08:48 +0200, Cezary Rojewski wrote:
+>> Follow up to catpt series as mentioned in:
+>>
+>> [PATCH v10 00/14] ASoC: Intel: Catpt - Lynx and Wildcat point
+>>
+>> https://www.spinics.net/lists/alsa-devel/msg116440.html
+>>
+>>
+>>
+>> As catpt is a direct replacement to sound/soc/intel/haswell, it leaves a
+>>
+>> lot of code redudant. The second legacy solution - baytrail - is
+>>
+>> deprecated for a long time by sound/soc/intel/atom with SOF flavor
+>>
+>> available too.
+>>
+>>
+>>
+>> This series addresses the redudancy and removes obsolete code. Along
+>>
+>> with the legacy solutions, all orphaned components are removed too.
+>>
+>>
+>>
+>> As a consequence, further cleanups are unlocked: sound/soc/intel/skylake
+>>
+>> becomes the sole user of processing code found in
+>>
+>> sound/soc/intel/common. Those are not part of this series.
 > 
-> [...]
+> All
+> 
+> Acked-by: Liam Girdwood <liam.r.girdwood@intel.com>
 
-Applied to
+Also re-adding my ack already provided for v1.
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
-
-Thanks!
-
-[1/1] ASoC: mediatek: mt8183-da7219: fix wrong ops for I2S3
-      commit: ebb11d1d9fe2d6b4a47755f7f09b2b631046e308
-
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
-
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
-
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
-
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-Thanks,
-Mark
+Acked-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>

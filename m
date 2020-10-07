@@ -2,90 +2,80 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 672D7286247
-	for <lists+alsa-devel@lfdr.de>; Wed,  7 Oct 2020 17:38:16 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5A0D82862B5
+	for <lists+alsa-devel@lfdr.de>; Wed,  7 Oct 2020 17:55:42 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E663D16CB;
-	Wed,  7 Oct 2020 17:37:25 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E663D16CB
+	by alsa0.perex.cz (Postfix) with ESMTPS id D937F16CF;
+	Wed,  7 Oct 2020 17:54:51 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D937F16CF
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1602085096;
-	bh=5wVXsHiSnyky/5EVB+ezwPF6NohJOWfQc3ol4KiRorc=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=g1TDM7N/QFqdlVbFoMMGVdrElNMBwoZ2oWglIzUY8mzNBoYDNtYnSPLIH9kWFYLsv
-	 x/8zHZs1mBiF1jxE22rM2w80IEBCzjL0OuuMCehIA6tQ73LbqCjpZlAQaJMDLAdwB/
-	 bAUgiEATTlUovk9sorvEAmtXGRPzCaHGG81obtE4=
+	s=default; t=1602086141;
+	bh=QS0CafvbmGaJ0KcwhtOwz0gr7H4x/Bjqlb4A5lFyZNU=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=RMTUqzgn/1E0eDR+qSBeCwOrIA5VxNAdiTiCeaCw03wctYMlGJ2MrOwQ5Ifgy/BnR
+	 56fBbdY4snZHYNDQyX8t10PqwVUlI9e+oqQ3g0/m+EwVpACTAFSRr8jIfTdKZfzFw4
+	 RBLu4x42K8XJ6DsG12q+uEO/BwOtbu2c1MxCsqf0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 0FD87F8016D;
-	Wed,  7 Oct 2020 17:35:34 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 77759F8016A;
+	Wed,  7 Oct 2020 17:54:01 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id F26E3F80225; Wed,  7 Oct 2020 17:35:31 +0200 (CEST)
+ id AED67F80128; Wed,  7 Oct 2020 17:53:59 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
- [185.132.182.106])
+X-Spam-Status: No, score=-0.8 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+ DKIM_VALID,DKIM_VALID_AU,RCVD_IN_MSPIKE_H3,RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,
+ SPF_PASS,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from fllv0016.ext.ti.com (fllv0016.ext.ti.com [198.47.19.142])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id AA6F2F8016D
- for <alsa-devel@alsa-project.org>; Wed,  7 Oct 2020 17:35:18 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz AA6F2F8016D
+ by alsa1.perex.cz (Postfix) with ESMTPS id 3245DF80087
+ for <alsa-devel@alsa-project.org>; Wed,  7 Oct 2020 17:53:49 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3245DF80087
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=st.com header.i=@st.com header.b="lm1iWgIp"
-Received: from pps.filterd (m0046037.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
- 097FWDIn023606; Wed, 7 Oct 2020 17:35:15 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=st.com;
- h=from : to : cc : subject
- : date : message-id : in-reply-to : references : mime-version :
- content-type; s=STMicroelectronics;
- bh=LPmTNBs4XJT9cCBJcxCmDFKkYPrNIrwRIBlSBsDz2R0=;
- b=lm1iWgIpw3IRxl+qksHroByVOItjRbOuuvxvijzveW7+Y9ICpeptdf6WIc5pIZiTqKAp
- jpWvLuQrdzZx4Fd7EJm3glQXfQnoBVYovukBy4jRmLDNCMyeOprguLv8mXyUM+vKE/+J
- mco1YAzJVY4FPvUGYMhspQW42Cua6au0cmdKHeciHHmcQOSulhJaC/uhZQCMf95m8RX2
- K6p6JN7wGf4Gx9lXCmjeK5FKt59HOP/M74padGli3II1RjJELU4s0f8837tiRtY4K32I
- hNyUq67nTSegexag0oatupc6Cjf0biUnc6b7DZiQPuwGOICW+6puyb5o4vieBaP4dXac xg== 
-Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com with ESMTP id 3402tjwfh2-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 07 Oct 2020 17:35:15 +0200
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 7628D10002A;
- Wed,  7 Oct 2020 17:35:15 +0200 (CEST)
-Received: from Webmail-eu.st.com (sfhdag2node2.st.com [10.75.127.5])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 690F82B8A27;
- Wed,  7 Oct 2020 17:35:15 +0200 (CEST)
-Received: from localhost (10.75.127.44) by SFHDAG2NODE2.st.com (10.75.127.5)
- with Microsoft SMTP Server (TLS) id 15.0.1473.3; Wed, 7 Oct 2020 17:35:15
- +0200
-From: Olivier Moysan <olivier.moysan@st.com>
-To: <lgirdwood@gmail.com>, <broonie@kernel.org>, <perex@perex.cz>,
- <tiwai@suse.com>, <alexandre.torgue@st.com>, <olivier.moysan@st.com>,
- <arnaud.pouliquen@st.com>
-Subject: [PATCH 2/2] ASoC: stm32: dfsdm: add actual resolution trace
-Date: Wed, 7 Oct 2020 17:34:59 +0200
-Message-ID: <20201007153459.22155-3-olivier.moysan@st.com>
-X-Mailer: git-send-email 2.17.1
-In-Reply-To: <20201007153459.22155-1-olivier.moysan@st.com>
-References: <20201007153459.22155-1-olivier.moysan@st.com>
+ dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b="yiu3/Yc2"
+Received: from lelv0265.itg.ti.com ([10.180.67.224])
+ by fllv0016.ext.ti.com (8.15.2/8.15.2) with ESMTP id 097Frlc2017186;
+ Wed, 7 Oct 2020 10:53:47 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com;
+ s=ti-com-17Q1; t=1602086027;
+ bh=6lMy6LquFt39HPrr11PBpdD/OnxnmKuCJoz1qOgHoEk=;
+ h=From:To:CC:Subject:Date;
+ b=yiu3/Yc2doYc0nv+1kKaLTv/J5mExnUX93P8jT2We8mIEh6fh65kfnCJ9QG+YtzDV
+ UGEGA423dB7cusbMa/+aKKd6vmy++Y/AGSeCx9sWZkIpyqN9kqvb6BRWk9iS8OiUgp
+ gNi7w0Cqr/qgCatCuq5djtYsnSFJhlqwIeEfbMwg=
+Received: from DFLE112.ent.ti.com (dfle112.ent.ti.com [10.64.6.33])
+ by lelv0265.itg.ti.com (8.15.2/8.15.2) with ESMTPS id 097FrlxG120261
+ (version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=FAIL);
+ Wed, 7 Oct 2020 10:53:47 -0500
+Received: from DFLE106.ent.ti.com (10.64.6.27) by DFLE112.ent.ti.com
+ (10.64.6.33) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.1979.3; Wed, 7 Oct
+ 2020 10:53:47 -0500
+Received: from lelv0326.itg.ti.com (10.180.67.84) by DFLE106.ent.ti.com
+ (10.64.6.27) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.1979.3 via
+ Frontend Transport; Wed, 7 Oct 2020 10:53:47 -0500
+Received: from localhost (ileax41-snat.itg.ti.com [10.172.224.153])
+ by lelv0326.itg.ti.com (8.15.2/8.15.2) with ESMTP id 097FrlX2129960;
+ Wed, 7 Oct 2020 10:53:47 -0500
+From: Dan Murphy <dmurphy@ti.com>
+To: <lgirdwood@gmail.com>, <broonie@kernel.org>, <tiwai@suse.com>,
+ <robh+dt@kernel.org>
+Subject: [PATCH v3 1/2] dt-bindings: tas2764: Add the TAS2764 binding doc
+Date: Wed, 7 Oct 2020 10:53:40 -0500
+Message-ID: <20201007155341.10139-1-dmurphy@ti.com>
+X-Mailer: git-send-email 2.27.0
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
-X-Originating-IP: [10.75.127.44]
-X-ClientProxiedBy: SFHDAG7NODE1.st.com (10.75.127.19) To SFHDAG2NODE2.st.com
- (10.75.127.5)
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.235, 18.0.687
- definitions=2020-10-07_09:2020-10-06,
- 2020-10-07 signatures=0
-Cc: alsa-devel@alsa-project.org, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+X-EXCLAIMER-MD-CONFIG: e1e8a2fd-e40a-4ac6-ac9b-f7e9cc9ee180
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
+ linux-kernel@vger.kernel.org, Dan Murphy <dmurphy@ti.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -101,56 +91,96 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Add a trace to report actual resolution of audio samples.
+Add the binding for the TAS2764 Smart Amplifier.
 
-Signed-off-by: Olivier Moysan <olivier.moysan@st.com>
+Signed-off-by: Dan Murphy <dmurphy@ti.com>
 ---
- drivers/iio/adc/stm32-dfsdm-adc.c | 4 ++++
- drivers/iio/adc/stm32-dfsdm.h     | 2 ++
- 2 files changed, 6 insertions(+)
+ .../devicetree/bindings/sound/tas2764.yaml    | 76 +++++++++++++++++++
+ 1 file changed, 76 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/sound/tas2764.yaml
 
-diff --git a/drivers/iio/adc/stm32-dfsdm-adc.c b/drivers/iio/adc/stm32-dfsdm-adc.c
-index 5e10fb4f3704..b7e9ef1a6eec 100644
---- a/drivers/iio/adc/stm32-dfsdm-adc.c
-+++ b/drivers/iio/adc/stm32-dfsdm-adc.c
-@@ -293,6 +293,7 @@ static int stm32_dfsdm_compute_osrs(struct stm32_dfsdm_filter *fl,
- 					max >>= flo->rshift;
- 				}
- 				flo->max = (s32)max;
-+				flo->bits = bits;
- 
- 				pr_debug("%s: fast %d, fosr %d, iosr %d, res 0x%llx/%d bits, rshift %d, lshift %d\n",
- 					 __func__, fast, flo->fosr, flo->iosr,
-@@ -476,6 +477,9 @@ static int stm32_dfsdm_channels_configure(struct iio_dev *indio_dev,
- 	if (!flo->res)
- 		return -EINVAL;
- 
-+	dev_dbg(&indio_dev->dev, "Samples actual resolution: %d bits",
-+		min(flo->bits, (u32)DFSDM_DATA_RES - 1));
+diff --git a/Documentation/devicetree/bindings/sound/tas2764.yaml b/Documentation/devicetree/bindings/sound/tas2764.yaml
+new file mode 100644
+index 000000000000..5bf8c76ecda1
+--- /dev/null
++++ b/Documentation/devicetree/bindings/sound/tas2764.yaml
+@@ -0,0 +1,76 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++# Copyright (C) 2020 Texas Instruments Incorporated
++%YAML 1.2
++---
++$id: "http://devicetree.org/schemas/sound/tas2764.yaml#"
++$schema: "http://devicetree.org/meta-schemas/core.yaml#"
 +
- 	for_each_set_bit(bit, &adc->smask,
- 			 sizeof(adc->smask) * BITS_PER_BYTE) {
- 		chan = indio_dev->channels + bit;
-diff --git a/drivers/iio/adc/stm32-dfsdm.h b/drivers/iio/adc/stm32-dfsdm.h
-index 5dbdae4ed881..4afc1f528b78 100644
---- a/drivers/iio/adc/stm32-dfsdm.h
-+++ b/drivers/iio/adc/stm32-dfsdm.h
-@@ -249,6 +249,7 @@ enum stm32_dfsdm_sinc_order {
-  * @rshift: output sample right shift (hardware shift)
-  * @lshift: output sample left shift (software shift)
-  * @res: output sample resolution
-+ * @bits: output sample resolution in bits
-  * @max: output sample maximum positive value
-  */
- struct stm32_dfsdm_filter_osr {
-@@ -257,6 +258,7 @@ struct stm32_dfsdm_filter_osr {
- 	unsigned int rshift;
- 	unsigned int lshift;
- 	u64 res;
-+	u32 bits;
- 	s32 max;
- };
- 
++title: Texas Instruments TAS2764 Smart PA
++
++maintainers:
++  - Dan Murphy <dmurphy@ti.com>
++
++description: |
++  The TAS2764 is a mono, digital input Class-D audio amplifier optimized for
++  efficiently driving high peak power into small loudspeakers.
++  Integrated speaker voltage and current sense provides for
++  real time monitoring of loudspeaker behavior.
++
++properties:
++  compatible:
++    enum:
++      - ti,tas2764
++
++  reg:
++    maxItems: 1
++    description: |
++       I2C address of the device can be between 0x38 to 0x45.
++
++  reset-gpios:
++    maxItems: 1
++    description: GPIO used to reset the device.
++
++  shutdown-gpios:
++    maxItems: 1
++    description: GPIO used to control the state of the device.
++
++  interrupts:
++    maxItems: 1
++
++  ti,imon-slot-no:
++    $ref: /schemas/types.yaml#/definitions/uint32
++    description: TDM TX current sense time slot.
++
++  ti,vmon-slot-no:
++    $ref: /schemas/types.yaml#/definitions/uint32
++    description: TDM TX voltage sense time slot.
++
++  '#sound-dai-cells':
++    const: 1
++
++required:
++  - compatible
++  - reg
++
++additionalProperties: false
++
++examples:
++  - |
++   #include <dt-bindings/gpio/gpio.h>
++   i2c0 {
++     #address-cells = <1>;
++     #size-cells = <0>;
++     codec: codec@38 {
++       compatible = "ti,tas2764";
++       reg = <0x38>;
++       #sound-dai-cells = <1>;
++       interrupt-parent = <&gpio1>;
++       interrupts = <14>;
++       reset-gpios = <&gpio1 15 0>;
++       shutdown-gpios = <&gpio1 15 0>;
++       ti,imon-slot-no = <0>;
++       ti,vmon-slot-no = <2>;
++     };
++   };
++
++...
 -- 
-2.17.1
+2.28.0.585.ge1cfff676549
 

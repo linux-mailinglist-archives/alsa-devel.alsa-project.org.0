@@ -2,86 +2,107 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1FAC0285EBE
-	for <lists+alsa-devel@lfdr.de>; Wed,  7 Oct 2020 14:07:29 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3A741285FBC
+	for <lists+alsa-devel@lfdr.de>; Wed,  7 Oct 2020 15:06:34 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 7BD2716C7;
-	Wed,  7 Oct 2020 14:06:38 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7BD2716C7
+	by alsa0.perex.cz (Postfix) with ESMTPS id 8E4BC16C2;
+	Wed,  7 Oct 2020 15:05:43 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8E4BC16C2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1602072448;
-	bh=eLzPSV4xUW6uSKd9wPA2pJIaUydp/LfwhZqmP2Mpjeg=;
-	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
+	s=default; t=1602075993;
+	bh=tMNF6j/gbE++1XGaq2cLZBHNcmVRelETKDv8v1wucjY=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=bhNP54pKGWazZAclnvH/GWu2pwccQKZ7uhKWMXlHD/iyHy7q3YdMc06x5m1jNsPKg
-	 l5/WugZU+wGU4S7S+zG3aal+lqKlJAtcTzYg0JrXFXQAYHt/Xxrklq3qWqHqd0y3rI
-	 LFC8P7eQcbf/N7o8rXF0VGFMLid8Y/9W8PYlOVKs=
+	b=lndTOHVO43OirIwtrg5MokIuIKk5DHgwUEDrILb7DkrP82cxOEVjhpRrG4oU/0M3t
+	 GfXSObuQ9UO/55Ra1rFOpOe6sVAmGhA5hssNN4ZgftDFdmB2m2MKWrUJNXtcqGoGC0
+	 AWpocrak+yjYR7BFM4kgY2YAdQNy6LGuDM2CINZQ=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 1F6A0F8016A;
-	Wed,  7 Oct 2020 14:05:48 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 89C20F8016A;
+	Wed,  7 Oct 2020 15:04:53 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id AE994F80128; Wed,  7 Oct 2020 14:05:45 +0200 (CEST)
+ id 04E88F80128; Wed,  7 Oct 2020 15:04:50 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.6 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,NICE_REPLY_A,PRX_BODY_78,SPF_HELO_NONE,SPF_PASS
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,RCVD_IN_MSPIKE_H3,RCVD_IN_MSPIKE_WL,SPF_HELO_PASS,SPF_PASS
  autolearn=disabled version=3.4.0
-Received: from fllv0015.ext.ti.com (fllv0015.ext.ti.com [198.47.19.141])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from wout4-smtp.messagingengine.com (wout4-smtp.messagingengine.com
+ [64.147.123.20])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 4C015F80090
- for <alsa-devel@alsa-project.org>; Wed,  7 Oct 2020 14:05:41 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4C015F80090
+ by alsa1.perex.cz (Postfix) with ESMTPS id 61278F80087
+ for <alsa-devel@alsa-project.org>; Wed,  7 Oct 2020 15:04:45 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 61278F80087
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b="POOZLMCa"
-Received: from fllv0035.itg.ti.com ([10.64.41.0])
- by fllv0015.ext.ti.com (8.15.2/8.15.2) with ESMTP id 097C5dha011272;
- Wed, 7 Oct 2020 07:05:39 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com;
- s=ti-com-17Q1; t=1602072339;
- bh=98VxpOsUYCaLHzSjHudtgwbcFZvvbzH4YA/ReQeuaIQ=;
- h=Subject:To:CC:References:From:Date:In-Reply-To;
- b=POOZLMCaAdDmhwazJDpq02bJQtFxVorGw2HSgdGM5IGFe99ZfwcQcAL7LJdXNmDbK
- XVxa4QGqVSUq7KhmKaloNaQP0KJe0NniLDBQMYKC35WEVoe//atO8Fey91q+6SmBa+
- d1pLrKIRLnl3FJMbTfha9SLLwcmogP6IQzJYeVzw=
-Received: from DFLE112.ent.ti.com (dfle112.ent.ti.com [10.64.6.33])
- by fllv0035.itg.ti.com (8.15.2/8.15.2) with ESMTPS id 097C5dIe080798
- (version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=FAIL);
- Wed, 7 Oct 2020 07:05:39 -0500
-Received: from DFLE109.ent.ti.com (10.64.6.30) by DFLE112.ent.ti.com
- (10.64.6.33) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.1979.3; Wed, 7 Oct
- 2020 07:05:39 -0500
-Received: from lelv0326.itg.ti.com (10.180.67.84) by DFLE109.ent.ti.com
- (10.64.6.30) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.1979.3 via
- Frontend Transport; Wed, 7 Oct 2020 07:05:39 -0500
-Received: from [192.168.2.6] (ileax41-snat.itg.ti.com [10.172.224.153])
- by lelv0326.itg.ti.com (8.15.2/8.15.2) with ESMTP id 097C5LsU092391;
- Wed, 7 Oct 2020 07:05:22 -0500
-Subject: Re: [PATCH] ASoC: omap-mcbsp: Fix use of uninitialised pointer
-To: Alex Dewar <alex.dewar90@gmail.com>
-References: <20201004102535.325547-1-alex.dewar90@gmail.com>
-From: Peter Ujfalusi <peter.ujfalusi@ti.com>
-Message-ID: <c2441186-c278-d84d-55c4-294ef01823a6@ti.com>
-Date: Wed, 7 Oct 2020 15:05:42 +0300
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.3.1
+ dkim=pass (2048-bit key) header.d=sakamocchi.jp header.i=@sakamocchi.jp
+ header.b="a65ArENd"; 
+ dkim=pass (2048-bit key) header.d=messagingengine.com
+ header.i=@messagingengine.com header.b="nKBGInhj"
+Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
+ by mailout.west.internal (Postfix) with ESMTP id C288DA5C;
+ Wed,  7 Oct 2020 09:04:42 -0400 (EDT)
+Received: from mailfrontend1 ([10.202.2.162])
+ by compute4.internal (MEProxy); Wed, 07 Oct 2020 09:04:43 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sakamocchi.jp;
+ h=date:from:to:cc:subject:message-id:references:mime-version
+ :content-type:in-reply-to; s=fm2; bh=n7glPiflw/igCEGVay4K6mUqzzn
+ H9kxtNvx6OHbU5es=; b=a65ArENdy/CeOlw4UvlRqGVqCCZVhVlAMKSGJcVZ8M+
+ wrkSLeFL+urha0w7KbKand/fZgZA72tosRFJEmF+1CzntW29gKzYJrkpg5/OvFYp
+ vb3KqMZ9DwFxKBhoOhf13sqTbJiYZyUVLYYGQhCdBPU0LMcKGr5EkixnK/LpDb8h
+ YCHWyvQP+MshMNCJKDuoW8C55+1TlxwJN9F7kfKnGP7uZ7n2wDgl+hdhwhUe576L
+ 7ieBmyc4CoSoIanH5X7NWStTpcP9Wm7g+LZY9zplafCGbQxJO1PN+f8Wg7ulQRmE
+ RmlFH1JqYj7gEZxa9HnSo1OI6Wi3iqnhIE4tZ647qkg==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to:x-me-proxy
+ :x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; bh=n7glPi
+ flw/igCEGVay4K6mUqzznH9kxtNvx6OHbU5es=; b=nKBGInhjO4W2bnuKy9JkTL
+ v7RGXrV3W+5QFkiysyCV6uPI3lXBWQ9oCZHUvOA4Qg3+J4Q2TWt6qeKlxewrqyP+
+ N79X2DBKXfFttrp+Ux/wbfv580ksZlr8DRVK7s8bswf0nuPL/5UtnnCp6I6a9Pmt
+ BsVezJf3O703mH5wQ2px7fGHEZyx0BeB4eixRzTsKWmidvPFbYtenHVXddWaXXia
+ GehE6S7Im3m+EIGu+MZ2CyofLYcO4ByLuj2bKPHze1j79hfWk6+QGO3QkojNRwwk
+ AX69rYjnQUAPqYrODiibTx6v8Okm4sdbCIazkruISRlYzBCg+S+LyqohrdwiXJiA
+ ==
+X-ME-Sender: <xms:6bx9X2o5ZAEH-wdzZl4rxwB2QoL5gEHWaLUVeGMc6rHVvnJ7gFxflA>
+ <xme:6bx9X0rK78TMotS0OkAtseUUbXH12LW5ikJNBURxFMkPPRU_PkeaEaDsgbLQKrPfX
+ CFQQ5zCSbJeWW2OaCI>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedujedrgeeigdeiudcutefuodetggdotefrodftvf
+ curfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfghnecu
+ uegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenuc
+ fjughrpeffhffvuffkfhggtggujgesthdtredttddtvdenucfhrhhomhepvfgrkhgrshhh
+ ihcuufgrkhgrmhhothhouceoohdqthgrkhgrshhhihesshgrkhgrmhhotggthhhirdhjph
+ eqnecuggftrfgrthhtvghrnheplefhueegvdejgfejgfdukeefudetvddtuddtueeivedt
+ tdegteejkedvfeegfefhnecukfhppedugedrfedrieegrddvtdejnecuvehluhhsthgvrh
+ fuihiivgeptdenucfrrghrrghmpehmrghilhhfrhhomhepohdqthgrkhgrshhhihesshgr
+ khgrmhhotggthhhirdhjph
+X-ME-Proxy: <xmx:6bx9X7P1b-m0N8T70l8P-BPN-JCjD4QM79KTtakhH8ZO5pTI1mHemg>
+ <xmx:6bx9X17bUftLNCoyiZHK4LMGw2z7eGN0neKczCxytkPo_O-wg54DGw>
+ <xmx:6bx9X16f3IcN_VO0dHlDi9OglApDwF1OAvF5hq5hHuk-EHMhUtvtlQ>
+ <xmx:6rx9X_lj1uyjjmV3iys_6fm8LvxP9XB3yczWDeBfJ5lo3xmOF6n3uQ>
+Received: from workstation (ae064207.dynamic.ppp.asahi-net.or.jp [14.3.64.207])
+ by mail.messagingengine.com (Postfix) with ESMTPA id DC0BB3280067;
+ Wed,  7 Oct 2020 09:04:39 -0400 (EDT)
+Date: Wed, 7 Oct 2020 22:04:37 +0900
+From: Takashi Sakamoto <o-takashi@sakamocchi.jp>
+To: Dan Carpenter <dan.carpenter@oracle.com>
+Subject: Re: [PATCH] ALSA: bebob: potential info leak in hwdep_read()
+Message-ID: <20201007130437.GA73459@workstation>
+Mail-Followup-To: Dan Carpenter <dan.carpenter@oracle.com>,
+ Clemens Ladisch <clemens@ladisch.de>,
+ Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+ alsa-devel@alsa-project.org, kernel-janitors@vger.kernel.org
+References: <20201007074928.GA2529578@mwanda>
 MIME-Version: 1.0
-In-Reply-To: <20201004102535.325547-1-alex.dewar90@gmail.com>
-Content-Type: text/plain; charset="utf-8"
-Content-Language: en-US
-Content-Transfer-Encoding: 8bit
-X-EXCLAIMER-MD-CONFIG: e1e8a2fd-e40a-4ac6-ac9b-f7e9cc9ee180
-Cc: alsa-devel@alsa-project.org, linux-omap@vger.kernel.org,
- linux-kernel@vger.kernel.org, Takashi Iwai <tiwai@suse.com>,
- Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
- Jarkko Nikula <jarkko.nikula@bitmer.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20201007074928.GA2529578@mwanda>
+Cc: kernel-janitors@vger.kernel.org, alsa-devel@alsa-project.org,
+ Clemens Ladisch <clemens@ladisch.de>, Takashi Iwai <tiwai@suse.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -97,50 +118,47 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+Hi,
 
+Thanks for the patch.
 
-On 04/10/2020 13.25, Alex Dewar wrote:
-> Commit 9c34d023dc35 ("ASoC: omap-mcbsp: Re-arrange files for core McBSP
-> and Sidetone function split"), in rearranging various files, also replaced
-> calls to platform_get_resource_by_name() + devm_ioremap_resource() with a
-> single call to devm_platform_ioremap_resource_byname(). However, the
-> struct resource is needed as we access its members so at present a null
-> pointer is dereferenced. Fix by doing things the old way.
+On Wed, Oct 07, 2020 at 10:49:28AM +0300, Dan Carpenter wrote:
+> The "count" variable needs to be capped on every path so that we don't
+> copy too much information to the user.
 > 
-> Addresses-Coverity-ID: 1497530 ("Memory - illegal accesses")
-> Fixes: 9c34d023dc35 ("ASoC: omap-mcbsp: Re-arrange files for core McBSP and Sidetone function split")
-
-it is fixing:
-31e1fc4f11e2e ("ASoC: ti: omap-mcbsp: use
-devm_platform_ioremap_resource_byname")
-
-and we should just revert that commit.
-
-> Signed-off-by: Alex Dewar <alex.dewar90@gmail.com>
+> Fixes: 618eabeae711 ("ALSA: bebob: Add hwdep interface")
+> Signed-off-by: Dan Carpenter <dan.carpenter@oracle.com>
 > ---
->  sound/soc/ti/omap-mcbsp.c | 6 +++++-
->  1 file changed, 5 insertions(+), 1 deletion(-)
+>  sound/firewire/bebob/bebob_hwdep.c | 3 +--
+>  1 file changed, 1 insertion(+), 2 deletions(-)
 > 
-> diff --git a/sound/soc/ti/omap-mcbsp.c b/sound/soc/ti/omap-mcbsp.c
-> index 186cea91076f..6025b30bbe77 100644
-> --- a/sound/soc/ti/omap-mcbsp.c
-> +++ b/sound/soc/ti/omap-mcbsp.c
-> @@ -620,7 +620,11 @@ static int omap_mcbsp_init(struct platform_device *pdev)
->  	spin_lock_init(&mcbsp->lock);
->  	mcbsp->free = true;
+> diff --git a/sound/firewire/bebob/bebob_hwdep.c b/sound/firewire/bebob/bebob_hwdep.c
+> index 45b740f44c45..c362eb38ab90 100644
+> --- a/sound/firewire/bebob/bebob_hwdep.c
+> +++ b/sound/firewire/bebob/bebob_hwdep.c
+> @@ -36,12 +36,11 @@ hwdep_read(struct snd_hwdep *hwdep, char __user *buf,  long count,
+>  	}
 >  
-> -	mcbsp->io_base = devm_platform_ioremap_resource_byname(pdev, "mpu");
-> +	res = platform_get_resource_byname(pdev, IORESOURCE_MEM, "mpu");
-> +	if (!res)
-> +		res = platform_get_resource(pdev, IORESOURCE_MEM, 0);
-> +
-> +	mcbsp->io_base = devm_ioremap_resource(&pdev->dev, res);
->  	if (IS_ERR(mcbsp->io_base))
->  		return PTR_ERR(mcbsp->io_base);
+>  	memset(&event, 0, sizeof(event));
+> +	count = min_t(long, count, sizeof(event.lock_status));
+>  	if (bebob->dev_lock_changed) {
+>  		event.lock_status.type = SNDRV_FIREWIRE_EVENT_LOCK_STATUS;
+>  		event.lock_status.status = (bebob->dev_lock_count > 0);
+>  		bebob->dev_lock_changed = false;
+> -
+> -		count = min_t(long, count, sizeof(event.lock_status));
+>  	}
 >  
-> 
+>  	spin_unlock_irq(&bebob->lock);
+> -- 
+> 2.28.0
 
-- Péter
+Indeed, the bug can leak the contents of kernel memory into user space
+unintentionally for the size indicated by ALSA HwDep application...
 
-Texas Instruments Finland Oy, Porkkalankatu 22, 00180 Helsinki.
-Y-tunnus/Business ID: 0615521-4. Kotipaikka/Domicile: Helsinki
+I will check the other drivers in ALSA firewire stack later for safe.
+
+
+Thanks
+
+Takashi Sakamoto

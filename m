@@ -2,112 +2,55 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2B6F52862F0
-	for <lists+alsa-devel@lfdr.de>; Wed,  7 Oct 2020 18:00:49 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 833BB2862F7
+	for <lists+alsa-devel@lfdr.de>; Wed,  7 Oct 2020 18:01:29 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 4BDF116DB;
-	Wed,  7 Oct 2020 17:59:58 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4BDF116DB
+	by alsa0.perex.cz (Postfix) with ESMTPS id 1718C16CA;
+	Wed,  7 Oct 2020 18:00:39 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1718C16CA
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1602086448;
-	bh=1pd8vFevxVY0hlsXZ+ERRLgUc+NYHcsSwufkEjNonss=;
-	h=From:To:Subject:Date:References:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=Xoed2HQUtMGlURpD+nulOGs2lqnx5NQNBwNJfk1hSek6md9CZEXrkuBJ9Q5jDvEHh
-	 NeUZ9Tfd8t8ITkleHMPQ0jvqzn1NN32Rz0Kg0wHl6KY0VymWH6ayMVX0cpAY1PpzM/
-	 yDxymhPoaWiQkSjZFezwOz7np0gLOKu+z8dMfZNs=
+	s=default; t=1602086489;
+	bh=INX8BVWpvonybkvQRHRxNfZ3TvXEEd/6JoVg+v2yxQo=;
+	h=From:To:Subject:Date:In-Reply-To:Cc:List-Id:List-Unsubscribe:
+	 List-Archive:List-Post:List-Help:List-Subscribe:From;
+	b=Wv90heZeMJYvAncpp8JPSauMXvjC/W29mXiWkAJBECNp7qY/+4bV+2SmbcdyVVoW/
+	 nseu/o/qGDhu9GpiZjCqK+hmwXflCJavqbut3cE2q+hSro00VejT3NQDWYDgP5/XOZ
+	 FJWVzXzwERnGWNeuWovGrykYgLbeRlXBuvOnVuD8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 67F76F802F7;
-	Wed,  7 Oct 2020 17:55:02 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 90A55F802FD;
+	Wed,  7 Oct 2020 17:55:06 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 65F38F80128; Wed,  7 Oct 2020 15:10:08 +0200 (CEST)
+ id 70F2DF80090; Wed,  7 Oct 2020 15:35:57 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS
- autolearn=disabled version=3.4.0
-Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
+X-Spam-Level: *
+X-Spam-Status: No, score=1.0 required=5.0 tests=RDNS_NONE,SPF_HELO_NONE,
+ SPF_NONE autolearn=disabled version=3.4.0
+Received: from bootes.sytes.net (unknown
+ [IPv6:2a02:2698:182a:c64:96de:80ff:fe6b:1e50])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 715D2F80087
- for <alsa-devel@alsa-project.org>; Wed,  7 Oct 2020 15:10:02 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 715D2F80087
-IronPort-SDR: SCfJ5LMqA3sBFiGIP95pg9DZ9maETv68j7W5xdum1xtcalxa2Uu9ciGmJqymIlHX17wbE8Faiq
- 0bJ/kWfugDnw==
-X-IronPort-AV: E=McAfee;i="6000,8403,9766"; a="152697241"
-X-IronPort-AV: E=Sophos;i="5.77,346,1596524400"; d="scan'208";a="152697241"
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from fmsmga007.fm.intel.com ([10.253.24.52])
- by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 07 Oct 2020 06:09:57 -0700
-IronPort-SDR: iE+mIb/JJV75SaQ5kJf0t0ESVcHA8dc6ozfnQ3gCzKdr8LMvG21UWJlUuIO9Cl5RalMnhhl4xF
- DmcD24cKsM8w==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.77,346,1596524400"; d="scan'208";a="297487083"
-Received: from fmsmsx601.amr.corp.intel.com ([10.18.126.81])
- by fmsmga007.fm.intel.com with ESMTP; 07 Oct 2020 06:09:57 -0700
-Received: from fmsmsx611.amr.corp.intel.com (10.18.126.91) by
- fmsmsx601.amr.corp.intel.com (10.18.126.81) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.1713.5; Wed, 7 Oct 2020 06:09:56 -0700
-Received: from fmsmsx612.amr.corp.intel.com (10.18.126.92) by
- fmsmsx611.amr.corp.intel.com (10.18.126.91) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.1713.5; Wed, 7 Oct 2020 06:09:56 -0700
-Received: from fmsmsx612.amr.corp.intel.com ([10.18.126.92]) by
- fmsmsx612.amr.corp.intel.com ([10.18.126.92]) with mapi id 15.01.1713.004;
- Wed, 7 Oct 2020 06:09:56 -0700
-From: "Saleem, Shiraz" <shiraz.saleem@intel.com>
-To: "Williams, Dan J" <dan.j.williams@intel.com>, Leon Romanovsky
- <leon@kernel.org>
-Subject: RE: [PATCH v2 1/6] Add ancillary bus support
-Thread-Topic: [PATCH v2 1/6] Add ancillary bus support
-Thread-Index: AQHWm0x+bCEx5k0iU0+RSRzmm941iKmKoH2AgACGDICAAB03gIAAAc6AgAAE8QD//4wBYIAAk8gAgAB9aYCAADAfAA==
-Date: Wed, 7 Oct 2020 13:09:55 +0000
-Message-ID: <cd80aad674ee48faaaedc8698c9b23e2@intel.com>
-References: <20201005182446.977325-1-david.m.ertman@intel.com>
- <20201005182446.977325-2-david.m.ertman@intel.com>
- <20201006071821.GI1874917@unreal>
- <b4f6b5d1-2cf4-ae7a-3e57-b66230a58453@linux.intel.com>
- <20201006170241.GM1874917@unreal>
- <BY5PR12MB43228E8DAA0B56BCF43AF3EFDC0D0@BY5PR12MB4322.namprd12.prod.outlook.com>
- <20201006172650.GO1874917@unreal>
- <3ff1445d86564ef3aae28d1d1a9a19ea@intel.com>
- <20201006192036.GQ1874917@unreal>
- <CAPcyv4iC_KGOx7Jwax-GWxFJbfUM-2+ymSuf4zkCxG=Yob5KnQ@mail.gmail.com>
-In-Reply-To: <CAPcyv4iC_KGOx7Jwax-GWxFJbfUM-2+ymSuf4zkCxG=Yob5KnQ@mail.gmail.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-dlp-product: dlpe-windows
-dlp-reaction: no-action
-dlp-version: 11.5.1.3
-x-originating-ip: [10.22.254.132]
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+ by alsa1.perex.cz (Postfix) with ESMTPS id E8599F80090;
+ Wed,  7 Oct 2020 15:35:45 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E8599F80090
+Received: from localhost.lan ([127.0.0.1] helo=bootes.localnet)
+ by bootes.sytes.net with esmtp (Exim 4.92)
+ (envelope-from <alex@bootes.sytes.net>)
+ id 1kQ9ba-0001TH-Pu; Wed, 07 Oct 2020 18:35:42 +0500
+From: Alex Volkov <alex@bootes.sytes.net>
+To: tom.ty89@gmail.com
+Subject: Re: [PATCH] ALSA: usb-audio: ignore broken processing/extension unit
+Date: Wed, 07 Oct 2020 18:35:42 +0500
+Message-ID: <7104424.S74eq5PtAd@bootes>
+In-Reply-To: <5f3abc52.1c69fb81.9cf2.fe91@mx.google.com>
 MIME-Version: 1.0
+Content-Transfer-Encoding: 7Bit
+Content-Type: text/plain; charset="us-ascii"
 X-Mailman-Approved-At: Wed, 07 Oct 2020 17:54:46 +0200
-Cc: "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
- "kuba@kernel.org" <kuba@kernel.org>, "parav@mellanox.com" <parav@mellanox.com>,
- "tiwai@suse.de" <tiwai@suse.de>,
- "netdev@vger.kernel.org" <netdev@vger.kernel.org>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- "ranjani.sridharan@linux.intel.com" <ranjani.sridharan@linux.intel.com>,
- "fred.oh@linux.intel.com" <fred.oh@linux.intel.com>,
- "linux-rdma@vger.kernel.org" <linux-rdma@vger.kernel.org>,
- "dledford@redhat.com" <dledford@redhat.com>,
- "broonie@kernel.org" <broonie@kernel.org>, Parav Pandit <parav@nvidia.com>,
- Jason Gunthorpe <jgg@nvidia.com>,
- "gregkh@linuxfoundation.org" <gregkh@linuxfoundation.org>, "Ertman,
- David M" <david.m.ertman@intel.com>,
- "davem@davemloft.net" <davem@davemloft.net>, "Patil, 
- Kiran" <kiran.patil@intel.com>
+Cc: alsa-devel@alsa-project.org, patch@alsa-project.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -123,50 +66,50 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-PiBTdWJqZWN0OiBSZTogW1BBVENIIHYyIDEvNl0gQWRkIGFuY2lsbGFyeSBidXMgc3VwcG9ydA0K
-PiANCj4gT24gVHVlLCBPY3QgNiwgMjAyMCBhdCAxMjoyMSBQTSBMZW9uIFJvbWFub3Zza3kgPGxl
-b25Aa2VybmVsLm9yZz4gd3JvdGU6DQo+ID4NCj4gPiBPbiBUdWUsIE9jdCAwNiwgMjAyMCBhdCAw
-NTo0MTowMFBNICswMDAwLCBTYWxlZW0sIFNoaXJheiB3cm90ZToNCj4gPiA+ID4gU3ViamVjdDog
-UmU6IFtQQVRDSCB2MiAxLzZdIEFkZCBhbmNpbGxhcnkgYnVzIHN1cHBvcnQNCj4gPiA+ID4NCj4g
-PiA+ID4gT24gVHVlLCBPY3QgMDYsIDIwMjAgYXQgMDU6MDk6MDlQTSArMDAwMCwgUGFyYXYgUGFu
-ZGl0IHdyb3RlOg0KPiA+ID4gPiA+DQo+ID4gPiA+ID4gPiBGcm9tOiBMZW9uIFJvbWFub3Zza3kg
-PGxlb25Aa2VybmVsLm9yZz4NCj4gPiA+ID4gPiA+IFNlbnQ6IFR1ZXNkYXksIE9jdG9iZXIgNiwg
-MjAyMCAxMDozMyBQTQ0KPiA+ID4gPiA+ID4NCj4gPiA+ID4gPiA+IE9uIFR1ZSwgT2N0IDA2LCAy
-MDIwIGF0IDEwOjE4OjA3QU0gLTA1MDAsIFBpZXJyZS1Mb3VpcyBCb3NzYXJ0IHdyb3RlOg0KPiA+
-ID4gPiA+ID4gPiBUaGFua3MgZm9yIHRoZSByZXZpZXcgTGVvbi4NCj4gPiA+ID4gPiA+ID4NCj4g
-PiA+ID4gPiA+ID4gPiA+IEFkZCBzdXBwb3J0IGZvciB0aGUgQW5jaWxsYXJ5IEJ1cywgYW5jaWxs
-YXJ5X2RldmljZSBhbmQNCj4gYW5jaWxsYXJ5X2RyaXZlci4NCj4gPiA+ID4gPiA+ID4gPiA+IEl0
-IGVuYWJsZXMgZHJpdmVycyB0byBjcmVhdGUgYW4gYW5jaWxsYXJ5X2RldmljZSBhbmQNCj4gPiA+
-ID4gPiA+ID4gPiA+IGJpbmQgYW4gYW5jaWxsYXJ5X2RyaXZlciB0byBpdC4NCj4gPiA+ID4gPiA+
-ID4gPg0KPiA+ID4gPiA+ID4gPiA+IEkgd2FzIHVuZGVyIGltcHJlc3Npb24gdGhhdCB0aGlzIG5h
-bWUgaXMgZ29pbmcgdG8gYmUgY2hhbmdlZC4NCj4gPiA+ID4gPiA+ID4NCj4gPiA+ID4gPiA+ID4g
-SXQncyBwYXJ0IG9mIHRoZSBvcGVucyBzdGF0ZWQgaW4gdGhlIGNvdmVyIGxldHRlci4NCj4gPiA+
-ID4gPiA+DQo+ID4gPiA+ID4gPiBvaywgc28gd2hhdCBhcmUgdGhlIHZhcmlhbnRzPw0KPiA+ID4g
-PiA+ID4gc3lzdGVtIGJ1cyAoc3lzYnVzKSwgc2JzeXN0ZW0gYnVzIChzdWJidXMpLCBjcm9zc2J1
-cyA/DQo+ID4gPiA+ID4gU2luY2UgdGhlIGludGVuZGVkIHVzZSBvZiB0aGlzIGJ1cyBpcyB0bw0K
-PiA+ID4gPiA+IChhKSBjcmVhdGUgc3ViIGRldmljZXMgdGhhdCByZXByZXNlbnQgJ2Z1bmN0aW9u
-YWwgc2VwYXJhdGlvbicNCj4gPiA+ID4gPiBhbmQNCj4gPiA+ID4gPiAoYikgc2Vjb25kIHVzZSBj
-YXNlIGZvciBzdWJmdW5jdGlvbnMgZnJvbSBhIHBjaSBkZXZpY2UsDQo+ID4gPiA+ID4NCj4gPiA+
-ID4gPiBJIHByb3Bvc2VkIGJlbG93IG5hbWVzIGluIHYxIG9mIHRoaXMgcGF0Y2hzZXQuDQo+ID4g
-PiA+IA0KPiA+ID4gPiA+IChhKSBzdWJkZXZfYnVzDQo+ID4gPiA+DQo+ID4gPiA+IEl0IHNvdW5k
-cyBnb29kLCBqdXN0IGNhbiB3ZSBhdm9pZCAiXyIgaW4gdGhlIG5hbWUgYW5kIGNhbGwgaXQgc3Vi
-ZGV2Pw0KPiA+ID4gPg0KPiA+ID4NCj4gPiA+IFdoYXQgaXMgd3Jvbmcgd2l0aCBuYW1pbmcgdGhl
-IGJ1cyAnYW5jaWxsYXJ5IGJ1cyc/IEkgZmVlbCBpdCdzIGEgZml0dGluZyBuYW1lLg0KPiA+ID4g
-QW4gYW5jaWxsYXJ5IHNvZnR3YXJlIGJ1cyBmb3IgYW5jaWxsYXJ5IGRldmljZXMgY2FydmVkIG9m
-ZiBhIHBhcmVudCBkZXZpY2UNCj4gcmVnaXN0ZXJlZCBvbiBhIHByaW1hcnkgYnVzLg0KPiA+DQo+
-ID4gR3JlZyBzdW1tYXJpemVkIGl0IHZlcnkgd2VsbCwgZXZlcnkgaW50ZXJuYWwgY29udmVyc2F0
-aW9uIGFib3V0IHRoaXMNCj4gPiBwYXRjaCB3aXRoIG15IGNvbGxlYWd1ZXMgKG5vbi1lbmdsaXNo
-IHNwZWFrZXJzKSBzdGFydHMgd2l0aCB0aGUgcXVlc3Rpb246DQo+ID4gIldoYXQgZG9lcyBhbmNp
-bGxhcnkgbWVhbj8iDQo+ID4gaHR0cHM6Ly9sb3JlLmtlcm5lbC5vcmcvYWxzYS1kZXZlbC8yMDIw
-MTAwMTA3MTQwMy5HQzMxMTkxQGtyb2FoLmNvbS8NCj4gPg0KPiA+ICJGb3Igbm9uLW5hdGl2ZSBl
-bmdsaXNoIHNwZWFrZXJzIHRoaXMgaXMgZ29pbmcgdG8gYmUgcm91Z2gsIGdpdmVuIHRoYXQNCj4g
-PiBJIGFzIGEgbmF0aXZlIGVuZ2xpc2ggc3BlYWtlciBoYWQgdG8gZ28gbG9vayB1cCB0aGUgd29y
-ZCBpbiBhDQo+ID4gZGljdGlvbmFyeSB0byBmdWxseSB1bmRlcnN0YW5kIHdoYXQgeW91IGFyZSB0
-cnlpbmcgdG8gZG8gd2l0aCB0aGF0DQo+ID4gbmFtZS4iDQo+IA0KPiBJIHN1Z2dlc3RlZCAiYXV4
-aWxpYXJ5IiBpbiBhbm90aGVyIHNwbGludGVyZWQgdGhyZWFkIG9uIHRoaXMgcXVlc3Rpb24uDQo+
-IEluIHRlcm1zIG9mIHdoYXQgdGhlIGtlcm5lbCBpcyBhbHJlYWR5IHVzaW5nOg0KPiANCj4gJCBn
-aXQgZ3JlcCBhdXhpbGlhcnkgfCB3YyAtbA0KPiA1MDcNCj4gJCBnaXQgZ3JlcCBhbmNpbGxhcnkg
-fCB3YyAtbA0KPiAxNTMNCj4gDQo+IEVtcGlyaWNhbGx5LCAiYXV4aWxpYXJ5IiBpcyBtb3JlIGNv
-bW1vbiBhbmQgY2xvc2VseSBtYXRjaGVzIHRoZSBpbnRlbmRlZCBmdW5jdGlvbg0KPiBvZiB0aGVz
-ZSBkZXZpY2VzIHJlbGF0aXZlIHRvIHRoZWlyIHBhcmVudCBkZXZpY2UuDQoNCmF1eGlsaWFyeSBi
-dXMgaXMgYSBiZWZpdHRpbmcgbmFtZSBhcyB3ZWxsLg0K
+This patch breaks the creation of the "Clock rate Selector" mixer unit in E-MU 
+Tracker Pre USB audio interface. If the 'snd-usb-audio' module still has not 
+been loaded when the device gets switched on, the module autoloads and 
+everything works:
+
+$ cat /proc/asound/USB/usbmixer 
+USB Mixer: usb_id=0x041e3f0a, ctrlif=0, ctlerr=0
+Card: E-MU Systems, Inc. E-MU Tracker Pre | USB at usb-0000:00:14.0-13, high 
+speed
+  Unit: 4
+    Control: name="PCM Playback Volume", index=0
+    Info: id=4, control=2, cmask=0x3, channels=2, type="S16"
+    Volume: min=-25600, max=0, dBmin=-10000, dBmax=0
+  Unit: 4
+    Control: name="PCM Playback Switch", index=0
+    Info: id=4, control=1, cmask=0x0, channels=1, type="INV_BOOLEAN"
+    Volume: min=0, max=1, dBmin=0, dBmax=0
+  Unit: 12
+    Control: name="Clock rate Selector", index=0
+    Info: id=12, control=3, cmask=0x0, channels=1, type="U8"
+    Volume: min=0, max=5, dBmin=0, dBmax=0
+
+BUT! If the device gets switched off and back on when the module is still 
+loaded, the control never gets created:
+
+(after I power cycled the device)
+
+$ cat /proc/asound/USB/usbmixer 
+USB Mixer: usb_id=0x041e3f0a, ctrlif=0, ctlerr=0
+Card: E-MU Systems, Inc. E-MU Tracker Pre | USB at usb-0000:00:14.0-13, high 
+speed
+  Unit: 4
+    Control: name="PCM Playback Volume", index=0
+    Info: id=4, control=2, cmask=0x3, channels=2, type="S16"
+    Volume: min=-25600, max=0, dBmin=-10000, dBmax=0
+  Unit: 4
+    Control: name="PCM Playback Switch", index=0
+    Info: id=4, control=1, cmask=0x0, channels=1, type="INV_BOOLEAN"
+    Volume: min=0, max=1, dBmin=0, dBmax=0
+
+Accordingly, the device stays at the default Clock rate with no way to change 
+it. Probably, there's some timing issue in the initialization of the device / 
+the loading of the module, but I honestly couldn't care less as long as this 
+patch breaks my setup.
+
+
+

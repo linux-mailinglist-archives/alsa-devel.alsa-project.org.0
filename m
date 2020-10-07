@@ -2,81 +2,88 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9A5652858F9
-	for <lists+alsa-devel@lfdr.de>; Wed,  7 Oct 2020 09:03:36 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B69CB28592E
+	for <lists+alsa-devel@lfdr.de>; Wed,  7 Oct 2020 09:15:50 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 1805216E0;
-	Wed,  7 Oct 2020 09:02:46 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1805216E0
+	by alsa0.perex.cz (Postfix) with ESMTPS id 23F4716E0;
+	Wed,  7 Oct 2020 09:15:00 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 23F4716E0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1602054216;
-	bh=UqUKliSSCtsehD8qnOhsrTtl++JGB8uRmlQc1RfM51E=;
+	s=default; t=1602054950;
+	bh=JeoI3ziz+NTXrap41CW7jZogjojeC8FcdQLS4rEkkYg=;
 	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=GniLPf6UpR+7nlPyLr4ZLuhTrnqzD2RuEfTJpOlqeFikEstCWcrpTNS3O28dhCTgL
-	 LOkEfGb8typoYCQFDD3cSItT43b4fY0a8P5uCbKaMQAnlyV7DwmtTkzxusXgOtUqe7
-	 ZLsQGnTSUv/ovvyRkrKVQM1LdUpyPz4zzcpqwEZM=
+	b=E3w3atx3J3+OVhu5VS5Kh8ST41LDVSLzk259ZYENpa9YrBMmqPOvOX+rc3J6wMg7b
+	 1UD+HwhzzlI7eXRLGooPUqBwB+kG8OvNbeB1TDz6jcnNHVRE58jPDfceqLSA2FZbq/
+	 l8zGaK01kzFhVu5YiBl6gTA41ydY7vWdvtP1lrVA=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id B236AF80090;
-	Wed,  7 Oct 2020 09:01:55 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id B454BF8016A;
+	Wed,  7 Oct 2020 09:14:09 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 8DA66F80128; Wed,  7 Oct 2020 09:01:54 +0200 (CEST)
+ id DE802F80128; Wed,  7 Oct 2020 09:14:06 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=NICE_REPLY_A, RCVD_IN_MSPIKE_H3,
- RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
-Received: from out-1.mail.amis.net (out-1.mail.amis.net [212.18.32.4])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+X-Spam-Status: No, score=-0.8 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+ DKIM_VALID,DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from hqnvemgate25.nvidia.com (hqnvemgate25.nvidia.com
+ [216.228.121.64])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 08060F800EE
- for <alsa-devel@alsa-project.org>; Wed,  7 Oct 2020 09:01:47 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 08060F800EE
-Received: from in-5.mail.amis.net (in-5.mail.amis.net [212.18.32.26])
- by out-1.mail.amis.net (Postfix) with ESMTP id 6845E8104D;
- Wed,  7 Oct 2020 09:01:47 +0200 (CEST)
-Received: from in-5.mail.amis.net (localhost [127.0.0.1])
- by in-5.mail.amis.net (Postfix) with ESMTP id 0D9F2C9537;
- Wed,  7 Oct 2020 09:01:47 +0200 (CEST)
-X-Virus-Scanned: amavisd-new at amis.net
-Received: from in-5.mail.amis.net ([127.0.0.1])
- by in-5.mail.amis.net (in-5.mail.amis.net [127.0.0.1]) (amavisd-new,
- port 10024)
- with ESMTP id qmybH9k236wn; Wed,  7 Oct 2020 09:01:46 +0200 (CEST)
-Received: from smtp2.amis.net (smtp2.amis.net [212.18.32.44])
- by in-5.mail.amis.net (Postfix) with ESMTP id 779ADC9516;
- Wed,  7 Oct 2020 09:01:46 +0200 (CEST)
-Received: from [192.168.69.116] (89-212-21-243.static.t-2.net [89.212.21.243])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128
- bits)) (No client certificate requested)
- by smtp2.amis.net (Postfix) with ESMTPSA id 13AE77FC1F;
- Wed,  7 Oct 2020 09:01:46 +0200 (CEST)
-Subject: Re: [PATCH 1/2] ASoC: fsl: fsl_ssi: add ac97 fixed mode support
-To: "Maciej S. Szmigiero" <mail@maciej.szmigiero.name>,
- Mark Brown <broonie@kernel.org>
-References: <20201005111644.3131604-1-primoz.fiser@norik.com>
- <20201005114925.GC5139@sirena.org.uk>
- <bc31e0f2-969c-4eb1-1dc0-cf4284427a4b@norik.com>
- <23907c70-4939-8732-5f91-c2cdd43449ad@maciej.szmigiero.name>
-From: Primoz Fiser <primoz.fiser@norik.com>
-Message-ID: <6a68c377-472b-a0e4-efe4-5d59873c59e7@norik.com>
-Date: Wed, 7 Oct 2020 09:01:45 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ by alsa1.perex.cz (Postfix) with ESMTPS id E5156F800EE
+ for <alsa-devel@alsa-project.org>; Wed,  7 Oct 2020 09:14:03 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E5156F800EE
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=nvidia.com header.i=@nvidia.com
+ header.b="XtU5tYzm"
+Received: from hqmail.nvidia.com (Not Verified[216.228.121.13]) by
+ hqnvemgate25.nvidia.com (using TLS: TLSv1.2, AES256-SHA)
+ id <B5f7d6a810001>; Wed, 07 Oct 2020 00:13:05 -0700
+Received: from [10.25.101.204] (10.124.1.5) by HQMAIL107.nvidia.com
+ (172.20.187.13) with Microsoft SMTP Server (TLS) id 15.0.1473.3; Wed, 7 Oct
+ 2020 07:13:53 +0000
+Subject: Re: [PATCH v3 09/13] ASoC: dt-bindings: tegra: Add schema for audio
+ graph card
+To: Rob Herring <robh@kernel.org>
+References: <1601573587-15288-1-git-send-email-spujar@nvidia.com>
+ <1601573587-15288-10-git-send-email-spujar@nvidia.com>
+ <20201006203433.GA2786434@bogus>
+From: Sameer Pujar <spujar@nvidia.com>
+Message-ID: <a5bc07d8-fb2e-e86e-f0d3-be19166ad7bb@nvidia.com>
+Date: Wed, 7 Oct 2020 12:43:50 +0530
+User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:68.0) Gecko/20100101
  Thunderbird/68.10.0
 MIME-Version: 1.0
-In-Reply-To: <23907c70-4939-8732-5f91-c2cdd43449ad@maciej.szmigiero.name>
-Content-Type: text/plain; charset=windows-1252; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 8bit
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- Timur Tabi <timur@kernel.org>, Xiubo Li <Xiubo.Lee@gmail.com>,
- Shengjiu Wang <shengjiu.wang@gmail.com>, Takashi Iwai <tiwai@suse.com>,
- Liam Girdwood <lgirdwood@gmail.com>, Nicolin Chen <nicoleotsuka@gmail.com>,
- Rob Herring <robh+dt@kernel.org>, Fabio Estevam <festevam@gmail.com>
+In-Reply-To: <20201006203433.GA2786434@bogus>
+Content-Type: text/plain; charset="utf-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+Content-Language: en-GB
+X-Originating-IP: [10.124.1.5]
+X-ClientProxiedBy: HQMAIL111.nvidia.com (172.20.187.18) To
+ HQMAIL107.nvidia.com (172.20.187.13)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nvidia.com; s=n1;
+ t=1602054785; bh=/ogdgdqjxjkT33GrVdiECGAlj2ugqSEXgT8/zYZImUA=;
+ h=Subject:To:CC:References:From:Message-ID:Date:User-Agent:
+ MIME-Version:In-Reply-To:Content-Type:Content-Transfer-Encoding:
+ Content-Language:X-Originating-IP:X-ClientProxiedBy;
+ b=XtU5tYzm3GfSAkuTvH6PQaSeYmYjAL/rAufBtULI6I/l1BCpFnrNWb/u2GuIbET8t
+ i9+b6WyIVw6t7dplUat1O/UItoSMD+DLVdQpI/cO+KuU/hnS/2S5nBq68dA2uta/88
+ EFJ7am0x2CxfeZL6GidrchQR7m+aunCB5+y8/ks4sh/U5cMdr7333eVaUndl7oPAeW
+ UXfO6g2OvKhr0dMtWH2w7yvC1UzE/E72L4Le8CnulD1cPXxUlLQR4Lt6S9tZclsBUZ
+ jaix0aRqcfKO+B0Koj1B02Wb6SmWrQin/EkmitiWvaH1osQU03KklCXK3vKK6NA+Qq
+ zglpDOr/HxZMA==
+Cc: pierre-louis.bossart@linux.intel.com, alsa-devel@alsa-project.org,
+ atalambedu@nvidia.com, swarren@nvidia.com, kuninori.morimoto.gx@renesas.com,
+ lgirdwood@gmail.com, nicoleotsuka@gmail.com, linux-kernel@vger.kernel.org,
+ nwartikar@nvidia.com, tiwai@suse.com, viswanathl@nvidia.com,
+ sharadg@nvidia.com, devicetree@vger.kernel.org, broonie@kernel.org,
+ thierry.reding@gmail.com, linux-tegra@vger.kernel.org, jonathanh@nvidia.com,
+ rlokhande@nvidia.com, mkumard@nvidia.com, dramesh@nvidia.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -92,73 +99,83 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hi Maciej,
 
->> I remember that the AC'97 mode in SSI was riddled with bugs to a level of
->> being barely usable.
-
-True.
-
-After exhausting work we managed to get it stable enough to be ready for 
-"production". One of improvements was the use of AC'97 fixed mode 
-instead of variable mode. Other improvements to fsl_ssi by us might 
-follow in the future, but at the moment I don't think those are ready 
-for "mainline".
-
->> Not only the channel slots would enable on their own, but the CODEC
->> registers got randomly trashed from time to time (I think a register
->> would get zeroed spontaneously).
-
-Yes, we also encountered those issues. For this we use special thread in 
-a loop to check the state of AC'97 registers. We store known good values 
-and check for discrepancies while audio is running. Once discrepancy is 
-found, we immediately recover the register value with the previous good 
-value. Downside of this approach is that audio might be down for a 
-period of thread loop and that's why we keep it tight at 1 Hz.
-
-BR,
-Primoz
-
-
-On 5. 10. 20 15:51, Maciej S. Szmigiero wrote:
-> On 05.10.2020 14:59, Primoz Fiser wrote:
->> Hi Mark,
+>> Add YAML schema for Tegra audio graph sound card DT bindings. It uses the
+>> same DT bindings provided by generic audio graph driver. Along with this
+>> few standard clock DT bindings are added which are specifically required
+>> for Tegra audio.
 >>
->> On 5. 10. 20 13:49, Mark Brown wrote:
->>> On Mon, Oct 05, 2020 at 01:16:43PM +0200, Primoz Fiser wrote:
->>>
->>>> bits. But in summary, when SSI operates in AC'97 variable mode of
->>>> operation, CODECs can sometimes send SLOTREQ bits for non-existent audio
->>>> slots which then "stick" in SSI and completely break audio output.
->>>
->>> If this is something that happens based on the CODEC shouldn't we be
->>> doing this by quirking based on the CODEC the system has rather than
->>> requiring people set a separate DT property?
->>>
+>> Signed-off-by: Sameer Pujar <spujar@nvidia.com>
+>> ---
+>>   .../sound/nvidia,tegra-audio-graph-card.yaml       | 70 ++++++++++++++++++++++
+>>   1 file changed, 70 insertions(+)
+>>   create mode 100644 Documentation/devicetree/bindings/sound/nvidia,tegra-audio-graph-card.yaml
 >>
->> To be totally honest, we are not 100% sure if this is only CODEC's fault or something else might be causing these issues.
->>
->> For example, it could be some EMI/noise that causes SLOTREQ bits to flip spuriously. Or it could even be the buggy SSI itself (taking into account all the issues with channel slipping, slot filtering, AC'97 reg reading/writing, etc)?
->>
->> We are just referencing commit 01ca485171e3 ("ASoC: fsl_ssi: only enable proper channel slots in AC'97 mode"), as we saw that UDOO board had the same problems. I added commit author to CC.
->>
->> We were able to overcome those by programming SSI in AC'97 fixed mode which driver up to now completely ignored (it was using only AC'97 variable mode).
->>
->> Additionally, we are using WM9712 codec and UDOO board is using VT1613, right? So these issues might not be CODEC related at all.
-> 
-> I remember that the AC'97 mode in SSI was riddled with bugs to a level of
-> being barely usable.
-> 
-> Not only the channel slots would enable on their own, but the CODEC
-> registers got randomly trashed from time to time (I think a register
-> would get zeroed spontaneously).
-> 
-> This happened even if an external CODEC, different than the boards
-> VT1613, was connected.
-> So these were definitely SSI problems, not CODEC ones.
-> 
-> That's why probably pretty much every board other than UDOO uses SSI
-> in the I²S mode.
-> 
-> Maciej
-> 
+>> diff --git a/Documentation/devicetree/bindings/sound/nvidia,tegra-audio-graph-card.yaml b/Documentation/devicetree/bindings/sound/nvidia,tegra-audio-graph-card.yaml
+>> new file mode 100644
+>> index 0000000..b73fbe5
+>> --- /dev/null
+>> +++ b/Documentation/devicetree/bindings/sound/nvidia,tegra-audio-graph-card.yaml
+>> @@ -0,0 +1,70 @@
+>> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+>> +%YAML 1.2
+>> +---
+>> +$id: http://devicetree.org/schemas/sound/nvidia,tegra-audio-graph-card.yaml#
+>> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+>> +
+>> +title: Audio Graph based Tegra sound card driver
+>> +
+>> +description: |
+>> +  This is based on generic audio graph card driver along with additional
+>> +  customizations for Tegra platforms. It uses the same bindings with
+>> +  additional standard clock DT bindings required for Tegra.
+>> +
+>> +  See{LINUX}/Documentation/devicetree/bindings/sound/audio-graph-card.txt
+>> +
+>> +maintainers:
+>> +  - Jon Hunter <jonathanh@nvidia.com>
+>> +  - Sameer Pujar <spujar@nvidia.com>
+>> +
+>> +properties:
+>> +  compatible:
+>> +    oneOf:
+>> +      - const: nvidia,tegra210-audio-graph-card
+>> +      - const: nvidia,tegra186-audio-graph-card
+>> +
+>> +  clocks:
+>> +   minItems: 2
+>> +
+>> +  clock-names:
+>> +   minItems: 2
+>> +   items:
+>> +     - const: pll_a
+>> +     - const: plla_out0
+>> +
+>> +  assigned-clocks:
+>> +    minItems: 1
+>> +    maxItems: 3
+>> +
+>> +  assigned-clock-parents:
+>> +    minItems: 1
+>> +    maxItems: 3
+>> +
+>> +  assigned-clock-rates:
+>> +    minItems: 1
+>> +    maxItems: 3
+>> +
+>> +required:
+>> +  - compatible
+>> +  - clocks
+>> +  - clock-names
+>> +  - assigned-clocks
+>> +  - assigned-clock-parents
+> Where's the graph? You need to define the ports and reference the common
+> schema.
+
+I am looking to reference the bindings used in below doc which is not 
+yet in YAML format. Only additional properties I listed here.
+{LINUX}/Documentation/devicetree/bindings/sound/audio-graph-card.txt
+
+Should I keep this doc to *.txt format as well and later move to YAML or 
+is there a way to reference *.txt doc here?
+

@@ -2,170 +2,110 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D8E1628732B
-	for <lists+alsa-devel@lfdr.de>; Thu,  8 Oct 2020 13:12:27 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 30AFC2874BD
+	for <lists+alsa-devel@lfdr.de>; Thu,  8 Oct 2020 15:01:48 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 33A46168C;
-	Thu,  8 Oct 2020 13:11:37 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 33A46168C
+	by alsa0.perex.cz (Postfix) with ESMTPS id 62224168A;
+	Thu,  8 Oct 2020 15:00:57 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 62224168A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1602155547;
-	bh=Zf2FSHAzPFdFnqiX3nFaoD2d7167WOp+iJrEYnsyBzo=;
-	h=From:To:Subject:Date:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1602162107;
+	bh=jJWSe0qn/dstV4zhXnaZkouFB1IbJfHlqj/2Ffoqh2Q=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=QR/tKWYfmTccsm/+tzzutDkLt922WUEGPDJNgN0VfffEpCEWndniMYf5EhJs6zPX+
-	 g/D1qJJ4YHGEAc01vGWPWzlYmAlUH6dI8klHzgo9gp2Bi9KTvNfXgvPsMhN9rvlJVe
-	 /aFCPZZUFq3FOYFH5DIpu7iJep+5hoLCAKiy2wS8=
+	b=nx9dZVfotvrJJDghB7AZFGuYb/dA7Ey47pMx4yCs9W8ZQuwBBzqYRCF9dbTF4RDYC
+	 09NtfBHlv4aq90KFxL7bTWq/IKeXs5Ovy2Hhj5aCN5RO6lnN6J+RnI9Lp+9aWu3Vrq
+	 Hkmv0gGEQlTXRGKIBrG6qQoLvr+PBmilyVqvC6AI=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id B6140F80163;
-	Thu,  8 Oct 2020 13:10:46 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id CCFCAF80163;
+	Thu,  8 Oct 2020 15:00:06 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id ED813F80164; Thu,  8 Oct 2020 13:10:44 +0200 (CEST)
+ id B1EFEF80164; Thu,  8 Oct 2020 15:00:02 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.8 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from hqnvemgate25.nvidia.com (hqnvemgate25.nvidia.com
- [216.228.121.64])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,RCVD_IN_MSPIKE_H3,RCVD_IN_MSPIKE_WL,SPF_HELO_PASS,SPF_PASS,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from wout2-smtp.messagingengine.com (wout2-smtp.messagingengine.com
+ [64.147.123.25])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id BB9F2F8015B
- for <alsa-devel@alsa-project.org>; Thu,  8 Oct 2020 13:10:37 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BB9F2F8015B
+ by alsa1.perex.cz (Postfix) with ESMTPS id C7A4EF8015B
+ for <alsa-devel@alsa-project.org>; Thu,  8 Oct 2020 14:59:55 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C7A4EF8015B
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=nvidia.com header.i=@nvidia.com
- header.b="LDJMzwej"
-Received: from hqmail.nvidia.com (Not Verified[216.228.121.13]) by
- hqnvemgate25.nvidia.com (using TLS: TLSv1.2, AES256-SHA)
- id <B5f7ef3720000>; Thu, 08 Oct 2020 04:09:38 -0700
-Received: from HQMAIL107.nvidia.com (172.20.187.13) by HQMAIL101.nvidia.com
- (172.20.187.10) with Microsoft SMTP Server (TLS) id 15.0.1473.3; Thu, 8 Oct
- 2020 11:10:31 +0000
-Received: from NAM04-BN3-obe.outbound.protection.outlook.com (104.47.46.51) by
- HQMAIL107.nvidia.com (172.20.187.13) with Microsoft SMTP Server
- (TLS) id
- 15.0.1473.3 via Frontend Transport; Thu, 8 Oct 2020 11:10:31 +0000
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=lv3TeQU3qwoyqCG4UIVBA4Ta/hUisyjHdludKKb41i+7OZ60cB888Q1XRRzP35677HbePAXioMbTu2s68+M/PVMp0RlT1XY+8chyfmPDIy8clQv1Nsn9Zv/JwEqyWDxR9EfsbFBamY47xzAbkK0LNPoOg2fLxOf9SSTIY3NhUQfOAAfwlsW1VEAhLVaEqKfauu05WCgEkPQ9GRGFPcHmROBo/3H8UVSQj8c3oSZ4wggcosnftgerBbIMHdZ0pJvQIwCRTka7CeVjA8Y3XdfVQix4O3qJlVk6Tdm27j9lKtvvM1dwTsUkB9QXX0EGcnr23EnKthF6WUdGZcHEsXhURg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Zf2FSHAzPFdFnqiX3nFaoD2d7167WOp+iJrEYnsyBzo=;
- b=GZP3sTpO2ghbe2IaBY3Zbf9PE7JvRXIazF4zn9G4IkYsXlAlW7o+jziXWWd4Z91f6XRc7g0yz5pqe4idhcUWhhYr6AA3uAbYhUA2Ei4+4S3N5qInIS7FqVSaWFOpVDy57x37CvKhyBAaXHUheMQ+poJtQuGpTCzmvLLjAXUKvl/y+uIRzZFZy92Tq0RgLD9VggzfRuagf2MJ771m5gp5jt+5WBRKcT4UJC/sYmnM47d8I+Rh1gf6C5AHFhUCQgASUBGrVPiWBDpok5gFAnkeOVotxN3tf6o8+gyXiorcn2RGjmRMX9PErKPWZDf6ThpYGpAN2Bit71rnp71SiqLqXQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-Received: from BY5PR12MB4322.namprd12.prod.outlook.com (2603:10b6:a03:20a::20)
- by BY5PR12MB4227.namprd12.prod.outlook.com (2603:10b6:a03:206::21)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3455.23; Thu, 8 Oct
- 2020 11:10:26 +0000
-Received: from BY5PR12MB4322.namprd12.prod.outlook.com
- ([fe80::3c25:6e4c:d506:6105]) by BY5PR12MB4322.namprd12.prod.outlook.com
- ([fe80::3c25:6e4c:d506:6105%6]) with mapi id 15.20.3455.023; Thu, 8 Oct 2020
- 11:10:26 +0000
-From: Parav Pandit <parav@nvidia.com>
-To: "gregkh@linuxfoundation.org" <gregkh@linuxfoundation.org>, Dan Williams
- <dan.j.williams@intel.com>
-Subject: RE: [PATCH v2 1/6] Add ancillary bus support
-Thread-Topic: [PATCH v2 1/6] Add ancillary bus support
-Thread-Index: AQHWm05cPW7H51WMukmCocLPE63Nf6mKKyGAgACGC4CAAB03gIABpCoAgAAWQgCAAAuCMIAACwKAgACP2oCAABO3gIAAB+wAgAAKeACAAAOTAIAAISEQ
-Date: Thu, 8 Oct 2020 11:10:25 +0000
-Message-ID: <BY5PR12MB432291F0683A2295170C2F3BDC0B0@BY5PR12MB4322.namprd12.prod.outlook.com>
-References: <b4f6b5d1-2cf4-ae7a-3e57-b66230a58453@linux.intel.com>
- <20201006170241.GM1874917@unreal>
- <DM6PR11MB2841C531FC27DB41E078C52BDD0A0@DM6PR11MB2841.namprd11.prod.outlook.com>
- <20201007192610.GD3964015@unreal>
- <BY5PR12MB43221A308CE750FACEB0A806DC0A0@BY5PR12MB4322.namprd12.prod.outlook.com>
- <DM6PR11MB28415A8E53B5FFC276D5A2C4DD0A0@DM6PR11MB2841.namprd11.prod.outlook.com>
- <20201008052137.GA13580@unreal>
- <CAPcyv4gz=mMTfLO4mAa34MEEXgg77o1AWrT6aguLYODAWxbQDQ@mail.gmail.com>
- <20201008070032.GG13580@unreal>
- <CAPcyv4jUbNaR6zoHdSNf1Rsq7MUp2RvdUtDGrmi5Be6hK_oybg@mail.gmail.com>
- <20201008075048.GA254837@kroah.com>
-In-Reply-To: <20201008075048.GA254837@kroah.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-authentication-results: linuxfoundation.org; dkim=none (message not signed)
- header.d=none;linuxfoundation.org; dmarc=none action=none
- header.from=nvidia.com;
-x-originating-ip: [49.207.195.6]
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: d3ca7299-1379-40cf-c454-08d86b7ac237
-x-ms-traffictypediagnostic: BY5PR12MB4227:
-x-ms-exchange-transport-forked: True
-x-microsoft-antispam-prvs: <BY5PR12MB4227DD3AFDD00EA4043CA65BDC0B0@BY5PR12MB4227.namprd12.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:8273;
-x-ms-exchange-senderadcheck: 1
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: VZkRrD/whRpxqtZumw83OtdOdPx3ZwK0XLX6BEB3La4tupYv3rWhyLVgwhJBLJZsyQhsyixCzKnn46VoRB/AuLfZqIwAFgrnmAi4XBaVCDO9RUuMDVmBlD2UW/0jJawgY16EZePALHe6r/pgViW6yeA+dHpsZk+vhW8BNg5edbfwSotupCYAbUqxvnPHe7fJc1Ju99WuyrMZ8WRYd+hQxgFZw1FCBx50a0+PDEAFkmsdmiGWYZnXOmL7Al6a0ERk19uJZqiFyDZFg154d5+5uv56vKNaxpqYK5v7zngvpaTEwauIryvtZyWY5fIxbsnaeq0E/kMcDejYyosdNz27XtFkcwEjyz296+/Oj9VGoGZ4g4w0Jnx+xRpjPzG0QvuhDj+wjgchKQ9OeApYlxxrBg==
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BY5PR12MB4322.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(366004)(346002)(376002)(136003)(39860400002)(396003)(2906002)(5660300002)(186003)(26005)(966005)(8936002)(7696005)(71200400001)(54906003)(55236004)(9686003)(83080400001)(478600001)(7416002)(8676002)(6506007)(53546011)(86362001)(110136005)(4326008)(52536014)(316002)(66476007)(55016002)(33656002)(76116006)(66946007)(64756008)(66446008)(66556008);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata: YJkvRnVrlDnmTRbfD3tRpxeraCV1yO/O/z+K7iigkZP1NkKutDfDkap7kIOw4Mobv6hSjI/h41tXoPoVhFgtNn+gMDy6WQivhoJgUumXzDbHnMssQHJzuvmQIoO+zC/7EVwZbv7pXWV+t6UoZok1mPP5KMJKrqwgFPqDPeaDoxnZ69y+5C1/lB/WD1Z1TCPuTd0M4zyh3wL0/+U9JyT4DErXWMaTJCtxqzmTeP9whzdbqA5imSW7k4uplDblyp2/GbJcOaUCUzuT1I6v9d6fflZE5IWPXR6SVAnFlBk1iKqqZZCbdGNmt1e1Ptv5mCrsqapeAHZNFSYxWWugrjSGjUFIj4e0Djh9yEVRIxD5D6yz94uI6TaFMSSmLF2j9TV/zk/+unzWslj4G7svHD/F7WxiM1PXb18G3rU0hJjZA/qJVAS8tB0LDa2izAKONyX300ziy7pVco/cguXKIA5Ggsp+6kJrZbEfg8x/e8G3XcXb+tJKPaCQdJ1Dra04YuUZYskk5mMWF9xMzODXbRo1FjyrhWuRwr0FcQmWzzSi3a5A/4R5knzZpwPRfu3DWSXi5lziks01cScHJPFqylzTtP5dH/LHTSWdcrSAdu+Vd285vLdkWnwVPmKPDT50EbwJu69kDpXm7/+tvsRN7d8n0Q==
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+ dkim=pass (2048-bit key) header.d=cerno.tech header.i=@cerno.tech
+ header.b="Fqk1S9k2"; 
+ dkim=pass (2048-bit key) header.d=messagingengine.com
+ header.i=@messagingengine.com header.b="pSmspXEC"
+Received: from compute6.internal (compute6.nyi.internal [10.202.2.46])
+ by mailout.west.internal (Postfix) with ESMTP id 6FD17C6B;
+ Thu,  8 Oct 2020 08:59:51 -0400 (EDT)
+Received: from mailfrontend1 ([10.202.2.162])
+ by compute6.internal (MEProxy); Thu, 08 Oct 2020 08:59:52 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cerno.tech; h=
+ date:from:to:cc:subject:message-id:references:mime-version
+ :content-type:in-reply-to; s=fm1; bh=3SsMPKFcJD/Vgq1ZIeICUGAqHY3
+ QhttTAnqlfP7RyEo=; b=Fqk1S9k2s/l/sajXunRqgPJIKUvzM0+fKl4azWAOeB9
+ 8n/4FA3T8/kNQlhLVVMFqhSXkyn0keR3OM9wGTOHukNRg5Equ6M/lp7UsvzRRPmW
+ Hx+NhM+uy4CXQ/7GkjRdDswZLoSaLRHsYP2nAnRUGyJ4Qk6zeAZIZapyzzwcyQar
+ lWYb28TRmpN5qxa6aCoPhcqe0eXs4PVfDrzzmA1gh94/gYak9W2gYf/0FsKaWJRW
+ ytEbpLyBurxebTJjivP3crTFqO32bGYjiDMrT+dh0On7Is5qwgwbHu+blw1bSRwI
+ CBhdr1/iasPbh5IArLhqcqNwrrFkxkcvFOlDOu35E/w==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to:x-me-proxy
+ :x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; bh=3SsMPK
+ FcJD/Vgq1ZIeICUGAqHY3QhttTAnqlfP7RyEo=; b=pSmspXECnR05lOEEzdcgiE
+ XOWReweTlSOz2/mwzrnPtV4YY8BzDmvPfINh5weULgChuMjPt/EusfXRwmzqqBag
+ mrBq+PDU/w5WCNbc9+YsQ7SkZqjSAEBXLlNky+5YB+a7A3PJDrqAtSan6mdWz6bI
+ tQx7ZhyUKGTPssf8djnleqULbv/WxWnRUJWD1aaejmxudl0BItFKGe5ef/wBYZhw
+ XAujH3m9n7Sa1ioL1rC+OTh1VwXEA6Y9t6mm8mNqbgwZW0f2vibTiX0jUjOTQ572
+ N+ohHoBuS1jEXWXKgCTbHZ3z8FdUHuNkXXgqq7et3R8lCnroVD3RkugzXZ/G9f2Q
+ ==
+X-ME-Sender: <xms:RA1_X5UN9F9NINypwLU2fI6IVQjnBMSbjgIQH_tVj-bJXh385OlRWg>
+ <xme:RA1_X5nCbyJ4mypA7BI24QjXvqnUlH5abfjQ1DHENk_k2ZxL9STQ3ohw9RafuXsTi
+ bpxHj-z4TbGMTkOv-A>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedujedrgeelgdefvdcutefuodetggdotefrodftvf
+ curfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfghnecu
+ uegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenuc
+ fjughrpeffhffvuffkfhggtggujgesghdtreertddtvdenucfhrhhomhepofgrgihimhgv
+ ucftihhprghrugcuoehmrgigihhmvgestggvrhhnohdrthgvtghhqeenucggtffrrghtth
+ gvrhhnpeelkeeghefhuddtleejgfeljeffheffgfeijefhgfeufefhtdevteegheeiheeg
+ udenucfkphepledtrdekledrieekrdejieenucevlhhushhtvghrufhiiigvpedtnecurf
+ grrhgrmhepmhgrihhlfhhrohhmpehmrgigihhmvgestggvrhhnohdrthgvtghh
+X-ME-Proxy: <xmx:RA1_X1ap1xxZZRLMwy2rAfQg2oA9iIxNZAYa1-KOUxPsyOPvDvihMw>
+ <xmx:RA1_X8XJIf6VdgDcoGzfcGpRVFvLJZcuovXPqmUDxauUehf8tIo2WQ>
+ <xmx:RA1_XzmriaM7Kpltd5UFtoS7GabQA7Qa3PUmzLPLmTxKUGmsXnHyag>
+ <xmx:Rw1_XxUlox0RfTnV69e26ifxKeib_VQpg2egs4HNUC4iqJ5NTKgLuA>
+Received: from localhost (lfbn-tou-1-1502-76.w90-89.abo.wanadoo.fr
+ [90.89.68.76])
+ by mail.messagingengine.com (Postfix) with ESMTPA id B7BE63280060;
+ Thu,  8 Oct 2020 08:59:47 -0400 (EDT)
+Date: Thu, 8 Oct 2020 14:59:46 +0200
+From: Maxime Ripard <maxime@cerno.tech>
+To: Samuel Holland <samuel@sholland.org>
+Subject: Re: [PATCH 11/25] ASoC: sun8i-codec: Enable all supported clock
+ inversions
+Message-ID: <20201008125946.ialsolxkdgdje3sy@gilmour.lan>
+References: <20201001021148.15852-1-samuel@sholland.org>
+ <20201001021148.15852-12-samuel@sholland.org>
+ <20201005113015.acp2gascxkytl7z4@gilmour.lan>
+ <7b8206b6-ccd8-6d70-6210-fb7d79a330a3@sholland.org>
 MIME-Version: 1.0
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: BY5PR12MB4322.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: d3ca7299-1379-40cf-c454-08d86b7ac237
-X-MS-Exchange-CrossTenant-originalarrivaltime: 08 Oct 2020 11:10:26.0158 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: QvvI5ggyd8z56F6PpiKN/auEkymlKQFQu9xsm07T6FLZPSZAtDgC2Jy8qc83DbFOEKKy3aAXKE4BZqdBSEImyw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY5PR12MB4227
-X-OriginatorOrg: Nvidia.com
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nvidia.com; s=n1;
- t=1602155378; bh=Zf2FSHAzPFdFnqiX3nFaoD2d7167WOp+iJrEYnsyBzo=;
- h=ARC-Seal:ARC-Message-Signature:ARC-Authentication-Results:From:To:
- CC:Subject:Thread-Topic:Thread-Index:Date:Message-ID:References:
- In-Reply-To:Accept-Language:Content-Language:X-MS-Has-Attach:
- X-MS-TNEF-Correlator:authentication-results:x-originating-ip:
- x-ms-publictraffictype:x-ms-office365-filtering-correlation-id:
- x-ms-traffictypediagnostic:x-ms-exchange-transport-forked:
- x-microsoft-antispam-prvs:x-ms-oob-tlc-oobclassifiers:
- x-ms-exchange-senderadcheck:x-microsoft-antispam:
- x-microsoft-antispam-message-info:x-forefront-antispam-report:
- x-ms-exchange-antispam-messagedata:Content-Type:
- Content-Transfer-Encoding:MIME-Version:
- X-MS-Exchange-CrossTenant-AuthAs:
- X-MS-Exchange-CrossTenant-AuthSource:
- X-MS-Exchange-CrossTenant-Network-Message-Id:
- X-MS-Exchange-CrossTenant-originalarrivaltime:
- X-MS-Exchange-CrossTenant-fromentityheader:
- X-MS-Exchange-CrossTenant-id:X-MS-Exchange-CrossTenant-mailboxtype:
- X-MS-Exchange-CrossTenant-userprincipalname:
- X-MS-Exchange-Transport-CrossTenantHeadersStamped:X-OriginatorOrg;
- b=LDJMzwejyu3tfoy0ZK5X9TRqlF3pAFq/kAms1L17EbHcwwMbd+I0cXxERZMzUZ7uz
- v6P2rFZydfstRfGUw0ah3x7EDiHyeYhWm5BSD+m3bolwP024rgOVjotdtk/eqvKMM9
- HxVDREKxIAQoKC0QvhbsKCJZOdzFHcoqQoH356D5q88CP85iMCNdS2zqoPIXSPZHeZ
- HVvqTnKS7JZ4nbQt0dp+3JCqv36sIHVwu+wUScq2nlU+8pKlUN5HZmG2JU8exjRgm0
- u2XHeu0L/DwbTCt4VSiCpFiOhdGCmhPqXZBXLllJmGIeTmRKK0Mn0msJpIZGBytEkL
- w1G7UdYULB6tQ==
-Cc: "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
- "parav@mellanox.com" <parav@mellanox.com>, Leon Romanovsky <leon@kernel.org>,
- "tiwai@suse.de" <tiwai@suse.de>,
- "netdev@vger.kernel.org" <netdev@vger.kernel.org>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- "ranjani.sridharan@linux.intel.com" <ranjani.sridharan@linux.intel.com>,
- "fred.oh@linux.intel.com" <fred.oh@linux.intel.com>,
- "linux-rdma@vger.kernel.org" <linux-rdma@vger.kernel.org>,
- "dledford@redhat.com" <dledford@redhat.com>,
- "broonie@kernel.org" <broonie@kernel.org>, Jason Gunthorpe <jgg@nvidia.com>,
- "kuba@kernel.org" <kuba@kernel.org>, "Ertman,
- David M" <david.m.ertman@intel.com>, "Saleem,
- Shiraz" <shiraz.saleem@intel.com>, "davem@davemloft.net" <davem@davemloft.net>,
- "Patil, Kiran" <kiran.patil@intel.com>
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature"; boundary="2nok6hajuhde5mnx"
+Content-Disposition: inline
+In-Reply-To: <7b8206b6-ccd8-6d70-6210-fb7d79a330a3@sholland.org>
+Cc: Ondrej Jirman <megous@megous.com>, alsa-devel@alsa-project.org,
+ linux-kernel@vger.kernel.org, Takashi Iwai <tiwai@suse.com>,
+ Liam Girdwood <lgirdwood@gmail.com>, Chen-Yu Tsai <wens@csie.org>,
+ Mark Brown <broonie@kernel.org>, linux-arm-kernel@lists.infradead.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -182,58 +122,176 @@ Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 
-> From: gregkh@linuxfoundation.org <gregkh@linuxfoundation.org>
-> Sent: Thursday, October 8, 2020 1:21 PM
->=20
-> On Thu, Oct 08, 2020 at 12:38:00AM -0700, Dan Williams wrote:
-> > On Thu, Oct 8, 2020 at 12:01 AM Leon Romanovsky <leon@kernel.org>
-> wrote:
-> > [..]
-> > > All stated above is my opinion, it can be different from yours.
-> >
-> > Yes, but we need to converge to move this forward. Jason was involved
-> > in the current organization for registration, Greg was angling for
-> > this to be core functionality. I have use cases outside of RDMA and
-> > netdev. Parav was ok with the current organization. The SOF folks
-> > already have a proposed incorporation of it. The argument I am hearing
-> > is that "this registration api seems hard for driver writers" when we
-> > have several driver writers who have already taken a look and can make
-> > it work. If you want to follow on with a simpler wrappers for your use
-> > case, great, but I do not yet see anyone concurring with your opinion
-> > that the current organization is irretrievably broken or too obscure
-> > to use.
->=20
-> That's kind of because I tuned out of this thread a long time ago :)
->=20
-> I do agree with Leon that I think the current patch is not the correct wa=
-y to
-> do this the easiest, but don't have a competing proposal to show what I
-> mean.
->=20
-> Yet.
-Please consider the approach of ib_alloc_device(), ib_dealloc_device() and =
-ib_register_register()/unregister().
-(a) It avoids driver calling put_device() on error unwinding path.
-(b) still achieves container_of().
+--2nok6hajuhde5mnx
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
+On Mon, Oct 05, 2020 at 11:29:51PM -0500, Samuel Holland wrote:
 >=20
-> Let's see what happens after 5.10-rc1 is out, it's too late now for any o=
-f this
-> for this next merge window so we can not worry about it for a few weeks.
+> On 10/5/20 6:30 AM, Maxime Ripard wrote:
+> > On Wed, Sep 30, 2020 at 09:11:34PM -0500, Samuel Holland wrote:
+> > > When using the I2S, LEFT_J, or RIGHT_J format, the hardware supports
+> > > independent BCLK and LRCK inversion control. When using DSP_A or DSP_=
+B,
+> > > LRCK inversion is not supported. The register bit is repurposed to
+> > > select between DSP_A and DSP_B. Extend the driver to support this.
+> > >=20
+> > > Signed-off-by: Samuel Holland <samuel@sholland.org>
+> > > ---
+> > >   sound/soc/sunxi/sun8i-codec.c | 57 +++++++++++++++++++++++---------=
+---
+> > >   1 file changed, 37 insertions(+), 20 deletions(-)
+> > >=20
+> > > diff --git a/sound/soc/sunxi/sun8i-codec.c b/sound/soc/sunxi/sun8i-co=
+dec.c
+> > > index 0b713b2a2028..506420fb355c 100644
+> > > --- a/sound/soc/sunxi/sun8i-codec.c
+> > > +++ b/sound/soc/sunxi/sun8i-codec.c
+> > > @@ -39,18 +39,17 @@
+> > >   #define SUN8I_MOD_RST_CTL_AIF1				15
+> > >   #define SUN8I_MOD_RST_CTL_ADC				3
+> > >   #define SUN8I_MOD_RST_CTL_DAC				2
+> > >   #define SUN8I_SYS_SR_CTRL				0x018
+> > >   #define SUN8I_SYS_SR_CTRL_AIF1_FS			12
+> > >   #define SUN8I_SYS_SR_CTRL_AIF2_FS			8
+> > >   #define SUN8I_AIF1CLK_CTRL				0x040
+> > >   #define SUN8I_AIF1CLK_CTRL_AIF1_MSTR_MOD		15
+> > > -#define SUN8I_AIF1CLK_CTRL_AIF1_BCLK_INV		14
+> > > -#define SUN8I_AIF1CLK_CTRL_AIF1_LRCK_INV		13
+> > > +#define SUN8I_AIF1CLK_CTRL_AIF1_CLK_INV			13
+> > >   #define SUN8I_AIF1CLK_CTRL_AIF1_BCLK_DIV		9
+> > >   #define SUN8I_AIF1CLK_CTRL_AIF1_LRCK_DIV		6
+> > >   #define SUN8I_AIF1CLK_CTRL_AIF1_WORD_SIZ		4
+> > >   #define SUN8I_AIF1CLK_CTRL_AIF1_WORD_SIZ_16		(1 << 4)
+> > >   #define SUN8I_AIF1CLK_CTRL_AIF1_DATA_FMT		2
+> > >   #define SUN8I_AIF1_ADCDAT_CTRL				0x044
+> > >   #define SUN8I_AIF1_ADCDAT_CTRL_AIF1_AD0L_ENA		15
+> > >   #define SUN8I_AIF1_ADCDAT_CTRL_AIF1_AD0R_ENA		14
+> > > @@ -85,16 +84,17 @@
+> > >   #define SUN8I_DAC_MXR_SRC_DACR_MXR_SRC_AIF1DA1R		10
+> > >   #define SUN8I_DAC_MXR_SRC_DACR_MXR_SRC_AIF2DACR		9
+> > >   #define SUN8I_DAC_MXR_SRC_DACR_MXR_SRC_ADCR		8
+> > >   #define SUN8I_SYSCLK_CTL_AIF1CLK_SRC_MASK	GENMASK(9, 8)
+> > >   #define SUN8I_SYSCLK_CTL_AIF2CLK_SRC_MASK	GENMASK(5, 4)
+> > >   #define SUN8I_SYS_SR_CTRL_AIF1_FS_MASK		GENMASK(15, 12)
+> > >   #define SUN8I_SYS_SR_CTRL_AIF2_FS_MASK		GENMASK(11, 8)
+> > > +#define SUN8I_AIF1CLK_CTRL_AIF1_CLK_INV_MASK	GENMASK(14, 13)
+> > >   #define SUN8I_AIF1CLK_CTRL_AIF1_BCLK_DIV_MASK	GENMASK(12, 9)
+> > >   #define SUN8I_AIF1CLK_CTRL_AIF1_LRCK_DIV_MASK	GENMASK(8, 6)
+> > >   #define SUN8I_AIF1CLK_CTRL_AIF1_WORD_SIZ_MASK	GENMASK(5, 4)
+> > >   #define SUN8I_AIF1CLK_CTRL_AIF1_DATA_FMT_MASK	GENMASK(3, 2)
+> > >   enum {
+> > >   	AIF1,
+> > >   	NAIFS
+> > > @@ -168,17 +168,17 @@ static int sun8i_codec_get_hw_rate(struct snd_p=
+cm_hw_params *params)
+> > >   	default:
+> > >   		return -EINVAL;
+> > >   	}
+> > >   }
+> > >   static int sun8i_codec_set_fmt(struct snd_soc_dai *dai, unsigned in=
+t fmt)
+> > >   {
+> > >   	struct sun8i_codec *scodec =3D snd_soc_dai_get_drvdata(dai);
+> > > -	u32 format, value;
+> > > +	u32 format, invert, value;
+> > >   	/* clock masters */
+> > >   	switch (fmt & SND_SOC_DAIFMT_MASTER_MASK) {
+> > >   	case SND_SOC_DAIFMT_CBS_CFS: /* Codec slave, DAI master */
+> > >   		value =3D 0x1;
+> > >   		break;
+> > >   	case SND_SOC_DAIFMT_CBM_CFM: /* Codec Master, DAI slave */
+> > >   		value =3D 0x0;
+> > > @@ -197,55 +197,72 @@ static int sun8i_codec_set_fmt(struct snd_soc_d=
+ai *dai, unsigned int fmt)
+> > >   		break;
+> > >   	case SND_SOC_DAIFMT_LEFT_J:
+> > >   		format =3D 0x1;
+> > >   		break;
+> > >   	case SND_SOC_DAIFMT_RIGHT_J:
+> > >   		format =3D 0x2;
+> > >   		break;
+> > >   	case SND_SOC_DAIFMT_DSP_A:
+> > > +		format =3D 0x3;
+> > > +		invert =3D 0x0; /* Set LRCK_INV to 0 */
+> > > +		break;
+> > >   	case SND_SOC_DAIFMT_DSP_B:
+> > >   		format =3D 0x3;
+> > > +		invert =3D 0x1; /* Set LRCK_INV to 1 */
+> > >   		break;
+> > >   	default:
+> > >   		return -EINVAL;
+> > >   	}
+> > >   	regmap_update_bits(scodec->regmap, SUN8I_AIF1CLK_CTRL,
+> > >   			   SUN8I_AIF1CLK_CTRL_AIF1_DATA_FMT_MASK,
+> > >   			   format << SUN8I_AIF1CLK_CTRL_AIF1_DATA_FMT);
+> > >   	/* clock inversion */
+> > >   	switch (fmt & SND_SOC_DAIFMT_INV_MASK) {
+> > >   	case SND_SOC_DAIFMT_NB_NF: /* Normal */
+> > >   		value =3D 0x0;
+> > >   		break;
+> > > -	case SND_SOC_DAIFMT_IB_IF: /* Inversion */
+> > > +	case SND_SOC_DAIFMT_NB_IF: /* Inverted LRCK */
+> > >   		value =3D 0x1;
+> > >   		break;
+> > > +	case SND_SOC_DAIFMT_IB_NF: /* Inverted BCLK */
+> > > +		value =3D 0x2;
+> > > +		break;
+> > > +	case SND_SOC_DAIFMT_IB_IF: /* Both inverted */
+> > > +		value =3D 0x3;
+> > > +		break;
+> > >   	default:
+> > >   		return -EINVAL;
+> > >   	}
+> > > -	regmap_update_bits(scodec->regmap, SUN8I_AIF1CLK_CTRL,
+> > > -			   BIT(SUN8I_AIF1CLK_CTRL_AIF1_BCLK_INV),
+> > > -			   value << SUN8I_AIF1CLK_CTRL_AIF1_BCLK_INV);
+> > > -	/*
+> > > -	 * It appears that the DAI and the codec in the A33 SoC don't
+> > > -	 * share the same polarity for the LRCK signal when they mean
+> > > -	 * 'normal' and 'inverted' in the datasheet.
+> > > -	 *
+> > > -	 * Since the DAI here is our regular i2s driver that have been
+> > > -	 * tested with way more codecs than just this one, it means
+> > > -	 * that the codec probably gets it backward, and we have to
+> > > -	 * invert the value here.
+> > > -	 */
+> > > -	value ^=3D scodec->quirks->lrck_inversion;
+> > > +	if (format =3D=3D 0x3) {
+> >=20
+> > Could we use a define here? That would be more readable
 >=20
-Ok. INHO giving direction to Dave and others to either refine current APIs =
-or follow ib_alloc_device() approach will be a helpful input.
-
-ancillary bus can do better APIs than the newly (march 2020 !) introduced v=
-dpa bus [1] and its drivers which follows put_device() pattern in [2] and [=
-3] in error unwinding path.
-
-[1] https://elixir.bootlin.com/linux/v5.9-rc8/source/drivers/vdpa/vdpa.c
-[2] https://elixir.bootlin.com/linux/v5.9-rc8/source/drivers/vdpa/ifcvf/ifc=
-vf_main.c#L475
-[3] https://elixir.bootlin.com/linux/v5.9-rc8/source/drivers/vdpa/mlx5/net/=
-mlx5_vnet.c#L1967
-
-> thanks,
+> Yes, I can do that.
 >=20
-> greg k-h
+> > > +		/* Inverted LRCK is not available in DSP mode. */
+> > > +		if (value & BIT(0))
+> > > +			return -EINVAL;
+> >=20
+> > And same thing here, explicitly testing both for DSP_A and DSP_B would
+> > be more readable.
+>=20
+> Here, `value & BIT(0)` means SND_SOC_DAIFMT_NB_IF ||
+> SND_SOC_DAIFMT_IB_IF, not selecting the DSP format.
+>=20
+> > (And I guess value isn't such a great variable name anymore either)
+>=20
+> If I rename `invert` to `dsp_format`, and replace `value` here with
+> `invert`, I think that would be more clear.
+
+Yep, definitely :)
+
+Maxime
+
+--2nok6hajuhde5mnx
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYIAB0WIQRcEzekXsqa64kGDp7j7w1vZxhRxQUCX38NQgAKCRDj7w1vZxhR
+xcW0AQDhGpbhsKRaELaFSYsyNwEgCac4EG/NPUpOB5iPA3IWWwEAwPdnukIky0b5
+YlV38uib2dEXsYTVQ8yvgoYMuIKSRAk=
+=ebxQ
+-----END PGP SIGNATURE-----
+
+--2nok6hajuhde5mnx--

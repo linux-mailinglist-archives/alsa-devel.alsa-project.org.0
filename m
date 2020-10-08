@@ -2,169 +2,147 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6AAAA2871CD
-	for <lists+alsa-devel@lfdr.de>; Thu,  8 Oct 2020 11:47:30 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8AD472871FC
+	for <lists+alsa-devel@lfdr.de>; Thu,  8 Oct 2020 11:51:21 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 88B8D16AA;
-	Thu,  8 Oct 2020 11:46:39 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 88B8D16AA
+	by alsa0.perex.cz (Postfix) with ESMTPS id 264141665;
+	Thu,  8 Oct 2020 11:50:31 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 264141665
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1602150449;
-	bh=3UZis2KKViMwHBMQec1f32OohZ1rfpWdT57w7pKqbxA=;
-	h=From:To:Subject:Date:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1602150681;
+	bh=KEXDwUNuaS5qQm3GkdmLCtdrpAfhEhKLTDTwwNfAPWQ=;
+	h=From:To:In-Reply-To:Subject:Date:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=k5uKxnWxi/v4b7659sFisHjUQwvMpSalArXOS16AxEl2vkCF9kJnuw7msTTXhS4FP
-	 6zii8kzzsS8G77sdpWV5cBqYFD+RlG3sXd+YGqdg6EM+dnAxqUNp275F0maieV7V05
-	 wXOta768DYW1GlZHv9zEGYnAdF+rwz5XnCragYaU=
+	b=UCuZaVTPVMzlA+O4t3VVPkyGor1JpKoM18qbohgzDs9ZtW66RjDGxYWkkCyG+s3bk
+	 SH5bQ/PyBnvf9MPOgJvYhhZjIb/8xQj66Apm0+gjioOxu+5ff17f+ohcxGzXyo5sjG
+	 NKaT9Tf1RPjvyuMtgmNBlmd0DKpST0LH4jH0sO24=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 27BCCF80090;
-	Thu,  8 Oct 2020 11:45:49 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id D879BF80164;
+	Thu,  8 Oct 2020 11:49:40 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id BCE1BF80164; Thu,  8 Oct 2020 11:45:46 +0200 (CEST)
+ id B3545F80164; Thu,  8 Oct 2020 11:49:38 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.8 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from hqnvemgate25.nvidia.com (hqnvemgate25.nvidia.com
- [216.228.121.64])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ DKIM_VALID,DKIM_VALID_AU,RCVD_IN_MSPIKE_H3,RCVD_IN_MSPIKE_WL,SPF_HELO_PASS,
+ SPF_PASS,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mailout4.samsung.com (mailout4.samsung.com [203.254.224.34])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id CB3F1F80090
- for <alsa-devel@alsa-project.org>; Thu,  8 Oct 2020 11:45:39 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CB3F1F80090
+ by alsa1.perex.cz (Postfix) with ESMTPS id 64025F8015A
+ for <alsa-devel@alsa-project.org>; Thu,  8 Oct 2020 11:49:34 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 64025F8015A
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=nvidia.com header.i=@nvidia.com
- header.b="gQ5mWgx9"
-Received: from hqmail.nvidia.com (Not Verified[216.228.121.13]) by
- hqnvemgate25.nvidia.com (using TLS: TLSv1.2, AES256-SHA)
- id <B5f7edf870001>; Thu, 08 Oct 2020 02:44:39 -0700
-Received: from HQMAIL109.nvidia.com (172.20.187.15) by HQMAIL111.nvidia.com
- (172.20.187.18) with Microsoft SMTP Server (TLS) id 15.0.1473.3; Thu, 8 Oct
- 2020 09:45:33 +0000
-Received: from NAM04-BN3-obe.outbound.protection.outlook.com (104.47.46.50) by
- HQMAIL109.nvidia.com (172.20.187.15) with Microsoft SMTP Server
- (TLS) id
- 15.0.1473.3 via Frontend Transport; Thu, 8 Oct 2020 09:45:33 +0000
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=VJxUGlRKAmS6pqz6XGkwdEe09I5OleL2W3phVPj9R02idVOLR8Go0mUwmK+K7B0sX/fz9ge6AAKkG0fktdv29ikmscSiQh5cuKExsZ0sMvpwOLP1m3+lb5wNQXno558Nbb2J80kKRN6FFeZ9kRmPKADj0qzj0F7SBt0HmibJY7G65YSZ2noyHNDKUzofPgtTALPozCg4F18HhqbFQaWmFyahET0z0uyCmN9/SFx6VmIt4V6j7iDumMDbIcYD6oty6VPlF2+jY+LMzHsGRxy4Ly/W73VTSZ3cWbNwdrvFyCClBkzmTn/c6rlaVdQxKD0fnhXL+jCI93f9pj4Bp8pxMQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=CMO0nvWM8hVMvld9xLpPpDoeX+gIBA28x6mWTEdJtaw=;
- b=eUBdnDhrVdiOBkCsz4nmcuC79yV1Vs3eqEak7D5lgnNFAuRCiapOqel2S6+wYMPpjfRgQN6wBhSQrWVjOQ6cdI2RcChzugHZlA2lZa6hHBQvRYhCjxViD4VPQTwbguyJFcFanhOksIhGs0l7smfTjn0tGG74feJr7DQytiFBZ5X/BaJB+tKLM+p1FbnxpQW7iz5jZRLy/r4RdfSKiv7Lag6bfeNP4w6RxPbz9Musv3ggLDXGrQgKg3xty4xRXp+gY4fYs77KrZGIdkhytdNYhGbKCGkjL53zYSelxv/nh+PTsbJSwksbzyODMgJdiwRDtx4JiFE7derm/2jRdKrPHQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-Received: from BY5PR12MB4322.namprd12.prod.outlook.com (2603:10b6:a03:20a::20)
- by BYAPR12MB2614.namprd12.prod.outlook.com (2603:10b6:a03:6b::17)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3433.42; Thu, 8 Oct
- 2020 09:45:29 +0000
-Received: from BY5PR12MB4322.namprd12.prod.outlook.com
- ([fe80::3c25:6e4c:d506:6105]) by BY5PR12MB4322.namprd12.prod.outlook.com
- ([fe80::3c25:6e4c:d506:6105%6]) with mapi id 15.20.3455.023; Thu, 8 Oct 2020
- 09:45:29 +0000
-From: Parav Pandit <parav@nvidia.com>
-To: Leon Romanovsky <leon@kernel.org>
-Subject: RE: [PATCH v2 1/6] Add ancillary bus support
-Thread-Topic: [PATCH v2 1/6] Add ancillary bus support
-Thread-Index: AQHWm05cPW7H51WMukmCocLPE63Nf6mKKyGAgACGC4CAAB03gIABpCoAgAAWQgCAAAuCMIAACwKAgAADjQCAAAZvgIAAB6yAgABvlmCAAA/xgIAAF0PQgAAPlYCAAAHb8A==
-Date: Thu, 8 Oct 2020 09:45:29 +0000
-Message-ID: <BY5PR12MB4322658669FFC396D8EE5D84DC0B0@BY5PR12MB4322.namprd12.prod.outlook.com>
-References: <DM6PR11MB2841C531FC27DB41E078C52BDD0A0@DM6PR11MB2841.namprd11.prod.outlook.com>
- <20201007192610.GD3964015@unreal>
- <BY5PR12MB43221A308CE750FACEB0A806DC0A0@BY5PR12MB4322.namprd12.prod.outlook.com>
- <DM6PR11MB28415A8E53B5FFC276D5A2C4DD0A0@DM6PR11MB2841.namprd11.prod.outlook.com>
- <c90316f5-a5a9-fe22-ec11-a30a54ff0a9d@linux.intel.com>
- <DM6PR11MB284147D4BC3FD081B9F0B8BBDD0A0@DM6PR11MB2841.namprd11.prod.outlook.com>
- <c88b0339-48c6-d804-6fbd-b2fc6fa826d6@linux.intel.com>
- <BY5PR12MB43222FD5959E490E331D680ADC0B0@BY5PR12MB4322.namprd12.prod.outlook.com>
- <20201008052623.GB13580@unreal>
- <BY5PR12MB4322D48FADAAAD66DE7159D7DC0B0@BY5PR12MB4322.namprd12.prod.outlook.com>
- <20201008074525.GJ13580@unreal>
-In-Reply-To: <20201008074525.GJ13580@unreal>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-authentication-results: kernel.org; dkim=none (message not signed)
- header.d=none;kernel.org; dmarc=none action=none header.from=nvidia.com;
-x-originating-ip: [49.207.195.6]
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: b43b3b5b-be1c-42b0-c61b-08d86b6ee463
-x-ms-traffictypediagnostic: BYAPR12MB2614:
-x-ms-exchange-transport-forked: True
-x-microsoft-antispam-prvs: <BYAPR12MB261444F9FAECFE8CD1EB95E8DC0B0@BYAPR12MB2614.namprd12.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:6790;
-x-ms-exchange-senderadcheck: 1
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: Y86+31MaKzTRJOHDzPjxWK9CB3JhUeh7MzlBEdhX/HcbY97gigCm1nwtxh/iJ5GoAksal6wM8CURDL9GIhfI9dkCiU4fmd4FsmuOoVe0eizM88N0ae43lv8qfM4TOjl6firWb61D5WlYbx9ejtBRDaimeZBljEkLUMIqHZsjquIXxlLdjKKlNSFcDYEEGUx7px1FEITNgl3VTyuBb0ZmNNvndYuGkYCD7jazo92nruxuvPjDCHtYuKZ5aI6HHHr5FxlmL+5uPppPcHAogcIJJ8IJOwFxyWLZ/yBqM1nGjRzod6jfvhkSYz4ue4+vAwcpE9wclbcHF5NTvnbtqEw0WxpK4bWoNRCWbDMD60nWxY00qwKKgGJEMVr28CX0MsREYhdHCTdiv0VQAhMyBechCQ==
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BY5PR12MB4322.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(396003)(366004)(376002)(136003)(39860400002)(346002)(54906003)(7696005)(9686003)(53546011)(6506007)(478600001)(52536014)(6916009)(7416002)(55236004)(4326008)(83080400001)(71200400001)(2906002)(26005)(33656002)(966005)(66446008)(66556008)(64756008)(76116006)(5660300002)(83380400001)(66476007)(66946007)(55016002)(316002)(186003)(8936002)(86362001)(8676002);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata: f8zhSdnuCwo3UK7P2shPzyW6i7Km8GdoKcyq2CyrGJa40IuGOqabj7JaWQkSESI/XrgT1P7SYRRfKBbhcMW6lgEtuDAYTiWvxMDiHYyiz+hae2hYJQ41Yh8pF5Ns2VMtnKVFAkV/MqS3kNOJSExV6zh+1k3YYRX0tBE/yb+rVTdJuzBrHHUmS0D4vsqfNhGvWnACynz+pP4Qd/vs8cduIEKD0z4bFeKvXVIxf+vGO4QujDVZ3gYQgAyQK152OG3N1jllqg9tIo0OTtMQsmxOiKjZtYEUMt8wCNM8RbXZ89Rc8t3tAafhUsZ7ky9+I7fdSFSultrktj3vC/oVWJJWwaHvy2GyMZBWXUm6QgTBtJQkhyDqAsyxebM+uq9UyBIff/r/L/zut66PM+x+sy2/COQEP+sVTia06VqDmgnnT3yJiOJB9H2Y3f4W5KOnzQURE7g1inTVKhrXfBMjh+OkCQEhxVAuH7F7oXqKBO8A8IXzAJvoitKOTeyqQg5RBUQ1zWjBwxeAPevJQel31WPe+Rs5EMqo8yqDrQkGwJI0DJ+vyxuO8b3jyMM1BdTnZkvRUEWPPAZax09lRjnsJvdFjNVMgOYIuUc/+6czUYxi3U7D4DIfeH183jlQnWljLDDdErRRYvpLPgsK0Xg0RLKlrw==
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+ dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com
+ header.b="ddlSVBNY"
+Received: from epcas2p1.samsung.com (unknown [182.195.41.53])
+ by mailout4.samsung.com (KnoxPortal) with ESMTP id
+ 20201008094928epoutp0418bc0f8b1debd4faf68eff3376f3ff83~7_3QQ8GOp2333023330epoutp049
+ for <alsa-devel@alsa-project.org>; Thu,  8 Oct 2020 09:49:28 +0000 (GMT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 mailout4.samsung.com
+ 20201008094928epoutp0418bc0f8b1debd4faf68eff3376f3ff83~7_3QQ8GOp2333023330epoutp049
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
+ s=mail20170921; t=1602150568;
+ bh=I1R/xjytiLU1vjxT9zgYFHL4XsUuc0OxEQCQYgEJySg=;
+ h=From:To:Cc:In-Reply-To:Subject:Date:References:From;
+ b=ddlSVBNYCZuILS3U1/lQ2qfEkbtCmzIyoj87W1XC4uB377D0t4onxYuUHc2gyUava
+ QdZUNXiqQ7D54n5SZaVlYFPvZmpAfDYhEbZHOjv6VHlJY9YAcUKg4sgtYl8GUrc3lq
+ 3zlfSH8rRwco8h+kQTWc4Apa4RHkLgL7Hty0TiUE=
+Received: from epsnrtp2.localdomain (unknown [182.195.42.163]) by
+ epcas2p3.samsung.com (KnoxPortal) with ESMTP id
+ 20201008094927epcas2p3aaa6366c0bc4a62f56bd350b9970ec7b~7_3PtzyOd2032320323epcas2p3J;
+ Thu,  8 Oct 2020 09:49:27 +0000 (GMT)
+Received: from epsmges2p3.samsung.com (unknown [182.195.40.187]) by
+ epsnrtp2.localdomain (Postfix) with ESMTP id 4C6RHn54YZzMqYkW; Thu,  8 Oct
+ 2020 09:49:25 +0000 (GMT)
+Received: from epcas2p2.samsung.com ( [182.195.41.54]) by
+ epsmges2p3.samsung.com (Symantec Messaging Gateway) with SMTP id
+ B9.7D.09580.5A0EE7F5; Thu,  8 Oct 2020 18:49:25 +0900 (KST)
+Received: from epsmtrp2.samsung.com (unknown [182.195.40.14]) by
+ epcas2p2.samsung.com (KnoxPortal) with ESMTPA id
+ 20201008094925epcas2p23ccd0e90c975174eff2c36f7c12b8274~7_3NISn010361203612epcas2p2y;
+ Thu,  8 Oct 2020 09:49:25 +0000 (GMT)
+Received: from epsmgms1p1new.samsung.com (unknown [182.195.42.41]) by
+ epsmtrp2.samsung.com (KnoxPortal) with ESMTP id
+ 20201008094924epsmtrp2325a180475770868496f04c887fa575b~7_3NHbOJV0114401144epsmtrp2c;
+ Thu,  8 Oct 2020 09:49:24 +0000 (GMT)
+X-AuditID: b6c32a47-133ff7000000256c-d1-5f7ee0a57339
+Received: from epsmtip1.samsung.com ( [182.195.34.30]) by
+ epsmgms1p1new.samsung.com (Symantec Messaging Gateway) with SMTP id
+ 34.79.08604.4A0EE7F5; Thu,  8 Oct 2020 18:49:24 +0900 (KST)
+Received: from KORDO025540 (unknown [12.36.182.130]) by epsmtip1.samsung.com
+ (KnoxPortal) with ESMTPA id
+ 20201008094924epsmtip1b68798c5c666737e4181bfcaa7224c1f~7_3M5q0f12452724527epsmtip1Q;
+ Thu,  8 Oct 2020 09:49:24 +0000 (GMT)
+From: "Gyeongtaek Lee" <gt82.lee@samsung.com>
+To: "'Pierre-Louis Bossart'" <pierre-louis.bossart@linux.intel.com>, "'Vinod
+ Koul'" <vkoul@kernel.org>, "'Jaroslav Kysela'" <perex@perex.cz>
+In-Reply-To: <4bbc385b-d35a-8766-7981-034455287225@linux.intel.com>
+Subject: RE: [PATCH] ALSA: compress: allow pause and resume during draining
+Date: Thu, 8 Oct 2020 18:49:24 +0900
+Message-ID: <000d01d69d58$4e2db6f0$ea8924d0$@samsung.com>
 MIME-Version: 1.0
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: BY5PR12MB4322.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: b43b3b5b-be1c-42b0-c61b-08d86b6ee463
-X-MS-Exchange-CrossTenant-originalarrivaltime: 08 Oct 2020 09:45:29.3312 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: wkvyGA6EDccN7f/mvSfEIoFFKKAmyrXtpZqiShdGCUJNm8YbmiFaaIPFpuMtjBmf6oRrIN42ZxDJcWcEtFziXQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BYAPR12MB2614
-X-OriginatorOrg: Nvidia.com
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nvidia.com; s=n1;
- t=1602150279; bh=CMO0nvWM8hVMvld9xLpPpDoeX+gIBA28x6mWTEdJtaw=;
- h=ARC-Seal:ARC-Message-Signature:ARC-Authentication-Results:From:To:
- CC:Subject:Thread-Topic:Thread-Index:Date:Message-ID:References:
- In-Reply-To:Accept-Language:Content-Language:X-MS-Has-Attach:
- X-MS-TNEF-Correlator:authentication-results:x-originating-ip:
- x-ms-publictraffictype:x-ms-office365-filtering-correlation-id:
- x-ms-traffictypediagnostic:x-ms-exchange-transport-forked:
- x-microsoft-antispam-prvs:x-ms-oob-tlc-oobclassifiers:
- x-ms-exchange-senderadcheck:x-microsoft-antispam:
- x-microsoft-antispam-message-info:x-forefront-antispam-report:
- x-ms-exchange-antispam-messagedata:Content-Type:
- Content-Transfer-Encoding:MIME-Version:
- X-MS-Exchange-CrossTenant-AuthAs:
- X-MS-Exchange-CrossTenant-AuthSource:
- X-MS-Exchange-CrossTenant-Network-Message-Id:
- X-MS-Exchange-CrossTenant-originalarrivaltime:
- X-MS-Exchange-CrossTenant-fromentityheader:
- X-MS-Exchange-CrossTenant-id:X-MS-Exchange-CrossTenant-mailboxtype:
- X-MS-Exchange-CrossTenant-userprincipalname:
- X-MS-Exchange-Transport-CrossTenantHeadersStamped:X-OriginatorOrg;
- b=gQ5mWgx9H2lqDP9CfjAMgx5eDEc/mwbcNqSV6AVycQn63In8+K+kSx+i0x4qOyJMc
- cylTwbkDdn4wnGY4HxJM4VN78OxUCrN0kFp5PoiIyaGsPppL6lRFOIZQ6yXDJjyUfh
- 9dUgsM2Vr12Yx2AatIW1XxbXnx7MtUzjXlULTyhG8W0rQhGoGwwcq3Y3b/Qol1mbh2
- RvI6kjLskcFUBzsmhARPjw/nQGmI8pphmiJvMZfrJwC14/fi79WFUMHYF9KHOfVGYr
- rViYXBGom3lCRpwvmwTAZDTP+dQFsJVi0QJR9h8pH/VylwbdxexpGvVWyp4qo/jhPW
- iMMU4iAT1Wyrg==
-Cc: "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
- "kuba@kernel.org" <kuba@kernel.org>, "parav@mellanox.com" <parav@mellanox.com>,
- "tiwai@suse.de" <tiwai@suse.de>,
- "netdev@vger.kernel.org" <netdev@vger.kernel.org>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- "ranjani.sridharan@linux.intel.com" <ranjani.sridharan@linux.intel.com>,
- "fred.oh@linux.intel.com" <fred.oh@linux.intel.com>,
- "linux-rdma@vger.kernel.org" <linux-rdma@vger.kernel.org>,
- "dledford@redhat.com" <dledford@redhat.com>,
- "broonie@kernel.org" <broonie@kernel.org>, Jason Gunthorpe <jgg@nvidia.com>,
- "gregkh@linuxfoundation.org" <gregkh@linuxfoundation.org>, "Ertman, 
- David M" <david.m.ertman@intel.com>, "Williams,
- Dan J" <dan.j.williams@intel.com>, "Saleem, 
- Shiraz" <shiraz.saleem@intel.com>, "davem@davemloft.net" <davem@davemloft.net>,
- "Patil, Kiran" <kiran.patil@intel.com>
+Content-Transfer-Encoding: 7bit
+X-Mailer: Microsoft Outlook 16.0
+Thread-Index: AQIUfoZK8dcLaUFmbqZ4zOMZA20dmgNDBv+0Ad0z+BkB4YqIEwH9HqXQAVh+RiUCk7nWcKiqMGRA
+Content-Language: ko
+X-Brightmail-Tracker: H4sIAAAAAAAAA+NgFjrCJsWRmVeSWpSXmKPExsWy7bCmme7SB3XxBr0flS2uXDzEZDFjWzeL
+ ReO9CWwWq69uYbL4dqWDyaJzVz+rxa//z5gsjl5czGTRcLeZ3WLD97WMFi83v2GyONI4hcli
+ 550TzA68Hhs+N7F57Jx1l91j06pONo95JwM99r1dxubRt2UVo8f6LVdZPDafrg7giMqxyUhN
+ TEktUkjNS85PycxLt1XyDo53jjc1MzDUNbS0MFdSyEvMTbVVcvEJ0HXLzAE6WUmhLDGnFCgU
+ kFhcrKRvZ1OUX1qSqpCRX1xiq5RakJJTYGhYoFecmFtcmpeul5yfa2VoYGBkClSZkJPx/tIv
+ toJZDhVntjg2MG437WLk5JAQMJHYv+gtSxcjF4eQwA5GiY1XtjNBOJ8YJZasXwnlfGOUWDvv
+ I3MXIwdYy9OfehDxvYwS39omsEE4Lxklbqy7zg4yl01AV+LLvTvMIAkRgT5GiSPv57CCOMwC
+ DUwS75u3gVVxCjhLfJo3iQ3EFhbwlvh59BMjiM0ioCLRveoWWJxXwFLiZdMlJghbUOLkzCcs
+ IDazgLzE9rdzmCG+UJD4+XQZK4gtIhAlcW7eV0aIGhGJ2Z1tYFdICNzgkNj24glUg4vE+Xuf
+ WCBsYYlXx7ewQ9hSEp/f7WWDaGhmlHh39g9UYgqjRGe3EIRtLLFl7ikmUGAwC2hKrN+lDwkX
+ ZYkjt6Bu45PoOPyXHSLMK9HRBtWoJLHx1D8miLCExLwN7BMYlWYheWwWksdmIXlgFsKqBYws
+ qxjFUguKc9NTi40KjJEjexMjODlrue9gnPH2g94hRiYOxkOMEhzMSiK86d418UK8KYmVValF
+ +fFFpTmpxYcYTYFBPZFZSjQ5H5gf8kriDU2NzMwMLE0tTM2MLJTEeYutLsQJCaQnlqRmp6YW
+ pBbB9DFxcEo1MJlMPn6bTyB651XtK0/ruPdfZZYyez6dM6LX6sCNoEqrduWAjm1e/0tktxsc
+ bvny9tv8LO2lqiWFD0p3BOk2hnxdvGT2NLEPzyKC9/rXRE5snTy7+rH63qKMzQGT2eedLzZP
+ 5hM4JOL7pLv4dUfQ482qS+Z9VEmfqnK6tyGB67L2hL0mNR5LjlpPepr17N8Vg91pxW7fqoUv
+ cvFwXGja9WNz0o5s23nuG23U+DyNplS7czjn8i+/u61km9xjA8XcAIfJ2Rbzw4yyGhZMeb35
+ 6bSXdo1FBbpve+3OFmmsqzvfsDM2aekc6+K2gIQDxuu33av6Nef1b7Z9GWunJSpP4g25NunQ
+ zhbZAuH9l/+/lVdiKc5INNRiLipOBABnNBrPVwQAAA==
+X-Brightmail-Tracker: H4sIAAAAAAAAA+NgFlrPIsWRmVeSWpSXmKPExsWy7bCSnO6SB3XxBm8vmllcuXiIyWLGtm4W
+ i8Z7E9gsVl/dwmTx7UoHk0Xnrn5Wi1//nzFZHL24mMmi4W4zu8WG72sZLV5ufsNkcaRxCpPF
+ zjsnmB14PTZ8bmLz2DnrLrvHplWdbB7zTgZ67Hu7jM2jb8sqRo/1W66yeGw+XR3AEcVlk5Ka
+ k1mWWqRvl8CV8f7SL7aCWQ4VZ7Y4NjBuN+1i5OCQEDCRePpTr4uRi0NIYDejxKUZZxi7GDmB
+ 4hISH+afYYewhSXutxxhhSh6zijR/24mM0iCTUBX4su9O2C2iMAERok7M01BipgFepgkeg4u
+ Y4PouMck8a/pKhNIFaeAs8SneZPYQGxhAW+Jn0c/ga1jEVCR6F51CyzOK2Ap8bLpEhOELShx
+ cuYTFhCbWUBbovdhKyOELS+x/e0cZojzFCR+Pl3GCnFFlMS5eV+hakQkZne2MU9gFJ6FZNQs
+ JKNmIRk1C0nLAkaWVYySqQXFuem5xYYFhnmp5XrFibnFpXnpesn5uZsYwXGqpbmDcfuqD3qH
+ GJk4GA8xSnAwK4nwpnvXxAvxpiRWVqUW5ccXleakFh9ilOZgURLnvVG4ME5IID2xJDU7NbUg
+ tQgmy8TBKdXAxLTeqvTq05uPF3+xzWu8zRtcuXhZ6lfW+SFr7Dgj1s1UkrtwtXDX7heO/m+7
+ F9yYKvtk5vTQYt2ZU74n5W7ed6738x4OG+1arlr7+wsv/JPMT5B+5vPD6mmyz35+3ls+jXtq
+ 8hi6Kw/fjqjbERhd9ORO+Ip4GdZpl45P+1nq/a1P23LFno3yu755SciUKoQHfp7JbVHFMGvx
+ 9ovq3is4RBiOvFRVvz7hu0bH379mO1dt4VaKz0/0ZXuy4D07x/wlE5zjj+Tos/PoHtq0W9Ry
+ l1bms+SF3Rd6zftd5iopuW7f0Pz4dFWT28/L9y6WJnmEb4/QCo9+xpbnco97T28p7/SsQ3Fc
+ hzZ4LIi+kvK6S4mlOCPRUIu5qDgRABsE4CNCAwAA
+X-CMS-MailID: 20201008094925epcas2p23ccd0e90c975174eff2c36f7c12b8274
+X-Msg-Generator: CA
+Content-Type: text/plain; charset="utf-8"
+X-Sendblock-Type: AUTO_CONFIDENTIAL
+CMS-TYPE: 102P
+DLP-Filter: Pass
+X-CFilter-Loop: Reflected
+X-CMS-RootMailID: 20200929084051epcas2p35fb2228ed1bdfce6a7ddf5b37c944823
+References: <CGME20200929084051epcas2p35fb2228ed1bdfce6a7ddf5b37c944823@epcas2p3.samsung.com>
+ <000001d6963c$3cc53690$b64fa3b0$@samsung.com> <s5heemlklo0.wl-tiwai@suse.de>
+ <20201001102938.GU2968@vkoul-mobl>
+ <2bf52360-bd11-b4cd-b255-8a5610b4aa5f@linux.intel.com>
+ <20201006062105.GQ2968@vkoul-mobl>
+ <4bbc385b-d35a-8766-7981-034455287225@linux.intel.com>
+Cc: alsa-devel@alsa-project.org, khw0178.kim@samsung.com, 'Takashi
+ Iwai' <tiwai@suse.de>, lgirdwood@gmail.com, tiwai@suse.com, kimty@samsung.com,
+ hmseo@samsung.com, tkjung@samsung.com, pilsun.jang@samsung.com,
+ s47.kang@samsung.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -180,294 +158,204 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+On 10/06/20 11:57 PM, Pierre-Louis Bossart wrote:
+>> The SM in kernel might be bit more convoluted so was wondering if we can
+>> handle this in userland. The changelog for this patch says that for
+>> test case was sending whole file, surely that is not an optimal approach.
+>
+>It's rather common to have to deal with very small files, even with PCM, 
+>e.g. for notifications. It's actually a classic test case that exposes 
+>design issues in drivers, where e.g. the last part of the notification 
+>is not played.
+>
+>> Should we allow folks to send whole file to kernel and then issue
+>> partial drain?
+>
+>I don't think there should be a conceptual limitation here. If the 
+>userspace knows that the last part of the file is smaller than a 
+>fragment it should be able to issue a drain (or partial drain if it's a 
+>gapless solution).
+>
+>However now that I think of it, I am not sure what happens if the file 
+>is smaller than a fragment. That may very well be a limitation in the 
+>design.
+>
+Thanks for the comments.
 
+Actually, problem can be occurred with big file also.
+Application usually requests draining after sending last frame.
+If user clicks pause button after draining, pause will be failed
+and the file just be played until end.
+If application stop and start playback for this case, 
+start of last frame will be heard again because stop sets state to SETUP,
+and write is needed to set the state to PREPARED for start.
+If bitrate of the file is low, time stamp will be reversed and be heard weird.
+I also hope this problem can be handled in userspace easily but I couldn't find a way for now.
 
-> From: Leon Romanovsky <leon@kernel.org>
-> Sent: Thursday, October 8, 2020 1:15 PM
->=20
-> On Thu, Oct 08, 2020 at 07:14:17AM +0000, Parav Pandit wrote:
-> >
-> >
-> > > From: Leon Romanovsky <leon@kernel.org>
-> > > Sent: Thursday, October 8, 2020 10:56 AM
-> > >
-> > > On Thu, Oct 08, 2020 at 04:56:01AM +0000, Parav Pandit wrote:
-> > > >
-> > > >
-> > > > > From: Pierre-Louis Bossart
-> > > > > <pierre-louis.bossart@linux.intel.com>
-> > > > > Sent: Thursday, October 8, 2020 3:20 AM
-> > > > >
-> > > > >
-> > > > > On 10/7/20 4:22 PM, Ertman, David M wrote:
-> > > > > >> -----Original Message-----
-> > > > > >> From: Pierre-Louis Bossart
-> > > > > >> <pierre-louis.bossart@linux.intel.com>
-> > > > > >> Sent: Wednesday, October 7, 2020 1:59 PM
-> > > > > >> To: Ertman, David M <david.m.ertman@intel.com>; Parav Pandit
-> > > > > >> <parav@nvidia.com>; Leon Romanovsky <leon@kernel.org>
-> > > > > >> Cc: alsa-devel@alsa-project.org; parav@mellanox.com;
-> > > > > >> tiwai@suse.de; netdev@vger.kernel.org;
-> > > > > >> ranjani.sridharan@linux.intel.com;
-> > > > > >> fred.oh@linux.intel.com; linux-rdma@vger.kernel.org;
-> > > > > >> dledford@redhat.com; broonie@kernel.org; Jason Gunthorpe
-> > > > > >> <jgg@nvidia.com>; gregkh@linuxfoundation.org;
-> > > > > >> kuba@kernel.org; Williams, Dan J <dan.j.williams@intel.com>;
-> > > > > >> Saleem, Shiraz <shiraz.saleem@intel.com>;
-> > > > > >> davem@davemloft.net; Patil, Kiran <kiran.patil@intel.com>
-> > > > > >> Subject: Re: [PATCH v2 1/6] Add ancillary bus support
-> > > > > >>
-> > > > > >>
-> > > > > >>
-> > > > > >>>> Below is most simple, intuitive and matching with core APIs
-> > > > > >>>> for name and design pattern wise.
-> > > > > >>>> init()
-> > > > > >>>> {
-> > > > > >>>> 	err =3D ancillary_device_initialize();
-> > > > > >>>> 	if (err)
-> > > > > >>>> 		return ret;
-> > > > > >>>>
-> > > > > >>>> 	err =3D ancillary_device_add();
-> > > > > >>>> 	if (ret)
-> > > > > >>>> 		goto err_unwind;
-> > > > > >>>>
-> > > > > >>>> 	err =3D some_foo();
-> > > > > >>>> 	if (err)
-> > > > > >>>> 		goto err_foo;
-> > > > > >>>> 	return 0;
-> > > > > >>>>
-> > > > > >>>> err_foo:
-> > > > > >>>> 	ancillary_device_del(adev);
-> > > > > >>>> err_unwind:
-> > > > > >>>> 	ancillary_device_put(adev->dev);
-> > > > > >>>> 	return err;
-> > > > > >>>> }
-> > > > > >>>>
-> > > > > >>>> cleanup()
-> > > > > >>>> {
-> > > > > >>>> 	ancillary_device_de(adev);
-> > > > > >>>> 	ancillary_device_put(adev);
-> > > > > >>>> 	/* It is common to have a one wrapper for this as
-> > > > > >>>> ancillary_device_unregister().
-> > > > > >>>> 	 * This will match with core device_unregister() that has
-> > > > > >>>> precise documentation.
-> > > > > >>>> 	 * but given fact that init() code need proper error
-> > > > > >>>> unwinding, like above,
-> > > > > >>>> 	 * it make sense to have two APIs, and no need to export
-> > > > > >>>> another symbol for unregister().
-> > > > > >>>> 	 * This pattern is very easy to audit and code.
-> > > > > >>>> 	 */
-> > > > > >>>> }
-> > > > > >>>
-> > > > > >>> I like this flow +1
-> > > > > >>>
-> > > > > >>> But ... since the init() function is performing both
-> > > > > >>> device_init and device_add - it should probably be called
-> > > > > >>> ancillary_device_register, and we are back to a single
-> > > > > >>> exported API for both register and unregister.
-> > > > > >>
-> > > > > >> Kind reminder that we introduced the two functions to allow
-> > > > > >> the caller to know if it needed to free memory when
-> > > > > >> initialize() fails, and it didn't need to free memory when
-> > > > > >> add() failed since
-> > > > > >> put_device() takes care of it. If you have a single init()
-> > > > > >> function it's impossible to know which behavior to select on e=
-rror.
-> > > > > >>
-> > > > > >> I also have a case with SoundWire where it's nice to first
-> > > > > >> initialize, then set some data and then add.
-> > > > > >>
-> > > > > >
-> > > > > > The flow as outlined by Parav above does an initialize as the
-> > > > > > first step, so every error path out of the function has to do
-> > > > > > a put_device(), so you would never need to manually free the
-> > > > > > memory in
-> > > > > the setup function.
-> > > > > > It would be freed in the release call.
-> > > > >
-> > > > > err =3D ancillary_device_initialize(); if (err)
-> > > > > 	return ret;
-> > > > >
-> > > > > where is the put_device() here? if the release function does any
-> > > > > sort of kfree, then you'd need to do it manually in this case.
-> > > > Since device_initialize() failed, put_device() cannot be done here.
-> > > > So yes, pseudo code should have shown, if (err) {
-> > > > 	kfree(adev);
-> > > > 	return err;
-> > > > }
-> > > >
-> > > > If we just want to follow register(), unregister() pattern,
-> > > >
-> > > > Than,
-> > > >
-> > > > ancillar_device_register() should be,
-> > > >
-> > > > /**
-> > > >  * ancillar_device_register() - register an ancillary device
-> > > >  * NOTE: __never directly free @adev after calling this function,
-> > > > even if it returned
-> > > >  * an error. Always use ancillary_device_put() to give up the
-> > > > reference
-> > > initialized by this function.
-> > > >  * This note matches with the core and caller knows exactly what
-> > > > to be
-> > > done.
-> > > >  */
-> > > > ancillary_device_register()
-> > > > {
-> > > > 	device_initialize(&adev->dev);
-> > > > 	if (!dev->parent || !adev->name)
-> > > > 		return -EINVAL;
-> > > > 	if (!dev->release && !(dev->type && dev->type->release)) {
-> > > > 		/* core is already capable and throws the warning when
-> > > release callback is not set.
-> > > > 		 * It is done at drivers/base/core.c:1798.
-> > > > 		 * For NULL release it says, "does not have a release()
-> > > function, it is broken and must be fixed"
-> > > > 		 */
-> > > > 		return -EINVAL;
-> > > > 	}
-> > > > 	err =3D dev_set_name(adev...);
-> > > > 	if (err) {
-> > > > 		/* kobject_release() -> kobject_cleanup() are capable to
-> > > detect if name is set/ not set
-> > > > 		  * and free the const if it was set.
-> > > > 		  */
-> > > > 		return err;
-> > > > 	}
-> > > > 	err =3D device_add(&adev->dev);
-> > > > 	If (err)
-> > > > 		return err;
-> > > > }
-> > > >
-> > > > Caller code:
-> > > > init()
-> > > > {
-> > > > 	adev =3D kzalloc(sizeof(*foo_adev)..);
-> > > > 	if (!adev)
-> > > > 		return -ENOMEM;
-> > > > 	err =3D ancillary_device_register(&adev);
-> > > > 	if (err)
-> > > > 		goto err;
-> > > >
-> > > > err:
-> > > > 	ancillary_device_put(&adev);
-> > > > 	return err;
-> > > > }
-> > > >
-> > > > cleanup()
-> > > > {
-> > > > 	ancillary_device_unregister(&adev);
-> > > > }
-> > > >
-> > > > Above pattern is fine too matching the core.
-> > > >
-> > > > If I understand Leon correctly, he prefers simple register(),
-> > > > unregister()
-> > > pattern.
-> > > > If, so it should be explicit register(), unregister() API.
-> > >
-> > > This is my summary
-> > > https://lore.kernel.org/linux-rdma/20201008052137.GA13580@unreal
-> > > The API should be symmetric.
-> > >
-> >
-> > I disagree to your below point.
-> > > 1. You are not providing driver/core API but simplification and
-> > > obfuscation of basic primitives and structures. This is new layer.
-> > > There is no room for a claim that we must to follow internal API.
-> > If ancillary bus has
-> > ancillary_device_add(), it cannot do device_initialize() and device_add=
-() in
-> both.
-> >
-> > I provided two examples and what really matters is a given patchset
-> > uses (need to use) which pattern,
-> > initialize() + add(), or register() + unregister().
-> >
-> > As we all know that API is not added for future. It is the future patch
-> extends it.
-> > So lets wait for Pierre to reply if soundwire can follow register(),
-> unregister() sequence.
-> > This way same APIs can service both use-cases.
-> >
-> > Regarding,
-> > > 3. You can't "ask" from users to call internal calls (put_device)
-> > > over internal fields in ancillary_device.
-> > In that case if should be ancillary_device_put() ancillary_device_relea=
-se().
-> >
-> > Or we should follow the patten of ib_alloc_device [1],
-> > ancillary_device_alloc()
-> >     -> kzalloc(adev + dev) with compile time assert check like rdma and=
- vdpa
-> subsystem.
-> >     ->device_initialize()
-> > ancillary_device_add()
-> >
-> > ancillar_device_de() <- balances with add
-> > ancillary_device_dealloc() <-- balances with device_alloc(), which does=
- the
-> put_device() + free the memory allocated in alloc().
-> >
-> > This approach of [1] also eliminates exposing adev.dev.release =3D
-> <drivers_release_method_to_free_adev> in drivers.
-> > And container_of() benefit also continues..
-> >
-> > [1]
-> > https://elixir.bootlin.com/linux/v5.9-rc8/source/include/rdma/ib_verbs
-> > .h#L2791
-> >
->=20
-> My code looks like this, probably yours looks the same.
->=20
->   247                 priv->adev[i] =3D kzalloc(sizeof(*priv->adev[i]), G=
-FP_KERNEL);
->   248                 if (!priv->adev[i])
->   249                         goto init_err;
->   250
->   251                 adev =3D &priv->adev[i]->adev;
->   252                 adev->id =3D idx;
->   253                 adev->name =3D mlx5_adev_devices[i].suffix;
->   254                 adev->dev.parent =3D dev->device;
->   255                 adev->dev.release =3D adev_release;
->   256                 priv->adev[i]->mdev =3D dev;
->   257
->   258                 ret =3D ancillary_device_initialize(adev);
->   259                 if (ret)
->   260                         goto init_err;
->   261
->   262                 ret =3D ancillary_device_add(adev);
->   263                 if (ret) {
->   264                         put_device(&adev->dev);
->   265                         goto add_err;
->   266                 }
+I think that this is the time that I should share fixed patch following the comments to help the discussion.
+Following opinions are added to the patch.
+1. it's be much nicer to have a new state - Takashi
+2. We can add this state to asound.h so the user space can be updated. - Jaroslav
+3. don't forget to increase the SNDRV_COMPRESS_VERSION - Jaroslav
 
-Yes, subfunction code is also very similar.
-You expressed concerned that you didn't like put_device() at [1].
-But in above code is touching adev->dev.{parent, release} is ok?
->   254                 adev->dev.parent =3D dev->device;
->   255                 adev->dev.release =3D adev_release;
+I'm bit wondering whether it is good to increase SNDRV_COMPRESS_VERSION
+with a change in asound.h not in compress_offload.h.
+Should I increase SNDRV_PCM_VERSION also?
 
-If not,
+And what happened if I request back-porting a patch which changes VERSION to stables?
 
-We can make it elegant by doing,
+Below is the patch just to help discussion.
+I'll resend the fixed patch after this discussion is completed.
 
-the patten of ib_alloc_device [1],
-ancillary_device_alloc()
-    -> kzalloc(adev + dev) with compile time assert check like rdma and vdp=
-a subsystem.
-    ->device_initialize()
-ancillary_device_add()
+With a stream with low bitrate, user can't pause or resume the stream
+near the end of the stream because current ALSA doesn't allow it.
+If the stream has very low bitrate enough to store whole stream into
+the buffer, user can't do anything except stop the stream and then
+restart it from the first.
+If pause, resume are allowed during draining, user experience can be
+enhanced.
 
-ancillar_device_de() <- balances with add
-ancillary_device_dealloc() <-- balances with device_alloc(), which does the=
- put_device() + free the memory allocated in alloc().
+The version is increased due to new behavior.
 
-This approach of [2] also eliminates exposing adev.dev.release =3D <drivers=
-_release_method_to_free_adev> in drivers.
-And container_of() benefit also continues..
+Signed-off-by: Gyeongtaek Lee <gt82.lee@samsung.com>
+Cc: stable@vger.kernel.org
+---
+ include/uapi/sound/asound.h           |  5 +--
+ include/uapi/sound/compress_offload.h |  2 +-
+ sound/core/compress_offload.c         | 47 ++++++++++++++++++++++-----
+ 3 files changed, 42 insertions(+), 12 deletions(-)
 
-[1] https://lore.kernel.org/linux-rdma/20201007192610.GD3964015@unreal/
-[2] https://elixir.bootlin.com/linux/v5.9-rc8/source/include/rdma/ib_verbs.=
-h#L2791
+diff --git a/include/uapi/sound/asound.h b/include/uapi/sound/asound.h
+index 535a7229e1d9..499b364974ec 100644
+--- a/include/uapi/sound/asound.h
++++ b/include/uapi/sound/asound.h
+@@ -315,8 +315,9 @@ typedef int __bitwise snd_pcm_state_t;
+ #define	SNDRV_PCM_STATE_XRUN		((__force snd_pcm_state_t) 4) /* stream reached an xrun */
+ #define	SNDRV_PCM_STATE_DRAINING	((__force snd_pcm_state_t) 5) /* stream is draining */
+ #define	SNDRV_PCM_STATE_PAUSED		((__force snd_pcm_state_t) 6) /* stream is paused */
+-#define	SNDRV_PCM_STATE_SUSPENDED	((__force snd_pcm_state_t) 7) /* hardware is suspended */
+-#define	SNDRV_PCM_STATE_DISCONNECTED	((__force snd_pcm_state_t) 8) /* hardware is disconnected */
++#define	SNDRV_PCM_STATE_DRAINING_PAUSED	((__force snd_pcm_state_t) 7) /* stream is paused during draining*/
++#define	SNDRV_PCM_STATE_SUSPENDED	((__force snd_pcm_state_t) 8) /* hardware is suspended */
++#define	SNDRV_PCM_STATE_DISCONNECTED	((__force snd_pcm_state_t) 9) /* hardware is disconnected */
+ #define	SNDRV_PCM_STATE_LAST		SNDRV_PCM_STATE_DISCONNECTED
+ 
+ enum {
+diff --git a/include/uapi/sound/compress_offload.h b/include/uapi/sound/compress_offload.h
+index 7184265c0b0d..46fdf50d5c00 100644
+--- a/include/uapi/sound/compress_offload.h
++++ b/include/uapi/sound/compress_offload.h
+@@ -31,7 +31,7 @@
+ #include <sound/compress_params.h>
+ 
+ 
+-#define SNDRV_COMPRESS_VERSION SNDRV_PROTOCOL_VERSION(0, 2, 0)
++#define SNDRV_COMPRESS_VERSION SNDRV_PROTOCOL_VERSION(0, 2, 1)
+ /**
+  * struct snd_compressed_buffer - compressed buffer
+  * @fragment_size: size of buffer fragment in bytes
+diff --git a/sound/core/compress_offload.c b/sound/core/compress_offload.c
+index 0e53f6f31916..58fbe0d99431 100644
+--- a/sound/core/compress_offload.c
++++ b/sound/core/compress_offload.c
+@@ -151,6 +151,7 @@ static int snd_compr_free(struct inode *inode, struct file *f)
+ 	case SNDRV_PCM_STATE_RUNNING:
+ 	case SNDRV_PCM_STATE_DRAINING:
+ 	case SNDRV_PCM_STATE_PAUSED:
++	case SNDRV_PCM_STATE_DRAINING_PAUSED:
+ 		data->stream.ops->trigger(&data->stream, SNDRV_PCM_TRIGGER_STOP);
+ 		break;
+ 	default:
+@@ -431,6 +432,7 @@ static __poll_t snd_compr_poll(struct file *f, poll_table *wait)
+ 	case SNDRV_PCM_STATE_RUNNING:
+ 	case SNDRV_PCM_STATE_PREPARED:
+ 	case SNDRV_PCM_STATE_PAUSED:
++	case SNDRV_PCM_STATE_DRAINING_PAUSED:
+ 		if (avail >= stream->runtime->fragment_size)
+ 			retval = snd_compr_get_poll(stream);
+ 		break;
+@@ -708,11 +710,23 @@ static int snd_compr_pause(struct snd_compr_stream *stream)
+ {
+ 	int retval;
+ 
+-	if (stream->runtime->state != SNDRV_PCM_STATE_RUNNING)
++	switch (stream->runtime->state) {
++	case SNDRV_PCM_STATE_RUNNING:
++		retval = stream->ops->trigger(stream,
++			SNDRV_PCM_TRIGGER_PAUSE_PUSH);
++		if (!retval)
++			stream->runtime->state = SNDRV_PCM_STATE_PAUSED;
++		break;
++	case SNDRV_PCM_STATE_DRAINING:
++		retval = stream->ops->trigger(stream,
++			SNDRV_PCM_TRIGGER_PAUSE_PUSH);
++		if (!retval)
++			stream->runtime->state =
++				SNDRV_PCM_STATE_DRAINING_PAUSED;
++		break;
++	default:
+ 		return -EPERM;
+-	retval = stream->ops->trigger(stream, SNDRV_PCM_TRIGGER_PAUSE_PUSH);
+-	if (!retval)
+-		stream->runtime->state = SNDRV_PCM_STATE_PAUSED;
++	}
+ 	return retval;
+ }
+ 
+@@ -720,11 +734,22 @@ static int snd_compr_resume(struct snd_compr_stream *stream)
+ {
+ 	int retval;
+ 
+-	if (stream->runtime->state != SNDRV_PCM_STATE_PAUSED)
++	switch (stream->runtime->state) {
++	case SNDRV_PCM_STATE_PAUSED:
++		retval = stream->ops->trigger(stream,
++			SNDRV_PCM_TRIGGER_PAUSE_RELEASE);
++		if (!retval)
++			stream->runtime->state = SNDRV_PCM_STATE_RUNNING;
++		break;
++	case SNDRV_PCM_STATE_DRAINING_PAUSED:
++		retval = stream->ops->trigger(stream,
++			SNDRV_PCM_TRIGGER_PAUSE_RELEASE);
++		if (!retval)
++			stream->runtime->state = SNDRV_PCM_STATE_DRAINING;
++		break;
++	default:
+ 		return -EPERM;
+-	retval = stream->ops->trigger(stream, SNDRV_PCM_TRIGGER_PAUSE_RELEASE);
+-	if (!retval)
+-		stream->runtime->state = SNDRV_PCM_STATE_RUNNING;
++	}
+ 	return retval;
+ }
+ 
+@@ -835,7 +860,9 @@ static int snd_compress_wait_for_drain(struct snd_compr_stream *stream)
+ 	 */
+ 
+ 	ret = wait_event_interruptible(stream->runtime->sleep,
+-			(stream->runtime->state != SNDRV_PCM_STATE_DRAINING));
++			(stream->runtime->state != SNDRV_PCM_STATE_DRAINING) &&
++			(stream->runtime->state !=
++				SNDRV_PCM_STATE_DRAINING_PAUSED));
+ 	if (ret == -ERESTARTSYS)
+ 		pr_debug("wait aborted by a signal\n");
+ 	else if (ret)
+@@ -857,6 +884,7 @@ static int snd_compr_drain(struct snd_compr_stream *stream)
+ 	case SNDRV_PCM_STATE_SETUP:
+ 	case SNDRV_PCM_STATE_PREPARED:
+ 	case SNDRV_PCM_STATE_PAUSED:
++	case SNDRV_PCM_STATE_DRAINING_PAUSED:
+ 		return -EPERM;
+ 	case SNDRV_PCM_STATE_XRUN:
+ 		return -EPIPE;
+@@ -909,6 +937,7 @@ static int snd_compr_partial_drain(struct snd_compr_stream *stream)
+ 	case SNDRV_PCM_STATE_SETUP:
+ 	case SNDRV_PCM_STATE_PREPARED:
+ 	case SNDRV_PCM_STATE_PAUSED:
++	case SNDRV_PCM_STATE_DRAINING_PAUSED:
+ 		return -EPERM;
+ 	case SNDRV_PCM_STATE_XRUN:
+ 		return -EPIPE;
+-- 
+2.21.0
+

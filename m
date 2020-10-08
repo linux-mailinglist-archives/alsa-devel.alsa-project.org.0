@@ -2,99 +2,106 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 26B85286E31
-	for <lists+alsa-devel@lfdr.de>; Thu,  8 Oct 2020 07:40:20 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id EE5E8286EBB
+	for <lists+alsa-devel@lfdr.de>; Thu,  8 Oct 2020 08:34:18 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B91CB16B1;
-	Thu,  8 Oct 2020 07:39:29 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B91CB16B1
+	by alsa0.perex.cz (Postfix) with ESMTPS id 59B5F16B3;
+	Thu,  8 Oct 2020 08:33:28 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 59B5F16B3
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1602135619;
-	bh=0AU7Wey0YwLsCxF9Ikf9HWtOt61vAjPIa7mJcKiJ7dc=;
-	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
+	s=default; t=1602138858;
+	bh=Lw9z0a6Ra4pYCEZXVDcmEoLt0XoG+o3QQBBjSLe+iLs=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=SEi+PemBtYUWxvcrnFLopxVu0HzdGqI2zl1qAYdfQ8d/9GYqN7NZezLJVFVWs/5PU
-	 iiy662+AOnEc82iAhUZfh4mTwTcQGTh/i5ZW4ZqLRP2i5rOGr/ulf+NziwCyhQPiQE
-	 E6FOPG6NM7QBsz6OKKpMlHcwYwMWvQmfSv6Im2ow=
+	b=JE/m0J4uIs96ZZYAH875ohYr9IEa1aVIvQRUKeqM4GS1FsOYgmw0nq4yWSUKyXggf
+	 wHTmXCq/XIKO3gG7cjQ0b9rRSGD3quCbhLuXcIXJF/0Pk4ldvtXve+XkwN80CG+bfJ
+	 Ok3Fh7fpuiVzHHY2qGLvC8yAKh4uyX4B337lNf8c=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id E9542F8016C;
-	Thu,  8 Oct 2020 07:38:02 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id F07ECF80090;
+	Thu,  8 Oct 2020 08:32:37 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 4CD34F80169; Thu,  8 Oct 2020 07:38:00 +0200 (CEST)
+ id 83D90F80164; Thu,  8 Oct 2020 08:32:35 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from mail-wr1-x442.google.com (mail-wr1-x442.google.com
- [IPv6:2a00:1450:4864:20::442])
+X-Spam-Level: *
+X-Spam-Status: No, score=1.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ PRX_BODY_30,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
+Received: from mail-ed1-x543.google.com (mail-ed1-x543.google.com
+ [IPv6:2a00:1450:4864:20::543])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id E0D9EF8015A
- for <alsa-devel@alsa-project.org>; Thu,  8 Oct 2020 07:37:53 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E0D9EF8015A
+ by alsa1.perex.cz (Postfix) with ESMTPS id 50017F80090
+ for <alsa-devel@alsa-project.org>; Thu,  8 Oct 2020 08:32:27 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 50017F80090
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org
- header.b="ml3paT+K"
-Received: by mail-wr1-x442.google.com with SMTP id n6so4811652wrm.13
- for <alsa-devel@alsa-project.org>; Wed, 07 Oct 2020 22:37:53 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=subject:to:cc:references:from:message-id:date:user-agent
- :mime-version:in-reply-to:content-language:content-transfer-encoding;
- bh=uzc1+OIpuC778zhrwXmoWv4oWCtwA3uOVXW778gGkv8=;
- b=ml3paT+KU4nk5x+67HGcDobgbHZCUhknrUGbn8Ei/i83N7QKesst6RKodzyNnzpYUL
- OE4Q8oDcGhTBpDDwJYbX0t4LPj4H+iFvRnJIV0X/ibHVqLtB8kDxf+nr/K23f+W4Sglj
- w4zB3+WLo07WUdGOkGxFYsPfMUg/Nk2R9H1hj4/VOzQpBzmFP7xc2j+PuP10WRM5qfey
- CxNoAqIKXTgliKTdGm45ez/GXOnmML8v/Nixp8f3B+5bV+UMGSOI8wNAFYffKYXQUQgS
- h+rYoRjIYHqov7TrHMaRK2kPktgYDnEA+fZX+SapdxilqPml2+ToGEkhR/1tY7OdeTqD
- +XSg==
+ dkim=pass (2048-bit key) header.d=intel-com.20150623.gappssmtp.com
+ header.i=@intel-com.20150623.gappssmtp.com header.b="J4wJLz4n"
+Received: by mail-ed1-x543.google.com with SMTP id o18so4652155edq.4
+ for <alsa-devel@alsa-project.org>; Wed, 07 Oct 2020 23:32:27 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=intel-com.20150623.gappssmtp.com; s=20150623;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=T6WCoZxdckvRKJGdL/C3+abKBroTkwq+Cv2M9Ea/Upw=;
+ b=J4wJLz4nBMEzbf100ACCB/Bd6uCESFEe6h/ytp/fArQhp+PqEe6wDNBMpvMNG7tPm1
+ 8IlEZA152jqzUOs6tnpnlk9r5hco7RRH8D3Ys47wsFfBqr0vAGaDNpOcdp75K6zTdqUO
+ btR7tlOjqlvspO/XktdBts7wPM3RD3JTzWTMNiBYXpck7KJ8h1FFQ9JBx8hhH999iEiZ
+ Xou5bS/nlxSA6PeH3Q6IFmiNZ4Yu2ZTrgVuCE+7/rjIZyGork2J185AvO0JaKNF/L5nR
+ 0BFJ48dVKdHw+UF20XqPOYqKkwKoP/y6pTGI3uWQcL5BuVVbvl4tfwaK/ldWnnLsteDB
+ akYw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:subject:to:cc:references:from:message-id:date
- :user-agent:mime-version:in-reply-to:content-language
- :content-transfer-encoding;
- bh=uzc1+OIpuC778zhrwXmoWv4oWCtwA3uOVXW778gGkv8=;
- b=Zjt0Jd6F6PM9Yp4qpdxVAtEfk54qrbpond27OT6VgE89S2Q35WGnsbqIqXYf5PJX2E
- yhBgD5ZdjHybj7O3hSdBO4mdCGLVFUVYzM9WbpoMRFn7zy5872QenNdraaXb5qj+Mh2Q
- pD1XgM2fj1xArFv9ZDxX67+UnC2b1BxoVb+JgU69iXzkM1FU+0WtST8F9xLUu2Vk5/d3
- bvPlx5Ka4aOXwPf+djempUZf04AvtxueJV2TtmX1vMQnhWZP0pvtfEOcINCKyiW5by3y
- K2Zwh1gOpi6C8UVckYP11a7PSEqlrUaKcQa6eRbkZYUL75Rzn+siNehX9IiWjaiIm3OQ
- TltQ==
-X-Gm-Message-State: AOAM532k6XVTngAPz1yReIeFBm55+LIhDkDRg6lWUilmDWBeTdmstJAB
- hC4bDlDNwocjw+P/gG87zHH+lw==
-X-Google-Smtp-Source: ABdhPJy0nwSSdzGNFRWaXQ/aqDIfsPChRlGqie/SnNdwPMFez5OYqoih1QeT3sEFc7n3rd7ZrLLWfA==
-X-Received: by 2002:adf:8030:: with SMTP id 45mr7377274wrk.177.1602135469363; 
- Wed, 07 Oct 2020 22:37:49 -0700 (PDT)
-Received: from [192.168.86.34]
- (cpc86377-aztw32-2-0-cust226.18-1.cable.virginm.net. [92.233.226.227])
- by smtp.googlemail.com with ESMTPSA id b200sm5594266wme.44.2020.10.07.22.37.48
- (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
- Wed, 07 Oct 2020 22:37:48 -0700 (PDT)
-Subject: Re: [PATCH v11 5/7] ASoC: qcom: Add support for lpass hdmi driver
-To: Srinivasa Rao Mandadapu <srivasam@codeaurora.org>, agross@kernel.org,
- bjorn.andersson@linaro.org, lgirdwood@gmail.com, broonie@kernel.org,
- robh+dt@kernel.org, plai@codeaurora.org, bgoswami@codeaurora.org,
- perex@perex.cz, tiwai@suse.com, rohitkr@codeaurora.org,
- linux-arm-msm@vger.kernel.org, alsa-devel@alsa-project.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <1602134223-2562-1-git-send-email-srivasam@codeaurora.org>
- <1602134223-2562-6-git-send-email-srivasam@codeaurora.org>
-From: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
-Message-ID: <fa33de91-16b8-8938-9577-e8e763039f83@linaro.org>
-Date: Thu, 8 Oct 2020 06:37:47 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
- Thunderbird/60.8.0
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=T6WCoZxdckvRKJGdL/C3+abKBroTkwq+Cv2M9Ea/Upw=;
+ b=GHDCUF3eSZiOThoqSQa6u4KewddkMqogXeDW7BQXOTmL7sDpcj3R8grDl2pjUnhoOS
+ 0DiO33VKITVQ1t+ZUHOa+fi2CjNCiP/1x6EtAp697p6Xz6Fpi+3VBRP7rQKxnMK34XPb
+ 7uUqyO7Ih8Ob9Y983Z+NYaGAKJuHNL+AS7ytFxSmJzov59eP475xQyanFe/iKFLGv0H3
+ vkLkPgAcmDAzIDRR4sWIcqdj5MwiFPgTDR1uPMogYcjJgiTY/5+3cQa9vXSIFZkCaNvA
+ gplHXc6c6nPjRjooj7l/LPtkGnCtblYlbS0GCNDDg7GZUKqEA7mveUnqXOSiZ/oajvfN
+ M2WA==
+X-Gm-Message-State: AOAM532RApNnuhhvbNaP+TKZRm2E9E3CC+aRuOu7c5JXpSVJ2h8D9T8l
+ LFlWPxGVDiUKGGXHYTnFN4OeNyhLcSCEVkgveo4TlQ==
+X-Google-Smtp-Source: ABdhPJwgpM7H3h1DInduR4J71279wEVfVZ4kQCu4JvRNed2XMja6KyKSjQxlhH+H4bkYZVxCQ6SA/D1UOI3UnDXcONQ=
+X-Received: by 2002:a50:9fa8:: with SMTP id c37mr7437375edf.233.1602138743085; 
+ Wed, 07 Oct 2020 23:32:23 -0700 (PDT)
 MIME-Version: 1.0
-In-Reply-To: <1602134223-2562-6-git-send-email-srivasam@codeaurora.org>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
-Cc: V Sujith Kumar Reddy <vsujithk@codeaurora.org>
+References: <20201005182446.977325-1-david.m.ertman@intel.com>
+ <20201005182446.977325-2-david.m.ertman@intel.com>
+ <20201006071821.GI1874917@unreal>
+ <b4f6b5d1-2cf4-ae7a-3e57-b66230a58453@linux.intel.com>
+ <20201006170241.GM1874917@unreal>
+ <DM6PR11MB2841C531FC27DB41E078C52BDD0A0@DM6PR11MB2841.namprd11.prod.outlook.com>
+ <20201007192610.GD3964015@unreal>
+ <BY5PR12MB43221A308CE750FACEB0A806DC0A0@BY5PR12MB4322.namprd12.prod.outlook.com>
+ <DM6PR11MB28415A8E53B5FFC276D5A2C4DD0A0@DM6PR11MB2841.namprd11.prod.outlook.com>
+ <20201008052137.GA13580@unreal>
+In-Reply-To: <20201008052137.GA13580@unreal>
+From: Dan Williams <dan.j.williams@intel.com>
+Date: Wed, 7 Oct 2020 23:32:11 -0700
+Message-ID: <CAPcyv4gz=mMTfLO4mAa34MEEXgg77o1AWrT6aguLYODAWxbQDQ@mail.gmail.com>
+Subject: Re: [PATCH v2 1/6] Add ancillary bus support
+To: Leon Romanovsky <leon@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Cc: "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
+ "kuba@kernel.org" <kuba@kernel.org>, "parav@mellanox.com" <parav@mellanox.com>,
+ "tiwai@suse.de" <tiwai@suse.de>,
+ "netdev@vger.kernel.org" <netdev@vger.kernel.org>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ "ranjani.sridharan@linux.intel.com" <ranjani.sridharan@linux.intel.com>,
+ "fred.oh@linux.intel.com" <fred.oh@linux.intel.com>,
+ "linux-rdma@vger.kernel.org" <linux-rdma@vger.kernel.org>,
+ "dledford@redhat.com" <dledford@redhat.com>,
+ "broonie@kernel.org" <broonie@kernel.org>, Parav Pandit <parav@nvidia.com>,
+ Jason Gunthorpe <jgg@nvidia.com>,
+ "gregkh@linuxfoundation.org" <gregkh@linuxfoundation.org>, "Ertman,
+ David M" <david.m.ertman@intel.com>, "Saleem,
+ Shiraz" <shiraz.saleem@intel.com>, "davem@davemloft.net" <davem@davemloft.net>,
+ "Patil, Kiran" <kiran.patil@intel.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -110,30 +117,162 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+On Wed, Oct 7, 2020 at 10:21 PM Leon Romanovsky <leon@kernel.org> wrote:
+>
+> On Wed, Oct 07, 2020 at 08:46:45PM +0000, Ertman, David M wrote:
+> > > -----Original Message-----
+> > > From: Parav Pandit <parav@nvidia.com>
+> > > Sent: Wednesday, October 7, 2020 1:17 PM
+> > > To: Leon Romanovsky <leon@kernel.org>; Ertman, David M
+> > > <david.m.ertman@intel.com>
+> > > Cc: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>; alsa-
+> > > devel@alsa-project.org; parav@mellanox.com; tiwai@suse.de;
+> > > netdev@vger.kernel.org; ranjani.sridharan@linux.intel.com;
+> > > fred.oh@linux.intel.com; linux-rdma@vger.kernel.org;
+> > > dledford@redhat.com; broonie@kernel.org; Jason Gunthorpe
+> > > <jgg@nvidia.com>; gregkh@linuxfoundation.org; kuba@kernel.org; Williams,
+> > > Dan J <dan.j.williams@intel.com>; Saleem, Shiraz
+> > > <shiraz.saleem@intel.com>; davem@davemloft.net; Patil, Kiran
+> > > <kiran.patil@intel.com>
+> > > Subject: RE: [PATCH v2 1/6] Add ancillary bus support
+> > >
+> > >
+> > > > From: Leon Romanovsky <leon@kernel.org>
+> > > > Sent: Thursday, October 8, 2020 12:56 AM
+> > > >
+> > > > > > This API is partially obscures low level driver-core code and needs
+> > > > > > to provide clear and proper abstractions without need to remember
+> > > > > > about put_device. There is already _add() interface why don't you do
+> > > > > > put_device() in it?
+> > > > > >
+> > > > >
+> > > > > The pushback Pierre is referring to was during our mid-tier internal
+> > > > > review.  It was primarily a concern of Parav as I recall, so he can speak to
+> > > his
+> > > > reasoning.
+> > > > >
+> > > > > What we originally had was a single API call
+> > > > > (ancillary_device_register) that started with a call to
+> > > > > device_initialize(), and every error path out of the function performed a
+> > > > put_device().
+> > > > >
+> > > > > Is this the model you have in mind?
+> > > >
+> > > > I don't like this flow:
+> > > > ancillary_device_initialize()
+> > > > if (ancillary_ancillary_device_add()) {
+> > > >   put_device(....)
+> > > >   ancillary_device_unregister()
+> > > Calling device_unregister() is incorrect, because add() wasn't successful.
+> > > Only put_device() or a wrapper ancillary_device_put() is necessary.
+> > >
+> > > >   return err;
+> > > > }
+> > > >
+> > > > And prefer this flow:
+> > > > ancillary_device_initialize()
+> > > > if (ancillary_device_add()) {
+> > > >   ancillary_device_unregister()
+> > > This is incorrect and a clear deviation from the current core APIs that adds the
+> > > confusion.
+> > >
+> > > >   return err;
+> > > > }
+> > > >
+> > > > In this way, the ancillary users won't need to do non-intuitive put_device();
+> > >
+> > > Below is most simple, intuitive and matching with core APIs for name and
+> > > design pattern wise.
+> > > init()
+> > > {
+> > >     err = ancillary_device_initialize();
+> > >     if (err)
+> > >             return ret;
+> > >
+> > >     err = ancillary_device_add();
+> > >     if (ret)
+> > >             goto err_unwind;
+> > >
+> > >     err = some_foo();
+> > >     if (err)
+> > >             goto err_foo;
+> > >     return 0;
+> > >
+> > > err_foo:
+> > >     ancillary_device_del(adev);
+> > > err_unwind:
+> > >     ancillary_device_put(adev->dev);
+> > >     return err;
+> > > }
+> > >
+> > > cleanup()
+> > > {
+> > >     ancillary_device_de(adev);
+> > >     ancillary_device_put(adev);
+> > >     /* It is common to have a one wrapper for this as
+> > > ancillary_device_unregister().
+> > >      * This will match with core device_unregister() that has precise
+> > > documentation.
+> > >      * but given fact that init() code need proper error unwinding, like
+> > > above,
+> > >      * it make sense to have two APIs, and no need to export another
+> > > symbol for unregister().
+> > >      * This pattern is very easy to audit and code.
+> > >      */
+> > > }
+> >
+> > I like this flow +1
+> >
+> > But ... since the init() function is performing both device_init and
+> > device_add - it should probably be called ancillary_device_register,
+> > and we are back to a single exported API for both register and
+> > unregister.
+> >
+> > At that point, do we need wrappers on the primitives init, add, del,
+> > and put?
+>
+> Let me summarize.
+> 1. You are not providing driver/core API but simplification and obfuscation
+> of basic primitives and structures. This is new layer. There is no room for
+> a claim that we must to follow internal API.
 
+Yes, this a driver core api, Greg even questioned why it was in
+drivers/bus instead of drivers/base which I think makes sense.
 
-On 08/10/2020 06:17, Srinivasa Rao Mandadapu wrote:
-> From: V Sujith Kumar Reddy <vsujithk@codeaurora.org>
-> 
-> Upadate lpass cpu and platform driver to support audio over dp.
-> Also add lpass-hdmi.c and lpass-hdmi.h.
-> 
-> Signed-off-by: V Sujith Kumar Reddy <vsujithk@codeaurora.org>
-> Signed-off-by: Srinivasa Rao <srivasam@codeaurora.org>
-> ---
->   sound/soc/qcom/Kconfig           |   5 +
->   sound/soc/qcom/Makefile          |   2 +
->   sound/soc/qcom/lpass-apq8016.c   |   4 +-
->   sound/soc/qcom/lpass-cpu.c       | 247 ++++++++++++++++++++++++-
->   sound/soc/qcom/lpass-hdmi.c      | 258 ++++++++++++++++++++++++++
->   sound/soc/qcom/lpass-hdmi.h      | 102 +++++++++++
->   sound/soc/qcom/lpass-ipq806x.c   |   4 +-
->   sound/soc/qcom/lpass-lpaif-reg.h |  49 +++--
->   sound/soc/qcom/lpass-platform.c  | 383 ++++++++++++++++++++++++++++++++-------
->   sound/soc/qcom/lpass.h           | 118 +++++++++++-
->   10 files changed, 1075 insertions(+), 97 deletions(-)
->   create mode 100644 sound/soc/qcom/lpass-hdmi.c
->   create mode 100644 sound/soc/qcom/lpass-hdmi.h
-> 
+> 2. API should be symmetric. If you call to _register()/_add(), you will need
+> to call to _unregister()/_del(). Please don't add obscure _put().
 
-Reviewed-by: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
+It's not obscure it's a long standing semantic for how to properly
+handle device_add() failures. Especially in this case where there is
+no way to have something like a common auxiliary_device_alloc() that
+will work for everyone the only other option is require all device
+destruction to go through the provided release method (put_device())
+after a device_add() failure.
+
+> 3. You can't "ask" from users to call internal calls (put_device) over internal
+> fields in ancillary_device.
+
+Sure it can. platform_device_add() requires a put_device() on failure,
+but also note how platform_device_add() *requires*
+platform_device_alloc() be used to create the device. That
+inflexibility is something this auxiliary bus is trying to avoid.
+
+> 4. This API should be clear to drivers authors, "device_add()" call (and
+> semantic) is not used by the drivers (git grep " device_add(" drivers/).
+
+This shows 141 instances for me, so I'm not sure what you're getting at?
+
+Look, this api is meant to be a replacement for places where platform
+devices were being abused. The device_initialize() + customize device
++ device_add() organization has the flexibility needed to let users
+customize naming and other parts of device creation in a way that a
+device_register() flow, or platform_device_{register,add} in
+particular, did not.
+
+If the concern is that you'd like to have an auxiliary_device_put()
+for symmetry that would need to come with the same warning as
+commented on platform_device_put(), i.e. that's it's really only
+vanity symmetry to be used in error paths. The semantics of
+device_add() and device_put() on failure are long established, don't
+invent new behavior for auxiliary_device_add() and
+auxiliary_device_put() / put_device().

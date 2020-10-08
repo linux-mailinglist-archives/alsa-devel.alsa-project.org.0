@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id BAAAE287E84
-	for <lists+alsa-devel@lfdr.de>; Fri,  9 Oct 2020 00:05:41 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1E45C287E85
+	for <lists+alsa-devel@lfdr.de>; Fri,  9 Oct 2020 00:05:49 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 5A2B9168C;
-	Fri,  9 Oct 2020 00:04:51 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5A2B9168C
+	by alsa0.perex.cz (Postfix) with ESMTPS id B46A51663;
+	Fri,  9 Oct 2020 00:04:58 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B46A51663
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1602194741;
-	bh=EVyvVTNpmJa/UPKAvAjxfvZgDTbHQqPP7CHorPAJG0I=;
+	s=default; t=1602194748;
+	bh=k1V6OrupLcNeNFQfLBLLBhRQBY/eVFlgP8hwmK08lew=;
 	h=Date:From:To:In-Reply-To:References:Subject:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=E6fFVi0EpIuwi1qS9O9dILqSMT9/zIw9uEiXRZfRdwcuYrEwyK9ojgt2ZJhac/aA7
-	 Vxo80zmf+2ukDAjRDNvjmnzzt/rsjiiXvG+Zj7FGANIEkThBJeEqDHx6EuW1ZkywaP
-	 dr/ht8kWMdziZdYcXqxXUf85HCS4NoEM0+5wNTS4=
+	b=rGvaYHxw410OSVfEQOOMQr5i6Rv6sjh+u0iZTIoe28GDNGQiXgxEE03JFkz8jtXKL
+	 wd4KAi31xvFisue2vRjkb4GTPTy+NYu2Y/MC9vDvVI3hQ79ucwLmX8L3gVpiJZysYc
+	 AlLnUs8UnF/cn/xJyEfqHQoxCBz5ahQAWFnZup/o=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id B1645F8026B;
-	Fri,  9 Oct 2020 00:01:59 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 7C909F8026A;
+	Fri,  9 Oct 2020 00:02:06 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 1ADAFF8026A; Fri,  9 Oct 2020 00:01:57 +0200 (CEST)
+ id BBE51F80279; Fri,  9 Oct 2020 00:02:03 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.8 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -34,38 +34,42 @@ X-Spam-Status: No, score=-0.8 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 33E50F80260
- for <alsa-devel@alsa-project.org>; Fri,  9 Oct 2020 00:01:55 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 33E50F80260
+ by alsa1.perex.cz (Postfix) with ESMTPS id 1D7F5F8026C
+ for <alsa-devel@alsa-project.org>; Fri,  9 Oct 2020 00:02:01 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1D7F5F8026C
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="vM5VX/ca"
+ header.b="rGx38ez9"
 Received: from localhost (fw-tnat.cambridge.arm.com [217.140.96.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 074C622242;
- Thu,  8 Oct 2020 22:01:52 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id 707BC22244;
+ Thu,  8 Oct 2020 22:01:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1602194513;
- bh=EVyvVTNpmJa/UPKAvAjxfvZgDTbHQqPP7CHorPAJG0I=;
+ s=default; t=1602194519;
+ bh=k1V6OrupLcNeNFQfLBLLBhRQBY/eVFlgP8hwmK08lew=;
  h=Date:From:To:Cc:In-Reply-To:References:Subject:From;
- b=vM5VX/caeJccko8pxOGsWKe4Js0eh0gUIKEymMMKDGBRUXqSrImM9VaLkRZaIwfPq
- 9chkJ5QP6EzfHj13YfOQgIi9y+9AKBt2Cj926eqxYyiRTcn2vNuU5/6z930B1WGKEL
- anzYLTkemExf4Y2rvv8NLnMX9js6x1fZNX5uqHoo=
-Date: Thu, 08 Oct 2020 23:01:51 +0100
+ b=rGx38ez9zkZljUIwl/ogar/lEdyNl0R92nEog4pJVNEDupOGwLHMSdUOc3/WHy7xV
+ +2O1yg0iUlpjW1vQ2PSqFOrSd/3OB3YSudfKsbdV3W1hV78M/gxICsEBuNbhhKjrM1
+ G8f5PXfQhCeoom9JnaycsnZnxM1lyzQZGRlyvhmo=
+Date: Thu, 08 Oct 2020 23:01:56 +0100
 From: Mark Brown <broonie@kernel.org>
-To: Olivier Moysan <olivier.moysan@st.com>, lgirdwood@gmail.com,
- arnaud.pouliquen@st.com, tiwai@suse.com, perex@perex.cz,
- alexandre.torgue@st.com
-In-Reply-To: <20201007153459.22155-1-olivier.moysan@st.com>
-References: <20201007153459.22155-1-olivier.moysan@st.com>
-Subject: Re: [PATCH 0/2] ASoC: stm32: dfsdm: change rate limits
-Message-Id: <160219448332.29664.10143559083895905802.b4-ty@kernel.org>
+To: Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+ Ludovic Desroches <ludovic.desroches@microchip.com>,
+ Liam Girdwood <lgirdwood@gmail.com>, Colin King <colin.king@canonical.com>,
+ Alexandre Belloni <alexandre.belloni@bootlin.com>,
+ linux-arm-kernel@lists.infradead.org,
+ Codrin Ciubotariu <codrin.ciubotariu@microchip.com>,
+ alsa-devel@alsa-project.org, Nicolas Ferre <nicolas.ferre@microchip.com>
+In-Reply-To: <20201006152024.542418-1-colin.king@canonical.com>
+References: <20201006152024.542418-1-colin.king@canonical.com>
+Subject: Re: [PATCH][next] ASoC: mchp-spdifrx: fix spelling mistake "overrrun"
+ -> "overrun"
+Message-Id: <160219448330.29664.4641489072692300066.b4-ty@kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Cc: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-stm32@st-md-mailman.stormreply.com
+Cc: kernel-janitors@vger.kernel.org, linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -81,15 +85,8 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Wed, 7 Oct 2020 17:34:57 +0200, Olivier Moysan wrote:
-> Widening of the supported rate range in the STM32 DFSDM driver.
-> The rates were previously limited to 8kHz, 16kHz and 32kHz.
-> Allow rate capture in the whole range 8kHz-48kHz as there is no hardware
-> limitation to support it.
-> Actual sample resolution is dependent on audio rate and DFSDM configuration.
-> Add a trace to allow simple check of sample resolution.
-> 
-> [...]
+On Tue, 6 Oct 2020 16:20:24 +0100, Colin King wrote:
+> There is a spelling mistake in a dev_warn message. Fix it.
 
 Applied to
 
@@ -97,10 +94,8 @@ Applied to
 
 Thanks!
 
-[1/2] ASoC: stm32: dfsdm: change rate limits
-      commit: 6101bf71192f543799a796274e160f7dfc10f2d2
-[2/2] ASoC: stm32: dfsdm: add actual resolution trace
-      commit: 41bceb1272164ee2a6fd1ac3bed97043c94b6636
+[1/1] ASoC: mchp-spdifrx: fix spelling mistake "overrrun" -> "overrun"
+      commit: 6db282c8a9edcbf84e699e45ec087baf07be2236
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

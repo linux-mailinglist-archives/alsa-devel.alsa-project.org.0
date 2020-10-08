@@ -2,102 +2,106 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2AB56287A26
-	for <lists+alsa-devel@lfdr.de>; Thu,  8 Oct 2020 18:41:20 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 14E27287A40
+	for <lists+alsa-devel@lfdr.de>; Thu,  8 Oct 2020 18:44:45 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 6A7541674;
-	Thu,  8 Oct 2020 18:40:29 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6A7541674
+	by alsa0.perex.cz (Postfix) with ESMTPS id 826A01677;
+	Thu,  8 Oct 2020 18:43:54 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 826A01677
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1602175279;
-	bh=/qUwnNQDpiY8gMQ/7+L3MGUNRTME1lqp2kJnar4TIQI=;
+	s=default; t=1602175484;
+	bh=Ci5I9T8CprXic2Sry9tEqxdlJG9lSD9LveB72Oikx2U=;
 	h=From:To:Subject:Date:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=CwsBN/CjYxPi0/WsJTSOCNCinJXfMfaeCaFjaG9o0Ut2G5kkWZRf+heATd/sJOxRV
-	 /2hk3hmwsv2IWWOyrRnH9bZlj5qugoJONVTmIYuR2YrQJzZ8cETgSSVxbbGCCIlV8s
-	 TtXrdGqP5UxV1lmPaPhxUEI4EdZUCvcccgj8Wy3Y=
+	b=VqeRJpVnmmFsJi+QwJA3xSD7oGE4HkhgVbGoZ8m9RoK9k1HccL+zEKwoS0jradT9l
+	 ZVYgE6hZLRJzgTfWk1C/6rjnxhewl6CVtXh3XRlfeatyOiYlJ1/B4rrttqOkOa5GB/
+	 QabEBxWOWQPKaGUf4LxfCg3WS1aryjzqHM5KReyI=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 22915F80163;
-	Thu,  8 Oct 2020 18:39:39 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 0655EF80167;
+	Thu,  8 Oct 2020 18:43:04 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id BEC82F80164; Thu,  8 Oct 2020 18:39:36 +0200 (CEST)
+ id CB530F80164; Thu,  8 Oct 2020 18:43:01 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- SPF_HELO_PASS,SPF_PASS,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
+X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 394D5F80090
- for <alsa-devel@alsa-project.org>; Thu,  8 Oct 2020 18:39:28 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 394D5F80090
+ by alsa1.perex.cz (Postfix) with ESMTPS id C083BF80090
+ for <alsa-devel@alsa-project.org>; Thu,  8 Oct 2020 18:42:57 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C083BF80090
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=intel.onmicrosoft.com
- header.i=@intel.onmicrosoft.com header.b="PKCS2VBq"
-IronPort-SDR: aY19XnaqDTUStuy0tkf6S/eGY6iHZNyU92VCekQXb5uRjbwwfz8xXCSad/HhusTrQkLh83pTEt
- pKfp31nbctyg==
-X-IronPort-AV: E=McAfee;i="6000,8403,9768"; a="144690522"
-X-IronPort-AV: E=Sophos;i="5.77,351,1596524400"; d="scan'208";a="144690522"
+ header.i=@intel.onmicrosoft.com header.b="uWk9fZ4f"
+IronPort-SDR: lUMLbw95Pc9JPIjnhdFmPf+aklNkZsxNPNn1xkUUUikllUdRbRSqm+5pobk0zZ7bZXWanPxeQY
+ vms+DMoT2tAA==
+X-IronPort-AV: E=McAfee;i="6000,8403,9768"; a="250061643"
+X-IronPort-AV: E=Sophos;i="5.77,351,1596524400"; d="scan'208";a="250061643"
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
-Received: from orsmga008.jf.intel.com ([10.7.209.65])
- by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 08 Oct 2020 09:39:26 -0700
-IronPort-SDR: Xb482FMo43Jy9c6jxmHYpEibiLjcOnUFmvEEDrF/uRMm4WmspVlAMbg0PHKGYvqIU3GW7AxBsY
- On1z3BLDVH2w==
+Received: from fmsmga005.fm.intel.com ([10.253.24.32])
+ by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 08 Oct 2020 09:42:55 -0700
+IronPort-SDR: j9oKH0xl1gfROf72nFbh/TptvmnytoKLpvjVcIvaj7eq7lnJV3zMIlPGTDCt9fU9Ux9ZBD807Z
+ Le110HScVMBg==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.77,351,1596524400"; d="scan'208";a="344796010"
-Received: from fmsmsx602.amr.corp.intel.com ([10.18.126.82])
- by orsmga008.jf.intel.com with ESMTP; 08 Oct 2020 09:39:25 -0700
-Received: from fmsmsx603.amr.corp.intel.com (10.18.126.83) by
- fmsmsx602.amr.corp.intel.com (10.18.126.82) with Microsoft SMTP Server
+X-IronPort-AV: E=Sophos;i="5.77,351,1596524400"; d="scan'208";a="519406851"
+Received: from fmsmsx603.amr.corp.intel.com ([10.18.126.83])
+ by fmsmga005.fm.intel.com with ESMTP; 08 Oct 2020 09:42:55 -0700
+Received: from fmsmsx609.amr.corp.intel.com (10.18.126.89) by
+ fmsmsx603.amr.corp.intel.com (10.18.126.83) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.1713.5; Thu, 8 Oct 2020 09:39:25 -0700
+ 15.1.1713.5; Thu, 8 Oct 2020 09:42:54 -0700
+Received: from fmsmsx603.amr.corp.intel.com (10.18.126.83) by
+ fmsmsx609.amr.corp.intel.com (10.18.126.89) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.1713.5; Thu, 8 Oct 2020 09:42:54 -0700
 Received: from fmsedg601.ED.cps.intel.com (10.1.192.135) by
  fmsmsx603.amr.corp.intel.com (10.18.126.83) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1713.5
- via Frontend Transport; Thu, 8 Oct 2020 09:39:25 -0700
-Received: from NAM04-BN8-obe.outbound.protection.outlook.com (104.47.74.47) by
+ via Frontend Transport; Thu, 8 Oct 2020 09:42:54 -0700
+Received: from NAM04-BN8-obe.outbound.protection.outlook.com (104.47.74.40) by
  edgegateway.intel.com (192.55.55.70) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.1.1713.5; Thu, 8 Oct 2020 09:39:24 -0700
+ 15.1.1713.5; Thu, 8 Oct 2020 09:42:51 -0700
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=ecY4Uvsbe7CuzcPWh1PTykzcFrrltdndGSqC3EGvQbikft6KxgA2QAyfTODyji6E+fj4mNcOVTyDgJ0CWNAw2TaXQTdWC1a0hRrquLqEVD3ISRSNyPW0SiGl+NjluuH233fdiEhssq8qOdStuhcLT6dNKOnNME+4h0dL7Wq4H6RG6CCbdsqLTdQ46t6w02/m11GMkb6cdhBZ1HVvUgUwGZdZOmiAwWsyfB/ukrFWBMwSVkoo1hoUpZksxZZ6Nx3NtaAp4khkDrUT3Vt1YtqTqjC+Ou2MHorbNYP2avHtKWbqzdpUmZnb+aw+/INlVxtoUbNUMtVVp3xb2DcH8JNhUQ==
+ b=To3yMk8FSuPgRVyyqG5J8ebJfJvuL1WYmj3VUgql+uNjrQbDbRIyPjXzMy1YXDVVejwaAlyDJUgC3ryQsLSDSo+ilDw4+ckybz22b7eiRQujsMjWxjSbRlzW9cYzWMIequCvm2UKAp/ozlu8W2h52+Ay8+7FIZQisKUEJsQ9T5c9cNLdkitq7sM5xW0OalW5nQ2Ud0of3rf/cIKySiNdrqZj9XQ70Hc32y/fc9ILk9TWU4M9HCArtwZepNbC13cnRfEMb++8TJU74FkcHBRUHinfWpCAGVvu4LCm8GkZsqVzvDeBrylUD7aka6C+SzKeW/NIfOV7qAInZCuXVN7Elg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=FVJdgNpeoqSdOow5UClAuryXPxiC5kIzPbxarCujZV4=;
- b=XZhZdYP6m+78sUXYJknRYWmAoAi+SBJrs1aePrEOmdX7Phw1ZqoxfSmFM5xtPFiOKOTj4ZYjiBbtDoZueE29G49SQLcdGzRiim3Q9HQHhjVUR/cSthSWprEE+RRsjzk2mpa/ZrjNC7eZXiIKyGNFwAeN95ugOOUAnN4s6H7d1XlbRSTxTTGNZdwmgnv+Jgrz67C8QJL0jBwtyOdT2+4eLIKgv0btgAdiQHi1bOLz0DnS3r9BIKTJCLR5Cjs+3jrvBSkyWlh3Ho747yzL64Qo6WwcwACzvtcKeozXRYHpL80XN7wEIBn9+FMYPSobw65SvNKYG8qikXL6qF5TBd+WZQ==
+ bh=SbHvyf8gLMyd7SbRRfuHpqIcQMWhvt+KrcitCAgTpLA=;
+ b=Y6ChccWJRPJOgssGrCZBT83t6qoSX23+H3mUVLtZPHoZrTtKnMtVLYcf0zn1gVwl72+7ZYJD8tQimMCVBN79CiKuootj/7FNUp20OZE3GGx3axYef3edvr1gvODj6HVBJYj6zJ5CNOh72ihubo/TH4z3XjF1azfw+F7PNWvm8wAxv7KftsW88ynikhLacz0jDjeSZoREzgXENmwDqm+kckIM2Cl5JDrjZqPOt/jvcgUEwK/uUNh2qjxMckXSqqFnNJ3E3Qd45LiSnAEC+a4E22LiUKBZQ8aDTlsNteT0zTcaUUro1wlgCKlIOc/x0DsRgIzBWSqC9EwSeeAjTzkIjg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
  dkim=pass header.d=intel.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=intel.onmicrosoft.com; 
  s=selector2-intel-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=FVJdgNpeoqSdOow5UClAuryXPxiC5kIzPbxarCujZV4=;
- b=PKCS2VBqWUq4+5Mj5ozJiRLFpCgf7DK6egLGRSt4HJhWeq+t7A5VlEsYDY/6RQTUgpy4rK0oHpTxD/fw2fIrradc3AGkU44h6iM59lrRmUBtb92WcZ66WI5p8o/tmre1CNZSkQBi1RqwxvvYNQ1M98oRUD717P8VDDCSyu9gn3s=
+ bh=SbHvyf8gLMyd7SbRRfuHpqIcQMWhvt+KrcitCAgTpLA=;
+ b=uWk9fZ4f5Sovz1QzDbS8RJOAl18b87bNWV0U6mFgmUBlO7zFUrjpC1iGSSNyy4TsbYh7dyXpRMqqQLQVFxDN9ppnkgvbx2S8F9EZL8o2pw/1yZBkWbVPc/theRZDDfFaK8AdTy7dNJpC/tFYVFFJRkKw/Nfet7r37h82AYmdI+o=
 Received: from DM6PR11MB2841.namprd11.prod.outlook.com (2603:10b6:5:c8::32) by
  DM5PR11MB1353.namprd11.prod.outlook.com (2603:10b6:3:a::23) with
  Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.3433.32; Thu, 8 Oct 2020 16:39:22 +0000
+ 15.20.3433.32; Thu, 8 Oct 2020 16:42:48 +0000
 Received: from DM6PR11MB2841.namprd11.prod.outlook.com
  ([fe80::6d8e:9b06:ef72:2a]) by DM6PR11MB2841.namprd11.prod.outlook.com
  ([fe80::6d8e:9b06:ef72:2a%5]) with mapi id 15.20.3433.046; Thu, 8 Oct 2020
- 16:39:21 +0000
+ 16:42:48 +0000
 From: "Ertman, David M" <david.m.ertman@intel.com>
-To: Parav Pandit <parav@nvidia.com>, "gregkh@linuxfoundation.org"
- <gregkh@linuxfoundation.org>, "Williams, Dan J" <dan.j.williams@intel.com>
+To: Leon Romanovsky <leon@kernel.org>, "Williams, Dan J"
+ <dan.j.williams@intel.com>
 Subject: RE: [PATCH v2 1/6] Add ancillary bus support
 Thread-Topic: [PATCH v2 1/6] Add ancillary bus support
-Thread-Index: AQHWm06cVdQZOfJAqUq6P9wAQIqk66mKKyCAgACGDICAAB03gIABoskggAAXogCAAA5GgIAABE1ggACTy4CAABO4gIAAB+sAgAAKeACAAAOUAIAAN8WAgABTYxA=
-Date: Thu, 8 Oct 2020 16:39:21 +0000
-Message-ID: <DM6PR11MB2841DA57E5AAFB8409CFA036DD0B0@DM6PR11MB2841.namprd11.prod.outlook.com>
+Thread-Index: AQHWm06cVdQZOfJAqUq6P9wAQIqk66mKKyCAgACGDICAAB03gIABoskggAAXogCAAA5GgIAABE1ggACTy4CAABO4gIAAB+sAgAAKeACAAAYyAIAAkRLg
+Date: Thu, 8 Oct 2020 16:42:48 +0000
+Message-ID: <DM6PR11MB284123995577294BE3E0C36EDD0B0@DM6PR11MB2841.namprd11.prod.outlook.com>
 References: <b4f6b5d1-2cf4-ae7a-3e57-b66230a58453@linux.intel.com>
  <20201006170241.GM1874917@unreal>
  <DM6PR11MB2841C531FC27DB41E078C52BDD0A0@DM6PR11MB2841.namprd11.prod.outlook.com>
@@ -108,9 +112,8 @@ References: <b4f6b5d1-2cf4-ae7a-3e57-b66230a58453@linux.intel.com>
  <CAPcyv4gz=mMTfLO4mAa34MEEXgg77o1AWrT6aguLYODAWxbQDQ@mail.gmail.com>
  <20201008070032.GG13580@unreal>
  <CAPcyv4jUbNaR6zoHdSNf1Rsq7MUp2RvdUtDGrmi5Be6hK_oybg@mail.gmail.com>
- <20201008075048.GA254837@kroah.com>
- <BY5PR12MB432291F0683A2295170C2F3BDC0B0@BY5PR12MB4322.namprd12.prod.outlook.com>
-In-Reply-To: <BY5PR12MB432291F0683A2295170C2F3BDC0B0@BY5PR12MB4322.namprd12.prod.outlook.com>
+ <20201008080010.GK13580@unreal>
+In-Reply-To: <20201008080010.GK13580@unreal>
 Accept-Language: en-US
 Content-Language: en-US
 X-MS-Has-Attach: 
@@ -118,47 +121,48 @@ X-MS-TNEF-Correlator:
 dlp-product: dlpe-windows
 dlp-reaction: no-action
 dlp-version: 11.5.1.3
-authentication-results: nvidia.com; dkim=none (message not signed)
- header.d=none;nvidia.com; dmarc=none action=none header.from=intel.com;
+authentication-results: kernel.org; dkim=none (message not signed)
+ header.d=none;kernel.org; dmarc=none action=none header.from=intel.com;
 x-originating-ip: [50.38.47.144]
 x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: 1a78342d-d04e-40b5-d9ac-08d86ba8b5b1
+x-ms-office365-filtering-correlation-id: 889d3152-efc9-4ed4-5145-08d86ba930d3
 x-ms-traffictypediagnostic: DM5PR11MB1353:
 x-ld-processed: 46c98d88-e344-4ed4-8496-4ed7712e255d,ExtAddr,ExtFwd
 x-ms-exchange-transport-forked: True
-x-microsoft-antispam-prvs: <DM5PR11MB1353CBFA39A0CCD5D20D304BDD0B0@DM5PR11MB1353.namprd11.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:7219;
+x-microsoft-antispam-prvs: <DM5PR11MB135319A57C9E9864243A134FDD0B0@DM5PR11MB1353.namprd11.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:6108;
 x-ms-exchange-senderadcheck: 1
 x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: KfCCpnY/ZCPE8ozVkQhN0zIwTfYH0JvzbhtpfkwXUN9fanPIOFDzeB75LdQjEhm8sMsYD3YpKfANepRa8zg1l3FcJiIlcBdtAI/58e9VvPYXUpaTgJ75zLji5iQjeooXOrBcwhlljGjJQlZ+X5SiSg2urkG0duL9jq3yPzXH3BiBFH2ILYMqg9EhfY8FhdGN/6Sx+MnVyaK1rj/iRq/UyBVZ0Wkc1/5T98TB1ZcGoKEwoRHN6KWteO6DNEhLZJkUDQNjTR44ObjNRBmcTuKQ750YWRphpeo+kDut1VaDyGR/FoipXSRgzmK28H7o8XEzHcOL6u6jp8UnCDyJdmKp+OwRhgBnHmp7wzXh09ObCWn3rY3UKC3a9eLUX4HApzjK+9jWn5PUiSZFAAe57rwt1w==
+x-microsoft-antispam-message-info: HXu5nDbA3s9D/0HSbd0qKHjODtcmOOf0jeCkG7ciN+VXkTtufjQnSFtXGOgNQ5D5GUo+hLcN5OLs1IxtsL6bymtWFi/3mDRYInmeBRU2yMyRLNh9c42HMh+YR69NaXUEoboS7DZp5o0IDatjz+SsvKC8BQAcsRO+N842Xz819xXkHTSeQR1AnDu27n54Lo13/EgQV/ReExMXUWDk3lkXebJeMNgeBvhVgle5ILQL6XCzmOkGf7a2otOUdYZHg5NteSegMfzL6rv+3WDRY2OBOVz9t/Mt8iDbS9YL/r9w7zhXMCVPs6C5m5MMs/Rnmq69m3RXq6WWPdkyW3EjFl6cmrbmzkMCtK4O1PPke6LunpHrYQxlenjvolDzjy4x7F5lHQmZfkjv4bHgqTsW8l9U0w==
 x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:DM6PR11MB2841.namprd11.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(346002)(39860400002)(376002)(396003)(366004)(136003)(8676002)(71200400001)(83080400001)(26005)(6506007)(53546011)(4326008)(52536014)(5660300002)(66446008)(64756008)(66556008)(66476007)(76116006)(186003)(478600001)(66946007)(83380400001)(7696005)(316002)(9686003)(8936002)(55016002)(966005)(110136005)(54906003)(33656002)(2906002)(6636002)(86362001)(7416002);
+ SFS:(4636009)(136003)(366004)(396003)(376002)(39860400002)(346002)(8936002)(55016002)(9686003)(6636002)(86362001)(2906002)(7416002)(966005)(110136005)(54906003)(33656002)(5660300002)(52536014)(66476007)(76116006)(66446008)(64756008)(66556008)(4326008)(71200400001)(8676002)(83080400001)(6506007)(53546011)(26005)(7696005)(316002)(478600001)(186003)(83380400001)(66946007);
  DIR:OUT; SFP:1102; 
-x-ms-exchange-antispam-messagedata: EDDGCOdeBFW0yl7FZPo27rtlq/0W8YPKoHnPND75obNAEJW87iUxPnHXr/aP71QYc0OSOOErojA+UFpfBmy2jF2gvhxSPNsJdkO/yTM2n8lPH7zY/xDZltlawepsQHwi0kJn3Ck8BSiNdrABYACTgw3mq0FdGnc65xUXi9mhWswGR+xtDCuW+b+JGfBwjuBqA7fd+zRTY8Y3odDxd6ZSDQ1oqILlTlJlNkxtoSrr78AMpko2MiCxy/ld0yQG4SdO5fr2jaSalaIPI7B+OMbr6je+d4oLXZKeSD6tnmyxQIao4rmbdG16q8PKj+oOcWrNPoSa0TvfmtlqKP4pFRTW/k8ZbQRvfode045aAQJPKwlKdE22FSNoYvZRS3uv0GKZ6L6viog9q4wpBvCNhyAKQO9W71aiakBkkYcVQOuyk3CCgHW12R94+xWtwKHJ/RudgraL7FhtW2SomULZFcTFs0SoKpVfCYMKazR6aWguzseas4EQ4qTKGVNX32hNQuJzm5AGdy0mtQxuXmYe3dw4ZpdN0JKnp5X1cfJgLEkCoX7xbINMY1eTZzBOEMffMStElFOFpLg256Hkl3bDWWM7bXKk33ezI6IWSq7ar8ohHCTcePF/pSOilxXBvKz9VNHkF5dOTOylUQ77Ja9o54L3Ww==
+x-ms-exchange-antispam-messagedata: /9U6+yszD3AmXSWOBusdmspr6zcjGFkq6NBQT6XyBQWbidTb5tLXukh6pR7XDSall2qKm3Xrc+dVFF3dZNZZeTYOhaeGVOSivLZFEcyOF9yE1Bjy+FUzStgH+OJiH7vZDXze7SL+tF1JEJVniS3ibZae1O+tcbKZ3Fj2v2r6GOVFEfDTxAa1OSo5Ho1I3GhZXzzVMXV/b21oq17OJ/mKjwYFUnl4Z/bpZFA6A/3p3FVql7e9huKGNjYy04lw1UmnagoV6atsmCVXn0mpVh8SR4xRNCID6X058jXG5fP8zAlVcLwAYe9p0p4dGBGwAQKSzjzURRYe5Wb+88151UfnAJ57zzmP1RRXZikh8YPV/Hia0zU1bf9dCTEoFzvmlv5XNOC5rAb+oQFnQF7Tj5so7eCERueOZ4N1mTkvCEuHi3yQXsiIt/Q4nHmWwcOxcb04r8WL+12VBlbc8E3aSaNTdi7DZYlxCuV+FW2F32rbzQkyNzm2xkmhK9uGUtuWlb/C+cGk21XFlXKyw5dfxl3vVVVzIiVVXA3GpOuZ8q73aXXjdhH9uCB9SUD/KJzvlenDgRJ7FvzbdGGbxzRIF9zB5h1jlCgndCCxmkSv7v9s4IT9K15p56xDjCUQbvrC2lUleW7+RNAg3GJ5e519et3YIw==
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
 X-MS-Exchange-CrossTenant-AuthAs: Internal
 X-MS-Exchange-CrossTenant-AuthSource: DM6PR11MB2841.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1a78342d-d04e-40b5-d9ac-08d86ba8b5b1
-X-MS-Exchange-CrossTenant-originalarrivaltime: 08 Oct 2020 16:39:21.8785 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 889d3152-efc9-4ed4-5145-08d86ba930d3
+X-MS-Exchange-CrossTenant-originalarrivaltime: 08 Oct 2020 16:42:48.4526 (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
 X-MS-Exchange-CrossTenant-id: 46c98d88-e344-4ed4-8496-4ed7712e255d
 X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: JToqod165t35cNPQaDjsQMmrQ2JPUh+X+a6e1TE+8LgD4j6aLDMo8Un7O9gIKiBUddfNDv5hViNiAIGZ/YPTaWa/g5iZ998wepUpUUv3hAM=
+X-MS-Exchange-CrossTenant-userprincipalname: Q10tNWYYcxC4Bos/b97HY6heqpH64ybtEt6Zfoy1HD5CGoEto7fdD0Z3lQ104g+6MBv85KsOs+X25rnXOBI8SaIJ9jY2+u5STrTyNavPvw8=
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM5PR11MB1353
 X-OriginatorOrg: intel.com
 Cc: "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
- "parav@mellanox.com" <parav@mellanox.com>, Leon Romanovsky <leon@kernel.org>,
- "tiwai@suse.de" <tiwai@suse.de>,
+ "parav@mellanox.com" <parav@mellanox.com>, "tiwai@suse.de" <tiwai@suse.de>,
  "netdev@vger.kernel.org" <netdev@vger.kernel.org>,
  Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
  "ranjani.sridharan@linux.intel.com" <ranjani.sridharan@linux.intel.com>,
  "fred.oh@linux.intel.com" <fred.oh@linux.intel.com>,
  "linux-rdma@vger.kernel.org" <linux-rdma@vger.kernel.org>,
  "dledford@redhat.com" <dledford@redhat.com>,
- "broonie@kernel.org" <broonie@kernel.org>, Jason Gunthorpe <jgg@nvidia.com>,
+ "broonie@kernel.org" <broonie@kernel.org>, Parav Pandit <parav@nvidia.com>,
+ Jason Gunthorpe <jgg@nvidia.com>,
+ "gregkh@linuxfoundation.org" <gregkh@linuxfoundation.org>,
  "kuba@kernel.org" <kuba@kernel.org>, "Saleem,
  Shiraz" <shiraz.saleem@intel.com>, "davem@davemloft.net" <davem@davemloft.net>,
  "Patil, Kiran" <kiran.patil@intel.com>
@@ -178,100 +182,64 @@ Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 > -----Original Message-----
-> From: Parav Pandit <parav@nvidia.com>
-> Sent: Thursday, October 8, 2020 4:10 AM
-> To: gregkh@linuxfoundation.org; Williams, Dan J <dan.j.williams@intel.com=
->
-> Cc: Leon Romanovsky <leon@kernel.org>; Ertman, David M
-> <david.m.ertman@intel.com>; Pierre-Louis Bossart <pierre-
+> From: Leon Romanovsky <leon@kernel.org>
+> Sent: Thursday, October 8, 2020 1:00 AM
+> To: Williams, Dan J <dan.j.williams@intel.com>
+> Cc: Ertman, David M <david.m.ertman@intel.com>; Parav Pandit
+> <parav@nvidia.com>; Pierre-Louis Bossart <pierre-
 > louis.bossart@linux.intel.com>; alsa-devel@alsa-project.org;
 > parav@mellanox.com; tiwai@suse.de; netdev@vger.kernel.org;
 > ranjani.sridharan@linux.intel.com; fred.oh@linux.intel.com; linux-
 > rdma@vger.kernel.org; dledford@redhat.com; broonie@kernel.org; Jason
-> Gunthorpe <jgg@nvidia.com>; kuba@kernel.org; Saleem, Shiraz
-> <shiraz.saleem@intel.com>; davem@davemloft.net; Patil, Kiran
-> <kiran.patil@intel.com>
-> Subject: RE: [PATCH v2 1/6] Add ancillary bus support
+> Gunthorpe <jgg@nvidia.com>; gregkh@linuxfoundation.org;
+> kuba@kernel.org; Saleem, Shiraz <shiraz.saleem@intel.com>;
+> davem@davemloft.net; Patil, Kiran <kiran.patil@intel.com>
+> Subject: Re: [PATCH v2 1/6] Add ancillary bus support
 >=20
+> On Thu, Oct 08, 2020 at 12:38:00AM -0700, Dan Williams wrote:
+> > On Thu, Oct 8, 2020 at 12:01 AM Leon Romanovsky <leon@kernel.org>
+> wrote:
+> > [..]
+> > > All stated above is my opinion, it can be different from yours.
+> >
+> > Yes, but we need to converge to move this forward. Jason was involved
+> > in the current organization for registration, Greg was angling for
+> > this to be core functionality. I have use cases outside of RDMA and
+> > netdev. Parav was ok with the current organization. The SOF folks
+> > already have a proposed incorporation of it. The argument I am hearing
+> > is that "this registration api seems hard for driver writers" when we
+> > have several driver writers who have already taken a look and can make
+> > it work. If you want to follow on with a simpler wrappers for your use
+> > case, great, but I do not yet see anyone concurring with your opinion
+> > that the current organization is irretrievably broken or too obscure
+> > to use.
 >=20
-> > From: gregkh@linuxfoundation.org <gregkh@linuxfoundation.org>
-> > Sent: Thursday, October 8, 2020 1:21 PM
-> >
-> > On Thu, Oct 08, 2020 at 12:38:00AM -0700, Dan Williams wrote:
-> > > On Thu, Oct 8, 2020 at 12:01 AM Leon Romanovsky <leon@kernel.org>
-> > wrote:
-> > > [..]
-> > > > All stated above is my opinion, it can be different from yours.
-> > >
-> > > Yes, but we need to converge to move this forward. Jason was involved
-> > > in the current organization for registration, Greg was angling for
-> > > this to be core functionality. I have use cases outside of RDMA and
-> > > netdev. Parav was ok with the current organization. The SOF folks
-> > > already have a proposed incorporation of it. The argument I am hearin=
-g
-> > > is that "this registration api seems hard for driver writers" when we
-> > > have several driver writers who have already taken a look and can mak=
-e
-> > > it work. If you want to follow on with a simpler wrappers for your us=
-e
-> > > case, great, but I do not yet see anyone concurring with your opinion
-> > > that the current organization is irretrievably broken or too obscure
-> > > to use.
-> >
-> > That's kind of because I tuned out of this thread a long time ago :)
-> >
-> > I do agree with Leon that I think the current patch is not the correct =
-way to
-> > do this the easiest, but don't have a competing proposal to show what I
-> > mean.
-> >
-> > Yet.
-> Please consider the approach of ib_alloc_device(), ib_dealloc_device() an=
-d
-> ib_register_register()/unregister().
-> (a) It avoids driver calling put_device() on error unwinding path.
-> (b) still achieves container_of().
+> Can it be that I'm first one to use this bus for very large driver (>120K=
+ LOC)
+> that has 5 different ->probe() flows?
 >=20
-> >
-> > Let's see what happens after 5.10-rc1 is out, it's too late now for any=
- of this
-> > for this next merge window so we can not worry about it for a few weeks=
-.
-> >
-> Ok. INHO giving direction to Dave and others to either refine current API=
-s or
-> follow ib_alloc_device() approach will be a helpful input.
+> For example, this https://lore.kernel.org/linux-
+> rdma/20201006172317.GN1874917@unreal/
+> hints to me that this bus wasn't used with anything complex as it was ini=
+tially
+> intended.
 >=20
-> ancillary bus can do better APIs than the newly (march 2020 !) introduced
-> vdpa bus [1] and its drivers which follows put_device() pattern in [2] an=
-d [3]
-> in error unwinding path.
->=20
-> [1] https://elixir.bootlin.com/linux/v5.9-rc8/source/drivers/vdpa/vdpa.c
-> [2] https://elixir.bootlin.com/linux/v5.9-
-> rc8/source/drivers/vdpa/ifcvf/ifcvf_main.c#L475
-> [3] https://elixir.bootlin.com/linux/v5.9-
-> rc8/source/drivers/vdpa/mlx5/net/mlx5_vnet.c#L1967
->=20
-> > thanks,
-> >
-> > greg k-h
+> And regarding registration, I said many times that init()/add() scheme is=
+ ok,
+> the inability
+> to call to uninit() after add() failure is not ok from my point of view.
 
-IMHO we need to stay with the two step registration process that we current=
-ly
-have (initialize then add) so that the driver writer knows if they need to =
-explicitly=20
-free the memory allocated for auxillary_device.  Sound folks have indicated=
- that=20
-this really helps their flow also.  Greg asked to have these two functions =
-fully
-commented with kernel-doc headers, which has been done.
+So, to address your concern of not being able to call an uninit after a add=
+ failure
+I can break the unregister flow into two steps also.  An uninit and a delet=
+e to mirror
+the registration process's init and add.
 
-Without enforcing an "auxillary_object" that contains just an auxillary_dev=
-ice and a
-void pointer, we cannot do the allocation of memory in the bus infrastructu=
-re without
-breaking the container_of functionality.
+Would this make the registration and un-registration flow acceptable?
 
 -DaveE
 
+
+
+>=20
+> Thanks

@@ -2,92 +2,75 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 91EB5286FA8
-	for <lists+alsa-devel@lfdr.de>; Thu,  8 Oct 2020 09:40:00 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0B6F8286FC8
+	for <lists+alsa-devel@lfdr.de>; Thu,  8 Oct 2020 09:47:27 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 0172016B3;
-	Thu,  8 Oct 2020 09:39:10 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0172016B3
+	by alsa0.perex.cz (Postfix) with ESMTPS id 95ED516B3;
+	Thu,  8 Oct 2020 09:46:36 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 95ED516B3
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1602142800;
-	bh=7k08qwQfpMwLrbStV7qsIbcIjDaV+hjvgw+XZD6Qe5c=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
+	s=default; t=1602143246;
+	bh=+A3n7H3O5azOT0yuWuSQEJaGjEMj2yrOA1vdPMkMRvM=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=LMfACzP+ZrXpyZ5RpgmdfZ5sHROy/QvzO8I8QMgz1BQsiEWYkbvmc9zkCCHrk+pQC
-	 V200gE1CPMhGHpzzpwRoja7OMs0SaZwh2+hgJGC+9BaJOOn4fauRBgEezIu17KQosH
-	 pvWJ9c2OjH2pwqo2gxk9JKyugfcU6nTqyQmZ0eIs=
+	b=dKAYOJ3jKgKiqchw2+r7vl4Cr+E+7Ctjy5MuVHfOVH7ADPWkex/PhsDZ9hbnmNvd0
+	 BYOoBFqjdKDIMwUAQJCmXpaBRbdgE4SSBMAFkqgc46CyalsmBbjkbC3TpwCUnswrgy
+	 JAKeTZwle5AwztICy0GNFsqpdpGGvpMI84siPBl0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 87CA1F80090;
-	Thu,  8 Oct 2020 09:38:19 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 5D77CF80167;
+	Thu,  8 Oct 2020 09:45:46 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id BDE39F80164; Thu,  8 Oct 2020 09:38:16 +0200 (CEST)
+ id EDD1AF80164; Thu,  8 Oct 2020 09:45:43 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
-Received: from mail-ed1-x544.google.com (mail-ed1-x544.google.com
- [IPv6:2a00:1450:4864:20::544])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=-0.8 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+ DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id F0E50F80090
- for <alsa-devel@alsa-project.org>; Thu,  8 Oct 2020 09:38:12 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz F0E50F80090
+ by alsa1.perex.cz (Postfix) with ESMTPS id C8DECF8015B
+ for <alsa-devel@alsa-project.org>; Thu,  8 Oct 2020 09:45:31 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C8DECF8015B
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=intel-com.20150623.gappssmtp.com
- header.i=@intel-com.20150623.gappssmtp.com header.b="hO3HikQG"
-Received: by mail-ed1-x544.google.com with SMTP id g4so4843398edk.0
- for <alsa-devel@alsa-project.org>; Thu, 08 Oct 2020 00:38:12 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=intel-com.20150623.gappssmtp.com; s=20150623;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=7k08qwQfpMwLrbStV7qsIbcIjDaV+hjvgw+XZD6Qe5c=;
- b=hO3HikQGtQ2Glry45pwdFfYKBL3G/BFeYiZ4ZrFTX1i26VTBTwDrvp7Z7eeSOCWfUN
- RLFGiHATP63YeXTRMVeAq/Wdj1owvOmlpmZDzqimdcNvNofGf+f/bAKMGhe7PZJUMq5z
- CG9VlV8pMYis1juIxkqxfapI+2ipJX2+X1TNs6JsE5qZnb47VeZOtIdNDWJc2gajT3Jo
- iqAUN6TaPJ1PLwBudZmOOU1WqrMOaKADTs7ZIXTR58wE6fknEI4bZIfXVEBls70ROb1k
- OYI/izeoLMIh6L5LoFwnzU9RXrG7xs1CIJwkbnunL5HH2qvZ5bMTb2s4JmNPVlXKBrII
- IztQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=7k08qwQfpMwLrbStV7qsIbcIjDaV+hjvgw+XZD6Qe5c=;
- b=Ft1g+Na3cdxddH8yIK4L3545E5UZkhV6oULaBuvTt+Zm6OE9IGdxZ0BbuyXjS6F2et
- A/AIcD36FCjK7vAs+/4nnEuLcjiJt0yU69Pe1qvlCMz2Fz/BcGsI4l4ZL1kBZ858SAmX
- MAGRVBVTRE/XL5UQFqdVznEJMZLVpAqRTS67NGmgj30kaR53oNrmc8ky0ryNzSaqgBJz
- BOfzLeS2ZlQL0xJXXbCB6AIWeIQHddMH8zu5dYzMn97ENUGbwgurpKHCxxhlBnr1OwIL
- +0T7SOPvvqj7M77aPheyTJFFzfWJ0OzCrzOlgGRYoM0cWoCj7x6Hvc52pk9gPLlDsJ/8
- URMA==
-X-Gm-Message-State: AOAM5322biWpsWLMyRrwa1QLF80G2rpogHfylogcbjpFa4T1iZmHHCRI
- sgWD80GbBK16Lb6WDbhCOKovZA3E860H4XbeNELnWg==
-X-Google-Smtp-Source: ABdhPJwo4QUttfuSvz/gaCdR7TaB0KqZkh/iGI19y/GuT1erD6lrNXGl7aYlQ9066o9yHo6Bp3GCOo2Ucv40oJu/kYc=
-X-Received: by 2002:a05:6402:31b3:: with SMTP id
- dj19mr7828444edb.210.1602142691429; 
- Thu, 08 Oct 2020 00:38:11 -0700 (PDT)
-MIME-Version: 1.0
-References: <20201005182446.977325-2-david.m.ertman@intel.com>
- <20201006071821.GI1874917@unreal>
- <b4f6b5d1-2cf4-ae7a-3e57-b66230a58453@linux.intel.com>
- <20201006170241.GM1874917@unreal>
- <DM6PR11MB2841C531FC27DB41E078C52BDD0A0@DM6PR11MB2841.namprd11.prod.outlook.com>
+ dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="zfYN+6wm"
+Received: from localhost (unknown [213.57.247.131])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by mail.kernel.org (Postfix) with ESMTPSA id 8022A2184D;
+ Thu,  8 Oct 2020 07:45:28 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=default; t=1602143129;
+ bh=+A3n7H3O5azOT0yuWuSQEJaGjEMj2yrOA1vdPMkMRvM=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=zfYN+6wmABEIs4mVD+B02xxfmqC+M9b2ZR08NDrxvTqg7Qm0dWsSlPwz5tnK4Mf6N
+ O4n89Y7QQHF9jweRbr0HWoQba3uuea/f615itJEwjCPkKwVKKFNUTpu/k9pa2DToqX
+ +ipjKIkKhQQR6QD29rFsUZovHTHFC//9D4sd3NH4=
+Date: Thu, 8 Oct 2020 10:45:25 +0300
+From: Leon Romanovsky <leon@kernel.org>
+To: Parav Pandit <parav@nvidia.com>
+Subject: Re: [PATCH v2 1/6] Add ancillary bus support
+Message-ID: <20201008074525.GJ13580@unreal>
+References: <DM6PR11MB2841C531FC27DB41E078C52BDD0A0@DM6PR11MB2841.namprd11.prod.outlook.com>
  <20201007192610.GD3964015@unreal>
  <BY5PR12MB43221A308CE750FACEB0A806DC0A0@BY5PR12MB4322.namprd12.prod.outlook.com>
  <DM6PR11MB28415A8E53B5FFC276D5A2C4DD0A0@DM6PR11MB2841.namprd11.prod.outlook.com>
- <20201008052137.GA13580@unreal>
- <CAPcyv4gz=mMTfLO4mAa34MEEXgg77o1AWrT6aguLYODAWxbQDQ@mail.gmail.com>
- <20201008070032.GG13580@unreal>
-In-Reply-To: <20201008070032.GG13580@unreal>
-From: Dan Williams <dan.j.williams@intel.com>
-Date: Thu, 8 Oct 2020 00:38:00 -0700
-Message-ID: <CAPcyv4jUbNaR6zoHdSNf1Rsq7MUp2RvdUtDGrmi5Be6hK_oybg@mail.gmail.com>
-Subject: Re: [PATCH v2 1/6] Add ancillary bus support
-To: Leon Romanovsky <leon@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
+ <c90316f5-a5a9-fe22-ec11-a30a54ff0a9d@linux.intel.com>
+ <DM6PR11MB284147D4BC3FD081B9F0B8BBDD0A0@DM6PR11MB2841.namprd11.prod.outlook.com>
+ <c88b0339-48c6-d804-6fbd-b2fc6fa826d6@linux.intel.com>
+ <BY5PR12MB43222FD5959E490E331D680ADC0B0@BY5PR12MB4322.namprd12.prod.outlook.com>
+ <20201008052623.GB13580@unreal>
+ <BY5PR12MB4322D48FADAAAD66DE7159D7DC0B0@BY5PR12MB4322.namprd12.prod.outlook.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <BY5PR12MB4322D48FADAAAD66DE7159D7DC0B0@BY5PR12MB4322.namprd12.prod.outlook.com>
 Cc: "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
  "kuba@kernel.org" <kuba@kernel.org>, "parav@mellanox.com" <parav@mellanox.com>,
  "tiwai@suse.de" <tiwai@suse.de>,
@@ -97,12 +80,12 @@ Cc: "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
  "fred.oh@linux.intel.com" <fred.oh@linux.intel.com>,
  "linux-rdma@vger.kernel.org" <linux-rdma@vger.kernel.org>,
  "dledford@redhat.com" <dledford@redhat.com>,
- "broonie@kernel.org" <broonie@kernel.org>, Parav Pandit <parav@nvidia.com>,
- Jason Gunthorpe <jgg@nvidia.com>,
+ "broonie@kernel.org" <broonie@kernel.org>, Jason Gunthorpe <jgg@nvidia.com>,
  "gregkh@linuxfoundation.org" <gregkh@linuxfoundation.org>, "Ertman,
- David M" <david.m.ertman@intel.com>, "Saleem,
- Shiraz" <shiraz.saleem@intel.com>, "davem@davemloft.net" <davem@davemloft.net>,
- "Patil, Kiran" <kiran.patil@intel.com>
+ David M" <david.m.ertman@intel.com>, "Williams,
+ Dan J" <dan.j.williams@intel.com>, "Saleem, Shiraz" <shiraz.saleem@intel.com>,
+ "davem@davemloft.net" <davem@davemloft.net>, "Patil,
+ Kiran" <kiran.patil@intel.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -118,18 +101,241 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Thu, Oct 8, 2020 at 12:01 AM Leon Romanovsky <leon@kernel.org> wrote:
-[..]
-> All stated above is my opinion, it can be different from yours.
+On Thu, Oct 08, 2020 at 07:14:17AM +0000, Parav Pandit wrote:
+>
+>
+> > From: Leon Romanovsky <leon@kernel.org>
+> > Sent: Thursday, October 8, 2020 10:56 AM
+> >
+> > On Thu, Oct 08, 2020 at 04:56:01AM +0000, Parav Pandit wrote:
+> > >
+> > >
+> > > > From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+> > > > Sent: Thursday, October 8, 2020 3:20 AM
+> > > >
+> > > >
+> > > > On 10/7/20 4:22 PM, Ertman, David M wrote:
+> > > > >> -----Original Message-----
+> > > > >> From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+> > > > >> Sent: Wednesday, October 7, 2020 1:59 PM
+> > > > >> To: Ertman, David M <david.m.ertman@intel.com>; Parav Pandit
+> > > > >> <parav@nvidia.com>; Leon Romanovsky <leon@kernel.org>
+> > > > >> Cc: alsa-devel@alsa-project.org; parav@mellanox.com;
+> > > > >> tiwai@suse.de; netdev@vger.kernel.org;
+> > > > >> ranjani.sridharan@linux.intel.com;
+> > > > >> fred.oh@linux.intel.com; linux-rdma@vger.kernel.org;
+> > > > >> dledford@redhat.com; broonie@kernel.org; Jason Gunthorpe
+> > > > >> <jgg@nvidia.com>; gregkh@linuxfoundation.org; kuba@kernel.org;
+> > > > >> Williams, Dan J <dan.j.williams@intel.com>; Saleem, Shiraz
+> > > > >> <shiraz.saleem@intel.com>; davem@davemloft.net; Patil, Kiran
+> > > > >> <kiran.patil@intel.com>
+> > > > >> Subject: Re: [PATCH v2 1/6] Add ancillary bus support
+> > > > >>
+> > > > >>
+> > > > >>
+> > > > >>>> Below is most simple, intuitive and matching with core APIs for
+> > > > >>>> name and design pattern wise.
+> > > > >>>> init()
+> > > > >>>> {
+> > > > >>>> 	err = ancillary_device_initialize();
+> > > > >>>> 	if (err)
+> > > > >>>> 		return ret;
+> > > > >>>>
+> > > > >>>> 	err = ancillary_device_add();
+> > > > >>>> 	if (ret)
+> > > > >>>> 		goto err_unwind;
+> > > > >>>>
+> > > > >>>> 	err = some_foo();
+> > > > >>>> 	if (err)
+> > > > >>>> 		goto err_foo;
+> > > > >>>> 	return 0;
+> > > > >>>>
+> > > > >>>> err_foo:
+> > > > >>>> 	ancillary_device_del(adev);
+> > > > >>>> err_unwind:
+> > > > >>>> 	ancillary_device_put(adev->dev);
+> > > > >>>> 	return err;
+> > > > >>>> }
+> > > > >>>>
+> > > > >>>> cleanup()
+> > > > >>>> {
+> > > > >>>> 	ancillary_device_de(adev);
+> > > > >>>> 	ancillary_device_put(adev);
+> > > > >>>> 	/* It is common to have a one wrapper for this as
+> > > > >>>> ancillary_device_unregister().
+> > > > >>>> 	 * This will match with core device_unregister() that has
+> > > > >>>> precise documentation.
+> > > > >>>> 	 * but given fact that init() code need proper error
+> > > > >>>> unwinding, like above,
+> > > > >>>> 	 * it make sense to have two APIs, and no need to export
+> > > > >>>> another symbol for unregister().
+> > > > >>>> 	 * This pattern is very easy to audit and code.
+> > > > >>>> 	 */
+> > > > >>>> }
+> > > > >>>
+> > > > >>> I like this flow +1
+> > > > >>>
+> > > > >>> But ... since the init() function is performing both device_init
+> > > > >>> and device_add - it should probably be called
+> > > > >>> ancillary_device_register, and we are back to a single exported
+> > > > >>> API for both register and unregister.
+> > > > >>
+> > > > >> Kind reminder that we introduced the two functions to allow the
+> > > > >> caller to know if it needed to free memory when initialize()
+> > > > >> fails, and it didn't need to free memory when add() failed since
+> > > > >> put_device() takes care of it. If you have a single init()
+> > > > >> function it's impossible to know which behavior to select on error.
+> > > > >>
+> > > > >> I also have a case with SoundWire where it's nice to first
+> > > > >> initialize, then set some data and then add.
+> > > > >>
+> > > > >
+> > > > > The flow as outlined by Parav above does an initialize as the
+> > > > > first step, so every error path out of the function has to do a
+> > > > > put_device(), so you would never need to manually free the memory
+> > > > > in
+> > > > the setup function.
+> > > > > It would be freed in the release call.
+> > > >
+> > > > err = ancillary_device_initialize(); if (err)
+> > > > 	return ret;
+> > > >
+> > > > where is the put_device() here? if the release function does any
+> > > > sort of kfree, then you'd need to do it manually in this case.
+> > > Since device_initialize() failed, put_device() cannot be done here.
+> > > So yes, pseudo code should have shown, if (err) {
+> > > 	kfree(adev);
+> > > 	return err;
+> > > }
+> > >
+> > > If we just want to follow register(), unregister() pattern,
+> > >
+> > > Than,
+> > >
+> > > ancillar_device_register() should be,
+> > >
+> > > /**
+> > >  * ancillar_device_register() - register an ancillary device
+> > >  * NOTE: __never directly free @adev after calling this function, even
+> > > if it returned
+> > >  * an error. Always use ancillary_device_put() to give up the reference
+> > initialized by this function.
+> > >  * This note matches with the core and caller knows exactly what to be
+> > done.
+> > >  */
+> > > ancillary_device_register()
+> > > {
+> > > 	device_initialize(&adev->dev);
+> > > 	if (!dev->parent || !adev->name)
+> > > 		return -EINVAL;
+> > > 	if (!dev->release && !(dev->type && dev->type->release)) {
+> > > 		/* core is already capable and throws the warning when
+> > release callback is not set.
+> > > 		 * It is done at drivers/base/core.c:1798.
+> > > 		 * For NULL release it says, "does not have a release()
+> > function, it is broken and must be fixed"
+> > > 		 */
+> > > 		return -EINVAL;
+> > > 	}
+> > > 	err = dev_set_name(adev...);
+> > > 	if (err) {
+> > > 		/* kobject_release() -> kobject_cleanup() are capable to
+> > detect if name is set/ not set
+> > > 		  * and free the const if it was set.
+> > > 		  */
+> > > 		return err;
+> > > 	}
+> > > 	err = device_add(&adev->dev);
+> > > 	If (err)
+> > > 		return err;
+> > > }
+> > >
+> > > Caller code:
+> > > init()
+> > > {
+> > > 	adev = kzalloc(sizeof(*foo_adev)..);
+> > > 	if (!adev)
+> > > 		return -ENOMEM;
+> > > 	err = ancillary_device_register(&adev);
+> > > 	if (err)
+> > > 		goto err;
+> > >
+> > > err:
+> > > 	ancillary_device_put(&adev);
+> > > 	return err;
+> > > }
+> > >
+> > > cleanup()
+> > > {
+> > > 	ancillary_device_unregister(&adev);
+> > > }
+> > >
+> > > Above pattern is fine too matching the core.
+> > >
+> > > If I understand Leon correctly, he prefers simple register(), unregister()
+> > pattern.
+> > > If, so it should be explicit register(), unregister() API.
+> >
+> > This is my summary
+> > https://lore.kernel.org/linux-rdma/20201008052137.GA13580@unreal
+> > The API should be symmetric.
+> >
+>
+> I disagree to your below point.
+> > 1. You are not providing driver/core API but simplification and obfuscation
+> > of basic primitives and structures. This is new layer. There is no room for
+> > a claim that we must to follow internal API.
+> If ancillary bus has
+> ancillary_device_add(), it cannot do device_initialize() and device_add() in both.
+>
+> I provided two examples and what really matters is a given patchset uses (need to use) which pattern,
+> initialize() + add(), or register() + unregister().
+>
+> As we all know that API is not added for future. It is the future patch extends it.
+> So lets wait for Pierre to reply if soundwire can follow register(), unregister() sequence.
+> This way same APIs can service both use-cases.
+>
+> Regarding,
+> > 3. You can't "ask" from users to call internal calls (put_device) over internal
+> > fields in ancillary_device.
+> In that case if should be ancillary_device_put() ancillary_device_release().
+>
+> Or we should follow the patten of ib_alloc_device [1],
+> ancillary_device_alloc()
+>     -> kzalloc(adev + dev) with compile time assert check like rdma and vdpa subsystem.
+>     ->device_initialize()
+> ancillary_device_add()
+>
+> ancillar_device_de() <- balances with add
+> ancillary_device_dealloc() <-- balances with device_alloc(), which does the put_device() + free the memory allocated in alloc().
+>
+> This approach of [1] also eliminates exposing adev.dev.release = <drivers_release_method_to_free_adev> in drivers.
+> And container_of() benefit also continues..
+>
+> [1] https://elixir.bootlin.com/linux/v5.9-rc8/source/include/rdma/ib_verbs.h#L2791
+>
 
-Yes, but we need to converge to move this forward. Jason was involved
-in the current organization for registration, Greg was angling for
-this to be core functionality. I have use cases outside of RDMA and
-netdev. Parav was ok with the current organization. The SOF folks
-already have a proposed incorporation of it. The argument I am hearing
-is that "this registration api seems hard for driver writers" when we
-have several driver writers who have already taken a look and can make
-it work. If you want to follow on with a simpler wrappers for your use
-case, great, but I do not yet see anyone concurring with your opinion
-that the current organization is irretrievably broken or too obscure
-to use.
+My code looks like this, probably yours looks the same.
+
+  247                 priv->adev[i] = kzalloc(sizeof(*priv->adev[i]), GFP_KERNEL);
+  248                 if (!priv->adev[i])
+  249                         goto init_err;
+  250
+  251                 adev = &priv->adev[i]->adev;
+  252                 adev->id = idx;
+  253                 adev->name = mlx5_adev_devices[i].suffix;
+  254                 adev->dev.parent = dev->device;
+  255                 adev->dev.release = adev_release;
+  256                 priv->adev[i]->mdev = dev;
+  257
+  258                 ret = ancillary_device_initialize(adev);
+  259                 if (ret)
+  260                         goto init_err;
+  261
+  262                 ret = ancillary_device_add(adev);
+  263                 if (ret) {
+  264                         put_device(&adev->dev);
+  265                         goto add_err;
+  266                 }
+
+Thanks

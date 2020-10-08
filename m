@@ -2,60 +2,61 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id CC831286FE0
-	for <lists+alsa-devel@lfdr.de>; Thu,  8 Oct 2020 09:51:53 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7EC8F287068
+	for <lists+alsa-devel@lfdr.de>; Thu,  8 Oct 2020 10:02:05 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 695CA16B2;
-	Thu,  8 Oct 2020 09:51:03 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 695CA16B2
+	by alsa0.perex.cz (Postfix) with ESMTPS id D0DAD16B1;
+	Thu,  8 Oct 2020 10:01:14 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D0DAD16B1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1602143513;
-	bh=YBS+MwCavDsFdeUTd1WYUDdA6c+iqbiDUCr/7HtOI4Y=;
+	s=default; t=1602144124;
+	bh=AxG+Cu4gWXF9mzIpf5u5X66cZnQ7T2FI5kxlh5iSmvQ=;
 	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=Y2wJkHfIwaQ3PYrdrp63hIcbnkq2LtvOPROkwAKgYclLSjJU9NCJO1TLsg01i4LKT
-	 XjVthqFveS4JGKjM31i6q0eybctatK3FbsW5fCTNXwa34tlat+FcnZ6lL+sKJ0Hapx
-	 hBn4V/7g66MUhOBvwIEv632NOAyRl7hHnGGlaMpg=
+	b=XQxkt2zEwa0K8svDSJ6ty51NXpdJgxSUS/yIBtL+o+zL1v1srWBLuj8suimQ3WVa+
+	 tsfFVW4JIEmrKhsTRzY3JKo7tYhNG4lLk7Ni/5OKdDHmTfkkuVyu/FCrHkVq6UnCYB
+	 ZKSha+rqxVbLLVKAICm3zI+tyBDGNuhstFJQ5cVQ=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 5E288F8015B;
-	Thu,  8 Oct 2020 09:50:13 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 50B56F80167;
+	Thu,  8 Oct 2020 10:00:25 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 4485DF80164; Thu,  8 Oct 2020 09:50:10 +0200 (CEST)
+ id 5477BF80164; Thu,  8 Oct 2020 10:00:22 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.7 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
+X-Spam-Status: No, score=-0.8 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+ DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled
+ version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id B92A5F8015A
- for <alsa-devel@alsa-project.org>; Thu,  8 Oct 2020 09:50:06 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B92A5F8015A
+ by alsa1.perex.cz (Postfix) with ESMTPS id 9DFA1F8015A
+ for <alsa-devel@alsa-project.org>; Thu,  8 Oct 2020 10:00:17 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9DFA1F8015A
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="2Btk65BK"
-Received: from localhost (83-86-74-64.cable.dynamic.v4.ziggo.nl [83.86.74.64])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
- bits)) (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id C90F42184D;
- Thu,  8 Oct 2020 07:50:03 +0000 (UTC)
+ header.b="NBhnMPiB"
+Received: from localhost (unknown [213.57.247.131])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by mail.kernel.org (Postfix) with ESMTPSA id 7826821927;
+ Thu,  8 Oct 2020 08:00:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1602143404;
- bh=YBS+MwCavDsFdeUTd1WYUDdA6c+iqbiDUCr/7HtOI4Y=;
+ s=default; t=1602144015;
+ bh=AxG+Cu4gWXF9mzIpf5u5X66cZnQ7T2FI5kxlh5iSmvQ=;
  h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=2Btk65BK/h0mFgXMRPEafb0pVYKBHvPk0aNd4i1Q2KDDX3kSYtxbJz9OgCU88iJjA
- cfmxKkC+pMryZkFLP6N68WfcvKvmhuLOFZqqJwOqgLHi5w2WvVN1q/X8jxPY8tS30W
- qnizCjT79GKXMA4zdH9kXuSDoaiTAU874K25I26o=
-Date: Thu, 8 Oct 2020 09:50:48 +0200
-From: "gregkh@linuxfoundation.org" <gregkh@linuxfoundation.org>
+ b=NBhnMPiBUad0ixKEcTOR0tHjZ2et/rEx+Ql65v7he9OtBvKy0sJ8ppNqbuWH0oWKT
+ y/fZs3dFofIdhXxoV8c7pmshcuCeiW/YjzAYbPmdX/Q363EgA+uTfG7l6lTpzSM+t/
+ q2PMcHFwYwkoqav/CRLlYiuvbcrTOnq7nCEAn/Gk=
+Date: Thu, 8 Oct 2020 11:00:10 +0300
+From: Leon Romanovsky <leon@kernel.org>
 To: Dan Williams <dan.j.williams@intel.com>
 Subject: Re: [PATCH v2 1/6] Add ancillary bus support
-Message-ID: <20201008075048.GA254837@kroah.com>
+Message-ID: <20201008080010.GK13580@unreal>
 References: <b4f6b5d1-2cf4-ae7a-3e57-b66230a58453@linux.intel.com>
  <20201006170241.GM1874917@unreal>
  <DM6PR11MB2841C531FC27DB41E078C52BDD0A0@DM6PR11MB2841.namprd11.prod.outlook.com>
@@ -71,7 +72,7 @@ Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 In-Reply-To: <CAPcyv4jUbNaR6zoHdSNf1Rsq7MUp2RvdUtDGrmi5Be6hK_oybg@mail.gmail.com>
 Cc: "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
- "parav@mellanox.com" <parav@mellanox.com>, Leon Romanovsky <leon@kernel.org>,
+ "kuba@kernel.org" <kuba@kernel.org>, "parav@mellanox.com" <parav@mellanox.com>,
  "tiwai@suse.de" <tiwai@suse.de>,
  "netdev@vger.kernel.org" <netdev@vger.kernel.org>,
  Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
@@ -80,7 +81,8 @@ Cc: "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
  "linux-rdma@vger.kernel.org" <linux-rdma@vger.kernel.org>,
  "dledford@redhat.com" <dledford@redhat.com>,
  "broonie@kernel.org" <broonie@kernel.org>, Parav Pandit <parav@nvidia.com>,
- Jason Gunthorpe <jgg@nvidia.com>, "kuba@kernel.org" <kuba@kernel.org>, "Ertman,
+ Jason Gunthorpe <jgg@nvidia.com>,
+ "gregkh@linuxfoundation.org" <gregkh@linuxfoundation.org>, "Ertman,
  David M" <david.m.ertman@intel.com>, "Saleem,
  Shiraz" <shiraz.saleem@intel.com>, "davem@davemloft.net" <davem@davemloft.net>,
  "Patil, Kiran" <kiran.patil@intel.com>
@@ -103,7 +105,7 @@ On Thu, Oct 08, 2020 at 12:38:00AM -0700, Dan Williams wrote:
 > On Thu, Oct 8, 2020 at 12:01 AM Leon Romanovsky <leon@kernel.org> wrote:
 > [..]
 > > All stated above is my opinion, it can be different from yours.
-> 
+>
 > Yes, but we need to converge to move this forward. Jason was involved
 > in the current organization for registration, Greg was angling for
 > this to be core functionality. I have use cases outside of RDMA and
@@ -116,18 +118,13 @@ On Thu, Oct 08, 2020 at 12:38:00AM -0700, Dan Williams wrote:
 > that the current organization is irretrievably broken or too obscure
 > to use.
 
-That's kind of because I tuned out of this thread a long time ago :)
+Can it be that I'm first one to use this bus for very large driver (>120K LOC)
+that has 5 different ->probe() flows?
 
-I do agree with Leon that I think the current patch is not the correct
-way to do this the easiest, but don't have a competing proposal to show
-what I mean.
+For example, this https://lore.kernel.org/linux-rdma/20201006172317.GN1874917@unreal/
+hints to me that this bus wasn't used with anything complex as it was initially intended.
 
-Yet.
+And regarding registration, I said many times that init()/add() scheme is ok, the inability
+to call to uninit() after add() failure is not ok from my point of view.
 
-Let's see what happens after 5.10-rc1 is out, it's too late now for any
-of this for this next merge window so we can not worry about it for a
-few weeks.
-
-thanks,
-
-greg k-h
+Thanks

@@ -2,87 +2,87 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D2E78288A7A
-	for <lists+alsa-devel@lfdr.de>; Fri,  9 Oct 2020 16:13:26 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 07F75288AD8
+	for <lists+alsa-devel@lfdr.de>; Fri,  9 Oct 2020 16:28:53 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 2D410167F;
-	Fri,  9 Oct 2020 16:12:36 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2D410167F
+	by alsa0.perex.cz (Postfix) with ESMTPS id 4C47D1658;
+	Fri,  9 Oct 2020 16:28:02 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4C47D1658
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1602252806;
-	bh=3SUXpW3rlIggCALm8/0qF+2V9kPNhhZJ2x5JVmWCIUE=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=MyaaIf3f1P8g+aKsTLUBM0YurdX4sQbw+qsDzgBdb/BWHLvDCi1z4QtVRe2CoTFcF
-	 LwJQ2zN96FFUyResd6xfftgBa7YrI2LWNvNkcOOus2sGLQHcLX5dua5JVA0N8Xes73
-	 AsxxcJaFtxa7oZMAbocTdTOZ17YYptD7oGmgJ3TI=
+	s=default; t=1602253732;
+	bh=g79A2zWaiQzREGsuYtTY5BWsaj1TKuX6pMtdTz51DH8=;
+	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=VunHeCurW45+sGcvoiufzfsCWs1nlW4QGgkGpjOgw9vmr+iggJrhG30BKhHHuOjnu
+	 e+OVuAwaWpwOxMXS1S065RwModrAsmFBzRJxHd+t3AHhowrCAslibRAhIiZGBHM5rD
+	 yihlvRZbSer8HU9nTbBbK8D/LYd3OgOFn74dcAzU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id CE6FEF80165;
-	Fri,  9 Oct 2020 16:11:45 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id CF6F3F80165;
+	Fri,  9 Oct 2020 16:27:11 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 1DAFEF8015B; Fri,  9 Oct 2020 16:11:44 +0200 (CEST)
+ id A05A7F8015B; Fri,  9 Oct 2020 16:27:09 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
- [185.132.182.106])
+X-Spam-Status: No, score=-0.1 required=5.0 tests=NICE_REPLY_A,PRX_BODY_72,
+ SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id E7DFBF800BF
- for <alsa-devel@alsa-project.org>; Fri,  9 Oct 2020 16:11:37 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E7DFBF800BF
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=st.com header.i=@st.com header.b="KqOg1l/1"
-Received: from pps.filterd (m0046037.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
- 099E6gKg023406; Fri, 9 Oct 2020 16:11:36 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=st.com;
- h=from : to : cc : subject
- : date : message-id : mime-version : content-type; s=STMicroelectronics;
- bh=WcYzIrxq7N+aUYUKl688o+n04s/rv+LC7NMu3WwjcqM=;
- b=KqOg1l/1qw6dDVDNv3C9hST5SEVFVwaZ4+PWpq1PkvTA/f1m6e1OAXiE3Fi4jJtvy6qU
- qIrzupcBnSPUJGc4eRL0+3MWir3x4hl1qpDO6PB7d2d+p1MlT3SMr1QQujgONCPbH1Tn
- W0L+V8PxkcuxfoinpN6JMxLvpxEBFnZKA0yUy8zJXRBqVcm9kKne5JQzntJaVYTKeCgx
- eI+HBlomv2C8zVRanl1BA2cn6eDib8XYwy8LDhSh7k3aWRw875AMYoCB4t9pVmx8yoF0
- +Wwu7SyGrxzV6tid+HviLECfi35J0vBVPJuN2Nmyl9z2gZshk/de5h3S19YnDVO7xIwj yg== 
-Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com with ESMTP id 3429j64v27-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Fri, 09 Oct 2020 16:11:36 +0200
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 0E25C10002A;
- Fri,  9 Oct 2020 16:11:34 +0200 (CEST)
-Received: from Webmail-eu.st.com (sfhdag2node2.st.com [10.75.127.5])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id B66E32BA2A0;
- Fri,  9 Oct 2020 16:11:34 +0200 (CEST)
-Received: from localhost (10.75.127.44) by SFHDAG2NODE2.st.com (10.75.127.5)
- with Microsoft SMTP Server (TLS) id 15.0.1473.3; Fri, 9 Oct 2020 16:10:54
- +0200
-From: Olivier Moysan <olivier.moysan@st.com>
-To: <lgirdwood@gmail.com>, <broonie@kernel.org>, <perex@perex.cz>,
- <tiwai@suse.com>, <alexandre.torgue@st.com>, <robh@kernel.org>,
- <mark.rutland@arm.com>
-Subject: [PATCH v4] ASoC: dt-bindings: stm32: convert sai to json-schema
-Date: Fri, 9 Oct 2020 16:10:51 +0200
-Message-ID: <20201009141051.27365-1-olivier.moysan@st.com>
-X-Mailer: git-send-email 2.17.1
+ by alsa1.perex.cz (Postfix) with ESMTPS id D7436F800BF
+ for <alsa-devel@alsa-project.org>; Fri,  9 Oct 2020 16:27:01 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D7436F800BF
+IronPort-SDR: Gdg4uHvvKVx+VKri10FsiLIOSNp3Q8dInHcUx85YXnW/ufGo+kkE9s9znWg5DZkfOJKXar6RYq
+ FChmqZW7HDZg==
+X-IronPort-AV: E=McAfee;i="6000,8403,9768"; a="153324093"
+X-IronPort-AV: E=Sophos;i="5.77,355,1596524400"; d="scan'208";a="153324093"
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from fmsmga001.fm.intel.com ([10.253.24.23])
+ by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 09 Oct 2020 07:26:57 -0700
+IronPort-SDR: 3ts88toX+FpcSjw/MRIl9XJpFPlGTxsTARgljTKSbiRwG08//VzNz1NdpgGIcGrXsOiuc7viXz
+ hpGhmMNa224Q==
+X-IronPort-AV: E=Sophos;i="5.77,355,1596524400"; d="scan'208";a="419460732"
+Received: from sjkim-mobl1.amr.corp.intel.com (HELO [10.212.131.60])
+ ([10.212.131.60])
+ by fmsmga001-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 09 Oct 2020 07:26:55 -0700
+Subject: Re: [PATCH v2 1/6] Add ancillary bus support
+To: Dan Williams <dan.j.williams@intel.com>,
+ "Ertman, David M" <david.m.ertman@intel.com>
+References: <20201005182446.977325-1-david.m.ertman@intel.com>
+ <20201005182446.977325-2-david.m.ertman@intel.com>
+ <20201006172317.GN1874917@unreal>
+ <DM6PR11MB2841976B8E89C980CCC29AD2DD0B0@DM6PR11MB2841.namprd11.prod.outlook.com>
+ <CAPcyv4hoS7ZT_PPrXqFBzEHBKL-O4x1jHtY8x9WWesCPA=2E0g@mail.gmail.com>
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Message-ID: <7dbbc51c-2cbd-a7c5-69de-76f190f1d130@linux.intel.com>
+Date: Fri, 9 Oct 2020 09:26:54 -0500
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.10.0
 MIME-Version: 1.0
-Content-Type: text/plain
-X-Originating-IP: [10.75.127.44]
-X-ClientProxiedBy: SFHDAG7NODE1.st.com (10.75.127.19) To SFHDAG2NODE2.st.com
- (10.75.127.5)
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.235, 18.0.687
- definitions=2020-10-09_06:2020-10-09,
- 2020-10-09 signatures=0
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- olivier.moysan@st.com, arnaud.pouliquen@st.com, linux-kernel@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+In-Reply-To: <CAPcyv4hoS7ZT_PPrXqFBzEHBKL-O4x1jHtY8x9WWesCPA=2E0g@mail.gmail.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
+Cc: "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
+ "parav@mellanox.com" <parav@mellanox.com>, Leon Romanovsky <leon@kernel.org>,
+ "tiwai@suse.de" <tiwai@suse.de>,
+ "netdev@vger.kernel.org" <netdev@vger.kernel.org>,
+ "ranjani.sridharan@linux.intel.com" <ranjani.sridharan@linux.intel.com>,
+ "fred.oh@linux.intel.com" <fred.oh@linux.intel.com>,
+ "linux-rdma@vger.kernel.org" <linux-rdma@vger.kernel.org>,
+ "dledford@redhat.com" <dledford@redhat.com>,
+ "broonie@kernel.org" <broonie@kernel.org>, "jgg@nvidia.com" <jgg@nvidia.com>,
+ "gregkh@linuxfoundation.org" <gregkh@linuxfoundation.org>,
+ "kuba@kernel.org" <kuba@kernel.org>, "Saleem,
+ Shiraz" <shiraz.saleem@intel.com>, "davem@davemloft.net" <davem@davemloft.net>,
+ "Patil, Kiran" <kiran.patil@intel.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -98,346 +98,98 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Convert the STM32 SAI bindings to DT schema format using json-schema.
 
-Signed-off-by: Olivier Moysan <olivier.moysan@st.com>
----
-Changes in v2:
-- use pattern for compatible of child nodes
-- rework dmas and clocks properties
-- add "additionalProperties"
 
-Changes in v3:
-- move clocks properties for st,stm32h7-sai compatible, to 'else' clause
+>>>> +
+>>>> +   ancildrv->driver.owner = owner;
+>>>> +   ancildrv->driver.bus = &ancillary_bus_type;
+>>>> +   ancildrv->driver.probe = ancillary_probe_driver;
+>>>> +   ancildrv->driver.remove = ancillary_remove_driver;
+>>>> +   ancildrv->driver.shutdown = ancillary_shutdown_driver;
+>>>> +
+>>>
+>>> I think that this part is wrong, probe/remove/shutdown functions should
+>>> come from ancillary_bus_type.
+>>
+>>  From checking other usage cases, this is the model that is used for probe, remove,
+>> and shutdown in drivers.  Here is the example from Greybus.
+>>
+>> int greybus_register_driver(struct greybus_driver *driver, struct module *owner,
+>>                              const char *mod_name)
+>> {
+>>          int retval;
+>>
+>>          if (greybus_disabled())
+>>                  return -ENODEV;
+>>
+>>          driver->driver.bus = &greybus_bus_type;
+>>          driver->driver.name = driver->name;
+>>          driver->driver.probe = greybus_probe;
+>>          driver->driver.remove = greybus_remove;
+>>          driver->driver.owner = owner;
+>>          driver->driver.mod_name = mod_name;
+>>
+>>
+>>> You are overwriting private device_driver
+>>> callbacks that makes impossible to make container_of of ancillary_driver
+>>> to chain operations.
+>>>
+>>
+>> I am sorry, you lost me here.  you cannot perform container_of on the callbacks
+>> because they are pointers, but if you are referring to going from device_driver
+>> to the auxiliary_driver, that is what happens in auxiliary_probe_driver in the
+>> very beginning.
+>>
+>> static int auxiliary_probe_driver(struct device *dev)
+>> 145 {
+>> 146         struct auxiliary_driver *auxdrv = to_auxiliary_drv(dev->driver);
+>> 147         struct auxiliary_device *auxdev = to_auxiliary_dev(dev);
+>>
+>> Did I miss your meaning?
+> 
+> I think you're misunderstanding the cases when the
+> bus_type.{probe,remove} is used vs the driver.{probe,remove}
+> callbacks. The bus_type callbacks are to implement a pattern where the
+> 'probe' and 'remove' method are typed to the bus device type. For
+> example 'struct pci_dev *' instead of raw 'struct device *'. See this
+> conversion of dax bus as an example of going from raw 'struct device
+> *' typed probe/remove to dax-device typed probe/remove:
+> 
+> https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git/commit/?id=75797273189d
 
-Changes in v4:
-- fix dtbs_check errors
----
- .../bindings/sound/st,stm32-sai.txt           | 107 ----------
- .../bindings/sound/st,stm32-sai.yaml          | 200 ++++++++++++++++++
- 2 files changed, 200 insertions(+), 107 deletions(-)
- delete mode 100644 Documentation/devicetree/bindings/sound/st,stm32-sai.txt
- create mode 100644 Documentation/devicetree/bindings/sound/st,stm32-sai.yaml
+Thanks Dan for the reference, very useful. This doesn't look like a a 
+big change to implement, just wondering about the benefits and 
+drawbacks, if any? I am a bit confused here.
 
-diff --git a/Documentation/devicetree/bindings/sound/st,stm32-sai.txt b/Documentation/devicetree/bindings/sound/st,stm32-sai.txt
-deleted file mode 100644
-index c42b91e525fa..000000000000
---- a/Documentation/devicetree/bindings/sound/st,stm32-sai.txt
-+++ /dev/null
-@@ -1,107 +0,0 @@
--STMicroelectronics STM32 Serial Audio Interface (SAI).
--
--The SAI interface (Serial Audio Interface) offers a wide set of audio protocols
--as I2S standards, LSB or MSB-justified, PCM/DSP, TDM, and AC'97.
--The SAI contains two independent audio sub-blocks. Each sub-block has
--its own clock generator and I/O lines controller.
--
--Required properties:
--  - compatible: Should be "st,stm32f4-sai" or "st,stm32h7-sai"
--  - reg: Base address and size of SAI common register set.
--  - clocks: Must contain phandle and clock specifier pairs for each entry
--	in clock-names.
--  - clock-names: Must contain "pclk" "x8k" and "x11k"
--	"pclk": Clock which feeds the peripheral bus interface.
--	        Mandatory for "st,stm32h7-sai" compatible.
--	        Not used for "st,stm32f4-sai" compatible.
--	"x8k": SAI parent clock for sampling rates multiple of 8kHz.
--	"x11k": SAI parent clock for sampling rates multiple of 11.025kHz.
--  - interrupts: cpu DAI interrupt line shared by SAI sub-blocks
--
--Optional properties:
--  - resets: Reference to a reset controller asserting the SAI
--
--SAI subnodes:
--Two subnodes corresponding to SAI sub-block instances A et B can be defined.
--Subnode can be omitted for unsused sub-block.
--
--SAI subnodes required properties:
--  - compatible: Should be "st,stm32-sai-sub-a" or "st,stm32-sai-sub-b"
--	for SAI sub-block A or B respectively.
--  - reg: Base address and size of SAI sub-block register set.
--  - clocks: Must contain one phandle and clock specifier pair
--	for sai_ck which feeds the internal clock generator.
--	If the SAI shares a master clock, with another SAI set as MCLK
--	clock provider, SAI provider phandle must be specified here.
--  - clock-names: Must contain "sai_ck".
--	Must also contain "MCLK", if SAI shares a master clock,
--	with a SAI set as MCLK clock provider.
--  - dmas: see Documentation/devicetree/bindings/dma/st,stm32-dma.yaml
--  - dma-names: identifier string for each DMA request line
--	"tx": if sai sub-block is configured as playback DAI
--	"rx": if sai sub-block is configured as capture DAI
--  - pinctrl-names: should contain only value "default"
--  - pinctrl-0: see Documentation/devicetree/bindings/pinctrl/st,stm32-pinctrl.yaml
--
--SAI subnodes Optional properties:
--  - st,sync: specify synchronization mode.
--	By default SAI sub-block is in asynchronous mode.
--	This property sets SAI sub-block as slave of another SAI sub-block.
--	Must contain the phandle and index of the sai sub-block providing
--	the synchronization.
--  - st,iec60958: support S/PDIF IEC6958 protocol for playback
--	IEC60958 protocol is not available for capture.
--	By default, custom protocol is assumed, meaning that protocol is
--	configured according to protocol defined in related DAI link node,
--	such as i2s, left justified, right justified, dsp and pdm protocols.
--	Note: ac97 protocol is not supported by SAI driver
--   - #clock-cells: should be 0. This property must be present if the SAI device
--	is a master clock provider, according to clocks bindings, described in
--	Documentation/devicetree/bindings/clock/clock-bindings.txt.
--
--The device node should contain one 'port' child node with one child 'endpoint'
--node, according to the bindings defined in Documentation/devicetree/bindings/
--graph.txt.
--
--Example:
--sound_card {
--	compatible = "audio-graph-card";
--	dais = <&sai1b_port>;
--};
--
--sai1: sai1@40015800 {
--	compatible = "st,stm32h7-sai";
--	#address-cells = <1>;
--	#size-cells = <1>;
--	ranges = <0 0x40015800 0x400>;
--	reg = <0x40015800 0x4>;
--	clocks = <&rcc SAI1_CK>, <&rcc PLL1_Q>, <&rcc PLL2_P>;
--	clock-names = "pclk", "x8k", "x11k";
--	interrupts = <87>;
--
--	sai1a: audio-controller@40015804 {
--		compatible = "st,stm32-sai-sub-a";
--		reg = <0x4 0x1C>;
--		clocks = <&rcc SAI1_CK>;
--		clock-names = "sai_ck";
--		dmas = <&dmamux1 1 87 0x400 0x0>;
--		dma-names = "tx";
--		pinctrl-names = "default";
--		pinctrl-0 = <&pinctrl_sai1a>;
--
--		sai1b_port: port {
--			cpu_endpoint: endpoint {
--				remote-endpoint = <&codec_endpoint>;
--				format = "i2s";
--			};
--		};
--	};
--};
--
--audio-codec {
--	codec_port: port {
--		codec_endpoint: endpoint {
--			remote-endpoint = <&cpu_endpoint>;
--		};
--	};
--};
-diff --git a/Documentation/devicetree/bindings/sound/st,stm32-sai.yaml b/Documentation/devicetree/bindings/sound/st,stm32-sai.yaml
-new file mode 100644
-index 000000000000..6ad48c7681c1
---- /dev/null
-+++ b/Documentation/devicetree/bindings/sound/st,stm32-sai.yaml
-@@ -0,0 +1,200 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/sound/st,stm32-sai.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: STMicroelectronics STM32 Serial Audio Interface (SAI)
-+
-+maintainers:
-+  - Olivier Moysan <olivier.moysan@st.com>
-+
-+description:
-+  The SAI interface (Serial Audio Interface) offers a wide set of audio
-+  protocols as I2S standards, LSB or MSB-justified, PCM/DSP, TDM, and AC'97.
-+  The SAI contains two independent audio sub-blocks. Each sub-block has
-+  its own clock generator and I/O lines controller.
-+
-+properties:
-+  compatible:
-+    enum:
-+      - st,stm32f4-sai
-+      - st,stm32h7-sai
-+
-+  reg:
-+    items:
-+      - description: Base address and size of SAI common register set.
-+      - description: Base address and size of SAI identification register set.
-+    minItems: 1
-+    maxItems: 2
-+
-+  ranges:
-+    maxItems: 1
-+
-+  interrupts:
-+    maxItems: 1
-+
-+  resets:
-+    maxItems: 1
-+
-+  "#address-cells":
-+    const: 1
-+
-+  "#size-cells":
-+    const: 1
-+
-+  clocks:
-+    maxItems: 3
-+
-+  clock-names:
-+    maxItems: 3
-+
-+required:
-+  - compatible
-+  - reg
-+  - ranges
-+  - "#address-cells"
-+  - "#size-cells"
-+  - clocks
-+  - clock-names
-+
-+patternProperties:
-+  "^audio-controller@[0-9a-f]+$":
-+    type: object
-+    description:
-+      Two subnodes corresponding to SAI sub-block instances A et B
-+      can be defined. Subnode can be omitted for unsused sub-block.
-+
-+    properties:
-+      compatible:
-+        description: Compatible for SAI sub-block A or B.
-+        pattern: "st,stm32-sai-sub-[ab]"
-+
-+      "#sound-dai-cells":
-+        const: 0
-+
-+      reg:
-+        maxItems: 1
-+
-+      clocks:
-+        items:
-+          - description: sai_ck clock feeding the internal clock generator.
-+          - description: MCLK clock from a SAI set as master clock provider.
-+        minItems: 1
-+        maxItems: 2
-+
-+      clock-names:
-+        items:
-+          - const: sai_ck
-+          - const: MCLK
-+        minItems: 1
-+        maxItems: 2
-+
-+      dmas:
-+        maxItems: 1
-+
-+      dma-names:
-+        description: |
-+          rx: SAI sub-block is configured as a capture DAI.
-+          tx: SAI sub-block is configured as a playback DAI.
-+        enum: [ rx, tx ]
-+
-+      st,sync:
-+        description:
-+          Configure the SAI sub-block as slave of another SAI sub-block.
-+          By default SAI sub-block is in asynchronous mode.
-+          Must contain the phandle and index of the SAI sub-block providing
-+          the synchronization.
-+        allOf:
-+          - $ref: /schemas/types.yaml#definitions/phandle-array
-+          - maxItems: 1
-+
-+      st,iec60958:
-+        description:
-+          If set, support S/PDIF IEC6958 protocol for playback.
-+          IEC60958 protocol is not available for capture.
-+          By default, custom protocol is assumed, meaning that protocol is
-+          configured according to protocol defined in related DAI link node,
-+          such as i2s, left justified, right justified, dsp and pdm protocols.
-+        allOf:
-+          - $ref: /schemas/types.yaml#definitions/flag
-+
-+      "#clock-cells":
-+        description: Configure the SAI device as master clock provider.
-+        const: 0
-+
-+    required:
-+      - compatible
-+      - "#sound-dai-cells"
-+      - reg
-+      - clocks
-+      - clock-names
-+      - dmas
-+      - dma-names
-+
-+allOf:
-+  - if:
-+      properties:
-+        compatible:
-+          contains:
-+            const: st,stm32f4-sai
-+
-+  - then:
-+      properties:
-+        clocks:
-+          items:
-+            - description: x8k, SAI parent clock for sampling rates multiple of 8kHz.
-+            - description: x11k, SAI parent clock for sampling rates multiple of 11.025kHz.
-+
-+        clock-names:
-+          items:
-+            - const: x8k
-+            - const: x11k
-+
-+  - else:
-+      properties:
-+        clocks:
-+          items:
-+            - description: pclk feeds the peripheral bus interface.
-+            - description: x8k, SAI parent clock for sampling rates multiple of 8kHz.
-+            - description: x11k, SAI parent clock for sampling rates multiple of 11.025kHz.
-+
-+        clock-names:
-+          items:
-+            - const: pclk
-+            - const: x8k
-+            - const: x11k
-+
-+additionalProperties: false
-+
-+examples:
-+  - |
-+    #include <dt-bindings/interrupt-controller/arm-gic.h>
-+    #include <dt-bindings/clock/stm32mp1-clks.h>
-+    #include <dt-bindings/reset/stm32mp1-resets.h>
-+    sai2: sai@4400b000 {
-+      compatible = "st,stm32h7-sai";
-+      #address-cells = <1>;
-+      #size-cells = <1>;
-+      ranges = <0 0x4400b000 0x400>;
-+      reg = <0x4400b000 0x4>, <0x4400b3f0 0x10>;
-+      clocks = <&rcc SAI2>, <&rcc PLL3_Q>, <&rcc PLL3_R>;
-+      clock-names = "pclk", "x8k", "x11k";
-+      pinctrl-names = "default", "sleep";
-+      pinctrl-0 = <&sai2a_pins_a>, <&sai2b_pins_b>;
-+      pinctrl-1 = <&sai2a_sleep_pins_a>, <&sai2b_sleep_pins_b>;
-+      status = "okay";
-+
-+      sai2a: audio-controller@4400b004 {
-+        #sound-dai-cells = <0>;
-+        compatible = "st,stm32-sai-sub-a";
-+        reg = <0x4 0x1c>;
-+        dmas = <&dmamux1 89 0x400 0x01>;
-+        dma-names = "tx";
-+        clocks = <&rcc SAI2_K>;
-+        clock-names = "sai_ck";
-+        status = "okay";
-+      };
-+    };
-+
-+...
--- 
-2.17.1
+First, was the initial pattern wrong as Leon asserted it? Such code 
+exists in multiple examples in the kernel and there's nothing preventing 
+the use of container_of that I can think of. Put differently, if this 
+code was wrong then there are other existing buses that need to be updated.
+
+Second, what additional functionality does this move from driver to 
+bus_type provide? The commit reference just states 'In preparation for 
+introducing seed devices the dax-bus core needs to be able to intercept 
+->probe() and ->remove() operations", but that doesn't really help me 
+figure out what 'intercept' means. Would you mind elaborating?
+
+And last, the existing probe function does calls dev_pm_domain_attach():
+
+static int ancillary_probe_driver(struct device *dev)
+{
+	struct ancillary_driver *ancildrv = to_ancillary_drv(dev->driver);
+	struct ancillary_device *ancildev = to_ancillary_dev(dev);
+	int ret;
+
+	ret = dev_pm_domain_attach(dev, true);
+
+So the need to access the raw device still exists. Is this still legit 
+if the probe() is moved to the bus_type structure?
+
+I have no objection to this change if it preserves the same 
+functionality and possibly extends it, just wanted to better understand 
+the reasons for the change and in which cases the bus probe() makes more 
+sense than a driver probe().
+
+Thanks for enlightening the rest of us!
+
 

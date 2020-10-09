@@ -2,72 +2,58 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9E701288C8E
-	for <lists+alsa-devel@lfdr.de>; Fri,  9 Oct 2020 17:28:03 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id F137F288CD3
+	for <lists+alsa-devel@lfdr.de>; Fri,  9 Oct 2020 17:37:24 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id EFD571683;
-	Fri,  9 Oct 2020 17:27:12 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EFD571683
+	by alsa0.perex.cz (Postfix) with ESMTPS id 5D3871683;
+	Fri,  9 Oct 2020 17:36:34 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5D3871683
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1602257283;
-	bh=+l1YGwIoxQNEKKn0cxK5Eysi330bCQbn/dG6DyQq76A=;
+	s=default; t=1602257844;
+	bh=uFCuywGEBhzmRWeYRvH+cFyj3b1OXjwYKiIfw31xyiE=;
 	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=iO1ezTzo+aG3THVSP4zaoRoieWA2kJ7TCORx7weQzNRSHXoOg1gX45RiX9bdHmdum
-	 ZlOrnAUwSrwtJhLFZFTDDjRZL7+i2vGxcUkbj3H0L0C0BiED1/xWXQ/iIutBbNZgv9
-	 UT09YL6x7a2xFtnpNuiFeGExHdmJf3LcPdG/IfD4=
+	b=mJNl2h3f3G6V6Z2z8iN7HPD8XzQZjikaeimCraG2OMnUyPKumYQtLa1EVIRqgz9py
+	 0+xeV+nvXuQm1/3bA86hRII7ka2+H3gBjXNNsIn9jQ4gakvrGH5AI3tkgsUuF4qsqY
+	 bAeuafzT69MdwK4fd/73p37FOXrWasFTLeMT1DI8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 73112F80165;
-	Fri,  9 Oct 2020 17:26:22 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id EC1E2F80128;
+	Fri,  9 Oct 2020 17:35:43 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id D7516F8015B; Fri,  9 Oct 2020 17:26:19 +0200 (CEST)
+ id 60834F8015B; Fri,  9 Oct 2020 17:35:41 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE
- autolearn=disabled version=3.4.0
-Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_MSPIKE_H3,
+ RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
+Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 52027F800BF
- for <alsa-devel@alsa-project.org>; Fri,  9 Oct 2020 17:26:15 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 52027F800BF
-IronPort-SDR: R/y4cFgO8vq6pgfGc0psdTuRjHfU+3bPKlCxcaXdN7v6i3K67P7U49yfPvx/nvsY4/a//nXZzi
- tARYFq0KmxSQ==
-X-IronPort-AV: E=McAfee;i="6000,8403,9769"; a="145364032"
-X-IronPort-AV: E=Sophos;i="5.77,355,1596524400"; d="scan'208";a="145364032"
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from orsmga005.jf.intel.com ([10.7.209.41])
- by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 09 Oct 2020 08:26:13 -0700
-IronPort-SDR: EXc7zDId3ju/6+Q/wSI/kaR10O1v/Rf/6//5Fc8CThge8YkR8HH/1fbrHoF97K6vuz0KoW5fu+
- rxLJDtc6Bbbg==
-X-IronPort-AV: E=Sophos;i="5.77,355,1596524400"; d="scan'208";a="528972606"
-Received: from eliteleevi.tm.intel.com ([10.237.54.20])
- by orsmga005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 09 Oct 2020 08:26:11 -0700
-Date: Fri, 9 Oct 2020 18:24:25 +0300 (EEST)
-From: Kai Vehmanen <kai.vehmanen@linux.intel.com>
-X-X-Sender: kvehmane@eliteleevi.tm.intel.com
-To: Takashi Iwai <tiwai@suse.de>
-Subject: Re: [PATCH 1/1] ALSA: hda: fix jack detection with Realtek codecs
- when in D3
-In-Reply-To: <s5h4kn3tqkh.wl-tiwai@suse.de>
-Message-ID: <alpine.DEB.2.22.394.2010091819310.3186@eliteleevi.tm.intel.com>
-References: <20201009140227.691140-1-kai.vehmanen@linux.intel.com>
- <s5h4kn3tqkh.wl-tiwai@suse.de>
-User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7 02160 Espoo
-MIME-Version: 1.0
+ by alsa1.perex.cz (Postfix) with ESMTPS id 3EB03F800BF
+ for <alsa-devel@alsa-project.org>; Fri,  9 Oct 2020 17:35:37 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3EB03F800BF
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id 3C64AB25D;
+ Fri,  9 Oct 2020 15:35:37 +0000 (UTC)
+Date: Fri, 09 Oct 2020 17:35:37 +0200
+Message-ID: <s5hlfgfs986.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: info <info@dressmaker.ca>
+Subject: Re: Discover a microphone device,
+ to later discover if it is receiving input
+In-Reply-To: <de6ebf17-8f71-c497-28bc-7819338baddb@dressmaker.ca>
+References: <de6ebf17-8f71-c497-28bc-7819338baddb@dressmaker.ca>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
+ FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
+ (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
 Content-Type: text/plain; charset=US-ASCII
-Cc: Kai-Heng Feng <kai.heng.feng@canonical.com>, alsa-devel@alsa-project.org,
- Kailang Yang <kailang@realtek.com>,
- Kai Vehmanen <kai.vehmanen@linux.intel.com>
+Cc: alsa-devel@alsa-project.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -83,59 +69,77 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hi,
-
-On Fri, 9 Oct 2020, Takashi Iwai wrote:
-
-> On Fri, 09 Oct 2020 16:02:27 +0200, Kai Vehmanen wrote:
-> > -	if (status && from_rt) {
-> > -		list_for_each_codec(codec, &chip->bus)
-> > +	if (from_rt) {
-> > +		list_for_each_codec(codec, &chip->bus) {
-> > +			if (codec->forced_resume && pm_runtime_suspended(hda_codec_dev(codec)))
-> > +				pm_request_resume(hda_codec_dev(codec));
-> > +
-> >  			if (!codec->relaxed_resume &&
-> >  			    (status & (1 << codec->addr)))
-> >  				schedule_delayed_work(&codec->jackpoll_work,
-> >  						      codec->jackpoll_interval);
-> > +		}
-> >  	}
+On Sun, 04 Oct 2020 18:22:43 +0200,
+info wrote:
 > 
-> Basically both pm_request_resume() and the jackpoll_work do the
-> equivalent task, hence no need to do twice differently.  Actually
-> pm_request_resume() looks like a better choice as it's clearer about
-> what it does, so let's replace with it.
-
-ack. I was unsure whether the other actions in jackpoll_work would be 
-needed in some case (when jackpoll_interval>0), but I guess if interval is 
-non-zero, the workqueue is kicked from the codec driver, so no need to do 
-it here. Will change.
-
-> Also, the pm_runtime_suspend() can be skipped here; the codec must
-> have been suspended at this moment because of the pm-dependency.
-
-Oh, true, you are right.
-
-> So, it'll be like:
+> Hi all,
 > 
-> 	if (from_rt) {
-> 		list_for_each_codec(codec, &chip->bus) {
-> 			if (codec->relaxed_resume)
-> 				continue;
-> 			if (codec->forced_resume ||
-> 			    (status & (1 << codec->addr)))
-> 				pm_request_resume(hda_codec_dev(codec));
-> 		}
-> 	}
-[..]
-> Could you check whether this still works?
+> 
+> I am writing a program that aims to auto-discover the microphone
+> device that the user is speaking into. I started off by querying
+> device hints and collected all devices with the IO types of null,
+> since I have not found any devices with the type of Input. I am
+> puzzled how it is possible that there is no Input, where a microphone
+> device should not be able to emit sound. This is the list on my
+> particular machine:
+> 
+> Name of device: sysdefault:CARD=SB
+> Description of device: HDA ATI SB, ALC892 Analog
+> Default Audio Device
+> I/O type of device: (null)
+> 
+> Name of device: front:CARD=SB,DEV=0
+> Description of device: HDA ATI SB, ALC892 Analog
+> Front speakers
+> I/O type of device: (null)
+> 
+> Name of device: surround21:CARD=SB,DEV=0
+> Description of device: HDA ATI SB, ALC892 Analog
+> 2.1 Surround output to Front and Subwoofer speakers
+> I/O type of device: Output
+> 
+> Name of device: surround41:CARD=SB,DEV=0
+> Description of device: HDA ATI SB, ALC892 Analog
+> 4.1 Surround output to Front, Rear and Subwoofer speakers
+> I/O type of device: Output
+> 
+> Name of device: surround50:CARD=SB,DEV=0
+> Description of device: HDA ATI SB, ALC892 Analog
+> 5.0 Surround output to Front, Center and Rear speakers
+> I/O type of device: Output
+> 
+> Name of device: surround71:CARD=SB,DEV=0
+> Description of device: HDA ATI SB, ALC892 Analog
+> 7.1 Surround output to Front, Center, Side, Rear and Woofer speakers
+> I/O type of device: Output
+> 
+> Name of device: sysdefault:CARD=SB
+> Description of device: HDA ATI SB, ALC892 Analog
+> Default Audio Device
+> I/O type of device: (null)
+> 
+> Name of device: front:CARD=SB,DEV=0
+> Description of device: HDA ATI SB, ALC892 Analog
+> Front speakers
+> I/O type of device: (null)
+> 
+> Now, I am more puzzled, because none of them is a microphone device
+> explicitly. How can my program determine which of them is actually a
+> microphone?
+> 
+> Also, why are devices are duplicated in the output from
+> snd_device_name_hint()? The very first device is also repeated as the
+> 2nd last one...
 
-Sure, not necessarily today, but I'll get back with the test results.
+Apart from the lack of the Input direction (maybe a bug in the hint
+code), the fundamental problem is that the driver cannot tell always
+the device type at all for each PCM stream.  It's simply because a
+stream may give you any input type depending on the mixer route; it's
+the case of HD-audio.  So, the same PCM device may be a mic, or a
+headset mic, or a line-in, or whatever.
 
-PS And Pierre, indeed it is sufficient to just power the codec on. 
-   Even if it then goes back to suspend, jack detection still works.
-   And if controller never goes to suspend, then there's no problem 
-   either. I'll update the commit message for v2.
+Sometimes there are dedicated PCM devices for certain inputs, but most
+of the PCM streams are generic purpose.
 
-Br, Kai
+
+Takashi

@@ -2,78 +2,68 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 96750288C48
-	for <lists+alsa-devel@lfdr.de>; Fri,  9 Oct 2020 17:11:59 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C7241288C57
+	for <lists+alsa-devel@lfdr.de>; Fri,  9 Oct 2020 17:15:06 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 29229165D;
-	Fri,  9 Oct 2020 17:11:09 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 29229165D
+	by alsa0.perex.cz (Postfix) with ESMTPS id 30CF5847;
+	Fri,  9 Oct 2020 17:14:16 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 30CF5847
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1602256319;
-	bh=JB8o6dJV7z2WOAYTovRLJmJppAwil/0YbrK6Ktibkm8=;
-	h=Subject:To:References:From:Date:In-Reply-To:List-Id:
+	s=default; t=1602256506;
+	bh=Yws7Rbsmh7jUGbWaxohtjA8WVzMNSmJ17mz8apJL1fc=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=Rb0nN3yeU8+KLwkMEbngoqdfa4o7Km9L+pbwHI716iK3NPTUL1yq9LlwYc39eG0vN
-	 sKeAf2TRDvMKRiiJy15Bdy7+LSNqZw3VCAOVkcPhQJaiqO4rTMmGnIk5hqIJXg5Tqm
-	 Hn3EkRk4evDgqfDC2WHqmlfP9X0oWb6C0QrRLgIs=
+	b=fDggHqqc/cMicFpLqteDakGNunRUbNyRHksi1aD3VnHRKfChmhDjWqqAHL7n+OV0h
+	 +T28bWe1hQKp6d5ObRRdfInsYoup1rz4phco/JQP8OTAH7TY3H2FBreK9d2JDTNWwT
+	 lWep9JjqP8GhlNsCZZLASWbqUx5INUmyYwYPpVTU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id C827AF8015B;
-	Fri,  9 Oct 2020 17:10:18 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id AF890F80165;
+	Fri,  9 Oct 2020 17:13:25 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 90566F8015B; Fri,  9 Oct 2020 17:10:16 +0200 (CEST)
+ id 26A7AF8015B; Fri,  9 Oct 2020 17:13:24 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=-0.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS autolearn=disabled
+X-Spam-Level: *
+X-Spam-Status: No, score=1.0 required=5.0 tests=PRX_BODY_30, RCVD_IN_MSPIKE_H3,
+ RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=disabled
  version=3.4.0
-Received: from smtp2.axis.com (smtp2.axis.com [195.60.68.18])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 6F50BF80128
- for <alsa-devel@alsa-project.org>; Fri,  9 Oct 2020 17:10:12 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6F50BF80128
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=axis.com header.i=@axis.com
- header.b="GiQkKPAh"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=axis.com; l=1621; q=dns/txt; s=axis-central1;
- t=1602256214; x=1633792214;
- h=subject:to:references:from:message-id:date:mime-version:
- in-reply-to:content-transfer-encoding;
- bh=ORzkGxePo6tbvhRNduvHCycFbx21mIKX9EB04COaAps=;
- b=GiQkKPAh2yiz47alb7w80kJKsMrzugWg0KaOI+abC9TttbiBgPKW7zWy
- PvLc+SL1cj2dURs0ZBI91csGlUBbaTUEo84C6HE9wuyNKVlhHU6YtMaHx
- BxCBfIVz8jXtheidc1VX6uDHClIOvjM4Fq1iIchwCUwmm3tI4VJupwyfX
- H1SnHFqxEtGQ7xTqGzhWrSfZY3wOR27NJ8khd5Z3nWs+C9nKFiJxMlRx8
- ZTOdseAYG1CLlTRk/BgW6jvrwbdtH05LZ/NlO6oniueKtW5piiGFTiinW
- R5lY/DvqRVOzPL77z7KULSmDXLEo3CuEh6n5F8TqQXG7SbXslespNebzY A==;
-IronPort-SDR: P4jFYFsSzQ7+kqhfy1hYhzZX5FSSUbb6LtDOqfPGTyrfWGdu9ktVPD7PrY5gS2Q6Zu0PV0AkyD
- UZVKskrSG2ZZ/YGcK7OGASARRcTRv0MZawP58YlNneHV8BzGVCeuikWfBmFRz4z9KebFKXDxmQ
- tfJw2G391sqRMIp9Q4Ly35nYQRJAYhU5zsSt/FQ17L58qSdXa8ldcFzyrzijENlP2J/lZNftIn
- G2H6+7/LbW4q26XfFogFW48VVuUfmbCXKa9n1W5AYOEvM+H5e36WsitarasH4GN964IJOC0t5X
- w/Q=
-X-IronPort-AV: E=Sophos;i="5.77,355,1596492000"; d="scan'208";a="13348599"
-Subject: Re: snd_pcm_status() does not update status->avail
-To: Jaroslav Kysela <perex@perex.cz>, Jonas Holmberg
- <jonas.holmberg@axis.com>, "alsa-devel@alsa-project.org"
- <alsa-devel@alsa-project.org>, "tiwai@suse.de" <tiwai@suse.de>
-References: <d9c1f37e-5c8d-f289-270e-c6cda7a56ce3@axis.com>
- <2d4ca02d-8be3-62ca-c273-f5b277e64158@perex.cz>
-From: Jonas Holmberg <jonashg@axis.com>
-Message-ID: <c4860adb-70fb-7209-58bf-8cc785f7e548@axis.com>
-Date: Fri, 9 Oct 2020 17:10:08 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.3.1
-MIME-Version: 1.0
-In-Reply-To: <2d4ca02d-8be3-62ca-c273-f5b277e64158@perex.cz>
-Content-Type: text/plain; charset="utf-8"; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 8bit
+ by alsa1.perex.cz (Postfix) with ESMTPS id 8033FF800BF
+ for <alsa-devel@alsa-project.org>; Fri,  9 Oct 2020 17:13:16 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8033FF800BF
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id 8851DAD43;
+ Fri,  9 Oct 2020 15:13:16 +0000 (UTC)
+Date: Fri, 09 Oct 2020 17:13:16 +0200
+Message-ID: <s5hr1q7sa9f.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: "Gyeongtaek Lee" <gt82.lee@samsung.com>
+Subject: Re: [PATCH] ALSA: compress: allow pause and resume during draining
+In-Reply-To: <000d01d69d58$4e2db6f0$ea8924d0$@samsung.com>
+References: <CGME20200929084051epcas2p35fb2228ed1bdfce6a7ddf5b37c944823@epcas2p3.samsung.com>
+ <000001d6963c$3cc53690$b64fa3b0$@samsung.com>
+ <s5heemlklo0.wl-tiwai@suse.de> <20201001102938.GU2968@vkoul-mobl>
+ <2bf52360-bd11-b4cd-b255-8a5610b4aa5f@linux.intel.com>
+ <20201006062105.GQ2968@vkoul-mobl>
+ <4bbc385b-d35a-8766-7981-034455287225@linux.intel.com>
+ <000d01d69d58$4e2db6f0$ea8924d0$@samsung.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
+ FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
+ (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
+Content-Type: text/plain; charset=US-ASCII
+Cc: alsa-devel@alsa-project.org, pilsun.jang@samsung.com,
+ khw0178.kim@samsung.com, lgirdwood@gmail.com, kimty@samsung.com,
+ tiwai@suse.com, 'Pierre-Louis Bossart' <pierre-louis.bossart@linux.intel.com>,
+ 'Vinod Koul' <vkoul@kernel.org>, hmseo@samsung.com, tkjung@samsung.com,
+ s47.kang@samsung.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -89,48 +79,251 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 2020-10-09 16:30, Jaroslav Kysela wrote:
+On Thu, 08 Oct 2020 11:49:24 +0200,
+Gyeongtaek Lee wrote:
+> 
+> On 10/06/20 11:57 PM, Pierre-Louis Bossart wrote:
+> >> The SM in kernel might be bit more convoluted so was wondering if we can
+> >> handle this in userland. The changelog for this patch says that for
+> >> test case was sending whole file, surely that is not an optimal approach.
+> >
+> >It's rather common to have to deal with very small files, even with PCM, 
+> >e.g. for notifications. It's actually a classic test case that exposes 
+> >design issues in drivers, where e.g. the last part of the notification 
+> >is not played.
+> >
+> >> Should we allow folks to send whole file to kernel and then issue
+> >> partial drain?
+> >
+> >I don't think there should be a conceptual limitation here. If the 
+> >userspace knows that the last part of the file is smaller than a 
+> >fragment it should be able to issue a drain (or partial drain if it's a 
+> >gapless solution).
+> >
+> >However now that I think of it, I am not sure what happens if the file 
+> >is smaller than a fragment. That may very well be a limitation in the 
+> >design.
+> >
+> Thanks for the comments.
+> 
+> Actually, problem can be occurred with big file also.
+> Application usually requests draining after sending last frame.
+> If user clicks pause button after draining, pause will be failed
+> and the file just be played until end.
+> If application stop and start playback for this case, 
+> start of last frame will be heard again because stop sets state to SETUP,
+> and write is needed to set the state to PREPARED for start.
+> If bitrate of the file is low, time stamp will be reversed and be heard weird.
+> I also hope this problem can be handled in userspace easily but I couldn't find a way for now.
+> 
+> I think that this is the time that I should share fixed patch following the comments to help the discussion.
+> Following opinions are added to the patch.
+> 1. it's be much nicer to have a new state - Takashi
 
-> It seems that nobody is using those status fields. Usually,
-> snd_pcm_avail_update() is used by apps. Anyway, this should be fixed for 
-> both
-> directions. The avail should be probably synced to
-> snd_pcm_plugin_avail_update() output:
-> 
-> 
-> diff --git a/src/pcm/pcm_plugin.c b/src/pcm/pcm_plugin.c
-> index ea60eb98..5739cfc2 100644
-> --- a/src/pcm/pcm_plugin.c
-> +++ b/src/pcm/pcm_plugin.c
-> @@ -541,16 +541,20 @@ static snd_pcm_sframes_t
-> snd_pcm_plugin_avail_update(snd_pcm_t *pcm)
->   static int snd_pcm_plugin_status(snd_pcm_t *pcm, snd_pcm_status_t * 
-> status)
->   {
->          snd_pcm_plugin_t *plugin = pcm->private_data;
-> -       snd_pcm_sframes_t err;
-> +       snd_pcm_sframes_t err, avail;
-> 
->          /* sync with the latest hw and appl ptrs */
-> -       snd_pcm_plugin_avail_update(pcm);
-> +       avail = snd_pcm_plugin_avail_update(pcm);
-> +       if (avail < 0)
-> +               return avail;
-> 
->          err = snd_pcm_status(plugin->gen.slave, status);
->          if (err < 0)
->                  return err;
->          status->appl_ptr = *pcm->appl.ptr;
->          status->hw_ptr = *pcm->hw.ptr;
-> +       status->avail = avail;
-> +       status->delay = snd_pcm_mmap_delay(pcm);
->          return 0;
->   }
-> 
->                                          Jaroslav
-> 
+Well, it wasn't me; I'm not against the new state *iff* it would end
+up with cleaner code.  Admittedly, the new state can be more
+"consistent" regarding the state transition.  If we allow the PAUSE
+state during DRAINING, it'll lead to multiple states after resuming
+the pause.
 
-I have tested your patch and it solves my problem. Are you going to push it?
+> 2. We can add this state to asound.h so the user space can be updated. - Jaroslav
+> 3. don't forget to increase the SNDRV_COMPRESS_VERSION - Jaroslav
+> 
+> I'm bit wondering whether it is good to increase SNDRV_COMPRESS_VERSION
+> with a change in asound.h not in compress_offload.h.
+> Should I increase SNDRV_PCM_VERSION also?
 
-Thanks!
-/Jonas
+Yes, if we really add the PCM state, it's definitely needed.
+
+> And what happened if I request back-porting a patch which changes VERSION to stables?
+
+If we introduce the new change, it must be safe to the old kernels,
+too.  The problem is only about the compatibility of the user-space
+program, not about the kernel.
+
+
+HOWEVER: I'm still concerned by the addition of a new PCM state.
+Jaroslav suggested two steps approach, (1) first add the state only in
+the uapi header, then use (2) the new state actually.  But, this
+doesn't help much, simply because the step 1 won't catch real bugs.
+
+Even if we add a new state and change the SNDRV_PCM_STATE_LAST, I
+guess most of code can be compiled fine.  So, at the step 1, no one
+notices it and bothered, either.  But, at the step 2, you'll hit a
+problem.
+
+Adding a new state is something like to add a new color to the traffic
+signal.  In some countries, the car turning right at a crossing
+doesn't have to stop at a red signal.  Suppose that we want to control
+it, and change the international rule by introducing a new color (say
+magenta) signal to stop the car turning right.  That'll be a big
+confusion because most drivers are trained for only red, green and
+yellow signals.
+
+Similarly, if we add a new PCM state, every program code that deals
+with the PCM state may be confused by the new state.  It has to be
+reviewed and corrected manually, because it's no syntax problem the
+compiler may catch.
+
+
+thanks,
+
+Takashi
+
+
+> 
+> Below is the patch just to help discussion.
+> I'll resend the fixed patch after this discussion is completed.
+> 
+> With a stream with low bitrate, user can't pause or resume the stream
+> near the end of the stream because current ALSA doesn't allow it.
+> If the stream has very low bitrate enough to store whole stream into
+> the buffer, user can't do anything except stop the stream and then
+> restart it from the first.
+> If pause, resume are allowed during draining, user experience can be
+> enhanced.
+> 
+> The version is increased due to new behavior.
+> 
+> Signed-off-by: Gyeongtaek Lee <gt82.lee@samsung.com>
+> Cc: stable@vger.kernel.org
+> ---
+>  include/uapi/sound/asound.h           |  5 +--
+>  include/uapi/sound/compress_offload.h |  2 +-
+>  sound/core/compress_offload.c         | 47 ++++++++++++++++++++++-----
+>  3 files changed, 42 insertions(+), 12 deletions(-)
+> 
+> diff --git a/include/uapi/sound/asound.h b/include/uapi/sound/asound.h
+> index 535a7229e1d9..499b364974ec 100644
+> --- a/include/uapi/sound/asound.h
+> +++ b/include/uapi/sound/asound.h
+> @@ -315,8 +315,9 @@ typedef int __bitwise snd_pcm_state_t;
+>  #define	SNDRV_PCM_STATE_XRUN		((__force snd_pcm_state_t) 4) /* stream reached an xrun */
+>  #define	SNDRV_PCM_STATE_DRAINING	((__force snd_pcm_state_t) 5) /* stream is draining */
+>  #define	SNDRV_PCM_STATE_PAUSED		((__force snd_pcm_state_t) 6) /* stream is paused */
+> -#define	SNDRV_PCM_STATE_SUSPENDED	((__force snd_pcm_state_t) 7) /* hardware is suspended */
+> -#define	SNDRV_PCM_STATE_DISCONNECTED	((__force snd_pcm_state_t) 8) /* hardware is disconnected */
+> +#define	SNDRV_PCM_STATE_DRAINING_PAUSED	((__force snd_pcm_state_t) 7) /* stream is paused during draining*/
+> +#define	SNDRV_PCM_STATE_SUSPENDED	((__force snd_pcm_state_t) 8) /* hardware is suspended */
+> +#define	SNDRV_PCM_STATE_DISCONNECTED	((__force snd_pcm_state_t) 9) /* hardware is disconnected */
+>  #define	SNDRV_PCM_STATE_LAST		SNDRV_PCM_STATE_DISCONNECTED
+>  
+>  enum {
+> diff --git a/include/uapi/sound/compress_offload.h b/include/uapi/sound/compress_offload.h
+> index 7184265c0b0d..46fdf50d5c00 100644
+> --- a/include/uapi/sound/compress_offload.h
+> +++ b/include/uapi/sound/compress_offload.h
+> @@ -31,7 +31,7 @@
+>  #include <sound/compress_params.h>
+>  
+>  
+> -#define SNDRV_COMPRESS_VERSION SNDRV_PROTOCOL_VERSION(0, 2, 0)
+> +#define SNDRV_COMPRESS_VERSION SNDRV_PROTOCOL_VERSION(0, 2, 1)
+>  /**
+>   * struct snd_compressed_buffer - compressed buffer
+>   * @fragment_size: size of buffer fragment in bytes
+> diff --git a/sound/core/compress_offload.c b/sound/core/compress_offload.c
+> index 0e53f6f31916..58fbe0d99431 100644
+> --- a/sound/core/compress_offload.c
+> +++ b/sound/core/compress_offload.c
+> @@ -151,6 +151,7 @@ static int snd_compr_free(struct inode *inode, struct file *f)
+>  	case SNDRV_PCM_STATE_RUNNING:
+>  	case SNDRV_PCM_STATE_DRAINING:
+>  	case SNDRV_PCM_STATE_PAUSED:
+> +	case SNDRV_PCM_STATE_DRAINING_PAUSED:
+>  		data->stream.ops->trigger(&data->stream, SNDRV_PCM_TRIGGER_STOP);
+>  		break;
+>  	default:
+> @@ -431,6 +432,7 @@ static __poll_t snd_compr_poll(struct file *f, poll_table *wait)
+>  	case SNDRV_PCM_STATE_RUNNING:
+>  	case SNDRV_PCM_STATE_PREPARED:
+>  	case SNDRV_PCM_STATE_PAUSED:
+> +	case SNDRV_PCM_STATE_DRAINING_PAUSED:
+>  		if (avail >= stream->runtime->fragment_size)
+>  			retval = snd_compr_get_poll(stream);
+>  		break;
+> @@ -708,11 +710,23 @@ static int snd_compr_pause(struct snd_compr_stream *stream)
+>  {
+>  	int retval;
+>  
+> -	if (stream->runtime->state != SNDRV_PCM_STATE_RUNNING)
+> +	switch (stream->runtime->state) {
+> +	case SNDRV_PCM_STATE_RUNNING:
+> +		retval = stream->ops->trigger(stream,
+> +			SNDRV_PCM_TRIGGER_PAUSE_PUSH);
+> +		if (!retval)
+> +			stream->runtime->state = SNDRV_PCM_STATE_PAUSED;
+> +		break;
+> +	case SNDRV_PCM_STATE_DRAINING:
+> +		retval = stream->ops->trigger(stream,
+> +			SNDRV_PCM_TRIGGER_PAUSE_PUSH);
+> +		if (!retval)
+> +			stream->runtime->state =
+> +				SNDRV_PCM_STATE_DRAINING_PAUSED;
+> +		break;
+> +	default:
+>  		return -EPERM;
+> -	retval = stream->ops->trigger(stream, SNDRV_PCM_TRIGGER_PAUSE_PUSH);
+> -	if (!retval)
+> -		stream->runtime->state = SNDRV_PCM_STATE_PAUSED;
+> +	}
+>  	return retval;
+>  }
+>  
+> @@ -720,11 +734,22 @@ static int snd_compr_resume(struct snd_compr_stream *stream)
+>  {
+>  	int retval;
+>  
+> -	if (stream->runtime->state != SNDRV_PCM_STATE_PAUSED)
+> +	switch (stream->runtime->state) {
+> +	case SNDRV_PCM_STATE_PAUSED:
+> +		retval = stream->ops->trigger(stream,
+> +			SNDRV_PCM_TRIGGER_PAUSE_RELEASE);
+> +		if (!retval)
+> +			stream->runtime->state = SNDRV_PCM_STATE_RUNNING;
+> +		break;
+> +	case SNDRV_PCM_STATE_DRAINING_PAUSED:
+> +		retval = stream->ops->trigger(stream,
+> +			SNDRV_PCM_TRIGGER_PAUSE_RELEASE);
+> +		if (!retval)
+> +			stream->runtime->state = SNDRV_PCM_STATE_DRAINING;
+> +		break;
+> +	default:
+>  		return -EPERM;
+> -	retval = stream->ops->trigger(stream, SNDRV_PCM_TRIGGER_PAUSE_RELEASE);
+> -	if (!retval)
+> -		stream->runtime->state = SNDRV_PCM_STATE_RUNNING;
+> +	}
+>  	return retval;
+>  }
+>  
+> @@ -835,7 +860,9 @@ static int snd_compress_wait_for_drain(struct snd_compr_stream *stream)
+>  	 */
+>  
+>  	ret = wait_event_interruptible(stream->runtime->sleep,
+> -			(stream->runtime->state != SNDRV_PCM_STATE_DRAINING));
+> +			(stream->runtime->state != SNDRV_PCM_STATE_DRAINING) &&
+> +			(stream->runtime->state !=
+> +				SNDRV_PCM_STATE_DRAINING_PAUSED));
+>  	if (ret == -ERESTARTSYS)
+>  		pr_debug("wait aborted by a signal\n");
+>  	else if (ret)
+> @@ -857,6 +884,7 @@ static int snd_compr_drain(struct snd_compr_stream *stream)
+>  	case SNDRV_PCM_STATE_SETUP:
+>  	case SNDRV_PCM_STATE_PREPARED:
+>  	case SNDRV_PCM_STATE_PAUSED:
+> +	case SNDRV_PCM_STATE_DRAINING_PAUSED:
+>  		return -EPERM;
+>  	case SNDRV_PCM_STATE_XRUN:
+>  		return -EPIPE;
+> @@ -909,6 +937,7 @@ static int snd_compr_partial_drain(struct snd_compr_stream *stream)
+>  	case SNDRV_PCM_STATE_SETUP:
+>  	case SNDRV_PCM_STATE_PREPARED:
+>  	case SNDRV_PCM_STATE_PAUSED:
+> +	case SNDRV_PCM_STATE_DRAINING_PAUSED:
+>  		return -EPERM;
+>  	case SNDRV_PCM_STATE_XRUN:
+>  		return -EPIPE;
+> -- 
+> 2.21.0
+> 

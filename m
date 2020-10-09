@@ -2,70 +2,68 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6E240288A42
-	for <lists+alsa-devel@lfdr.de>; Fri,  9 Oct 2020 16:04:43 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A2FE1288A50
+	for <lists+alsa-devel@lfdr.de>; Fri,  9 Oct 2020 16:09:14 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 0D20315F9;
-	Fri,  9 Oct 2020 16:03:53 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0D20315F9
+	by alsa0.perex.cz (Postfix) with ESMTPS id F0772167E;
+	Fri,  9 Oct 2020 16:08:23 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz F0772167E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1602252283;
-	bh=MKNjwyg4VijUjfMxsBKWz5gILDji9I5+brStR5dm0ZQ=;
-	h=To:From:Subject:Date:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=TRCZDFJ6MKNOHL0I4oFpFWSzt2xEbJe74jF59H1JqXDyyFkQ2zVBDo4S0Pl2ErA7u
-	 FDidkzIL9Fz3ErItqiYsJLwHahYQ45SVDjYCErAVCiVvg/tVNoYKWLnIgpyBhC6ws7
-	 hyvPe8mCNRLmUnrLSxl1b4a7t7fFdEmaQ4kZ7Glc=
+	s=default; t=1602252554;
+	bh=EMefrkiR6VErnBfysfycnwnXyiK4IqvSiZNmhaUx7xw=;
+	h=Subject:To:References:From:Date:In-Reply-To:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=tgoJeYUBpoMErkIOU9fwgHaAOfykZNEgqg8fFZzwMbvlSe4CGFeCtJ8/AtOY2BkZ1
+	 kyu6/boiuNlLvUN/GzeRvf5J07cxE0kxsS7HTiZKON6HXYVU+AXkEECZB3Eh7Epn1g
+	 H5Iyt9oUJIYxLZM0Kg2C0lx/CWdq2v3ikNWOGtkw=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 9367AF80128;
-	Fri,  9 Oct 2020 16:03:02 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 8D3E6F80165;
+	Fri,  9 Oct 2020 16:07:33 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 29372F8015B; Fri,  9 Oct 2020 16:03:00 +0200 (CEST)
+ id 4F2DBF8015B; Fri,  9 Oct 2020 16:07:31 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
-Received: from smtp2.axis.com (smtp2.axis.com [195.60.68.18])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-0.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_PASS,SPF_PASS,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from mail1.perex.cz (mail1.perex.cz [77.48.224.245])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 465BEF800BF
- for <alsa-devel@alsa-project.org>; Fri,  9 Oct 2020 16:02:56 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 465BEF800BF
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=axis.com header.i=@axis.com
- header.b="Vq999xak"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=axis.com; l=681; q=dns/txt; s=axis-central1;
- t=1602252178; x=1633788178;
- h=to:from:subject:message-id:date:mime-version:
- content-transfer-encoding;
- bh=rVpehVCJCq0KhsueiYzx8wRREMBA7JBHue4tMe0FViQ=;
- b=Vq999xakOZQc8ekqHSZUpIIcNI3oodfXx7sRgEiWMh+wSufLI9nsLR2T
- ymcClQVxZRYBbHpJk6uYmrlVQownk4jPldW7JMPoDCgmLPR8cRxkXGhBY
- EBXgGCxp2tF4y/ryg5toN6JED7wBmryvKRHjdSvSSdZLXjE28xdXw3up6
- oPZmFEWk7Pl1tKT/VOR1tAH97AWj8I5pMlkNX7/UcNhXqWdwWcg346K0E
- dnVZgybON0mZSgDnvKKqxnPN4379JOB3Hyvqp0VIKK+PKlCbH2XUcRV6H
- 9AVyi4oVxyP0EQ63fW4MXORtKR3P10mEiGHM0oAiTpP3dMuarSkSrWw9N w==;
-IronPort-SDR: WVwBsHw52dmvQgbGO3/FA6m+gUo861yAYYIHYVZIZhQKogRk1IBqI5KTTtumEwUlot6D9tKaCU
- 01dONKg+++Swu398MR9DsaiOHAFeVVkIs5alw9gzbHQlK7ytI94grimSWQyBMIf8Ds7bezhjkC
- sRCJuRAMlz9aobk0lHOn3W9F3yse+sHJWFvU2r+vZe0XImRxYSv/h21yl/uQel7SALe7z1FcZ3
- e7lLGIZCATAUbihcLoM/7kr7zMK/mX74gzTGKetmcCnMhdb5R+zuKQguPdYr16KXLh5SGGkn2w
- Y98=
-X-IronPort-AV: E=Sophos;i="5.77,355,1596492000"; d="scan'208";a="13345780"
-To: "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
- <tiwai@suse.de>
-From: Jonas Holmberg <jonashg@axis.com>
-Subject: snd_pcm_status() does not update status->avail
-Message-ID: <d9c1f37e-5c8d-f289-270e-c6cda7a56ce3@axis.com>
-Date: Fri, 9 Oct 2020 16:02:54 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.3.1
+ by alsa1.perex.cz (Postfix) with ESMTPS id 6B5C5F800BF
+ for <alsa-devel@alsa-project.org>; Fri,  9 Oct 2020 16:07:25 +0200 (CEST)
+Received: from mail1.perex.cz (localhost [127.0.0.1])
+ by smtp1.perex.cz (Perex's E-mail Delivery System) with ESMTP id 9A304A0040;
+ Fri,  9 Oct 2020 16:07:24 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 smtp1.perex.cz 9A304A0040
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=perex.cz; s=default;
+ t=1602252444; bh=/mlODqTRA6pIsB2YAuSJv3Urebp1ojosppj7aeDvNR8=;
+ h=Subject:To:References:From:Date:In-Reply-To:From;
+ b=5pSW4L5PX+jdobcAAAh5MXYJoCbICWWPuq3QP1Os7I6IMGuMWh+vMJvqoWj4v9UjW
+ feviIdp6C5CoJvB16wYEswqMUDFxH+tS46hlODcnN2iMUgQaIxrmq/eTMJx77YOKUF
+ +6L8iFYpmLai66/GpnXsdEisi0Py7v2yFFTQkaI0=
+Received: from p1gen2.perex-int.cz (unknown [192.168.100.98])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested) (Authenticated sender: perex)
+ by mail1.perex.cz (Perex's E-mail Delivery System) with ESMTPSA;
+ Fri,  9 Oct 2020 16:07:22 +0200 (CEST)
+Subject: Re: Discover a microphone device, to later discover if it is
+ receiving input
+To: info <info@dressmaker.ca>, alsa-devel@alsa-project.org
+References: <de6ebf17-8f71-c497-28bc-7819338baddb@dressmaker.ca>
+ <5378606a-5b71-5d1b-f7f4-a6f33dce60b3@dressmaker.ca>
+From: Jaroslav Kysela <perex@perex.cz>
+Message-ID: <69ba716e-d576-088f-23e5-4462933e0159@perex.cz>
+Date: Fri, 9 Oct 2020 16:07:22 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.11.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"; format=flowed
+In-Reply-To: <5378606a-5b71-5d1b-f7f4-a6f33dce60b3@dressmaker.ca>
+Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
 Content-Transfer-Encoding: 7bit
 X-BeenThere: alsa-devel@alsa-project.org
@@ -83,26 +81,91 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hi,
-I have a problem with status->avail not being updated when using 
-multiple extplug plugins and softvol. I managed to get it to work with 
-the following patch:
+Dne 09. 10. 20 v 14:39 info napsal(a):
+> Can maintainers of this list please give a straight answer: is asking 
+> questions and leaving comments here a waste of time?
 
-diff --git a/src/pcm/pcm_plugin.c b/src/pcm/pcm_plugin.c
-index ea60eb98..89e819d6 100644
---- a/src/pcm/pcm_plugin.c
-+++ b/src/pcm/pcm_plugin.c
-@@ -551,6 +551,8 @@ static int snd_pcm_plugin_status(snd_pcm_t *pcm, 
-snd_pcm_status_t * status)
-                 return err;
-         status->appl_ptr = *pcm->appl.ptr;
-         status->hw_ptr = *pcm->hw.ptr;
-+       status->avail = snd_pcm_mmap_capture_avail(pcm);
-+       status->delay = snd_pcm_mmap_capture_delay(pcm);
-         return 0;
-  }
+Unfortunately, the hint list does not give information about the connected
+mixer outputs or inputs. It's just a list of available PCM devices in the system.
 
-My question is if this is the correct solution?
+If the I/O type is (null) it means that both directions may be available.
 
-BR
-/Jonas
+We have better device enumeration in UCM (Use Case Manager) by the use, but
+the configurations are not available for all hardware yet.
+
+BTW: Your e-mail header (From:) and signature does not seem trustly.
+
+						Jaroslav
+
+> On 2020-10-04 12:22 PM, info wrote:
+>> Hi all,
+>>
+>>
+>> I am writing a program that aims to auto-discover the microphone 
+>> device that the user is speaking into. I started off by querying 
+>> device hints and collected all devices with the IO types of null, 
+>> since I have not found any devices with the type of Input. I am 
+>> puzzled how it is possible that there is no Input, where a microphone 
+>> device should not be able to emit sound. This is the list on my 
+>> particular machine:
+>>
+>> Name of device: sysdefault:CARD=SB
+>> Description of device: HDA ATI SB, ALC892 Analog
+>> Default Audio Device
+>> I/O type of device: (null)
+>>
+>> Name of device: front:CARD=SB,DEV=0
+>> Description of device: HDA ATI SB, ALC892 Analog
+>> Front speakers
+>> I/O type of device: (null)
+>>
+>> Name of device: surround21:CARD=SB,DEV=0
+>> Description of device: HDA ATI SB, ALC892 Analog
+>> 2.1 Surround output to Front and Subwoofer speakers
+>> I/O type of device: Output
+>>
+>> Name of device: surround41:CARD=SB,DEV=0
+>> Description of device: HDA ATI SB, ALC892 Analog
+>> 4.1 Surround output to Front, Rear and Subwoofer speakers
+>> I/O type of device: Output
+>>
+>> Name of device: surround50:CARD=SB,DEV=0
+>> Description of device: HDA ATI SB, ALC892 Analog
+>> 5.0 Surround output to Front, Center and Rear speakers
+>> I/O type of device: Output
+>>
+>> Name of device: surround71:CARD=SB,DEV=0
+>> Description of device: HDA ATI SB, ALC892 Analog
+>> 7.1 Surround output to Front, Center, Side, Rear and Woofer speakers
+>> I/O type of device: Output
+>>
+>> Name of device: sysdefault:CARD=SB
+>> Description of device: HDA ATI SB, ALC892 Analog
+>> Default Audio Device
+>> I/O type of device: (null)
+>>
+>> Name of device: front:CARD=SB,DEV=0
+>> Description of device: HDA ATI SB, ALC892 Analog
+>> Front speakers
+>> I/O type of device: (null)
+>>
+>> Now, I am more puzzled, because none of them is a microphone device 
+>> explicitly. How can my program determine which of them is actually a 
+>> microphone?
+>>
+>> Also, why are devices are duplicated in the output from 
+>> snd_device_name_hint()? The very first device is also repeated as the 
+>> 2nd last one...
+>>
+>>
+>> Regards,
+>> Alex
+>>
+>>
+> 
+> 
+
+
+-- 
+Jaroslav Kysela <perex@perex.cz>
+Linux Sound Maintainer; ALSA Project; Red Hat, Inc.

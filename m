@@ -2,72 +2,78 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2780B288C0F
-	for <lists+alsa-devel@lfdr.de>; Fri,  9 Oct 2020 17:03:15 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 96750288C48
+	for <lists+alsa-devel@lfdr.de>; Fri,  9 Oct 2020 17:11:59 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B31E31655;
-	Fri,  9 Oct 2020 17:02:24 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B31E31655
+	by alsa0.perex.cz (Postfix) with ESMTPS id 29229165D;
+	Fri,  9 Oct 2020 17:11:09 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 29229165D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1602255794;
-	bh=nzHCOus8y9Aa//SCjSeNrnIA24BGJDzOhFb9VtWG2jQ=;
-	h=Date:From:To:In-Reply-To:References:Subject:Cc:List-Id:
+	s=default; t=1602256319;
+	bh=JB8o6dJV7z2WOAYTovRLJmJppAwil/0YbrK6Ktibkm8=;
+	h=Subject:To:References:From:Date:In-Reply-To:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=AmWEwnPHoxkn9eC2ThZWhCoMFoYmyTrZ9wq6jLpudm0g/H1qYohvlcZ+tK3X1WtEp
-	 oIqb/CMe2sYDoZwaH/N2JDuapc4+InsjCnk0P6n95shdj2BuTDiWZIYv7ATio4PjDl
-	 1MNdByVMkmc4BSRLvcZqrOKpT7jOLgiWQfSqMNNM=
+	b=Rb0nN3yeU8+KLwkMEbngoqdfa4o7Km9L+pbwHI716iK3NPTUL1yq9LlwYc39eG0vN
+	 sKeAf2TRDvMKRiiJy15Bdy7+LSNqZw3VCAOVkcPhQJaiqO4rTMmGnIk5hqIJXg5Tqm
+	 Hn3EkRk4evDgqfDC2WHqmlfP9X0oWb6C0QrRLgIs=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 40BFEF80218;
-	Fri,  9 Oct 2020 17:01:46 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id C827AF8015B;
+	Fri,  9 Oct 2020 17:10:18 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 61993F80218; Fri,  9 Oct 2020 17:01:44 +0200 (CEST)
+ id 90566F8015B; Fri,  9 Oct 2020 17:10:16 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled
+X-Spam-Status: No, score=-0.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS autolearn=disabled
  version=3.4.0
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id E6171F8020B
- for <alsa-devel@alsa-project.org>; Fri,  9 Oct 2020 17:01:41 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E6171F8020B
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="TXsHbOT4"
-Received: from localhost (fw-tnat.cambridge.arm.com [217.140.96.140])
+Received: from smtp2.axis.com (smtp2.axis.com [195.60.68.18])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 0321E22276;
- Fri,  9 Oct 2020 15:01:39 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1602255700;
- bh=nzHCOus8y9Aa//SCjSeNrnIA24BGJDzOhFb9VtWG2jQ=;
- h=Date:From:To:Cc:In-Reply-To:References:Subject:From;
- b=TXsHbOT4X4pY150MvT0noEDCAQc4s0EhP9HJksWoNv3cndQSPtEn6i9hnKuI5p6qM
- 6KopWCqntWCfj/0za0qtaK81F7EgKItbcaJlqcJbK4qCJV7aTXr9sjyWwnAEARppIy
- X7k75WuhoF8UNfIdKACoIz5L422AzSRU9wiY/agQ=
-Date: Fri, 09 Oct 2020 16:01:38 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Lars-Peter Clausen <lars@metafoo.de>, Mark Brown <broonie@kernel.org>
-In-Reply-To: <20201008161105.21804-1-broonie@kernel.org>
-References: <20201008161105.21804-1-broonie@kernel.org>
-Subject: Re: [PATCH] ASoC: dmaengine: Document support for TX only or RX only
- streams
-Message-Id: <160225569296.8995.4082142674776801774.b4-ty@kernel.org>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 6F50BF80128
+ for <alsa-devel@alsa-project.org>; Fri,  9 Oct 2020 17:10:12 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6F50BF80128
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=axis.com header.i=@axis.com
+ header.b="GiQkKPAh"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=axis.com; l=1621; q=dns/txt; s=axis-central1;
+ t=1602256214; x=1633792214;
+ h=subject:to:references:from:message-id:date:mime-version:
+ in-reply-to:content-transfer-encoding;
+ bh=ORzkGxePo6tbvhRNduvHCycFbx21mIKX9EB04COaAps=;
+ b=GiQkKPAh2yiz47alb7w80kJKsMrzugWg0KaOI+abC9TttbiBgPKW7zWy
+ PvLc+SL1cj2dURs0ZBI91csGlUBbaTUEo84C6HE9wuyNKVlhHU6YtMaHx
+ BxCBfIVz8jXtheidc1VX6uDHClIOvjM4Fq1iIchwCUwmm3tI4VJupwyfX
+ H1SnHFqxEtGQ7xTqGzhWrSfZY3wOR27NJ8khd5Z3nWs+C9nKFiJxMlRx8
+ ZTOdseAYG1CLlTRk/BgW6jvrwbdtH05LZ/NlO6oniueKtW5piiGFTiinW
+ R5lY/DvqRVOzPL77z7KULSmDXLEo3CuEh6n5F8TqQXG7SbXslespNebzY A==;
+IronPort-SDR: P4jFYFsSzQ7+kqhfy1hYhzZX5FSSUbb6LtDOqfPGTyrfWGdu9ktVPD7PrY5gS2Q6Zu0PV0AkyD
+ UZVKskrSG2ZZ/YGcK7OGASARRcTRv0MZawP58YlNneHV8BzGVCeuikWfBmFRz4z9KebFKXDxmQ
+ tfJw2G391sqRMIp9Q4Ly35nYQRJAYhU5zsSt/FQ17L58qSdXa8ldcFzyrzijENlP2J/lZNftIn
+ G2H6+7/LbW4q26XfFogFW48VVuUfmbCXKa9n1W5AYOEvM+H5e36WsitarasH4GN964IJOC0t5X
+ w/Q=
+X-IronPort-AV: E=Sophos;i="5.77,355,1596492000"; d="scan'208";a="13348599"
+Subject: Re: snd_pcm_status() does not update status->avail
+To: Jaroslav Kysela <perex@perex.cz>, Jonas Holmberg
+ <jonas.holmberg@axis.com>, "alsa-devel@alsa-project.org"
+ <alsa-devel@alsa-project.org>, "tiwai@suse.de" <tiwai@suse.de>
+References: <d9c1f37e-5c8d-f289-270e-c6cda7a56ce3@axis.com>
+ <2d4ca02d-8be3-62ca-c273-f5b277e64158@perex.cz>
+From: Jonas Holmberg <jonashg@axis.com>
+Message-ID: <c4860adb-70fb-7209-58bf-8cc785f7e548@axis.com>
+Date: Fri, 9 Oct 2020 17:10:08 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.3.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+In-Reply-To: <2d4ca02d-8be3-62ca-c273-f5b277e64158@perex.cz>
+Content-Type: text/plain; charset="utf-8"; format=flowed
+Content-Language: en-US
 Content-Transfer-Encoding: 8bit
-Cc: alsa-devel@alsa-project.org, Stephen Warren <swarren@nvidia.com>,
- Andy Shevchenko <andriy.shevchenko@intel.com>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- Liam Girdwood <lgirdwood@gmail.com>,
- Michael Wei Hong Sit <michael.wei.hong.sit@intel.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -83,35 +89,48 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Thu, 8 Oct 2020 17:11:05 +0100, Mark Brown wrote:
-> We intentionally do not return an error if we get a permanent failure
-> from dma_request_chan() in order to support systems which have TX only
-> or RX only channels. Add a comment documenting this.
+On 2020-10-09 16:30, Jaroslav Kysela wrote:
 
-Applied to
+> It seems that nobody is using those status fields. Usually,
+> snd_pcm_avail_update() is used by apps. Anyway, this should be fixed for 
+> both
+> directions. The avail should be probably synced to
+> snd_pcm_plugin_avail_update() output:
+> 
+> 
+> diff --git a/src/pcm/pcm_plugin.c b/src/pcm/pcm_plugin.c
+> index ea60eb98..5739cfc2 100644
+> --- a/src/pcm/pcm_plugin.c
+> +++ b/src/pcm/pcm_plugin.c
+> @@ -541,16 +541,20 @@ static snd_pcm_sframes_t
+> snd_pcm_plugin_avail_update(snd_pcm_t *pcm)
+>   static int snd_pcm_plugin_status(snd_pcm_t *pcm, snd_pcm_status_t * 
+> status)
+>   {
+>          snd_pcm_plugin_t *plugin = pcm->private_data;
+> -       snd_pcm_sframes_t err;
+> +       snd_pcm_sframes_t err, avail;
+> 
+>          /* sync with the latest hw and appl ptrs */
+> -       snd_pcm_plugin_avail_update(pcm);
+> +       avail = snd_pcm_plugin_avail_update(pcm);
+> +       if (avail < 0)
+> +               return avail;
+> 
+>          err = snd_pcm_status(plugin->gen.slave, status);
+>          if (err < 0)
+>                  return err;
+>          status->appl_ptr = *pcm->appl.ptr;
+>          status->hw_ptr = *pcm->hw.ptr;
+> +       status->avail = avail;
+> +       status->delay = snd_pcm_mmap_delay(pcm);
+>          return 0;
+>   }
+> 
+>                                          Jaroslav
+> 
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
+I have tested your patch and it solves my problem. Are you going to push it?
 
 Thanks!
-
-[1/1] ASoC: dmaengine: Document support for TX only or RX only streams
-      commit: 86f29c7442ac4ba5fe19fc2ada457f76c0080dd6
-
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
-
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
-
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
-
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-Thanks,
-Mark
+/Jonas

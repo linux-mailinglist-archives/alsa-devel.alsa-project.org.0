@@ -2,75 +2,70 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E35C9288C0A
-	for <lists+alsa-devel@lfdr.de>; Fri,  9 Oct 2020 17:02:07 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6256D288C0E
+	for <lists+alsa-devel@lfdr.de>; Fri,  9 Oct 2020 17:02:49 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 3A8381658;
-	Fri,  9 Oct 2020 17:01:17 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3A8381658
+	by alsa0.perex.cz (Postfix) with ESMTPS id 0130215F2;
+	Fri,  9 Oct 2020 17:01:59 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0130215F2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1602255727;
-	bh=tGD94/K/hffkL4YcDfFqcoiMm0xDX2cZ4+Km5UyImJ4=;
-	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
+	s=default; t=1602255769;
+	bh=T11muwXB2QxG8iDVQds+7//swDIvA2rVCBdLpoxNIn8=;
+	h=Date:From:To:In-Reply-To:References:Subject:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=bOM7W+zJCIkniYeeimGdV+4PbCcFYTwnZv2qVHrxuu2vJdrhFZnapBtrSbEoy8fzg
-	 Qy9KVqbAjsg9fzMeK0kv8yS3MGohaAibN4ml+7Fae9EGrpBGt0JcS4rGrsx+tnTzjx
-	 Lrf4Kl5k/QVU4I0XLyrIoLj8sV+c10IRvi5E+gPY=
+	b=GaWneieWhJlqTM2p9g24DQrxpop8Okt3DMI4TAdEb5uPw4WE3KWIPxCKftxQ7KqP7
+	 2i7f0Coc5oLLlwxc3E5gZi1NJ3cuL4W3/CZfQtKovdo15Wr9g/x91zpFpOTFmx3nnf
+	 UWInqzBO+7jELnTeoYC00agSihbJL7CyimLooiiM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id E2EE1F80128;
-	Fri,  9 Oct 2020 17:00:26 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 5CA25F8016E;
+	Fri,  9 Oct 2020 17:01:42 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id D78CFF8015B; Fri,  9 Oct 2020 17:00:24 +0200 (CEST)
+ id 82E73F8016A; Fri,  9 Oct 2020 17:01:40 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.2 required=5.0 tests=NICE_REPLY_A,SPF_HELO_NONE,
- SPF_NONE autolearn=disabled version=3.4.0
-Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+ DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled
+ version=3.4.0
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 324E4F800BF
+ for <alsa-devel@alsa-project.org>; Fri,  9 Oct 2020 17:01:37 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 324E4F800BF
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="AYnaStWd"
+Received: from localhost (fw-tnat.cambridge.arm.com [217.140.96.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 3FF86F80128
- for <alsa-devel@alsa-project.org>; Fri,  9 Oct 2020 17:00:20 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3FF86F80128
-IronPort-SDR: vCHanfEWqW63Cx/AwF8jky8tdFSk8/pTQgy6obl7pF0SI/TI0AHqCj2k+CgjWKL//PA2y92rbg
- 5iG4maCWtjjA==
-X-IronPort-AV: E=McAfee;i="6000,8403,9768"; a="145359378"
-X-IronPort-AV: E=Sophos;i="5.77,355,1596524400"; d="scan'208";a="145359378"
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from fmsmga001.fm.intel.com ([10.253.24.23])
- by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 09 Oct 2020 08:00:17 -0700
-IronPort-SDR: O6/lPDeAZFrkMJUCQOW068EFs+Gz9I+mXXeKsgwUEK6Dgtm4yfOecM1SPcXp9lANaSLJhitdmM
- VApNNyixGHRQ==
-X-IronPort-AV: E=Sophos;i="5.77,355,1596524400"; d="scan'208";a="419472596"
-Received: from sjkim-mobl1.amr.corp.intel.com (HELO [10.212.131.60])
- ([10.212.131.60])
- by fmsmga001-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 09 Oct 2020 08:00:16 -0700
-Subject: Re: [PATCH 1/1] ALSA: hda: fix jack detection with Realtek codecs
- when in D3
-To: Takashi Iwai <tiwai@suse.de>
-References: <20201009140227.691140-1-kai.vehmanen@linux.intel.com>
- <f1c3ff3f-8f7c-a82c-b03d-32369e32e395@linux.intel.com>
- <s5hzh4vsbl0.wl-tiwai@suse.de>
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Message-ID: <0c7d8dd4-b5cc-34f2-bbbe-7a4824e08128@linux.intel.com>
-Date: Fri, 9 Oct 2020 10:00:15 -0500
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.10.0
+ by mail.kernel.org (Postfix) with ESMTPSA id DA811222C4;
+ Fri,  9 Oct 2020 15:01:34 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=default; t=1602255695;
+ bh=T11muwXB2QxG8iDVQds+7//swDIvA2rVCBdLpoxNIn8=;
+ h=Date:From:To:Cc:In-Reply-To:References:Subject:From;
+ b=AYnaStWdxLfHwpszLEefwQ1igCqXzU60ES9X3xiPYt41ah2ptiup16z0/yhnIWyDP
+ OkwegOqis5CrD13Pm7E2+lw/77eeZQOYEAwby7tj7qEhtyqBezs/OdtnyNAiVyJt/l
+ 1fwndb7GUASqjx5wHXwYFv+XTcYfchR07aEgPIhw=
+Date: Fri, 09 Oct 2020 16:01:33 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Codrin Ciubotariu <codrin.ciubotariu@microchip.com>,
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ alsa-devel@alsa-project.org
+In-Reply-To: <20201009123527.2770629-1-codrin.ciubotariu@microchip.com>
+References: <20201009123527.2770629-1-codrin.ciubotariu@microchip.com>
+Subject: Re: [PATCH] ASoC: mchp-spdiftx: remove 'TX' from playback stream name
+Message-Id: <160225569297.8995.15961322461162264832.b4-ty@kernel.org>
 MIME-Version: 1.0
-In-Reply-To: <s5hzh4vsbl0.wl-tiwai@suse.de>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
-Cc: alsa-devel@alsa-project.org, Kai-Heng Feng <kai.heng.feng@canonical.com>,
- Kailang Yang <kailang@realtek.com>,
- Kai Vehmanen <kai.vehmanen@linux.intel.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+Cc: ludovic.desroches@microchip.com, lgirdwood@gmail.com,
+ alexandre.belloni@bootlin.com, nicolas.ferre@microchip.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -86,38 +81,34 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+On Fri, 9 Oct 2020 15:35:27 +0300, Codrin Ciubotariu wrote:
+> Do not include the 'TX' in the stream name since it's obvious for
+> playback.
 
->> On 10/9/20 9:02 AM, Kai Vehmanen wrote:
->>> In case HDA controller is active, but codec is runtime suspended, jack
->>> detection is not successful and no interrupt is raised. This has been
->>> observed with multiple Realtek codecs and HDA controllers from different
->>> vendors. Bug does not occur if both codec and controller are active,
->>> or both are in suspend. Bug can be easily hit on desktop systems with
->>> no built-in speaker.
->>>
->>> The problem can be fixed by powering up the codec once after every
->>> controller runtime resume. Even if codec goes back to suspend, the jack
->>> detection will now work. Add a flag to 'hda_codec' to describe codecs
->>> that require this flow from the controller driver. Mark all Realtek
->>> codecs with this flag.
->>
->> It does make sense to request the codec to resume when the controller
->> resumes, we did the same for SoundWire IIRC.
->>
->> I am still confused on what happens if e.g. the controller resumes and
->> remains active, e.g. capturing from the DMIC. The codec would become
->> suspended after a while and then we would be back to the same problem,
->> wouldn't we?
->>
->> Or are you saying that this initial resume of the codec is enough?
-> 
-> When the controller is active and the codec goes to runtime suspend,
-> the codec will be woken up via the unsolicited event per jack change.
-> So it seems that the problem is only about the wake up from the
-> controller's runtime suspend.
+Applied to
 
-Right, I guess the first sentence in commit message could be updated as
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
 
-"In case HDA controller becomes active, but codec is runtime suspended, 
-jack detection is not successful and no interrupt is raised."
+Thanks!
 
+[1/1] ASoC: mchp-spdiftx: remove 'TX' from playback stream name
+      commit: b899e4fd7a331065d01ca14809c9e55f113f7d05
+
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
+
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
+
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
+
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
+
+Thanks,
+Mark

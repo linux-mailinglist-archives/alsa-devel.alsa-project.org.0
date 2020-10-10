@@ -2,88 +2,70 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 851632891DE
-	for <lists+alsa-devel@lfdr.de>; Fri,  9 Oct 2020 21:41:01 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8CA9D289F79
+	for <lists+alsa-devel@lfdr.de>; Sat, 10 Oct 2020 11:09:51 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id EDCC01683;
-	Fri,  9 Oct 2020 21:40:10 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EDCC01683
+	by alsa0.perex.cz (Postfix) with ESMTPS id 8CE3E836;
+	Sat, 10 Oct 2020 11:09:00 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8CE3E836
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1602272461;
-	bh=T/kZdTTyCl5F6WH4TRCpMOeELXqybEEoqGLFzgadyMg=;
-	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
+	s=default; t=1602320990;
+	bh=XAET2kK+f0mLauh9NzMfsQGh64Z7m7LbPKLzZimrTR0=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=DtLPxXDfM7moGTIpW/7lTBMEJ4wzFszphPnWz2/uW14fcRqVf/Q78bmM2mvzJauA0
-	 BH8xtRwKbR1a5zbCKhINwrDl0fQ6YSVw3PBhYwy3nddT4sfC1aLQYT2s4PQHL4qLFi
-	 U5mJck1PqAladM0aSok6R4skM95gOdxb5SffbcbI=
+	b=a12u7pP0J8h1vQmZj7E+ZH4jfof4kdbUn+A5P8exHFCBI3PG3I+NhO64rweFsyUPd
+	 X5oT3USfxt+jd4d07SwMzVYfqHNVjTJWJJFCiTqIxjyp3AwsMklKsNrXIByNgMLynx
+	 K/vvIyOBEeUrf3FDBt6m1HWx+A7YLwqZpdjPt1wg=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 5833AF800BF;
-	Fri,  9 Oct 2020 21:39:20 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id C07DEF800BF;
+	Sat, 10 Oct 2020 11:08:09 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 8DF08F8015B; Fri,  9 Oct 2020 21:39:17 +0200 (CEST)
+ id 7F600F80164; Sat, 10 Oct 2020 11:08:07 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=NICE_REPLY_A,PRX_BODY_72,
- SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Level: *
+X-Spam-Status: No, score=1.0 required=5.0 tests=PRX_BODY_30, RCVD_IN_MSPIKE_H3,
+ RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
+Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id B6273F800BF
- for <alsa-devel@alsa-project.org>; Fri,  9 Oct 2020 21:39:09 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B6273F800BF
-IronPort-SDR: tKYzSvDqe5nbDXvyAAj12xcrHArcuIPTa/VZnCQ9dIjThW6TOq7Y9TkNmLpaDgIItX0ESfsJqK
- Zpaaz2OEAlzg==
-X-IronPort-AV: E=McAfee;i="6000,8403,9769"; a="165591059"
-X-IronPort-AV: E=Sophos;i="5.77,355,1596524400"; d="scan'208";a="165591059"
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from orsmga004.jf.intel.com ([10.7.209.38])
- by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 09 Oct 2020 12:39:05 -0700
-IronPort-SDR: uMWCl/z89ewPADQDqDsvE8uTFL+LonNGnd79CWADG9OCdGywjmbO0qu5ER6L8tWeAIcomXKybm
- iE+SSrwwwBIg==
-X-IronPort-AV: E=Sophos;i="5.77,355,1596524400"; d="scan'208";a="462298616"
-Received: from dnittama-mobl.amr.corp.intel.com (HELO [10.212.225.198])
- ([10.212.225.198])
- by orsmga004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 09 Oct 2020 12:39:03 -0700
-Subject: Re: [PATCH v2 1/6] Add ancillary bus support
-To: Dan Williams <dan.j.williams@intel.com>
-References: <20201005182446.977325-1-david.m.ertman@intel.com>
- <20201005182446.977325-2-david.m.ertman@intel.com>
- <20201006172317.GN1874917@unreal>
- <DM6PR11MB2841976B8E89C980CCC29AD2DD0B0@DM6PR11MB2841.namprd11.prod.outlook.com>
- <CAPcyv4hoS7ZT_PPrXqFBzEHBKL-O4x1jHtY8x9WWesCPA=2E0g@mail.gmail.com>
- <7dbbc51c-2cbd-a7c5-69de-76f190f1d130@linux.intel.com>
- <CAPcyv4h24md531OYTVkHqzK7Nb0dJc5PHkLDSDywh8mYgrXBjg@mail.gmail.com>
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Message-ID: <a6eddd81-9746-aee7-3403-971c2b6286ef@linux.intel.com>
-Date: Fri, 9 Oct 2020 14:39:02 -0500
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.10.0
-MIME-Version: 1.0
-In-Reply-To: <CAPcyv4h24md531OYTVkHqzK7Nb0dJc5PHkLDSDywh8mYgrXBjg@mail.gmail.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
-Cc: "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
- "kuba@kernel.org" <kuba@kernel.org>, "parav@mellanox.com" <parav@mellanox.com>,
- Leon Romanovsky <leon@kernel.org>, "tiwai@suse.de" <tiwai@suse.de>,
- "netdev@vger.kernel.org" <netdev@vger.kernel.org>,
- "ranjani.sridharan@linux.intel.com" <ranjani.sridharan@linux.intel.com>,
- "fred.oh@linux.intel.com" <fred.oh@linux.intel.com>,
- "linux-rdma@vger.kernel.org" <linux-rdma@vger.kernel.org>,
- "dledford@redhat.com" <dledford@redhat.com>,
- "broonie@kernel.org" <broonie@kernel.org>, "jgg@nvidia.com" <jgg@nvidia.com>,
- "gregkh@linuxfoundation.org" <gregkh@linuxfoundation.org>, "Ertman,
- David M" <david.m.ertman@intel.com>, "Saleem,
- Shiraz" <shiraz.saleem@intel.com>, "davem@davemloft.net" <davem@davemloft.net>,
- "Patil, Kiran" <kiran.patil@intel.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 4F383F800BF
+ for <alsa-devel@alsa-project.org>; Sat, 10 Oct 2020 11:08:03 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4F383F800BF
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id BBCF4AC12;
+ Sat, 10 Oct 2020 09:08:02 +0000 (UTC)
+Date: Sat, 10 Oct 2020 11:08:02 +0200
+Message-ID: <s5ha6wusb2l.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Jaroslav Kysela <perex@perex.cz>
+Subject: Re: [PATCH] ALSA: compress: allow pause and resume during draining
+In-Reply-To: <831bbfcf-9720-9100-8633-65932b415cab@perex.cz>
+References: <CGME20200929084051epcas2p35fb2228ed1bdfce6a7ddf5b37c944823@epcas2p3.samsung.com>
+ <000001d6963c$3cc53690$b64fa3b0$@samsung.com>
+ <s5heemlklo0.wl-tiwai@suse.de> <20201001102938.GU2968@vkoul-mobl>
+ <2bf52360-bd11-b4cd-b255-8a5610b4aa5f@linux.intel.com>
+ <20201006062105.GQ2968@vkoul-mobl>
+ <4bbc385b-d35a-8766-7981-034455287225@linux.intel.com>
+ <000d01d69d58$4e2db6f0$ea8924d0$@samsung.com>
+ <s5hr1q7sa9f.wl-tiwai@suse.de>
+ <831bbfcf-9720-9100-8633-65932b415cab@perex.cz>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
+ FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
+ (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
+Content-Type: text/plain; charset=US-ASCII
+Cc: alsa-devel@alsa-project.org, khw0178.kim@samsung.com, lgirdwood@gmail.com,
+ kimty@samsung.com, s47.kang@samsung.com, tiwai@suse.com,
+ 'Pierre-Louis Bossart' <pierre-louis.bossart@linux.intel.com>,
+ 'Vinod Koul' <vkoul@kernel.org>, hmseo@samsung.com,
+ Gyeongtaek Lee <gt82.lee@samsung.com>, pilsun.jang@samsung.com,
+ tkjung@samsung.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -99,160 +81,112 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+On Fri, 09 Oct 2020 19:43:40 +0200,
+Jaroslav Kysela wrote:
+> 
+> Dne 09. 10. 20 v 17:13 Takashi Iwai napsal(a):
+> > On Thu, 08 Oct 2020 11:49:24 +0200,
+> > Gyeongtaek Lee wrote:
+> >>
+> >> On 10/06/20 11:57 PM, Pierre-Louis Bossart wrote:
+> >>>> The SM in kernel might be bit more convoluted so was wondering if we can
+> >>>> handle this in userland. The changelog for this patch says that for
+> >>>> test case was sending whole file, surely that is not an optimal approach.
+> >>>
+> >>> It's rather common to have to deal with very small files, even with PCM, 
+> >>> e.g. for notifications. It's actually a classic test case that exposes 
+> >>> design issues in drivers, where e.g. the last part of the notification 
+> >>> is not played.
+> >>>
+> >>>> Should we allow folks to send whole file to kernel and then issue
+> >>>> partial drain?
+> >>>
+> >>> I don't think there should be a conceptual limitation here. If the 
+> >>> userspace knows that the last part of the file is smaller than a 
+> >>> fragment it should be able to issue a drain (or partial drain if it's a 
+> >>> gapless solution).
+> >>>
+> >>> However now that I think of it, I am not sure what happens if the file 
+> >>> is smaller than a fragment. That may very well be a limitation in the 
+> >>> design.
+> >>>
+> >> Thanks for the comments.
+> >>
+> >> Actually, problem can be occurred with big file also.
+> >> Application usually requests draining after sending last frame.
+> >> If user clicks pause button after draining, pause will be failed
+> >> and the file just be played until end.
+> >> If application stop and start playback for this case, 
+> >> start of last frame will be heard again because stop sets state to SETUP,
+> >> and write is needed to set the state to PREPARED for start.
+> >> If bitrate of the file is low, time stamp will be reversed and be heard weird.
+> >> I also hope this problem can be handled in userspace easily but I couldn't find a way for now.
+> >>
+> >> I think that this is the time that I should share fixed patch following the comments to help the discussion.
+> >> Following opinions are added to the patch.
+> >> 1. it's be much nicer to have a new state - Takashi
+> > 
+> > Well, it wasn't me; I'm not against the new state *iff* it would end
+> > up with cleaner code.  Admittedly, the new state can be more
+> > "consistent" regarding the state transition.  If we allow the PAUSE
+> > state during DRAINING, it'll lead to multiple states after resuming
+> > the pause.
+> > 
+> >> 2. We can add this state to asound.h so the user space can be updated. - Jaroslav
+> >> 3. don't forget to increase the SNDRV_COMPRESS_VERSION - Jaroslav
+> >>
+> >> I'm bit wondering whether it is good to increase SNDRV_COMPRESS_VERSION
+> >> with a change in asound.h not in compress_offload.h.
+> >> Should I increase SNDRV_PCM_VERSION also?
+> > 
+> > Yes, if we really add the PCM state, it's definitely needed.
+> > 
+> >> And what happened if I request back-porting a patch which changes VERSION to stables?
+> > 
+> > If we introduce the new change, it must be safe to the old kernels,
+> > too.  The problem is only about the compatibility of the user-space
+> > program, not about the kernel.
+> > 
+> > 
+> > HOWEVER: I'm still concerned by the addition of a new PCM state.
+> > Jaroslav suggested two steps approach, (1) first add the state only in
+> > the uapi header, then use (2) the new state actually.  But, this
+> > doesn't help much, simply because the step 1 won't catch real bugs.
+> > 
+> > Even if we add a new state and change the SNDRV_PCM_STATE_LAST, I
+> > guess most of code can be compiled fine.  So, at the step 1, no one
+> > notices it and bothered, either.  But, at the step 2, you'll hit a
+> > problem.
+> > 
+> > Adding a new state is something like to add a new color to the traffic
+> > signal.  In some countries, the car turning right at a crossing
+> > doesn't have to stop at a red signal.  Suppose that we want to control
+> > it, and change the international rule by introducing a new color (say
+> > magenta) signal to stop the car turning right.  That'll be a big
+> > confusion because most drivers are trained for only red, green and
+> > yellow signals.
+> > 
+> > Similarly, if we add a new PCM state, every program code that deals
+> > with the PCM state may be confused by the new state.  It has to be
+> > reviewed and corrected manually, because it's no syntax problem the
+> > compiler may catch.
+> 
+> If there is a handshake between both side, this problem is gone. We can just
+> add another flag / ioctl / whatever to activate the new behaviour.
 
->>>>>> +
->>>>>> +   ancildrv->driver.owner = owner;
->>>>>> +   ancildrv->driver.bus = &ancillary_bus_type;
->>>>>> +   ancildrv->driver.probe = ancillary_probe_driver;
->>>>>> +   ancildrv->driver.remove = ancillary_remove_driver;
->>>>>> +   ancildrv->driver.shutdown = ancillary_shutdown_driver;
->>>>>> +
->>>>>
->>>>> I think that this part is wrong, probe/remove/shutdown functions should
->>>>> come from ancillary_bus_type.
->>>>
->>>>   From checking other usage cases, this is the model that is used for probe, remove,
->>>> and shutdown in drivers.  Here is the example from Greybus.
->>>>
->>>> int greybus_register_driver(struct greybus_driver *driver, struct module *owner,
->>>>                               const char *mod_name)
->>>> {
->>>>           int retval;
->>>>
->>>>           if (greybus_disabled())
->>>>                   return -ENODEV;
->>>>
->>>>           driver->driver.bus = &greybus_bus_type;
->>>>           driver->driver.name = driver->name;
->>>>           driver->driver.probe = greybus_probe;
->>>>           driver->driver.remove = greybus_remove;
->>>>           driver->driver.owner = owner;
->>>>           driver->driver.mod_name = mod_name;
->>>>
->>>>
->>>>> You are overwriting private device_driver
->>>>> callbacks that makes impossible to make container_of of ancillary_driver
->>>>> to chain operations.
->>>>>
->>>>
->>>> I am sorry, you lost me here.  you cannot perform container_of on the callbacks
->>>> because they are pointers, but if you are referring to going from device_driver
->>>> to the auxiliary_driver, that is what happens in auxiliary_probe_driver in the
->>>> very beginning.
->>>>
->>>> static int auxiliary_probe_driver(struct device *dev)
->>>> 145 {
->>>> 146         struct auxiliary_driver *auxdrv = to_auxiliary_drv(dev->driver);
->>>> 147         struct auxiliary_device *auxdev = to_auxiliary_dev(dev);
->>>>
->>>> Did I miss your meaning?
->>>
->>> I think you're misunderstanding the cases when the
->>> bus_type.{probe,remove} is used vs the driver.{probe,remove}
->>> callbacks. The bus_type callbacks are to implement a pattern where the
->>> 'probe' and 'remove' method are typed to the bus device type. For
->>> example 'struct pci_dev *' instead of raw 'struct device *'. See this
->>> conversion of dax bus as an example of going from raw 'struct device
->>> *' typed probe/remove to dax-device typed probe/remove:
->>>
->>> https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git/commit/?id=75797273189d
->>
->> Thanks Dan for the reference, very useful. This doesn't look like a a
->> big change to implement, just wondering about the benefits and
->> drawbacks, if any? I am a bit confused here.
->>
->> First, was the initial pattern wrong as Leon asserted it? Such code
->> exists in multiple examples in the kernel and there's nothing preventing
->> the use of container_of that I can think of. Put differently, if this
->> code was wrong then there are other existing buses that need to be updated.
->>
->> Second, what additional functionality does this move from driver to
->> bus_type provide? The commit reference just states 'In preparation for
->> introducing seed devices the dax-bus core needs to be able to intercept
->> ->probe() and ->remove() operations", but that doesn't really help me
->> figure out what 'intercept' means. Would you mind elaborating?
->>
->> And last, the existing probe function does calls dev_pm_domain_attach():
->>
->> static int ancillary_probe_driver(struct device *dev)
->> {
->>          struct ancillary_driver *ancildrv = to_ancillary_drv(dev->driver);
->>          struct ancillary_device *ancildev = to_ancillary_dev(dev);
->>          int ret;
->>
->>          ret = dev_pm_domain_attach(dev, true);
->>
->> So the need to access the raw device still exists. Is this still legit
->> if the probe() is moved to the bus_type structure?
-> 
-> Sure, of course.
-> 
->>
->> I have no objection to this change if it preserves the same
->> functionality and possibly extends it, just wanted to better understand
->> the reasons for the change and in which cases the bus probe() makes more
->> sense than a driver probe().
->>
->> Thanks for enlightening the rest of us!
-> 
-> tl;dr: The ops set by the device driver should never be overwritten by
-> the bus, the bus can only wrap them in its own ops.
-> 
-> The reason to use the bus_type is because the bus type is the only
-> agent that knows both how to convert a raw 'struct device *' to the
-> bus's native type, and how to convert a raw 'struct device_driver *'
-> to the bus's native driver type. The driver core does:
-> 
->          if (dev->bus->probe) {
->                  ret = dev->bus->probe(dev);
->          } else if (drv->probe) {
->                  ret = drv->probe(dev);
->          }
-> 
-> ...so that the bus has the first priority for probing a device /
-> wrapping the native driver ops. The bus ->probe, in addition to
-> optionally performing some bus specific pre-work, lets the bus upcast
-> the device to bus-native type.
-> 
-> The bus also knows the types of drivers that will be registered to it,
-> so the bus can upcast the dev->driver to the native type.
-> 
-> So with bus_type based driver ops driver authors can do:
-> 
-> struct auxiliary_device_driver auxdrv {
->      .probe = fn(struct auxiliary_device *, <any aux bus custom probe arguments>)
-> };
-> 
-> auxiliary_driver_register(&auxdrv); <-- the core code can hide bus details
-> 
-> Without bus_type the driver author would need to do:
-> 
-> struct auxiliary_device_driver auxdrv {
->      .drv = {
->          .probe = fn(struct device *), <-- no opportunity for bus
-> specific probe args
->          .bus = &auxilary_bus_type, <-- unnecessary export to device drivers
->      },
-> };
-> 
-> driver_register(&auxdrv.drv)
+That's another tricky part.  We do have already some handshake in
+alsa-lib to determine the supported protocol.  However, if a code in
+question is outside that influence, we can't ensure that all belonging
+components understand the new one.  e.g. if a program uses an
+intermediate library, it's free from alsa-lib changes.  Or, imagine
+some plugin.
 
-Thanks Dan, I appreciate the explanation.
-
-I guess the misunderstanding on my side was that in practice the drivers 
-only declare a probe at the auxiliary level:
-
-struct auxiliary_device_driver auxdrv {
-     .drv = {
-         .name = "my driver"
-         <<< .probe not set here.
-     }
-     .probe =  fn(struct auxiliary_device *, int id),	
-}
-
-It looks indeed cleaner with your suggestion. DaveE and I were talking 
-about this moments ago and made the change, will be testing later today.
-
-Again thanks for the write-up and have a nice week-end.
+If this were a change of the API function, we may have a better
+control.  We may provide different versioned symbols in the worst
+case, too.  But, an enum is essentially hard-coded, so we have no
+direct influence once after it's compiled.
 
 
+thanks,
+
+Takashi

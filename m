@@ -2,115 +2,94 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id AEC1428A73C
-	for <lists+alsa-devel@lfdr.de>; Sun, 11 Oct 2020 13:34:50 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4D35728AA56
+	for <lists+alsa-devel@lfdr.de>; Sun, 11 Oct 2020 22:24:20 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 1164A166E;
-	Sun, 11 Oct 2020 13:34:00 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1164A166E
+	by alsa0.perex.cz (Postfix) with ESMTPS id BD382166F;
+	Sun, 11 Oct 2020 22:23:29 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BD382166F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1602416090;
-	bh=gq/gNsr2Ije0onBIHHiqD3efih4vSXfKob2kNT8DyIg=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=IFqITJ9lKQPdV38Jr5I8jS9OHfcFacekJZyzc4qYemLkL+sxCSGHmZISZ9CnVnSFs
-	 GwG3ix97flHdplwcdZtIydFTmg76yZDBd6oyIlXPf2P+U5S95WezhEibP6C0fk942N
-	 KQMX9Gs+SX8BvlhNoN7NX9soSuBxQlY298Sykk8Q=
+	s=default; t=1602447859;
+	bh=4Of9DSpBOHdoc+XwPLSf/hXYqmCefzxE+Hyi1VQVutM=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=vkjY1Oo6FRy0FRGNAJXdOmPJ3OqrYJqJgev0/n0m3zvkSvApaxWMkEmHiX3mUU+K2
+	 ZugNXa4WrTIUjg5GdayUGUU1Hvtr+NTEZFb1DI/+AaqeVuKOuT1HD+L4AKVjucV7Uz
+	 miTELM4wzYG3j0Is/B2rl5y5hH+8/yiqBx6RMb2E=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 7B57AF8013C;
-	Sun, 11 Oct 2020 13:33:09 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 53A3DF801D9;
+	Sun, 11 Oct 2020 22:22:39 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 9F8B2F8016F; Sun, 11 Oct 2020 13:33:06 +0200 (CEST)
+ id A95AFF8016F; Sun, 11 Oct 2020 22:22:37 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,RCVD_IN_MSPIKE_H3,RCVD_IN_MSPIKE_WL,SPF_HELO_PASS,SPF_PASS,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from wout4-smtp.messagingengine.com (wout4-smtp.messagingengine.com
- [64.147.123.20])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+X-Spam-Status: No, score=0.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,FREEMAIL_FROM,PRX_BODY_26,SPF_HELO_NONE,SPF_PASS
+ autolearn=disabled version=3.4.0
+Received: from mail-qk1-x744.google.com (mail-qk1-x744.google.com
+ [IPv6:2607:f8b0:4864:20::744])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id B5DAEF80141
- for <alsa-devel@alsa-project.org>; Sun, 11 Oct 2020 13:32:57 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B5DAEF80141
+ by alsa1.perex.cz (Postfix) with ESMTPS id 0D93CF80134
+ for <alsa-devel@alsa-project.org>; Sun, 11 Oct 2020 22:22:34 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0D93CF80134
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=sakamocchi.jp header.i=@sakamocchi.jp
- header.b="IpVVD/o9"; 
- dkim=pass (2048-bit key) header.d=messagingengine.com
- header.i=@messagingengine.com header.b="Ceo6vjeG"
-Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
- by mailout.west.internal (Postfix) with ESMTP id 6916258C;
- Sun, 11 Oct 2020 07:32:54 -0400 (EDT)
-Received: from mailfrontend2 ([10.202.2.163])
- by compute4.internal (MEProxy); Sun, 11 Oct 2020 07:32:55 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sakamocchi.jp;
- h=date:from:to:cc:subject:message-id:references:mime-version
- :content-type:in-reply-to; s=fm2; bh=+ebymQySiF7n21UOcFO9mizXixa
- NxwiZj2RVBB0uKW4=; b=IpVVD/o91q9rAPnu5miR6RQPgMLz4TobuQNkmO1/VxB
- 0WAARCx1Qtvv8AvdqUB+Gtr2Kk+uXbGjvcUfTI5d9/xp23c5fiwhQ/63+X9v6X8T
- k8dNSXF4XllngQBL3Zock6eSJE5TUki34jFY0NhsstdArkAeeW36FbKtjhcbyVKq
- KUasJeAj9nXrco6fT6ntBZhJQe9eNOyyQk4eocvuxm3drKGpSvPZJdnTYcC4iIos
- NDMWm55NbgizmGeICFnd25FeDkJTFPgnb+egtVL4rPqT6/ooeRjLXvF/qYs4MS0F
- vXZ/2Ng3FhOXebraad8sHRv9iBDHcS/IeIbRCpWmmsw==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to:x-me-proxy
- :x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; bh=+ebymQ
- ySiF7n21UOcFO9mizXixaNxwiZj2RVBB0uKW4=; b=Ceo6vjeG1gvNM+jX+sY8eq
- fQdktd4m/Z125EdbtnQf2vVHxa/AE/xmMOvwbYTDFmdK7ixvCUQQIjWowVRDvidz
- AjpCivDnG4LUIhuMpC9aQiY9nRKbTpLPKFr+KxzZUjV85ChjJxa5ktASs7Lb97Hp
- oNVtABg7mWwsSLeHW4q1a9c2Il3LjtzZXiN5l9HiNxXJ4RrnV1daDFLw3m35G+oD
- o7mheeO7RerCyovBv3+hmuCa9i48CG5kjKdZPxn4pDC16t+Sh1y04s2C4cfVUWDt
- 5OaT/XPyRpa9o4Mpl+HNf4CxOGk/NCNH2NMWDtHImeyjis+NWhgICAF4XQIfpUdw
- ==
-X-ME-Sender: <xms:Y-2CX8wYszKA2GLZn5UN7zjMIFxWelt_9Wv-hrmJjRpWO5xs62Lz-g>
- <xme:Y-2CXwTzjorHYjaGzLbjH2JiL5NuoBDZBBAT6GFQjTT6CvapiDcx0U27IElAc3xId
- _TWv-yhogEzByMviNs>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedujedrheehgdegvdcutefuodetggdotefrodftvf
- curfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfghnecu
- uegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenuc
- fjughrpeffhffvuffkfhggtggujgesthdtredttddtvdenucfhrhhomhepvfgrkhgrshhh
- ihcuufgrkhgrmhhothhouceoohdqthgrkhgrshhhihesshgrkhgrmhhotggthhhirdhjph
- eqnecuggftrfgrthhtvghrnhepvdetfeevffeftdetuddtudegfeevleettdetiedujefh
- jefhkedvieeltdehuddunecuffhomhgrihhnpehlihhpiedrfhhrnecukfhppedugedrfe
- drieegrddvtdejnecuvehluhhsthgvrhfuihiivgeptdenucfrrghrrghmpehmrghilhhf
- rhhomhepohdqthgrkhgrshhhihesshgrkhgrmhhotggthhhirdhjph
-X-ME-Proxy: <xmx:Y-2CX-VoQ-RdDaC9yqqL_qSVhRNVEjpn0M0G83S9UwK8YoCjEwm1mg>
- <xmx:Y-2CX6jT8E6jo6lSYjRvKbQFKygIAD44SM9mg2QWz3TtZ-S3oIXutA>
- <xmx:Y-2CX-DS1gU5vd5TiJ_ApoDd_S_VU_pP_HcfGqYZhsDFCKQ3lqY5uA>
- <xmx:Zu2CX0BGa9yQUKuV0G0w6HonCm_ZMqJyWSa3fTfo9vFFLh2JrBiOTg>
-Received: from workstation (ae064207.dynamic.ppp.asahi-net.or.jp [14.3.64.207])
- by mail.messagingengine.com (Postfix) with ESMTPA id 6437A3064610;
- Sun, 11 Oct 2020 07:32:49 -0400 (EDT)
-Date: Sun, 11 Oct 2020 20:32:47 +0900
-From: Takashi Sakamoto <o-takashi@sakamocchi.jp>
-To: Julia Lawall <Julia.Lawall@inria.fr>
-Subject: Re: [PATCH 4/8] ALSA: fireworks: use semicolons rather than commas
- to separate statements
-Message-ID: <20201011113247.GA333010@workstation>
-Mail-Followup-To: Julia Lawall <Julia.Lawall@inria.fr>,
- Clemens Ladisch <clemens@ladisch.de>,
- Valdis =?utf-8?Q?Kl=C4=93tnieks?= <valdis.kletnieks@vt.edu>,
- Joe Perches <joe@perches.com>, Thomas Gleixner <tglx@linutronix.de>,
- kernel-janitors@vger.kernel.org, Jaroslav Kysela <perex@perex.cz>,
- Takashi Iwai <tiwai@suse.com>, alsa-devel@alsa-project.org,
- linux-kernel@vger.kernel.org
-References: <1602407979-29038-1-git-send-email-Julia.Lawall@inria.fr>
- <1602407979-29038-5-git-send-email-Julia.Lawall@inria.fr>
+ dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
+ header.b="Dv1lSgAi"
+Received: by mail-qk1-x744.google.com with SMTP id 188so15994967qkk.12
+ for <alsa-devel@alsa-project.org>; Sun, 11 Oct 2020 13:22:34 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=tASCTYBxcthY6OHyZcpvEZ2WGLxMD6Z6m5Bm5NnAUZQ=;
+ b=Dv1lSgAiqpMC+u/tF2AgZlaLQqTUsG6LtAn2oJpLSQ5nxXcyySAqoPQBzql8egLIOJ
+ 2TqXFv5N+06kL8+5/4obvGMNM+yhrOEQWIjbH+P5nKXCILkgWE7l4eQcwvATc6ZtIgNV
+ kipf2CK6NshRLdCVbkxsT/M/Rhke9pxyDRhImnHRui/OkCEyUD0bpNQbgBML1iMrNRz9
+ VX2IqA5IhjTMEEByg/cITnfh0Th0ZUoX/tgu/t/dkAcomLSWjcqmZiLv1Htk4GE4m9bT
+ MI/4FwePmlpsMAufc/jXuATMmGLbIV6LE55nvgE6sni6+ms7GJOXiVwVLqoMOobCTTPJ
+ B0vg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=tASCTYBxcthY6OHyZcpvEZ2WGLxMD6Z6m5Bm5NnAUZQ=;
+ b=tnwk5fQRHxmuelW0CDizFmapjmW/2Ir8UjwZgCbrv8SStIgwC8f3FbfqgeWHlbtH3X
+ 65jgidw88a4ZoHJaoqWB7iKZbVfLweZ7CYuoFw1pk+1VHklEVTtG8tCf7JXN5KRz8MQT
+ 1ZYgV22YAA/CSV0ll2fTrpmmITDCSZ9t6Sqg+u7gKuOH9cng1fdqqttwV09uC+5KzNgT
+ 5sdgPu1aD073vewrUWrDHe8wwOuv8XC+F38KNlk5WtFL3WGwEKOopAeq3/7MaCVQuHOr
+ c//+o5YLCJTbJQmrGk/HXp28z9T4O40DRaJNX6ihLqNqfvLHsCG88wIJSibWIxvHlhfs
+ PRbg==
+X-Gm-Message-State: AOAM5310AgPFbzD8KGAHK2bICa2N/btiLhxQiTDNBb0h/xCzRaGwS8gt
+ o/YrlNx/IwtD4GkGMpF64xk=
+X-Google-Smtp-Source: ABdhPJy8+5x9bAXKsOMAy506+SFXzMiqLE0rZegNwLCZFuT6OQC4+9gTbGyZkXPwfSNLC6JG8E9dbw==
+X-Received: by 2002:ae9:dc03:: with SMTP id q3mr7328008qkf.288.1602447752182; 
+ Sun, 11 Oct 2020 13:22:32 -0700 (PDT)
+Received: from clement-Latitude-7490.numericable.fr
+ (213-245-241-245.rev.numericable.fr. [213.245.241.245])
+ by smtp.gmail.com with ESMTPSA id c72sm2987778qkg.56.2020.10.11.13.22.29
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sun, 11 Oct 2020 13:22:31 -0700 (PDT)
+From: =?UTF-8?q?Cl=C3=A9ment=20P=C3=A9ron?= <peron.clem@gmail.com>
+To: Maxime Ripard <mripard@kernel.org>, Chen-Yu Tsai <wens@csie.org>,
+ Rob Herring <robh+dt@kernel.org>, Mark Brown <broonie@kernel.org>,
+ Liam Girdwood <lgirdwood@gmail.com>
+Subject: [PATCH v7 00/14] Add Allwinner H3/H5/H6/A64 HDMI audio
+Date: Sun, 11 Oct 2020 22:22:10 +0200
+Message-Id: <20201011202224.47544-1-peron.clem@gmail.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <1602407979-29038-5-git-send-email-Julia.Lawall@inria.fr>
-Cc: alsa-devel@alsa-project.org,
- Valdis =?utf-8?Q?Kl=C4=93tnieks?= <valdis.kletnieks@vt.edu>,
- Clemens Ladisch <clemens@ladisch.de>, kernel-janitors@vger.kernel.org,
- Takashi Iwai <tiwai@suse.com>, Joe Perches <joe@perches.com>,
- Thomas Gleixner <tglx@linutronix.de>, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+Cc: devicetree@vger.kernel.org, Jernej Skrabec <jernej.skrabec@siol.net>,
+ alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
+ Takashi Iwai <tiwai@suse.com>, Marcus Cooper <codekipper@gmail.com>,
+ linux-sunxi@googlegroups.com,
+ =?UTF-8?q?Cl=C3=A9ment=20P=C3=A9ron?= <peron.clem@gmail.com>,
+ linux-arm-kernel@lists.infradead.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -128,45 +107,79 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 Hi,
 
-On Sun, Oct 11, 2020 at 11:19:35AM +0200, Julia Lawall wrote:
-> Replace commas with semicolons.  What is done is essentially described by
-> the following Coccinelle semantic patch (http://coccinelle.lip6.fr/):
-> 
-> // <smpl>
-> @@ expression e1,e2; @@
-> e1
-> -,
-> +;
-> e2
-> ... when any
-> // </smpl>
-> 
-> Signed-off-by: Julia Lawall <Julia.Lawall@inria.fr>
-> 
-> ---
->  sound/firewire/fireworks/fireworks_pcm.c |    2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/sound/firewire/fireworks/fireworks_pcm.c b/sound/firewire/fireworks/fireworks_pcm.c
-> index 980580dfbb39..a0d5db1d8eb2 100644
-> --- a/sound/firewire/fireworks/fireworks_pcm.c
-> +++ b/sound/firewire/fireworks/fireworks_pcm.c
-> @@ -148,7 +148,7 @@ pcm_init_hw_params(struct snd_efw *efw,
->  	}
->  
->  	/* limit rates */
-> -	runtime->hw.rates = efw->supported_sampling_rate,
-> +	runtime->hw.rates = efw->supported_sampling_rate;
->  	snd_pcm_limit_hw_rates(runtime);
->  
->  	limit_channels(&runtime->hw, pcm_channels);
- 
-Oops. It seems to be my typo added at the commit aa02bb6e6078
-("ALSA: fireworks: Add PCM interface")...
+Just some minor changes compare to v6.
 
-Acked-by: Takashi Sakamoto <o-takashi@sakamocchi.jp>
+As explain in v6 there is no more HDMI soundcard,
+I will try to introduce a dedicated Allwinner soundcard
+in a next series.
 
+Clément
 
-Thanks
+Change since v6:
+- move set_channel_cfg() in first position
+- convert return value to decimal
 
-Takashi Sakamoto
+Change since v5:
+- Drop HDMI simple soundcard
+- Collect Chen-Yu Tsai tags
+- Configure channels from 9 to 15.
+- Remove DMA RX for H3/H5
+- Fix Documentation for H3/H5
+
+Change since v4:
+- add more comment on get_wss() and set_channel_cfg() patch
+- merge soundcard and DAI HDMI patches
+
+Change since v3:
+- add Samuel Holland patch to reconfigure FIFO_TX_REG when suspend is enabled
+- readd inversion to H6 LRCK sun50i_h6_i2s_set_soc_fmt()
+- Fix get_wss() for sun4i
+- Add a commit to fix checkpatch warning
+
+Change since v2:
+- rebase on next-20200918
+- drop revert LRCK polarity patch
+- readd simple-audio-card,frame-inversion in dts
+- Add patch for changing set_chan_cfg params
+
+Change since v1:
+- rebase on next-20200828
+- add revert LRCK polarity
+- remove all simple-audio-card,frame-inversion in dts
+- add Ondrej patches for Orange Pi board
+- Add arm64 defconfig patch
+
+Clément Péron (6):
+  ASoC: sun4i-i2s: Change set_chan_cfg() params
+  ASoC: sun4i-i2s: Change get_sr() and get_wss() to be more explicit
+  ASoC: sun4i-i2s: Fix sun8i volatile regs
+  ASoC: sun4i-i2s: fix coding-style for callback definition
+  arm64: defconfig: Enable Allwinner i2s driver
+  dt-bindings: sound: sun4i-i2s: Document H3 with missing RX channel
+    possibility
+
+Jernej Skrabec (3):
+  ASoC: sun4i-i2s: Add support for H6 I2S
+  dt-bindings: ASoC: sun4i-i2s: Add H6 compatible
+  arm64: dts: allwinner: h6: Add I2S1 node
+
+Marcus Cooper (4):
+  ASoC: sun4i-i2s: Set sign extend sample
+  ASoc: sun4i-i2s: Add 20 and 24 bit support
+  arm64: dts: allwinner: a64: Add I2S2 node
+  arm: dts: sunxi: h3/h5: Add I2S2 node
+
+Samuel Holland (1):
+  ASoC: sun4i-i2s: Fix setting of FIFO modes
+
+ .../sound/allwinner,sun4i-a10-i2s.yaml        |   6 +-
+ arch/arm/boot/dts/sunxi-h3-h5.dtsi            |  13 +
+ arch/arm64/boot/dts/allwinner/sun50i-a64.dtsi |  14 +
+ arch/arm64/boot/dts/allwinner/sun50i-h6.dtsi  |  13 +
+ arch/arm64/configs/defconfig                  |   1 +
+ sound/soc/sunxi/sun4i-i2s.c                   | 376 +++++++++++++++---
+ 6 files changed, 368 insertions(+), 55 deletions(-)
+
+-- 
+2.25.1
+

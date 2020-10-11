@@ -2,82 +2,56 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 18E3F28AE69
-	for <lists+alsa-devel@lfdr.de>; Mon, 12 Oct 2020 08:52:11 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7CB1B28A6D7
+	for <lists+alsa-devel@lfdr.de>; Sun, 11 Oct 2020 12:04:32 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id AE07E168B;
-	Mon, 12 Oct 2020 08:51:20 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AE07E168B
+	by alsa0.perex.cz (Postfix) with ESMTPS id E44041672;
+	Sun, 11 Oct 2020 12:03:41 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E44041672
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1602485530;
-	bh=+gF/pvE9cz4cyL31O4e36+tkrt0y1FegWhOk8BrvL2w=;
-	h=From:Date:Subject:To:Cc:List-Id:List-Unsubscribe:List-Archive:
+	s=default; t=1602410672;
+	bh=sk4fbKzo9FhtYPwLy0b4knnidfqTSzqQM1ll2YQ0Csw=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
 	 List-Post:List-Help:List-Subscribe:From;
-	b=E8QdFMa8m9QomXUyBjq5mattyvfm4+knJ4+JnznQGQIgAHPm4QU8f/BRmZ1gDa3c7
-	 fRi1qmxSzZ1oWZetbo3hZVWc4nVplTqYpCkQ9cnqsejpP7aTw0SjKA6Dpkv8nubqk9
-	 AQuIfLmFMe17XNACIG6rZ/lyzRPoXfKpjIcAswrs=
+	b=iJWRzJJoRwZ9ZNHrjORYabczrrwC3jUQB6glRLo+MmpJxbZP0RTq0CadbPZi8LZNN
+	 Y0npjuy7YVfflR2lLWKoeY18YMii2ouRq7SUYOEkkEX4XQtaaMn+YCDeJhAP16qMMj
+	 EHU5DzK2WottYHzui02iwrdM2UA3Ari0TIwiVKNA=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id B0E12F8025F;
-	Mon, 12 Oct 2020 08:49:41 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 1809EF80260;
+	Sun, 11 Oct 2020 12:02:52 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id CECF9F8016F; Sun, 11 Oct 2020 10:16:34 +0200 (CEST)
+ id 1B755F80260; Sun, 11 Oct 2020 12:02:49 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_FROM,HTML_MESSAGE,SPF_HELO_NONE,SPF_PASS
- autolearn=disabled version=3.4.0
-Received: from mail-qv1-xf44.google.com (mail-qv1-xf44.google.com
- [IPv6:2607:f8b0:4864:20::f44])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_MSPIKE_H3,
+ RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
+Received: from mail2-relais-roc.national.inria.fr
+ (mail2-relais-roc.national.inria.fr [192.134.164.83])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 2F02EF80134
- for <alsa-devel@alsa-project.org>; Sun, 11 Oct 2020 10:16:31 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2F02EF80134
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="euSFJ8BO"
-Received: by mail-qv1-xf44.google.com with SMTP id o25so418669qvf.7
- for <alsa-devel@alsa-project.org>; Sun, 11 Oct 2020 01:16:31 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:from:date:message-id:subject:to:cc;
- bh=d5m9KZ0ljwfkHfNq2Ag7evkfnTRLCFt04MefyXKWpHw=;
- b=euSFJ8BO37KqYVSjwRS+hXDnqpPc3vdbrHH3dIWpmPTiSzddL0M90Cg3ywTnmwVkDu
- jE7qUvwNzRNHzykXD97MjQqh4hY1TsBrgTaA6uwzbBaOj/I6J8m/3wJpq+sseGZoLfFf
- YAalG1LMkTh2G5rMY+0BcWwbbrvkkTtZ1FlXc76bgMw23Dk/EZ1BFVIdig2iyCqjnOZa
- bkzb4w88+LTL3Nsz9Adut9Mq8Bl1v77uS8sZPYK4DIhegXta7fZfC2mctNoAa/en3buD
- rexVfAzfoeCD4ULhrEcGJtzZ/4kvp9nrdXl5/ikxta9GuR+ODv3ve4zQZcokniV5ZPWu
- raNQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:from:date:message-id:subject:to:cc;
- bh=d5m9KZ0ljwfkHfNq2Ag7evkfnTRLCFt04MefyXKWpHw=;
- b=Hlzes67gRe+/UnVKaBeGhXDr1MJtlrbyP4aHh5MeQlkZpYv3CWbPVavCJniluhDgkZ
- 7dcOaUEJMNYKZ2uGBoZIWhc4JQOTFCVyQ8AL1tFxnDnd4mwxhglDnI7nsLhW/+Jd7e5D
- R9lCnDqn0Ee0YTwF2BLskF3MTiaXhd/lXUdIL0n9bizrPTPtEUTEiEeNHiX8r7v9dNrq
- uPLChgAz2z2fm+e1Wd06Vc8uGut3IltjSJKLaWcV2fGzCJcLXdiiKG/xoPvz7FQImmF0
- glzK7RKIya9MgxrRDygZHwAYRH+MjEbiBQKoAUiwgghhspNvrTGk4oXXLvYmAaEZViUw
- n1Bg==
-X-Gm-Message-State: AOAM531BUC3ELDZuCwwhwKgmxUt7PyUzx5VH2n5WoFZazP39Ll/Rh+cC
- PzZnBn6XpC2YBdVEApkat0UnAxXW64CsLF5rhTA=
-X-Google-Smtp-Source: ABdhPJyG3iIDI31q2akjtOpOW8yuXriSul4Ata3Oyhv4Yq7ag7tlU7UcEuYsifUxtjVPN+Uxb9PTj4Lx05GDaP9R+/Q=
-X-Received: by 2002:a0c:b447:: with SMTP id e7mr18748507qvf.1.1602404189796;
- Sun, 11 Oct 2020 01:16:29 -0700 (PDT)
-MIME-Version: 1.0
-From: MICHAEL Mosier <tcprosaffiliates@gmail.com>
-Date: Sun, 11 Oct 2020 03:16:18 -0500
-Message-ID: <CABiErTVuRWOBxgRVAfHwWA7AqqjzRJasb50y1OsKXCkMbm4icw@mail.gmail.com>
-Subject: Re: [PATCH 07/10] ALSA: firewire-lib: code refactoring for data block
- calculation
-To: o-takashi@sakamocchi.jp
-X-Mailman-Approved-At: Mon, 12 Oct 2020 08:49:37 +0200
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-X-Content-Filtered-By: Mailman/MimeDel 2.1.15
-Cc: tiwai@suse.de, alsa-devel@alsa-project.org, clemens@ladisch.de
+ by alsa1.perex.cz (Postfix) with ESMTPS id 38FAEF80134;
+ Sun, 11 Oct 2020 12:02:41 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 38FAEF80134
+X-IronPort-AV: E=Sophos;i="5.77,362,1596492000"; d="scan'208";a="471981617"
+Received: from palace.rsr.lip6.fr (HELO palace.lip6.fr) ([132.227.105.202])
+ by mail2-relais-roc.national.inria.fr with ESMTP/TLS/AES256-SHA256;
+ 11 Oct 2020 12:02:41 +0200
+From: Julia Lawall <Julia.Lawall@inria.fr>
+To: sound-open-firmware@alsa-project.org
+Subject: [PATCH 0/8] use semicolons rather than commas to separate statements
+Date: Sun, 11 Oct 2020 11:19:31 +0200
+Message-Id: <1602407979-29038-1-git-send-email-Julia.Lawall@inria.fr>
+X-Mailer: git-send-email 1.9.1
+Cc: alsa-devel@alsa-project.org,
+ =?UTF-8?q?Valdis=20Kl=C4=93tnieks?= <valdis.kletnieks@vt.edu>,
+ patches@opensource.cirrus.com, kernel-janitors@vger.kernel.org,
+ Takashi Iwai <tiwai@suse.com>, Joe Perches <joe@perches.com>,
+ Thomas Gleixner <tglx@linutronix.de>, linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -93,4 +67,139 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-=F0=9F=91=8B hello I see our work has brought us together once again
+These patches replace commas by semicolons.  This was done using the
+Coccinelle semantic patch (http://coccinelle.lip6.fr/) shown below.
+
+This semantic patch ensures that commas inside for loop headers will not be
+transformed.  It also doesn't touch macro definitions.
+
+Coccinelle ensures that braces are added as needed when a single-statement
+branch turns into a multi-statement one.
+
+This semantic patch has a few false positives, for variable delcarations
+such as:
+
+LIST_HEAD(x), *y;
+
+The semantic patch could be improved to avoid these, but for the moment
+they have been removed manually (2 occurrences).
+
+// <smpl>
+@initialize:ocaml@
+@@
+
+let infunction p =
+  (* avoid macros *)
+  (List.hd p).current_element <> "something_else"
+
+let combined p1 p2 =
+  (List.hd p1).line_end = (List.hd p2).line ||
+  (((List.hd p1).line_end < (List.hd p2).line) &&
+   ((List.hd p1).col < (List.hd p2).col))
+
+@bad@
+statement S;
+declaration d;
+position p;
+@@
+
+S@p
+d
+
+// special cases where newlines are needed (hope for no more than 5)
+@@
+expression e1,e2;
+statement S;
+position p != bad.p;
+position p1;
+position p2 :
+    script:ocaml(p1) { infunction p1 && combined p1 p2 };
+@@
+
+- e1@p1,@S@p e2@p2;
++ e1; e2;
+
+@@
+expression e1,e2;
+statement S;
+position p != bad.p;
+position p1;
+position p2 :
+    script:ocaml(p1) { infunction p1 && combined p1 p2 };
+@@
+
+- e1@p1,@S@p e2@p2;
++ e1; e2;
+
+@@
+expression e1,e2;
+statement S;
+position p != bad.p;
+position p1;
+position p2 :
+    script:ocaml(p1) { infunction p1 && combined p1 p2 };
+@@
+
+- e1@p1,@S@p e2@p2;
++ e1; e2;
+
+@@
+expression e1,e2;
+statement S;
+position p != bad.p;
+position p1;
+position p2 :
+    script:ocaml(p1) { infunction p1 && combined p1 p2 };
+@@
+
+- e1@p1,@S@p e2@p2;
++ e1; e2;
+
+@@
+expression e1,e2;
+statement S;
+position p != bad.p;
+position p1;
+position p2 :
+    script:ocaml(p1) { infunction p1 && combined p1 p2 };
+@@
+
+- e1@p1,@S@p e2@p2;
++ e1; e2;
+
+@r@
+expression e1,e2;
+statement S;
+position p != bad.p;
+@@
+
+e1 ,@S@p e2;
+
+@@
+expression e1,e2;
+position p1;
+position p2 :
+    script:ocaml(p1) { infunction p1 && not(combined p1 p2) };
+statement S;
+position r.p;
+@@
+
+e1@p1
+-,@S@p
++;
+e2@p2
+... when any
+// </smpl>
+
+---
+
+ sound/firewire/fireworks/fireworks_pcm.c |    2 +-
+ sound/pci/hda/patch_ca0132.c             |    2 +-
+ sound/pci/hda/patch_hdmi.c               |    2 +-
+ sound/soc/codecs/madera.c                |    4 ++--
+ sound/soc/codecs/wm8350.c                |    3 ++-
+ sound/soc/intel/boards/bytcr_rt5651.c    |    2 +-
+ sound/soc/samsung/snow.c                 |    2 +-
+ sound/soc/soc-dapm.c                     |    2 +-
+ sound/soc/sof/intel/hda-dsp.c            |    2 +-
+ 9 files changed, 11 insertions(+), 10 deletions(-)

@@ -2,110 +2,80 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C071028B92D
-	for <lists+alsa-devel@lfdr.de>; Mon, 12 Oct 2020 16:00:39 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2BDF428BA7C
+	for <lists+alsa-devel@lfdr.de>; Mon, 12 Oct 2020 16:12:16 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 55DD81690;
-	Mon, 12 Oct 2020 15:59:49 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 55DD81690
+	by alsa0.perex.cz (Postfix) with ESMTPS id AED3E1690;
+	Mon, 12 Oct 2020 16:11:25 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AED3E1690
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1602511239;
-	bh=sEZcyXmHBZEDouzMk16DQ7A+uj0n9Hmw8HMTAmUqJfE=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1602511935;
+	bh=Cd+eCB+XbVh0CqGByF0+m/xC7FzxQLBlmRLFHuHmJTE=;
+	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=paR+VbryTUxHCSARr2tHgt7AHwunOxC4pPyOv5WxQJ7OtTvK5TgDREiivc/KZuoYs
-	 +Ajiluw2sawQZFVfcNNOx8E65d+Q0m+9NeGrdg7uipv+1Iibq+2fuTWUmhMFlYgyBL
-	 alEkTwmwmkRF7meVM4oPPU4AxNtpoyABko3afodk=
+	b=KX/ubMjiEi9BXLOo5dZc8nQncbYrLRb7U0UAYUGD7QjIhKlxclLcwz/b7YMwi7a5K
+	 kTR0YZ9t7PsfVSpZfQtCb4DOdtooC5U/GjV4aGH6sJ8zlYbe9X+0uub4qrQJKM5oC2
+	 PG1hEQ0c4WGQ3rAd3HfaYr16bUiMcdH0yVfhIlrE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id D8390F8020D;
-	Mon, 12 Oct 2020 15:58:58 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 70299F8020D;
+	Mon, 12 Oct 2020 16:10:35 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 621DEF80217; Mon, 12 Oct 2020 15:58:57 +0200 (CEST)
+ id 5607EF80217; Mon, 12 Oct 2020 16:10:32 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_PASS,SPF_PASS,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from new2-smtp.messagingengine.com (new2-smtp.messagingengine.com
- [66.111.4.224])
+X-Spam-Status: No, score=0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,NICE_REPLY_A,PRX_BODY_78,SPF_HELO_PASS,SPF_PASS,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from mail1.perex.cz (mail1.perex.cz [77.48.224.245])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id E9B44F80141
- for <alsa-devel@alsa-project.org>; Mon, 12 Oct 2020 15:58:49 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E9B44F80141
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=cerno.tech header.i=@cerno.tech
- header.b="sNqTujZF"; 
- dkim=pass (2048-bit key) header.d=messagingengine.com
- header.i=@messagingengine.com header.b="eYXTngJG"
-Received: from compute6.internal (compute6.nyi.internal [10.202.2.46])
- by mailnew.nyi.internal (Postfix) with ESMTP id E644B5802DE;
- Mon, 12 Oct 2020 09:58:47 -0400 (EDT)
-Received: from mailfrontend1 ([10.202.2.162])
- by compute6.internal (MEProxy); Mon, 12 Oct 2020 09:58:47 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cerno.tech; h=
- date:from:to:cc:subject:message-id:references:mime-version
- :content-type:in-reply-to; s=fm1; bh=sEZcyXmHBZEDouzMk16DQ7A+uj0
- n9Hmw8HMTAmUqJfE=; b=sNqTujZFyiNiSFlovqDYbgmqHijW/8SVF36UDKYU/tU
- J/nk7oXUFQX7UD7rs5Y6GbMsXrbvNQCPZabRxPYLevz8+Cmc4epqgShk3HvHQkt0
- qdrNpT6Ig1skcbAFNGbJUQ6BR9voFaT+MXr3lbLrDuFeFp7TNIqQcan2t7jeq1S0
- 0FO3p7lfq4fbMwO6Im3/fVtcQ1HMDqZdfyW0uBCKs9sRjO35iLyOrt+4weDOeiFt
- 9EboT8moNnJc3PFKABj2rF09KctylrVgAYIdZM0WDLCmHM72/ViByTI2zy2l5mm4
- 8P0U7Y3MR12GIwamvxyXK3JGshlhHkG9VCKknT5ivAg==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to:x-me-proxy
- :x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; bh=sEZcyX
- mHBZEDouzMk16DQ7A+uj0n9Hmw8HMTAmUqJfE=; b=eYXTngJGlD5XLuscT3f0ex
- DOhZj5i7CgiqFAuuJmlMKnfhJW4ib8I1mq//bAaWM/0VGNWwA52a2WrhT9/CQbST
- fQsPhNPwujfdsipbjxlY/NtxTEJ0CqYYrOHH4en9uQMFQj1EwHvfK+iFNh8mzPKU
- MWjQxigheo8gWq4jYPyEgIw757x1Eav+e7xTq9q4DQz6DOX4ui91E4rfxPxCLgAx
- ETthHhQBuiD8wk9EWYFArC4m5s23OTUMGrmE1NfYP44XQlwH7qQY5dHm9hiCn1Qn
- M3zYSiTOlAw/ubC5hnQNs1bPMY/F0+UGoN3rNdvEmhyG44yzbdxuNUIF+V3+6M9Q
- ==
-X-ME-Sender: <xms:FmGEX1R9UOYg1BipFqTFO1G4FFVuoZZO0hvxY3LVcDhrEA0foITvAA>
- <xme:FmGEX-zwRAqNLFzxYyw-L0af-HpfZ6HBpI0qaAsv4syQ2I0KOqWS-EOWFtzsYBPRZ
- zi8Kxzzhulcd33S8tQ>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedujedrheejgdejudcutefuodetggdotefrodftvf
- curfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfghnecu
- uegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenuc
- fjughrpeffhffvuffkfhggtggujgesghdtreertddtudenucfhrhhomhepofgrgihimhgv
- ucftihhprghrugcuoehmrgigihhmvgestggvrhhnohdrthgvtghhqeenucggtffrrghtth
- gvrhhnpeduvdduhfekkeehgffftefflefgffdtheffudffgeevteffheeuiedvvdejvdfg
- veenucfkphepledtrdekledrieekrdejieenucevlhhushhtvghrufhiiigvpedtnecurf
- grrhgrmhepmhgrihhlfhhrohhmpehmrgigihhmvgestggvrhhnohdrthgvtghh
-X-ME-Proxy: <xmx:FmGEX630vghiH5FBREanLrOx6Jk3-ZWpNdCioDXorraeIE0jUBpV7g>
- <xmx:FmGEX9AHgSPckErYJ9-I5o5IXw34A6ccxuyOW-Y7t_LqBXVBvAVA-A>
- <xmx:FmGEX-j3-NoJ9WyhNitdQD1ptwoy670KMcqVDnT4yq8u1Sb17lrBcQ>
- <xmx:F2GEX_ZgaIP_SSeCWTSSC5MS5yw6_JhptqZgR98wYt_gZj5BnYu25w>
-Received: from localhost (lfbn-tou-1-1502-76.w90-89.abo.wanadoo.fr
- [90.89.68.76])
- by mail.messagingengine.com (Postfix) with ESMTPA id 577493280066;
- Mon, 12 Oct 2020 09:58:46 -0400 (EDT)
-Date: Mon, 12 Oct 2020 15:58:45 +0200
-From: Maxime Ripard <maxime@cerno.tech>
-To: =?utf-8?B?Q2zDqW1lbnQgUMOpcm9u?= <peron.clem@gmail.com>
-Subject: Re: [PATCH v7 01/14] ASoC: sun4i-i2s: Change set_chan_cfg() params
-Message-ID: <20201012135845.s6tknsnjrtsuoacf@gilmour.lan>
-References: <20201011202224.47544-1-peron.clem@gmail.com>
- <20201011202224.47544-2-peron.clem@gmail.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 61983F80141
+ for <alsa-devel@alsa-project.org>; Mon, 12 Oct 2020 16:10:24 +0200 (CEST)
+Received: from mail1.perex.cz (localhost [127.0.0.1])
+ by smtp1.perex.cz (Perex's E-mail Delivery System) with ESMTP id 304E6A0042;
+ Mon, 12 Oct 2020 16:10:24 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 smtp1.perex.cz 304E6A0042
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=perex.cz; s=default;
+ t=1602511824; bh=joOHDeUVSNZquizcRn7PrSark7NBlmpRxRqq4ueEm+4=;
+ h=Subject:To:Cc:References:From:Date:In-Reply-To:From;
+ b=2lG+rZOZPz2PwU9dUBGqbnXhXR1Wdq/NXgK4pKlf9MUjPywag9Ey2u430bnPSluxY
+ ZA5E97l5FgOAjjumqaYv2KNG2nR6e9s5NIZvSYJjVHp2PJ01GDvA+mO5TTt1wWX7mJ
+ mxK5GRvR1OFyEKoYLx4ry+4Mg7+VrbFJ9zjm0vGI=
+Received: from p1gen2.perex-int.cz (unknown [192.168.100.98])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested) (Authenticated sender: perex)
+ by mail1.perex.cz (Perex's E-mail Delivery System) with ESMTPSA;
+ Mon, 12 Oct 2020 16:10:11 +0200 (CEST)
+Subject: Re: [PATCH] ALSA: compress: allow pause and resume during draining
+To: Vinod Koul <vkoul@kernel.org>
+References: <20201006062105.GQ2968@vkoul-mobl>
+ <4bbc385b-d35a-8766-7981-034455287225@linux.intel.com>
+ <000d01d69d58$4e2db6f0$ea8924d0$@samsung.com> <s5hr1q7sa9f.wl-tiwai@suse.de>
+ <831bbfcf-9720-9100-8633-65932b415cab@perex.cz>
+ <s5ha6wusb2l.wl-tiwai@suse.de> <20201012052525.GH2968@vkoul-mobl>
+ <s5hk0vwq65o.wl-tiwai@suse.de> <20201012122423.GJ2968@vkoul-mobl>
+ <5b26cdd5-8a15-fa26-86af-13bfbfad5341@perex.cz>
+ <20201012135540.GK2968@vkoul-mobl>
+From: Jaroslav Kysela <perex@perex.cz>
+Message-ID: <777e0046-1e3a-e702-c070-cac4c0525ccd@perex.cz>
+Date: Mon, 12 Oct 2020 16:10:10 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.11.0
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature"; boundary="g3qoejqmxfoskuxo"
-Content-Disposition: inline
-In-Reply-To: <20201011202224.47544-2-peron.clem@gmail.com>
-Cc: devicetree@vger.kernel.org, Jernej Skrabec <jernej.skrabec@siol.net>,
- alsa-devel@alsa-project.org, Liam Girdwood <lgirdwood@gmail.com>,
- linux-kernel@vger.kernel.org, Mark Brown <broonie@kernel.org>,
- linux-sunxi@googlegroups.com, Takashi Iwai <tiwai@suse.com>,
- Marcus Cooper <codekipper@gmail.com>, Chen-Yu Tsai <wens@csie.org>,
- Rob Herring <robh+dt@kernel.org>, Samuel Holland <samuel@sholland.org>,
- linux-arm-kernel@lists.infradead.org
+In-Reply-To: <20201012135540.GK2968@vkoul-mobl>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
+Cc: alsa-devel@alsa-project.org, khw0178.kim@samsung.com, lgirdwood@gmail.com,
+ Takashi Iwai <tiwai@suse.de>, s47.kang@samsung.com, tiwai@suse.com,
+ 'Pierre-Louis Bossart' <pierre-louis.bossart@linux.intel.com>,
+ kimty@samsung.com, hmseo@samsung.com, Gyeongtaek Lee <gt82.lee@samsung.com>,
+ pilsun.jang@samsung.com, tkjung@samsung.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -121,44 +91,77 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+Dne 12. 10. 20 v 15:55 Vinod Koul napsal(a):
+> On 12-10-20, 15:29, Jaroslav Kysela wrote:
+>> Dne 12. 10. 20 v 14:24 Vinod Koul napsal(a):
+>>> On 12-10-20, 09:01, Takashi Iwai wrote:
+>>>> On Mon, 12 Oct 2020 07:25:25 +0200,
+>>>
+>>>>> So what if we add another state but keep it in kernel (hidden from
+>>>>> userspace)...?
+>>>>
+>>>> That's fine, then it's just a kernel's business, and it should be
+>>>> determined which one makes the code better.
+>>>>
+>>>> But, there are things to be considered, though:
+>>>>
+>>>> - SNDRV_PCM_STATE_* is defined as snd_pcm_state_t with __bitwise.
+>>>>   This indicates that the type has to be defined in that way
+>>>>   explicitly.
+>>>>
+>>>> - Having a value over SNDRV_PCM_STATE_LAST internally is hackish.
+>>>>
+>>>>> Right now tinycompress does not make use of PCM streams, kernel handles
+>>>>> these. I am not aware of any other implementation.
+>>>>>
+>>>>> So if the scope if within compress then it might work...
+>>>>
+>>>> Yes.  But currently the API uses SND_PCM_* even for the compress
+>>>> stuff.  Changing this value means to have influence on PCM, even if
+>>>> PCM stuff doesn't use it yet.  (At least you'd need to increase
+>>>> SND_PCM_STATE_LAST, for example.)
+>>>>
+>>>> That said, if we want to change only for compress API by assuming that
+>>>> the impact must be negligible, the first step would be to move from
+>>>> SND_PCM_STATE_* to the own state, SND_COMPRESS_STATE_*.  The values
+>>>> should be compatible, but this has to be changed at first.  Then you
+>>>> can introduce a new value there.
+>>>
+>>> I think that sounds reasonable to me, we should not have used
+>>> SNDRV_PCM_STATE_* in the first place and long term fix for this should
+>>> be SNDRV_COMPRESS_STATE_
+>>>
+>>> I will cook a patch for this
+>>
+>> Although the impact is not high, I do think that we should enable the new
+>> behaviour conditionally (when the user space asks for it) even if the state
+>> values are split. I think that the whole thread is about 'how to extend the
+>> current APIs'. The hidden way is really not so nice.
+>>
+>> Unfortunately, there are no reserved fields in the snd_compr_params structure
+>> for this, but I see the similarity with the 'no_wake_mode' field which
+>> controls the driver behaviour.
+> 
+> I was not really thinking of exporting the states to userspace.
+> Tinycompress does not use it, I do not see any uses of it to enable
+> userspace with it.. Do you think it should be exposed? If so why..?
 
---g3qoejqmxfoskuxo
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+I don't think that it's required to expose the state for the compressed API to
+add this new feature. I just talk about to activate the new feature
+conditionally. The question is how to extend the API now.
 
-On Sun, Oct 11, 2020 at 10:22:11PM +0200, Cl=E9ment P=E9ron wrote:
-> As slots and slot_width can be set manually using set_tdm().
-> These values are then kept in sun4i_i2s struct.
-> So we need to check if these values are set or not.
->=20
-> This is not done actually and will trigger a bug.
-> For example, if we set to the simple soundcard in the device-tree
-> dai-tdm-slot-width =3D <32> and then start a stream using S16_LE,
-> currently we would calculate BCLK for 32-bit slots, but program
-> lrck_period for 16-bit slots, making the sample rate double what we
-> expected.
->=20
-> To fix this, we need to check if these values are set or not but as
-> this logic is already done by the caller. Avoid duplicating this
-> logic and just pass the required values as params to set_chan_cfg().
->=20
-> Suggested-by: Samuel Holland <samuel@sholland.org>
-> Signed-off-by: Cl=E9ment P=E9ron <peron.clem@gmail.com>
+> Worst case we add an ioctl to query the state.. the state transitions
+> are anyway result of control ops on the stream
+> 
+> Btw what was the motivation for pcm to expose the stream states..?
 
-We still have an ongoing discussion on this one in the v6
+The driver may change the state when underrun / overrun or an I/O error occurs
+and there's also mmap write/read mode, so the traditional read/write with an
+error code handling does not work here. Also, the user space should know the
+state anyway, so it's better to have all parts synced.
 
-Maxime
+						Jaroslav
 
---g3qoejqmxfoskuxo
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYIAB0WIQRcEzekXsqa64kGDp7j7w1vZxhRxQUCX4RhFQAKCRDj7w1vZxhR
-xSBFAQC6KZxQXo2wkmG7IYJL8mCSpdD6xPNJqcknI6+pUmt2uwD/QQEBR+rIzK8+
-3i5szDEx6Z3mAunz7uCj/u9/KpumUg8=
-=PQvS
------END PGP SIGNATURE-----
-
---g3qoejqmxfoskuxo--
+-- 
+Jaroslav Kysela <perex@perex.cz>
+Linux Sound Maintainer; ALSA Project; Red Hat, Inc.

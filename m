@@ -2,65 +2,77 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A43E328BABC
-	for <lists+alsa-devel@lfdr.de>; Mon, 12 Oct 2020 16:23:27 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2161128BB50
+	for <lists+alsa-devel@lfdr.de>; Mon, 12 Oct 2020 16:49:01 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 16C9F1687;
-	Mon, 12 Oct 2020 16:22:37 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 16C9F1687
+	by alsa0.perex.cz (Postfix) with ESMTPS id 88B931690;
+	Mon, 12 Oct 2020 16:48:10 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 88B931690
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1602512607;
-	bh=VEuvLfsxfXa5QQPwvt9JSPCGohWEKirHHKGnOXkmgWE=;
-	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1602514140;
+	bh=vvc9OHCREkQSqNm1feM6/yeYfDisE+FAfhXTuBxvntI=;
+	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=vAwIolO3lNhaMocNCUnbtZxANj59QfuiIq7YYBtu5VTaAA0KhJz4GhVUr3qqYA/lT
-	 5NmyxkqXKtvdTaIb+RhKwBOH2eLAg3LM3uzZELvErEG7tD33kO7WUw7ZcjNxyMyjd8
-	 TycvUzd8vrrgHtGV6l8jk+H2OMicvQAVB5cNxNpY=
+	b=RvDCXJ74KJjWMjj1vpxuXHlgx1FsQyX51qAo2MoJCP7hn/ztTwVFqcZF3nqXc0G/d
+	 6i5eFzWW660UbkIOgb42HGxlpwzXRQ1IHhDdxtqR8WdnYzzbLDiF0ldm45TzExcz+B
+	 5GHWHjlQ8zQF7z1H3bGK76rGKl3RULb/Paz0by8Y=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 9F93CF8021D;
-	Mon, 12 Oct 2020 16:21:46 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id EB199F8021D;
+	Mon, 12 Oct 2020 16:47:19 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 089F0F80217; Mon, 12 Oct 2020 16:21:45 +0200 (CEST)
+ id 2A2B5F80217; Mon, 12 Oct 2020 16:47:17 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.2 required=5.0 tests=PRX_BODY_78, RCVD_IN_MSPIKE_H3,
- RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
-Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_PASS,SPF_PASS,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from mail1.perex.cz (mail1.perex.cz [77.48.224.245])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id A3EF0F800D8
- for <alsa-devel@alsa-project.org>; Mon, 12 Oct 2020 16:21:41 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A3EF0F800D8
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id C698DB2E8;
- Mon, 12 Oct 2020 14:21:40 +0000 (UTC)
-Date: Mon, 12 Oct 2020 16:21:40 +0200
-Message-ID: <s5hh7qzplsb.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Jaroslav Kysela <perex@perex.cz>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 8E16BF80141
+ for <alsa-devel@alsa-project.org>; Mon, 12 Oct 2020 16:47:10 +0200 (CEST)
+Received: from mail1.perex.cz (localhost [127.0.0.1])
+ by smtp1.perex.cz (Perex's E-mail Delivery System) with ESMTP id 876BAA003F;
+ Mon, 12 Oct 2020 16:47:09 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 smtp1.perex.cz 876BAA003F
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=perex.cz; s=default;
+ t=1602514029; bh=eN+xWFxHaM5XxFYwmMtzsphG84qR19qSOiZPtrl78IQ=;
+ h=Subject:To:Cc:References:From:Date:In-Reply-To:From;
+ b=APlWGXTR+6iB97joa5UBiWgr0RIQjOEvmlRXHa+McuYy0d+T9QNAuRyFvQVpfQIYR
+ UUw57vVlHPpSTNxh/XOyZjS8ZLLbKLQlUxVXnOyBtIvmibeDKCuTWJtmQ7pkKoo2ov
+ qaZzqIx9i1RWmNJh42qinlP7fV4JXpjKbWlkBJfY=
+Received: from p1gen2.perex-int.cz (unknown [192.168.100.98])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested) (Authenticated sender: perex)
+ by mail1.perex.cz (Perex's E-mail Delivery System) with ESMTPSA;
+ Mon, 12 Oct 2020 16:46:56 +0200 (CEST)
 Subject: Re: [PATCH] ALSA: compress: allow pause and resume during draining
-In-Reply-To: <777e0046-1e3a-e702-c070-cac4c0525ccd@perex.cz>
+To: Takashi Iwai <tiwai@suse.de>
 References: <20201006062105.GQ2968@vkoul-mobl>
  <4bbc385b-d35a-8766-7981-034455287225@linux.intel.com>
- <000d01d69d58$4e2db6f0$ea8924d0$@samsung.com>
- <s5hr1q7sa9f.wl-tiwai@suse.de>
+ <000d01d69d58$4e2db6f0$ea8924d0$@samsung.com> <s5hr1q7sa9f.wl-tiwai@suse.de>
  <831bbfcf-9720-9100-8633-65932b415cab@perex.cz>
  <s5ha6wusb2l.wl-tiwai@suse.de> <20201012052525.GH2968@vkoul-mobl>
  <s5hk0vwq65o.wl-tiwai@suse.de> <20201012122423.GJ2968@vkoul-mobl>
  <5b26cdd5-8a15-fa26-86af-13bfbfad5341@perex.cz>
  <20201012135540.GK2968@vkoul-mobl>
  <777e0046-1e3a-e702-c070-cac4c0525ccd@perex.cz>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
- FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
- (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
-MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
-Content-Type: text/plain; charset=US-ASCII
+ <s5hh7qzplsb.wl-tiwai@suse.de>
+From: Jaroslav Kysela <perex@perex.cz>
+Message-ID: <0afa7a39-84d5-0b9b-5453-8e7848a30bb6@perex.cz>
+Date: Mon, 12 Oct 2020 16:46:56 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.11.0
+MIME-Version: 1.0
+In-Reply-To: <s5hh7qzplsb.wl-tiwai@suse.de>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
 Cc: alsa-devel@alsa-project.org, khw0178.kim@samsung.com, lgirdwood@gmail.com,
  kimty@samsung.com, s47.kang@samsung.com, tiwai@suse.com,
  'Pierre-Louis Bossart' <pierre-louis.bossart@linux.intel.com>,
@@ -82,100 +94,30 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Mon, 12 Oct 2020 16:10:10 +0200,
-Jaroslav Kysela wrote:
-> 
-> Dne 12. 10. 20 v 15:55 Vinod Koul napsal(a):
-> > On 12-10-20, 15:29, Jaroslav Kysela wrote:
-> >> Dne 12. 10. 20 v 14:24 Vinod Koul napsal(a):
-> >>> On 12-10-20, 09:01, Takashi Iwai wrote:
-> >>>> On Mon, 12 Oct 2020 07:25:25 +0200,
-> >>>
-> >>>>> So what if we add another state but keep it in kernel (hidden from
-> >>>>> userspace)...?
-> >>>>
-> >>>> That's fine, then it's just a kernel's business, and it should be
-> >>>> determined which one makes the code better.
-> >>>>
-> >>>> But, there are things to be considered, though:
-> >>>>
-> >>>> - SNDRV_PCM_STATE_* is defined as snd_pcm_state_t with __bitwise.
-> >>>>   This indicates that the type has to be defined in that way
-> >>>>   explicitly.
-> >>>>
-> >>>> - Having a value over SNDRV_PCM_STATE_LAST internally is hackish.
-> >>>>
-> >>>>> Right now tinycompress does not make use of PCM streams, kernel handles
-> >>>>> these. I am not aware of any other implementation.
-> >>>>>
-> >>>>> So if the scope if within compress then it might work...
-> >>>>
-> >>>> Yes.  But currently the API uses SND_PCM_* even for the compress
-> >>>> stuff.  Changing this value means to have influence on PCM, even if
-> >>>> PCM stuff doesn't use it yet.  (At least you'd need to increase
-> >>>> SND_PCM_STATE_LAST, for example.)
-> >>>>
-> >>>> That said, if we want to change only for compress API by assuming that
-> >>>> the impact must be negligible, the first step would be to move from
-> >>>> SND_PCM_STATE_* to the own state, SND_COMPRESS_STATE_*.  The values
-> >>>> should be compatible, but this has to be changed at first.  Then you
-> >>>> can introduce a new value there.
-> >>>
-> >>> I think that sounds reasonable to me, we should not have used
-> >>> SNDRV_PCM_STATE_* in the first place and long term fix for this should
-> >>> be SNDRV_COMPRESS_STATE_
-> >>>
-> >>> I will cook a patch for this
-> >>
-> >> Although the impact is not high, I do think that we should enable the new
-> >> behaviour conditionally (when the user space asks for it) even if the state
-> >> values are split. I think that the whole thread is about 'how to extend the
-> >> current APIs'. The hidden way is really not so nice.
-> >>
-> >> Unfortunately, there are no reserved fields in the snd_compr_params structure
-> >> for this, but I see the similarity with the 'no_wake_mode' field which
-> >> controls the driver behaviour.
-> > 
-> > I was not really thinking of exporting the states to userspace.
-> > Tinycompress does not use it, I do not see any uses of it to enable
-> > userspace with it.. Do you think it should be exposed? If so why..?
-> 
-> I don't think that it's required to expose the state for the compressed API to
-> add this new feature. I just talk about to activate the new feature
-> conditionally. The question is how to extend the API now.
+Dne 12. 10. 20 v 16:21 Takashi Iwai napsal(a):
 
-The PCM API has an ioctl (SNDRV_PCM_IOCTL_USER_PVERSION) to tell
-kernel which protocol version the user-space can talk with.  It's a
-reverse direction from SNDRV_PCM_IOCTL_PVERSION, and with this
-mechanism, the kernel can determine whether a specific feature can be
-enabled to user-space or not.
+> But, I doubt whether we really need to care about that; as mentioned
+> earlier, there is little to change from the user-space side.  It just
+> pause or resume.  The only difference is the resume target, and
+> honestly speaking, there is no interest in it from user-space side.
+> And, the rest is about the kernel internal, and this can be really
+> done in the way of the original patch.  The flow is quite simple and
+> understandable...
 
-I guess the compress API can introduce the same mechanism, if any
-conditional behavior is really mandatory.
+The core compress code already uses the state mechanism (although internally).
 
-But, I doubt whether we really need to care about that; as mentioned
-earlier, there is little to change from the user-space side.  It just
-pause or resume.  The only difference is the resume target, and
-honestly speaking, there is no interest in it from user-space side.
-And, the rest is about the kernel internal, and this can be really
-done in the way of the original patch.  The flow is quite simple and
-understandable...
+Also, it's really unclear if all drivers were checked, if the pause triggers
+can be called from the drain state (I know it's another point, but the drivers
+should probably offer a flag that they support this). And why to call the
+pause release callback when there's no pause (drain + release ioctl instead
+drain + pause + release ioctl)? It's a clear midlevel code fault. This
+protection should be there not in the hw drivers.
 
+I refer the original patch:
+  https://lore.kernel.org/alsa-devel/000c01d69585$228db6b0$67a92410$@samsung.com/
 
-> > Worst case we add an ioctl to query the state.. the state transitions
-> > are anyway result of control ops on the stream
-> > 
-> > Btw what was the motivation for pcm to expose the stream states..?
-> 
-> The driver may change the state when underrun / overrun or an I/O error occurs
-> and there's also mmap write/read mode, so the traditional read/write with an
-> error code handling does not work here. Also, the user space should know the
-> state anyway, so it's better to have all parts synced.
+						Jaroslav
 
-For PCM, yes, the state query is a must from user-space applications,
-and that's the reason I've been arguing.
-
-
-thanks,
-
-Takashi
+-- 
+Jaroslav Kysela <perex@perex.cz>
+Linux Sound Maintainer; ALSA Project; Red Hat, Inc.

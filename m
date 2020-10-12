@@ -2,77 +2,78 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id DC45828B8CE
-	for <lists+alsa-devel@lfdr.de>; Mon, 12 Oct 2020 15:56:17 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6997028B8D0
+	for <lists+alsa-devel@lfdr.de>; Mon, 12 Oct 2020 15:56:48 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 7CD9E1695;
-	Mon, 12 Oct 2020 15:55:27 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7CD9E1695
+	by alsa0.perex.cz (Postfix) with ESMTPS id 0175E169E;
+	Mon, 12 Oct 2020 15:55:57 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0175E169E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1602510977;
-	bh=kvWMlVgmfGKjE6XBZIGcdTqMjuE1m8L9P2yrSRWqdYM=;
+	s=default; t=1602511008;
+	bh=FubpnLLFZpyrtWKaNAf6luZJjhmgdkokyFBtkUEkBrU=;
 	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=ASTbPF/9DrGbfwBeYkIE7FeYLg0PvJ6J+k4zgLqYcK6LwbUL4+MWuskfrw5YSAoi8
-	 vHF9JmGfuuUf5ZopAKNNm1QA+K8sBijMClgfUn7Ajw/IS5RJ9Nsq6oQHQU7+3oaR+P
-	 lNec/cJEOAiINPeA/CBAThbtD5mYBF8+tfToYFtU=
+	b=HEWN47KRw7WQqqOxiKHFcv2bK4vxQek4KvPwPGXXStcpW/wv7xv2gkPWdQdltbbwg
+	 3zsOYxfFSUKPZzCxwcYPFzpYKzMbgfON1XdHyFlHD2wngABHwPUw8XXao1XohD77d9
+	 zOXDZoUZWK+pnweTbSpUh+/q0PhGAscvXzxDsEvQ=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 0BC92F8020D;
-	Mon, 12 Oct 2020 15:54:37 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id CD07BF80225;
+	Mon, 12 Oct 2020 15:55:50 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id B4670F80217; Mon, 12 Oct 2020 15:54:34 +0200 (CEST)
+ id 6D57AF80224; Mon, 12 Oct 2020 15:55:49 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: *
-X-Spam-Status: No, score=1.0 required=5.0 tests=PRX_BODY_30,SPF_HELO_NONE,
- SPF_PASS autolearn=disabled version=3.4.0
-Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
+X-Spam-Level: 
+X-Spam-Status: No, score=0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+ DKIM_VALID,DKIM_VALID_AU,PRX_BODY_78,SPF_HELO_NONE,SPF_PASS
+ autolearn=disabled version=3.4.0
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id C72CBF800D8
+ for <alsa-devel@alsa-project.org>; Mon, 12 Oct 2020 15:55:46 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C72CBF800D8
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="twYuSxSQ"
+Received: from localhost (unknown [122.182.245.197])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id EAB24F80141
- for <alsa-devel@alsa-project.org>; Mon, 12 Oct 2020 15:54:30 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EAB24F80141
-IronPort-SDR: Fs6piAWRbxnTPucc8lRTCOJt3N+tkTJ9ILwplK27T1ZfLRNbVFv4v8gTRmA3AIH1nCiDuJY9PL
- Ano9OotD4IeQ==
-X-IronPort-AV: E=McAfee;i="6000,8403,9771"; a="164955901"
-X-IronPort-AV: E=Sophos;i="5.77,366,1596524400"; d="scan'208";a="164955901"
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from orsmga004.jf.intel.com ([10.7.209.38])
- by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 12 Oct 2020 06:54:27 -0700
-IronPort-SDR: yezdhakfdhACCH/l0Xi6XT6Y1WvN246+7Ay6q0vinebHsTVQ3qcsXhLxyubkG2XbSaFwmb6gm9
- 8Sw6kHWVbL1Q==
-X-IronPort-AV: E=Sophos;i="5.77,366,1596524400"; d="scan'208";a="463114206"
-Received: from smile.fi.intel.com (HELO smile) ([10.237.68.40])
- by orsmga004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 12 Oct 2020 06:54:25 -0700
-Received: from andy by smile with local (Exim 4.94)
- (envelope-from <andriy.shevchenko@intel.com>)
- id 1kRyIR-00539g-St; Mon, 12 Oct 2020 16:55:27 +0300
-Date: Mon, 12 Oct 2020 16:55:27 +0300
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Mark Brown <broonie@kernel.org>
-Subject: Re: [PATCH] ASoC: dmaengine: Document support for TX only or RX only
- streams
-Message-ID: <20201012135527.GW4077@smile.fi.intel.com>
-References: <20201008161105.21804-1-broonie@kernel.org>
- <20201009102751.GS4077@smile.fi.intel.com>
- <20201009103124.GT4077@smile.fi.intel.com>
- <20201012133745.GD4332@sirena.org.uk>
+ by mail.kernel.org (Postfix) with ESMTPSA id 5C2732074F;
+ Mon, 12 Oct 2020 13:55:44 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=default; t=1602510945;
+ bh=FubpnLLFZpyrtWKaNAf6luZJjhmgdkokyFBtkUEkBrU=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=twYuSxSQWm23maTQitdNI7Ma2klvfl7thuUMDTrzV5kfYBJKegnIXdoMIDZ+YWW7h
+ U735P0/4ig4LXl/GsA4FT1PbIQIxOMFXPzmGwfkc4YQaTPm1GnpG5mntVhG+YxyWcC
+ BEH0XnY2gwpQ5LD8vL4Ly6j6dVWYrWqRPZQAGRfA=
+Date: Mon, 12 Oct 2020 19:25:40 +0530
+From: Vinod Koul <vkoul@kernel.org>
+To: Jaroslav Kysela <perex@perex.cz>
+Subject: Re: [PATCH] ALSA: compress: allow pause and resume during draining
+Message-ID: <20201012135540.GK2968@vkoul-mobl>
+References: <20201006062105.GQ2968@vkoul-mobl>
+ <4bbc385b-d35a-8766-7981-034455287225@linux.intel.com>
+ <000d01d69d58$4e2db6f0$ea8924d0$@samsung.com>
+ <s5hr1q7sa9f.wl-tiwai@suse.de>
+ <831bbfcf-9720-9100-8633-65932b415cab@perex.cz>
+ <s5ha6wusb2l.wl-tiwai@suse.de> <20201012052525.GH2968@vkoul-mobl>
+ <s5hk0vwq65o.wl-tiwai@suse.de> <20201012122423.GJ2968@vkoul-mobl>
+ <5b26cdd5-8a15-fa26-86af-13bfbfad5341@perex.cz>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20201012133745.GD4332@sirena.org.uk>
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
-Cc: alsa-devel@alsa-project.org, Lars-Peter Clausen <lars@metafoo.de>,
- Stephen Warren <swarren@nvidia.com>, Liam Girdwood <lgirdwood@gmail.com>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- Michael Wei Hong Sit <michael.wei.hong.sit@intel.com>
+In-Reply-To: <5b26cdd5-8a15-fa26-86af-13bfbfad5341@perex.cz>
+Cc: alsa-devel@alsa-project.org, khw0178.kim@samsung.com, lgirdwood@gmail.com,
+ Takashi Iwai <tiwai@suse.de>, s47.kang@samsung.com, tiwai@suse.com,
+ 'Pierre-Louis Bossart' <pierre-louis.bossart@linux.intel.com>,
+ kimty@samsung.com, hmseo@samsung.com, Gyeongtaek Lee <gt82.lee@samsung.com>,
+ pilsun.jang@samsung.com, tkjung@samsung.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -88,47 +89,64 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Mon, Oct 12, 2020 at 02:37:45PM +0100, Mark Brown wrote:
-> On Fri, Oct 09, 2020 at 01:31:24PM +0300, Andy Shevchenko wrote:
+On 12-10-20, 15:29, Jaroslav Kysela wrote:
+> Dne 12. 10. 20 v 14:24 Vinod Koul napsal(a):
+> > On 12-10-20, 09:01, Takashi Iwai wrote:
+> >> On Mon, 12 Oct 2020 07:25:25 +0200,
+> > 
+> >>> So what if we add another state but keep it in kernel (hidden from
+> >>> userspace)...?
+> >>
+> >> That's fine, then it's just a kernel's business, and it should be
+> >> determined which one makes the code better.
+> >>
+> >> But, there are things to be considered, though:
+> >>
+> >> - SNDRV_PCM_STATE_* is defined as snd_pcm_state_t with __bitwise.
+> >>   This indicates that the type has to be defined in that way
+> >>   explicitly.
+> >>
+> >> - Having a value over SNDRV_PCM_STATE_LAST internally is hackish.
+> >>
+> >>> Right now tinycompress does not make use of PCM streams, kernel handles
+> >>> these. I am not aware of any other implementation.
+> >>>
+> >>> So if the scope if within compress then it might work...
+> >>
+> >> Yes.  But currently the API uses SND_PCM_* even for the compress
+> >> stuff.  Changing this value means to have influence on PCM, even if
+> >> PCM stuff doesn't use it yet.  (At least you'd need to increase
+> >> SND_PCM_STATE_LAST, for example.)
+> >>
+> >> That said, if we want to change only for compress API by assuming that
+> >> the impact must be negligible, the first step would be to move from
+> >> SND_PCM_STATE_* to the own state, SND_COMPRESS_STATE_*.  The values
+> >> should be compatible, but this has to be changed at first.  Then you
+> >> can introduce a new value there.
+> > 
+> > I think that sounds reasonable to me, we should not have used
+> > SNDRV_PCM_STATE_* in the first place and long term fix for this should
+> > be SNDRV_COMPRESS_STATE_
+> > 
+> > I will cook a patch for this
 > 
-> > What is the best way for individual ASoC drivers to be sure that at load time
-> > they have or have not DMA resources available?
+> Although the impact is not high, I do think that we should enable the new
+> behaviour conditionally (when the user space asks for it) even if the state
+> values are split. I think that the whole thread is about 'how to extend the
+> current APIs'. The hidden way is really not so nice.
 > 
-> > Now, seems the approach is to check dma-names property present and thus, try to
-> > switch to DMA mode, otherwise PIO. But this seems to me a bit fragile. Why ASoC
-> > core can't simple recognize DMA resources as optional (for the drivers that
-> > want to know if they available or not)?
-> 
-> I'm not sure what you mean by "recognize DMA resources as optional"
-> here?  At present drivers that think something might not have appeared
-> should go through the resources and check them individually, anything
-> that hard errored won't be there.
+> Unfortunately, there are no reserved fields in the snd_compr_params structure
+> for this, but I see the similarity with the 'no_wake_mode' field which
+> controls the driver behaviour.
 
-For example, when the board supports PIO and DMA mode and during the probe time
-it wants to check which mode is desired (by means of DT references or alike).
+I was not really thinking of exporting the states to userspace.
+Tinycompress does not use it, I do not see any uses of it to enable
+userspace with it.. Do you think it should be exposed? If so why..?
 
-Currently those drivers need to do something like:
+Worst case we add an ioctl to query the state.. the state transitions
+are anyway result of control ops on the stream
 
-	if (of_property_is_present("dma-names"))
-		ret = try DMA mode;
-	else
-		ret = try PIO mode;
-
-but this seems to me a bit stricter than needed. What if DMA mode fails, shall
-we fail the probe of the driver?
-
-If ASoC supports optional DMA resources, above can be simplified to something
-like:
-
-	ret = try DMA mode;
-	if (ret != DMA mode ok)
-		ret = try PIO mode;
-
-which makes OF dependent parts gone along with relying on the properties rather
-than real resource availability.
+Btw what was the motivation for pcm to expose the stream states..?
 
 -- 
-With Best Regards,
-Andy Shevchenko
-
-
+~Vinod

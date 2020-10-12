@@ -2,82 +2,94 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B048828AED9
-	for <lists+alsa-devel@lfdr.de>; Mon, 12 Oct 2020 09:13:59 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id CE27028AEE2
+	for <lists+alsa-devel@lfdr.de>; Mon, 12 Oct 2020 09:16:53 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 3CA1E1683;
-	Mon, 12 Oct 2020 09:13:09 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3CA1E1683
+	by alsa0.perex.cz (Postfix) with ESMTPS id 66FD11681;
+	Mon, 12 Oct 2020 09:16:03 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 66FD11681
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1602486839;
-	bh=IV+7knuWF10mJCeSDLiDayPd/sWab7vaEVhYUSdWhFw=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1602487013;
+	bh=KXlCnAjww9Cl53f+oyvTLefMLYnh5la+hDH4EtgJ3+4=;
+	h=From:To:Subject:Date:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=WwFiSN+2mBJJbOSfuPjDdXACjDFlDWFKJIfXN9dE4wSanCmnQ5CchzNPUAjDbp96B
-	 hpc5QXeK6/QD15wX2F3S3j035z+FfYHv8MBTWi3OFWAjR8UrVY0gwmJ/+/JZoxieQN
-	 1WjaDdu0trj9q7UYhz9E7Xg2e4/89ZnSBPWgKZ9o=
+	b=KO0Y6/sPouI690/r9mkvJkP11PU/cv1hbSCcunQfC1ugJ2/6zA5dUTu53xadJzh8X
+	 /ZLd7VC10oiTorWkaonLNCrL+/g6LGSzModcUptqWi/kMZODsyrePvIvaqIc9iJus9
+	 D40YdZhns0TGUAABu4kd/mfZm/NqK+0SvZWKOEMg=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id E817AF8021D;
-	Mon, 12 Oct 2020 09:12:18 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id EBFDDF800F6;
+	Mon, 12 Oct 2020 09:15:12 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id AA335F80217; Mon, 12 Oct 2020 09:12:16 +0200 (CEST)
+ id 712BDF800F6; Mon, 12 Oct 2020 09:15:09 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.5 required=5.0 tests=FREEMAIL_FORGED_FROMDOMAIN,
- FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,RCVD_IN_MSPIKE_H2,SPF_HELO_NONE,
- SPF_PASS,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mail-ed1-f68.google.com (mail-ed1-f68.google.com
- [209.85.208.68])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id A56A4F800D8
- for <alsa-devel@alsa-project.org>; Mon, 12 Oct 2020 09:12:09 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A56A4F800D8
-Received: by mail-ed1-f68.google.com with SMTP id l16so15805814eds.3
- for <alsa-devel@alsa-project.org>; Mon, 12 Oct 2020 00:12:09 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to;
- bh=Ht7VpNylzjockp9tJz3zTL+kmNFrrXctjwfHcctC64U=;
- b=ojnpN8ENPqU5AC4RcDnBu/H8eNI51vot+F0Hp6lqno7L2UDrV5zFxNsrUOV5WZI1st
- 1EijNk6lDg85nNPdhv7kfAMU5KLvA6z64cwq7KnXZNSbp01gh0QPoqg9AslCrLyUmuz+
- R7fvB+0D7Q4gcnp+bYQsZcXySqB87xpvJxbXNdn6VF/a8g5BRPWDX2IXG0HEnFwCX1fB
- tHRbkKsuMHT3DMsu6nNSjK51H+gN4k1h/yWjAsb9nnQmBC2XLR7mRSvzEzgMLxPL7xRX
- Bb894gbtDngcN3VnTjAB+HEgUMg+XWmGlPAjCaCxr32vjKNbjg70CSN3AW/qIZ9UOx7+
- OHJA==
-X-Gm-Message-State: AOAM533GSJJbulAK1i8SLyi0Hc4R5Ms6kNbxjgfcr1saTzx5TtHUEdJK
- 8cG0cKlHam704bu7hWWbo/A=
-X-Google-Smtp-Source: ABdhPJzI62qIebLAAP/M6A/x67uaLeY0i5ld2+CqEZE+bj6EMN+jwsvz8tiFPjMpObSPCipIyIo7Gw==
-X-Received: by 2002:aa7:d1cc:: with SMTP id g12mr12789144edp.195.1602486729006; 
- Mon, 12 Oct 2020 00:12:09 -0700 (PDT)
-Received: from pi3 ([194.230.155.215])
- by smtp.googlemail.com with ESMTPSA id le12sm10257077ejb.1.2020.10.12.00.12.07
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 12 Oct 2020 00:12:08 -0700 (PDT)
-Date: Mon, 12 Oct 2020 09:12:05 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 8A834F800F6
+ for <alsa-devel@alsa-project.org>; Mon, 12 Oct 2020 09:15:01 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8A834F800F6
+IronPort-SDR: XNJNJbOYgH1j7kXkOk3MtgwVyoE1jkbhCzlq2nnn9Khdh7NkpyLQpkCyiSEcqtBXX6/hWjbykd
+ xDP6iKRjhs4w==
+X-IronPort-AV: E=McAfee;i="6000,8403,9771"; a="164914451"
+X-IronPort-AV: E=Sophos;i="5.77,366,1596524400"; d="scan'208";a="164914451"
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from fmsmga004.fm.intel.com ([10.253.24.48])
+ by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 12 Oct 2020 00:14:57 -0700
+IronPort-SDR: 02b3OiT4NsNcwblaPkSL0d50e7vaPF+PjVTxTVYfkcvDdRyjtVQAtZ8N9tcRfZaUZAlUDMYW//
+ QeP7Pler8jEQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.77,366,1596524400"; d="scan'208";a="344762801"
+Received: from irsmsx602.ger.corp.intel.com ([163.33.146.8])
+ by fmsmga004.fm.intel.com with ESMTP; 12 Oct 2020 00:14:55 -0700
+Received: from irsmsx601.ger.corp.intel.com (163.33.146.7) by
+ irsmsx602.ger.corp.intel.com (163.33.146.8) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.1713.5; Mon, 12 Oct 2020 08:14:54 +0100
+Received: from irsmsx601.ger.corp.intel.com ([163.33.146.7]) by
+ irsmsx601.ger.corp.intel.com ([163.33.146.7]) with mapi id 15.01.1713.004;
+ Mon, 12 Oct 2020 08:14:54 +0100
+From: "Rojewski, Cezary" <cezary.rojewski@intel.com>
 To: Julia Lawall <Julia.Lawall@inria.fr>
-Subject: Re: [PATCH 6/8] ASoC: samsung: snow: use semicolons rather than
+Subject: RE: [PATCH 3/8] ASoC: Intel: bytcr_rt5651: use semicolons rather than
  commas to separate statements
-Message-ID: <20201012071205.GA1822@pi3>
+Thread-Topic: [PATCH 3/8] ASoC: Intel: bytcr_rt5651: use semicolons rather
+ than commas to separate statements
+Thread-Index: AQHWn7WtURzHk5OWlUiMvlX21d63/KmTjtkw
+Date: Mon, 12 Oct 2020 07:14:54 +0000
+Message-ID: <225ad3480553428bbf50e34322c8688a@intel.com>
 References: <1602407979-29038-1-git-send-email-Julia.Lawall@inria.fr>
- <1602407979-29038-7-git-send-email-Julia.Lawall@inria.fr>
+ <1602407979-29038-4-git-send-email-Julia.Lawall@inria.fr>
+In-Reply-To: <1602407979-29038-4-git-send-email-Julia.Lawall@inria.fr>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+dlp-product: dlpe-windows
+dlp-reaction: no-action
+dlp-version: 11.5.1.3
+x-originating-ip: [163.33.253.164]
+Content-Type: text/plain; charset="windows-1257"
+Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <1602407979-29038-7-git-send-email-Julia.Lawall@inria.fr>
-Cc: alsa-devel@alsa-project.org,
- Valdis =?utf-8?Q?Kl=C4=93tnieks?= <valdis.kletnieks@vt.edu>,
- Sangbeom Kim <sbkim73@samsung.com>, linux-kernel@vger.kernel.org,
- Takashi Iwai <tiwai@suse.com>, kernel-janitors@vger.kernel.org,
- Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
- Joe Perches <joe@perches.com>, Thomas Gleixner <tglx@linutronix.de>
+Cc: "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
+ =?windows-1257?Q?Valdis_Kl=E7tnieks?= <valdis.kletnieks@vt.edu>,
+ Jie Yang <yang.jie@linux.intel.com>, Takashi Iwai <tiwai@suse.com>,
+ "kernel-janitors@vger.kernel.org" <kernel-janitors@vger.kernel.org>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ Liam Girdwood <liam.r.girdwood@linux.intel.com>, Mark
+ Brown <broonie@kernel.org>, Joe
+ Perches <joe@perches.com>, Thomas Gleixner <tglx@linutronix.de>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -93,10 +105,10 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Sun, Oct 11, 2020 at 11:19:37AM +0200, Julia Lawall wrote:
+On 2020-10-11 11:19 AM, Julia Lawall wrote:
 > Replace commas with semicolons.  What is done is essentially described by
 > the following Coccinelle semantic patch (http://coccinelle.lip6.fr/):
-> 
+>=20
 > // <smpl>
 > @@ expression e1,e2; @@
 > e1
@@ -105,14 +117,32 @@ On Sun, Oct 11, 2020 at 11:19:37AM +0200, Julia Lawall wrote:
 > e2
 > ... when any
 > // </smpl>
-> 
+>=20
 > Signed-off-by: Julia Lawall <Julia.Lawall@inria.fr>
-> 
+>=20
+
+Acked-by: Cezary Rojewski <cezary.rojewski@intel.com>
+
+Thanks,
+Czarek
+
 > ---
->  sound/soc/samsung/snow.c |    2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
-
-Reviewed-by: Krzysztof Kozlowski <krzk@kernel.org>
-
-Best regards,
-Krzysztof
+>   sound/soc/intel/boards/bytcr_rt5651.c |    2 +-
+>   1 file changed, 1 insertion(+), 1 deletion(-)
+>=20
+> diff --git a/sound/soc/intel/boards/bytcr_rt5651.c b/sound/soc/intel/boar=
+ds/bytcr_rt5651.c
+> index 688b5e0a49e3..64d3fc4a3225 100644
+> --- a/sound/soc/intel/boards/bytcr_rt5651.c
+> +++ b/sound/soc/intel/boards/bytcr_rt5651.c
+> @@ -143,7 +143,7 @@ static int byt_rt5651_prepare_and_enable_pll1(struct =
+snd_soc_dai *codec_dai,
+>  =20
+>   	/* Configure the PLL before selecting it */
+>   	if (!(byt_rt5651_quirk & BYT_RT5651_MCLK_EN)) {
+> -		clk_id =3D RT5651_PLL1_S_BCLK1,
+> +		clk_id =3D RT5651_PLL1_S_BCLK1;
+>   		clk_freq =3D rate * bclk_ratio;
+>   	} else {
+>   		clk_id =3D RT5651_PLL1_S_MCLK;
+>

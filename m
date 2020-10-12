@@ -2,60 +2,54 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2161128BB50
-	for <lists+alsa-devel@lfdr.de>; Mon, 12 Oct 2020 16:49:01 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D128128BB7A
+	for <lists+alsa-devel@lfdr.de>; Mon, 12 Oct 2020 17:01:21 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 88B931690;
-	Mon, 12 Oct 2020 16:48:10 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 88B931690
+	by alsa0.perex.cz (Postfix) with ESMTPS id 521A61681;
+	Mon, 12 Oct 2020 17:00:31 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 521A61681
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1602514140;
-	bh=vvc9OHCREkQSqNm1feM6/yeYfDisE+FAfhXTuBxvntI=;
-	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
+	s=default; t=1602514881;
+	bh=M6PZW8gYaaIiOaWs6TNXKEl2ln/GjaFu+9S3VpP7seA=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=RvDCXJ74KJjWMjj1vpxuXHlgx1FsQyX51qAo2MoJCP7hn/ztTwVFqcZF3nqXc0G/d
-	 6i5eFzWW660UbkIOgb42HGxlpwzXRQ1IHhDdxtqR8WdnYzzbLDiF0ldm45TzExcz+B
-	 5GHWHjlQ8zQF7z1H3bGK76rGKl3RULb/Paz0by8Y=
+	b=fWxxuFRYQNAD9gr9E13E22EAbjB7skDtIpYWwO1jLrQ92Yfrieevu7jkvNJaSdGOf
+	 ePIUYwF6PI42G41q7ltUx79MSV+8OWgAiD2Q32Vjd6pz3SQXTb/ooiopYlm38azW4z
+	 lZlBjVUKocJ79kIcdyAdyV+CFwVnkkcX2/1l/3ZE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id EB199F8021D;
-	Mon, 12 Oct 2020 16:47:19 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 447DAF80217;
+	Mon, 12 Oct 2020 16:59:42 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 2A2B5F80217; Mon, 12 Oct 2020 16:47:17 +0200 (CEST)
+ id 259CAF80217; Mon, 12 Oct 2020 16:59:27 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_PASS,SPF_PASS,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from mail1.perex.cz (mail1.perex.cz [77.48.224.245])
+X-Spam-Status: No, score=-0.0 required=5.0 tests=RCVD_IN_MSPIKE_H3,
+ RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
+Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 8E16BF80141
- for <alsa-devel@alsa-project.org>; Mon, 12 Oct 2020 16:47:10 +0200 (CEST)
-Received: from mail1.perex.cz (localhost [127.0.0.1])
- by smtp1.perex.cz (Perex's E-mail Delivery System) with ESMTP id 876BAA003F;
- Mon, 12 Oct 2020 16:47:09 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 smtp1.perex.cz 876BAA003F
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=perex.cz; s=default;
- t=1602514029; bh=eN+xWFxHaM5XxFYwmMtzsphG84qR19qSOiZPtrl78IQ=;
- h=Subject:To:Cc:References:From:Date:In-Reply-To:From;
- b=APlWGXTR+6iB97joa5UBiWgr0RIQjOEvmlRXHa+McuYy0d+T9QNAuRyFvQVpfQIYR
- UUw57vVlHPpSTNxh/XOyZjS8ZLLbKLQlUxVXnOyBtIvmibeDKCuTWJtmQ7pkKoo2ov
- qaZzqIx9i1RWmNJh42qinlP7fV4JXpjKbWlkBJfY=
-Received: from p1gen2.perex-int.cz (unknown [192.168.100.98])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested) (Authenticated sender: perex)
- by mail1.perex.cz (Perex's E-mail Delivery System) with ESMTPSA;
- Mon, 12 Oct 2020 16:46:56 +0200 (CEST)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 32642F80141
+ for <alsa-devel@alsa-project.org>; Mon, 12 Oct 2020 16:59:20 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 32642F80141
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id 248A3AF2B;
+ Mon, 12 Oct 2020 14:59:11 +0000 (UTC)
+Date: Mon, 12 Oct 2020 16:59:10 +0200
+Message-ID: <s5ha6wrpk1t.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Jaroslav Kysela <perex@perex.cz>
 Subject: Re: [PATCH] ALSA: compress: allow pause and resume during draining
-To: Takashi Iwai <tiwai@suse.de>
+In-Reply-To: <0afa7a39-84d5-0b9b-5453-8e7848a30bb6@perex.cz>
 References: <20201006062105.GQ2968@vkoul-mobl>
  <4bbc385b-d35a-8766-7981-034455287225@linux.intel.com>
- <000d01d69d58$4e2db6f0$ea8924d0$@samsung.com> <s5hr1q7sa9f.wl-tiwai@suse.de>
+ <000d01d69d58$4e2db6f0$ea8924d0$@samsung.com>
+ <s5hr1q7sa9f.wl-tiwai@suse.de>
  <831bbfcf-9720-9100-8633-65932b415cab@perex.cz>
  <s5ha6wusb2l.wl-tiwai@suse.de> <20201012052525.GH2968@vkoul-mobl>
  <s5hk0vwq65o.wl-tiwai@suse.de> <20201012122423.GJ2968@vkoul-mobl>
@@ -63,16 +57,12 @@ References: <20201006062105.GQ2968@vkoul-mobl>
  <20201012135540.GK2968@vkoul-mobl>
  <777e0046-1e3a-e702-c070-cac4c0525ccd@perex.cz>
  <s5hh7qzplsb.wl-tiwai@suse.de>
-From: Jaroslav Kysela <perex@perex.cz>
-Message-ID: <0afa7a39-84d5-0b9b-5453-8e7848a30bb6@perex.cz>
-Date: Mon, 12 Oct 2020 16:46:56 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.11.0
-MIME-Version: 1.0
-In-Reply-To: <s5hh7qzplsb.wl-tiwai@suse.de>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+ <0afa7a39-84d5-0b9b-5453-8e7848a30bb6@perex.cz>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
+ FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
+ (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
+Content-Type: text/plain; charset=US-ASCII
 Cc: alsa-devel@alsa-project.org, khw0178.kim@samsung.com, lgirdwood@gmail.com,
  kimty@samsung.com, s47.kang@samsung.com, tiwai@suse.com,
  'Pierre-Louis Bossart' <pierre-louis.bossart@linux.intel.com>,
@@ -94,30 +84,33 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Dne 12. 10. 20 v 16:21 Takashi Iwai napsal(a):
+On Mon, 12 Oct 2020 16:46:56 +0200,
+Jaroslav Kysela wrote:
+> 
+> Dne 12. 10. 20 v 16:21 Takashi Iwai napsal(a):
+> 
+> > But, I doubt whether we really need to care about that; as mentioned
+> > earlier, there is little to change from the user-space side.  It just
+> > pause or resume.  The only difference is the resume target, and
+> > honestly speaking, there is no interest in it from user-space side.
+> > And, the rest is about the kernel internal, and this can be really
+> > done in the way of the original patch.  The flow is quite simple and
+> > understandable...
+> 
+> The core compress code already uses the state mechanism (although internally).
+> 
+> Also, it's really unclear if all drivers were checked, if the pause triggers
+> can be called from the drain state (I know it's another point, but the drivers
+> should probably offer a flag that they support this). And why to call the
+> pause release callback when there's no pause (drain + release ioctl instead
+> drain + pause + release ioctl)? It's a clear midlevel code fault. This
+> protection should be there not in the hw drivers.
+> 
+> I refer the original patch:
+>   https://lore.kernel.org/alsa-devel/000c01d69585$228db6b0$67a92410$@samsung.com/
 
-> But, I doubt whether we really need to care about that; as mentioned
-> earlier, there is little to change from the user-space side.  It just
-> pause or resume.  The only difference is the resume target, and
-> honestly speaking, there is no interest in it from user-space side.
-> And, the rest is about the kernel internal, and this can be really
-> done in the way of the original patch.  The flow is quite simple and
-> understandable...
+Point taken, and yes, this should be handled conditionally only for
+the drivers that do support such a mode.
 
-The core compress code already uses the state mechanism (although internally).
 
-Also, it's really unclear if all drivers were checked, if the pause triggers
-can be called from the drain state (I know it's another point, but the drivers
-should probably offer a flag that they support this). And why to call the
-pause release callback when there's no pause (drain + release ioctl instead
-drain + pause + release ioctl)? It's a clear midlevel code fault. This
-protection should be there not in the hw drivers.
-
-I refer the original patch:
-  https://lore.kernel.org/alsa-devel/000c01d69585$228db6b0$67a92410$@samsung.com/
-
-						Jaroslav
-
--- 
-Jaroslav Kysela <perex@perex.cz>
-Linux Sound Maintainer; ALSA Project; Red Hat, Inc.
+Takashi

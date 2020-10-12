@@ -2,79 +2,79 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id EA2B528AD99
-	for <lists+alsa-devel@lfdr.de>; Mon, 12 Oct 2020 07:27:23 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 041B428ADD9
+	for <lists+alsa-devel@lfdr.de>; Mon, 12 Oct 2020 07:49:32 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 51027166E;
-	Mon, 12 Oct 2020 07:26:33 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 51027166E
+	by alsa0.perex.cz (Postfix) with ESMTPS id 8C33D166B;
+	Mon, 12 Oct 2020 07:48:41 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8C33D166B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1602480443;
-	bh=+pf1qlxCrOfn4IZkQ8J8d+sCC57zAKPrBdhuKSqsjIM=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1602481771;
+	bh=Qh32CvLCP7TbrAU9q4uRS7WfIF5HB8P3kFRMssgVV8s=;
+	h=Subject:From:To:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=XkjFyUy+Mem/hL0FLOnmbskRCsgWWlH2YXBvJkoL2tno1S2x8meKGmYtxYqyi4sy6
-	 /FmDN19G7HdpBXCjUGK23tKC3/KeVUkEtMfeIqJzWg833Aakk4BJJUHjwTuR5G4GL+
-	 bZO5GIcfu5QuCxUKmlLexjSvN1F5HPAlb2jlyCXU=
+	b=eXPHdjI9IKcxml7ifXCMa4DJTTqZPZ76BTCySu8n46Z6tnLulYTxn988mahU64VPg
+	 4qvXDVT16Ssz91ggtnMcglcuMbfjJKp2Kyl8Fy9ztnhw4Ou//axMb07u6rtQ8tC1jq
+	 fFXO579NR1wJAcMIsuZSnH2flAZR5OTAvAnbrzJU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id D28EAF80141;
-	Mon, 12 Oct 2020 07:25:42 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id C2319F8021D;
+	Mon, 12 Oct 2020 07:47:50 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id C0C26F80217; Mon, 12 Oct 2020 07:25:39 +0200 (CEST)
+ id 5B351F80217; Mon, 12 Oct 2020 07:47:48 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.9 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,PRX_BODY_30,SPF_HELO_NONE,SPF_PASS
- autolearn=disabled version=3.4.0
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 84B97F800F6
- for <alsa-devel@alsa-project.org>; Mon, 12 Oct 2020 07:25:34 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 84B97F800F6
+X-Spam-Status: No, score=0.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,RDNS_NONE,SPF_HELO_NONE,SPF_PASS,UNPARSEABLE_RELAY,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mailgw02.mediatek.com (unknown [210.61.82.184])
+ by alsa1.perex.cz (Postfix) with ESMTP id 1533FF80141
+ for <alsa-devel@alsa-project.org>; Mon, 12 Oct 2020 07:47:35 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1533FF80141
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="M7+dMnpG"
-Received: from localhost (unknown [122.182.245.197])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id E33202076E;
- Mon, 12 Oct 2020 05:25:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1602480329;
- bh=+pf1qlxCrOfn4IZkQ8J8d+sCC57zAKPrBdhuKSqsjIM=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=M7+dMnpGnwTqFrIQAm4Q91BrC9vV7T4jX5DJ2sgti7UqxUyjnH1Y6Ofa71qFu1oex
- vGWg/li0QFo5FuaxReHPOc6UN9Jodr40Mm0Ia98hReRH2C/Ul6R599yObPtyMqn15s
- LbSbZvxu+zqtykiX0T+173F4ZpGG/Dl2nPJDKcOI=
-Date: Mon, 12 Oct 2020 10:55:25 +0530
-From: Vinod Koul <vkoul@kernel.org>
-To: Takashi Iwai <tiwai@suse.de>
-Subject: Re: [PATCH] ALSA: compress: allow pause and resume during draining
-Message-ID: <20201012052525.GH2968@vkoul-mobl>
-References: <000001d6963c$3cc53690$b64fa3b0$@samsung.com>
- <s5heemlklo0.wl-tiwai@suse.de> <20201001102938.GU2968@vkoul-mobl>
- <2bf52360-bd11-b4cd-b255-8a5610b4aa5f@linux.intel.com>
- <20201006062105.GQ2968@vkoul-mobl>
- <4bbc385b-d35a-8766-7981-034455287225@linux.intel.com>
- <000d01d69d58$4e2db6f0$ea8924d0$@samsung.com>
- <s5hr1q7sa9f.wl-tiwai@suse.de>
- <831bbfcf-9720-9100-8633-65932b415cab@perex.cz>
- <s5ha6wusb2l.wl-tiwai@suse.de>
+ dkim=pass (1024-bit key) header.d=mediatek.com header.i=@mediatek.com
+ header.b="HSQ6gaQ9"
+X-UUID: 50f1798ef84d47568f56d89a0de7b4a6-20201012
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=mediatek.com;
+ s=dk; 
+ h=Content-Transfer-Encoding:MIME-Version:Content-Type:References:In-Reply-To:Date:CC:To:From:Subject:Message-ID;
+ bh=Qh32CvLCP7TbrAU9q4uRS7WfIF5HB8P3kFRMssgVV8s=; 
+ b=HSQ6gaQ9BT/8awzojpsomr6j0MvxxgkGnmo4bMBO0/udns3AnarywMX9wZUTFmhPjwk423W2hEk1Jls9qEBq0WBjHIwhD1UXHdl/qYS/j7sc6HWD9fmo09CE97oUvdpaeKPvC7lvRnw4RBN2eg8/7u2CvsJmra6sq4or7IFFG0M=;
+X-UUID: 50f1798ef84d47568f56d89a0de7b4a6-20201012
+Received: from mtkcas10.mediatek.inc [(172.21.101.39)] by mailgw02.mediatek.com
+ (envelope-from <jiaxin.yu@mediatek.com>)
+ (Cellopoint E-mail Firewall v4.1.14 Build 0819 with TLSv1.2
+ ECDHE-RSA-AES256-SHA384 256/256)
+ with ESMTP id 2105306689; Mon, 12 Oct 2020 13:47:29 +0800
+Received: from MTKCAS36.mediatek.inc (172.27.4.186) by mtkmbs07n1.mediatek.inc
+ (172.21.101.16) with Microsoft SMTP Server (TLS) id 15.0.1497.2;
+ Mon, 12 Oct 2020 13:47:26 +0800
+Received: from [10.17.3.153] (10.17.3.153) by MTKCAS36.mediatek.inc
+ (172.27.4.170) with Microsoft SMTP Server id 15.0.1497.2 via Frontend
+ Transport; Mon, 12 Oct 2020 13:47:25 +0800
+Message-ID: <1602481646.8921.4.camel@mhfsdcap03>
+Subject: Re: [PATCH 3/5] dt-bindings: mediatek: mt8192: add audio afe document
+From: Jiaxin Yu <jiaxin.yu@mediatek.com>
+To: Rob Herring <robh@kernel.org>
+Date: Mon, 12 Oct 2020 13:47:26 +0800
+In-Reply-To: <20201005135503.GA86716@bogus>
+References: <1601624142-18991-1-git-send-email-jiaxin.yu@mediatek.com>
+ <1601624142-18991-4-git-send-email-jiaxin.yu@mediatek.com>
+ <20201005135503.GA86716@bogus>
+Content-Type: text/plain; charset="UTF-8"
+X-Mailer: Evolution 3.10.4-0ubuntu2 
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <s5ha6wusb2l.wl-tiwai@suse.de>
-Cc: alsa-devel@alsa-project.org, pilsun.jang@samsung.com,
- khw0178.kim@samsung.com, lgirdwood@gmail.com, kimty@samsung.com,
- s47.kang@samsung.com, tiwai@suse.com,
- 'Pierre-Louis Bossart' <pierre-louis.bossart@linux.intel.com>,
- hmseo@samsung.com, Gyeongtaek Lee <gt82.lee@samsung.com>, tkjung@samsung.com
+X-MTK: N
+Content-Transfer-Encoding: base64
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
+ kuninori.morimoto.gx@renesas.com, tzungbi@google.com, broonie@kernel.org,
+ maowenan@huawei.com, tiwai@suse.com, shane.chien@mediatek.com,
+ robh+dt@kernel.org, linux-mediatek@lists.infradead.org, p.zabel@pengutronix.de,
+ matthias.bgg@gmail.com, linux-arm-kernel@lists.infradead.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -90,122 +90,32 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hi Takashi, Jaroslav,
+T24gTW9uLCAyMDIwLTEwLTA1IGF0IDA4OjU1IC0wNTAwLCBSb2IgSGVycmluZyB3cm90ZToNCj4g
+T24gRnJpLCAwMiBPY3QgMjAyMCAxNTozNTo0MCArMDgwMCwgSmlheGluIFl1IHdyb3RlOg0KPiA+
+IFRoaXMgcGF0Y2ggYWRkcyBtdDgxOTIgYXVkaW8gYWZlIGRvY3VtZW50Lg0KPiA+IA0KPiA+IFNp
+Z25lZC1vZmYtYnk6IEppYXhpbiBZdSA8amlheGluLnl1QG1lZGlhdGVrLmNvbT4NCj4gPiAtLS0N
+Cj4gPiAgLi4uL2JpbmRpbmdzL3NvdW5kL210ODE5Mi1hZmUtcGNtLnlhbWwgICAgICAgIHwgOTgg
+KysrKysrKysrKysrKysrKysrKw0KPiA+ICAxIGZpbGUgY2hhbmdlZCwgOTggaW5zZXJ0aW9ucygr
+KQ0KPiA+ICBjcmVhdGUgbW9kZSAxMDA2NDQgRG9jdW1lbnRhdGlvbi9kZXZpY2V0cmVlL2JpbmRp
+bmdzL3NvdW5kL210ODE5Mi1hZmUtcGNtLnlhbWwNCj4gPiANCj4gDQo+IA0KPiBNeSBib3QgZm91
+bmQgZXJyb3JzIHJ1bm5pbmcgJ21ha2UgZHRfYmluZGluZ19jaGVjaycgb24geW91ciBwYXRjaDoN
+Cj4gDQo+IERvY3VtZW50YXRpb24vZGV2aWNldHJlZS9iaW5kaW5ncy9zb3VuZC9tdDgxOTItYWZl
+LXBjbS5leGFtcGxlLmR0czoxOToxODogZmF0YWwgZXJyb3I6IGR0LWJpbmRpbmdzL2Nsb2NrL210
+ODE5Mi1jbGsuaDogTm8gc3VjaCBmaWxlIG9yIGRpcmVjdG9yeQ0KPiAgICAxOSB8ICAgICAgICAg
+I2luY2x1ZGUgPGR0LWJpbmRpbmdzL2Nsb2NrL210ODE5Mi1jbGsuaD4NCj4gICAgICAgfCAgICAg
+ICAgICAgICAgICAgIF5+fn5+fn5+fn5+fn5+fn5+fn5+fn5+fn5+fn5+fn5+DQo+IGNvbXBpbGF0
+aW9uIHRlcm1pbmF0ZWQuDQo+IG1ha2VbMV06ICoqKiBbc2NyaXB0cy9NYWtlZmlsZS5saWI6MzQy
+OiBEb2N1bWVudGF0aW9uL2RldmljZXRyZWUvYmluZGluZ3Mvc291bmQvbXQ4MTkyLWFmZS1wY20u
+ZXhhbXBsZS5kdC55YW1sXSBFcnJvciAxDQo+IG1ha2VbMV06ICoqKiBXYWl0aW5nIGZvciB1bmZp
+bmlzaGVkIGpvYnMuLi4uDQo+IG1ha2U6ICoqKiBbTWFrZWZpbGU6MTM2NjogZHRfYmluZGluZ19j
+aGVja10gRXJyb3IgMg0KPiANCj4gDQo+IFNlZSBodHRwczovL3BhdGNod29yay5vemxhYnMub3Jn
+L3BhdGNoLzEzNzU1ODINCj4gDQo+IElmIHlvdSBhbHJlYWR5IHJhbiAnbWFrZSBkdF9iaW5kaW5n
+X2NoZWNrJyBhbmQgZGlkbid0IHNlZSB0aGUgYWJvdmUNCj4gZXJyb3IocyksIHRoZW4gbWFrZSBz
+dXJlIGR0LXNjaGVtYSBpcyB1cCB0byBkYXRlOg0KPiANCj4gcGlwMyBpbnN0YWxsIGdpdCtodHRw
+czovL2dpdGh1Yi5jb20vZGV2aWNldHJlZS1vcmcvZHQtc2NoZW1hLmdpdEBtYXN0ZXIgLS11cGdy
+YWRlDQo+IA0KPiBQbGVhc2UgY2hlY2sgYW5kIHJlLXN1Ym1pdC4NCj4gDQpTb3JyeSwgSSBzaG91
+bGQgYWRkIGEgZGVwZW5kZW5jeSBkZXNjcmlwdGlvbi4NCiJkdC1iaW5kaW5ncy9jbG9jay9tdDgx
+OTItY2xrLmgiIGlzIGluY2x1ZGVkIGluDQpodHRwczovL3BhdGNod29yay5rZXJuZWwub3JnL2Nv
+dmVyLzExNzUyMjMxIHNlcmllcyBvZiBwYXRjaGVzLCBidXQgdGhleQ0KaGFzIG5vdCBiZWVuIGFj
+Y2VwdGVkLg0KDQo=
 
-On 10-10-20, 11:08, Takashi Iwai wrote:
-> On Fri, 09 Oct 2020 19:43:40 +0200,
-> Jaroslav Kysela wrote:
-> > 
-> > Dne 09. 10. 20 v 17:13 Takashi Iwai napsal(a):
-> > > On Thu, 08 Oct 2020 11:49:24 +0200,
-> > > Gyeongtaek Lee wrote:
-> > >>
-> > >> On 10/06/20 11:57 PM, Pierre-Louis Bossart wrote:
-> > >>>> The SM in kernel might be bit more convoluted so was wondering if we can
-> > >>>> handle this in userland. The changelog for this patch says that for
-> > >>>> test case was sending whole file, surely that is not an optimal approach.
-> > >>>
-> > >>> It's rather common to have to deal with very small files, even with PCM, 
-> > >>> e.g. for notifications. It's actually a classic test case that exposes 
-> > >>> design issues in drivers, where e.g. the last part of the notification 
-> > >>> is not played.
-> > >>>
-> > >>>> Should we allow folks to send whole file to kernel and then issue
-> > >>>> partial drain?
-> > >>>
-> > >>> I don't think there should be a conceptual limitation here. If the 
-> > >>> userspace knows that the last part of the file is smaller than a 
-> > >>> fragment it should be able to issue a drain (or partial drain if it's a 
-> > >>> gapless solution).
-> > >>>
-> > >>> However now that I think of it, I am not sure what happens if the file 
-> > >>> is smaller than a fragment. That may very well be a limitation in the 
-> > >>> design.
-> > >>>
-> > >> Thanks for the comments.
-> > >>
-> > >> Actually, problem can be occurred with big file also.
-> > >> Application usually requests draining after sending last frame.
-> > >> If user clicks pause button after draining, pause will be failed
-> > >> and the file just be played until end.
-> > >> If application stop and start playback for this case, 
-> > >> start of last frame will be heard again because stop sets state to SETUP,
-> > >> and write is needed to set the state to PREPARED for start.
-> > >> If bitrate of the file is low, time stamp will be reversed and be heard weird.
-> > >> I also hope this problem can be handled in userspace easily but I couldn't find a way for now.
-> > >>
-> > >> I think that this is the time that I should share fixed patch following the comments to help the discussion.
-> > >> Following opinions are added to the patch.
-> > >> 1. it's be much nicer to have a new state - Takashi
-> > > 
-> > > Well, it wasn't me; I'm not against the new state *iff* it would end
-> > > up with cleaner code.  Admittedly, the new state can be more
-> > > "consistent" regarding the state transition.  If we allow the PAUSE
-> > > state during DRAINING, it'll lead to multiple states after resuming
-> > > the pause.
-> > > 
-> > >> 2. We can add this state to asound.h so the user space can be updated. - Jaroslav
-> > >> 3. don't forget to increase the SNDRV_COMPRESS_VERSION - Jaroslav
-> > >>
-> > >> I'm bit wondering whether it is good to increase SNDRV_COMPRESS_VERSION
-> > >> with a change in asound.h not in compress_offload.h.
-> > >> Should I increase SNDRV_PCM_VERSION also?
-> > > 
-> > > Yes, if we really add the PCM state, it's definitely needed.
-> > > 
-> > >> And what happened if I request back-porting a patch which changes VERSION to stables?
-> > > 
-> > > If we introduce the new change, it must be safe to the old kernels,
-> > > too.  The problem is only about the compatibility of the user-space
-> > > program, not about the kernel.
-> > > 
-> > > 
-> > > HOWEVER: I'm still concerned by the addition of a new PCM state.
-> > > Jaroslav suggested two steps approach, (1) first add the state only in
-> > > the uapi header, then use (2) the new state actually.  But, this
-> > > doesn't help much, simply because the step 1 won't catch real bugs.
-> > > 
-> > > Even if we add a new state and change the SNDRV_PCM_STATE_LAST, I
-> > > guess most of code can be compiled fine.  So, at the step 1, no one
-> > > notices it and bothered, either.  But, at the step 2, you'll hit a
-> > > problem.
-> > > 
-> > > Adding a new state is something like to add a new color to the traffic
-> > > signal.  In some countries, the car turning right at a crossing
-> > > doesn't have to stop at a red signal.  Suppose that we want to control
-> > > it, and change the international rule by introducing a new color (say
-> > > magenta) signal to stop the car turning right.  That'll be a big
-> > > confusion because most drivers are trained for only red, green and
-> > > yellow signals.
-> > > 
-> > > Similarly, if we add a new PCM state, every program code that deals
-> > > with the PCM state may be confused by the new state.  It has to be
-> > > reviewed and corrected manually, because it's no syntax problem the
-> > > compiler may catch.
-> > 
-> > If there is a handshake between both side, this problem is gone. We can just
-> > add another flag / ioctl / whatever to activate the new behaviour.
-> 
-> That's another tricky part.  We do have already some handshake in
-> alsa-lib to determine the supported protocol.  However, if a code in
-> question is outside that influence, we can't ensure that all belonging
-> components understand the new one.  e.g. if a program uses an
-> intermediate library, it's free from alsa-lib changes.  Or, imagine
-> some plugin.
-> 
-> If this were a change of the API function, we may have a better
-> control.  We may provide different versioned symbols in the worst
-> case, too.  But, an enum is essentially hard-coded, so we have no
-> direct influence once after it's compiled.
-
-So what if we add another state but keep it in kernel (hidden from
-userspace)...?
-
-Right now tinycompress does not make use of PCM streams, kernel handles
-these. I am not aware of any other implementation.
-
-So if the scope if within compress then it might work...
-
-Thanks
--- 
-~Vinod

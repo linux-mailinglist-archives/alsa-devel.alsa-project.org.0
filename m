@@ -2,81 +2,82 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7FD7D28CEDB
-	for <lists+alsa-devel@lfdr.de>; Tue, 13 Oct 2020 15:03:27 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 424C528CF5A
+	for <lists+alsa-devel@lfdr.de>; Tue, 13 Oct 2020 15:42:17 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 14A131687;
-	Tue, 13 Oct 2020 15:02:37 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 14A131687
+	by alsa0.perex.cz (Postfix) with ESMTPS id 804E01687;
+	Tue, 13 Oct 2020 15:41:26 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 804E01687
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1602594207;
-	bh=TjyOf8Y31mdDt8pGjw3+e2TYZrWAE9oo4pPEMKbIYy8=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=VBI9ZlHty5n1e5oT4g1rfoRNEBShp0P2YwGFcdt1sokSypTE9URl3VblWYNDltv8D
-	 oNnIe4FpNcc79y9VmdAKmb6NJQ/QhpO3YYMAWWXnCtuNisM+xFf7vZcZRMsUGzi/08
-	 ijZjrmU0NnVRGUktq5NZodJE71IVlvNTtTP02fiY=
+	s=default; t=1602596536;
+	bh=ilz5D2k7ZCks6xZKmTZn5xZB/phEjK7DzDp4PH6WdaM=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=ocImqSZokk+j0Gj16Gi9dOuBhUAO+9f3JFpKxPBDVhpEATJGWsLy3gidhqohpK34g
+	 UZ7f8X91xqlLflxwHf/XySvFP7qjvVvn8Y6wY/8pA8EyMETdZL87YaByvFNK3VizRg
+	 GT/kcdbV7BPciLLD53j+QLtm7I3pGcv9LuFKv8j8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id C6AE8F800CE;
-	Tue, 13 Oct 2020 15:01:46 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 3EB33F800F6;
+	Tue, 13 Oct 2020 15:40:36 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 5E756F801A3; Tue, 13 Oct 2020 15:01:44 +0200 (CEST)
+ id E18D7F801A3; Tue, 13 Oct 2020 15:40:33 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_MSPIKE_H3,
- RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
-Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from m42-4.mailgun.net (m42-4.mailgun.net [69.72.42.4])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 971B5F8012C
- for <alsa-devel@alsa-project.org>; Tue, 13 Oct 2020 15:01:31 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 971B5F8012C
-IronPort-SDR: z6C47iy/HRw9DDtZz5CFkElVfJfMpTRWuO9haqVIINKaW9Fxlvds+Op1p7yjVEci+n6J62AuHB
- dRrQ1xoQ7l7A==
-X-IronPort-AV: E=McAfee;i="6000,8403,9772"; a="166015067"
-X-IronPort-AV: E=Sophos;i="5.77,370,1596524400"; d="scan'208";a="166015067"
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from orsmga006.jf.intel.com ([10.7.209.51])
- by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 13 Oct 2020 06:01:20 -0700
-IronPort-SDR: 4bTd7iIIlYKzyDN8gAbflNVnBgh+UJEwC/YONZqSk9ffh/qb/den14FqT7OmP8BQiPuvJSi8yY
- zt9TUElRw0Eg==
-X-IronPort-AV: E=Sophos;i="5.77,370,1596524400"; d="scan'208";a="318279779"
-Received: from smile.fi.intel.com (HELO smile) ([10.237.68.40])
- by orsmga006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 13 Oct 2020 06:01:18 -0700
-Received: from andy by smile with local (Exim 4.94)
- (envelope-from <andriy.shevchenko@intel.com>)
- id 1kSJwa-005pjr-Gj; Tue, 13 Oct 2020 16:02:20 +0300
-Date: Tue, 13 Oct 2020 16:02:20 +0300
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Mark Brown <broonie@kernel.org>
-Subject: Re: [PATCH] ASoC: dmaengine: Document support for TX only or RX only
- streams
-Message-ID: <20201013130220.GQ4077@smile.fi.intel.com>
-References: <20201008161105.21804-1-broonie@kernel.org>
- <20201009102751.GS4077@smile.fi.intel.com>
- <20201009103124.GT4077@smile.fi.intel.com>
- <20201012133745.GD4332@sirena.org.uk>
- <20201012135527.GW4077@smile.fi.intel.com>
- <20201012154803.GG4332@sirena.org.uk>
- <20201012163147.GD4077@smile.fi.intel.com>
- <20201012182604.GH4332@sirena.org.uk>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20201012182604.GH4332@sirena.org.uk>
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
-Cc: alsa-devel@alsa-project.org, Lars-Peter Clausen <lars@metafoo.de>,
- Stephen Warren <swarren@nvidia.com>, Liam Girdwood <lgirdwood@gmail.com>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- Michael Wei Hong Sit <michael.wei.hong.sit@intel.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 18EDEF8012C
+ for <alsa-devel@alsa-project.org>; Tue, 13 Oct 2020 15:40:24 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 18EDEF8012C
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=mg.codeaurora.org
+ header.i=@mg.codeaurora.org header.b="B8e8wuek"
+DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
+ q=dns/txt; 
+ s=smtp; t=1602596428; h=Message-Id: Date: Subject: Cc: To: From:
+ Sender; bh=lGt94tJR4p8z2VZENAYILwPd3XBTRqEWZsrbh+IenL4=;
+ b=B8e8wuekXQ807u6sJrEu45jepn2yj6stsZdZGTMxMbQCoQUD58agFUQdP1lkVWkchWgo4t9H
+ NJEkjn+EmIkaV5B8l5greeFHwLVnxxh8DqqmLiUf+sqTjjHs8eBWckHVDr75aJdrDn4w01B+
+ UZAAMvODjD+7L1SI5juNO4pROs0=
+X-Mailgun-Sending-Ip: 69.72.42.4
+X-Mailgun-Sid: WyI4ZmE2ZSIsICJhbHNhLWRldmVsQGFsc2EtcHJvamVjdC5vcmciLCAiYmU5ZTRhIl0=
+Received: from smtp.codeaurora.org
+ (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171]) by
+ smtp-out-n01.prod.us-west-2.postgun.com with SMTP id
+ 5f85ae39ad37af35ec6efecc (version=TLS1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Tue, 13 Oct 2020 13:40:09
+ GMT
+Received: by smtp.codeaurora.org (Postfix, from userid 1001)
+ id 3513EC433F1; Tue, 13 Oct 2020 13:40:09 +0000 (UTC)
+Received: from hyd-lnxbld210.qualcomm.com (unknown [202.46.22.19])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-SHA256 (128/128 bits))
+ (No client certificate requested) (Authenticated sender: srivasam)
+ by smtp.codeaurora.org (Postfix) with ESMTPSA id 03A6AC43385;
+ Tue, 13 Oct 2020 13:40:03 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 smtp.codeaurora.org 03A6AC43385
+Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
+ dmarc=none (p=none dis=none) header.from=codeaurora.org
+Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
+ spf=fail smtp.mailfrom=srivasam@codeaurora.org
+From: Srinivasa Rao Mandadapu <srivasam@codeaurora.org>
+To: agross@kernel.org, bjorn.andersson@linaro.org, lgirdwood@gmail.com,
+ broonie@kernel.org, robh+dt@kernel.org, plai@codeaurora.org,
+ bgoswami@codeaurora.org, perex@perex.cz, tiwai@suse.com,
+ srinivas.kandagatla@linaro.org, rohitkr@codeaurora.org,
+ linux-arm-msm@vger.kernel.org, alsa-devel@alsa-project.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: [PATCH 1/2] Asoc: qcom: lpass-cpu: Fix clock disable failure
+Date: Tue, 13 Oct 2020 19:09:46 +0530
+Message-Id: <1602596386-9886-1-git-send-email-srivasam@codeaurora.org>
+X-Mailer: git-send-email 2.7.4
+Cc: V Sujith Kumar Reddy <vsujithk@codeaurora.org>,
+ Srinivasa Rao Mandadapu <srivasam@codeaurora.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -92,67 +93,43 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Mon, Oct 12, 2020 at 07:26:04PM +0100, Mark Brown wrote:
-> On Mon, Oct 12, 2020 at 07:31:47PM +0300, Andy Shevchenko wrote:
-> > On Mon, Oct 12, 2020 at 04:48:03PM +0100, Mark Brown wrote:
-> > > On Mon, Oct 12, 2020 at 04:55:27PM +0300, Andy Shevchenko wrote:
-> 
-> > > > 	if (ret != DMA mode ok)
-> > > > 		ret = try PIO mode;
-> 
-> > > > which makes OF dependent parts gone along with relying on the properties rather
-> > > > than real resource availability.
-> 
-> > > I don't understand the blocker to writing that code at the minute?
-> 
-> > Return code in both cases DMA okay, DMA is not okay is 0.
-> 
-> Ah, right - we don't really expose the resulting component to the
-> drivers.  Although we don't appear to have any drivers doing the open
-> coding you suggest?  The active use case we have is for drivers
-> (currently only the STM32 SAI AFAICT) that always do DMA but only do one
-> direction (not half duplex, a single direction on a given DAI).  They
-> don't want to fall back to PIO, they want to know which channel is
-> valid.  It's not just a DMA/no DMA question, it's also which of the DMA
-> channels are valid.
+From: V Sujith Kumar Reddy <vsujithk@codeaurora.org>
 
-Looking into them I think all of the cases are requiring DMA to work.
-At least one channel. Seems no one is designed for optional DMA performance.
+Disable MI2S bit clock from PAUSE/STOP/SUSPEND usecase
+instead of shutdown time. Acheive this by invoking
+clk_disable_unprepare API from cpu daiops shutdown to
+cpu daiops trigger.
+This Fix is update to the below patch.
+https://lore.kernel.org/patchwork/patch/1308101/
 
-The problem here is they are checking for properties (meta-data) rather than
-resources (data) to be available. But since they will fail sooner or later it
-doesn't make big difference.
+Signed-off-by: V Sujith Kumar Reddy <vsujithk@codeaurora.org>
+Signed-off-by: Srinivasa Rao Mandadapu <srivasam@codeaurora.org>
+---
+ sound/soc/qcom/lpass-cpu.c | 3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
 
-
-% git grep -n dma-names -- sound/soc/ | cut -f1 -d: | sort -u
-sound/soc/adi/axi-i2s.c
-sound/soc/atmel/atmel-i2s.c
-sound/soc/stm/stm32_sai_sub.c
-sound/soc/tegra/tegra210_admaif.c
-sound/soc/ti/davinci-mcasp.c
-
-axi-i2s: Checks for channels to see if capture / playback are supposed to be
-	 working, but AFAICS tries without actually checking the resources
-	 availability.
-
-	snd_soc_dai_init_dma_data(dai,
-		i2s->has_playback ? &i2s->playback_dma_data : NULL,
-		i2s->has_capture  ? &i2s->capture_dma_data  : NULL);
-
-atmel-i2s: Checks for half-duplex channel, but registers unconditionally.
-
-        snd_soc_dai_init_dma_data(dai, &dev->playback, &dev->capture);
-
-tegra210_admaif: Checks for Tx to be always present.
-
-	Custom DAI probe that simply assigns data structure pointers.
-
-davinchi-mcasp: Checks for names to be present
-
-	Custom DAI probe that simply assigns data structure pointers.
-
+diff --git a/sound/soc/qcom/lpass-cpu.c b/sound/soc/qcom/lpass-cpu.c
+index ba2aca3..2dfb921 100644
+--- a/sound/soc/qcom/lpass-cpu.c
++++ b/sound/soc/qcom/lpass-cpu.c
+@@ -88,8 +88,6 @@ static void lpass_cpu_daiops_shutdown(struct snd_pcm_substream *substream,
+ {
+ 	struct lpass_data *drvdata = snd_soc_dai_get_drvdata(dai);
+ 
+-	clk_disable_unprepare(drvdata->mi2s_bit_clk[dai->driver->id]);
+-
+ 	clk_disable_unprepare(drvdata->mi2s_osr_clk[dai->driver->id]);
+ }
+ 
+@@ -324,6 +322,7 @@ static int lpass_cpu_daiops_trigger(struct snd_pcm_substream *substream,
+ 		if (ret)
+ 			dev_err(dai->dev, "error writing to i2sctl reg: %d\n",
+ 				ret);
++		clk_disable_unprepare(drvdata->mi2s_bit_clk[dai->driver->id]);
+ 		break;
+ 	}
+ 
 -- 
-With Best Regards,
-Andy Shevchenko
-
+Qualcomm India Private Limited, on behalf of Qualcomm Innovation Center, Inc.,
+is a member of Code Aurora Forum, a Linux Foundation Collaborative Project.
 

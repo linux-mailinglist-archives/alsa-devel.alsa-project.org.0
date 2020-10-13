@@ -2,106 +2,87 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E236228CBDF
-	for <lists+alsa-devel@lfdr.de>; Tue, 13 Oct 2020 12:38:27 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4457A28CBE5
+	for <lists+alsa-devel@lfdr.de>; Tue, 13 Oct 2020 12:42:56 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 103001671;
-	Tue, 13 Oct 2020 12:37:37 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 103001671
+	by alsa0.perex.cz (Postfix) with ESMTPS id 83541168A;
+	Tue, 13 Oct 2020 12:42:05 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 83541168A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1602585507;
-	bh=7CxOrC8iZZeOojS+ldrH51PV2erlc7em4A8mfveEmyI=;
-	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
+	s=default; t=1602585775;
+	bh=KGnQd8MQizROEGVqO6LoZ2ESTC7FDdoCCXNt1igE99k=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=gzpcoivoeXk/+JMhxULuCG/cj6tRgZMpHpmeckWMoAv/BQlgWOZQdYAJrAIvUFGQ9
-	 HOek2mVwRREqLlO37OxxrZBKU3bgcHRbZ+ikI+IIPGfwUdJDSjPrhtnKbAPBZQJgcV
-	 q/HMhVcxsDTcOs6u2IT2p/zY8Kv7pBVqli18BDHY=
+	b=RtqkwOskuk2nZXW6QIB75WTD52d64qGWg7eLsh/IFwB4OiI8EcFITu2GQsKJ7kERl
+	 ENIQo/SPMjPScBIhU1lYQ09lh6aXVGhtWgMwxROqxCnDBo/BNh2BT15M9gHaUAsh7p
+	 4MhyvaljzrvAAHz6JiVobw7Tez5cCyMji7tzmPjc=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 7BBF7F801D9;
-	Tue, 13 Oct 2020 12:36:46 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 2A287F801D9;
+	Tue, 13 Oct 2020 12:41:15 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 49C79F801A3; Tue, 13 Oct 2020 12:36:43 +0200 (CEST)
+ id D3290F800CE; Tue, 13 Oct 2020 12:41:11 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
+ DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
  autolearn=disabled version=3.4.0
-Received: from mail-wm1-x32f.google.com (mail-wm1-x32f.google.com
- [IPv6:2a00:1450:4864:20::32f])
+Received: from mail-wr1-x441.google.com (mail-wr1-x441.google.com
+ [IPv6:2a00:1450:4864:20::441])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id C4472F800CE
- for <alsa-devel@alsa-project.org>; Tue, 13 Oct 2020 12:36:36 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C4472F800CE
+ by alsa1.perex.cz (Postfix) with ESMTPS id 20350F800CE
+ for <alsa-devel@alsa-project.org>; Tue, 13 Oct 2020 12:41:08 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 20350F800CE
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org
- header.b="rrHdIIkH"
-Received: by mail-wm1-x32f.google.com with SMTP id a72so9842126wme.5
- for <alsa-devel@alsa-project.org>; Tue, 13 Oct 2020 03:36:36 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=subject:to:cc:references:from:message-id:date:user-agent
- :mime-version:in-reply-to:content-language:content-transfer-encoding;
- bh=CiWCv3BMnudQFt/Kh0EA1mCHFgkrHwPIFYjOeIiiAgM=;
- b=rrHdIIkHJ4RWluKR74GDVBCXZ3fHa+2GckpSDJAnPQr3LIihHVRnyUP0B3Pyy3ZhiX
- 8rSJA7CHd4bBwm+paLicw3yVKCUd7p47cqxTVZOMI8KQTToQQIRbcEkKYaCAJv5rCfEc
- 1bgA/vc4KEWcOYZ4uNSULZ7vzptJAjV8I6Yt5FQdZdfVDCfUWFaaYLymlxMbvCLnuB5g
- k4Q1OxKAiRD5UMQFq/jNfia58Icqaqxjn9Zw637CxWxICuvMpdldIxOsG31VbTFTfcjx
- fcwjAwQt64YG5s9nbZkfQG7kDKS53uzrSfQJevNyaAgzQJP/OvC7fnfI1m0PztItBYpx
- 0bKw==
+ dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
+ header.b="gyi1yunu"
+Received: by mail-wr1-x441.google.com with SMTP id n18so23420064wrs.5
+ for <alsa-devel@alsa-project.org>; Tue, 13 Oct 2020 03:41:08 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=KGnQd8MQizROEGVqO6LoZ2ESTC7FDdoCCXNt1igE99k=;
+ b=gyi1yunutoZhUD0/UEF8Y2W7tQM6TS5jmKeONpakXd2rTbWB+a2FoTlYShvboHRUjb
+ o+OiIauitVyuRzkw2wlp8deQWzBGISweHB6VZlAgDRaF0NoeuVxg847l/A2/LVMRQJqe
+ 042rOdRRsmODzQaUz5KmsV7PXCm2iIfq/P9NJvooXN0tU08fjejHSQ+S9ueQ+aE27whw
+ px2Vdl4kOBetB0bVfcXL//2xS1Y1bR9G5Y4/SYldp92Mjw39RR00M5wScVXdpvR7CZUV
+ HboDSnXSXkCB4XgTJW74jjaWEffi5v3Pi6A7v7NtoKMWoS6bakwtXPTJFSMiRY2Akdqr
+ 3LJw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:subject:to:cc:references:from:message-id:date
- :user-agent:mime-version:in-reply-to:content-language
- :content-transfer-encoding;
- bh=CiWCv3BMnudQFt/Kh0EA1mCHFgkrHwPIFYjOeIiiAgM=;
- b=AjGojbrAVnYgPShyxNV2niNluW4+EnvIpALi99ItQUck79WQtiDR0gJXx88ldAay9A
- CZf+vMI46gdW3VG689QyQJDy/bgmYUIt8yzSzmE9ibQh/qmVnPWoCuRnfomURFYh6zI5
- yVllUdDfROIP2CzYkcMpNiJVXe5eSDArlVbP29+ZSGQyY1PMq1WJ/WUM34n3QPDROOcE
- u4jvnUDQlX+o3m5DB6Coz5wzs7ziLKu74t2lzYT3NOMXuC5tA79CmoK+JyWyHSPrb8kt
- LomTD1dVgYMVel9erF/oBmEy+6tgs23z6CQbSzmfMdvKKhfgH0bffCi2+2JWxVSSPjlA
- 5yPg==
-X-Gm-Message-State: AOAM530bp4romaJdoGqDOHlUUov+FzOvfC44fzp+YNsrK20LJRUEKcub
- m5kNxpU0SIYW2QGFrXGLhQ8YpA==
-X-Google-Smtp-Source: ABdhPJxiYcDKpnTqq5SWY21dPvFP7GNAu3f5Em/slUL6EOVBNEG9+t+pGtCNV4M0EgkRnYKNBcGB0w==
-X-Received: by 2002:a1c:1905:: with SMTP id 5mr15466149wmz.32.1602585396171;
- Tue, 13 Oct 2020 03:36:36 -0700 (PDT)
-Received: from [192.168.86.34]
- (cpc86377-aztw32-2-0-cust226.18-1.cable.virginm.net. [92.233.226.227])
- by smtp.googlemail.com with ESMTPSA id t6sm31809439wre.30.2020.10.13.03.36.34
- (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
- Tue, 13 Oct 2020 03:36:35 -0700 (PDT)
-Subject: Re: [PATCH v11 2/3] ASoC: qcom: dt-bindings: Add sc7180 machine
- bindings
-To: Cheng-Yi Chiang <cychiang@chromium.org>, linux-kernel@vger.kernel.org
-References: <20200914080619.4178587-1-cychiang@chromium.org>
- <20200914080619.4178587-3-cychiang@chromium.org>
-From: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
-Message-ID: <7bdc0d63-27b1-f99e-c5f8-65f880733d16@linaro.org>
-Date: Tue, 13 Oct 2020 11:36:33 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
- Thunderbird/60.8.0
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=KGnQd8MQizROEGVqO6LoZ2ESTC7FDdoCCXNt1igE99k=;
+ b=cVWsBsYBNkbxeAY1Yh6GftIYBdViV6V6joEBo/cCZjkXgcLupLgiMCMG8VcSykXNRr
+ CPC/lGQ5zFV7mqweJWMvvmdPquGA8Tkn70qnghkfxzHdiuejnSPs8VdjjeyyLqjjzKEn
+ WVgJ81ZS7vrjhUPxMeHciGoEt5ZUqBsP+prg2wA5ZCIJdr3O7NIItktUA0sJK3/fdIHK
+ gQDG5UKaa7I0OdV7DDOVi+WiMjgkd+/mD/oQ0GeTQYxL3XexfRyGu+uE8Ei2WsuRMT1V
+ 4jMAnepI1fzPisgYj9f+7ViRaYjsnIvNi66h/a4+CraAo+v6PtdzSReR/L07m6a+gCLB
+ FiJg==
+X-Gm-Message-State: AOAM530xEiVMocB4NDyG2cLgUN/MZG1y3VlFRrQwY7adB6r+0+vFKP1N
+ 9ZBppyGVDgp3CdMIYC24T9FLefh34l/g+q482Vc=
+X-Google-Smtp-Source: ABdhPJwhYcYmIneqQARWgsNSZNyQDfcQXjguTWYNKrh+uvUlyMNyvJ07AParV+DeJy+VXRrdkVj2tk2+qAGXHb/6jhw=
+X-Received: by 2002:adf:ec0e:: with SMTP id x14mr37900205wrn.204.1602585668012; 
+ Tue, 13 Oct 2020 03:41:08 -0700 (PDT)
 MIME-Version: 1.0
-In-Reply-To: <20200914080619.4178587-3-cychiang@chromium.org>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
-Cc: Taniya Das <tdas@codeaurora.org>, alsa-devel@alsa-project.org,
- Banajit Goswami <bgoswami@codeaurora.org>, Heiko Stuebner <heiko@sntech.de>,
- Liam Girdwood <lgirdwood@gmail.com>, Rohit kumar <rohitkr@codeaurora.org>,
- Patrick Lai <plai@codeaurora.org>, linux-rockchip@lists.infradead.org,
- Andy Gross <agross@kernel.org>, dgreid@chromium.org,
- devicetree@vger.kernel.org, tzungbi@chromium.org,
- Srinivasa Rao <srivasam@codeaurora.org>, Stephan Gerhold <stephan@gerhold.net>,
- linux-arm-msm@vger.kernel.org, Rob Herring <robh+dt@kernel.org>,
- linux-mediatek@lists.infradead.org, Matthias Brugger <matthias.bgg@gmail.com>,
- Bjorn Andersson <bjorn.andersson@linaro.org>,
- linux-arm-kernel@lists.infradead.org, dianders@chromium.org,
- Takashi Iwai <tiwai@suse.com>, Mark Brown <broonie@kernel.org>
+References: <1602492582-3558-1-git-send-email-shengjiu.wang@nxp.com>
+ <20201012190037.GB17643@Asurada-Nvidia>
+In-Reply-To: <20201012190037.GB17643@Asurada-Nvidia>
+From: Daniel Baluta <daniel.baluta@gmail.com>
+Date: Tue, 13 Oct 2020 13:40:56 +0300
+Message-ID: <CAEnQRZBrXNgMDNgQ=dMJfZQpZvdq6sUx2y21_fuk9teRd5UM0Q@mail.gmail.com>
+Subject: Re: [PATCH] ASoC: fsl_spdif: Add support for higher sample rates
+To: Nicolin Chen <nicoleotsuka@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Cc: Linux-ALSA <alsa-devel@alsa-project.org>, Timur Tabi <timur@kernel.org>,
+ Xiubo Li <Xiubo.Lee@gmail.com>, linuxppc-dev@lists.ozlabs.org,
+ Shengjiu Wang <shengjiu.wang@nxp.com>, Takashi Iwai <tiwai@suse.com>,
+ Mark Brown <broonie@kernel.org>, Fabio Estevam <festevam@gmail.com>,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -117,49 +98,24 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hi Cheng,
+On Tue, Oct 13, 2020 at 12:29 PM Nicolin Chen <nicoleotsuka@gmail.com> wrote:
+>
+> Hi Shengjiu,
+>
+> On Mon, Oct 12, 2020 at 04:49:42PM +0800, Shengjiu Wang wrote:
+> > Add 88200Hz and 176400Hz sample rates support for TX.
+> > Add 88200Hz, 176400Hz, 192000Hz sample rates support for RX.
+> >
+> > Signed-off-by: Shengjiu Wang <shengjiu.wang@nxp.com>
+> > Signed-off-by: Viorel Suman <viorel.suman@nxp.com>
+>
+> Probably should put your own Signed-off at the bottom?
 
-Sorry for such late review w.r.t compatibles,
+Hi Shengjiu,
 
-On 14/09/2020 09:06, Cheng-Yi Chiang wrote:
-> +---
-> +$id:http://devicetree.org/schemas/sound/qcom,sc7180.yaml#
-> +$schema:http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: Qualcomm Technologies Inc. SC7180 ASoC sound card driver
-> +
-> +maintainers:
-> +  - Rohit kumar<rohitkr@codeaurora.org>
-> +  - Cheng-Yi Chiang<cychiang@chromium.org>
-> +
-> +description:
-> +  This binding describes the SC7180 sound card which uses LPASS for audio.
-> +
-> +properties:
-> +  compatible:
-> +    const: qcom,sc7180-sndcard-rt5682-m98357-1mic
+Also please keep the original author of the patch. You can change that
+using git commit --amend --author="Viorel Suman <viorel.suman@nxp.com>".
 
-This information can come from the dai link description itself, why 
-should compatible string have this information?
+With that,
 
-Can't we have better compatible string with actual board name or use the 
-same compatible name as used by other boards?
-
-Can you give us some details on the advantages of doing this way?
-
-Or am I missing something?
-
-AFAIU, you should add proper board name / model name to the compatible 
-string rather than describe how its connected. Connection is already 
-part of dai link definition.
-
-On the other hand model property can include variant information.
-This can also be used to set card long name which will help in UCM2.
-
-The reason I had to bring this up is because the use-space (ucm in this 
-case) will not be in a position to differentiate between different board 
-variants to select correct mixer controls, so its going to be a pain!
-
-
-Thanks,
-srini
+Reviewed-by: Daniel Baluta <daniel.baluta@nxp.com>

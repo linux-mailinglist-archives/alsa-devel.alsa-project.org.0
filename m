@@ -2,92 +2,78 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 19B0B28C139
-	for <lists+alsa-devel@lfdr.de>; Mon, 12 Oct 2020 21:10:14 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id BBC0528C69E
+	for <lists+alsa-devel@lfdr.de>; Tue, 13 Oct 2020 03:07:40 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 9A7DD168D;
-	Mon, 12 Oct 2020 21:09:23 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9A7DD168D
+	by alsa0.perex.cz (Postfix) with ESMTPS id 4188B168D;
+	Tue, 13 Oct 2020 03:06:50 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4188B168D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1602529813;
-	bh=ma6NjbNJ5aaYAZwWnt+/fd9ZUPdDM9ALB2EOFjB1py8=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1602551260;
+	bh=9S1t5D+0lJxQCZsQU2vA6d6qDrGEhYHDV0GADQ3Ju8A=;
+	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=JQmcOSDKwWlNnTfqd7+oVhXZVSqApzchQUPtMQ3/7Z+nJRbz//oPn8rY0ER+a/Yhv
-	 k20BZY7T+mzx+mUinC9opoG0J9NT0fu4y+BUM/Ugtzhxb2JJIjYXUXNRgMbUeG3UeR
-	 nIm0HiND10keeozSN4FFERVMSIrfugTuFjp3Gr/o=
+	b=YKXPizhGXWP2RYhkkvo26Zzkbx4deHhFsvGRz1Cko67UdXpGlsrcFhKgqyRvLqgXI
+	 CPfz0F1Ep/vj/P1My2WSHUiOM/TNOW/aE3uLRDlc7jlkJ6yjc9GsQ3WH9WMDttBMCA
+	 AP2tksc8diE0Jx3Ma/AeGtxxbO1XK8u3FvPEPBS8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id E3D11F8021D;
-	Mon, 12 Oct 2020 21:08:32 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id D1BC4F800D8;
+	Tue, 13 Oct 2020 03:05:59 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id A7F25F80217; Mon, 12 Oct 2020 21:08:30 +0200 (CEST)
+ id 45477F80217; Tue, 13 Oct 2020 03:05:57 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from mail-pl1-x641.google.com (mail-pl1-x641.google.com
- [IPv6:2607:f8b0:4864:20::641])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE autolearn=disabled
+ version=3.4.0
+Received: from casper.infradead.org (casper.infradead.org
+ [IPv6:2001:8b0:10b:1236::1])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 91DD4F800F6
- for <alsa-devel@alsa-project.org>; Mon, 12 Oct 2020 21:08:24 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 91DD4F800F6
+ by alsa1.perex.cz (Postfix) with ESMTPS id E90BEF80141
+ for <alsa-devel@alsa-project.org>; Tue, 13 Oct 2020 03:05:53 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E90BEF80141
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="b9GVLTZc"
-Received: by mail-pl1-x641.google.com with SMTP id d6so9131379plo.13
- for <alsa-devel@alsa-project.org>; Mon, 12 Oct 2020 12:08:24 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=date:from:to:cc:subject:message-id:references:mime-version
- :content-disposition:in-reply-to:user-agent;
- bh=zW/ankKb/VemIvdGEdb5qHcmtQbdYR++io0wzUbX+nA=;
- b=b9GVLTZcD8hI5Pa0lYQpQysftTjixmM5ALJCTVZvP5J6ZHy41IBA9DS+ExAop9sM59
- /LI3g52m0l+5VzqiQoyp/GweRshZlzeOPSbmksxJs4frRcBz563P7Hec6N+xDpK8wq+d
- 8xnCF3fbAxMWBnCbEkJvn0BBQoFar7dwIhn8ikDQXXO6Vm48qVc2p2zBMDfvrYB1pBvd
- 8PHewJl4Z3+FanYnqYBnnSJSz8LkIn2FLP6yvyON8BXeiu/kOnbn/7M7p8zzIz3APhND
- KQDqJ4CgOxP2NtEakj4BLHA+jT1Fo6XhGwquEEKFbUb19sahC8pEf5jRxYeEzDJSBFqt
- SoBA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to:user-agent;
- bh=zW/ankKb/VemIvdGEdb5qHcmtQbdYR++io0wzUbX+nA=;
- b=LvUwpg2Rek57pV4pgVG4f+rfGd/2yaHW7gEprgl7v1AOhWLUQ1Rov4o9khp07JYqZp
- qWBU+8+NYkMof2Q9SwPU0PBhURp6y/PCTxAJIoENal1PsvlcckjXU/MIxJAHv37tWPEl
- RVo+JjB8iUiKffL0hLus9eEXc92npFH4cFCTx6jj89p45bZfnoFqf31XK2hMfIJC+Sky
- HegmFD2i2JS45QxMhAT/qmQwKnXtIknMoozcA9pwCWqpVPwU8/AuMid+mIzGzLS4ipJx
- paIqMr4m3V/8xwQRsZtDimWS89RWcqm1MfK0o7AyxS6nWMIb4TuQ5ctvMduFCUZbffxy
- S/2w==
-X-Gm-Message-State: AOAM532U/UnqPIc1z1/cQfVRdsoNVBsEpCjz+z5CV/g0EYSfyR1QSCDM
- YDi+lKSZ4bx8Za5rd3X6ycs=
-X-Google-Smtp-Source: ABdhPJz+f2A+tX5w9xGTOqmWei3lNZIF6S21G/3LO8dmNxWD06QmSquO6fSjKsvwO4qBcjZBFkHdiw==
-X-Received: by 2002:a17:902:6845:b029:d4:d1d5:2139 with SMTP id
- f5-20020a1709026845b02900d4d1d52139mr9524779pln.53.1602529701706; 
- Mon, 12 Oct 2020 12:08:21 -0700 (PDT)
-Received: from Asurada-Nvidia (thunderhill.nvidia.com. [216.228.112.22])
- by smtp.gmail.com with ESMTPSA id r6sm16945719pfg.85.2020.10.12.12.08.20
- (version=TLS1_2 cipher=ECDHE-ECDSA-CHACHA20-POLY1305 bits=256/256);
- Mon, 12 Oct 2020 12:08:21 -0700 (PDT)
-Date: Mon, 12 Oct 2020 12:00:38 -0700
-From: Nicolin Chen <nicoleotsuka@gmail.com>
-To: Shengjiu Wang <shengjiu.wang@nxp.com>
-Subject: Re: [PATCH] ASoC: fsl_spdif: Add support for higher sample rates
-Message-ID: <20201012190037.GB17643@Asurada-Nvidia>
-References: <1602492582-3558-1-git-send-email-shengjiu.wang@nxp.com>
+ dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org
+ header.b="u94y0GqY"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=infradead.org; s=casper.20170209; h=Content-Transfer-Encoding:Content-Type:
+ In-Reply-To:MIME-Version:Date:Message-ID:From:References:Cc:To:Subject:Sender
+ :Reply-To:Content-ID:Content-Description;
+ bh=3/UMvVj1iHurYlGTpET+HgFtFX6/vZ3O3wVdx9j3nWA=; b=u94y0GqYiqP9faYdqaxObjAgwO
+ SM4gwA9EdKonSkFRQEfeNDGxRts7FTWDkzDaKXx9p1GP3VCVVb+wHyXVDykSeLv4mYNPRa+Vd1aqT
+ ionUIht+s1cw7eDUdqBo3d8PftiGU6Gw3vzk9lBqmalVPTJU6QS1Ii1cQhqJGyv3U0WoSsCzd55bR
+ SrI9SdFEqb7furHGOrU6ByBlKjBV3KQyGck+WgWr5zPJZuXcV2wxfFucixEpOgwV9E1aOMR/WpgPL
+ 7PF7YN+lPKqpu+5PI18UdSV/vaDBybbadQeO6IAEV66oyhBF2at4UBt03hoA35SZgHq+dOjymefuS
+ wbQqEAcQ==;
+Received: from [2601:1c0:6280:3f0::507c]
+ by casper.infradead.org with esmtpsa (Exim 4.92.3 #3 (Red Hat Linux))
+ id 1kS8kd-0001Q2-0Y; Tue, 13 Oct 2020 01:05:15 +0000
+Subject: Re: [PATCH v2 2/6] ASoC: SOF: Introduce descriptors for SOF client
+To: Dave Ertman <david.m.ertman@intel.com>, alsa-devel@alsa-project.org
+References: <20201005182446.977325-1-david.m.ertman@intel.com>
+ <20201005182446.977325-3-david.m.ertman@intel.com>
+From: Randy Dunlap <rdunlap@infradead.org>
+Message-ID: <076a0c53-0738-270e-845f-0ac968a4ea78@infradead.org>
+Date: Mon, 12 Oct 2020 18:05:09 -0700
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.12.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <1602492582-3558-1-git-send-email-shengjiu.wang@nxp.com>
-User-Agent: Mutt/1.9.4 (2018-02-28)
-Cc: alsa-devel@alsa-project.org, timur@kernel.org, Xiubo.Lee@gmail.com,
- linuxppc-dev@lists.ozlabs.org, tiwai@suse.com, broonie@kernel.org,
- festevam@gmail.com, linux-kernel@vger.kernel.org
+In-Reply-To: <20201005182446.977325-3-david.m.ertman@intel.com>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
+Cc: parav@mellanox.com, tiwai@suse.de, netdev@vger.kernel.org,
+ ranjani.sridharan@linux.intel.com, pierre-louis.bossart@linux.intel.com,
+ fred.oh@linux.intel.com, linux-rdma@vger.kernel.org, dledford@redhat.com,
+ broonie@kernel.org, jgg@nvidia.com, gregkh@linuxfoundation.org,
+ kuba@kernel.org, dan.j.williams@intel.com, shiraz.saleem@intel.com,
+ davem@davemloft.net, kiran.patil@intel.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -103,16 +89,41 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hi Shengjiu,
+On 10/5/20 11:24 AM, Dave Ertman wrote:
+> diff --git a/sound/soc/sof/Kconfig b/sound/soc/sof/Kconfig
+> index 4dda4b62509f..cea7efedafef 100644
+> --- a/sound/soc/sof/Kconfig
+> +++ b/sound/soc/sof/Kconfig
+> @@ -50,6 +50,24 @@ config SND_SOC_SOF_DEBUG_PROBES
+>  	  Say Y if you want to enable probes.
+>  	  If unsure, select "N".
+>  
+> +config SND_SOC_SOF_CLIENT
+> +	tristate
+> +	select ANCILLARY_BUS
+> +	help
+> +	  This option is not user-selectable but automagically handled by
+> +	  'select' statements at a higher level
+> +
+> +config SND_SOC_SOF_CLIENT_SUPPORT
+> +	bool "SOF enable clients"
 
-On Mon, Oct 12, 2020 at 04:49:42PM +0800, Shengjiu Wang wrote:
-> Add 88200Hz and 176400Hz sample rates support for TX.
-> Add 88200Hz, 176400Hz, 192000Hz sample rates support for RX.
-> 
-> Signed-off-by: Shengjiu Wang <shengjiu.wang@nxp.com>
-> Signed-off-by: Viorel Suman <viorel.suman@nxp.com>
+Tell users what "SOF" means.
 
-Probably should put your own Signed-off at the bottom?
+> +	depends on SND_SOC_SOF
+> +	help
+> +	  This adds support for ancillary client devices to separate out the debug
+> +	  functionality for IPC tests, probes etc. into separate devices. This
+> +	  option would also allow adding client devices based on DSP FW
 
-Anyway:
-Acked-by: Nicolin Chen <nicoleotsuka@gmail.com>
+spell out firmware
+
+> +	  capabilities and ACPI/OF device information.
+> +	  Say Y if you want to enable clients with SOF.
+> +	  If unsure select "N".
+> +
+
+
+-- 
+~Randy
+

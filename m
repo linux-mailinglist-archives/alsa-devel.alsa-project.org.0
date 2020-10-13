@@ -2,29 +2,29 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 424C528CF5A
-	for <lists+alsa-devel@lfdr.de>; Tue, 13 Oct 2020 15:42:17 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7767A28CF6F
+	for <lists+alsa-devel@lfdr.de>; Tue, 13 Oct 2020 15:47:43 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 804E01687;
-	Tue, 13 Oct 2020 15:41:26 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 804E01687
+	by alsa0.perex.cz (Postfix) with ESMTPS id 16C5B1684;
+	Tue, 13 Oct 2020 15:46:53 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 16C5B1684
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1602596536;
-	bh=ilz5D2k7ZCks6xZKmTZn5xZB/phEjK7DzDp4PH6WdaM=;
+	s=default; t=1602596863;
+	bh=CpOEcOVdu8u95kPwh4FoSikPtFoCflC5zBkTorz00vY=;
 	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
 	 List-Post:List-Help:List-Subscribe:From;
-	b=ocImqSZokk+j0Gj16Gi9dOuBhUAO+9f3JFpKxPBDVhpEATJGWsLy3gidhqohpK34g
-	 UZ7f8X91xqlLflxwHf/XySvFP7qjvVvn8Y6wY/8pA8EyMETdZL87YaByvFNK3VizRg
-	 GT/kcdbV7BPciLLD53j+QLtm7I3pGcv9LuFKv8j8=
+	b=DgkrbRPUBBPdOm8lty390HvwHMj0oSzgZ0n9jOJZsgnDv/6YL1qeN/BCFacVQ1VPU
+	 0YIqWPYrMHlz0mQD2bjRl/Qylf1Rd+T/OzeLb4/sCXd9G3qvehoEfhBiCbuJn85GYu
+	 lLIGNRkvn3Q8+uG6UrpRHwjySsY78aQHmj6iC3VY=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 3EB33F800F6;
-	Tue, 13 Oct 2020 15:40:36 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id CC3D2F801D9;
+	Tue, 13 Oct 2020 15:46:02 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id E18D7F801A3; Tue, 13 Oct 2020 15:40:33 +0200 (CEST)
+ id 0B730F800F6; Tue, 13 Oct 2020 15:46:01 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -32,35 +32,35 @@ X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from m42-4.mailgun.net (m42-4.mailgun.net [69.72.42.4])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 18EDEF8012C
- for <alsa-devel@alsa-project.org>; Tue, 13 Oct 2020 15:40:24 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 18EDEF8012C
+ by alsa1.perex.cz (Postfix) with ESMTPS id 30117F800F6
+ for <alsa-devel@alsa-project.org>; Tue, 13 Oct 2020 15:45:56 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 30117F800F6
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=mg.codeaurora.org
- header.i=@mg.codeaurora.org header.b="B8e8wuek"
+ header.i=@mg.codeaurora.org header.b="dYMnzaCS"
 DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
  q=dns/txt; 
- s=smtp; t=1602596428; h=Message-Id: Date: Subject: Cc: To: From:
- Sender; bh=lGt94tJR4p8z2VZENAYILwPd3XBTRqEWZsrbh+IenL4=;
- b=B8e8wuekXQ807u6sJrEu45jepn2yj6stsZdZGTMxMbQCoQUD58agFUQdP1lkVWkchWgo4t9H
- NJEkjn+EmIkaV5B8l5greeFHwLVnxxh8DqqmLiUf+sqTjjHs8eBWckHVDr75aJdrDn4w01B+
- UZAAMvODjD+7L1SI5juNO4pROs0=
+ s=smtp; t=1602596756; h=Message-Id: Date: Subject: Cc: To: From:
+ Sender; bh=zuP68KS+m7yiu7lWb1w/0cX8d1l6eBr2he/ZnT7A7RY=;
+ b=dYMnzaCSldyQpmk5CbULiBYFABihpChhVv38JcbqMo3R9IijyGbpafhnIPhXGKtBX3CLEXYZ
+ c1ye8jERpEj/jdDnV3EUwjM0Ds1DFPdjpllCw5cxFon9w34bVo/pwBr6QgQND0C+7qHtyCHV
+ aRyQKWmPELNxQ3FVYAtjg5uUFEI=
 X-Mailgun-Sending-Ip: 69.72.42.4
 X-Mailgun-Sid: WyI4ZmE2ZSIsICJhbHNhLWRldmVsQGFsc2EtcHJvamVjdC5vcmciLCAiYmU5ZTRhIl0=
 Received: from smtp.codeaurora.org
  (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171]) by
- smtp-out-n01.prod.us-west-2.postgun.com with SMTP id
- 5f85ae39ad37af35ec6efecc (version=TLS1.2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Tue, 13 Oct 2020 13:40:09
+ smtp-out-n05.prod.us-west-2.postgun.com with SMTP id
+ 5f85af9342f9861fb124eb3a (version=TLS1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Tue, 13 Oct 2020 13:45:55
  GMT
 Received: by smtp.codeaurora.org (Postfix, from userid 1001)
- id 3513EC433F1; Tue, 13 Oct 2020 13:40:09 +0000 (UTC)
+ id 559A8C433FF; Tue, 13 Oct 2020 13:45:55 +0000 (UTC)
 Received: from hyd-lnxbld210.qualcomm.com (unknown [202.46.22.19])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-SHA256 (128/128 bits))
  (No client certificate requested) (Authenticated sender: srivasam)
- by smtp.codeaurora.org (Postfix) with ESMTPSA id 03A6AC43385;
- Tue, 13 Oct 2020 13:40:03 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 smtp.codeaurora.org 03A6AC43385
+ by smtp.codeaurora.org (Postfix) with ESMTPSA id E2A98C433CB;
+ Tue, 13 Oct 2020 13:45:49 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 smtp.codeaurora.org E2A98C433CB
 Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
  dmarc=none (p=none dis=none) header.from=codeaurora.org
 Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
@@ -72,9 +72,9 @@ To: agross@kernel.org, bjorn.andersson@linaro.org, lgirdwood@gmail.com,
  srinivas.kandagatla@linaro.org, rohitkr@codeaurora.org,
  linux-arm-msm@vger.kernel.org, alsa-devel@alsa-project.org,
  devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: [PATCH 1/2] Asoc: qcom: lpass-cpu: Fix clock disable failure
-Date: Tue, 13 Oct 2020 19:09:46 +0530
-Message-Id: <1602596386-9886-1-git-send-email-srivasam@codeaurora.org>
+Subject: [PATCH] Asoc: qcom: lpass-cpu: Fix dp audio failure on monitors
+Date: Tue, 13 Oct 2020 19:15:28 +0530
+Message-Id: <1602596728-11783-1-git-send-email-srivasam@codeaurora.org>
 X-Mailer: git-send-email 2.7.4
 Cc: V Sujith Kumar Reddy <vsujithk@codeaurora.org>,
  Srinivasa Rao Mandadapu <srivasam@codeaurora.org>
@@ -95,40 +95,30 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 From: V Sujith Kumar Reddy <vsujithk@codeaurora.org>
 
-Disable MI2S bit clock from PAUSE/STOP/SUSPEND usecase
-instead of shutdown time. Acheive this by invoking
-clk_disable_unprepare API from cpu daiops shutdown to
-cpu daiops trigger.
-This Fix is update to the below patch.
-https://lore.kernel.org/patchwork/patch/1308101/
+Make LPASS_HDMI_TX_PARITY_ADDR reg as volatile to fix
+dp audio failure with external monitors.
+This patch is upgrade to below patch series.
+https://lore.kernel.org/patchwork/project/lkml/list/?series=466460
 
 Signed-off-by: V Sujith Kumar Reddy <vsujithk@codeaurora.org>
 Signed-off-by: Srinivasa Rao Mandadapu <srivasam@codeaurora.org>
 ---
- sound/soc/qcom/lpass-cpu.c | 3 +--
- 1 file changed, 1 insertion(+), 2 deletions(-)
+ sound/soc/qcom/lpass-cpu.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
 diff --git a/sound/soc/qcom/lpass-cpu.c b/sound/soc/qcom/lpass-cpu.c
-index ba2aca3..2dfb921 100644
+index ba2aca3..78de888 100644
 --- a/sound/soc/qcom/lpass-cpu.c
 +++ b/sound/soc/qcom/lpass-cpu.c
-@@ -88,8 +88,6 @@ static void lpass_cpu_daiops_shutdown(struct snd_pcm_substream *substream,
- {
- 	struct lpass_data *drvdata = snd_soc_dai_get_drvdata(dai);
+@@ -660,6 +660,8 @@ static bool lpass_hdmi_regmap_volatile(struct device *dev, unsigned int reg)
+ 		return true;
+ 	if (reg == LPASS_HDMI_TX_LEGACY_ADDR(v))
+ 		return true;
++	if (reg == LPASS_HDMI_TX_PARITY_ADDR(v))
++		return true;
  
--	clk_disable_unprepare(drvdata->mi2s_bit_clk[dai->driver->id]);
--
- 	clk_disable_unprepare(drvdata->mi2s_osr_clk[dai->driver->id]);
- }
- 
-@@ -324,6 +322,7 @@ static int lpass_cpu_daiops_trigger(struct snd_pcm_substream *substream,
- 		if (ret)
- 			dev_err(dai->dev, "error writing to i2sctl reg: %d\n",
- 				ret);
-+		clk_disable_unprepare(drvdata->mi2s_bit_clk[dai->driver->id]);
- 		break;
- 	}
- 
+ 	for (i = 0; i < v->rdma_channels; ++i) {
+ 		if (reg == LPAIF_HDMI_RDMACURR_REG(v, i))
 -- 
 Qualcomm India Private Limited, on behalf of Qualcomm Innovation Center, Inc.,
 is a member of Code Aurora Forum, a Linux Foundation Collaborative Project.

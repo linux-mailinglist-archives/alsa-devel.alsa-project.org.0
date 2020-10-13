@@ -2,82 +2,81 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7767A28CF6F
-	for <lists+alsa-devel@lfdr.de>; Tue, 13 Oct 2020 15:47:43 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 492DF28D1F3
+	for <lists+alsa-devel@lfdr.de>; Tue, 13 Oct 2020 18:14:35 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 16C5B1684;
-	Tue, 13 Oct 2020 15:46:53 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 16C5B1684
+	by alsa0.perex.cz (Postfix) with ESMTPS id E147B16AB;
+	Tue, 13 Oct 2020 18:13:44 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E147B16AB
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1602596863;
-	bh=CpOEcOVdu8u95kPwh4FoSikPtFoCflC5zBkTorz00vY=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=DgkrbRPUBBPdOm8lty390HvwHMj0oSzgZ0n9jOJZsgnDv/6YL1qeN/BCFacVQ1VPU
-	 0YIqWPYrMHlz0mQD2bjRl/Qylf1Rd+T/OzeLb4/sCXd9G3qvehoEfhBiCbuJn85GYu
-	 lLIGNRkvn3Q8+uG6UrpRHwjySsY78aQHmj6iC3VY=
+	s=default; t=1602605675;
+	bh=rVgjSYq1cCiBkJR+ucZyan3CSsGsYIvEMw1gKIGoDZw=;
+	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=Tv+jRPQZy2XtKH/8eZLuIt0Ud4LGYQAZaXJYN0M+4JHTBjcl3uNSFYt3JwNGyLelw
+	 tDkSfXOgclF5QoUUqtiACTX4MUWos/kM1CoE09JBhljcCHxyWaR1I2nLe2YYZyilrz
+	 QIeb/sSQfmLZfaa3uPl6zbcCfx4NCnw/+orcSj0g=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id CC3D2F801D9;
-	Tue, 13 Oct 2020 15:46:02 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 76F84F801D9;
+	Tue, 13 Oct 2020 18:12:54 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 0B730F800F6; Tue, 13 Oct 2020 15:46:01 +0200 (CEST)
+ id 29B98F801A3; Tue, 13 Oct 2020 18:12:53 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from m42-4.mailgun.net (m42-4.mailgun.net [69.72.42.4])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=0.5 required=5.0 tests=NICE_REPLY_A,PRX_BODY_14,
+ SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 30117F800F6
- for <alsa-devel@alsa-project.org>; Tue, 13 Oct 2020 15:45:56 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 30117F800F6
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=mg.codeaurora.org
- header.i=@mg.codeaurora.org header.b="dYMnzaCS"
-DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
- q=dns/txt; 
- s=smtp; t=1602596756; h=Message-Id: Date: Subject: Cc: To: From:
- Sender; bh=zuP68KS+m7yiu7lWb1w/0cX8d1l6eBr2he/ZnT7A7RY=;
- b=dYMnzaCSldyQpmk5CbULiBYFABihpChhVv38JcbqMo3R9IijyGbpafhnIPhXGKtBX3CLEXYZ
- c1ye8jERpEj/jdDnV3EUwjM0Ds1DFPdjpllCw5cxFon9w34bVo/pwBr6QgQND0C+7qHtyCHV
- aRyQKWmPELNxQ3FVYAtjg5uUFEI=
-X-Mailgun-Sending-Ip: 69.72.42.4
-X-Mailgun-Sid: WyI4ZmE2ZSIsICJhbHNhLWRldmVsQGFsc2EtcHJvamVjdC5vcmciLCAiYmU5ZTRhIl0=
-Received: from smtp.codeaurora.org
- (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171]) by
- smtp-out-n05.prod.us-west-2.postgun.com with SMTP id
- 5f85af9342f9861fb124eb3a (version=TLS1.2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Tue, 13 Oct 2020 13:45:55
- GMT
-Received: by smtp.codeaurora.org (Postfix, from userid 1001)
- id 559A8C433FF; Tue, 13 Oct 2020 13:45:55 +0000 (UTC)
-Received: from hyd-lnxbld210.qualcomm.com (unknown [202.46.22.19])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-SHA256 (128/128 bits))
- (No client certificate requested) (Authenticated sender: srivasam)
- by smtp.codeaurora.org (Postfix) with ESMTPSA id E2A98C433CB;
- Tue, 13 Oct 2020 13:45:49 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 smtp.codeaurora.org E2A98C433CB
-Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
- dmarc=none (p=none dis=none) header.from=codeaurora.org
-Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
- spf=fail smtp.mailfrom=srivasam@codeaurora.org
-From: Srinivasa Rao Mandadapu <srivasam@codeaurora.org>
-To: agross@kernel.org, bjorn.andersson@linaro.org, lgirdwood@gmail.com,
- broonie@kernel.org, robh+dt@kernel.org, plai@codeaurora.org,
- bgoswami@codeaurora.org, perex@perex.cz, tiwai@suse.com,
- srinivas.kandagatla@linaro.org, rohitkr@codeaurora.org,
- linux-arm-msm@vger.kernel.org, alsa-devel@alsa-project.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: [PATCH] Asoc: qcom: lpass-cpu: Fix dp audio failure on monitors
-Date: Tue, 13 Oct 2020 19:15:28 +0530
-Message-Id: <1602596728-11783-1-git-send-email-srivasam@codeaurora.org>
-X-Mailer: git-send-email 2.7.4
-Cc: V Sujith Kumar Reddy <vsujithk@codeaurora.org>,
- Srinivasa Rao Mandadapu <srivasam@codeaurora.org>
+ by alsa1.perex.cz (Postfix) with ESMTPS id DB99BF800CE
+ for <alsa-devel@alsa-project.org>; Tue, 13 Oct 2020 18:12:46 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DB99BF800CE
+IronPort-SDR: icX6k1Np2kh/Su1MVVHkrXJ7An6fwV5NgKfnJvDx3AaNb/ZUGCP/+U37FdsL9KifUjRahgcebS
+ mE8tXoRb/UMQ==
+X-IronPort-AV: E=McAfee;i="6000,8403,9773"; a="165148360"
+X-IronPort-AV: E=Sophos;i="5.77,371,1596524400"; d="scan'208";a="165148360"
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from fmsmga004.fm.intel.com ([10.253.24.48])
+ by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 13 Oct 2020 09:12:44 -0700
+IronPort-SDR: mmf5c3SKS4pTNjerCJarSdkCfW01ZxaCMX7B/8ahFWy9EpZP/SXaRTO6ej+hVIRxZR9wY0QUR7
+ 5V0uO4Wf59jg==
+X-IronPort-AV: E=Sophos;i="5.77,371,1596524400"; d="scan'208";a="345317570"
+Received: from bmjomaa-mobl2.amr.corp.intel.com (HELO [10.213.181.195])
+ ([10.213.181.195])
+ by fmsmga004-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 13 Oct 2020 09:12:42 -0700
+Subject: Re: [PATCH v2 2/6] ASoC: SOF: Introduce descriptors for SOF client
+To: Randy Dunlap <rdunlap@infradead.org>,
+ Dave Ertman <david.m.ertman@intel.com>, alsa-devel@alsa-project.org
+References: <20201005182446.977325-1-david.m.ertman@intel.com>
+ <20201005182446.977325-3-david.m.ertman@intel.com>
+ <076a0c53-0738-270e-845f-0ac968a4ea78@infradead.org>
+ <d9f062ee-a5f0-b41c-c8f6-b81b374754fa@linux.intel.com>
+ <9ef98f33-a0d3-579d-26e0-6046dd593eef@infradead.org>
+ <5b447b78-626d-2680-8a48-53493e2084a2@infradead.org>
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Message-ID: <7192373a-0347-2d2d-74fc-6544f738b195@linux.intel.com>
+Date: Tue, 13 Oct 2020 10:08:18 -0500
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.10.0
+MIME-Version: 1.0
+In-Reply-To: <5b447b78-626d-2680-8a48-53493e2084a2@infradead.org>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-US
+Content-Transfer-Encoding: 8bit
+Cc: parav@mellanox.com, tiwai@suse.de, netdev@vger.kernel.org,
+ ranjani.sridharan@linux.intel.com, fred.oh@linux.intel.com,
+ linux-rdma@vger.kernel.org, dledford@redhat.com, broonie@kernel.org,
+ jgg@nvidia.com, gregkh@linuxfoundation.org, kuba@kernel.org,
+ dan.j.williams@intel.com, shiraz.saleem@intel.com, davem@davemloft.net,
+ kiran.patil@intel.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -93,33 +92,36 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: V Sujith Kumar Reddy <vsujithk@codeaurora.org>
 
-Make LPASS_HDMI_TX_PARITY_ADDR reg as volatile to fix
-dp audio failure with external monitors.
-This patch is upgrade to below patch series.
-https://lore.kernel.org/patchwork/project/lkml/list/?series=466460
 
-Signed-off-by: V Sujith Kumar Reddy <vsujithk@codeaurora.org>
-Signed-off-by: Srinivasa Rao Mandadapu <srivasam@codeaurora.org>
----
- sound/soc/qcom/lpass-cpu.c | 2 ++
- 1 file changed, 2 insertions(+)
+>>>>> +config SND_SOC_SOF_CLIENT
+>>>>> +    tristate
+>>>>> +    select ANCILLARY_BUS
+>>>>> +    help
+>>>>> +      This option is not user-selectable but automagically handled by
+>>>>> +      'select' statements at a higher level
+>>>>> +
+>>>>> +config SND_SOC_SOF_CLIENT_SUPPORT
+>>>>> +    bool "SOF enable clients"
+>>>>
+>>>> Tell users what "SOF" means.
+>>>
+>>> This option can only be reached if the user already selected the topic-level option. From there on the SOF acronym is used. Is this not enough?
+>>
+>> Yes, that's enough. I didn't see it. Sorry about that.
+> 
+> Huh. I still don't see that Kconfig option.
+> Which patch is it in?
+> 
+> I only saw patches 1,2,3 on LKML.
 
-diff --git a/sound/soc/qcom/lpass-cpu.c b/sound/soc/qcom/lpass-cpu.c
-index ba2aca3..78de888 100644
---- a/sound/soc/qcom/lpass-cpu.c
-+++ b/sound/soc/qcom/lpass-cpu.c
-@@ -660,6 +660,8 @@ static bool lpass_hdmi_regmap_volatile(struct device *dev, unsigned int reg)
- 		return true;
- 	if (reg == LPASS_HDMI_TX_LEGACY_ADDR(v))
- 		return true;
-+	if (reg == LPASS_HDMI_TX_PARITY_ADDR(v))
-+		return true;
- 
- 	for (i = 0; i < v->rdma_channels; ++i) {
- 		if (reg == LPAIF_HDMI_RDMACURR_REG(v, i))
--- 
-Qualcomm India Private Limited, on behalf of Qualcomm Innovation Center, Inc.,
-is a member of Code Aurora Forum, a Linux Foundation Collaborative Project.
+The Sound Open Firmware (SOF) driver is upstream since 2019, see 
+https://elixir.bootlin.com/linux/latest/source/sound/soc/sof/Kconfig
+
+What was shared in these patches is just an evolution to make the driver 
+more modular to handle of 'subfunctions' with the auxiliary bus.
+
+we'd love to hear your feedback if you think the help text can be 
+improved. Thanks!
+
 

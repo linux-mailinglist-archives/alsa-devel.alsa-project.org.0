@@ -2,87 +2,84 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1BD2C28D340
-	for <lists+alsa-devel@lfdr.de>; Tue, 13 Oct 2020 19:45:20 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E68EB28D4A5
+	for <lists+alsa-devel@lfdr.de>; Tue, 13 Oct 2020 21:38:07 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B587216AE;
-	Tue, 13 Oct 2020 19:44:29 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B587216AE
+	by alsa0.perex.cz (Postfix) with ESMTPS id 19A2216AF;
+	Tue, 13 Oct 2020 21:37:17 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 19A2216AF
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1602611119;
-	bh=eToAH4xIq/FRoKoXgpXWd/b5ZlbY+9U0Z+ekWqGYAJE=;
-	h=To:From:Subject:Date:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=d/QgJckacEa8WsBXLuh5BLYJNytSu3X9Dam9K5jIVb8NMLyhNFlAGoFEFNIozBZyb
-	 eXaw252D6LxKocvg6lJgXaemIESparnRMBrHeRz2FpakWrrRXUXmfAjV3Be//KNSac
-	 akRTurbs98JdIlvCsypHrAufl/WDAb5ZaID68tjg=
+	s=default; t=1602617887;
+	bh=nj0ImPmpJ4OD65HmLw+3KebBx/dcqYWvjc5y7W6Bnnk=;
+	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=eErtZ4JqYi+pSYflBCEOqfx1fhUzDgJoKUhsxaA4w0L+KzpnAkez1eCsszHTznpHf
+	 8BGMZfXFqhCN5OgiqCXbVxxiZI/thWewkDtidE9XC5TIj4/x4GNV59XHjGu/H0P90Y
+	 XSLVgWuFgAbrOo/BTL4ufyXpa3/6vlLcYPx7DDnU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 0479CF8012C;
-	Tue, 13 Oct 2020 19:43:40 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id AF3DFF801D9;
+	Tue, 13 Oct 2020 21:36:26 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 8B593F801A3; Tue, 13 Oct 2020 19:43:37 +0200 (CEST)
+ id 6E837F801A3; Tue, 13 Oct 2020 21:36:24 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,HTML_MESSAGE,SPF_HELO_NONE,SPF_PASS autolearn=disabled
- version=3.4.0
-Received: from mail-vk1-xa2a.google.com (mail-vk1-xa2a.google.com
- [IPv6:2607:f8b0:4864:20::a2a])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=0.4 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,NICE_REPLY_A,PRX_BODY_14,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from merlin.infradead.org (merlin.infradead.org
+ [IPv6:2001:8b0:10b:1231::1])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 73FC4F800F6
- for <alsa-devel@alsa-project.org>; Tue, 13 Oct 2020 19:43:32 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 73FC4F800F6
+ by alsa1.perex.cz (Postfix) with ESMTPS id C59B2F800CE
+ for <alsa-devel@alsa-project.org>; Tue, 13 Oct 2020 21:36:17 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C59B2F800CE
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=compelect.com.co header.i=@compelect.com.co
- header.b="R/pvTxPV"
-Received: by mail-vk1-xa2a.google.com with SMTP id m3so107388vki.12
- for <alsa-devel@alsa-project.org>; Tue, 13 Oct 2020 10:43:32 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=compelect.com.co; s=google;
- h=to:from:subject:message-id:date:user-agent:mime-version
- :content-language;
- bh=9aJgKGKc+r+AnhIqYHVTr/sdTQ/84I3XEmh/emnpysY=;
- b=R/pvTxPVjnsObK7+Bs4hPw45dAspDRPtZtrXV6OiIxgMy0Jir0HR6gy3rFvKC4QZTz
- Bp3PUyH7UC0g0IO8IXLwxi84IRLHNHu8PaIwCv47NHf/0eLa+v9/SO5S5K5FYILuKqao
- pCKI7ydkUVmuOL4ujO35ND6M/KkhRUBkkfwBA=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:to:from:subject:message-id:date:user-agent
- :mime-version:content-language;
- bh=9aJgKGKc+r+AnhIqYHVTr/sdTQ/84I3XEmh/emnpysY=;
- b=OTkh4i/X8EuLMiONiwwuoD9uCfwWQ6B7xn7GfTT1XSm2ujvNOXJRiOxDMJeoXsxv93
- 0yC7+3M+Oc8olPyOPcRR2KMCaGd8Kc8AjSESAUPmNbA4U23mNGd065sd3XqK6WDMVZAH
- 2WjWzKdvHKyrKhmvKiMSKjh5o7IGp4xmB1Rt256G2ARsV1qcYvgEMFxNlsB5IM+L4rDZ
- GfIBZgmqXZGe+b+rg3eKAEjbvEpNJxkeUTab4bE94KnywTFo8/UlxJKMFRyeivfNTYEl
- tMSeyiWvP3x+O+9uvBlwenPwmDnh9AEeMmz2No2Hyx+Uf8f1B3p8G3Zf7q2ggBnwTCWM
- qIWw==
-X-Gm-Message-State: AOAM532NIcjtJy+LFpk3eSbn/JJOOVVoLvnvEvowHV/zvOltR8kSaJ5n
- Gey73AKgkTnZiOxlu9kcz9R1hecF+Lh4xw==
-X-Google-Smtp-Source: ABdhPJydCLI9pJNVAfvRvlWy058pbea7BNx/36y2MHklLPyLlnyI+1z6Lu3mHFw93BY7K0KtCPQhqw==
-X-Received: by 2002:a1f:9404:: with SMTP id w4mr1139962vkd.2.1602611009706;
- Tue, 13 Oct 2020 10:43:29 -0700 (PDT)
-Received: from [10.0.0.246] ([181.137.81.189])
- by smtp.gmail.com with ESMTPSA id x16sm67342uao.1.2020.10.13.10.43.28
- for <alsa-devel@alsa-project.org>
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 13 Oct 2020 10:43:29 -0700 (PDT)
-To: alsa-devel@alsa-project.org
-From: kalashnikov-HJ4JGG <kalashnikov@compelect.com.co>
-Subject: support the Roland UA-4FX2 card
-Message-ID: <1c87e698-001b-1369-b567-8c628cb3761a@compelect.com.co>
-Date: Tue, 13 Oct 2020 12:43:27 -0500
+ dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org
+ header.b="lmdvQOQx"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=infradead.org; s=merlin.20170209; h=Content-Transfer-Encoding:Content-Type:
+ In-Reply-To:MIME-Version:Date:Message-ID:From:References:Cc:To:Subject:Sender
+ :Reply-To:Content-ID:Content-Description;
+ bh=/8br067d++YamcdmBjUCKygjOJnP8nv1KaYqcimhMro=; b=lmdvQOQx7pe0L2+mTdplGXQkDb
+ 3GUORaiFM95XhvSXSfEfS5dbmdOHpcLsE/27lckEJ7d618moCNCZ1OrcD78mkFIEOPo6KcWM+Shlo
+ qd/ubudvq2AYY1ppmgDaAn2bct9+030ApeGwQEWxPJEMhYNZSR/mdYz1fzpJTrLw4zsBQqDausc1Y
+ 0XVXJInQU2RUGkvPdG8LQ4SeHVvD/THsekq7Q93G+nlpy3d4ANoiKRWtmLCsDi2swPtpRYEIerf5u
+ UBlUZh/6Sfu55qqQjI8518BsV6U8jgAez+rD1ykcaOGpp6/1UUah7+lbO4zgGzo4XZwUsHZJ+Y1bN
+ YhO7zBCQ==;
+Received: from [2601:1c0:6280:3f0::507c]
+ by merlin.infradead.org with esmtpsa (Exim 4.92.3 #3 (Red Hat Linux))
+ id 1kSQ5K-00077m-1U; Tue, 13 Oct 2020 19:35:47 +0000
+Subject: Re: [PATCH v2 2/6] ASoC: SOF: Introduce descriptors for SOF client
+To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ Dave Ertman <david.m.ertman@intel.com>, alsa-devel@alsa-project.org
+References: <20201005182446.977325-1-david.m.ertman@intel.com>
+ <20201005182446.977325-3-david.m.ertman@intel.com>
+ <076a0c53-0738-270e-845f-0ac968a4ea78@infradead.org>
+ <d9f062ee-a5f0-b41c-c8f6-b81b374754fa@linux.intel.com>
+ <9ef98f33-a0d3-579d-26e0-6046dd593eef@infradead.org>
+ <5b447b78-626d-2680-8a48-53493e2084a2@infradead.org>
+ <7192373a-0347-2d2d-74fc-6544f738b195@linux.intel.com>
+From: Randy Dunlap <rdunlap@infradead.org>
+Message-ID: <b07f6cbc-8e48-a4aa-bfcb-8a938fa00a38@infradead.org>
+Date: Tue, 13 Oct 2020 12:35:39 -0700
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.10.0
+ Thunderbird/68.12.0
 MIME-Version: 1.0
+In-Reply-To: <7192373a-0347-2d2d-74fc-6544f738b195@linux.intel.com>
+Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Content-Filtered-By: Mailman/MimeDel 2.1.15
+Content-Transfer-Encoding: 8bit
+Cc: parav@mellanox.com, tiwai@suse.de, netdev@vger.kernel.org,
+ ranjani.sridharan@linux.intel.com, fred.oh@linux.intel.com,
+ linux-rdma@vger.kernel.org, dledford@redhat.com, broonie@kernel.org,
+ jgg@nvidia.com, gregkh@linuxfoundation.org, kuba@kernel.org,
+ dan.j.williams@intel.com, shiraz.saleem@intel.com, davem@davemloft.net,
+ kiran.patil@intel.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -98,52 +95,41 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hello
-i am juan and i am trying to use this (Roland UA-4FX2) sound card on 
-linux, I posted this on the github and they recommended to put it on 
-this mailing list.
+On 10/13/20 8:08 AM, Pierre-Louis Bossart wrote:
+> 
+>>>>>> +config SND_SOC_SOF_CLIENT
+>>>>>> +    tristate
+>>>>>> +    select ANCILLARY_BUS
+>>>>>> +    help
+>>>>>> +      This option is not user-selectable but automagically handled by
+>>>>>> +      'select' statements at a higher level
+>>>>>> +
+>>>>>> +config SND_SOC_SOF_CLIENT_SUPPORT
+>>>>>> +    bool "SOF enable clients"
+>>>>>
+>>>>> Tell users what "SOF" means.
+>>>>
+>>>> This option can only be reached if the user already selected the topic-level option. From there on the SOF acronym is used. Is this not enough?
+>>>
+>>> Yes, that's enough. I didn't see it. Sorry about that.
+>>
+>> Huh. I still don't see that Kconfig option.
+>> Which patch is it in?
+>>
+>> I only saw patches 1,2,3 on LKML.
+> 
+> The Sound Open Firmware (SOF) driver is upstream since 2019, see https://elixir.bootlin.com/linux/latest/source/sound/soc/sof/Kconfig
+> 
+> What was shared in these patches is just an evolution to make the driver more modular to handle of 'subfunctions' with the auxiliary bus.
+> 
+> we'd love to hear your feedback if you think the help text can be improved. Thanks!
+> 
 
-from
-https://github.com/alsa-project/alsa-lib/issues/81
+OK, I looked at the SOF Kconfig files. They are mostly OK except for
+missing '.' at the end of lots of sentences and a few other typos.
 
-hi
+Do you want patches?
 
-i'm trying to use this audio card with a Raspberry pi and y get this 
-from the command dmesg on linux console
-
-```
-usb 3-2: new high-speed USB device number 6 using xhci_hcd
-usb 3-2: New USB device found, idVendor=0582, idProduct=01e2, bcdDevice= 
-0.2b
-usb 3-2: New USB device strings: Mfr=1, Product=2, SerialNumber=0
-usb 3-2: Product: UA-4FX2
-usb 3-2: Manufacturer: ROLAND
-mc: Linux media interface: v0.10
-usbcore: registered new interface driver snd-usb-audio
-usb 3-2: Unable to change format on ep #8e: already in use
-usb 3-2: Unable to change format on ep #8e: already in use
-:
-:
-```
-
-and when i try to select the device on a program get this
-
-```
-ALSA lib pcm.c:2642:(snd_pcm_open_noupdate) Unknown PCM cards.pcm.rear
-ALSA lib pcm.c:2642:(snd_pcm_open_noupdate) Unknown PCM cards.pcm.center_lfe
-ALSA lib pcm.c:2642:(snd_pcm_open_noupdate) Unknown PCM cards.pcm.side
-ALSA lib pcm_route.c:869:(find_matching_chmap) Found no matching channel map
-ALSA lib pcm_oss.c:377:(_snd_pcm_oss_open) Unknown field port
-ALSA lib pcm_oss.c:377:(_snd_pcm_oss_open) Unknown field port
-ALSA lib pcm_usb_stream.c:486:(_snd_pcm_usb_stream_open) Invalid type 
-for card
-ALSA lib pcm_usb_stream.c:486:(_snd_pcm_usb_stream_open) Invalid type 
-for card
-```
-it seems that the card is not supported by ALSA lib.
-How is the procedure to add new cards to the driver?
-
-How can I help to do this?
-
-Thank you
+-- 
+~Randy
 

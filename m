@@ -2,102 +2,58 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id EA20328C7B1
-	for <lists+alsa-devel@lfdr.de>; Tue, 13 Oct 2020 05:52:50 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3C52B28C80B
+	for <lists+alsa-devel@lfdr.de>; Tue, 13 Oct 2020 06:52:20 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 80E6E168E;
-	Tue, 13 Oct 2020 05:52:00 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 80E6E168E
+	by alsa0.perex.cz (Postfix) with ESMTPS id C576D168E;
+	Tue, 13 Oct 2020 06:51:29 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C576D168E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1602561170;
-	bh=Yaa9Oy2dc/gRoBouE8QE89pnT+LZU2VZN4DzFKBmTjI=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
+	s=default; t=1602564739;
+	bh=BEwgfrdqMkqptKraAEbHBatoG7Qr1iHanZEaFwZfh9E=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=UBoOJ7Idx4bNvWmPBbqsO6V1xozZqjZan3XY5UNEcOGEeifEZCN9HAsZOJPED59P3
-	 f1IupIeLVu++8wx5mfoUlUDVHFDKI29886E0nJG70voML0QvBXlKlub/UADg+AXQeA
-	 JlUUPyMtCtb0AZUo2DHAR1JFx6H7oUgdr0MiTjp4=
+	b=YVb4Qhtfx5jVtcUlMFG9jqOaicKq9FtHX0ntRVHpoN0fDdcId0AUI6pA6vJn0eXoS
+	 kGQRKfkWWDjiJrZXzwrWhlZ0n3oa3L2rcCVcruDap4ubODKsOHObDQ8ES7C0kxF8LT
+	 0+HzXYGKOD/KIQ5QGi3qVsrof7qLFYFx5Arzw/2g=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 31AB4F8012C;
-	Tue, 13 Oct 2020 05:51:10 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 605B0F8016F;
+	Tue, 13 Oct 2020 06:50:39 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id A8F97F801A3; Tue, 13 Oct 2020 05:51:07 +0200 (CEST)
+ id 05646F801A3; Tue, 13 Oct 2020 06:50:37 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-7.3 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID, DKIM_VALID_AU, HEADER_FROM_DIFFERENT_DOMAINS, SPF_HELO_NONE,
- SPF_PASS, 
- URIBL_BLOCKED,USER_IN_DEF_SPF_WL autolearn=disabled version=3.4.0
-Received: from mail-wm1-x341.google.com (mail-wm1-x341.google.com
- [IPv6:2a00:1450:4864:20::341])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 8E3DDF800CE
- for <alsa-devel@alsa-project.org>; Tue, 13 Oct 2020 05:51:00 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8E3DDF800CE
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org
- header.b="jYq8OhSh"
-Received: by mail-wm1-x341.google.com with SMTP id d3so20215770wma.4
- for <alsa-devel@alsa-project.org>; Mon, 12 Oct 2020 20:51:00 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=qDCMKHshKP3zG0OPxiLxiPyZNbz/zT6YVDt42yxlHiM=;
- b=jYq8OhShuoKv6k74L+LFlPfMkU5S91wfmZLrssTnD4omW6ESE2sbL/moYo4vlrYV1E
- HzYwYZEu4ECA3yUAHG0rO1fz5p9/GYM2uSi97TpxzKxP5F3jgaq9UzAtEko6bviK0OE0
- eN1QTIIrOGdmF/ftDVvARAfU0cc3KGnPK2rPo=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=qDCMKHshKP3zG0OPxiLxiPyZNbz/zT6YVDt42yxlHiM=;
- b=i5G0w+K3q4x5N0xJECiUJMf1GgcAWBBT4tyI4UkmnQVSStOSerjy4joYNOAqvOWNaM
- k3bCPdNAcBU28D2qlEZHjnc6P1Pc6oDuvXFeXwxRTgZ8pnk4/kTX1Zr1H3jumiSNI7A/
- lsAZIN+TkCFKM+QTIEjVnQFYMLftPrOHXUNlnXXTV/19y1aWDi6MJqDODh3zDdOcn/A3
- tdWUzHSAp6RS6Ry000Z2B+Lo+kL2EP+UMDK+w3socK0KvInfLR4oCE7Dk9j7Pp7Pn46X
- Bb+w2eXc+XN/GB16BG1DTMMazq8yhWXvvbEgI+AhCU/0VRI/uAJ1f5gytzqXYMpUaaHG
- DmuA==
-X-Gm-Message-State: AOAM533mZL5UCI8H0T+4r2HjPAwumQF3kKGPhYdO/lj61/JJa3e4b3Zh
- L3GnGYibbv0tB1MkqH7u8ns/wdklvk7gImr010XrEA==
-X-Google-Smtp-Source: ABdhPJznLuWLo4JKv3VPdSCX4D2TYNaXFLecHX0q7UqoFehDlv3flDgzxCxcqWqs7fdPG8urdepL0RlrRcXIq/y+e+0=
-X-Received: by 2002:a1c:b6d4:: with SMTP id
- g203mr10140545wmf.132.1602561055132; 
- Mon, 12 Oct 2020 20:50:55 -0700 (PDT)
-MIME-Version: 1.0
-References: <20200914080619.4178587-1-cychiang@chromium.org>
- <20200914080619.4178587-4-cychiang@chromium.org>
-In-Reply-To: <20200914080619.4178587-4-cychiang@chromium.org>
-From: Cheng-yi Chiang <cychiang@chromium.org>
-Date: Tue, 13 Oct 2020 11:50:28 +0800
-Message-ID: <CAFv8NwJFxZEk8j-40-AAkAF++CZoq=RGvgAsoYxFz_URJO0sUw@mail.gmail.com>
-Subject: Re: [PATCH v11 3/3] ASoC: qcom: sc7180: Add machine driver for sound
- card registration
-To: linux-kernel <linux-kernel@vger.kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Cc: Taniya Das <tdas@codeaurora.org>,
- "moderated list:SOUND - SOC LAYER / DYNAMIC AUDIO POWER MANAGEM..."
- <alsa-devel@alsa-project.org>, Banajit Goswami <bgoswami@codeaurora.org>,
- Heiko Stuebner <heiko@sntech.de>, Liam Girdwood <lgirdwood@gmail.com>,
- Rohit kumar <rohitkr@codeaurora.org>, Patrick Lai <plai@codeaurora.org>,
- Ajit Pandey <ajitp@codeaurora.org>,
- "open list:ARM/Rockchip SoC..." <linux-rockchip@lists.infradead.org>,
- Andy Gross <agross@kernel.org>, Dylan Reid <dgreid@chromium.org>,
- "open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS"
- <devicetree@vger.kernel.org>, Tzung-Bi Shih <tzungbi@chromium.org>,
- Srinivasa Rao <srivasam@codeaurora.org>, Stephan Gerhold <stephan@gerhold.net>,
- linux-arm-msm <linux-arm-msm@vger.kernel.org>,
- Rob Herring <robh+dt@kernel.org>,
- "moderated list:ARM/Mediatek SoC support" <linux-mediatek@lists.infradead.org>,
- Matthias Brugger <matthias.bgg@gmail.com>,
- Bjorn Andersson <bjorn.andersson@linaro.org>,
- Linux ARM <linux-arm-kernel@lists.infradead.org>,
- Doug Anderson <dianders@chromium.org>, Takashi Iwai <tiwai@suse.com>,
- Mark Brown <broonie@kernel.org>,
- Srini Kandagatla <srinivas.kandagatla@linaro.org>
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS
+ autolearn=disabled version=3.4.0
+Received: from relmlie6.idc.renesas.com (relmlor2.renesas.com
+ [210.160.252.172])
+ by alsa1.perex.cz (Postfix) with ESMTP id 1A03DF800CE
+ for <alsa-devel@alsa-project.org>; Tue, 13 Oct 2020 06:50:28 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1A03DF800CE
+Date: 13 Oct 2020 13:50:25 +0900
+X-IronPort-AV: E=Sophos;i="5.77,369,1596466800"; d="scan'208";a="59409943"
+Received: from unknown (HELO relmlir5.idc.renesas.com) ([10.200.68.151])
+ by relmlie6.idc.renesas.com with ESMTP; 13 Oct 2020 13:50:25 +0900
+Received: from mercury.renesas.com (unknown [10.166.252.133])
+ by relmlir5.idc.renesas.com (Postfix) with ESMTP id 13035400F923;
+ Tue, 13 Oct 2020 13:50:25 +0900 (JST)
+Message-ID: <87imbeybq5.wl-kuninori.morimoto.gx@renesas.com>
+From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+To: Mark Brown <broonie@kernel.org>
+Subject: Re: More Generic Audio Graph Sound Card idea
+In-Reply-To: <87k0xszlep.wl-kuninori.morimoto.gx@renesas.com>
+References: <87k0xszlep.wl-kuninori.morimoto.gx@renesas.com>
+User-Agent: Wanderlust/2.15.9 Emacs/26.3 Mule/6.0
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+Cc: Sameer Pujar <spujar@nvidia.com>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ Linux-ALSA <alsa-devel@alsa-project.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -113,343 +69,274 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Mon, Sep 14, 2020 at 4:06 PM Cheng-Yi Chiang <cychiang@chromium.org> wrote:
->
-> From: Ajit Pandey <ajitp@codeaurora.org>
->
-> Add new driver to register sound card on sc7180 trogdor board and
-> do the required configuration for lpass cpu dai and external codecs
-> connected over MI2S interfaces.
->
-> Signed-off-by: Ajit Pandey <ajitp@codeaurora.org>
-> Signed-off-by: Cheng-Yi Chiang <cychiang@chromium.org>
-> ---
->  sound/soc/qcom/Kconfig  |  12 ++
->  sound/soc/qcom/Makefile |   2 +
->  sound/soc/qcom/sc7180.c | 266 ++++++++++++++++++++++++++++++++++++++++
->  3 files changed, 280 insertions(+)
->  create mode 100644 sound/soc/qcom/sc7180.c
->
-> diff --git a/sound/soc/qcom/Kconfig b/sound/soc/qcom/Kconfig
-> index a607ace8b089..0459185ee243 100644
-> --- a/sound/soc/qcom/Kconfig
-> +++ b/sound/soc/qcom/Kconfig
-> @@ -116,4 +116,16 @@ config SND_SOC_SDM845
->           SDM845 SoC-based systems.
->           Say Y if you want to use audio device on this SoCs.
->
-> +config SND_SOC_SC7180
-> +       tristate "SoC Machine driver for SC7180 boards"
-> +       depends on I2C
-> +       select SND_SOC_QCOM_COMMON
-> +       select SND_SOC_LPASS_SC7180
-> +       select SND_SOC_MAX98357A
-> +       select SND_SOC_RT5682_I2C
-> +       help
-> +         To add support for audio on Qualcomm Technologies Inc.
-> +         SC7180 SoC-based systems.
-> +         Say Y if you want to use audio device on this SoCs.
-> +
->  endif #SND_SOC_QCOM
-> diff --git a/sound/soc/qcom/Makefile b/sound/soc/qcom/Makefile
-> index 7972c9479ab0..0cdcbf367ef1 100644
-> --- a/sound/soc/qcom/Makefile
-> +++ b/sound/soc/qcom/Makefile
-> @@ -17,12 +17,14 @@ snd-soc-storm-objs := storm.o
->  snd-soc-apq8016-sbc-objs := apq8016_sbc.o
->  snd-soc-apq8096-objs := apq8096.o
->  snd-soc-sdm845-objs := sdm845.o
-> +snd-soc-sc7180-objs := sc7180.o
->  snd-soc-qcom-common-objs := common.o
->
->  obj-$(CONFIG_SND_SOC_STORM) += snd-soc-storm.o
->  obj-$(CONFIG_SND_SOC_APQ8016_SBC) += snd-soc-apq8016-sbc.o
->  obj-$(CONFIG_SND_SOC_MSM8996) += snd-soc-apq8096.o
->  obj-$(CONFIG_SND_SOC_SDM845) += snd-soc-sdm845.o
-> +obj-$(CONFIG_SND_SOC_SC7180) += snd-soc-sc7180.o
->  obj-$(CONFIG_SND_SOC_QCOM_COMMON) += snd-soc-qcom-common.o
->
->  #DSP lib
-> diff --git a/sound/soc/qcom/sc7180.c b/sound/soc/qcom/sc7180.c
-> new file mode 100644
-> index 000000000000..0e90448523b0
-> --- /dev/null
-> +++ b/sound/soc/qcom/sc7180.c
-> @@ -0,0 +1,266 @@
-> +// SPDX-License-Identifier: GPL-2.0-only
-> +//
-> +// Copyright (c) 2020, The Linux Foundation. All rights reserved.
-> +//
-> +// sc7180.c -- ALSA SoC Machine driver for SC7180
-> +
-> +#include <dt-bindings/sound/sc7180-lpass.h>
-> +#include <linux/module.h>
-> +#include <linux/of_device.h>
-> +#include <linux/platform_device.h>
-> +#include <sound/core.h>
-> +#include <sound/jack.h>
-> +#include <sound/pcm.h>
-> +#include <sound/soc.h>
-> +#include <uapi/linux/input-event-codes.h>
-> +
-> +#include "../codecs/rt5682.h"
-> +#include "common.h"
-> +#include "lpass.h"
-> +
-> +#define DEFAULT_MCLK_RATE              19200000
-> +#define RT5682_PLL1_FREQ (48000 * 512)
-> +
-> +// This will be defined in include/dt-bindings/sound/sc7180-lpass.h
-> +#define LPASS_DP_RX 2
-> +
-> +struct sc7180_snd_data {
-> +       struct snd_soc_card card;
-> +       u32 pri_mi2s_clk_count;
-> +       struct snd_soc_jack hs_jack;
-> +       struct snd_soc_jack hdmi_jack;
-> +};
-> +
-> +static void sc7180_jack_free(struct snd_jack *jack)
-> +{
-> +       struct snd_soc_component *component = jack->private_data;
-> +
-> +       snd_soc_component_set_jack(component, NULL, NULL);
-> +}
-> +
-> +static int sc7180_headset_init(struct snd_soc_pcm_runtime *rtd)
-> +{
-> +       struct snd_soc_card *card = rtd->card;
-> +       struct sc7180_snd_data *pdata = snd_soc_card_get_drvdata(card);
-> +       struct snd_soc_dai *codec_dai = asoc_rtd_to_codec(rtd, 0);
-> +       struct snd_soc_component *component = codec_dai->component;
-> +       struct snd_jack *jack;
-> +       int rval;
-> +
-> +       rval = snd_soc_card_jack_new(
-> +                       card, "Headset Jack",
-> +                       SND_JACK_HEADSET |
-> +                       SND_JACK_HEADPHONE |
-> +                       SND_JACK_BTN_0 | SND_JACK_BTN_1 |
-> +                       SND_JACK_BTN_2 | SND_JACK_BTN_3,
-> +                       &pdata->hs_jack, NULL, 0);
-> +
-> +       if (rval < 0) {
-> +               dev_err(card->dev, "Unable to add Headset Jack\n");
-> +               return rval;
-> +       }
-> +
-> +       jack = pdata->hs_jack.jack;
-> +
-> +       snd_jack_set_key(jack, SND_JACK_BTN_0, KEY_PLAYPAUSE);
-> +       snd_jack_set_key(jack, SND_JACK_BTN_1, KEY_VOICECOMMAND);
-> +       snd_jack_set_key(jack, SND_JACK_BTN_2, KEY_VOLUMEUP);
-> +       snd_jack_set_key(jack, SND_JACK_BTN_3, KEY_VOLUMEDOWN);
-> +
-> +       jack->private_data = component;
-> +       jack->private_free = sc7180_jack_free;
-> +
-> +       return snd_soc_component_set_jack(component, &pdata->hs_jack, NULL);
-> +}
-> +
-> +static int sc7180_hdmi_init(struct snd_soc_pcm_runtime *rtd)
-> +{
-> +       struct snd_soc_card *card = rtd->card;
-> +       struct sc7180_snd_data *pdata = snd_soc_card_get_drvdata(card);
-> +       struct snd_soc_dai *codec_dai = asoc_rtd_to_codec(rtd, 0);
-> +       struct snd_soc_component *component = codec_dai->component;
-> +       struct snd_jack *jack;
-> +       int rval;
-> +
-> +       rval = snd_soc_card_jack_new(
-> +                       card, "HDMI Jack",
-> +                       SND_JACK_LINEOUT,
-> +                       &pdata->hdmi_jack, NULL, 0);
-> +
-> +       if (rval < 0) {
-> +               dev_err(card->dev, "Unable to add HDMI Jack\n");
-> +               return rval;
-> +       }
-> +
-> +       jack = pdata->hdmi_jack.jack;
-> +       jack->private_data = component;
-> +       jack->private_free = sc7180_jack_free;
-> +
-> +       return snd_soc_component_set_jack(component, &pdata->hdmi_jack, NULL);
-> +}
-> +
-> +static int sc7180_init(struct snd_soc_pcm_runtime *rtd)
-> +{
-> +       struct snd_soc_dai *cpu_dai = asoc_rtd_to_cpu(rtd, 0);
-> +
-> +       switch (cpu_dai->id) {
-> +       case MI2S_PRIMARY:
-> +               return sc7180_headset_init(rtd);
-> +       case MI2S_SECONDARY:
-> +               return 0;
-> +       case LPASS_DP_RX:
-> +               return sc7180_hdmi_init(rtd);
-> +       default:
-> +               dev_err(rtd->dev, "%s: invalid dai id 0x%x\n", __func__,
-> +                       cpu_dai->id);
-> +               return -EINVAL;
-> +       }
-> +       return 0;
-> +}
-> +
-> +static int sc7180_snd_startup(struct snd_pcm_substream *substream)
-> +{
-> +       struct snd_soc_pcm_runtime *rtd = substream->private_data;
-> +       struct snd_soc_card *card = rtd->card;
-> +       struct sc7180_snd_data *data = snd_soc_card_get_drvdata(card);
-> +       struct snd_soc_dai *cpu_dai = asoc_rtd_to_cpu(rtd, 0);
-> +       struct snd_soc_dai *codec_dai = asoc_rtd_to_codec(rtd, 0);
-> +       int ret;
-> +
-> +       switch (cpu_dai->id) {
-> +       case MI2S_PRIMARY:
-> +               if (++data->pri_mi2s_clk_count == 1) {
-> +                       snd_soc_dai_set_sysclk(cpu_dai,
-> +                                              LPASS_MCLK0,
-> +                                              DEFAULT_MCLK_RATE,
-> +                                              SNDRV_PCM_STREAM_PLAYBACK);
-> +               }
-> +
-> +               snd_soc_dai_set_fmt(codec_dai,
-> +                                   SND_SOC_DAIFMT_CBS_CFS |
-> +                                   SND_SOC_DAIFMT_NB_NF |
-> +                                   SND_SOC_DAIFMT_I2S);
-> +
-> +               /* Configure PLL1 for codec */
-> +               ret = snd_soc_dai_set_pll(codec_dai, 0, RT5682_PLL1_S_MCLK,
-> +                                         DEFAULT_MCLK_RATE, RT5682_PLL1_FREQ);
-> +               if (ret) {
-> +                       dev_err(rtd->dev, "can't set codec pll: %d\n", ret);
-> +                       return ret;
-> +               }
-> +
-> +               /* Configure sysclk for codec */
-> +               ret = snd_soc_dai_set_sysclk(codec_dai, RT5682_SCLK_S_PLL1,
-> +                                            RT5682_PLL1_FREQ,
-> +                                            SND_SOC_CLOCK_IN);
-> +               if (ret)
-> +                       dev_err(rtd->dev, "snd_soc_dai_set_sysclk err = %d\n",
-> +                               ret);
-> +
-> +               break;
-> +       case MI2S_SECONDARY:
-> +               break;
-> +       case LPASS_DP_RX:
-> +               break;
-> +       default:
-> +               dev_err(rtd->dev, "%s: invalid dai id 0x%x\n", __func__,
-> +                       cpu_dai->id);
-> +               return -EINVAL;
-> +       }
-> +       return 0;
-> +}
-> +
-> +static void sc7180_snd_shutdown(struct snd_pcm_substream *substream)
-> +{
-> +       struct snd_soc_pcm_runtime *rtd = substream->private_data;
-> +       struct snd_soc_card *card = rtd->card;
-> +       struct sc7180_snd_data *data = snd_soc_card_get_drvdata(card);
-> +       struct snd_soc_dai *cpu_dai = asoc_rtd_to_cpu(rtd, 0);
-> +
-> +       switch (cpu_dai->id) {
-> +       case MI2S_PRIMARY:
-> +               if (--data->pri_mi2s_clk_count == 0) {
-> +                       snd_soc_dai_set_sysclk(cpu_dai,
-> +                                              LPASS_MCLK0,
-> +                                              0,
-> +                                              SNDRV_PCM_STREAM_PLAYBACK);
-> +               }
-> +               break;
-> +       case MI2S_SECONDARY:
-> +               break;
-> +       case LPASS_DP_RX:
-> +               break;
-> +       default:
-> +               dev_err(rtd->dev, "%s: invalid dai id 0x%x\n", __func__,
-> +                       cpu_dai->id);
-> +               break;
-> +       }
-> +}
-> +
-> +static const struct snd_soc_ops sc7180_ops = {
-> +       .startup = sc7180_snd_startup,
-> +       .shutdown = sc7180_snd_shutdown,
-> +};
-> +
-> +static const struct snd_soc_dapm_widget sc7180_snd_widgets[] = {
-> +       SND_SOC_DAPM_HP("Headphone Jack", NULL),
-> +       SND_SOC_DAPM_MIC("Headset Mic", NULL),
-> +};
-> +
-> +static void sc7180_add_ops(struct snd_soc_card *card)
-> +{
-> +       struct snd_soc_dai_link *link;
-> +       int i;
-> +
-> +       for_each_card_prelinks(card, i, link) {
-> +               link->ops = &sc7180_ops;
-> +               link->init = sc7180_init;
-> +       }
-> +}
-> +
-> +static int sc7180_snd_platform_probe(struct platform_device *pdev)
-> +{
-> +       struct snd_soc_card *card;
-> +       struct sc7180_snd_data *data;
-> +       struct device *dev = &pdev->dev;
-> +       int ret;
-> +
-> +       /* Allocate the private data */
-> +       data = devm_kzalloc(dev, sizeof(*data), GFP_KERNEL);
-> +       if (!data)
-> +               return -ENOMEM;
-> +
-> +       card = &data->card;
-> +       snd_soc_card_set_drvdata(card, data);
-> +
-> +       card->owner = THIS_MODULE,
-> +       card->dev = dev;
-> +       card->dapm_widgets = sc7180_snd_widgets;
-> +       card->num_dapm_widgets = ARRAY_SIZE(sc7180_snd_widgets);
-> +
-> +       ret = qcom_snd_parse_of(card);
-> +       if (ret)
-> +               return ret;
-> +
-> +       sc7180_add_ops(card);
-> +
-> +       return devm_snd_soc_register_card(dev, card);
-> +}
-> +
-> +static const struct of_device_id sc7180_snd_device_id[]  = {
-> +       { .compatible = "qcom,sc7180-sndcard-rt5682-m98357-1mic" },
-> +       {},
-> +};
-> +MODULE_DEVICE_TABLE(of, sc7180_snd_device_id);
-> +
-> +static struct platform_driver sc7180_snd_driver = {
-> +       .probe = sc7180_snd_platform_probe,
-> +       .driver = {
-> +               .name = "msm-snd-sc7180",
-> +               .of_match_table = sc7180_snd_device_id,
-> +       },
-> +};
-> +module_platform_driver(sc7180_snd_driver);
-> +
-> +MODULE_DESCRIPTION("sc7180 ASoC Machine Driver");
-> +MODULE_LICENSE("GPL v2");
-> --
-> 2.28.0.618.gf4bc123cb7-goog
->
 
-Hi Srini and Stephan,
-May I get your Reviewed-By for this patch ?
-There are some patches on the machine driver for different
-configurations pending on this one so I would hope to get this one
-merged first.
+Hi ALSA ML
 
-Thanks a lot for reviewing it!
+
+> I'm thinking below style as new audio-graph-card2.
+> It is not tricky, thus connection judgement for normal vs DSP is easy.
+> Then, code can be more readable (= no guaranty :P) ?
+
+I have proposed DPCM connection idea for audio-card2 before,
+and proposed Multi-CPU/Codec connection idea later.
+I'm not yet implemented these, but I want to merge / reuse these
+idea to keep simple code.
+
+By this mail, I want to propose Codec2Codec idea.
+It is almost same idea with DPCM, Multi-CPU/Codec,
+and is last parts for missing feature.
+
+I think this idea can be generic and easy to update
+in the future (if needed).
+
+But, I want feedback, opinion.
+I wonder does it works for your use-case ?
+
+-- Image ---
+
+Codec2Codec
+
+Codec1 <--> Codec2
+
+-- DT Image --
+
+   +--+
+=> |  |<--> Codec1
+   |  |<--> Codec2
+   +--+
+
+-- DT Sample --
+
+	sound {
+		compatible = "audio-graph-card2";
+
+		dais = <&codec2codec>;
+	};
+
+	CODEC2CODEC {
+		compatible = "audio-graph-card2-codec2codec";
+
+		ports {
+			codec2codec: port@0 { fe_ep: endpoint { remote-endpoint = <&codec1_ep>; }; };
+			             port@1 { be_ep: endpoint { remote-endpoint = <&codec2_ep>; }; };
+		};
+	};
+
+ 	Codec1 {
+		port@0 { codec1_ep: endpoint { remote-endpoint = <&fe_ep>; }; };
+	};
+
+ 	Codec2 {
+		port@0 { codec2_ep: endpoint { remote-endpoint = <&be_ep>; }; };
+	};
+
+
+-- Image ---
+
+          *******
+PCM0 <--> *     * <--> DAI0: Codec Headset
+PCM1 <--> *     * <--> DAI1: Codec Speakers
+PCM2 <--> * DSP * <--> DAI2: MODEM
+PCM3 <--> *     * <--> DAI3: BT
+          *     * <--> DAI4: DMIC
+          *     * <--> DAI5: FM
+          *******
+
+-- DT Image --
+
+   +--+                ****                 +--+
+=> |  |<--> PCM0       *  * <-- (dummy) --> |  | <=
+   |  |<-- (dummy) --> *  *       DAI0 <--> |  |
+   +--+                *  *                 +--+
+                       *  *            
+   +--+                *  *                 +--+
+=> |  |<--> PCM1       *  * <-- (dummy) --> |  | <=
+   |  |<-- (dummy) --> *  *       DAI1 <--> |  |
+   +--+                *  *                 +--+
+   ...                 ...                 ...
+
+
+-- DT Sample --
+
+	sound {
+		compatible = "audio-graph-card2";
+
+		/* indicate all Front-End, Back-End in DPCM case */
+		dais = <&dsp_fe0, &dsp_fe1, &dsp_fe2, &dsp_fe3,
+		        &dsp_be0, &dsp_be1, &dsp_be2, &dsp_be3, &dsp_be4, &dsp_be5>;
+	};
+
+	DSP {
+		compatible = "audio-graph-card2-dsp";
+
+		ports@0 {
+			/* Front-End is pcm0_ep, Back-End is dummy */
+			dsp_fe0: port@0 { dsp_fe0_ep: endpoint { remote-endpoint = <&pcm0_ep>; }; };
+			         port@1 { };
+		};
+
+		...
+
+		ports@4 {
+			/* Front-End is dummy, Back-End is dai_ep */
+			dsp_be0: port@0 { };
+			         port@1 { dsp_be0_ep: endpoint { remote-endpoint = <&dai0_ep>; }; };
+		};
+
+		...
+
+	};
+
+ 	CPU {
+		ports {
+			port@0 { pcm0_ep: endpoint { remote-endpoint = <&dsp_fe0_ep>; }; };
+			port@1 { pcm1_ep: endpoint { remote-endpoint = <&dsp_fe1_ep>; }; };
+			port@2 { pcm2_ep: endpoint { remote-endpoint = <&dsp_fe2_ep>; }; };
+			port@3 { pcm3_ep: endpoint { remote-endpoint = <&dsp_fe3_ep>; }; };
+			...
+		};
+	};
+
+	Codec {
+		ports {
+			port@0 { dai0_ep: endpoint { remote-endpoint = <&dsp_be0_ep>; }; };
+			port@1 { dai1_ep: endpoint { remote-endpoint = <&dsp_be1_ep>; }; };
+			port@2 { dai2_ep: endpoint { remote-endpoint = <&dsp_be2_ep>; }; };
+			port@3 { dai3_ep: endpoint { remote-endpoint = <&dsp_be3_ep>; }; };
+			port@4 { dai4_ep: endpoint { remote-endpoint = <&dsp_be4_ep>; }; };
+			port@5 { dai5_ep: endpoint { remote-endpoint = <&dsp_be5_ep>; }; };
+			...
+		};
+	};
+
+
+-- Image ---
+
+As Sample, Normal Audio-Graph
+
+CPU <---> Codec (Same as before)
+
+-- DT Sample --
+
+	sound {
+		compatible = "audio-graph-card2";
+
+		dais = <&cpu>;
+	};
+
+	CPU {
+		cpu: port { cpu_ep: endpoint { remote-endpoint = <&codec_ep>; }; };
+	};
+
+	Codec {
+		codec: port { codec_ep: endpoint { remote-endpoint = <&cpu_ep>; }; };
+	};
+
+
+-- Image ---
+
+Multi-CPU/Codec
+(complex connection as sample)
+
+<- multi_CPU_0 ->
+           ******
+CPU01 <--> *    * <--> Codec0
+       \-> *    *
+CPU02 <--> *    *
+           ******
+
+           <-- multi_codec_1 -->
+          ******
+CPU1 <--> *    * <--> Codec11
+          *    * <-/
+          *    * <--> Codec12
+          ******
+
+-- DT Image --
+
+   +--+                     +--+
+=> |  | <--> CPU01_1     => |  | <--> CPU1
+   |  | <--> CPU01_2        |  |
+   |  | <--> CPU02          |  | <--> Codec11_1
+   |  |                     |  | <--> Codec11_2
+   |  | <--> Codec0         |  | <--> Codec12
+   +--+                     +--+
+
+-- DT Sample --
+
+	sound {
+		compatible = "audio-graph-card2";
+
+		dais = <&cpu_0,
+		        &cpu_1>;
+	};
+
+	MULTI0 {
+		compatible = "audio-graph-card2-multi";
+
+		cpu_0: ports@0 {
+			port@0 { fe0_1_ep: endpoint { remote-endpoint = <&cpu01_1_ep>; }; };
+			port@1 { fe0_2_ep: endpoint { remote-endpoint = <&cpu01_2_ep>; }; };
+			port@2 { fe0_3_ep: endpoint { remote-endpoint = <&cpu02_ep>; }; };
+		};
+		ports@1 {
+			port@0 { be0_ep: endpoint { remote-endpoint = <&codec0_ep>; }; };
+		};
+	};
+
+	MULTI1 {
+		compatible = "audio-graph-card2-multi";
+
+		cpu_1: ports@0 {
+			port@0 { fe1_ep: endpoint { remote-endpoint = <&cpu1_ep>; }; };
+		};
+		ports@1 {
+			port@0 { be1_1_ep: endpoint { remote-endpoint = <&codec11_1_ep>; }; };
+			port@1 { be1_2_ep: endpoint { remote-endpoint = <&codec11_2_ep>; }; };
+			port@2 { be1_3_ep: endpoint { remote-endpoint = <&codec12_ep>; }; };
+		};
+	};
+
+	CPU01 {
+		ports {
+			port@0 { cpu01_1_ep: endpoint { remote-endpoint = <&fe0_1_ep>; }; };
+			port@1 { cpu01_2_ep: endpoint { remote-endpoint = <&fe0_2_ep>; }; };
+			...
+		};
+	};
+
+	CPU02 {
+		ports {
+			port@0 { cpu02_ep: endpoint { remote-endpoint = <&fe0_3_ep>; }; };
+			...
+		};
+	};
+
+	CPU1 {
+		ports {
+			port@0 { cpu1_ep: endpoint { remote-endpoint = <&fe1_ep>; }; };
+			...
+		};
+	};
+
+	Codec0 {
+		ports {
+			port@0 { codec0_ep: endpoint { remote-endpoint = <&be0_ep>; }; };
+			port@1 { ... };
+		};
+	};
+
+	Codec11 {
+		ports {
+			port@0 { codec11_1_ep: endpoint { remote-endpoint = <&be1_1_ep>; }; };
+			port@1 { codec11_2_ep: endpoint { remote-endpoint = <&be1_2_ep>; }; };
+			port@2 { ... };
+		};
+	};
+
+	Codec12 {
+		ports {
+			port@0 { codec12_ep: endpoint { remote-endpoint = <&be1_3_ep>; }; };
+			port@1 { ... };
+		};
+	};

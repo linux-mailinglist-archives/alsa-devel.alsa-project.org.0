@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B658E28DAAC
-	for <lists+alsa-devel@lfdr.de>; Wed, 14 Oct 2020 09:51:41 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1FD5128DAB3
+	for <lists+alsa-devel@lfdr.de>; Wed, 14 Oct 2020 09:53:35 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 90B15828;
-	Wed, 14 Oct 2020 09:50:50 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 90B15828
+	by alsa0.perex.cz (Postfix) with ESMTPS id 931F0828;
+	Wed, 14 Oct 2020 09:52:44 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 931F0828
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1602661900;
-	bh=3qvM+dBYcC9GfkJax/mSAy4NGE46q41i+6fK20MorTU=;
+	s=default; t=1602662014;
+	bh=vOqlSMc1QR+gKIiV/vNTZfZUhj+hSqlcCt/ZSR5KCUc=;
 	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=PZyMaD8GuwhoGOkLfHfeSuCErwDvT5ylahVQDJA+WpxBq2OYmffZsh4tRKaxjsZz0
-	 9N6P8zE4TykTRqma0W+qQn0wz8d8+9hP+9cl1XdDHcD85fqrbhNI1KCCIeySjVCHmE
-	 Fc02PpTeUscjf9HOltj+PHjaaKFeGQcwFUuopWx8=
+	b=u2kHqbQoYj9E0m+XQqTMZlDDMngW6Ff6p7oklEi6rR9RH9o299gLXmym7/nSHHWg9
+	 w2xGkof212gGvRqod6kfuMtqLvcQN7YoHP0MTsBKYW3fQJhK3j+hzx0uVqabvrzboD
+	 xgbecwzzsA+euuP4gPCle/mZpk7JeL+N3l1hFApQ=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 1F05EF8021D;
-	Wed, 14 Oct 2020 09:50:00 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 17257F8021D;
+	Wed, 14 Oct 2020 09:51:54 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id A8A9EF80217; Wed, 14 Oct 2020 09:49:57 +0200 (CEST)
+ id A8DFFF80217; Wed, 14 Oct 2020 09:51:52 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_MSPIKE_H3,
@@ -34,19 +34,19 @@ X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_MSPIKE_H3,
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 8A4F7F80118
- for <alsa-devel@alsa-project.org>; Wed, 14 Oct 2020 09:49:50 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8A4F7F80118
+ by alsa1.perex.cz (Postfix) with ESMTPS id 0ED20F800F6
+ for <alsa-devel@alsa-project.org>; Wed, 14 Oct 2020 09:51:47 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0ED20F800F6
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 4389AAD46;
- Wed, 14 Oct 2020 07:49:50 +0000 (UTC)
-Date: Wed, 14 Oct 2020 09:49:49 +0200
-Message-ID: <s5hblh5mele.wl-tiwai@suse.de>
+ by mx2.suse.de (Postfix) with ESMTP id BA45DAF4C;
+ Wed, 14 Oct 2020 07:51:46 +0000 (UTC)
+Date: Wed, 14 Oct 2020 09:51:46 +0200
+Message-ID: <s5ha6wpmei5.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
 To: Randy Dunlap <rdunlap@infradead.org>
 Subject: Re: disabling CONFIG_LED_CLASS (SND_HDA_CODEC_REALTEK)
-In-Reply-To: <d7774b58-caf5-5bd8-845d-a5d45aaef4c6@infradead.org>
+In-Reply-To: <s5hblh5mele.wl-tiwai@suse.de>
 References: <2835d02a-380b-6a3a-0e4d-abf07aee18bc@xs4all.nl>
  <53e698c1-86e4-8b1f-afb0-b8471349e701@xs4all.nl>
  <43b79598-1592-683f-46df-9e5489110780@infradead.org>
@@ -59,6 +59,7 @@ References: <2835d02a-380b-6a3a-0e4d-abf07aee18bc@xs4all.nl>
  <2739e1fd-75c6-4e43-cd79-9028479f91bf@infradead.org>
  <1e6b1961-9e9b-5f82-86a1-bf838cb68f55@xs4all.nl>
  <d7774b58-caf5-5bd8-845d-a5d45aaef4c6@infradead.org>
+ <s5hblh5mele.wl-tiwai@suse.de>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
  FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
  (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
@@ -83,68 +84,59 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Wed, 14 Oct 2020 07:54:15 +0200,
-Randy Dunlap wrote:
+On Wed, 14 Oct 2020 09:49:49 +0200,
+Takashi Iwai wrote:
 > 
-> On 10/13/20 10:16 PM, Udo van den Heuvel wrote:
-> > On 14-10-2020 07:07, Randy Dunlap wrote:
-> >> On 10/13/20 9:56 PM, Udo van den Heuvel wrote:
+> On Wed, 14 Oct 2020 07:54:15 +0200,
+> Randy Dunlap wrote:
 > > 
-> >>> I.e.: it looks like I will lose some funcionality when I disable
-> >>> SND_HDA_CODEC_REALTEK.
-> >>
-> >> OK. At present you can't have it both ways, i.e., SND_HDA_CODEC_REALTEK
-> >> with no LEDS. That driver apparently wants LEDS.
+> > On 10/13/20 10:16 PM, Udo van den Heuvel wrote:
+> > > On 14-10-2020 07:07, Randy Dunlap wrote:
+> > >> On 10/13/20 9:56 PM, Udo van den Heuvel wrote:
+> > > 
+> > >>> I.e.: it looks like I will lose some funcionality when I disable
+> > >>> SND_HDA_CODEC_REALTEK.
+> > >>
+> > >> OK. At present you can't have it both ways, i.e., SND_HDA_CODEC_REALTEK
+> > >> with no LEDS. That driver apparently wants LEDS.
+> > > 
+> > > Thanks but why have I gone for years without LEDS?
+> > > I do not need LEDS, I do not want LEDS, I do not have LEDS (that are
+> > > visible, usable, etc).
+> > > 
+> > > Please make this selectable instead of forcing more bulk into my kernel.
+> > > 
+> > > Kind regards,
+> > > Udo
 > > 
-> > Thanks but why have I gone for years without LEDS?
-> > I do not need LEDS, I do not want LEDS, I do not have LEDS (that are
-> > visible, usable, etc).
+> > Hi Takashi,
 > > 
-> > Please make this selectable instead of forcing more bulk into my kernel.
+> > Regarding
+> > commit 7cdf8c49b1df0a385db06c4f9a5ba1b16510fdcc
+> > Author: Takashi Iwai <tiwai@suse.de>
+> > Date:   Thu Jun 18 13:08:31 2020 +0200
+> >     ALSA: hda: generic: Add a helper for mic-mute LED with LED classdev
 > > 
-> > Kind regards,
-> > Udo
+> > and this Kconfig entry:
+> > 
+> > config SND_HDA_CODEC_REALTEK
+> > 	tristate "Build Realtek HD-audio codec support"
+> > 	select SND_HDA_GENERIC
+> > 	select SND_HDA_GENERIC_LEDS
+> > 
+> > it seems that LED support is not always wanted (please see above).
+> > I.e., user(s) would like to build a kernel without LED support at all.
+> > 
+> > Can you make it a build option?
 > 
-> Hi Takashi,
-> 
-> Regarding
-> commit 7cdf8c49b1df0a385db06c4f9a5ba1b16510fdcc
-> Author: Takashi Iwai <tiwai@suse.de>
-> Date:   Thu Jun 18 13:08:31 2020 +0200
->     ALSA: hda: generic: Add a helper for mic-mute LED with LED classdev
-> 
-> and this Kconfig entry:
-> 
-> config SND_HDA_CODEC_REALTEK
-> 	tristate "Build Realtek HD-audio codec support"
-> 	select SND_HDA_GENERIC
-> 	select SND_HDA_GENERIC_LEDS
-> 
-> it seems that LED support is not always wanted (please see above).
-> I.e., user(s) would like to build a kernel without LED support at all.
-> 
-> Can you make it a build option?
+> Something like this?
 
-Something like this?
+This one is more suitable for the merge :)
 
 
 Takashi
 
 ---
---- a/init/Kconfig
-+++ b/init/Kconfig
-@@ -1390,6 +1390,11 @@ menuconfig EXPERT
- 	  environments which can tolerate a "non-standard" kernel.
- 	  Only use this if you really know what you are doing.
- 
-+config SUPERHACKER
-+	bool "Rule the world" if EXPERT
-+	help
-+	  You are allowed to break things at your own risk.
-+
- config UID16
- 	bool "Enable 16-bit UID system calls" if EXPERT
- 	depends on HAVE_UID16 && MULTIUSER
 --- a/sound/pci/hda/Kconfig
 +++ b/sound/pci/hda/Kconfig
 @@ -94,7 +94,7 @@ config SND_HDA_PATCH_LOADER
@@ -152,7 +144,7 @@ Takashi
  	tristate "Build Realtek HD-audio codec support"
  	select SND_HDA_GENERIC
 -	select SND_HDA_GENERIC_LEDS
-+	select SND_HDA_GENERIC_LEDS if !SUPERHACKER
++	select SND_HDA_GENERIC_LEDS if !EXPERT
  	help
  	  Say Y or M here to include Realtek HD-audio codec support in
  	  snd-hda-intel driver, such as ALC880.
@@ -161,7 +153,7 @@ Takashi
  	tristate "Build IDT/Sigmatel HD-audio codec support"
  	select SND_HDA_GENERIC
 -	select SND_HDA_GENERIC_LEDS
-+	select SND_HDA_GENERIC_LEDS if !SUPERHACKER
++	select SND_HDA_GENERIC_LEDS if !EXPERT
  	help
  	  Say Y or M here to include IDT (Sigmatel) HD-audio codec support in
  	  snd-hda-intel driver, such as STAC9200.
@@ -170,7 +162,7 @@ Takashi
  	tristate "Build Conexant HD-audio codec support"
  	select SND_HDA_GENERIC
 -	select SND_HDA_GENERIC_LEDS
-+	select SND_HDA_GENERIC_LEDS if !SUPERHACKER
++	select SND_HDA_GENERIC_LEDS if !EXPERT
  	help
  	  Say Y or M here to include Conexant HD-audio codec support in
  	  snd-hda-intel driver, such as CX20549.

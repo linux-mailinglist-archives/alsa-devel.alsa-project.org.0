@@ -2,85 +2,102 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9D5DC28D9B8
-	for <lists+alsa-devel@lfdr.de>; Wed, 14 Oct 2020 07:56:19 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9A6A828D9FB
+	for <lists+alsa-devel@lfdr.de>; Wed, 14 Oct 2020 08:26:52 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A871216C0;
-	Wed, 14 Oct 2020 07:55:28 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A871216C0
+	by alsa0.perex.cz (Postfix) with ESMTPS id 2F3A61720;
+	Wed, 14 Oct 2020 08:26:02 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2F3A61720
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1602654978;
-	bh=w/Q6Y2ALEcBoX07SqJPZHTNPd5j9N71xYELA8VhNSs4=;
-	h=Subject:To:References:From:Date:In-Reply-To:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=bRy7sxoYjUmkvo9PccRS8WUhamw83rm/R0C/ohBIEVUHNdrWH5QAw7/IZgF9XxOe9
-	 ZpjF5v9NwCx08CxhmvHCsEXShacHnvrBS2nCFBl1x+NglD+e8+WvvbmWeQva1mFTdc
-	 wwyWTNlVzJAWrqFD/kg2ai6hTmLoV7Ne+FsLut8U=
+	s=default; t=1602656812;
+	bh=0jRO4pPi/CTN2R08qS8cuNee0FyyvsjNw5xSQtg8Wzo=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=LpKjorkwCtwqudO9gySB8hXYLIS/8r7ZRvIrBNojHTP5IW32zk+s7I6vRvEu8UqWJ
+	 HqXIUYeMDCVF3ik2JyOJOsStyJzGGboPfjip7y+kO4n2wdhV3DZCvlyXLXB1ukMKmj
+	 JMnqyroXfKxCFjdH4mp5f7mG39KxFsetkaiX+B58=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 5DCA7F8021D;
-	Wed, 14 Oct 2020 07:54:38 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 0B04AF80224;
+	Wed, 14 Oct 2020 08:20:33 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id BD775F80217; Wed, 14 Oct 2020 07:54:35 +0200 (CEST)
+ id B19A0F8020D; Wed, 14 Oct 2020 08:20:23 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from merlin.infradead.org (merlin.infradead.org
- [IPv6:2001:8b0:10b:1231::1])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ DKIM_VALID_AU,SPF_HELO_PASS,SPF_PASS autolearn=disabled version=3.4.0
+Received: from wnew2-smtp.messagingengine.com (wnew2-smtp.messagingengine.com
+ [64.147.123.27])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id D6AD2F8012B
- for <alsa-devel@alsa-project.org>; Wed, 14 Oct 2020 07:54:28 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D6AD2F8012B
+ by alsa1.perex.cz (Postfix) with ESMTPS id 147EAF8020D
+ for <alsa-devel@alsa-project.org>; Wed, 14 Oct 2020 08:19:47 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 147EAF8020D
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org
- header.b="bnhC0zvB"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=infradead.org; s=merlin.20170209; h=Content-Transfer-Encoding:Content-Type:
- In-Reply-To:MIME-Version:Date:Message-ID:From:References:To:Subject:Sender:
- Reply-To:Cc:Content-ID:Content-Description;
- bh=VBhfFbcum7XqbvqnX65rC2cJinR64wvSqBnpbpj4otY=; b=bnhC0zvB0LmWbSJHu5QthQHi3+
- D3vU89kUm7mR9S1RpJwfliTGWEBvzkNupZKuzr1SPTGMHEv1LXTdW42vUw0CYXWUIgv1/fXcvwHyL
- qE8+/PwM3wArw7HqzNbb8lCSmHzX1SXQC5k20esROfvocGUfqmZ393Ec76b19KhNVxFR1jGjQdxfe
- +7/N297i0jo8SKe1J1DE1WUKiplPpWRwc6q8eWAjR8g8iRMh4khoX4QmCuLoEbYFXBpHefJpQf8zy
- xAqfBfMpKL+B04FbzJKTY3qApVK1i34M+C18ISTzWb9spLCoepokBzMNXmcHeBEZgz1EyTA84Ko/N
- KgHivglg==;
-Received: from [2601:1c0:6280:3f0::507c]
- by merlin.infradead.org with esmtpsa (Exim 4.92.3 #3 (Red Hat Linux))
- id 1kSZjv-0001kM-VH; Wed, 14 Oct 2020 05:54:20 +0000
-Subject: Re: disabling CONFIG_LED_CLASS (SND_HDA_CODEC_REALTEK)
-To: Udo van den Heuvel <udovdh@xs4all.nl>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- linux-leds@vger.kernel.org, Dan Murphy <dmurphy@ti.com>,
- Pavel Machek <pavel@ucw.cz>, Takashi Iwai <tiwai@suse.de>,
- moderated for non-subscribers <alsa-devel@alsa-project.org>
-References: <2835d02a-380b-6a3a-0e4d-abf07aee18bc@xs4all.nl>
- <53e698c1-86e4-8b1f-afb0-b8471349e701@xs4all.nl>
- <43b79598-1592-683f-46df-9e5489110780@infradead.org>
- <6fd1e91e-19d0-6682-dfc6-49f1cd60408b@infradead.org>
- <3c6d174c-30db-3d03-3d16-42df405f38d9@xs4all.nl>
- <58e774c5-fc80-2060-2091-9a6398582cc5@infradead.org>
- <9fc679e9-e9a9-ad80-b24c-f04489b98aa7@xs4all.nl>
- <27e159be-4376-e87b-5e60-803bc3749ec2@infradead.org>
- <eadc23e7-b383-e2fc-6e20-ed22745d0bfc@xs4all.nl>
- <2739e1fd-75c6-4e43-cd79-9028479f91bf@infradead.org>
- <1e6b1961-9e9b-5f82-86a1-bf838cb68f55@xs4all.nl>
-From: Randy Dunlap <rdunlap@infradead.org>
-Message-ID: <d7774b58-caf5-5bd8-845d-a5d45aaef4c6@infradead.org>
-Date: Tue, 13 Oct 2020 22:54:15 -0700
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.12.0
+ dkim=pass (2048-bit key) header.d=sholland.org header.i=@sholland.org
+ header.b="H8j3SlEw"; 
+ dkim=pass (2048-bit key) header.d=messagingengine.com
+ header.i=@messagingengine.com header.b="AW3Sb36D"
+Received: from compute5.internal (compute5.nyi.internal [10.202.2.45])
+ by mailnew.west.internal (Postfix) with ESMTP id 6D0D3CF3;
+ Wed, 14 Oct 2020 02:19:44 -0400 (EDT)
+Received: from mailfrontend1 ([10.202.2.162])
+ by compute5.internal (MEProxy); Wed, 14 Oct 2020 02:19:45 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sholland.org; h=
+ from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding; s=fm3; bh=Y7oGa4aCrjY2aHl/ApW/8k8+7n
+ R+z6GPFZxAKElgUAU=; b=H8j3SlEw5MNWcYqRAUJxXCwWnqlh594GNPumwI6CG+
+ ObWnc8IyR18x9sJzzUlQf8XBhl3wV0gcaFHYjSBOfVdIUZubpHLP+762fu3Vh83M
+ YmvDplHkYp16Z0IwUnICBYnxfTfN48z+7Y8rPwQlqKj3+jja5toTblz4r10O54j9
+ UocyypVRuB5wS0O5Ga1n5kpeVJsm0fcqgmqMPaQfNfKc8nF7xoGYLxPy9oW6WN2G
+ 2VgUrDj6nYlfMWUkpCLt/tOQqbSnZyeGEm77GG6LWu1hpH6tp94V1aGxewBMMFC1
+ B29krAjUCVonALjjK+5LMlkBLsP8BC/2bhY9lNaCLMhg==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:content-transfer-encoding:date:from
+ :message-id:mime-version:subject:to:x-me-proxy:x-me-proxy
+ :x-me-sender:x-me-sender:x-sasl-enc; s=fm1; bh=Y7oGa4aCrjY2aHl/A
+ pW/8k8+7nR+z6GPFZxAKElgUAU=; b=AW3Sb36Dkoh6kLSs8gGPFhJHi2eyigPOC
+ L0EJ/lOAt5cmQIOlDqGyV4wYnWHlG6vD2RTj6+SBGubZ0BRZtr9FL1VD7ZuFjcxs
+ l2YfrdkI/Sy3x3a4+MDYYqWgTfHdH5MG/ouU/2SwU7J56HR2p+mPiFmX2QGhKRzt
+ e/F+WZHtgj0Y7/Y7C4EOBeKW0R+QUbpWfgWfVrPILVno8Tc9yZ+Z5rWrAeVCMMyT
+ HxQ+ek9fzKa9GB9HISew+yrQudOq6Q5H8XiuRfQPAlVttrdkW2IIxAcJGYve+X3H
+ kW6ib7jfAcc6nV/dyXaj5XiBqsTs9ZjrXOGWD28l7KBB0GrVWvy6Q==
+X-ME-Sender: <xms:fpiGX7rhBD_yicJmDEMCliQn7nhWv6gJ8K_yNRDjW4Z0K1_wTk4c4g>
+ <xme:fpiGX1pUT-MysdDpY-7goIiN49p8f6QYoty7rCTBmqnBGrSRU8Hfx-wNaaxWwD1Yj
+ wA67iPCJs2UZCLpfQ>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedujedriedtgddutdekucetufdoteggodetrfdotf
+ fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
+ uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
+ cujfgurhephffvufffkffoggfgsedtkeertdertddtnecuhfhrohhmpefurghmuhgvlhcu
+ jfholhhlrghnugcuoehsrghmuhgvlhesshhhohhllhgrnhgurdhorhhgqeenucggtffrrg
+ htthgvrhhnpeeiteekhfehuddugfeltddufeejjeefgeevheekueffhffhjeekheeiffdt
+ vedtveenucfkphepjedtrddufeehrddugeekrdduhedunecuvehluhhsthgvrhfuihiivg
+ eptdenucfrrghrrghmpehmrghilhhfrhhomhepshgrmhhuvghlsehshhholhhlrghnugdr
+ ohhrgh
+X-ME-Proxy: <xmx:fpiGX4Me6NS1PYw30vSDdM4LMIsqHHBYVmjsib4FCHiJgF2ptf-seA>
+ <xmx:fpiGX-4b5jFMlwxLHFk4S-vXrvSSRwq_YUqfh5yk3ubQNO0EhwhIVw>
+ <xmx:fpiGX658vVtMH1-7bREBrzPDbC42CqwjMiPK0KCzd2VIVnp4ZGrH8g>
+ <xmx:f5iGX8utNwrvo59qpfgKdP1LEKxuZ1xE4CCLAqcZnZeYScAHJjgpiEJpAWM>
+Received: from titanium.stl.sholland.net
+ (70-135-148-151.lightspeed.stlsmo.sbcglobal.net [70.135.148.151])
+ by mail.messagingengine.com (Postfix) with ESMTPA id D2E0F328005A;
+ Wed, 14 Oct 2020 02:19:41 -0400 (EDT)
+From: Samuel Holland <samuel@sholland.org>
+To: Mark Brown <broonie@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>,
+ Maxime Ripard <mripard@kernel.org>, Chen-Yu Tsai <wens@csie.org>,
+ Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>
+Subject: [PATCH v2 00/17] ASoC: sun8i-codec: support for AIF2 and AIF3
+Date: Wed, 14 Oct 2020 01:19:24 -0500
+Message-Id: <20201014061941.4306-1-samuel@sholland.org>
+X-Mailer: git-send-email 2.26.2
 MIME-Version: 1.0
-In-Reply-To: <1e6b1961-9e9b-5f82-86a1-bf838cb68f55@xs4all.nl>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+Cc: Ondrej Jirman <megous@megous.com>, alsa-devel@alsa-project.org,
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ Samuel Holland <samuel@sholland.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -96,46 +113,57 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 10/13/20 10:16 PM, Udo van den Heuvel wrote:
-> On 14-10-2020 07:07, Randy Dunlap wrote:
->> On 10/13/20 9:56 PM, Udo van den Heuvel wrote:
-> 
->>> I.e.: it looks like I will lose some funcionality when I disable
->>> SND_HDA_CODEC_REALTEK.
->>
->> OK. At present you can't have it both ways, i.e., SND_HDA_CODEC_REALTEK
->> with no LEDS. That driver apparently wants LEDS.
-> 
-> Thanks but why have I gone for years without LEDS?
-> I do not need LEDS, I do not want LEDS, I do not have LEDS (that are
-> visible, usable, etc).
-> 
-> Please make this selectable instead of forcing more bulk into my kernel.
-> 
-> Kind regards,
-> Udo
+This series adds support the other two AIFs present in the sun8i codec,
+which can be used for codec2codec DAI links.
 
-Hi Takashi,
+This series first fills out the DAI driver, removing assumptions that
+were made for AIF1 (16 bits, 2 channels, certain clock inversions). Some
+new logic is required to handle 3 DAIs and the ADC/DAC sharing the same
+clock. Finally, it adds the new DAIs, and hooks them up with DAPM
+widgets and routes per the hardware topology.
 
-Regarding
-commit 7cdf8c49b1df0a385db06c4f9a5ba1b16510fdcc
-Author: Takashi Iwai <tiwai@suse.de>
-Date:   Thu Jun 18 13:08:31 2020 +0200
-    ALSA: hda: generic: Add a helper for mic-mute LED with LED classdev
+To minimize the number of patches in this series, related device tree
+patches (increasing #sound-dai-cells, adding new DAI links) will be sent
+separately.
 
-and this Kconfig entry:
+Changes from v1:
+  - Patches 1-8 from v1 (DAPM changes) were merged
+  - Prefixed AIF constants with "SUN8I_CODEC_" [1, 7, 10, 16, 17]
+  - Renamed variables in sun8i_codec_set_fmt for clarity [3]
+  - Update sysclk->sysclk_rate if later calls to hw_params change the
+    sample rate (thanks Chen-Yu for reminding me of this) [11]
+  - Select COMMON_CLK for clk_set_rate_exclusive [12]
+  - Add comments and hopefully clarify the clock protection logic [12]
+  - Make the error message more concise and put it on one line [12]
+  - Drop the "reg" variable holding SUN8I_AIF_CLK_CTRL(dai->id) [15]
+  - Rename "div_reg" to "clk_reg" and adjust comments for clarity [17]
+  - Improve the AIF2/AIF3 rate mismatch error message [17]
+  - Minor grammar/wording fixes in commit messages [2, 4, 7, 8, 16, 17]
+  - Added Maxime's Acked-by: [1-2, 4-9, 11, 13-14, 16]
 
-config SND_HDA_CODEC_REALTEK
-	tristate "Build Realtek HD-audio codec support"
-	select SND_HDA_GENERIC
-	select SND_HDA_GENERIC_LEDS
+Samuel Holland (17):
+  ASoC: sun8i-codec: Prepare to extend the DAI driver
+  ASoC: sun8i-codec: Program DAI format before clock inversion
+  ASoC: sun8i-codec: Enable all supported clock inversions
+  ASoC: sun8i-codec: Use the provided word size
+  ASoC: sun8i-codec: Round up the LRCK divisor
+  ASoC: sun8i-codec: Correct the BCLK divisor calculation
+  ASoC: sun8i-codec: Support the TDM slot binding
+  ASoC: sun8i-codec: Enforce symmetric DAI parameters
+  ASoC: sun8i-codec: Enable all supported sample rates
+  ASoC: sun8i-codec: Automatically set the system sample rate
+  ASoC: sun8i-codec: Constrain to compatible sample rates
+  ASoC: sun8i-codec: Protect the clock rate while streams are open
+  ASoC: sun8i-codec: Require an exact BCLK divisor match
+  ASoC: sun8i-codec: Enable all supported PCM formats
+  ASoC: sun8i-codec: Generalize AIF clock control
+  ASoC: sun8i-codec: Add the AIF2 DAI, widgets, and routes
+  ASoC: sun8i-codec: Add the AIF3 DAI, widgets, and routes
 
-it seems that LED support is not always wanted (please see above).
-I.e., user(s) would like to build a kernel without LED support at all.
+ sound/soc/sunxi/Kconfig       |   1 +
+ sound/soc/sunxi/sun8i-codec.c | 834 ++++++++++++++++++++++++++++------
+ 2 files changed, 699 insertions(+), 136 deletions(-)
 
-Can you make it a build option?
-
-thanks.
 -- 
-~Randy
+2.26.2
 

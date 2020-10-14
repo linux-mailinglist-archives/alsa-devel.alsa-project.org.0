@@ -2,92 +2,74 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5E7E628E239
-	for <lists+alsa-devel@lfdr.de>; Wed, 14 Oct 2020 16:33:07 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0326328E3A0
+	for <lists+alsa-devel@lfdr.de>; Wed, 14 Oct 2020 17:54:13 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id F085416FD;
-	Wed, 14 Oct 2020 16:32:16 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz F085416FD
+	by alsa0.perex.cz (Postfix) with ESMTPS id 39205172E;
+	Wed, 14 Oct 2020 17:53:22 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 39205172E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1602685987;
-	bh=qywDCl4U2zuqaiLLIeraKxvQHiIRr02rRbNcM377dnE=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
+	s=default; t=1602690852;
+	bh=yt9DmDUJ1O2Z+DJTsQPJKxy7Y0NfQmA2RaWk8VBNjZ8=;
+	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=S9SfEHJvQLSf3UsV/FKdOzLBCZgkUIYh0gYakRMKTBc5ytXAmJG0KGsANG/PejRa8
-	 CDJ5L64LN3Ms5YvA1aL21ITZJsZx+B8djn7cZD9bWrPgPNjO6BWkImulreB7dayLuh
-	 zUK2YosbhI4nqo+v5WjvNoFzUwn0VYoxsK3M8xyA=
+	b=vjtK3HoonVl9oM6uzRfbPPBIlveii68a94K2b5a0dfumRQXMWjQllT9OOTKUFdr/y
+	 BwzfT2aHWVgOafJvP12oPe/017OKuPyuR4+Kpr5qUibhv21/0ajcudCxEWD32h4f29
+	 Jy2f5kAf9Sf8F/AfegB4WhGd0VDxFNrefI0wNkfo=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 7641AF8021D;
-	Wed, 14 Oct 2020 16:31:26 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id A4F72F80225;
+	Wed, 14 Oct 2020 17:52:37 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id AD64EF80217; Wed, 14 Oct 2020 16:31:23 +0200 (CEST)
+ id 90C41F80217; Wed, 14 Oct 2020 17:52:35 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,HTML_MESSAGE,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from mail-oo1-xc43.google.com (mail-oo1-xc43.google.com
- [IPv6:2607:f8b0:4864:20::c43])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=NICE_REPLY_A,SPF_HELO_NONE,
+ SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 7B1E9F80118
- for <alsa-devel@alsa-project.org>; Wed, 14 Oct 2020 16:31:16 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7B1E9F80118
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=superlative.org header.i=@superlative.org
- header.b="UJMFP9mX"
-Received: by mail-oo1-xc43.google.com with SMTP id l18so826315ooa.9
- for <alsa-devel@alsa-project.org>; Wed, 14 Oct 2020 07:31:16 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=superlative.org; s=google;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=48cTnSqKwDUcqWSFhuGP4vMjz3kUuH/B/u1xQ0vQHGc=;
- b=UJMFP9mXb7Y1pD9e1YWQsqfVdbnYnbJKe4UadVkbyCF6pYn5yCCVDS0CU6ahdl6tOW
- /vvgvr4z3eNcUR4g4/OVHKlmoYa+pw2x36zy2KqTZHYDQlEm2NsRg+cZZTdCAulq5yGC
- AkK6K7FziRQ+eBTMs9fBgDEgKTpLg/b9U6L48dBedgiKE1qQU9wP2En/PBMRUmxtzNQv
- Xh4a5TlZNqRiPi3jOPz8WnxTEVsHKE+/NYrXPjAgdv1CNZ0T06PRdWkvafHFdn1lEn2G
- UGIPFIS8maM4tKoY+5KeOpc33ZfZVT+yUCHaOzq8gWUW/IA0U0zdP7eZwiZ11axA6WS+
- OH/A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=48cTnSqKwDUcqWSFhuGP4vMjz3kUuH/B/u1xQ0vQHGc=;
- b=aa4chpGcMfBsARvij/zCheDKw7vKJvRnMNwyJfDAbuUwvyOBSyam3UEzvAZ8AJR4Ik
- /OfNQZ9L/wkus9mjWsAOpFbMHZx+Z6H8aYPMX8JFGujm02gX8BDgafNr9ZQEQnGTV+Jf
- ZXnL2IRULxPTbuUeHNklU16b7j9O8QiBT1SEU4TjxCmHG/2ZXYyFrOTu97fruPmY/3Cx
- 62UEsDcDLTNuIcegfEFIPY4JCRga0BOkjmB0/B7tpj0vZXld+5I45EYfESqnfygnf6UJ
- nJQjID4HVrZ8hljOZNyY4AIebQEVIW46nrixoqmKTmNP7pfk/WOvc/C0lTfHMSy1TFIR
- h+/Q==
-X-Gm-Message-State: AOAM533zivHYEOKXUVEl45W7l+4YJCB1Kzo7tum5U5WRCA1DfHXyqdYn
- bRm3nID8klkqKC2mcN9nlF26g1D7iYHl5Tr1lEuAVw==
-X-Google-Smtp-Source: ABdhPJzAODSyM6uPDdIVgiOR2SEk2TbW2eWS7vVHRKzxIoeAIgKda72Dk5A90Sxy++gAWkXFk+3h45+6/9qVRZq5rqg=
-X-Received: by 2002:a4a:9b01:: with SMTP id a1mr3755280ook.51.1602685873084;
- Wed, 14 Oct 2020 07:31:13 -0700 (PDT)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 3C04DF8012B;
+ Wed, 14 Oct 2020 17:52:26 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3C04DF8012B
+IronPort-SDR: YB/VvqWNP2sc1aYsrmgwKkq3KZRfZh1kKkeok0MEZQe8NaVHkpoHS6d8Xxe/RneSmNxKSvYA53
+ wiJUq9sx4TuA==
+X-IronPort-AV: E=McAfee;i="6000,8403,9773"; a="230307948"
+X-IronPort-AV: E=Sophos;i="5.77,375,1596524400"; d="scan'208";a="230307948"
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from orsmga007.jf.intel.com ([10.7.209.58])
+ by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 14 Oct 2020 08:52:23 -0700
+IronPort-SDR: TiMpkT6Vr5KRL2Rb3SJMqROFDgAygZNDRfFesudJonJg+mkNpycV56Meh+jvgxEaCQptmnDMvZ
+ i/WjTR7QwHJA==
+X-IronPort-AV: E=Sophos;i="5.77,375,1596524400"; d="scan'208";a="357411121"
+Received: from mbhutani-mobl.amr.corp.intel.com (HELO [10.212.4.214])
+ ([10.212.4.214])
+ by orsmga007-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 14 Oct 2020 08:52:22 -0700
+Subject: Re: [PATCH 0/3] ASoC: sof: cleanup Kconfig files
+To: Randy Dunlap <rdunlap@infradead.org>, linux-kernel@vger.kernel.org
+References: <20201014025633.4879-1-rdunlap@infradead.org>
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Message-ID: <86a0251d-3d0d-bff8-a591-22d184c40fc7@linux.intel.com>
+Date: Wed, 14 Oct 2020 09:37:02 -0500
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.10.0
 MIME-Version: 1.0
-References: <20191011171937.8013-1-szszoke.code@gmail.com>
- <s5hftjriy1q.wl-tiwai@suse.de>
- <CAPMdQDmY7CdbrHyOwhJNFBREQ0EO1SKufRdN_YR6TG4zmJzXpA@mail.gmail.com>
- <s5hy2k9j6no.wl-tiwai@suse.de>
- <CAPMdQDnDOF7a9vwuFa1GyFQmZQY4GvDKPeY_NMu2kUDQfqo7fg@mail.gmail.com>
- <s5hpn5kkjg2.wl-tiwai@suse.de>
- <CAPMdQDnn=M_QNWz7bNfR6vB7dr4fFRB4fQjRvXfuHzrbQak5Eg@mail.gmail.com>
- <s5hmu0okivp.wl-tiwai@suse.de>
-In-Reply-To: <s5hmu0okivp.wl-tiwai@suse.de>
-From: Mailing Lists <maillist@superlative.org>
-Date: Wed, 14 Oct 2020 15:31:02 +0100
-Message-ID: <CAPMdQDk0c5NcX1brErdaDroseLgC0oCocTnH9xKFHz-44Zjn=w@mail.gmail.com>
-Subject: Re: [alsa-devel] [PATCH] ALSA: usb-audio: Disable quirks for BOSS
- Katana amplifiers
-To: Takashi Iwai <tiwai@suse.de>
-Content-Type: text/plain; charset="UTF-8"
-X-Content-Filtered-By: Mailman/MimeDel 2.1.15
-Cc: alsa-devel@alsa-project.org, Mike Oliphant <oliphant@nostatic.org>
+In-Reply-To: <20201014025633.4879-1-rdunlap@infradead.org>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
+Cc: alsa-devel@alsa-project.org, Kai Vehmanen <kai.vehmanen@linux.intel.com>,
+ Takashi Iwai <tiwai@suse.de>, Liam Girdwood <lgirdwood@gmail.com>,
+ Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
+ Mark Brown <broonie@kernel.org>, Daniel Baluta <daniel.baluta@nxp.com>,
+ sound-open-firmware@alsa-project.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -103,205 +85,34 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-OK, I will do that.
-
-Quick question: what is the best git I should clone to create patches
-against these days? I've been out of the loop for a few years now.
-
-Cheers,
-
-Keith
-
-On Wed, 14 Oct 2020 at 15:00, Takashi Iwai <tiwai@suse.de> wrote:
-
-> On Wed, 14 Oct 2020 15:56:32 +0200,
-> Mailing Lists wrote:
-> >
-> > Yes, and I don't think this is practical (at least, not obviously).
-> >
-> > The "Roland" vs "BOSS" thing is pure branding. I have BOSS branded
-> devices,
-> > like the JS-8, which work perfectly without the patch as an example. It
-> > wouldn't surprise me if there are recent Roland branded devices which
-> require
-> > the patch.
-> >
-> > So I, personally, think it is beyond brand and is device range or
-> generation
-> > specific. I guess it is possible there may be some technical
-> parameter within
-> > the device descriptor which could indicate which variant the device is,
-> but I
-> > don't know what that might be (if at all). At this point I think we
-> probably
-> > have to apply a conditional setting based on the Product ID.
-> >
-> > Given that, is it best to continue hacking these into pcm.c, or should
-> we be
-> > looking at a quirks-table way to describe these?
->
-> Currently it's better to grow the explicit allow-list, I suppose.
-> Those are still handful, hence manageable enough.
->
-> But, we should consider improving search_roland_implicit_fb(), too.
-> Both actions don't conflict, and once after we establish the better
-> implicit-fb check, the allow-list can be dropped.
->
->
-> thanks,
->
-> Takashi
->
-> >
-> > Cheers,
-> >
-> > Keith
-> >
-> > On Wed, 14 Oct 2020 at 14:47, Takashi Iwai <tiwai@suse.de> wrote:
-> >
-> >     On Wed, 14 Oct 2020 15:33:03 +0200,
-> >     Mailing Lists wrote:
-> >     >
-> >     > Thanks for the response Takashi,
-> >     >
-> >     > How should this be distinguishing between Roland and BOSS? They
-> both
-> >     have the
-> >     > vendor ID 0x0582.
-> >
-> >     Ah, right, I missed that point :-<
-> >
-> >     So the question would be rather how to detect BOSS devices
-> >     effectively...
-> >
-> >     thanks,
-> >
-> >     Takashi
-> >
-> >     >
-> >     > Cheers,
-> >     >
-> >     > Keith
-> >     >
-> >     > On Wed, 14 Oct 2020 at 14:09, Takashi Iwai <tiwai@suse.de> wrote:
-> >     >
-> >     >     On Wed, 14 Oct 2020 14:17:35 +0200,
-> >     >     Mailing Lists wrote:
-> >     >     >
-> >     >     > Following up on this, it appears there are a bunch of the
-> >     >     newer-generation
-> >     >     > Roland/Boss devices which need similar treatment.
-> >     >     >
-> >     >     > So far I have tested the GT-1, the GT-001, and the BR-80, and
-> >     others
-> >     >     have
-> >     >     > reported the RC-300 as working with similar modifications. I
-> have
-> >     been
-> >     >     using
-> >     >     > the following change to the code in pcm.c
-> >     set_sync_ep_implicit_fb_quirk:
-> >     >     >
-> >     >     >     case USB_ID(0x0582, 0x01d8): /* BOSS Katana */
-> >     >     >     case USB_ID(0x0582, 0x0130): /* BOSS Micro BR-80 */
-> >     >     >     case USB_ID(0x0582, 0x0138): /* BOSS RC-300 */
-> >     >     >     case USB_ID(0x0582, 0x01d6): /* BOSS GT-1 */
-> >     >     >     case USB_ID(0x0582, 0x01e5): /* BOSS GT-001 */
-> >     >     > /* BOSS Katana amplifiers and many other newer BOSS devices
-> do not
-> >     need
-> >     >     quirks
-> >     >     > */
-> >     >     >
-> >     >     > There's probably others too, such as the GT-100 (I believe
-> the
-> >     GT-001
-> >     >     and
-> >     >     > GT-100 have similar hardware).
-> >     >     >
-> >     >     > My question is, should this just be submitted as a patch to
-> pcm.c
-> >     or
-> >     >     would it
-> >     >     > be better handled in quirks and, if so, how?
-> >     >     >
-> >     >     > Or something else?
-> >     >
-> >     >     Do we really need this change at all?  I looked at the code
-> again,
-> >     and
-> >     >     I noticed that basically the function should return 0 without
-> >     setting
-> >     >     anything else even if you don't have the explicit ID checks
-> there.
-> >     >
-> >     >     The function looks like:
-> >     >
-> >     >     static int set_sync_ep_implicit_fb_quirk(struct
-> snd_usb_substream
-> >     *subs,
-> >     >                                              struct usb_device
-> *dev,
-> >     >                                              struct
-> >     usb_interface_descriptor
-> >     >     *altsd,
-> >     >                                              unsigned int attr)
-> >     >     {
-> >     >             ....
-> >     >             switch (subs->stream->chip->usb_id) {
-> >     >             ....
-> >     >             case USB_ID(0x0582, 0x01d8): /* BOSS Katana */
-> >     >                     /* BOSS Katana amplifiers do not need quirks */
-> >     >                     return 0;
-> >     >             }
-> >     >
-> >     >             if (attr == USB_ENDPOINT_SYNC_ASYNC &&
-> >     >                 altsd->bInterfaceClass == USB_CLASS_VENDOR_SPEC &&
-> >     >                 altsd->bInterfaceProtocol == 2 &&
-> >     >                 altsd->bNumEndpoints == 1 &&
-> >     >                 USB_ID_VENDOR(subs->stream->chip->usb_id) ==
-> 0x0582 /*
-> >     Roland
-> >     >     */ &&
-> >     >                 search_roland_implicit_fb(dev,
-> altsd->bInterfaceNumber +
-> >     1,
-> >     >                                           altsd->bAlternateSetting,
-> >     >                                           &alts, &ep) >= 0) {
-> >     >                     goto add_sync_ep;
-> >     >             }
-> >     >
-> >     >             /* No quirk */
-> >     >             return 0;
-> >     >
-> >     >     ... and the lengthy if-conditions after the switch/case is
-> applied
-> >     >     only for Roland devices, hence it shouldn't influence on BOSS
-> >     >     devices.  After that point, the immediate return with 0, which
-> is
-> >     the
-> >     >     same as we do in switch/case.  So the explicit check of BOSS
-> devices
-> >     >     there looks superfluous.
-> >     >
-> >     >     thanks,
-> >     >
-> >     >     Takashi
-> >     >
-> >     > --
-> >     > --
-> >     > Keith A Milner
-> >     >
-> >     >
-> >
-> > --
-> > --
-> > Keith A Milner
-> >
-> >
->
 
 
--- 
--- 
-Keith A Milner
+On 10/13/20 9:56 PM, Randy Dunlap wrote:
+> Cc: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+> Cc: Liam Girdwood <lgirdwood@gmail.com>
+> Cc: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
+> Cc: Kai Vehmanen <kai.vehmanen@linux.intel.com>
+> Cc: Daniel Baluta <daniel.baluta@nxp.com>
+> Cc: sound-open-firmware@alsa-project.org
+> Cc: alsa-devel@alsa-project.org
+> 
+> Some general editing of sound/soc/sof/ Kconfig files:
+
+Thanks Randy!
+
+That looks all good to me, but I see you didn't CC: Mark Brown and 
+Takashi Iwai so not sure if Mark can apply this directly. Might need to 
+resend the series?
+
+I also can take this series in the SOF tree and combine it with other 
+changes I am making to Kconfigs to remove hard-coded exclusions, that 
+would mean less churn on the same files.
+>   [PATCH 1/3] ASoC: sof: imx: fix Kconfig punctuation
+>   [PATCH 2/3] ASoC: sof: intel: fix Kconfig punctuation and wording
+>   [PATCH 3/3] ASoC: sof: Kconfig: fix Kconfig punctuation and wording
+> 
+>   sound/soc/sof/Kconfig       |   42 +++++++++++------------
+>   sound/soc/sof/imx/Kconfig   |   10 ++---
+>   sound/soc/sof/intel/Kconfig |   62 +++++++++++++++++-----------------
+>   3 files changed, 57 insertions(+), 57 deletions(-)
+> 

@@ -2,76 +2,89 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2FE4C28E357
-	for <lists+alsa-devel@lfdr.de>; Wed, 14 Oct 2020 17:32:25 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5BD1E28E360
+	for <lists+alsa-devel@lfdr.de>; Wed, 14 Oct 2020 17:37:16 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C32AE1736;
-	Wed, 14 Oct 2020 17:31:34 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C32AE1736
+	by alsa0.perex.cz (Postfix) with ESMTPS id D79DC1741;
+	Wed, 14 Oct 2020 17:36:25 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D79DC1741
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1602689544;
-	bh=XIRUOPHWaoeco5lsXq1lBVCSsBDGUgLKpwpSzZveCbk=;
-	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
+	s=default; t=1602689835;
+	bh=djeAU4sO95uDTtxw28n0+45OFiaamDGeEQ6Zayf5NKU=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=RYf1bGdG23M+YZU9mUy3y3IF7+kqz7n52zUpsqYS9wi8VtftmICgLUlOmqKLO2ZaK
-	 Q0I7WWPsnt1YUaJwp6fGkCajKwsSskJfSMeBfr6WuwJvouM8KbmMLJDUEcYq+r/RUM
-	 7pHv0v5OzMJaxvbqeN2u+55+qyNn3tKEXXv36Kik=
+	b=NFfv1ydLcbbz0ioLc3AzTcznspAF3A6ed0LE38ShsVYc30oQDSS1lSLmvwTUQdYPL
+	 4dzp0swAFFBQWiZ/+LN5Wu5t11j3vA0NxOUCuah3Fl0tuGxmBt8cfiDGsdnq8jQ6EN
+	 2SzcBoWN3+MhtkY7Y8bBg0FUPTECpgSt/tDrp8So=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 63ADEF800F6;
-	Wed, 14 Oct 2020 17:30:44 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 4F0BCF8021D;
+	Wed, 14 Oct 2020 17:35:35 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 3C4EBF80224; Wed, 14 Oct 2020 17:30:41 +0200 (CEST)
+ id 98B45F80217; Wed, 14 Oct 2020 17:35:29 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=NICE_REPLY_A,SPF_HELO_NONE,
- SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,HTML_MESSAGE,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from mail-oi1-x242.google.com (mail-oi1-x242.google.com
+ [IPv6:2607:f8b0:4864:20::242])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 5E6CDF8012B
- for <alsa-devel@alsa-project.org>; Wed, 14 Oct 2020 17:30:31 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5E6CDF8012B
-IronPort-SDR: jmfyQ43nyQhqHVIhIzMCcky0Uw94eU11EaKN6cBFxQhKA/l1HwfDGMf1Vyc/mlFYxRNDCVN79J
- tx2BOWSCq46w==
-X-IronPort-AV: E=McAfee;i="6000,8403,9773"; a="153955743"
-X-IronPort-AV: E=Sophos;i="5.77,375,1596524400"; d="scan'208";a="153955743"
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from orsmga007.jf.intel.com ([10.7.209.58])
- by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 14 Oct 2020 08:30:27 -0700
-IronPort-SDR: yVEpr/X0WCLzHTh9XOgcX0nPUa7yHO/vchivePy6IAsn2VGu1LM0ex2D4ylWbtQMkdxU9L7Pco
- ZqqONxn/M3qQ==
-X-IronPort-AV: E=Sophos;i="5.77,375,1596524400"; d="scan'208";a="357404913"
-Received: from mbhutani-mobl.amr.corp.intel.com (HELO [10.212.4.214])
- ([10.212.4.214])
- by orsmga007-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 14 Oct 2020 08:30:26 -0700
-Subject: Re: [PATCH] ASoC: Intel: kbl_rt5663_max98927: Fix kabylake_ssp_fixup
- function
-To: Tomasz Figa <tfiga@chromium.org>, alsa-devel@alsa-project.org
-References: <20201014141624.4143453-1-tfiga@chromium.org>
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Message-ID: <f78b7240-0624-6019-0d1b-cc0dd3aa41f9@linux.intel.com>
-Date: Wed, 14 Oct 2020 10:30:25 -0500
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.10.0
+ by alsa1.perex.cz (Postfix) with ESMTPS id 1612DF8012B
+ for <alsa-devel@alsa-project.org>; Wed, 14 Oct 2020 17:35:23 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1612DF8012B
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=superlative.org header.i=@superlative.org
+ header.b="azSMVMUX"
+Received: by mail-oi1-x242.google.com with SMTP id w141so3671589oia.2
+ for <alsa-devel@alsa-project.org>; Wed, 14 Oct 2020 08:35:23 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=superlative.org; s=google;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=w+hFOfldH59cu+z3L7/4WVGslhqUI7VQRFcF+f924hc=;
+ b=azSMVMUXJqQOShST3F0gYcA54s/l5KZaFvzRU4+kHIHDamQBKwFWzWUl61K8BrMFUO
+ LFhEB93YvkCWTruHpAnrAiA8Mc+fBkqTlO6WbdFRPJ85wBnn8rnuxliSTxz2upq50KPx
+ qFCl9+GIm3ucbqmqnl8Bdq1N6GgVk5FQYq2QNya6QJ9hSw7DXFSDCn3OlhpIlXKsp3/D
+ 6izomzAPk6iOnZN07m8uzlm4XOI3STaIwarSNQIDsqs1+QmjtENK54p0IdyhHGCtGmww
+ LF94i7ULD6qdUhI9rL5fViJVj1rpbEdtk/bHguMrKfh+pD3SYdhK2BG2kcbXVQS6OG6p
+ +xJw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=w+hFOfldH59cu+z3L7/4WVGslhqUI7VQRFcF+f924hc=;
+ b=dALkCb9ioV5+Ws+KQF4Di+5EYZ38uFF7BumcAXw3qkZ2voBH8GD0ruNV0+cIRkOsLY
+ Jf5YtcRn+47mL0AKwdo3rBXWbbbI7y4HifBhjkP5TRrfP1c7eiB9FKu4cSe/f+vwBluX
+ qsQIqwOKCLivQz/RAVyLe/NGRVOlugvawqHfDFoayqkqfRO3HzDhcMynOJ8Nfw4EMd4T
+ fw45B0wKC0IvOdawA+uNpUkORbtk9F4jj8rIdEHySThvvHKxDMJgTEuslQnPAZRyJfBR
+ OFXvXCsCCyPGhv9cBPiyCntkvSDYbTD8bWMjqbyd9UW9e6VJ1gbbDkQiOEjdXmkNbUTn
+ VHrA==
+X-Gm-Message-State: AOAM531MLMQHa27VvB65zAceAvIh+8MfVixS2SChiNhq2FkXLg199B/w
+ W6r1G4GNH+9wI0APdnLxLCzbqmPtTX34L8KZ+qM0Og==
+X-Google-Smtp-Source: ABdhPJz1j+he7JmtjPlacBUMb6Yho/s0Bm1FAUxMsUJ0U8wzsvHu9N8rY8JYKmGSLsbVH18Qg+3RF4DNrfrw2rYVgoQ=
+X-Received: by 2002:aca:5903:: with SMTP id n3mr2664562oib.159.1602689720133; 
+ Wed, 14 Oct 2020 08:35:20 -0700 (PDT)
 MIME-Version: 1.0
-In-Reply-To: <20201014141624.4143453-1-tfiga@chromium.org>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 8bit
-Cc: Cezary Rojewski <cezary.rojewski@intel.com>, Takashi Iwai <tiwai@suse.com>,
- Jie Yang <yang.jie@linux.intel.com>, linux-kernel@vger.kernel.org,
- Liam Girdwood <liam.r.girdwood@linux.intel.com>,
- Mark Brown <broonie@kernel.org>,
- =?UTF-8?Q?=c5=81ukasz_Majczak?= <lmajczak@google.com>,
- cujomalainey@chromium.org
+References: <20191011171937.8013-1-szszoke.code@gmail.com>
+ <s5hftjriy1q.wl-tiwai@suse.de>
+ <CAPMdQDmY7CdbrHyOwhJNFBREQ0EO1SKufRdN_YR6TG4zmJzXpA@mail.gmail.com>
+ <CAHXb3bf+0uKS-+aEVsgebUbYPt1wCBZ7GLAjF57BrPDHcveuQQ@mail.gmail.com>
+In-Reply-To: <CAHXb3bf+0uKS-+aEVsgebUbYPt1wCBZ7GLAjF57BrPDHcveuQQ@mail.gmail.com>
+From: Mailing Lists <maillist@superlative.org>
+Date: Wed, 14 Oct 2020 16:35:09 +0100
+Message-ID: <CAPMdQDmE3cgu2whqTxf7pFUoQusUYJKK7xLASev8JdWD-9oypQ@mail.gmail.com>
+Subject: Re: [alsa-devel] [PATCH] ALSA: usb-audio: Disable quirks for BOSS
+ Katana amplifiers
+To: Mike Oliphant <oliphant@nostatic.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+X-Content-Filtered-By: Mailman/MimeDel 2.1.15
+Cc: Takashi Iwai <tiwai@suse.de>, alsa-devel@alsa-project.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -87,148 +100,125 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+Hi Mike,
+That's odd. I've been using the patches in this thread with both my GT-001
+and my GT-1 with no issues for a few weeks now. Of course that might be
+pure dumb luck and differences in hardware, interrupts, and so on.
 
+Cheers,
 
-On 10/14/20 9:16 AM, Tomasz Figa wrote:
-> This is a copy of commit 5c5f1baee85a ("ASoC: Intel:
-> kbl_rt5663_rt5514_max98927: Fix kabylake_ssp_fixup function") applied to
-> the kbl_rt5663_max98927 board file.
-> 
-> Original explanation of the change:
-> 
-> kabylake_ssp_fixup function uses snd_soc_dpcm to identify the
-> codecs DAIs. The HW parameters are changed based on the codec DAI of the
-> stream. The earlier approach to get snd_soc_dpcm was using container_of()
-> macro on snd_pcm_hw_params.
-> 
-> The structures have been modified over time and snd_soc_dpcm does not have
-> snd_pcm_hw_params as a reference but as a copy. This causes the current
-> driver to crash when used.
-> 
-> This patch changes the way snd_soc_dpcm is extracted. snd_soc_pcm_runtime
-> holds 2 dpcm instances (one for playback and one for capture). 2 codecs
-> on the SSP are dmic (capture) and speakers (playback). Based on the
-> stream direction, snd_soc_dpcm is extracted from snd_soc_pcm_runtime.
-> 
-> Fixes a boot crash on a HP Chromebook x2:
-> 
-> [   16.582225] BUG: kernel NULL pointer dereference, address: 0000000000000050
-> [   16.582231] #PF: supervisor read access in kernel mode
-> [   16.582233] #PF: error_code(0x0000) - not-present page
-> [   16.582234] PGD 0 P4D 0
-> [   16.582238] Oops: 0000 [#1] PREEMPT SMP PTI
-> [   16.582241] CPU: 0 PID: 1980 Comm: cras Tainted: G         C        5.4.58 #1
-> [   16.582243] Hardware name: HP Soraka/Soraka, BIOS Google_Soraka.10431.75.0 08/30/2018
-> [   16.582247] RIP: 0010:kabylake_ssp_fixup+0x19/0xbb [snd_soc_kbl_rt5663_max98927]
-> [   16.582250] Code: c6 6f c5 80 c0 44 89 f2 31 c0 e8 3e c9 4c d6 eb de 0f 1f 44 00 00 55 48 89 e5 41 57 41 56 53 48 89 f3 48 8b 46 c8 48 8b 4e d0 <48> 8b 49 10 4c 8b 78 10 4c 8b 31 4c 89 f7 48 c7 c6 4b c2 80 c0 e8
-> [   16.582252] RSP: 0000:ffffaf7e81e0b958 EFLAGS: 00010282
-> [   16.582254] RAX: ffffffff96f13e0d RBX: ffffaf7e81e0ba00 RCX: 0000000000000040
-> [   16.582256] RDX: ffffaf7e81e0ba00 RSI: ffffaf7e81e0ba00 RDI: ffffa3b208558028
-> [   16.582258] RBP: ffffaf7e81e0b970 R08: ffffa3b203b54160 R09: ffffaf7e81e0ba00
-> [   16.582259] R10: 0000000000000000 R11: ffffffffc080b345 R12: ffffa3b209fb6e00
-> [   16.582261] R13: ffffa3b1b1a47838 R14: ffffa3b1e6197f28 R15: ffffaf7e81e0ba00
-> [   16.582263] FS:  00007eb3f25aaf80(0000) GS:ffffa3b236a00000(0000) knlGS:0000000000000000
-> [   16.582265] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-> [   16.582267] CR2: 0000000000000050 CR3: 0000000246bc8006 CR4: 00000000003606f0
-> [   16.582269] Call Trace:
-> [   16.582275]  snd_soc_link_be_hw_params_fixup+0x21/0x68
-> [   16.582278]  snd_soc_dai_hw_params+0x25/0x94
-> [   16.582282]  soc_pcm_hw_params+0x2d8/0x583
-> [   16.582288]  dpcm_be_dai_hw_params+0x172/0x29e
-> [   16.582291]  dpcm_fe_dai_hw_params+0x9f/0x12f
-> [   16.582295]  snd_pcm_hw_params+0x137/0x41c
-> [   16.582298]  snd_pcm_hw_params_user+0x3c/0x71
-> [   16.582301]  snd_pcm_common_ioctl+0x2c6/0x565
-> [   16.582304]  snd_pcm_ioctl+0x32/0x36
-> [   16.582307]  do_vfs_ioctl+0x506/0x783
-> [   16.582311]  ksys_ioctl+0x58/0x83
-> [   16.582313]  __x64_sys_ioctl+0x1a/0x1e
-> [   16.582316]  do_syscall_64+0x54/0x7e
-> [   16.582319]  entry_SYSCALL_64_after_hwframe+0x44/0xa9
-> [   16.582322] RIP: 0033:0x7eb3f1886157
-> [   16.582324] Code: 8a 66 90 48 8b 05 11 dd 2b 00 64 c7 00 26 00 00 00 48 c7 c0 ff ff ff ff c3 66 2e 0f 1f 84 00 00 00 00 00 b8 10 00 00 00 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 8b 0d e1 dc 2b 00 f7 d8 64 89 01 48
-> [   16.582326] RSP: 002b:00007ffff7559818 EFLAGS: 00000246 ORIG_RAX: 0000000000000010
-> [   16.582329] RAX: ffffffffffffffda RBX: 00005acc9188b140 RCX: 00007eb3f1886157
-> [   16.582330] RDX: 00007ffff7559940 RSI: 00000000c2604111 RDI: 000000000000001e
-> [   16.582332] RBP: 00007ffff7559840 R08: 0000000000000004 R09: 0000000000000000
-> [   16.582333] R10: 0000000000000000 R11: 0000000000000246 R12: 000000000000bb80
-> [   16.582335] R13: 00005acc91702e80 R14: 00007ffff7559940 R15: 00005acc91702e80
-> [   16.582337] Modules linked in: rfcomm cmac algif_hash algif_skcipher af_alg uinput hid_google_hammer snd_soc_kbl_rt5663_max98927 snd_soc_hdac_hdmi snd_soc_dmic snd_soc_skl_ssp_clk snd_soc_skl snd_soc_sst_ipc snd_soc_sst_dsp snd_soc_hdac_hda snd_soc_acpi_intel_match snd_soc_acpi snd_hda_ext_core snd_intel_dspcfg snd_hda_codec snd_hwdep snd_hda_core ipu3_cio2 ipu3_imgu(C) videobuf2_v4l2 videobuf2_common videobuf2_dma_sg videobuf2_memops snd_soc_rt5663 snd_soc_max98927 snd_soc_rl6231 ov5670 ov13858 acpi_als v4l2_fwnode dw9714 fuse xt_MASQUERADE iio_trig_sysfs cros_ec_light_prox cros_ec_sensors cros_ec_sensors_core cros_ec_sensors_ring industrialio_triggered_buffer kfifo_buf industrialio cros_ec_sensorhub cdc_ether usbnet btusb btrtl btintel btbcm bluetooth ecdh_generic ecc lzo_rle lzo_compress iwlmvm zram iwl7000_mac80211 r8152 mii iwlwifi cfg80211 joydev
-> [   16.584243] gsmi: Log Shutdown Reason 0x03
-> [   16.584246] CR2: 0000000000000050
-> [   16.584248] ---[ end trace c8511d090c11edff ]---
-> 
-> Suggested-by: Łukasz Majczak <lmajczak@google.com>
-> Fixes: 2e5894d73789e ("ASoC: pcm: Add support for DAI multicodec")
-> Signed-off-by: Tomasz Figa <tfiga@chromium.org>
+Keith
 
-Acked-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+On Wed, 14 Oct 2020 at 16:19, Mike Oliphant <oliphant@nostatic.org> wrote:
 
-Thanks!
+> When I tried this change earlier this year on the BOSS GT-1, it enabled
+> sound output on the card (which was not previously working), but with
+> significant issues. It resulted in frequent pops and crackles - presumabl=
+y
+> because of the loss of synchronization using implicit feedback.
+>
+> This was the fix that ended up working for me:
+>
+>
+> https://mailman.alsa-project.org/pipermail/alsa-devel/2020-January/161951=
+.html
+>
+> But maybe something else has changed in the handling of implicit feedback
+> since then?
+>
+> Mike
+>
+> On Wed, Oct 14, 2020 at 5:17 AM Mailing Lists <maillist@superlative.org>
+> wrote:
+>
+>> Following up on this, it appears there are a bunch of the
+>> newer-generation Roland/Boss devices which need similar treatment.
+>>
+>> So far I have tested the GT-1, the GT-001, and the BR-80, and others hav=
+e
+>> reported the RC-300 as working with similar modifications. I have been
+>> using the following change to the code in pcm.c
+>> set_sync_ep_implicit_fb_quirk:
+>>
+>>     case USB_ID(0x0582, 0x01d8): /* BOSS Katana */
+>>     case USB_ID(0x0582, 0x0130): /* BOSS Micro BR-80 */
+>>     case USB_ID(0x0582, 0x0138): /* BOSS RC-300 */
+>>     case USB_ID(0x0582, 0x01d6): /* BOSS GT-1 */
+>>     case USB_ID(0x0582, 0x01e5): /* BOSS GT-001 */
+>> /* BOSS Katana amplifiers and many other newer BOSS devices do not need
+>> quirks */
+>>
+>> There's probably others too, such as the GT-100 (I believe the GT-001 an=
+d
+>> GT-100 have similar hardware).
+>>
+>> My question is, should this just be submitted as a patch to pcm.c or
+>> would it be better handled in quirks and, if so, how?
+>>
+>> Or something else?
+>>
+>> Personally, I dislike the approach of hard-coding exceptions into core
+>> code as it seems that's what quirks are there for, but there seems to be=
+ a
+>> whole bunch of exceptions in there already.
+>>
+>> Cheers,
+>>
+>> Keith
+>>
+>> On Thu, 17 Oct 2019 at 09:20, Takashi Iwai <tiwai@suse.de> wrote:
+>>
+>>> On Fri, 11 Oct 2019 19:19:36 +0200,
+>>> Szabolcs Sz=C5=91ke wrote:
+>>> >
+>>> > BOSS Katana amplifiers cannot be used for recording or playback if
+>>> quirks
+>>> > are applied
+>>> >
+>>> > BugLink: https://bugzilla.kernel.org/show_bug.cgi?id=3D195223
+>>> > Signed-off-by: Szabolcs Sz=C5=91ke <szszoke.code@gmail.com>
+>>>
+>>> Applied now.  Thanks.
+>>>
+>>>
+>>> Takashi
+>>>
+>>> >
+>>> > ---
+>>> >  sound/usb/pcm.c | 3 +++
+>>> >  1 file changed, 3 insertions(+)
+>>> >
+>>> > diff --git a/sound/usb/pcm.c b/sound/usb/pcm.c
+>>> > index 33cd26763c0e..daadb0c66eee 100644
+>>> > --- a/sound/usb/pcm.c
+>>> > +++ b/sound/usb/pcm.c
+>>> > @@ -348,6 +348,9 @@ static int set_sync_ep_implicit_fb_quirk(struct
+>>> snd_usb_substream *subs,
+>>> >               ep =3D 0x84;
+>>> >               ifnum =3D 0;
+>>> >               goto add_sync_ep_from_ifnum;
+>>> > +     case USB_ID(0x0582, 0x01d8): /* BOSS Katana */
+>>> > +             /* BOSS Katana amplifiers do not need quirks */
+>>> > +             return 0;
+>>> >       }
+>>> >
+>>> >       if (attr =3D=3D USB_ENDPOINT_SYNC_ASYNC &&
+>>> > --
+>>> > 2.20.1
+>>> >
+>>> _______________________________________________
+>>> Alsa-devel mailing list
+>>> Alsa-devel@alsa-project.org
+>>> https://mailman.alsa-project.org/mailman/listinfo/alsa-devel
+>>>
+>>
+>>
+>> --
+>> --
+>> Keith A Milner
+>>
+>
 
-> ---
->   sound/soc/intel/boards/kbl_rt5663_max98927.c | 39 ++++++++++++++++----
->   1 file changed, 31 insertions(+), 8 deletions(-)
-> 
-> diff --git a/sound/soc/intel/boards/kbl_rt5663_max98927.c b/sound/soc/intel/boards/kbl_rt5663_max98927.c
-> index 3ea4602dfb3e..9a4b3d0973f6 100644
-> --- a/sound/soc/intel/boards/kbl_rt5663_max98927.c
-> +++ b/sound/soc/intel/boards/kbl_rt5663_max98927.c
-> @@ -401,17 +401,40 @@ static int kabylake_ssp_fixup(struct snd_soc_pcm_runtime *rtd,
->   	struct snd_interval *chan = hw_param_interval(params,
->   			SNDRV_PCM_HW_PARAM_CHANNELS);
->   	struct snd_mask *fmt = hw_param_mask(params, SNDRV_PCM_HW_PARAM_FORMAT);
-> -	struct snd_soc_dpcm *dpcm = container_of(
-> -			params, struct snd_soc_dpcm, hw_params);
-> -	struct snd_soc_dai_link *fe_dai_link = dpcm->fe->dai_link;
-> -	struct snd_soc_dai_link *be_dai_link = dpcm->be->dai_link;
-> +	struct snd_soc_dpcm *dpcm, *rtd_dpcm = NULL;
-> +
-> +	/*
-> +	 * The following loop will be called only for playback stream
-> +	 * In this platform, there is only one playback device on every SSP
-> +	 */
-> +	for_each_dpcm_fe(rtd, SNDRV_PCM_STREAM_PLAYBACK, dpcm) {
-> +		rtd_dpcm = dpcm;
-> +		break;
-> +	}
-> +
-> +	/*
-> +	 * This following loop will be called only for capture stream
-> +	 * In this platform, there is only one capture device on every SSP
-> +	 */
-> +	for_each_dpcm_fe(rtd, SNDRV_PCM_STREAM_CAPTURE, dpcm) {
-> +		rtd_dpcm = dpcm;
-> +		break;
-> +	}
-> +
-> +	if (!rtd_dpcm)
-> +		return -EINVAL;
-> +
-> +	/*
-> +	 * The above 2 loops are mutually exclusive based on the stream direction,
-> +	 * thus rtd_dpcm variable will never be overwritten
-> +	 */
->   
->   	/*
->   	 * The ADSP will convert the FE rate to 48k, stereo, 24 bit
->   	 */
-> -	if (!strcmp(fe_dai_link->name, "Kbl Audio Port") ||
-> -	    !strcmp(fe_dai_link->name, "Kbl Audio Headset Playback") ||
-> -	    !strcmp(fe_dai_link->name, "Kbl Audio Capture Port")) {
-> +	if (!strcmp(rtd_dpcm->fe->dai_link->name, "Kbl Audio Port") ||
-> +	    !strcmp(rtd_dpcm->fe->dai_link->name, "Kbl Audio Headset Playback") ||
-> +	    !strcmp(rtd_dpcm->fe->dai_link->name, "Kbl Audio Capture Port")) {
->   		rate->min = rate->max = 48000;
->   		chan->min = chan->max = 2;
->   		snd_mask_none(fmt);
-> @@ -421,7 +444,7 @@ static int kabylake_ssp_fixup(struct snd_soc_pcm_runtime *rtd,
->   	 * The speaker on the SSP0 supports S16_LE and not S24_LE.
->   	 * thus changing the mask here
->   	 */
-> -	if (!strcmp(be_dai_link->name, "SSP0-Codec"))
-> +	if (!strcmp(rtd_dpcm->be->dai_link->name, "SSP0-Codec"))
->   		snd_mask_set_format(fmt, SNDRV_PCM_FORMAT_S16_LE);
->   
->   	return 0;
-> 
+--=20
+--=20
+Keith A Milner

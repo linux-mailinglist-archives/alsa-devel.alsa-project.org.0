@@ -2,63 +2,89 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id AC15128E1A9
-	for <lists+alsa-devel@lfdr.de>; Wed, 14 Oct 2020 15:49:47 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1729F28E1C6
+	for <lists+alsa-devel@lfdr.de>; Wed, 14 Oct 2020 15:58:34 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 3E9C316F5;
-	Wed, 14 Oct 2020 15:48:57 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3E9C316F5
+	by alsa0.perex.cz (Postfix) with ESMTPS id 8D42516FB;
+	Wed, 14 Oct 2020 15:57:43 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8D42516FB
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1602683387;
-	bh=Xu+7Zfi8gZnTKc3lyGzK1lOFQWyPkfU5ag72ipyZjgA=;
-	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1602683913;
+	bh=ZFHHJmxGKhNcDkPIY24cdZ1v8Ky74L4qAcwV5vDlUsY=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=q2Roe5Hj4Kb3rrmEEq28nZ0JuQadSrTbKZzXPBBz4ShuinlDFiI2JThL+TkmaULeC
-	 NAFc/P6I+8iZBeBeJwtplDVlAmBzUL1t5lEOGpMZHEjEa0loFglIuWhenmI0Ci12kf
-	 kAQIXT38UiBquJ2NbnCc3feRVVEA0e/t/d4sII98=
+	b=SbrBfwEsYJK5cPn2xuZQXFJmUetpN+LfdaKOEFvyJ90H+9svf+DpEOnSTtjPl6UZa
+	 652Pp6aXGOqeRV+KwtW0vfL5fFzimfXIdX6LLG0wInwlrS5uFlVf56IhKlgHJGz0FF
+	 VFfnJUuist84maQRQCVWaGo8B300ANRYlGqnpx4g=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id D90D4F8020D;
-	Wed, 14 Oct 2020 15:48:06 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 2D116F800F6;
+	Wed, 14 Oct 2020 15:56:53 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 82873F80217; Wed, 14 Oct 2020 15:48:04 +0200 (CEST)
+ id 10272F80217; Wed, 14 Oct 2020 15:56:52 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_MSPIKE_H3,
- RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,HTML_MESSAGE,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from mail-ot1-x343.google.com (mail-ot1-x343.google.com
+ [IPv6:2607:f8b0:4864:20::343])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 9C5CFF800F6
- for <alsa-devel@alsa-project.org>; Wed, 14 Oct 2020 15:47:58 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9C5CFF800F6
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id C5125B120;
- Wed, 14 Oct 2020 13:47:57 +0000 (UTC)
-Date: Wed, 14 Oct 2020 15:47:57 +0200
-Message-ID: <s5hpn5kkjg2.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Mailing Lists <maillist@superlative.org>
-Subject: Re: [alsa-devel] [PATCH] ALSA: usb-audio: Disable quirks for BOSS
- Katana amplifiers
-In-Reply-To: <CAPMdQDnDOF7a9vwuFa1GyFQmZQY4GvDKPeY_NMu2kUDQfqo7fg@mail.gmail.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 11357F80118
+ for <alsa-devel@alsa-project.org>; Wed, 14 Oct 2020 15:56:45 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 11357F80118
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=superlative.org header.i=@superlative.org
+ header.b="d7NMdAKV"
+Received: by mail-ot1-x343.google.com with SMTP id d28so3516295ote.1
+ for <alsa-devel@alsa-project.org>; Wed, 14 Oct 2020 06:56:45 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=superlative.org; s=google;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=8SBpjNyGFaaumWL8VdKmKjLDvE0R2Y5pPw6DBebtPOg=;
+ b=d7NMdAKVzAZr6WPuJJr37Asyo+49BkEUkMetK4nd+EHNjQGd5yR2zkiw/3VTnXvypv
+ E4agqsA1Oo56bKZMMGVQnbDRDJn6s1HKJ5hvgqlF6EAssm6kygG+TjpD36M+VC1zYsGB
+ habaXo7gE6qqMvDKxVF7jdCtyXg2DENnzwL0oKcRWpjZrmu/SuqKeb/joonRs87hX5SU
+ NGX+vt2Xa6KR9d6S9jRud9fzMNjZmz4UZdiW7bxlbRfF3RTiWkH3npdrL7iwioCScaaK
+ sqZxEdV2hjDmwmRtBbLUfgLxwPAhgyJz6TXoZ2IvyRu0bPNifieKQNmENmo3PhFvsHp1
+ 623Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=8SBpjNyGFaaumWL8VdKmKjLDvE0R2Y5pPw6DBebtPOg=;
+ b=Cci/opwrn6Pi3oWcjZFQY8v4pRHgnGir3aTOQOgOwbl5iNpR9rLedwLRXDL0kqiMqp
+ zem10moSOpBag2nIKgcrvL3Z4KBUvLet8rQ/6WzA/wAgMroxGAVTdHTEUG4+iLK4wiww
+ RHBlPiZKfi/tWsSUFS1ausfYipNcdnBt+Kw1YAt02L1UCbtgimU96qNjqV091+1MNrtS
+ 1E77X7rhUrUmUIATl4E3RUliYN5OMZ0IAvRiG32zNyQe/emopVPU69lyPozuVxRAGY+X
+ Y/snb7bSdhEF8B/WyeYlxdhJEabOHWbuIkQYWJcP9Mo48m0upB8gR1Zm1oR4TL5yB7sO
+ xoiw==
+X-Gm-Message-State: AOAM5329hwwsOt1rAK0/EQ/xpeD4Y2PrMTgoq9qXb/qZtNtJcGiLyoL5
+ a64rLtt9DRmzjgxX+Mm86yJF4hFzZ/BR3DDHmU/swg==
+X-Google-Smtp-Source: ABdhPJwUTPTiJbzdM+GRA394KRcKerewzWdNcy7yzWWoMRvT7CsgBk1Gp2hkJNN8sD2GhpJkadZ4fZo6OXobeCOGVWw=
+X-Received: by 2002:a9d:1b06:: with SMTP id l6mr3451483otl.313.1602683803001; 
+ Wed, 14 Oct 2020 06:56:43 -0700 (PDT)
+MIME-Version: 1.0
 References: <20191011171937.8013-1-szszoke.code@gmail.com>
  <s5hftjriy1q.wl-tiwai@suse.de>
  <CAPMdQDmY7CdbrHyOwhJNFBREQ0EO1SKufRdN_YR6TG4zmJzXpA@mail.gmail.com>
  <s5hy2k9j6no.wl-tiwai@suse.de>
  <CAPMdQDnDOF7a9vwuFa1GyFQmZQY4GvDKPeY_NMu2kUDQfqo7fg@mail.gmail.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
- FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
- (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
-MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+ <s5hpn5kkjg2.wl-tiwai@suse.de>
+In-Reply-To: <s5hpn5kkjg2.wl-tiwai@suse.de>
+From: Mailing Lists <maillist@superlative.org>
+Date: Wed, 14 Oct 2020 14:56:32 +0100
+Message-ID: <CAPMdQDnn=M_QNWz7bNfR6vB7dr4fFRB4fQjRvXfuHzrbQak5Eg@mail.gmail.com>
+Subject: Re: [alsa-devel] [PATCH] ALSA: usb-audio: Disable quirks for BOSS
+ Katana amplifiers
+To: Takashi Iwai <tiwai@suse.de>
+Content-Type: text/plain; charset="UTF-8"
+X-Content-Filtered-By: Mailman/MimeDel 2.1.15
 Cc: alsa-devel@alsa-project.org, Mike Oliphant <oliphant@nostatic.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
@@ -75,110 +101,153 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Wed, 14 Oct 2020 15:33:03 +0200,
-Mailing Lists wrote:
-> 
-> Thanks for the response Takashi,
-> 
-> How should this be distinguishing between Roland and BOSS? They both have the
-> vendor ID 0x0582.
+Yes, and I don't think this is practical (at least, not obviously).
 
-Ah, right, I missed that point :-<
+The "Roland" vs "BOSS" thing is pure branding. I have BOSS branded devices,
+like the JS-8, which work perfectly without the patch as an example. It
+wouldn't surprise me if there are recent Roland branded devices which
+require the patch.
 
-So the question would be rather how to detect BOSS devices
-effectively...
+So I, personally, think it is beyond brand and is device range or
+generation specific. I guess it is possible there may be some technical
+parameter within the device descriptor which could indicate which variant
+the device is, but I don't know what that might be (if at all). At this
+point I think we probably have to apply a conditional setting based on the
+Product ID.
+
+Given that, is it best to continue hacking these into pcm.c, or should we
+be looking at a quirks-table way to describe these?
+
+Cheers,
+
+Keith
 
 
-thanks,
 
-Takashi
+On Wed, 14 Oct 2020 at 14:47, Takashi Iwai <tiwai@suse.de> wrote:
 
-> 
-> Cheers,
-> 
-> Keith
-> 
-> On Wed, 14 Oct 2020 at 14:09, Takashi Iwai <tiwai@suse.de> wrote:
-> 
->     On Wed, 14 Oct 2020 14:17:35 +0200,
->     Mailing Lists wrote:
->     >
->     > Following up on this, it appears there are a bunch of the
->     newer-generation
->     > Roland/Boss devices which need similar treatment.
->     >
->     > So far I have tested the GT-1, the GT-001, and the BR-80, and others
->     have
->     > reported the RC-300 as working with similar modifications. I have been
->     using
->     > the following change to the code in pcm.c set_sync_ep_implicit_fb_quirk:
->     >
->     >     case USB_ID(0x0582, 0x01d8): /* BOSS Katana */
->     >     case USB_ID(0x0582, 0x0130): /* BOSS Micro BR-80 */
->     >     case USB_ID(0x0582, 0x0138): /* BOSS RC-300 */
->     >     case USB_ID(0x0582, 0x01d6): /* BOSS GT-1 */
->     >     case USB_ID(0x0582, 0x01e5): /* BOSS GT-001 */
->     > /* BOSS Katana amplifiers and many other newer BOSS devices do not need
->     quirks
->     > */
->     >
->     > There's probably others too, such as the GT-100 (I believe the GT-001
->     and
->     > GT-100 have similar hardware).
->     >
->     > My question is, should this just be submitted as a patch to pcm.c or
->     would it
->     > be better handled in quirks and, if so, how?
->     >
->     > Or something else?
->    
->     Do we really need this change at all?  I looked at the code again, and
->     I noticed that basically the function should return 0 without setting
->     anything else even if you don't have the explicit ID checks there.
->    
->     The function looks like:
->    
->     static int set_sync_ep_implicit_fb_quirk(struct snd_usb_substream *subs,
->                                              struct usb_device *dev,
->                                              struct usb_interface_descriptor
->     *altsd,
->                                              unsigned int attr)
->     {
->             ....
->             switch (subs->stream->chip->usb_id) {
->             ....
->             case USB_ID(0x0582, 0x01d8): /* BOSS Katana */
->                     /* BOSS Katana amplifiers do not need quirks */
->                     return 0;
->             }
->    
->             if (attr == USB_ENDPOINT_SYNC_ASYNC &&
->                 altsd->bInterfaceClass == USB_CLASS_VENDOR_SPEC &&
->                 altsd->bInterfaceProtocol == 2 &&
->                 altsd->bNumEndpoints == 1 &&
->                 USB_ID_VENDOR(subs->stream->chip->usb_id) == 0x0582 /* Roland
->     */ &&
->                 search_roland_implicit_fb(dev, altsd->bInterfaceNumber + 1,
->                                           altsd->bAlternateSetting,
->                                           &alts, &ep) >= 0) {
->                     goto add_sync_ep;
->             }
->    
->             /* No quirk */
->             return 0;
->    
->     ... and the lengthy if-conditions after the switch/case is applied
->     only for Roland devices, hence it shouldn't influence on BOSS
->     devices.  After that point, the immediate return with 0, which is the
->     same as we do in switch/case.  So the explicit check of BOSS devices
->     there looks superfluous.
-> 
->     thanks,
->    
->     Takashi
-> 
-> --
-> --
-> Keith A Milner
-> 
-> 
+> On Wed, 14 Oct 2020 15:33:03 +0200,
+> Mailing Lists wrote:
+> >
+> > Thanks for the response Takashi,
+> >
+> > How should this be distinguishing between Roland and BOSS? They both
+> have the
+> > vendor ID 0x0582.
+>
+> Ah, right, I missed that point :-<
+>
+> So the question would be rather how to detect BOSS devices
+> effectively...
+>
+>
+> thanks,
+>
+> Takashi
+>
+> >
+> > Cheers,
+> >
+> > Keith
+> >
+> > On Wed, 14 Oct 2020 at 14:09, Takashi Iwai <tiwai@suse.de> wrote:
+> >
+> >     On Wed, 14 Oct 2020 14:17:35 +0200,
+> >     Mailing Lists wrote:
+> >     >
+> >     > Following up on this, it appears there are a bunch of the
+> >     newer-generation
+> >     > Roland/Boss devices which need similar treatment.
+> >     >
+> >     > So far I have tested the GT-1, the GT-001, and the BR-80, and
+> others
+> >     have
+> >     > reported the RC-300 as working with similar modifications. I have
+> been
+> >     using
+> >     > the following change to the code in pcm.c
+> set_sync_ep_implicit_fb_quirk:
+> >     >
+> >     >     case USB_ID(0x0582, 0x01d8): /* BOSS Katana */
+> >     >     case USB_ID(0x0582, 0x0130): /* BOSS Micro BR-80 */
+> >     >     case USB_ID(0x0582, 0x0138): /* BOSS RC-300 */
+> >     >     case USB_ID(0x0582, 0x01d6): /* BOSS GT-1 */
+> >     >     case USB_ID(0x0582, 0x01e5): /* BOSS GT-001 */
+> >     > /* BOSS Katana amplifiers and many other newer BOSS devices do not
+> need
+> >     quirks
+> >     > */
+> >     >
+> >     > There's probably others too, such as the GT-100 (I believe the
+> GT-001
+> >     and
+> >     > GT-100 have similar hardware).
+> >     >
+> >     > My question is, should this just be submitted as a patch to pcm.c
+> or
+> >     would it
+> >     > be better handled in quirks and, if so, how?
+> >     >
+> >     > Or something else?
+> >
+> >     Do we really need this change at all?  I looked at the code again,
+> and
+> >     I noticed that basically the function should return 0 without setting
+> >     anything else even if you don't have the explicit ID checks there.
+> >
+> >     The function looks like:
+> >
+> >     static int set_sync_ep_implicit_fb_quirk(struct snd_usb_substream
+> *subs,
+> >                                              struct usb_device *dev,
+> >                                              struct
+> usb_interface_descriptor
+> >     *altsd,
+> >                                              unsigned int attr)
+> >     {
+> >             ....
+> >             switch (subs->stream->chip->usb_id) {
+> >             ....
+> >             case USB_ID(0x0582, 0x01d8): /* BOSS Katana */
+> >                     /* BOSS Katana amplifiers do not need quirks */
+> >                     return 0;
+> >             }
+> >
+> >             if (attr == USB_ENDPOINT_SYNC_ASYNC &&
+> >                 altsd->bInterfaceClass == USB_CLASS_VENDOR_SPEC &&
+> >                 altsd->bInterfaceProtocol == 2 &&
+> >                 altsd->bNumEndpoints == 1 &&
+> >                 USB_ID_VENDOR(subs->stream->chip->usb_id) == 0x0582 /*
+> Roland
+> >     */ &&
+> >                 search_roland_implicit_fb(dev, altsd->bInterfaceNumber +
+> 1,
+> >                                           altsd->bAlternateSetting,
+> >                                           &alts, &ep) >= 0) {
+> >                     goto add_sync_ep;
+> >             }
+> >
+> >             /* No quirk */
+> >             return 0;
+> >
+> >     ... and the lengthy if-conditions after the switch/case is applied
+> >     only for Roland devices, hence it shouldn't influence on BOSS
+> >     devices.  After that point, the immediate return with 0, which is the
+> >     same as we do in switch/case.  So the explicit check of BOSS devices
+> >     there looks superfluous.
+> >
+> >     thanks,
+> >
+> >     Takashi
+> >
+> > --
+> > --
+> > Keith A Milner
+> >
+> >
+>
+
+
+-- 
+-- 
+Keith A Milner

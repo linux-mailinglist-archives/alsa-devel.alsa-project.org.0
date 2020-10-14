@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 13DE628D9F2
-	for <lists+alsa-devel@lfdr.de>; Wed, 14 Oct 2020 08:23:00 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id BC27A28D9F7
+	for <lists+alsa-devel@lfdr.de>; Wed, 14 Oct 2020 08:25:06 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id AFA72167B;
-	Wed, 14 Oct 2020 08:22:09 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AFA72167B
+	by alsa0.perex.cz (Postfix) with ESMTPS id 5C99F16C6;
+	Wed, 14 Oct 2020 08:24:16 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5C99F16C6
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1602656579;
-	bh=zP7eKtIGVAId2sWrkMbCbZzlvjKt9T+etE8r7gftY8I=;
+	s=default; t=1602656706;
+	bh=ZCOUK25KOl0D9VhqDNrdjv6RC5KEw3s0HzHAUj+BiYQ=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=GwZzMglOn4Q/KGfcqVXvUk4/FF03i1U30f6fUQL9Nl73EbmdViLZF5S21a6b/wieL
-	 +uHUcviMAvagYnPiN2tTQm/sMFr2G1oEJQj70AIItW0rEwnYmm4FqfHDFIuZawmX0N
-	 wLPEO047Q8vk/bZVaWGEtNjJJozsdjZnSJur0TiY=
+	b=jX8LnQbzEFFiOwlHRMicLRyvqHFVhFMmSSqbWp3QQJw8JuOribe6acO0J8wwGmHyk
+	 AXibNAf5C3rGvCGf7Qa/gVZBLlHK9mt8LXhjviTg5/iJoEty0UB6EWxKg5r4u8t+ji
+	 3Gcarp3iQTWO/+8SM/9o5Wqwp3MZe2AbIx/cNstk=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id E8C22F80268;
-	Wed, 14 Oct 2020 08:20:08 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 14E8EF802FB;
+	Wed, 14 Oct 2020 08:20:21 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id F3D50F80274; Wed, 14 Oct 2020 08:20:02 +0200 (CEST)
+ id D93F6F802FD; Wed, 14 Oct 2020 08:20:18 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -35,42 +35,42 @@ Received: from wnew2-smtp.messagingengine.com (wnew2-smtp.messagingengine.com
  [64.147.123.27])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id AEC44F80225
+ by alsa1.perex.cz (Postfix) with ESMTPS id CD684F80217
  for <alsa-devel@alsa-project.org>; Wed, 14 Oct 2020 08:19:52 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz AEC44F80225
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CD684F80217
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=sholland.org header.i=@sholland.org
- header.b="mCFBuHL2"; 
+ header.b="DJEuNCgx"; 
  dkim=pass (2048-bit key) header.d=messagingengine.com
- header.i=@messagingengine.com header.b="K6HfyKo0"
+ header.i=@messagingengine.com header.b="eDyP7a24"
 Received: from compute5.internal (compute5.nyi.internal [10.202.2.45])
- by mailnew.west.internal (Postfix) with ESMTP id C6C53250;
- Wed, 14 Oct 2020 02:19:45 -0400 (EDT)
+ by mailnew.west.internal (Postfix) with ESMTP id 432B7CC4;
+ Wed, 14 Oct 2020 02:19:46 -0400 (EDT)
 Received: from mailfrontend1 ([10.202.2.162])
- by compute5.internal (MEProxy); Wed, 14 Oct 2020 02:19:46 -0400
+ by compute5.internal (MEProxy); Wed, 14 Oct 2020 02:19:47 -0400
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sholland.org; h=
  from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding; s=fm3; bh=dsTqx9fih4qel
- tXgxFFCvDgkr4kxr99tOm8ZaqRJzWc=; b=mCFBuHL278LSXO6A/i6hUVHQSKYiV
- FxOko4paSAlNY5koWEDynyCPPDya3xmctHBNonlMn7cGv8xPSDlQjl1pechlbRyn
- /1V8GK/+kk7f33nD1rcVmNBIJxb12PovXyvEZhFc/iiiQg6Zg13A1bH8GghagMsM
- 9bAiXGvQjoDRgKTHHjf7AXz0uR2Anr86gMKbLQhE65Q+5NqU+5QhP/gccHh/xkFm
- oAyz6N+aOh+BG58mI1Q1b0T3g3+IRKH1CAfRxF5kQsCeXaPyM/Qua0vCMk5aRV26
- zjxlyGy3QcMnKapANr9sYAgQcH4GD4uSm5CnLKWc8CTCqyue0S4ic0CCQ==
+ :mime-version:content-transfer-encoding; s=fm3; bh=MZVZH3gnQoFwO
+ t0xoqeNhspb3gmAXVdz0kpX7WcBWco=; b=DJEuNCgxktR48F5ayRgVaXOYfldT9
+ wxo3IRe7oK6unpzg+Z85LITiQGOBML38VPWOA7bwI462FjVke+Ota9WE2gSPfX4V
+ U4U9YJBzIgsxu83Alk5VDw7ZqCi4tCh96cuwgro0g0RkYOBF1hUSZHEow6tGKL+q
+ qEZShGsGpDvxZjDp2CEklfq+UQ6WD/tNMn6UZ5nBiz5KE3wUNa84GoK2HeIlK0Km
+ 0yrsvwKobInBicF+eqeowYa6FvI7Nb8fgfnY+VOvhMaiqQNleXqaMzn1LYeFkx1b
+ dpXUEk6dCHfdpaPp4JnJhJMq2qr2kd0OWJ5cV55zIbio/mODtcThzRmwg==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
  messagingengine.com; h=cc:content-transfer-encoding:date:from
  :in-reply-to:message-id:mime-version:references:subject:to
  :x-me-proxy:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
- fm1; bh=dsTqx9fih4qeltXgxFFCvDgkr4kxr99tOm8ZaqRJzWc=; b=K6HfyKo0
- THYsGFONlE8rWh/c0WxceKK2xBA8qZlMRY6QDuiFz8+AgUatZYx++PyfUkwEP0hJ
- pFJpBqI3+5YclgkSjJfCCuIM5O1cNTEOnEWpDYUtVE5V2sygtBhZ4MAM1yJf24dS
- u+nJzaVKpg493hsv0WibHty5t4Wk2TVbdYwkyYBX61lELwqR+G16yqzJuPpxWU9a
- 0/Amyxx6I++qi+UZjL6+nXh3hKdBZTV35/E3zGeeQ1mHu61RrL1Wa+OloLfbnfcs
- finy4WVpq6x+9zQC3iUR97TrfTgdi6iOv52SmJ8DmPKSeMTavlDjOxGASsCgLIUd
- CvSLenkNFFaHGg==
-X-ME-Sender: <xms:gZiGXyzwYYjpPOcTo5VzpOgYkXlWGgU89XHMSittPl_hzdchBC3n-g>
- <xme:gZiGX-TmAOgO8lKY5E71dFxXR-u2KnmYgAjg1LLAnSd2GzffCQz8ooRh3mqMDs0eV
- P57m428CEC7ioHIOQ>
+ fm1; bh=MZVZH3gnQoFwOt0xoqeNhspb3gmAXVdz0kpX7WcBWco=; b=eDyP7a24
+ YahGllPeHVl9B9CZXs96HvJpAdJGpZannWchk3PmwT/NWckQ/utqGQo2QtoLi1NS
+ 4C7/R+RwRaOb+Lo9pHvEecgZ+Xcd2QtdPq9UDV7c1YW7eJ+nDeHGMKmigJq68Bft
+ uPNlaigTS0Gh3H9a9Lu+scvFuVAuJu6h4GYwuseQh1Pw1AnHRfeou9OwxA3KTEw2
+ 5JHNTMdiheLr7fA0Un/CFKvqwYrZ2zHbRfqALxeUhs/MdQ1q5MRsx9Ar2riTosKw
+ ehVLFW1mBK/qG/YShSpvHJPnjsBi1pp1crqnktsUUukuRvak+sNRp4tsgPuPEKEB
+ qt6cJNLV1m2Zeg==
+X-ME-Sender: <xms:gZiGX_capqC6aZBS4izn-8MedAwNYPtqiQ8hReQTePRMZ9STpCpHPQ>
+ <xme:gZiGX1OBnfgOyCVwXyBnywWhQOZPmxigR93C64OKVF7bF7MJd9y463G9LtJetcKum
+ Wkp9hAiXXiwTFeA0A>
 X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedujedriedtgddutdekucetufdoteggodetrfdotf
  fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
  uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
@@ -80,22 +80,21 @@ X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedujedriedtgddutdekucetufdoteggod
  gfejheeuieenucfkphepjedtrddufeehrddugeekrdduhedunecuvehluhhsthgvrhfuih
  iivgeptdenucfrrghrrghmpehmrghilhhfrhhomhepshgrmhhuvghlsehshhholhhlrghn
  ugdrohhrgh
-X-ME-Proxy: <xmx:gZiGX0V_YyGErE94WOhp7H_TAhL1O5hLjqdGQCT6EwVAhNzorC_fkw>
- <xmx:gZiGX4iaNAoCTAJzeTVB3gJ3DOBh1wRWw3FB6D-Vt7vYwgg2K7wUOQ>
- <xmx:gZiGX0DA3zxiQsJTBESeBV0uu14wnPCRBSLQR_oU2TngSEj2SuyCcw>
- <xmx:gZiGXw3DNAR14v1TqlO3ZU6hRR-8ddugs5MJlBHBMl7BQnV_tyATVjDcnzE>
+X-ME-Proxy: <xmx:gZiGX4j6JIdirYC73Zcag2Lgxa9hx7-XoVDAGaslnr6pZhqqYfoh3A>
+ <xmx:gZiGXw9IGO6BgiASVnYGhcz8mUfJjN6gHPTMS8rcpUrCcVul-cUyxQ>
+ <xmx:gZiGX7vsK93zwEVVg14oZDkZMrl22LXJtrLewPR8DPh6wwaOA5nWaQ>
+ <xmx:gZiGXxCVp1fxAr6bOWP2Smb16nSlAiJncGEEdLZPA0xhcwD00MLXmcfL__w>
 Received: from titanium.stl.sholland.net
  (70-135-148-151.lightspeed.stlsmo.sbcglobal.net [70.135.148.151])
- by mail.messagingengine.com (Postfix) with ESMTPA id ACAFB3280067;
- Wed, 14 Oct 2020 02:19:44 -0400 (EDT)
+ by mail.messagingengine.com (Postfix) with ESMTPA id 2C2AB3280060;
+ Wed, 14 Oct 2020 02:19:45 -0400 (EDT)
 From: Samuel Holland <samuel@sholland.org>
 To: Mark Brown <broonie@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>,
  Maxime Ripard <mripard@kernel.org>, Chen-Yu Tsai <wens@csie.org>,
  Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>
-Subject: [PATCH v2 06/17] ASoC: sun8i-codec: Correct the BCLK divisor
- calculation
-Date: Wed, 14 Oct 2020 01:19:30 -0500
-Message-Id: <20201014061941.4306-7-samuel@sholland.org>
+Subject: [PATCH v2 07/17] ASoC: sun8i-codec: Support the TDM slot binding
+Date: Wed, 14 Oct 2020 01:19:31 -0500
+Message-Id: <20201014061941.4306-8-samuel@sholland.org>
 X-Mailer: git-send-email 2.26.2
 In-Reply-To: <20201014061941.4306-1-samuel@sholland.org>
 References: <20201014061941.4306-1-samuel@sholland.org>
@@ -119,87 +118,125 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Previously, the BCLK divisor calculation assumed zero padding and
-exactly two slots. In order to support the TDM slot binding and
-20/24-bit word sizes, those assumptions must be removed.
-
-Due to hardware limitations, the BCLK/LRCK ratio is not as simple as
-"slot_width * slots". However, the correct value is already calculated
-elsewhere in this function, since it must also be programmed into the
-hardware. Reuse that value to calculate the correct SYSCLK/BCLK divisor.
+Now that BCLK and LRCK rate calculations in the driver can handle any
+hardware-supported slot width and number of slots, allow overriding
+those parameters from the device tree.
 
 Acked-by: Maxime Ripard <mripard@kernel.org>
 Signed-off-by: Samuel Holland <samuel@sholland.org>
 ---
- sound/soc/sunxi/sun8i-codec.c | 17 +++++++++--------
- 1 file changed, 9 insertions(+), 8 deletions(-)
+ sound/soc/sunxi/sun8i-codec.c | 28 ++++++++++++++++++++++++++--
+ 1 file changed, 26 insertions(+), 2 deletions(-)
 
 diff --git a/sound/soc/sunxi/sun8i-codec.c b/sound/soc/sunxi/sun8i-codec.c
-index 92fcef45097d..ae885774c877 100644
+index ae885774c877..49e763d1891b 100644
 --- a/sound/soc/sunxi/sun8i-codec.c
 +++ b/sound/soc/sunxi/sun8i-codec.c
-@@ -279,21 +279,21 @@ static const struct sun8i_codec_clk_div sun8i_codec_bclk_div[] = {
- 	{ .div = 48,	.val = 9 },
- 	{ .div = 64,	.val = 10 },
- 	{ .div = 96,	.val = 11 },
- 	{ .div = 128,	.val = 12 },
- 	{ .div = 192,	.val = 13 },
+@@ -94,25 +94,31 @@
+ #define SUN8I_AIF1CLK_CTRL_AIF1_WORD_SIZ_MASK	GENMASK(5, 4)
+ #define SUN8I_AIF1CLK_CTRL_AIF1_DATA_FMT_MASK	GENMASK(3, 2)
+ 
+ enum {
+ 	SUN8I_CODEC_AIF1,
+ 	SUN8I_CODEC_NAIFS
  };
  
- static u8 sun8i_codec_get_bclk_div(struct sun8i_codec *scodec,
--				   unsigned int rate,
--				   unsigned int word_size)
-+				   unsigned int lrck_div_order,
-+				   unsigned int sample_rate)
- {
- 	unsigned long clk_rate = clk_get_rate(scodec->clk_module);
--	unsigned int div = clk_rate / rate / word_size / 2;
-+	unsigned int div = clk_rate / sample_rate >> lrck_div_order;
- 	unsigned int best_val = 0, best_diff = ~0;
- 	int i;
- 
- 	for (i = 0; i < ARRAY_SIZE(sun8i_codec_bclk_div); i++) {
- 		const struct sun8i_codec_clk_div *bdiv = &sun8i_codec_bclk_div[i];
- 		unsigned int diff = abs(bdiv->div - div);
- 
- 		if (diff < best_diff) {
-@@ -343,30 +343,31 @@ static int sun8i_codec_hw_params(struct snd_pcm_substream *substream,
- 	default:
- 		return -EINVAL;
- 	}
- 
- 	regmap_update_bits(scodec->regmap, SUN8I_AIF1CLK_CTRL,
- 			   SUN8I_AIF1CLK_CTRL_AIF1_WORD_SIZ_MASK,
- 			   word_size << SUN8I_AIF1CLK_CTRL_AIF1_WORD_SIZ);
- 
--	bclk_div = sun8i_codec_get_bclk_div(scodec, params_rate(params), 16);
--	regmap_update_bits(scodec->regmap, SUN8I_AIF1CLK_CTRL,
--			   SUN8I_AIF1CLK_CTRL_AIF1_BCLK_DIV_MASK,
--			   bclk_div << SUN8I_AIF1CLK_CTRL_AIF1_BCLK_DIV);
--
- 	/* LRCK divider (BCLK/LRCK ratio) */
- 	lrck_div_order = sun8i_codec_get_lrck_div_order(slots, slot_width);
- 	if (lrck_div_order < 0)
- 		return lrck_div_order;
- 
- 	regmap_update_bits(scodec->regmap, SUN8I_AIF1CLK_CTRL,
- 			   SUN8I_AIF1CLK_CTRL_AIF1_LRCK_DIV_MASK,
- 			   (lrck_div_order - 4) << SUN8I_AIF1CLK_CTRL_AIF1_LRCK_DIV);
- 
-+	/* BCLK divider (SYSCLK/BCLK ratio) */
-+	bclk_div = sun8i_codec_get_bclk_div(scodec, lrck_div_order, params_rate(params));
-+	regmap_update_bits(scodec->regmap, SUN8I_AIF1CLK_CTRL,
-+			   SUN8I_AIF1CLK_CTRL_AIF1_BCLK_DIV_MASK,
-+			   bclk_div << SUN8I_AIF1CLK_CTRL_AIF1_BCLK_DIV);
++struct sun8i_codec_aif {
++	unsigned int	slots;
++	unsigned int	slot_width;
++};
 +
- 	sample_rate = sun8i_codec_get_hw_rate(params);
- 	if (sample_rate < 0)
- 		return sample_rate;
+ struct sun8i_codec_quirks {
+ 	bool legacy_widgets	: 1;
+ 	bool lrck_inversion	: 1;
+ };
  
- 	regmap_update_bits(scodec->regmap, SUN8I_SYS_SR_CTRL,
+ struct sun8i_codec {
+ 	struct regmap			*regmap;
+ 	struct clk			*clk_module;
+ 	const struct sun8i_codec_quirks	*quirks;
++	struct sun8i_codec_aif		aifs[SUN8I_CODEC_NAIFS];
+ };
+ 
+ static int sun8i_codec_runtime_resume(struct device *dev)
+ {
+ 	struct sun8i_codec *scodec = dev_get_drvdata(dev);
+ 	int ret;
+ 
+ 	regcache_cache_only(scodec->regmap, false);
+@@ -256,16 +262,32 @@ static int sun8i_codec_set_fmt(struct snd_soc_dai *dai, unsigned int fmt)
+ 
+ 	regmap_update_bits(scodec->regmap, SUN8I_AIF1CLK_CTRL,
+ 			   SUN8I_AIF1CLK_CTRL_AIF1_CLK_INV_MASK,
+ 			   invert << SUN8I_AIF1CLK_CTRL_AIF1_CLK_INV);
+ 
+ 	return 0;
+ }
+ 
++static int sun8i_codec_set_tdm_slot(struct snd_soc_dai *dai,
++				    unsigned int tx_mask, unsigned int rx_mask,
++				    int slots, int slot_width)
++{
++	struct sun8i_codec *scodec = snd_soc_dai_get_drvdata(dai);
++	struct sun8i_codec_aif *aif = &scodec->aifs[dai->id];
++
++	if (slot_width && !is_power_of_2(slot_width))
++		return -EINVAL;
++
++	aif->slots = slots;
++	aif->slot_width = slot_width;
++
++	return 0;
++}
++
+ struct sun8i_codec_clk_div {
+ 	u8	div;
+ 	u8	val;
+ };
+ 
+ static const struct sun8i_codec_clk_div sun8i_codec_bclk_div[] = {
+ 	{ .div = 1,	.val = 0 },
+ 	{ .div = 2,	.val = 1 },
+@@ -316,18 +338,19 @@ static int sun8i_codec_get_lrck_div_order(unsigned int slots,
+ 	return order_base_2(div);
+ }
+ 
+ static int sun8i_codec_hw_params(struct snd_pcm_substream *substream,
+ 				 struct snd_pcm_hw_params *params,
+ 				 struct snd_soc_dai *dai)
+ {
+ 	struct sun8i_codec *scodec = snd_soc_dai_get_drvdata(dai);
+-	unsigned int slots = params_channels(params);
+-	unsigned int slot_width = params_width(params);
++	struct sun8i_codec_aif *aif = &scodec->aifs[dai->id];
++	unsigned int slots = aif->slots ?: params_channels(params);
++	unsigned int slot_width = aif->slot_width ?: params_width(params);
+ 	int lrck_div_order, sample_rate, word_size;
+ 	u8 bclk_div;
+ 
+ 	/* word size */
+ 	switch (params_width(params)) {
+ 	case 8:
+ 		word_size = 0x0;
+ 		break;
+@@ -371,16 +394,17 @@ static int sun8i_codec_hw_params(struct snd_pcm_substream *substream,
  			   SUN8I_SYS_SR_CTRL_AIF1_FS_MASK,
  			   sample_rate << SUN8I_SYS_SR_CTRL_AIF1_FS);
  
+ 	return 0;
+ }
+ 
+ static const struct snd_soc_dai_ops sun8i_codec_dai_ops = {
+ 	.set_fmt	= sun8i_codec_set_fmt,
++	.set_tdm_slot	= sun8i_codec_set_tdm_slot,
+ 	.hw_params	= sun8i_codec_hw_params,
+ };
+ 
+ static struct snd_soc_dai_driver sun8i_codec_dais[] = {
+ 	{
+ 		.name	= "sun8i-codec-aif1",
+ 		.id	= SUN8I_CODEC_AIF1,
+ 		.ops	= &sun8i_codec_dai_ops,
 -- 
 2.26.2
 

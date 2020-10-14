@@ -2,93 +2,68 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id BB9BC28E2B3
-	for <lists+alsa-devel@lfdr.de>; Wed, 14 Oct 2020 16:59:28 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 29AC528E2B4
+	for <lists+alsa-devel@lfdr.de>; Wed, 14 Oct 2020 16:59:48 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 454111748;
-	Wed, 14 Oct 2020 16:58:38 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 454111748
+	by alsa0.perex.cz (Postfix) with ESMTPS id B8C8B1701;
+	Wed, 14 Oct 2020 16:58:57 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B8C8B1701
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1602687568;
-	bh=ox6QdeShtbWGwf5pNYcNdJm9bsR70QfgSHQzDyeBshg=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1602687587;
+	bh=1n13rRT/AQf05U8CdT+vbpB3ncNiC7hKeIN6kGYsLUI=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=rfRrB2LfonDxFrp42sEgx8yk+TlwUx+5tQYTqQgTY/1xysHDMzv+bnmYfYzyUW5sy
-	 oU2DS9J1X3hE8x1htRGYI8dqHcVRqHzM4qBRA0JYu7IGA1Ma1PH8LR52tSvCbJWKid
-	 gq/tG+KVkrB6KI1tWS+dvxS0OegG1NyUyy+ZaFHM=
+	b=JrikOHOcv+4T+ISbCNIMpCzn+cZ52FxsSftdvtbS9e9ow+F+r+/4Ur75dSJAEvZOB
+	 BtTjWFn40I9ezPXFeWlas++DSSvOs0qgEZjZ/40saebUZtnw7SGKaCYAifU3R8yXZV
+	 Ie3zLdGO+lyM0NWKBm+ybm2r50+KK3QKlgFc8tKU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id A5EDCF802D8;
-	Wed, 14 Oct 2020 16:54:59 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 69A7AF802E9;
+	Wed, 14 Oct 2020 16:55:11 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id CA8F4F80296; Wed, 14 Oct 2020 16:54:53 +0200 (CEST)
+ id 5551FF802E1; Wed, 14 Oct 2020 16:55:09 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mx0b-001ae601.pphosted.com (mx0a-001ae601.pphosted.com
- [67.231.149.25])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_MSPIKE_H3,
+ RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
+Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 8B32BF8021D
- for <alsa-devel@alsa-project.org>; Wed, 14 Oct 2020 16:54:40 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8B32BF8021D
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=cirrus.com header.i=@cirrus.com
- header.b="eoVgEewy"
-Received: from pps.filterd (m0077473.ppops.net [127.0.0.1])
- by mx0a-001ae601.pphosted.com (8.16.0.43/8.16.0.43) with SMTP id
- 09EEpi86023902; Wed, 14 Oct 2020 09:54:38 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com;
- h=from : to : cc :
- subject : date : message-id : in-reply-to : references : mime-version :
- content-transfer-encoding : content-type; s=PODMain02222019;
- bh=NbuRtoi+iQyrOz1VZGTizLtn/VqJReoSWynFwYIAIsg=;
- b=eoVgEewyMaXaPElcE4qhIUvMuRcZHJuuzgblZ+UkA86T1S/gZhRKUffDAXAeleIf0CF8
- L8L3cU0f/xNQdb0OLghok3s/r5Gz2Qwzn5LrUNNFXks2k0118VgbZNHD1qD3454kg6Rt
- 4q/s8xWICQToAPa3VzF/J1GdeKV8+iqbhuLSAQDlWVolIhX7Ud+3iJKFdTaPWO/giwrP
- sznPTYgpWqSw3hUv9AC9jwrayCAuFjRUQY2wCyIimYTsGTDFIZCeVj362t22otN/h0Lk
- Gdt9WaldBuj7RdNBpDs7PrKIfqFIKOoH6CxDuZLST0EXYDJzNzwL7G+1eAY7zJo8q4jp TQ== 
-Received: from ediex02.ad.cirrus.com ([87.246.76.36])
- by mx0a-001ae601.pphosted.com with ESMTP id 343ac1wbwc-7
- (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT);
- Wed, 14 Oct 2020 09:54:38 -0500
-Received: from EDIEX01.ad.cirrus.com (198.61.84.80) by EDIEX02.ad.cirrus.com
- (198.61.84.81) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1913.5; Wed, 14 Oct
- 2020 15:54:36 +0100
-Received: from ediswmail.ad.cirrus.com (198.61.86.93) by EDIEX01.ad.cirrus.com
- (198.61.84.80) with Microsoft SMTP Server id 15.1.1913.5 via Frontend
- Transport; Wed, 14 Oct 2020 15:54:36 +0100
-Received: from AUSNPC0LSNW1-debian.ad.cirrus.com (ausnpc0lsnw1.ad.cirrus.com
- [198.61.64.143])
- by ediswmail.ad.cirrus.com (Postfix) with ESMTP id A1FEE2AA;
- Wed, 14 Oct 2020 14:54:35 +0000 (UTC)
-From: Richard Fitzgerald <rf@opensource.cirrus.com>
-To: <broonie@kernel.org>, <robh+dt@kernel.org>, <nsaenzjulienne@suse.de>
-Subject: [PATCH 7/7] MAINTAINERS: Add dts for Cirrus Logic Lochnagar on RPi4
-Date: Wed, 14 Oct 2020 15:54:18 +0100
-Message-ID: <20201014145418.31838-8-rf@opensource.cirrus.com>
-X-Mailer: git-send-email 2.20.1
-In-Reply-To: <20201014145418.31838-1-rf@opensource.cirrus.com>
-References: <20201014145418.31838-1-rf@opensource.cirrus.com>
-MIME-Version: 1.0
+ by alsa1.perex.cz (Postfix) with ESMTPS id 810AEF802D7
+ for <alsa-devel@alsa-project.org>; Wed, 14 Oct 2020 16:55:03 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 810AEF802D7
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id D9737AC4C;
+ Wed, 14 Oct 2020 14:55:02 +0000 (UTC)
+Date: Wed, 14 Oct 2020 16:55:02 +0200
+Message-ID: <s5hk0vskgc9.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Mailing Lists <maillist@superlative.org>
+Subject: Re: [alsa-devel] [PATCH] ALSA: usb-audio: Disable quirks for BOSS
+ Katana amplifiers
+In-Reply-To: <CAPMdQDk0c5NcX1brErdaDroseLgC0oCocTnH9xKFHz-44Zjn=w@mail.gmail.com>
+References: <20191011171937.8013-1-szszoke.code@gmail.com>
+ <s5hftjriy1q.wl-tiwai@suse.de>
+ <CAPMdQDmY7CdbrHyOwhJNFBREQ0EO1SKufRdN_YR6TG4zmJzXpA@mail.gmail.com>
+ <s5hy2k9j6no.wl-tiwai@suse.de>
+ <CAPMdQDnDOF7a9vwuFa1GyFQmZQY4GvDKPeY_NMu2kUDQfqo7fg@mail.gmail.com>
+ <s5hpn5kkjg2.wl-tiwai@suse.de>
+ <CAPMdQDnn=M_QNWz7bNfR6vB7dr4fFRB4fQjRvXfuHzrbQak5Eg@mail.gmail.com>
+ <s5hmu0okivp.wl-tiwai@suse.de>
+ <CAPMdQDk0c5NcX1brErdaDroseLgC0oCocTnH9xKFHz-44Zjn=w@mail.gmail.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
+ FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
+ (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 phishscore=0
- lowpriorityscore=0
- malwarescore=0 priorityscore=1501 suspectscore=0 impostorscore=0
- mlxscore=0 spamscore=0 bulkscore=0 mlxlogscore=999 clxscore=1015
- adultscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.12.0-2009150000 definitions=main-2010140108
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- patches@opensource.cirrus.com, linux-kernel@vger.kernel.org,
- Richard Fitzgerald <rf@opensource.cirrus.com>,
- linux-rpi-kernel@lists.infradead.org, linux-arm-kernel@lists.infradead.org
+Cc: alsa-devel@alsa-project.org, Mike Oliphant <oliphant@nostatic.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -104,26 +79,219 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Update the Cirrus Logic driver maintainers to include the device
-tree .dts for using the Lochnagar with a Raspberry Pi 4.
+On Wed, 14 Oct 2020 16:31:02 +0200,
+Mailing Lists wrote:
+> 
+> OK, I will do that.
+> 
+> Quick question: what is the best git I should clone to create patches against
+> these days? I've been out of the loop for a few years now.
 
-Signed-off-by: Richard Fitzgerald <rf@opensource.cirrus.com>
----
- MAINTAINERS | 1 +
- 1 file changed, 1 insertion(+)
+At best, for-linus branch of my sound.git tree
+  git://git.kernel.org/pub/scm/linux/kernel/git/tiwai/sound.git
 
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 87ceaac748a4..09bc583a5b2b 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -4199,6 +4199,7 @@ M:	Charles Keepax <ckeepax@opensource.cirrus.com>
- M:	Richard Fitzgerald <rf@opensource.cirrus.com>
- L:	patches@opensource.cirrus.com
- S:	Supported
-+F:	arch/arm/boot/dts/bcm2711-rpi4b-cirrus-lochnagar.dts
- F:	Documentation/devicetree/bindings/clock/cirrus,lochnagar.yaml
- F:	Documentation/devicetree/bindings/hwmon/cirrus,lochnagar.yaml
- F:	Documentation/devicetree/bindings/mfd/cirrus,lochnagar.yaml
--- 
-2.20.1
+There is a copy in github, too.
 
+
+Takashi
+
+> 
+> Cheers,
+> 
+> Keith
+> 
+> On Wed, 14 Oct 2020 at 15:00, Takashi Iwai <tiwai@suse.de> wrote:
+> 
+>     On Wed, 14 Oct 2020 15:56:32 +0200,
+>     Mailing Lists wrote:
+>     >
+>     > Yes, and I don't think this is practical (at least, not obviously).
+>     >
+>     > The "Roland" vs "BOSS" thing is pure branding. I have BOSS branded
+>     devices,
+>     > like the JS-8, which work perfectly without the patch as an example. It
+>     > wouldn't surprise me if there are recent Roland branded devices which
+>     require
+>     > the patch.
+>     >
+>     > So I, personally, think it is beyond brand and is device range or
+>     generation
+>     > specific. I guess it is possible there may be some technical
+>     parameter within
+>     > the device descriptor which could indicate which variant the device is,
+>     but I
+>     > don't know what that might be (if at all). At this point I think we
+>     probably
+>     > have to apply a conditional setting based on the Product ID.
+>     >
+>     > Given that, is it best to continue hacking these into pcm.c, or should
+>     we be
+>     > looking at a quirks-table way to describe these?
+>    
+>     Currently it's better to grow the explicit allow-list, I suppose.
+>     Those are still handful, hence manageable enough.
+>    
+>     But, we should consider improving search_roland_implicit_fb(), too.
+>     Both actions don't conflict, and once after we establish the better
+>     implicit-fb check, the allow-list can be dropped.
+> 
+>     thanks,
+>    
+>     Takashi
+>    
+>     >
+>     > Cheers,
+>     >
+>     > Keith
+>     >
+>     > On Wed, 14 Oct 2020 at 14:47, Takashi Iwai <tiwai@suse.de> wrote:
+>     >
+>     >     On Wed, 14 Oct 2020 15:33:03 +0200,
+>     >     Mailing Lists wrote:
+>     >     >
+>     >     > Thanks for the response Takashi,
+>     >     >
+>     >     > How should this be distinguishing between Roland and BOSS? They
+>     both
+>     >     have the
+>     >     > vendor ID 0x0582.
+>     >   
+>     >     Ah, right, I missed that point :-<
+>     >   
+>     >     So the question would be rather how to detect BOSS devices
+>     >     effectively...
+>     >
+>     >     thanks,
+>     >   
+>     >     Takashi
+>     >   
+>     >     >
+>     >     > Cheers,
+>     >     >
+>     >     > Keith
+>     >     >
+>     >     > On Wed, 14 Oct 2020 at 14:09, Takashi Iwai <tiwai@suse.de> wrote:
+>     >     >
+>     >     >     On Wed, 14 Oct 2020 14:17:35 +0200,
+>     >     >     Mailing Lists wrote:
+>     >     >     >
+>     >     >     > Following up on this, it appears there are a bunch of the
+>     >     >     newer-generation
+>     >     >     > Roland/Boss devices which need similar treatment.
+>     >     >     >
+>     >     >     > So far I have tested the GT-1, the GT-001, and the BR-80,
+>     and
+>     >     others
+>     >     >     have
+>     >     >     > reported the RC-300 as working with similar modifications. I
+>     have
+>     >     been
+>     >     >     using
+>     >     >     > the following change to the code in pcm.c
+>     >     set_sync_ep_implicit_fb_quirk:
+>     >     >     >
+>     >     >     >     case USB_ID(0x0582, 0x01d8): /* BOSS Katana */
+>     >     >     >     case USB_ID(0x0582, 0x0130): /* BOSS Micro BR-80 */
+>     >     >     >     case USB_ID(0x0582, 0x0138): /* BOSS RC-300 */
+>     >     >     >     case USB_ID(0x0582, 0x01d6): /* BOSS GT-1 */
+>     >     >     >     case USB_ID(0x0582, 0x01e5): /* BOSS GT-001 */
+>     >     >     > /* BOSS Katana amplifiers and many other newer BOSS devices
+>     do not
+>     >     need
+>     >     >     quirks
+>     >     >     > */
+>     >     >     >
+>     >     >     > There's probably others too, such as the GT-100 (I believe
+>     the
+>     >     GT-001
+>     >     >     and
+>     >     >     > GT-100 have similar hardware).
+>     >     >     >
+>     >     >     > My question is, should this just be submitted as a patch to
+>     pcm.c
+>     >     or
+>     >     >     would it
+>     >     >     > be better handled in quirks and, if so, how?
+>     >     >     >
+>     >     >     > Or something else?
+>     >     >   
+>     >     >     Do we really need this change at all?  I looked at the code
+>     again,
+>     >     and
+>     >     >     I noticed that basically the function should return 0 without
+>     >     setting
+>     >     >     anything else even if you don't have the explicit ID checks
+>     there.
+>     >     >   
+>     >     >     The function looks like:
+>     >     >   
+>     >     >     static int set_sync_ep_implicit_fb_quirk(struct
+>     snd_usb_substream
+>     >     *subs,
+>     >     >                                              struct usb_device
+>     *dev,
+>     >     >                                              struct
+>     >     usb_interface_descriptor
+>     >     >     *altsd,
+>     >     >                                              unsigned int attr)
+>     >     >     {
+>     >     >             ....
+>     >     >             switch (subs->stream->chip->usb_id) {
+>     >     >             ....
+>     >     >             case USB_ID(0x0582, 0x01d8): /* BOSS Katana */
+>     >     >                     /* BOSS Katana amplifiers do not need quirks *
+>     /
+>     >     >                     return 0;
+>     >     >             }
+>     >     >   
+>     >     >             if (attr == USB_ENDPOINT_SYNC_ASYNC &&
+>     >     >                 altsd->bInterfaceClass == USB_CLASS_VENDOR_SPEC &&
+>     >     >                 altsd->bInterfaceProtocol == 2 &&
+>     >     >                 altsd->bNumEndpoints == 1 &&
+>     >     >                 USB_ID_VENDOR(subs->stream->chip->usb_id) ==
+>     0x0582 /*
+>     >     Roland
+>     >     >     */ &&
+>     >     >                 search_roland_implicit_fb(dev, altsd->
+>     bInterfaceNumber +
+>     >     1,
+>     >     >                                           altsd->
+>     bAlternateSetting,
+>     >     >                                           &alts, &ep) >= 0) {
+>     >     >                     goto add_sync_ep;
+>     >     >             }
+>     >     >   
+>     >     >             /* No quirk */
+>     >     >             return 0;
+>     >     >   
+>     >     >     ... and the lengthy if-conditions after the switch/case is
+>     applied
+>     >     >     only for Roland devices, hence it shouldn't influence on BOSS
+>     >     >     devices.  After that point, the immediate return with 0, which
+>     is
+>     >     the
+>     >     >     same as we do in switch/case.  So the explicit check of BOSS
+>     devices
+>     >     >     there looks superfluous.
+>     >     >
+>     >     >     thanks,
+>     >     >   
+>     >     >     Takashi
+>     >     >
+>     >     > --
+>     >     > --
+>     >     > Keith A Milner
+>     >     >
+>     >     >
+>     >
+>     > --
+>     > --
+>     > Keith A Milner
+>     >
+>     >
+> 
+> --
+> --
+> Keith A Milner
+> 
+> 

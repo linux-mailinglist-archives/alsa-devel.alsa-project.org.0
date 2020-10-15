@@ -2,98 +2,70 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3C2A228F0CA
-	for <lists+alsa-devel@lfdr.de>; Thu, 15 Oct 2020 13:16:20 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 70DD728F281
+	for <lists+alsa-devel@lfdr.de>; Thu, 15 Oct 2020 14:39:30 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id BFB47176F;
-	Thu, 15 Oct 2020 13:15:29 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BFB47176F
+	by alsa0.perex.cz (Postfix) with ESMTPS id F0FA7176F;
+	Thu, 15 Oct 2020 14:38:39 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz F0FA7176F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1602760579;
-	bh=hOXId7AxBpyBo8Hh2tajZ5a37Znd3NUgNK0ok0gc6TM=;
-	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
+	s=default; t=1602765570;
+	bh=zWKhji0DOeGUbPaJHbT/pNnYkhYL3uIhTOlp5Jc5CAU=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=ct+LqlNCv8urnGZkedAYPPCq907l9EazCLLYhhJfqhDtoWJAHxSXfcRta5lCm4/gh
-	 EdlsDWswcREtc80TORWYn36ewb3WZTjAGe4s+xV1rEBfPf0btPRfjNmfRo8Iy4z/zp
-	 Km8ppmyNmmKUIYRCmpYLb7duvtZsBv4kfAisOLXU=
+	b=Fk9sHnL8mdYd5JS+sW77jGk8zcsYyQCiwHEQhPSecDUrf/R3FgHIBnRQ9Ua7p0ono
+	 WyEhvkb0081LbGwUKFl2EiziViHBlkuunRONeh7eQsGzvYKGrD5To18X43Bfud4EKQ
+	 8yILyM2QZHMRVm1v1kTYtmV3JLeN/c4L8YC8LK5o=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 5A581F800F6;
-	Thu, 15 Oct 2020 13:14:39 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 811DCF80269;
+	Thu, 15 Oct 2020 14:37:49 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 37190F801A3; Thu, 15 Oct 2020 13:14:37 +0200 (CEST)
+ id 3C57DF80268; Thu, 15 Oct 2020 14:37:47 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- NICE_REPLY_A,PRX_BODY_65,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from mx0b-001ae601.pphosted.com (mx0a-001ae601.pphosted.com
- [67.231.149.25])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=0.5 required=5.0 tests=PRX_BODY_14, RCVD_IN_MSPIKE_H3,
+ RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
+Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 6436CF800F6
- for <alsa-devel@alsa-project.org>; Thu, 15 Oct 2020 13:14:25 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6436CF800F6
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=cirrus.com header.i=@cirrus.com
- header.b="NfTvKcNI"
-Received: from pps.filterd (m0077473.ppops.net [127.0.0.1])
- by mx0a-001ae601.pphosted.com (8.16.0.43/8.16.0.43) with SMTP id
- 09FBDcLX003370; Thu, 15 Oct 2020 06:14:23 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com;
- h=subject : to : cc :
- references : from : message-id : date : mime-version : in-reply-to :
- content-type : content-transfer-encoding; s=PODMain02222019;
- bh=6MtK5HTjl7O8ZLDUURV0+Pu2XnudzYXw1xSbOLCaSLM=;
- b=NfTvKcNInwlTR4ftDqXW+H0MtdXOkDJ9YRN7ui0qYh6FdpD1DoiOw0n3EQBUs9OEcjoj
- MaVy7+x0m6x5kRbgecOTnx2lQWkppeEmT26BLzu8TEARY2t1vstnO0qJkDz9J5zXige+
- SDk92oG7Ay7XxZGS7KdANAdYITQaFlvbtmsKfncFNf/FOJu/eBJz43L1Z7fw35Ohb+Jb
- yBS8oflfP6sJCzfYWr0OI+odh9708s1HpuEU+JEs7lfQKtEPJqoUwoyhEITBrtQEAS8W
- 6lJfOk+yTt7G39/aOMO8mifWqtxqzQmpl6mYANTcK/6IL4rN8LY3Ecs6M4Xg2ADjX2Ma 8Q== 
-Received: from ediex01.ad.cirrus.com ([87.246.76.36])
- by mx0a-001ae601.pphosted.com with ESMTP id 343ac1xkvd-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT);
- Thu, 15 Oct 2020 06:14:23 -0500
-Received: from EDIEX01.ad.cirrus.com (198.61.84.80) by EDIEX01.ad.cirrus.com
- (198.61.84.80) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1913.5; Thu, 15 Oct
- 2020 12:14:21 +0100
-Received: from ediswmail.ad.cirrus.com (198.61.86.93) by EDIEX01.ad.cirrus.com
- (198.61.84.80) with Microsoft SMTP Server id 15.1.1913.5 via Frontend
- Transport; Thu, 15 Oct 2020 12:14:21 +0100
-Received: from [10.0.2.15] (ausnpc0lsnw1.ad.cirrus.com [198.61.64.143])
- by ediswmail.ad.cirrus.com (Postfix) with ESMTP id 2AA3B2AA;
- Thu, 15 Oct 2020 11:14:21 +0000 (UTC)
-Subject: Re: [PATCH 6/7] ARM: dts: Add dts for Raspberry Pi 4 + Cirrus Logic
- Lochnagar2
-To: Nicolas Saenz Julienne <nsaenzjulienne@suse.de>, <broonie@kernel.org>,
- <robh+dt@kernel.org>
-References: <20201014145418.31838-1-rf@opensource.cirrus.com>
- <20201014145418.31838-7-rf@opensource.cirrus.com>
- <e9db1a11519dce0938cef867179160a818ec4143.camel@suse.de>
-From: Richard Fitzgerald <rf@opensource.cirrus.com>
-Message-ID: <89913f8b-fe92-1a31-77ff-49ea3f3d3294@opensource.cirrus.com>
-Date: Thu, 15 Oct 2020 12:14:20 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.3.1
-MIME-Version: 1.0
-In-Reply-To: <e9db1a11519dce0938cef867179160a818ec4143.camel@suse.de>
-Content-Type: text/plain; charset="utf-8"; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 phishscore=0
- lowpriorityscore=0
- malwarescore=0 priorityscore=1501 suspectscore=0 impostorscore=0
- mlxscore=0 spamscore=0 bulkscore=0 mlxlogscore=999 clxscore=1015
- adultscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.12.0-2009150000 definitions=main-2010150080
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- patches@opensource.cirrus.com, linux-kernel@vger.kernel.org,
- linux-rpi-kernel@lists.infradead.org, linux-arm-kernel@lists.infradead.org
+ by alsa1.perex.cz (Postfix) with ESMTPS id 195C1F80247
+ for <alsa-devel@alsa-project.org>; Thu, 15 Oct 2020 14:37:34 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 195C1F80247
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id 699B8AB98;
+ Thu, 15 Oct 2020 12:37:34 +0000 (UTC)
+Date: Thu, 15 Oct 2020 14:37:34 +0200
+Message-ID: <s5hk0vrpsvl.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Mike Oliphant <oliphant@nostatic.org>
+Subject: Re: [alsa-devel] [PATCH] ALSA: usb-audio: Disable quirks for BOSS
+ Katana amplifiers
+In-Reply-To: <CAHXb3bceYjc95NOuhqp58OdvrpbbFD=E8FTC00ikqU4d4z-=0g@mail.gmail.com>
+References: <20191011171937.8013-1-szszoke.code@gmail.com>
+ <s5hftjriy1q.wl-tiwai@suse.de>
+ <CAPMdQDmY7CdbrHyOwhJNFBREQ0EO1SKufRdN_YR6TG4zmJzXpA@mail.gmail.com>
+ <CAHXb3bf+0uKS-+aEVsgebUbYPt1wCBZ7GLAjF57BrPDHcveuQQ@mail.gmail.com>
+ <CAPMdQDmE3cgu2whqTxf7pFUoQusUYJKK7xLASev8JdWD-9oypQ@mail.gmail.com>
+ <CAHXb3bdrPC_v0oAEkWDR-VH7NZ3uoFdSw-dzNo_Fwy8HzeTopA@mail.gmail.com>
+ <CAPMdQDmiCDWTdfpbAwM7tJL+KiPApjd0jd46yPemw04-6CQWjg@mail.gmail.com>
+ <CAHXb3bfgfHDYfkYEZOKttvNkpe+frBeeogzcoA7UBT+=3wqy1g@mail.gmail.com>
+ <CAPMdQDmDzisnh1dqoE-Po4ALRRDwN1dxjQXYXeBuG+fN_gctzA@mail.gmail.com>
+ <CAHXb3bdHc35WcC_4=wv_zRR_r-w4=boT1vbW0tZpYpn=Kb2-KA@mail.gmail.com>
+ <CAPMdQD=08UxAO2RCVContMH5wLnqhXyNDoWqwPMQS420h=EA3w@mail.gmail.com>
+ <CAHXb3bceYjc95NOuhqp58OdvrpbbFD=E8FTC00ikqU4d4z-=0g@mail.gmail.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
+ FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
+ (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
+Content-Type: text/plain; charset=US-ASCII
+Cc: alsa-devel@alsa-project.org, Keith Milner <maillist@superlative.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -109,53 +81,347 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+On Wed, 14 Oct 2020 23:49:25 +0200,
+Mike Oliphant wrote:
+> 
+> Yeah, I think the work-around I found is just that - a solution that works
+> in my particular situation, but does not resolve what seems to be a deeper
+> issue with implicit feedback on these devices.
+> 
+> I'd love to see a real fix, but I haven't had the time to dig more into the
+> code. It would be great to get some input from whoever wrote the implicit
+> feedback system in the first place.
 
-On 15/10/2020 11:25, Nicolas Saenz Julienne wrote:
-> Hi Richard,
-> your series is very welcome, upstream support for audio codecs on the RPi4 has
-> always been lackluster.
-> 
-> Could you provide more information on the actual products? Are there custom
-> made hats for the RPi4 or this wired into a generic development board.
-> 
-Info on the codecs is available from www.cirrus.com.
-The Lochnagar audio development board is not a hat, but it can be wired
-over to the RPi GPIO header. It is not specific to the RPi.
+The already-in-use error is a long-standing problem of implicit fb
+implementations.  Recently the support for full duplex was introduced
+and should work in some level, but I'm afraid that it's not perfect.
+In particular, it may still depend on the order of the device opens.
 
-> On Wed, 2020-10-14 at 15:54 +0100, Richard Fitzgerald wrote:
->> This is based on the default bcm2711-rpi-4-b.dts.
-> 
-> Note that you could've included bcm2711-rpi-4.dts (as if it was a .dtsi).
-> 
-Ok, will change.
+Unfortunately I have no hardware to test that shows the behavior, so
+it's a bit tough to debug from my side.
 
->> Configurations are provided for Cirrus Logic codecs CS42L92, CS47L15,
->> CS47L24, CS47L35, CS47L90 and WM8998.
->>
->> For each codec there is a sound node and a codec device node and both
->> default to disabled. Enable the pair for the codec in use.
->>
->> Signed-off-by: Richard Fitzgerald <rf@opensource.cirrus.com>
->> ---
-> 
-> Sadly I don't think creating a new device tree is a good solution here. If we
-> were to do so for every RPi hat/usage it'd become unmanageable very fast. There
-> is a way to maintain this in the open nonetheless. I suggest you build a DT
-> overlay and submit it to https://github.com/raspberrypi/linux, see
-> 'arch/arm/boot/dts/overlays.' The Raspberry Pi engineers have a kernel branch
 
-We want something in mainline so that it can be used by people
-developing on mainline and taken as a starting point for configuring
-the codecs for other host platforms. The RPi is a convenient platform to
-use as the base because it is widely available and low-cost.
+thanks,
 
-> that tracks of the latest kernel release, so once you get the rest of patches
-> sorted out and they are included in a release it'll make sense to do so.
+Takashi
+
+
 > 
-> I can't tell for other distros, but opensuse packages overlays, so the effort
-> will ultimately be useful to users.
+> Mike
 > 
-> Regards,
-> Nicolas
+> On Wed, Oct 14, 2020 at 1:57 PM Keith Milner <maillist@superlative.org>
+> wrote:
 > 
+> > I thought I would re-try the change you made. When I tried this last year
+> > on my old laptop, I recall I couldn't get it working properly.
+> >
+> > This time around it works... sort of, but isn't without some significant
+> > issues for me. For a start, it only works in Jack. If I try to access the
+> > alsa device directly (for instance, using ALSA mode in Ardour or using
+> > Audacity) it doesn't work. It also fills my dmesg with error messages:
+> >
+> > [  184.089158] usb 1-4: Unable to change format on ep #8e: already in use
+> > [  184.089232] usb 1-4: Unable to change format on ep #8e: already in use
+> > [  184.089401] usb 1-4: Unable to change format on ep #8e: already in use
+> > [  184.089619] usb 1-4: Unable to change format on ep #8e: already in use
+> >
+> > So, unfortunately, whilst it seems like it's a tactical fix for some
+> > situations, it seems to be broken in other ways.
+> >
+> > When I tried it on my GT-001 I got similar results, although only one
+> > "Unable to change format on ep #8e: already in use" message this time
+> > rather than the logs getting spammed. Interestingly, I got more xruns with
+> > this as well.
+> >
+> > Personally I'll be going back to how I had it before with the implicit
+> > feedback disabled, as it's more reliable and functional for me, but it's
+> > clear this one isn't solved yet.
+> >
+> > Cheers,
+> >
+> > Keith
+> >
+> > On Wed, 14 Oct 2020 at 19:17, Mike Oliphant <oliphant@nostatic.org> wrote:
+> >
+> >> That's also what I see from dmesg when I use the quirk device ID patch.
+> >> I'm pretty sure it means that implicit feedback is not being enabled for
+> >> your device.
+> >>
+> >> Since these devices are designed to work with implicit feedback, the
+> >> ideal solution would be to have them work by using it, rather than
+> >> disabling it.
+> >>
+> >> That said, patching the quirk code with the extra device IDs would
+> >> make it so they at least produce output...
+> >>
+> >> The "fix" I'm currently using (linked to in my first response) makes the
+> >> implicit feedback code not wait to send data until it has received some. It
+> >> works perfectly for me, but success has been mixed for others so I didn't
+> >> feel comfortable submitting it as a patch.
+> >>
+> >> FYI, I did a little write-up here:
+> >>
+> >>
+> >> http://blog.nostatic.org/2020/01/getting-boss-gt-1-effects-processor-to.html
+> >>
+> >> It outlines my struggle with this issue - from trying the quirk ID patch,
+> >> to messing with the sample rate, and finally to modifying the implicit
+> >> feedback behavior.
+> >>
+> >> Mike
+> >>
+> >> On Wed, Oct 14, 2020 at 10:23 AM Mailing Lists <maillist@superlative.org>
+> >> wrote:
+> >>
+> >>> Hi Mike,
+> >>> I'm getting this:
+> >>>
+> >>> [Oct14 18:21] snd_usb_audio:set_format: usb 1-4: setting usb interface
+> >>> 1:1
+> >>> [  +0.000003] snd_usb_audio:snd_usb_add_endpoint: usb 1-4: Re-using EP d
+> >>> in iface 1,1 @00000000d0aa6911
+> >>> [  +0.000018] snd_usb_audio:snd_usb_endpoint_set_params: usb 1-4:
+> >>> Setting params for ep #d (type 0, 3 urbs), ret=0
+> >>> [  +0.000002] snd_usb_audio:start_endpoints: usb 1-4: Starting data EP
+> >>> @00000000d0aa6911
+> >>>
+> >>> Cheers,
+> >>>
+> >>> Keith
+> >>>
+> >>> On Wed, 14 Oct 2020 at 17:46, Mike Oliphant <oliphant@nostatic.org>
+> >>> wrote:
+> >>>
+> >>>> Hi Keith,
+> >>>>
+> >>>> The lsusb output just shows that the endpoint is there, but not that it
+> >>>> is getting connected when the device is initialized. Can you check dmesg
+> >>>> output when you use the device for playback?
+> >>>>
+> >>>> This is what I see from dmesg when the implicit feedback endpoint is
+> >>>> being used:
+> >>>>
+> >>>> [   26.787360] usb 1-1.1: setting usb interface 1:1
+> >>>> [   26.787367] Creating new playback data endpoint #d
+> >>>> [   26.787375] Creating new capture data endpoint #8e
+> >>>> [   26.787678] usb 1-1.1: Setting params for ep #d (type 0, 12 urbs),
+> >>>> ret=0
+> >>>> [   26.787685] usb 1-1.1: match_endpoint_audioformats: (fmt @6bc43c84)
+> >>>> score 2
+> >>>> [   26.787745] usb 1-1.1: Setting params for ep #8e (type 0, 12 urbs),
+> >>>> ret=0
+> >>>> [   26.787751] usb 1-1.1: Starting data EP @a14130b5
+> >>>> [   26.788420] usb 1-1.1: Starting sync EP @720fb7cf
+> >>>>
+> >>>> Note the "Starting sync EP".
+> >>>>
+> >>>> Mike
+> >>>>
+> >>>> On Wed, Oct 14, 2020 at 9:35 AM Mailing Lists <maillist@superlative.org>
+> >>>> wrote:
+> >>>>
+> >>>>> On Wed, 14 Oct 2020 at 17:12, Mike Oliphant <oliphant@nostatic.org>
+> >>>>> wrote:
+> >>>>>
+> >>>>>> Keith - are you getting an implicit feedback endpoint created when
+> >>>>>> you run with the patch?
+> >>>>>>
+> >>>>>
+> >>>>> Hi Mike,
+> >>>>>
+> >>>>> It appears that I do. For reference I'm on kernel 5.4.0-51:
+> >>>>>
+> >>>>> Bus 001 Device 007: ID 0582:01d6 Roland Corp. GT-1
+> >>>>> Device Descriptor:
+> >>>>>  bLength                18
+> >>>>>  bDescriptorType         1
+> >>>>>  bcdUSB               2.00
+> >>>>>  bDeviceClass          255 Vendor Specific Class
+> >>>>>  bDeviceSubClass         0
+> >>>>>  bDeviceProtocol       255
+> >>>>>  bMaxPacketSize0        64
+> >>>>>  idVendor           0x0582 Roland Corp.
+> >>>>>  idProduct          0x01d6
+> >>>>>  bcdDevice            0.00
+> >>>>>  iManufacturer           1 BOSS
+> >>>>>  iProduct                2 GT-1
+> >>>>>  iSerial                 0
+> >>>>>  bNumConfigurations      1
+> >>>>>  Configuration Descriptor:
+> >>>>>    bLength                 9
+> >>>>>    bDescriptorType         2
+> >>>>>    wTotalLength       0x00bc
+> >>>>>    bNumInterfaces          4
+> >>>>>    bConfigurationValue     1
+> >>>>>    iConfiguration          0
+> >>>>>    bmAttributes         0xc0
+> >>>>>      Self Powered
+> >>>>>    MaxPower                0mA
+> >>>>>    Interface Descriptor:
+> >>>>>      bLength                 9
+> >>>>>      bDescriptorType         4
+> >>>>>      bInterfaceNumber        0
+> >>>>>      bAlternateSetting       0
+> >>>>>      bNumEndpoints           0
+> >>>>>      bInterfaceClass       255 Vendor Specific Class
+> >>>>>      bInterfaceSubClass    255 Vendor Specific Subclass
+> >>>>>      bInterfaceProtocol      0
+> >>>>>      iInterface              0
+> >>>>>    Interface Descriptor:
+> >>>>>      bLength                 9
+> >>>>>      bDescriptorType         4
+> >>>>>      bInterfaceNumber        1
+> >>>>>      bAlternateSetting       0
+> >>>>>      bNumEndpoints           0
+> >>>>>      bInterfaceClass       255 Vendor Specific Class
+> >>>>>      bInterfaceSubClass      2
+> >>>>>      bInterfaceProtocol      2
+> >>>>>      iInterface              0
+> >>>>>      ** UNRECOGNIZED:  06 24 f1 01 00 00
+> >>>>>    Interface Descriptor:
+> >>>>>      bLength                 9
+> >>>>>      bDescriptorType         4
+> >>>>>      bInterfaceNumber        1
+> >>>>>      bAlternateSetting       1
+> >>>>>      bNumEndpoints           1
+> >>>>>      bInterfaceClass       255 Vendor Specific Class
+> >>>>>      bInterfaceSubClass      2
+> >>>>>      bInterfaceProtocol      2
+> >>>>>      iInterface              0
+> >>>>>      ** UNRECOGNIZED:  07 24 01 01 00 01 00
+> >>>>>      ** UNRECOGNIZED:  0b 24 02 01 02 04 18 01 44 ac 00
+> >>>>>      ** UNRECOGNIZED:  06 24 f1 04 16 00
+> >>>>>      Endpoint Descriptor:
+> >>>>>        bLength                 7
+> >>>>>        bDescriptorType         5
+> >>>>>        bEndpointAddress     0x0d  EP 13 OUT
+> >>>>>        bmAttributes            5
+> >>>>>          Transfer Type            Isochronous
+> >>>>>          Synch Type               Asynchronous
+> >>>>>          Usage Type               Data
+> >>>>>        wMaxPacketSize     0x0038  1x 56 bytes
+> >>>>>        bInterval               1
+> >>>>>    Interface Descriptor:
+> >>>>>      bLength                 9
+> >>>>>      bDescriptorType         4
+> >>>>>      bInterfaceNumber        2
+> >>>>>      bAlternateSetting       0
+> >>>>>      bNumEndpoints           0
+> >>>>>      bInterfaceClass       255 Vendor Specific Class
+> >>>>>      bInterfaceSubClass      2
+> >>>>>      bInterfaceProtocol      1
+> >>>>>      iInterface              0
+> >>>>>    Interface Descriptor:
+> >>>>>      bLength                 9
+> >>>>>      bDescriptorType         4
+> >>>>>      bInterfaceNumber        2
+> >>>>>      bAlternateSetting       1
+> >>>>>      bNumEndpoints           1
+> >>>>>      bInterfaceClass       255 Vendor Specific Class
+> >>>>>      bInterfaceSubClass      2
+> >>>>>      bInterfaceProtocol      1
+> >>>>>      iInterface              0
+> >>>>>      ** UNRECOGNIZED:  07 24 01 07 00 01 00
+> >>>>>      ** UNRECOGNIZED:  0b 24 02 01 02 04 18 01 44 ac 00
+> >>>>>      ** UNRECOGNIZED:  06 24 f1 04 16 00
+> >>>>>      Endpoint Descriptor:
+> >>>>>        bLength                 7
+> >>>>>        bDescriptorType         5
+> >>>>>        bEndpointAddress     0x8e  EP 14 IN
+> >>>>>        bmAttributes           37
+> >>>>>          Transfer Type            Isochronous
+> >>>>>          Synch Type               Asynchronous
+> >>>>>          Usage Type               Implicit feedback Data
+> >>>>>        wMaxPacketSize     0x0038  1x 56 bytes
+> >>>>>        bInterval               1
+> >>>>>    Interface Descriptor:
+> >>>>>      bLength                 9
+> >>>>>      bDescriptorType         4
+> >>>>>      bInterfaceNumber        3
+> >>>>>      bAlternateSetting       0
+> >>>>>      bNumEndpoints           2
+> >>>>>      bInterfaceClass       255 Vendor Specific Class
+> >>>>>      bInterfaceSubClass      3
+> >>>>>      bInterfaceProtocol      0
+> >>>>>      iInterface              0
+> >>>>>      ** UNRECOGNIZED:  06 24 f1 02 01 01
+> >>>>>      Endpoint Descriptor:
+> >>>>>        bLength                 7
+> >>>>>        bDescriptorType         5
+> >>>>>        bEndpointAddress     0x03  EP 3 OUT
+> >>>>>        bmAttributes            2
+> >>>>>          Transfer Type            Bulk
+> >>>>>          Synch Type               None
+> >>>>>          Usage Type               Data
+> >>>>>        wMaxPacketSize     0x0200  1x 512 bytes
+> >>>>>        bInterval               1
+> >>>>>      Endpoint Descriptor:
+> >>>>>        bLength                 7
+> >>>>>        bDescriptorType         5
+> >>>>>        bEndpointAddress     0x84  EP 4 IN
+> >>>>>        bmAttributes            2
+> >>>>>          Transfer Type            Bulk
+> >>>>>          Synch Type               None
+> >>>>>          Usage Type               Data
+> >>>>>        wMaxPacketSize     0x0200  1x 512 bytes
+> >>>>>        bInterval               0
+> >>>>>    Interface Descriptor:
+> >>>>>      bLength                 9
+> >>>>>      bDescriptorType         4
+> >>>>>      bInterfaceNumber        3
+> >>>>>      bAlternateSetting       1
+> >>>>>      bNumEndpoints           2
+> >>>>>      bInterfaceClass       255 Vendor Specific Class
+> >>>>>      bInterfaceSubClass      3
+> >>>>>      bInterfaceProtocol      0
+> >>>>>      iInterface              0
+> >>>>>      Endpoint Descriptor:
+> >>>>>        bLength                 7
+> >>>>>        bDescriptorType         5
+> >>>>>        bEndpointAddress     0x03  EP 3 OUT
+> >>>>>        bmAttributes            3
+> >>>>>          Transfer Type            Interrupt
+> >>>>>          Synch Type               None
+> >>>>>          Usage Type               Data
+> >>>>>        wMaxPacketSize     0x0200  1x 512 bytes
+> >>>>>        bInterval               4
+> >>>>>      Endpoint Descriptor:
+> >>>>>        bLength                 7
+> >>>>>        bDescriptorType         5
+> >>>>>        bEndpointAddress     0x85  EP 5 IN
+> >>>>>        bmAttributes            3
+> >>>>>          Transfer Type            Interrupt
+> >>>>>          Synch Type               None
+> >>>>>          Usage Type               Data
+> >>>>>        wMaxPacketSize     0x0200  1x 512 bytes
+> >>>>>        bInterval               4
+> >>>>> Device Qualifier (for other device speed):
+> >>>>>  bLength                10
+> >>>>>  bDescriptorType         6
+> >>>>>  bcdUSB               2.00
+> >>>>>  bDeviceClass          255 Vendor Specific Class
+> >>>>>  bDeviceSubClass         0
+> >>>>>  bDeviceProtocol       255
+> >>>>>  bMaxPacketSize0        64
+> >>>>>  bNumConfigurations      1
+> >>>>> can't get debug descriptor: Resource temporarily unavailable
+> >>>>> Device Status:     0x0001
+> >>>>>  Self Powered
+> >>>>>
+> >>>>>
+> >>>>> --
+> >>>>> Keith A Milner
+> >>>>>
+> >>>>
+> >>>
+> >>> --
+> >>> --
+> >>> Keith A Milner
+> >>>
+> >>
+> >
+> > --
+> > --
+> > Keith A Milner
+> >
 > 

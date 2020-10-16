@@ -2,61 +2,90 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 08147290ACC
-	for <lists+alsa-devel@lfdr.de>; Fri, 16 Oct 2020 19:35:30 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E1C57290AE3
+	for <lists+alsa-devel@lfdr.de>; Fri, 16 Oct 2020 19:37:44 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 8A31F17E5;
-	Fri, 16 Oct 2020 19:34:39 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8A31F17E5
+	by alsa0.perex.cz (Postfix) with ESMTPS id 2E89C17FF;
+	Fri, 16 Oct 2020 19:36:54 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2E89C17FF
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1602869729;
-	bh=OL4iTqCZNoE9t7jxCULnx+PQW+E2PiE9pYckRy4h3+g=;
-	h=Subject:From:To:References:Date:In-Reply-To:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=gUXHdy9rpt8o3Yf9ZjeYjLDHCr9JO4ULKQboFMshmM+TjbLoPWgj9DMYCl+1Boycw
-	 XjJs1KV4k5tWCss9J/SfBnnZ/rf1aqwwPn+I6Ztl6DLl9gf6locYoqOjjEfzPJG6aE
-	 73OdhUKCfED+vvcJ513Ii3pKbPquCZDXq7U5PYCg=
+	s=default; t=1602869864;
+	bh=rVeIX5cRNuuQ/XHKYWw0eyGqv96fmIOeulQeCbUXu+E=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=LG23URAdFbXGL3cg+6/9kW3wOaNd0kAkn7NOf5ye9kFob7v8WGd2w2TU58MX0+vP8
+	 iCsVBW28rv9Mo3+e9RxSkE0Oo1yWQ7THUQeE2PbSqQfT+bbTrNWBJtb92m/ePQAOb5
+	 uNboCJwnqbMGlY+tmhBbNEYyMvXvdmgx9EdSJ5rs=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 1CB55F8012A;
-	Fri, 16 Oct 2020 19:33:49 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 11772F80115;
+	Fri, 16 Oct 2020 19:36:03 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 59E4EF80217; Fri, 16 Oct 2020 19:33:46 +0200 (CEST)
+ id 13DEAF80278; Fri, 16 Oct 2020 19:35:58 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.7 required=5.0 tests=HTML_MESSAGE, KHOP_HELO_FCRDNS,
- NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from mail.earthlovesme.ca (24-65.162.static.aei.ca [216.162.65.24])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128
- bits)) (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 44381F80115
- for <alsa-devel@alsa-project.org>; Fri, 16 Oct 2020 19:33:37 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 44381F80115
-Received: from localhost.localdomain (Unknown [10.10.10.3])
- by mail.earthlovesme.ca with ESMTPSA
- (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128)
- ; Fri, 16 Oct 2020 13:33:40 -0400
-Subject: Re: Dead link in wiki under Tutorials
-From: info <info@dressmaker.ca>
-To: alsa-devel@alsa-project.org
-References: <de6ebf17-8f71-c497-28bc-7819338baddb@dressmaker.ca>
- <09f11cd1-473b-726e-84c9-3de8b9cf9fe3@dressmaker.ca>
-Organization: Dressmaker Canada Inc.
-Message-ID: <235e02f7-70f0-d150-4e80-92844ef0f2af@dressmaker.ca>
-Date: Fri, 16 Oct 2020 13:33:33 -0400
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:52.0) Gecko/20100101
- Thunderbird/52.5.2
+X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
+Received: from mx0b-001ae601.pphosted.com (mx0a-001ae601.pphosted.com
+ [67.231.149.25])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id A2775F8021D
+ for <alsa-devel@alsa-project.org>; Fri, 16 Oct 2020 19:35:49 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A2775F8021D
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=cirrus.com header.i=@cirrus.com
+ header.b="GqfLhYq5"
+Received: from pps.filterd (m0077473.ppops.net [127.0.0.1])
+ by mx0a-001ae601.pphosted.com (8.16.0.43/8.16.0.43) with SMTP id
+ 09GHQLpa024369; Fri, 16 Oct 2020 12:35:46 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com;
+ h=from : to : cc :
+ subject : date : message-id : mime-version : content-transfer-encoding :
+ content-type; s=PODMain02222019;
+ bh=5ARtZ8iuUZWTt92xPnGmGgGIFglUvN30JaId3ybKh1U=;
+ b=GqfLhYq5fVpf+NH05aA5aX6efreXaoZKcOKIXf8AFjnDuhgwGvpB1ZBdaBjpsln/gC4h
+ JajQmv+HrdtfuzSRUt6s0d56rZpsJrlr5b2w9tBdrsFyeTfMVxdg/hKEVTChxPzitGdu
+ eDOZxAHo//3K9LsLrF990RCy/EtNOI8CnUgEec0At13WXlzHXkec6cDmo8VpzgKUoFhc
+ gSsRcekD0ACXP5JEKop4s3VrbLNltWrWYda8QbtJSdkloLcHmkGdKSTurH9qYQrOPHvs
+ dEp6D9CwM1cUKzqgcnPc8lQRXiQ2R2WmzjRP4t5AwdmnIoceJFvYUlpeatKfe51Lz7JB dg== 
+Received: from ediex01.ad.cirrus.com ([87.246.76.36])
+ by mx0a-001ae601.pphosted.com with ESMTP id 343ac20jk8-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT);
+ Fri, 16 Oct 2020 12:35:46 -0500
+Received: from EDIEX01.ad.cirrus.com (198.61.84.80) by EDIEX01.ad.cirrus.com
+ (198.61.84.80) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1913.5; Fri, 16 Oct
+ 2020 18:35:44 +0100
+Received: from ediswmail.ad.cirrus.com (198.61.86.93) by EDIEX01.ad.cirrus.com
+ (198.61.84.80) with Microsoft SMTP Server id 15.1.1913.5 via Frontend
+ Transport; Fri, 16 Oct 2020 18:35:44 +0100
+Received: from AUSNPC0LSNW1-debian.ad.cirrus.com (ausnpc0lsnw1.ad.cirrus.com
+ [198.61.64.143])
+ by ediswmail.ad.cirrus.com (Postfix) with ESMTP id 1542545;
+ Fri, 16 Oct 2020 17:35:44 +0000 (UTC)
+From: Richard Fitzgerald <rf@opensource.cirrus.com>
+To: <broonie@kernel.org>, <robh+dt@kernel.org>, <nsaenzjulienne@suse.de>
+Subject: [PATCH v2 0/7] Add support for Rpi4b + Cirrus Lochnagar2 and CS47L15
+Date: Fri, 16 Oct 2020 18:35:34 +0100
+Message-ID: <20201016173541.21180-1-rf@opensource.cirrus.com>
+X-Mailer: git-send-email 2.20.1
 MIME-Version: 1.0
-In-Reply-To: <09f11cd1-473b-726e-84c9-3de8b9cf9fe3@dressmaker.ca>
-Content-Language: en-US
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Content-Filtered-By: Mailman/MimeDel 2.1.15
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 phishscore=0
+ lowpriorityscore=0
+ malwarescore=0 priorityscore=1501 suspectscore=0 impostorscore=0
+ mlxscore=0 spamscore=0 bulkscore=0 mlxlogscore=871 clxscore=1015
+ adultscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.12.0-2009150000 definitions=main-2010160130
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
+ patches@opensource.cirrus.com, linux-kernel@vger.kernel.org,
+ Richard Fitzgerald <rf@opensource.cirrus.com>,
+ linux-rpi-kernel@lists.infradead.org, linux-arm-kernel@lists.infradead.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -72,44 +101,41 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-There seems to be zero interest in restoring the tutorials, even though 
-only 1 tutorial link works.
-I totally get it that it may be hard for you to reach out to the authors 
-of external material on dead web sites. But you should have not so much 
-difficulty restoring those 404 pages that link back to your own wiki. 
-Could you?
+This set of patches provides support for using the Raspberry Pi 4b with
+a Cirrus Logic Lochnagar 2 audio development platform plus Cirrus Logic
+CS47L15 codec.
 
-Thanks
-Alex
+Patches are needed to audio-graph-card to enable support for setting the
+component sysclks and plls. The codec sysclks and plls cannot be placed
+under the clock framwork because they are I2C/SPI-connected peripherals
+and access to the registers would cause a nested get of the I2C/SPI bus
+clock. The clock framework does not support this and it would result in
+a deadlock.
 
-On 2020-10-04 05:17 PM, info wrote:
-> On the page 
-> https://www.alsa-project.org/wiki/Tutorials_and_Presentations there 
-> are dead links.
->
-> ALSA 0.9.0 HOWTO <http://www.suse.de/%7Emana/alsa090_howto.html> - Dr 
-> Matthias Nagorni has writen a comprehensive tutorial for audio 
-> application developers.
-> is dead. The article has been removed.
->
-> Howto use the ALSA API <http://equalarea.com/paul/alsa-audio.html> - 
-> Paul Davis has also written a brief explanation.
-> is dead. His site has been removed from the hosting site.
->
-> ALSA Sequencer (draft) 
-> <http://www.alsa-project.org/%7Efrank/alsa-sequencer/> - Frank van de 
-> Pol's draft on programming the alsa sequencer.
-> is dead, 404 error.
->
-> Kernel OSS-Emulation 
-> <http://www.alsa-project.org/%7Eiwai/OSS-Emulation.html> - Takashi 
-> Iwai has written some notes on how ALSA handles OSS applications.
-> is dead, 404 error.
->
-> It is worth trying to restore them because there are very few 
-> resources on ALSA programming.
->
-> Regards
-> Alex
->
+Richard Fitzgerald (7):
+  of: base: Add of_count_phandle_with_fixed_args()
+  ASoC: audio-graph-card: Add plls and sysclks DT bindings
+  ASoC: audio-graph-card: Support setting component plls and sysclks
+  ASoC: arizona: Allow codecs to be selected from kernel config
+  ASoC: madera: Allow codecs to be selected from kernel config
+  ARM: dts: Add dts for RPi4b + Cirrus Logic Lochnagar2 + CS47L15
+  MAINTAINERS: Add dts for Cirrus Logic Lochnagar on RPi4
+
+ .../bindings/sound/audio-graph-card.txt       |  44 ++++
+ MAINTAINERS                                   |   1 +
+ arch/arm/boot/dts/Makefile                    |   1 +
+ ...bcm2711-rpi4b-cirrus-lochnagar-cs47l15.dts | 166 +++++++++++++++
+ .../dts/bcm2711-rpi4b-cirrus-lochnagar.dtsi   | 201 ++++++++++++++++++
+ drivers/of/base.c                             |  73 +++++--
+ include/linux/of.h                            |   9 +
+ include/sound/simple_card_utils.h             |  24 +++
+ sound/soc/codecs/Kconfig                      |  18 +-
+ sound/soc/generic/audio-graph-card.c          |  16 +-
+ sound/soc/generic/simple-card-utils.c         | 184 ++++++++++++++++
+ 11 files changed, 703 insertions(+), 34 deletions(-)
+ create mode 100644 arch/arm/boot/dts/bcm2711-rpi4b-cirrus-lochnagar-cs47l15.dts
+ create mode 100644 arch/arm/boot/dts/bcm2711-rpi4b-cirrus-lochnagar.dtsi
+
+-- 
+2.20.1
 

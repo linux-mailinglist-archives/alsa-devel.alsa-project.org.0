@@ -2,83 +2,103 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 566222907C5
-	for <lists+alsa-devel@lfdr.de>; Fri, 16 Oct 2020 16:51:57 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 48CD7290829
+	for <lists+alsa-devel@lfdr.de>; Fri, 16 Oct 2020 17:16:41 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E488817E3;
-	Fri, 16 Oct 2020 16:51:06 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E488817E3
+	by alsa0.perex.cz (Postfix) with ESMTPS id 6129817BF;
+	Fri, 16 Oct 2020 17:15:50 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6129817BF
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1602859917;
-	bh=zqG+PcY+gbvNVJyAN3YmXrv/tA55ga6KLg7RmfRpQzw=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1602861400;
+	bh=NJWNsnQ0KQH+cYI+YlWh/2vtMWugtEQkVcqva8vyXwk=;
+	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=pbZLbao5HWsO4e66kMQDIpBN9+bo/Yy9T/bOJuwyKDa9ITaRNaLYA3GEZWc+VLUdC
-	 hbkNgRHfmLtWYoYnENCDBpqchf77zCDHZjWVSKA18fdjaA/bcofUB+4XX863k5tToB
-	 7rCuLKFkIEXoREDHtrCX6Z9ZjCUg9oGrf8Fa8fyQ=
+	b=SEn4JFRlSrOGgmK79O4/dXgQHhEU9XpeyhQByRCPP/PHiOWKtTL5VO/J4HbfkUA7q
+	 0grBK8vvgXMMA0qxJ6W4jTHX22FMTn4jUrM3HC8lDn2owKW+5SjCSex+sxbX0pA51N
+	 cFZNnaaCCO3lc0aQ2sgYxjgR8jvbRTsHAbsUR5WM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 8338EF80343;
-	Fri, 16 Oct 2020 16:45:07 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 1FF7AF8020D;
+	Fri, 16 Oct 2020 17:15:00 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 24A5DF8033E; Fri, 16 Oct 2020 16:45:06 +0200 (CEST)
+ id 42C6EF80217; Fri, 16 Oct 2020 17:14:57 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from hqnvemgate26.nvidia.com (hqnvemgate26.nvidia.com
- [216.228.121.65])
+X-Spam-Status: No, score=-1.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
+Received: from mx0b-001ae601.pphosted.com (mx0b-001ae601.pphosted.com
+ [67.231.152.168])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 0B82DF8033E
- for <alsa-devel@alsa-project.org>; Fri, 16 Oct 2020 16:45:02 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0B82DF8033E
+ by alsa1.perex.cz (Postfix) with ESMTPS id C71D2F8012A
+ for <alsa-devel@alsa-project.org>; Fri, 16 Oct 2020 17:14:49 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C71D2F8012A
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=nvidia.com header.i=@nvidia.com
- header.b="CTyvvR6L"
-Received: from hqmail.nvidia.com (Not Verified[216.228.121.13]) by
- hqnvemgate26.nvidia.com (using TLS: TLSv1.2, AES256-SHA)
- id <B5f89b1e10001>; Fri, 16 Oct 2020 07:44:49 -0700
-Received: from HQMAIL101.nvidia.com (172.20.187.10) by HQMAIL107.nvidia.com
- (172.20.187.13) with Microsoft SMTP Server (TLS) id 15.0.1473.3; Fri, 16 Oct
- 2020 14:44:56 +0000
-Received: from audio.nvidia.com (10.124.1.5) by mail.nvidia.com
- (172.20.187.10) with Microsoft SMTP Server id 15.0.1473.3 via Frontend
- Transport; Fri, 16 Oct 2020 14:44:50 +0000
-From: Sameer Pujar <spujar@nvidia.com>
-To: <broonie@kernel.org>, <lgirdwood@gmail.com>, <robh+dt@kernel.org>,
- <kuninori.morimoto.gx@renesas.com>, <pierre-louis.bossart@linux.intel.com>,
- <perex@perex.cz>, <tiwai@suse.com>, <p.zabel@pengutronix.de>,
- <thierry.reding@gmail.com>, <jonathanh@nvidia.com>
-Subject: [PATCH v4 15/15] arm64: tegra: Audio graph sound card for Jetson Nano
- and TX1
-Date: Fri, 16 Oct 2020 20:13:02 +0530
-Message-ID: <1602859382-19505-16-git-send-email-spujar@nvidia.com>
-X-Mailer: git-send-email 2.7.4
-In-Reply-To: <1602859382-19505-1-git-send-email-spujar@nvidia.com>
-References: <1602859382-19505-1-git-send-email-spujar@nvidia.com>
+ dkim=pass (2048-bit key) header.d=cirrus.com header.i=@cirrus.com
+ header.b="lmVCs/iv"
+Received: from pps.filterd (m0077474.ppops.net [127.0.0.1])
+ by mx0b-001ae601.pphosted.com (8.16.0.43/8.16.0.43) with SMTP id
+ 09GFAilX018346; Fri, 16 Oct 2020 10:14:46 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com;
+ h=subject : to : cc :
+ references : from : message-id : date : mime-version : in-reply-to :
+ content-type : content-transfer-encoding; s=PODMain02222019;
+ bh=xqJa7ke2bej+Y2/yTZCs2JgbiMjO2DRRIlRYVcz8XVI=;
+ b=lmVCs/iv5yXyzLP36G1sZy/Gmdxojo/mafF7AdQAH6vCS2wF8tUbMEhyiJuUS8grLEN2
+ DHZrIY5kwqkVYp01pPgpiq32BIsMwK/PVVfC3uUIfW52MjYKgQebYEr134yHOtt+TVGU
+ VHntl0Zu7aBONdahAsWTWT7BUr0zI8e6TjtpdZ0lFu4JjiirsAol58ysuqF4DLW5oJtE
+ G9ZXqxsNJagA6vek7sMd1znVWR3Si19q8P9DpTxASchg6UJISQBZMAbW2Ur74uTL9rmY
+ 7e4vUt3oOMWpRW2IKnuX0vVU+/T5OfHw8s7dJ8A6dcOAoRQM88KR+3/3QjTz+lGQvdml uw== 
+Received: from ediex01.ad.cirrus.com ([87.246.76.36])
+ by mx0b-001ae601.pphosted.com with ESMTP id 3439cngaya-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT);
+ Fri, 16 Oct 2020 10:14:46 -0500
+Received: from EDIEX01.ad.cirrus.com (198.61.84.80) by EDIEX01.ad.cirrus.com
+ (198.61.84.80) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1913.5; Fri, 16 Oct
+ 2020 16:14:45 +0100
+Received: from ediswmail.ad.cirrus.com (198.61.86.93) by EDIEX01.ad.cirrus.com
+ (198.61.84.80) with Microsoft SMTP Server id 15.1.1913.5 via Frontend
+ Transport; Fri, 16 Oct 2020 16:14:45 +0100
+Received: from [10.0.2.15] (ausnpc0lsnw1.ad.cirrus.com [198.61.64.143])
+ by ediswmail.ad.cirrus.com (Postfix) with ESMTP id A8A4345;
+ Fri, 16 Oct 2020 15:14:44 +0000 (UTC)
+Subject: Re: [PATCH 1/7] of: base: Add of_count_phandle_with_fixed_args()
+To: Rob Herring <robh+dt@kernel.org>, Robin Murphy <robin.murphy@arm.com>
+References: <20201014145418.31838-1-rf@opensource.cirrus.com>
+ <20201014145418.31838-2-rf@opensource.cirrus.com>
+ <CAL_Jsq+qdcHc9H7qUVwLieHrLM8E20HZXa8DkarMiuXfCh8WOQ@mail.gmail.com>
+ <90600a67-25e4-7933-35c3-f515deaee94f@arm.com>
+ <CAL_JsqKAvJ9fv9pm82iv5YjWVCJu1fmP-t+Fyc95pzUaCEL3XQ@mail.gmail.com>
+From: Richard Fitzgerald <rf@opensource.cirrus.com>
+Message-ID: <474edf9d-e15a-cc20-1b56-2fe1d7fccf55@opensource.cirrus.com>
+Date: Fri, 16 Oct 2020 16:14:44 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.3.1
 MIME-Version: 1.0
-Content-Type: text/plain
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nvidia.com; s=n1;
- t=1602859489; bh=Zmo3gEQj1Q3iW8/ujdilA5fA/ZPa/RKFHm549VsxnfY=;
- h=From:To:CC:Subject:Date:Message-ID:X-Mailer:In-Reply-To:
- References:MIME-Version:Content-Type;
- b=CTyvvR6Lx9YH+r3bSF2kJmkRpphh8Yv0KMn83L23xSqHPbA4QQ7IPLgtgHwht1LUF
- 3unP0MW5gTkvtdAk/VZq0788gpCeUe2lkWAdK55f7kaExZhL7aOC6sM5Me+i1eXC7W
- zDTLFCaeedAQUe3Kc7B0q0GxTc8VIDO3+XtgGomTfbol9zTSIuXJbh4lPBIxSohpSP
- 9l+O0+fw9eylAKLYp1uNAIUNZd7xFudKsbEu13ng2mIF680kR7vEHQE80N8GlJKbMG
- vx1+vpryG3k1oIcQcc3ITjsv/WX4x/WDJexH6Eyuyr/JtNKxG3l0fnA/L5D1Qzli0b
- aZ+Wc1tpqi9ag==
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- nicoleotsuka@gmail.com, swarren@nvidia.com, Sameer Pujar <spujar@nvidia.com>,
- linux-kernel@vger.kernel.org, atalambedu@nvidia.com, viswanathl@nvidia.com,
- sharadg@nvidia.com, nwartikar@nvidia.com, linux-tegra@vger.kernel.org,
- rlokhande@nvidia.com, mkumard@nvidia.com, dramesh@nvidia.com
+In-Reply-To: <CAL_JsqKAvJ9fv9pm82iv5YjWVCJu1fmP-t+Fyc95pzUaCEL3XQ@mail.gmail.com>
+Content-Type: text/plain; charset="utf-8"; format=flowed
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 mlxscore=0
+ bulkscore=0
+ priorityscore=1501 malwarescore=0 adultscore=0 spamscore=0 impostorscore=0
+ mlxlogscore=999 lowpriorityscore=0 phishscore=0 clxscore=1015
+ suspectscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.12.0-2009150000 definitions=main-2010160116
+Cc: devicetree@vger.kernel.org, Linux-ALSA <alsa-devel@alsa-project.org>,
+ - <patches@opensource.cirrus.com>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ Mark Brown <broonie@kernel.org>,
+ linux-arm-kernel <linux-arm-kernel@lists.infradead.org>,
+ Nicolas Saenz Julienne <nsaenzjulienne@suse.de>,
+ "moderated list:BROADCOM BCM2835 ARM
+ ARCHITECTURE" <linux-rpi-kernel@lists.infradead.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -94,459 +114,88 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Enable support for audio-graph based sound card on Jetson-Nano and
-Jetson-TX1. Depending on the platform, required I/O interfaces are
-enabled.
+On 16/10/2020 14:31, Rob Herring wrote:
+> On Thu, Oct 15, 2020 at 11:52 AM Robin Murphy <robin.murphy@arm.com> wrote:
+>>
+>> On 2020-10-14 19:39, Rob Herring wrote:
+>>> On Wed, Oct 14, 2020 at 9:54 AM Richard Fitzgerald
+>>> <rf@opensource.cirrus.com> wrote:
+>>>>
+>>>> Add an equivalent of of_count_phandle_with_args() for fixed argument
+>>>> sets, to pair with of_parse_phandle_with_fixed_args().
+>>>>
+>>>> Signed-off-by: Richard Fitzgerald <rf@opensource.cirrus.com>
+>>>> ---
+>>>>    drivers/of/base.c  | 42 ++++++++++++++++++++++++++++++++++++++++++
+>>>>    include/linux/of.h |  9 +++++++++
+>>>>    2 files changed, 51 insertions(+)
+>>>>
+>>>> diff --git a/drivers/of/base.c b/drivers/of/base.c
+>>>> index ea44fea99813..45d8b0e65345 100644
+>>>> --- a/drivers/of/base.c
+>>>> +++ b/drivers/of/base.c
+>>>> @@ -1772,6 +1772,48 @@ int of_count_phandle_with_args(const struct device_node *np, const char *list_na
+>>>>    }
+>>>>    EXPORT_SYMBOL(of_count_phandle_with_args);
+>>>>
+>>>> +/**
+>>>> + * of_count_phandle_with_fixed_args() - Find the number of phandles references in a property
+>>>> + * @np:                pointer to a device tree node containing a list
+>>>> + * @list_name: property name that contains a list
+>>>> + * @cell_count: number of argument cells following the phandle
+>>>> + *
+>>>> + * Returns the number of phandle + argument tuples within a property. It
+>>>> + * is a typical pattern to encode a list of phandle and variable
+>>>> + * arguments into a single property.
+>>>> + */
+>>>> +int of_count_phandle_with_fixed_args(const struct device_node *np,
+>>>> +                                    const char *list_name,
+>>>> +                                    int cells_count)
+>>>> +{
+>>>
+>>> Looks to me like you can refactor of_count_phandle_with_args to handle
+>>> both case and then make this and of_count_phandle_with_args simple
+>>> wrapper functions.
+>>
+>> Although for just counting the number of phandles each with n arguments
+>> that a property contains, isn't that simply a case of dividing the
+>> property length by n + 1? The phandles themselves will be validated by
+>> any subsequent of_parse_phandle*() call anyway, so there doesn't seem
+>> much point in doing more work then necessary here.
+>>
+>>>> +       struct of_phandle_iterator it;
+>>>> +       int rc, cur_index = 0;
+>>>> +
+>>>> +       if (!cells_count) {
+>>>> +               const __be32 *list;
+>>>> +               int size;
+>>>> +
+>>>> +               list = of_get_property(np, list_name, &size);
+>>>> +               if (!list)
+>>>> +                       return -ENOENT;
+>>>> +
+>>>> +               return size / sizeof(*list);
+>>
+>> Case in point - if it's OK to do exactly that for n == 0, then clearly
+>> we're *aren't* fussed about validating anything, so the n > 0 code below
+>> is nothing more than a massively expensive way to check for a nonzero
+>> remainder :/
+> 
+> Indeed. We should just generalize this. It can still be refactored to
+> shared code.
+> 
+> It's probably worthwhile to check for a remainder here IMO.
+>
 
- * Jetson-Nano: Enable I2S3, I2S4, DMIC1 and DMIC2.
- * Jetson-TX1: Enable all I2S and DMIC interfaces.
+Ok, I looked at the implementation of of_phandle_iterator_next() and
+it is in fact simply incrementing by 'count' 32-bit words. So as Robin
+said the count_phandle_with_x_args()functions could simply divide the
+length by count+1.
 
-Signed-off-by: Sameer Pujar <spujar@nvidia.com>
----
- arch/arm64/boot/dts/nvidia/tegra210-p2371-2180.dts | 262 +++++++++++++++++++++
- arch/arm64/boot/dts/nvidia/tegra210-p3450-0000.dts | 146 ++++++++++++
- 2 files changed, 408 insertions(+)
+However, may I suggest that should be done in a separate patch after my
+patch to add count_phandle_with_fixed_args()? That way, if replacing the
+iteration with the simple length divide causes any unforeseen problems
+the patch can just be reverted.
 
-diff --git a/arch/arm64/boot/dts/nvidia/tegra210-p2371-2180.dts b/arch/arm64/boot/dts/nvidia/tegra210-p2371-2180.dts
-index 4c9c2a0..dab24b4 100644
---- a/arch/arm64/boot/dts/nvidia/tegra210-p2371-2180.dts
-+++ b/arch/arm64/boot/dts/nvidia/tegra210-p2371-2180.dts
-@@ -3,6 +3,7 @@
- 
- #include "tegra210-p2180.dtsi"
- #include "tegra210-p2597.dtsi"
-+#include "tegra210-audio-graph.dtsi"
- 
- / {
- 	model = "NVIDIA Jetson TX1 Developer Kit";
-@@ -127,4 +128,265 @@
- 			status = "okay";
- 		};
- 	};
-+
-+	tegra_sound {
-+		status = "okay";
-+
-+		compatible = "nvidia,tegra210-audio-graph-card";
-+
-+		dais = /* FE */
-+		       <&admaif1_port>, <&admaif2_port>, <&admaif3_port>,
-+		       <&admaif4_port>, <&admaif5_port>, <&admaif6_port>,
-+		       <&admaif7_port>, <&admaif8_port>, <&admaif9_port>,
-+		       <&admaif10_port>,
-+		       /* Router */
-+		       <&xbar_i2s1_port>, <&xbar_i2s2_port>, <&xbar_i2s3_port>,
-+		       <&xbar_i2s4_port>, <&xbar_i2s5_port>, <&xbar_dmic1_port>,
-+		       <&xbar_dmic2_port>, <&xbar_dmic3_port>,
-+		       /* I/O DAP Ports */
-+		       <&i2s1_port>, <&i2s2_port>, <&i2s3_port>, <&i2s4_port>,
-+		       <&i2s5_port>, <&dmic1_port>, <&dmic2_port>, <&dmic3_port>;
-+
-+		label = "jetson-tx1-ape";
-+	};
-+};
-+
-+&tegra_admaif {
-+	status = "okay";
-+};
-+
-+&tegra_ahub {
-+	status = "okay";
-+
-+	ports {
-+		xbar_i2s1_port: port@a {
-+			reg = <0xa>;
-+			xbar_i2s1_ep: endpoint {
-+				remote-endpoint = <&i2s1_cif_ep>;
-+			};
-+		};
-+		xbar_i2s2_port: port@b {
-+			reg = <0xb>;
-+			xbar_i2s2_ep: endpoint {
-+				remote-endpoint = <&i2s2_cif_ep>;
-+			};
-+		};
-+		xbar_i2s3_port: port@c {
-+			reg = <0xc>;
-+			xbar_i2s3_ep: endpoint {
-+				remote-endpoint = <&i2s3_cif_ep>;
-+			};
-+		};
-+		xbar_i2s4_port: port@d {
-+			reg = <0xd>;
-+			xbar_i2s4_ep: endpoint {
-+				remote-endpoint = <&i2s4_cif_ep>;
-+			};
-+		};
-+		xbar_i2s5_port: port@e {
-+			reg = <0xe>;
-+			xbar_i2s5_ep: endpoint {
-+				remote-endpoint = <&i2s5_cif_ep>;
-+			};
-+		};
-+		xbar_dmic1_port: port@f {
-+			reg = <0xf>;
-+			xbar_dmic1_ep: endpoint {
-+				remote-endpoint = <&dmic1_cif_ep>;
-+			};
-+		};
-+		xbar_dmic2_port: port@10 {
-+			reg = <0x10>;
-+			xbar_dmic2_ep: endpoint {
-+				remote-endpoint = <&dmic2_cif_ep>;
-+			};
-+		};
-+		xbar_dmic3_port: port@11 {
-+			reg = <0x11>;
-+			xbar_dmic3_ep: endpoint {
-+				remote-endpoint = <&dmic3_cif_ep>;
-+			};
-+		};
-+	};
-+};
-+
-+&tegra_i2s1 {
-+	status = "okay";
-+
-+	ports {
-+		#address-cells = <1>;
-+		#size-cells = <0>;
-+
-+		port@0 {
-+			reg = <0>;
-+			i2s1_cif_ep: endpoint {
-+				remote-endpoint = <&xbar_i2s1_ep>;
-+			};
-+		};
-+		i2s1_port: port@1 {
-+			reg = <1>;
-+			i2s1_dap: endpoint {
-+				dai-format = "i2s";
-+				/* Placeholder for external Codec */
-+			};
-+		};
-+	};
-+};
-+
-+&tegra_i2s2 {
-+	status = "okay";
-+
-+	ports {
-+		#address-cells = <1>;
-+		#size-cells = <0>;
-+
-+		port@0 {
-+			reg = <0>;
-+			i2s2_cif_ep: endpoint {
-+				remote-endpoint = <&xbar_i2s2_ep>;
-+			};
-+		};
-+		i2s2_port: port@1 {
-+			reg = <1>;
-+			i2s2_dap: endpoint {
-+				dai-format = "i2s";
-+				/* Placeholder for external Codec */
-+			};
-+		};
-+	};
-+};
-+
-+&tegra_i2s3 {
-+	status = "okay";
-+
-+	ports {
-+		#address-cells = <1>;
-+		#size-cells = <0>;
-+
-+		port@0 {
-+			reg = <0>;
-+			i2s3_cif_ep: endpoint {
-+				remote-endpoint = <&xbar_i2s3_ep>;
-+			};
-+		};
-+		i2s3_port: port@1 {
-+			reg = <1>;
-+			i2s3_dap_ep: endpoint {
-+				dai-format = "i2s";
-+				/* Placeholder for external Codec */
-+			};
-+		};
-+	};
-+};
-+
-+&tegra_i2s4 {
-+	status = "okay";
-+
-+	ports {
-+		#address-cells = <1>;
-+		#size-cells = <0>;
-+
-+		port@0 {
-+			reg = <0>;
-+			i2s4_cif_ep: endpoint {
-+				remote-endpoint = <&xbar_i2s4_ep>;
-+			};
-+		};
-+		i2s4_port: port@1 {
-+			reg = <1>;
-+			i2s4_dap: endpoint {
-+				dai-format = "i2s";
-+				/* Placeholder for external Codec */
-+			};
-+		};
-+	};
-+};
-+
-+&tegra_i2s5 {
-+	status = "okay";
-+
-+	ports {
-+		#address-cells = <1>;
-+		#size-cells = <0>;
-+
-+		port@0 {
-+			reg = <0>;
-+			i2s5_cif_ep: endpoint {
-+				remote-endpoint = <&xbar_i2s5_ep>;
-+			};
-+		};
-+		i2s5_port: port@1 {
-+			reg = <1>;
-+			i2s5_dap: endpoint {
-+				dai-format = "i2s";
-+				/* Placeholder for external Codec */
-+			};
-+		};
-+	};
-+};
-+
-+&tegra_dmic1 {
-+	status = "okay";
-+
-+	ports {
-+		#address-cells = <1>;
-+		#size-cells = <0>;
-+
-+		port@0 {
-+			reg = <0>;
-+			dmic1_cif_ep: endpoint {
-+				remote-endpoint = <&xbar_dmic1_ep>;
-+			};
-+		};
-+		dmic1_port: port@1 {
-+			reg = <1>;
-+			dmic1_dap: endpoint {
-+				/* Placeholder for external Codec */
-+			};
-+		};
-+	};
-+};
-+
-+&tegra_dmic2 {
-+	status = "okay";
-+
-+	ports {
-+		#address-cells = <1>;
-+		#size-cells = <0>;
-+
-+		port@0 {
-+			reg = <0>;
-+			dmic2_cif_ep: endpoint {
-+				remote-endpoint = <&xbar_dmic2_ep>;
-+			};
-+		};
-+		dmic2_port: port@1 {
-+			reg = <1>;
-+			dmic2_dap: endpoint {
-+				/* Placeholder for external Codec */
-+			};
-+		};
-+	};
-+};
-+
-+&tegra_dmic3 {
-+	status = "okay";
-+
-+	ports {
-+		#address-cells = <1>;
-+		#size-cells = <0>;
-+
-+		port@0 {
-+			reg = <0>;
-+			dmic3_cif_ep: endpoint {
-+				remote-endpoint = <&xbar_dmic3_ep>;
-+			};
-+		};
-+		dmic3_port: port@1 {
-+			reg = <1>;
-+			dmic3_dap: endpoint {
-+				/* Placeholder for external Codec */
-+			};
-+		};
-+	};
- };
-diff --git a/arch/arm64/boot/dts/nvidia/tegra210-p3450-0000.dts b/arch/arm64/boot/dts/nvidia/tegra210-p3450-0000.dts
-index 859241d..1216b65c8 100644
---- a/arch/arm64/boot/dts/nvidia/tegra210-p3450-0000.dts
-+++ b/arch/arm64/boot/dts/nvidia/tegra210-p3450-0000.dts
-@@ -6,6 +6,7 @@
- #include <dt-bindings/mfd/max77620.h>
- 
- #include "tegra210.dtsi"
-+#include "tegra210-audio-graph.dtsi"
- 
- / {
- 	model = "NVIDIA Jetson Nano Developer Kit";
-@@ -870,4 +871,149 @@
- 
- 		vin-supply = <&vdd_5v0_sys>;
- 	};
-+
-+	tegra_sound {
-+		status = "okay";
-+
-+		compatible = "nvidia,tegra210-audio-graph-card";
-+
-+		dais = /* FE */
-+		       <&admaif1_port>, <&admaif2_port>, <&admaif3_port>,
-+		       <&admaif4_port>, <&admaif5_port>, <&admaif6_port>,
-+		       <&admaif7_port>, <&admaif8_port>, <&admaif9_port>,
-+		       <&admaif10_port>,
-+		       /* Router */
-+		       <&xbar_i2s3_port>, <&xbar_i2s4_port>,
-+		       <&xbar_dmic1_port>, <&xbar_dmic2_port>,
-+		       /* I/O DAP Ports */
-+		       <&i2s3_port>, <&i2s4_port>,
-+		       <&dmic1_port>, <&dmic2_port>;
-+
-+		label = "jetson-nano-ape";
-+	};
-+};
-+
-+&tegra_admaif {
-+	status = "okay";
-+};
-+
-+&tegra_ahub {
-+	status = "okay";
-+
-+	ports {
-+		xbar_i2s3_port: port@c {
-+			reg = <0xc>;
-+			xbar_i2s3_ep: endpoint {
-+				remote-endpoint = <&i2s3_cif_ep>;
-+			};
-+		};
-+		xbar_i2s4_port: port@d {
-+			reg = <0xd>;
-+			xbar_i2s4_ep: endpoint {
-+				remote-endpoint = <&i2s4_cif_ep>;
-+			};
-+		};
-+		xbar_dmic1_port: port@f {
-+			reg = <0xf>;
-+			xbar_dmic1_ep: endpoint {
-+				remote-endpoint = <&dmic1_cif_ep>;
-+			};
-+		};
-+		xbar_dmic2_port: port@10 {
-+			reg = <0x10>;
-+			xbar_dmic2_ep: endpoint {
-+				remote-endpoint = <&dmic2_cif_ep>;
-+			};
-+		};
-+	};
-+};
-+
-+&tegra_i2s3 {
-+	status = "okay";
-+
-+	ports {
-+		#address-cells = <1>;
-+		#size-cells = <0>;
-+
-+		port@0 {
-+			reg = <0>;
-+			i2s3_cif_ep: endpoint {
-+				remote-endpoint = <&xbar_i2s3_ep>;
-+			};
-+		};
-+		i2s3_port: port@1 {
-+			reg = <1>;
-+			i2s3_dap_ep: endpoint {
-+				dai-format = "i2s";
-+				/* Placeholder for external Codec */
-+			};
-+		};
-+	};
-+};
-+
-+&tegra_i2s4 {
-+	status = "okay";
-+
-+	ports {
-+		#address-cells = <1>;
-+		#size-cells = <0>;
-+
-+		port@0 {
-+			reg = <0>;
-+			i2s4_cif_ep: endpoint {
-+				remote-endpoint = <&xbar_i2s4_ep>;
-+			};
-+		};
-+		i2s4_port: port@1 {
-+			reg = <1>;
-+			i2s4_dap: endpoint@0 {
-+				dai-format = "i2s";
-+				/* Placeholder for external Codec */
-+			};
-+		};
-+	};
-+};
-+
-+&tegra_dmic1 {
-+	status = "okay";
-+
-+	ports {
-+		#address-cells = <1>;
-+		#size-cells = <0>;
-+
-+		port@0 {
-+			reg = <0>;
-+			dmic1_cif_ep: endpoint@0 {
-+				remote-endpoint = <&xbar_dmic1_ep>;
-+			};
-+		};
-+		dmic1_port: port@1 {
-+			reg = <1>;
-+			dmic1_dap: endpoint@0 {
-+				/* Placeholder for external Codec */
-+			};
-+		};
-+	};
-+};
-+
-+&tegra_dmic2 {
-+	status = "okay";
-+
-+	ports {
-+		#address-cells = <1>;
-+		#size-cells = <0>;
-+
-+		port@0 {
-+			reg = <0>;
-+			dmic2_cif_ep: endpoint@0 {
-+				remote-endpoint = <&xbar_dmic2_ep>;
-+			};
-+		};
-+		dmic2_port: port@1 {
-+			reg = <1>;
-+			dmic2_dap: endpoint@0 {
-+				/* Placeholder for external Codec */
-+			};
-+		};
-+	};
- };
--- 
-2.7.4
-
+> Rob
+> 

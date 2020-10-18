@@ -2,48 +2,48 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9F9592916F6
-	for <lists+alsa-devel@lfdr.de>; Sun, 18 Oct 2020 12:36:04 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C569829171C
+	for <lists+alsa-devel@lfdr.de>; Sun, 18 Oct 2020 13:06:47 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 5E07B17BF;
-	Sun, 18 Oct 2020 12:35:13 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5E07B17BF
+	by alsa0.perex.cz (Postfix) with ESMTPS id CC0B41796;
+	Sun, 18 Oct 2020 13:05:56 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CC0B41796
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1603017363;
-	bh=EORXxtUEcehx1MRmBy43mEQAu6zLDWq7ZmyC5q7KEC4=;
+	s=default; t=1603019206;
+	bh=/j8ue4PSpD55y1evuWVvvv0xTmWLdUMy1GR1UDZWpe4=;
 	h=From:To:In-Reply-To:References:Subject:Date:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=ih8ljl8EHF1HQtoSbLK54v5RMbPNc23nzRzoNuGT0/9He87t6MwDFCYMkJJDizDL4
-	 q8EYKPonBWhtQCl0uVnAqzjAnzCZzzhYgsPYrlECVOkgQ3MVehBkUT01JJoVhF0uov
-	 Oasgzyw5JATYqrHxm4DrWPZvHftlDUPMlaBJu8hE=
+	b=Zk8c15sj/NJETT0WQoTO7UemcwKO65LAsGftXAPJrRQ2CNVT+mYCMp4VoTS8KJeyw
+	 +8olX32+M7/GfG9Dbha5Xc7Lfo5PMK5Haj8YwL/3VGkR2Ca4GTKxuQ+P7DLKJ/Yyy8
+	 VB9W/XDCZq2OU9fqdr3qwAldc9KOHXntMWSziGVA=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id EC361F80225;
-	Sun, 18 Oct 2020 12:34:22 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 5BE86F80111;
+	Sun, 18 Oct 2020 13:05:06 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 81042F801F2; Sun, 18 Oct 2020 12:34:21 +0200 (CEST)
+ id 6F4B5F801F2; Sun, 18 Oct 2020 13:05:04 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: **
 X-Spam-Status: No, score=2.5 required=5.0 tests=MISSING_DATE,MISSING_MID,
  SPF_FAIL,SPF_HELO_NONE autolearn=disabled version=3.4.0
 Received: from webhooks-bot.alsa-project.org (gate.perex.cz [77.48.224.242])
- by alsa1.perex.cz (Postfix) with ESMTP id AC643F800AD
- for <alsa-devel@alsa-project.org>; Sun, 18 Oct 2020 12:34:18 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz AC643F800AD
+ by alsa1.perex.cz (Postfix) with ESMTP id 27A50F80111
+ for <alsa-devel@alsa-project.org>; Sun, 18 Oct 2020 13:05:00 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 27A50F80111
 MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-From: GitHub pull_request - opened <github@alsa-project.org>
+From: GitHub issues - opened <github@alsa-project.org>
 To: alsa-devel@alsa-project.org
-In-Reply-To: <1603017257758229017-webhooks-bot@alsa-project.org>
-References: <1603017257758229017-webhooks-bot@alsa-project.org>
-Subject: Fix grammar mess.
-Message-Id: <20201018103421.81042F801F2@alsa1.perex.cz>
-Date: Sun, 18 Oct 2020 12:34:21 +0200 (CEST)
+In-Reply-To: <1603019100244839907-webhooks-bot@alsa-project.org>
+References: <1603019100244839907-webhooks-bot@alsa-project.org>
+Subject: Add amixer --view, to filter playback, capture or all
+Message-Id: <20201018110504.6F4B5F801F2@alsa1.perex.cz>
+Date: Sun, 18 Oct 2020 13:05:04 +0200 (CEST)
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -59,10 +59,25 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-alsa-project/alsa-utils pull request #66 was opened from jidanni:
+alsa-project/alsa-utils issue #67 was opened from jidanni:
 
-Fix grammar mess.
+alsamixer has
+```
+       -V, --view <mode>
+              Select the starting view mode, either playback, capture or all.
+```
 
-Request URL   : https://github.com/alsa-project/alsa-utils/pull/66
-Patch URL     : https://github.com/alsa-project/alsa-utils/pull/66.patch
+Perhaps amixer could also have something similar,'
+e.g., so that
+```
+$ amixer --view capture
+```
+would only dump the capture related settings.
+Currently one could say that
+```
+$ amixer --view all
+```
+is the default.
+
+Issue URL     : https://github.com/alsa-project/alsa-utils/issues/67
 Repository URL: https://github.com/alsa-project/alsa-utils

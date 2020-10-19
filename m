@@ -2,84 +2,80 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0AECE2930FE
-	for <lists+alsa-devel@lfdr.de>; Tue, 20 Oct 2020 00:13:08 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E3D09293109
+	for <lists+alsa-devel@lfdr.de>; Tue, 20 Oct 2020 00:18:05 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 287941716;
-	Tue, 20 Oct 2020 00:12:17 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 287941716
+	by alsa0.perex.cz (Postfix) with ESMTPS id 1BBE016F5;
+	Tue, 20 Oct 2020 00:17:15 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1BBE016F5
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1603145587;
-	bh=MUXGRME1gcQc3Ii9PNK8+/8qxTt25Uslhzeek5/HdlA=;
+	s=default; t=1603145885;
+	bh=uX4maItsqDG18cfvewtCdQzqtCHtz4s8dlLHWRZfQgY=;
 	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=Wj2p8V2HTpkbnMMKxz7RblSTNpmvD5SNVJHOoA30zj6FGpD9qRsWdIrpuT0lqKgCQ
-	 /Bb4gWwErUdN33SAl3KD2L7vQeUWUmc7RlLo0epjasU+Ig55PCyZ1nXmAo1YyIMMjT
-	 LakI9LWUHnXSdxJofO8AQ5waWDhLoKLrl/OQ7BKs=
+	b=KcBjKvwyUGQ/aFbbfbMYf9Udg499uKM02SKvnLCv39sYBgNzPXR05rtaqIBNWuOoS
+	 R77uU2MD2aefCW3HMmPqGRJlJp6Ju0rn9q4QtL6J8kBwH3/S+dEKVDmdbVlADZ2SrD
+	 FMR4VPZlnyCbxNQ0bh60n5NV1pYicqLzdhALvFqc=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 39CD1F80279;
-	Tue, 20 Oct 2020 00:12:06 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 91B5FF801A3;
+	Tue, 20 Oct 2020 00:16:24 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 4151BF80289; Tue, 20 Oct 2020 00:12:03 +0200 (CEST)
+ id 4FD63F80247; Tue, 20 Oct 2020 00:16:22 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.7 required=5.0 tests=FREEMAIL_ENVFROM_END_DIGIT,
  FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,
  RCVD_IN_MSPIKE_H3,RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
  autolearn=disabled version=3.4.0
-Received: from mail-ot1-f68.google.com (mail-ot1-f68.google.com
- [209.85.210.68])
+Received: from mail-ot1-f66.google.com (mail-ot1-f66.google.com
+ [209.85.210.66])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 2E0A9F80121
- for <alsa-devel@alsa-project.org>; Tue, 20 Oct 2020 00:11:56 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2E0A9F80121
-Received: by mail-ot1-f68.google.com with SMTP id k68so1308903otk.10
- for <alsa-devel@alsa-project.org>; Mon, 19 Oct 2020 15:11:56 -0700 (PDT)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 0DEF3F801A3
+ for <alsa-devel@alsa-project.org>; Tue, 20 Oct 2020 00:16:15 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0DEF3F801A3
+Received: by mail-ot1-f66.google.com with SMTP id h62so1327203oth.9
+ for <alsa-devel@alsa-project.org>; Mon, 19 Oct 2020 15:16:15 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:date:from:to:cc:subject:message-id:references
  :mime-version:content-disposition:in-reply-to;
- bh=pMuRP7PwPZH/1QCeF9m+2AemyNEiW+4ppV1kMNUMQ/U=;
- b=mihrMK2Q9w9Sm/TYaZeM7WnLSt7dToBwsYGRLlRLbN5diS6uQsHy2DhGXoeW+1bFCH
- 3eYhtOc6nWYqDinHt0l0+ZvAndgZhCE1xK6mlIsEPxKR/QFAjkAKC+qKliyzyK0VEAVy
- DTGYnPT+hAtu5z6gpQ9TuEVvhtjbSWXAbVyvaXN4VOI5pOBJ7SKMl9vLmjZQhdigFa0m
- FPkze0XqT//HjS8RYGVXLGLALr4Bm4rjkMzM1pZ545ZBTfVWkQ3S6EAdWqmTn1hbgoyh
- nRh3qbElFl06L/gKMZD5p2/yoC+vZ2zYEDMDxnqZfkD9clxIvY8N0IS1VYYb72If15GB
- vgUA==
-X-Gm-Message-State: AOAM533iS1swzPYBXLxpFxxx7SIUwNeEiuRCBIHWENNR+GLohA1IaP5j
- A0RqYCMpC0oN7t7A+F5baw==
-X-Google-Smtp-Source: ABdhPJzhOnt38ZSjVsNhD0vUKJmX6whzxZHUESJU7+2jyu5TxMgWUSeRU0XkpNHzJSgKNWCPDJJCEg==
-X-Received: by 2002:a05:6830:1c32:: with SMTP id
- f18mr1413460ote.276.1603145514519; 
- Mon, 19 Oct 2020 15:11:54 -0700 (PDT)
+ bh=7ro/YQVjz81P9SXrPqBg+aSAZ3CY21lcJ/N+W67/ad0=;
+ b=CQjHELfh1cQCRJc65sSjP8nCdF628vJzIZRtNCNK+DIQkVj54wSQql5IEla5BhRt5X
+ UD4KuYVwOb/efO7w4eSHinmNzw45xMQuDne8r42qvElAx4hN5gc66MybbDLYf//gkDt5
+ 0s24njtv09dMo4QxzUMc+//u8JxKGDb1oICl7fxaSEP/DS9YFcmWnuHmsyJUsEkKf4Yz
+ TNsuzUeAzbnWE5MhfTD4VdKqrcceIzJaXtLFWEvUsYookpbaUQpjsxdZ8lQgz5bjxm8h
+ 4coG1CoZVJLSlvgWYWCnrv4MdFWEOmyKIXgoXuC00dKluXBh2c7eS9ReW/S0gk2D1S9y
+ yf2Q==
+X-Gm-Message-State: AOAM530EbIzVTsX/kvYKACLtL9XkeGEkeEjeafmxoTPS4FSLhcWdHZF/
+ avZXTKmlpBkccjE88uwhZw==
+X-Google-Smtp-Source: ABdhPJwToqJ2946gzDsGsazKbQCSDFHji8pzyB1wMCh7IO4Irb4cjEHJvy/roabKqFJ7wELd+1le8w==
+X-Received: by 2002:a9d:42e:: with SMTP id 43mr1489058otc.199.1603145774004;
+ Mon, 19 Oct 2020 15:16:14 -0700 (PDT)
 Received: from xps15 (24-155-109-49.dyn.grandenetworks.net. [24.155.109.49])
- by smtp.gmail.com with ESMTPSA id h6sm266576otr.28.2020.10.19.15.11.53
+ by smtp.gmail.com with ESMTPSA id p10sm312216oig.37.2020.10.19.15.16.12
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 19 Oct 2020 15:11:53 -0700 (PDT)
-Received: (nullmailer pid 3689734 invoked by uid 1000);
- Mon, 19 Oct 2020 22:11:53 -0000
-Date: Mon, 19 Oct 2020 17:11:53 -0500
+ Mon, 19 Oct 2020 15:16:13 -0700 (PDT)
+Received: (nullmailer pid 3695429 invoked by uid 1000);
+ Mon, 19 Oct 2020 22:16:12 -0000
+Date: Mon, 19 Oct 2020 17:16:12 -0500
 From: Rob Herring <robh@kernel.org>
-To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Subject: Re: [PATCH v4 09/15] ASoC: dt-bindings: audio-graph: Convert
- bindings to json-schema
-Message-ID: <20201019221153.GB3679866@bogus>
+To: Sameer Pujar <spujar@nvidia.com>
+Subject: Re: [PATCH v4 11/15] ASoC: dt-bindings: tegra: Add json-schema for
+ Tegra audio graph card
+Message-ID: <20201019221612.GA3690258@bogus>
 References: <1602859382-19505-1-git-send-email-spujar@nvidia.com>
- <1602859382-19505-10-git-send-email-spujar@nvidia.com>
- <87o8kz9blh.wl-kuninori.morimoto.gx@renesas.com>
- <2c9abfd5-f7eb-0b8d-f45f-9f56f37881b5@nvidia.com>
- <87v9f6hlvb.wl-kuninori.morimoto.gx@renesas.com>
+ <1602859382-19505-12-git-send-email-spujar@nvidia.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <87v9f6hlvb.wl-kuninori.morimoto.gx@renesas.com>
-Cc: alsa-devel@alsa-project.org, Sameer Pujar <spujar@nvidia.com>,
+In-Reply-To: <1602859382-19505-12-git-send-email-spujar@nvidia.com>
+Cc: alsa-devel@alsa-project.org, kuninori.morimoto.gx@renesas.com,
  atalambedu@nvidia.com, linux-kernel@vger.kernel.org, thierry.reding@gmail.com,
  rlokhande@nvidia.com, swarren@nvidia.com, tiwai@suse.com,
  pierre-louis.bossart@linux.intel.com, jonathanh@nvidia.com,
@@ -102,31 +98,195 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Mon, Oct 19, 2020 at 01:41:40PM +0900, Kuninori Morimoto wrote:
+On Fri, Oct 16, 2020 at 08:12:58PM +0530, Sameer Pujar wrote:
+> Add YAML schema for Tegra audio graph sound card DT bindings. It uses the
+> same DT bindings provided by generic audio graph driver. Along with this
+> few standard clock DT bindings are added which are specifically required
+> for Tegra audio.
 > 
-> Hi Sameer
+> Signed-off-by: Sameer Pujar <spujar@nvidia.com>
+> ---
+>  .../sound/nvidia,tegra-audio-graph-card.yaml       | 158 +++++++++++++++++++++
+>  1 file changed, 158 insertions(+)
+>  create mode 100644 Documentation/devicetree/bindings/sound/nvidia,tegra-audio-graph-card.yaml
 > 
-> > >> Convert device tree bindings of audio graph card to YAML format. Also
-> > >> expose some common definitions which can be used by similar graph based
-> > >> audio sound cards.
-> > >> 
-> > >> Signed-off-by: Sameer Pujar <spujar@nvidia.com>
-> > >> Cc: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-> > >> ---
-> > > I'm posting this patch to Rob & DT ML.
-> > > Not yet accepted, though..
-> > 
-> > Thanks for letting me know. I guess below is your patch,
-> > http://patchwork.ozlabs.org/project/devicetree-bindings/patch/877dtlvsxk.wl-kuninori.morimoto.gx@renesas.com/
-> > Do you have plans to resend this or send next revision?
-> > 
-> > I can drop my patch once yours is merged and refer the same for Tegra
-> > audio graph card.
-> 
-> I'm waiting response from Rob now.
-> It is merge window now. I will re-post it without his response
-> if -rc1 was released.
+> diff --git a/Documentation/devicetree/bindings/sound/nvidia,tegra-audio-graph-card.yaml b/Documentation/devicetree/bindings/sound/nvidia,tegra-audio-graph-card.yaml
+> new file mode 100644
+> index 0000000..284d185
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/sound/nvidia,tegra-audio-graph-card.yaml
+> @@ -0,0 +1,158 @@
+> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/sound/nvidia,tegra-audio-graph-card.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +
+> +title: Audio Graph based Tegra sound card driver
+> +
+> +description: |
+> +  This is based on generic audio graph card driver along with additional
+> +  customizations for Tegra platforms. It uses the same bindings with
+> +  additional standard clock DT bindings required for Tegra.
+> +
+> +  See{LINUX}/Documentation/devicetree/bindings/sound/audio-graph-card.yaml
 
-Sorry, fell off my radar. Now replied.
+You should be able to just $ref this at the top level.
 
-Rob
+> +
+> +maintainers:
+> +  - Jon Hunter <jonathanh@nvidia.com>
+> +  - Sameer Pujar <spujar@nvidia.com>
+> +
+> +properties:
+> +  compatible:
+> +    items:
+> +      - enum:
+> +          - nvidia,tegra210-audio-graph-card
+> +          - nvidia,tegra186-audio-graph-card
+> +
+
+> +  dais:
+> +    $ref: /schemas/sound/audio-graph-card.yaml#/properties/dais
+> +
+> +  label:
+> +    $ref: /schemas/sound/simple-card.yaml#/properties/label
+> +
+> +  pa-gpios:
+> +    $ref: /schemas/sound/audio-graph-card.yaml#/properties/pa-gpios
+> +
+> +  widgets:
+> +    $ref: /schemas/sound/simple-card.yaml#/definitions/widgets
+> +
+> +  routing:
+> +    $ref: /schemas/sound/simple-card.yaml#/definitions/routing
+> +
+> +  mclk-fs:
+> +    $ref: /schemas/sound/simple-card.yaml#/definitions/mclk-fs
+> +
+> +  prefix:
+> +    $ref: /schemas/sound/simple-card.yaml#/definitions/prefix
+
+And drop all of these.
+
+> +
+> +  clocks:
+> +   minItems: 2
+> +
+> +  clock-names:
+> +   minItems: 2
+
+Don't need this.
+
+> +   items:
+> +     - const: pll_a
+> +     - const: plla_out0
+> +
+> +  assigned-clocks:
+> +    minItems: 1
+> +    maxItems: 3
+> +
+> +  assigned-clock-parents:
+> +    minItems: 1
+> +    maxItems: 3
+> +
+> +  assigned-clock-rates:
+> +    minItems: 1
+> +    maxItems: 3
+> +
+> +  ports:
+> +    $ref: /schemas/sound/audio-graph-card.yaml#/properties/ports
+> +
+> +patternProperties:
+> +  "^port(@[0-9a-f]+)?$":
+> +    $ref: /schemas/sound/audio-graph-card.yaml#/definitions/port
+
+And these can be dropped. Unless what each port is is Tegra specific.
+
+> +
+> +additionalProperties: false
+> +
+> +required:
+> +  - compatible
+> +  - dais
+> +  - clocks
+> +  - clock-names
+> +  - assigned-clocks
+> +  - assigned-clock-parents
+> +
+> +examples:
+> +  - |
+> +    #include<dt-bindings/clock/tegra210-car.h>
+> +
+> +    tegra_sound {
+> +        compatible = "nvidia,tegra210-audio-graph-card";
+> +
+> +        clocks = <&tegra_car TEGRA210_CLK_PLL_A>,
+> +                 <&tegra_car TEGRA210_CLK_PLL_A_OUT0>;
+> +        clock-names = "pll_a", "plla_out0";
+> +
+> +        assigned-clocks = <&tegra_car TEGRA210_CLK_PLL_A>,
+> +                          <&tegra_car TEGRA210_CLK_PLL_A_OUT0>,
+> +                          <&tegra_car TEGRA210_CLK_EXTERN1>;
+> +        assigned-clock-parents = <0>, <0>, <&tegra_car TEGRA210_CLK_PLL_A_OUT0>;
+> +        assigned-clock-rates = <368640000>, <49152000>, <12288000>;
+> +
+> +        dais = /* FE */
+> +               <&admaif1_port>,
+> +               /* Router */
+> +               <&xbar_i2s1_port>,
+> +               /* I/O DAP Ports */
+> +               <&i2s1_port>;
+> +
+> +        label = "jetson-tx1-ape";
+> +    };
+> +
+> +    tegra_ahub: ahub@702d0800 {
+> +        // ...
+> +
+> +        reg = <0x702d0800 0x800>;
+> +
+> +        ports {
+> +            #address-cells = <1>;
+> +            #size-cells = <0>;
+> +
+> +            xbar_i2s1_port: port@a {
+> +                reg = <0xa>;
+> +                xbar_i2s1_ep: endpoint {
+> +                    remote-endpoint = <&i2s1_cif_ep>;
+> +                };
+> +            };
+> +        };
+> +    };
+> +
+> +    tegra_i2s1: i2s@702d1000 {
+> +        // ...
+> +
+> +        #address-cells = <1>;
+> +        #size-cells = <0>;
+> +
+> +        reg = <0x702d1000 0x100>;
+> +
+> +        port@0 {
+> +            reg = <0>;
+> +
+> +            i2s1_cif_ep: endpoint {
+> +                remote-endpoint = <&xbar_i2s1_ep>;
+> +            };
+> +        };
+> +
+> +        i2s1_port: port@1 {
+> +            reg = <1>;
+> +
+> +            i2s1_dap: endpoint {
+> +                dai-format = "i2s";
+> +
+> +                // ...
+> +            };
+> +        };
+> +    };
+> +
+> +...
+> -- 
+> 2.7.4
+> 

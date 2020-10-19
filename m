@@ -2,82 +2,70 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6D833294DC0
-	for <lists+alsa-devel@lfdr.de>; Wed, 21 Oct 2020 15:41:43 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0072A294DDA
+	for <lists+alsa-devel@lfdr.de>; Wed, 21 Oct 2020 15:46:58 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E4A731775;
-	Wed, 21 Oct 2020 15:40:51 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E4A731775
+	by alsa0.perex.cz (Postfix) with ESMTPS id F2F0C1772;
+	Wed, 21 Oct 2020 15:46:06 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz F2F0C1772
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1603287702;
-	bh=FLr+kjAv6yLD8bqjEwLyprnEfz/mXe2f1830qS+iF0A=;
-	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=n8Ya/jLmy3oGPiH+en4KKrCRT5QQe+vwba2HeqMqrB2/0Eal7HqaiYawaC6ItiD1W
-	 D0deaG7v0zW/f++wcnpsr4qeDsBW6AarnK3MD/oZaDo82Cwrf4icNpEGDhh1KGggYO
-	 L4Lo0YIml4ANBndZecyCaA9x8TzsvmMHRZmW2wy8=
+	s=default; t=1603288017;
+	bh=QZ+zX+EfCnbLLfe0lKvEERnB7MS9f8BNIUZF7+C/uDI=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=tnf5MNG0E+/aEmqxRorOyZAK0GAAPon28sb04qSHHW1t8VgofxY5cJIKSiby9z5+m
+	 6phtfFzlwcg99TUzWiPwupKrSjE8lYW5ui8feJ654GEbjIzZFHBfcn9+0QeQLzjsKs
+	 d6Ckl4UkfLNzot7ALz971kXFLj7H6rRdGF8GxApQ=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id BC6B1F804D8;
-	Wed, 21 Oct 2020 15:37:44 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 22A11F8053B;
+	Wed, 21 Oct 2020 15:37:58 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id BDB3CF80247; Mon, 19 Oct 2020 12:59:04 +0200 (CEST)
+ id 5F3E4F80247; Mon, 19 Oct 2020 14:32:05 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,RCVD_IN_MSPIKE_H4,RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_PASS,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mail.nic.cz (mail.nic.cz [217.31.204.67])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_PASS autolearn=disabled
+ version=3.4.0
+Received: from m15111.mail.126.com (m15111.mail.126.com [220.181.15.111])
+ (using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 927C7F8010F
- for <alsa-devel@alsa-project.org>; Mon, 19 Oct 2020 12:58:57 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 927C7F8010F
+ by alsa1.perex.cz (Postfix) with ESMTPS id AB8AAF800AD
+ for <alsa-devel@alsa-project.org>; Mon, 19 Oct 2020 14:31:57 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz AB8AAF800AD
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=nic.cz header.i=@nic.cz header.b="mBLaCSEt"
-Received: from dellmb.labs.office.nic.cz (unknown
- [IPv6:2001:1488:fffe:6:cac7:3539:7f1f:463])
- by mail.nic.cz (Postfix) with ESMTPSA id 7D33D13FFC2;
- Mon, 19 Oct 2020 12:58:56 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=nic.cz; s=default;
- t=1603105136; bh=FLr+kjAv6yLD8bqjEwLyprnEfz/mXe2f1830qS+iF0A=;
- h=Date:From:To;
- b=mBLaCSEteSW/F3f9hFbWoHi9mMcq3c8B9laIMisAPFqFlKgUaMZHFpd7Lt2fHlmtp
- /2EVm7TlcXNofS8NSGd90jxiIY415NdHZJ5HedyfjjmzDjxKC3hMK85A6DN0O9fVoe
- NO2hOCjWn268C+tu3IzYLK7nTNervKHXUQDVtsP0=
-Date: Mon, 19 Oct 2020 12:58:56 +0200
-From: Marek =?ISO-8859-1?Q?Beh=FAn?= <marek.behun@nic.cz>
-To: Udo van den Heuvel <udovdh@xs4all.nl>
-Subject: Re: disabling CONFIG_LED_CLASS (SND_HDA_CODEC_REALTEK)
-Message-ID: <20201019125856.02cebbee@dellmb.labs.office.nic.cz>
-In-Reply-To: <d8e450ef-cde9-b799-88e9-8ed9940b95fe@xs4all.nl>
-References: <1e6b1961-9e9b-5f82-86a1-bf838cb68f55@xs4all.nl>
- <d7774b58-caf5-5bd8-845d-a5d45aaef4c6@infradead.org>
- <s5hblh5mele.wl-tiwai@suse.de> <s5ha6wpmei5.wl-tiwai@suse.de>
- <20201014075853.GB29881@amd>
- <056a8933-378f-30f2-c7af-5514d93d3c36@xs4all.nl>
- <20201014081116.GC29881@amd>
- <2be6e184-97d4-a2b1-a500-6ea3528cff37@xs4all.nl>
- <20201014082752.GA31728@amd>
- <9cf705b9-1fca-2445-43de-916b13b9103f@xs4all.nl>
- <20201014083758.GB31728@amd>
- <d8e450ef-cde9-b799-88e9-8ed9940b95fe@xs4all.nl>
-X-Mailer: Claws Mail 3.17.6 (GTK+ 2.24.32; x86_64-pc-linux-gnu)
-MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
-X-Virus-Scanned: clamav-milter 0.102.2 at mail
-X-Virus-Status: Clean
+ dkim=pass (1024-bit key) header.d=126.com header.i=@126.com
+ header.b="RpMfgr0m"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=126.com;
+ s=s110527; h=From:Subject:Date:Message-Id; bh=hLfIQIHuyLNmd+qchF
+ 0iMkyztO/7yUc2IbZTbVRiJyI=; b=RpMfgr0mJqGp+g+dat3z/td2OnhOXL6w2a
+ plj+lFyWuj1vTLz68O5JaQ3HyvmKoVJhANV2n3uKssPo3lFlD+lwpLNedIsU/cga
+ 2i032g+is2b2e0XijgprS4/4Xvw1mSF8o64RMYoW1SBUespGHQvKd08m84GejoQg
+ UpXTxu3Xs=
+Received: from localhost.localdomain (unknown [36.112.86.14])
+ by smtp1 (Coremail) with SMTP id C8mowACHgx00h41fyctCKg--.6S2;
+ Mon, 19 Oct 2020 20:31:53 +0800 (CST)
+From: Defang Bo <bodefang@126.com>
+To: lgirdwood@gmail.com, broonie@kernel.org, perex@perex.cz, tiwai@suse.com,
+ Vishnuvardhanrao.Ravulapati@amd.com
+Subject: [PATCH] ASoC: amd: move the call to devm_kzalloc below
+ platform_get_resource()
+Date: Mon, 19 Oct 2020 20:31:29 +0800
+Message-Id: <1603110689-5015-1-git-send-email-bodefang@126.com>
+X-Mailer: git-send-email 1.9.1
+X-CM-TRANSID: C8mowACHgx00h41fyctCKg--.6S2
+X-Coremail-Antispam: 1Uf129KBjvJXoWrtFW7try7tr13WryxAr48tFb_yoW8JrW3p3
+ 93KFZxtrWrJrWUZ3y8GF48ZF1Ygry29a1UKrs8Z3y3Za45GrWkKFs7JFy0kFWSyFWvka1x
+ XryDta1FvFn0qrUanT9S1TB71UUUUUUqnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+ 9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07bFPEfUUUUU=
+X-Originating-IP: [36.112.86.14]
+X-CM-SenderInfo: pergvwxdqjqiyswou0bp/1tbitBDC11pEBvHlDgAAsz
 X-Mailman-Approved-At: Wed, 21 Oct 2020 15:37:33 +0200
-Cc: moderated for non-subscribers <alsa-devel@alsa-project.org>,
- Takashi Iwai <tiwai@suse.de>, Randy Dunlap <rdunlap@infradead.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- Dan Murphy <dmurphy@ti.com>, Pavel Machek <pavel@ucw.cz>,
- linux-leds@vger.kernel.org
+Cc: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
+ Defang Bo <bodefang@126.com>, akshu.agrawal@amd.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -93,36 +81,37 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Mon, 19 Oct 2020 10:35:12 +0200
-Udo van den Heuvel <udovdh@xs4all.nl> wrote:
+Just as the commit <4cb79ef9c6c4>("ASoC: amd: Fix potential NULL pointer dereference"),it makes no sense to allocate any resources if res = platform_get_resource(pdev, IORESOURCE_MEM, 0); fails,so move the call to devm_kzalloc() below the mentioned code.
 
-> People,
-> 
-> At https://www.kernel.org/doc/html/latest/leds/leds-class.html we can
-> read that the LEDS code supposedly optimizes away when certain
-> conditions are met.
-> Especially the Realtek HDA driver *unconditionally* (as found in
-> 5.9.1) *wants* to enable LED functionality.
-> I.e.: if this blockade is lifted in the source tree then I can live
-> with the 'is optimized out' predictions, assuming that gcc (from
-> Fedora 32) can do this.
-> So the request is clear; we're almost there.
-> Please make it so that the compiler can do the 'optimize away' work
-> bij changing a tad in the Realtek HDA driver, along the lines of the
-> patch sent to me earlier or something even more beautiful.
-> 
-> Thanks in advance and kind regards,
-> Udo
+Signed-off-by: Defang Bo <bodefang@126.com>
+---
+ sound/soc/amd/raven/acp3x-i2s.c | 8 +++-----
+ 1 file changed, 3 insertions(+), 5 deletions(-)
 
-Udo,
+diff --git a/sound/soc/amd/raven/acp3x-i2s.c b/sound/soc/amd/raven/acp3x-i2s.c
+index a532e01..c9c69eb 100644
+--- a/sound/soc/amd/raven/acp3x-i2s.c
++++ b/sound/soc/amd/raven/acp3x-i2s.c
+@@ -302,16 +302,14 @@ static int acp3x_dai_probe(struct platform_device *pdev)
+ 	struct i2s_dev_data *adata;
+ 	int ret;
+ 
+-	adata = devm_kzalloc(&pdev->dev, sizeof(struct i2s_dev_data),
+-			GFP_KERNEL);
+-	if (!adata)
+-		return -ENOMEM;
+-
+ 	res = platform_get_resource(pdev, IORESOURCE_MEM, 0);
+ 	if (!res) {
+ 		dev_err(&pdev->dev, "IORESOURCE_MEM FAILED\n");
+ 		return -ENOMEM;
+ 	}
++	adata = devm_kzalloc(&pdev->dev, sizeof(struct i2s_dev_data), GFP_KERNEL);
++	if (!adata)
++		return -ENOMEM;
+ 	adata->acp3x_base = devm_ioremap(&pdev->dev, res->start,
+ 						resource_size(res));
+ 	if (!adata->acp3x_base)
+-- 
+1.9.1
 
-The documentation says that LED trigger code optimises away, not LED
-core.
-
-But yes, something similar could maybe be done for the whole LED
-class... (maybe!)
-
-BTW, you are welcome to propose a patch as well, since it seems that
-nobody else is interested as much as you are in this :)
-
-Marek

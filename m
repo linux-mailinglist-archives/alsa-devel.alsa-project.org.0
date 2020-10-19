@@ -2,88 +2,62 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 696E9293179
-	for <lists+alsa-devel@lfdr.de>; Tue, 20 Oct 2020 00:48:37 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9CA6E2931CB
+	for <lists+alsa-devel@lfdr.de>; Tue, 20 Oct 2020 01:09:23 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B572C170A;
-	Tue, 20 Oct 2020 00:47:46 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B572C170A
+	by alsa0.perex.cz (Postfix) with ESMTPS id 12F1016D7;
+	Tue, 20 Oct 2020 01:08:33 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 12F1016D7
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1603147716;
-	bh=iS7hqFK2jnrr9J8VZe7N/zRkAWByw+2KsnDvn4ViH+Q=;
-	h=From:To:Subject:Date:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=qD6HIeoszfGblnPyZ0xGKy3J1eM5t6SKsNQFF1VbSv5SwlFq2JzOYztPxEsCKon/S
-	 jQ2gvIVYWTjCsEP/VzldLWStUqZHi+C47ETTrsPK8IZa7Cg3GHMdn0Do6RJknfmhf3
-	 U7bYQlbziH4qFYJMqcghVhAyWs6q7HzWMwCCojxE=
+	s=default; t=1603148963;
+	bh=AM18naRyOiOiwbfowxNDVd20dMIscCO/qgtHTNm8iD0=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=vZ+xLXdQo8MLM/hhjWa6I+zdmaNgazUOPsozfQcgjMofK9K+9drhlYub/8J9pqlPj
+	 ZSu3J507Du9qpFS935cFuCEK5ImRV4S+vDxYtU+CoeN93e0ONSRe3iwzt08pI2Hyu0
+	 quGPxQBpfc2WGviHHRtyATn65Agy6Q32WgcHo2as=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id EE0B8F80264;
-	Tue, 20 Oct 2020 00:46:55 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 9BBA6F80264;
+	Tue, 20 Oct 2020 01:07:42 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 32DF7F80247; Tue, 20 Oct 2020 00:46:53 +0200 (CEST)
+ id 8CF4EF80247; Tue, 20 Oct 2020 01:07:39 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from mx0b-001ae601.pphosted.com (mx0b-001ae601.pphosted.com
- [67.231.152.168])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id F02EBF80121
- for <alsa-devel@alsa-project.org>; Tue, 20 Oct 2020 00:46:45 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz F02EBF80121
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=cirrus.com header.i=@cirrus.com
- header.b="NGpzTsKw"
-Received: from pps.filterd (m0077474.ppops.net [127.0.0.1])
- by mx0b-001ae601.pphosted.com (8.16.0.43/8.16.0.43) with SMTP id
- 09JMbaQS013568; Mon, 19 Oct 2020 17:46:43 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com;
- h=from : to : subject :
- date : message-id : mime-version : content-transfer-encoding :
- content-type; s=PODMain02222019;
- bh=nAkdlkp1XIWaxRutmzokLEwxpL7YxdepzJfiflWUwHU=;
- b=NGpzTsKwFzZH8THIV/K4KOqfrtLQfiKLv4RPhV68gnkkCT4EtzEQh3HjjTS97U3l2JM3
- MENWTdQm9jCC6sIwBkC+iJk4ecQDMs6TSWLQT8iViDDdV/NO1SNXQqe/JIcCDPsNZdkY
- Dp27eRjnzCH4lTFZFY9tWXunDGOeL2YoYqJzRQzTsVKJwJpiHPUyZ2mqOpo7IkKrQv33
- A6lPcyHbEAKKr4uXvhW7FhAwRdOfdjlh5rxxBK4dUPya2cxag3VtnPrWF/5dPNcFxM+S
- iw8h+UJnWqAYoBTVFnb/GToPAhU3dlt63TYATIAaN6HUAmZC2jhAVQsc3WiqotayQFLr MQ== 
-Received: from ediex02.ad.cirrus.com ([87.246.76.36])
- by mx0b-001ae601.pphosted.com with ESMTP id 347w1qtt2u-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT);
- Mon, 19 Oct 2020 17:46:43 -0500
-Received: from EDIEX01.ad.cirrus.com (198.61.84.80) by EDIEX02.ad.cirrus.com
- (198.61.84.81) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1913.5; Mon, 19 Oct
- 2020 23:46:41 +0100
-Received: from ediswmail.ad.cirrus.com (198.61.86.93) by EDIEX01.ad.cirrus.com
- (198.61.84.80) with Microsoft SMTP Server id 15.1.1913.5 via Frontend
- Transport; Mon, 19 Oct 2020 23:46:41 +0100
-Received: from localhost.localdomain (unknown [141.131.78.241])
- by ediswmail.ad.cirrus.com (Postfix) with ESMTP id E2AC52AA;
- Mon, 19 Oct 2020 22:46:39 +0000 (UTC)
-From: David Rhodes <david.rhodes@cirrus.com>
-To: <alsa-devel@alsa-project.org>, <broonie@kernel.org>,
- <brian.austin@cirrus.com>, <james.schulman@cirrus.com>,
- <patches@opensource.cirrus.com>, <david.rhodes@cirrus.com>
-Subject: [PATCH] ASoC: cs35l3x: Use neutral language in amp drivers
-Date: Mon, 19 Oct 2020 17:44:27 -0500
-Message-ID: <20201019224427.1700003-1-david.rhodes@cirrus.com>
-X-Mailer: git-send-email 2.25.1
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 phishscore=0
- lowpriorityscore=0
- spamscore=0 clxscore=1015 malwarescore=0 bulkscore=0 priorityscore=1501
- suspectscore=0 adultscore=0 mlxscore=0 mlxlogscore=917 impostorscore=0
- classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2009150000
- definitions=main-2010190151
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS
+ autolearn=disabled version=3.4.0
+Received: from relmlie5.idc.renesas.com (relmlor1.renesas.com
+ [210.160.252.171])
+ by alsa1.perex.cz (Postfix) with ESMTP id ACA3CF80121
+ for <alsa-devel@alsa-project.org>; Tue, 20 Oct 2020 01:07:33 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz ACA3CF80121
+Date: 20 Oct 2020 08:07:29 +0900
+X-IronPort-AV: E=Sophos;i="5.77,395,1596466800"; d="scan'208";a="60218746"
+Received: from unknown (HELO relmlir6.idc.renesas.com) ([10.200.68.152])
+ by relmlie5.idc.renesas.com with ESMTP; 20 Oct 2020 08:07:29 +0900
+Received: from mercury.renesas.com (unknown [10.166.252.133])
+ by relmlir6.idc.renesas.com (Postfix) with ESMTP id 40FFD40A976F;
+ Tue, 20 Oct 2020 08:07:29 +0900 (JST)
+Message-ID: <87tuupg6oa.wl-kuninori.morimoto.gx@renesas.com>
+From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+To: Rob Herring <robh@kernel.org>
+Subject: Re: [PATCH v2 2/2] ASoC: dt-bindings: renesas,
+ rsnd: switch to yaml base Documentation
+In-Reply-To: <CAL_JsqJDmw3929BxS2wroVoio6EP5QZ5bC3bJHEckLwfo6wP8g@mail.gmail.com>
+References: <878se1vsy6.wl-kuninori.morimoto.gx@renesas.com>
+ <875z95vsx2.wl-kuninori.morimoto.gx@renesas.com>
+ <20200908232225.GA1122966@bogus>
+ <87eemrlx15.wl-kuninori.morimoto.gx@renesas.com>
+ <CAL_JsqJDmw3929BxS2wroVoio6EP5QZ5bC3bJHEckLwfo6wP8g@mail.gmail.com>
+User-Agent: Wanderlust/2.15.9 Emacs/26.3 Mule/6.0
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+Cc: devicetree@vger.kernel.org, Linux-ALSA <alsa-devel@alsa-project.org>,
+ Mark Brown <broonie@kernel.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -99,103 +73,24 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Revise variable names and comments in
-cs35l35 and cs35l36 amp drivers.
 
-Signed-off-by: David Rhodes <david.rhodes@cirrus.com>
+Hi Rob
+
+> > As always happen, "xxx,yyy" style will be error for me without patternProperties.
+> > What is wrong ??
+> 
+> Node names shouldn't really have vendor prefixes, but since you
+> already depend on this we shouldn't change that. We'll need to relax
+> the meta-schema, but for now it's fine as-is.
+
+OK, thanks.
+
+The original code didn't have vendor prefixes,
+but I was ordered to have it from reviewer.
+I don't remember from whom though...
+
+Thank you for your help !!
+
+Best regards
 ---
- sound/soc/codecs/cs35l35.c | 10 +++++-----
- sound/soc/codecs/cs35l35.h |  2 +-
- sound/soc/codecs/cs35l36.c | 10 +++++-----
- 3 files changed, 11 insertions(+), 11 deletions(-)
-
-diff --git a/sound/soc/codecs/cs35l35.c b/sound/soc/codecs/cs35l35.c
-index e330427..3774b69 100644
---- a/sound/soc/codecs/cs35l35.c
-+++ b/sound/soc/codecs/cs35l35.c
-@@ -372,12 +372,12 @@ static int cs35l35_set_dai_fmt(struct snd_soc_dai *codec_dai, unsigned int fmt)
- 	case SND_SOC_DAIFMT_CBM_CFM:
- 		regmap_update_bits(cs35l35->regmap, CS35L35_CLK_CTL1,
- 				    CS35L35_MS_MASK, 1 << CS35L35_MS_SHIFT);
--		cs35l35->slave_mode = false;
-+		cs35l35->clock_mode = false;
- 		break;
- 	case SND_SOC_DAIFMT_CBS_CFS:
- 		regmap_update_bits(cs35l35->regmap, CS35L35_CLK_CTL1,
- 				    CS35L35_MS_MASK, 0 << CS35L35_MS_SHIFT);
--		cs35l35->slave_mode = true;
-+		cs35l35->clock_mode = true;
- 		break;
- 	default:
- 		return -EINVAL;
-@@ -556,8 +556,8 @@ static int cs35l35_hw_params(struct snd_pcm_substream *substream,
- 		}
- 		sp_sclks = ((cs35l35->sclk / srate) / 4) - 1;
- 
--		/* Only certain ratios are supported in I2S Slave Mode */
--		if (cs35l35->slave_mode) {
-+		/* Only certain ratios are supported in I2S Device Mode */
-+		if (cs35l35->clock_mode) {
- 			switch (sp_sclks) {
- 			case CS35L35_SP_SCLKS_32FS:
- 			case CS35L35_SP_SCLKS_48FS:
-@@ -568,7 +568,7 @@ static int cs35l35_hw_params(struct snd_pcm_substream *substream,
- 				return -EINVAL;
- 			}
- 		} else {
--			/* Only certain ratios supported in I2S MASTER Mode */
-+			/* Only certain ratios supported in I2S Controller Mode */
- 			switch (sp_sclks) {
- 			case CS35L35_SP_SCLKS_32FS:
- 			case CS35L35_SP_SCLKS_64FS:
-diff --git a/sound/soc/codecs/cs35l35.h b/sound/soc/codecs/cs35l35.h
-index ffb154c..017fa6d 100644
---- a/sound/soc/codecs/cs35l35.h
-+++ b/sound/soc/codecs/cs35l35.h
-@@ -282,7 +282,7 @@ struct  cs35l35_private {
- 	int sclk;
- 	bool pdm_mode;
- 	bool i2s_mode;
--	bool slave_mode;
-+	bool clock_mode;
- 	/* GPIO for /RST */
- 	struct gpio_desc *reset_gpio;
- 	struct completion pdn_done;
-diff --git a/sound/soc/codecs/cs35l36.c b/sound/soc/codecs/cs35l36.c
-index e9b5f76..86f5533 100644
---- a/sound/soc/codecs/cs35l36.c
-+++ b/sound/soc/codecs/cs35l36.c
-@@ -756,14 +756,14 @@ static int cs35l36_set_dai_fmt(struct snd_soc_dai *component_dai,
- {
- 	struct cs35l36_private *cs35l36 =
- 			snd_soc_component_get_drvdata(component_dai->component);
--	unsigned int asp_fmt, lrclk_fmt, sclk_fmt, slave_mode, clk_frc;
-+	unsigned int asp_fmt, lrclk_fmt, sclk_fmt, clock_mode, clk_frc;
- 
- 	switch (fmt & SND_SOC_DAIFMT_MASTER_MASK) {
- 	case SND_SOC_DAIFMT_CBM_CFM:
--		slave_mode = 1;
-+		clock_mode = 1;
- 		break;
- 	case SND_SOC_DAIFMT_CBS_CFS:
--		slave_mode = 0;
-+		clock_mode = 0;
- 		break;
- 	default:
- 		return -EINVAL;
-@@ -771,10 +771,10 @@ static int cs35l36_set_dai_fmt(struct snd_soc_dai *component_dai,
- 
- 	regmap_update_bits(cs35l36->regmap, CS35L36_ASP_TX_PIN_CTRL,
- 				CS35L36_SCLK_MSTR_MASK,
--				slave_mode << CS35L36_SCLK_MSTR_SHIFT);
-+				clock_mode << CS35L36_SCLK_MSTR_SHIFT);
- 	regmap_update_bits(cs35l36->regmap, CS35L36_ASP_RATE_CTRL,
- 				CS35L36_LRCLK_MSTR_MASK,
--				slave_mode << CS35L36_LRCLK_MSTR_SHIFT);
-+				clock_mode << CS35L36_LRCLK_MSTR_SHIFT);
- 
- 	switch (fmt & SND_SOC_DAIFMT_CLOCK_MASK) {
- 	case SND_SOC_DAIFMT_CONT:
--- 
-1.9.1
-
+Kuninori Morimoto

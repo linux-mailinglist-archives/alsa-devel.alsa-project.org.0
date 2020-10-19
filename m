@@ -2,79 +2,84 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A9D3D2930FC
-	for <lists+alsa-devel@lfdr.de>; Tue, 20 Oct 2020 00:12:58 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0AECE2930FE
+	for <lists+alsa-devel@lfdr.de>; Tue, 20 Oct 2020 00:13:08 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id DB1F51704;
-	Tue, 20 Oct 2020 00:12:07 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DB1F51704
+	by alsa0.perex.cz (Postfix) with ESMTPS id 287941716;
+	Tue, 20 Oct 2020 00:12:17 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 287941716
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1603145577;
-	bh=4xdTj5Y4VJ/3BEN7HRpzd+X3zOWHsYAtusdSthtK/fI=;
+	s=default; t=1603145587;
+	bh=MUXGRME1gcQc3Ii9PNK8+/8qxTt25Uslhzeek5/HdlA=;
 	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=MRA53mJbc1ZUVWg6vcYAMPm8S7Jni/13/BIwbMN5UTwyiswD6dgXdnUs6AhcDCozr
-	 znOxu8naJFm/9AFGFoqEjXVyK4D0EUvnDn+eWdJ20drNyyDLLvD1nyN8DfpGtjS0AK
-	 HzqEklhDjiviosf68Clj5jKzhdKVvoSlwCbfRFGU=
+	b=Wj2p8V2HTpkbnMMKxz7RblSTNpmvD5SNVJHOoA30zj6FGpD9qRsWdIrpuT0lqKgCQ
+	 /Bb4gWwErUdN33SAl3KD2L7vQeUWUmc7RlLo0epjasU+Ig55PCyZ1nXmAo1YyIMMjT
+	 LakI9LWUHnXSdxJofO8AQ5waWDhLoKLrl/OQ7BKs=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 7132CF801A3;
-	Tue, 20 Oct 2020 00:11:17 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 39CD1F80279;
+	Tue, 20 Oct 2020 00:12:06 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id C33E3F80247; Tue, 20 Oct 2020 00:11:15 +0200 (CEST)
+ id 4151BF80289; Tue, 20 Oct 2020 00:12:03 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.7 required=5.0 tests=FREEMAIL_ENVFROM_END_DIGIT,
  FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,
  RCVD_IN_MSPIKE_H3,RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
  autolearn=disabled version=3.4.0
-Received: from mail-oo1-f67.google.com (mail-oo1-f67.google.com
- [209.85.161.67])
+Received: from mail-ot1-f68.google.com (mail-ot1-f68.google.com
+ [209.85.210.68])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id C192FF80121
- for <alsa-devel@alsa-project.org>; Tue, 20 Oct 2020 00:11:09 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C192FF80121
-Received: by mail-oo1-f67.google.com with SMTP id w25so342816oos.10
- for <alsa-devel@alsa-project.org>; Mon, 19 Oct 2020 15:11:09 -0700 (PDT)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 2E0A9F80121
+ for <alsa-devel@alsa-project.org>; Tue, 20 Oct 2020 00:11:56 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2E0A9F80121
+Received: by mail-ot1-f68.google.com with SMTP id k68so1308903otk.10
+ for <alsa-devel@alsa-project.org>; Mon, 19 Oct 2020 15:11:56 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:date:from:to:cc:subject:message-id:references
  :mime-version:content-disposition:in-reply-to;
- bh=YAcxqz4gzIZRTswKLMgM+/6nLU+BPO60IaB6aMIKPFs=;
- b=jlvKnLrG/EMVBzubuZ69E9EaAafBja4Y0byN2hSghhUyQsbpV1d4ACyfAWWIhb9xqq
- HXZDPZzQsptoV2qaMjPEXnNNmdJElT/Y7XrdDp2Y1Y08uQVZ6YVvUNTEcDRWhj/F9Rrm
- x+7eIkzFm/EFTHtB9fOOtru/y8X3db5O2/osTACQClWxID1FWa5Saf6OmUVy6SSZ9uFi
- V2BIb2ppmuURWezKcip2jp4CFVKkz2sbwPDa/e5FtM0KlSf0kYiNu0/RROnW0W4vGVG2
- bCVaODZcDvVpFK8T2iGDH2WgxSiBvXeYevNaOchwhg142g//BNG6Ezl39MLP9srJzm5s
- ZxWg==
-X-Gm-Message-State: AOAM532Sl9vS16EsRoMMaPpVfuYXjTX8K1jd5NKvDCNX9TJgCzrEDf7y
- t3INsRgw0Vf8EeU1HSVRXw==
-X-Google-Smtp-Source: ABdhPJwRFkQroby+u4ICY2NJLUAU/9hZmS0o+Tf0mlbmQ+dO75MkbVoF+8Wwz8jdOtiUcjy2KT6FqA==
-X-Received: by 2002:a4a:c68d:: with SMTP id m13mr1485011ooq.64.1603145467832; 
- Mon, 19 Oct 2020 15:11:07 -0700 (PDT)
+ bh=pMuRP7PwPZH/1QCeF9m+2AemyNEiW+4ppV1kMNUMQ/U=;
+ b=mihrMK2Q9w9Sm/TYaZeM7WnLSt7dToBwsYGRLlRLbN5diS6uQsHy2DhGXoeW+1bFCH
+ 3eYhtOc6nWYqDinHt0l0+ZvAndgZhCE1xK6mlIsEPxKR/QFAjkAKC+qKliyzyK0VEAVy
+ DTGYnPT+hAtu5z6gpQ9TuEVvhtjbSWXAbVyvaXN4VOI5pOBJ7SKMl9vLmjZQhdigFa0m
+ FPkze0XqT//HjS8RYGVXLGLALr4Bm4rjkMzM1pZ545ZBTfVWkQ3S6EAdWqmTn1hbgoyh
+ nRh3qbElFl06L/gKMZD5p2/yoC+vZ2zYEDMDxnqZfkD9clxIvY8N0IS1VYYb72If15GB
+ vgUA==
+X-Gm-Message-State: AOAM533iS1swzPYBXLxpFxxx7SIUwNeEiuRCBIHWENNR+GLohA1IaP5j
+ A0RqYCMpC0oN7t7A+F5baw==
+X-Google-Smtp-Source: ABdhPJzhOnt38ZSjVsNhD0vUKJmX6whzxZHUESJU7+2jyu5TxMgWUSeRU0XkpNHzJSgKNWCPDJJCEg==
+X-Received: by 2002:a05:6830:1c32:: with SMTP id
+ f18mr1413460ote.276.1603145514519; 
+ Mon, 19 Oct 2020 15:11:54 -0700 (PDT)
 Received: from xps15 (24-155-109-49.dyn.grandenetworks.net. [24.155.109.49])
- by smtp.gmail.com with ESMTPSA id 38sm269664ota.42.2020.10.19.15.11.06
+ by smtp.gmail.com with ESMTPSA id h6sm266576otr.28.2020.10.19.15.11.53
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 19 Oct 2020 15:11:06 -0700 (PDT)
-Received: (nullmailer pid 3688686 invoked by uid 1000);
- Mon, 19 Oct 2020 22:11:05 -0000
-Date: Mon, 19 Oct 2020 17:11:05 -0500
+ Mon, 19 Oct 2020 15:11:53 -0700 (PDT)
+Received: (nullmailer pid 3689734 invoked by uid 1000);
+ Mon, 19 Oct 2020 22:11:53 -0000
+Date: Mon, 19 Oct 2020 17:11:53 -0500
 From: Rob Herring <robh@kernel.org>
-To: Sameer Pujar <spujar@nvidia.com>
-Subject: Re: [PATCH v4 10/15] ASoC: dt-bindings: tegra: Add graph bindings
-Message-ID: <20201019221105.GA3679866@bogus>
+To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+Subject: Re: [PATCH v4 09/15] ASoC: dt-bindings: audio-graph: Convert
+ bindings to json-schema
+Message-ID: <20201019221153.GB3679866@bogus>
 References: <1602859382-19505-1-git-send-email-spujar@nvidia.com>
- <1602859382-19505-11-git-send-email-spujar@nvidia.com>
+ <1602859382-19505-10-git-send-email-spujar@nvidia.com>
+ <87o8kz9blh.wl-kuninori.morimoto.gx@renesas.com>
+ <2c9abfd5-f7eb-0b8d-f45f-9f56f37881b5@nvidia.com>
+ <87v9f6hlvb.wl-kuninori.morimoto.gx@renesas.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <1602859382-19505-11-git-send-email-spujar@nvidia.com>
-Cc: alsa-devel@alsa-project.org, kuninori.morimoto.gx@renesas.com,
+In-Reply-To: <87v9f6hlvb.wl-kuninori.morimoto.gx@renesas.com>
+Cc: alsa-devel@alsa-project.org, Sameer Pujar <spujar@nvidia.com>,
  atalambedu@nvidia.com, linux-kernel@vger.kernel.org, thierry.reding@gmail.com,
  rlokhande@nvidia.com, swarren@nvidia.com, tiwai@suse.com,
  pierre-louis.bossart@linux.intel.com, jonathanh@nvidia.com,
@@ -97,35 +102,31 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Fri, Oct 16, 2020 at 08:12:57PM +0530, Sameer Pujar wrote:
-> Add device tree binding properties of generic graph to ASoC component
-> devices. This allows to define audio ports out of these components or
-> DAIs and audio graph based sound card can be realised with this.
+On Mon, Oct 19, 2020 at 01:41:40PM +0900, Kuninori Morimoto wrote:
 > 
-> Signed-off-by: Sameer Pujar <spujar@nvidia.com>
-> ---
->  Documentation/devicetree/bindings/sound/nvidia,tegra186-dspk.yaml  | 7 +++++++
->  .../devicetree/bindings/sound/nvidia,tegra210-admaif.yaml          | 7 +++++++
->  Documentation/devicetree/bindings/sound/nvidia,tegra210-ahub.yaml  | 7 +++++++
->  Documentation/devicetree/bindings/sound/nvidia,tegra210-dmic.yaml  | 7 +++++++
->  Documentation/devicetree/bindings/sound/nvidia,tegra210-i2s.yaml   | 7 +++++++
->  5 files changed, 35 insertions(+)
+> Hi Sameer
 > 
-> diff --git a/Documentation/devicetree/bindings/sound/nvidia,tegra186-dspk.yaml b/Documentation/devicetree/bindings/sound/nvidia,tegra186-dspk.yaml
-> index ed2fb32..23875b1 100644
-> --- a/Documentation/devicetree/bindings/sound/nvidia,tegra186-dspk.yaml
-> +++ b/Documentation/devicetree/bindings/sound/nvidia,tegra186-dspk.yaml
-> @@ -55,6 +55,13 @@ properties:
->        The name can be "DSPK1" or "DSPKx", where x depends on the maximum
->        available instances on a Tegra SoC.
->  
-> +  ports:
-> +    $ref: /schemas/sound/audio-graph-card.yaml#/definitions/ports
-> +
-> +patternProperties:
-> +  "^port(@[0-9a-f]+)?$":
-> +    $ref: /schemas/sound/audio-graph-card.yaml#/definitions/port
+> > >> Convert device tree bindings of audio graph card to YAML format. Also
+> > >> expose some common definitions which can be used by similar graph based
+> > >> audio sound cards.
+> > >> 
+> > >> Signed-off-by: Sameer Pujar <spujar@nvidia.com>
+> > >> Cc: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+> > >> ---
+> > > I'm posting this patch to Rob & DT ML.
+> > > Not yet accepted, though..
+> > 
+> > Thanks for letting me know. I guess below is your patch,
+> > http://patchwork.ozlabs.org/project/devicetree-bindings/patch/877dtlvsxk.wl-kuninori.morimoto.gx@renesas.com/
+> > Do you have plans to resend this or send next revision?
+> > 
+> > I can drop my patch once yours is merged and refer the same for Tegra
+> > audio graph card.
+> 
+> I'm waiting response from Rob now.
+> It is merge window now. I will re-post it without his response
+> if -rc1 was released.
 
-You should have either 'ports' or a single 'port' (yes, the graph 
-binding allowed multiple port nodes without 'ports', but that should be 
-deprecated IMO)
+Sorry, fell off my radar. Now replied.
+
+Rob

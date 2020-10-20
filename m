@@ -2,120 +2,89 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 19B03293F19
-	for <lists+alsa-devel@lfdr.de>; Tue, 20 Oct 2020 16:57:38 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4ECDA293F2E
+	for <lists+alsa-devel@lfdr.de>; Tue, 20 Oct 2020 17:03:19 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 36CC61720;
-	Tue, 20 Oct 2020 16:56:47 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 36CC61720
+	by alsa0.perex.cz (Postfix) with ESMTPS id DC7901721;
+	Tue, 20 Oct 2020 17:02:28 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DC7901721
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1603205857;
-	bh=+RVX4b8B9a0PTXNSim83hRWmrjf6URtR5fzGQj2Ddns=;
-	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=MPORVf2z2p/2Rb1jSW8oKKzSJtq+eL/OzgO+tSEnQPQGZoSBFDkJ03oKNce8S1qyo
-	 6wmTDrZs51oCTQIftOVILeJviTxFupNo7dG4anlRTgjRZmsFBSTy9gN+UpHtydqdep
-	 wlOzxbJSC5zwOFFA9QRHmG3VVuyyqUiyjKJfq7nU=
+	s=default; t=1603206198;
+	bh=3ba/wimSiC1niwCkzHgI8JexLvZDQjHTBH0b4a7mWgQ=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=TweBrAnm5C9w915EAY7im++DPOTAktzgknd/9FB0ueBHpzq9N4Nbuj9a9BrfaTd6+
+	 eFD1kxQJ86W710845egNrmMr4dF9BhjeGEXA7mHmSEzg8DFhJtOkxPyr5ykxwfUt3L
+	 gHN6Ha1wY2oLZPANcIx7H9JN0aOiVrp1NTPEURDY=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id EB435F80216;
-	Tue, 20 Oct 2020 16:55:56 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 21DE8F80216;
+	Tue, 20 Oct 2020 17:01:38 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id A1422F801F2; Tue, 20 Oct 2020 16:55:53 +0200 (CEST)
+ id 8B704F800AD; Tue, 20 Oct 2020 17:01:30 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS autolearn=disabled
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=disabled
  version=3.4.0
-Received: from mail-wm1-x344.google.com (mail-wm1-x344.google.com
- [IPv6:2a00:1450:4864:20::344])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
+ [91.207.212.93])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id E46A2F8010F
- for <alsa-devel@alsa-project.org>; Tue, 20 Oct 2020 16:55:50 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E46A2F8010F
+ by alsa1.perex.cz (Postfix) with ESMTPS id BA260F800AD
+ for <alsa-devel@alsa-project.org>; Tue, 20 Oct 2020 17:01:22 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BA260F800AD
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org
- header.b="cK9G7+OH"
-Received: by mail-wm1-x344.google.com with SMTP id a72so2106597wme.5
- for <alsa-devel@alsa-project.org>; Tue, 20 Oct 2020 07:55:50 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=subject:to:cc:references:from:message-id:date:user-agent
- :mime-version:in-reply-to:content-language:content-transfer-encoding;
- bh=uf/L+N0SXiT5GxWzSMpW76s8MjBMaRe3gnVIlCSIR5M=;
- b=cK9G7+OH/TUQCyR8rfJv0QoQ3SjEQsnF9XCjVN6xqr/O8yU3IlDfbvmsbTfkhxQ06f
- q4IpVZ8VlQ3fVXlWWHGSfLpylD2IH5P4NE25315km3BTplz4wROeM/cLeRnrZhnHb/v5
- PyAaPitLsRWmdVTipbLqX4Out+F21VmQJ/X09y763klLznhk8Wjph5Dm6ltToTwu1GKi
- 6cF9SRXzSOe+CnDRgo2LkN4n5tkvfZ7EpQsA7EkHbGt3NkoE1mD/PmAfdxkXt8UbFE9X
- RN1mqjge119zJMoJpTqXMa+rN2apg4iQxVK+dpL4RLHKRIlCnNkTt3EAvl5wmXLl4Uz1
- eT1A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:subject:to:cc:references:from:message-id:date
- :user-agent:mime-version:in-reply-to:content-language
- :content-transfer-encoding;
- bh=uf/L+N0SXiT5GxWzSMpW76s8MjBMaRe3gnVIlCSIR5M=;
- b=ZKTVmCjd1q/O81awJm36hwyfU6Gz4aQJmfRdPXD9G4LwRZ4Si2nkceSUB03iYES98i
- m2vyADZM5MxGtSpLm3652wpFLa4nern7eWcZxwa/7f2JExEhss1Woa3dQWa/EsGMBaHU
- HVompljNzfN9Oq+5onBz7ezin8h2wv2rcEt9wvqpw5Nw773L0wsBfLhB5sVD4HP4HjaH
- S915kmvO8R5PYboio/9hi+OJ/b/fgwbk5XxjtzsxM/BRaJew/+JYam5sFWS12+R/PWx3
- dNFWTZUg1FEg88GBmt2xVmF+FeWlDbJ1KsawvqEPIQuyZIXpMjOIM7+q0q31wy1pDPWw
- fbMw==
-X-Gm-Message-State: AOAM531Cg86ohqaJJ7ayCxiQR43m5KRX0C1+BPbtVdygfziUSOh34e1n
- rcPD8MyWuAn08jMMwKPVm8eE8w==
-X-Google-Smtp-Source: ABdhPJwZTIfXIjPLWWjL97y1NfJTXN0Y2s/to/X10G0kOS41vqvGeaVeSXPhf5OZA0t9DHJLkiPgNg==
-X-Received: by 2002:a7b:ce8f:: with SMTP id q15mr3351776wmj.88.1603205747699; 
- Tue, 20 Oct 2020 07:55:47 -0700 (PDT)
-Received: from [192.168.86.34]
- (cpc86377-aztw32-2-0-cust226.18-1.cable.virginm.net. [92.233.226.227])
- by smtp.googlemail.com with ESMTPSA id 1sm3868599wre.61.2020.10.20.07.55.45
- (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
- Tue, 20 Oct 2020 07:55:46 -0700 (PDT)
-Subject: Re: [PATCH v11 2/3] ASoC: qcom: dt-bindings: Add sc7180 machine
- bindings
-To: Mark Brown <broonie@kernel.org>, Cheng-yi Chiang <cychiang@chromium.org>
-References: <20200914080619.4178587-1-cychiang@chromium.org>
- <20200914080619.4178587-3-cychiang@chromium.org>
- <7bdc0d63-27b1-f99e-c5f8-65f880733d16@linaro.org>
- <CAFv8NwLkvxX2avoLY+4NY5gBv0dQ863hFFiqy7iQOJxH4WenmQ@mail.gmail.com>
- <20201015161251.GF4390@sirena.org.uk>
- <CAFv8NwL1xX=yPGFqQL_mOzAnPTfH0Z0J6ibG1+D32W46Nx0KYQ@mail.gmail.com>
- <20201020143711.GC9448@sirena.org.uk>
-From: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
-Message-ID: <63f1a29c-0758-97b8-ce80-fe43d91630fa@linaro.org>
-Date: Tue, 20 Oct 2020 15:55:45 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
- Thunderbird/60.8.0
+ dkim=pass (2048-bit key) header.d=st.com header.i=@st.com header.b="pcALPfUl"
+Received: from pps.filterd (m0046661.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
+ 09KEvgm6012136; Tue, 20 Oct 2020 17:01:21 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=st.com;
+ h=from : to : cc : subject
+ : date : message-id : mime-version : content-type :
+ content-transfer-encoding; s=STMicroelectronics;
+ bh=XgCfUqxaOYwvz9RDx21gH1OGoREoJaNipM7JO27tcpQ=;
+ b=pcALPfUlGTVlYjzgy9lQZOr9M/jywqlaRBDLx7FCwCeHIRBaIgXSyKKlk+EEwGcb0jca
+ BxSCCUZQTF7U/ZpEN38ebvJPyOa1hdY37nyUHTziP2vgc50Z/XGd08CW7nHJUThXljuX
+ ilcRlNsaQKIfHIiA3zVD9xhKpPmKRKkm+9d3+2PK+RYIF8M+fuSBCgP2JVBUBCd0ti0f
+ 0FaZmGfEURtGM6jFgvSa2V/PrDAlVdO52WRtVnmcJjXSksWL4TlT+i0TOO3sAPQfrRlu
+ rpxMtUe2vvNDRem4vYgoIwpPNWh4YQ6KJUgatqCG3PpqJYrFKX8ZnBNQbRZ501/M7ONd Lg== 
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+ by mx07-00178001.pphosted.com with ESMTP id 347qgg4432-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Tue, 20 Oct 2020 17:01:21 +0200
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 5BA2910002A;
+ Tue, 20 Oct 2020 17:01:20 +0200 (CEST)
+Received: from Webmail-eu.st.com (sfhdag2node2.st.com [10.75.127.5])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 30F6B2E6D30;
+ Tue, 20 Oct 2020 17:01:20 +0200 (CEST)
+Received: from localhost (10.75.127.45) by SFHDAG2NODE2.st.com (10.75.127.5)
+ with Microsoft SMTP Server (TLS) id 15.0.1473.3; Tue, 20 Oct 2020 17:01:19
+ +0200
+From: Olivier Moysan <olivier.moysan@st.com>
+To: <lgirdwood@gmail.com>, <broonie@kernel.org>, <perex@perex.cz>,
+ <tiwai@suse.com>, <alexandre.torgue@st.com>,
+ <arnaud.patard@rtp-net.org>, <olivier.moysan@st.com>
+Subject: [PATCH v2] ASoC: cs42l51: manage mclk shutdown delay
+Date: Tue, 20 Oct 2020 17:01:09 +0200
+Message-ID: <20201020150109.482-1-olivier.moysan@st.com>
+X-Mailer: git-send-email 2.17.1
 MIME-Version: 1.0
-In-Reply-To: <20201020143711.GC9448@sirena.org.uk>
-Content-Type: text/plain; charset=windows-1252; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
-Cc: Taniya Das <tdas@codeaurora.org>,
- "moderated list:SOUND - SOC LAYER / DYNAMIC AUDIO POWER MANAGEM..."
- <alsa-devel@alsa-project.org>, Banajit Goswami <bgoswami@codeaurora.org>,
- Heiko Stuebner <heiko@sntech.de>,
- Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
- Takashi Iwai <tiwai@suse.com>, Rohit kumar <rohitkr@codeaurora.org>,
- Ajye Huang <ajye_huang@compal.corp-partner.google.com>,
- Patrick Lai <plai@codeaurora.org>,
- "open list:ARM/Rockchip SoC..." <linux-rockchip@lists.infradead.org>,
- Andy Gross <agross@kernel.org>, Dylan Reid <dgreid@chromium.org>,
- "open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS"
- <devicetree@vger.kernel.org>, Tzung-Bi Shih <tzungbi@chromium.org>,
- Srinivasa Rao <srivasam@codeaurora.org>, Stephan Gerhold <stephan@gerhold.net>,
- linux-arm-msm <linux-arm-msm@vger.kernel.org>,
- Rob Herring <robh+dt@kernel.org>,
- "moderated list:ARM/Mediatek SoC support" <linux-mediatek@lists.infradead.org>,
- Matthias Brugger <matthias.bgg@gmail.com>,
- Bjorn Andersson <bjorn.andersson@linaro.org>,
- Linux ARM <linux-arm-kernel@lists.infradead.org>,
- Doug Anderson <dianders@chromium.org>, Liam Girdwood <lgirdwood@gmail.com>,
- linux-kernel <linux-kernel@vger.kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+X-Originating-IP: [10.75.127.45]
+X-ClientProxiedBy: SFHDAG1NODE1.st.com (10.75.127.1) To SFHDAG2NODE2.st.com
+ (10.75.127.5)
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.235, 18.0.737
+ definitions=2020-10-20_08:2020-10-20,
+ 2020-10-20 signatures=0
+Cc: alsa-devel@alsa-project.org, arnaud.pouliquen@st.com,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
+ linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -131,48 +100,68 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+A delay must be introduced before the shutdown down of the mclk,
+as stated in CS42L51 datasheet. Otherwise the codec may
+produce some noise after the end of DAPM power down sequence.
+The delay between DAC and CLOCK_SUPPLY widgets is too short.
+Add a delay in mclk shutdown request to manage the shutdown delay
+explicitly. From experiments, at least 10ms delay is necessary.
+Set delay to 20ms as recommended in Documentation/timers/timers-howto.rst
+when using msleep().
 
+Signed-off-by: Olivier Moysan <olivier.moysan@st.com>
+---
+Recommended Power-Down Sequence:
+(see https://statics.cirrus.com/pubs/proDatasheet/CS42L51_F2.pdf)
+1.    Mute the DACs and ADCs.
+2.    Disable soft ramp and zero-cross volume transitions
+3.    Set the PDN bit to 1.
+4.    Wait at least 100 μs.
+The codec will be fully powered down after this 100 μs delay.
+Prior to the removal of the master clock(MCLK),
+this delay of at least 100 μs must be implemented after step 3
+to avoid premature disruption of the codec’s power down sequence.
 
-On 20/10/2020 15:37, Mark Brown wrote:
-> I don't understand what "logic scattered in various dtsi files" means,
-> sorry.
-> 
->> Yes, that should work to describe the dailink we are using.
->> But a more tricky issue is how to do calls like setting PLL in dai startup ops.
-> ...
-> 
->> I think that asking a generic machine driver to do configuration like
->> this with only a limited interface of device property
->> might be too much of an ask for the machine driver.
-> Richard was looking at some basic configuration for PLLs.
-> 
->> Would you mind if I simplify the compatible string like Srinivas
->> suggested, and send a v12?
->> As for other two kinds of variations that I am aware of:
->> 1. front mic / rear mic
->> 2. replace alc5682 with adau7002
-> The CODEC change is going to be described in the DT no matter what -
-> you'll have a reference to the CODEC node but it may make sense if
-> there's enough custom code around it.  For front vs rear mic the
-> simplest thing would just be to not mention which if this is a hardware
-> fixed thing, otherwise a control.
-> 
->> We can set different board names and different compatible strings to
->> achieve such variation.
->> So that it would make sense to describe configuration in compatible
->> strings like you suggested, and also provides UCM a way to distinguish
->> different boards.
-> I don't recall having suggested distinguishing these things with a
-> compatible string, especially not the microphones.  UCM can already use
-> the display names for the boards to distinguish things.
+Changes in v2:
+- Manage explicitly DAPM events through a switch case in mclk_event()
+---
+ sound/soc/codecs/cs42l51.c | 22 +++++++++++++++++++++-
+ 1 file changed, 21 insertions(+), 1 deletion(-)
 
+diff --git a/sound/soc/codecs/cs42l51.c b/sound/soc/codecs/cs42l51.c
+index 097c4e8d9950..c61b17dc2af8 100644
+--- a/sound/soc/codecs/cs42l51.c
++++ b/sound/soc/codecs/cs42l51.c
+@@ -254,8 +254,28 @@ static const struct snd_soc_dapm_widget cs42l51_dapm_widgets[] = {
+ 		&cs42l51_adcr_mux_controls),
+ };
+ 
++static int mclk_event(struct snd_soc_dapm_widget *w,
++		      struct snd_kcontrol *kcontrol, int event)
++{
++	struct snd_soc_component *comp = snd_soc_dapm_to_component(w->dapm);
++	struct cs42l51_private *cs42l51 = snd_soc_component_get_drvdata(comp);
++
++	switch (event) {
++	case SND_SOC_DAPM_PRE_PMU:
++		return clk_prepare_enable(cs42l51->mclk_handle);
++	case SND_SOC_DAPM_POST_PMD:
++		/* Delay mclk shutdown to fulfill power-down sequence requirements */
++		msleep(20);
++		clk_disable_unprepare(cs42l51->mclk_handle);
++		break;
++	}
++
++	return 0;
++}
++
+ static const struct snd_soc_dapm_widget cs42l51_dapm_mclk_widgets[] = {
+-	SND_SOC_DAPM_CLOCK_SUPPLY("MCLK")
++	SND_SOC_DAPM_SUPPLY("MCLK", SND_SOC_NOPM, 0, 0, mclk_event,
++			    SND_SOC_DAPM_PRE_PMU | SND_SOC_DAPM_POST_PMD),
+ };
+ 
+ static const struct snd_soc_dapm_route cs42l51_routes[] = {
+-- 
+2.17.1
 
-Not with the compatible string!
-
-Currently card name, and long name are exactly same in all Qualcomm 
-soundcards, which makes it very difficult to identify how those boards 
-re wired up at UCM2 level. So the plan is to properly populate card long 
-name with "model" property which can include details on how things are 
-wiredup on that board.
-
---srini

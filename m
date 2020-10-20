@@ -2,88 +2,85 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1B3A6293492
-	for <lists+alsa-devel@lfdr.de>; Tue, 20 Oct 2020 08:05:46 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E98872934A5
+	for <lists+alsa-devel@lfdr.de>; Tue, 20 Oct 2020 08:16:01 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id AC74A170D;
-	Tue, 20 Oct 2020 08:04:55 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AC74A170D
+	by alsa0.perex.cz (Postfix) with ESMTPS id 21730170F;
+	Tue, 20 Oct 2020 08:15:11 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 21730170F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1603173945;
-	bh=No/x2dkGRbgjL+q6iMjWCSMbrm1yVAmFsj5NrGnqZCk=;
-	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=E/fDxL93hPh3ojcvPlpK5+A4NDMWADtXpCgTh43QEHFOYSu+SvNZj+ENDJg1c6jMd
-	 LBG4i1cZ2nhEL/aomZdVyu01Anw4HJJgYqoteNlTZi3l4coTTbhI51EAQpHgBlCFzt
-	 FLyQZdYV7Uq1E6haFgYTjjSS7uSo2Y/ssOpjX5iA=
+	s=default; t=1603174561;
+	bh=KFOucrJPvz6Rdf1sDfrs9WKU23VHlKO7+ojFTTg4faE=;
+	h=Date:From:To:Subject:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=NfNrtFksX0lkElTmwmsIQ5pWpzNrj2BFUFy4JRLM3zYuryOq7BOLD+c0sa6dzlaee
+	 sochDDCBYNIMRn9KSH/IWnep83Qs4Qtq8LqzPzusvGGAKpscAXpYH7h7TAPEyI0r+i
+	 5XYsUb8IPQ0ket/g4fZ+S3LNb9A1ygSXsaKfuZ8Y=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 63D34F801A3;
-	Tue, 20 Oct 2020 08:04:05 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 9D4F7F80216;
+	Tue, 20 Oct 2020 08:14:20 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 5F16BF801F2; Tue, 20 Oct 2020 08:04:02 +0200 (CEST)
+ id 3DE40F801F2; Tue, 20 Oct 2020 08:14:19 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from hqnvemgate24.nvidia.com (hqnvemgate24.nvidia.com
- [216.228.121.143])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_PASS autolearn=disabled
+ version=3.4.0
+Received: from mail-wr1-x444.google.com (mail-wr1-x444.google.com
+ [IPv6:2a00:1450:4864:20::444])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 095E4F8010F
- for <alsa-devel@alsa-project.org>; Tue, 20 Oct 2020 08:03:55 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 095E4F8010F
+ by alsa1.perex.cz (Postfix) with ESMTPS id 757BDF8010F
+ for <alsa-devel@alsa-project.org>; Tue, 20 Oct 2020 08:14:15 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 757BDF8010F
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=nvidia.com header.i=@nvidia.com
- header.b="G9fw4FIs"
-Received: from hqmail.nvidia.com (Not Verified[216.228.121.13]) by
- hqnvemgate24.nvidia.com (using TLS: TLSv1.2, AES256-SHA)
- id <B5f8e7d6b0004>; Mon, 19 Oct 2020 23:02:19 -0700
-Received: from [10.25.98.225] (10.124.1.5) by HQMAIL107.nvidia.com
- (172.20.187.13) with Microsoft SMTP Server (TLS) id 15.0.1473.3; Tue, 20 Oct
- 2020 06:03:41 +0000
-Subject: Re: [PATCH v4 10/15] ASoC: dt-bindings: tegra: Add graph bindings
-To: Rob Herring <robh@kernel.org>
-References: <1602859382-19505-1-git-send-email-spujar@nvidia.com>
- <1602859382-19505-11-git-send-email-spujar@nvidia.com>
- <20201019221105.GA3679866@bogus>
-From: Sameer Pujar <spujar@nvidia.com>
-Message-ID: <741b6ffe-a2b3-c657-4113-d0c6316a4050@nvidia.com>
-Date: Tue, 20 Oct 2020 11:33:37 +0530
-User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:68.0) Gecko/20100101
- Thunderbird/68.10.0
+ dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
+ header.b="ADqaAPJs"
+Received: by mail-wr1-x444.google.com with SMTP id t9so589204wrq.11
+ for <alsa-devel@alsa-project.org>; Mon, 19 Oct 2020 23:14:15 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=date:from:to:subject:message-id:mime-version:content-disposition;
+ bh=MqAFNi3NEmgvMsS+lIYBMCO9D/BYD7iXTUCBOFaFT5M=;
+ b=ADqaAPJs2DfzYJxQYFnz4DlJroboYOPvNoRYxXUc2cBq2832vzELO6vau9ud4oCB2i
+ 6fcqaDRc3/VQllIGIIGAJkyd2C5v0rpXILRIYZk3ZwxwQnb8WiBJpwYYAMsdd/Wc1r6v
+ li/Ut3/AauC38JWydNPhpnW7gZ0H6J2BtCAQJnn9mhR5rmCodpNQ3cE9zhQndHnwwP0L
+ ETdgP+4qKn5llV65nI3qz0Mr1lYfvH4M9kFZrzscAhZQ5fRKmVsE1ee3r3yrJUTSIQ0R
+ WQQhPrzMsykV7jgC9HAJ86tjISHkAXkiaMIjAOF2WasQOfQM+fBPXM1udzmkQKAJQCBt
+ aGSA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:date:from:to:subject:message-id:mime-version
+ :content-disposition;
+ bh=MqAFNi3NEmgvMsS+lIYBMCO9D/BYD7iXTUCBOFaFT5M=;
+ b=bf1WTv03wBX6s3GeKD2dKXix69DtjdoAHhfBkCGf15pCkJeLmG5wiV+qyMYFAsrXzQ
+ pF+ao7vUjHeyZ0OICkbd1+7LYsr5giquvGkAupbIsJ5OfZAwItmXtEFPuqjEcitDuOLK
+ Lcw8NdrHPyUh5PC668+nMLeA5C4Y7JM/dTJGnTLrYpDzFsh9OIz7fvnXLqN84w7qPpdP
+ IABZiandu96OhnIMSqtbpYp/k1KwgdMn7u2t5LEWsHtcYAYVXM0bzH13lWPzCzf98SrV
+ XpiRtTDixOqkK0Yap0pQXIi2xb6fWsmipy6846WAKn5e+FZo5l0Z/giDc4cz0qG8Rcc+
+ Q3Og==
+X-Gm-Message-State: AOAM530dqMASUbTB8fO8bONk1vtF7+lHlFBr3sMM4ma0im2BbMzBaF+Z
+ oDKZkyy2OWdLj9wLy2UtxQofpoY/MBA=
+X-Google-Smtp-Source: ABdhPJzzUWsAd3iyMkDdTM/ze3s33XrUrv1lofIVve1AoyAO+tECSPnIJbqqqMv9jQh5irT/z1hgKg==
+X-Received: by 2002:a5d:6591:: with SMTP id q17mr1458829wru.173.1603174452804; 
+ Mon, 19 Oct 2020 23:14:12 -0700 (PDT)
+Received: from TAG009442538903 (public-gprs402829.centertel.pl.
+ [37.47.204.206])
+ by smtp.gmail.com with ESMTPSA id z6sm1027721wmi.28.2020.10.19.23.14.11
+ for <alsa-devel@alsa-project.org>
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 19 Oct 2020 23:14:12 -0700 (PDT)
+Date: Tue, 20 Oct 2020 08:14:09 +0200
+From: Lukasz Halman <lukasz.halman@gmail.com>
+To: alsa-devel@alsa-project.org
+Subject: [PATCH] Line6 Pod Go interface requires static clock rate quirk
+Message-ID: <20201020061409.GA24382@TAG009442538903>
 MIME-Version: 1.0
-In-Reply-To: <20201019221105.GA3679866@bogus>
-Content-Type: text/plain; charset="utf-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-Content-Language: en-GB
-X-Originating-IP: [10.124.1.5]
-X-ClientProxiedBy: HQMAIL101.nvidia.com (172.20.187.10) To
- HQMAIL107.nvidia.com (172.20.187.13)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nvidia.com; s=n1;
- t=1603173739; bh=BiUKj9cP/yQT8cx2ubZAZ1aX0UMw0lA+ciOeajWUPVg=;
- h=Subject:To:CC:References:From:Message-ID:Date:User-Agent:
- MIME-Version:In-Reply-To:Content-Type:Content-Transfer-Encoding:
- Content-Language:X-Originating-IP:X-ClientProxiedBy;
- b=G9fw4FIscUh231vtUhUS7Zp7vgk4ElJPav83qReqGsFuyzTZZlZUbVhVIHB4ZjBB3
- D7oh58seobnJ5UZc9JAiDlvubyovDaE5rduZg+/mDcCtfBJfWuoT6yFhBLrhg3A9zr
- gwvuOT8grfuhLxGGJfu+E3mQU8IzlRrEgZTdQqzpeGvwaaGpAiwXbNMiFhsuHj0QB0
- i7PjCaCnipn1tcwvzyfSp/zY6jPW+sSssT7nyXcC3gDQJQnSRuIKExQN2n7LWXMKf6
- 01KCH/XO83RJYuXX2E7BhasM+sqUKFmOb8oGEYIn013Z7zRADUd8drHM6Rce9YL/gL
- EiBkdA4fKCOWw==
-Cc: alsa-devel@alsa-project.org, kuninori.morimoto.gx@renesas.com,
- atalambedu@nvidia.com, linux-kernel@vger.kernel.org, thierry.reding@gmail.com,
- rlokhande@nvidia.com, swarren@nvidia.com, tiwai@suse.com,
- pierre-louis.bossart@linux.intel.com, jonathanh@nvidia.com,
- devicetree@vger.kernel.org, nicoleotsuka@gmail.com, broonie@kernel.org,
- linux-tegra@vger.kernel.org, mkumard@nvidia.com, viswanathl@nvidia.com,
- lgirdwood@gmail.com, nwartikar@nvidia.com, p.zabel@pengutronix.de,
- sharadg@nvidia.com, dramesh@nvidia.com
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -99,37 +96,28 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+Recently released Line6 Pod Go requires static clock rate quirk to make
+its usb audio interface working. Added its usb id to the list of similar
+line6 devices.
 
->> Add device tree binding properties of generic graph to ASoC component
->> devices. This allows to define audio ports out of these components or
->> DAIs and audio graph based sound card can be realised with this.
->>
->> Signed-off-by: Sameer Pujar <spujar@nvidia.com>
->> ---
->>   Documentation/devicetree/bindings/sound/nvidia,tegra186-dspk.yaml  | 7 +++++++
->>   .../devicetree/bindings/sound/nvidia,tegra210-admaif.yaml          | 7 +++++++
->>   Documentation/devicetree/bindings/sound/nvidia,tegra210-ahub.yaml  | 7 +++++++
->>   Documentation/devicetree/bindings/sound/nvidia,tegra210-dmic.yaml  | 7 +++++++
->>   Documentation/devicetree/bindings/sound/nvidia,tegra210-i2s.yaml   | 7 +++++++
->>   5 files changed, 35 insertions(+)
->>
->> diff --git a/Documentation/devicetree/bindings/sound/nvidia,tegra186-dspk.yaml b/Documentation/devicetree/bindings/sound/nvidia,tegra186-dspk.yaml
->> index ed2fb32..23875b1 100644
->> --- a/Documentation/devicetree/bindings/sound/nvidia,tegra186-dspk.yaml
->> +++ b/Documentation/devicetree/bindings/sound/nvidia,tegra186-dspk.yaml
->> @@ -55,6 +55,13 @@ properties:
->>         The name can be "DSPK1" or "DSPKx", where x depends on the maximum
->>         available instances on a Tegra SoC.
->>
->> +  ports:
->> +    $ref: /schemas/sound/audio-graph-card.yaml#/definitions/ports
->> +
 
->> +patternProperties:
->> +  "^port(@[0-9a-f]+)?$":
->> +    $ref: /schemas/sound/audio-graph-card.yaml#/definitions/port
-> You should have either 'ports' or a single 'port' (yes, the graph
-> binding allowed multiple port nodes without 'ports', but that should be
-> deprecated IMO)
+Signed-off-by: Lukasz Halman <lukasz.halman@gmail.com>
+---
+ sound/usb/format.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-OK, will drop this and just use 'port' here.
+diff --git a/sound/usb/format.c b/sound/usb/format.c
+index 1b28d01d1..3bfead393 100644
+--- a/sound/usb/format.c
++++ b/sound/usb/format.c
+@@ -406,6 +406,7 @@ static int line6_parse_audio_format_rates_quirk(struct snd_usb_audio *chip,
+ 	case USB_ID(0x0e41, 0x4242): /* Line6 Helix Rack */
+ 	case USB_ID(0x0e41, 0x4244): /* Line6 Helix LT */
+ 	case USB_ID(0x0e41, 0x4246): /* Line6 HX-Stomp */
++	case USB_ID(0x0e41, 0x4247): /* Line6 Pod Go */
+ 	case USB_ID(0x0e41, 0x4248): /* Line6 Helix >= fw 2.82 */
+ 	case USB_ID(0x0e41, 0x4249): /* Line6 Helix Rack >= fw 2.82 */
+ 	case USB_ID(0x0e41, 0x424a): /* Line6 Helix LT >= fw 2.82 */
+-- 
+2.25.1
+

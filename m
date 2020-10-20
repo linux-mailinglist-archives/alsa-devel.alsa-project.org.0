@@ -2,77 +2,86 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 72174293F86
-	for <lists+alsa-devel@lfdr.de>; Tue, 20 Oct 2020 17:25:17 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2E48D294017
+	for <lists+alsa-devel@lfdr.de>; Tue, 20 Oct 2020 17:59:09 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E842A16DD;
-	Tue, 20 Oct 2020 17:24:26 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E842A16DD
+	by alsa0.perex.cz (Postfix) with ESMTPS id A7DE416E2;
+	Tue, 20 Oct 2020 17:58:18 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A7DE416E2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1603207517;
-	bh=O0otWF5hQOpQgAyZOOSz2D2YTrqqjcz/Uss8q1ZITTw=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=MWiLXSW34Bayb6jfV0jKGHkLcKVkwARGSX6J/UeqK77kpNj7Zv9LNEZpMPTDMoGdK
-	 T1DJ2QVoW2MvTufwf/C98t6DkXCLQgrHKewSkT5Ah+w9JgBkDWX5sYtUIdivHMEN0O
-	 j8PvRCbZvRJ8QINWwqQQJD/SEDfxiP1CRfsGtBRk=
+	s=default; t=1603209548;
+	bh=Jq8+JtdE7YyzE2mzd0q0wZfO3Ul6gOf5pA7JBr9fZ1E=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=PcMOCIsotlhfZqCSC8lVUYbga2P0GLNkEKYXbp0bApDxxJh8QwbiscWGQ9NVVEu8e
+	 b+6sUyOV199urj84nHmRBXD1YCDMWyKSKIExQ/xhXrPkACc6brOfWBkwaIp2GpHcVo
+	 UtILuBbQv+R8jXCCAmVKFtSag4GK/CnWgOd9vY/0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 9AF1CF8010F;
-	Tue, 20 Oct 2020 17:23:36 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 62603F8024A;
+	Tue, 20 Oct 2020 17:57:28 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id DF185F801F2; Tue, 20 Oct 2020 17:23:34 +0200 (CEST)
+ id 0137EF80252; Tue, 20 Oct 2020 17:57:20 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled
- version=3.4.0
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 3C728F800AD
- for <alsa-devel@alsa-project.org>; Tue, 20 Oct 2020 17:23:31 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3C728F800AD
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="dsMKyHfi"
-Received: from localhost (fw-tnat.cambridge.arm.com [217.140.96.140])
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
+Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
+ [185.132.182.106])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 1F2DD21D6C;
- Tue, 20 Oct 2020 15:23:27 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1603207407;
- bh=O0otWF5hQOpQgAyZOOSz2D2YTrqqjcz/Uss8q1ZITTw=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=dsMKyHfirIAjnHn1Zw3AbOdD6wIHu0Mi+qaG1spiZE+OygjSPNIdhKVxiqG0ic6Ba
- N4fvKHoS+gxv0HvnjUOJO00j5lFqVjiwYlyTR4zYiesZbZeHUk0+tlNSdDtrNislSw
- +m29i4UkwfjH86BCw7jLXhryfBSOmURCHMfbcHX0=
-Date: Tue, 20 Oct 2020 16:23:17 +0100
-From: Mark Brown <broonie@kernel.org>
-To: trix@redhat.com
-Subject: Re: [PATCH] sound: remove unneeded break
-Message-ID: <20201020152317.GD9448@sirena.org.uk>
-References: <20201019164857.27223-1-trix@redhat.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id D6C0BF80228
+ for <alsa-devel@alsa-project.org>; Tue, 20 Oct 2020 17:57:17 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D6C0BF80228
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=st.com header.i=@st.com header.b="tSwotTfT"
+Received: from pps.filterd (m0046037.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
+ 09KFfsqH008231; Tue, 20 Oct 2020 17:57:14 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=st.com;
+ h=from : to : cc : subject
+ : date : message-id : mime-version : content-type; s=STMicroelectronics;
+ bh=vxVcS0wL2dmaUGtZbYgULMDICAzdzq2c+2XOgarz2W8=;
+ b=tSwotTfTGzp0UfKKaB1HYz9zhyFIEMvXk0/ssAnHzRK+LOHI19fiimx69WyRWlMICUAy
+ Wo/P3c1f+2gcH1cH8RY4Q/DQXDqInf17gTxzmFToN4alTF2f9oVsf8NHy8EVb9f3apvz
+ rWEAn3mKh4y/ZWU2sGc4CRv4h/9xJkO58xI0wfaCRBhBvimJlhhY8B5KF0p+kE9ISYR9
+ IXIsI+hxUy1hX0QuNS7/dnnSJqYNz5LpoxAZoys1cKVQLHSPFO044Ol6n+Pk8tfK+2NC
+ x2ULDjdMqr5yEYnbJ2xw+KEATp0kc3Eq0cMKnu8yHxLVxWAGItQlU51t1T3pdBOakj0b YA== 
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+ by mx07-00178001.pphosted.com with ESMTP id 347pcwuuw8-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Tue, 20 Oct 2020 17:57:14 +0200
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 3188410002A;
+ Tue, 20 Oct 2020 17:57:13 +0200 (CEST)
+Received: from Webmail-eu.st.com (sfhdag2node2.st.com [10.75.127.5])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id BD477206290;
+ Tue, 20 Oct 2020 17:57:13 +0200 (CEST)
+Received: from localhost (10.75.127.44) by SFHDAG2NODE2.st.com (10.75.127.5)
+ with Microsoft SMTP Server (TLS) id 15.0.1473.3; Tue, 20 Oct 2020 17:57:13
+ +0200
+From: Olivier Moysan <olivier.moysan@st.com>
+To: <lgirdwood@gmail.com>, <broonie@kernel.org>, <perex@perex.cz>,
+ <tiwai@suse.com>, <alexandre.torgue@st.com>, <robh@kernel.org>,
+ <mark.rutland@arm.com>, <olivier.moysan@st.com>
+Subject: [PATCH v2 0/2] dt-bindings: stm32: convert audio dfsdm to json-schema
+Date: Tue, 20 Oct 2020 17:57:07 +0200
+Message-ID: <20201020155709.2621-1-olivier.moysan@st.com>
+X-Mailer: git-send-email 2.17.1
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="2iBwrppp/7QCDedR"
-Content-Disposition: inline
-In-Reply-To: <20201019164857.27223-1-trix@redhat.com>
-X-Cookie: The people rule.
-User-Agent: Mutt/1.10.1 (2018-07-13)
-Cc: alsa-devel@alsa-project.org, Julia.Lawall@inria.fr,
- cezary.rojewski@intel.com, romain.perier@gmail.com,
- kuninori.morimoto.gx@renesas.com, arnd@arndb.de, baolin.wang@linaro.org,
- naoki.hayama@lineo.co.jp, linux-kernel@vger.kernel.org, tiwai@suse.com,
- yang.jie@linux.intel.com, lgirdwood@gmail.com,
- pierre-louis.bossart@linux.intel.com, peter.ujfalusi@ti.com,
- srinivas.kandagatla@linaro.org, ranjani.sridharan@linux.intel.com,
- allen.lkml@gmail.com
+Content-Type: text/plain
+X-Originating-IP: [10.75.127.44]
+X-ClientProxiedBy: SFHDAG1NODE1.st.com (10.75.127.1) To SFHDAG2NODE2.st.com
+ (10.75.127.5)
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.235, 18.0.737
+ definitions=2020-10-20_08:2020-10-20,
+ 2020-10-20 signatures=0
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
+ arnaud.pouliquen@st.com, linux-kernel@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -88,33 +97,23 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+Some audio properties documented in st,stm32-adfsdm.txt are already documented
+in Documentation/devicetree/bindings/iio/adc/st,stm32-dfsdm-adc.yaml bindings.
+Move remaining properties from st,stm32-adfsdm.txt to st,stm32-dfsdm-adc.yaml,
+and remove st,stm32-adfsdm.txt.
 
---2iBwrppp/7QCDedR
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Changes in v2:
+- Complete st,stm32-dfsdm-adc.yaml rather than converting st,stm32-adfsdm.txt
 
-On Mon, Oct 19, 2020 at 09:48:57AM -0700, trix@redhat.com wrote:
-> From: Tom Rix <trix@redhat.com>
->=20
-> A break is not needed if it is preceded by a return, goto
-> or break
+Olivier Moysan (2):
+  dt-bindings: stm32: dfsdm: update audio properties
+  dt-bindings: stm32: dfsdm: remove stm32-adfsdm.txt binding
 
-Acked-by: Mark Brown <broonie@kernel.org>
+ .../bindings/iio/adc/st,stm32-dfsdm-adc.yaml  |  7 ++-
+ .../bindings/sound/st,stm32-adfsdm.txt        | 63 -------------------
+ 2 files changed, 5 insertions(+), 65 deletions(-)
+ delete mode 100644 Documentation/devicetree/bindings/sound/st,stm32-adfsdm.txt
 
---2iBwrppp/7QCDedR
-Content-Type: application/pgp-signature; name="signature.asc"
+-- 
+2.17.1
 
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl+PAOQACgkQJNaLcl1U
-h9B6Wwf/WM7+AuONwToF6d5Lw39VWaxRZFC6SH0PW6rtzOUx6rKbQ5eopaTnxA6k
-3vpWBmaSVcFfbu0TgoCSgQsbmPORfgesMUCmcniRPBZ3NTUzV9lM1yLs4qo5k1lq
-laGIooCjfxEikOsm9QTftZXQCSYlAvqNnFx9tFv7h19wyDn9uzNEiuwZ1thBAhvO
-t7U1WGr2cwFLy3kSjWPDD2y82cX+ng+yo/MzWJv68oJ2lFdpV2Gn7iRIJ/koikU8
-AS3lrZKlOLufUnir4ex5FFhGCrGKcarEipopKDOdZ5sPaiyBNoAn2FJ2+RvDhPof
-oSw9xG5WP2q+6Vl7GC0PqNgmGMrFQQ==
-=YldY
------END PGP SIGNATURE-----
-
---2iBwrppp/7QCDedR--

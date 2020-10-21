@@ -2,100 +2,75 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 83924294CEC
-	for <lists+alsa-devel@lfdr.de>; Wed, 21 Oct 2020 14:41:15 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B918D294D77
+	for <lists+alsa-devel@lfdr.de>; Wed, 21 Oct 2020 15:25:44 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 193101743;
-	Wed, 21 Oct 2020 14:40:25 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 193101743
+	by alsa0.perex.cz (Postfix) with ESMTPS id DB41C1750;
+	Wed, 21 Oct 2020 15:24:53 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DB41C1750
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1603284075;
-	bh=mWU0XX6TP23oXRtNhUtKZR9PQ/87umOD4p89GJOQWxo=;
+	s=default; t=1603286743;
+	bh=b3cPCH2ChrkOo+0On+GCFaxbYKBDb2R2dmjWrh01th8=;
 	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=d6UHXe6MH/bkf0nFd4qg+6FqNCQ3rXfjoDCBgbV6DpIa/WFTx9L+1C9CUXmq+jYtW
-	 jD74VEKtzYZFN81qrAUIX1xLA/n7E8AN76/+sX6qcBbQ/5pWZoGFai5tBju9lwk6q6
-	 w9kTqEPegwpdrQ4rgCeH1Az39My1O3oL7pHVjdRM=
+	b=jtASFxyOz1R2zmNN86tQCJfFrOe87cqEMvkkE6PW/JLRYQN10RQGTzSA6qVbTmddz
+	 OXSHuhEavjBp+lez1Wzq+g8rYnrSiHWAe3YyrGyePegnZHu6WslfafKrn0jIAKproj
+	 THatJspg0QkQC7wswUeqUxSbMwlFvTtu/dHfIF+4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 9BDB5F8026F;
-	Wed, 21 Oct 2020 14:39:34 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 4785BF80253;
+	Wed, 21 Oct 2020 15:24:03 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 4278BF80264; Wed, 21 Oct 2020 14:39:31 +0200 (CEST)
+ id D7F1CF80264; Wed, 21 Oct 2020 15:24:00 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled
- version=3.4.0
+ DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id EE013F80111
- for <alsa-devel@alsa-project.org>; Wed, 21 Oct 2020 14:39:27 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EE013F80111
+ by alsa1.perex.cz (Postfix) with ESMTPS id E7F4FF80111
+ for <alsa-devel@alsa-project.org>; Wed, 21 Oct 2020 15:23:54 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E7F4FF80111
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="ZkxgulnN"
+ header.b="C8GMHKrL"
 Received: from localhost (fw-tnat.cambridge.arm.com [217.140.96.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 2EE1422249;
- Wed, 21 Oct 2020 12:39:24 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id 783C2221FC;
+ Wed, 21 Oct 2020 13:23:50 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1603283964;
- bh=mWU0XX6TP23oXRtNhUtKZR9PQ/87umOD4p89GJOQWxo=;
+ s=default; t=1603286631;
+ bh=b3cPCH2ChrkOo+0On+GCFaxbYKBDb2R2dmjWrh01th8=;
  h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=ZkxgulnNF2NFH9jo07oDU4EUHcw6hfl48FCyYKMbN/fSIbwuhDeBZjNQiRP4WeJVn
- B8QXAA2jbjmKiJc96KJ/3h4MnZ5r7rEFwrOTx6tdj9oAJl7UOSCPeJ3t17BykafjTz
- Zzm1hizSASBgt/k0uj2D29o+8bUuTp2GI6pY/12Q=
-Date: Wed, 21 Oct 2020 13:39:13 +0100
+ b=C8GMHKrLxbXtok127CPq0GuZB0QXEqO6wvjYff7dT8f+cwsco4b+i5UzG+DMV6/Hh
+ 3LstP0uMgqsEhjIy5mJi53BTEJx9CMxb+d2XH2ni4s5Cj/AT/PKQvMtJaSnCHbXhRT
+ A8HZn3KJOuhf/QzBL6w+/Hllt4uEfx6lChajJMF0=
+Date: Wed, 21 Oct 2020 14:23:39 +0100
 From: Mark Brown <broonie@kernel.org>
-To: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
-Subject: Re: [PATCH v11 2/3] ASoC: qcom: dt-bindings: Add sc7180 machine
- bindings
-Message-ID: <20201021123913.GD4497@sirena.org.uk>
-References: <20200914080619.4178587-1-cychiang@chromium.org>
- <20200914080619.4178587-3-cychiang@chromium.org>
- <7bdc0d63-27b1-f99e-c5f8-65f880733d16@linaro.org>
- <CAFv8NwLkvxX2avoLY+4NY5gBv0dQ863hFFiqy7iQOJxH4WenmQ@mail.gmail.com>
- <20201015161251.GF4390@sirena.org.uk>
- <CAFv8NwL1xX=yPGFqQL_mOzAnPTfH0Z0J6ibG1+D32W46Nx0KYQ@mail.gmail.com>
- <20201020143711.GC9448@sirena.org.uk>
- <63f1a29c-0758-97b8-ce80-fe43d91630fa@linaro.org>
- <CAFv8NwJ-+f146Ss9Mk=nEXjm1B--ZwhAgnfx-cTi7DGEKqC1-Q@mail.gmail.com>
- <e876421c-dfeb-e853-1b65-53a786e9bcf9@linaro.org>
+To: Jiaxin Yu <jiaxin.yu@mediatek.com>
+Subject: Re: [PATCH v2 2/5] ASoC: mediatek: mt8192: add platform driver
+Message-ID: <20201021132339.GF4497@sirena.org.uk>
+References: <1603270435-3548-1-git-send-email-jiaxin.yu@mediatek.com>
+ <1603270435-3548-3-git-send-email-jiaxin.yu@mediatek.com>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="/3yNEOqWowh/8j+e"
+ protocol="application/pgp-signature"; boundary="xaMk4Io5JJdpkLEb"
 Content-Disposition: inline
-In-Reply-To: <e876421c-dfeb-e853-1b65-53a786e9bcf9@linaro.org>
+In-Reply-To: <1603270435-3548-3-git-send-email-jiaxin.yu@mediatek.com>
 X-Cookie: That does not compute.
 User-Agent: Mutt/1.10.1 (2018-07-13)
-Cc: Taniya Das <tdas@codeaurora.org>,
- "moderated list:SOUND - SOC LAYER / DYNAMIC AUDIO POWER MANAGEM..."
- <alsa-devel@alsa-project.org>, Banajit Goswami <bgoswami@codeaurora.org>,
- Heiko Stuebner <heiko@sntech.de>,
- Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
- Takashi Iwai <tiwai@suse.com>, Rohit kumar <rohitkr@codeaurora.org>,
- Ajye Huang <ajye_huang@compal.corp-partner.google.com>,
- Cheng-yi Chiang <cychiang@chromium.org>, Patrick Lai <plai@codeaurora.org>,
- "open list:ARM/Rockchip SoC..." <linux-rockchip@lists.infradead.org>,
- Andy Gross <agross@kernel.org>, Dylan Reid <dgreid@chromium.org>,
- "open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS"
- <devicetree@vger.kernel.org>, Tzung-Bi Shih <tzungbi@chromium.org>,
- Srinivasa Rao <srivasam@codeaurora.org>, Stephan Gerhold <stephan@gerhold.net>,
- linux-arm-msm <linux-arm-msm@vger.kernel.org>,
- Rob Herring <robh+dt@kernel.org>,
- "moderated list:ARM/Mediatek SoC support" <linux-mediatek@lists.infradead.org>,
- Matthias Brugger <matthias.bgg@gmail.com>,
- Bjorn Andersson <bjorn.andersson@linaro.org>,
- Linux ARM <linux-arm-kernel@lists.infradead.org>,
- Doug Anderson <dianders@chromium.org>, Liam Girdwood <lgirdwood@gmail.com>,
- linux-kernel <linux-kernel@vger.kernel.org>
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
+ kuninori.morimoto.gx@renesas.com, shane.chien@mediatek.com, tiwai@suse.com,
+ tzungbi@google.com, robh+dt@kernel.org, linux-mediatek@lists.infradead.org,
+ p.zabel@pengutronix.de, matthias.bgg@gmail.com,
+ linux-arm-kernel@lists.infradead.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -112,37 +87,52 @@ Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 
---/3yNEOqWowh/8j+e
+--xaMk4Io5JJdpkLEb
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-On Wed, Oct 21, 2020 at 01:00:54PM +0100, Srinivas Kandagatla wrote:
+On Wed, Oct 21, 2020 at 04:53:52PM +0800, Jiaxin Yu wrote:
+> This patch adds mt8192 platform and affiliated drivers.
+>=20
+> Signed-off-by: Jiaxin Yu <jiaxin.yu@mediatek.com>
+> ---
+>  sound/soc/mediatek/Kconfig                    |   10 +
+>  sound/soc/mediatek/Makefile                   |    1 +
+>  sound/soc/mediatek/common/mtk-afe-fe-dai.c    |   13 +-
+>  sound/soc/mediatek/common/mtk-base-afe.h      |    1 +
+>  sound/soc/mediatek/mt8192/Makefile            |   14 +
+>  sound/soc/mediatek/mt8192/mt8192-afe-clk.c    |  669 ++++
+>  sound/soc/mediatek/mt8192/mt8192-afe-clk.h    |  244 ++
+>  sound/soc/mediatek/mt8192/mt8192-afe-common.h |  170 +
+>  .../soc/mediatek/mt8192/mt8192-afe-control.c  |  163 +
+>  sound/soc/mediatek/mt8192/mt8192-afe-gpio.c   |  306 ++
+>  sound/soc/mediatek/mt8192/mt8192-afe-gpio.h   |   19 +
+>  sound/soc/mediatek/mt8192/mt8192-afe-pcm.c    | 2389 +++++++++++++
+>  sound/soc/mediatek/mt8192/mt8192-dai-adda.c   | 1489 ++++++++
+>  sound/soc/mediatek/mt8192/mt8192-dai-i2s.c    | 2139 +++++++++++
+>  sound/soc/mediatek/mt8192/mt8192-dai-pcm.c    |  409 +++
+>  sound/soc/mediatek/mt8192/mt8192-dai-tdm.c    |  778 ++++
+>  .../mediatek/mt8192/mt8192-interconnection.h  |   65 +
+>  sound/soc/mediatek/mt8192/mt8192-reg.h        | 3131 +++++++++++++++++
+>  18 files changed, 12006 insertions(+), 4 deletions(-)
 
-> This is totally not very useful w.r.t UCM2 and makes it very difficult to
-> common up parts of the configs.
+This is *way* too big to be a single patch, please split it up - it's
+over 600K.
 
-> My suggestions are.
-> 1. set card->driver_name to something more sensible in your sound card
-> driver.
-
-> 2. set long name in model DT property and set it as card long name
-
-It's also worth taking a look at what Intel are doing here with their
-cards.
-
---/3yNEOqWowh/8j+e
+--xaMk4Io5JJdpkLEb
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl+QK/AACgkQJNaLcl1U
-h9BbUwf/eOnrTlDEbw+QGCrFiYUmnzBGx64NN4D6F6QHebJyBsYrT6PB95nEpzei
-/il7qT8KENMbMgMUSN4N3vMUVWAkrFYjtI5TXCjDvYy1h790B9UIPXyrq+1+hr3U
-+KuyJJ4+adkM1dYEH904ynqdFapjo8DfVcD0YNZ2DstV8UdOnegpQP06Fygn7Vm8
-7diV0uAnJrtMX74ezClTiKcTB6/Nl0B/ve5m9o8usTa9H1LL9v6HgGrqjrFhMS/p
-6h8MzEw2zJS6+kAU//U8MNVBYAmhR7Urw93XHEx7gisLq3STJgnW0580I4lLHd0i
-9/H/UCdqrnIcE7b8lByvQDy/V2Ydhw==
-=jQZx
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl+QNlsACgkQJNaLcl1U
+h9AabAf/Q9TXeXUMIPn9NWo9v/L9LDjOuG3v6YsvGz0dOKzOGAaBjfvSbd9Wtxla
+FGAFsK52ABH7Au6Gm6lKAGgRYY1iP+bG0Pfy0Ow4XdHrPLv/WND+qgFgnaqOZ2Cd
+fb7IpP2f57dbOFvFttnhJW132G3wv50HM3TGcX3ZIMdL0x6becq28d3tg05RUJUn
+8I0581pbZ9NOiux3Z0qAYsI0j9I8GQLgYmOTXg2v+FivJ5mrRctnxPSy7fhsi9xQ
++k1rpv8+jY/NDbOVPenM/f/EoT2WAynU3KNQbW4oEgTX0z62TDV7A9SX6dO5ncBd
+t5HhufaFXlQn1FBV84GrEXTq9ObMsw==
+=JxKv
 -----END PGP SIGNATURE-----
 
---/3yNEOqWowh/8j+e--
+--xaMk4Io5JJdpkLEb--

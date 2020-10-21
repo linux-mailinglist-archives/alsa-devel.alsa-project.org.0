@@ -2,74 +2,60 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2ED62294FB0
-	for <lists+alsa-devel@lfdr.de>; Wed, 21 Oct 2020 17:14:54 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id DE4D0295050
+	for <lists+alsa-devel@lfdr.de>; Wed, 21 Oct 2020 18:01:22 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id AEEA51785;
-	Wed, 21 Oct 2020 17:14:03 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AEEA51785
+	by alsa0.perex.cz (Postfix) with ESMTPS id 8312116E0;
+	Wed, 21 Oct 2020 18:00:32 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8312116E0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1603293293;
-	bh=Xaw1ZO66HhA2ZRvrOumriSUqHRgsfxV+Cw6pxrqk0aQ=;
+	s=default; t=1603296082;
+	bh=AzMpImxzlOZp2c2VAjusQZ2P9KnyJX97xQb4HTLV0rk=;
 	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=DshY6ASpDVmdJckVa7/VnKVUxTL3+M2ldr/uqwQxD/gP9YT2PrmNfHMs9qtiQgoeG
-	 wmuwPPMc3dSk98EkI35THGqrhdvbdLHzbqotzEClI54l3SQi00uZ7PU6LTAY9nVql6
-	 /9oRPDA5wOEH91CdcBJqC2/veP8dUqOibzQ1FulQ=
+	b=ZfS0s+Tdq64wD5kWHAwNntK6zn4kj17ksg0eCI+Blqi2GsT9mTh1SnHoUGzv4SMHn
+	 m+ElUnxHcAetdK+PptxnctrrgVMBKyTExf2EhNeYwvleAWf1ChFJo5/czKXK5bhx37
+	 bYI9JAbHQzq/t7NchiXYjhKrsw6FtV8kifUOzj2g=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 2A8BEF80253;
-	Wed, 21 Oct 2020 17:13:13 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 2D9C0F8026F;
+	Wed, 21 Oct 2020 17:59:42 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id BD659F80264; Wed, 21 Oct 2020 17:13:10 +0200 (CEST)
+ id EE3FCF80264; Wed, 21 Oct 2020 17:59:39 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE
- autolearn=disabled version=3.4.0
-Received: from mga06.intel.com (mga06.intel.com [134.134.136.31])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_MSPIKE_H3,
+ RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
+Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 68F95F8011C
- for <alsa-devel@alsa-project.org>; Wed, 21 Oct 2020 17:13:06 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 68F95F8011C
-IronPort-SDR: YWUjkJyaFiVLC1MT0/vjfTn7BDFtMeMoOYByPgvA8hQ/BdUWP1C/Oix+r3kdo9vf4qjMj25hlH
- MXMDrdtl6lzg==
-X-IronPort-AV: E=McAfee;i="6000,8403,9780"; a="229007893"
-X-IronPort-AV: E=Sophos;i="5.77,401,1596524400"; d="scan'208";a="229007893"
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from orsmga005.jf.intel.com ([10.7.209.41])
- by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 21 Oct 2020 08:13:04 -0700
-IronPort-SDR: l8kn3qqaFTp2bDSgFp3xuMSI24cjn8WvPRN48DK7FqkSHhdSBijKK1IpaI+U+9/zggmPjRSwyp
- ckd9o4EbaclQ==
-X-IronPort-AV: E=Sophos;i="5.77,401,1596524400"; d="scan'208";a="533565360"
-Received: from eliteleevi.tm.intel.com ([10.237.54.20])
- by orsmga005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 21 Oct 2020 08:13:03 -0700
-Date: Wed, 21 Oct 2020 18:11:07 +0300 (EEST)
-From: Kai Vehmanen <kai.vehmanen@linux.intel.com>
-X-X-Sender: kvehmane@eliteleevi.tm.intel.com
-To: Mark Brown <broonie@kernel.org>
-Subject: Re: [GIT PULL] ASoC updates for v5.10
-In-Reply-To: <20201021122209.GC4497@sirena.org.uk>
-Message-ID: <alpine.DEB.2.22.394.2010211719200.864696@eliteleevi.tm.intel.com>
-References: <20201012130845.816462076C@mail.kernel.org>
- <a31e2b24-9ef4-c84f-a663-c2a44b0c8938@perex.cz>
- <20201012132857.GC4332@sirena.org.uk>
- <0cfec32c-c0b4-ddbc-6a23-f5b898966c48@perex.cz>
- <alpine.DEB.2.22.394.2010211150040.864696@eliteleevi.tm.intel.com>
- <20201021122209.GC4497@sirena.org.uk>
-User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7 02160 Espoo
-MIME-Version: 1.0
+ by alsa1.perex.cz (Postfix) with ESMTPS id CCF9DF80247
+ for <alsa-devel@alsa-project.org>; Wed, 21 Oct 2020 17:59:36 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CCF9DF80247
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id 1B2E4ACB5;
+ Wed, 21 Oct 2020 15:59:35 +0000 (UTC)
+Date: Wed, 21 Oct 2020 17:59:34 +0200
+Message-ID: <s5hblgvefix.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Hui Wang <hui.wang@canonical.com>
+Subject: Re: [bug report] ALSA: hda - Don't register a cb func if it is
+ registered already
+In-Reply-To: <9be5bc31-0118-1542-560f-cfe2cecf2403@canonical.com>
+References: <20201021121904.GA1126544@mwanda>
+ <da806361-d1a8-ce20-462f-0ec6acff5bfc@canonical.com>
+ <9be5bc31-0118-1542-560f-cfe2cecf2403@canonical.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
+ FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
+ (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
 Content-Type: text/plain; charset=US-ASCII
-Cc: Takashi Iwai <tiwai@suse.de>, alsa-devel@alsa-project.org,
- Liam Girdwood <lgirdwood@gmail.com>
+Cc: alsa-devel@alsa-project.org, Dan Carpenter <dan.carpenter@oracle.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -85,25 +71,18 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hey,
-
-On Wed, 21 Oct 2020, Mark Brown wrote:
-
-> On Wed, Oct 21, 2020 at 12:26:22PM +0300, Kai Vehmanen wrote:
->> maybe bundling the warning suppression to the same patchset was not the 
->> best of ideas. Jaroslav is correct the warnings can unfortunately create 
+On Wed, 21 Oct 2020 17:03:11 +0200,
+Hui Wang wrote:
 > 
-> No, and especially putting it at the end of the series - presumably it
-> has dependencies on the rest of it?  You should always put fixes first
-> in a series.
+> Looks like this will not bring problem on patch_sigmatel.c, NULL and
+> valid kernel pointer are same for IS_ERR(), they will not make
+> IS_ERR() come true.
 
-I hadn't realized the warning gets triggered so commonly when sending the 
-series out, so it was just a bad call to have this in the same series with 
-coding-style fixes only. The warning patch has no strict dependency to the 
-others. I know series with no hard dependencies are frowned upon, so this 
-a double-fault on my part.
+Right, and it's called only once, so the bug doesn't hit.
 
-I can send the fix patch separately and save the rest of the series for 
-5.11 window.
+But we should address the potential bug nevertheless, of course :)
 
-Br, Kai
+
+thanks,
+
+Takashi

@@ -2,61 +2,84 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B2021294E74
-	for <lists+alsa-devel@lfdr.de>; Wed, 21 Oct 2020 16:23:10 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 64791294F39
+	for <lists+alsa-devel@lfdr.de>; Wed, 21 Oct 2020 16:54:49 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 7BEC4178B;
-	Wed, 21 Oct 2020 16:22:19 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7BEC4178B
+	by alsa0.perex.cz (Postfix) with ESMTPS id 647B91773;
+	Wed, 21 Oct 2020 16:53:58 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 647B91773
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1603290189;
-	bh=3ETRrv8fHdlD106J6EFTUEfgGamchJV7NE/ZIro7pfM=;
-	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
+	s=default; t=1603292088;
+	bh=pDjcVOVNZI0Bcu13bVSQg5DyZURCJnf7t4klLXw/FgA=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=vP9xxbCPJWOs7rVLsdinMTrF/eNRgCszahA15Olq5vQfRS5OUymrkl+wKH3G+xa7j
-	 zLLkMDI4Cd29bVr2GNJzPVoQyDcIAVCvILEJMVqGLxrPlHKK8x1HBIjJWY6c3mieQZ
-	 TAE7RW/sXcpX5yKKlO1eYFX3HmOsYS2CQS0N0cKU=
+	b=ibAiYwpd1Op/7MJyiJGqYiuOKd/HkOpPhJ3wocNCGv4Y+uXEIxMzvXN2eQB2K+Qu7
+	 J7Vqc87gupZoKF16VGMVz2urNwQ9qr2+9xj0RtAq+pdqLepKnKQOr/rSqe2B0tc8tc
+	 LlPlTGVAj2lBqHNve+t1P3IXo8c3kfldZDroMEYg=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id CA990F80253;
-	Wed, 21 Oct 2020 16:22:18 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id F1687F8026F;
+	Wed, 21 Oct 2020 16:53:07 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 95045F80272; Wed, 21 Oct 2020 16:22:17 +0200 (CEST)
+ id 07C60F80264; Wed, 21 Oct 2020 16:53:06 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=NICE_REPLY_A, RCVD_IN_MSPIKE_H3,
- RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
-Received: from youngberry.canonical.com (youngberry.canonical.com
- [91.189.89.112])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
+X-Spam-Status: No, score=0.8 required=5.0 tests=FREEMAIL_ENVFROM_END_DIGIT,
+ FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,
+ RCVD_IN_MSPIKE_H3,RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from mail-oo1-f66.google.com (mail-oo1-f66.google.com
+ [209.85.161.66])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 03C21F80253
- for <alsa-devel@alsa-project.org>; Wed, 21 Oct 2020 16:22:14 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 03C21F80253
-Received: from [222.130.135.198] (helo=[192.168.0.104])
- by youngberry.canonical.com with esmtpsa
- (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.86_2)
- (envelope-from <hui.wang@canonical.com>)
- id 1kVF0F-0005Lv-4z; Wed, 21 Oct 2020 14:22:12 +0000
-Subject: Re: [bug report] ALSA: hda - Don't register a cb func if it is
- registered already
-To: Dan Carpenter <dan.carpenter@oracle.com>
-References: <20201021121904.GA1126544@mwanda>
-From: Hui Wang <hui.wang@canonical.com>
-Message-ID: <da806361-d1a8-ce20-462f-0ec6acff5bfc@canonical.com>
-Date: Wed, 21 Oct 2020 22:21:59 +0800
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.10.0
+ by alsa1.perex.cz (Postfix) with ESMTPS id E6E70F80247
+ for <alsa-devel@alsa-project.org>; Wed, 21 Oct 2020 16:52:59 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E6E70F80247
+Received: by mail-oo1-f66.google.com with SMTP id v123so606185ooa.5
+ for <alsa-devel@alsa-project.org>; Wed, 21 Oct 2020 07:52:59 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to;
+ bh=99z2vGoCi1tpnvfGwZuqAszQUrFfL3I1H9eFr7nC/HY=;
+ b=nGFtqaVh7vtOdSIcEERIYeUIFkYsKghCd3VNetfm4w4jc9pAAc61D8EVx2BKbsX19r
+ wBKjro4abHOu61CiXfjF9XRF7NfDzUGm3EFbZI3XkcyB7d9i3GW+UVMu7AD8wSy3zHtU
+ qzp1/6TElIEh5z860yHO7Q83TxUPQ9YGA1fLF7/BDVM+7kS07ewb74nRHYuUmC6ZTlK0
+ YaiXSepDGUnwuUidOOJuo76PQYBhs8MRIaas7aCgK+Z0XiFnBWH6T4cUdn6jVdqWkena
+ CxIfctGFnzsaPbZhjNuiV9hY/B5dqQa4xtJab1FOeoDL+0rJkRz7k4bJf0ZFXjAUqrWb
+ nyaA==
+X-Gm-Message-State: AOAM533p6BfS9aL8Vo6FPyddl5VsPxkbJtZA4YRjgFGilWKMZDaDNeKK
+ uX/91fNYaOWZ7wVHBumSQQ==
+X-Google-Smtp-Source: ABdhPJyBz33K6vdvmgzKSmqSsK58IDBw5UYbGfCek0n6YPE6yQv1h/QpGWEBeK3DUpW+23Ogj8xDKQ==
+X-Received: by 2002:a4a:b443:: with SMTP id h3mr2876908ooo.45.1603291977458;
+ Wed, 21 Oct 2020 07:52:57 -0700 (PDT)
+Received: from xps15 (24-155-109-49.dyn.grandenetworks.net. [24.155.109.49])
+ by smtp.gmail.com with ESMTPSA id t29sm649052otd.51.2020.10.21.07.52.56
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 21 Oct 2020 07:52:56 -0700 (PDT)
+Received: (nullmailer pid 2775005 invoked by uid 1000);
+ Wed, 21 Oct 2020 14:52:55 -0000
+Date: Wed, 21 Oct 2020 09:52:55 -0500
+From: Rob Herring <robh@kernel.org>
+To: Jiaxin Yu <jiaxin.yu@mediatek.com>
+Subject: Re: [PATCH v2 3/5] dt-bindings: mediatek: mt8192: add audio afe
+ document
+Message-ID: <20201021145255.GA2770956@bogus>
+References: <1603270435-3548-1-git-send-email-jiaxin.yu@mediatek.com>
+ <1603270435-3548-4-git-send-email-jiaxin.yu@mediatek.com>
 MIME-Version: 1.0
-In-Reply-To: <20201021121904.GA1126544@mwanda>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 8bit
-Content-Language: en-US
-Cc: alsa-devel@alsa-project.org
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <1603270435-3548-4-git-send-email-jiaxin.yu@mediatek.com>
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
+ kuninori.morimoto.gx@renesas.com, shane.chien@mediatek.com, tiwai@suse.com,
+ tzungbi@google.com, broonie@kernel.org, linux-mediatek@lists.infradead.org,
+ p.zabel@pengutronix.de, matthias.bgg@gmail.com,
+ linux-arm-kernel@lists.infradead.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -72,89 +95,137 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+On Wed, Oct 21, 2020 at 04:53:53PM +0800, Jiaxin Yu wrote:
+> This patch adds mt8192 audio afe document.
+> 
+> This patch depends on following series that has not been accepted:
+> https://patchwork.kernel.org/cover/11752231
+> (dt-bindings/clock/mt8192-clk.h is included in it.)
+> https://patchwork.kernel.org/patch/11755895
+> (dt-bindings/power/mt8192-power.h is included in it.)
+> https://lore.kernel.org/patchwork/patch/1321118
+> (dt-bindings/reset-controller/mt8192-resets.h is included in it.)
+> 
+> Signed-off-by: Jiaxin Yu <jiaxin.yu@mediatek.com>
+> ---
+>  .../bindings/sound/mt8192-afe-pcm.yaml        | 103 ++++++++++++++++++
+>  1 file changed, 103 insertions(+)
+>  create mode 100644 Documentation/devicetree/bindings/sound/mt8192-afe-pcm.yaml
+> 
+> diff --git a/Documentation/devicetree/bindings/sound/mt8192-afe-pcm.yaml b/Documentation/devicetree/bindings/sound/mt8192-afe-pcm.yaml
+> new file mode 100644
+> index 0000000000000..7c2f07b8b66dd
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/sound/mt8192-afe-pcm.yaml
+> @@ -0,0 +1,103 @@
+> +# SPDX-License-Identifier: (GPL-2.0+ OR BSD-2-Clause)
 
-On 10/21/20 8:19 PM, Dan Carpenter wrote:
-> Hello Hui Wang,
->
-> The patch f4794c6064a8: "ALSA: hda - Don't register a cb func if it
-> is registered already" from Sep 30, 2020, leads to the following
-> static checker warning:
->
-> 	sound/pci/hda/patch_sigmatel.c:3075 stac92hd71bxx_fixup_hp_m4()
-> 	warn: 'jack' can also be NULL
->
-> sound/pci/hda/patch_sigmatel.c
->    3069          /* Enable VREF power saving on GPIO1 detect */
->    3070          snd_hda_codec_write_cache(codec, codec->core.afg, 0,
->    3071                                    AC_VERB_SET_GPIO_UNSOLICITED_RSP_MASK, 0x02);
->    3072          jack = snd_hda_jack_detect_enable_callback(codec, codec->core.afg,
->    3073                                                     stac_vref_event);
->
-> Originally snd_hda_jack_detect_enable_callback() would not return NULL
-> here.
->
->    3074          if (!IS_ERR(jack))
->    3075                  jack->private_data = 0x02;
->    3076
->    3077          spec->gpio_mask |= 0x02;
->
-> But now we have this:
->
-> sound/pci/hda/hda_jack.c
->     301  struct hda_jack_callback *
->     302  snd_hda_jack_detect_enable_callback_mst(struct hda_codec *codec, hda_nid_t nid,
->     303                                          int dev_id, hda_jack_callback_fn func)
->     304  {
->     305          struct hda_jack_tbl *jack;
->     306          struct hda_jack_callback *callback = NULL;
->     307          int err;
->     308
->     309          jack = snd_hda_jack_tbl_new(codec, nid, dev_id);
->     310          if (!jack)
->     311                  return ERR_PTR(-ENOMEM);
->     312          if (func && !func_is_already_in_callback_list(jack, func)) {
->                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-> We only allocate callback if there isn't one already.
-Yes, indeed, this is a problem.
->
->     313                  callback = kzalloc(sizeof(*callback), GFP_KERNEL);
->     314                  if (!callback)
->     315                          return ERR_PTR(-ENOMEM);
->     316                  callback->func = func;
->     317                  callback->nid = jack->nid;
->     318                  callback->dev_id = jack->dev_id;
->     319                  callback->next = jack->callback;
->     320                  jack->callback = callback;
->     321          }
->     322
->     323          if (jack->jack_detect)
->     324                  return callback; /* already registered */
->                          ^^^^^^^^^^^^^^^
-> So presumably this should be jack->callback
+GPL-2.0-only OR BSD-2-Clause
 
-Looks like it is also not correct to return the jack->callback.  Need to 
-take some time to write a fix for it.
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/sound/mt8192-afe-pcm.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +
+> +title: Mediatek AFE PCM controller for mt8192
+> +
+> +maintainers:
+> +   - Jiaxin Yu <jiaxin.yu@mediatek.com>
+> +   - Shane Chien <shane.chien@mediatek.com>
+> +
+> +properties:
+> +  compatible:
+> +      const: mediatek,mt8192-audio
+> +
+> +  interrupts:
+> +    maxItems: 1
+> +
+> +  resets:
+> +    maxItems: 1
+> +
+> +  reset-names:
+> +    const: audiosys
+> +
+> +  mediatek,apmixedsys:
+> +    $ref: "/schemas/types.yaml#/definitions/phandle"
+> +    maxItems: 1
 
+A 'phandle' is already 1 item. Drop 'maxItems'.
 
-Thanks for reporting the issue.
-
->
->
->     325          jack->jack_detect = 1;
->     326          if (codec->jackpoll_interval > 0)
->     327                  return callback; /* No unsol if we're polling instead */
->                          ^^^^^^^^^^^^^^^^
->
->     328          err = snd_hda_codec_write_cache(codec, nid, 0,
->     329                                           AC_VERB_SET_UNSOLICITED_ENABLE,
->     330                                           AC_USRSP_EN | jack->tag);
->     331          if (err < 0)
->     332                  return ERR_PTR(err);
->     333          return callback;
->                  ^^^^^^^^^^^^^^^^
-> And these as well.
->
->     334  }
->
-> regards,
-> dan carpenter
+> +    description: The phandle of the mediatek apmixedsys controller
+> +
+> +  mediatek,infracfg:
+> +    $ref: "/schemas/types.yaml#/definitions/phandle"
+> +    maxItems: 1
+> +    description: The phandle of the mediatek infracfg controller
+> +
+> +  mediatek,topckgen:
+> +    $ref: "/schemas/types.yaml#/definitions/phandle"
+> +    maxItems: 1
+> +    description: The phandle of the mediatek topckgen controller
+> +
+> +  power-domains:
+> +    maxItems: 1
+> +
+> +  clocks:
+> +    items:
+> +      - description: AFE clock
+> +      - description: ADDA DAC clock
+> +      - description: ADDA DAC pre-distortion clock
+> +      - description: audio infra sys clock
+> +      - description: audio infra 26M clock
+> +
+> +  clock-names:
+> +    items:
+> +      - const: aud_afe_clk
+> +      - const: aud_dac_clk
+> +      - const: aud_dac_predis_clk
+> +      - const: aud_infra_clk
+> +      - const: aud_infra_26m_clk
+> +
+> +required:
+> +  - compatible
+> +  - interrupts
+> +  - resets
+> +  - reset-names
+> +  - mediatek,apmixedsys
+> +  - mediatek,infracfg
+> +  - mediatek,topckgen
+> +  - power-domains
+> +  - clocks
+> +  - clock-names
+> +
+> +additionalProperties: false
+> +
+> +examples:
+> +  - |
+> +    #include <dt-bindings/clock/mt8192-clk.h>
+> +    #include <dt-bindings/interrupt-controller/arm-gic.h>
+> +    #include <dt-bindings/interrupt-controller/irq.h>
+> +    #include <dt-bindings/power/mt8192-power.h>
+> +    #include <dt-bindings/reset-controller/mt8192-resets.h>
+> +
+> +    afe: mt8192-afe-pcm {
+> +        compatible = "mediatek,mt8192-audio";
+> +        interrupts = <GIC_SPI 202 IRQ_TYPE_LEVEL_HIGH>;
+> +        resets = <&watchdog MT8192_TOPRGU_AUDIO_SW_RST>;
+> +        reset-names = "audiosys";
+> +        mediatek,apmixedsys = <&apmixedsys>;
+> +        mediatek,infracfg = <&infracfg>;
+> +        mediatek,topckgen = <&topckgen>;
+> +        power-domains = <&scpsys MT8192_POWER_DOMAIN_AUDIO>;
+> +        clocks = <&audsys CLK_AUD_AFE>,
+> +                 <&audsys CLK_AUD_DAC>,
+> +                 <&audsys CLK_AUD_DAC_PREDIS>,
+> +                 <&infracfg CLK_INFRA_AUDIO>,
+> +                 <&infracfg CLK_INFRA_AUDIO_26M_B>;
+> +        clock-names = "aud_afe_clk",
+> +                      "aud_dac_clk",
+> +                      "aud_dac_predis_clk",
+> +                      "aud_infra_clk",
+> +                      "aud_infra_26m_clk";
+> +    };
+> +
+> +...
+> -- 
+> 2.18.0

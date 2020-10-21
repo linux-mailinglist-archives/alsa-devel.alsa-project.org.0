@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 12630294C7D
-	for <lists+alsa-devel@lfdr.de>; Wed, 21 Oct 2020 14:23:37 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 83924294CEC
+	for <lists+alsa-devel@lfdr.de>; Wed, 21 Oct 2020 14:41:15 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B2DAE1749;
-	Wed, 21 Oct 2020 14:22:46 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B2DAE1749
+	by alsa0.perex.cz (Postfix) with ESMTPS id 193101743;
+	Wed, 21 Oct 2020 14:40:25 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 193101743
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1603283016;
-	bh=99nCYr2j7Swgvy4tfJbixXgH/wuaSOsRtyuePeIL/Fk=;
+	s=default; t=1603284075;
+	bh=mWU0XX6TP23oXRtNhUtKZR9PQ/87umOD4p89GJOQWxo=;
 	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=Bk91kb82VNk9Xr3+OpJlDEzqJireSlQHrSQFBVep8T5xzwELXQEYAQzdNZWSyDuow
-	 1aNKjttLaN4DTORSyzT4uuvcs5+OqDoOMUzPq0f2czL27YEVnZq4NgK5RCt7PD36sF
-	 lYnNkKcgSkzmjPkUBR4Ey0g+uMHqdDmsES3331bI=
+	b=d6UHXe6MH/bkf0nFd4qg+6FqNCQ3rXfjoDCBgbV6DpIa/WFTx9L+1C9CUXmq+jYtW
+	 jD74VEKtzYZFN81qrAUIX1xLA/n7E8AN76/+sX6qcBbQ/5pWZoGFai5tBju9lwk6q6
+	 w9kTqEPegwpdrQ4rgCeH1Az39My1O3oL7pHVjdRM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 27CC6F80277;
-	Wed, 21 Oct 2020 14:22:27 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 9BDB5F8026F;
+	Wed, 21 Oct 2020 14:39:34 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id C9446F80272; Wed, 21 Oct 2020 14:22:25 +0200 (CEST)
+ id 4278BF80264; Wed, 21 Oct 2020 14:39:31 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -34,43 +34,68 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 9DBC5F80253
- for <alsa-devel@alsa-project.org>; Wed, 21 Oct 2020 14:22:22 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9DBC5F80253
+ by alsa1.perex.cz (Postfix) with ESMTPS id EE013F80111
+ for <alsa-devel@alsa-project.org>; Wed, 21 Oct 2020 14:39:27 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EE013F80111
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="TI9eMfHa"
+ header.b="ZkxgulnN"
 Received: from localhost (fw-tnat.cambridge.arm.com [217.140.96.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id AF7BD2224E;
- Wed, 21 Oct 2020 12:22:19 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id 2EE1422249;
+ Wed, 21 Oct 2020 12:39:24 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1603282940;
- bh=99nCYr2j7Swgvy4tfJbixXgH/wuaSOsRtyuePeIL/Fk=;
+ s=default; t=1603283964;
+ bh=mWU0XX6TP23oXRtNhUtKZR9PQ/87umOD4p89GJOQWxo=;
  h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=TI9eMfHaFN3FVDSd9BcU3ZSB598ZcfKgajcVUDFfLf9MVF2JgdvbbX3DBTaVJzm7k
- +RNgxe+W5iTopXg7nWudniSxR2b2WR00NqMrM2MFgC8ZM2vqeCpGe7SR+kFKwydy3x
- GGy0rHWPis8B4IsN22oiPszkQFnhRl/p/IdQxEys=
-Date: Wed, 21 Oct 2020 13:22:09 +0100
+ b=ZkxgulnNF2NFH9jo07oDU4EUHcw6hfl48FCyYKMbN/fSIbwuhDeBZjNQiRP4WeJVn
+ B8QXAA2jbjmKiJc96KJ/3h4MnZ5r7rEFwrOTx6tdj9oAJl7UOSCPeJ3t17BykafjTz
+ Zzm1hizSASBgt/k0uj2D29o+8bUuTp2GI6pY/12Q=
+Date: Wed, 21 Oct 2020 13:39:13 +0100
 From: Mark Brown <broonie@kernel.org>
-To: Kai Vehmanen <kai.vehmanen@linux.intel.com>
-Subject: Re: [GIT PULL] ASoC updates for v5.10
-Message-ID: <20201021122209.GC4497@sirena.org.uk>
-References: <20201012130845.816462076C@mail.kernel.org>
- <a31e2b24-9ef4-c84f-a663-c2a44b0c8938@perex.cz>
- <20201012132857.GC4332@sirena.org.uk>
- <0cfec32c-c0b4-ddbc-6a23-f5b898966c48@perex.cz>
- <alpine.DEB.2.22.394.2010211150040.864696@eliteleevi.tm.intel.com>
+To: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
+Subject: Re: [PATCH v11 2/3] ASoC: qcom: dt-bindings: Add sc7180 machine
+ bindings
+Message-ID: <20201021123913.GD4497@sirena.org.uk>
+References: <20200914080619.4178587-1-cychiang@chromium.org>
+ <20200914080619.4178587-3-cychiang@chromium.org>
+ <7bdc0d63-27b1-f99e-c5f8-65f880733d16@linaro.org>
+ <CAFv8NwLkvxX2avoLY+4NY5gBv0dQ863hFFiqy7iQOJxH4WenmQ@mail.gmail.com>
+ <20201015161251.GF4390@sirena.org.uk>
+ <CAFv8NwL1xX=yPGFqQL_mOzAnPTfH0Z0J6ibG1+D32W46Nx0KYQ@mail.gmail.com>
+ <20201020143711.GC9448@sirena.org.uk>
+ <63f1a29c-0758-97b8-ce80-fe43d91630fa@linaro.org>
+ <CAFv8NwJ-+f146Ss9Mk=nEXjm1B--ZwhAgnfx-cTi7DGEKqC1-Q@mail.gmail.com>
+ <e876421c-dfeb-e853-1b65-53a786e9bcf9@linaro.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="f0KYrhQ4vYSV2aJu"
+ protocol="application/pgp-signature"; boundary="/3yNEOqWowh/8j+e"
 Content-Disposition: inline
-In-Reply-To: <alpine.DEB.2.22.394.2010211150040.864696@eliteleevi.tm.intel.com>
+In-Reply-To: <e876421c-dfeb-e853-1b65-53a786e9bcf9@linaro.org>
 X-Cookie: That does not compute.
 User-Agent: Mutt/1.10.1 (2018-07-13)
-Cc: Takashi Iwai <tiwai@suse.de>, alsa-devel@alsa-project.org,
- Liam Girdwood <lgirdwood@gmail.com>
+Cc: Taniya Das <tdas@codeaurora.org>,
+ "moderated list:SOUND - SOC LAYER / DYNAMIC AUDIO POWER MANAGEM..."
+ <alsa-devel@alsa-project.org>, Banajit Goswami <bgoswami@codeaurora.org>,
+ Heiko Stuebner <heiko@sntech.de>,
+ Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
+ Takashi Iwai <tiwai@suse.com>, Rohit kumar <rohitkr@codeaurora.org>,
+ Ajye Huang <ajye_huang@compal.corp-partner.google.com>,
+ Cheng-yi Chiang <cychiang@chromium.org>, Patrick Lai <plai@codeaurora.org>,
+ "open list:ARM/Rockchip SoC..." <linux-rockchip@lists.infradead.org>,
+ Andy Gross <agross@kernel.org>, Dylan Reid <dgreid@chromium.org>,
+ "open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS"
+ <devicetree@vger.kernel.org>, Tzung-Bi Shih <tzungbi@chromium.org>,
+ Srinivasa Rao <srivasam@codeaurora.org>, Stephan Gerhold <stephan@gerhold.net>,
+ linux-arm-msm <linux-arm-msm@vger.kernel.org>,
+ Rob Herring <robh+dt@kernel.org>,
+ "moderated list:ARM/Mediatek SoC support" <linux-mediatek@lists.infradead.org>,
+ Matthias Brugger <matthias.bgg@gmail.com>,
+ Bjorn Andersson <bjorn.andersson@linaro.org>,
+ Linux ARM <linux-arm-kernel@lists.infradead.org>,
+ Doug Anderson <dianders@chromium.org>, Liam Girdwood <lgirdwood@gmail.com>,
+ linux-kernel <linux-kernel@vger.kernel.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -87,40 +112,37 @@ Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 
---f0KYrhQ4vYSV2aJu
+--/3yNEOqWowh/8j+e
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
 
-On Wed, Oct 21, 2020 at 12:26:22PM +0300, Kai Vehmanen wrote:
+On Wed, Oct 21, 2020 at 01:00:54PM +0100, Srinivas Kandagatla wrote:
 
-> maybe bundling the warning suppression to the same patchset was not the=
-=20
-> best of ideas. Jaroslav is correct the warnings can unfortunately create=
-=20
-> real confusion as this is on a code path we run on every rt-resume, and i=
-f=20
-> you happen to have a system with FW that has some custom IPC types, you'l=
-l=20
-> get this warning constantly in dmesg.
+> This is totally not very useful w.r.t UCM2 and makes it very difficult to
+> common up parts of the configs.
 
-No, and especially putting it at the end of the series - presumably it
-has dependencies on the rest of it?  You should always put fixes first
-in a series.
+> My suggestions are.
+> 1. set card->driver_name to something more sensible in your sound card
+> driver.
 
---f0KYrhQ4vYSV2aJu
+> 2. set long name in model DT property and set it as card long name
+
+It's also worth taking a look at what Intel are doing here with their
+cards.
+
+--/3yNEOqWowh/8j+e
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl+QJ/AACgkQJNaLcl1U
-h9Bkigf9F1flDpBlaklpX0hYTufuBNJrKY3oYSzs41cnTX9CNqyMHudHBHrU/eOz
-XcN0fMeKzjbN0BkcWq5XLFE8HAbODcpkFh//P8Gi6x/ANdMM0QyphcTdAcdYLtZF
-2b9sEHsgUP16E6oCh1KLIwRiyL6C7IoVAXqFbcc2PgaHUavK+ik72Lz4DJfbp2IG
-hvrBIVIpLqWsb579/quK+AuWJXiJN6SNVv9ipiMqs8ZTXYPHxNqjLPvrwE2kIIPo
-s3+bsp4ntPdUEtsKYQOqMOy8QAvsjprD4NP8BAfu59wX4v6/gHjGSnkB/IeBwUUD
-QCp71fPWnjQaH/p6SEMTmGNKM92TKw==
-=E1nK
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl+QK/AACgkQJNaLcl1U
+h9BbUwf/eOnrTlDEbw+QGCrFiYUmnzBGx64NN4D6F6QHebJyBsYrT6PB95nEpzei
+/il7qT8KENMbMgMUSN4N3vMUVWAkrFYjtI5TXCjDvYy1h790B9UIPXyrq+1+hr3U
++KuyJJ4+adkM1dYEH904ynqdFapjo8DfVcD0YNZ2DstV8UdOnegpQP06Fygn7Vm8
+7diV0uAnJrtMX74ezClTiKcTB6/Nl0B/ve5m9o8usTa9H1LL9v6HgGrqjrFhMS/p
+6h8MzEw2zJS6+kAU//U8MNVBYAmhR7Urw93XHEx7gisLq3STJgnW0580I4lLHd0i
+9/H/UCdqrnIcE7b8lByvQDy/V2Ydhw==
+=jQZx
 -----END PGP SIGNATURE-----
 
---f0KYrhQ4vYSV2aJu--
+--/3yNEOqWowh/8j+e--

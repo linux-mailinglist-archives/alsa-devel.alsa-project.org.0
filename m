@@ -2,74 +2,123 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 67D3E294C22
-	for <lists+alsa-devel@lfdr.de>; Wed, 21 Oct 2020 14:01:32 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2E939294C27
+	for <lists+alsa-devel@lfdr.de>; Wed, 21 Oct 2020 14:02:03 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 58C42173E;
-	Wed, 21 Oct 2020 14:00:41 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 58C42173E
+	by alsa0.perex.cz (Postfix) with ESMTPS id 9E4AD1742;
+	Wed, 21 Oct 2020 14:01:12 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9E4AD1742
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1603281691;
-	bh=yM/uez8AhDZR6dQdRQ+07+2hqG7pIm7SsX24KeznL08=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1603281722;
+	bh=+2yDPugTaTLuIxWRyOQM/rg5hTIBFV1anfNHgSk9cD4=;
+	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=hs+7LHLuCR7tZdAmPoBzjkchIoPmAdKj7scuhz0g0qSbyIOBzSrYDyqXWqnCknxLE
-	 RLIRjUz49bDw6Hxt1Fg7l7/G1daYYWM+sM5EAJXyYVchNzCgFydooD8s8KSUY7Q/lk
-	 4TxJJ5j0U3Ripiu/fF62h3ziVXiu1Cw57uKhNfq0=
+	b=aC7luxR5548q57YQVBJq1eduE+AVce8FvkTpwdYzpiN1fd9EjTutqcYf3f03d9wKF
+	 Dsd+yXBh0XpG3qq4nYUTP7UbJLCJwsfa3YxT1+3Zj+G7tr8dabar3PLiiXd/8wtPXx
+	 u3uAGbswmCd1Akm2BdlSrvYwLd8r6FqnifECH62E=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id E925FF80247;
-	Wed, 21 Oct 2020 13:59:50 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 7DAA6F80272;
+	Wed, 21 Oct 2020 14:01:09 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id DAAEBF80264; Wed, 21 Oct 2020 13:59:47 +0200 (CEST)
+ id E793FF80272; Wed, 21 Oct 2020 14:01:06 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS autolearn=disabled
  version=3.4.0
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+Received: from mail-wm1-x341.google.com (mail-wm1-x341.google.com
+ [IPv6:2a00:1450:4864:20::341])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id A0A9BF80247
- for <alsa-devel@alsa-project.org>; Wed, 21 Oct 2020 13:59:42 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A0A9BF80247
+ by alsa1.perex.cz (Postfix) with ESMTPS id EBBB4F80253
+ for <alsa-devel@alsa-project.org>; Wed, 21 Oct 2020 14:00:58 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EBBB4F80253
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="cMw2En0B"
-Received: from localhost (fw-tnat.cambridge.arm.com [217.140.96.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id C393121D7B;
- Wed, 21 Oct 2020 11:59:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1603281579;
- bh=yM/uez8AhDZR6dQdRQ+07+2hqG7pIm7SsX24KeznL08=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=cMw2En0BpGf2R3CyuN/7pWHpOHF6L6pANFvCN3eNHWJGNqpsmEivvZxqOAXdYR1/q
- 2EXqrYvjxs5Y5Ejf3hMdTXhlR57FlaCnKgtidhQWLYc6DR/a2UQuqSJnvt9gw/IH3y
- FDy7vu6VMO5gB0GrE2veyUsGC0XeK3HC0YY0ZnIc=
-Date: Wed, 21 Oct 2020 12:59:28 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Jaroslav Kysela <perex@perex.cz>
-Subject: Re: [GIT PULL] ASoC updates for v5.10
-Message-ID: <20201021115928.GB4497@sirena.org.uk>
-References: <20201012130845.816462076C@mail.kernel.org>
- <a31e2b24-9ef4-c84f-a663-c2a44b0c8938@perex.cz>
- <20201012132857.GC4332@sirena.org.uk>
- <0cfec32c-c0b4-ddbc-6a23-f5b898966c48@perex.cz>
+ dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org
+ header.b="SenAqoql"
+Received: by mail-wm1-x341.google.com with SMTP id c77so1800594wmd.4
+ for <alsa-devel@alsa-project.org>; Wed, 21 Oct 2020 05:00:58 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=subject:to:cc:references:from:message-id:date:user-agent
+ :mime-version:in-reply-to:content-language:content-transfer-encoding;
+ bh=2fJBIpEa92kQMJ5/9beWt+N555m7+v1D1vPnkJrcT60=;
+ b=SenAqoqlLi2aW37fpwhuD9srFzhLzrEbBnol9BebPsYEEI+KDFkpx8T7/egwqBcrXA
+ VKXMHj3+b41FIQ4eI7Myj0Na0a6bAyVKcAbDSlj32qMfgAeqpfHG++isqgO4Ii89gzJ4
+ JdpTeaZZGUhg4QPD0sGFy9Z/DF5jWisVimMRkRKV/T6oPAt4/20N1owP7yvOCZriHz6X
+ MlMQSoxh+Jwwv/iMBlIRdYWmeReU1RJKhiIFKPGCzvTcp2zrd+oHDfQmGvVCJFr7YPR+
+ vQuoHN7O+rf4SXzK+HkSZwxDxt11IINm8k11O5XS/rsp4h9RtxIkDu8YGDJoy3daSq3j
+ kHew==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:subject:to:cc:references:from:message-id:date
+ :user-agent:mime-version:in-reply-to:content-language
+ :content-transfer-encoding;
+ bh=2fJBIpEa92kQMJ5/9beWt+N555m7+v1D1vPnkJrcT60=;
+ b=IZNmb8c6QsHrXoZI5siuAdrQnWdnsaWbLQw3kZgOPd1dMvimRWXi7HQ5/BGKmGFRR+
+ 8Rbht2cwjfQz8jz9VT+SkZ6asUcW/uyP2bm0r67+tHVP10+SvYjhx5KQu/JGYuF+cqXK
+ 731ydk6lrIv5mI5H5zafuNmcayTo4q0bBk16rODOnHJLJ98NnkLw7J0OcMsgUMSAYcae
+ r3pislDhlxMiiH2Q6UGGPNp0O3MYGMrK70uS3ptiAByG71+gxH9egX7xl6BcI9KfD+2Y
+ Y1sKN9SGnAJtJRQhYrrcQY5mB1aWM7beafo0QZpl+8vDC6IhZ85w0ktsghLpPNypd9rW
+ Aw8w==
+X-Gm-Message-State: AOAM5331Bxczg4UpISuB8NOd6g/Z43f2rMbGUw8esQGtXbmU3RPmg+l9
+ /gHtc2euhVEELO8GEZld/wtcxQ==
+X-Google-Smtp-Source: ABdhPJyBuNQJw//BB7VhJ/IyfJhB0D0zjEufDlMEYNH8dKwZxjKPNA+bODFYfmYhr9qj+l9595JgRg==
+X-Received: by 2002:a05:600c:d3:: with SMTP id
+ u19mr3261018wmm.150.1603281657485; 
+ Wed, 21 Oct 2020 05:00:57 -0700 (PDT)
+Received: from [192.168.86.34]
+ (cpc86377-aztw32-2-0-cust226.18-1.cable.virginm.net. [92.233.226.227])
+ by smtp.googlemail.com with ESMTPSA id h16sm3896356wre.87.2020.10.21.05.00.55
+ (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+ Wed, 21 Oct 2020 05:00:56 -0700 (PDT)
+Subject: Re: [PATCH v11 2/3] ASoC: qcom: dt-bindings: Add sc7180 machine
+ bindings
+To: Cheng-yi Chiang <cychiang@chromium.org>
+References: <20200914080619.4178587-1-cychiang@chromium.org>
+ <20200914080619.4178587-3-cychiang@chromium.org>
+ <7bdc0d63-27b1-f99e-c5f8-65f880733d16@linaro.org>
+ <CAFv8NwLkvxX2avoLY+4NY5gBv0dQ863hFFiqy7iQOJxH4WenmQ@mail.gmail.com>
+ <20201015161251.GF4390@sirena.org.uk>
+ <CAFv8NwL1xX=yPGFqQL_mOzAnPTfH0Z0J6ibG1+D32W46Nx0KYQ@mail.gmail.com>
+ <20201020143711.GC9448@sirena.org.uk>
+ <63f1a29c-0758-97b8-ce80-fe43d91630fa@linaro.org>
+ <CAFv8NwJ-+f146Ss9Mk=nEXjm1B--ZwhAgnfx-cTi7DGEKqC1-Q@mail.gmail.com>
+From: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
+Message-ID: <e876421c-dfeb-e853-1b65-53a786e9bcf9@linaro.org>
+Date: Wed, 21 Oct 2020 13:00:54 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
+ Thunderbird/60.8.0
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="nVMJ2NtxeReIH9PS"
-Content-Disposition: inline
-In-Reply-To: <0cfec32c-c0b4-ddbc-6a23-f5b898966c48@perex.cz>
-X-Cookie: That does not compute.
-User-Agent: Mutt/1.10.1 (2018-07-13)
-Cc: Takashi Iwai <tiwai@suse.de>, alsa-devel@alsa-project.org,
- Liam Girdwood <lgirdwood@gmail.com>
+In-Reply-To: <CAFv8NwJ-+f146Ss9Mk=nEXjm1B--ZwhAgnfx-cTi7DGEKqC1-Q@mail.gmail.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
+Cc: Taniya Das <tdas@codeaurora.org>,
+ "moderated list:SOUND - SOC LAYER / DYNAMIC AUDIO POWER MANAGEM..."
+ <alsa-devel@alsa-project.org>, Banajit Goswami <bgoswami@codeaurora.org>,
+ Heiko Stuebner <heiko@sntech.de>,
+ Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
+ Takashi Iwai <tiwai@suse.com>, Rohit kumar <rohitkr@codeaurora.org>,
+ Ajye Huang <ajye_huang@compal.corp-partner.google.com>,
+ Patrick Lai <plai@codeaurora.org>,
+ "open list:ARM/Rockchip SoC..." <linux-rockchip@lists.infradead.org>,
+ Andy Gross <agross@kernel.org>, Dylan Reid <dgreid@chromium.org>,
+ "open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS"
+ <devicetree@vger.kernel.org>, Tzung-Bi Shih <tzungbi@chromium.org>,
+ Srinivasa Rao <srivasam@codeaurora.org>, Stephan Gerhold <stephan@gerhold.net>,
+ linux-arm-msm <linux-arm-msm@vger.kernel.org>,
+ Rob Herring <robh+dt@kernel.org>,
+ "moderated list:ARM/Mediatek SoC support" <linux-mediatek@lists.infradead.org>,
+ Matthias Brugger <matthias.bgg@gmail.com>,
+ Bjorn Andersson <bjorn.andersson@linaro.org>,
+ Linux ARM <linux-arm-kernel@lists.infradead.org>,
+ Doug Anderson <dianders@chromium.org>, Liam Girdwood <lgirdwood@gmail.com>,
+ linux-kernel <linux-kernel@vger.kernel.org>, Mark Brown <broonie@kernel.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -86,46 +135,88 @@ Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 
---nVMJ2NtxeReIH9PS
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
 
-On Wed, Oct 21, 2020 at 10:23:18AM +0200, Jaroslav Kysela wrote:
-> Dne 12. 10. 20 v 15:28 Mark Brown napsal(a):
+On 20/10/2020 19:54, Cheng-yi Chiang wrote:
+>> Not with the compatible string!
+>>
+>> Currently card name, and long name are exactly same in all Qualcomm
+>> soundcards, which makes it very difficult to identify how those boards
+>> re wired up at UCM2 level. So the plan is to properly populate card long
+>> name with "model" property which can include details on how things are
+>> wiredup on that board.
+>>
+>> --srini
+> Hi Srini,
+> Thanks for taking a look.
+> Let me try to clarify your comments in case there is any misunderstanding.
+> 
+> I understand your request on having different board variations using
+> different sound card names through model property, and I totally agree
+> with that.
+> As for compatible strings, do you insist on having all the board
+> variations using exactly the same compatible string ?
 
-> > Yes, looks like they didn't make it.  Nothing looks particularly urgent
-> > in there.
 
-> Another week and this is ignored. At least, I cannot find this simple patch
-> set in your for-5.10 tree. I don't care about the cosmetic code fixes, but the
+For example if we set below property for sound card in Device tree
+model = "RB5";
 
-As you have identified that series looks like minor code cleanups, I am
-not going to apply minor code cleanups as bug fixes, you should be aware
-that during the merge window only bug fixes go in and therefore have no
-expectation that anything else will be applied during that time.  Your
-previous mail was sent after the merge window opened.
+We will end up with
 
-> last warning suppression can reduce the maintainer / user confusions ("ASoC:
-> SOF: loader: handle all SOF_IPC_EXT types").
+#   cat /proc/asound/cards
+  0 [RB5            ]: RB5 - RB5
+                       RB5
 
-This is the first time you or anyone else has mentioned this as being
-differentiated from anything else in the series, had someone done so
-perhaps it might have been reasonable to have an expectation that it
-might be reasonable to expect that something could happen sooner.
+This is totally not very useful w.r.t UCM2 and makes it very difficult 
+to common up parts of the configs.
 
---nVMJ2NtxeReIH9PS
-Content-Type: application/pgp-signature; name="signature.asc"
 
------BEGIN PGP SIGNATURE-----
+My suggestions are.
+1. set card->driver_name to something more sensible in your sound card 
+driver.
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl+QIp8ACgkQJNaLcl1U
-h9DwZAf9GwB2DsoPW4eyhb8yrjasO4Uz0qIHFucLOzV6BQn36aLlsdnXBwZkiDG9
-oHmOIkAs7E+Es0/Ii0dc6M5unMJ6zn83OLovLTFvhc7sUQdEHzuNKZ//wn9XF8Bj
-bOMfuAtYtxtbh/HxQOBUoVSamQkjwA8ovuXUHmaTCT7PghPqR/o64CtBRgCfsL9Z
-yrXGT8fK65DuHWAPOkDZ80n4bgc1X5eNisOM+jdGnE+q76+EUIWgzgE5NGAm2Q10
-oO/o1nZdkucE4bzNcoHI9Cd4yPjL2SSTXXvTQeG704MGHz2q2nsiVUX1TlPOuKLC
-3BzP7DO6FE2TKHlvMabjNDqiFHockQ==
-=kZG+
------END PGP SIGNATURE-----
+ex:
+	card->driver_name = "SM8250";
 
---nVMJ2NtxeReIH9PS--
+2. set long name in model DT property and set it as card long name
+ex:
+in DT:
+	model = "Qualcomm-RB5-WSA8815-Speakers-DMIC0";
+
+in sound driver or common.c:
+
+of_property_read_string_index(np, "model", 0, &card->long_name);
+
+With this set:
+
+now
+#   cat /proc/asound/cards
+  0 [QualcommRB5WSA8]: SM8250 - Qualcomm-RB5-WSA8815-Speakers-D
+                       Qualcomm-RB5-WSA8815-Speakers-DMIC0
+
+This also means that in UCM2 we can have a top level SM8250 directory 
+which can contain other board variants something like:
+
+ucm2/Qualcomm/sm8250/Qualcomm-RB5-WSA8815-Speakers-DMIC0.conf
+ucm2/Qualcomm/sm8250/Qualcomm-RB5-WSA8810-Speakers-DMIC123.conf
+and so on!
+
+Finally Only comment I had regarding compatible was not to encapsulate 
+the connection details in it!. these can be made more sensible, 
+something like
+"qcom,sc7180-trogdor-v1", "qcom,sc7180-trogdor-v2".. and so on.
+
+This compatible has nothing to do with driver or card short and long name.
+
+Does that makes sense?
+
+
+Thanks,
+srini
+
+
+with
+
+
+
+
+Currently if

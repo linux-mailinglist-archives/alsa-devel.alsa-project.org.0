@@ -2,78 +2,75 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 07DA7295CBD
-	for <lists+alsa-devel@lfdr.de>; Thu, 22 Oct 2020 12:33:59 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id DD048295E04
+	for <lists+alsa-devel@lfdr.de>; Thu, 22 Oct 2020 14:07:53 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 7AA4E17DB;
-	Thu, 22 Oct 2020 12:33:08 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7AA4E17DB
+	by alsa0.perex.cz (Postfix) with ESMTPS id 5EB5C17C4;
+	Thu, 22 Oct 2020 14:07:03 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5EB5C17C4
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1603362838;
-	bh=mKI//o1Lk40Yi815nVYXanqjQKt/9UrGV5fgSoCAeH4=;
-	h=Subject:From:To:Date:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1603368473;
+	bh=t+X/fz+JfWcR2EunKKVuaJPpOA4TjedvNGMrxIpej5U=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=KmoCwP9/qhsEOKiCq/0PnvAmBEl68ceA+ZEj0tLT00mN68puRzhasl2Q/aUc6OGln
-	 2Qk8iaMBSoNQl8unanAfqE0YYJLb0cd9ik3ZofPPfc/76bbXLuCmDP1OvG+N5oCG7y
-	 t4NJe4ZlnlekFST84pafF8TaohPmNkxPFHxC4Myo=
+	b=f4A7Mn9FEsCtqXYuiH4TIyr5Gy21fFl7LmDBQN28jbBucSyUgNQIxSUAGu/G+MmoF
+	 Y0pbh938qA72DQJZqdZgzNqjhdsOIqQ8kG0ih7LjE1kEozdCqa7Gc/f2yHEi5usSJ1
+	 8FlaUqsvYr+MkGo5FFE+Zx+5PJxBVTRcgMEesuM8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 054FDF804AA;
-	Thu, 22 Oct 2020 12:32:25 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id AD029F800CE;
+	Thu, 22 Oct 2020 14:06:20 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 57A9FF804A9; Thu, 22 Oct 2020 12:32:23 +0200 (CEST)
+ id 6141AF804A9; Thu, 22 Oct 2020 14:06:18 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,RDNS_NONE,SPF_HELO_NONE,SPF_PASS,UNPARSEABLE_RELAY,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mailgw02.mediatek.com (unknown [210.61.82.184])
- by alsa1.perex.cz (Postfix) with ESMTP id CA2A4F800CE
- for <alsa-devel@alsa-project.org>; Thu, 22 Oct 2020 12:32:14 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CA2A4F800CE
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+ DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled
+ version=3.4.0
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id BDF99F80247
+ for <alsa-devel@alsa-project.org>; Thu, 22 Oct 2020 14:06:11 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BDF99F80247
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=mediatek.com header.i=@mediatek.com
- header.b="ha60ki7w"
-X-UUID: 868ba0ebf25f43d0950ad40bb4dcde45-20201022
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=mediatek.com;
- s=dk; 
- h=Content-Transfer-Encoding:MIME-Version:Content-Type:References:In-Reply-To:Date:CC:To:From:Subject:Message-ID;
- bh=mKI//o1Lk40Yi815nVYXanqjQKt/9UrGV5fgSoCAeH4=; 
- b=ha60ki7wcIGTs1bJnKkZE/nT8iqEUCUQvZPSayyFFNSw+Sit8wZIHvGXQ6MKVUHaO81aVxrQAHNWcFk5S0uCd9z29rRxt6k9nrAqeej6t12hv0+gge05ANLiQPvB4Y1X5OcE+4YHd/UEmcbFf+6YwWEF7BAwmDvypg6GEGBkDzA=;
-X-UUID: 868ba0ebf25f43d0950ad40bb4dcde45-20201022
-Received: from mtkexhb02.mediatek.inc [(172.21.101.103)] by
- mailgw02.mediatek.com (envelope-from <jiaxin.yu@mediatek.com>)
- (Cellopoint E-mail Firewall v4.1.14 Build 0819 with TLSv1.2
- ECDHE-RSA-AES256-SHA384 256/256)
- with ESMTP id 13254462; Thu, 22 Oct 2020 18:32:06 +0800
-Received: from MTKCAS32.mediatek.inc (172.27.4.184) by mtkmbs07n1.mediatek.inc
- (172.21.101.16) with Microsoft SMTP Server (TLS) id 15.0.1497.2;
- Thu, 22 Oct 2020 18:32:04 +0800
-Received: from [10.17.3.153] (10.17.3.153) by MTKCAS32.mediatek.inc
- (172.27.4.170) with Microsoft SMTP Server id 15.0.1497.2 via Frontend
- Transport; Thu, 22 Oct 2020 18:32:03 +0800
-Message-ID: <1603362723.8921.37.camel@mhfsdcap03>
-Subject: Re: [PATCH v2 5/5] dt-bindings: mediatek: mt8192: add
- mt8192-mt6358-rt1015-rt5682 document
-From: Jiaxin Yu <jiaxin.yu@mediatek.com>
-To: Rob Herring <robh@kernel.org>
-Date: Thu, 22 Oct 2020 18:32:03 +0800
-In-Reply-To: <20201021145605.GA2775711@bogus>
+ dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="E4Y4GTYO"
+Received: from localhost (fw-tnat.cambridge.arm.com [217.140.96.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by mail.kernel.org (Postfix) with ESMTPSA id A441C221FE;
+ Thu, 22 Oct 2020 12:06:07 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=default; t=1603368368;
+ bh=t+X/fz+JfWcR2EunKKVuaJPpOA4TjedvNGMrxIpej5U=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=E4Y4GTYOPdmpu+/ow4kGpO4WqSwMFJB/JM+AYpGMSMnsPEGbpwWkDYYEM3oY/NsRL
+ k2q6jz57MFl1cwOa86eGIVfCtsjMmUUvPe4Lx0k+JqiNEAkt2BgkRW68izrBXw/WR6
+ 9I5yT2TWdP6XkATm8b/dS7Nw0BQUAzXZMWLH0zm0=
+Date: Thu, 22 Oct 2020 13:05:56 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Jiaxin Yu <jiaxin.yu@mediatek.com>
+Subject: Re: [PATCH v2 2/5] ASoC: mediatek: mt8192: add platform driver
+Message-ID: <20201022120556.GA4826@sirena.org.uk>
 References: <1603270435-3548-1-git-send-email-jiaxin.yu@mediatek.com>
- <1603270435-3548-6-git-send-email-jiaxin.yu@mediatek.com>
- <20201021145605.GA2775711@bogus>
-Content-Type: text/plain; charset="UTF-8"
-X-Mailer: Evolution 3.10.4-0ubuntu2 
+ <1603270435-3548-3-git-send-email-jiaxin.yu@mediatek.com>
+ <20201021132339.GF4497@sirena.org.uk>
+ <1603361084.8921.26.camel@mhfsdcap03>
 MIME-Version: 1.0
-X-MTK: N
-Content-Transfer-Encoding: base64
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="mP3DRpeJDSE+ciuQ"
+Content-Disposition: inline
+In-Reply-To: <1603361084.8921.26.camel@mhfsdcap03>
+X-Cookie: Some settling may occur.
+User-Agent: Mutt/1.10.1 (2018-07-13)
 Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
  kuninori.morimoto.gx@renesas.com, shane.chien@mediatek.com, tiwai@suse.com,
- tzungbi@google.com, broonie@kernel.org, linux-mediatek@lists.infradead.org,
+ tzungbi@google.com, robh+dt@kernel.org, linux-mediatek@lists.infradead.org,
  p.zabel@pengutronix.de, matthias.bgg@gmail.com,
  linux-arm-kernel@lists.infradead.org
 X-BeenThere: alsa-devel@alsa-project.org
@@ -91,52 +88,42 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-T24gV2VkLCAyMDIwLTEwLTIxIGF0IDA5OjU2IC0wNTAwLCBSb2IgSGVycmluZyB3cm90ZToNCj4g
-T24gV2VkLCBPY3QgMjEsIDIwMjAgYXQgMDQ6NTM6NTVQTSArMDgwMCwgSmlheGluIFl1IHdyb3Rl
-Og0KPiA+IFRoaXMgcGF0Y2ggYWRkcyBkb2N1bWVudCBmb3IgdGhlIG1hY2hpbmUgYm9hcmQgd2l0
-aCBtdDYzNTgsIHJ0MTAxNQ0KPiA+IGFuZCBydDU2ODIuDQo+ID4gDQo+ID4gU2lnbmVkLW9mZi1i
-eTogSmlheGluIFl1IDxqaWF4aW4ueXVAbWVkaWF0ZWsuY29tPg0KPiA+IC0tLQ0KPiA+ICAuLi4v
-c291bmQvbXQ4MTkyLW10NjM1OS1ydDEwMTUtcnQ1NjgyLnlhbWwgICAgfCA0MiArKysrKysrKysr
-KysrKysrKysrDQo+ID4gIDEgZmlsZSBjaGFuZ2VkLCA0MiBpbnNlcnRpb25zKCspDQo+ID4gIGNy
-ZWF0ZSBtb2RlIDEwMDY0NCBEb2N1bWVudGF0aW9uL2RldmljZXRyZWUvYmluZGluZ3Mvc291bmQv
-bXQ4MTkyLW10NjM1OS1ydDEwMTUtcnQ1NjgyLnlhbWwNCj4gPiANCj4gPiBkaWZmIC0tZ2l0IGEv
-RG9jdW1lbnRhdGlvbi9kZXZpY2V0cmVlL2JpbmRpbmdzL3NvdW5kL210ODE5Mi1tdDYzNTktcnQx
-MDE1LXJ0NTY4Mi55YW1sIGIvRG9jdW1lbnRhdGlvbi9kZXZpY2V0cmVlL2JpbmRpbmdzL3NvdW5k
-L210ODE5Mi1tdDYzNTktcnQxMDE1LXJ0NTY4Mi55YW1sDQo+ID4gbmV3IGZpbGUgbW9kZSAxMDA2
-NDQNCj4gPiBpbmRleCAwMDAwMDAwMDAwMDAwLi40YzM5ZTg4OTA2ZmMxDQo+ID4gLS0tIC9kZXYv
-bnVsbA0KPiA+ICsrKyBiL0RvY3VtZW50YXRpb24vZGV2aWNldHJlZS9iaW5kaW5ncy9zb3VuZC9t
-dDgxOTItbXQ2MzU5LXJ0MTAxNS1ydDU2ODIueWFtbA0KPiA+IEBAIC0wLDAgKzEsNDIgQEANCj4g
-PiArIyBTUERYLUxpY2Vuc2UtSWRlbnRpZmllcjogKEdQTC0yLjArIE9SIEJTRC0yLUNsYXVzZSkN
-Cj4gDQo+IEdQTC0yLjAtb25seQ0KPiANCj4gPiArJVlBTUwgMS4yDQo+ID4gKy0tLQ0KPiA+ICsk
-aWQ6IGh0dHA6Ly9kZXZpY2V0cmVlLm9yZy9zY2hlbWFzL3NvdW5kL210ODE5Mi1tdDYzNTktcnQx
-MDE1LXJ0NTY4Mi55YW1sIw0KPiA+ICskc2NoZW1hOiBodHRwOi8vZGV2aWNldHJlZS5vcmcvbWV0
-YS1zY2hlbWFzL2NvcmUueWFtbCMNCj4gPiArDQo+ID4gK3RpdGxlOiBNZWRpYXRlayBNVDgxOTIg
-d2l0aCBNVDYzNTksIFJUMTAxNSBhbmQgUlQ1NjgyIEFTb0Mgc291bmQgY2FyZCBkcml2ZXINCj4g
-PiArDQo+ID4gK21haW50YWluZXJzOg0KPiA+ICsgICAtIEppYXhpbiBZdSA8amlheGluLnl1QG1l
-ZGlhdGVrLmNvbT4NCj4gPiArICAgLSBTaGFuZSBDaGllbiA8c2hhbmUuY2hpZW5AbWVkaWF0ZWsu
-Y29tPg0KPiA+ICsNCj4gPiArZGVzY3JpcHRpb246DQo+ID4gKyAgVGhpcyBiaW5kaW5nIGRlc2Ny
-aWJlcyB0aGUgTVQ4MTkyIHNvdW5kIGNhcmQuDQo+ID4gKw0KPiA+ICtwcm9wZXJ0aWVzOg0KPiA+
-ICsgIGNvbXBhdGlibGU6DQo+ID4gKyAgICAgIGNvbnN0OiBtZWRpYXRlayxtdDgxOTJfbXQ2MzU5
-X3J0MTAxNV9ydDU2ODINCj4gDQo+IEkgc3RpbGwgZG9uJ3QgdGhpbmsgdGhpcyBpcyB0aGUgcmln
-aHQgd2F5IHRvIGRvIHRoaXMuDQo+IA0KRGVhciBSb2IsDQpUaGlzIG5vbWVuY2FsdHVyZSBpcyBl
-eHRlbmRlZCB0byB0aGUgTVRLIG10ODE4My9tdDgxNzMuDQpBbmQgd2UgdGhpbmsgaXQncyBiZXR0
-ZXIgdG8gbWFpbnRhaW4gbXVsdGlwbGUgYm9hcmRzLCBidXQNCnRoZSBkaXNhZHZhbnRhZ2UgaXMg
-bmVlZCB0byB3cml0ZSBvbmUgbW9yZSBtYWNoaW5lIGRyaXZlcnMuDQoNCj4gPiArDQo+ID4gKyAg
-bWVkaWF0ZWsscGxhdGZvcm06DQo+ID4gKyAgICAkcmVmOiAiL3NjaGVtYXMvdHlwZXMueWFtbCMv
-ZGVmaW5pdGlvbnMvcGhhbmRsZSINCj4gPiArICAgIGRlc2NyaXB0aW9uOiBUaGUgcGhhbmRsZSBv
-ZiBNVDgxOTIgQVNvQyBwbGF0Zm9ybS4NCj4gDQo+IEkgc3RpbGwgZG9uJ3QgdW5kZXJzdGFuZCB3
-aGF0IHRoaXMgaXMuDQo+IA0KDQpUaGlzIHByb3BlcnR5IHdpbGwgYXNzaWduIHRvICdzbmRfc29j
-X2RhaV9saW5rLT5wbGF0Zm9ybXMtPm9mX25vZGUnLg0KVGhlIHZhbHVlIG9mICdtZWRpYXRlayxw
-bGF0Zm9ybScgaGVyZSBpcyAmYWZlIHRoYXQgaXMgbXQ4MTkyIHBsYXRmb3JtDQpkcml2ZXIuDQpJ
-dCB3aWxsIGJlIHJlc29sdmVkIGZyb20gYSBwaGFuZGxlIHByb3BlcnR5IHRvIGEgZGV2aWNlX25v
-ZGUgcG9pbnRlci4NCg0KPiA+ICsNCj4gPiArYWRkaXRpb25hbFByb3BlcnRpZXM6IGZhbHNlDQo+
-ID4gKw0KPiA+ICtyZXF1aXJlZDoNCj4gPiArICAtIGNvbXBhdGlibGUNCj4gPiArICAtIG1lZGlh
-dGVrLHBsYXRmb3JtDQo+ID4gKw0KPiA+ICtleGFtcGxlczoNCj4gPiArICAtIHwNCj4gPiArDQo+
-ID4gKyAgICBzb3VuZDogbXQ4MTkyLXNvdW5kIHsNCj4gPiArICAgICAgICBjb21wYXRpYmxlID0g
-Im1lZGlhdGVrLG10ODE5Mi1tdDYzNTktcnQxMDE1LXJ0NTY4MiI7DQo+ID4gKyAgICAgICAgbWVk
-aWF0ZWsscGxhdGZvcm0gPSA8JmFmZT47DQo+ID4gKyAgICAgICAgcGluY3RybC1uYW1lcyA9ICJh
-dWRfY2xrX21vc2lfb2ZmIiwNCj4gPiArICAgICAgICAgICAgICAgICAgICAgICAgImF1ZF9jbGtf
-bW9zaV9vbiI7DQo+ID4gKyAgICAgICAgcGluY3RybC0wID0gPCZhdWRfY2xrX21vc2lfb2ZmPjsN
-Cj4gPiArICAgICAgICBwaW5jdHJsLTEgPSA8JmF1ZF9jbGtfbW9zaV9vbj47DQo+ID4gKyAgICB9
-Ow0KPiA+ICsNCj4gPiArLi4uDQo+ID4gLS0gDQo+ID4gMi4xOC4wDQoNCg==
 
+--mP3DRpeJDSE+ciuQ
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+
+On Thu, Oct 22, 2020 at 06:04:44PM +0800, Jiaxin Yu wrote:
+> On Wed, 2020-10-21 at 14:23 +0100, Mark Brown wrote:
+
+> > This is *way* too big to be a single patch, please split it up - it's
+> > over 600K.
+
+> I will split the dai driver files as a seperate patches. Such as:
+> ASoC: mediatek: mt8192: support adda in platform driver
+> ASoC: mediatek: mt8192: support i2s in platform driver
+> ASoC: mediatek: mt8192: support pcm in platform driver
+> ASoC: mediatek: mt8192: support tdm in platform driver
+> They're still in series of "ASoC: mediatek: mt8192: add platform
+> driver".=20
+> Is this appropriate? Please correct me if there is any misunderstanding.
+
+That should help, yes.
+
+--mP3DRpeJDSE+ciuQ
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl+RdZ4ACgkQJNaLcl1U
+h9BFaQf+L3FRqaz4A2QbQxIofXh6aZaoYBnbTRNNHq9tK52ZNoBuo7c5Oq5jdDxU
+Vrp2Lrp2/5zPc3t2ejKzfghfdaExq0CI+3HhZyy2rpD7DorFI9hhUoMEEy0HeDD2
+OObHcIoDeTTQyTTGmTfQ4ii5+pgfNvxbmId1wYBUD4T/3oY2d1ZV9USUCxavMzRy
+IhMQabPIRTnOitpCtk8fpWUEzz/2t9vDWFJOTzuUA/wyzPjQ+6oMX1YS3op3n0Y8
+GS8Xh70JKZ/tJA4wpprIwovx6dwS8qxs17YvvZSIIopzxlZHbsbZzJpUFdbbF2E1
+s/vPkaVt6maR2dVRk2afz3FWPighSg==
+=jh/Z
+-----END PGP SIGNATURE-----
+
+--mP3DRpeJDSE+ciuQ--

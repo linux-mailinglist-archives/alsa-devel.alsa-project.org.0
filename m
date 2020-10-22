@@ -2,69 +2,87 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 279FA2959D1
-	for <lists+alsa-devel@lfdr.de>; Thu, 22 Oct 2020 10:05:43 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B463E295B9C
+	for <lists+alsa-devel@lfdr.de>; Thu, 22 Oct 2020 11:20:34 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 9B9D51795;
-	Thu, 22 Oct 2020 10:04:52 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9B9D51795
+	by alsa0.perex.cz (Postfix) with ESMTPS id 467AD17A9;
+	Thu, 22 Oct 2020 11:19:44 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 467AD17A9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1603353942;
-	bh=DeuuMKS3UDlWGQgRFbHCjvAljCXDdjnuVTBpoNLgQf0=;
-	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=STRI4gXiTEkLOXkDPiA4PKYKfT2Q0bYCZT/lpsb0rgsslfJQZ9ZfwJVXGOFgd2IOI
-	 PBNoZjHJey2YUkVaBb35q4mD577Z2flDCRxlvNHlpnXHqj8RG2gMAYdJr/ithmgLGO
-	 NHAThQpXcQr+T/L0dvvCwHyClc3v/vtHkR0/0hZU=
+	s=default; t=1603358434;
+	bh=TRI3R2Eqryu4wPkFiaicQ9OWCh+Yyo0J6gaxBhpSWnE=;
+	h=Date:From:To:Subject:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=fkTvN833KgD2u04dh+b8IYlR1josPy+J3AgmbhGt/QW2vSRcr/X1Ic3W1xeblBEyG
+	 lNeQ9gdFl9FY4LCKYknLpoX4VyB8EEmFZANWfmyxeSD8ohMU6Dq70uIqltc/b0S6aH
+	 8zGzC+bz6PTUg/xNeWHmmE+y8p1pO9kpybKW4AJE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 181CDF8049C;
-	Thu, 22 Oct 2020 10:04:10 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id C6F2BF8049C;
+	Thu, 22 Oct 2020 11:19:01 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 8B5D2F804A9; Thu, 22 Oct 2020 10:04:07 +0200 (CEST)
+ id 8F3FAF804A9; Thu, 22 Oct 2020 10:17:58 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: *
-X-Spam-Status: No, score=1.6 required=5.0 tests=DEAR_SOMETHING,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,SPF_PASS,URIBL_BLOCKED autolearn=disabled
+X-Spam-Status: No, score=1.5 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ RCVD_IN_SORBS_WEB,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=disabled
  version=3.4.0
-Received: from mail1.perex.cz (mail1.perex.cz [77.48.224.245])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 1AEA9F800CE
- for <alsa-devel@alsa-project.org>; Thu, 22 Oct 2020 10:03:59 +0200 (CEST)
-Received: from mail1.perex.cz (localhost [127.0.0.1])
- by smtp1.perex.cz (Perex's E-mail Delivery System) with ESMTP id 92FBEA003F;
- Thu, 22 Oct 2020 10:03:55 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 smtp1.perex.cz 92FBEA003F
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=perex.cz; s=default;
- t=1603353835; bh=zK8vG19/hPxCeXJnSg8Mu9SEU1Nk7fk4TP1iF/a4KHY=;
- h=Subject:To:References:From:Cc:Date:In-Reply-To:From;
- b=SoLMRQcRMiNHnI7yw9wTYYnnIuKJIXjQYnQ3PaKPqXDZCIsdPEvovJjb3vjL6B7TD
- JQSoCIK8k/HCl9ShrjQNm90kxtM59clh/ZJHe9YVVsqbYsKDWoG3U4RMS30AJUMWq0
- ZugSsC1x1wtMUYGPkUq/V6MZZVl1i1VYsySncTs0=
-Received: from p1gen2.perex-int.cz (unknown [192.168.100.98])
+Received: from mail-ej1-x632.google.com (mail-ej1-x632.google.com
+ [IPv6:2a00:1450:4864:20::632])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested) (Authenticated sender: perex)
- by mail1.perex.cz (Perex's E-mail Delivery System) with ESMTPSA;
- Thu, 22 Oct 2020 10:03:53 +0200 (CEST)
-Subject: [alsa-devel mailing list / gmail] Re: Excessive bounces
-To: "Eu, acc" <accensi@gmail.com>
-References: <CAA+gEba8Q+KgZbao+ur2roSpxbwRAQcshbfR6ZQCAr6cXLq4JA@mail.gmail.com>
-From: Jaroslav Kysela <perex@perex.cz>
-Message-ID: <5ba74317-1cc0-80ae-44d9-e9f24c065968@perex.cz>
-Date: Thu, 22 Oct 2020 10:03:53 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.3.1
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 36712F800CE
+ for <alsa-devel@alsa-project.org>; Thu, 22 Oct 2020 10:17:51 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 36712F800CE
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=kernelim-com.20150623.gappssmtp.com
+ header.i=@kernelim-com.20150623.gappssmtp.com header.b="le3ppPI7"
+Received: by mail-ej1-x632.google.com with SMTP id k3so965487ejj.10
+ for <alsa-devel@alsa-project.org>; Thu, 22 Oct 2020 01:17:51 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=kernelim-com.20150623.gappssmtp.com; s=20150623;
+ h=date:from:to:cc:subject:message-id:mime-version:content-disposition;
+ bh=igFMdXrmlm7DH4IiFTsflxJUEBAXk6Kgf8L4rtIcqE0=;
+ b=le3ppPI7cb4FDz/doF7bhmlskZE4TrGCjYkr732wnnDecCx6lBLmVTYHkckoUAAjN1
+ bNf0N1s3YL1OWNQGahF0ngNuAr/GqG6KQXDjB2sGbmRU+HfwEnaWdQDpl3kut/BQG4EL
+ uAzSoICfeMwF6y8O9McKDqj5C/cEXf35ik6s2RrwxQ5V+6HYSZ5nqM7ZSA5OjzSfQ2w2
+ xSw46GEfq1iYyyyYZyxXR9fpnxxfN5AsxQkQINSw6khtwYkOOkMYOmR6C1W1kw7eSid9
+ X1X5wUE+LtZ0XUKAJO4C99Sx/0t9SR2xluNbqB2ynWL4eO02w5jmSHldTYeD5WPSFUbw
+ vL7w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:mime-version
+ :content-disposition;
+ bh=igFMdXrmlm7DH4IiFTsflxJUEBAXk6Kgf8L4rtIcqE0=;
+ b=Th2uxgO43oTOwXYOCvrrbG0M7iQNgHg8JjLaMAZCYzbS7WiUOqLAPgt0FsRjSq+p1e
+ etO4+TIbf86vLmq3pmATvMPr7//wzGkdeEFFX/n6kJj3USEjdxzE9a/nKGshbzABCn7n
+ p6J/mKldmXHYoa5hJKr/N/vGnwuhKnFFvBLErsb/fqG+Qj0cYvfF6jLxlLTjJ1WqN4uC
+ WvzbqrR7U+r4dufKEQMgxxn+iTmaJAwvGsEoMBkapGd0wy/Jylnnp/CDuKRa7k+Ht/XL
+ z6sauR+a+ZfLfJI6LOLtKyAdmw9s/UcoR4bHUu1FhKMIj2T5VP4vOI+k02yDCh8DXS0Z
+ abDw==
+X-Gm-Message-State: AOAM531ZYy8lS8jyrzFJd9IHY59izDqCeenydqYNNfSWm2Ylf3LCTKGT
+ S8CMEK+8odQDuGLfXx7IaWeJqlhNhsrHubEy
+X-Google-Smtp-Source: ABdhPJzNKM0+49eStgzFCwT3addtw2KQMNWIaNmwT2orvYRYd6x0m+4iDMbmfVoIVzzoAaL+eqBUeQ==
+X-Received: by 2002:a17:906:4351:: with SMTP id
+ z17mr1166314ejm.110.1603354669263; 
+ Thu, 22 Oct 2020 01:17:49 -0700 (PDT)
+Received: from gmail.com ([77.124.42.64])
+ by smtp.gmail.com with ESMTPSA id m6sm428755ejl.94.2020.10.22.01.17.48
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 22 Oct 2020 01:17:48 -0700 (PDT)
+Date: Thu, 22 Oct 2020 11:17:46 +0300
+From: Dan Aloni <dan@kernelim.com>
+To: alsa-devel@alsa-project.org
+Subject: on-board sound on ASUS TRX-40
+Message-ID: <20201022081746.GA1118484@gmail.com>
 MIME-Version: 1.0
-In-Reply-To: <CAA+gEba8Q+KgZbao+ur2roSpxbwRAQcshbfR6ZQCAr6cXLq4JA@mail.gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
-Cc: ALSA development <alsa-devel@alsa-project.org>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+X-Mailman-Approved-At: Thu, 22 Oct 2020 11:18:55 +0200
+Cc: Takashi Iwai <tiwai@suse.de>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -80,50 +98,37 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Dne 21. 10. 20 v 23:09 Eu, acc napsal(a):
-> Dear Sir
-> 
-> I received an email to confirm membership on alsa-devel list.
-> 
-> I have doubled checked configuration, possible invasion of my systems. It is
-> strange because I use Gmail for reading the list, there is more than 5 GB of
-> available space, and not other reason for the bounces.
-> 
-> The only curious point is that email from several regular developers, even
-> Jaroslav at a time, are classified as spam by gmail. I tried to discover the
-> reason in the past, but the explanation from Google is that there seems to be
-> a lot of spam in alada-devel and and alsa-users lists.
+Hi,
 
-I need the real examples (for alsa-devel). The alsa-users mailing list is on
-sourceforge and probably dead.
+The on-board earphone jack does not seem to work on an ASUS TRX-40
+board. Here's the alsa-info.sh output:
 
-> Thanks and keep the good work.
+http://alsa-project.org/db/?f=7a94c1b1eec4b2e623c75770364ec43c33d6c95c
 
-[Cc: to alsa-devel]
+Tried coding up the patch below, but it _does not_ fix the problem. It
+does shows the earphone as 'plugged' though. Verified that it's not an
+hardware issue via Windows.
 
-I'm sorry, but it seems that gmail changed something before several weeks for
-incoming e-mail and they have weird message rate limit rules for IP address
-and content classification. It basically does not work for the mailing list. I
-already tried to contact their support, but I've not received any answer.
+Please instruct on how to debug this further.
 
-I already implemented all protections like DKIM, DMARC, SFP. Verified today
-using a dmarc report analyzer tool.
+Thanks!
 
-Unfortunately, I cannot do much here. I can assist to fix the issues, but I
-need to know, what I can improve. I suggest to use another e-mail service. It
-seems that google does not care about users now. Or you should ask them what's
-exactly wrong.
+diff --git a/sound/usb/mixer_maps.c b/sound/usb/mixer_maps.c
+index 9af7aa93f6fa..ab0f036f385e 100644
+--- a/sound/usb/mixer_maps.c
++++ b/sound/usb/mixer_maps.c
+@@ -568,6 +568,10 @@ static const struct usbmix_ctl_map usbmix_ctl_maps[] = {
+                .map = trx40_mobo_map,
+                .connector_map = trx40_mobo_connector_map,
+        },
++       {       /* ASUS TRX40-PRO */
++               .id = USB_ID(0x0b05, 0x1918),
++               .map = trx40_mobo_map,
++       },
+        {       /* Asrock TRX40 Creator */
+                .id = USB_ID(0x26ce, 0x0a01),
+                .map = trx40_mobo_map,
 
-The current postmaster.google.com stats for alsa-project.org:
-
-User reported spam rate - 0%
-DKIM, DMARC, SFP success rate - all 100%
-Encryption - 100%
-IP reputation - bad
-Delivery errors - 40% - 100%
-
-					Jaroslav
 
 -- 
-Jaroslav Kysela <perex@perex.cz>
-Linux Sound Maintainer; ALSA Project; Red Hat, Inc.
+Dan Aloni

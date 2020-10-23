@@ -2,67 +2,58 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id F3FFD296D3A
-	for <lists+alsa-devel@lfdr.de>; Fri, 23 Oct 2020 12:59:32 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B40F9296D67
+	for <lists+alsa-devel@lfdr.de>; Fri, 23 Oct 2020 13:13:55 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 860B01800;
-	Fri, 23 Oct 2020 12:58:42 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 860B01800
+	by alsa0.perex.cz (Postfix) with ESMTPS id 565F9181E;
+	Fri, 23 Oct 2020 13:13:05 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 565F9181E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1603450772;
-	bh=+Pi9fChmAcmEqwy/tv0fX5VuQtl3b7KrD+7lwKR150Q=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=Z1I2akP8FpSq3XsiRRPk5qkYM0Y7qyY/u6aco5exJz5OrYWnr/Ge8WT4kBc0osJFW
-	 SHFPeOBlC3fsxNn+jTI2/chSMf+eprBdD8qiwjrNezbTwqC/m8oZa9eDTFMdcLL8I8
-	 QfyjxQRDsFK71+SZ+vtTOpG9fABcblOo6PxnZRhU=
+	s=default; t=1603451635;
+	bh=+8T3dvDMkKBqGQxj03J9xLaiU2eU9IFhaH4qjTzn73k=;
+	h=Date:From:To:Subject:In-Reply-To:References:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=mp1ddXgUgdH79EqH+AzzEE4aVvzvh+hLaUlVD8iYucnbhNnWCcIhBzr84T+NI6k67
+	 TapIfsKQ+a/CQWlJ1icRFkWlJQpMnfJFdw58/MG36/xBWklVcBqtXJ7Iu7y6/0cnC+
+	 A9gwOnIO2WWBweLVrs6wdSmO7ypKSk8s08xVbMz4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 0B9FCF80264;
-	Fri, 23 Oct 2020 12:58:00 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id A6C4FF80264;
+	Fri, 23 Oct 2020 13:12:22 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 3CC72F8025A; Fri, 23 Oct 2020 12:57:58 +0200 (CEST)
+ id 5ABB3F80245; Fri, 23 Oct 2020 13:12:20 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_MSPIKE_H3,
- RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
+X-Spam-Level: *
+X-Spam-Status: No, score=1.0 required=5.0 tests=PRX_BODY_30, RCVD_IN_MSPIKE_H3,
+ RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=disabled
  version=3.4.0
-Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id CDD88F80245;
- Fri, 23 Oct 2020 12:57:50 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CDD88F80245
-IronPort-SDR: AYb3M8KV/3vEqSyPJHpRysPBmm2OVHBJC7tYBZH6ZidrbUpe9tfhWVtuEwogExMqkuugxmy4vw
- mnZWNWDLYtXQ==
-X-IronPort-AV: E=McAfee;i="6000,8403,9782"; a="167779969"
-X-IronPort-AV: E=Sophos;i="5.77,408,1596524400"; d="scan'208";a="167779969"
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from fmsmga006.fm.intel.com ([10.253.24.20])
- by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 23 Oct 2020 03:57:44 -0700
-IronPort-SDR: fjiX/IZI0pDaYJqgqxDePo74oO5QM7bADcADjSFJmUhpn1+XrCXE37bigX0C7IMu0mMN5du/68
- DJTupSfEddHw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.77,408,1596524400"; d="scan'208";a="523466596"
-Received: from glewandosky.igk.intel.com ([10.237.149.85])
- by fmsmga006.fm.intel.com with ESMTP; 23 Oct 2020 03:57:42 -0700
-From: Gustaw Lewandowski <gustaw.lewandowski@linux.intel.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 62344F800BD
+ for <alsa-devel@alsa-project.org>; Fri, 23 Oct 2020 13:12:13 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 62344F800BD
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id 5A64CABD1
+ for <alsa-devel@alsa-project.org>; Fri, 23 Oct 2020 11:12:13 +0000 (UTC)
+Date: Fri, 23 Oct 2020 13:12:13 +0200
+Message-ID: <s5ho8kt8acy.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
 To: alsa-devel@alsa-project.org
-Subject: [PATCH] ASoC: Intel: Enable coredump in kconfig
-Date: Fri, 23 Oct 2020 12:57:27 +0200
-Message-Id: <20201023105727.21008-1-gustaw.lewandowski@linux.intel.com>
-X-Mailer: git-send-email 2.29.0
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Cc: cezary.rojewski@intel.com, patch@alsa-project.org, tiwai@suse.de,
- lgirdwood@gmail.com, pierre-louis.bossart@linux.intel.com,
- Gustaw Lewandowski <gustaw.lewandowski@linux.intel.com>, broonie@kernel.org,
- Piotr Maziarz <piotrx.maziarz@linux.intel.com>
+Subject: Re: [alsa-cvslog] [ALSA GIT]ALSA utilities repository branch master
+ updated. v1.2.4-1-g0c5948e
+In-Reply-To: <20201023094126.011CBF80253@alsa1.perex.cz>
+References: <20201023094126.011CBF80253@alsa1.perex.cz>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
+ FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
+ (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
+Content-Type: text/plain; charset=US-ASCII
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -78,29 +69,65 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: Piotr Maziarz <piotrx.maziarz@linux.intel.com>
+On Fri, 23 Oct 2020 11:41:25 +0200,
+GIT server wrote:
+> 
+> This is an automated email from the git hooks/post-receive script. It was
+> generated because a ref change was pushed to the repository containing
+> the project "ALSA utilities repository".
+> 
+> The branch, master has been updated
+>        via  0c5948e98a6a8535c89b7bcab13017d7732181c6 (commit)
+>       from  b2ae0b074669f976c53a52bcd0129227321f88c9 (commit)
+> 
+> Those revisions listed above that are new to this repository have
+> not appeared on any other notification email; so we list those
+> revisions in full, below.
+> 
+> - Log -----------------------------------------------------------------
+> commit 0c5948e98a6a8535c89b7bcab13017d7732181c6
+> Author: Hui Wang <hui.wang@canonical.com>
+> Date:   Fri Oct 23 16:47:10 2020 +0800
+> 
+>     aplay: try to use 16-bit format to increase capture quality
+>     
+>     Recently users reported a bug, I tested it and found it is a common
+>     issue on Laptop or Desktop machines.
+>     
+>     The issue is users plug a headset and use "arecord test.wav" to
+>     record a sound with default input volume, the recorded sound has
+>     poor quality and nearly can't distinguish it is the sound we want
+>     to record.
+>     
+>     This is because the input volume is low and the default format is U8.
+>     The driver records sound with 16bit, because the input volume is low,
+>     most of samples are within (-256,+256), when converting 16bit to U8,
+>     those samples will be 0x7f. This is called quantization noise and we
+>     could only workaround it by increase the input volume or adding -f to
+>     arecord.
+>     
+>     But users want to record a better quality sound with default input
+>     volume (after installing a new OS, the volume is the default volume),
+>     and they don't want to add parameters to the arecord because most of
+>     new linux users just use "arecord test.wav".
+>     
+>     So this patch tries to change the default format from U8 to S16_LE/BE.
+>     If the machine doesn't support S16_LE/BE, it still uses U8 as default
+>     format.
+>     
+>     Signed-off-by: Hui Wang <hui.wang@canonical.com>
+>     Signed-off-by: Jaroslav Kysela <perex@perex.cz>
 
-WANT_DEV_COREDUMP flag is needed here if this driver is only one
-using dev_coredump feature.
+This brought a slight concern about the compatibility, as the tool is
+very old and used in many places.  But a right usage is always with
+the proper option, so maybe this won't break too many things
+(hopefully).
 
-Signed-off-by: Piotr Maziarz <piotrx.maziarz@linux.intel.com>
-Signed-off-by: Gustaw Lewandowski <gustaw.lewandowski@linux.intel.com>
----
- sound/soc/intel/Kconfig | 1 +
- 1 file changed, 1 insertion(+)
+Though, this change made me wonder why we don't have any default
+configuration for aplay/arecord.  With that, you can adjust it per
+user or per distro.  Would it bring more benefit?
 
-diff --git a/sound/soc/intel/Kconfig b/sound/soc/intel/Kconfig
-index a5b446d5af19..c215156e2e18 100644
---- a/sound/soc/intel/Kconfig
-+++ b/sound/soc/intel/Kconfig
-@@ -4,6 +4,7 @@ config SND_SOC_INTEL_SST_TOPLEVEL
- 	default y
- 	depends on X86 || COMPILE_TEST
- 	select SND_SOC_INTEL_MACH
-+	select WANT_DEV_COREDUMP
- 	help
- 	  Intel ASoC SST Platform Drivers. If you have a Intel machine that
- 	  has an audio controller with a DSP and I2S or DMIC port, then
--- 
-2.29.0
 
+thanks,
+
+Takashi

@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id F2F8A296DC8
-	for <lists+alsa-devel@lfdr.de>; Fri, 23 Oct 2020 13:36:03 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id CCC14296DD1
+	for <lists+alsa-devel@lfdr.de>; Fri, 23 Oct 2020 13:38:05 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 9CD211825;
-	Fri, 23 Oct 2020 13:35:13 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9CD211825
+	by alsa0.perex.cz (Postfix) with ESMTPS id 7139F1825;
+	Fri, 23 Oct 2020 13:37:15 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7139F1825
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1603452963;
-	bh=+ND0kipef3XhXdvmqrGy9Jdg0+p4SRJoH477N056xaY=;
+	s=default; t=1603453085;
+	bh=wdgAXPv/9VnanNqZEFRdbbHplJnL2UHbdoWw/rRzHVc=;
 	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=Kvt918bCQjrm1HS03HseNIUEp8y2A6EtNfiaJmn6S/30x0ZEnSKWShY2+bHZvNFHb
-	 3R1kjJeEGgDSPG6buYq70CjcxUEk1Au/nptwgUqBlAvSZTDmTV3Xx29YubU3Uen1nE
-	 661wH5re668VunK/CAHANECZyGfQYAydLvekebuc=
+	b=kGL3dVZGAdSvxAwV+icADifn8hoGZmhvnukP4+CrPZZv0esIMcWMKkoK2EIfjbJkL
+	 md9zej9HazURik0F2ZdNIqOxaopo0qgJQKlSEw/c0VvxAszDEGko6G3dJQvTxGBp+s
+	 1r/RyDGhyOJqtqoA4RNNiSMb/sT9/Rc1dIXCkAQg=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 31E0AF800BD;
-	Fri, 23 Oct 2020 13:34:30 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 022EAF80264;
+	Fri, 23 Oct 2020 13:36:33 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 0A9E7F8025A; Fri, 23 Oct 2020 13:34:28 +0200 (CEST)
+ id 828A4F8025A; Fri, 23 Oct 2020 13:36:31 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_MSPIKE_H3,
@@ -33,21 +33,22 @@ X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_MSPIKE_H3,
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 9DEE8F800BD
- for <alsa-devel@alsa-project.org>; Fri, 23 Oct 2020 13:34:25 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9DEE8F800BD
+ by alsa1.perex.cz (Postfix) with ESMTPS id 47634F80245
+ for <alsa-devel@alsa-project.org>; Fri, 23 Oct 2020 13:36:29 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 47634F80245
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 58D8EB1E6;
- Fri, 23 Oct 2020 11:34:25 +0000 (UTC)
-Date: Fri, 23 Oct 2020 13:34:25 +0200
-Message-ID: <s5himb189by.wl-tiwai@suse.de>
+ by mx2.suse.de (Postfix) with ESMTP id F2BBDAAB2;
+ Fri, 23 Oct 2020 11:36:28 +0000 (UTC)
+Date: Fri, 23 Oct 2020 13:36:28 +0200
+Message-ID: <s5hh7ql898j.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
 To: Kai-Heng Feng <kai.heng.feng@canonical.com>
-Subject: Re: [PATCH 2/4] ALSA: hda: Stop mangling PCI MSI
-In-Reply-To: <20201023102340.25494-2-kai.heng.feng@canonical.com>
+Subject: Re: [PATCH 3/4] ALSA: hda: Refactor controller PM to use
+ direct-complete optimization
+In-Reply-To: <20201023102340.25494-3-kai.heng.feng@canonical.com>
 References: <20201023102340.25494-1-kai.heng.feng@canonical.com>
- <20201023102340.25494-2-kai.heng.feng@canonical.com>
+ <20201023102340.25494-3-kai.heng.feng@canonical.com>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
  FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
  (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
@@ -73,26 +74,22 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Fri, 23 Oct 2020 12:23:36 +0200,
+On Fri, 23 Oct 2020 12:23:37 +0200,
 Kai-Heng Feng wrote:
-> 
-> @@ -1038,14 +1036,6 @@ static int azx_suspend(struct device *dev)
->  		__azx_runtime_suspend(chip);
->  	else
->  		pm_runtime_force_suspend(dev);
-> -	if (bus->irq >= 0) {
-> -		free_irq(bus->irq, chip);
-> -		bus->irq = -1;
-> -		chip->card->sync_irq = -1;
+> @@ -1103,10 +1096,8 @@ static int azx_runtime_suspend(struct device *dev)
+>  	chip = card->private_data;
+>  
+>  	/* enable controller wake up event */
+> -	if (snd_power_get_state(card) == SNDRV_CTL_POWER_D0) {
+> -		azx_writew(chip, WAKEEN, azx_readw(chip, WAKEEN) |
+> -			   STATESTS_INT_MASK);
 > -	}
+> +	azx_writew(chip, WAKEEN, azx_readw(chip, WAKEEN) |
+> +		   STATESTS_INT_MASK);
 
-This release of irq has nothing to do with MSI.  There has been PCI
-controllers that assign to a different IRQ line after the resume.
-
-> -	if (azx_acquire_irq(chip, 1) < 0)
-> -		return -EIO;
-
-Ditto.
+Hrm, this doesn't look safe.  Applying WAKEEN unconditionally means
+that the machine may get woken up from the system suspend, and we
+don't want that.
 
 
 thanks,

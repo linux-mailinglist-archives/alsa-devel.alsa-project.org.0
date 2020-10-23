@@ -2,62 +2,61 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 92A09296CDD
-	for <lists+alsa-devel@lfdr.de>; Fri, 23 Oct 2020 12:26:41 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B139E296CC9
+	for <lists+alsa-devel@lfdr.de>; Fri, 23 Oct 2020 12:25:39 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 2D7AF1822;
-	Fri, 23 Oct 2020 12:25:51 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2D7AF1822
+	by alsa0.perex.cz (Postfix) with ESMTPS id 3B1791810;
+	Fri, 23 Oct 2020 12:24:49 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3B1791810
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1603448801;
-	bh=SlC15PvOs5+yd9b30E0wo8vKJj1yxTWsIR0wnbIarH8=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=SFogGYokCmZX29DrUoi4NVcbc3k84gK8j98PD1cceVfKt/Gydn6231XnVy6MKmJfp
-	 lGNXu1UhJytN8mcNob2rNt0/MpPBRpKq7px9P3O/6OlYctBHYMTM2TEFmUChPo5q+P
-	 loql4Qhz1Z7z/2grlQ/9Yz9g4ghtsab21YWgeVw0=
+	s=default; t=1603448739;
+	bh=6aADyqAfopKffA5GqqvMTGt9ZZ15q0VjXp23BM8ltdM=;
+	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=pxQvB1BvpTJe6NAOIkuxWcdLrmEszcID8Ly4LZkdwqunZT+3pdtXL4J91LcS0ss6Q
+	 3OnBwQ8HclK28y0+sco17EV1aguOqoy4Q7E8Th9dEzl3yzDhTR5lUtNtMMukF6PxEu
+	 XnSjxkbHIHYiPh75UFUWh7qfQC4tiMGSvwjg+vgA=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 68463F804BD;
-	Fri, 23 Oct 2020 12:24:22 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id CA1FBF80264;
+	Fri, 23 Oct 2020 12:24:06 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 323BFF804BC; Fri, 23 Oct 2020 12:24:21 +0200 (CEST)
+ id BB169F80264; Fri, 23 Oct 2020 12:24:04 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: ***
-X-Spam-Status: No, score=3.5 required=5.0 tests=AC_FROM_MANY_DOTS, PRX_BODY_30,
- RCVD_IN_MSPIKE_H3,RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
+X-Spam-Level: 
+X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_MSPIKE_H3,
+ RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
 Received: from youngberry.canonical.com (youngberry.canonical.com
  [91.189.89.112])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 8CD3AF804B0
- for <alsa-devel@alsa-project.org>; Fri, 23 Oct 2020 12:24:15 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8CD3AF804B0
+ by alsa1.perex.cz (Postfix) with ESMTPS id 721ACF80245
+ for <alsa-devel@alsa-project.org>; Fri, 23 Oct 2020 12:23:57 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 721ACF80245
 Received: from 61-220-137-37.hinet-ip.hinet.net ([61.220.137.37]
  helo=localhost) by youngberry.canonical.com with esmtpsa
  (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.86_2)
  (envelope-from <kai.heng.feng@canonical.com>)
- id 1kVuEc-0006Qf-2U; Fri, 23 Oct 2020 10:23:46 +0000
+ id 1kVuEh-0006R7-5W; Fri, 23 Oct 2020 10:23:51 +0000
 From: Kai-Heng Feng <kai.heng.feng@canonical.com>
 To: tiwai@suse.com
-Subject: [PATCH 1/4] ALSA: hda: Refactor codec PM to use direct-complete
- optimization
-Date: Fri, 23 Oct 2020 18:23:35 +0800
-Message-Id: <20201023102340.25494-1-kai.heng.feng@canonical.com>
+Subject: [PATCH 2/4] ALSA: hda: Stop mangling PCI MSI
+Date: Fri, 23 Oct 2020 18:23:36 +0800
+Message-Id: <20201023102340.25494-2-kai.heng.feng@canonical.com>
 X-Mailer: git-send-email 2.17.1
-Cc: Kai-Heng Feng <kai.heng.feng@canonical.com>,
- "moderated list:SOUND" <alsa-devel@alsa-project.org>,
+In-Reply-To: <20201023102340.25494-1-kai.heng.feng@canonical.com>
+References: <20201023102340.25494-1-kai.heng.feng@canonical.com>
+Cc: "moderated list:SOUND" <alsa-devel@alsa-project.org>,
  Kai Vehmanen <kai.vehmanen@linux.intel.com>,
- "Gustavo A. R. Silva" <gustavo@embeddedor.com>,
- Harsha Priya <harshapriya.n@intel.com>,
- open list <linux-kernel@vger.kernel.org>, Randy Dunlap <rdunlap@infradead.org>,
- Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
+ open list <linux-kernel@vger.kernel.org>,
  Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- Mark Brown <broonie@kernel.org>
+ Kai-Heng Feng <kai.heng.feng@canonical.com>,
+ Alex Deucher <alexander.deucher@amd.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -73,137 +72,61 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Upon system resume, hda_codec_pm_resume() uses hda_codec_force_resume()
-to resume the codec. However, pm_runtime_force_resume() won't really
-resume the codec because of pm_runtime_need_not_resume() check.
+The code predates 2005, it should be unnecessary now as PCI core handles
+MSI much better nowadays.
 
-Hence, hda_codec_force_resume() schedules a jackpoll work, which is to
-really power up the codec.
-
-Instead of doing that, we can use direct-complete to make the PM flow
-more straightforward, and keep codec always suspended through system PM
-flow if conditions are met.
-
-On system suspend, PM core will decide what to do based on
-hda_codec_pm_prepare():
-- If codec is not runtime-suspended, PM core will suspend and resume the
-device as normal.
-- If codec is runtime-suspended, PM core will try to keep it suspended.
-If it's still suspended after system resume, we use
-hda_codec_pm_complete() to resume codec if it's needed.
+So stop PCI MSI mangling in suspend/resume callbacks.
 
 Signed-off-by: Kai-Heng Feng <kai.heng.feng@canonical.com>
 ---
- sound/pci/hda/hda_codec.c | 45 +++++++++++++++++++++++++--------------
- 1 file changed, 29 insertions(+), 16 deletions(-)
+ sound/pci/hda/hda_intel.c | 15 ---------------
+ 1 file changed, 15 deletions(-)
 
-diff --git a/sound/pci/hda/hda_codec.c b/sound/pci/hda/hda_codec.c
-index a356c21edb90..c2a510cc81bb 100644
---- a/sound/pci/hda/hda_codec.c
-+++ b/sound/pci/hda/hda_codec.c
-@@ -2934,7 +2934,7 @@ static void hda_call_codec_resume(struct hda_codec *codec)
- 	snd_hdac_leave_pm(&codec->core);
- }
- 
--static int hda_codec_runtime_suspend(struct device *dev)
-+static int hda_codec_suspend(struct device *dev)
+diff --git a/sound/pci/hda/hda_intel.c b/sound/pci/hda/hda_intel.c
+index 749b88090970..b4aa1dcf1aae 100644
+--- a/sound/pci/hda/hda_intel.c
++++ b/sound/pci/hda/hda_intel.c
+@@ -1022,13 +1022,11 @@ static int azx_suspend(struct device *dev)
  {
- 	struct hda_codec *codec = dev_to_hda_codec(dev);
- 	unsigned int state;
-@@ -2953,7 +2953,7 @@ static int hda_codec_runtime_suspend(struct device *dev)
+ 	struct snd_card *card = dev_get_drvdata(dev);
+ 	struct azx *chip;
+-	struct hdac_bus *bus;
+ 
+ 	if (!azx_is_pm_ready(card))
+ 		return 0;
+ 
+ 	chip = card->private_data;
+-	bus = azx_bus(chip);
+ 	snd_power_change_state(card, SNDRV_CTL_POWER_D3hot);
+ 	/* An ugly workaround: direct call of __azx_runtime_suspend() and
+ 	 * __azx_runtime_resume() for old Intel platforms that suffer from
+@@ -1038,14 +1036,6 @@ static int azx_suspend(struct device *dev)
+ 		__azx_runtime_suspend(chip);
+ 	else
+ 		pm_runtime_force_suspend(dev);
+-	if (bus->irq >= 0) {
+-		free_irq(bus->irq, chip);
+-		bus->irq = -1;
+-		chip->card->sync_irq = -1;
+-	}
+-
+-	if (chip->msi)
+-		pci_disable_msi(chip->pci);
+ 
+ 	trace_azx_suspend(chip);
  	return 0;
- }
+@@ -1060,11 +1050,6 @@ static int azx_resume(struct device *dev)
+ 		return 0;
  
--static int hda_codec_runtime_resume(struct device *dev)
-+static int hda_codec_resume(struct device *dev)
- {
- 	struct hda_codec *codec = dev_to_hda_codec(dev);
+ 	chip = card->private_data;
+-	if (chip->msi)
+-		if (pci_enable_msi(chip->pci) < 0)
+-			chip->msi = 0;
+-	if (azx_acquire_irq(chip, 1) < 0)
+-		return -EIO;
  
-@@ -2967,57 +2967,70 @@ static int hda_codec_runtime_resume(struct device *dev)
- 	pm_runtime_mark_last_busy(dev);
- 	return 0;
- }
-+
-+static int hda_codec_runtime_suspend(struct device *dev)
-+{
-+	return hda_codec_suspend(dev);
-+}
-+
-+static int hda_codec_runtime_resume(struct device *dev)
-+{
-+	return hda_codec_resume(dev);
-+}
-+
- #endif /* CONFIG_PM */
- 
- #ifdef CONFIG_PM_SLEEP
--static int hda_codec_force_resume(struct device *dev)
-+static int hda_codec_pm_prepare(struct device *dev)
-+{
-+	return pm_runtime_suspended(dev);
-+}
-+
-+static void hda_codec_pm_complete(struct device *dev)
- {
- 	struct hda_codec *codec = dev_to_hda_codec(dev);
--	int ret;
- 
--	ret = pm_runtime_force_resume(dev);
--	/* schedule jackpoll work for jack detection update */
--	if (codec->jackpoll_interval ||
--	    (pm_runtime_suspended(dev) && hda_codec_need_resume(codec)))
--		schedule_delayed_work(&codec->jackpoll_work,
--				      codec->jackpoll_interval);
--	return ret;
-+	if (pm_runtime_suspended(dev) &&
-+	    (hda_codec_need_resume(codec) || codec->forced_resume))
-+		pm_request_resume(dev);
- }
- 
- static int hda_codec_pm_suspend(struct device *dev)
- {
- 	dev->power.power_state = PMSG_SUSPEND;
--	return pm_runtime_force_suspend(dev);
-+	return hda_codec_suspend(dev);
- }
- 
- static int hda_codec_pm_resume(struct device *dev)
- {
- 	dev->power.power_state = PMSG_RESUME;
--	return hda_codec_force_resume(dev);
-+	return hda_codec_resume(dev);
- }
- 
- static int hda_codec_pm_freeze(struct device *dev)
- {
- 	dev->power.power_state = PMSG_FREEZE;
--	return pm_runtime_force_suspend(dev);
-+	return hda_codec_suspend(dev);
- }
- 
- static int hda_codec_pm_thaw(struct device *dev)
- {
- 	dev->power.power_state = PMSG_THAW;
--	return hda_codec_force_resume(dev);
-+	return hda_codec_resume(dev);
- }
- 
- static int hda_codec_pm_restore(struct device *dev)
- {
- 	dev->power.power_state = PMSG_RESTORE;
--	return hda_codec_force_resume(dev);
-+	return hda_codec_resume(dev);
- }
- #endif /* CONFIG_PM_SLEEP */
- 
- /* referred in hda_bind.c */
- const struct dev_pm_ops hda_codec_driver_pm = {
- #ifdef CONFIG_PM_SLEEP
-+	.prepare = hda_codec_pm_prepare,
-+	.complete = hda_codec_pm_complete,
- 	.suspend = hda_codec_pm_suspend,
- 	.resume = hda_codec_pm_resume,
- 	.freeze = hda_codec_pm_freeze,
+ 	if (chip->driver_caps & AZX_DCAPS_SUSPEND_SPURIOUS_WAKEUP)
+ 		__azx_runtime_resume(chip, false);
 -- 
 2.17.1
 

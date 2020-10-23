@@ -2,93 +2,71 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id AF379296470
-	for <lists+alsa-devel@lfdr.de>; Thu, 22 Oct 2020 20:10:29 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6DE40296816
+	for <lists+alsa-devel@lfdr.de>; Fri, 23 Oct 2020 02:37:10 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 39DB817F4;
-	Thu, 22 Oct 2020 20:09:39 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 39DB817F4
+	by alsa0.perex.cz (Postfix) with ESMTPS id 00DE317F4;
+	Fri, 23 Oct 2020 02:36:20 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 00DE317F4
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1603390229;
-	bh=nbRfSvy+pYGZSjRaCFpItFBsZOJNHYpmquF44vYGz60=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=UczNl0QbS1ew9HfhZtAI3LeBahvjk0Pjml5nnaLZQrSXqCNB+gycxl8UN8p0ysMBl
-	 tdMIa95Bot8JgttlUVhVnP4xOzuCB7BJSWsD4vAjqj6rqrV79GRSGMsUsFPPgP4h8G
-	 LOLSyCkwmsLLk4Xq1B/Id1i9uCDkTn4QDrdbM7Rs=
+	s=default; t=1603413430;
+	bh=NhzSsdCMzIi0e9kGc9X585BVBzK3wHBhqVtGkmToupU=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=TR3DZhNKND7PaGmJcZYoYcOqOiM3C1bpxiaYK1lZjeFL381aZGgmEFG/sWd0jxRnW
+	 o8DX8Ix6VFJXydwIezK3/WcQmVO94FpPZHtNC4XPzq5jCTSMumW14+xwuhL7enPXGH
+	 KMTgnpnXMqfUv2wuAfCScFuaGQWaWdjgpN0EQ+Ik=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id A04A3F804AA;
-	Thu, 22 Oct 2020 20:08:56 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 70CD7F804B3;
+	Fri, 23 Oct 2020 02:35:37 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id BBA0DF804A9; Thu, 22 Oct 2020 20:08:54 +0200 (CEST)
+ id 8D857F804BB; Fri, 23 Oct 2020 02:35:34 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: *
-X-Spam-Status: No, score=1.5 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- RCVD_IN_SORBS_WEB,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
-Received: from mail-ej1-x635.google.com (mail-ej1-x635.google.com
- [IPv6:2a00:1450:4864:20::635])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Level: 
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 0F353F800CE
- for <alsa-devel@alsa-project.org>; Thu, 22 Oct 2020 20:08:51 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0F353F800CE
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=kernelim-com.20150623.gappssmtp.com
- header.i=@kernelim-com.20150623.gappssmtp.com header.b="FYw8O83B"
-Received: by mail-ej1-x635.google.com with SMTP id dt13so3621238ejb.12
- for <alsa-devel@alsa-project.org>; Thu, 22 Oct 2020 11:08:51 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=kernelim-com.20150623.gappssmtp.com; s=20150623;
- h=date:from:to:cc:subject:message-id:references:mime-version
- :content-disposition:in-reply-to;
- bh=Q6gC804KOl2Mhj3UPRne+V3K0d0I7sE+DeFb51FufRo=;
- b=FYw8O83BGjh9CGsRNIwnC3cIct2W3mNw0VLJE2bMFyE+g1tza1IJPHuTprY/KQ4+vN
- /aID45aVRgIy3LWe+PLRFRO6V5GhLTy/GNmVDN108QNkxXfWlCabSmky57tUlabIAo2y
- bGOs5TsLgr3tkymb3UB/hU2Tffs96Sy/Vikk//pp4VRPXloMIjCohV0Oek/yfT8L4Ntr
- l6YSEV2CbZCywm3NXkTDZ/KikdaZzHstxR7NkOu7N6XjOVamB8nAg3Xw+1IKUfV65MTM
- 5zD5tajGDaqRB8MJnf8Uxi9rfV9XiOjiEDod4LsHEMZrcNAOhX+PlOgKpKDMosPkZ7Al
- 06Uw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to;
- bh=Q6gC804KOl2Mhj3UPRne+V3K0d0I7sE+DeFb51FufRo=;
- b=rFiDgoivDh1wm94Cv3pyhNiXEEURynxZUL71LyJN84VN0qT8lOX0in7ig2/ZX4OCFf
- 6MRmKgu2SqghRgJ3JxINi5E12bhpyt8IQRHzpYU42Sw3jm2WCQ+ohtj2EllchyY9GDd/
- WV2Ewjxdiy3J91Ah//KlS886wsuU03Z0BVSTZlUBon/cY6iQMTN0lSBx2y6yfhw3MR9k
- vHRtZ6R73HMKHgY0SagJQeas/B3BkigqwkhD6UU6gZYfnq14PJu+iIWZyWQj0jQ+0pfE
- xOg79/BrO2wmc/AFREHaB2mESBA/mEMebVLCH2lt6LLXWviFVOngP0f8pqK1kbW9DbO1
- 1YCQ==
-X-Gm-Message-State: AOAM5324GLwxw0R7KIW2YKJODenUOpcpaI1iLJgS69MW66l1XuGu4+kb
- s43wN0Q1JByAeR6iJ8VOQeXQfA==
-X-Google-Smtp-Source: ABdhPJwFj3csxzLVJzowZNlvmB7bUj7/qbkF6X1e4XwQRbTlUhGIBpwseFvhpb0THHc1ChHwDTAQRA==
-X-Received: by 2002:a17:906:3a97:: with SMTP id
- y23mr3487859ejd.250.1603390126050; 
- Thu, 22 Oct 2020 11:08:46 -0700 (PDT)
-Received: from gmail.com ([77.124.42.64])
- by smtp.gmail.com with ESMTPSA id cw15sm1247503ejb.47.2020.10.22.11.08.44
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 22 Oct 2020 11:08:45 -0700 (PDT)
-Date: Thu, 22 Oct 2020 21:08:42 +0300
-From: Dan Aloni <dan@kernelim.com>
-To: Takashi Iwai <tiwai@suse.de>
-Subject: Re: on-board sound on ASUS TRX-40
-Message-ID: <20201022180842.GA1337888@gmail.com>
-References: <20201022081746.GA1118484@gmail.com> <s5hv9f2bp2c.wl-tiwai@suse.de>
- <20201022101852.GA1095612@gmail.com> <s5hmu0eblsw.wl-tiwai@suse.de>
- <20201022123347.GA1140455@gmail.com> <s5hft66bfpb.wl-tiwai@suse.de>
- <20201022125100.GB1140455@gmail.com> <s5hd01abep7.wl-tiwai@suse.de>
- <20201022154959.GC1140455@gmail.com> <s5htuum9r8z.wl-tiwai@suse.de>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 5DB60F800CE
+ for <alsa-devel@alsa-project.org>; Fri, 23 Oct 2020 02:35:26 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5DB60F800CE
+IronPort-SDR: VafEsnke13ZviBBY4C9WlUjM1uduqxiVJROEI6Jz+iLu5P41wIgpqK99neoSrV6yCsYIJXHbki
+ 0dbF7gm+fSqg==
+X-IronPort-AV: E=McAfee;i="6000,8403,9782"; a="165020478"
+X-IronPort-AV: E=Sophos;i="5.77,404,1596524400"; d="scan'208";a="165020478"
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from fmsmga008.fm.intel.com ([10.253.24.58])
+ by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 22 Oct 2020 17:35:22 -0700
+IronPort-SDR: Q0vYJK3IIx1bpfF7ffd8SfMQQ6c4gVRoh/N7/vgHheTRyd1k0QnMDx8lAbgtbg980RviDabYGL
+ x9XX0YVIXqnQ==
+X-IronPort-AV: E=Sophos;i="5.77,404,1596524400"; d="scan'208";a="302505775"
+Received: from dmert-dev.jf.intel.com ([10.166.241.5])
+ by fmsmga008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 22 Oct 2020 17:35:22 -0700
+From: Dave Ertman <david.m.ertman@intel.com>
+To: alsa-devel@alsa-project.org
+Subject: [PATCH v3 00/10] Auxiliary bus implementation and SOF multi-client
+ support
+Date: Thu, 22 Oct 2020 17:33:28 -0700
+Message-Id: <20201023003338.1285642-1-david.m.ertman@intel.com>
+X-Mailer: git-send-email 2.26.2
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <s5htuum9r8z.wl-tiwai@suse.de>
-Cc: alsa-devel@alsa-project.org
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: 8bit
+Cc: parav@mellanox.com, tiwai@suse.de, netdev@vger.kernel.org,
+ leonro@nvidia.com, ranjani.sridharan@linux.intel.com,
+ pierre-louis.bossart@linux.intel.com, fred.oh@linux.intel.com,
+ linux-rdma@vger.kernel.org, dledford@redhat.com, broonie@kernel.org,
+ jgg@nvidia.com, gregkh@linuxfoundation.org, kuba@kernel.org,
+ dan.j.williams@intel.com, shiraz.saleem@intel.com, davem@davemloft.net,
+ linux-kernel@vger.kernel.org, kiran.patil@intel.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -104,76 +82,200 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Thu, Oct 22, 2020 at 06:09:48PM +0200, Takashi Iwai wrote:
-> On Thu, 22 Oct 2020 17:49:59 +0200,
-> Dan Aloni wrote:
-> > 
-> > On Thu, Oct 22, 2020 at 02:57:56PM +0200, Takashi Iwai wrote:
-> > > > > > Upon plugging or unplugging the headphone, the unitid of 11 matches the
-> > > > > > unit in `trx40_mobo_connector_map`, although two events are happening -
-> > > > > > two for plug and two for unplug. There's another event for '7', and
-> > > > > > changing the second item of `static const struct usbmix_connector_map`
-> > > > > > from 11 to 7 does not seem to affect it.
-> > > > > 
-> > > > > Well, then I'm afraid that it has yet another mapping of the units.
-> > > > > You'd need to create the whole map from the topology, and rewrite the
-> > > > > connector_map as well.
-> > > > 
-> > > > Would be helpful a USB trace from KVM, when running a Windows VM that
-> > > > successfully manages this device following USB redirection? I can
-> > > > produce this given instructions, if you have them handy.
-> > > 
-> > > The topology is found in lsusb -v output.  It's the connection among
-> > > units.  More importantly, the maps only care about the certain units
-> > > like input/output terminals and feature unit.  You can look at those
-> > > and correct the corresponding unit ids.
-> > 
-> > It shows 6 triplelets of input terminal, feature unit, and output terminal,
-> > and they are structured like this:
-> > 
-> >     IT[7]  -> FU[19] -> OT[13]
-> >     Line-in             USB Streaming
-> > 
-> >     IT[8]  -> FU[20] -> OT[14]
-> >     Rear Mic-In         USB Streaming
-> > 
-> >     IT[9]  -> FU[21] -> OT[15]
-> >     Desktop Mic         USB Streaming
-> > 
-> >     IT[10] -> FU[22] -> OT[16]
-> >     Headphone           Speaker
-> > 
-> >     IT[11] -> FU[23] -> OT[17]
-> >     USB Streaming       Headphone
-> > 
-> >     IT[12] -> FU[24] -> OT[18]
-> >     USB Streaming       SPDIF interface
-> > 
-> > Not sure how to make sense of that to a usbmix_name_map array and/or
-> > usbmix_connector_map array combination that works. My trials so far
-> > have not yielded a good result.
-> 
-> Could you show the patch you've tried?  Fitting the above into two
-> tables should be straightforward.
+Brief history of Auxiliary Bus
+==============================
+The auxiliary bus code was originally submitted upstream as virtual
+bus, and was submitted through the netdev tree.  This process generated
+up to v4.  This discussion can be found here:
+https://lore.kernel.org/netdev/20191111192219.30259-1-jeffrey.t.kirsher@intel.com/#t
 
-Well I have almost zero familiarity with the code base, so it's really
-not trivial to me. I still have gaps. Please explain:
+At this point, GregKH requested that we take the review and revision
+process to an internal mailing list and garner the buy-in of a respected
+kernel contributor.
 
-- Maybe I conflated UnitId and TerminalId, when analyzing `lsusb -v`,
-  are these both referring to units?
-- I assume bSourceId refers to another descriptor UnitId, is that right?
-- Out of the 18 possible entries in `usbmix_name_map` in this case how
-  it is decided to omit certain input and output terminals? Should all
-  feature units are necessarily described?
-- What is the purpose of `usbmix_connector_map` array, and how to decide
-  to add entries to this array? Is it done relative to `usbmix_name_map`
-  omissions?
-- Is there a tool that can better describe the topology based on `lsusb
-  -v` output?
-- Seems that `mixer_maps.c` compensates for knowledge not obtained from
-  `lsusb -v`, or all of it can be obtained?
+The auxiliary bus (then known as virtual bus) was originally submitted
+along with implementation code for the ice driver and irdma drive,
+causing the complication of also having dependencies in the rdma tree.
+This new submission is utilizing an auxiliary bus consumer in only the
+sound driver tree to create the initial implementation and a single
+user.
 
-Thanks.
+Since implementation work has started on this patch set, there have been
+multiple inquiries about the time frame of its completion.  It appears
+that there will be numerous consumers of this functionality.
+
+The process of internal review and implementation using the sound
+drivers generated 19 internal versions.  The changes, including the name
+change from virtual bus to auxiliary bus, from these versions can be
+summarized as the following:
+
+- Fixed compilation and checkpatch errors
+- Improved documentation to address the motivation for virtual bus.
+- Renamed virtual bus to auxiliary bus
+- increased maximum device name size
+- Correct order in Kconfig and Makefile
+- removed the mid-layer adev->release layer for device unregister
+- pushed adev->id management to parent driver
+- all error paths out of ancillary_device_register return error code
+- all error paths out of ancillary_device_register use put_device
+- added adev->name element
+- modname in register cannot be NULL
+- added KBUILD_MODNAME as prefix for match_name
+- push adev->id responsibility to registering driver
+- uevent now parses adev->dev name
+- match_id function now parses adev->dev name
+- changed drivers probe function to also take an ancillary_device_id param
+- split ancillary_device_register into device_initialize and device_add
+- adjusted what is done in device_initialize and device_add
+- change adev to ancildev and adrv to ancildrv
+- change adev to ancildev in documentation
+
+==========================
+
+Introduces the auxiliary bus implementation along with the example usage
+in the Sound Open Firmware(SOF) audio driver.
+
+In some subsystems, the functionality of the core device
+(PCI/ACPI/other) may be too complex for a single device to be managed as
+a monolithic block or a part of the functionality might need to be
+exposed to a different subsystem.  Splitting the functionality into
+smaller orthogonal devices makes it easier to manage data, power
+management and domain-specific communication with the hardware.  Also,
+common auxiliary_device functionality across primary devices can be
+handled by a common auxiliary_device. A key requirement for such a split
+is that there is no dependency on a physical bus, device, register
+accesses or regmap support. These individual devices split from the core
+cannot live on the platform bus as they are not physical devices that
+are controlled by DT/ACPI. The same argument applies for not using MFD
+in this scenario as it relies on individual function devices being
+physical devices that are DT enumerated.
+
+An example for this kind of requirement is the audio subsystem where a
+single IP handles multiple entities such as HDMI, Soundwire, local
+devices such as mics/speakers etc. The split for the core's
+functionality can be arbitrary or be defined by the DSP firmware
+topology and include hooks for test/debug. This allows for the audio
+core device to be minimal and tightly coupled with handling the
+hardware-specific logic and communication.
+
+The auxiliary bus is intended to be minimal, generic and avoid
+domain-specific assumptions. Each auxiliary bus device represents a part
+of its parent functionality. The generic behavior can be extended and
+specialized as needed by encapsulating an auxiliary bus device within
+other domain-specific structures and the use of .ops callbacks.
+
+The SOF driver adopts the auxiliary bus for implementing the
+multi-client support. A client in the context of the SOF driver
+represents a part of the core device's functionality. It is not a
+physical device but rather an auxiliary device that needs to communicate
+with the DSP via IPCs. With multi-client support,the sound card can be
+separated into multiple orthogonal auxiliary devices for local devices
+(mic/speakers etc), HDMI, sensing, probes, debug etc.  In this series,
+we demonstrate the usage of the auxiliary bus with the help of the IPC
+test client which is used for testing the serialization of IPCs when
+multiple clients talk to the DSP at the same time.
+
+v3 changes:
+rename to auxiliary bus
+move .c file to drivers/base/
+split auxdev unregister flow into uninitialize and delete steps
+update kernel-doc on register functions for new unregister model
+update documentation with new name and unregister flow
+remove check for release in auxiliary bus, allow core to catch
+Change driver register so only probe and id_table mandatory
+Fix matching logic in auxillary_match_id to account for longer id->name
+utilize auxiliary_bus callbacks for probe, remove and shutdown
+add auxiliary_find_device function
+add code to ensure unique auxdrv name
+shorten initialize/uninitialize in function names to init/uninit
+simplify looping logic in match_id
+in drives/base/Kconfig changed from tristate to bool
+Modified signature SOF client register/unregister API
+Modified PM runtime enabling sequence in the SOF ipc test aux driver
+Removed driver.name from the aux driver
+Added Probes client aux driver and device registration in the
+        SOF driver. This allows for enabling the probes functionality in the SOF
+        firmware for audio data extraction from specific points in the audio
+        pipeline. Without auxiliary bus, the implementation requires modifying
+        existing 15+ machine drivers to add the probes DAI links to the sounds
+        cards. Using the auxiliary bus allows for splitting the probes
+        implementation from the SOF core making it easy to maintain.
+
+v2 changes:
+defined pr_fmt for kernel messages
+replaced WARN_ON calls in registration with pr_err calls
+adding kernel-doc function comments for device_initialize and device_add
+fix typo in documentation
+removed inaccurate line in documentation
+fixed formatting in drivers/bus/Makefile
+changed unwind path for sof_client_dev_alloc()
+improved comments for client list and mem freeing during client unreg
+removed debugfs entries in sof_ipc_test_client_drv during remove
+changed the signature of sof_debug_ipc_flood_test()
+fix a looping error in ancillary_match_id
+updated error value in sof_client_dev_register()
+mutex held while traversing client list when unregistering clients
+updated includes in sof-client.h
+
+Dave Ertman (1):
+  Add auxiliary bus support
+
+Ranjani Sridharan (9):
+  ASoC: SOF: Introduce descriptors for SOF client
+  ASoC: SOF: Create client driver for IPC test
+  ASoC: SOF: ops: Add ops for client registration
+  ASoC: SOF: Intel: Define ops for client registration
+  ASoC: SOF: Intel: Remove IPC flood test support in SOF core
+  ASoC: SOF: sof-client: Add client APIs to access probes ops
+  ASoC: SOF: compress: move and export sof_probe_compr_ops
+  ASoC: SOF: Add new client driver for probes support
+  ASoC: SOF: Intel: CNL: register probes client
+
+ Documentation/driver-api/auxiliary_bus.rst | 228 ++++++++++
+ Documentation/driver-api/index.rst         |   1 +
+ drivers/base/Kconfig                       |   3 +
+ drivers/base/Makefile                      |   1 +
+ drivers/base/auxiliary.c                   | 267 ++++++++++++
+ include/linux/auxiliary_bus.h              |  78 ++++
+ include/linux/mod_devicetable.h            |   8 +
+ scripts/mod/devicetable-offsets.c          |   3 +
+ scripts/mod/file2alias.c                   |   8 +
+ sound/soc/sof/Kconfig                      |  47 ++-
+ sound/soc/sof/Makefile                     |  10 +-
+ sound/soc/sof/compress.c                   |  60 +--
+ sound/soc/sof/compress.h                   |   1 +
+ sound/soc/sof/core.c                       |  18 +-
+ sound/soc/sof/debug.c                      | 457 ---------------------
+ sound/soc/sof/intel/Kconfig                |   9 +
+ sound/soc/sof/intel/Makefile               |   3 +
+ sound/soc/sof/intel/apl.c                  |  16 +
+ sound/soc/sof/intel/bdw.c                  |  16 +
+ sound/soc/sof/intel/byt.c                  |  20 +
+ sound/soc/sof/intel/cnl.c                  |  32 ++
+ sound/soc/sof/intel/hda-dai.c              |  27 --
+ sound/soc/sof/intel/hda.h                  |   6 -
+ sound/soc/sof/intel/intel-client.c         |  40 ++
+ sound/soc/sof/intel/intel-client.h         |  26 ++
+ sound/soc/sof/ops.h                        |  14 +
+ sound/soc/sof/pcm.c                        |  11 -
+ sound/soc/sof/probe.c                      | 124 +++---
+ sound/soc/sof/probe.h                      |  41 +-
+ sound/soc/sof/sof-client.c                 | 170 ++++++++
+ sound/soc/sof/sof-client.h                 |  91 ++++
+ sound/soc/sof/sof-ipc-test-client.c        | 321 +++++++++++++++
+ sound/soc/sof/sof-priv.h                   |  23 +-
+ sound/soc/sof/sof-probes-client.c          | 414 +++++++++++++++++++
+ 34 files changed, 1968 insertions(+), 626 deletions(-)
+ create mode 100644 Documentation/driver-api/auxiliary_bus.rst
+ create mode 100644 drivers/base/auxiliary.c
+ create mode 100644 include/linux/auxiliary_bus.h
+ create mode 100644 sound/soc/sof/intel/intel-client.c
+ create mode 100644 sound/soc/sof/intel/intel-client.h
+ create mode 100644 sound/soc/sof/sof-client.c
+ create mode 100644 sound/soc/sof/sof-client.h
+ create mode 100644 sound/soc/sof/sof-ipc-test-client.c
+ create mode 100644 sound/soc/sof/sof-probes-client.c
 
 -- 
-Dan Aloni
+2.26.2
+

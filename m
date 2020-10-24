@@ -2,69 +2,69 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C525629786D
-	for <lists+alsa-devel@lfdr.de>; Fri, 23 Oct 2020 22:49:22 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0787A297A01
+	for <lists+alsa-devel@lfdr.de>; Sat, 24 Oct 2020 02:30:39 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 4096417F3;
-	Fri, 23 Oct 2020 22:48:32 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4096417F3
+	by alsa0.perex.cz (Postfix) with ESMTPS id 4E5F3182F;
+	Sat, 24 Oct 2020 02:29:48 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4E5F3182F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1603486162;
-	bh=V4sFwlg+mfjOw+xJiPt3RvwIgOznGyY8uCJ3CEIPcyI=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1603499438;
+	bh=wbJPAJGnIZsJEXKlHzCoaAaN7I7zayCEshFnAbys6bs=;
+	h=Date:From:To:In-Reply-To:References:Subject:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=DkTZeDtpCvqNIdXYwoBPbwaWBNgpydbllcHVQemi9LJXVnFqsBzHXK2V8ZqKAYRbo
-	 StxVQju+zgSOttEAz/nAp60jiMA6okHTfkip1mZphU8MJUtF1T/xW37ZVMqyPvAmOZ
-	 HSaLZRsGBjYl9xiMmo7HyM7tMn2dIEYxCE8Wlzas=
+	b=q+GGTk2V2hcL6e0Iv7mXesjuu7YiRSzMTefrHgr5MKxVtvsBtns77Y1WnOfndx+Ie
+	 sJY9hb83VdWUWL/lMQfe6oTGGzgWMzz8qCE4rQbfB51E5WboBBJc9s1kDsEi8yK/17
+	 eJI5m6nIx+1t4Fj/L19WzCXSLjQ51OZ5E1FkVvQs=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 8ADDCF80247;
-	Fri, 23 Oct 2020 22:47:49 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id B0FBEF80277;
+	Sat, 24 Oct 2020 02:28:54 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 96527F8025A; Fri, 23 Oct 2020 22:47:47 +0200 (CEST)
+ id 4C9CFF80264; Sat, 24 Oct 2020 02:28:49 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from asavdk3.altibox.net (asavdk3.altibox.net [109.247.116.14])
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+ DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled
+ version=3.4.0
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id DE9E1F80245
+ for <alsa-devel@alsa-project.org>; Sat, 24 Oct 2020 02:28:45 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DE9E1F80245
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="tbUBJFYs"
+Received: from localhost (cpc102338-sgyl38-2-0-cust404.18-2.cable.virginm.net
+ [77.102.33.149])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 2677CF800BD
- for <alsa-devel@alsa-project.org>; Fri, 23 Oct 2020 22:47:40 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2677CF800BD
-Received: from ravnborg.org (unknown [188.228.123.71])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by asavdk3.altibox.net (Postfix) with ESMTPS id BB09020037;
- Fri, 23 Oct 2020 22:47:35 +0200 (CEST)
-Date: Fri, 23 Oct 2020 22:47:33 +0200
-From: Sam Ravnborg <sam@ravnborg.org>
-To: Rob Herring <robh@kernel.org>
-Subject: Re: [PATCH] dt-bindings: More whitespace clean-ups in schema files
-Message-ID: <20201023204733.GA72065@ravnborg.org>
-References: <20201023192258.3126047-1-robh@kernel.org>
+ by mail.kernel.org (Postfix) with ESMTPSA id 094B12225E;
+ Sat, 24 Oct 2020 00:28:40 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=default; t=1603499321;
+ bh=wbJPAJGnIZsJEXKlHzCoaAaN7I7zayCEshFnAbys6bs=;
+ h=Date:From:To:Cc:In-Reply-To:References:Subject:From;
+ b=tbUBJFYsdJN4fviiBE4YQtiWZram/rS6cSD2Iv+Phq90caDPgBAdisBcwZH1ZiEES
+ cRrishWsRVedkcGBL5/XuB25US8cKlX0h5LanBUdij8kDxA1SZ7kQiRRRLXcT31t4T
+ Cx2UiC6yhpGyPKQ6zVfyMEEURz1FcyhCFbU+QinU=
+Date: Sat, 24 Oct 2020 01:28:39 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Kai Vehmanen <kai.vehmanen@linux.intel.com>, alsa-devel@alsa-project.org
+In-Reply-To: <20200930152026.3902186-1-kai.vehmanen@linux.intel.com>
+References: <20200930152026.3902186-1-kai.vehmanen@linux.intel.com>
+Subject: Re: [PATCH 0/4] ASoC: SOF: cleanups for 5.10
+Message-Id: <160349931941.28438.4813950905753029653.b4-ty@kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20201023192258.3126047-1-robh@kernel.org>
-X-CMAE-Score: 0
-X-CMAE-Analysis: v=2.3 cv=S433PrkP c=1 sm=1 tr=0
- a=S6zTFyMACwkrwXSdXUNehg==:117 a=S6zTFyMACwkrwXSdXUNehg==:17
- a=kj9zAlcOel0A:10 a=JfrnYn6hAAAA:8 a=e5mUnYsNAAAA:8 a=VwQbUJbxAAAA:8
- a=foHCeV_ZAAAA:8 a=7gkXJVJtAAAA:8 a=ruYZUhiEchJcPueZ5-MA:9
- a=CjuIK1q_8ugA:10 a=1CNFftbPRP8L7MoqJWF3:22 a=Vxmtnl_E_bksehYqCbjh:22
- a=AjGcO6oz07-iQ99wixmX:22 a=h8a9FgHX5U4dIE3jaWyr:22
- a=E9Po1WZjFZOl8hwRPBS3:22
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- linux-pm@vger.kernel.org, linux-iio@vger.kernel.org, linux-usb@vger.kernel.org,
- linux-mmc@vger.kernel.org, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, linux-gpio@vger.kernel.org,
- linux-mtd@lists.infradead.org, linux-i2c@vger.kernel.org,
- linux-serial@vger.kernel.org, linux-arm-kernel@lists.infradead.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+Cc: pierre-louis.bossart@linux.intel.com, daniel.baluta@nxp.com,
+ lgirdwood@gmail.com, ranjani.sridharan@linux.intel.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -80,23 +80,50 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Fri, Oct 23, 2020 at 02:22:58PM -0500, Rob Herring wrote:
-> Clean-up incorrect indentation, extra spaces, and missing EOF newline in
-> schema files. Most of the clean-ups are for list indentation which
-> should always be 2 spaces more than the preceding keyword.
+On Wed, 30 Sep 2020 18:20:22 +0300, Kai Vehmanen wrote:
+> Series with multiple code cleanups, plus one fix to remove
+> unnecessary kernel warnings related to firmware loading.
 > 
-> Found with yamllint (now integrated into the checks).
+> Bard Liao (1):
+>   ASoC: SOF: loader: handle all SOF_IPC_EXT types
 > 
-> Cc: linux-arm-kernel@lists.infradead.org
-> Cc: dri-devel@lists.freedesktop.org
-> Cc: linux-gpio@vger.kernel.org
-> Cc: linux-i2c@vger.kernel.org
-> Cc: linux-iio@vger.kernel.org
-> Cc: linux-pm@vger.kernel.org
-> Cc: alsa-devel@alsa-project.org
-> Cc: linux-mmc@vger.kernel.org
-> Cc: linux-mtd@lists.infradead.org
-> Cc: linux-serial@vger.kernel.org
-> Cc: linux-usb@vger.kernel.org
-> Signed-off-by: Rob Herring <robh@kernel.org>
-Acked-by: Sam Ravnborg <sam@ravnborg.org> # for display
+> Pierre-Louis Bossart (3):
+>   ASoC: SOF: control: remove const in sizeof()
+>   ASoC: SOF: topology: remove const in sizeof()
+>   ASoC: SOF: sof-audio: remove goto used for force-nocodec support
+> 
+> [...]
+
+Applied to
+
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
+
+Thanks!
+
+[1/4] ASoC: SOF: control: remove const in sizeof()
+      (no commit info)
+[2/4] ASoC: SOF: topology: remove const in sizeof()
+      (no commit info)
+[3/4] ASoC: SOF: sof-audio: remove goto used for force-nocodec support
+      (no commit info)
+[4/4] ASoC: SOF: loader: handle all SOF_IPC_EXT types
+      commit: 6e5329c6e6032cd997400b43b8299f607a61883e
+
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
+
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
+
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
+
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
+
+Thanks,
+Mark

@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A39FC297A00
-	for <lists+alsa-devel@lfdr.de>; Sat, 24 Oct 2020 02:30:26 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2EE70297A02
+	for <lists+alsa-devel@lfdr.de>; Sat, 24 Oct 2020 02:31:17 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 2B5C4180E;
-	Sat, 24 Oct 2020 02:29:36 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2B5C4180E
+	by alsa0.perex.cz (Postfix) with ESMTPS id C076C17EF;
+	Sat, 24 Oct 2020 02:30:26 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C076C17EF
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1603499426;
-	bh=32XWQhmf2fVSD8v1CY5v7gHT3K2lKMcNN/oPnMyqnMM=;
+	s=default; t=1603499476;
+	bh=Zgdma++f2RWFh6ISBni+X7NW+YEY/7BtoIpGuw7+MLY=;
 	h=Date:From:To:In-Reply-To:References:Subject:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=IGt0JN4C3CHJu5aMspKP3/6Be8k9FcnzIXAy05r2EX9Tqkc7upYamo/C/UcIWQlSv
-	 VDea2dJ2o3d1Ch/SX/dN1QfEx6FnLX1kQxVJzeDcYyaApnx/kxLfybI/XSTItpZBDV
-	 nrN43aw1VUGaMEFT8NrtrOaiskTpwbn5Bgkyd7NY=
+	b=VNfI+QmbADqyCWTwCAa0H86YC64A+TU7/cGQd+yKDMYpR8WmzzrngtxjN9IYxktC6
+	 xffs1JmJ1XqCOMeauGvslzzqfeccCHdrEBoe7SGkeXOjkYptQNeBntEjVGhYCmhFbn
+	 dmK+JCo4FD8uPEt0AZr0bd3EzoIRte98p+7FYcMk=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 8883AF80264;
-	Sat, 24 Oct 2020 02:28:53 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 0E709F800BD;
+	Sat, 24 Oct 2020 02:29:08 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 69797F80253; Sat, 24 Oct 2020 02:28:50 +0200 (CEST)
+ id 8AAF9F804B3; Sat, 24 Oct 2020 02:28:55 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -34,37 +34,39 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 07F79F800BD
- for <alsa-devel@alsa-project.org>; Sat, 24 Oct 2020 02:28:47 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 07F79F800BD
+ by alsa1.perex.cz (Postfix) with ESMTPS id 92DB2F80253
+ for <alsa-devel@alsa-project.org>; Sat, 24 Oct 2020 02:28:52 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 92DB2F80253
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="JPGAuEs7"
+ header.b="1uy7e3nC"
 Received: from localhost (cpc102338-sgyl38-2-0-cust404.18-2.cable.virginm.net
  [77.102.33.149])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 9958622274;
- Sat, 24 Oct 2020 00:28:45 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id 1E1C222274;
+ Sat, 24 Oct 2020 00:28:49 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1603499326;
- bh=32XWQhmf2fVSD8v1CY5v7gHT3K2lKMcNN/oPnMyqnMM=;
+ s=default; t=1603499330;
+ bh=Zgdma++f2RWFh6ISBni+X7NW+YEY/7BtoIpGuw7+MLY=;
  h=Date:From:To:Cc:In-Reply-To:References:Subject:From;
- b=JPGAuEs7+4VUhMKKdXZG/LQTnx1a+EStQyyQ6fkoVqfPgjFgmepkBZDsV/h20Bd4B
- P8/Sm6HsBShl7Ko/IhG8Q/XiWPSgahyb4A/ColiqD4Bp4V2NuyHnN+DXyO3bC3cG8/
- +x+Cj8IJzevU9ULTEYXsTeiKGuhdL0W4QfHr/CoQ=
-Date: Sat, 24 Oct 2020 01:28:44 +0100
+ b=1uy7e3nCRexgvwSFYCjTZC2MQpsQhdKfPyLCNrDjRDHfHuG5quS6IKr9BLlDt5/fh
+ /XwlGCaMmfGJjyPW/NYwoxgSvZLav1sryhOASFnUJ6PcEgJj4W2/dFVccPzXdL9Dkx
+ dRRPk1894fyBv4Fb9XYJQV/gGW5WwnJ4F6TGI664=
+Date: Sat, 24 Oct 2020 01:28:48 +0100
 From: Mark Brown <broonie@kernel.org>
-To: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
-In-Reply-To: <20201023095849.22894-1-srinivas.kandagatla@linaro.org>
-References: <20201023095849.22894-1-srinivas.kandagatla@linaro.org>
-Subject: Re: [PATCH] ASoC: qcom: sdm845: set driver name correctly
-Message-Id: <160349931942.28438.7096729717850687887.b4-ty@kernel.org>
+To: Kai Vehmanen <kai.vehmanen@linux.intel.com>, alsa-devel@alsa-project.org
+In-Reply-To: <20201021182419.1160391-1-kai.vehmanen@linux.intel.com>
+References: <20201021182419.1160391-1-kai.vehmanen@linux.intel.com>
+Subject: Re: [PATCH] ASoC: SOF: loader: handle all SOF_IPC_EXT types
+Message-Id: <160349931942.28438.961402420046224651.b4-ty@kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Cc: alsa-devel@alsa-project.org, lgirdwood@gmail.com,
- linux-kernel@vger.kernel.org
+Cc: Guennadi Liakhovetski <guennadi.liakhovetski@linux.intel.com>,
+ daniel.baluta@nxp.com, pierre-louis.bossart@linux.intel.com,
+ lgirdwood@gmail.com, ranjani.sridharan@linux.intel.com,
+ Bard Liao <yung-chuan.liao@linux.intel.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -80,18 +82,12 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Fri, 23 Oct 2020 10:58:49 +0100, Srinivas Kandagatla wrote:
-> With the current state of code, we would endup with something like
-> below in /proc/asound/cards for 2 machines based on this driver.
+On Wed, 21 Oct 2020 21:24:19 +0300, Kai Vehmanen wrote:
+> Do not emit a warning for extended firmware header fields that are
+> not used by kernel. This creates unnecessary noise to kernel logs like:
 > 
-> Machine 1:
->  0 [DB845c            ]: DB845c - DB845c
->                        DB845c
-> Machine 2:
->  0 [LenovoYOGAC6301]: Lenovo-YOGA-C63 - Lenovo-YOGA-C630-13Q50
->                      LENOVO-81JL-LenovoYOGAC630_13Q50-LNVNB161216
-> 
-> [...]
+> sof-audio-pci 0000:00:1f.3: warning: unknown ext header type 3 size 0x1c
+> sof-audio-pci 0000:00:1f.3: warning: unknown ext header type 4 size 0x10
 
 Applied to
 
@@ -99,8 +95,8 @@ Applied to
 
 Thanks!
 
-[1/1] ASoC: qcom: sdm845: set driver name correctly
-      commit: 3f48b6eba15ea342ef4cb420b580f5ed6605669f
+[1/1] ASoC: SOF: loader: handle all SOF_IPC_EXT types
+      commit: 6e5329c6e6032cd997400b43b8299f607a61883e
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

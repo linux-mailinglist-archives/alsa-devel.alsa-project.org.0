@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A5D1F299AFF
-	for <lists+alsa-devel@lfdr.de>; Tue, 27 Oct 2020 00:47:20 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id A9B10299B00
+	for <lists+alsa-devel@lfdr.de>; Tue, 27 Oct 2020 00:47:57 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 23C7A16C0;
-	Tue, 27 Oct 2020 00:46:30 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 23C7A16C0
+	by alsa0.perex.cz (Postfix) with ESMTPS id 3A9BB16C5;
+	Tue, 27 Oct 2020 00:47:07 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3A9BB16C5
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1603756040;
-	bh=lLxjByEzEqHVGHizHikGSChzrt/ikoW1DrIWmsD1Oog=;
+	s=default; t=1603756077;
+	bh=k1zrWp9O22qh+WuKS8rpiY1h0T+j/FYSrPVkMy4dspw=;
 	h=Date:From:To:In-Reply-To:References:Subject:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=f0ei5JltlTIJdo7XFVXa+l3XdpsHpEkiTA9gci15Qh5oYbshWcwVkucVJFjYI27UA
-	 PI++/Th8kEG6nL8uDTog+6/cNJXkLJEluau1YUEqlgy5orrLiL79md5i8nPzZmwXnO
-	 d72TMA6ZnILDcTFCUw0QU1VJ9eOY0ZEvI08vK3Ok=
+	b=InetBPEb8XxD5mS6R8khQexLeYNngzPeUD56xVYrzFPNOthPopz1nrLhCuOsgxZGs
+	 JzVl3Mt7UNjf8dhl2vyf/ydxgT/lEbyXr+OPzBnQmCaWk9Vmrgfh7wgjGnJ+RDtggO
+	 ePk6itfG2+MdDxMBl7hhvvFPO9vozNi+Q0eJLhM4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 43D7DF80276;
-	Tue, 27 Oct 2020 00:45:41 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 25B6DF804B3;
+	Tue, 27 Oct 2020 00:45:45 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 7E750F80272; Tue, 27 Oct 2020 00:45:37 +0100 (CET)
+ id 5BB48F8028B; Tue, 27 Oct 2020 00:45:43 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -34,38 +34,39 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id F2244F80212
- for <alsa-devel@alsa-project.org>; Tue, 27 Oct 2020 00:45:34 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz F2244F80212
+ by alsa1.perex.cz (Postfix) with ESMTPS id 31FF4F80272
+ for <alsa-devel@alsa-project.org>; Tue, 27 Oct 2020 00:45:40 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 31FF4F80272
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="SWTwigaZ"
+ header.b="myP7uDKx"
 Received: from localhost (fw-tnat.cambridge.arm.com [217.140.96.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 7726320714;
- Mon, 26 Oct 2020 23:45:32 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id C4A1820809;
+ Mon, 26 Oct 2020 23:45:37 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1603755933;
- bh=lLxjByEzEqHVGHizHikGSChzrt/ikoW1DrIWmsD1Oog=;
+ s=default; t=1603755938;
+ bh=k1zrWp9O22qh+WuKS8rpiY1h0T+j/FYSrPVkMy4dspw=;
  h=Date:From:To:Cc:In-Reply-To:References:Subject:From;
- b=SWTwigaZOVO7f3S++lfl04YJUrkFgbnxmXPHO31eWkDjAHTzjRRxJUWcs/7YaUTZc
- ZC3mAbYhjZau+jyu1y3M2dHjO8sNBws+ZBr/jYLS+8rjghVgg50yv/S8HHL5XTtoCo
- k5VHv1MqWslDAxir2E9h6unNdsc33hGRRi8BsPlM=
-Date: Mon, 26 Oct 2020 23:45:28 +0000
+ b=myP7uDKxoFHaZTQufI/w7gt5mGhd5IKADw2XCX+IEerj7nZ6LmVRP0QYc5oOU89nl
+ hL998deP4S1ZUAOpVX/yhkmvkFqwBtcfD7Y035+MLEvDZRXceuggABVPKLXMSJYZx5
+ Ijh8i+fMGeqmfavLlPxtAugRsKSgYgaG81pLgsOk=
+Date: Mon, 26 Oct 2020 23:45:33 +0000
 From: Mark Brown <broonie@kernel.org>
-To: alsa-devel@alsa-project.org,
- Codrin Ciubotariu <codrin.ciubotariu@microchip.com>,
- linux-kernel@vger.kernel.org
-In-Reply-To: <20201012141911.3150996-1-codrin.ciubotariu@microchip.com>
-References: <20201012141911.3150996-1-codrin.ciubotariu@microchip.com>
-Subject: Re: [PATCH] ASoC: pcm5102a: Make codec selectable
-Message-Id: <160375592346.31132.3991305992600286336.b4-ty@kernel.org>
+To: mark.rutland@arm.com, lgirdwood@gmail.com, robh@kernel.org, perex@perex.cz,
+ tiwai@suse.com, alexandre.torgue@st.com,
+ Olivier Moysan <olivier.moysan@st.com>
+In-Reply-To: <20201009141051.27365-1-olivier.moysan@st.com>
+References: <20201009141051.27365-1-olivier.moysan@st.com>
+Subject: Re: [PATCH v4] ASoC: dt-bindings: stm32: convert sai to json-schema
+Message-Id: <160375592347.31132.11608590385209657603.b4-ty@kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Cc: kernel@martin.sperl.org, florian.meier@koalo.de, tiwai@suse.com,
- lgirdwood@gmail.com
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
+ arnaud.pouliquen@st.com, linux-kernel@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -81,11 +82,8 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Mon, 12 Oct 2020 17:19:11 +0300, Codrin Ciubotariu wrote:
-> The TI PCM5102A codec driver can be used with the generic sound card
-> drivers, so it should be selectable. For example, with the addition
-> of #sound-dai-cells = <0> property in DT, it can be used with simple/graph
-> card drivers.
+On Fri, 9 Oct 2020 16:10:51 +0200, Olivier Moysan wrote:
+> Convert the STM32 SAI bindings to DT schema format using json-schema.
 
 Applied to
 
@@ -93,8 +91,8 @@ Applied to
 
 Thanks!
 
-[1/1] ASoC: pcm5102a: Make codec selectable
-      commit: 76b5f68bbf7df9343b69fbee04d5edf50680c231
+[1/1] ASoC: dt-bindings: stm32: convert sai to json-schema
+      commit: 49491418c1dceb11ccb2ab841e4e5590e844378c
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

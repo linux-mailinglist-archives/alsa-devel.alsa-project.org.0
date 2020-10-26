@@ -2,75 +2,77 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5DB7E29932E
-	for <lists+alsa-devel@lfdr.de>; Mon, 26 Oct 2020 17:59:05 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id C29CF299347
+	for <lists+alsa-devel@lfdr.de>; Mon, 26 Oct 2020 18:03:15 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E592B16B4;
-	Mon, 26 Oct 2020 17:58:14 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E592B16B4
+	by alsa0.perex.cz (Postfix) with ESMTPS id 5CB2216B3;
+	Mon, 26 Oct 2020 18:02:25 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5CB2216B3
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1603731545;
-	bh=XmX6A5dOrT7WqJQna3rzilmb9nV0XqwdxyjS4DZdXEU=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1603731795;
+	bh=vetpXnwvb01GbeboLwvkCjEedJti1xo8I1GlxsljmeA=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=QEZiV3whhpiNuYpk/gSYFSjtruMxEvLohThgMGgE+k9upZ+uhgcnp4/IhIw7BxAfX
-	 +zq47aVJSjYPKVBz2LdH/UuZSDsbSOyzUBvof2C6JvwwycTQjXHI1DOc/rrQBE6W7V
-	 U/l5bSnDPIT5eIck4E/x6hYKlKH1t795YceN+VKk=
+	b=Tu/BLMiv4USApq2ok1b4U9xma4KISYwWcVUpCV/jwA9dQlNbBQr+6cLOtxMq5RL6h
+	 Yv2wnkhyIvklGCcxFgas4Q3cpliE7WnXmEfJ9Sk6Pi+6ORFL5yn9RgUYdXMaH7ehnc
+	 WII4FIDY6VJjQ7iQdebJIGBvArYkcpCYOHlUSNHo=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 37CF3F8025E;
-	Mon, 26 Oct 2020 17:57:32 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id B67CFF80249;
+	Mon, 26 Oct 2020 18:01:42 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id C49ECF80249; Mon, 26 Oct 2020 17:57:29 +0100 (CET)
+ id 6634FF80086; Mon, 26 Oct 2020 18:01:41 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled
+X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_MSPIKE_H3,
+ RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=disabled
  version=3.4.0
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 4FE14F80086
- for <alsa-devel@alsa-project.org>; Mon, 26 Oct 2020 17:57:27 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4FE14F80086
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="spfUEF17"
-Received: from localhost (fw-tnat.cambridge.arm.com [217.140.96.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 546452068D;
- Mon, 26 Oct 2020 16:57:24 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1603731444;
- bh=XmX6A5dOrT7WqJQna3rzilmb9nV0XqwdxyjS4DZdXEU=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=spfUEF175Trz/DmMSvKaULQDVGy2BQTVfG/DiGwdAtV5LCKPP6cO5FUWcwAnwMZ4w
- 9+fDwhbMOi3MRBrLCcAMAkH7s7FMjgHWv/oky0Oq2VVsX5FZdOiJ5ier7qwPh+2/td
- BbtxTnJ7dYJCCmEFvg0xITwAZpziohyiWEA1qBck=
-Date: Mon, 26 Oct 2020 16:57:20 +0000
-From: Mark Brown <broonie@kernel.org>
-To: Olivier Moysan <olivier.moysan@st.com>
-Subject: Re: [PATCH v2 2/2] dt-bindings: stm32: dfsdm: remove
- stm32-adfsdm.txt binding
-Message-ID: <20201026165720.GG7402@sirena.org.uk>
-References: <20201020155709.2621-3-olivier.moysan@st.com>
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="cyV/sMl4KAhiehtf"
-Content-Disposition: inline
-In-Reply-To: <20201020155709.2621-3-olivier.moysan@st.com>
-X-Cookie: Safety Third.
-User-Agent: Mutt/1.10.1 (2018-07-13)
-Cc: mark.rutland@arm.com, robh@kernel.org, alsa-devel@alsa-project.org,
- alexandre.torgue@st.com, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, arnaud.pouliquen@st.com, tiwai@suse.com,
- lgirdwood@gmail.com, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org
+ by alsa1.perex.cz (Postfix) with ESMTPS id 9D764F80086
+ for <alsa-devel@alsa-project.org>; Mon, 26 Oct 2020 18:01:35 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9D764F80086
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id D4A33ACF5;
+ Mon, 26 Oct 2020 17:01:33 +0000 (UTC)
+Date: Mon, 26 Oct 2020 18:01:33 +0100
+Message-ID: <s5h5z6w53bm.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: "Gyeongtaek Lee" <gt82.lee@samsung.com>
+Subject: Re: [PATCH] ALSA: compress: allow pause and resume during draining
+In-Reply-To: <001801d6ab78$fcfe0760$f6fa1620$@samsung.com>
+References: <20201006062105.GQ2968@vkoul-mobl>
+ <4bbc385b-d35a-8766-7981-034455287225@linux.intel.com>
+ <000d01d69d58$4e2db6f0$ea8924d0$@samsung.com>
+ <s5hr1q7sa9f.wl-tiwai@suse.de>
+ <831bbfcf-9720-9100-8633-65932b415cab@perex.cz>
+ <s5ha6wusb2l.wl-tiwai@suse.de> <20201012052525.GH2968@vkoul-mobl>
+ <s5hk0vwq65o.wl-tiwai@suse.de> <20201012122423.GJ2968@vkoul-mobl>
+ <5b26cdd5-8a15-fa26-86af-13bfbfad5341@perex.cz>
+ <20201012135540.GK2968@vkoul-mobl>
+ <777e0046-1e3a-e702-c070-cac4c0525ccd@perex.cz>
+ <s5hh7qzplsb.wl-tiwai@suse.de>
+ <0afa7a39-84d5-0b9b-5453-8e7848a30bb6@perex.cz>
+ <CGME20201012150106epcas2p23aa4b65b1b23cf8e15680554f9a0d7e4@epcas2p2.samsung.com>
+ <s5ha6wrpk1t.wl-tiwai@suse.de>
+ <000001d6a2e0$8e6f4840$ab4dd8c0$@samsung.com>
+ <001801d6ab78$fcfe0760$f6fa1620$@samsung.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
+ FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
+ (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
+Content-Type: text/plain; charset=US-ASCII
+Cc: alsa-devel@alsa-project.org, pilsun.jang@samsung.com,
+ khw0178.kim@samsung.com, lgirdwood@gmail.com, kimty@samsung.com,
+ tiwai@suse.com, 'Pierre-Louis Bossart' <pierre-louis.bossart@linux.intel.com>,
+ 'Vinod Koul' <vkoul@kernel.org>, hmseo@samsung.com, s47.kang@samsung.com,
+ tkjung@samsung.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -86,36 +88,51 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+On Mon, 26 Oct 2020 10:18:38 +0100,
+Gyeongtaek Lee wrote:
+> 
+> With a stream with low bitrate, user can't pause or resume the stream
+> near the end of the stream because current ALSA doesn't allow it.
+> If the stream has very low bitrate enough to store whole stream into
+> the buffer, user can't do anything except stop the stream and then
+> restart it from the first because most of applications call draining
+> after sending last frame to the kernel.
+> If pause, resume are allowed during draining, user experience can be
+> enhanced.
+> To prevent malfunction in HW drivers which don't support pause
+> during draining, pause during draining will only work if HW driver
+> enable this feature explicitly by calling
+> snd_compr_use_pause_in_draining().
+> 
+> Signed-off-by: Gyeongtaek Lee <gt82.lee@samsung.com>
+> Cc: stable@vger.kernel.org
 
---cyV/sMl4KAhiehtf
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Could you restart the new thread?  It's been hanging too deeply and
+hard to read through.
 
-On Tue, Oct 20, 2020 at 05:57:09PM +0200, Olivier Moysan wrote:
-> Device tree audio configuration for STM32 DFSDM is already
-> covered in the following binding:
-> Documentation/devicetree/bindings/iio/adc/st,stm32-dfsdm-adc.yaml
-> Remove stm32-adfsdm.txt obsolete binding.
+Since it's the revised patch, please give the revision number (v2 or
+such) and show what's different from the previous patches.
 
-Please submit patches using subject lines reflecting the style for the
-subsystem, this makes it easier for people to identify relevant patches.
-Look at what existing commits in the area you're changing are doing and
-make sure your subject lines visually resemble what they're doing.
-There's no need to resubmit to fix this alone.
+About the changes:
 
---cyV/sMl4KAhiehtf
-Content-Type: application/pgp-signature; name="signature.asc"
+> +/**
+> + * snd_compr_use_pause_in_draining - Allow pause and resume in draining state
+> + * @substream: compress substream to set
+> + *
+> + * Allow pause and resume in draining state.
+> + * Only HW driver supports this transition can call this API.
+> + */
+> +static inline void snd_compr_use_pause_in_draining(
+> +					struct snd_compr_stream *substream)
+> +{
+> +	substream->device->use_pause_in_draining = true;
+> +}
 
------BEGIN PGP SIGNATURE-----
+How to set the flag is an open question.  A natural way would be to
+set it somehow at creating the component object, but currently there
+seems no way to pass any flags.
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl+W/+8ACgkQJNaLcl1U
-h9CPMgf+KTRCiGSyBxhUE1u/M2akejBvVr7Dx8sFslGtFFE8Iwr2D84zpI3/N+bF
-0PYNahj9ur9gfNaKOLzQ+vH43Em59mjbdM5tL+ws97s5KvHDTQHtv4sWwceNG635
-eTffbX/qd3MYwtRENfvGG+rMunPntaLfmCA/98Dm/c9NmyIwWL9VB8/HnYfEI/a6
-YVTSsn+N6K9mLXTUD4N0CyhcQRxZDCvpgcbwsh2wtQO4xdx4vx174EDfyTT8HZF9
-01x2ATDmoFoxsyEe75UQ2umKQ97hTgf0UDT17abwAZGFHTcH3DmvYRnenLxIyVmX
-lmfhsylfvgLNnkypJT9lirXhrY7YZw==
-=L9DH
------END PGP SIGNATURE-----
 
---cyV/sMl4KAhiehtf--
+thanks,
+
+Takashi

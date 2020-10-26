@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5F04F299B2E
-	for <lists+alsa-devel@lfdr.de>; Tue, 27 Oct 2020 00:50:17 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1445E299B50
+	for <lists+alsa-devel@lfdr.de>; Tue, 27 Oct 2020 00:50:39 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E42EE82E;
-	Tue, 27 Oct 2020 00:49:26 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E42EE82E
+	by alsa0.perex.cz (Postfix) with ESMTPS id 41E5416BF;
+	Tue, 27 Oct 2020 00:49:48 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 41E5416BF
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1603756217;
-	bh=ezikQHNIuzVYwPcHfaohbaaZGyaT6y7nsT9sSSOl9/8=;
+	s=default; t=1603756238;
+	bh=9AbYxVaOs4JLDjH4TqJYrI1yDoSHClRW3bLhQND9QQc=;
 	h=Date:From:To:In-Reply-To:References:Subject:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=Fmlhuqi/2i6nqQLGuhDXIA9G5RglcMw/w/ILEDg5gItT6HfdfURKZ7RvwLiuvGBGW
-	 WuE+jcic9xO2tdeAMXJrfdYrBer1MbgtGCd0PELUZ2XQHRpbOA3sbgJehp50gPackZ
-	 +Ohy1OvhuaC5la5KvPawLDix6vcg2ntA6Ykz/guI=
+	b=Dy5aGddsT84PlLxrHTWakKsudOYABAKwporvb7rYqT9uNajSvP+Qr2/iJFqL+dnqp
+	 YFTqwbOw7fgZNX253hbvOZRD3f6Hv8M3SxmCtmBDKu8h20alRFpmu73Mnp/P0LZVW2
+	 B34Oxb35XgCejKs1VYCeyEKsl1GjBl9qayTuA9WA=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 77CADF804FE;
-	Tue, 27 Oct 2020 00:46:20 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id B3666F80507;
+	Tue, 27 Oct 2020 00:46:27 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id C57C6F804FD; Tue, 27 Oct 2020 00:46:17 +0100 (CET)
+ id 2AC5BF80507; Tue, 27 Oct 2020 00:46:25 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -34,36 +34,39 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 3F3A8F804F3
- for <alsa-devel@alsa-project.org>; Tue, 27 Oct 2020 00:46:15 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3F3A8F804F3
+ by alsa1.perex.cz (Postfix) with ESMTPS id E1A4EF804FD
+ for <alsa-devel@alsa-project.org>; Tue, 27 Oct 2020 00:46:22 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E1A4EF804FD
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="Bkw7Osr7"
+ header.b="ff0ltz1/"
 Received: from localhost (fw-tnat.cambridge.arm.com [217.140.96.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id CB2D720714;
- Mon, 26 Oct 2020 23:46:12 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id E0B5020714;
+ Mon, 26 Oct 2020 23:46:20 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1603755973;
- bh=ezikQHNIuzVYwPcHfaohbaaZGyaT6y7nsT9sSSOl9/8=;
+ s=default; t=1603755981;
+ bh=9AbYxVaOs4JLDjH4TqJYrI1yDoSHClRW3bLhQND9QQc=;
  h=Date:From:To:Cc:In-Reply-To:References:Subject:From;
- b=Bkw7Osr7P+Wb8c/zuxNVTNSQqaELjHAUxHmg56/j3IkWWTokIeSRto32HHBrdQQ+h
- 3l4TNp0ZGiwUx4SYdjpeQCH0K8UaQ3QxH4LZ+g/a1klloC/aLU8YfzJYNQOBqu+brY
- SWAepN5MStiRtPAZ77DzPak4yvYZ9cRHKZUZaIPg=
-Date: Mon, 26 Oct 2020 23:46:08 +0000
+ b=ff0ltz1/baOuGcau/EHKSBsbDpjYtpS/+w4a196NqNZbOV09MvIQbqSe3lcPBS6v/
+ VTjjxO6kXUm/95xoLikQuzTjXoRawaDc60RDg5oUspU/JAIqBLRLmVeHabJMKciP+B
+ D53DOs3yz8C+/pHISFUY5D9sY3k5UtBmUomQduW4=
+Date: Mon, 26 Oct 2020 23:46:16 +0000
 From: Mark Brown <broonie@kernel.org>
-To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-In-Reply-To: <87pn65gqcj.wl-kuninori.morimoto.gx@renesas.com>
-References: <87pn65gqcj.wl-kuninori.morimoto.gx@renesas.com>
-Subject: Re: [PATCH 0/6] ASoC: merge soc_pcm_hw_param() rollback and
- soc_pcm_hw_free()
-Message-Id: <160375592346.31132.4248120862246579535.b4-ty@kernel.org>
+To: Xiubo.Lee@gmail.com, timur@kernel.org, lgirdwood@gmail.com,
+ Shengjiu Wang <shengjiu.wang@nxp.com>, perex@perex.cz,
+ devicetree@vger.kernel.org, tiwai@suse.com, festevam@gmail.com,
+ robh+dt@kernel.org, alsa-devel@alsa-project.org, nicoleotsuka@gmail.com
+In-Reply-To: <1602739728-4433-1-git-send-email-shengjiu.wang@nxp.com>
+References: <1602739728-4433-1-git-send-email-shengjiu.wang@nxp.com>
+Subject: Re: [PATCH 1/2] ASoC: dt-bindings: fsl_spdif: Add new compatible
+ string for i.MX8QM
+Message-Id: <160375592348.31132.8709437914280376392.b4-ty@kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Cc: Linux-ALSA <alsa-devel@alsa-project.org>
+Cc: linuxppc-dev@lists.ozlabs.org, linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -79,19 +82,9 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 29 Sep 2020 13:30:41 +0900, Kuninori Morimoto wrote:
-> soc_pcm_hw_params() does rollback when failed (A),
-> but, it is almost same as soc_pcm_hw_free().
-> 
-> 	static int soc_pcm_hw_params(xxx)
-> 	{
-> 		...
-> 		if (ret < 0)
-> 			goto xxx_err;
-> 		...
-> 		return ret;
-> 
-> [...]
+On Thu, 15 Oct 2020 13:28:47 +0800, Shengjiu Wang wrote:
+> Add new compatible string "fsl,imx8qm-spdif" for supporting spdif
+> module on i.MX8QM.
 
 Applied to
 
@@ -99,18 +92,10 @@ Applied to
 
 Thanks!
 
-[1/6] ASoC: soc.h: remove for_each_rtd_dais_rollback()
-      commit: 5560d8c6053c98e3ce17b988dde743792ae613c8
-[2/6] ASoC: soc-pcm: move soc_pcm_hw_free() next to soc_pcm_hw_params()
-      commit: ab49436eecf5cc779a1ff659ba59c88779685b47
-[3/6] ASoC: soc-link: add mark for snd_soc_link_hw_params/free()
-      commit: 918ad772c4e47f26bc1b5040a79336b7063626cf
-[4/6] ASoC: soc-component: add mark for snd_soc_pcm_component_hw_params/free()
-      commit: 3a36a64a2de4699ef4a2479a7fb2564b85c8fb4e
-[5/6] ASoC: soc-dai: add mark for snd_soc_dai_hw_params/free()
-      commit: c304c9acb6e60bcc5c4d4b5a72763ca3bdf7d76b
-[6/6] ASoC: soc-pcm: add soc_pcm_hw_clean() and call it from soc_pcm_hw_params/free()
-      commit: 4662c59688b8db8834aab14f0d37a4f26fc0dd20
+[1/2] ASoC: dt-bindings: fsl_spdif: Add new compatible string for i.MX8QM
+      commit: 87b2fc1139a13cf81d0a95fb2cbaba7daeee8908
+[2/2] ASoC: fsl_spdif: Add support for i.MX8QM platform
+      commit: 516232e3609f485be04445b03723fbaed64a5321
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

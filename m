@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 46ED5299B22
-	for <lists+alsa-devel@lfdr.de>; Tue, 27 Oct 2020 00:49:52 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5F04F299B2E
+	for <lists+alsa-devel@lfdr.de>; Tue, 27 Oct 2020 00:50:17 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C94C116AD;
-	Tue, 27 Oct 2020 00:49:01 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C94C116AD
+	by alsa0.perex.cz (Postfix) with ESMTPS id E42EE82E;
+	Tue, 27 Oct 2020 00:49:26 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E42EE82E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1603756191;
-	bh=dopJlML4Opefns/Oq2lcXDRniLu5gxNRGpoTUrNDn5A=;
+	s=default; t=1603756217;
+	bh=ezikQHNIuzVYwPcHfaohbaaZGyaT6y7nsT9sSSOl9/8=;
 	h=Date:From:To:In-Reply-To:References:Subject:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=c64Mhxv3FvmLqGubIhrtaT3x9VVuE6ozrjT8/QlNkkJBqhPitVtP8HFAYqLOQqBhj
-	 IUQvb2Cwm1+Sbk3KrQO1i/VKWQ4vCDo1jfJHsSqewu51Xl0uvKF1GbrJYV94+zg/V/
-	 694DjAvIA+LTmaT1xKbbSZ4bGpiA/yDO8cvR9Ilc=
+	b=Fmlhuqi/2i6nqQLGuhDXIA9G5RglcMw/w/ILEDg5gItT6HfdfURKZ7RvwLiuvGBGW
+	 WuE+jcic9xO2tdeAMXJrfdYrBer1MbgtGCd0PELUZ2XQHRpbOA3sbgJehp50gPackZ
+	 +Ohy1OvhuaC5la5KvPawLDix6vcg2ntA6Ykz/guI=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 9ED4EF804FA;
-	Tue, 27 Oct 2020 00:46:12 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 77CADF804FE;
+	Tue, 27 Oct 2020 00:46:20 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 5D3D2F804F3; Tue, 27 Oct 2020 00:46:10 +0100 (CET)
+ id C57C6F804FD; Tue, 27 Oct 2020 00:46:17 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -34,38 +34,36 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 9E0F6F804F1
- for <alsa-devel@alsa-project.org>; Tue, 27 Oct 2020 00:46:07 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9E0F6F804F1
+ by alsa1.perex.cz (Postfix) with ESMTPS id 3F3A8F804F3
+ for <alsa-devel@alsa-project.org>; Tue, 27 Oct 2020 00:46:15 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3F3A8F804F3
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="AQX+2PyK"
+ header.b="Bkw7Osr7"
 Received: from localhost (fw-tnat.cambridge.arm.com [217.140.96.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 4662E20878;
- Mon, 26 Oct 2020 23:46:05 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id CB2D720714;
+ Mon, 26 Oct 2020 23:46:12 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1603755966;
- bh=dopJlML4Opefns/Oq2lcXDRniLu5gxNRGpoTUrNDn5A=;
+ s=default; t=1603755973;
+ bh=ezikQHNIuzVYwPcHfaohbaaZGyaT6y7nsT9sSSOl9/8=;
  h=Date:From:To:Cc:In-Reply-To:References:Subject:From;
- b=AQX+2PyK2dIPN49wkNKL1bwXysqkdun6QOU05xs4v4NDH3cNnZDtrBbTwey1S1/Uk
- FzYvCaXPBIXg0TGUF1MrEzBZEDgaSVfKczx+9Jqahan0aPJqTF+r10Ah70SX4h+m+w
- DwWrpkMfnEgIR7UzFPQGnRfO0Rco2u62TCZbPD9o=
-Date: Mon, 26 Oct 2020 23:46:01 +0000
+ b=Bkw7Osr7P+Wb8c/zuxNVTNSQqaELjHAUxHmg56/j3IkWWTokIeSRto32HHBrdQQ+h
+ 3l4TNp0ZGiwUx4SYdjpeQCH0K8UaQ3QxH4LZ+g/a1klloC/aLU8YfzJYNQOBqu+brY
+ SWAepN5MStiRtPAZ77DzPak4yvYZ9cRHKZUZaIPg=
+Date: Mon, 26 Oct 2020 23:46:08 +0000
 From: Mark Brown <broonie@kernel.org>
-To: Liam Girdwood <lgirdwood@gmail.com>, Chen-Yu Tsai <wens@csie.org>,
- Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
- Samuel Holland <samuel@sholland.org>, Maxime Ripard <mripard@kernel.org>
-In-Reply-To: <20201014061941.4306-1-samuel@sholland.org>
-References: <20201014061941.4306-1-samuel@sholland.org>
-Subject: Re: [PATCH v2 00/17] ASoC: sun8i-codec: support for AIF2 and AIF3
-Message-Id: <160375592347.31132.11114945511510000375.b4-ty@kernel.org>
+To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+In-Reply-To: <87pn65gqcj.wl-kuninori.morimoto.gx@renesas.com>
+References: <87pn65gqcj.wl-kuninori.morimoto.gx@renesas.com>
+Subject: Re: [PATCH 0/6] ASoC: merge soc_pcm_hw_param() rollback and
+ soc_pcm_hw_free()
+Message-Id: <160375592346.31132.4248120862246579535.b4-ty@kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Cc: Ondrej Jirman <megous@megous.com>, alsa-devel@alsa-project.org,
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org
+Cc: Linux-ALSA <alsa-devel@alsa-project.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -81,15 +79,17 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Wed, 14 Oct 2020 01:19:24 -0500, Samuel Holland wrote:
-> This series adds support the other two AIFs present in the sun8i codec,
-> which can be used for codec2codec DAI links.
+On 29 Sep 2020 13:30:41 +0900, Kuninori Morimoto wrote:
+> soc_pcm_hw_params() does rollback when failed (A),
+> but, it is almost same as soc_pcm_hw_free().
 > 
-> This series first fills out the DAI driver, removing assumptions that
-> were made for AIF1 (16 bits, 2 channels, certain clock inversions). Some
-> new logic is required to handle 3 DAIs and the ADC/DAC sharing the same
-> clock. Finally, it adds the new DAIs, and hooks them up with DAPM
-> widgets and routes per the hardware topology.
+> 	static int soc_pcm_hw_params(xxx)
+> 	{
+> 		...
+> 		if (ret < 0)
+> 			goto xxx_err;
+> 		...
+> 		return ret;
 > 
 > [...]
 
@@ -99,40 +99,18 @@ Applied to
 
 Thanks!
 
-[01/17] ASoC: sun8i-codec: Prepare to extend the DAI driver
-        commit: 7826b8d15ec2cea1c1b8680ada1eb965d0660aa6
-[02/17] ASoC: sun8i-codec: Program DAI format before clock inversion
-        commit: fd57ed2de5b1a5e153abf2f8c02fc3c1bf40de3b
-[03/17] ASoC: sun8i-codec: Enable all supported clock inversions
-        commit: c56f5f1c0b23ac0cdcf8c73bf6f7363ef0cdfbc0
-[04/17] ASoC: sun8i-codec: Use the provided word size
-        commit: 1abb43aeadfb513c0a16013cd445fb7dd3b285bb
-[05/17] ASoC: sun8i-codec: Round up the LRCK divisor
-        commit: e511aed79632e8a2dd03068f8bd11b64cb0d7170
-[06/17] ASoC: sun8i-codec: Correct the BCLK divisor calculation
-        commit: 68a4f2caaa17ce62890c51ef957dd008c2e42aae
-[07/17] ASoC: sun8i-codec: Support the TDM slot binding
-        commit: afb1a6006299a8b6b5ad04363fd74aa66a6ac79b
-[08/17] ASoC: sun8i-codec: Enforce symmetric DAI parameters
-        commit: e557148ac220b43bc6cbc06333f56b1c61e90825
-[09/17] ASoC: sun8i-codec: Enable all supported sample rates
-        commit: c2b751d769669467da1247c9c6c536a494c9c96e
-[10/17] ASoC: sun8i-codec: Automatically set the system sample rate
-        commit: 6c5326bebd4041a21c77b2b96461a97b7f4e39ee
-[11/17] ASoC: sun8i-codec: Constrain to compatible sample rates
-        commit: 15b45912341e884a16322792525db7a2b2b9a1f9
-[12/17] ASoC: sun8i-codec: Protect the clock rate while streams are open
-        commit: 3952ec2ac55a5afcda84270fa203f17a6309af6b
-[13/17] ASoC: sun8i-codec: Require an exact BCLK divisor match
-        commit: 2464dccab7fef040bd6e85cd78ac33e2731925da
-[14/17] ASoC: sun8i-codec: Enable all supported PCM formats
-        commit: 342cacb92d627a7cc8df1b5fe3e404530164ea17
-[15/17] ASoC: sun8i-codec: Generalize AIF clock control
-        commit: 7a6b937ec4e256b028be9b4e244d40287282c825
-[16/17] ASoC: sun8i-codec: Add the AIF2 DAI, widgets, and routes
-        commit: 50ec8422acd2cdadf5599cc046a5448770542aa7
-[17/17] ASoC: sun8i-codec: Add the AIF3 DAI, widgets, and routes
-        commit: 5a7f34ab0232bc50d39ac0627a470425227fed7d
+[1/6] ASoC: soc.h: remove for_each_rtd_dais_rollback()
+      commit: 5560d8c6053c98e3ce17b988dde743792ae613c8
+[2/6] ASoC: soc-pcm: move soc_pcm_hw_free() next to soc_pcm_hw_params()
+      commit: ab49436eecf5cc779a1ff659ba59c88779685b47
+[3/6] ASoC: soc-link: add mark for snd_soc_link_hw_params/free()
+      commit: 918ad772c4e47f26bc1b5040a79336b7063626cf
+[4/6] ASoC: soc-component: add mark for snd_soc_pcm_component_hw_params/free()
+      commit: 3a36a64a2de4699ef4a2479a7fb2564b85c8fb4e
+[5/6] ASoC: soc-dai: add mark for snd_soc_dai_hw_params/free()
+      commit: c304c9acb6e60bcc5c4d4b5a72763ca3bdf7d76b
+[6/6] ASoC: soc-pcm: add soc_pcm_hw_clean() and call it from soc_pcm_hw_params/free()
+      commit: 4662c59688b8db8834aab14f0d37a4f26fc0dd20
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

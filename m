@@ -2,85 +2,85 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E19C429961D
-	for <lists+alsa-devel@lfdr.de>; Mon, 26 Oct 2020 19:55:54 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id AA222299611
+	for <lists+alsa-devel@lfdr.de>; Mon, 26 Oct 2020 19:55:25 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 512CD16B8;
-	Mon, 26 Oct 2020 19:55:04 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 512CD16B8
+	by alsa0.perex.cz (Postfix) with ESMTPS id 05E3016C7;
+	Mon, 26 Oct 2020 19:54:35 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 05E3016C7
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1603738554;
-	bh=psbtKDUoL2wsAHJIqLjX/NMqkXRMFvTs2Kt2T565hqM=;
+	s=default; t=1603738525;
+	bh=n2LPS9jN9o4NVe5FOnjwnmg/VLKzmy214jpcKwX+MOU=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=NfiGa5P8sfs416jCDgdYb1NwHm402t5DNMSsn1brjxmsQzNdYgX7fDEoMsutSbqd0
-	 LiWlykYp8Mrv/Sw1q8dPycVxNSGXamONYMSvWEYlSlJRl9aFBBq0l04JLEykLH5FNZ
-	 faBOA6T/WTq1/ZwJ1x7v5WwyPyZewgNA/DjSHnio=
+	b=ntIDJe6SDjMjTApP+eYOGIPccD2RBqeTyEdzM56adkGnWHk//MFDh0GO+lsyF9IG1
+	 q3iNqVxIIpcGqcgHdRlz8nyb3zuKe8J3ITCSbLYfRujooVslpyy13H7nAUFk2XGcUF
+	 N0Adl8ZQYJpZwZ1FvBOeOwhiXnlts25/HJRDBYZ0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id EEF18F804D6;
-	Mon, 26 Oct 2020 19:53:01 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 9ECD4F804C3;
+	Mon, 26 Oct 2020 19:53:00 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 21B46F80276; Mon, 26 Oct 2020 19:52:57 +0100 (CET)
+ id 13A5BF804C3; Mon, 26 Oct 2020 19:52:57 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
  autolearn=disabled version=3.4.0
-Received: from mail-wr1-x441.google.com (mail-wr1-x441.google.com
- [IPv6:2a00:1450:4864:20::441])
+Received: from mail-wr1-x442.google.com (mail-wr1-x442.google.com
+ [IPv6:2a00:1450:4864:20::442])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id C348FF80272
- for <alsa-devel@alsa-project.org>; Mon, 26 Oct 2020 19:52:48 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C348FF80272
+ by alsa1.perex.cz (Postfix) with ESMTPS id 52350F80276
+ for <alsa-devel@alsa-project.org>; Mon, 26 Oct 2020 19:52:49 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 52350F80276
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="vVLOtK8m"
-Received: by mail-wr1-x441.google.com with SMTP id y12so13878016wrp.6
- for <alsa-devel@alsa-project.org>; Mon, 26 Oct 2020 11:52:48 -0700 (PDT)
+ header.b="XPITp7Mn"
+Received: by mail-wr1-x442.google.com with SMTP id b8so13941789wrn.0
+ for <alsa-devel@alsa-project.org>; Mon, 26 Oct 2020 11:52:49 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=Vv6KcEP0pEgRVjwTuPdIp9VfN3czru8sIUJtTzh+O2M=;
- b=vVLOtK8mYgdzzmwAfgghpGUM/8y74IOQuHf9NfhElj86slhBFUJ2xikU1o8fQXlsys
- 4ZQ4szXQEKqJtDXSWfPM+ii4jKzr/upkk8MRVYVSyAY5xHFGj7vrDqWmWDL4DggsE6lh
- Xq3HZmxGTDrW2KiMiGOmO7Bnr0rqnF+yM3wM2XoEwvRd+7T/+we7kNoBs3qog9/3uSas
- 0hBl51p+Vh7jiWZYGspoTBkyKtKvRkJYGMg0uOIo9fMt7l/EZadsywoErnaB0NgsT4rD
- StcuYC1KD3hLg3Po5DOtQKn7JoSGrjHTWY9LFT2BVTkZHfZwl6TwmqDkEpYKvKh4O8nA
- RHKw==
+ bh=djM7OyfVgD6rWaDQbsh+ExufRJOlpqGGlwiwTkQsm9s=;
+ b=XPITp7Mn/F7ykF8dNJcHLgRgIoXgXlp/x/xHlDBwv4gzqpHQZIFPutG/5sI+OJlIMK
+ fiWQqhIt68mai1qt8GzW8z4MKvGRb/YwhrU7cNjkfYjUC2FC1w5FcqiGb4dZaOxoJc6V
+ inp2DbSQjsd7THaT8b9AgiVKvxbb49QaM3wMvOHA2/NMV0UhRh3XBgul+DBqbINOPjHh
+ nDaOr+s1DRoERDgX/yXQRF8q6811drP5IHIstzDRneRb9RfqbltzeNt7O0Fr+fxUHwEN
+ BHzcVtIxco2ocKBM6Ljsd79OSMLetjsLJdcVxKYy5H+YvH6+ZE0WRxG88hKVPyPW2FfI
+ /OjA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=Vv6KcEP0pEgRVjwTuPdIp9VfN3czru8sIUJtTzh+O2M=;
- b=a/BUSkmUVGHIQ02/4vf816CSeeoc5AING6RhzbqTImLCJqSUKwjTpK1fGJWbPgfHX+
- xEdyreeisX4DUiq2zi4Poih4a/8MWWf/Apojy4YEdDdbrIqPwsnoW6Nb6S3zKMMimeVB
- J+3OSjVWA7DUiNtk7ERqJTgdGQBeg9PToYXVL3ZNrZz4kMT9SPxf88Si6O3EGvBDAhCs
- MMROYeapuM+OvgVRiGdGJ0Z7x/xsJ/kdInugMfpYnAi8frzUSgpWTEj5wy++LVOEVJNV
- db3s4pyo9B65LiIDsJUCdTvblZzG/ncZOnpn7bfyoC3rajl+hO8y5KR9C1bszP0WRG31
- B0Zg==
-X-Gm-Message-State: AOAM532/j6VNnDRKAa5wJGgSPIiMZbNMy+89vblVZqy2fIwiyQ51TQeh
- bowTiBrIVek6auec1tOYXyk=
-X-Google-Smtp-Source: ABdhPJybIWpMD7D972LoAoQPWxab8VJL+oNVfstHnLCgUZLRlCuZFfTLE4t2nKMMxwNLZiytJVTt1Q==
-X-Received: by 2002:adf:f74e:: with SMTP id z14mr19241370wrp.312.1603738367548; 
- Mon, 26 Oct 2020 11:52:47 -0700 (PDT)
+ bh=djM7OyfVgD6rWaDQbsh+ExufRJOlpqGGlwiwTkQsm9s=;
+ b=OSgI3rAlmDtU5UN3OX/Ufv0cuCnWatWb6KnZG3xNrug2Cf0m19WyqHFWjjnM3LgONs
+ o19+3343cHI5g9IJcRa00S72CR7a49dYzkwRckosT3R4fsYM+tV18uHKj/chvtYphYmy
+ kOXerVi60ZYRIb/Etn/QzT39yhm9ndEPSNJj7pPLxE1JcJi/MCMJSfZaFHkPc9e6q9bQ
+ hGwajNDkjVhdhye/67qOpMc1oRn9s3rWgLFD+B+GL8nciWyBljO2mNMLcI8AWBF8Qpci
+ 9gksmR9Iu1qO8GKoJdtyOyzoZEUfThbvtsUfj1Qje4CWlTGm3Bc7w1Fl3UTUslZRIw2t
+ EhTQ==
+X-Gm-Message-State: AOAM531euK4e/SLj7UVVpkLo0I/8f+NBEvyjIvtJax5EqKviQLGwcsEM
+ wR1MdDLrV5qDl/9gNV4Uxik=
+X-Google-Smtp-Source: ABdhPJwo6Q8s0AOAx3BYAVnRxx4Uhh3HP4/cvorgqun4R1kWEC8iSfm/uBzLSX1PyYGm0OnWIf8i1A==
+X-Received: by 2002:adf:f20e:: with SMTP id p14mr455926wro.376.1603738368761; 
+ Mon, 26 Oct 2020 11:52:48 -0700 (PDT)
 Received: from localhost.localdomain
  (lputeaux-656-1-11-33.w82-127.abo.wanadoo.fr. [82.127.142.33])
- by smtp.gmail.com with ESMTPSA id f7sm24885193wrx.64.2020.10.26.11.52.46
+ by smtp.gmail.com with ESMTPSA id f7sm24885193wrx.64.2020.10.26.11.52.47
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 26 Oct 2020 11:52:46 -0700 (PDT)
+ Mon, 26 Oct 2020 11:52:47 -0700 (PDT)
 From: =?UTF-8?q?Cl=C3=A9ment=20P=C3=A9ron?= <peron.clem@gmail.com>
 To: Maxime Ripard <mripard@kernel.org>, Chen-Yu Tsai <wens@csie.org>,
  Rob Herring <robh+dt@kernel.org>, Mark Brown <broonie@kernel.org>,
  Liam Girdwood <lgirdwood@gmail.com>
-Subject: [PATCH v8 04/14] ASoC: sun4i-i2s: Set sign extend sample
-Date: Mon, 26 Oct 2020 19:52:29 +0100
-Message-Id: <20201026185239.379417-5-peron.clem@gmail.com>
+Subject: [PATCH v8 05/14] ASoc: sun4i-i2s: Add 20 and 24 bit support
+Date: Mon, 26 Oct 2020 19:52:30 +0100
+Message-Id: <20201026185239.379417-6-peron.clem@gmail.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20201026185239.379417-1-peron.clem@gmail.com>
 References: <20201026185239.379417-1-peron.clem@gmail.com>
@@ -110,83 +110,59 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 From: Marcus Cooper <codekipper@gmail.com>
 
-On the newer SoCs such as the H3 and A64 this is set by default
-to transfer a 0 after each sample in each slot. However the A10
-and A20 SoCs that this driver was developed on had a default
-setting where it padded the audio gain with zeros.
-
-This isn't a problem while we have only support for 16bit audio
-but with larger sample resolution rates in the pipeline then SEXT
-bits should be cleared so that they also pad at the LSB. Without
-this the audio gets distorted.
-
-Set sign extend sample for all the sunxi generations even if they
-are not affected. This will keep consistency and avoid relying on
-default.
+Extend the functionality of the driver to include support of 20 and
+24 bits per sample.
 
 Signed-off-by: Marcus Cooper <codekipper@gmail.com>
+Acked-by: Maxime Ripard <mripard@kernel.org>
 Reviewed-by: Chen-Yu Tsai <wens@csie.org>
 Signed-off-by: Clément Péron <peron.clem@gmail.com>
 ---
- sound/soc/sunxi/sun4i-i2s.c | 17 +++++++++++++++++
- 1 file changed, 17 insertions(+)
+ sound/soc/sunxi/sun4i-i2s.c | 11 +++++++++--
+ 1 file changed, 9 insertions(+), 2 deletions(-)
 
 diff --git a/sound/soc/sunxi/sun4i-i2s.c b/sound/soc/sunxi/sun4i-i2s.c
-index 70a2ec99f444..beaca56a44ae 100644
+index beaca56a44ae..eee1e64cd8f4 100644
 --- a/sound/soc/sunxi/sun4i-i2s.c
 +++ b/sound/soc/sunxi/sun4i-i2s.c
-@@ -48,6 +48,9 @@
- #define SUN4I_I2S_FMT0_FMT_I2S				(0 << 0)
- 
- #define SUN4I_I2S_FMT1_REG		0x08
-+#define SUN4I_I2S_FMT1_REG_SEXT_MASK		BIT(8)
-+#define SUN4I_I2S_FMT1_REG_SEXT(sext)			((sext) << 8)
-+
- #define SUN4I_I2S_FIFO_TX_REG		0x0c
- #define SUN4I_I2S_FIFO_RX_REG		0x10
- 
-@@ -105,6 +108,9 @@
- #define SUN8I_I2S_FMT0_BCLK_POLARITY_INVERTED		(1 << 7)
- #define SUN8I_I2S_FMT0_BCLK_POLARITY_NORMAL		(0 << 7)
- 
-+#define SUN8I_I2S_FMT1_REG_SEXT_MASK		GENMASK(5, 4)
-+#define SUN8I_I2S_FMT1_REG_SEXT(sext)			((sext) << 4)
-+
- #define SUN8I_I2S_INT_STA_REG		0x0c
- #define SUN8I_I2S_FIFO_TX_REG		0x20
- 
-@@ -685,6 +691,7 @@ static int sun4i_i2s_set_soc_fmt(const struct sun4i_i2s *i2s,
- 	}
- 	regmap_update_bits(i2s->regmap, SUN4I_I2S_CTRL_REG,
- 			   SUN4I_I2S_CTRL_MODE_MASK, val);
-+
+@@ -599,6 +599,9 @@ static int sun4i_i2s_hw_params(struct snd_pcm_substream *substream,
+ 	case 16:
+ 		width = DMA_SLAVE_BUSWIDTH_2_BYTES;
+ 		break;
++	case 32:
++		width = DMA_SLAVE_BUSWIDTH_4_BYTES;
++		break;
+ 	default:
+ 		dev_err(dai->dev, "Unsupported physical sample width: %d\n",
+ 			params_physical_width(params));
+@@ -1080,6 +1083,10 @@ static int sun4i_i2s_dai_probe(struct snd_soc_dai *dai)
  	return 0;
  }
  
-@@ -787,6 +794,11 @@ static int sun8i_i2s_set_soc_fmt(const struct sun4i_i2s *i2s,
- 			   SUN8I_I2S_CTRL_BCLK_OUT | SUN8I_I2S_CTRL_LRCK_OUT,
- 			   val);
- 
-+	/* Set sign extension to pad out LSB with 0 */
-+	regmap_update_bits(i2s->regmap, SUN4I_I2S_FMT1_REG,
-+			   SUN8I_I2S_FMT1_REG_SEXT_MASK,
-+			   SUN8I_I2S_FMT1_REG_SEXT(0));
++#define SUN4I_FORMATS	(SNDRV_PCM_FMTBIT_S16_LE | \
++			 SNDRV_PCM_FMTBIT_S20_LE | \
++			 SNDRV_PCM_FMTBIT_S24_LE)
 +
- 	return 0;
- }
- 
-@@ -889,6 +901,11 @@ static int sun50i_h6_i2s_set_soc_fmt(const struct sun4i_i2s *i2s,
- 			   SUN8I_I2S_CTRL_BCLK_OUT | SUN8I_I2S_CTRL_LRCK_OUT,
- 			   val);
- 
-+	/* Set sign extension to pad out LSB with 0 */
-+	regmap_update_bits(i2s->regmap, SUN4I_I2S_FMT1_REG,
-+			   SUN8I_I2S_FMT1_REG_SEXT_MASK,
-+			   SUN8I_I2S_FMT1_REG_SEXT(0));
-+
- 	return 0;
- }
- 
+ static struct snd_soc_dai_driver sun4i_i2s_dai = {
+ 	.probe = sun4i_i2s_dai_probe,
+ 	.capture = {
+@@ -1087,14 +1094,14 @@ static struct snd_soc_dai_driver sun4i_i2s_dai = {
+ 		.channels_min = 1,
+ 		.channels_max = 8,
+ 		.rates = SNDRV_PCM_RATE_8000_192000,
+-		.formats = SNDRV_PCM_FMTBIT_S16_LE,
++		.formats = SUN4I_FORMATS,
+ 	},
+ 	.playback = {
+ 		.stream_name = "Playback",
+ 		.channels_min = 1,
+ 		.channels_max = 8,
+ 		.rates = SNDRV_PCM_RATE_8000_192000,
+-		.formats = SNDRV_PCM_FMTBIT_S16_LE,
++		.formats = SUN4I_FORMATS,
+ 	},
+ 	.ops = &sun4i_i2s_dai_ops,
+ 	.symmetric_rates = 1,
 -- 
 2.25.1
 

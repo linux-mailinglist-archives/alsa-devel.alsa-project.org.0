@@ -2,97 +2,62 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B87A2299654
-	for <lists+alsa-devel@lfdr.de>; Mon, 26 Oct 2020 19:59:39 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1C1F62996DB
+	for <lists+alsa-devel@lfdr.de>; Mon, 26 Oct 2020 20:31:21 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 550F916EE;
-	Mon, 26 Oct 2020 19:58:49 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 550F916EE
+	by alsa0.perex.cz (Postfix) with ESMTPS id 6B71C16B3;
+	Mon, 26 Oct 2020 20:30:30 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6B71C16B3
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1603738779;
-	bh=pw5d5FnpqjZkbkA6Eq0B4iPgdRDJ2Ul2OuXptuDJGmU=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1603740680;
+	bh=mKXwla1Hx2ixSQQXCAYdP4xXvJmzWVKPk8YJPe5lYO4=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=Kmkae90Ua/BKlTy4WFUoDFRD1yprMa/B4tbWZ7+Y1rcV5qXIqlYBG2QJk4MRgoIEu
-	 RLMW3jjJXuJpdyVBBbUJuRPVIXVoIW4ZPmXQh5MOsZUqnSgxUxwWbTHjgCn3Wc5n1S
-	 5fqdQ3C2V3kdDybC5Qlytcd6+jJBIV6Tg1y0mScE=
+	b=mOq43IColCbLW1KAlWnGdcj7jKq5h3BcjXoJpr48IqMeuICi8QjO2vpUyjjWZ/E6Z
+	 mTLvznwkFzQZgDXJphEg+Nf4omy+VKoD3dUR+vFZc6/Y75Ds7r78kWu3nbmO9SoCyE
+	 upf576YgX7f6LhPL1XobhipJmfkZs6zwdHEJDS1Q=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id A5CECF80533;
-	Mon, 26 Oct 2020 19:53:20 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 8CBC0F80249;
+	Mon, 26 Oct 2020 20:29:48 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 30B2DF804F2; Mon, 26 Oct 2020 19:53:09 +0100 (CET)
+ id C97C5F80212; Mon, 26 Oct 2020 20:29:45 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_FROM,PRX_BODY_26,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from mail-wr1-x444.google.com (mail-wr1-x444.google.com
- [IPv6:2a00:1450:4864:20::444])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_MSPIKE_H3,
+ RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
+Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 9B871F804D8
- for <alsa-devel@alsa-project.org>; Mon, 26 Oct 2020 19:53:00 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9B871F804D8
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="DIqiIhUh"
-Received: by mail-wr1-x444.google.com with SMTP id x7so13935864wrl.3
- for <alsa-devel@alsa-project.org>; Mon, 26 Oct 2020 11:53:00 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding;
- bh=Q/UCGl1ZdUoHsUHtTTTH+r1dTXLa/BTl7CcT5LFzhtQ=;
- b=DIqiIhUhonx804JA3IaeN4hYc06KnnU2EF1HKTwHNUhQNo9r3vUj0GlTOnUeYYaOfp
- OwS1wS7/1Nc7Tj+8oDShX9ZS+alIoPCpa092o7cB6hNb46HA8Woik4JR2hmwEoHtyFAH
- ubCydzwQZbyED/0Q/+ZIN6a+9CWlOfyDJP+bODHkx7B2Kdk4LBro1mm4taAYttUWjBlO
- T1GFKt0B1Zzh5ENqkUeVQW6nbSJnFuvkXXPwJjfKG5qViRhNc6jpYrkCYj80JNWk9wQb
- z1Iv2Hqz7m4AGNEICuni8oOXh59dlODCdTnGTWZSuOPtWqfV1JgINpGqiL25tmrW1Eih
- ltIQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
- :references:mime-version:content-transfer-encoding;
- bh=Q/UCGl1ZdUoHsUHtTTTH+r1dTXLa/BTl7CcT5LFzhtQ=;
- b=CgVWBw/J+zHEw+UooR8OjgwadVOmLpI6Qf/6+TnV6uLw2e53x95EEXUqvFMPzb/kIj
- hQd5IUGWk7/7a1EGs3AV9cCW5aikjGwc6OXTI+eYMsGE3UAH+kPYrHd1lSp+FRBGSrZT
- VOeALign4wGm4EMyw8YKjkRDEHWYF/oiUxke82fzspUEF2Vh/+L4Ugjk/A+WvVc98XiO
- WjlQ8nYyb9/FF0FOvmDQfTmQkoYdEZG0WSMkHTNUxYOFNY5Ydx8pJR1UhKKruCNPR4ZK
- ejwngHI8TW7fHUWwUlinip4Ybuo6UYxXOBv886aCUg//6z6EJVqThThvxhXCHNv6bZC+
- q/6Q==
-X-Gm-Message-State: AOAM532clFk3bX6O67m2yCsIuy6lKVQ/eSUlfuvQC4XEyDslqXYVW6Jr
- H0PA8RXEkyQ9USrYnBDMB/o=
-X-Google-Smtp-Source: ABdhPJzt15q0t0XPBPjQPAJ/s6VmWe12hX+3q3e0QEM0Az41sDuRv5NLGwZwVlcatelVl1YVh6kC9w==
-X-Received: by 2002:adf:b787:: with SMTP id s7mr20510174wre.390.1603738379048; 
- Mon, 26 Oct 2020 11:52:59 -0700 (PDT)
-Received: from localhost.localdomain
- (lputeaux-656-1-11-33.w82-127.abo.wanadoo.fr. [82.127.142.33])
- by smtp.gmail.com with ESMTPSA id f7sm24885193wrx.64.2020.10.26.11.52.57
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 26 Oct 2020 11:52:58 -0700 (PDT)
-From: =?UTF-8?q?Cl=C3=A9ment=20P=C3=A9ron?= <peron.clem@gmail.com>
-To: Maxime Ripard <mripard@kernel.org>, Chen-Yu Tsai <wens@csie.org>,
- Rob Herring <robh+dt@kernel.org>, Mark Brown <broonie@kernel.org>,
- Liam Girdwood <lgirdwood@gmail.com>
-Subject: [PATCH v8 14/14] arm: dts: sunxi: h3/h5: Add I2S2 node
-Date: Mon, 26 Oct 2020 19:52:39 +0100
-Message-Id: <20201026185239.379417-15-peron.clem@gmail.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20201026185239.379417-1-peron.clem@gmail.com>
-References: <20201026185239.379417-1-peron.clem@gmail.com>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-Cc: devicetree@vger.kernel.org, Jernej Skrabec <jernej.skrabec@siol.net>,
- alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
- Takashi Iwai <tiwai@suse.com>, Marcus Cooper <codekipper@gmail.com>,
- linux-sunxi@googlegroups.com,
- =?UTF-8?q?Cl=C3=A9ment=20P=C3=A9ron?= <peron.clem@gmail.com>,
- linux-arm-kernel@lists.infradead.org
+ by alsa1.perex.cz (Postfix) with ESMTPS id A95EBF800CC
+ for <alsa-devel@alsa-project.org>; Mon, 26 Oct 2020 20:29:38 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A95EBF800CC
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id E56F7AE2B;
+ Mon, 26 Oct 2020 19:29:37 +0000 (UTC)
+Date: Mon, 26 Oct 2020 20:29:37 +0100
+Message-ID: <s5hsga03hwe.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Arnd Bergmann <arnd@kernel.org>
+Subject: Re: [PATCH] ALSA: make snd_kcontrol_new name a normal string
+In-Reply-To: <CAK8P3a2kdNuipus=_Jr=Scd5_E+68LDi4zxPLqrT05ffXzD7Xg@mail.gmail.com>
+References: <20201026165715.3723704-1-arnd@kernel.org>
+ <s5h4kmg537s.wl-tiwai@suse.de>
+ <CAK8P3a2kdNuipus=_Jr=Scd5_E+68LDi4zxPLqrT05ffXzD7Xg@mail.gmail.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
+ FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
+ (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
+Content-Type: text/plain; charset=US-ASCII
+Cc: "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ ALSA Development Mailing List <alsa-devel@alsa-project.org>,
+ "Gustavo A. R. Silva" <gustavoars@kernel.org>, Takashi Iwai <tiwai@suse.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -108,42 +73,36 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: Marcus Cooper <codekipper@gmail.com>
+On Mon, 26 Oct 2020 20:03:39 +0100,
+Arnd Bergmann wrote:
+> 
+> On Mon, Oct 26, 2020 at 6:03 PM Takashi Iwai <tiwai@suse.de> wrote:
+> > On Mon, 26 Oct 2020 17:52:18 +0100,
+> > Arnd Bergmann wrote:
+> > >
+> > > From: Arnd Bergmann <arnd@arndb.de>
+> > >
+> > > When building with W=2, there are lots of warnings about the
+> > > snd_kcontrol_new name field being an array of 'unsigned char'
+> > > but initialized to a string:
+> > >
+> > > include/sound/soc.h:93:48: warning: pointer targets in initialization of 'const unsigned char *' from 'char *' differ in signedness [-Wpointer-sign]
+> > >
+> > > Make it a regular 'char *' to avoid flooding the build log with this.
+> > >
+> > > Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+> > > Signed-off-by: Arnd Bergmann <arnd@arndb.de>
+> >
+> > I'm fine to apply this, but I thought we agreed to ignore pointer
+> > signedness intentionally?  There are lots of such places and we were
+> > fed up in the past when gcc complained a lot about those...
+> 
+> I'm only sending fixes for the ones in headers that get included in
+> a lot of places. There are good reasons for building being able to
+> build specific drivers or directories with W=2, but it's less helpful
+> if there are many identical warnings.
 
-Add H3/H5 I2S2 node connected to the HDMI interface.
+OK, now I applied the patch.  Thanks!
 
-Signed-off-by: Jernej Skrabec <jernej.skrabec@siol.net>
-Signed-off-by: Marcus Cooper <codekipper@gmail.com>
-Acked-by: Chen-Yu Tsai <wens@csie.org>
-Signed-off-by: Clément Péron <peron.clem@gmail.com>
----
- arch/arm/boot/dts/sunxi-h3-h5.dtsi | 13 +++++++++++++
- 1 file changed, 13 insertions(+)
 
-diff --git a/arch/arm/boot/dts/sunxi-h3-h5.dtsi b/arch/arm/boot/dts/sunxi-h3-h5.dtsi
-index 22d533d18992..9be13378d4df 100644
---- a/arch/arm/boot/dts/sunxi-h3-h5.dtsi
-+++ b/arch/arm/boot/dts/sunxi-h3-h5.dtsi
-@@ -662,6 +662,19 @@ i2s1: i2s@1c22400 {
- 			status = "disabled";
- 		};
- 
-+		i2s2: i2s@1c22800 {
-+			#sound-dai-cells = <0>;
-+			compatible = "allwinner,sun8i-h3-i2s";
-+			reg = <0x01c22800 0x400>;
-+			interrupts = <GIC_SPI 15 IRQ_TYPE_LEVEL_HIGH>;
-+			clocks = <&ccu CLK_BUS_I2S2>, <&ccu CLK_I2S2>;
-+			clock-names = "apb", "mod";
-+			dmas = <&dma 27>;
-+			resets = <&ccu RST_BUS_I2S2>;
-+			dma-names = "tx";
-+			status = "disabled";
-+		};
-+
- 		codec: codec@1c22c00 {
- 			#sound-dai-cells = <0>;
- 			compatible = "allwinner,sun8i-h3-codec";
--- 
-2.25.1
-
+Takashi

@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0E6EE299AFE
-	for <lists+alsa-devel@lfdr.de>; Tue, 27 Oct 2020 00:47:07 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id A5D1F299AFF
+	for <lists+alsa-devel@lfdr.de>; Tue, 27 Oct 2020 00:47:20 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A860F16B4;
-	Tue, 27 Oct 2020 00:46:16 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A860F16B4
+	by alsa0.perex.cz (Postfix) with ESMTPS id 23C7A16C0;
+	Tue, 27 Oct 2020 00:46:30 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 23C7A16C0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1603756026;
-	bh=W0GHurfLARJJgjJlVQfEHZ2+dhsR3twtgbYlogiwXaA=;
+	s=default; t=1603756040;
+	bh=lLxjByEzEqHVGHizHikGSChzrt/ikoW1DrIWmsD1Oog=;
 	h=Date:From:To:In-Reply-To:References:Subject:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=WJeW4ysWkvq2iTuC+QUmz0WE9u5cLEoqlqRgQJPn3Cdud5rspymWkiVKUHTI1JoNl
-	 KVqq43v9I6Nwrs792sEpJm/CkC0mBe8N0r0/JJJ8i+nrnujcEP+SPSgFa/hwn+v6MO
-	 ZCopguLrpR5MED2ErFTHuUPfEfigd7tohCykguL8=
+	b=f0ei5JltlTIJdo7XFVXa+l3XdpsHpEkiTA9gci15Qh5oYbshWcwVkucVJFjYI27UA
+	 PI++/Th8kEG6nL8uDTog+6/cNJXkLJEluau1YUEqlgy5orrLiL79md5i8nPzZmwXnO
+	 d72TMA6ZnILDcTFCUw0QU1VJ9eOY0ZEvI08vK3Ok=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 017D8F80249;
-	Tue, 27 Oct 2020 00:45:35 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 43D7DF80276;
+	Tue, 27 Oct 2020 00:45:41 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 6F44EF80212; Tue, 27 Oct 2020 00:45:33 +0100 (CET)
+ id 7E750F80272; Tue, 27 Oct 2020 00:45:37 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -34,37 +34,38 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 6968DF80086
- for <alsa-devel@alsa-project.org>; Tue, 27 Oct 2020 00:45:29 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6968DF80086
+ by alsa1.perex.cz (Postfix) with ESMTPS id F2244F80212
+ for <alsa-devel@alsa-project.org>; Tue, 27 Oct 2020 00:45:34 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz F2244F80212
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="Yz8lb+7H"
+ header.b="SWTwigaZ"
 Received: from localhost (fw-tnat.cambridge.arm.com [217.140.96.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 4E9D220714;
- Mon, 26 Oct 2020 23:45:27 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id 7726320714;
+ Mon, 26 Oct 2020 23:45:32 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1603755927;
- bh=W0GHurfLARJJgjJlVQfEHZ2+dhsR3twtgbYlogiwXaA=;
+ s=default; t=1603755933;
+ bh=lLxjByEzEqHVGHizHikGSChzrt/ikoW1DrIWmsD1Oog=;
  h=Date:From:To:Cc:In-Reply-To:References:Subject:From;
- b=Yz8lb+7H9sq3ef9LwgvLJkqXJdBGord+M51p3ULMYoUFXPA5UZ0JECfvUu2GR56w5
- ifKXrxvwpf7S4k3iXGP7Ype3JA9Ie+K5C6/eCplWzMHZ38QP1N/3q5XqC/qsJXzjQl
- cWQoutw5FwocAGv9T24Hqhzl+c+9HmpElL+cSwPg=
-Date: Mon, 26 Oct 2020 23:45:23 +0000
+ b=SWTwigaZOVO7f3S++lfl04YJUrkFgbnxmXPHO31eWkDjAHTzjRRxJUWcs/7YaUTZc
+ ZC3mAbYhjZau+jyu1y3M2dHjO8sNBws+ZBr/jYLS+8rjghVgg50yv/S8HHL5XTtoCo
+ k5VHv1MqWslDAxir2E9h6unNdsc33hGRRi8BsPlM=
+Date: Mon, 26 Oct 2020 23:45:28 +0000
 From: Mark Brown <broonie@kernel.org>
-To: Xiubo.Lee@gmail.com, timur@kernel.org,
- Shengjiu Wang <shengjiu.wang@nxp.com>, perex@perex.cz, tiwai@suse.com,
- festevam@gmail.com, alsa-devel@alsa-project.org, nicoleotsuka@gmail.com
-In-Reply-To: <1602557360-18795-1-git-send-email-shengjiu.wang@nxp.com>
-References: <1602557360-18795-1-git-send-email-shengjiu.wang@nxp.com>
-Subject: Re: [PATCH v2] ASoC: fsl_spdif: Add support for higher sample rates
-Message-Id: <160375592346.31132.5202638686787064614.b4-ty@kernel.org>
+To: alsa-devel@alsa-project.org,
+ Codrin Ciubotariu <codrin.ciubotariu@microchip.com>,
+ linux-kernel@vger.kernel.org
+In-Reply-To: <20201012141911.3150996-1-codrin.ciubotariu@microchip.com>
+References: <20201012141911.3150996-1-codrin.ciubotariu@microchip.com>
+Subject: Re: [PATCH] ASoC: pcm5102a: Make codec selectable
+Message-Id: <160375592346.31132.3991305992600286336.b4-ty@kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Cc: linuxppc-dev@lists.ozlabs.org, linux-kernel@vger.kernel.org
+Cc: kernel@martin.sperl.org, florian.meier@koalo.de, tiwai@suse.com,
+ lgirdwood@gmail.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -80,9 +81,11 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Tue, 13 Oct 2020 10:49:20 +0800, Shengjiu Wang wrote:
-> Add 88200Hz and 176400Hz sample rates support for TX.
-> Add 88200Hz, 176400Hz, 192000Hz sample rates support for RX.
+On Mon, 12 Oct 2020 17:19:11 +0300, Codrin Ciubotariu wrote:
+> The TI PCM5102A codec driver can be used with the generic sound card
+> drivers, so it should be selectable. For example, with the addition
+> of #sound-dai-cells = <0> property in DT, it can be used with simple/graph
+> card drivers.
 
 Applied to
 
@@ -90,8 +93,8 @@ Applied to
 
 Thanks!
 
-[1/1] ASoC: fsl_spdif: Add support for higher sample rates
-      commit: 1bfa3eaa4511256ab14555ab2573e6e75194b1fa
+[1/1] ASoC: pcm5102a: Make codec selectable
+      commit: 76b5f68bbf7df9343b69fbee04d5edf50680c231
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

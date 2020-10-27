@@ -2,78 +2,78 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 18D6229CEDB
-	for <lists+alsa-devel@lfdr.de>; Wed, 28 Oct 2020 09:11:24 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id ACC2B29CEDC
+	for <lists+alsa-devel@lfdr.de>; Wed, 28 Oct 2020 09:11:38 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id AA52E166D;
-	Wed, 28 Oct 2020 09:10:33 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AA52E166D
+	by alsa0.perex.cz (Postfix) with ESMTPS id 4EB1F1686;
+	Wed, 28 Oct 2020 09:10:48 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4EB1F1686
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1603872683;
-	bh=Qdypxaywex8+kOoD7cGhAruA7nGLt32GwpxHDK29mdw=;
+	s=default; t=1603872698;
+	bh=l8y8VH4rh3h9P3FRFKi1vvyPfxXBdcr/g2kMF736tFc=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=rOAf7eWxkJxzBjNnEQnKrBJq6GQTn3JDxhv7wDRtq8JIzI6OO1U3PNIdIkX6g8i8i
-	 JAy4+g2KSI81+JYM+pIDH9khfcQextVMSKAjMYYLJ8nzNamCW0oplBjDl6e5YMRts+
-	 GCd0/JEtwGHXEiEnXSgCpUXXCYBnNTYj5YLaISL8=
+	b=nG5Vh+fJ/amFcC4eimzcyTCdExMNkoUwUTASumY5cRPH1oXOr+n3xEjvQ47lyhwHv
+	 wpzzmNdRZIyfcW2Un9bH6iXhvoxdMr68apfTf4OwZzEyDA1oHcMkyuXHF+4/eo6ucK
+	 sidJlnvy7fqHPo4UDp+DBliZcgbCrzPQ+5fhO4Go=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 08FB9F804FE;
+	by alsa1.perex.cz (Postfix) with ESMTP id C5C7FF8050F;
 	Wed, 28 Oct 2020 09:06:56 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 3883BF80217; Tue, 27 Oct 2020 13:18:01 +0100 (CET)
+ id 32B8EF8020D; Tue, 27 Oct 2020 13:18:03 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mail-wm1-x344.google.com (mail-wm1-x344.google.com
- [IPv6:2a00:1450:4864:20::344])
+Received: from mail-wm1-x342.google.com (mail-wm1-x342.google.com
+ [IPv6:2a00:1450:4864:20::342])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 726A6F8020D
- for <alsa-devel@alsa-project.org>; Tue, 27 Oct 2020 13:17:54 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 726A6F8020D
+ by alsa1.perex.cz (Postfix) with ESMTPS id 57534F80227
+ for <alsa-devel@alsa-project.org>; Tue, 27 Oct 2020 13:17:56 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 57534F80227
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=bgdev-pl.20150623.gappssmtp.com
- header.i=@bgdev-pl.20150623.gappssmtp.com header.b="yOHWFHMO"
-Received: by mail-wm1-x344.google.com with SMTP id l15so1204146wmi.3
- for <alsa-devel@alsa-project.org>; Tue, 27 Oct 2020 05:17:54 -0700 (PDT)
+ header.i=@bgdev-pl.20150623.gappssmtp.com header.b="uINaxail"
+Received: by mail-wm1-x342.google.com with SMTP id v5so1170727wmh.1
+ for <alsa-devel@alsa-project.org>; Tue, 27 Oct 2020 05:17:56 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=bgdev-pl.20150623.gappssmtp.com; s=20150623;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=J57Co4keOJLPpkOAtm30WeNaGboSbDo7KGbxSzSraLw=;
- b=yOHWFHMOzbagC0sIByz6wesCWV3cXS/nI3Cmoh9rPQnQfktOmQ2fHmfj8t5QiyPB1i
- JUphXOi/RvRU2h+y1C0PS56sy6nIPSViAjZH7ZD1nL0kVb70/VdVHhj/AlJj5MwbzGtT
- Fz4SQHpcI/4fYul/80WnINgeUHB50rR1cTYD2+ptya0cZz6H6MnTFFgMAr7/MnsWRrjc
- rDDqtu/ht+rkyImTxS5uHgJepl4JUTv6GjjiiaPzGql9lSo9xdd048jkI/Kvk/PDUJaD
- tXJ1HdRkottcOLQk8yrpkIleD3Wyxw+1fcCHjnYdEOneZJMoeya+bL6uoh2P347Mm79Q
- Or/Q==
+ bh=nNS5tvBpA/i0H7p7l8m9y8bW5QzwJCcb9cwqd3juySc=;
+ b=uINaxail9sUfALoEWstn2csJR9jE7v9clDsZtLcLiOMSXg2LAVFIQqN6lHKyyZUd4l
+ jRiwMGMG4DxMFJH69rSCLOtob+027D28VPhBQtpIrjKA/W5lb5Kv+7Q+cjTTcQNW8hxv
+ wUoV9A8I84g3amtYBnRWsQ9zCBUoSUYIxS8yqik5kvDE0D17HbZwhUPBEWV0xwo4eSQB
+ xtGlMRrIXAwBsMOZYueqppFbh9JQaNXeAayhSnZZJNrW9nmKvVAevDfxEiP//pXPGQn7
+ 22ZoAAwvkiz2v+dHQuQfEfVqcnXh5D2KeVL1FBqvTUVKMuvl7wX7b6wRp1orV+Uuzzwn
+ SgBA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=J57Co4keOJLPpkOAtm30WeNaGboSbDo7KGbxSzSraLw=;
- b=FuutPaClPdoyNtaoOmzZlrQm4QyVGV9Jqdo8SS2BtvFLoFUaDlkYsFZQelILTHVt9r
- 3nVvGOok1CkmPFh9VUvRt/jyDIbTFgJ6PqnB32q+fR/r/8jfwoyiFFzjRR8btyZ+vIi/
- B3pQccdjmpWqefwQ84b3TDYZR030jVxhVjavRjp+LdhRum5ppwAh8kyfMYRDx32t/wt/
- 6wk6ckWUOfGberVOIpLYjWlgalAvlsz4fAq84yaaBqidpxKH0LoE6piV5x2RvxLyjwL2
- 5nXyx8GdJLPMz0gEVgVCNJLhJgdmkNIPWXffSOyp8+Jw5Hu3uvhi0+rMSGQ3wMVqj8VH
- v1Gw==
-X-Gm-Message-State: AOAM5321Xuzfx7QEan2G9izivt1WGpchvns3yi5o4psKZmSHPFgmE1aP
- o38MVjYXge4qAKDr5G0DG7Vp/w==
-X-Google-Smtp-Source: ABdhPJzwzTmHdRfbZ3iyfMT0YC13fJkeiYScFTFd2MhD0PJKT6LJ0wGB9w/fQb4FZN9R2w5rbG6dAQ==
-X-Received: by 2002:a7b:c92c:: with SMTP id h12mr2566357wml.134.1603801070666; 
- Tue, 27 Oct 2020 05:17:50 -0700 (PDT)
+ bh=nNS5tvBpA/i0H7p7l8m9y8bW5QzwJCcb9cwqd3juySc=;
+ b=A+ffy4nxbvvBtmeeMQzWEEhTUgFGFbIs0CM5Y4CXb8HyJfdlOoTeB+1fsDub+YGm92
+ PuQuVghNV2w/1e4kH+h75BtqjiK5WgjGrQ0DvlRV9rHi3L4Vo53RxHORBmEV/BsCag87
+ bOgepOy9tSD0m1o+JeDB1Dm8eJwz6dE7Pm/jnfu2IZ7cEVbbUi3uHnWjQjjSOVu/QIKh
+ FWkImar2qKb6yz7FeqIiJWtqHNR6/Sa4W0cPTDYR2y71CStknufNm7MmlUawSujbguRG
+ NcGT4fhtU2FkFgUXtXR/lkSbb1zvnqribS3ZFMFTveX0iE2YVAmEIjJlpo3UzUFrhxob
+ xZ+A==
+X-Gm-Message-State: AOAM531lOIylqQUHuW9zdKOKWNcT/rysAEkrmA7cis3pJSY/5eB+Ytbg
+ /A1hzABsVTyvweq6rbFVdSlMnA==
+X-Google-Smtp-Source: ABdhPJwlnp8d7/fOEkypkqwExUCmIl2RKP9vSFIY6Z3TXZuynGv+gQ6ZzaCTjRN4xR7i9/EdKZccow==
+X-Received: by 2002:a1c:28d4:: with SMTP id o203mr2460319wmo.143.1603801072719; 
+ Tue, 27 Oct 2020 05:17:52 -0700 (PDT)
 Received: from debian-brgl.home (amarseille-656-1-4-167.w90-8.abo.wanadoo.fr.
  [90.8.158.167])
- by smtp.gmail.com with ESMTPSA id a2sm1731908wrs.55.2020.10.27.05.17.48
+ by smtp.gmail.com with ESMTPSA id a2sm1731908wrs.55.2020.10.27.05.17.50
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 27 Oct 2020 05:17:49 -0700 (PDT)
+ Tue, 27 Oct 2020 05:17:51 -0700 (PDT)
 From: Bartosz Golaszewski <brgl@bgdev.pl>
 To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
  Sumit Semwal <sumit.semwal@linaro.org>,
@@ -93,9 +93,9 @@ To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
  David Rientjes <rientjes@google.com>, Joonsoo Kim <iamjoonsoo.kim@lge.com>,
  Andrew Morton <akpm@linux-foundation.org>,
  Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>
-Subject: [PATCH 7/8] hwtracing: intel: use krealloc_array()
-Date: Tue, 27 Oct 2020 13:17:24 +0100
-Message-Id: <20201027121725.24660-8-brgl@bgdev.pl>
+Subject: [PATCH 8/8] dma-buf: use krealloc_array()
+Date: Tue, 27 Oct 2020 13:17:25 +0100
+Message-Id: <20201027121725.24660-9-brgl@bgdev.pl>
 X-Mailer: git-send-email 2.29.1
 In-Reply-To: <20201027121725.24660-1-brgl@bgdev.pl>
 References: <20201027121725.24660-1-brgl@bgdev.pl>
@@ -130,22 +130,24 @@ calculating the size of the new array.
 
 Signed-off-by: Bartosz Golaszewski <bgolaszewski@baylibre.com>
 ---
- drivers/hwtracing/intel_th/msu.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/dma-buf/sync_file.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/hwtracing/intel_th/msu.c b/drivers/hwtracing/intel_th/msu.c
-index 3a77551fb4fc..7d95242db900 100644
---- a/drivers/hwtracing/intel_th/msu.c
-+++ b/drivers/hwtracing/intel_th/msu.c
-@@ -2002,7 +2002,7 @@ nr_pages_store(struct device *dev, struct device_attribute *attr,
- 		}
+diff --git a/drivers/dma-buf/sync_file.c b/drivers/dma-buf/sync_file.c
+index 5a5a1da01a00..2925ea03eef0 100644
+--- a/drivers/dma-buf/sync_file.c
++++ b/drivers/dma-buf/sync_file.c
+@@ -270,8 +270,8 @@ static struct sync_file *sync_file_merge(const char *name, struct sync_file *a,
+ 		fences[i++] = dma_fence_get(a_fences[0]);
  
- 		nr_wins++;
--		rewin = krealloc(win, sizeof(*win) * nr_wins, GFP_KERNEL);
-+		rewin = krealloc_array(win, nr_wins, sizeof(*win), GFP_KERNEL);
- 		if (!rewin) {
- 			kfree(win);
- 			return -ENOMEM;
+ 	if (num_fences > i) {
+-		nfences = krealloc(fences, i * sizeof(*fences),
+-				  GFP_KERNEL);
++		nfences = krealloc_array(fences, i,
++					 sizeof(*fences), GFP_KERNEL);
+ 		if (!nfences)
+ 			goto err;
+ 
 -- 
 2.29.1
 

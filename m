@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1068B29CA6B
-	for <lists+alsa-devel@lfdr.de>; Tue, 27 Oct 2020 21:41:07 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 93C5529CA81
+	for <lists+alsa-devel@lfdr.de>; Tue, 27 Oct 2020 21:41:57 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 780C316B6;
-	Tue, 27 Oct 2020 21:40:16 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 780C316B6
+	by alsa0.perex.cz (Postfix) with ESMTPS id 13F6916B4;
+	Tue, 27 Oct 2020 21:41:07 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 13F6916B4
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1603831266;
-	bh=mYpKtnquAkaw0Puhc9R5givJhzU92gCc5aMlJAvKy5A=;
+	s=default; t=1603831317;
+	bh=OioNNIMpmE73+hdu17irdscY8n2O0KgLmga33QfwV9k=;
 	h=Date:From:To:In-Reply-To:References:Subject:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=hsIHvSTg57rQYaeXJ9v9s2fjNm9+yjiKg/dQNpVG/0i2/bdomfE5ijhVnilPhu4iP
-	 +G5bqXt5IO0xOvOUNE7YduZGQDBq3g48f+nCFTSUTDg/dvmDTJKL77DU1ixCegVL0A
-	 NUtAmUtTg9rP6BZQGoX74gK3QuGDEDeJc7EdsQK4=
+	b=KeO1nwE0XQg175LBIofpYOHN3h2OuI9WeojxJcHFUqEFcnKRpWv+h9ujtvMi03J60
+	 VxXBCcQ6afx5MGHdzqehCFjC6ECdU/R5EjIalX84a53OZSs7Kwv45rGqMH45mR601Y
+	 /qjliVhDz4D/3I2cGAU5ueS6jNWyjXlpbOW+yd9I=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id CD307F800FF;
-	Tue, 27 Oct 2020 21:39:33 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id AEA9BF8027C;
+	Tue, 27 Oct 2020 21:39:45 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id AC7EAF80217; Tue, 27 Oct 2020 21:39:31 +0100 (CET)
+ id 296A0F80227; Tue, 27 Oct 2020 21:39:37 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -34,31 +34,32 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 47E45F800FF
- for <alsa-devel@alsa-project.org>; Tue, 27 Oct 2020 21:39:29 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 47E45F800FF
+ by alsa1.perex.cz (Postfix) with ESMTPS id 7BBD2F80217
+ for <alsa-devel@alsa-project.org>; Tue, 27 Oct 2020 21:39:34 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7BBD2F80217
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="yuWXYEvW"
+ header.b="JyinfZlG"
 Received: from localhost (fw-tnat.cambridge.arm.com [217.140.96.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id EA80D21D24;
- Tue, 27 Oct 2020 20:39:26 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id 219C420725;
+ Tue, 27 Oct 2020 20:39:31 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1603831167;
- bh=mYpKtnquAkaw0Puhc9R5givJhzU92gCc5aMlJAvKy5A=;
+ s=default; t=1603831172;
+ bh=OioNNIMpmE73+hdu17irdscY8n2O0KgLmga33QfwV9k=;
  h=Date:From:To:Cc:In-Reply-To:References:Subject:From;
- b=yuWXYEvWJqnUWwZ4LArKjQ2rNVy5ldDSAbAh5w030eTKUu/0QoxGDghRhsVEe967e
- fdki/g21ZM1CyWRCyb4OSNjxGYZPVPKe2SvScRP/cGDL6whBEeawOjQvRtcINcf2to
- VytAQ5NV5Bf6PmhFvqXEiKa9l3/dp1GIfg/k9CjM=
-Date: Tue, 27 Oct 2020 20:39:22 +0000
+ b=JyinfZlG2CozbpmBQ6+cM9Yb/0avAmc9+61oDeEOKKDUHeeQzElkfQyIDwpzfIBgC
+ 2xQlKrFvAS6gksWtKBMBgqCUuCnX6BG27mjIVAQTJmJKI/AIBteAZjoNPclxqFAah9
+ Dn6Ms/BwgMpixxJtXW2Yrxd8WFL6jtDdiAFz7ols=
+Date: Tue, 27 Oct 2020 20:39:27 +0000
 From: Mark Brown <broonie@kernel.org>
 To: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
-In-Reply-To: <20201022130254.29937-1-srinivas.kandagatla@linaro.org>
-References: <20201022130254.29937-1-srinivas.kandagatla@linaro.org>
-Subject: Re: [PATCH] ASoC: qcom: qdsp6: make use of devm_of_platform_populate
-Message-Id: <160383115672.25818.3206390931221282078.b4-ty@kernel.org>
+In-Reply-To: <20201027111526.12326-1-srinivas.kandagatla@linaro.org>
+References: <20201027111526.12326-1-srinivas.kandagatla@linaro.org>
+Subject: Re: [PATCH v2] ASoC: qcom: qdsp6: make use of
+ devm_of_platform_populate
+Message-Id: <160383115673.25818.13026629187393927150.b4-ty@kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
@@ -79,7 +80,7 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Thu, 22 Oct 2020 14:02:54 +0100, Srinivas Kandagatla wrote:
+On Tue, 27 Oct 2020 11:15:26 +0000, Srinivas Kandagatla wrote:
 > make use of devm_of_platform_populate to remove some redundant code!
 
 Applied to

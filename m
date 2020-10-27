@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9725229A5BE
-	for <lists+alsa-devel@lfdr.de>; Tue, 27 Oct 2020 08:47:42 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 82E1329A653
+	for <lists+alsa-devel@lfdr.de>; Tue, 27 Oct 2020 09:13:45 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 3971D16A6;
-	Tue, 27 Oct 2020 08:46:52 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3971D16A6
+	by alsa0.perex.cz (Postfix) with ESMTPS id 16AB816A6;
+	Tue, 27 Oct 2020 09:12:55 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 16AB816A6
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1603784862;
-	bh=K80mSVUu8Ox4RIpggAqPrrzSxMNuK0Vfnycqz8Tci60=;
+	s=default; t=1603786425;
+	bh=5EUa4L20SPbsfR7qG4JsA6MqSTyzycilr5mdi6cC+2I=;
 	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=AfSQDGTPAuN1UJhI8cBZZ+FXzTc3itynKtKNM4qZGQkBx6zPOP969JxYECBb+VMEG
-	 aB6LbCsRGPk4k73iOQvmSEBEN0F7dtgwfa7a7IQibtUsoem/lkP40COXN69CG+tVfj
-	 DsD+hW8AMQByr2abFb5DaK/NEDR+uIsoJcN/bU7c=
+	b=t4LKfS69YlCPdTRlmqz8+2Ukbg1SuEYuXJ+zsnnbu2BTrRrAiuN+4fgbG+tCXn76O
+	 orb4HGD22vX7EbH2j45To8BCiOymFj06Sf+T0eggTrVhJOJnEQVVPl1xNOtsCR10Ku
+	 bHWafaJV1V7z/HqKM44Ni8ILifr1SU3+75RODrl8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id B5EA0F801D8;
-	Tue, 27 Oct 2020 08:46:10 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 9C3BAF80086;
+	Tue, 27 Oct 2020 09:12:13 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 909F2F8020D; Tue, 27 Oct 2020 08:46:08 +0100 (CET)
+ id E3E2DF8020D; Tue, 27 Oct 2020 09:12:10 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_MSPIKE_H3,
@@ -33,21 +33,22 @@ X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_MSPIKE_H3,
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id CB5F5F80086
- for <alsa-devel@alsa-project.org>; Tue, 27 Oct 2020 08:46:05 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CB5F5F80086
+ by alsa1.perex.cz (Postfix) with ESMTPS id 503D9F800FF
+ for <alsa-devel@alsa-project.org>; Tue, 27 Oct 2020 09:12:07 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 503D9F800FF
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 18D0FAF72;
- Tue, 27 Oct 2020 07:46:05 +0000 (UTC)
-Date: Tue, 27 Oct 2020 08:46:05 +0100
-Message-ID: <s5hlffs2jsy.wl-tiwai@suse.de>
+ by mx2.suse.de (Postfix) with ESMTP id 80099AC2F;
+ Tue, 27 Oct 2020 08:12:07 +0000 (UTC)
+Date: Tue, 27 Oct 2020 09:12:07 +0100
+Message-ID: <s5himaw2ilk.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
 To: Kai-Heng Feng <kai.heng.feng@canonical.com>
 Subject: Re: [PATCH v2 3/4] ALSA: hda: Separate runtime and system suspend
-In-Reply-To: <20201027054001.1800-4-kai.heng.feng@canonical.com>
+In-Reply-To: <s5hlffs2jsy.wl-tiwai@suse.de>
 References: <20201027054001.1800-1-kai.heng.feng@canonical.com>
  <20201027054001.1800-4-kai.heng.feng@canonical.com>
+ <s5hlffs2jsy.wl-tiwai@suse.de>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
  FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
  (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
@@ -70,34 +71,26 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Tue, 27 Oct 2020 06:40:00 +0100,
-Kai-Heng Feng wrote:
-> @@ -1002,7 +1001,8 @@ static void __azx_runtime_resume(struct azx *chip, bool from_rt)
->  	azx_init_pci(chip);
->  	hda_intel_init_chip(chip, true);
->  
-> -	if (from_rt) {
-> +	/* Avoid codec resume if runtime resume is for system suspend */
-> +	if (from_rt && !chip->prepared) {
+On Tue, 27 Oct 2020 08:46:05 +0100,
+Takashi Iwai wrote:
+> > @@ -1103,10 +1115,8 @@ static int azx_runtime_suspend(struct device *dev)
+> >  	chip = card->private_data;
+> >  
+> >  	/* enable controller wake up event */
+> > -	if (snd_power_get_state(card) == SNDRV_CTL_POWER_D0) {
+> > -		azx_writew(chip, WAKEEN, azx_readw(chip, WAKEEN) |
+> > -			   STATESTS_INT_MASK);
+> > -	}
+> > +	azx_writew(chip, WAKEEN, azx_readw(chip, WAKEEN) |
+> > +		   STATESTS_INT_MASK);
+> 
+> ... here we should have the check of chip->prepared, and set WAKEEN
+> only when it's false.  Otherwise WAKEEN is set up for the system
+> suspend, and it might lead to spurious wakeups.  (IOW, checking the
+> flag at resume doesn't help for preventing the spurious wakeup :)
 
-The check of chip->prepared is superfluous here.  Its check should be
-applied rather at setting WAKEEN, namely...
-
-> @@ -1103,10 +1115,8 @@ static int azx_runtime_suspend(struct device *dev)
->  	chip = card->private_data;
->  
->  	/* enable controller wake up event */
-> -	if (snd_power_get_state(card) == SNDRV_CTL_POWER_D0) {
-> -		azx_writew(chip, WAKEEN, azx_readw(chip, WAKEEN) |
-> -			   STATESTS_INT_MASK);
-> -	}
-> +	azx_writew(chip, WAKEEN, azx_readw(chip, WAKEEN) |
-> +		   STATESTS_INT_MASK);
-
-... here we should have the check of chip->prepared, and set WAKEEN
-only when it's false.  Otherwise WAKEEN is set up for the system
-suspend, and it might lead to spurious wakeups.  (IOW, checking the
-flag at resume doesn't help for preventing the spurious wakeup :)
+Scratch my comment above; it's the code path only for the runtime
+suspend in your new code, then this cleanup makes sense.
 
 
 thanks,

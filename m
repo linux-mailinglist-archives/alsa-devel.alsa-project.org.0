@@ -2,49 +2,49 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id ADFA229A260
-	for <lists+alsa-devel@lfdr.de>; Tue, 27 Oct 2020 02:52:26 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6570B29A264
+	for <lists+alsa-devel@lfdr.de>; Tue, 27 Oct 2020 02:53:05 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E65F016B6;
-	Tue, 27 Oct 2020 02:51:35 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E65F016B6
+	by alsa0.perex.cz (Postfix) with ESMTPS id 09809169F;
+	Tue, 27 Oct 2020 02:52:15 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 09809169F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1603763546;
-	bh=mwtxsqD/YfRPUbgO/jp6K4jd+COnovqAC85LtsP4k2w=;
+	s=default; t=1603763585;
+	bh=rd+jXzC1PXfsWyqalMQCsuoQobFnjqde/4CtbbM2gxI=;
 	h=Date:From:Subject:To:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=DrV/wJbZiJqF42nlJssbG9VvAWiTuzo5JwZMbE6h28FAFJV/JXv392xDGhXoLR3W7
-	 EdkIC2CmxaRz6mxixsqi6qxjxegJUFgW7BCbX4M0e5nGKMpGSX3xH0StpVXFg3Oh7/
-	 AbVgapfN20gnxVWP5HWdbsc+ngkREB8wBjRrJEaw=
+	b=tm0imDTERZ7dM2tw2MhFldQ8iqg3kyt1chdBKwbghAjIXCiNLM7rxmpF6ait+SwDI
+	 biCho8fzbdpxLmD5fLVXOiRYHIUwKN9TbiXG1EYryciHaQEGSduuJkNao7eJ3Clot7
+	 EeuJZt0EnZsZ64XcWVW8a0tibStd7jnDHuMlVYu8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 69E04F80272;
-	Tue, 27 Oct 2020 02:51:28 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id C8D60F804BC;
+	Tue, 27 Oct 2020 02:51:38 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id F28E2F8026D; Tue, 27 Oct 2020 02:51:26 +0100 (CET)
+ id 52637F804BB; Tue, 27 Oct 2020 02:51:37 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
  URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from relmlie5.idc.renesas.com (relmlor1.renesas.com
- [210.160.252.171])
- by alsa1.perex.cz (Postfix) with ESMTP id 92855F800CC
- for <alsa-devel@alsa-project.org>; Tue, 27 Oct 2020 02:51:19 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 92855F800CC
-Date: 27 Oct 2020 10:51:17 +0900
-X-IronPort-AV: E=Sophos;i="5.77,422,1596466800"; d="scan'208";a="60884163"
+Received: from relmlie6.idc.renesas.com (relmlor2.renesas.com
+ [210.160.252.172])
+ by alsa1.perex.cz (Postfix) with ESMTP id 85D5AF804BC
+ for <alsa-devel@alsa-project.org>; Tue, 27 Oct 2020 02:51:30 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 85D5AF804BC
+Date: 27 Oct 2020 10:51:28 +0900
+X-IronPort-AV: E=Sophos;i="5.77,422,1596466800"; d="scan'208";a="60668221"
 Received: from unknown (HELO relmlir5.idc.renesas.com) ([10.200.68.151])
- by relmlie5.idc.renesas.com with ESMTP; 27 Oct 2020 10:51:17 +0900
+ by relmlie6.idc.renesas.com with ESMTP; 27 Oct 2020 10:51:28 +0900
 Received: from mercury.renesas.com (unknown [10.166.252.133])
- by relmlir5.idc.renesas.com (Postfix) with ESMTP id DC2F54009BCD;
- Tue, 27 Oct 2020 10:51:17 +0900 (JST)
-Message-ID: <87v9ewfnj9.wl-kuninori.morimoto.gx@renesas.com>
+ by relmlir5.idc.renesas.com (Postfix) with ESMTP id 8C9F44009BCC;
+ Tue, 27 Oct 2020 10:51:28 +0900 (JST)
+Message-ID: <87tuugfniy.wl-kuninori.morimoto.gx@renesas.com>
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Subject: [PATCH 1/2] ASoC: soc-compress: tidyup STREAM vs COMPRESS
+Subject: [PATCH 2/2] ASoC: soc-compress: add soc_compr_cstream_to_stream()
 User-Agent: Wanderlust/2.15.9 Emacs/26.3 Mule/6.0
 To: Mark Brown <broonie@kernel.org>
 In-Reply-To: <87wnzcfnkk.wl-kuninori.morimoto.gx@renesas.com>
@@ -70,96 +70,176 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 
-snd_soc_runtime_activate() and
-snd_soc_dai_digital_mute() need SNDRV_PCM_STREAM_xxx
-instead of SND_COMPRESS_xxx.
-
-These are bug but nothing happen because these are same value.
-
-	enum {
-		SNDRV_PCM_STREAM_PLAYBACK = 0,
-		SNDRV_PCM_STREAM_CAPTURE,
-		...
-	};
-
-	enum snd_compr_direction {
-		SND_COMPRESS_PLAYBACK = 0,
-		SND_COMPRESS_CAPTURE
-	};
-
-This patch tidyup it.
+soc-compress.c exchanges SND_COMPRESS_XXX to SNDRV_PCM_STREAM_xxx
+at many place. This patch adds soc_compr_cstream_to_stream()
+and reduce duplicate code.
 
 Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 ---
- sound/soc/soc-compress.c | 20 ++++++++++++++++----
- 1 file changed, 16 insertions(+), 4 deletions(-)
+ sound/soc/soc-compress.c | 69 ++++++++++++----------------------------
+ 1 file changed, 21 insertions(+), 48 deletions(-)
 
 diff --git a/sound/soc/soc-compress.c b/sound/soc/soc-compress.c
-index 3a6a60215e81..52544a85725d 100644
+index 52544a85725d..5a5f4d8fbf18 100644
 --- a/sound/soc/soc-compress.c
 +++ b/sound/soc/soc-compress.c
-@@ -75,8 +75,14 @@ static int soc_compr_open(struct snd_compr_stream *cstream)
+@@ -22,6 +22,14 @@
+ #include <sound/soc-link.h>
+ #include <linux/pm_runtime.h>
+ 
++static int soc_compr_cstream_to_stream(struct snd_compr_stream *cstream)
++{
++	if (cstream->direction == SND_COMPRESS_PLAYBACK)
++		return SNDRV_PCM_STREAM_PLAYBACK;
++	else
++		return SNDRV_PCM_STREAM_CAPTURE;
++}
++
+ static int soc_compr_components_open(struct snd_compr_stream *cstream,
+ 				     struct snd_soc_component **last)
+ {
+@@ -75,14 +83,9 @@ static int soc_compr_open(struct snd_compr_stream *cstream)
  	struct snd_soc_pcm_runtime *rtd = cstream->private_data;
  	struct snd_soc_component *component = NULL;
  	struct snd_soc_dai *cpu_dai = asoc_rtd_to_cpu(rtd, 0);
-+	int stream;
+-	int stream;
++	int stream = soc_compr_cstream_to_stream(cstream);
  	int ret;
  
-+	if (cstream->direction == SND_COMPRESS_PLAYBACK)
-+		stream = SNDRV_PCM_STREAM_PLAYBACK;
-+	else
-+		stream = SNDRV_PCM_STREAM_CAPTURE;
-+
+-	if (cstream->direction == SND_COMPRESS_PLAYBACK)
+-		stream = SNDRV_PCM_STREAM_PLAYBACK;
+-	else
+-		stream = SNDRV_PCM_STREAM_CAPTURE;
+-
  	ret = snd_soc_pcm_component_pm_runtime_get(rtd, cstream);
  	if (ret < 0)
  		goto pm_err;
-@@ -95,7 +101,7 @@ static int soc_compr_open(struct snd_compr_stream *cstream)
- 	if (ret < 0)
- 		goto machine_err;
+@@ -128,14 +131,9 @@ static int soc_compr_open_fe(struct snd_compr_stream *cstream)
+ 	struct snd_soc_dai *cpu_dai = asoc_rtd_to_cpu(fe, 0);
+ 	struct snd_soc_dpcm *dpcm;
+ 	struct snd_soc_dapm_widget_list *list;
+-	int stream;
++	int stream = soc_compr_cstream_to_stream(cstream);
+ 	int ret;
  
--	snd_soc_runtime_activate(rtd, cstream->direction);
-+	snd_soc_runtime_activate(rtd, stream);
+-	if (cstream->direction == SND_COMPRESS_PLAYBACK)
+-		stream = SNDRV_PCM_STREAM_PLAYBACK;
+-	else
+-		stream = SNDRV_PCM_STREAM_CAPTURE;
+-
+ 	mutex_lock_nested(&fe->card->mutex, SND_SOC_CARD_CLASS_RUNTIME);
+ 	fe->dpcm[stream].runtime = fe_substream->runtime;
  
- 	mutex_unlock(&rtd->card->pcm_mutex);
+@@ -203,15 +201,10 @@ static int soc_compr_free(struct snd_compr_stream *cstream)
+ 	struct snd_soc_pcm_runtime *rtd = cstream->private_data;
+ 	struct snd_soc_dai *cpu_dai = asoc_rtd_to_cpu(rtd, 0);
+ 	struct snd_soc_dai *codec_dai = asoc_rtd_to_codec(rtd, 0);
+-	int stream;
++	int stream = soc_compr_cstream_to_stream(cstream);
  
-@@ -208,7 +214,7 @@ static int soc_compr_free(struct snd_compr_stream *cstream)
+ 	mutex_lock_nested(&rtd->card->pcm_mutex, rtd->card->pcm_subclass);
  
+-	if (cstream->direction == SND_COMPRESS_PLAYBACK)
+-		stream = SNDRV_PCM_STREAM_PLAYBACK;
+-	else
+-		stream = SNDRV_PCM_STREAM_CAPTURE;
+-
  	snd_soc_runtime_deactivate(rtd, stream);
  
--	snd_soc_dai_digital_mute(codec_dai, 1, cstream->direction);
-+	snd_soc_dai_digital_mute(codec_dai, 1, stream);
+ 	snd_soc_dai_digital_mute(codec_dai, 1, stream);
+@@ -242,15 +235,11 @@ static int soc_compr_free_fe(struct snd_compr_stream *cstream)
+ 	struct snd_soc_pcm_runtime *fe = cstream->private_data;
+ 	struct snd_soc_dai *cpu_dai = asoc_rtd_to_cpu(fe, 0);
+ 	struct snd_soc_dpcm *dpcm;
+-	int stream, ret;
++	int stream = soc_compr_cstream_to_stream(cstream);
++	int ret;
  
- 	if (!snd_soc_dai_active(cpu_dai))
- 		cpu_dai->rate = 0;
-@@ -304,10 +310,16 @@ static int soc_compr_trigger(struct snd_compr_stream *cstream, int cmd)
+ 	mutex_lock_nested(&fe->card->mutex, SND_SOC_CARD_CLASS_RUNTIME);
+ 
+-	if (cstream->direction == SND_COMPRESS_PLAYBACK)
+-		stream = SNDRV_PCM_STREAM_PLAYBACK;
+-	else
+-		stream = SNDRV_PCM_STREAM_CAPTURE;
+-
+ 	snd_soc_runtime_deactivate(fe, stream);
+ 
+ 	fe->dpcm[stream].runtime_update = SND_SOC_DPCM_UPDATE_FE;
+@@ -310,16 +299,11 @@ static int soc_compr_trigger(struct snd_compr_stream *cstream, int cmd)
  	struct snd_soc_pcm_runtime *rtd = cstream->private_data;
  	struct snd_soc_dai *codec_dai = asoc_rtd_to_codec(rtd, 0);
  	struct snd_soc_dai *cpu_dai = asoc_rtd_to_cpu(rtd, 0);
-+	int stream;
+-	int stream;
++	int stream = soc_compr_cstream_to_stream(cstream);
  	int ret;
  
  	mutex_lock_nested(&rtd->card->pcm_mutex, rtd->card->pcm_subclass);
  
-+	if (cstream->direction == SND_COMPRESS_PLAYBACK)
-+		stream = SNDRV_PCM_STREAM_PLAYBACK;
-+	else
-+		stream = SNDRV_PCM_STREAM_CAPTURE;
-+
+-	if (cstream->direction == SND_COMPRESS_PLAYBACK)
+-		stream = SNDRV_PCM_STREAM_PLAYBACK;
+-	else
+-		stream = SNDRV_PCM_STREAM_CAPTURE;
+-
  	ret = soc_compr_components_trigger(cstream, cmd);
  	if (ret < 0)
  		goto out;
-@@ -318,10 +330,10 @@ static int soc_compr_trigger(struct snd_compr_stream *cstream, int cmd)
+@@ -346,17 +330,14 @@ static int soc_compr_trigger_fe(struct snd_compr_stream *cstream, int cmd)
+ {
+ 	struct snd_soc_pcm_runtime *fe = cstream->private_data;
+ 	struct snd_soc_dai *cpu_dai = asoc_rtd_to_cpu(fe, 0);
+-	int ret, stream;
++	int stream = soc_compr_cstream_to_stream(cstream);
++	int ret;
++
  
- 	switch (cmd) {
- 	case SNDRV_PCM_TRIGGER_START:
--		snd_soc_dai_digital_mute(codec_dai, 0, cstream->direction);
-+		snd_soc_dai_digital_mute(codec_dai, 0, stream);
- 		break;
- 	case SNDRV_PCM_TRIGGER_STOP:
--		snd_soc_dai_digital_mute(codec_dai, 1, cstream->direction);
-+		snd_soc_dai_digital_mute(codec_dai, 1, stream);
- 		break;
- 	}
+ 	if (cmd == SND_COMPR_TRIGGER_PARTIAL_DRAIN ||
+ 	    cmd == SND_COMPR_TRIGGER_DRAIN)
+ 		return soc_compr_components_trigger(cstream, cmd);
+ 
+-	if (cstream->direction == SND_COMPRESS_PLAYBACK)
+-		stream = SNDRV_PCM_STREAM_PLAYBACK;
+-	else
+-		stream = SNDRV_PCM_STREAM_CAPTURE;
+-
+ 	mutex_lock_nested(&fe->card->mutex, SND_SOC_CARD_CLASS_RUNTIME);
+ 
+ 	ret = snd_soc_dai_compr_trigger(cpu_dai, cstream, cmd);
+@@ -418,6 +399,7 @@ static int soc_compr_set_params(struct snd_compr_stream *cstream,
+ {
+ 	struct snd_soc_pcm_runtime *rtd = cstream->private_data;
+ 	struct snd_soc_dai *cpu_dai = asoc_rtd_to_cpu(rtd, 0);
++	int stream = soc_compr_cstream_to_stream(cstream);
+ 	int ret;
+ 
+ 	mutex_lock_nested(&rtd->card->pcm_mutex, rtd->card->pcm_subclass);
+@@ -441,12 +423,7 @@ static int soc_compr_set_params(struct snd_compr_stream *cstream,
+ 	if (ret < 0)
+ 		goto err;
+ 
+-	if (cstream->direction == SND_COMPRESS_PLAYBACK)
+-		snd_soc_dapm_stream_event(rtd, SNDRV_PCM_STREAM_PLAYBACK,
+-					  SND_SOC_DAPM_STREAM_START);
+-	else
+-		snd_soc_dapm_stream_event(rtd, SNDRV_PCM_STREAM_CAPTURE,
+-					  SND_SOC_DAPM_STREAM_START);
++	snd_soc_dapm_stream_event(rtd, stream, SND_SOC_DAPM_STREAM_START);
+ 
+ 	/* cancel any delayed stream shutdown that is pending */
+ 	rtd->pop_wait = 0;
+@@ -468,12 +445,8 @@ static int soc_compr_set_params_fe(struct snd_compr_stream *cstream,
+ 	struct snd_pcm_substream *fe_substream =
+ 		 fe->pcm->streams[cstream->direction].substream;
+ 	struct snd_soc_dai *cpu_dai = asoc_rtd_to_cpu(fe, 0);
+-	int ret, stream;
+-
+-	if (cstream->direction == SND_COMPRESS_PLAYBACK)
+-		stream = SNDRV_PCM_STREAM_PLAYBACK;
+-	else
+-		stream = SNDRV_PCM_STREAM_CAPTURE;
++	int stream = soc_compr_cstream_to_stream(cstream);
++	int ret;
+ 
+ 	mutex_lock_nested(&fe->card->mutex, SND_SOC_CARD_CLASS_RUNTIME);
  
 -- 
 2.25.1

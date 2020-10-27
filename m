@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A909A29C3CE
-	for <lists+alsa-devel@lfdr.de>; Tue, 27 Oct 2020 18:51:07 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id BFCCD29C3EB
+	for <lists+alsa-devel@lfdr.de>; Tue, 27 Oct 2020 18:51:23 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 301B71687;
-	Tue, 27 Oct 2020 18:50:17 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 301B71687
+	by alsa0.perex.cz (Postfix) with ESMTPS id 08CB31689;
+	Tue, 27 Oct 2020 18:50:32 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 08CB31689
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1603821067;
-	bh=MlOe8J1DrS34+CcQ8+PDRc8VQ1TjW8TNpBn1dHf+8l8=;
+	s=default; t=1603821082;
+	bh=SoPfxx2oik+qKdyMuP/1zfe19eO7ppN9RekIgp6vhlw=;
 	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=gn7hcPqihPlrjhipQ4VGvPvEhJkv/ZqG7jkh4BNc3eMOFsVaJgsy301qax3R7paV6
-	 7txi2VcrxY8CzMqHbu4KkMzBN6QKAtIfaQ22MrGE4svoPV1pdonT4dM3YklOd7OJMY
-	 f5pZ/YtiB2/oZGySa4SYb0fuFoW0HkfVM7umbITk=
+	b=grobISJFTlx+qYoT9EA8y1Xiw0+49nc3onyNhGzRFWjXwbUtWOn6V4uEMXN09mrWB
+	 NWIgI3BA3aaso4/HxaNlvros/TEmwDIFFPcJxT+K7k6KAFq1NSBY9CdV7MoKPOiLxg
+	 6fbqCXA9A9MWzqNaL6K7pBFL/POBs3uN8k3dTJXY=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 82827F80217;
-	Tue, 27 Oct 2020 18:49:34 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 37976F804BB;
+	Tue, 27 Oct 2020 18:50:10 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 81B3AF8020D; Tue, 27 Oct 2020 18:49:31 +0100 (CET)
+ id 63DF3F804B4; Tue, 27 Oct 2020 18:50:08 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -35,77 +35,76 @@ Received: from new2-smtp.messagingengine.com (new2-smtp.messagingengine.com
  [66.111.4.224])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id D3D7EF80086
- for <alsa-devel@alsa-project.org>; Tue, 27 Oct 2020 18:49:24 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D3D7EF80086
+ by alsa1.perex.cz (Postfix) with ESMTPS id 52A7AF8019D
+ for <alsa-devel@alsa-project.org>; Tue, 27 Oct 2020 18:50:01 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 52A7AF8019D
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=cerno.tech header.i=@cerno.tech
- header.b="h7KV/WVi"; 
+ header.b="BdGoAhwj"; 
  dkim=pass (2048-bit key) header.d=messagingengine.com
- header.i=@messagingengine.com header.b="XVv6/Yux"
+ header.i=@messagingengine.com header.b="Tz7aCWr+"
 Received: from compute6.internal (compute6.nyi.internal [10.202.2.46])
- by mailnew.nyi.internal (Postfix) with ESMTP id A9E4558042B;
- Tue, 27 Oct 2020 13:49:22 -0400 (EDT)
-Received: from mailfrontend1 ([10.202.2.162])
- by compute6.internal (MEProxy); Tue, 27 Oct 2020 13:49:22 -0400
+ by mailnew.nyi.internal (Postfix) with ESMTP id B143E580477;
+ Tue, 27 Oct 2020 13:49:59 -0400 (EDT)
+Received: from mailfrontend2 ([10.202.2.163])
+ by compute6.internal (MEProxy); Tue, 27 Oct 2020 13:49:59 -0400
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cerno.tech; h=
  date:from:to:cc:subject:message-id:references:mime-version
- :content-type:in-reply-to; s=fm1; bh=MsmV9Z4JXukxzIFQdHmCny1TjoP
- 05fwA8qrcsr9qy/s=; b=h7KV/WViQ0UiwMczpn6rH1EPG33wpRrwKzbH4KOzwh5
- 3j9eYZeE3ZBPpYSN3c1Mx4Vch9p+LY69Pd9TPa/5z3ImXtlUOVS1pT0jTH9sFM7T
- g3F40yAhJaPifICvvIP4R4wF1VoVwI5wnQdVWlw5Hl5uSyWjkQtyUHkjZ31YhTy5
- YkX16oZ7vJ3EChuY/JwnYqNTt8qtnnsUyMuGW+fxq+PFbLdhGBuYY8qyJDLQ+gAs
- Yg5UwbzqXUeRuE9SOa/rUVFjgXS80ghVIyVJ9olGUPdSy9apIkVl6VnrFEDOKAHK
- 67+iFLGg22ypLI6XDyIY19TwKK3+CnAiOJa5gA685Vg==
+ :content-type:in-reply-to; s=fm1; bh=SoPfxx2oik+qKdyMuP/1zfe19eO
+ 7ppN9RekIgp6vhlw=; b=BdGoAhwjsCzkCG4mDq9NmB86rVpuaMvLO9ayWVZ85K4
+ IM2iBiSsNB5n1q/XlAKkveQM9Y0aDSRNNHcqLys8xqRYz9NRyMEdYlLdDgvwkxup
+ jOv6sbi/ZO3QbhrtU2E1MYKwEuClgdk30Ln+HWGcnP8hGMRuAlTmJwQJEWqk5l7U
+ SnJ5ACRgsqywnhMV6RU8iP9vWUIM8GZ4hq34GvQ5gHdxYaRlf2yUmIbmOxx2fjgG
+ DrHCqaUitAoUUKPW9E0DmXV5O5M/we7cOQony0OH551htSSVSfgfjVC9lh++0T9D
+ HeOTnel7qEZyHKgdrWv040GCEGZyd4yEu/6WT+f8yjg==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
  messagingengine.com; h=cc:content-type:date:from:in-reply-to
  :message-id:mime-version:references:subject:to:x-me-proxy
- :x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; bh=MsmV9Z
- 4JXukxzIFQdHmCny1TjoP05fwA8qrcsr9qy/s=; b=XVv6/YuxVmo5v0OdaTrYAs
- XdO15ZsvwDxYhcHX2jCLuwRL1Ue0J3RzQg+43qvd9Z+iHGU6GKfkCWn2UkcZUI97
- xVZ2mR3kH26WQGmS335PFRv7HXo62N/9SeY/ZlkePbKa0gjXt3RaDxmmOMUO7WnE
- JuoDYo/EwfQvP0wRny6Zujxy9NrEsNmtl1NS3kCyN8COWvSqArpuSioV/OW3VGno
- qsB4I6kx3W3MNarb64BljE3130iRuT1Ay68LQ6E9S0wc14XwoPCAeqQVa3Yp2KJF
- TN4fNqmEZlCDQrxYqD5wey4O7b8P6/1IZ9qCtp+ru0IyosBbpVezOrU+1FwteYDg
+ :x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; bh=SoPfxx
+ 2oik+qKdyMuP/1zfe19eO7ppN9RekIgp6vhlw=; b=Tz7aCWr+1Do9oUCd/WtjDl
+ UxVxsS3fFTDjWkM76MvyYhb27+maRdtIrET0vchwESn2el6r6cj93lStE1Wsdu9n
+ aSpxCG1e//ocgJL3vEJ8NGjvU584cj3zjZtB4ZL9juS0FfqG5jE3LVm84eBD54+z
+ t6OAcux5UsbFq+NjLZzSRDlmKm/5g6KgkN6QM8Bb7xmhbaT8o/q0/I3B2Up56A/v
+ fOLDKIogCfVyReCDJ+FKJYgS6bmSA3swWrdqe8nBoQzddbe/JaB3Ssa4+p03Gl67
+ UR7uAmUQR0QPSwF05YsRzxJAHx0+ewhgCjQZzznBjFiAcmmeJemwG/W0L67cd+iA
  ==
-X-ME-Sender: <xms:oF2YX-ygThuCjsYQTyiVDSuKFtAdZZbA0-sSpqI5YcgYCV5UfETYYA>
- <xme:oF2YX6SolI7gXgecm3Zb8liOSjx0w-N7I6fODULifSD-ZqFWMSh7TpqrYXk2Z3cmS
- qf378B67_tdBzu1zBo>
+X-ME-Sender: <xms:x12YXyXsj9a5uVfoR-jq5y72b4eIKA45LNlLgl76fx9HirIjyrMQig>
+ <xme:x12YX-nlgrllZZAz8mN3UmvFYNVfn-Xgq-sUJvqb1vestlyb6UA1aLoImIfz663l3
+ KTXfvQ1fDP_MwLF6H8>
 X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedujedrkeelgddutdehucetufdoteggodetrfdotf
  fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
  uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
  cujfgurhepfffhvffukfhfgggtuggjsehgtderredttddunecuhfhrohhmpeforgigihhm
  vgcutfhiphgrrhguuceomhgrgihimhgvsegtvghrnhhordhtvggthheqnecuggftrfgrth
  htvghrnhepuddvudfhkeekhefgffetffelgffftdehffduffegveetffehueeivddvjedv
- gfevnecukfhppeeltddrkeelrdeikedrjeeinecuvehluhhsthgvrhfuihiivgeptdenuc
+ gfevnecukfhppeeltddrkeelrdeikedrjeeinecuvehluhhsthgvrhfuihiivgepudenuc
  frrghrrghmpehmrghilhhfrhhomhepmhgrgihimhgvsegtvghrnhhordhtvggthh
-X-ME-Proxy: <xmx:oF2YXwV-X-ueLSQi83KIk-gZkYQWJ3OH6QiQKTsSv--w_I60NNujiQ>
- <xmx:oF2YX0iSYModQthJsG4hldDrZTOHibVnSUSOtRBJwBxbqLhRnds6eA>
- <xmx:oF2YXwC9LnWThwlecR8Iri87T0H05xvtoJYnMbMv4i_mAaSjZeYcwQ>
- <xmx:ol2YX86NyPFR8-QKGroZZJOYKR5JVcHoypDJKku_NBDqt_s95ZlD9Q>
+X-ME-Proxy: <xmx:x12YX2aSd49wEBYL3oZn5Q7f5D83rcjKlc7OymGKnQmY2Bxq9h90Ew>
+ <xmx:x12YX5VlXDLXdZA8Ai_8qhvudWlryWmw1vnD5zCibbh_sdYozojBYg>
+ <xmx:x12YX8niOozogfraXlAimIbIcDMvWuUOVVbJhOPQONy4IYYWBvyMrQ>
+ <xmx:x12YX2ccPIXCfFpNSRXeM_XCfDFojm9qilXJmBtv6jVGH7td3mMVqg>
 Received: from localhost (lfbn-tou-1-1502-76.w90-89.abo.wanadoo.fr
  [90.89.68.76])
- by mail.messagingengine.com (Postfix) with ESMTPA id DED77328005D;
- Tue, 27 Oct 2020 13:49:19 -0400 (EDT)
-Date: Tue, 27 Oct 2020 18:49:17 +0100
+ by mail.messagingengine.com (Postfix) with ESMTPA id 280FE306467E;
+ Tue, 27 Oct 2020 13:49:59 -0400 (EDT)
+Date: Tue, 27 Oct 2020 18:49:57 +0100
 From: Maxime Ripard <maxime@cerno.tech>
 To: =?utf-8?B?Q2zDqW1lbnQgUMOpcm9u?= <peron.clem@gmail.com>
-Subject: Re: [PATCH v8 01/14] ASoC: sun4i-i2s: Change set_chan_cfg() params
-Message-ID: <20201027174917.xushgbmiohxwydnh@gilmour.lan>
+Subject: Re: [PATCH v8 02/14] ASoC: sun4i-i2s: Add support for H6 I2S
+Message-ID: <20201027174957.ui4ootubgb46dqgv@gilmour.lan>
 References: <20201026185239.379417-1-peron.clem@gmail.com>
- <20201026185239.379417-2-peron.clem@gmail.com>
+ <20201026185239.379417-3-peron.clem@gmail.com>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature"; boundary="67cr3wcl2dnlxsfd"
+ protocol="application/pgp-signature"; boundary="2cpe5wngdf44cto7"
 Content-Disposition: inline
-In-Reply-To: <20201026185239.379417-2-peron.clem@gmail.com>
+In-Reply-To: <20201026185239.379417-3-peron.clem@gmail.com>
 Cc: devicetree@vger.kernel.org, Jernej Skrabec <jernej.skrabec@siol.net>,
  alsa-devel@alsa-project.org, Liam Girdwood <lgirdwood@gmail.com>,
  linux-kernel@vger.kernel.org, Mark Brown <broonie@kernel.org>,
  linux-sunxi@googlegroups.com, Takashi Iwai <tiwai@suse.com>,
  Marcus Cooper <codekipper@gmail.com>, Chen-Yu Tsai <wens@csie.org>,
- Rob Herring <robh+dt@kernel.org>, Samuel Holland <samuel@sholland.org>,
- linux-arm-kernel@lists.infradead.org
+ Rob Herring <robh+dt@kernel.org>, linux-arm-kernel@lists.infradead.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -122,131 +121,34 @@ Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 
---67cr3wcl2dnlxsfd
+--2cpe5wngdf44cto7
 Content-Type: text/plain; charset=iso-8859-1
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 
-On Mon, Oct 26, 2020 at 07:52:26PM +0100, Cl=E9ment P=E9ron wrote:
-> As slots and slot_width can be set manually using set_tdm().
-> These values are then kept in sun4i_i2s struct.
-> So we need to check if these values are set or not.
+On Mon, Oct 26, 2020 at 07:52:27PM +0100, Cl=E9ment P=E9ron wrote:
+> From: Jernej Skrabec <jernej.skrabec@siol.net>
 >=20
-> This is not done actually and will trigger a bug.
-> For example, if we set to the simple soundcard in the device-tree
-> dai-tdm-slot-width =3D <32> and then start a stream using S16_LE,
-> currently we would calculate BCLK for 32-bit slots, but program
-> lrck_period for 16-bit slots, making the sample rate double what we
-> expected.
+> H6 I2S is very similar to that in H3, except it supports up to 16
+> channels.
 >=20
-> To fix this, we need to check if these values are set or not but as
-> this logic is already done by the caller. Avoid duplicating this
-> logic and just pass the required values as params to set_chan_cfg().
->=20
-> Suggested-by: Samuel Holland <samuel@sholland.org>
+> Signed-off-by: Jernej Skrabec <jernej.skrabec@siol.net>
+> Signed-off-by: Marcus Cooper <codekipper@gmail.com>
+> Reviewed-by: Chen-Yu Tsai <wens@csie.org>
 > Signed-off-by: Cl=E9ment P=E9ron <peron.clem@gmail.com>
-> ---
->  sound/soc/sunxi/sun4i-i2s.c | 33 ++++++++++++++++++---------------
->  1 file changed, 18 insertions(+), 15 deletions(-)
->=20
-> diff --git a/sound/soc/sunxi/sun4i-i2s.c b/sound/soc/sunxi/sun4i-i2s.c
-> index f23ff29e7c1d..6c10f810b114 100644
-> --- a/sound/soc/sunxi/sun4i-i2s.c
-> +++ b/sound/soc/sunxi/sun4i-i2s.c
-> @@ -162,8 +162,9 @@ struct sun4i_i2s_quirks {
->  	unsigned long (*get_bclk_parent_rate)(const struct sun4i_i2s *);
->  	s8	(*get_sr)(const struct sun4i_i2s *, int);
->  	s8	(*get_wss)(const struct sun4i_i2s *, int);
-> -	int	(*set_chan_cfg)(const struct sun4i_i2s *,
-> -				const struct snd_pcm_hw_params *);
-> +	int	(*set_chan_cfg)(const struct sun4i_i2s *i2s,
-> +				unsigned int channels,	unsigned int slots,
-> +				unsigned int slot_width);
->  	int	(*set_fmt)(const struct sun4i_i2s *, unsigned int);
->  };
-> =20
-> @@ -399,10 +400,9 @@ static s8 sun8i_i2s_get_sr_wss(const struct sun4i_i2=
-s *i2s, int width)
->  }
-> =20
->  static int sun4i_i2s_set_chan_cfg(const struct sun4i_i2s *i2s,
-> -				  const struct snd_pcm_hw_params *params)
-> +				  unsigned int channels, unsigned int slots,
-> +				  unsigned int slot_width)
->  {
-> -	unsigned int channels =3D params_channels(params);
-> -
->  	/* Map the channels for playback and capture */
->  	regmap_write(i2s->regmap, SUN4I_I2S_TX_CHAN_MAP_REG, 0x76543210);
->  	regmap_write(i2s->regmap, SUN4I_I2S_RX_CHAN_MAP_REG, 0x00003210);
-> @@ -419,15 +419,11 @@ static int sun4i_i2s_set_chan_cfg(const struct sun4=
-i_i2s *i2s,
->  }
-> =20
->  static int sun8i_i2s_set_chan_cfg(const struct sun4i_i2s *i2s,
-> -				  const struct snd_pcm_hw_params *params)
-> +				  unsigned int channels, unsigned int slots,
-> +				  unsigned int slot_width)
->  {
-> -	unsigned int channels =3D params_channels(params);
-> -	unsigned int slots =3D channels;
->  	unsigned int lrck_period;
-> =20
-> -	if (i2s->slots)
-> -		slots =3D i2s->slots;
-> -
->  	/* Map the channels for playback and capture */
->  	regmap_write(i2s->regmap, SUN8I_I2S_TX_CHAN_MAP_REG, 0x76543210);
->  	regmap_write(i2s->regmap, SUN8I_I2S_RX_CHAN_MAP_REG, 0x76543210);
-> @@ -452,11 +448,11 @@ static int sun8i_i2s_set_chan_cfg(const struct sun4=
-i_i2s *i2s,
->  	case SND_SOC_DAIFMT_DSP_B:
->  	case SND_SOC_DAIFMT_LEFT_J:
->  	case SND_SOC_DAIFMT_RIGHT_J:
-> -		lrck_period =3D params_physical_width(params) * slots;
-> +		lrck_period =3D slot_width * slots;
->  		break;
-> =20
->  	case SND_SOC_DAIFMT_I2S:
-> -		lrck_period =3D params_physical_width(params);
-> +		lrck_period =3D slot_width;
->  		break;
-> =20
->  	default:
-> @@ -480,9 +476,16 @@ static int sun4i_i2s_hw_params(struct snd_pcm_substr=
-eam *substream,
->  {
->  	struct sun4i_i2s *i2s =3D snd_soc_dai_get_drvdata(dai);
->  	unsigned int word_size =3D params_width(params);
-> -	unsigned int slot_width =3D params_physical_width(params);
->  	unsigned int channels =3D params_channels(params);
-> +
-> +	/*
-> +	 * Here and in set_chan_cfg(), "slots" means channels per frame +
-> +	 * padding slots, regardless of format. "slot_width" means bits
-> +	 * per sample + padding bits, regardless of format.
-> +	 */
->  	unsigned int slots =3D channels;
-> +	unsigned int slot_width =3D params_physical_width(params);
-> +
 
-what I meant was to put that comment next to the function pointer in the
-structure sun4i_i2s_quirks, it would be fairly easy to miss here.
-
-With that fixed,
 Acked-by: Maxime Ripard <mripard@kernel.org>
-
 Maxime
 
---67cr3wcl2dnlxsfd
+--2cpe5wngdf44cto7
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iHUEABYIAB0WIQRcEzekXsqa64kGDp7j7w1vZxhRxQUCX5hdnQAKCRDj7w1vZxhR
-xbuKAP4qVFe78UXC3b9DvZpYUdWGUCY/VGZSLSXi3GdDuCMVQAEA3j/Z7cbXxoBR
-i6RGE6IeueH9LlJHR8Nvh9ySsrcOQAk=
-=h45Y
+iHUEABYIAB0WIQRcEzekXsqa64kGDp7j7w1vZxhRxQUCX5hdxQAKCRDj7w1vZxhR
+xfstAPwNh4kC5XbQtUCP4L5Gm0B2rKNz/cw4/UvvSrad7luH5QEAugCk5XMoWfrG
+uIeJcwrL897i8RZAX7HB/GTMzQqh6wc=
+=2/aQ
 -----END PGP SIGNATURE-----
 
---67cr3wcl2dnlxsfd--
+--2cpe5wngdf44cto7--

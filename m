@@ -2,80 +2,109 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5A70F29CED3
-	for <lists+alsa-devel@lfdr.de>; Wed, 28 Oct 2020 09:08:18 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9C1C129CED4
+	for <lists+alsa-devel@lfdr.de>; Wed, 28 Oct 2020 09:08:57 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 6379B1684;
-	Wed, 28 Oct 2020 09:07:27 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6379B1684
+	by alsa0.perex.cz (Postfix) with ESMTPS id 3C6F21683;
+	Wed, 28 Oct 2020 09:08:07 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3C6F21683
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1603872497;
-	bh=qwnoRCo1R4RfJLgUjcT/fdMEYl7CJRbP6ocAzrkNLc8=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=pVD6CsmeP7tdGbCSh5rXwyeG8bdIs+7u0Eu1aRzR4xNYeJLiJToN6JGb+DEHVy+Bk
-	 hk/EpRtzJkZT9Q58T8EPPgXzQ99nwqL3pPT9rPHtLOGzy7kO9BoWOkgIaSadWkxRyf
-	 1fKSNZ3kBtBUYCW+fX0Ykw5B53ts3EWY1DQ+p4U4=
+	s=default; t=1603872537;
+	bh=U9QFJP+vxA7e+ZAg1VX9Xm2DVxiqodIiHbBgxQHcRyo=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=jx7dx4+iQpIqlZ6OlkhzT5uFMzX+YYNMjy4qLoQnKM4JYNzeTf+PCu+85hw5V0yKR
+	 MXnTVPYgENARBGy0xtt7IFAff8SLuryImF1qIrfR+8OeTqVARGFGGjlTdCEX4wRRXo
+	 DOkDhwzuQEvSD5T62UnrR21PlZPpj5ukOfDWi8LM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 25A87F8027B;
-	Wed, 28 Oct 2020 09:06:35 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 914E8F804B3;
+	Wed, 28 Oct 2020 09:06:36 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 358A1F80212; Mon, 26 Oct 2020 20:04:06 +0100 (CET)
+ id 22423F8021D; Tue, 27 Oct 2020 13:17:48 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id F2282F801D5
- for <alsa-devel@alsa-project.org>; Mon, 26 Oct 2020 20:03:58 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz F2282F801D5
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="yqyMc1kh"
-Received: from mail-qk1-f172.google.com (mail-qk1-f172.google.com
- [209.85.222.172])
+X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mail-wm1-x344.google.com (mail-wm1-x344.google.com
+ [IPv6:2a00:1450:4864:20::344])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id C3B2120720
- for <alsa-devel@alsa-project.org>; Mon, 26 Oct 2020 19:03:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1603739036;
- bh=qwnoRCo1R4RfJLgUjcT/fdMEYl7CJRbP6ocAzrkNLc8=;
- h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
- b=yqyMc1khYO6ap4udmnatIQsPNHWic4GWJYd9rqedjVyxmMCI+0sWXLnojS66ANixx
- jkkOria1ybrxdVoRk24YkM7bVjMwADPt+I8ab7KDQrF2JElUqbZVDygw94439GaKQg
- FYEhfi0XcFNS14L71xkDswKmVgAnJCTz6RtGuvi8=
-Received: by mail-qk1-f172.google.com with SMTP id h140so9429222qke.7
- for <alsa-devel@alsa-project.org>; Mon, 26 Oct 2020 12:03:56 -0700 (PDT)
-X-Gm-Message-State: AOAM532Er7QYNZj81aJ0qs4g206qsCj5avX/GlCUu4uINpdfdId4l6R+
- EmUaANMRUJnE/QV79KGpGuYPThUpm8N+0h5DUfM=
-X-Google-Smtp-Source: ABdhPJw6BBoPGjGlIDtQwuPEhCx7xKTVaToDIWOa6kzLyFFyrrXvnTRFloxWvctqCe7Wkj7ht0lbN1hIjBMZuLAo7ok=
-X-Received: by 2002:a05:620a:22c9:: with SMTP id
- o9mr2593705qki.286.1603739035860; 
- Mon, 26 Oct 2020 12:03:55 -0700 (PDT)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 27B22F800FF
+ for <alsa-devel@alsa-project.org>; Tue, 27 Oct 2020 13:17:41 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 27B22F800FF
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=bgdev-pl.20150623.gappssmtp.com
+ header.i=@bgdev-pl.20150623.gappssmtp.com header.b="P+3tCIHO"
+Received: by mail-wm1-x344.google.com with SMTP id c16so1209292wmd.2
+ for <alsa-devel@alsa-project.org>; Tue, 27 Oct 2020 05:17:41 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=bgdev-pl.20150623.gappssmtp.com; s=20150623;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=LJP6zUa9eBmdV8bx1jdaWyKmaK9MsWkK16il5Qo0OrM=;
+ b=P+3tCIHOjCZAx0wmilW2GDFvIGyFUKkJ6kMCnuzTaqTK/WVy0FTiGFvqMSEeEaTSDi
+ lidtNcACGQa4FsZTJSv/WM+PJAWcMBZ84eqrsFS5cBt5SmJFi36Zt8P8jQqLDmjkvqeW
+ khRH3E+peGeaQTCIY3Vt2p8gYCX0QOu5toB/kJmHKtw/28SJ6BKumTSSq2MJytdIAdgp
+ oJxR5uAJUIN5EhwIO49GT3ZmC5B5ob3NU85YWSk0gy8yt2me9ot389ODzNeNzE1g7isf
+ BjKSBXgUK2OMn2MduiDvTrDfwsn8XX/eMtY9lahl6HLlIYN8j7wdAJNYVoPtfuaoSs+h
+ PRUQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=LJP6zUa9eBmdV8bx1jdaWyKmaK9MsWkK16il5Qo0OrM=;
+ b=GFL9g5FHOL+zB26RO8UOKtpYIrbKQuIgNyPCVb7aAN5fpOyBsUPepMlX+euMIZZgaP
+ s7ppEd55BYdAE2JQJ0EySY+kvDB2R1+IIdh2Qjdypk8VMPDdXGXZZIDljeHDzkIM7v+1
+ 0xpuHQ6Nezu9vkpWiR/pfphKgwa7JBjWl3GrSWw0uUydHh7ybNilL1IKN4ZOAoUibtr7
+ jdpzR/D5j2DkVZeXLoi+ca2wKdrB7sOUKjojJSnkZgxCvuVQmhC7ee9quKIgSNoSO0hx
+ /OjOUMyAPJah+DRjtxb9njdUt7sA4ZvPhuRp9T5bPiY88hE7RQ+jmJhii9u2zKWbZ3+p
+ Fr4Q==
+X-Gm-Message-State: AOAM532005mx/Vn/9WDKjQcW23se8bcSHXb7DnVZpGwdGW+4aNV/J0zG
+ Ftsq/qyPVPxiGW7v6UwGKQKXVA==
+X-Google-Smtp-Source: ABdhPJxUDPfM7/G4w39/lM3kfVBbiG37Et7vUzW73qIzYGjUaK5vAjNfvCioGZotPrXrgX+P7fvBjA==
+X-Received: by 2002:a1c:8087:: with SMTP id b129mr2477389wmd.10.1603801056147; 
+ Tue, 27 Oct 2020 05:17:36 -0700 (PDT)
+Received: from debian-brgl.home (amarseille-656-1-4-167.w90-8.abo.wanadoo.fr.
+ [90.8.158.167])
+ by smtp.gmail.com with ESMTPSA id a2sm1731908wrs.55.2020.10.27.05.17.34
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 27 Oct 2020 05:17:35 -0700 (PDT)
+From: Bartosz Golaszewski <brgl@bgdev.pl>
+To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+ Sumit Semwal <sumit.semwal@linaro.org>,
+ Gustavo Padovan <gustavo@padovan.org>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>, Borislav Petkov <bp@alien8.de>,
+ Tony Luck <tony.luck@intel.com>, James Morse <james.morse@arm.com>,
+ Robert Richter <rric@kernel.org>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@linux.ie>,
+ Daniel Vetter <daniel@ffwll.ch>,
+ Alexander Shishkin <alexander.shishkin@linux.intel.com>,
+ Linus Walleij <linus.walleij@linaro.org>,
+ "Michael S . Tsirkin" <mst@redhat.com>, Jason Wang <jasowang@redhat.com>,
+ Christoph Lameter <cl@linux.com>, Pekka Enberg <penberg@kernel.org>,
+ David Rientjes <rientjes@google.com>, Joonsoo Kim <iamjoonsoo.kim@lge.com>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>
+Subject: [PATCH 0/8] slab: provide and use krealloc_array()
+Date: Tue, 27 Oct 2020 13:17:17 +0100
+Message-Id: <20201027121725.24660-1-brgl@bgdev.pl>
+X-Mailer: git-send-email 2.29.1
 MIME-Version: 1.0
-References: <20201026165715.3723704-1-arnd@kernel.org>
- <s5h4kmg537s.wl-tiwai@suse.de>
-In-Reply-To: <s5h4kmg537s.wl-tiwai@suse.de>
-From: Arnd Bergmann <arnd@kernel.org>
-Date: Mon, 26 Oct 2020 20:03:39 +0100
-X-Gmail-Original-Message-ID: <CAK8P3a2kdNuipus=_Jr=Scd5_E+68LDi4zxPLqrT05ffXzD7Xg@mail.gmail.com>
-Message-ID: <CAK8P3a2kdNuipus=_Jr=Scd5_E+68LDi4zxPLqrT05ffXzD7Xg@mail.gmail.com>
-Subject: Re: [PATCH] ALSA: make snd_kcontrol_new name a normal string
-To: Takashi Iwai <tiwai@suse.de>
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Wed, 28 Oct 2020 09:06:29 +0100
-Cc: "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- ALSA Development Mailing List <alsa-devel@alsa-project.org>,
- "Gustavo A. R. Silva" <gustavoars@kernel.org>, Takashi Iwai <tiwai@suse.com>
+Cc: alsa-devel@alsa-project.org, kvm@vger.kernel.org, linux-mm@kvack.org,
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, virtualization@lists.linux-foundation.org,
+ linaro-mm-sig@lists.linaro.org, linux-gpio@vger.kernel.org,
+ Bartosz Golaszewski <bgolaszewski@baylibre.com>, linux-media@vger.kernel.org,
+ linux-edac@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -91,30 +120,40 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Mon, Oct 26, 2020 at 6:03 PM Takashi Iwai <tiwai@suse.de> wrote:
-> On Mon, 26 Oct 2020 17:52:18 +0100,
-> Arnd Bergmann wrote:
-> >
-> > From: Arnd Bergmann <arnd@arndb.de>
-> >
-> > When building with W=2, there are lots of warnings about the
-> > snd_kcontrol_new name field being an array of 'unsigned char'
-> > but initialized to a string:
-> >
-> > include/sound/soc.h:93:48: warning: pointer targets in initialization of 'const unsigned char *' from 'char *' differ in signedness [-Wpointer-sign]
-> >
-> > Make it a regular 'char *' to avoid flooding the build log with this.
-> >
-> > Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
-> > Signed-off-by: Arnd Bergmann <arnd@arndb.de>
->
-> I'm fine to apply this, but I thought we agreed to ignore pointer
-> signedness intentionally?  There are lots of such places and we were
-> fed up in the past when gcc complained a lot about those...
+From: Bartosz Golaszewski <bgolaszewski@baylibre.com>
 
-I'm only sending fixes for the ones in headers that get included in
-a lot of places. There are good reasons for building being able to
-build specific drivers or directories with W=2, but it's less helpful
-if there are many identical warnings.
+Andy brought to my attention the fact that users allocating an array of
+equally sized elements should check if the size multiplication doesn't
+overflow. This is why we have helpers like kmalloc_array().
 
-       Arnd
+However we don't have krealloc_array() equivalent and there are many
+users who do their own multiplication when calling krealloc() for arrays.
+
+This series provides krealloc_array() and uses it in a couple places.
+
+A separate series will follow adding devm_krealloc_array() which is
+needed in the xilinx adc driver.
+
+Bartosz Golaszewski (8):
+  mm: slab: provide krealloc_array()
+  ALSA: pcm: use krealloc_array()
+  vhost: vringh: use krealloc_array()
+  pinctrl: use krealloc_array()
+  edac: ghes: use krealloc_array()
+  drm: atomic: use krealloc_array()
+  hwtracing: intel: use krealloc_array()
+  dma-buf: use krealloc_array()
+
+ drivers/dma-buf/sync_file.c      |  4 ++--
+ drivers/edac/ghes_edac.c         |  4 ++--
+ drivers/gpu/drm/drm_atomic.c     |  3 ++-
+ drivers/hwtracing/intel_th/msu.c |  2 +-
+ drivers/pinctrl/pinctrl-utils.c  |  2 +-
+ drivers/vhost/vringh.c           |  3 ++-
+ include/linux/slab.h             | 11 +++++++++++
+ sound/core/pcm_lib.c             |  4 ++--
+ 8 files changed, 23 insertions(+), 10 deletions(-)
+
+-- 
+2.29.1
+

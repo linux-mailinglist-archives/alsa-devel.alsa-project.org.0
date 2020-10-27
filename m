@@ -2,79 +2,78 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6CFB029CEE4
-	for <lists+alsa-devel@lfdr.de>; Wed, 28 Oct 2020 09:13:57 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3A15F29CED9
+	for <lists+alsa-devel@lfdr.de>; Wed, 28 Oct 2020 09:10:05 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 0B9F31679;
-	Wed, 28 Oct 2020 09:13:07 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0B9F31679
+	by alsa0.perex.cz (Postfix) with ESMTPS id D7BF91692;
+	Wed, 28 Oct 2020 09:09:14 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D7BF91692
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1603872837;
-	bh=7IkW+rHL9rt8zmLb2zBirvIaxwmvirDaVJKBhP+fBAk=;
+	s=default; t=1603872604;
+	bh=sXf0UC6t1IcOIKl3k92QvyeglUBf6I0tI92y3Z9d4Qo=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=QlKP/ZpaEHsW4h604g3Yjq3de5e+H1l9E8K7on7pwqmzkWgsbHJeUpbx/gAN/tyWh
-	 mK1bMYCyogLbdBntvT6g/3xbW73NfeOyfaTmIDw7FVZ3IuactxBoPZ9RpgOatwrXFr
-	 FXXwJrHgDK/qcVoDxndkJ/dr30RrkOWj2u9OcROE=
+	b=LmbME7TaDsHD4jkqetMGI6qEe3wz+ODwDN/7bA+91l5moGTkCMdbdHYO40csgR9N1
+	 8orNKTswom2VPEOFFlLWuPXadktvtyBRr6mKh5b8227V3Z5816UNnFyBlX5MGBvYa0
+	 KdetVrLEf0lsQa+bvW3KQeBilKQhdRW2XPWcN0N8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 15F1AF80537;
-	Wed, 28 Oct 2020 09:07:06 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 4C120F804E1;
+	Wed, 28 Oct 2020 09:06:42 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 0CCEAF80274; Tue, 27 Oct 2020 13:17:58 +0100 (CET)
+ id 03B3AF80217; Tue, 27 Oct 2020 13:17:55 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mail-wr1-x441.google.com (mail-wr1-x441.google.com
- [IPv6:2a00:1450:4864:20::441])
+Received: from mail-wm1-x343.google.com (mail-wm1-x343.google.com
+ [IPv6:2a00:1450:4864:20::343])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id BEEBCF8021D
- for <alsa-devel@alsa-project.org>; Tue, 27 Oct 2020 13:17:48 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BEEBCF8021D
+ by alsa1.perex.cz (Postfix) with ESMTPS id 54642F8019D
+ for <alsa-devel@alsa-project.org>; Tue, 27 Oct 2020 13:17:51 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 54642F8019D
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=bgdev-pl.20150623.gappssmtp.com
- header.i=@bgdev-pl.20150623.gappssmtp.com header.b="fei0ANa2"
-Received: by mail-wr1-x441.google.com with SMTP id n15so1670252wrq.2
- for <alsa-devel@alsa-project.org>; Tue, 27 Oct 2020 05:17:48 -0700 (PDT)
+ header.i=@bgdev-pl.20150623.gappssmtp.com header.b="fcBVAav9"
+Received: by mail-wm1-x343.google.com with SMTP id h22so1205325wmb.0
+ for <alsa-devel@alsa-project.org>; Tue, 27 Oct 2020 05:17:51 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=bgdev-pl.20150623.gappssmtp.com; s=20150623;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=Yv5nQ3yDPCTR6Qr42pQX9T0J3MZN9NU/gU5iZJIrkWk=;
- b=fei0ANa2ElSFo4FKASLBvqdzEpQMc369lxMXy79AWLlLE4ldM0t9l6k8RVF3buSnvA
- InRbHn9r2hR680pZZ+gYHBH0cxjnXEpWTBjRsyn3pPicTDT7ROS1njEmMsQ0EtyoYRv/
- vBz+LlGkNh9F45O2WPmNPaWYUC2TRs+1c28W6I2DHNQSUKyUoBTvCUXW/RmCgB8tOU8G
- g5O/0EGVAt658IQXZb3tOQIDePMiXd3i3GdEI4By620HO0ioGffbTx/3svpvzdtTVEbj
- pJSbSja7AzYXp5nq6dTEmNRhW6+2gmmrtbUq1fP5SW49DL3CQr9yND4Z3iXAPYqZ02Lj
- 0X6A==
+ bh=DX4Vpt/5rOOp/h8PsP6BCvcutYZPagP/0wvqhEtDkrc=;
+ b=fcBVAav93bPjLTMO/GKGNWbWJSyP9xDWjrQdREKVHUObC2fvcpeMBWbKtOvwqTtDBw
+ TYuM0tjJGe4hFI+bJgCEuy05Jhcj7DoPbEbpzYlue9mGnIAJyPrd5G7jnyVyC0ouqYQE
+ KUcuZgHebd/KjJ7WpMudfra+Ob5jpn/DPH6XMb8lun7OwUCY62x1ZRk3XnvNkzK8JTfI
+ GDSUhxWu1bxiLfQLX/wnkP4DE/r3YkbU7n/g2xdLeTwmRffMBnF1fQyXeAU/KAOUkWXm
+ Qr72qjOlysXmXLLv9c8JP8XDyn+yxZSMDREYLPBPXV2IBO4ogKZ9faYnUv5Hy6pUK1mv
+ KBnw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=Yv5nQ3yDPCTR6Qr42pQX9T0J3MZN9NU/gU5iZJIrkWk=;
- b=JuaMle6Re6oEGCmHh4C5RGTgIGbcfxwp6r2/EDyclNcagB9rkjwVBFQijwQazAYt17
- ouxnZS66twYcr2rdevMw0o1lfo6zRWGUvB583tcWMVgUN3Qc5x/vI04vFmmhcClga9sr
- knwhPYVP+qYDJ1r37wmaT0+nGDJxaC0uG7MCtVzrO6V8tDJmkom8RIcaLhj/ucF7B2TB
- k8yySy8soOSOvSgPeSMsNFNVa4azJtlfl1SfJ5seHCk0nAPH6WHTxXJs8MoTmEYcTYfx
- eaHbdf73bQ9CJu+lc0xMTPccuOGgwG77pd8+wiok30HNwbBe4uwljswc1JrRej0WMc6B
- Aeww==
-X-Gm-Message-State: AOAM532woqyP0a+tpR6Dc5Bj9iaqqsaD+W8rQ4zve/+PacWy6SaSTNvL
- yAbci0zMuAo/XeRKhErG8bVrOQ==
-X-Google-Smtp-Source: ABdhPJwBy/86P9NLjWm4ayzRrNeTPV1ezoUeA/zg5bUjnQJez1TgK6PN9H/ezjMnvntOGwzzJ6JYWg==
-X-Received: by 2002:a05:6000:108:: with SMTP id
- o8mr2545710wrx.256.1603801064364; 
- Tue, 27 Oct 2020 05:17:44 -0700 (PDT)
+ bh=DX4Vpt/5rOOp/h8PsP6BCvcutYZPagP/0wvqhEtDkrc=;
+ b=uWhPgVkzymCbZNR9ntRtY1i+e120maBJ6dbDXY7V7syEeAzJUhIiSOAxKxX1YAFooc
+ YR8tI9s8nqBexdq5Xx35r8BiMLJuFGQ6Kw/gOSWYxv0nJIUXpG1wM46BuKxp775AlJXS
+ cUGZmzHDYS0D+2WhkJGqYmZnouH9hVTK84nyz+IZt3tcVkXJZN/vHl645yHuuWP7zYow
+ GTP/30W7nrJEBn53ANDr+zuT6sbl01aJVT8/2ljOQR0l40jSrms9OyPL3VnXNSAK5oxJ
+ uRJM3hXn/LPFvo0f31f8trOgjtSXSAJZCx0qkKsuvAozOveAwkiX8zeWBiLWgv/e9lPg
+ l5tw==
+X-Gm-Message-State: AOAM533ONpFvAdupYDw2c/lmdhAO9dYf0alQkUOBRxEX78/TTnOOgjoY
+ D5FOWAP3/t21KWjrhnkOb5ragw==
+X-Google-Smtp-Source: ABdhPJxpFHC1iDNaVhyqgdX0LXFgCHzNZUEcFDl9D5G1/wCxSZcWoj/5QOXgpccEbzpQpJAT/3s/cw==
+X-Received: by 2002:a7b:cb81:: with SMTP id m1mr2573033wmi.140.1603801066439; 
+ Tue, 27 Oct 2020 05:17:46 -0700 (PDT)
 Received: from debian-brgl.home (amarseille-656-1-4-167.w90-8.abo.wanadoo.fr.
  [90.8.158.167])
- by smtp.gmail.com with ESMTPSA id a2sm1731908wrs.55.2020.10.27.05.17.42
+ by smtp.gmail.com with ESMTPSA id a2sm1731908wrs.55.2020.10.27.05.17.44
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 27 Oct 2020 05:17:43 -0700 (PDT)
+ Tue, 27 Oct 2020 05:17:45 -0700 (PDT)
 From: Bartosz Golaszewski <brgl@bgdev.pl>
 To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
  Sumit Semwal <sumit.semwal@linaro.org>,
@@ -94,9 +93,9 @@ To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
  David Rientjes <rientjes@google.com>, Joonsoo Kim <iamjoonsoo.kim@lge.com>,
  Andrew Morton <akpm@linux-foundation.org>,
  Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>
-Subject: [PATCH 4/8] pinctrl: use krealloc_array()
-Date: Tue, 27 Oct 2020 13:17:21 +0100
-Message-Id: <20201027121725.24660-5-brgl@bgdev.pl>
+Subject: [PATCH 5/8] edac: ghes: use krealloc_array()
+Date: Tue, 27 Oct 2020 13:17:22 +0100
+Message-Id: <20201027121725.24660-6-brgl@bgdev.pl>
 X-Mailer: git-send-email 2.29.1
 In-Reply-To: <20201027121725.24660-1-brgl@bgdev.pl>
 References: <20201027121725.24660-1-brgl@bgdev.pl>
@@ -131,22 +130,24 @@ calculating the size of the new array.
 
 Signed-off-by: Bartosz Golaszewski <bgolaszewski@baylibre.com>
 ---
- drivers/pinctrl/pinctrl-utils.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/edac/ghes_edac.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/pinctrl/pinctrl-utils.c b/drivers/pinctrl/pinctrl-utils.c
-index f2bcbf62c03d..93df0d4c0a24 100644
---- a/drivers/pinctrl/pinctrl-utils.c
-+++ b/drivers/pinctrl/pinctrl-utils.c
-@@ -39,7 +39,7 @@ int pinctrl_utils_reserve_map(struct pinctrl_dev *pctldev,
- 	if (old_num >= new_num)
- 		return 0;
+diff --git a/drivers/edac/ghes_edac.c b/drivers/edac/ghes_edac.c
+index a918ca93e4f7..6d1ddecbf0da 100644
+--- a/drivers/edac/ghes_edac.c
++++ b/drivers/edac/ghes_edac.c
+@@ -207,8 +207,8 @@ static void enumerate_dimms(const struct dmi_header *dh, void *arg)
+ 	if (!hw->num_dimms || !(hw->num_dimms % 16)) {
+ 		struct dimm_info *new;
  
--	new_map = krealloc(*map, sizeof(*new_map) * new_num, GFP_KERNEL);
-+	new_map = krealloc_array(*map, new_num, sizeof(*new_map), GFP_KERNEL);
- 	if (!new_map) {
- 		dev_err(pctldev->dev, "krealloc(map) failed\n");
- 		return -ENOMEM;
+-		new = krealloc(hw->dimms, (hw->num_dimms + 16) * sizeof(struct dimm_info),
+-			        GFP_KERNEL);
++		new = krealloc_array(hw->dimms, hw->num_dimms + 16,
++				     sizeof(struct dimm_info), GFP_KERNEL);
+ 		if (!new) {
+ 			WARN_ON_ONCE(1);
+ 			return;
 -- 
 2.29.1
 

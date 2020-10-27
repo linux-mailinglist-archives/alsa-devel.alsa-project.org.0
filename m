@@ -2,48 +2,48 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1CD3729C47D
-	for <lists+alsa-devel@lfdr.de>; Tue, 27 Oct 2020 19:01:12 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id B061F29C582
+	for <lists+alsa-devel@lfdr.de>; Tue, 27 Oct 2020 19:10:54 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B7FFA1699;
-	Tue, 27 Oct 2020 19:00:21 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B7FFA1699
+	by alsa0.perex.cz (Postfix) with ESMTPS id 4723C1699;
+	Tue, 27 Oct 2020 19:10:04 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4723C1699
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1603821671;
-	bh=inz92PuM2C5a+eciu6nsPHEXP/S8x61ddH6PzsFNseY=;
+	s=default; t=1603822254;
+	bh=lzp9flCUanNB/9ztEK5+MoHGbSMCLV+CrnCW8FjQofg=;
 	h=From:To:In-Reply-To:References:Subject:Date:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=KVg+UYjy0B326mMXauITXqEn05NWUn4VEtS9N7btq0R13IUfSEU90XTboDeFqj3l8
-	 +wf0BiNeTdHKNoR1MOqNlYSbxo8kGi6ilTIt2Rm+fyUPryfkCIqRhgEKTwAMMJeIL+
-	 duVENm2RXpmAGpdriv8dORrGzToW2UjAHPXndG3A=
+	b=jVaWxgyWOFAt00mD8LVCcLbY3OJyruSJPIxW1GpDyxUxy/Yj5W5ZVsfGJprhqjbzj
+	 I1I2D8fsbcS3DDV+g3fbsGTrely28qGRJV5FAJ+VPzjruvh7ElMxJFNb0gbA+Q4F8y
+	 9pluJH8xN9j4CCZbr0GkCFCzFbRXnJWCGlgtphLk=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 14C73F800FF;
-	Tue, 27 Oct 2020 18:59:39 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id AA111F8019D;
+	Tue, 27 Oct 2020 19:09:21 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 20D56F8020D; Tue, 27 Oct 2020 18:59:37 +0100 (CET)
+ id 92D88F8020D; Tue, 27 Oct 2020 19:09:19 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: **
 X-Spam-Status: No, score=2.5 required=5.0 tests=MISSING_DATE,MISSING_MID,
  SPF_FAIL,SPF_HELO_NONE autolearn=disabled version=3.4.0
 Received: from webhooks-bot.alsa-project.org (gate.perex.cz [77.48.224.242])
- by alsa1.perex.cz (Postfix) with ESMTP id 5E813F80086
- for <alsa-devel@alsa-project.org>; Tue, 27 Oct 2020 18:59:33 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5E813F80086
+ by alsa1.perex.cz (Postfix) with ESMTP id 09F8FF80086
+ for <alsa-devel@alsa-project.org>; Tue, 27 Oct 2020 19:09:16 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 09F8FF80086
 MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-From: GitHub issues - opened <github@alsa-project.org>
+From: GitHub issues - edited <github@alsa-project.org>
 To: alsa-devel@alsa-project.org
-In-Reply-To: <1603821572850699902-webhooks-bot@alsa-project.org>
-References: <1603821572850699902-webhooks-bot@alsa-project.org>
+In-Reply-To: <1603822155188082933-webhooks-bot@alsa-project.org>
+References: <1603822155188082933-webhooks-bot@alsa-project.org>
 Subject: how to properly release all memory after use?
-Message-Id: <20201027175937.20D56F8020D@alsa1.perex.cz>
-Date: Tue, 27 Oct 2020 18:59:37 +0100 (CET)
+Message-Id: <20201027180919.92D88F8020D@alsa1.perex.cz>
+Date: Tue, 27 Oct 2020 19:09:19 +0100 (CET)
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -59,7 +59,7 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-alsa-project/alsa-lib issue #93 was opened from xatian:
+alsa-project/alsa-lib issue #93 was edited from xatian:
 
 ```C++
 int main () {
@@ -126,7 +126,7 @@ snd_pcm_close: 0
 ```
 
 Did I do something wrong?
-What makes matters worse is that if I duplicate the code more leaks get reported so this is not just some global state that gets left behind. And what about the 64kB still reachable?
+What makes matters worse is that if I duplicate the code more leaks get reported so this is not just some global state that gets left behind.
 I am using libasound2 1.2.3.2-1 amd64
 
 Thank you!

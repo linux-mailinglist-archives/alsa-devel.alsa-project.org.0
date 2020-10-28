@@ -2,29 +2,29 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E047229CFD0
-	for <lists+alsa-devel@lfdr.de>; Wed, 28 Oct 2020 12:52:56 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id CEB5929CFE0
+	for <lists+alsa-devel@lfdr.de>; Wed, 28 Oct 2020 13:17:10 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 73B931662;
-	Wed, 28 Oct 2020 12:52:06 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 73B931662
+	by alsa0.perex.cz (Postfix) with ESMTPS id 579B41662;
+	Wed, 28 Oct 2020 13:16:20 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 579B41662
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1603885976;
-	bh=c12bJf2SLR1JPyc5Gc1S2OwnuOb2xlgGO1rOhQ9ypfo=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	s=default; t=1603887430;
+	bh=UNxPlF5gcJ36uDtKjuQ2oj02B2FYaEFxrw6PTylVIj4=;
+	h=To:From:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
 	 List-Post:List-Help:List-Subscribe:From;
-	b=FYaRflqbeav/XxAkjmW/75UPGMHbM8k09Llb/4WtCYo20uJp82IZiUk0UpJw23hZG
-	 aa4Fs2lj9jXiQGE18t1XYOBsWVabAEuVhmxZ/1do6Rk8WpC98yclXXrNLqm3vyQhuV
-	 LwA8FZKHBsCbDkJPPcl7CWqb315CYpaGMOPA11XM=
+	b=HseTiLx1lT+NbsvvnQ6SNZHxqSNDP+jmMxVTBn4PeiIK54+NZ3Wg1ja76aDr9bQIF
+	 X2BR7+V3s3J4vx+3VS3lHuyU2dynjfVJMeKdU3+oz+vcX8+V5tIUo0i//C2rzafYaq
+	 qIBNXrcnES7BOdXt8eLZsnrCkrBKmRHwd+BoHoCY=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id D1B3CF80134;
-	Wed, 28 Oct 2020 12:51:23 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id A1697F80249;
+	Wed, 28 Oct 2020 13:15:37 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id C0549F80212; Wed, 28 Oct 2020 12:51:21 +0100 (CET)
+ id 1C92FF80212; Wed, 28 Oct 2020 13:15:36 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_MSPIKE_H3,
@@ -34,30 +34,29 @@ Received: from youngberry.canonical.com (youngberry.canonical.com
  [91.189.89.112])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 2BACBF80134
- for <alsa-devel@alsa-project.org>; Wed, 28 Oct 2020 12:51:18 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2BACBF80134
-Received: from 1.general.cking.uk.vpn ([10.172.193.212] helo=localhost)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 211B8F800FF
+ for <alsa-devel@alsa-project.org>; Wed, 28 Oct 2020 13:15:29 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 211B8F800FF
+Received: from 1.general.cking.uk.vpn ([10.172.193.212])
  by youngberry.canonical.com with esmtpsa
  (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.86_2)
  (envelope-from <colin.king@canonical.com>)
- id 1kXjyy-0003ON-Nj; Wed, 28 Oct 2020 11:51:12 +0000
-From: Colin King <colin.king@canonical.com>
-To: Patrick Lai <plai@codeaurora.org>,
- Banajit Goswami <bgoswami@codeaurora.org>,
- Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
- Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
- V Sujith Kumar Reddy <vsujithk@codeaurora.org>,
- Srinivasa Rao <srivasam@codeaurora.org>, alsa-devel@alsa-project.org
-Subject: [PATCH][next] ASoC: qcom: fix unsigned int bitwidth compared to less
- than zero
-Date: Wed, 28 Oct 2020 11:51:12 +0000
-Message-Id: <20201028115112.109017-1-colin.king@canonical.com>
-X-Mailer: git-send-email 2.27.0
+ id 1kXkMS-0005Pl-G9; Wed, 28 Oct 2020 12:15:28 +0000
+To: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
+From: Colin Ian King <colin.king@canonical.com>
+Subject: re: ASoC: qcom: sm8250: add sound card qrb5165-rb5 support
+Message-ID: <f441bb6c-12eb-a565-c34d-950da2b045d7@canonical.com>
+Date: Wed, 28 Oct 2020 12:15:28 +0000
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.3.2
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Cc: kernel-janitors@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
+Cc: alsa-devel@alsa-project.org, Banajit Goswami <bgoswami@codeaurora.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ Patrick Lai <plai@codeaurora.org>, Takashi Iwai <tiwai@suse.com>,
+ Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -73,32 +72,61 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: Colin Ian King <colin.king@canonical.com>
+Hi,
 
-The check for an error return from the call to snd_pcm_format_width
-is never true as the unsigned int bitwidth can never be less than
-zero. Fix this by making bitwidth an int.
+Static analysis on linux-next with Coverity had detected a potential
+array out-of-bounds write issue in the following commit:
 
-Addresses-Coverity: ("Unsigned compared against 0")
-Fixes: 7cb37b7bd0d3 ("ASoC: qcom: Add support for lpass hdmi driver")
-Signed-off-by: Colin Ian King <colin.king@canonical.com>
----
- sound/soc/qcom/lpass-hdmi.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+commit aa2e2785545aab21b6cb2e23f111ae0751cbcca7
+Author: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
+Date:   Mon Oct 26 17:09:47 2020 +0000
 
-diff --git a/sound/soc/qcom/lpass-hdmi.c b/sound/soc/qcom/lpass-hdmi.c
-index 172952d3a5d6..abfb8737a89f 100644
---- a/sound/soc/qcom/lpass-hdmi.c
-+++ b/sound/soc/qcom/lpass-hdmi.c
-@@ -24,7 +24,7 @@ static int lpass_hdmi_daiops_hw_params(struct snd_pcm_substream *substream,
- 	unsigned int rate = params_rate(params);
- 	unsigned int channels = params_channels(params);
- 	unsigned int ret;
--	unsigned int bitwidth;
-+	int bitwidth;
- 	unsigned int word_length;
- 	unsigned int ch_sts_buf0;
- 	unsigned int ch_sts_buf1;
--- 
-2.27.0
+    ASoC: qcom: sm8250: add sound card qrb5165-rb5 support
 
+The analysis is as follows:
+
+139 static int sm8250_snd_hw_free(struct snd_pcm_substream *substream)
+140 {
+141        struct snd_soc_pcm_runtime *rtd = substream->private_data;
+142        struct sm8250_snd_data *data =
+snd_soc_card_get_drvdata(rtd->card);
+143        struct snd_soc_dai *cpu_dai = asoc_rtd_to_cpu(rtd, 0);
+144        struct sdw_stream_runtime *sruntime =
+data->sruntime[cpu_dai->id];
+145
+
+   1. Switch case value 105.
+
+146        switch (cpu_dai->id) {
+
+   2. equality_cond: Jumping to case 105.
+
+147        case WSA_CODEC_DMA_RX_0:
+148        case WSA_CODEC_DMA_RX_1:
+
+   Out-of-bounds write (OVERRUN)
+   3. Condition sruntime, taking true branch.
+   4. Condition data->stream_prepared[cpu_dai->id], taking true branch.
+
+149                if (sruntime && data->stream_prepared[cpu_dai->id]) {
+150                        sdw_disable_stream(sruntime);
+151                        sdw_deprepare_stream(sruntime);
+
+   Out-of-bounds write (OVERRUN)
+   5. overrun-local: Overrunning array data->stream_prepared of 16 bytes
+at byte offset 105 using index cpu_dai->id (which evaluates to 105).
+
+152                        data->stream_prepared[cpu_dai->id] = false;
+153                }
+154                break;
+155        default:
+156                break;
+157        }
+158
+159        return 0;
+160 }
+
+So cpu_dia->id is 105 in this case statement, and yet
+data->steam_prepared is an array of 16 elements, so this looks suspect.
+
+Colin

@@ -2,85 +2,83 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id CA0A029D0EC
-	for <lists+alsa-devel@lfdr.de>; Wed, 28 Oct 2020 17:06:13 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id ED69029D175
+	for <lists+alsa-devel@lfdr.de>; Wed, 28 Oct 2020 19:26:20 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 48B2715E0;
-	Wed, 28 Oct 2020 17:05:23 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 48B2715E0
+	by alsa0.perex.cz (Postfix) with ESMTPS id 68BB8851;
+	Wed, 28 Oct 2020 19:25:30 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 68BB8851
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1603901173;
-	bh=0oLycWCoCQVQrMzBkUGFl4QlcufE3gRJ6rVdoEI58ps=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1603909580;
+	bh=M1whgnZOJadzH3ZqD/41ILHdWSiXvpcDWZEAb4SE7+E=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=pCBoeZjaQefNDa5gckMw4fEKPsMZFHvy7Zlez3ffZveDY2CC2rB/4iYipaGLw44H0
-	 xbA5oL22uqGg0Xgf2M7iJw0sAEz43s66tYzDxKkKgITBmj6iRxM8fyClOsbhVvV55/
-	 2r0TFrBr4zq0A5G74LzecZnRbRC/2rgnWBJQJzu4=
+	b=UAWSL0ZfSefitwxayeveSQw/ql7JjNhrB6tSk/oJMZvehYVRfw7ibgaJ0Ki8YDPRx
+	 RlE9Sfh4GqgcxaNy1CHkqOjm+4ArIwGX5OIdeY1Bh8F+fgk1JOsqsTv+yuQpp/eY6M
+	 IEduPVVCOid2l4iBIMk91YlqOSTM27gWxt+rox88=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 8AADDF80249;
-	Wed, 28 Oct 2020 17:04:40 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id BFFC5F80249;
+	Wed, 28 Oct 2020 19:24:47 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 52193F80212; Wed, 28 Oct 2020 17:04:38 +0100 (CET)
+ id 2F5DFF80212; Wed, 28 Oct 2020 19:24:45 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.8 required=5.0 tests=FREEMAIL_ENVFROM_END_DIGIT,
- FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,
- RCVD_IN_MSPIKE_H3,RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+ DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
  autolearn=disabled version=3.4.0
-Received: from mail-ot1-f66.google.com (mail-ot1-f66.google.com
- [209.85.210.66])
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id C2919F80134
+ for <alsa-devel@alsa-project.org>; Wed, 28 Oct 2020 19:24:39 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C2919F80134
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="ZsVc/sMc"
+Received: from mail-oi1-f178.google.com (mail-oi1-f178.google.com
+ [209.85.167.178])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 28E05F800FF
- for <alsa-devel@alsa-project.org>; Wed, 28 Oct 2020 17:04:31 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 28E05F800FF
-Received: by mail-ot1-f66.google.com with SMTP id n15so4682789otl.8
- for <alsa-devel@alsa-project.org>; Wed, 28 Oct 2020 09:04:31 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to;
- bh=PHfkq2GIgrBhlirWwFbPBHgiYurDsTixDdYprqWD+Wc=;
- b=Vjyx2pfdj84nvXH4ktzIELpRR+wE8sskfPsB6WewtbN70TanZR4n1iWSJy+6CaIcAt
- xDF932pcJYwXmy9WMzkC2xKZF9j1A8DjbfZQpjXxlo+ghx6mwSiJ4M15n5EE0k9oxsxU
- JRqEDE3hgMpj0zJ7LODsCEWH5JyZfd3auNpNj65yIj13Pe8JL/YSof0rTrRfNyqzckcz
- GiEbpDi6DkQXgf7AGp/Vj8hEIukri+0+EyqGp7IY5vGzAR1NhmUwo3YzxroKV+Q1JNlL
- KfgBm9HAN07yZz388KguE2WArc4mqzfiVjp4wXsbMnBk0qVXOGyKPcpcZUq++KwvqcDU
- uCaQ==
-X-Gm-Message-State: AOAM532qH66x/45gRdbhp8THeMcNUMX2Vx76sCy/A1eRNsQdwaJLZcYY
- I5zKxxyetsTDynMdWOw1Bg==
-X-Google-Smtp-Source: ABdhPJx5rbPL2vDT9KgX5Jp6773wb6fBHFQ2bUYzR1oysz2iTs2skeRf4thvqhm6psmEVygYKD6J2Q==
-X-Received: by 2002:a9d:3d26:: with SMTP id a35mr8047otc.54.1603901069581;
- Wed, 28 Oct 2020 09:04:29 -0700 (PDT)
-Received: from xps15 (24-155-109-49.dyn.grandenetworks.net. [24.155.109.49])
- by smtp.gmail.com with ESMTPSA id x25sm2725124oie.17.2020.10.28.09.04.27
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 28 Oct 2020 09:04:28 -0700 (PDT)
-Received: (nullmailer pid 4105730 invoked by uid 1000);
- Wed, 28 Oct 2020 16:04:27 -0000
-Date: Wed, 28 Oct 2020 11:04:27 -0500
-From: Rob Herring <robh@kernel.org>
-To: Sameer Pujar <spujar@nvidia.com>
-Subject: Re: [PATCH v3 1/3] ASoC: dt-bindings: audio-graph-card: switch to
- yaml base Documentation
-Message-ID: <20201028160427.GA4094628@bogus>
-References: <87a6wfay7t.wl-kuninori.morimoto.gx@renesas.com>
- <878sbzay6u.wl-kuninori.morimoto.gx@renesas.com>
- <75ca7528-3177-46cb-73c5-46e32e63ad44@nvidia.com>
- <87h7qgw848.wl-kuninori.morimoto.gx@renesas.com>
- <eba1f18a-0b2e-d52b-593a-9ef5304f9199@nvidia.com>
+ by mail.kernel.org (Postfix) with ESMTPSA id B53C8247FF
+ for <alsa-devel@alsa-project.org>; Wed, 28 Oct 2020 18:24:36 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=default; t=1603909476;
+ bh=M1whgnZOJadzH3ZqD/41ILHdWSiXvpcDWZEAb4SE7+E=;
+ h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
+ b=ZsVc/sMcFdoTr2EbAio4ExRQYe6ZkSHBFnZCxMP68LWN9WYrH+2VyT2tSKR2Ojf/A
+ 9oe34hjYGRJXOQk6CJtOwIaR3LHZJJex29m5yEmePDcpnV/3bP1aoTGP84XxdCboTc
+ 0cYjviCsnee5IKV6nD3qG7D6Emrx9hwprSG2tkXE=
+Received: by mail-oi1-f178.google.com with SMTP id x1so497597oic.13
+ for <alsa-devel@alsa-project.org>; Wed, 28 Oct 2020 11:24:36 -0700 (PDT)
+X-Gm-Message-State: AOAM533KHC0uJV0S6d6bEu8fEKbavJpGFHp38W+6awwz8QdfeXc1Z2KH
+ 5WCDLB6AV5dWb7t9VfMZ4L6QB6karKzrKX6rcA==
+X-Google-Smtp-Source: ABdhPJyXpqjoGHD1yMAHx6mddJw4rJxGdzINyVXxqgHhTZozTbPMuEIK/CXamZ0Se8Ri+6CmN549wosnDEPFnTMsC9k=
+X-Received: by 2002:aca:5dc2:: with SMTP id r185mr221994oib.106.1603909475904; 
+ Wed, 28 Oct 2020 11:24:35 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <eba1f18a-0b2e-d52b-593a-9ef5304f9199@nvidia.com>
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- Mark Brown <broonie@kernel.org>,
- Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+References: <20201026170947.10567-1-srinivas.kandagatla@linaro.org>
+ <20201026170947.10567-2-srinivas.kandagatla@linaro.org>
+ <20201028150135.GA4009047@bogus>
+ <31981724-b260-e94d-ebc6-ccea21763531@linaro.org>
+In-Reply-To: <31981724-b260-e94d-ebc6-ccea21763531@linaro.org>
+From: Rob Herring <robh@kernel.org>
+Date: Wed, 28 Oct 2020 13:24:24 -0500
+X-Gmail-Original-Message-ID: <CAL_JsqLUYCrqbgxJPc_CTH9MtQo=h4JBqcmpgwJgWncyLN2gtQ@mail.gmail.com>
+Message-ID: <CAL_JsqLUYCrqbgxJPc_CTH9MtQo=h4JBqcmpgwJgWncyLN2gtQ@mail.gmail.com>
+Subject: Re: [PATCH v1 1/2] ASoC: qcom: dt-bindings: Add SM8250 sound card
+ bindings
+To: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+Cc: Linux-ALSA <alsa-devel@alsa-project.org>, spapothi@codeaurora.org,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+ Patrick Lai <plai@codeaurora.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -96,57 +94,145 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Tue, Oct 27, 2020 at 11:33:49AM +0530, Sameer Pujar wrote:
-> Hi Morimoto-san,
-> 
-> > > > From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-> > > > 
-> > > > This patch switches from .txt base to .yaml base Document.
-> > > > 
-> > > > Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-> > (snip)
-> > > Since I am trying to re-use most of audio-graph for Tegra, can
-> > > 'compatible' be moved to a separate schema?
-> > > For example,
-> > > audio-graph.yaml -> defines all the common stuff
-> > > audio-graph-card.yaml -> audio-graph.yaml + 'compatible' property
-> > > Similarly, tegra-audio-graph-card.yaml -> audio-graph.yaml + Tegra
-> > > 'compatible' property
-> > I'm not expert of Json-Schema, and it sound very expert technique for me.
-> > (It always indicates me unknown errors...)
-> > I'm posting this patch since many month ago, and not yet accepted
-> > for many reasons (audio-graph DT is very complex).
-> > I spend many times for it and finally come to the point where it
-> > can (might) be accepted.
-> > I'm sorry but I want to finish this work,
-> > this means I don't want to customize it any more.
-> > If I try it, it needs more month...
-> 
-> I am not a json-schema expert either :) From earlier comments on Tegra audio
-> graph series, above re-use is possible I suppose. I depend on your
-> audio-graph documentation and for 'compatible' I am seeing error. So I
-> thought it may be fine to split audio-graph into two json-schemas now
-> itself. Otherwise I need to do it separately in my series if I want to
-> re-use your audio-graph, which is fine with me.
+On Wed, Oct 28, 2020 at 10:19 AM Srinivas Kandagatla
+<srinivas.kandagatla@linaro.org> wrote:
+>
+>
+>
+> On 28/10/2020 15:01, Rob Herring wrote:
+> > On Mon, Oct 26, 2020 at 05:09:46PM +0000, Srinivas Kandagatla wrote:
+> >> This patch adds bindings required for SM8250 based soundcards
+> >> for example Qualcomm Robotics RB5 Development Kit which makes
+> >> use of ADSP and Internal LPASS codec.
+> >
+> > You didn't send to DT list...
+>
+> Ah.. my bad.. I did not realize that I missed it!
+>
+> >
+> >>
+> >> Signed-off-by: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
+> >> ---
+> >>   .../bindings/sound/qcom,sm8250.yaml           | 161 ++++++++++++++++=
+++
+> >>   1 file changed, 161 insertions(+)
+> >>   create mode 100644 Documentation/devicetree/bindings/sound/qcom,sm82=
+50.yaml
+> >>
+> >> diff --git a/Documentation/devicetree/bindings/sound/qcom,sm8250.yaml =
+b/Documentation/devicetree/bindings/sound/qcom,sm8250.yaml
+> >> new file mode 100644
+> >> index 000000000000..b8f97fe6e92c
+> >> --- /dev/null
+> >> +++ b/Documentation/devicetree/bindings/sound/qcom,sm8250.yaml
+> >> @@ -0,0 +1,161 @@
+> >> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> >> +%YAML 1.2
+> >> +---
+> >> +$id: http://devicetree.org/schemas/sound/qcom,sm8250.yaml#
+> >> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> >> +
+> >> +title: Qualcomm Technologies Inc. SM8250 ASoC sound card driver
+> >> +
+> >> +maintainers:
+> >> +  - Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
+> >> +
+> >> +description:
+> >> +  This bindings describes SC8250 SoC based sound cards
+> >> +  which uses LPASS internal codec for audio.
+> >> +
+> >> +properties:
+> >> +  compatible:
+> >> +    oneOf:
+> >> +      - const: qcom,qrb5165-rb5
+> >> +      - items:
+> >> +        - const: qcom,sm8250
+> >
+> > This collides with the top level SoC compatible resulting in:
+> >
+>
+> I did run dt_binding_check before sending out this patch, I might have
+> missed it somehow because the make dt_binding_check did not
+> end/termnitate in any errors, however if I had scrolled 15-20 Page ups
+> it does have this error log!
 
-I think this part must be sorted out. Defining the graph schema could 
-come later though.
+make -sk
 
-With compatible dropped from audio-graph.yaml, 
-audio-graph-scu-card.yaml would look like this:
+:)
 
-allOf:
-  - $ref: audio-graph.yaml
+> > /builds/robherring/linux-dt-bindings/Documentation/devicetree/bindings/=
+sound/qcom,sm8250.example.dt.yaml: sound: $nodename:0: '/' was expected
+> >       From schema: /builds/robherring/linux-dt-bindings/Documentation/d=
+evicetree/bindings/arm/qcom.yaml
+> > /builds/robherring/linux-dt-bindings/Documentation/devicetree/bindings/=
+sound/qcom,sm8250.example.dt.yaml: sound: compatible: ['qcom,qrb5165-rb5'] =
+is not valid under any of the given schemas (Possible causes of the failure=
+):
+> >       /builds/robherring/linux-dt-bindings/Documentation/devicetree/bin=
+dings/sound/qcom,sm8250.example.dt.yaml: sound: compatible: ['qcom,qrb5165-=
+rb5'] is too short
+> >       /builds/robherring/linux-dt-bindings/Documentation/devicetree/bin=
+dings/sound/qcom,sm8250.example.dt.yaml: sound: compatible:0: 'qcom,qrb5165=
+-rb5' is not one of ['qcom,apq8016-sbc']
+> >       /builds/robherring/linux-dt-bindings/Documentation/devicetree/bin=
+dings/sound/qcom,sm8250.example.dt.yaml: sound: compatible:0: 'qcom,qrb5165=
+-rb5' is not one of ['qcom,apq8064-cm-qs600', 'qcom,apq8064-ifc6410']
+> >       /builds/robherring/linux-dt-bindings/Documentation/devicetree/bin=
+dings/sound/qcom,sm8250.example.dt.yaml: sound: compatible:0: 'qcom,qrb5165=
+-rb5' is not one of ['qcom,apq8074-dragonboard']
+> >       /builds/robherring/linux-dt-bindings/Documentation/devicetree/bin=
+dings/sound/qcom,sm8250.example.dt.yaml: sound: compatible:0: 'qcom,qrb5165=
+-rb5' is not one of ['qcom,apq8060-dragonboard', 'qcom,msm8660-surf']
+> >       /builds/robherring/linux-dt-bindings/Documentation/devicetree/bin=
+dings/sound/qcom,sm8250.example.dt.yaml: sound: compatible:0: 'qcom,qrb5165=
+-rb5' is not one of ['qcom,apq8084-mtp', 'qcom,apq8084-sbc']
+> >       /builds/robherring/linux-dt-bindings/Documentation/devicetree/bin=
+dings/sound/qcom,sm8250.example.dt.yaml: sound: compatible:0: 'qcom,qrb5165=
+-rb5' is not one of ['qcom,msm8960-cdp']
+> >       /builds/robherring/linux-dt-bindings/Documentation/devicetree/bin=
+dings/sound/qcom,sm8250.example.dt.yaml: sound: compatible:0: 'qcom,qrb5165=
+-rb5' is not one of ['fairphone,fp2', 'lge,hammerhead', 'sony,xperia-amami'=
+, 'sony,xperia-castor', 'sony,xperia-honami']
+> >       /builds/robherring/linux-dt-bindings/Documentation/devicetree/bin=
+dings/sound/qcom,sm8250.example.dt.yaml: sound: compatible:0: 'qcom,msm8916=
+-mtp/1' was expected
+> >       /builds/robherring/linux-dt-bindings/Documentation/devicetree/bin=
+dings/sound/qcom,sm8250.example.dt.yaml: sound: compatible:0: 'qcom,qrb5165=
+-rb5' is not one of ['longcheer,l8150', 'samsung,a3u-eur', 'samsung,a5u-eur=
+']
+> >       /builds/robherring/linux-dt-bindings/Documentation/devicetree/bin=
+dings/sound/qcom,sm8250.example.dt.yaml: sound: compatible:0: 'qcom,msm8996=
+-mtp' was expected
+> >       /builds/robherring/linux-dt-bindings/Documentation/devicetree/bin=
+dings/sound/qcom,sm8250.example.dt.yaml: sound: compatible:0: 'qcom,qrb5165=
+-rb5' is not one of ['qcom,ipq4019-ap-dk04.1-c3', 'qcom,ipq4019-ap-dk07.1-c=
+1', 'qcom,ipq4019-ap-dk07.1-c2', 'qcom,ipq4019-dk04.1-c1']
+> >       /builds/robherring/linux-dt-bindings/Documentation/devicetree/bin=
+dings/sound/qcom,sm8250.example.dt.yaml: sound: compatible:0: 'qcom,qrb5165=
+-rb5' is not one of ['qcom,ipq8064-ap148']
+> >       /builds/robherring/linux-dt-bindings/Documentation/devicetree/bin=
+dings/sound/qcom,sm8250.example.dt.yaml: sound: compatible:0: 'qcom,qrb5165=
+-rb5' is not one of ['qcom,ipq8074-hk01', 'qcom,ipq8074-hk10-c1', 'qcom,ipq=
+8074-hk10-c2']
+> >       /builds/robherring/linux-dt-bindings/Documentation/devicetree/bin=
+dings/sound/qcom,sm8250.example.dt.yaml: sound: compatible:0: 'qcom,qrb5165=
+-rb5' is not one of ['qcom,sc7180-idp']
+> >       /builds/robherring/linux-dt-bindings/Documentation/devicetree/bin=
+dings/sound/qcom,sm8250.example.dt.yaml: sound: compatible:0: 'qcom,qrb5165=
+-rb5' is not one of ['xiaomi,lavender']
+> >       /builds/robherring/linux-dt-bindings/Documentation/devicetree/bin=
+dings/sound/qcom,sm8250.example.dt.yaml: sound: compatible:0: 'qcom,qrb5165=
+-rb5' is not one of ['qcom,ipq6018-cp01-c1']
+> >
+> >       From schema: /builds/robherring/linux-dt-bindings/Documentation/d=
+evicetree/bindings/arm/qcom.yaml
+> >
+> Documentation/devicetree/bindings/arm/qcom.yaml does have
+> qcom,qrb5165-rb5 entry under [qcom,sm8250]
+>
+> Can you help me understand why is this not a valid compatible?
 
-properties:
-  compatible:
-    const: audio-graph-scu-card
-
-unevaluatedProperties: false
-
-
-However, What is 'audio-graph-scu-card' supposed to mean compared to 
-'audio-graph-card'. It's never used by the driver or in any dts file.
+Those compatibles are used at the top level for the SoC. You can't use
+the same compatible to mean 2 different things.
 
 Rob
-

@@ -2,64 +2,80 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2838929CF49
-	for <lists+alsa-devel@lfdr.de>; Wed, 28 Oct 2020 10:46:28 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 489A029CF41
+	for <lists+alsa-devel@lfdr.de>; Wed, 28 Oct 2020 10:41:14 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 6C1991680;
-	Wed, 28 Oct 2020 10:45:37 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6C1991680
+	by alsa0.perex.cz (Postfix) with ESMTPS id C667C1674;
+	Wed, 28 Oct 2020 10:40:23 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C667C1674
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1603878387;
-	bh=A3nGgIev2mTl4DanwzhDPENHS+wXy4L+xqMX2E/bUSw=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1603878073;
+	bh=NyaGgpuufUFBzrnTMBUGoQ6YITkAhsSqrfDv+fq13JE=;
+	h=Subject:From:To:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=QM0/McJpR/ChMHdnGqWke7jYe8QQTEOvQCWv+/KlKFB/MtqIKrcXYe0djTT91Z/VQ
-	 iSpFR02GZuSp4EPWeHRt6KOgNq88n7kduqEvLMoFMs6Et3TucVAPeM5tqLJLw6v0XS
-	 u9VWnWsFa0V0Tlol87CissPLcWQgS+RHq9+5JOf4=
+	b=UYeeScA3hda/iIKyKMzVg8gs8XDSVBcyzFw5H/9y0jcMRjVuojhVHzzV5OVfDxh2i
+	 fFagTB9Lj4fexcyCnq/skAfHCf+Zm2GmFYOAYUCOX/ar65do/+XwxAMmyyqkiSNedM
+	 YcLGSL14oVkW60nFoZln+ZE2o0IhooqoiNfI3/0M=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 8D09EF8027B;
-	Wed, 28 Oct 2020 10:44:44 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id EB818F800FF;
+	Wed, 28 Oct 2020 10:39:40 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 25157F800FF; Wed, 28 Oct 2020 10:44:43 +0100 (CET)
+ id 5F7BAF80212; Wed, 28 Oct 2020 10:39:39 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from inva020.nxp.com (inva020.nxp.com [92.121.34.13])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 2F9CCF800FF
- for <alsa-devel@alsa-project.org>; Wed, 28 Oct 2020 10:44:36 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2F9CCF800FF
-Received: from inva020.nxp.com (localhost [127.0.0.1])
- by inva020.eu-rdc02.nxp.com (Postfix) with ESMTP id D338F1A150D;
- Wed, 28 Oct 2020 10:44:34 +0100 (CET)
-Received: from invc005.ap-rdc01.nxp.com (invc005.ap-rdc01.nxp.com
- [165.114.16.14])
- by inva020.eu-rdc02.nxp.com (Postfix) with ESMTP id 63CC11A150A;
- Wed, 28 Oct 2020 10:44:29 +0100 (CET)
-Received: from localhost.localdomain (shlinux2.ap.freescale.net
- [10.192.224.44])
- by invc005.ap-rdc01.nxp.com (Postfix) with ESMTP id E233240307;
- Wed, 28 Oct 2020 10:44:22 +0100 (CET)
-From: Shengjiu Wang <shengjiu.wang@nxp.com>
-To: timur@kernel.org, nicoleotsuka@gmail.com, Xiubo.Lee@gmail.com,
- festevam@gmail.com, broonie@kernel.org, perex@perex.cz, tiwai@suse.com,
- alsa-devel@alsa-project.org, lgirdwood@gmail.com, robh+dt@kernel.org,
- devicetree@vger.kernel.org
-Subject: [PATCH v2 2/2] ASoC: fsl_aud2htx: Add aud2htx module driver
-Date: Wed, 28 Oct 2020 17:38:50 +0800
-Message-Id: <1603877930-10553-2-git-send-email-shengjiu.wang@nxp.com>
-X-Mailer: git-send-email 2.7.4
-In-Reply-To: <1603877930-10553-1-git-send-email-shengjiu.wang@nxp.com>
-References: <1603877930-10553-1-git-send-email-shengjiu.wang@nxp.com>
-X-Virus-Scanned: ClamAV using ClamSMTP
-Cc: linuxppc-dev@lists.ozlabs.org, linux-kernel@vger.kernel.org
+X-Spam-Status: No, score=0.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,RDNS_NONE,SPF_HELO_NONE,SPF_PASS,UNPARSEABLE_RELAY
+ autolearn=disabled version=3.4.0
+Received: from mailgw01.mediatek.com (unknown [210.61.82.183])
+ by alsa1.perex.cz (Postfix) with ESMTP id 70868F80134
+ for <alsa-devel@alsa-project.org>; Wed, 28 Oct 2020 10:39:33 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 70868F80134
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=mediatek.com header.i=@mediatek.com
+ header.b="E3RWoJ+g"
+X-UUID: 15eb97178be0456589c47dcd84e5fbc1-20201028
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=mediatek.com;
+ s=dk; 
+ h=Content-Transfer-Encoding:MIME-Version:Content-Type:References:In-Reply-To:Date:CC:To:From:Subject:Message-ID;
+ bh=NyaGgpuufUFBzrnTMBUGoQ6YITkAhsSqrfDv+fq13JE=; 
+ b=E3RWoJ+g4b0gquhyhIuM7PH2q26KAvPWUORHWpHdgpJuxD8G7BFerS1PbsbuRVyUl0JPBXEVwoz3KPZPfk+BpqEBJeHGeysuF6rzmvj8C6/GvctZdO0SwEwGMCmLuRMgwIfdqcQCghUC4JuVcIu7TYeWEQpBiuGmkdUNZdPvjLI=;
+X-UUID: 15eb97178be0456589c47dcd84e5fbc1-20201028
+Received: from mtkexhb01.mediatek.inc [(172.21.101.102)] by
+ mailgw01.mediatek.com (envelope-from <jiaxin.yu@mediatek.com>)
+ (Cellopoint E-mail Firewall v4.1.14 Build 0819 with TLSv1.2
+ ECDHE-RSA-AES256-SHA384 256/256)
+ with ESMTP id 1967009791; Wed, 28 Oct 2020 17:39:26 +0800
+Received: from MTKCAS32.mediatek.inc (172.27.4.184) by mtkmbs07n1.mediatek.inc
+ (172.21.101.16) with Microsoft SMTP Server (TLS) id 15.0.1497.2;
+ Wed, 28 Oct 2020 17:39:24 +0800
+Received: from [10.17.3.153] (10.17.3.153) by MTKCAS32.mediatek.inc
+ (172.27.4.170) with Microsoft SMTP Server id 15.0.1497.2 via Frontend
+ Transport; Wed, 28 Oct 2020 17:39:23 +0800
+Message-ID: <1603877963.26523.10.camel@mhfsdcap03>
+Subject: Re: [PATCH 1/2] ASoC: mt6359: skip first time data at the beginning
+ of DMIC recording
+From: Jiaxin Yu <jiaxin.yu@mediatek.com>
+To: Mark Brown <broonie@kernel.org>
+Date: Wed, 28 Oct 2020 17:39:23 +0800
+In-Reply-To: <20201027131519.GA4895@sirena.org.uk>
+References: <1603521686-13036-1-git-send-email-jiaxin.yu@mediatek.com>
+ <1603521686-13036-2-git-send-email-jiaxin.yu@mediatek.com>
+ <20201026123325.GC7402@sirena.org.uk> <1603794538.26523.6.camel@mhfsdcap03>
+ <20201027131519.GA4895@sirena.org.uk>
+Content-Type: text/plain; charset="UTF-8"
+X-Mailer: Evolution 3.10.4-0ubuntu2 
+MIME-Version: 1.0
+X-MTK: N
+Content-Transfer-Encoding: base64
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
+ shane.chien@mediatek.com, tiwai@suse.com, tzungbi@google.com,
+ robh+dt@kernel.org, linux-mediatek@lists.infradead.org, matthias.bgg@gmail.com,
+ linux-arm-kernel@lists.infradead.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -75,457 +91,19 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-The AUD2HTX is a digital module that provides a bridge between
-the Audio Subsystem and the HDMI RTX Subsystem. This module
-includes intermediate storage to queue SDMA transactions prior
-to being synchronized and passed to the HDMI RTX Subsystem over
-the Audio Link.
-
-The AUD2HTX contains a DMA request routed to the SDMA module.
-This DMA request is controlled based on the watermark level in
-the 32-entry sample buffer.
-
-Signed-off-by: Shengjiu Wang <shengjiu.wang@nxp.com>
----
-changes in v2:
-- remove hw_params, add operation to dai probe
-
- sound/soc/fsl/Kconfig       |   5 +
- sound/soc/fsl/Makefile      |   2 +
- sound/soc/fsl/fsl_aud2htx.c | 313 ++++++++++++++++++++++++++++++++++++
- sound/soc/fsl/fsl_aud2htx.h |  67 ++++++++
- 4 files changed, 387 insertions(+)
- create mode 100644 sound/soc/fsl/fsl_aud2htx.c
- create mode 100644 sound/soc/fsl/fsl_aud2htx.h
-
-diff --git a/sound/soc/fsl/Kconfig b/sound/soc/fsl/Kconfig
-index d04b64d32dc1..52a562215008 100644
---- a/sound/soc/fsl/Kconfig
-+++ b/sound/soc/fsl/Kconfig
-@@ -105,6 +105,11 @@ config SND_SOC_FSL_XCVR
- 	  iMX CPUs. XCVR is a digital module that supports HDMI2.1 eARC,
- 	  HDMI1.4 ARC and SPDIF.
- 
-+config SND_SOC_FSL_AUD2HTX
-+	tristate "AUDIO TO HDMI TX module support"
-+	help
-+	  Say Y if you want to add AUDIO TO HDMI TX support for NXP.
-+
- config SND_SOC_FSL_UTILS
- 	tristate
- 
-diff --git a/sound/soc/fsl/Makefile b/sound/soc/fsl/Makefile
-index 1d2231f9cc47..2181b7f9f677 100644
---- a/sound/soc/fsl/Makefile
-+++ b/sound/soc/fsl/Makefile
-@@ -26,6 +26,7 @@ snd-soc-fsl-dma-objs := fsl_dma.o
- snd-soc-fsl-mqs-objs := fsl_mqs.o
- snd-soc-fsl-easrc-objs := fsl_easrc.o
- snd-soc-fsl-xcvr-objs := fsl_xcvr.o
-+snd-soc-fsl-aud2htx-objs := fsl_aud2htx.o
- 
- obj-$(CONFIG_SND_SOC_FSL_AUDMIX) += snd-soc-fsl-audmix.o
- obj-$(CONFIG_SND_SOC_FSL_ASOC_CARD) += snd-soc-fsl-asoc-card.o
-@@ -40,6 +41,7 @@ obj-$(CONFIG_SND_SOC_FSL_MQS) += snd-soc-fsl-mqs.o
- obj-$(CONFIG_SND_SOC_FSL_EASRC) += snd-soc-fsl-easrc.o
- obj-$(CONFIG_SND_SOC_POWERPC_DMA) += snd-soc-fsl-dma.o
- obj-$(CONFIG_SND_SOC_FSL_XCVR) += snd-soc-fsl-xcvr.o
-+obj-$(CONFIG_SND_SOC_FSL_AUD2HTX) += snd-soc-fsl-aud2htx.o
- 
- # MPC5200 Platform Support
- obj-$(CONFIG_SND_MPC52xx_DMA) += mpc5200_dma.o
-diff --git a/sound/soc/fsl/fsl_aud2htx.c b/sound/soc/fsl/fsl_aud2htx.c
-new file mode 100644
-index 000000000000..a6e25195a8df
---- /dev/null
-+++ b/sound/soc/fsl/fsl_aud2htx.c
-@@ -0,0 +1,313 @@
-+// SPDX-License-Identifier: GPL-2.0+
-+// Copyright 2020 NXP
-+
-+#include <linux/clk.h>
-+#include <linux/clk-provider.h>
-+#include <linux/delay.h>
-+#include <linux/dmaengine.h>
-+#include <linux/module.h>
-+#include <linux/of_device.h>
-+#include <linux/of_address.h>
-+#include <linux/pm_runtime.h>
-+#include <linux/regmap.h>
-+#include <linux/slab.h>
-+#include <linux/time.h>
-+#include <linux/pm_qos.h>
-+#include <sound/core.h>
-+#include <sound/dmaengine_pcm.h>
-+#include <sound/pcm_params.h>
-+#include <linux/dma-mapping.h>
-+
-+#include "fsl_aud2htx.h"
-+#include "imx-pcm.h"
-+
-+static int fsl_aud2htx_trigger(struct snd_pcm_substream *substream, int cmd,
-+			       struct snd_soc_dai *dai)
-+{
-+	struct fsl_aud2htx *aud2htx = snd_soc_dai_get_drvdata(dai);
-+
-+	switch (cmd) {
-+	case SNDRV_PCM_TRIGGER_START:
-+	case SNDRV_PCM_TRIGGER_RESUME:
-+	case SNDRV_PCM_TRIGGER_PAUSE_RELEASE:
-+		regmap_update_bits(aud2htx->regmap, AUD2HTX_CTRL,
-+				   AUD2HTX_CTRL_EN, AUD2HTX_CTRL_EN);
-+		regmap_update_bits(aud2htx->regmap, AUD2HTX_CTRL_EXT,
-+				   AUD2HTX_CTRE_DE, AUD2HTX_CTRE_DE);
-+		break;
-+	case SNDRV_PCM_TRIGGER_SUSPEND:
-+	case SNDRV_PCM_TRIGGER_STOP:
-+	case SNDRV_PCM_TRIGGER_PAUSE_PUSH:
-+		regmap_update_bits(aud2htx->regmap, AUD2HTX_CTRL_EXT,
-+				   AUD2HTX_CTRE_DE, 0);
-+		regmap_update_bits(aud2htx->regmap, AUD2HTX_CTRL,
-+				   AUD2HTX_CTRL_EN, 0);
-+		break;
-+	default:
-+		return -EINVAL;
-+	}
-+	return 0;
-+}
-+
-+static const struct snd_soc_dai_ops fsl_aud2htx_dai_ops = {
-+	.trigger	= fsl_aud2htx_trigger,
-+};
-+
-+static int fsl_aud2htx_dai_probe(struct snd_soc_dai *cpu_dai)
-+{
-+	struct fsl_aud2htx *aud2htx = dev_get_drvdata(cpu_dai->dev);
-+
-+	/* DMA request when number of entries < WTMK_LOW */
-+	regmap_update_bits(aud2htx->regmap, AUD2HTX_CTRL_EXT,
-+			   AUD2HTX_CTRE_DT_MASK, 0);
-+
-+	/* Disable interrupts*/
-+	regmap_update_bits(aud2htx->regmap, AUD2HTX_IRQ_MASK,
-+			   AUD2HTX_WM_HIGH_IRQ_MASK |
-+			   AUD2HTX_WM_LOW_IRQ_MASK |
-+			   AUD2HTX_OVF_MASK,
-+			   AUD2HTX_WM_HIGH_IRQ_MASK |
-+			   AUD2HTX_WM_LOW_IRQ_MASK |
-+			   AUD2HTX_OVF_MASK);
-+
-+	/* Configure watermark */
-+	regmap_update_bits(aud2htx->regmap, AUD2HTX_CTRL_EXT,
-+			   AUD2HTX_CTRE_WL_MASK,
-+			   AUD2HTX_WTMK_LOW << AUD2HTX_CTRE_WL_SHIFT);
-+	regmap_update_bits(aud2htx->regmap, AUD2HTX_CTRL_EXT,
-+			   AUD2HTX_CTRE_WH_MASK,
-+			   AUD2HTX_WTMK_HIGH << AUD2HTX_CTRE_WH_SHIFT);
-+
-+	snd_soc_dai_init_dma_data(cpu_dai, &aud2htx->dma_params_tx,
-+				  &aud2htx->dma_params_rx);
-+
-+	return 0;
-+}
-+
-+static struct snd_soc_dai_driver fsl_aud2htx_dai = {
-+	.probe = fsl_aud2htx_dai_probe,
-+	.playback = {
-+		.stream_name = "CPU-Playback",
-+		.channels_min = 1,
-+		.channels_max = 8,
-+		.rates = SNDRV_PCM_RATE_32000 |
-+			 SNDRV_PCM_RATE_44100 |
-+			 SNDRV_PCM_RATE_48000 |
-+			 SNDRV_PCM_RATE_88200 |
-+			 SNDRV_PCM_RATE_96000 |
-+			 SNDRV_PCM_RATE_176400 |
-+			 SNDRV_PCM_RATE_192000,
-+		.formats = FSL_AUD2HTX_FORMATS,
-+	},
-+	.ops = &fsl_aud2htx_dai_ops,
-+};
-+
-+static const struct snd_soc_component_driver fsl_aud2htx_component = {
-+	.name	= "fsl-aud2htx",
-+};
-+
-+static const struct reg_default fsl_aud2htx_reg_defaults[] = {
-+	{AUD2HTX_CTRL,		0x00000000},
-+	{AUD2HTX_CTRL_EXT,	0x00000000},
-+	{AUD2HTX_WR,		0x00000000},
-+	{AUD2HTX_STATUS,	0x00000000},
-+	{AUD2HTX_IRQ_NOMASK,	0x00000000},
-+	{AUD2HTX_IRQ_MASKED,	0x00000000},
-+	{AUD2HTX_IRQ_MASK,	0x00000000},
-+};
-+
-+static bool fsl_aud2htx_readable_reg(struct device *dev, unsigned int reg)
-+{
-+	switch (reg) {
-+	case AUD2HTX_CTRL:
-+	case AUD2HTX_CTRL_EXT:
-+	case AUD2HTX_STATUS:
-+	case AUD2HTX_IRQ_NOMASK:
-+	case AUD2HTX_IRQ_MASKED:
-+	case AUD2HTX_IRQ_MASK:
-+		return true;
-+	default:
-+		return false;
-+	}
-+}
-+
-+static bool fsl_aud2htx_writeable_reg(struct device *dev, unsigned int reg)
-+{
-+	switch (reg) {
-+	case AUD2HTX_CTRL:
-+	case AUD2HTX_CTRL_EXT:
-+	case AUD2HTX_WR:
-+	case AUD2HTX_IRQ_NOMASK:
-+	case AUD2HTX_IRQ_MASKED:
-+	case AUD2HTX_IRQ_MASK:
-+		return true;
-+	default:
-+		return false;
-+	}
-+}
-+
-+static bool fsl_aud2htx_volatile_reg(struct device *dev, unsigned int reg)
-+{
-+	switch (reg) {
-+	case AUD2HTX_STATUS:
-+	case AUD2HTX_IRQ_NOMASK:
-+	case AUD2HTX_IRQ_MASKED:
-+		return true;
-+	default:
-+		return false;
-+	}
-+}
-+
-+static const struct regmap_config fsl_aud2htx_regmap_config = {
-+	.reg_bits = 32,
-+	.reg_stride = 4,
-+	.val_bits = 32,
-+
-+	.max_register = AUD2HTX_IRQ_MASK,
-+	.reg_defaults = fsl_aud2htx_reg_defaults,
-+	.num_reg_defaults = ARRAY_SIZE(fsl_aud2htx_reg_defaults),
-+	.readable_reg = fsl_aud2htx_readable_reg,
-+	.volatile_reg = fsl_aud2htx_volatile_reg,
-+	.writeable_reg = fsl_aud2htx_writeable_reg,
-+	.cache_type = REGCACHE_RBTREE,
-+};
-+
-+static const struct of_device_id fsl_aud2htx_dt_ids[] = {
-+	{ .compatible = "fsl,imx8mp-aud2htx",},
-+	{}
-+};
-+MODULE_DEVICE_TABLE(of, fsl_aud2htx_dt_ids);
-+
-+static irqreturn_t fsl_aud2htx_isr(int irq, void *dev_id)
-+{
-+	return IRQ_HANDLED;
-+}
-+
-+static int fsl_aud2htx_probe(struct platform_device *pdev)
-+{
-+	struct fsl_aud2htx *aud2htx;
-+	struct resource *res;
-+	void __iomem *regs;
-+	int ret, irq;
-+
-+	aud2htx = devm_kzalloc(&pdev->dev, sizeof(*aud2htx), GFP_KERNEL);
-+	if (!aud2htx)
-+		return -ENOMEM;
-+
-+	aud2htx->pdev = pdev;
-+
-+	res = platform_get_resource(pdev, IORESOURCE_MEM, 0);
-+	regs = devm_ioremap_resource(&pdev->dev, res);
-+	if (IS_ERR(regs)) {
-+		dev_err(&pdev->dev, "failed ioremap\n");
-+		return PTR_ERR(regs);
-+	}
-+
-+	aud2htx->regmap = devm_regmap_init_mmio(&pdev->dev, regs,
-+						&fsl_aud2htx_regmap_config);
-+	if (IS_ERR(aud2htx->regmap)) {
-+		dev_err(&pdev->dev, "failed to init regmap");
-+		return PTR_ERR(aud2htx->regmap);
-+	}
-+
-+	irq = platform_get_irq(pdev, 0);
-+	if (irq < 0) {
-+		dev_err(&pdev->dev, "no irq for node %s\n",
-+			dev_name(&pdev->dev));
-+		return irq;
-+	}
-+
-+	ret = devm_request_irq(&pdev->dev, irq, fsl_aud2htx_isr, 0,
-+			       dev_name(&pdev->dev), aud2htx);
-+	if (ret) {
-+		dev_err(&pdev->dev, "failed to claim irq %u: %d\n", irq, ret);
-+		return ret;
-+	}
-+
-+	aud2htx->bus_clk = devm_clk_get(&pdev->dev, "bus");
-+	if (IS_ERR(aud2htx->bus_clk)) {
-+		dev_err(&pdev->dev, "failed to get mem clock\n");
-+		return PTR_ERR(aud2htx->bus_clk);
-+	}
-+
-+	aud2htx->dma_params_tx.chan_name = "tx";
-+	aud2htx->dma_params_tx.maxburst = AUD2HTX_MAXBURST;
-+	aud2htx->dma_params_tx.addr = res->start + AUD2HTX_WR;
-+
-+	platform_set_drvdata(pdev, aud2htx);
-+	pm_runtime_enable(&pdev->dev);
-+
-+	regcache_cache_only(aud2htx->regmap, true);
-+
-+	ret = devm_snd_soc_register_component(&pdev->dev,
-+					      &fsl_aud2htx_component,
-+					      &fsl_aud2htx_dai, 1);
-+	if (ret) {
-+		dev_err(&pdev->dev, "failed to register ASoC DAI\n");
-+		return ret;
-+	}
-+
-+	ret = imx_pcm_dma_init(pdev, IMX_DEFAULT_DMABUF_SIZE);
-+	if (ret)
-+		dev_err(&pdev->dev, "failed to init imx pcm dma: %d\n", ret);
-+
-+	return ret;
-+}
-+
-+static int fsl_aud2htx_remove(struct platform_device *pdev)
-+{
-+	pm_runtime_disable(&pdev->dev);
-+
-+	return 0;
-+}
-+
-+#ifdef CONFIG_PM
-+static int fsl_aud2htx_runtime_suspend(struct device *dev)
-+{
-+	struct fsl_aud2htx *aud2htx = dev_get_drvdata(dev);
-+
-+	regcache_cache_only(aud2htx->regmap, true);
-+	clk_disable_unprepare(aud2htx->bus_clk);
-+
-+	return 0;
-+}
-+
-+static int fsl_aud2htx_runtime_resume(struct device *dev)
-+{
-+	struct fsl_aud2htx *aud2htx = dev_get_drvdata(dev);
-+	int ret;
-+
-+	ret = clk_prepare_enable(aud2htx->bus_clk);
-+	if (ret)
-+		return ret;
-+
-+	regcache_cache_only(aud2htx->regmap, false);
-+	regcache_mark_dirty(aud2htx->regmap);
-+	regcache_sync(aud2htx->regmap);
-+
-+	return 0;
-+}
-+#endif /*CONFIG_PM*/
-+
-+static const struct dev_pm_ops fsl_aud2htx_pm_ops = {
-+	SET_RUNTIME_PM_OPS(fsl_aud2htx_runtime_suspend,
-+			   fsl_aud2htx_runtime_resume,
-+			   NULL)
-+	SET_SYSTEM_SLEEP_PM_OPS(pm_runtime_force_suspend,
-+				pm_runtime_force_resume)
-+};
-+
-+static struct platform_driver fsl_aud2htx_driver = {
-+	.probe = fsl_aud2htx_probe,
-+	.remove = fsl_aud2htx_remove,
-+	.driver = {
-+		.name = "fsl-aud2htx",
-+		.pm = &fsl_aud2htx_pm_ops,
-+		.of_match_table = fsl_aud2htx_dt_ids,
-+	},
-+};
-+module_platform_driver(fsl_aud2htx_driver);
-+
-+MODULE_AUTHOR("Shengjiu Wang <Shengjiu.Wang@nxp.com>");
-+MODULE_DESCRIPTION("NXP AUD2HTX driver");
-+MODULE_LICENSE("GPL v2");
-diff --git a/sound/soc/fsl/fsl_aud2htx.h b/sound/soc/fsl/fsl_aud2htx.h
-new file mode 100644
-index 000000000000..ad70d6a7694c
---- /dev/null
-+++ b/sound/soc/fsl/fsl_aud2htx.h
-@@ -0,0 +1,67 @@
-+/* SPDX-License-Identifier: GPL-2.0 */
-+/*
-+ * Copyright 2020 NXP
-+ */
-+
-+#ifndef _FSL_AUD2HTX_H
-+#define _FSL_AUD2HTX_H
-+
-+#define FSL_AUD2HTX_FORMATS (SNDRV_PCM_FMTBIT_S24_LE | \
-+			     SNDRV_PCM_FMTBIT_S32_LE)
-+
-+/* AUD2HTX Register Map */
-+#define AUD2HTX_CTRL          0x0   /* AUD2HTX Control Register */
-+#define AUD2HTX_CTRL_EXT      0x4   /* AUD2HTX Control Extended Register */
-+#define AUD2HTX_WR            0x8   /* AUD2HTX Write Register */
-+#define AUD2HTX_STATUS        0xC   /* AUD2HTX Status Register */
-+#define AUD2HTX_IRQ_NOMASK    0x10  /* AUD2HTX Nonmasked Interrupt Flags Register */
-+#define AUD2HTX_IRQ_MASKED    0x14  /* AUD2HTX Masked Interrupt Flags Register */
-+#define AUD2HTX_IRQ_MASK      0x18  /* AUD2HTX IRQ Masks Register */
-+
-+/* AUD2HTX Control Register */
-+#define AUD2HTX_CTRL_EN          BIT(0)
-+
-+/* AUD2HTX Control Extended Register */
-+#define AUD2HTX_CTRE_DE          BIT(0)
-+#define AUD2HTX_CTRE_DT_SHIFT    0x1
-+#define AUD2HTX_CTRE_DT_WIDTH    0x2
-+#define AUD2HTX_CTRE_DT_MASK     ((BIT(AUD2HTX_CTRE_DT_WIDTH) - 1) \
-+				 << AUD2HTX_CTRE_DT_SHIFT)
-+#define AUD2HTX_CTRE_WL_SHIFT    16
-+#define AUD2HTX_CTRE_WL_WIDTH    5
-+#define AUD2HTX_CTRE_WL_MASK     ((BIT(AUD2HTX_CTRE_WL_WIDTH) - 1) \
-+				 << AUD2HTX_CTRE_WL_SHIFT)
-+#define AUD2HTX_CTRE_WH_SHIFT    24
-+#define AUD2HTX_CTRE_WH_WIDTH    5
-+#define AUD2HTX_CTRE_WH_MASK     ((BIT(AUD2HTX_CTRE_WH_WIDTH) - 1) \
-+				 << AUD2HTX_CTRE_WH_SHIFT)
-+
-+/* AUD2HTX IRQ Masks Register */
-+#define AUD2HTX_WM_HIGH_IRQ_MASK BIT(2)
-+#define AUD2HTX_WM_LOW_IRQ_MASK  BIT(1)
-+#define AUD2HTX_OVF_MASK         BIT(0)
-+
-+#define AUD2HTX_FIFO_DEPTH       0x20
-+#define AUD2HTX_WTMK_LOW         0x10
-+#define AUD2HTX_WTMK_HIGH        0x10
-+#define AUD2HTX_MAXBURST         0x10
-+
-+/**
-+ * fsl_aud2htx: AUD2HTX private data
-+ *
-+ * @pdev: platform device pointer
-+ * @regmap: regmap handler
-+ * @bus_clk: clock source to access register
-+ * @dma_params_rx: DMA parameters for receive channel
-+ * @dma_params_tx: DMA parameters for transmit channel
-+ */
-+struct fsl_aud2htx {
-+	struct platform_device *pdev;
-+	struct regmap *regmap;
-+	struct clk *bus_clk;
-+
-+	struct snd_dmaengine_dai_dma_data dma_params_rx;
-+	struct snd_dmaengine_dai_dma_data dma_params_tx;
-+};
-+
-+#endif /* _FSL_AUD2HTX_H */
--- 
-2.27.0
+T24gVHVlLCAyMDIwLTEwLTI3IGF0IDEzOjE1ICswMDAwLCBNYXJrIEJyb3duIHdyb3RlOg0KPiBP
+biBUdWUsIE9jdCAyNywgMjAyMCBhdCAwNjoyODo1OFBNICswODAwLCBKaWF4aW4gWXUgd3JvdGU6
+DQo+ID4gT24gTW9uLCAyMDIwLTEwLTI2IGF0IDEyOjMzICswMDAwLCBNYXJrIEJyb3duIHdyb3Rl
+Og0KPiANCj4gPiA+IFRoaXMgc2VlbXMgbGlrZSBzb21ldGhpbmcgdGhhdCB3b3VsZCBhcHBseSBl
+cXVhbGx5IHRvIGFsbCBETUlDcyBzbw0KPiA+ID4gc2hvdWxkIGJlIGRvbmUgYXQgYSBtb3JlIGdl
+bmVyYWwgbGV2ZWwgcmF0aGVyIHRoYW4gaW4gdGhpcyBzcGVjaWZpYw0KPiA+ID4gZHJpdmVyLCBm
+b3IgZXhhbXBsZSBpdCBjb3VsZCBiZSBkb25lIGluIHRoZSBETUlDIGRyaXZlci4NCj4gDQo+ID4g
+U28geW91IHN1Z2dlc3QgdGhhdCB3ZSB1c2Ugc291bmQvc29jL2NvZGVjcy9kbWljLmMgdG8gY29u
+dHJvbCB0aGUgZGVsYXkNCj4gPiBhZnRlciByZWNvcmRpbmc/DQo+ID4gSWYgc28sIHNob3VsZCB3
+ZSBhZGQgb25lIG1vcmUgQ09ERUMoJ2RtaWMtY29kZWMnIGFuZCAnZG1pYy1oaWZpJykgdG8NCj4g
+PiBkbWljJ3MgZGFpLWxpbms/IEl0IGxvb2tzIGxpbmsgZG1pYy5jIGhhcyBoZWxwZWQgdXMgZG8g
+c29tZXRoaW5nIHRvDQo+ID4gY29udHJvbCBkbWljcy4NCj4gDQo+IFllcywgZXhhY3RseS4NCg0K
+VGhhbmtzLCBpZiBzbywgdGhlbiB0aGUgbW9kaWZpY2F0aW9uIGlzIG1haW5seSBpbiB0aGUgbWFj
+aGluZSBkcml2ZXIuDQpJIHdpbGwgc2VuZCB0aGUgUEFUQ0ggdjIgYWdhaW4gYWZ0ZXIgeW91IHJl
+dmlldyB0aGUgbWFjaGluZSBkcml2ZXIgYW5kDQptZXJnZSB0aGVtLg0K
 

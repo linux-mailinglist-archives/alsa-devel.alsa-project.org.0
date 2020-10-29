@@ -2,69 +2,76 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id AB67329F16D
-	for <lists+alsa-devel@lfdr.de>; Thu, 29 Oct 2020 17:28:40 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id C82AB29F1C7
+	for <lists+alsa-devel@lfdr.de>; Thu, 29 Oct 2020 17:42:54 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 3BA5815E5;
-	Thu, 29 Oct 2020 17:27:50 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3BA5815E5
+	by alsa0.perex.cz (Postfix) with ESMTPS id 57B721662;
+	Thu, 29 Oct 2020 17:42:04 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 57B721662
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1603988920;
-	bh=t+PBJ0NHId5QAZDzuBrDGNlV6g1PCH9iZXJKI+sMxMw=;
-	h=Date:From:To:In-Reply-To:References:Subject:Cc:List-Id:
+	s=default; t=1603989774;
+	bh=SyGrlEpjFORwPkmgv+bXejVCTHmJTo5o7gGyL1/KRIk=;
+	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=mgfGDWWjhFlV4PLM/5lmw/wpmc2M3mBJhS7snEvzXIF4piuTjBTEKQt6/Ji+4lbjc
-	 XGqFkgOitFzMlzTHE2y15TOS/Q+Js85qVIKvWui6ZXStM1q6igT9+cI8umQjvpYLMx
-	 dS19QDfMHPGhVHmeRRLtJIlmu8esGjAUOE37CtZA=
+	b=pM3qxE71346YpFOxUC+twQ23E/ev8p3BA0vVXfASoyO0+wbhbyQLHPGQyKtTSM6j2
+	 spOjamxZI8F96jUA5FCNNE2T7MoZQbIyMK+GT0bdORSU3Y0qiplxM4GJiW9tttU1mg
+	 w8WdpKm4N00ixrBBrfdcnbiE3+YOkovp8y7WgMSw=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id ADA88F801D8;
-	Thu, 29 Oct 2020 17:27:07 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id CFB83F8027C;
+	Thu, 29 Oct 2020 17:40:35 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id EEF42F8020D; Thu, 29 Oct 2020 17:27:05 +0100 (CET)
+ id 98832F80257; Thu, 29 Oct 2020 17:40:33 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled
- version=3.4.0
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 1C66BF800D8
- for <alsa-devel@alsa-project.org>; Thu, 29 Oct 2020 17:27:00 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1C66BF800D8
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="AVQf49Um"
-Received: from localhost (fw-tnat.cambridge.arm.com [217.140.96.140])
+X-Spam-Status: No, score=-0.3 required=5.0 tests=NICE_REPLY_A,SPF_HELO_NONE,
+ SPF_NONE autolearn=disabled version=3.4.0
+Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 611922076E;
- Thu, 29 Oct 2020 16:26:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1603988817;
- bh=t+PBJ0NHId5QAZDzuBrDGNlV6g1PCH9iZXJKI+sMxMw=;
- h=Date:From:To:Cc:In-Reply-To:References:Subject:From;
- b=AVQf49UmZSCKirXj8VEFT7AM5GxmOOW2d1zUOMzZL+fF9cKQfQPy+RA/vxrnvAdIl
- YNViTwonflNW7tToWEuTx/vKAURkz4BULmyNJGUGG++LI65Lizy/glAXE1wFc93ssu
- 8XBUL51CsE7vfoA3hxd4g6Tgv/G9qmhgdf5E2m4I=
-Date: Thu, 29 Oct 2020 16:26:50 +0000
-From: Mark Brown <broonie@kernel.org>
-To: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
-In-Reply-To: <20201029101550.31695-1-srinivas.kandagatla@linaro.org>
-References: <20201029101550.31695-1-srinivas.kandagatla@linaro.org>
-Subject: Re: [PATCH 1/2] ASoC: qcom: dt-bindings: sm8250: update compatibles
-Message-Id: <160398881039.39922.12061096532284319098.b4-ty@kernel.org>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 9B2A6F801D8
+ for <alsa-devel@alsa-project.org>; Thu, 29 Oct 2020 17:40:28 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9B2A6F801D8
+IronPort-SDR: JLMIUW9eWapnwsf2g3o8tnDgOjJjtTYb1zlsQf6kyPgqqZzXNmqFo2ablgBYRtWqFwoBbV6B5R
+ mClQpH79GHSw==
+X-IronPort-AV: E=McAfee;i="6000,8403,9789"; a="168563725"
+X-IronPort-AV: E=Sophos;i="5.77,430,1596524400"; d="scan'208";a="168563725"
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from orsmga006.jf.intel.com ([10.7.209.51])
+ by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 29 Oct 2020 09:40:13 -0700
+IronPort-SDR: JaKZ/IpGt00sRFUFqzHU9FlhQKtpCO+nO/jdGeLXF1ZjRS28LRr/8L7Qq86LL7V1h5EBBy815c
+ lRNN9BrWC7EA==
+X-IronPort-AV: E=Sophos;i="5.77,430,1596524400"; d="scan'208";a="323762878"
+Received: from mghaffa-mobl1.amr.corp.intel.com (HELO [10.212.235.9])
+ ([10.212.235.9])
+ by orsmga006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 29 Oct 2020 09:40:12 -0700
+Subject: Re: [PATCH 1/2] ASoC: soc-compress: tidyup STREAM vs COMPRESS
+To: Takashi Iwai <tiwai@suse.de>,
+ Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+References: <87wnzcfnkk.wl-kuninori.morimoto.gx@renesas.com>
+ <87v9ewfnj9.wl-kuninori.morimoto.gx@renesas.com>
+ <699d5b33-d88f-ba08-7d63-61ec9fbdc5d8@linux.intel.com>
+ <87mu06djl8.wl-kuninori.morimoto.gx@renesas.com>
+ <87imatex9q.wl-kuninori.morimoto.gx@renesas.com>
+ <s5hsg9xwm0h.wl-tiwai@suse.de>
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Message-ID: <200088ab-d186-4c28-ea4a-ed92c105d187@linux.intel.com>
+Date: Thu, 29 Oct 2020 10:33:35 -0500
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.10.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Cc: Rob Herring <robh@kernel.org>, alsa-devel@alsa-project.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, lgirdwood@gmail.com,
- robh+dt@kernel.org
+In-Reply-To: <s5hsg9xwm0h.wl-tiwai@suse.de>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
+Cc: Linux-ALSA <alsa-devel@alsa-project.org>, Mark Brown <broonie@kernel.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -80,39 +87,36 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Thu, 29 Oct 2020 10:15:49 +0000, Srinivas Kandagatla wrote:
-> Update compatible string as board compatible and device compatible
-> should not be same!. New compatible is now suffixed with -sndcard
-> to be inline with other Qualcomm Sound cards.
+
+
+
+>>>> enum snd_compr_direction {
+>>>> 	SND_COMPRESS_PLAYBACK = SNDRV_PCM_STREAM_PLAYBACK,
+>>>> 	SND_COMPRESS_CAPTURE = SNDRV_PCM_STREAM_CAPTURE
+>>>> };
+>>>>
+>>>> Or remove this duplication completely and get rid of snd_compr_direction?
+>>>>
+>>>> I find it odd to convert two things that had no reason to be different
+>>>> in the first place.
+>>>
+>>> Yes I agree with you.
+>>> I'm not sure why this duplication was created,
+>>> but my patch tried to make it sane.
+>>> If Mark can agree, I can post snd_compr_direction remove patch.
+>>
+>> Oops, snd_compr_direction was uapi.
+>> We can't remove it, and can't use your above suggestion...
+
+I knew I was missing something... Thanks for correcting my flawed assertion.
+
+> Right, such uapi can't be removed.
 > 
-> This also fixes the warnings/error reported by dt_binding_check.
+> Essentially both compress and PCM definitions are identical, and can
+> be never different because of ABI compatibility, which means it's safe
+> to mix both variants in the code.  If you're unsure, we may add
+> BUILD_BUG_ON() to check the coincidence of both values.
 
-Applied to
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
-
-Thanks!
-
-[1/2] ASoC: qcom: dt-bindings: sm8250: update compatibles
-      commit: a889583a19206636082c44625141b26392e46a62
-[2/2] ASoC: qcom: sm8250: update compatible with new bindings
-      commit: bbc4e1bb5fd6577ed668e7c2ba0705dff1783bce
-
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
-
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
-
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
-
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-Thanks,
-Mark
+In case we add this BUILD_BUG_ON(), can we keep the code as is then, 
+there's no need to convert values?

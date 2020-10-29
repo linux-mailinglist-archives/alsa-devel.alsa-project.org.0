@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 25EF029EC15
-	for <lists+alsa-devel@lfdr.de>; Thu, 29 Oct 2020 13:42:50 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 17FCF29EC37
+	for <lists+alsa-devel@lfdr.de>; Thu, 29 Oct 2020 13:48:30 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id AC57F9F6;
-	Thu, 29 Oct 2020 13:41:59 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AC57F9F6
+	by alsa0.perex.cz (Postfix) with ESMTPS id A3DA215DC;
+	Thu, 29 Oct 2020 13:47:39 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A3DA215DC
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1603975369;
-	bh=uDEi8l3tLwU6LdqHUgog52VUPP3I1HsdRFofzCw0ukY=;
-	h=Date:From:To:In-Reply-To:References:Subject:Cc:List-Id:
+	s=default; t=1603975709;
+	bh=JtH14Ds6dFOIrQ5Kc03YPGt60DN6a1eJ+jTkF1uTGJQ=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=KfcZw4RQt9zt9PZZQWneZ8UA1Am14F4LOHuW5OBXghlln/s5TMBpIcEIxTFCcnWjz
-	 X2TGQ/H9iLVkjBHpeNTpIFifret9p8r4T8+lFPE9sgXAoc0VKF2anP5U+SQz6qiTc/
-	 eU7D+Ejhs4Eir1CEQAKWBoRqvqRk7LQ4U2693tBU=
+	b=rkwPavc1iX8WS81jqegpTKrwOyWHDXA0wqrR8g/2rh2uIcIIlHfxxXB4NUnovf5Ot
+	 wkt9hBGSuH6IfQWMFKLQA0u5EHCiAYGFHCLJVSrozCzQUf91fYEQo64noNIWj0F1ML
+	 Ev+i+v2gwGC5IyW+0DYZjWA5oUJDi/d3wCfjU2+k=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id BD62DF80227;
-	Thu, 29 Oct 2020 13:40:38 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id E67D4F800D8;
+	Thu, 29 Oct 2020 13:46:56 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 74614F8027C; Thu, 29 Oct 2020 13:40:33 +0100 (CET)
+ id 8EFE6F8020D; Thu, 29 Oct 2020 13:46:55 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -34,41 +34,39 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 8F748F801D8
- for <alsa-devel@alsa-project.org>; Thu, 29 Oct 2020 13:40:29 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8F748F801D8
+ by alsa1.perex.cz (Postfix) with ESMTPS id 409DDF800D8
+ for <alsa-devel@alsa-project.org>; Thu, 29 Oct 2020 13:46:53 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 409DDF800D8
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="j3yDLKE8"
+ header.b="TtUynp5J"
 Received: from localhost (fw-tnat.cambridge.arm.com [217.140.96.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id CFB492075E;
- Thu, 29 Oct 2020 12:40:26 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id BB36620825;
+ Thu, 29 Oct 2020 12:46:48 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1603975227;
- bh=uDEi8l3tLwU6LdqHUgog52VUPP3I1HsdRFofzCw0ukY=;
- h=Date:From:To:Cc:In-Reply-To:References:Subject:From;
- b=j3yDLKE8Wp8Q1jPOTKmVjhE3oBiG+HZWB6zJftxnxe4d/5KVCxSeRi6G4rtckRCI0
- jolHYITB5hlAs94rx72pDbftxSOn8E0/+zfodwJTaFAMr1V/F8c1XXqh+ltDP2DgJl
- 3QDO43EUXr3lMO2OjrJlE+MM8m1kHIM0Z8hsHybw=
-Date: Thu, 29 Oct 2020 12:40:21 +0000
+ s=default; t=1603975609;
+ bh=JtH14Ds6dFOIrQ5Kc03YPGt60DN6a1eJ+jTkF1uTGJQ=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=TtUynp5JGg/FSnj7WR+yElFEuDhUJ74owt7YJrWXylnCnwYpjgewSgr0iGypQKLnE
+ 33oe8FPuds0tl/aQL1OxE351X0uBmOVZySh97bdj0FdN66pEWLpztHojJ/x+5Wkb7s
+ cytdfBZsfOgrNpSgR4zIfTfG8yixZww6qV/jK3k0=
+Date: Thu, 29 Oct 2020 12:46:42 +0000
 From: Mark Brown <broonie@kernel.org>
-To: devicetree@vger.kernel.org, perex@perex.cz, robh+dt@kernel.org,
- linux-kernel@vger.kernel.org, rohitkr@codeaurora.org,
- Srinivasa Rao Mandadapu <srivasam@codeaurora.org>,
- srinivas.kandagatla@linaro.org, agross@kernel.org, plai@codeaurora.org,
- linux-arm-msm@vger.kernel.org, lgirdwood@gmail.com, bgoswami@codeaurora.org,
- tiwai@suse.com, bjorn.andersson@linaro.org, alsa-devel@alsa-project.org
-In-Reply-To: <1603798474-4897-1-git-send-email-srivasam@codeaurora.org>
-References: <1603798474-4897-1-git-send-email-srivasam@codeaurora.org>
-Subject: Re: [PATCH v2] Asoc: qcom: lpass-sc7180: Fix MI2S bitwidth field bit
- positions
-Message-Id: <160397520896.55401.5296685926917915952.b4-ty@kernel.org>
+To: David Lin <CTLIN0@nuvoton.com>
+Subject: Re: [PATCH] ASoC: nau8315: add codec driver
+Message-ID: <20201029124642.GA56515@sirena.org.uk>
+References: <20201029113311.495413-1-CTLIN0@nuvoton.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Cc: V Sujith Kumar Reddy <vsujithk@codeaurora.org>
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="ReaqsoxgOBHFXBhH"
+Content-Disposition: inline
+In-Reply-To: <20201029113311.495413-1-CTLIN0@nuvoton.com>
+X-Cookie: Beware of geeks bearing graft.
+User-Agent: Mutt/1.10.1 (2018-07-13)
+Cc: WTLI@nuvoton.com, YHCHuang@nuvoton.com, alsa-devel@alsa-project.org,
+ KCHSU0@nuvoton.com, lgirdwood@gmail.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -84,35 +82,39 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Tue, 27 Oct 2020 17:04:34 +0530, Srinivasa Rao Mandadapu wrote:
-> Update SC7180 lpass_variant structure with proper I2S bitwidth
-> field bit positions, as bitwidth denotes 0 to 1 bits,
-> but previously used only 0 bit.
 
-Applied to
+--ReaqsoxgOBHFXBhH
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
+On Thu, Oct 29, 2020 at 07:33:12PM +0800, David Lin wrote:
+> Add codec driver for Nuvoton NAU8315.
 
-Thanks!
+This doesn't apply against current code, please check and resend:
 
-[1/1] ASoC: qcom: lpass-sc7180: Fix MI2S bitwidth field bit positions
-      commit: cf9d21984da2c8e852320d12c03ddb7d11760a32
+Applying: ASoC: nau8315: add codec driver
+Using index info to reconstruct a base tree...
+error: patch failed: sound/soc/codecs/Kconfig:130
+error: sound/soc/codecs/Kconfig: patch does not apply
+error: patch failed: sound/soc/codecs/Makefile:438
+error: sound/soc/codecs/Makefile: patch does not apply
+error: Did you hand edit your patch?
+It does not apply to blobs recorded in its index.
+Patch failed at 0002 ASoC: nau8315: add codec driver
 
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
+--ReaqsoxgOBHFXBhH
+Content-Type: application/pgp-signature; name="signature.asc"
 
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
+-----BEGIN PGP SIGNATURE-----
 
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl+aubIACgkQJNaLcl1U
+h9AEgQf9GTP3wZ1rtPqApeH4oCytUBRuztKOlhpDS07uCM+cqcwRZgy9VGV+kSXm
+P95Q54rGSkC3+DCzp6xZ9tZY9M7qBQH0wEs+LvK4VouPWW50emPcEQTQcj89phXg
+PCKolD+gZz5ePzNkdgChPiW3b0rmNV9xN+wUlDEZhOzhh68AgA714NitoBqIdctq
+TRRCNvGsb5Rmhx+1ruS1iNpy6JpUpuSPEjLSD1U+y/dROZodB7HDpMoFvWp+weNH
+SRjnDj81/uXn1JDTPjofXXPyk8QoeWyVqpX10uzqbl4XN4moZCCNsuFsVZliCf+5
+LpGfpcykzLGfl+33xgHeD6s1tJYkQw==
+=IlFw
+-----END PGP SIGNATURE-----
 
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-Thanks,
-Mark
+--ReaqsoxgOBHFXBhH--

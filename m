@@ -2,84 +2,83 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id BDB3329E51B
-	for <lists+alsa-devel@lfdr.de>; Thu, 29 Oct 2020 08:52:27 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8DF3C29E51C
+	for <lists+alsa-devel@lfdr.de>; Thu, 29 Oct 2020 08:53:03 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 600FA167E;
-	Thu, 29 Oct 2020 08:51:37 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 600FA167E
+	by alsa0.perex.cz (Postfix) with ESMTPS id 14C7C1676;
+	Thu, 29 Oct 2020 08:52:13 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 14C7C1676
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1603957947;
-	bh=/yptHEfgAHDBUpNeJkQCtilbV87nzjR1vMI4H3rK6/Y=;
+	s=default; t=1603957983;
+	bh=WUZGwbarNTHGvi7gBUTWsHRAY5KD5HAbD2ljqy5o4mQ=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=LJfJFogw3jR4ZCqhmizGsGovV+5/WmsqJoSQiethsrhXMsRJUR/QdTDeO0k07qFEd
-	 FxJmYLcTvSTVvOxn1GKy+SfTYFVtxsOtWK267ZLhUAw/sWzhRVD94IyHDCBql8KF8F
-	 E85Ck55Gk13TB4jLvw24eV4HoB616FfCsyn0YzV8=
+	b=FJrb9QXPLKBzYMKy80UkHKyXtWOw7MXe6v/2/VmGbOeMkw6KAS5pZFxaGSVe9nd5Z
+	 45J5+DfYnK3BoJJM66FRfMZ7YcQ1o9YdklMSYYgOsYjkkrTckXwyHt5wvb42OW+fLD
+	 wecFHmikqn4yNdvUUTdutXEnYh47PwQPE8c1hzMA=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 3F8BEF804CA;
-	Thu, 29 Oct 2020 08:50:03 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 5CF71F804D2;
+	Thu, 29 Oct 2020 08:50:04 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 074ABF800FF; Thu, 29 Oct 2020 08:43:49 +0100 (CET)
+ id 8C73DF8020D; Thu, 29 Oct 2020 08:43:54 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_PASS autolearn=disabled
  version=3.4.0
-Received: from mail-pf1-x443.google.com (mail-pf1-x443.google.com
- [IPv6:2607:f8b0:4864:20::443])
+Received: from mail-pf1-x442.google.com (mail-pf1-x442.google.com
+ [IPv6:2607:f8b0:4864:20::442])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 9D932F80095
- for <alsa-devel@alsa-project.org>; Thu, 29 Oct 2020 08:43:45 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9D932F80095
+ by alsa1.perex.cz (Postfix) with ESMTPS id 9B0AEF80095
+ for <alsa-devel@alsa-project.org>; Thu, 29 Oct 2020 08:43:51 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9B0AEF80095
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="TW8C3K8Z"
-Received: by mail-pf1-x443.google.com with SMTP id j18so1665035pfa.0
- for <alsa-devel@alsa-project.org>; Thu, 29 Oct 2020 00:43:45 -0700 (PDT)
+ header.b="MetyxOei"
+Received: by mail-pf1-x442.google.com with SMTP id j18so1665258pfa.0
+ for <alsa-devel@alsa-project.org>; Thu, 29 Oct 2020 00:43:51 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=bmwHyHUIe/uWSPHK3YvMcr+QNlICBVXmu7Dmq71Pi0M=;
- b=TW8C3K8ZXzrnZ/kDBmjrdImT1Eh0azgxxqO8H4AGCR1kRROB0CStWcbr6WtfqSABhy
- kXCczW2+hlMauiG/YErbKtsw2wdcj5jzplWFyl7Xpe90BQ7TPzpYJJm11fAEGCBVgQvh
- RYegV/nuBaTdc55uXOQJETTYXuWFacSw6LZhiek/ePJ881lATgHSeSob9TowpLuX/OPq
- U7gVEy/pznph5meEOt8okdP06Oe6K03C1LI8VkSWDJ8kP2hJ9a4AH/M9sSmNV2XvFMga
- 2N2PW80BUq2R3aXQi2z6ZKzxxUTMzexnuru3+jnEVGgT+x4ZzwclB5Vv5765mfWOkhXp
- 0X5Q==
+ bh=2f76QX6KjllBHRbyn8bbNM8MHRGSvgg1fTn2FXp9kIk=;
+ b=MetyxOeiFIfccE3es6OdzGpM16CvXTlwFUbayjCo80V8vzGg71aanERZA/rSMHq57V
+ yDaqdUwD8D3Q1atgb5CdG3c/XcBhaR3pDGlRd+WP5J942NshDkLWwPYlPY6Y8Sbffc1A
+ ftOwJdlht0Fak+gTaqd+TT0+s5qzDf3KzUuyvWM+EHSOjr2/Ymvn+dAgVWWWK2RLCCMh
+ fvlQAVgXt7CekrChkpBJDv4panvHeF9QwK070Erpwrx3KMMRSEaTiLMqn76dEt2BBCWX
+ 6tl9TWzUT7aHkNeTYFDKvC1A1Vvbj4oymVa8c2iEa0Kc83CBRQtUv1LmRKGV24uUfOCT
+ s7cA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=bmwHyHUIe/uWSPHK3YvMcr+QNlICBVXmu7Dmq71Pi0M=;
- b=tHQfD87Ad/1jdnMxL5eyy3GPqIE0gxduulJ3oWViPqnfPQG5hDoY6PYwtLALvOzVdM
- +x4k9bQrjVgMticLJDDRbh+qE/DMv6yB61pr4vcot/6Dc5ww+WcGx9NBzQgKJ7xIXVTL
- 8qvrXBpc1xj6UfYGDQXbaWmDYd83GUiD6iXH9wzHUyKbNhcFdCs1J78ntgFTmwKZ87E/
- 9cnNiDH5ncak224TQcX/JP8R8pqkmiURRv3IVM94fRir12XfB7QvOqHhrmctqtrAp9ro
- gHiPRaBTezQxitll8WjSexrYvrpI5hmcsDBeIi0N2m8EYbUuFTG03Y5FcQW5cpkpfTmw
- Id/w==
-X-Gm-Message-State: AOAM531bpB/F40YX253JKFGeijlhE6lX7Lxji61UTVpIvNRQUItBsnN3
- FJPfhfU98Z2mkavJYVlDR5o=
-X-Google-Smtp-Source: ABdhPJy0skDQDIihaScK9yxAZVkcjC9QRMMPRrKoqNU1oPRXmYHp15+NFjKFrr9TjeWjwlnY8B2wVQ==
-X-Received: by 2002:a62:8f4d:0:b029:163:d24d:e0ae with SMTP id
- n74-20020a628f4d0000b0290163d24de0aemr2904319pfd.49.1603957423589; 
- Thu, 29 Oct 2020 00:43:43 -0700 (PDT)
+ bh=2f76QX6KjllBHRbyn8bbNM8MHRGSvgg1fTn2FXp9kIk=;
+ b=cQ6yzOWfjq7q7E/OYcx7rtEVZm7uRvmvFiCfPCzMeDTYd4gbjhGerpMqqRy5aUQYW+
+ 974H65LYLJawoHDjeCAH9Gskg+PIEqeFSh1RBEnDjyiwcKidXsi33A+5opQz7ZdzuivS
+ hJy7SZXDjDST2qL+d4lmk0KtsjGIxtwiWdAkgYhJrAO8wWZPAugXti7YRmXewgDbj9zC
+ XBnBIajQUlSrjiZagqLOS/rlYtDtzPbmQ6DHV3YtRaQc8j2ufTy/SdzPtS6j5cscYLWu
+ hM1dihY00dwVsepsyP935leCNZhU12/2ne2khuAY6rRFItSzkN561j7c0QNsVr3r5PJD
+ 8Zlg==
+X-Gm-Message-State: AOAM530m0LiwTFQZ3plZ0M+fOEPqYRUR3isL1ggCIWmKl+xEiPgGFCr1
+ xXtozNjO4li8ZzC44QAYG3E=
+X-Google-Smtp-Source: ABdhPJyWkELF8JgWYyu3kFPwXgZM+B8iEgdd3IgoUA4QLO4kayW+2sAMfjxjJYUYVDIWfpSWvCK8Gg==
+X-Received: by 2002:a63:7d49:: with SMTP id m9mr3024402pgn.60.1603957429902;
+ Thu, 29 Oct 2020 00:43:49 -0700 (PDT)
 Received: from localhost ([2409:8a28:3c42:6840:9efc:e8ff:fef2:1cdc])
- by smtp.gmail.com with ESMTPSA id z10sm1837779pff.218.2020.10.29.00.43.41
+ by smtp.gmail.com with ESMTPSA id t9sm1569687pgp.90.2020.10.29.00.43.47
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 29 Oct 2020 00:43:43 -0700 (PDT)
+ Thu, 29 Oct 2020 00:43:49 -0700 (PDT)
 From: Coiby Xu <coiby.xu@gmail.com>
 To: Jaroslav Kysela <perex@perex.cz>,
 	Takashi Iwai <tiwai@suse.com>
-Subject: [PATCH 04/25] ASoC: rockchip: remove unnecessary CONFIG_PM_SLEEP
-Date: Thu, 29 Oct 2020 15:42:40 +0800
-Message-Id: <20201029074301.226644-4-coiby.xu@gmail.com>
+Subject: [PATCH 05/25] ASoC: img: remove unnecessary CONFIG_PM_SLEEP
+Date: Thu, 29 Oct 2020 15:42:41 +0800
+Message-Id: <20201029074301.226644-5-coiby.xu@gmail.com>
 X-Mailer: git-send-email 2.28.0
 In-Reply-To: <20201029074301.226644-1-coiby.xu@gmail.com>
 References: <20201029074301.226644-1-coiby.xu@gmail.com>
@@ -87,11 +86,8 @@ MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Thu, 29 Oct 2020 08:49:54 +0100
 Cc: "moderated list:SOUND - SOC LAYER / DYNAMIC AUDIO POWER MANAGEM..."
- <alsa-devel@alsa-project.org>, Heiko Stuebner <heiko@sntech.de>,
- Liam Girdwood <lgirdwood@gmail.com>, open list <linux-kernel@vger.kernel.org>,
- "open list:ARM/Rockchip SoC support" <linux-rockchip@lists.infradead.org>,
- Mark Brown <broonie@kernel.org>, "moderated list:ARM/Rockchip SoC support"
- <linux-arm-kernel@lists.infradead.org>
+ <alsa-devel@alsa-project.org>, Mark Brown <broonie@kernel.org>,
+ Liam Girdwood <lgirdwood@gmail.com>, open list <linux-kernel@vger.kernel.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -111,29 +107,29 @@ SET_SYSTEM_SLEEP_PM_OPS has already took good care of CONFIG_PM_CONFIG.
 
 Signed-off-by: Coiby Xu <coiby.xu@gmail.com>
 ---
- sound/soc/rockchip/rockchip_pdm.c | 2 --
+ sound/soc/img/img-i2s-in.c | 2 --
  1 file changed, 2 deletions(-)
 
-diff --git a/sound/soc/rockchip/rockchip_pdm.c b/sound/soc/rockchip/rockchip_pdm.c
-index 5adb293d0435..f3c19310aeeb 100644
---- a/sound/soc/rockchip/rockchip_pdm.c
-+++ b/sound/soc/rockchip/rockchip_pdm.c
-@@ -574,7 +574,6 @@ static int rockchip_pdm_remove(struct platform_device *pdev)
+diff --git a/sound/soc/img/img-i2s-in.c b/sound/soc/img/img-i2s-in.c
+index 0843235d73c9..8364eb9c44bc 100644
+--- a/sound/soc/img/img-i2s-in.c
++++ b/sound/soc/img/img-i2s-in.c
+@@ -545,7 +545,6 @@ static int img_i2s_in_dev_remove(struct platform_device *pdev)
  	return 0;
  }
  
 -#ifdef CONFIG_PM_SLEEP
- static int rockchip_pdm_suspend(struct device *dev)
+ static int img_i2s_in_suspend(struct device *dev)
  {
- 	struct rk_pdm_dev *pdm = dev_get_drvdata(dev);
-@@ -601,7 +600,6 @@ static int rockchip_pdm_resume(struct device *dev)
+ 	struct img_i2s_in *i2s = dev_get_drvdata(dev);
+@@ -592,7 +591,6 @@ static int img_i2s_in_resume(struct device *dev)
  
- 	return ret;
+ 	return 0;
  }
 -#endif
  
- static const struct dev_pm_ops rockchip_pdm_pm_ops = {
- 	SET_RUNTIME_PM_OPS(rockchip_pdm_runtime_suspend,
+ static const struct of_device_id img_i2s_in_of_match[] = {
+ 	{ .compatible = "img,i2s-in" },
 -- 
 2.28.0
 

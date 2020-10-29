@@ -2,101 +2,89 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0352929E78F
-	for <lists+alsa-devel@lfdr.de>; Thu, 29 Oct 2020 10:41:48 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1815229E8D1
+	for <lists+alsa-devel@lfdr.de>; Thu, 29 Oct 2020 11:17:42 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 7682A1686;
-	Thu, 29 Oct 2020 10:40:57 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7682A1686
+	by alsa0.perex.cz (Postfix) with ESMTPS id 9352E1689;
+	Thu, 29 Oct 2020 11:16:51 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9352E1689
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1603964507;
-	bh=udlAY1PrLzD61qPjhI0fPWss9D9aiHKsAEWCCjRDpMQ=;
-	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=lGc+NSGjy0siH79IQZ/ZITeQvCKp1lWUtSUjAfgbGb6W+vXOdq9eeViy4n7Fvz3M5
-	 QMYfJgxfDkALbO2CdmYf5Zx7tTbhQf8VhRtDIyMn1+UgRY6KV++7qcCC+zTyKFtyJD
-	 PFsVasHmoUs1v1zRvySbtvIgtCT+sp3D+xZZvNK0=
+	s=default; t=1603966661;
+	bh=8EQOQDY4ZWOujTu0GWOaKaGsIb1DgnSYhnxyhZ/0008=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=J1XE40L14nHyVXbJbj8xCywKvsUeJrypRE8oCQWyY0IX33nZxBuFLbYnYucouiwZZ
+	 lke1R5jWlK7PeFDYeXEOA2LKmNYVzuFLTWR5BSofqJu/+SuxIfA+V+3qLe1MSCyBAu
+	 MqsAhKdtcaPm+5gN0t3aX959J8As2Luo3CciF/GU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id DFC9FF801D8;
-	Thu, 29 Oct 2020 10:40:14 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id DB288F80095;
+	Thu, 29 Oct 2020 11:16:08 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 85321F8020D; Thu, 29 Oct 2020 10:40:11 +0100 (CET)
+ id 6A0A6F80217; Thu, 29 Oct 2020 11:16:06 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.4 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from mail-wm1-x341.google.com (mail-wm1-x341.google.com
- [IPv6:2a00:1450:4864:20::341])
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
+Received: from mail-wm1-x342.google.com (mail-wm1-x342.google.com
+ [IPv6:2a00:1450:4864:20::342])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 64CF1F800D8
- for <alsa-devel@alsa-project.org>; Thu, 29 Oct 2020 10:40:03 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 64CF1F800D8
+ by alsa1.perex.cz (Postfix) with ESMTPS id 561F2F800D8
+ for <alsa-devel@alsa-project.org>; Thu, 29 Oct 2020 11:15:58 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 561F2F800D8
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org
- header.b="Uqz6RcxO"
-Received: by mail-wm1-x341.google.com with SMTP id c16so1773198wmd.2
- for <alsa-devel@alsa-project.org>; Thu, 29 Oct 2020 02:40:03 -0700 (PDT)
+ header.b="O05Zz/pd"
+Received: by mail-wm1-x342.google.com with SMTP id 13so1827161wmf.0
+ for <alsa-devel@alsa-project.org>; Thu, 29 Oct 2020 03:15:58 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=subject:to:cc:references:from:message-id:date:user-agent
- :mime-version:in-reply-to:content-language:content-transfer-encoding;
- bh=hur9K+EudzUclv9Q5MgCsUV5nXs9DJUDHPdJFsODeWM=;
- b=Uqz6RcxOD9iSU+l/mOial1rAIMeJOXKNmyvc2QEbl/w8pZk5YOIfProysAgwaK4biy
- jXyJ8u/BHnY4N6RDgPrtiwCQBRhG/Zh2a7/pA4d6R83nFseK01Y5ouFNAyeph4RmcMVl
- hBaBItva8mOBNRuVWgJNIufbfAKZhJ7TIteAVoQ9BqthW34CMURCtoERm9q4pQbRpuXj
- gq4QQAHY6B53q82PyVppwjwdUD7wZrKxXH2vfQP+Mr6PwTl/BbUxqzqyqX9oNP4dbu7Z
- D9d0M3zHNtS0BWRmTKktMSkAAN+AsSP35EybWymaWbT/8JTiv2myvfb/nzVfBU2N/i8w
- zpRg==
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=fYyCEb9n1uW/GtO+Icma9ul0k8OoUNEYDQcb88XmO5g=;
+ b=O05Zz/pdl27ZIwt1YVkKcFWRvvhrwjPNE9cxeiuglOIbnH6BjoHV2zF/AvOHpPrqMh
+ QNF0RzQjv4or6DnHhQOvxDJJHM449xfcFJxz1c2+CdNZCfuCphKAWVdfze7oCrduMIDb
+ mGzE1XM8UXj389iex1BSebqeI/cnM/O1Ta8s/d5URElFfu3LRwMD7jLiYbNQvKX6FVd6
+ UXz0x9odecvYPlkkU1EBaZfRvl7nhHhsj2iED9sWxKabnR63wh/OHRZu2OPaEng9gGYm
+ /srhE/3A5TXmq/aNtps5sxRt+kAfl/SJL//AUDxuEwMD1DB1efMowkg5uELz6iKUi37U
+ j5pQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:subject:to:cc:references:from:message-id:date
- :user-agent:mime-version:in-reply-to:content-language
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
  :content-transfer-encoding;
- bh=hur9K+EudzUclv9Q5MgCsUV5nXs9DJUDHPdJFsODeWM=;
- b=UpMrOqdSgGBUn+pnTc4l3jswD1vAa92dVl+9qt7iI71V29HJuKLxPHbxZ98XH+yYVq
- V3q0ChYEcJp5POcaPE0Q3pbhp/B7jYlV7imnGK9XOy+iEt6vm5JCD1okhEaXTSr6N6Xy
- PLQ47ny7nZeZxcZM3pg2k6DV4am8Q/CQR+0EANCp/hQwlmlvNChgQQRVfn4mBi16+mw4
- ki3Uae63P6fh3wDWmC3IL86oRij4ug6804Egwq+o9ID641bz1gKdFTEcaataF4cm3pZ7
- UMPvvcTJagGn3PuZi4RmKmmv4KbnqYbdRMYsj1ooBDnfDeYyvn46EiZTU88niGzxTGoc
- sSyA==
-X-Gm-Message-State: AOAM531/lvrSinvjl5hyPv9prK0Gbcm8V9R0cTWH78YQKVLRtDrjykKA
- c+vF+JvoA89mqBfzM7ky1SbcWw==
-X-Google-Smtp-Source: ABdhPJwABc6anNpYjQu1A/0HOMid9JVr/Km6Tz3QWl+sUAYUXr9XM/TFmuG0c2bfemthkDakTGPdEw==
-X-Received: by 2002:a1c:2349:: with SMTP id j70mr3305664wmj.78.1603964402648; 
- Thu, 29 Oct 2020 02:40:02 -0700 (PDT)
-Received: from [192.168.86.34]
+ bh=fYyCEb9n1uW/GtO+Icma9ul0k8OoUNEYDQcb88XmO5g=;
+ b=tjLzy4yWzsJSUVfVm+DUaMF/VPmot06tZshbQXtHiRu4hdPc+8oVZqLlyGk7LEzf5L
+ ld0XzUVaFTpHgvCgLNkqozYgeK2aIRVAMCyhjBylRzsp8dfkaS3VIiuP9JMV8/DTM7+G
+ AOunoode3vnjtxsJORlxx3xtYjrbSiVWxh6gNCKtLGpR6TA4icwfP0yOi2fxEYuoZPwV
+ NNTxemzFBg2OY9oGZUDiCXufXxM6rFjvDlFUgv+vgy75UJg0NvEpeVPUdvbSs9LITohn
+ C2mH2G1D2OfcfoNEQQ2L4ukOU9PNck0I0ACRnxAeN+KhTvNTEJjd4qQ+mBBXRwEzuxd0
+ 4HLw==
+X-Gm-Message-State: AOAM532w7hfLBLUbU7f1yLVKJ6nItljVjOHAf/3e6uTHAT68n6hOZB/T
+ hNRUPHrgkETJja3seldSBvtnMA==
+X-Google-Smtp-Source: ABdhPJwNELU/1Cf7kaWKDnW3VeGHFj4v73i/xYmaOjqFZoHSRmwDNjXa9Dz3BF4lx+TaAOpHlYdA2w==
+X-Received: by 2002:a7b:c387:: with SMTP id s7mr3493931wmj.52.1603966557351;
+ Thu, 29 Oct 2020 03:15:57 -0700 (PDT)
+Received: from srini-hackbox.lan
  (cpc86377-aztw32-2-0-cust226.18-1.cable.virginm.net. [92.233.226.227])
- by smtp.googlemail.com with ESMTPSA id p9sm3248589wma.12.2020.10.29.02.40.01
- (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
- Thu, 29 Oct 2020 02:40:01 -0700 (PDT)
-Subject: Re: [PATCH v1 1/2] ASoC: qcom: dt-bindings: Add SM8250 sound card
- bindings
-To: Rob Herring <robh@kernel.org>
-References: <20201026170947.10567-1-srinivas.kandagatla@linaro.org>
- <20201026170947.10567-2-srinivas.kandagatla@linaro.org>
- <20201028150135.GA4009047@bogus>
- <31981724-b260-e94d-ebc6-ccea21763531@linaro.org>
- <CAL_JsqLUYCrqbgxJPc_CTH9MtQo=h4JBqcmpgwJgWncyLN2gtQ@mail.gmail.com>
+ by smtp.gmail.com with ESMTPSA id 32sm4222495wro.31.2020.10.29.03.15.56
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 29 Oct 2020 03:15:56 -0700 (PDT)
 From: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
-Message-ID: <d876d014-8342-e1b9-7773-86995d7d79f6@linaro.org>
-Date: Thu, 29 Oct 2020 09:40:00 +0000
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
- Thunderbird/60.8.0
+To: broonie@kernel.org
+Subject: [PATCH 1/2] ASoC: qcom: dt-bindings: sm8250: update compatibles
+Date: Thu, 29 Oct 2020 10:15:49 +0000
+Message-Id: <20201029101550.31695-1-srinivas.kandagatla@linaro.org>
+X-Mailer: git-send-email 2.21.0
 MIME-Version: 1.0
-In-Reply-To: <CAL_JsqLUYCrqbgxJPc_CTH9MtQo=h4JBqcmpgwJgWncyLN2gtQ@mail.gmail.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
-Cc: Linux-ALSA <alsa-devel@alsa-project.org>, spapothi@codeaurora.org,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
- Patrick Lai <plai@codeaurora.org>
+Content-Transfer-Encoding: 8bit
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
+ Rob Herring <robh@kernel.org>, lgirdwood@gmail.com,
+ linux-kernel@vger.kernel.org, robh+dt@kernel.org,
+ Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -112,48 +100,45 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+Update compatible string as board compatible and device compatible
+should not be same!. New compatible is now suffixed with -sndcard
+to be inline with other Qualcomm Sound cards.
 
+This also fixes the warnings/error reported by dt_binding_check.
 
-On 28/10/2020 18:24, Rob Herring wrote:
-> On Wed, Oct 28, 2020 at 10:19 AM Srinivas Kandagatla
-> <srinivas.kandagatla@linaro.org> wrote:
->>
->>
->>
->> On 28/10/2020 15:01, Rob Herring wrote:
->>>> +        - const: qcom,sm8250
->>>
->>> This collides with the top level SoC compatible resulting in:
->>>
->>
->> I did run dt_binding_check before sending out this patch, I might have
->> missed it somehow because the make dt_binding_check did not
->> end/termnitate in any errors, however if I had scrolled 15-20 Page ups
->> it does have this error log!
-> 
-> make -sk
+Fixes: 765c37598494 ("ASoC: qcom: dt-bindings: Add SM8250 sound card bindings")
+Reported-by: Rob Herring <robh@kernel.org>
+Signed-off-by: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
+---
+ Documentation/devicetree/bindings/sound/qcom,sm8250.yaml | 8 +++-----
+ 1 file changed, 3 insertions(+), 5 deletions(-)
 
-Thanks for the hint!
+diff --git a/Documentation/devicetree/bindings/sound/qcom,sm8250.yaml b/Documentation/devicetree/bindings/sound/qcom,sm8250.yaml
+index b8f97fe6e92c..72ad9ab91832 100644
+--- a/Documentation/devicetree/bindings/sound/qcom,sm8250.yaml
++++ b/Documentation/devicetree/bindings/sound/qcom,sm8250.yaml
+@@ -16,10 +16,8 @@ description:
+ properties:
+   compatible:
+     oneOf:
+-      - const: qcom,qrb5165-rb5
+-      - items:
+-        - const: qcom,sm8250
+-        - const: qcom,qrb5165-rb5
++      - const: qcom,sm8250-sndcard
++      - const: qcom,qrb5165-rb5-sndcard
+ 
+   audio-routing:
+     $ref: /schemas/types.yaml#/definitions/non-unique-string-array
+@@ -83,7 +81,7 @@ examples:
+     #include <dt-bindings/sound/qcom,q6afe.h>
+     #include <dt-bindings/sound/qcom,q6asm.h>
+     sound {
+-        compatible = "qcom,qrb5165-rb5";
++        compatible = "qcom,qrb5165-rb5-sndcard";
+         model = "Qualcomm-qrb5165-RB5-WSA8815-Speakers-DMIC0";
+         audio-routing = "SpkrLeft IN", "WSA_SPK1 OUT",
+                     "SpkrRight IN", "WSA_SPK2 OUT",
+-- 
+2.21.0
 
-> 
-> :)
-> 
->> Documentation/devicetree/bindings/arm/qcom.yaml does have
->> qcom,qrb5165-rb5 entry under [qcom,sm8250]
->>
->> Can you help me understand why is this not a valid compatible?
-> 
-> Those compatibles are used at the top level for the SoC. You can't use
-> the same compatible to mean 2 different things.
-> 
-Thanks for explaining this, This is now modified to
-  "qcom,qrb5165-rb5-sndcard"
-  "qcom,sm8250-sndcard"
-
-I do not see any complains from dt_binding_check.
-
-also makes it inline with other qcom soundcard compatible strings!
-
---srini
-> Rob
-> 

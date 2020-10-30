@@ -2,84 +2,109 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5B7C12A0AFF
-	for <lists+alsa-devel@lfdr.de>; Fri, 30 Oct 2020 17:20:52 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3F7E92A0AD7
+	for <lists+alsa-devel@lfdr.de>; Fri, 30 Oct 2020 17:13:19 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C9C7A1669;
-	Fri, 30 Oct 2020 17:20:00 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C9C7A1669
+	by alsa0.perex.cz (Postfix) with ESMTPS id B74F3165D;
+	Fri, 30 Oct 2020 17:12:28 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B74F3165D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1604074850;
-	bh=f8bT7W8G1+uvNv2g6gfgNavmFvbGxxCnfbu6m55G+QE=;
-	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
+	s=default; t=1604074398;
+	bh=I8F4Vvc3wYb2t0jaStGMcb1u5A3f20Qozjl95gbByVE=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=tge402Gg2vMx7wsYwZLh/jEgOhGjLiM04lYX9yxlJq/SmmkCNQT0/PGYDoJOuDy4L
-	 RwLoyWABnXJ+g1PE8m0tyz3QreKvtlzozQBOVbJjK90EMUW5yWRBTZ1yvBtlJ+4j17
-	 OkWDIb7ma1VgdDWdNzxnMn/ACkAOmD00QD1JRAEs=
+	b=mzRLBTC+WnIXUe6mb+LdIkV4oIK+Nth9sCatagFgFsvMCWGPGj1mPT4BJt37s2R+F
+	 G9XAkRPQtcD6gH3L4DGlgW49xt4dpdi3Hcm5F9YPOabZi6KZo2IUGmyBWG14VqKEwG
+	 aojXFNr+b2QOyr10n+zPwfR754tCYNJkSxSd4QIc=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 352EFF80107;
-	Fri, 30 Oct 2020 17:19:18 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id F100CF80107;
+	Fri, 30 Oct 2020 17:11:45 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 17BC4F8026D; Fri, 30 Oct 2020 17:19:16 +0100 (CET)
+ id 98839F80212; Fri, 30 Oct 2020 17:11:44 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.3 required=5.0 tests=NICE_REPLY_A,SPF_HELO_NONE,
- SPF_NONE autolearn=disabled version=3.4.0
-Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_PASS,SPF_PASS autolearn=disabled version=3.4.0
+Received: from wnew2-smtp.messagingengine.com (wnew2-smtp.messagingengine.com
+ [64.147.123.27])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id DA98FF80249
- for <alsa-devel@alsa-project.org>; Fri, 30 Oct 2020 17:19:12 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DA98FF80249
-IronPort-SDR: uOZ17fEW7fBMtKi3HTX09xqTq437JfjEVqweWT6EbSfHiKJ96mmLF2lzZyE5EDnyLN7moMAMam
- SfLEXdUADs+A==
-X-IronPort-AV: E=McAfee;i="6000,8403,9790"; a="148485512"
-X-IronPort-AV: E=Sophos;i="5.77,433,1596524400"; d="scan'208";a="148485512"
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from orsmga004.jf.intel.com ([10.7.209.38])
- by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 30 Oct 2020 09:18:57 -0700
-IronPort-SDR: v7d++dT9BRThG0MG1InxV2OTTNixcD8NCJY7V1esU0gaTNU1hG5s3uil8latuNTB6EgBv6iowb
- /iR8hjJs+bjg==
-X-IronPort-AV: E=Sophos;i="5.77,433,1596524400"; d="scan'208";a="469569456"
-Received: from rdchavez-mobl2.amr.corp.intel.com (HELO [10.212.91.180])
- ([10.212.91.180])
- by orsmga004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 30 Oct 2020 09:18:56 -0700
-Subject: Re: [PATCH v3] soundwire: SDCA: add helper macro to access controls
-To: Takashi Iwai <tiwai@suse.de>, "Liao, Bard" <bard.liao@intel.com>
-References: <20201029204955.8568-1-yung-chuan.liao@linux.intel.com>
- <20201030093651.GA2080962@kroah.com>
- <DM6PR11MB40748AD8D57C73E4D79D4676FF150@DM6PR11MB4074.namprd11.prod.outlook.com>
- <s5hsg9wrlhc.wl-tiwai@suse.de>
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Message-ID: <880a22a2-49f6-fa1c-46ad-6388cbd26ee4@linux.intel.com>
-Date: Fri, 30 Oct 2020 10:52:24 -0500
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.10.0
+ by alsa1.perex.cz (Postfix) with ESMTPS id 23A76F80107
+ for <alsa-devel@alsa-project.org>; Fri, 30 Oct 2020 17:11:40 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 23A76F80107
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=cerno.tech header.i=@cerno.tech
+ header.b="KM0eAH89"; 
+ dkim=pass (2048-bit key) header.d=messagingengine.com
+ header.i=@messagingengine.com header.b="EEJJYkcx"
+Received: from compute6.internal (compute6.nyi.internal [10.202.2.46])
+ by mailnew.west.internal (Postfix) with ESMTP id BA37EC0C;
+ Fri, 30 Oct 2020 12:11:35 -0400 (EDT)
+Received: from mailfrontend1 ([10.202.2.162])
+ by compute6.internal (MEProxy); Fri, 30 Oct 2020 12:11:36 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cerno.tech; h=
+ date:from:to:cc:subject:message-id:references:mime-version
+ :content-type:in-reply-to; s=fm1; bh=I8F4Vvc3wYb2t0jaStGMcb1u5A3
+ f20Qozjl95gbByVE=; b=KM0eAH89hcGm74JgpqCVReajJ5sitCSIfF9KokHfMzH
+ FJ540m6wtAPhsDozzz+I81AFzGNx9Fta1ioujkGze7oIEbT58kE3OjGxD9hhhRR9
+ MIhsEFi9CGE3/STJYeTxUoChf3e6fe524G+b9QjHtEQJS8tb38GOrt9pKnRM79J9
+ v29QJIspqJEc+IOIg164Z6Xa1bQkUnESaizZxhg8GFiuBp/Cewx7fuWtmO2B34kq
+ 9bpVvKZMly3rx2dRMFf1vUZ5GLY+ZPNxmV7FxRgn7Yk3Athr0246JQS8fAWIm+il
+ gmrF3WII/39h/SlTn0MWyX9Z9jMfK9S+OVOWRXUvz1g==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to:x-me-proxy
+ :x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; bh=I8F4Vv
+ c3wYb2t0jaStGMcb1u5A3f20Qozjl95gbByVE=; b=EEJJYkcx0Wxx4TTZNb96f+
+ AhCGRm4Yajet73OZz3G87tcxKYIIadEqyjyv08LfTNPaj9tDaHMeNY87uPsYLeLA
+ AQNOQ7RIQdyINRjDXGdrDJgRETxMr6TfNl71pAB28lMNO4/Oyvi0fnu+cA4044ad
+ KXx367lbvvyax9gYyQXkUM1wUeczrCd1tyHGsq7PSKkHq9hBbbYhS6bzB7jzQPu5
+ cOSw5ZTip9Pofpayo+/RWRe0P7acmS3IfRh1B9+GpLJBS0OM3ypfv1iD+rFE3qfm
+ Gbhu+T/lVmSoClCIC7BoG9ZfJBD/EUbTuJeQHbUac94DPFNMTbclbeNhTo7aIXHg
+ ==
+X-ME-Sender: <xms:NDucX8tQx8dGb5cvVDDmYQ5HE6Hh1mrvK2dNFFVGg5lPBYj2COLGLw>
+ <xme:NDucX5fkje_WvE3LA_rL41kHZPLXohVHhzDvxSfHMtGgEJc_QMmk_m2BSfVRxEoOA
+ x043uFSJfQIvNoXerU>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedujedrleehgdekudcutefuodetggdotefrodftvf
+ curfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfghnecu
+ uegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenuc
+ fjughrpeffhffvuffkfhggtggujgesghdtreertddtudenucfhrhhomhepofgrgihimhgv
+ ucftihhprghrugcuoehmrgigihhmvgestggvrhhnohdrthgvtghhqeenucggtffrrghtth
+ gvrhhnpeduvdduhfekkeehgffftefflefgffdtheffudffgeevteffheeuiedvvdejvdfg
+ veenucfkphepledtrdekledrieekrdejieenucevlhhushhtvghrufhiiigvpedtnecurf
+ grrhgrmhepmhgrihhlfhhrohhmpehmrgigihhmvgestggvrhhnohdrthgvtghh
+X-ME-Proxy: <xmx:NDucX3xWXh_BVrIGSOeflhr3mwvh_PbGv8_f1eDBGzLMJVMpBXHoUQ>
+ <xmx:NDucX_OmEaT0TQtR5Zm-i_K-FRXLF4PgYCSIO2_6XCsKRvh4Tlki4A>
+ <xmx:NDucX88rypVhIP8XD-kMFAgL26qmSRBxYm2JFAC6rx46Bsq428tg2g>
+ <xmx:NzucX3WXDyla1eE7ywu2msQ1C_n0Dwgbw-bk8XAYZU1wg35y8FA2dLiT0ds>
+Received: from localhost (lfbn-tou-1-1502-76.w90-89.abo.wanadoo.fr
+ [90.89.68.76])
+ by mail.messagingengine.com (Postfix) with ESMTPA id 82E243280059;
+ Fri, 30 Oct 2020 12:11:32 -0400 (EDT)
+Date: Fri, 30 Oct 2020 17:11:31 +0100
+From: Maxime Ripard <maxime@cerno.tech>
+To: =?utf-8?B?Q2zDqW1lbnQgUMOpcm9u?= <peron.clem@gmail.com>
+Subject: Re: [PATCH v10 01/15] ASoC: sun4i-i2s: Fix lrck_period computation
+ for I2S justified mode
+Message-ID: <20201030161131.dlzzpy3atiiddx4n@gilmour.lan>
+References: <20201030144648.397824-1-peron.clem@gmail.com>
+ <20201030144648.397824-2-peron.clem@gmail.com>
 MIME-Version: 1.0
-In-Reply-To: <s5hsg9wrlhc.wl-tiwai@suse.de>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
-Cc: "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
- "vinod.koul@linaro.org" <vinod.koul@linaro.org>, "Lin,
- Mengdong" <mengdong.lin@intel.com>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "ranjani.sridharan@linux.intel.com" <ranjani.sridharan@linux.intel.com>,
- "hui.wang@canonical.com" <hui.wang@canonical.com>,
- "vkoul@kernel.org" <vkoul@kernel.org>,
- "srinivas.kandagatla@linaro.org" <srinivas.kandagatla@linaro.org>,
- "jank@cadence.com" <jank@cadence.com>, Greg KH <gregkh@linuxfoundation.org>,
- "Kale, Sanyog R" <sanyog.r.kale@intel.com>,
- Bard Liao <yung-chuan.liao@linux.intel.com>,
- "rander.wang@linux.intel.com" <rander.wang@linux.intel.com>
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature"; boundary="fpfjkluh6h53itoj"
+Content-Disposition: inline
+In-Reply-To: <20201030144648.397824-2-peron.clem@gmail.com>
+Cc: devicetree@vger.kernel.org, Jernej Skrabec <jernej.skrabec@siol.net>,
+ alsa-devel@alsa-project.org, Liam Girdwood <lgirdwood@gmail.com>,
+ linux-kernel@vger.kernel.org, Mark Brown <broonie@kernel.org>,
+ linux-sunxi@googlegroups.com, Takashi Iwai <tiwai@suse.com>,
+ Marcus Cooper <codekipper@gmail.com>, Chen-Yu Tsai <wens@csie.org>,
+ Rob Herring <robh+dt@kernel.org>, linux-arm-kernel@lists.infradead.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -96,67 +121,39 @@ Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 
+--fpfjkluh6h53itoj
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
->>>> +#define SDW_SDCA_CTL(fun, ent, ctl, ch)		(BIT(30) |
->>> 		\
->>>> +						 (((fun) & 0x7) << 22) |	\
->>>> +						 (((ent) & 0x40) << 15) |	\
->>>> +						 (((ent) & 0x3f) << 7) |	\
->>>> +						 (((ctl) & 0x30) << 15) |	\
->>>> +						 (((ctl) & 0x0f) << 3) |	\
->>>> +						 (((ch) & 0x38) << 12) |	\
->>>> +						 ((ch) & 0x07))
->>>> +
->>>> +#define SDW_SDCA_MBQ_CTL(reg)			((reg) | BIT(13))
->>>> +#define SDW_SDCA_NEXT_CTL(reg)			((reg) | BIT(14))
->>>> +
->>>>   #endif /* __SDW_REGISTERS_H */
->>>
->>>
->>> No users of these macros?
->>
->> SDW_SDCA_CTL is used in sdca codec drivers which are not upstream yet.
->> SDW_SDCA_MBQ_CTL will be used in a new regmap method.
->> SDW_SDCA_NEXT_CTL can be used in sdca codec drivers, too.
-> 
-> Well, the point is that it's hard to review without seeing how the
-> code of actual users are.
+On Fri, Oct 30, 2020 at 03:46:34PM +0100, Cl=E9ment P=E9ron wrote:
+> Left and Right justified mode are computed using the same formula
+> as DSP_A and DSP_B mode.
+> Which is wrong and the user manual explicitly says:
+>=20
+> LRCK_PERDIOD:
+> PCM Mode: Number of BCLKs within (Left + Right) channel width.
+> I2S/Left-Justified/Right-Justified Mode: Number of BCLKs within each
+> individual channel width(Left or Right)
+>=20
+> Fix this by using the same formula as the I2S mode.
+>=20
+> Fixes: 7ae7834ec446 ("ASoC: sun4i-i2s: Add support for DSP formats")
+> Signed-off-by: Cl=E9ment P=E9ron <peron.clem@gmail.com>
 
-Agree, but our job is not made easy by the three-way dependency on 
-regmap, SoundWire before we can submit ASoC codec drivers (developed by 
-Realtek and tested by Intel).
+Acked-by: Maxime Ripard <mripard@kernel.org>
+Thanks!
+Maxime
 
-If you prefer us to send all patches for SDCA codec support in one shot, 
-that would be fine with us.
-> BTW, the bit definitions can be simplified with GENMASK().
-> I personally don't think GENMASK() necessarily good, but it may fit
-> better in a case like this.
+--fpfjkluh6h53itoj
+Content-Type: application/pgp-signature; name="signature.asc"
 
-we use this macro in switch cases, e.g. for regmap properties to define 
-read/volatile registers:
+-----BEGIN PGP SIGNATURE-----
 
-case SDW_SDCA_CTL(FUN_JACK_CODEC, RT711_SDCA_ENT_GE49, 
-RT711_SDCA_CTL_SELECTED_MODE, 0):
-	case SDW_SDCA_CTL(FUN_JACK_CODEC, RT711_SDCA_ENT_GE49, 
-RT711_SDCA_CTL_DETECTED_MODE, 0):
-	case SDW_SDCA_CTL(FUN_HID, RT711_SDCA_ENT_HID01, 
-RT711_SDCA_CTL_HIDTX_CURRENT_OWNER, 0) ...
-		SDW_SDCA_CTL(FUN_HID, RT711_SDCA_ENT_HID01, 
-RT711_SDCA_CTL_HIDTX_MESSAGE_LENGTH, 0):
-	case RT711_BUF_ADDR_HID1 ... RT711_BUF_ADDR_HID2:
-		return true;
+iHUEABYIAB0WIQRcEzekXsqa64kGDp7j7w1vZxhRxQUCX5w7MwAKCRDj7w1vZxhR
+xZ5FAP4xHWt9NXh9CE1ls2RUHb+wsO2JxSZ2VAcW/7oL3xdsYAD/aOAW4nVDE3be
++/sQDYsXuA2f+QvTA8TR19kiWsovUAo=
+=1lV8
+-----END PGP SIGNATURE-----
 
-https://github.com/thesofproject/linux/blob/70fe32e776dafb4b03581d62a4569f65c2f13ada/sound/soc/codecs/rt711-sdca-sdw.c#L35
-
-and unfortunately all our attempts to use FIELD_PREP, FIELD_GET, 
-u32_encode, as suggested by Vinod, failed for this case due to 
-compilation issues (can't use these macros outside of a function scope). 
-The errors were shared with Vinod.
-
-That's why we went back to the initial suggestion to deal with the 
-shifts/masks by hand. For now we don't have a better solution that works 
-in all cases were the macro is used.
-
-Thanks
--Pierre
-
+--fpfjkluh6h53itoj--

@@ -2,75 +2,80 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C82372A0CE6
-	for <lists+alsa-devel@lfdr.de>; Fri, 30 Oct 2020 18:56:13 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id C25252A0D15
+	for <lists+alsa-devel@lfdr.de>; Fri, 30 Oct 2020 19:05:27 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 58D3515E5;
-	Fri, 30 Oct 2020 18:55:23 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 58D3515E5
+	by alsa0.perex.cz (Postfix) with ESMTPS id 5B254822;
+	Fri, 30 Oct 2020 19:04:37 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5B254822
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1604080573;
-	bh=WyIRFsjXv5w+8VVFK7eNxhmPJtSeLSv3UXi+yyCplRM=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1604081127;
+	bh=55FQBsEXOl3PXZ6zx8LObHWnJKqiQXmHYKRyOdhJyRE=;
+	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=iPz22J+o2ZjPOjmNfUXiTkzH/wfQHk7v3dN40pQxjumFRFOtN592hIRxcYAZE74G1
-	 D5P0gkwQKsYRmkKG1jtGp7w8bhCMmbW8EnqVvLTEtIs+y6FGIWqbFsRk6uTUZi693Y
-	 M99d1zl98HSg1Wn6lDLAD1e8GuX4buCLLmB8yv3w=
+	b=YlorRtfk0fpo0skVHxOr0P6qjdknYcIEzgkxGsBvVCMSdO/Rn3sqGLJKmrLyFYQ8t
+	 Wnzk9NZNx6R8wIgDk278GCOATc1ozApR3Swtlg87NLNEvuswbhgXq2pu7zQ3UbvQqT
+	 DiSCU3yYvrQa/iohsVCVFBjKADntLuMSILxlK7BY=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 37828F80249;
-	Fri, 30 Oct 2020 18:54:40 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 19562F80249;
+	Fri, 30 Oct 2020 19:03:55 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 565BEF80212; Fri, 30 Oct 2020 18:54:38 +0100 (CET)
+ id D0122F80212; Fri, 30 Oct 2020 19:03:51 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled
- version=3.4.0
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 49263F80107
- for <alsa-devel@alsa-project.org>; Fri, 30 Oct 2020 18:54:34 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 49263F80107
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="zDy+5mup"
-Received: from localhost (fw-tnat.cambridge.arm.com [217.140.96.140])
+X-Spam-Status: No, score=-0.3 required=5.0 tests=NICE_REPLY_A,SPF_HELO_NONE,
+ SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 63DD920724;
- Fri, 30 Oct 2020 17:54:30 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1604080471;
- bh=WyIRFsjXv5w+8VVFK7eNxhmPJtSeLSv3UXi+yyCplRM=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=zDy+5mupTyPqwhFZOW7mD744CDzWz58CLBw1/RPEp2gnxtjY6r4JFNj/VDvnlhhp+
- pk2QAaOyZ5gyxO4gIX+zwUMJRMhleQKzIkIO+q1di43F49Ru8IN/q+vSv4SsFaJhJg
- hCRnoBCCokXd8NYCs+yLUMy1VE0MThP5FkMvpdOA=
-Date: Fri, 30 Oct 2020 17:54:23 +0000
-From: Mark Brown <broonie@kernel.org>
-To: Jiaxin Yu <jiaxin.yu@mediatek.com>
-Subject: Re: [PATCH v3 0/9] ASoC: Mediatek: Add support for MT8192 SoC
-Message-ID: <20201030175423.GI4405@sirena.org.uk>
-References: <1603526339-15005-1-git-send-email-jiaxin.yu@mediatek.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id D64FBF800FF
+ for <alsa-devel@alsa-project.org>; Fri, 30 Oct 2020 19:03:42 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D64FBF800FF
+IronPort-SDR: dW46Eb9mkqcIf2b5wXrKCnEXlDa0/VSRVwtPndLiS/iMDi8JkRLzQ359Ga0JYI6J2Lr5ohTeGM
+ xV1tVoRz58mw==
+X-IronPort-AV: E=McAfee;i="6000,8403,9790"; a="166060004"
+X-IronPort-AV: E=Sophos;i="5.77,434,1596524400"; d="scan'208";a="166060004"
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from orsmga008.jf.intel.com ([10.7.209.65])
+ by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 30 Oct 2020 11:03:41 -0700
+IronPort-SDR: Zju8Tqf+Dr10H+s+LbQXlYDo5BteOucn0MS4mZK4vR/PhJVV2jEqojAmzDdsSSc9FZ1BkGT/jY
+ TznzYUauRoYw==
+X-IronPort-AV: E=Sophos;i="5.77,434,1596524400"; d="scan'208";a="351357510"
+Received: from rdchavez-mobl2.amr.corp.intel.com (HELO [10.212.91.180])
+ ([10.212.91.180])
+ by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 30 Oct 2020 11:03:39 -0700
+Subject: Re: [PATCH v2 0/2] Add rt1015 support to CML boards
+To: Brent Lu <brent.lu@intel.com>, alsa-devel@alsa-project.org
+References: <20201030170559.20370-1-brent.lu@intel.com>
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Message-ID: <f85e56df-f413-d199-c2dd-2d9f1713e3b2@linux.intel.com>
+Date: Fri, 30 Oct 2020 13:03:38 -0500
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.10.0
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="qLni7iB6Dl8qUSwk"
-Content-Disposition: inline
-In-Reply-To: <1603526339-15005-1-git-send-email-jiaxin.yu@mediatek.com>
-X-Cookie: Blow it out your ear.
-User-Agent: Mutt/1.10.1 (2018-07-13)
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- kuninori.morimoto.gx@renesas.com, shane.chien@mediatek.com,
- Bicycle.Tsai@mediatek.com, tiwai@suse.com, tzungbi@google.com,
- robh+dt@kernel.org, linux-mediatek@lists.infradead.org, Trevor.Wu@mediatek.com,
- p.zabel@pengutronix.de, matthias.bgg@gmail.com,
- linux-arm-kernel@lists.infradead.org
+In-Reply-To: <20201030170559.20370-1-brent.lu@intel.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
+Cc: Guennadi Liakhovetski <guennadi.liakhovetski@linux.intel.com>,
+ Cezary Rojewski <cezary.rojewski@intel.com>,
+ Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
+ Kai Vehmanen <kai.vehmanen@linux.intel.com>, Jason Yan <yanaijie@huawei.com>,
+ Jie Yang <yang.jie@linux.intel.com>, linux-kernel@vger.kernel.org,
+ Takashi Iwai <tiwai@suse.com>, Liam Girdwood <liam.r.girdwood@linux.intel.com>,
+ Mark Brown <broonie@kernel.org>,
+ Sathyanarayana Nujella <sathyanarayana.nujella@intel.com>,
+ Rander Wang <rander.wang@intel.com>,
+ Bard Liao <yung-chuan.liao@linux.intel.com>, Fred Oh <fred.oh@linux.intel.com>,
+ Yong Zhi <yong.zhi@intel.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -87,31 +92,26 @@ Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 
---qLni7iB6Dl8qUSwk
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
 
-On Sat, Oct 24, 2020 at 03:58:50PM +0800, Jiaxin Yu wrote:
-> This series of patches adds support for Mediatek AFE for MT8192 SoC. At the same
-> time, the calibration function of MT6359 is completed with real machine driver.
-> The patch is based on broonie tree "for-next" branch.
+On 10/30/20 12:05 PM, Brent Lu wrote:
+> First patch adds tdm 4-slot 100fs DAI setting to avoid jitter of using
+> 64fs on CML boards. Second patch is a DMI quirk for HP Dooly.
+> 
+> Changes since v1:
+> -Add comment on Dooly's DMI quirk
+> 
+> Brent Lu (2):
+>    ASoC: intel: sof_rt5682: Add support for cml_rt1015_rt5682
+>    ASoC: intel: sof_rt5682: Add quirk for Dooly
 
-I had some small comments but they were all pretty minor - overall this
-is basically fine once those are addressed.
+For the series
 
---qLni7iB6Dl8qUSwk
-Content-Type: application/pgp-signature; name="signature.asc"
+Acked-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 
------BEGIN PGP SIGNATURE-----
+Thanks Brent!
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl+cU04ACgkQJNaLcl1U
-h9C1ggf/YtHZAAqO9N519wguyC9a/9FWSK1GJNx4NkUmdW2O/CX/iCOyQUxNzKnt
-uZTt9o6BWcs/GpIk8tDx5KtSsZc+fciFLz8wqlXmu5hgEgJ/pT9+5Wv9GSnAfiAQ
-wkY98BDiiTXDFZqUUfkbMOW/gDjuCWhWYwxZCS7AVU+v3+3Mm6kw4fsbwAk2anUo
-U98Sjh/26RgPpUaPXGJR2gCGhzYwy0aYodnKxEdsgF/5mhXyzjpG+ps/G1xfWDEe
-Nk5T7UoQCGAwaWZYVc4DV4dk0jVGZR7h5Cywf97pUYaANBV4UUGwdH2Ssqt0tOc2
-g1v0F4GmGt5dT98mnx4H6+Xiw3wiaw==
-=FE4p
------END PGP SIGNATURE-----
-
---qLni7iB6Dl8qUSwk--
+> 
+>   sound/soc/intel/boards/sof_rt5682.c           | 65 +++++++++++++++++--
+>   .../intel/common/soc-acpi-intel-cml-match.c   | 13 ++++
+>   2 files changed, 73 insertions(+), 5 deletions(-)
+> 

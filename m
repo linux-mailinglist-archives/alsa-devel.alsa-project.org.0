@@ -2,70 +2,68 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6F8522A066B
-	for <lists+alsa-devel@lfdr.de>; Fri, 30 Oct 2020 14:27:41 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id E99402A06C0
+	for <lists+alsa-devel@lfdr.de>; Fri, 30 Oct 2020 14:49:56 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 045F31657;
-	Fri, 30 Oct 2020 14:26:51 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 045F31657
+	by alsa0.perex.cz (Postfix) with ESMTPS id 6EB2A1657;
+	Fri, 30 Oct 2020 14:49:06 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6EB2A1657
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1604064461;
-	bh=P+jMGvjIJHiVTFEarHqp4FfED29smo6QZPjm7uy1/Xw=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1604065796;
+	bh=/zAw46nwRVCQQFKx83PnvtPE+6It7h/NHaANT5inn4c=;
+	h=Date:From:To:In-Reply-To:References:Subject:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=DsBAUm0doz5C1HNrnsKp12m9NKSWE4yzrNTNG0ok47jxL9vtAdGgWbSDzT6PC9DEH
-	 pPy5YWze0TzelD9HyEjyEKuL/TFXm/2tGqEJrsSawk6Ty0P85iRqRZ4tgJi+cjo21z
-	 9D1CpnBikrYJ3jykRPB9WZ8CqXLiDlqX3wvYjRwg=
+	b=faXvG6P7VbC0ZFeKD2MQlXr/e3F6qticjz4R7K/LpnF5XsJBRWiOMbvNVxTaYpjWn
+	 1AX9w4JNSdLHUSDdZuyxxsAhKFNjpkEPU0nNADNnlXqb733IK+5lIB2TsZCNjj5/qp
+	 jUC484b514w08kEzCsc+NpzvpGbgxJFPSJNw1lpY=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 32B46F800C0;
-	Fri, 30 Oct 2020 14:26:08 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id BFFF1F80249;
+	Fri, 30 Oct 2020 14:48:23 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 3901DF80212; Fri, 30 Oct 2020 14:26:07 +0100 (CET)
+ id 2EC98F80212; Fri, 30 Oct 2020 14:48:16 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
+X-Spam-Status: No, score=0.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+ DKIM_VALID,DKIM_VALID_AU,MIME_8BIT_HEADER,SPF_HELO_NONE,SPF_PASS
+ autolearn=disabled version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id E3763F800FF
- for <alsa-devel@alsa-project.org>; Fri, 30 Oct 2020 14:25:58 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E3763F800FF
+ by alsa1.perex.cz (Postfix) with ESMTPS id AC0BAF800C0
+ for <alsa-devel@alsa-project.org>; Fri, 30 Oct 2020 14:48:13 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz AC0BAF800C0
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="X9vV0qbH"
+ header.b="qnoObmgR"
 Received: from localhost (fw-tnat.cambridge.arm.com [217.140.96.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 5B6D62075E;
- Fri, 30 Oct 2020 13:25:55 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id B2EF92076E;
+ Fri, 30 Oct 2020 13:48:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1604064355;
- bh=P+jMGvjIJHiVTFEarHqp4FfED29smo6QZPjm7uy1/Xw=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=X9vV0qbHAYMvtPjepkL9QkT37wNdnBJNdHsPZ6e3RAt3M+4F2noobRG0upqXnPJpe
- yCd7HL6gKy6rHIHTxgbF+XEFW9agJSeNGuV4zGdRS8qHpwjSymoj6kr57Z5rzR7NDI
- P586PLKJAiVhFTwSaM4jJ1USAroxja7uELkvX/vY=
-Date: Fri, 30 Oct 2020 13:25:48 +0000
+ s=default; t=1604065690;
+ bh=/zAw46nwRVCQQFKx83PnvtPE+6It7h/NHaANT5inn4c=;
+ h=Date:From:To:Cc:In-Reply-To:References:Subject:From;
+ b=qnoObmgRsWBKu459UOzukikK/aIt63Q/aI/WE+chydqAUgy8eGYj1UIAQCjzU3fJQ
+ nhm2Md2NASdQLGgzCOb8NHbg3DUB8N6b+IxIX+eJ42X23sJXyqf5EwYhcFStEU8SR2
+ dttDCTZS+1jpS46ssOjR+o3ZrLw2XAEaw54cgP48=
+Date: Fri, 30 Oct 2020 13:48:03 +0000
 From: Mark Brown <broonie@kernel.org>
-To: David Lin <CTLIN0@nuvoton.com>
-Subject: Re: [PATCH] ASoC: nau8315: add codec driver
-Message-ID: <20201030132548.GB4405@sirena.org.uk>
-References: <20201030050146.535983-1-CTLIN0@nuvoton.com>
+To: Takashi Iwai <tiwai@suse.com>, Jaroslav Kysela <perex@perex.cz>, Michał Mirosław <mirq-linux@rere.qmqm.pl>, Thierry Reding <thierry.reding@gmail.com>, Liam Girdwood <lgirdwood@gmail.com>, Stephen Warren <swarren@nvidia.com>, Jonathan Hunter <jonathanh@nvidia.com>
+In-Reply-To: <8756eb5aac561173aa222c9cb64dd314ab1b1f9b.1603925200.git.mirq-linux@rere.qmqm.pl>
+References: <8756eb5aac561173aa222c9cb64dd314ab1b1f9b.1603925200.git.mirq-linux@rere.qmqm.pl>
+Subject: Re: [PATCH v3 1/2] ASoC: tegra20-spdif: remove "default m"
+Message-Id: <160406568314.21123.17512576449612587949.b4-ty@kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="UHN/qo2QbUvPLonB"
-Content-Disposition: inline
-In-Reply-To: <20201030050146.535983-1-CTLIN0@nuvoton.com>
-X-Cookie: Blow it out your ear.
-User-Agent: Mutt/1.10.1 (2018-07-13)
-Cc: WTLI@nuvoton.com, YHCHuang@nuvoton.com, alsa-devel@alsa-project.org,
- KCHSU0@nuvoton.com, lgirdwood@gmail.com
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+Cc: linux-tegra@vger.kernel.org, alsa-devel@alsa-project.org,
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -81,33 +79,33 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+On Wed, 28 Oct 2020 23:48:05 +0100, Michał Mirosław wrote:
+> Make tegra20-spdif default to N as all other drivers do.
 
---UHN/qo2QbUvPLonB
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Applied to
 
-On Fri, Oct 30, 2020 at 01:01:48PM +0800, David Lin wrote:
-> Add codec driver for Nuvoton NAU8315.
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
 
-This has still got issues - it looks like all the tabs in the patch have
-been replaced by spaces, that's going to make it impossible for any of
-the tools to handle.  I'm not sure how your colleagues handled this,
-another approach some people use is to send from a non-work account and
-bypass all the issues with corporate mail servers :/
+Thanks!
 
---UHN/qo2QbUvPLonB
-Content-Type: application/pgp-signature; name="signature.asc"
+[1/1] ASoC: tegra20-spdif: remove "default m"
+      commit: ec6869b096f10526df14d9972a60ebffef72f0b9
 
------BEGIN PGP SIGNATURE-----
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl+cFFsACgkQJNaLcl1U
-h9AvNQf/dcw7V9i1/r9FH2iqgaNto1mzvgH6WG8RIkgU55pstQKJRb3PV2dkPmi5
-fLQwtGP6XoCrAAVjUx/OCcCb9ZdHyrofZvpjlgOqisgy/Cr6movk3JgDujrUNl7U
-HRbkmHbTC2SWb1wiau1+WFliT4gzHAK2rp5A2zafm+TO5k7mCmMRUfMJdDDyYKZd
-ziZPvsYh/ptfsTjawwdWbRLh5cJ26YaQFwL7+QzGZYUB+7X4zeWIJsiHSijn2WFu
-kwXWqKx8WzDGkRhkblRjoWTbmAZNQoG2KFqGosJZw9zNpc9sUNcAvuqIVQxZ+xnD
-g5/aDi8py6qhJGLYwduMkC6q7mD3eg==
-=7dME
------END PGP SIGNATURE-----
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
 
---UHN/qo2QbUvPLonB--
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
+
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
+
+Thanks,
+Mark

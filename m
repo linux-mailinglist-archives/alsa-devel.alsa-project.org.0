@@ -2,99 +2,71 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 332A72A015C
-	for <lists+alsa-devel@lfdr.de>; Fri, 30 Oct 2020 10:25:03 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 53D6F2A018B
+	for <lists+alsa-devel@lfdr.de>; Fri, 30 Oct 2020 10:37:48 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B16F115F9;
-	Fri, 30 Oct 2020 10:24:12 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B16F115F9
+	by alsa0.perex.cz (Postfix) with ESMTPS id F000115F2;
+	Fri, 30 Oct 2020 10:36:57 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz F000115F2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1604049902;
-	bh=ay49ZuyRPtJVdPhUgkJo//uZDhOmks0uGr3aMiJbUUg=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
+	s=default; t=1604050668;
+	bh=RI7z3K7eILvFHncLjd3L3uO0NKeB7z7jOonFatnns4E=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=OtTuguCBWwqMzeTF/yqhgqgk6gbejjU6UgDQhv5ZdbYgLgrNHZLktot14EjLvnEad
-	 vM44SssZuJhW+7UV5ZcGEQFoj0HsE4sff9KsS4nNti1AQ6p64d/Df2MxmKOQH4YBWc
-	 hMXXboxdXXjB/UIC54FtVzfqaOkZvjBAQQ2VZRMI=
+	b=d9ONOeaTbVJ1VYwVLXq1ygP05rcc/fulHA4Gwsh/JW9Toa2jwy2JOXyy4F2nS+FcN
+	 /lsPHFIGbDEcKtcNwIsRqCwAKeUxa8o8a+FW9BJdX17KJWzXc1vH56557nOtjBVE22
+	 PEAAa1kck9nEcvu1e8N31lXmnRao+9e590XJYbqY=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id EE09AF800FF;
-	Fri, 30 Oct 2020 10:23:29 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 400B9F800C0;
+	Fri, 30 Oct 2020 10:36:15 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 88A58F80212; Fri, 30 Oct 2020 10:23:28 +0100 (CET)
+ id D1F7CF80212; Fri, 30 Oct 2020 10:36:13 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=-15.6 required=5.0 tests=DKIMWL_WL_MED,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,ENV_AND_HDR_SPF_MATCH,SPF_HELO_NONE,SPF_PASS,
- USER_IN_DEF_DKIM_WL,USER_IN_DEF_SPF_WL autolearn=disabled version=3.4.0
-Received: from mail-io1-xd42.google.com (mail-io1-xd42.google.com
- [IPv6:2607:f8b0:4864:20::d42])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Level: *
+X-Spam-Status: No, score=1.5 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+ DKIM_VALID,PRX_BODY_21,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 8D3C3F800FF
- for <alsa-devel@alsa-project.org>; Fri, 30 Oct 2020 10:23:24 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8D3C3F800FF
+ by alsa1.perex.cz (Postfix) with ESMTPS id 8F7EAF800C0
+ for <alsa-devel@alsa-project.org>; Fri, 30 Oct 2020 10:36:06 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8F7EAF800C0
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=google.com header.i=@google.com
- header.b="UO5IfL8R"
-Received: by mail-io1-xd42.google.com with SMTP id q25so6794246ioh.4
- for <alsa-devel@alsa-project.org>; Fri, 30 Oct 2020 02:23:24 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=CBA+zo6LaSoFeL0OA7IbUTdbUJNI/GOykxoTxkhm2nk=;
- b=UO5IfL8R5QFcwjro3zMCatag08rvnj7MG+rIfVf8CZY1PLx4Z0SoVQtu3DvG/0uf2N
- YIRVCW8AOfZZVXKBcMTqoLCPZMQ5Kdr+w2h4Jyf/fzhu6jZud64aAlrfyOQbqcC7FZig
- 6RxtRmtJurOtE9CKuMpk1+tU/vGvKGRNHkDxmw8yP7WTwOpd+GVyHY20Brqmw6oBEwuq
- QvZM45AWJDmHUwcapmaYrBa+pQ32oebVFliheC058EYqeCLz6IBmN6i+RIW2LIsORGah
- PPcv4Mf1Xo6nq/dRGbcCEpsqtymMwkMc30l3lLgjDsRtVNql2yXNOini1QEbK9TJHv/h
- xoFw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=CBA+zo6LaSoFeL0OA7IbUTdbUJNI/GOykxoTxkhm2nk=;
- b=MxyIbEwQBuS8UHAAQn1VWDpw3Cf5oeFWmNp4RXtnGmHJZByHIm/Gr1OUnmIC3GFIQo
- fxuvcjBFfKEnRHgLOjs1LqNp4a+Tm6sohm0s2lp9SBQUxLSyWLSwiIuzQvbbM21Dy37z
- M6jnwgcqLrFYIUjgUxlgD2e1ktR5pFJw+j5AINR46DGmzVRXgj98u9D+/e7R/9sAPVnp
- MfP2B9dZw3mUf7LQ+xRlXRRY53A7GB6/OT2DtWUeLDsnb0JCkUTdA2lJgY9sZ+rCMuS7
- ZSN3tTMFu4aptDR2cmYQqlcwCLOgP6YBaKENUVoFohyN6ad9UkQAaxnHNJ3Yd8kCizcX
- tfWg==
-X-Gm-Message-State: AOAM532MGFkWzZRBwYN9zORIqIteY+DTcxblvB1e7+4KaC/AF3Mv1AFh
- PB3wGYgBdV/LASvI4U5dq1PozyY6J3OEQjke79h5CA==
-X-Google-Smtp-Source: ABdhPJyH+9c8dw1FcU0h83mbgXToEcZDNuIgSVvIgnpkYquj90LicUxQtsuxCBKhNY9sYkw8F9Rt7qhEa3t2HuwKEyA=
-X-Received: by 2002:a6b:c8c1:: with SMTP id y184mr1050821iof.109.1604049801372; 
- Fri, 30 Oct 2020 02:23:21 -0700 (PDT)
+ dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="jjupfj7u"
+Received: from localhost (83-86-74-64.cable.dynamic.v4.ziggo.nl [83.86.74.64])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
+ bits)) (No client certificate requested)
+ by mail.kernel.org (Postfix) with ESMTPSA id D258B20729;
+ Fri, 30 Oct 2020 09:36:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=default; t=1604050563;
+ bh=RI7z3K7eILvFHncLjd3L3uO0NKeB7z7jOonFatnns4E=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=jjupfj7uAi6xD50ApETPH+RDl/DqR9IWX31gydQAN+juak3UAXmBpFxqJ4qNdlIIH
+ PTNSIGIW9lfZoJhPhlg9ZgBuEF654JofOlqoVHO72a0wM2WnWMA2dDlBBnOgaGPdKV
+ e64mpXI+w+P+l5x0Zkplne4q2eVYr+7vutj2adEY=
+Date: Fri, 30 Oct 2020 10:36:51 +0100
+From: Greg KH <gregkh@linuxfoundation.org>
+To: Bard Liao <yung-chuan.liao@linux.intel.com>
+Subject: Re: [PATCH v3] soundwire: SDCA: add helper macro to access controls
+Message-ID: <20201030093651.GA2080962@kroah.com>
+References: <20201029204955.8568-1-yung-chuan.liao@linux.intel.com>
 MIME-Version: 1.0
-References: <20201030075724.1616766-1-ajye_huang@compal.corp-partner.google.com>
- <20201030075724.1616766-3-ajye_huang@compal.corp-partner.google.com>
-In-Reply-To: <20201030075724.1616766-3-ajye_huang@compal.corp-partner.google.com>
-From: Tzung-Bi Shih <tzungbi@google.com>
-Date: Fri, 30 Oct 2020 17:23:10 +0800
-Message-ID: <CA+Px+wXPRg7aDU5+vr6R_BxuFfhuDeG3iEQeAUKWNtX8YmVC1Q@mail.gmail.com>
-Subject: Re: [PATCH v2 2/2] ASoC: qcom: sc7180: Modify machine driver for 2mic
-To: Ajye Huang <ajye.huang@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Cc: Douglas Anderson <dianders@chromium.org>,
- "open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS"
- <devicetree@vger.kernel.org>, ALSA development <alsa-devel@alsa-project.org>,
- Banajit Goswami <bgoswami@codeaurora.org>,
- Srinivasa Rao Mandadapu <srivasam@codeaurora.org>,
- Liam Girdwood <lgirdwood@gmail.com>,
- linux-arm-msm <linux-arm-msm@vger.kernel.org>,
- Patrick Lai <plai@codeaurora.org>,
- Ajye Huang <ajye_huang@compal.corp-partner.google.com>,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- Rob Herring <robh+dt@kernel.org>, Bjorn Andersson <bjorn.andersson@linaro.org>,
- Mark Brown <broonie@kernel.org>, Rohit kumar <rohitkr@codeaurora.org>,
- Andy Gross <agross@kernel.org>, Tzung-Bi Shih <tzungbi@chromium.org>,
- Srini Kandagatla <srinivas.kandagatla@linaro.org>,
- "moderated list:ARM/Mediatek SoC support"
- <linux-arm-kernel@lists.infradead.org>,
- Cheng-Yi Chiang <cychiang@chromium.org>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20201029204955.8568-1-yung-chuan.liao@linux.intel.com>
+Cc: pierre-louis.bossart@linux.intel.com, alsa-devel@alsa-project.org,
+ vinod.koul@linaro.org, mengdong.lin@intel.com, linux-kernel@vger.kernel.org,
+ ranjani.sridharan@linux.intel.com, hui.wang@canonical.com, vkoul@kernel.org,
+ srinivas.kandagatla@linaro.org, jank@cadence.com, sanyog.r.kale@intel.com,
+ rander.wang@linux.intel.com, bard.liao@intel.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -110,21 +82,124 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Fri, Oct 30, 2020 at 3:57 PM Ajye Huang <ajye.huang@gmail.com> wrote:
-> +static struct gpio_desc *dmic_sel;
-> +static int dmic_switch;
+On Fri, Oct 30, 2020 at 04:49:55AM +0800, Bard Liao wrote:
+> From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+> 
+> The upcoming SDCA (SoundWire Device Class Audio) specification defines
+> a hierarchical encoding to interface with Class-defined capabilities.
+> 
+> The specification is not yet accessible to the general public but this
+> information is released with explicit permission from the MIPI Board
+> to avoid delays with SDCA support on Linux platforms.
+> 
+> A block of 64 MBytes of register addresses are allocated to SDCA
+> controls, starting at address 0x40000000. The 26 LSBs which identify
+> individual controls are set based on the following variables:
+> 
+> - Function Number. An SCDA device can be split in up to 8 independent
+>   Functions. Each of these Functions is described in the SDCA
+>   specification, e.g. Smart Amplifier, Smart Microphone, Simple
+>   Microphone, Jack codec, HID, etc.
+> 
+> - Entity Number.  Within each Function,  an Entity is  an identifiable
+>   block.  Up   to  127  Entities   are  connected  in   a  pre-defined
+>   graph  (similar to  USB), with  Entity0 reserved  for Function-level
+>   configurations.  In  contrast  to  USB, the  SDCA  spec  pre-defines
+>   Function Types, topologies, and allowed  options, i.e. the degree of
+>   freedom  is not  unlimited to  limit  the possibility  of errors  in
+>   descriptors leading to software quirks.
+> 
+> - Control Selector. Within each Entity, the SDCA specification defines
+>   48 controls such as Mute, Gain, AGC, etc, and 16 implementation
+>   defined ones. Some Control Selectors might be used for low-level
+>   platform setup, and other exposed to applications and users. Note
+>   that the same Control Selector capability, e.g. Latency control,
+>   might be located at different offsets in different entities, the
+>   Control Selector mapping is Entity-specific.
+> 
+> - Control Number. Some Control Selectors allow channel-specific values
+>   to be set, with up to 64 channels allowed. This is mostly used for
+>   volume control.
+> 
+> - Current/Next values. Some Control Selectors are
+>   'Dual-Ranked'. Software may either update the Current value directly
+>   for immediate effect. Alternatively, software may write into the
+>   'Next' values and update the SoundWire 1.2 'Commit Groups' register
+>   to copy 'Next' values into 'Current' ones in a synchronized
+>   manner. This is different from bank switching which is typically
+>   used to change the bus configuration only.
+> 
+> - MBQ. the Multi-Byte Quantity bit is used to provide atomic updates
+>   when accessing more that one byte, for example a 16-bit volume
+>   control would be updated consistently, the intermediate values
+>   mixing old MSB with new LSB are not applied.
+> 
+> These 6 parameters are used to build a 32-bit address to access the
+> desired Controls. Because of address range, paging is required, but
+> the most often used parameter values are placed in the lower 16 bits
+> of the address. This helps to keep the paging registers constant while
+> updating Controls for a specific Device/Function.
+> 
+> Reviewed-by: Rander Wang <rander.wang@linux.intel.com>
+> Reviewed-by: Guennadi Liakhovetski <guennadi.liakhovetski@linux.intel.com>
+> Reviewed-by: Kai Vehmanen <kai.vehmanen@linux.intel.com>
+> Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+> Signed-off-by: Bard Liao <yung-chuan.liao@linux.intel.com>
+> ---
+> Changelog:
+> 
+> v2:
+>  - add SDW_SDCA_MBQ_CTL
+> 
+> v3:
+>  - add SDW_SDCA_NEXT_CTL
+> 
+> ---
+>  include/linux/soundwire/sdw_registers.h | 32 +++++++++++++++++++++++++
+>  1 file changed, 32 insertions(+)
+> 
+> diff --git a/include/linux/soundwire/sdw_registers.h b/include/linux/soundwire/sdw_registers.h
+> index f420e8059779..e14dff9a9c7f 100644
+> --- a/include/linux/soundwire/sdw_registers.h
+> +++ b/include/linux/soundwire/sdw_registers.h
+> @@ -298,4 +298,36 @@
+>  #define SDW_CASC_PORT_MASK_INTSTAT3		1
+>  #define SDW_CASC_PORT_REG_OFFSET_INTSTAT3	2
+>  
+> +/*
+> + * v1.2 device - SDCA address mapping
+> + *
+> + * Spec definition
+> + *	Bits		Contents
+> + *	31		0 (required by addressing range)
+> + *	30:26		0b10000 (Control Prefix)
+> + *	25		0 (Reserved)
+> + *	24:22		Function Number [2:0]
+> + *	21		Entity[6]
+> + *	20:19		Control Selector[5:4]
+> + *	18		0 (Reserved)
+> + *	17:15		Control Number[5:3]
+> + *	14		Next
+> + *	13		MBQ
+> + *	12:7		Entity[5:0]
+> + *	6:3		Control Selector[3:0]
+> + *	2:0		Control Number[2:0]
+> + */
+> +
+> +#define SDW_SDCA_CTL(fun, ent, ctl, ch)		(BIT(30) |			\
+> +						 (((fun) & 0x7) << 22) |	\
+> +						 (((ent) & 0x40) << 15) |	\
+> +						 (((ent) & 0x3f) << 7) |	\
+> +						 (((ctl) & 0x30) << 15) |	\
+> +						 (((ctl) & 0x0f) << 3) |	\
+> +						 (((ch) & 0x38) << 12) |	\
+> +						 ((ch) & 0x07))
+> +
+> +#define SDW_SDCA_MBQ_CTL(reg)			((reg) | BIT(13))
+> +#define SDW_SDCA_NEXT_CTL(reg)			((reg) | BIT(14))
+> +
+>  #endif /* __SDW_REGISTERS_H */
 
-If you really need them, you should put them in struct sc7180_snd_data.
 
-> +static int dmic_set(struct snd_kcontrol *kcontrol,
-> +                   struct snd_ctl_elem_value *ucontrol)
-> +{
-> +       if (dmic_sel) {
+No users of these macros?
 
-if (IS_ERR(dmic_sel))
-But I think you don't need to check dmic_sel.  Suppose your _probe()
-already returned error, the code here shouldn't be called.
-
-> +               dmic_switch = ucontrol->value.integer.value[0];
-
-Looks like it can be a local variable.  You don't need to save dmic_switch.

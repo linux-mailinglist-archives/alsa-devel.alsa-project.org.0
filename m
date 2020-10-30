@@ -2,66 +2,91 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1232B2A0041
-	for <lists+alsa-devel@lfdr.de>; Fri, 30 Oct 2020 09:45:13 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id E663829FFFF
+	for <lists+alsa-devel@lfdr.de>; Fri, 30 Oct 2020 09:31:13 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A6E78852;
-	Fri, 30 Oct 2020 09:44:22 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A6E78852
+	by alsa0.perex.cz (Postfix) with ESMTPS id 6C79215E5;
+	Fri, 30 Oct 2020 09:30:23 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6C79215E5
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1604047512;
-	bh=8JeDQ9vOe5SW/3W3gwVnoygOLGWy8L5szpmqA4F4Qdw=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=JJknuIEg/4vu9aKTAgXHJEbrUxXKBf+btfrJwyfsBZ4gVehMzyQg918ga2wZM9wV7
-	 uG9x8cQBDL4zA9T6a90RcWr0P2Ve8WaEItGBIQyLHI2DtzCE0Cw+eXTtiCBBFhkJbx
-	 tADbYg/pQr3Ky1DXEi3ym9My81ZKJf6kHrlPqqgM=
+	s=default; t=1604046673;
+	bh=5aG0OoLrJuN/4lMve0As2arDf2khH+IajAllE76GAq0=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=ed3QhS1eIFAex+e+wT83R9VwfvSYIL3WsygCLIzpoeWBevEglResflXu6HfRut1pG
+	 ZXcKXI7Pjz/MYF8iDC8xFvhFd3wVj7ypx7IhQo+qWlcpOyt74IuEfXUd6ZZ6ubNeBl
+	 FGK4JPSfFUIu77ZtbChym2iaYmN3DYJIOGiezKgo=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 0E59FF801D5;
-	Fri, 30 Oct 2020 09:43:40 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 8375DF80107;
+	Fri, 30 Oct 2020 09:29:40 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id B15B8F80212; Fri, 30 Oct 2020 09:43:35 +0100 (CET)
+ id 46591F80212; Fri, 30 Oct 2020 09:29:34 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: **
-X-Spam-Status: No, score=2.6 required=5.0 tests=DATE_IN_PAST_06_12, PRX_BODY_21,
- SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Level: 
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from mail-qt1-x844.google.com (mail-qt1-x844.google.com
+ [IPv6:2607:f8b0:4864:20::844])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 4B6BFF800FF
- for <alsa-devel@alsa-project.org>; Fri, 30 Oct 2020 09:43:28 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4B6BFF800FF
-IronPort-SDR: kj9OcrTFPTrOPS6SAnwocvhVzTXuN6xcCsZAfg7zVGpkyhAzugAh2W2p49GDIDPy60ts4zkqAf
- 3DvV7/TBufPA==
-X-IronPort-AV: E=McAfee;i="6000,8403,9789"; a="165992603"
-X-IronPort-AV: E=Sophos;i="5.77,432,1596524400"; d="scan'208";a="165992603"
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from orsmga005.jf.intel.com ([10.7.209.41])
- by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 30 Oct 2020 01:43:26 -0700
-IronPort-SDR: XjSnM+vJX1VrgkPr2onDnCG6DkgeY4rc7kXe01SYfsNPR9Qc79h8hEtXmgdG90cB0/3Y1T8bMn
- 9Wd7cMCb5OLA==
-X-IronPort-AV: E=Sophos;i="5.77,432,1596524400"; d="scan'208";a="536993206"
-Received: from bard-ubuntu.sh.intel.com ([10.239.13.33])
- by orsmga005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 30 Oct 2020 01:43:23 -0700
-From: Bard Liao <yung-chuan.liao@linux.intel.com>
-To: alsa-devel@alsa-project.org,
-	vkoul@kernel.org
-Subject: [PATCH v3] soundwire: SDCA: add helper macro to access controls
-Date: Fri, 30 Oct 2020 04:49:55 +0800
-Message-Id: <20201029204955.8568-1-yung-chuan.liao@linux.intel.com>
-X-Mailer: git-send-email 2.17.1
-Cc: pierre-louis.bossart@linux.intel.com, vinod.koul@linaro.org,
- gregkh@linuxfoundation.org, linux-kernel@vger.kernel.org,
- ranjani.sridharan@linux.intel.com, hui.wang@canonical.com,
- srinivas.kandagatla@linaro.org, jank@cadence.com, mengdong.lin@intel.com,
- sanyog.r.kale@intel.com, rander.wang@linux.intel.com, bard.liao@intel.com
+ by alsa1.perex.cz (Postfix) with ESMTPS id 0C01EF80107
+ for <alsa-devel@alsa-project.org>; Fri, 30 Oct 2020 09:29:29 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0C01EF80107
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
+ header.b="i1bDXsBm"
+Received: by mail-qt1-x844.google.com with SMTP id m65so3518543qte.11
+ for <alsa-devel@alsa-project.org>; Fri, 30 Oct 2020 01:29:29 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=2SmP2XG2z3yyrdfUO9SkbT5PkhpXi9KOLge2mZeMb5U=;
+ b=i1bDXsBm1niQ4dkdDbmR9gg6PC1JZxcVuqDMoIU0x9yV4eCKiO7o8WT1gLVhGbua+W
+ VSQZz/9X1dfTZK7P3wLdKlpscV6K9QmiH3GTCxZkVydSulOWMgGtX1r8H2KdukRelmYV
+ edizOroqwJafVC6nOIPEiBOx37tjE8bEon36kr6517o7gv5RrScCd7ln8wa8xhnpGqsU
+ b3auk81D2jZttt3Ztoa/HIhlJh3DakWKMdVWiXa85ZDKeLn4IAPgv7Zo/hpuTilTU9gA
+ oyW+WpiGsqHa2x3pWM0/xE7mMhPGN5KP4Gb11NEJo4XszZzED+eirG1lNWhaHn4vo1Dl
+ upGQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=2SmP2XG2z3yyrdfUO9SkbT5PkhpXi9KOLge2mZeMb5U=;
+ b=qupb3VSXkLerfR037DfoBDa47VCYOlKsCiu7ZyEdySgRxE3I6ScSPUTI4c3hvqqkvL
+ dQI7egMIAjUo03iK+IT6+c+mLixsFQGEJTRGsYX0Mqv8TDg35N+OJL8Py4lB4Gem5Xsd
+ 144/KZ7+P3Qng9be1qjUNNmej1TNmnt/upQi4msoeV6k76GbK+tohwCL5jXAolkcA4mQ
+ uTBsDxiwY7bTm38WrkGQW1PmuULiaijMeRZLfWm9VHD/SZHOsS5WO5zg8ImE3UTZnwL7
+ H6uEDDnTwj0Wf/YjTsWy2u3Wie6FCBNvkBB4nxqCCMAG8ywo8NLfKIVblNPTa0tHB3A2
+ RPDQ==
+X-Gm-Message-State: AOAM532Pxs97w0SpMwKcGZsF5cegQ16zLzMHJqN5/64mXBuTTi0WAW30
+ xBZYwXwfJWm6sJb5Dog6a24ffDtCi3p6P8lxWV0=
+X-Google-Smtp-Source: ABdhPJzkbx+wUo5qTc/A5mLSgJdG9vfP6tbrvgVQoe1Oj4ip/QKJPl/1/B4em0IUQc5bqYk4VWdgJWXeCNWIuiLyc9s=
+X-Received: by 2002:aed:26e3:: with SMTP id q90mr947606qtd.121.1604046566560; 
+ Fri, 30 Oct 2020 01:29:26 -0700 (PDT)
+MIME-Version: 1.0
+References: <1603877930-10553-1-git-send-email-shengjiu.wang@nxp.com>
+ <20201029152721.GB1901783@bogus>
+In-Reply-To: <20201029152721.GB1901783@bogus>
+From: Shengjiu Wang <shengjiu.wang@gmail.com>
+Date: Fri, 30 Oct 2020 16:29:15 +0800
+Message-ID: <CAA+D8AOC3FSCH48p8e61W7Vz5Ri9Hhz_Hbw24cXtEp0OO2gT8g@mail.gmail.com>
+Subject: Re: [PATCH v2 1/2] ASoC: dt-bindings: fsl_aud2htx: Add binding doc
+ for aud2htx module
+To: Rob Herring <robh@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Cc: "open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS"
+ <devicetree@vger.kernel.org>, alsa-devel@alsa-project.org,
+ Timur Tabi <timur@kernel.org>, Xiubo Li <Xiubo.Lee@gmail.com>,
+ linux-kernel <linux-kernel@vger.kernel.org>,
+ Shengjiu Wang <shengjiu.wang@nxp.com>, Liam Girdwood <lgirdwood@gmail.com>,
+ Rob Herring <robh+dt@kernel.org>, Takashi Iwai <tiwai@suse.com>,
+ Nicolin Chen <nicoleotsuka@gmail.com>, Mark Brown <broonie@kernel.org>,
+ Fabio Estevam <festevam@gmail.com>, linuxppc-dev@lists.ozlabs.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -77,122 +102,49 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+On Thu, Oct 29, 2020 at 11:28 PM Rob Herring <robh@kernel.org> wrote:
+>
+> On Wed, 28 Oct 2020 17:38:49 +0800, Shengjiu Wang wrote:
+> > AUD2HTX (Audio Subsystem TO HDMI TX Subsystem) is a new
+> > IP module found on i.MX8MP.
+> >
+> > Signed-off-by: Shengjiu Wang <shengjiu.wang@nxp.com>
+> > ---
+> > changes in v2:
+> > - fix indentation issue
+> > - remove nodename
+> >
+> >  .../bindings/sound/fsl,aud2htx.yaml           | 64 +++++++++++++++++++
+> >  1 file changed, 64 insertions(+)
+> >  create mode 100644 Documentation/devicetree/bindings/sound/fsl,aud2htx.yaml
+> >
+>
+>
+> My bot found errors running 'make dt_binding_check' on your patch:
+>
+> yamllint warnings/errors:
+>
+> dtschema/dtc warnings/errors:
+> /builds/robherring/linux-dt-review/Documentation/devicetree/bindings/sound/fsl,aud2htx.yaml: 'additionalProperties' is a required property
+> /builds/robherring/linux-dt-review/Documentation/devicetree/bindings/sound/fsl,aud2htx.yaml: ignoring, error in schema:
+> warning: no schema found in file: ./Documentation/devicetree/bindings/sound/fsl,aud2htx.yaml
+>
+>
+> See https://patchwork.ozlabs.org/patch/1389813
+>
+> The base for the patch is generally the last rc1. Any dependencies
+> should be noted.
+>
+> If you already ran 'make dt_binding_check' and didn't see the above
+> error(s), then make sure 'yamllint' is installed and dt-schema is up to
+> date:
+>
+> pip3 install dtschema --upgrade
+>
+> Please check and re-submit.
+>
 
-The upcoming SDCA (SoundWire Device Class Audio) specification defines
-a hierarchical encoding to interface with Class-defined capabilities.
+ok, will fix it.
 
-The specification is not yet accessible to the general public but this
-information is released with explicit permission from the MIPI Board
-to avoid delays with SDCA support on Linux platforms.
-
-A block of 64 MBytes of register addresses are allocated to SDCA
-controls, starting at address 0x40000000. The 26 LSBs which identify
-individual controls are set based on the following variables:
-
-- Function Number. An SCDA device can be split in up to 8 independent
-  Functions. Each of these Functions is described in the SDCA
-  specification, e.g. Smart Amplifier, Smart Microphone, Simple
-  Microphone, Jack codec, HID, etc.
-
-- Entity Number.  Within each Function,  an Entity is  an identifiable
-  block.  Up   to  127  Entities   are  connected  in   a  pre-defined
-  graph  (similar to  USB), with  Entity0 reserved  for Function-level
-  configurations.  In  contrast  to  USB, the  SDCA  spec  pre-defines
-  Function Types, topologies, and allowed  options, i.e. the degree of
-  freedom  is not  unlimited to  limit  the possibility  of errors  in
-  descriptors leading to software quirks.
-
-- Control Selector. Within each Entity, the SDCA specification defines
-  48 controls such as Mute, Gain, AGC, etc, and 16 implementation
-  defined ones. Some Control Selectors might be used for low-level
-  platform setup, and other exposed to applications and users. Note
-  that the same Control Selector capability, e.g. Latency control,
-  might be located at different offsets in different entities, the
-  Control Selector mapping is Entity-specific.
-
-- Control Number. Some Control Selectors allow channel-specific values
-  to be set, with up to 64 channels allowed. This is mostly used for
-  volume control.
-
-- Current/Next values. Some Control Selectors are
-  'Dual-Ranked'. Software may either update the Current value directly
-  for immediate effect. Alternatively, software may write into the
-  'Next' values and update the SoundWire 1.2 'Commit Groups' register
-  to copy 'Next' values into 'Current' ones in a synchronized
-  manner. This is different from bank switching which is typically
-  used to change the bus configuration only.
-
-- MBQ. the Multi-Byte Quantity bit is used to provide atomic updates
-  when accessing more that one byte, for example a 16-bit volume
-  control would be updated consistently, the intermediate values
-  mixing old MSB with new LSB are not applied.
-
-These 6 parameters are used to build a 32-bit address to access the
-desired Controls. Because of address range, paging is required, but
-the most often used parameter values are placed in the lower 16 bits
-of the address. This helps to keep the paging registers constant while
-updating Controls for a specific Device/Function.
-
-Reviewed-by: Rander Wang <rander.wang@linux.intel.com>
-Reviewed-by: Guennadi Liakhovetski <guennadi.liakhovetski@linux.intel.com>
-Reviewed-by: Kai Vehmanen <kai.vehmanen@linux.intel.com>
-Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Signed-off-by: Bard Liao <yung-chuan.liao@linux.intel.com>
----
-Changelog:
-
-v2:
- - add SDW_SDCA_MBQ_CTL
-
-v3:
- - add SDW_SDCA_NEXT_CTL
-
----
- include/linux/soundwire/sdw_registers.h | 32 +++++++++++++++++++++++++
- 1 file changed, 32 insertions(+)
-
-diff --git a/include/linux/soundwire/sdw_registers.h b/include/linux/soundwire/sdw_registers.h
-index f420e8059779..e14dff9a9c7f 100644
---- a/include/linux/soundwire/sdw_registers.h
-+++ b/include/linux/soundwire/sdw_registers.h
-@@ -298,4 +298,36 @@
- #define SDW_CASC_PORT_MASK_INTSTAT3		1
- #define SDW_CASC_PORT_REG_OFFSET_INTSTAT3	2
- 
-+/*
-+ * v1.2 device - SDCA address mapping
-+ *
-+ * Spec definition
-+ *	Bits		Contents
-+ *	31		0 (required by addressing range)
-+ *	30:26		0b10000 (Control Prefix)
-+ *	25		0 (Reserved)
-+ *	24:22		Function Number [2:0]
-+ *	21		Entity[6]
-+ *	20:19		Control Selector[5:4]
-+ *	18		0 (Reserved)
-+ *	17:15		Control Number[5:3]
-+ *	14		Next
-+ *	13		MBQ
-+ *	12:7		Entity[5:0]
-+ *	6:3		Control Selector[3:0]
-+ *	2:0		Control Number[2:0]
-+ */
-+
-+#define SDW_SDCA_CTL(fun, ent, ctl, ch)		(BIT(30) |			\
-+						 (((fun) & 0x7) << 22) |	\
-+						 (((ent) & 0x40) << 15) |	\
-+						 (((ent) & 0x3f) << 7) |	\
-+						 (((ctl) & 0x30) << 15) |	\
-+						 (((ctl) & 0x0f) << 3) |	\
-+						 (((ch) & 0x38) << 12) |	\
-+						 ((ch) & 0x07))
-+
-+#define SDW_SDCA_MBQ_CTL(reg)			((reg) | BIT(13))
-+#define SDW_SDCA_NEXT_CTL(reg)			((reg) | BIT(14))
-+
- #endif /* __SDW_REGISTERS_H */
--- 
-2.17.1
-
+best regards
+wang shengjiu

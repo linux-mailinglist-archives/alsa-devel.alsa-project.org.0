@@ -2,82 +2,95 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5A63B2A0EE6
-	for <lists+alsa-devel@lfdr.de>; Fri, 30 Oct 2020 20:53:20 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id CCDE42A0FD7
+	for <lists+alsa-devel@lfdr.de>; Fri, 30 Oct 2020 22:01:31 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id F37061660;
-	Fri, 30 Oct 2020 20:52:29 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz F37061660
+	by alsa0.perex.cz (Postfix) with ESMTPS id 614611660;
+	Fri, 30 Oct 2020 22:00:41 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 614611660
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1604087600;
-	bh=9ZRCCkWjnZUueRC68oDdNBqS1TZdbPgE5YZdnDRB3/I=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1604091691;
+	bh=yVWuuDRbBWJ5DK/y1CPH3kMVbnbrqO/RGH6gs6uCZkg=;
+	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=cDfm3NqGGBSCtNuCeogKFU56PYJ2jQu9umSUTp3rhQ1VJMFGhfVFB+0JCmKjanhNs
-	 1K8iN9XTcXX+pfgfRs3Lo6gxCtJKJyo31qfnGRbVrvHyh5PeGScZ+jn2MQKVq5qAo1
-	 QQ8VBpD+iFUpYitTWQJPpJYSAOcWAw5eYc94Xn2w=
+	b=AKin0OoMsSz6E9MgndQuNmmdHdIyeFWUMEn92o0RcZwTrWPin8z17gPCJUvqlhQU9
+	 Re3Gx2uumZgtwOZWSwi0XLNM4Q9M92tmlI3ceplOVE5FNDL23o6ZEZZBezcpWz6jL2
+	 /5TAxuDsjKfnIVChnzMxr/ETK/jnbOzgdyq4SLW0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 342EFF800C0;
-	Fri, 30 Oct 2020 20:51:47 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id B1ADBF800C0;
+	Fri, 30 Oct 2020 21:59:58 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id CAFB3F80212; Fri, 30 Oct 2020 20:51:39 +0100 (CET)
+ id 45C09F80212; Fri, 30 Oct 2020 21:59:56 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled
- version=3.4.0
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+X-Spam-Level: *
+X-Spam-Status: No, score=1.4 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,FREEMAIL_FROM,PRX_BODY_14,PRX_BODY_26,SPF_HELO_NONE,SPF_PASS,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mail-ej1-x644.google.com (mail-ej1-x644.google.com
+ [IPv6:2a00:1450:4864:20::644])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 03D21F80107
- for <alsa-devel@alsa-project.org>; Fri, 30 Oct 2020 20:51:36 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 03D21F80107
+ by alsa1.perex.cz (Postfix) with ESMTPS id 69DAFF80107
+ for <alsa-devel@alsa-project.org>; Fri, 30 Oct 2020 21:59:48 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 69DAFF80107
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="oTHOmNUY"
-Received: from localhost (fw-tnat.cambridge.arm.com [217.140.96.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id E07C220729;
- Fri, 30 Oct 2020 19:51:33 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1604087494;
- bh=9ZRCCkWjnZUueRC68oDdNBqS1TZdbPgE5YZdnDRB3/I=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=oTHOmNUYOEfKVnR1QCvHebYO0x6lLtMcGFbixpY00xTMVVFOPc1vAwJDHa6tZ11RA
- bUb93qwcWheji5sX/+n/pBmwmijYJsVttdKxHVEaXsB9j3aD0njQdRUrx3oZytSock
- rhikceoV39pm7hIacRRfTyi/g/4tZ0SpgTxah6qc=
-Date: Fri, 30 Oct 2020 19:51:27 +0000
-From: Mark Brown <broonie@kernel.org>
-To: =?iso-8859-1?Q?Cl=E9ment_P=E9ron?= <peron.clem@gmail.com>
-Subject: Re: [PATCH v10 14/15] dt-bindings: sound: sun4i-i2s: Document H3
- with missing RX channel possibility
-Message-ID: <20201030195127.GM4405@sirena.org.uk>
+ dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
+ header.b="vesqpwoV"
+Received: by mail-ej1-x644.google.com with SMTP id p9so10450545eji.4
+ for <alsa-devel@alsa-project.org>; Fri, 30 Oct 2020 13:59:48 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=from:to:cc:subject:date:message-id:in-reply-to:references
+ :mime-version:content-transfer-encoding;
+ bh=k3WkoFBU74q2UUkntKKl2jUcW+YT3JWi72RY5sPwOfk=;
+ b=vesqpwoVaNunwsRNYlewpH7leCs8rK5Ez+sifuWXtWFpLMB1bhb0y33nDMgYvwByw3
+ tohjzgZ/ttG3vlbRT3y7ZJa+WYJ3ASCgH9VHXLHhX+FIpqlEH6rGnUyQnja+k1c/nxZk
+ SLz4bWfb7lwECVgzXLuPxET1rNSJeudHd5mBOCFsRULvJOViO9/dKHLp/9oJrS9iJPyT
+ qJ/wHQl7TA1n0jHpQr6bx91XwsO0AvQ66YnQeurV0oLG7b4zl3xEOttK/VK6w/GxeCQU
+ HC8iVDJdVa8xV4JGvM1SeTOAInlCEwS/LsnMI4jxcaco7bGqbpcB5bQ4pPjx5aK6DFT9
+ 3fZQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
+ :references:mime-version:content-transfer-encoding;
+ bh=k3WkoFBU74q2UUkntKKl2jUcW+YT3JWi72RY5sPwOfk=;
+ b=heAeoDdvSZ2uVmHtmdwgk+KeimBJaVuyxZ6nymV2f+c+M1cPOIHEdwkGYu1t+og/b7
+ VY8WvxQ/ZEihtNTGNVJVtpmjHTQ3wnknDTo5mB3ndQJsABGUHcYJivp8+wECg2o1B651
+ yO1R4KYxKqvow9vXZM9gvqONkfOgTIr5x2mGpbdhT4n1kmS1e/FYYcf9YqXbVtubzOgX
+ gbsWcZQjEPBaIFEF6zFL92Z2yVpnjm+8P/vLyA5rrKqV/C58wQTVEo+CwQ4aY2rbX4PJ
+ BK4PCfXAeHa7GTvfXt5IlaJijF58Eu298KJ07u+18GUMY2fzdiJN5SqHvaIz8oQnlvub
+ 0Wjg==
+X-Gm-Message-State: AOAM530t/+ymFsffBWAaF6EPel6pY8dsUGWIczZef6yVkg68hjorLx5f
+ ps417iQj/YRBRLgakAUJGCg=
+X-Google-Smtp-Source: ABdhPJxnmacl+QU6UAVfnglw7U9K7nUmqKXuVD/IqcAM7LsfWaAjX4Ia4WbMBk84ZIpYZC9Qp37Uxg==
+X-Received: by 2002:a17:906:2e59:: with SMTP id
+ r25mr4478407eji.520.1604091585688; 
+ Fri, 30 Oct 2020 13:59:45 -0700 (PDT)
+Received: from jernej-laptop.localnet (cpe1-5-97.cable.triera.net.
+ [213.161.5.97])
+ by smtp.gmail.com with ESMTPSA id bn2sm3376596ejb.48.2020.10.30.13.59.43
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 30 Oct 2020 13:59:44 -0700 (PDT)
+From: Jernej =?utf-8?B?xaBrcmFiZWM=?= <jernej.skrabec@gmail.com>
+To: linux-sunxi@googlegroups.com
+Subject: Re: [linux-sunxi] Re: [PATCH v10 00/15] Add Allwinner H3/H5/H6/A64
+ HDMI audio
+Date: Fri, 30 Oct 2020 21:59:43 +0100
+Message-ID: <1619332.Na9eyGIdAE@jernej-laptop>
+In-Reply-To: <jwv361va1g9.fsf-monnier+gmane.comp.hardware.netbook.arm.sunxi@gnu.org>
 References: <20201030144648.397824-1-peron.clem@gmail.com>
- <20201030144648.397824-15-peron.clem@gmail.com>
- <20201030181935.GJ4405@sirena.org.uk>
- <CAJiuCccAjEHX4BmL9A81EwM_xnHTPVyHu3BOPGKKUQ=1HNaZGw@mail.gmail.com>
+ <160408688151.11950.1284919768798155829.b4-ty@kernel.org>
+ <jwv361va1g9.fsf-monnier+gmane.comp.hardware.netbook.arm.sunxi@gnu.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="QqzFzR/RUlLahzby"
-Content-Disposition: inline
-In-Reply-To: <CAJiuCccAjEHX4BmL9A81EwM_xnHTPVyHu3BOPGKKUQ=1HNaZGw@mail.gmail.com>
-X-Cookie: Blow it out your ear.
-User-Agent: Mutt/1.10.1 (2018-07-13)
-Cc: devicetree <devicetree@vger.kernel.org>,
- Jernej Skrabec <jernej.skrabec@siol.net>,
- Linux-ALSA <alsa-devel@alsa-project.org>, Rob Herring <robh@kernel.org>,
- linux-kernel <linux-kernel@vger.kernel.org>,
- linux-sunxi <linux-sunxi@googlegroups.com>, Takashi Iwai <tiwai@suse.com>,
- Maxime Ripard <mripard@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>,
- Marcus Cooper <codekipper@gmail.com>, Chen-Yu Tsai <wens@csie.org>,
- Rob Herring <robh+dt@kernel.org>,
- linux-arm-kernel <linux-arm-kernel@lists.infradead.org>
+Content-Transfer-Encoding: 7Bit
+Content-Type: text/plain; charset="us-ascii"
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ monnier@iro.umontreal.ca
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -93,34 +106,45 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+Dne petek, 30. oktober 2020 ob 21:50:43 CET je Stefan Monnier napisal(a):
+> >> This series add H6 I2S support and the I2S node missing to support
+> >> HDMI audio in different Allwinner SoC.
+> > 
+> > Applied to
+> > 
+> >    https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git
+> >    for-next
+> 
+> Yay!
 
---QqzFzR/RUlLahzby
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Note that this doesn't bring HDMI audio card just yet. Another driver will be 
+needed for that.
 
-On Fri, Oct 30, 2020 at 08:05:31PM +0100, Cl=E9ment P=E9ron wrote:
+> 
+> Now, I wonder: will that make it easier to add support for HDMI-Audio for
+> the A10/A20?
 
-> But basically for the next dt-bindings change you will prefer somethings =
-like:
-> "ASoC: dt-bindings: sun4i-i2s: Document H3 with missing RX channel possib=
-ility"
+No, A10/A20 HDMI audio uses completely different interface.
 
-Yes.
+> 
+> (there was a patch for that submitted earlier this year by Stefan
+> Mavrodiev <stefan@olimex.com>, but it seems there hasn't been any
+> progress on it since then (I think the last message on it concluded that
+> it should be rewritten to use ALSA instead of ASoC)).
 
---QqzFzR/RUlLahzby
-Content-Type: application/pgp-signature; name="signature.asc"
+IIUC original author left Olimex, so work stalled.
 
------BEGIN PGP SIGNATURE-----
+Best regards,
+Jernej
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl+cbr4ACgkQJNaLcl1U
-h9AqCQf9E93+zMG/HSEdhPKPqXgjzUt1swTeI7YiMio/V6bPjwLCeRSCS0UAwmQc
-JEAcRVumyz7G4UhJFyHpbqdVhoXWJXKScO9yw7YfddlWjFfPUd4L3yQWsM1tIwyh
-mHqxntSNQFqxetoi1joWEfT0y4n7t5zU/CZw747lwj8yJiv/L37FD4Y4KTXVSh9D
-c7nElGLJdxSw4oSztS2sdbZp9QoZQRmIrcIjq4HCYhpRh2vvKm6WhBR0cSIE6sle
-mEwrO2rH6Wu8Wb1H77WBB7apG2VAzp0nczFXEj14Zr+OyQcnHwHHMqkBk06l+XbH
-iO7qVPiQIlNQKYGvC0ToiHDGrFcZYQ==
-=BIOs
------END PGP SIGNATURE-----
+> 
+> [ To clarify, don't know what's the difference between ALSA and ASoC;
+>   I'm only interested here as an owner of an A20 box on which I'd
+>   love to be able to use the HDMI-Audio.  ]
+> 
+> 
+> -- Stefan
 
---QqzFzR/RUlLahzby--
+
+
+

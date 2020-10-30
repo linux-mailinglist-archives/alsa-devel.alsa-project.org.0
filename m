@@ -2,70 +2,80 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7C80E2A047C
-	for <lists+alsa-devel@lfdr.de>; Fri, 30 Oct 2020 12:41:27 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id E34D52A04D7
+	for <lists+alsa-devel@lfdr.de>; Fri, 30 Oct 2020 12:57:25 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 0EC2C15F2;
-	Fri, 30 Oct 2020 12:40:37 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0EC2C15F2
+	by alsa0.perex.cz (Postfix) with ESMTPS id 6D1231614;
+	Fri, 30 Oct 2020 12:56:35 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6D1231614
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1604058087;
-	bh=HLhoijkNrdlbFusqkv7IeAd838tOmpp39eqaym03zS0=;
-	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1604059045;
+	bh=GHUqnP30QnFDQVRADMiWAbr0GSZ/P1pZnhw04MG+w0M=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=F8yZK3hcyTL/4nq7QT8hBr9ChA3O4PecAYwfwa74LbMtIaS5wx8kHhn2gZLA+nene
-	 /KVwaQ3h7ZD7xlYtqLbqRay8IVpGcf9ea4lI6p5J9ecO6CjtfXv4XoJDrcQB05OeXN
-	 kc76tRMxZCqZKLZ4Qc6TgOVzWZbBvN3TsBFCdXMw=
+	b=ki3wQ4pQe/HlM9Ai7cTxWxIEmhWoUNpnEKXV9i0ZqQ60O71tPwf3RAB5EnqMtXfYO
+	 bI+ZE3bZGfKiqri94S3tR790QB2mEhA37RdxxVidrvKe6aq1S6h5yxMJs+t0j0gD3K
+	 3k+J8ihz0nP0vWS+Wi9FospBQvtBfcVDBmIKjMLE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id F34BCF800C0;
-	Fri, 30 Oct 2020 12:39:53 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id C1146F80249;
+	Fri, 30 Oct 2020 12:55:52 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 72B6EF80212; Fri, 30 Oct 2020 12:39:51 +0100 (CET)
+ id BF98FF80212; Fri, 30 Oct 2020 12:55:50 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: *
-X-Spam-Status: No, score=1.5 required=5.0 tests=PRX_BODY_21, RCVD_IN_MSPIKE_H3,
- RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
+X-Spam-Status: No, score=1.5 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+ DKIM_VALID,PRX_BODY_21,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 212BFF800FF
- for <alsa-devel@alsa-project.org>; Fri, 30 Oct 2020 12:39:44 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 212BFF800FF
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 281B6B914;
- Fri, 30 Oct 2020 11:39:44 +0000 (UTC)
-Date: Fri, 30 Oct 2020 12:39:43 +0100
-Message-ID: <s5hsg9wrlhc.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
+ by alsa1.perex.cz (Postfix) with ESMTPS id A3179F80107
+ for <alsa-devel@alsa-project.org>; Fri, 30 Oct 2020 12:55:43 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A3179F80107
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="E+89YjSb"
+Received: from localhost (83-86-74-64.cable.dynamic.v4.ziggo.nl [83.86.74.64])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
+ bits)) (No client certificate requested)
+ by mail.kernel.org (Postfix) with ESMTPSA id 189D620706;
+ Fri, 30 Oct 2020 11:55:40 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=default; t=1604058940;
+ bh=GHUqnP30QnFDQVRADMiWAbr0GSZ/P1pZnhw04MG+w0M=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=E+89YjSbYh/iUeHa3z/IW+SCOdV3Pe6IcshXCPjajGAcnSXnA1JvLYdAV4Ck/2sN1
+ nMbq6H7PZBoPwr58j/g2ZEtsH/QItp81WL+vfiuV/FWvTpRdws1zMggKtSMAuvtRAF
+ LQRGz2F+HMfKpOwHRm1fKqAoeeCUHwhthjVds/y0=
+Date: Fri, 30 Oct 2020 12:56:28 +0100
+From: Greg KH <gregkh@linuxfoundation.org>
 To: "Liao, Bard" <bard.liao@intel.com>
 Subject: Re: [PATCH v3] soundwire: SDCA: add helper macro to access controls
-In-Reply-To: <DM6PR11MB40748AD8D57C73E4D79D4676FF150@DM6PR11MB4074.namprd11.prod.outlook.com>
+Message-ID: <20201030115628.GA2414235@kroah.com>
 References: <20201029204955.8568-1-yung-chuan.liao@linux.intel.com>
  <20201030093651.GA2080962@kroah.com>
  <DM6PR11MB40748AD8D57C73E4D79D4676FF150@DM6PR11MB4074.namprd11.prod.outlook.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
- FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
- (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
-MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
-Content-Type: text/plain; charset=US-ASCII
-Cc: "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <DM6PR11MB40748AD8D57C73E4D79D4676FF150@DM6PR11MB4074.namprd11.prod.outlook.com>
+Cc: "pierre-louis.bossart@linux.intel.com"
+ <pierre-louis.bossart@linux.intel.com>,
+ "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
  "vinod.koul@linaro.org" <vinod.koul@linaro.org>, "Lin,
  Mengdong" <mengdong.lin@intel.com>,
- "pierre-louis.bossart@linux.intel.com" <pierre-louis.bossart@linux.intel.com>,
  "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "ranjani.sridharan@linux.intel.com" <ranjani.sridharan@linux.intel.com>,
  "hui.wang@canonical.com" <hui.wang@canonical.com>,
  "vkoul@kernel.org" <vkoul@kernel.org>,
  "srinivas.kandagatla@linaro.org" <srinivas.kandagatla@linaro.org>,
- "ranjani.sridharan@linux.intel.com" <ranjani.sridharan@linux.intel.com>,
- "jank@cadence.com" <jank@cadence.com>, Greg KH <gregkh@linuxfoundation.org>,
- "Kale, Sanyog R" <sanyog.r.kale@intel.com>,
+ "jank@cadence.com" <jank@cadence.com>, "Kale,
+ Sanyog R" <sanyog.r.kale@intel.com>,
  Bard Liao <yung-chuan.liao@linux.intel.com>,
  "rander.wang@linux.intel.com" <rander.wang@linux.intel.com>
 X-BeenThere: alsa-devel@alsa-project.org
@@ -83,9 +93,7 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Fri, 30 Oct 2020 12:24:35 +0100,
-Liao, Bard wrote:
-> 
+On Fri, Oct 30, 2020 at 11:24:35AM +0000, Liao, Bard wrote:
 > 
 > 
 > > -----Original Message-----
@@ -231,14 +239,12 @@ Liao, Bard wrote:
 > SDW_SDCA_MBQ_CTL will be used in a new regmap method.
 > SDW_SDCA_NEXT_CTL can be used in sdca codec drivers, too.
 
-Well, the point is that it's hard to review without seeing how the
-code of actual users are.
+Then submit the users with the macro, otherwise it makes no sense to try
+to review something that we do not see being used.
 
-BTW, the bit definitions can be simplified with GENMASK().
-I personally don't think GENMASK() necessarily good, but it may fit
-better in a case like this.
-
+We do not add apis or code to the kernel that is not used, otherwise it
+is impossible to maintain over time.
 
 thanks,
 
-Takashi
+greg k-h

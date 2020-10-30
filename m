@@ -2,77 +2,98 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E341C29FE06
-	for <lists+alsa-devel@lfdr.de>; Fri, 30 Oct 2020 07:50:43 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id D7F7029FF44
+	for <lists+alsa-devel@lfdr.de>; Fri, 30 Oct 2020 08:59:20 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 83F281660;
-	Fri, 30 Oct 2020 07:49:53 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 83F281660
+	by alsa0.perex.cz (Postfix) with ESMTPS id 6ADFC15F9;
+	Fri, 30 Oct 2020 08:58:30 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6ADFC15F9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1604040643;
-	bh=9s78C3WTsH7Lp9NPGJtt/tKUOme5oARiTKKPAxXnSSg=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=Gv/gm8xm8i7SVoCyp0m/Wvixc7QydwF9689PZJfdf0npe918iFyuhBwpNYjreC4K+
-	 eIiGc1L6WGtFesub+Xg6uqhCl9I+spsQ2Fo+MMi43iwoOApKIoHDI8Z1qKFri2EAZD
-	 t0C8GJuQvTiI3/244/UYUEaclZQK9Rqx8J7p+3MQ=
+	s=default; t=1604044760;
+	bh=9ILTeRYh0H39lPJgTtBhnazm8GOyLjVekbRkUT0Ltvk=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=sY7El77UAbyhekoHiDhFAv2fOJixlf3qr49Y7DHlDs0zAvEZ1tC0K74oYsMAdzwz1
+	 Y4lqjfPFydTfFd8W4jz8HQMSDwlGRhSahOQCl5Zgph6NZQB1iokMIVp7+2TqZeV3VH
+	 nabN62sOQXhOjWEJL9tAlPA6ijH5TrzO5uKf+W3c=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 24453F804B3;
-	Fri, 30 Oct 2020 07:48:27 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id DEAADF80212;
+	Fri, 30 Oct 2020 08:57:47 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 559C3F8026D; Fri, 30 Oct 2020 07:48:23 +0100 (CET)
+ id F084AF80107; Fri, 30 Oct 2020 08:57:44 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_MSPIKE_H3,
- RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from mail-pf1-x433.google.com (mail-pf1-x433.google.com
+ [IPv6:2607:f8b0:4864:20::433])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 52E57F80212
- for <alsa-devel@alsa-project.org>; Fri, 30 Oct 2020 07:48:15 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 52E57F80212
-IronPort-SDR: 5u7b5agwilRp3yX0OOIQkfQndsYZ/VdEy1tqxXPsufr5ZTxN5cKuscMWnySTgNXR2MgciVOVKu
- OFWTKTSFcTCg==
-X-IronPort-AV: E=McAfee;i="6000,8403,9789"; a="168697920"
-X-IronPort-AV: E=Sophos;i="5.77,432,1596524400"; d="scan'208";a="168697920"
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from fmsmga003.fm.intel.com ([10.253.24.29])
- by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 29 Oct 2020 23:48:11 -0700
-IronPort-SDR: Qq9gARc4X2zMgLQ0L96Y7TirGTSTIOtacl3mchzb6Zf8ea2f1jMuXyQkmfmmGCwPskjVa38Pwo
- PecHiCIonBsw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.77,432,1596524400"; d="scan'208";a="361760847"
-Received: from brentlu-desk0.itwn.intel.com ([10.5.253.11])
- by FMSMGA003.fm.intel.com with ESMTP; 29 Oct 2020 23:48:08 -0700
-From: Brent Lu <brent.lu@intel.com>
-To: alsa-devel@alsa-project.org
-Subject: [PATCH 2/2] ASoC: intel: sof_rt5682: Add quirk for Dooly
-Date: Fri, 30 Oct 2020 14:36:54 +0800
-Message-Id: <20201030063654.25877-3-brent.lu@intel.com>
-X-Mailer: git-send-email 2.17.1
-In-Reply-To: <20201030063654.25877-1-brent.lu@intel.com>
-References: <20201030063654.25877-1-brent.lu@intel.com>
-Cc: Guennadi Liakhovetski <guennadi.liakhovetski@linux.intel.com>,
- Cezary Rojewski <cezary.rojewski@intel.com>,
- Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
- Kai Vehmanen <kai.vehmanen@linux.intel.com>, Jason Yan <yanaijie@huawei.com>,
- linux-kernel@vger.kernel.org, Takashi Iwai <tiwai@suse.com>,
- Jie Yang <yang.jie@linux.intel.com>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- Liam Girdwood <liam.r.girdwood@linux.intel.com>,
- Mark Brown <broonie@kernel.org>,
- Sathyanarayana Nujella <sathyanarayana.nujella@intel.com>,
- Fred Oh <fred.oh@linux.intel.com>, Rander Wang <rander.wang@intel.com>,
- Bard Liao <yung-chuan.liao@linux.intel.com>, Brent Lu <brent.lu@intel.com>,
- Yong Zhi <yong.zhi@intel.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 95141F80107
+ for <alsa-devel@alsa-project.org>; Fri, 30 Oct 2020 08:57:38 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 95141F80107
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
+ header.b="Hw0FvShz"
+Received: by mail-pf1-x433.google.com with SMTP id e7so4535872pfn.12
+ for <alsa-devel@alsa-project.org>; Fri, 30 Oct 2020 00:57:37 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=+vb6m+GtPCOAaRlHA7iQi9d/A/nU9vGONoKDqZKALL4=;
+ b=Hw0FvShzQ10z5Mfp1Uq+GIfJp03i+3rFFtGa5DlmBczPupdV3qOV2geLAdIrXvVsc2
+ JcnNopqWVAnoD4MlSfHX2FD2iPaaewVLnghRHO9jDQ+aXYY6jdKuAe7tmt/2u8L/LKJ9
+ E+p3kL89fkSKTfA/iT3BTCLQUF1CXrHf1vttL9mchkQkVHApWmhPCMhWeSPqFhLdT4q6
+ S9GPB416pGe8T1yp6kv1EXQ/U3tH0WaC1nbNYfdmoexUkCUsSiTdxfI+rb5I3DdjhPSg
+ UvowSeX3lCovJCuVAjNwjqyqTYmPfzyc4fhkvqrsXYorrTuWQTpBOhxk4bBikqAW7uXv
+ cVGw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=+vb6m+GtPCOAaRlHA7iQi9d/A/nU9vGONoKDqZKALL4=;
+ b=msMbqtE2dffYIRRSoricVnawLS9L+O06D0rcku2G/KdiZQKHJZYQuI9qEKAkmOUqZ/
+ huGzmP0eh7mPM7gG+73/HmXQNTk2+mgGBiKnAzd60VZfhAQlZlhXOvd72IxMJotrtRrO
+ Ofh272JviMMbBewAhan+pBUDXgVw2kiGOiKXa/Ap0QYr1MAP3/OaZec4ZRggFv91dRcS
+ KMBy/nWRnmPh/cttK4SbVaFOTeZL5uOCF7p0SwUlxN0t/kTNZyagBOLBEe5mxzTkK03o
+ o4aUtntdYS0RkEK3Azue0MPIkhvMZFApn/9J6uiAmK8ORwaZ31P6jMRWMqd+IT6sAMtw
+ ql5Q==
+X-Gm-Message-State: AOAM532ycWJ1z1bPeC7we5LM8ouZU+as2F0Xh9yi4vEy7wFs0MbF+A1m
+ Hp+w4lvvb0zVlCz3C/M4f+s=
+X-Google-Smtp-Source: ABdhPJy4Oy2cf9uRsN+HTvti+TO90lHjvCcMcN31+n+9a2UFFKXw0iZ/MmkyYiUvvE/R4QmBWJ1Xsg==
+X-Received: by 2002:a62:f20e:0:b029:15e:1332:63be with SMTP id
+ m14-20020a62f20e0000b029015e133263bemr7667148pfh.72.1604044655103; 
+ Fri, 30 Oct 2020 00:57:35 -0700 (PDT)
+Received: from localhost (114-34-18-97.HINET-IP.hinet.net. [114.34.18.97])
+ by smtp.gmail.com with ESMTPSA id p188sm4638176pgp.65.2020.10.30.00.57.33
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 30 Oct 2020 00:57:34 -0700 (PDT)
+From: Ajye Huang <ajye.huang@gmail.com>
+X-Google-Original-From: Ajye Huang <ajye_huang@compal.corp-partner.google.com>
+To: linux-kernel@vger.kernel.org
+Subject: [PATCH v2 0/2] Modify documentation and machine driver for SC7180
+ sound card
+Date: Fri, 30 Oct 2020 15:57:22 +0800
+Message-Id: <20201030075724.1616766-1-ajye_huang@compal.corp-partner.google.com>
+X-Mailer: git-send-email 2.25.1
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Cc: dianders@chromium.org, devicetree@vger.kernel.org,
+ alsa-devel@alsa-project.org, Banajit Goswami <bgoswami@codeaurora.org>,
+ Srinivasa Rao Mandadapu <srivasam@codeaurora.org>,
+ Liam Girdwood <lgirdwood@gmail.com>, linux-arm-msm@vger.kernel.org,
+ Patrick Lai <plai@codeaurora.org>,
+ Ajye Huang <ajye_huang@compal.corp-partner.google.com>,
+ Andy Gross <agross@kernel.org>, Rob Herring <robh+dt@kernel.org>,
+ Bjorn Andersson <bjorn.andersson@linaro.org>, Mark Brown <broonie@kernel.org>,
+ Rohit kumar <rohitkr@codeaurora.org>, tzungbi@chromium.org,
+ srinivas.kandagatla@linaro.org, linux-arm-kernel@lists.infradead.org,
+ cychiang@chromium.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -88,41 +109,27 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-This DMI product family string of this board is "Google_Hatch" so the
-DMI quirk will take place. However, this board is using rt1015 speaker
-amp instead of max98357a specified in the quirk. Therefore, we need an
-new DMI quirk for this board.
+Note:
+- The patch is made by the collaboration of
+ Ajye Huang <ajye_huang@compal.corp-partner.google.com>
+ Cheng-Yi Chiang <cychiang@chromium.org>
 
-Signed-off-by: Brent Lu <brent.lu@intel.com>
----
- sound/soc/intel/boards/sof_rt5682.c | 14 ++++++++++++++
- 1 file changed, 14 insertions(+)
+Changes from v1 to v2:
+- Ducumentation: Modify the dimc-gpios property description and examples.
+- Machine driver: 
+  - Remove "qcom,sc7180-sndcard-rt5682-m98357-2mic" compatible
+  - See gpio property and use anadditional control.
+  
+Thanks for the review!
 
-diff --git a/sound/soc/intel/boards/sof_rt5682.c b/sound/soc/intel/boards/sof_rt5682.c
-index 7701957e0eb7..dfcdf6d4b6c8 100644
---- a/sound/soc/intel/boards/sof_rt5682.c
-+++ b/sound/soc/intel/boards/sof_rt5682.c
-@@ -100,6 +100,20 @@ static const struct dmi_system_id sof_rt5682_quirk_table[] = {
- 					SOF_RT5682_MCLK_24MHZ |
- 					SOF_RT5682_SSP_CODEC(1)),
- 	},
-+	{
-+		.callback = sof_rt5682_quirk_cb,
-+		.matches = {
-+			DMI_MATCH(DMI_SYS_VENDOR, "HP"),
-+			DMI_MATCH(DMI_PRODUCT_NAME, "Dooly"),
-+		},
-+		.driver_data = (void *)(SOF_RT5682_MCLK_EN |
-+					SOF_RT5682_MCLK_24MHZ |
-+					SOF_RT5682_SSP_CODEC(0) |
-+					SOF_SPEAKER_AMP_PRESENT |
-+					SOF_RT1015_SPEAKER_AMP_PRESENT |
-+					SOF_RT1015_SPEAKER_AMP_100FS |
-+					SOF_RT5682_SSP_AMP(1)),
-+	},
- 	{
- 		.callback = sof_rt5682_quirk_cb,
- 		.matches = {
+Ajye Huang (2):
+  ASoC: google: dt-bindings: modify machine bindings for two MICs case
+  ASoC: qcom: sc7180: Modify machine driver for 2mic
+
+ .../bindings/sound/google,sc7180-trogdor.yaml | 58 ++++++++++++++++++
+ sound/soc/qcom/sc7180.c                       | 59 +++++++++++++++++++
+ 2 files changed, 117 insertions(+)
+
 -- 
-2.17.1
+2.25.1
 

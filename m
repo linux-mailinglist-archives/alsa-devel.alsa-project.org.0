@@ -2,59 +2,87 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A12FC29FCEF
-	for <lists+alsa-devel@lfdr.de>; Fri, 30 Oct 2020 06:05:31 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id CA4A329FDE4
+	for <lists+alsa-devel@lfdr.de>; Fri, 30 Oct 2020 07:37:03 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 33BBE15E4;
-	Fri, 30 Oct 2020 06:04:41 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 33BBE15E4
+	by alsa0.perex.cz (Postfix) with ESMTPS id 4E14F15E5;
+	Fri, 30 Oct 2020 07:36:13 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4E14F15E5
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1604034331;
-	bh=XT9w38aER3QfPLW9pOb8M2xMkbYIIZr3urFbQ/dmyNk=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=ZOO2cKwTWvKAspR1KWvHeyX8o2ol53KtV3We/w4x5BSxF0CJjBUiDrtpcWoE4PlE5
-	 aDnwrfmHQtj3MfU7xRA4G+T+/K8OZaWbUZh9fOcHKQAzn3ccAH1XLVVEpgAvz03EGZ
-	 BQ93TPwmImxZ9vnlmJsv3Iacmw49qYT4G76/C1cA=
+	s=default; t=1604039823;
+	bh=E7K3KG63qlLfu8Y8v/5hcqzhA68ePP6UVKkYv2kodr4=;
+	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=IJp3Gj8YGAo0YmrA3U5YtAZ+0mXJ3MSEErFHc1g65cbppxcvOf4EyOSWlO4ByruTz
+	 cQFW00T0K+jr/QuvVdMWTwKecBNh0xFdFnzNx7LXowPAV60mVvNQOTN0CVSLtkrjLV
+	 Z62B2n0i08nccTI8eODUbNi0zvIbUCY4ptBnm51w=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id ABEBCF80107;
-	Fri, 30 Oct 2020 06:03:58 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 833ADF80249;
+	Fri, 30 Oct 2020 07:35:30 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 7E250F80212; Fri, 30 Oct 2020 06:03:56 +0100 (CET)
+ id 73EE2F80212; Fri, 30 Oct 2020 07:35:28 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.2 required=5.0 tests=PRX_BODY_78,SPF_HELO_NONE,
- SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from maillog.nuvoton.com (maillog.nuvoton.com [202.39.227.15])
- by alsa1.perex.cz (Postfix) with ESMTP id 0BF30F80107
- for <alsa-devel@alsa-project.org>; Fri, 30 Oct 2020 06:03:48 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0BF30F80107
-Received: from NTHCCAS04.nuvoton.com (nthccas04.nuvoton.com [10.1.8.29])
- by maillog.nuvoton.com (Postfix) with ESMTP id 254D41C80F08;
- Fri, 30 Oct 2020 13:03:41 +0800 (CST)
-Received: from NTHCCAS01.nuvoton.com (10.1.8.28) by NTHCCAS04.nuvoton.com
- (10.1.8.29) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.1847.3; Fri, 30
- Oct 2020 13:03:40 +0800
-Received: from localhost.localdomain (10.11.36.27) by NTHCCAS01.nuvoton.com
- (10.1.12.25) with Microsoft SMTP Server id 15.1.1847.3 via Frontend
- Transport; Fri, 30 Oct 2020 13:03:40 +0800
-From: David Lin <CTLIN0@nuvoton.com>
-To: <broonie@kernel.org>
-Subject: [PATCH] ASoC: nau8315: add codec driver
-Date: Fri, 30 Oct 2020 13:01:48 +0800
-Message-ID: <20201030050146.535983-1-CTLIN0@nuvoton.com>
-X-Mailer: git-send-email 2.25.1
+X-Spam-Status: No, score=-0.4 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+ DKIM_VALID,DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from hqnvemgate24.nvidia.com (hqnvemgate24.nvidia.com
+ [216.228.121.143])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id A2FD8F800C0
+ for <alsa-devel@alsa-project.org>; Fri, 30 Oct 2020 07:35:20 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A2FD8F800C0
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=nvidia.com header.i=@nvidia.com
+ header.b="OFw85CW5"
+Received: from hqmail.nvidia.com (Not Verified[216.228.121.13]) by
+ hqnvemgate24.nvidia.com (using TLS: TLSv1.2, AES256-SHA)
+ id <B5f9bb4290001>; Thu, 29 Oct 2020 23:35:21 -0700
+Received: from [10.25.99.37] (172.20.13.39) by HQMAIL107.nvidia.com
+ (172.20.187.13) with Microsoft SMTP Server (TLS) id 15.0.1473.3; Fri, 30 Oct
+ 2020 06:35:08 +0000
+Subject: Re: [PATCH v4 00/15] Audio graph card updates and usage with Tegra210
+ audio
+To: <broonie@kernel.org>, <lgirdwood@gmail.com>, <robh+dt@kernel.org>,
+ <kuninori.morimoto.gx@renesas.com>, <pierre-louis.bossart@linux.intel.com>,
+ <perex@perex.cz>, <tiwai@suse.com>, <p.zabel@pengutronix.de>,
+ <thierry.reding@gmail.com>, <jonathanh@nvidia.com>
+References: <1602859382-19505-1-git-send-email-spujar@nvidia.com>
+From: Sameer Pujar <spujar@nvidia.com>
+Message-ID: <c98d63a7-f311-a94f-abcc-1c5a87ba8025@nvidia.com>
+Date: Fri, 30 Oct 2020 12:04:50 +0530
+User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:68.0) Gecko/20100101
+ Thunderbird/68.10.0
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain
-X-NotRedirectTo-PP: TRUE
-Cc: alsa-devel@alsa-project.org, WTLI@nuvoton.com, KCHSU0@nuvoton.com,
- lgirdwood@gmail.com, YHCHuang@nuvoton.com, CTLIN0@nuvoton.com
+In-Reply-To: <1602859382-19505-1-git-send-email-spujar@nvidia.com>
+Content-Type: text/plain; charset="utf-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+Content-Language: en-GB
+X-Originating-IP: [172.20.13.39]
+X-ClientProxiedBy: HQMAIL107.nvidia.com (172.20.187.13) To
+ HQMAIL107.nvidia.com (172.20.187.13)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nvidia.com; s=n1;
+ t=1604039721; bh=ycvf4n5KD1xsLuNvIWPme1ipDvYuSNjDWB6qo9gxrm0=;
+ h=Subject:To:CC:References:From:Message-ID:Date:User-Agent:
+ MIME-Version:In-Reply-To:Content-Type:Content-Transfer-Encoding:
+ Content-Language:X-Originating-IP:X-ClientProxiedBy;
+ b=OFw85CW5ZHPXwP2yMStP6E8VJZGIr7gva0pPhFEPMqhFXd/kbLi0yx6xXFBnoiCj9
+ scstZc7uTWQBYHCxC8lcqQvSxa4QZjYOsH0nCbPxZP30C1tbMIRl2cfXcQR8FDH7J7
+ c3LBaUOOEcLZICdBXB2ZWKYqIB0Vc6Hm0VA6gnyPJ0lwP430wVX1CippU+vVpVOfsj
+ ZeYmF3TXY030eMT1m/uhVd5gD3VKLp3T3YWWoKdtkHafIiVd07tdhHDA8zzT/VZcaD
+ VECCUJqlDuilUr3l2JwuUEO4h5EUdu1lBW0j4lR3DRHIf/oiYZwv1MhV/OhUJA65UR
+ CJqGl6OxIyi0g==
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
+ nicoleotsuka@gmail.com, swarren@nvidia.com, linux-kernel@vger.kernel.org,
+ atalambedu@nvidia.com, viswanathl@nvidia.com, sharadg@nvidia.com,
+ nwartikar@nvidia.com, linux-tegra@vger.kernel.org, rlokhande@nvidia.com,
+ mkumard@nvidia.com, dramesh@nvidia.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -70,278 +98,100 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Add codec driver for Nuvoton NAU8315.
+Hi Mark, Morimoto-san,
 
-Signed-off-by: David Lin <CTLIN0@nuvoton.com>
----
- .../devicetree/bindings/sound/nau8315.txt     |  18 ++
- sound/soc/codecs/Kconfig                      |   5 +
- sound/soc/codecs/Makefile                     |   2 +
- sound/soc/codecs/nau8315.c                    | 166 ++++++++++++++++++
- 4 files changed, 191 insertions(+)
- create mode 100644 Documentation/devicetree/bindings/sound/nau8315.txt
- create mode 100644 sound/soc/codecs/nau8315.c
+> Summary of changes:
+>   * Support multiple instances of a component. For example there can be
+>     multiple I2S devices which can use the same component driver.
+>
+>   * Support open platforms with empty Codec endpoint. Customers can plug
+>     their own HW and can populate codec endpoint.
+>
+>   * In a component model there can be many components which can be
+>     connected togethe. In such cases Identify no-pcm DPCM DAI links which
+>     can be used in BE<->BE connections.
+>
+>   * Add Tegra audio graph driver which is based on generic audio graph
+>     driver and specific customizations are done in Tegra driver.
+>
+>   * This pushes DT support for Tegra210 based platforms which uses
+>     audio-graph card and above enhancements.
+>
+> The series is based on following references where DPCM usgae for Tegra
+> Audio and simple-card driver proposal were discussed.
+>
+>   * https://lkml.org/lkml/2020/4/30/519 (DPCM for Tegra)
+>   * https://lkml.org/lkml/2020/6/27/4 (simple-card driver)
+>
+> Changelog
+> =========
+>
+> v3 -> v4
+> --------
+>   * Added new patches to convert graph.txt and audio-graph-card.txt
+>     to corresponding json-schema files. Later these references
+>     are used in Tegra audio graph schema.
+>
+>   * AHUB component binding docs are updated to reflect the usage
+>     of ports/port/endpoint
+>
+>   * More common stuff is moved into graph_parse_of() and this is
+>     used by both generic and Tegra audio graph.
+>
+>   * DT binding for Tegra audio graph is updated to included "ports { }"
+>
+>   * As per the suggestion 'void *data' member is dropped from
+>     'asoc_simple_priv' and instead container method is used to
+>     maintain required custom data internal to Tegra audio graph.
+>
+> v2 -> v3
+> --------
+>   * Dropped new compatible addition in generic graph driver
+>     after reviewing it with Morimoto-san. Instead added Tegra
+>     audio graph driver and new compatibles are added in the same.
+>   * Added new patches to expose new members for customization
+>     in audio graph driver.
+>   * Added new patch for Tegra audio graph driver and related
+>     documentation.
+>   * Minor change in below commit where mutex version of helper is used
+>     "ASoC: audio-graph: Identify 'no_pcm' DAI links for DPCM"
+>   * DT binding is updated to use the newly exposed compatibles
+>   * No changes in other patches
+>
+> v1 -> v2
+> --------
+>   * Re-organized ports/endpoints description for ADMAIF and XBAR.
+>     Updated DT patches accordingly.
+>   * After above change, multiple Codec endpoint support is not
+>     required and hence dropped for now. This will be considered
+>     separately if at all required in future.
+>   * Re-ordered patches in the series.
 
-diff --git a/Documentation/devicetree/bindings/sound/nau8315.txt b/Document=
-ation/devicetree/bindings/sound/nau8315.txt
-new file mode 100644
-index 000000000000..6eaec46f384c
---- /dev/null
-+++ b/Documentation/devicetree/bindings/sound/nau8315.txt
-@@ -0,0 +1,18 @@
-+Nuvoton NAU8315 Mono Class-D Amplifier
-+
-+Required properties:
-+- compatible   : "nuvoton,nau8315"
-+
-+Optional properties:
-+- enable-gpios : GPIO specifier for the chip's device enable input(EN) pin=
-.
-+        If this option is not specified then driver does not manage
-+        the pin state (e.g. chip is always on).
-+
-+Example:
-+
-+#include <dt-bindings/gpio/gpio.h>
-+
-+nau8315 {
-+       compatible =3D "nuvoton,nau8315";
-+       enable-gpios =3D <&gpio1 5 GPIO_ACTIVE_HIGH>;
-+};
-diff --git a/sound/soc/codecs/Kconfig b/sound/soc/codecs/Kconfig
-index 5791b7056af6..2b6eceb3573c 100644
---- a/sound/soc/codecs/Kconfig
-+++ b/sound/soc/codecs/Kconfig
-@@ -130,6 +130,7 @@ config SND_SOC_ALL_CODECS
-        imply SND_SOC_MT6358
-        imply SND_SOC_MT6359
-        imply SND_SOC_MT6660
-+       imply SND_SOC_NAU8315
-        imply SND_SOC_NAU8540
-        imply SND_SOC_NAU8810
-        imply SND_SOC_NAU8822
-@@ -1760,6 +1761,10 @@ config SND_SOC_MT6660
-          Select N if you don't have MT6660 on board.
-          Select M to build this as module.
+>
+> Sameer Pujar (15):
+>    ASoC: soc-core: Fix component name_prefix parsing
+>    ASoC: soc-pcm: Get all BEs along DAPM path
+>    ASoC: audio-graph: Use of_node and DAI for DPCM DAI link names
+>    ASoC: audio-graph: Identify 'no_pcm' DAI links for DPCM
+>    ASoC: audio-graph: Support empty Codec endpoint
+>    ASoC: audio-graph: Expose new members for asoc_simple_priv
+>    ASoC: audio-graph: Expose helpers from audio graph
 
-+config SND_SOC_NAU8315
-+       tristate "Nuvoton Technology Corporation NAU8315 CODEC"
-+       depends on GPIOLIB
-+
- config SND_SOC_NAU8540
-        tristate "Nuvoton Technology Corporation NAU85L40 CODEC"
-        depends on I2C
-diff --git a/sound/soc/codecs/Makefile b/sound/soc/codecs/Makefile
-index 11ce98c25d6c..144d9256d4d5 100644
---- a/sound/soc/codecs/Makefile
-+++ b/sound/soc/codecs/Makefile
-@@ -129,6 +129,7 @@ snd-soc-mt6351-objs :=3D mt6351.o
- snd-soc-mt6358-objs :=3D mt6358.o
- snd-soc-mt6359-objs :=3D mt6359.o
- snd-soc-mt6660-objs :=3D mt6660.o
-+snd-soc-nau8315-objs :=3D nau8315.o
- snd-soc-nau8540-objs :=3D nau8540.o
- snd-soc-nau8810-objs :=3D nau8810.o
- snd-soc-nau8822-objs :=3D nau8822.o
-@@ -438,6 +439,7 @@ obj-$(CONFIG_SND_SOC_MT6351)        +=3D snd-soc-mt6351=
-.o
- obj-$(CONFIG_SND_SOC_MT6358)   +=3D snd-soc-mt6358.o
- obj-$(CONFIG_SND_SOC_MT6359)   +=3D snd-soc-mt6359.o
- obj-$(CONFIG_SND_SOC_MT6660)   +=3D snd-soc-mt6660.o
-+obj-$(CONFIG_SND_SOC_NAU8315)   +=3D snd-soc-nau8315.o
- obj-$(CONFIG_SND_SOC_NAU8540)   +=3D snd-soc-nau8540.o
- obj-$(CONFIG_SND_SOC_NAU8810)   +=3D snd-soc-nau8810.o
- obj-$(CONFIG_SND_SOC_NAU8822)   +=3D snd-soc-nau8822.o
-diff --git a/sound/soc/codecs/nau8315.c b/sound/soc/codecs/nau8315.c
-new file mode 100644
-index 000000000000..e6bc5c0a5036
---- /dev/null
-+++ b/sound/soc/codecs/nau8315.c
-@@ -0,0 +1,166 @@
-+// SPDX-License-Identifier: GPL-2.0-only
-+//
-+// nau8315.c  --  NAU8315 ALSA SoC Audio Amplifier Driver
-+//
-+// Copyright 2020 Nuvoton Technology Crop.
-+//
-+// Author: David Lin <ctlin0@nuvoton.com>
-+//
-+// Based on MAX98357A.c
-+
-+#include <linux/acpi.h>
-+#include <linux/device.h>
-+#include <linux/err.h>
-+#include <linux/gpio.h>
-+#include <linux/gpio/consumer.h>
-+#include <linux/kernel.h>
-+#include <linux/module.h>
-+#include <linux/of.h>
-+#include <linux/platform_device.h>
-+#include <sound/pcm.h>
-+#include <sound/soc.h>
-+#include <sound/soc-dai.h>
-+#include <sound/soc-dapm.h>
-+
-+struct nau8315_priv {
-+       struct gpio_desc *enable;
-+       int enpin_switch;
-+};
-+
-+static int nau8315_daiops_trigger(struct snd_pcm_substream *substream,
-+               int cmd, struct snd_soc_dai *dai)
-+{
-+       struct snd_soc_component *component =3D dai->component;
-+       struct nau8315_priv *nau8315 =3D
-+               snd_soc_component_get_drvdata(component);
-+
-+       if (!nau8315->enable)
-+               return 0;
-+
-+       switch (cmd) {
-+       case SNDRV_PCM_TRIGGER_START:
-+       case SNDRV_PCM_TRIGGER_RESUME:
-+       case SNDRV_PCM_TRIGGER_PAUSE_RELEASE:
-+               if (nau8315->enpin_switch) {
-+                       gpiod_set_value(nau8315->enable, 1);
-+                       dev_dbg(component->dev, "set enable to 1");
-+               }
-+               break;
-+       case SNDRV_PCM_TRIGGER_STOP:
-+       case SNDRV_PCM_TRIGGER_SUSPEND:
-+       case SNDRV_PCM_TRIGGER_PAUSE_PUSH:
-+               gpiod_set_value(nau8315->enable, 0);
-+               dev_dbg(component->dev, "set enable to 0");
-+               break;
-+       }
-+
-+       return 0;
-+}
-+
-+static int nau8315_enpin_event(struct snd_soc_dapm_widget *w,
-+               struct snd_kcontrol *kcontrol, int event)
-+{
-+       struct snd_soc_component *component =3D
-+               snd_soc_dapm_to_component(w->dapm);
-+       struct nau8315_priv *nau8315 =3D
-+               snd_soc_component_get_drvdata(component);
-+
-+       if (event & SND_SOC_DAPM_POST_PMU)
-+               nau8315->enpin_switch =3D 1;
-+       else if (event & SND_SOC_DAPM_POST_PMD)
-+               nau8315->enpin_switch =3D 0;
-+
-+       return 0;
-+}
-+
-+static const struct snd_soc_dapm_widget nau8315_dapm_widgets[] =3D {
-+       SND_SOC_DAPM_OUTPUT("Speaker"),
-+       SND_SOC_DAPM_OUT_DRV_E("EN_Pin", SND_SOC_NOPM, 0, 0, NULL, 0,
-+                       nau8315_enpin_event,
-+                       SND_SOC_DAPM_POST_PMU | SND_SOC_DAPM_POST_PMD),
-+};
-+
-+static const struct snd_soc_dapm_route nau8315_dapm_routes[] =3D {
-+       {"EN_Pin", NULL, "HiFi Playback"},
-+       {"Speaker", NULL, "EN_Pin"},
-+};
-+
-+static const struct snd_soc_component_driver nau8315_component_driver =3D =
-{
-+       .dapm_widgets           =3D nau8315_dapm_widgets,
-+       .num_dapm_widgets       =3D ARRAY_SIZE(nau8315_dapm_widgets),
-+       .dapm_routes            =3D nau8315_dapm_routes,
-+       .num_dapm_routes        =3D ARRAY_SIZE(nau8315_dapm_routes),
-+       .idle_bias_on           =3D 1,
-+       .use_pmdown_time        =3D 1,
-+       .endianness             =3D 1,
-+       .non_legacy_dai_naming  =3D 1,
-+};
-+
-+static const struct snd_soc_dai_ops nau8315_dai_ops =3D {
-+       .trigger        =3D nau8315_daiops_trigger,
-+};
-+
-+#define NAU8315_RATES SNDRV_PCM_RATE_8000_96000
-+#define NAU8315_FORMATS (SNDRV_PCM_FMTBIT_S16_LE | SNDRV_PCM_FMTBIT_S24_3L=
-E)
-+
-+static struct snd_soc_dai_driver nau8315_dai_driver =3D {
-+       .name =3D "nau8315-hifi",
-+       .playback =3D {
-+               .stream_name    =3D "HiFi Playback",
-+               .formats        =3D NAU8315_FORMATS,
-+               .rates          =3D NAU8315_RATES,
-+               .channels_min   =3D 1,
-+               .channels_max   =3D 2,
-+       },
-+       .ops    =3D &nau8315_dai_ops,
-+};
-+
-+static int nau8315_platform_probe(struct platform_device *pdev)
-+{
-+       struct nau8315_priv *nau8315;
-+
-+       nau8315 =3D devm_kzalloc(&pdev->dev, sizeof(*nau8315), GFP_KERNEL);
-+       if (!nau8315)
-+               return -ENOMEM;
-+
-+       nau8315->enable =3D devm_gpiod_get_optional(&pdev->dev,
-+                               "enable", GPIOD_OUT_LOW);
-+       if (IS_ERR(nau8315->enable))
-+               return PTR_ERR(nau8315->enable);
-+
-+       dev_set_drvdata(&pdev->dev, nau8315);
-+
-+       return devm_snd_soc_register_component(&pdev->dev,
-+                       &nau8315_component_driver,
-+                       &nau8315_dai_driver, 1);
-+}
-+
-+#ifdef CONFIG_OF
-+static const struct of_device_id nau8315_device_id[] =3D {
-+       { .compatible =3D "nuvoton,nau8315" },
-+       {}
-+};
-+MODULE_DEVICE_TABLE(of, nau8315_device_id);
-+#endif
-+
-+#ifdef CONFIG_ACPI
-+static const struct acpi_device_id nau8315_acpi_match[] =3D {
-+       { "NVTN2010", 0 },
-+       {},
-+};
-+MODULE_DEVICE_TABLE(acpi, nau8315_acpi_match);
-+#endif
-+
-+static struct platform_driver nau8315_platform_driver =3D {
-+       .driver =3D {
-+               .name =3D "nau8315",
-+               .of_match_table =3D of_match_ptr(nau8315_device_id),
-+               .acpi_match_table =3D ACPI_PTR(nau8315_acpi_match),
-+       },
-+       .probe  =3D nau8315_platform_probe,
-+};
-+module_platform_driver(nau8315_platform_driver);
-+
-+MODULE_DESCRIPTION("ASoC NAU8315 Mono Class-D Amplifier Driver");
-+MODULE_AUTHOR("David Lin <ctlin0@nuvoton.com>");
-+MODULE_LICENSE("GPL v2");
---
-2.25.1
+Would you suggest to keep above in a separate series and thus not 
+blocked by below doc updates? If so do I need to resend above in a next 
+revision or if these are good to be picked up?
 
+>    Documentation: of: Convert graph bindings to json-schema
+>    ASoC: dt-bindings: audio-graph: Convert bindings to json-schema
+>    ASoC: dt-bindings: tegra: Add graph bindings
+>    ASoC: dt-bindings: tegra: Add json-schema for Tegra audio graph card
 
+Documentation patches in the series have some dependency over 
+Morimoto-san's audio-graph series 
+https://patchwork.kernel.org/project/alsa-devel/list/?series=372759. I 
+will update doc related patches once dependency is merged.
 
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
-The privileged confidential information contained in this email is intended=
- for use only by the addressees as indicated by the original sender of this=
- email. If you are not the addressee indicated in this email or are not res=
-ponsible for delivery of the email to such a person, please kindly reply to=
- the sender indicating this fact and delete all copies of it from your comp=
-uter and network server immediately. Your cooperation is highly appreciated=
-. It is advised that any unauthorized use of confidential information of Nu=
-voton is strictly prohibited; and any information in this email irrelevant =
-to the official business of Nuvoton shall be deemed as neither given nor en=
-dorsed by Nuvoton.
+>    ASoC: tegra: Add audio graph based card driver
+>    arm64: defconfig: Enable Tegra audio graph card driver
+>    arm64: tegra: Audio graph header for Tegra210
+>    arm64: tegra: Audio graph sound card for Jetson Nano and TX1

@@ -2,85 +2,75 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E35612A2058
-	for <lists+alsa-devel@lfdr.de>; Sun,  1 Nov 2020 18:32:07 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id CD6AD2A2177
+	for <lists+alsa-devel@lfdr.de>; Sun,  1 Nov 2020 21:17:36 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 7676A16A3;
-	Sun,  1 Nov 2020 18:31:17 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7676A16A3
+	by alsa0.perex.cz (Postfix) with ESMTPS id 5BECF16AF;
+	Sun,  1 Nov 2020 21:16:46 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5BECF16AF
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1604251927;
-	bh=horNYbigRkIDJTgv0bLB489ackww8RhDFMij2VXFQYA=;
-	h=From:Date:Subject:To:Cc:List-Id:List-Unsubscribe:List-Archive:
+	s=default; t=1604261856;
+	bh=bLA0ev2Kwh6uGquFheDvSSBq9w7KOIljOSNWPIWB5Ck=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
 	 List-Post:List-Help:List-Subscribe:From;
-	b=p30jZd8JN7i2Q7lw5zzZeQ+MswtymgTYOh+b7dcHcdyupkgBehBm3nJSFPqx8jZDs
-	 xkwYQf2Pehal1VxwX2KjSfov5mFVhItLFdHDZAqmKqWAvT1H8yMNMkwmv9Fk3y37tr
-	 rlMyaoVTp+lJtubBC5CORUvwMg9dU8wBiiJsGDLQ=
+	b=WWChIcFWQE5MXPH3ypFgqDjIoP5ZTvrJgTWoeQsynSea9SMMOJUcNo1VDnNC0oLri
+	 82BE2UAGL/ytbcO4oLLyEtjYHoY+SKfJt/waOzy9nlvsoCntdPxQSHV/muPc7roYz5
+	 CUyXXp9ajDJxE3igTOL4SACsOj+/FYDcf+/GvvN0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id B12C5F8012B;
-	Sun,  1 Nov 2020 18:30:34 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id D4FC2F8028D;
+	Sun,  1 Nov 2020 21:16:03 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id DED61F80162; Sun,  1 Nov 2020 18:30:31 +0100 (CET)
+ id 49193F80272; Sun,  1 Nov 2020 21:16:01 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_FROM,PRX_BODY_26,SPF_HELO_NONE,SPF_PASS
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+ DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
  autolearn=disabled version=3.4.0
-Received: from mail-il1-x12e.google.com (mail-il1-x12e.google.com
- [IPv6:2607:f8b0:4864:20::12e])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 9D2F6F80158
- for <alsa-devel@alsa-project.org>; Sun,  1 Nov 2020 18:30:28 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9D2F6F80158
+ by alsa1.perex.cz (Postfix) with ESMTPS id B073AF8015D
+ for <alsa-devel@alsa-project.org>; Sun,  1 Nov 2020 21:15:54 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B073AF8015D
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="TV07pa3Y"
-Received: by mail-il1-x12e.google.com with SMTP id a20so10913976ilk.13
- for <alsa-devel@alsa-project.org>; Sun, 01 Nov 2020 09:30:28 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:from:date:message-id:subject:to:cc;
- bh=8DJgmxtam0fsA7Yaz4RpCJCGI7oB/JrdHqZsXWywIlY=;
- b=TV07pa3Y1G1g/XHh05r1Dy+Y41sFN0Oxr9nk77p1vDpH4EJaByPgLmPNXzP+OcPRp9
- EFN3zDV8DHHYTT22Oz4zDjZ+Np1XXBE0lHHj3dte2/bjya/4Ke9OI9LCdZje4cmYyYMh
- 0c3cbD/h86ktBEimEhqToyQQ+rK0FtmPHS3aSQbPqWM0tPCQAG5O33DAGCYD1ht8NXvf
- i+TfU7Svq8hUUXY1PRI97+ibgoYq3IyprX2X8WzjNytJVMVH/D8SgqfFCQHqmlZ9BL3u
- 9EQ5TQ476wwweOifRSxRMH+7COh5KDHLzftFVNIDP3Q359cU+3kjfazPz1sWTCCTMpmY
- WXfA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:from:date:message-id:subject:to:cc;
- bh=8DJgmxtam0fsA7Yaz4RpCJCGI7oB/JrdHqZsXWywIlY=;
- b=mKqj5Qj16ZrQ69Q76cpxkYM/WKAwa8JKtFe7u2b8nhbpFSHKYlsyzB7fVPHNKJ559V
- CSFPXnBJUh/fP0Hg6RrvHQsICHNmZWgyrXMvijGzU7MKs4pb8PjeUOrmk6iJrfcWjzXR
- fHGIoMqgvB2BuVLcij6BN29TnTr1zP4ec3CvjdTTU7Fo5az8aYpgRVibDbeuyrfN4B0D
- lQzprCP8QKBFyRhVAjYOsuUcZtxXDNQ5aNn70s0Yo/j3PO3tGRSKiFNWCVW2YGbGv3M4
- Xf4e6ZEcQxRI/ZddT8UyqrP/7tBXAm1igRuTFX5dLlT2+FovyOnbx0i/5EihF1N4Yruj
- EchQ==
-X-Gm-Message-State: AOAM533dF64MjJVsEMnKKrIzzrBCNFcgfZQyvj10HEgIduO/gl9z+LkO
- 9ZGeaT8ASHwxCi5yuV7M9+wgwrYORYMXbEO9clY=
-X-Google-Smtp-Source: ABdhPJzidrcvd5thvWFkOensKbEmp0zDYFA8cU/rxYa76qQESK0Y3vy2MOVbpv5gbM1q/9gRKAziek25HvK154M2KCI=
-X-Received: by 2002:a92:a14f:: with SMTP id v76mr8393365ili.293.1604251826058; 
- Sun, 01 Nov 2020 09:30:26 -0800 (PST)
+ dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="huv9rtKk"
+Received: from localhost (host-213-179-129-39.customer.m-online.net
+ [213.179.129.39])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by mail.kernel.org (Postfix) with ESMTPSA id 75F4B208B6;
+ Sun,  1 Nov 2020 20:15:50 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=default; t=1604261751;
+ bh=bLA0ev2Kwh6uGquFheDvSSBq9w7KOIljOSNWPIWB5Ck=;
+ h=From:To:Cc:Subject:Date:From;
+ b=huv9rtKkUhey6AamSaXCXbtImWrQjVRiNn7errL5az2kng2obK+UpzHMgRoTggLer
+ 1dBBKOeF5LUNXfpJc8oH/xshEX5x5c1wRB20IYPUR9hZXO1LgTIPCJD8CZWVC6KF0K
+ mklVx1CS0NWIH+Tn9mTb693ZRQ9UFxuyrKijadxs=
+From: Leon Romanovsky <leon@kernel.org>
+To: Doug Ledford <dledford@redhat.com>, Jason Gunthorpe <jgg@nvidia.com>,
+ gregkh <gregkh@linuxfoundation.org>
+Subject: [PATCH mlx5-next v1 00/11] Convert mlx5 to use auxiliary bus
+Date: Sun,  1 Nov 2020 22:15:31 +0200
+Message-Id: <20201101201542.2027568-1-leon@kernel.org>
+X-Mailer: git-send-email 2.28.0
 MIME-Version: 1.0
-From: =?UTF-8?B?Q2zDqW1lbnQgUMOpcm9u?= <peron.clem@gmail.com>
-Date: Sun, 1 Nov 2020 18:30:15 +0100
-Message-ID: <CAJiuCcfBOHhniDQOaB8ixU0pY9u0GVivkj7po-kozBV8LqmB6A@mail.gmail.com>
-Subject: ASoC: Question regarding device-tree multi-lane I2S for Allwinner SoC
-To: Rob Herring <robh+dt@kernel.org>, Mark Brown <broonie@kernel.org>, 
- Maxime Ripard <mripard@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Cc: devicetree <devicetree@vger.kernel.org>,
- =?UTF-8?Q?Jernej_=C5=A0krabec?= <jernej.skrabec@siol.net>,
- Linux-ALSA <alsa-devel@alsa-project.org>, Liam Girdwood <lgirdwood@gmail.com>,
- linux-kernel <linux-kernel@vger.kernel.org>,
- Samuel Holland <samuel@sholland.org>, Takashi Iwai <tiwai@suse.com>,
- Marcus Cooper <codekipper@gmail.com>, Chen-Yu Tsai <wens@csie.org>,
- linux-arm-kernel <linux-arm-kernel@lists.infradead.org>
+Content-Transfer-Encoding: 8bit
+Cc: pierre-louis.bossart@linux.intel.com, alsa-devel@alsa-project.org,
+ kiran.patil@intel.com, "Michael S. Tsirkin" <mst@redhat.com>,
+ linux-rdma@vger.kernel.org, netdev@vger.kernel.org,
+ Jason Wang <jasowang@redhat.com>, ranjani.sridharan@linux.intel.com,
+ virtualization@lists.linux-foundation.org, fred.oh@linux.intel.com,
+ tiwai@suse.de, broonie@kernel.org, Parav Pandit <parav@nvidia.com>,
+ Roi Dayan <roid@nvidia.com>, shiraz.saleem@intel.com,
+ Jakub Kicinski <kuba@kernel.org>, dan.j.williams@intel.com,
+ Leon Romanovsky <leonro@nvidia.com>, Saeed Mahameed <saeedm@nvidia.com>,
+ linux-kernel@vger.kernel.org, "David S . Miller" <davem@davemloft.net>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -96,66 +86,83 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hi device-tree and sound Maintainers,
+From: Leon Romanovsky <leonro@nvidia.com>
 
-I have a question regarding multi-lane i2S representation.
+Changelog:
+v1:
+ * Renamed _mlx5_rescan_driver to be mlx5_rescan_driver_locked like in
+   other parts of the mlx5 driver.
+ * Renamed MLX5_INTERFACE_PROTOCOL_VDPA to tbe MLX5_INTERFACE_PROTOCOL_VNET as
+   a preparation to coming series from Eli C.
+ * Some small naming renames in mlx5_vdpa.
+ * Refactored adev index code to make Parav's SF series to apply more easily.
+ * Fixed devlink reload bug that caused to lost TCP connection.
+v0:
+https://lore.kernel.org/lkml/20201026111849.1035786-1-leon@kernel.org/
 
-On the Allwinner SoC the I2S/PCM Interface can handle up to four lanes
-as output or input.
-For each lane we can enable up to sixteen slots.
-And for each output slot we can choose which slot to map.
+--------------------------------------------------------------
 
-The only representation I found is for Amlogic device-tree they did
-the following sound node :
-/* 8ch hdmi interface */
-dai-link-7 {
-    sound-dai = <&tdmif_b>;
-    dai-format = "i2s";
-    dai-tdm-slot-tx-mask-0 = <1 1>;
-    dai-tdm-slot-tx-mask-1 = <1 1>;
-    dai-tdm-slot-tx-mask-2 = <1 1>;
-    dai-tdm-slot-tx-mask-3 = <1 1>;
-    mclk-fs = <256>;
+Hi,
 
-    codec {
-        sound-dai = <&tohdmitx TOHDMITX_I2S_IN_B>;
-    };
-};
+This patch set converts mlx5 driver to use auxiliary bus [1].
 
-This kind of representation gives the information that 2 slots should
-be enabled as TX per lane but don't give which slot to map.
-I was thinking about a representation per lane but maybe it's a bit
-complicated  ?
+In this series, we are connecting three subsystems (VDPA, netdev and
+RDMA) through mlx5_core PCI driver. That driver is responsible to create
+proper devices based on supported firmware.
 
-    dai-format = "dsp_a";
-    dai-tdm-slot-width = <32>;
-    // Lane 0 : Output 8 channels 0-7 using TDM
-    dai-tdm-slot-tx-mask-0 = <1 1 1 1 1 1 1 1>;
-    dai-tdm-slot-chmap-0 = <0 1 2 3 4 5 6 7>;
-    // Lane 1 : Output 3 channels 5-7 using TDM
-    dai-tdm-slot-tx-mask-1 = <1 1 1>;
-    dai-tdm-slot-chmap-1 = <5 6 7>;
+First four patches are preparitions and fixes that were spotted during
+code development, rest is the conversion itself.
 
-I will only start to support HDMI, so 4 I2S lanes for now it should
-look like this
+Thanks
 
-    dai-format = "i2s";
-    dai-tdm-slot-width = <32>;
-    frame-inversion;
-    // Lane 0 : Output channels 0,1
-    dai-tdm-slot-tx-mask-0 = <1 1>;
-    dai-tdm-slot-chmap-0 = <0 1>;
-    // Lane 1: Output channels 2,3
-    dai-tdm-slot-tx-mask-1 = <1 1>;
-    dai-tdm-slot-chmap-1 = <2 3>;
-    // Lane 2: Output channels 4,5
-    dai-tdm-slot-tx-mask-2 = <1 1>;
-    dai-tdm-slot-chmap-2 = <4 5>;
-    // Lane 3: Output channels 6,7
-    dai-tdm-slot-tx-mask-3 = <1 1>;
-    dai-tdm-slot-chmap-3 = <6 7>;
+[1]
+https://lore.kernel.org/lkml/20201023003338.1285642-1-david.m.ertman@intel.com
 
-What do you think? Do you have any remark / idea about this ?
+Leon Romanovsky (11):
+  net/mlx5: Don't skip vport check
+  net/mlx5: Properly convey driver version to firmware
+  net/mlx5_core: Clean driver version and name
+  vdpa/mlx5: Make hardware definitions visible to all mlx5 devices
+  net/mlx5: Register mlx5 devices to auxiliary virtual bus
+  vdpa/mlx5: Connect mlx5_vdpa to auxiliary bus
+  net/mlx5e: Connect ethernet part to auxiliary bus
+  RDMA/mlx5: Convert mlx5_ib to use auxiliary bus
+  net/mlx5: Delete custom device management logic
+  net/mlx5: Simplify eswitch mode check
+  RDMA/mlx5: Remove IB representors dead code
 
-Thanks for your help
-Clement
+ drivers/infiniband/hw/mlx5/counters.c         |   7 -
+ drivers/infiniband/hw/mlx5/ib_rep.c           | 113 ++--
+ drivers/infiniband/hw/mlx5/ib_rep.h           |  45 +-
+ drivers/infiniband/hw/mlx5/main.c             | 148 +++--
+ drivers/infiniband/hw/mlx5/mlx5_ib.h          |   4 +-
+ .../net/ethernet/mellanox/mlx5/core/Kconfig   |   1 +
+ drivers/net/ethernet/mellanox/mlx5/core/dev.c | 567 ++++++++++++------
+ .../net/ethernet/mellanox/mlx5/core/devlink.c |   4 +-
+ .../ethernet/mellanox/mlx5/core/en_ethtool.c  |   4 +-
+ .../net/ethernet/mellanox/mlx5/core/en_main.c | 135 ++---
+ .../net/ethernet/mellanox/mlx5/core/en_rep.c  |  42 +-
+ .../net/ethernet/mellanox/mlx5/core/en_rep.h  |   6 +-
+ .../net/ethernet/mellanox/mlx5/core/en_tc.c   |   8 +-
+ .../mellanox/mlx5/core/esw/devlink_port.c     |   2 +-
+ .../net/ethernet/mellanox/mlx5/core/eswitch.c |  28 +-
+ .../mellanox/mlx5/core/eswitch_offloads.c     |   6 +
+ .../mellanox/mlx5/core/ipoib/ethtool.c        |   2 +-
+ drivers/net/ethernet/mellanox/mlx5/core/lag.c |  58 +-
+ .../net/ethernet/mellanox/mlx5/core/main.c    |  50 +-
+ .../ethernet/mellanox/mlx5/core/mlx5_core.h   |  33 +-
+ drivers/vdpa/mlx5/Makefile                    |   2 +-
+ drivers/vdpa/mlx5/net/main.c                  |  76 ---
+ drivers/vdpa/mlx5/net/mlx5_vnet.c             |  53 +-
+ drivers/vdpa/mlx5/net/mlx5_vnet.h             |  24 -
+ include/linux/mlx5/driver.h                   |  34 +-
+ include/linux/mlx5/eswitch.h                  |   8 +-
+ .../linux/mlx5/mlx5_ifc_vdpa.h                |   6 +-
+ 27 files changed, 818 insertions(+), 648 deletions(-)
+ delete mode 100644 drivers/vdpa/mlx5/net/main.c
+ delete mode 100644 drivers/vdpa/mlx5/net/mlx5_vnet.h
+ rename drivers/vdpa/mlx5/core/mlx5_vdpa_ifc.h => include/linux/mlx5/mlx5_ifc_vdpa.h (97%)
+
+--
+2.28.0
+

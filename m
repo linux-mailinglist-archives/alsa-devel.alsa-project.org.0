@@ -2,91 +2,118 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 54FB12A2758
-	for <lists+alsa-devel@lfdr.de>; Mon,  2 Nov 2020 10:49:00 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0AA372A2821
+	for <lists+alsa-devel@lfdr.de>; Mon,  2 Nov 2020 11:23:09 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id DD5E716F1;
-	Mon,  2 Nov 2020 10:48:09 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DD5E716F1
+	by alsa0.perex.cz (Postfix) with ESMTPS id 9232E16F5;
+	Mon,  2 Nov 2020 11:22:18 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9232E16F5
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1604310540;
-	bh=N4FfuvrlPoXDvUP8x6Iu76ARY+ZxkzzZWgbUYfISUF8=;
-	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
+	s=default; t=1604312588;
+	bh=3fwwv6N8rGXyGohOaB5b75RvxekLyKPqHt6XuivmcdE=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=uOnogtEWlp1ulrt156jVguXYiS1eJQ5SkRVxzKQFKIiPmjWBXYJsGZceW0UiqXB2q
-	 DGKfr9ytgqKUFtF73xRlMXyh4o/S9+iQYRHA3nKFuY7/DY2ceo4+Wu5pB0G29gBTZx
-	 ep0a9rz+odYSKxUMBiLwon6Uh8Q8yKJXxCxrqX5c=
+	b=k6OabES+iloPeRCwR+Ib+nPLXadFaggiCa+HN21zmWMHnPB1XlAVrfXxIkCCtoMNq
+	 cWDgn1VsaRX/2cU/zD6fU8tz+YeW6ia5Dr/KDjCwDvRK2mLMoitchvjVuo7S2foHdk
+	 GCCTXvhyskE1QYc5nkFh+IDPiCJsLWbwd83BwP08=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 5D580F80234;
-	Mon,  2 Nov 2020 10:47:26 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id D0AAAF8012B;
+	Mon,  2 Nov 2020 11:21:35 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id DDE5BF80232; Mon,  2 Nov 2020 10:47:23 +0100 (CET)
+ id 7724EF8012B; Mon,  2 Nov 2020 11:21:32 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,NICE_REPLY_A,PRX_BODY_78,RCVD_IN_MSPIKE_H3,
- RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from fllv0016.ext.ti.com (fllv0016.ext.ti.com [198.47.19.142])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=0.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,PRX_BODY_26,SPF_HELO_PASS,SPF_PASS,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from wnew3-smtp.messagingengine.com (wnew3-smtp.messagingengine.com
+ [64.147.123.17])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 1F758F8015A
- for <alsa-devel@alsa-project.org>; Mon,  2 Nov 2020 10:47:16 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1F758F8015A
+ by alsa1.perex.cz (Postfix) with ESMTPS id 2DE50F8012B
+ for <alsa-devel@alsa-project.org>; Mon,  2 Nov 2020 11:21:25 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2DE50F8012B
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b="JmzXZ+2u"
-Received: from fllv0035.itg.ti.com ([10.64.41.0])
- by fllv0016.ext.ti.com (8.15.2/8.15.2) with ESMTP id 0A29lE5b123902;
- Mon, 2 Nov 2020 03:47:14 -0600
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com;
- s=ti-com-17Q1; t=1604310434;
- bh=TvYdeezknBZuneD+xrgn92DxaY/94qd+5Q20g4Mz+58=;
- h=Subject:To:CC:References:From:Date:In-Reply-To;
- b=JmzXZ+2uKN3SbEDrHiRYWYX7N7QHKUh2np15eR7nlrSHU2Iemloc42o7r3m5uSQFq
- n3eGWmmPQsdBvET98oZZHx3J0Y8FakIExTMrTdHXngyh0wPhin01+reV6lVTjl3TWU
- 1yY0VmGjzCEoblV5odJvk0425XGpO/4hDi9EmYsQ=
-Received: from DFLE109.ent.ti.com (dfle109.ent.ti.com [10.64.6.30])
- by fllv0035.itg.ti.com (8.15.2/8.15.2) with ESMTPS id 0A29lEnG007234
- (version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=FAIL);
- Mon, 2 Nov 2020 03:47:14 -0600
-Received: from DFLE105.ent.ti.com (10.64.6.26) by DFLE109.ent.ti.com
- (10.64.6.30) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.1979.3; Mon, 2 Nov
- 2020 03:47:14 -0600
-Received: from fllv0040.itg.ti.com (10.64.41.20) by DFLE105.ent.ti.com
- (10.64.6.26) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.1979.3 via
- Frontend Transport; Mon, 2 Nov 2020 03:47:14 -0600
-Received: from [192.168.2.6] (ileax41-snat.itg.ti.com [10.172.224.153])
- by fllv0040.itg.ti.com (8.15.2/8.15.2) with ESMTP id 0A29lCbX084591;
- Mon, 2 Nov 2020 03:47:12 -0600
-Subject: =?UTF-8?B?UmU6IOetlOWkjTogW1BBVENIIHYyXSBBU29DOiB0aTogZGF2aW5jaS1t?=
- =?UTF-8?Q?casp=3a_fix_error_handling_in_davinci=5fmcasp=5fprobe?=
-To: zhangqilong <zhangqilong3@huawei.com>, "perex@perex.cz" <perex@perex.cz>, 
- "tiwai@suse.com" <tiwai@suse.com>
-References: <20201102085436.14450-1-zhangqilong3@huawei.com>
- <182d48d4-2866-8e7c-dc28-7f84967260e2@ti.com>
- <e8e537db-cda7-fe9e-5d34-77da8d992a6c@ti.com>
- <7c5bced4ad3f4e348241fbbe28cf7ef5@huawei.com>
-From: Peter Ujfalusi <peter.ujfalusi@ti.com>
-Message-ID: <ab32711e-436a-14b6-8afa-19cfd2da83d6@ti.com>
-Date: Mon, 2 Nov 2020 11:47:52 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.4.0
+ dkim=pass (2048-bit key) header.d=cerno.tech header.i=@cerno.tech
+ header.b="rNItlLLh"; 
+ dkim=pass (2048-bit key) header.d=messagingengine.com
+ header.i=@messagingengine.com header.b="kQtgAJMe"
+Received: from compute6.internal (compute6.nyi.internal [10.202.2.46])
+ by mailnew.west.internal (Postfix) with ESMTP id 706D7F71;
+ Mon,  2 Nov 2020 05:21:21 -0500 (EST)
+Received: from mailfrontend1 ([10.202.2.162])
+ by compute6.internal (MEProxy); Mon, 02 Nov 2020 05:21:22 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cerno.tech; h=
+ date:from:to:cc:subject:message-id:references:mime-version
+ :content-type:in-reply-to; s=fm1; bh=PvFF3ynvj8U9AtuE3ZXAxZ0vfte
+ XxoZS6p/F5lE5ZUo=; b=rNItlLLhUaXKUKvpkOZQI4MBT1PL40dE549Jlr0KYud
+ h3lxs1TjuiDfPLcEYClhrsQm6UFijcQsvl0cL8Upzzgj0QNMExnTnxl2ij2yuBht
+ GcELvN5flwEarHutIId945VxvYRaRlFp2BzhptWFpSgzVFXXd29enZOYPORGibig
+ OKH4sNvm+C5i9cSujiwEPIvgVWbQko5moGyLIUhVkXrX1urL87yzTYfc5S2n6mPK
+ D2B/7r+BWsZUmcc54GgTKbci/KDUYUjOabDhuo+5Zdu2MOFe3Pp2FGHrmBY1NWot
+ ihVcul1prQ5ENesU/8mP/7pRzT+pl4u+w4aI5HCP5qA==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to:x-me-proxy
+ :x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; bh=PvFF3y
+ nvj8U9AtuE3ZXAxZ0vfteXxoZS6p/F5lE5ZUo=; b=kQtgAJMe4hP+mVi1WfQB9b
+ Iu/pBo7d8mdMLwYmX9FcPjwHlCWaGtoPNV5sPMi3ga3gwQVYwcdmpzgfuELjDrGj
+ /DPLVVKMOJKW/AU3D9gOzqLU8Q0VKplDlfRPjXEQ1DGljuk8KizmKai+aMcjbRLu
+ quXyQCxWLP+NzyS79MpokG/qd0dNO/hXg+QJGMJcoYVpjMW017pokIOPnHqKHN5a
+ N8tduTSYfucnRunb7CuyAGB+z7z2SeM+6nPeBRXYKvSGzT+sX+UWGJz7myiDDfUV
+ 4TOnKjVo9anmeeJkgWOo1NOe54HmyhlAsiyBd/tAD2cyyX2C41kEGR68LvYO6CLQ
+ ==
+X-ME-Sender: <xms:n92fX8i3PMiJFmX6BmaFgoYnsu71xxFOcvvkwHwuH6-nXHHquSYYDg>
+ <xme:n92fX1AMTvMM1sgqsDr7EkhjBGWW3rVTSqnuQMRC0k8sV6EX5ykkglePA72toM3kh
+ WQLP_e-e-0zGEPGz6k>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedujedruddtuddgudehucetufdoteggodetrfdotf
+ fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
+ uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
+ cujfgurhepfffhvffukfhfgggtuggjsehgtderredttdejnecuhfhrohhmpeforgigihhm
+ vgcutfhiphgrrhguuceomhgrgihimhgvsegtvghrnhhordhtvggthheqnecuggftrfgrth
+ htvghrnhepuedtgfejueduheevgfevvdettdduleffgfffkeeltdffkeegudekjeeuveei
+ gedunecukfhppeeltddrkeelrdeikedrjeeinecuvehluhhsthgvrhfuihiivgeptdenuc
+ frrghrrghmpehmrghilhhfrhhomhepmhgrgihimhgvsegtvghrnhhordhtvggthh
+X-ME-Proxy: <xmx:n92fX0F2a2hdOv4H94nlSljmQNDrilb4whcChrOAEjrXP-6qhmwaig>
+ <xmx:n92fX9Qrz6jyCRNRjOeOrPQSioNDPgh2CQnUKFpBZjls2h7spJEA_w>
+ <xmx:n92fX5zlSX1rEl5UdtLKjT9KpZO3Kz2U_bf1kFO1FOBVgc3Lfub08g>
+ <xmx:od2fX_4FF38OAQ0kQzzSx88W0PatPX3I3piDDDBR0PETqU7xyQjXc9rs45w>
+Received: from localhost (lfbn-tou-1-1502-76.w90-89.abo.wanadoo.fr
+ [90.89.68.76])
+ by mail.messagingengine.com (Postfix) with ESMTPA id 583293280063;
+ Mon,  2 Nov 2020 05:21:19 -0500 (EST)
+Date: Mon, 2 Nov 2020 11:21:17 +0100
+From: Maxime Ripard <maxime@cerno.tech>
+To: =?utf-8?B?Q2zDqW1lbnQgUMOpcm9u?= <peron.clem@gmail.com>
+Subject: Re: [PATCH v4 09/22] arm64: dts: allwinner: h6: Add HDMI audio node
+Message-ID: <20201102102117.hp6v5nnkhzp3bful@gilmour.lan>
+References: <20200921102731.747736-1-peron.clem@gmail.com>
+ <20200921135925.q7mde2cnt5jtzkb5@gilmour.lan>
+ <CAJiuCcfz9A_Vmzq=s3LK2kGB_1tZPkC9Ux+Brdocp9py0fovAg@mail.gmail.com>
+ <59286578.E0qSRroNqr@kista>
+ <20200928084308.eipnvlfqe3c5lfmg@gilmour.lan>
+ <CAJiuCceHXr_5PvG-FW+hRNV7Q33hGrp8kLbO0EgfqqBxF7wbqQ@mail.gmail.com>
+ <20200930101915.sultshdvxgu5u2rs@gilmour.lan>
+ <CAJiuCcdMbMQGoBG-SmgQ5=25v3AB+kh0H8ZdX7rFMHAXQ2A=QA@mail.gmail.com>
 MIME-Version: 1.0
-In-Reply-To: <7c5bced4ad3f4e348241fbbe28cf7ef5@huawei.com>
-Content-Type: text/plain; charset="utf-8"
-Content-Language: en-US
-Content-Transfer-Encoding: 8bit
-X-EXCLAIMER-MD-CONFIG: e1e8a2fd-e40a-4ac6-ac9b-f7e9cc9ee180
-Cc: "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
- "broonie@kernel.org" <broonie@kernel.org>,
- "lgirdwood@gmail.com" <lgirdwood@gmail.com>
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature"; boundary="jj7xuc7e5l6brfxg"
+Content-Disposition: inline
+In-Reply-To: <CAJiuCcdMbMQGoBG-SmgQ5=25v3AB+kh0H8ZdX7rFMHAXQ2A=QA@mail.gmail.com>
+Cc: devicetree <devicetree@vger.kernel.org>,
+ Jernej =?utf-8?Q?=C5=A0krabec?= <jernej.skrabec@siol.net>,
+ Linux-ALSA <alsa-devel@alsa-project.org>,
+ linux-kernel <linux-kernel@vger.kernel.org>,
+ linux-sunxi <linux-sunxi@googlegroups.com>, Takashi Iwai <tiwai@suse.com>,
+ Liam Girdwood <lgirdwood@gmail.com>, Rob Herring <robh+dt@kernel.org>,
+ Marcus Cooper <codekipper@gmail.com>, Chen-Yu Tsai <wens@csie.org>,
+ Mark Brown <broonie@kernel.org>,
+ linux-arm-kernel <linux-arm-kernel@lists.infradead.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -103,86 +130,124 @@ Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 
+--jj7xuc7e5l6brfxg
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-On 02/11/2020 11.25, zhangqilong wrote:
-> Hi
-> 
->>
->> Hi,
->>
->> On 02/11/2020 11.07, Peter Ujfalusi wrote:
->>>
->>>
->>> On 02/11/2020 10.54, Zhang Qilong wrote:
->>>> Forgetting to call pm_runtime_disable if davinci_mcasp_get_dt_params
->>>> failed in function davinci_mcasp_probe, and we should go to error
->>>> handling branch.
->>>
->>> Acked-by: Peter Ujfalusi <peter.ujfalusi@ti.com>
->>
->> Actually...
->>
->>>
->>>> Signed-off-by: Zhang Qilong <zhangqilong3@huawei.com>
->>>> ---
->>>> Changelog:
->>>> V2
->>>> - changed the subject and fixed the description.
->>>> ---
->>>>  sound/soc/ti/davinci-mcasp.c | 6 ++++--
->>>>  1 file changed, 4 insertions(+), 2 deletions(-)
->>>>
->>>> diff --git a/sound/soc/ti/davinci-mcasp.c
->>>> b/sound/soc/ti/davinci-mcasp.c index 4b46dd827f3f..ec90c23c9e20
->>>> 100644
->>>> --- a/sound/soc/ti/davinci-mcasp.c
->>>> +++ b/sound/soc/ti/davinci-mcasp.c
->>>> @@ -2362,8 +2362,10 @@ static int davinci_mcasp_probe(struct
->> platform_device *pdev)
->>>>  		goto err;
->>>>
->>>>  	ret = davinci_mcasp_get_dt_params(mcasp);
->>>> -	if (ret)
->>>> -		return -EINVAL;
->>>> +	if (ret) {
->>>> +		ret = -EINVAL;
->>>> +		goto err;
->>
->> do not override the error code from davinci_mcasp_get_dt_params(), jut jump
->> to err.
->>
-> 
-> I have ever thought this point. I can't make sure it's necessary, davinci_mcasp_get_dt_params always return 0 now.
-> If it's necessary, I can submit a new patch to fix it. Look forward to your reply sincerely.
+On Sun, Nov 01, 2020 at 04:27:05PM +0100, Cl=C3=A9ment P=C3=A9ron wrote:
+> On Wed, 30 Sep 2020 at 12:19, Maxime Ripard <maxime@cerno.tech> wrote:
+> >
+> > On Mon, Sep 28, 2020 at 04:27:42PM +0200, Cl=C3=A9ment P=C3=A9ron wrote:
+> > > On Mon, 28 Sep 2020 at 10:43, Maxime Ripard <maxime@cerno.tech> wrote:
+> > > >
+> > > > On Mon, Sep 21, 2020 at 08:37:09PM +0200, Jernej =C5=A0krabec wrote:
+> > > > > Dne ponedeljek, 21. september 2020 ob 19:23:49 CEST je Cl=C3=A9me=
+nt P=C3=A9ron
+> > > > > napisal(a):
+> > > > > > Hi Maxime,
+> > > > > >
+> > > > > > On Mon, 21 Sep 2020 at 15:59, Maxime Ripard <maxime@cerno.tech>=
+ wrote:
+> > > > > > >
+> > > > > > > On Mon, Sep 21, 2020 at 12:27:18PM +0200, Cl=C3=A9ment P=C3=
+=A9ron wrote:
+> > > > > > > > From: Jernej Skrabec <jernej.skrabec@siol.net>
+> > > > > > > >
+> > > > > > > > Add a simple-soundcard to link audio between HDMI and I2S.
+> > > > > > > >
+> > > > > > > > Signed-off-by: Jernej Skrabec <jernej.skrabec@siol.net>
+> > > > > > > > Signed-off-by: Marcus Cooper <codekipper@gmail.com>
+> > > > > > > > Signed-off-by: Cl=C3=A9ment P=C3=A9ron <peron.clem@gmail.co=
+m>
+> > > > > > > > ---
+> > > > > > > >  arch/arm64/boot/dts/allwinner/sun50i-h6.dtsi | 33 ++++++++=
+++++++++++++
+> > > > > > > >  1 file changed, 33 insertions(+)
+> > > > > > > >
+> > > > > > > > diff --git a/arch/arm64/boot/dts/allwinner/sun50i-h6.dtsi b=
+/arch/arm64/
+> > > > > boot/dts/allwinner/sun50i-h6.dtsi
+> > > > > > > > index 28c77d6872f6..a8853ee7885a 100644
+> > > > > > > > --- a/arch/arm64/boot/dts/allwinner/sun50i-h6.dtsi
+> > > > > > > > +++ b/arch/arm64/boot/dts/allwinner/sun50i-h6.dtsi
+> > > > > > > > @@ -67,6 +67,25 @@ de: display-engine {
+> > > > > > > >               status =3D "disabled";
+> > > > > > > >       };
+> > > > > > > >
+> > > > > > > > +     hdmi_sound: hdmi-sound {
+> > > > > > > > +             compatible =3D "simple-audio-card";
+> > > > > > > > +             simple-audio-card,format =3D "i2s";
+> > > > > > > > +             simple-audio-card,name =3D "sun50i-h6-hdmi";
+> > > > > > > > +             simple-audio-card,mclk-fs =3D <128>;
+> > > > > > > > +             simple-audio-card,frame-inversion;
+> > > > > > > > +             status =3D "disabled";
+> > > > > > > > +
+> > > > > > > > +             simple-audio-card,codec {
+> > > > > > > > +                     sound-dai =3D <&hdmi>;
+> > > > > > > > +             };
+> > > > > > > > +
+> > > > > > > > +             simple-audio-card,cpu {
+> > > > > > > > +                     sound-dai =3D <&i2s1>;
+> > > > > > > > +                     dai-tdm-slot-num =3D <2>;
+> > > > > > > > +                     dai-tdm-slot-width =3D <32>;
+> > > > > > >
+> > > > > > > It looks weird to have both some TDM setup here, and yet the =
+format in
+> > > > > > > i2s?
+>=20
+>=20
+> I was looking at sound documentation regarding how I can properly
+> write the multi-lane I2S support.
+> And I think we made a wrong interpretation here.
+>=20
+> TDM slot-num and slot-width are not referencing the format called PCM
+> or DSP_A / DSP_B.
+> But really the physical time division representation of a format.
+>=20
+> For example Amlogic do the following representation for Multi-lane I2S:
+>=20
+> dai-link-7 {
+>     sound-dai =3D <&tdmif_b>;
+>     dai-format =3D "i2s";
+>     dai-tdm-slot-tx-mask-0 =3D <1 1>;
+>     dai-tdm-slot-tx-mask-1 =3D <1 1>;
+>     dai-tdm-slot-tx-mask-2 =3D <1 1>;
+>     dai-tdm-slot-tx-mask-3 =3D <1 1>;
+>     mclk-fs =3D <256>;
+>=20
+>     codec {
+>         sound-dai =3D <&tohdmitx TOHDMITX_I2S_IN_B>;
+>     };
+> };
+>=20
+> So i think for 2 channels HDMI using the simple sound card with TDM
+> property is not a hack but the correct way to represent it.
+>=20
+> Do you agree ?
+>=20
+> If so, can I resend the simple sound card for HDMI audio ?
 
-right.
-davinci_mcasp_get_dt_params() should be void and we don't need the check
-in probe for return value.
+I mean, it's not less weird :)
 
-auxclk-fs-ratio is optional property.
+And like I said before we still have the option to write a card driver
+ourselves that doesn't take anything from the DT beside the phandle of
+the i2s controller and the HDMI controller.
 
-> 
-> Thanks, best wish!
-> Zhang Qilong
-> 
->>>> +	}
->>>>
->>>>  	ret = devm_snd_soc_register_component(&pdev->dev,
->>>>  					&davinci_mcasp_component,
->>>>
->>>
->>> - Péter
->>>
->>> Texas Instruments Finland Oy, Porkkalankatu 22, 00180 Helsinki.
->>> Y-tunnus/Business ID: 0615521-4. Kotipaikka/Domicile: Helsinki
->>>
->>
->> - Péter
->>
->> Texas Instruments Finland Oy, Porkkalankatu 22, 00180 Helsinki.
->> Y-tunnus/Business ID: 0615521-4. Kotipaikka/Domicile: Helsinki
+If it's a fixed configuration, I'm not sure why we bother trying to make
+it dynamic in the DT.
 
-- Péter
+Maxime
 
-Texas Instruments Finland Oy, Porkkalankatu 22, 00180 Helsinki.
-Y-tunnus/Business ID: 0615521-4. Kotipaikka/Domicile: Helsinki
+--jj7xuc7e5l6brfxg
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYIAB0WIQRcEzekXsqa64kGDp7j7w1vZxhRxQUCX5/dnQAKCRDj7w1vZxhR
+xc3bAQDBBpdG6ljuCnnKETw/b11AG4Dbuw87Ymom2IQ23dS3MQEA5SG0IuuH3KYe
+7Mcyw1rA6SqUu/RyQgBPqGUtPacGmQ8=
+=ErtU
+-----END PGP SIGNATURE-----
+
+--jj7xuc7e5l6brfxg--

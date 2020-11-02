@@ -2,64 +2,59 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 313C62A22DB
-	for <lists+alsa-devel@lfdr.de>; Mon,  2 Nov 2020 03:00:23 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7615B2A231A
+	for <lists+alsa-devel@lfdr.de>; Mon,  2 Nov 2020 03:35:11 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id AF2B016DA;
-	Mon,  2 Nov 2020 02:59:32 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AF2B016DA
+	by alsa0.perex.cz (Postfix) with ESMTPS id 011E616B8;
+	Mon,  2 Nov 2020 03:34:20 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 011E616B8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1604282422;
-	bh=v+a0+ey3uTUYYTV2N2USNGBQ/o9Rplfn9hIaFHAj3zM=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=OM74ZP9MGlAaU2oGndXfbtAKwYMmxR9TY4QLHDCVvomfe59vZwfj0XP23+ogT8+hj
-	 lM5Z452VE2wTWSuuAuBIhPt9CUOXcpbDT+Qcrb63LLRaaohu/BNRcmW3NQ7mCO14qj
-	 09KKjf7dMs2rcFSOwrkKkRf7nNfWJNoXu4g7dhyo=
+	s=default; t=1604284511;
+	bh=4iU7TNER8XO3BVU7f/WJNS8fWXSxtvoYyU7kzvLcFjs=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=Pvo9QnLclthKkXn0iFJkzPjF5aJV4cVTs10/5PCvnd/p+l3QjPR00XUPWR4ayRuzH
+	 nxFno6YCfX/pnzV17Pz97tTN9C4Ct6kA1b3ikCkabJV8o6lKiJpw4eVYIO7h8PbMc/
+	 4/JKbz+3JQhLVXJioBvAjOdPDNnBlDmPgAbQpMEc=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 1EDC4F80272;
-	Mon,  2 Nov 2020 02:58:40 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 44F6FF80234;
+	Mon,  2 Nov 2020 03:33:38 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 732F7F8015D; Mon,  2 Nov 2020 02:58:36 +0100 (CET)
+ id BFA3DF80232; Mon,  2 Nov 2020 03:33:36 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
  URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from inva021.nxp.com (inva021.nxp.com [92.121.34.21])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id EA2A8F80158
- for <alsa-devel@alsa-project.org>; Mon,  2 Nov 2020 02:58:29 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EA2A8F80158
-Received: from inva021.nxp.com (localhost [127.0.0.1])
- by inva021.eu-rdc02.nxp.com (Postfix) with ESMTP id 8C86C201418;
- Mon,  2 Nov 2020 02:58:29 +0100 (CET)
-Received: from invc005.ap-rdc01.nxp.com (invc005.ap-rdc01.nxp.com
- [165.114.16.14])
- by inva021.eu-rdc02.nxp.com (Postfix) with ESMTP id 1FC42201424;
- Mon,  2 Nov 2020 02:58:24 +0100 (CET)
-Received: from localhost.localdomain (shlinux2.ap.freescale.net
- [10.192.224.44])
- by invc005.ap-rdc01.nxp.com (Postfix) with ESMTP id 8E048402AB;
- Mon,  2 Nov 2020 02:58:17 +0100 (CET)
-From: Shengjiu Wang <shengjiu.wang@nxp.com>
-To: timur@kernel.org, nicoleotsuka@gmail.com, Xiubo.Lee@gmail.com,
- festevam@gmail.com, broonie@kernel.org, perex@perex.cz, tiwai@suse.com,
- alsa-devel@alsa-project.org, lgirdwood@gmail.com, robh+dt@kernel.org,
- devicetree@vger.kernel.org
-Subject: [PATCH v3 2/2] ASoC: fsl_aud2htx: Add aud2htx module driver
-Date: Mon,  2 Nov 2020 09:52:27 +0800
-Message-Id: <1604281947-26874-2-git-send-email-shengjiu.wang@nxp.com>
-X-Mailer: git-send-email 2.7.4
-In-Reply-To: <1604281947-26874-1-git-send-email-shengjiu.wang@nxp.com>
-References: <1604281947-26874-1-git-send-email-shengjiu.wang@nxp.com>
-X-Virus-Scanned: ClamAV using ClamSMTP
-Cc: linuxppc-dev@lists.ozlabs.org, linux-kernel@vger.kernel.org
+Received: from maillog.nuvoton.com (maillog.nuvoton.com [202.39.227.15])
+ by alsa1.perex.cz (Postfix) with ESMTP id 439E4F80083
+ for <alsa-devel@alsa-project.org>; Mon,  2 Nov 2020 03:33:29 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 439E4F80083
+Received: from NTHCCAS04.nuvoton.com (nthccas04.nuvoton.com [10.1.8.29])
+ by maillog.nuvoton.com (Postfix) with ESMTP id 6B7481C80D1F;
+ Mon,  2 Nov 2020 10:33:23 +0800 (CST)
+Received: from NTHCCAS01.nuvoton.com (10.1.8.28) by NTHCCAS04.nuvoton.com
+ (10.1.8.29) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.1847.3; Mon, 2 Nov
+ 2020 10:33:23 +0800
+Received: from localhost.localdomain (10.11.36.27) by NTHCCAS01.nuvoton.com
+ (10.1.12.25) with Microsoft SMTP Server id 15.1.1847.3 via Frontend
+ Transport; Mon, 2 Nov 2020 10:33:23 +0800
+From: David Lin <CTLIN0@nuvoton.com>
+To: <broonie@kernel.org>
+Subject: [PATCH] ASoC: nau8315: add codec driver
+Date: Mon, 2 Nov 2020 10:32:13 +0800
+Message-ID: <20201102023212.594137-1-CTLIN0@nuvoton.com>
+X-Mailer: git-send-email 2.25.1
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-NotRedirectTo-PP: TRUE
+Cc: alsa-devel@alsa-project.org, WTLI@nuvoton.com, KCHSU0@nuvoton.com,
+ lgirdwood@gmail.com, YHCHuang@nuvoton.com, CTLIN0@nuvoton.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -75,458 +70,257 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-The AUD2HTX is a digital module that provides a bridge between
-the Audio Subsystem and the HDMI RTX Subsystem. This module
-includes intermediate storage to queue SDMA transactions prior
-to being synchronized and passed to the HDMI RTX Subsystem over
-the Audio Link.
+Add codec driver for Nuvoton NAU8315.
 
-The AUD2HTX contains a DMA request routed to the SDMA module.
-This DMA request is controlled based on the watermark level in
-the 32-entry sample buffer.
-
-Signed-off-by: Shengjiu Wang <shengjiu.wang@nxp.com>
+Signed-off-by: David Lin <CTLIN0@nuvoton.com>
 ---
-changes in v3:
-- remove CONFIG_PM
+ .../devicetree/bindings/sound/nau8315.txt     |  18 ++
+ sound/soc/codecs/Kconfig                      |   5 +
+ sound/soc/codecs/Makefile                     |   2 +
+ sound/soc/codecs/nau8315.c                    | 166 ++++++++++++++++++
+ 4 files changed, 191 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/sound/nau8315.txt
+ create mode 100644 sound/soc/codecs/nau8315.c
 
-changes in v2:
-- remove hw_params, add operation to dai probe
-
- sound/soc/fsl/Kconfig       |   5 +
- sound/soc/fsl/Makefile      |   2 +
- sound/soc/fsl/fsl_aud2htx.c | 311 ++++++++++++++++++++++++++++++++++++
- sound/soc/fsl/fsl_aud2htx.h |  67 ++++++++
- 4 files changed, 385 insertions(+)
- create mode 100644 sound/soc/fsl/fsl_aud2htx.c
- create mode 100644 sound/soc/fsl/fsl_aud2htx.h
-
-diff --git a/sound/soc/fsl/Kconfig b/sound/soc/fsl/Kconfig
-index d04b64d32dc1..52a562215008 100644
---- a/sound/soc/fsl/Kconfig
-+++ b/sound/soc/fsl/Kconfig
-@@ -105,6 +105,11 @@ config SND_SOC_FSL_XCVR
- 	  iMX CPUs. XCVR is a digital module that supports HDMI2.1 eARC,
- 	  HDMI1.4 ARC and SPDIF.
- 
-+config SND_SOC_FSL_AUD2HTX
-+	tristate "AUDIO TO HDMI TX module support"
-+	help
-+	  Say Y if you want to add AUDIO TO HDMI TX support for NXP.
-+
- config SND_SOC_FSL_UTILS
- 	tristate
- 
-diff --git a/sound/soc/fsl/Makefile b/sound/soc/fsl/Makefile
-index 1d2231f9cc47..2181b7f9f677 100644
---- a/sound/soc/fsl/Makefile
-+++ b/sound/soc/fsl/Makefile
-@@ -26,6 +26,7 @@ snd-soc-fsl-dma-objs := fsl_dma.o
- snd-soc-fsl-mqs-objs := fsl_mqs.o
- snd-soc-fsl-easrc-objs := fsl_easrc.o
- snd-soc-fsl-xcvr-objs := fsl_xcvr.o
-+snd-soc-fsl-aud2htx-objs := fsl_aud2htx.o
- 
- obj-$(CONFIG_SND_SOC_FSL_AUDMIX) += snd-soc-fsl-audmix.o
- obj-$(CONFIG_SND_SOC_FSL_ASOC_CARD) += snd-soc-fsl-asoc-card.o
-@@ -40,6 +41,7 @@ obj-$(CONFIG_SND_SOC_FSL_MQS) += snd-soc-fsl-mqs.o
- obj-$(CONFIG_SND_SOC_FSL_EASRC) += snd-soc-fsl-easrc.o
- obj-$(CONFIG_SND_SOC_POWERPC_DMA) += snd-soc-fsl-dma.o
- obj-$(CONFIG_SND_SOC_FSL_XCVR) += snd-soc-fsl-xcvr.o
-+obj-$(CONFIG_SND_SOC_FSL_AUD2HTX) += snd-soc-fsl-aud2htx.o
- 
- # MPC5200 Platform Support
- obj-$(CONFIG_SND_MPC52xx_DMA) += mpc5200_dma.o
-diff --git a/sound/soc/fsl/fsl_aud2htx.c b/sound/soc/fsl/fsl_aud2htx.c
+diff --git a/Documentation/devicetree/bindings/sound/nau8315.txt b/Documentation/devicetree/bindings/sound/nau8315.txt
 new file mode 100644
-index 000000000000..124aeb70f24e
+index 000000000000..6eaec46f384c
 --- /dev/null
-+++ b/sound/soc/fsl/fsl_aud2htx.c
-@@ -0,0 +1,311 @@
-+// SPDX-License-Identifier: GPL-2.0+
-+// Copyright 2020 NXP
++++ b/Documentation/devicetree/bindings/sound/nau8315.txt
+@@ -0,0 +1,18 @@
++Nuvoton NAU8315 Mono Class-D Amplifier
 +
-+#include <linux/clk.h>
-+#include <linux/clk-provider.h>
-+#include <linux/delay.h>
-+#include <linux/dmaengine.h>
++Required properties:
++- compatible   : "nuvoton,nau8315"
++
++Optional properties:
++- enable-gpios : GPIO specifier for the chip's device enable input(EN) pin.
++        If this option is not specified then driver does not manage
++        the pin state (e.g. chip is always on).
++
++Example:
++
++#include <dt-bindings/gpio/gpio.h>
++
++nau8315 {
++	compatible = "nuvoton,nau8315";
++	enable-gpios = <&gpio1 5 GPIO_ACTIVE_HIGH>;
++};
+diff --git a/sound/soc/codecs/Kconfig b/sound/soc/codecs/Kconfig
+index 5791b7056af6..2b6eceb3573c 100644
+--- a/sound/soc/codecs/Kconfig
++++ b/sound/soc/codecs/Kconfig
+@@ -130,6 +130,7 @@ config SND_SOC_ALL_CODECS
+ 	imply SND_SOC_MT6358
+ 	imply SND_SOC_MT6359
+ 	imply SND_SOC_MT6660
++	imply SND_SOC_NAU8315
+ 	imply SND_SOC_NAU8540
+ 	imply SND_SOC_NAU8810
+ 	imply SND_SOC_NAU8822
+@@ -1760,6 +1761,10 @@ config SND_SOC_MT6660
+ 	  Select N if you don't have MT6660 on board.
+ 	  Select M to build this as module.
+ 
++config SND_SOC_NAU8315
++	tristate "Nuvoton Technology Corporation NAU8315 CODEC"
++	depends on GPIOLIB
++
+ config SND_SOC_NAU8540
+        tristate "Nuvoton Technology Corporation NAU85L40 CODEC"
+        depends on I2C
+diff --git a/sound/soc/codecs/Makefile b/sound/soc/codecs/Makefile
+index 11ce98c25d6c..144d9256d4d5 100644
+--- a/sound/soc/codecs/Makefile
++++ b/sound/soc/codecs/Makefile
+@@ -129,6 +129,7 @@ snd-soc-mt6351-objs := mt6351.o
+ snd-soc-mt6358-objs := mt6358.o
+ snd-soc-mt6359-objs := mt6359.o
+ snd-soc-mt6660-objs := mt6660.o
++snd-soc-nau8315-objs := nau8315.o
+ snd-soc-nau8540-objs := nau8540.o
+ snd-soc-nau8810-objs := nau8810.o
+ snd-soc-nau8822-objs := nau8822.o
+@@ -438,6 +439,7 @@ obj-$(CONFIG_SND_SOC_MT6351)	+= snd-soc-mt6351.o
+ obj-$(CONFIG_SND_SOC_MT6358)	+= snd-soc-mt6358.o
+ obj-$(CONFIG_SND_SOC_MT6359)	+= snd-soc-mt6359.o
+ obj-$(CONFIG_SND_SOC_MT6660)	+= snd-soc-mt6660.o
++obj-$(CONFIG_SND_SOC_NAU8315)   += snd-soc-nau8315.o
+ obj-$(CONFIG_SND_SOC_NAU8540)   += snd-soc-nau8540.o
+ obj-$(CONFIG_SND_SOC_NAU8810)   += snd-soc-nau8810.o
+ obj-$(CONFIG_SND_SOC_NAU8822)   += snd-soc-nau8822.o
+diff --git a/sound/soc/codecs/nau8315.c b/sound/soc/codecs/nau8315.c
+new file mode 100644
+index 000000000000..e6bc5c0a5036
+--- /dev/null
++++ b/sound/soc/codecs/nau8315.c
+@@ -0,0 +1,166 @@
++// SPDX-License-Identifier: GPL-2.0-only
++//
++// nau8315.c  --  NAU8315 ALSA SoC Audio Amplifier Driver
++//
++// Copyright 2020 Nuvoton Technology Crop.
++//
++// Author: David Lin <ctlin0@nuvoton.com>
++//
++// Based on MAX98357A.c
++
++#include <linux/acpi.h>
++#include <linux/device.h>
++#include <linux/err.h>
++#include <linux/gpio.h>
++#include <linux/gpio/consumer.h>
++#include <linux/kernel.h>
 +#include <linux/module.h>
-+#include <linux/of_device.h>
-+#include <linux/of_address.h>
-+#include <linux/pm_runtime.h>
-+#include <linux/regmap.h>
-+#include <linux/slab.h>
-+#include <linux/time.h>
-+#include <linux/pm_qos.h>
-+#include <sound/core.h>
-+#include <sound/dmaengine_pcm.h>
-+#include <sound/pcm_params.h>
-+#include <linux/dma-mapping.h>
++#include <linux/of.h>
++#include <linux/platform_device.h>
++#include <sound/pcm.h>
++#include <sound/soc.h>
++#include <sound/soc-dai.h>
++#include <sound/soc-dapm.h>
 +
-+#include "fsl_aud2htx.h"
-+#include "imx-pcm.h"
++struct nau8315_priv {
++	struct gpio_desc *enable;
++	int enpin_switch;
++};
 +
-+static int fsl_aud2htx_trigger(struct snd_pcm_substream *substream, int cmd,
-+			       struct snd_soc_dai *dai)
++static int nau8315_daiops_trigger(struct snd_pcm_substream *substream,
++		int cmd, struct snd_soc_dai *dai)
 +{
-+	struct fsl_aud2htx *aud2htx = snd_soc_dai_get_drvdata(dai);
++	struct snd_soc_component *component = dai->component;
++	struct nau8315_priv *nau8315 =
++		snd_soc_component_get_drvdata(component);
++
++	if (!nau8315->enable)
++		return 0;
 +
 +	switch (cmd) {
 +	case SNDRV_PCM_TRIGGER_START:
 +	case SNDRV_PCM_TRIGGER_RESUME:
 +	case SNDRV_PCM_TRIGGER_PAUSE_RELEASE:
-+		regmap_update_bits(aud2htx->regmap, AUD2HTX_CTRL,
-+				   AUD2HTX_CTRL_EN, AUD2HTX_CTRL_EN);
-+		regmap_update_bits(aud2htx->regmap, AUD2HTX_CTRL_EXT,
-+				   AUD2HTX_CTRE_DE, AUD2HTX_CTRE_DE);
++		if (nau8315->enpin_switch) {
++			gpiod_set_value(nau8315->enable, 1);
++			dev_dbg(component->dev, "set enable to 1");
++		}
 +		break;
-+	case SNDRV_PCM_TRIGGER_SUSPEND:
 +	case SNDRV_PCM_TRIGGER_STOP:
++	case SNDRV_PCM_TRIGGER_SUSPEND:
 +	case SNDRV_PCM_TRIGGER_PAUSE_PUSH:
-+		regmap_update_bits(aud2htx->regmap, AUD2HTX_CTRL_EXT,
-+				   AUD2HTX_CTRE_DE, 0);
-+		regmap_update_bits(aud2htx->regmap, AUD2HTX_CTRL,
-+				   AUD2HTX_CTRL_EN, 0);
++		gpiod_set_value(nau8315->enable, 0);
++		dev_dbg(component->dev, "set enable to 0");
 +		break;
-+	default:
-+		return -EINVAL;
 +	}
++
 +	return 0;
 +}
 +
-+static const struct snd_soc_dai_ops fsl_aud2htx_dai_ops = {
-+	.trigger	= fsl_aud2htx_trigger,
++static int nau8315_enpin_event(struct snd_soc_dapm_widget *w,
++		struct snd_kcontrol *kcontrol, int event)
++{
++	struct snd_soc_component *component =
++		snd_soc_dapm_to_component(w->dapm);
++	struct nau8315_priv *nau8315 =
++		snd_soc_component_get_drvdata(component);
++
++	if (event & SND_SOC_DAPM_POST_PMU)
++		nau8315->enpin_switch = 1;
++	else if (event & SND_SOC_DAPM_POST_PMD)
++		nau8315->enpin_switch = 0;
++
++	return 0;
++}
++
++static const struct snd_soc_dapm_widget nau8315_dapm_widgets[] = {
++	SND_SOC_DAPM_OUTPUT("Speaker"),
++	SND_SOC_DAPM_OUT_DRV_E("EN_Pin", SND_SOC_NOPM, 0, 0, NULL, 0,
++			nau8315_enpin_event,
++			SND_SOC_DAPM_POST_PMU | SND_SOC_DAPM_POST_PMD),
 +};
 +
-+static int fsl_aud2htx_dai_probe(struct snd_soc_dai *cpu_dai)
-+{
-+	struct fsl_aud2htx *aud2htx = dev_get_drvdata(cpu_dai->dev);
++static const struct snd_soc_dapm_route nau8315_dapm_routes[] = {
++	{"EN_Pin", NULL, "HiFi Playback"},
++	{"Speaker", NULL, "EN_Pin"},
++};
 +
-+	/* DMA request when number of entries < WTMK_LOW */
-+	regmap_update_bits(aud2htx->regmap, AUD2HTX_CTRL_EXT,
-+			   AUD2HTX_CTRE_DT_MASK, 0);
++static const struct snd_soc_component_driver nau8315_component_driver = {
++	.dapm_widgets		= nau8315_dapm_widgets,
++	.num_dapm_widgets	= ARRAY_SIZE(nau8315_dapm_widgets),
++	.dapm_routes		= nau8315_dapm_routes,
++	.num_dapm_routes	= ARRAY_SIZE(nau8315_dapm_routes),
++	.idle_bias_on		= 1,
++	.use_pmdown_time	= 1,
++	.endianness		= 1,
++	.non_legacy_dai_naming	= 1,
++};
 +
-+	/* Disable interrupts*/
-+	regmap_update_bits(aud2htx->regmap, AUD2HTX_IRQ_MASK,
-+			   AUD2HTX_WM_HIGH_IRQ_MASK |
-+			   AUD2HTX_WM_LOW_IRQ_MASK |
-+			   AUD2HTX_OVF_MASK,
-+			   AUD2HTX_WM_HIGH_IRQ_MASK |
-+			   AUD2HTX_WM_LOW_IRQ_MASK |
-+			   AUD2HTX_OVF_MASK);
++static const struct snd_soc_dai_ops nau8315_dai_ops = {
++	.trigger	= nau8315_daiops_trigger,
++};
 +
-+	/* Configure watermark */
-+	regmap_update_bits(aud2htx->regmap, AUD2HTX_CTRL_EXT,
-+			   AUD2HTX_CTRE_WL_MASK,
-+			   AUD2HTX_WTMK_LOW << AUD2HTX_CTRE_WL_SHIFT);
-+	regmap_update_bits(aud2htx->regmap, AUD2HTX_CTRL_EXT,
-+			   AUD2HTX_CTRE_WH_MASK,
-+			   AUD2HTX_WTMK_HIGH << AUD2HTX_CTRE_WH_SHIFT);
++#define NAU8315_RATES SNDRV_PCM_RATE_8000_96000
++#define NAU8315_FORMATS (SNDRV_PCM_FMTBIT_S16_LE | SNDRV_PCM_FMTBIT_S24_3LE)
 +
-+	snd_soc_dai_init_dma_data(cpu_dai, &aud2htx->dma_params_tx,
-+				  &aud2htx->dma_params_rx);
-+
-+	return 0;
-+}
-+
-+static struct snd_soc_dai_driver fsl_aud2htx_dai = {
-+	.probe = fsl_aud2htx_dai_probe,
++static struct snd_soc_dai_driver nau8315_dai_driver = {
++	.name = "nau8315-hifi",
 +	.playback = {
-+		.stream_name = "CPU-Playback",
-+		.channels_min = 1,
-+		.channels_max = 8,
-+		.rates = SNDRV_PCM_RATE_32000 |
-+			 SNDRV_PCM_RATE_44100 |
-+			 SNDRV_PCM_RATE_48000 |
-+			 SNDRV_PCM_RATE_88200 |
-+			 SNDRV_PCM_RATE_96000 |
-+			 SNDRV_PCM_RATE_176400 |
-+			 SNDRV_PCM_RATE_192000,
-+		.formats = FSL_AUD2HTX_FORMATS,
++		.stream_name	= "HiFi Playback",
++		.formats	= NAU8315_FORMATS,
++		.rates		= NAU8315_RATES,
++		.channels_min	= 1,
++		.channels_max	= 2,
 +	},
-+	.ops = &fsl_aud2htx_dai_ops,
++	.ops    = &nau8315_dai_ops,
 +};
 +
-+static const struct snd_soc_component_driver fsl_aud2htx_component = {
-+	.name	= "fsl-aud2htx",
-+};
-+
-+static const struct reg_default fsl_aud2htx_reg_defaults[] = {
-+	{AUD2HTX_CTRL,		0x00000000},
-+	{AUD2HTX_CTRL_EXT,	0x00000000},
-+	{AUD2HTX_WR,		0x00000000},
-+	{AUD2HTX_STATUS,	0x00000000},
-+	{AUD2HTX_IRQ_NOMASK,	0x00000000},
-+	{AUD2HTX_IRQ_MASKED,	0x00000000},
-+	{AUD2HTX_IRQ_MASK,	0x00000000},
-+};
-+
-+static bool fsl_aud2htx_readable_reg(struct device *dev, unsigned int reg)
++static int nau8315_platform_probe(struct platform_device *pdev)
 +{
-+	switch (reg) {
-+	case AUD2HTX_CTRL:
-+	case AUD2HTX_CTRL_EXT:
-+	case AUD2HTX_STATUS:
-+	case AUD2HTX_IRQ_NOMASK:
-+	case AUD2HTX_IRQ_MASKED:
-+	case AUD2HTX_IRQ_MASK:
-+		return true;
-+	default:
-+		return false;
-+	}
-+}
++	struct nau8315_priv *nau8315;
 +
-+static bool fsl_aud2htx_writeable_reg(struct device *dev, unsigned int reg)
-+{
-+	switch (reg) {
-+	case AUD2HTX_CTRL:
-+	case AUD2HTX_CTRL_EXT:
-+	case AUD2HTX_WR:
-+	case AUD2HTX_IRQ_NOMASK:
-+	case AUD2HTX_IRQ_MASKED:
-+	case AUD2HTX_IRQ_MASK:
-+		return true;
-+	default:
-+		return false;
-+	}
-+}
-+
-+static bool fsl_aud2htx_volatile_reg(struct device *dev, unsigned int reg)
-+{
-+	switch (reg) {
-+	case AUD2HTX_STATUS:
-+	case AUD2HTX_IRQ_NOMASK:
-+	case AUD2HTX_IRQ_MASKED:
-+		return true;
-+	default:
-+		return false;
-+	}
-+}
-+
-+static const struct regmap_config fsl_aud2htx_regmap_config = {
-+	.reg_bits = 32,
-+	.reg_stride = 4,
-+	.val_bits = 32,
-+
-+	.max_register = AUD2HTX_IRQ_MASK,
-+	.reg_defaults = fsl_aud2htx_reg_defaults,
-+	.num_reg_defaults = ARRAY_SIZE(fsl_aud2htx_reg_defaults),
-+	.readable_reg = fsl_aud2htx_readable_reg,
-+	.volatile_reg = fsl_aud2htx_volatile_reg,
-+	.writeable_reg = fsl_aud2htx_writeable_reg,
-+	.cache_type = REGCACHE_RBTREE,
-+};
-+
-+static const struct of_device_id fsl_aud2htx_dt_ids[] = {
-+	{ .compatible = "fsl,imx8mp-aud2htx",},
-+	{}
-+};
-+MODULE_DEVICE_TABLE(of, fsl_aud2htx_dt_ids);
-+
-+static irqreturn_t fsl_aud2htx_isr(int irq, void *dev_id)
-+{
-+	return IRQ_HANDLED;
-+}
-+
-+static int fsl_aud2htx_probe(struct platform_device *pdev)
-+{
-+	struct fsl_aud2htx *aud2htx;
-+	struct resource *res;
-+	void __iomem *regs;
-+	int ret, irq;
-+
-+	aud2htx = devm_kzalloc(&pdev->dev, sizeof(*aud2htx), GFP_KERNEL);
-+	if (!aud2htx)
++	nau8315 = devm_kzalloc(&pdev->dev, sizeof(*nau8315), GFP_KERNEL);
++	if (!nau8315)
 +		return -ENOMEM;
 +
-+	aud2htx->pdev = pdev;
++	nau8315->enable = devm_gpiod_get_optional(&pdev->dev,
++				"enable", GPIOD_OUT_LOW);
++	if (IS_ERR(nau8315->enable))
++		return PTR_ERR(nau8315->enable);
 +
-+	res = platform_get_resource(pdev, IORESOURCE_MEM, 0);
-+	regs = devm_ioremap_resource(&pdev->dev, res);
-+	if (IS_ERR(regs)) {
-+		dev_err(&pdev->dev, "failed ioremap\n");
-+		return PTR_ERR(regs);
-+	}
++	dev_set_drvdata(&pdev->dev, nau8315);
 +
-+	aud2htx->regmap = devm_regmap_init_mmio(&pdev->dev, regs,
-+						&fsl_aud2htx_regmap_config);
-+	if (IS_ERR(aud2htx->regmap)) {
-+		dev_err(&pdev->dev, "failed to init regmap");
-+		return PTR_ERR(aud2htx->regmap);
-+	}
-+
-+	irq = platform_get_irq(pdev, 0);
-+	if (irq < 0) {
-+		dev_err(&pdev->dev, "no irq for node %s\n",
-+			dev_name(&pdev->dev));
-+		return irq;
-+	}
-+
-+	ret = devm_request_irq(&pdev->dev, irq, fsl_aud2htx_isr, 0,
-+			       dev_name(&pdev->dev), aud2htx);
-+	if (ret) {
-+		dev_err(&pdev->dev, "failed to claim irq %u: %d\n", irq, ret);
-+		return ret;
-+	}
-+
-+	aud2htx->bus_clk = devm_clk_get(&pdev->dev, "bus");
-+	if (IS_ERR(aud2htx->bus_clk)) {
-+		dev_err(&pdev->dev, "failed to get mem clock\n");
-+		return PTR_ERR(aud2htx->bus_clk);
-+	}
-+
-+	aud2htx->dma_params_tx.chan_name = "tx";
-+	aud2htx->dma_params_tx.maxburst = AUD2HTX_MAXBURST;
-+	aud2htx->dma_params_tx.addr = res->start + AUD2HTX_WR;
-+
-+	platform_set_drvdata(pdev, aud2htx);
-+	pm_runtime_enable(&pdev->dev);
-+
-+	regcache_cache_only(aud2htx->regmap, true);
-+
-+	ret = devm_snd_soc_register_component(&pdev->dev,
-+					      &fsl_aud2htx_component,
-+					      &fsl_aud2htx_dai, 1);
-+	if (ret) {
-+		dev_err(&pdev->dev, "failed to register ASoC DAI\n");
-+		return ret;
-+	}
-+
-+	ret = imx_pcm_dma_init(pdev, IMX_DEFAULT_DMABUF_SIZE);
-+	if (ret)
-+		dev_err(&pdev->dev, "failed to init imx pcm dma: %d\n", ret);
-+
-+	return ret;
++	return devm_snd_soc_register_component(&pdev->dev,
++			&nau8315_component_driver,
++			&nau8315_dai_driver, 1);
 +}
 +
-+static int fsl_aud2htx_remove(struct platform_device *pdev)
-+{
-+	pm_runtime_disable(&pdev->dev);
-+
-+	return 0;
-+}
-+
-+static int fsl_aud2htx_runtime_suspend(struct device *dev)
-+{
-+	struct fsl_aud2htx *aud2htx = dev_get_drvdata(dev);
-+
-+	regcache_cache_only(aud2htx->regmap, true);
-+	clk_disable_unprepare(aud2htx->bus_clk);
-+
-+	return 0;
-+}
-+
-+static int fsl_aud2htx_runtime_resume(struct device *dev)
-+{
-+	struct fsl_aud2htx *aud2htx = dev_get_drvdata(dev);
-+	int ret;
-+
-+	ret = clk_prepare_enable(aud2htx->bus_clk);
-+	if (ret)
-+		return ret;
-+
-+	regcache_cache_only(aud2htx->regmap, false);
-+	regcache_mark_dirty(aud2htx->regmap);
-+	regcache_sync(aud2htx->regmap);
-+
-+	return 0;
-+}
-+
-+static const struct dev_pm_ops fsl_aud2htx_pm_ops = {
-+	SET_RUNTIME_PM_OPS(fsl_aud2htx_runtime_suspend,
-+			   fsl_aud2htx_runtime_resume,
-+			   NULL)
-+	SET_SYSTEM_SLEEP_PM_OPS(pm_runtime_force_suspend,
-+				pm_runtime_force_resume)
++#ifdef CONFIG_OF
++static const struct of_device_id nau8315_device_id[] = {
++	{ .compatible = "nuvoton,nau8315" },
++	{}
 +};
++MODULE_DEVICE_TABLE(of, nau8315_device_id);
++#endif
 +
-+static struct platform_driver fsl_aud2htx_driver = {
-+	.probe = fsl_aud2htx_probe,
-+	.remove = fsl_aud2htx_remove,
++#ifdef CONFIG_ACPI
++static const struct acpi_device_id nau8315_acpi_match[] = {
++	{ "NVTN2010", 0 },
++	{},
++};
++MODULE_DEVICE_TABLE(acpi, nau8315_acpi_match);
++#endif
++
++static struct platform_driver nau8315_platform_driver = {
 +	.driver = {
-+		.name = "fsl-aud2htx",
-+		.pm = &fsl_aud2htx_pm_ops,
-+		.of_match_table = fsl_aud2htx_dt_ids,
++		.name = "nau8315",
++		.of_match_table = of_match_ptr(nau8315_device_id),
++		.acpi_match_table = ACPI_PTR(nau8315_acpi_match),
 +	},
++	.probe	= nau8315_platform_probe,
 +};
-+module_platform_driver(fsl_aud2htx_driver);
++module_platform_driver(nau8315_platform_driver);
 +
-+MODULE_AUTHOR("Shengjiu Wang <Shengjiu.Wang@nxp.com>");
-+MODULE_DESCRIPTION("NXP AUD2HTX driver");
++MODULE_DESCRIPTION("ASoC NAU8315 Mono Class-D Amplifier Driver");
++MODULE_AUTHOR("David Lin <ctlin0@nuvoton.com>");
 +MODULE_LICENSE("GPL v2");
-diff --git a/sound/soc/fsl/fsl_aud2htx.h b/sound/soc/fsl/fsl_aud2htx.h
-new file mode 100644
-index 000000000000..ad70d6a7694c
---- /dev/null
-+++ b/sound/soc/fsl/fsl_aud2htx.h
-@@ -0,0 +1,67 @@
-+/* SPDX-License-Identifier: GPL-2.0 */
-+/*
-+ * Copyright 2020 NXP
-+ */
-+
-+#ifndef _FSL_AUD2HTX_H
-+#define _FSL_AUD2HTX_H
-+
-+#define FSL_AUD2HTX_FORMATS (SNDRV_PCM_FMTBIT_S24_LE | \
-+			     SNDRV_PCM_FMTBIT_S32_LE)
-+
-+/* AUD2HTX Register Map */
-+#define AUD2HTX_CTRL          0x0   /* AUD2HTX Control Register */
-+#define AUD2HTX_CTRL_EXT      0x4   /* AUD2HTX Control Extended Register */
-+#define AUD2HTX_WR            0x8   /* AUD2HTX Write Register */
-+#define AUD2HTX_STATUS        0xC   /* AUD2HTX Status Register */
-+#define AUD2HTX_IRQ_NOMASK    0x10  /* AUD2HTX Nonmasked Interrupt Flags Register */
-+#define AUD2HTX_IRQ_MASKED    0x14  /* AUD2HTX Masked Interrupt Flags Register */
-+#define AUD2HTX_IRQ_MASK      0x18  /* AUD2HTX IRQ Masks Register */
-+
-+/* AUD2HTX Control Register */
-+#define AUD2HTX_CTRL_EN          BIT(0)
-+
-+/* AUD2HTX Control Extended Register */
-+#define AUD2HTX_CTRE_DE          BIT(0)
-+#define AUD2HTX_CTRE_DT_SHIFT    0x1
-+#define AUD2HTX_CTRE_DT_WIDTH    0x2
-+#define AUD2HTX_CTRE_DT_MASK     ((BIT(AUD2HTX_CTRE_DT_WIDTH) - 1) \
-+				 << AUD2HTX_CTRE_DT_SHIFT)
-+#define AUD2HTX_CTRE_WL_SHIFT    16
-+#define AUD2HTX_CTRE_WL_WIDTH    5
-+#define AUD2HTX_CTRE_WL_MASK     ((BIT(AUD2HTX_CTRE_WL_WIDTH) - 1) \
-+				 << AUD2HTX_CTRE_WL_SHIFT)
-+#define AUD2HTX_CTRE_WH_SHIFT    24
-+#define AUD2HTX_CTRE_WH_WIDTH    5
-+#define AUD2HTX_CTRE_WH_MASK     ((BIT(AUD2HTX_CTRE_WH_WIDTH) - 1) \
-+				 << AUD2HTX_CTRE_WH_SHIFT)
-+
-+/* AUD2HTX IRQ Masks Register */
-+#define AUD2HTX_WM_HIGH_IRQ_MASK BIT(2)
-+#define AUD2HTX_WM_LOW_IRQ_MASK  BIT(1)
-+#define AUD2HTX_OVF_MASK         BIT(0)
-+
-+#define AUD2HTX_FIFO_DEPTH       0x20
-+#define AUD2HTX_WTMK_LOW         0x10
-+#define AUD2HTX_WTMK_HIGH        0x10
-+#define AUD2HTX_MAXBURST         0x10
-+
-+/**
-+ * fsl_aud2htx: AUD2HTX private data
-+ *
-+ * @pdev: platform device pointer
-+ * @regmap: regmap handler
-+ * @bus_clk: clock source to access register
-+ * @dma_params_rx: DMA parameters for receive channel
-+ * @dma_params_tx: DMA parameters for transmit channel
-+ */
-+struct fsl_aud2htx {
-+	struct platform_device *pdev;
-+	struct regmap *regmap;
-+	struct clk *bus_clk;
-+
-+	struct snd_dmaengine_dai_dma_data dma_params_rx;
-+	struct snd_dmaengine_dai_dma_data dma_params_tx;
-+};
-+
-+#endif /* _FSL_AUD2HTX_H */
 -- 
-2.27.0
+2.25.1
 

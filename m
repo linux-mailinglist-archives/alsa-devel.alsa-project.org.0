@@ -2,70 +2,89 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4559D2A2453
-	for <lists+alsa-devel@lfdr.de>; Mon,  2 Nov 2020 06:30:53 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4E6B02A2486
+	for <lists+alsa-devel@lfdr.de>; Mon,  2 Nov 2020 06:58:17 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C059516DB;
-	Mon,  2 Nov 2020 06:30:02 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C059516DB
+	by alsa0.perex.cz (Postfix) with ESMTPS id D26B916DB;
+	Mon,  2 Nov 2020 06:57:26 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D26B916DB
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1604295052;
-	bh=Sf2/rAhtvOFtI+OdUJhpRAN21FJHYkjWliRgyxgxBGk=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=FhAmRRlRLbr2tjiDD2Dkj6qqf5qVYjS4bgV0/tA3/R5d7oX/8hWDdVjYzU/B2UYG4
-	 UAxax5u/RjSOpQiBmauQq/znnPnI5DaI54V4eOzO1i35YG2yAnPNWv46vW56opRstq
-	 hx7cCT/y0zKRDb6O/2uWNttnunlz71p5+nCNRmXc=
+	s=default; t=1604296696;
+	bh=H4bxrHgb7QzAd4s6R7ZAcPSYQsd0k6a8eql72d8Wh3g=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=VFfW1IlPFfYKM050s4heXBQ3JkvIr7MKh4qMn7hu+rHfsEbSfQq62HHQ5KdaIHXCj
+	 eMRAnrr8Z7FQFHlr28wlXjBpmyHjOFhiPAZojPkqiSEEySwPQ4xFhWGEadPkM/J/ZB
+	 WYgS3zesjqCf3lPt8pQlaMt3dwkl1nn/PIBvorWU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id F2167F80234;
-	Mon,  2 Nov 2020 06:29:19 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 2E904F80083;
+	Mon,  2 Nov 2020 06:56:44 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 6C60AF80232; Mon,  2 Nov 2020 06:29:12 +0100 (CET)
+ id 5F7D5F80232; Mon,  2 Nov 2020 06:56:41 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+ DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 7DA69F8012B
+ for <alsa-devel@alsa-project.org>; Mon,  2 Nov 2020 06:56:33 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7DA69F8012B
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="IVgUDyjO"
+Received: from localhost (host-213-179-129-39.customer.m-online.net
+ [213.179.129.39])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 99529F80083
- for <alsa-devel@alsa-project.org>; Mon,  2 Nov 2020 06:28:59 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 99529F80083
-Authenticated-By: 
-X-SpamFilter-By: ArmorX SpamTrap 5.73 with qID 0A25Sn6U2026716,
- This message is accepted by code: ctloc85258
-Received: from mail.realtek.com (rtexmb01.realtek.com.tw[172.21.6.94])
- by rtits2.realtek.com.tw (8.15.2/2.70/5.88) with ESMTPS id 0A25Sn6U2026716
- (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT);
- Mon, 2 Nov 2020 13:28:49 +0800
-Received: from RTEXMBS01.realtek.com.tw (172.21.6.36) by
- RTEXMB01.realtek.com.tw (172.21.6.94) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2044.4; Mon, 2 Nov 2020 13:28:49 +0800
-Received: from localhost.localdomain (172.22.102.1) by
- RTEXMBS01.realtek.com.tw (172.21.6.36) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2106.2; Mon, 2 Nov 2020 13:28:48 +0800
-From: <jack.yu@realtek.com>
-To: <broonie@kernel.org>, <lgirdwood@gmail.com>
-Subject: [PATCH] ASoC: rt1015: add delay to fix pop noise from speaker
-Date: Mon, 2 Nov 2020 13:28:40 +0800
-Message-ID: <20201102052840.21590-1-jack.yu@realtek.com>
-X-Mailer: git-send-email 2.28.0
+ by mail.kernel.org (Postfix) with ESMTPSA id C7DC820870;
+ Mon,  2 Nov 2020 05:56:29 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=default; t=1604296590;
+ bh=H4bxrHgb7QzAd4s6R7ZAcPSYQsd0k6a8eql72d8Wh3g=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=IVgUDyjOS+GO22O0osaO3K3VzLaZ5+NfqDzIdn3mEMC6Vw5Yp7Pm/EgRYKkZQqnLK
+ R1Gw0mAB9KsxH2iSTGv+VOVRvic3kO2Q+DRP+NkrKNolUy5EZgtKHfaAXdGEBNeGb7
+ 7kW+SggiAe5YWsZ2eXZnpDk8Hnz9ZN5kCTnuZ+Jo=
+Date: Mon, 2 Nov 2020 07:56:26 +0200
+From: Leon Romanovsky <leon@kernel.org>
+To: Parav Pandit <parav@nvidia.com>
+Subject: Re: [PATCH mlx5-next v1 03/11] net/mlx5_core: Clean driver version
+ and name
+Message-ID: <20201102055626.GD5429@unreal>
+References: <20201101201542.2027568-1-leon@kernel.org>
+ <20201101201542.2027568-4-leon@kernel.org>
+ <BY5PR12MB4322B244D7AEBDCED43B906EDC100@BY5PR12MB4322.namprd12.prod.outlook.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [172.22.102.1]
-X-ClientProxiedBy: RTEXMB01.realtek.com.tw (172.21.6.94) To
- RTEXMBS01.realtek.com.tw (172.21.6.36)
-Cc: oder_chiou@realtek.com, Jack Yu <jack.yu@realtek.com>,
- alsa-devel@alsa-project.org, lars@metafoo.de, kent_chen@realtek.com,
- kenny_chen@realtek.com, tzungbi@google.com, derek.fang@realtek.com,
- shumingf@realtek.com, flove@realtek.com
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <BY5PR12MB4322B244D7AEBDCED43B906EDC100@BY5PR12MB4322.namprd12.prod.outlook.com>
+Cc: "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
+ "Michael S. Tsirkin" <mst@redhat.com>, "tiwai@suse.de" <tiwai@suse.de>,
+ Jason Wang <jasowang@redhat.com>,
+ "ranjani.sridharan@linux.intel.com" <ranjani.sridharan@linux.intel.com>,
+ "linux-rdma@vger.kernel.org" <linux-rdma@vger.kernel.org>,
+ "pierre-louis.bossart@linux.intel.com" <pierre-louis.bossart@linux.intel.com>,
+ "fred.oh@linux.intel.com" <fred.oh@linux.intel.com>,
+ Doug Ledford <dledford@redhat.com>, Jason Gunthorpe <jgg@nvidia.com>,
+ Jakub Kicinski <kuba@kernel.org>,
+ "kiran.patil@intel.com" <kiran.patil@intel.com>,
+ "broonie@kernel.org" <broonie@kernel.org>, Roi Dayan <roid@nvidia.com>,
+ "dan.j.williams@intel.com" <dan.j.williams@intel.com>,
+ "virtualization@lists.linux-foundation.org"
+ <virtualization@lists.linux-foundation.org>,
+ "shiraz.saleem@intel.com" <shiraz.saleem@intel.com>,
+ gregkh <gregkh@linuxfoundation.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "netdev@vger.kernel.org" <netdev@vger.kernel.org>,
+ Saeed Mahameed <saeedm@nvidia.com>, "David S . Miller" <davem@davemloft.net>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -81,118 +100,185 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: Jack Yu <jack.yu@realtek.com>
+On Mon, Nov 02, 2020 at 05:07:59AM +0000, Parav Pandit wrote:
+>
+>
+> > From: Leon Romanovsky <leon@kernel.org>
+> > Sent: Monday, November 2, 2020 1:46 AM
+> >
+> > From: Leon Romanovsky <leonro@nvidia.com>
+> >
+> > Remove exposed driver version as it was done in other drivers, so module
+> > version will work correctly by displaying the kernel version for which it is
+> > compiled.
+> >
+> > And move mlx5_core module name to general include, so auxiliary drivers
+> > will be able to use it as a basis for a name in their device ID tables.
+> >
+> > Signed-off-by: Leon Romanovsky <leonro@nvidia.com>
+> > ---
+> >  drivers/net/ethernet/mellanox/mlx5/core/devlink.c     |  2 +-
+> >  drivers/net/ethernet/mellanox/mlx5/core/en_ethtool.c  |  4 +---
+> >  drivers/net/ethernet/mellanox/mlx5/core/en_rep.c      |  1 -
+> >  .../net/ethernet/mellanox/mlx5/core/ipoib/ethtool.c   |  2 +-
+> >  drivers/net/ethernet/mellanox/mlx5/core/main.c        | 11 +++++++----
+> >  drivers/net/ethernet/mellanox/mlx5/core/mlx5_core.h   |  3 ---
+> >  include/linux/mlx5/driver.h                           |  2 ++
+> >  7 files changed, 12 insertions(+), 13 deletions(-)
+> >
+> > diff --git a/drivers/net/ethernet/mellanox/mlx5/core/devlink.c
+> > b/drivers/net/ethernet/mellanox/mlx5/core/devlink.c
+> > index a28f95df2901..1a351e2f6ace 100644
+> > --- a/drivers/net/ethernet/mellanox/mlx5/core/devlink.c
+> > +++ b/drivers/net/ethernet/mellanox/mlx5/core/devlink.c
+> > @@ -52,7 +52,7 @@ mlx5_devlink_info_get(struct devlink *devlink, struct
+> > devlink_info_req *req,
+> >  	u32 running_fw, stored_fw;
+> >  	int err;
+> >
+> > -	err = devlink_info_driver_name_put(req, DRIVER_NAME);
+> > +	err = devlink_info_driver_name_put(req, KBUILD_MODNAME);
+> >  	if (err)
+> >  		return err;
+> >
+> > diff --git a/drivers/net/ethernet/mellanox/mlx5/core/en_ethtool.c
+> > b/drivers/net/ethernet/mellanox/mlx5/core/en_ethtool.c
+> > index d25a56ec6876..bcff18a87bcd 100644
+> > --- a/drivers/net/ethernet/mellanox/mlx5/core/en_ethtool.c
+> > +++ b/drivers/net/ethernet/mellanox/mlx5/core/en_ethtool.c
+> > @@ -40,9 +40,7 @@ void mlx5e_ethtool_get_drvinfo(struct mlx5e_priv
+> > *priv,  {
+> >  	struct mlx5_core_dev *mdev = priv->mdev;
+> >
+> > -	strlcpy(drvinfo->driver, DRIVER_NAME, sizeof(drvinfo->driver));
+> > -	strlcpy(drvinfo->version, DRIVER_VERSION,
+> > -		sizeof(drvinfo->version));
+> > +	strlcpy(drvinfo->driver, KBUILD_MODNAME, sizeof(drvinfo-
+> > >driver));
+> >  	snprintf(drvinfo->fw_version, sizeof(drvinfo->fw_version),
+> >  		 "%d.%d.%04d (%.16s)",
+> >  		 fw_rev_maj(mdev), fw_rev_min(mdev),
+> > fw_rev_sub(mdev), diff --git
+> > a/drivers/net/ethernet/mellanox/mlx5/core/en_rep.c
+> > b/drivers/net/ethernet/mellanox/mlx5/core/en_rep.c
+> > index 67247c33b9fd..ef2f8889ba0f 100644
+> > --- a/drivers/net/ethernet/mellanox/mlx5/core/en_rep.c
+> > +++ b/drivers/net/ethernet/mellanox/mlx5/core/en_rep.c
+> > @@ -64,7 +64,6 @@ static void mlx5e_rep_get_drvinfo(struct net_device
+> > *dev,
+> >
+> >  	strlcpy(drvinfo->driver, mlx5e_rep_driver_name,
+> >  		sizeof(drvinfo->driver));
+> > -	strlcpy(drvinfo->version, UTS_RELEASE, sizeof(drvinfo->version));
+> >  	snprintf(drvinfo->fw_version, sizeof(drvinfo->fw_version),
+> >  		 "%d.%d.%04d (%.16s)",
+> >  		 fw_rev_maj(mdev), fw_rev_min(mdev),
+> > diff --git a/drivers/net/ethernet/mellanox/mlx5/core/ipoib/ethtool.c
+> > b/drivers/net/ethernet/mellanox/mlx5/core/ipoib/ethtool.c
+> > index cac8f085b16d..97d96fc38a65 100644
+> > --- a/drivers/net/ethernet/mellanox/mlx5/core/ipoib/ethtool.c
+> > +++ b/drivers/net/ethernet/mellanox/mlx5/core/ipoib/ethtool.c
+> > @@ -39,7 +39,7 @@ static void mlx5i_get_drvinfo(struct net_device *dev,
+> >  	struct mlx5e_priv *priv = mlx5i_epriv(dev);
+> >
+> >  	mlx5e_ethtool_get_drvinfo(priv, drvinfo);
+> > -	strlcpy(drvinfo->driver, DRIVER_NAME "[ib_ipoib]",
+> > +	strlcpy(drvinfo->driver, KBUILD_MODNAME "[ib_ipoib]",
+> >  		sizeof(drvinfo->driver));
+> >  }
+> >
+> > diff --git a/drivers/net/ethernet/mellanox/mlx5/core/main.c
+> > b/drivers/net/ethernet/mellanox/mlx5/core/main.c
+> > index 71e210f22f69..9827127cb674 100644
+> > --- a/drivers/net/ethernet/mellanox/mlx5/core/main.c
+> > +++ b/drivers/net/ethernet/mellanox/mlx5/core/main.c
+> > @@ -77,7 +77,6 @@
+> >  MODULE_AUTHOR("Eli Cohen <eli@mellanox.com>");
+> > MODULE_DESCRIPTION("Mellanox 5th generation network adapters
+> > (ConnectX series) core driver");  MODULE_LICENSE("Dual BSD/GPL"); -
+> > MODULE_VERSION(DRIVER_VERSION);
+> >
+> >  unsigned int mlx5_core_debug_mask;
+> >  module_param_named(debug_mask, mlx5_core_debug_mask, uint, 0644);
+> > @@ -228,7 +227,7 @@ static void mlx5_set_driver_version(struct
+> > mlx5_core_dev *dev)
+> >  	strncat(string, ",", remaining_size);
+> >
+> >  	remaining_size = max_t(int, 0, driver_ver_sz - strlen(string));
+> > -	strncat(string, DRIVER_NAME, remaining_size);
+> > +	strncat(string, KBUILD_MODNAME, remaining_size);
+> >
+> >  	remaining_size = max_t(int, 0, driver_ver_sz - strlen(string));
+> >  	strncat(string, ",", remaining_size);
+> > @@ -313,7 +312,7 @@ static int request_bar(struct pci_dev *pdev)
+> >  		return -ENODEV;
+> >  	}
+> >
+> > -	err = pci_request_regions(pdev, DRIVER_NAME);
+> > +	err = pci_request_regions(pdev, KBUILD_MODNAME);
+> >  	if (err)
+> >  		dev_err(&pdev->dev, "Couldn't get PCI resources,
+> > aborting\n");
+> >
+> > @@ -1617,7 +1616,7 @@ void mlx5_recover_device(struct mlx5_core_dev
+> > *dev)  }
+> >
+> >  static struct pci_driver mlx5_core_driver = {
+> > -	.name           = DRIVER_NAME,
+> > +	.name           = KBUILD_MODNAME,
+> >  	.id_table       = mlx5_core_pci_table,
+> >  	.probe          = init_one,
+> >  	.remove         = remove_one,
+> > @@ -1643,6 +1642,10 @@ static int __init init(void)  {
+> >  	int err;
+> >
+> > +	WARN_ONCE(strcmp(MLX5_ADEV_NAME, KBUILD_MODNAME) ||
+> > +		  strlen(MLX5_ADEV_NAME) != strlen(KBUILD_MODNAME),
+> > +		  "mlx5_core name not in sync with kernel module name");
+> > +
+> In which case, both the strings are same but their length not?
+> You likely don't need the string length check.
 
-Add delay to fix pop noise from speaker.
+Yes, I was overzealous, I'll remove when will apply the series.
 
-Signed-off-by: Jack Yu <jack.yu@realtek.com>
----
- include/sound/rt1015.h    | 15 +++++++++++++++
- sound/soc/codecs/rt1015.c | 20 ++++++++++++++++++++
- sound/soc/codecs/rt1015.h |  2 ++
- 3 files changed, 37 insertions(+)
- create mode 100644 include/sound/rt1015.h
+>
+> >  	get_random_bytes(&sw_owner_id, sizeof(sw_owner_id));
+> >
+> >  	mlx5_core_verify_params();
+> > diff --git a/drivers/net/ethernet/mellanox/mlx5/core/mlx5_core.h
+> > b/drivers/net/ethernet/mellanox/mlx5/core/mlx5_core.h
+> > index 8cec85ab419d..b285f1515e4e 100644
+> > --- a/drivers/net/ethernet/mellanox/mlx5/core/mlx5_core.h
+> > +++ b/drivers/net/ethernet/mellanox/mlx5/core/mlx5_core.h
+> > @@ -42,9 +42,6 @@
+> >  #include <linux/mlx5/fs.h>
+> >  #include <linux/mlx5/driver.h>
+> >
+> > -#define DRIVER_NAME "mlx5_core"
+> > -#define DRIVER_VERSION "5.0-0"
+> > -
+> >  extern uint mlx5_core_debug_mask;
+> >
+> >  #define mlx5_core_dbg(__dev, format, ...)				\
+> > diff --git a/include/linux/mlx5/driver.h b/include/linux/mlx5/driver.h index
+> > 317257f8e0ad..ed1d030658d2 100644
+> > --- a/include/linux/mlx5/driver.h
+> > +++ b/include/linux/mlx5/driver.h
+> > @@ -56,6 +56,8 @@
+> >  #include <linux/ptp_clock_kernel.h>
+> >  #include <net/devlink.h>
+> >
+> > +#define MLX5_ADEV_NAME "mlx5_core"
+> > +
+> >  enum {
+> >  	MLX5_BOARD_ID_LEN = 64,
+> >  };
+> > --
+> > 2.28.0
+>
+>
+> Other than strlen removal check,
+> Reviewed-by: Parav Pandit <parav@nvidia.com>
+>
 
-diff --git a/include/sound/rt1015.h b/include/sound/rt1015.h
-new file mode 100644
-index 000000000000..bc83ac22a6bf
---- /dev/null
-+++ b/include/sound/rt1015.h
-@@ -0,0 +1,15 @@
-+/* SPDX-License-Identifier: GPL-2.0-only */
-+/*
-+ * linux/sound/rt1015.h -- Platform data for RT1015
-+ *
-+ * Copyright 2020 Realtek Microelectronics
-+ */
-+
-+#ifndef __LINUX_SND_RT1015_H
-+#define __LINUX_SND_RT1015_H
-+
-+struct rt1015_platform_data {
-+	unsigned int power_up_delay;
-+};
-+
-+#endif
-diff --git a/sound/soc/codecs/rt1015.c b/sound/soc/codecs/rt1015.c
-index 25fe2ddedd54..4f9d453f1603 100644
---- a/sound/soc/codecs/rt1015.c
-+++ b/sound/soc/codecs/rt1015.c
-@@ -27,10 +27,15 @@
- #include <sound/soc-dapm.h>
- #include <sound/soc.h>
- #include <sound/tlv.h>
-+#include <sound/rt1015.h>
- 
- #include "rl6231.h"
- #include "rt1015.h"
- 
-+static const struct rt1015_platform_data i2s_default_platform_data = {
-+	.power_up_delay = 50,
-+};
-+
- static const struct reg_default rt1015_reg[] = {
- 	{ 0x0000, 0x0000 },
- 	{ 0x0004, 0xa000 },
-@@ -650,6 +655,7 @@ static int rt1015_amp_drv_event(struct snd_soc_dapm_widget *w,
- 	case SND_SOC_DAPM_POST_PMU:
- 		if (rt1015->hw_config == RT1015_HW_28)
- 			schedule_delayed_work(&rt1015->flush_work, msecs_to_jiffies(10));
-+		msleep(rt1015->pdata.power_up_delay);
- 		break;
- 	default:
- 		break;
-@@ -1067,9 +1073,16 @@ static struct acpi_device_id rt1015_acpi_match[] = {
- MODULE_DEVICE_TABLE(acpi, rt1015_acpi_match);
- #endif
- 
-+static void rt1015_parse_dt(struct rt1015_priv *rt1015, struct device *dev)
-+{
-+	device_property_read_u32(dev, "realtek,power-up-delay",
-+		&rt1015->pdata.power_up_delay);
-+}
-+
- static int rt1015_i2c_probe(struct i2c_client *i2c,
- 	const struct i2c_device_id *id)
- {
-+	struct rt1015_platform_data *pdata = dev_get_platdata(&i2c->dev);
- 	struct rt1015_priv *rt1015;
- 	int ret;
- 	unsigned int val;
-@@ -1081,6 +1094,13 @@ static int rt1015_i2c_probe(struct i2c_client *i2c,
- 
- 	i2c_set_clientdata(i2c, rt1015);
- 
-+	rt1015->pdata = i2s_default_platform_data;
-+
-+	if (pdata)
-+		rt1015->pdata = *pdata;
-+	else
-+		rt1015_parse_dt(rt1015, &i2c->dev);
-+
- 	rt1015->regmap = devm_regmap_init_i2c(i2c, &rt1015_regmap);
- 	if (IS_ERR(rt1015->regmap)) {
- 		ret = PTR_ERR(rt1015->regmap);
-diff --git a/sound/soc/codecs/rt1015.h b/sound/soc/codecs/rt1015.h
-index d3fdd30aca6d..15cadb361ec3 100644
---- a/sound/soc/codecs/rt1015.h
-+++ b/sound/soc/codecs/rt1015.h
-@@ -12,6 +12,7 @@
- 
- #ifndef __RT1015_H__
- #define __RT1015_H__
-+#include <sound/rt1015.h>
- 
- #define RT1015_DEVICE_ID_VAL			0x1011
- #define RT1015_DEVICE_ID_VAL2			0x1015
-@@ -380,6 +381,7 @@ enum {
- 
- struct rt1015_priv {
- 	struct snd_soc_component *component;
-+	struct rt1015_platform_data pdata;
- 	struct regmap *regmap;
- 	int sysclk;
- 	int sysclk_src;
--- 
-2.28.0
-
+Thanks

@@ -2,118 +2,99 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0AA372A2821
-	for <lists+alsa-devel@lfdr.de>; Mon,  2 Nov 2020 11:23:09 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9013C2A287F
+	for <lists+alsa-devel@lfdr.de>; Mon,  2 Nov 2020 11:47:55 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 9232E16F5;
-	Mon,  2 Nov 2020 11:22:18 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9232E16F5
+	by alsa0.perex.cz (Postfix) with ESMTPS id 1E8F416F7;
+	Mon,  2 Nov 2020 11:47:05 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1E8F416F7
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1604312588;
-	bh=3fwwv6N8rGXyGohOaB5b75RvxekLyKPqHt6XuivmcdE=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1604314075;
+	bh=Z92vQUuAE8bfEoOcK60/nDs/n+Go8ta1H+ZPtxpdUK4=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=k6OabES+iloPeRCwR+Ib+nPLXadFaggiCa+HN21zmWMHnPB1XlAVrfXxIkCCtoMNq
-	 cWDgn1VsaRX/2cU/zD6fU8tz+YeW6ia5Dr/KDjCwDvRK2mLMoitchvjVuo7S2foHdk
-	 GCCTXvhyskE1QYc5nkFh+IDPiCJsLWbwd83BwP08=
+	b=fvVxRX9V5pPyqpgWijluLWK8ZMgriCJ2jshy7hkEnZOxlwRCPsQ52Vw2pptPZ5pAs
+	 fMfBTcViigbDZ+96jrzzfii4IsrmsvlH+/61acE10LNJ5PVhRZj2OWXOycpM1t3r7b
+	 k0JObkVBfL1fcd8u5C1FAU06MkucaqIpO6hJs30k=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id D0AAAF8012B;
-	Mon,  2 Nov 2020 11:21:35 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 6AC0AF8012B;
+	Mon,  2 Nov 2020 11:46:22 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 7724EF8012B; Mon,  2 Nov 2020 11:21:32 +0100 (CET)
+ id CEBB6F80232; Mon,  2 Nov 2020 11:46:20 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,PRX_BODY_26,SPF_HELO_PASS,SPF_PASS,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from wnew3-smtp.messagingengine.com (wnew3-smtp.messagingengine.com
- [64.147.123.17])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+X-Spam-Status: No, score=-15.6 required=5.0 tests=DKIMWL_WL_MED,DKIM_SIGNED,
+ DKIM_VALID,DKIM_VALID_AU,ENV_AND_HDR_SPF_MATCH,SPF_HELO_NONE,SPF_PASS,
+ USER_IN_DEF_DKIM_WL,USER_IN_DEF_SPF_WL autolearn=disabled version=3.4.0
+Received: from mail-io1-xd42.google.com (mail-io1-xd42.google.com
+ [IPv6:2607:f8b0:4864:20::d42])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 2DE50F8012B
- for <alsa-devel@alsa-project.org>; Mon,  2 Nov 2020 11:21:25 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2DE50F8012B
+ by alsa1.perex.cz (Postfix) with ESMTPS id CC58DF8012B
+ for <alsa-devel@alsa-project.org>; Mon,  2 Nov 2020 11:46:16 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CC58DF8012B
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=cerno.tech header.i=@cerno.tech
- header.b="rNItlLLh"; 
- dkim=pass (2048-bit key) header.d=messagingengine.com
- header.i=@messagingengine.com header.b="kQtgAJMe"
-Received: from compute6.internal (compute6.nyi.internal [10.202.2.46])
- by mailnew.west.internal (Postfix) with ESMTP id 706D7F71;
- Mon,  2 Nov 2020 05:21:21 -0500 (EST)
-Received: from mailfrontend1 ([10.202.2.162])
- by compute6.internal (MEProxy); Mon, 02 Nov 2020 05:21:22 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cerno.tech; h=
- date:from:to:cc:subject:message-id:references:mime-version
- :content-type:in-reply-to; s=fm1; bh=PvFF3ynvj8U9AtuE3ZXAxZ0vfte
- XxoZS6p/F5lE5ZUo=; b=rNItlLLhUaXKUKvpkOZQI4MBT1PL40dE549Jlr0KYud
- h3lxs1TjuiDfPLcEYClhrsQm6UFijcQsvl0cL8Upzzgj0QNMExnTnxl2ij2yuBht
- GcELvN5flwEarHutIId945VxvYRaRlFp2BzhptWFpSgzVFXXd29enZOYPORGibig
- OKH4sNvm+C5i9cSujiwEPIvgVWbQko5moGyLIUhVkXrX1urL87yzTYfc5S2n6mPK
- D2B/7r+BWsZUmcc54GgTKbci/KDUYUjOabDhuo+5Zdu2MOFe3Pp2FGHrmBY1NWot
- ihVcul1prQ5ENesU/8mP/7pRzT+pl4u+w4aI5HCP5qA==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to:x-me-proxy
- :x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; bh=PvFF3y
- nvj8U9AtuE3ZXAxZ0vfteXxoZS6p/F5lE5ZUo=; b=kQtgAJMe4hP+mVi1WfQB9b
- Iu/pBo7d8mdMLwYmX9FcPjwHlCWaGtoPNV5sPMi3ga3gwQVYwcdmpzgfuELjDrGj
- /DPLVVKMOJKW/AU3D9gOzqLU8Q0VKplDlfRPjXEQ1DGljuk8KizmKai+aMcjbRLu
- quXyQCxWLP+NzyS79MpokG/qd0dNO/hXg+QJGMJcoYVpjMW017pokIOPnHqKHN5a
- N8tduTSYfucnRunb7CuyAGB+z7z2SeM+6nPeBRXYKvSGzT+sX+UWGJz7myiDDfUV
- 4TOnKjVo9anmeeJkgWOo1NOe54HmyhlAsiyBd/tAD2cyyX2C41kEGR68LvYO6CLQ
- ==
-X-ME-Sender: <xms:n92fX8i3PMiJFmX6BmaFgoYnsu71xxFOcvvkwHwuH6-nXHHquSYYDg>
- <xme:n92fX1AMTvMM1sgqsDr7EkhjBGWW3rVTSqnuQMRC0k8sV6EX5ykkglePA72toM3kh
- WQLP_e-e-0zGEPGz6k>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedujedruddtuddgudehucetufdoteggodetrfdotf
- fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
- uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
- cujfgurhepfffhvffukfhfgggtuggjsehgtderredttdejnecuhfhrohhmpeforgigihhm
- vgcutfhiphgrrhguuceomhgrgihimhgvsegtvghrnhhordhtvggthheqnecuggftrfgrth
- htvghrnhepuedtgfejueduheevgfevvdettdduleffgfffkeeltdffkeegudekjeeuveei
- gedunecukfhppeeltddrkeelrdeikedrjeeinecuvehluhhsthgvrhfuihiivgeptdenuc
- frrghrrghmpehmrghilhhfrhhomhepmhgrgihimhgvsegtvghrnhhordhtvggthh
-X-ME-Proxy: <xmx:n92fX0F2a2hdOv4H94nlSljmQNDrilb4whcChrOAEjrXP-6qhmwaig>
- <xmx:n92fX9Qrz6jyCRNRjOeOrPQSioNDPgh2CQnUKFpBZjls2h7spJEA_w>
- <xmx:n92fX5zlSX1rEl5UdtLKjT9KpZO3Kz2U_bf1kFO1FOBVgc3Lfub08g>
- <xmx:od2fX_4FF38OAQ0kQzzSx88W0PatPX3I3piDDDBR0PETqU7xyQjXc9rs45w>
-Received: from localhost (lfbn-tou-1-1502-76.w90-89.abo.wanadoo.fr
- [90.89.68.76])
- by mail.messagingengine.com (Postfix) with ESMTPA id 583293280063;
- Mon,  2 Nov 2020 05:21:19 -0500 (EST)
-Date: Mon, 2 Nov 2020 11:21:17 +0100
-From: Maxime Ripard <maxime@cerno.tech>
-To: =?utf-8?B?Q2zDqW1lbnQgUMOpcm9u?= <peron.clem@gmail.com>
-Subject: Re: [PATCH v4 09/22] arm64: dts: allwinner: h6: Add HDMI audio node
-Message-ID: <20201102102117.hp6v5nnkhzp3bful@gilmour.lan>
-References: <20200921102731.747736-1-peron.clem@gmail.com>
- <20200921135925.q7mde2cnt5jtzkb5@gilmour.lan>
- <CAJiuCcfz9A_Vmzq=s3LK2kGB_1tZPkC9Ux+Brdocp9py0fovAg@mail.gmail.com>
- <59286578.E0qSRroNqr@kista>
- <20200928084308.eipnvlfqe3c5lfmg@gilmour.lan>
- <CAJiuCceHXr_5PvG-FW+hRNV7Q33hGrp8kLbO0EgfqqBxF7wbqQ@mail.gmail.com>
- <20200930101915.sultshdvxgu5u2rs@gilmour.lan>
- <CAJiuCcdMbMQGoBG-SmgQ5=25v3AB+kh0H8ZdX7rFMHAXQ2A=QA@mail.gmail.com>
+ dkim=pass (2048-bit key) header.d=google.com header.i=@google.com
+ header.b="JbF7Xzcx"
+Received: by mail-io1-xd42.google.com with SMTP id n12so2796637ioc.2
+ for <alsa-devel@alsa-project.org>; Mon, 02 Nov 2020 02:46:16 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=VRpjL02zuTcuiv/Rvb/qTyae7wJ0n/tsrDk8nGGEoq0=;
+ b=JbF7Xzcx6Wu8FIV7/iG4L8/z373ZoWlCO6auRph8RxolPKUCY1c9JzvvbI3Ea8+Uwf
+ 623DoaDsaJKCpWEQpXNj98q9gCj1aDehvtpItUkRrmtnB8aAV6mbbK04ddWHMkKMYtl7
+ 4oFJG1NT4N39UbIQ64IZIa0hXFMu0mTCuVoaXGy4E2hUE7fq1sNC37u1OnLRK+srC62G
+ gfLCwVF7Pxw1UMQ/VlJ9hmuYmHSRgkVb/yWTy7xhVu91Rqz72oua6GOBx3TI2A2tO1oE
+ MW6MhUJSrVNgZbnseXvs+TSZ8ZsJonOti3crmrOCtAmx7l1ybcV9Qx+yIWni9YtIGJ0B
+ y6Vg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=VRpjL02zuTcuiv/Rvb/qTyae7wJ0n/tsrDk8nGGEoq0=;
+ b=BS66H1KbufKAQwVn11Mf6r5Zjkb34G9s7HBXKaakliCnfI/xUAjVLtPDIX9AzpbBxK
+ Ak17AmcfLg3ZuHJOk0NWTnQkv9MEfdW4cNHfliK3G9eqqe0tTqlDVVVlMYEL3jfVOIxv
+ JkUNQVFACho1uJ1gBia6GwIIE+Ww1XXAEHT90sIjMgxI+1WmqY7QNj3tzaYhVvUN83Xk
+ c77Gehzoj0vsCGLb4eIqstUFE+4c5fuop5R/qEiyw6fvr1JAjFPkOMcxtzsMZ6MlApFC
+ yCTGFDoIXbmqOjCjMvDOIuqWQ/oPY0g8r1BEfm+jEfMswyndBuKwXEN2wb5erCIH5ete
+ I+2A==
+X-Gm-Message-State: AOAM530KCKR2BdfaNJH1QLamBytEjj2x5Pjt47rwkV6ipKvZFcOXtnQR
+ OeSEbWpsOiKqbIgAZpQ6UQK7YB3fBqH35ahLAxDWgQ==
+X-Google-Smtp-Source: ABdhPJxKwVLNAuofbLNcJ13qTFoIFIxwQPlrQC3KzP9RuGcr//5ixy6TdSJ29X5luQ0fmV1hraBbt8Ty1Pv6VXZ7MzI=
+X-Received: by 2002:a6b:7a0b:: with SMTP id h11mr2777649iom.76.1604313974919; 
+ Mon, 02 Nov 2020 02:46:14 -0800 (PST)
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature"; boundary="jj7xuc7e5l6brfxg"
-Content-Disposition: inline
-In-Reply-To: <CAJiuCcdMbMQGoBG-SmgQ5=25v3AB+kh0H8ZdX7rFMHAXQ2A=QA@mail.gmail.com>
-Cc: devicetree <devicetree@vger.kernel.org>,
- Jernej =?utf-8?Q?=C5=A0krabec?= <jernej.skrabec@siol.net>,
- Linux-ALSA <alsa-devel@alsa-project.org>,
- linux-kernel <linux-kernel@vger.kernel.org>,
- linux-sunxi <linux-sunxi@googlegroups.com>, Takashi Iwai <tiwai@suse.com>,
- Liam Girdwood <lgirdwood@gmail.com>, Rob Herring <robh+dt@kernel.org>,
- Marcus Cooper <codekipper@gmail.com>, Chen-Yu Tsai <wens@csie.org>,
- Mark Brown <broonie@kernel.org>,
- linux-arm-kernel <linux-arm-kernel@lists.infradead.org>
+References: <20201102062408.331572-1-ajye_huang@compal.corp-partner.google.com>
+ <20201102062408.331572-3-ajye_huang@compal.corp-partner.google.com>
+In-Reply-To: <20201102062408.331572-3-ajye_huang@compal.corp-partner.google.com>
+From: Tzung-Bi Shih <tzungbi@google.com>
+Date: Mon, 2 Nov 2020 18:46:04 +0800
+Message-ID: <CA+Px+wV9Lmdphp4iMgF1d72vewb2m9aiZzywvavLGgtkAczCDQ@mail.gmail.com>
+Subject: Re: [PATCH v3 2/2] ASoC: qcom: sc7180: Modify machine driver for 2mic
+To: Ajye Huang <ajye.huang@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Cc: Douglas Anderson <dianders@chromium.org>,
+ "open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS"
+ <devicetree@vger.kernel.org>, ALSA development <alsa-devel@alsa-project.org>,
+ Banajit Goswami <bgoswami@codeaurora.org>,
+ Srinivasa Rao Mandadapu <srivasam@codeaurora.org>,
+ Liam Girdwood <lgirdwood@gmail.com>,
+ linux-arm-msm <linux-arm-msm@vger.kernel.org>,
+ Patrick Lai <plai@codeaurora.org>,
+ Ajye Huang <ajye_huang@compal.corp-partner.google.com>,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ Rob Herring <robh+dt@kernel.org>, Bjorn Andersson <bjorn.andersson@linaro.org>,
+ Mark Brown <broonie@kernel.org>, Rohit kumar <rohitkr@codeaurora.org>,
+ Andy Gross <agross@kernel.org>, Tzung-Bi Shih <tzungbi@chromium.org>,
+ Srini Kandagatla <srinivas.kandagatla@linaro.org>,
+ "moderated list:ARM/Mediatek SoC support"
+ <linux-arm-kernel@lists.infradead.org>,
+ Cheng-Yi Chiang <cychiang@chromium.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -129,125 +110,44 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+On Mon, Nov 2, 2020 at 2:24 PM Ajye Huang <ajye.huang@gmail.com> wrote:
+>
+> In addition, having mixer control to switch between DMICs by
+> using "dmic-gpios" property.
+>
+> Refer to this one as an example,
+> commit b7a742cff3f6 ("ASoC: AMD: Use mixer control to switch between DMICs")
+>
+> Signed-off-by: Ajye Huang <ajye_huang@compal.corp-partner.google.com>
 
---jj7xuc7e5l6brfxg
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+I am not sure if it would be better if you use another email (e.g.
+@gmail) for signoff.
 
-On Sun, Nov 01, 2020 at 04:27:05PM +0100, Cl=C3=A9ment P=C3=A9ron wrote:
-> On Wed, 30 Sep 2020 at 12:19, Maxime Ripard <maxime@cerno.tech> wrote:
-> >
-> > On Mon, Sep 28, 2020 at 04:27:42PM +0200, Cl=C3=A9ment P=C3=A9ron wrote:
-> > > On Mon, 28 Sep 2020 at 10:43, Maxime Ripard <maxime@cerno.tech> wrote:
-> > > >
-> > > > On Mon, Sep 21, 2020 at 08:37:09PM +0200, Jernej =C5=A0krabec wrote:
-> > > > > Dne ponedeljek, 21. september 2020 ob 19:23:49 CEST je Cl=C3=A9me=
-nt P=C3=A9ron
-> > > > > napisal(a):
-> > > > > > Hi Maxime,
-> > > > > >
-> > > > > > On Mon, 21 Sep 2020 at 15:59, Maxime Ripard <maxime@cerno.tech>=
- wrote:
-> > > > > > >
-> > > > > > > On Mon, Sep 21, 2020 at 12:27:18PM +0200, Cl=C3=A9ment P=C3=
-=A9ron wrote:
-> > > > > > > > From: Jernej Skrabec <jernej.skrabec@siol.net>
-> > > > > > > >
-> > > > > > > > Add a simple-soundcard to link audio between HDMI and I2S.
-> > > > > > > >
-> > > > > > > > Signed-off-by: Jernej Skrabec <jernej.skrabec@siol.net>
-> > > > > > > > Signed-off-by: Marcus Cooper <codekipper@gmail.com>
-> > > > > > > > Signed-off-by: Cl=C3=A9ment P=C3=A9ron <peron.clem@gmail.co=
-m>
-> > > > > > > > ---
-> > > > > > > >  arch/arm64/boot/dts/allwinner/sun50i-h6.dtsi | 33 ++++++++=
-++++++++++++
-> > > > > > > >  1 file changed, 33 insertions(+)
-> > > > > > > >
-> > > > > > > > diff --git a/arch/arm64/boot/dts/allwinner/sun50i-h6.dtsi b=
-/arch/arm64/
-> > > > > boot/dts/allwinner/sun50i-h6.dtsi
-> > > > > > > > index 28c77d6872f6..a8853ee7885a 100644
-> > > > > > > > --- a/arch/arm64/boot/dts/allwinner/sun50i-h6.dtsi
-> > > > > > > > +++ b/arch/arm64/boot/dts/allwinner/sun50i-h6.dtsi
-> > > > > > > > @@ -67,6 +67,25 @@ de: display-engine {
-> > > > > > > >               status =3D "disabled";
-> > > > > > > >       };
-> > > > > > > >
-> > > > > > > > +     hdmi_sound: hdmi-sound {
-> > > > > > > > +             compatible =3D "simple-audio-card";
-> > > > > > > > +             simple-audio-card,format =3D "i2s";
-> > > > > > > > +             simple-audio-card,name =3D "sun50i-h6-hdmi";
-> > > > > > > > +             simple-audio-card,mclk-fs =3D <128>;
-> > > > > > > > +             simple-audio-card,frame-inversion;
-> > > > > > > > +             status =3D "disabled";
-> > > > > > > > +
-> > > > > > > > +             simple-audio-card,codec {
-> > > > > > > > +                     sound-dai =3D <&hdmi>;
-> > > > > > > > +             };
-> > > > > > > > +
-> > > > > > > > +             simple-audio-card,cpu {
-> > > > > > > > +                     sound-dai =3D <&i2s1>;
-> > > > > > > > +                     dai-tdm-slot-num =3D <2>;
-> > > > > > > > +                     dai-tdm-slot-width =3D <32>;
-> > > > > > >
-> > > > > > > It looks weird to have both some TDM setup here, and yet the =
-format in
-> > > > > > > i2s?
->=20
->=20
-> I was looking at sound documentation regarding how I can properly
-> write the multi-lane I2S support.
-> And I think we made a wrong interpretation here.
->=20
-> TDM slot-num and slot-width are not referencing the format called PCM
-> or DSP_A / DSP_B.
-> But really the physical time division representation of a format.
->=20
-> For example Amlogic do the following representation for Multi-lane I2S:
->=20
-> dai-link-7 {
->     sound-dai =3D <&tdmif_b>;
->     dai-format =3D "i2s";
->     dai-tdm-slot-tx-mask-0 =3D <1 1>;
->     dai-tdm-slot-tx-mask-1 =3D <1 1>;
->     dai-tdm-slot-tx-mask-2 =3D <1 1>;
->     dai-tdm-slot-tx-mask-3 =3D <1 1>;
->     mclk-fs =3D <256>;
->=20
->     codec {
->         sound-dai =3D <&tohdmitx TOHDMITX_I2S_IN_B>;
->     };
-> };
->=20
-> So i think for 2 channels HDMI using the simple sound card with TDM
-> property is not a hack but the correct way to represent it.
->=20
-> Do you agree ?
->=20
-> If so, can I resend the simple sound card for HDMI audio ?
+> +static int dmic_get(struct snd_kcontrol *kcontrol,
+> +                   struct snd_ctl_elem_value *ucontrol)
+> +{
+> +       struct snd_soc_dapm_context *dapm = snd_soc_dapm_kcontrol_dapm(kcontrol);
+> +       struct sc7180_snd_data *data = snd_soc_card_get_drvdata(dapm->card);
+> +
+> +       if (data)
 
-I mean, it's not less weird :)
+You don't need to check for NULL.  If snd_soc_card_get_drvdata()
+returns NULL, it shouldn't run into here.  See other
+snd_soc_card_get_drvdata() calls in the file.
 
-And like I said before we still have the option to write a card driver
-ourselves that doesn't take anything from the DT beside the phandle of
-the i2s controller and the HDMI controller.
+> +static int dmic_set(struct snd_kcontrol *kcontrol,
+> +                   struct snd_ctl_elem_value *ucontrol)
+> +{
+> +       struct snd_soc_dapm_context *dapm = snd_soc_dapm_kcontrol_dapm(kcontrol);
+> +       struct sc7180_snd_data *data = snd_soc_card_get_drvdata(dapm->card);
+> +
+> +       if (data) {
 
-If it's a fixed configuration, I'm not sure why we bother trying to make
-it dynamic in the DT.
+Ditto.
 
-Maxime
+> +               if (IS_ERR(data->dmic_sel)) {
+> +                       dev_err(&pdev->dev, "DMIC gpio failed err=%d\n",
+> +                               PTR_ERR(data->dmic_sel));
+> +                               return PTR_ERR(data->dmic_sel);
 
---jj7xuc7e5l6brfxg
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYIAB0WIQRcEzekXsqa64kGDp7j7w1vZxhRxQUCX5/dnQAKCRDj7w1vZxhR
-xc3bAQDBBpdG6ljuCnnKETw/b11AG4Dbuw87Ymom2IQ23dS3MQEA5SG0IuuH3KYe
-7Mcyw1rA6SqUu/RyQgBPqGUtPacGmQ8=
-=ErtU
------END PGP SIGNATURE-----
-
---jj7xuc7e5l6brfxg--
+Remove 1 level indent.

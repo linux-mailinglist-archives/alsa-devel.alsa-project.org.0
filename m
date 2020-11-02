@@ -2,73 +2,76 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id BB2E92A2D96
-	for <lists+alsa-devel@lfdr.de>; Mon,  2 Nov 2020 16:05:08 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id E2A732A2DCB
+	for <lists+alsa-devel@lfdr.de>; Mon,  2 Nov 2020 16:13:01 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 603941737;
-	Mon,  2 Nov 2020 16:04:18 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 603941737
+	by alsa0.perex.cz (Postfix) with ESMTPS id 820D91727;
+	Mon,  2 Nov 2020 16:12:11 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 820D91727
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1604329508;
-	bh=XLsFfCx1l1LuiUExxvDWYcrLC/Xm4VNG3M4aRjlK+tg=;
-	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=jPiVAONiBiZGQnMhIBm/ZWADhFSpUWbWjKqjwFv8xVs83ZDR4B6NCNjlIJ58AoExq
-	 XwsMYRJQVz6JSfsOvz6E0t1zhf2S2P/LvTgE/qibtfl7YuRaK7QXyeqUcwToi49yye
-	 i3MvMSzp+i182Pg5fayDX+TwrC14iFi/eBvDvKH8=
+	s=default; t=1604329981;
+	bh=nrzoNOW4f72rdXT5U888FwEGaE2ep3U6lv16p+VL3AI=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=R9Ll5/G4p8FQFeuOTk8pOBvQo6cUUD6nR7KJq+IKzBGJWFErWdcRYM5g8cpzAPj6j
+	 3FMrPgjAoQoAZCwIONb6BWQZMR8oj96dizushOPRHjPd1vja9Ql9PyURuyIeRDyCDU
+	 y7CseZZxpGfJtLXGyrfI8uVqoOujeXWoPVhUqQxY=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 9C65CF8012B;
-	Mon,  2 Nov 2020 16:02:47 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id E436DF80234;
+	Mon,  2 Nov 2020 16:11:28 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 3A15CF80256; Mon,  2 Nov 2020 16:02:45 +0100 (CET)
+ id 5757CF80234; Mon,  2 Nov 2020 16:11:27 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.0 required=5.0 tests=NICE_REPLY_A,
- RCVD_IN_MSPIKE_H3, RCVD_IN_MSPIKE_WL, SPF_HELO_NONE,
- SPF_NONE autolearn=disabled version=3.4.0
-Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+ DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from hqnvemgate25.nvidia.com (hqnvemgate25.nvidia.com
+ [216.228.121.64])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 3BE33F80232
- for <alsa-devel@alsa-project.org>; Mon,  2 Nov 2020 16:02:42 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3BE33F80232
-IronPort-SDR: RlRp6Kc422QqEwxFVR/6A5+xO/XCA9U+hxrinLUCwyiOS6dzKYYcN4ShW1ecoDz4zsNa7JVC0E
- SPxbF2zozigw==
-X-IronPort-AV: E=McAfee;i="6000,8403,9793"; a="155883727"
-X-IronPort-AV: E=Sophos;i="5.77,445,1596524400"; d="scan'208";a="155883727"
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from fmsmga005.fm.intel.com ([10.253.24.32])
- by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 02 Nov 2020 07:02:41 -0800
-IronPort-SDR: QuG3lUHRZGvFUqxt7qZ6hSlrL8JdR/LIwsd1ayZg4vx48vPPPmAD1ct3IckSS4rajYVuJHqMbS
- LqgJ7a++y1kQ==
-X-IronPort-AV: E=Sophos;i="5.77,445,1596524400"; d="scan'208";a="528043551"
-Received: from pvrott-mobl1.amr.corp.intel.com (HELO [10.212.253.243])
- ([10.212.253.243])
- by fmsmga005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 02 Nov 2020 07:02:39 -0800
-Subject: Re: [PATCH] ASoC: rt1015: support TDM slot configuration
-To: shumingf@realtek.com, broonie@kernel.org, lgirdwood@gmail.com
-References: <20201102091656.25379-1-shumingf@realtek.com>
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Message-ID: <3d8b58fa-81c2-ea9e-8627-b5c58ca91c7a@linux.intel.com>
-Date: Mon, 2 Nov 2020 09:01:15 -0600
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.10.0
+ by alsa1.perex.cz (Postfix) with ESMTPS id 620E2F8015A
+ for <alsa-devel@alsa-project.org>; Mon,  2 Nov 2020 16:11:20 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 620E2F8015A
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=nvidia.com header.i=@nvidia.com
+ header.b="RytsHP0P"
+Received: from hqmail.nvidia.com (Not Verified[216.228.121.13]) by
+ hqnvemgate25.nvidia.com (using TLS: TLSv1.2, AES256-SHA)
+ id <B5fa021960000>; Mon, 02 Nov 2020 07:11:18 -0800
+Received: from HQMAIL105.nvidia.com (172.20.187.12) by HQMAIL109.nvidia.com
+ (172.20.187.15) with Microsoft SMTP Server (TLS) id 15.0.1473.3; Mon, 2 Nov
+ 2020 15:11:16 +0000
+Received: from audio.nvidia.com (10.124.1.5) by mail.nvidia.com
+ (172.20.187.12) with Microsoft SMTP Server id 15.0.1473.3 via Frontend
+ Transport; Mon, 2 Nov 2020 15:11:12 +0000
+From: Sameer Pujar <spujar@nvidia.com>
+To: <broonie@kernel.org>, <lgirdwood@gmail.com>,
+ <kuninori.morimoto.gx@renesas.com>, <pierre-louis.bossart@linux.intel.com>,
+ <perex@perex.cz>, <tiwai@suse.com>
+Subject: [PATCH v5 0/7] Audio Graph Updates
+Date: Mon, 2 Nov 2020 20:40:07 +0530
+Message-ID: <1604329814-24779-1-git-send-email-spujar@nvidia.com>
+X-Mailer: git-send-email 2.7.4
 MIME-Version: 1.0
-In-Reply-To: <20201102091656.25379-1-shumingf@realtek.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
-Cc: oder_chiou@realtek.com, jack.yu@realtek.com, alsa-devel@alsa-project.org,
- lars@metafoo.de, kent_chen@realtek.com, Keith.Tzeng@quantatw.com,
- derek.fang@realtek.com, brent.lu@intel.com, flove@realtek.com
+Content-Type: text/plain
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nvidia.com; s=n1;
+ t=1604329878; bh=87L96NLcj8xmhNDHPt+LVHpG/YRx6A+VjJPBDkXZ2H8=;
+ h=From:To:CC:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+ Content-Type;
+ b=RytsHP0PnRhpXP6yUolp1rSrNt2+utfHZUkY6gI5VzSrIAP5xVAxsCPRFTgSbwx+5
+ SNnefiSTZT9DbBdySZ+OAZ60C6OkQ57zHxEPQfBV7+0pbI0lM50moi03Hf+Xxq7uvN
+ 0OusLCV2sue9WdA/5kmIIW92AY7oGE67LSfu5HJ2Qk3nH0TSV4ZQNHuZe+P/HXGghl
+ ru6NEUKjCJ3jE9W/r3QhWR8rs1ZuiQ5ZcmFQc/70pozqn1J7FTIsosf0O4HDZSopvm
+ Qnq1GDYI5DHH0JWhmreoJogHudPWHQ7EdRB5rW8oPki3Oka67LjJDeQ77idGMhskbB
+ lnzGL5osOPhow==
+Cc: alsa-devel@alsa-project.org, Sameer Pujar <spujar@nvidia.com>,
+ linux-kernel@vger.kernel.org, jonathanh@nvidia.com, sharadg@nvidia.com,
+ thierry.reding@gmail.com, linux-tegra@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -84,122 +87,100 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+This series is a prepraration for using generic graph driver for Tegra210
+audio. Tegra audio graph series will be sent in a separate series because
+it has some dependency over other series for documentation work. This
+series can focus on the generic ASoC driver updates. Below are the summary
+of changes done.
 
+ * Support multiple instances of a component. For example there can be
+   multiple I2S devices which can use the same component driver.
 
+ * Support open platforms with empty Codec endpoint. Customers can plug
+   their own HW and can populate codec endpoint.
 
-> +static int rt1015_set_tdm_slot(struct snd_soc_dai *dai,
-> +	unsigned int tx_mask, unsigned int rx_mask, int slots, int slot_width)
-> +{
-> +	struct snd_soc_component *component = dai->component;
-> +	unsigned int val = 0, rx_slotnum, tx_slotnum;
-> +	int ret = 0, first_bit;
-> +
-> +	switch (slots) {
-> +	case 4:
-> +		val |= RT1015_I2S_TX_4CH;
-> +		break;
-> +	case 6:
-> +		val |= RT1015_I2S_TX_6CH;
-> +		break;
-> +	case 8:
-> +		val |= RT1015_I2S_TX_8CH;
-> +		break;
-> +	case 2:
-> +		break;
+ * In a component model there can be many components which can be
+   connected together. In such cases Identify no-pcm DPCM DAI links which
+   can be used in BE<->BE connections.
 
-nit-pick: I would put the case 2 first to keep the order. I thought for 
-a second this was an error case due to the discontinuity.
+ * Expose structures or helpers to be re-used by other similar graph
+   drivers.
 
-> +	default:
-> +		ret = -EINVAL;
-> +		goto _set_tdm_err_;
-> +	}
-> +
-> +	switch (slot_width) {
-> +	case 20:
-> +		val |= RT1015_I2S_CH_TX_LEN_20B;
-> +		break;
-> +	case 24:
-> +		val |= RT1015_I2S_CH_TX_LEN_24B;
-> +		break;
-> +	case 32:
-> +		val |= RT1015_I2S_CH_TX_LEN_32B;
-> +		break;
-> +	case 16:
-> +		break;
+The series is based on following references where DPCM usgae for Tegra
+Audio and simple-card driver proposal were discussed.
 
-nit-pick: same here, I would put 16 first.
+ * https://lkml.org/lkml/2020/4/30/519 (DPCM for Tegra)
+ * https://lkml.org/lkml/2020/6/27/4 (simple-card driver)
 
-> +	default:
-> +		ret = -EINVAL;
-> +		goto _set_tdm_err_;
-> +	}
-> +
-> +	/* Rx slot configuration */
-> +	rx_slotnum = hweight_long(rx_mask);
-> +	if (rx_slotnum > 1 || !rx_slotnum) {
+Changelog
+=========
 
-I am confused here, is this saying you can only have a single channel on RX?
+v4 -> v5
+--------
+ * No changes in the core/audio-graph driver patches which are
+   part of the current series.
+ * Dropped Tegra audio patches and doc patches. This will be
+   sent separately once the doc depdendencies are resolved.
 
-If yes should this be simplified as if (rx_slotnum != 1) ?
+v3 -> v4
+--------
+ * Added new patches to convert graph.txt and audio-graph-card.txt
+   to corresponding json-schema files. Later these references
+   are used in Tegra audio graph schema.
 
-> +		ret = -EINVAL;
-> +		dev_err(component->dev, "too many rx slots or zero slot\n");
-> +		goto _set_tdm_err_;
-> +	}
-> +
-> +	first_bit = __ffs(rx_mask);
-> +	switch (first_bit) {
-> +	case 0:
-> +	case 2:
-> +	case 4:
-> +	case 6:
-> +		snd_soc_component_update_bits(component,
-> +			RT1015_PAD_DRV2, RT1015_MONO_LR_SEL_MASK,
-> +			RT1015_MONO_L_CHANNEL);
-> +		snd_soc_component_update_bits(component,
-> +			RT1015_TDM1_4,
-> +			RT1015_TDM_I2S_TX_L_DAC1_1_MASK |
-> +			RT1015_TDM_I2S_TX_R_DAC1_1_MASK,
-> +			(first_bit << RT1015_TDM_I2S_TX_L_DAC1_1_SFT) |
-> +			((first_bit+1) << RT1015_TDM_I2S_TX_R_DAC1_1_SFT));
+ * AHUB component binding docs are updated to reflect the usage
+   of ports/port/endpoint
 
-looks like there's an assumption that the rx mask has contiguous bits 
-set? Maybe add a comment to explain how the RX path works?
+ * More common stuff is moved into graph_parse_of() and this is
+   used by both generic and Tegra audio graph.
 
-> +		break;
-> +	case 1:
-> +	case 3:
-> +	case 5:
-> +	case 7:
-> +		snd_soc_component_update_bits(component,
-> +			RT1015_PAD_DRV2, RT1015_MONO_LR_SEL_MASK,
-> +			RT1015_MONO_R_CHANNEL);
-> +		snd_soc_component_update_bits(component,
-> +			RT1015_TDM1_4,
-> +			RT1015_TDM_I2S_TX_L_DAC1_1_MASK |
-> +			RT1015_TDM_I2S_TX_R_DAC1_1_MASK,
-> +			((first_bit-1) << RT1015_TDM_I2S_TX_L_DAC1_1_SFT) |
-> +			(first_bit << RT1015_TDM_I2S_TX_R_DAC1_1_SFT));
-> +		break;
-> +	default:
-> +		ret = -EINVAL;
-> +		goto _set_tdm_err_;
-> +	}
-> +
-> +	/* Tx slot configuration */
-> +	tx_slotnum = hweight_long(tx_mask);
-> +	if (tx_slotnum) {
-> +		ret = -EINVAL;
-> +		dev_err(component->dev, "doesn't need to support tx slots\n");
-> +		goto _set_tdm_err_;
-> +	}
-> +
-> +	snd_soc_component_update_bits(component, RT1015_TDM1_1,
-> +		RT1015_I2S_CH_TX_MASK | RT1015_I2S_CH_RX_MASK |
-> +		RT1015_I2S_CH_TX_LEN_MASK | RT1015_I2S_CH_RX_LEN_MASK, val);
-> +
-> +_set_tdm_err_:
-> +	return ret;
-> +}
-> +
+ * DT binding for Tegra audio graph is updated to included "ports { }"
+
+ * As per the suggestion 'void *data' member is dropped from
+   'asoc_simple_priv' and instead container method is used to
+   maintain required custom data internal to Tegra audio graph. 
+
+v2 -> v3
+--------
+ * Dropped new compatible addition in generic graph driver
+   after reviewing it with Morimoto-san. Instead added Tegra
+   audio graph driver and new compatibles are added in the same.
+ * Added new patches to expose new members for customization
+   in audio graph driver.
+ * Added new patch for Tegra audio graph driver and related
+   documentation.
+ * Minor change in below commit where mutex version of helper is used
+   "ASoC: audio-graph: Identify 'no_pcm' DAI links for DPCM"
+ * DT binding is updated to use the newly exposed compatibles
+ * No changes in other patches
+
+v1 -> v2
+--------
+ * Re-organized ports/endpoints description for ADMAIF and XBAR.
+   Updated DT patches accordingly.
+ * After above change, multiple Codec endpoint support is not
+   required and hence dropped for now. This will be considered
+   separately if at all required in future.
+ * Re-ordered patches in the series.
+
+Sameer Pujar (7):
+  ASoC: soc-core: Fix component name_prefix parsing
+  ASoC: soc-pcm: Get all BEs along DAPM path
+  ASoC: audio-graph: Use of_node and DAI for DPCM DAI link names
+  ASoC: audio-graph: Identify 'no_pcm' DAI links for DPCM
+  ASoC: audio-graph: Support empty Codec endpoint
+  ASoC: audio-graph: Expose new members for asoc_simple_priv
+  ASoC: audio-graph: Expose helpers from audio graph
+
+ include/sound/graph_card.h           |  16 ++++
+ include/sound/simple_card_utils.h    |   3 +
+ include/sound/soc.h                  |   1 +
+ sound/soc/generic/audio-graph-card.c | 175 ++++++++++++++++++++++++-----------
+ sound/soc/soc-core.c                 |   3 +-
+ sound/soc/soc-pcm.c                  |   3 +-
+ 6 files changed, 143 insertions(+), 58 deletions(-)
+ create mode 100644 include/sound/graph_card.h
+
+-- 
+2.7.4
+

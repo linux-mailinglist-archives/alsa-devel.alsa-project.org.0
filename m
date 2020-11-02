@@ -2,98 +2,74 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8AD862A2C5D
-	for <lists+alsa-devel@lfdr.de>; Mon,  2 Nov 2020 15:15:37 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id D30A42A2D1F
+	for <lists+alsa-devel@lfdr.de>; Mon,  2 Nov 2020 15:41:01 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 08A391709;
-	Mon,  2 Nov 2020 15:14:47 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 08A391709
+	by alsa0.perex.cz (Postfix) with ESMTPS id 68634171F;
+	Mon,  2 Nov 2020 15:40:11 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 68634171F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1604326537;
-	bh=KzkPibOsFDyCp+HUXw881QpMJO8KttiDpWptfqyTzBs=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
+	s=default; t=1604328061;
+	bh=KpJty3oiki6h0YdYHu1NHIFu21+mA2Am7+1yhjzp018=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=Zze9gZrmOL9odvXGS56MXUad8nhDokTdOi1FLA6E4fknazyEojY2PX9YPPMp7FEQ/
-	 QRniy7qUAvusZT6VR52SR3yTrKlPJ6UNcLeo4Mv4YJPOw7r6Qe7mJ80UAbJwTkCRnl
-	 dZv0uBsSXhVzpdnV7hKxnTVhgpry4ernQpF1bioA=
+	b=F2+tqGhA1gmpUCLrY9aVtE6S8ELpSKUKl/wAGIRPRvqgGXnPH5y8B5WRxQ8k7OKLf
+	 ZAMFAqwPNNizgNjuXdrq8kXhpU3aXlEelrqXZ+aMZTc3i1SBVhU5n12NgBEW+d2JOG
+	 9flTutztKw6S66yFGbUWa6YkRtC00RLLbOhGXytQ=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 15B76F80083;
-	Mon,  2 Nov 2020 15:14:04 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id A89EEF80234;
+	Mon,  2 Nov 2020 15:39:28 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 10C7AF80083; Mon,  2 Nov 2020 15:14:02 +0100 (CET)
+ id D219DF80232; Mon,  2 Nov 2020 15:39:25 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIMWL_WL_MED,DKIM_SIGNED,
- DKIM_VALID,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
-Received: from mail-lf1-x141.google.com (mail-lf1-x141.google.com
- [IPv6:2a00:1450:4864:20::141])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+ DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id C3A45F80083
- for <alsa-devel@alsa-project.org>; Mon,  2 Nov 2020 15:13:57 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C3A45F80083
+ by alsa1.perex.cz (Postfix) with ESMTPS id 790B4F8015A
+ for <alsa-devel@alsa-project.org>; Mon,  2 Nov 2020 15:39:18 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 790B4F8015A
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=google.com header.i=@google.com
- header.b="ZM4LaTgz"
-Received: by mail-lf1-x141.google.com with SMTP id f9so17669965lfq.2
- for <alsa-devel@alsa-project.org>; Mon, 02 Nov 2020 06:13:57 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=KxbCraeiLdRhhJpaK4sNkK6tPwuu92CTTqqZ8+wCJio=;
- b=ZM4LaTgzml5bUPWSYTKj3diGMPNamkdpShH5l8t1VMnmUehipaDrX71br6RaGOveNc
- /yl8Xzi0wn8Cxlsb498dQw5DOCL5LLMqIUxozIqEL8Jv/Dfj/H+Bb9yIVxfgwO2Qgwq3
- eUytQo5ExrWGWR6O4ZESs3SNl+spxTGTn5gsYW9CwiSsMuMHxhVbhV+NhCgL3wDzIWn4
- Ht6OUKJNYAkn1Hfq3yRM9OUyYjva3aGEPid7gLU80nOcfW8sb4adbwyvbbNYDBFH4WqG
- 26EaYiNDR9YIwdHeFIDLSJilMRqoe/8Z2OeUaLrrI1jXOwP2uh3xV7We0sPiS4LFhUPm
- 1lxw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=KxbCraeiLdRhhJpaK4sNkK6tPwuu92CTTqqZ8+wCJio=;
- b=RX3O9ucv3KXb2avQ1VdYn4bVkoWjWLkLUSWBuOub5muEqge/3IpMWkhxnrW5F2CE00
- FBXVbQuE9G6ZnO53TkTBLCwKaGMpBVn/0TxXoO1e4DgXwrefXka/s5tuE8kT0WUo/5fy
- CR7zxv5fpbp1Hmk6AuIhhjPPFL2Vk82C+Wn/ppw/41a5A1ZjAIlBTyooFyYPMZ9Jp3DD
- 1lcaIVP+6wIgOI19j5sgCpE1w6ISu3Uy7csOasIf+AmKXxNqfRh/orIhBxsY6QlutN1O
- NYKwk2t4M+1cFXFi7FlD+k4pgYqapafnrAU9uydWQ3c2WFGYhq1xwnDfeMNwh8WGUGBI
- XW/A==
-X-Gm-Message-State: AOAM533RjPySmAsUHVr5TKUkkw6pMe10FHdpBfOTDhCf6J0qdbJ2zUwS
- hdviAJahO47Y2cxYvR3UspO2FD/c3+rFg1LTZ+jkqA==
-X-Google-Smtp-Source: ABdhPJzqeipx/W1I0SHKEcjfqh+sscD2n/q6sWL0P3hkangcPzWHpBBKHArZunBT2LjnW+rq6DfD3qni7BR6JlMFOpE=
-X-Received: by 2002:a19:a56:: with SMTP id 83mr4927665lfk.131.1604326435967;
- Mon, 02 Nov 2020 06:13:55 -0800 (PST)
+ dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="FN1lX9Px"
+Received: from localhost (fw-tnat.cambridge.arm.com [217.140.96.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by mail.kernel.org (Postfix) with ESMTPSA id 67E792072C;
+ Mon,  2 Nov 2020 14:39:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=default; t=1604327956;
+ bh=KpJty3oiki6h0YdYHu1NHIFu21+mA2Am7+1yhjzp018=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=FN1lX9PxLoXzWXOAX/+61VE/buxJ/jcVtFucnRKUtr94/vuc4aNNcXtP9DqYDu0x/
+ QnMyR2ixMlniJMhSlUZ5WafZJsrH8ef6QBQmdHznXlAnCV6vlsL6qJaCKkNuWAneUq
+ BL61be2cZHtu3+SkxogT+DBUJts47tMGMvwNcNpc=
+Date: Mon, 2 Nov 2020 14:39:07 +0000
+From: Mark Brown <broonie@kernel.org>
+To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+Subject: Re: [PATCH v2 2/2] ASoC: soc-compress: assume SNDRV_PCM_STREAM_xxx
+ and SND_COMPRESS_xxx are same
+Message-ID: <20201102143907.GA5014@sirena.org.uk>
+References: <875z6smszj.wl-kuninori.morimoto.gx@renesas.com>
+ <87361wmsyg.wl-kuninori.morimoto.gx@renesas.com>
+ <20201030140150.GE4405@sirena.org.uk>
+ <87v9eohe5t.wl-kuninori.morimoto.gx@renesas.com>
 MIME-Version: 1.0
-References: <20201102062408.331572-1-ajye_huang@compal.corp-partner.google.com>
- <20201102062408.331572-3-ajye_huang@compal.corp-partner.google.com>
- <CA+Px+wV9Lmdphp4iMgF1d72vewb2m9aiZzywvavLGgtkAczCDQ@mail.gmail.com>
-In-Reply-To: <CA+Px+wV9Lmdphp4iMgF1d72vewb2m9aiZzywvavLGgtkAczCDQ@mail.gmail.com>
-From: Ajye Huang <ajye_huang@compal.corp-partner.google.com>
-Date: Mon, 2 Nov 2020 22:13:45 +0800
-Message-ID: <CALprXBZ-nO5NtgEeS+G4bhE=EHcwvtZOOa67ea4k=CXyT+JpJg@mail.gmail.com>
-Subject: Re: [PATCH v3 2/2] ASoC: qcom: sc7180: Modify machine driver for 2mic
-To: Tzung-Bi Shih <tzungbi@google.com>
-Content-Type: text/plain; charset="UTF-8"
-Cc: Douglas Anderson <dianders@chromium.org>,
- "open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS"
- <devicetree@vger.kernel.org>, ALSA development <alsa-devel@alsa-project.org>,
- Banajit Goswami <bgoswami@codeaurora.org>,
- Srinivasa Rao Mandadapu <srivasam@codeaurora.org>,
- Liam Girdwood <lgirdwood@gmail.com>, Ajye Huang <ajye.huang@gmail.com>,
- Patrick Lai <plai@codeaurora.org>,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- Rob Herring <robh+dt@kernel.org>, Bjorn Andersson <bjorn.andersson@linaro.org>,
- Mark Brown <broonie@kernel.org>, Rohit kumar <rohitkr@codeaurora.org>,
- Andy Gross <agross@kernel.org>, Tzung-Bi Shih <tzungbi@chromium.org>,
- linux-arm-msm <linux-arm-msm@vger.kernel.org>,
- Srini Kandagatla <srinivas.kandagatla@linaro.org>,
- "moderated list:ARM/Mediatek SoC support"
- <linux-arm-kernel@lists.infradead.org>,
- Cheng-Yi Chiang <cychiang@chromium.org>
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="qDbXVdCdHGoSgWSk"
+Content-Disposition: inline
+In-Reply-To: <87v9eohe5t.wl-kuninori.morimoto.gx@renesas.com>
+X-Cookie: I've only got 12 cards.
+User-Agent: Mutt/1.10.1 (2018-07-13)
+Cc: Linux-ALSA <alsa-devel@alsa-project.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -109,54 +85,40 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Mon, Nov 2, 2020 at 6:46 PM Tzung-Bi Shih <tzungbi@google.com> wrote:
->
-> On Mon, Nov 2, 2020 at 2:24 PM Ajye Huang <ajye.huang@gmail.com> wrote:
-> >
-> > In addition, having mixer control to switch between DMICs by
-> > using "dmic-gpios" property.
-> >
-> > Refer to this one as an example,
-> > commit b7a742cff3f6 ("ASoC: AMD: Use mixer control to switch between DMICs")
-> >
-> > Signed-off-by: Ajye Huang <ajye_huang@compal.corp-partner.google.com>
->
-> I am not sure if it would be better if you use another email (e.g.
-> @gmail) for signoff.
->
-hi, Tzung-Bi
-Thank you for your review, it's our company's rule to use  this PD account
 
-> > +static int dmic_get(struct snd_kcontrol *kcontrol,
-> > +                   struct snd_ctl_elem_value *ucontrol)
-> > +{
-> > +       struct snd_soc_dapm_context *dapm = snd_soc_dapm_kcontrol_dapm(kcontrol);
-> > +       struct sc7180_snd_data *data = snd_soc_card_get_drvdata(dapm->card);
-> > +
-> > +       if (data)
->
-> You don't need to check for NULL.  If snd_soc_card_get_drvdata()
-> returns NULL, it shouldn't run into here.  See other
-> snd_soc_card_get_drvdata() calls in the file.
->
-your are right, I will remove on v4
+--qDbXVdCdHGoSgWSk
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-> > +static int dmic_set(struct snd_kcontrol *kcontrol,
-> > +                   struct snd_ctl_elem_value *ucontrol)
-> > +{
-> > +       struct snd_soc_dapm_context *dapm = snd_soc_dapm_kcontrol_dapm(kcontrol);
-> > +       struct sc7180_snd_data *data = snd_soc_card_get_drvdata(dapm->card);
-> > +
-> > +       if (data) {
->
-> Ditto.
->
-I will remove it on v4
+On Mon, Nov 02, 2020 at 08:08:57AM +0900, Kuninori Morimoto wrote:
 
-> > +               if (IS_ERR(data->dmic_sel)) {
-> > +                       dev_err(&pdev->dev, "DMIC gpio failed err=%d\n",
-> > +                               PTR_ERR(data->dmic_sel));
-> > +                               return PTR_ERR(data->dmic_sel);
->
-> Remove 1 level indent.
-Your are really attentive, I will remove the indent on v4, thank you so much.
+> > > From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+> >=20
+> > > soc-compress.c is using both SND_COMPRESS_xxx and SND_COMPRESS_xxx.
+> >=20
+> > I think one of these is supposed to be SND_PCM_STREAM_xxx!  Otherwise
+> > this looks OK.
+
+> Grr, indeed.
+> Do I need to resend ?
+> Or can you fixup it ?
+
+I should be able to update it.
+
+--qDbXVdCdHGoSgWSk
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl+gGgoACgkQJNaLcl1U
+h9B0ywf/WEFrgHnDyMEF2H3iTNlIPDyF20WdiIzF8/OaZqBuGWKF8Jop3lM5oXmc
+FVFYhGcsfHcPmR/pPEh/hhrRUvJV6IOCQ168EbnNcjfa6IRFWbhKBrczYQL+2dBy
+cAAQdfg5Q9w30IeTeNKKqeU8BLwAOnZEUjvJVE0oGgR6niRCIjKxKh07+RMAluwh
+xnN3mx/oyhRHueyi7C+jfBCUZ+4HPh7zAKE/8MbSJ1BEzMTVIS+TCzI653+r4zuO
+sOaMVRK7SjodrNLNos6c8vyhmZsCh0T3Vu3rB5bF65YLQSrGh2mV5XxWGbQ6qCdG
+riZvacSsw7yFZmAG4JVO0tC1Xu9Xrg==
+=tbnu
+-----END PGP SIGNATURE-----
+
+--qDbXVdCdHGoSgWSk--

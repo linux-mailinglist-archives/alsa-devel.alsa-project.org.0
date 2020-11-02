@@ -2,101 +2,73 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 22EE72A2D85
-	for <lists+alsa-devel@lfdr.de>; Mon,  2 Nov 2020 16:01:34 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id BB2E92A2D96
+	for <lists+alsa-devel@lfdr.de>; Mon,  2 Nov 2020 16:05:08 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A3C291724;
-	Mon,  2 Nov 2020 16:00:43 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A3C291724
+	by alsa0.perex.cz (Postfix) with ESMTPS id 603941737;
+	Mon,  2 Nov 2020 16:04:18 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 603941737
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1604329293;
-	bh=8j66TIBWXILvqygSj4CKLOGmUlomy8+qAnAsPEXcM7U=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1604329508;
+	bh=XLsFfCx1l1LuiUExxvDWYcrLC/Xm4VNG3M4aRjlK+tg=;
+	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=VCCMHw/+YOuuvqBKNzQLK7ZJZnA0e8O8AliCCE1rTBdiaweVA3xrTCvOqSxy+FoEg
-	 ZyNh1uf+wpWY1TjLcx+UPssG8GxGf5XjQYdQDCAyKD5DR1n6Q1noIxJQD5PN3j7L2g
-	 /UB0taHeLpBPZX3gkWv6s3ePcgghTy/LhhZoDeaQ=
+	b=jPiVAONiBiZGQnMhIBm/ZWADhFSpUWbWjKqjwFv8xVs83ZDR4B6NCNjlIJ58AoExq
+	 XwsMYRJQVz6JSfsOvz6E0t1zhf2S2P/LvTgE/qibtfl7YuRaK7QXyeqUcwToi49yye
+	 i3MvMSzp+i182Pg5fayDX+TwrC14iFi/eBvDvKH8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 0CB39F80234;
-	Mon,  2 Nov 2020 16:00:01 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 9C65CF8012B;
+	Mon,  2 Nov 2020 16:02:47 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id DBE14F80232; Mon,  2 Nov 2020 15:59:59 +0100 (CET)
+ id 3A15CF80256; Mon,  2 Nov 2020 16:02:45 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,RCVD_IN_MSPIKE_H2,SPF_HELO_PASS,SPF_NONE,
- UNPARSEABLE_RELAY autolearn=disabled version=3.4.0
-Received: from aserp2130.oracle.com (aserp2130.oracle.com [141.146.126.79])
+X-Spam-Status: No, score=-0.0 required=5.0 tests=NICE_REPLY_A,
+ RCVD_IN_MSPIKE_H3, RCVD_IN_MSPIKE_WL, SPF_HELO_NONE,
+ SPF_NONE autolearn=disabled version=3.4.0
+Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id D2BA8F8015A
- for <alsa-devel@alsa-project.org>; Mon,  2 Nov 2020 15:59:55 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D2BA8F8015A
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=oracle.com header.i=@oracle.com
- header.b="yNUori9l"
-Received: from pps.filterd (aserp2130.oracle.com [127.0.0.1])
- by aserp2130.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 0A2ExWui142564;
- Mon, 2 Nov 2020 14:59:51 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com;
- h=date : from : to : cc
- : subject : message-id : references : mime-version : content-type :
- in-reply-to; s=corp-2020-01-29;
- bh=oSzoJ2/JEwfGSceWXmutharoUBDB84vGx8xKZZcetWg=;
- b=yNUori9lpzHuAzWGbny66FXrMMrmYMEDNPCRMaWJrfIDJKoN+Y7lDkSGkst1mbPguS/8
- jb8I7ka45yH6ABhkRyUzJQh6iSHMJsS/C2h/HpktnYGnDt16KiduPnQnzP6GmGhOPfdR
- voPywbwnOryPnRvtC//dkw1Spj41yO8sGRt4mnaCkOROeNfPP29NUYoa9RNBoHnnhgKF
- MihER9+etfUOjNApLJJqSiNjIWD+wwQ/kTHzo8y2cHTdhLp93ON11N5Z69p3wVlH+KNi
- jFPZl7dVPYjndBa8BMzMLrVVwyrAo61Jz8d0A0DG8UIfqS9yG1Sif+a5Y8O4PwBbLxMk sA== 
-Received: from aserp3030.oracle.com (aserp3030.oracle.com [141.146.126.71])
- by aserp2130.oracle.com with ESMTP id 34hhb1vbej-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
- Mon, 02 Nov 2020 14:59:51 +0000
-Received: from pps.filterd (aserp3030.oracle.com [127.0.0.1])
- by aserp3030.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 0A2EojmN148510;
- Mon, 2 Nov 2020 14:57:51 GMT
-Received: from aserv0122.oracle.com (aserv0122.oracle.com [141.146.126.236])
- by aserp3030.oracle.com with ESMTP id 34jf46mpqr-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Mon, 02 Nov 2020 14:57:51 +0000
-Received: from abhmp0016.oracle.com (abhmp0016.oracle.com [141.146.116.22])
- by aserv0122.oracle.com (8.14.4/8.14.4) with ESMTP id 0A2Evpng014104;
- Mon, 2 Nov 2020 14:57:51 GMT
-Received: from kadam (/41.57.98.10) by default (Oracle Beehive Gateway v4.0)
- with ESMTP ; Mon, 02 Nov 2020 06:57:50 -0800
-Date: Mon, 2 Nov 2020 17:57:44 +0300
-From: Dan Carpenter <dan.carpenter@oracle.com>
-To: Viorel Suman <viorel.suman@nxp.com>
-Subject: Re: [bug report] ASoC: fsl_xcvr: Add XCVR ASoC CPU DAI driver
-Message-ID: <20201102145526.GY18329@kadam>
-References: <20201102135317.GA41527@mwanda>
- <VI1PR0401MB2272D142F42AA5A2BDA10F6092100@VI1PR0401MB2272.eurprd04.prod.outlook.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 3BE33F80232
+ for <alsa-devel@alsa-project.org>; Mon,  2 Nov 2020 16:02:42 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3BE33F80232
+IronPort-SDR: RlRp6Kc422QqEwxFVR/6A5+xO/XCA9U+hxrinLUCwyiOS6dzKYYcN4ShW1ecoDz4zsNa7JVC0E
+ SPxbF2zozigw==
+X-IronPort-AV: E=McAfee;i="6000,8403,9793"; a="155883727"
+X-IronPort-AV: E=Sophos;i="5.77,445,1596524400"; d="scan'208";a="155883727"
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from fmsmga005.fm.intel.com ([10.253.24.32])
+ by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 02 Nov 2020 07:02:41 -0800
+IronPort-SDR: QuG3lUHRZGvFUqxt7qZ6hSlrL8JdR/LIwsd1ayZg4vx48vPPPmAD1ct3IckSS4rajYVuJHqMbS
+ LqgJ7a++y1kQ==
+X-IronPort-AV: E=Sophos;i="5.77,445,1596524400"; d="scan'208";a="528043551"
+Received: from pvrott-mobl1.amr.corp.intel.com (HELO [10.212.253.243])
+ ([10.212.253.243])
+ by fmsmga005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 02 Nov 2020 07:02:39 -0800
+Subject: Re: [PATCH] ASoC: rt1015: support TDM slot configuration
+To: shumingf@realtek.com, broonie@kernel.org, lgirdwood@gmail.com
+References: <20201102091656.25379-1-shumingf@realtek.com>
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Message-ID: <3d8b58fa-81c2-ea9e-8627-b5c58ca91c7a@linux.intel.com>
+Date: Mon, 2 Nov 2020 09:01:15 -0600
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.10.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <VI1PR0401MB2272D142F42AA5A2BDA10F6092100@VI1PR0401MB2272.eurprd04.prod.outlook.com>
-User-Agent: Mutt/1.9.4 (2018-02-28)
-X-Proofpoint-Virus-Version: vendor=nai engine=6000 definitions=9792
- signatures=668682
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 spamscore=0
- suspectscore=0 mlxscore=0
- bulkscore=0 malwarescore=0 mlxlogscore=855 phishscore=0 adultscore=0
- classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2009150000
- definitions=main-2011020119
-X-Proofpoint-Virus-Version: vendor=nai engine=6000 definitions=9792
- signatures=668682
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 bulkscore=0
- phishscore=0 suspectscore=0
- clxscore=1015 mlxlogscore=889 impostorscore=0 malwarescore=0
- lowpriorityscore=0 adultscore=0 spamscore=0 priorityscore=1501 mlxscore=0
- classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2009150000
- definitions=main-2011020120
-Cc: "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>
+In-Reply-To: <20201102091656.25379-1-shumingf@realtek.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
+Cc: oder_chiou@realtek.com, jack.yu@realtek.com, alsa-devel@alsa-project.org,
+ lars@metafoo.de, kent_chen@realtek.com, Keith.Tzeng@quantatw.com,
+ derek.fang@realtek.com, brent.lu@intel.com, flove@realtek.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -112,17 +84,122 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Mon, Nov 02, 2020 at 02:02:42PM +0000, Viorel Suman wrote:
-> Hi Dan,
-> 
-> There is no issue, the context is that the clock is enabled when " fsl_xcvr_en_aud_pll"
-> function is called - please check the line 356. The clock is disabled at line 356 in order
-> to allow the rate change at line 357, and then enabled at line 362. 
-> 
 
-Ah...  Right.  I have seen this pattern before and should have looked
-for it.  :/  Thanks!
 
-regards,
-dan carpenter
 
+> +static int rt1015_set_tdm_slot(struct snd_soc_dai *dai,
+> +	unsigned int tx_mask, unsigned int rx_mask, int slots, int slot_width)
+> +{
+> +	struct snd_soc_component *component = dai->component;
+> +	unsigned int val = 0, rx_slotnum, tx_slotnum;
+> +	int ret = 0, first_bit;
+> +
+> +	switch (slots) {
+> +	case 4:
+> +		val |= RT1015_I2S_TX_4CH;
+> +		break;
+> +	case 6:
+> +		val |= RT1015_I2S_TX_6CH;
+> +		break;
+> +	case 8:
+> +		val |= RT1015_I2S_TX_8CH;
+> +		break;
+> +	case 2:
+> +		break;
+
+nit-pick: I would put the case 2 first to keep the order. I thought for 
+a second this was an error case due to the discontinuity.
+
+> +	default:
+> +		ret = -EINVAL;
+> +		goto _set_tdm_err_;
+> +	}
+> +
+> +	switch (slot_width) {
+> +	case 20:
+> +		val |= RT1015_I2S_CH_TX_LEN_20B;
+> +		break;
+> +	case 24:
+> +		val |= RT1015_I2S_CH_TX_LEN_24B;
+> +		break;
+> +	case 32:
+> +		val |= RT1015_I2S_CH_TX_LEN_32B;
+> +		break;
+> +	case 16:
+> +		break;
+
+nit-pick: same here, I would put 16 first.
+
+> +	default:
+> +		ret = -EINVAL;
+> +		goto _set_tdm_err_;
+> +	}
+> +
+> +	/* Rx slot configuration */
+> +	rx_slotnum = hweight_long(rx_mask);
+> +	if (rx_slotnum > 1 || !rx_slotnum) {
+
+I am confused here, is this saying you can only have a single channel on RX?
+
+If yes should this be simplified as if (rx_slotnum != 1) ?
+
+> +		ret = -EINVAL;
+> +		dev_err(component->dev, "too many rx slots or zero slot\n");
+> +		goto _set_tdm_err_;
+> +	}
+> +
+> +	first_bit = __ffs(rx_mask);
+> +	switch (first_bit) {
+> +	case 0:
+> +	case 2:
+> +	case 4:
+> +	case 6:
+> +		snd_soc_component_update_bits(component,
+> +			RT1015_PAD_DRV2, RT1015_MONO_LR_SEL_MASK,
+> +			RT1015_MONO_L_CHANNEL);
+> +		snd_soc_component_update_bits(component,
+> +			RT1015_TDM1_4,
+> +			RT1015_TDM_I2S_TX_L_DAC1_1_MASK |
+> +			RT1015_TDM_I2S_TX_R_DAC1_1_MASK,
+> +			(first_bit << RT1015_TDM_I2S_TX_L_DAC1_1_SFT) |
+> +			((first_bit+1) << RT1015_TDM_I2S_TX_R_DAC1_1_SFT));
+
+looks like there's an assumption that the rx mask has contiguous bits 
+set? Maybe add a comment to explain how the RX path works?
+
+> +		break;
+> +	case 1:
+> +	case 3:
+> +	case 5:
+> +	case 7:
+> +		snd_soc_component_update_bits(component,
+> +			RT1015_PAD_DRV2, RT1015_MONO_LR_SEL_MASK,
+> +			RT1015_MONO_R_CHANNEL);
+> +		snd_soc_component_update_bits(component,
+> +			RT1015_TDM1_4,
+> +			RT1015_TDM_I2S_TX_L_DAC1_1_MASK |
+> +			RT1015_TDM_I2S_TX_R_DAC1_1_MASK,
+> +			((first_bit-1) << RT1015_TDM_I2S_TX_L_DAC1_1_SFT) |
+> +			(first_bit << RT1015_TDM_I2S_TX_R_DAC1_1_SFT));
+> +		break;
+> +	default:
+> +		ret = -EINVAL;
+> +		goto _set_tdm_err_;
+> +	}
+> +
+> +	/* Tx slot configuration */
+> +	tx_slotnum = hweight_long(tx_mask);
+> +	if (tx_slotnum) {
+> +		ret = -EINVAL;
+> +		dev_err(component->dev, "doesn't need to support tx slots\n");
+> +		goto _set_tdm_err_;
+> +	}
+> +
+> +	snd_soc_component_update_bits(component, RT1015_TDM1_1,
+> +		RT1015_I2S_CH_TX_MASK | RT1015_I2S_CH_RX_MASK |
+> +		RT1015_I2S_CH_TX_LEN_MASK | RT1015_I2S_CH_RX_LEN_MASK, val);
+> +
+> +_set_tdm_err_:
+> +	return ret;
+> +}
+> +

@@ -2,95 +2,85 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A14D72A2C25
-	for <lists+alsa-devel@lfdr.de>; Mon,  2 Nov 2020 14:55:08 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3BA3E2A2C3E
+	for <lists+alsa-devel@lfdr.de>; Mon,  2 Nov 2020 15:03:38 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 2ADDF16FF;
-	Mon,  2 Nov 2020 14:54:18 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2ADDF16FF
+	by alsa0.perex.cz (Postfix) with ESMTPS id CFB81170A;
+	Mon,  2 Nov 2020 15:02:47 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CFB81170A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1604325308;
-	bh=Y0jhN3/yz16pmSvMySEIR3NNb1IMG6HGjn6qHB/sC4s=;
-	h=Date:From:To:Subject:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=sqGFUF7x4RjtPB3V9dVOlgi0W7pGUJBAsLW9d7zcGv6QKADH66q0ovDdhu4SND4Ty
-	 bVZQTbfxAz/tC8qcGxVTPSM8TIJakaM9lCEUmTd/mtXMwluiVTv9s13zP5MKkzv0dn
-	 x15oNci7bR/PqqinY6jyuRMOrXc+i4pcMKphXfmw=
+	s=default; t=1604325817;
+	bh=7Ohm+i94CyHrsbtz1AvHD7wdVoimYNKt5El0LPVZWvI=;
+	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=Btj3nCrEz2N44rFfGUNvxpjhg1YCQNWilE39iVLqTfe52eMYcCrq0sTaAL+LrMTZX
+	 HD/E0WBLOqosS4GbQKGLXfwP388a0ONmcCEATOgkCPDUOjGL6PVG9YxrkvvoOGeFLb
+	 OL/hK3jZsRJdMGv36wTdJEUnevMivPgCP6idwETs=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 67F39F80234;
-	Mon,  2 Nov 2020 14:53:35 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 456E3F80083;
+	Mon,  2 Nov 2020 15:02:05 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 00E88F80232; Mon,  2 Nov 2020 14:53:32 +0100 (CET)
+ id 9E3E0F80232; Mon,  2 Nov 2020 15:02:02 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,RCVD_IN_MSPIKE_H2,SPF_HELO_PASS,SPF_NONE,
- UNPARSEABLE_RELAY autolearn=disabled version=3.4.0
-Received: from aserp2120.oracle.com (aserp2120.oracle.com [141.146.126.78])
+X-Spam-Status: No, score=0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+ DKIM_VALID,DKIM_VALID_AU,NICE_REPLY_A,PRX_BODY_78,RCVD_IN_MSPIKE_H3,
+ RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
+Received: from fllv0016.ext.ti.com (fllv0016.ext.ti.com [198.47.19.142])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 880D8F80083
- for <alsa-devel@alsa-project.org>; Mon,  2 Nov 2020 14:53:28 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 880D8F80083
+ by alsa1.perex.cz (Postfix) with ESMTPS id DB21BF80083
+ for <alsa-devel@alsa-project.org>; Mon,  2 Nov 2020 15:01:55 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DB21BF80083
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=oracle.com header.i=@oracle.com
- header.b="xd+2AV/7"
-Received: from pps.filterd (aserp2120.oracle.com [127.0.0.1])
- by aserp2120.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 0A2DnLqt169159;
- Mon, 2 Nov 2020 13:53:25 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com;
- h=date : from : to : cc
- : subject : message-id : mime-version : content-type; s=corp-2020-01-29;
- bh=LFXAmn7suagsiua0G6v2ocK5iAJrjIEdCRXSuFoOXR4=;
- b=xd+2AV/7OzF7U4iXU65Abr6wr0mbWWa8aON9DJB/zYKIMojcCRybIuNNORl8BQ72Vjjh
- WP1UBxKtr6kvraZYKzYzoGx2fDHAuVu+qzghzVgnC6HstjEGcxygZLyel/O9Hryk0I72
- PnoZ04ZhLo38o+uC9xmIC1v8z5upJ+Ku7Jow2CSV4R0qEQaQhpdwRg/mr80O21aCare4
- SmYNtwyewzYdUMKNtLzYWPnvDeuvAyGhXz+HaG+21QYOYZ1RIN2ztucxKIciYGDRhmtX
- 0F4U3i0tbDc3q9ZenPuVHF57EhavXVkShfkqYIBIMMalce8th+vfDcc33Onp52OHUkl1 dQ== 
-Received: from aserp3030.oracle.com (aserp3030.oracle.com [141.146.126.71])
- by aserp2120.oracle.com with ESMTP id 34hhvc3xfh-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
- Mon, 02 Nov 2020 13:53:25 +0000
-Received: from pps.filterd (aserp3030.oracle.com [127.0.0.1])
- by aserp3030.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 0A2DojEi147563;
- Mon, 2 Nov 2020 13:53:25 GMT
-Received: from userv0121.oracle.com (userv0121.oracle.com [156.151.31.72])
- by aserp3030.oracle.com with ESMTP id 34jf46jdjx-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Mon, 02 Nov 2020 13:53:25 +0000
-Received: from abhmp0007.oracle.com (abhmp0007.oracle.com [141.146.116.13])
- by userv0121.oracle.com (8.14.4/8.13.8) with ESMTP id 0A2DrNoi009785;
- Mon, 2 Nov 2020 13:53:24 GMT
-Received: from mwanda (/41.57.98.10) by default (Oracle Beehive Gateway v4.0)
- with ESMTP ; Mon, 02 Nov 2020 05:53:22 -0800
-Date: Mon, 2 Nov 2020 16:53:17 +0300
-From: Dan Carpenter <dan.carpenter@oracle.com>
-To: viorel.suman@nxp.com
-Subject: [bug report] ASoC: fsl_xcvr: Add XCVR ASoC CPU DAI driver
-Message-ID: <20201102135317.GA41527@mwanda>
+ dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b="CHgJADqg"
+Received: from lelv0266.itg.ti.com ([10.180.67.225])
+ by fllv0016.ext.ti.com (8.15.2/8.15.2) with ESMTP id 0A2E1qgr086965;
+ Mon, 2 Nov 2020 08:01:52 -0600
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com;
+ s=ti-com-17Q1; t=1604325712;
+ bh=kQz4zXsRQht99vb39ccr75+jyFACg/Or7s3atKvkrVk=;
+ h=Subject:To:CC:References:From:Date:In-Reply-To;
+ b=CHgJADqgkjXbzbhbDzLRYHM9jVl456Bd6FvwzQNuXWHhb7iIx2j6jOHaOqLMVSjB3
+ 55GsdgKoFoa/Iz7Q0KhfOEBuJzlw4sjTtlrr1AFfgM6a3/44g9n3tJ+7aAdglxYU9V
+ VdwImiwUrkIyddsFfM8WryfPKeLLz0PTv3qCb5ME=
+Received: from DFLE104.ent.ti.com (dfle104.ent.ti.com [10.64.6.25])
+ by lelv0266.itg.ti.com (8.15.2/8.15.2) with ESMTPS id 0A2E1q0j047631
+ (version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=FAIL);
+ Mon, 2 Nov 2020 08:01:52 -0600
+Received: from DFLE109.ent.ti.com (10.64.6.30) by DFLE104.ent.ti.com
+ (10.64.6.25) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.1979.3; Mon, 2 Nov
+ 2020 08:01:08 -0600
+Received: from lelv0327.itg.ti.com (10.180.67.183) by DFLE109.ent.ti.com
+ (10.64.6.30) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.1979.3 via
+ Frontend Transport; Mon, 2 Nov 2020 08:01:08 -0600
+Received: from [192.168.2.6] (ileax41-snat.itg.ti.com [10.172.224.153])
+ by lelv0327.itg.ti.com (8.15.2/8.15.2) with ESMTP id 0A2E164N082717;
+ Mon, 2 Nov 2020 08:01:07 -0600
+Subject: Re: [PATCH] ASoC: ti: davinci-mcasp: remove always zero of
+ davinci_mcasp_get_dt_params
+To: Zhang Qilong <zhangqilong3@huawei.com>, <perex@perex.cz>, <tiwai@suse.com>
+References: <20201102103428.32678-1-zhangqilong3@huawei.com>
+From: Peter Ujfalusi <peter.ujfalusi@ti.com>
+Message-ID: <4b6487dc-5b23-11bc-3c3f-a38ce182f149@ti.com>
+Date: Mon, 2 Nov 2020 16:01:46 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.4.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-X-Proofpoint-Virus-Version: vendor=nai engine=6000 definitions=9792
- signatures=668682
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 spamscore=0
- suspectscore=3 mlxscore=0
- bulkscore=0 malwarescore=0 mlxlogscore=749 phishscore=0 adultscore=0
- classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2009150000
- definitions=main-2011020110
-X-Proofpoint-Virus-Version: vendor=nai engine=6000 definitions=9792
- signatures=668682
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 spamscore=0
- suspectscore=3
- impostorscore=0 malwarescore=0 priorityscore=1501 mlxlogscore=761
- bulkscore=0 phishscore=0 adultscore=0 mlxscore=0 lowpriorityscore=0
- clxscore=1011 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.12.0-2009150000 definitions=main-2011020110
-Cc: alsa-devel@alsa-project.org
+In-Reply-To: <20201102103428.32678-1-zhangqilong3@huawei.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Language: en-US
+Content-Transfer-Encoding: 8bit
+X-EXCLAIMER-MD-CONFIG: e1e8a2fd-e40a-4ac6-ac9b-f7e9cc9ee180
+Cc: alsa-devel@alsa-project.org, broonie@kernel.org, lgirdwood@gmail.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -106,64 +96,65 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hello Viorel Suman,
+Hi,
 
-The patch 28564486866f: "ASoC: fsl_xcvr: Add XCVR ASoC CPU DAI
-driver" from Oct 13, 2020, leads to the following static checker
-warning:
+On 02/11/2020 12.34, Zhang Qilong wrote:
+> davinci_mcasp_get_dt_params alway return zero, and its return value
+> could be ignored by the caller. So make it 'void' type to avoid the
+> check its return value.
 
-	sound/soc/fsl/fsl_xcvr.c:393 fsl_xcvr_en_aud_pll()
-	warn: 'xcvr->phy_clk' not released on lines: 373.
+Thanks for updating the patch!
 
-sound/soc/fsl/fsl_xcvr.c
-   351  static int fsl_xcvr_en_aud_pll(struct fsl_xcvr *xcvr, u32 freq)
-   352  {
-   353          struct device *dev = &xcvr->pdev->dev;
-   354          int ret;
-   355  
-   356          clk_disable_unprepare(xcvr->phy_clk);
-   357          ret = clk_set_rate(xcvr->phy_clk, freq);
-   358          if (ret < 0) {
-   359                  dev_err(dev, "Error while setting AUD PLL rate: %d\n", ret);
-   360                  return ret;
-   361          }
-   362          ret = clk_prepare_enable(xcvr->phy_clk);
-   363          if (ret) {
-   364                  dev_err(dev, "failed to start PHY clock: %d\n", ret);
-   365                  return ret;
-   366          }
-   367  
-   368          /* Release AI interface from reset */
-   369          ret = regmap_write(xcvr->regmap, FSL_XCVR_PHY_AI_CTRL_SET,
-   370                             FSL_XCVR_PHY_AI_CTRL_AI_RESETN);
-   371          if (ret < 0) {
-   372                  dev_err(dev, "Error while setting IER0: %d\n", ret);
+Acked-by: Peter Ujfalusi <peter.ujfalusi@ti.com>
 
-clck_disable_unprepare(xcvr->phy_clk)?
+> 
+> Fixes: 764958f2b5239 ("ASoC: ti: davinci-mcasp: Support for auxclk-fs-ratio")
+> Signed-off-by: Zhang Qilong <zhangqilong3@huawei.com>
+> ---
+>  sound/soc/ti/davinci-mcasp.c | 10 +++-------
+>  1 file changed, 3 insertions(+), 7 deletions(-)
+> 
+> diff --git a/sound/soc/ti/davinci-mcasp.c b/sound/soc/ti/davinci-mcasp.c
+> index 4b46dd827f3f..63c492862383 100644
+> --- a/sound/soc/ti/davinci-mcasp.c
+> +++ b/sound/soc/ti/davinci-mcasp.c
+> @@ -2112,20 +2112,18 @@ static inline int davinci_mcasp_init_gpiochip(struct davinci_mcasp *mcasp)
+>  }
+>  #endif /* CONFIG_GPIOLIB */
+>  
+> -static int davinci_mcasp_get_dt_params(struct davinci_mcasp *mcasp)
+> +static void davinci_mcasp_get_dt_params(struct davinci_mcasp *mcasp)
+>  {
+>  	struct device_node *np = mcasp->dev->of_node;
+>  	int ret;
+>  	u32 val;
+>  
+>  	if (!np)
+> -		return 0;
+> +		return;
+>  
+>  	ret = of_property_read_u32(np, "auxclk-fs-ratio", &val);
+>  	if (ret >= 0)
+>  		mcasp->auxclk_fs_ratio = val;
+> -
+> -	return 0;
+>  }
+>  
+>  static int davinci_mcasp_probe(struct platform_device *pdev)
+> @@ -2361,9 +2359,7 @@ static int davinci_mcasp_probe(struct platform_device *pdev)
+>  	if (ret)
+>  		goto err;
+>  
+> -	ret = davinci_mcasp_get_dt_params(mcasp);
+> -	if (ret)
+> -		return -EINVAL;
+> +	davinci_mcasp_get_dt_params(mcasp);
+>  
+>  	ret = devm_snd_soc_register_component(&pdev->dev,
+>  					&davinci_mcasp_component,
+> 
 
-   373                  return ret;
-   374          }
-   375  
-   376          if (xcvr->mode == FSL_XCVR_MODE_EARC) { /* eARC mode */
-   377                  /* PHY: CTRL_SET: TX_DIFF_OE, PHY_EN */
-   378                  fsl_xcvr_ai_write(xcvr, FSL_XCVR_PHY_CTRL_SET,
-   379                                    FSL_XCVR_PHY_CTRL_TSDIFF_OE |
-   380                                    FSL_XCVR_PHY_CTRL_PHY_EN, 1);
-   381                  /* PHY: CTRL2_SET: EARC_TX_MODE */
-   382                  fsl_xcvr_ai_write(xcvr, FSL_XCVR_PHY_CTRL2_SET,
-   383                                    FSL_XCVR_PHY_CTRL2_EARC_TXMS, 1);
-   384          } else { /* SPDIF mode */
-   385                  /* PHY: CTRL_SET: TX_CLK_AUD_SS | SPDIF_EN */
-   386                  fsl_xcvr_ai_write(xcvr, FSL_XCVR_PHY_CTRL_SET,
-   387                                    FSL_XCVR_PHY_CTRL_TX_CLK_AUD_SS |
-   388                                    FSL_XCVR_PHY_CTRL_SPDIF_EN, 1);
-   389          }
-   390  
-   391          dev_dbg(dev, "PLL Fexp: %u\n", freq);
-   392  
-   393          return 0;
-   394  }
+- Péter
 
-
-regards,
-dan carpenter
+Texas Instruments Finland Oy, Porkkalankatu 22, 00180 Helsinki.
+Y-tunnus/Business ID: 0615521-4. Kotipaikka/Domicile: Helsinki

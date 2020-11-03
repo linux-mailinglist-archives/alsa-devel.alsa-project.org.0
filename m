@@ -2,110 +2,93 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9763A2A4B66
-	for <lists+alsa-devel@lfdr.de>; Tue,  3 Nov 2020 17:27:56 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 746E02A4B6A
+	for <lists+alsa-devel@lfdr.de>; Tue,  3 Nov 2020 17:28:35 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E33C416B5;
-	Tue,  3 Nov 2020 17:27:04 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E33C416B5
+	by alsa0.perex.cz (Postfix) with ESMTPS id 137AD16AC;
+	Tue,  3 Nov 2020 17:27:45 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 137AD16AC
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1604420875;
-	bh=b9Ktpm35fisVuHEhjhohgaqyboE8BmrrMoCITk9vnK8=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=D+PWTydInD+DwhSZO/ltqvc0hbhWpmXOtY1OFNHJ8d6ka8kgEQg0soviH6VALx0Eg
-	 cgHkdAtKatBRUKvofVVpztKG6Ir4Fj8sC11DvQzPog/ijAOVcMVoaWi8UKHy19kP/G
-	 cl9RsXLanSglqgrQx1/gNrXd7Yp0dKN8EPbz9r+c=
+	s=default; t=1604420915;
+	bh=d+ldXSRbsv1Imz7drCjCyVPAynPcnbEcAo2ACfetZ0U=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=idbNcqyCQjvfV+MsTIaCAO9iZksxXXXyJDCQ7Ngd4WqLtJ8ycaeax4VtAVm7QzkmW
+	 BYcZw0yJR6cF9TATya8r97Eo26SdZqcF8bwwiQui/6yBlnaZJtJkTBSkogDyzDwwy+
+	 37/zrpAuuJ5tPpa2q9cnNDoYcn6rKC5fLDeOmJ8k=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id C7818F80279;
-	Tue,  3 Nov 2020 17:26:11 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 680BDF804BC;
+	Tue,  3 Nov 2020 17:26:12 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 00602F80171; Tue,  3 Nov 2020 11:12:23 +0100 (CET)
+ id 9BC6CF80171; Tue,  3 Nov 2020 11:33:40 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mail-il1-x142.google.com (mail-il1-x142.google.com
- [IPv6:2607:f8b0:4864:20::142])
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from mail-pf1-x444.google.com (mail-pf1-x444.google.com
+ [IPv6:2607:f8b0:4864:20::444])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 46ABBF80083
- for <alsa-devel@alsa-project.org>; Tue,  3 Nov 2020 11:12:15 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 46ABBF80083
+ by alsa1.perex.cz (Postfix) with ESMTPS id 9CD75F80108
+ for <alsa-devel@alsa-project.org>; Tue,  3 Nov 2020 11:33:33 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9CD75F80108
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=bgdev-pl.20150623.gappssmtp.com
- header.i=@bgdev-pl.20150623.gappssmtp.com header.b="0kZJ8Rb9"
-Received: by mail-il1-x142.google.com with SMTP id e16so1273162ile.0
- for <alsa-devel@alsa-project.org>; Tue, 03 Nov 2020 02:12:15 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=bgdev-pl.20150623.gappssmtp.com; s=20150623;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=b9Ktpm35fisVuHEhjhohgaqyboE8BmrrMoCITk9vnK8=;
- b=0kZJ8Rb9+0/H3MVDUevyCTWAc1pKYDKmZzYacQKCMmC/UQ66qmBgifq30qeC2iVztI
- ATPY1knKGSXDzJ6+Nm3tm3Ffn81WkUy/sBCmPfD94FibScrq8/Ui+9TUYldHJ7pcnk1t
- gx+nhhl2zwwSRNNGE6X3g+mK8ICIfWN15TzWFBAm2Ac+Fnp/Nc7mvMvQxol3TgeHLuHe
- fB2HlcDfVoQUKXEDUTDlyUi1MwQ1IJbHWYhRPhxFdctoJ/ps1THqNVawMwUkgd/uHgQv
- AYOBJizY9XV1L84dWspkXE7W+jTkhJPV/Ws9WaUAfWMNJujPYu+ExPkpZXByTNBy8wKU
- VaOg==
+ dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
+ header.b="CH26fav4"
+Received: by mail-pf1-x444.google.com with SMTP id 133so13808677pfx.11
+ for <alsa-devel@alsa-project.org>; Tue, 03 Nov 2020 02:33:33 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=MZVixt3bJyBbHov5aMt9uShWeZEKD4hMZGn5JRPvjGI=;
+ b=CH26fav4EiFBNQLGJlILxppem54CB0ajkcpfJiQokiKF8w2ciRqHiM5Vn7qWl986Wh
+ nr31g4d3lCaRE4OjZDV4rLR9lblTO8dmp4YZ7nn4otbne7JfsqwQ+muFLcUXGkeD7xcu
+ B6shll/g+kanR5s80BNcRLr2N4jDdo8uKJb+YZ56coqpHzHq8FbMbw5i7WKuIu/8W7OT
+ IJsYqSfo+ZMRJa8RmXoaR7+CodqFlb9qTV6+SQo3SIG57qhdJhIxYKXRlaY+x7oLnYRQ
+ 9nnBsQ+LPkK4v1iI1JOuLhECgSruym+taGG4SZSxF/5yKHufHBXUvKEZ5uxiiObFnvT5
+ uKlA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=b9Ktpm35fisVuHEhjhohgaqyboE8BmrrMoCITk9vnK8=;
- b=rtnAnh5nijhWt12Sjkl9SbY6MutZB+ohMiv4y5Hx3ve3pb9+i2PJlwMxcitCyEbwBs
- /4vBhZ8m8JkYnhuQziqkJ7XkdEo7nkyElmSAtxaV72WVJybiM9cgktb85PfkmyyeBr6B
- ZmC3wwSEI0cXU8uNqs/3kQGuelrne+333vpMM0NBoONrUubKIoa4reaQT3BxFY8GLSVS
- rmTu0SWfIoKNPQsSR5mAhvpaTRgGC8k56Y5BkFkZtA+9Ln+9PFtHK1ftXlqe5BcnTLRl
- RPzwggkr5Cn1mvoX1tZQloFuGIM79Km9zIcf46H6JwI/GW+6fRLixPaUa08KDOZKoOf+
- YLRQ==
-X-Gm-Message-State: AOAM531XFXUNvjF6wHRTFbV0hi+R5Cz2Qmo7bqsSX2Tuier3CFx9l/+Q
- i3pO1B3hh+HD6sAVq1iPNCOf9wkXjaFrwGLfJ1C6Fw==
-X-Google-Smtp-Source: ABdhPJxXaKRnidyqbx6iUG254lVJzvxaSAJ3Y8t7tBOtYCNJcNKDXTe4r/tIo6bcU8qIdoqImm6tntmYdwdU1LT5yRY=
-X-Received: by 2002:a05:6e02:926:: with SMTP id
- o6mr14285653ilt.287.1604398333472; 
- Tue, 03 Nov 2020 02:12:13 -0800 (PST)
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=MZVixt3bJyBbHov5aMt9uShWeZEKD4hMZGn5JRPvjGI=;
+ b=fbaC7vLCfLab16t+0fu4X+dyAAInuq3h0VtQKuUVLjme8SKcxjfNuwjVt78RJCRGu7
+ YEbVhMtuKvSnjuTaVm2FR/gPJQwnHD1oAplJbeUv3oAGOEvR0MFoM97xNpaluB3pZKX6
+ n36FP1XbyvIkO3E0ZvpSDp7bSImP1Usqf2VyH/fOr02eMxvzQzjRW8l4g1tCmfnzixC1
+ q14BzlAi3pP0j9d3tcoJQEmvuQVkIxwtQ5iqBxIs0xNXaUmQjgGVoVlfXIEBVYwzemQG
+ Y8rfL0BC1hQN0ycPdj2Na4ZjMB5dLvznXbqzs97tIL1P5HZ5mZmrelzwLMg/FV44GNa0
+ hFNQ==
+X-Gm-Message-State: AOAM530iLo7O4RBlQWRMen9qH5j+gw3rkUdiZ4G2AAPulKyqbCki7Pbt
+ sLD6TjLhh9jIC+/321n4KCM=
+X-Google-Smtp-Source: ABdhPJwl3L9RBgprLZouaOiIYJ3YcKEX3m/JWYT5+6JobmNGSf2xUCiX9/4D/Oo2O6SjeoZ3Kgdlmg==
+X-Received: by 2002:a17:90a:6501:: with SMTP id
+ i1mr3150107pjj.30.1604399611905; 
+ Tue, 03 Nov 2020 02:33:31 -0800 (PST)
+Received: from localhost.localdomain (80.251.221.29.16clouds.com.
+ [80.251.221.29])
+ by smtp.gmail.com with ESMTPSA id y4sm3041866pjc.53.2020.11.03.02.33.23
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 03 Nov 2020 02:33:31 -0800 (PST)
+From: Artem Lapkin <email2tema@gmail.com>
+X-Google-Original-From: Artem Lapkin <art@khadas.com>
+To: perex@perex.cz
+Subject: [PATCH] ALSA: usb-audio: add usb vendor id as DSD-capable for Khadas
+ devices
+Date: Tue,  3 Nov 2020 18:33:11 +0800
+Message-Id: <20201103103311.5435-1-art@khadas.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-References: <20201102152037.963-1-brgl@bgdev.pl>
- <21d80265fccfcb5d76851c84d1c2d88e0421ab85.camel@perches.com>
-In-Reply-To: <21d80265fccfcb5d76851c84d1c2d88e0421ab85.camel@perches.com>
-From: Bartosz Golaszewski <brgl@bgdev.pl>
-Date: Tue, 3 Nov 2020 11:12:02 +0100
-Message-ID: <CAMRc=Me4-4Cmoq3UdpYEEhERP6fvt97bEJsZYhrcFSQf+a_voA@mail.gmail.com>
-Subject: Re: [PATCH v2 0/8] slab: provide and use krealloc_array()
-To: Joe Perches <joe@perches.com>
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Tue, 03 Nov 2020 17:26:07 +0100
-Cc: Linux-ALSA <alsa-devel@alsa-project.org>, kvm@vger.kernel.org,
- "Michael S . Tsirkin" <mst@redhat.com>, David Airlie <airlied@linux.ie>,
- Gustavo Padovan <gustavo@padovan.org>,
- Linus Walleij <linus.walleij@linaro.org>,
- "open list:DRM PANEL DRIVERS" <dri-devel@lists.freedesktop.org>,
- linux-mm@kvack.org, Christoph Lameter <cl@linux.com>,
- Sumit Semwal <sumit.semwal@linaro.org>,
- Mauro Carvalho Chehab <mchehab@kernel.org>,
- Bartosz Golaszewski <bgolaszewski@baylibre.com>,
- Alexander Shishkin <alexander.shishkin@linux.intel.com>,
- David Rientjes <rientjes@google.com>,
- virtualization@lists.linux-foundation.org, Jason Wang <jasowang@redhat.com>,
- Linux Media Mailing List <linux-media@vger.kernel.org>,
- Robert Richter <rric@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, linaro-mm-sig@lists.linaro.org,
- "open list:GPIO SUBSYSTEM" <linux-gpio@vger.kernel.org>,
- Borislav Petkov <bp@alien8.de>,
- Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
- Andrew Morton <akpm@linux-foundation.org>, linux-edac@vger.kernel.org,
- Tony Luck <tony.luck@intel.com>, netdev <netdev@vger.kernel.org>,
- Takashi Iwai <tiwai@suse.com>,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- Pekka Enberg <penberg@kernel.org>, James Morse <james.morse@arm.com>,
- Daniel Vetter <daniel@ffwll.ch>, Joonsoo Kim <iamjoonsoo.kim@lge.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+Cc: alsa-devel@alsa-project.org, gouwa@khadas.com, gregkh@linuxfoundation.org,
+ tiwai@suse.com, linux-kernel@vger.kernel.org, joakim.tjernlund@infinera.com,
+ alexander@tsoy.me, jesus-ramos@live.com, nick@khadas.com, art@khadas.com,
+ davem@davemloft.net
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -121,31 +104,27 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Tue, Nov 3, 2020 at 5:14 AM Joe Perches <joe@perches.com> wrote:
->
-> On Mon, 2020-11-02 at 16:20 +0100, Bartosz Golaszewski wrote:
-> > From: Bartosz Golaszewski <bgolaszewski@baylibre.com>
-> >
-> > Andy brought to my attention the fact that users allocating an array of
-> > equally sized elements should check if the size multiplication doesn't
-> > overflow. This is why we have helpers like kmalloc_array().
-> >
-> > However we don't have krealloc_array() equivalent and there are many
-> > users who do their own multiplication when calling krealloc() for arrays.
-> >
-> > This series provides krealloc_array() and uses it in a couple places.
->
-> My concern about this is a possible assumption that __GFP_ZERO will
-> work, and as far as I know, it will not.
->
+Khadas audio devices ( USB_ID_VENDOR 0x3353 )
+have DSD-capable implementations from XMOS
+need add new usb vendor id for recognition
 
-Yeah so I had this concern for devm_krealloc() and even sent a patch
-that extended it to honor __GFP_ZERO before I noticed that regular
-krealloc() silently ignores __GFP_ZERO. I'm not sure if this is on
-purpose. Maybe we should either make krealloc() honor __GFP_ZERO or
-explicitly state in its documentation that it ignores it?
+Signed-off-by: Artem Lapkin <art@khadas.com>
+---
+ sound/usb/quirks.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-This concern isn't really related to this patch as such - it's more of
-a general krealloc() inconsistency.
+diff --git a/sound/usb/quirks.c b/sound/usb/quirks.c
+index b4fa80ef730..c989ad8052a 100644
+--- a/sound/usb/quirks.c
++++ b/sound/usb/quirks.c
+@@ -1800,6 +1800,7 @@ u64 snd_usb_interface_dsd_format_quirks(struct snd_usb_audio *chip,
+ 	case 0x278b:  /* Rotel? */
+ 	case 0x292b:  /* Gustard/Ess based devices */
+ 	case 0x2ab6:  /* T+A devices */
++	case 0x3353:  /* Khadas devices */
+ 	case 0x3842:  /* EVGA */
+ 	case 0xc502:  /* HiBy devices */
+ 		if (fp->dsd_raw)
+-- 
+2.25.1
 
-Bartosz

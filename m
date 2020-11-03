@@ -2,86 +2,101 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 118932A4136
-	for <lists+alsa-devel@lfdr.de>; Tue,  3 Nov 2020 11:07:46 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3DB222A418B
+	for <lists+alsa-devel@lfdr.de>; Tue,  3 Nov 2020 11:20:02 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 98D2A1793;
-	Tue,  3 Nov 2020 11:06:55 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 98D2A1793
+	by alsa0.perex.cz (Postfix) with ESMTPS id CEAB21798;
+	Tue,  3 Nov 2020 11:19:11 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CEAB21798
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1604398065;
-	bh=CpIQVbUPn7Qa9HKtqlGnFT7rJ7XYZdsaF2CbmGkma88=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	s=default; t=1604398801;
+	bh=Gi9iROCglO0W6nixqGeAK+S2D338AoUtiTPW69wS3Jo=;
+	h=Date:From:To:Subject:Cc:List-Id:List-Unsubscribe:List-Archive:
 	 List-Post:List-Help:List-Subscribe:From;
-	b=GpxYAMOKKgKRnZQLbB2Tamouu6tPfgBuPI98JElh8OmuDSdcMh2te/rYplrNvZdT5
-	 cgFowRljvHktlMhw9w0P0Raq0fw3noW9/4RPmnlnaCCVV+R0vA2dMvcNnFzJN9xhqY
-	 K5k4+HYH27toH4AQQEtLnPuMm8ZFOGoCHzLoTJvg=
+	b=NcALujJdyX2hd8Jj92Us0ta1qDSsOJXBpOVUr3Eei+DdPwt12YGyUSH9YAlq8TXVF
+	 jucXq8QM7SY+B9bMyTMu5putxipbid7I65N9KXvS+qGlKSvYViO47CIPX56EZ8O+ca
+	 A5yviPmnEaTTpsycaNKjEJVDTMKaCfWA/X2tVnTY=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id C43E3F80272;
-	Tue,  3 Nov 2020 11:06:12 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 41139F80272;
+	Tue,  3 Nov 2020 11:18:29 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id A965DF80171; Tue,  3 Nov 2020 11:06:11 +0100 (CET)
+ id 60080F80171; Tue,  3 Nov 2020 11:18:27 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,RCVD_IN_MSPIKE_H2,SPF_HELO_PASS,SPF_PASS,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from esa6.microchip.iphmx.com (esa6.microchip.iphmx.com
- [216.71.154.253])
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+ DKIM_VALID,DKIM_VALID_AU,RCVD_IN_MSPIKE_H2,SPF_HELO_PASS,SPF_NONE,
+ UNPARSEABLE_RELAY autolearn=disabled version=3.4.0
+Received: from aserp2120.oracle.com (aserp2120.oracle.com [141.146.126.78])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 54708F80083
- for <alsa-devel@alsa-project.org>; Tue,  3 Nov 2020 11:06:03 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 54708F80083
+ by alsa1.perex.cz (Postfix) with ESMTPS id CAE25F80083
+ for <alsa-devel@alsa-project.org>; Tue,  3 Nov 2020 11:18:24 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CAE25F80083
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com
- header.b="JKSjzwr6"
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
- d=microchip.com; i=@microchip.com; q=dns/txt; s=mchp;
- t=1604397965; x=1635933965;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=CpIQVbUPn7Qa9HKtqlGnFT7rJ7XYZdsaF2CbmGkma88=;
- b=JKSjzwr6umKozoxKdUPowF7IgR09tTPyEZbHEFedmNIWpUbGtPk8sEPQ
- k2Y9c/KQ1kGJwOwyJu1F4Drex5p2I+7SsQalRhxWozNo4Z6nJXbVzVIbg
- Osw0ZOyUl+hfWLeMCnQ+bap6HeoSKHAmXFwrUxZynfVOeW1osu0r8kDcx
- 5fYgcAbMkvo4/6xGrYQJEpJgNrH4nxmD3ExHCiLhM+Ml/lozdKQNjHQrv
- LKZXwbadixs8NM8Xy3NJMBw5IuKcMsm2puOIIXyqSi8JATGo1kyyEF525
- U1cWl0+Dj4107m1HB1WXjbWZNlL1uq0OpuG8gDQipYCt3GOC5FcgXwlZE A==;
-IronPort-SDR: vBlDUkTh34wc9Her5awDtIWlmIwQafxmUGuBMbNkIBXVq8t7Y9uVUulw53W0wcGPdJQM5ezvOt
- UmOCaFVxuOS18gbczcel9/SYdu0uqIxzxkIfmtKqTep6dJEuZooQI08M9ppkybrzgiaoUKzCLd
- yDg2SzWGergQwN5mtSI9yOCaqZvUD0afiiFvwJkANprOCuiiZqKOTeQ6NZ0TLNEuzlKszJS4mN
- G9n5jlZq7RUBBWMmaHPKVTuETCkF3sc8aNQGcUsDsUFOCKDMn/ZESA22LwanzcTtljjIfogmUJ
- apA=
-X-IronPort-AV: E=Sophos;i="5.77,447,1596524400"; d="scan'208";a="32192205"
-Received: from smtpout.microchip.com (HELO email.microchip.com)
- ([198.175.253.82])
- by esa6.microchip.iphmx.com with ESMTP/TLS/AES256-SHA256;
- 03 Nov 2020 03:06:00 -0700
-Received: from chn-vm-ex02.mchp-main.com (10.10.85.144) by
- chn-vm-ex03.mchp-main.com (10.10.85.151) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.1979.3; Tue, 3 Nov 2020 03:06:00 -0700
-Received: from rob-ult-m19940.amer.actel.com (10.10.115.15) by
- chn-vm-ex02.mchp-main.com (10.10.85.144) with Microsoft SMTP Server id
- 15.1.1979.3 via Frontend Transport; Tue, 3 Nov 2020 03:05:57 -0700
-From: Codrin Ciubotariu <codrin.ciubotariu@microchip.com>
-To: <alsa-devel@alsa-project.org>, <linux-arm-kernel@lists.infradead.org>,
- <linux-kernel@vger.kernel.org>
-Subject: [PATCH] ASoC: atmel-i2s: do not warn if muxclk is missing
-Date: Tue, 3 Nov 2020 12:05:54 +0200
-Message-ID: <20201103100554.1307190-1-codrin.ciubotariu@microchip.com>
-X-Mailer: git-send-email 2.25.1
+ dkim=pass (2048-bit key) header.d=oracle.com header.i=@oracle.com
+ header.b="SUNcwsrw"
+Received: from pps.filterd (aserp2120.oracle.com [127.0.0.1])
+ by aserp2120.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 0A3AFcO3061974;
+ Tue, 3 Nov 2020 10:18:18 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com;
+ h=date : from : to : cc
+ : subject : message-id : mime-version : content-type; s=corp-2020-01-29;
+ bh=HWfqNLnqz2StDV8mZWHFHnovhN5RNP0zPkbng7r5I0w=;
+ b=SUNcwsrwpIvL1xJodn2e0DII7aeVo2qIXu0ejnH3NCNw7bbej8WZqUXjeMI0wDxZx8jB
+ cqxZOHPIikLpRVq5/G3lxQ/GL9smTPnuRYrFuxjMZu0MK1/Qin7v6WX1KZ92gq06acgj
+ fR0u8WS8d3M6dO9zRPiM3ybwXPSULa8zZMf6rhAojLVAmNnTW827fnYVHJlUBylAguv+
+ ZkWsOdBR6ib6JFGhgn3bp+h1OHc5AlZ1wq1ezmV+luUHfkhz4/bJVKmMA3BgcJkMtXGS
+ IfOHEgl+mSMP4iQKv7a5YtUQymeS6hTfB6rdicTUWXpCGcfp9KXrIytHN2zOK1gtP27B BA== 
+Received: from userp3020.oracle.com (userp3020.oracle.com [156.151.31.79])
+ by aserp2120.oracle.com with ESMTP id 34hhvc8fkf-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
+ Tue, 03 Nov 2020 10:18:18 +0000
+Received: from pps.filterd (userp3020.oracle.com [127.0.0.1])
+ by userp3020.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 0A3AEfVg054393;
+ Tue, 3 Nov 2020 10:18:17 GMT
+Received: from userv0121.oracle.com (userv0121.oracle.com [156.151.31.72])
+ by userp3020.oracle.com with ESMTP id 34hw0darpc-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Tue, 03 Nov 2020 10:18:17 +0000
+Received: from abhmp0004.oracle.com (abhmp0004.oracle.com [141.146.116.10])
+ by userv0121.oracle.com (8.14.4/8.13.8) with ESMTP id 0A3AIGIs008989;
+ Tue, 3 Nov 2020 10:18:16 GMT
+Received: from mwanda (/41.57.98.10) by default (Oracle Beehive Gateway v4.0)
+ with ESMTP ; Tue, 03 Nov 2020 02:18:15 -0800
+Date: Tue, 3 Nov 2020 13:18:07 +0300
+From: Dan Carpenter <dan.carpenter@oracle.com>
+To: Jaroslav Kysela <perex@perex.cz>, Jeeja KP <jeeja.kp@intel.com>
+Subject: [PATCH] ALSA: hda: prevent undefined shift in
+ snd_hdac_ext_bus_get_link()
+Message-ID: <20201103101807.GC1127762@mwanda>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-Cc: alexandre.belloni@bootlin.com, lgirdwood@gmail.com,
- nicolas.ferre@microchip.com, ludovic.desroches@microchip.com,
- broonie@kernel.org, Codrin Ciubotariu <codrin.ciubotariu@microchip.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+X-Mailer: git-send-email haha only kidding
+X-Proofpoint-Virus-Version: vendor=nai engine=6000 definitions=9793
+ signatures=668682
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 suspectscore=0
+ mlxlogscore=999
+ phishscore=0 bulkscore=0 spamscore=0 malwarescore=0 mlxscore=0
+ adultscore=1 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.12.0-2009150000 definitions=main-2011030068
+X-Proofpoint-Virus-Version: vendor=nai engine=6000 definitions=9793
+ signatures=668682
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 spamscore=0
+ suspectscore=0
+ impostorscore=0 malwarescore=0 priorityscore=1501 mlxlogscore=999
+ bulkscore=0 phishscore=0 adultscore=0 mlxscore=0 lowpriorityscore=0
+ clxscore=1011 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.12.0-2009150000 definitions=main-2011030068
+Cc: alsa-devel@alsa-project.org, Kai Vehmanen <kai.vehmanen@linux.intel.com>,
+ kernel-janitors@vger.kernel.org, Keyon Jie <yang.jie@linux.intel.com>,
+ Takashi Iwai <tiwai@suse.com>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ Vinod Koul <vkoul@kernel.org>, Mark Brown <broonie@kernel.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -97,31 +112,28 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Besides the fact that muxclk is optional, muxclk can be set using
-assigned-clocks, removing the need to set it in driver. The warning is
-thus unneeded, so we can transform it in a debug print, eventually to just
-reflect that muxclk was not set by the driver.
+This is harmless, but the "addr" comes from the user and it could lead
+to a negative shift or to shift wrapping if it's too high.
 
-Signed-off-by: Codrin Ciubotariu <codrin.ciubotariu@microchip.com>
+Fixes: 0b00a5615dc4 ("ALSA: hdac_ext: add hdac extended controller")
+Signed-off-by: Dan Carpenter <dan.carpenter@oracle.com>
 ---
- sound/soc/atmel/atmel-i2s.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ sound/hda/ext/hdac_ext_controller.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-diff --git a/sound/soc/atmel/atmel-i2s.c b/sound/soc/atmel/atmel-i2s.c
-index bbe2b638abb5..232300dda548 100644
---- a/sound/soc/atmel/atmel-i2s.c
-+++ b/sound/soc/atmel/atmel-i2s.c
-@@ -563,8 +563,8 @@ static int atmel_i2s_sama5d2_mck_init(struct atmel_i2s_dev *dev,
- 		err = PTR_ERR(muxclk);
- 		if (err == -EPROBE_DEFER)
- 			return -EPROBE_DEFER;
--		dev_warn(dev->dev,
--			 "failed to get the I2S clock control: %d\n", err);
-+		dev_dbg(dev->dev,
-+			"failed to get the I2S clock control: %d\n", err);
- 		return 0;
- 	}
+diff --git a/sound/hda/ext/hdac_ext_controller.c b/sound/hda/ext/hdac_ext_controller.c
+index 4d060d5b1db6..b0c0ef824d7d 100644
+--- a/sound/hda/ext/hdac_ext_controller.c
++++ b/sound/hda/ext/hdac_ext_controller.c
+@@ -148,6 +148,8 @@ struct hdac_ext_link *snd_hdac_ext_bus_get_link(struct hdac_bus *bus,
+ 		return NULL;
+ 	if (bus->idx != bus_idx)
+ 		return NULL;
++	if (addr < 0 || addr > 31)
++		return NULL;
  
+ 	list_for_each_entry(hlink, &bus->hlink_list, list) {
+ 		for (i = 0; i < HDA_MAX_CODECS; i++) {
 -- 
-2.25.1
+2.28.0
 

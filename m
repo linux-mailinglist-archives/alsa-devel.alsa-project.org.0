@@ -2,100 +2,82 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9045E2A3B25
-	for <lists+alsa-devel@lfdr.de>; Tue,  3 Nov 2020 04:50:37 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1A5D32A3CA7
+	for <lists+alsa-devel@lfdr.de>; Tue,  3 Nov 2020 07:11:45 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 2BB98170D;
-	Tue,  3 Nov 2020 04:49:47 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2BB98170D
+	by alsa0.perex.cz (Postfix) with ESMTPS id 871D8174E;
+	Tue,  3 Nov 2020 07:10:54 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 871D8174E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1604375437;
-	bh=356DvTETJyiGqigir3KqVa/M8PT+DOU3v5yq9tbXO5Y=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
+	s=default; t=1604383904;
+	bh=Kt5ReNuEC/rMDljs+qABItHrQ0K29W2bd4ESZVCRebQ=;
+	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=Ni7JJvQFfHZ57jwNOOaibEblzEYM2Ta7Tr5aZIZioMXSj5k8aXSXLTn/Jcr0u3ZVl
-	 /EF72/JZJNhHvdNOAK93RskHUKXdTTAX0Tg11muN19Lk3Tqmu9l6dpiSvoRYgwYErF
-	 WGgHyesE38/ah431q2W6ulnv4U4lmpik49cX7te0=
+	b=FWT/fXHx3U/uMPEWUlT3rg3yejqyBNmU7lqgZON64etrFQpdvFh0eabxcFl+x68Ip
+	 vYPyIIB9y3RcXB2URkl/Xyamoz6aIzStZA40w6o48q90HFOn5l8GuXGnpV0ZDoZqwg
+	 PgCLSW6Wr68+T+sWMyP/e/pTary8sliGc6/wZx5k=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 9C162F80272;
-	Tue,  3 Nov 2020 04:49:04 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id B1D5DF80272;
+	Tue,  3 Nov 2020 07:10:11 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 3BF4EF80171; Tue,  3 Nov 2020 04:49:00 +0100 (CET)
+ id 9B3CCF80171; Tue,  3 Nov 2020 07:10:08 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-15.6 required=5.0 tests=DKIMWL_WL_MED,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,ENV_AND_HDR_SPF_MATCH,SPF_HELO_NONE,SPF_PASS,
- USER_IN_DEF_DKIM_WL,USER_IN_DEF_SPF_WL autolearn=disabled version=3.4.0
-Received: from mail-io1-xd44.google.com (mail-io1-xd44.google.com
- [IPv6:2607:f8b0:4864:20::d44])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+ DKIM_VALID,DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from hqnvemgate26.nvidia.com (hqnvemgate26.nvidia.com
+ [216.228.121.65])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id AD528F8015A
- for <alsa-devel@alsa-project.org>; Tue,  3 Nov 2020 04:48:55 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz AD528F8015A
+ by alsa1.perex.cz (Postfix) with ESMTPS id 4773AF8015A
+ for <alsa-devel@alsa-project.org>; Tue,  3 Nov 2020 07:10:00 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4773AF8015A
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=google.com header.i=@google.com
- header.b="h6ajoktJ"
-Received: by mail-io1-xd44.google.com with SMTP id j12so2473828iow.0
- for <alsa-devel@alsa-project.org>; Mon, 02 Nov 2020 19:48:55 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=356DvTETJyiGqigir3KqVa/M8PT+DOU3v5yq9tbXO5Y=;
- b=h6ajoktJyyYPVqAu19y/Soi4oOwDxm8ve3d47LilDvB5z3QXDfpeUIGcSr4jQLFKNf
- pkgCpHeR6E6hyZ1ap5nMc2ZQTNTgKH2jcboQLM66k1PkDorjJN6MKK2LeNt4kiW/DJy5
- 1t7F6h6Wkeq/Ma4XS72ppen4Lfm0tLgkI1/yUyLwbXg/lIMycywAwP9BKIqqpZNWTbVU
- AEaqtK9ExezIUYYpdTTRrE9+IUg8y4q7I5GjmLwlD/qTrpI0xu1Q5hSVn7GYH2w5pT64
- PImq4JwM4zpxHTCqIGp8v8G+0dGsG/DLtAwgn4qNQ0SVfqHTv0phVtYfBL4C8C2qLwgA
- SVNA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=356DvTETJyiGqigir3KqVa/M8PT+DOU3v5yq9tbXO5Y=;
- b=Dqjs0zfbWAEvy8wVGJdMTwhZJnJb7l+wmnuOvSfS70ISxare7zPYr22th8Xv747IY5
- d6EE1MaH6mbo2vzc3NuH0pYKykYucw6YQd5czeMfnk5M/xID/yJ1MV6pgKljSWZvsrqw
- UOWEdQUTJu0vaAdQMhCeqdvNyqm4CH8jm8Ag1FDB5EVBSSVgGZtYAEK4RVwVJGLaZvDr
- cn9EOgUNrmPNcwHHSd+jhBEQbCGqGp0nNO+XBUdIvp+JO57u54Ox/phObt59rSvoLLM1
- sIWxhamYrWbqw1LTfxk3ml+HcMSVaPSaTStcoDXp1GXvuK6I1F7dZretmmmSkoYYZVkc
- cf+g==
-X-Gm-Message-State: AOAM532NW5jgZNZJJ4nyxOeo3z39k70kRL/gv8s7JfMy0PpTY7yhjYNq
- JW6NYCbYjKV4OG4mm/3S7V+RdcbpAG6yiVpYjf4Xwg==
-X-Google-Smtp-Source: ABdhPJw+sKAlWbLH9dvti6+ofKTt1hG/S9sKvy/nAe/EwnWKMwnJ85MPubKgZF3tzrQnZSWrtQvv2H3QP9t21aUfICw=
-X-Received: by 2002:a02:1c8a:: with SMTP id
- c132mr14676862jac.126.1604375332462; 
- Mon, 02 Nov 2020 19:48:52 -0800 (PST)
+ dkim=pass (2048-bit key) header.d=nvidia.com header.i=@nvidia.com
+ header.b="pGLNxA/D"
+Received: from hqmail.nvidia.com (Not Verified[216.228.121.13]) by
+ hqnvemgate26.nvidia.com (using TLS: TLSv1.2, AES256-SHA)
+ id <B5fa0f4380001>; Mon, 02 Nov 2020 22:10:00 -0800
+Received: from [10.25.99.190] (10.124.1.5) by HQMAIL107.nvidia.com
+ (172.20.187.13) with Microsoft SMTP Server (TLS) id 15.0.1473.3; Tue, 3 Nov
+ 2020 06:09:52 +0000
+Subject: Re: [PATCH] ASoC: tegra: remove unneeded semicolon
+To: <trix@redhat.com>, <lgirdwood@gmail.com>, <broonie@kernel.org>,
+ <perex@perex.cz>, <tiwai@suse.com>, <thierry.reding@gmail.com>,
+ <jonathanh@nvidia.com>
+References: <20201101172412.2306144-1-trix@redhat.com>
+From: Sameer Pujar <spujar@nvidia.com>
+Message-ID: <353e4c77-7166-071a-b1d9-2c1e0b2548a4@nvidia.com>
+Date: Tue, 3 Nov 2020 11:39:48 +0530
+User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:68.0) Gecko/20100101
+ Thunderbird/68.10.0
 MIME-Version: 1.0
-References: <20201103025347.510940-1-ajye_huang@compal.corp-partner.google.com>
- <20201103025347.510940-3-ajye_huang@compal.corp-partner.google.com>
-In-Reply-To: <20201103025347.510940-3-ajye_huang@compal.corp-partner.google.com>
-From: Tzung-Bi Shih <tzungbi@google.com>
-Date: Tue, 3 Nov 2020 11:48:41 +0800
-Message-ID: <CA+Px+wV8z_S09RiespXQiuYm=JRA1JMAPS7MK5ZAFTdaR_DdCA@mail.gmail.com>
-Subject: Re: [PATCH v4 2/2] ASoC: qcom: sc7180: Modify machine driver for 2mic
-To: Ajye Huang <ajye.huang@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Cc: Douglas Anderson <dianders@chromium.org>,
- "open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS"
- <devicetree@vger.kernel.org>, ALSA development <alsa-devel@alsa-project.org>,
- Banajit Goswami <bgoswami@codeaurora.org>,
- Srinivasa Rao Mandadapu <srivasam@codeaurora.org>,
- Liam Girdwood <lgirdwood@gmail.com>,
- linux-arm-msm <linux-arm-msm@vger.kernel.org>,
- Patrick Lai <plai@codeaurora.org>,
- Ajye Huang <ajye_huang@compal.corp-partner.google.com>,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- Rob Herring <robh+dt@kernel.org>, Bjorn Andersson <bjorn.andersson@linaro.org>,
- Mark Brown <broonie@kernel.org>, Rohit kumar <rohitkr@codeaurora.org>,
- Andy Gross <agross@kernel.org>, Tzung-Bi Shih <tzungbi@chromium.org>,
- Srini Kandagatla <srinivas.kandagatla@linaro.org>,
- "moderated list:ARM/Mediatek SoC support"
- <linux-arm-kernel@lists.infradead.org>,
- Cheng-Yi Chiang <cychiang@chromium.org>
+In-Reply-To: <20201101172412.2306144-1-trix@redhat.com>
+Content-Type: text/plain; charset="utf-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+Content-Language: en-GB
+X-Originating-IP: [10.124.1.5]
+X-ClientProxiedBy: HQMAIL101.nvidia.com (172.20.187.10) To
+ HQMAIL107.nvidia.com (172.20.187.13)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nvidia.com; s=n1;
+ t=1604383800; bh=Kt5ReNuEC/rMDljs+qABItHrQ0K29W2bd4ESZVCRebQ=;
+ h=Subject:To:CC:References:From:Message-ID:Date:User-Agent:
+ MIME-Version:In-Reply-To:Content-Type:Content-Transfer-Encoding:
+ Content-Language:X-Originating-IP:X-ClientProxiedBy;
+ b=pGLNxA/DnK69oH1y9GE8RkfmH9QWFqusHNw+jJ1J9boBX8FgDTZVbfIgbAtJ8SOFo
+ MiT4kiQf+9BQVAm5CAnA6m7rskFLXkQcA+oP0UhVjeVgQzJbD3rsIsa6aebqXb4iXg
+ L0vKO1u5c6ASyyO8h/tcGlIjVdSKsfgtXQlmqxy1cNwYRrdjptU0xlHOniZ4n0ea4M
+ TkBJt6ZduB3JQIg/O01z9vRPfSjGfPiIZmtNRay12Q9CVpK65CZq2B6uWktbCXyejg
+ ps31j655soRrO5xzWWI5F05NuIFQ5RvvwMFVjxdL81I62st5t9yR3JUxtF7rBkfUfk
+ /z4TBrmF3vH4Q==
+Cc: linux-tegra@vger.kernel.org, alsa-devel@alsa-project.org,
+ linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -111,16 +93,15 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Tue, Nov 3, 2020 at 10:54 AM Ajye Huang <ajye.huang@gmail.com> wrote:
->
-> In addition, having mixer control to switch between DMICs by
-> using "dmic-gpios" property.
->
-> Refer to this one as an example,
-> commit b7a742cff3f6 ("ASoC: AMD: Use mixer control to switch between DMICs")
->
-> Signed-off-by: Ajye Huang <ajye_huang@compal.corp-partner.google.com>
+Hi Tom,
 
-LGTM.
+> From: Tom Rix <trix@redhat.com>
+>
+> A semicolon is not needed after a switch statement.
+>
+> Signed-off-by: Tom Rix <trix@redhat.com>
+> ---
 
-Reviewed-by: Tzung-Bi Shih <tzungbi@google.com>
+Acked-by: Sameer Pujar <spujar@nvidia.com>
+
+Thanks for the update.

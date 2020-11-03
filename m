@@ -2,73 +2,82 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 158D82A315B
-	for <lists+alsa-devel@lfdr.de>; Mon,  2 Nov 2020 18:21:00 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0073E2A3A0D
+	for <lists+alsa-devel@lfdr.de>; Tue,  3 Nov 2020 02:51:54 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A8D1A1733;
-	Mon,  2 Nov 2020 18:20:09 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A8D1A1733
+	by alsa0.perex.cz (Postfix) with ESMTPS id 6FCE5173C;
+	Tue,  3 Nov 2020 02:51:04 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6FCE5173C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1604337659;
-	bh=DK5hG7Hl+usrKzyzofkycl7KuXmXYmJFS7OX+Znve1U=;
-	h=Date:From:To:In-Reply-To:References:Subject:Cc:List-Id:
+	s=default; t=1604368314;
+	bh=jXsBWDngzItI4c0m+l7GIzlewQnVCNIef/IDw6mIoc4=;
+	h=From:To:Subject:Date:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=ViwPiAdTJRzP4FQxbZlRMroL/MwyP05tTJx/9yK6DatbFndMEs0I89yF3jAV0FkdG
-	 YZ5z50Fxie+P78B6mpF0+71Qzg2LjQu9xcfiSi4AldP2Of0TYFdOZbjkrWTU3UOLA2
-	 B2z9s7+uOs1NhKmiyCZvmAosDgA4WjSmQxpOWAVQ=
+	b=PeIF1FVRPDdfRrWwqGraSqFr8BtREdR9G1Wpj+GQ0aMLMn8VXNPv3RiYwchjA3M+L
+	 Hx9awpHx1gA6OetPPR/XP3ToXaz2/SmZ98AGHAatX+3+/gp61g3U3uzRYnHEplPUNI
+	 OmcBO9W0wCCMUuJ3Mz+05HAzbd6zWUg89GdkxprU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id D3CFBF8012B;
-	Mon,  2 Nov 2020 18:18:39 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 9D5ABF80083;
+	Tue,  3 Nov 2020 02:50:21 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 026B3F80232; Mon,  2 Nov 2020 18:18:26 +0100 (CET)
+ id AFB79F80232; Tue,  3 Nov 2020 02:50:18 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled
- version=3.4.0
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 68B48F8012B
- for <alsa-devel@alsa-project.org>; Mon,  2 Nov 2020 18:18:23 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 68B48F8012B
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="Epznq/QL"
-Received: from localhost (fw-tnat.cambridge.arm.com [217.140.96.140])
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS
+ autolearn=disabled version=3.4.0
+Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id EE5E821D91;
- Mon,  2 Nov 2020 17:18:20 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1604337501;
- bh=DK5hG7Hl+usrKzyzofkycl7KuXmXYmJFS7OX+Znve1U=;
- h=Date:From:To:Cc:In-Reply-To:References:Subject:From;
- b=Epznq/QLQV+OUXgaAnagCRngDd7sAginMJhmFLejpPgmsHdhDOBZew7NH4j8xiD5n
- wUSjDU4NLAjOlpa3pNUJ5LRN+w6XgX0j1OL+kb8lblgDkYdBrLp6RAeykJH+Z/5dK+
- zOmy1ZpD03Ka5Xc6Br8vzl+M88V0sSzHNV2/2kE4=
-Date: Mon, 02 Nov 2020 17:18:13 +0000
-From: Mark Brown <broonie@kernel.org>
-To: tiwai@suse.com, f.fainelli@gmail.com, sbranden@broadcom.com,
- rjui@broadcom.com, sw0312.kim@samsung.com, ranjani.sridharan@linux.intel.com,
- kuninori.morimoto.gx@renesas.com, perex@perex.cz,
- "trix@redhat.com" <trix@redhat.com>, lgirdwood@gmail.com,
- nsaenzjulienne@suse.de
-In-Reply-To: <20201101160037.2295512-1-trix@redhat.com>
-References: <20201101160037.2295512-1-trix@redhat.com>
-Subject: Re: [PATCH] ASoC: bcm2835-i2s: remove unneeded semicolon
-Message-Id: <160433748157.18840.3548192910799118546.b4-ty@kernel.org>
-MIME-Version: 1.0
+ by alsa1.perex.cz (Postfix) with ESMTPS id 35C5BF8015A
+ for <alsa-devel@alsa-project.org>; Tue,  3 Nov 2020 02:50:12 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 35C5BF8015A
+Authenticated-By: 
+X-SpamFilter-By: ArmorX SpamTrap 5.73 with qID 0A31o3Kg9031833,
+ This message is accepted by code: ctloc85258
+Received: from mail.realtek.com (rtexmb01.realtek.com.tw[172.21.6.94])
+ by rtits2.realtek.com.tw (8.15.2/2.70/5.88) with ESMTPS id 0A31o3Kg9031833
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT);
+ Tue, 3 Nov 2020 09:50:03 +0800
+Received: from RTEXMBS01.realtek.com.tw (172.21.6.36) by
+ RTEXMB01.realtek.com.tw (172.21.6.94) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2044.4; Tue, 3 Nov 2020 09:50:02 +0800
+Received: from RTEXMBS01.realtek.com.tw ([fe80::513b:ca8:6e55:15a2]) by
+ RTEXMBS01.realtek.com.tw ([fe80::513b:ca8:6e55:15a2%8]) with mapi id
+ 15.01.2106.003; Tue, 3 Nov 2020 09:50:02 +0800
+From: =?utf-8?B?U2h1bWluZyBb6IyD5pu46YqYXQ==?= <shumingf@realtek.com>
+To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ "broonie@kernel.org" <broonie@kernel.org>, "lgirdwood@gmail.com"
+ <lgirdwood@gmail.com>
+Subject: RE: [PATCH] ASoC: rt1015: support TDM slot configuration
+Thread-Topic: [PATCH] ASoC: rt1015: support TDM slot configuration
+Thread-Index: AQHWsPjuJUkb0/8uwkWQKeqrZZUxlKm0afeAgAEsbLA=
+Date: Tue, 3 Nov 2020 01:50:02 +0000
+Message-ID: <33af2503fe4f46e49ff9682bad80b570@realtek.com>
+References: <20201102091656.25379-1-shumingf@realtek.com>
+ <3d8b58fa-81c2-ea9e-8627-b5c58ca91c7a@linux.intel.com>
+In-Reply-To: <3d8b58fa-81c2-ea9e-8627-b5c58ca91c7a@linux.intel.com>
+Accept-Language: zh-TW, en-US
+Content-Language: zh-TW
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-originating-ip: [172.22.102.209]
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Cc: alsa-devel@alsa-project.org, bcm-kernel-feedback-list@broadcom.com,
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-rpi-kernel@lists.infradead.org
+Content-Transfer-Encoding: base64
+MIME-Version: 1.0
+Cc: Oder Chiou <oder_chiou@realtek.com>, Jack Yu <jack.yu@realtek.com>,
+ "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
+ "lars@metafoo.de" <lars@metafoo.de>,
+ =?utf-8?B?a2VudF9jaGVuQHJlYWx0ZWsuY29tIFvpmbPlu7rlro9d?=
+ <kent_chen@realtek.com>, "Keith.Tzeng@quantatw.com" <Keith.Tzeng@quantatw.com>,
+ =?utf-8?B?RGVyZWsgW+aWueW+t+e+qV0=?= <derek.fang@realtek.com>,
+ "brent.lu@intel.com" <brent.lu@intel.com>,
+ "Flove\(HsinFu\)" <flove@realtek.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -84,33 +93,58 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Sun, 1 Nov 2020 08:00:37 -0800, trix@redhat.com wrote:
-> A semicolon is not needed after a switch statement.
-
-Applied to
-
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
-
-Thanks!
-
-[1/1] ASoC: bcm2835-i2s: remove unneeded semicolon
-      commit: 46713ed258695e2de00ab2738160f89220c0a976
-
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
-
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
-
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
-
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-Thanks,
-Mark
+PiA+ICtzdGF0aWMgaW50IHJ0MTAxNV9zZXRfdGRtX3Nsb3Qoc3RydWN0IHNuZF9zb2NfZGFpICpk
+YWksDQo+ID4gKwl1bnNpZ25lZCBpbnQgdHhfbWFzaywgdW5zaWduZWQgaW50IHJ4X21hc2ssIGlu
+dCBzbG90cywgaW50DQo+ID4gK3Nsb3Rfd2lkdGgpIHsNCj4gPiArCXN0cnVjdCBzbmRfc29jX2Nv
+bXBvbmVudCAqY29tcG9uZW50ID0gZGFpLT5jb21wb25lbnQ7DQo+ID4gKwl1bnNpZ25lZCBpbnQg
+dmFsID0gMCwgcnhfc2xvdG51bSwgdHhfc2xvdG51bTsNCj4gPiArCWludCByZXQgPSAwLCBmaXJz
+dF9iaXQ7DQo+ID4gKw0KPiA+ICsJc3dpdGNoIChzbG90cykgew0KPiA+ICsJY2FzZSA0Og0KPiA+
+ICsJCXZhbCB8PSBSVDEwMTVfSTJTX1RYXzRDSDsNCj4gPiArCQlicmVhazsNCj4gPiArCWNhc2Ug
+NjoNCj4gPiArCQl2YWwgfD0gUlQxMDE1X0kyU19UWF82Q0g7DQo+ID4gKwkJYnJlYWs7DQo+ID4g
+KwljYXNlIDg6DQo+ID4gKwkJdmFsIHw9IFJUMTAxNV9JMlNfVFhfOENIOw0KPiA+ICsJCWJyZWFr
+Ow0KPiA+ICsJY2FzZSAyOg0KPiA+ICsJCWJyZWFrOw0KPiANCj4gbml0LXBpY2s6IEkgd291bGQg
+cHV0IHRoZSBjYXNlIDIgZmlyc3QgdG8ga2VlcCB0aGUgb3JkZXIuIEkgdGhvdWdodCBmb3IgYSBz
+ZWNvbmQNCj4gdGhpcyB3YXMgYW4gZXJyb3IgY2FzZSBkdWUgdG8gdGhlIGRpc2NvbnRpbnVpdHku
+DQoNCk9LLCB3aWxsIGZpeCB0aGF0Lg0KDQo+ID4gKwlkZWZhdWx0Og0KPiA+ICsJCXJldCA9IC1F
+SU5WQUw7DQo+ID4gKwkJZ290byBfc2V0X3RkbV9lcnJfOw0KPiA+ICsJfQ0KPiA+ICsNCj4gPiAr
+CXN3aXRjaCAoc2xvdF93aWR0aCkgew0KPiA+ICsJY2FzZSAyMDoNCj4gPiArCQl2YWwgfD0gUlQx
+MDE1X0kyU19DSF9UWF9MRU5fMjBCOw0KPiA+ICsJCWJyZWFrOw0KPiA+ICsJY2FzZSAyNDoNCj4g
+PiArCQl2YWwgfD0gUlQxMDE1X0kyU19DSF9UWF9MRU5fMjRCOw0KPiA+ICsJCWJyZWFrOw0KPiA+
+ICsJY2FzZSAzMjoNCj4gPiArCQl2YWwgfD0gUlQxMDE1X0kyU19DSF9UWF9MRU5fMzJCOw0KPiA+
+ICsJCWJyZWFrOw0KPiA+ICsJY2FzZSAxNjoNCj4gPiArCQlicmVhazsNCj4gDQo+IG5pdC1waWNr
+OiBzYW1lIGhlcmUsIEkgd291bGQgcHV0IDE2IGZpcnN0Lg0KPiANCj4gPiArCWRlZmF1bHQ6DQo+
+ID4gKwkJcmV0ID0gLUVJTlZBTDsNCj4gPiArCQlnb3RvIF9zZXRfdGRtX2Vycl87DQo+ID4gKwl9
+DQo+ID4gKw0KPiA+ICsJLyogUnggc2xvdCBjb25maWd1cmF0aW9uICovDQo+ID4gKwlyeF9zbG90
+bnVtID0gaHdlaWdodF9sb25nKHJ4X21hc2spOw0KPiA+ICsJaWYgKHJ4X3Nsb3RudW0gPiAxIHx8
+ICFyeF9zbG90bnVtKSB7DQo+IA0KPiBJIGFtIGNvbmZ1c2VkIGhlcmUsIGlzIHRoaXMgc2F5aW5n
+IHlvdSBjYW4gb25seSBoYXZlIGEgc2luZ2xlIGNoYW5uZWwgb24gUlg/DQo+IA0KPiBJZiB5ZXMg
+c2hvdWxkIHRoaXMgYmUgc2ltcGxpZmllZCBhcyBpZiAocnhfc2xvdG51bSAhPSAxKSA/DQoNClll
+cywgUlQxMDE1IGlzIGEgbW9ubyBhbXBsaWZpZXIsIHNvIG9ubHkgYSBzaW5nbGUgY2hhbm5lbCB3
+aWxsIGJlIGNvbmZpZ3VyZWQuDQpJIHdpbGwgZml4IHRoZSBjaGVjayBjb25kaXRpb24gYXMgeW91
+ciBzdWdnZXN0aW9uLiBUaGFua3MuDQoNCj4gPiArCQlyZXQgPSAtRUlOVkFMOw0KPiA+ICsJCWRl
+dl9lcnIoY29tcG9uZW50LT5kZXYsICJ0b28gbWFueSByeCBzbG90cyBvciB6ZXJvIHNsb3RcbiIp
+Ow0KPiA+ICsJCWdvdG8gX3NldF90ZG1fZXJyXzsNCj4gPiArCX0NCj4gPiArDQo+ID4gKwlmaXJz
+dF9iaXQgPSBfX2ZmcyhyeF9tYXNrKTsNCj4gPiArCXN3aXRjaCAoZmlyc3RfYml0KSB7DQo+ID4g
+KwljYXNlIDA6DQo+ID4gKwljYXNlIDI6DQo+ID4gKwljYXNlIDQ6DQo+ID4gKwljYXNlIDY6DQo+
+ID4gKwkJc25kX3NvY19jb21wb25lbnRfdXBkYXRlX2JpdHMoY29tcG9uZW50LA0KPiA+ICsJCQlS
+VDEwMTVfUEFEX0RSVjIsIFJUMTAxNV9NT05PX0xSX1NFTF9NQVNLLA0KPiA+ICsJCQlSVDEwMTVf
+TU9OT19MX0NIQU5ORUwpOw0KPiA+ICsJCXNuZF9zb2NfY29tcG9uZW50X3VwZGF0ZV9iaXRzKGNv
+bXBvbmVudCwNCj4gPiArCQkJUlQxMDE1X1RETTFfNCwNCj4gPiArCQkJUlQxMDE1X1RETV9JMlNf
+VFhfTF9EQUMxXzFfTUFTSyB8DQo+ID4gKwkJCVJUMTAxNV9URE1fSTJTX1RYX1JfREFDMV8xX01B
+U0ssDQo+ID4gKwkJCShmaXJzdF9iaXQgPDwgUlQxMDE1X1RETV9JMlNfVFhfTF9EQUMxXzFfU0ZU
+KSB8DQo+ID4gKwkJCSgoZmlyc3RfYml0KzEpIDw8IFJUMTAxNV9URE1fSTJTX1RYX1JfREFDMV8x
+X1NGVCkpOw0KPiANCj4gbG9va3MgbGlrZSB0aGVyZSdzIGFuIGFzc3VtcHRpb24gdGhhdCB0aGUg
+cnggbWFzayBoYXMgY29udGlndW91cyBiaXRzIHNldD8NCj4gTWF5YmUgYWRkIGEgY29tbWVudCB0
+byBleHBsYWluIGhvdyB0aGUgUlggcGF0aCB3b3Jrcz8NCg0KWWVzLiBJbiB0aGUgbm9ybWFsIGNh
+c2UsIHRoZSBzeXN0ZW0gd2lsbCBzZW5kIHRoZSBzdGVyZW8gYXVkaW8gdG8gdGhlIGNvZGVjLg0K
+SSBhc3N1bWUgdGhhdCB0aGUgc3RlcmVvIGF1ZGlvIGlzIHBsYWNlZCBpbiBzbG90IDAvMi80LzYu
+DQpJIHdpbGwgYWRkIGEgY29tbWVudCBhYm92ZSB0aGlzIHN3aXRjaCBjYXNlLg0KDQo+ID4gKwkJ
+YnJlYWs7DQo+ID4gKwljYXNlIDE6DQo+ID4gKwljYXNlIDM6DQo+ID4gKwljYXNlIDU6DQo+ID4g
+KwljYXNlIDc6DQo+ID4gKwkJc25kX3NvY19jb21wb25lbnRfdXBkYXRlX2JpdHMoY29tcG9uZW50
+LA0KPiA+ICsJCQlSVDEwMTVfUEFEX0RSVjIsIFJUMTAxNV9NT05PX0xSX1NFTF9NQVNLLA0KPiA+
+ICsJCQlSVDEwMTVfTU9OT19SX0NIQU5ORUwpOw0KPiA+ICsJCXNuZF9zb2NfY29tcG9uZW50X3Vw
+ZGF0ZV9iaXRzKGNvbXBvbmVudCwNCj4gPiArCQkJUlQxMDE1X1RETTFfNCwNCj4gPiArCQkJUlQx
+MDE1X1RETV9JMlNfVFhfTF9EQUMxXzFfTUFTSyB8DQo+ID4gKwkJCVJUMTAxNV9URE1fSTJTX1RY
+X1JfREFDMV8xX01BU0ssDQo+ID4gKwkJCSgoZmlyc3RfYml0LTEpIDw8IFJUMTAxNV9URE1fSTJT
+X1RYX0xfREFDMV8xX1NGVCkgfA0KPiA+ICsJCQkoZmlyc3RfYml0IDw8IFJUMTAxNV9URE1fSTJT
+X1RYX1JfREFDMV8xX1NGVCkpOw0KPiA+ICsJCWJyZWFrOw0K

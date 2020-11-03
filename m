@@ -2,72 +2,108 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3A3F72A460A
-	for <lists+alsa-devel@lfdr.de>; Tue,  3 Nov 2020 14:14:26 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id CAFB22A46BB
+	for <lists+alsa-devel@lfdr.de>; Tue,  3 Nov 2020 14:40:10 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 766AA17CB;
-	Tue,  3 Nov 2020 14:13:35 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 766AA17CB
+	by alsa0.perex.cz (Postfix) with ESMTPS id 5B6D417BE;
+	Tue,  3 Nov 2020 14:39:20 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5B6D417BE
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1604409265;
-	bh=M+XGL1TF6rEHXAM9ztMrosxOcLuRdxKMEc4oded8c+Q=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1604410810;
+	bh=veJLxaZum4JdTDrVxKHaiJiTG54WMzCcdpwiNPTXfGs=;
+	h=From:To:Subject:Date:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=r9TKJF5NIMI3JKaUw2YhmdF8hoSQ4DHOtReW38OcCH6d4J3pqjNEJASDzKk85Mm79
-	 yg1NKnXsOqhonlZstUNGZ9mX642ISprIND7zbenuZEazExDrKT4KN/p/nSRFVZ/c1k
-	 lvvtRym5bzuEOUPQctXXofU8N5hk//ZlaTQthsPM=
+	b=Al7gMilZxDcrnwMvVxbaMZUmPvEDugQkT/qd1KJv90UM1pYxkysLSBa9qC5RPfEGB
+	 +keT1w637wWnPoYA/+VfzfEjK8aVEz9Se0+OASrkiW/J8XZ/J2RCDk4oLduDLUrbqf
+	 fLWzycUKlmN7AlpxPVFaLYdzrjCuK4mfxMCReXbM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id D9ED7F802A9;
-	Tue,  3 Nov 2020 14:13:10 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id B0C85F80083;
+	Tue,  3 Nov 2020 14:38:37 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 8B7B7F8028D; Tue,  3 Nov 2020 14:13:09 +0100 (CET)
+ id A0F5EF80171; Tue,  3 Nov 2020 14:38:35 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS autolearn=disabled
  version=3.4.0
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 9CA6AF80171
- for <alsa-devel@alsa-project.org>; Tue,  3 Nov 2020 14:13:05 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9CA6AF80171
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="HRYPhdLk"
-Received: from localhost (fw-tnat.cambridge.arm.com [217.140.96.140])
+Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
+ [91.207.212.93])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id DB6F221534;
- Tue,  3 Nov 2020 13:13:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1604409183;
- bh=M+XGL1TF6rEHXAM9ztMrosxOcLuRdxKMEc4oded8c+Q=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=HRYPhdLk8vpV9wiwTnjT5L1S7ABv/TIk1BabOLB+piUq4y1c8Q9idXD10K9znzYHm
- UCdDpAGpIKx9sWTqSQEEhEJFcKq4jie0saveXB+V5eu4WQ1AM+79WniSfAhjvdBwZl
- UmXH/mC2kMH3mR1R4YQaOYx/7PQTzICl8hur41wI=
-Date: Tue, 3 Nov 2020 13:12:53 +0000
-From: Mark Brown <broonie@kernel.org>
-To: Perry Yuan <Perry.Yuan@dell.com>
-Subject: Re: [PATCH] ASoC: rt715:add Mic Mute LED control support
-Message-ID: <20201103131253.GA5545@sirena.org.uk>
-References: <20201103125859.8759-1-Perry_Yuan@Dell.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 53A76F8015A
+ for <alsa-devel@alsa-project.org>; Tue,  3 Nov 2020 14:38:30 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 53A76F8015A
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=st.com header.i=@st.com header.b="AC3Rtnim"
+Received: from pps.filterd (m0046661.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
+ 0A3DbkJe011808; Tue, 3 Nov 2020 14:38:30 +0100
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=st.com;
+ h=from : to : cc : subject
+ : date : message-id : references : in-reply-to : content-type : content-id
+ : content-transfer-encoding : mime-version; s=STMicroelectronics;
+ bh=veJLxaZum4JdTDrVxKHaiJiTG54WMzCcdpwiNPTXfGs=;
+ b=AC3Rtnim66NSR4Kc9Bid+9yMvnx84VoNGxN69+my2YlB88rFz2AimLb2cw/z4+5b9EZ1
+ 8HsTxSeH/lbUST1wQyNwjpn2T56IwucKy3/EaiMKQHwQbqTNEmzKH7l+YpiX50jpa7SZ
+ WyuJPqCUgC+8Rku/1ZPTUaUlTHgn7Jxwu4oMYEr/JS9pTIznRPg4gvgsjZRsVsQqJnAs
+ G/aaTzsfYXTT+XvhavkJcrkAkqXxAHrkcB29Wq+rf/oLIp2saCmJ9N8vnTmtI6tNd0pu
+ Iv/vIBlL3bdyttxNueFT/kzvT0th7ktp4PlQsWfX+2bekovJlbJTKwzZPtgTi/oOSzZ2 3w== 
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+ by mx07-00178001.pphosted.com with ESMTP id 34gywqspcx-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Tue, 03 Nov 2020 14:38:30 +0100
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 9F59F100034;
+ Tue,  3 Nov 2020 14:38:28 +0100 (CET)
+Received: from Webmail-eu.st.com (sfhdag3node2.st.com [10.75.127.8])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 1DA26254067;
+ Tue,  3 Nov 2020 14:38:28 +0100 (CET)
+Received: from SFHDAG2NODE2.st.com (10.75.127.5) by SFHDAG3NODE2.st.com
+ (10.75.127.8) with Microsoft SMTP Server (TLS) id 15.0.1473.3; Tue, 3 Nov
+ 2020 14:38:27 +0100
+Received: from SFHDAG2NODE2.st.com ([fe80::14c2:73ff:db87:a27b]) by
+ SFHDAG2NODE2.st.com ([fe80::14c2:73ff:db87:a27b%20]) with mapi id
+ 15.00.1473.003; Tue, 3 Nov 2020 14:38:27 +0100
+From: Olivier MOYSAN <olivier.moysan@st.com>
+To: "lgirdwood@gmail.com" <lgirdwood@gmail.com>, "broonie@kernel.org"
+ <broonie@kernel.org>, "perex@perex.cz" <perex@perex.cz>, "tiwai@suse.com"
+ <tiwai@suse.com>, Alexandre TORGUE <alexandre.torgue@st.com>,
+ "robh@kernel.org" <robh@kernel.org>, "mark.rutland@arm.com"
+ <mark.rutland@arm.com>, Arnaud POULIQUEN <arnaud.pouliquen@st.com>
+Subject: Re: [PATCH 0/2] ASoC: stm32: i2s: add master clock provider
+Thread-Topic: [PATCH 0/2] ASoC: stm32: i2s: add master clock provider
+Thread-Index: AQHWiBzGV/vdLD0mo0u9KLFGd/U756m2rDkA
+Date: Tue, 3 Nov 2020 13:38:27 +0000
+Message-ID: <20ed825b-10b6-e71f-9da4-91df38a950de@st.com>
+References: <20200911091952.14696-1-olivier.moysan@st.com>
+In-Reply-To: <20200911091952.14696-1-olivier.moysan@st.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+user-agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.10.0
+x-ms-exchange-messagesentrepresentingtype: 1
+x-ms-exchange-transport-fromentityheader: Hosted
+x-originating-ip: [10.75.127.50]
+Content-Type: text/plain; charset="utf-8"
+Content-ID: <7BA6C81104F79949A06BE598EA49E90B@st.com>
+Content-Transfer-Encoding: base64
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="UugvWAfsgieZRqgk"
-Content-Disposition: inline
-In-Reply-To: <20201103125859.8759-1-Perry_Yuan@Dell.com>
-X-Cookie: I don't get no respect.
-User-Agent: Mutt/1.10.1 (2018-07-13)
-Cc: oder_chiou@realtek.com, alsa-devel@alsa-project.org, lgirdwood@gmail.com,
- Limonciello Mario <Mario.Limonciello@dell.com>, linux-kernel@vger.kernel.org,
- tiwai@suse.com
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.312, 18.0.737
+ definitions=2020-11-03_08:2020-11-03,
+ 2020-11-03 signatures=0
+Cc: "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+ "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
+ "linux-stm32@st-md-mailman.stormreply.com"
+ <linux-stm32@st-md-mailman.stormreply.com>,
+ "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -83,62 +119,14 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-
---UugvWAfsgieZRqgk
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-
-On Tue, Nov 03, 2020 at 04:58:59AM -0800, Perry Yuan wrote:
-> From: perry_yuan <perry_yuan@dell.com>
->=20
-> Some new Dell system is going to support audio internal micphone
-> privacy setting from hardware level with micmute led state changing
->=20
-> This patch allow to change micmute led state through this micphone
-> led control interface like hda_generic provided.
-
-If this is useful it should be done at the subsystem level rather than
-open coded in a specific CODEC driver, however I don't undersand why it
-is.
-
-> +static int rt715_micmute_led_mode_put(struct snd_kcontrol *kcontrol,
-> +      struct snd_ctl_elem_value *ucontrol)
-> +{
-> +    struct snd_soc_component *component =3D snd_kcontrol_chip(kcontrol);
-> +    struct rt715_priv *rt715 =3D snd_soc_component_get_drvdata(component=
-);
-> +    int led_mode =3D ucontrol->value.integer.value[0];
-> +
-> +    rt715->micmute_led =3D led_mode;
-> +#if IS_ENABLED(CONFIG_LEDS_TRIGGER_AUDIO)
-> +    ledtrig_audio_set(LED_AUDIO_MICMUTE,
-> +               rt715->micmute_led ? LED_ON : LED_OFF);
-> +#endif
-> +  return 0;
-> +}
-
-This is just adding a userspace API to set a LED via the standard LED
-APIs.  Since the LED subsystem already has a perfectly good userspace
-API why not use that?  There is no visible value in this being in the
-sound subsystem.
-
-Please also follow the kernel coding style, your code doesn't visually
-resemble the adjacent code.
-
---UugvWAfsgieZRqgk
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl+hV1UACgkQJNaLcl1U
-h9AGAgf+IGVQYbKrvIHSUvGOYs9tp4WUFSmNglhd7Ud3/tdlsnPO/aeUFkBN4Yja
-kHuwFCBDhVuOCfuDIX8MbRSeNMAidm8lwbcDiyl86HMWrbLKREut/8x2xzPfBwJ+
-juSi/fxeWR+2+QnlsTEy7skHLgQuSyimWjPAC5og6c6df00EooJWtngXe1F5WZNz
-vFzBW/pfVQjh/ms+RnSBGETqse51SslYWgtNhXINqqKGDNXi/EOsXxsJFCJxpEWC
-xV6OWz3KWnDs53nDHL3nQuZauSHaQYJwhg5IRxqWZUb49UHOCzljejgsCXj0A4eP
-k4C44Dcr5APTlkcwicbW0BrAOX635g==
-=lmo/
------END PGP SIGNATURE-----
-
---UugvWAfsgieZRqgk--
+SGkgTWFyaywNCg0KR2VudGxlIHJlbWluZGVyIG9uIHRoaXMgc2VyaWVzLCBhcyBpdCBzZWVtcyB0
+aGF0IHRoZXJlIHdhcyBubyB1cGRhdGUgDQpzaW5jZSBSb2IncyAicmV2aWV3ZWQtYnkiIGZvciBk
+dCBiaW5kaW5ncywgb24gMTEvMDkuDQoNCkJScw0KT2xpdmllcg0KDQpPbiA5LzExLzIwIDExOjE5
+IEFNLCBPbGl2aWVyIE1veXNhbiB3cm90ZToNCj4gQWRkIG1hc3RlciBjbG9jayBnZW5lcmF0aW9u
+IHN1cHBvcnQgaW4gU1RNMzIgSTJTIGRyaXZlci4NCj4gDQo+IE9saXZpZXIgTW95c2FuICgyKToN
+Cj4gICAgQVNvQzogZHQtYmluZGluZ3M6IGFkZCBtY2xrIHByb3ZpZGVyIHN1cHBvcnQgdG8gc3Rt
+MzIgaTJzDQo+ICAgIEFTb0M6IHN0bTMyOiBpMnM6IGFkZCBtYXN0ZXIgY2xvY2sgcHJvdmlkZXIN
+Cj4gDQo+ICAgLi4uL2JpbmRpbmdzL3NvdW5kL3N0LHN0bTMyLWkycy55YW1sICAgICAgICAgIHwg
+ICA0ICsNCj4gICBzb3VuZC9zb2Mvc3RtL3N0bTMyX2kycy5jICAgICAgICAgICAgICAgICAgICAg
+fCAzMTAgKysrKysrKysrKysrKysrLS0tDQo+ICAgMiBmaWxlcyBjaGFuZ2VkLCAyNzAgaW5zZXJ0
+aW9ucygrKSwgNDQgZGVsZXRpb25zKC0pDQo+IA==

@@ -2,100 +2,72 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0412C2A4B7A
-	for <lists+alsa-devel@lfdr.de>; Tue,  3 Nov 2020 17:29:21 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6BCE52A4AFA
+	for <lists+alsa-devel@lfdr.de>; Tue,  3 Nov 2020 17:16:40 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 8ED1916B2;
-	Tue,  3 Nov 2020 17:28:30 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8ED1916B2
+	by alsa0.perex.cz (Postfix) with ESMTPS id EF9FB16AB;
+	Tue,  3 Nov 2020 17:15:49 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EF9FB16AB
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1604420960;
-	bh=Njw/2Z6h3EbMmFbdDIqFHZbB609XPZJX9YQCSkVTafQ=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=XtcGlwdZRkWQwtyztF+aSjBj3wP/UUrDV39JauwllSrmq490Ivk0mSt3xOjS8QfGp
-	 AlbL4NlK7tvIvgTOdxl7PHxqoVSIq8VGLwdT4N+PSPVTNAtPYCunWIYKN9SWYHBS24
-	 G48j7svrPBkNj72HUyXLUy4LG+ERfYlXiYzVjUcI=
+	s=default; t=1604420200;
+	bh=HOyvG6sVZy5dEo4f1fjgmSbr+W139I6XdVCQWs1rvG8=;
+	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=auyRkPKPjf05sVZaUcTv4f/Yb4jC58Cv+2rHWLiEJyEUFCBUy98E2OBjKpoGPA4fu
+	 jIQvOVL2KkieGxBox5pZwWaX/wj+nOonkPEsmgReYa8gdxQ1PeEHo+wHogr3eMq9vm
+	 YkywcEnAgDnT+xPwBF0mQ7LkGE9iwixSwrQvd7P4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id B85AFF8015A;
-	Tue,  3 Nov 2020 17:26:13 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 72EEBF80279;
+	Tue,  3 Nov 2020 17:15:07 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id CD739F80171; Tue,  3 Nov 2020 13:59:21 +0100 (CET)
+ id 57983F80272; Tue,  3 Nov 2020 17:15:05 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,RCVD_IN_MSPIKE_H2,SPF_HELO_NONE,SPF_PASS
- autolearn=disabled version=3.4.0
-Received: from mx0a-00154904.pphosted.com (mx0a-00154904.pphosted.com
- [148.163.133.20])
+X-Spam-Status: No, score=0.0 required=5.0 tests=NICE_REPLY_A,SPF_HELO_NONE,
+ SPF_NONE autolearn=disabled version=3.4.0
+Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id A2ECBF80108
- for <alsa-devel@alsa-project.org>; Tue,  3 Nov 2020 13:59:18 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A2ECBF80108
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=dell.com header.i=@dell.com
- header.b="Du6+RNFQ"
-Received: from pps.filterd (m0170390.ppops.net [127.0.0.1])
- by mx0a-00154904.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
- 0A3CuoqA000919
- for <alsa-devel@alsa-project.org>; Tue, 3 Nov 2020 07:59:16 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=dell.com;
- h=from : to : cc :
- subject : date : message-id : mime-version : content-transfer-encoding;
- s=smtpout1; bh=gXiXEbn51dmWApabI5YJtghO8VjiHbPBfHDnqtSPYug=;
- b=Du6+RNFQm7y6sBg9rTCWKAytw59tv6joyKSNOUT8usHfQqyL5dlxpGMCELkZdEn7i+dt
- Jmt1t1B4lL+JmsGfixR8DJMymYPBqEciVsLd9yyr7GxZIbcwSpbSTAt8VGUOUpZISAHm
- jsCkCNdgXTY8YLKdrVCGiXNnQC6nfoJZSVfgaoBJFnOkLuiHLU4eL4jT/C2EEhD7s3gE
- E2G5hhHMtNsSG4DkPFP9rYcB4kpxLJa5RI5whoSShWiqTHFhK335TLEpHm0VKnepA24c
- 5A75UMapeimzA2cZuD+gm1QHBBSOPl9FWMVbLEMWeOOm50fIFz3NfZgQjBG6zQMQ/Xi3 0A== 
-Received: from mx0a-00154901.pphosted.com (mx0a-00154901.pphosted.com
- [67.231.149.39])
- by mx0a-00154904.pphosted.com with ESMTP id 34h302t6kp-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT)
- for <alsa-devel@alsa-project.org>; Tue, 03 Nov 2020 07:59:15 -0500
-Received: from pps.filterd (m0142699.ppops.net [127.0.0.1])
- by mx0a-00154901.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
- 0A3Co64q109691
- for <alsa-devel@alsa-project.org>; Tue, 3 Nov 2020 07:59:15 -0500
-Received: from ausxipps310.us.dell.com (AUSXIPPS310.us.dell.com
- [143.166.148.211])
- by mx0a-00154901.pphosted.com with ESMTP id 34k6pg91hc-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK)
- for <alsa-devel@alsa-project.org>; Tue, 03 Nov 2020 07:59:15 -0500
-X-LoopCount0: from 10.69.132.19
-X-PREM-Routing: D-Outbound
-X-IronPort-AV: E=Sophos;i="5.77,448,1596517200"; d="scan'208";a="559511945"
-From: Perry Yuan <Perry.Yuan@dell.com>
-To: oder_chiou@realtek.com, lgirdwood@gmail.com, broonie@kernel.org,
- perex@perex.cz, tiwai@suse.com
-Subject: [PATCH] ASoC: rt715:add Mic Mute LED control support
-Date: Tue,  3 Nov 2020 04:58:59 -0800
-Message-Id: <20201103125859.8759-1-Perry_Yuan@Dell.com>
-X-Mailer: git-send-email 2.24.3
+ by alsa1.perex.cz (Postfix) with ESMTPS id 1783EF8015A
+ for <alsa-devel@alsa-project.org>; Tue,  3 Nov 2020 17:15:00 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1783EF8015A
+IronPort-SDR: Kd7L+YQy4a5Q3sl+ynlxMOWE5YIAzqO+Q/Bg4MaG029PeivuDASptN53Pv4hMBMNUFu6SoCJvo
+ QhVSfjopHWjQ==
+X-IronPort-AV: E=McAfee;i="6000,8403,9794"; a="169185042"
+X-IronPort-AV: E=Sophos;i="5.77,448,1596524400"; d="scan'208";a="169185042"
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from fmsmga005.fm.intel.com ([10.253.24.32])
+ by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 03 Nov 2020 08:14:57 -0800
+IronPort-SDR: jZab5oytGyFLlQrCaugEYKYWs/Q++oi1xtSDTpne7+dCcvGLfESup5K/p3518AfKjku2Tocl66
+ XnG3nmSJfmNg==
+X-IronPort-AV: E=Sophos;i="5.77,448,1596524400"; d="scan'208";a="528532316"
+Received: from ctanriov-mobl1.amr.corp.intel.com (HELO [10.212.114.78])
+ ([10.212.114.78])
+ by fmsmga005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 03 Nov 2020 08:14:56 -0800
+Subject: Re: [PATCH v2] ASoC: rt1015: support TDM slot configuration
+To: shumingf@realtek.com, broonie@kernel.org, lgirdwood@gmail.com
+References: <20201103091402.8126-1-shumingf@realtek.com>
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Message-ID: <659af5ba-9854-b6d2-95f7-36fd1a5b2bfe@linux.intel.com>
+Date: Tue, 3 Nov 2020 09:47:21 -0600
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.10.0
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.312, 18.0.737
- definitions=2020-11-03_08:2020-11-03,
- 2020-11-03 signatures=0
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- mlxscore=0 lowpriorityscore=0
- phishscore=0 adultscore=0 mlxlogscore=765 priorityscore=1501 clxscore=1011
- impostorscore=0 malwarescore=0 suspectscore=0 spamscore=0 bulkscore=0
- classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2009150000
- definitions=main-2011030087
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 spamscore=0
- mlxscore=0 phishscore=0
- adultscore=0 bulkscore=0 mlxlogscore=901 malwarescore=0 suspectscore=0
- classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2009150000
- definitions=main-2011030088
-X-Mailman-Approved-At: Tue, 03 Nov 2020 17:26:07 +0100
-Cc: alsa-devel@alsa-project.org, Limonciello Mario <Mario.Limonciello@dell.com>,
- linux-kernel@vger.kernel.org, perry_yuan <Perry.Yuan@dell.com>
+In-Reply-To: <20201103091402.8126-1-shumingf@realtek.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
+Cc: oder_chiou@realtek.com, jack.yu@realtek.com, alsa-devel@alsa-project.org,
+ lars@metafoo.de, kent_chen@realtek.com, Keith.Tzeng@quantatw.com,
+ derek.fang@realtek.com, brent.lu@intel.com, flove@realtek.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -111,101 +83,50 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: perry_yuan <perry_yuan@dell.com>
 
-Some new Dell system is going to support audio internal micphone
-privacy setting from hardware level with micmute led state changing
+> +	/* This is an assumption that the system sends stereo audio to the amplifier typically.
+> +	 * And the stereo audio is placed in slot 0/2/4/6 as the starting slot.
+> +	 * According to the slot number, we also set the mono LR to select the right slot.
+> +	 */
+> +	first_bit = __ffs(rx_mask);
+> +	switch (first_bit) {
+> +	case 0:
+> +	case 2:
+> +	case 4:
+> +	case 6:
+> +		snd_soc_component_update_bits(component,
+> +			RT1015_PAD_DRV2, RT1015_MONO_LR_SEL_MASK,
+> +			RT1015_MONO_L_CHANNEL);
+> +		snd_soc_component_update_bits(component,
+> +			RT1015_TDM1_4,
+> +			RT1015_TDM_I2S_TX_L_DAC1_1_MASK |
+> +			RT1015_TDM_I2S_TX_R_DAC1_1_MASK,
+> +			(first_bit << RT1015_TDM_I2S_TX_L_DAC1_1_SFT) |
+> +			((first_bit+1) << RT1015_TDM_I2S_TX_R_DAC1_1_SFT));
+> +		break;
+> +	case 1:
+> +	case 3:
+> +	case 5:
+> +	case 7:
+> +		snd_soc_component_update_bits(component,
+> +			RT1015_PAD_DRV2, RT1015_MONO_LR_SEL_MASK,
+> +			RT1015_MONO_R_CHANNEL);
+> +		snd_soc_component_update_bits(component,
+> +			RT1015_TDM1_4,
+> +			RT1015_TDM_I2S_TX_L_DAC1_1_MASK |
+> +			RT1015_TDM_I2S_TX_R_DAC1_1_MASK,
+> +			((first_bit-1) << RT1015_TDM_I2S_TX_L_DAC1_1_SFT) |
+> +			(first_bit << RT1015_TDM_I2S_TX_R_DAC1_1_SFT));
+> +		break;
 
-This patch allow to change micmute led state through this micphone
-led control interface like hda_generic provided.
+One more question from me: if you have 2 amplifiers on the same link and 
+use slot 0 and 1, what would be the rx_mask for each amplifier? If the 
+mask is BIT(0) for left and BIT(1) for right, it looks like both would 
+render L+R?
 
-Signed-off-by: Perry Yuan  <perry_yuan@dell.com>
-Signed-off-by: Limonciello Mario <mario_limonciello@dell.com>
----
- sound/soc/codecs/rt715.c | 43 ++++++++++++++++++++++++++++++++++++++++
- sound/soc/codecs/rt715.h |  1 +
- 2 files changed, 44 insertions(+)
+Also should the settings and channel selection be modifiable using the 
+codec configuration as we've done for RT1308, e.g. rt1015-1 would use LL 
+and rt1015-2 would use RR?
 
-diff --git a/sound/soc/codecs/rt715.c b/sound/soc/codecs/rt715.c
-index 099c8bd20006..2df2895d0092 100644
---- a/sound/soc/codecs/rt715.c
-+++ b/sound/soc/codecs/rt715.c
-@@ -26,6 +26,7 @@
- #include <linux/of.h>
- #include <linux/of_gpio.h>
- #include <linux/of_device.h>
-+#include <linux/leds.h>
- #include <sound/core.h>
- #include <sound/pcm.h>
- #include <sound/pcm_params.h>
-@@ -213,6 +214,45 @@ static const DECLARE_TLV_DB_SCALE(mic_vol_tlv, 0, 1000, 0);
- 	.private_value = SOC_DOUBLE_R_VALUE(reg_left, reg_right, xshift, \
- 					    xmax, xinvert) }
- 
-+static const char *rt715_micmute_led_mode[] = {
-+  "Off", "On"
-+};
-+
-+static const struct soc_enum rt715_micmute_led_mode_enum =
-+  SOC_ENUM_SINGLE_EXT(ARRAY_SIZE(rt715_micmute_led_mode),
-+              rt715_micmute_led_mode);
-+
-+static int rt715_mic_mute_led_mode_get(struct snd_kcontrol *kcontrol,
-+      struct snd_ctl_elem_value *ucontrol)
-+{
-+    struct snd_soc_component *component = snd_kcontrol_chip(kcontrol);
-+    struct rt715_priv *rt715 = snd_soc_component_get_drvdata(component);
-+    int led_mode = rt715->micmute_led;
-+
-+    ucontrol->value.integer.value[0] = led_mode;
-+#if IS_ENABLED(CONFIG_LEDS_TRIGGER_AUDIO)
-+    ledtrig_audio_set(LED_AUDIO_MICMUTE,
-+            rt715->micmute_led ? LED_ON : LED_OFF);
-+#endif
-+    return 0;
-+}
-+
-+static int rt715_micmute_led_mode_put(struct snd_kcontrol *kcontrol,
-+      struct snd_ctl_elem_value *ucontrol)
-+{
-+    struct snd_soc_component *component = snd_kcontrol_chip(kcontrol);
-+    struct rt715_priv *rt715 = snd_soc_component_get_drvdata(component);
-+    int led_mode = ucontrol->value.integer.value[0];
-+
-+    rt715->micmute_led = led_mode;
-+#if IS_ENABLED(CONFIG_LEDS_TRIGGER_AUDIO)
-+    ledtrig_audio_set(LED_AUDIO_MICMUTE,
-+               rt715->micmute_led ? LED_ON : LED_OFF);
-+#endif
-+  return 0;
-+}
-+
-+
- static const struct snd_kcontrol_new rt715_snd_controls[] = {
- 	/* Capture switch */
- 	SOC_DOUBLE_R_EXT("ADC 07 Capture Switch", RT715_SET_GAIN_MIC_ADC_H,
-@@ -277,6 +317,9 @@ static const struct snd_kcontrol_new rt715_snd_controls[] = {
- 			RT715_SET_GAIN_LINE2_L, RT715_DIR_IN_SFT, 3, 0,
- 			rt715_set_amp_gain_get, rt715_set_amp_gain_put,
- 			mic_vol_tlv),
-+    /*Micmute Led Control*/
-+    SOC_ENUM_EXT("Micmute Led Mode", rt715_micmute_led_mode_enum,
-+            rt715_mic_mute_led_mode_get, rt715_micmute_led_mode_put),
- };
- 
- static int rt715_mux_get(struct snd_kcontrol *kcontrol,
-diff --git a/sound/soc/codecs/rt715.h b/sound/soc/codecs/rt715.h
-index df0f24f9bc0c..32917b7846b4 100644
---- a/sound/soc/codecs/rt715.h
-+++ b/sound/soc/codecs/rt715.h
-@@ -22,6 +22,7 @@ struct rt715_priv {
- 	struct sdw_bus_params params;
- 	bool hw_init;
- 	bool first_hw_init;
-+    int micmute_led;
- };
- 
- struct sdw_stream_data {
--- 
-2.25.1
-
+Thanks
+-Pierre

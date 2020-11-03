@@ -2,75 +2,73 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 949452A4AFB
-	for <lists+alsa-devel@lfdr.de>; Tue,  3 Nov 2020 17:16:51 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id F3FB42A4AFD
+	for <lists+alsa-devel@lfdr.de>; Tue,  3 Nov 2020 17:17:30 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 9410E16BA;
-	Tue,  3 Nov 2020 17:16:00 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9410E16BA
+	by alsa0.perex.cz (Postfix) with ESMTPS id 925151681;
+	Tue,  3 Nov 2020 17:16:40 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 925151681
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1604420210;
-	bh=H8dK8NMlMPRcrltYizqp9CkSxPKkMdx8/zwCDPO0/HM=;
+	s=default; t=1604420250;
+	bh=gZ8/V5Qj5NkpmaTPTbbdZc9gGyiRTD3a4i2Qt103ELs=;
 	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=cjS8DsPzpLZKgqtiU//l90UBclXYuEAHqOSz7a3TXBymcUEyOk+ESVt2xJSeWCg5j
-	 +8ba13Fj/j4u8JRHUaosgF+pFO774JBgwyNi2bjEvnyO48WQLfBBI4h2yjKQkc1vZi
-	 PI4sO1AdfCwtxoN4eOoD4LTiV/HQCTyT2VCJ2oCA=
+	b=uJji9nEoUo/MYLU+dOQzt11KBfudhSGU2thnI8ahOm3JF+oquukjLOkCRN0qwMCwZ
+	 JbOwPxKKJrhYIX0rA2tf7hdmP0aeRQo1fcd1g+d+RXf2keULzEIMz24yLyyTZIqsBM
+	 42O/m5pL9GyZva+ZQ+2lTCYnzu+g/QVIoKxFW6hc=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 1807EF804B3;
-	Tue,  3 Nov 2020 17:15:08 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id B2501F80171;
+	Tue,  3 Nov 2020 17:15:12 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id A93C6F80272; Tue,  3 Nov 2020 17:15:06 +0100 (CET)
+ id 6433CF804B4; Tue,  3 Nov 2020 17:15:10 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=NICE_REPLY_A,SPF_HELO_NONE,
- SPF_NONE autolearn=disabled version=3.4.0
+ SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
 Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 88F0DF80083
- for <alsa-devel@alsa-project.org>; Tue,  3 Nov 2020 17:15:01 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 88F0DF80083
-IronPort-SDR: 9hZtBgb2vv+67f2Sa1hOpFwY2pQY6xCUM+6iGQzvcohsvlhHOSYWgrpcOSAro831sxyW8M68/N
- pFrxoVPqIl+w==
-X-IronPort-AV: E=McAfee;i="6000,8403,9794"; a="169185045"
-X-IronPort-AV: E=Sophos;i="5.77,448,1596524400"; d="scan'208";a="169185045"
+ by alsa1.perex.cz (Postfix) with ESMTPS id 0E2D5F80171
+ for <alsa-devel@alsa-project.org>; Tue,  3 Nov 2020 17:15:03 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0E2D5F80171
+IronPort-SDR: 3Kbq/vyQxtWqsItCiP0/VaRMPXKnKwkV8K6/Os0NMC7KUam6r9xFKRXtCc5wz/W8aabMitZx/p
+ 3tM/IBZuyhgw==
+X-IronPort-AV: E=McAfee;i="6000,8403,9794"; a="169185048"
+X-IronPort-AV: E=Sophos;i="5.77,448,1596524400"; d="scan'208";a="169185048"
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
 Received: from fmsmga005.fm.intel.com ([10.253.24.32])
  by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 03 Nov 2020 08:14:58 -0800
-IronPort-SDR: O2DhVTMd6e778exoN8PgT9cKVFe6JJwL6CN3YdTAaIhxsJYlVAmSvFH6r9usWVHX086eEYTB2a
- iKok52xZcMAA==
-X-IronPort-AV: E=Sophos;i="5.77,448,1596524400"; d="scan'208";a="528532324"
+ 03 Nov 2020 08:15:00 -0800
+IronPort-SDR: 8HuAY75XhSfQhszJ2sDcMZ9CbaSCwurL5LJKgivLZjKrgD6ljdv/XwWm/aQZkL1D2Zuint6U/9
+ z0mrBYehc4Nw==
+X-IronPort-AV: E=Sophos;i="5.77,448,1596524400"; d="scan'208";a="528532333"
 Received: from ctanriov-mobl1.amr.corp.intel.com (HELO [10.212.114.78])
  ([10.212.114.78])
  by fmsmga005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 03 Nov 2020 08:14:58 -0800
-Subject: Re: [PATCH v2 3/6] ASoC: codecs: lpass-wsa-macro: add dapm widgets
- and route
-To: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>, broonie@kernel.org
-References: <20201029110829.16425-1-srinivas.kandagatla@linaro.org>
- <20201029110829.16425-4-srinivas.kandagatla@linaro.org>
- <3300f31e-28d1-becf-41e7-814b38082dcb@linux.intel.com>
- <b21abfab-108e-50f4-f905-5d9d0fc5168b@linaro.org>
+ 03 Nov 2020 08:14:59 -0800
+Subject: Re: [PATCH] ASoC: rt715:add Mic Mute LED control support
+To: Mark Brown <broonie@kernel.org>, Perry Yuan <Perry.Yuan@dell.com>
+References: <20201103125859.8759-1-Perry_Yuan@Dell.com>
+ <20201103131253.GA5545@sirena.org.uk>
 From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Message-ID: <798ac8de-2d04-9966-6104-9a676730f44c@linux.intel.com>
-Date: Tue, 3 Nov 2020 09:51:51 -0600
+Message-ID: <5f2c1282-4401-276a-8dad-127fa1f449fd@linux.intel.com>
+Date: Tue, 3 Nov 2020 10:13:03 -0600
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
  Thunderbird/68.10.0
 MIME-Version: 1.0
-In-Reply-To: <b21abfab-108e-50f4-f905-5d9d0fc5168b@linaro.org>
-Content-Type: text/plain; charset=utf-8; format=flowed
+In-Reply-To: <20201103131253.GA5545@sirena.org.uk>
+Content-Type: text/plain; charset=windows-1252; format=flowed
 Content-Language: en-US
-Content-Transfer-Encoding: 8bit
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org, robh+dt@kernel.org,
- lgirdwood@gmail.com, linux-kernel@vger.kernel.org
+Content-Transfer-Encoding: 7bit
+Cc: oder_chiou@realtek.com, alsa-devel@alsa-project.org, lgirdwood@gmail.com,
+ Limonciello Mario <Mario.Limonciello@dell.com>, linux-kernel@vger.kernel.org,
+ tiwai@suse.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -86,34 +84,61 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+Somehow this patch was filtered by alsa-devel servers?
 
-
->>> +static bool wsa_macro_adie_lb(struct snd_soc_component *component,
->>> +                  int interp_idx)
->>> +{
->>> +    u16 int_mux_cfg0 = 0, int_mux_cfg1 = 0;
+On 11/3/20 7:12 AM, Mark Brown wrote:
+> On Tue, Nov 03, 2020 at 04:58:59AM -0800, Perry Yuan wrote:
+>> From: perry_yuan <perry_yuan@dell.com>
 >>
->> these inits are ignored
+>> Some new Dell system is going to support audio internal micphone
+>> privacy setting from hardware level with micmute led state changing
 >>
->>> +    u8 int_mux_cfg0_val = 0, int_mux_cfg1_val = 0;
->>
->> these as well
->>
->>> +    u8 int_n_inp0 = 0, int_n_inp1 = 0, int_n_inp2 = 0;
->>
->> and these are also ignored.
->>
-> Yes, these are ignored, I should have removed the unnecessary 
-> initialization!
-> It would have been nice if sparse could catch such errors!
+>> This patch allow to change micmute led state through this micphone
+>> led control interface like hda_generic provided.
 > 
-> are you using tool to catch these?
+> If this is useful it should be done at the subsystem level rather than
+> open coded in a specific CODEC driver, however I don't undersand why it
+> is.
+> 
+>> +static int rt715_micmute_led_mode_put(struct snd_kcontrol *kcontrol,
+>> +      struct snd_ctl_elem_value *ucontrol)
+>> +{
+>> +    struct snd_soc_component *component = snd_kcontrol_chip(kcontrol);
+>> +    struct rt715_priv *rt715 = snd_soc_component_get_drvdata(component);
+>> +    int led_mode = ucontrol->value.integer.value[0];
+>> +
+>> +    rt715->micmute_led = led_mode;
+>> +#if IS_ENABLED(CONFIG_LEDS_TRIGGER_AUDIO)
+>> +    ledtrig_audio_set(LED_AUDIO_MICMUTE,
+>> +               rt715->micmute_led ? LED_ON : LED_OFF);
+>> +#endif
+>> +  return 0;
+>> +}
+> 
+> This is just adding a userspace API to set a LED via the standard LED
+> APIs.  Since the LED subsystem already has a perfectly good userspace
+> API why not use that?  There is no visible value in this being in the
+> sound subsystem.
 
-make W=1 and cppcheck.
+I also don't quite follow. This looks as inspired from HDaudio code, but 
+with a lot of simplifications.
 
-"
-Run cppcheck on this sort of code:
+If the intent was that when userspace decides to mute the LED is turned 
+on, wouldn't it be enough to just track the state of a 'capture switch' 
+responsible for mute, i.e. when the capture Switch is 'off' the LED is 
+on. I don't see the point of having a new control, you would be adding 
+more work for PulseAudio/UCM whereas connecting the capture switch to a 
+led comes with zero work in userspace. See e.g. how the mute mic LED was 
+handled in the SOF code handling DMICs, we didn't add a new control but 
+turned the LED in the switch .put callback, see
 
-cppcheck --platform=unix32 --force --max-configs=1024 --inconclusive
---enable=all --suppress=variableScope sound/soc/codecs/lpass-wsa-macro.c
-"
+https://elixir.bootlin.com/linux/latest/source/sound/soc/sof/control.c#L18
+
+https://elixir.bootlin.com/linux/latest/source/sound/soc/sof/control.c#L153
+
+Actually thinking more about it, having two controls for 'mute LED' and 
+'capture switch' could lead to inconsistent states where the LED is on 
+without mute being activated. we should really bolt the LED activation 
+to the capture switch, that way the mute and LED states are aligned.
+
+

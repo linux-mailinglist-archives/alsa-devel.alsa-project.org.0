@@ -2,70 +2,86 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D36652A3FC7
-	for <lists+alsa-devel@lfdr.de>; Tue,  3 Nov 2020 10:16:13 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 118932A4136
+	for <lists+alsa-devel@lfdr.de>; Tue,  3 Nov 2020 11:07:46 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 52D561795;
-	Tue,  3 Nov 2020 10:15:23 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 52D561795
+	by alsa0.perex.cz (Postfix) with ESMTPS id 98D2A1793;
+	Tue,  3 Nov 2020 11:06:55 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 98D2A1793
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1604394973;
-	bh=7XQ1aRltmqh630n+o45cp1le5yhS6VQRE4Udk+ZJGSQ=;
+	s=default; t=1604398065;
+	bh=CpIQVbUPn7Qa9HKtqlGnFT7rJ7XYZdsaF2CbmGkma88=;
 	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
 	 List-Post:List-Help:List-Subscribe:From;
-	b=rl+VBH99S0xhTg5MLk+W6NE/IY1CTnnd6uAFYFcVg2jmNj8g1BB3B5LdL3w+tvfw8
-	 gOt9tmLqAjPIowl++If8QOI2/sVwrErjGrbGZeO6Q/g4aAFbzUM2dFMi5aJvMx2GCt
-	 0TOt0vi4bcVCxiFNPHdE1jAJaFXF21qeutaczIr8=
+	b=GpxYAMOKKgKRnZQLbB2Tamouu6tPfgBuPI98JElh8OmuDSdcMh2te/rYplrNvZdT5
+	 cgFowRljvHktlMhw9w0P0Raq0fw3noW9/4RPmnlnaCCVV+R0vA2dMvcNnFzJN9xhqY
+	 K5k4+HYH27toH4AQQEtLnPuMm8ZFOGoCHzLoTJvg=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id C444AF80108;
-	Tue,  3 Nov 2020 10:14:40 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id C43E3F80272;
+	Tue,  3 Nov 2020 11:06:12 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 8172CF80171; Tue,  3 Nov 2020 10:14:38 +0100 (CET)
+ id A965DF80171; Tue,  3 Nov 2020 11:06:11 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,RCVD_IN_MSPIKE_H2,SPF_HELO_PASS,SPF_PASS,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from esa6.microchip.iphmx.com (esa6.microchip.iphmx.com
+ [216.71.154.253])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 09A03F8015A
- for <alsa-devel@alsa-project.org>; Tue,  3 Nov 2020 10:14:30 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 09A03F8015A
-Authenticated-By: 
-X-SpamFilter-By: ArmorX SpamTrap 5.73 with qID 0A39ELRD0005807,
- This message is accepted by code: ctloc85258
-Received: from mail.realtek.com (rtexmb06.realtek.com.tw[172.21.6.99])
- by rtits2.realtek.com.tw (8.15.2/2.70/5.88) with ESMTPS id 0A39ELRD0005807
- (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT);
- Tue, 3 Nov 2020 17:14:21 +0800
-Received: from RTEXMBS01.realtek.com.tw (172.21.6.36) by
- RTEXMB06.realtek.com.tw (172.21.6.99) with Microsoft SMTP Server
+ by alsa1.perex.cz (Postfix) with ESMTPS id 54708F80083
+ for <alsa-devel@alsa-project.org>; Tue,  3 Nov 2020 11:06:03 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 54708F80083
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com
+ header.b="JKSjzwr6"
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+ d=microchip.com; i=@microchip.com; q=dns/txt; s=mchp;
+ t=1604397965; x=1635933965;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=CpIQVbUPn7Qa9HKtqlGnFT7rJ7XYZdsaF2CbmGkma88=;
+ b=JKSjzwr6umKozoxKdUPowF7IgR09tTPyEZbHEFedmNIWpUbGtPk8sEPQ
+ k2Y9c/KQ1kGJwOwyJu1F4Drex5p2I+7SsQalRhxWozNo4Z6nJXbVzVIbg
+ Osw0ZOyUl+hfWLeMCnQ+bap6HeoSKHAmXFwrUxZynfVOeW1osu0r8kDcx
+ 5fYgcAbMkvo4/6xGrYQJEpJgNrH4nxmD3ExHCiLhM+Ml/lozdKQNjHQrv
+ LKZXwbadixs8NM8Xy3NJMBw5IuKcMsm2puOIIXyqSi8JATGo1kyyEF525
+ U1cWl0+Dj4107m1HB1WXjbWZNlL1uq0OpuG8gDQipYCt3GOC5FcgXwlZE A==;
+IronPort-SDR: vBlDUkTh34wc9Her5awDtIWlmIwQafxmUGuBMbNkIBXVq8t7Y9uVUulw53W0wcGPdJQM5ezvOt
+ UmOCaFVxuOS18gbczcel9/SYdu0uqIxzxkIfmtKqTep6dJEuZooQI08M9ppkybrzgiaoUKzCLd
+ yDg2SzWGergQwN5mtSI9yOCaqZvUD0afiiFvwJkANprOCuiiZqKOTeQ6NZ0TLNEuzlKszJS4mN
+ G9n5jlZq7RUBBWMmaHPKVTuETCkF3sc8aNQGcUsDsUFOCKDMn/ZESA22LwanzcTtljjIfogmUJ
+ apA=
+X-IronPort-AV: E=Sophos;i="5.77,447,1596524400"; d="scan'208";a="32192205"
+Received: from smtpout.microchip.com (HELO email.microchip.com)
+ ([198.175.253.82])
+ by esa6.microchip.iphmx.com with ESMTP/TLS/AES256-SHA256;
+ 03 Nov 2020 03:06:00 -0700
+Received: from chn-vm-ex02.mchp-main.com (10.10.85.144) by
+ chn-vm-ex03.mchp-main.com (10.10.85.151) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2044.4; Tue, 3 Nov 2020 17:14:21 +0800
-Received: from localhost.localdomain (172.22.102.1) by
- RTEXMBS01.realtek.com.tw (172.21.6.36) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2106.2; Tue, 3 Nov 2020 17:14:21 +0800
-From: <shumingf@realtek.com>
-To: <broonie@kernel.org>, <lgirdwood@gmail.com>
-Subject: [PATCH v2] ASoC: rt1015: support TDM slot configuration
-Date: Tue, 3 Nov 2020 17:14:02 +0800
-Message-ID: <20201103091402.8126-1-shumingf@realtek.com>
-X-Mailer: git-send-email 2.28.0
+ 15.1.1979.3; Tue, 3 Nov 2020 03:06:00 -0700
+Received: from rob-ult-m19940.amer.actel.com (10.10.115.15) by
+ chn-vm-ex02.mchp-main.com (10.10.85.144) with Microsoft SMTP Server id
+ 15.1.1979.3 via Frontend Transport; Tue, 3 Nov 2020 03:05:57 -0700
+From: Codrin Ciubotariu <codrin.ciubotariu@microchip.com>
+To: <alsa-devel@alsa-project.org>, <linux-arm-kernel@lists.infradead.org>,
+ <linux-kernel@vger.kernel.org>
+Subject: [PATCH] ASoC: atmel-i2s: do not warn if muxclk is missing
+Date: Tue, 3 Nov 2020 12:05:54 +0200
+Message-ID: <20201103100554.1307190-1-codrin.ciubotariu@microchip.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
-X-Originating-IP: [172.22.102.1]
-X-ClientProxiedBy: RTEXMB01.realtek.com.tw (172.21.6.94) To
- RTEXMBS01.realtek.com.tw (172.21.6.36)
-Cc: oder_chiou@realtek.com, jack.yu@realtek.com, alsa-devel@alsa-project.org,
- lars@metafoo.de, kent_chen@realtek.com, Keith.Tzeng@quantatw.com,
- derek.fang@realtek.com, Shuming Fan <shumingf@realtek.com>, brent.lu@intel.com,
- flove@realtek.com
+Cc: alexandre.belloni@bootlin.com, lgirdwood@gmail.com,
+ nicolas.ferre@microchip.com, ludovic.desroches@microchip.com,
+ broonie@kernel.org, Codrin Ciubotariu <codrin.ciubotariu@microchip.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -81,201 +97,31 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: Shuming Fan <shumingf@realtek.com>
+Besides the fact that muxclk is optional, muxclk can be set using
+assigned-clocks, removing the need to set it in driver. The warning is
+thus unneeded, so we can transform it in a debug print, eventually to just
+reflect that muxclk was not set by the driver.
 
-Add TDM slot callback function to support TDM configuration
-
-Signed-off-by: Shuming Fan <shumingf@realtek.com>
+Signed-off-by: Codrin Ciubotariu <codrin.ciubotariu@microchip.com>
 ---
- sound/soc/codecs/rt1015.c | 107 ++++++++++++++++++++++++++++++++++++++
- sound/soc/codecs/rt1015.h |  42 +++++++++++++++
- 2 files changed, 149 insertions(+)
+ sound/soc/atmel/atmel-i2s.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/sound/soc/codecs/rt1015.c b/sound/soc/codecs/rt1015.c
-index 25fe2ddedd54..b067bd175287 100644
---- a/sound/soc/codecs/rt1015.c
-+++ b/sound/soc/codecs/rt1015.c
-@@ -944,6 +944,112 @@ static int rt1015_set_bclk_ratio(struct snd_soc_dai *dai, unsigned int ratio)
- 	return 0;
- }
+diff --git a/sound/soc/atmel/atmel-i2s.c b/sound/soc/atmel/atmel-i2s.c
+index bbe2b638abb5..232300dda548 100644
+--- a/sound/soc/atmel/atmel-i2s.c
++++ b/sound/soc/atmel/atmel-i2s.c
+@@ -563,8 +563,8 @@ static int atmel_i2s_sama5d2_mck_init(struct atmel_i2s_dev *dev,
+ 		err = PTR_ERR(muxclk);
+ 		if (err == -EPROBE_DEFER)
+ 			return -EPROBE_DEFER;
+-		dev_warn(dev->dev,
+-			 "failed to get the I2S clock control: %d\n", err);
++		dev_dbg(dev->dev,
++			"failed to get the I2S clock control: %d\n", err);
+ 		return 0;
+ 	}
  
-+static int rt1015_set_tdm_slot(struct snd_soc_dai *dai,
-+	unsigned int tx_mask, unsigned int rx_mask, int slots, int slot_width)
-+{
-+	struct snd_soc_component *component = dai->component;
-+	unsigned int val = 0, rx_slotnum, tx_slotnum;
-+	int ret = 0, first_bit;
-+
-+	switch (slots) {
-+	case 2:
-+		val |= RT1015_I2S_TX_2CH;
-+		break;
-+	case 4:
-+		val |= RT1015_I2S_TX_4CH;
-+		break;
-+	case 6:
-+		val |= RT1015_I2S_TX_6CH;
-+		break;
-+	case 8:
-+		val |= RT1015_I2S_TX_8CH;
-+		break;
-+	default:
-+		ret = -EINVAL;
-+		goto _set_tdm_err_;
-+	}
-+
-+	switch (slot_width) {
-+	case 16:
-+		val |= RT1015_I2S_CH_TX_LEN_16B;
-+		break;
-+	case 20:
-+		val |= RT1015_I2S_CH_TX_LEN_20B;
-+		break;
-+	case 24:
-+		val |= RT1015_I2S_CH_TX_LEN_24B;
-+		break;
-+	case 32:
-+		val |= RT1015_I2S_CH_TX_LEN_32B;
-+		break;
-+	default:
-+		ret = -EINVAL;
-+		goto _set_tdm_err_;
-+	}
-+
-+	/* Rx slot configuration */
-+	rx_slotnum = hweight_long(rx_mask);
-+	if (rx_slotnum != 1) {
-+		ret = -EINVAL;
-+		dev_err(component->dev, "too many rx slots or zero slot\n");
-+		goto _set_tdm_err_;
-+	}
-+
-+	/* This is an assumption that the system sends stereo audio to the amplifier typically.
-+	 * And the stereo audio is placed in slot 0/2/4/6 as the starting slot.
-+	 * According to the slot number, we also set the mono LR to select the right slot.
-+	 */
-+	first_bit = __ffs(rx_mask);
-+	switch (first_bit) {
-+	case 0:
-+	case 2:
-+	case 4:
-+	case 6:
-+		snd_soc_component_update_bits(component,
-+			RT1015_PAD_DRV2, RT1015_MONO_LR_SEL_MASK,
-+			RT1015_MONO_L_CHANNEL);
-+		snd_soc_component_update_bits(component,
-+			RT1015_TDM1_4,
-+			RT1015_TDM_I2S_TX_L_DAC1_1_MASK |
-+			RT1015_TDM_I2S_TX_R_DAC1_1_MASK,
-+			(first_bit << RT1015_TDM_I2S_TX_L_DAC1_1_SFT) |
-+			((first_bit+1) << RT1015_TDM_I2S_TX_R_DAC1_1_SFT));
-+		break;
-+	case 1:
-+	case 3:
-+	case 5:
-+	case 7:
-+		snd_soc_component_update_bits(component,
-+			RT1015_PAD_DRV2, RT1015_MONO_LR_SEL_MASK,
-+			RT1015_MONO_R_CHANNEL);
-+		snd_soc_component_update_bits(component,
-+			RT1015_TDM1_4,
-+			RT1015_TDM_I2S_TX_L_DAC1_1_MASK |
-+			RT1015_TDM_I2S_TX_R_DAC1_1_MASK,
-+			((first_bit-1) << RT1015_TDM_I2S_TX_L_DAC1_1_SFT) |
-+			(first_bit << RT1015_TDM_I2S_TX_R_DAC1_1_SFT));
-+		break;
-+	default:
-+		ret = -EINVAL;
-+		goto _set_tdm_err_;
-+	}
-+
-+	/* Tx slot configuration */
-+	tx_slotnum = hweight_long(tx_mask);
-+	if (tx_slotnum) {
-+		ret = -EINVAL;
-+		dev_err(component->dev, "doesn't need to support tx slots\n");
-+		goto _set_tdm_err_;
-+	}
-+
-+	snd_soc_component_update_bits(component, RT1015_TDM1_1,
-+		RT1015_I2S_CH_TX_MASK | RT1015_I2S_CH_RX_MASK |
-+		RT1015_I2S_CH_TX_LEN_MASK | RT1015_I2S_CH_RX_LEN_MASK, val);
-+
-+_set_tdm_err_:
-+	return ret;
-+}
-+
- static int rt1015_probe(struct snd_soc_component *component)
- {
- 	struct rt1015_priv *rt1015 =
-@@ -975,6 +1081,7 @@ static struct snd_soc_dai_ops rt1015_aif_dai_ops = {
- 	.hw_params = rt1015_hw_params,
- 	.set_fmt = rt1015_set_dai_fmt,
- 	.set_bclk_ratio = rt1015_set_bclk_ratio,
-+	.set_tdm_slot = rt1015_set_tdm_slot,
- };
- 
- static struct snd_soc_dai_driver rt1015_dai[] = {
-diff --git a/sound/soc/codecs/rt1015.h b/sound/soc/codecs/rt1015.h
-index d3fdd30aca6d..ad8274c80990 100644
---- a/sound/soc/codecs/rt1015.h
-+++ b/sound/soc/codecs/rt1015.h
-@@ -213,6 +213,12 @@
- #define RT1015_ID_VERA				0x0
- #define RT1015_ID_VERB				0x1
- 
-+/* 0x00f2 */
-+#define RT1015_MONO_LR_SEL_MASK			(0x3 << 4)
-+#define RT1015_MONO_L_CHANNEL			(0x0 << 4)
-+#define RT1015_MONO_R_CHANNEL			(0x1 << 4)
-+#define RT1015_MONO_LR_MIX_CHANNEL			(0x2 << 4)
-+
- /* 0x0102 */
- #define RT1015_DAC_VOL_MASK			(0x7f << 9)
- #define RT1015_DAC_VOL_SFT			9
-@@ -275,6 +281,42 @@
- #define RT1015_TDM_INV_BCLK_MASK		(0x1 << 15)
- #define RT1015_TDM_INV_BCLK_SFT			15
- #define RT1015_TDM_INV_BCLK			(0x1 << 15)
-+#define RT1015_I2S_CH_TX_MASK			(0x3 << 10)
-+#define RT1015_I2S_CH_TX_SFT			10
-+#define RT1015_I2S_TX_2CH			(0x0 << 10)
-+#define RT1015_I2S_TX_4CH			(0x1 << 10)
-+#define RT1015_I2S_TX_6CH			(0x2 << 10)
-+#define RT1015_I2S_TX_8CH			(0x3 << 10)
-+#define RT1015_I2S_CH_RX_MASK			(0x3 << 8)
-+#define RT1015_I2S_CH_RX_SFT			8
-+#define RT1015_I2S_RX_2CH			(0x0 << 8)
-+#define RT1015_I2S_RX_4CH			(0x1 << 8)
-+#define RT1015_I2S_RX_6CH			(0x2 << 8)
-+#define RT1015_I2S_RX_8CH			(0x3 << 8)
-+#define RT1015_I2S_LR_CH_SEL_MASK			(0x1 << 7)
-+#define RT1015_I2S_LR_CH_SEL_SFT			7
-+#define RT1015_I2S_LEFT_CH_SEL			(0x0 << 7)
-+#define RT1015_I2S_RIGHT_CH_SEL			(0x1 << 7)
-+#define RT1015_I2S_CH_TX_LEN_MASK			(0x7 << 4)
-+#define RT1015_I2S_CH_TX_LEN_SFT			4
-+#define RT1015_I2S_CH_TX_LEN_16B			(0x0 << 4)
-+#define RT1015_I2S_CH_TX_LEN_20B			(0x1 << 4)
-+#define RT1015_I2S_CH_TX_LEN_24B			(0x2 << 4)
-+#define RT1015_I2S_CH_TX_LEN_32B			(0x3 << 4)
-+#define RT1015_I2S_CH_TX_LEN_8B			(0x4 << 4)
-+#define RT1015_I2S_CH_RX_LEN_MASK			(0x7 << 0)
-+#define RT1015_I2S_CH_RX_LEN_SFT			0
-+#define RT1015_I2S_CH_RX_LEN_16B			(0x0 << 0)
-+#define RT1015_I2S_CH_RX_LEN_20B			(0x1 << 0)
-+#define RT1015_I2S_CH_RX_LEN_24B			(0x2 << 0)
-+#define RT1015_I2S_CH_RX_LEN_32B			(0x3 << 0)
-+#define RT1015_I2S_CH_RX_LEN_8B			(0x4 << 0)
-+
-+/* TDM1 Setting-4 (0x011a) */
-+#define RT1015_TDM_I2S_TX_L_DAC1_1_MASK			(0x7 << 12)
-+#define RT1015_TDM_I2S_TX_R_DAC1_1_MASK			(0x7 << 8)
-+#define RT1015_TDM_I2S_TX_L_DAC1_1_SFT 12
-+#define RT1015_TDM_I2S_TX_R_DAC1_1_SFT 8
- 
- /* 0x0330 */
- #define RT1015_ABST_AUTO_EN_MASK		(0x1 << 13)
 -- 
-2.28.0
+2.25.1
 

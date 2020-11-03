@@ -2,98 +2,55 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id AF2332A4545
-	for <lists+alsa-devel@lfdr.de>; Tue,  3 Nov 2020 13:33:53 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 706E42A45FA
+	for <lists+alsa-devel@lfdr.de>; Tue,  3 Nov 2020 14:11:26 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 2FFE417CD;
-	Tue,  3 Nov 2020 13:33:03 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2FFE417CD
+	by alsa0.perex.cz (Postfix) with ESMTPS id EFC3E17B3;
+	Tue,  3 Nov 2020 14:10:35 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EFC3E17B3
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1604406833;
-	bh=SwP8ntDbf4cFl5D/TL51U+gR/3UBnNGFfHsGfDBtyWw=;
-	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
+	s=default; t=1604409086;
+	bh=pSxqJBZMEdoaL2LlELujSoNLnaUIb9rGdsgHvdH2mFM=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=hSxHRyJ0C37hxwq0nfDvFTXqRenGLhXiUq9nqQ61nbPuhQ2CjSy31vmx4MM1+o39b
-	 3B00HLsBXBxrP/ruUyz+k5vjDw0vm6n2vUAFIHPEcrkJVu0QR1fcWLuX/rP0Sf4S9U
-	 h6F7n7MguBwimfJ0yFLOriVed3x0hL7vAX9Jg6T4=
+	b=iXkvSXAVKuekwOYYfUY4m0BsxCUqLqBfLEkCAEs/HvbuYjq44HHy3ZLA3/L5xs9Qp
+	 adeycCGEwljkWys4PRmceoKoRWpWmG/CUaqE1nz9APOFGs1HE/TgBomCVrLmdLJdE9
+	 RhmTrJp4wd46fr637CiBRKFpsfsVfbR0bxX7xNoQ=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 973B6F804C2;
-	Tue,  3 Nov 2020 13:31:49 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 4D213F80083;
+	Tue,  3 Nov 2020 14:09:53 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 8AA42F804C1; Tue,  3 Nov 2020 13:31:47 +0100 (CET)
+ id 5EA77F80171; Tue,  3 Nov 2020 14:09:51 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS autolearn=disabled
- version=3.4.0
-Received: from mail-wm1-x341.google.com (mail-wm1-x341.google.com
- [IPv6:2a00:1450:4864:20::341])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 178A4F804B4
- for <alsa-devel@alsa-project.org>; Tue,  3 Nov 2020 13:31:45 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 178A4F804B4
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org
- header.b="ibxvv73c"
-Received: by mail-wm1-x341.google.com with SMTP id c9so11026048wml.5
- for <alsa-devel@alsa-project.org>; Tue, 03 Nov 2020 04:31:45 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=subject:to:cc:references:from:message-id:date:user-agent
- :mime-version:in-reply-to:content-language:content-transfer-encoding;
- bh=y5g02yisg2YY1sLEpz7UaUSABGGShGErCKYZaVBWDik=;
- b=ibxvv73cNC5BoJrVRc/HNlTXGT5LdQH6Xdd4KchdNSvNos3JpctjDBkt/IueeM+QaF
- c8Rzba0GgkPkcHNEBWeK5vW0wgJIxe430Pna4cVNyWK5CMTqjhlPeSWRYDTlqiNboOdc
- JaxC8ZkLZGhjDQZq8tdbM4ZLTX4hkTjQLXvzTcx447SSpxJ0Gq3A4YDD/bGiMWndOSo1
- MPuAEclfe7MHpHu0k+8518NsTKWOXc1+AeFGcZeGT3jv5bqvl72Qk2jwZtHmphdX7rXH
- r+SMWQJEJqvblpCkcwZK7qLkMJiNnc6iQN1Bx201q43Ka28PbwhuZmJz8OlOkDXY1K2N
- +B7Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:subject:to:cc:references:from:message-id:date
- :user-agent:mime-version:in-reply-to:content-language
- :content-transfer-encoding;
- bh=y5g02yisg2YY1sLEpz7UaUSABGGShGErCKYZaVBWDik=;
- b=DwjrKpRsbctxrgVrzod9dsW+HGhz9+3BxKm4+RlR4+efWPSWyiKSkq+P+t3D34//R1
- V5LIBV/6gSEAwjebK5qslX+EstYJYiXdFkWSXbRweaODIr2g86F6USZaqEPa6f9j0ZEs
- lnHUHg5LsBeb0Trex+4LImeKtu7NKjJsV5rySl4jiUwZCKQLf8KJx75Ak3OkvHxchlD0
- uHDQHqcZf4fStpvZQGC0TpqNDyzqBllKQ87pVO3dA3cWyNWlCSp+OGKHLsnSACgFziHq
- 1oSsv/zk58NUiJwNo3QcRrg+hQULI10j/sFyqIR6sz/5AVVfyU0PR/zUrL9AKQzNo8M2
- qbHQ==
-X-Gm-Message-State: AOAM532I7UZp1Z8gOw4SWmOkOTnqLgVkkswAvT032v89++pJn37dxpeg
- Z4sVsKzWSeIW2pYhXwoAeaW1XA==
-X-Google-Smtp-Source: ABdhPJyoDx75NM2nei8klPiV6Zbdy71+3ncC5yA+p6RbdzsnUy2pt1TXTtGiX+SMswnf4kmnfXwTHg==
-X-Received: by 2002:a1c:b70b:: with SMTP id h11mr3580057wmf.185.1604406702958; 
- Tue, 03 Nov 2020 04:31:42 -0800 (PST)
-Received: from [192.168.86.34]
- (cpc86377-aztw32-2-0-cust226.18-1.cable.virginm.net. [92.233.226.227])
- by smtp.googlemail.com with ESMTPSA id v6sm25922279wrb.53.2020.11.03.04.31.41
- (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
- Tue, 03 Nov 2020 04:31:42 -0800 (PST)
-Subject: Re: [PATCH v2 2/6] ASoC: codecs: lpass-wsa-macro: Add support to WSA
- Macro
-To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- broonie@kernel.org
-References: <20201029110829.16425-1-srinivas.kandagatla@linaro.org>
- <20201029110829.16425-3-srinivas.kandagatla@linaro.org>
- <13987e14-0bd9-9659-b574-d3b7446bb789@linux.intel.com>
-From: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
-Message-ID: <0bce847c-6437-9d12-6d54-d9ee99c7e896@linaro.org>
-Date: Tue, 3 Nov 2020 12:31:41 +0000
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
- Thunderbird/60.8.0
-MIME-Version: 1.0
-In-Reply-To: <13987e14-0bd9-9659-b574-d3b7446bb789@linux.intel.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 8bit
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org, robh+dt@kernel.org,
- lgirdwood@gmail.com, linux-kernel@vger.kernel.org
+X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_MSPIKE_H3,
+ RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
+Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
+ by alsa1.perex.cz (Postfix) with ESMTP id DF0EEF80108
+ for <alsa-devel@alsa-project.org>; Tue,  3 Nov 2020 14:09:46 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DF0EEF80108
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id 880B3AD18;
+ Tue,  3 Nov 2020 13:09:42 +0000 (UTC)
+Date: Tue, 03 Nov 2020 14:09:42 +0100
+Message-ID: <s5himamoacp.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Yu Hao <yuhaobehappy@gmail.com>
+Subject: Re: [PATCH] sound/core/seq: remove dead code
+In-Reply-To: <20201102071154.23563-1-yuhaobehappy@gmail.com>
+References: <20201102071154.23563-1-yuhaobehappy@gmail.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
+ FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
+ (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
+Content-Type: text/plain; charset=US-ASCII
+Cc: linux-kernel@vger.kernel.org, alsa-devel@alsa-project.org, tiwai@suse.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -109,25 +66,65 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-
-
-On 29/10/2020 15:47, Pierre-Louis Bossart wrote:
->> +static void wsa_macro_mclk_enable(struct wsa_macro *wsa, bool 
->> mclk_enable)
->> +{
->> +    struct regmap *regmap = wsa->regmap;
->> +
->> +    if (mclk_enable) {
->> +        if (wsa->wsa_mclk_users == 0) {
->> +            regcache_mark_dirty(regmap);
->> +            regcache_sync_region(regmap, 0x0, WSA_MAX_OFFSET);
+On Mon, 02 Nov 2020 08:11:54 +0100,
+Yu Hao wrote:
 > 
-> I am not a regcache/regmap expert but the sequence seems odd. I could be 
-> wrong, but one would typically sync *after* doing changes, no?
+> The function snd_seq_queue_client_termination() is only called from
+> function seq_free_client1(). The seq_free_client1() calls function
+> snd_seq_queue_client_leave(), which deletes all objects whose owner
+> equals to client->number in global array queue_list, before the function
+> snd_seq_queue_client_termination(), which checks whether there are
+> any objects in global array queue_list whose owner equals to
+> client->number, with the same argument client->number. So
+> the checking code in function snd_seq_queue_client_termination() is
+> dead code. Remove those dead code.
+> 
+> Signed-off-by: Yu Hao <yuhaobehappy@gmail.com>
 
-In this code path the MCLK is going from OFF to ON state, so the 
-registers would be put in reset state, so we need to sync them with 
-current cache state!
+Actually the whole function snd_seq_queue_client_termination() can be
+removed.  It's a quite old code and I don't remember clearly, but I
+guess the intention was to call this before the actual queue
+deletion.  OTOH, it doesn't make any sense to change that order any
+longer, as the snd_seq_queue_client_leave() already takes similar
+procedure anyway, so let's rather wipe off the useless function.
 
---srini
+Could you resubmit with that change?
 
+
+thanks,
+
+Takashi
+
+> ---
+>  sound/core/seq/seq_queue.c | 11 -----------
+>  1 file changed, 11 deletions(-)
+> 
+> diff --git a/sound/core/seq/seq_queue.c b/sound/core/seq/seq_queue.c
+> index 71a6ea62c3be..91b3f3295d0b 100644
+> --- a/sound/core/seq/seq_queue.c
+> +++ b/sound/core/seq/seq_queue.c
+> @@ -545,21 +545,10 @@ void snd_seq_queue_client_termination(int client)
+>  	unsigned long flags;
+>  	int i;
+>  	struct snd_seq_queue *q;
+> -	bool matched;
+>  
+>  	for (i = 0; i < SNDRV_SEQ_MAX_QUEUES; i++) {
+>  		if ((q = queueptr(i)) == NULL)
+>  			continue;
+> -		spin_lock_irqsave(&q->owner_lock, flags);
+> -		matched = (q->owner == client);
+> -		if (matched)
+> -			q->klocked = 1;
+> -		spin_unlock_irqrestore(&q->owner_lock, flags);
+> -		if (matched) {
+> -			if (q->timer->running)
+> -				snd_seq_timer_stop(q->timer);
+> -			snd_seq_timer_reset(q->timer);
+> -		}
+>  		queuefree(q);
+>  	}
+>  }
+> -- 
+> 2.17.1
+> 

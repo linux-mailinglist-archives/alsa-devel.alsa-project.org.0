@@ -2,82 +2,98 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1A5D32A3CA7
-	for <lists+alsa-devel@lfdr.de>; Tue,  3 Nov 2020 07:11:45 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7A9672A3D1C
+	for <lists+alsa-devel@lfdr.de>; Tue,  3 Nov 2020 08:02:03 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 871D8174E;
-	Tue,  3 Nov 2020 07:10:54 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 871D8174E
+	by alsa0.perex.cz (Postfix) with ESMTPS id 0F3F01745;
+	Tue,  3 Nov 2020 08:01:13 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0F3F01745
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1604383904;
-	bh=Kt5ReNuEC/rMDljs+qABItHrQ0K29W2bd4ESZVCRebQ=;
-	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
+	s=default; t=1604386923;
+	bh=+SdvMivsVGTcGje08PhNzFwvLW2iRIiIIdrchVwZ+34=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=FWT/fXHx3U/uMPEWUlT3rg3yejqyBNmU7lqgZON64etrFQpdvFh0eabxcFl+x68Ip
-	 vYPyIIB9y3RcXB2URkl/Xyamoz6aIzStZA40w6o48q90HFOn5l8GuXGnpV0ZDoZqwg
-	 PgCLSW6Wr68+T+sWMyP/e/pTary8sliGc6/wZx5k=
+	b=EbddfFrE7mkNvnjogLIna7eeXEhYteNx9hpDMSx+XDHJggOy5RV83id0TY05t+KDf
+	 jnDH+oJnhl4F32x5WzL9SZZHCPOuhypDFXDoCOVoi3DyD+W/l7KiIKTb58lUnlt0Zz
+	 URd5fWEpwtU0VXUNjCFw9vTXjOMWSHWwB52ps4vY=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id B1D5DF80272;
-	Tue,  3 Nov 2020 07:10:11 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 7E65DF80162;
+	Tue,  3 Nov 2020 08:00:30 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 9B3CCF80171; Tue,  3 Nov 2020 07:10:08 +0100 (CET)
+ id 0269DF80171; Tue,  3 Nov 2020 08:00:29 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from hqnvemgate26.nvidia.com (hqnvemgate26.nvidia.com
- [216.228.121.65])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIMWL_WL_MED,DKIM_SIGNED,
+ DKIM_VALID,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
+Received: from mail-lf1-x141.google.com (mail-lf1-x141.google.com
+ [IPv6:2a00:1450:4864:20::141])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 4773AF8015A
- for <alsa-devel@alsa-project.org>; Tue,  3 Nov 2020 07:10:00 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4773AF8015A
+ by alsa1.perex.cz (Postfix) with ESMTPS id 25FF7F80108
+ for <alsa-devel@alsa-project.org>; Tue,  3 Nov 2020 08:00:25 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 25FF7F80108
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=nvidia.com header.i=@nvidia.com
- header.b="pGLNxA/D"
-Received: from hqmail.nvidia.com (Not Verified[216.228.121.13]) by
- hqnvemgate26.nvidia.com (using TLS: TLSv1.2, AES256-SHA)
- id <B5fa0f4380001>; Mon, 02 Nov 2020 22:10:00 -0800
-Received: from [10.25.99.190] (10.124.1.5) by HQMAIL107.nvidia.com
- (172.20.187.13) with Microsoft SMTP Server (TLS) id 15.0.1473.3; Tue, 3 Nov
- 2020 06:09:52 +0000
-Subject: Re: [PATCH] ASoC: tegra: remove unneeded semicolon
-To: <trix@redhat.com>, <lgirdwood@gmail.com>, <broonie@kernel.org>,
- <perex@perex.cz>, <tiwai@suse.com>, <thierry.reding@gmail.com>,
- <jonathanh@nvidia.com>
-References: <20201101172412.2306144-1-trix@redhat.com>
-From: Sameer Pujar <spujar@nvidia.com>
-Message-ID: <353e4c77-7166-071a-b1d9-2c1e0b2548a4@nvidia.com>
-Date: Tue, 3 Nov 2020 11:39:48 +0530
-User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:68.0) Gecko/20100101
- Thunderbird/68.10.0
+ dkim=pass (2048-bit key) header.d=google.com header.i=@google.com
+ header.b="nPPPBxXf"
+Received: by mail-lf1-x141.google.com with SMTP id y184so18801168lfa.12
+ for <alsa-devel@alsa-project.org>; Mon, 02 Nov 2020 23:00:25 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=Xd9jmL8NLRJagrGwF9PSXuFGxAsb2QDRMyRb3WHvNB8=;
+ b=nPPPBxXfD3t0mgR3L4eyvK3/ip01O16uclOf5uHPMNlPNhNVlAmqasJhy/a+r4og75
+ VW9Ub+qibTJzFwSdatbGsTSVcWLdZ5vbShHtw0xfiQO99DR2mPq/8XmHeP/Qm68xKuAQ
+ wwzecgg1L6Bv7EnTCa3Mad0MpPdOosUjlcauyy+nwM415UHSyR2fio4Zz3qJO+UyyZXF
+ cu9R4m9TE+Oy7OOiEHRm7uB1NTt4czRAQdjxrYBxdQqcOWXQh7I8dnfczwb8cKc2gwv4
+ e56usYVODCCZFNyfMYh4MGEeNfdW3bvgu48JhPWqdAeVATErc5slE6HbbmHhyKAe+72u
+ XKNg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=Xd9jmL8NLRJagrGwF9PSXuFGxAsb2QDRMyRb3WHvNB8=;
+ b=mah/K7TxB7VBvaCjxBQze587P9wp14ftTg1UMr7UmWLl3TnA4r2Z6fJaJy7MLn1UMI
+ Qmxsl/fsvaoXxVsi1iNpsMubgITyY8iI8aZbmjsOZGbzLXr8pW227zPqnYqWHWiY8R/8
+ P99RY0s7AXMReeiHviY3imRzWs7vSx4/1hcGBjrqQo/nHoIYa5iCBuMuAsdF2LPrdfYR
+ 61sJuBGrneYnIeO4pLrWqKTJ7A6bhnFkcMt2VQEYSd+8v0hdDz5UW9z+eLbg1sSGikul
+ WWURbp6NvzkBris02xrifOYnjek99pwqxY/952UE24jqc6PiQ6dJco+T0gperHaakQQN
+ GteA==
+X-Gm-Message-State: AOAM5338QyRx/9Pg6XSIY75qwMK6EVHgfzTVS9QaemA8UAUlarhdeHco
+ GV51ws2kRsislDqdC+UryxsJx9j7HNlSJilu/SYFIw==
+X-Google-Smtp-Source: ABdhPJzi0uI6+FMH6ZkQJyTAi3yavIsi+kzHjb9xYY0N60Cx/lyDiUSdCeqHLAosIiGo/QeKWaOn0+S9nHNTkTOnzlE=
+X-Received: by 2002:a19:c345:: with SMTP id t66mr4461115lff.536.1604386823858; 
+ Mon, 02 Nov 2020 23:00:23 -0800 (PST)
 MIME-Version: 1.0
-In-Reply-To: <20201101172412.2306144-1-trix@redhat.com>
-Content-Type: text/plain; charset="utf-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-Content-Language: en-GB
-X-Originating-IP: [10.124.1.5]
-X-ClientProxiedBy: HQMAIL101.nvidia.com (172.20.187.10) To
- HQMAIL107.nvidia.com (172.20.187.13)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nvidia.com; s=n1;
- t=1604383800; bh=Kt5ReNuEC/rMDljs+qABItHrQ0K29W2bd4ESZVCRebQ=;
- h=Subject:To:CC:References:From:Message-ID:Date:User-Agent:
- MIME-Version:In-Reply-To:Content-Type:Content-Transfer-Encoding:
- Content-Language:X-Originating-IP:X-ClientProxiedBy;
- b=pGLNxA/DnK69oH1y9GE8RkfmH9QWFqusHNw+jJ1J9boBX8FgDTZVbfIgbAtJ8SOFo
- MiT4kiQf+9BQVAm5CAnA6m7rskFLXkQcA+oP0UhVjeVgQzJbD3rsIsa6aebqXb4iXg
- L0vKO1u5c6ASyyO8h/tcGlIjVdSKsfgtXQlmqxy1cNwYRrdjptU0xlHOniZ4n0ea4M
- TkBJt6ZduB3JQIg/O01z9vRPfSjGfPiIZmtNRay12Q9CVpK65CZq2B6uWktbCXyejg
- ps31j655soRrO5xzWWI5F05NuIFQ5RvvwMFVjxdL81I62st5t9yR3JUxtF7rBkfUfk
- /z4TBrmF3vH4Q==
-Cc: linux-tegra@vger.kernel.org, alsa-devel@alsa-project.org,
- linux-kernel@vger.kernel.org
+References: <20201103025347.510940-1-ajye_huang@compal.corp-partner.google.com>
+ <20201103025347.510940-2-ajye_huang@compal.corp-partner.google.com>
+In-Reply-To: <20201103025347.510940-2-ajye_huang@compal.corp-partner.google.com>
+From: Ajye Huang <ajye_huang@compal.corp-partner.google.com>
+Date: Tue, 3 Nov 2020 15:00:13 +0800
+Message-ID: <CALprXBbPQBsRFWgGBhHo5=5GkcUEODe5pcqz7seeaOkxTb3c8w@mail.gmail.com>
+Subject: Re: [PATCH v4 1/2] ASoC: google: dt-bindings: modify machine bindings
+ for two MICs case
+To: Ajye Huang <ajye.huang@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Cc: Douglas Anderson <dianders@chromium.org>,
+ "open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS"
+ <devicetree@vger.kernel.org>, ALSA development <alsa-devel@alsa-project.org>,
+ Banajit Goswami <bgoswami@codeaurora.org>,
+ Srinivasa Rao Mandadapu <srivasam@codeaurora.org>,
+ Liam Girdwood <lgirdwood@gmail.com>,
+ linux-arm-msm <linux-arm-msm@vger.kernel.org>,
+ Patrick Lai <plai@codeaurora.org>,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ Rob Herring <robh+dt@kernel.org>, Bjorn Andersson <bjorn.andersson@linaro.org>,
+ Mark Brown <broonie@kernel.org>, Rohit kumar <rohitkr@codeaurora.org>,
+ Andy Gross <agross@kernel.org>, Tzung-Bi Shih <tzungbi@chromium.org>,
+ Srini Kandagatla <srinivas.kandagatla@linaro.org>,
+ "moderated list:ARM/Mediatek SoC support"
+ <linux-arm-kernel@lists.infradead.org>,
+ Cheng-yi Chiang <cychiang@chromium.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -93,15 +109,115 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hi Tom,
+Hi Rob,
+Could you please kindly review this patch ?
 
-> From: Tom Rix <trix@redhat.com>
+ I had got your "reviewed-by" on v1 patch, the v1 depends on this patch series
+(https://patchwork.kernel.org/patch/11773221) at that time.
+
+Now, that patch what I depended (11773221) had made modification and
+it was Applied to
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
+commit e158d2d83cab ("ASoC: google: dt-bindings: Add sc7180-trogdor
+machine bindings")
+
+I noted what I did on cover letter
+Changes from v1 to v2:
+- Documentation: Modify the dimc-gpios property description and examples.
+
+That is why I bother you again to review it. Please let me know if
+this looks good to you.
+Thanks!
+
+On Tue, Nov 3, 2020 at 10:54 AM Ajye Huang <ajye.huang@gmail.com> wrote:
 >
-> A semicolon is not needed after a switch statement.
+> Add a property "dmic-gpios" for switching between two MICs.
 >
-> Signed-off-by: Tom Rix <trix@redhat.com>
+> Signed-off-by: Ajye Huang <ajye_huang@compal.corp-partner.google.com>
 > ---
-
-Acked-by: Sameer Pujar <spujar@nvidia.com>
-
-Thanks for the update.
+>  .../bindings/sound/google,sc7180-trogdor.yaml | 58 +++++++++++++++++++
+>  1 file changed, 58 insertions(+)
+>
+> diff --git a/Documentation/devicetree/bindings/sound/google,sc7180-trogdor.yaml b/Documentation/devicetree/bindings/sound/google,sc7180-trogdor.yaml
+> index efc34689d6b5..9e0505467e57 100644
+> --- a/Documentation/devicetree/bindings/sound/google,sc7180-trogdor.yaml
+> +++ b/Documentation/devicetree/bindings/sound/google,sc7180-trogdor.yaml
+> @@ -34,6 +34,9 @@ properties:
+>    "#size-cells":
+>      const: 0
+>
+> +  dmic-gpios:
+> +    description: GPIO for switching between DMICs
+> +
+>  patternProperties:
+>    "^dai-link(@[0-9])?$":
+>      description:
+> @@ -81,6 +84,7 @@ additionalProperties: false
+>  examples:
+>
+>    - |
+> +    //Example 1
+>      sound {
+>          compatible = "google,sc7180-trogdor";
+>          model = "sc7180-rt5682-max98357a-1mic";
+> @@ -128,3 +132,57 @@ examples:
+>              };
+>          };
+>      };
+> +
+> +  - |
+> +    //Example 2 (2mic case)
+> +    sound {
+> +        compatible = "google,sc7180-trogdor";
+> +        model = "sc7180-rt5682-max98357a-2mic";
+> +
+> +        audio-routing =
+> +                    "Headphone Jack", "HPOL",
+> +                    "Headphone Jack", "HPOR";
+> +
+> +        #address-cells = <1>;
+> +        #size-cells = <0>;
+> +
+> +        dmic-gpios = <&tlmm 86 0>;
+> +
+> +        dai-link@0 {
+> +            link-name = "MultiMedia0";
+> +            reg = <0>;
+> +            cpu {
+> +                sound-dai = <&lpass_cpu 0>;
+> +            };
+> +
+> +            codec {
+> +                sound-dai = <&alc5682 0>;
+> +            };
+> +        };
+> +
+> +        dai-link@1 {
+> +            link-name = "MultiMedia1";
+> +            reg = <1>;
+> +            cpu {
+> +                sound-dai = <&lpass_cpu 1>;
+> +            };
+> +
+> +            codec {
+> +                sound-dai = <&max98357a>;
+> +            };
+> +        };
+> +
+> +        dai-link@2 {
+> +            link-name = "MultiMedia2";
+> +            reg = <2>;
+> +            cpu {
+> +                sound-dai = <&lpass_hdmi 0>;
+> +            };
+> +
+> +            codec {
+> +                sound-dai = <&msm_dp>;
+> +            };
+> +        };
+> +    };
+> +
+> +...
+> --
+> 2.25.1
+>

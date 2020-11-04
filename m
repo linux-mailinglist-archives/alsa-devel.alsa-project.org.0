@@ -2,70 +2,49 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id EC2A72A5C85
-	for <lists+alsa-devel@lfdr.de>; Wed,  4 Nov 2020 02:59:28 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9EE6B2A5CB3
+	for <lists+alsa-devel@lfdr.de>; Wed,  4 Nov 2020 03:30:57 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 774E4169E;
-	Wed,  4 Nov 2020 02:58:38 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 774E4169E
+	by alsa0.perex.cz (Postfix) with ESMTPS id 1E22A169E;
+	Wed,  4 Nov 2020 03:30:07 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1E22A169E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1604455168;
-	bh=PSCbA6OFIoB/tA0wb7wBDjVh57FLWDzOswO972tzl4U=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=fweQ3vAD0LuNIlIF1rz4BkQjMW1eGoVP/SWR6gWbC3s6ap1ljZ2Lv2ROSJAjItlL8
-	 x1CancKsPhh/4nHchHogBA50TWaDwhtC//OigUwxIKP3rjwvy7IL7mZ57pPGSbB8HZ
-	 hdWJE7bYPYv/1zZpE0+p4IO8vEvenzovi/wGFPOc=
+	s=default; t=1604457057;
+	bh=vGCPe2/4rAFZdpUm0t2eDgA3QtsFmJ+ww86dnlU1TPw=;
+	h=From:To:In-Reply-To:References:Subject:Date:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=UBn7oqs1vzBSC7FlOpFAOcmMmNJYe+mm9XGZjCb0dqKzLPGc55efcMKgvX2fbCexy
+	 9HozMp6hnILIe5HUf/WvLHgpI7YrV8jGArZN6sGnipnt3HRbfoqA7to4y+Qz87C0HR
+	 VE14soFSTfU+c//8g18DaY9AOu6EqnY8bvpcrsag=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id AE006F80272;
-	Wed,  4 Nov 2020 02:57:55 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 93734F8023E;
+	Wed,  4 Nov 2020 03:29:24 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 5FC70F80171; Wed,  4 Nov 2020 02:57:53 +0100 (CET)
+ id 20A50F80234; Wed,  4 Nov 2020 03:29:22 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 41D40F8015A
- for <alsa-devel@alsa-project.org>; Wed,  4 Nov 2020 02:57:46 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 41D40F8015A
-Authenticated-By: 
-X-SpamFilter-By: ArmorX SpamTrap 5.73 with qID 0A41vfuzF032077,
- This message is accepted by code: ctloc85258
-Received: from mail.realtek.com (rtexmb05.realtek.com.tw[172.21.6.98])
- by rtits2.realtek.com.tw (8.15.2/2.70/5.88) with ESMTPS id 0A41vfuzF032077
- (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT);
- Wed, 4 Nov 2020 09:57:41 +0800
-Received: from RTEXMBS01.realtek.com.tw (172.21.6.36) by
- RTEXMB05.realtek.com.tw (172.21.6.98) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2044.4; Wed, 4 Nov 2020 09:57:41 +0800
-Received: from localhost.localdomain (172.22.102.1) by
- RTEXMBS01.realtek.com.tw (172.21.6.36) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2106.2; Wed, 4 Nov 2020 09:57:40 +0800
-From: <jack.yu@realtek.com>
-To: <broonie@kernel.org>, <lgirdwood@gmail.com>
-Subject: [PATCH v2] ASoC: rt1015: add delay to fix pop noise from speaker
-Date: Wed, 4 Nov 2020 09:57:34 +0800
-Message-ID: <20201104015734.31957-1-jack.yu@realtek.com>
-X-Mailer: git-send-email 2.28.0
+X-Spam-Level: ****
+X-Spam-Status: No, score=4.7 required=5.0 tests=MISSING_DATE,MISSING_MID,
+ PRX_BODY_141,SPF_FAIL,SPF_HELO_NONE,URIBL_BLOCKED,URI_TRY_3LD
+ autolearn=disabled version=3.4.0
+Received: from webhooks-bot.alsa-project.org (gate.perex.cz [77.48.224.242])
+ by alsa1.perex.cz (Postfix) with ESMTP id 3532EF80229
+ for <alsa-devel@alsa-project.org>; Wed,  4 Nov 2020 03:29:14 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3532EF80229
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [172.22.102.1]
-X-ClientProxiedBy: RTEXMB01.realtek.com.tw (172.21.6.94) To
- RTEXMBS01.realtek.com.tw (172.21.6.36)
-Cc: oder_chiou@realtek.com, Jack Yu <jack.yu@realtek.com>,
- alsa-devel@alsa-project.org, lars@metafoo.de, kent_chen@realtek.com,
- kenny_chen@realtek.com, tzungbi@google.com, derek.fang@realtek.com,
- shumingf@realtek.com, flove@realtek.com
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
+From: GitHub issues - opened <github@alsa-project.org>
+To: alsa-devel@alsa-project.org
+In-Reply-To: <1604456953515239954-webhooks-bot@alsa-project.org>
+References: <1604456953515239954-webhooks-bot@alsa-project.org>
+Subject: (Regression) Broken pipe when streaming music from bandcamp with mpv
+Message-Id: <20201104022922.20A50F80234@alsa1.perex.cz>
+Date: Wed,  4 Nov 2020 03:29:22 +0100 (CET)
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -81,140 +60,61 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: Jack Yu <jack.yu@realtek.com>
+alsa-project/alsa-lib issue #96 was opened from orbea:
 
-Add delay to fix pop noise from speaker.
+OS: `Slackware64-current`
+alsa-lib: `1.2.4`
+mpv: https://github.com/mpv-player/mpv/commit/172146e9f7a231b5de21921d883612d18b13a717
+yt-dlc: `2020.10.31`
 
-Signed-off-by: Jack Yu <jack.yu@realtek.com>
----
- .../devicetree/bindings/sound/rt1015.txt      |  6 ++++++
- include/sound/rt1015.h                        | 15 ++++++++++++++
- sound/soc/codecs/rt1015.c                     | 20 +++++++++++++++++++
- sound/soc/codecs/rt1015.h                     |  2 ++
- 4 files changed, 43 insertions(+)
- create mode 100644 include/sound/rt1015.h
+When streaming music from bandcamp.com with alsa it will fail with a broken pipe when automatically changing tracks at the end of a track. This will not happen if the track is skipped.
+```
+$ mpv https://actnoir1.bandcamp.com/album/shape-a-new-start 
 
-diff --git a/Documentation/devicetree/bindings/sound/rt1015.txt b/Documentation/devicetree/bindings/sound/rt1015.txt
-index fcfd02d8d32f..da9697c80d2b 100644
---- a/Documentation/devicetree/bindings/sound/rt1015.txt
-+++ b/Documentation/devicetree/bindings/sound/rt1015.txt
-@@ -8,10 +8,16 @@ Required properties:
- 
- - reg : The I2C address of the device.
- 
-+Optional properties:
-+
-+- realtek,realtek,power-up-delay-ms
-+  Set a delay time for flush work to be completed,
-+  this value is adjustable depending on platform.
- 
- Example:
- 
- rt1015: codec@28 {
- 	compatible = "realtek,rt1015";
- 	reg = <0x28>;
-+	realtek,power-up-delay-ms = <50>;
- };
-diff --git a/include/sound/rt1015.h b/include/sound/rt1015.h
-new file mode 100644
-index 000000000000..70a7538d4c89
---- /dev/null
-+++ b/include/sound/rt1015.h
-@@ -0,0 +1,15 @@
-+/* SPDX-License-Identifier: GPL-2.0-only */
-+/*
-+ * linux/sound/rt1015.h -- Platform data for RT1015
-+ *
-+ * Copyright 2020 Realtek Microelectronics
-+ */
-+
-+#ifndef __LINUX_SND_RT1015_H
-+#define __LINUX_SND_RT1015_H
-+
-+struct rt1015_platform_data {
-+	unsigned int power_up_delay_ms;
-+};
-+
-+#endif
-diff --git a/sound/soc/codecs/rt1015.c b/sound/soc/codecs/rt1015.c
-index 25fe2ddedd54..967193518349 100644
---- a/sound/soc/codecs/rt1015.c
-+++ b/sound/soc/codecs/rt1015.c
-@@ -27,10 +27,15 @@
- #include <sound/soc-dapm.h>
- #include <sound/soc.h>
- #include <sound/tlv.h>
-+#include <sound/rt1015.h>
- 
- #include "rl6231.h"
- #include "rt1015.h"
- 
-+static const struct rt1015_platform_data i2s_default_platform_data = {
-+	.power_up_delay_ms = 50,
-+};
-+
- static const struct reg_default rt1015_reg[] = {
- 	{ 0x0000, 0x0000 },
- 	{ 0x0004, 0xa000 },
-@@ -650,6 +655,7 @@ static int rt1015_amp_drv_event(struct snd_soc_dapm_widget *w,
- 	case SND_SOC_DAPM_POST_PMU:
- 		if (rt1015->hw_config == RT1015_HW_28)
- 			schedule_delayed_work(&rt1015->flush_work, msecs_to_jiffies(10));
-+		msleep(rt1015->pdata.power_up_delay_ms);
- 		break;
- 	default:
- 		break;
-@@ -1067,9 +1073,16 @@ static struct acpi_device_id rt1015_acpi_match[] = {
- MODULE_DEVICE_TABLE(acpi, rt1015_acpi_match);
- #endif
- 
-+static void rt1015_parse_dt(struct rt1015_priv *rt1015, struct device *dev)
-+{
-+	device_property_read_u32(dev, "realtek,power-up-delay-ms",
-+		&rt1015->pdata.power_up_delay_ms);
-+}
-+
- static int rt1015_i2c_probe(struct i2c_client *i2c,
- 	const struct i2c_device_id *id)
- {
-+	struct rt1015_platform_data *pdata = dev_get_platdata(&i2c->dev);
- 	struct rt1015_priv *rt1015;
- 	int ret;
- 	unsigned int val;
-@@ -1081,6 +1094,13 @@ static int rt1015_i2c_probe(struct i2c_client *i2c,
- 
- 	i2c_set_clientdata(i2c, rt1015);
- 
-+	rt1015->pdata = i2s_default_platform_data;
-+
-+	if (pdata)
-+		rt1015->pdata = *pdata;
-+	else
-+		rt1015_parse_dt(rt1015, &i2c->dev);
-+
- 	rt1015->regmap = devm_regmap_init_i2c(i2c, &rt1015_regmap);
- 	if (IS_ERR(rt1015->regmap)) {
- 		ret = PTR_ERR(rt1015->regmap);
-diff --git a/sound/soc/codecs/rt1015.h b/sound/soc/codecs/rt1015.h
-index d3fdd30aca6d..15cadb361ec3 100644
---- a/sound/soc/codecs/rt1015.h
-+++ b/sound/soc/codecs/rt1015.h
-@@ -12,6 +12,7 @@
- 
- #ifndef __RT1015_H__
- #define __RT1015_H__
-+#include <sound/rt1015.h>
- 
- #define RT1015_DEVICE_ID_VAL			0x1011
- #define RT1015_DEVICE_ID_VAL2			0x1015
-@@ -380,6 +381,7 @@ enum {
- 
- struct rt1015_priv {
- 	struct snd_soc_component *component;
-+	struct rt1015_platform_data pdata;
- 	struct regmap *regmap;
- 	int sysclk;
- 	int sysclk_src;
--- 
-2.28.0
+Playing: https://actnoir1.bandcamp.com/track/shatterproof-beauty
+ (+) Audio --aid=1 (mp3 2ch 44100Hz)
+AO: [alsa] 44100Hz stereo 2ch float
+A: 00:05:20 / 00:05:21 (100%) Cache: 0.0s
 
+Playing: https://actnoir1.bandcamp.com/track/set-fire
+A: 00:05:20 / 00:05:21 (100%) Cache: 0.0s
+[ao/alsa] snd_pcm_status: Broken pipe
+A: 00:05:20 / 00:05:21 (100%) Cache: 0.0s
+ (+) Audio --aid=1 (mp3 2ch 44100Hz)
+[ao/alsa] snd_pcm_status: Broken pipe
+[ao/alsa] snd_pcm_status: Broken pipe
+[ao/alsa] snd_pcm_status: Broken pipe
+mpv: ../audio/out/buffer.c:585: _Bool ao_play_data(struct ao *): Assertion `space >= 0' failed.
+The process was killed by SIGABRT: Aborted
+```
+mpv log: [mpv.log](https://github.com/alsa-project/alsa-lib/files/5485135/mpv.log)
+alsa-info log: [alsa-info.log](https://github.com/alsa-project/alsa-lib/files/5485141/alsa-info.log)
+
+I bisected this and found the first bad commit.
+```
+$ git bisect good
+4f90392f07e8822d1984ed990f622ad36022a4a3 is the first bad commit
+commit 4f90392f07e8822d1984ed990f622ad36022a4a3
+Author: Jaroslav Kysela <perex@perex.cz>
+Date:   Fri Oct 9 19:57:57 2020 +0200
+
+    pcm: fix the snd_pcm_plugin_status() avail and delay fields
+    
+    The avail and delay fields in the returned status structure does not
+    reflect the actual hw_ptr/appl_ptr. This change correct this.
+    
+    TODO: Unfortunately, the delay might contain also information about
+    extra hardware / buffering delay which is hidden with this change.
+    
+    Link: https://lore.kernel.org/alsa-devel/d9c1f37e-5c8d-f289-270e-c6cda7a56ce3@axis.com/
+    Reported-by: Jonas Holmberg <jonashg@axis.com>
+    Tested-by: Jonas Holmberg <jonashg@axis.com>
+    Signed-off-by: Jaroslav Kysela <perex@perex.cz>
+
+ src/pcm/pcm_plugin.c | 8 ++++++--
+ 1 file changed, 6 insertions(+), 2 deletions(-)
+```
+4f90392f07e8822d1984ed990f622ad36022a4a3
+
+Issue URL     : https://github.com/alsa-project/alsa-lib/issues/96
+Repository URL: https://github.com/alsa-project/alsa-lib

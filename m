@@ -2,87 +2,56 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 56FBD2A6D4B
-	for <lists+alsa-devel@lfdr.de>; Wed,  4 Nov 2020 19:58:40 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 72A8B2A6E9A
+	for <lists+alsa-devel@lfdr.de>; Wed,  4 Nov 2020 21:14:32 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id EB1561684;
-	Wed,  4 Nov 2020 19:57:49 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EB1561684
+	by alsa0.perex.cz (Postfix) with ESMTPS id F39921666;
+	Wed,  4 Nov 2020 21:13:41 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz F39921666
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1604516320;
-	bh=2dYs55xebl1V1IbRI02IMSSb9NKk/2G++5wzCR9C3/s=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=IZF2r0lh6DAJoMwXQjVNo1nLkIgVpRYJA8Qt1M0mgv7kSHXwzHn58Km22ZpWs0kJG
-	 RZpCYElExBseOY2WcLlcHLoUKy5XAsoCGzHPbiw0nwddJPcw0eeaymeeMuiQjNngdi
-	 YutpypIgWbLKk+XpUdS2xUrOeeAXZrLH98adSRuA=
+	s=default; t=1604520872;
+	bh=A6y3yy9m7cH1cveovCQSDdrh+CsC2xxk9F+ZWr+fhKc=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=vL4yBNE61HHYYJy83DL9RVybpVa63vswaaHGAXRU31ZEAS6Ggx6dtGvU4ljU5gVA9
+	 VmNNupCONrPEawmzW6WAhItyuMILxoDJLUJlCZQbi3TvrFPqIZZfntNCb9cy2RRb/W
+	 RW1caEYA6GugQgnO8+2J7m2VgZJlL4uW19SnePxI=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 59F1FF80229;
-	Wed,  4 Nov 2020 19:57:07 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 630C9F8023E;
+	Wed,  4 Nov 2020 21:12:59 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id C5B25F80234; Wed,  4 Nov 2020 19:57:05 +0100 (CET)
+ id AE76CF80234; Wed,  4 Nov 2020 21:12:57 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.8 required=5.0 tests=FREEMAIL_ENVFROM_END_DIGIT,
- FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,
- RCVD_IN_MSPIKE_H3,RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from mail-ot1-f67.google.com (mail-ot1-f67.google.com
- [209.85.210.67])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_MSPIKE_H2,
+ SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from relay10.mail.gandi.net (relay10.mail.gandi.net [217.70.178.230])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 617ACF80229
- for <alsa-devel@alsa-project.org>; Wed,  4 Nov 2020 19:56:54 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 617ACF80229
-Received: by mail-ot1-f67.google.com with SMTP id 79so12843040otc.7
- for <alsa-devel@alsa-project.org>; Wed, 04 Nov 2020 10:56:54 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to;
- bh=VFWuzwJSbzZgP3QJ9+E0rWgVzccQnC1YvFD5b/UokjA=;
- b=UCclq6gMhqsKNGcst9AoMgNpPQFcDWy65emDQ7mnubO7z8HislHpotGFnQ8LPF6ofd
- HXUD+81k61q5YnNTSa1+6qMTKbOef+/ZvrlkQPIChPAJb6290/A8zPQj3BFOw073b5C2
- N8m6cc1tNTG7hQ5Soudkb/hqZPaRcbLep+qKCsWh0gLNeLkbmrAW+4R0M0wTW2bMVoBz
- sWYTdWkhXgBRD2T0tIJJsXrf06jhDm+54T0rPtBRVdls2v7sG2mseplCHNqJ0GFLA1pB
- KQVe+oDplBUSZj2PM2M+dMrI+mscKC1W1NQbxUraHVbH1tiSSJ+i+gJVktbN/9mvxLg7
- C1+Q==
-X-Gm-Message-State: AOAM530xrQwv/k3DBseYbLjMQHERgYfu3tkuoFda3b7U2kUZlqFUQWhC
- tzf/yu8t79ppJonQ50jjJw==
-X-Google-Smtp-Source: ABdhPJws0729OuS+J73/HqFJI9wECuK1AqYDP1g32egUbxndlt30IEgUrdNjDMDR5RzcZc2UJAjHSQ==
-X-Received: by 2002:a05:6830:2ef:: with SMTP id
- r15mr5683837ote.261.1604516212970; 
- Wed, 04 Nov 2020 10:56:52 -0800 (PST)
-Received: from xps15 (24-155-109-49.dyn.grandenetworks.net. [24.155.109.49])
- by smtp.gmail.com with ESMTPSA id y22sm735450ooa.2.2020.11.04.10.56.51
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 04 Nov 2020 10:56:52 -0800 (PST)
-Received: (nullmailer pid 3947080 invoked by uid 1000);
- Wed, 04 Nov 2020 18:56:51 -0000
-Date: Wed, 4 Nov 2020 12:56:51 -0600
-From: Rob Herring <robh@kernel.org>
-To: Jiaxin Yu <jiaxin.yu@mediatek.com>
-Subject: Re: [PATCH v4 7/9] dt-bindings: mediatek: mt8192: add audio afe
- document
-Message-ID: <20201104185651.GB3946406@bogus>
-References: <1604390378-23993-1-git-send-email-jiaxin.yu@mediatek.com>
- <1604390378-23993-8-git-send-email-jiaxin.yu@mediatek.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 25C58F800EC
+ for <alsa-devel@alsa-project.org>; Wed,  4 Nov 2020 21:12:50 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 25C58F800EC
+Received: from localhost (lfbn-lyo-1-997-19.w86-194.abo.wanadoo.fr
+ [86.194.74.19]) (Authenticated sender: alexandre.belloni@bootlin.com)
+ by relay10.mail.gandi.net (Postfix) with ESMTPSA id 867C7240002;
+ Wed,  4 Nov 2020 20:12:49 +0000 (UTC)
+From: Alexandre Belloni <alexandre.belloni@bootlin.com>
+To: Mark Brown <broonie@kernel.org>
+Subject: [PATCH 1/2] dt-bindings: sound: adau1372: Add bindings documentation
+Date: Wed,  4 Nov 2020 21:12:08 +0100
+Message-Id: <20201104201209.907018-1-alexandre.belloni@bootlin.com>
+X-Mailer: git-send-email 2.28.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <1604390378-23993-8-git-send-email-jiaxin.yu@mediatek.com>
+Content-Transfer-Encoding: 8bit
 Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- kuninori.morimoto.gx@renesas.com, tzungbi@google.com,
- Bicycle.Tsai@mediatek.com, tiwai@suse.com, robh+dt@kernel.org,
- shane.chien@mediatek.com, broonie@kernel.org,
- linux-mediatek@lists.infradead.org, Trevor.Wu@mediatek.com,
- p.zabel@pengutronix.de, matthias.bgg@gmail.com,
- linux-arm-kernel@lists.infradead.org
+ Lars-Peter Clausen <lars@metafoo.de>,
+ Alexandre Belloni <alexandre.belloni@bootlin.com>,
+ Liam Girdwood <lgirdwood@gmail.com>, linux-kernel@vger.kernel.org,
+ Rob Herring <robh+dt@kernel.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -98,51 +67,89 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Tue, 03 Nov 2020 15:59:36 +0800, Jiaxin Yu wrote:
-> This patch adds mt8192 audio afe document.
-> 
-> Signed-off-by: Jiaxin Yu <jiaxin.yu@mediatek.com>
-> ---
-> This patch depends on following series that has not been accepted:
-> https://patchwork.kernel.org/cover/11752231
-> (dt-bindings/clock/mt8192-clk.h is included in it.)
-> https://patchwork.kernel.org/patch/11755895
-> (dt-bindings/power/mt8192-power.h is included in it.)
-> https://lore.kernel.org/patchwork/patch/1321118
-> (dt-bindings/reset-controller/mt8192-resets.h is included in it.)
-> 
->  .../bindings/sound/mt8192-afe-pcm.yaml        | 100 ++++++++++++++++++
->  1 file changed, 100 insertions(+)
->  create mode 100644 Documentation/devicetree/bindings/sound/mt8192-afe-pcm.yaml
-> 
+Add device tree binding documentation for Analog Devices ADAU1372.
 
+Signed-off-by: Alexandre Belloni <alexandre.belloni@bootlin.com>
+---
+Cc: Rob Herring <robh+dt@kernel.org>
 
-My bot found errors running 'make dt_binding_check' on your patch:
+ .../bindings/sound/adi,adau1372.yaml          | 67 +++++++++++++++++++
+ 1 file changed, 67 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/sound/adi,adau1372.yaml
 
-yamllint warnings/errors:
-./Documentation/devicetree/bindings/sound/mt8192-afe-pcm.yaml:10:4: [warning] wrong indentation: expected 2 but found 3 (indentation)
-./Documentation/devicetree/bindings/sound/mt8192-afe-pcm.yaml:15:7: [warning] wrong indentation: expected 4 but found 6 (indentation)
-
-dtschema/dtc warnings/errors:
-Documentation/devicetree/bindings/sound/mt8192-afe-pcm.example.dts:19:18: fatal error: dt-bindings/clock/mt8192-clk.h: No such file or directory
-   19 |         #include <dt-bindings/clock/mt8192-clk.h>
-      |                  ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-compilation terminated.
-make[1]: *** [scripts/Makefile.lib:342: Documentation/devicetree/bindings/sound/mt8192-afe-pcm.example.dt.yaml] Error 1
-make[1]: *** Waiting for unfinished jobs....
-make: *** [Makefile:1364: dt_binding_check] Error 2
-
-
-See https://patchwork.ozlabs.org/patch/1392703
-
-The base for the patch is generally the last rc1. Any dependencies
-should be noted.
-
-If you already ran 'make dt_binding_check' and didn't see the above
-error(s), then make sure 'yamllint' is installed and dt-schema is up to
-date:
-
-pip3 install dtschema --upgrade
-
-Please check and re-submit.
+diff --git a/Documentation/devicetree/bindings/sound/adi,adau1372.yaml b/Documentation/devicetree/bindings/sound/adi,adau1372.yaml
+new file mode 100644
+index 000000000000..701449311fec
+--- /dev/null
++++ b/Documentation/devicetree/bindings/sound/adi,adau1372.yaml
+@@ -0,0 +1,67 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/sound/adi,adau1372.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++
++title: Analog Devices ADAU1372 CODEC
++
++maintainers:
++  - Alexandre Belloni <alexandre.belloni@bootlin.om>
++
++description: |
++  Analog Devices ADAU1372 four inputs and two outputs codec.
++  https://www.analog.com/media/en/technical-documentation/data-sheets/ADAU1372.pdf
++
++properties:
++  compatible:
++    enum:
++      - adi,adau1372
++
++  reg:
++    maxItems: 1
++
++  "#sound-dai-cells":
++    const: 0
++
++  clocks:
++    maxItems: 1
++
++  clock-names:
++    const: "mclk"
++
++  powerdown-gpios:
++    description: GPIO used for hardware power-down.
++    maxItems: 1
++
++required:
++  - "#sound-dai-cells"
++  - compatible
++  - reg
++  - clocks
++  - clock-names
++
++additionalProperties: false
++
++examples:
++  - |
++    i2c {
++        #address-cells = <1>;
++        #size-cells = <0>;
++        audio-codec@3c {
++                compatible = "adi,adau1372";
++                reg = <0x3c>;
++                #sound-dai-cells = <0>;
++                clock-names = "mclk";
++                clocks = <&adau1372z_xtal>;
++        };
++    };
++
++    adau1372z_xtal: clock {
++        compatible = "fixed-clock";
++        #clock-cells = <0>;
++        clock-frequency = <12288000>;
++    };
++...
++
+-- 
+2.28.0
 

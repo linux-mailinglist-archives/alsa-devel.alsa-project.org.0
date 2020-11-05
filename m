@@ -2,89 +2,60 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4DE622A7D70
-	for <lists+alsa-devel@lfdr.de>; Thu,  5 Nov 2020 12:46:21 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id D2B3E2A7D8C
+	for <lists+alsa-devel@lfdr.de>; Thu,  5 Nov 2020 12:52:07 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E7696168B;
-	Thu,  5 Nov 2020 12:45:30 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E7696168B
+	by alsa0.perex.cz (Postfix) with ESMTPS id 539A91694;
+	Thu,  5 Nov 2020 12:51:17 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 539A91694
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1604576781;
-	bh=I1CCGESUGBaNFr1k4TJ+OLvO1EtGcyzH/f3XeAaZII0=;
+	s=default; t=1604577127;
+	bh=io1dnUKyTgB++A6NxcBY41bZXIPZl5WO4e+sZHSNW7s=;
 	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
 	 List-Post:List-Help:List-Subscribe:From;
-	b=tc0ZqA1Bsy8nEjtFLZJdSBH0wTLOXAPPfR/ERRTL1UW2a9yVaMGg/qK2gIumX1JYi
-	 vsfgW24pM2FjNgFmdJN8TOATcBXeHVi4XE5tfFEsk0EKPrPVkkndGp0dfbuTOI8t9F
-	 rY7/spIiYgLLRtV0j4a17e+m1jZkY7bSmGFPtVDg=
+	b=IhRuhGLVZ8Lx4zdW4ioQyowJ9RjdfYHOCYsl1fAjDNDbHwr2vdMckYsdYaWlpx0+6
+	 CiQesL+l0eRmpuB1Lzrsxw7627sw3qo8boDTQnAAJPibCEioAIR69LqFpDrtGaLR1T
+	 Tl9UtYLEA+6Zx/S6t5Ln8WUV0+7aO1kQNPahej44=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 87C14F800BA;
-	Thu,  5 Nov 2020 12:44:48 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id AFEDFF800BA;
+	Thu,  5 Nov 2020 12:50:34 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 238F6F80171; Thu,  5 Nov 2020 12:44:46 +0100 (CET)
+ id EA7D3F80171; Thu,  5 Nov 2020 12:50:32 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=disabled
+X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_MSPIKE_H4,
+ RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=disabled
  version=3.4.0
-Received: from mail-wr1-x443.google.com (mail-wr1-x443.google.com
- [IPv6:2a00:1450:4864:20::443])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from szxga04-in.huawei.com (szxga04-in.huawei.com [45.249.212.190])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 83853F800BA
- for <alsa-devel@alsa-project.org>; Thu,  5 Nov 2020 12:44:40 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 83853F800BA
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org
- header.b="Vy1NOyfw"
-Received: by mail-wr1-x443.google.com with SMTP id n18so1385250wrs.5
- for <alsa-devel@alsa-project.org>; Thu, 05 Nov 2020 03:44:40 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=dQI+xeoeMjnqFAD8EMXTyLrlsY/8A0KdRklJEpXUEeA=;
- b=Vy1NOyfwf55IVp/CkDPtAtkZi1Nvuaf75YpQTY1on9PWT/7ZFz2G1BPRwWzGKZJw1F
- /3PXxgHk8MR5K2JMJ1+UbuL2uD174grE992YBSjIjEqyZLrWarMiX098HEySoalGfM0Q
- L9UggjR1i5ETMfYNjXuOpBuzTwkRxUG5WPXASr5ZVViQk3WDJVy2DvDA/TFrOV3zcOuq
- LGlDZ1lDeTD0+27HE3T5IGCLK1JHEUuZmtm0u9PBP3cpAA3rFOVO3/uzaD4uAo0YFfxH
- 9cdAcHhiKardjxcTLOkAyzvGjSTNYi7C0yX5BUivRlSfgvOU3FkkWN4p9uy7YDPvEE6T
- aIrA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=dQI+xeoeMjnqFAD8EMXTyLrlsY/8A0KdRklJEpXUEeA=;
- b=is2AFKhXvVb4SHi3IYr/28mJtxmbhNx4Xkz7bnF1R8B5Bmw/7ZDlJDVtCBNA6ZaIpL
- zqYyNG7Q254G8LASAWII2XFYH2xxm2BDCKeIuWkSQ9/TQ6zhj7RSOagWH9vEZygPnlop
- Z+aCXA5vsgy6PqCMukIn8+eQ4nqiykQB5jW6X0Xk+/BAVW8GuIEiZ6POGuBvLJpA4LHz
- pHgVj8KxRKFNFwfykYb5p+rziyb/T5PtCndDKQOpDC3ePTMCnRCNpH4FriMmyWhMgNVM
- 2YeP/ixgb5GN131C7ohb9ZM11fMfSONcqUzK8UulttBJNGkhD12JzZMqpzpZRt7kmdxu
- bXpw==
-X-Gm-Message-State: AOAM530G9vApnTpR9QTcpktwh5djRpY6sF8VLERHyvPBYz8C5Nt26nC/
- puQ/ItldSsBkyY8QOgWdTZWRzQ==
-X-Google-Smtp-Source: ABdhPJxs8JnizH47p+OY/DC8h4ITaUWYYNCnLNzcg81MnA9t4I+UOt53fcynmrE6Ua6x328YXdeZVg==
-X-Received: by 2002:a05:6000:1084:: with SMTP id
- y4mr2297571wrw.138.1604576678220; 
- Thu, 05 Nov 2020 03:44:38 -0800 (PST)
-Received: from srini-hackbox.lan
- (cpc86377-aztw32-2-0-cust226.18-1.cable.virginm.net. [92.233.226.227])
- by smtp.gmail.com with ESMTPSA id n17sm1944845wrw.69.2020.11.05.03.44.37
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 05 Nov 2020 03:44:37 -0800 (PST)
-From: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
-To: broonie@kernel.org
-Subject: [PATCH] ASoC: q6afe-clocks: fix warning on symbol scope
-Date: Thu,  5 Nov 2020 11:44:35 +0000
-Message-Id: <20201105114435.22860-1-srinivas.kandagatla@linaro.org>
-X-Mailer: git-send-email 2.21.0
+ by alsa1.perex.cz (Postfix) with ESMTPS id 01FDDF800EC
+ for <alsa-devel@alsa-project.org>; Thu,  5 Nov 2020 12:50:25 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 01FDDF800EC
+Received: from DGGEMS409-HUB.china.huawei.com (unknown [172.30.72.60])
+ by szxga04-in.huawei.com (SkyGuard) with ESMTP id 4CRhfJ1w3rz15RxG;
+ Thu,  5 Nov 2020 19:50:16 +0800 (CST)
+Received: from linux-lmwb.huawei.com (10.175.103.112) by
+ DGGEMS409-HUB.china.huawei.com (10.3.19.209) with Microsoft SMTP Server id
+ 14.3.487.0; Thu, 5 Nov 2020 19:50:13 +0800
+From: Zou Wei <zou_wei@huawei.com>
+To: <lgirdwood@gmail.com>, <broonie@kernel.org>, <perex@perex.cz>,
+ <tiwai@suse.com>, <matthias.bgg@gmail.com>
+Subject: [PATCH -next] ASoC: mediatek: mt8192: Make some symbols static
+Date: Thu, 5 Nov 2020 20:02:04 +0800
+Message-ID: <1604577724-24687-1-git-send-email-zou_wei@huawei.com>
+X-Mailer: git-send-email 2.6.2
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Cc: lgirdwood@gmail.com, alsa-devel@alsa-project.org,
- Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
- linux-kernel@vger.kernel.org
+Content-Type: text/plain
+X-Originating-IP: [10.175.103.112]
+X-CFilter-Loop: Reflected
+Cc: alsa-devel@alsa-project.org, linux-mediatek@lists.infradead.org,
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ Zou Wei <zou_wei@huawei.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -100,30 +71,39 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-This patch fixes below warning when module is compiled with W=1 C=1
+Fix the following sparse warnings:
 
-sound/soc/qcom/qdsp6/q6afe-clocks.c:122:18: warning: symbol 'q6afe_clks'
-was not declared. Should it be static?
+./mt8192-dai-i2s.c:2040:5: warning: symbol 'mt8192_dai_i2s_get_share' was not declared. Should it be static?
+./mt8192-dai-i2s.c:2060:5: warning: symbol 'mt8192_dai_i2s_set_priv' was not declared. Should it be static?
 
-Fixes: 520a1c396d196 ("ASoC: q6afe-clocks: add q6afe clock controller")
-Signed-off-by: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
+Reported-by: Hulk Robot <hulkci@huawei.com>
+Signed-off-by: Zou Wei <zou_wei@huawei.com>
 ---
- sound/soc/qcom/qdsp6/q6afe-clocks.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ sound/soc/mediatek/mt8192/mt8192-dai-i2s.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/sound/soc/qcom/qdsp6/q6afe-clocks.c b/sound/soc/qcom/qdsp6/q6afe-clocks.c
-index 2efc2eaa0424..87e4633afe2c 100644
---- a/sound/soc/qcom/qdsp6/q6afe-clocks.c
-+++ b/sound/soc/qcom/qdsp6/q6afe-clocks.c
-@@ -119,7 +119,7 @@ static const struct clk_ops clk_vote_q6afe_ops = {
- 	.unprepare	= clk_unvote_q6afe_block,
+diff --git a/sound/soc/mediatek/mt8192/mt8192-dai-i2s.c b/sound/soc/mediatek/mt8192/mt8192-dai-i2s.c
+index 53c560e..5b29340 100644
+--- a/sound/soc/mediatek/mt8192/mt8192-dai-i2s.c
++++ b/sound/soc/mediatek/mt8192/mt8192-dai-i2s.c
+@@ -2037,7 +2037,7 @@ static const struct mtk_afe_i2s_priv mt8192_i2s_priv[DAI_I2S_NUM] = {
+ 	},
  };
  
--struct q6afe_clk *q6afe_clks[Q6AFE_MAX_CLK_ID] = {
-+static struct q6afe_clk *q6afe_clks[Q6AFE_MAX_CLK_ID] = {
- 	[LPASS_CLK_ID_PRI_MI2S_IBIT] = Q6AFE_CLK(LPASS_CLK_ID_PRI_MI2S_IBIT),
- 	[LPASS_CLK_ID_PRI_MI2S_EBIT] = Q6AFE_CLK(LPASS_CLK_ID_PRI_MI2S_EBIT),
- 	[LPASS_CLK_ID_SEC_MI2S_IBIT] = Q6AFE_CLK(LPASS_CLK_ID_SEC_MI2S_IBIT),
+-int mt8192_dai_i2s_get_share(struct mtk_base_afe *afe)
++static int mt8192_dai_i2s_get_share(struct mtk_base_afe *afe)
+ {
+ 	struct mt8192_afe_private *afe_priv = afe->platform_priv;
+ 	const struct device_node *of_node = afe->dev->of_node;
+@@ -2057,7 +2057,7 @@ int mt8192_dai_i2s_get_share(struct mtk_base_afe *afe)
+ 	return 0;
+ }
+ 
+-int mt8192_dai_i2s_set_priv(struct mtk_base_afe *afe)
++static int mt8192_dai_i2s_set_priv(struct mtk_base_afe *afe)
+ {
+ 	int i;
+ 	int ret;
 -- 
-2.21.0
+2.6.2
 

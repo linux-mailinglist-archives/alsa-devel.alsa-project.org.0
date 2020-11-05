@@ -2,157 +2,119 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B096F2A886A
-	for <lists+alsa-devel@lfdr.de>; Thu,  5 Nov 2020 21:54:04 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1A9572A888D
+	for <lists+alsa-devel@lfdr.de>; Thu,  5 Nov 2020 22:11:43 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 360781683;
-	Thu,  5 Nov 2020 21:53:14 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 360781683
+	by alsa0.perex.cz (Postfix) with ESMTPS id 9F7431682;
+	Thu,  5 Nov 2020 22:10:52 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9F7431682
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1604609644;
-	bh=flEXxM0fIF3v6Hl8UF4JlTnQ7jGCdanjFh2wuTEuWG4=;
-	h=From:To:Subject:Date:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1604610702;
+	bh=6qUyDr8nVmUttFMPY95eca9Cpvw0MF3AfiKbR1WyVu0=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=FsJA/iUZalis+vNBZADkuyd4FPVv5cji88LssAP60P96hRgv7T36bEA9fnx6pQgB7
-	 Psg6WbI/ye4+AfMYqCsAnT+ac16nPpwBQYIk9ARiUUmZvF3kTTRDzk7QTsLbEY74oW
-	 0Nu9zxw7K+nWw0RJZNOkfG5iANCVd4eZRTdPC0BM=
+	b=eMEuq7/BRKHdDzdelfPRD6Gt5/Ph2Q2qG2Vi88jkncmy0Il0B5YwWJw+sbLPloN1+
+	 DNF+aPikKaor9QmjBZf+gxcyRXDu88vcC6cHR5JYZa28Mb5k7PxGfqy8bOCQ/MfLGJ
+	 f5y2R15mpITgK+b7BpFgUXKDOdfcTBH1bGM8cFog=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id A55A9F800EC;
-	Thu,  5 Nov 2020 21:52:31 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 0F551F80245;
+	Thu,  5 Nov 2020 22:10:10 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 9D3AFF80171; Thu,  5 Nov 2020 21:52:29 +0100 (CET)
+ id 0D37BF80171; Thu,  5 Nov 2020 22:10:07 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+ DKIM_VALID,DKIM_VALID_AU,MSGID_FROM_MTA_HEADER,SPF_HELO_NONE,SPF_NONE
+ autolearn=disabled version=3.4.0
+Received: from nat-hk.nvidia.com (nat-hk.nvidia.com [203.18.50.4])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id F26A3F80150
- for <alsa-devel@alsa-project.org>; Thu,  5 Nov 2020 21:52:21 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz F26A3F80150
+ by alsa1.perex.cz (Postfix) with ESMTPS id A99D8F800EC
+ for <alsa-devel@alsa-project.org>; Thu,  5 Nov 2020 22:10:01 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A99D8F800EC
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=intel.onmicrosoft.com
- header.i=@intel.onmicrosoft.com header.b="A4JJrfQt"
-IronPort-SDR: Tj+oIkoyhJKtYCvhQBDTU176qablqcl1R3TyDGKvc0m7y9arH1FHFTQ0SSRv5DkIQbyoDBQcYu
- NmaMIbLZ8cdA==
-X-IronPort-AV: E=McAfee;i="6000,8403,9796"; a="233624121"
-X-IronPort-AV: E=Sophos;i="5.77,454,1596524400"; d="scan'208";a="233624121"
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from orsmga004.jf.intel.com ([10.7.209.38])
- by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 05 Nov 2020 12:52:18 -0800
-IronPort-SDR: 5craox6rAKb9swdbfOh5gX7xCNiz6zeUUtjBp3PPR3aTHSBvyc3Cf3AeqK3TWOqzcL6F73bK5Z
- qhTpm5YEJ6fQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.77,454,1596524400"; d="scan'208";a="471803650"
-Received: from orsmsx603.amr.corp.intel.com ([10.22.229.16])
- by orsmga004.jf.intel.com with ESMTP; 05 Nov 2020 12:52:18 -0800
-Received: from orsmsx603.amr.corp.intel.com (10.22.229.16) by
- ORSMSX603.amr.corp.intel.com (10.22.229.16) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.1713.5; Thu, 5 Nov 2020 12:52:17 -0800
-Received: from ORSEDG601.ED.cps.intel.com (10.7.248.6) by
- orsmsx603.amr.corp.intel.com (10.22.229.16) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1713.5
- via Frontend Transport; Thu, 5 Nov 2020 12:52:17 -0800
-Received: from NAM04-BN8-obe.outbound.protection.outlook.com (104.47.74.47) by
- edgegateway.intel.com (134.134.137.102) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.1.1713.5; Thu, 5 Nov 2020 12:52:17 -0800
+ dkim=pass (2048-bit key) header.d=nvidia.com header.i=@nvidia.com
+ header.b="SUx0ceXc"
+Received: from HKMAIL102.nvidia.com (Not Verified[10.18.92.100]) by
+ nat-hk.nvidia.com (using TLS: TLSv1.2, AES256-SHA)
+ id <B5fa46a220000>; Fri, 06 Nov 2020 05:09:54 +0800
+Received: from HKMAIL104.nvidia.com (10.18.16.13) by HKMAIL102.nvidia.com
+ (10.18.16.11) with Microsoft SMTP Server (TLS) id 15.0.1473.3; Thu, 5 Nov
+ 2020 21:09:52 +0000
+Received: from NAM10-BN7-obe.outbound.protection.outlook.com (104.47.70.106)
+ by HKMAIL104.nvidia.com (10.18.16.13) with Microsoft SMTP Server (TLS) id
+ 15.0.1473.3 via Frontend Transport; Thu, 5 Nov 2020 21:09:52 +0000
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=FgcbGA1gIJEQGhwaZUgk5HFWopgM8SMjYg01j2l6RJs+/Wgsf4ZvtwGXMutmlatmayApsXtuFJi1IgqpGbIfg9g1s46Aizl9IfQ3nSV0GEVokaYckoZoQ1JY8aebEPvqPOzAIOIVss+QC2AgIzQEPAxO7E8k7H7iMHKPbXw6RZj0BNp3LEVjyEbr+oFS92UpBxVQQw7I1+lsOauutyXSy1jgDSA7Q0anlI+lIKaW3kplLvrz3NJmKreLHcD5k1BUmSq38wZ6/z+cTlp1qIWG0+f8bSelwDF1KDBHbZODbAxPgQKmeBzs0z3BqZg70dgOTofFMvx2edwRHwRTNbqRAQ==
+ b=l7Mm8rjmSxgUjiEKPG+2C2ztLxyMxJD8g4JqIscbI9IcVuiOymBJ9Zw2OceEa5XQcmqxs+FSZsHWqgUBBwM5NmaLj0t3siT/KUrqUrfWlj4ncLFilLUjo5ulfN3CSt/+/bcOJgIPF2PDsutbCCBDduc/WtiUCCwMx2tkYSG1QpGqFVw8NAkqZGkUMxUibgxLMJh5CwyvLZqtaRBb00fUMnOhiWCfQvwziAKDOGnhy5zGJUSQ98BWM9s8yJmuWHaD0ayVq8fc8lZa+BiR43rsjYo3jgmNoXY3hITse5wwB+nkxxIPRH6Hkoea/U5axI+YNYyxPbEHoUjwd5TsCEZVZg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=pwMgkecA+AoS9RlEsts9+uuv4vo9O+aoPYfE3lqoVw0=;
- b=LRuux+DBZkLAmWHjW7urinHVsIJIEqGMj3IifeSAjnhiUYfQg/X+O5OcDjtaIChz5wt9meqn4P2BQofipuK7O43w6j/ksXN7KOYAit1uV+QAyj5lzdPPgqWRIKFaZGxYPYF1KKAbVByjUXq6M75VtnpuU8IwvoF3W+7Ci+QHeCy8JV1p07lTaVUhFHPwUSdiOo41sNyJUdrHH1wFCOcECbmmkp5lb4VKXEyki9JAqLSnwPnYMfE0D/k8vVXo47/N8cyw+VTxCM1MEru02bRGbgZLVfXGWAmFK7a7orbufbMvYDZAcFo9NxOkbgp0iCsc3ptsb1FB7RRkR+w2tvhwwQ==
+ bh=UTpSXDMNYpq/ZlPjrRPFdXrTNx19FUH06M+gwR9NKyc=;
+ b=dslCMAGAOpYGxSqUDx40LVedgBfzDAWlXCqsEo4aE4mv6yMMl4yMhUaaoYI/wiuT1dCgckj6NIyVc6L/jp/GOPjrbs0fDkRx0BpT10MS9HLlDBbRHSFv8+W0F6fiDxvtxDPoN3G64CZCy9iWc/wF6USUwMazba1nc0ntippw44OPuBRkrnz2dmgbjkAoqs22UZtKIM9MEsyXNxLc+vPwu+4XDLr8VN7LFJBc4PbDX/PIIOyrtlVhUk496fg2JRWZszUrA4M7Lbog2/bbHaGxr5cK4DBkBVxULRzs+aYWOglE8xX4W5myAAipXwM6FHC22DG0vGaVz1zSWpQJRf8vnw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=intel.onmicrosoft.com; 
- s=selector2-intel-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=pwMgkecA+AoS9RlEsts9+uuv4vo9O+aoPYfE3lqoVw0=;
- b=A4JJrfQtrOzSyVvApLAiLS+vsMSwVy84JjbZ4E0EzgMuvwCBYluAAcDcTW74Rwa4yiOkhEXj20a+8yviUg4T2KdkWTT0kA/TjLq3c6Y4YKpQDUQdywSrQDRygSzvanVWJo59vODLq6AH6gUURrtslppNzKVzkqAAxF4s+x2LUYw=
-Received: from DM6PR11MB2841.namprd11.prod.outlook.com (2603:10b6:5:c8::32) by
- DM5PR1101MB2284.namprd11.prod.outlook.com (2603:10b6:4:58::14) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.3499.29; Thu, 5 Nov 2020 20:52:13 +0000
-Received: from DM6PR11MB2841.namprd11.prod.outlook.com
- ([fe80::6d8e:9b06:ef72:2a]) by DM6PR11MB2841.namprd11.prod.outlook.com
- ([fe80::6d8e:9b06:ef72:2a%5]) with mapi id 15.20.3541.021; Thu, 5 Nov 2020
- 20:52:13 +0000
-From: "Ertman, David M" <david.m.ertman@intel.com>
-To: Leon Romanovsky <leonro@nvidia.com>
-Subject: RE: [PATCH v3 01/10] Add auxiliary bus support
-Thread-Topic: [PATCH v3 01/10] Add auxiliary bus support
-Thread-Index: AQHWqNRxbABQ//8l1UOfD+CnDPwsEKm5V8WAgACIGmCAACQFgIAAB9xQ
-Date: Thu, 5 Nov 2020 20:52:13 +0000
-Message-ID: <DM6PR11MB2841C04DA30B0EA299554704DDEE0@DM6PR11MB2841.namprd11.prod.outlook.com>
-References: <20201023003338.1285642-1-david.m.ertman@intel.com>
- <20201023003338.1285642-2-david.m.ertman@intel.com>
- <CAPcyv4i9s=CsO5VJOhPnS77K=bD0LTQ8TUAbhLd+0OmyU8YQ3g@mail.gmail.com>
- <DM6PR11MB284191BAA817540E52E4E2C4DDEE0@DM6PR11MB2841.namprd11.prod.outlook.com>
- <20201105193511.GB5475@unreal>
-In-Reply-To: <20201105193511.GB5475@unreal>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-dlp-product: dlpe-windows
-dlp-reaction: no-action
-dlp-version: 11.5.1.3
-authentication-results: nvidia.com; dkim=none (message not signed)
- header.d=none;nvidia.com; dmarc=none action=none header.from=intel.com;
-x-originating-ip: [50.38.47.144]
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: e7df671d-e207-40ca-e29f-08d881ccac20
-x-ms-traffictypediagnostic: DM5PR1101MB2284:
-x-ld-processed: 46c98d88-e344-4ed4-8496-4ed7712e255d,ExtAddr,ExtFwd
-x-ms-exchange-transport-forked: True
-x-microsoft-antispam-prvs: <DM5PR1101MB2284772B6740229B1CB300C9DDEE0@DM5PR1101MB2284.namprd11.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:7691;
-x-ms-exchange-senderadcheck: 1
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: DCCZhd8Mn7WAn2gUMdZN8z0UUiQfhleFAAwXMOejlKL5pty1bEQRx0xcKMYDWgxyTwMMLkknDJ3BlfZFsG7wbrQsC0s6tVG3l3/epnekyv4XMCJPL/AL1rCsl+xSackW0Je0zYSIi2B/Gk1zO7arYL0onlN2nZM4R3RjGgzPAdDxOXI9Zqqvm02UWrBo91uGBgfnQceIZGFuKvDgRTo1xzYlANPkBMGV03oBvWB+ctyAGm1xx7heRP3ue9cFE4IB1/PCqnMImq2aTdrPB/mhbSHRj9s0LDZU4gxGUP2HU5SQ1vtTkwo9RBme0wLD37Y1Fco4HiVJg7h0QWiyjtRW5A==
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM6PR11MB2841.namprd11.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(136003)(396003)(346002)(366004)(39860400002)(376002)(66476007)(66556008)(76116006)(66446008)(64756008)(53546011)(33656002)(71200400001)(478600001)(186003)(6506007)(52536014)(66946007)(5660300002)(9686003)(7416002)(8676002)(83380400001)(26005)(54906003)(55016002)(4326008)(7696005)(86362001)(316002)(8936002)(2906002)(6916009);
- DIR:OUT; SFP:1102; 
-x-ms-exchange-antispam-messagedata: qC2YGckFwNg5boxji38cJHhzXulase2Ngkxci5DLI/PQwhzFmjFbRPH/yw4MtfCH9bi9xQcmRyaXd1SZ2WgQ81805hBi3T88FN0/0h68thVUw2kAW4cCKPoCesmfAWDq3mEoUi8lUxSlVJYiFpRfxsJnSWavBQ1oxA+IWYmiwOTEbGrqiu8Fn7aQ/VPsZ9lB/3GE8kvMf9ZMZApVi5s9eemgqu63sjTElv/m18vDy+G3FBWCNQPtwki+RiSO1FAL9xqcN7yKYC4a/8hwBUxHVjXRfoT4wmzSlsWTPdjfySNamHbDu0mLs/QQZ7jjai6W7H5mNhm+Aio7UMfDPhewAXwM/QdNmloyYZbiyJLM9cH73YZjFokMrU9rlMSvoPU6F7gj14i7PBTbV304UDk00BGCHkyN+E2Hj+HhdvGwa0Yxja5TJmVgYp7ui/CLopVcsSZFqFWT9xFQG1g3cmhMzTUl6M0qVz4ea/+Ht3XaHqaCbShFwP8HjKJn2qalLAdiHjaeFMYy3Ss084zfzqnpkc0FoiU8uq5mLmrAbWhBlBGAIzP9CIcruwt4GyCnDC3WYljmAJBYCKDzxo2QW6h8HS8h0xM9GAmX/9rN9w7J5fDcInBzlIE8g0SvylfOAWkCNgxCGteoZdv93ZhcWTMJ9g==
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+Received: from DM6PR12MB3834.namprd12.prod.outlook.com (2603:10b6:5:14a::12)
+ by DM6PR12MB3305.namprd12.prod.outlook.com (2603:10b6:5:189::29) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3499.27; Thu, 5 Nov
+ 2020 21:09:50 +0000
+Received: from DM6PR12MB3834.namprd12.prod.outlook.com
+ ([fe80::cdbe:f274:ad65:9a78]) by DM6PR12MB3834.namprd12.prod.outlook.com
+ ([fe80::cdbe:f274:ad65:9a78%7]) with mapi id 15.20.3499.032; Thu, 5 Nov 2020
+ 21:09:50 +0000
+Date: Thu, 5 Nov 2020 17:09:48 -0400
+From: Jason Gunthorpe <jgg@nvidia.com>
+To: Saeed Mahameed <saeed@kernel.org>
+Subject: Re: [PATCH mlx5-next v1 05/11] net/mlx5: Register mlx5 devices to
+ auxiliary virtual bus
+Message-ID: <20201105210948.GS2620339@nvidia.com>
+References: <20201101201542.2027568-1-leon@kernel.org>
+ <20201101201542.2027568-6-leon@kernel.org>
+ <d10e7a08200458c1bddb72fc983a5917daebc8f1.camel@kernel.org>
 Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+Content-Disposition: inline
+In-Reply-To: <d10e7a08200458c1bddb72fc983a5917daebc8f1.camel@kernel.org>
+X-ClientProxiedBy: MN2PR15CA0052.namprd15.prod.outlook.com
+ (2603:10b6:208:237::21) To DM6PR12MB3834.namprd12.prod.outlook.com
+ (2603:10b6:5:14a::12)
 MIME-Version: 1.0
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: DM6PR11MB2841.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: e7df671d-e207-40ca-e29f-08d881ccac20
-X-MS-Exchange-CrossTenant-originalarrivaltime: 05 Nov 2020 20:52:13.2723 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: 6uX3z692HQ3evUZUZkdWtJxopVe5R1ql7wBFS3/Z86bOmew+e8x33S23ALsuoKaMUtHF1/gTT+9PQi5HnkgWd4YhlazVPUgczk9JZfxTvcM=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM5PR1101MB2284
-X-OriginatorOrg: intel.com
-Cc: "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
- Parav Pandit <parav@mellanox.com>, Takashi Iwai <tiwai@suse.de>,
- Netdev <netdev@vger.kernel.org>,
- Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- Fred Oh <fred.oh@linux.intel.com>, linux-rdma <linux-rdma@vger.kernel.org>,
- Doug Ledford <dledford@redhat.com>, Mark Brown <broonie@kernel.org>,
- Jason Gunthorpe <jgg@nvidia.com>, Greg KH <gregkh@linuxfoundation.org>,
- Jakub Kicinski <kuba@kernel.org>, "Williams, Dan J" <dan.j.williams@intel.com>,
- "Saleem, Shiraz" <shiraz.saleem@intel.com>, David Miller <davem@davemloft.net>,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>, "Patil,
- Kiran" <kiran.patil@intel.com>
+X-MS-Exchange-MessageSentRepresentingType: 1
+Received: from mlx.ziepe.ca (156.34.48.30) by
+ MN2PR15CA0052.namprd15.prod.outlook.com (2603:10b6:208:237::21) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3499.19 via Frontend
+ Transport; Thu, 5 Nov 2020 21:09:49 +0000
+Received: from jgg by mlx with local (Exim 4.94)	(envelope-from
+ <jgg@nvidia.com>)	id 1kamVw-000OcU-51; Thu, 05 Nov 2020 17:09:48 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nvidia.com; s=n1;
+ t=1604610594; bh=UTpSXDMNYpq/ZlPjrRPFdXrTNx19FUH06M+gwR9NKyc=;
+ h=ARC-Seal:ARC-Message-Signature:ARC-Authentication-Results:Date:
+ From:To:CC:Subject:Message-ID:References:Content-Type:
+ Content-Disposition:In-Reply-To:X-ClientProxiedBy:MIME-Version:
+ X-MS-Exchange-MessageSentRepresentingType;
+ b=SUx0ceXcIW2zyJzHeYJoQGPTM/viv1DoGfTPcR0+or2v9digYGZK78iY9mTNpmef7
+ eUtw7hgBMufh50UwcciJQ8V2m7eaCVfamyaldJ8oynQvlS2KpW3k6O42mi39+Tjz28
+ EgfhLlS304zbVNNTXO4RlSkKNHCUCZLAmD9Wu7k3z8sHagGO2c0AyuUxtwgMGqg+Tv
+ sDF6YnUQPt9cLhjFOB4x1uUNGN2qrHxOc9wiQzSsAI3U2RrNHywHlSUvRv12EAd5Y5
+ MhrzRRKuj94zXBaNHtf1YY6rZP9GT6oOgpknv5oJu5B4Oda3hgFQlqRy9g18EgdqIH
+ CNI51dBK3rr0w==
+Cc: alsa-devel@alsa-project.org, "Michael S. Tsirkin" <mst@redhat.com>,
+ tiwai@suse.de, Jason Wang <jasowang@redhat.com>,
+ ranjani.sridharan@linux.intel.com, Leon Romanovsky <leonro@nvidia.com>,
+ Leon Romanovsky <leon@kernel.org>, linux-rdma@vger.kernel.org,
+ pierre-louis.bossart@linux.intel.com, fred.oh@linux.intel.com,
+ Doug Ledford <dledford@redhat.com>, Jakub Kicinski <kuba@kernel.org>,
+ kiran.patil@intel.com, broonie@kernel.org, Parav Pandit <parav@nvidia.com>,
+ Roi Dayan <roid@nvidia.com>, dan.j.williams@intel.com,
+ virtualization@lists.linux-foundation.org, shiraz.saleem@intel.com,
+ gregkh <gregkh@linuxfoundation.org>, linux-kernel@vger.kernel.org,
+ netdev@vger.kernel.org, "David S . Miller" <davem@davemloft.net>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -168,74 +130,25 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-> -----Original Message-----
-> From: Leon Romanovsky <leonro@nvidia.com>
-> Sent: Thursday, November 5, 2020 11:35 AM
-> To: Ertman, David M <david.m.ertman@intel.com>
-> Cc: Williams, Dan J <dan.j.williams@intel.com>; alsa-devel@alsa-project.o=
-rg;
-> Takashi Iwai <tiwai@suse.de>; Mark Brown <broonie@kernel.org>; linux-
-> rdma <linux-rdma@vger.kernel.org>; Jason Gunthorpe <jgg@nvidia.com>;
-> Doug Ledford <dledford@redhat.com>; Netdev <netdev@vger.kernel.org>;
-> David Miller <davem@davemloft.net>; Jakub Kicinski <kuba@kernel.org>;
-> Greg KH <gregkh@linuxfoundation.org>; Ranjani Sridharan
-> <ranjani.sridharan@linux.intel.com>; Pierre-Louis Bossart <pierre-
-> louis.bossart@linux.intel.com>; Fred Oh <fred.oh@linux.intel.com>; Parav
-> Pandit <parav@mellanox.com>; Saleem, Shiraz <shiraz.saleem@intel.com>;
-> Patil, Kiran <kiran.patil@intel.com>; Linux Kernel Mailing List <linux-
-> kernel@vger.kernel.org>
-> Subject: Re: [PATCH v3 01/10] Add auxiliary bus support
->=20
-> On Thu, Nov 05, 2020 at 07:27:56PM +0000, Ertman, David M wrote:
-> > > -----Original Message-----
-> > > From: Dan Williams <dan.j.williams@intel.com>
-> > > Sent: Thursday, November 5, 2020 1:19 AM
-> > > To: Ertman, David M <david.m.ertman@intel.com>
-> > > Cc: alsa-devel@alsa-project.org; Takashi Iwai <tiwai@suse.de>; Mark
-> Brown
-> > > <broonie@kernel.org>; linux-rdma <linux-rdma@vger.kernel.org>; Jason
-> > > Gunthorpe <jgg@nvidia.com>; Doug Ledford <dledford@redhat.com>;
-> > > Netdev <netdev@vger.kernel.org>; David Miller
-> <davem@davemloft.net>;
-> > > Jakub Kicinski <kuba@kernel.org>; Greg KH
-> <gregkh@linuxfoundation.org>;
-> > > Ranjani Sridharan <ranjani.sridharan@linux.intel.com>; Pierre-Louis
-> Bossart
-> > > <pierre-louis.bossart@linux.intel.com>; Fred Oh
-> <fred.oh@linux.intel.com>;
-> > > Parav Pandit <parav@mellanox.com>; Saleem, Shiraz
-> > > <shiraz.saleem@intel.com>; Patil, Kiran <kiran.patil@intel.com>; Linu=
-x
-> > > Kernel Mailing List <linux-kernel@vger.kernel.org>; Leon Romanovsky
-> > > <leonro@nvidia.com>
-> > > Subject: Re: [PATCH v3 01/10] Add auxiliary bus support
-> > >
-> > > Some doc fixups, and minor code feedback. Otherwise looks good to me.
-> > >
-> > > On Thu, Oct 22, 2020 at 5:35 PM Dave Ertman
-> <david.m.ertman@intel.com>
-> > > wrote:
->=20
-> <...>
->=20
-> >
-> > Again, thanks for the review Dan.  Changes will be in next release (v4)=
- once
-> I give
-> > stake-holders a little time to respond.
->=20
-> Everything here can go as a Fixes, the review comments are valuable and
-> need
-> to be fixed, but they don't change anything dramatically that prevent fro=
-m
-> merging v3.
->=20
+On Thu, Nov 05, 2020 at 12:59:20PM -0800, Saeed Mahameed wrote:
 
-This works for me - I have the changes saved into an add-on patch that I ha=
-ven't
-squashed into the main patch yet.
+> 2. you can always load a driver without its underlying device existed.
+> for example, you can load a pci device driver/module and it will load
+> and wait for pci devices to pop up, the subsysetem infrastructure will
+> match between drivers and devices and probe them.
 
-> Thanks
->=20
-> >
-> > -DaveE
+Yes, this works fine with this design
+
+> struct aux_driver mlx5_vpda_aux_driver {
+> 
+>       .name = "vdpa",
+>        /* match this driver with mlx5_core devices */
+>       .id_table = {"mlx5_core"}, 
+>       .ops {
+>             /* called before probe on actual aux mlx5_core device */
+>            .is_supported(struct aux_device); 
+
+This means module auto loading is impossible, we can't tell to load
+the module until we load the module to call the is_supported code ..
+
+Jason

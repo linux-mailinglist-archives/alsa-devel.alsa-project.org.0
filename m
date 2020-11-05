@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 00D722A83EB
-	for <lists+alsa-devel@lfdr.de>; Thu,  5 Nov 2020 17:48:50 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id DA11F2A83EC
+	for <lists+alsa-devel@lfdr.de>; Thu,  5 Nov 2020 17:49:00 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 97316168D;
-	Thu,  5 Nov 2020 17:47:59 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 97316168D
+	by alsa0.perex.cz (Postfix) with ESMTPS id 7D2D41660;
+	Thu,  5 Nov 2020 17:48:10 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7D2D41660
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1604594929;
-	bh=jjAsr0+ZIP+PdEVNsUQ8ujyXuXzfv/mf8ecvEu/AAJs=;
-	h=Date:From:To:In-Reply-To:References:Subject:Cc:List-Id:
+	s=default; t=1604594940;
+	bh=j9FHyAv+xNEEldf9CJ3rqWwa6WWbWLo2tOG5ZLBmics=;
+	h=Date:From:To:In-Reply-To:References:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=aKdM0PcrN/5iaFDsZG+L9xCymu9samPMyylZ5PUMSoGdL0PSseC8QmzTdAvl85Yb+
-	 dQANC3SJCua7gStF0ig0k59kX1L1PT14k8Vrl02TC2NkdcSzi44EOz+ZAsEg2WnBee
-	 3vMqU1gMp30g2jirV3Oq+paSVK3Mdz2k/NZxW0J8=
+	b=X6ljCVqNHFwkU1EAJRHYD1Ur56IDQ9+Vf4ryBKcMLX5lxNT75/MpmdnG9MykwNvp2
+	 oEwi43ytrAeAlEnxKs6RFUiCW/HREezDfw7KuwcceBSVq6hfHPotlRM1OEG6vQVosO
+	 Tg48RJFuSEybcw2Hwm56D3KKXxcZ7zBEzuJU53Mw=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 2F01BF804BD;
-	Thu,  5 Nov 2020 17:46:03 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 1CAC5F804D6;
+	Thu,  5 Nov 2020 17:46:07 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id EC9A1F804CC; Thu,  5 Nov 2020 17:46:00 +0100 (CET)
+ id 4F733F804CB; Thu,  5 Nov 2020 17:46:02 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -34,36 +34,36 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 9382CF804BD
- for <alsa-devel@alsa-project.org>; Thu,  5 Nov 2020 17:45:58 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9382CF804BD
+ by alsa1.perex.cz (Postfix) with ESMTPS id A45F1F804C3
+ for <alsa-devel@alsa-project.org>; Thu,  5 Nov 2020 17:45:59 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A45F1F804C3
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="M5bcnQ27"
+ header.b="jdSTbykM"
 Received: from localhost (fw-tnat.cambridge.arm.com [217.140.96.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id CC69E221F8;
- Thu,  5 Nov 2020 16:45:50 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id 01FB022201;
+ Thu,  5 Nov 2020 16:45:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1604594751;
- bh=jjAsr0+ZIP+PdEVNsUQ8ujyXuXzfv/mf8ecvEu/AAJs=;
+ s=default; t=1604594757;
+ bh=j9FHyAv+xNEEldf9CJ3rqWwa6WWbWLo2tOG5ZLBmics=;
  h=Date:From:To:Cc:In-Reply-To:References:Subject:From;
- b=M5bcnQ27OtYsL+MkDMcTIZUEdibPRdnprM9xeY3zMaDdLilntClzFjGISgqgSGV2b
- 1dMWnbTNhZbad//mR9XDxe22DoR3GV53rLhbF8ru1ZZ9aQCOBIc2HLnL1WLzjAEfbz
- FkjCWzSP/BX3Icn3W54bF4JvD7ZHF1jEPOEKViFM=
-Date: Thu, 05 Nov 2020 16:45:39 +0000
+ b=jdSTbykM1rIMtCgBVH5LUPTLAGOeqeD7XEGdeYhkcSeLrD2nxKOh/0zO++FNd3rze
+ Gws7IrWPd+UYA9vlQoORck2NyrFWWLGJpyx515liQpM08YfBcDsnOWb4yEW3xuJgnu
+ GcheAy+uU40Et2y2EjpfVdq2Ts/zAsvA33XrcZTg=
+Date: Thu, 05 Nov 2020 16:45:46 +0000
 From: Mark Brown <broonie@kernel.org>
-To: alsa-devel@alsa-project.org, Cezary Rojewski <cezary.rojewski@intel.com>
-In-Reply-To: <20201026100129.8216-1-cezary.rojewski@intel.com>
-References: <20201026100129.8216-1-cezary.rojewski@intel.com>
-Subject: Re: [PATCH] ASoC: pcm: DRAIN support reactivation
-Message-Id: <160459472199.54851.4449416811424744361.b4-ty@kernel.org>
+To: perex@perex.cz, Xu Wang <vulab@iscas.ac.cn>, alsa-devel@alsa-project.org,
+ tiwai@suse.com, s.nawrocki@samsung.com, lgirdwood@gmail.com
+In-Reply-To: <20201029084137.28771-1-vulab@iscas.ac.cn>
+References: <20201029084137.28771-1-vulab@iscas.ac.cn>
+Subject: Re: [PATCH] ASoC: samsung: i2s: Remove redundant null check before
+ clk_disable_unprepare
+Message-Id: <160459472200.54851.15787192690355908693.b4-ty@kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Cc: lgirdwood@gmail.com, ranjani.sridharan@intel.com,
- pierre-louis.bossart@linux.intel.com, tiwai@suse.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -79,15 +79,9 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Mon, 26 Oct 2020 11:01:29 +0100, Cezary Rojewski wrote:
-> soc-pcm's dpcm_fe_dai_do_trigger() supported DRAIN commnad up to kernel
-> v5.4 where explicit switch(cmd) has been introduced which takes into
-> account all SNDRV_PCM_TRIGGER_xxx but SNDRV_PCM_TRIGGER_DRAIN. Update
-> switch statement to reactive support for it.
-> 
-> As DRAIN is somewhat unique by lacking negative/stop counterpart, bring
-> behaviour of dpcm_fe_dai_do_trigger() for said command back to its
-> pre-v5.4 state by adding it to START/RESUME/PAUSE_RELEASE group.
+On Thu, 29 Oct 2020 08:41:37 +0000, Xu Wang wrote:
+> Because clk_disable_unprepare() already checked NULL clock parameter,
+> so the additional check is unnecessary, just remove it.
 
 Applied to
 
@@ -95,8 +89,8 @@ Applied to
 
 Thanks!
 
-[1/1] ASoC: pcm: DRAIN support reactivation
-      commit: 4c22b80f61540ea99d9b4af0127315338755f05b
+[1/1] ASoC: samsung: i2s: Remove redundant null check before clk_disable_unprepare
+      commit: ec4177c83456b9e84d796ed0bc7656fd922937cb
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

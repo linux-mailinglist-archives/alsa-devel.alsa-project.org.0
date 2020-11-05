@@ -2,72 +2,82 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 809DE2A91C1
-	for <lists+alsa-devel@lfdr.de>; Fri,  6 Nov 2020 09:47:35 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 647C02A91C7
+	for <lists+alsa-devel@lfdr.de>; Fri,  6 Nov 2020 09:48:13 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 26DE516AB;
-	Fri,  6 Nov 2020 09:46:45 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 26DE516AB
+	by alsa0.perex.cz (Postfix) with ESMTPS id 095861661;
+	Fri,  6 Nov 2020 09:47:23 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 095861661
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1604652455;
-	bh=nXUQ4GL6W41xEh7Is8wnu+Mihu4l8UOkwnOVzvooJps=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1604652493;
+	bh=mLsNqMpg+fjeU5Wj1TlalFF/ej18WzbVB4jrTqF1H+g=;
+	h=Subject:From:To:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=EpXvWtx741XDf6OewM/MToZ4dzXA3Amx1JQ1hpqu5+igQI3N2jhfcHBeDOPOUDzGt
-	 dIgvpjjTbT3aS14Y/Z5K04nhHt4E6Rmz5os8aD75wvD3AwBjllxPpIHBx8o8FgxiUE
-	 geKET2I/a8QGP3BxLv00ZNC0UN3uLLPYTQTIooJo=
+	b=fcVhWd69XHkjJYk4GLUyeT50EfAjEnX5u8oYTPTKKWW2dgF/m5WN+1IsFMQSnKm3T
+	 Q5mQEQTr8Zp7UJRIMp/DEi/sQHsoZo+JPC7dZcWLutegm4Mb5gi/wtAD16RVKsdI61
+	 zZJCfpLe6kC9I1otl2eWgB1YJINWF8y7/oaGiSas=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id CEFD7F804E6;
-	Fri,  6 Nov 2020 09:43:24 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id CB97EF804FB;
+	Fri,  6 Nov 2020 09:43:25 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 1A35FF80171; Thu,  5 Nov 2020 20:37:50 +0100 (CET)
+ id 11B15F800EC; Thu,  5 Nov 2020 21:32:02 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.2 required=5.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
- SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+ DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id AF835F800EC
- for <alsa-devel@alsa-project.org>; Thu,  5 Nov 2020 20:37:47 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz AF835F800EC
-Received: from localhost (searspoint.nvidia.com [216.228.112.21])
+ by alsa1.perex.cz (Postfix) with ESMTPS id 81E7DF800EC
+ for <alsa-devel@alsa-project.org>; Thu,  5 Nov 2020 21:31:59 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 81E7DF800EC
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="tip2y8ih"
+Received: from lt-jalone-7480.mtl.com (c-24-6-56-119.hsd1.ca.comcast.net
+ [24.6.56.119])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id A51B320704;
- Thu,  5 Nov 2020 19:37:44 +0000 (UTC)
-Date: Thu, 5 Nov 2020 21:37:41 +0200
-From: Leon Romanovsky <leonro@nvidia.com>
-To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Subject: Re: [PATCH v3 01/10] Add auxiliary bus support
-Message-ID: <20201105193741.GC5475@unreal>
-References: <20201023003338.1285642-1-david.m.ertman@intel.com>
- <20201023003338.1285642-2-david.m.ertman@intel.com>
- <CAPcyv4i9s=CsO5VJOhPnS77K=bD0LTQ8TUAbhLd+0OmyU8YQ3g@mail.gmail.com>
- <DM6PR11MB284191BAA817540E52E4E2C4DDEE0@DM6PR11MB2841.namprd11.prod.outlook.com>
- <f37a2b37-2fda-948d-1b8f-617395d43a08@linux.intel.com>
+ by mail.kernel.org (Postfix) with ESMTPSA id 70B86206CB;
+ Thu,  5 Nov 2020 20:31:53 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=default; t=1604608314;
+ bh=mLsNqMpg+fjeU5Wj1TlalFF/ej18WzbVB4jrTqF1H+g=;
+ h=Subject:From:To:Cc:Date:In-Reply-To:References:From;
+ b=tip2y8ihPjnL+k84Ml5q7RJaT+qHuQ8ouQtkwEu9HT+3NJ+Do7g6/WkFLgvWr0nxG
+ XL66eSQHoh7XVgTbzWogbyGV0wbtvQ24hhUBY24NLMphWpdncSrpEJ1V5DOZXDJx+e
+ SeV6rpliRjmRwz5J0sZtZO/dmhjGVN3fW+ON4qpQ=
+Message-ID: <8a8e75215a5d3d8cfa9c3c6747325dbbf965811f.camel@kernel.org>
+Subject: Re: [PATCH mlx5-next v1 04/11] vdpa/mlx5: Make hardware definitions
+ visible to all mlx5 devices
+From: Saeed Mahameed <saeed@kernel.org>
+To: Leon Romanovsky <leon@kernel.org>, Doug Ledford <dledford@redhat.com>, 
+ Jason Gunthorpe <jgg@nvidia.com>, gregkh <gregkh@linuxfoundation.org>
+Date: Thu, 05 Nov 2020 12:31:52 -0800
+In-Reply-To: <20201101201542.2027568-5-leon@kernel.org>
+References: <20201101201542.2027568-1-leon@kernel.org>
+ <20201101201542.2027568-5-leon@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+User-Agent: Evolution 3.36.5 (3.36.5-1.fc32) 
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <f37a2b37-2fda-948d-1b8f-617395d43a08@linux.intel.com>
-X-Mailman-Approved-At: Fri, 06 Nov 2020 09:43:15 +0100
-Cc: "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
- Parav Pandit <parav@mellanox.com>, Greg KH <gregkh@linuxfoundation.org>,
- Takashi Iwai <tiwai@suse.de>, Netdev <netdev@vger.kernel.org>,
- Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- Fred Oh <fred.oh@linux.intel.com>, linux-rdma <linux-rdma@vger.kernel.org>,
- Doug Ledford <dledford@redhat.com>, Mark Brown <broonie@kernel.org>,
- Jason Gunthorpe <jgg@nvidia.com>, Jakub Kicinski <kuba@kernel.org>, "Ertman,
- David M" <david.m.ertman@intel.com>, "Williams,
- Dan J" <dan.j.williams@intel.com>, "Saleem, Shiraz" <shiraz.saleem@intel.com>,
- David Miller <davem@davemloft.net>, "Patil, Kiran" <kiran.patil@intel.com>
+Content-Transfer-Encoding: 7bit
+X-Mailman-Approved-At: Fri, 06 Nov 2020 09:43:14 +0100
+Cc: pierre-louis.bossart@linux.intel.com, alsa-devel@alsa-project.org,
+ kiran.patil@intel.com, "Michael S.
+ Tsirkin" <mst@redhat.com>, linux-rdma@vger.kernel.org, netdev@vger.kernel.org,
+ Jason Wang <jasowang@redhat.com>, ranjani.sridharan@linux.intel.com,
+ virtualization@lists.linux-foundation.org, fred.oh@linux.intel.com,
+ tiwai@suse.de, broonie@kernel.org, Parav Pandit <parav@nvidia.com>,
+ Roi Dayan <roid@nvidia.com>, shiraz.saleem@intel.com,
+ Jakub Kicinski <kuba@kernel.org>, dan.j.williams@intel.com,
+ Leon Romanovsky <leonro@nvidia.com>, "David S . Miller" <davem@davemloft.net>,
+ linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -83,32 +93,20 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Thu, Nov 05, 2020 at 01:32:40PM -0600, Pierre-Louis Bossart wrote:
->
-> > > > +module_init(auxiliary_bus_init);
-> > > > +module_exit(auxiliary_bus_exit);
-> > > > +
-> > > > +MODULE_LICENSE("GPL");
-> > >
-> > > Per above SPDX is v2 only, so...
-> > >
-> > > MODULE_LICENSE("GPL v2");
-> > >
-> >
-> > added v2.
->
-> "GPL v2" is the same as "GPL" here, it does not have any additional meaning.
->
-> https://www.kernel.org/doc/html/latest/process/license-rules.html
->
-> “GPL”	Module is licensed under GPL version 2. This does not express any
-> distinction between GPL-2.0-only or GPL-2.0-or-later. The exact license
-> information can only be determined via the license information in the
-> corresponding source files.
+On Sun, 2020-11-01 at 22:15 +0200, Leon Romanovsky wrote:
+> From: Leon Romanovsky <leonro@nvidia.com>
+> 
+> Move mlx5_vdpa IFC header file to the general include folder, so
+> mlx5_core will be able to reuse it to check if VDPA is supported
+> prior to creating an auxiliary device.
+> 
 
-+1,
-https://lore.kernel.org/lkml/20201105193009.GA5475@unreal
+I don't really like this, the whole idea of aux devices is that they
+get to do own logic and hide details, now we are exposing aux specific
+stuff to the bus .. 
+let's figure a way to avoid such exposure as we discussed yesterday.
 
->
-> “GPL v2”	Same as “GPL”. It exists for historic reasons.
->
+is_supported check shouldn't belong to mlx5_core and each aux device
+(en/ib/vdpa) should implement own is_supported op and keep the details
+hidden in the aux driver like it was before this patch.
+

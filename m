@@ -2,68 +2,111 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8C6122A83FA
-	for <lists+alsa-devel@lfdr.de>; Thu,  5 Nov 2020 17:49:52 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 47C6F2A83FE
+	for <lists+alsa-devel@lfdr.de>; Thu,  5 Nov 2020 17:50:25 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 2564D16B0;
-	Thu,  5 Nov 2020 17:49:02 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2564D16B0
+	by alsa0.perex.cz (Postfix) with ESMTPS id CEB341678;
+	Thu,  5 Nov 2020 17:49:34 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CEB341678
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1604594992;
-	bh=dvounATz3cVDTeHGqKKStRGMVEsVV8CE5gX6mXYoZFY=;
-	h=Date:From:To:In-Reply-To:References:Subject:Cc:List-Id:
+	s=default; t=1604595024;
+	bh=hp00NowhH8u0qY+Qq9UNO5zvUU1DEntAGxSIxcgcf/Q=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=mNoviE3p6bsZgAcdfLq6RfDF1ZRTk96dR59PW0AYHCjfARfDZ0lvGv7l3C+7pZ+qy
-	 MkIkLoklrq3Kdr4tXGKC9k6tfJULaQUVyp3zzKkCdWAjBR7w7f/cItYwQ6pN9179mT
-	 jvyGEm6/jNeuAbZupdBIFPDvB0+M4E4Tm4CFTQWg=
+	b=smtFib/B6dz7fBbrYUFaVcdw6tnEeaucq97X3ZZMcgibwfotXbcjKZc4XbjYa8yTJ
+	 kpSusm8NguNdzXWP00rsLcJ3/YgSkV+KQ5WH6oLLBcx5zUA6X43rRn/zLCVkGMOBBt
+	 XNKst9eTIrQ/vTWnWThkBqt+z1+r2Dmqo+ideJw4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id A477AF804F3;
-	Thu,  5 Nov 2020 17:46:15 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 9BED3F800EC;
+	Thu,  5 Nov 2020 17:47:50 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id C2EA2F804F2; Thu,  5 Nov 2020 17:46:13 +0100 (CET)
+ id C3B64F800EC; Thu,  5 Nov 2020 17:47:48 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled
- version=3.4.0
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
+Received: from mail-qk1-x741.google.com (mail-qk1-x741.google.com
+ [IPv6:2607:f8b0:4864:20::741])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id CD583F804ED
- for <alsa-devel@alsa-project.org>; Thu,  5 Nov 2020 17:46:10 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CD583F804ED
+ by alsa1.perex.cz (Postfix) with ESMTPS id E4064F800EC
+ for <alsa-devel@alsa-project.org>; Thu,  5 Nov 2020 17:47:41 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E4064F800EC
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="C/e5Hrt2"
-Received: from localhost (fw-tnat.cambridge.arm.com [217.140.96.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 38AD122210;
- Thu,  5 Nov 2020 16:46:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1604594768;
- bh=dvounATz3cVDTeHGqKKStRGMVEsVV8CE5gX6mXYoZFY=;
- h=Date:From:To:Cc:In-Reply-To:References:Subject:From;
- b=C/e5Hrt2eJMfQUEb+sZgLHVI96Yq9yfMg2iUXmXATtoL7XdWWfxO+BdEYxyHIA9Y+
- mIB4yJ6zSIZ53lMEsTliJEK/LdN3WakVBwJomWfjBki51F5Mpm+j5nKxlMEY9LbVmN
- 2/o0J/rMYvlasQzFX5TZgwbCr0N29F4b39fGtDN8=
-Date: Thu, 05 Nov 2020 16:45:57 +0000
-From: Mark Brown <broonie@kernel.org>
-To: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
-In-Reply-To: <20201105114435.22860-1-srinivas.kandagatla@linaro.org>
-References: <20201105114435.22860-1-srinivas.kandagatla@linaro.org>
-Subject: Re: [PATCH] ASoC: q6afe-clocks: fix warning on symbol scope
-Message-Id: <160459472201.54851.12441055496999387552.b4-ty@kernel.org>
+ dkim=pass (2048-bit key) header.d=ziepe.ca header.i=@ziepe.ca
+ header.b="T/9h4B64"
+Received: by mail-qk1-x741.google.com with SMTP id a65so1740642qkg.13
+ for <alsa-devel@alsa-project.org>; Thu, 05 Nov 2020 08:47:41 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ziepe.ca; s=google;
+ h=date:from:to:cc:subject:message-id:references:mime-version
+ :content-disposition:in-reply-to;
+ bh=zhqw6nXW7an1sciymnqR0tpduOyD+zat59s5GBmVtbM=;
+ b=T/9h4B64oiALMfc42uebDeGSEyGeD0JwaqBLLTEWSdW7X4iF0nNQTGD8ItXWOPi1xM
+ DOvW9K/135GnWww5roe4BdwNCigRiUCwRDf4zxYgylBvKtGQ0y4XU2iCE2XUZ07ICn3L
+ rTXg0XPkpw/UUFWbC8Cig/5dZdORb0CzNbOAohUH2HvpxEPnNWIhHQhklANJ/hAkg8H3
+ MKb/DtGr/YW1Na1efMq3URRzjr/gbNFdmBokrf0ljC1HCRvWFNeTvkJMTB7Vdi6j+NUo
+ 8K7nKdD6xanzOWR6UK32MPYw28AHa+zQYvDZXAfI7cRkoGcIsjwKs0OHgVNNYy/123gh
+ Xm9w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to;
+ bh=zhqw6nXW7an1sciymnqR0tpduOyD+zat59s5GBmVtbM=;
+ b=SWjqvyIz1pCiMX9bZagRdbyi/sNVMcf7znfg86O69HUJOU66/stT/86GJIHvJQgS72
+ H7YrlYTYqDyhAU9KSviWUV6LAIOr1Y1mw8zLwGSpD3qBJ8KoU9zzX5H7Gmo7mFxNNDZc
+ zdvFcHDGQEIC6iRAlJOtTsnhUrj0lCJz8fWtpBHvJdxZ+8agNnopaIO8g0q5sUQ5f5sF
+ 8YqDEOI9F6yAnJRJIlx9BWRoJV305y4Zvhp4GdByW4cSdfzxZynTKAjFRkwy7ZnKQIIu
+ Fi8qydVw+YIVWgIQpcCjEjWlGd24hpHWnkDJFFWv412OaOe+rihWur08hOHGJlTSdnxl
+ WKGQ==
+X-Gm-Message-State: AOAM530EfbBjMwI8JVDzcelcxRZ4dt9CaO9+8JlT/19CsKN0MnLF5Rnd
+ EyC9FGNi6v1uovwfo+0PZTqC/w==
+X-Google-Smtp-Source: ABdhPJwzljYxFoBvKq1VFYeruz7gb+7H6oGN3WPy1j1HdsQNZAjc4YfzOlkNglv0PQR1cXTjqGzkUA==
+X-Received: by 2002:a05:620a:697:: with SMTP id
+ f23mr2825760qkh.374.1604594859867; 
+ Thu, 05 Nov 2020 08:47:39 -0800 (PST)
+Received: from ziepe.ca
+ (hlfxns017vw-156-34-48-30.dhcp-dynamic.fibreop.ns.bellaliant.net.
+ [156.34.48.30])
+ by smtp.gmail.com with ESMTPSA id g20sm1208553qtq.51.2020.11.05.08.47.38
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 05 Nov 2020 08:47:39 -0800 (PST)
+Received: from jgg by mlx with local (Exim 4.94) (envelope-from <jgg@ziepe.ca>)
+ id 1kaiQE-0007e8-Gm; Thu, 05 Nov 2020 12:47:38 -0400
+Date: Thu, 5 Nov 2020 12:47:38 -0400
+From: Jason Gunthorpe <jgg@ziepe.ca>
+To: gregkh <gregkh@linuxfoundation.org>
+Subject: Re: [PATCH mlx5-next v1 06/11] vdpa/mlx5: Connect mlx5_vdpa to
+ auxiliary bus
+Message-ID: <20201105164738.GD36674@ziepe.ca>
+References: <20201101201542.2027568-1-leon@kernel.org>
+ <20201101201542.2027568-7-leon@kernel.org>
+ <20201103154525.GO36674@ziepe.ca>
+ <CAPcyv4jP9nFAGdvB7agg3x7Y7moHGcxLd5=f5=5CXnJRUf3n9w@mail.gmail.com>
+ <20201105073302.GA3415673@kroah.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Cc: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
- lgirdwood@gmail.com
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20201105073302.GA3415673@kroah.com>
+Cc: alsa-devel@alsa-project.org, "Michael S. Tsirkin" <mst@redhat.com>,
+ Takashi Iwai <tiwai@suse.de>, Jason Wang <jasowang@redhat.com>,
+ Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
+ Leon Romanovsky <leonro@nvidia.com>, Leon Romanovsky <leon@kernel.org>,
+ linux-rdma <linux-rdma@vger.kernel.org>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ Fred Oh <fred.oh@linux.intel.com>, Doug Ledford <dledford@redhat.com>,
+ Jakub Kicinski <kuba@kernel.org>, "Patil, Kiran" <kiran.patil@intel.com>,
+ Mark Brown <broonie@kernel.org>, Parav Pandit <parav@nvidia.com>,
+ David M Ertman <david.m.ertman@intel.com>, Roi Dayan <roid@nvidia.com>,
+ Dan Williams <dan.j.williams@intel.com>,
+ virtualization@lists.linux-foundation.org, "Saleem,
+ Shiraz" <shiraz.saleem@intel.com>, Netdev <netdev@vger.kernel.org>,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ Saeed Mahameed <saeedm@nvidia.com>, "David S . Miller" <davem@davemloft.net>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -79,36 +122,33 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Thu, 5 Nov 2020 11:44:35 +0000, Srinivas Kandagatla wrote:
-> This patch fixes below warning when module is compiled with W=1 C=1
+On Thu, Nov 05, 2020 at 08:33:02AM +0100, gregkh wrote:
+> > Were there any additional changes you wanted to see happen? I'll go
+> > give the final set another once over, but David has been diligently
+> > fixing up all the declared major issues so I expect to find at most
+> > minor incremental fixups.
 > 
-> sound/soc/qcom/qdsp6/q6afe-clocks.c:122:18: warning: symbol 'q6afe_clks'
-> was not declared. Should it be static?
+> This is in my to-review pile, along with a load of other stuff at the
+> moment:
+> 	$ ~/bin/mdfrm -c ~/mail/todo/
+> 	1709 messages in /home/gregkh/mail/todo/
+> 
+> So give me a chance.  There is no rush on my side for this given the
+> huge delays that have happened here on the authorship side many times in
+> the past :)
 
-Applied to
+On the other hand Leon and his team did invest alot of time and
+effort, very quickly, to build and QA this large mlx5 series here to
+give a better/second example as you requested only a few weeks ago.
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
+> If you can review it, or anyone else, that is always most appreciated.
 
-Thanks!
+Dan, Leon, Myself and others have looked at the auxiliary bus patch a
+more than a few times now. Leon in particular went over it very
+carefully and a number of bugs were fixed while he developed this
+series.
 
-[1/1] ASoC: q6afe-clocks: fix warning on symbol scope
-      commit: ee5d28e735082a5676c85bdc578653097e4e29e2
+There seems to be nothing fundamentally wrong with it, so long as
+people are fine with the colour of the shed...
 
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
-
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
-
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
-
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-Thanks,
-Mark
+Jason

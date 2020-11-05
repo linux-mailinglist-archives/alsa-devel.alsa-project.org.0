@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 57FDF2A83DF
-	for <lists+alsa-devel@lfdr.de>; Thu,  5 Nov 2020 17:47:25 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9270C2A83E7
+	for <lists+alsa-devel@lfdr.de>; Thu,  5 Nov 2020 17:48:03 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 4CA2D169C;
-	Thu,  5 Nov 2020 17:46:33 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4CA2D169C
+	by alsa0.perex.cz (Postfix) with ESMTPS id 3011B167B;
+	Thu,  5 Nov 2020 17:47:13 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3011B167B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1604594843;
-	bh=3UHLZIzEW15TXpSpqNOpAH3xDTStmcO1nGcJdcK67lA=;
+	s=default; t=1604594883;
+	bh=1RsXmYB4zCj2jaeADbfq59xOu2k8CzrD8CU1zJns5Ns=;
 	h=Date:From:To:In-Reply-To:References:Subject:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=QOiqskpw+K0kNPJoHeFRqSwkvfP8wzEkvJqx4CLvahTZOiJUPhgcSKqBHWbM/a0ox
-	 5CRNSNBHZtA1Ci6In9ByCtRDwr8Xuj6nPW7AcFzqwXoRLXQUGxU9nwwQeByx+8JcU5
-	 7Enb9aB38+aBWbNhJCnjm7ZoJUTKXmKLEkTLab30=
+	b=vLjH6hIOYlGooCFbhlAKvcg3kdLKXt9RjXxNzmOQTxOw2MDsTKHHV8H6E7B6mv72Y
+	 cRnUYqw4O9EzakrBeltY/OyMov053D12DL6G/FO3Tx3ZC2yLn0u1h91GnvljRGfxu/
+	 VG61nlxCHImp4m9NX5OY2hVrjCK+jjOm87FZlfnU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 9BA24F80171;
-	Thu,  5 Nov 2020 17:45:43 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id B2C08F804BB;
+	Thu,  5 Nov 2020 17:45:45 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 2AF2CF800EC; Thu,  5 Nov 2020 17:45:39 +0100 (CET)
+ id A942AF80272; Thu,  5 Nov 2020 17:45:43 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -34,39 +34,39 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 8C134F800EC
- for <alsa-devel@alsa-project.org>; Thu,  5 Nov 2020 17:45:36 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8C134F800EC
+ by alsa1.perex.cz (Postfix) with ESMTPS id F1DE8F80272
+ for <alsa-devel@alsa-project.org>; Thu,  5 Nov 2020 17:45:40 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz F1DE8F80272
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="lD/pSl9x"
+ header.b="MLhqhGWk"
 Received: from localhost (fw-tnat.cambridge.arm.com [217.140.96.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 8489621D46;
- Thu,  5 Nov 2020 16:45:32 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id 8747A2080D;
+ Thu,  5 Nov 2020 16:45:38 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1604594733;
- bh=3UHLZIzEW15TXpSpqNOpAH3xDTStmcO1nGcJdcK67lA=;
+ s=default; t=1604594739;
+ bh=1RsXmYB4zCj2jaeADbfq59xOu2k8CzrD8CU1zJns5Ns=;
  h=Date:From:To:Cc:In-Reply-To:References:Subject:From;
- b=lD/pSl9xhcFNC8P/62zcEQ8v8OvnDY2dqfrgPVRrGQpnEV4vfZcH/EKzbwj3M4g0S
- kTJoGKJjzG56bhW9Ex0TRTu4XbpT0GSsemFtG6cNEa0RhoeoXnc639oX9lmfTsqnGW
- CPRDqwDlS9h78bhK0HK9jOSFbKk3YyaJZAspGDyQ=
-Date: Thu, 05 Nov 2020 16:45:22 +0000
+ b=MLhqhGWkfnNlnY+Z8zzA1y2bzWmyu1mhidmsGBJGklbZ+cKftwN7eSvqPEuMpnF/O
+ fjMkwh+1jgbrjLe2znUd1EBmSwFA3mJPvAMDeANBzPDckSLp+JTAUgfBZ/S53Bqebn
+ xOq9V6y8L5GeUZ3EUwwEQDtuKA5c+7y1qoRvAcNc=
+Date: Thu, 05 Nov 2020 16:45:27 +0000
 From: Mark Brown <broonie@kernel.org>
-To: linux-arm-kernel@lists.infradead.org, perex@perex.cz,
- haojian.zhuang@gmail.com, Xu Wang <vulab@iscas.ac.cn>,
- alsa-devel@alsa-project.org, tiwai@suse.com, daniel@zonque.org,
- robert.jarzmik@free.fr, lgirdwood@gmail.com
-In-Reply-To: <20201029090104.29552-1-vulab@iscas.ac.cn>
-References: <20201029090104.29552-1-vulab@iscas.ac.cn>
-Subject: Re: [PATCH] ASoC: pxa: pxa-ssp: Remove redundant null check before
- clk_prepare_enable/clk_disable_unprepare
-Message-Id: <160459472200.54851.11789751712463576471.b4-ty@kernel.org>
+To: Sudip Mukherjee <sudipm.mukherjee@gmail.com>,
+ Jiaxin Yu <jiaxin.yu@mediatek.com>, Matthias Brugger <matthias.bgg@gmail.com>,
+ Takashi Iwai <tiwai@suse.com>, Jaroslav Kysela <perex@perex.cz>,
+ Liam Girdwood <lgirdwood@gmail.com>
+In-Reply-To: <20201105124747.18383-1-sudipm.mukherjee@gmail.com>
+References: <20201105124747.18383-1-sudipm.mukherjee@gmail.com>
+Subject: Re: [PATCH] ASoC: mediatek: mt8192: Fix build failure
+Message-Id: <160459472200.54851.16651455731881675062.b4-ty@kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Cc: linux-kernel@vger.kernel.org
+Cc: alsa-devel@alsa-project.org, linux-mediatek@lists.infradead.org,
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -82,10 +82,12 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Thu, 29 Oct 2020 09:01:04 +0000, Xu Wang wrote:
-> ecause clk_prepare_enable() and clk_disable_unprepare() already checked
-> NULL clock parameter, so the additional checks are unnecessary, just
-> remove them.
+On Thu, 5 Nov 2020 12:47:47 +0000, Sudip Mukherjee wrote:
+> A build of arm64 allmodconfig with next-20201105 fails with the error:
+> ERROR: modpost: "mt8192_afe_gpio_request" undefined!
+> ERROR: modpost: "mt8192_afe_gpio_init" undefined!
+> 
+> Export the symbols so that mt8192-mt6359-rt1015-rt5682.ko finds it.
 
 Applied to
 
@@ -93,8 +95,8 @@ Applied to
 
 Thanks!
 
-[1/1] ASoC: pxa: pxa-ssp: Remove redundant null check before clk_prepare_enable/clk_disable_unprepare
-      commit: b8f94957765629e6a0d89abb4ff7e06e6565f61f
+[1/1] ASoC: mediatek: mt8192: Fix build failure
+      commit: 8bfe8c967546dc05385b52bac49ad972fea5887c
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

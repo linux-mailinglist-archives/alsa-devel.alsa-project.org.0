@@ -2,78 +2,80 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 19F312A81CF
-	for <lists+alsa-devel@lfdr.de>; Thu,  5 Nov 2020 16:04:43 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id D31D72A8261
+	for <lists+alsa-devel@lfdr.de>; Thu,  5 Nov 2020 16:41:02 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 93C631682;
-	Thu,  5 Nov 2020 16:03:52 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 93C631682
+	by alsa0.perex.cz (Postfix) with ESMTPS id 5D5351681;
+	Thu,  5 Nov 2020 16:40:12 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5D5351681
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1604588682;
-	bh=k8FY8nKjBeutJ6Xavr7PcVjJvuWQDn7jxITLi1s4w50=;
+	s=default; t=1604590862;
+	bh=BK6UyQbmVZaBa7NHXAUIlJ5OUAFt3Xj/7AwhJMn1cVw=;
 	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=ENBWaxrnZXo96Tgn8WYFrc4zf9q+knTHKpGT8Uv8/XW4HI+jGqwM4nAyjfxmTh+17
-	 HL9vRjp5gu30f8C0uuMTDqLn2kfb3q7JYKAD+ctX+PViup0rsrwiFnrghY8sGScVTG
-	 UO6sfbT+U1vCrx9Avas6xXd2PlfqSD6DXCSVS8Z4=
+	b=HMv5KcEsXtlpzZpi9oq7Kc8AKM3E/BH6wfB8kMPoTPTcvxJ45t75kQIBC82VMrC5C
+	 VT5oNs4w0j+VPCTxarimUFgAnLwVoEeyH1sTKqoK4r84EZU//BlocLlkTC0ttADgZy
+	 6TQB0brPU9rtOsFK7Ib6n4ieQAlf7JdvIw+c3ge0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id EB127F80245;
-	Thu,  5 Nov 2020 16:03:09 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id C3151F80171;
+	Thu,  5 Nov 2020 16:39:29 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 12326F80171; Thu,  5 Nov 2020 16:03:08 +0100 (CET)
+ id 83F91F80171; Thu,  5 Nov 2020 16:39:27 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled
+X-Spam-Status: No, score=0.0 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+ DKIM_VALID,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=disabled
  version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id F35BEF800BA
- for <alsa-devel@alsa-project.org>; Thu,  5 Nov 2020 16:03:04 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz F35BEF800BA
+ by alsa1.perex.cz (Postfix) with ESMTPS id 4B857F800EC;
+ Thu,  5 Nov 2020 16:39:15 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4B857F800EC
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="pi1bUtS/"
-Received: from localhost (fw-tnat.cambridge.arm.com [217.140.96.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id A24B3206D9;
- Thu,  5 Nov 2020 15:03:00 +0000 (UTC)
+ header.b="AkYgF9uK"
+Received: from localhost (83-86-74-64.cable.dynamic.v4.ziggo.nl [83.86.74.64])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
+ bits)) (No client certificate requested)
+ by mail.kernel.org (Postfix) with ESMTPSA id 3C49220782;
+ Thu,  5 Nov 2020 15:39:12 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1604588581;
- bh=k8FY8nKjBeutJ6Xavr7PcVjJvuWQDn7jxITLi1s4w50=;
+ s=default; t=1604590752;
+ bh=BK6UyQbmVZaBa7NHXAUIlJ5OUAFt3Xj/7AwhJMn1cVw=;
  h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=pi1bUtS/+nDH1FEx9Sjvxw+roiQlaVFikFD7XEFv2z0c3o2akid1wV6YtZ3v1MSEt
- ojHlzh7AeI89CkNl9K7kSBuY7OneSv/qsXh8xMr0UrV2r8IXPihIoJZJ1j3xVr2Bvv
- HMNXcIHdk6LeJYjfoBLs6XwEAIuyoeBU2AGjDwTQ=
-Date: Thu, 5 Nov 2020 15:02:49 +0000
-From: Mark Brown <broonie@kernel.org>
-To: Tzung-Bi Shih <tzungbi@google.com>
-Subject: Re: [PATCH] ASoC: nau8315: add codec driver
-Message-ID: <20201105150249.GC4856@sirena.org.uk>
-References: <20201102023212.594137-1-CTLIN0@nuvoton.com>
- <0adb99c2-d0d9-5052-c163-4d9a341239fc@linux.intel.com>
- <da4d4666-3c91-16d7-926b-b339ae4e39be@nuvoton.com>
- <da9232f9-15c9-01ea-44cf-107ff4dd6c58@linux.intel.com>
- <CA+Px+wVGosx=pmSkJKtYd9dQZ98D0aYG0KaDq6-ov67UoiV8Jw@mail.gmail.com>
+ b=AkYgF9uKJZZtRdT8X6LKIae1sySM/N/v47rI7VnsqRSz7TZv0zNqnEJo071ui7RTF
+ EOrtVRvV7JZgzKu7nJoVrdFkVQTKVQdeXchIZB6Lg7cy1QnCd/+Qc/WKr+iuH3vNut
+ gCm/vjMoy7Icxu7PJsjWZub89kcW6akJzo98iLck=
+Date: Thu, 5 Nov 2020 16:40:01 +0100
+From: Greg KH <gregkh@linuxfoundation.org>
+To: Thorsten Leemhuis <linux@leemhuis.info>
+Subject: Re: Build error with 5.9.5 in sound/soc/sof/intel/hda-codec.c (was:
+ [PATCH AUTOSEL 5.9 039/147] ASoC: SOF: fix a runtime pm issue in SOF when
+ HDMI codec doesn't work)
+Message-ID: <20201105154001.GA1166450@kroah.com>
+References: <20201026234905.1022767-1-sashal@kernel.org>
+ <20201026234905.1022767-39-sashal@kernel.org>
+ <f254331d-7ae2-e26f-3e1b-33a870349126@leemhuis.info>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="LwW0XdcUbUexiWVK"
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <CA+Px+wVGosx=pmSkJKtYd9dQZ98D0aYG0KaDq6-ov67UoiV8Jw@mail.gmail.com>
-X-Cookie: It's the thought, if any, that counts!
-User-Agent: Mutt/1.10.1 (2018-07-13)
-Cc: ALSA development <alsa-devel@alsa-project.org>, WTLI@nuvoton.com,
- KCHSU0@nuvoton.com,
+In-Reply-To: <f254331d-7ae2-e26f-3e1b-33a870349126@leemhuis.info>
+Cc: Sasha Levin <sashal@kernel.org>,
+ Guennadi Liakhovetski <guennadi.liakhovetski@linux.intel.com>,
+ alsa-devel@alsa-project.org,
  Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- Liam Girdwood <lgirdwood@gmail.com>, YHCHuang@nuvoton.com,
- CTLIN0 <CTLIN0@nuvoton.com>
+ stable@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Mark Brown <broonie@kernel.org>,
+ Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
+ Rander Wang <rander.wang@intel.com>,
+ Bard Liao <yung-chuan.liao@linux.intel.com>,
+ sound-open-firmware@alsa-project.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -89,34 +91,46 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+On Thu, Nov 05, 2020 at 02:48:33PM +0100, Thorsten Leemhuis wrote:
+> Lo! I just tried to compile 5.9.5 and ran into a build error with below
+> patch. I only did a quick look (I have to leave the keyboard soon), but
+> seems the patch quoted below that was added to 5.9.5 depends on 11ec0edc6408
+> (git.kernel.org/linus/11ec0edc6408) which wasn't backported.
+> 
+> The build error can be found here:
+> https://kojipkgs.fedoraproject.org//work/tasks/8246/54978246/build.log
+> 
+> Relevant part:
+> 
+> + make -s 'HOSTCFLAGS=-O2 -flto=auto -ffat-lto-objects -fexceptions -g
+> -grecord-gcc-switches -pipe -Wall -Werror=format-security
+> -Wp,-D_FORTIFY_SOURCE=2 -Wp,-D_GLIBCXX_ASSERTIONS
+> -specs=/usr/lib/rpm/redhat/redhat-hardened-cc1 -fstack-protector-strong
+> -specs=/usr/lib/rpm/redhat/redhat-annobin-cc1  -fcommon -m64 -mtune=generic
+> -fasynchronous-unwind-tables -fstack-clash-protection'
+> 'HOSTLDFLAGS=-Wl,-z,relro -Wl,--as-needed  -Wl,-z,now
+> -specs=/usr/lib/rpm/redhat/redhat-hardened-ld ' ARCH=x86_64 'KCFLAGS= '
+> WITH_GCOV=0 -j48 modules
+> sound/soc/sof/intel/hda-codec.c: In function 'hda_codec_probe':
+> sound/soc/sof/intel/hda-codec.c:177:4: error: label 'error' used but not
+> defined
+>   177 |    goto error;
+>       |    ^~~~
+> make[4]: *** [scripts/Makefile.build:283: sound/soc/sof/intel/hda-codec.o]
+> Error 1
+> make[3]: *** [scripts/Makefile.build:500: sound/soc/sof/intel] Error 2
+> make[3]: *** Waiting for unfinished jobs....
+> make[2]: *** [scripts/Makefile.build:500: sound/soc/sof] Error 2
+> make[2]: *** Waiting for unfinished jobs....
+> make[1]: *** [scripts/Makefile.build:500: sound/soc] Error 2
+> make: *** [Makefile:1784: sound] Error 2
+> make: *** Waiting for unfinished jobs....
+> + exit 1
+> 
+> Looks like the compiler is right from a quick look at
+> https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/tree/sound/soc/sof/intel/hda-codec.c?h=linux-5.9.y&id=43836fdc9e318a11233cf19c5ee7ffb04e8e5d8f
+> 
+> But as I said, I lack the time for a closer look.
 
---LwW0XdcUbUexiWVK
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-
-On Thu, Nov 05, 2020 at 10:20:33AM +0800, Tzung-Bi Shih wrote:
-
-> If nau8315 doesn't share I2S with other components for now, it could
-> be better to not introduce the software mute control.
-
-The mute callback is there because there's some controllers that don't
-start up cleanly and end up outputing glitches (for example due to not
-being able to flush their FIFOs) - keeping the CODEC muted until after
-the I2S is running covers those glitches.
-
---LwW0XdcUbUexiWVK
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl+kFBgACgkQJNaLcl1U
-h9CIBAf+K4PhEQViuI18TXdqBVYXq5P8w9MpEiCR5NcYmkffqTe/ym/V5oXqTVYJ
-U5DOiTM3V9nco9Ad7Ql3FFssibvrVy0ppS15BrEh7H3GAoxFy8e2bcfNlqyldMjb
-flXpwJmW1RgTg0EJ38qHZeMgJt4d+jsQOGS1lV7GLZYtq0cm1k2HfRmIy9Z0p1YC
-x6p2oY+EDbKCSESS7t65D/XUAmaogIUBGdUKaS79/Iehyf81HXZsMrYfmRE0pGAF
-tfEOhaHRxg6rL1lOB17SpFf1v0xtgUPbusNV+QYGpM/4ZWGY/ef8MopiD4qJnjY8
-83sAsRzpI01yG04A2fzteYI+O4Bt5w==
-=as/c
------END PGP SIGNATURE-----
-
---LwW0XdcUbUexiWVK--
+Thanks, people are looking at it already:
+	https://lore.kernel.org/r/1f0c6a62-5208-801d-d7c2-725ee8da19b2@linux.intel.com

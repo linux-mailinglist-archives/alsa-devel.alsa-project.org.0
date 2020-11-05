@@ -2,109 +2,73 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A6C8B2A91B7
-	for <lists+alsa-devel@lfdr.de>; Fri,  6 Nov 2020 09:45:51 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id A2FAE2A91BB
+	for <lists+alsa-devel@lfdr.de>; Fri,  6 Nov 2020 09:46:37 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id BAE1B1699;
-	Fri,  6 Nov 2020 09:45:00 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BAE1B1699
+	by alsa0.perex.cz (Postfix) with ESMTPS id 4497916AE;
+	Fri,  6 Nov 2020 09:45:47 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4497916AE
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1604652350;
-	bh=IbC7h6sutytvBKVgRkW8YBm4v4oQThhwvuIz3XlFJpw=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
+	s=default; t=1604652397;
+	bh=wZFY2gDOL7d1xIozmeZaaG4vSi5kL3ZDsc11ysCDakk=;
+	h=To:References:From:Subject:Date:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=jz4HR8b3+lVve+t9oZMnkb/uGgx7F5LxHe2k++l+7zKTu0rR7xBLGW6jH1qM26pWC
-	 v1lnxPA726X+LKuOA/MWx9GNNHSFW65/EJeWXqvRjBmorxNdlbdl2pzwKheob4Q992
-	 /vDRpKMK6rzFqIzK0DU+jSIPtQ/TihQgOEpIbui0=
+	b=EFFQmGIvlBK1q26+92SxYhhbV8dttMQo04ufkVHv3IKEZql7ygAO2E55eD2g4RDTP
+	 2CyQ7FzfeVdMvN02p+7b0XRjQAsN8GfxAoualfpRuwdQLhDe8n5k3gVEHUyH0pBj1N
+	 BkwnGGNOug9W6ahPIZHLq0+7E58PBH2AG+fTOIVM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 4D8A8F804C3;
-	Fri,  6 Nov 2020 09:43:20 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 323B1F804E0;
+	Fri,  6 Nov 2020 09:43:22 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 65323F80171; Thu,  5 Nov 2020 11:52:51 +0100 (CET)
+ id CEB2BF80171; Thu,  5 Nov 2020 14:48:54 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from mail-lj1-x243.google.com (mail-lj1-x243.google.com
- [IPv6:2a00:1450:4864:20::243])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from wp530.webpack.hosteurope.de (wp530.webpack.hosteurope.de
+ [80.237.130.52])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 28822F80150
- for <alsa-devel@alsa-project.org>; Thu,  5 Nov 2020 11:52:43 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 28822F80150
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org
- header.b="d/RC4QlH"
-Received: by mail-lj1-x243.google.com with SMTP id d24so1070597ljg.10
- for <alsa-devel@alsa-project.org>; Thu, 05 Nov 2020 02:52:43 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=IbC7h6sutytvBKVgRkW8YBm4v4oQThhwvuIz3XlFJpw=;
- b=d/RC4QlHsEU0Pk+87b5hebgQR1nvUbGfz+KWgyYPw8avJty+oHtYWwRBfI9ZwNnjQk
- 6x1f9VNEkjxS+WacQizm9QFnRFRoNTRgXz7J8hUL7gDHTr1r0B4CDTIH++hxOUWPbRHA
- faB9Z1G3wfURCCb570cPMFzwdpYsz5NNLR9grwb6NletLAXur80zPGuj6TnPTgqIsI6W
- 73tvdQLbSeHs/ZIHScGvMbbglljfvtEcmDpRr1SmCjt0Cs2115AxcxEJIltrAcsJpAIs
- i7f4CKXDgFTYIlx2Oia+shgKsQ9vbBqcm5RZnKYsE+6tO+5eUkPHBV9yZoGBsu8zWwxP
- sFlA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=IbC7h6sutytvBKVgRkW8YBm4v4oQThhwvuIz3XlFJpw=;
- b=slAeaRJaqSAc2hZ0+EsERKEiWdY8hjB3oGhNmXtB9aq6HaBj9MZLH8YPbGnBwWBfcZ
- CI5De4BtOapqeTfEPvCtpjj1IulpUZzQIWzPUXRzs12JSkP7x4mLChF9Yus7++TgW3vU
- so/OhBL97u1tbdrcz9KNwvJyoguG8o3XvUh/TKNv4lT4ciafTVMh8guXzNzW5ox0hWqt
- 1EDLBGcdAqWDRv+v5GcQhYxzzkruea51Z5lEJba0nWSqKO9hU6ti7Q7O9BPDVGMTBYik
- i9uJH/oSqu0aYCZD/PRXMZRaEaJhqhMIgAwma6++U0gwk4S2r8F6gYonj1OnN6G/La8E
- AnEw==
-X-Gm-Message-State: AOAM5320HqLWe7AM6gDPsMOWeYl2MP2B+qosvxpjyCosBzhwtOkxvzxx
- O2YC8pN7nnWHMcJDU1yY4F0TI2ti+qzRy8jjmuXSNg==
-X-Google-Smtp-Source: ABdhPJwMZsQSFYx3yHXvvtRlVkabm7C64j8LuP2+XUU2+XVFwAx/DWoa4YDvNPprZ43yAgspd5XcguY3mqI1O9Ir5Vs=
-X-Received: by 2002:a05:651c:1205:: with SMTP id
- i5mr726163lja.283.1604573560846; 
- Thu, 05 Nov 2020 02:52:40 -0800 (PST)
+ by alsa1.perex.cz (Postfix) with ESMTPS id AEF73F80150;
+ Thu,  5 Nov 2020 14:48:44 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz AEF73F80150
+Received: from ip4d145e30.dynamic.kabel-deutschland.de ([77.20.94.48]
+ helo=[192.168.66.101]); authenticated
+ by wp530.webpack.hosteurope.de running ExIM with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128)
+ id 1kafcw-0004jl-Bi; Thu, 05 Nov 2020 14:48:34 +0100
+To: Sasha Levin <sashal@kernel.org>, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org
+References: <20201026234905.1022767-1-sashal@kernel.org>
+ <20201026234905.1022767-39-sashal@kernel.org>
+From: Thorsten Leemhuis <linux@leemhuis.info>
+Subject: Build error with 5.9.5 in sound/soc/sof/intel/hda-codec.c (was:
+ [PATCH AUTOSEL 5.9 039/147] ASoC: SOF: fix a runtime pm issue in SOF when
+ HDMI codec doesn't work)
+Message-ID: <f254331d-7ae2-e26f-3e1b-33a870349126@leemhuis.info>
+Date: Thu, 5 Nov 2020 14:48:33 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.4.0
 MIME-Version: 1.0
-References: <20201027121725.24660-1-brgl@bgdev.pl>
-In-Reply-To: <20201027121725.24660-1-brgl@bgdev.pl>
-From: Linus Walleij <linus.walleij@linaro.org>
-Date: Thu, 5 Nov 2020 11:52:30 +0100
-Message-ID: <CACRpkdYbpOZGmWONeOQFY7DE+t2ev30DQQ-8cxrJNoK9fVVunA@mail.gmail.com>
-Subject: Re: [PATCH 0/8] slab: provide and use krealloc_array()
-To: Bartosz Golaszewski <brgl@bgdev.pl>
-Content-Type: text/plain; charset="UTF-8"
+In-Reply-To: <20201026234905.1022767-39-sashal@kernel.org>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-US
+Content-Transfer-Encoding: 8bit
+X-bounce-key: webpack.hosteurope.de;linux@leemhuis.info;1604584129;4287bb41;
+X-HE-SMSGID: 1kafcw-0004jl-Bi
 X-Mailman-Approved-At: Fri, 06 Nov 2020 09:43:14 +0100
-Cc: "moderated list:SOUND - SOC LAYER / DYNAMIC AUDIO POWER MANAGEM..."
- <alsa-devel@alsa-project.org>, kvm@vger.kernel.org,
- "Michael S . Tsirkin" <mst@redhat.com>, David Airlie <airlied@linux.ie>,
- Gustavo Padovan <gustavo@padovan.org>, Jason Wang <jasowang@redhat.com>,
- "open list:DRM PANEL DRIVERS" <dri-devel@lists.freedesktop.org>,
- Linux Memory Management List <linux-mm@kvack.org>,
- Christoph Lameter <cl@linux.com>, Sumit Semwal <sumit.semwal@linaro.org>,
- Mauro Carvalho Chehab <mchehab@kernel.org>,
- Bartosz Golaszewski <bgolaszewski@baylibre.com>,
- Alexander Shishkin <alexander.shishkin@linux.intel.com>,
- David Rientjes <rientjes@google.com>,
- virtualization@lists.linux-foundation.org,
- Linux Media Mailing List <linux-media@vger.kernel.org>,
- Robert Richter <rric@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, linaro-mm-sig@lists.linaro.org,
- "open list:GPIO SUBSYSTEM" <linux-gpio@vger.kernel.org>,
- Borislav Petkov <bp@alien8.de>,
- Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
- Joonsoo Kim <iamjoonsoo.kim@lge.com>, linux-edac@vger.kernel.org,
- Tony Luck <tony.luck@intel.com>, netdev <netdev@vger.kernel.org>,
- Takashi Iwai <tiwai@suse.com>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- Pekka Enberg <penberg@kernel.org>, James Morse <james.morse@arm.com>,
- Daniel Vetter <daniel@ffwll.ch>, Andrew Morton <akpm@linux-foundation.org>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+Cc: Guennadi Liakhovetski <guennadi.liakhovetski@linux.intel.com>,
+ alsa-devel@alsa-project.org,
+ Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ Mark Brown <broonie@kernel.org>, Rander Wang <rander.wang@intel.com>,
+ Bard Liao <yung-chuan.liao@linux.intel.com>,
+ sound-open-firmware@alsa-project.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -120,26 +84,95 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Tue, Oct 27, 2020 at 1:17 PM Bartosz Golaszewski <brgl@bgdev.pl> wrote:
+Lo! I just tried to compile 5.9.5 and ran into a build error with below 
+patch. I only did a quick look (I have to leave the keyboard soon), but 
+seems the patch quoted below that was added to 5.9.5 depends on 
+11ec0edc6408 (git.kernel.org/linus/11ec0edc6408) which wasn't backported.
 
-> From: Bartosz Golaszewski <bgolaszewski@baylibre.com>
->
-> Andy brought to my attention the fact that users allocating an array of
-> equally sized elements should check if the size multiplication doesn't
-> overflow. This is why we have helpers like kmalloc_array().
->
-> However we don't have krealloc_array() equivalent and there are many
-> users who do their own multiplication when calling krealloc() for arrays.
->
-> This series provides krealloc_array() and uses it in a couple places.
->
-> A separate series will follow adding devm_krealloc_array() which is
-> needed in the xilinx adc driver.
+The build error can be found here:
+https://kojipkgs.fedoraproject.org//work/tasks/8246/54978246/build.log
 
-The series:
-Acked-by: Linus Walleij <linus.walleij@linaro.org>
+Relevant part:
 
-I really like this.
++ make -s 'HOSTCFLAGS=-O2 -flto=auto -ffat-lto-objects -fexceptions -g 
+-grecord-gcc-switches -pipe -Wall -Werror=format-security 
+-Wp,-D_FORTIFY_SOURCE=2 -Wp,-D_GLIBCXX_ASSERTIONS 
+-specs=/usr/lib/rpm/redhat/redhat-hardened-cc1 -fstack-protector-strong 
+-specs=/usr/lib/rpm/redhat/redhat-annobin-cc1  -fcommon -m64 
+-mtune=generic -fasynchronous-unwind-tables -fstack-clash-protection' 
+'HOSTLDFLAGS=-Wl,-z,relro -Wl,--as-needed  -Wl,-z,now 
+-specs=/usr/lib/rpm/redhat/redhat-hardened-ld ' ARCH=x86_64 'KCFLAGS= ' 
+WITH_GCOV=0 -j48 modules
+sound/soc/sof/intel/hda-codec.c: In function 'hda_codec_probe':
+sound/soc/sof/intel/hda-codec.c:177:4: error: label 'error' used but not 
+defined
+   177 |    goto error;
+       |    ^~~~
+make[4]: *** [scripts/Makefile.build:283: 
+sound/soc/sof/intel/hda-codec.o] Error 1
+make[3]: *** [scripts/Makefile.build:500: sound/soc/sof/intel] Error 2
+make[3]: *** Waiting for unfinished jobs....
+make[2]: *** [scripts/Makefile.build:500: sound/soc/sof] Error 2
+make[2]: *** Waiting for unfinished jobs....
+make[1]: *** [scripts/Makefile.build:500: sound/soc] Error 2
+make: *** [Makefile:1784: sound] Error 2
+make: *** Waiting for unfinished jobs....
++ exit 1
 
-Yours,
-Linus Walleij
+Looks like the compiler is right from a quick look at
+https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/tree/sound/soc/sof/intel/hda-codec.c?h=linux-5.9.y&id=43836fdc9e318a11233cf19c5ee7ffb04e8e5d8f
+
+But as I said, I lack the time for a closer look.
+
+Ciao, Thorsten
+
+Am 27.10.20 um 00:47 schrieb Sasha Levin:
+> From: Rander Wang <rander.wang@intel.com>
+> 
+> [ Upstream commit 6c63c954e1c52f1262f986f36d95f557c6f8fa94 ]
+> 
+> When hda_codec_probe() doesn't initialize audio component, we disable
+> the codec and keep going. However,the resources are not released. The
+> child_count of SOF device is increased in snd_hdac_ext_bus_device_init
+> but is not decrease in error case, so SOF can't get suspended.
+> 
+> snd_hdac_ext_bus_device_exit will be invoked in HDA framework if it
+> gets a error. Now copy this behavior to release resources and decrease
+> SOF device child_count to release SOF device.
+> 
+> Signed-off-by: Rander Wang <rander.wang@intel.com>
+> Reviewed-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+> Reviewed-by: Bard Liao <yung-chuan.liao@linux.intel.com>
+> Reviewed-by: Guennadi Liakhovetski <guennadi.liakhovetski@linux.intel.com>
+> Signed-off-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
+> Link: https://lore.kernel.org/r/20200825235040.1586478-3-ranjani.sridharan@linux.intel.com
+> Signed-off-by: Mark Brown <broonie@kernel.org>
+> Signed-off-by: Sasha Levin <sashal@kernel.org>
+> ---
+>   sound/soc/sof/intel/hda-codec.c | 4 ++--
+>   1 file changed, 2 insertions(+), 2 deletions(-)
+> 
+> diff --git a/sound/soc/sof/intel/hda-codec.c b/sound/soc/sof/intel/hda-codec.c
+> index 2c5c451fa19d7..c475955c6eeba 100644
+> --- a/sound/soc/sof/intel/hda-codec.c
+> +++ b/sound/soc/sof/intel/hda-codec.c
+> @@ -151,7 +151,7 @@ static int hda_codec_probe(struct snd_sof_dev *sdev, int address,
+>   		if (!hdev->bus->audio_component) {
+>   			dev_dbg(sdev->dev,
+>   				"iDisp hw present but no driver\n");
+> -			return -ENOENT;
+> +			goto error;
+>   		}
+>   		hda_priv->need_display_power = true;
+>   	}
+> @@ -174,7 +174,7 @@ static int hda_codec_probe(struct snd_sof_dev *sdev, int address,
+>   		 * other return codes without modification
+>   		 */
+>   		if (ret == 0)
+> -			ret = -ENOENT;
+> +			goto error;
+>   	}
+>   
+>   	return ret;
+> 
+

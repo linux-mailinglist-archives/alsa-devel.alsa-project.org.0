@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B2B6B2A79A9
-	for <lists+alsa-devel@lfdr.de>; Thu,  5 Nov 2020 09:53:08 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 784AD2A79AA
+	for <lists+alsa-devel@lfdr.de>; Thu,  5 Nov 2020 09:53:19 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 3A431167B;
-	Thu,  5 Nov 2020 09:52:18 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3A431167B
+	by alsa0.perex.cz (Postfix) with ESMTPS id CE9141682;
+	Thu,  5 Nov 2020 09:52:28 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CE9141682
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1604566388;
-	bh=u9xfG0x180IELDEJe8oLXuepcVHambYWQyBjTffa8Ds=;
+	s=default; t=1604566398;
+	bh=VconMCZcj0CdrcpO8CWmluGaNaiRnHzwE/ugypZ2Nsg=;
 	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=lrI9bcMSqHcRtV9F7KquI9G4M5FWxm/G1voyna0szr65bifGJFOm8U6MsWsQP0QC3
-	 sPcTtFWmWug33UwKewjZnXev7o4SwEAHeJP2b4QumUuAe194+Gby9LEMmNAlit1GD+
-	 3Y2ZZie8HLmnhUCCoHvLb1xBc3xOz2sP7gpvocCk=
+	b=MHO0G7XNMEcjSwH6wwqSHhS1RJ5JR5n7TaRyScRIbFjJ+/BMFYO9UKWld3NjGYInR
+	 2u++5L5S+KG580hsG11i6GUeQWHOYA+0ZbhTgQXGNi1cj6UftYuJxHBStWPiWdj6nf
+	 bLSIv9rkT0P9l9Lfuujh1iUu4pYyNB4gr+O0DttI=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 9410AF80245;
-	Thu,  5 Nov 2020 09:51:35 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 9FFE7F8028D;
+	Thu,  5 Nov 2020 09:51:51 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id DF57DF80171; Thu,  5 Nov 2020 09:51:33 +0100 (CET)
+ id 4509AF80279; Thu,  5 Nov 2020 09:51:50 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_MSPIKE_H3,
@@ -34,21 +34,20 @@ X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_MSPIKE_H3,
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 9F69AF800EC
- for <alsa-devel@alsa-project.org>; Thu,  5 Nov 2020 09:51:25 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9F69AF800EC
+ by alsa1.perex.cz (Postfix) with ESMTPS id 716D9F800EC
+ for <alsa-devel@alsa-project.org>; Thu,  5 Nov 2020 09:51:44 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 716D9F800EC
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 51CFCAAF1;
- Thu,  5 Nov 2020 08:51:25 +0000 (UTC)
-Date: Thu, 05 Nov 2020 09:51:24 +0100
-Message-ID: <s5h361ojier.wl-tiwai@suse.de>
+ by mx2.suse.de (Postfix) with ESMTP id 2617AAB95;
+ Thu,  5 Nov 2020 08:51:44 +0000 (UTC)
+Date: Thu, 05 Nov 2020 09:51:44 +0100
+Message-ID: <s5h1rh8jie7.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
 To: "Geoffrey D. Bennett" <g@b4.vu>
-Subject: Re: [PATCH] ALSA: usb-audio: Add implicit feedback quirk for MODX
-In-Reply-To: <20201105021248.GA21537@b4.vu>
-References: <20201104120705.GA19126@b4.vu> <s5hlffhjk6w.wl-tiwai@suse.de>
- <20201105021248.GA21537@b4.vu>
+Subject: Re: [PATCH] ALSA: usb-audio: Add implicit feedback quirk for Qu-16
+In-Reply-To: <20201104115717.GA19046@b4.vu>
+References: <20201104115717.GA19046@b4.vu>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
  FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
  (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
@@ -70,24 +69,15 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Thu, 05 Nov 2020 03:12:48 +0100,
+On Wed, 04 Nov 2020 12:57:17 +0100,
 Geoffrey D. Bennett wrote:
 > 
-> On Wed, Nov 04, 2020 at 03:00:39PM +0100, Takashi Iwai wrote:
-> > On Wed, 04 Nov 2020 13:07:05 +0100,
-> > Geoffrey D. Bennett wrote:
-> > > 
-> > > This patch fixes audio distortion on playback for the Yamaha MODX.
-> > > 
-> > > Signed-off-by: Geoffrey D. Bennett <g@b4.vu>
-> > > Tested-by: Frank Slotta <frank.slotta@posteo.de>
-> > 
-> > Thanks, applied now.
+> This patch fixes audio distortion on playback for the Allen&Heath
+> Qu-16.
 > 
-> Thanks. Did you see my similar patch that I sent in a few minutes
-> before that one for the A&H Qu-16?
+> Signed-off-by: Geoffrey D. Bennett <g@b4.vu>
 
-Thanks for reminder.  I overlooked it as if it were the same post.
+Applied now.  Thanks.
 
 
 Takashi

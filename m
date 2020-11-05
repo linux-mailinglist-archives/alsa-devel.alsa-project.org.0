@@ -2,80 +2,72 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D31D72A8261
-	for <lists+alsa-devel@lfdr.de>; Thu,  5 Nov 2020 16:41:02 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4854E2A8369
+	for <lists+alsa-devel@lfdr.de>; Thu,  5 Nov 2020 17:23:37 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 5D5351681;
-	Thu,  5 Nov 2020 16:40:12 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5D5351681
+	by alsa0.perex.cz (Postfix) with ESMTPS id CA2BA1607;
+	Thu,  5 Nov 2020 17:22:46 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CA2BA1607
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1604590862;
-	bh=BK6UyQbmVZaBa7NHXAUIlJ5OUAFt3Xj/7AwhJMn1cVw=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1604593416;
+	bh=kXLDNUI+CxKe9tjwC47pb/KDZMpFwU1CQMpkL95gTbU=;
+	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=HMv5KcEsXtlpzZpi9oq7Kc8AKM3E/BH6wfB8kMPoTPTcvxJ45t75kQIBC82VMrC5C
-	 VT5oNs4w0j+VPCTxarimUFgAnLwVoEeyH1sTKqoK4r84EZU//BlocLlkTC0ttADgZy
-	 6TQB0brPU9rtOsFK7Ib6n4ieQAlf7JdvIw+c3ge0=
+	b=BqdRxuhurJBBrsWhBW9yO3II+wr3fv7Sm2oVHhG8izo8Cd8Hax9VPCF9fQRLVrI9T
+	 ZNOOgrOHh4eEb0YFm4aoHktNwHG+rH2zi5dXh0bcufEpp/xj/dJgvMPw4g92I/oY8s
+	 X+HCpDqp8K8xsDaowHMtzLkkXBREq76HcM5H5MOc=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id C3151F80171;
-	Thu,  5 Nov 2020 16:39:29 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 5DA31F80150;
+	Thu,  5 Nov 2020 17:22:04 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 83F91F80171; Thu,  5 Nov 2020 16:39:27 +0100 (CET)
+ id 58F5DF80171; Thu,  5 Nov 2020 17:22:02 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=NICE_REPLY_A,SPF_HELO_NONE,
+ SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 4B857F800EC;
- Thu,  5 Nov 2020 16:39:15 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4B857F800EC
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="AkYgF9uK"
-Received: from localhost (83-86-74-64.cable.dynamic.v4.ziggo.nl [83.86.74.64])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
- bits)) (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 3C49220782;
- Thu,  5 Nov 2020 15:39:12 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1604590752;
- bh=BK6UyQbmVZaBa7NHXAUIlJ5OUAFt3Xj/7AwhJMn1cVw=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=AkYgF9uKJZZtRdT8X6LKIae1sySM/N/v47rI7VnsqRSz7TZv0zNqnEJo071ui7RTF
- EOrtVRvV7JZgzKu7nJoVrdFkVQTKVQdeXchIZB6Lg7cy1QnCd/+Qc/WKr+iuH3vNut
- gCm/vjMoy7Icxu7PJsjWZub89kcW6akJzo98iLck=
-Date: Thu, 5 Nov 2020 16:40:01 +0100
-From: Greg KH <gregkh@linuxfoundation.org>
-To: Thorsten Leemhuis <linux@leemhuis.info>
-Subject: Re: Build error with 5.9.5 in sound/soc/sof/intel/hda-codec.c (was:
- [PATCH AUTOSEL 5.9 039/147] ASoC: SOF: fix a runtime pm issue in SOF when
- HDMI codec doesn't work)
-Message-ID: <20201105154001.GA1166450@kroah.com>
-References: <20201026234905.1022767-1-sashal@kernel.org>
- <20201026234905.1022767-39-sashal@kernel.org>
- <f254331d-7ae2-e26f-3e1b-33a870349126@leemhuis.info>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 89B12F800EC
+ for <alsa-devel@alsa-project.org>; Thu,  5 Nov 2020 17:21:50 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 89B12F800EC
+IronPort-SDR: x/jcNy1kyy5/0S89845FerIj2PpaIFuZ2z02RqtliyZPVOfwTnob0PngLOiAYFDzFNSczRkqbQ
+ OkBFfMLuoFGQ==
+X-IronPort-AV: E=McAfee;i="6000,8403,9796"; a="254117005"
+X-IronPort-AV: E=Sophos;i="5.77,453,1596524400"; d="scan'208";a="254117005"
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from orsmga005.jf.intel.com ([10.7.209.41])
+ by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 05 Nov 2020 08:21:49 -0800
+IronPort-SDR: hl4GtaSibPgUhGLw5GW27FY4FYOcw6yn18XocQQCoz5se2eglotbMRBQ9HPFtevTNCtD0lqu+z
+ LIdp+DiJ71Zw==
+X-IronPort-AV: E=Sophos;i="5.77,453,1596524400"; d="scan'208";a="539466778"
+Received: from umedepal-mobl2.amr.corp.intel.com (HELO [10.254.6.114])
+ ([10.254.6.114])
+ by orsmga005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 05 Nov 2020 08:21:47 -0800
+Subject: Re: [PATCH v3] ASoC: rt1015: add delay to fix pop noise from speaker
+To: jack.yu@realtek.com, broonie@kernel.org, lgirdwood@gmail.com
+References: <20201105030804.31115-1-jack.yu@realtek.com>
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Message-ID: <fea8c842-f842-4186-0b53-2b92260553d7@linux.intel.com>
+Date: Thu, 5 Nov 2020 08:31:50 -0600
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.10.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <f254331d-7ae2-e26f-3e1b-33a870349126@leemhuis.info>
-Cc: Sasha Levin <sashal@kernel.org>,
- Guennadi Liakhovetski <guennadi.liakhovetski@linux.intel.com>,
- alsa-devel@alsa-project.org,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- stable@vger.kernel.org, linux-kernel@vger.kernel.org,
- Mark Brown <broonie@kernel.org>,
- Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
- Rander Wang <rander.wang@intel.com>,
- Bard Liao <yung-chuan.liao@linux.intel.com>,
- sound-open-firmware@alsa-project.org
+In-Reply-To: <20201105030804.31115-1-jack.yu@realtek.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
+Cc: oder_chiou@realtek.com, alsa-devel@alsa-project.org, lars@metafoo.de,
+ kent_chen@realtek.com, kenny_chen@realtek.com, tzungbi@google.com,
+ derek.fang@realtek.com, shumingf@realtek.com, flove@realtek.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -91,46 +83,14 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Thu, Nov 05, 2020 at 02:48:33PM +0100, Thorsten Leemhuis wrote:
-> Lo! I just tried to compile 5.9.5 and ran into a build error with below
-> patch. I only did a quick look (I have to leave the keyboard soon), but
-> seems the patch quoted below that was added to 5.9.5 depends on 11ec0edc6408
-> (git.kernel.org/linus/11ec0edc6408) which wasn't backported.
-> 
-> The build error can be found here:
-> https://kojipkgs.fedoraproject.org//work/tasks/8246/54978246/build.log
-> 
-> Relevant part:
-> 
-> + make -s 'HOSTCFLAGS=-O2 -flto=auto -ffat-lto-objects -fexceptions -g
-> -grecord-gcc-switches -pipe -Wall -Werror=format-security
-> -Wp,-D_FORTIFY_SOURCE=2 -Wp,-D_GLIBCXX_ASSERTIONS
-> -specs=/usr/lib/rpm/redhat/redhat-hardened-cc1 -fstack-protector-strong
-> -specs=/usr/lib/rpm/redhat/redhat-annobin-cc1  -fcommon -m64 -mtune=generic
-> -fasynchronous-unwind-tables -fstack-clash-protection'
-> 'HOSTLDFLAGS=-Wl,-z,relro -Wl,--as-needed  -Wl,-z,now
-> -specs=/usr/lib/rpm/redhat/redhat-hardened-ld ' ARCH=x86_64 'KCFLAGS= '
-> WITH_GCOV=0 -j48 modules
-> sound/soc/sof/intel/hda-codec.c: In function 'hda_codec_probe':
-> sound/soc/sof/intel/hda-codec.c:177:4: error: label 'error' used but not
-> defined
->   177 |    goto error;
->       |    ^~~~
-> make[4]: *** [scripts/Makefile.build:283: sound/soc/sof/intel/hda-codec.o]
-> Error 1
-> make[3]: *** [scripts/Makefile.build:500: sound/soc/sof/intel] Error 2
-> make[3]: *** Waiting for unfinished jobs....
-> make[2]: *** [scripts/Makefile.build:500: sound/soc/sof] Error 2
-> make[2]: *** Waiting for unfinished jobs....
-> make[1]: *** [scripts/Makefile.build:500: sound/soc] Error 2
-> make: *** [Makefile:1784: sound] Error 2
-> make: *** Waiting for unfinished jobs....
-> + exit 1
-> 
-> Looks like the compiler is right from a quick look at
-> https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/tree/sound/soc/sof/intel/hda-codec.c?h=linux-5.9.y&id=43836fdc9e318a11233cf19c5ee7ffb04e8e5d8f
-> 
-> But as I said, I lack the time for a closer look.
 
-Thanks, people are looking at it already:
-	https://lore.kernel.org/r/1f0c6a62-5208-801d-d7c2-725ee8da19b2@linux.intel.com
+
+On 11/4/20 9:08 PM, jack.yu@realtek.com wrote:
+> From: Jack Yu <jack.yu@realtek.com>
+> 
+> Add delay to fix pop noise from speaker.
+> 
+> Signed-off-by: Jack Yu <jack.yu@realtek.com>
+
+Reviewed-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+

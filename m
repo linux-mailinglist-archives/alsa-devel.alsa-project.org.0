@@ -2,85 +2,80 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id AB4662A9945
-	for <lists+alsa-devel@lfdr.de>; Fri,  6 Nov 2020 17:17:24 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1E9A82A9956
+	for <lists+alsa-devel@lfdr.de>; Fri,  6 Nov 2020 17:19:15 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 2533C1687;
-	Fri,  6 Nov 2020 17:16:34 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2533C1687
+	by alsa0.perex.cz (Postfix) with ESMTPS id ADBDF167C;
+	Fri,  6 Nov 2020 17:18:24 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz ADBDF167C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1604679444;
-	bh=tEoiuLbNsHKQItaIYzqe9jxuzG62kVQlNP8jI5wChAo=;
+	s=default; t=1604679554;
+	bh=Kb4BTU2FkcyjO5R5l+AmRLTJ+JZdgi8nFoZJCdzU8Ys=;
 	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=IEgFMCGVcD4dVuzIA2kIyyiH7uEuq2qvrM9rf2oakSLxDgqukO462cv7GBEQHmTqt
-	 gH0Sne4AxWe1gyu0UBvlcGIvPIS2Oetpxuitx3klYUkBpRf5M/34bpNt/XnP2shVZX
-	 TZ7vyrOOCX3AMfdAn21Kgy7YgnghW9TFYcijaazA=
+	b=sUt5Wr3Ka1MnqZyWWs8+bp6cVtGSnVQ9ECoXwzacKm5afKJ/S6LrYFHFnXf2Pn1Hc
+	 2KevWxkgUQ5FIsk1IiUhH9FjWfFuLvtUosc2Ysuh0ECi9d7fClQBjN4SXvjLOExBiI
+	 hWpVmBtccRQBsgUGxXUSdDpbmXq+5QQeOk6TF/G4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 6B892F8023E;
-	Fri,  6 Nov 2020 17:15:51 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 151C0F8023E;
+	Fri,  6 Nov 2020 17:17:42 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 8CE34F80234; Fri,  6 Nov 2020 17:15:49 +0100 (CET)
+ id 5B620F80234; Fri,  6 Nov 2020 17:17:40 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: *
-X-Spam-Status: No, score=1.8 required=5.0 tests=FREEMAIL_ENVFROM_END_DIGIT,
+X-Spam-Level: 
+X-Spam-Status: No, score=0.8 required=5.0 tests=FREEMAIL_ENVFROM_END_DIGIT,
  FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,
- PRX_BODY_26,RCVD_IN_MSPIKE_H2,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from mail-oi1-f193.google.com (mail-oi1-f193.google.com
- [209.85.167.193])
+ RCVD_IN_MSPIKE_H2,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
+Received: from mail-oi1-f195.google.com (mail-oi1-f195.google.com
+ [209.85.167.195])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 35A70F800BA
- for <alsa-devel@alsa-project.org>; Fri,  6 Nov 2020 17:15:42 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 35A70F800BA
-Received: by mail-oi1-f193.google.com with SMTP id d9so1852848oib.3
- for <alsa-devel@alsa-project.org>; Fri, 06 Nov 2020 08:15:42 -0800 (PST)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 932F9F800BA
+ for <alsa-devel@alsa-project.org>; Fri,  6 Nov 2020 17:17:33 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 932F9F800BA
+Received: by mail-oi1-f195.google.com with SMTP id c80so1869767oib.2
+ for <alsa-devel@alsa-project.org>; Fri, 06 Nov 2020 08:17:33 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:date:from:to:cc:subject:message-id:references
  :mime-version:content-disposition:in-reply-to;
- bh=JKTC9t6U56PdRSRllEeWLwbdLXcSPIAe13lQUZ7E930=;
- b=Y23yZeICl2gCa4xXxPHPjlJt/RGCfp/2Wij1fiyoM+OG2lkxE0o2E6xzp8bAalYQhH
- XhgU4pziMBvrdHwdmLe/Ohn1qiDI4eKv8T0w91OqXXpKlwSZuf8dZO19E4pzQDg2FtCB
- sT5VtcbSvgogC4ROCMmkg8LBiBmZvSJjnu1psM9GEOEFSeyAJ4FYDzlLTJgNlERt8coQ
- o8/NEeE7w/sDBjNt8mHSZ+dpNnpJgK8S8jjWfOFncmg1JbDiOfh+cptvptJp/G2Px7P2
- 0VH/Xkd1HNS03s+CPqhR+l1DPzv++BPw6iJkClv6xEfT+vsfMWAFuKOZWSRaHjfk0EOE
- OOhw==
-X-Gm-Message-State: AOAM530vcR7SzpOMYeYkWXSI1WVA9nmdeMZws1p3OnW+/WO9vO4a6V28
- SKZjfPNGUkScqW/F6+4HsQ==
-X-Google-Smtp-Source: ABdhPJyrNJ22bUa+bEB3u2wV8J2lLCG70ySvIv54k7b/vpLloNjlu10MYF+8PMmPZQweX552ICB7lg==
-X-Received: by 2002:aca:4454:: with SMTP id r81mr1481777oia.43.1604679341288; 
- Fri, 06 Nov 2020 08:15:41 -0800 (PST)
+ bh=WhNIeGRJTGUy5TIPo/bLFio0vUxrOA2JUyr+eH9gH1I=;
+ b=RKIbmqpMsZEcNFMJ96WI5XOaQhMrVG/V/ljS5tYRjgbWA+DBllgK0gRla5Elwp0Lt9
+ ToX8jnh8HXj6U4MAchbBniprUMnHX+yhOovfnEJkoVtGmVFOSX1TrYsE9NJFW1qE4LYs
+ PXcya5ci5N4PDplXjNl87luDnuGaKAGM/W1EWZEXrxVUNw2s/JO3O6RyLLy7OF/OHMH2
+ 33lZ9xt8RB/NPDJXIE8e9bWZnZw7akd8icE/vWou50eIk9yq6zj3X2FT+VXwJCr4Fl3p
+ bPF7OK4y1fOS3iTC32bT/WmKWGEEXwihVDrkuA/dbCWHL1wpgVdp8FtP3Of9BeFkF2Nt
+ T8Tg==
+X-Gm-Message-State: AOAM530zxzNgLQZKkA1ufnUHYeSnzxTAtAhFZJF875iC0S8/idqG6FtR
+ ONfzy26iJ7val4HMFZzTZg==
+X-Google-Smtp-Source: ABdhPJxuxAPTWUVzp/R/MIuKz3b7AtavlWQ3e1kc3Zhr+6Ge6ZUtHLXtMitxwZMkKAtGDve0fOfH8w==
+X-Received: by 2002:a54:4199:: with SMTP id 25mr1468238oiy.50.1604679452378;
+ Fri, 06 Nov 2020 08:17:32 -0800 (PST)
 Received: from xps15 (24-155-109-49.dyn.grandenetworks.net. [24.155.109.49])
- by smtp.gmail.com with ESMTPSA id u16sm402311ooj.8.2020.11.06.08.15.39
+ by smtp.gmail.com with ESMTPSA id 8sm360326oii.45.2020.11.06.08.17.31
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 06 Nov 2020 08:15:40 -0800 (PST)
-Received: (nullmailer pid 3296044 invoked by uid 1000);
- Fri, 06 Nov 2020 16:15:39 -0000
-Date: Fri, 6 Nov 2020 10:15:39 -0600
+ Fri, 06 Nov 2020 08:17:31 -0800 (PST)
+Received: (nullmailer pid 3298774 invoked by uid 1000);
+ Fri, 06 Nov 2020 16:17:30 -0000
+Date: Fri, 6 Nov 2020 10:17:30 -0600
 From: Rob Herring <robh@kernel.org>
-To: Samuel Holland <samuel@sholland.org>
-Subject: Re: [PATCH 1/7] ASoC: dt-bindings: sun8i-codec: Increase
- #sound-dai-cells
-Message-ID: <20201106161539.GA3295779@bogus>
-References: <20201106041513.38481-1-samuel@sholland.org>
- <20201106041513.38481-2-samuel@sholland.org>
+To: Alexandru Ardelean <alexandru.ardelean@analog.com>
+Subject: Re: [PATCH] dt-bindings: adau1977: convert text binding to yaml format
+Message-ID: <20201106161730.GA3298561@bogus>
+References: <20201106102052.32582-1-alexandru.ardelean@analog.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20201106041513.38481-2-samuel@sholland.org>
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- Jernej Skrabec <jernej.skrabec@siol.net>, Liam Girdwood <lgirdwood@gmail.com>,
- Maxime Ripard <mripard@kernel.org>, linux-kernel@vger.kernel.org,
- Rob Herring <robh+dt@kernel.org>, Chen-Yu Tsai <wens@csie.org>,
- Mark Brown <broonie@kernel.org>, phone-devel@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org
+In-Reply-To: <20201106102052.32582-1-alexandru.ardelean@analog.com>
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org, lars@metafoo.de,
+ lgirdwood@gmail.com, robh+dt@kernel.org, linux-kernel@vger.kernel.org,
+ broonie@kernel.org, bogdan.togorean@analog.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -96,17 +91,17 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Thu, 05 Nov 2020 22:15:07 -0600, Samuel Holland wrote:
-> Increase sound-dai-cells to 1 to allow using the DAIs in the codec
-> corresponding to AIF2 and AIF3.
+On Fri, 06 Nov 2020 12:20:52 +0200, Alexandru Ardelean wrote:
+> This change converts the old device-tree binding for ADAU1977 from text
+> format to the new yaml format.
 > 
-> The generic ASoC OF code supports a #sound-dai-cells value of 0 or 1
-> with no impact to the driver, so this is a backward-compatible change.
-> 
-> Signed-off-by: Samuel Holland <samuel@sholland.org>
+> Signed-off-by: Alexandru Ardelean <alexandru.ardelean@analog.com>
 > ---
->  .../devicetree/bindings/sound/allwinner,sun8i-a33-codec.yaml    | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
+>  .../bindings/sound/adi,adau1977.txt           | 61 ---------------
+>  .../bindings/sound/adi,adau1977.yaml          | 77 +++++++++++++++++++
+>  2 files changed, 77 insertions(+), 61 deletions(-)
+>  delete mode 100644 Documentation/devicetree/bindings/sound/adi,adau1977.txt
+>  create mode 100644 Documentation/devicetree/bindings/sound/adi,adau1977.yaml
 > 
 
 
@@ -115,11 +110,14 @@ My bot found errors running 'make dt_binding_check' on your patch:
 yamllint warnings/errors:
 
 dtschema/dtc warnings/errors:
-/builds/robherring/linux-dt-review/Documentation/devicetree/bindings/sound/allwinner,sun8i-a33-codec.example.dt.yaml: audio-codec@1c22e00: #sound-dai-cells:0:0: 1 was expected
-	From schema: /builds/robherring/linux-dt-review/Documentation/devicetree/bindings/sound/allwinner,sun8i-a33-codec.yaml
+Error: Documentation/devicetree/bindings/sound/adi,adau1977.example.dts:28.37-38 syntax error
+FATAL ERROR: Unable to parse input tree
+make[1]: *** [scripts/Makefile.lib:342: Documentation/devicetree/bindings/sound/adi,adau1977.example.dt.yaml] Error 1
+make[1]: *** Waiting for unfinished jobs....
+make: *** [Makefile:1364: dt_binding_check] Error 2
 
 
-See https://patchwork.ozlabs.org/patch/1395481
+See https://patchwork.ozlabs.org/patch/1395607
 
 The base for the patch is generally the last rc1. Any dependencies
 should be noted.

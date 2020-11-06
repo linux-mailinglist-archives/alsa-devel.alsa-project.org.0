@@ -2,89 +2,98 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4B2FE2A8E5E
-	for <lists+alsa-devel@lfdr.de>; Fri,  6 Nov 2020 05:30:04 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 98DA52A8F5D
+	for <lists+alsa-devel@lfdr.de>; Fri,  6 Nov 2020 07:16:26 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D63CA950;
-	Fri,  6 Nov 2020 05:29:13 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D63CA950
+	by alsa0.perex.cz (Postfix) with ESMTPS id 1B610165D;
+	Fri,  6 Nov 2020 07:15:36 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1B610165D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1604637003;
-	bh=cV2LHQeQgtnRFDahb0Hk+f4g94XsgXXpu5tgtosJB7w=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=jpKlL3DMVlqo4UVZSOn+GVh2XrPmozROX3yaNx43v2tF2hnE6opZ3jIl3Cs8rOKCq
-	 F1YM4rqkcKd9gtvWACMiK3wfYTMjMQ8YvXONoDcODLjlLCBM5LPi+kjifrxwyiDOCk
-	 UoIUfR6dRIxayDVjhfTr3lAAzouVkOT9BbvouJ10=
+	s=default; t=1604643386;
+	bh=KpEHiEvjtihbyY7eFw+8FHMtRDxMAMv7YvApPhVeM+8=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=UwqYUisOKhX0ChPYFo4oTTwP+/cYBKvjd7v4xGOaI84QTOa0Fldrf0NJMxNz9eN4y
+	 98qnzPV6cCCkFtnajjnlriA51K2SuE9EWvcTvNOHFvPGecDfR4ubRJoP1FS5Gibd7t
+	 ouT5WUffhdA2dFsbAT7zEFYNbkK/UHpXBgLNtb+c=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 3206EF8023E;
-	Fri,  6 Nov 2020 05:28:29 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id A083BF80234;
+	Fri,  6 Nov 2020 07:14:53 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 78416F80234; Fri,  6 Nov 2020 05:28:24 +0100 (CET)
+ id 271A3F80234; Fri,  6 Nov 2020 07:14:50 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: *
-X-Spam-Status: No, score=1.8 required=5.0 tests=FREEMAIL_ENVFROM_END_DIGIT,
- FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,
- PRX_BODY_26,RCVD_IN_MSPIKE_H2,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
+X-Spam-Level: 
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
  autolearn=disabled version=3.4.0
-Received: from mail-lj1-f195.google.com (mail-lj1-f195.google.com
- [209.85.208.195])
+Received: from mail-pl1-x642.google.com (mail-pl1-x642.google.com
+ [IPv6:2607:f8b0:4864:20::642])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 02B10F80232
- for <alsa-devel@alsa-project.org>; Fri,  6 Nov 2020 05:28:17 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 02B10F80232
-Received: by mail-lj1-f195.google.com with SMTP id l10so16013lji.4
- for <alsa-devel@alsa-project.org>; Thu, 05 Nov 2020 20:28:17 -0800 (PST)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 6887EF80150
+ for <alsa-devel@alsa-project.org>; Fri,  6 Nov 2020 07:14:42 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6887EF80150
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
+ header.b="uzq0KYoj"
+Received: by mail-pl1-x642.google.com with SMTP id w11so186042pll.8
+ for <alsa-devel@alsa-project.org>; Thu, 05 Nov 2020 22:14:42 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=ZlXKKq4DGEFjUy+nOWMktAH/V5heZC0/6ILxLCieIBI=;
+ b=uzq0KYojkUs4t+Q4y3YBqX0rQNXV7pH3WlTA04d9xfT2HzTtRS3Ey60ivElLdbiQ6C
+ zFVX81uumdUT5FV4Zja3UM60O36+C4AYkDG9oUsJKhIOf7gEmd434azZmqvFrOjlZg4t
+ UPBURLWtRU0ibF94bPAoRqrwQ4fKKP46UwIGQ/DND6ZD2NmUYAgOY8Y7FxC2mmjPnHFV
+ qMtxbD4JZ0jT563EdP6MPHQ0wU3XON48XbuLpy0CQPufsvMGSUpvOsGZn2qDAgVwPAaI
+ AFCfj9D21WFd9CS5UDuTQ3IgCDOlQ1pTCoc9Um/ZEV22ml05J6IGPqssKSUR9n8JSZI2
+ 0PEQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=CERvrJlC+TQNJo6snGdkL35sMbOGXywHtBhjsrxgyFA=;
- b=TP2oEqtgMq7EnfETEmCBgFe4t97YtwUo9DELqUC1Fv+nJtH9NxeY/Q3i3i9Yu52Eb7
- VHNKcZMjHUrEhss0DyDG7JV0TZjiuEXcmFI/MXrfQOVKaWDOG3Ji67LSrL2wZWtWlqoM
- clD7C6J44HODsn+qlZd8tW3HMx7C2SFO6QT3V4xPhOEx/jO0S45QTL2YUrWCx15H0noP
- 6yrPSAadGgkyW6lQrLiI59ObMjOTCdFAQ2zjkMmls4Ek1kQNOlvDS/MJ+Ckw6/SBurSw
- mlkkCVDunNGOhzU6dvgeJ7Tffl5TQ7rr2k/OTAtQrrgo8C922ky6B5aSM4VWZ+RybMnK
- 7qeQ==
-X-Gm-Message-State: AOAM5308Hk/JOpqpJyw6rrCUlbe3Go27dp+FarQ9iGUahcTBYOLVGRQy
- jPyWSYQ1edlNqulT2WDak5IzJmauH+UfRg==
-X-Google-Smtp-Source: ABdhPJx8cQh2BZLnkRw9k4c80NfOa8YLrFIy1OSYm/MOm+ZnQSh8xXE0F2mkF5mLzYzQjcstwoEwHA==
-X-Received: by 2002:a05:651c:39a:: with SMTP id
- e26mr56126ljp.170.1604636896321; 
- Thu, 05 Nov 2020 20:28:16 -0800 (PST)
-Received: from mail-lj1-f181.google.com (mail-lj1-f181.google.com.
- [209.85.208.181])
- by smtp.gmail.com with ESMTPSA id d15sm20697ljc.3.2020.11.05.20.28.16
- for <alsa-devel@alsa-project.org>
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 05 Nov 2020 20:28:16 -0800 (PST)
-Received: by mail-lj1-f181.google.com with SMTP id p15so3476ljj.8
- for <alsa-devel@alsa-project.org>; Thu, 05 Nov 2020 20:28:16 -0800 (PST)
-X-Received: by 2002:a2e:9243:: with SMTP id v3mr48234ljg.47.1604636895947;
- Thu, 05 Nov 2020 20:28:15 -0800 (PST)
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=ZlXKKq4DGEFjUy+nOWMktAH/V5heZC0/6ILxLCieIBI=;
+ b=PUIVLNApA/J4EH3CU04s76u6XaX8i/0hMxoqlQ6r2Xx/N3d0RgLyKU41JK1CSU4TgE
+ ksVUFiErla4DqBJmdWc99uzEV1WDKknUY5T35X7pkgVuYRTkJG9pUG8kRX3WKByY/TnK
+ bBTS80ZLJOll03vzNem1CcqqJkYGy7XLghDA4EzdIJxCYW7hR6KUPZ1fUkeZrlRKFY8r
+ p++4PUHdyNIiFNcNSTntzu2BKKvIgbM2/BAG3qHoYv0qnKIHc8UdifkbOcepCPS0n4U4
+ lUD6wrMGVTRdE8L24iVmllFKKWvXnIh1pQplopQemqC1Hvv8bK0j0suchrAfxs+D1H9I
+ DRmQ==
+X-Gm-Message-State: AOAM533ii1Ytcq9H0Rowg7QVaazPEkDD7XxCwM2mrlTLnTamLtiLJNxs
+ c/3xwkcneG7R2v4bdPU11QY=
+X-Google-Smtp-Source: ABdhPJyroxk5j3uozX4q/49k3ilXtr3HfELI1nHsLBO+uoSc7N38F15qJ9kCIb5kPorMtxomgTZJxQ==
+X-Received: by 2002:a17:902:8a97:b029:d4:d3f4:d209 with SMTP id
+ p23-20020a1709028a97b02900d4d3f4d209mr500321plo.35.1604643279370; 
+ Thu, 05 Nov 2020 22:14:39 -0800 (PST)
+Received: from localhost (114-34-18-97.HINET-IP.hinet.net. [114.34.18.97])
+ by smtp.gmail.com with ESMTPSA id y5sm620227pfc.165.2020.11.05.22.14.37
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 05 Nov 2020 22:14:38 -0800 (PST)
+From: Ajye Huang <ajye.huang@gmail.com>
+X-Google-Original-From: Ajye Huang <ajye_huang@compal.corp-partner.google.com>
+To: linux-kernel@vger.kernel.org
+Subject: [PATCH v6 0/2] Modify documentation and machine driver for SC7180
+ sound card
+Date: Fri,  6 Nov 2020 14:14:31 +0800
+Message-Id: <20201106061433.1483129-1-ajye_huang@compal.corp-partner.google.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-References: <20201106041513.38481-1-samuel@sholland.org>
-In-Reply-To: <20201106041513.38481-1-samuel@sholland.org>
-From: Chen-Yu Tsai <wens@csie.org>
-Date: Fri, 6 Nov 2020 12:28:04 +0800
-X-Gmail-Original-Message-ID: <CAGb2v67c-ywkh_s77f4sm3fmL9DuxeYMrAJAgp=_jKHBd6GdHA@mail.gmail.com>
-Message-ID: <CAGb2v67c-ywkh_s77f4sm3fmL9DuxeYMrAJAgp=_jKHBd6GdHA@mail.gmail.com>
-Subject: Re: [PATCH 0/7] PinePhone BT audio bringup
-To: Samuel Holland <samuel@sholland.org>
-Content-Type: text/plain; charset="UTF-8"
-Cc: devicetree <devicetree@vger.kernel.org>,
- Linux-ALSA <alsa-devel@alsa-project.org>,
- linux-kernel <linux-kernel@vger.kernel.org>, Mark Brown <broonie@kernel.org>,
- Jernej Skrabec <jernej.skrabec@siol.net>, Maxime Ripard <mripard@kernel.org>,
- Liam Girdwood <lgirdwood@gmail.com>, Rob Herring <robh+dt@kernel.org>,
- phone-devel@vger.kernel.org,
- linux-arm-kernel <linux-arm-kernel@lists.infradead.org>
+Content-Transfer-Encoding: 8bit
+Cc: dianders@chromium.org, robh@kernel.org, alsa-devel@alsa-project.org,
+ Banajit Goswami <bgoswami@codeaurora.org>,
+ Srinivasa Rao Mandadapu <srivasam@codeaurora.org>,
+ Liam Girdwood <lgirdwood@gmail.com>, linux-arm-msm@vger.kernel.org,
+ Patrick Lai <plai@codeaurora.org>,
+ Ajye Huang <ajye_huang@compal.corp-partner.google.com>,
+ Andy Gross <agross@kernel.org>, Rob Herring <robh+dt@kernel.org>,
+ Bjorn Andersson <bjorn.andersson@linaro.org>, devicetree@vger.kernel.org,
+ Mark Brown <broonie@kernel.org>, Rohit kumar <rohitkr@codeaurora.org>,
+ tzungbi@chromium.org, srinivas.kandagatla@linaro.org,
+ linux-arm-kernel@lists.infradead.org, cychiang@chromium.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -100,66 +109,46 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hi,
+Note:
+- The patch is made by the collaboration of
+ Ajye Huang <ajye_huang@compal.corp-partner.google.com>
+ Cheng-Yi Chiang <cychiang@chromium.org>
 
-On Fri, Nov 6, 2020 at 12:15 PM Samuel Holland <samuel@sholland.org> wrote:
->
-> This series makes use of the additional DAIs recently added to the
-> sun8i-codec driver to add hardware routing for BT SCO (headset) audio
-> on the PinePhone.
->
-> The BT audio connection is represented by the "dummy" bt-sco codec. The
-> connection to the Quectel EG-25G modem via AIF2 works as well, but I do
-> not include it here because there is no appropriate codec driver in
-> tree. We have been using an out-of-tree "dummy" codec driver similar to
-> bt-sco, and I'm not sure if such a driver would be desired upstream.
->
-> The modem has a similar amount of configurability as the rtl8723cs BT
-> chip. For the BT chip, the DAI format and PCM parameters are set in a
-> configuration firmware file and loaded at driver load time. For the
-> modem, the DAI format and PCM parameters are set by (and can be queried
-> from) an AT command. However, this AT command requires a modem restart
-> to take effect, so the parameters cannot feasibly be changed at runtime.
->
-> With a dummy driver, we pick some "standard" set of PCM parameters, e.g.
-> 16 bit mono at 8 or 16 kHz, and assume the hardware agrees. Similarly,
-> we assume the DAI format pre-programmed in the remote hardware matches
-> what is configured in the DAI link (in this case, in the device tree).
->
-> Is that the right way to model this? Or does the modem (and maybe even
-> the BT chip) deserve a more featureful driver that reads and/or programs
-> the format and params at probe time?
+v6:
+- Documentation: Addressed suggestions from Rob Herring.
+  - Define "maxItems: 1" in dmic-gpios property.
+  - Only keep one example and add dmic-gpios property in.
+v5:
+- Machine driver:
+  - Fix a format string warning (Reported-by: kernel test robot <lkp@intel.com>).
+    detailed info at https://lore.kernel.org/patchwork/patch/1331087/
 
-FYI there's a "Bluetooth: Allow to use configure SCO socket codec parameters"
-thread on the bluetooth mailing list which is still unresolved AFAICT.
+v4:
+- Machine driver: Addressed suggestions from Tzung-Bi.
+  - Remove redundant judgments in dmic_set() and dmic_get().
+  - Remove 1 level indent of judgment of IS_ERR(data->dmic_sel).
 
-You might want to take a look at it.
+v3:
+- Machine driver: Addressed suggestions from Tzung-Bi.
+  - Move variables "dmic_switch" and "dmic_sel" into struct sc7180_snd_data.
+  - Remove redundant judgments in dmic_set().
 
-ChenYu
+v2:
+- Documentation: Modify the dimc-gpios property description and examples.
+- Machine driver: 
+  - Remove "qcom,sc7180-sndcard-rt5682-m98357-2mic" compatible
+  - See gpio property and use anadditional control.
 
-> Because of those unanswered questions, I'm sending BT SCO support
-> first/only.
->
-> Regards,
-> Samuel
->
-> Arnaud Ferraris (1):
->   arm64: dts: allwinner: pinephone: Set audio card name
->
-> Samuel Holland (6):
->   ASoC: dt-bindings: sun8i-codec: Increase #sound-dai-cells
->   ARM: dts: sun8i-a33: Allow using multiple codec DAIs
->   arm64: dts: allwinner: a64: Allow using multiple codec DAIs
->   arm64: dts: allwinner: a64: Add pinmux nodes for AIF2/AIF3
->   arm64: dts: allwinner: a64: Allow multiple DAI links
->   arm64: dts: allwinner: pinephone: Add support for Bluetooth audio
->
->  .../sound/allwinner,sun8i-a33-codec.yaml      |  2 +-
->  arch/arm/boot/dts/sun8i-a33.dtsi              |  4 +-
->  .../dts/allwinner/sun50i-a64-pinephone.dtsi   | 25 +++++++++++++
->  arch/arm64/boot/dts/allwinner/sun50i-a64.dtsi | 37 ++++++++++++++-----
->  4 files changed, 55 insertions(+), 13 deletions(-)
->
-> --
-> 2.26.2
->
+Thanks for the review!
+
+Ajye Huang (2):
+  ASoC: google: dt-bindings: modify machine bindings for two MICs case
+  ASoC: qcom: sc7180: Modify machine driver for 2mic
+
+ .../bindings/sound/google,sc7180-trogdor.yaml |  8 ++-
+ sound/soc/qcom/sc7180.c                       | 61 +++++++++++++++++++
+ 2 files changed, 68 insertions(+), 1 deletion(-)
+
+-- 
+2.25.1
+

@@ -2,61 +2,58 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E45912A9625
-	for <lists+alsa-devel@lfdr.de>; Fri,  6 Nov 2020 13:22:16 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id CAB9D2A97FD
+	for <lists+alsa-devel@lfdr.de>; Fri,  6 Nov 2020 15:59:37 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 1EFF61698;
-	Fri,  6 Nov 2020 13:21:26 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1EFF61698
+	by alsa0.perex.cz (Postfix) with ESMTPS id 5C3C4168B;
+	Fri,  6 Nov 2020 15:58:47 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5C3C4168B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1604665336;
-	bh=ytvuoO2Mq5FaNKZ1Q85w5qAMaKu/pEcZqevEu/XewjU=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1604674777;
+	bh=2fuo3KyDmAUWXxViAA/JAWxQeMOrwkX97EwNaDmiSwk=;
+	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=bSsdF4Z5tm8g64YDgmPY45Wi/7OrUCncZPX97cP2CcY3fIPQM/BaUHk9DOoECjWoY
-	 eGmzwPqZi2bldvHjrTIot5utMJbzg1QsOn6vMmf+IOhPEL6cwlQJXZ3TbByJ8xQf7I
-	 fG3xy4kWWhNxG5u4Ew0z6UEcFNHtzaTOu50afYKg=
+	b=FyaDtfilOcgGE78u+0r7+2IIcC2iGJ8eTQVGT5jLN9qIlwYZUksX3z20b2M/q8T4n
+	 lIoUKVFNlYHC6kUkwdX9i+m6iNTvjxDgwnpdRZmyLonuc30AfP5ALwiWCQJfC5hgJo
+	 MTliR6DRVDam7V/zHtVedk2L9UT7eGW3H62eW4Fk=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id B3345F8023E;
-	Fri,  6 Nov 2020 13:21:17 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id A870AF8023E;
+	Fri,  6 Nov 2020 15:58:04 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 89A98F8023E; Fri,  6 Nov 2020 13:21:15 +0100 (CET)
+ id 2712BF80234; Fri,  6 Nov 2020 15:58:02 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled
- version=3.4.0
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 42118F80234
- for <alsa-devel@alsa-project.org>; Fri,  6 Nov 2020 13:21:13 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 42118F80234
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="mrGaOxPe"
-Received: from localhost (fw-tnat.cambridge.arm.com [217.140.96.140])
+X-Spam-Status: No, score=0.0 required=5.0 tests=NICE_REPLY_A, RCVD_IN_MSPIKE_H3,
+ RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
+Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 0B29320715;
- Fri,  6 Nov 2020 12:21:09 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1604665270;
- bh=ytvuoO2Mq5FaNKZ1Q85w5qAMaKu/pEcZqevEu/XewjU=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=mrGaOxPe1ZcFfNw7mvUDda7neUNo6SV0eMzExoW+KRsMQeayJLN7BQhlv0iAJOJT/
- wRyV81pqnRs0d5VK11GoQZHGhHfW4HTqbHjhDGnSp/mc4D1PKEL8zMOsKSVXmCHRjy
- L7J65LWw69feMxQuwHs8p911RndVRejx0B23+/Pw=
-Date: Fri, 6 Nov 2020 12:20:58 +0000
-From: Mark Brown <broonie@kernel.org>
-To: CTLIN0 <CTLIN0@nuvoton.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 98BEAF80150
+ for <alsa-devel@alsa-project.org>; Fri,  6 Nov 2020 15:57:57 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 98BEAF80150
+IronPort-SDR: 2CgUjiYxBVeh/xXQxXm/2+OHbx+kXiTcdd5yPjggkMoREabfi5PmzKllRhdEt9WcOmloXWqK+M
+ JOhlK8dQeZrw==
+X-IronPort-AV: E=McAfee;i="6000,8403,9796"; a="169701132"
+X-IronPort-AV: E=Sophos;i="5.77,456,1596524400"; d="scan'208";a="169701132"
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from orsmga004.jf.intel.com ([10.7.209.38])
+ by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 06 Nov 2020 06:57:53 -0800
+IronPort-SDR: OmJuWz8P06aSUlik6lktFYd51aVruH6q5z3D2X9Iq5Q+6GJ62vG74zu84YOCVReMfoeSkURV4U
+ 3zL4k19n/eYQ==
+X-IronPort-AV: E=Sophos;i="5.77,456,1596524400"; d="scan'208";a="472090337"
+Received: from robrodri-mobl1.amr.corp.intel.com (HELO [10.209.98.80])
+ ([10.209.98.80])
+ by orsmga004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 06 Nov 2020 06:57:52 -0800
 Subject: Re: [PATCH] ASoC: nau8315: add codec driver
-Message-ID: <20201106122058.GC49612@sirena.org.uk>
+To: Mark Brown <broonie@kernel.org>, CTLIN0 <CTLIN0@nuvoton.com>
 References: <20201102023212.594137-1-CTLIN0@nuvoton.com>
  <0adb99c2-d0d9-5052-c163-4d9a341239fc@linux.intel.com>
  <da4d4666-3c91-16d7-926b-b339ae4e39be@nuvoton.com>
@@ -65,17 +62,20 @@ References: <20201102023212.594137-1-CTLIN0@nuvoton.com>
  <20201105150249.GC4856@sirena.org.uk>
  <bd3d3b6f-2cca-cd4b-2eff-b32792b3b2e4@linux.intel.com>
  <b1b1efee-b19e-2d5c-3806-5532c39c7c47@nuvoton.com>
+ <20201106122058.GC49612@sirena.org.uk>
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Message-ID: <aab83231-c2fb-364f-c512-5f74f34174db@linux.intel.com>
+Date: Fri, 6 Nov 2020 08:57:51 -0600
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.10.0
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="iFRdW5/EC4oqxDHL"
-Content-Disposition: inline
-In-Reply-To: <b1b1efee-b19e-2d5c-3806-5532c39c7c47@nuvoton.com>
-X-Cookie: When does later become never?
-User-Agent: Mutt/1.10.1 (2018-07-13)
+In-Reply-To: <20201106122058.GC49612@sirena.org.uk>
+Content-Type: text/plain; charset=windows-1252; format=flowed
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
 Cc: ALSA development <alsa-devel@alsa-project.org>, YHCHuang@nuvoton.com,
- WTLI@nuvoton.com, KCHSU0@nuvoton.com,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- Liam Girdwood <lgirdwood@gmail.com>, Tzung-Bi Shih <tzungbi@google.com>
+ WTLI@nuvoton.com, KCHSU0@nuvoton.com, Liam Girdwood <lgirdwood@gmail.com>,
+ Tzung-Bi Shih <tzungbi@google.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -92,32 +92,16 @@ Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 
---iFRdW5/EC4oqxDHL
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
 
-On Fri, Nov 06, 2020 at 11:31:36AM +0800, CTLIN0 wrote:
+On 11/6/20 6:20 AM, Mark Brown wrote:
+> On Fri, Nov 06, 2020 at 11:31:36AM +0800, CTLIN0 wrote:
+> 
+>> Thanks for your comments. However, I also agree the opinion from
+>> Tzung-Bi Shih @ Google.
+>> May I confirm whether I should keep this patch, and remove dapm widget
+>> of EN_PIN next patch?
+> 
+> Please send incremental patches on top of this one with any changes.
 
-> Thanks for your comments. However, I also agree the opinion from
-> Tzung-Bi Shih @ Google.
-> May I confirm whether I should keep this patch, and remove dapm widget
-> of EN_PIN next patch?
-
-Please send incremental patches on top of this one with any changes.
-
---iFRdW5/EC4oqxDHL
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl+lP6kACgkQJNaLcl1U
-h9BLyQf/RvIIfqCi7CDWRfp+Nbbtd9R03riQjCzJP5ImnCJw2OpyJjg7atPJVijc
-93qovcpHDxKCShp1NK1iWCypwCSDFFQx7BxJqakywgN50XJ61yzoQfFfwJr1WsDi
-DYWT/zK4lIQbZUQDrB+ioPgHUw7XypV6KeTf1ou0GwFTSnVer9B7k/FJT1GIckWk
-RyRcazX4a4xEmFJPnXbf8/zDvyEymFLRpCMLinihbsAxyXcdNZILKGcveQPZSyBj
-b51Q56ggpwfuL8fs/FcLODJbYZucFT5Gf78P0nuYppBk6PRQSkJtIKlSQbiLrVHW
-7Gof71hhWOkm77Wy5jDvK+bh3omvzQ==
-=iQzm
------END PGP SIGNATURE-----
-
---iFRdW5/EC4oqxDHL--
+EN_PIN is not strictly required but as discussed it provides additional 
+flexibility for machine drivers, so probably better to keep it?

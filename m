@@ -2,99 +2,104 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B61FE2A8DC3
-	for <lists+alsa-devel@lfdr.de>; Fri,  6 Nov 2020 04:50:29 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 441722A8E34
+	for <lists+alsa-devel@lfdr.de>; Fri,  6 Nov 2020 05:17:03 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 4C8DC1678;
-	Fri,  6 Nov 2020 04:49:39 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4C8DC1678
+	by alsa0.perex.cz (Postfix) with ESMTPS id BC630167E;
+	Fri,  6 Nov 2020 05:16:12 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BC630167E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1604634629;
-	bh=3llWGNeLb0U341sgef5WKBrfFO2cFeWmvhRVa/Ty9Bw=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=M2RTgEb5oobbxnc0Jmi0LLUkQ2t7KD3ZUk/xZug5jRp//Cl/SvTKx+2LCMbrrQCCN
-	 F6ZxbDdd1TWVKsSAay97T5x1JZP3KsaS3tgzhPqQzXNDkckelpA5bXRLQ8Jd1Q8yXu
-	 yCJ+mpOe1UDXF+FGeX5YDPXL+qBT4jybF0vht/A4=
+	s=default; t=1604636222;
+	bh=pVlDRSLqC1/3mWONXql8AhmT9BzCLb1tHZEczdJXM48=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=cRErXI7WofldG1GDYbG5IVyfJFHfzjKG3xMjQr8yjzw6qwUpSnUoRzxfIy8ivnOAq
+	 bk69S43XEabHJ8lm+3iIkirf89hZuWMRB8HYzKr4w807JaxCGmZro6VMnzZ4DDww8E
+	 Zt+PBFZ6QrUSbFjDeukScI48kD2HR/y5L4+TQDAs=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id AFA06F8023E;
-	Fri,  6 Nov 2020 04:48:56 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 98F25F800BA;
+	Fri,  6 Nov 2020 05:15:30 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id B0FD1F80234; Fri,  6 Nov 2020 04:48:53 +0100 (CET)
+ id 72590F804B4; Fri,  6 Nov 2020 05:15:23 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIMWL_WL_MED,DKIM_SIGNED,
- DKIM_VALID,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
-Received: from mail-lf1-x143.google.com (mail-lf1-x143.google.com
- [IPv6:2a00:1450:4864:20::143])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=0.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,PRX_BODY_26,RCVD_IN_MSPIKE_H4,RCVD_IN_MSPIKE_WL,SPF_HELO_PASS,
+ SPF_PASS autolearn=disabled version=3.4.0
+Received: from new3-smtp.messagingengine.com (new3-smtp.messagingengine.com
+ [66.111.4.229])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id CADE6F80150
- for <alsa-devel@alsa-project.org>; Fri,  6 Nov 2020 04:48:49 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CADE6F80150
+ by alsa1.perex.cz (Postfix) with ESMTPS id 7C09CF8023E
+ for <alsa-devel@alsa-project.org>; Fri,  6 Nov 2020 05:15:16 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7C09CF8023E
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=google.com header.i=@google.com
- header.b="Y0OvGdC7"
-Received: by mail-lf1-x143.google.com with SMTP id v144so5403497lfa.13
- for <alsa-devel@alsa-project.org>; Thu, 05 Nov 2020 19:48:49 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=ppVeo0b190qF2Ptj5wRZlt8bVEFE8U+FRbqIrPfzfO0=;
- b=Y0OvGdC7Ay1jBPx9c95rwCWL5YO1NKIyLtH3RBjJqksuu5AmwVeqJA3yAVePeFJpD+
- FNnIveyBAgJypsaK51ANwnqRY7vR4BDOlrKMA1BLxssBAe6rezmriag1QbajUoT/ZYrN
- ia/BNKgIUF2Dh8y1MMAUsf9DpJByCV5DJS2VJkfHelErXdtSUlMof+LOnHR2w5t7Lgp8
- qXDVuCE4fh3v7LRCzvKaV2W42Pcpn+WomjbzeSw0L8WQ5PBPJfLgYXwY7wEsOObmFR7E
- MQuyqNeRdqW4WggiOLj3w/oToWlhsUSpLUpGXRyZ/xcdo2KG7q7xYzh1w+ag4jRU6Hmu
- 2PVQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=ppVeo0b190qF2Ptj5wRZlt8bVEFE8U+FRbqIrPfzfO0=;
- b=CFDLOcASrNPgrgUyoj1IFMEu5WEKQf/IGnGPf1MwGC+exm4WwXAKKmweIx0v39AQYi
- VsD6Yo+uRF+2JbKRBBWjL/lKYTglxX770MYLPAOMfG1k07YuOBAlOX3MOOC1ZK/Lo2Qc
- TlOKJ1wNgAQzeInBZ9GmhwtwuC61n2z/x0907mugzN7Ft1cK4iuDRUtwZHRBbvRsNo0q
- aNefNgrU2jbyfukhxoUazcMJLxHDMRcZ6zRjFE0SOTexPbJlg0TBB6QyxTtBTJWg8Xcl
- lwHH/c9F0/+C51hMc6a5KTPjmIexAees0xE+EdjMJsc1XrJZeX0Yo9ciLnf+X2PeA9Jp
- Owog==
-X-Gm-Message-State: AOAM532Wc24s9cu9hY96PThBfJqoAhlsEmPrxmukmb5AFPyalQVyq0tm
- P7fvAH/vhmqMKxZxZd0s45rV71cFZREwbQnwmEN0OA==
-X-Google-Smtp-Source: ABdhPJxbdRyNk08Ob4JHGuI4T01MyHskgm3c1DqN+BTCMCllgLD793w6HxN7Xw1dUaB0tfhybEYmpnLfDVXd/P4HXms=
-X-Received: by 2002:a19:4204:: with SMTP id p4mr39766lfa.536.1604634528395;
- Thu, 05 Nov 2020 19:48:48 -0800 (PST)
+ dkim=pass (2048-bit key) header.d=sholland.org header.i=@sholland.org
+ header.b="tQH0+bRt"; 
+ dkim=pass (2048-bit key) header.d=messagingengine.com
+ header.i=@messagingengine.com header.b="qhjir15c"
+Received: from compute5.internal (compute5.nyi.internal [10.202.2.45])
+ by mailnew.nyi.internal (Postfix) with ESMTP id 49583580549;
+ Thu,  5 Nov 2020 23:15:15 -0500 (EST)
+Received: from mailfrontend2 ([10.202.2.163])
+ by compute5.internal (MEProxy); Thu, 05 Nov 2020 23:15:15 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sholland.org; h=
+ from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding; s=fm1; bh=+qDI3QewsKGWtoQxG+q8X0EcPM
+ jQpIpbBevGLhPz5J4=; b=tQH0+bRth6goR3jRxdivrAy8c0dRlWyq9Ym4pN5F3Y
+ frGMxZCqc7Rci1k3BXDtEr9sOerPVLN+leTNrpxLeCouQRiyfsmOlGB/ssYO8OeY
+ qL4PwT7VtVWSwh20Mb0bhSLKLMr7qDjB45vH4QnvHzfxJlREyz9XfiyFVp1Nojnd
+ Qz0iEpT3mQGu/8O/44SfrWpddSmfV34y3GegUi0Ukqw8Ct+cnl2DHnmP3d2mK2Qc
+ 8Og20ydr9kNF9PTAqYMyAb2xVMEPkGCuat4ALFyOtpGqJHQN9bvdvw1V8lWxsll3
+ xnQXmsVHL3iU17reSm3Y9qBVVoQGY8i2V+0je0cXDPLA==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:content-transfer-encoding:date:from
+ :message-id:mime-version:subject:to:x-me-proxy:x-me-proxy
+ :x-me-sender:x-me-sender:x-sasl-enc; s=fm1; bh=+qDI3QewsKGWtoQxG
+ +q8X0EcPMjQpIpbBevGLhPz5J4=; b=qhjir15cQmcG2e7U8sW/NJgPzoAxVONII
+ VPN02Eptah1hMwEdxWhceN8jotm5ku9MuNq3dqe6fqnjOBrxWlq+hX3m5WXfj8iC
+ Mbr1nNSsE9p/Qi1bt8fk2KtqVwxaGbcVf8l+Of16efwbPCC2supkbuBPkYMiolN+
+ s05HqFH6r33bfDrpvnUjtqZ2gQqrLaFUN4pIgneVvpj02k24tzq1di8HdF9y0kma
+ X6Hsgx6bQ7Blj7l4kExIzOaVl1+Yl400fUF9DamzLp5J+SfnC8aAaUceQJ9/usoc
+ Rmh7H+Woj0q7bqF6MBffYaXbQaYVT1kYDOjgPmtBFD+uuZP58Y6sw==
+X-ME-Sender: <xms:0s2kX1u4YDhZ5K4c3tiA4YdLJ1jnddHxdpdpzpNtP-5f0eZTUic1pQ>
+ <xme:0s2kX-dcqgyv26Nk3tws83OwQvmHr3ZSzD6ckDfvin5KZT58xGpfo0yPnoggvJz7U
+ rSA2yN_itfqCb1ZIQ>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedujedruddtkedgjedtucetufdoteggodetrfdotf
+ fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
+ uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
+ cujfgurhephffvufffkffoggfgsedtkeertdertddtnecuhfhrohhmpefurghmuhgvlhcu
+ jfholhhlrghnugcuoehsrghmuhgvlhesshhhohhllhgrnhgurdhorhhgqeenucggtffrrg
+ htthgvrhhnpeeiteekhfehuddugfeltddufeejjeefgeevheekueffhffhjeekheeiffdt
+ vedtveenucfkphepjedtrddufeehrddugeekrdduhedunecuvehluhhsthgvrhfuihiivg
+ eptdenucfrrghrrghmpehmrghilhhfrhhomhepshgrmhhuvghlsehshhholhhlrghnugdr
+ ohhrgh
+X-ME-Proxy: <xmx:0s2kX4xwVWKxwxtRsXvDXqnF72sUaC7-K5Vw5zj_txG4VAWkaJfWaA>
+ <xmx:0s2kX8Mfcg-sU_QUR6e8CXaA2fR_cRKJ2xEsRelMiIN4wQbRj1KHuA>
+ <xmx:0s2kX198KLqqVYUBqe__EQAtxcq84HLd5cSaY48Smaf5Ud7vvWuL-g>
+ <xmx:082kX0a3qnHvQ57Mb3eJub0EjmfuAvJ2dPiwWCj-4oXeNfDttq6U2g>
+Received: from titanium.stl.sholland.net
+ (70-135-148-151.lightspeed.stlsmo.sbcglobal.net [70.135.148.151])
+ by mail.messagingengine.com (Postfix) with ESMTPA id 9B0AC306005F;
+ Thu,  5 Nov 2020 23:15:13 -0500 (EST)
+From: Samuel Holland <samuel@sholland.org>
+To: Maxime Ripard <mripard@kernel.org>, Chen-Yu Tsai <wens@csie.org>,
+ Jernej Skrabec <jernej.skrabec@siol.net>,
+ Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+ Rob Herring <robh+dt@kernel.org>
+Subject: [PATCH 0/7] PinePhone BT audio bringup
+Date: Thu,  5 Nov 2020 22:15:06 -0600
+Message-Id: <20201106041513.38481-1-samuel@sholland.org>
+X-Mailer: git-send-email 2.26.2
 MIME-Version: 1.0
-References: <20201103103051.34553-1-ajye_huang@compal.corp-partner.google.com>
- <20201103103051.34553-2-ajye_huang@compal.corp-partner.google.com>
- <20201105184350.GA1611477@bogus>
-In-Reply-To: <20201105184350.GA1611477@bogus>
-From: Ajye Huang <ajye_huang@compal.corp-partner.google.com>
-Date: Fri, 6 Nov 2020 11:48:37 +0800
-Message-ID: <CALprXBYUddwE-+Bnt2qh4ETwZJ2LnwmB1mQNT88vcqxB8kPW4Q@mail.gmail.com>
-Subject: Re: [PATCH v5 1/2] ASoC: google: dt-bindings: modify machine bindings
- for two MICs case
-To: Rob Herring <robh@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Cc: Douglas Anderson <dianders@chromium.org>,
- "open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS"
- <devicetree@vger.kernel.org>, ALSA development <alsa-devel@alsa-project.org>,
- Banajit Goswami <bgoswami@codeaurora.org>,
- Srinivasa Rao Mandadapu <srivasam@codeaurora.org>,
- Liam Girdwood <lgirdwood@gmail.com>, Ajye Huang <ajye.huang@gmail.com>,
- Patrick Lai <plai@codeaurora.org>,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- Tzung-Bi Shih <tzungbi@chromium.org>,
- Bjorn Andersson <bjorn.andersson@linaro.org>, Mark Brown <broonie@kernel.org>,
- Rohit kumar <rohitkr@codeaurora.org>, Andy Gross <agross@kernel.org>,
- linux-arm-msm <linux-arm-msm@vger.kernel.org>,
- Srini Kandagatla <srinivas.kandagatla@linaro.org>,
- "moderated list:ARM/Mediatek SoC support"
- <linux-arm-kernel@lists.infradead.org>,
- Cheng-yi Chiang <cychiang@chromium.org>
+Content-Transfer-Encoding: 8bit
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
+ Samuel Holland <samuel@sholland.org>, linux-kernel@vger.kernel.org,
+ phone-devel@vger.kernel.org, linux-arm-kernel@lists.infradead.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -110,117 +115,55 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-HI, Rob,
+This series makes use of the additional DAIs recently added to the
+sun8i-codec driver to add hardware routing for BT SCO (headset) audio
+on the PinePhone.
 
-Thank you for the comments.
+The BT audio connection is represented by the "dummy" bt-sco codec. The
+connection to the Quectel EG-25G modem via AIF2 works as well, but I do
+not include it here because there is no appropriate codec driver in
+tree. We have been using an out-of-tree "dummy" codec driver similar to
+bt-sco, and I'm not sure if such a driver would be desired upstream.
 
+The modem has a similar amount of configurability as the rtl8723cs BT
+chip. For the BT chip, the DAI format and PCM parameters are set in a
+configuration firmware file and loaded at driver load time. For the
+modem, the DAI format and PCM parameters are set by (and can be queried
+from) an AT command. However, this AT command requires a modem restart
+to take effect, so the parameters cannot feasibly be changed at runtime.
 
-On Fri, Nov 6, 2020 at 2:43 AM Rob Herring <robh@kernel.org> wrote:
->
-> On Tue, Nov 03, 2020 at 06:30:50PM +0800, Ajye Huang wrote:
-> > Add a property "dmic-gpios" for switching between two MICs.
-> >
-> > Signed-off-by: Ajye Huang <ajye_huang@compal.corp-partner.google.com>
-> > ---
-> >  .../bindings/sound/google,sc7180-trogdor.yaml | 58 +++++++++++++++++++
-> >  1 file changed, 58 insertions(+)
-> >
-> > diff --git a/Documentation/devicetree/bindings/sound/google,sc7180-trogdor.yaml b/Documentation/devicetree/bindings/sound/google,sc7180-trogdor.yaml
-> > index efc34689d6b5..9e0505467e57 100644
-> > --- a/Documentation/devicetree/bindings/sound/google,sc7180-trogdor.yaml
-> > +++ b/Documentation/devicetree/bindings/sound/google,sc7180-trogdor.yaml
-> > @@ -34,6 +34,9 @@ properties:
-> >    "#size-cells":
-> >      const: 0
-> >
-> > +  dmic-gpios:
-> > +    description: GPIO for switching between DMICs
->
-> Need to define how many (maxItems: 1).
+With a dummy driver, we pick some "standard" set of PCM parameters, e.g.
+16 bit mono at 8 or 16 kHz, and assume the hardware agrees. Similarly,
+we assume the DAI format pre-programmed in the remote hardware matches
+what is configured in the DAI link (in this case, in the device tree).
 
-Yes, I will add in the v6 version.
+Is that the right way to model this? Or does the modem (and maybe even
+the BT chip) deserve a more featureful driver that reads and/or programs
+the format and params at probe time?
 
->
-> > +
-> >  patternProperties:
-> >    "^dai-link(@[0-9])?$":
-> >      description:
-> > @@ -81,6 +84,7 @@ additionalProperties: false
-> >  examples:
-> >
-> >    - |
-> > +    //Example 1
-> >      sound {
-> >          compatible = "google,sc7180-trogdor";
-> >          model = "sc7180-rt5682-max98357a-1mic";
-> > @@ -128,3 +132,57 @@ examples:
-> >              };
-> >          };
-> >      };
-> > +
-> > +  - |
-> > +    //Example 2 (2mic case)
-> > +    sound {
-> > +        compatible = "google,sc7180-trogdor";
-> > +        model = "sc7180-rt5682-max98357a-2mic";
-> > +
-> > +        audio-routing =
-> > +                    "Headphone Jack", "HPOL",
-> > +                    "Headphone Jack", "HPOR";
-> > +
-> > +        #address-cells = <1>;
-> > +        #size-cells = <0>;
-> > +
-> > +        dmic-gpios = <&tlmm 86 0>;
->
-> Do we really need another example for this? Can't you just add it to the
-> existing example?
+Because of those unanswered questions, I'm sending BT SCO support
+first/only.
 
-I think just keep One example. I will remove the example2 and put
-dmic-gpios = <&tlmm 86 0>; in the first example and
-modify the model from "sc7180-rt5682-max98357a-1mic" to
-"sc7180-rt5682-max98357a-2mic". It looks clear.
+Regards,
+Samuel
 
->
-> > +
-> > +        dai-link@0 {
-> > +            link-name = "MultiMedia0";
-> > +            reg = <0>;
-> > +            cpu {
-> > +                sound-dai = <&lpass_cpu 0>;
-> > +            };
-> > +
-> > +            codec {
-> > +                sound-dai = <&alc5682 0>;
-> > +            };
-> > +        };
-> > +
-> > +        dai-link@1 {
-> > +            link-name = "MultiMedia1";
-> > +            reg = <1>;
-> > +            cpu {
-> > +                sound-dai = <&lpass_cpu 1>;
-> > +            };
-> > +
-> > +            codec {
-> > +                sound-dai = <&max98357a>;
-> > +            };
-> > +        };
-> > +
-> > +        dai-link@2 {
-> > +            link-name = "MultiMedia2";
-> > +            reg = <2>;
-> > +            cpu {
-> > +                sound-dai = <&lpass_hdmi 0>;
-> > +            };
-> > +
-> > +            codec {
-> > +                sound-dai = <&msm_dp>;
-> > +            };
-> > +        };
-> > +    };
-> > +
-> > +...
-> > --
-> > 2.25.1
-> >
+Arnaud Ferraris (1):
+  arm64: dts: allwinner: pinephone: Set audio card name
+
+Samuel Holland (6):
+  ASoC: dt-bindings: sun8i-codec: Increase #sound-dai-cells
+  ARM: dts: sun8i-a33: Allow using multiple codec DAIs
+  arm64: dts: allwinner: a64: Allow using multiple codec DAIs
+  arm64: dts: allwinner: a64: Add pinmux nodes for AIF2/AIF3
+  arm64: dts: allwinner: a64: Allow multiple DAI links
+  arm64: dts: allwinner: pinephone: Add support for Bluetooth audio
+
+ .../sound/allwinner,sun8i-a33-codec.yaml      |  2 +-
+ arch/arm/boot/dts/sun8i-a33.dtsi              |  4 +-
+ .../dts/allwinner/sun50i-a64-pinephone.dtsi   | 25 +++++++++++++
+ arch/arm64/boot/dts/allwinner/sun50i-a64.dtsi | 37 ++++++++++++++-----
+ 4 files changed, 55 insertions(+), 13 deletions(-)
+
+-- 
+2.26.2
+

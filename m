@@ -2,88 +2,79 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 033252A9E24
-	for <lists+alsa-devel@lfdr.de>; Fri,  6 Nov 2020 20:37:32 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 648372A9EBD
+	for <lists+alsa-devel@lfdr.de>; Fri,  6 Nov 2020 21:55:24 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 60EFB1686;
-	Fri,  6 Nov 2020 20:36:41 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 60EFB1686
+	by alsa0.perex.cz (Postfix) with ESMTPS id CAFA11689;
+	Fri,  6 Nov 2020 21:54:33 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CAFA11689
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1604691451;
-	bh=gAAMGunkKSJbUJ0jDwiyrsTYQWulMREXYV/jPPdlyhY=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1604696123;
+	bh=1yO/CVv9b0QAujvyIxVqVvhR2ndhoj53ZUJfuwtrlvs=;
+	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=rYt2wKKWwaIMqEDlzbmjdCk/7rk7ZkojuuwUwvqCfyVLRZjbabWi1PBVxKYP6j9ri
-	 5xJozoBAinPH+l3tMtqM5PsEGcrGvW6pRASIS3ZzoGJoT/ElPcrRrgCClvd/oc9cF1
-	 MWrr/T1DAdIaog5Zg6l8Bteg9qjNcZS8bP9SQB4s=
+	b=UHHDoQspUkfLx/Jc8RdLbUnWa1Zo5mYROI06mVg9aNWH/CFNC6Ex4Ud7ohK90VXpP
+	 kEDgiSsidhqzMLNt/+7UAndqXDXoLt+5jr8ApHMxtWkjI9753harEgiiiGHwNDthFv
+	 FWTaI1ZcESSy3Sdx6NZ6XN0xUi3BduENORSEmTec=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 0A870F800BA;
-	Fri,  6 Nov 2020 20:35:59 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 325F4F80234;
+	Fri,  6 Nov 2020 21:53:51 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id EC9EFF80234; Fri,  6 Nov 2020 20:35:56 +0100 (CET)
+ id 63E55F80234; Fri,  6 Nov 2020 21:53:49 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled
- version=3.4.0
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id B6B8FF80150
- for <alsa-devel@alsa-project.org>; Fri,  6 Nov 2020 20:35:52 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B6B8FF80150
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="D0Xu+rYt"
-Received: from localhost (fw-tnat.cambridge.arm.com [217.140.96.140])
+X-Spam-Status: No, score=0.0 required=5.0 tests=NICE_REPLY_A,SPF_HELO_NONE,
+ SPF_NONE autolearn=disabled version=3.4.0
+Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id AC3A72151B;
- Fri,  6 Nov 2020 19:35:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1604691349;
- bh=gAAMGunkKSJbUJ0jDwiyrsTYQWulMREXYV/jPPdlyhY=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=D0Xu+rYt9C6Tc+VTC54qKBXq6GLWh08vIeOMccUgOtpRZ/tFEbHtStgv0seBSFBHX
- vHdysUc93O3IVC2DvU28chVdccfrFLheZ6x9cKOxmpHr61t2KFftVtOled9hAF6WKP
- e80nYfp/j0cpijlRtF9bvm0slegS0fhMdzotFDPA=
-Date: Fri, 6 Nov 2020 19:35:37 +0000
-From: Mark Brown <broonie@kernel.org>
-To: Parav Pandit <parav@nvidia.com>
-Subject: Re: [PATCH v3 01/10] Add auxiliary bus support
-Message-ID: <20201106193537.GH49612@sirena.org.uk>
-References: <20201023003338.1285642-1-david.m.ertman@intel.com>
- <20201023003338.1285642-2-david.m.ertman@intel.com>
- <CAPcyv4i9s=CsO5VJOhPnS77K=bD0LTQ8TUAbhLd+0OmyU8YQ3g@mail.gmail.com>
- <DM6PR11MB284191BAA817540E52E4E2C4DDEE0@DM6PR11MB2841.namprd11.prod.outlook.com>
- <BY5PR12MB43228923300FDE8B087DC4E9DCEE0@BY5PR12MB4322.namprd12.prod.outlook.com>
- <CAPcyv4h1LH+ojRGqvh_R6mfuBbsibGa8DNMG5M1sN5G1BgwiHw@mail.gmail.com>
- <BY5PR12MB43222D59CCCFCF368C357098DCEE0@BY5PR12MB4322.namprd12.prod.outlook.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id CF8D4F80150;
+ Fri,  6 Nov 2020 21:53:44 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CF8D4F80150
+IronPort-SDR: OKCc6H2cp+892B2IsoY6h0lc/TVZaK9tGveHjPiz7BZp1K4MAPRkl7Z5kCjkXpZLhqcVIGTGAM
+ R1QMdCjUXTNg==
+X-IronPort-AV: E=McAfee;i="6000,8403,9797"; a="166090146"
+X-IronPort-AV: E=Sophos;i="5.77,457,1596524400"; d="scan'208";a="166090146"
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from orsmga008.jf.intel.com ([10.7.209.65])
+ by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 06 Nov 2020 12:53:40 -0800
+IronPort-SDR: cTbL18lfulNcLJmvQWPDsKkw80vKqGvrKJ1War0IGT0MISwf2SezEohYDHuRWS1BQz2bSnTo+z
+ ut12zaw/g3Jg==
+X-IronPort-AV: E=Sophos;i="5.77,457,1596524400"; d="scan'208";a="353483936"
+Received: from sfkampme-mobl1.amr.corp.intel.com (HELO [10.212.181.142])
+ ([10.212.181.142])
+ by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 06 Nov 2020 12:53:39 -0800
+Subject: Re: [Sound-open-firmware] linux-next: Tree for Nov 6
+ (sound/soc/sof/sof-pci-dev.o)
+To: Randy Dunlap <rdunlap@infradead.org>,
+ Stephen Rothwell <sfr@canb.auug.org.au>,
+ Linux Next Mailing List <linux-next@vger.kernel.org>
+References: <20201106171834.64e4d6d5@canb.auug.org.au>
+ <0a66a2b1-85b6-3515-47f4-2e861b991386@infradead.org>
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Message-ID: <7505ed68-f12b-d1d9-12e5-f8ae34a74ebd@linux.intel.com>
+Date: Fri, 6 Nov 2020 14:53:38 -0600
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.10.0
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="WRT3RXLOp/bBMgTI"
-Content-Disposition: inline
-In-Reply-To: <BY5PR12MB43222D59CCCFCF368C357098DCEE0@BY5PR12MB4322.namprd12.prod.outlook.com>
-X-Cookie: When does later become never?
-User-Agent: Mutt/1.10.1 (2018-07-13)
-Cc: "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
- Parav Pandit <parav@mellanox.com>, Greg KH <gregkh@linuxfoundation.org>,
- Takashi Iwai <tiwai@suse.de>, Netdev <netdev@vger.kernel.org>,
- Leon Romanovsky <leonro@nvidia.com>,
+In-Reply-To: <0a66a2b1-85b6-3515-47f4-2e861b991386@infradead.org>
+Content-Type: text/plain; charset=windows-1252; format=flowed
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
+Cc: "moderated list:SOUND - SOC LAYER / DYNAMIC AUDIO POWER MANAGEM..."
+ <alsa-devel@alsa-project.org>, Kai Vehmanen <kai.vehmanen@linux.intel.com>,
+ Liam Girdwood <lgirdwood@gmail.com>,
  Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- Fred Oh <fred.oh@linux.intel.com>, linux-rdma <linux-rdma@vger.kernel.org>,
- Doug Ledford <dledford@redhat.com>, Jason Gunthorpe <jgg@nvidia.com>,
- Jakub Kicinski <kuba@kernel.org>, "Ertman, David M" <david.m.ertman@intel.com>,
- Dan Williams <dan.j.williams@intel.com>, "Saleem,
- Shiraz" <shiraz.saleem@intel.com>, David Miller <davem@davemloft.net>,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>, "Patil,
- Kiran" <kiran.patil@intel.com>
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ Daniel Baluta <daniel.baluta@nxp.com>, sound-open-firmware@alsa-project.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -100,44 +91,41 @@ Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 
---WRT3RXLOp/bBMgTI
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+> on x86_64:
+> 
+> ld: sound/soc/sof/sof-pci-dev.o: in function `sof_pci_probe':
+> sof-pci-dev.c:(.text+0x5c): undefined reference to `snd_intel_dsp_driver_probe'
+> 
+> 
+> Full randconfig file is attached.
 
-On Thu, Nov 05, 2020 at 08:37:14PM +0000, Parav Pandit wrote:
+Nice catch, thanks Randy! Looks like we put the select 
+SND_INTEL_DSP_CONFIG in the wrong place, it's not dependent on the 
+HDaudio link being selected. Clearly a bug we've had for a while.
 
-> > > This example describes the mlx5 PCI subfunction use case.
-> > > I didn't follow your question about 'explicit example'.
-> > > What part is missing to identify it as explicit example?
+The diff below makes the error go away but I have to run it past folks 
+who are already enjoying their week-end. Will follow-up next week with a 
+proper fix.
 
-> > Specifically listing "mlx5" so if someone reading this document thinks to
-> > themselves "hey mlx5 sounds like my use case" they can go grep for that.
+diff --git a/sound/soc/sof/intel/Kconfig b/sound/soc/sof/intel/Kconfig
+index a066e08860cb..5bfc2f8b13b9 100644
+--- a/sound/soc/sof/intel/Kconfig
++++ b/sound/soc/sof/intel/Kconfig
+@@ -271,6 +271,7 @@ config SND_SOC_SOF_JASPERLAKE
 
-> Ah, I see.
-> "mlx5" is not listed explicitly, because it is not included in this patchset.
-> In various previous discussions in this thread, mlx5 subfunction use case is described that justifies the existence of the bus.
-> I will be happy to update this documentation once mlx5 subfunction will be part of kernel so that grep actually shows valid output.
-> (waiting to post them as it uses auxiliary bus :-)).
+  config SND_SOC_SOF_HDA_COMMON
+         tristate
++       select SND_INTEL_DSP_CONFIG
+         select SND_SOC_SOF_INTEL_COMMON
+         select SND_SOC_SOF_HDA_LINK_BASELINE
+         help
+@@ -330,7 +331,6 @@ config SND_SOC_SOF_HDA
+         tristate
+         select SND_HDA_EXT_CORE if SND_SOC_SOF_HDA_LINK
+         select SND_SOC_HDAC_HDA if SND_SOC_SOF_HDA_AUDIO_CODEC
+-       select SND_INTEL_DSP_CONFIG
+         help
+           This option is not user-selectable but automagically handled by
+           'select' statements at a higher level
 
-For ease of review if there's a new version it might be as well to just
-reference it anyway, hopefully the mlx5 code will be merged fairly
-quickly once the bus itself is merged.  It's probably easier all round
-than adding the reference later, it seems more likely that mlx5 will get
-merged than that it'll fall by the wayside.
 
---WRT3RXLOp/bBMgTI
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl+lpYgACgkQJNaLcl1U
-h9BucQf/eNw6ctPFmmRQVuSB2n3HuUQKEXfBdp/GJzm2Ao34q3WIZJ5mANQN+PsD
-1RdlG+KooBtZmSD8LTDhdMB7I75TNfJOZBV6uGJFOSZ1FPmnYGE8sipgOyMlg94b
-6tlWmBBWuueK4uA3etjOa8QTVxysmK+x1JkvBLPFk5t43D3zxOvUhdmdYZbEt3z7
-U5amclwnzVW5uwMFacm4zhGSVnffO9rD3HCqieFDgAtPfl/QDuBntmA5lbmpTU0R
-CiwdqKpuhH2/AX0QHsiFJh6bgxPhEilHcZk7ZZGftB/J+Sc5dxIhXxRTql4R0u0n
-zkdYy/19+i8RI7ppfSbIPOr91XQsDg==
-=vai3
------END PGP SIGNATURE-----
-
---WRT3RXLOp/bBMgTI--

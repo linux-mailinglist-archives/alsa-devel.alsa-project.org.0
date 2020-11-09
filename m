@@ -2,91 +2,70 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 23D7C2AC48B
-	for <lists+alsa-devel@lfdr.de>; Mon,  9 Nov 2020 20:04:12 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 797702AC56C
+	for <lists+alsa-devel@lfdr.de>; Mon,  9 Nov 2020 20:49:32 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B48BF1686;
-	Mon,  9 Nov 2020 20:03:21 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B48BF1686
+	by alsa0.perex.cz (Postfix) with ESMTPS id E70911691;
+	Mon,  9 Nov 2020 20:48:41 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E70911691
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1604948651;
-	bh=/sbMjxdqePOWa4vU/WvlctDxASB2XqPLKIIOtVW2g2s=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1604951372;
+	bh=SC0WlsUL7zB7Fa6m1SKYkKnl3mky8gHtZNC3j2/ha08=;
+	h=Date:From:To:In-Reply-To:References:Subject:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=rmtx7/lS0P+p8hMRgq5Ritoz97pe8F/tehanI9OjIuh1RFvZ72FG0VkLdt6dUPZ2j
-	 VUDDm6WLsZ1/Qsuz9wqy2adi4WZVczONWIyWDlnuDbJBsyP65mk674YOewAIv4Q/0I
-	 mTuxDJt/4abAjiszKuuHPcjHQ/3t/aCHHiZ4Zj8M=
+	b=JIZsp3gmuaz+EQybBRb+UlvviBdgcdgphZlLmWSOx3VjV7sjXcMjOGQ4fhsl4i/8n
+	 FQZT7ii90deAFwlTtxmWqK57I2GXREDju7UEnqMdlJQs9zDMBUqQEkAKYMF+iB6wSi
+	 qqQs6vFcM9FxcI303pyQBkdUgJOQPYHcVv6tvdeE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 24004F80059;
-	Mon,  9 Nov 2020 20:02:39 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 5FDD9F800BA;
+	Mon,  9 Nov 2020 20:47:59 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 6B956F80059; Mon,  9 Nov 2020 20:02:36 +0100 (CET)
+ id D5813F8020C; Mon,  9 Nov 2020 20:47:57 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: **
-X-Spam-Status: No, score=2.7 required=5.0 tests=FREEMAIL_ENVFROM_END_DIGIT,
- FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,
- PDS_TONAME_EQ_TOLOCAL_SHORT, RCVD_IN_MSPIKE_H3, RCVD_IN_MSPIKE_WL,
- SPF_HELO_NONE, SPF_PASS autolearn=disabled version=3.4.0
-Received: from mail-ot1-f66.google.com (mail-ot1-f66.google.com
- [209.85.210.66])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Level: 
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+ DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled
+ version=3.4.0
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id BEEBCF80059
- for <alsa-devel@alsa-project.org>; Mon,  9 Nov 2020 20:02:32 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BEEBCF80059
-Received: by mail-ot1-f66.google.com with SMTP id 32so10023725otm.3
- for <alsa-devel@alsa-project.org>; Mon, 09 Nov 2020 11:02:32 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to;
- bh=Os7Tqy6UODgwd/wlPU8zzDWJnqShuXVfWyTYThhhTQs=;
- b=fakaFR1/JAXZ4Igiko32pdyenBnQcfTjsd3Hr1IiR2pA0EaCNko5pqEnd72oD0knL1
- XQ5qoW1bD1TnRE/Txuymx2nlXYYVzFfJD8OWXERFb4ZFRDNUcyd+rXwKgK915pFdknhx
- Nr8V3K/8J4kTexV9+76+ch5/jAQZ4qajviM36zAckrZ+j2kNptpsmbOiC6TkAxumOaKT
- rr4vzbeXaaHhNXhPkfKacwy7908uHaPCBSs2X9umR+Ssb2yDZmyTGeQV7oLZHZTswwzJ
- 8tGchesZQSINY/xFHNCvSjue/+SPJpm0C7cYNLtfBKReK21aksFaVaKDFGLQs4Dr3HTX
- 6GGg==
-X-Gm-Message-State: AOAM530QqoCVOFwQC/D5iHR9O/FMH5GzXY2DTn3NryPsYwvMVBXxZXDX
- bBFIfH6QZ4d2LzKkDONirw==
-X-Google-Smtp-Source: ABdhPJzi8cf177x5y7qmvI5oZJQW3sqESbPviEGH6ObpyFz+8kfyg2yeSvBY/c2ERhInbnrt6d4HJQ==
-X-Received: by 2002:a9d:4aa:: with SMTP id 39mr11584971otm.11.1604948550593;
- Mon, 09 Nov 2020 11:02:30 -0800 (PST)
-Received: from xps15 (24-155-109-49.dyn.grandenetworks.net. [24.155.109.49])
- by smtp.gmail.com with ESMTPSA id x22sm2572439oix.48.2020.11.09.11.02.28
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 09 Nov 2020 11:02:29 -0800 (PST)
-Received: (nullmailer pid 1593859 invoked by uid 1000);
- Mon, 09 Nov 2020 19:02:28 -0000
-Date: Mon, 9 Nov 2020 13:02:28 -0600
-From: Rob Herring <robh@kernel.org>
-To: xuyuqing <xuyuqing@huaqin.corp-partner.google.com>
-Subject: Re: [PATCH v1 1/2] ASoC: google: dt-bindings: add new compatible for
- sc7180-coachz
-Message-ID: <20201109190228.GA1593812@bogus>
-References: <20201105013242.298518-1-xuyuqing@huaqin.corp-partner.google.com>
- <20201105013242.298518-2-xuyuqing@huaqin.corp-partner.google.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 7836AF80059
+ for <alsa-devel@alsa-project.org>; Mon,  9 Nov 2020 20:47:54 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7836AF80059
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="LHb2pUT4"
+Received: from localhost (fw-tnat.cambridge.arm.com [217.140.96.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by mail.kernel.org (Postfix) with ESMTPSA id AEC00206A4;
+ Mon,  9 Nov 2020 19:47:50 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=default; t=1604951271;
+ bh=SC0WlsUL7zB7Fa6m1SKYkKnl3mky8gHtZNC3j2/ha08=;
+ h=Date:From:To:Cc:In-Reply-To:References:Subject:From;
+ b=LHb2pUT44pXYJNr27HVID6Id8m0Qzi/ubUVctEoYzQ0zjvOMrVcrpkcNxo2mh3qaN
+ qtAf75Oly6iydxwBkleCaFL+n8rKy3M0nI1RmIpYzfCLVQdly4ZKQqLqJXjc6uO1Na
+ u+QKvG3GVc3S4PwJ8YrSvKK9fGwe4oefy/+QxuRA=
+Date: Mon, 09 Nov 2020 19:47:37 +0000
+From: Mark Brown <broonie@kernel.org>
+To: perex@perex.cz, festevam@gmail.com, nicoleotsuka@gmail.com,
+ alsa-devel@alsa-project.org, Shengjiu Wang <shengjiu.wang@nxp.com>,
+ Xiubo.Lee@gmail.com, tiwai@suse.com, timur@kernel.org
+In-Reply-To: <1604715643-29507-1-git-send-email-shengjiu.wang@nxp.com>
+References: <1604715643-29507-1-git-send-email-shengjiu.wang@nxp.com>
+Subject: Re: [PATCH] ASoC: fsl_aud2htx: Remove dev_err() usage after
+ platform_get_irq()
+Message-Id: <160495125733.49154.17421164873154285573.b4-ty@kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20201105013242.298518-2-xuyuqing@huaqin.corp-partner.google.com>
-Cc: Taniya Das <tdas@codeaurora.org>, alsa-devel@alsa-project.org,
- Banajit Goswami <bgoswami@codeaurora.org>, linux-kernel@vger.kernel.org,
- Rohit kumar <rohitkr@codeaurora.org>, cychiang@chromium.org,
- Patrick Lai <plai@codeaurora.org>, Takashi Iwai <tiwai@suse.com>,
- Andy Gross <agross@kernel.org>, dgreid@chromium.org,
- zhouguohui@huaqin.corp-partner.google.com, devicetree@vger.kernel.org,
- tzungbi@chromium.org, Stephan Gerhold <stephan@gerhold.net>,
- linux-arm-msm@vger.kernel.org, Mark Brown <broonie@kernel.org>,
- Bjorn Andersson <bjorn.andersson@linaro.org>,
- linux-arm-kernel@lists.infradead.org, dianders@chromium.org,
- Liam Girdwood <lgirdwood@gmail.com>, Rob Herring <robh+dt@kernel.org>,
- Srini Kandagatla <srinivas.kandagatla@linaro.org>, judyhsiao@chromium.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+Cc: linuxppc-dev@lists.ozlabs.org, linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -102,13 +81,34 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Thu, 05 Nov 2020 09:32:41 +0800, xuyuqing wrote:
-> Add devicetree bindings for coachz in documentation file
-> 
-> Signed-off-by: xuyuqing <xuyuqing@huaqin.corp-partner.google.com>
-> ---
->  .../devicetree/bindings/sound/google,sc7180-trogdor.yaml      | 4 +++-
->  1 file changed, 3 insertions(+), 1 deletion(-)
-> 
+On Sat, 7 Nov 2020 10:20:43 +0800, Shengjiu Wang wrote:
+> platform_get_irq() would print error message internally, so dev_err()
+> after platform_get_irq() is not needed
 
-Acked-by: Rob Herring <robh@kernel.org>
+Applied to
+
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
+
+Thanks!
+
+[1/1] ASoC: fsl_aud2htx: Remove dev_err() usage after platform_get_irq()
+      commit: 1cc3245b2c7464b6d6ad210b0e333781676de519
+
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
+
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
+
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
+
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
+
+Thanks,
+Mark

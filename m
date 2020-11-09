@@ -2,93 +2,96 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1A81D2AB293
-	for <lists+alsa-devel@lfdr.de>; Mon,  9 Nov 2020 09:39:56 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5A19F2AB51D
+	for <lists+alsa-devel@lfdr.de>; Mon,  9 Nov 2020 11:36:09 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 9626F1668;
-	Mon,  9 Nov 2020 09:39:05 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9626F1668
+	by alsa0.perex.cz (Postfix) with ESMTPS id 989501662;
+	Mon,  9 Nov 2020 11:35:18 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 989501662
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1604911195;
-	bh=z3Cz5XRs3N1nosrOK9Sx5SiV05OMsgldNldZohCNNdw=;
-	h=From:To:Subject:Date:References:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=vtwQLwc8AXcDpPv9Q3e2RnVGpcByPY9UxWYw345Wy/ET+91J7K0T+pzVZxr3z9n/H
-	 3ka+3c4wVXtajuWjMFCUfu2/xo+O+4xb2a3wDUMiycQy/xd7QydQKNtOYDP/fFIOW7
-	 bGmAkwd80ZL/XEovxNBbf9SqeWWfLZJwmGIgKvHw=
+	s=default; t=1604918168;
+	bh=/WNGKIcLnd4Cvg+y4UGZHPTcU0DKE1YhLcEvMO9sCko=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=U+Q8K4BXKvSiVEcDJ3njx6TmpywM7ZZ7vPnaWrQp1yEIYHAWVvL47uRzclKinVMOk
+	 zzWrvV7Tq8e0a5Igx+kQZTYAQWGSjQfZrfuYBsNV9UYW72J84wPD6NuJZn0S7gZmV/
+	 Y0dQf7GwcKVpG2BiX053ledLL/NgMd+EuAicwaz0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 0DE2AF8022B;
-	Mon,  9 Nov 2020 09:38:23 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 10798F800BA;
+	Mon,  9 Nov 2020 11:34:36 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 7C4E3F8020C; Mon,  9 Nov 2020 09:38:20 +0100 (CET)
+ id 16E40F8020C; Mon,  9 Nov 2020 11:34:32 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.2 required=5.0 tests=PRX_BODY_138, RCVD_IN_MSPIKE_H4,
- RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
-Received: from mga06.intel.com (mga06.intel.com [134.134.136.31])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+ DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from mail-pg1-x543.google.com (mail-pg1-x543.google.com
+ [IPv6:2607:f8b0:4864:20::543])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 7E415F80059
- for <alsa-devel@alsa-project.org>; Mon,  9 Nov 2020 09:38:15 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7E415F80059
-IronPort-SDR: RtDBBY3UG2yhk4N053f83AYJ2KV03yn8iXmZgyR328E3xwH+agogsHwyrFVlwa84/0yUCRHOgE
- 5f+9lXW6Qjyw==
-X-IronPort-AV: E=McAfee;i="6000,8403,9799"; a="231401033"
-X-IronPort-AV: E=Sophos;i="5.77,463,1596524400"; d="scan'208";a="231401033"
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from orsmga003.jf.intel.com ([10.7.209.27])
- by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 09 Nov 2020 00:38:09 -0800
-IronPort-SDR: URgk027lW0k7A9koHZd1eL/Df8fB5ntkbax7hPAPsj+NMg+AVjPmsYUXP56l5fgkmdRM/H4fUs
- rG+EniBjF9eA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.77,463,1596524400"; d="scan'208";a="322363521"
-Received: from irsmsx605.ger.corp.intel.com ([163.33.146.138])
- by orsmga003.jf.intel.com with ESMTP; 09 Nov 2020 00:38:02 -0800
-Received: from irsmsx601.ger.corp.intel.com (163.33.146.7) by
- IRSMSX605.ger.corp.intel.com (163.33.146.138) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.1713.5; Mon, 9 Nov 2020 08:38:02 +0000
-Received: from irsmsx601.ger.corp.intel.com ([163.33.146.7]) by
- irsmsx601.ger.corp.intel.com ([163.33.146.7]) with mapi id 15.01.1713.004;
- Mon, 9 Nov 2020 08:38:02 +0000
-From: "Rojewski, Cezary" <cezary.rojewski@intel.com>
-To: Greg KH <gregkh@linuxfoundation.org>
-Subject: RE: [PATCH] ASoC: Intel: Skylake: Add alternative topology binary name
-Thread-Topic: [PATCH] ASoC: Intel: Skylake: Add alternative topology binary
- name
-Thread-Index: AQHWsesetrmyqB6A606/K4JDH1AqQKm2iiKAgAFSVACAAAM7AIAGkXhQgAAMdoCAAQUlgA==
-Date: Mon, 9 Nov 2020 08:38:02 +0000
-Message-ID: <cb48723796ac40018d5b804da42d0863@intel.com>
-References: <20201103141047.15053-1-mateusz.gorski@linux.intel.com>
- <20201103153541.GC3267686@kroah.com>
- <d6006431-420f-55c7-0f78-977507e11fcf@linux.intel.com>
- <20201104115810.GA1694250@kroah.com>
- <0f6a673556974a289c2b81f3a8cc7536@intel.com>
- <20201108170059.GA18354@kroah.com>
-In-Reply-To: <20201108170059.GA18354@kroah.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-dlp-product: dlpe-windows
-dlp-reaction: no-action
-dlp-version: 11.5.1.3
-x-originating-ip: [163.33.253.164]
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+ by alsa1.perex.cz (Postfix) with ESMTPS id 2FEF2F800BA
+ for <alsa-devel@alsa-project.org>; Mon,  9 Nov 2020 11:34:27 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2FEF2F800BA
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org
+ header.b="DIeqnSAf"
+Received: by mail-pg1-x543.google.com with SMTP id i13so1996101pgm.9
+ for <alsa-devel@alsa-project.org>; Mon, 09 Nov 2020 02:34:27 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=KTmupo/EpjgAy2pPuwp43MJbMbOqAR0YnTyRbouORaM=;
+ b=DIeqnSAfnkOX68rTluPtTr1Z/ka/uBkkJE++R5AZx3vtaCnXWhpOlbW7q6Pchny2LW
+ nmpKKNAk0Kqmu2QugOYA5xZUpku0kpAb8JVxgrykC3wSOJZZZIzFlfQ8S9+YjQEVR8NY
+ ogbIU0upC+fJ3ZgVbZYFAKoVWSRCFHev5GFUQ=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=KTmupo/EpjgAy2pPuwp43MJbMbOqAR0YnTyRbouORaM=;
+ b=l9OACDmvKmRurprfJUQ9gm7mS661XwlkomrJ05FYhNU1qEOpjxWF6oq4rXvrbRkObm
+ ySFZASJT5hiHqkF9YBfUmFqg/hE9MX7/C4xfezMzxbrgcmooqoQz3SSpx+8EGiVS9a0L
+ n4ElwHPbtJZ02ed+5CtJM/S6C86f6ejY2K3bP28en9uogfi61SGr3vRtYB4LoYsuomPb
+ zATUqijfDdTU3YaGde3NcVKAWvcDYA7VYh6Pdd4dMHdzkm+QZsAr5nnHQwVAfHO7jBrs
+ ajijSD+wEVrEQXhh7QjtSu56Re2URLrYbGbJF0+Y+HBv8dPtPGDbfkQX3JJCsHa4MfS/
+ V6SA==
+X-Gm-Message-State: AOAM531mGIpEFbXmLkLlKEmTAkdZOJpgqnHTbTu0uD8RG9q3jTjmyp5b
+ U5fBsew3cZD64KFBi/6CRMb/Ew==
+X-Google-Smtp-Source: ABdhPJyaNypAicS4XX7Fl08mgehF6nQZq7ki3Z9aXq2gKlrGrFfmnvTBvnq8T/JTZ4f0aahG8xTzeg==
+X-Received: by 2002:a63:2a83:: with SMTP id q125mr12000933pgq.84.1604918065859; 
+ Mon, 09 Nov 2020 02:34:25 -0800 (PST)
+Received: from localhost ([2401:fa00:1:10:de4a:3eff:fe7d:d39c])
+ by smtp.gmail.com with ESMTPSA id w131sm10662101pfd.14.2020.11.09.02.34.20
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 09 Nov 2020 02:34:24 -0800 (PST)
+From: Cheng-Yi Chiang <cychiang@chromium.org>
+To: linux-kernel@vger.kernel.org
+Subject: [PATCH] ASoC: qcom: sc7180: Add missing PM ops
+Date: Mon,  9 Nov 2020 18:34:15 +0800
+Message-Id: <20201109103415.607495-1-cychiang@chromium.org>
+X-Mailer: git-send-email 2.29.2.222.g5d2a92d10f8-goog
 MIME-Version: 1.0
-Cc: "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
+Content-Transfer-Encoding: 8bit
+Cc: Taniya Das <tdas@codeaurora.org>, alsa-devel@alsa-project.org,
+ Banajit Goswami <bgoswami@codeaurora.org>, Heiko Stuebner <heiko@sntech.de>,
+ Liam Girdwood <lgirdwood@gmail.com>, Rohit kumar <rohitkr@codeaurora.org>,
+ Ajye Huang <ajye_huang@compal.corp-partner.google.com>,
+ Cheng-Yi Chiang <cychiang@chromium.org>, Patrick Lai <plai@codeaurora.org>,
+ Andy Gross <agross@kernel.org>, dgreid@chromium.org,
+ devicetree@vger.kernel.org, tzungbi@chromium.org,
+ Srinivasa Rao <srivasam@codeaurora.org>, Stephan Gerhold <stephan@gerhold.net>,
+ linux-arm-msm@vger.kernel.org, Rob Herring <robh+dt@kernel.org>,
+ Matthias Brugger <matthias.bgg@gmail.com>,
+ Bjorn Andersson <bjorn.andersson@linaro.org>,
+ linux-arm-kernel@lists.infradead.org, dianders@chromium.org,
+ Takashi Iwai <tiwai@suse.com>, xuyuqing@huaqin.corp-partner.google.com,
  Mark Brown <broonie@kernel.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "stable@vger.kernel.org" <stable@vger.kernel.org>, "Gorski,
- Mateusz" <mateusz.gorski@linux.intel.com>
+ Srini Kandagatla <srinivas.kandagatla@linaro.org>, judyhsiao@chromium.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -104,78 +107,26 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 2020-11-08 6:00 PM, Greg KH wrote:
-> On Sun, Nov 08, 2020 at 04:17:16PM +0000, Rojewski, Cezary wrote:
->> On 2020-11-04 12:58 PM, Greg KH wrote:
->>> On Wed, Nov 04, 2020 at 12:46:36PM +0100, Gorski, Mateusz wrote:
->>>>
->>>>>> [ Upstream commit 1b290ef023b3eeb4f4688b582fecb773915ef937 ]
->>>>>>
->>>>>> Add alternative topology binary file name based on used machine driv=
-er
->>>>>> and fallback to use this name after failed attempt to load topology =
-file
->>>>>> with name based on NHLT.
->>>>>> This change addresses multiple issues with current mechanism, for
->>>>>> example - there are devices without NHLT table, and that currently
->>>>>> results in tplg_name being empty.
-...
+Use PM ops snd_soc_pm_ops to handle suspend/resume like other machine
+drivers.
 
->>>>> What problems are people facing, and what kernel(s) are you asking fo=
-r
->>>>> this to be ported to, and why can't people just use 5.8 or newer if t=
-hey
->>>>> have this new hardware?
->>>>>
->>>>
->>>> I forgot to add - I wanted this change to be merged to stable 5.4 kern=
-el.
->>>> Please let me know if I should resend this patch with this information
->>>> included.
->>>>
->>>> As for the user issues - topology binary file name is currently create=
-d
->>>> according to information from NHLT. The problem is, that some laptops =
-(for
->>>> example Dell XPS 13) do not have NHLT at all. This results in topology
->>>> binary name being empty (" ").
->>>> This patch adds alternative name based on loaded machine driver.
->>>>
->>>> It applies not only to new hardware, please note that the mentioned De=
-ll XPS
->>>> 13 is based on Kabylake. This issue existed on upstream from the begin=
-ning
->>>> of Skylake driver and was only recently addressed.
->>>
->>> When was that laptop released and is this the only change that is neede=
-d
->>> in order for the 5.4.y kernel to work properly on it?
->>>
->>
->> Sorry for the late answer, Greg. To address your concerns and questions
->> let me elaborate:
->>
->> Indeed, this change is not the only one required to enable DMIC + HDA
->> configuration for customers. The following series is essential:
->>
->> [PATCH 0/7] ASoC: Intel: Skylake: Fix HDaudio and Dmic
->> https://lore.kernel.org/alsa-devel/20200305145314.32579-1-cezary.rojewsk=
-i@intel.com/
->=20
-> Great, then they should just use a newer kernel version.  It's crazy to
-> think that you can go back in time and get older kernels working for
-> newer hardware :)
+Signed-off-by: Cheng-Yi Chiang <cychiang@chromium.org>
+---
+ sound/soc/qcom/sc7180.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-Skylake and Kabylake-based platforms are few years old already, that's
-not exactly a "newer hardware". Icelake and such are and these are not
-part of /skylake driver. Fact is, this should all be part of 4.19 or
-earlier since DMIC + HDA configuration are available even there. And
-receiving laptop with such kernel and no patches fails miserably ; (
-
-Unfortunately, kernels 4.19 and below need many more changes than "just"
-6 fixes as HDA-generic soundcard isn't available there. That, however,
-can easily be called "a new feature" so stopping at 5.4 is a fair call.
-
-Thanks,
-Czarek
+diff --git a/sound/soc/qcom/sc7180.c b/sound/soc/qcom/sc7180.c
+index b391f64c3a80..42e366ecc689 100644
+--- a/sound/soc/qcom/sc7180.c
++++ b/sound/soc/qcom/sc7180.c
+@@ -258,6 +258,7 @@ static struct platform_driver sc7180_snd_driver = {
+ 	.driver = {
+ 		.name = "msm-snd-sc7180",
+ 		.of_match_table = sc7180_snd_device_id,
++		.pm = &snd_soc_pm_ops,
+ 	},
+ };
+ module_platform_driver(sc7180_snd_driver);
+-- 
+2.29.2.222.g5d2a92d10f8-goog
 

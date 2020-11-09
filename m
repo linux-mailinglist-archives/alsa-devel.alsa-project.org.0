@@ -2,73 +2,91 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id ECFAD2AC5FD
-	for <lists+alsa-devel@lfdr.de>; Mon,  9 Nov 2020 21:32:52 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 822AE2AC613
+	for <lists+alsa-devel@lfdr.de>; Mon,  9 Nov 2020 21:42:53 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 7DF5384A;
-	Mon,  9 Nov 2020 21:32:02 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7DF5384A
+	by alsa0.perex.cz (Postfix) with ESMTPS id 124C31698;
+	Mon,  9 Nov 2020 21:42:03 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 124C31698
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1604953972;
-	bh=WpFd5x2PVkqV7vYXRYyparKv1eINTXPsG4jy37yaFpU=;
+	s=default; t=1604954573;
+	bh=xNpGi4JV877JHCf2S/yGV/O6IYIg8loknO4gTr2b/LU=;
 	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=gqKTcKrQSm7vGCwa7YMeG5eu4hx2r3Lttr1khvRiDwLr1CI5zGEnvpZvTEm11e5rj
-	 899EPsGLqKrAI4nWAuIjC2rnvZwFn1cDL5R+6zPYkNgtCmosyvRzXxiogr322HzAI1
-	 scX8M28PH+8uyUhmiUXwKZH6uAWRKpkVceFKDXII=
+	b=PQCyP5WvatuYfs8Ebjwuak4Qb8msd95eRtw2nYe8aXs7RVjPySX7gkO5bUuf0I3ct
+	 6maNv/jy96KiK7C7xSI+xbaKJC/8qu1YfLeLR6IDcQ0R3Po/T5hvSinFJTANGOLAgc
+	 2OglnrQePBcHdGbgbTkyhLYBirs546yj6sjq6epc=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id D2873F8022B;
-	Mon,  9 Nov 2020 21:31:19 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 6F324F8022B;
+	Mon,  9 Nov 2020 21:41:20 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 97651F8020C; Mon,  9 Nov 2020 21:31:17 +0100 (CET)
+ id 9C893F8020C; Mon,  9 Nov 2020 21:41:18 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled
- version=3.4.0
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+X-Spam-Status: No, score=0.7 required=5.0 tests=FREEMAIL_ENVFROM_END_DIGIT,
+ FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,
+ RCVD_IN_MSPIKE_H3, RCVD_IN_MSPIKE_WL, SPF_HELO_NONE,
+ SPF_PASS autolearn=disabled version=3.4.0
+Received: from mail-ot1-f65.google.com (mail-ot1-f65.google.com
+ [209.85.210.65])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 35B3FF800EA
- for <alsa-devel@alsa-project.org>; Mon,  9 Nov 2020 21:31:12 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 35B3FF800EA
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="wh5VIjuF"
-Received: from localhost (fw-tnat.cambridge.arm.com [217.140.96.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id D842020665;
- Mon,  9 Nov 2020 20:31:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1604953869;
- bh=WpFd5x2PVkqV7vYXRYyparKv1eINTXPsG4jy37yaFpU=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=wh5VIjuF6TiKs5MpLhMrI7Wkt6O7vubtpQcIHxDWBDsNKlWG6fBJiVjXVmmgNXlmd
- pWyhgaW201K03LR2NjrIk6vOgP1ul1WtBkQ+fu3A5VYq7MWAVRyX8AR+OMoB1Fe6ul
- JNwhioj4AOMKoI2Rfd6w1jcRz+Ox8gLaAnBRw4QY=
-Date: Mon, 9 Nov 2020 20:30:55 +0000
-From: Mark Brown <broonie@kernel.org>
-To: Sameer Pujar <spujar@nvidia.com>
-Subject: Re: [PATCH v5 0/7] Audio Graph Updates
-Message-ID: <20201109203055.GN6380@sirena.org.uk>
-References: <1604329814-24779-1-git-send-email-spujar@nvidia.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 22B07F800EA
+ for <alsa-devel@alsa-project.org>; Mon,  9 Nov 2020 21:41:15 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 22B07F800EA
+Received: by mail-ot1-f65.google.com with SMTP id y22so10299300oti.10
+ for <alsa-devel@alsa-project.org>; Mon, 09 Nov 2020 12:41:15 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to;
+ bh=Y6HZO7jP6c7BF7SUht1RlV0MFshBv51INskr3Wu1OLo=;
+ b=NtptTq1yqrPQNHEdrI3av71+rziDWbO73aIhDrwdUy7itd54um6SaJuonqPnSYdIgf
+ wH0/8+AtTIxNzHtyF3g8t3/pM+WFdwIJaHk9i6wgr10x6H1fTae6n1zQhpnWs/4Hcm88
+ eTP1Lcw/eYOs5I0WSa+OI5C7q/w9/R1jHczJp5MwK3pTRKH7Uemx5fC1Xz26ChX5Wtc0
+ fTZtsQlTBrwNZM/Vpu4YgvXL92smRH9T2RSWszbH06s+3+Qm14HI05INO+yGEJFX5H91
+ azGYtgvTbEWvoOF3XiMJ7dkELBldw93bVe6SBcbCW+L1iNM0iUduK2MuLGzpWwNwzh2C
+ yhwA==
+X-Gm-Message-State: AOAM533xtoX8v07Ll5QXrkDm4tw3NkrE9r2t80UeAMXUBEEE1TNVN6Od
+ 4PosTSFEVCQ/RY+2JRRDhA==
+X-Google-Smtp-Source: ABdhPJz2+VjudVKMD58sQr7OAQeP43oiVi9jf++q43tMEXvFXPHXzsh1M+C1qAmkP1SrUDfMRz231A==
+X-Received: by 2002:a05:6830:22ef:: with SMTP id
+ t15mr10861443otc.146.1604954473902; 
+ Mon, 09 Nov 2020 12:41:13 -0800 (PST)
+Received: from xps15 (24-155-109-49.dyn.grandenetworks.net. [24.155.109.49])
+ by smtp.gmail.com with ESMTPSA id o29sm2792939ote.7.2020.11.09.12.41.12
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 09 Nov 2020 12:41:13 -0800 (PST)
+Received: (nullmailer pid 1724608 invoked by uid 1000);
+ Mon, 09 Nov 2020 20:41:11 -0000
+Date: Mon, 9 Nov 2020 14:41:11 -0600
+From: Rob Herring <robh@kernel.org>
+To: Ajye Huang <ajye.huang@gmail.com>
+Subject: Re: [PATCH v6 1/2] ASoC: google: dt-bindings: modify machine
+ bindings for two MICs case
+Message-ID: <20201109204111.GA1724579@bogus>
+References: <20201106061433.1483129-1-ajye_huang@compal.corp-partner.google.com>
+ <20201106061433.1483129-2-ajye_huang@compal.corp-partner.google.com>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="VnOTrGv5LmZxna7m"
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <1604329814-24779-1-git-send-email-spujar@nvidia.com>
-X-Cookie: This fortune is false.
-User-Agent: Mutt/1.10.1 (2018-07-13)
-Cc: pierre-louis.bossart@linux.intel.com, alsa-devel@alsa-project.org,
- kuninori.morimoto.gx@renesas.com, lgirdwood@gmail.com,
- linux-kernel@vger.kernel.org, tiwai@suse.com, sharadg@nvidia.com,
- thierry.reding@gmail.com, linux-tegra@vger.kernel.org, jonathanh@nvidia.com
+In-Reply-To: <20201106061433.1483129-2-ajye_huang@compal.corp-partner.google.com>
+Cc: dianders@chromium.org, devicetree@vger.kernel.org,
+ alsa-devel@alsa-project.org, Banajit Goswami <bgoswami@codeaurora.org>,
+ Srinivasa Rao Mandadapu <srivasam@codeaurora.org>,
+ linux-arm-msm@vger.kernel.org, Patrick Lai <plai@codeaurora.org>,
+ Ajye Huang <ajye_huang@compal.corp-partner.google.com>,
+ Liam Girdwood <lgirdwood@gmail.com>, Rob Herring <robh+dt@kernel.org>,
+ linux-kernel@vger.kernel.org, Andy Gross <agross@kernel.org>,
+ srinivas.kandagatla@linaro.org, Mark Brown <broonie@kernel.org>,
+ tzungbi@chromium.org, Rohit kumar <rohitkr@codeaurora.org>,
+ Bjorn Andersson <bjorn.andersson@linaro.org>,
+ linux-arm-kernel@lists.infradead.org, cychiang@chromium.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -84,33 +102,13 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+On Fri, 06 Nov 2020 14:14:32 +0800, Ajye Huang wrote:
+> Add a property "dmic-gpios" for switching between two MICs.
+> 
+> Signed-off-by: Ajye Huang <ajye_huang@compal.corp-partner.google.com>
+> ---
+>  .../devicetree/bindings/sound/google,sc7180-trogdor.yaml  | 8 +++++++-
+>  1 file changed, 7 insertions(+), 1 deletion(-)
+> 
 
---VnOTrGv5LmZxna7m
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-
-On Mon, Nov 02, 2020 at 08:40:07PM +0530, Sameer Pujar wrote:
-> This series is a prepraration for using generic graph driver for Tegra210
-> audio. Tegra audio graph series will be sent in a separate series because
-> it has some dependency over other series for documentation work. This
-> series can focus on the generic ASoC driver updates. Below are the summary
-> of changes done.
-
-Morimoto-san, are you OK with these?
-
---VnOTrGv5LmZxna7m
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl+ppv4ACgkQJNaLcl1U
-h9C7igf/ehUdhv8FtDIM9U/QT/43VbP+1JshhwP6YHiYh2LU7owvxb5luCEdePnf
-GdsbHaQR1BNNk3Yh7xOoBUQumC00jJ8kFojRMDWyPnrAvLyhrL64vlJrcaXfGEJ8
-RwKJrfgPlsKLuVHTMYhGAVX7i3aNMjzvhgw0QrDAy94YSbuf9Fo5YwEWGdhj1V/h
-GOFhPE8TTWeCvFAlF2ByWIdpJXV2pyu46KAAXwhTHkbAY/4xQjUF6KbJN1GsYXMZ
-XlIQeiGpIO1sdyr6HJTpgDH6CtPWR4i6Ayk9zrIm/7u783ja9WcKtO3vZcm1TeeX
-rcYhN/zsPUPkOdPzbqLFU31oCmiHWA==
-=6ntz
------END PGP SIGNATURE-----
-
---VnOTrGv5LmZxna7m--
+Reviewed-by: Rob Herring <robh@kernel.org>

@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2C4D72ACC6B
-	for <lists+alsa-devel@lfdr.de>; Tue, 10 Nov 2020 04:55:17 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 543882ACC93
+	for <lists+alsa-devel@lfdr.de>; Tue, 10 Nov 2020 04:56:07 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 5305416BB;
-	Tue, 10 Nov 2020 04:54:26 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5305416BB
+	by alsa0.perex.cz (Postfix) with ESMTPS id 6804B16D0;
+	Tue, 10 Nov 2020 04:55:16 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6804B16D0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1604980516;
-	bh=Xk6afGxOhEefhhDTu11Tv5CbmYxiIZBgfet1Akd/Mbs=;
+	s=default; t=1604980566;
+	bh=Rl2FmOKz3FhvTMwiGKfppdkVk2uGslV89dplTpWMBbw=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=hhJrfDhAAolKm/pH9F0kvGJs39dAMMLyggm0qTJ9i/dAUCKYgMddmFCl6ohhrRNV8
-	 Sx+920FKfBiY9peQacpZtwYMrDF+yThdlWBCKsg2ZRYazOe7NuINOzn5cveOEpcXsI
-	 UTtngKsVRUwaTpWIah3LvrIKYdOxJI7LO5CC14UM=
+	b=rDLCUNj7kUmRV1lyZ/liAlGh9cwNintSGQ2LG72UsokiaU4PGKaXHt3f7iPwSv3at
+	 Y/eLYgZRmZUAwPNl0oqTh0Wx8I8DaaIj5MnRUr+uCKu+n288jWf8zQ5AQfbjlJZfun
+	 /ZgRoUw2yHuDPSqTtuzLpR2VMuP7/OCGvIbeMG7Q=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 53117F80212;
-	Tue, 10 Nov 2020 04:53:35 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 2D846F804CB;
+	Tue, 10 Nov 2020 04:53:39 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id DBA9AF80249; Tue, 10 Nov 2020 04:53:32 +0100 (CET)
+ id 915C9F802C4; Tue, 10 Nov 2020 04:53:35 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -34,31 +34,32 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 7B197F80059
- for <alsa-devel@alsa-project.org>; Tue, 10 Nov 2020 04:53:25 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7B197F80059
+ by alsa1.perex.cz (Postfix) with ESMTPS id 1A315F801EB;
+ Tue, 10 Nov 2020 04:53:27 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1A315F801EB
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="BCez7dC9"
+ header.b="QPEBMhWE"
 Received: from sasha-vm.mshome.net (c-73-47-72-35.hsd1.nh.comcast.net
  [73.47.72.35])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 85ED120829;
- Tue, 10 Nov 2020 03:53:22 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id DBD2020870;
+ Tue, 10 Nov 2020 03:53:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1604980403;
- bh=Xk6afGxOhEefhhDTu11Tv5CbmYxiIZBgfet1Akd/Mbs=;
+ s=default; t=1604980405;
+ bh=Rl2FmOKz3FhvTMwiGKfppdkVk2uGslV89dplTpWMBbw=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=BCez7dC9T70bYOZrgqgMUIjXyp6Fb4Tig9+uz7pYXsnML4w5CPSts2ScMTX5k7X5S
- 19ynHKo6uEbiEivhs8oW3MR9JXg/Y3NgiuUg7mJK4ROjkDTfpHQnQe4YsB8O6ks8Jf
- hetvtlzu9zuQPWi5+rWbSacw64az56s4kgzIXlIM=
+ b=QPEBMhWEoez8HYeHPrKsTajmEGoYiwtdAnWHA6C9I5q8bGwIVYJl3uW8DL4g7SeEF
+ OJgCiNWhSNZcrSNDCWlDctvohqTWsqIy+2ehrbkJdDe1NjG6sshgUAxL+DrfomuTsb
+ jLNuVxyUKvIjaf+bTmTDD1SYMzbXXPS5by3L4Kvs=
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 5.9 03/55] ASoC: cs42l51: manage mclk shutdown delay
-Date: Mon,  9 Nov 2020 22:52:26 -0500
-Message-Id: <20201110035318.423757-3-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 5.9 04/55] ASoC: SOF: loader: handle all SOF_IPC_EXT
+ types
+Date: Mon,  9 Nov 2020 22:52:27 -0500
+Message-Id: <20201110035318.423757-4-sashal@kernel.org>
 X-Mailer: git-send-email 2.27.0
 In-Reply-To: <20201110035318.423757-1-sashal@kernel.org>
 References: <20201110035318.423757-1-sashal@kernel.org>
@@ -66,9 +67,13 @@ MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
 Content-Transfer-Encoding: 8bit
-Cc: Sasha Levin <sashal@kernel.org>, patches@opensource.cirrus.com,
- alsa-devel@alsa-project.org, Mark Brown <broonie@kernel.org>,
- Olivier Moysan <olivier.moysan@st.com>
+Cc: Sasha Levin <sashal@kernel.org>,
+ Guennadi Liakhovetski <guennadi.liakhovetski@linux.intel.com>,
+ alsa-devel@alsa-project.org, Kai Vehmanen <kai.vehmanen@linux.intel.com>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
+ Mark Brown <broonie@kernel.org>, Bard Liao <yung-chuan.liao@linux.intel.com>,
+ sound-open-firmware@alsa-project.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -84,61 +89,44 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: Olivier Moysan <olivier.moysan@st.com>
+From: Bard Liao <yung-chuan.liao@linux.intel.com>
 
-[ Upstream commit 20afe581c9b980848ad097c4d54dde9bec7593ef ]
+[ Upstream commit 6e5329c6e6032cd997400b43b8299f607a61883e ]
 
-A delay must be introduced before the shutdown down of the mclk,
-as stated in CS42L51 datasheet. Otherwise the codec may
-produce some noise after the end of DAPM power down sequence.
-The delay between DAC and CLOCK_SUPPLY widgets is too short.
-Add a delay in mclk shutdown request to manage the shutdown delay
-explicitly. From experiments, at least 10ms delay is necessary.
-Set delay to 20ms as recommended in Documentation/timers/timers-howto.rst
-when using msleep().
+Do not emit a warning for extended firmware header fields that are
+not used by kernel. This creates unnecessary noise to kernel logs like:
 
-Signed-off-by: Olivier Moysan <olivier.moysan@st.com>
-Link: https://lore.kernel.org/r/20201020150109.482-1-olivier.moysan@st.com
+sof-audio-pci 0000:00:1f.3: warning: unknown ext header type 3 size 0x1c
+sof-audio-pci 0000:00:1f.3: warning: unknown ext header type 4 size 0x10
+
+Signed-off-by: Bard Liao <yung-chuan.liao@linux.intel.com>
+Reviewed-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Reviewed-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
+Reviewed-by: Guennadi Liakhovetski <guennadi.liakhovetski@linux.intel.com>
+Signed-off-by: Kai Vehmanen <kai.vehmanen@linux.intel.com>
+Link: https://lore.kernel.org/r/20201021182419.1160391-1-kai.vehmanen@linux.intel.com
 Signed-off-by: Mark Brown <broonie@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- sound/soc/codecs/cs42l51.c | 22 +++++++++++++++++++++-
- 1 file changed, 21 insertions(+), 1 deletion(-)
+ sound/soc/sof/loader.c | 5 +++++
+ 1 file changed, 5 insertions(+)
 
-diff --git a/sound/soc/codecs/cs42l51.c b/sound/soc/codecs/cs42l51.c
-index 764f2ef8f59df..2b617993b0adb 100644
---- a/sound/soc/codecs/cs42l51.c
-+++ b/sound/soc/codecs/cs42l51.c
-@@ -245,8 +245,28 @@ static const struct snd_soc_dapm_widget cs42l51_dapm_widgets[] = {
- 		&cs42l51_adcr_mux_controls),
- };
- 
-+static int mclk_event(struct snd_soc_dapm_widget *w,
-+		      struct snd_kcontrol *kcontrol, int event)
-+{
-+	struct snd_soc_component *comp = snd_soc_dapm_to_component(w->dapm);
-+	struct cs42l51_private *cs42l51 = snd_soc_component_get_drvdata(comp);
-+
-+	switch (event) {
-+	case SND_SOC_DAPM_PRE_PMU:
-+		return clk_prepare_enable(cs42l51->mclk_handle);
-+	case SND_SOC_DAPM_POST_PMD:
-+		/* Delay mclk shutdown to fulfill power-down sequence requirements */
-+		msleep(20);
-+		clk_disable_unprepare(cs42l51->mclk_handle);
-+		break;
-+	}
-+
-+	return 0;
-+}
-+
- static const struct snd_soc_dapm_widget cs42l51_dapm_mclk_widgets[] = {
--	SND_SOC_DAPM_CLOCK_SUPPLY("MCLK")
-+	SND_SOC_DAPM_SUPPLY("MCLK", SND_SOC_NOPM, 0, 0, mclk_event,
-+			    SND_SOC_DAPM_PRE_PMU | SND_SOC_DAPM_POST_PMD),
- };
- 
- static const struct snd_soc_dapm_route cs42l51_routes[] = {
+diff --git a/sound/soc/sof/loader.c b/sound/soc/sof/loader.c
+index b94fa5f5d4808..c90c3f3a3b3ee 100644
+--- a/sound/soc/sof/loader.c
++++ b/sound/soc/sof/loader.c
+@@ -118,6 +118,11 @@ int snd_sof_fw_parse_ext_data(struct snd_sof_dev *sdev, u32 bar, u32 offset)
+ 		case SOF_IPC_EXT_CC_INFO:
+ 			ret = get_cc_info(sdev, ext_hdr);
+ 			break;
++		case SOF_IPC_EXT_UNUSED:
++		case SOF_IPC_EXT_PROBE_INFO:
++		case SOF_IPC_EXT_USER_ABI_INFO:
++			/* They are supported but we don't do anything here */
++			break;
+ 		default:
+ 			dev_warn(sdev->dev, "warning: unknown ext header type %d size 0x%x\n",
+ 				 ext_hdr->type, ext_hdr->hdr.size);
 -- 
 2.27.0
 

@@ -2,88 +2,63 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 338312AD387
-	for <lists+alsa-devel@lfdr.de>; Tue, 10 Nov 2020 11:22:06 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6215C2AD336
+	for <lists+alsa-devel@lfdr.de>; Tue, 10 Nov 2020 11:11:26 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B03FA1734;
-	Tue, 10 Nov 2020 11:21:15 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B03FA1734
+	by alsa0.perex.cz (Postfix) with ESMTPS id 45BB116F0;
+	Tue, 10 Nov 2020 11:10:35 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 45BB116F0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1605003725;
-	bh=8Qz8LIUkTxY5/gc9OeAz1JzdfBTeCe2Bc+FW79CrHvs=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1605003085;
+	bh=ZRA5ar5oRc9KhH4sv/bc040jD4W2h07i50b8bs/x4TE=;
+	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=nFfkzEXv+38tmCpoJVJe6fpLPbbbUETVupYKvMF2VuRyOK+EaJJyslOVC977kDPG4
-	 NqrNVS6/z439vb9nqG8LfgBNpTl0aEjyBS9qoC9IvGvS4l60SbVitGEFAIwB9hTvPi
-	 k3pRE+06a4qZwN4Fzs/1nr42YLcaP1kIT8iiYTyc=
+	b=n/DHqizCk57cl7MU6GbbcN51apVVvdn9WL8GqQu2kZQ4rXeaO2rRHAPY4ve+v2D6v
+	 8iL3tRHGQ9XIYwnRu8cQI4M74bfkQVfCmtM0+lh84r8E0DFCgKoyjmzwjsWcERlO2y
+	 G+2klEhTR+FTRI7P63F5NgWtwvaKL6WXeuHnWAPY=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id D460CF80527;
-	Tue, 10 Nov 2020 11:15:14 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id B5111F80059;
+	Tue, 10 Nov 2020 11:09:52 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id DF6FBF80161; Tue, 10 Nov 2020 08:23:26 +0100 (CET)
+ id C5789F801D5; Tue, 10 Nov 2020 11:09:50 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: ****
-X-Spam-Status: No, score=4.8 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID, DKIM_VALID_AU, RCVD_IN_SORBS_HTTP, RCVD_IN_SORBS_SOCKS,
- SPF_HELO_NONE, SPF_PASS autolearn=disabled version=3.4.0
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id E1DE8F800EB
- for <alsa-devel@alsa-project.org>; Tue, 10 Nov 2020 08:23:23 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E1DE8F800EB
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="lxwipDA7"
-Received: from ogabbay-VM.habana-labs.com (unknown [213.57.90.10])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 6C0E7206B6;
- Tue, 10 Nov 2020 07:23:15 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1604993000;
- bh=8Qz8LIUkTxY5/gc9OeAz1JzdfBTeCe2Bc+FW79CrHvs=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=lxwipDA750+LxYCIEu3zmzw/pUVmCg7SnCXTV+tkp+uRd9HfS7hzKE6EWuqiSM04n
- JSYs2z775lphf/o41x7822LhK8kSvzL+ukiWXd7qO3bbsyTc3toL9GerxI+wnwO5Bn
- C0q4F0UuQnc+RBfkG6lgigyNFmnbFtw8EbA34xTQ=
-Date: Tue, 10 Nov 2020 09:23:10 +0200
-From: Oded Gabbay <ogabbay@kernel.org>
-To: Mark Brown <broonie@kernel.org>
-Subject: Re: [PATCH v3 01/10] Add auxiliary bus support
-Message-ID: <20201110072309.GA6508@ogabbay-VM.habana-labs.com>
-References: <20201023003338.1285642-1-david.m.ertman@intel.com>
- <20201023003338.1285642-2-david.m.ertman@intel.com>
- <CAPcyv4i9s=CsO5VJOhPnS77K=bD0LTQ8TUAbhLd+0OmyU8YQ3g@mail.gmail.com>
- <DM6PR11MB284191BAA817540E52E4E2C4DDEE0@DM6PR11MB2841.namprd11.prod.outlook.com>
- <BY5PR12MB43228923300FDE8B087DC4E9DCEE0@BY5PR12MB4322.namprd12.prod.outlook.com>
- <CAPcyv4h1LH+ojRGqvh_R6mfuBbsibGa8DNMG5M1sN5G1BgwiHw@mail.gmail.com>
- <BY5PR12MB43222D59CCCFCF368C357098DCEE0@BY5PR12MB4322.namprd12.prod.outlook.com>
- <20201106193537.GH49612@sirena.org.uk>
+X-Spam-Level: 
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from maillog.nuvoton.com (maillog.nuvoton.com [202.39.227.15])
+ by alsa1.perex.cz (Postfix) with ESMTP id 7C2E1F80059
+ for <alsa-devel@alsa-project.org>; Tue, 10 Nov 2020 11:09:43 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7C2E1F80059
+Received: from NTHCCAS04.nuvoton.com (nthccas04.nuvoton.com [10.1.8.29])
+ by maillog.nuvoton.com (Postfix) with ESMTP id 08E961C80F3D;
+ Tue, 10 Nov 2020 18:09:39 +0800 (CST)
+Received: from NTHCCAS01.nuvoton.com (10.1.8.28) by NTHCCAS04.nuvoton.com
+ (10.1.8.29) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.1847.3; Tue, 10
+ Nov 2020 18:09:38 +0800
+Received: from localhost.localdomain (10.11.36.27) by NTHCCAS01.nuvoton.com
+ (10.1.12.25) with Microsoft SMTP Server id 15.1.1847.3 via Frontend
+ Transport; Tue, 10 Nov 2020 18:09:38 +0800
+From: David Lin <CTLIN0@nuvoton.com>
+To: <broonie@kernel.org>
+Subject: [PATCH 2/2] ASoC: nau8315: revise the power event of EN_PIN dapm
+ widget for symmetry
+Date: Tue, 10 Nov 2020 17:58:25 +0800
+Message-ID: <20201110095823.3512447-1-CTLIN0@nuvoton.com>
+X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20201102023212.594137-1-CTLIN0@nuvoton.com>
+References: <20201102023212.594137-1-CTLIN0@nuvoton.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20201106193537.GH49612@sirena.org.uk>
-User-Agent: Mutt/1.9.4 (2018-02-28)
-X-Mailman-Approved-At: Tue, 10 Nov 2020 11:14:56 +0100
-Cc: "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
- Parav Pandit <parav@mellanox.com>, Greg KH <gregkh@linuxfoundation.org>,
- Takashi Iwai <tiwai@suse.de>, Netdev <netdev@vger.kernel.org>,
- Leon Romanovsky <leonro@nvidia.com>,
- Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- Fred Oh <fred.oh@linux.intel.com>, linux-rdma <linux-rdma@vger.kernel.org>,
- Doug Ledford <dledford@redhat.com>, Parav Pandit <parav@nvidia.com>,
- Jason Gunthorpe <jgg@nvidia.com>, Jakub Kicinski <kuba@kernel.org>, "Ertman,
- David M" <david.m.ertman@intel.com>, Dan Williams <dan.j.williams@intel.com>,
- "Saleem, Shiraz" <shiraz.saleem@intel.com>, David Miller <davem@davemloft.net>,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>, "Patil,
- Kiran" <kiran.patil@intel.com>
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-NotRedirectTo-PP: TRUE
+Cc: alsa-devel@alsa-project.org, WTLI@nuvoton.com, KCHSU0@nuvoton.com,
+ lgirdwood@gmail.com, YHCHuang@nuvoton.com, David Lin <CTLIN0@nuvoton.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -99,33 +74,35 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Fri, Nov 06, 2020 at 07:35:37PM +0000, Mark Brown wrote:
-> On Thu, Nov 05, 2020 at 08:37:14PM +0000, Parav Pandit wrote:
-> 
-> > > > This example describes the mlx5 PCI subfunction use case.
-> > > > I didn't follow your question about 'explicit example'.
-> > > > What part is missing to identify it as explicit example?
-> 
-> > > Specifically listing "mlx5" so if someone reading this document thinks to
-> > > themselves "hey mlx5 sounds like my use case" they can go grep for that.
-> 
-> > Ah, I see.
-> > "mlx5" is not listed explicitly, because it is not included in this patchset.
-> > In various previous discussions in this thread, mlx5 subfunction use case is described that justifies the existence of the bus.
-> > I will be happy to update this documentation once mlx5 subfunction will be part of kernel so that grep actually shows valid output.
-> > (waiting to post them as it uses auxiliary bus :-)).
-> 
-> For ease of review if there's a new version it might be as well to just
-> reference it anyway, hopefully the mlx5 code will be merged fairly
-> quickly once the bus itself is merged.  It's probably easier all round
-> than adding the reference later, it seems more likely that mlx5 will get
-> merged than that it'll fall by the wayside.
+This patch is to revise the power event of EN_PIN dapm widget for symmetry.
 
-Another use-case for this patch-set is going to be the habanalabs driver.
-The GAUDI ASIC is a PCI H/W accelerator for deep-learning which also exposes 
-network ports.We are going to use this auxiliary-bus feature to separate our 
-monolithic driver into several parts that will reside in different subsystems 
-and communicate between them through the bus.
+Signed-off-by: David Lin <CTLIN0@nuvoton.com>
+---
+ sound/soc/codecs/nau8315.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-Thanks,
-Oded
+diff --git a/sound/soc/codecs/nau8315.c b/sound/soc/codecs/nau8315.c
+index e6bc5c0a5036..2b66e3f7a8b7 100644
+--- a/sound/soc/codecs/nau8315.c
++++ b/sound/soc/codecs/nau8315.c
+@@ -65,7 +65,7 @@ static int nau8315_enpin_event(struct snd_soc_dapm_widget *w,
+ 	struct nau8315_priv *nau8315 =
+ 		snd_soc_component_get_drvdata(component);
+ 
+-	if (event & SND_SOC_DAPM_POST_PMU)
++	if (event & SND_SOC_DAPM_PRE_PMU)
+ 		nau8315->enpin_switch = 1;
+ 	else if (event & SND_SOC_DAPM_POST_PMD)
+ 		nau8315->enpin_switch = 0;
+@@ -77,7 +77,7 @@ static const struct snd_soc_dapm_widget nau8315_dapm_widgets[] = {
+ 	SND_SOC_DAPM_OUTPUT("Speaker"),
+ 	SND_SOC_DAPM_OUT_DRV_E("EN_Pin", SND_SOC_NOPM, 0, 0, NULL, 0,
+ 			nau8315_enpin_event,
+-			SND_SOC_DAPM_POST_PMU | SND_SOC_DAPM_POST_PMD),
++			SND_SOC_DAPM_PRE_PMU | SND_SOC_DAPM_POST_PMD),
+ };
+ 
+ static const struct snd_soc_dapm_route nau8315_dapm_routes[] = {
+-- 
+2.25.1
+

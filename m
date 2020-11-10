@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 543882ACC93
-	for <lists+alsa-devel@lfdr.de>; Tue, 10 Nov 2020 04:56:07 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 29DFC2ACCAD
+	for <lists+alsa-devel@lfdr.de>; Tue, 10 Nov 2020 04:56:48 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 6804B16D0;
-	Tue, 10 Nov 2020 04:55:16 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6804B16D0
+	by alsa0.perex.cz (Postfix) with ESMTPS id C2A3A16BE;
+	Tue, 10 Nov 2020 04:55:57 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C2A3A16BE
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1604980566;
-	bh=Rl2FmOKz3FhvTMwiGKfppdkVk2uGslV89dplTpWMBbw=;
+	s=default; t=1604980607;
+	bh=nAbUG2HwMOperHmk1+8FdGNfVbvxaEgbvll9qgba8Nk=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=rDLCUNj7kUmRV1lyZ/liAlGh9cwNintSGQ2LG72UsokiaU4PGKaXHt3f7iPwSv3at
-	 Y/eLYgZRmZUAwPNl0oqTh0Wx8I8DaaIj5MnRUr+uCKu+n288jWf8zQ5AQfbjlJZfun
-	 /ZgRoUw2yHuDPSqTtuzLpR2VMuP7/OCGvIbeMG7Q=
+	b=f9+/s47H96GuOjPsnFnGcqJrsATTtZiEcbeaDAvZDQeJ5ps8URMyfmyL9F8SdeoDU
+	 G+RHoCsnQ1XgCRrLWAYrSPHw9ijwXCX6lTty5BgA+xCh1GvJaY1IWR5EZEtm6xzRss
+	 jPzdGDPid5Dfqe5wQU89HvHJ75ByY05capcHZT5s=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 2D846F804CB;
-	Tue, 10 Nov 2020 04:53:39 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id ACD9EF804E5;
+	Tue, 10 Nov 2020 04:53:47 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 915C9F802C4; Tue, 10 Nov 2020 04:53:35 +0100 (CET)
+ id 5F64CF804DF; Tue, 10 Nov 2020 04:53:43 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -34,32 +34,32 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 1A315F801EB;
- Tue, 10 Nov 2020 04:53:27 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1A315F801EB
+ by alsa1.perex.cz (Postfix) with ESMTPS id BF0AEF802C4
+ for <alsa-devel@alsa-project.org>; Tue, 10 Nov 2020 04:53:36 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BF0AEF802C4
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="QPEBMhWE"
+ header.b="2acFxvTv"
 Received: from sasha-vm.mshome.net (c-73-47-72-35.hsd1.nh.comcast.net
  [73.47.72.35])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id DBD2020870;
- Tue, 10 Nov 2020 03:53:23 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id 61A3220781;
+ Tue, 10 Nov 2020 03:53:34 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1604980405;
- bh=Rl2FmOKz3FhvTMwiGKfppdkVk2uGslV89dplTpWMBbw=;
+ s=default; t=1604980415;
+ bh=nAbUG2HwMOperHmk1+8FdGNfVbvxaEgbvll9qgba8Nk=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=QPEBMhWEoez8HYeHPrKsTajmEGoYiwtdAnWHA6C9I5q8bGwIVYJl3uW8DL4g7SeEF
- OJgCiNWhSNZcrSNDCWlDctvohqTWsqIy+2ehrbkJdDe1NjG6sshgUAxL+DrfomuTsb
- jLNuVxyUKvIjaf+bTmTDD1SYMzbXXPS5by3L4Kvs=
+ b=2acFxvTvEZpxUyi7o7StkamUlnW6P0gxjqtlSoTdH5v4XroJkOE+os9luCKbcdvt3
+ ln5DNND/MRvjeg2A+copCA6JXGXfd3CziM2c4jVuSj/Jb0JM9s5/I9C0ztefapEUd4
+ IJ+9Tz8QtbEW/x8dW/Daj4F0KenoQVLnJz3wCEw0=
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 5.9 04/55] ASoC: SOF: loader: handle all SOF_IPC_EXT
- types
-Date: Mon,  9 Nov 2020 22:52:27 -0500
-Message-Id: <20201110035318.423757-4-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 5.9 11/55] ALSA: hda: Separate runtime and system
+ suspend
+Date: Mon,  9 Nov 2020 22:52:34 -0500
+Message-Id: <20201110035318.423757-11-sashal@kernel.org>
 X-Mailer: git-send-email 2.27.0
 In-Reply-To: <20201110035318.423757-1-sashal@kernel.org>
 References: <20201110035318.423757-1-sashal@kernel.org>
@@ -67,13 +67,8 @@ MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
 Content-Transfer-Encoding: 8bit
-Cc: Sasha Levin <sashal@kernel.org>,
- Guennadi Liakhovetski <guennadi.liakhovetski@linux.intel.com>,
- alsa-devel@alsa-project.org, Kai Vehmanen <kai.vehmanen@linux.intel.com>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
- Mark Brown <broonie@kernel.org>, Bard Liao <yung-chuan.liao@linux.intel.com>,
- sound-open-firmware@alsa-project.org
+Cc: Takashi Iwai <tiwai@suse.de>, Sasha Levin <sashal@kernel.org>,
+ alsa-devel@alsa-project.org, Kai-Heng Feng <kai.heng.feng@canonical.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -89,44 +84,192 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: Bard Liao <yung-chuan.liao@linux.intel.com>
+From: Kai-Heng Feng <kai.heng.feng@canonical.com>
 
-[ Upstream commit 6e5329c6e6032cd997400b43b8299f607a61883e ]
+[ Upstream commit f5dac54d9d93826a776dffc848df76746f7135bb ]
 
-Do not emit a warning for extended firmware header fields that are
-not used by kernel. This creates unnecessary noise to kernel logs like:
+Both pm_runtime_force_suspend() and pm_runtime_force_resume() have
+some implicit checks, so it can make code flow more straightforward if
+we separate runtime and system suspend callbacks.
 
-sof-audio-pci 0000:00:1f.3: warning: unknown ext header type 3 size 0x1c
-sof-audio-pci 0000:00:1f.3: warning: unknown ext header type 4 size 0x10
+High Definition Audio Specification, 4.5.9.3 Codec Wake From System S3
+states that codec can wake the system up from S3 if WAKEEN is toggled.
+Since HDA controller has different wakeup settings for runtime and
+system susend, we also need to explicitly disable direct-complete which
+can be enabled automatically by PCI core. In addition to that, avoid
+waking up codec if runtime resume is for system suspend, to not break
+direct-complete for codecs.
 
-Signed-off-by: Bard Liao <yung-chuan.liao@linux.intel.com>
-Reviewed-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Reviewed-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
-Reviewed-by: Guennadi Liakhovetski <guennadi.liakhovetski@linux.intel.com>
-Signed-off-by: Kai Vehmanen <kai.vehmanen@linux.intel.com>
-Link: https://lore.kernel.org/r/20201021182419.1160391-1-kai.vehmanen@linux.intel.com
-Signed-off-by: Mark Brown <broonie@kernel.org>
+While at it, also remove AZX_DCAPS_SUSPEND_SPURIOUS_WAKEUP, as the
+original bug commit a6630529aecb ("ALSA: hda: Workaround for spurious
+wakeups on some Intel platforms") solves doesn't happen with this
+patch.
+
+Signed-off-by: Kai-Heng Feng <kai.heng.feng@canonical.com>
+Link: https://lore.kernel.org/r/20201027130038.16463-3-kai.heng.feng@canonical.com
+Signed-off-by: Takashi Iwai <tiwai@suse.de>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- sound/soc/sof/loader.c | 5 +++++
- 1 file changed, 5 insertions(+)
+ sound/pci/hda/hda_controller.h |  3 +-
+ sound/pci/hda/hda_intel.c      | 62 +++++++++++++++++++---------------
+ 2 files changed, 36 insertions(+), 29 deletions(-)
 
-diff --git a/sound/soc/sof/loader.c b/sound/soc/sof/loader.c
-index b94fa5f5d4808..c90c3f3a3b3ee 100644
---- a/sound/soc/sof/loader.c
-+++ b/sound/soc/sof/loader.c
-@@ -118,6 +118,11 @@ int snd_sof_fw_parse_ext_data(struct snd_sof_dev *sdev, u32 bar, u32 offset)
- 		case SOF_IPC_EXT_CC_INFO:
- 			ret = get_cc_info(sdev, ext_hdr);
- 			break;
-+		case SOF_IPC_EXT_UNUSED:
-+		case SOF_IPC_EXT_PROBE_INFO:
-+		case SOF_IPC_EXT_USER_ABI_INFO:
-+			/* They are supported but we don't do anything here */
-+			break;
- 		default:
- 			dev_warn(sdev->dev, "warning: unknown ext header type %d size 0x%x\n",
- 				 ext_hdr->type, ext_hdr->hdr.size);
+diff --git a/sound/pci/hda/hda_controller.h b/sound/pci/hda/hda_controller.h
+index be63ead8161f8..68f9668788ea2 100644
+--- a/sound/pci/hda/hda_controller.h
++++ b/sound/pci/hda/hda_controller.h
+@@ -41,7 +41,7 @@
+ /* 24 unused */
+ #define AZX_DCAPS_COUNT_LPIB_DELAY  (1 << 25)	/* Take LPIB as delay */
+ #define AZX_DCAPS_PM_RUNTIME	(1 << 26)	/* runtime PM support */
+-#define AZX_DCAPS_SUSPEND_SPURIOUS_WAKEUP (1 << 27) /* Workaround for spurious wakeups after suspend */
++/* 27 unused */
+ #define AZX_DCAPS_CORBRP_SELF_CLEAR (1 << 28)	/* CORBRP clears itself after reset */
+ #define AZX_DCAPS_NO_MSI64      (1 << 29)	/* Stick to 32-bit MSIs */
+ #define AZX_DCAPS_SEPARATE_STREAM_TAG	(1 << 30) /* capture and playback use separate stream tag */
+@@ -143,6 +143,7 @@ struct azx {
+ 	unsigned int align_buffer_size:1;
+ 	unsigned int region_requested:1;
+ 	unsigned int disabled:1; /* disabled by vga_switcheroo */
++	unsigned int pm_prepared:1;
+ 
+ 	/* GTS present */
+ 	unsigned int gts_present:1;
+diff --git a/sound/pci/hda/hda_intel.c b/sound/pci/hda/hda_intel.c
+index 476a8b871daa1..268e9ead9795f 100644
+--- a/sound/pci/hda/hda_intel.c
++++ b/sound/pci/hda/hda_intel.c
+@@ -297,8 +297,7 @@ enum {
+ /* PCH for HSW/BDW; with runtime PM */
+ /* no i915 binding for this as HSW/BDW has another controller for HDMI */
+ #define AZX_DCAPS_INTEL_PCH \
+-	(AZX_DCAPS_INTEL_PCH_BASE | AZX_DCAPS_PM_RUNTIME |\
+-	 AZX_DCAPS_SUSPEND_SPURIOUS_WAKEUP)
++	(AZX_DCAPS_INTEL_PCH_BASE | AZX_DCAPS_PM_RUNTIME)
+ 
+ /* HSW HDMI */
+ #define AZX_DCAPS_INTEL_HASWELL \
+@@ -984,7 +983,7 @@ static void __azx_runtime_suspend(struct azx *chip)
+ 	display_power(chip, false);
+ }
+ 
+-static void __azx_runtime_resume(struct azx *chip, bool from_rt)
++static void __azx_runtime_resume(struct azx *chip)
+ {
+ 	struct hda_intel *hda = container_of(chip, struct hda_intel, chip);
+ 	struct hdac_bus *bus = azx_bus(chip);
+@@ -1001,7 +1000,8 @@ static void __azx_runtime_resume(struct azx *chip, bool from_rt)
+ 	azx_init_pci(chip);
+ 	hda_intel_init_chip(chip, true);
+ 
+-	if (from_rt) {
++	/* Avoid codec resume if runtime resume is for system suspend */
++	if (!chip->pm_prepared) {
+ 		list_for_each_codec(codec, &chip->bus) {
+ 			if (codec->relaxed_resume)
+ 				continue;
+@@ -1017,6 +1017,29 @@ static void __azx_runtime_resume(struct azx *chip, bool from_rt)
+ }
+ 
+ #ifdef CONFIG_PM_SLEEP
++static int azx_prepare(struct device *dev)
++{
++	struct snd_card *card = dev_get_drvdata(dev);
++	struct azx *chip;
++
++	chip = card->private_data;
++	chip->pm_prepared = 1;
++
++	/* HDA controller always requires different WAKEEN for runtime suspend
++	 * and system suspend, so don't use direct-complete here.
++	 */
++	return 0;
++}
++
++static void azx_complete(struct device *dev)
++{
++	struct snd_card *card = dev_get_drvdata(dev);
++	struct azx *chip;
++
++	chip = card->private_data;
++	chip->pm_prepared = 0;
++}
++
+ static int azx_suspend(struct device *dev)
+ {
+ 	struct snd_card *card = dev_get_drvdata(dev);
+@@ -1028,15 +1051,7 @@ static int azx_suspend(struct device *dev)
+ 
+ 	chip = card->private_data;
+ 	bus = azx_bus(chip);
+-	snd_power_change_state(card, SNDRV_CTL_POWER_D3hot);
+-	/* An ugly workaround: direct call of __azx_runtime_suspend() and
+-	 * __azx_runtime_resume() for old Intel platforms that suffer from
+-	 * spurious wakeups after S3 suspend
+-	 */
+-	if (chip->driver_caps & AZX_DCAPS_SUSPEND_SPURIOUS_WAKEUP)
+-		__azx_runtime_suspend(chip);
+-	else
+-		pm_runtime_force_suspend(dev);
++	__azx_runtime_suspend(chip);
+ 	if (bus->irq >= 0) {
+ 		free_irq(bus->irq, chip);
+ 		bus->irq = -1;
+@@ -1065,11 +1080,7 @@ static int azx_resume(struct device *dev)
+ 	if (azx_acquire_irq(chip, 1) < 0)
+ 		return -EIO;
+ 
+-	if (chip->driver_caps & AZX_DCAPS_SUSPEND_SPURIOUS_WAKEUP)
+-		__azx_runtime_resume(chip, false);
+-	else
+-		pm_runtime_force_resume(dev);
+-	snd_power_change_state(card, SNDRV_CTL_POWER_D0);
++	__azx_runtime_resume(chip);
+ 
+ 	trace_azx_resume(chip);
+ 	return 0;
+@@ -1117,10 +1128,7 @@ static int azx_runtime_suspend(struct device *dev)
+ 	chip = card->private_data;
+ 
+ 	/* enable controller wake up event */
+-	if (snd_power_get_state(card) == SNDRV_CTL_POWER_D0) {
+-		azx_writew(chip, WAKEEN, azx_readw(chip, WAKEEN) |
+-			   STATESTS_INT_MASK);
+-	}
++	azx_writew(chip, WAKEEN, azx_readw(chip, WAKEEN) | STATESTS_INT_MASK);
+ 
+ 	__azx_runtime_suspend(chip);
+ 	trace_azx_runtime_suspend(chip);
+@@ -1131,18 +1139,14 @@ static int azx_runtime_resume(struct device *dev)
+ {
+ 	struct snd_card *card = dev_get_drvdata(dev);
+ 	struct azx *chip;
+-	bool from_rt = snd_power_get_state(card) == SNDRV_CTL_POWER_D0;
+ 
+ 	if (!azx_is_pm_ready(card))
+ 		return 0;
+ 	chip = card->private_data;
+-	__azx_runtime_resume(chip, from_rt);
++	__azx_runtime_resume(chip);
+ 
+ 	/* disable controller Wake Up event*/
+-	if (from_rt) {
+-		azx_writew(chip, WAKEEN, azx_readw(chip, WAKEEN) &
+-			   ~STATESTS_INT_MASK);
+-	}
++	azx_writew(chip, WAKEEN, azx_readw(chip, WAKEEN) & ~STATESTS_INT_MASK);
+ 
+ 	trace_azx_runtime_resume(chip);
+ 	return 0;
+@@ -1176,6 +1180,8 @@ static int azx_runtime_idle(struct device *dev)
+ static const struct dev_pm_ops azx_pm = {
+ 	SET_SYSTEM_SLEEP_PM_OPS(azx_suspend, azx_resume)
+ #ifdef CONFIG_PM_SLEEP
++	.prepare = azx_prepare,
++	.complete = azx_complete,
+ 	.freeze_noirq = azx_freeze_noirq,
+ 	.thaw_noirq = azx_thaw_noirq,
+ #endif
 -- 
 2.27.0
 

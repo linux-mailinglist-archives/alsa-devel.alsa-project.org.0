@@ -2,94 +2,109 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 26C712AEA5C
-	for <lists+alsa-devel@lfdr.de>; Wed, 11 Nov 2020 08:54:35 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 527BD2AEAB9
+	for <lists+alsa-devel@lfdr.de>; Wed, 11 Nov 2020 09:01:46 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 84FB8173D;
-	Wed, 11 Nov 2020 08:53:44 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 84FB8173D
+	by alsa0.perex.cz (Postfix) with ESMTPS id E80F216FA;
+	Wed, 11 Nov 2020 09:00:55 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E80F216FA
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1605081274;
-	bh=jPnLoEz2s8VTOPKKRkkzphXOogvsyA5ikUJTDZjKwz0=;
-	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
+	s=default; t=1605081706;
+	bh=TRtX8baRaCtbeDJjWA3IRYfdgtIW44Wdj4Sdz3HfZMA=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=jUhuWLeT4s6E8ahuP6TM2dFg5zPaGGt+P+MWIUgk70nYqtiMhc1UiIZ8/ic61HTBI
-	 4t/N6u8S2IGdHA9bgOv9f9zNGijw4ZxDMaqdiLgP+/j3IaKHcX80LuV0+XaI4Kw39h
-	 Td61X6HfppGMJDKADDkbHaV2oSmVA0lHrD2D6rjM=
+	b=sOLEgRSQK5aAxVdrOwDHpX1YY78gAz/P/1CG+rRHIfl7IaVNHz2/pSiCfRn4yw/9q
+	 9pqYRrqYddCDz+qVJ/neOEOuLUttNFhUvf6tgPNV20s/zCKZEbJeWu1BBApt7vTVHX
+	 gk2Dxvoh9ZyHiWg8fAd61vwmp/kqCZZuUz+2I2W0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 1FF78F800AE;
-	Wed, 11 Nov 2020 08:53:02 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 7705CF801F5;
+	Wed, 11 Nov 2020 09:00:13 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 94E72F8020C; Wed, 11 Nov 2020 08:52:59 +0100 (CET)
+ id 7E581F801D5; Tue, 10 Nov 2020 15:48:47 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,NICE_REPLY_A,PRX_BODY_78,SPF_HELO_PASS,SPF_PASS,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from host.euro-space.net (host.euro-space.net [87.117.239.2])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
+Received: from mail-lf1-x141.google.com (mail-lf1-x141.google.com
+ [IPv6:2a00:1450:4864:20::141])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 5070EF8007E
- for <alsa-devel@alsa-project.org>; Wed, 11 Nov 2020 08:52:51 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5070EF8007E
+ by alsa1.perex.cz (Postfix) with ESMTPS id 6C401F800AE
+ for <alsa-devel@alsa-project.org>; Tue, 10 Nov 2020 15:48:42 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6C401F800AE
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=birdec.com header.i=@birdec.com
- header.b="F75v5VKd"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=birdec.com; 
- s=default;
- h=Content-Transfer-Encoding:Content-Type:In-Reply-To:MIME-Version
- :Date:Message-ID:From:References:Cc:To:Subject:Sender:Reply-To:Content-ID:
- Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
- :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
- List-Post:List-Owner:List-Archive;
- bh=v0gNracZYa662N+Zm2+Lcy15dekgWNZ8vDABSWf7En8=; b=F75v5VKdxB1P6el0SrELxapUNM
- wADUAs314mslrEdM9E3wndHdQxpsS+jGfTKiTAmQMrQ1vw/UWhNTHDpCPhGv8suHjxIiB9JO4VfQj
- o8j4cf5btItNpK6qBFvrzvApZD6Uae9LPm4LjviG/+iZCtqRqxl0pcNg+YCRiPDydgsoNbG2qkYKW
- ofP2MosTT7AGZp2Y7fdI/Ubb/vNn818ChATUAqSjSfbkVCujoZekfPTH0Irrx5CXV8dQsTpSBPLre
- 6Bce3ifOYunGAKlQhK2zyjhFdv6BgrnTqmMOdtT/bN7hogGU1ZJZptGWjVKfsKgtwcI74EY6CK9Uf
- 0hAOQjdQ==;
-Received: from dynamic-078-055-099-142.78.55.pool.telefonica.de
- ([78.55.99.142]:56092 helo=[192.168.1.2])
- by host.euro-space.net with esmtpsa (TLS1.2) tls
- TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256 (Exim 4.93)
- (envelope-from <kmarinushkin@birdec.com>)
- id 1kckvx-0005J2-8E; Wed, 11 Nov 2020 07:52:49 +0000
-Subject: Re: [PATCH] ASoC: pcm512x: Add support for data formats RJ and LJ
-To: Peter Ujfalusi <peter.ujfalusi@ti.com>
-References: <20201109212133.25869-1-kmarinushkin@birdec.com>
- <690508c7-7029-6781-a1a2-0609e37cb9e6@ti.com>
-From: Kirill Marinushkin <kmarinushkin@birdec.com>
-Message-ID: <a3df4fb0-35cd-4757-2037-d4ff80e9f74c@birdec.com>
-Date: Wed, 11 Nov 2020 08:54:55 +0100
-User-Agent: Mozilla/5.0 (X11; Linux i686; rv:52.0) Gecko/20100101
- Thunderbird/52.4.0
+ dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org
+ header.b="An/Ddk0H"
+Received: by mail-lf1-x141.google.com with SMTP id z21so16593167lfe.12
+ for <alsa-devel@alsa-project.org>; Tue, 10 Nov 2020 06:48:42 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=TRtX8baRaCtbeDJjWA3IRYfdgtIW44Wdj4Sdz3HfZMA=;
+ b=An/Ddk0HLR+91xPRpInCFnfZ9o+5szjLSy+NtnyMq7UJRY1S3pi1mcTpeSPq8yWGO7
+ +hYo5dzW6PHxmv0YE0x63sDphTthBePQ7rc/OdTTaSn1XaXPVNTS2Qj572/59VtqdnSE
+ ADq1kQeLGgCPetyHlz4LQ8E+f4lA+tewwA3JqwJikM3iaVmfqn+lcqYRQW/wE7ooEhJ+
+ bUglFTYdPjIL+R6utnbfqDb4IhOZ5rx4bucFlRBZmrj8DrD8Mjij9VzBx0YIKOoIC2Nb
+ AA/x0kRUOLLFfqW7r0bkOIMPkR+YoHRBgD+4KlQ2b15e9/I5sO+IMBiDslv4L69nF3h/
+ 5YMg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=TRtX8baRaCtbeDJjWA3IRYfdgtIW44Wdj4Sdz3HfZMA=;
+ b=LjOMM8TLkk6rTFOA/wFMDm0DgTrY3SK16Q5TMZZhkpfFSFR4VEt+fch6NBTf2ABmbG
+ H416vTelr+pETuTyUwq77Jnx1JupidrULo/8T3uIya2PmUm+t+lCN1iBMbAl9UKRIpG9
+ l1J4qXOtsfPpkglt+UgKX/jFcsjGjBVd8LK+Cxo0ggVe+kwGvcr93xHV9WJVvXKfrFiH
+ 5djl6Mw1joC5fwzPzP0YVC1dGEUfRv7pURXDZ8MOgra4mQQl8X2xIGHerZ3ptOtPXjrE
+ sNck3JUiwVQj6nVF2lpAT4AyjaOZhdbqYf6WmCstl240FBxuZXYc9FCvvVRQLtqjgYkm
+ QnAA==
+X-Gm-Message-State: AOAM531mJmtgpaZ2hc395QLAsMZsF3UFzKzVz8r4cc8pSt2Ov+U0gbD2
+ R3Aw1my9CA1McJTpH0+4O719itqze7mjCvAJF3wBtg==
+X-Google-Smtp-Source: ABdhPJw46ud/uUkcZJ6tSOXJvAqor8Mj5zSR0l7JClGYT9/b+K2wIXlkgMzo8k4v5SokXVFThmMVRoGjQRQOqS4C810=
+X-Received: by 2002:ac2:4ac7:: with SMTP id m7mr5517480lfp.572.1605019721579; 
+ Tue, 10 Nov 2020 06:48:41 -0800 (PST)
 MIME-Version: 1.0
-In-Reply-To: <690508c7-7029-6781-a1a2-0609e37cb9e6@ti.com>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 8bit
-X-AntiAbuse: This header was added to track abuse,
- please include it with any abuse report
-X-AntiAbuse: Primary Hostname - host.euro-space.net
-X-AntiAbuse: Original Domain - alsa-project.org
-X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
-X-AntiAbuse: Sender Address Domain - birdec.com
-X-Get-Message-Sender-Via: host.euro-space.net: authenticated_id:
- kmarinushkin@birdec.com
-X-Authenticated-Sender: host.euro-space.net: kmarinushkin@birdec.com
-X-Source: 
-X-Source-Args: 
-X-Source-Dir: 
-Cc: alsa-devel@alsa-project.org,
- Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
- linux-kernel@vger.kernel.org, Takashi Iwai <tiwai@suse.com>,
- Liam Girdwood <lgirdwood@gmail.com>, Matthias Reichl <hias@horus.com>,
- Mark Brown <broonie@kernel.org>
+References: <20201109110654.12547-1-brgl@bgdev.pl>
+ <20201109110654.12547-6-brgl@bgdev.pl>
+In-Reply-To: <20201109110654.12547-6-brgl@bgdev.pl>
+From: Linus Walleij <linus.walleij@linaro.org>
+Date: Tue, 10 Nov 2020 15:48:30 +0100
+Message-ID: <CACRpkdZ9tRHFS51pnQg_TgKGed3pD_hRE_rGP_9tiFNcGrb1bQ@mail.gmail.com>
+Subject: Re: [PATCH v3 5/9] pinctrl: use krealloc_array()
+To: Bartosz Golaszewski <brgl@bgdev.pl>
+Content-Type: text/plain; charset="UTF-8"
+X-Mailman-Approved-At: Wed, 11 Nov 2020 09:00:10 +0100
+Cc: "moderated list:SOUND - SOC LAYER / DYNAMIC AUDIO POWER MANAGEM..."
+ <alsa-devel@alsa-project.org>, kvm@vger.kernel.org,
+ "Michael S . Tsirkin" <mst@redhat.com>, David Airlie <airlied@linux.ie>,
+ Gustavo Padovan <gustavo@padovan.org>, Jason Wang <jasowang@redhat.com>,
+ "open list:DRM PANEL DRIVERS" <dri-devel@lists.freedesktop.org>,
+ Linux Memory Management List <linux-mm@kvack.org>,
+ Christoph Lameter <cl@linux.com>, Sumit Semwal <sumit.semwal@linaro.org>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Bartosz Golaszewski <bgolaszewski@baylibre.com>,
+ Alexander Shishkin <alexander.shishkin@linux.intel.com>,
+ David Rientjes <rientjes@google.com>,
+ virtualization@lists.linux-foundation.org,
+ Linux Media Mailing List <linux-media@vger.kernel.org>,
+ Robert Richter <rric@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, linaro-mm-sig@lists.linaro.org,
+ "open list:GPIO SUBSYSTEM" <linux-gpio@vger.kernel.org>,
+ Borislav Petkov <bp@alien8.de>,
+ Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+ Joonsoo Kim <iamjoonsoo.kim@lge.com>, linux-edac@vger.kernel.org,
+ Tony Luck <tony.luck@intel.com>, netdev <netdev@vger.kernel.org>,
+ Takashi Iwai <tiwai@suse.com>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ Pekka Enberg <penberg@kernel.org>, James Morse <james.morse@arm.com>,
+ Daniel Vetter <daniel@ffwll.ch>, Andrew Morton <akpm@linux-foundation.org>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -105,134 +120,17 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hello Peter,
+On Mon, Nov 9, 2020 at 12:07 PM Bartosz Golaszewski <brgl@bgdev.pl> wrote:
 
-than you for your review!
-
-> The bus format and
+> From: Bartosz Golaszewski <bgolaszewski@baylibre.com>
 >
->>  	switch (pcm512x->fmt & SND_SOC_DAIFMT_MASTER_MASK) {
+> Use the helper that checks for overflows internally instead of manually
+> calculating the size of the new array.
 >
->>  	case SND_SOC_DAIFMT_CBS_CFS:
->>  		ret = regmap_update_bits(pcm512x->regmap,
->
-> the clock generation role should be set in pcm512x_set_fmt(), in that
-> way you can deny specific setups earlier.
+> Signed-off-by: Bartosz Golaszewski <bgolaszewski@baylibre.com>
+> Reviewed-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
 
-I think we could move both checks for`SND_SOC_DAIFMT_FORMAT_MASK` and
-`SND_SOC_DAIFMT_MASTER_MASK` into `pcm512x_set_fmt()`. But it would be a
-different scope, and I didn't intend to do that level of refactoring.
-Looking at other codecs in kernel, I would say, that doing those checks in
-`pcm512x_hw_params()`, as they are done currently, is an equally valid approach.
+Reviewed-by: Linus Walleij <linus.walleij@linaro.org>
 
-As technically keeping checs where they are now doesn't break anything, and is
-aligned with ASoC codecs design, I suggest to keep the checks where they are.
-Would you agree?
-
-> I would also add DSP_A and DSP_B modes at the same time, DSP_A would
-> need a write of 1 to register 41 (PCM512x_I2S_2, offset = 1), other
-> formats should set the offset to 0.
-
-That's a good idea, than you for technical details! I just didn't know how to
-use DSP_A and DSP_B. I will add them, and submit as patch v2
-
-Best regards,
-Kirill
-
-On 11/10/2020 07:59 AM, Peter Ujfalusi wrote:
-> 
-> 
-> On 09/11/2020 23.21, Kirill Marinushkin wrote:
->> Currently, pcm512x driver supports only I2S data format.
->> This commit adds RJ and LJ as well.
->>
->> I don't expect regression WRT existing sound cards, because:
->>
->> * default value in corresponding register of pcm512x codec is 0 ==  I2S
->> * existing in-tree sound cards with pcm512x codec are configured for I2S
->> * i don't see how existing off-tree sound cards with pcm512x codec could be
->>   configured differently - it would not work
->> * tested explicitly, that there is no regression with Raspberry Pi +
->>   sound card `sound/soc/bcm/hifiberry_dacplus.c`
->>
->> Signed-off-by: Kirill Marinushkin <kmarinushkin@birdec.com>
->> Cc: Mark Brown <broonie@kernel.org>
->> Cc: Takashi Iwai <tiwai@suse.com>
->> Cc: Liam Girdwood <lgirdwood@gmail.com>
->> Cc: Matthias Reichl <hias@horus.com>
->> Cc: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
->> Cc: Peter Ujfalusi <peter.ujfalusi@ti.com>
->> Cc: alsa-devel@alsa-project.org
->> Cc: linux-kernel@vger.kernel.org
->> ---
->>  sound/soc/codecs/pcm512x.c | 24 ++++++++++++++++++++++++
->>  1 file changed, 24 insertions(+)
->>
->> diff --git a/sound/soc/codecs/pcm512x.c b/sound/soc/codecs/pcm512x.c
->> index 8153d3d01654..c6e975fb4a43 100644
->> --- a/sound/soc/codecs/pcm512x.c
->> +++ b/sound/soc/codecs/pcm512x.c
->> @@ -1167,6 +1167,7 @@ static int pcm512x_hw_params(struct snd_pcm_substream *substream,
->>  	struct snd_soc_component *component = dai->component;
->>  	struct pcm512x_priv *pcm512x = snd_soc_component_get_drvdata(component);
->>  	int alen;
->> +	int afmt;
->>  	int gpio;
->>  	int clock_output;
->>  	int master_mode;
->> @@ -1195,6 +1196,22 @@ static int pcm512x_hw_params(struct snd_pcm_substream *substream,
->>  		return -EINVAL;
->>  	}
->>  
->> +	switch (pcm512x->fmt & SND_SOC_DAIFMT_FORMAT_MASK) {
->> +	case SND_SOC_DAIFMT_I2S:
->> +		afmt = PCM512x_AFMT_I2S;
->> +		break;
->> +	case SND_SOC_DAIFMT_RIGHT_J:
->> +		afmt = PCM512x_AFMT_RTJ;
->> +		break;
->> +	case SND_SOC_DAIFMT_LEFT_J:
->> +		afmt = PCM512x_AFMT_LTJ;
->> +		break;
->> +	default:
->> +		dev_err(component->dev, "unsupported DAI format: 0x%x\n",
->> +			pcm512x->fmt);
->> +		return -EINVAL;
->> +	}
->> +
-> 
-> The bus format and
-> 
->>  	switch (pcm512x->fmt & SND_SOC_DAIFMT_MASTER_MASK) {
-> 
->>  	case SND_SOC_DAIFMT_CBS_CFS:
->>  		ret = regmap_update_bits(pcm512x->regmap,
-> 
-> the clock generation role should be set in pcm512x_set_fmt(), in that
-> way you can deny specific setups earlier.
-> 
-> I would also add DSP_A and DSP_B modes at the same time, DSP_A would
-> need a write of 1 to register 41 (PCM512x_I2S_2, offset = 1), other
-> formats should set the offset to 0.
-> 
->> @@ -1236,6 +1253,13 @@ static int pcm512x_hw_params(struct snd_pcm_substream *substream,
->>  		return ret;
->>  	}
->>  
->> +	ret = regmap_update_bits(pcm512x->regmap, PCM512x_I2S_1,
->> +				 PCM512x_AFMT, afmt);
->> +	if (ret != 0) {
->> +		dev_err(component->dev, "Failed to set data format: %d\n", ret);
->> +		return ret;
->> +	}
->> +
->>  	if (pcm512x->pll_out) {
->>  		ret = regmap_write(pcm512x->regmap, PCM512x_FLEX_A, 0x11);
->>  		if (ret != 0) {
->>
-> 
-> - Péter
-> 
-> Texas Instruments Finland Oy, Porkkalankatu 22, 00180 Helsinki.
-> Y-tunnus/Business ID: 0615521-4. Kotipaikka/Domicile: Helsinki
-> 
+Yours,
+Linus Walleij

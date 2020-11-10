@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 21ACC2AE1E9
-	for <lists+alsa-devel@lfdr.de>; Tue, 10 Nov 2020 22:40:02 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id E638D2AE1EA
+	for <lists+alsa-devel@lfdr.de>; Tue, 10 Nov 2020 22:40:16 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 740361720;
-	Tue, 10 Nov 2020 22:39:11 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 740361720
+	by alsa0.perex.cz (Postfix) with ESMTPS id 7460A1729;
+	Tue, 10 Nov 2020 22:39:26 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7460A1729
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1605044401;
-	bh=Dnn9xhJQuhx3Vu8Th8XlsV0/yj6/XXQ3FI+0tcVaL24=;
+	s=default; t=1605044416;
+	bh=2QfsYMTIGqExf5FNUHJ1un67gfZSsrKQPoWVhdIAHqk=;
 	h=Date:From:To:In-Reply-To:References:Subject:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=rndPEIxIupd+5oPtM99sfRdcgyhzf4M+SBj3KNcDaLzH9bsp0eKXOB7L9RuWU6oXQ
-	 OKLDMfr2rj32niG2UqDvv7Unkwfg+l8u6umyML62HT8xGnVoTluatS5oJOmBaVPgaj
-	 9jAYnUsdTU09qi4PqAkJIbZTVf9rAJ+KVJovyfyg=
+	b=C6YCrjFT2uuykCb94PCkg+VGi0uszuVVeyyJDewuEGNX8zXu2/mh+cJe9vCmAZN/W
+	 5tXK9OZcUSVU/psTFuh6Q0JHF/g4uJRdRTNZLepBYMmuSot+YIwY3gJiFIKyK2aQ00
+	 hPQe9/yp1U0l7JVlUui80tCpj5MKNkBSkXWablMs=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 2CCFFF800AE;
-	Tue, 10 Nov 2020 22:38:29 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 87F0EF802C4;
+	Tue, 10 Nov 2020 22:38:31 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 67C60F801D5; Tue, 10 Nov 2020 22:38:26 +0100 (CET)
+ id 36A0AF801D5; Tue, 10 Nov 2020 22:38:28 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -34,40 +34,39 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id BE6BCF800AE
- for <alsa-devel@alsa-project.org>; Tue, 10 Nov 2020 22:38:20 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BE6BCF800AE
+ by alsa1.perex.cz (Postfix) with ESMTPS id BE041F800AE
+ for <alsa-devel@alsa-project.org>; Tue, 10 Nov 2020 22:38:25 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BE041F800AE
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="nd7qsKYf"
+ header.b="ahh06S4Z"
 Received: from localhost (fw-tnat.cambridge.arm.com [217.140.96.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id BACBE20781;
- Tue, 10 Nov 2020 21:38:17 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id 2678B20797;
+ Tue, 10 Nov 2020 21:38:22 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1605044298;
- bh=Dnn9xhJQuhx3Vu8Th8XlsV0/yj6/XXQ3FI+0tcVaL24=;
+ s=default; t=1605044303;
+ bh=2QfsYMTIGqExf5FNUHJ1un67gfZSsrKQPoWVhdIAHqk=;
  h=Date:From:To:Cc:In-Reply-To:References:Subject:From;
- b=nd7qsKYf8nStOia/h2+74tunlWUmQC4lvIYBfAa65hF2aNPnKwik5AG8THdg9mq/D
- auTCgg1v5m6f/rcptmgwKZiQtN3r7vDZJYfeifVSCdOwKDz9ndjcRL9uU98baG65mA
- PKnt49STGhSd4nT3CXRcSh49Apuaan29LR4lozRE=
-Date: Tue, 10 Nov 2020 21:38:04 +0000
+ b=ahh06S4Z3wkwZo6EIiwVGN+Ce0SFmInaxqHOerbq2kKutFpkbJ+9Oul/50G+wurdI
+ R2giXYHGmmyiXsenxUu4Dxl7T2AoNwhyww7zufS0QCm/IWWYs2Sog4rjIt8RIorvGr
+ nBzR+4yxjyd/SGtvJZjMWiefyVrPDODpEcFl84F4=
+Date: Tue, 10 Nov 2020 21:38:09 +0000
 From: Mark Brown <broonie@kernel.org>
-To: Dinghao Liu <dinghao.liu@zju.edu.cn>,
- Dan Carpenter <dan.carpenter@oracle.com>,
- Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
- Patrick Lai <plai@codeaurora.org>
-In-Reply-To: <20201105125154.GA176426@mwanda>
-References: <20201105125154.GA176426@mwanda>
-Subject: Re: [PATCH] ASoC: qcom: common: Fix refcounting in qcom_snd_parse_of()
-Message-Id: <160504428419.41991.2200034841116895694.b4-ty@kernel.org>
+To: tiwai@suse.com, pierre-louis.bossart@linux.intel.com, lgirdwood@gmail.com,
+ kuninori.morimoto.gx@renesas.com, perex@perex.cz,
+ Sameer Pujar <spujar@nvidia.com>
+In-Reply-To: <1604329814-24779-1-git-send-email-spujar@nvidia.com>
+References: <1604329814-24779-1-git-send-email-spujar@nvidia.com>
+Subject: Re: [PATCH v5 0/7] Audio Graph Updates
+Message-Id: <160504428418.41991.4621142388350710965.b4-ty@kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Cc: alsa-devel@alsa-project.org, Banajit Goswami <bgoswami@codeaurora.org>,
- kernel-janitors@vger.kernel.org, Liam Girdwood <lgirdwood@gmail.com>,
- Takashi Iwai <tiwai@suse.com>
+Cc: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
+ jonathanh@nvidia.com, sharadg@nvidia.com, thierry.reding@gmail.com,
+ linux-tegra@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -83,14 +82,15 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Thu, 5 Nov 2020 15:51:54 +0300, Dan Carpenter wrote:
-> There are two issues in this function.
+On Mon, 2 Nov 2020 20:40:07 +0530, Sameer Pujar wrote:
+> This series is a prepraration for using generic graph driver for Tegra210
+> audio. Tegra audio graph series will be sent in a separate series because
+> it has some dependency over other series for documentation work. This
+> series can focus on the generic ASoC driver updates. Below are the summary
+> of changes done.
 > 
-> 1) We can't drop the refrences on "cpu", "codec" and "platform" before
->    we take the reference.  This doesn't cause a problem on the first
->    iteration because those pointers start as NULL so the of_node_put()
->    is a no-op.  But on the subsequent iterations, it will lead to a use
->    after free.
+>  * Support multiple instances of a component. For example there can be
+>    multiple I2S devices which can use the same component driver.
 > 
 > [...]
 
@@ -100,8 +100,20 @@ Applied to
 
 Thanks!
 
-[1/1] ASoC: qcom: common: Fix refcounting in qcom_snd_parse_of()
-      commit: 4e59dd249cd513a211e2ecce2cb31f4e29a5ce5b
+[1/7] ASoC: soc-core: Fix component name_prefix parsing
+      commit: 3256ef984b016fc8491f34cad594168b4b500317
+[2/7] ASoC: soc-pcm: Get all BEs along DAPM path
+      commit: aa293777bfeb75fb8872565ef99cc0e8b98b5c7d
+[3/7] ASoC: audio-graph: Use of_node and DAI for DPCM DAI link names
+      commit: e6aeb375d25dba56c4089b1d6aa0a77fe218ef3b
+[4/7] ASoC: audio-graph: Identify 'no_pcm' DAI links for DPCM
+      commit: c21cbb526c0a105d582299839a9c4244dd6bf38a
+[5/7] ASoC: audio-graph: Support empty Codec endpoint
+      commit: 930dd47d74023e7c94a7c256279e12924c14475d
+[6/7] ASoC: audio-graph: Expose new members for asoc_simple_priv
+      commit: d09c774f2f9ff25817866b70f1fb9603e5196971
+[7/7] ASoC: audio-graph: Expose helpers from audio graph
+      commit: e32b100bc6ecbc390aae728fc7d2a3e247faa8a7
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

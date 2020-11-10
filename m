@@ -2,103 +2,76 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id EC0412AD1D6
-	for <lists+alsa-devel@lfdr.de>; Tue, 10 Nov 2020 09:51:38 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 478F22AD1E7
+	for <lists+alsa-devel@lfdr.de>; Tue, 10 Nov 2020 09:56:26 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 8DA2916E0;
-	Tue, 10 Nov 2020 09:50:48 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8DA2916E0
+	by alsa0.perex.cz (Postfix) with ESMTPS id C82CC16E5;
+	Tue, 10 Nov 2020 09:55:35 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C82CC16E5
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1604998298;
-	bh=kJYTq1SuZB6OOxJIBHZxneFZrtU226pI8x/ShbnyM/A=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1604998585;
+	bh=busI8tzaIjOQfi9V2ZmeWHinzielzkKRRHvJYt8BzSk=;
+	h=Subject:From:To:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=LPtjY9km9L4//27l9mw3TZFi7eqe5OFvjr6OgnDiz0owPzwALFUe1JKrTG6Jvv7Gc
-	 0mkpL5poorRKKgGqNh8kgM1vbicNf4h7LAFNBtLZSE9NNQLXE2B9fmnGklhOf79iUY
-	 CLrX8yrMAFKzsw6o/mXrWeJyA5T1yZH/1yvScQKA=
+	b=odz5fPBl5PvV8ql/HcfztyySIG0CZ5zrFf5OSjvKL7hEG6NnerKC6BeNP/suidsb8
+	 MhEbR3d2TFdoqypH/7n/waLPWS9rSYXYRk7dXBtU6y7YjBvodAZ71NnRwCLurcerb0
+	 HJxgy44HBgtgPzrZBUk0bIpe1TrHuwlYQjKyzYaM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 0E154F80161;
-	Tue, 10 Nov 2020 09:50:06 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 3B32CF801EB;
+	Tue, 10 Nov 2020 09:54:53 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id B48DBF801D5; Tue, 10 Nov 2020 09:50:03 +0100 (CET)
+ id F3545F801D5; Tue, 10 Nov 2020 09:54:50 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,RCVD_IN_MSPIKE_H4,RCVD_IN_MSPIKE_WL,SPF_HELO_PASS,SPF_PASS,
+X-Spam-Status: No, score=0.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,RDNS_NONE,SPF_HELO_NONE,SPF_PASS,UNPARSEABLE_RELAY,
  URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from new4-smtp.messagingengine.com (new4-smtp.messagingengine.com
- [66.111.4.230])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 78DDFF800EB
- for <alsa-devel@alsa-project.org>; Tue, 10 Nov 2020 09:49:56 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 78DDFF800EB
+Received: from mailgw01.mediatek.com (unknown [210.61.82.183])
+ by alsa1.perex.cz (Postfix) with ESMTP id 44A59F800EB
+ for <alsa-devel@alsa-project.org>; Tue, 10 Nov 2020 09:54:43 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 44A59F800EB
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=kroah.com header.i=@kroah.com
- header.b="sTP4mDFQ"; 
- dkim=pass (2048-bit key) header.d=messagingengine.com
- header.i=@messagingengine.com header.b="iD9hVFzR"
-Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
- by mailnew.nyi.internal (Postfix) with ESMTP id 2E8685803CF;
- Tue, 10 Nov 2020 03:49:55 -0500 (EST)
-Received: from mailfrontend2 ([10.202.2.163])
- by compute4.internal (MEProxy); Tue, 10 Nov 2020 03:49:55 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kroah.com; h=
- date:from:to:cc:subject:message-id:references:mime-version
- :content-type:in-reply-to; s=fm2; bh=9s3HXA62aXEwuhDqThUDrB2tZR/
- QFmCSXDsh87Vt2VQ=; b=sTP4mDFQaTuABEN3HT4ghPaXmUs+3q36wIKNgmenbJC
- Thrv4yv9IBEmZSJ/GO1JXJ721q6Jq0Uhh63X151o/t7sulK4RmbrAs2jebzvHr96
- zwn0wuYRNIbkh8MLkJIpfLRs8P05bz7vGmNNp1fvqV7OjZvo8ecStqAPSCYWC6Kf
- 4rkw1/5Y36NTJyoDeaurHSl7P2Lw3npS9zeuvAJ3j7NaXTfSdcIaQ9F0+rwrn9k6
- UGDZlUJ6j/fEN5663LqKqKLGQPP8Q3JkRlIv9s/YmxnrYzsanyCnj0F0ZMGcXs/n
- 0y2wBAYvaAHD9AdUsHqVZ+7wWR88TScAiggD78Dvp6A==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to:x-me-proxy
- :x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; bh=9s3HXA
- 62aXEwuhDqThUDrB2tZR/QFmCSXDsh87Vt2VQ=; b=iD9hVFzRap+aS8KMlgoNbq
- 6YTx0nZBuZ3vn7lC+1uOzxq2tEweH8CUoBkGFiMNJsI4LmLeE/FmcEsPnkcYXNZj
- wCcjGT8TSWrVBQbbYwYblOAQiPDUzy3ZvL9LOu7GNXrWNhDyLhP5WQPF56ne6G8J
- S0qA/8mM2A0JPpg7ZM/QVqSpyOxnJzGXbiZR6SDhUZIAWrOwRI9QGjuYZQses3y2
- VoforsK0qqCFYAno3aRB1FxGrXQYdonw6GqHVUGSCgZxSXG1xD1s3DKX6q1SajC6
- Tt2xDT/LuEwm8zE3oOEGGEfoO+mcfZ91NIlc3pGdZroBa7rvWGao+K8ANKo32rzg
- ==
-X-ME-Sender: <xms:MVSqX1XaQGH6eE-Mp7CA-6tXEILG5jMedm8iQ-RkxrSr6LYgwMb5Gg>
- <xme:MVSqX1lwF_FyIBlwBTjkQO4Q93lBSdRh1r2ux7pxJbAk1Gz0kTKuV7XOLT6v0tunl
- cHWMtiNXyvkLg>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedujedrudduiedguddviecutefuodetggdotefrod
- ftvfcurfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfgh
- necuuegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmd
- enucfjughrpeffhffvuffkfhggtggujgesthdtredttddtvdenucfhrhhomhepifhrvghg
- ucfmjfcuoehgrhgvgheskhhrohgrhhdrtghomheqnecuggftrfgrthhtvghrnhephfduhe
- ffteefjeekvdffffevveelfeehhfeutedtgfeigeetvdfhvedvfefhjeeknecuffhomhgr
- ihhnpegthhgvtghkphgrthgthhdrphhlnecukfhppeekfedrkeeirdejgedrieegnecuve
- hluhhsthgvrhfuihiivgeptdenucfrrghrrghmpehmrghilhhfrhhomhepghhrvghgsehk
- rhhorghhrdgtohhm
-X-ME-Proxy: <xmx:MVSqXxYkV21P3H_SEpIh6oy7Bcz5rLphVsz76W69qlEDIiToY0R-1g>
- <xmx:MVSqX4WNsXWWrDiwvgISWbyXvuCU-s-D1wIzEalQcKjTEaCAa-dflg>
- <xmx:MVSqX_mDnqpPPnY_2u9RKSRaHPJG40wMtWmBaoA_hUrlAxZcPTDRtw>
- <xmx:M1SqXx0OiBo8aUsWe5OqJZDqDQIuum2sW_gtC_Tszc5CO-BDkMuycA>
-Received: from localhost (83-86-74-64.cable.dynamic.v4.ziggo.nl [83.86.74.64])
- by mail.messagingengine.com (Postfix) with ESMTPA id 7CD553063081;
- Tue, 10 Nov 2020 03:49:53 -0500 (EST)
-Date: Tue, 10 Nov 2020 09:50:49 +0100
-From: Greg KH <greg@kroah.com>
-To: Macpaul Lin <macpaul.lin@mediatek.com>
+ dkim=pass (1024-bit key) header.d=mediatek.com header.i=@mediatek.com
+ header.b="KH2H+LIQ"
+X-UUID: a18501082d5a479dacaa74d1972b3a74-20201110
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=mediatek.com;
+ s=dk; 
+ h=Content-Transfer-Encoding:MIME-Version:Content-Type:References:In-Reply-To:Date:CC:To:From:Subject:Message-ID;
+ bh=busI8tzaIjOQfi9V2ZmeWHinzielzkKRRHvJYt8BzSk=; 
+ b=KH2H+LIQukKINWY+XXSHqBPD93HBiZy5h4WIjX0APcCqh1576xUKNyIYc8c3gBV5H8IVRlcDUrur21gBgUsIoRZuv8R3Nx8BSPyZtpB7QzrrCmvm1vtJZLjfaSSLzt0GsHqncLwxzJmT6Ns7oen/gKA3S0mLt7T+3VNDVXKud3I=;
+X-UUID: a18501082d5a479dacaa74d1972b3a74-20201110
+Received: from mtkexhb01.mediatek.inc [(172.21.101.102)] by
+ mailgw01.mediatek.com (envelope-from <macpaul.lin@mediatek.com>)
+ (Cellopoint E-mail Firewall v4.1.14 Build 0819 with TLSv1.2
+ ECDHE-RSA-AES256-SHA384 256/256)
+ with ESMTP id 1981452464; Tue, 10 Nov 2020 16:54:37 +0800
+Received: from mtkcas10.mediatek.inc (172.21.101.39) by
+ mtkmbs08n2.mediatek.inc (172.21.101.56) with Microsoft SMTP Server (TLS) id
+ 15.0.1497.2; Tue, 10 Nov 2020 16:54:30 +0800
+Received: from [172.21.77.33] (172.21.77.33) by mtkcas10.mediatek.inc
+ (172.21.101.73) with Microsoft SMTP Server id 15.0.1497.2 via Frontend
+ Transport; Tue, 10 Nov 2020 16:54:30 +0800
+Message-ID: <1604998469.2817.3.camel@mtkswgap22>
 Subject: Re: [PATCH v2] ALSA: usb-audio: disable 96khz support for HUAWEI
  USB-C HEADSET
-Message-ID: <X6pUaatZ7aML4sKq@kroah.com>
+From: Macpaul Lin <macpaul.lin@mediatek.com>
+To: Greg KH <greg@kroah.com>
+Date: Tue, 10 Nov 2020 16:54:29 +0800
+In-Reply-To: <X6pUaatZ7aML4sKq@kroah.com>
 References: <1604995443-30453-1-git-send-email-macpaul.lin@mediatek.com>
  <1604997774-13593-1-git-send-email-macpaul.lin@mediatek.com>
+ <X6pUaatZ7aML4sKq@kroah.com>
+Content-Type: text/plain; charset="ISO-8859-1"
+X-Mailer: Evolution 3.2.3-0ubuntu6 
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <1604997774-13593-1-git-send-email-macpaul.lin@mediatek.com>
+X-TM-SNTS-SMTP: 6DB580D9FD98F3A3017B4D3065C7D004E39255AD44F7F8ECCD7CD23B23672D3B2000:8
+X-MTK: N
+Content-Transfer-Encoding: base64
 Cc: alsa-devel@alsa-project.org, linux-usb@vger.kernel.org,
  Mediatek WSD Upstream <wsd_upstream@mediatek.com>,
  Christopher Swenson <swenson@swenson.io>, linux-kernel@vger.kernel.org,
@@ -123,35 +96,32 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Tue, Nov 10, 2020 at 04:42:54PM +0800, Macpaul Lin wrote:
-> The HUAWEI USB-C headset (VID:0x12d1, PID:0x3a07) reported it supports
-> 96khz. However there will be some random issue under 96khz.
-> Not sure if there is any alternate setting could be applied.
-> Hence 48khz is suggested to be applied at this moment.
-> 
-> Signed-off-by: Macpaul Lin <macpaul.lin@mediatek.com>
-> Signed-off-by: Eddie Hung <eddie.hung@mediatek.com>
-> Cc: stable@vger.kernel.org
-> ---
-> Changes for v2:
->   - Fix build error.
->   - Add Cc: stable@vger.kernel.org
-> 
->  sound/usb/format.c |    6 ++++++
->  1 file changed, 6 insertions(+)
-> 
-> diff --git a/sound/usb/format.c b/sound/usb/format.c
-> index 1b28d01..7a4837b 100644
-> --- a/sound/usb/format.c
-> +++ b/sound/usb/format.c
-> @@ -202,6 +202,7 @@ static int parse_audio_format_rates_v1(struct snd_usb_audio *chip, struct audiof
->  		fp->rate_min = fp->rate_max = 0;
->  		for (r = 0, idx = offset + 1; r < nr_rates; r++, idx += 3) {
->  			unsigned int rate = combine_triple(&fmt[idx]);
-> +			struct usb_device *udev = chip->dev;
->  			if (!rate)
->  				continue;
->  			/* C-Media CM6501 mislabels its 96 kHz altsetting */
-
-Did you run this patch through checkpatch.pl?
+T24gVHVlLCAyMDIwLTExLTEwIGF0IDA5OjUwICswMTAwLCBHcmVnIEtIIHdyb3RlOg0KPiBPbiBU
+dWUsIE5vdiAxMCwgMjAyMCBhdCAwNDo0Mjo1NFBNICswODAwLCBNYWNwYXVsIExpbiB3cm90ZToN
+Cj4gPiBUaGUgSFVBV0VJIFVTQi1DIGhlYWRzZXQgKFZJRDoweDEyZDEsIFBJRDoweDNhMDcpIHJl
+cG9ydGVkIGl0IHN1cHBvcnRzDQo+ID4gOTZraHouIEhvd2V2ZXIgdGhlcmUgd2lsbCBiZSBzb21l
+IHJhbmRvbSBpc3N1ZSB1bmRlciA5Nmtoei4NCj4gPiBOb3Qgc3VyZSBpZiB0aGVyZSBpcyBhbnkg
+YWx0ZXJuYXRlIHNldHRpbmcgY291bGQgYmUgYXBwbGllZC4NCj4gPiBIZW5jZSA0OGtoeiBpcyBz
+dWdnZXN0ZWQgdG8gYmUgYXBwbGllZCBhdCB0aGlzIG1vbWVudC4NCj4gPiANCj4gPiBTaWduZWQt
+b2ZmLWJ5OiBNYWNwYXVsIExpbiA8bWFjcGF1bC5saW5AbWVkaWF0ZWsuY29tPg0KPiA+IFNpZ25l
+ZC1vZmYtYnk6IEVkZGllIEh1bmcgPGVkZGllLmh1bmdAbWVkaWF0ZWsuY29tPg0KPiA+IENjOiBz
+dGFibGVAdmdlci5rZXJuZWwub3JnDQo+ID4gLS0tDQo+ID4gQ2hhbmdlcyBmb3IgdjI6DQo+ID4g
+ICAtIEZpeCBidWlsZCBlcnJvci4NCj4gPiAgIC0gQWRkIENjOiBzdGFibGVAdmdlci5rZXJuZWwu
+b3JnDQo+ID4gDQo+ID4gIHNvdW5kL3VzYi9mb3JtYXQuYyB8ICAgIDYgKysrKysrDQo+ID4gIDEg
+ZmlsZSBjaGFuZ2VkLCA2IGluc2VydGlvbnMoKykNCj4gPiANCj4gPiBkaWZmIC0tZ2l0IGEvc291
+bmQvdXNiL2Zvcm1hdC5jIGIvc291bmQvdXNiL2Zvcm1hdC5jDQo+ID4gaW5kZXggMWIyOGQwMS4u
+N2E0ODM3YiAxMDA2NDQNCj4gPiAtLS0gYS9zb3VuZC91c2IvZm9ybWF0LmMNCj4gPiArKysgYi9z
+b3VuZC91c2IvZm9ybWF0LmMNCj4gPiBAQCAtMjAyLDYgKzIwMiw3IEBAIHN0YXRpYyBpbnQgcGFy
+c2VfYXVkaW9fZm9ybWF0X3JhdGVzX3YxKHN0cnVjdCBzbmRfdXNiX2F1ZGlvICpjaGlwLCBzdHJ1
+Y3QgYXVkaW9mDQo+ID4gIAkJZnAtPnJhdGVfbWluID0gZnAtPnJhdGVfbWF4ID0gMDsNCj4gPiAg
+CQlmb3IgKHIgPSAwLCBpZHggPSBvZmZzZXQgKyAxOyByIDwgbnJfcmF0ZXM7IHIrKywgaWR4ICs9
+IDMpIHsNCj4gPiAgCQkJdW5zaWduZWQgaW50IHJhdGUgPSBjb21iaW5lX3RyaXBsZSgmZm10W2lk
+eF0pOw0KPiA+ICsJCQlzdHJ1Y3QgdXNiX2RldmljZSAqdWRldiA9IGNoaXAtPmRldjsNCj4gPiAg
+CQkJaWYgKCFyYXRlKQ0KPiA+ICAJCQkJY29udGludWU7DQo+ID4gIAkJCS8qIEMtTWVkaWEgQ002
+NTAxIG1pc2xhYmVscyBpdHMgOTYga0h6IGFsdHNldHRpbmcgKi8NCj4gDQo+IERpZCB5b3UgcnVu
+IHRoaXMgcGF0Y2ggdGhyb3VnaCBjaGVja3BhdGNoLnBsPw0KPiANCg0KSSd2ZSByYW4gY2hlY2tw
+YXRjaCBmb3IgdGhpcyBwYXRjaCB2MiwgYW5kIGl0IHNob3duDQoidG90YWw6IDAgZXJyb3JzLCAw
+IHdhcm5pbmdzIi4gV2UncmUgdXNpbmcgNS45LXJjMSBpbnRlcm5hbC4NCg0KSG93ZXZlciwgSSds
+bCBzZW5kIHBhdGNoIHYzIGFjY29yZGluZyB0byBUYWthc2hpJ3Mgc3VnZ2VzdGlvbi4NCg0KVGhh
+bmtzDQpNYWNwYXVsIExpbg0K
 

@@ -2,116 +2,70 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 487E52AD73B
-	for <lists+alsa-devel@lfdr.de>; Tue, 10 Nov 2020 14:14:14 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id AACEB2AD949
+	for <lists+alsa-devel@lfdr.de>; Tue, 10 Nov 2020 15:51:52 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C0CAA171F;
-	Tue, 10 Nov 2020 14:13:23 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C0CAA171F
+	by alsa0.perex.cz (Postfix) with ESMTPS id 233AB1725;
+	Tue, 10 Nov 2020 15:51:02 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 233AB1725
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1605014053;
-	bh=w/cSws2QUy7hUE//cDz/Oq17kQNISQ8CBI4TwYili8s=;
-	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=Q8AEKWf+ADPjxQ8juZyZjWlqvHMoLA+YrN4Stf3FNKQQD5b0GzmQnUCrzAGj0TKNi
-	 xfnL3yVWUIa6/SjFHPd0F7IxmqIwpWm9qe6kO5y9Mh7Quu6wJ5jpikC36y3uCSMfNf
-	 /bZcJLPodHR8hHgl2EiWvlHNrA2UjJSCyzRMEV4Q=
+	s=default; t=1605019912;
+	bh=6Hw30x5vTJqHhfNxDmcW3x9uRrdpcSG58csaBdrRA9g=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=fdTbwSjQr8ufz9Ufj1gtb7UPmYwAN18hCCQIX9H0hmo23Kv1kVKDyvCCf1tejDEQp
+	 pxptYFdi7Ycw4dvW8bqPqQmPc4wZzlJpQWCG6TtS0DHnwehzJgMM9xTzPV7/VD1k2v
+	 lCxvwJ2xqqyMFoMXG6GWaWlp/bkBYdge72FdW6go=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 3A752F801EB;
-	Tue, 10 Nov 2020 14:12:41 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 92838F80161;
+	Tue, 10 Nov 2020 15:50:19 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id A2228F800EB; Tue, 10 Nov 2020 14:12:39 +0100 (CET)
+ id 3F153F801D5; Tue, 10 Nov 2020 15:50:18 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,NICE_REPLY_A,RCVD_IN_MSPIKE_H5,RCVD_IN_MSPIKE_WL,
- SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [63.128.21.124])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
+X-Spam-Level: *
+X-Spam-Status: No, score=1.6 required=5.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
+ SPF_HELO_NONE, SPF_NONE, SUBJ_OBFU_PUNCT_FEW,
+ SUBJ_OBFU_PUNCT_MANY, URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from albert.telenet-ops.be (albert.telenet-ops.be
+ [IPv6:2a02:1800:110:4::f00:1a])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 41EB3F800EB
- for <alsa-devel@alsa-project.org>; Tue, 10 Nov 2020 14:12:35 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 41EB3F800EB
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com
- header.b="XPuqv6Yp"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1605013954;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=2V11rFQ3FKVTN+koXAVvig/bkOvKVZoOl9jWSSiZ8Ik=;
- b=XPuqv6Ypx/wUpiZ6DgU2js5eB0f6qaiR1GPjNU1LEMoa58Um4ODJBD6hBRZDQyXHJQsE4H
- 4DJtlAwMApiPW1/fBWenPFKRta/M714scmn0Yqi+DGPPzOgGkcrOesmg+IQpXgjmJov4Ie
- BOVxSQJ//VHyBIm8IKVvSHAWqEvjovw=
-Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com
- [209.85.222.197]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-198-iQ_swDjrNvSFUT9T_TEokQ-1; Tue, 10 Nov 2020 08:12:31 -0500
-X-MC-Unique: iQ_swDjrNvSFUT9T_TEokQ-1
-Received: by mail-qk1-f197.google.com with SMTP id u16so8598432qkm.22
- for <alsa-devel@alsa-project.org>; Tue, 10 Nov 2020 05:12:31 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:subject:to:cc:references:from:message-id:date
- :user-agent:mime-version:in-reply-to:content-transfer-encoding
- :content-language;
- bh=2V11rFQ3FKVTN+koXAVvig/bkOvKVZoOl9jWSSiZ8Ik=;
- b=VJE1B93+R9n8/vk9N1p3ipDjTHTAXsfhIiTMjiv991q86DENoYu8pbzTqWSG9wS4oy
- wVe7rkIGyx+Bs1jkjnklEnxTkj4tVk+U9B1WLml5ynoo8L+nfGyzw3pf7+dhdZDdB3wB
- WojqPt2HyH848D2OcPYdZWa64vk6HzN1ZUEOmTi2McFIPjdUAV8OqOisPMEtYDHAiY0S
- 9kErG9kMxWg9vfOJTLTxDBAVr+QRX8eMeq7UP75NWkPv/9HD7y/TgWSoYBCmeWLYFMft
- 6307ycgakhVn9efEIPJiy2zZYQqKG3sly5ePL9jHZq+qrvX30otE6uyl6mvwJ6/BNgEm
- BzCQ==
-X-Gm-Message-State: AOAM530/7glsYS7hhErWvLcqsu1T2CBmVY6SnHWjMk2bqmhUyqXrsyDA
- 4qaou/aYjo/S/rLBF9WUUsO7Q4y8rEKh4AA0n2YnWkHZimUS7sK1zcDg/MmnvLxYiucIjsZwm9d
- EboOaylaK7PdTYxkBQJZ+3fE=
-X-Received: by 2002:ac8:3621:: with SMTP id m30mr8787121qtb.168.1605013950656; 
- Tue, 10 Nov 2020 05:12:30 -0800 (PST)
-X-Google-Smtp-Source: ABdhPJyRnI1rUF5eW2rST1vImtIogpOlMRBum2fO0dVCe+zUlRqVIaRBqmVo31rjlhOk2kmW2Hr8dQ==
-X-Received: by 2002:ac8:3621:: with SMTP id m30mr8787064qtb.168.1605013950178; 
- Tue, 10 Nov 2020 05:12:30 -0800 (PST)
-Received: from trix.remote.csb (075-142-250-213.res.spectrum.com.
- [75.142.250.213])
- by smtp.gmail.com with ESMTPSA id e8sm7658678qti.28.2020.11.10.05.12.26
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 10 Nov 2020 05:12:29 -0800 (PST)
-Subject: Re: Subject: [RFC] clang tooling cleanups
-To: Joe Perches <joe@perches.com>, linux-kernel@vger.kernel.org,
- clang-built-linux@googlegroups.com, cocci <cocci@systeme.lip6.fr>
-References: <20201027164255.1573301-1-trix@redhat.com>
- <3c39c363690d0b46069afddc3ad09213011e5cd4.camel@perches.com>
-From: Tom Rix <trix@redhat.com>
-Message-ID: <cc512954-2e1d-a165-f1f1-2c489fd6d3a9@redhat.com>
-Date: Tue, 10 Nov 2020 05:12:26 -0800
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.12.0
+ by alsa1.perex.cz (Postfix) with ESMTPS id 70FA6F800AE
+ for <alsa-devel@alsa-project.org>; Tue, 10 Nov 2020 15:50:11 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 70FA6F800AE
+Received: from ramsan.of.borg ([84.195.186.194])
+ by albert.telenet-ops.be with bizsmtp
+ id qeq52300F4C55Sk06eq5dC; Tue, 10 Nov 2020 15:50:08 +0100
+Received: from rox.of.borg ([192.168.97.57])
+ by ramsan.of.borg with esmtps (TLS1.3) tls
+ TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.93)
+ (envelope-from <geert@linux-m68k.org>)
+ id 1kcUyD-001CZB-3h; Tue, 10 Nov 2020 15:50:05 +0100
+Received: from geert by rox.of.borg with local (Exim 4.93)
+ (envelope-from <geert@linux-m68k.org>)
+ id 1kcUyC-00DlPq-Fd; Tue, 10 Nov 2020 15:50:04 +0100
+From: Geert Uytterhoeven <geert+renesas@glider.be>
+To: Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+ Mark Brown <broonie@kernel.org>,
+ Cezary Rojewski <cezary.rojewski@intel.com>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ Liam Girdwood <liam.r.girdwood@linux.intel.com>,
+ Jie Yang <yang.jie@linux.intel.com>, Sia Jee Heng <jee.heng.sia@intel.com>,
+ Michael Sit Wei Hong <michael.wei.hong.sit@intel.com>
+Subject: [PATCH] ASoC: intel: SND_SOC_INTEL_KEEMBAY should depend on
+ ARCH_KEEMBAY
+Date: Tue, 10 Nov 2020 15:50:01 +0100
+Message-Id: <20201110145001.3280479-1-geert+renesas@glider.be>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-In-Reply-To: <3c39c363690d0b46069afddc3ad09213011e5cd4.camel@perches.com>
-Authentication-Results: relay.mimecast.com;
- auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=trix@redhat.com
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: 8bit
-Content-Language: en-US
-Cc: alsa-devel@alsa-project.org, linux-aspeed@lists.ozlabs.org,
- linux-iio@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linux-stm32@st-md-mailman.stormreply.com, linux-rtc@vger.kernel.org,
- linux-samsung-soc@vger.kernel.org, linux-scsi@vger.kernel.org,
- linux-rdma@vger.kernel.org, qat-linux@intel.com, amd-gfx@lists.freedesktop.org,
- linux-pm@vger.kernel.org, linux-mediatek@lists.infradead.org,
- linux-rpi-kernel@lists.infradead.org, linux-tegra@vger.kernel.org,
- linux-amlogic@lists.infradead.org, linux-nfs@vger.kernel.org,
- netdev@vger.kernel.org, linux-mmc@vger.kernel.org,
- tipc-discussion@lists.sourceforge.net, linux-crypto@vger.kernel.org,
- linux-btrfs@vger.kernel.org
+Cc: alsa-devel@alsa-project.org, Geert Uytterhoeven <geert+renesas@glider.be>,
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -127,41 +81,30 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+The Intel Keem Bay audio module is only present on Intel Keem Bay SoCs.
+Hence add a dependency on ARCH_KEEMBAY, to prevent asking the user about
+this driver when configuring a kernel without Intel Keem Bay platform
+support.
 
-On 11/9/20 6:52 PM, Joe Perches wrote:
-> On Tue, 2020-10-27 at 09:42 -0700, trix@redhat.com wrote:
->> This rfc will describe
->> An upcoming treewide cleanup.
->> How clang tooling was used to programatically do the clean up.
->> Solicit opinions on how to generally use clang tooling.
->>
->> The clang warning -Wextra-semi-stmt produces about 10k warnings.
->> Reviewing these, a subset of semicolon after a switch looks safe to
->> fix all the time.  An example problem
->>
->> void foo(int a) {
->>      switch(a) {
->>      	       case 1:
->> 	       ...
->>      }; <--- extra semicolon
->> }
->>
->> Treewide, there are about 100 problems in 50 files for x86_64 allyesconfig.
->> These fixes will be the upcoming cleanup.
-> coccinelle already does some of these.
->
-> For instance: scripts/coccinelle/misc/semicolon.cocci
->
-> Perhaps some tool coordination can be done here as
-> coccinelle/checkpatch/clang/Lindent call all be used
-> to do some facet or another of these cleanup issues.
+Fixes: c544912bcc2dc806 ("ASoC: Intel: Add makefiles and kconfig changes for KeemBay")
+Signed-off-by: Geert Uytterhoeven <geert+renesas@glider.be>
+---
+ sound/soc/intel/Kconfig | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-Thanks for pointing this out.
-
-I will take a look at it.
-
-Tom
-
->
->
+diff --git a/sound/soc/intel/Kconfig b/sound/soc/intel/Kconfig
+index a5b446d5af19fc2d..c1bf69a0bcfe18c3 100644
+--- a/sound/soc/intel/Kconfig
++++ b/sound/soc/intel/Kconfig
+@@ -198,7 +198,7 @@ endif ## SND_SOC_INTEL_SST_TOPLEVEL || SND_SOC_SOF_INTEL_TOPLEVEL
+ 
+ config SND_SOC_INTEL_KEEMBAY
+ 	tristate "Keembay Platforms"
+-	depends on ARM64 || COMPILE_TEST
++	depends on ARCH_KEEMBAY || COMPILE_TEST
+ 	depends on COMMON_CLK
+ 	help
+ 	  If you have a Intel Keembay platform then enable this option
+-- 
+2.25.1
 

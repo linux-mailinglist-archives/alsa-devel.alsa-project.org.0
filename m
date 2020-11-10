@@ -2,87 +2,116 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id AC1932AD5BF
-	for <lists+alsa-devel@lfdr.de>; Tue, 10 Nov 2020 12:58:26 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 487E52AD73B
+	for <lists+alsa-devel@lfdr.de>; Tue, 10 Nov 2020 14:14:14 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 4C7BF1721;
-	Tue, 10 Nov 2020 12:57:36 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4C7BF1721
+	by alsa0.perex.cz (Postfix) with ESMTPS id C0CAA171F;
+	Tue, 10 Nov 2020 14:13:23 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C0CAA171F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1605009506;
-	bh=YryXYnKNldudDO/RjAz80bAXrbW7/qbSF3tU+VW8eT0=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1605014053;
+	bh=w/cSws2QUy7hUE//cDz/Oq17kQNISQ8CBI4TwYili8s=;
+	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=Sl0BUfVpIe9jUpcDipQiJUdYPI0Tt0ckw6iDezgIsd/oEzAwtv5nx4jpFpjYZ/fx+
-	 1sFLQTMa3t+tsJT5oy3wL1Bz0ORZkuwSRZvWMmfXVtSnsaFr9I/D2/r0/3DPDUAdJN
-	 fuTDkJ7HVlFC75SibOHCcq/Izk8+LmHj0pIP1FZk=
+	b=Q8AEKWf+ADPjxQ8juZyZjWlqvHMoLA+YrN4Stf3FNKQQD5b0GzmQnUCrzAGj0TKNi
+	 xfnL3yVWUIa6/SjFHPd0F7IxmqIwpWm9qe6kO5y9Mh7Quu6wJ5jpikC36y3uCSMfNf
+	 /bZcJLPodHR8hHgl2EiWvlHNrA2UjJSCyzRMEV4Q=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id B1F31F801EB;
-	Tue, 10 Nov 2020 12:56:53 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 3A752F801EB;
+	Tue, 10 Nov 2020 14:12:41 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id EFFDAF801D5; Tue, 10 Nov 2020 12:56:51 +0100 (CET)
+ id A2228F800EB; Tue, 10 Nov 2020 14:12:39 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled
- version=3.4.0
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ DKIM_VALID,DKIM_VALID_AU,NICE_REPLY_A,RCVD_IN_MSPIKE_H5,RCVD_IN_MSPIKE_WL,
+ SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [63.128.21.124])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 52532F800EB
- for <alsa-devel@alsa-project.org>; Tue, 10 Nov 2020 12:56:48 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 52532F800EB
+ by alsa1.perex.cz (Postfix) with ESMTPS id 41EB3F800EB
+ for <alsa-devel@alsa-project.org>; Tue, 10 Nov 2020 14:12:35 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 41EB3F800EB
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="QDV5JKZr"
-Received: from localhost (fw-tnat.cambridge.arm.com [217.140.96.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id A84EE20678;
- Tue, 10 Nov 2020 11:56:45 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1605009406;
- bh=YryXYnKNldudDO/RjAz80bAXrbW7/qbSF3tU+VW8eT0=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=QDV5JKZraXd4PgJ4NstqiTlrlzLQdcoRw2n9tyyBrQ0/7KCCZWJ7JAlHBmIHBFps5
- 8lkXJxSkhjzdeouUKFsggexk820zmoLe7TN+BF4FxJqnj+oyBq/X50SdHrPHHsUQO3
- bvVHp1xR9os+ukKwR3X0/21Alpj+n3EXFYWyThPc=
-Date: Tue, 10 Nov 2020 11:56:31 +0000
-From: Mark Brown <broonie@kernel.org>
-To: Ajye Huang <ajye_huang@compal.corp-partner.google.com>
-Subject: Re: [PATCH v6 0/2] Modify documentation and machine driver for
- SC7180 sound card
-Message-ID: <20201110115631.GA5957@sirena.org.uk>
-References: <20201106061433.1483129-1-ajye_huang@compal.corp-partner.google.com>
- <CALprXBZCthdkxGbJBZZ+ESJRDBHY879FZMpB_4Mgpq1YAJun2g@mail.gmail.com>
+ dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com
+ header.b="XPuqv6Yp"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1605013954;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=2V11rFQ3FKVTN+koXAVvig/bkOvKVZoOl9jWSSiZ8Ik=;
+ b=XPuqv6Ypx/wUpiZ6DgU2js5eB0f6qaiR1GPjNU1LEMoa58Um4ODJBD6hBRZDQyXHJQsE4H
+ 4DJtlAwMApiPW1/fBWenPFKRta/M714scmn0Yqi+DGPPzOgGkcrOesmg+IQpXgjmJov4Ie
+ BOVxSQJ//VHyBIm8IKVvSHAWqEvjovw=
+Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com
+ [209.85.222.197]) (Using TLS) by relay.mimecast.com with ESMTP id
+ us-mta-198-iQ_swDjrNvSFUT9T_TEokQ-1; Tue, 10 Nov 2020 08:12:31 -0500
+X-MC-Unique: iQ_swDjrNvSFUT9T_TEokQ-1
+Received: by mail-qk1-f197.google.com with SMTP id u16so8598432qkm.22
+ for <alsa-devel@alsa-project.org>; Tue, 10 Nov 2020 05:12:31 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:subject:to:cc:references:from:message-id:date
+ :user-agent:mime-version:in-reply-to:content-transfer-encoding
+ :content-language;
+ bh=2V11rFQ3FKVTN+koXAVvig/bkOvKVZoOl9jWSSiZ8Ik=;
+ b=VJE1B93+R9n8/vk9N1p3ipDjTHTAXsfhIiTMjiv991q86DENoYu8pbzTqWSG9wS4oy
+ wVe7rkIGyx+Bs1jkjnklEnxTkj4tVk+U9B1WLml5ynoo8L+nfGyzw3pf7+dhdZDdB3wB
+ WojqPt2HyH848D2OcPYdZWa64vk6HzN1ZUEOmTi2McFIPjdUAV8OqOisPMEtYDHAiY0S
+ 9kErG9kMxWg9vfOJTLTxDBAVr+QRX8eMeq7UP75NWkPv/9HD7y/TgWSoYBCmeWLYFMft
+ 6307ycgakhVn9efEIPJiy2zZYQqKG3sly5ePL9jHZq+qrvX30otE6uyl6mvwJ6/BNgEm
+ BzCQ==
+X-Gm-Message-State: AOAM530/7glsYS7hhErWvLcqsu1T2CBmVY6SnHWjMk2bqmhUyqXrsyDA
+ 4qaou/aYjo/S/rLBF9WUUsO7Q4y8rEKh4AA0n2YnWkHZimUS7sK1zcDg/MmnvLxYiucIjsZwm9d
+ EboOaylaK7PdTYxkBQJZ+3fE=
+X-Received: by 2002:ac8:3621:: with SMTP id m30mr8787121qtb.168.1605013950656; 
+ Tue, 10 Nov 2020 05:12:30 -0800 (PST)
+X-Google-Smtp-Source: ABdhPJyRnI1rUF5eW2rST1vImtIogpOlMRBum2fO0dVCe+zUlRqVIaRBqmVo31rjlhOk2kmW2Hr8dQ==
+X-Received: by 2002:ac8:3621:: with SMTP id m30mr8787064qtb.168.1605013950178; 
+ Tue, 10 Nov 2020 05:12:30 -0800 (PST)
+Received: from trix.remote.csb (075-142-250-213.res.spectrum.com.
+ [75.142.250.213])
+ by smtp.gmail.com with ESMTPSA id e8sm7658678qti.28.2020.11.10.05.12.26
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 10 Nov 2020 05:12:29 -0800 (PST)
+Subject: Re: Subject: [RFC] clang tooling cleanups
+To: Joe Perches <joe@perches.com>, linux-kernel@vger.kernel.org,
+ clang-built-linux@googlegroups.com, cocci <cocci@systeme.lip6.fr>
+References: <20201027164255.1573301-1-trix@redhat.com>
+ <3c39c363690d0b46069afddc3ad09213011e5cd4.camel@perches.com>
+From: Tom Rix <trix@redhat.com>
+Message-ID: <cc512954-2e1d-a165-f1f1-2c489fd6d3a9@redhat.com>
+Date: Tue, 10 Nov 2020 05:12:26 -0800
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.12.0
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="ReaqsoxgOBHFXBhH"
-Content-Disposition: inline
-In-Reply-To: <CALprXBZCthdkxGbJBZZ+ESJRDBHY879FZMpB_4Mgpq1YAJun2g@mail.gmail.com>
-X-Cookie: Disk crisis, please clean up!
-User-Agent: Mutt/1.10.1 (2018-07-13)
-Cc: Douglas Anderson <dianders@chromium.org>, Rob Herring <robh@kernel.org>,
- ALSA development <alsa-devel@alsa-project.org>,
- Banajit Goswami <bgoswami@codeaurora.org>,
- Srinivasa Rao Mandadapu <srivasam@codeaurora.org>,
- Liam Girdwood <lgirdwood@gmail.com>, Ajye Huang <ajye.huang@gmail.com>,
- Patrick Lai <plai@codeaurora.org>,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- Rob Herring <robh+dt@kernel.org>, Bjorn Andersson <bjorn.andersson@linaro.org>,
- "open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS"
- <devicetree@vger.kernel.org>, Andy Gross <agross@kernel.org>,
- Rohit kumar <rohitkr@codeaurora.org>, Tzung-Bi Shih <tzungbi@chromium.org>,
- linux-arm-msm <linux-arm-msm@vger.kernel.org>,
- Srini Kandagatla <srinivas.kandagatla@linaro.org>,
- "moderated list:ARM/Mediatek SoC support"
- <linux-arm-kernel@lists.infradead.org>,
- Cheng-yi Chiang <cychiang@chromium.org>
+In-Reply-To: <3c39c363690d0b46069afddc3ad09213011e5cd4.camel@perches.com>
+Authentication-Results: relay.mimecast.com;
+ auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=trix@redhat.com
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: 8bit
+Content-Language: en-US
+Cc: alsa-devel@alsa-project.org, linux-aspeed@lists.ozlabs.org,
+ linux-iio@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linux-stm32@st-md-mailman.stormreply.com, linux-rtc@vger.kernel.org,
+ linux-samsung-soc@vger.kernel.org, linux-scsi@vger.kernel.org,
+ linux-rdma@vger.kernel.org, qat-linux@intel.com, amd-gfx@lists.freedesktop.org,
+ linux-pm@vger.kernel.org, linux-mediatek@lists.infradead.org,
+ linux-rpi-kernel@lists.infradead.org, linux-tegra@vger.kernel.org,
+ linux-amlogic@lists.infradead.org, linux-nfs@vger.kernel.org,
+ netdev@vger.kernel.org, linux-mmc@vger.kernel.org,
+ tipc-discussion@lists.sourceforge.net, linux-crypto@vger.kernel.org,
+ linux-btrfs@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -99,43 +128,40 @@ Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 
---ReaqsoxgOBHFXBhH
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+On 11/9/20 6:52 PM, Joe Perches wrote:
+> On Tue, 2020-10-27 at 09:42 -0700, trix@redhat.com wrote:
+>> This rfc will describe
+>> An upcoming treewide cleanup.
+>> How clang tooling was used to programatically do the clean up.
+>> Solicit opinions on how to generally use clang tooling.
+>>
+>> The clang warning -Wextra-semi-stmt produces about 10k warnings.
+>> Reviewing these, a subset of semicolon after a switch looks safe to
+>> fix all the time.  An example problem
+>>
+>> void foo(int a) {
+>>      switch(a) {
+>>      	       case 1:
+>> 	       ...
+>>      }; <--- extra semicolon
+>> }
+>>
+>> Treewide, there are about 100 problems in 50 files for x86_64 allyesconfig.
+>> These fixes will be the upcoming cleanup.
+> coccinelle already does some of these.
+>
+> For instance: scripts/coccinelle/misc/semicolon.cocci
+>
+> Perhaps some tool coordination can be done here as
+> coccinelle/checkpatch/clang/Lindent call all be used
+> to do some facet or another of these cleanup issues.
 
-On Tue, Nov 10, 2020 at 05:40:40PM +0800, Ajye Huang wrote:
-> Hi, Mark
->=20
-> Could you please kindly review the series patch v6? And may I get your
-> approval if the review is done.
+Thanks for pointing this out.
 
-Please don't send content free pings and please allow a reasonable time
-for review.  People get busy, go on holiday, attend conferences and so=20
-on so unless there is some reason for urgency (like critical bug fixes)
-please allow at least a couple of weeks for review.  If there have been
-review comments then people may be waiting for those to be addressed.
+I will take a look at it.
 
-Sending content free pings adds to the mail volume (if they are seen at
-all) which is often the problem and since they can't be reviewed
-directly if something has gone wrong you'll have to resend the patches
-anyway, so sending again is generally a better approach though there are
-some other maintainers who like them - if in doubt look at how patches
-for the subsystem are normally handled.
+Tom
 
---ReaqsoxgOBHFXBhH
-Content-Type: application/pgp-signature; name="signature.asc"
+>
+>
 
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl+qf+8ACgkQJNaLcl1U
-h9DxYAf+Ml8fbU5qJTIhVmWOIV4EI0pby5cVXJ8Jm2A/+6RqBfDCWb4wpO3Znxbn
-8GZnLxdDqCAQ0Ej/aTIDFS5ssSjOluIxZb0D4awtsX8Czodu8881Clpg2vlKlUw6
-Uc7PsqBs5fGjPNpmavFnmL3Mu8JAhIuZBFF58Y1FDR5ns6A5fLa7tfFfO0Wbuggo
-rk0vvB/2lxH8jdPqM5U0h7XM0wixDmB+MDPnTjSKHtb2bbfuBik6NzVQn6UdkrTj
-vVKNExPim4TwFRG7WfVZkTBfhybxziwuFM63n0P1UCjHLIPG2Ay1lBwsPXyxrg/4
-dH2Xo1C2aS2VZy5o4pMtXvVBCawm1A==
-=oGFb
------END PGP SIGNATURE-----
-
---ReaqsoxgOBHFXBhH--

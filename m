@@ -2,94 +2,78 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0217B2AEE4F
-	for <lists+alsa-devel@lfdr.de>; Wed, 11 Nov 2020 10:58:45 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 661EB2AEEA2
+	for <lists+alsa-devel@lfdr.de>; Wed, 11 Nov 2020 11:17:20 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 78006174E;
-	Wed, 11 Nov 2020 10:57:54 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 78006174E
+	by alsa0.perex.cz (Postfix) with ESMTPS id C9137174B;
+	Wed, 11 Nov 2020 11:16:29 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C9137174B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1605088724;
-	bh=z0Ggv79/MstvmFCSrEexmJ12XLOj5uG1QgcfBGO4J1Y=;
-	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
+	s=default; t=1605089839;
+	bh=yWY4ZteANWKckyyyPOo8iftaYXzxnHVgMEKkncS81gY=;
+	h=From:To:Subject:Date:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=fAaYe1M5R+qjji/A4MfViadTE7Kf0ioM2Ks0VmpZ2hrPFsh+nQle2kvlBpjgtFZru
-	 2u/CZ34T4E50+MmhFVAXiIEuzEMJ/WcE1nUbDcjE1hg8a1/grQ1m/gMwJg/VXW5t1L
-	 rjvGF53reWmdoWXJirV7Jtb0ZUC2rpt+slbqd1GI=
+	b=HxiN9TsCoLBF1YRKw9ufZ7v8Z0BQMuvBUPZuL1q5D6PXCMzPxMBGyctQ0uLGY6Zyx
+	 LZ3PHMnqbk2kWv41KMKFpLm2lG/mURi08jDc6Ax5Y81l0EWAdKP1DgVJMYDx4SrwAp
+	 NXo6AbsxlMDlG9n6DHnyvqpJwIo0da+bAtDf7egg=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id F05C0F801F5;
-	Wed, 11 Nov 2020 10:57:51 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 0803EF8007E;
+	Wed, 11 Nov 2020 11:15:47 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 756F5F8022D; Wed, 11 Nov 2020 10:57:49 +0100 (CET)
+ id 95318F8020C; Wed, 11 Nov 2020 11:15:44 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from mx0b-001ae601.pphosted.com (mx0a-001ae601.pphosted.com
- [67.231.149.25])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from szxga03-in.huawei.com (szxga03-in.huawei.com [45.249.212.189])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 40794F801F5
- for <alsa-devel@alsa-project.org>; Wed, 11 Nov 2020 10:57:42 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 40794F801F5
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=cirrus.com header.i=@cirrus.com
- header.b="i6cVKx/a"
-Received: from pps.filterd (m0077473.ppops.net [127.0.0.1])
- by mx0a-001ae601.pphosted.com (8.16.0.43/8.16.0.43) with SMTP id
- 0AB9u1mu006743; Wed, 11 Nov 2020 03:57:39 -0600
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com;
- h=subject : to : cc :
- references : from : message-id : date : mime-version : in-reply-to :
- content-type : content-transfer-encoding; s=PODMain02222019;
- bh=htbcwH2AKXWq02ymb+blui8X4yqE4ccarLkLLQJaLuk=;
- b=i6cVKx/aEOiWwpAZdFaqvhx+OXvtKsA7zlapN1pATcPF21ebRqmKr9xHk/OFIQMwelgD
- 0J3lOf7hEgZj44JlEKsJq3jap8l51Pumt1pLGgaOw/O006c5HJJV/w+njAQnueMGoxBc
- 29o25BbxujkYH2YZr09zPCvHujH5IL2PqPcHooZvIWq14xou2b9KP76KONVnlrXOjnNC
- jQTcTp6Nj8P+3COw7ndhY6CXCFTiXAIc19CW86T5f5yGx726tDmNPP581FlE/KuGHGlK
- sYlrPOXRCVT0biPbjuEFJVm7+yooXMDbvceQ9m1Rqcfd1nouU1SXIRb6dbxkAAIrYLxq Kg== 
-Received: from ediex02.ad.cirrus.com ([5.172.152.52])
- by mx0a-001ae601.pphosted.com with ESMTP id 34qg62jxc5-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT);
- Wed, 11 Nov 2020 03:57:37 -0600
-Received: from EDIEX01.ad.cirrus.com (198.61.84.80) by EDIEX02.ad.cirrus.com
- (198.61.84.81) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1913.5; Wed, 11 Nov
- 2020 09:57:30 +0000
-Received: from ediswmail.ad.cirrus.com (198.61.86.93) by EDIEX01.ad.cirrus.com
- (198.61.84.80) with Microsoft SMTP Server id 15.1.1913.5 via Frontend
- Transport; Wed, 11 Nov 2020 09:57:30 +0000
-Received: from [10.0.2.15] (ausnpc0lsnw1.ad.cirrus.com [198.61.64.168])
- by ediswmail.ad.cirrus.com (Postfix) with ESMTP id A79597C;
- Wed, 11 Nov 2020 09:57:30 +0000 (UTC)
-Subject: Re: [PATCH 1/3] ASoC: wm8994: Fix PM disable depth imbalance on error
-To: Zhang Qilong <zhangqilong3@huawei.com>, <lgirdwood@gmail.com>,
- <broonie@kernel.org>, <perex@perex.cz>, <tiwai@suse.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id AE150F800AE
+ for <alsa-devel@alsa-project.org>; Wed, 11 Nov 2020 11:15:35 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz AE150F800AE
+Received: from DGGEMM403-HUB.china.huawei.com (unknown [172.30.72.57])
+ by szxga03-in.huawei.com (SkyGuard) with ESMTP id 4CWLFx05Rbz52yW;
+ Wed, 11 Nov 2020 18:15:17 +0800 (CST)
+Received: from dggema706-chm.china.huawei.com (10.3.20.70) by
+ DGGEMM403-HUB.china.huawei.com (10.3.20.211) with Microsoft SMTP Server (TLS)
+ id 14.3.487.0; Wed, 11 Nov 2020 18:15:28 +0800
+Received: from dggema755-chm.china.huawei.com (10.1.198.197) by
+ dggema706-chm.china.huawei.com (10.3.20.70) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id
+ 15.1.1913.5; Wed, 11 Nov 2020 18:15:28 +0800
+Received: from dggema755-chm.china.huawei.com ([10.1.198.197]) by
+ dggema755-chm.china.huawei.com ([10.1.198.197]) with mapi id 15.01.1913.007;
+ Wed, 11 Nov 2020 18:15:28 +0800
+From: zhangqilong <zhangqilong3@huawei.com>
+To: Richard Fitzgerald <rf@opensource.cirrus.com>, "lgirdwood@gmail.com"
+ <lgirdwood@gmail.com>, "broonie@kernel.org" <broonie@kernel.org>,
+ "perex@perex.cz" <perex@perex.cz>, "tiwai@suse.com" <tiwai@suse.com>
+Subject: =?utf-8?B?562U5aSNOiBbUEFUQ0ggMi8zXSBBU29DOiB3bTg5OTc6IEZpeCBQTSBkaXNh?=
+ =?utf-8?Q?ble_depth_imbalance_on_error?=
+Thread-Topic: [PATCH 2/3] ASoC: wm8997: Fix PM disable depth imbalance on error
+Thread-Index: AQHWuBDoDLy/mtHbuUGyeA2OaWJy6KnCtZ5w
+Date: Wed, 11 Nov 2020 10:15:28 +0000
+Message-ID: <e4ff6c04c34e4c49b1e3dfd71395fc85@huawei.com>
 References: <20201111041326.1257558-1-zhangqilong3@huawei.com>
- <20201111041326.1257558-2-zhangqilong3@huawei.com>
-From: Richard Fitzgerald <rf@opensource.cirrus.com>
-Message-ID: <ec70295a-b0bb-d77a-7bb9-22ba7cb87292@opensource.cirrus.com>
-Date: Wed, 11 Nov 2020 09:57:30 +0000
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.3.1
+ <20201111041326.1257558-3-zhangqilong3@huawei.com>
+ <5f0e1888-417b-88fc-aaba-8eb40a73d85b@opensource.cirrus.com>
+In-Reply-To: <5f0e1888-417b-88fc-aaba-8eb40a73d85b@opensource.cirrus.com>
+Accept-Language: zh-CN, en-US
+Content-Language: zh-CN
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-originating-ip: [10.174.179.28]
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 MIME-Version: 1.0
-In-Reply-To: <20201111041326.1257558-2-zhangqilong3@huawei.com>
-Content-Type: text/plain; charset="utf-8"; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 mlxscore=0
- malwarescore=0 bulkscore=0
- adultscore=0 mlxlogscore=850 phishscore=0 impostorscore=0 spamscore=0
- lowpriorityscore=0 priorityscore=1501 suspectscore=0 clxscore=1015
- classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2009150000
- definitions=main-2011110054
-Cc: patches@opensource.cirrus.com, alsa-devel@alsa-project.org
+X-CFilter-Loop: Reflected
+Cc: "patches@opensource.cirrus.com" <patches@opensource.cirrus.com>,
+ "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -105,35 +89,37 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 11/11/2020 04:13, Zhang Qilong wrote:
-> The pm_runtime_enable will increase power disable depth. Thus
-> a pairing decrement is needed on the error handling path to
-> keep it balanced according to context.
-> 
-> Fixes: 57e265c8d71fb ("ASoC: wm8994: Move runtime PM init to platform device init")
-> Signed-off-by: Zhang Qilong <zhangqilong3@huawei.com>
-> ---
->   sound/soc/codecs/wm8994.c | 6 +++++-
->   1 file changed, 5 insertions(+), 1 deletion(-)
-> 
-> diff --git a/sound/soc/codecs/wm8994.c b/sound/soc/codecs/wm8994.c
-> index fc9ea198ac79..f57884113406 100644
-> --- a/sound/soc/codecs/wm8994.c
-> +++ b/sound/soc/codecs/wm8994.c
-> @@ -4645,8 +4645,12 @@ static int wm8994_probe(struct platform_device *pdev)
->   	pm_runtime_enable(&pdev->dev);
->   	pm_runtime_idle(&pdev->dev);
->   
-> -	return devm_snd_soc_register_component(&pdev->dev, &soc_component_dev_wm8994,
-> +	ret = devm_snd_soc_register_component(&pdev->dev, &soc_component_dev_wm8994,
->   			wm8994_dai, ARRAY_SIZE(wm8994_dai));
-> +	if (ret < 0)
-> +		pm_runtime_disable(&pdev->dev);
-> +
-> +	return ret;
->   }
->   
->   static int wm8994_remove(struct platform_device *pdev)
-> 
-
-Reviewed-by: Richard Fitzgerald <rf@opensource.cirrus.com>
+PiANCj4gT24gMTEvMTEvMjAyMCAwNDoxMywgWmhhbmcgUWlsb25nIHdyb3RlOg0KPiA+IFRoZSBw
+bV9ydW50aW1lX2VuYWJsZSB3aWxsIGluY3JlYXNlIHBvd2VyIGRpc2FibGUgZGVwdGguIFRodXMg
+YQ0KPiA+IHBhaXJpbmcgZGVjcmVtZW50IGlzIG5lZWRlZCBvbiB0aGUgZXJyb3IgaGFuZGxpbmcg
+cGF0aCB0byBrZWVwIGl0DQo+ID4gYmFsYW5jZWQgYWNjb3JkaW5nIHRvIGNvbnRleHQuDQo+ID4N
+Cj4gPiBGaXhlczogMzE4MzNlYWQ5NWMyYyAoIkFTb0M6IGFyaXpvbmE6IE1vdmUgcmVxdWVzdCBv
+ZiBzcGVha2VyIElSUXMNCj4gPiBpbnRvIGJ1cyBwcm9iZSIpDQo+ID4gU2lnbmVkLW9mZi1ieTog
+WmhhbmcgUWlsb25nIDx6aGFuZ3FpbG9uZzNAaHVhd2VpLmNvbT4NCj4gPiAtLS0NCj4gPiAgIHNv
+dW5kL3NvYy9jb2RlY3Mvd204OTk3LmMgfCA5ICsrKysrKystLQ0KPiA+ICAgMSBmaWxlIGNoYW5n
+ZWQsIDcgaW5zZXJ0aW9ucygrKSwgMiBkZWxldGlvbnMoLSkNCj4gPg0KPiA+IGRpZmYgLS1naXQg
+YS9zb3VuZC9zb2MvY29kZWNzL3dtODk5Ny5jIGIvc291bmQvc29jL2NvZGVjcy93bTg5OTcuYw0K
+PiA+IGluZGV4IDM3ZTRiYjNkYmQ4YS4uNzQ0MTA0ZWRiMmViIDEwMDY0NA0KPiA+IC0tLSBhL3Nv
+dW5kL3NvYy9jb2RlY3Mvd204OTk3LmMNCj4gPiArKysgYi9zb3VuZC9zb2MvY29kZWNzL3dtODk5
+Ny5jDQo+ID4gQEAgLTExNjMsMTAgKzExNjMsMTAgQEAgc3RhdGljIGludCB3bTg5OTdfcHJvYmUo
+c3RydWN0DQo+IHBsYXRmb3JtX2RldmljZQ0KPiA+ICpwZGV2KQ0KPiA+DQo+ID4gICAJcmV0ID0g
+YXJpem9uYV9pbml0X3ZvbF9saW1pdChhcml6b25hKTsNCj4gPiAgIAlpZiAocmV0IDwgMCkNCj4g
+PiAtCQlyZXR1cm4gcmV0Ow0KPiA+ICsJCWdvdG8gZXJyX3BtX2Rpc2FibGU7DQo+ID4gICAJcmV0
+ID0gYXJpem9uYV9pbml0X3Nwa19pcnFzKGFyaXpvbmEpOw0KPiA+ICAgCWlmIChyZXQgPCAwKQ0K
+PiA+IC0JCXJldHVybiByZXQ7DQo+ID4gKwkJZ290byBlcnJfcG1fZGlzYWJsZTsNCj4gPg0KPiA+
+ICAgCXJldCA9IGRldm1fc25kX3NvY19yZWdpc3Rlcl9jb21wb25lbnQoJnBkZXYtPmRldiwNCj4g
+PiAgIAkJCQkJICAgICAgJnNvY19jb21wb25lbnRfZGV2X3dtODk5NywgQEANCj4gLTExNzYsOSAr
+MTE3NiwxNCBAQCBzdGF0aWMNCj4gPiBpbnQgd204OTk3X3Byb2JlKHN0cnVjdCBwbGF0Zm9ybV9k
+ZXZpY2UgKnBkZXYpDQo+ID4gICAJCWRldl9lcnIoJnBkZXYtPmRldiwgIkZhaWxlZCB0byByZWdp
+c3RlciBjb21wb25lbnQ6ICVkXG4iLCByZXQpOw0KPiA+ICAgCQlnb3RvIGVycl9zcGtfaXJxczsN
+Cj4gPiAgIAl9DQo+ID4gKwlhcml6b25hX2ZyZWVfc3BrX2lycXMoYXJpem9uYSk7DQo+IA0KPiBT
+aG91bGQgbm90IGJlIGZyZWVpbmcgc3BlYWtlciBpcnFzIG9uIHN1Y2Nlc3NmdWwgcHJvYmUuDQo+
+IFRoaXMgbG9va3MgbGlrZSBhbiBleGlzdGluZyBidWcgaW4gdGhlIGRyaXZlciB3aGVyZSB0aGUg
+cmV0dXJuIDAgd2FzIG1pc3Npbmcgc28gaXQNCj4gd291bGQgYWx3YXlzIGV4aXQgdGhyb3VnaCB0
+aGUgZXJyb3IgcGF0aC4NCg0KWWVzLCBZb3UgYXJlIHJpZ2h0LCBJIGhhZCBhIGxpdHRsZSBkb3Vi
+dHMgaGVyZSBiZWZvcmUsIGl0IHNob3VsZCBiZSBmcmVlZCB3aGVuIGl0IGlzIGJlIHJlbW92ZWQu
+IEkgd2lsbCBmaXggaXQgbmV4dCB2ZXJzaW9uLg0KDQpUaGFucywNClpoYW5nDQoNCg0KPiANCj4g
+PiArDQo+ID4gKwlyZXR1cm4gcmV0Ow0KPiA+DQo+ID4gICBlcnJfc3BrX2lycXM6DQo+ID4gICAJ
+YXJpem9uYV9mcmVlX3Nwa19pcnFzKGFyaXpvbmEpOw0KPiA+ICtlcnJfcG1fZGlzYWJsZToNCj4g
+PiArCXBtX3J1bnRpbWVfZGlzYWJsZSgmcGRldi0+ZGV2KTsNCj4gPg0KPiA+ICAgCXJldHVybiBy
+ZXQ7DQo+ID4gICB9DQo+ID4NCg==

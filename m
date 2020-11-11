@@ -2,53 +2,52 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D24232AF1B1
-	for <lists+alsa-devel@lfdr.de>; Wed, 11 Nov 2020 14:08:28 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 61D602AF19E
+	for <lists+alsa-devel@lfdr.de>; Wed, 11 Nov 2020 14:07:39 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 73DE0176C;
-	Wed, 11 Nov 2020 14:07:38 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 73DE0176C
+	by alsa0.perex.cz (Postfix) with ESMTPS id 430EC1703;
+	Wed, 11 Nov 2020 14:06:48 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 430EC1703
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1605100108;
-	bh=8wi1WNl+EPQo+TBW6DnItPQZpFg0h0s7c/CD0ovBl6o=;
+	s=default; t=1605100058;
+	bh=J0VAf0Uixw7QGnpIL83WkbdSiBgeF6BMc6FjQo+mwkI=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=SwOnspLIW1Yob/l2tF2nYGzhL5wpQTaaf0vEKXVdfa+mJWVMa5y6Bo2gI5B+TAuTr
-	 w9vo2FvMQjh3es4mSgbwcBFYalCe1IerbwTJ3unTmu2X8+hgIAxXI6S433tSFA/iPx
-	 39hYSXNRGSJVpuukBzdnavpYcuOU6uEt3DZmdSM4=
+	b=AaHk89aVOOdXHkGMjf/+KC0y6dJKIVTG8q601CDIcWZkAlhSXJEEz1JCuEqH7Rm73
+	 hFqqXtFqkEmC49AElPmokOIIrf//4wbvxrNSsQExYUcXSomCEORzfaNDp/yQ0gmBgD
+	 m78urvP/X0Z7kmoW5MO+PbHyES2/wg+vfn322mYk=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 3E314F804C3;
-	Wed, 11 Nov 2020 14:06:00 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 70C3BF80271;
+	Wed, 11 Nov 2020 14:05:58 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id D644BF8027C; Wed, 11 Nov 2020 14:05:55 +0100 (CET)
+ id 3B678F8025E; Wed, 11 Nov 2020 14:05:54 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_MSPIKE_H4,
- RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from szxga06-in.huawei.com (szxga06-in.huawei.com [45.249.212.32])
+X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_MSPIKE_H2,
+ SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from szxga05-in.huawei.com (szxga05-in.huawei.com [45.249.212.191])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 7E4ABF8022D
- for <alsa-devel@alsa-project.org>; Wed, 11 Nov 2020 14:05:49 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7E4ABF8022D
+ by alsa1.perex.cz (Postfix) with ESMTPS id 08296F801F5
+ for <alsa-devel@alsa-project.org>; Wed, 11 Nov 2020 14:05:47 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 08296F801F5
 Received: from DGGEMS402-HUB.china.huawei.com (unknown [172.30.72.59])
- by szxga06-in.huawei.com (SkyGuard) with ESMTP id 4CWQ2S2Vvjzhhpc;
- Wed, 11 Nov 2020 21:05:36 +0800 (CST)
+ by szxga05-in.huawei.com (SkyGuard) with ESMTP id 4CWQ2P1FyVzhZND;
+ Wed, 11 Nov 2020 21:05:33 +0800 (CST)
 Received: from huawei.com (10.175.127.227) by DGGEMS402-HUB.china.huawei.com
  (10.3.19.202) with Microsoft SMTP Server id 14.3.487.0; Wed, 11 Nov 2020
- 21:05:37 +0800
+ 21:05:38 +0800
 From: Zhang Qilong <zhangqilong3@huawei.com>
 To: <lgirdwood@gmail.com>, <broonie@kernel.org>, <perex@perex.cz>,
  <tiwai@suse.com>, <rf@opensource.cirrus.com>
-Subject: [PATCH v2 2/4] ASoC: arizona: Fix PM disable depth imbalance on error
-Date: Wed, 11 Nov 2020 21:09:21 +0800
-Message-ID: <20201111130923.220186-3-zhangqilong3@huawei.com>
+Subject: [PATCH v2 3/4] ASoC: wm8994: Fix PM disable depth imbalance on error
+Date: Wed, 11 Nov 2020 21:09:22 +0800
+Message-ID: <20201111130923.220186-4-zhangqilong3@huawei.com>
 X-Mailer: git-send-email 2.25.4
 In-Reply-To: <20201111130923.220186-1-zhangqilong3@huawei.com>
 References: <20201111130923.220186-1-zhangqilong3@huawei.com>
@@ -77,38 +76,31 @@ The pm_runtime_enable will increase power disable depth. Thus
 a pairing decrement is needed on the error handling path to
 keep it balanced according to context.
 
-Fixes: 85e7dd3f871b9 ("ASoC: arizona: Add support for setting the output volume limits")
+Fixes: 57e265c8d71fb ("ASoC: wm8994: Move runtime PM init to platform device init")
 Signed-off-by: Zhang Qilong <zhangqilong3@huawei.com>
+Reviewed-by: Richard Fitzgerald <rf@opensource.cirrus.com>
 ---
- sound/soc/codecs/wm8997.c | 6 ++++--
- 1 file changed, 4 insertions(+), 2 deletions(-)
+ sound/soc/codecs/wm8994.c | 6 +++++-
+ 1 file changed, 5 insertions(+), 1 deletion(-)
 
-diff --git a/sound/soc/codecs/wm8997.c b/sound/soc/codecs/wm8997.c
-index 229f2986cd96..014328162262 100644
---- a/sound/soc/codecs/wm8997.c
-+++ b/sound/soc/codecs/wm8997.c
-@@ -1163,10 +1163,10 @@ static int wm8997_probe(struct platform_device *pdev)
+diff --git a/sound/soc/codecs/wm8994.c b/sound/soc/codecs/wm8994.c
+index fc9ea198ac79..f57884113406 100644
+--- a/sound/soc/codecs/wm8994.c
++++ b/sound/soc/codecs/wm8994.c
+@@ -4645,8 +4645,12 @@ static int wm8994_probe(struct platform_device *pdev)
+ 	pm_runtime_enable(&pdev->dev);
+ 	pm_runtime_idle(&pdev->dev);
  
- 	ret = arizona_init_vol_limit(arizona);
- 	if (ret < 0)
--		return ret;
-+		goto err_pm_disable;
- 	ret = arizona_init_spk_irqs(arizona);
- 	if (ret < 0)
--		return ret;
-+		goto err_pm_disable;
- 
- 	ret = devm_snd_soc_register_component(&pdev->dev,
- 					      &soc_component_dev_wm8997,
-@@ -1181,6 +1181,8 @@ static int wm8997_probe(struct platform_device *pdev)
- 
- err_spk_irqs:
- 	arizona_free_spk_irqs(arizona);
-+err_pm_disable:
-+	pm_runtime_disable(&pdev->dev);
- 
- 	return ret;
+-	return devm_snd_soc_register_component(&pdev->dev, &soc_component_dev_wm8994,
++	ret = devm_snd_soc_register_component(&pdev->dev, &soc_component_dev_wm8994,
+ 			wm8994_dai, ARRAY_SIZE(wm8994_dai));
++	if (ret < 0)
++		pm_runtime_disable(&pdev->dev);
++
++	return ret;
  }
+ 
+ static int wm8994_remove(struct platform_device *pdev)
 -- 
 2.25.4
 

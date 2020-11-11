@@ -2,72 +2,74 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 890A92AE1EE
-	for <lists+alsa-devel@lfdr.de>; Tue, 10 Nov 2020 22:40:52 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7007C2AE685
+	for <lists+alsa-devel@lfdr.de>; Wed, 11 Nov 2020 03:47:22 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 119101726;
-	Tue, 10 Nov 2020 22:40:02 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 119101726
+	by alsa0.perex.cz (Postfix) with ESMTPS id CA45E172F;
+	Wed, 11 Nov 2020 03:46:31 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CA45E172F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1605044452;
-	bh=1wv/W+FAA2wLDi6r6O9opaiMCeNvIC1rPgcrn0Rooxs=;
-	h=Date:From:To:In-Reply-To:References:Subject:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=bPqy9WIjKBLJXJP6Fv+0XVDmverKcq9NiZWqnYE+XLVVlREZEX8BskK3jAlSdiIQR
-	 kpvIYSi9sbUx55TFKxizggfpUdHkplhLpROQO6Nfwzwgp7oLXDrKLRn0IvX7WN9WCs
-	 WvEn6h4eIWh1Uq1+BKQpFLlM45BZ3HJZwKBrgJvU=
+	s=default; t=1605062842;
+	bh=IcCu3+Zc2n3kYPQu033Mn4Z4XaeAhwPBlnreV28pxOQ=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=hukQcbjNEDdFljvwUsEXfRosEXB1BqVSamqziF4s1BscEm6woEVbBcKJ+jLm33zHv
+	 3W74HE2asdDxPjSI2xAzGNsnx+p1xWtn2gvu57vjRhXPiBVecYT1lsF0kKou2KUyq1
+	 Z4waRrkNaUdlEI8lMRyiLiMh92L7plwLjapGR9f4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 2B548F804CB;
-	Tue, 10 Nov 2020 22:38:35 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 434DDF80059;
+	Wed, 11 Nov 2020 03:45:49 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 98ED8F804CA; Tue, 10 Nov 2020 22:38:33 +0100 (CET)
+ id EE35FF8020C; Wed, 11 Nov 2020 03:45:41 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled
- version=3.4.0
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 1C8E2F804C2
- for <alsa-devel@alsa-project.org>; Tue, 10 Nov 2020 22:38:31 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1C8E2F804C2
+X-Spam-Status: No, score=0.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,MIME_BASE64_TEXT,RDNS_NONE,SPF_HELO_NONE,SPF_PASS,
+ UNPARSEABLE_RELAY,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mailgw02.mediatek.com (unknown [210.61.82.184])
+ by alsa1.perex.cz (Postfix) with ESMTP id 6EF68F8007E
+ for <alsa-devel@alsa-project.org>; Wed, 11 Nov 2020 03:45:32 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6EF68F8007E
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="To+hjNxU"
-Received: from localhost (fw-tnat.cambridge.arm.com [217.140.96.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 9CBBB207D3;
- Tue, 10 Nov 2020 21:38:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1605044309;
- bh=1wv/W+FAA2wLDi6r6O9opaiMCeNvIC1rPgcrn0Rooxs=;
- h=Date:From:To:Cc:In-Reply-To:References:Subject:From;
- b=To+hjNxUK2OWbg0OfzQHC3Q4eCQLWyaXcTYcslaAt6K6bqa7nEVjItClnhIdqOAVJ
- y5p0CBYi8rvAnkxFj+S7OW+XEmMZ+o3a+zzJ5CPzo0WEl7lCPymSFDkxARdAzaEvJF
- 5V73vnqwQnMV0raNC+VO6a80HFbJSjQ56Hy/EpvU=
-Date: Tue, 10 Nov 2020 21:38:15 +0000
-From: Mark Brown <broonie@kernel.org>
-To: Xiubo Li <Xiubo.Lee@gmail.com>, Timur Tabi <timur@kernel.org>,
- Nicolin Chen <nicoleotsuka@gmail.com>, Fabio Estevam <festevam@gmail.com>,
- Shengjiu Wang <shengjiu.wang@gmail.com>, alsa-devel@alsa-project.org,
- linux-kernel@vger.kernel.org, linuxppc-dev@lists.ozlabs.org,
- Jaroslav Kysela <perex@perex.cz>, Liam Girdwood <lgirdwood@gmail.com>,
- "Viorel Suman (OSS)" <viorel.suman@oss.nxp.com>, Takashi Iwai <tiwai@suse.com>
-In-Reply-To: <20201102161810.902464-1-viorel.suman@oss.nxp.com>
-References: <20201102161810.902464-1-viorel.suman@oss.nxp.com>
-Subject: Re: [PATCH] ASoC: fsl_xcvr: fix break condition
-Message-Id: <160504428419.41991.13993731328162565714.b4-ty@kernel.org>
+ dkim=pass (1024-bit key) header.d=mediatek.com header.i=@mediatek.com
+ header.b="Ph9dz+a2"
+X-UUID: 35bbd99d68cf4914a39cba7b28e5385a-20201111
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=mediatek.com;
+ s=dk; 
+ h=Content-Transfer-Encoding:Content-Type:MIME-Version:Message-ID:Date:Subject:CC:To:From;
+ bh=IcCu3+Zc2n3kYPQu033Mn4Z4XaeAhwPBlnreV28pxOQ=; 
+ b=Ph9dz+a2wcPaenoN1rUt8b/zc8I9AdPs08WA7iVq95BA+XmUSDv//oiiATFYxRT7nSJ52qVYo9OD1w5uYw5L8bHUKRmox2OdeE1V+vpGV//XkBHhqHee3/4sH25FN+JjuLS0Kn3NeLk/9lEnJmRNcUk742/Ly6jv05FBWFuWzpw=;
+X-UUID: 35bbd99d68cf4914a39cba7b28e5385a-20201111
+Received: from mtkcas06.mediatek.inc [(172.21.101.30)] by mailgw02.mediatek.com
+ (envelope-from <jiaxin.yu@mediatek.com>)
+ (Cellopoint E-mail Firewall v4.1.14 Build 0819 with TLSv1.2
+ ECDHE-RSA-AES256-SHA384 256/256)
+ with ESMTP id 1493458854; Wed, 11 Nov 2020 10:45:25 +0800
+Received: from mtkcas07.mediatek.inc (172.21.101.84) by
+ mtkmbs07n1.mediatek.inc (172.21.101.16) with Microsoft SMTP Server (TLS) id
+ 15.0.1497.2; Wed, 11 Nov 2020 10:45:23 +0800
+Received: from localhost.localdomain (10.17.3.153) by mtkcas07.mediatek.inc
+ (172.21.101.73) with Microsoft SMTP Server id 15.0.1497.2 via Frontend
+ Transport; Wed, 11 Nov 2020 10:45:23 +0800
+From: Jiaxin Yu <jiaxin.yu@mediatek.com>
+To: <broonie@kernel.org>, <tiwai@suse.com>, <matthias.bgg@gmail.com>,
+ <tzungbi@google.com>, <alsa-devel@alsa-project.org>,
+ <linux-arm-kernel@lists.infradead.org>, <linux-mediatek@lists.infradead.org>
+Subject: [PATCH v2] ASoC: mediatek: mt8192: skip first time data at the
+ beginning of DMIC recording
+Date: Wed, 11 Nov 2020 10:45:22 +0800
+Message-ID: <1605062722-8711-1-git-send-email-jiaxin.yu@mediatek.com>
+X-Mailer: git-send-email 1.8.1.1.dirty
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Cc: Viorel Suman <viorel.suman@nxp.com>
+Content-Type: text/plain
+X-MTK: N
+Content-Transfer-Encoding: base64
+Cc: shane.chien@mediatek.com, Trevor.Wu@mediatek.com,
+ Jiaxin Yu <jiaxin.yu@mediatek.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -83,35 +85,41 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Mon, 2 Nov 2020 18:18:10 +0200, Viorel Suman (OSS) wrote:
-> The break condition copied by mistake as same
-> as loop condition in the previous version, but must
-> be the opposite. So fix it.
+V2UgY2FuIGNob29zZSB0byBkcm9wIGF3YXkgYW55IGxlbmd0aCBvZiBkYXRhIGZyb20gdGhlIGJl
+Z2lubmluZyBhY2NvcmRpbmcNCnRvIHByb2plY3QgbmVlZHMuIFNvbWUgcHJvamVjdHMgZG9uJ3Qg
+d2FudCB0byB0aHJvdyBhd2F5IGFueSBkYXRhLCBiZWNhdXNlDQp0aGV5IHdhbnQgdG8gdXNlIHJl
+Y29yZGVkIGRhdGEgdG8gZG8gZWNobyBjYW5jZWxsYXRpb24sIHNvIHRoZXkgaGF2ZSB0bw0KbWFr
+ZSBzdXJlIHRoYXQgdGhleSBhcmUgYWxpZ25lZCB3aXRoIHRoZSByZWZlcmVuY2UgZGF0YSBhcyBt
+dWNoIGFzDQpwb3NzaWJsZS4gT3IgdGhlcmUgYXJlIG90aGVyIGFsZ29yaXRobXMgaW4gdGhlIHVw
+cGVyIGxheWVyIHRvIGVsaW1pbmF0ZQ0KdGhpcyBub2lzZS4gT3Igc29tZSBwcm9qZWN0cyB3YW50
+IHRvIGVsaW1pbmF0ZSB0aGlzIG5vaXNlIGZvcm0gdGhlIGtlcm5lbA0KbGF5ZXIuIEhvd2V2ZXIs
+IHRoZSBtaW5pbXVtIHJlY29tbWVuZGVkIHZhbHVlIGlzIDUwbXMgdG8gc2tpcCBwb3Agbm9pc2Uu
+DQoNClNpZ25lZC1vZmYtYnk6IEppYXhpbiBZdSA8amlheGluLnl1QG1lZGlhdGVrLmNvbT4NCi0t
+LQ0KIFRoaXMgc2VlbXMgbGlrZSBzb21ldGhpbmcgdGhhdCB3b3VsZCBhcHBseSBlcXVhbGx5IHRv
+IGFsbCBETUlDcyBzbyBzaG91bGQNCiBiZSBkb25lIGF0IGEgbW9yZSBnZW5lcmFsIGxldmVsLCBz
+byB3ZSBpbXBsZW1lbnQgaXQgaW4gdGhlIERNSUMgZHJpdmVyLg0KDQogc291bmQvc29jL21lZGlh
+dGVrL0tjb25maWcgICAgICAgICAgICAgICAgICAgICAgICAgICAgICB8IDEgKw0KIHNvdW5kL3Nv
+Yy9tZWRpYXRlay9tdDgxOTIvbXQ4MTkyLW10NjM1OS1ydDEwMTUtcnQ1NjgyLmMgfCA0ICsrKy0N
+CiAyIGZpbGVzIGNoYW5nZWQsIDQgaW5zZXJ0aW9ucygrKSwgMSBkZWxldGlvbigtKQ0KDQpkaWZm
+IC0tZ2l0IGEvc291bmQvc29jL21lZGlhdGVrL0tjb25maWcgYi9zb3VuZC9zb2MvbWVkaWF0ZWsv
+S2NvbmZpZw0KaW5kZXggZGM2MjhmYjZjMTAyNS4uMzFmMTQzMWJmNTc5MiAxMDA2NDQNCi0tLSBh
+L3NvdW5kL3NvYy9tZWRpYXRlay9LY29uZmlnDQorKysgYi9zb3VuZC9zb2MvbWVkaWF0ZWsvS2Nv
+bmZpZw0KQEAgLTE3NSw2ICsxNzUsNyBAQCBjb25maWcgU05EX1NPQ19NVDgxOTJfTVQ2MzU5X1JU
+MTAxNV9SVDU2ODINCiAJc2VsZWN0IFNORF9TT0NfTVQ2MzU5DQogCXNlbGVjdCBTTkRfU09DX1JU
+MTAxNQ0KIAlzZWxlY3QgU05EX1NPQ19SVDU2ODJfSTJDDQorCXNlbGVjdCBTTkRfU09DX0RNSUMN
+CiAJaGVscA0KIAkgIFRoaXMgYWRkcyBBU29DIGRyaXZlciBmb3IgTWVkaWF0ZWsgTVQ4MTkyIGJv
+YXJkcw0KIAkgIHdpdGggdGhlIE1UNjM1OSBSVDEwMTUgUlQ1NjgyIGF1ZGlvIGNvZGVjLg0KZGlm
+ZiAtLWdpdCBhL3NvdW5kL3NvYy9tZWRpYXRlay9tdDgxOTIvbXQ4MTkyLW10NjM1OS1ydDEwMTUt
+cnQ1NjgyLmMgYi9zb3VuZC9zb2MvbWVkaWF0ZWsvbXQ4MTkyL210ODE5Mi1tdDYzNTktcnQxMDE1
+LXJ0NTY4Mi5jDQppbmRleCA0MWQ4YTg1NjdiYjM4Li5iN2Y0MmE1MzBkMDY5IDEwMDY0NA0KLS0t
+IGEvc291bmQvc29jL21lZGlhdGVrL210ODE5Mi9tdDgxOTItbXQ2MzU5LXJ0MTAxNS1ydDU2ODIu
+Yw0KKysrIGIvc291bmQvc29jL21lZGlhdGVrL210ODE5Mi9tdDgxOTItbXQ2MzU5LXJ0MTAxNS1y
+dDU2ODIuYw0KQEAgLTU0MCw3ICs1NDAsOSBAQCBTTkRfU09DX0RBSUxJTktfREVGUyhwbGF5YmFj
+a19oZG1pLA0KIFNORF9TT0NfREFJTElOS19ERUZTKHByaW1hcnlfY29kZWMsDQogCQkgICAgIERB
+SUxJTktfQ09NUF9BUlJBWShDT01QX0NQVSgiQUREQSIpKSwNCiAJCSAgICAgREFJTElOS19DT01Q
+X0FSUkFZKENPTVBfQ09ERUMoIm10NjM1OS1zb3VuZCIsDQotCQkJCQkJICAgIm10NjM1OS1zbmQt
+Y29kZWMtYWlmMSIpKSwNCisJCQkJCQkgICAibXQ2MzU5LXNuZC1jb2RlYy1haWYxIiksDQorCQkJ
+CQlDT01QX0NPREVDKCJkbWljLWNvZGVjIiwNCisJCQkJCQkgICAiZG1pYy1oaWZpIikpLA0KIAkJ
+ICAgICBEQUlMSU5LX0NPTVBfQVJSQVkoQ09NUF9FTVBUWSgpKSk7DQogDQogU05EX1NPQ19EQUlM
+SU5LX0RFRlMocHJpbWFyeV9jb2RlY19jaDM0LA0KLS0gDQoyLjE4LjANCg==
 
-Applied to
-
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
-
-Thanks!
-
-[1/1] ASoC: fsl_xcvr: fix break condition
-      commit: 048751de568816de52dedf0fa967cceada7885f1
-
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
-
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
-
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
-
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-Thanks,
-Mark

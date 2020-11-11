@@ -2,65 +2,94 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 976DA2AEAD6
-	for <lists+alsa-devel@lfdr.de>; Wed, 11 Nov 2020 09:07:18 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id DA5832AEE21
+	for <lists+alsa-devel@lfdr.de>; Wed, 11 Nov 2020 10:52:09 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 1A3C31742;
-	Wed, 11 Nov 2020 09:06:28 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1A3C31742
+	by alsa0.perex.cz (Postfix) with ESMTPS id 44D15171F;
+	Wed, 11 Nov 2020 10:51:19 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 44D15171F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1605082038;
-	bh=z1TbW5VcK5BNxbjKz/mwL12SVlvmGpL6gudPZ04u34c=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=ZVzKubd8mYmxfkb6JooPvgh/xf6iSk/ssObPtnMqhieotSfI4389DgJsJN2iCV3fS
-	 G89nu+exIQBfq++/28sluv/YstGp+eJ0WPvQjQ/7QRa+62HpfiE3I+NxdXnPYIDzFz
-	 wpuZUh4d8Jg2HX7l1erdD2+Ayy/yPKHbqUHUIMIo=
+	s=default; t=1605088329;
+	bh=uJUzaI5mR4miX1Ahgn2Sg9GDB6QwcuZh2u5UWBIUAaE=;
+	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=nCAXOq7zle/h67HDz9p9GYhmA45pqDUwrJjLWTGtNA1f7HFG90tKaVahsKrtrWq00
+	 vjvcBzyW3xyf7/J6hB6o7a8Q0QUK/QgoK33trJY6HYjMshHtAiNnxjkFo93fcIHjKk
+	 w4X2zQ75cZWwPfSQUJ3Ko3lLEUIDfNNzOap6PbgM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 6E543F801F5;
-	Wed, 11 Nov 2020 09:05:45 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id B331CF8007E;
+	Wed, 11 Nov 2020 10:50:36 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 49C64F8020C; Wed, 11 Nov 2020 09:05:42 +0100 (CET)
+ id 24267F8020C; Wed, 11 Nov 2020 10:50:35 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: *
-X-Spam-Status: No, score=1.0 required=5.0 tests=RDNS_NONE,SPF_HELO_NONE,
- SPF_PASS,UNPARSEABLE_RELAY,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mailgw02.mediatek.com (unknown [210.61.82.184])
- by alsa1.perex.cz (Postfix) with ESMTP id 11322F8007E
- for <alsa-devel@alsa-project.org>; Wed, 11 Nov 2020 09:05:34 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 11322F8007E
-X-UUID: 69970f2a4a424d2b89a8c6475aeb7f1f-20201111
-X-UUID: 69970f2a4a424d2b89a8c6475aeb7f1f-20201111
-Received: from mtkcas10.mediatek.inc [(172.21.101.39)] by mailgw02.mediatek.com
- (envelope-from <jiaxin.yu@mediatek.com>)
- (Cellopoint E-mail Firewall v4.1.14 Build 0819 with TLSv1.2
- ECDHE-RSA-AES256-SHA384 256/256)
- with ESMTP id 1177359857; Wed, 11 Nov 2020 16:05:27 +0800
-Received: from MTKCAS06.mediatek.inc (172.21.101.30) by
- mtkmbs06n2.mediatek.inc (172.21.101.130) with Microsoft SMTP Server (TLS) id
- 15.0.1497.2; Wed, 11 Nov 2020 16:05:21 +0800
-Received: from localhost.localdomain (10.17.3.153) by MTKCAS06.mediatek.inc
- (172.21.101.73) with Microsoft SMTP Server id 15.0.1497.2 via Frontend
- Transport; Wed, 11 Nov 2020 16:05:21 +0800
-From: Jiaxin Yu <jiaxin.yu@mediatek.com>
-To: <broonie@kernel.org>, <matthias.bgg@gmail.com>, <tzungbi@google.com>,
- <alsa-devel@alsa-project.org>, <robh+dt@kernel.org>,
- <linux-arm-kernel@lists.infradead.org>, <linux-mediatek@lists.infradead.org>, 
- <devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>
-Subject: [PATCH] dt-bindings: mediatek: mt8192: revert "add audio afe document"
-Date: Wed, 11 Nov 2020 16:05:20 +0800
-Message-ID: <1605081920-11848-1-git-send-email-jiaxin.yu@mediatek.com>
-X-Mailer: git-send-email 1.8.1.1.dirty
+X-Spam-Level: 
+X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
+Received: from mx0b-001ae601.pphosted.com (mx0b-001ae601.pphosted.com
+ [67.231.152.168])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id B7C16F8007E
+ for <alsa-devel@alsa-project.org>; Wed, 11 Nov 2020 10:50:27 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B7C16F8007E
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=cirrus.com header.i=@cirrus.com
+ header.b="hTvC0Kxc"
+Received: from pps.filterd (m0077474.ppops.net [127.0.0.1])
+ by mx0b-001ae601.pphosted.com (8.16.0.43/8.16.0.43) with SMTP id
+ 0AB9lSow032064; Wed, 11 Nov 2020 03:50:25 -0600
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com;
+ h=subject : to : cc :
+ references : from : message-id : date : mime-version : in-reply-to :
+ content-type : content-transfer-encoding; s=PODMain02222019;
+ bh=b9mTvsu5KMcLPmzbFZmuzKM1eD6AdfI9UB+vjRJel4Y=;
+ b=hTvC0KxcU6IlwSOknwSvWkpxl6/uFZzMjSUXX+JIqAfhR0WyJS/jievtpXxrtcBxSZyH
+ FmBLV+rI7UWivQ1TDKdOfLvYr/WLPWbELBEPitFZBfEi0HtM0GX7MxXBjverpN4cEwGh
+ Gb8xdr7g3on21HDfSBKwUXak+VWmy4kpIGm6ZNr8GER0BBapCvyBqn7hPkLJBAjc7eMb
+ w6W0hFuiH+ck2Q+Pqomb25AmJ/kbWabBa3qxHhIsUSljb2/egM7XWHMD6uapEP9dLyCL
+ 3rPTiKL05tz2lwXLlLFqT3wSsuH5K1gcM02D/llqyV9qf8TfwrmDS0BPnMASlto3r2Wq dQ== 
+Received: from ediex01.ad.cirrus.com ([5.172.152.52])
+ by mx0b-001ae601.pphosted.com with ESMTP id 34qg5xtrmr-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT);
+ Wed, 11 Nov 2020 03:50:25 -0600
+Received: from EDIEX01.ad.cirrus.com (198.61.84.80) by EDIEX01.ad.cirrus.com
+ (198.61.84.80) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1913.5; Wed, 11 Nov
+ 2020 09:50:23 +0000
+Received: from ediswmail.ad.cirrus.com (198.61.86.93) by EDIEX01.ad.cirrus.com
+ (198.61.84.80) with Microsoft SMTP Server id 15.1.1913.5 via Frontend
+ Transport; Wed, 11 Nov 2020 09:50:23 +0000
+Received: from [10.0.2.15] (ausnpc0lsnw1.ad.cirrus.com [198.61.64.168])
+ by ediswmail.ad.cirrus.com (Postfix) with ESMTP id 705C07C;
+ Wed, 11 Nov 2020 09:50:23 +0000 (UTC)
+Subject: Re: [PATCH 3/3] ASoC: wm8998: Fix PM disable depth imbalance on error
+To: Zhang Qilong <zhangqilong3@huawei.com>, <lgirdwood@gmail.com>,
+ <broonie@kernel.org>, <perex@perex.cz>, <tiwai@suse.com>
+References: <20201111041326.1257558-1-zhangqilong3@huawei.com>
+ <20201111041326.1257558-4-zhangqilong3@huawei.com>
+From: Richard Fitzgerald <rf@opensource.cirrus.com>
+Message-ID: <04e35b24-165b-ccdb-b55e-05a90b8cb6c3@opensource.cirrus.com>
+Date: Wed, 11 Nov 2020 09:50:23 +0000
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.3.1
 MIME-Version: 1.0
-Content-Type: text/plain
-X-TM-SNTS-SMTP: B6B60659D593C4E89EEF10AE1AB27A634A2912B517692252360D8B9598ABDC582000:8
-X-MTK: N
-Cc: shane.chien@mediatek.com, Trevor.Wu@mediatek.com,
- Jiaxin Yu <jiaxin.yu@mediatek.com>
+In-Reply-To: <20201111041326.1257558-4-zhangqilong3@huawei.com>
+Content-Type: text/plain; charset="utf-8"; format=flowed
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 mlxlogscore=932
+ mlxscore=0 adultscore=0
+ impostorscore=0 spamscore=0 priorityscore=1501 malwarescore=0 phishscore=0
+ bulkscore=0 suspectscore=2 lowpriorityscore=0 clxscore=1011
+ classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2009150000
+ definitions=main-2011110053
+Cc: patches@opensource.cirrus.com, alsa-devel@alsa-project.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -76,124 +105,39 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-This reverts commit 1afc60e00de3abbb6c559da409c5c1bb8c1d98ec.
+On 11/11/2020 04:13, Zhang Qilong wrote:
+> The pm_runtime_enable will increase power disable depth. Thus
+> a pairing decrement is needed on the error handling path to
+> keep it balanced according to context.
+> 
+> Fixes: 31833ead95c2c ("ASoC: arizona: Move request of speaker IRQs into bus probe")
+> Signed-off-by: Zhang Qilong <zhangqilong3@huawei.com>
+> ---
+>   sound/soc/codecs/wm8998.c | 4 +++-
+>   1 file changed, 3 insertions(+), 1 deletion(-)
+> 
+> diff --git a/sound/soc/codecs/wm8998.c b/sound/soc/codecs/wm8998.c
+> index f6c5cc80c970..5413254295b7 100644
+> --- a/sound/soc/codecs/wm8998.c
+> +++ b/sound/soc/codecs/wm8998.c
+> @@ -1375,7 +1375,7 @@ static int wm8998_probe(struct platform_device *pdev)
+>   
+>   	ret = arizona_init_spk_irqs(arizona);
+>   	if (ret < 0)
+> -		return ret;
+> +		goto err_pm_disable;
+>   
+>   	ret = devm_snd_soc_register_component(&pdev->dev,
+>   					      &soc_component_dev_wm8998,
+> @@ -1390,6 +1390,8 @@ static int wm8998_probe(struct platform_device *pdev)
+>   
+>   err_spk_irqs:
+>   	arizona_free_spk_irqs(arizona);
+> +err_pm_disable:
+> +	pm_runtime_disable(&pdev->dev);
+>   
+>   	return ret;
+>   }
+> 
 
-Signed-off-by: Jiaxin Yu <jiaxin.yu@mediatek.com>
----
- https://mailman.alsa-project.org/pipermail/alsa-devel/2020-November/176873.html
- These dependency are continuing to upstream, I will revert this patch first.
- After the dependencies are merged, I will send 'mt8192-afe-pcm.yaml' again.
-
- .../bindings/sound/mt8192-afe-pcm.yaml        | 100 ------------------
- 1 file changed, 100 deletions(-)
- delete mode 100644 Documentation/devicetree/bindings/sound/mt8192-afe-pcm.yaml
-
-diff --git a/Documentation/devicetree/bindings/sound/mt8192-afe-pcm.yaml b/Documentation/devicetree/bindings/sound/mt8192-afe-pcm.yaml
-deleted file mode 100644
-index 0170c93802d29..0000000000000
---- a/Documentation/devicetree/bindings/sound/mt8192-afe-pcm.yaml
-+++ /dev/null
-@@ -1,100 +0,0 @@
--# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
--%YAML 1.2
-----
--$id: http://devicetree.org/schemas/sound/mt8192-afe-pcm.yaml#
--$schema: http://devicetree.org/meta-schemas/core.yaml#
--
--title: Mediatek AFE PCM controller for mt8192
--
--maintainers:
--   - Jiaxin Yu <jiaxin.yu@mediatek.com>
--   - Shane Chien <shane.chien@mediatek.com>
--
--properties:
--  compatible:
--      const: mediatek,mt8192-audio
--
--  interrupts:
--    maxItems: 1
--
--  resets:
--    maxItems: 1
--
--  reset-names:
--    const: audiosys
--
--  mediatek,apmixedsys:
--    $ref: "/schemas/types.yaml#/definitions/phandle"
--    description: The phandle of the mediatek apmixedsys controller
--
--  mediatek,infracfg:
--    $ref: "/schemas/types.yaml#/definitions/phandle"
--    description: The phandle of the mediatek infracfg controller
--
--  mediatek,topckgen:
--    $ref: "/schemas/types.yaml#/definitions/phandle"
--    description: The phandle of the mediatek topckgen controller
--
--  power-domains:
--    maxItems: 1
--
--  clocks:
--    items:
--      - description: AFE clock
--      - description: ADDA DAC clock
--      - description: ADDA DAC pre-distortion clock
--      - description: audio infra sys clock
--      - description: audio infra 26M clock
--
--  clock-names:
--    items:
--      - const: aud_afe_clk
--      - const: aud_dac_clk
--      - const: aud_dac_predis_clk
--      - const: aud_infra_clk
--      - const: aud_infra_26m_clk
--
--required:
--  - compatible
--  - interrupts
--  - resets
--  - reset-names
--  - mediatek,apmixedsys
--  - mediatek,infracfg
--  - mediatek,topckgen
--  - power-domains
--  - clocks
--  - clock-names
--
--additionalProperties: false
--
--examples:
--  - |
--    #include <dt-bindings/clock/mt8192-clk.h>
--    #include <dt-bindings/interrupt-controller/arm-gic.h>
--    #include <dt-bindings/interrupt-controller/irq.h>
--    #include <dt-bindings/power/mt8192-power.h>
--    #include <dt-bindings/reset-controller/mt8192-resets.h>
--
--    afe: mt8192-afe-pcm {
--        compatible = "mediatek,mt8192-audio";
--        interrupts = <GIC_SPI 202 IRQ_TYPE_LEVEL_HIGH>;
--        resets = <&watchdog MT8192_TOPRGU_AUDIO_SW_RST>;
--        reset-names = "audiosys";
--        mediatek,apmixedsys = <&apmixedsys>;
--        mediatek,infracfg = <&infracfg>;
--        mediatek,topckgen = <&topckgen>;
--        power-domains = <&scpsys MT8192_POWER_DOMAIN_AUDIO>;
--        clocks = <&audsys CLK_AUD_AFE>,
--                 <&audsys CLK_AUD_DAC>,
--                 <&audsys CLK_AUD_DAC_PREDIS>,
--                 <&infracfg CLK_INFRA_AUDIO>,
--                 <&infracfg CLK_INFRA_AUDIO_26M_B>;
--        clock-names = "aud_afe_clk",
--                      "aud_dac_clk",
--                      "aud_dac_predis_clk",
--                      "aud_infra_clk",
--                      "aud_infra_26m_clk";
--    };
--
--...
--- 
-2.18.0
-
+Reviewed-by: Richard Fitzgerald <rf@opensource.cirrus.com>

@@ -2,78 +2,76 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 661EB2AEEA2
-	for <lists+alsa-devel@lfdr.de>; Wed, 11 Nov 2020 11:17:20 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0D6FA2AEECD
+	for <lists+alsa-devel@lfdr.de>; Wed, 11 Nov 2020 11:34:44 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C9137174B;
-	Wed, 11 Nov 2020 11:16:29 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C9137174B
+	by alsa0.perex.cz (Postfix) with ESMTPS id 8A222174F;
+	Wed, 11 Nov 2020 11:33:53 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8A222174F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1605089839;
-	bh=yWY4ZteANWKckyyyPOo8iftaYXzxnHVgMEKkncS81gY=;
-	h=From:To:Subject:Date:References:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=HxiN9TsCoLBF1YRKw9ufZ7v8Z0BQMuvBUPZuL1q5D6PXCMzPxMBGyctQ0uLGY6Zyx
-	 LZ3PHMnqbk2kWv41KMKFpLm2lG/mURi08jDc6Ax5Y81l0EWAdKP1DgVJMYDx4SrwAp
-	 NXo6AbsxlMDlG9n6DHnyvqpJwIo0da+bAtDf7egg=
+	s=default; t=1605090883;
+	bh=pZ5AL1mD10JHBSmSNt09nI9aNBf181UXKMDMZJRDp/c=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=L43j404+F1GUe+a43YsxkC1OLssj4hhG3tkko4kz5phpxWR87tvv2wnpJtlZLMruE
+	 jyz7L2WYHp+MX1wYodRuN81iBgKFsd4xHoZNqgDNwlXPWWYf+3IX1P+XLLezxuo1p2
+	 6tAeIi/DRgT6/jRb/ARBNoCH8CfbYcwa3pXbKCik=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 0803EF8007E;
-	Wed, 11 Nov 2020 11:15:47 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 09366F8022B;
+	Wed, 11 Nov 2020 11:33:11 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 95318F8020C; Wed, 11 Nov 2020 11:15:44 +0100 (CET)
+ id A1BFEF8020C; Wed, 11 Nov 2020 11:33:08 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from szxga03-in.huawei.com (szxga03-in.huawei.com [45.249.212.189])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+ DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from hqnvemgate26.nvidia.com (hqnvemgate26.nvidia.com
+ [216.228.121.65])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id AE150F800AE
- for <alsa-devel@alsa-project.org>; Wed, 11 Nov 2020 11:15:35 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz AE150F800AE
-Received: from DGGEMM403-HUB.china.huawei.com (unknown [172.30.72.57])
- by szxga03-in.huawei.com (SkyGuard) with ESMTP id 4CWLFx05Rbz52yW;
- Wed, 11 Nov 2020 18:15:17 +0800 (CST)
-Received: from dggema706-chm.china.huawei.com (10.3.20.70) by
- DGGEMM403-HUB.china.huawei.com (10.3.20.211) with Microsoft SMTP Server (TLS)
- id 14.3.487.0; Wed, 11 Nov 2020 18:15:28 +0800
-Received: from dggema755-chm.china.huawei.com (10.1.198.197) by
- dggema706-chm.china.huawei.com (10.3.20.70) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id
- 15.1.1913.5; Wed, 11 Nov 2020 18:15:28 +0800
-Received: from dggema755-chm.china.huawei.com ([10.1.198.197]) by
- dggema755-chm.china.huawei.com ([10.1.198.197]) with mapi id 15.01.1913.007;
- Wed, 11 Nov 2020 18:15:28 +0800
-From: zhangqilong <zhangqilong3@huawei.com>
-To: Richard Fitzgerald <rf@opensource.cirrus.com>, "lgirdwood@gmail.com"
- <lgirdwood@gmail.com>, "broonie@kernel.org" <broonie@kernel.org>,
- "perex@perex.cz" <perex@perex.cz>, "tiwai@suse.com" <tiwai@suse.com>
-Subject: =?utf-8?B?562U5aSNOiBbUEFUQ0ggMi8zXSBBU29DOiB3bTg5OTc6IEZpeCBQTSBkaXNh?=
- =?utf-8?Q?ble_depth_imbalance_on_error?=
-Thread-Topic: [PATCH 2/3] ASoC: wm8997: Fix PM disable depth imbalance on error
-Thread-Index: AQHWuBDoDLy/mtHbuUGyeA2OaWJy6KnCtZ5w
-Date: Wed, 11 Nov 2020 10:15:28 +0000
-Message-ID: <e4ff6c04c34e4c49b1e3dfd71395fc85@huawei.com>
-References: <20201111041326.1257558-1-zhangqilong3@huawei.com>
- <20201111041326.1257558-3-zhangqilong3@huawei.com>
- <5f0e1888-417b-88fc-aaba-8eb40a73d85b@opensource.cirrus.com>
-In-Reply-To: <5f0e1888-417b-88fc-aaba-8eb40a73d85b@opensource.cirrus.com>
-Accept-Language: zh-CN, en-US
-Content-Language: zh-CN
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-originating-ip: [10.174.179.28]
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+ by alsa1.perex.cz (Postfix) with ESMTPS id A8D97F8007E
+ for <alsa-devel@alsa-project.org>; Wed, 11 Nov 2020 11:33:00 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A8D97F8007E
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=nvidia.com header.i=@nvidia.com
+ header.b="fGCU7at5"
+Received: from hqmail.nvidia.com (Not Verified[216.228.121.13]) by
+ hqnvemgate26.nvidia.com (using TLS: TLSv1.2, AES256-SHA)
+ id <B5fabbddd0000>; Wed, 11 Nov 2020 02:33:01 -0800
+Received: from HQMAIL105.nvidia.com (172.20.187.12) by HQMAIL109.nvidia.com
+ (172.20.187.15) with Microsoft SMTP Server (TLS) id 15.0.1473.3; Wed, 11 Nov
+ 2020 10:32:56 +0000
+Received: from moonraker.nvidia.com (10.124.1.5) by mail.nvidia.com
+ (172.20.187.12) with Microsoft SMTP Server id 15.0.1473.3 via Frontend
+ Transport; Wed, 11 Nov 2020 10:32:55 +0000
+From: Jon Hunter <jonathanh@nvidia.com>
+To: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+ Thierry Reding <thierry.reding@gmail.com>
+Subject: [PATCH] ASoC: tegra: Don't warn on probe deferral
+Date: Wed, 11 Nov 2020 10:32:45 +0000
+Message-ID: <20201111103245.152189-1-jonathanh@nvidia.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-X-CFilter-Loop: Reflected
-Cc: "patches@opensource.cirrus.com" <patches@opensource.cirrus.com>,
- "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>
+X-NVConfidentiality: public
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nvidia.com; s=n1;
+ t=1605090781; bh=umwC4KXImamx+HDRSlrnQ73F0EgY86+D9nhOjECGVGg=;
+ h=From:To:CC:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+ X-NVConfidentiality:Content-Transfer-Encoding:Content-Type;
+ b=fGCU7at5YjtTsspyHCZlXxfGrWS9+bUSh19oedTijGoL3nYcalSftka7k+pHzJcQz
+ Eu6acrnohu2Q8bKj7IAn007FtHpy8wm5r1vr9i1txDp1GGPItlEkM1KJUWE11g8zEN
+ RzSiFl9GBk8fdnrekTC6lZdeUl4m0dnNy4x4jKgVn1LeBBDQJPwtJuGsgMwoYJ0q7g
+ o87J6Ha0XPXu93O2sGuB9sFbVHKbQR4NNOP/dMxNejy8i+GyCoWqq6S4IB0/tcRqjJ
+ O0yIrBsVCVzmdDZL64jJdjyAOhuvgCk+nxwPnOyPu/hfHzXd4XiepzTPeqC39RlG5a
+ akLMSgZ74+k7w==
+Cc: linux-tegra@vger.kernel.org, alsa-devel@alsa-project.org,
+ Jon Hunter <jonathanh@nvidia.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -89,37 +87,195 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-PiANCj4gT24gMTEvMTEvMjAyMCAwNDoxMywgWmhhbmcgUWlsb25nIHdyb3RlOg0KPiA+IFRoZSBw
-bV9ydW50aW1lX2VuYWJsZSB3aWxsIGluY3JlYXNlIHBvd2VyIGRpc2FibGUgZGVwdGguIFRodXMg
-YQ0KPiA+IHBhaXJpbmcgZGVjcmVtZW50IGlzIG5lZWRlZCBvbiB0aGUgZXJyb3IgaGFuZGxpbmcg
-cGF0aCB0byBrZWVwIGl0DQo+ID4gYmFsYW5jZWQgYWNjb3JkaW5nIHRvIGNvbnRleHQuDQo+ID4N
-Cj4gPiBGaXhlczogMzE4MzNlYWQ5NWMyYyAoIkFTb0M6IGFyaXpvbmE6IE1vdmUgcmVxdWVzdCBv
-ZiBzcGVha2VyIElSUXMNCj4gPiBpbnRvIGJ1cyBwcm9iZSIpDQo+ID4gU2lnbmVkLW9mZi1ieTog
-WmhhbmcgUWlsb25nIDx6aGFuZ3FpbG9uZzNAaHVhd2VpLmNvbT4NCj4gPiAtLS0NCj4gPiAgIHNv
-dW5kL3NvYy9jb2RlY3Mvd204OTk3LmMgfCA5ICsrKysrKystLQ0KPiA+ICAgMSBmaWxlIGNoYW5n
-ZWQsIDcgaW5zZXJ0aW9ucygrKSwgMiBkZWxldGlvbnMoLSkNCj4gPg0KPiA+IGRpZmYgLS1naXQg
-YS9zb3VuZC9zb2MvY29kZWNzL3dtODk5Ny5jIGIvc291bmQvc29jL2NvZGVjcy93bTg5OTcuYw0K
-PiA+IGluZGV4IDM3ZTRiYjNkYmQ4YS4uNzQ0MTA0ZWRiMmViIDEwMDY0NA0KPiA+IC0tLSBhL3Nv
-dW5kL3NvYy9jb2RlY3Mvd204OTk3LmMNCj4gPiArKysgYi9zb3VuZC9zb2MvY29kZWNzL3dtODk5
-Ny5jDQo+ID4gQEAgLTExNjMsMTAgKzExNjMsMTAgQEAgc3RhdGljIGludCB3bTg5OTdfcHJvYmUo
-c3RydWN0DQo+IHBsYXRmb3JtX2RldmljZQ0KPiA+ICpwZGV2KQ0KPiA+DQo+ID4gICAJcmV0ID0g
-YXJpem9uYV9pbml0X3ZvbF9saW1pdChhcml6b25hKTsNCj4gPiAgIAlpZiAocmV0IDwgMCkNCj4g
-PiAtCQlyZXR1cm4gcmV0Ow0KPiA+ICsJCWdvdG8gZXJyX3BtX2Rpc2FibGU7DQo+ID4gICAJcmV0
-ID0gYXJpem9uYV9pbml0X3Nwa19pcnFzKGFyaXpvbmEpOw0KPiA+ICAgCWlmIChyZXQgPCAwKQ0K
-PiA+IC0JCXJldHVybiByZXQ7DQo+ID4gKwkJZ290byBlcnJfcG1fZGlzYWJsZTsNCj4gPg0KPiA+
-ICAgCXJldCA9IGRldm1fc25kX3NvY19yZWdpc3Rlcl9jb21wb25lbnQoJnBkZXYtPmRldiwNCj4g
-PiAgIAkJCQkJICAgICAgJnNvY19jb21wb25lbnRfZGV2X3dtODk5NywgQEANCj4gLTExNzYsOSAr
-MTE3NiwxNCBAQCBzdGF0aWMNCj4gPiBpbnQgd204OTk3X3Byb2JlKHN0cnVjdCBwbGF0Zm9ybV9k
-ZXZpY2UgKnBkZXYpDQo+ID4gICAJCWRldl9lcnIoJnBkZXYtPmRldiwgIkZhaWxlZCB0byByZWdp
-c3RlciBjb21wb25lbnQ6ICVkXG4iLCByZXQpOw0KPiA+ICAgCQlnb3RvIGVycl9zcGtfaXJxczsN
-Cj4gPiAgIAl9DQo+ID4gKwlhcml6b25hX2ZyZWVfc3BrX2lycXMoYXJpem9uYSk7DQo+IA0KPiBT
-aG91bGQgbm90IGJlIGZyZWVpbmcgc3BlYWtlciBpcnFzIG9uIHN1Y2Nlc3NmdWwgcHJvYmUuDQo+
-IFRoaXMgbG9va3MgbGlrZSBhbiBleGlzdGluZyBidWcgaW4gdGhlIGRyaXZlciB3aGVyZSB0aGUg
-cmV0dXJuIDAgd2FzIG1pc3Npbmcgc28gaXQNCj4gd291bGQgYWx3YXlzIGV4aXQgdGhyb3VnaCB0
-aGUgZXJyb3IgcGF0aC4NCg0KWWVzLCBZb3UgYXJlIHJpZ2h0LCBJIGhhZCBhIGxpdHRsZSBkb3Vi
-dHMgaGVyZSBiZWZvcmUsIGl0IHNob3VsZCBiZSBmcmVlZCB3aGVuIGl0IGlzIGJlIHJlbW92ZWQu
-IEkgd2lsbCBmaXggaXQgbmV4dCB2ZXJzaW9uLg0KDQpUaGFucywNClpoYW5nDQoNCg0KPiANCj4g
-PiArDQo+ID4gKwlyZXR1cm4gcmV0Ow0KPiA+DQo+ID4gICBlcnJfc3BrX2lycXM6DQo+ID4gICAJ
-YXJpem9uYV9mcmVlX3Nwa19pcnFzKGFyaXpvbmEpOw0KPiA+ICtlcnJfcG1fZGlzYWJsZToNCj4g
-PiArCXBtX3J1bnRpbWVfZGlzYWJsZSgmcGRldi0+ZGV2KTsNCj4gPg0KPiA+ICAgCXJldHVybiBy
-ZXQ7DQo+ID4gICB9DQo+ID4NCg==
+Deferred probe is an expected return value for snd_soc_register_card().
+Given that the driver deals with it properly, there's no need to output
+a warning that may potentially confuse users.
+
+Signed-off-by: Jon Hunter <jonathanh@nvidia.com>
+---
+ sound/soc/tegra/tegra_alc5632.c  | 4 ++--
+ sound/soc/tegra/tegra_max98090.c | 8 +++-----
+ sound/soc/tegra/tegra_rt5640.c   | 8 +++-----
+ sound/soc/tegra/tegra_rt5677.c   | 4 ++--
+ sound/soc/tegra/tegra_sgtl5000.c | 4 ++--
+ sound/soc/tegra/tegra_wm8753.c   | 8 +++-----
+ sound/soc/tegra/tegra_wm8903.c   | 8 +++-----
+ sound/soc/tegra/tegra_wm9712.c   | 4 ++--
+ sound/soc/tegra/trimslice.c      | 8 +++-----
+ 9 files changed, 23 insertions(+), 33 deletions(-)
+
+diff --git a/sound/soc/tegra/tegra_alc5632.c b/sound/soc/tegra/tegra_alc563=
+2.c
+index 8661877bf4c6..0a0efd24e4b0 100644
+--- a/sound/soc/tegra/tegra_alc5632.c
++++ b/sound/soc/tegra/tegra_alc5632.c
+@@ -203,8 +203,8 @@ static int tegra_alc5632_probe(struct platform_device *=
+pdev)
+=20
+ 	ret =3D snd_soc_register_card(card);
+ 	if (ret) {
+-		dev_err(&pdev->dev, "snd_soc_register_card failed (%d)\n",
+-			ret);
++		dev_err_probe(&pdev->dev, ret,
++			      "snd_soc_register_card failed\n");
+ 		goto err_put_cpu_of_node;
+ 	}
+=20
+diff --git a/sound/soc/tegra/tegra_max98090.c b/sound/soc/tegra/tegra_max98=
+090.c
+index 9d8e16473ab9..00c19704057b 100644
+--- a/sound/soc/tegra/tegra_max98090.c
++++ b/sound/soc/tegra/tegra_max98090.c
+@@ -247,11 +247,9 @@ static int tegra_max98090_probe(struct platform_device=
+ *pdev)
+ 		return ret;
+=20
+ 	ret =3D devm_snd_soc_register_card(&pdev->dev, card);
+-	if (ret) {
+-		dev_err(&pdev->dev, "snd_soc_register_card failed (%d)\n",
+-			ret);
+-		return ret;
+-	}
++	if (ret)
++		return dev_err_probe(&pdev->dev, ret,
++				     "snd_soc_register_card failed\n");
+=20
+ 	return 0;
+ }
+diff --git a/sound/soc/tegra/tegra_rt5640.c b/sound/soc/tegra/tegra_rt5640.=
+c
+index c73bd23b3d67..9afba37a3b08 100644
+--- a/sound/soc/tegra/tegra_rt5640.c
++++ b/sound/soc/tegra/tegra_rt5640.c
+@@ -193,11 +193,9 @@ static int tegra_rt5640_probe(struct platform_device *=
+pdev)
+ 		return ret;
+=20
+ 	ret =3D devm_snd_soc_register_card(&pdev->dev, card);
+-	if (ret) {
+-		dev_err(&pdev->dev, "snd_soc_register_card failed (%d)\n",
+-			ret);
+-		return ret;
+-	}
++	if (ret)
++		return dev_err_probe(&pdev->dev, ret,
++				     "snd_soc_register_card failed\n");
+=20
+ 	return 0;
+ }
+diff --git a/sound/soc/tegra/tegra_rt5677.c b/sound/soc/tegra/tegra_rt5677.=
+c
+index 7504507dd8b8..d30f8b6deda4 100644
+--- a/sound/soc/tegra/tegra_rt5677.c
++++ b/sound/soc/tegra/tegra_rt5677.c
+@@ -268,8 +268,8 @@ static int tegra_rt5677_probe(struct platform_device *p=
+dev)
+=20
+ 	ret =3D snd_soc_register_card(card);
+ 	if (ret) {
+-		dev_err(&pdev->dev, "snd_soc_register_card failed (%d)\n",
+-			ret);
++		dev_err_probe(&pdev->dev, ret,
++			      "snd_soc_register_card failed\n");
+ 		goto err_put_cpu_of_node;
+ 	}
+=20
+diff --git a/sound/soc/tegra/tegra_sgtl5000.c b/sound/soc/tegra/tegra_sgtl5=
+000.c
+index e1dc8e7d337a..885332170c77 100644
+--- a/sound/soc/tegra/tegra_sgtl5000.c
++++ b/sound/soc/tegra/tegra_sgtl5000.c
+@@ -154,8 +154,8 @@ static int tegra_sgtl5000_driver_probe(struct platform_=
+device *pdev)
+=20
+ 	ret =3D snd_soc_register_card(card);
+ 	if (ret) {
+-		dev_err(&pdev->dev, "snd_soc_register_card failed (%d)\n",
+-			ret);
++		dev_err_probe(&pdev->dev, ret,
++			      "snd_soc_register_card failed\n");
+ 		goto err_put_cpu_of_node;
+ 	}
+=20
+diff --git a/sound/soc/tegra/tegra_wm8753.c b/sound/soc/tegra/tegra_wm8753.=
+c
+index fa41fa366daf..efd793886689 100644
+--- a/sound/soc/tegra/tegra_wm8753.c
++++ b/sound/soc/tegra/tegra_wm8753.c
+@@ -156,11 +156,9 @@ static int tegra_wm8753_driver_probe(struct platform_d=
+evice *pdev)
+ 		return ret;
+=20
+ 	ret =3D devm_snd_soc_register_card(&pdev->dev, card);
+-	if (ret) {
+-		dev_err(&pdev->dev, "snd_soc_register_card failed (%d)\n",
+-			ret);
+-		return ret;
+-	}
++	if (ret)
++		return dev_err_probe(&pdev->dev, ret,
++				     "snd_soc_register_card failed\n");
+=20
+ 	return 0;
+ }
+diff --git a/sound/soc/tegra/tegra_wm8903.c b/sound/soc/tegra/tegra_wm8903.=
+c
+index ef6652aaac9b..e4863fa37b0c 100644
+--- a/sound/soc/tegra/tegra_wm8903.c
++++ b/sound/soc/tegra/tegra_wm8903.c
+@@ -352,11 +352,9 @@ static int tegra_wm8903_driver_probe(struct platform_d=
+evice *pdev)
+ 		return ret;
+=20
+ 	ret =3D devm_snd_soc_register_card(&pdev->dev, card);
+-	if (ret) {
+-		dev_err(&pdev->dev, "devm_snd_soc_register_card failed (%d)\n",
+-			ret);
+-		return ret;
+-	}
++	if (ret)
++		return dev_err_probe(&pdev->dev, ret,
++				     "snd_soc_register_card failed\n");
+=20
+ 	return 0;
+ }
+diff --git a/sound/soc/tegra/tegra_wm9712.c b/sound/soc/tegra/tegra_wm9712.=
+c
+index 726edfa21a29..4f09a178049d 100644
+--- a/sound/soc/tegra/tegra_wm9712.c
++++ b/sound/soc/tegra/tegra_wm9712.c
+@@ -117,8 +117,8 @@ static int tegra_wm9712_driver_probe(struct platform_de=
+vice *pdev)
+=20
+ 	ret =3D snd_soc_register_card(card);
+ 	if (ret) {
+-		dev_err(&pdev->dev, "snd_soc_register_card failed (%d)\n",
+-			ret);
++		dev_err_probe(&pdev->dev, ret,
++			      "snd_soc_register_card failed\n");
+ 		goto codec_unregister;
+ 	}
+=20
+diff --git a/sound/soc/tegra/trimslice.c b/sound/soc/tegra/trimslice.c
+index baae4cce7fc6..6c1cc3d0ac33 100644
+--- a/sound/soc/tegra/trimslice.c
++++ b/sound/soc/tegra/trimslice.c
+@@ -144,11 +144,9 @@ static int tegra_snd_trimslice_probe(struct platform_d=
+evice *pdev)
+ 		return ret;
+=20
+ 	ret =3D devm_snd_soc_register_card(&pdev->dev, card);
+-	if (ret) {
+-		dev_err(&pdev->dev, "snd_soc_register_card failed (%d)\n",
+-			ret);
+-		return ret;
+-	}
++	if (ret)
++		return dev_err_probe(&pdev->dev, ret,
++				     "snd_soc_register_card failed\n");
+=20
+ 	return 0;
+ }
+--=20
+2.25.1
+

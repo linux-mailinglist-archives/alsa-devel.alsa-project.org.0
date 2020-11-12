@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4846A2B11EE
-	for <lists+alsa-devel@lfdr.de>; Thu, 12 Nov 2020 23:42:25 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1A51B2B11F9
+	for <lists+alsa-devel@lfdr.de>; Thu, 12 Nov 2020 23:44:05 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id BA1E21865;
-	Thu, 12 Nov 2020 23:41:33 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BA1E21865
+	by alsa0.perex.cz (Postfix) with ESMTPS id B1F9417CC;
+	Thu, 12 Nov 2020 23:43:14 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B1F9417CC
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1605220943;
-	bh=Rgh3lNlldY0sdlSvMwDebqxE/ldEB4I9gZz8r7x5khg=;
+	s=default; t=1605221044;
+	bh=09KabHtRpQ0CUzN3t7L1HQL4/RRVqyeGSHFuholz0Jg=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=Cffo9D/RvuqFiJm75uPstXD2CIBNzt/F0TqCCZN/QDboYp3s7UoZi/Bzv8LVZkvbr
-	 JLH3DjeDRFbiMTCyx8IClDDlkBKQE8dcqGA6dTRoxt4X6RxXYeCFk6LjcjgBzWXtd5
-	 hZ+nHWgAAMsE84nIrVWmZmTwFeoKqKdX+SB9JwhE=
+	b=AVlVHZHHECYicnU7yXonKAUamQLtTfwEavJJ3h31RE3qx1vHK0fQ3bg73jKLMV2jV
+	 LBNZ3xx/L7C4FJxU7+7IHfQnRVO9juGMhhAmdJahglJ0cBRETYQdN1a8ayHtOsYI8E
+	 aFd/4/v4ogT0edN1xjVrPG7c7//MYdznH7AbC1Vc=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 9213BF804ED;
-	Thu, 12 Nov 2020 23:39:16 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id CDFD1F80517;
+	Thu, 12 Nov 2020 23:39:21 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 899EFF804D8; Thu, 12 Nov 2020 23:39:08 +0100 (CET)
+ id 36133F804E3; Thu, 12 Nov 2020 23:39:13 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
@@ -33,30 +33,30 @@ X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
 Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 510B2F80212
+ by alsa1.perex.cz (Postfix) with ESMTPS id 616B9F8021C
  for <alsa-devel@alsa-project.org>; Thu, 12 Nov 2020 23:38:57 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 510B2F80212
-IronPort-SDR: TxdQXaax5qvWjgxmX6iuFqO14JfJUpJycEw6CFz7TzWAxwYJ8VwlcMp7Dm9mYu0I8LpRFGf7ff
- 2Fvk9QlayknA==
-X-IronPort-AV: E=McAfee;i="6000,8403,9803"; a="166885004"
-X-IronPort-AV: E=Sophos;i="5.77,473,1596524400"; d="scan'208";a="166885004"
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 616B9F8021C
+IronPort-SDR: txuW4HxJhMT4v/EtyTsyKXutpblGDbazdK3xT8Eaohn0eZ1lSMlFYX1gJJc+mCKN+JxrUcR30i
+ 0cxp20VVWMpw==
+X-IronPort-AV: E=McAfee;i="6000,8403,9803"; a="166885005"
+X-IronPort-AV: E=Sophos;i="5.77,473,1596524400"; d="scan'208";a="166885005"
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
 Received: from orsmga003.jf.intel.com ([10.7.209.27])
  by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 12 Nov 2020 14:38:55 -0800
-IronPort-SDR: fpL8ACXpAD7bpldLKEh87Fe2tIpf/G1Ejctmr+O5ew1lfANvVCRNpRlLbUQuOa/L6TGECgApPG
- 0VqXteKshXJw==
-X-IronPort-AV: E=Sophos;i="5.77,473,1596524400"; d="scan'208";a="323797486"
+ 12 Nov 2020 14:38:56 -0800
+IronPort-SDR: KK0CLd+ctZklIdcDPlAxvVRXXEzH9rVyvw8zMwUPGbeF1Zqk9g/bvuCykBgAjmLGaSsNaTHYwv
+ PvPUczR2zBnw==
+X-IronPort-AV: E=Sophos;i="5.77,473,1596524400"; d="scan'208";a="323797490"
 Received: from gjshield-mobl.amr.corp.intel.com (HELO
  pbossart-mobl3.intel.com) ([10.213.180.118])
  by orsmga003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 12 Nov 2020 14:38:54 -0800
+ 12 Nov 2020 14:38:55 -0800
 From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 To: alsa-devel@alsa-project.org
-Subject: [PATCH 06/14] ASoC: Intel: byt/cht: set pm ops dynamically
-Date: Thu, 12 Nov 2020 16:38:17 -0600
-Message-Id: <20201112223825.39765-7-pierre-louis.bossart@linux.intel.com>
+Subject: [PATCH 07/14] ASoC: SOF: acpi: add dynamic selection of DSP driver
+Date: Thu, 12 Nov 2020 16:38:18 -0600
+Message-Id: <20201112223825.39765-8-pierre-louis.bossart@linux.intel.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20201112223825.39765-1-pierre-louis.bossart@linux.intel.com>
 References: <20201112223825.39765-1-pierre-louis.bossart@linux.intel.com>
@@ -82,260 +82,67 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-The Atom/SST driver does not rely on ASoC power management, but the
-SOF driver does. Rather than using a hard-coded build-time assignment,
-we can set this pm_ops dynamically depending on what the parent
-is. That will remove the last build-time dependency and allow for
-coexistence of both SST and SOF drivers for Baytrail/Cherrytrail.
+Follow PCI example and stop the probe when another driver is desired
+for the same ACPI HID.
 
 Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 Reviewed-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
 Reviewed-by: Rander Wang <rander.wang@linux.intel.com>
 Reviewed-by: Guennadi Liakhovetski <guennadi.liakhovetski@linux.intel.com>
 ---
- sound/soc/intel/boards/bytcht_cx2072x.c      | 7 ++++---
- sound/soc/intel/boards/bytcht_da7213.c       | 7 ++++---
- sound/soc/intel/boards/bytcht_es8316.c       | 7 ++++---
- sound/soc/intel/boards/bytcr_rt5640.c        | 8 +++++---
- sound/soc/intel/boards/bytcr_rt5651.c        | 7 ++++---
- sound/soc/intel/boards/cht_bsw_max98090_ti.c | 7 ++++---
- sound/soc/intel/boards/cht_bsw_nau8824.c     | 7 ++++---
- sound/soc/intel/boards/cht_bsw_rt5645.c      | 7 ++++---
- sound/soc/intel/boards/cht_bsw_rt5672.c      | 7 ++++---
- 9 files changed, 37 insertions(+), 27 deletions(-)
+ sound/soc/sof/intel/Kconfig  |  1 +
+ sound/soc/sof/sof-acpi-dev.c | 14 +++++++++++++-
+ 2 files changed, 14 insertions(+), 1 deletion(-)
 
-diff --git a/sound/soc/intel/boards/bytcht_cx2072x.c b/sound/soc/intel/boards/bytcht_cx2072x.c
-index 762f09190f10..2bfe3e4c696f 100644
---- a/sound/soc/intel/boards/bytcht_cx2072x.c
-+++ b/sound/soc/intel/boards/bytcht_cx2072x.c
-@@ -275,15 +275,16 @@ static int snd_byt_cht_cx2072x_probe(struct platform_device *pdev)
- 		byt_cht_cx2072x_card.driver_name = DRIVER_NAME;
- 	}
- 
-+	/* set pm ops */
-+	if (sof_parent)
-+		pdev->dev.driver->pm = &snd_soc_pm_ops;
-+
- 	return devm_snd_soc_register_card(&pdev->dev, &byt_cht_cx2072x_card);
- }
- 
- static struct platform_driver snd_byt_cht_cx2072x_driver = {
- 	.driver = {
- 		.name = "bytcht_cx2072x",
--#if IS_ENABLED(CONFIG_SND_SOC_SOF_BAYTRAIL)
--		.pm = &snd_soc_pm_ops,
--#endif
- 	},
- 	.probe = snd_byt_cht_cx2072x_probe,
- };
-diff --git a/sound/soc/intel/boards/bytcht_da7213.c b/sound/soc/intel/boards/bytcht_da7213.c
-index ef6682226a85..cfeba27252ba 100644
---- a/sound/soc/intel/boards/bytcht_da7213.c
-+++ b/sound/soc/intel/boards/bytcht_da7213.c
-@@ -279,6 +279,10 @@ static int bytcht_da7213_probe(struct platform_device *pdev)
- 		bytcht_da7213_card.driver_name = DRIVER_NAME;
- 	}
- 
-+	/* set pm ops */
-+	if (sof_parent)
-+		pdev->dev.driver->pm = &snd_soc_pm_ops;
-+
- 	ret_val = devm_snd_soc_register_card(&pdev->dev, card);
- 	if (ret_val) {
- 		dev_err(&pdev->dev,
-@@ -292,9 +296,6 @@ static int bytcht_da7213_probe(struct platform_device *pdev)
- static struct platform_driver bytcht_da7213_driver = {
- 	.driver = {
- 		.name = "bytcht_da7213",
--#if IS_ENABLED(CONFIG_SND_SOC_SOF_BAYTRAIL)
--		.pm = &snd_soc_pm_ops,
--#endif
- 	},
- 	.probe = bytcht_da7213_probe,
- };
-diff --git a/sound/soc/intel/boards/bytcht_es8316.c b/sound/soc/intel/boards/bytcht_es8316.c
-index fbb62bab9dcc..892cf684216e 100644
---- a/sound/soc/intel/boards/bytcht_es8316.c
-+++ b/sound/soc/intel/boards/bytcht_es8316.c
-@@ -598,6 +598,10 @@ static int snd_byt_cht_es8316_mc_probe(struct platform_device *pdev)
- 		byt_cht_es8316_card.driver_name = DRIVER_NAME;
- 	}
- 
-+	/* set pm ops */
-+	if (sof_parent)
-+		dev->driver->pm = &snd_soc_pm_ops;
-+
- 	/* register the soc card */
- 	snd_soc_card_set_drvdata(&byt_cht_es8316_card, priv);
- 
-@@ -623,9 +627,6 @@ static int snd_byt_cht_es8316_mc_remove(struct platform_device *pdev)
- static struct platform_driver snd_byt_cht_es8316_mc_driver = {
- 	.driver = {
- 		.name = "bytcht_es8316",
--#if IS_ENABLED(CONFIG_SND_SOC_SOF_BAYTRAIL)
--		.pm = &snd_soc_pm_ops,
--#endif
- 	},
- 	.probe = snd_byt_cht_es8316_mc_probe,
- 	.remove = snd_byt_cht_es8316_mc_remove,
-diff --git a/sound/soc/intel/boards/bytcr_rt5640.c b/sound/soc/intel/boards/bytcr_rt5640.c
-index 574b489a3283..18f668fbc64c 100644
---- a/sound/soc/intel/boards/bytcr_rt5640.c
-+++ b/sound/soc/intel/boards/bytcr_rt5640.c
-@@ -1163,6 +1163,7 @@ struct acpi_chan_package {   /* ACPICA seems to require 64 bit integers */
- 
- static int snd_byt_rt5640_mc_probe(struct platform_device *pdev)
+diff --git a/sound/soc/sof/intel/Kconfig b/sound/soc/sof/intel/Kconfig
+index b233302f05e4..b593b29789d5 100644
+--- a/sound/soc/sof/intel/Kconfig
++++ b/sound/soc/sof/intel/Kconfig
+@@ -78,6 +78,7 @@ config SND_SOC_SOF_BAYTRAIL_SUPPORT
+ config SND_SOC_SOF_BAYTRAIL
+ 	tristate
+ 	select SND_SOC_SOF_INTEL_ATOM_HIFI_EP
++	select SND_INTEL_DSP_CONFIG
+ 	help
+ 	  This option is not user-selectable but automagically handled by
+ 	  'select' statements at a higher level.
+diff --git a/sound/soc/sof/sof-acpi-dev.c b/sound/soc/sof/sof-acpi-dev.c
+index a78b76ef37b2..2a369c2c6551 100644
+--- a/sound/soc/sof/sof-acpi-dev.c
++++ b/sound/soc/sof/sof-acpi-dev.c
+@@ -12,6 +12,7 @@
+ #include <linux/firmware.h>
+ #include <linux/module.h>
+ #include <linux/pm_runtime.h>
++#include <sound/intel-dsp-config.h>
+ #include <sound/soc-acpi.h>
+ #include <sound/soc-acpi-intel-match.h>
+ #include <sound/sof.h>
+@@ -120,12 +121,23 @@ static void sof_acpi_probe_complete(struct device *dev)
+ static int sof_acpi_probe(struct platform_device *pdev)
  {
-+	struct device *dev = &pdev->dev;
- 	static const char * const map_name[] = { "dmic1", "dmic2", "in1", "in3" };
- 	const struct dmi_system_id *dmi_id;
- 	struct byt_rt5640_private *priv;
-@@ -1344,6 +1345,10 @@ static int snd_byt_rt5640_mc_probe(struct platform_device *pdev)
- 		byt_rt5640_card.driver_name = DRIVER_NAME;
- 	}
+ 	struct device *dev = &pdev->dev;
++	const struct acpi_device_id *id;
+ 	const struct sof_dev_desc *desc;
+ 	struct snd_sof_pdata *sof_pdata;
+ 	const struct snd_sof_dsp_ops *ops;
+ 	int ret;
  
-+	/* set pm ops */
-+	if (sof_parent)
-+		dev->driver->pm = &snd_soc_pm_ops;
+-	dev_dbg(&pdev->dev, "ACPI DSP detected");
++	id = acpi_match_device(dev->driver->acpi_match_table, dev);
++	if (!id)
++		return -ENODEV;
 +
- 	ret_val = devm_snd_soc_register_card(&pdev->dev, &byt_rt5640_card);
- 
- 	if (ret_val) {
-@@ -1358,9 +1363,6 @@ static int snd_byt_rt5640_mc_probe(struct platform_device *pdev)
- static struct platform_driver snd_byt_rt5640_mc_driver = {
- 	.driver = {
- 		.name = "bytcr_rt5640",
--#if IS_ENABLED(CONFIG_SND_SOC_SOF_BAYTRAIL)
--		.pm = &snd_soc_pm_ops,
--#endif
- 	},
- 	.probe = snd_byt_rt5640_mc_probe,
- };
-diff --git a/sound/soc/intel/boards/bytcr_rt5651.c b/sound/soc/intel/boards/bytcr_rt5651.c
-index 69e1d84e4de3..f289ec8563a1 100644
---- a/sound/soc/intel/boards/bytcr_rt5651.c
-+++ b/sound/soc/intel/boards/bytcr_rt5651.c
-@@ -1103,6 +1103,10 @@ static int snd_byt_rt5651_mc_probe(struct platform_device *pdev)
- 		byt_rt5651_card.driver_name = DRIVER_NAME;
- 	}
- 
-+	/* set pm ops */
-+	if (sof_parent)
-+		pdev->dev.driver->pm = &snd_soc_pm_ops;
++	ret = snd_intel_acpi_dsp_driver_probe(dev, id->id);
++	if (ret != SND_INTEL_DSP_DRIVER_ANY && ret != SND_INTEL_DSP_DRIVER_SOF) {
++		dev_dbg(dev, "SOF ACPI driver not selected, aborting probe\n");
++		return -ENODEV;
++	}
 +
- 	ret_val = devm_snd_soc_register_card(&pdev->dev, &byt_rt5651_card);
++	dev_dbg(dev, "ACPI DSP detected");
  
- 	if (ret_val) {
-@@ -1117,9 +1121,6 @@ static int snd_byt_rt5651_mc_probe(struct platform_device *pdev)
- static struct platform_driver snd_byt_rt5651_mc_driver = {
- 	.driver = {
- 		.name = "bytcr_rt5651",
--#if IS_ENABLED(CONFIG_SND_SOC_SOF_BAYTRAIL)
--		.pm = &snd_soc_pm_ops,
--#endif
- 	},
- 	.probe = snd_byt_rt5651_mc_probe,
- };
-diff --git a/sound/soc/intel/boards/cht_bsw_max98090_ti.c b/sound/soc/intel/boards/cht_bsw_max98090_ti.c
-index a1d456d7a9c2..131882378a59 100644
---- a/sound/soc/intel/boards/cht_bsw_max98090_ti.c
-+++ b/sound/soc/intel/boards/cht_bsw_max98090_ti.c
-@@ -610,6 +610,10 @@ static int snd_cht_mc_probe(struct platform_device *pdev)
- 		snd_soc_card_cht.driver_name = DRIVER_NAME;
- 	}
- 
-+	/* set pm ops */
-+	if (sof_parent)
-+		dev->driver->pm = &snd_soc_pm_ops;
-+
- 	ret_val = devm_snd_soc_register_card(&pdev->dev, &snd_soc_card_cht);
- 	if (ret_val) {
- 		dev_err(&pdev->dev,
-@@ -634,9 +638,6 @@ static int snd_cht_mc_remove(struct platform_device *pdev)
- static struct platform_driver snd_cht_mc_driver = {
- 	.driver = {
- 		.name = "cht-bsw-max98090",
--#if IS_ENABLED(CONFIG_SND_SOC_SOF_BAYTRAIL)
--		.pm = &snd_soc_pm_ops,
--#endif
- 	},
- 	.probe = snd_cht_mc_probe,
- 	.remove = snd_cht_mc_remove,
-diff --git a/sound/soc/intel/boards/cht_bsw_nau8824.c b/sound/soc/intel/boards/cht_bsw_nau8824.c
-index f173793d867b..8131af1730f7 100644
---- a/sound/soc/intel/boards/cht_bsw_nau8824.c
-+++ b/sound/soc/intel/boards/cht_bsw_nau8824.c
-@@ -285,6 +285,10 @@ static int snd_cht_mc_probe(struct platform_device *pdev)
- 		snd_soc_card_cht.driver_name = DRIVER_NAME;
- 	}
- 
-+	/* set pm ops */
-+	if (sof_parent)
-+		pdev->dev.driver->pm = &snd_soc_pm_ops;
-+
- 	/* register the soc card */
- 	ret_val = devm_snd_soc_register_card(&pdev->dev, &snd_soc_card_cht);
- 	if (ret_val) {
-@@ -300,9 +304,6 @@ static int snd_cht_mc_probe(struct platform_device *pdev)
- static struct platform_driver snd_cht_mc_driver = {
- 	.driver = {
- 		.name = "cht-bsw-nau8824",
--#if IS_ENABLED(CONFIG_SND_SOC_SOF_BAYTRAIL)
--		.pm = &snd_soc_pm_ops,
--#endif
- 	},
- 	.probe = snd_cht_mc_probe,
- };
-diff --git a/sound/soc/intel/boards/cht_bsw_rt5645.c b/sound/soc/intel/boards/cht_bsw_rt5645.c
-index bdaf8d00fc6b..6fea554cfed5 100644
---- a/sound/soc/intel/boards/cht_bsw_rt5645.c
-+++ b/sound/soc/intel/boards/cht_bsw_rt5645.c
-@@ -691,6 +691,10 @@ static int snd_cht_mc_probe(struct platform_device *pdev)
- 		snd_soc_card_chtrt5650.driver_name = DRIVER_NAME;
- 	}
- 
-+	/* set pm ops */
-+	if (sof_parent)
-+		pdev->dev.driver->pm = &snd_soc_pm_ops;
-+
- 	ret_val = devm_snd_soc_register_card(&pdev->dev, card);
- 	if (ret_val) {
- 		dev_err(&pdev->dev,
-@@ -704,9 +708,6 @@ static int snd_cht_mc_probe(struct platform_device *pdev)
- static struct platform_driver snd_cht_mc_driver = {
- 	.driver = {
- 		.name = "cht-bsw-rt5645",
--#if IS_ENABLED(CONFIG_SND_SOC_SOF_BAYTRAIL)
--		.pm = &snd_soc_pm_ops,
--#endif
- 	},
- 	.probe = snd_cht_mc_probe,
- };
-diff --git a/sound/soc/intel/boards/cht_bsw_rt5672.c b/sound/soc/intel/boards/cht_bsw_rt5672.c
-index 6c46bfc43b50..10c88ef2f85d 100644
---- a/sound/soc/intel/boards/cht_bsw_rt5672.c
-+++ b/sound/soc/intel/boards/cht_bsw_rt5672.c
-@@ -466,6 +466,10 @@ static int snd_cht_mc_probe(struct platform_device *pdev)
- 		snd_soc_card_cht.driver_name = DRIVER_NAME;
- 	}
- 
-+	/* set pm ops */
-+	if (sof_parent)
-+		pdev->dev.driver->pm = &snd_soc_pm_ops;
-+
- 	/* register the soc card */
- 	ret_val = devm_snd_soc_register_card(&pdev->dev, &snd_soc_card_cht);
- 	if (ret_val) {
-@@ -480,9 +484,6 @@ static int snd_cht_mc_probe(struct platform_device *pdev)
- static struct platform_driver snd_cht_mc_driver = {
- 	.driver = {
- 		.name = "cht-bsw-rt5672",
--#if IS_ENABLED(CONFIG_SND_SOC_SOF_BAYTRAIL)
--		.pm = &snd_soc_pm_ops,
--#endif
- 	},
- 	.probe = snd_cht_mc_probe,
- };
+ 	sof_pdata = devm_kzalloc(dev, sizeof(*sof_pdata), GFP_KERNEL);
+ 	if (!sof_pdata)
 -- 
 2.25.1
 

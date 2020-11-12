@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5B7872B11E7
-	for <lists+alsa-devel@lfdr.de>; Thu, 12 Nov 2020 23:40:44 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id A2C9E2B11E9
+	for <lists+alsa-devel@lfdr.de>; Thu, 12 Nov 2020 23:41:23 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 983811847;
-	Thu, 12 Nov 2020 23:39:53 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 983811847
+	by alsa0.perex.cz (Postfix) with ESMTPS id 45665183A;
+	Thu, 12 Nov 2020 23:40:33 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 45665183A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1605220843;
-	bh=Ykp7e27cu4GjnyaU80BPNcd2qMhF8Hm+8TjXCvGFFyA=;
+	s=default; t=1605220883;
+	bh=bXvhd5zIMvsDu/gfQpG4kC/PixJQBYf7SWfFao2tjdE=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=W4ajGqrhez0U0GEqEsPnhP1hjkUXgjXyolRlFGwDeHtexKqL0IgfJAZDfA/2JyhR+
-	 s9rOYeJcYSoeHYh1X/6SfZH2LdOo6s9Ms/7sfClRj8Is9nVH9CwbwsNTG7e1eY4/Ay
-	 Vz/Tt+9wQeybXVzmQwCFVDrc38O9UBdWcD5ZC8KI=
+	b=EdNShlOR/i/mpFXMbaSkxe0UW7Cspu8oaiYWdMDwz1d0gsDSG4+oPR0QLkksyYTOT
+	 QTDTf1SQiqlWMCSAnaT727NrN8xaKMEAesE+JtlfSAIsq8gUGiLT4o6eDVNfQMNYYG
+	 iq5aSPkWJ3+scDr+f5li7npPR83XOkyURemfoink=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id B6C27F804CC;
-	Thu, 12 Nov 2020 23:39:03 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 345EBF80212;
+	Thu, 12 Nov 2020 23:39:09 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 972FAF804BC; Thu, 12 Nov 2020 23:39:00 +0100 (CET)
+ id A3441F804D6; Thu, 12 Nov 2020 23:39:04 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
@@ -33,30 +33,30 @@ X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
 Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 8856AF800D1
- for <alsa-devel@alsa-project.org>; Thu, 12 Nov 2020 23:38:53 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8856AF800D1
-IronPort-SDR: CdM2KKczggy7cHeanrqjSAspD7lsREgviSHsN/i2NtDRc/3Tw6y0swTpyXIKWyW5FmJXr8ncXl
- p1c4bt40wQTg==
-X-IronPort-AV: E=McAfee;i="6000,8403,9803"; a="166884995"
-X-IronPort-AV: E=Sophos;i="5.77,473,1596524400"; d="scan'208";a="166884995"
+ by alsa1.perex.cz (Postfix) with ESMTPS id 36DCCF80059
+ for <alsa-devel@alsa-project.org>; Thu, 12 Nov 2020 23:38:54 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 36DCCF80059
+IronPort-SDR: fep6T3JOZI3SYP3q73vDM47+PpXvkrT2AMTWnhg2QymVwWXRkYfMK6u4i13dqxTAQ2fzkHIw5c
+ reIwqj1g8gJw==
+X-IronPort-AV: E=McAfee;i="6000,8403,9803"; a="166884997"
+X-IronPort-AV: E=Sophos;i="5.77,473,1596524400"; d="scan'208";a="166884997"
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
 Received: from orsmga003.jf.intel.com ([10.7.209.27])
  by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  12 Nov 2020 14:38:51 -0800
-IronPort-SDR: GIQP3LEuxy4VdZD53/IaAVeae+lLgjxSya0qC22mmo0FH1ULWiWOb7ILrHHblqgq2T0xLQtSeE
- vNgE/eMFEJ/w==
-X-IronPort-AV: E=Sophos;i="5.77,473,1596524400"; d="scan'208";a="323797453"
+IronPort-SDR: Oo7gt4GJKCv8F9QrqaIUdjst7Pg8eOrD0Iv7UTJMJUZlpErdzi3EK3RmR3SGy9PYw5wU7cusDy
+ 7Gg6EBMEpQ+A==
+X-IronPort-AV: E=Sophos;i="5.77,473,1596524400"; d="scan'208";a="323797458"
 Received: from gjshield-mobl.amr.corp.intel.com (HELO
  pbossart-mobl3.intel.com) ([10.213.180.118])
  by orsmga003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 12 Nov 2020 14:38:50 -0800
+ 12 Nov 2020 14:38:51 -0800
 From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 To: alsa-devel@alsa-project.org
-Subject: [PATCH 01/14] ASoC: Intel: broadwell: add missing pm_ops
-Date: Thu, 12 Nov 2020 16:38:12 -0600
-Message-Id: <20201112223825.39765-2-pierre-louis.bossart@linux.intel.com>
+Subject: [PATCH 02/14] ASoC: Intel: bdw-rt5677: add missing pm_ops
+Date: Thu, 12 Nov 2020 16:38:13 -0600
+Message-Id: <20201112223825.39765-3-pierre-louis.bossart@linux.intel.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20201112223825.39765-1-pierre-louis.bossart@linux.intel.com>
 References: <20201112223825.39765-1-pierre-louis.bossart@linux.intel.com>
@@ -92,17 +92,17 @@ Reviewed-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
 Reviewed-by: Rander Wang <rander.wang@linux.intel.com>
 Reviewed-by: Guennadi Liakhovetski <guennadi.liakhovetski@linux.intel.com>
 ---
- sound/soc/intel/boards/broadwell.c | 1 +
+ sound/soc/intel/boards/bdw-rt5677.c | 1 +
  1 file changed, 1 insertion(+)
 
-diff --git a/sound/soc/intel/boards/broadwell.c b/sound/soc/intel/boards/broadwell.c
-index 77c85f17aca6..69e0b13b47f4 100644
---- a/sound/soc/intel/boards/broadwell.c
-+++ b/sound/soc/intel/boards/broadwell.c
-@@ -318,6 +318,7 @@ static struct platform_driver broadwell_audio = {
- 	.remove = broadwell_audio_remove,
+diff --git a/sound/soc/intel/boards/bdw-rt5677.c b/sound/soc/intel/boards/bdw-rt5677.c
+index 7a3e773d0a1c..9cdd4164e1fb 100644
+--- a/sound/soc/intel/boards/bdw-rt5677.c
++++ b/sound/soc/intel/boards/bdw-rt5677.c
+@@ -446,6 +446,7 @@ static struct platform_driver bdw_rt5677_audio = {
+ 	.probe = bdw_rt5677_probe,
  	.driver = {
- 		.name = "broadwell-audio",
+ 		.name = "bdw-rt5677",
 +		.pm = &snd_soc_pm_ops
  	},
  };

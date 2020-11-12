@@ -2,83 +2,66 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 527672B11A7
-	for <lists+alsa-devel@lfdr.de>; Thu, 12 Nov 2020 23:36:33 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 336B02B11E5
+	for <lists+alsa-devel@lfdr.de>; Thu, 12 Nov 2020 23:40:33 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D84A816A4;
-	Thu, 12 Nov 2020 23:35:42 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D84A816A4
+	by alsa0.perex.cz (Postfix) with ESMTPS id B39641837;
+	Thu, 12 Nov 2020 23:39:42 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B39641837
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1605220592;
-	bh=ECv6jTHH1ZemTw9ELycVYfTP7rSnblzR23ZVhrrY+YM=;
+	s=default; t=1605220832;
+	bh=azCyWjlrf52LZlKhRfrd/TOC3wVN2HKW1wGoDGI+guA=;
 	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
 	 List-Post:List-Help:List-Subscribe:From;
-	b=pD65aNundzfUj5GPAIz64dwp9rEEpOb2ggpqqrvbkc24ZmA2+8Q3noBhn5TddnNMh
-	 GcoL2udKE8G0EaHnpyI2c6/hjnQQUgEEhHXktGRMxpBf5icPumbKjllvzcTHNHSGq4
-	 Gb/gEmimPrwehVie10MsKlq6zHChf6r7I7HnlCvc=
+	b=TTKDtPpfb37GIohvvmenv/RQIAjW6ovdNdnaidULyu28S60oKFdmsx3JTPdwQOdjv
+	 Zep4QiziYrg97gZ5ukmtzp19Yr8yEnYJ9+Imk5Lt61hqW0yPg4mZBM/+lWUd+T3fLD
+	 FeCnlIFoJaK2q6mMET4QEgV+8Am5EMIaG6whyvdk=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 4FD95F80161;
-	Thu, 12 Nov 2020 23:35:00 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 3532DF804B1;
+	Thu, 12 Nov 2020 23:39:00 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id A8FB6F801D5; Thu, 12 Nov 2020 23:34:57 +0100 (CET)
+ id 3BCAAF8021C; Thu, 12 Nov 2020 23:38:57 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_PASS autolearn=disabled
- version=3.4.0
-Received: from mail-lj1-x242.google.com (mail-lj1-x242.google.com
- [IPv6:2a00:1450:4864:20::242])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE
+ autolearn=disabled version=3.4.0
+Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 2DAD6F800D1
- for <alsa-devel@alsa-project.org>; Thu, 12 Nov 2020 23:34:53 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2DAD6F800D1
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="Ifh4X+mD"
-Received: by mail-lj1-x242.google.com with SMTP id s9so8169937ljo.11
- for <alsa-devel@alsa-project.org>; Thu, 12 Nov 2020 14:34:53 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=from:to:cc:subject:date:message-id;
- bh=JXWupUZCS4kOpQRUmxizQOtGxBMhjGpIiVMmRfTsRYY=;
- b=Ifh4X+mD9d6hFc9WUD3a3Kw0/xNxV4f4afULPstMMZSpsPjnQNVIo6e7si8coxOSg2
- zV5g0kXCluViphC+Hhwl3bBWcimMPR5BPCGhaomNp8Pj7mHdt73NEzLubFBd3yFqcj19
- pVdWeIE/WIO8ZfwtNpFd01l8K7F8oDPf+ZzGv3DHhab/gawP8eMfYC5GvegRXwFPATr+
- tFteH3XPk3Vamd4t6MHA8TCWzuEFljXsVvb1jq5jS/hRt4QHfgJBiaFrLYNClA6brIfL
- JWdH/DLcYDenVwrIpoj8zbOZw0RDdvkcftMv4hfwkAAUSziF4ayrEnhhEYxSU7j+5rIQ
- 8cSg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id;
- bh=JXWupUZCS4kOpQRUmxizQOtGxBMhjGpIiVMmRfTsRYY=;
- b=sIg9wKXkjiDL20SQk6OGchHlNTUGQ0jt/kNAUbjouzWzrd7TuCJaytauRCauflyq0+
- XauyGrol5Rkl9PrQF0YCk6S/FKJnwGdQsBEDEJNG3IEmoT78yKVlpm+0XFfvEccfYbyG
- 7bnXaGR6wIjzmTDVR3JD+NPos5bpx6ohoyRnZus7OhiRUh+QebJZY4XWrKmgrCikgOTV
- 7+MjkjCwS76J6v2294WkXyBvEyDpELWWx4BGfTleQFE3BpJzsZXc038iEzsqvkgQV8W4
- nHqQHD1+4QMRTTGdr++ifuPQoWkUptIEETHwXPyCBLd7leS+HCt76niw5zfTtidEzHSJ
- Z9wg==
-X-Gm-Message-State: AOAM532hatZMVyjmxWdQKzlY6Smnm7DbOdUwUPwRgT/mVk2xVkZAThga
- NmzmXQeSf61X8Br9UmFpJZc=
-X-Google-Smtp-Source: ABdhPJyRTGC45an6R4UH/AGQkpH/uhYWBA/t6SQvHcdqa2aao7JAWwhV0HZTboV/2+zl/17Lc6r0vg==
-X-Received: by 2002:a2e:9f55:: with SMTP id v21mr706246ljk.423.1605220492027; 
- Thu, 12 Nov 2020 14:34:52 -0800 (PST)
-Received: from localhost ([80.64.86.40])
- by smtp.gmail.com with ESMTPSA id w13sm1002511lfq.72.2020.11.12.14.34.51
- (version=TLS1_2 cipher=AES128-SHA bits=128/128);
- Thu, 12 Nov 2020 14:34:51 -0800 (PST)
-From: Ruslan Bilovol <ruslan.bilovol@gmail.com>
-To: perex@perex.cz
-Subject: [PATCH] [RFC] alsaloop: add feedback frequency control support for
- UAC2 gadgets
-Date: Fri, 13 Nov 2020 00:34:42 +0200
-Message-Id: <1605220482-28487-1-git-send-email-ruslan.bilovol@gmail.com>
-X-Mailer: git-send-email 1.9.1
-Cc: alsa-devel@alsa-project.org, linux-usb@vger.kernel.org,
- gschmottlach@gmail.com
+ by alsa1.perex.cz (Postfix) with ESMTPS id 7B1F8F8007E
+ for <alsa-devel@alsa-project.org>; Thu, 12 Nov 2020 23:38:52 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7B1F8F8007E
+IronPort-SDR: yKwcJtK1rlqGgXcW+y4yk89xF30JCdvP8uQn5BKYvQ3poWgrkFF629S6wMNgw1UZHYnnCrOhML
+ 9OtIImDRv0aA==
+X-IronPort-AV: E=McAfee;i="6000,8403,9803"; a="166884993"
+X-IronPort-AV: E=Sophos;i="5.77,473,1596524400"; d="scan'208";a="166884993"
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from orsmga003.jf.intel.com ([10.7.209.27])
+ by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 12 Nov 2020 14:38:50 -0800
+IronPort-SDR: 3d+e7C5oDLqt68HNzwKu1LpJibKoHzqX2RRf/tBISW1IXZAhEjkGJtf6wSTxvEkDnegAzU41Q0
+ 9PeXU/5gWyLw==
+X-IronPort-AV: E=Sophos;i="5.77,473,1596524400"; d="scan'208";a="323797442"
+Received: from gjshield-mobl.amr.corp.intel.com (HELO
+ pbossart-mobl3.intel.com) ([10.213.180.118])
+ by orsmga003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 12 Nov 2020 14:38:49 -0800
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+To: alsa-devel@alsa-project.org
+Subject: [PATCH 00/14] ASoC: Intel/SOF: extend run-time driver selection to
+ ACPI devices
+Date: Thu, 12 Nov 2020 16:38:11 -0600
+Message-Id: <20201112223825.39765-1-pierre-louis.bossart@linux.intel.com>
+X-Mailer: git-send-email 2.25.1
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Cc: tiwai@suse.de, Hans de Goede <hdegoede@redhat.com>, broonie@kernel.org,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -94,116 +77,67 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Add support of special "PCM Feedback Frequency Hz"
-UAC2 Gadget mixer control that is designed to notify
-host about real sampling frequency of the gadget so
-it can adjust number of samples that hosts sends to
-the gadget.
+The module snd-intel-dspcfg, suggested by Jaroslav last year,
+currently provide the means to select a PCI driver at run-time, based
+on quirks, recommendations or user selection via a kernel
+parameter. This capability removed a lot of confusions in
+distributions and removed the need for recompilations to select legacy
+HDaudio, SST or SOF drivers.
 
-This is useful if both host and gadget has its own
-internal freerunning clock, so host can adjust
-number of samples sent, preventing overrun/underrun
-conditions.
+This patchset extends the concept to ACPI devices. This was driven by
+the desire to at some point deprecate the Atom/SST driver for Baytrail
+and Cherrytrail, which is no longer maintained by Intel. By having the
+SOF driver enabled by distributions for Baytrail/Cherrytrail, we can
+enable more end-user tests and make the transition easier for
+distributions (likely in 2021 at this point).
 
-This patch reuses logic of the "PCM Rate Shift 100000"
-control used in case of in-kernel ALSA loopback
-driver. The only difference is alsaloop reports not
-rate shift but frequency in Hz
+This patchset provides the same solution for Broadwell, mainly to have
+a single build for all Intel platforms. SOF on Broadwell remains an
+option not recommended for distributions, as long as the 'catpt'
+driver is maintained there is no burning desire to make SOF the
+default on the three Broadwell-based platforms with the DSP
+enabled.
 
-Signed-off-by: Ruslan Bilovol <ruslan.bilovol@gmail.com>
----
- alsaloop/alsaloop.h |  1 +
- alsaloop/pcmjob.c   | 35 +++++++++++++++++++++++++----------
- 2 files changed, 26 insertions(+), 10 deletions(-)
+Pierre-Louis Bossart (14):
+  ASoC: Intel: broadwell: add missing pm_ops
+  ASoC: Intel: bdw-rt5677: add missing pm_ops
+  ALSA: hda: intel-dsp-config: add helper for ACPI DSP driver selection
+  ASoC: soc-acpi: add helper to identify parent driver.
+  ASoC: Intel: boards: byt/cht: set card and driver name at run time
+  ASoC: Intel: byt/cht: set pm ops dynamically
+  ASoC: SOF: acpi: add dynamic selection of DSP driver
+  ASoC: Intel: Atom: add dynamic selection of DSP driver
+  ASoC: SOF: Intel: allow for coexistence between SOF and Atom/SST
+    drivers
+  ALSA: hda: intel-dsp-config: add Broadwell ACPI DSP driver selection
+  ASoC: Intel: broadwell: set card and driver name dynamically
+  ASoC: Intel: catpt: add dynamic selection of DSP driver
+  ASoC: SOF: Intel: allow for coexistence between SOF and catpt drivers
+  ALSA: hda: intel-dsp-config: ignore dsp_driver parameter for PCI
+    legacy devices
 
-diff --git a/alsaloop/alsaloop.h b/alsaloop/alsaloop.h
-index c4aa618..9a50a42 100644
---- a/alsaloop/alsaloop.h
-+++ b/alsaloop/alsaloop.h
-@@ -122,6 +122,7 @@ struct loopback_handle {
- 	unsigned int ctl_pollfd_count;
- 	snd_ctl_elem_value_t *ctl_notify;
- 	snd_ctl_elem_value_t *ctl_rate_shift;
-+	snd_ctl_elem_value_t *ctl_fback_freq;
- 	snd_ctl_elem_value_t *ctl_active;
- 	snd_ctl_elem_value_t *ctl_format;
- 	snd_ctl_elem_value_t *ctl_rate;
-diff --git a/alsaloop/pcmjob.c b/alsaloop/pcmjob.c
-index 6a9aff4..b3802a8 100644
---- a/alsaloop/pcmjob.c
-+++ b/alsaloop/pcmjob.c
-@@ -1058,15 +1058,22 @@ static int set_notify(struct loopback_handle *lhandle, int enable)
- 
- static int set_rate_shift(struct loopback_handle *lhandle, double pitch)
- {
--	int err;
-+	int err = 0;
- 
--	if (lhandle->ctl_rate_shift == NULL)
--		return 0;
--	snd_ctl_elem_value_set_integer(lhandle->ctl_rate_shift, 0, pitch * 100000);
--	err = snd_ctl_elem_write(lhandle->ctl, lhandle->ctl_rate_shift);
--	if (err < 0) {
--		logit(LOG_CRIT, "Cannot set PCM Rate Shift element for %s: %s\n", lhandle->id, snd_strerror(err));
--		return err;
-+	if (lhandle->ctl_rate_shift) {
-+		snd_ctl_elem_value_set_integer(lhandle->ctl_rate_shift, 0, pitch * 100000);
-+		err = snd_ctl_elem_write(lhandle->ctl, lhandle->ctl_rate_shift);
-+		if (err < 0) {
-+			logit(LOG_CRIT, "Cannot set PCM Rate Shift element for %s: %s\n", lhandle->id, snd_strerror(err));
-+			return err;
-+		}
-+	} else if (lhandle->ctl_fback_freq) {
-+		snd_ctl_elem_value_set_integer(lhandle->ctl_fback_freq, 0, lhandle->rate * (2.0 - pitch));
-+		err = snd_ctl_elem_write(lhandle->ctl, lhandle->ctl_fback_freq);
-+		if (err < 0) {
-+			logit(LOG_CRIT, "Cannot set PCM Feedback Frequency element for %s: %s\n", lhandle->id, snd_strerror(err));
-+			return err;
-+		}
- 	}
- 	return 0;
- }
-@@ -1195,6 +1202,7 @@ static int openctl(struct loopback_handle *lhandle, int device, int subdevice)
- 	int err;
- 
- 	lhandle->ctl_rate_shift = NULL;
-+	lhandle->ctl_fback_freq = NULL;
- 	if (lhandle->loopback->play == lhandle) {
- 		if (lhandle->loopback->controls)
- 			goto __events;
-@@ -1204,6 +1212,8 @@ static int openctl(struct loopback_handle *lhandle, int device, int subdevice)
- 			&lhandle->ctl_notify);
- 	openctl_elem(lhandle, device, subdevice, "PCM Rate Shift 100000",
- 			&lhandle->ctl_rate_shift);
-+	openctl_elem(lhandle, device, subdevice, "PCM Feedback Frequency Hz",
-+			&lhandle->ctl_fback_freq);
- 	set_rate_shift(lhandle, 1);
- 	openctl_elem(lhandle, device, subdevice, "PCM Slave Active",
- 			&lhandle->ctl_active);
-@@ -1289,6 +1299,9 @@ static int closeit(struct loopback_handle *lhandle)
- 	if (lhandle->ctl_rate_shift)
- 		snd_ctl_elem_value_free(lhandle->ctl_rate_shift);
- 	lhandle->ctl_rate_shift = NULL;
-+	if (lhandle->ctl_fback_freq)
-+		snd_ctl_elem_value_free(lhandle->ctl_fback_freq);
-+	lhandle->ctl_fback_freq = NULL;
- 	if (lhandle->ctl)
- 		err = snd_ctl_close(lhandle->ctl);
- 	lhandle->ctl = NULL;
-@@ -1334,9 +1347,11 @@ int pcmjob_init(struct loopback *loop)
- 	snprintf(id, sizeof(id), "%s/%s", loop->play->id, loop->capt->id);
- 	id[sizeof(id)-1] = '\0';
- 	loop->id = strdup(id);
--	if (loop->sync == SYNC_TYPE_AUTO && loop->capt->ctl_rate_shift)
-+	if (loop->sync == SYNC_TYPE_AUTO && (loop->capt->ctl_rate_shift ||
-+			loop->capt->ctl_fback_freq))
- 		loop->sync = SYNC_TYPE_CAPTRATESHIFT;
--	if (loop->sync == SYNC_TYPE_AUTO && loop->play->ctl_rate_shift)
-+	if (loop->sync == SYNC_TYPE_AUTO && (loop->play->ctl_rate_shift ||
-+			loop->play->ctl_fback_freq))
- 		loop->sync = SYNC_TYPE_PLAYRATESHIFT;
- #ifdef USE_SAMPLERATE
- 	if (loop->sync == SYNC_TYPE_AUTO && loop->src_enable)
+ include/sound/intel-dsp-config.h             |   7 ++
+ include/sound/soc-acpi.h                     |   6 +
+ sound/hda/intel-dsp-config.c                 | 111 +++++++++++++++++++
+ sound/soc/intel/Kconfig                      |   2 +
+ sound/soc/intel/atom/sst/sst_acpi.c          |   8 ++
+ sound/soc/intel/boards/bdw-rt5650.c          |  17 ++-
+ sound/soc/intel/boards/bdw-rt5677.c          |  18 ++-
+ sound/soc/intel/boards/broadwell.c           |  20 ++--
+ sound/soc/intel/boards/bytcht_cx2072x.c      |  27 +++--
+ sound/soc/intel/boards/bytcht_da7213.c       |  27 +++--
+ sound/soc/intel/boards/bytcht_es8316.c       |  29 +++--
+ sound/soc/intel/boards/bytcr_rt5640.c        |  30 +++--
+ sound/soc/intel/boards/bytcr_rt5651.c        |  27 +++--
+ sound/soc/intel/boards/cht_bsw_max98090_ti.c |  29 +++--
+ sound/soc/intel/boards/cht_bsw_nau8824.c     |  29 +++--
+ sound/soc/intel/boards/cht_bsw_rt5645.c      |  38 ++++---
+ sound/soc/intel/boards/cht_bsw_rt5672.c      |  29 +++--
+ sound/soc/intel/catpt/device.c               |  12 ++
+ sound/soc/sof/intel/Kconfig                  |  33 +++---
+ sound/soc/sof/sof-acpi-dev.c                 |  14 ++-
+ 20 files changed, 392 insertions(+), 121 deletions(-)
+
 -- 
-1.9.1
+2.25.1
 

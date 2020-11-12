@@ -2,91 +2,58 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2A8222B0173
-	for <lists+alsa-devel@lfdr.de>; Thu, 12 Nov 2020 10:00:07 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 774152B0510
+	for <lists+alsa-devel@lfdr.de>; Thu, 12 Nov 2020 13:39:53 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 99E7417E3;
-	Thu, 12 Nov 2020 09:59:11 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 99E7417E3
+	by alsa0.perex.cz (Postfix) with ESMTPS id B4E0317EC;
+	Thu, 12 Nov 2020 13:39:01 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B4E0317EC
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1605171601;
-	bh=L/QOdeQzUICTY8JO4AjibXrK2xQrOFsa5chFCQIrOm4=;
-	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=RdQmBxxMm3tbMq2nqiM0EJOir7FMHC/pHcFgP8K7gQrp4J13YGlsiWEJTaSDG7WPx
-	 AwIrbR3XzMIwE1DxMk8ijrkAHn6a145oRBOlCVU3qSp4SM6wu5zhiU3jRZMWz/EUR9
-	 7QybWTu88I6cZoT4gZUvRpCIm0CeR/qvRct9/sYo=
+	s=default; t=1605184791;
+	bh=DroRIcElb1NFxnif8wYsHaDshM/YpbTVfoU2YXiKVqM=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=F85dgtqltkW6N9g+Fwl00I3k6GpBxK1Ma0XwDDpj+V75RM1V53JT8r3dugXP9I/E1
+	 P9+r6OYatji5Rh4603zxGignZBNU2Pi88/vSC/NRqRRm1WjMzpt3PwZZIUbGvUKKqI
+	 wTNx/SOC/PkBOgha+nIReDXpOY4BzkfrRxzXdheI=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 0D7DCF800D1;
-	Thu, 12 Nov 2020 09:58:29 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 91A60F8021C;
+	Thu, 12 Nov 2020 13:38:11 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id DA752F801D5; Thu, 12 Nov 2020 09:58:26 +0100 (CET)
+ id 04E8CF801EB; Thu, 12 Nov 2020 13:38:07 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,NICE_REPLY_A,PRX_BODY_78,RCVD_IN_MSPIKE_H4,
+X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_MSPIKE_H4,
  RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
-Received: from fllv0015.ext.ti.com (fllv0015.ext.ti.com [198.47.19.141])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from szxga04-in.huawei.com (szxga04-in.huawei.com [45.249.212.190])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 1A8F5F8007E
- for <alsa-devel@alsa-project.org>; Thu, 12 Nov 2020 09:58:23 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1A8F5F8007E
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b="msUEzors"
-Received: from fllv0034.itg.ti.com ([10.64.40.246])
- by fllv0015.ext.ti.com (8.15.2/8.15.2) with ESMTP id 0AC8wLtO120801;
- Thu, 12 Nov 2020 02:58:21 -0600
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com;
- s=ti-com-17Q1; t=1605171501;
- bh=UmSY0edIf57Yap12ihdDOUqAqI05HX2cAZc82RxQrXk=;
- h=Subject:To:CC:References:From:Date:In-Reply-To;
- b=msUEzorsyk84ZK/LOeX29FtcG5Xk9UIHfWWUpKlVqM8GumH10EMxUNv/E1TYh70Dr
- aOll4/ApPVGZiVIlCu6kBuVm139LOesTK/z+zWom/zuyY6eJNPuz0/5IeaAx14cDo3
- UJeg2SjBSg/vn2F1jryUC6OeV/RX0us8fdx/hFXw=
-Received: from DFLE114.ent.ti.com (dfle114.ent.ti.com [10.64.6.35])
- by fllv0034.itg.ti.com (8.15.2/8.15.2) with ESMTPS id 0AC8wL1U090221
- (version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=FAIL);
- Thu, 12 Nov 2020 02:58:21 -0600
-Received: from DFLE101.ent.ti.com (10.64.6.22) by DFLE114.ent.ti.com
- (10.64.6.35) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.1979.3; Thu, 12
- Nov 2020 02:58:21 -0600
-Received: from lelv0327.itg.ti.com (10.180.67.183) by DFLE101.ent.ti.com
- (10.64.6.22) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.1979.3 via
- Frontend Transport; Thu, 12 Nov 2020 02:58:20 -0600
-Received: from [192.168.2.6] (ileax41-snat.itg.ti.com [10.172.224.153])
- by lelv0327.itg.ti.com (8.15.2/8.15.2) with ESMTP id 0AC8wIj8011893;
- Thu, 12 Nov 2020 02:58:19 -0600
-Subject: Re: [PATCH] ASoC: pcm512x: Add support for data formats RJ and LJ
-To: Kirill Marinushkin <kmarinushkin@birdec.com>
-References: <20201109212133.25869-1-kmarinushkin@birdec.com>
- <690508c7-7029-6781-a1a2-0609e37cb9e6@ti.com>
- <a3df4fb0-35cd-4757-2037-d4ff80e9f74c@birdec.com>
- <d0f76607-c3a5-9b87-dc0e-eddbce585558@ti.com>
- <6e14cdc3-2d45-d7bc-14eb-30c6ea568078@birdec.com>
-From: Peter Ujfalusi <peter.ujfalusi@ti.com>
-Message-ID: <43973577-f719-b414-395c-91a4e1a3b460@ti.com>
-Date: Thu, 12 Nov 2020 10:59:07 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.4.2
+ by alsa1.perex.cz (Postfix) with ESMTPS id D7084F801D5
+ for <alsa-devel@alsa-project.org>; Thu, 12 Nov 2020 13:38:02 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D7084F801D5
+Received: from DGGEMS401-HUB.china.huawei.com (unknown [172.30.72.59])
+ by szxga04-in.huawei.com (SkyGuard) with ESMTP id 4CX1Ms0tVgzkjlC;
+ Thu, 12 Nov 2020 20:37:45 +0800 (CST)
+Received: from huawei.com (10.175.127.227) by DGGEMS401-HUB.china.huawei.com
+ (10.3.19.201) with Microsoft SMTP Server id 14.3.487.0; Thu, 12 Nov 2020
+ 20:37:55 +0800
+From: Zhang Qilong <zhangqilong3@huawei.com>
+To: <lgirdwood@gmail.com>, <broonie@kernel.org>, <perex@perex.cz>,
+ <tiwai@suse.com>, <rf@opensource.cirrus.com>
+Subject: [PATCH v2 0/2] ASoC: Fix error handling in arizona
+Date: Thu, 12 Nov 2020 20:41:38 +0800
+Message-ID: <20201112124140.1730493-1-zhangqilong3@huawei.com>
+X-Mailer: git-send-email 2.25.4
 MIME-Version: 1.0
-In-Reply-To: <6e14cdc3-2d45-d7bc-14eb-30c6ea568078@birdec.com>
-Content-Type: text/plain; charset="utf-8"
-Content-Language: en-US
 Content-Transfer-Encoding: 8bit
-X-EXCLAIMER-MD-CONFIG: e1e8a2fd-e40a-4ac6-ac9b-f7e9cc9ee180
-Cc: alsa-devel@alsa-project.org,
- Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
- linux-kernel@vger.kernel.org, Takashi Iwai <tiwai@suse.com>,
- Liam Girdwood <lgirdwood@gmail.com>, Matthias Reichl <hias@horus.com>,
- Mark Brown <broonie@kernel.org>
+Content-Type: text/plain
+X-Originating-IP: [10.175.127.227]
+X-CFilter-Loop: Reflected
+Cc: patches@opensource.cirrus.com, alsa-devel@alsa-project.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -102,44 +69,19 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hi Kirill,
+The first patch fixed a wrong free in wm8997_probe. The
+other fixed PM disable depth imbalance on error handling.
 
-On 12/11/2020 9.57, Kirill Marinushkin wrote:
->> The set_fmt callback is there to set the bus format, it has nothing to
->> do (in most cases) with the sample format (hw_params). Bus coding, clock
->> source has nothing to do with hw_params.
->>
->> When you bind a link you will use set_fmt for the two sides to see if
->> they can agree, that both can support what has been asked.
->>
->> The pcm512x driver just saves the fmt and say back to that card:
->> whatever, I'm fine with it. But runtime during hw_params it can fail due
->> to unsupported bus format, which it actually acked to be ok.
->>
->> This is the difference.
->>
->> Sure, some device have constraint based on the fmt towards the hw_params
->> and it is perfectly OK to do such a checks and rejections or build
->> rules/constraints based on fmt, but failing hw_params just because
->> set_fmt did not checked that the bus format is not even supported is not
->> a nice thing to do.
-> 
-> Those are good arguments
-> 
->>> Would you agree?
->>
->> I don't have a device to test, I'm just trying to point out what is the
->> right thing to do.
-> 
-> I have a device to test. I will move format checks into `pcm512x_set_fmt()`,
-> ensure that it works properly, and submit as patch v3.
+Change Log v2:
+- add collected review and ack.
 
-Thank you. I know it is slightly more work.
+Zhang Qilong (2):
+  ASoC: arizona: Fix a wrong free in wm8997_probe
+  ASoC: arizona: Fix PM disable depth imbalance on error
 
-When you send v3 please do not use --in-reply-to, let it be itself.
+ sound/soc/codecs/wm8997.c | 8 ++++++--
+ 1 file changed, 6 insertions(+), 2 deletions(-)
 
-Regards,
-- Péter
+-- 
+2.25.4
 
-Texas Instruments Finland Oy, Porkkalankatu 22, 00180 Helsinki.
-Y-tunnus/Business ID: 0615521-4. Kotipaikka/Domicile: Helsinki

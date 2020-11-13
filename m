@@ -2,72 +2,75 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 34D422B2065
-	for <lists+alsa-devel@lfdr.de>; Fri, 13 Nov 2020 17:26:54 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 72B872B20DE
+	for <lists+alsa-devel@lfdr.de>; Fri, 13 Nov 2020 17:51:49 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C6A401881;
-	Fri, 13 Nov 2020 17:26:03 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C6A401881
+	by alsa0.perex.cz (Postfix) with ESMTPS id F195C1881;
+	Fri, 13 Nov 2020 17:50:57 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz F195C1881
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1605284813;
-	bh=S9f9z05h/SWf3fythVs9BIIf/V6mZBGSFYwBeVcooYk=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1605286308;
+	bh=k8Q80xFk7VPbPap5OWcJpcOxNEQNtKQE0mErV8+haQo=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=dAAQQfedtzvQy/egKoqMR9Amva73RhoC6WRL8pPKzXQCJP9bL5tiZZ4f8s6ooPb6w
-	 woJYzal8rJfktSlXkG7wcwJj0u/v2fKp2M4YxOk4NqnrYs1OsAjc7U/AdGEpkNiiXi
-	 pyBMkW/3QLE6cDXY0/k8fAKWrRim712GFLgOeLno=
+	b=uSsEh8yne8j2K8M7gj4nsDxRJPwQJzZZSNfR5buO7oxY7/kkeFEu7nG+hRkHIkpEo
+	 pkwQ9CcFsaPyHS7YMHsRVuEOBh2NbdMb6B/PjJSblOr5fu30wZgEi9vxQlai9ksDGD
+	 Ts13uTdJI5r5+MmqGvK/pMuzM/4K0gr6/FvncME4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 6A162F80519;
-	Fri, 13 Nov 2020 17:22:13 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 2E7BDF8020C;
+	Fri, 13 Nov 2020 17:50:15 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 6172EF804BC; Fri, 13 Nov 2020 17:22:07 +0100 (CET)
+ id 6171DF801F5; Fri, 13 Nov 2020 17:50:13 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
+X-Spam-Status: No, score=0.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+ DKIM_VALID,DKIM_VALID_AU,PRX_BODY_65,SPF_HELO_NONE,SPF_PASS
+ autolearn=disabled version=3.4.0
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 277BFF80086
+ for <alsa-devel@alsa-project.org>; Fri, 13 Nov 2020 17:50:05 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 277BFF80086
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="PtsQVcZo"
+Received: from localhost (fw-tnat.cambridge.arm.com [217.140.96.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 1EB93F804BC
- for <alsa-devel@alsa-project.org>; Fri, 13 Nov 2020 17:21:55 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1EB93F804BC
-IronPort-SDR: fO2bcIoACloMeEcIdcufft4YpIFvP5cPsAhZXtNXI+DnDUEb18fllsmNQyZF1Z/jVgpOfwQDWs
- ChjtDZ5ih2aQ==
-X-IronPort-AV: E=McAfee;i="6000,8403,9804"; a="150344717"
-X-IronPort-AV: E=Sophos;i="5.77,475,1596524400"; d="scan'208";a="150344717"
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from fmsmga003.fm.intel.com ([10.253.24.29])
- by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 13 Nov 2020 08:21:47 -0800
-IronPort-SDR: VoJIdrVOahzLn09Hlos2+YZXTi9c7IJbWuSU7SpysP/0TkLwyi3q9ylxnhhdSa2vm+dnX+gLal
- 7896ip1n9FTQ==
-X-IronPort-AV: E=Sophos;i="5.77,475,1596524400"; d="scan'208";a="366767263"
-Received: from dmert-dev.jf.intel.com ([10.166.241.5])
- by fmsmga003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 13 Nov 2020 08:21:47 -0800
-From: Dave Ertman <david.m.ertman@intel.com>
-To: alsa-devel@alsa-project.org
-Subject: [PATCH v4 10/10] ASoC: SOF: Intel: CNL: register probes client
-Date: Fri, 13 Nov 2020 08:18:59 -0800
-Message-Id: <20201113161859.1775473-11-david.m.ertman@intel.com>
-X-Mailer: git-send-email 2.26.2
-In-Reply-To: <20201113161859.1775473-1-david.m.ertman@intel.com>
-References: <20201113161859.1775473-1-david.m.ertman@intel.com>
+ by mail.kernel.org (Postfix) with ESMTPSA id 37046217A0;
+ Fri, 13 Nov 2020 16:50:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=default; t=1605286202;
+ bh=k8Q80xFk7VPbPap5OWcJpcOxNEQNtKQE0mErV8+haQo=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=PtsQVcZoOEFBpYKgSLAsSIrqlNVlSKYF+kx1qtP0J/h7Hb5GbtXmtZKuGA55AQWhA
+ N9s3tOcDrfKVFdETYb65guigh77R6qacz0ebgUDs+eUIYd8ewJcJRStBiYbYTaoscH
+ DMlAjakjFcZVfOoE9iNNISEhd8zQ4IGJ5eIFFGoI=
+Date: Fri, 13 Nov 2020 16:49:46 +0000
+From: Mark Brown <broonie@kernel.org>
+To: "Rojewski, Cezary" <cezary.rojewski@intel.com>
+Subject: Re: [PATCH 00/14] ASoC: Intel/SOF: extend run-time driver selection
+ to ACPI devices
+Message-ID: <20201113164946.GD4828@sirena.org.uk>
+References: <20201112223825.39765-1-pierre-louis.bossart@linux.intel.com>
+ <0a0854d1ddaf4f9b81ef5569a7d501a5@intel.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Cc: parav@mellanox.com, tiwai@suse.de, netdev@vger.kernel.org,
- leonro@nvidia.com, ranjani.sridharan@linux.intel.com,
- pierre-louis.bossart@linux.intel.com, fred.oh@linux.intel.com,
- linux-rdma@vger.kernel.org, dledford@redhat.com, broonie@kernel.org,
- jgg@nvidia.com, gregkh@linuxfoundation.org, kuba@kernel.org,
- dan.j.williams@intel.com, shiraz.saleem@intel.com, davem@davemloft.net,
- linux-kernel@vger.kernel.org, kiran.patil@intel.com
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="ZARJHfwaSJQLOEUz"
+Content-Disposition: inline
+In-Reply-To: <0a0854d1ddaf4f9b81ef5569a7d501a5@intel.com>
+X-Cookie: No solicitors.
+User-Agent: Mutt/1.10.1 (2018-07-13)
+Cc: "tiwai@suse.de" <tiwai@suse.de>, Hans de Goede <hdegoede@redhat.com>,
+ "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
+ "andriy.shevchenko@linux.intel.com" <andriy.shevchenko@linux.intel.com>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -83,69 +86,61 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
 
-Register the client device for probes support on the
-CNL platform. Creating this client device alleviates the
-need for modifying the sound card definitions in the existing
-machine drivers to add support for the new probes feature in
-the FW. This will result in the creation of a separate sound
-card that can be used for audio data extraction from user
-specified points in the audio pipeline.
+--ZARJHfwaSJQLOEUz
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-Reviewed-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Tested-by: Fred Oh <fred.oh@linux.intel.com>
-Signed-off-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
-Signed-off-by: Dave Ertman <david.m.ertman@intel.com>
----
- sound/soc/sof/intel/cnl.c | 18 +++++++++++++++++-
- 1 file changed, 17 insertions(+), 1 deletion(-)
+On Fri, Nov 13, 2020 at 01:06:48PM +0000, Rojewski, Cezary wrote:
 
-diff --git a/sound/soc/sof/intel/cnl.c b/sound/soc/sof/intel/cnl.c
-index 20afb622c315..6d15b871dc17 100644
---- a/sound/soc/sof/intel/cnl.c
-+++ b/sound/soc/sof/intel/cnl.c
-@@ -19,6 +19,7 @@
- #include "hda.h"
- #include "hda-ipc.h"
- #include "../sof-audio.h"
-+#include "../sof-client.h"
- #include "intel-client.h"
- 
- static const struct snd_sof_debugfs_map cnl_dsp_debugfs[] = {
-@@ -233,12 +234,26 @@ void cnl_ipc_dump(struct snd_sof_dev *sdev)
- 
- static int cnl_register_clients(struct snd_sof_dev *sdev)
- {
--	return intel_register_ipc_test_clients(sdev);
-+	int ret;
-+
-+	ret = intel_register_ipc_test_clients(sdev);
-+	if (ret < 0)
-+		return ret;
-+
-+#if IS_ENABLED(CONFIG_SND_SOC_SOF_HDA_PROBES)
-+	return sof_client_dev_register(sdev, "probes", 0);
-+#endif
-+
-+	return 0;
- }
- 
- static void cnl_unregister_clients(struct snd_sof_dev *sdev)
- {
- 	intel_unregister_ipc_test_clients(sdev);
-+
-+#if IS_ENABLED(CONFIG_SND_SOC_SOF_HDA_PROBES)
-+	sof_client_dev_unregister(sdev, "probes", 0);
-+#endif
- }
- 
- /* cannonlake ops */
-@@ -409,3 +424,4 @@ const struct sof_intel_dsp_desc jsl_chip_info = {
- };
- EXPORT_SYMBOL_NS(jsl_chip_info, SND_SOC_SOF_INTEL_HDA_COMMON);
- MODULE_IMPORT_NS(SND_SOC_SOF_INTEL_CLIENT);
-+MODULE_IMPORT_NS(SND_SOC_SOF_CLIENT);
--- 
-2.26.2
+> For a very long time upstream was filled with "flavors" of drivers for
+> Intel solutions. Having three available for BYT is a very good example
+> of that. The division of what goes where wasn't exactly explicit either.
+> This all leads to confusion - while community and users may feel
+> confused about what's recommended and what they should actually be
+> using, surprisingly (unsurprisingly?) developers were too.
 
+=2E..
+
+> Patchset presented here goes directly against that goal. We, Intel
+> developers, are tasked with providing reliable, working solutions
+> exposing best possible experience for our customers when dealing with
+> our products. And thus solutions provided are called recommended. We
+> don't deal with flavors and try-it-out-on-your-own-risk.
+
+My feeling here was that this is helping with this goal in that it's not
+changing the defaults but is rather pushing the decision making process
+=66rom build time to runtime.  This means that distributions are able to
+ship the preferred implementations for all the platforms without causing
+any issues for the hopefully small set of users who need or want to work
+on a different firmware, if they've been doing something like sticking
+with an alternative firmware for old users since things were working
+they'll be able to smoothly transition over to the current recommended
+default, eg leaving old users on the old firmware by default.  That's a
+bit of a niche use case but then hopefully all use cases for selecting a
+non-default firmware are niche.
+
+It also means that people don't have to think about this so much at
+build time, they can just turn everything on and not worry they'll cause
+problems for people using the binary and still get the recommended
+runtime behaviour by default unless the user actively does something.
+
+At any rate I'm not clear that I see this actively causing problems.
+
+--ZARJHfwaSJQLOEUz
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl+uuSkACgkQJNaLcl1U
+h9B4Vwf/TSAjm4ENkwP1NjGr2ERGqssZfIH7o/VWPqIFpgHq/W+hdPDiPbthtaXH
+Bk9hDcME2f5tcaVJD3hGC/nzmObFSmsEf0+sjfZUNfwDw3+ZCDqDnxs691kGOQIh
+EaWafy54RVVHHxad+sQh24F+E+PkEkwzxQDbtY/5aASf6TG15kdVKtoeghEmgrgn
+bszIYaT7353VtvmLuX2pHuhDx8Pdq1oQ/TWF4Xcg7vD4YtHdtlWjfaSBwoqORAzP
+L8ygkV5BMXz/ZdmGtncjm+qeMbt8mYKjEFJKRGSc1zlfCzY0lIgh7kKFZ1pd5pyU
+MFOSFhU+/Xct/Zr5l5+DgNF5sYPZKw==
+=Xhl2
+-----END PGP SIGNATURE-----
+
+--ZARJHfwaSJQLOEUz--

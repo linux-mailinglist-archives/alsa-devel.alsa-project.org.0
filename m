@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E6B1B2B1922
-	for <lists+alsa-devel@lfdr.de>; Fri, 13 Nov 2020 11:35:09 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id EC5DC2B1923
+	for <lists+alsa-devel@lfdr.de>; Fri, 13 Nov 2020 11:35:20 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 64AA617B6;
-	Fri, 13 Nov 2020 11:34:19 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 64AA617B6
+	by alsa0.perex.cz (Postfix) with ESMTPS id 241401752;
+	Fri, 13 Nov 2020 11:34:30 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 241401752
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1605263709;
-	bh=pjYSE/FRBb2aQINiYtwkEVHzszKCPCMfz6/RHu0worQ=;
+	s=default; t=1605263720;
+	bh=0IC0TDw5dhsEkjTd+0keJ8Zbp5USCNSxQHOb/WnpvBg=;
 	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=V1GS/iYlSTJKYZFwoSFb12PzymuyDOoswB82dd4+MKpbX9LeoK4ieO5EptyAGAA+B
-	 HPhP1X4mS4nqITsb5rRw4pLyfedOfCbNGziFnHsU2TxsdTJHiUWRqSPnZNrkCAa5xJ
-	 puYzR9FXU57HT2VAVXORy7R33r7dMKX1oGWpWpdw=
+	b=JbMzoOls8SrgW+izTz7bRoLiZ8TrUWnKckigDtewqB58qPf6CtGXMIcf17GSsJxIj
+	 xfDI/G5EYxsTaBUvnHxqoljUnztnvssmLa8i6LFUxlrQu4PDiGQLW/gINQ9QLzixt3
+	 sNmFNakXxuHN7rrXncfh4qIJFF+jiIIij0f2rD/E=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id F1AADF8022B;
-	Fri, 13 Nov 2020 11:33:36 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id AEFE5F80271;
+	Fri, 13 Nov 2020 11:33:43 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 10D59F8020C; Fri, 13 Nov 2020 11:33:34 +0100 (CET)
+ id 817C1F8025E; Fri, 13 Nov 2020 11:33:41 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_MSPIKE_H3,
@@ -33,20 +33,20 @@ X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_MSPIKE_H3,
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id D125DF800D1
- for <alsa-devel@alsa-project.org>; Fri, 13 Nov 2020 11:33:29 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D125DF800D1
+ by alsa1.perex.cz (Postfix) with ESMTPS id DBBC7F80086
+ for <alsa-devel@alsa-project.org>; Fri, 13 Nov 2020 11:33:38 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DBBC7F80086
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 2023FAED6;
- Fri, 13 Nov 2020 10:33:29 +0000 (UTC)
-Date: Fri, 13 Nov 2020 11:33:28 +0100
-Message-ID: <s5hh7ptfsw7.wl-tiwai@suse.de>
+ by mx2.suse.de (Postfix) with ESMTP id 7C7E1AE42;
+ Fri, 13 Nov 2020 10:33:38 +0000 (UTC)
+Date: Fri, 13 Nov 2020 11:33:38 +0100
+Message-ID: <s5hft5dfsvx.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
 To: Kailang <kailang@realtek.com>
-Subject: Re: HP mute led support
-In-Reply-To: <086c865222fb4ebf8bb8fd697ae8974c@realtek.com>
-References: <086c865222fb4ebf8bb8fd697ae8974c@realtek.com>
+Subject: Re: HP headset Mic detect issue
+In-Reply-To: <1ae4d98e92c147b780ace3911c4e1d73@realtek.com>
+References: <1ae4d98e92c147b780ace3911c4e1d73@realtek.com>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
  FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
  (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
@@ -68,13 +68,13 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Fri, 13 Nov 2020 08:11:46 +0100,
+On Fri, 13 Nov 2020 08:31:26 +0100,
 Kailang wrote:
 > 
 > Hi Takashi,
 > 
-> HP machine have mute led support.
-> Attach patch will enable it.
+> If it turn on power save mode, Headset Mic will lose after boot.
+> Attach patch will solve it.
 > 
 > Many Thanks.
 > 

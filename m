@@ -2,50 +2,50 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E11762B1516
-	for <lists+alsa-devel@lfdr.de>; Fri, 13 Nov 2020 05:19:08 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id CA7292B1517
+	for <lists+alsa-devel@lfdr.de>; Fri, 13 Nov 2020 05:19:46 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 864351883;
-	Fri, 13 Nov 2020 05:18:18 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 864351883
+	by alsa0.perex.cz (Postfix) with ESMTPS id 693971847;
+	Fri, 13 Nov 2020 05:18:56 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 693971847
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1605241148;
-	bh=XaQr9vNvK2YnW7DgCDaJbVh2X8Q2SIgFFYOcrfGMLcE=;
+	s=default; t=1605241186;
+	bh=OOQfd2WaI3yXflSDm2bBlz95MLqOtSI0FJHAT7FS0Cw=;
 	h=Date:From:Subject:To:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=FPaj7aWGU4S2C7klph4SJbAY28xEFxpTitPeIntCQb671m8azD150LQmiceupJTKP
-	 dTrbPYNNImPiL39qZJtq6rsgFRy05Stwc7crGKLlHFGheD9keUN5Gz6xJ3Ig/r61/n
-	 2Ggh5u3PpUXUQ3ai/9bkRkpBXuYUJnPKBs7nqCn0=
+	b=LiNsLr/5Ip6NssLX7OOUPa5DPmgrhZxjVqRephzvZBFXd5pXivtodQSdVZTmFCSST
+	 Ht/vKnKKg/OBHQpHdZa6IfcIxDJtM9KpwqR/Lertm/CDqu83QrwmGLW/w+WkhEqLD/
+	 qJUkYFXx9IlOI3I74NuaohA1e1EnI6epxVAEprs4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id BF3F8F804F1;
-	Fri, 13 Nov 2020 05:16:18 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id D4C5FF80507;
+	Fri, 13 Nov 2020 05:16:22 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id B719AF804EC; Fri, 13 Nov 2020 05:16:14 +0100 (CET)
+ id 3AF31F80506; Fri, 13 Nov 2020 05:16:21 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
  URIBL_BLOCKED autolearn=disabled version=3.4.0
 Received: from relmlie5.idc.renesas.com (relmlor1.renesas.com
  [210.160.252.171])
- by alsa1.perex.cz (Postfix) with ESMTP id 9303CF804EB
- for <alsa-devel@alsa-project.org>; Fri, 13 Nov 2020 05:16:11 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9303CF804EB
-Date: 13 Nov 2020 13:16:11 +0900
-X-IronPort-AV: E=Sophos;i="5.77,474,1596466800"; d="scan'208";a="62557899"
-Received: from unknown (HELO relmlir5.idc.renesas.com) ([10.200.68.151])
- by relmlie5.idc.renesas.com with ESMTP; 13 Nov 2020 13:16:11 +0900
+ by alsa1.perex.cz (Postfix) with ESMTP id 4FED5F804EB
+ for <alsa-devel@alsa-project.org>; Fri, 13 Nov 2020 05:16:18 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4FED5F804EB
+Date: 13 Nov 2020 13:16:17 +0900
+X-IronPort-AV: E=Sophos;i="5.77,474,1596466800"; d="scan'208";a="62557909"
+Received: from unknown (HELO relmlir6.idc.renesas.com) ([10.200.68.152])
+ by relmlie5.idc.renesas.com with ESMTP; 13 Nov 2020 13:16:17 +0900
 Received: from mercury.renesas.com (unknown [10.166.252.133])
- by relmlir5.idc.renesas.com (Postfix) with ESMTP id 30BB640134F0;
- Fri, 13 Nov 2020 13:16:11 +0900 (JST)
-Message-ID: <877dqp7v6i.wl-kuninori.morimoto.gx@renesas.com>
+ by relmlir6.idc.renesas.com (Postfix) with ESMTP id E486041A78B9;
+ Fri, 13 Nov 2020 13:16:17 +0900 (JST)
+Message-ID: <875z697v6c.wl-kuninori.morimoto.gx@renesas.com>
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Subject: [PATCH v2 07/12] ASoC: soc-component: add
- snd_soc_component_compr_get_codec_caps()
+Subject: [PATCH v2 08/12] ASoC: soc-component: add
+ snd_soc_component_compr_ack()
 User-Agent: Wanderlust/2.15.9 Emacs/26.3 Mule/6.0
 To: Mark Brown <broonie@kernel.org>
 In-Reply-To: <87h7pt7v93.wl-kuninori.morimoto.gx@renesas.com>
@@ -72,115 +72,92 @@ From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 
 component related function should be implemented at
 soc-component.c.
-This patch adds snd_soc_component_compr_get_codec_caps().
+This patch adds snd_soc_component_compr_ack().
 
 Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 ---
- include/sound/soc-component.h |  2 ++
- sound/soc/soc-component.c     | 24 ++++++++++++++++++++++++
- sound/soc/soc-compress.c      | 27 ++-------------------------
- 3 files changed, 28 insertions(+), 25 deletions(-)
+ include/sound/soc-component.h |  1 +
+ sound/soc/soc-component.c     | 20 ++++++++++++++++++++
+ sound/soc/soc-compress.c      | 15 ++-------------
+ 3 files changed, 23 insertions(+), 13 deletions(-)
 
 diff --git a/include/sound/soc-component.h b/include/sound/soc-component.h
-index 7fd45462963e..d91e0eb1546d 100644
+index d91e0eb1546d..ba0eb49f8885 100644
 --- a/include/sound/soc-component.h
 +++ b/include/sound/soc-component.h
-@@ -455,6 +455,8 @@ int snd_soc_component_compr_get_params(struct snd_compr_stream *cstream,
- 				       struct snd_codec *params);
- int snd_soc_component_compr_get_caps(struct snd_compr_stream *cstream,
+@@ -457,6 +457,7 @@ int snd_soc_component_compr_get_caps(struct snd_compr_stream *cstream,
  				     struct snd_compr_caps *caps);
-+int snd_soc_component_compr_get_codec_caps(struct snd_compr_stream *cstream,
-+					   struct snd_compr_codec_caps *codec);
+ int snd_soc_component_compr_get_codec_caps(struct snd_compr_stream *cstream,
+ 					   struct snd_compr_codec_caps *codec);
++int snd_soc_component_compr_ack(struct snd_compr_stream *cstream, size_t bytes);
  
  int snd_soc_pcm_component_pointer(struct snd_pcm_substream *substream);
  int snd_soc_pcm_component_ioctl(struct snd_pcm_substream *substream,
 diff --git a/sound/soc/soc-component.c b/sound/soc/soc-component.c
-index b885e96cc8ae..8fba1a395f1e 100644
+index 8fba1a395f1e..832177e5094e 100644
 --- a/sound/soc/soc-component.c
 +++ b/sound/soc/soc-component.c
-@@ -547,6 +547,30 @@ int snd_soc_component_compr_get_caps(struct snd_compr_stream *cstream,
+@@ -571,6 +571,26 @@ int snd_soc_component_compr_get_codec_caps(struct snd_compr_stream *cstream,
  }
- EXPORT_SYMBOL_GPL(snd_soc_component_compr_get_caps);
+ EXPORT_SYMBOL_GPL(snd_soc_component_compr_get_codec_caps);
  
-+int snd_soc_component_compr_get_codec_caps(struct snd_compr_stream *cstream,
-+					   struct snd_compr_codec_caps *codec)
++int snd_soc_component_compr_ack(struct snd_compr_stream *cstream, size_t bytes)
 +{
 +	struct snd_soc_pcm_runtime *rtd = cstream->private_data;
 +	struct snd_soc_component *component;
-+	int i, ret = 0;
-+
-+	mutex_lock_nested(&rtd->card->pcm_mutex, rtd->card->pcm_subclass);
++	int i, ret;
 +
 +	for_each_rtd_components(rtd, i, component) {
 +		if (component->driver->compress_ops &&
-+		    component->driver->compress_ops->get_codec_caps) {
-+			ret = component->driver->compress_ops->get_codec_caps(
-+				component, cstream, codec);
-+			break;
++		    component->driver->compress_ops->ack) {
++			ret = component->driver->compress_ops->ack(
++				component, cstream, bytes);
++			if (ret < 0)
++				return soc_component_ret(component, ret);
 +		}
 +	}
 +
-+	mutex_unlock(&rtd->card->pcm_mutex);
-+
-+	return soc_component_ret(component, ret);
++	return 0;
 +}
-+EXPORT_SYMBOL_GPL(snd_soc_component_compr_get_codec_caps);
++EXPORT_SYMBOL_GPL(snd_soc_component_compr_ack);
 +
  static unsigned int soc_component_read_no_lock(
  	struct snd_soc_component *component,
  	unsigned int reg)
 diff --git a/sound/soc/soc-compress.c b/sound/soc/soc-compress.c
-index e7530712ab91..a82bd02d5519 100644
+index a82bd02d5519..234e1506ed43 100644
 --- a/sound/soc/soc-compress.c
 +++ b/sound/soc/soc-compress.c
-@@ -409,29 +409,6 @@ static int soc_compr_get_params(struct snd_compr_stream *cstream,
- 	return ret;
- }
- 
--static int soc_compr_get_codec_caps(struct snd_compr_stream *cstream,
--				    struct snd_compr_codec_caps *codec)
--{
--	struct snd_soc_pcm_runtime *rtd = cstream->private_data;
--	struct snd_soc_component *component;
--	int i, ret = 0;
--
--	mutex_lock_nested(&rtd->card->pcm_mutex, rtd->card->pcm_subclass);
--
--	for_each_rtd_components(rtd, i, component) {
--		if (!component->driver->compress_ops ||
--		    !component->driver->compress_ops->get_codec_caps)
--			continue;
--
--		ret = component->driver->compress_ops->get_codec_caps(
--			component, cstream, codec);
--		break;
--	}
--
--	mutex_unlock(&rtd->card->pcm_mutex);
--	return ret;
--}
--
+@@ -412,9 +412,8 @@ static int soc_compr_get_params(struct snd_compr_stream *cstream,
  static int soc_compr_ack(struct snd_compr_stream *cstream, size_t bytes)
  {
  	struct snd_soc_pcm_runtime *rtd = cstream->private_data;
-@@ -574,7 +551,7 @@ static struct snd_compr_ops soc_compr_ops = {
- 	.pointer	= soc_compr_pointer,
- 	.ack		= soc_compr_ack,
- 	.get_caps	= snd_soc_component_compr_get_caps,
--	.get_codec_caps = soc_compr_get_codec_caps
-+	.get_codec_caps = snd_soc_component_compr_get_codec_caps,
- };
+-	struct snd_soc_component *component;
+ 	struct snd_soc_dai *cpu_dai = asoc_rtd_to_cpu(rtd, 0);
+-	int i, ret = 0;
++	int ret;
  
- /* ASoC Dynamic Compress operations */
-@@ -589,7 +566,7 @@ static struct snd_compr_ops soc_compr_dyn_ops = {
- 	.pointer	= soc_compr_pointer,
- 	.ack		= soc_compr_ack,
- 	.get_caps	= snd_soc_component_compr_get_caps,
--	.get_codec_caps = soc_compr_get_codec_caps
-+	.get_codec_caps = snd_soc_component_compr_get_codec_caps,
- };
+ 	mutex_lock_nested(&rtd->card->pcm_mutex, rtd->card->pcm_subclass);
  
- /**
+@@ -422,17 +421,7 @@ static int soc_compr_ack(struct snd_compr_stream *cstream, size_t bytes)
+ 	if (ret < 0)
+ 		goto err;
+ 
+-	for_each_rtd_components(rtd, i, component) {
+-		if (!component->driver->compress_ops ||
+-		    !component->driver->compress_ops->ack)
+-			continue;
+-
+-		ret = component->driver->compress_ops->ack(
+-			component, cstream, bytes);
+-		if (ret < 0)
+-			goto err;
+-	}
+-
++	ret = snd_soc_component_compr_ack(cstream, bytes);
+ err:
+ 	mutex_unlock(&rtd->card->pcm_mutex);
+ 	return ret;
 -- 
 2.25.1
 

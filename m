@@ -2,71 +2,67 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 875D72B2069
-	for <lists+alsa-devel@lfdr.de>; Fri, 13 Nov 2020 17:27:51 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 26FC52B1F98
+	for <lists+alsa-devel@lfdr.de>; Fri, 13 Nov 2020 17:08:10 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 2759316D7;
-	Fri, 13 Nov 2020 17:27:01 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2759316D7
+	by alsa0.perex.cz (Postfix) with ESMTPS id 271031881;
+	Fri, 13 Nov 2020 17:07:19 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 271031881
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1605284871;
-	bh=dZodn/1r134z+7tgqzOfFLsySJ62ZwXYJNNwB1Nx7H8=;
-	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
+	s=default; t=1605283689;
+	bh=xazOJCGu3dNwBPq2iap9k2AOyfFmgVfLpwqC2DoyDsU=;
+	h=Date:From:To:In-Reply-To:References:Subject:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=vfBA3LPqAa0nl5OPK+B9Gqd6jSjL73WcIqbyB2cKnl4+CeKh6oLpYBgh0JWkldJNr
-	 +vqF1u+FqQm1h9usyQY6TSEoQ4jFpTg0FsiUwVfAHyAK0fngBlfxVKIpv4FpN8AG19
-	 uDRRB0ViS8lZ7QrxKuI4SiHtdTb44baDuBjLrJa0=
+	b=VDDcSh8cJfl0z8RqnIpJ5iEzA51Az1+kwOoSX/3txt1JdtbsYRtq4qbGm0HHaO8iE
+	 1ZvwsfXWzoZ23mRoyiMxYVS2lohpI0Fml7UM2WwrvMJ5T3729tXSG/tddyF5BBeSI7
+	 hjemIOelwbzcUXn90jWC45pOxaWetJCH/7T2Dlz8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 6327FF80529;
-	Fri, 13 Nov 2020 17:22:15 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 87068F8020C;
+	Fri, 13 Nov 2020 17:06:36 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id A29BFF804F1; Fri, 13 Nov 2020 17:22:10 +0100 (CET)
+ id D8B9CF801F5; Fri, 13 Nov 2020 17:06:34 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=NICE_REPLY_A,SPF_HELO_PASS,
- SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+ DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled
+ version=3.4.0
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 21860F80086
+ for <alsa-devel@alsa-project.org>; Fri, 13 Nov 2020 17:06:27 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 21860F80086
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="MvCLxQ06"
+Received: from localhost (fw-tnat.cambridge.arm.com [217.140.96.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 5BC81F804CC
- for <alsa-devel@alsa-project.org>; Fri, 13 Nov 2020 17:21:56 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5BC81F804CC
-IronPort-SDR: XypwlgjSjjOL5szuNksAyzTWEylOSN4MjdRgzbfsHsSfhlMiXycEDSov9hF8ILWO11qaUVfutq
- UJnGOKvsux/Q==
-X-IronPort-AV: E=McAfee;i="6000,8403,9804"; a="149763871"
-X-IronPort-AV: E=Sophos;i="5.77,475,1596524400"; d="scan'208";a="149763871"
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from orsmga002.jf.intel.com ([10.7.209.21])
- by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 13 Nov 2020 08:21:54 -0800
-IronPort-SDR: fE+kGuvUTj2X1nBG3p6/UMk+d69O7oznXPmm/qNU/x9Ok+HkI2Gd0OhV6AtBlqrRsVwxfI1dkc
- JCcEI5kwKxMA==
-X-IronPort-AV: E=Sophos;i="5.77,475,1596524400"; d="scan'208";a="339799858"
-Received: from rjjumade-mobl.amr.corp.intel.com (HELO [10.209.182.8])
- ([10.209.182.8])
- by orsmga002-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 13 Nov 2020 08:21:53 -0800
-Subject: Re: [PATCH 2/2] ASoC: rt5682: Add a new property to the device tree.
-To: Oder Chiou <oder_chiou@realtek.com>, broonie@kernel.org,
- lgirdwood@gmail.com
+ by mail.kernel.org (Postfix) with ESMTPSA id C0EEF2076E;
+ Fri, 13 Nov 2020 16:06:22 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=default; t=1605283583;
+ bh=xazOJCGu3dNwBPq2iap9k2AOyfFmgVfLpwqC2DoyDsU=;
+ h=Date:From:To:Cc:In-Reply-To:References:Subject:From;
+ b=MvCLxQ069yYZ85Nt/ThLa1iNfIj/cyyXlEBCktyPPRHz4tezBKcRGWvb/+TahRrax
+ r4h336YutEWArWO9rs5uQKNeH0wPf/uOZhq4W0MSic678nH9zF6HTe1LsW5uT/cRwl
+ pDK+mGzRp1GhabJlOUABTWwibrTctsgDS6XXouBE=
+Date: Fri, 13 Nov 2020 16:06:07 +0000
+From: Mark Brown <broonie@kernel.org>
+To: lgirdwood@gmail.com, Oder Chiou <oder_chiou@realtek.com>
+In-Reply-To: <20201113055400.11242-1-oder_chiou@realtek.com>
 References: <20201113055400.11242-1-oder_chiou@realtek.com>
- <20201113055400.11242-2-oder_chiou@realtek.com>
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Message-ID: <744fbc6c-f2e9-15e2-fef4-9532c87f5d7c@linux.intel.com>
-Date: Fri, 13 Nov 2020 08:54:08 -0600
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.10.0
+Subject: Re: [PATCH 1/2] ASoC: rt5682: Add a new property for the DMIC clock
+ driving
+Message-Id: <160528356700.2641.7979531877422138830.b4-ty@kernel.org>
 MIME-Version: 1.0
-In-Reply-To: <20201113055400.11242-2-oder_chiou@realtek.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Cc: jack.yu@realtek.com, alsa-devel@alsa-project.org, cychiang@google.com,
  albertchen@realtek.com, derek.fang@realtek.com, shumingf@realtek.com,
  flove@realtek.com
@@ -85,39 +81,35 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Couple of typos you may want to fix
+On Fri, 13 Nov 2020 13:53:59 +0800, Oder Chiou wrote:
+> The patch adds a new property to set the DMIC clock driving.
 
-On 11/12/20 11:54 PM, Oder Chiou wrote:
-> The patch adds a new property to the drice tree for the DMIC clcok driving.
+Applied to
 
-device?
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
 
-> 
-> Signed-off-by: Oder Chiou <oder_chiou@realtek.com>
-> ---
->   Documentation/devicetree/bindings/sound/rt5682.txt | 2 ++
->   1 file changed, 2 insertions(+)
-> 
-> diff --git a/Documentation/devicetree/bindings/sound/rt5682.txt b/Documentation/devicetree/bindings/sound/rt5682.txt
-> index 707fa98d1310..9c5fadb6ac82 100644
-> --- a/Documentation/devicetree/bindings/sound/rt5682.txt
-> +++ b/Documentation/devicetree/bindings/sound/rt5682.txt
-> @@ -44,6 +44,8 @@ Optional properties:
->   - realtek,dmic-delay-ms : Set the delay time (ms) for the requirement of
->     the particular DMIC.
->   
-> +- realtek,dmic-clk-driving-high : Set the high drving of the DMIC clock out.
+Thanks!
 
-driving?
+[1/2] ASoC: rt5682: Add a new property for the DMIC clock driving
+      commit: 7416f6bc5fcb1fe6700391c94b59ac1c744ad9d1
+[2/2] ASoC: rt5682: Add a new property to the device tree.
+      commit: 33ee67b47ba09fc30840668c9ccec5ad18c94de0
 
-I must admit I actually don't understand what 'dmic-clk-driving-high' 
-means, a clock is by definition dual-phase and we use both rising and 
-falling edges for the mics.
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
 
-Or driving high when idle?
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
 
-> +
->   Pins on the device (for linking into audio routes) for RT5682:
->   
->     * DMIC L1
-> 
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
+
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
+
+Thanks,
+Mark

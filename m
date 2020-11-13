@@ -2,99 +2,69 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7C7C62B1823
-	for <lists+alsa-devel@lfdr.de>; Fri, 13 Nov 2020 10:22:32 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0F76C2B1824
+	for <lists+alsa-devel@lfdr.de>; Fri, 13 Nov 2020 10:22:45 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 06022187A;
-	Fri, 13 Nov 2020 10:21:42 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 06022187A
+	by alsa0.perex.cz (Postfix) with ESMTPS id 70BFB17CC;
+	Fri, 13 Nov 2020 10:21:53 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 70BFB17CC
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1605259352;
-	bh=0cUVRVg0C5LODO0A/5gkegFdXxxyBw1QabEoBCfR2fo=;
+	s=default; t=1605259363;
+	bh=D+exuiwGog8bbHWZGwUDEnLXhZ+97nRSdrcPD1LPfIY=;
 	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
 	 List-Post:List-Help:List-Subscribe:From;
-	b=GeD5/RfBqZDkq8z6eWVKVqmz8QmGGCD0O/IV7AxJJTgQ9sdLmw0EVTbl4DL+LvnTW
-	 FYUKj/NXvKsBfWVUTKdgPYJOZRSAWcdJDSCIoHMydr0yHjW0gwVnIkKpJmdnd1u3u7
-	 1SFTORxgPN+ey3YiJDbRNNfnXw1Alcc8htd+c0fI=
+	b=MW/uoClArwoS5jqVYMypWMF2TaOnRmccwQDUAYtVDrR1KJWGu00Wh5W0d8orj7j1Q
+	 0m6c8oKicCecnFijOQSh0XUUo33ZW7s9agw6itMcswUTIJm+xdBt4Wd8c9144h+G8J
+	 M3gILkjuujCrNVOVDKgU0aBVZoPWkm4nvT1JogWQ=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 26941F8022B;
-	Fri, 13 Nov 2020 10:20:59 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id E53F1F80271;
+	Fri, 13 Nov 2020 10:21:46 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 66290F800E9; Fri, 13 Nov 2020 10:20:57 +0100 (CET)
+ id E48FDF8025E; Fri, 13 Nov 2020 10:21:45 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,RCVD_IN_MSPIKE_H3,RCVD_IN_MSPIKE_WL,SPF_HELO_PASS,SPF_PASS,
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
  URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from out2-smtp.messagingengine.com (out2-smtp.messagingengine.com
- [66.111.4.26])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 2CA92F800E9
- for <alsa-devel@alsa-project.org>; Fri, 13 Nov 2020 10:20:50 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2CA92F800E9
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=sakamocchi.jp header.i=@sakamocchi.jp
- header.b="SX7pIIQR"; 
- dkim=pass (2048-bit key) header.d=messagingengine.com
- header.i=@messagingengine.com header.b="iTx3UkfP"
-Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
- by mailout.nyi.internal (Postfix) with ESMTP id 9A9D75C00AA;
- Fri, 13 Nov 2020 04:20:47 -0500 (EST)
-Received: from mailfrontend2 ([10.202.2.163])
- by compute4.internal (MEProxy); Fri, 13 Nov 2020 04:20:47 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sakamocchi.jp;
- h=from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding; s=fm3; bh=JH0Zw1m/P1vJ8jE5L5LU7f6T5N
- wpkPgNZm4zieFMjY8=; b=SX7pIIQRTPEEJ04MIzAcwZguY7fxZyZ7wkFP3q6cOT
- Wd+9pfilbY+tcfws5getbzzSykxeLqIq6Hw6nZufwzHg9nz9dtDXXWIv+cTIZcNg
- ZkUyFZU5mf3PIF24MLHPgvQdeGp8Q8I1YtgyWAe3UhE/RGbcnOn2FWtKCjhpKU5Y
- Y7Rqovm9fjdy9pKwm+KfnyVPVYQxllrnkSOwJTgzOD5ReT9O4hyz+p9H5evRLGHj
- nGi4+auOdxIZt8N2Coaszmigiu1Ogb7jMDyy4FyMZsTpS1jq5pjzXHgRXL01HoLp
- ldglOEx9RcGta8MCjW6AMKt/bt26+XeZB+vMKmKSw2vg==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:content-transfer-encoding:date:from
- :message-id:mime-version:subject:to:x-me-proxy:x-me-proxy
- :x-me-sender:x-me-sender:x-sasl-enc; s=fm1; bh=JH0Zw1m/P1vJ8jE5L
- 5LU7f6T5NwpkPgNZm4zieFMjY8=; b=iTx3UkfP5S1HjccJrgJpvpN5uZ/tm+nkV
- Vuo4boE0uFqdrZQ+mmaYP8ND07Uy/csHeyQwk+m2UJgfKf690Gu7w2PKTboMJZla
- NVScqrJ0VbBhjyNInyNXsOAzFOLvSqVs1puoBWm5BvxFSe4ClgNQw8SJE3N6usPS
- +SN+/gFE3jDOEek43UJMNAdF2f2by2hss9vTk5SNQJwrx/kyDFJowbEJZb+6nueS
- dw5Ykf7IDDZE8ouVqMjvJweZN6k88/QqhNNEBQSQh6hagrF3jCFkRubIjoWZOxPu
- neJSA2C6mclBur4wOWFOBeKViHO4w/0p55OyA2Y5vZuBiNo/0njig==
-X-ME-Sender: <xms:7k-uXzm7LIX-Bns1IbZjHkIJZe5A5NMwkyzJwUuM_6C91VF91X_Kpg>
- <xme:7k-uX20JwzIZOcSlsiy_MyBQHwLP8_mgaE3u4fh9baLjut5y-XaqGyIDgJD_iflSc
- hfo8Zn3WwBcKOquVFk>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedujedruddvhedgtddvucetufdoteggodetrfdotf
- fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
- uceurghilhhouhhtmecufedttdenucenucfjughrpefhvffufffkofgggfestdekredtre
- dttdenucfhrhhomhepvfgrkhgrshhhihcuufgrkhgrmhhothhouceoohdqthgrkhgrshhh
- ihesshgrkhgrmhhotggthhhirdhjpheqnecuggftrfgrthhtvghrnhepudejteelhfdttd
- ekgfdtueeilefhgfetjeejheekgeevuddvveegieehueeukeejnecukfhppedugedrfedr
- ieegrddvtdejnecuvehluhhsthgvrhfuihiivgeptdenucfrrghrrghmpehmrghilhhfrh
- homhepohdqthgrkhgrshhhihesshgrkhgrmhhotggthhhirdhjph
-X-ME-Proxy: <xmx:7k-uX5pJXwXRJSDRN4jpZqpP-tKzWUsNmX-67j1CGxUmqjB7JhlOMA>
- <xmx:7k-uX7kejpCCrq7Sxli-8ddRAn6ig7EUP1uS3AMHzYdXZyRfY22mzA>
- <xmx:7k-uXx0P7TiTz5pfohXtwVhTFdo74AS1AXaAcL0bxam9ZK8rUc7aIQ>
- <xmx:70-uXy_oeloho6E6O--IdVPM_bI5kpBSgRgar588VztTW1CN96FPdA>
-Received: from workstation.flets-east.jp (ae064207.dynamic.ppp.asahi-net.or.jp
- [14.3.64.207])
- by mail.messagingengine.com (Postfix) with ESMTPA id C56603064AA6;
- Fri, 13 Nov 2020 04:20:45 -0500 (EST)
-From: Takashi Sakamoto <o-takashi@sakamocchi.jp>
-To: tiwai@suse.de,
-	perex@perex.cz
-Subject: [PATCH] ALSA: ctl: fix error path at adding user-defined element set
-Date: Fri, 13 Nov 2020 18:20:43 +0900
-Message-Id: <20201113092043.16148-1-o-takashi@sakamocchi.jp>
-X-Mailer: git-send-email 2.25.1
+ by alsa1.perex.cz (Postfix) with ESMTPS id 8D8B3F80086
+ for <alsa-devel@alsa-project.org>; Fri, 13 Nov 2020 10:21:38 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8D8B3F80086
+Authenticated-By: 
+X-SpamFilter-By: ArmorX SpamTrap 5.73 with qID 0AD9LUL20028784,
+ This message is accepted by code: ctloc85258
+Received: from mail.realtek.com (rtexmb01.realtek.com.tw[172.21.6.94])
+ by rtits2.realtek.com.tw (8.15.2/2.70/5.88) with ESMTPS id 0AD9LUL20028784
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT);
+ Fri, 13 Nov 2020 17:21:30 +0800
+Received: from RTEXMBS01.realtek.com.tw (172.21.6.36) by
+ RTEXMB01.realtek.com.tw (172.21.6.94) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2044.4; Fri, 13 Nov 2020 17:21:30 +0800
+Received: from localhost.localdomain (172.22.102.1) by
+ RTEXMBS01.realtek.com.tw (172.21.6.36) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2106.2; Fri, 13 Nov 2020 17:21:29 +0800
+From: <shumingf@realtek.com>
+To: <broonie@kernel.org>, <lgirdwood@gmail.com>
+Subject: [PATCH] ASoC: rt1015: increase the time to detect BCLK
+Date: Fri, 13 Nov 2020 17:21:25 +0800
+Message-ID: <20201113092125.19206-1-shumingf@realtek.com>
+X-Mailer: git-send-email 2.29.0
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Cc: alsa-devel@alsa-project.org, stable@vger.kernel.org
+Content-Type: text/plain
+X-Originating-IP: [172.22.102.1]
+X-ClientProxiedBy: RTEXMB01.realtek.com.tw (172.21.6.94) To
+ RTEXMBS01.realtek.com.tw (172.21.6.36)
+Cc: oder_chiou@realtek.com, jack.yu@realtek.com, alsa-devel@alsa-project.org,
+ lars@metafoo.de, kent_chen@realtek.com, derek.fang@realtek.com,
+ Shuming Fan <shumingf@realtek.com>, flove@realtek.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -110,35 +80,29 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-When processing request to add/replace user-defined element set, check
-of given element identifier and decision of numeric identifier is done
-in "__snd_ctl_add_replace()" helper function. When the result of check
-is wrong, the helper function returns error code. The error code shall
-be returned to userspace application.
+From: Shuming Fan <shumingf@realtek.com>
 
-Current implementation includes bug to return zero to userspace application
-regardless of the result. This commit fixes the bug.
+To meet the most platform, the detection time should be increased to
+avoid that the flushing DAC data fails.
 
-Cc: <stable@vger.kernel.org>
-Fixes: e1a7bfe38079 ("ALSA: control: Fix race between adding and removing a user element")
-Signed-off-by: Takashi Sakamoto <o-takashi@sakamocchi.jp>
+Signed-off-by: Shuming Fan <shumingf@realtek.com>
 ---
- sound/core/control.c | 2 +-
+ sound/soc/codecs/rt1015.c | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/sound/core/control.c b/sound/core/control.c
-index 421ddc7..f341fc4 100644
---- a/sound/core/control.c
-+++ b/sound/core/control.c
-@@ -1539,7 +1539,7 @@ static int snd_ctl_elem_add(struct snd_ctl_file *file,
+diff --git a/sound/soc/codecs/rt1015.c b/sound/soc/codecs/rt1015.c
+index 32d748cc5ae3..ac4c9f43b338 100644
+--- a/sound/soc/codecs/rt1015.c
++++ b/sound/soc/codecs/rt1015.c
+@@ -566,7 +566,7 @@ static void rt1015_flush_work(struct work_struct *work)
+ 	struct rt1015_priv *rt1015 = container_of(work, struct rt1015_priv,
+ 						flush_work.work);
+ 	struct snd_soc_component *component = rt1015->component;
+-	unsigned int val, i = 0, count = 20;
++	unsigned int val, i = 0, count = 200;
  
-  unlock:
- 	up_write(&card->controls_rwsem);
--	return 0;
-+	return err;
- }
- 
- static int snd_ctl_elem_add_user(struct snd_ctl_file *file,
+ 	while (i < count) {
+ 		usleep_range(1000, 1500);
 -- 
-2.25.1
+2.29.0
 

@@ -2,48 +2,48 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1DB902B2EC6
-	for <lists+alsa-devel@lfdr.de>; Sat, 14 Nov 2020 18:13:51 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5D1CC2B2EC7
+	for <lists+alsa-devel@lfdr.de>; Sat, 14 Nov 2020 18:14:02 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 85E8C17FB;
-	Sat, 14 Nov 2020 18:13:00 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 85E8C17FB
+	by alsa0.perex.cz (Postfix) with ESMTPS id 6FE6818A1;
+	Sat, 14 Nov 2020 18:13:11 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6FE6818A1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1605374030;
-	bh=fFxeXBlrBXCM+4IEZbcYhdQZkqO3AWBybCG5GiU7M2I=;
+	s=default; t=1605374041;
+	bh=EodgIkWJNZ5yFYvwYcknO1ekCClsTs2R4rhVjBN7/58=;
 	h=From:To:In-Reply-To:References:Subject:Date:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=ODShs60desLS+FbJRMaEBk6p9dRDxSCdFJjhU99G+NhBYG0F2LG4wKqZslkYjVvKe
-	 csXWh8T54Lq8iRWh/bWtx6+wGf5ypm0BP48mWGNjgV05co2O6Y7IBt+sVniK4TXiZ1
-	 +HqChgueKva7zsbnV0PhGy3DopTGU04zIuFCQyig=
+	b=ZVHul8va7RLsbkbUiMMJ6Cm32LtVaofhPe2tsLD4bUUJjPIG4fPBEIgBsX4NAgAzI
+	 xoeYbNpcvLCPnnE9arakhunUvSHUhe9qB4MldTabG7Ly0eKvzbO5y4n2L9/acJqRt4
+	 D9JYnb3h0SzBg7pWhhR2SV/ggTsxUjjGbjcybxaE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 0D097F801EB;
-	Sat, 14 Nov 2020 18:12:18 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id EC42CF800F1;
+	Sat, 14 Nov 2020 18:12:37 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id CB3B4F801D5; Sat, 14 Nov 2020 18:12:15 +0100 (CET)
+ id 6BE5FF80161; Sat, 14 Nov 2020 18:12:36 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: **
 X-Spam-Status: No, score=2.5 required=5.0 tests=MISSING_DATE,MISSING_MID,
  SPF_FAIL,SPF_HELO_NONE autolearn=disabled version=3.4.0
 Received: from webhooks-bot.alsa-project.org (gate.perex.cz [77.48.224.242])
- by alsa1.perex.cz (Postfix) with ESMTP id 23703F80086
- for <alsa-devel@alsa-project.org>; Sat, 14 Nov 2020 18:12:12 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 23703F80086
+ by alsa1.perex.cz (Postfix) with ESMTP id 0E0EEF80161
+ for <alsa-devel@alsa-project.org>; Sat, 14 Nov 2020 18:12:34 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0E0EEF80161
 MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-From: GitHub issues - opened <github@alsa-project.org>
+From: GitHub issues - edited <github@alsa-project.org>
 To: alsa-devel@alsa-project.org
-In-Reply-To: <1605373931116064072-webhooks-bot@alsa-project.org>
-References: <1605373931116064072-webhooks-bot@alsa-project.org>
-Subject: [Question]: Mute all channels at boot
-Message-Id: <20201114171215.CB3B4F801D5@alsa1.perex.cz>
-Date: Sat, 14 Nov 2020 18:12:15 +0100 (CET)
+In-Reply-To: <1605373953013941050-webhooks-bot@alsa-project.org>
+References: <1605373953013941050-webhooks-bot@alsa-project.org>
+Subject: [Question]: Mute all channels when starting X11
+Message-Id: <20201114171236.6BE5FF80161@alsa1.perex.cz>
+Date: Sat, 14 Nov 2020 18:12:36 +0100 (CET)
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -59,7 +59,7 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-alsa-project/alsa-utils issue #72 was opened from atreyasha:
+alsa-project/alsa-utils issue #72 was edited from atreyasha:
 
 Hello, thank you for developing `alsa-utils`. I have a specific question pertaining to `amixer`.
 

@@ -2,48 +2,83 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 722BE2B320E
-	for <lists+alsa-devel@lfdr.de>; Sun, 15 Nov 2020 04:20:59 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 996472B322E
+	for <lists+alsa-devel@lfdr.de>; Sun, 15 Nov 2020 05:59:04 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E059F1898;
-	Sun, 15 Nov 2020 04:20:08 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E059F1898
+	by alsa0.perex.cz (Postfix) with ESMTPS id 300931850;
+	Sun, 15 Nov 2020 05:58:14 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 300931850
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1605410459;
-	bh=UNA7akrqjFlSyp7BxBV4APpbUw0NKHdzVD0yPKjK5jQ=;
-	h=From:To:In-Reply-To:References:Subject:Date:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=CYok4ybcwVYoye9MF9/bfQt38BDxOlyD6ZSVrSgqXpzl/apTBrnVAgdYgJ0GuVDZU
-	 MpMpCWVgD90zowfKxlR7rOHTlVuoTMFbcBftSilgbYfwrP6ZgbZhHoVtZyBceSZnS3
-	 NfW9vDHTbzzgVLPDjHDv8DySzz73iEA1Vfb2CNbI=
+	s=default; t=1605416344;
+	bh=gpInrjfdBV5cC753lct2vAwqRp9CoMuIOEbPxafKB+4=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=VloTSFqzFKAbs6djIkovo2/POGg3sWRI9mAtrO6LHieh7yM9XES1DwjlAqMoDuftw
+	 hNtUejan3TQDnJLJYKR+2PtsvykpEzB7QZGH8IpDozfbzXC1DDiKjjUzxJKRangzFl
+	 9lzUgUbIZy2moU1pMelhOhB+sOWa2OI+ZVMCd/nk=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 39CAAF801F9;
-	Sun, 15 Nov 2020 04:19:26 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 7AE53F8010A;
+	Sun, 15 Nov 2020 05:57:31 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 5F56CF801F5; Sun, 15 Nov 2020 04:19:24 +0100 (CET)
+ id EDD87F801F5; Sun, 15 Nov 2020 05:57:29 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: **
-X-Spam-Status: No, score=2.5 required=5.0 tests=MISSING_DATE,MISSING_MID,
- SPF_FAIL,SPF_HELO_NONE autolearn=disabled version=3.4.0
-Received: from webhooks-bot.alsa-project.org (gate.perex.cz [77.48.224.242])
- by alsa1.perex.cz (Postfix) with ESMTP id AB16BF800D8
- for <alsa-devel@alsa-project.org>; Sun, 15 Nov 2020 04:19:20 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz AB16BF800D8
-MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
-From: GitHub pull_request - opened <github@alsa-project.org>
-To: alsa-devel@alsa-project.org
-In-Reply-To: <1605410360573412895-webhooks-bot@alsa-project.org>
-References: <1605410360573412895-webhooks-bot@alsa-project.org>
-Subject: [PATCH 00/15] alsa-gobject: seq: enhancement for error reporting
-Message-Id: <20201115031924.5F56CF801F5@alsa1.perex.cz>
-Date: Sun, 15 Nov 2020 04:19:24 +0100 (CET)
+X-Spam-Level: 
+X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ RCVD_IN_MSPIKE_H3,RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from m42-4.mailgun.net (m42-4.mailgun.net [69.72.42.4])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 47220F800E9
+ for <alsa-devel@alsa-project.org>; Sun, 15 Nov 2020 05:57:22 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 47220F800E9
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=mg.codeaurora.org
+ header.i=@mg.codeaurora.org header.b="k/jZoXJZ"
+DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
+ q=dns/txt; 
+ s=smtp; t=1605416244; h=Message-Id: Date: Subject: Cc: To: From:
+ Sender; bh=DHZQrIgHGobEqfrhC8jO9oXKDIMrd9L7WeOf8QdR/wg=;
+ b=k/jZoXJZRldRalSNzzVF1+PpiDiOIWwYp3tSlWcY4pW8djG5sVn0fQbsWNek+o4RvPF9w6yE
+ uUHLPXxJNQLEWYD0rw2Pd+P1dhZIvGRAn+W48oYeMaCFsq1jGxiu9VvoYTvTWkYhUfrbDPG9
+ uY2ld8/eqBY4NlDnxKUdLRTQaWg=
+X-Mailgun-Sending-Ip: 69.72.42.4
+X-Mailgun-Sid: WyI4ZmE2ZSIsICJhbHNhLWRldmVsQGFsc2EtcHJvamVjdC5vcmciLCAiYmU5ZTRhIl0=
+Received: from smtp.codeaurora.org
+ (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171]) by
+ smtp-out-n10.prod.us-west-2.postgun.com with SMTP id
+ 5fb0b52924ba9b3b0273fab0 (version=TLS1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Sun, 15 Nov 2020 04:57:13
+ GMT
+Received: by smtp.codeaurora.org (Postfix, from userid 1001)
+ id C1788C433ED; Sun, 15 Nov 2020 04:57:12 +0000 (UTC)
+Received: from hyd-lnxbld210.qualcomm.com (unknown [202.46.22.19])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-SHA256 (128/128 bits))
+ (No client certificate requested) (Authenticated sender: srivasam)
+ by smtp.codeaurora.org (Postfix) with ESMTPSA id DB9F2C433C6;
+ Sun, 15 Nov 2020 04:57:06 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 smtp.codeaurora.org DB9F2C433C6
+Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
+ dmarc=none (p=none dis=none) header.from=codeaurora.org
+Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
+ spf=fail smtp.mailfrom=srivasam@codeaurora.org
+From: Srinivasa Rao Mandadapu <srivasam@codeaurora.org>
+To: agross@kernel.org, bjorn.andersson@linaro.org, lgirdwood@gmail.com,
+ broonie@kernel.org, robh+dt@kernel.org, plai@codeaurora.org,
+ bgoswami@codeaurora.org, perex@perex.cz, tiwai@suse.com,
+ srinivas.kandagatla@linaro.org, rohitkr@codeaurora.org,
+ linux-arm-msm@vger.kernel.org, alsa-devel@alsa-project.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: [PATCH] Asoc: qcom: lpass-platform: Fix memory leak
+Date: Sun, 15 Nov 2020 10:26:50 +0530
+Message-Id: <1605416210-14530-1-git-send-email-srivasam@codeaurora.org>
+X-Mailer: git-send-email 2.7.4
+Cc: V Sujith Kumar Reddy <vsujithk@codeaurora.org>,
+ Srinivasa Rao Mandadapu <srivasam@codeaurora.org>, Pavel Machek <pavel@ucw.cz>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -59,52 +94,43 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-alsa-project/alsa-gobject pull request #50 was opened from takaswie:
+lpass_pcm_data is not freed in error paths. Free it in
+error paths to avoid memory leak.
 
-The patchset is the part of work about #47.
+Fixes: 022d00ee0b55 ("ASoC: lpass-platform: Fix broken pcm data usage")
 
-Current implementation uses library-wide error domain to report error. this
-is partly against rule of GError usage. Furthermore, the error delivers
-information just about errno and hard to know the cause of error.
+Signed-off-by: Pavel Machek <pavel@ucw.cz>
+Signed-off-by: V Sujith Kumar Reddy <vsujithk@codeaurora.org>
+Signed-off-by: Srinivasa Rao Mandadapu <srivasam@codeaurora.org>
+---
+ sound/soc/qcom/lpass-platform.c | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
 
-This patchset enhances error reporting. The library-wide error domain is
-obsoleted. A new error domain is added just for ALSASeq.UserClient.
-The error domain delivers information about the cause of error.
+diff --git a/sound/soc/qcom/lpass-platform.c b/sound/soc/qcom/lpass-platform.c
+index 36d1512..7a3fdf8 100644
+--- a/sound/soc/qcom/lpass-platform.c
++++ b/sound/soc/qcom/lpass-platform.c
+@@ -122,8 +122,10 @@ static int lpass_platform_pcmops_open(struct snd_soc_component *component,
+ 	else
+ 		dma_ch = 0;
+ 
+-	if (dma_ch < 0)
++	if (dma_ch < 0) {
++		kfree(data);
+ 		return dma_ch;
++	}
+ 
+ 	if (cpu_dai->driver->id == LPASS_DP_RX) {
+ 		map = drvdata->hdmiif_map;
+@@ -147,6 +149,7 @@ static int lpass_platform_pcmops_open(struct snd_soc_component *component,
+ 	ret = snd_pcm_hw_constraint_integer(runtime,
+ 			SNDRV_PCM_HW_PARAM_PERIODS);
+ 	if (ret < 0) {
++		kfree(data);
+ 		dev_err(soc_runtime->dev, "setting constraints failed: %d\n",
+ 			ret);
+ 		return -EINVAL;
+-- 
+Qualcomm India Private Limited, on behalf of Qualcomm Innovation Center, Inc.,
+is a member of Code Aurora Forum, a Linux Foundation Collaborative Project.
 
-```
-Takashi Sakamoto (15):
-  seq: skip check of return value from g_malloc()
-  seq: check whether method argument for GError is available
-  seq: add checks for method arguments
-  seq: user_client: just return when character device is not opened
-  seq: add GLib enumeration to report type of error for ALSASeq.UserClient
-  seq: user_client: add GQuark to report error for ALSASeq.UserClient
-  seq: user_client: report error for ioctl
-  seq: user_client: report open/write error
-  seq: user_client: report error for port access permission
-  seq: user_client: report error for queue access permission
-  seq: user_client: update function comment for error reporting
-  seq: query: use GFileError to report error
-  seq: query: code refactoring to unify code to open file descriptor
-  seq: query: code refactoring for error path
-  seq: obsolete library-wide error quark
-
- src/seq/alsaseq-enum-types.h |  14 ++
- src/seq/alsaseq.map          |   5 +
- src/seq/client-info.c        |  20 +-
- src/seq/event-cntr.c         | 341 +++++++++++++++++----------------
- src/seq/privates.h           |   6 -
- src/seq/query.c              | 356 +++++++++++++++--------------------
- src/seq/queue-status.c       |   4 +
- src/seq/queue-tempo.c        |   4 +
- src/seq/queue-timer.c        |   4 +
- src/seq/remove-filter.c      |  42 ++---
- src/seq/user-client.c        | 275 ++++++++++++++++++---------
- src/seq/user-client.h        |   4 +
- tests/alsaseq-enums          |   7 +
- 13 files changed, 566 insertions(+), 516 deletions(-)
-```
-
-Request URL   : https://github.com/alsa-project/alsa-gobject/pull/50
-Patch URL     : https://github.com/alsa-project/alsa-gobject/pull/50.patch
-Repository URL: https://github.com/alsa-project/alsa-gobject

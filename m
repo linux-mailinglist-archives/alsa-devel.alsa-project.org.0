@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A645F2B34E7
-	for <lists+alsa-devel@lfdr.de>; Sun, 15 Nov 2020 13:22:49 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2BFF12B34E9
+	for <lists+alsa-devel@lfdr.de>; Sun, 15 Nov 2020 13:23:40 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 263E71779;
-	Sun, 15 Nov 2020 13:21:58 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 263E71779
+	by alsa0.perex.cz (Postfix) with ESMTPS id 9A33D17E3;
+	Sun, 15 Nov 2020 13:22:48 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9A33D17E3
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1605442968;
-	bh=eieDwfifQyapgY87/LV4pAv6cvMw3lpnQp8OVJ2w+Ug=;
+	s=default; t=1605443018;
+	bh=TbWwshVB/eCXJMTGARnsEqq0xYxWS/IPz2pnjs+CSJ8=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=lp4tWQ5N+Tuctq2VG7INw8+p3aV8MlRNegDmZea5Pde+sS2lnxYYuY987w3SmjGno
-	 INdwmjen+k8Ug86b0g46V9YcAgblOkdho9Y6PTkXRryWEEHTPAQV6LzTjq0dQ8/z37
-	 bHkCjSge6G2dqrCT6MVdrQPvCiMhLfGVbQOHOwHE=
+	b=tTtGQkDEQUQ28aZvjiYWA3/R+ApQeJF0CQ72c6DB5h3/L7S1CEhGWzyGvigHSGNBY
+	 MjJ4UNE2RfV3l+cPTixyxBrt1UagIwt5m7p9pmEE+WNNu/btO8nAXJBWzR5GfeWC/w
+	 l7v+jkv6J9tGOvxf2GD3BSHuOiwdlo4nKv7BDGfQ=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 781BBF8029B;
-	Sun, 15 Nov 2020 13:21:13 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 84129F804BD;
+	Sun, 15 Nov 2020 13:21:18 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 4FF4BF8025E; Sun, 15 Nov 2020 13:21:11 +0100 (CET)
+ id A2069F804C2; Sun, 15 Nov 2020 13:21:16 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,12 +34,12 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from host.euro-space.net (host.euro-space.net [87.117.239.2])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id CB6B6F801F9
- for <alsa-devel@alsa-project.org>; Sun, 15 Nov 2020 13:21:04 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CB6B6F801F9
+ by alsa1.perex.cz (Postfix) with ESMTPS id 5ADBCF8010A
+ for <alsa-devel@alsa-project.org>; Sun, 15 Nov 2020 13:21:05 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5ADBCF8010A
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=birdec.com header.i=@birdec.com
- header.b="FafAszm2"
+ header.b="pHux+tYE"
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=birdec.com; 
  s=default;
  h=References:In-Reply-To:Message-Id:Date:Subject:Cc:To:From:
@@ -47,25 +47,24 @@ DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=birdec.com;
  Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
  Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
  List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=gHA57QLWRniebV0IVxN5zC7NkxqPuhNOMypv2sGN2S0=; b=FafAszm2y2xPMHGLoUXWHmjWNU
- q+JxowlSj/D2b91bnOiFi8AqDNjhxLuDwHN3hSH/nIr41AbN+tvFtzNHwtg4S4Ltcf1uIkwrkBrTb
- JNtIK72rk59nOXnB0R3eJL2lvEN+VrgaeITIWhlDHu7b4MsvEZqAfrtTFO6CopNDI1hAMc6xwZfH1
- h4g5cenWNeB9hDDnKkCYDSn7qNdRqex+DdvGDMjulqB9TiRB9byCpW8/mdEtuMT0GvBvwWcQEZdci
- DrEFNltseH4Wr59AC6fSRGGhV7jWhEoiPqXuuCpBYJY14NYXB8redD6LpKhCN1Apa0qiSIubg5sm7
- 5eKOl7Tw==;
+ bh=3DS/oTYDN8+O79A+7WTTW5ETsjJABZbWKbWErfdWpPk=; b=pHux+tYEXSyXrGv5uxQqGxJOG7
+ ZH+X7KKiRxlSjf0VeeKY39gTpVXxyEqdKAx+YnQua4jb3EsaGf9cUw/gZ/TC5HsVoDDJPZJvWGNUm
+ hu3KquzN4Twes0v6k4WQqHNsCdmzi5fCfZWVK2kCdCs4lV6HH7TxkjNGHQjIukVbk5+LT2oummp9S
+ EZNIccKc8pyxmNiltif8ZH/xeOwRsNVFA103dcMPyDa5/e19bpUFwvu5jO2fJTYJAdCO+UNddvjjF
+ NBFSP9QVuHSZXgmvrb7sFu7ESR2Gl/UJKCCOGaKomf9+86oGgsZ8oxIDKLK/njDq/xdph31KgrbpZ
+ 74xfu7jw==;
 Received: from dynamic-078-054-118-130.78.54.pool.telefonica.de
  ([78.54.118.130]:55232 helo=gentoo0.localdomain)
  by host.euro-space.net with esmtpsa (TLS1.2) tls
  TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256 (Exim 4.93)
  (envelope-from <kmarinushkin@birdec.com>)
- id 1keH1j-000338-1T; Sun, 15 Nov 2020 12:21:03 +0000
+ id 1keH1k-000338-M0; Sun, 15 Nov 2020 12:21:04 +0000
 From: Kirill Marinushkin <kmarinushkin@birdec.com>
 To: Mark Brown <broonie@kernel.org>, Takashi Iwai <tiwai@suse.com>,
  Liam Girdwood <lgirdwood@gmail.com>, Peter Ujfalusi <peter.ujfalusi@ti.com>
-Subject: [PATCH v3 1/4] ASoC: pcm512x: Fix not setting word length if
- DAIFMT_CBS_CFS
-Date: Sun, 15 Nov 2020 13:23:03 +0100
-Message-Id: <20201115122306.18164-2-kmarinushkin@birdec.com>
+Subject: [PATCH v3 2/4] ASoC: pcm512x: Rearrange operations in `hw_params()`
+Date: Sun, 15 Nov 2020 13:23:04 +0100
+Message-Id: <20201115122306.18164-3-kmarinushkin@birdec.com>
 X-Mailer: git-send-email 2.13.6
 In-Reply-To: <20201115122306.18164-1-kmarinushkin@birdec.com>
 References: <20201115122306.18164-1-kmarinushkin@birdec.com>
@@ -100,19 +99,10 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-In `pcm512x_hw_params()`, the following switch-case:
-
-~~~~
-	switch (pcm512x->fmt & SND_SOC_DAIFMT_MASTER_MASK) {
-	case SND_SOC_DAIFMT_CBS_CFS:
-~~~~
-
-returns 0, which was preventing word length from being written into codecs
-register.
-
-Fixed by writing it into register before checking
-`SND_SOC_DAIFMT_MASTER_MASK`.
-Tested with Raspberry Pi + sound card `hifiberry_dacplus` in CBS_CFS format
+This commit is a preparation for the next patch in the series.
+It's goal is to make format check easy-to-move-out. Theoretically, more
+butifications are possile in `hw_params()` func, but my intention in this
+commit is to keep behaviour unchanged.
 
 Signed-off-by: Kirill Marinushkin <kmarinushkin@birdec.com>
 Cc: Mark Brown <broonie@kernel.org>
@@ -124,41 +114,91 @@ Cc: Peter Ujfalusi <peter.ujfalusi@ti.com>
 Cc: alsa-devel@alsa-project.org
 Cc: linux-kernel@vger.kernel.org
 ---
- sound/soc/codecs/pcm512x.c | 14 +++++++-------
- 1 file changed, 7 insertions(+), 7 deletions(-)
+ sound/soc/codecs/pcm512x.c | 49 +++++++++++++++++++---------------------------
+ 1 file changed, 20 insertions(+), 29 deletions(-)
 
 diff --git a/sound/soc/codecs/pcm512x.c b/sound/soc/codecs/pcm512x.c
-index 8153d3d01654..db3dc6a40feb 100644
+index db3dc6a40feb..aa55a477a28f 100644
 --- a/sound/soc/codecs/pcm512x.c
 +++ b/sound/soc/codecs/pcm512x.c
-@@ -1195,6 +1195,13 @@ static int pcm512x_hw_params(struct snd_pcm_substream *substream,
- 		return -EINVAL;
- 	}
+@@ -1204,16 +1204,8 @@ static int pcm512x_hw_params(struct snd_pcm_substream *substream,
  
-+	ret = regmap_update_bits(pcm512x->regmap, PCM512x_I2S_1,
-+				 PCM512x_ALEN, alen);
-+	if (ret != 0) {
-+		dev_err(component->dev, "Failed to set frame size: %d\n", ret);
-+		return ret;
-+	}
-+
  	switch (pcm512x->fmt & SND_SOC_DAIFMT_MASTER_MASK) {
  	case SND_SOC_DAIFMT_CBS_CFS:
- 		ret = regmap_update_bits(pcm512x->regmap,
-@@ -1229,13 +1236,6 @@ static int pcm512x_hw_params(struct snd_pcm_substream *substream,
- 		return -EINVAL;
- 	}
+-		ret = regmap_update_bits(pcm512x->regmap,
+-					 PCM512x_BCLK_LRCLK_CFG,
+-					 PCM512x_BCKP
+-					 | PCM512x_BCKO | PCM512x_LRKO,
+-					 0);
+-		if (ret != 0) {
+-			dev_err(component->dev,
+-				"Failed to enable slave mode: %d\n", ret);
+-			return ret;
+-		}
++		clock_output = 0;
++		master_mode = 0;
  
--	ret = regmap_update_bits(pcm512x->regmap, PCM512x_I2S_1,
--				 PCM512x_ALEN, alen);
+ 		ret = regmap_update_bits(pcm512x->regmap, PCM512x_ERROR_DETECT,
+ 					 PCM512x_DCAS, 0);
+@@ -1223,7 +1215,7 @@ static int pcm512x_hw_params(struct snd_pcm_substream *substream,
+ 				ret);
+ 			return ret;
+ 		}
+-		return 0;
++		goto skip_pll;
+ 	case SND_SOC_DAIFMT_CBM_CFM:
+ 		clock_output = PCM512x_BCKO | PCM512x_LRKO;
+ 		master_mode = PCM512x_RLRK | PCM512x_RBCK;
+@@ -1316,25 +1308,7 @@ static int pcm512x_hw_params(struct snd_pcm_substream *substream,
+ 			dev_err(component->dev, "Failed to enable pll: %d\n", ret);
+ 			return ret;
+ 		}
+-	}
+-
+-	ret = regmap_update_bits(pcm512x->regmap, PCM512x_BCLK_LRCLK_CFG,
+-				 PCM512x_BCKP | PCM512x_BCKO | PCM512x_LRKO,
+-				 clock_output);
 -	if (ret != 0) {
--		dev_err(component->dev, "Failed to set frame size: %d\n", ret);
+-		dev_err(component->dev, "Failed to enable clock output: %d\n", ret);
+-		return ret;
+-	}
+ 
+-	ret = regmap_update_bits(pcm512x->regmap, PCM512x_MASTER_MODE,
+-				 PCM512x_RLRK | PCM512x_RBCK,
+-				 master_mode);
+-	if (ret != 0) {
+-		dev_err(component->dev, "Failed to enable master mode: %d\n", ret);
 -		return ret;
 -	}
 -
- 	if (pcm512x->pll_out) {
- 		ret = regmap_write(pcm512x->regmap, PCM512x_FLEX_A, 0x11);
- 		if (ret != 0) {
+-	if (pcm512x->pll_out) {
+ 		gpio = PCM512x_G1OE << (pcm512x->pll_out - 1);
+ 		ret = regmap_update_bits(pcm512x->regmap, PCM512x_GPIO_EN,
+ 					 gpio, gpio);
+@@ -1368,6 +1342,23 @@ static int pcm512x_hw_params(struct snd_pcm_substream *substream,
+ 		return ret;
+ 	}
+ 
++skip_pll:
++	ret = regmap_update_bits(pcm512x->regmap, PCM512x_BCLK_LRCLK_CFG,
++				 PCM512x_BCKP | PCM512x_BCKO | PCM512x_LRKO,
++				 clock_output);
++	if (ret != 0) {
++		dev_err(component->dev, "Failed to enable clock output: %d\n", ret);
++		return ret;
++	}
++
++	ret = regmap_update_bits(pcm512x->regmap, PCM512x_MASTER_MODE,
++				 PCM512x_RLRK | PCM512x_RBCK,
++				 master_mode);
++	if (ret != 0) {
++		dev_err(component->dev, "Failed to enable master mode: %d\n", ret);
++		return ret;
++	}
++
+ 	return 0;
+ }
+ 
 -- 
 2.13.6
 

@@ -2,75 +2,84 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E29252B32C7
-	for <lists+alsa-devel@lfdr.de>; Sun, 15 Nov 2020 07:49:54 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 069CB2B34E6
+	for <lists+alsa-devel@lfdr.de>; Sun, 15 Nov 2020 13:22:38 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 636581850;
-	Sun, 15 Nov 2020 07:49:04 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 636581850
+	by alsa0.perex.cz (Postfix) with ESMTPS id 4DAC417D9;
+	Sun, 15 Nov 2020 13:21:47 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4DAC417D9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1605422994;
-	bh=vp8Vrti7ru30WjpTviHFxFT+GLuIXKEIdOWeS+G6+CE=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=HhNBHwsq2TOAjx/AeJN9RnEesf0O+yIaX0cJAdyAHw2f58iwWVR+bAwmL88i8YySV
-	 /JjZhD/6lgZAo70ZKlM5AzG0Duwk5J65KsrGppeZosn1EoSJ+kEO+aKFFBfM1nb1wh
-	 NvAuyRAFk52bJ1Xle+qGuVECtKf4omc2R5r2VEMg=
+	s=default; t=1605442957;
+	bh=BiFzyyHX0cu8irIo44fgju/9AuV8VYo5DHXhVtYj+CY=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=ZokD74jWwYg9PuD2KftnUKxZZStxbKq/nUH+6kGCgRkwzh4QyMcptYRcLea3Xpumi
+	 PVTFpvWZkj7jaFNwd7nkXwSHEI/+T36Ji/cQaVl9hWT60tIYP7hgVK4ZZWId7F88lS
+	 eQoTownLcby/hlbPO58wE1btEP6soB0W6b/VU6uw=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id C771FF801F9;
-	Sun, 15 Nov 2020 07:48:21 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id AE7C2F800E9;
+	Sun, 15 Nov 2020 13:21:04 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 5E9A2F801F5; Sun, 15 Nov 2020 07:48:19 +0100 (CET)
+ id 267E9F801F5; Sun, 15 Nov 2020 13:21:02 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.2 required=5.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
- SPF_HELO_NONE, SPF_PASS,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 420BAF800E9
- for <alsa-devel@alsa-project.org>; Sun, 15 Nov 2020 07:48:11 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 420BAF800E9
-Received: from localhost (thunderhill.nvidia.com [216.228.112.22])
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_PASS,SPF_PASS autolearn=disabled version=3.4.0
+Received: from host.euro-space.net (host.euro-space.net [87.117.239.2])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id DA760223AB;
- Sun, 15 Nov 2020 06:48:05 +0000 (UTC)
-Date: Sun, 15 Nov 2020 08:48:02 +0200
-From: Leon Romanovsky <leonro@nvidia.com>
-To: Greg KH <gregkh@linuxfoundation.org>
-Subject: Re: [PATCH v3 01/10] Add auxiliary bus support
-Message-ID: <20201115064802.GB5552@unreal>
-References: <20201023003338.1285642-1-david.m.ertman@intel.com>
- <20201023003338.1285642-2-david.m.ertman@intel.com>
- <X66rMg1lNJq+W/cp@kroah.com>
- <DM6PR11MB284160D4E69D9C7801A6B1C2DDE60@DM6PR11MB2841.namprd11.prod.outlook.com>
- <X68VA6uw5nz51dll@kroah.com>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <X68VA6uw5nz51dll@kroah.com>
-Cc: "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
- "parav@mellanox.com" <parav@mellanox.com>, "tiwai@suse.de" <tiwai@suse.de>,
- "netdev@vger.kernel.org" <netdev@vger.kernel.org>,
- "ranjani.sridharan@linux.intel.com" <ranjani.sridharan@linux.intel.com>,
- "pierre-louis.bossart@linux.intel.com" <pierre-louis.bossart@linux.intel.com>,
- "fred.oh@linux.intel.com" <fred.oh@linux.intel.com>,
- "linux-rdma@vger.kernel.org" <linux-rdma@vger.kernel.org>,
- "dledford@redhat.com" <dledford@redhat.com>,
- "broonie@kernel.org" <broonie@kernel.org>, "jgg@nvidia.com" <jgg@nvidia.com>,
- "kuba@kernel.org" <kuba@kernel.org>, "Ertman,
- David M" <david.m.ertman@intel.com>, "Williams,
- Dan J" <dan.j.williams@intel.com>, "Saleem, Shiraz" <shiraz.saleem@intel.com>,
- "davem@davemloft.net" <davem@davemloft.net>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, "Patil,
- Kiran" <kiran.patil@intel.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 01D40F8010A
+ for <alsa-devel@alsa-project.org>; Sun, 15 Nov 2020 13:20:54 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 01D40F8010A
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=birdec.com header.i=@birdec.com
+ header.b="jIuvz2M+"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=birdec.com; 
+ s=default;
+ h=Message-Id:Date:Subject:Cc:To:From:Sender:Reply-To:MIME-Version
+ :Content-Type:Content-Transfer-Encoding:Content-ID:Content-Description:
+ Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:
+ In-Reply-To:References:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
+ List-Post:List-Owner:List-Archive;
+ bh=XmHXTe7cxRnQuTBQKB4v6q2G6D8or4BNzeFn2Gmr0D4=; b=jIuvz2M+Emk4aaBpOiKGQP4kEd
+ DCX4GjrN8wJVxuVQcfugu0I4LuvkJ/Rq+dY7TLFCy7x7I/8t8rATrrvr3YFjVSVveaOwP6EHDBKY6
+ Mdd77K4KlE8zIiWf10loXcZN7TKRC0v0ttLXKRQXzj6+oJILgA4DxvCTC2kEsYdH9+yxKlJv6b9bE
+ gmtP3y1edcOAk0PElv7EtFUwuz8En0/JRSMAZ38TtOf/Pfao42IsRxHjKaL8BpAQlXaniBz/l0ErO
+ 4loCDpTHCyaaQI9/ADnFF1o9it9qlfqa6/QecVYFWlMyRAweCF9Rng263R5eYvNm6WmY8WkPMDkDS
+ pheH9LLQ==;
+Received: from dynamic-078-054-118-130.78.54.pool.telefonica.de
+ ([78.54.118.130]:55232 helo=gentoo0.localdomain)
+ by host.euro-space.net with esmtpsa (TLS1.2) tls
+ TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256 (Exim 4.93)
+ (envelope-from <kmarinushkin@birdec.com>)
+ id 1keH1Y-000338-HQ; Sun, 15 Nov 2020 12:20:52 +0000
+From: Kirill Marinushkin <kmarinushkin@birdec.com>
+To: Mark Brown <broonie@kernel.org>, Takashi Iwai <tiwai@suse.com>,
+ Liam Girdwood <lgirdwood@gmail.com>, Peter Ujfalusi <peter.ujfalusi@ti.com>
+Subject: [PATCH v3 0/4] ASoC: pcm512x: Patch series to set fmt from `set_fmt()`
+Date: Sun, 15 Nov 2020 13:23:02 +0100
+Message-Id: <20201115122306.18164-1-kmarinushkin@birdec.com>
+X-Mailer: git-send-email 2.13.6
+X-AntiAbuse: This header was added to track abuse,
+ please include it with any abuse report
+X-AntiAbuse: Primary Hostname - host.euro-space.net
+X-AntiAbuse: Original Domain - alsa-project.org
+X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
+X-AntiAbuse: Sender Address Domain - birdec.com
+X-Get-Message-Sender-Via: host.euro-space.net: authenticated_id:
+ kmarinushkin@birdec.com
+X-Authenticated-Sender: host.euro-space.net: kmarinushkin@birdec.com
+X-Source: 
+X-Source-Args: 
+X-Source-Dir: 
+Cc: Matthias Reichl <hias@horus.com>, alsa-devel@alsa-project.org,
+ linux-kernel@vger.kernel.org,
+ Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
+ Kirill Marinushkin <kmarinushkin@birdec.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -86,66 +95,18 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Sat, Nov 14, 2020 at 12:21:39AM +0100, Greg KH wrote:
-> On Fri, Nov 13, 2020 at 04:07:57PM +0000, Ertman, David M wrote:
-> > > -----Original Message-----
-> > > From: Greg KH <gregkh@linuxfoundation.org>
-> > > Sent: Friday, November 13, 2020 7:50 AM
-> > > To: Ertman, David M <david.m.ertman@intel.com>
-> > > Cc: alsa-devel@alsa-project.org; tiwai@suse.de; broonie@kernel.org; linux-
-> > > rdma@vger.kernel.org; jgg@nvidia.com; dledford@redhat.com;
-> > > netdev@vger.kernel.org; davem@davemloft.net; kuba@kernel.org;
-> > > ranjani.sridharan@linux.intel.com; pierre-louis.bossart@linux.intel.com;
-> > > fred.oh@linux.intel.com; parav@mellanox.com; Saleem, Shiraz
-> > > <shiraz.saleem@intel.com>; Williams, Dan J <dan.j.williams@intel.com>;
-> > > Patil, Kiran <kiran.patil@intel.com>; linux-kernel@vger.kernel.org;
-> > > leonro@nvidia.com
-> > > Subject: Re: [PATCH v3 01/10] Add auxiliary bus support
-> > >
-> > > On Thu, Oct 22, 2020 at 05:33:29PM -0700, Dave Ertman wrote:
-> > > > Add support for the Auxiliary Bus, auxiliary_device and auxiliary_driver.
-> > > > It enables drivers to create an auxiliary_device and bind an
-> > > > auxiliary_driver to it.
-> > > >
-> > > > The bus supports probe/remove shutdown and suspend/resume callbacks.
-> > > > Each auxiliary_device has a unique string based id; driver binds to
-> > > > an auxiliary_device based on this id through the bus.
-> > > >
-> > > > Co-developed-by: Kiran Patil <kiran.patil@intel.com>
-> > > > Signed-off-by: Kiran Patil <kiran.patil@intel.com>
-> > > > Co-developed-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
-> > > > Signed-off-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
-> > > > Co-developed-by: Fred Oh <fred.oh@linux.intel.com>
-> > > > Signed-off-by: Fred Oh <fred.oh@linux.intel.com>
-> > > > Co-developed-by: Leon Romanovsky <leonro@nvidia.com>
-> > > > Signed-off-by: Leon Romanovsky <leonro@nvidia.com>
-> > > > Reviewed-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-> > > > Reviewed-by: Shiraz Saleem <shiraz.saleem@intel.com>
-> > > > Reviewed-by: Parav Pandit <parav@mellanox.com>
-> > > > Reviewed-by: Dan Williams <dan.j.williams@intel.com>
-> > > > Signed-off-by: Dave Ertman <david.m.ertman@intel.com>
-> > > > ---
-> > >
-> > > Is this really the "latest" version of this patch submission?
-> > >
-> > > I see a number of comments on it already, have you sent out a newer one,
-> > > or is this the same one that the mlx5 driver conversion was done on top
-> > > of?
-> > >
-> > > thanks,
-> > >
-> > > greg k-h
-> >
-> > V3 is the latest sent so far.  There was a suggestion that v3 might be merged and
-> > the documentation changes could be in a follow up patch.  I have those changes done
-> > and ready though, so no reason not to merge them in and do a resend.
-> >
-> > Please expect v4 in just a little while.
->
-> Thank you, follow-up patches aren't usually a good idea :)
+Set format from `set_fmt()` func instead of `hw_params()`, plus supportive
+commits
 
-The changes were in documentation area that will be changed
-anyway after dust will settle and we all see real users and
-more or less stable in-kernel API.
+Kirill Marinushkin (4):
+  ASoC: pcm512x: Fix not setting word length if DAIFMT_CBS_CFS
+  ASoC: pcm512x: Rearrange operations in `hw_params()`
+  ASoC: pcm512x: Move format check into `set_fmt()`
+  ASoC: pcm512x: Add support for more data formats
 
-Thanks
+ sound/soc/codecs/pcm512x.c | 134 ++++++++++++++++++++++++++++-----------------
+ 1 file changed, 84 insertions(+), 50 deletions(-)
+
+-- 
+2.13.6
+

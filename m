@@ -2,75 +2,76 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0EB5D2B51C1
-	for <lists+alsa-devel@lfdr.de>; Mon, 16 Nov 2020 21:00:21 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id A0D072B5211
+	for <lists+alsa-devel@lfdr.de>; Mon, 16 Nov 2020 21:12:07 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 81F24173D;
-	Mon, 16 Nov 2020 20:59:30 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 81F24173D
+	by alsa0.perex.cz (Postfix) with ESMTPS id 23DD7176F;
+	Mon, 16 Nov 2020 21:11:17 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 23DD7176F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1605556820;
-	bh=d5fnY7U13HO6I7Ut7sqDaEc5L2A8sFA76A1LXU1zJ9c=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1605557527;
+	bh=wfkfLatGJSw21LF22PkO4Wii+0EYbfHj4uWnMXhtfbo=;
+	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=EtFYyUQ5JeTc5Cx5RQFB4hVSvWig5/a2XdBSZEd2+rhbIfJXB96yRP2GQhfsK8wVy
-	 AU5WUMdNKk+kKruiUsA0QbzZ3gtqPiDFuWv0jMWRB+h6jMeug2pDL514GwUalqFPwi
-	 doZjRe6AJP1Z4aRffSuRt55x7YOtuoYVSPbdnSH8=
+	b=WxukXPM7Y7DEUaOIXDWwVfmTblmjmBBQ1z5q/OJa+/CIcgCOr5evZQUvUQbQ5wpzm
+	 YaiRg9vUbYW1mfXpr7FeIlWClFf5rndXNKEZV3+jScPZI9UlstuNgqhAfttq29n4wB
+	 Z5wb06b77wxaBc1xizhljQ9iijkRiVjA6MsQjlHk=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id D69DCF8016C;
-	Mon, 16 Nov 2020 20:58:47 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 83D20F8016C;
+	Mon, 16 Nov 2020 21:10:34 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 8AF18F80168; Mon, 16 Nov 2020 20:58:45 +0100 (CET)
+ id 13C06F8014A; Mon, 16 Nov 2020 21:10:33 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled
- version=3.4.0
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 554E4F800D8
- for <alsa-devel@alsa-project.org>; Mon, 16 Nov 2020 20:58:38 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 554E4F800D8
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="LXHxqxXs"
-Received: from localhost (fw-tnat.cambridge.arm.com [217.140.96.140])
+X-Spam-Status: No, score=0.0 required=5.0 tests=NICE_REPLY_A,SPF_HELO_NONE,
+ SPF_NONE autolearn=disabled version=3.4.0
+Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id E5BEA20DD4;
- Mon, 16 Nov 2020 19:58:34 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1605556715;
- bh=d5fnY7U13HO6I7Ut7sqDaEc5L2A8sFA76A1LXU1zJ9c=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=LXHxqxXsQ3HimLH12pqHgkkF/dvOu1x5h0YNO8Vp3EGB7wlOIMDWFElISAxrLNRKI
- gvnhZo0ZMycdNw6o/G0DaUQLSL6aOghj842jGRXZJtlVBiObbRiVBI0Uc7RmonLjPR
- K7gjkZEtHrH0t5go0Ph14Sectfby7NgsLOWjx/bg=
-Date: Mon, 16 Nov 2020 19:58:16 +0000
-From: Mark Brown <broonie@kernel.org>
-To: Michael Sit Wei Hong <michael.wei.hong.sit@intel.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 83BACF800D8
+ for <alsa-devel@alsa-project.org>; Mon, 16 Nov 2020 21:10:28 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 83BACF800D8
+IronPort-SDR: MPSpyGXVqPwcDOaYXAZiNmC6rf+QACtGNFM3F1aog9LtARoFmTXk33mLboGWtqkecXacSlK9YQ
+ V65C51U1AAZg==
+X-IronPort-AV: E=McAfee;i="6000,8403,9807"; a="170025404"
+X-IronPort-AV: E=Sophos;i="5.77,483,1596524400"; d="scan'208";a="170025404"
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from fmsmga003.fm.intel.com ([10.253.24.29])
+ by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 16 Nov 2020 12:10:18 -0800
+IronPort-SDR: sKrlPR+VCCA5PtQS6VzImtQq32xpBTpaC/GUR/amDpFVI31OJ3x8KvVXThWfqbuGmmHhXZX8bU
+ vexEQD/d395w==
+X-IronPort-AV: E=Sophos;i="5.77,483,1596524400"; d="scan'208";a="367619680"
+Received: from jporter-mobl1.amr.corp.intel.com (HELO [10.212.245.89])
+ ([10.212.245.89])
+ by fmsmga003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 16 Nov 2020 12:10:17 -0800
 Subject: Re: [PATCH 3/5] ASoC: soc-generic-dmaengine-pcm: Add custom prepare
  and submit function
-Message-ID: <20201116195816.GH4739@sirena.org.uk>
+To: Mark Brown <broonie@kernel.org>,
+ Michael Sit Wei Hong <michael.wei.hong.sit@intel.com>
 References: <20201116061905.32431-1-michael.wei.hong.sit@intel.com>
  <20201116061905.32431-4-michael.wei.hong.sit@intel.com>
+ <20201116195816.GH4739@sirena.org.uk>
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Message-ID: <4bd0ad0c-70b9-9a75-5a8f-86cf95c486d5@linux.intel.com>
+Date: Mon, 16 Nov 2020 14:10:16 -0600
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.10.0
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="gKijDXBCEH69PxaN"
-Content-Disposition: inline
-In-Reply-To: <20201116061905.32431-4-michael.wei.hong.sit@intel.com>
-X-Cookie: Immanuel doesn't pun, he Kant.
-User-Agent: Mutt/1.10.1 (2018-07-13)
-Cc: pierre-louis.bossart@linux.intel.com, cezary.rojewski@intel.com,
- vinod.koul@linux.intel.com, andriy.shevchenko@intel.com,
+In-Reply-To: <20201116195816.GH4739@sirena.org.uk>
+Content-Type: text/plain; charset=windows-1252; format=flowed
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
+Cc: cezary.rojewski@intel.com, lars@metafoo.de, andriy.shevchenko@intel.com,
  alsa-devel@alsa-project.org, jee.heng.sia@intel.com, tiwai@suse.com,
- liam.r.girdwood@linux.intel.com, lars@metafoo.de
+ liam.r.girdwood@linux.intel.com, Vinod Koul <vkoul@kernel.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -87,37 +88,28 @@ Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 
---gKijDXBCEH69PxaN
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
 
-On Mon, Nov 16, 2020 at 02:19:03PM +0800, Michael Sit Wei Hong wrote:
+On 11/16/20 1:58 PM, Mark Brown wrote:
+> On Mon, Nov 16, 2020 at 02:19:03PM +0800, Michael Sit Wei Hong wrote:
+> 
+>> In the Intel KeemBay solution, the DW AXI-based DMA has a limitation on
+>> the number of DMA blocks per transfer. In the case of 16 bit audio ASoC
+>> would allocate blocks exceeding the DMA block limitation.
+> 
+>> The ASoC layers are not aware of such DMA limitation, and the DMA engine
+>> does not provide an API to set the maximum number of blocks per linked link.
+> 
+> Can we not extend the dmaengine API so that the ASoC layer (and any
+> other users) can become aware of this limitation and handle it
+> appropriately rather than jumping straight to some client driver
+> specific handling?
 
-> In the Intel KeemBay solution, the DW AXI-based DMA has a limitation on
-> the number of DMA blocks per transfer. In the case of 16 bit audio ASoC
-> would allocate blocks exceeding the DMA block limitation.
+This was supposed to be an RFC, I asked Vinod/Lars to be copied for 
+feedback. Unfortunately the RFC tag is missing and Vinod's email wasn't 
+the right one... (fixed now).
 
-> The ASoC layers are not aware of such DMA limitation, and the DMA engine
-> does not provide an API to set the maximum number of blocks per linked link.
-
-Can we not extend the dmaengine API so that the ASoC layer (and any
-other users) can become aware of this limitation and handle it
-appropriately rather than jumping straight to some client driver
-specific handling?
-
---gKijDXBCEH69PxaN
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl+y2dcACgkQJNaLcl1U
-h9DYQgf+Mrg433+qIkXsfacTHqJMiqkjHZnsvpg7RYkZwUZIwfNqNk9VFYje6H3z
-WtAXiAq2mmPJlATmDmIQw30CrTe6UylBQBkn5iO5X8ZUcOitKrkx9067vknylMmY
-dwz4sr6YacxCjRqBYUJbUSy1LNMPib/m6xEMmj0H0cObES8G+R62yFzmHvrjniw7
-tp29s3KxIGEOV+Rzns8OMe833/KxjJJqlvjAY7Uj4YsWWeMVgfadUzAhdt6TKIhp
-Adn/EtQNRx0dWc/ewHAx5NKvey9BeDWKvmLMTfA5VaVpEBMPuHVMcRF9Ed250RDE
-G6TgOY8m3yyp45PhQK2lOERoJygQnQ==
-=iApt
------END PGP SIGNATURE-----
-
---gKijDXBCEH69PxaN--
+This patchset suggests an ALSA-only quirk, having other more generic 
+means to deal with this limitation would be fine - we just wanted to 
+have a discussion on preferred directions. The IPs used are not 
+Intel-specific so sooner or later someone else will have similar 
+limitations to work-around.

@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7084D2B5519
-	for <lists+alsa-devel@lfdr.de>; Tue, 17 Nov 2020 00:35:00 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id A2F4C2B551B
+	for <lists+alsa-devel@lfdr.de>; Tue, 17 Nov 2020 00:35:38 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 588791774;
-	Tue, 17 Nov 2020 00:34:08 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 588791774
+	by alsa0.perex.cz (Postfix) with ESMTPS id 3A60C170F;
+	Tue, 17 Nov 2020 00:34:48 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3A60C170F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1605569698;
-	bh=BIB5JmlbDvxYU2OoTcabQi3cnHOyHNktLHYmpMgnF7U=;
+	s=default; t=1605569738;
+	bh=W4iJDW29qaYIvsy6pPudjqFsYGbUiXej+ClOVk6wkbE=;
 	h=Date:From:To:In-Reply-To:References:Subject:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=i5YqaNWOmgVvdjf5TxAYZTYautK+wcWE7vB4QCAuAcQW1ip7cu7Z8becEwpJWKIev
-	 DWJuBxFZzUnQ/6YA5x3XfAbBNfN/xjswOwWEI4KILAUThkj/NufMP0aPLffJpC5Xyx
-	 6eYgOcXWsC5B2pzrM4UzAkR697sV8sXMwkP8fHGs=
+	b=Hx+85E27MruJ0uerTXKAR94y2NHnj0oLx000jlq+GYHEpEWjrKRohVucGddwfigVE
+	 +ptOLHbmorDThqk2Y09MOmAh6MZxNfNtJFm0lzqlQnz4JzgBuDhl9R9Lo2If/P1+o9
+	 czak+YGsLdysuYiGNscyw1/ms1BqI/OLCrRjh7TM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id E8557F8016E;
-	Tue, 17 Nov 2020 00:33:18 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id C8221F804BC;
+	Tue, 17 Nov 2020 00:33:21 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 1BEDFF80168; Tue, 17 Nov 2020 00:33:14 +0100 (CET)
+ id 1FE4BF8016C; Tue, 17 Nov 2020 00:33:20 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -34,39 +34,40 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 13168F800D8
- for <alsa-devel@alsa-project.org>; Tue, 17 Nov 2020 00:33:11 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 13168F800D8
+ by alsa1.perex.cz (Postfix) with ESMTPS id 519FDF8016C
+ for <alsa-devel@alsa-project.org>; Tue, 17 Nov 2020 00:33:17 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 519FDF8016C
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="bcBB7JRD"
+ header.b="uyMntYXI"
 Received: from localhost (fw-tnat.cambridge.arm.com [217.140.96.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 1552C2223C;
- Mon, 16 Nov 2020 23:33:08 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id 20CB02224B;
+ Mon, 16 Nov 2020 23:33:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1605569589;
- bh=BIB5JmlbDvxYU2OoTcabQi3cnHOyHNktLHYmpMgnF7U=;
+ s=default; t=1605569595;
+ bh=W4iJDW29qaYIvsy6pPudjqFsYGbUiXej+ClOVk6wkbE=;
  h=Date:From:To:Cc:In-Reply-To:References:Subject:From;
- b=bcBB7JRDYo06mIjlQ1QMbwGKta7Vk6QeJ0K622fJotwOsaRjmWwzf5xEh65B8GDtd
- e/lilWxLtfy6vDhaQOdL3/2QnrVV8FWJS0UX5Z6pYJfUlWELvTYiiJz1kfr3vszOu0
- rfhUFqUWznwHAZXjWaNo9pjrIvneqh3nyL0ojmKw=
-Date: Mon, 16 Nov 2020 23:32:50 +0000
+ b=uyMntYXIAHZCuB2k0gyDph9z4nbpMEFfvhFwqbzmppERcIXSzZrTYQiJ3bDKKWWR2
+ Kgkavfj80xQPfypABwXMougZwGNm0R9c5LDP/75xIHcxg3/3EYTHxkPRqWovjZf+CI
+ C25tAWg1uuECCySkCFc+otv8CtXXXJkmPeZZnRKs=
+Date: Mon, 16 Nov 2020 23:32:56 +0000
 From: Mark Brown <broonie@kernel.org>
-To: Michael Sit Wei Hong <michael.wei.hong.sit@intel.com>,
- alsa-devel@alsa-project.org
-In-Reply-To: <20201116061905.32431-1-michael.wei.hong.sit@intel.com>
-References: <20201116061905.32431-1-michael.wei.hong.sit@intel.com>
-Subject: Re: [PATCH 0/5] This patch series enables DMA mode on Intel Keem Bay
- platform
-Message-Id: <160556956526.29683.813243246363467870.b4-ty@kernel.org>
+To: Kirill Marinushkin <kmarinushkin@birdec.com>,
+ Liam Girdwood <lgirdwood@gmail.com>, Peter Ujfalusi <peter.ujfalusi@ti.com>,
+ Takashi Iwai <tiwai@suse.com>
+In-Reply-To: <20201115122306.18164-1-kmarinushkin@birdec.com>
+References: <20201115122306.18164-1-kmarinushkin@birdec.com>
+Subject: Re: [PATCH v3 0/4] ASoC: pcm512x: Patch series to set fmt from
+ `set_fmt()`
+Message-Id: <160556956526.29683.6599781233206972727.b4-ty@kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Cc: cezary.rojewski@intel.com, lars@metafoo.de, andriy.shevchenko@intel.com,
- tiwai@suse.com, vinod.koul@linux.intel.com, jee.heng.sia@intel.com,
- pierre-louis.bossart@linux.intel.com, liam.r.girdwood@linux.intel.com
+Cc: Matthias Reichl <hias@horus.com>, alsa-devel@alsa-project.org,
+ linux-kernel@vger.kernel.org,
+ Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -82,18 +83,15 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Mon, 16 Nov 2020 14:19:00 +0800, Michael Sit Wei Hong wrote:
-> v1: Initial patch version, which contains fix for S24_LE format and also enable
->     DMA mode on Intel Keembay platform
+On Sun, 15 Nov 2020 13:23:02 +0100, Kirill Marinushkin wrote:
+> Set format from `set_fmt()` func instead of `hw_params()`, plus supportive
+> commits
 > 
-> Michael Sit Wei Hong (5):
->   ASoC: Intel: KMB: Fix S24_LE configuration
->   dt-bindings: sound: intel, keembay-i2s: Add info for device to use DMA
->   ASoC: soc-generic-dmaengine-pcm: Add custom prepare and submit
->     function
->   ASoC: dmaengine_pcm: expose functions to header file for custom
->     functions
->   ASoC: Intel: KMB: Enable DMA transfer mode
+> Kirill Marinushkin (4):
+>   ASoC: pcm512x: Fix not setting word length if DAIFMT_CBS_CFS
+>   ASoC: pcm512x: Rearrange operations in `hw_params()`
+>   ASoC: pcm512x: Move format check into `set_fmt()`
+>   ASoC: pcm512x: Add support for more data formats
 > 
 > [...]
 
@@ -103,8 +101,14 @@ Applied to
 
 Thanks!
 
-[1/1] ASoC: Intel: KMB: Fix S24_LE configuration
-      commit: 1bd7b0fc0165694897b7d2fb39751a07b98f6bf1
+[1/4] ASoC: pcm512x: Fix not setting word length if DAIFMT_CBS_CFS
+      commit: 6feaaa7c19bde25595e03bf883953f85711e4ac8
+[2/4] ASoC: pcm512x: Rearrange operations in `hw_params()`
+      commit: 798714b6121d833c8abe4161761a94fdd1e73a90
+[3/4] ASoC: pcm512x: Move format check into `set_fmt()`
+      commit: 26b97d95a05d0346e1ad6096deedac3f24a4607b
+[4/4] ASoC: pcm512x: Add support for more data formats
+      commit: 25d27c4f68d2040c4772d586be3e02ee99eb71af
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

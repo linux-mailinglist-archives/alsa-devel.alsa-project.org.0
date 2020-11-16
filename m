@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 00E542B5523
-	for <lists+alsa-devel@lfdr.de>; Tue, 17 Nov 2020 00:37:28 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 075C12B5525
+	for <lists+alsa-devel@lfdr.de>; Tue, 17 Nov 2020 00:38:02 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 8C15C174B;
-	Tue, 17 Nov 2020 00:36:37 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8C15C174B
+	by alsa0.perex.cz (Postfix) with ESMTPS id 9E81E171F;
+	Tue, 17 Nov 2020 00:37:11 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9E81E171F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1605569847;
-	bh=xq62QE7/u63IXnVdwILr5LgN6HXfl7A05MOWRxR9rQM=;
+	s=default; t=1605569881;
+	bh=lG8vjtafSwJlzpTe4ZWzO3xTe2KC9KSe1kymL1F6xJo=;
 	h=Date:From:To:In-Reply-To:References:Subject:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=EGrht2tomaKau+EF5ALItP8iIn29ZcYEdDTVM/B08jz2NtH15NzfqxkWl/TFGyomf
-	 2qwpuivxfGk1VFfYTmiinqfB0f64SglDG2cXxr9WwUVfCYEouzwW8uewQ6sGjNCXUb
-	 YyUe4lifzi1PAYOMaq9kH/AqX3CQ76aNv1CgSfw8=
+	b=JBh6RGEfI1bLXspQrG/BNlzhIrWzFwtTfuainWRfsz/rBoiMjBM4ADh9HLX5oYchW
+	 kOlggXNlKZhMfWrxGz7wJspyqPRufRK9TyomrDY0aLVHkcsVMQPllxYscA5XCHBke0
+	 xarffOACutF6595pE77oPf/QDcuadMjlZuEt9/6o=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 21D94F804FA;
-	Tue, 17 Nov 2020 00:33:51 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id C1BEAF804F2;
+	Tue, 17 Nov 2020 00:33:54 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id E852CF804F3; Tue, 17 Nov 2020 00:33:48 +0100 (CET)
+ id CC2FDF804FD; Tue, 17 Nov 2020 00:33:53 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -34,40 +34,37 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id A1805F804E3
- for <alsa-devel@alsa-project.org>; Tue, 17 Nov 2020 00:33:46 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A1805F804E3
+ by alsa1.perex.cz (Postfix) with ESMTPS id 6BE3CF804F2
+ for <alsa-devel@alsa-project.org>; Tue, 17 Nov 2020 00:33:51 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6BE3CF804F2
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="ryoK4Lwc"
+ header.b="JlvKzOhl"
 Received: from localhost (fw-tnat.cambridge.arm.com [217.140.96.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 0D008221F8;
- Mon, 16 Nov 2020 23:33:44 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id 7491822280;
+ Mon, 16 Nov 2020 23:33:49 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1605569624;
- bh=xq62QE7/u63IXnVdwILr5LgN6HXfl7A05MOWRxR9rQM=;
+ s=default; t=1605569630;
+ bh=lG8vjtafSwJlzpTe4ZWzO3xTe2KC9KSe1kymL1F6xJo=;
  h=Date:From:To:Cc:In-Reply-To:References:Subject:From;
- b=ryoK4Lwc59YFEyyt3FAm+7RwQG1ifZTE2mCd5UeCHc/FFGCNsJZA12xS8yUPG80vf
- yHgNh1KWRxg1x7ImzybvPfzH8fV0H2Mlh7ZetMEE8OkyMUdgPg5aGAMf96XfMCGgQx
- QCBOElpU7MScukLx7NG95ocbJdav4f4iVYfU48Xw=
-Date: Mon, 16 Nov 2020 23:33:25 +0000
+ b=JlvKzOhlcrAT+uQ0LdSTp/rSUQoUXnPxaf0cJ3Bqu40UHuJVjP8qQpoMkmuwF3Q4f
+ sla8xzK9k705EWOb6rMqXtHlYAwVmFXSFv1kGdT0WuVJWxoOQRn2EoA00j6E3QZy05
+ SQSalKDIKfH3CXMc85AXKBnZBwByPKw7jXvo2YGU=
+Date: Mon, 16 Nov 2020 23:33:31 +0000
 From: Mark Brown <broonie@kernel.org>
-To: agross@kernel.org, devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- bjorn.andersson@linaro.org, linux-kernel@vger.kernel.org,
- linux-arm-msm@vger.kernel.org, srinivas.kandagatla@linaro.org,
- lgirdwood@gmail.com, bgoswami@codeaurora.org, rohitkr@codeaurora.org,
- robh+dt@kernel.org, perex@perex.cz, plai@codeaurora.org,
- Srinivasa Rao Mandadapu <srivasam@codeaurora.org>, tiwai@suse.com
-In-Reply-To: <1605416210-14530-1-git-send-email-srivasam@codeaurora.org>
-References: <1605416210-14530-1-git-send-email-srivasam@codeaurora.org>
-Subject: Re: [PATCH] Asoc: qcom: lpass-platform: Fix memory leak
-Message-Id: <160556956526.29683.2121148120940564064.b4-ty@kernel.org>
+To: Jerome Brunet <jbrunet@baylibre.com>, Liam Girdwood <lgirdwood@gmail.com>
+In-Reply-To: <20201116172423.546855-1-jbrunet@baylibre.com>
+References: <20201116172423.546855-1-jbrunet@baylibre.com>
+Subject: Re: [PATCH] ASoC: meson: fix COMPILE_TEST error
+Message-Id: <160556956525.29683.11005029623520003708.b4-ty@kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Cc: V Sujith Kumar Reddy <vsujithk@codeaurora.org>, Pavel Machek <pavel@ucw.cz>
+Cc: linux-amlogic@lists.infradead.org, Kevin Hilman <khilman@baylibre.com>,
+ linux-kernel@vger.kernel.org, alsa-devel@alsa-project.org,
+ kernel test robot <lkp@intel.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -83,11 +80,16 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Sun, 15 Nov 2020 10:26:50 +0530, Srinivasa Rao Mandadapu wrote:
-> lpass_pcm_data is not freed in error paths. Free it in
-> error paths to avoid memory leak.
+On Mon, 16 Nov 2020 18:24:23 +0100, Jerome Brunet wrote:
+> When compiled with CONFIG_HAVE_CLK, the kernel need to get provider for the
+> clock API. This is usually selected by the platform and the sound drivers
+> should not really care about this. However COMPILE_TEST is special and the
+> platform required may not have been selected, leading to this type of
+> error:
 > 
-> Fixes: 022d00ee0b55 ("ASoC: lpass-platform: Fix broken pcm data usage")
+> > aiu-encoder-spdif.c:(.text+0x3a0): undefined reference to `clk_set_parent'
+> 
+> [...]
 
 Applied to
 
@@ -95,8 +97,8 @@ Applied to
 
 Thanks!
 
-[1/1] ASoC: qcom: lpass-platform: Fix memory leak
-      commit: bd6327fda2f3ded85b69b3c3125c99aaa51c7881
+[1/1] ASoC: meson: fix COMPILE_TEST error
+      commit: 299fe9937dbd1a4d9a1da6a2b6f222298534ca57
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

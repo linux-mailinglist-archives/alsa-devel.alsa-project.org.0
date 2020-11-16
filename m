@@ -2,67 +2,84 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id CC9AC2B3D1D
-	for <lists+alsa-devel@lfdr.de>; Mon, 16 Nov 2020 07:28:06 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 29AD82B3DF3
+	for <lists+alsa-devel@lfdr.de>; Mon, 16 Nov 2020 08:51:24 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 706981741;
-	Mon, 16 Nov 2020 07:27:16 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 706981741
+	by alsa0.perex.cz (Postfix) with ESMTPS id A620417C2;
+	Mon, 16 Nov 2020 08:50:33 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A620417C2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1605508086;
-	bh=E/ZREoVJDSWDW7GYm11XsFl7BWwjxbCYvxB22vlUAlI=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=soE3OXTCIN0dUGnuCXjUiE44QNOP9WmaQWOxfS+hwWCjNcsbLgPosJKwCNCANfx6i
-	 8iaDpdfGAdzbhHfZeGGaQgcVG2qP502ASgAEOmrggWjmtiBG1tGQG6XucVwdfww3qW
-	 mwtUWb9QtrA1OxzNwVpVM3IDGMPv4jqOam2jsIWU=
+	s=default; t=1605513083;
+	bh=1vZnzI7LOzLPTayNc40U4xGNH4QY1GURUY0rnRPO8/o=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=R7/jM3HK1r3lRynzfvwUnXAO2rZQOqHDvg4NISj29gc8sq728WzJOVqugn2+ynuIJ
+	 IqBdJE5Fp4ViHTWZIgS38BiMDuBhI3PTask0YkMbEA/tUxo+u6araAEl8OMEPjImsv
+	 YZqHxxSt1W7qsk96y5Eru9fdvgjHMxYWmkpdggYo=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 886A3F804E7;
-	Mon, 16 Nov 2020 07:25:38 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 15439F80167;
+	Mon, 16 Nov 2020 08:49:51 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id ED67BF804D2; Mon, 16 Nov 2020 07:25:34 +0100 (CET)
+ id A212EF80168; Mon, 16 Nov 2020 08:49:48 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ RCVD_IN_MSPIKE_H3,RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from z5.mailgun.us (z5.mailgun.us [104.130.96.5])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id AAA14F8010A
- for <alsa-devel@alsa-project.org>; Mon, 16 Nov 2020 07:25:26 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz AAA14F8010A
-IronPort-SDR: TSowoaVNpfZb/R/25/krXD8eL4dZmqzFWxqS9jmA5CGu+z1i3pCVyrzvom0dQJyeQajEP03aJX
- Vn0XDAN5exOw==
-X-IronPort-AV: E=McAfee;i="6000,8403,9806"; a="150555426"
-X-IronPort-AV: E=Sophos;i="5.77,481,1596524400"; d="scan'208";a="150555426"
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from fmsmga007.fm.intel.com ([10.253.24.52])
- by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 15 Nov 2020 22:25:24 -0800
-IronPort-SDR: GDvwtWBqwQ9CKh8R8XOdrGLwVIcB3tr06be/+3h1yWDrXZXQr+JnlFD4Gz5IPVyHHnCCN9rBWa
- Ae5wxF4zjleA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.77,481,1596524400"; d="scan'208";a="310297941"
-Received: from mike-ilbpg1.png.intel.com ([10.88.227.76])
- by fmsmga007.fm.intel.com with ESMTP; 15 Nov 2020 22:25:21 -0800
-From: Michael Sit Wei Hong <michael.wei.hong.sit@intel.com>
-To: alsa-devel@alsa-project.org
-Subject: [PATCH 5/5] ASoC: Intel: KMB: Enable DMA transfer mode
-Date: Mon, 16 Nov 2020 14:19:05 +0800
-Message-Id: <20201116061905.32431-6-michael.wei.hong.sit@intel.com>
-X-Mailer: git-send-email 2.17.1
-In-Reply-To: <20201116061905.32431-1-michael.wei.hong.sit@intel.com>
-References: <20201116061905.32431-1-michael.wei.hong.sit@intel.com>
-Cc: cezary.rojewski@intel.com, vinod.koul@linux.intel.com,
- andriy.shevchenko@intel.com, tiwai@suse.com, jee.heng.sia@intel.com,
- pierre-louis.bossart@linux.intel.com, liam.r.girdwood@linux.intel.com,
- broonie@kernel.org, lars@metafoo.de
+ by alsa1.perex.cz (Postfix) with ESMTPS id AE6ACF800D8
+ for <alsa-devel@alsa-project.org>; Mon, 16 Nov 2020 08:49:41 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz AE6ACF800D8
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=mg.codeaurora.org
+ header.i=@mg.codeaurora.org header.b="qspaoRll"
+DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
+ q=dns/txt; 
+ s=smtp; t=1605512982; h=Message-Id: Date: Subject: Cc: To: From:
+ Sender; bh=uyOlTM80iUIKUo0V/zn7BpuxDHK919VWbhuQkHHN89w=;
+ b=qspaoRllj1iLHgKMa47D6ybykV+1PY9JRDcCSIKplKj6xcntlKwvnNQVcVC+BeVsvWANVoFI
+ r/2xU5sH6TJAug7ZTkTQRpFRDAWPG2K4XtVsHhOMesUOTMaJmhs28yCd75r71MtzOeCnHkPx
+ RWejglXqhCHBdWtVe4njNcm/Ol8=
+X-Mailgun-Sending-Ip: 104.130.96.5
+X-Mailgun-Sid: WyI4ZmE2ZSIsICJhbHNhLWRldmVsQGFsc2EtcHJvamVjdC5vcmciLCAiYmU5ZTRhIl0=
+Received: from smtp.codeaurora.org
+ (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171]) by
+ smtp-out-n10.prod.us-west-2.postgun.com with SMTP id
+ 5fb22f0dd3e05bb6db631d98 (version=TLS1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Mon, 16 Nov 2020 07:49:33
+ GMT
+Received: by smtp.codeaurora.org (Postfix, from userid 1001)
+ id BEC0BC43461; Mon, 16 Nov 2020 07:49:33 +0000 (UTC)
+Received: from hyd-lnxbld210.qualcomm.com (unknown [202.46.22.19])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-SHA256 (128/128 bits))
+ (No client certificate requested) (Authenticated sender: srivasam)
+ by smtp.codeaurora.org (Postfix) with ESMTPSA id 7A5D0C433ED;
+ Mon, 16 Nov 2020 07:49:28 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 smtp.codeaurora.org 7A5D0C433ED
+Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
+ dmarc=none (p=none dis=none) header.from=codeaurora.org
+Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
+ spf=fail smtp.mailfrom=srivasam@codeaurora.org
+From: Srinivasa Rao Mandadapu <srivasam@codeaurora.org>
+To: agross@kernel.org, bjorn.andersson@linaro.org, lgirdwood@gmail.com,
+ broonie@kernel.org, robh+dt@kernel.org, plai@codeaurora.org,
+ bgoswami@codeaurora.org, perex@perex.cz, tiwai@suse.com,
+ srinivas.kandagatla@linaro.org, rohitkr@codeaurora.org,
+ linux-arm-msm@vger.kernel.org, alsa-devel@alsa-project.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: [PATCH] Asoc: qcom: lpass-sc7180: Add 32 bit format support for
+ capture
+Date: Mon, 16 Nov 2020 13:19:15 +0530
+Message-Id: <1605512955-7017-1-git-send-email-srivasam@codeaurora.org>
+X-Mailer: git-send-email 2.7.4
+Cc: V Sujith Kumar Reddy <vsujithk@codeaurora.org>,
+ Srinivasa Rao Manidadapu <srivasam@codeaurora.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -78,400 +95,33 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Enable DMA transfer mode for Intel Keem Bay ASoC platform driver.
+From: V Sujith Kumar Reddy <vsujithk@codeaurora.org>
 
-The driver will search the device tree for DMA resources at boot
-time to enable DMA transfer mode, and will proceed to use DMA
-transfer if the resource is available, otherwise the default PIO
-mode will be used.
+Add 32 bit format support for capture in lpass-sc7180
+snd_soc_dai_driver capabilities. Need to add contstraints
+in machine driver so that only specific format allowed.
 
-Due to DMA Block transfer limitation, a customized function is
-introduced to check and handle the limitation. Instead of limiting
-the maximum period bytes to the minimum supported, which forces the
-period size to less than 10.6ms in the worst case, adjusting the DMA
-to use a longer linked list will allow more flexible period sizes which
-does not force applications to use ridiculously small period sizes.
-
-Signed-off-by: Michael Sit Wei Hong <michael.wei.hong.sit@intel.com>
-Reviewed-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Signed-off-by: V Sujith Kumar Reddy <vsujithk@codeaurora.org>
+Signed-off-by: Srinivasa Rao Manidadapu <srivasam@codeaurora.org>
 ---
- sound/soc/intel/Kconfig                |   2 +
- sound/soc/intel/keembay/kmb_platform.c | 202 +++++++++++++++++++++++--
- sound/soc/intel/keembay/kmb_platform.h |   9 ++
- 3 files changed, 198 insertions(+), 15 deletions(-)
+ sound/soc/qcom/lpass-sc7180.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-diff --git a/sound/soc/intel/Kconfig b/sound/soc/intel/Kconfig
-index a5b446d5af19..6114dadfc52f 100644
---- a/sound/soc/intel/Kconfig
-+++ b/sound/soc/intel/Kconfig
-@@ -200,6 +200,8 @@ config SND_SOC_INTEL_KEEMBAY
- 	tristate "Keembay Platforms"
- 	depends on ARM64 || COMPILE_TEST
- 	depends on COMMON_CLK
-+	select SND_DMAENGINE_PCM
-+	select SND_SOC_GENERIC_DMAENGINE_PCM
- 	help
- 	  If you have a Intel Keembay platform then enable this option
- 	  by saying Y or m.
-diff --git a/sound/soc/intel/keembay/kmb_platform.c b/sound/soc/intel/keembay/kmb_platform.c
-index 291a686568c2..3041823e447b 100644
---- a/sound/soc/intel/keembay/kmb_platform.c
-+++ b/sound/soc/intel/keembay/kmb_platform.c
-@@ -6,10 +6,12 @@
- //
- 
- #include <linux/clk.h>
-+#include <linux/dma-mapping.h>
- #include <linux/io.h>
- #include <linux/module.h>
- #include <linux/of.h>
- #include <linux/of_device.h>
-+#include <sound/dmaengine_pcm.h>
- #include <sound/pcm.h>
- #include <sound/pcm_params.h>
- #include <sound/soc.h>
-@@ -23,6 +25,7 @@
- #define I2S_OPERATION		0
- #define DATA_WIDTH_CONFIG_BIT	6
- #define TDM_CHANNEL_CONFIG_BIT	3
-+#define MAX_DMA_BLOCKS		1024
- 
- static const struct snd_pcm_hardware kmb_pcm_hardware = {
- 	.info = SNDRV_PCM_INFO_INTERLEAVED |
-@@ -335,6 +338,45 @@ static snd_pcm_uframes_t kmb_pcm_pointer(struct snd_soc_component *component,
- 	return pos < runtime->buffer_size ? pos : 0;
- }
- 
-+static int kmb_pcm_prepare_and_submit(struct snd_pcm_substream *substream)
-+{
-+	struct dmaengine_pcm_runtime_data *prtd = substream_to_prtd(substream);
-+	struct dma_chan *chan = prtd->dma_chan;
-+	struct dma_async_tx_descriptor *desc;
-+	enum dma_transfer_direction direction;
-+	unsigned long flags = DMA_CTRL_ACK;
-+	struct snd_pcm_runtime *runtime = substream->runtime;
-+	int blocks;
-+
-+	blocks = bytes_to_samples(runtime, snd_pcm_lib_period_bytes(substream));
-+	direction = snd_pcm_substream_to_dma_direction(substream);
-+
-+	if (!substream->runtime->no_period_wakeup)
-+		flags |= DMA_PREP_INTERRUPT;
-+
-+	prtd->pos = 0;
-+	/* Check if the number of blocks used exceed the DMA BLOCK limitation */
-+	if (blocks > MAX_DMA_BLOCKS && direction == DMA_DEV_TO_MEM)
-+		desc = dmaengine_prep_dma_cyclic(chan,
-+			substream->runtime->dma_addr,
-+			snd_pcm_lib_buffer_bytes(substream),
-+			samples_to_bytes(runtime, MAX_DMA_BLOCKS), direction, flags);
-+	else
-+		desc = dmaengine_prep_dma_cyclic(chan,
-+			substream->runtime->dma_addr,
-+			snd_pcm_lib_buffer_bytes(substream),
-+			snd_pcm_lib_period_bytes(substream), direction, flags);
-+
-+	if (!desc)
-+		return -ENOMEM;
-+
-+	desc->callback = dmaengine_pcm_dma_complete;
-+	desc->callback_param = substream;
-+	prtd->cookie = dmaengine_submit(desc);
-+
-+	return 0;
-+}
-+
- static const struct snd_soc_component_driver kmb_component = {
- 	.name		= "kmb",
- 	.pcm_construct	= kmb_platform_pcm_new,
-@@ -343,6 +385,53 @@ static const struct snd_soc_component_driver kmb_component = {
- 	.pointer	= kmb_pcm_pointer,
- };
- 
-+static const struct snd_soc_component_driver kmb_component_dma = {
-+	.name		= "kmb",
-+};
-+
-+static int kmb_probe(struct snd_soc_dai *cpu_dai)
-+{
-+	struct kmb_i2s_info *kmb_i2s = snd_soc_dai_get_drvdata(cpu_dai);
-+
-+	if (kmb_i2s->use_pio)
-+		return 0;
-+
-+	snd_soc_dai_init_dma_data(cpu_dai, &kmb_i2s->play_dma_data,
-+				  &kmb_i2s->capture_dma_data);
-+
-+	return 0;
-+}
-+
-+static inline void kmb_i2s_enable_dma(struct kmb_i2s_info *kmb_i2s, u32 stream)
-+{
-+	u32 dma_reg;
-+
-+	dma_reg = readl(kmb_i2s->i2s_base + I2S_DMACR);
-+	/* Enable DMA handshake for stream */
-+	if (stream == SNDRV_PCM_STREAM_PLAYBACK)
-+		dma_reg |= I2S_DMAEN_TXBLOCK;
-+	else
-+		dma_reg |= I2S_DMAEN_RXBLOCK;
-+
-+	writel(dma_reg, kmb_i2s->i2s_base + I2S_DMACR);
-+}
-+
-+static inline void kmb_i2s_disable_dma(struct kmb_i2s_info *kmb_i2s, u32 stream)
-+{
-+	u32 dma_reg;
-+
-+	dma_reg = readl(kmb_i2s->i2s_base + I2S_DMACR);
-+	/* Disable DMA handshake for stream */
-+	if (stream == SNDRV_PCM_STREAM_PLAYBACK) {
-+		dma_reg &= ~I2S_DMAEN_TXBLOCK;
-+		writel(1, kmb_i2s->i2s_base + I2S_RTXDMA);
-+	} else {
-+		dma_reg &= ~I2S_DMAEN_RXBLOCK;
-+		writel(1, kmb_i2s->i2s_base + I2S_RRXDMA);
-+	}
-+	writel(dma_reg, kmb_i2s->i2s_base + I2S_DMACR);
-+}
-+
- static void kmb_i2s_start(struct kmb_i2s_info *kmb_i2s,
- 			  struct snd_pcm_substream *substream)
- {
-@@ -356,7 +445,11 @@ static void kmb_i2s_start(struct kmb_i2s_info *kmb_i2s,
- 	else
- 		writel(1, kmb_i2s->i2s_base + IRER);
- 
--	kmb_i2s_irq_trigger(kmb_i2s, substream->stream, config->chan_nr, true);
-+	if (kmb_i2s->use_pio)
-+		kmb_i2s_irq_trigger(kmb_i2s, substream->stream,
-+				    config->chan_nr, true);
-+	else
-+		kmb_i2s_enable_dma(kmb_i2s, substream->stream);
- 
- 	if (kmb_i2s->master)
- 		writel(1, kmb_i2s->i2s_base + CER);
-@@ -434,7 +527,8 @@ static int kmb_dai_trigger(struct snd_pcm_substream *substream,
- 		break;
- 	case SNDRV_PCM_TRIGGER_STOP:
- 		kmb_i2s->active--;
--		kmb_i2s_stop(kmb_i2s, substream);
-+		if (kmb_i2s->use_pio)
-+			kmb_i2s_stop(kmb_i2s, substream);
- 		break;
- 	default:
- 		return  -EINVAL;
-@@ -485,16 +579,22 @@ static int kmb_dai_hw_params(struct snd_pcm_substream *substream,
- 		config->data_width = 16;
- 		kmb_i2s->ccr = 0x00;
- 		kmb_i2s->xfer_resolution = 0x02;
-+		kmb_i2s->play_dma_data.addr_width = DMA_SLAVE_BUSWIDTH_2_BYTES;
-+		kmb_i2s->capture_dma_data.addr_width = DMA_SLAVE_BUSWIDTH_2_BYTES;
- 		break;
- 	case SNDRV_PCM_FORMAT_S24_LE:
- 		config->data_width = 32;
- 		kmb_i2s->ccr = 0x14;
- 		kmb_i2s->xfer_resolution = 0x05;
-+		kmb_i2s->play_dma_data.addr_width = DMA_SLAVE_BUSWIDTH_4_BYTES;
-+		kmb_i2s->capture_dma_data.addr_width = DMA_SLAVE_BUSWIDTH_4_BYTES;
- 		break;
- 	case SNDRV_PCM_FORMAT_S32_LE:
- 		config->data_width = 32;
- 		kmb_i2s->ccr = 0x10;
- 		kmb_i2s->xfer_resolution = 0x05;
-+		kmb_i2s->play_dma_data.addr_width = DMA_SLAVE_BUSWIDTH_4_BYTES;
-+		kmb_i2s->capture_dma_data.addr_width = DMA_SLAVE_BUSWIDTH_4_BYTES;
- 		break;
- 	default:
- 		dev_err(kmb_i2s->dev, "kmb: unsupported PCM fmt");
-@@ -572,9 +672,56 @@ static int kmb_dai_prepare(struct snd_pcm_substream *substream,
- 	return 0;
- }
- 
-+static int kmb_dai_startup(struct snd_pcm_substream *substream,
-+			   struct snd_soc_dai *cpu_dai)
-+{
-+	struct kmb_i2s_info *kmb_i2s = snd_soc_dai_get_drvdata(cpu_dai);
-+	struct snd_dmaengine_dai_dma_data *dma_data;
-+
-+	if (kmb_i2s->use_pio)
-+		return 0;
-+
-+	if (substream->stream == SNDRV_PCM_STREAM_PLAYBACK)
-+		dma_data = &kmb_i2s->play_dma_data;
-+	else
-+		dma_data = &kmb_i2s->capture_dma_data;
-+
-+	snd_soc_dai_set_dma_data(cpu_dai, substream, dma_data);
-+
-+	return 0;
-+}
-+
-+static int kmb_dai_hw_free(struct snd_pcm_substream *substream,
-+			   struct snd_soc_dai *cpu_dai)
-+{
-+	struct kmb_i2s_info *kmb_i2s = snd_soc_dai_get_drvdata(cpu_dai);
-+	/* I2S Programming sequence in Keem_Bay_VPU_DB_v1.1 */
-+	if (kmb_i2s->use_pio)
-+		kmb_i2s_clear_irqs(kmb_i2s, substream->stream);
-+
-+	if (substream->stream == SNDRV_PCM_STREAM_PLAYBACK)
-+		writel(0, kmb_i2s->i2s_base + ITER);
-+	else
-+		writel(0, kmb_i2s->i2s_base + IRER);
-+
-+	if (kmb_i2s->use_pio)
-+		kmb_i2s_irq_trigger(kmb_i2s, substream->stream, 8, false);
-+	else
-+		kmb_i2s_disable_dma(kmb_i2s, substream->stream);
-+
-+	if (!kmb_i2s->active) {
-+		writel(0, kmb_i2s->i2s_base + CER);
-+		writel(0, kmb_i2s->i2s_base + IER);
-+	}
-+
-+	return 0;
-+}
-+
- static struct snd_soc_dai_ops kmb_dai_ops = {
-+	.startup	= kmb_dai_startup,
- 	.trigger	= kmb_dai_trigger,
- 	.hw_params	= kmb_dai_hw_params,
-+	.hw_free	= kmb_dai_hw_free,
- 	.prepare	= kmb_dai_prepare,
- 	.set_fmt	= kmb_set_dai_fmt,
- };
-@@ -607,6 +754,7 @@ static struct snd_soc_dai_driver intel_kmb_i2s_dai[] = {
- 				    SNDRV_PCM_FMTBIT_S16_LE),
+diff --git a/sound/soc/qcom/lpass-sc7180.c b/sound/soc/qcom/lpass-sc7180.c
+index 61b51b5..3dc80fc 100644
+--- a/sound/soc/qcom/lpass-sc7180.c
++++ b/sound/soc/qcom/lpass-sc7180.c
+@@ -34,7 +34,8 @@ static struct snd_soc_dai_driver sc7180_lpass_cpu_dai_driver[] = {
  		},
- 		.ops = &kmb_dai_ops,
-+		.probe = kmb_probe,
- 	},
- };
- 
-@@ -626,6 +774,7 @@ static struct snd_soc_dai_driver intel_kmb_tdm_dai[] = {
- 				    SNDRV_PCM_FMTBIT_S16_LE),
- 		},
- 		.ops = &kmb_dai_ops,
-+		.probe = kmb_probe,
- 	},
- };
- 
-@@ -635,12 +784,19 @@ static const struct of_device_id kmb_plat_of_match[] = {
- 	{}
- };
- 
-+static const struct snd_dmaengine_pcm_config kmb_dmaengine_pcm_config = {
-+	.prepare_slave_config = snd_dmaengine_pcm_prepare_slave_config,
-+	.custom_pcm_prepare_and_submit = kmb_pcm_prepare_and_submit,
-+};
-+
- static int kmb_plat_dai_probe(struct platform_device *pdev)
- {
-+	struct device_node *np = pdev->dev.of_node;
- 	struct snd_soc_dai_driver *kmb_i2s_dai;
- 	const struct of_device_id *match;
- 	struct device *dev = &pdev->dev;
- 	struct kmb_i2s_info *kmb_i2s;
-+	struct resource *res;
- 	int ret, irq;
- 	u32 comp1_reg;
- 
-@@ -682,7 +838,7 @@ static int kmb_plat_dai_probe(struct platform_device *pdev)
- 		return PTR_ERR(kmb_i2s->clk_i2s);
- 	}
- 
--	kmb_i2s->i2s_base = devm_platform_ioremap_resource(pdev, 0);
-+	kmb_i2s->i2s_base = devm_platform_get_and_ioremap_resource(pdev, 0, &res);
- 	if (IS_ERR(kmb_i2s->i2s_base))
- 		return PTR_ERR(kmb_i2s->i2s_base);
- 
-@@ -692,22 +848,38 @@ static int kmb_plat_dai_probe(struct platform_device *pdev)
- 
- 	kmb_i2s->dev = &pdev->dev;
- 
--	irq = platform_get_irq_optional(pdev, 0);
--	if (irq > 0) {
--		ret = devm_request_irq(dev, irq, kmb_i2s_irq_handler, 0,
--				       pdev->name, kmb_i2s);
--		if (ret < 0) {
--			dev_err(dev, "failed to request irq\n");
--			return ret;
--		}
--	}
--
- 	comp1_reg = readl(kmb_i2s->i2s_base + I2S_COMP_PARAM_1);
- 
- 	kmb_i2s->fifo_th = (1 << COMP1_FIFO_DEPTH(comp1_reg)) / 2;
- 
--	ret = devm_snd_soc_register_component(dev, &kmb_component,
--					      kmb_i2s_dai, 1);
-+	kmb_i2s->use_pio = !(of_property_read_bool(np, "dmas"));
-+
-+	if (kmb_i2s->use_pio) {
-+		irq = platform_get_irq_optional(pdev, 0);
-+		if (irq > 0) {
-+			ret = devm_request_irq(dev, irq, kmb_i2s_irq_handler, 0,
-+					       pdev->name, kmb_i2s);
-+			if (ret < 0) {
-+				dev_err(dev, "failed to request irq\n");
-+				return ret;
-+			}
-+		}
-+		ret = devm_snd_soc_register_component(dev, &kmb_component,
-+						      kmb_i2s_dai, 1);
-+	} else {
-+		kmb_i2s->play_dma_data.addr = res->start + I2S_TXDMA;
-+		kmb_i2s->capture_dma_data.addr = res->start + I2S_RXDMA;
-+		ret = snd_dmaengine_pcm_register(&pdev->dev,
-+						 &kmb_dmaengine_pcm_config, 0);
-+		if (ret) {
-+			dev_err(&pdev->dev, "could not register dmaengine: %d\n",
-+				ret);
-+			return ret;
-+		}
-+		ret = devm_snd_soc_register_component(dev, &kmb_component_dma,
-+						      kmb_i2s_dai, 1);
-+	}
-+
- 	if (ret) {
- 		dev_err(dev, "not able to register dai\n");
- 		return ret;
-diff --git a/sound/soc/intel/keembay/kmb_platform.h b/sound/soc/intel/keembay/kmb_platform.h
-index 9756b132c12f..fd5341b66279 100644
---- a/sound/soc/intel/keembay/kmb_platform.h
-+++ b/sound/soc/intel/keembay/kmb_platform.h
-@@ -12,6 +12,7 @@
- #include <linux/bits.h>
- #include <linux/bitfield.h>
- #include <linux/types.h>
-+#include <sound/dmaengine_pcm.h>
- 
- /* Register values with reference to KMB databook v1.1 */
- /* common register for all channel */
-@@ -103,7 +104,12 @@
- #define DW_I2S_MASTER	BIT(3)
- 
- #define I2S_RXDMA	0x01C0
-+#define I2S_RRXDMA	0x01C4
- #define I2S_TXDMA	0x01C8
-+#define I2S_RTXDMA	0x01CC
-+#define I2S_DMACR	0x0200
-+#define I2S_DMAEN_RXBLOCK	(1 << 16)
-+#define I2S_DMAEN_TXBLOCK	(1 << 17)
- 
- /*
-  * struct i2s_clk_config_data - represent i2s clk configuration data
-@@ -131,6 +137,9 @@ struct kmb_i2s_info {
- 	u32 xfer_resolution;
- 	u32 fifo_th;
- 	bool master;
-+	/* data related to DMA transfers b/w i2s and DMAC */
-+	struct snd_dmaengine_dai_dma_data play_dma_data;
-+	struct snd_dmaengine_dai_dma_data capture_dma_data;
- 
- 	struct i2s_clk_config_data config;
- 	int (*i2s_clk_cfg)(struct i2s_clk_config_data *config);
+ 		.capture = {
+ 			.stream_name = "Primary Capture",
+-			.formats = SNDRV_PCM_FMTBIT_S16,
++			.formats = SNDRV_PCM_FMTBIT_S16 |
++				SNDRV_PCM_FMTBIT_S32,
+ 			.rates = SNDRV_PCM_RATE_48000,
+ 			.rate_min	= 48000,
+ 			.rate_max	= 48000,
 -- 
-2.17.1
+Qualcomm India Private Limited, on behalf of Qualcomm Innovation Center, Inc.,
+is a member of Code Aurora Forum, a Linux Foundation Collaborative Project.
 

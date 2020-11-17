@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 07A6F2B5ACC
-	for <lists+alsa-devel@lfdr.de>; Tue, 17 Nov 2020 09:13:29 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id B39032B5ACA
+	for <lists+alsa-devel@lfdr.de>; Tue, 17 Nov 2020 09:12:49 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 85DAE1747;
-	Tue, 17 Nov 2020 09:12:38 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 85DAE1747
+	by alsa0.perex.cz (Postfix) with ESMTPS id 65572173B;
+	Tue, 17 Nov 2020 09:11:58 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 65572173B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1605600808;
-	bh=3tSDbfVBt6kmwJIhc6jP5G91e1Zak81ckSNzcDVpuOs=;
+	s=default; t=1605600768;
+	bh=1Jz0gDCwwB6+HTM81J57PcBKRZD2nbnElwFVAkteoYw=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=fBJkyL2K1J2n+N24Ez+qV0HK2G0uyQGGlnXGI57SwlTtJ1u899K4O1VtlVLddhosQ
-	 TGE6YB/y18NUWthFT6SAPW1s9HueyDj8S+nO6ngo4arZcO1I6RTnjARPJTXRBSmsmA
-	 YdXi4m+oJFAjaqW2Zc3IoRijoxlrXXgu0zaqDpPY=
+	b=ZgLC4AzbnpE5qorKbRtBPiBjduSNEYZ8Sqpk6hUCB9IMg3I6s+DRx/T6rCtkUBAW7
+	 6Nhq9/bmXXE4sLsmhvWcrg7iQh0TU/KLfxfGDE5PrgPJ9G52FuR/VIkxti2eE1R8KN
+	 eqlToLOGM4FSy+oREYz/eqKZZUB/0oVc0VpH2qis=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 0861FF804C2;
-	Tue, 17 Nov 2020 09:11:12 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 21337F8010A;
+	Tue, 17 Nov 2020 09:11:08 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 12513F802A9; Tue, 17 Nov 2020 09:11:08 +0100 (CET)
+ id 55AE9F80276; Tue, 17 Nov 2020 09:11:06 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_MSPIKE_H4,
@@ -34,30 +34,30 @@ X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_MSPIKE_H4,
 Received: from mga06.intel.com (mga06.intel.com [134.134.136.31])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 9A77FF801F5
- for <alsa-devel@alsa-project.org>; Tue, 17 Nov 2020 09:10:50 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9A77FF801F5
-IronPort-SDR: CCxlAXMD+zhSZMLTOZpqs4LizLsJkkjNInESFkqLbm4vD54VQNbG9HwoANKx6TZjO99+ae/Qmx
- xFPUvvmx7bzw==
-X-IronPort-AV: E=McAfee;i="6000,8403,9807"; a="232498815"
-X-IronPort-AV: E=Sophos;i="5.77,484,1596524400"; d="scan'208";a="232498815"
+ by alsa1.perex.cz (Postfix) with ESMTPS id 98966F801ED
+ for <alsa-devel@alsa-project.org>; Tue, 17 Nov 2020 09:10:51 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 98966F801ED
+IronPort-SDR: 58/KElAinTusZmwVLUABXu7Zy8T5Ij+ailzXXh1NLN/jix9147OKu/DNJUm6DMjigaWagAHqvU
+ wakOvp7l7v9A==
+X-IronPort-AV: E=McAfee;i="6000,8403,9807"; a="232498821"
+X-IronPort-AV: E=Sophos;i="5.77,484,1596524400"; d="scan'208";a="232498821"
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
 Received: from fmsmga004.fm.intel.com ([10.253.24.48])
  by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 17 Nov 2020 00:10:43 -0800
-IronPort-SDR: pP6wW8CrZWjR4SiFA84yhAiJz900TzgzZxJkECaaHofc4WGf20hH3godlG91piCsCS+9nXwEJB
- exo56O6KgMSw==
+ 17 Nov 2020 00:10:48 -0800
+IronPort-SDR: hfRGJkqjvRkkhcJ8frQ5RtNL+Hyb/9+E2pm80nxuPvbzgktvYiVxbu8cAzf7+ASFM9LZmHdkB+
+ GBjc4RMUU/Zw==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.77,484,1596524400"; d="scan'208";a="358799133"
+X-IronPort-AV: E=Sophos;i="5.77,484,1596524400"; d="scan'208";a="358799170"
 Received: from mike-ilbpg1.png.intel.com ([10.88.227.76])
- by fmsmga004.fm.intel.com with ESMTP; 17 Nov 2020 00:10:41 -0800
+ by fmsmga004.fm.intel.com with ESMTP; 17 Nov 2020 00:10:46 -0800
 From: Michael Sit Wei Hong <michael.wei.hong.sit@intel.com>
 To: alsa-devel@alsa-project.org
-Subject: [RFC PATCH 1/4] dt-bindings: sound: intel,
- keembay-i2s: Add info for device to use DMA
-Date: Tue, 17 Nov 2020 16:03:47 +0800
-Message-Id: <20201117080354.4309-3-michael.wei.hong.sit@intel.com>
+Subject: [RFC PATCH 2/4] ASoC: soc-generic-dmaengine-pcm: Add custom prepare
+ and submit function
+Date: Tue, 17 Nov 2020 16:03:48 +0800
+Message-Id: <20201117080354.4309-4-michael.wei.hong.sit@intel.com>
 X-Mailer: git-send-email 2.17.1
 In-Reply-To: <20201117080354.4309-1-michael.wei.hong.sit@intel.com>
 References: <20201117080354.4309-1-michael.wei.hong.sit@intel.com>
@@ -79,45 +79,137 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Add descriptions for entries needed for audio device to use DMA
-channels for audio playback and capture.
+Enabling custom prepare and submit function to overcome DMA limitation.
+
+In the Intel KeemBay solution, the DW AXI-based DMA has a limitation on
+the number of DMA blocks per transfer. In the case of 16 bit audio ASoC
+would allocate blocks exceeding the DMA block limitation.
+
+The ASoC layers are not aware of such DMA limitation, and the DMA engine
+does not provide an API to set the maximum number of blocks per linked link.
+
+This patch suggests an additional callback to let the caller check and modify
+the number of blocks per transfer to work-around the limitations.
 
 Signed-off-by: Michael Sit Wei Hong <michael.wei.hong.sit@intel.com>
 Reviewed-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 ---
- .../bindings/sound/intel,keembay-i2s.yaml          | 14 ++++++++++++++
- 1 file changed, 14 insertions(+)
+ include/sound/dmaengine_pcm.h         |  6 ++++++
+ sound/core/pcm_dmaengine.c            | 30 ++++++++++++++++++++++-----
+ sound/soc/soc-generic-dmaengine-pcm.c |  8 ++++++-
+ 3 files changed, 38 insertions(+), 6 deletions(-)
 
-diff --git a/Documentation/devicetree/bindings/sound/intel,keembay-i2s.yaml b/Documentation/devicetree/bindings/sound/intel,keembay-i2s.yaml
-index d346e61ab708..e0658f122cbb 100644
---- a/Documentation/devicetree/bindings/sound/intel,keembay-i2s.yaml
-+++ b/Documentation/devicetree/bindings/sound/intel,keembay-i2s.yaml
-@@ -45,6 +45,18 @@ properties:
-       - const: osc
-       - const: apb_clk
+diff --git a/include/sound/dmaengine_pcm.h b/include/sound/dmaengine_pcm.h
+index 8c5e38180fb0..9fae56d39ae2 100644
+--- a/include/sound/dmaengine_pcm.h
++++ b/include/sound/dmaengine_pcm.h
+@@ -28,6 +28,9 @@ snd_pcm_substream_to_dma_direction(const struct snd_pcm_substream *substream)
+ int snd_hwparams_to_dma_slave_config(const struct snd_pcm_substream *substream,
+ 	const struct snd_pcm_hw_params *params, struct dma_slave_config *slave_config);
+ int snd_dmaengine_pcm_trigger(struct snd_pcm_substream *substream, int cmd);
++int snd_dmaengine_pcm_custom_trigger(struct snd_pcm_substream *substream, int cmd,
++	int (*custom_pcm_prepare_and_submit)(struct snd_pcm_substream *substream));
++
+ snd_pcm_uframes_t snd_dmaengine_pcm_pointer(struct snd_pcm_substream *substream);
+ snd_pcm_uframes_t snd_dmaengine_pcm_pointer_no_residue(struct snd_pcm_substream *substream);
  
-+  dmas:
-+    items:
-+      - description: DMA controller phandle and DMA channel
-+                     for TX and RX
+@@ -113,6 +116,8 @@ int snd_dmaengine_pcm_refine_runtime_hwparams(
+  *   which do not use devicetree.
+  * @process: Callback used to apply processing on samples transferred from/to
+  *   user space.
++ * @custom_pcm_prepare_and_submit: Callback used to work-around DMA limitations
++ *   related to link lists.
+  * @compat_filter_fn: Will be used as the filter function when requesting a
+  *  channel for platforms which do not use devicetree. The filter parameter
+  *  will be the DAI's DMA data.
+@@ -138,6 +143,7 @@ struct snd_dmaengine_pcm_config {
+ 	int (*process)(struct snd_pcm_substream *substream,
+ 		       int channel, unsigned long hwoff,
+ 		       void *buf, unsigned long bytes);
++	int (*custom_pcm_prepare_and_submit)(struct snd_pcm_substream *substream);
+ 	dma_filter_fn compat_filter_fn;
+ 	struct device *dma_dev;
+ 	const char *chan_names[SNDRV_PCM_STREAM_LAST + 1];
+diff --git a/sound/core/pcm_dmaengine.c b/sound/core/pcm_dmaengine.c
+index 4d059ff2b2e4..cbd1429de509 100644
+--- a/sound/core/pcm_dmaengine.c
++++ b/sound/core/pcm_dmaengine.c
+@@ -170,16 +170,20 @@ static int dmaengine_pcm_prepare_and_submit(struct snd_pcm_substream *substream)
+ }
+ 
+ /**
+- * snd_dmaengine_pcm_trigger - dmaengine based PCM trigger implementation
++ * snd_dmaengine_pcm_custom_trigger - customized PCM trigger implementation to
++ *  work-around DMA limitations related to link lists.
+  * @substream: PCM substream
+  * @cmd: Trigger command
++ * @custom_pcm_prepare_and_submit: custom function to deal with DMA limitations
+  *
+  * Returns 0 on success, a negative error code otherwise.
+  *
+- * This function can be used as the PCM trigger callback for dmaengine based PCM
+- * driver implementations.
++ * This function can be used as the PCM trigger callback for customized dmaengine
++ * based PCM driver implementations.
+  */
+-int snd_dmaengine_pcm_trigger(struct snd_pcm_substream *substream, int cmd)
 +
-+  dma-names:
-+    items:
-+      - description: "tx" for the transmit channel
-+                     "rx" for the receive channel
-+      - const: tx
-+      - const: rx
++int snd_dmaengine_pcm_custom_trigger(struct snd_pcm_substream *substream, int cmd,
++	int (*custom_pcm_prepare_and_submit)(struct snd_pcm_substream *substream))
+ {
+ 	struct dmaengine_pcm_runtime_data *prtd = substream_to_prtd(substream);
+ 	struct snd_pcm_runtime *runtime = substream->runtime;
+@@ -187,7 +191,7 @@ int snd_dmaengine_pcm_trigger(struct snd_pcm_substream *substream, int cmd)
+ 
+ 	switch (cmd) {
+ 	case SNDRV_PCM_TRIGGER_START:
+-		ret = dmaengine_pcm_prepare_and_submit(substream);
++		ret = custom_pcm_prepare_and_submit(substream);
+ 		if (ret)
+ 			return ret;
+ 		dma_async_issue_pending(prtd->dma_chan);
+@@ -214,6 +218,22 @@ int snd_dmaengine_pcm_trigger(struct snd_pcm_substream *substream, int cmd)
+ 
+ 	return 0;
+ }
++EXPORT_SYMBOL_GPL(snd_dmaengine_pcm_custom_trigger);
 +
- required:
-   - compatible
-   - "#sound-dai-cells"
-@@ -70,4 +82,6 @@ examples:
-          interrupts = <GIC_SPI 120 IRQ_TYPE_LEVEL_HIGH>;
-          clock-names = "osc", "apb_clk";
-          clocks = <&scmi_clk KEEM_BAY_PSS_AUX_I2S3>, <&scmi_clk KEEM_BAY_PSS_I2S3>;
-+         dmas = <&axi_dma0 29 &axi_dma0 33>;
-+         dma-names = "tx", "rx";
-      };
++/**
++ * snd_dmaengine_pcm_trigger - dmaengine based PCM trigger implementation
++ * @substream: PCM substream
++ * @cmd: Trigger command
++ *
++ * Returns 0 on success, a negative error code otherwise.
++ *
++ * This function can be used as the PCM trigger callback for dmaengine based PCM
++ * driver implementations.
++ */
++int snd_dmaengine_pcm_trigger(struct snd_pcm_substream *substream, int cmd)
++{
++	return snd_dmaengine_pcm_custom_trigger(substream, cmd, dmaengine_pcm_prepare_and_submit);
++}
+ EXPORT_SYMBOL_GPL(snd_dmaengine_pcm_trigger);
+ 
+ /**
+diff --git a/sound/soc/soc-generic-dmaengine-pcm.c b/sound/soc/soc-generic-dmaengine-pcm.c
+index 9ef80a48707e..88fca6402a36 100644
+--- a/sound/soc/soc-generic-dmaengine-pcm.c
++++ b/sound/soc/soc-generic-dmaengine-pcm.c
+@@ -173,7 +173,13 @@ static int dmaengine_pcm_close(struct snd_soc_component *component,
+ static int dmaengine_pcm_trigger(struct snd_soc_component *component,
+ 				 struct snd_pcm_substream *substream, int cmd)
+ {
+-	return snd_dmaengine_pcm_trigger(substream, cmd);
++	struct dmaengine_pcm *pcm = soc_component_to_pcm(component);
++
++	if (pcm->config && pcm->config->custom_pcm_prepare_and_submit)
++		return snd_dmaengine_pcm_custom_trigger(substream, cmd,
++							pcm->config->custom_pcm_prepare_and_submit);
++	else
++		return snd_dmaengine_pcm_trigger(substream, cmd);
+ }
+ 
+ static struct dma_chan *dmaengine_pcm_compat_request_channel(
 -- 
 2.17.1
 

@@ -2,83 +2,81 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8071C2B6F2B
-	for <lists+alsa-devel@lfdr.de>; Tue, 17 Nov 2020 20:46:23 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id F3D582B6F39
+	for <lists+alsa-devel@lfdr.de>; Tue, 17 Nov 2020 20:48:12 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 3FB831784;
-	Tue, 17 Nov 2020 20:45:32 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3FB831784
+	by alsa0.perex.cz (Postfix) with ESMTPS id 7D2D017B9;
+	Tue, 17 Nov 2020 20:47:22 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7D2D017B9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1605642382;
-	bh=K30UlZzgxGw8jvfkQIxdM5HKtJCDAANhehaB3fKBWMc=;
+	s=default; t=1605642492;
+	bh=N5CnS5BdR0dsoPcmTh4GoFTRk9uNOY41Vs9P1w0b/f0=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=lE7USyazPS/9e1t0OxyR3mzhrzbG1ijHponHEVFWBS3+OvbZIalpP8coaPx4fbU/+
-	 hly1Y37p4XuG4746Hvs9t/0Qi5ITAmsOS+bkD205df4602cEnIx9YnjySAWxQkoQR3
-	 KWOFhBcs/9dy2oOzwaOEfQpHhul/3UT3Tj6WJnxY=
+	b=P6e+4CquSt3gwKe6b5KPlhZZZxRhfWtPr2r8Bvi2yakEvVhxO0ND0AUrLpXLoLNLr
+	 G9yg05Filzkwep2SZp7raMnPrxsyiteuTKbboGhyVFuCvN0/UJeRb1b6XAdIYrG2Eq
+	 J+W9N+B+RVUfs8xJ2VpVvoy1R6vYQuHAjOR5TP2k=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id EC072F801ED;
-	Tue, 17 Nov 2020 20:45:29 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 11048F804E1;
+	Tue, 17 Nov 2020 20:45:42 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id A46D9F80247; Tue, 17 Nov 2020 20:45:28 +0100 (CET)
+ id E2E8DF80276; Tue, 17 Nov 2020 20:45:38 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU, FREEMAIL_ENVFROM_END_DIGIT, FREEMAIL_FROM, SPF_HELO_NONE,
- SPF_PASS autolearn=disabled version=3.4.0
-Received: from mail-ed1-x544.google.com (mail-ed1-x544.google.com
- [IPv6:2a00:1450:4864:20::544])
+X-Spam-Status: No, score=0.7 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,FREEMAIL_ENVFROM_END_DIGIT,FREEMAIL_FROM,PRX_BODY_13,
+ SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mail-ed1-x542.google.com (mail-ed1-x542.google.com
+ [IPv6:2a00:1450:4864:20::542])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id BB015F801ED
- for <alsa-devel@alsa-project.org>; Tue, 17 Nov 2020 20:45:25 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BB015F801ED
+ by alsa1.perex.cz (Postfix) with ESMTPS id A57C5F80276
+ for <alsa-devel@alsa-project.org>; Tue, 17 Nov 2020 20:45:26 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A57C5F80276
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="UIOGOw6h"
-Received: by mail-ed1-x544.google.com with SMTP id d18so10850656edt.7
- for <alsa-devel@alsa-project.org>; Tue, 17 Nov 2020 11:45:25 -0800 (PST)
+ header.b="qk6qS28g"
+Received: by mail-ed1-x542.google.com with SMTP id t11so23696350edj.13
+ for <alsa-devel@alsa-project.org>; Tue, 17 Nov 2020 11:45:26 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=from:to:cc:subject:date:message-id:in-reply-to:references;
- bh=cfXI1Q85bb28+McjuHeu3xbkODr0lp86DQ42QSmzooY=;
- b=UIOGOw6hK+SW6PZnTFb6Ge3JqTDe/NwtTmNJTO4P+2RtdCxVwpi7Rq/Aqdy7x6Adcp
- wRP88fBy5dFJaM2aQnbeAQ86OaDGwNfxN12gzmJ3dkqFpVnOiTua1TOmWPi7J28YErO5
- +vT7F/x1TgHqtmEhUwh1PGspoG99p7+7gC8IC1SqDzWM6y+6IByo7u7LnARJsyzVo3vk
- EGBbLldPVSZ2FfdplHh31JJWObz6Q/AbWGttToOaFGaxQ4Bnap+uRazajLZG+ZNqt8mO
- LDNPLKADpPwuoYQpU5npEVkcgsD8/4BWY1DBz+1+56qMZZS+niS+ovqyTi/ggQR6pvM/
- lMSQ==
+ bh=+1N9mI1qUYPZ3UD7BXdz5GXkPG3b++Xt3sDUHLMO1JQ=;
+ b=qk6qS28gnRKwOESLNcHfwLAHZfwM/ryUrm4byv6G1JrTmi4UkgEIkDCO6iStNcFbFE
+ UOSd8UrxjVZ3QirzO3hBeq9I9RBePEuFoFVYsYITJH2Xt2hUOSfPsajcO6sTiksmwKNQ
+ P9sIAoUPj9xxDU84/oTa3D8iFI0221w0unUk42ffsize5YNCnEmEkucgJO3Q1AgYfivK
+ weMfY3HyfMd+YlgmsXXVSVmEkhlhVvOYWCfieKGjuVqNpCfP0IiTMd3541oZ+6vyB5bE
+ tCYA2Yj7DJs6SdZuonxEFdHHmqndmE7Mw+zUkp+EFjGmRqyjGS543vnveo1Mzr/ifmFX
+ ZOiQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references;
- bh=cfXI1Q85bb28+McjuHeu3xbkODr0lp86DQ42QSmzooY=;
- b=RBfURWQd3UYUMhpKJuyHHvet8g/rWfwaXEjTLLDs5qH4Pbec1v8zNSiwQLeD/c4DTp
- V3skCL3PWYo4QdX1JuhaFaIm5TP/YXwce894b4E0XdTb0YRR9R2cbGsr1VKS4GSOch3v
- qdxx0FCUHtPuH3OpyBQd+oCqFXhmbU60mNE+cWR9erBvYDznTKbvBOFMX0UxfyOPWmuV
- 1MYuH9q57t2Yprmn+eLUIkZx9inz1RgxiHYfuBRjvbAdKTuz+oDb2tKDQ4fpMIeD3ARH
- BYigtbw+CJ1mn/QzdMX/drdTrmu6EWUGFcZJw/RY5u4ABMBCZ3CGTtEQuu+mXtUW4Bgi
- maNQ==
-X-Gm-Message-State: AOAM531bxhpw0+iXloQXBzay1gmPJlmsfHkS+02rn1I5cf8zosj/yhF0
- 0SlT7sK1+gRGsuYknS5Gr4o=
-X-Google-Smtp-Source: ABdhPJzm63HVDveFpEYpiHWpLCJrGBMkWK296r8Fu/+E5TNgbXn9uz3U4HX7amby2EJhlwkYrbPUvQ==
-X-Received: by 2002:a05:6402:1389:: with SMTP id
- b9mr12408755edv.178.1605642319735; 
- Tue, 17 Nov 2020 11:45:19 -0800 (PST)
+ bh=+1N9mI1qUYPZ3UD7BXdz5GXkPG3b++Xt3sDUHLMO1JQ=;
+ b=jm4zCyhrINelK0q0zVOjBK2v3cxPUSUio9Tk99mieJF6po+J/GFkWaLNFla5NIeigA
+ NC3vDaUgrRbtrl9KNDQY+RErDuuKidb4Q6RzGRtPA3Sk0pxN5NqTV6z06NboJI3bC2r7
+ BR+LH3R8ENMoasjnbUtsxMjseO3RnYH6sTalwGoCkXvU8cwPGklLWLGA9J7nN22z8dEM
+ bwZ+5F+kRhUtoaTPPMco5i39ADnvEgtngqEX2JskJun13s8OVALwpMrVKI7GY/Z68Yeo
+ 8btSvqyk/MIiJTo2MW6twA8HyVApc4fHsU3KU0gCeATsXgoV6tp+QgWx+n95dMN7sIvK
+ 9OVA==
+X-Gm-Message-State: AOAM530/drJA9Mj+VJfWMVeci4I+5RfAsnXowyNfOHnm4UPUYWxB/T0N
+ u8KJHk7AtMsriWZIb6Ua55s=
+X-Google-Smtp-Source: ABdhPJzMLxn5EMqczXJ5JfwQssQuzFDjojsvETt5m20Kllu/KiRDTUuYwmXt+mNyRKxuoHaeavha0w==
+X-Received: by 2002:aa7:d615:: with SMTP id c21mr22524926edr.23.1605642321052; 
+ Tue, 17 Nov 2020 11:45:21 -0800 (PST)
 Received: from debian.home (81-204-249-205.fixed.kpn.net. [81.204.249.205])
- by smtp.gmail.com with ESMTPSA id w2sm727972ejc.109.2020.11.17.11.45.18
+ by smtp.gmail.com with ESMTPSA id w2sm727972ejc.109.2020.11.17.11.45.19
  (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
- Tue, 17 Nov 2020 11:45:19 -0800 (PST)
+ Tue, 17 Nov 2020 11:45:20 -0800 (PST)
 From: Johan Jonker <jbx6244@gmail.com>
 To: heiko@sntech.de
-Subject: [PATCH v4 3/7] dt-bindings: display: add #sound-dai-cells property to
- rockchip rk3066 hdmi
-Date: Tue, 17 Nov 2020 20:45:03 +0100
-Message-Id: <20201117194507.14843-4-jbx6244@gmail.com>
+Subject: [PATCH v4 4/7] drm: rockchip: add sound support to rk3066 hdmi driver
+Date: Tue, 17 Nov 2020 20:45:04 +0100
+Message-Id: <20201117194507.14843-5-jbx6244@gmail.com>
 X-Mailer: git-send-email 2.11.0
 In-Reply-To: <20201117194507.14843-1-jbx6244@gmail.com>
 References: <20201117194507.14843-1-jbx6244@gmail.com>
@@ -102,38 +100,392 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-'#sound-dai-cells' is required to properly interpret
-the list of DAI specified in the 'sound-dai' property.
-Add it to rockchip,rk3066-hdmi.yaml to document that the
-rk3066 HDMI TX also can be used to transmit some audio.
+From: Zheng Yang <zhengyang@rock-chips.com>
 
+Add sound support to the rk3066 HDMI driver.
+
+The I2S input of the HDMI TX allows transmission of
+DVD-Audio and decoded Dolby Digital
+to A/V Receivers and high-end displays.
+The interface supports 2 to 8 channels audio up to 192 kHz.
+The HDMI TX supports variable word length of
+16bits to 32bits for I2S audio inputs.(This driver 24bit max)
+There are three I2S input modes supported.(This driver HDMI_I2S only)
+On RK3066/PX2 the HDMI TX audio source is connected to I2S_8CH.
+
+Signed-off-by: Zheng Yang <zhengyang@rock-chips.com>
 Signed-off-by: Johan Jonker <jbx6244@gmail.com>
 ---
- .../devicetree/bindings/display/rockchip/rockchip,rk3066-hdmi.yaml    | 4 ++++
- 1 file changed, 4 insertions(+)
+ drivers/gpu/drm/rockchip/Kconfig       |   2 +
+ drivers/gpu/drm/rockchip/rk3066_hdmi.c | 272 ++++++++++++++++++++++++++++++++-
+ 2 files changed, 273 insertions(+), 1 deletion(-)
 
-diff --git a/Documentation/devicetree/bindings/display/rockchip/rockchip,rk3066-hdmi.yaml b/Documentation/devicetree/bindings/display/rockchip/rockchip,rk3066-hdmi.yaml
-index 4110d003c..585a8d3b9 100644
---- a/Documentation/devicetree/bindings/display/rockchip/rockchip,rk3066-hdmi.yaml
-+++ b/Documentation/devicetree/bindings/display/rockchip/rockchip,rk3066-hdmi.yaml
-@@ -42,6 +42,9 @@ properties:
-     description:
-       This soc uses GRF regs to switch the HDMI TX input between vop0 and vop1.
+diff --git a/drivers/gpu/drm/rockchip/Kconfig b/drivers/gpu/drm/rockchip/Kconfig
+index 310aa1546..4c20445dc 100644
+--- a/drivers/gpu/drm/rockchip/Kconfig
++++ b/drivers/gpu/drm/rockchip/Kconfig
+@@ -11,6 +11,8 @@ config DRM_ROCKCHIP
+ 	select DRM_DW_MIPI_DSI if ROCKCHIP_DW_MIPI_DSI
+ 	select DRM_RGB if ROCKCHIP_RGB
+ 	select SND_SOC_HDMI_CODEC if ROCKCHIP_CDN_DP && SND_SOC
++	select SND_SOC_HDMI_CODEC if ROCKCHIP_RK3066_HDMI && SND_SOC
++	select SND_SOC_ROCKCHIP_I2S if ROCKCHIP_RK3066_HDMI && SND_SOC
+ 	help
+ 	  Choose this option if you have a Rockchip soc chipset.
+ 	  This driver provides kernel mode setting and buffer
+diff --git a/drivers/gpu/drm/rockchip/rk3066_hdmi.c b/drivers/gpu/drm/rockchip/rk3066_hdmi.c
+index 1c546c3a8..31568658f 100644
+--- a/drivers/gpu/drm/rockchip/rk3066_hdmi.c
++++ b/drivers/gpu/drm/rockchip/rk3066_hdmi.c
+@@ -13,6 +13,8 @@
+ #include <linux/platform_device.h>
+ #include <linux/regmap.h>
  
-+  "#sound-dai-cells":
-+    const: 0
++#include <sound/hdmi-codec.h>
 +
-   ports:
-     type: object
+ #include "rk3066_hdmi.h"
  
-@@ -101,6 +104,7 @@ examples:
-       pinctrl-names = "default";
-       power-domains = <&power RK3066_PD_VIO>;
-       rockchip,grf = <&grf>;
-+      #sound-dai-cells = <0>;
+ #include "rockchip_drm_drv.h"
+@@ -20,9 +22,16 @@
  
-       ports {
-         #address-cells = <1>;
+ #define DEFAULT_PLLA_RATE 30000000
+ 
++struct audio_info {
++	int sample_rate;
++	int channels;
++	int sample_width;
++};
++
+ struct hdmi_data_info {
+ 	int vic; /* The CEA Video ID (VIC) of the current drm display mode. */
+ 	bool sink_is_hdmi;
++	bool sink_has_audio;
+ 	unsigned int enc_out_format;
+ 	unsigned int colorimetry;
+ };
+@@ -54,12 +63,19 @@ struct rk3066_hdmi {
+ 
+ 	unsigned int tmdsclk;
+ 
++	struct platform_device *audio_pdev;
++	bool audio_enable;
++
+ 	struct hdmi_data_info hdmi_data;
++	struct audio_info audio;
+ 	struct drm_display_mode previous_mode;
+ };
+ 
+ #define to_rk3066_hdmi(x) container_of(x, struct rk3066_hdmi, x)
+ 
++static int
++rk3066_hdmi_config_audio(struct rk3066_hdmi *hdmi, struct audio_info *audio);
++
+ static inline u8 hdmi_readb(struct rk3066_hdmi *hdmi, u16 offset)
+ {
+ 	return readl_relaxed(hdmi->regs + offset);
+@@ -205,6 +221,20 @@ static int rk3066_hdmi_config_avi(struct rk3066_hdmi *hdmi,
+ 					HDMI_INFOFRAME_AVI, 0, 0, 0);
+ }
+ 
++static int rk3066_hdmi_config_aai(struct rk3066_hdmi *hdmi,
++				  struct audio_info *audio)
++{
++	struct hdmi_audio_infoframe *faudio;
++	union hdmi_infoframe frame;
++	int rc;
++
++	rc = hdmi_audio_infoframe_init(&frame.audio);
++	faudio = (struct hdmi_audio_infoframe *)&frame;
++
++	return rk3066_hdmi_upload_frame(hdmi, rc, &frame,
++					HDMI_INFOFRAME_AAI, 0, 0, 0);
++}
++
+ static int rk3066_hdmi_config_video_timing(struct rk3066_hdmi *hdmi,
+ 					   struct drm_display_mode *mode)
+ {
+@@ -353,6 +383,7 @@ static int rk3066_hdmi_setup(struct rk3066_hdmi *hdmi,
+ 		hdmi_modb(hdmi, HDMI_HDCP_CTRL, HDMI_VIDEO_MODE_MASK,
+ 			  HDMI_VIDEO_MODE_HDMI);
+ 		rk3066_hdmi_config_avi(hdmi, mode);
++		rk3066_hdmi_config_audio(hdmi, &hdmi->audio);
+ 	} else {
+ 		hdmi_modb(hdmi, HDMI_HDCP_CTRL, HDMI_VIDEO_MODE_MASK, 0);
+ 	}
+@@ -369,9 +400,20 @@ static int rk3066_hdmi_setup(struct rk3066_hdmi *hdmi,
+ 	 */
+ 	rk3066_hdmi_i2c_init(hdmi);
+ 
+-	/* Unmute video output. */
++	/* Unmute video and audio output. */
+ 	hdmi_modb(hdmi, HDMI_VIDEO_CTRL2,
+ 		  HDMI_VIDEO_AUDIO_DISABLE_MASK, HDMI_AUDIO_DISABLE);
++	if (hdmi->audio_enable) {
++		hdmi_modb(hdmi, HDMI_VIDEO_CTRL2, HDMI_AUDIO_DISABLE, 0);
++		/* Reset audio capture logic. */
++		hdmi_modb(hdmi, HDMI_VIDEO_CTRL2,
++			  HDMI_AUDIO_CP_LOGIC_RESET_MASK,
++			  HDMI_AUDIO_CP_LOGIC_RESET);
++		usleep_range(900, 1000);
++		hdmi_modb(hdmi, HDMI_VIDEO_CTRL2,
++			  HDMI_AUDIO_CP_LOGIC_RESET_MASK, 0);
++	}
++
+ 	return 0;
+ }
+ 
+@@ -473,9 +515,13 @@ static int rk3066_hdmi_connector_get_modes(struct drm_connector *connector)
+ 	edid = drm_get_edid(connector, hdmi->ddc);
+ 	if (edid) {
+ 		hdmi->hdmi_data.sink_is_hdmi = drm_detect_hdmi_monitor(edid);
++		hdmi->hdmi_data.sink_has_audio = drm_detect_monitor_audio(edid);
+ 		drm_connector_update_edid_property(connector, edid);
+ 		ret = drm_add_edid_modes(connector, edid);
+ 		kfree(edid);
++	} else {
++		hdmi->hdmi_data.sink_is_hdmi = true;
++		hdmi->hdmi_data.sink_has_audio = true;
+ 	}
+ 
+ 	return ret;
+@@ -536,6 +582,228 @@ struct drm_connector_helper_funcs rk3066_hdmi_connector_helper_funcs = {
+ };
+ 
+ static int
++rk3066_hdmi_config_audio(struct rk3066_hdmi *hdmi, struct audio_info *audio)
++{
++	u32 rate, channel, word_length, N, CTS;
++	u64 tmp;
++
++	if (audio->channels < 3)
++		channel = HDMI_AUDIO_I2S_CHANNEL_1_2;
++	else if (audio->channels < 5)
++		channel = HDMI_AUDIO_I2S_CHANNEL_3_4;
++	else if (audio->channels < 7)
++		channel = HDMI_AUDIO_I2S_CHANNEL_5_6;
++	else
++		channel = HDMI_AUDIO_I2S_CHANNEL_7_8;
++
++	switch (audio->sample_rate) {
++	case 32000:
++		rate = HDMI_AUDIO_SAMPLE_FRE_32000;
++		N = N_32K;
++		break;
++	case 44100:
++		rate = HDMI_AUDIO_SAMPLE_FRE_44100;
++		N = N_441K;
++		break;
++	case 48000:
++		rate = HDMI_AUDIO_SAMPLE_FRE_48000;
++		N = N_48K;
++		break;
++	case 88200:
++		rate = HDMI_AUDIO_SAMPLE_FRE_88200;
++		N = N_882K;
++		break;
++	case 96000:
++		rate = HDMI_AUDIO_SAMPLE_FRE_96000;
++		N = N_96K;
++		break;
++	case 176400:
++		rate = HDMI_AUDIO_SAMPLE_FRE_176400;
++		N = N_1764K;
++		break;
++	case 192000:
++		rate = HDMI_AUDIO_SAMPLE_FRE_192000;
++		N = N_192K;
++		break;
++	default:
++		DRM_DEV_ERROR(hdmi->dev, "no support for sample rate %d\n",
++			      audio->sample_rate);
++		return -ENOENT;
++	}
++
++	switch (audio->sample_width) {
++	case 16:
++		word_length = 0x02;
++		break;
++	case 20:
++		word_length = 0x0a;
++		break;
++	case 24:
++		word_length = 0x0b;
++		break;
++	default:
++		DRM_DEV_ERROR(hdmi->dev, "no support for word length %d\n",
++			      audio->sample_width);
++		return -ENOENT;
++	}
++
++	tmp = (u64)hdmi->tmdsclk * N;
++	do_div(tmp, 128 * audio->sample_rate);
++	CTS = tmp;
++
++	/* Set_audio source I2S. */
++	hdmi_writeb(hdmi, HDMI_AUDIO_CTRL1, 0x00);
++	hdmi_writeb(hdmi, HDMI_AUDIO_CTRL2, 0x40);
++	hdmi_writeb(hdmi, HDMI_I2S_AUDIO_CTRL,
++		    HDMI_AUDIO_I2S_FORMAT_STANDARD | channel);
++	hdmi_writeb(hdmi, HDMI_I2S_SWAP, 0x00);
++	hdmi_modb(hdmi, HDMI_AV_CTRL1, HDMI_AUDIO_SAMPLE_FRE_MASK, rate);
++	hdmi_writeb(hdmi, HDMI_AUDIO_SRC_NUM_AND_LENGTH, word_length);
++
++	/* Set N value. */
++	hdmi_modb(hdmi, HDMI_LR_SWAP_N3,
++		  HDMI_AUDIO_N_19_16_MASK, (N >> 16) & 0x0F);
++	hdmi_writeb(hdmi, HDMI_N2, (N >> 8) & 0xFF);
++	hdmi_writeb(hdmi, HDMI_N1, N & 0xFF);
++
++	/* Set CTS value. */
++	hdmi_writeb(hdmi, HDMI_CTS_EXT1, CTS & 0xff);
++	hdmi_writeb(hdmi, HDMI_CTS_EXT2, (CTS >> 8) & 0xff);
++	hdmi_writeb(hdmi, HDMI_CTS_EXT3, (CTS >> 16) & 0xff);
++
++	if (audio->channels > 2)
++		hdmi_modb(hdmi, HDMI_LR_SWAP_N3,
++			  HDMI_AUDIO_LR_SWAP_MASK,
++			  HDMI_AUDIO_LR_SWAP_SUBPACKET1);
++	rate = (~(rate >> 4)) & 0x0f;
++	hdmi_writeb(hdmi, HDMI_AUDIO_STA_BIT_CTRL1, rate);
++	hdmi_writeb(hdmi, HDMI_AUDIO_STA_BIT_CTRL2, 0);
++
++	return rk3066_hdmi_config_aai(hdmi, audio);
++}
++
++static int rk3066_hdmi_audio_hw_params(struct device *dev, void *d,
++				       struct hdmi_codec_daifmt *daifmt,
++				       struct hdmi_codec_params *params)
++{
++	struct rk3066_hdmi *hdmi = dev_get_drvdata(dev);
++
++	if (!hdmi->hdmi_data.sink_has_audio) {
++		DRM_DEV_ERROR(hdmi->dev, "no audio support\n");
++		return -ENODEV;
++	}
++
++	if (!hdmi->encoder.crtc)
++		return -ENODEV;
++
++	switch (daifmt->fmt) {
++	case HDMI_I2S:
++		break;
++	default:
++		DRM_DEV_ERROR(dev, "invalid format %d\n", daifmt->fmt);
++		return -EINVAL;
++	}
++
++	hdmi->audio.sample_width = params->sample_width;
++	hdmi->audio.sample_rate = params->sample_rate;
++	hdmi->audio.channels = params->channels;
++
++	return rk3066_hdmi_config_audio(hdmi, &hdmi->audio);
++}
++
++static void rk3066_hdmi_audio_shutdown(struct device *dev, void *d)
++{
++	/* do nothing */
++}
++
++static int
++rk3066_hdmi_audio_mute_stream(struct device *dev, void *d,
++			      bool mute, int direction)
++{
++	struct rk3066_hdmi *hdmi = dev_get_drvdata(dev);
++
++	if (!hdmi->hdmi_data.sink_has_audio) {
++		DRM_DEV_ERROR(hdmi->dev, "no audio support\n");
++		return -ENODEV;
++	}
++
++	hdmi->audio_enable = !mute;
++
++	if (mute)
++		hdmi_modb(hdmi, HDMI_VIDEO_CTRL2,
++			  HDMI_AUDIO_DISABLE, HDMI_AUDIO_DISABLE);
++	else
++		hdmi_modb(hdmi, HDMI_VIDEO_CTRL2, HDMI_AUDIO_DISABLE, 0);
++
++	/*
++	 * Under power mode E we need to reset the audio capture logic to
++	 * make the audio setting update.
++	 */
++	if (rk3066_hdmi_get_power_mode(hdmi) == HDMI_SYS_POWER_MODE_E) {
++		hdmi_modb(hdmi, HDMI_VIDEO_CTRL2,
++			  HDMI_AUDIO_CP_LOGIC_RESET_MASK,
++			  HDMI_AUDIO_CP_LOGIC_RESET);
++		usleep_range(900, 1000);
++		hdmi_modb(hdmi, HDMI_VIDEO_CTRL2,
++			  HDMI_AUDIO_CP_LOGIC_RESET_MASK, 0);
++	}
++
++	return 0;
++}
++
++static int rk3066_hdmi_audio_get_eld(struct device *dev, void *d,
++				     u8 *buf, size_t len)
++{
++	struct rk3066_hdmi *hdmi = dev_get_drvdata(dev);
++	struct drm_mode_config *config = &hdmi->encoder.dev->mode_config;
++	struct drm_connector *connector;
++	int ret = -ENODEV;
++
++	mutex_lock(&config->mutex);
++	list_for_each_entry(connector, &config->connector_list, head) {
++		if (&hdmi->encoder == connector->encoder) {
++			memcpy(buf, connector->eld,
++			       min(sizeof(connector->eld), len));
++			ret = 0;
++		}
++	}
++	mutex_unlock(&config->mutex);
++
++	return ret;
++}
++
++static const struct hdmi_codec_ops audio_codec_ops = {
++	.hw_params = rk3066_hdmi_audio_hw_params,
++	.audio_shutdown = rk3066_hdmi_audio_shutdown,
++	.mute_stream = rk3066_hdmi_audio_mute_stream,
++	.get_eld = rk3066_hdmi_audio_get_eld,
++	.no_capture_mute = 1,
++};
++
++static int rk3066_hdmi_audio_codec_init(struct rk3066_hdmi *hdmi,
++					struct device *dev)
++{
++	struct hdmi_codec_pdata codec_data = {
++		.i2s = 1,
++		.ops = &audio_codec_ops,
++		.max_i2s_channels = 8,
++	};
++
++	hdmi->audio.channels = 2;
++	hdmi->audio.sample_rate = 48000;
++	hdmi->audio.sample_width = 16;
++	hdmi->audio_enable = false;
++	hdmi->audio_pdev =
++		platform_device_register_data(dev,
++					      HDMI_CODEC_DRV_NAME,
++					      PLATFORM_DEVID_NONE,
++					      &codec_data,
++					      sizeof(codec_data));
++
++	return PTR_ERR_OR_ZERO(hdmi->audio_pdev);
++}
++
++static int
+ rk3066_hdmi_register(struct drm_device *drm, struct rk3066_hdmi *hdmi)
+ {
+ 	struct drm_encoder *encoder = &hdmi->encoder;
+@@ -567,6 +835,8 @@ rk3066_hdmi_register(struct drm_device *drm, struct rk3066_hdmi *hdmi)
+ 
+ 	drm_connector_attach_encoder(&hdmi->connector, encoder);
+ 
++	rk3066_hdmi_audio_codec_init(hdmi, dev);
++
+ 	return 0;
+ }
+ 
 -- 
 2.11.0
 

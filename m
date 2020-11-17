@@ -2,90 +2,95 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4547C2B6F45
-	for <lists+alsa-devel@lfdr.de>; Tue, 17 Nov 2020 20:49:22 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 393782B70A0
+	for <lists+alsa-devel@lfdr.de>; Tue, 17 Nov 2020 22:06:57 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D16AD17D1;
-	Tue, 17 Nov 2020 20:48:31 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D16AD17D1
+	by alsa0.perex.cz (Postfix) with ESMTPS id AE29B178B;
+	Tue, 17 Nov 2020 22:06:06 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AE29B178B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1605642561;
-	bh=cdCnhWNwtTkMNU7okWv2gCB2pWFhZYO+A3MGfiypVqQ=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1605647216;
+	bh=f7bTOwUirtNhbOYUNt0B7X1DMK+XdVKv0rl58u6pn7E=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=OWb7iDY4SzwlesghcFK0EoeI24A5sUKECxApX52peK7zSln4Fq+r3OXc0WAGUtDm5
-	 PSKergqBaso/ijDjLf472QMKBpYMoHoodhAuxw3ss0uHvdb4pSZ9Kd9nup9e8cHgHZ
-	 Bmn+HKPDUCfOZWyZDJONcn2R6Z/CZXXgoNOapPGM=
+	b=GtKV8tlDt3gjh1wWWELjQV9ndNczggm91fi3HFD3wddzPDQX+hUBw15NT4DHSflkN
+	 3SzoKm6IdSfDbLZEMQbbsloFkS62BN2rVtwRdrvxSVdkhjSAURhSIhhZdd1WjMWheR
+	 sKDtu3tzVGIbyJe6jP8J/RNjpWQDdjADpFfSlS3U=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 02F3CF804FA;
-	Tue, 17 Nov 2020 20:45:43 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 22059F801F9;
+	Tue, 17 Nov 2020 22:05:24 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id F3486F804CC; Tue, 17 Nov 2020 20:45:39 +0100 (CET)
+ id E37CEF801F5; Tue, 17 Nov 2020 22:05:21 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU, FREEMAIL_ENVFROM_END_DIGIT, FREEMAIL_FROM, SPF_HELO_NONE,
- SPF_PASS autolearn=disabled version=3.4.0
-Received: from mail-ed1-x542.google.com (mail-ed1-x542.google.com
- [IPv6:2a00:1450:4864:20::542])
+X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mail-ej1-x643.google.com (mail-ej1-x643.google.com
+ [IPv6:2a00:1450:4864:20::643])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 4B2C3F804BD
- for <alsa-devel@alsa-project.org>; Tue, 17 Nov 2020 20:45:29 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4B2C3F804BD
+ by alsa1.perex.cz (Postfix) with ESMTPS id 27E0BF8010A
+ for <alsa-devel@alsa-project.org>; Tue, 17 Nov 2020 22:05:08 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 27E0BF8010A
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="j/P6lB+w"
-Received: by mail-ed1-x542.google.com with SMTP id k4so7031389edl.0
- for <alsa-devel@alsa-project.org>; Tue, 17 Nov 2020 11:45:29 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=from:to:cc:subject:date:message-id:in-reply-to:references;
- bh=MNzWsDtU39BR4iFEfSJQ9mnoYu92ToJLMEGgLWUUrPw=;
- b=j/P6lB+wO6vdZOi5Agv1mqQVbIrni+q+ALO6i+QbbntEAjO3ALjbyoaIccUUaOa0Yj
- o6cvV+wMx3wOdDlbzNzxjXywYGNQbe72oR4JacgcqedptYB1kV4gPGE+9dGv9jes269G
- Bq0r064CiJxLQraZzATdDk96xLcU/rIXbMJPuKTx1omwbiBt8qZeYKJpGfqDIPuYdMfY
- kyat5CUjgA9yeRMemvobcamXiv2alDl+Dd1uzPC8Lmqx7g7WXqB3glUF4qtkFkoaYh1h
- ZI4XdciXwfyp2DhlBEthUhQgPupbBA3tggimAtRPScUSsyZY2QGd69uiH5vjBKPHREA3
- /ZCQ==
+ dkim=pass (2048-bit key) header.d=intel-com.20150623.gappssmtp.com
+ header.i=@intel-com.20150623.gappssmtp.com header.b="p+pnzb/Q"
+Received: by mail-ej1-x643.google.com with SMTP id o21so31421609ejb.3
+ for <alsa-devel@alsa-project.org>; Tue, 17 Nov 2020 13:05:08 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=intel-com.20150623.gappssmtp.com; s=20150623;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=kPEScT6gyGX81QUKHxjlw3b2BBUYfWDEeiwl2fVm1wc=;
+ b=p+pnzb/QV2PtGwSdlBCCfgAyW8YeNSqAdFBepLZnfBYuN8ZsISPTLreqLJrA1uF2a7
+ JIXpiidK8x1BZ3q54txbRPbxcTBDky4tJDzlsTVAhQKBxJoobg/6zPaXV7Vl+QSryYTW
+ soZx7D0rcc+lDUmhEejuFMzf1msPmPpBn+PNoxSblv6bfenihydjzscQsDUgo2sREyOU
+ qvJ+nDebS94wyW7FnAt3NR3eDkvEdqhOn/DNfQmD7fC/TZImL/cMErCXf/K8W5yTtYga
+ 1ue9DHOUJDF5V2UGiwF6AIAXecxfsnCmkUuDOPjFFBFpbofxmE7TOC7SUS5j4hF6t4B1
+ rXoA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
- :references;
- bh=MNzWsDtU39BR4iFEfSJQ9mnoYu92ToJLMEGgLWUUrPw=;
- b=dLsjQpHHG2XT5eVG10D7T+TBq/Sbj+bDxUPRI7MRdYqYA4Tx++BVMkccP0Gsx8GqUN
- GoNueS0cgHo82nRjlGpwlc6F+VdSlAZsrBQG5gSr85y2jvJ36sEMHtMJU4DdOXhabrIB
- s9l9Brepsv2eNoaT5bgHh1fkT5Z24ZifWxRJG7DBONI3DSpVtDMm/qtcbeDl4OAS3U/l
- pItSW48kWFgeaSYWZnpOo/NojDjk9aOoyRpJkkj653rNQkPezZveKNxzx0ArGOsUenYn
- oLS940lq1yOc2cyPTqat5M7S1h7MSMqSFdLMuksuJeMMxbJe5Na3NHqEoT1aJ8tIGF8l
- l4bA==
-X-Gm-Message-State: AOAM532jpUju38XCsXN/lA032X0eK+idlJofDjoF6yHZoHx61uEoX6tb
- mhXtY+sX4E1GxVprTbqzpok=
-X-Google-Smtp-Source: ABdhPJyrzzhxGF5lvPmDjYfPklRS9F51sz7rQAaESr2rA6OkcPjado8yI8xHELXCq5r82ignHt0H3A==
-X-Received: by 2002:a50:a105:: with SMTP id 5mr21926061edj.165.1605642324325; 
- Tue, 17 Nov 2020 11:45:24 -0800 (PST)
-Received: from debian.home (81-204-249-205.fixed.kpn.net. [81.204.249.205])
- by smtp.gmail.com with ESMTPSA id w2sm727972ejc.109.2020.11.17.11.45.23
- (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
- Tue, 17 Nov 2020 11:45:23 -0800 (PST)
-From: Johan Jonker <jbx6244@gmail.com>
-To: heiko@sntech.de
-Subject: [PATCH v4 7/7] ARM: dts: rockchip: enable hdmi_sound and i2s0 for
- rk3066a-mk808
-Date: Tue, 17 Nov 2020 20:45:07 +0100
-Message-Id: <20201117194507.14843-8-jbx6244@gmail.com>
-X-Mailer: git-send-email 2.11.0
-In-Reply-To: <20201117194507.14843-1-jbx6244@gmail.com>
-References: <20201117194507.14843-1-jbx6244@gmail.com>
-Cc: alsa-devel@alsa-project.org, linux-rockchip@lists.infradead.org,
- airlied@linux.ie, linux-kernel@vger.kernel.org, mturquette@baylibre.com,
- hjc@rock-chips.com, dri-devel@lists.freedesktop.org, lgirdwood@gmail.com,
- sboyd@kernel.org, robh+dt@kernel.org, broonie@kernel.org, daniel@ffwll.ch,
- linux-clk@vger.kernel.org, linux-arm-kernel@lists.infradead.org
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=kPEScT6gyGX81QUKHxjlw3b2BBUYfWDEeiwl2fVm1wc=;
+ b=W8mGhjnDAxeqSKrF18okBN9CpOY2SWNp670igR/cMwDLevpUeHA6m/0vyP/Biij2Wr
+ eIvHx/5VbhJlkqVCFVS17I6rZJZOiTIulTNqCwWjbMSmZZUK2Uyibrk2BSv+T26ZzIv8
+ GsdAQR2So5KQI9sA2GPjyOwne0P7n6KVFssNrSGi0I9eZ+y/4f7cGeqrZ5zAIxgSPxvT
+ fDwU/JXCrlGpaCxl82uuS+RLIOfOvAoNpeVxNCujVK+lpdVebJA+jvuQEsd27zpwY3ZX
+ vBtAiVl8qYYaHNclsw+OU7CrWClMn16FWArStDP1ti6SKeCO02S9TwZSweayVXDdAoFl
+ i/NA==
+X-Gm-Message-State: AOAM533s5yTE98RN+i5mItnZF/r9wkKVDZDIo1+LJngynY5KDgjfbVYJ
+ gpZDqzUqER8iSLZJFpVRjdIKv38mVrJ0jQ6MaoaWQw==
+X-Google-Smtp-Source: ABdhPJxIPEbRet7rRI98nHMy4znmKu8Wwkus/v7GOUPBHi9d8SdQldIDo6o+qUCd10IbSYlqVfJ2O+BKKa6GUrV8c6Y=
+X-Received: by 2002:a17:906:ad8e:: with SMTP id
+ la14mr17989866ejb.264.1605647107261; 
+ Tue, 17 Nov 2020 13:05:07 -0800 (PST)
+MIME-Version: 1.0
+References: <20201113161859.1775473-1-david.m.ertman@intel.com>
+ <20201113161859.1775473-2-david.m.ertman@intel.com>
+ <20201117053000.GM47002@unreal> <X7N1naYOXodPsP/I@kroah.com>
+In-Reply-To: <X7N1naYOXodPsP/I@kroah.com>
+From: Dan Williams <dan.j.williams@intel.com>
+Date: Tue, 17 Nov 2020 13:04:56 -0800
+Message-ID: <CAPcyv4jXinvaLgtdpXTLLQ3sDOhvoBjF=7v7pba5rAd0g_rdow@mail.gmail.com>
+Subject: Re: [PATCH v4 01/10] Add auxiliary bus support
+To: Greg KH <gregkh@linuxfoundation.org>
+Content-Type: text/plain; charset="UTF-8"
+Cc: alsa-devel@alsa-project.org, Parav Pandit <parav@mellanox.com>,
+ Takashi Iwai <tiwai@suse.de>, Netdev <netdev@vger.kernel.org>,
+ Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ Fred Oh <fred.oh@linux.intel.com>, linux-rdma <linux-rdma@vger.kernel.org>,
+ Doug Ledford <dledford@redhat.com>, Mark Brown <broonie@kernel.org>, "Saleem,
+ Shiraz" <shiraz.saleem@intel.com>, Jason Gunthorpe <jgg@nvidia.com>,
+ Jakub Kicinski <kuba@kernel.org>, Dave Ertman <david.m.ertman@intel.com>,
+ Leon Romanovsky <leonro@nvidia.com>, David Miller <davem@davemloft.net>,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>, "Patil,
+ Kiran" <kiran.patil@intel.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -101,33 +106,58 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Make some noise with mk808. Enable the hdmi_sound node and
-add i2s0 as sound source for hdmi.
+On Mon, Nov 16, 2020 at 11:02 PM Greg KH <gregkh@linuxfoundation.org> wrote:
+>
+> On Tue, Nov 17, 2020 at 07:30:00AM +0200, Leon Romanovsky wrote:
+> > On Fri, Nov 13, 2020 at 08:18:50AM -0800, Dave Ertman wrote:
+> > > Add support for the Auxiliary Bus, auxiliary_device and auxiliary_driver.
+> > > It enables drivers to create an auxiliary_device and bind an
+> > > auxiliary_driver to it.
+> > >
+> > > The bus supports probe/remove shutdown and suspend/resume callbacks.
+> > > Each auxiliary_device has a unique string based id; driver binds to
+> > > an auxiliary_device based on this id through the bus.
+> > >
+> > > Co-developed-by: Kiran Patil <kiran.patil@intel.com>
+> > > Signed-off-by: Kiran Patil <kiran.patil@intel.com>
+> > > Co-developed-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
+> > > Signed-off-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
+> > > Co-developed-by: Fred Oh <fred.oh@linux.intel.com>
+> > > Signed-off-by: Fred Oh <fred.oh@linux.intel.com>
+> > > Co-developed-by: Leon Romanovsky <leonro@nvidia.com>
+> > > Signed-off-by: Leon Romanovsky <leonro@nvidia.com>
+> > > Reviewed-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+> > > Reviewed-by: Shiraz Saleem <shiraz.saleem@intel.com>
+> > > Reviewed-by: Parav Pandit <parav@mellanox.com>
+> > > Reviewed-by: Dan Williams <dan.j.williams@intel.com>
+> > > Signed-off-by: Dave Ertman <david.m.ertman@intel.com>
+> > > ---
+> >
+> > Greg,
+> >
+> > This horse was beaten to death, can we please progress with this patch?
+> > Create special topic branch or ack so I'll prepare this branch.
+> >
+> > We are in -rc4 now and we (Mellanox) can't hold our submissions anymore.
+> > My mlx5_core probe patches [1] were too intrusive and they are ready to
+> > be merged, Parav's patches got positive review as well [2] and will be
+> > taken next.
+> >
+> > We delayed and have in our internal queues the patches for VDPA, eswitch
+> > and followup for mlx5_core probe rework, but trapped due to this AUX bus
+> > patch.
+>
+> There are no deadlines for kernel patches here, sorry.  Give me some
+> time to properly review this, core kernel changes should not be rushed.
+>
+> Also, if you really want to blame someone for the delay, look at the
+> patch submitters not the reviewers, as they are the ones that took a
+> very long time with this over the lifecycle of this patchset, not me.  I
+> have provided many "instant" reviews of this patchset, and then months
+> went by between updates from them.
 
-Signed-off-by: Johan Jonker <jbx6244@gmail.com>
----
- arch/arm/boot/dts/rk3066a-mk808.dts | 8 ++++++++
- 1 file changed, 8 insertions(+)
-
-diff --git a/arch/arm/boot/dts/rk3066a-mk808.dts b/arch/arm/boot/dts/rk3066a-mk808.dts
-index eed9e60cf..5fe74c097 100644
---- a/arch/arm/boot/dts/rk3066a-mk808.dts
-+++ b/arch/arm/boot/dts/rk3066a-mk808.dts
-@@ -116,6 +116,14 @@
- 	};
- };
- 
-+&hdmi_sound {
-+	status = "okay";
-+};
-+
-+&i2s0 {
-+	status = "okay";
-+};
-+
- &mmc0 {
- 	bus-width = <4>;
- 	cap-mmc-highspeed;
--- 
-2.11.0
-
+Please stop this finger pointing. It was already noted that the team,
+out of abundance of caution / deference to the process, decided not to
+push the patches while I was out on family leave. It's cruel to hold
+that against them, and if anyone is to blame it's me for not
+clarifying it was ok to proceed while I was out.

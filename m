@@ -2,76 +2,82 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 14FC02B71C3
-	for <lists+alsa-devel@lfdr.de>; Tue, 17 Nov 2020 23:41:23 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id ADA472B71D9
+	for <lists+alsa-devel@lfdr.de>; Tue, 17 Nov 2020 23:55:19 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 7506E17CC;
-	Tue, 17 Nov 2020 23:40:32 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7506E17CC
+	by alsa0.perex.cz (Postfix) with ESMTPS id 36B5317C6;
+	Tue, 17 Nov 2020 23:54:29 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 36B5317C6
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1605652882;
-	bh=VmnNW11IpNcYjP7v4gnTxb4aMYjRyWugf3f+TWyC6Sk=;
-	h=Date:From:To:In-Reply-To:References:Subject:Cc:List-Id:
+	s=default; t=1605653719;
+	bh=OPkHCSEBLYCZW+XlpHzEZsWpFoTFK/4I0I5BptM8jBk=;
+	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=bCUQrbDLq034zVKT9y4WdjSRm5Jotipo3OKQbx+TwQ0gjQV9QzOLqf6ayUrz2fc/s
-	 lF6C5ATkh/AHeC0Kpmlyg3DM3OK50d3rM+HlyUYZTGyyBwnegIcoe+XU713VM7Ifgo
-	 JfmFswcFOC3WW0FhSzIJ7Sbxgxj873apPq98jXLk=
+	b=JVh2aXhJ1gAX6oFA0jcdMUL1Nsi12+JgVCq5wr3i4iZEV5H+XOOy6K/JKBpe2Ck5V
+	 BvVrnINRsmdZIQHSO53ldVgLnATPkgvIq5mv3ceuju66yQyMl+q7f6+3RIvfPkDesF
+	 8DR+jirLQuxqWtNuQwlRlLOLGA2zFeZm8hMzYFlI=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id A9A5AF804E2;
-	Tue, 17 Nov 2020 23:38:25 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id A8593F800E2;
+	Tue, 17 Nov 2020 23:53:46 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 82820F804E1; Tue, 17 Nov 2020 23:38:24 +0100 (CET)
+ id 274C6F800E2; Tue, 17 Nov 2020 23:53:44 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled
- version=3.4.0
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 4FEABF804DF
- for <alsa-devel@alsa-project.org>; Tue, 17 Nov 2020 23:38:22 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4FEABF804DF
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="sX3AUEI4"
-Received: from localhost (fw-tnat.cambridge.arm.com [217.140.96.140])
+X-Spam-Status: No, score=0.3 required=5.0 tests=NICE_REPLY_A,PRX_BODY_65,
+ RCVD_IN_MSPIKE_H3, RCVD_IN_MSPIKE_WL, SPF_HELO_NONE,
+ SPF_NONE autolearn=disabled version=3.4.0
+Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id CB8F820709;
- Tue, 17 Nov 2020 22:38:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1605652700;
- bh=VmnNW11IpNcYjP7v4gnTxb4aMYjRyWugf3f+TWyC6Sk=;
- h=Date:From:To:Cc:In-Reply-To:References:Subject:From;
- b=sX3AUEI4QAN1gQoO25dLMALQ+ct7FupUG62S26KCv7gxvzEcQhZ/8aetnl4Xhy1ei
- 94reH1+3EUKvHgLSvCLeC0ud79b6LNeHPFZPKsUjApm1xt3CHks+YZoTQt9sJ1YIqw
- j66YlAl9IeXgY2TOXnnscfeBgPaJuW6RkBr9/YB8=
-Date: Tue, 17 Nov 2020 22:38:01 +0000
-From: Mark Brown <broonie@kernel.org>
-To: Jie Yang <yang.jie@linux.intel.com>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- Sia Jee Heng <jee.heng.sia@intel.com>,
- Cezary Rojewski <cezary.rojewski@intel.com>,
- Liam Girdwood <liam.r.girdwood@linux.intel.com>,
- Michael Sit Wei Hong <michael.wei.hong.sit@intel.com>,
- Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
- Geert Uytterhoeven <geert+renesas@glider.be>
-In-Reply-To: <20201110145001.3280479-1-geert+renesas@glider.be>
-References: <20201110145001.3280479-1-geert+renesas@glider.be>
-Subject: Re: [PATCH] ASoC: intel: SND_SOC_INTEL_KEEMBAY should depend on
- ARCH_KEEMBAY
-Message-Id: <160565265703.23689.2267658300131565861.b4-ty@kernel.org>
+ by alsa1.perex.cz (Postfix) with ESMTPS id C298FF800E2
+ for <alsa-devel@alsa-project.org>; Tue, 17 Nov 2020 23:53:39 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C298FF800E2
+IronPort-SDR: 3oFLDuSRbhA4dSZnLpPatBLUCEOaJKmvAURoncHryWlVsSamLT6+727KmVdt0yXyxzvkxC4sj+
+ a9aRCTtYnEdQ==
+X-IronPort-AV: E=McAfee;i="6000,8403,9808"; a="189092282"
+X-IronPort-AV: E=Sophos;i="5.77,486,1596524400"; d="scan'208";a="189092282"
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from fmsmga005.fm.intel.com ([10.253.24.32])
+ by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 17 Nov 2020 14:53:31 -0800
+IronPort-SDR: l9Vu1sp4D0ihQL/ZSivllqXt3zBmAxMI2c/EfazWYSPuv3a2MfvNd2sn6WV4jQIXnNOHA3mLQF
+ uJEjgzOUzUBw==
+X-IronPort-AV: E=Sophos;i="5.77,486,1596524400"; d="scan'208";a="533993210"
+Received: from timmcdon-mobl1.amr.corp.intel.com (HELO [10.209.69.233])
+ ([10.209.69.233])
+ by fmsmga005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 17 Nov 2020 14:53:30 -0800
+Subject: Re: [PATCH 00/14] ASoC: Intel/SOF: extend run-time driver selection
+ to ACPI devices
+To: "Rojewski, Cezary" <cezary.rojewski@intel.com>,
+ Takashi Iwai <tiwai@suse.de>
+References: <20201112223825.39765-1-pierre-louis.bossart@linux.intel.com>
+ <0a0854d1ddaf4f9b81ef5569a7d501a5@intel.com>
+ <20201113164946.GD4828@sirena.org.uk>
+ <2cf7075b-bd51-21a5-2058-3a98e6c488a7@redhat.com>
+ <d462c890495e4dda8698b5ba5eb50066@intel.com>
+ <f62abcd8-b67f-774b-61b5-e08cfc3d2cc7@linux.intel.com>
+ <s5h1rgst6z4.wl-tiwai@suse.de> <0286c6975f24432082f609d45adaa14c@intel.com>
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Message-ID: <0badb36f-3089-dc34-f7b0-75a73b856f0d@linux.intel.com>
+Date: Tue, 17 Nov 2020 16:53:08 -0600
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.10.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Cc: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org
+In-Reply-To: <0286c6975f24432082f609d45adaa14c@intel.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
+Cc: Hans de Goede <hdegoede@redhat.com>,
+ "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
+ Mark Brown <broonie@kernel.org>,
+ "andriy.shevchenko@linux.intel.com" <andriy.shevchenko@linux.intel.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -87,36 +93,53 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Tue, 10 Nov 2020 15:50:01 +0100, Geert Uytterhoeven wrote:
-> The Intel Keem Bay audio module is only present on Intel Keem Bay SoCs.
-> Hence add a dependency on ARCH_KEEMBAY, to prevent asking the user about
-> this driver when configuring a kernel without Intel Keem Bay platform
-> support.
 
-Applied to
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
+On 11/17/20 4:13 PM, Rojewski, Cezary wrote:
+> On 2020-11-17 3:04 PM, Takashi Iwai wrote:
+>> On Mon, 16 Nov 2020 18:47:22 +0100,
+>> Pierre-Louis Bossart wrote:
+>>>
+>>>> Explicit 'ifs' asking whether we're dealing with SOF or other solution
+>>>> is at best a code smell. I believe this is unnecessary complexity added
+>>>> to the code especially once you realize user needs to play with module
+>>>> parameters to switch between solutions. If we assume user is able to
+>>>> play with module parameters then why not simply make use of blacklist
+>>>> mechanism?
+>>>
+>>> Been there, done that. We don't want to use either denylist of kernel
+>>> parameters.
+>>>
+>>> denylists create confusion for users, it's an endless stream of false
+>>> errors and time lost in bug reports.
+>>>
+>>> The use of the kernel parameter is ONLY for expert users who want to
+>>> tinker with the system or debug issues, the average user should not
+>>> have to play with either denylists or kernel parameters.
+>>
+>> I guess Cezary mean the modprobe blacklist?  This was used in the
+>> early stage of ASoC Skylake driver development, but in the end, it's
+>> more cumbersome because user needs to change multiple places.  The
+>> single module parameter was easier to handle.
+>>
+> 
+> Thanks for joining the discussion, Takashi.
+> 
+> If the switch of solution for atom-based products is imminent, why add
+> code which becomes redundant soon after?
 
-Thanks!
+To be clear: there is *no plan* to *remove* the Atom/sst code any time 
+'soon', only to *deprecate* it.
 
-[1/1] ASoC: intel: SND_SOC_INTEL_KEEMBAY should depend on ARCH_KEEMBAY
-      commit: 9a207228bdf0a4933b794c944d7111564353ea94
+In the best case distributions would transition in 2021. Some distros 
+are faster than others, neither you nor I have any control over this.
 
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
+Removing code from the kernel is not something we can do unless there is 
+demonstrated evidence that the number of impacted users is close to zero 
+and distributions no longer support that code. The case of Baytrail 
+legacy is telling, you removed it earlier this Fall but after a 
+recommended alternative was provided for more than 3 years.
 
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
+Again, there is no planned 'switch' but a gradual transition, and that 
+patchset helps with the transition.
 
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
-
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-Thanks,
-Mark

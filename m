@@ -2,80 +2,118 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C3D222B564D
-	for <lists+alsa-devel@lfdr.de>; Tue, 17 Nov 2020 02:36:22 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id DFB992B58DF
+	for <lists+alsa-devel@lfdr.de>; Tue, 17 Nov 2020 05:38:14 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 59EBC1778;
-	Tue, 17 Nov 2020 02:35:32 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 59EBC1778
+	by alsa0.perex.cz (Postfix) with ESMTPS id 5E3A01761;
+	Tue, 17 Nov 2020 05:37:24 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5E3A01761
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1605576982;
-	bh=2AyZv4I2MebFYcPbsqYHIJ5wozoCBPTQ/0lrhGulJJ4=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1605587894;
+	bh=z4NAYjYC1lfRnW1bEgtAdG9xEE69t5pHqOVJKTY5Fvc=;
+	h=Subject:To:References:From:Date:In-Reply-To:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=LbI7ucD+g1j1WjCxZ4hcNYy9+pLhIlpK+X0wLJE8wIiQr8dryvi0xeZOw6ABxui9q
-	 gb6xDKsZWI+YD5ueMbChvVdrUaDX0yz97F9STeXAUGzCnAGoAcxmxZ6EQmxjGXNGMX
-	 NUmH75TUt7hqvkl/MY6tfvc9XD0MvwzuC8PSdmxg=
+	b=KTX3I/kC0LlrgLrhS3MXqRJf4W9GUZ05C2ronlpfruX1ggFLyr1C4wQSZeCMyXD48
+	 Lhkj+ze7rsUI594MokapLrjHYpN4rhvrqAZloNBXT99UQPgRz4u04GPtir0pKx3UpP
+	 EHPRQZnEGB+rmY9wqbpGT/dPIRiUo/YdJde1CWPw=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 2FF82F804BD;
-	Tue, 17 Nov 2020 02:34:11 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id DA327F801F9;
+	Tue, 17 Nov 2020 05:36:41 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 0B04BF8029B; Tue, 17 Nov 2020 02:34:03 +0100 (CET)
+ id BBB07F801F5; Tue, 17 Nov 2020 05:36:38 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.7 required=5.0 tests=FREEMAIL_ENVFROM_END_DIGIT,
- FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,
- RCVD_IN_MSPIKE_H2,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
-Received: from mail-oi1-f193.google.com (mail-oi1-f193.google.com
- [209.85.167.193])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=0.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,NICE_REPLY_A,PRX_BODY_26,SPF_HELO_PASS,SPF_PASS,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from wnew4-smtp.messagingengine.com (wnew4-smtp.messagingengine.com
+ [64.147.123.18])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id DA22BF80168
- for <alsa-devel@alsa-project.org>; Tue, 17 Nov 2020 02:33:56 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DA22BF80168
-Received: by mail-oi1-f193.google.com with SMTP id f11so7236355oij.6
- for <alsa-devel@alsa-project.org>; Mon, 16 Nov 2020 17:33:56 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
- :references:mime-version:content-transfer-encoding;
- bh=7v83U4ZReYBGAfYOQtO/dOb1BUnzpl5ihuyBngAA7CU=;
- b=n18b0PSErmjEznE0SuBee9UZDVAheZ/iBnZ113JyhAChZL2G46jOeTyf6W3hEIrsVQ
- BqO7sQVNss1wiiS4KJuPePrPtEnnU6P7WtAlSMVKQNjE/T47n5/ginPaI8m3q7DxsB2k
- Mm9wp+pk3md+M30jG8MF/DXfXk7bttceJMTNws5WCKewIuZLp7NJq7OIxn9ejUxxnelG
- PkGuVggBkLI/9CyuEfFuTB9rrmhHa8mDq8RQ4enXa0mswE9Jf3wM5QFMTOGs/nCR2Dz/
- AW38f+yZN+SgMA5epdfO2jEPz6QdaFffv/CaPl2D/w7Kt8794s5oaDQwWhUYcWFqocB5
- CksA==
-X-Gm-Message-State: AOAM532pZbmnABAPRjMWs8jvvOJ7PUGnpRhupWPtMbhGthR5lAKHbJVI
- Bt2mRSW+6uy6o+2Cdd/MfQ==
-X-Google-Smtp-Source: ABdhPJzyi1Pq1zCgJvRLk5tSHnQcHJ5b4OUkT8Xd8ewHIyt1yL8BzhAIJOyKkE7LJYcFknVYD6ujrA==
-X-Received: by 2002:aca:486:: with SMTP id 128mr997880oie.19.1605576834952;
- Mon, 16 Nov 2020 17:33:54 -0800 (PST)
-Received: from xps15.herring.priv (24-155-109-49.dyn.grandenetworks.net.
- [24.155.109.49])
- by smtp.googlemail.com with ESMTPSA id j9sm3861325oij.44.2020.11.16.17.33.53
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 16 Nov 2020 17:33:54 -0800 (PST)
-From: Rob Herring <robh@kernel.org>
-To: Mark Brown <broonie@kernel.org>
-Subject: [PATCH 4/4] ASoC: dt-bindings: Refine 'frame-master' and
- 'bitclock-master' type
-Date: Mon, 16 Nov 2020 19:33:49 -0600
-Message-Id: <20201117013349.2458416-5-robh@kernel.org>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20201117013349.2458416-1-robh@kernel.org>
-References: <20201117013349.2458416-1-robh@kernel.org>
+ by alsa1.perex.cz (Postfix) with ESMTPS id A7FB4F800FE
+ for <alsa-devel@alsa-project.org>; Tue, 17 Nov 2020 05:36:22 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A7FB4F800FE
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=sholland.org header.i=@sholland.org
+ header.b="faQ040BY"; 
+ dkim=pass (2048-bit key) header.d=messagingengine.com
+ header.i=@messagingengine.com header.b="mEqfsoGr"
+Received: from compute5.internal (compute5.nyi.internal [10.202.2.45])
+ by mailnew.west.internal (Postfix) with ESMTP id 13E9C12DF;
+ Mon, 16 Nov 2020 23:36:16 -0500 (EST)
+Received: from mailfrontend1 ([10.202.2.162])
+ by compute5.internal (MEProxy); Mon, 16 Nov 2020 23:36:17 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sholland.org; h=
+ subject:to:references:from:message-id:date:mime-version
+ :in-reply-to:content-type:content-transfer-encoding; s=fm1; bh=p
+ kszPB7jeuJ2s0wgF4vEobMXp32NtsKINiE+dXw3VWA=; b=faQ040BYeumwKBqS6
+ VAgIb8XEx/yt88bgcSSTyuSgg1Q5pyEZmTnJEbTiC4s4pePmK1u+vJH3bKt5aZxf
+ XW3VZ9Pb64FCp5XALSrSSy64yoR3ZJoi8/e3ZFmnBawHo6fSIKeki5mAud8PKC/w
+ Ii+6Sky1WOR9vNl3CcZjrX/gcd3g6Zv/DSMcxYwzDZPYRqq13lo0yuH4Ly7db1Vd
+ bkqjPkR2/Qq0uMk/zQktEidmdrJ8bNf8SQqlHcQdkSVoVHe5p5tVYGaVpJtGGwV8
+ H8e9QWoWiLC+647XqQo/FMGZuh9TPoWZpqBdFarSKUH+MgQ0WisQIsZNi/7rE9xN
+ /LQcw==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=content-transfer-encoding:content-type
+ :date:from:in-reply-to:message-id:mime-version:references
+ :subject:to:x-me-proxy:x-me-proxy:x-me-sender:x-me-sender
+ :x-sasl-enc; s=fm1; bh=pkszPB7jeuJ2s0wgF4vEobMXp32NtsKINiE+dXw3V
+ WA=; b=mEqfsoGrOXn64UpvVznr0IwaETGuAhL2+cFv1OI8DwzMW77ixhdVGpdMN
+ vbbjCqXHZI3ftX7YRTEXh4j9tdX6C2d3qBB1zMZcD+4stis12XSzEK+oa9jTReMM
+ rObIAu9/GoMkhtlplDQ3gKrQoKHvBbAOTBm1ab5RFY5z5lOSCHBxRuhasVcflOZt
+ USPLpZHetF27YtYyyqVLoxcIJdRPioe09ZHdFK+XaYf5liRbwES3Xvik6OPsfVWu
+ EAUS8qwBnOsI4OtnPnaIBj9N4xH0Br5cMpME7Jyge/JWsJQMZfhczsVXnKibxoyX
+ UCfxT/7H5dcnMZSEvmMvLaCgPwkMQ==
+X-ME-Sender: <xms:PVOzXz6kXgyWcKgQjxAevdVgKQpWBF6dhptuhu2_khtd-9N8T8jUPg>
+ <xme:PVOzX46--cBuRWjUkte98zmS-9qkfNnEabFIoXDk2U_SX_NmSxLTsxU0a-pJoWhU4
+ XkzGqvpATX-3Vj_kg>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedujedrudefvddgiedvucetufdoteggodetrfdotf
+ fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
+ uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
+ cujfgurhepuffvfhfhkffffgggjggtgfesthejredttdefjeenucfhrhhomhepufgrmhhu
+ vghlucfjohhllhgrnhguuceoshgrmhhuvghlsehshhholhhlrghnugdrohhrgheqnecugg
+ ftrfgrthhtvghrnhepgfevffetleehffejueekvdekvdeitdehveegfeekheeuieeiueet
+ uefgtedtgeegnecukfhppeejtddrudefhedrudegkedrudehudenucevlhhushhtvghruf
+ hiiigvpedtnecurfgrrhgrmhepmhgrihhlfhhrohhmpehsrghmuhgvlhesshhhohhllhgr
+ nhgurdhorhhg
+X-ME-Proxy: <xmx:PVOzX6cO0lFlBJXntTv3tGcR9iQZWWG7530idRXzM3N7fUF8-acCLA>
+ <xmx:PVOzX0KzcSio2QdVCCWApNH4gdajMeu7Z_TXHSOdkGDVJICDxBAJ7Q>
+ <xmx:PVOzX3Jjkhi5yiNbY5W4mRVc8Mq5jjB2y49yIGB24iXBZSUvduwC3A>
+ <xmx:P1OzXw6oI-JF_KyUNvkPBU0U7NPkZyzfoH3N--HMfZKlzYlSRjYYUg9gSSc>
+Received: from [192.168.50.169]
+ (70-135-148-151.lightspeed.stlsmo.sbcglobal.net [70.135.148.151])
+ by mail.messagingengine.com (Postfix) with ESMTPA id D73E13280060;
+ Mon, 16 Nov 2020 23:36:12 -0500 (EST)
+Subject: Re: [RFC 2/3] ARM: sunxi: do not select COMMON_CLK to fix builds
+To: Krzysztof Kozlowski <krzk@kernel.org>, Maxime Ripard
+ <mripard@kernel.org>, Chen-Yu Tsai <wens@csie.org>,
+ Jernej Skrabec <jernej.skrabec@siol.net>,
+ Michael Turquette <mturquette@baylibre.com>, Stephen Boyd
+ <sboyd@kernel.org>, Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Sakari Ailus <sakari.ailus@linux.intel.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+ Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+ linux-clk@vger.kernel.org, linux-media@vger.kernel.org,
+ devel@driverdev.osuosl.org, alsa-devel@alsa-project.org
+References: <20201115170950.304460-1-krzk@kernel.org>
+ <20201115170950.304460-3-krzk@kernel.org>
+From: Samuel Holland <samuel@sholland.org>
+Message-ID: <f637762e-0b02-1705-ea6b-24ac338fcd69@sholland.org>
+Date: Mon, 16 Nov 2020 22:36:12 -0600
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.6.0
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
- Sameer Pujar <spujar@nvidia.com>, Liam Girdwood <lgirdwood@gmail.com>,
- Lubomir Rintel <lkundrak@v3.sk>
+In-Reply-To: <20201115170950.304460-3-krzk@kernel.org>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -91,54 +129,65 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-'frame-master' and 'bitclock-master' are only a single phandle, so use
-the more specific 'phandle' type definition instead.
+On 11/15/20 11:09 AM, Krzysztof Kozlowski wrote:
+> COMMON_CLK is a user-selectable option with its own dependencies.  The
+> most important dependency is !HAVE_LEGACY_CLK.  User-selectable drivers
+> should not select COMMON_CLK because they will create a dependency cycle
+> and build failures.  For example on MIPS a configuration with COMMON_CLK
+> (selected by SND_SUN8I_CODEC) and HAVE_LEGACY_CLK (selected by
+> SOC_RT305X) is possible:
 
-Signed-off-by: Rob Herring <robh@kernel.org>
----
- .../devicetree/bindings/sound/audio-graph-port.yaml         | 6 ++----
- Documentation/devicetree/bindings/sound/simple-card.yaml    | 6 ++----
- 2 files changed, 4 insertions(+), 8 deletions(-)
+Ah, that makes sense.
 
-diff --git a/Documentation/devicetree/bindings/sound/audio-graph-port.yaml b/Documentation/devicetree/bindings/sound/audio-graph-port.yaml
-index c05d5643b10e..7c13ca41d41f 100644
---- a/Documentation/devicetree/bindings/sound/audio-graph-port.yaml
-+++ b/Documentation/devicetree/bindings/sound/audio-graph-port.yaml
-@@ -43,12 +43,10 @@ properties:
-             $ref: /schemas/types.yaml#/definitions/flag
-           frame-master:
-             description: Indicates dai-link frame master.
--            $ref: /schemas/types.yaml#/definitions/phandle-array
--            maxItems: 1
-+            $ref: /schemas/types.yaml#/definitions/phandle
-           bitclock-master:
-             description: Indicates dai-link bit clock master
--            $ref: /schemas/types.yaml#/definitions/phandle-array
--            maxItems: 1
-+            $ref: /schemas/types.yaml#/definitions/phandle
-           dai-format:
-             description: audio format.
-             items:
-diff --git a/Documentation/devicetree/bindings/sound/simple-card.yaml b/Documentation/devicetree/bindings/sound/simple-card.yaml
-index 35e669020296..45fd9fd9eb54 100644
---- a/Documentation/devicetree/bindings/sound/simple-card.yaml
-+++ b/Documentation/devicetree/bindings/sound/simple-card.yaml
-@@ -13,13 +13,11 @@ definitions:
- 
-   frame-master:
-     description: Indicates dai-link frame master.
--    $ref: /schemas/types.yaml#/definitions/phandle-array
--    maxItems: 1
-+    $ref: /schemas/types.yaml#/definitions/phandle
- 
-   bitclock-master:
-     description: Indicates dai-link bit clock master
--    $ref: /schemas/types.yaml#/definitions/phandle-array
--    maxItems: 1
-+    $ref: /schemas/types.yaml#/definitions/phandle
- 
-   frame-inversion:
-     description: dai-link uses frame clock inversion
--- 
-2.25.1
+> 
+>   WARNING: unmet direct dependencies detected for COMMON_CLK
+>     Depends on [n]: !HAVE_LEGACY_CLK [=y]
+>     Selected by [y]:
+>     - SND_SUN8I_CODEC [=y] && SOUND [=y] && !UML && SND [=y] && SND_SOC [=y] &&
+>       (ARCH_SUNXI || COMPILE_TEST [=y]) && OF [=y] && (MACH_SUN8I || ARM64 && ARCH_SUNXI || COMPILE_TEST [=y])
+> 
+>     /usr/bin/mips-linux-gnu-ld: drivers/clk/clk.o: in function `clk_set_rate':
+>     (.text+0xaeb4): multiple definition of `clk_set_rate'; arch/mips/ralink/clk.o:(.text+0x88): first defined here
+> 
+> Signed-off-by: Krzysztof Kozlowski <krzk@kernel.org>
+> ---
+>  arch/arm/mach-sunxi/Kconfig | 1 +
+>  sound/soc/sunxi/Kconfig     | 2 +-
+>  2 files changed, 2 insertions(+), 1 deletion(-)
+> 
+> diff --git a/arch/arm/mach-sunxi/Kconfig b/arch/arm/mach-sunxi/Kconfig
+> index eeadb1a4dcfe..4d9f9b6d329d 100644
+> --- a/arch/arm/mach-sunxi/Kconfig
+> +++ b/arch/arm/mach-sunxi/Kconfig
+> @@ -4,6 +4,7 @@ menuconfig ARCH_SUNXI
+>  	depends on ARCH_MULTI_V5 || ARCH_MULTI_V7
+>  	select ARCH_HAS_RESET_CONTROLLER
+>  	select CLKSRC_MMIO
+> +	select COMMON_CLK
 
+This is not necessary, since ARCH_SUNXI depends (through ARCH_MULTI_V{5,7}) on
+ARCH_MULTIPLATFORM, which selects COMMON_CLK already.
+
+>  	select GENERIC_IRQ_CHIP
+>  	select GPIOLIB
+>  	select PINCTRL
+> diff --git a/sound/soc/sunxi/Kconfig b/sound/soc/sunxi/Kconfig
+> index 69b9d8515335..ddcaaa98d3cb 100644
+> --- a/sound/soc/sunxi/Kconfig
+> +++ b/sound/soc/sunxi/Kconfig
+> @@ -14,7 +14,7 @@ config SND_SUN8I_CODEC
+>  	tristate "Allwinner SUN8I audio codec"
+>  	depends on OF
+>  	depends on MACH_SUN8I || (ARM64 && ARCH_SUNXI) || COMPILE_TEST
+> -	select COMMON_CLK
+> +	depends on COMMON_CLK
+>  	select REGMAP_MMIO
+>  	help
+>  	  This option enables the digital part of the internal audio codec for
+> 
+
+For this file:
+Reviewed-by: Samuel Holland <samuel@sholland.org>
+
+Thanks,
+Samuel

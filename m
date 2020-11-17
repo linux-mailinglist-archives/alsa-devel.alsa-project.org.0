@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5852D2B71C0
-	for <lists+alsa-devel@lfdr.de>; Tue, 17 Nov 2020 23:40:32 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id D5ECB2B71C1
+	for <lists+alsa-devel@lfdr.de>; Tue, 17 Nov 2020 23:40:42 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id EC8B217BA;
-	Tue, 17 Nov 2020 23:39:41 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EC8B217BA
+	by alsa0.perex.cz (Postfix) with ESMTPS id 6632117DB;
+	Tue, 17 Nov 2020 23:39:52 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6632117DB
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1605652832;
-	bh=RcLKHkW3XsWqdPM91oIiy4VtLboMA/41WJfQchqi9x0=;
+	s=default; t=1605652842;
+	bh=JomUOrKOnqPHlPsPd61Zm+b963yBxA6emdmm5X3mM+s=;
 	h=Date:From:To:In-Reply-To:References:Subject:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=ETFbiXGkF2jt+IjkCgIXNGh/Dst40QJ0Ow50AI/fULnuWNIKV5i8ElLFxccfpdo/D
-	 XaVdh96Jdyd7PMY46YhrzCuKJKCwqqlYI3Jxf+JLT5ZDfj15ARQ2YxtsIFKI+lgh+N
-	 bGxcVhKEEU6rNwPoaC27NTiQ+35yHX56LXauGE/Y=
+	b=DAliGA7C+xHjTGkbKOBEsEVDegAUSwShB/Dq2kGNzszjuxb8zhK9Q5mJElPjGZsW2
+	 loLIo7BZK5qmBRHJtYdPjV9cCDJ9LesR3XwmMOZ4ieWfZWnw8W6jZwOnt3Fpu+RX57
+	 ot1/6ZCF6JUCWeGuRs9/p2fhakeCZKKTOw+Mm28s=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 4AEA0F804BC;
-	Tue, 17 Nov 2020 23:38:16 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 82C23F804B1;
+	Tue, 17 Nov 2020 23:38:21 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 2F98BF804B1; Tue, 17 Nov 2020 23:38:13 +0100 (CET)
+ id 8C2BDF804C2; Tue, 17 Nov 2020 23:38:19 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -34,39 +34,37 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 586D3F800FE
- for <alsa-devel@alsa-project.org>; Tue, 17 Nov 2020 23:38:11 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 586D3F800FE
+ by alsa1.perex.cz (Postfix) with ESMTPS id E50D5F804B1
+ for <alsa-devel@alsa-project.org>; Tue, 17 Nov 2020 23:38:16 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E50D5F804B1
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="RxRKJK3y"
+ header.b="zcIGSbyN"
 Received: from localhost (fw-tnat.cambridge.arm.com [217.140.96.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id D817B21D7E;
- Tue, 17 Nov 2020 22:38:08 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id 62F3D20709;
+ Tue, 17 Nov 2020 22:38:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1605652689;
- bh=RcLKHkW3XsWqdPM91oIiy4VtLboMA/41WJfQchqi9x0=;
+ s=default; t=1605652694;
+ bh=JomUOrKOnqPHlPsPd61Zm+b963yBxA6emdmm5X3mM+s=;
  h=Date:From:To:Cc:In-Reply-To:References:Subject:From;
- b=RxRKJK3yjB1dsp1gwjslCASMai/Zic10iw+5JAJGi0cu9ymWMHBavzkCpe8mrbH0K
- iXNOjC7+iq+muHrgyjz7MfUPPhVPbcsoKJUykxee56Hkbma5wDKFlG7UC8yZF/ZgAd
- CnsiAAOvIHVBS+X8p39BuDHepBL5woFhjP0Gxwew=
-Date: Tue, 17 Nov 2020 22:37:49 +0000
+ b=zcIGSbyNvBScj/TIwOoPxCx7Q6MsgtTQ9TPqKlOu87uFVRll6s/pl+oiZd3/IwZ/g
+ wWBYILidTcFUDw0BL10II/DS9mcYZsqeOC56yH5t9KwfGxdYzc95wSIKtK0uPeoHRL
+ vHmjrfg8vy3eBzMFcg9mUIgUfcOpOHSqIdKX0/0I=
+Date: Tue, 17 Nov 2020 22:37:55 +0000
 From: Mark Brown <broonie@kernel.org>
-To: alsa-devel@alsa-project.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org,
+To: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
  Alexandru Ardelean <alexandru.ardelean@analog.com>
-In-Reply-To: <20201110084754.46756-1-alexandru.ardelean@analog.com>
-References: <20201106102052.32582-1-alexandru.ardelean@analog.com>
- <20201110084754.46756-1-alexandru.ardelean@analog.com>
-Subject: Re: [PATCH v2] dt-bindings: adau1977: convert text binding to yaml
- format
-Message-Id: <160565265702.23689.9722907741077657192.b4-ty@kernel.org>
+In-Reply-To: <20201110152213.37811-1-alexandru.ardelean@analog.com>
+References: <20201110152213.37811-1-alexandru.ardelean@analog.com>
+Subject: Re: [PATCH] ASoc: adi: Kconfig: Remove depends on for ADI reference
+ designs
+Message-Id: <160565265704.23689.695597438692063700.b4-ty@kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Cc: robh+dt@kernel.org, lgirdwood@gmail.com, lars@metafoo.de
+Cc: bogdan.togorean@analog.com, lgirdwood@gmail.com, tiwai@suse.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -82,9 +80,13 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Tue, 10 Nov 2020 10:47:54 +0200, Alexandru Ardelean wrote:
-> This change converts the old device-tree binding for ADAU1977 from text
-> format to the new yaml format.
+On Tue, 10 Nov 2020 17:22:13 +0200, Alexandru Ardelean wrote:
+> Audio ADI reference designs are also used on some ZynqMP boards, and can
+> also be used on Intel FPGA boards and also on some more complex FPGA
+> combinations (FPGA cards connected through PCIe).
+> 
+> This change removes the dependency on Microblaze and Zynq architectures
+> to allow the usage of this driver for the systems described above.
 
 Applied to
 
@@ -92,8 +94,8 @@ Applied to
 
 Thanks!
 
-[1/1] ASoC: adau1977: convert text binding to yaml format
-      commit: f077770b2675feb2ea2188ef7109d5a41545e7a9
+[1/1] ASoc: adi: Kconfig: Remove depends on for ADI reference designs
+      commit: e1ade4c55ae3559b082faf9f5207cc6caba1c546
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

@@ -2,72 +2,71 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 140302B564E
-	for <lists+alsa-devel@lfdr.de>; Tue, 17 Nov 2020 02:36:38 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id C3D222B564D
+	for <lists+alsa-devel@lfdr.de>; Tue, 17 Nov 2020 02:36:22 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 3F61217B0;
-	Tue, 17 Nov 2020 02:35:47 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3F61217B0
+	by alsa0.perex.cz (Postfix) with ESMTPS id 59EBC1778;
+	Tue, 17 Nov 2020 02:35:32 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 59EBC1778
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1605576997;
-	bh=vfruJhnw2CLxNbqqlX0eEGSQ56pym/W8DvMsHDB2w2o=;
+	s=default; t=1605576982;
+	bh=2AyZv4I2MebFYcPbsqYHIJ5wozoCBPTQ/0lrhGulJJ4=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=bRbKHOSsxTl/R5RmUaWxekjtoG6+Mdaf4pqYZ371R5HhMbD0rIkN0Vqg2LxLJsGcS
-	 wf4qmO2jX7VgsnJ4B6C9r/pOSltCvtEc5pDTS5C7zrTdEYdkoQoeKU5r/HmMOifHWx
-	 2GOpk/o094cUaOjwTlyd7XNBuyvBUc4S52D5/ZuM=
+	b=LbI7ucD+g1j1WjCxZ4hcNYy9+pLhIlpK+X0wLJE8wIiQr8dryvi0xeZOw6ABxui9q
+	 gb6xDKsZWI+YD5ueMbChvVdrUaDX0yz97F9STeXAUGzCnAGoAcxmxZ6EQmxjGXNGMX
+	 NUmH75TUt7hqvkl/MY6tfvc9XD0MvwzuC8PSdmxg=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id BD4FAF804CC;
+	by alsa1.perex.cz (Postfix) with ESMTP id 2FF82F804BD;
 	Tue, 17 Nov 2020 02:34:11 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id AF9F4F802A9; Tue, 17 Nov 2020 02:34:05 +0100 (CET)
+ id 0B04BF8029B; Tue, 17 Nov 2020 02:34:03 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.8 required=5.0 tests=FREEMAIL_ENVFROM_END_DIGIT,
+X-Spam-Status: No, score=0.7 required=5.0 tests=FREEMAIL_ENVFROM_END_DIGIT,
  FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,
- RCVD_IN_MSPIKE_H2,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from mail-oi1-f196.google.com (mail-oi1-f196.google.com
- [209.85.167.196])
+ RCVD_IN_MSPIKE_H2,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
+Received: from mail-oi1-f193.google.com (mail-oi1-f193.google.com
+ [209.85.167.193])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id CA4A7F8016C
- for <alsa-devel@alsa-project.org>; Tue, 17 Nov 2020 02:33:54 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CA4A7F8016C
-Received: by mail-oi1-f196.google.com with SMTP id c80so20962883oib.2
- for <alsa-devel@alsa-project.org>; Mon, 16 Nov 2020 17:33:54 -0800 (PST)
+ by alsa1.perex.cz (Postfix) with ESMTPS id DA22BF80168
+ for <alsa-devel@alsa-project.org>; Tue, 17 Nov 2020 02:33:56 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DA22BF80168
+Received: by mail-oi1-f193.google.com with SMTP id f11so7236355oij.6
+ for <alsa-devel@alsa-project.org>; Mon, 16 Nov 2020 17:33:56 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=wNb4ssqi6GnjfKnwrQ0BaPlK7z2Z97OJHzDNpZ85994=;
- b=ppJ6sWCxnTaMfXTv9xOkRO679ISCukfhf+jP27w0vgtUDQs+f022gf3lCdxefFVnYn
- yVr4t/C6dVQNNltudHPh8ESyvAACyPoVz1tB5zJ3zhFnQpxonJu2ISr5/RzOgCysw8Jf
- 4qcO4wwLIP4W7inFAiuGuLASybs9d0ril2EA8F2VfZYFfE8yClV9Fxd0I33wtynlq/bg
- l3tka4YaPQsA5PRx8EuwTt94CDQmA9uMXsWXvtQiwLtPDwLwC6GkaVknhnC5S5MgxZSE
- VhEJvVc9VyEJSfgNiPhP1DFqp+wYm9csBEiNtG17+mkEYOoVH842xrIaWTA2+msnOyaX
- 5Zaw==
-X-Gm-Message-State: AOAM531Gm3faa/aCF017oLCmxjiuOf+TUTymlLbyhYqnasb5wlhsTjpg
- Wbhjs7/3VFaGLlGoBTJDSg==
-X-Google-Smtp-Source: ABdhPJyDkvsLj4rCoRr0stY/uAY+Ho1h7TjbcsWWN9IwYjbAu6/wt1w8uWs//J0UNqwvW85u68w85A==
-X-Received: by 2002:aca:cd17:: with SMTP id d23mr917590oig.171.1605576833830; 
- Mon, 16 Nov 2020 17:33:53 -0800 (PST)
+ bh=7v83U4ZReYBGAfYOQtO/dOb1BUnzpl5ihuyBngAA7CU=;
+ b=n18b0PSErmjEznE0SuBee9UZDVAheZ/iBnZ113JyhAChZL2G46jOeTyf6W3hEIrsVQ
+ BqO7sQVNss1wiiS4KJuPePrPtEnnU6P7WtAlSMVKQNjE/T47n5/ginPaI8m3q7DxsB2k
+ Mm9wp+pk3md+M30jG8MF/DXfXk7bttceJMTNws5WCKewIuZLp7NJq7OIxn9ejUxxnelG
+ PkGuVggBkLI/9CyuEfFuTB9rrmhHa8mDq8RQ4enXa0mswE9Jf3wM5QFMTOGs/nCR2Dz/
+ AW38f+yZN+SgMA5epdfO2jEPz6QdaFffv/CaPl2D/w7Kt8794s5oaDQwWhUYcWFqocB5
+ CksA==
+X-Gm-Message-State: AOAM532pZbmnABAPRjMWs8jvvOJ7PUGnpRhupWPtMbhGthR5lAKHbJVI
+ Bt2mRSW+6uy6o+2Cdd/MfQ==
+X-Google-Smtp-Source: ABdhPJzyi1Pq1zCgJvRLk5tSHnQcHJ5b4OUkT8Xd8ewHIyt1yL8BzhAIJOyKkE7LJYcFknVYD6ujrA==
+X-Received: by 2002:aca:486:: with SMTP id 128mr997880oie.19.1605576834952;
+ Mon, 16 Nov 2020 17:33:54 -0800 (PST)
 Received: from xps15.herring.priv (24-155-109-49.dyn.grandenetworks.net.
  [24.155.109.49])
- by smtp.googlemail.com with ESMTPSA id j9sm3861325oij.44.2020.11.16.17.33.52
+ by smtp.googlemail.com with ESMTPSA id j9sm3861325oij.44.2020.11.16.17.33.53
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 16 Nov 2020 17:33:53 -0800 (PST)
+ Mon, 16 Nov 2020 17:33:54 -0800 (PST)
 From: Rob Herring <robh@kernel.org>
 To: Mark Brown <broonie@kernel.org>
-Subject: [PATCH 3/4] ASoC: dt-bindings: marvell,
- mmp-sspa: Use audio-graph-port schema
-Date: Mon, 16 Nov 2020 19:33:48 -0600
-Message-Id: <20201117013349.2458416-4-robh@kernel.org>
+Subject: [PATCH 4/4] ASoC: dt-bindings: Refine 'frame-master' and
+ 'bitclock-master' type
+Date: Mon, 16 Nov 2020 19:33:49 -0600
+Message-Id: <20201117013349.2458416-5-robh@kernel.org>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20201117013349.2458416-1-robh@kernel.org>
 References: <20201117013349.2458416-1-robh@kernel.org>
@@ -92,67 +91,54 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Now that we have a graph schema, reference it from the marvell,mmp-sspa
-schema.
+'frame-master' and 'bitclock-master' are only a single phandle, so use
+the more specific 'phandle' type definition instead.
 
 Signed-off-by: Rob Herring <robh@kernel.org>
 ---
- .../bindings/sound/marvell,mmp-sspa.yaml      | 25 +++----------------
- 1 file changed, 3 insertions(+), 22 deletions(-)
+ .../devicetree/bindings/sound/audio-graph-port.yaml         | 6 ++----
+ Documentation/devicetree/bindings/sound/simple-card.yaml    | 6 ++----
+ 2 files changed, 4 insertions(+), 8 deletions(-)
 
-diff --git a/Documentation/devicetree/bindings/sound/marvell,mmp-sspa.yaml b/Documentation/devicetree/bindings/sound/marvell,mmp-sspa.yaml
-index 6d20a24a2ae9..234f64a32184 100644
---- a/Documentation/devicetree/bindings/sound/marvell,mmp-sspa.yaml
-+++ b/Documentation/devicetree/bindings/sound/marvell,mmp-sspa.yaml
-@@ -9,6 +9,9 @@ title: Marvel SSPA Digital Audio Interface Bindings
- maintainers:
-   - Lubomir Rintel <lkundrak@v3.sk>
- 
-+allOf:
-+  - $ref: audio-graph-port.yaml#
-+
- properties:
-   $nodename:
-     pattern: "^audio-controller(@.*)?$"
-@@ -58,29 +61,9 @@ properties:
-         type: object
- 
-         properties:
--          remote-endpoint: true
--
--          frame-master:
--            type: boolean
--            description: SoC generates the frame clock
--
--          bitclock-master:
--            type: boolean
--            description: SoC generates the bit clock
--
+diff --git a/Documentation/devicetree/bindings/sound/audio-graph-port.yaml b/Documentation/devicetree/bindings/sound/audio-graph-port.yaml
+index c05d5643b10e..7c13ca41d41f 100644
+--- a/Documentation/devicetree/bindings/sound/audio-graph-port.yaml
++++ b/Documentation/devicetree/bindings/sound/audio-graph-port.yaml
+@@ -43,12 +43,10 @@ properties:
+             $ref: /schemas/types.yaml#/definitions/flag
+           frame-master:
+             description: Indicates dai-link frame master.
+-            $ref: /schemas/types.yaml#/definitions/phandle-array
+-            maxItems: 1
++            $ref: /schemas/types.yaml#/definitions/phandle
+           bitclock-master:
+             description: Indicates dai-link bit clock master
+-            $ref: /schemas/types.yaml#/definitions/phandle-array
+-            maxItems: 1
++            $ref: /schemas/types.yaml#/definitions/phandle
            dai-format:
--            $ref: /schemas/types.yaml#/definitions/string
--            description: The digital audio format
-             const: i2s
+             description: audio format.
+             items:
+diff --git a/Documentation/devicetree/bindings/sound/simple-card.yaml b/Documentation/devicetree/bindings/sound/simple-card.yaml
+index 35e669020296..45fd9fd9eb54 100644
+--- a/Documentation/devicetree/bindings/sound/simple-card.yaml
++++ b/Documentation/devicetree/bindings/sound/simple-card.yaml
+@@ -13,13 +13,11 @@ definitions:
  
--        required:
--          - remote-endpoint
--
--    required:
--      - endpoint
--
--    additionalProperties: false
--
- required:
-   - "#sound-dai-cells"
-   - compatible
-@@ -112,8 +95,6 @@ examples:
-       port {
-         endpoint {
-           remote-endpoint = <&rt5631_0>;
--          frame-master;
--          bitclock-master;
-           dai-format = "i2s";
-         };
-       };
+   frame-master:
+     description: Indicates dai-link frame master.
+-    $ref: /schemas/types.yaml#/definitions/phandle-array
+-    maxItems: 1
++    $ref: /schemas/types.yaml#/definitions/phandle
+ 
+   bitclock-master:
+     description: Indicates dai-link bit clock master
+-    $ref: /schemas/types.yaml#/definitions/phandle-array
+-    maxItems: 1
++    $ref: /schemas/types.yaml#/definitions/phandle
+ 
+   frame-inversion:
+     description: dai-link uses frame clock inversion
 -- 
 2.25.1
 

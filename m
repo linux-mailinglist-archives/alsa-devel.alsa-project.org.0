@@ -2,78 +2,85 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D4E172B6F29
-	for <lists+alsa-devel@lfdr.de>; Tue, 17 Nov 2020 20:46:02 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 25E212B6F2E
+	for <lists+alsa-devel@lfdr.de>; Tue, 17 Nov 2020 20:47:01 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 40281176A;
-	Tue, 17 Nov 2020 20:45:12 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 40281176A
+	by alsa0.perex.cz (Postfix) with ESMTPS id B3CBE1794;
+	Tue, 17 Nov 2020 20:46:10 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B3CBE1794
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1605642362;
-	bh=t9RODlfwxXX3BVzVOcWLyzFZsORO3tyS+V6MmMQJACE=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=k9md11/xWAPdgNFB9bA9a0k7ZcoVuAC0tnR1BvcIRdpRGDjMeilq9eCjjqt9IOtDD
-	 cEe+qVP0dC4oDRr6fI9EyVV6BAtbFU4Ev2ZKtvCo8mVtGbpKjIq/qIcA0DM5JeAMqu
-	 n/Hq+Unj3vEZtXGe23yKd7qDSDWSg2d/8+j39yLM=
+	s=default; t=1605642420;
+	bh=IZaT1tM3sN7joJmL1uch79Y7cIZCybbWthHVsOLDHgA=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=NOb2NP+Hj8oJp4q2G6EK7YVDddcauZ/n+mMP3QE5Vo1ae9blBUwoJFf3P2NmSJ/d8
+	 v7hw3TKe9GwgQc+mho2eiOyCvnp8G2HF3YtExBMCRMun27Hf5V17wkirRjNSC0pofR
+	 rARZsxbxbC2s2VVsh1601RQIyKbumThQT3FCjTAQ=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id AD64BF801F9;
-	Tue, 17 Nov 2020 20:44:29 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id B47A6F804C1;
+	Tue, 17 Nov 2020 20:45:34 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id B5E62F801F5; Tue, 17 Nov 2020 20:44:27 +0100 (CET)
+ id 95012F801F5; Tue, 17 Nov 2020 20:45:29 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.5 required=5.0 tests=FREEMAIL_FORGED_FROMDOMAIN,
- FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,RCVD_IN_MSPIKE_H2,SPF_HELO_NONE,
- SPF_PASS,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mail-ej1-f47.google.com (mail-ej1-f47.google.com
- [209.85.218.47])
+X-Spam-Status: No, score=0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU, FREEMAIL_ENVFROM_END_DIGIT, FREEMAIL_FROM, SPF_HELO_NONE,
+ SPF_PASS autolearn=disabled version=3.4.0
+Received: from mail-ed1-x543.google.com (mail-ed1-x543.google.com
+ [IPv6:2a00:1450:4864:20::543])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id F2ECFF800FE
- for <alsa-devel@alsa-project.org>; Tue, 17 Nov 2020 20:44:16 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz F2ECFF800FE
-Received: by mail-ej1-f47.google.com with SMTP id gj5so3624677ejb.8
- for <alsa-devel@alsa-project.org>; Tue, 17 Nov 2020 11:44:16 -0800 (PST)
+ by alsa1.perex.cz (Postfix) with ESMTPS id EE274F801F5
+ for <alsa-devel@alsa-project.org>; Tue, 17 Nov 2020 20:45:21 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EE274F801F5
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
+ header.b="bEGG7+pW"
+Received: by mail-ed1-x543.google.com with SMTP id q16so8556746edv.10
+ for <alsa-devel@alsa-project.org>; Tue, 17 Nov 2020 11:45:21 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=from:to:cc:subject:date:message-id;
+ bh=7FuTWq4BSG35jYcVC2y/aAokRjHupx3BOtYk6g9sB7k=;
+ b=bEGG7+pWjohHYGCns+rU7864961TKkiTrUm42uvT6LxfEO1YbnvJekuitA/BWkBKCo
+ qsN7cTlm7OY2hRiTAQmLfnUp5/8RZkKp3Z1cgY6qHSkU2RUHKqAoAI1oAj92qbp+41pe
+ b6MjEliAQcKXdDVxBibvY1dzSUPVoAUuBdgwaCY1IAT2zds2yNeNwWnKqoWmVMTxDpmU
+ Akl7TpvzvH5UZnc2SzUfp1e4+K8aIFpDLyllv88lW4vf7WvlidV+fOa2lO/WErCtz9Eb
+ wrQ/xv8kRnYDHyi6GvBxmPENKiQuoaJ2MA8DAOb2WxOwi6mr7o/5gY81Y8VYrIQ0wr9s
+ 1piQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to;
- bh=yziYQyPxC5NocOLvc/D7Cx6g4iNMssV0rEbkjl3HvFk=;
- b=QVS7ksoM2C0GuTye8Gu1nRRuU8bc4iarMC1hdiCv9v4ARMpSeaWkzi2IPgTj17Nivc
- w9vbBrOQFJ4Mt2a/0JL3L/d8Iu/FWFTW8ilfUa06E2PUkjghJ0F3WDwkgkHm+5UiSJOp
- fmk/yUYR9stEKX9QC0vJ3PU5c1tPy0NXwxlj+/ULArzY+BdNiNUKtKToYnmz/WvWA2E3
- Vpy886dyc/K+3YEYoK8RW7Bl5FMYcCBsCNFhvsr8vXh7kMarHX62WYHDnBF/gZOpxvJS
- vx6FX0OkEQIXfuDNoRLUuCeh4A6LeSmyyET2fG9v0Oi5Qchmeuqdq17WxPcxrybk2czT
- MtAg==
-X-Gm-Message-State: AOAM533Xfqp7mcmc9HsfYXlBY5arxXUYCEyNHqxhrwTNwEqsI01jfuDC
- 0+2bP7FRor7Co0i2MHpr1v4=
-X-Google-Smtp-Source: ABdhPJx8AykOkF01fEUTuFmZotpO8hRrDGX6Om39ql/vxyGII7lHd1SQRyUgaKuHUcoQnDgcflg7EA==
-X-Received: by 2002:a17:907:11d9:: with SMTP id
- va25mr3043307ejb.431.1605642255883; 
- Tue, 17 Nov 2020 11:44:15 -0800 (PST)
-Received: from kozik-lap (adsl-84-226-167-205.adslplus.ch. [84.226.167.205])
- by smtp.googlemail.com with ESMTPSA id p4sm11802131ejw.101.2020.11.17.11.44.14
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 17 Nov 2020 11:44:14 -0800 (PST)
-Date: Tue, 17 Nov 2020 20:44:13 +0100
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Zou Wei <zou_wei@huawei.com>
-Subject: Re: [PATCH -next] ASoC: samsung: fix platform_no_drv_owner.cocci
- warnings
-Message-ID: <20201117194413.GA108001@kozik-lap>
-References: <1605529740-68757-1-git-send-email-zou_wei@huawei.com>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <1605529740-68757-1-git-send-email-zou_wei@huawei.com>
-Cc: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org, tiwai@suse.com,
- lgirdwood@gmail.com, broonie@kernel.org
+ h=x-gm-message-state:from:to:cc:subject:date:message-id;
+ bh=7FuTWq4BSG35jYcVC2y/aAokRjHupx3BOtYk6g9sB7k=;
+ b=DIHhUCKJ4cXoTtWEzyLmsOqdLZgS0pUT6DR9bM60RBTRuOQn7s5mF4T7rh3RFYjGEI
+ guFmkjIOFulRkzwaJS9jIrFNBsTeFuY2YthP30nwuqgWUw52FmV97xLNvY0JBiTklm47
+ j40Dm5st66B5S+h5m4PFgkyd1Y3Xqtuve5fngRL0Em0uGiMWEsLcKHfSPVJdjgqjdtK5
+ HEjNq6xKZOV+M0K0Jtx9jR5+FePYT3WWudqi5oXUvHJg+d9spTg7brP8yTbQ071dA+vp
+ 3W+yPnh4I9pmeuIJlRgur/91/BsCkN5D7X04YfL2YTg+f6bceEMhAIwDAyY53gI4lkGl
+ LfoQ==
+X-Gm-Message-State: AOAM531SozpSadq+7QLAOeHyfaEZttpXGNkUL3QkfjvlsNvhsmcNDXkv
+ M8zhLn6ZXVnCs5fy3KsvUHs=
+X-Google-Smtp-Source: ABdhPJwioSe6dJaxInh8X3IisG9hWd9obKO0KYfxQKA8qdRvbEI9nQjadusnXlOz4yN8QPtxAn5+Fg==
+X-Received: by 2002:aa7:df82:: with SMTP id b2mr21560851edy.251.1605642316279; 
+ Tue, 17 Nov 2020 11:45:16 -0800 (PST)
+Received: from debian.home (81-204-249-205.fixed.kpn.net. [81.204.249.205])
+ by smtp.gmail.com with ESMTPSA id w2sm727972ejc.109.2020.11.17.11.45.14
+ (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+ Tue, 17 Nov 2020 11:45:15 -0800 (PST)
+From: Johan Jonker <jbx6244@gmail.com>
+To: heiko@sntech.de
+Subject: [PATCH v4 0/7] Enable rk3066a HDMI sound
+Date: Tue, 17 Nov 2020 20:45:00 +0100
+Message-Id: <20201117194507.14843-1-jbx6244@gmail.com>
+X-Mailer: git-send-email 2.11.0
+Cc: alsa-devel@alsa-project.org, linux-rockchip@lists.infradead.org,
+ airlied@linux.ie, linux-kernel@vger.kernel.org, mturquette@baylibre.com,
+ hjc@rock-chips.com, dri-devel@lists.freedesktop.org, lgirdwood@gmail.com,
+ sboyd@kernel.org, robh+dt@kernel.org, broonie@kernel.org, daniel@ffwll.ch,
+ linux-clk@vger.kernel.org, linux-arm-kernel@lists.infradead.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -89,20 +96,35 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Mon, Nov 16, 2020 at 08:29:00PM +0800, Zou Wei wrote:
-> ./sound/soc/samsung/midas_wm1811.c:534:3-8: No need to set .owner here. The core will do it.
-> 
->  Remove .owner field if calls are used which set it automatically
-> 
-> Generated by: scripts/coccinelle/api/platform_no_drv_owner.cocci
-> 
-> Signed-off-by: Zou Wei <zou_wei@huawei.com>
-> ---
->  sound/soc/samsung/midas_wm1811.c | 1 -
->  1 file changed, 1 deletion(-)
-> 
+First fix some legacy things in clk-rk3188.c that was never updated,
+because probably nobody used rk3066a I2S before in the mainline kernel.
+Update the rk3066a HDMI documents with a #sound-dai-cells property.
+Include the code for sound in the HDMI driver.
+Add a simple-sound-card compatible node to rk3066a.dtsi,
+because I2S0 and HDMI TX are connected internally.
+And as last enable rk3066a HDMI sound in the rk3066a-mk808.dts file.
 
-Reviewed-by: Krzysztof Kozlowski <krzk@kernel.org>
+Johan Jonker (6):
+  clk: rockchip: add CLK_SET_RATE_PARENT to sclk for rk3066a i2s and
+    uart clocks
+  clk: rockchip: fix i2s gate bits on rk3066 and rk3188
+  dt-bindings: display: add #sound-dai-cells property to rockchip rk3066
+    hdmi
+  ARM: dts: rockchip: rk3066a: add #sound-dai-cells to hdmi node
+  ARM: dts: rockchip: add hdmi-sound node to rk3066a.dtsi
+  ARM: dts: rockchip: enable hdmi_sound and i2s0 for rk3066a-mk808
 
-Best regards,
-Krzysztof
+Zheng Yang (1):
+  drm: rockchip: add sound support to rk3066 hdmi driver
+
+ .../display/rockchip/rockchip,rk3066-hdmi.yaml     |   4 +
+ arch/arm/boot/dts/rk3066a-mk808.dts                |   8 +
+ arch/arm/boot/dts/rk3066a.dtsi                     |  17 ++
+ drivers/clk/rockchip/clk-rk3188.c                  |  35 +--
+ drivers/gpu/drm/rockchip/Kconfig                   |   2 +
+ drivers/gpu/drm/rockchip/rk3066_hdmi.c             | 272 ++++++++++++++++++++-
+ 6 files changed, 320 insertions(+), 18 deletions(-)
+
+--
+2.11.0
+

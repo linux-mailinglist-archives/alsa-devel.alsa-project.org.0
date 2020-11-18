@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0A7B42B7EC1
-	for <lists+alsa-devel@lfdr.de>; Wed, 18 Nov 2020 15:01:55 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id DDBE52B7EC0
+	for <lists+alsa-devel@lfdr.de>; Wed, 18 Nov 2020 15:01:21 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 8CA551717;
-	Wed, 18 Nov 2020 15:01:04 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8CA551717
+	by alsa0.perex.cz (Postfix) with ESMTPS id 5186B17B0;
+	Wed, 18 Nov 2020 15:00:30 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5186B17B0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1605708114;
-	bh=s8FuYgKJ78wSn3OGugmA8kez5JuseWvs+rnANyhbNJo=;
+	s=default; t=1605708080;
+	bh=e1CdGycGD6LX6+DJfyJDdmzXiXHPLIi8pyzGeSRKKJ4=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=GNJnJHDkhp6b6xTyXhsu7JDuGS/bGK+QAVysfTO8vRjH/i2KE9nI+Whe8O/NjjHaX
-	 GIEiw3NIBf+H2lnhWuB2L9UnTieR5DMqI9wnV6wSyKFe9ZSuWcPgB66z6ZzbWPebxR
-	 wr1I9S6QJ0VlUK2jnKnCtykI8Hd6QPqr0xqW6hlg=
+	b=rNTGNgTV8NYp07bz9P/DZo97gjbVrroh+rjC6EURJNZdCHosAG//EDmimnfJQsYns
+	 02KuHh9ehYGwFZ3OS/m8Trsqz/TSkOLHgylt5aFkPvngQ/w4zDLDqvk81U/0NrC1F8
+	 MRVIb4l2R8EApZrkNupz9HIuqVXjgo0EPfZE62+Y=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 80157F804E2;
-	Wed, 18 Nov 2020 14:58:53 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 7C40BF804E0;
+	Wed, 18 Nov 2020 14:58:52 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 336B0F804E0; Wed, 18 Nov 2020 14:58:51 +0100 (CET)
+ id E4D2AF804E1; Wed, 18 Nov 2020 14:58:50 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -35,50 +35,49 @@ Received: from mail-ej1-x641.google.com (mail-ej1-x641.google.com
  [IPv6:2a00:1450:4864:20::641])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id C2B5FF800EE
- for <alsa-devel@alsa-project.org>; Wed, 18 Nov 2020 14:58:38 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C2B5FF800EE
+ by alsa1.perex.cz (Postfix) with ESMTPS id BB760F8010A
+ for <alsa-devel@alsa-project.org>; Wed, 18 Nov 2020 14:58:37 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BB760F8010A
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="ItuNwInc"
-Received: by mail-ej1-x641.google.com with SMTP id gj5so2868975ejb.8
- for <alsa-devel@alsa-project.org>; Wed, 18 Nov 2020 05:58:38 -0800 (PST)
+ header.b="WzfS5ftW"
+Received: by mail-ej1-x641.google.com with SMTP id o9so2920368ejg.1
+ for <alsa-devel@alsa-project.org>; Wed, 18 Nov 2020 05:58:37 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=from:to:cc:subject:date:message-id:in-reply-to:references;
- bh=XzfD+8x/gl2vij+zxF0vgPJlMvOnmt8qPR/mutEO1AU=;
- b=ItuNwInc2MBwj4FPc/vi8+RT3PaxeSvrL0xAoc2Um/9NAI/K/r5esaAf8vYLZvfi2N
- Gn5FdFm8AcWSkuEj0mecew0gSpzUcKx2bY5Ys2T/SRcbCzEslZloWfRO9hpVGkfPdAUN
- e4812uni4BzgCCh4xGpbNRXbyq9JcguzIWoNBt+64GLcVPlTtcMixYIZyjl4x64n2LhW
- t5ygd/OxZWeGUFR8o+rwptKuSqP+1/EAkhuhHNw0Jz3yVtNr1I78EelRvf4MTthuMFaU
- Susaq2zd7AYwogwUmtCBT0TwDkRMqBHNpGjG58LoW+PDY4Nf9gt7ECy3xXxAXeb4KMEw
- DRkg==
+ bh=/M45YtMWBHvWX7HJgiaCX3duzycDxACgeh25TxK15Eg=;
+ b=WzfS5ftWkRMUzolpSh5HCyN4cmp70soK14s87h+2M08gwqkRfSM1li/SeATS7MA8CA
+ n/sY36cmWUjV1SvmUdcnwVr88B4NjXCBd+xogRlmqDnN7DqOLXdQuISdhL57o6jwPxee
+ IawguAG9hPu0NW7aAXvvmQ1fW4WTfO8oOP7dScEJdK0PnNfDMu27k9qRigi+sJu4VF3b
+ Bxoik+iaaYnm1yT8K2F4x8HHZKjjlkbPX0lbLt7LpEQvd0TKi3Me4dyadjHW11Onb46M
+ xYjT0zw3/9G6+6KLQJwPFviF+W9Sf6NNTpaw0SBLiN2PLCWcq6h5hvUlWV8NfZRGOh+h
+ YOPQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references;
- bh=XzfD+8x/gl2vij+zxF0vgPJlMvOnmt8qPR/mutEO1AU=;
- b=ug+39a6oQr0L0a4wWt58J9PAg66EjXOo7KTGyjlvumEciopuGHOCxdp9JNsTWHOiBB
- TV3nqld0y8rweoTeo67R6zx/RmAAw+/qq4qoFzn2Ex9UTKSzZz+neyIkXACW8aMo1N6W
- axehOawIqsyX/2uo6Nr/xgTuqbAhMTGJ6AoHAOBzzD6b/8rmN1ltF8PuCsq1m/82AY4H
- Q8znqsTXJBpBe0HJMEyYAfBN4KwbUZYXk1KgLDXPUhXYiqdl4wrgcGCzTeEgvTq3Rhxd
- 6KUJounghhrBCODGTzAIU7MtfAmx+95xex/QbPVDKjkk/1C1uRzhN3lcr2SbHhzSaTHb
- Bp4g==
-X-Gm-Message-State: AOAM533vCl1zeIy5pblR/khzZ5oIatvGTVeEHkJaoU6CbEYmZOBMbfVl
- iAqLTaiWh5MCbWcy/ZLnQi65/RLNt4TNCw==
-X-Google-Smtp-Source: ABdhPJy6FxHe0EbiFMLb69ag6/AE/2uHZ1fKsTWtsbK6CS3f8YZgjTZfbNAGLYo8ILiVxlTQhXgfRQ==
-X-Received: by 2002:a17:906:6b86:: with SMTP id
- l6mr24155838ejr.524.1605707915976; 
- Wed, 18 Nov 2020 05:58:35 -0800 (PST)
+ bh=/M45YtMWBHvWX7HJgiaCX3duzycDxACgeh25TxK15Eg=;
+ b=UqxBUKvgTFOjMzA1UlKCrubFOczPomI5G0biao1SCTkQch1wQ8y1sKrV7vUr9+bSjo
+ v1e3GREXblNDeqqWQZsR0ARxnb2uQVGpvniDz4Jj7WOkWH3YcljbLEoe+Oc+otPr1v4x
+ 48Xu/aGEN4zcfxKn40ABypSLM32vTOQS0YHJ1TMVi+3Fer4lWROcwPBPEYlVddDADAH0
+ Cc4SWEBWsQXKMWGbgpOt+h0xHCMEauTIH8Y2QqpqQhQTEfx3zyH9NqV/n7AInb8KD+Bz
+ PTpUTaYsrdgNxG2esYETXFWBCskUxYDPbTNmvACwIbbO3IoiWpnA+yjhn3das60LXtur
+ F9YA==
+X-Gm-Message-State: AOAM5334IbCwGrJy2kRgOIwl8nt38qdkuJhKGgmWLtL202CXO/S3mcSv
+ rkFRL+QzavV6LmXbUuR3oIU=
+X-Google-Smtp-Source: ABdhPJzjtTA6aSJDvhbh3mZRYc7KQzylCh451tX0U9bpOnGQQ2ddCN9W+I66OX1Z3ial8hqeM8QM/w==
+X-Received: by 2002:a17:907:4335:: with SMTP id
+ ni5mr20187759ejb.459.1605707917128; 
+ Wed, 18 Nov 2020 05:58:37 -0800 (PST)
 Received: from debian.home (81-204-249-205.fixed.kpn.net. [81.204.249.205])
- by smtp.gmail.com with ESMTPSA id cx6sm13721384edb.61.2020.11.18.05.58.34
+ by smtp.gmail.com with ESMTPSA id cx6sm13721384edb.61.2020.11.18.05.58.36
  (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
- Wed, 18 Nov 2020 05:58:35 -0800 (PST)
+ Wed, 18 Nov 2020 05:58:36 -0800 (PST)
 From: Johan Jonker <jbx6244@gmail.com>
 To: heiko@sntech.de
-Subject: [PATCH v5 5/7] ARM: dts: rockchip: rk3066a: add #sound-dai-cells to
- hdmi node
-Date: Wed, 18 Nov 2020 14:58:20 +0100
-Message-Id: <20201118135822.9582-6-jbx6244@gmail.com>
+Subject: [PATCH v5 6/7] ARM: dts: rockchip: add hdmi-sound node to rk3066a.dtsi
+Date: Wed, 18 Nov 2020 14:58:21 +0100
+Message-Id: <20201118135822.9582-7-jbx6244@gmail.com>
 X-Mailer: git-send-email 2.11.0
 In-Reply-To: <20201118135822.9582-1-jbx6244@gmail.com>
 References: <20201118135822.9582-1-jbx6244@gmail.com>
@@ -102,27 +101,41 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-'#sound-dai-cells' is required to properly interpret
-the list of DAI specified in the 'sound-dai' property,
-so add them to the 'hdmi' node for 'rk3066a.dtsi'.
+Add hdmi-sound node to rk3066a.dtsi, so that it
+can be reused by boards with HDMI support.
 
 Signed-off-by: Johan Jonker <jbx6244@gmail.com>
 ---
- arch/arm/boot/dts/rk3066a.dtsi | 1 +
- 1 file changed, 1 insertion(+)
+ arch/arm/boot/dts/rk3066a.dtsi | 16 ++++++++++++++++
+ 1 file changed, 16 insertions(+)
 
 diff --git a/arch/arm/boot/dts/rk3066a.dtsi b/arch/arm/boot/dts/rk3066a.dtsi
-index 252750c97..67fcb0dc9 100644
+index 67fcb0dc9..f91ce3054 100644
 --- a/arch/arm/boot/dts/rk3066a.dtsi
 +++ b/arch/arm/boot/dts/rk3066a.dtsi
-@@ -124,6 +124,7 @@
- 		pinctrl-0 = <&hdmii2c_xfer>, <&hdmi_hpd>;
- 		power-domains = <&power RK3066_PD_VIO>;
- 		rockchip,grf = <&grf>;
-+		#sound-dai-cells = <0>;
- 		status = "disabled";
+@@ -49,6 +49,22 @@
+ 		ports = <&vop0_out>, <&vop1_out>;
+ 	};
  
- 		ports {
++	hdmi_sound: hdmi-sound {
++		compatible = "simple-audio-card";
++		simple-audio-card,name = "HDMI";
++		simple-audio-card,format = "i2s";
++		simple-audio-card,mclk-fs = <256>;
++		status = "disabled";
++
++		simple-audio-card,codec {
++			sound-dai = <&hdmi>;
++		};
++
++		simple-audio-card,cpu {
++			sound-dai = <&i2s0>;
++		};
++	};
++
+ 	sram: sram@10080000 {
+ 		compatible = "mmio-sram";
+ 		reg = <0x10080000 0x10000>;
 -- 
 2.11.0
 

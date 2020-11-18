@@ -2,86 +2,70 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8CAF32B7728
-	for <lists+alsa-devel@lfdr.de>; Wed, 18 Nov 2020 08:50:01 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id CBDC02B7729
+	for <lists+alsa-devel@lfdr.de>; Wed, 18 Nov 2020 08:50:50 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 2C64B1789;
-	Wed, 18 Nov 2020 08:49:11 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2C64B1789
+	by alsa0.perex.cz (Postfix) with ESMTPS id 875A317A6;
+	Wed, 18 Nov 2020 08:49:59 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 875A317A6
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1605685801;
-	bh=W53kf0sA41Ui3hAkoYQedLbVIY4mvBoFp7NgHyqXuVQ=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1605685849;
+	bh=CbDSdrwwKdGs9QRBw/vgiAjlRLfdRuLFDQ3MX9CoslU=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=ogFWYFv3ekJEm0gdvkiN1KkZinsJo5gFSVqdMvY6/45FQWCDgA6627mVY1OWHQks7
-	 +KH1c0joMVyDaGdAgm4+jx/LPVUHARPCBaYfp4j7uxcTSyqWtv/553uZFW+YVtKzOb
-	 rJQMdfj1r964zBicqGkzaJfp+RUIQwR9qM2rWXoA=
+	b=pYkHzNz1lHgunLPY13mpZ2lQFoMlXjllVGd9WB0IkKAdagfZqGi1QAyyOCc+ZOMXk
+	 ZUU7k9zbJNTllbJz2oMJTB/MmiMw7eWvk6KEKTKXb8NFHOz4C/cr9Tk3rG05l8DvJC
+	 Pvix5eiQcEMqhrzdYP6k0ixbzdbYdLVY/ujRFsqw=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 8319EF8016D;
-	Wed, 18 Nov 2020 08:48:28 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id D519BF800EE;
+	Wed, 18 Nov 2020 08:49:58 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id AF86EF8016C; Wed, 18 Nov 2020 08:48:26 +0100 (CET)
+ id EC6E5F8016C; Wed, 18 Nov 2020 08:49:56 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=0.5 required=5.0 tests=FREEMAIL_FORGED_FROMDOMAIN,
- FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,RCVD_IN_MSPIKE_H2,SPF_HELO_NONE,
+X-Spam-Level: *
+X-Spam-Status: No, score=1.3 required=5.0 tests=PRX_BODY_30,PRX_BODY_65,
+ RCVD_IN_MSPIKE_H3, RCVD_IN_MSPIKE_WL, SPF_HELO_NONE,
  SPF_PASS autolearn=disabled version=3.4.0
-Received: from mail-ed1-f68.google.com (mail-ed1-f68.google.com
- [209.85.208.68])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 5008AF800EE
- for <alsa-devel@alsa-project.org>; Wed, 18 Nov 2020 08:48:15 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5008AF800EE
-Received: by mail-ed1-f68.google.com with SMTP id e18so949967edy.6
- for <alsa-devel@alsa-project.org>; Tue, 17 Nov 2020 23:48:15 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to;
- bh=/VBymVKVFuIaMs6diTaKJdglBbHoKWE5HN40ZxS82fM=;
- b=AwGWII9Nj+6srSpXHgxvvl/fhJVvWnIN+IoIUbaCVx6VT9scYEpWH5Nj9d+B4XmSOr
- QHUcEZWZfsZihCAEytupimpy6x4nCk9S+E/vVELZi7Tv6KfrkzIGGKXgROZOHO8E9O33
- bguLXscqQ1JydhjaAOo0LpC6gOgiVPABU1aGWrU1LxVPOd/IUpPzlZga3csKk34OjoJC
- DAuIqzsgYjOerncaBNf1y3gI6afsXXwbfyXIAMwNp108cnY7aavsWwNYrIAhvEHNKDLB
- vzGQlOxBpzKCKsFrwHyn4DdV7JRwmLuMmU4YgVnlUZGFPv7RhH0TOzTQWhL3SoM+E2ZH
- w1fw==
-X-Gm-Message-State: AOAM530WEctUPFdKFvwnZIFDirAbOSCV+tPSBnd6grTx4FmAzq5nR9Yn
- gT5nX5LtEWmcc5oqUMZPuPQ=
-X-Google-Smtp-Source: ABdhPJx+aZjGIA58JBNNsU2EYJuORCMi9eVDKQ3IfVQdHZjH8ummbU4/k0jvYclGpHK/bGP8ytcepg==
-X-Received: by 2002:aa7:c2c3:: with SMTP id m3mr24597168edp.361.1605685694599; 
- Tue, 17 Nov 2020 23:48:14 -0800 (PST)
-Received: from kozik-lap (adsl-84-226-167-205.adslplus.ch. [84.226.167.205])
- by smtp.googlemail.com with ESMTPSA id g7sm13224731edl.5.2020.11.17.23.48.13
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 17 Nov 2020 23:48:13 -0800 (PST)
-Date: Wed, 18 Nov 2020 08:48:12 +0100
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Stephen Boyd <sboyd@kernel.org>
-Subject: Re: [PATCH 1/3] clk: fix redefinition of clk_prepare on MIPS with
- HAVE_LEGACY_CLK
-Message-ID: <20201118074812.GA5803@kozik-lap>
-References: <20201115170950.304460-1-krzk@kernel.org>
- <20201115170950.304460-2-krzk@kernel.org>
- <160568531746.60232.15496517544781609246@swboyd.mtv.corp.google.com>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <160568531746.60232.15496517544781609246@swboyd.mtv.corp.google.com>
-Cc: devel@driverdev.osuosl.org, Jernej Skrabec <jernej.skrabec@siol.net>,
- linux-kernel@vger.kernel.org, alsa-devel@alsa-project.org,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Michael Turquette <mturquette@baylibre.com>, Takashi Iwai <tiwai@suse.com>,
- Liam Girdwood <lgirdwood@gmail.com>, Maxime Ripard <mripard@kernel.org>,
- Chen-Yu Tsai <wens@csie.org>, Mark Brown <broonie@kernel.org>,
- Sakari Ailus <sakari.ailus@linux.intel.com>,
- Mauro Carvalho Chehab <mchehab@kernel.org>, linux-clk@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-media@vger.kernel.org
+ by alsa1.perex.cz (Postfix) with ESMTPS id 0C38DF80158
+ for <alsa-devel@alsa-project.org>; Wed, 18 Nov 2020 08:49:45 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0C38DF80158
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id 2FC3BABDE;
+ Wed, 18 Nov 2020 07:49:45 +0000 (UTC)
+Date: Wed, 18 Nov 2020 08:49:45 +0100
+Message-ID: <s5h3617rtnq.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: "Rojewski, Cezary" <cezary.rojewski@intel.com>
+Subject: Re: [PATCH 00/14] ASoC: Intel/SOF: extend run-time driver selection
+ to ACPI devices
+In-Reply-To: <0286c6975f24432082f609d45adaa14c@intel.com>
+References: <20201112223825.39765-1-pierre-louis.bossart@linux.intel.com>
+ <0a0854d1ddaf4f9b81ef5569a7d501a5@intel.com>
+ <20201113164946.GD4828@sirena.org.uk>
+ <2cf7075b-bd51-21a5-2058-3a98e6c488a7@redhat.com>
+ <d462c890495e4dda8698b5ba5eb50066@intel.com>
+ <f62abcd8-b67f-774b-61b5-e08cfc3d2cc7@linux.intel.com>
+ <s5h1rgst6z4.wl-tiwai@suse.de>
+ <0286c6975f24432082f609d45adaa14c@intel.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
+ FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
+ (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
+Content-Type: text/plain; charset=US-ASCII
+Cc: Hans de Goede <hdegoede@redhat.com>,
+ "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
+ Mark Brown <broonie@kernel.org>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ "andriy.shevchenko@linux.intel.com" <andriy.shevchenko@linux.intel.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -97,26 +81,113 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Tue, Nov 17, 2020 at 11:41:57PM -0800, Stephen Boyd wrote:
-> Quoting Krzysztof Kozlowski (2020-11-15 09:09:48)
-> > COMMON_CLK even though is a user-selectable symbol, is still selected by
-> > multiple other config options.  COMMON_CLK should not be used when
-> > legacy clocks are provided by architecture, so it correctly depends on
-> > !HAVE_LEGACY_CLK.
-> > 
-> > However it is possible to create a config which selects both COMMON_CLK
-> > (by SND_SUN8I_CODEC) and HAVE_LEGACY_CLK (by SOC_RT305X) which leads to
+On Tue, 17 Nov 2020 23:13:13 +0100,
+Rojewski, Cezary wrote:
 > 
-> Why is SND_SUN8I_CODEC selecting COMMON_CLK? Or really, why is
-> SOC_RT305X selecting HAVE_LEGACY_CLK?
+> On 2020-11-17 3:04 PM, Takashi Iwai wrote:
+> > On Mon, 16 Nov 2020 18:47:22 +0100,
+> > Pierre-Louis Bossart wrote:
+> >>
+> >>> Explicit 'ifs' asking whether we're dealing with SOF or other solution
+> >>> is at best a code smell. I believe this is unnecessary complexity added
+> >>> to the code especially once you realize user needs to play with module
+> >>> parameters to switch between solutions. If we assume user is able to
+> >>> play with module parameters then why not simply make use of blacklist
+> >>> mechanism?
+> >>
+> >> Been there, done that. We don't want to use either denylist of kernel
+> >> parameters.
+> >>
+> >> denylists create confusion for users, it's an endless stream of false
+> >> errors and time lost in bug reports.
+> >>
+> >> The use of the kernel parameter is ONLY for expert users who want to
+> >> tinker with the system or debug issues, the average user should not
+> >> have to play with either denylists or kernel parameters.
+> > 
+> > I guess Cezary mean the modprobe blacklist?  This was used in the
+> > early stage of ASoC Skylake driver development, but in the end, it's
+> > more cumbersome because user needs to change multiple places.  The
+> > single module parameter was easier to handle.
+> > 
+> 
+> Thanks for joining the discussion, Takashi.
+> 
+> If the switch of solution for atom-based products is imminent, why add
+> code which becomes redundant soon after?
+> 
+> Yes, indeed I meant the modprobe blacklisting as it solves the problem
+> without addition of any code. Doubt alsa-driver entries are scattered in
+> /etc/modprobe.d/ so switching between one solution to another via
+> blacklist becomes as easy as changing 'options intel-dsp-config
+> <param>==<value>' entry.
 
-The SND_SUN8I_CODEC I fixed in following patch (I sent separately v2 of
-it).
+Ideally blacklist would work well, but practically it can be more
+problematic.  When you *switch* between multiple drivers via
+blacklist, you'll have to mask one of them while keeping another
+untouched, so either:
+  blacklist A
+or
+  blacklist B
 
-The SOC_RT305X select HAVE_LEGACY_CLK? because it is an old, Ralink
-platform, not converted to Common clock frm. Few clock operations are
-defined in: arch/mips/ralink/clk.c
+Now, imagine that distro sets "blacklist A" to choose B as the
+default.  What user has to do?  They have to modify "blacklist A"
+line with "blacklist B".  But it can't be done with an additional
+modprobe.d/*.config file; otherwise this blacklist remains.  It means
+they have to scratch the system configuration file itself -- which
+might be again overridden by a package update or whatever.
 
-Best regards,
-Krzysztof
+This will be more complex if there are more than three choices, of
+course.
 
+Admittedly, the situation with the system config file be same for
+module option if distro sets the option in modprobe.d/*, too.  But,
+there is another difference: the default option value can be set in
+the kernel code, while the blacklist approach is to let all open and
+choose via blacklist.  IOW, devs have some control for choosing the
+default value for the module option but for blacklist they are all
+done by user-space side.
+
+
+> In regard to catpt, solution is even simpler: just remove
+> sound/soc/sof/intel/bdw.c as that code is not valid & recommended
+> anyway and linux kernel is not place for such. There shouldn't be really
+> any options for not recommended stuff. Leave the selection explicit.
+> 
+> >>> And last but not least: intel-dsp-config is (as already stated) a mean
+> >>> for solving the HDA-runtime-driver-selection problem. Mixing it with
+> >>> ACPI devices is another layer of confusion.
+> >>
+> >> Why? Who said it was PCI only? We already take care of DMIC,
+> >> SoundWire, Google Chromebooks, open platforms, why not ACPI? It's just
+> >> one API to be used when more than one driver can register to the same
+> >> device.
+> > 
+> > Well, currently intel-dsp-config sits in sound/hda, which isn't really
+> > intuitive.  Though, Intel driver file paths are already fairly
+> > scattered, so it doesn't matter too much :)
+> > 
+> > I don't mind to move it to another directory, but which one...?
+> > x86 might match, but shuffling the place won't help for maintenance.
+> > 
+> > I personally find this move good, at least it makes things easier for
+> > distros.  There are small details like the above, but technically
+> > seen, I see no big problem.
+> 
+> Well, if non-Intel guys see the localization of code counter-intuitive
+> then how about those who play with it daily..
+
+I play it and maintain it daily, that's why I find unintuitive :)
+I guess most users don't notice the file path, as the module loading
+or option is done only by the module name.
+
+> The new "sof-parent" checks won't make maintaining any easier and I
+> believe there are easier solutions as written above.
+
+If you find a good way to overcome the disadvantage, that's great.
+Let's see.
+
+
+thanks,
+
+Takashi

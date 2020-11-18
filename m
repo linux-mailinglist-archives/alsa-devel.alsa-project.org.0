@@ -2,50 +2,50 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 75C972B88D1
-	for <lists+alsa-devel@lfdr.de>; Thu, 19 Nov 2020 00:52:58 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 82C802B88D2
+	for <lists+alsa-devel@lfdr.de>; Thu, 19 Nov 2020 00:53:14 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 0FE921714;
-	Thu, 19 Nov 2020 00:52:08 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0FE921714
+	by alsa0.perex.cz (Postfix) with ESMTPS id C22BA1724;
+	Thu, 19 Nov 2020 00:52:23 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C22BA1724
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1605743578;
-	bh=JB8xvLWBhhhROxn1T5c9knNkO3Zgmra3oUmIEsXr9JY=;
+	s=default; t=1605743593;
+	bh=a4s/2vlaK06LGw5esw9nChSsLQA72C1lOChcUdrAvGk=;
 	h=Date:From:Subject:To:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=NyRQvIu2Q3/c9h4xRhQgik3wIh4T1myQrd6hovReqD5VboacMkHEfOa+TblDne44u
-	 GS4PmJ3snLe1CMn00ANugAhtZXkdjAC4cUYwVVTlJZPY4ib6LmunWSsJrdbA8taxzy
-	 SvW5gQqyNkX5i5Wv18BrT2eUOT6Lgv3p8PhrUPxU=
+	b=EQMitjMGDKaXetdgWswzmsvnrm3anik0WWyoKNfARpwY31GOPPNon8eSDeQiOuWYL
+	 Sw+G6l92vBdyBCJAFWyxJl6pnySPvwQ1JZOV+p6maRLBtWt7iK8sSkY5NeR7VVlukt
+	 66mjHyi+F20i6U5L6qsm96hdWN67aZMTDDk7t4/g=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id CD3FCF804E3;
-	Thu, 19 Nov 2020 00:50:22 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 15EBFF804E0;
+	Thu, 19 Nov 2020 00:50:26 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id D5DC9F804D6; Thu, 19 Nov 2020 00:50:17 +0100 (CET)
+ id 42EA1F804E5; Thu, 19 Nov 2020 00:50:24 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
  URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from relmlie5.idc.renesas.com (relmlor1.renesas.com
- [210.160.252.171])
- by alsa1.perex.cz (Postfix) with ESMTP id 0A440F804CC
- for <alsa-devel@alsa-project.org>; Thu, 19 Nov 2020 00:50:14 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0A440F804CC
-Date: 19 Nov 2020 08:50:14 +0900
-X-IronPort-AV: E=Sophos;i="5.77,488,1596466800"; d="scan'208";a="63163890"
-Received: from unknown (HELO relmlir5.idc.renesas.com) ([10.200.68.151])
- by relmlie5.idc.renesas.com with ESMTP; 19 Nov 2020 08:50:14 +0900
+Received: from relmlie6.idc.renesas.com (relmlor2.renesas.com
+ [210.160.252.172])
+ by alsa1.perex.cz (Postfix) with ESMTP id 30CC8F804E0
+ for <alsa-devel@alsa-project.org>; Thu, 19 Nov 2020 00:50:20 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 30CC8F804E0
+Date: 19 Nov 2020 08:50:19 +0900
+X-IronPort-AV: E=Sophos;i="5.77,488,1596466800"; d="scan'208";a="62947584"
+Received: from unknown (HELO relmlir6.idc.renesas.com) ([10.200.68.152])
+ by relmlie6.idc.renesas.com with ESMTP; 19 Nov 2020 08:50:19 +0900
 Received: from mercury.renesas.com (unknown [10.166.252.133])
- by relmlir5.idc.renesas.com (Postfix) with ESMTP id 90B1A400C4D1;
- Thu, 19 Nov 2020 08:50:14 +0900 (JST)
-Message-ID: <87k0ui5iwf.wl-kuninori.morimoto.gx@renesas.com>
+ by relmlir6.idc.renesas.com (Postfix) with ESMTP id 50AF44147291;
+ Thu, 19 Nov 2020 08:50:19 +0900 (JST)
+Message-ID: <87ima25iwa.wl-kuninori.morimoto.gx@renesas.com>
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Subject: [PATCH 4/5] ASoC: soc-component: add mark for
- snd_soc_link_compr_startup/shutdown()
+Subject: [PATCH 5/5] ASoC: soc-compress: add soc_compr_clean() and call it
+ from soc_compr_open/free()
 User-Agent: Wanderlust/2.15.9 Emacs/26.3 Mule/6.0
 To: Mark Brown <broonie@kernel.org>
 In-Reply-To: <87pn4a5ixl.wl-kuninori.morimoto.gx@renesas.com>
@@ -96,108 +96,123 @@ rollback          is for succeeded part only.
 
 This kind of duplicated code can be a hotbed of bugs,
 thus, we want to share soc_compr_free() and rollback.
+
+Now, soc_compr_open/free() are handling
 	1) snd_soc_dai_compr_startup/shutdown()
 	2) snd_soc_component_compr_open/free()
-=>	3) snd_soc_link_compr_startup/shutdown()
+	3) snd_soc_link_compr_startup/shutdown()
 
-This patch is for 3) snd_soc_link_compr_startup/shutdown()
-and adds new cstream mark.
-It will mark cstream when startup() was suceeded.
-If rollback happen *after* that, it will check rollback flag
-and marked cstream.
-
-It cares *previous* startup() only now,
-but we might want to check *whole* marked cstream in the future.
-This patch is using macro so that it can be easily adjust to it.
+Now, 1) to 3) are handled.
+This patch adds new soc_compr_clean() and call it from
+soc_compr_open() as rollback, and from soc_compr_free_free() as
+normal close handler.
 
 Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 ---
- include/sound/soc-link.h |  3 ++-
- include/sound/soc.h      |  1 +
- sound/soc/soc-compress.c |  4 ++--
- sound/soc/soc-link.c     | 11 ++++++++++-
- 4 files changed, 15 insertions(+), 4 deletions(-)
+ sound/soc/soc-compress.c | 45 ++++++++++++++++++++--------------------
+ 1 file changed, 22 insertions(+), 23 deletions(-)
 
-diff --git a/include/sound/soc-link.h b/include/sound/soc-link.h
-index eff34fc7d3d3..4c68b06d6fe6 100644
---- a/include/sound/soc-link.h
-+++ b/include/sound/soc-link.h
-@@ -24,7 +24,8 @@ void snd_soc_link_hw_free(struct snd_pcm_substream *substream,
- int snd_soc_link_trigger(struct snd_pcm_substream *substream, int cmd);
- 
- int snd_soc_link_compr_startup(struct snd_compr_stream *cstream);
--void snd_soc_link_compr_shutdown(struct snd_compr_stream *cstream);
-+void snd_soc_link_compr_shutdown(struct snd_compr_stream *cstream,
-+				 int rollback);
- int snd_soc_link_compr_set_params(struct snd_compr_stream *cstream);
- 
- #endif /* __SOC_LINK_H */
-diff --git a/include/sound/soc.h b/include/sound/soc.h
-index 4a9958b9b532..33c289f6097c 100644
---- a/include/sound/soc.h
-+++ b/include/sound/soc.h
-@@ -1163,6 +1163,7 @@ struct snd_soc_pcm_runtime {
- 	/* function mark */
- 	struct snd_pcm_substream *mark_startup;
- 	struct snd_pcm_substream *mark_hw_params;
-+	struct snd_compr_stream  *mark_compr_startup;
- 
- 	/* bit field */
- 	unsigned int pop_wait:1;
 diff --git a/sound/soc/soc-compress.c b/sound/soc/soc-compress.c
-index 8b6a6bd482d1..6de22b2f8197 100644
+index 6de22b2f8197..246a5e32e22a 100644
 --- a/sound/soc/soc-compress.c
 +++ b/sound/soc/soc-compress.c
-@@ -41,7 +41,7 @@ static int soc_compr_free(struct snd_compr_stream *cstream)
+@@ -22,7 +22,7 @@
+ #include <sound/soc-link.h>
+ #include <linux/pm_runtime.h>
+ 
+-static int soc_compr_free(struct snd_compr_stream *cstream)
++static int soc_compr_clean(struct snd_compr_stream *cstream, int rollback)
+ {
+ 	struct snd_soc_pcm_runtime *rtd = cstream->private_data;
+ 	struct snd_soc_dai *cpu_dai = asoc_rtd_to_cpu(rtd, 0);
+@@ -31,7 +31,8 @@ static int soc_compr_free(struct snd_compr_stream *cstream)
+ 
+ 	mutex_lock_nested(&rtd->card->pcm_mutex, rtd->card->pcm_subclass);
+ 
+-	snd_soc_runtime_deactivate(rtd, stream);
++	if (!rollback)
++		snd_soc_runtime_deactivate(rtd, stream);
+ 
+ 	snd_soc_dai_digital_mute(codec_dai, 1, stream);
+ 
+@@ -41,21 +42,27 @@ static int soc_compr_free(struct snd_compr_stream *cstream)
  	if (!snd_soc_dai_active(codec_dai))
  		codec_dai->rate = 0;
  
--	snd_soc_link_compr_shutdown(cstream);
-+	snd_soc_link_compr_shutdown(cstream, 0);
+-	snd_soc_link_compr_shutdown(cstream, 0);
++	snd_soc_link_compr_shutdown(cstream, rollback);
  
- 	snd_soc_component_compr_free(cstream, 0);
+-	snd_soc_component_compr_free(cstream, 0);
++	snd_soc_component_compr_free(cstream, rollback);
  
-@@ -205,7 +205,7 @@ static int soc_compr_free_fe(struct snd_compr_stream *cstream)
+-	snd_soc_dai_compr_shutdown(cpu_dai, cstream, 0);
++	snd_soc_dai_compr_shutdown(cpu_dai, cstream, rollback);
  
- 	fe->dpcm[stream].runtime = NULL;
+-	snd_soc_dapm_stream_stop(rtd, stream);
++	if (!rollback)
++		snd_soc_dapm_stream_stop(rtd, stream);
  
--	snd_soc_link_compr_shutdown(cstream);
-+	snd_soc_link_compr_shutdown(cstream, 0);
+ 	mutex_unlock(&rtd->card->pcm_mutex);
  
- 	snd_soc_component_compr_free(cstream, 0);
+-	snd_soc_pcm_component_pm_runtime_put(rtd, cstream, 0);
++	snd_soc_pcm_component_pm_runtime_put(rtd, cstream, rollback);
  
-diff --git a/sound/soc/soc-link.c b/sound/soc/soc-link.c
-index 409ae4940da3..26cc60f8dcfb 100644
---- a/sound/soc/soc-link.c
-+++ b/sound/soc/soc-link.c
-@@ -162,17 +162,26 @@ int snd_soc_link_compr_startup(struct snd_compr_stream *cstream)
- 	    rtd->dai_link->compr_ops->startup)
- 		ret = rtd->dai_link->compr_ops->startup(cstream);
- 
-+	if (ret == 0)
-+		soc_link_mark_push(rtd, cstream, compr_startup);
-+
- 	return soc_link_ret(rtd, ret);
+ 	return 0;
  }
- EXPORT_SYMBOL_GPL(snd_soc_link_compr_startup);
  
--void snd_soc_link_compr_shutdown(struct snd_compr_stream *cstream)
-+void snd_soc_link_compr_shutdown(struct snd_compr_stream *cstream,
-+				 int rollback)
++static int soc_compr_free(struct snd_compr_stream *cstream)
++{
++	return soc_compr_clean(cstream, 0);
++}
++
+ static int soc_compr_open(struct snd_compr_stream *cstream)
  {
  	struct snd_soc_pcm_runtime *rtd = cstream->private_data;
+@@ -65,36 +72,28 @@ static int soc_compr_open(struct snd_compr_stream *cstream)
  
-+	if (rollback && !soc_link_mark_match(rtd, cstream, compr_startup))
-+		return;
-+
- 	if (rtd->dai_link->compr_ops &&
- 	    rtd->dai_link->compr_ops->shutdown)
- 		rtd->dai_link->compr_ops->shutdown(cstream);
-+
-+	soc_link_mark_pop(rtd, cstream, compr_startup);
+ 	ret = snd_soc_pcm_component_pm_runtime_get(rtd, cstream);
+ 	if (ret < 0)
+-		goto pm_err;
++		goto err_no_lock;
+ 
+ 	mutex_lock_nested(&rtd->card->pcm_mutex, rtd->card->pcm_subclass);
+ 
+ 	ret = snd_soc_dai_compr_startup(cpu_dai, cstream);
+ 	if (ret < 0)
+-		goto out;
++		goto err;
+ 
+ 	ret = snd_soc_component_compr_open(cstream);
+ 	if (ret < 0)
+-		goto machine_err;
++		goto err;
+ 
+ 	ret = snd_soc_link_compr_startup(cstream);
+ 	if (ret < 0)
+-		goto machine_err;
++		goto err;
+ 
+ 	snd_soc_runtime_activate(rtd, stream);
+-
+-	mutex_unlock(&rtd->card->pcm_mutex);
+-
+-	return 0;
+-
+-machine_err:
+-	snd_soc_component_compr_free(cstream, 1);
+-
+-	snd_soc_dai_compr_shutdown(cpu_dai, cstream, 1);
+-out:
++err:
+ 	mutex_unlock(&rtd->card->pcm_mutex);
+-pm_err:
+-	snd_soc_pcm_component_pm_runtime_put(rtd, cstream, 1);
++err_no_lock:
++	if (ret < 0)
++		soc_compr_clean(cstream, 1);
+ 
+ 	return ret;
  }
- EXPORT_SYMBOL_GPL(snd_soc_link_compr_shutdown);
- 
 -- 
 2.25.1
 

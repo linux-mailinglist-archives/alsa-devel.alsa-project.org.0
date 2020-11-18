@@ -2,95 +2,91 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E0A422B7E99
-	for <lists+alsa-devel@lfdr.de>; Wed, 18 Nov 2020 14:54:08 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id D79FA2B7EBE
+	for <lists+alsa-devel@lfdr.de>; Wed, 18 Nov 2020 15:00:34 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 6EF32172F;
-	Wed, 18 Nov 2020 14:53:18 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6EF32172F
+	by alsa0.perex.cz (Postfix) with ESMTPS id AFD9216B9;
+	Wed, 18 Nov 2020 14:59:43 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AFD9216B9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1605707648;
-	bh=5KyOBGU8W8/BPsw6pDYAD7n0q+dqRcWEa1oJgCDz0J8=;
-	h=Date:From:To:Subject:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=JI1iXuawW1/6N1V5ZFJdxlSGOM/SedAkQ/3NCF6kzgU9jGPb/7TXhPH1imwCn5Z16
-	 YsLQ5P2RIS7M/LrjJUIWqf+7Ra6Xfn3/HaKjwkED/yNp3/b96BQGYSi17zw7f4E/E7
-	 is9MF5wQ8YoFBVSH7LZPj2m1AO14Z6MKAc87mYf8=
+	s=default; t=1605708033;
+	bh=K30UlZzgxGw8jvfkQIxdM5HKtJCDAANhehaB3fKBWMc=;
+	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=muxB7m8ZXZQgPG43iYLhsG6+nFQtojTvBZziRTnza768aQDD/XgVYhAfmxccn4sQk
+	 UmneswytuQtBwbdSPZASp992Ti7whEkXWepepTI7dlEhU38V+xbjZyHhor4w5O8eyI
+	 +QemupqxAWJZFZBJ5FDUnm2M3Be6QxHho5TjCxVw=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 1A841F800EE;
-	Wed, 18 Nov 2020 14:52:36 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id E0CDEF804D2;
+	Wed, 18 Nov 2020 14:58:47 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id B50E6F8016C; Wed, 18 Nov 2020 14:52:33 +0100 (CET)
+ id 0EF97F80276; Wed, 18 Nov 2020 14:58:44 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,RCVD_IN_MSPIKE_H2,SPF_HELO_PASS,SPF_NONE,
- UNPARSEABLE_RELAY autolearn=disabled version=3.4.0
-Received: from aserp2130.oracle.com (aserp2130.oracle.com [141.146.126.79])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU, FREEMAIL_ENVFROM_END_DIGIT, FREEMAIL_FROM, SPF_HELO_NONE,
+ SPF_PASS autolearn=disabled version=3.4.0
+Received: from mail-ej1-x643.google.com (mail-ej1-x643.google.com
+ [IPv6:2a00:1450:4864:20::643])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 91AE1F80158
- for <alsa-devel@alsa-project.org>; Wed, 18 Nov 2020 14:52:26 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 91AE1F80158
+ by alsa1.perex.cz (Postfix) with ESMTPS id B7605F800EE
+ for <alsa-devel@alsa-project.org>; Wed, 18 Nov 2020 14:58:34 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B7605F800EE
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=oracle.com header.i=@oracle.com
- header.b="MptJc0p8"
-Received: from pps.filterd (aserp2130.oracle.com [127.0.0.1])
- by aserp2130.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 0AIDihq0188810;
- Wed, 18 Nov 2020 13:52:24 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com;
- h=date : from : to : cc
- : subject : message-id : mime-version : content-type; s=corp-2020-01-29;
- bh=oPsufWA6wCykvEAj9O3oIE2DHb3hTg/M+D1ozbYIPpA=;
- b=MptJc0p8AVA59pfpDqU69eavas2BAWMmhQy7DAz5kscQDVM36cNIItnTSddP51CiTZN4
- D6pUpYGdofsd4Ay/UgkAsUGKRGHH5k1nUwtBHTssvTUq/PaFaAAw9h8C9oD5c8MwmOZK
- NgwB1Rs4gyo07UFAseJbLlIarPvQbJpLaQjMwGW6t2YAtQmBig5JhVQOYjQDWMk2Q2J9
- czFCgGGajUL0FKlEUCohQPlVbix3mq8mHIm8qWYasoHFuw5LIbqD576V4D7LefqK02NO
- GafALugrs1b3wdz3KJWQZY4qLMYy4HidZMN2S1WcF4apimukPaMoSOSE9MfxKMf6dZHU SQ== 
-Received: from userp3030.oracle.com (userp3030.oracle.com [156.151.31.80])
- by aserp2130.oracle.com with ESMTP id 34t4rb07mt-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
- Wed, 18 Nov 2020 13:52:24 +0000
-Received: from pps.filterd (userp3030.oracle.com [127.0.0.1])
- by userp3030.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 0AIDoYrL025384;
- Wed, 18 Nov 2020 13:52:24 GMT
-Received: from userv0122.oracle.com (userv0122.oracle.com [156.151.31.75])
- by userp3030.oracle.com with ESMTP id 34ts5xhne1-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Wed, 18 Nov 2020 13:52:23 +0000
-Received: from abhmp0006.oracle.com (abhmp0006.oracle.com [141.146.116.12])
- by userv0122.oracle.com (8.14.4/8.14.4) with ESMTP id 0AIDqIUE018372;
- Wed, 18 Nov 2020 13:52:22 GMT
-Received: from mwanda (/41.57.98.10) by default (Oracle Beehive Gateway v4.0)
- with ESMTP ; Wed, 18 Nov 2020 05:52:18 -0800
-Date: Wed, 18 Nov 2020 16:52:12 +0300
-From: Dan Carpenter <dan.carpenter@oracle.com>
-To: tiwai@suse.de
-Subject: [bug report] ALSA: mixart: Use nonatomic PCM ops
-Message-ID: <20201118135212.GA373539@mwanda>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-X-Proofpoint-Virus-Version: vendor=nai engine=6000 definitions=9808
- signatures=668682
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 adultscore=0
- spamscore=0 phishscore=0
- suspectscore=3 mlxscore=0 malwarescore=0 bulkscore=0 mlxlogscore=902
- classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2009150000
- definitions=main-2011180098
-X-Proofpoint-Virus-Version: vendor=nai engine=6000 definitions=9808
- signatures=668682
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 bulkscore=0
- clxscore=1011
- malwarescore=0 impostorscore=0 lowpriorityscore=0 priorityscore=1501
- mlxlogscore=916 adultscore=0 phishscore=0 suspectscore=3 spamscore=0
- mlxscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.12.0-2009150000 definitions=main-2011180097
-Cc: alsa-devel@alsa-project.org
+ dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
+ header.b="fdF8xUVo"
+Received: by mail-ej1-x643.google.com with SMTP id s25so2879168ejy.6
+ for <alsa-devel@alsa-project.org>; Wed, 18 Nov 2020 05:58:34 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=from:to:cc:subject:date:message-id:in-reply-to:references;
+ bh=cfXI1Q85bb28+McjuHeu3xbkODr0lp86DQ42QSmzooY=;
+ b=fdF8xUVo3uIdHc6YyB775KnYhOIlFrGskqvtuYUq0+H0LEDxRf2FSjmE3MejSgdHTb
+ 8WJWYId6ImRG9GGecYu1B32uSQt7oWDTxH2x+PqtWNUitn9YCxWI0EEes+tXEV1MP+XU
+ 8D+YacIFqFcQzMWGR+LX6Mc6ITalnds5Ff3PCpT9y487iyq4fM4+FYc0vNpudn6aT1nA
+ f/tKSRmWc1iauHA8/2II7cKUJ/ro4adTzpQmNEnWYqgZZVVWV6vKzi91xqrWu/9Z/Wbk
+ IjGH8CQrSMvry7JmgYbGqaLBDpacNYpdVh4K8kq5qc3bN/DiIm8VHGvt37d6TGSFQwVl
+ vKaA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
+ :references;
+ bh=cfXI1Q85bb28+McjuHeu3xbkODr0lp86DQ42QSmzooY=;
+ b=EbsXscadiuLjzoZ0tBhE2/ljlTLYrhu3/N0W6joOAPAIKBPCW+B6HSAI7JKkKoKn1G
+ PnMKBx57p11nGz30yo4sZCO/NK3X9Ogelb3Osy7W2LcQAsOuvL/YG04t9uYGqTXBJjnY
+ yeyJjBiPL8wOAyLcbvwu4K5/zPlsbIeSjrDkTTLsTYBRRif/8XVT4EhJHeyhpx32JHlz
+ 8joB5eolgi1scMIdUGf5TN08rdrzr1se1rF3Up79Bg8uss/P+KL9xlsNhyxXOQzq4nrC
+ FPjP5wyNpjpHUuDqvPKgCH9HJQzjLsDBP7UhIo74d6uGRoNeawbmYqEzZkX2VxWO4u/0
+ 2Xow==
+X-Gm-Message-State: AOAM531Z4t9+ACAEDuqlmMPxkjFVa+jsSCcGdPWxH3n1wJfo1vYFDCS9
+ CKIVTeCWjMktCRJfeWd3BA0=
+X-Google-Smtp-Source: ABdhPJwPUth9fHvvDX++NfqTDXzoOCsJv1H/KeHB1Jjd8310pAuysjnHkPHT+Mln9kBpRXazl3YUgg==
+X-Received: by 2002:a17:906:c08f:: with SMTP id
+ f15mr23483362ejz.97.1605707913682; 
+ Wed, 18 Nov 2020 05:58:33 -0800 (PST)
+Received: from debian.home (81-204-249-205.fixed.kpn.net. [81.204.249.205])
+ by smtp.gmail.com with ESMTPSA id cx6sm13721384edb.61.2020.11.18.05.58.32
+ (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+ Wed, 18 Nov 2020 05:58:33 -0800 (PST)
+From: Johan Jonker <jbx6244@gmail.com>
+To: heiko@sntech.de
+Subject: [PATCH v5 3/7] dt-bindings: display: add #sound-dai-cells property to
+ rockchip rk3066 hdmi
+Date: Wed, 18 Nov 2020 14:58:18 +0100
+Message-Id: <20201118135822.9582-4-jbx6244@gmail.com>
+X-Mailer: git-send-email 2.11.0
+In-Reply-To: <20201118135822.9582-1-jbx6244@gmail.com>
+References: <20201118135822.9582-1-jbx6244@gmail.com>
+Cc: alsa-devel@alsa-project.org, linux-rockchip@lists.infradead.org,
+ airlied@linux.ie, linux-kernel@vger.kernel.org, mturquette@baylibre.com,
+ hjc@rock-chips.com, dri-devel@lists.freedesktop.org, lgirdwood@gmail.com,
+ sboyd@kernel.org, robh+dt@kernel.org, broonie@kernel.org, daniel@ffwll.ch,
+ linux-clk@vger.kernel.org, linux-arm-kernel@lists.infradead.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -106,72 +102,38 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-[ This bug predates git but my email script just uses `git blame -w`.
-  -dan ]
+'#sound-dai-cells' is required to properly interpret
+the list of DAI specified in the 'sound-dai' property.
+Add it to rockchip,rk3066-hdmi.yaml to document that the
+rk3066 HDMI TX also can be used to transmit some audio.
 
-Hello Takashi Iwai,
+Signed-off-by: Johan Jonker <jbx6244@gmail.com>
+---
+ .../devicetree/bindings/display/rockchip/rockchip,rk3066-hdmi.yaml    | 4 ++++
+ 1 file changed, 4 insertions(+)
 
-The patch 8d3a8b5cb57d: "ALSA: mixart: Use nonatomic PCM ops" from
-Sep 10, 2014, leads to the following static checker warning:
+diff --git a/Documentation/devicetree/bindings/display/rockchip/rockchip,rk3066-hdmi.yaml b/Documentation/devicetree/bindings/display/rockchip/rockchip,rk3066-hdmi.yaml
+index 4110d003c..585a8d3b9 100644
+--- a/Documentation/devicetree/bindings/display/rockchip/rockchip,rk3066-hdmi.yaml
++++ b/Documentation/devicetree/bindings/display/rockchip/rockchip,rk3066-hdmi.yaml
+@@ -42,6 +42,9 @@ properties:
+     description:
+       This soc uses GRF regs to switch the HDMI TX input between vop0 and vop1.
+ 
++  "#sound-dai-cells":
++    const: 0
++
+   ports:
+     type: object
+ 
+@@ -101,6 +104,7 @@ examples:
+       pinctrl-names = "default";
+       power-domains = <&power RK3066_PD_VIO>;
+       rockchip,grf = <&grf>;
++      #sound-dai-cells = <0>;
+ 
+       ports {
+         #address-cells = <1>;
+-- 
+2.11.0
 
-	sound/pci/mixart/mixart_core.c:73 get_msg()
-	warn: called with lock held.  '&mgr->msg_lock'
-
-sound/pci/mixart/mixart_core.c
-    63  static int get_msg(struct mixart_mgr *mgr, struct mixart_msg *resp,
-    64                     u32 msg_frame_address )
-    65  {
-    66          u32  headptr;
-    67          u32  size;
-    68          int  err;
-    69  #ifndef __BIG_ENDIAN
-    70          unsigned int i;
-    71  #endif
-    72  
-    73          mutex_lock(&mgr->msg_lock);
-                ^^^^^^^^^^^^^^^^^^^^^^^^^^
-Smatch says that get_msg() is called with this lock already held.
-
-    74          err = 0;
-    75  
-    76          /* copy message descriptor from miXart to driver */
-    77          size                =  readl_be(MIXART_MEM(mgr, msg_frame_address));       /* size of descriptor + response */
-    78          resp->message_id    =  readl_be(MIXART_MEM(mgr, msg_frame_address + 4));   /* dwMessageID */
-
-
-[ snip ]
-
-   419  irqreturn_t snd_mixart_threaded_irq(int irq, void *dev_id)
-   420  {
-   421          struct mixart_mgr *mgr = dev_id;
-   422          int err;
-   423          struct mixart_msg resp;
-   424          u32 msg;
-   425  
-   426          mutex_lock(&mgr->lock);
-                ^^^^^^^^^^^^^^^^^^^^^^
-We are holding the lock
-
-   427          /* process interrupt */
-   428          while (retrieve_msg_frame(mgr, &msg)) {
-   429  
-   430                  switch (msg & MSG_TYPE_MASK) {
-   431                  case MSG_TYPE_COMMAND:
-   432                          resp.message_id = 0;
-   433                          resp.data = mixart_msg_data;
-   434                          resp.size = sizeof(mixart_msg_data);
-   435                          err = get_msg(mgr, &resp, msg & ~MSG_TYPE_MASK);
-                                      ^^^^^^^^^^^
-When get_msg() is called on this path.
-
-   436                          if( err < 0 ) {
-   437                                  dev_err(&mgr->pci->dev,
-   438                                          "interrupt: error(%d) reading mf %x\n",
-   439                                          err, msg);
-   440                                  break;
-   441                          }
-   442  
-   443                          if(resp.message_id == MSG_SERVICES_TIMER_NOTIFY) {
-
-regards,
-dan carpenter

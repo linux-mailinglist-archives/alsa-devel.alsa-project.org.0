@@ -2,77 +2,82 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id ECD342B97A0
-	for <lists+alsa-devel@lfdr.de>; Thu, 19 Nov 2020 17:20:37 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 174712B97BD
+	for <lists+alsa-devel@lfdr.de>; Thu, 19 Nov 2020 17:24:45 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 8E671170E;
-	Thu, 19 Nov 2020 17:19:47 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8E671170E
+	by alsa0.perex.cz (Postfix) with ESMTPS id 52CBF1720;
+	Thu, 19 Nov 2020 17:23:54 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 52CBF1720
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1605802837;
-	bh=cTvErOiM7LjyY/taW0aQ0rYMas1sv3ZjkHzDZf1S3I0=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=IsWmpYLKFgQOO1tNlOQVMYlSvuJY1BLEPDV5E6k91LqAnTjw/afXIgXHOnpePIAQI
-	 Y9fSDubAGCpRzpfQILlCYqvUM1574glGYFEimD70DayTQiruwy7+206q3vNWTe2uP4
-	 oCMIQVCAvBRglCOP7QTOg6RNBImMy5V9hY3IMl6E=
+	s=default; t=1605803084;
+	bh=bS0qzUjM1H6wIT94SR8QTlx4YXd8oxB6wsHYfxpqnc8=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=Hl69gy6qLvnXjaR7sdxn6wsUWGN60AHX0ZOSp7XNBAQU1e2SE3OldXtkfhuU4Z8+k
+	 DjuKx1X6IAcgPN5exR97nbvQzuV2UzD743mZ8dQhwM26sHL80MIz2hztykxOSSlWzh
+	 GDjju/gQEJMETfVL83HVHwbhzWDOUCeSlIQAL39M=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 2379DF80169;
-	Thu, 19 Nov 2020 17:19:05 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 05228F804C1;
+	Thu, 19 Nov 2020 17:23:04 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 33F05F801ED; Thu, 19 Nov 2020 17:19:02 +0100 (CET)
+ id 5F2AAF801F9; Thu, 19 Nov 2020 17:23:02 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.8 required=5.0 tests=FREEMAIL_ENVFROM_END_DIGIT,
- FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,
- RCVD_IN_MSPIKE_H3,RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+ DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
  autolearn=disabled version=3.4.0
-Received: from mail-oo1-f65.google.com (mail-oo1-f65.google.com
- [209.85.161.65])
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 33873F801F9
+ for <alsa-devel@alsa-project.org>; Thu, 19 Nov 2020 17:22:50 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 33873F801F9
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="XgdVReSd"
+Received: from mail-ot1-f43.google.com (mail-ot1-f43.google.com
+ [209.85.210.43])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 4C2D5F800EE
- for <alsa-devel@alsa-project.org>; Thu, 19 Nov 2020 17:18:51 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4C2D5F800EE
-Received: by mail-oo1-f65.google.com with SMTP id h10so1473498ooi.10
- for <alsa-devel@alsa-project.org>; Thu, 19 Nov 2020 08:18:51 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=Vd3H42jUoSvZxFn/Q1zt8vw781tXojM7bC5Q50c1Fl8=;
- b=ZeKshhhYqhCp/5kDIpgpv4ZyByhDP+TgvieItgA0S6jQaxiTgbqjcqq3lxJSqm6lah
- HKcdcUNLuM2ZeTsMLOAxV99kpJ1wYapd0sq2jjhf0z94TqzSVelTENp1lGXFC7Hpegdi
- ivA5xCC/sxb1tGZXu4uReJSVch2W3RC6PAMOBz1hEaA8eERMiwad2bpZ72M4V+2HNIRr
- 6HDQ/e0NhYaEAWjT1wozBvSqCCfjyQB5spC65/sq4bLzF+OKpwp4ZWAsGs0HICJO2r4m
- hvQ/FIUbc1rPzvp9ENK1chmdksVYZZ3qoNKyky82U4pJuO4j1sSNCrpyir3skrM9I+YJ
- axsg==
-X-Gm-Message-State: AOAM530hjWckwbD7kMsMhFxHwNz2WLfQXnIXXEWq6Slvszh5fH28Xa+9
- ahTFU1CL7Asv9Pc/vxhTOA==
-X-Google-Smtp-Source: ABdhPJy+z6J4cPV6dH7vCvJ98HwBWHFs+6+z4hY/aKmDzuMeNHNL4aMXBGrfY+PwB1Tl7wRWJWYLdQ==
-X-Received: by 2002:a4a:96c2:: with SMTP id t2mr10893667ooi.25.1605802729708; 
- Thu, 19 Nov 2020 08:18:49 -0800 (PST)
-Received: from xps15.herring.priv (24-155-109-49.dyn.grandenetworks.net.
- [24.155.109.49])
- by smtp.googlemail.com with ESMTPSA id c6sm139820oif.48.2020.11.19.08.18.48
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 19 Nov 2020 08:18:49 -0800 (PST)
-From: Rob Herring <robh@kernel.org>
-To: Mark Brown <broonie@kernel.org>
-Subject: [PATCH] ASoC: dt-bindings: renesas,
- rsnd: Fix duplicate 'allOf' entries
-Date: Thu, 19 Nov 2020 10:18:48 -0600
-Message-Id: <20201119161848.3379929-1-robh@kernel.org>
-X-Mailer: git-send-email 2.25.1
+ by mail.kernel.org (Postfix) with ESMTPSA id B3B1622261
+ for <alsa-devel@alsa-project.org>; Thu, 19 Nov 2020 16:22:48 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=default; t=1605802968;
+ bh=bS0qzUjM1H6wIT94SR8QTlx4YXd8oxB6wsHYfxpqnc8=;
+ h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
+ b=XgdVReSdJ3jRMbmJIdoZJeiQFGP40Ow6P/PQuzwCXCagwUSemIME1sFLaEiMxBXRK
+ Z+Kn9OXu/HFMHn6uDg7wz6n+XrWThw5Sx2Kn3HhMbY37NtPcLkb8XyxTPI2SUhsIf6
+ cLeXZ9EnYXCljFLtBaTBFqLg6AnLx4T7cXv3W0hk=
+Received: by mail-ot1-f43.google.com with SMTP id h16so5803626otq.9
+ for <alsa-devel@alsa-project.org>; Thu, 19 Nov 2020 08:22:48 -0800 (PST)
+X-Gm-Message-State: AOAM530aDOJPodt2L8M78maMpPuXFnCagKXlQv83HhssY+lGupVEfsK2
+ iBGQlvQzdfC0XHlj2JStJWx6Hvl3+r0v2p05CqY=
+X-Google-Smtp-Source: ABdhPJxe14qa9ET78RDEvJPyPuc5zOrgkvxgZBTpYMYuAHlamwN2dRJXiIke9P3+XrMB/P0WqR21F8wpPDxh/ZqgrvE=
+X-Received: by 2002:a05:6830:22d2:: with SMTP id
+ q18mr9659872otc.305.1605802967944; 
+ Thu, 19 Nov 2020 08:22:47 -0800 (PST)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Cc: devicetree@vger.kernel.org, Sameer Pujar <spujar@nvidia.com>,
- alsa-devel@alsa-project.org, Liam Girdwood <lgirdwood@gmail.com>,
- Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+References: <20201119125318.4066097-1-geert+renesas@glider.be>
+ <CAK8P3a0mHYgOYLBO1MHw1CUVgdnOQk4aRf5XTBj+jR-yEtzcoA@mail.gmail.com>
+ <CAMuHMdXmHOo+6TgYOsAuSC7-iHEyBnLvqX=MCN3qYybUi5M-hw@mail.gmail.com>
+In-Reply-To: <CAMuHMdXmHOo+6TgYOsAuSC7-iHEyBnLvqX=MCN3qYybUi5M-hw@mail.gmail.com>
+From: Arnd Bergmann <arnd@kernel.org>
+Date: Thu, 19 Nov 2020 17:22:32 +0100
+X-Gmail-Original-Message-ID: <CAK8P3a17rA4N7TyiwrTdS_=4AAyDXrAi7W8k45BPuTLL1xU4Gg@mail.gmail.com>
+Message-ID: <CAK8P3a17rA4N7TyiwrTdS_=4AAyDXrAi7W8k45BPuTLL1xU4Gg@mail.gmail.com>
+Subject: Re: [PATCH] ASoC: fsi: Stop using __raw_*() I/O accessors
+To: Geert Uytterhoeven <geert@linux-m68k.org>
+Content-Type: text/plain; charset="UTF-8"
+Cc: ALSA Development Mailing List <alsa-devel@alsa-project.org>,
+ Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
+ Takashi Iwai <tiwai@suse.com>, Liam Girdwood <lgirdwood@gmail.com>,
+ Linux-Renesas <linux-renesas-soc@vger.kernel.org>,
+ Mark Brown <broonie@kernel.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -88,50 +93,34 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Commit e52f3f291152 ("ASoC: audio-graph-card: Refactor schema") added an
-'allOf' entry, but one is already present in the schema. Multiple keys
-is not valid and results in an error:
+On Thu, Nov 19, 2020 at 5:13 PM Geert Uytterhoeven <geert@linux-m68k.org> wrote:
+> On Thu, Nov 19, 2020 at 4:54 PM Arnd Bergmann <arnd@kernel.org> wrote:
+> > On Thu, Nov 19, 2020 at 1:53 PM Geert Uytterhoeven
+> > <geert+renesas@glider.be> wrote:
+> >
+> > I'm also not sure whether changing this breaks big-endian SuperH,
+> > which defines the accessors differently from Arm and most other
+> > architectures.
+>
+> On SH, this driver is only used on SH7724 systems.
+> Compiling an ecovec24_defconfig kernel with CONFIG_CPU_BIG_ENDIAN=y
+> shows that the same code (native 32-bit access) is generated for
+> big-endian as for little-endian, which means that it indeed must be
+> broken for one of them. But this is not changed by my patch.
 
-ruamel.yaml.constructor.DuplicateKeyError: while constructing a mapping
-  in "<unicode string>", line 4, column 1
-found duplicate key "allOf" with value "[]" (original value: "[]")
-  in "<unicode string>", line 262, column 1
+Not necessarily: I think superh is more like the old 'BE32' variant of Arm
+big-endian, in that on-chip registers are accessed in CPU-endian byte order,
+while access to external RAM is byte-swapped.
 
-Fixes: e52f3f291152 ("ASoC: audio-graph-card: Refactor schema")
-Cc: Liam Girdwood <lgirdwood@gmail.com>
-Cc: Mark Brown <broonie@kernel.org>
-Cc: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Cc: Sameer Pujar <spujar@nvidia.com>
-Cc: alsa-devel@alsa-project.org
-Signed-off-by: Rob Herring <robh@kernel.org>
----
- Documentation/devicetree/bindings/sound/renesas,rsnd.yaml | 6 ++----
- 1 file changed, 2 insertions(+), 4 deletions(-)
+> > Maybe better just mark the driver as 'depends on SH || !CPU_BIG_ENDIAN'
+> > as it is clearly broken on big-endian Arm.
+>
+> "depends on !CPU_BIG_ENDIAN"?
 
-diff --git a/Documentation/devicetree/bindings/sound/renesas,rsnd.yaml b/Documentation/devicetree/bindings/sound/renesas,rsnd.yaml
-index cbfd5914b432..0fd37aa84947 100644
---- a/Documentation/devicetree/bindings/sound/renesas,rsnd.yaml
-+++ b/Documentation/devicetree/bindings/sound/renesas,rsnd.yaml
-@@ -9,10 +9,6 @@ title: Renesas R-Car Sound Driver Device Tree Bindings
- maintainers:
-   - Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
- 
--allOf:
--  - $ref: audio-graph.yaml#
--  - $ref: audio-graph-port.yaml#
--
- properties:
- 
-   compatible:
-@@ -260,6 +256,8 @@ required:
-   - "#sound-dai-cells"
- 
- allOf:
-+  - $ref: audio-graph.yaml#
-+  - $ref: audio-graph-port.yaml#
-   - if:
-       properties:
-         compatible:
--- 
-2.25.1
+I think I'd just leave it as it is. Unless someone wants to try out this
+board in both big-endian and little-endian configurations and also
+listen to the audio output, it's impossible to know whether it is actually
+broken. sound/soc/sh/dma-sh7760.c does have a comment from 2007
+saying "// FIXME: little-endian only for now".
 
+      Arnd

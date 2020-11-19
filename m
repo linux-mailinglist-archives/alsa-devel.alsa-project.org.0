@@ -2,77 +2,57 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id DB6C42B9A91
-	for <lists+alsa-devel@lfdr.de>; Thu, 19 Nov 2020 19:27:26 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 53C892B9B07
+	for <lists+alsa-devel@lfdr.de>; Thu, 19 Nov 2020 20:03:06 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 7C78A171E;
-	Thu, 19 Nov 2020 19:26:36 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7C78A171E
+	by alsa0.perex.cz (Postfix) with ESMTPS id D25F71718;
+	Thu, 19 Nov 2020 20:02:15 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D25F71718
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1605810446;
-	bh=k/L4GRVwFEJNK3OsJdzApB8Qk4ZHCBMjXzeFfhK/dpY=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1605812585;
+	bh=KGQKY0vY42EKHS+x0pYTwFLRL5jBogCaUkfQ/Gdq0oc=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=hKin53NAYaxpC4EGegxXHvaH/ZRuRi26j1KhfhJmeT6GXnXiCtcAKMmYhRN02Ugqx
-	 b71LHTRrQqmzlF3YX9Rx2Y3FDqENzVm8+Mw8FbMEyzxxzYjnUCgHTPBH/lWoDB3tEz
-	 qFef350nbye79+9RAuC3PvlzVUGuF7RFwxIIa4kg=
+	b=L8qM9n0cVDwHMo3jfoKOO1tyUbT4jswQkDwzw4TaQ2i4LPW3cWOcsBXczf5Di8q5U
+	 0uYSqogNdB86TkXk0h0q83nsQ2xBKvDfH368Ul78MxuHOqVjx21kMsHnAe3h+1nUhq
+	 7Vn5SkYrTXV1pHZhYVIq8ZdoYUrkFMxBX3a9trc8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 0BE0AF8015A;
-	Thu, 19 Nov 2020 19:25:54 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 4F97DF801F5;
+	Thu, 19 Nov 2020 20:01:33 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id DB77CF801ED; Thu, 19 Nov 2020 19:25:51 +0100 (CET)
+ id 028F6F801ED; Thu, 19 Nov 2020 20:01:25 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled
- version=3.4.0
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_MSPIKE_H3,
+ RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
+Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 7B5AEF8015A
- for <alsa-devel@alsa-project.org>; Thu, 19 Nov 2020 19:25:49 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7B5AEF8015A
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="uYiSds4w"
-Received: from localhost (fw-tnat.cambridge.arm.com [217.140.96.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id CDBF024199;
- Thu, 19 Nov 2020 18:25:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1605810347;
- bh=k/L4GRVwFEJNK3OsJdzApB8Qk4ZHCBMjXzeFfhK/dpY=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=uYiSds4wbfE7IoUMznSuqNuU1O/0+pHoA8NAZ3gYwdrAKMQwrLq6ICUluI6ob/eQf
- 2LnWPxnNIiLN7hrJz0zJ1sVR+g7iJwJNIoyIavsDscrma0+Xp23AXcNEticKKN4c9x
- HJp2JMS9gvTmpbqvCT6JrytIoCADNmDDQW/0OTys=
-Date: Thu, 19 Nov 2020 18:25:26 +0000
-From: Mark Brown <broonie@kernel.org>
-To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Subject: Re: [PATCH 13/14] ASoC: SOF: Intel: allow for coexistence between
- SOF and catpt drivers
-Message-ID: <20201119182526.GI5554@sirena.org.uk>
-References: <20201112223825.39765-1-pierre-louis.bossart@linux.intel.com>
- <20201112223825.39765-14-pierre-louis.bossart@linux.intel.com>
- <20201119140650.GA37066@sirena.org.uk>
- <569716f0-a52f-e9af-dd83-5c622b8073d4@linux.intel.com>
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="SdaPbLtAangIkrMZ"
-Content-Disposition: inline
-In-Reply-To: <569716f0-a52f-e9af-dd83-5c622b8073d4@linux.intel.com>
-X-Cookie: Chocolate chip.
-User-Agent: Mutt/1.10.1 (2018-07-13)
-Cc: Guennadi Liakhovetski <guennadi.liakhovetski@linux.intel.com>,
- alsa-devel@alsa-project.org, tiwai@suse.de,
- Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
- Hans de Goede <hdegoede@redhat.com>, Rander Wang <rander.wang@linux.intel.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 5967FF800C5
+ for <alsa-devel@alsa-project.org>; Thu, 19 Nov 2020 20:01:14 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5967FF800C5
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id A4B31ABF4;
+ Thu, 19 Nov 2020 19:01:14 +0000 (UTC)
+Date: Thu, 19 Nov 2020 20:01:14 +0100
+Message-ID: <s5hzh3di32d.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Mark Brown <broonie@kernel.org>
+Subject: Re: [GIT PULL] ASoC fixes for v5.10-rc4
+In-Reply-To: <20201119174519.B1CD921D7A@mail.kernel.org>
+References: <20201119174519.B1CD921D7A@mail.kernel.org>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
+ FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
+ (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
+Content-Type: text/plain; charset=US-ASCII
+Cc: alsa-devel@alsa-project.org, Liam Girdwood <lgirdwood@gmail.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -88,36 +68,29 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+On Thu, 19 Nov 2020 18:44:58 +0100,
+Mark Brown wrote:
+> 
+> The following changes since commit f9d7c6eb23f7e55e7a0ca5451da06909bdfdd0e4:
+> 
+>   ASoC: mchp-spdiftx: Do not set Validity bit(s) (2020-11-04 17:50:22 +0000)
+> 
+> are available in the Git repository at:
+> 
+>   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git tags/asoc-fix-v5.10-rc4
+> 
+> for you to fetch changes up to 879ee8b6f2bae0cc4a25536f8841db1dbc969523:
+> 
+>   ASOC: Intel: kbl_rt5663_rt5514_max98927: Do not try to disable disabled clock (2020-11-18 17:59:23 +0000)
+> 
+> ----------------------------------------------------------------
+> ASoC: Fixes for v5.11
+> 
+> A collection of driver specific fixes, mostly for x86 systems (or CODECs
+> used mostly on x86) and all for relatively minor issues, the biggest one
+> being fixing S24_LE format on Keem Bay systems.
 
---SdaPbLtAangIkrMZ
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Pulled now.  Thanks.
 
-On Thu, Nov 19, 2020 at 11:52:22AM -0600, Pierre-Louis Bossart wrote:
 
-> Humm, I just tried and it works fine for me on top of your for-5.11 branch.
-> That error across the board seems weird, there's even a fall-back with a
-> static inline if the Kconfig is not selected.
-
-> Could it be that Patch3 was not applied somehow? That's where the prototype
-> was added.
-
-Looks like the patches got reordered because I had to manually add
-Takashi's acks since he added some spaces which confused b4.
-
---SdaPbLtAangIkrMZ
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl+2uJUACgkQJNaLcl1U
-h9BPggf/SGtM8uNoGS3Zdx4HvDJMeleNQOXjxOT5EKN0x9PcsmfzM837ZkaUTe+8
-EtJpV5RAO69wMYudiDFQlmY4ZFZHCDoxs0x6OClwnW8KBNWnd5jaWD93izSUOdi9
-BC4rLT5BwTw9SPRui2qedsJtlA0nFJOFzfilhDJ4PinbwhLrU6Y4I13gZD8ziMwx
-yvEYVGBp5g0G6QzEuiiNycFxOlFOzJCPs2GQSIc+cH5dffAN0JlhIElUtIwXNA8U
-AXCzZEFRfiwBwngIDVwB6hHDp+xdiTRO+KKAE2mdfKLO1ZM7S08ct8dqazL/nZmx
-06CJD4ID4kwovyh4W70IfWwVV9N4Ug==
-=rlgS
------END PGP SIGNATURE-----
-
---SdaPbLtAangIkrMZ--
+Takashi

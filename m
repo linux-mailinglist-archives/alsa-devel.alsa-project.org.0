@@ -2,60 +2,92 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D925F2B8BCF
-	for <lists+alsa-devel@lfdr.de>; Thu, 19 Nov 2020 07:49:19 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2D81C2B8BD4
+	for <lists+alsa-devel@lfdr.de>; Thu, 19 Nov 2020 07:53:44 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 733BA16FC;
-	Thu, 19 Nov 2020 07:48:29 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 733BA16FC
+	by alsa0.perex.cz (Postfix) with ESMTPS id A03291705;
+	Thu, 19 Nov 2020 07:52:53 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A03291705
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1605768559;
-	bh=xlMDvyuJZmqqHSqC3GxdywG2nmgIJ7ckgH4H7jGlHds=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=scvVHw5bIcvz81aK+WpTWKfkNO+rg/9QhbvNe0MFlh9kwKgreKSnpE8ZJ9MgoPvO3
-	 R3P/VIak8zmE+mqaLcfyZk5QjteW0S+LhXaWFhEin4IxXyWrVZNws+BgPQddqElZIJ
-	 SQDtvkNbpEO6ORsodg8p7ClQX3tbFwUIx01vEwWE=
+	s=default; t=1605768823;
+	bh=Hzlu15YBWU82JbdsmVliNo2XbcjzSiNEqhfpkE8/aVA=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=V/7peGlp5GpFAnzdXVK7+PFDbmfY/YGkiya5dC7m4NZoa70JxWnKL/iM61NEOTXqu
+	 g7abCxxKlhLfDAdnlAV5RtNXWNxnh6EOJb1AdFi9moloQywY83UCHa8Jrz0tEg9yB9
+	 zruSxAUlrbt6RTRLI198OHVpgDsKBCYKKgUU8pPg=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id BE106F800EE;
-	Thu, 19 Nov 2020 07:47:46 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id F3635F800EE;
+	Thu, 19 Nov 2020 07:52:10 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id C024BF801ED; Thu, 19 Nov 2020 07:47:44 +0100 (CET)
+ id 14C03F801ED; Thu, 19 Nov 2020 07:52:09 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from inva020.nxp.com (inva020.nxp.com [92.121.34.13])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from mail-pl1-x641.google.com (mail-pl1-x641.google.com
+ [IPv6:2607:f8b0:4864:20::641])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id A7D65F800EE
- for <alsa-devel@alsa-project.org>; Thu, 19 Nov 2020 07:47:31 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A7D65F800EE
-Received: from inva020.nxp.com (localhost [127.0.0.1])
- by inva020.eu-rdc02.nxp.com (Postfix) with ESMTP id 4D3481A197F;
- Thu, 19 Nov 2020 07:47:30 +0100 (CET)
-Received: from invc005.ap-rdc01.nxp.com (invc005.ap-rdc01.nxp.com
- [165.114.16.14])
- by inva020.eu-rdc02.nxp.com (Postfix) with ESMTP id 1531E1A1962;
- Thu, 19 Nov 2020 07:47:26 +0100 (CET)
-Received: from localhost.localdomain (shlinux2.ap.freescale.net
- [10.192.224.44])
- by invc005.ap-rdc01.nxp.com (Postfix) with ESMTP id BBEB34024F;
- Thu, 19 Nov 2020 07:47:20 +0100 (CET)
-From: Shengjiu Wang <shengjiu.wang@nxp.com>
-To: timur@kernel.org, nicoleotsuka@gmail.com, Xiubo.Lee@gmail.com,
- festevam@gmail.com, broonie@kernel.org, perex@perex.cz, tiwai@suse.com,
- alsa-devel@alsa-project.org
-Subject: [PATCH v2] ASoC: fsl_sai: Correct the clock source for mclk0
-Date: Thu, 19 Nov 2020 14:40:38 +0800
-Message-Id: <1605768038-4582-1-git-send-email-shengjiu.wang@nxp.com>
-X-Mailer: git-send-email 2.7.4
-X-Virus-Scanned: ClamAV using ClamSMTP
-Cc: linuxppc-dev@lists.ozlabs.org, linux-kernel@vger.kernel.org
+ by alsa1.perex.cz (Postfix) with ESMTPS id 0F5BCF800EE
+ for <alsa-devel@alsa-project.org>; Thu, 19 Nov 2020 07:51:53 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0F5BCF800EE
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
+ header.b="jbuo9kaE"
+Received: by mail-pl1-x641.google.com with SMTP id d17so2428563plr.5
+ for <alsa-devel@alsa-project.org>; Wed, 18 Nov 2020 22:51:53 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=date:from:to:cc:subject:message-id:references:mime-version
+ :content-disposition:in-reply-to:user-agent;
+ bh=YdZEJFrKMqOKwqEHM2SMsgDlq62AjmhaiDfpu3ifyuI=;
+ b=jbuo9kaEqlrzfBtB8xdHG/ABifiR/DNQ/ty/tTE8v/3XGOFwJGEj60vaW7+EToRIS9
+ j/RewspM2uK8jaGUgXUgItDPW/u3Ij5QNuzGqpfr8txs/pidD5qZttqcEngOy0Ra8j4z
+ dhE7WiKNgaC7fmWqaZQtkcJWFqUoXcaJncuO1Caa9CoMttRmkN8aj0PRPEZnkKRNjp/j
+ I11/RthsHxm68vtFm1Yypu7bfCsbTB++dBEDnqCu07cFwzJUCFCgPKuDyqZlmO46DAs4
+ LIgM/1C9/xVIzBYYqYO8GsgaCW77wrx9aYrZxa8VKTLNSNpukiLYg36Oy9zVP5uSrMGt
+ gbPg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to:user-agent;
+ bh=YdZEJFrKMqOKwqEHM2SMsgDlq62AjmhaiDfpu3ifyuI=;
+ b=dZfQXwrz3F1yDuHQV3g6e0NnKLFMSR3Fl9/A1OAlaIqFT0Q1vv1mPqrMxQbmq6eOcS
+ uyoHjwQ0tMON/0xMWhkWvbCA47Qx1aP36n47qCJ7VRMmOtWkb0+toA9F7zOceGfoGn8F
+ RP1s1ChZk7fxNYLr7cBNC1PYbp3gyGxi0hbhXK16VSyl4LcS8FLJLx7KZ8yHx29qc/XD
+ QIeo+cEFVbh3g/s6j/HOg709kImoXXDXrtw3cWNdWBuUkUxqxLIuGsVPd6oZe+Uxf5RU
+ nX9gIK4M13l8yxDVghtbKfEJt2lp7mrZmnN21h9DC5yn9UUmxv/dYKliAWugM8o2NX4t
+ p9Ow==
+X-Gm-Message-State: AOAM532AEY0SeiQpbshOKzipIfcsUvxigITBVsLUYjRbU3VfDz3JmwD+
+ a2kXYD1W1fRq/EVrruSxmgc=
+X-Google-Smtp-Source: ABdhPJwNjcaPO4z56nqOXPwx8RuDahj5FRpIkqxLnLyLvLIbuMAUb/EcTDMnhRUfdl2utjiWINvCbA==
+X-Received: by 2002:a17:902:401:b029:d7:d0af:f897 with SMTP id
+ 1-20020a1709020401b02900d7d0aff897mr7828053ple.18.1605768710494; 
+ Wed, 18 Nov 2020 22:51:50 -0800 (PST)
+Received: from Asurada-Nvidia (thunderhill.nvidia.com. [216.228.112.22])
+ by smtp.gmail.com with ESMTPSA id j11sm23890863pgp.82.2020.11.18.22.51.49
+ (version=TLS1_2 cipher=ECDHE-ECDSA-CHACHA20-POLY1305 bits=256/256);
+ Wed, 18 Nov 2020 22:51:50 -0800 (PST)
+Date: Wed, 18 Nov 2020 22:51:23 -0800
+From: Nicolin Chen <nicoleotsuka@gmail.com>
+To: Shengjiu Wang <shengjiu.wang@nxp.com>
+Subject: Re: [PATCH v2] ASoC: fsl_sai: Correct the clock source for mclk0
+Message-ID: <20201119065122.GA9858@Asurada-Nvidia>
+References: <1605768038-4582-1-git-send-email-shengjiu.wang@nxp.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <1605768038-4582-1-git-send-email-shengjiu.wang@nxp.com>
+User-Agent: Mutt/1.9.4 (2018-02-28)
+Cc: alsa-devel@alsa-project.org, timur@kernel.org, Xiubo.Lee@gmail.com,
+ linuxppc-dev@lists.ozlabs.org, tiwai@suse.com, broonie@kernel.org,
+ festevam@gmail.com, linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -71,117 +103,16 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On VF610, mclk0 = bus_clk;
-On i.MX6SX/6UL/6ULL/7D, mclk0 = mclk1;
-On i.MX7ULP, mclk0 = bus_clk;
-On i.MX8QM/8QXP, mclk0 = bus_clk;
-On i.MX8MQ/8MN/8MM/8MP, mclk0 = bus_clk;
+On Thu, Nov 19, 2020 at 02:40:38PM +0800, Shengjiu Wang wrote:
+> On VF610, mclk0 = bus_clk;
+> On i.MX6SX/6UL/6ULL/7D, mclk0 = mclk1;
+> On i.MX7ULP, mclk0 = bus_clk;
+> On i.MX8QM/8QXP, mclk0 = bus_clk;
+> On i.MX8MQ/8MN/8MM/8MP, mclk0 = bus_clk;
+> 
+> So add variable mclk0_is_mclk1 in fsl_sai_soc_data to
+> distinguish these platforms.
+> 
+> Signed-off-by: Shengjiu Wang <shengjiu.wang@nxp.com>
 
-So add variable mclk0_is_mclk1 in fsl_sai_soc_data to
-distinguish these platforms.
-
-Signed-off-by: Shengjiu Wang <shengjiu.wang@nxp.com>
----
-changes in v2:
-- rename mclk0_mclk1_match to mclk0_is_mclk1
-- skip MCLK0 when it is same as MCLK1 on master clock scanning
-
- sound/soc/fsl/fsl_sai.c | 20 ++++++++++++++++++--
- sound/soc/fsl/fsl_sai.h |  1 +
- 2 files changed, 19 insertions(+), 2 deletions(-)
-
-diff --git a/sound/soc/fsl/fsl_sai.c b/sound/soc/fsl/fsl_sai.c
-index 3e5c1eaccd5e..f3d3d20d35d7 100644
---- a/sound/soc/fsl/fsl_sai.c
-+++ b/sound/soc/fsl/fsl_sai.c
-@@ -359,7 +359,14 @@ static int fsl_sai_set_bclk(struct snd_soc_dai *dai, bool tx, u32 freq)
- 	if (sai->is_slave_mode)
- 		return 0;
- 
--	for (id = 0; id < FSL_SAI_MCLK_MAX; id++) {
-+	/*
-+	 * There is no point in polling MCLK0 if it is identical to MCLK1.
-+	 * And given that MQS use case has to use MCLK1 though two clocks
-+	 * are the same, we simply skip MCLK0 and start to find from MCLK1.
-+	 */
-+	id = sai->soc_data->mclk0_is_mclk1 ? 1 : 0;
-+
-+	for (; id < FSL_SAI_MCLK_MAX; id++) {
- 		clk_rate = clk_get_rate(sai->mclk_clk[id]);
- 		if (!clk_rate)
- 			continue;
-@@ -1040,7 +1047,6 @@ static int fsl_sai_probe(struct platform_device *pdev)
- 		sai->bus_clk = NULL;
- 	}
- 
--	sai->mclk_clk[0] = sai->bus_clk;
- 	for (i = 1; i < FSL_SAI_MCLK_MAX; i++) {
- 		sprintf(tmp, "mclk%d", i);
- 		sai->mclk_clk[i] = devm_clk_get(&pdev->dev, tmp);
-@@ -1051,6 +1057,11 @@ static int fsl_sai_probe(struct platform_device *pdev)
- 		}
- 	}
- 
-+	if (sai->soc_data->mclk0_is_mclk1)
-+		sai->mclk_clk[0] = sai->mclk_clk[1];
-+	else
-+		sai->mclk_clk[0] = sai->bus_clk;
-+
- 	irq = platform_get_irq(pdev, 0);
- 	if (irq < 0)
- 		return irq;
-@@ -1165,6 +1176,7 @@ static const struct fsl_sai_soc_data fsl_sai_vf610_data = {
- 	.use_edma = false,
- 	.fifo_depth = 32,
- 	.reg_offset = 0,
-+	.mclk0_is_mclk1 = false,
- };
- 
- static const struct fsl_sai_soc_data fsl_sai_imx6sx_data = {
-@@ -1172,6 +1184,7 @@ static const struct fsl_sai_soc_data fsl_sai_imx6sx_data = {
- 	.use_edma = false,
- 	.fifo_depth = 32,
- 	.reg_offset = 0,
-+	.mclk0_is_mclk1 = true,
- };
- 
- static const struct fsl_sai_soc_data fsl_sai_imx7ulp_data = {
-@@ -1179,6 +1192,7 @@ static const struct fsl_sai_soc_data fsl_sai_imx7ulp_data = {
- 	.use_edma = false,
- 	.fifo_depth = 16,
- 	.reg_offset = 8,
-+	.mclk0_is_mclk1 = false,
- };
- 
- static const struct fsl_sai_soc_data fsl_sai_imx8mq_data = {
-@@ -1186,6 +1200,7 @@ static const struct fsl_sai_soc_data fsl_sai_imx8mq_data = {
- 	.use_edma = false,
- 	.fifo_depth = 128,
- 	.reg_offset = 8,
-+	.mclk0_is_mclk1 = false,
- };
- 
- static const struct fsl_sai_soc_data fsl_sai_imx8qm_data = {
-@@ -1193,6 +1208,7 @@ static const struct fsl_sai_soc_data fsl_sai_imx8qm_data = {
- 	.use_edma = true,
- 	.fifo_depth = 64,
- 	.reg_offset = 0,
-+	.mclk0_is_mclk1 = false,
- };
- 
- static const struct of_device_id fsl_sai_ids[] = {
-diff --git a/sound/soc/fsl/fsl_sai.h b/sound/soc/fsl/fsl_sai.h
-index 4bbcd0dbe8f1..ff2619f1b214 100644
---- a/sound/soc/fsl/fsl_sai.h
-+++ b/sound/soc/fsl/fsl_sai.h
-@@ -219,6 +219,7 @@
- struct fsl_sai_soc_data {
- 	bool use_imx_pcm;
- 	bool use_edma;
-+	bool mclk0_is_mclk1;
- 	unsigned int fifo_depth;
- 	unsigned int reg_offset;
- };
--- 
-2.27.0
-
+Acked-by: Nicolin Chen <nicoleotsuka@gmail.com>

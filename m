@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id CA87D2B98FE
-	for <lists+alsa-devel@lfdr.de>; Thu, 19 Nov 2020 18:12:06 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2DB3D2B9900
+	for <lists+alsa-devel@lfdr.de>; Thu, 19 Nov 2020 18:12:44 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 7632C171B;
-	Thu, 19 Nov 2020 18:11:16 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7632C171B
+	by alsa0.perex.cz (Postfix) with ESMTPS id C187B171C;
+	Thu, 19 Nov 2020 18:11:53 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C187B171C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1605805926;
-	bh=Pl+VaTCd0Kg4ijGjNnnoD3cnGXyL0yjZsgVFyZZv8B4=;
+	s=default; t=1605805963;
+	bh=70tCoEq9/FYcYDMF8Mq56bnaLykaoi8Dcb4Ao5hv/jo=;
 	h=Date:From:To:In-Reply-To:References:Subject:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=l/xG2IupAUJVRKpbFLcP5DKYPLbVAoSpIiVAVRboROO/X5Jzqx63c+fnG4FvbR/mH
-	 LcrhdRkiyaYipLh+sEPeTasnbWN84OTEIW9b2NoEfU6/b8uSj4A9VVw/3JnDGmANqM
-	 /T3Jv05ub/tQVAA4wnzrVqOHkaeB28IEAUKjBdFo=
+	b=i/vQu2QuzhBpdasDWLNS3UomPoGXhIgUJfSHNt2bXkz3+7R/JufbcO70mPBWrYjOV
+	 qED3/YMgURAj7MyzCkOpmzxalcpbHJYe+ndjLgj4DC7IpGKM4Tw9uouGJHLgqJJqC2
+	 xo85aFeGAKjVL/br0cyWrNTAcVJA8WtB8/ukSWCA=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 4CDC4F804DF;
-	Thu, 19 Nov 2020 18:09:40 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 777DBF804E3;
+	Thu, 19 Nov 2020 18:09:44 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 9DD9CF804D6; Thu, 19 Nov 2020 18:09:36 +0100 (CET)
+ id 194FDF804E2; Thu, 19 Nov 2020 18:09:42 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -34,37 +34,36 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id EF1B9F804BD
- for <alsa-devel@alsa-project.org>; Thu, 19 Nov 2020 18:09:33 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EF1B9F804BD
+ by alsa1.perex.cz (Postfix) with ESMTPS id 7E9C1F804D6
+ for <alsa-devel@alsa-project.org>; Thu, 19 Nov 2020 18:09:39 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7E9C1F804D6
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="q51cnzkA"
+ header.b="x8+uAopb"
 Received: from localhost (fw-tnat.cambridge.arm.com [217.140.96.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 72CF924695;
- Thu, 19 Nov 2020 17:09:31 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id 008222469D;
+ Thu, 19 Nov 2020 17:09:36 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1605805772;
- bh=Pl+VaTCd0Kg4ijGjNnnoD3cnGXyL0yjZsgVFyZZv8B4=;
+ s=default; t=1605805777;
+ bh=70tCoEq9/FYcYDMF8Mq56bnaLykaoi8Dcb4Ao5hv/jo=;
  h=Date:From:To:Cc:In-Reply-To:References:Subject:From;
- b=q51cnzkA1wsaOBro1dZqgzSwM2FA2z5bpkQXLC2kDxqYB/xyLcwXj1/qhwclrEC0v
- Hf9Kk055Rr6PbrmS42lyq0x9H7V4i41L/N4Akoz/Pib7UKyQSnV65at2V+XKUC3kwh
- pFzBTtTfQhm03dNNG4J4BMAHawPWC7LsBwR1eu08=
-Date: Thu, 19 Nov 2020 17:09:11 +0000
+ b=x8+uAopbQoGBBj12OHyOQ4Ywx5KDw9pvIMKeoSNzkGffSpk+L0CpuA4OoV9j3WFdS
+ DNT56KmYclVkEPfx254FJd1KEo++IMYL/ZjVSYEIQevxtgo9yxEdxcn9NfuskeoxZe
+ Ewaa+2dsGlyWdsHjgFzf4L8oVSUWy5YtnBtZM+Vk=
+Date: Thu, 19 Nov 2020 17:09:17 +0000
 From: Mark Brown <broonie@kernel.org>
-To: Xiubo.Lee@gmail.com, Shengjiu Wang <shengjiu.wang@nxp.com>,
- nicoleotsuka@gmail.com, timur@kernel.org, perex@perex.cz, festevam@gmail.com,
- alsa-devel@alsa-project.org, tiwai@suse.com
-In-Reply-To: <1605768038-4582-1-git-send-email-shengjiu.wang@nxp.com>
-References: <1605768038-4582-1-git-send-email-shengjiu.wang@nxp.com>
-Subject: Re: [PATCH v2] ASoC: fsl_sai: Correct the clock source for mclk0
-Message-Id: <160580573380.54454.17925861225420646982.b4-ty@kernel.org>
+To: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
+In-Reply-To: <20201105113458.12360-1-srinivas.kandagatla@linaro.org>
+References: <20201105113458.12360-1-srinivas.kandagatla@linaro.org>
+Subject: Re: [PATCH v3 0/6] ASoC: codecs: add support for LPASS Codec macros
+Message-Id: <160580573378.54454.13024216102656641940.b4-ty@kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Cc: linuxppc-dev@lists.ozlabs.org, linux-kernel@vger.kernel.org
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org, robh+dt@kernel.org,
+ linux-kernel@vger.kernel.org, lgirdwood@gmail.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -80,15 +79,17 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Thu, 19 Nov 2020 14:40:38 +0800, Shengjiu Wang wrote:
-> On VF610, mclk0 = bus_clk;
-> On i.MX6SX/6UL/6ULL/7D, mclk0 = mclk1;
-> On i.MX7ULP, mclk0 = bus_clk;
-> On i.MX8QM/8QXP, mclk0 = bus_clk;
-> On i.MX8MQ/8MN/8MM/8MP, mclk0 = bus_clk;
+On Thu, 5 Nov 2020 11:34:52 +0000, Srinivas Kandagatla wrote:
+> This patchset adds support for two Codec Macro blocks( WSA and VA) available in
+> Qualcomm LPASS (Low Power Audio SubSystem).
 > 
-> So add variable mclk0_is_mclk1 in fsl_sai_soc_data to
-> distinguish these platforms.
+> There are WSA, VA, TX and RX Macros on LPASS IP, each of the Macro block
+> has specific connectivity like WSA Macros are intended to connect
+> to WSA Smart speaker codecs via SoundWire. VA Macro is intended for DMICs,
+> and TX/RX for Analog codecs via SoundWire like other WCD Codecs to provide
+> headphone/ear/lineout etc ..
+> 
+> [...]
 
 Applied to
 
@@ -96,8 +97,18 @@ Applied to
 
 Thanks!
 
-[1/1] ASoC: fsl_sai: Correct the clock source for mclk0
-      commit: 53233e40c142b1e0e1df9d9ac0ffc0945cfffbc9
+[1/6] ASoC: qcom: dt-bindings: add bindings for lpass wsa macro codec
+      commit: ccbd847f15b0f08f8c6ed3ab5384e5f7055b08e5
+[2/6] ASoC: codecs: lpass-wsa-macro: Add support to WSA Macro
+      commit: 809bcbcecebff86003e13f07444d21b9d6652a64
+[3/6] ASoC: codecs: lpass-wsa-macro: add dapm widgets and route
+      commit: 2c4066e5d428d47a28f87407b3d73ebe40c06fd4
+[4/6] ASoC: qcom: dt-bindings: add bindings for lpass va macro codec
+      commit: 67d99b23c881b1411fc6907bc844d63565b536d6
+[5/6] ASoC: codecs: lpass-va-macro: Add support to VA Macro
+      commit: 908e6b1df26efc9d2df70c9a7bf4f5eae5c5702f
+[6/6] ASoC: codecs: lpass-va-macro: add dapm widgets and routes
+      commit: 58aad93015b9dc7cb8966c1dc775ec69f0280b79
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

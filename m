@@ -2,62 +2,76 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4EC8F2B99E2
-	for <lists+alsa-devel@lfdr.de>; Thu, 19 Nov 2020 18:47:07 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id A510F2B9A04
+	for <lists+alsa-devel@lfdr.de>; Thu, 19 Nov 2020 18:54:04 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D023E171D;
-	Thu, 19 Nov 2020 18:46:16 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D023E171D
+	by alsa0.perex.cz (Postfix) with ESMTPS id 42038171C;
+	Thu, 19 Nov 2020 18:53:14 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 42038171C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1605808026;
-	bh=E1siASmWGkqZfDfhpRHqNeOf979CTiVukPZ9IklRqA0=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=J2iYAuMJ+MsG5zz88zdzhl4GihAF0kreDzjwy/jlfdkklx3P47neRaMnlv1kSzPTE
-	 nAHnVeg82aMOG1Xk0Cz0clNckQ2aTV7dxRiqX3WJipeZkgS4RDY9D/BdGY5Z8VHW5N
-	 UKYvYHEiGH9mNCnU0NBFMdwyEtWlT4wFYPZVDexk=
+	s=default; t=1605808444;
+	bh=cb79K5G+wsKX3rr++KkK8Dhixo2GsEJ2h63FjOwROe8=;
+	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=YF2up7t4CTYgMOhRx35ur5Onc2OFTkCNqVBsJBOFkJIpB75pKJOjrihF3/9QYpGaz
+	 P/MjPky/4Y01mZU9ZXedfkhO/VcqdBdOdE1mKtuFLC2PVfJZaRHykjUUbgfahF6iCy
+	 m3XZqf8C3ZLgmw3d8fEIazfgBOhwYC5FGucygGpQ=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 2B1C4F800C5;
-	Thu, 19 Nov 2020 18:45:33 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id BBD1BF800C5;
+	Thu, 19 Nov 2020 18:52:31 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id BAA94F801ED; Thu, 19 Nov 2020 18:45:29 +0100 (CET)
+ id 3B37EF801ED; Thu, 19 Nov 2020 18:52:30 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled
- version=3.4.0
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 63758F8015A
- for <alsa-devel@alsa-project.org>; Thu, 19 Nov 2020 18:45:22 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 63758F8015A
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="Ijm0b5up"
-Received: from localhost (fw-tnat.cambridge.arm.com [217.140.96.140])
+X-Spam-Status: No, score=0.0 required=5.0 tests=NICE_REPLY_A, RCVD_IN_MSPIKE_H3,
+ RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
+Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id B1CD921D7A;
- Thu, 19 Nov 2020 17:45:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1605807920;
- bh=E1siASmWGkqZfDfhpRHqNeOf979CTiVukPZ9IklRqA0=;
- h=From:To:Cc:Subject:Date:From;
- b=Ijm0b5upj0BozQrkADUpL+u/UeQCgcxQFVe12zGgiMLOXDxXinac9eLCvG+16gkza
- Xu2qeP4U2FZsFmfaOJR06ahokmwI/Xm3J4DP6AVfUz+wd97XEGlt5tUcT1msAw3JZf
- pXSOTtbHUnAxyEWdj973tdy/mbQZVR+jaiLb+UFM=
-From: Mark Brown <broonie@kernel.org>
-To: Takashi Iwai <tiwai@suse.de>
-Subject: [GIT PULL] ASoC fixes for v5.10-rc4
-Date: Thu, 19 Nov 2020 17:44:58 +0000
-Message-Id: <20201119174519.B1CD921D7A@mail.kernel.org>
-Cc: alsa-devel@alsa-project.org, Mark Brown <broonie@kernel.org>,
- Liam Girdwood <lgirdwood@gmail.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 36E86F8015A
+ for <alsa-devel@alsa-project.org>; Thu, 19 Nov 2020 18:52:26 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 36E86F8015A
+IronPort-SDR: p1HIEVPfTQahRZzr04k7bntLuNUEFP04tC1rIbdDMkbGMDckemGt5MZQT/2IOzYKcmfXvH9+L8
+ tKkUN3P5f8tA==
+X-IronPort-AV: E=McAfee;i="6000,8403,9810"; a="189422251"
+X-IronPort-AV: E=Sophos;i="5.78,353,1599548400"; d="scan'208";a="189422251"
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from fmsmga007.fm.intel.com ([10.253.24.52])
+ by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 19 Nov 2020 09:52:24 -0800
+IronPort-SDR: hZSx/Hl4REuxHSSLwQjh6uw7UXUbairmZCD+8UgMEEtZ1C3wRESogCx0yxJjQUko2lwFEH+YL6
+ fEp7my5q42gg==
+X-IronPort-AV: E=Sophos;i="5.78,353,1599548400"; d="scan'208";a="311710418"
+Received: from kjhancox-mobl.amr.corp.intel.com (HELO [10.213.167.234])
+ ([10.213.167.234])
+ by fmsmga007-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 19 Nov 2020 09:52:23 -0800
+Subject: Re: [PATCH 13/14] ASoC: SOF: Intel: allow for coexistence between SOF
+ and catpt drivers
+To: Mark Brown <broonie@kernel.org>
+References: <20201112223825.39765-1-pierre-louis.bossart@linux.intel.com>
+ <20201112223825.39765-14-pierre-louis.bossart@linux.intel.com>
+ <20201119140650.GA37066@sirena.org.uk>
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Message-ID: <569716f0-a52f-e9af-dd83-5c622b8073d4@linux.intel.com>
+Date: Thu, 19 Nov 2020 11:52:22 -0600
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.10.0
+MIME-Version: 1.0
+In-Reply-To: <20201119140650.GA37066@sirena.org.uk>
+Content-Type: text/plain; charset=windows-1252; format=flowed
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
+Cc: Guennadi Liakhovetski <guennadi.liakhovetski@linux.intel.com>,
+ alsa-devel@alsa-project.org, tiwai@suse.de,
+ Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
+ Hans de Goede <hdegoede@redhat.com>, Rander Wang <rander.wang@linux.intel.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -73,55 +87,39 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-The following changes since commit f9d7c6eb23f7e55e7a0ca5451da06909bdfdd0e4:
 
-  ASoC: mchp-spdiftx: Do not set Validity bit(s) (2020-11-04 17:50:22 +0000)
 
-are available in the Git repository at:
+On 11/19/20 8:06 AM, Mark Brown wrote:
+> On Thu, Nov 12, 2020 at 04:38:24PM -0600, Pierre-Louis Bossart wrote:
+>> Now that we have all the support needed for coexistence between ACPI
+>> drivers for Broadwell, remove mutual exclusion in the Kconfig
+>> file. The selection is done by playing with the snd_intel_dspcfg
+>> module 'dsp_driver' parameter.
+> 
+> This breaks x86 allmodconfig builds for me:
+> 
+> /mnt/kernel/sound/soc/intel/atom/sst/sst_acpi.c: In function 'sst_acpi_probe':
+> /mnt/kernel/sound/soc/intel/atom/sst/sst_acpi.c:251:8: error: implicit declaration of function 'snd_intel_acpi_dsp_driver_probe'; did you mean 'snd_intel_dsp_driver_probe'? [-Werror=implicit-function-declaration]
+>    ret = snd_intel_acpi_dsp_driver_probe(dev, id->id);
+>          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+>          snd_intel_dsp_driver_probe
+> /mnt/kernel/sound/soc/intel/catpt/device.c: In function 'catpt_acpi_probe':
+> /mnt/kernel/sound/soc/intel/catpt/device.c:251:8: error: implicit declaration of function 'snd_intel_acpi_dsp_driver_probe'; did you mean 'snd_intel_dsp_driver_probe'? [-Werror=implicit-function-declaration]
+>    ret = snd_intel_acpi_dsp_driver_probe(dev, id->id);
+>          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+>          snd_intel_dsp_driver_probe
+> /mnt/kernel/sound/soc/sof/sof-acpi-dev.c: In function 'sof_acpi_probe':
+> /mnt/kernel/sound/soc/sof/sof-acpi-dev.c:134:8: error: implicit declaration of function 'snd_intel_acpi_dsp_driver_probe'; did you mean 'snd_intel_dsp_driver_probe'? [-Werror=implicit-function-declaration]
+>    ret = snd_intel_acpi_dsp_driver_probe(dev, id->id);
+>          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+>          snd_intel_dsp_driver_probe
+> 
 
-  https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git tags/asoc-fix-v5.10-rc4
+Humm, I just tried and it works fine for me on top of your for-5.11 
+branch. That error across the board seems weird, there's even a 
+fall-back with a static inline if the Kconfig is not selected.
 
-for you to fetch changes up to 879ee8b6f2bae0cc4a25536f8841db1dbc969523:
+Could it be that Patch3 was not applied somehow? That's where the 
+prototype was added.
 
-  ASOC: Intel: kbl_rt5663_rt5514_max98927: Do not try to disable disabled clock (2020-11-18 17:59:23 +0000)
 
-----------------------------------------------------------------
-ASoC: Fixes for v5.11
-
-A collection of driver specific fixes, mostly for x86 systems (or CODECs
-used mostly on x86) and all for relatively minor issues, the biggest one
-being fixing S24_LE format on Keem Bay systems.
-
-----------------------------------------------------------------
-Cezary Rojewski (2):
-      ASoC: Intel: catpt: Skip position update for unprepared streams
-      ASoC: Intel: catpt: Correct clock selection for dai trigger
-
-Guenter Roeck (1):
-      ASOC: Intel: kbl_rt5663_rt5514_max98927: Do not try to disable disabled clock
-
-Jack Yu (1):
-      ASoC: rt1015: add delay to fix pop noise from speaker
-
-Mark Brown (1):
-      Merge Intel catpt DSP fixes into asoc-5.10
-
-Michael Sit Wei Hong (1):
-      ASoC: Intel: KMB: Fix S24_LE configuration
-
-Shuming Fan (1):
-      ASoC: rt1015: increase the time to detect BCLK
-
-Srinivasa Rao Mandadapu (1):
-      ASoC: qcom: lpass-platform: Fix memory leak
-
- Documentation/devicetree/bindings/sound/rt1015.txt |  6 ++++++
- include/sound/rt1015.h                             | 15 +++++++++++++++
- sound/soc/codecs/rt1015.c                          | 22 +++++++++++++++++++++-
- sound/soc/codecs/rt1015.h                          |  2 ++
- .../soc/intel/boards/kbl_rt5663_rt5514_max98927.c  |  2 ++
- sound/soc/intel/catpt/pcm.c                        |  9 ++++-----
- sound/soc/intel/keembay/kmb_platform.c             |  6 +++---
- sound/soc/qcom/lpass-platform.c                    |  5 ++++-
- 8 files changed, 57 insertions(+), 10 deletions(-)
- create mode 100644 include/sound/rt1015.h

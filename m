@@ -2,97 +2,70 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5FD802BB80D
-	for <lists+alsa-devel@lfdr.de>; Fri, 20 Nov 2020 22:04:13 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id D6C442BB851
+	for <lists+alsa-devel@lfdr.de>; Fri, 20 Nov 2020 22:31:15 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id DE08016B0;
-	Fri, 20 Nov 2020 22:03:22 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DE08016B0
+	by alsa0.perex.cz (Postfix) with ESMTPS id 6B4F5173D;
+	Fri, 20 Nov 2020 22:30:24 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6B4F5173D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1605906253;
-	bh=F9iuLwZkjDBFobq/tBos9IspKBRZOm1VjZQlm/mIeAs=;
-	h=From:To:Subject:Date:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1605907874;
+	bh=SIwPyXFAJOKpZYR+49+ogfv8MIu+ApLDZCx05NIzIAI=;
+	h=Date:From:To:In-Reply-To:References:Subject:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=QTatbEXPgN3GFYu/hJnCdPOruGDSHmlwKIk30LMiYIv8pLGfLxRgsOuaIWiZ2g78+
-	 0RASsF8LWR6gmqeFraAjR2KAbp/VBqH/xdz8HasOhD7NbLU0RaZhlIEVs7hgxOja/U
-	 gyhr+sV+p7yRuOubBmmh8HsZmVgdMZh25VkFqYRw=
+	b=RQVQOLew8QD5BCitXEq2xxcjaB1RYf/v947a76TwcTWQx/TiSobGLbL6BkZ9wozpO
+	 eHX5Qf/Hagxxt/fE4jluc6NTOa8LlC+kM3ax8zRl247NKSuEFmgrYbnbXhfQTHlPvI
+	 1maR4TeBuBFPBkhkLLdpc+awwZZbUn1W4fRBVCRI=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 6DCB9F8016D;
-	Fri, 20 Nov 2020 22:02:39 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 5B8E2F802A9;
+	Fri, 20 Nov 2020 22:29:32 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 6C11EF8016C; Fri, 20 Nov 2020 22:02:37 +0100 (CET)
+ id AEF5FF8016E; Fri, 20 Nov 2020 22:29:28 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE
- autolearn=disabled version=3.4.0
-Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+ DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled
+ version=3.4.0
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id BD090F800C5
+ for <alsa-devel@alsa-project.org>; Fri, 20 Nov 2020 22:29:22 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BD090F800C5
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="lC2NCRQE"
+Received: from localhost (cpc102334-sgyl38-2-0-cust884.18-2.cable.virginm.net
+ [92.233.91.117])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 9AF51F80166
- for <alsa-devel@alsa-project.org>; Fri, 20 Nov 2020 22:02:31 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9AF51F80166
-IronPort-SDR: Xx6Xm9pM40dzSKfOqWIUm+l4nOBR3zuxvVeqruiPyPC1jp79YFo4THvDht/qAZDRFeggJ2oVVe
- YTZx1qqL1Sew==
-X-IronPort-AV: E=McAfee;i="6000,8403,9811"; a="171640513"
-X-IronPort-AV: E=Sophos;i="5.78,357,1599548400"; d="scan'208";a="171640513"
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from fmsmga001.fm.intel.com ([10.253.24.23])
- by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 20 Nov 2020 13:02:26 -0800
-IronPort-SDR: 8d2gUmny6z4nUA+8eqS6SpB4Afm0/av8coB4+yLDoogSvgz/rEHwMAAG84WJ6EK7Ush9ZgphFM
- wclwdu2WudQA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.78,357,1599548400"; d="scan'208";a="431690016"
-Received: from irsmsx601.ger.corp.intel.com ([163.33.146.7])
- by fmsmga001.fm.intel.com with ESMTP; 20 Nov 2020 13:02:24 -0800
-Received: from irsmsx601.ger.corp.intel.com (163.33.146.7) by
- irsmsx601.ger.corp.intel.com (163.33.146.7) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.1713.5; Fri, 20 Nov 2020 21:02:24 +0000
-Received: from irsmsx601.ger.corp.intel.com ([163.33.146.7]) by
- irsmsx601.ger.corp.intel.com ([163.33.146.7]) with mapi id 15.01.1713.004;
- Fri, 20 Nov 2020 21:02:24 +0000
-From: "Rojewski, Cezary" <cezary.rojewski@intel.com>
-To: Mark Brown <broonie@kernel.org>
-Subject: RE: [PATCH 00/14] ASoC: Intel/SOF: extend run-time driver selection
- to ACPI devices
-Thread-Topic: [PATCH 00/14] ASoC: Intel/SOF: extend run-time driver selection
- to ACPI devices
-Thread-Index: AQHWuUTISKj33SVxVku5O7g0f1ygmanF+0XggABMLQCAAASUgIAEnFAQgAAmMgCAAVQSgIAAh8aQgAAL6wCAAWXZUIAAA0eAgALUmaCAABNygIAABbuAgAAQAICAADBe4A==
-Date: Fri, 20 Nov 2020 21:02:24 +0000
-Message-ID: <c8cd5f98e7c941c1b87aaabb850ece4e@intel.com>
-References: <d462c890495e4dda8698b5ba5eb50066@intel.com>
- <f62abcd8-b67f-774b-61b5-e08cfc3d2cc7@linux.intel.com>
- <s5h1rgst6z4.wl-tiwai@suse.de> <0286c6975f24432082f609d45adaa14c@intel.com>
- <0badb36f-3089-dc34-f7b0-75a73b856f0d@linux.intel.com>
- <d57fa3716a974eb9ba585ddd85dbe14c@intel.com>
- <cd8e5c2f-e1c2-7fbb-bee1-cc76ec14a801@linux.intel.com>
- <d94ccf9a3c61460db88f256df1fa3240@intel.com>
- <20201120164841.GF6751@sirena.org.uk>
- <758af664b89545c5be83ca2bc81078fb@intel.com>
- <20201120180627.GI6751@sirena.org.uk>
-In-Reply-To: <20201120180627.GI6751@sirena.org.uk>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-dlp-product: dlpe-windows
-dlp-reaction: no-action
-dlp-version: 11.5.1.3
-x-originating-ip: [163.33.253.164]
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+ by mail.kernel.org (Postfix) with ESMTPSA id 09D7F2240A;
+ Fri, 20 Nov 2020 21:29:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=default; t=1605907758;
+ bh=SIwPyXFAJOKpZYR+49+ogfv8MIu+ApLDZCx05NIzIAI=;
+ h=Date:From:To:Cc:In-Reply-To:References:Subject:From;
+ b=lC2NCRQEDqOLWWzXWkcH1B2rOjFNNs3huDHoPWH4FdC89nmtk/xSxvcdqBfRoiI+y
+ dWbCIznqhtsn0c6ohacFwgmB60S31HVx3HLQMHJ7UW3ejnqVPAbNM0bk0LJFYEqVXi
+ e3M31XjaQHvjpy1LwMJQFHoFngBXSEAahewpp4sc=
+Date: Fri, 20 Nov 2020 21:28:57 +0000
+From: Mark Brown <broonie@kernel.org>
+To: Kai Vehmanen <kai.vehmanen@linux.intel.com>, alsa-devel@alsa-project.org
+In-Reply-To: <20201120141653.2160134-1-kai.vehmanen@linux.intel.com>
+References: <20201120141653.2160134-1-kai.vehmanen@linux.intel.com>
+Subject: Re: [PATCH] ASoC: SOF: nocodec: modify DAI link definitions
+Message-Id: <160590773743.47461.8532171065460752507.b4-ty@kernel.org>
 MIME-Version: 1.0
-Cc: Takashi Iwai <tiwai@suse.de>, Hans de Goede <hdegoede@redhat.com>,
- "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
- "andriy.shevchenko@linux.intel.com" <andriy.shevchenko@linux.intel.com>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+Cc: pierre-louis.bossart@linux.intel.com,
+ Bard Liao <yung-chuan.liao@linux.intel.com>, daniel.baluta@nxp.com,
+ ranjani.sridharan@linux.intel.com, lgirdwood@gmail.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -108,41 +81,42 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 2020-11-20 7:06 PM, Mark Brown wrote:
-> On Fri, Nov 20, 2020 at 05:10:30PM +0000, Rojewski, Cezary wrote:
->> On 2020-11-20 5:48 PM, Mark Brown wrote:
->=20
->>> People care about any code that's in the kernel, especially people doin=
-g
->>> anything treewide.  The fewer configurations people need to build to ge=
-t
->>> code coverage the better.
->=20
->> Sure, but in this particular case there really shouldn't be "another
->> option". If catpt is the sole option, why add intel-dsp-config
->> dependency? The alternative shouldn't even exist in the kernel and be
->> instead removed just like /haswell/ and /baytrail/ were.
->=20
-> If all the alternatives actually get removed then there'd be no need for
-> it, while they're there it is reasonable to have it - it does make it
-> easier for people like distros to try converting, it means they can
-> deploy the recommended setup without needing to ship new binaries to
-> people who run into trouble.  Besides TBH while there's several DSP
-> implementations in the tree having the code there makes it obvious that
-> this case works the same way as all the others to anyone looking at the
-> code.
+On Fri, 20 Nov 2020 16:16:53 +0200, Kai Vehmanen wrote:
+> The ignore_machine field in the component driver is used to
+> ignore the FE DAI links defined in the machine driver,
+> override BE fixups and set the stream names for the
+> DAI links defined in the machine driver. This is required
+> to make SOF compatible with the legacy machine drivers.
+> 
+> In the case of the nocodec machine driver in SOF, there is
+> no need to rely upon this ignore_machine logic in the core.
+> Modify the machine driver to set DAI link stream names and the
+> BE hw_params_fixup callback appropriately.
 
-I can understand that in atom's case. That's why I'm fine with the
-section mechanism being applied there. At the beginning I'd thought SOF
-is already prepared to take over /atom/. As that's not the case, to ease
-the transition, dynamic switch could prove useful.
+Applied to
 
-There are no circumstances under which Intel recommends distros to try
-to convert out of catpt though. Don't believe aligning all the drivers
-to some general idea just for the sake of aligning is a good move.
-That's why drivers have their own specifics in the first place -
-their complexity and performance could have been negatively impacted
-otherwise.
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
 
-Czarek
+Thanks!
 
+[1/1] ASoC: SOF: nocodec: modify DAI link definitions
+      commit: f805e7e09c8f6d56f3e9bd2e7cec729f9d0855d0
+
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
+
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
+
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
+
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
+
+Thanks,
+Mark

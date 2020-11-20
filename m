@@ -2,29 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id DDF5F2BAFCB
-	for <lists+alsa-devel@lfdr.de>; Fri, 20 Nov 2020 17:19:23 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 138D32BAFE0
+	for <lists+alsa-devel@lfdr.de>; Fri, 20 Nov 2020 17:19:36 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 540FA16FC;
-	Fri, 20 Nov 2020 17:18:33 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 540FA16FC
+	by alsa0.perex.cz (Postfix) with ESMTPS id C06D41708;
+	Fri, 20 Nov 2020 17:18:43 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C06D41708
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1605889163;
-	bh=6crPrNanCPybdIoCOUE0EQqvWG11iCTFahxPBw6lnv0=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=uEMrVeXnS+XoU0PcGBf4avC9o5bUTNUsvTnepp9FPdefcgA5qBl4X+R/P0QZOGlxd
-	 r7wS79ubWehdQDzY2QDfM7ybrAO9hHWx+rWq/hXLP7fNNg40Pudj9qnVNnWs+Lty+S
-	 1XdjINE0p9mKcD/M6EeAJ0KMAvmH8AK70mgkQxc0=
+	s=default; t=1605889173;
+	bh=eUNQeZbUHRAtKX1EIalnF5m65XCO6D2xUekfrik1QEk=;
+	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=OrIXX9fPuspl+N2vZ09WQDOAo/oxWWgrBp2UzKezXvE1gC2DDE0ToVzEL/JbdFe3i
+	 fmg2UtRywL8CleRwdiBGQQcSxWWUkc97nXvHbs25zrqtSOi4wLH0gKjoe27hJAx6AJ
+	 sb5fdUr7oH7KmW7Vp9jCoTPxA3ZVBBfIPwubTa5U=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id E1C27F80168;
-	Fri, 20 Nov 2020 17:17:50 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id E75CEF8016D;
+	Fri, 20 Nov 2020 17:17:57 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id C9B61F8016C; Fri, 20 Nov 2020 17:17:47 +0100 (CET)
+ id EBCBBF80258; Fri, 20 Nov 2020 17:17:55 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -33,37 +34,39 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id C3367F800F3
- for <alsa-devel@alsa-project.org>; Fri, 20 Nov 2020 17:17:40 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C3367F800F3
+ by alsa1.perex.cz (Postfix) with ESMTPS id 8ED43F80166
+ for <alsa-devel@alsa-project.org>; Fri, 20 Nov 2020 17:17:53 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8ED43F80166
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="HBJpufyX"
+ header.b="HeX5Yzr5"
 Received: from localhost.localdomain (adsl-84-226-167-205.adslplus.ch
  [84.226.167.205])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 18542223BE;
- Fri, 20 Nov 2020 16:17:35 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id 4424D223BE;
+ Fri, 20 Nov 2020 16:17:50 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1605889057;
- bh=6crPrNanCPybdIoCOUE0EQqvWG11iCTFahxPBw6lnv0=;
- h=From:To:Cc:Subject:Date:From;
- b=HBJpufyXc3DBA/oH7WTc5JtitlxByPOEhplD3rghF59ynLElTFbo+CIqKKlCMb3Ce
- LXbSCcB8O5cHpg/3+E00aER2ZgdP/lN8uzlty5liGSt4rC7rIDUY15fdXoYCKQIpNE
- HwHpuXK0D4GXGdba1nE/5kmodRdIH9OO5EWscNx8=
+ s=default; t=1605889071;
+ bh=eUNQeZbUHRAtKX1EIalnF5m65XCO6D2xUekfrik1QEk=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+ b=HeX5Yzr5VnPSNdN1g5g/Bg+Jcfa/RWEDO34fkIYbI4CW8Kn/lnJSuY63bK5BVsZr+
+ 4rkfFp3A1uVqJPzzSXoBRfYmMdQDk6aHQuGY5jbgviUWAxT0ZN+eQ+WaJfoIsnmG1J
+ YHmx90ogcu0UEhJl6J7Ko3QJcYLJYTgPhQAgqu08=
 From: Krzysztof Kozlowski <krzk@kernel.org>
 To: linux-kernel@vger.kernel.org, Liam Girdwood <lgirdwood@gmail.com>,
  Mark Brown <broonie@kernel.org>, alsa-devel@alsa-project.org
-Subject: [PATCH 01/38] ASoC: ak5558: drop of_match_ptr from of_device_id table
-Date: Fri, 20 Nov 2020 17:16:15 +0100
-Message-Id: <20201120161653.445521-1-krzk@kernel.org>
+Subject: [PATCH 02/38] ASoC: gtm601: drop of_match_ptr from of_device_id table
+Date: Fri, 20 Nov 2020 17:16:16 +0100
+Message-Id: <20201120161653.445521-2-krzk@kernel.org>
 X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20201120161653.445521-1-krzk@kernel.org>
+References: <20201120161653.445521-1-krzk@kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Cc: Shengjiu Wang <shengjiu.wang@nxp.com>, Takashi Iwai <tiwai@suse.com>,
- Krzysztof Kozlowski <krzk@kernel.org>
+Cc: "Angus Ainslie \(Purism\)" <angus@akkea.ca>, Arnd Bergmann <arnd@arndb.de>,
+ Takashi Iwai <tiwai@suse.com>, Krzysztof Kozlowski <krzk@kernel.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -84,26 +87,26 @@ used and the of_match_ptr does not have any sense (this also allows ACPI
 matching via PRP0001, even though it is not relevant here).  This fixes
 compile warning (!CONFIG_OF on x86_64):
 
-  sound/soc/codecs/ak5558.c:418:34: warning: ‘ak5558_i2c_dt_ids’ defined but not used [-Wunused-const-variable=]
+  sound/soc/codecs/gtm601.c:90:34: warning: ‘gtm601_codec_of_match’ defined but not used [-Wunused-const-variable=]
 
 Signed-off-by: Krzysztof Kozlowski <krzk@kernel.org>
 ---
- sound/soc/codecs/ak5558.c | 2 +-
+ sound/soc/codecs/gtm601.c | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/sound/soc/codecs/ak5558.c b/sound/soc/codecs/ak5558.c
-index 2f076d5ee284..427d7d51bf53 100644
---- a/sound/soc/codecs/ak5558.c
-+++ b/sound/soc/codecs/ak5558.c
-@@ -423,7 +423,7 @@ static const struct of_device_id ak5558_i2c_dt_ids[] = {
- static struct i2c_driver ak5558_i2c_driver = {
+diff --git a/sound/soc/codecs/gtm601.c b/sound/soc/codecs/gtm601.c
+index ae9e1c70ca57..5dfd26e1fe9a 100644
+--- a/sound/soc/codecs/gtm601.c
++++ b/sound/soc/codecs/gtm601.c
+@@ -97,7 +97,7 @@ MODULE_DEVICE_TABLE(of, gtm601_codec_of_match);
+ static struct platform_driver gtm601_codec_driver = {
  	.driver = {
- 		.name = "ak5558",
--		.of_match_table = of_match_ptr(ak5558_i2c_dt_ids),
-+		.of_match_table = ak5558_i2c_dt_ids,
- 		.pm = &ak5558_pm,
+ 		.name = "gtm601",
+-		.of_match_table = of_match_ptr(gtm601_codec_of_match),
++		.of_match_table = gtm601_codec_of_match,
  	},
- 	.probe_new = ak5558_i2c_probe,
+ 	.probe = gtm601_platform_probe,
+ };
 -- 
 2.25.1
 

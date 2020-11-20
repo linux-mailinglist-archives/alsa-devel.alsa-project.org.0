@@ -2,69 +2,48 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 39F942BA0CD
-	for <lists+alsa-devel@lfdr.de>; Fri, 20 Nov 2020 04:09:01 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6A8F02BA1E7
+	for <lists+alsa-devel@lfdr.de>; Fri, 20 Nov 2020 06:26:56 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D6E0F16FE;
-	Fri, 20 Nov 2020 04:08:10 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D6E0F16FE
+	by alsa0.perex.cz (Postfix) with ESMTPS id E79D516FD;
+	Fri, 20 Nov 2020 06:26:05 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E79D516FD
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1605841740;
-	bh=hPYaefO9Wf8VpVTKwK269PZdgGNZuZE+Zh7CUo+wF3Y=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1605850016;
+	bh=F50uSOiFZp52q9aCyLnxKeikohtAFo3ncMNeLmkm6Tc=;
+	h=From:To:In-Reply-To:References:Subject:Date:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=dQWXKk/CZQVZ7JoyjLmRX2uUnOgumDvmxQ0GNxaQJh9TLePO1GakW1v0DI4RrRT5J
-	 YLyxZN+W+X4Rx9UTSybSN64P6PnDnfnph0ZIr8sPrAu5Wq6w+rMAFLihbvbQP64F2L
-	 k9/oSNVJo9RDzA7yFVwTfIAKWegAG4GJHQXk1Fe0=
+	b=IiPNmYW3wZoMPdHiM4PebN6Fugarp2KEnZkyoJ4paGF2GDznhdcR6posNin3XPbO0
+	 syWzMhxlv2Oz2M0Pq1RWjy/Kyjs19h681TJZDgizfs0xKQjz2U+tDpR9t/abhGjT5d
+	 pno3Dc/MizesntgbxiVHfQV3c8UqDcTF4j1LX9NY=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 65BFCF804BC;
-	Fri, 20 Nov 2020 04:06:45 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 6A5CCF800F3;
+	Fri, 20 Nov 2020 06:25:23 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 73CC7F80166; Fri, 20 Nov 2020 04:06:41 +0100 (CET)
+ id 5BB0CF8016C; Fri, 20 Nov 2020 06:25:20 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: *
-X-Spam-Status: No, score=1.0 required=5.0 tests=RDNS_NONE,SPF_HELO_NONE,
- SPF_PASS,UNPARSEABLE_RELAY,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mailgw02.mediatek.com (unknown [210.61.82.184])
- by alsa1.perex.cz (Postfix) with ESMTP id 1D082F8016C
- for <alsa-devel@alsa-project.org>; Fri, 20 Nov 2020 04:06:24 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1D082F8016C
-X-UUID: 2a29a68fdc314804a1f67d0599b59c43-20201120
-X-UUID: 2a29a68fdc314804a1f67d0599b59c43-20201120
-Received: from mtkcas07.mediatek.inc [(172.21.101.84)] by mailgw02.mediatek.com
- (envelope-from <jiaxin.yu@mediatek.com>)
- (Cellopoint E-mail Firewall v4.1.14 Build 0819 with TLSv1.2
- ECDHE-RSA-AES256-SHA384 256/256)
- with ESMTP id 130192700; Fri, 20 Nov 2020 11:06:18 +0800
-Received: from MTKCAS06.mediatek.inc (172.21.101.30) by
- mtkmbs06n2.mediatek.inc (172.21.101.130) with Microsoft SMTP Server (TLS) id
- 15.0.1497.2; Fri, 20 Nov 2020 11:06:17 +0800
-Received: from localhost.localdomain (10.17.3.153) by MTKCAS06.mediatek.inc
- (172.21.101.73) with Microsoft SMTP Server id 15.0.1497.2 via Frontend
- Transport; Fri, 20 Nov 2020 11:06:16 +0800
-From: Jiaxin Yu <jiaxin.yu@mediatek.com>
-To: <broonie@kernel.org>, <tiwai@suse.com>, <matthias.bgg@gmail.com>,
- <tzungbi@google.com>, <alsa-devel@alsa-project.org>, <robh+dt@kernel.org>,
- <linux-arm-kernel@lists.infradead.org>, <linux-mediatek@lists.infradead.org>, 
- <linux-kernel@vger.kernel.org>
-Subject: [PATCH 2/2] dt-bindings: mediatek: mt6359: remove unused property for
- mt6359
-Date: Fri, 20 Nov 2020 11:06:13 +0800
-Message-ID: <1605841573-1442-3-git-send-email-jiaxin.yu@mediatek.com>
-X-Mailer: git-send-email 1.8.1.1.dirty
-In-Reply-To: <1605841573-1442-1-git-send-email-jiaxin.yu@mediatek.com>
-References: <1605841573-1442-1-git-send-email-jiaxin.yu@mediatek.com>
+X-Spam-Level: **
+X-Spam-Status: No, score=2.5 required=5.0 tests=MISSING_DATE,MISSING_MID,
+ SPF_FAIL,SPF_HELO_NONE autolearn=disabled version=3.4.0
+Received: from webhooks-bot.alsa-project.org (gate.perex.cz [77.48.224.242])
+ by alsa1.perex.cz (Postfix) with ESMTP id 2C3D9F800C5
+ for <alsa-devel@alsa-project.org>; Fri, 20 Nov 2020 06:25:13 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2C3D9F800C5
 MIME-Version: 1.0
-Content-Type: text/plain
-X-TM-SNTS-SMTP: DDC9A826DC1B14BDD756F49287CC87C9B10F08EA4E9D16A937B0F009B1940D902000:8
-X-MTK: N
-Cc: shane.chien@mediatek.com, Trevor.Wu@mediatek.com,
- Jiaxin Yu <jiaxin.yu@mediatek.com>
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
+From: GitHub pull_request - opened <github@alsa-project.org>
+To: alsa-devel@alsa-project.org
+In-Reply-To: <1605849913300170898-webhooks-bot@alsa-project.org>
+References: <1605849913300170898-webhooks-bot@alsa-project.org>
+Subject: [PATCH 0/3] alsa-gobject: buildable in kernel 4.5 or later
+Message-Id: <20201120052520.5BB0CF8016C@alsa1.perex.cz>
+Date: Fri, 20 Nov 2020 06:25:20 +0100 (CET)
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -80,48 +59,25 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-This reverts commit 08651373808e16b01d3b12207f52504c17b6774c.
-("dt-bindings: mediatek: mt6359: Add new property for mt6359")
+alsa-project/alsa-gobject pull request #57 was opened from takaswie:
 
-Remove unused property "LDO_VAUD18-supply" in mt6359codec.
+Some users would like to build alsa-gobject in former versions of Linux kernel.
 
-Signed-off-by: Jiaxin Yu <jiaxin.yu@mediatek.com>
----
- Documentation/devicetree/bindings/sound/mt6359.yaml | 9 ---------
- 1 file changed, 9 deletions(-)
+https://sourceforge.net/p/alsa/mailman/alsa-user/thread/d95fce3f-5244-0e5f-4a5f-fece9b853307%40sakamocchi.jp/#msg35839069
 
-diff --git a/Documentation/devicetree/bindings/sound/mt6359.yaml b/Documentation/devicetree/bindings/sound/mt6359.yaml
-index ef027c79032f..a54f466f769d 100644
---- a/Documentation/devicetree/bindings/sound/mt6359.yaml
-+++ b/Documentation/devicetree/bindings/sound/mt6359.yaml
-@@ -17,11 +17,6 @@ description: |
-   Must be a child node of PMIC wrapper.
- 
- properties:
--  LDO_VAUD18-supply:
--    $ref: /schemas/types.yaml#/definitions/phandle
--    description: |
--      Regulator of LDO VAUD18 at 1.8V.
--
-   mediatek,dmic-mode:
-     $ref: /schemas/types.yaml#/definitions/uint32
-     description: |
-@@ -54,15 +49,11 @@ properties:
-     description: |
-       Specifies the type of mic type connected to adc2
- 
--required:
--  - LDO_VAUD18-supply
--
- additionalProperties: false
- 
- examples:
-   - |
-     mt6359codec: mt6359codec {
--      LDO_VAUD18-supply = <&mt6359p_vaud18_reg>;
-       mediatek,dmic-mode = <0>;
-       mediatek,mic-type-0 = <2>;
-     };
--- 
-2.18.0
+This patchset use some macro from Linux kernel for conditional build
 
+```
+Takashi Sakamoto (3):
+  seq: client_info: conditional build for Linux kernel v4.6 or later
+  hwdep: conditional build for Linux kernel v4.9 or later
+  hwdep: conditional build for Linux kernel 4.12 or later
+
+ src/hwdep/alsahwdep-enum-types.h | 16 +++++++++++++---
+ src/seq/client-info.c            |  9 +++++++--
+ 2 files changed, 20 insertions(+), 5 deletions(-)
+```
+
+Request URL   : https://github.com/alsa-project/alsa-gobject/pull/57
+Patch URL     : https://github.com/alsa-project/alsa-gobject/pull/57.patch
+Repository URL: https://github.com/alsa-project/alsa-gobject

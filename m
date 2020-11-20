@@ -2,70 +2,79 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3A4262BB3EF
-	for <lists+alsa-devel@lfdr.de>; Fri, 20 Nov 2020 19:41:22 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id E04682BB5B4
+	for <lists+alsa-devel@lfdr.de>; Fri, 20 Nov 2020 20:44:30 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A6C711735;
-	Fri, 20 Nov 2020 19:40:31 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A6C711735
+	by alsa0.perex.cz (Postfix) with ESMTPS id 73E3F16E3;
+	Fri, 20 Nov 2020 20:43:40 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 73E3F16E3
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1605897681;
-	bh=DxzWbsN/Bms1/LKoRDJpdOkI95ZnandenLyAnLVAE/A=;
+	s=default; t=1605901470;
+	bh=uCO9cgLnyV30P9y9N2Itw+Qfqs1GAK1IRnreHimkn18=;
 	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=Y9R6yB1d1FIjYNH8+daTu3Xk2JbW/4ZzwgOTP7jJOfAB8h80h6J6Y1I1TZSADQiQV
-	 cvAeGBs97V+seai4CA87ZF6c8thhzMEHhPosMjcmswa6TcLkgRZ8s/u4xluZywB2ET
-	 mTVa7GMg2SEINFH9WcQkde+nAQ2o/LJm+rl4pVNA=
+	b=OcqT0PwdW1kwJugmYrbxMO1rvf02bNidlnjwZkR58pb+aW36CNnk+Md9IsBl8IwB+
+	 UPmgi8vpfbmIJPUogogGj6dn7TPwvZTCRURqC9V1W8kyDAM2O1Zh/2kVTCTwcHM9vw
+	 UFVchVJ4hjD9UR+jUzSKe/Ekqh3cZRDbcFG6ZQyQ=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 12770F8016D;
-	Fri, 20 Nov 2020 19:39:48 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id E65A0F800C5;
+	Fri, 20 Nov 2020 20:42:56 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id BC703F8016C; Fri, 20 Nov 2020 19:39:45 +0100 (CET)
+ id C0BDBF8016C; Fri, 20 Nov 2020 20:42:54 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled
- version=3.4.0
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+X-Spam-Status: No, score=0.5 required=5.0 tests=FREEMAIL_FORGED_FROMDOMAIN,
+ FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,RCVD_IN_MSPIKE_H2,SPF_HELO_NONE,
+ SPF_PASS autolearn=disabled version=3.4.0
+Received: from mail-ed1-f66.google.com (mail-ed1-f66.google.com
+ [209.85.208.66])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 4B30AF800F3
- for <alsa-devel@alsa-project.org>; Fri, 20 Nov 2020 19:39:43 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4B30AF800F3
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="jCd/AshZ"
-Received: from embeddedor (187-162-31-110.static.axtel.net [187.162.31.110])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 76B3D2242B;
- Fri, 20 Nov 2020 18:39:40 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1605897581;
- bh=DxzWbsN/Bms1/LKoRDJpdOkI95ZnandenLyAnLVAE/A=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=jCd/AshZ5/r3P/1oIqdW8hQM1nRhKZv0sMLYyxpdx/m20ZRtDwhGvYSYPsy3FEPs2
- 0pwKMOU82m3S2uspZxrUS4/m0u6pKZSTSXbaQ0Ms8Lr/TNuMcSqeG/lqs75LR2QwZ0
- cOBv52+ER1crgRf+ypbd36DHX/BU2FkefVDZHtm0=
-Date: Fri, 20 Nov 2020 12:39:46 -0600
-From: "Gustavo A. R. Silva" <gustavoars@kernel.org>
-To: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
-Subject: [PATCH 126/141] slimbus: messaging: Fix fall-through warnings for
- Clang
-Message-ID: <08a882fa7a3145bc33bc02392df8319e95092dcf.1605896060.git.gustavoars@kernel.org>
-References: <cover.1605896059.git.gustavoars@kernel.org>
+ by alsa1.perex.cz (Postfix) with ESMTPS id CB511F800C5
+ for <alsa-devel@alsa-project.org>; Fri, 20 Nov 2020 20:42:48 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CB511F800C5
+Received: by mail-ed1-f66.google.com with SMTP id a15so10740180edy.1
+ for <alsa-devel@alsa-project.org>; Fri, 20 Nov 2020 11:42:48 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to;
+ bh=jOXZ/NCVCIvYKIWpmcFp+SbynGH7tAa1IfD+gFImPbE=;
+ b=KEOOFwvze6Za9EZvu8CKGqxRd0UO/n17NDzMbdplCe6/NXU2K1PSOqGp7yyhQ/gHiA
+ HYleoYBc45s7nWyNeuGwAepiusFKmRbJwzgdOQPfcCKxBMvuJypU++vuXMYKFhzG/618
+ Y52XFiMGO1SnXsl59TSwGvttZvjuKhtgfwdGdZLWw/ZNd+JUSsTBk9/EEHFW3XXP8PRQ
+ zHygPYguOsdM/UpFI2Z23J97bH36v133LDK/pmAyb/JYLgpRf2c6S3fTK9rqc4PS3hw7
+ pCeGsiwEtseqkTFfmDoBEsqnyphjQKE2irxz2Q4Ifs6nYyLu7kUpRZtcGrrqezcMErxo
+ xgmg==
+X-Gm-Message-State: AOAM531c31aKVKI/sQLwqdXz/H41gHZkhw6VYk/wQaC9QSYNjGyxhJJy
+ 2WY2X2Xkb+41U0oiL8qwia22/7pDks9TLw==
+X-Google-Smtp-Source: ABdhPJz8vRJ4tmub7T+MlTQoYvIJ7sDYDo7OFVZA0mTWzf4Z26ouD98jDYhqeqIh8GIHyhvgky2LXg==
+X-Received: by 2002:a50:ab06:: with SMTP id s6mr29303017edc.288.1605901368051; 
+ Fri, 20 Nov 2020 11:42:48 -0800 (PST)
+Received: from kozik-lap (adsl-84-226-167-205.adslplus.ch. [84.226.167.205])
+ by smtp.googlemail.com with ESMTPSA id u8sm1514624edr.2.2020.11.20.11.42.46
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 20 Nov 2020 11:42:46 -0800 (PST)
+Date: Fri, 20 Nov 2020 20:42:45 +0100
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Mark Brown <broonie@kernel.org>
+Subject: Re: [PATCH 01/38] ASoC: ak5558: drop of_match_ptr from of_device_id
+ table
+Message-ID: <20201120194245.GA2925@kozik-lap>
+References: <20201120161653.445521-1-krzk@kernel.org>
+ <20201120165202.GG6751@sirena.org.uk>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <cover.1605896059.git.gustavoars@kernel.org>
-User-Agent: Mutt/1.9.4 (2018-02-28)
-Cc: alsa-devel@alsa-project.org, "Gustavo A. R. Silva" <gustavoars@kernel.org>,
- linux-kernel@vger.kernel.org, linux-hardening@vger.kernel.org
+In-Reply-To: <20201120165202.GG6751@sirena.org.uk>
+Cc: alsa-devel@alsa-project.org, Liam Girdwood <lgirdwood@gmail.com>,
+ linux-kernel@vger.kernel.org, Shengjiu Wang <shengjiu.wang@nxp.com>,
+ Takashi Iwai <tiwai@suse.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -81,28 +90,23 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-In preparation to enable -Wimplicit-fallthrough for Clang, fix a warning
-by explicitly adding a break statement instead of letting the code fall
-through to the next case.
+On Fri, Nov 20, 2020 at 04:56:34PM +0000, Mark Brown wrote:
+> On Fri, Nov 20, 2020 at 05:16:15PM +0100, Krzysztof Kozlowski wrote:
+> > The driver can match only via the DT table so the table should be always
+> > used and the of_match_ptr does not have any sense (this also allows ACPI
+> > matching via PRP0001, even though it is not relevant here).  This fixes
+> > compile warning (!CONFIG_OF on x86_64):
+> 
+> It would be better to fix these by annotating the table as potentially
+> unused, if nothing else it means if someone wants to add ACPI support
+> (or it just works on their ACPI system with the plain old I2C ID) then
+> they don't need to revert this change.
 
-Link: https://github.com/KSPP/linux/issues/115
-Signed-off-by: Gustavo A. R. Silva <gustavoars@kernel.org>
----
- drivers/slimbus/messaging.c | 1 +
- 1 file changed, 1 insertion(+)
+The point is after this patch - removal of of_match_ptr() - they will
+already support the ACPI matching through the PRP0001.
 
-diff --git a/drivers/slimbus/messaging.c b/drivers/slimbus/messaging.c
-index d5879142dbef..f2b5d347d227 100644
---- a/drivers/slimbus/messaging.c
-+++ b/drivers/slimbus/messaging.c
-@@ -258,6 +258,7 @@ int slim_xfer_msg(struct slim_device *sbdev, struct slim_val_inf *msg,
- 	case SLIM_MSG_MC_REQUEST_CLEAR_INFORMATION:
- 	case SLIM_MSG_MC_CLEAR_INFORMATION:
- 		txn->rl += msg->num_bytes;
-+		break;
- 	default:
- 		break;
- 	}
--- 
-2.27.0
+Keeping of_match_ptr() and maybe_unused will prevent any ACPI re-usage
+unless explicit ACPI table is added
 
+Best regards,
+Krzysztof

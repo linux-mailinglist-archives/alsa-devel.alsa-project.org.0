@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3B45B2BBE11
-	for <lists+alsa-devel@lfdr.de>; Sat, 21 Nov 2020 09:31:31 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8F80F2BBE16
+	for <lists+alsa-devel@lfdr.de>; Sat, 21 Nov 2020 09:31:45 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D756916DD;
-	Sat, 21 Nov 2020 09:30:40 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D756916DD
+	by alsa0.perex.cz (Postfix) with ESMTPS id A8E2916E3;
+	Sat, 21 Nov 2020 09:30:54 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A8E2916E3
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1605947490;
-	bh=RMjM6FoiaoDORxgaA4JhY9D3NgP3CoglBwtHLzAfbpc=;
+	s=default; t=1605947504;
+	bh=iViIhMo8VJ9nd8uJXFtTrC+XCBdZ0YJGW6aw5XYBSjY=;
 	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=SJdffv8+QH2UZ2yGgyw3H8/lbdhPcbSHcSPrPFf3C3o497bg9t4lgBj5pukBagDpn
-	 UqlWSjRD8adW9181geu2ON1JRIW6uWZTuDUa/ztFFPlvSKeb2Pk+n6z+86CvU0RrQi
-	 LvxdFDGergyR9O/gPgQsDiJ4O3OdwW0EWL6DpbWg=
+	b=pHPcT9K7Ue+Er4zc5bSi+E9IkLcVAyD13Ee0beaXcRAYc97Sajck6Hc/U/WiwykUG
+	 x4/DL0wHGvtVxqugANamRcUNybMyzlVILwLkJYyCj49y5TOn1lmDObP8R1t79hLRr/
+	 zB8DE2Fbk3sZFkZ11gTfyA71UgTbFruZflJbp0lU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 67DB7F80169;
-	Sat, 21 Nov 2020 09:29:57 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id E9C24F80249;
+	Sat, 21 Nov 2020 09:30:05 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 486D7F801ED; Sat, 21 Nov 2020 09:29:55 +0100 (CET)
+ id A69B3F804BD; Sat, 21 Nov 2020 09:30:03 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_MSPIKE_H3,
@@ -33,21 +33,21 @@ X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_MSPIKE_H3,
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 97886F80166
- for <alsa-devel@alsa-project.org>; Sat, 21 Nov 2020 09:29:48 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 97886F80166
+ by alsa1.perex.cz (Postfix) with ESMTPS id 1E90FF80249
+ for <alsa-devel@alsa-project.org>; Sat, 21 Nov 2020 09:30:01 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1E90FF80249
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 3A2F1AD63;
- Sat, 21 Nov 2020 08:29:48 +0000 (UTC)
-Date: Sat, 21 Nov 2020 09:29:48 +0100
-Message-ID: <s5hsg93dseb.wl-tiwai@suse.de>
+ by mx2.suse.de (Postfix) with ESMTP id CB458AC2D;
+ Sat, 21 Nov 2020 08:30:00 +0000 (UTC)
+Date: Sat, 21 Nov 2020 09:30:00 +0100
+Message-ID: <s5hr1ondsdz.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
 To: "Gustavo A. R. Silva" <gustavoars@kernel.org>
-Subject: Re: [PATCH 068/141] ALSA: sb: Fix fall-through warnings for Clang
-In-Reply-To: <0f6d5b94f1890be2b8f88d6f930fc75779e26345.1605896059.git.gustavoars@kernel.org>
+Subject: Re: [PATCH 066/141] ALSA: hdspm: Fix fall-through warnings for Clang
+In-Reply-To: <3f70182b366fca7e085a3b57cb2eb193be04eed8.1605896059.git.gustavoars@kernel.org>
 References: <cover.1605896059.git.gustavoars@kernel.org>
- <0f6d5b94f1890be2b8f88d6f930fc75779e26345.1605896059.git.gustavoars@kernel.org>
+ <3f70182b366fca7e085a3b57cb2eb193be04eed8.1605896059.git.gustavoars@kernel.org>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
  FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
  (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
@@ -70,7 +70,7 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Fri, 20 Nov 2020 19:34:12 +0100,
+On Fri, 20 Nov 2020 19:33:52 +0100,
 Gustavo A. R. Silva wrote:
 > 
 > In preparation to enable -Wimplicit-fallthrough for Clang, fix a warning

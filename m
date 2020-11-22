@@ -2,122 +2,107 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C89A12C2DAE
-	for <lists+alsa-devel@lfdr.de>; Tue, 24 Nov 2020 18:04:42 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 25D3B2C2DC9
+	for <lists+alsa-devel@lfdr.de>; Tue, 24 Nov 2020 18:07:25 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 6D8DD16D7;
-	Tue, 24 Nov 2020 18:03:47 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6D8DD16D7
+	by alsa0.perex.cz (Postfix) with ESMTPS id B6A6B16C9;
+	Tue, 24 Nov 2020 18:06:34 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B6A6B16C9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1606237477;
-	bh=b/YNgdTDwDOaOBUCXVP6CLeRCtnVcrPDtxVVNkyhld0=;
-	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
+	s=default; t=1606237644;
+	bh=17TrMRtvefoo+nGHR97pCnj/lxz5M0xWRk4mlB4j/j4=;
+	h=Subject:From:To:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=JsWNdetykY09HOXs7QhLqsonoHfbAOJ71vVVO4HwDw/MvostDtqw4gKU84gIdfKQ+
-	 G7WenMsIQEVf/La5BSbCqXJapv2iqe5q2uBOOdGYe7yXXKqbW2kmtVc7v61YC677gP
-	 x6R2pXmFCP+UZJWAqRR7nGPZD9lbU2Pe8p2cQz5U=
+	b=ZuR7EfRThAVo3JOclP0aTz42Vtp3A84OCuIXppGWk2FUoRFWBZlbS85HVWYr8+QdV
+	 eTYCSY2CnsL+9eH6Tf4+ukoxynpzWBuZ5qcDGJSMwv4zfFHawRY428mJftzJhuFrcJ
+	 C304Niu13lIaIRWuAjBfszsTx1ZgoeH/XPl7r3ZI=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id F1669F80518;
-	Tue, 24 Nov 2020 17:58:22 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id CCFA0F80553;
+	Tue, 24 Nov 2020 17:58:30 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id DD192F80165; Sun, 22 Nov 2020 17:33:33 +0100 (CET)
+ id 3DBC1F80165; Sun, 22 Nov 2020 17:49:56 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,NICE_REPLY_A,PRX_BODY_76,RCVD_IN_MSPIKE_H4,
- RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [63.128.21.124])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
+X-Spam-Status: No, score=0.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,PRX_BODY_30,SPF_HELO_PASS,SPF_PASS,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from bedivere.hansenpartnership.com (bedivere.hansenpartnership.com
+ [IPv6:2607:fcd0:100:8a00::2])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id B7DF2F80107
- for <alsa-devel@alsa-project.org>; Sun, 22 Nov 2020 17:33:26 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B7DF2F80107
+ by alsa1.perex.cz (Postfix) with ESMTPS id E9C09F8015B
+ for <alsa-devel@alsa-project.org>; Sun, 22 Nov 2020 17:49:49 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E9C09F8015B
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com
- header.b="StCMHC/H"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1606062804;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=eSFXaX0DZkpNbOwM/RCeF/BEd3n14fz/kurtk7pTmoY=;
- b=StCMHC/HyCDcHG808p/9thQCbNHLB97ek1T9oforhFojh55MW9LfrBZih5vkd7qgZ43dSF
- OZ3JOWRoVWjL7zUSFlP0LDpmoWD2sc3F8Zm34Dd/PaZ0RswUInINC4teeaarn0nRRR/QOI
- +dDEJjm8SJb3l7vs6UWTL1dZHykwyjY=
-Received: from mail-qv1-f71.google.com (mail-qv1-f71.google.com
- [209.85.219.71]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-74-JVL8-7_cPwKqI4cR9OBatA-1; Sun, 22 Nov 2020 11:33:22 -0500
-X-MC-Unique: JVL8-7_cPwKqI4cR9OBatA-1
-Received: by mail-qv1-f71.google.com with SMTP id a1so11199661qvv.18
- for <alsa-devel@alsa-project.org>; Sun, 22 Nov 2020 08:33:21 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:subject:to:cc:references:from:message-id:date
- :user-agent:mime-version:in-reply-to:content-transfer-encoding
- :content-language;
- bh=eSFXaX0DZkpNbOwM/RCeF/BEd3n14fz/kurtk7pTmoY=;
- b=mrqALF78+5I4CRaCOfz8wI2wsMxv1y6vFCX0cx+TEpj12zyJ8XyRlYVByG6p4/CK/L
- cq4BpCupP55N+AqQdnKCa/PL9qqZQPkt/OAgTShVsnU3fcvAtVT732nQ3oLOC3KOI7QK
- QYYO5Au+uPEAtZQWj4+mgPjU3l9ec8vA04M+WttufhSBiGOHFTaHHErKoC7AfqxEUZLz
- rHZlkpLRC5Qkejf8m2CajiqwU6AmsnbBuOJPCs073iIJeqs1oa/Bd1stAB9WyNTXh6W3
- V9A3JEFE/5htz8DzvXCOF3PfrW9F/V05h1WJth1l3iMPEIe0q+B9H/VGVZ1oh5QS2giP
- vMWg==
-X-Gm-Message-State: AOAM532RdaD4pxXHZQg/qS0QKluI3lWTHpJTMOgEjE1dnO6TdKMQ2p48
- rnBkGz0uFwsnOD9X6zdrcZPkR2ZC+BSFhdc+cvGTlSG663qIuusd2Hv0VY+3MxCftPSPOaTpJyq
- vX1c1OAanYel3tHb4DCnUuns=
-X-Received: by 2002:a37:a783:: with SMTP id q125mr25815208qke.10.1606062801575; 
- Sun, 22 Nov 2020 08:33:21 -0800 (PST)
-X-Google-Smtp-Source: ABdhPJx2n++9V878KrbbQS+4X3uFT/lj12S/EG8yAhFKA6vFd9PzTR06otQkDsZPYmv5N+Hbwviu/A==
-X-Received: by 2002:a37:a783:: with SMTP id q125mr25815168qke.10.1606062801138; 
- Sun, 22 Nov 2020 08:33:21 -0800 (PST)
-Received: from trix.remote.csb (075-142-250-213.res.spectrum.com.
- [75.142.250.213])
- by smtp.gmail.com with ESMTPSA id 9sm7113466qke.6.2020.11.22.08.33.17
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Sun, 22 Nov 2020 08:33:20 -0800 (PST)
+ dkim=pass (1024-bit key) header.d=hansenpartnership.com
+ header.i=@hansenpartnership.com header.b="DJQ3WuSC"; 
+ dkim=pass (1024-bit key) header.d=hansenpartnership.com
+ header.i=@hansenpartnership.com header.b="DJQ3WuSC"
+Received: from localhost (localhost [127.0.0.1])
+ by bedivere.hansenpartnership.com (Postfix) with ESMTP id AB0CF1280302;
+ Sun, 22 Nov 2020 08:49:44 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=hansenpartnership.com; s=20151216; t=1606063784;
+ bh=17TrMRtvefoo+nGHR97pCnj/lxz5M0xWRk4mlB4j/j4=;
+ h=Message-ID:Subject:From:To:Date:In-Reply-To:References:From;
+ b=DJQ3WuSCh5ONJkQLvrRDKWjtqFtZT1TAPnAUYm6nnSis8bRSxmxTUdD1PrB7UWicY
+ RxKUvvDgawnlhMMDvZIHrNHIQxzEk4H+L7edJ9WYAgYp3e2Z+uWjpWqDuwMfVruTvK
+ GP/WMd/p5KAU/iZA/nGFhNVXHTmLoWjH8aSdKt9E=
+Received: from bedivere.hansenpartnership.com ([127.0.0.1])
+ by localhost (bedivere.hansenpartnership.com [127.0.0.1]) (amavisd-new,
+ port 10024)
+ with ESMTP id iwIwMm9lBMHQ; Sun, 22 Nov 2020 08:49:44 -0800 (PST)
+Received: from jarvis.int.hansenpartnership.com (unknown
+ [IPv6:2601:600:8280:66d1::527])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by bedivere.hansenpartnership.com (Postfix) with ESMTPSA id CCD1012802EA;
+ Sun, 22 Nov 2020 08:49:42 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=hansenpartnership.com; s=20151216; t=1606063784;
+ bh=17TrMRtvefoo+nGHR97pCnj/lxz5M0xWRk4mlB4j/j4=;
+ h=Message-ID:Subject:From:To:Date:In-Reply-To:References:From;
+ b=DJQ3WuSCh5ONJkQLvrRDKWjtqFtZT1TAPnAUYm6nnSis8bRSxmxTUdD1PrB7UWicY
+ RxKUvvDgawnlhMMDvZIHrNHIQxzEk4H+L7edJ9WYAgYp3e2Z+uWjpWqDuwMfVruTvK
+ GP/WMd/p5KAU/iZA/nGFhNVXHTmLoWjH8aSdKt9E=
+Message-ID: <751803306cd957d0e7ef6a4fc3dbf12ebceaba92.camel@HansenPartnership.com>
 Subject: Re: [RFC] MAINTAINERS tag for cleanup robot
-To: Joe Perches <joe@perches.com>, clang-built-linux@googlegroups.com
+From: James Bottomley <James.Bottomley@HansenPartnership.com>
+To: Tom Rix <trix@redhat.com>, Matthew Wilcox <willy@infradead.org>
+Date: Sun, 22 Nov 2020 08:49:41 -0800
+In-Reply-To: <0819ce06-c462-d4df-d3d9-14931dc5aefc@redhat.com>
 References: <20201121165058.1644182-1-trix@redhat.com>
- <2105f0c05e9eae8bee8e17dcc5314474b3c0bc73.camel@perches.com>
-From: Tom Rix <trix@redhat.com>
-Message-ID: <6e8c1926-4209-8f10-d0f9-72c875a85a88@redhat.com>
-Date: Sun, 22 Nov 2020 08:33:16 -0800
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.12.0
+ <20201122032304.GE4327@casper.infradead.org>
+ <ddb08a27-3ca1-fb2e-d51f-4b471f1a56a3@redhat.com>
+ <20201122145635.GG4327@casper.infradead.org>
+ <0819ce06-c462-d4df-d3d9-14931dc5aefc@redhat.com>
+Content-Type: text/plain; charset="UTF-8"
+User-Agent: Evolution 3.34.4 
 MIME-Version: 1.0
-In-Reply-To: <2105f0c05e9eae8bee8e17dcc5314474b3c0bc73.camel@perches.com>
-Authentication-Results: relay.mimecast.com;
- auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=trix@redhat.com
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: 8bit
-Content-Language: en-US
+Content-Transfer-Encoding: 7bit
 X-Mailman-Approved-At: Tue, 24 Nov 2020 17:58:06 +0100
 Cc: linux-hyperv@vger.kernel.org, kvm@vger.kernel.org,
  linux-fbdev@vger.kernel.org, dri-devel@lists.freedesktop.org,
  platform-driver-x86@vger.kernel.org, ibm-acpi-devel@lists.sourceforge.net,
  keyrings@vger.kernel.org, linux-mtd@lists.infradead.org,
- linux-scsi@vger.kernel.org, amd-gfx@lists.freedesktop.org,
- cluster-devel@redhat.com, linux-acpi@vger.kernel.org,
- tboot-devel@lists.sourceforge.net, coreteam@netfilter.org,
- xen-devel@lists.xenproject.org, MPT-FusionLinux.pdl@broadcom.com,
- linux-media@vger.kernel.org, alsa-devel@alsa-project.org,
- intel-gfx@lists.freedesktop.org, ecryptfs@vger.kernel.org,
+ linux-scsi@vger.kernel.org, clang-built-linux@googlegroups.com,
+ amd-gfx@lists.freedesktop.org, cluster-devel@redhat.com,
+ linux-acpi@vger.kernel.org, tboot-devel@lists.sourceforge.net,
+ coreteam@netfilter.org, xen-devel@lists.xenproject.org,
+ MPT-FusionLinux.pdl@broadcom.com, linux-media@vger.kernel.org,
+ alsa-devel@alsa-project.org, intel-gfx@lists.freedesktop.org,
+ ecryptfs@vger.kernel.org, linux-fsdevel@vger.kernel.org,
  linux-omap@vger.kernel.org, devel@acpica.org, linux-nfs@vger.kernel.org,
  netdev@vger.kernel.org, linux-usb@vger.kernel.org,
  linux-wireless@vger.kernel.org, linux-kernel@vger.kernel.org,
  linux-bluetooth@vger.kernel.org, netfilter-devel@vger.kernel.org,
- linux-crypto@vger.kernel.org, patches@opensource.cirrus.com,
- linux-fsdevel@vger.kernel.org, bpf@vger.kernel.org
+ linux-crypto@vger.kernel.org, patches@opensource.cirrus.com, joe@perches.com,
+ bpf@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -133,62 +118,67 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+On Sun, 2020-11-22 at 08:10 -0800, Tom Rix wrote:
+> On 11/22/20 6:56 AM, Matthew Wilcox wrote:
+> > On Sun, Nov 22, 2020 at 06:46:46AM -0800, Tom Rix wrote:
+> > > On 11/21/20 7:23 PM, Matthew Wilcox wrote:
+> > > > On Sat, Nov 21, 2020 at 08:50:58AM -0800, trix@redhat.com
+> > > > wrote:
+> > > > > The fixer review is
+> > > > > https://reviews.llvm.org/D91789
+> > > > > 
+> > > > > A run over allyesconfig for x86_64 finds 62 issues, 5 are
+> > > > > false positives. The false positives are caused by macros
+> > > > > passed to other macros and by some macro expansions that did
+> > > > > not have an extra semicolon.
+> > > > > 
+> > > > > This cleans up about 1,000 of the current 10,000 -Wextra-
+> > > > > semi-stmt warnings in linux-next.
+> > > > Are any of them not false-positives?  It's all very well to
+> > > > enable stricter warnings, but if they don't fix any bugs,
+> > > > they're just churn.
+> > > > 
+> > > While enabling additional warnings may be a side effect of this
+> > > effort
+> > > 
+> > > the primary goal is to set up a cleaning robot. After that a
+> > > refactoring robot.
+> > Why do we need such a thing?  Again, it sounds like more churn.
+> > It's really annoying when I'm working on something important that
+> > gets derailed by pointless churn.  Churn also makes it harder to
+> > backport patches to earlier kernels.
+> > 
+> A refactoring example on moving to treewide, consistent use of a new
+> api may help.
+> 
+> Consider
+> 
+> 2efc459d06f1630001e3984854848a5647086232
+> 
+> sysfs: Add sysfs_emit and sysfs_emit_at to format sysfs output
+> 
+> A new api for printing in the sysfs.  How do we use it treewide ?
+> 
+> Done manually, it would be a heroic effort requiring high level
+> maintainers pushing and likely only get partially done.
+> 
+> If a refactoring programatic fixit is done and validated on a one
+> subsystem, it can run on all the subsystems.
+> 
+> The effort is a couple of weeks to write and validate the fixer,
+> hours to run over the tree.
+> 
+> It won't be perfect but will be better than doing it manually.
 
-On 11/21/20 9:10 AM, Joe Perches wrote:
-> On Sat, 2020-11-21 at 08:50 -0800, trix@redhat.com wrote:
->> A difficult part of automating commits is composing the subsystem
->> preamble in the commit log.  For the ongoing effort of a fixer producing
->> one or two fixes a release the use of 'treewide:' does not seem appropriate.
->>
->> It would be better if the normal prefix was used.  Unfortunately normal is
->> not consistent across the tree.
->>
->> So I am looking for comments for adding a new tag to the MAINTAINERS file
->>
->> 	D: Commit subsystem prefix
->>
->> ex/ for FPGA DFL DRIVERS
->>
->> 	D: fpga: dfl:
-> I'm all for it.  Good luck with the effort.  It's not completely trivial.
->
-> From a decade ago:
->
-> https://lore.kernel.org/lkml/1289919077.28741.50.camel@Joe-Laptop/
->
-> (and that thread started with extra semicolon patches too)
+Here's a thought: perhaps we don't.  sysfs_emit isn't a "new api" its a
+minor rewrap of existing best practice.  The damage caused by the churn
+of forcing its use everywhere would far outweigh any actual benefit
+because pretty much every bug in this area has already been caught and
+killed by existing tools.  We can enforce sysfs_emit going forwards
+using tools like checkpatch but there's no benefit and a lot of harm to
+be done by trying to churn the entire tree retrofitting it (both in
+terms of review time wasted as well as patch series derailed).
 
-Reading the history, how about this.
-
-get_mataintainer.pl outputs a single prefix, if multiple files have the same prefix it works, if they don't its an error.
-
-Another script 'commit_one_file.sh' does the call to get_mainainter.pl to get the prefix and be called by run-clang-tools.py to get the fixer specific message.
-
-Defer minimizing the commits by combining similar subsystems till later.
-
-In a steady state case, this should be uncommon.
-
-
->
->> Continuing with cleaning up clang's -Wextra-semi-stmt
->> diff --git a/Makefile b/Makefile
-> []
->> @@ -1567,20 +1567,21 @@ help:
->>  	 echo  ''
->>  	@echo  'Static analysers:'
->>  	@echo  '  checkstack      - Generate a list of stack hogs'
->>  	@echo  '  versioncheck    - Sanity check on version.h usage'
->>  	@echo  '  includecheck    - Check for duplicate included header files'
->>  	@echo  '  export_report   - List the usages of all exported symbols'
->>  	@echo  '  headerdep       - Detect inclusion cycles in headers'
->>  	@echo  '  coccicheck      - Check with Coccinelle'
->>  	@echo  '  clang-analyzer  - Check with clang static analyzer'
->>  	@echo  '  clang-tidy      - Check with clang-tidy'
->> +	@echo  '  clang-tidy-fix  - Check and fix with clang-tidy'
-> A pity the ordering of the code below isn't the same as the above.
-
-Taken care thanks!
-
-Tom
+James
 
 

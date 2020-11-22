@@ -2,48 +2,80 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9D7692C2E1D
-	for <lists+alsa-devel@lfdr.de>; Tue, 24 Nov 2020 18:11:59 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2A68A2C2E1E
+	for <lists+alsa-devel@lfdr.de>; Tue, 24 Nov 2020 18:12:19 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 31FA317A7;
-	Tue, 24 Nov 2020 18:11:09 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 31FA317A7
+	by alsa0.perex.cz (Postfix) with ESMTPS id C0C60178C;
+	Tue, 24 Nov 2020 18:11:28 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C0C60178C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1606237919;
-	bh=RF46LB8BnQvDeYPmngrRJb+75KbKUwSANZfXCwhJZys=;
-	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1606237938;
+	bh=ampKVWKUqLiKYyObj0dhEgltdPGbsuliUrstEBadWMw=;
+	h=Subject:From:To:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=uuir3jVrtW/Yr1qEZVFCHj7Rn4d36bfhcmYyjjsOj3D1lUiA0YFYyVMDqDAIWd+LW
-	 /o6JF8Y+BTPzDJ+TO8QcwVD3JrykGf5RGJXwM/H39JUKG3hEMo4E6rCNnfuuZIticS
-	 icrCmfSmvEmKtgCba70b+8YCb13/urmZWPuqHchg=
+	b=dUHCUlorq5DsN16T97Djv5YbUe65yr7xYJSpBjPbyvvKEYox7mEmuGuzhNGEjL8aI
+	 W+4eX5kfp7BXe1AeuUSN5Eqw0xjdxGtKkrtuQy3N5cnZEztibxR9boVGCsKXUyC2Fi
+	 L7Lq9eaWCh/1Ksp7S6vGTzAz1iBJaAdwottOxAw4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 951D1F805D5;
-	Tue, 24 Nov 2020 17:58:40 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id C3A89F805D7;
+	Tue, 24 Nov 2020 17:58:41 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id AA5D2F80165; Sun, 22 Nov 2020 23:54:54 +0100 (CET)
+ id 89556F80113; Mon, 23 Nov 2020 00:04:49 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE
- autolearn=disabled version=3.4.0
-Received: from kvm5.telegraphics.com.au (kvm5.telegraphics.com.au
- [98.124.60.144])
- by alsa1.perex.cz (Postfix) with ESMTP id 5731FF8015B
- for <alsa-devel@alsa-project.org>; Sun, 22 Nov 2020 23:54:51 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5731FF8015B
-Received: from localhost (localhost.localdomain [127.0.0.1])
- by kvm5.telegraphics.com.au (Postfix) with ESMTP id BF98E29DB3;
- Sun, 22 Nov 2020 17:54:47 -0500 (EST)
-Date: Mon, 23 Nov 2020 09:54:48 +1100 (AEDT)
-From: Finn Thain <fthain@telegraphics.com.au>
-To: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_PASS,SPF_PASS autolearn=disabled version=3.4.0
+Received: from bedivere.hansenpartnership.com (bedivere.hansenpartnership.com
+ [96.44.175.130])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id EA92CF80113
+ for <alsa-devel@alsa-project.org>; Mon, 23 Nov 2020 00:04:44 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EA92CF80113
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=hansenpartnership.com
+ header.i=@hansenpartnership.com header.b="WmZvrZ8S"; 
+ dkim=pass (1024-bit key) header.d=hansenpartnership.com
+ header.i=@hansenpartnership.com header.b="WmZvrZ8S"
+Received: from localhost (localhost [127.0.0.1])
+ by bedivere.hansenpartnership.com (Postfix) with ESMTP id 5C1741280900;
+ Sun, 22 Nov 2020 15:04:41 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=hansenpartnership.com; s=20151216; t=1606086281;
+ bh=ampKVWKUqLiKYyObj0dhEgltdPGbsuliUrstEBadWMw=;
+ h=Message-ID:Subject:From:To:Date:In-Reply-To:References:From;
+ b=WmZvrZ8SISP4O7CkmRRwRn7Ww4EqbFeoj9AudkGWHrTHPvBGVyYGXPtxxL5/3UBwZ
+ KEGMUiR7FBhAVO42W5uBkyouydambEWUMRvvMR32eyWutkJh8vdHwfKrPde3Z6lPQr
+ zwZuERjUvzNlbmlNByqn4M9h7sLDVk7BBiQeo3h4=
+Received: from bedivere.hansenpartnership.com ([127.0.0.1])
+ by localhost (bedivere.hansenpartnership.com [127.0.0.1]) (amavisd-new,
+ port 10024)
+ with ESMTP id PvG_3ynFL_Uj; Sun, 22 Nov 2020 15:04:41 -0800 (PST)
+Received: from jarvis.int.hansenpartnership.com (unknown
+ [IPv6:2601:600:8280:66d1::527])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by bedivere.hansenpartnership.com (Postfix) with ESMTPSA id 9178D12808F6;
+ Sun, 22 Nov 2020 15:04:37 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=hansenpartnership.com; s=20151216; t=1606086281;
+ bh=ampKVWKUqLiKYyObj0dhEgltdPGbsuliUrstEBadWMw=;
+ h=Message-ID:Subject:From:To:Date:In-Reply-To:References:From;
+ b=WmZvrZ8SISP4O7CkmRRwRn7Ww4EqbFeoj9AudkGWHrTHPvBGVyYGXPtxxL5/3UBwZ
+ KEGMUiR7FBhAVO42W5uBkyouydambEWUMRvvMR32eyWutkJh8vdHwfKrPde3Z6lPQr
+ zwZuERjUvzNlbmlNByqn4M9h7sLDVk7BBiQeo3h4=
+Message-ID: <c3371b7c15ed30b92e9bb8609ff65bdaa0ef61fa.camel@HansenPartnership.com>
 Subject: Re: [PATCH 000/141] Fix fall-through warnings for Clang
-In-Reply-To: <CANiq72nZrHWTA4_Msg6MP9snTyenC6-eGfD27CyfNSu7QoVZbw@mail.gmail.com>
-Message-ID: <alpine.LNX.2.23.453.2011230938390.7@nippy.intranet>
+From: James Bottomley <James.Bottomley@HansenPartnership.com>
+To: Finn Thain <fthain@telegraphics.com.au>, Miguel Ojeda
+ <miguel.ojeda.sandonis@gmail.com>
+Date: Sun, 22 Nov 2020 15:04:36 -0800
+In-Reply-To: <alpine.LNX.2.23.453.2011230938390.7@nippy.intranet>
 References: <cover.1605896059.git.gustavoars@kernel.org>
  <20201120105344.4345c14e@kicinski-fedora-pc1c0hjn.dhcp.thefacebook.com>
  <202011201129.B13FDB3C@keescook>
@@ -51,23 +83,25 @@ References: <cover.1605896059.git.gustavoars@kernel.org>
  <202011220816.8B6591A@keescook>
  <9b57fd4914b46f38d54087d75e072d6e947cb56d.camel@HansenPartnership.com>
  <CANiq72nZrHWTA4_Msg6MP9snTyenC6-eGfD27CyfNSu7QoVZbw@mail.gmail.com>
+ <alpine.LNX.2.23.453.2011230938390.7@nippy.intranet>
+Content-Type: text/plain; charset="UTF-8"
+User-Agent: Evolution 3.34.4 
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 X-Mailman-Approved-At: Tue, 24 Nov 2020 17:58:07 +0100
 Cc: alsa-devel@alsa-project.org, linux-atm-general@lists.sourceforge.net,
  reiserfs-devel@vger.kernel.org, linux-iio@vger.kernel.org,
  linux-wireless <linux-wireless@vger.kernel.org>, linux-fbdev@vger.kernel.org,
  dri-devel@lists.freedesktop.org, "Gustavo A. R. Silva" <gustavoars@kernel.org>,
- James Bottomley <James.Bottomley@hansenpartnership.com>,
- linux-ide@vger.kernel.org, dm-devel@redhat.com, keyrings@vger.kernel.org,
- linux-mtd@lists.infradead.org, GR-everest-linux-l2@marvell.com,
- wcn36xx@lists.infradead.org, samba-technical@lists.samba.org,
- linux-i3c@lists.infradead.org, linux1394-devel@lists.sourceforge.net,
- linux-afs@lists.infradead.org, usb-storage@lists.one-eyed-alien.net,
- drbd-dev@lists.linbit.com, devel@driverdev.osuosl.org,
- linux-cifs@vger.kernel.org, rds-devel@oss.oracle.com,
- Nick Desaulniers <ndesaulniers@google.com>, linux-scsi@vger.kernel.org,
- Nathan Chancellor <natechancellor@gmail.com>, linux-rdma@vger.kernel.org,
+ Nathan Chancellor <natechancellor@gmail.com>, linux-ide@vger.kernel.org,
+ dm-devel@redhat.com, keyrings@vger.kernel.org, linux-mtd@lists.infradead.org,
+ GR-everest-linux-l2@marvell.com, wcn36xx@lists.infradead.org,
+ samba-technical@lists.samba.org, linux-i3c@lists.infradead.org,
+ linux1394-devel@lists.sourceforge.net, linux-afs@lists.infradead.org,
+ usb-storage@lists.one-eyed-alien.net, drbd-dev@lists.linbit.com,
+ devel@driverdev.osuosl.org, linux-cifs@vger.kernel.org,
+ rds-devel@oss.oracle.com, Nick Desaulniers <ndesaulniers@google.com>,
+ linux-scsi@vger.kernel.org, linux-rdma@vger.kernel.org,
  oss-drivers@netronome.com, bridge@lists.linux-foundation.org,
  linux-security-module@vger.kernel.org, amd-gfx@lists.freedesktop.org,
  linux-stm32@st-md-mailman.stormreply.com, cluster-devel@redhat.com,
@@ -112,48 +146,21 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+On Mon, 2020-11-23 at 09:54 +1100, Finn Thain wrote:
+> But is anyone keeping score of the regressions? If unreported bugs
+> count, what about unreported regressions?
 
-On Sun, 22 Nov 2020, Miguel Ojeda wrote:
+Well, I was curious about the former (obviously no tool will tell me
+about the latter), so I asked git what patches had a fall-through
+series named in a fixes tag and these three popped out:
 
-> 
-> It isn't that much effort, isn't it? Plus we need to take into account 
-> the future mistakes that it might prevent, too.
+9cf51446e686 bpf, powerpc: Fix misuse of fallthrough in bpf_jit_comp()
+6a9dc5fd6170 lib: Revert use of fallthrough pseudo-keyword in lib/
+91dbd73a1739 mips/oprofile: Fix fallthrough placement
 
-We should also take into account optimisim about future improvements in 
-tooling.
+I don't think any of these is fixing a significant problem, but they
+did cause someone time and trouble to investigate.
 
-> So even if there were zero problems found so far, it is still a positive 
-> change.
-> 
+James
 
-It is if you want to spin it that way.
 
-> I would agree if these changes were high risk, though; but they are 
-> almost trivial.
-> 
-
-This is trivial:
-
- case 1:
-	this();
-+	fallthrough;
- case 2:
- 	that();
-
-But what we inevitably get is changes like this:
-
- case 3:
-        this();
-+       break;
- case 4:
-        hmmm();
-
-Why? Mainly to silence the compiler. Also because the patch author argued 
-successfully that they had found a theoretical bug, often in mature code.
-
-But is anyone keeping score of the regressions? If unreported bugs count, 
-what about unreported regressions?
-
-> Cheers,
-> Miguel
-> 

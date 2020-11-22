@@ -2,68 +2,105 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id BD1A02C2DBE
-	for <lists+alsa-devel@lfdr.de>; Tue, 24 Nov 2020 18:05:50 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0C27E2C2DAB
+	for <lists+alsa-devel@lfdr.de>; Tue, 24 Nov 2020 18:03:54 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 634311741;
-	Tue, 24 Nov 2020 18:05:00 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 634311741
+	by alsa0.perex.cz (Postfix) with ESMTPS id 8F91A1706;
+	Tue, 24 Nov 2020 18:03:03 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8F91A1706
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1606237550;
-	bh=19jzeGKt+qcfiFLOyXk+zd/6rTmwUFKLG+9blP5XmYY=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1606237433;
+	bh=6UpslqLW+CUPSDIytuDaZRBsNKUTPG4TuUNabguoI+U=;
+	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=n8SSf9PWY9qE+lTEDyydkx5TJTXEKet4V6oJl9ubligSnCepgNNujpt4YF0GRW9VI
-	 /H4MJO1UkE6020/lzkmfWzAC1zOlG+1gSb28/Z9NKBEy62rTrAUMXLa72BgpO/s2pD
-	 lByEM/uMvPqwrCKrnk/+V5T7KckQfd/dBnJJ5mDg=
+	b=C1I1L3UiTLSQwCbk9bNMID2Xr9Dz0ZPRgPM+8P/mQmT5t7qhYFWJumUa51GAyX+Iw
+	 hDjIdsheIlY7RG2cgyXK0hVTJmuLLLl7ircSa5dO1pMWpDw1bybjRUZ9TGjj84qk57
+	 eX+DNrjmSxhHrkY12Y5HdU/c9zrbLOA0/GKHYFH8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 31051F80538;
-	Tue, 24 Nov 2020 17:58:27 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id B6151F80510;
+	Tue, 24 Nov 2020 17:58:20 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 27AF2F80165; Sun, 22 Nov 2020 04:24:08 +0100 (CET)
+ id A1120F80113; Sun, 22 Nov 2020 15:47:03 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from casper.infradead.org (casper.infradead.org
- [IPv6:2001:8b0:10b:1236::1])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+ DKIM_VALID,DKIM_VALID_AU,NICE_REPLY_A,RCVD_IN_MSPIKE_H3,RCVD_IN_MSPIKE_WL,
+ SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [216.205.24.124])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 27318F8015B
- for <alsa-devel@alsa-project.org>; Sun, 22 Nov 2020 04:23:56 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 27318F8015B
+ by alsa1.perex.cz (Postfix) with ESMTPS id BF804F80113
+ for <alsa-devel@alsa-project.org>; Sun, 22 Nov 2020 15:46:57 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BF804F80113
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org
- header.b="BCb+FFzp"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=infradead.org; s=casper.20170209; h=In-Reply-To:Content-Type:MIME-Version:
- References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
- Content-Transfer-Encoding:Content-ID:Content-Description;
- bh=t7P1qjxLtvKyLv5lupmc5Zc5j0L3lqaoBXMlGIL9vWk=; b=BCb+FFzpwYCsAL5/GuZs0qQqU7
- 2wigu715rAloO1MXfHFDjsI/DCCkjrJ0RLz4Myz+wD98+zNWw6243kPWNzvqzMn6Tn8JVpmOuQv+x
- 7EKe3xartwVOhq4ran1ZhW92oaIukRN20h1OI3pPMusUrtae1AY4TqDUCPUPtiDgxz6eQOoVcrvcz
- Ara6lCihfF7KrYMxKPcv522GOw1XE7kmR9pLBWd69WCJIf1380JdPIessAMMrwuE8sqCmQUL7YEHL
- BXN0W+EBw/mKx6JrVL7roopk6K2PnHDj+T1EiV35semdke1klNMJQXZf1Gvzraa/TLsC310jvDxAq
- zJ5cWKdw==;
-Received: from willy by casper.infradead.org with local (Exim 4.92.3 #3 (Red
- Hat Linux)) id 1kgfxw-0001fc-2G; Sun, 22 Nov 2020 03:23:04 +0000
-Date: Sun, 22 Nov 2020 03:23:04 +0000
-From: Matthew Wilcox <willy@infradead.org>
-To: trix@redhat.com
+ dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com
+ header.b="XA3Bdia/"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1606056416;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=apju6gP6XSpkYwp4WdL57a/nFAvNI/QCKhQkuBxc3S8=;
+ b=XA3Bdia/xK9rtALsHLhdMXNkl5EWPz83+inaq5KZnxbZp/pqE7ot4cuq9wfEbTWVu1jCkd
+ fkI/qAlh4sU3l8dOrlq7C5hNdTdH0le7t+rDrYZ5+jjUTJP5ekv3G25710udgF6Q97joi/
+ ih3DR460gM+B9YwlFm0ND3pgcFfhizQ=
+Received: from mail-qt1-f198.google.com (mail-qt1-f198.google.com
+ [209.85.160.198]) (Using TLS) by relay.mimecast.com with ESMTP id
+ us-mta-433-SRu8Ss0LM7qxn3YZwFXwEg-1; Sun, 22 Nov 2020 09:46:53 -0500
+X-MC-Unique: SRu8Ss0LM7qxn3YZwFXwEg-1
+Received: by mail-qt1-f198.google.com with SMTP id g17so3645874qtr.8
+ for <alsa-devel@alsa-project.org>; Sun, 22 Nov 2020 06:46:53 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:subject:to:cc:references:from:message-id:date
+ :user-agent:mime-version:in-reply-to:content-transfer-encoding
+ :content-language;
+ bh=apju6gP6XSpkYwp4WdL57a/nFAvNI/QCKhQkuBxc3S8=;
+ b=NQqdi77zvxzejmbwa6BI2vUnNrtn5Ce7LPs8QVo2G6ZKY93i+1IcECezXHtwUufj6n
+ AWq+yWTYszReE0WreNSfgoXsHuSzgQQoUOR1kRFRHT91/Dat5Cw0zObZFDtTbwf/WD++
+ Bj0inrrNK6Rw5hBEd/+T7oqHyrJS7VZ1nB5F7103I68qyXVLxT6RS9jDCnYP1yDq88AG
+ texAa5qmxwlThN17V1np4t/PNdrNIQKXGmoSseq1iJoz0zUoMEb0qUVhTm3pHlopCHY0
+ XRZmlPgL5IO9yOQ0lLj2dvQIh1z0G0/IKzyhk356zbx+RFfxo/z1VuvHpHgwicEaVEQU
+ WbPg==
+X-Gm-Message-State: AOAM532xDHQLInMelcllRped42v2oqTw/0awua5sieswHGrlXr+myagj
+ TATy+8C706BNqNPgcOVcLlXl330khtndG/O+kYuugchjzkUP4pl/eJ6sKUNAk+cC4QvHUjvXFrZ
+ FBKuxeNYvSGdQtY0RW29P5Ow=
+X-Received: by 2002:ad4:476b:: with SMTP id d11mr26026206qvx.57.1606056412625; 
+ Sun, 22 Nov 2020 06:46:52 -0800 (PST)
+X-Google-Smtp-Source: ABdhPJyPQ8vJIBgyJxmgPlUVzOaStXFRaD0Z+d8VDmnR7kdLyNkvwByAGPov006wc7+pJBCcgj+/zw==
+X-Received: by 2002:ad4:476b:: with SMTP id d11mr26026152qvx.57.1606056412222; 
+ Sun, 22 Nov 2020 06:46:52 -0800 (PST)
+Received: from trix.remote.csb (075-142-250-213.res.spectrum.com.
+ [75.142.250.213])
+ by smtp.gmail.com with ESMTPSA id x72sm6888242qkb.90.2020.11.22.06.46.47
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Sun, 22 Nov 2020 06:46:51 -0800 (PST)
 Subject: Re: [RFC] MAINTAINERS tag for cleanup robot
-Message-ID: <20201122032304.GE4327@casper.infradead.org>
+To: Matthew Wilcox <willy@infradead.org>
 References: <20201121165058.1644182-1-trix@redhat.com>
+ <20201122032304.GE4327@casper.infradead.org>
+From: Tom Rix <trix@redhat.com>
+Message-ID: <ddb08a27-3ca1-fb2e-d51f-4b471f1a56a3@redhat.com>
+Date: Sun, 22 Nov 2020 06:46:46 -0800
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.12.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20201121165058.1644182-1-trix@redhat.com>
-X-Mailman-Approved-At: Tue, 24 Nov 2020 17:58:07 +0100
+In-Reply-To: <20201122032304.GE4327@casper.infradead.org>
+Authentication-Results: relay.mimecast.com;
+ auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=trix@redhat.com
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: 7bit
+Content-Language: en-US
+X-Mailman-Approved-At: Tue, 24 Nov 2020 17:58:06 +0100
 Cc: linux-hyperv@vger.kernel.org, kvm@vger.kernel.org,
  linux-fbdev@vger.kernel.org, dri-devel@lists.freedesktop.org,
  platform-driver-x86@vger.kernel.org, ibm-acpi-devel@lists.sourceforge.net,
@@ -96,16 +133,24 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Sat, Nov 21, 2020 at 08:50:58AM -0800, trix@redhat.com wrote:
-> The fixer review is
-> https://reviews.llvm.org/D91789
-> 
-> A run over allyesconfig for x86_64 finds 62 issues, 5 are false positives.
-> The false positives are caused by macros passed to other macros and by
-> some macro expansions that did not have an extra semicolon.
-> 
-> This cleans up about 1,000 of the current 10,000 -Wextra-semi-stmt
-> warnings in linux-next.
 
-Are any of them not false-positives?  It's all very well to enable
-stricter warnings, but if they don't fix any bugs, they're just churn.
+On 11/21/20 7:23 PM, Matthew Wilcox wrote:
+> On Sat, Nov 21, 2020 at 08:50:58AM -0800, trix@redhat.com wrote:
+>> The fixer review is
+>> https://reviews.llvm.org/D91789
+>>
+>> A run over allyesconfig for x86_64 finds 62 issues, 5 are false positives.
+>> The false positives are caused by macros passed to other macros and by
+>> some macro expansions that did not have an extra semicolon.
+>>
+>> This cleans up about 1,000 of the current 10,000 -Wextra-semi-stmt
+>> warnings in linux-next.
+> Are any of them not false-positives?  It's all very well to enable
+> stricter warnings, but if they don't fix any bugs, they're just churn.
+>
+While enabling additional warnings may be a side effect of this effort
+
+the primary goal is to set up a cleaning robot. After that a refactoring robot.
+
+Tom
+

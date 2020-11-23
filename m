@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 116462C0207
-	for <lists+alsa-devel@lfdr.de>; Mon, 23 Nov 2020 10:09:03 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 801BB2C0203
+	for <lists+alsa-devel@lfdr.de>; Mon, 23 Nov 2020 10:07:08 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A68A516E2;
-	Mon, 23 Nov 2020 10:08:12 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A68A516E2
+	by alsa0.perex.cz (Postfix) with ESMTPS id 126F31678;
+	Mon, 23 Nov 2020 10:06:18 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 126F31678
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1606122542;
-	bh=8sCfA94mkjOS7BBakfGh/h1rueuRz+DxkxwxuCt1iBE=;
+	s=default; t=1606122428;
+	bh=40nJEb7yfS9f8sthbYJwLF76MLrc+stn+FYt5bQSexw=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=PAdnior6u8q6VywMmsLmYRZhBi+3Fk56domDaZa2Q9ZO191ZG4hziOiRIOTA1bbnH
-	 UTgFvhJLXu8YTcNziHqU/frCc7qzHx/xzKOjNXyGEa99wj9lK+DjSC1sfWDAFZ5ljQ
-	 vOum+VftgsOAwjT46hnICoUoq+CGzTNvZbZ3391E=
+	b=FWu1zRrR8BnUcx/2jvci6E0Bm6yJ2kVIE5sHXaYFm6TwMxwSz8r4LWPuxj9e6uIw/
+	 2agOnhtBbQ5FT6klcBEmJ7Ss/c5Kurbt9SDyfOTzv8U0LZEjBIscKjroZ3NJNlDZ4K
+	 1KJ8qr7MTS2LCoPo2w/03VWSHBeWciCwnORK8PG0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 0900CF80606;
-	Mon, 23 Nov 2020 09:55:16 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 32EBCF805E1;
+	Mon, 23 Nov 2020 09:55:11 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 357D8F8055C; Mon, 23 Nov 2020 09:54:49 +0100 (CET)
+ id 2C888F80543; Mon, 23 Nov 2020 09:54:41 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_MSPIKE_H3,
@@ -34,18 +34,18 @@ X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_MSPIKE_H3,
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id B8FE6F804F1
+ by alsa1.perex.cz (Postfix) with ESMTPS id A6DDAF804EC
  for <alsa-devel@alsa-project.org>; Mon, 23 Nov 2020 09:54:00 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B8FE6F804F1
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A6DDAF804EC
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id B6B79AFDB;
+ by mx2.suse.de (Postfix) with ESMTP id C5B32AD75;
  Mon, 23 Nov 2020 08:53:58 +0000 (UTC)
 From: Takashi Iwai <tiwai@suse.de>
 To: alsa-devel@alsa-project.org
-Subject: [PATCH 32/41] ALSA: usb-audio: Simplify rate_min/max and rates set up
-Date: Mon, 23 Nov 2020 09:53:38 +0100
-Message-Id: <20201123085347.19667-33-tiwai@suse.de>
+Subject: [PATCH 33/41] ALSA: usb-audio: Replace slave/master terms
+Date: Mon, 23 Nov 2020 09:53:39 +0100
+Message-Id: <20201123085347.19667-34-tiwai@suse.de>
 X-Mailer: git-send-email 2.16.4
 In-Reply-To: <20201123085347.19667-1-tiwai@suse.de>
 References: <20201123085347.19667-1-tiwai@suse.de>
@@ -67,148 +67,128 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-There are multiple places in format.c performing the similar code for
-setting the rate_min, rate_max and rates fields.  This patch unifies
-those in a helper function and calls it at the end of the parser phase
-so that all rate_table entries have been already determined.
-
-No functional changes, just a minor code refactoring.
+Follow the inclusive terminology, just replace sync_master/sync_slave
+with sync_source/sync_sink.  It's also a bit clearer from its meaning,
+too.
 
 Tested-by: Keith Milner <kamilner@superlative.org>
 Tested-by: Dylan Robinson <dylan_robinson@motu.com>
 Signed-off-by: Takashi Iwai <tiwai@suse.de>
 ---
- sound/usb/format.c | 53 ++++++++++++++++++++++++-----------------------------
- 1 file changed, 24 insertions(+), 29 deletions(-)
+ sound/usb/card.h     |  4 ++--
+ sound/usb/endpoint.c | 28 ++++++++++++++--------------
+ 2 files changed, 16 insertions(+), 16 deletions(-)
 
-diff --git a/sound/usb/format.c b/sound/usb/format.c
-index 7641716f0c6c..93459ba228d3 100644
---- a/sound/usb/format.c
-+++ b/sound/usb/format.c
-@@ -164,6 +164,23 @@ static int set_fixed_rate(struct audioformat *fp, int rate, int rate_bits)
- 	return 0;
- }
+diff --git a/sound/usb/card.h b/sound/usb/card.h
+index 1dd7a514d1d5..3e16b9288693 100644
+--- a/sound/usb/card.h
++++ b/sound/usb/card.h
+@@ -71,8 +71,8 @@ struct snd_usb_endpoint {
+ 				 struct urb *urb);
  
-+/* set up rate_min, rate_max and rates from the rate table */
-+static void set_rate_table_min_max(struct audioformat *fp)
-+{
-+	unsigned int rate;
-+	int i;
-+
-+	fp->rate_min = INT_MAX;
-+	fp->rate_max = 0;
-+	fp->rates = 0;
-+	for (i = 0; i < fp->nr_rates; i++) {
-+		rate = fp->rate_table[i];
-+		fp->rate_min = min(fp->rate_min, rate);
-+		fp->rate_max = max(fp->rate_max, rate);
-+		fp->rates |= snd_pcm_rate_to_rate_bit(rate);
-+	}
-+}
-+
- /*
-  * parse the format descriptor and stores the possible sample rates
-  * on the audioformat table (audio class v1).
-@@ -198,7 +215,6 @@ static int parse_audio_format_rates_v1(struct snd_usb_audio *chip, struct audiof
- 			return -ENOMEM;
+ 	struct snd_usb_substream *data_subs;
+-	struct snd_usb_endpoint *sync_master;
+-	struct snd_usb_endpoint *sync_slave;
++	struct snd_usb_endpoint *sync_source;
++	struct snd_usb_endpoint *sync_sink;
  
- 		fp->nr_rates = 0;
--		fp->rate_min = fp->rate_max = 0;
- 		for (r = 0, idx = offset + 1; r < nr_rates; r++, idx += 3) {
- 			unsigned int rate = combine_triple(&fmt[idx]);
- 			if (!rate)
-@@ -217,13 +233,7 @@ static int parse_audio_format_rates_v1(struct snd_usb_audio *chip, struct audiof
- 			     chip->usb_id == USB_ID(0x041e, 0x4068)))
- 				rate = 8000;
+ 	struct snd_urb_ctx urb[MAX_URBS];
  
--			fp->rate_table[fp->nr_rates] = rate;
--			if (!fp->rate_min || rate < fp->rate_min)
--				fp->rate_min = rate;
--			if (!fp->rate_max || rate > fp->rate_max)
--				fp->rate_max = rate;
--			fp->rates |= snd_pcm_rate_to_rate_bit(rate);
--			fp->nr_rates++;
-+			fp->rate_table[fp->nr_rates++] = rate;
- 		}
- 		if (!fp->nr_rates) {
- 			usb_audio_info(chip,
-@@ -231,6 +241,7 @@ static int parse_audio_format_rates_v1(struct snd_usb_audio *chip, struct audiof
- 				       fp->iface, fp->altsetting);
- 			return -EINVAL;
- 		}
-+		set_rate_table_min_max(fp);
- 	} else {
- 		/* continuous rates */
- 		fp->rates = SNDRV_PCM_RATE_CONTINUOUS;
-@@ -336,8 +347,6 @@ static int parse_uac2_sample_rate_range(struct snd_usb_audio *chip,
+diff --git a/sound/usb/endpoint.c b/sound/usb/endpoint.c
+index 5d618724bd75..5f1d5f1ed8db 100644
+--- a/sound/usb/endpoint.c
++++ b/sound/usb/endpoint.c
+@@ -175,7 +175,7 @@ int snd_usb_endpoint_next_packet_size(struct snd_usb_endpoint *ep,
  {
- 	int i, nr_rates = 0;
+ 	if (ctx->packet_size[idx])
+ 		return ctx->packet_size[idx];
+-	else if (ep->sync_master)
++	else if (ep->sync_source)
+ 		return slave_next_packet_size(ep);
+ 	else
+ 		return next_packet_size(ep);
+@@ -205,16 +205,16 @@ static void retire_inbound_urb(struct snd_usb_endpoint *ep,
+ 			       struct snd_urb_ctx *urb_ctx)
+ {
+ 	struct urb *urb = urb_ctx->urb;
+-	struct snd_usb_endpoint *sync_slave;
++	struct snd_usb_endpoint *sync_sink;
  
--	fp->rates = fp->rate_min = fp->rate_max = 0;
--
- 	for (i = 0; i < nr_triplets; i++) {
- 		int min = combine_quad(&data[2 + 12 * i]);
- 		int max = combine_quad(&data[6 + 12 * i]);
-@@ -373,12 +382,6 @@ static int parse_uac2_sample_rate_range(struct snd_usb_audio *chip,
- 
- 			if (fp->rate_table)
- 				fp->rate_table[nr_rates] = rate;
--			if (!fp->rate_min || rate < fp->rate_min)
--				fp->rate_min = rate;
--			if (!fp->rate_max || rate > fp->rate_max)
--				fp->rate_max = rate;
--			fp->rates |= snd_pcm_rate_to_rate_bit(rate);
--
- 			nr_rates++;
- 			if (nr_rates >= MAX_NR_RATES) {
- 				usb_audio_err(chip, "invalid uac2 rates\n");
-@@ -459,9 +462,6 @@ static int validate_sample_rate_table_v2v3(struct snd_usb_audio *chip,
- 	struct usb_device *dev = chip->dev;
- 	unsigned int *table;
- 	unsigned int nr_rates;
--	unsigned int rate_min = 0x7fffffff;
--	unsigned int rate_max = 0;
--	unsigned int rates = 0;
- 	int i, err;
- 
- 	table = kcalloc(fp->nr_rates, sizeof(*table), GFP_KERNEL);
-@@ -478,14 +478,8 @@ static int validate_sample_rate_table_v2v3(struct snd_usb_audio *chip,
- 		if (err < 0)
- 			continue;
- 
--		if (check_valid_altsetting_v2v3(chip, fp->iface, fp->altsetting)) {
-+		if (check_valid_altsetting_v2v3(chip, fp->iface, fp->altsetting))
- 			table[nr_rates++] = fp->rate_table[i];
--			if (rate_min > fp->rate_table[i])
--				rate_min = fp->rate_table[i];
--			if (rate_max < fp->rate_table[i])
--				rate_max = fp->rate_table[i];
--			rates |= snd_pcm_rate_to_rate_bit(fp->rate_table[i]);
--		}
+ 	if (unlikely(ep->skip_packets > 0)) {
+ 		ep->skip_packets--;
+ 		return;
  	}
  
- 	if (!nr_rates) {
-@@ -503,9 +497,6 @@ static int validate_sample_rate_table_v2v3(struct snd_usb_audio *chip,
- 	kfree(fp->rate_table);
- 	fp->rate_table = table;
- 	fp->nr_rates = nr_rates;
--	fp->rate_min = rate_min;
--	fp->rate_max = rate_max;
--	fp->rates = rates;
- 	return 0;
+-	sync_slave = READ_ONCE(ep->sync_slave);
+-	if (sync_slave)
+-		snd_usb_handle_sync_urb(sync_slave, ep, urb);
++	sync_sink = READ_ONCE(ep->sync_sink);
++	if (sync_sink)
++		snd_usb_handle_sync_urb(sync_sink, ep, urb);
+ 
+ 	call_retire_callback(ep, urb);
+ }
+@@ -708,7 +708,7 @@ void snd_usb_endpoint_set_sync(struct snd_usb_audio *chip,
+ 			       struct snd_usb_endpoint *data_ep,
+ 			       struct snd_usb_endpoint *sync_ep)
+ {
+-	data_ep->sync_master = sync_ep;
++	data_ep->sync_source = sync_ep;
  }
  
-@@ -602,6 +593,10 @@ static int parse_audio_format_rates_v2v3(struct snd_usb_audio *chip,
- 	parse_uac2_sample_rate_range(chip, fp, nr_triplets, data);
+ /*
+@@ -802,7 +802,7 @@ static int wait_clear_urbs(struct snd_usb_endpoint *ep)
+ 			alive, ep->ep_num);
+ 	clear_bit(EP_FLAG_STOPPING, &ep->flags);
  
- 	ret = validate_sample_rate_table_v2v3(chip, fp, clock);
-+	if (ret < 0)
-+		goto err_free;
-+
-+	set_rate_table_min_max(fp);
+-	ep->sync_slave = NULL;
++	ep->sync_sink = NULL;
+ 	snd_usb_endpoint_set_callback(ep, NULL, NULL, NULL);
  
- err_free:
- 	kfree(data);
+ 	return 0;
+@@ -969,9 +969,9 @@ static int data_ep_set_params(struct snd_usb_endpoint *ep)
+ 		packs_per_ms = 1;
+ 		max_packs_per_urb = MAX_PACKS;
+ 	}
+-	if (ep->sync_master && !ep->implicit_fb_sync)
++	if (ep->sync_source && !ep->implicit_fb_sync)
+ 		max_packs_per_urb = min(max_packs_per_urb,
+-					1U << ep->sync_master->syncinterval);
++					1U << ep->sync_source->syncinterval);
+ 	max_packs_per_urb = max(1u, max_packs_per_urb >> ep->datainterval);
+ 
+ 	/*
+@@ -1015,7 +1015,7 @@ static int data_ep_set_params(struct snd_usb_endpoint *ep)
+ 		minsize = (ep->freqn >> (16 - ep->datainterval)) *
+ 				(frame_bits >> 3);
+ 		/* with sync from device, assume it can be 12% lower */
+-		if (ep->sync_master)
++		if (ep->sync_source)
+ 			minsize -= minsize >> 3;
+ 		minsize = max(minsize, 1u);
+ 
+@@ -1272,8 +1272,8 @@ int snd_usb_endpoint_start(struct snd_usb_endpoint *ep)
+ 	if (atomic_read(&ep->chip->shutdown))
+ 		return -EBADFD;
+ 
+-	if (ep->sync_master)
+-		WRITE_ONCE(ep->sync_master->sync_slave, ep);
++	if (ep->sync_source)
++		WRITE_ONCE(ep->sync_source->sync_sink, ep);
+ 
+ 	usb_audio_dbg(ep->chip, "Starting %s EP 0x%x (running %d)\n",
+ 		      ep_type_name(ep->type), ep->ep_num,
+@@ -1366,8 +1366,8 @@ void snd_usb_endpoint_stop(struct snd_usb_endpoint *ep)
+ 	if (snd_BUG_ON(!atomic_read(&ep->running)))
+ 		return;
+ 
+-	if (ep->sync_master)
+-		WRITE_ONCE(ep->sync_master->sync_slave, NULL);
++	if (ep->sync_source)
++		WRITE_ONCE(ep->sync_source->sync_sink, NULL);
+ 
+ 	if (!atomic_dec_return(&ep->running))
+ 		stop_and_unlink_urbs(ep, false, false);
 -- 
 2.16.4
 

@@ -2,69 +2,71 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 40DE92C17E2
-	for <lists+alsa-devel@lfdr.de>; Mon, 23 Nov 2020 22:48:34 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2AFAB2C18BB
+	for <lists+alsa-devel@lfdr.de>; Mon, 23 Nov 2020 23:57:41 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 3B7B4168E;
-	Mon, 23 Nov 2020 22:47:43 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3B7B4168E
+	by alsa0.perex.cz (Postfix) with ESMTPS id AC9F81689;
+	Mon, 23 Nov 2020 23:56:50 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AC9F81689
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1606168113;
-	bh=sFJn+1J1TBIERI0P9wcH+UyvgsrLQ7eIb88H8rhNYAc=;
-	h=Date:From:To:In-Reply-To:References:Subject:Cc:List-Id:
+	s=default; t=1606172260;
+	bh=mRUHitJaOyqn1hd4wDmZgomWCwCAIRHpMKchRTpPFnw=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=pgv9Du+zA2/xhrhYxvPBW/O1JFWLRsVDG7HPmNQ9dDEF7JlajhQdJEzJA/QGNDoRX
-	 LYSjjOBCtHNp96oeAypebXb0s6Tlon+5H3GP9X//BligF4pihWZEuIU4YDkgmTKqot
-	 eW0xpPd4faRtuqaSWDKLi8vyip+O4doi69x0fuB4=
+	b=lqmDh7O469k41Z61vodjerGbQosiJQip9KY4qW5ybghMGytSizSAkTZP41nKap1x7
+	 ISBxUuEX05p4l8w3sEe6y1jn9FsanwXIYnAGkR+p79AS1Hmi6EwMDc2sDwNFbeWVL/
+	 hrszIr+IrgTr1QwY53XCrBUgx3h73ycfCq4RbPa8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id C84F8F80113;
-	Mon, 23 Nov 2020 22:47:02 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 273A6F80268;
+	Mon, 23 Nov 2020 23:56:07 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 9D227F80113; Mon, 23 Nov 2020 22:46:53 +0100 (CET)
+ id DEEF6F80255; Mon, 23 Nov 2020 23:56:04 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
+ DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled
+ version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id B69B6F80128
- for <alsa-devel@alsa-project.org>; Mon, 23 Nov 2020 22:46:46 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B69B6F80128
+ by alsa1.perex.cz (Postfix) with ESMTPS id 79EB5F80128
+ for <alsa-devel@alsa-project.org>; Mon, 23 Nov 2020 23:56:02 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 79EB5F80128
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="WgAk9eCN"
-Received: from localhost (cpc102334-sgyl38-2-0-cust884.18-2.cable.virginm.net
- [92.233.91.117])
+ header.b="q51XUV+d"
+Received: from embeddedor (187-162-31-110.static.axtel.net [187.162.31.110])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 4EA6520663;
- Mon, 23 Nov 2020 21:46:44 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id 32899206D8;
+ Mon, 23 Nov 2020 22:55:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1606168004;
- bh=sFJn+1J1TBIERI0P9wcH+UyvgsrLQ7eIb88H8rhNYAc=;
- h=Date:From:To:Cc:In-Reply-To:References:Subject:From;
- b=WgAk9eCNillZty/Z/Vj1NgObTXjyzt5MJG67HnqFC/4od6j/iHSWtmatmWof91cdQ
- 45bIfaPmtISTyOBhpeYoBrmSteVW3cDl4x7Dw30ltB9q9hZ01/vBb3SHEflY8ihXii
- BLTVxShl4p7gc27+SiWwusL/+pRnLNEylyFPOKZc=
-Date: Mon, 23 Nov 2020 21:46:21 +0000
-From: Mark Brown <broonie@kernel.org>
-To: Fabio Estevam <festevam@gmail.com>
-In-Reply-To: <20201123200917.16447-1-festevam@gmail.com>
-References: <20201123200917.16447-1-festevam@gmail.com>
-Subject: Re: [PATCH] ASoC: imx-audmux: Remove unused .id_table
-Message-Id: <160616797660.26421.6446461016311036480.b4-ty@kernel.org>
+ s=default; t=1606172158;
+ bh=mRUHitJaOyqn1hd4wDmZgomWCwCAIRHpMKchRTpPFnw=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=q51XUV+dg9wSR9NSWw2KoZZQL6dKg42MZtT+VMZ66i3WiJRBwat6oH7XFG9kFHAw8
+ JJ3lBz/BP4XgyK6FmV7Rch5PjWkCKTCtSpNsNNS+afCE+ONTdvlEjSaxdN6c/ks3UT
+ BmjTfErre0pc7trImuHF7wYf5ncLPCEzFTpbAhl8=
+Date: Mon, 23 Nov 2020 16:56:12 -0600
+From: "Gustavo A. R. Silva" <gustavoars@kernel.org>
+To: Takashi Iwai <tiwai@suse.de>
+Subject: Re: [PATCH 066/141] ALSA: hdspm: Fix fall-through warnings for Clang
+Message-ID: <20201123225612.GS21644@embeddedor>
+References: <cover.1605896059.git.gustavoars@kernel.org>
+ <3f70182b366fca7e085a3b57cb2eb193be04eed8.1605896059.git.gustavoars@kernel.org>
+ <s5hr1ondsdz.wl-tiwai@suse.de>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Cc: nicoleotsuka@gmail.com, alsa-devel@alsa-project.org,
- shengjiu.wang@gmail.com
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <s5hr1ondsdz.wl-tiwai@suse.de>
+User-Agent: Mutt/1.9.4 (2018-02-28)
+Cc: linux-kernel@vger.kernel.org, alsa-devel@alsa-project.org,
+ linux-hardening@vger.kernel.org, Takashi Iwai <tiwai@suse.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -80,37 +82,19 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Mon, 23 Nov 2020 17:09:17 -0300, Fabio Estevam wrote:
-> Since 5.10-rc1 i.MX is a devicetree-only platform and the existing
-> .id_table support in this driver was only useful for old non-devicetree
-> platforms.
+On Sat, Nov 21, 2020 at 09:30:00AM +0100, Takashi Iwai wrote:
+> On Fri, 20 Nov 2020 19:33:52 +0100,
+> Gustavo A. R. Silva wrote:
+> > 
+> > In preparation to enable -Wimplicit-fallthrough for Clang, fix a warning
+> > by explicitly adding a break statement instead of letting the code fall
+> > through to the next case.
+> > 
+> > Link: https://github.com/KSPP/linux/issues/115
+> > Signed-off-by: Gustavo A. R. Silva <gustavoars@kernel.org>
 > 
-> Get rid of the .id_table since it is no longer used.
+> Thanks, applied.
 
-Applied to
-
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
-
-Thanks!
-
-[1/1] ASoC: imx-audmux: Remove unused .id_table
-      commit: 6a8b8b582db13a18235f3b0400f103a0573c7859
-
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
-
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
-
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
-
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-Thanks,
-Mark
+Thanks for all you've taken, Takashi.
+--
+Gustavo

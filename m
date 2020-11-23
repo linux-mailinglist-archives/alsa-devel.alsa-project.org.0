@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7CED32C01CB
-	for <lists+alsa-devel@lfdr.de>; Mon, 23 Nov 2020 09:58:57 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6B09B2C01CD
+	for <lists+alsa-devel@lfdr.de>; Mon, 23 Nov 2020 09:59:42 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B36A61670;
-	Mon, 23 Nov 2020 09:58:06 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B36A61670
+	by alsa0.perex.cz (Postfix) with ESMTPS id 17AA11607;
+	Mon, 23 Nov 2020 09:58:52 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 17AA11607
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1606121936;
-	bh=+U1jgdADtbJmR8IfYmHI7auIxeItOEsWtTRnY/lZAY8=;
+	s=default; t=1606121982;
+	bh=xsB/jsjf7Aon/wFPbUsmCnEu5AxktczKTY+btqmVrbs=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=hFMYdJ7/9jiwSRr3RHmLCVTYtKwsHyIfJ2+G70bVug/0XrxX9fbsvdBnskaQJ7anP
-	 8VYLl8O/N+Q23TO0eOMRfl10Xgubkq6OEBOnRNJMQUvdnLEan36avsnohZMYNp0bIq
-	 74xsbshSvmKWZ052YRs0KXqp5qnFNtb7/X0F7jfo=
+	b=HDdum3E7+hpEp2EESehk3Fwu6hY/RZOxw+zYyzmfky4auwn/fhHI6S1I0LMveItTI
+	 X183QEq2SBkNoW1hikt54mAL84Xf6HrsvxsMdR1ebeCwKxIb/ISsFee5Os4YjWwlpj
+	 qdjhRUlxzwL5S+YQlzXkVzBl2rE1FRL4HD4YaB7U=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id CFEE5F804E3;
-	Mon, 23 Nov 2020 09:54:31 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 7AE9BF80538;
+	Mon, 23 Nov 2020 09:54:35 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 20963F8051E; Mon, 23 Nov 2020 09:54:15 +0100 (CET)
+ id C1127F80525; Mon, 23 Nov 2020 09:54:16 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_MSPIKE_H3,
@@ -34,18 +34,19 @@ X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_MSPIKE_H3,
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 31153F8026A
+ by alsa1.perex.cz (Postfix) with ESMTPS id 4483DF804BD
  for <alsa-devel@alsa-project.org>; Mon, 23 Nov 2020 09:53:59 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 31153F8026A
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4483DF804BD
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 8BD60AFAA;
+ by mx2.suse.de (Postfix) with ESMTP id 9B5ECAFAB;
  Mon, 23 Nov 2020 08:53:57 +0000 (UTC)
 From: Takashi Iwai <tiwai@suse.de>
 To: alsa-devel@alsa-project.org
-Subject: [PATCH 12/41] ALSA: usb-audio: Drop debug.h
-Date: Mon, 23 Nov 2020 09:53:18 +0100
-Message-Id: <20201123085347.19667-13-tiwai@suse.de>
+Subject: [PATCH 13/41] ALSA: usb-audio: Avoid doubly initialization for
+ implicit fb
+Date: Mon, 23 Nov 2020 09:53:19 +0100
+Message-Id: <20201123085347.19667-14-tiwai@suse.de>
 X-Mailer: git-send-email 2.16.4
 In-Reply-To: <20201123085347.19667-1-tiwai@suse.de>
 References: <20201123085347.19667-1-tiwai@suse.de>
@@ -67,114 +68,95 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-The file debug.h contains a simple macro for debug prints, and it's
-used only in two places, the format parser and the hw_params rules.
-The former actually should print a more informative message instead,
-so the only users are the hw_parmas rules.
+The implicit feedback mode initializes both the main data stream and
+the sync data stream.  When a sync stream was already opened, this
+would result in the doubly initialization and might screw up things.
 
-This patch moves the contents of debug.h into the hw_params rules
-local code and remove the unneeded includes.  Also, the debug print in
-the format parser is replaced with the information print with more
-useful information, and the raw printk() call is replaced with
-pr_debug().
+Add the check of already opened sync streams and skip the unnecessary
+initialization.
 
 Tested-by: Keith Milner <kamilner@superlative.org>
 Tested-by: Dylan Robinson <dylan_robinson@motu.com>
 Signed-off-by: Takashi Iwai <tiwai@suse.de>
 ---
- sound/usb/card.c   |  1 -
- sound/usb/debug.h  | 16 ----------------
- sound/usb/format.c |  5 +++--
- sound/usb/pcm.c    | 11 ++++++++++-
- 4 files changed, 13 insertions(+), 20 deletions(-)
- delete mode 100644 sound/usb/debug.h
+ sound/usb/pcm.c | 29 ++++++++++++++++++++---------
+ 1 file changed, 20 insertions(+), 9 deletions(-)
 
-diff --git a/sound/usb/card.c b/sound/usb/card.c
-index 4457214a3ae6..096dd8e3c64b 100644
---- a/sound/usb/card.c
-+++ b/sound/usb/card.c
-@@ -49,7 +49,6 @@
- #include "quirks.h"
- #include "endpoint.h"
- #include "helper.h"
--#include "debug.h"
- #include "pcm.h"
- #include "format.h"
- #include "power.h"
-diff --git a/sound/usb/debug.h b/sound/usb/debug.h
-deleted file mode 100644
-index 7dd983c35001..000000000000
---- a/sound/usb/debug.h
-+++ /dev/null
-@@ -1,16 +0,0 @@
--/* SPDX-License-Identifier: GPL-2.0 */
--#ifndef __USBAUDIO_DEBUG_H
--#define __USBAUDIO_DEBUG_H
--
--/*
-- * h/w constraints
-- */
--
--#ifdef HW_CONST_DEBUG
--#define hwc_debug(fmt, args...) printk(KERN_DEBUG fmt, ##args)
--#else
--#define hwc_debug(fmt, args...) do { } while(0)
--#endif
--
--#endif /* __USBAUDIO_DEBUG_H */
--
-diff --git a/sound/usb/format.c b/sound/usb/format.c
-index 3348032daa16..7641716f0c6c 100644
---- a/sound/usb/format.c
-+++ b/sound/usb/format.c
-@@ -16,7 +16,6 @@
- #include "card.h"
- #include "quirks.h"
- #include "helper.h"
--#include "debug.h"
- #include "clock.h"
- #include "format.h"
- 
-@@ -227,7 +226,9 @@ static int parse_audio_format_rates_v1(struct snd_usb_audio *chip, struct audiof
- 			fp->nr_rates++;
- 		}
- 		if (!fp->nr_rates) {
--			hwc_debug("All rates were zero. Skipping format!\n");
-+			usb_audio_info(chip,
-+				       "%u:%d: All rates were zero\n",
-+				       fp->iface, fp->altsetting);
- 			return -EINVAL;
- 		}
- 	} else {
 diff --git a/sound/usb/pcm.c b/sound/usb/pcm.c
-index ecc6bf9b42f0..d83a6a6ac023 100644
+index d83a6a6ac023..8ae7d2fdba0d 100644
 --- a/sound/usb/pcm.c
 +++ b/sound/usb/pcm.c
-@@ -17,7 +17,6 @@
- #include "usbaudio.h"
- #include "card.h"
- #include "quirks.h"
--#include "debug.h"
- #include "endpoint.h"
- #include "helper.h"
- #include "pcm.h"
-@@ -1061,6 +1060,16 @@ static int snd_usb_pcm_prepare(struct snd_pcm_substream *substream)
- 	return ret;
- }
+@@ -601,8 +601,9 @@ static int set_sync_endpoint(struct snd_usb_substream *subs,
  
-+/*
-+ * h/w constraints
-+ */
+ 	subs->data_endpoint->sync_master = subs->sync_endpoint;
+ 
+-	if (subs->data_endpoint->iface != subs->sync_endpoint->iface ||
+-	    subs->data_endpoint->altsetting != subs->sync_endpoint->altsetting) {
++	if (!subs->sync_endpoint->use_count &&
++	    (subs->data_endpoint->iface != subs->sync_endpoint->iface ||
++	     subs->data_endpoint->altsetting != subs->sync_endpoint->altsetting)) {
+ 		err = usb_set_interface(subs->dev,
+ 					subs->sync_endpoint->iface,
+ 					subs->sync_endpoint->altsetting);
+@@ -625,6 +626,7 @@ static int set_format(struct snd_usb_substream *subs, struct audioformat *fmt)
+ 	struct usb_device *dev = subs->dev;
+ 	struct usb_host_interface *alts;
+ 	struct usb_interface *iface;
++	struct snd_usb_endpoint *ep;
+ 	int err;
+ 
+ 	iface = usb_ifnum_to_if(dev, fmt->iface);
+@@ -637,6 +639,14 @@ static int set_format(struct snd_usb_substream *subs, struct audioformat *fmt)
+ 	if (fmt == subs->cur_audiofmt && !subs->need_setup_fmt)
+ 		return 0;
+ 
++	/* shared EP with implicit fb */
++	if (fmt->implicit_fb && !subs->need_setup_fmt) {
++		ep = snd_usb_get_endpoint(subs->stream->chip, fmt->endpoint,
++					  fmt->iface, fmt->altsetting);
++		if (ep && ep->use_count > 0)
++			goto add_data_ep;
++	}
 +
-+#ifdef HW_CONST_DEBUG
-+#define hwc_debug(fmt, args...) pr_debug(fmt, ##args)
-+#else
-+#define hwc_debug(fmt, args...) do { } while(0)
-+#endif
+ 	/* close the old interface */
+ 	if (subs->interface >= 0 && (subs->interface != fmt->iface || subs->need_setup_fmt)) {
+ 		if (!subs->stream->chip->keep_iface) {
+@@ -673,6 +683,9 @@ static int set_format(struct snd_usb_substream *subs, struct audioformat *fmt)
+ 		snd_usb_set_interface_quirk(dev);
+ 	}
+ 
++	subs->need_setup_ep = true;
 +
- static const struct snd_pcm_hardware snd_usb_hardware =
- {
- 	.info =			SNDRV_PCM_INFO_MMAP |
++ add_data_ep:
+ 	subs->interface = fmt->iface;
+ 	subs->altset_idx = fmt->altset_idx;
+ 	subs->data_endpoint = snd_usb_add_endpoint(subs->stream->chip,
+@@ -686,9 +699,11 @@ static int set_format(struct snd_usb_substream *subs, struct audioformat *fmt)
+ 	if (err < 0)
+ 		return err;
+ 
+-	err = snd_usb_init_pitch(subs->stream->chip, fmt->iface, alts, fmt);
+-	if (err < 0)
+-		return err;
++	if (subs->need_setup_ep) {
++		err = snd_usb_init_pitch(subs->stream->chip, fmt->iface, alts, fmt);
++		if (err < 0)
++			return err;
++	}
+ 
+ 	subs->cur_audiofmt = fmt;
+ 
+@@ -940,10 +955,6 @@ static int snd_usb_hw_params(struct snd_pcm_substream *substream,
+ 	if (ret < 0)
+ 		goto unlock;
+ 
+-	subs->interface = fmt->iface;
+-	subs->altset_idx = fmt->altset_idx;
+-	subs->need_setup_ep = true;
+-
+  unlock:
+ 	snd_usb_unlock_shutdown(subs->stream->chip);
+ 	if (ret < 0)
 -- 
 2.16.4
 

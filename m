@@ -2,50 +2,54 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3B4DB2C01C3
-	for <lists+alsa-devel@lfdr.de>; Mon, 23 Nov 2020 09:55:40 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 978C62C01C9
+	for <lists+alsa-devel@lfdr.de>; Mon, 23 Nov 2020 09:58:06 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id DBF05950;
-	Mon, 23 Nov 2020 09:54:49 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DBF05950
+	by alsa0.perex.cz (Postfix) with ESMTPS id 3A5EC1683;
+	Mon, 23 Nov 2020 09:57:16 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3A5EC1683
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1606121739;
-	bh=B+OXKs6jj6nmx9tm+T5dFwf0zQ+mZtjIrIBXwuoPRFw=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=V7sHUcjwE5zWJUdTudAyEZ8xmtQPi7GwNrNm+3zeao8I0iGXiAF5nBUjwWXjaf4cj
-	 UcC1pfEQnjaJ+WI6NjKtCktw3iv7x2/6wNQkAzChAOlKRG5XyeIZfiKM0UwX4IkyLS
-	 XUxkqs+nGbdyedyyoVuLnJHWY4MUO7Txb9e90+sM=
+	s=default; t=1606121886;
+	bh=Ei9PJR33WmTGRPoT9agN5vomPEHjcazjnlMJl/TIQqY=;
+	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=g89tVPBwdnLu/j057eBr6ra6RtADlYQn76qxPensIJ/XoZiKiTPYgd+bcO2l4RS7+
+	 vDQTPc9dyQ19d2qn2QQLrzPGxgSq/AvzJaycS33f4gUD5VxfQotAuKV+wsAZVDlXdz
+	 vrZvTpbhcfTRz8zLYhDnbECadPMTL4WjzwkZ6d7I=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 123E7F80506;
-	Mon, 23 Nov 2020 09:54:07 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id E7A2AF804BC;
+	Mon, 23 Nov 2020 09:54:19 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 69406F80506; Mon, 23 Nov 2020 09:54:03 +0100 (CET)
+ id F2B3AF8051C; Mon, 23 Nov 2020 09:54:11 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_MSPIKE_H3,
- RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
+ RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id A3CD6F80255
+ by alsa1.perex.cz (Postfix) with ESMTPS id 9EE52F80113
  for <alsa-devel@alsa-project.org>; Mon, 23 Nov 2020 09:53:57 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A3CD6F80255
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9EE52F80113
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id C84A0ACBD;
+ by mx2.suse.de (Postfix) with ESMTP id D7255AF72;
  Mon, 23 Nov 2020 08:53:56 +0000 (UTC)
 From: Takashi Iwai <tiwai@suse.de>
 To: alsa-devel@alsa-project.org
-Subject: [PATCH 00/41] USB audio refactoring for better implicit feedback
- support
-Date: Mon, 23 Nov 2020 09:53:06 +0100
-Message-Id: <20201123085347.19667-1-tiwai@suse.de>
+Subject: [PATCH 01/41] ALSA: usb-audio: Handle discrete rates properly in hw
+ constraints
+Date: Mon, 23 Nov 2020 09:53:07 +0100
+Message-Id: <20201123085347.19667-2-tiwai@suse.de>
 X-Mailer: git-send-email 2.16.4
+In-Reply-To: <20201123085347.19667-1-tiwai@suse.de>
+References: <20201123085347.19667-1-tiwai@suse.de>
 Cc: Matwey Kornilov <matwey.kornilov@gmail.com>,
  Dylan Robinson <dylan_robinson@motu.com>,
  Keith Milner <kamilner@superlative.org>
@@ -64,110 +68,165 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hi,
+In the current code, when the device provides the discrete sample rate
+tables with unusual sample rates, the driver tries to gather the whole
+values from the audioformat entries and create a hw-constraint rule to
+restrict with this single rate list.  This is rather inefficient and
+may overlook the rates that are associated only with the certain
+audioformat entries.
 
-here is a largish patch set for USB-audio.  Its main goal is to
-address the long-standing issues wrt the implicit feedback mode.
-With the current driver, when the implicit fb is used, the full duplex
-doesn't work properly unless you start both streams *very* carefully.
-This patch set tries to ease such the configuration mismatch and fix
-many other bugs.
+This patch improves the hw constraint setup by rewriting the existing
+hw_rule_rate().  The discrete sample rates (identified by rate_table
+and nr_rates of format entry) are checked in the existing
+hw_rule_rate() instead of extra rules; in the case of discrete rates,
+the function compares with each rate table entry and calculates the
+min/max values from there.  For the contiguous rates, the behavior
+doesn't change.
 
-In short, with this patch set applied, USB-audio driver will try to
-restrict the hw_params to match with the already opened counter-part
-stream automatically.  So individual aplay and arecord invocation
-should work now, as well as PulseAudio.
+Along with it, snd_usb_pcm_check_knot() and snb_usb_substream
+rate_list field become superfluous, thus those are dropped.
 
-Also, the patch set includes more fixes, e.g. the generic detection of
-the implicit feedback mode on UAC2/3, and the fix for the sample rate
-selection on UAC2/3, as well as a few more quirks to follow the new
-implicit fb model.
+Tested-by: Keith Milner <kamilner@superlative.org>
+Tested-by: Dylan Robinson <dylan_robinson@motu.com>
+Signed-off-by: Takashi Iwai <tiwai@suse.de>
+---
+ sound/usb/card.h   |  1 -
+ sound/usb/pcm.c    | 73 +++++++++++-------------------------------------------
+ sound/usb/stream.c |  1 -
+ 3 files changed, 15 insertions(+), 60 deletions(-)
 
-The latest patches are available in topic/usb-audio-refactoring
-branch.
-
-I specially thank Keith Milner and Dylan Robinson for their time spent
-for lots of testing.  Without their patient help, I couldn't finish
-those patches, as I myself don't own such devices.
-
-
-Takashi
-
-===
-
-Dylan Robinson (1):
-  ALSA: usb-audio: Fix MOTU M-Series quirks
-
-Takashi Iwai (40):
-  ALSA: usb-audio: Handle discrete rates properly in hw constraints
-  ALSA: usb-audio: Don't call usb_set_interface() at trigger callback
-  ALSA: usb-audio: Check valid altsetting at parsing rates for UAC2/3
-  ALSA: usb-audio: Check implicit feedback EP generically for UAC2
-  ALSA: usb-audio: Add snd_usb_get_endpoint() helper
-  ALSA: usb-audio: Set and clear sync EP link properly
-  ALSA: usb-audio: Improve some debug prints
-  ALSA: usb-audio: Track implicit fb sync endpoint in audioformat list
-  ALSA: usb-audio: Move snd_usb_autoresume() call out of setup_hw_info()
-  ALSA: usb-audio: Add hw constraint for implicit fb sync
-  ALSA: usb-audio: Simplify hw_params rules
-  ALSA: usb-audio: Drop debug.h
-  ALSA: usb-audio: Avoid doubly initialization for implicit fb
-  ALSA: usb-audio: Create endpoint objects at parsing phase
-  ALSA: usb-audio: Drop keep_interface flag again
-  ALSA: usb-audio: Add snd_usb_get_host_interface() helper
-  ALSA: usb-audio: Don't set altsetting before initializing sample rate
-  ALSA: usb-audio: Pass snd_usb_audio object to quirk functions
-  ALSA: usb-audio: Simplify snd_usb_init_sample_rate() arguments
-  ALSA: usb-audio: Simplify snd_usb_init_pitch() arguments
-  ALSA: usb-audio: Stop both endpoints properly at error
-  ALSA: usb-audio: Set callbacks via snd_usb_endpoint_set_callback()
-  ALSA: usb-audio: Always set up the parameters after resume
-  ALSA: usb-audio: Fix EP matching for continuous rates
-  ALSA: usb-audio: Refactor endpoint management
-  ALSA: usb-audio: Fix possible stall of implicit fb packet ring-buffer
-  ALSA: usb-audio: Constify audioformat pointer references
-  ALSA: usb-audio: Use atomic_t for endpoint use_count
-  ALSA: usb-audio: Refactoring endpoint URB deactivation
-  ALSA: usb-audio: Drop unneeded snd_usb_substream fields
-  ALSA: usb-audio: Unify the code for the next packet size calculation
-  ALSA: usb-audio: Simplify rate_min/max and rates set up
-  ALSA: usb-audio: Replace slave/master terms
-  ALSA: usb-audio: Use unsigned char for iface and altsettings fields
-  ALSA: usb-audio: Show sync endpoint information in proc outputs
-  ALSA: usb-audio: Quirk for BOSS GT-001
-  ALSA: usb-audio: Factor out the implicit feedback quirk code
-  ALSA: usb-audio: Add generic implicit fb parsing
-  ALSA: usb-audio: Add implicit_fb module option
-  ALSA: usb-audio: Fix quirks for other BOSS devices
-
- Documentation/sound/alsa-configuration.rst |    5 +
- sound/usb/Makefile                         |    1 +
- sound/usb/card.c                           |   14 +-
- sound/usb/card.h                           |   53 +-
- sound/usb/clock.c                          |  152 ++--
- sound/usb/clock.h                          |   11 +-
- sound/usb/debug.h                          |   16 -
- sound/usb/endpoint.c                       |  943 +++++++++++++----------
- sound/usb/endpoint.h                       |   57 +-
- sound/usb/format.c                         |  125 +++-
- sound/usb/helper.c                         |   10 +
- sound/usb/helper.h                         |    3 +
- sound/usb/implicit.c                       |  402 ++++++++++
- sound/usb/implicit.h                       |   14 +
- sound/usb/mixer.c                          |   46 --
- sound/usb/pcm.c                            | 1117 ++++++++++------------------
- sound/usb/pcm.h                            |    7 +-
- sound/usb/proc.c                           |   35 +-
- sound/usb/quirks-table.h                   |    8 -
- sound/usb/quirks.c                         |   60 +-
- sound/usb/quirks.h                         |   10 +-
- sound/usb/stream.c                         |   24 +-
- sound/usb/usbaudio.h                       |    5 +-
- 23 files changed, 1696 insertions(+), 1422 deletions(-)
- delete mode 100644 sound/usb/debug.h
- create mode 100644 sound/usb/implicit.c
- create mode 100644 sound/usb/implicit.h
-
+diff --git a/sound/usb/card.h b/sound/usb/card.h
+index 5351d7183b1b..3cc668f98f43 100644
+--- a/sound/usb/card.h
++++ b/sound/usb/card.h
+@@ -157,7 +157,6 @@ struct snd_usb_substream {
+ 	u64 formats;			/* format bitmasks (all or'ed) */
+ 	unsigned int num_formats;		/* number of supported audio formats (list) */
+ 	struct list_head fmt_list;	/* format list */
+-	struct snd_pcm_hw_constraint_list rate_list;	/* limited rates */
+ 	spinlock_t lock;
+ 
+ 	int last_frame_number;          /* stored frame number */
+diff --git a/sound/usb/pcm.c b/sound/usb/pcm.c
+index a860303cc522..3265155df1b5 100644
+--- a/sound/usb/pcm.c
++++ b/sound/usb/pcm.c
+@@ -1039,27 +1039,31 @@ static int hw_rule_rate(struct snd_pcm_hw_params *params,
+ 	struct snd_usb_substream *subs = rule->private;
+ 	struct audioformat *fp;
+ 	struct snd_interval *it = hw_param_interval(params, SNDRV_PCM_HW_PARAM_RATE);
+-	unsigned int rmin, rmax;
++	unsigned int rmin, rmax, r;
+ 	int changed;
++	int i;
+ 
+ 	hwc_debug("hw_rule_rate: (%d,%d)\n", it->min, it->max);
+-	changed = 0;
+-	rmin = rmax = 0;
++	rmin = UINT_MAX;
++	rmax = 0;
+ 	list_for_each_entry(fp, &subs->fmt_list, list) {
+ 		if (!hw_check_valid_format(subs, params, fp))
+ 			continue;
+-		if (changed++) {
+-			if (rmin > fp->rate_min)
+-				rmin = fp->rate_min;
+-			if (rmax < fp->rate_max)
+-				rmax = fp->rate_max;
++		if (fp->rate_table && fp->nr_rates) {
++			for (i = 0; i < fp->nr_rates; i++) {
++				r = fp->rate_table[i];
++				if (!snd_interval_test(it, r))
++					continue;
++				rmin = min(rmin, r);
++				rmax = max(rmax, r);
++			}
+ 		} else {
+-			rmin = fp->rate_min;
+-			rmax = fp->rate_max;
++			rmin = min(rmin, fp->rate_min);
++			rmax = max(rmax, fp->rate_max);
+ 		}
+ 	}
+ 
+-	if (!changed) {
++	if (rmin > rmax) {
+ 		hwc_debug("  --> get empty\n");
+ 		it->empty = 1;
+ 		return -EINVAL;
+@@ -1205,50 +1209,6 @@ static int hw_rule_period_time(struct snd_pcm_hw_params *params,
+ 	return changed;
+ }
+ 
+-/*
+- *  If the device supports unusual bit rates, does the request meet these?
+- */
+-static int snd_usb_pcm_check_knot(struct snd_pcm_runtime *runtime,
+-				  struct snd_usb_substream *subs)
+-{
+-	struct audioformat *fp;
+-	int *rate_list;
+-	int count = 0, needs_knot = 0;
+-	int err;
+-
+-	kfree(subs->rate_list.list);
+-	subs->rate_list.list = NULL;
+-
+-	list_for_each_entry(fp, &subs->fmt_list, list) {
+-		if (fp->rates & SNDRV_PCM_RATE_CONTINUOUS)
+-			return 0;
+-		count += fp->nr_rates;
+-		if (fp->rates & SNDRV_PCM_RATE_KNOT)
+-			needs_knot = 1;
+-	}
+-	if (!needs_knot)
+-		return 0;
+-
+-	subs->rate_list.list = rate_list =
+-		kmalloc_array(count, sizeof(int), GFP_KERNEL);
+-	if (!subs->rate_list.list)
+-		return -ENOMEM;
+-	subs->rate_list.count = count;
+-	subs->rate_list.mask = 0;
+-	count = 0;
+-	list_for_each_entry(fp, &subs->fmt_list, list) {
+-		int i;
+-		for (i = 0; i < fp->nr_rates; i++)
+-			rate_list[count++] = fp->rate_table[i];
+-	}
+-	err = snd_pcm_hw_constraint_list(runtime, 0, SNDRV_PCM_HW_PARAM_RATE,
+-					 &subs->rate_list);
+-	if (err < 0)
+-		return err;
+-
+-	return 0;
+-}
+-
+ 
+ /*
+  * set up the runtime hardware information.
+@@ -1338,9 +1298,6 @@ static int setup_hw_info(struct snd_pcm_runtime *runtime, struct snd_usb_substre
+ 		if (err < 0)
+ 			return err;
+ 	}
+-	err = snd_usb_pcm_check_knot(runtime, subs);
+-	if (err < 0)
+-		return err;
+ 
+ 	return snd_usb_autoresume(subs->stream->chip);
+ }
+diff --git a/sound/usb/stream.c b/sound/usb/stream.c
+index ca76ba5b5c0b..f17913e0b5b4 100644
+--- a/sound/usb/stream.c
++++ b/sound/usb/stream.c
+@@ -47,7 +47,6 @@ static void free_substream(struct snd_usb_substream *subs)
+ 		return; /* not initialized */
+ 	list_for_each_entry_safe(fp, n, &subs->fmt_list, list)
+ 		audioformat_free(fp);
+-	kfree(subs->rate_list.list);
+ 	kfree(subs->str_pd);
+ 	snd_media_stream_delete(subs);
+ }
 -- 
 2.16.4
 

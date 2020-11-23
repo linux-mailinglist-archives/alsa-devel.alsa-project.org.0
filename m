@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id BE4EF2C01E8
-	for <lists+alsa-devel@lfdr.de>; Mon, 23 Nov 2020 10:04:24 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0CDFD2C0214
+	for <lists+alsa-devel@lfdr.de>; Mon, 23 Nov 2020 10:12:01 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 5D87416C2;
-	Mon, 23 Nov 2020 10:03:34 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5D87416C2
+	by alsa0.perex.cz (Postfix) with ESMTPS id 8AACC1612;
+	Mon, 23 Nov 2020 10:11:10 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8AACC1612
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1606122264;
-	bh=iIflz33mnJKdkJ8vKIm6Rhk5ymd17CPrwWDh91AaeIc=;
+	s=default; t=1606122720;
+	bh=j9IqJjtlzMiYFmsfZ7oI1ZHXp33QYIcI/+25HgCjO00=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=GSqdjngg8KZrgYvQA+jj95YgbqIz6Y5XxN+3Gj/j7dC6lY9Oyi+3NLvOW6vf7Vi3f
-	 joQ0t2VQ6dNHmp8Ezmegttrp/rqKqOSHje8XnIsnhi5sOh9KwJR9JzZlBEP5Zhyah7
-	 vDq70XdksARWPFTE8qTyzPwoj9k8JU3cL5l62eHI=
+	b=ZZACgPafPzHpt/41Us4X27GkoNgftY3bE7INN3/VoAls2PIZxzrmN4KjOmeMTQazl
+	 bfG7o7JVLvwFYEIRq+feiyPt4K2W51ngV1aZrY76epIwMVts8cfVZvczz+jLJqsUk8
+	 7aRK4dVlovYaS0Be5nZUcmenC+G5qsVBGKR1/scM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id BCD63F805AD;
-	Mon, 23 Nov 2020 09:55:02 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 77C65F805EB;
+	Mon, 23 Nov 2020 09:55:20 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 774FEF804DF; Mon, 23 Nov 2020 09:54:31 +0100 (CET)
+ id 8A105F8015F; Mon, 23 Nov 2020 09:54:58 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_MSPIKE_H3,
@@ -34,19 +34,19 @@ X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_MSPIKE_H3,
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 8DF68F804E3
+ by alsa1.perex.cz (Postfix) with ESMTPS id 9DD3FF804FE
  for <alsa-devel@alsa-project.org>; Mon, 23 Nov 2020 09:54:00 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8DF68F804E3
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9DD3FF804FE
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id DCEEAAFBF;
+ by mx2.suse.de (Postfix) with ESMTP id ECD6EAFC1;
  Mon, 23 Nov 2020 08:53:57 +0000 (UTC)
 From: Takashi Iwai <tiwai@suse.de>
 To: alsa-devel@alsa-project.org
-Subject: [PATCH 18/41] ALSA: usb-audio: Pass snd_usb_audio object to quirk
- functions
-Date: Mon, 23 Nov 2020 09:53:24 +0100
-Message-Id: <20201123085347.19667-19-tiwai@suse.de>
+Subject: [PATCH 19/41] ALSA: usb-audio: Simplify snd_usb_init_sample_rate()
+ arguments
+Date: Mon, 23 Nov 2020 09:53:25 +0100
+Message-Id: <20201123085347.19667-20-tiwai@suse.de>
 X-Mailer: git-send-email 2.16.4
 In-Reply-To: <20201123085347.19667-1-tiwai@suse.de>
 References: <20201123085347.19667-1-tiwai@suse.de>
@@ -68,171 +68,183 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-A preliminary patch for the later big change.  Just a minor code
-refactoring.
+A preliminary change for the later big changes.  This is a minor code
+refactoring to drop the unnecessary arguments that can be retrieved in
+a different way.
 
 Tested-by: Keith Milner <kamilner@superlative.org>
 Tested-by: Dylan Robinson <dylan_robinson@motu.com>
 Signed-off-by: Takashi Iwai <tiwai@suse.de>
 ---
- sound/usb/clock.c  |  4 ++--
- sound/usb/pcm.c    | 17 +++++++++--------
- sound/usb/quirks.c | 10 ++++------
- sound/usb/quirks.h |  4 ++--
- 4 files changed, 17 insertions(+), 18 deletions(-)
+ sound/usb/clock.c  | 29 +++++++++++++++--------------
+ sound/usb/clock.h  |  3 +--
+ sound/usb/pcm.c    |  2 --
+ sound/usb/quirks.c |  2 +-
+ sound/usb/stream.c |  2 +-
+ 5 files changed, 18 insertions(+), 20 deletions(-)
 
 diff --git a/sound/usb/clock.c b/sound/usb/clock.c
-index f174230d07d5..3298a654ce96 100644
+index 3298a654ce96..f25da11fce3a 100644
 --- a/sound/usb/clock.c
 +++ b/sound/usb/clock.c
-@@ -658,9 +658,9 @@ static int set_sample_rate_v2v3(struct snd_usb_audio *chip, int iface,
+@@ -481,15 +481,18 @@ int snd_usb_clock_find_source(struct snd_usb_audio *chip,
+ 	}
+ }
+ 
+-static int set_sample_rate_v1(struct snd_usb_audio *chip, int iface,
+-			      struct usb_host_interface *alts,
++static int set_sample_rate_v1(struct snd_usb_audio *chip,
+ 			      struct audioformat *fmt, int rate)
+ {
+ 	struct usb_device *dev = chip->dev;
++	struct usb_host_interface *alts;
+ 	unsigned int ep;
+ 	unsigned char data[3];
+ 	int err, crate;
+ 
++	alts = snd_usb_get_host_interface(chip, fmt->iface, fmt->altsetting);
++	if (!alts)
++		return -EINVAL;
+ 	if (get_iface_desc(alts)->bNumEndpoints < 1)
+ 		return -EINVAL;
+ 	ep = get_endpoint(alts, 0)->bEndpointAddress;
+@@ -507,7 +510,7 @@ static int set_sample_rate_v1(struct snd_usb_audio *chip, int iface,
+ 			      data, sizeof(data));
+ 	if (err < 0) {
+ 		dev_err(&dev->dev, "%d:%d: cannot set freq %d to ep %#x\n",
+-			iface, fmt->altsetting, rate, ep);
++			fmt->iface, fmt->altsetting, rate, ep);
+ 		return err;
+ 	}
+ 
+@@ -525,7 +528,7 @@ static int set_sample_rate_v1(struct snd_usb_audio *chip, int iface,
+ 			      data, sizeof(data));
+ 	if (err < 0) {
+ 		dev_err(&dev->dev, "%d:%d: cannot get freq at ep %#x\n",
+-			iface, fmt->altsetting, ep);
++			fmt->iface, fmt->altsetting, ep);
+ 		chip->sample_rate_read_error++;
+ 		return 0; /* some devices don't support reading */
+ 	}
+@@ -607,8 +610,7 @@ int snd_usb_set_sample_rate_v2v3(struct snd_usb_audio *chip,
+ 	return get_sample_rate_v2v3(chip, fmt->iface, fmt->altsetting, clock);
+ }
+ 
+-static int set_sample_rate_v2v3(struct snd_usb_audio *chip, int iface,
+-				struct usb_host_interface *alts,
++static int set_sample_rate_v2v3(struct snd_usb_audio *chip,
+ 				struct audioformat *fmt, int rate)
+ {
+ 	struct usb_device *dev = chip->dev;
+@@ -632,7 +634,7 @@ static int set_sample_rate_v2v3(struct snd_usb_audio *chip, int iface,
+ 			return clock;
+ 	}
+ 
+-	prev_rate = get_sample_rate_v2v3(chip, iface, fmt->altsetting, clock);
++	prev_rate = get_sample_rate_v2v3(chip, fmt->iface, fmt->altsetting, clock);
+ 	if (prev_rate == rate)
+ 		goto validation;
+ 
+@@ -640,7 +642,7 @@ static int set_sample_rate_v2v3(struct snd_usb_audio *chip, int iface,
+ 	if (cur_rate < 0) {
+ 		usb_audio_err(chip,
+ 			      "%d:%d: cannot set freq %d (v2/v3): err %d\n",
+-			      iface, fmt->altsetting, rate, cur_rate);
++			      fmt->iface, fmt->altsetting, rate, cur_rate);
+ 		return cur_rate;
+ 	}
+ 
+@@ -657,9 +659,9 @@ static int set_sample_rate_v2v3(struct snd_usb_audio *chip, int iface,
+ 	/* Some devices doesn't respond to sample rate changes while the
  	 * interface is active. */
  	if (rate != prev_rate) {
- 		usb_set_interface(dev, iface, 0);
--		snd_usb_set_interface_quirk(dev);
-+		snd_usb_set_interface_quirk(chip);
- 		usb_set_interface(dev, iface, fmt->altsetting);
--		snd_usb_set_interface_quirk(dev);
-+		snd_usb_set_interface_quirk(chip);
+-		usb_set_interface(dev, iface, 0);
++		usb_set_interface(dev, fmt->iface, 0);
+ 		snd_usb_set_interface_quirk(chip);
+-		usb_set_interface(dev, iface, fmt->altsetting);
++		usb_set_interface(dev, fmt->iface, fmt->altsetting);
+ 		snd_usb_set_interface_quirk(chip);
  	}
  
- validation:
+@@ -670,14 +672,13 @@ static int set_sample_rate_v2v3(struct snd_usb_audio *chip, int iface,
+ 	return 0;
+ }
+ 
+-int snd_usb_init_sample_rate(struct snd_usb_audio *chip, int iface,
+-			     struct usb_host_interface *alts,
++int snd_usb_init_sample_rate(struct snd_usb_audio *chip,
+ 			     struct audioformat *fmt, int rate)
+ {
+ 	switch (fmt->protocol) {
+ 	case UAC_VERSION_1:
+ 	default:
+-		return set_sample_rate_v1(chip, iface, alts, fmt, rate);
++		return set_sample_rate_v1(chip, fmt, rate);
+ 
+ 	case UAC_VERSION_3:
+ 		if (chip->badd_profile >= UAC3_FUNCTION_SUBCLASS_GENERIC_IO) {
+@@ -688,7 +689,7 @@ int snd_usb_init_sample_rate(struct snd_usb_audio *chip, int iface,
+ 		}
+ 		fallthrough;
+ 	case UAC_VERSION_2:
+-		return set_sample_rate_v2v3(chip, iface, alts, fmt, rate);
++		return set_sample_rate_v2v3(chip, fmt, rate);
+ 	}
+ }
+ 
+diff --git a/sound/usb/clock.h b/sound/usb/clock.h
+index 97597f5a3c18..8d406ed294d6 100644
+--- a/sound/usb/clock.h
++++ b/sound/usb/clock.h
+@@ -2,8 +2,7 @@
+ #ifndef __USBAUDIO_CLOCK_H
+ #define __USBAUDIO_CLOCK_H
+ 
+-int snd_usb_init_sample_rate(struct snd_usb_audio *chip, int iface,
+-			     struct usb_host_interface *alts,
++int snd_usb_init_sample_rate(struct snd_usb_audio *chip,
+ 			     struct audioformat *fmt, int rate);
+ 
+ int snd_usb_clock_find_source(struct snd_usb_audio *chip,
 diff --git a/sound/usb/pcm.c b/sound/usb/pcm.c
-index b0961ebd71f4..2518d4c82ad5 100644
+index 2518d4c82ad5..38b461bdca86 100644
 --- a/sound/usb/pcm.c
 +++ b/sound/usb/pcm.c
-@@ -553,6 +553,7 @@ static int set_sync_endpoint(struct snd_usb_substream *subs,
- {
- 	struct usb_device *dev = subs->dev;
- 	struct usb_host_interface *alts;
-+	struct snd_usb_audio *chip = subs->stream->chip;
- 	int is_playback = subs->direction == SNDRV_PCM_STREAM_PLAYBACK;
- 	unsigned int ep;
- 	int err;
-@@ -569,7 +570,7 @@ static int set_sync_endpoint(struct snd_usb_substream *subs,
- 	if (!alts)
- 		return 0;
- 
--	subs->sync_endpoint = snd_usb_get_endpoint(subs->stream->chip, ep);
-+	subs->sync_endpoint = snd_usb_get_endpoint(chip, ep);
- 	if (!subs->sync_endpoint) {
- 		if (is_playback &&
- 		    (fmt->ep_attr & USB_ENDPOINT_SYNCTYPE) == USB_ENDPOINT_SYNC_NONE)
-@@ -596,7 +597,7 @@ static int set_sync_endpoint(struct snd_usb_substream *subs,
- 		dev_dbg(&dev->dev, "setting usb interface %d:%d\n",
- 			subs->sync_endpoint->iface,
- 			subs->sync_endpoint->altsetting);
--		snd_usb_set_interface_quirk(dev);
-+		snd_usb_set_interface_quirk(chip);
- 	}
- 
- 	return 0;
-@@ -608,6 +609,7 @@ static int set_sync_endpoint(struct snd_usb_substream *subs,
- static int set_format(struct snd_usb_substream *subs, struct audioformat *fmt)
- {
- 	struct usb_device *dev = subs->dev;
-+	struct snd_usb_audio *chip = subs->stream->chip;
- 	struct usb_host_interface *alts;
- 	struct usb_interface *iface;
- 	struct snd_usb_endpoint *ep;
-@@ -625,7 +627,7 @@ static int set_format(struct snd_usb_substream *subs, struct audioformat *fmt)
- 
- 	/* shared EP with implicit fb */
- 	if (fmt->implicit_fb && !subs->need_setup_fmt) {
--		ep = snd_usb_get_endpoint(subs->stream->chip, fmt->endpoint);
-+		ep = snd_usb_get_endpoint(chip, fmt->endpoint);
- 		if (ep && ep->use_count > 0)
- 			goto add_data_ep;
- 	}
-@@ -648,7 +650,7 @@ static int set_format(struct snd_usb_substream *subs, struct audioformat *fmt)
- 
- 	/* set interface */
- 	if (iface->cur_altsetting != alts) {
--		err = snd_usb_select_mode_quirk(subs, fmt);
-+		err = snd_usb_select_mode_quirk(chip, fmt);
- 		if (err < 0)
- 			return -EIO;
- 
-@@ -661,7 +663,7 @@ static int set_format(struct snd_usb_substream *subs, struct audioformat *fmt)
- 		}
- 		dev_dbg(&dev->dev, "setting usb interface %d:%d\n",
- 			fmt->iface, fmt->altsetting);
--		snd_usb_set_interface_quirk(dev);
-+		snd_usb_set_interface_quirk(chip);
- 	}
- 
- 	subs->need_setup_ep = true;
-@@ -669,8 +671,7 @@ static int set_format(struct snd_usb_substream *subs, struct audioformat *fmt)
-  add_data_ep:
- 	subs->interface = fmt->iface;
- 	subs->altset_idx = fmt->altset_idx;
--	subs->data_endpoint = snd_usb_get_endpoint(subs->stream->chip,
--						   fmt->endpoint);
-+	subs->data_endpoint = snd_usb_get_endpoint(chip, fmt->endpoint);
- 	if (!subs->data_endpoint)
- 		return -EINVAL;
- 	subs->data_endpoint->iface = fmt->iface;
-@@ -681,7 +682,7 @@ static int set_format(struct snd_usb_substream *subs, struct audioformat *fmt)
- 		return err;
- 
- 	if (subs->need_setup_ep) {
--		err = snd_usb_init_pitch(subs->stream->chip, fmt->iface, alts, fmt);
-+		err = snd_usb_init_pitch(chip, fmt->iface, alts, fmt);
- 		if (err < 0)
- 			return err;
- 	}
+@@ -1017,8 +1017,6 @@ static int snd_usb_pcm_prepare(struct snd_pcm_substream *substream)
+ 		iface = usb_ifnum_to_if(subs->dev, subs->cur_audiofmt->iface);
+ 		alts = &iface->altsetting[subs->cur_audiofmt->altset_idx];
+ 		ret = snd_usb_init_sample_rate(subs->stream->chip,
+-					       subs->cur_audiofmt->iface,
+-					       alts,
+ 					       subs->cur_audiofmt,
+ 					       subs->cur_rate);
+ 		if (ret < 0)
 diff --git a/sound/usb/quirks.c b/sound/usb/quirks.c
-index c50be2f75f70..bb4c1ae0a4a7 100644
+index bb4c1ae0a4a7..018c6f241ffb 100644
 --- a/sound/usb/quirks.c
 +++ b/sound/usb/quirks.c
-@@ -1553,13 +1553,13 @@ static bool is_itf_usb_dsd_dac(unsigned int id)
- 	return false;
- }
+@@ -178,7 +178,7 @@ static int create_fixed_stream_quirk(struct snd_usb_audio *chip,
+ 		fp->maxpacksize = le16_to_cpu(get_endpoint(alts, 0)->wMaxPacketSize);
+ 	usb_set_interface(chip->dev, fp->iface, 0);
+ 	snd_usb_init_pitch(chip, fp->iface, alts, fp);
+-	snd_usb_init_sample_rate(chip, fp->iface, alts, fp, fp->rate_max);
++	snd_usb_init_sample_rate(chip, fp, fp->rate_max);
+ 	return 0;
  
--int snd_usb_select_mode_quirk(struct snd_usb_substream *subs,
-+int snd_usb_select_mode_quirk(struct snd_usb_audio *chip,
- 			      struct audioformat *fmt)
- {
--	struct usb_device *dev = subs->dev;
-+	struct usb_device *dev = chip->dev;
- 	int err;
- 
--	if (is_itf_usb_dsd_dac(subs->stream->chip->usb_id)) {
-+	if (is_itf_usb_dsd_dac(chip->usb_id)) {
- 		/* First switch to alt set 0, otherwise the mode switch cmd
- 		 * will not be accepted by the DAC
- 		 */
-@@ -1622,10 +1622,8 @@ void snd_usb_endpoint_start_quirk(struct snd_usb_endpoint *ep)
- 		ep->tenor_fb_quirk = 1;
- }
- 
--void snd_usb_set_interface_quirk(struct usb_device *dev)
-+void snd_usb_set_interface_quirk(struct snd_usb_audio *chip)
- {
--	struct snd_usb_audio *chip = dev_get_drvdata(&dev->dev);
--
- 	if (!chip)
- 		return;
- 	/*
-diff --git a/sound/usb/quirks.h b/sound/usb/quirks.h
-index c76cf24a640a..011f22cf2bf6 100644
---- a/sound/usb/quirks.h
-+++ b/sound/usb/quirks.h
-@@ -35,12 +35,12 @@ int snd_usb_is_big_endian_format(struct snd_usb_audio *chip,
- 
- void snd_usb_endpoint_start_quirk(struct snd_usb_endpoint *ep);
- 
--void snd_usb_set_interface_quirk(struct usb_device *dev);
-+void snd_usb_set_interface_quirk(struct snd_usb_audio *chip);
- void snd_usb_ctl_msg_quirk(struct usb_device *dev, unsigned int pipe,
- 			   __u8 request, __u8 requesttype, __u16 value,
- 			   __u16 index, void *data, __u16 size);
- 
--int snd_usb_select_mode_quirk(struct snd_usb_substream *subs,
-+int snd_usb_select_mode_quirk(struct snd_usb_audio *chip,
- 			      struct audioformat *fmt);
- 
- u64 snd_usb_interface_dsd_format_quirks(struct snd_usb_audio *chip,
+  error:
+diff --git a/sound/usb/stream.c b/sound/usb/stream.c
+index 4501e042a944..23e881985123 100644
+--- a/sound/usb/stream.c
++++ b/sound/usb/stream.c
+@@ -1225,7 +1225,7 @@ static int __snd_usb_parse_audio_interface(struct snd_usb_audio *chip,
+ 		/* try to set the interface... */
+ 		usb_set_interface(chip->dev, iface_no, 0);
+ 		snd_usb_init_pitch(chip, iface_no, alts, fp);
+-		snd_usb_init_sample_rate(chip, iface_no, alts, fp, fp->rate_max);
++		snd_usb_init_sample_rate(chip, fp, fp->rate_max);
+ 		usb_set_interface(chip->dev, iface_no, altno);
+ 	}
+ 	return 0;
 -- 
 2.16.4
 

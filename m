@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 49FF02C16A4
-	for <lists+alsa-devel@lfdr.de>; Mon, 23 Nov 2020 21:40:41 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id D9ECE2C16A5
+	for <lists+alsa-devel@lfdr.de>; Mon, 23 Nov 2020 21:40:50 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C9E64166D;
-	Mon, 23 Nov 2020 21:39:50 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C9E64166D
+	by alsa0.perex.cz (Postfix) with ESMTPS id 619031685;
+	Mon, 23 Nov 2020 21:40:00 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 619031685
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1606164040;
-	bh=A8e5XsmrEj94F0Lbxy4tU9ohPxOZwgP/VW6wbdCvxdI=;
+	s=default; t=1606164050;
+	bh=tkAsjlRH2HuuhR8vmGPp7i9n4IBY/yYjedNX3O0GBWc=;
 	h=Date:From:To:In-Reply-To:References:Subject:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=g1am3VEzrKTNaK6gcbrhFl7lKreaF1jAoMYiVAMZYFLr0pVPwbqIBo0+eR9US/cg0
-	 U93YTq3waBnbJNDH5mdDUZ9ISYdOXdaQz04ANyhj41/OJ69Nq/N4Qol+sZ9ETDH3b5
-	 gTkvCK8u/2suW37yMyenTw+TnD7eq846kIbWMD1I=
+	b=NH4N7nB39P2q6ZGjntWZNxVKzwGbYDmMwMtSu3IOaamx+Uga+h/5JZ4AxvfQ7eR4/
+	 fh0lkj6i3MVvCgRDdZhiqJkX8T211qrfkPPx/QTiee0xgdJ/wSaddC642LBJzBdk3P
+	 fMKXGeUWDpyNaeVFuDylEBvRsdZEHmc2zMOEIwbs=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 59B3CF80268;
-	Mon, 23 Nov 2020 21:39:07 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id A1B60F80290;
+	Mon, 23 Nov 2020 21:39:14 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 143ACF80255; Mon, 23 Nov 2020 21:39:05 +0100 (CET)
+ id 61BFEF80273; Mon, 23 Nov 2020 21:39:08 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -34,44 +34,42 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 09EC6F8015B
- for <alsa-devel@alsa-project.org>; Mon, 23 Nov 2020 21:39:01 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 09EC6F8015B
+ by alsa1.perex.cz (Postfix) with ESMTPS id 89DB4F80113
+ for <alsa-devel@alsa-project.org>; Mon, 23 Nov 2020 21:39:05 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 89DB4F80113
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="F1IFkrbs"
+ header.b="cDp47rsT"
 Received: from localhost (cpc102334-sgyl38-2-0-cust884.18-2.cable.virginm.net
  [92.233.91.117])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 44D2A204FD;
- Mon, 23 Nov 2020 20:38:58 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id 1D34620721;
+ Mon, 23 Nov 2020 20:39:02 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1606163938;
- bh=A8e5XsmrEj94F0Lbxy4tU9ohPxOZwgP/VW6wbdCvxdI=;
+ s=default; t=1606163943;
+ bh=tkAsjlRH2HuuhR8vmGPp7i9n4IBY/yYjedNX3O0GBWc=;
  h=Date:From:To:Cc:In-Reply-To:References:Subject:From;
- b=F1IFkrbsk2ZUP+5vsvu62iGXHiaCjEomOSw7B1hCcEu6ne6r9Vq3NlvF2FdwUk2l+
- UNk+lt6HuuoAXyvHKn2uSogZpgdB5YUt5NoxHYVO22Y5vhxjxveY8t5+pmdZF/dQsc
- vgOoQHbCyxfMximLrhvrqzecmlcxwQp9kGhC2l/Q=
-Date: Mon, 23 Nov 2020 20:38:35 +0000
+ b=cDp47rsTXsD0Zxg1b/NsKf4lt7RpderIZ8vEEF8LAZ/nAR/0mX69QF205d2zkKrt6
+ 3vVajqui2HbJsZC/07W/zA6na//Z6rL/akH9ipLZlV+MubFknfBW9YGRXE7PqxndCU
+ BfE02ZLtAdkDwsNlGi5YF4eq580KbUBy4R3Xw/QE=
+Date: Mon, 23 Nov 2020 20:38:40 +0000
 From: Mark Brown <broonie@kernel.org>
-To: linux-kernel@vger.kernel.org, Cheng-Yi Chiang <cychiang@chromium.org>
-In-Reply-To: <20201118043852.1338877-1-cychiang@chromium.org>
-References: <20201118043852.1338877-1-cychiang@chromium.org>
-Subject: Re: [PATCH v2] ASoC: hdmi-codec: Get ELD in before reporting plugged
- event
-Message-Id: <160616391558.20973.12207964506823429764.b4-ty@kernel.org>
+To: robh+dt@kernel.org, rohitkr@codeaurora.org, plai@codeaurora.org,
+ linux-kernel@vger.kernel.org, perex@perex.cz, bgoswami@codeaurora.org,
+ Srinivasa Rao Mandadapu <srivasam@codeaurora.org>, tiwai@suse.com,
+ lgirdwood@gmail.com, srinivas.kandagatla@linaro.org,
+ devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ alsa-devel@alsa-project.org, agross@kernel.org, bjorn.andersson@linaro.org
+In-Reply-To: <1606148273-17325-1-git-send-email-srivasam@codeaurora.org>
+References: <1606148273-17325-1-git-send-email-srivasam@codeaurora.org>
+Subject: Re: [PATCH] Asoc: qcom: Fix enabling BCLK and LRCLK in LPAIF invalid
+ state
+Message-Id: <160616391558.20973.7389509283379786250.b4-ty@kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Cc: alsa-devel@alsa-project.org, dianders@chromium.org,
- Srinivasa Rao <srivasam@codeaurora.org>, Heiko Stuebner <heiko@sntech.de>,
- Takashi Iwai <tiwai@suse.com>, tzungbi@chromium.org,
- Liam Girdwood <lgirdwood@gmail.com>, linux-rockchip@lists.infradead.org,
- Rob Herring <robh+dt@kernel.org>, Rohit kumar <rohitkr@codeaurora.org>,
- Matthias Brugger <matthias.bgg@gmail.com>, linux-mediatek@lists.infradead.org,
- dgreid@chromium.org, judyhsiao@chromium.org,
- linux-arm-kernel@lists.infradead.org
+Cc: V Sujith Kumar Reddy <vsujithk@codeaurora.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -87,13 +85,15 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Wed, 18 Nov 2020 12:38:52 +0800, Cheng-Yi Chiang wrote:
-> In plugged callback, ELD should be updated from display driver so that
-> user space can query information from ELD immediately after receiving jack
-> plugged event.
+On Mon, 23 Nov 2020 21:47:53 +0530, Srinivasa Rao Mandadapu wrote:
+> Fix enabling BCLK and LRCLK only when LPAIF is invalid state and
+> bit clock in enable state.
+> In device suspend/resume scenario LPAIF is going to reset state.
+> which is causing LRCLK disable and BCLK enable.
+> Avoid such inconsitency by removing unnecessary cpu dai prepare API,
+> which is doing LRCLK enable, and by maintaining BLCK  state information.
 > 
-> When jack is unplugged, clear ELD buffer so that user space does not get
-> obsolete information of unplugged HDMI.
+> [...]
 
 Applied to
 
@@ -101,8 +101,8 @@ Applied to
 
 Thanks!
 
-[1/1] ASoC: hdmi-codec: Get ELD in before reporting plugged event
-      commit: 25ce4f2b3593fa6bba70ddabbd2ee297b262784f
+[1/1] ASoC: qcom: Fix enabling BCLK and LRCLK in LPAIF invalid state
+      commit: b1824968221ccc498625750d8c49cf0d7d39a4de
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

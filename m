@@ -2,105 +2,53 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 175A62C01A0
-	for <lists+alsa-devel@lfdr.de>; Mon, 23 Nov 2020 09:42:21 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3B4DB2C01C3
+	for <lists+alsa-devel@lfdr.de>; Mon, 23 Nov 2020 09:55:40 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 99DBC886;
-	Mon, 23 Nov 2020 09:41:30 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 99DBC886
+	by alsa0.perex.cz (Postfix) with ESMTPS id DBF05950;
+	Mon, 23 Nov 2020 09:54:49 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DBF05950
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1606120940;
-	bh=QAa2GnmQAiWoa2+YVF7t7OcyZCsfIr9pWcyDLYCfUkA=;
-	h=From:To:Subject:Date:References:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=GQSexcl2ZTO0uWEekvrWTj9mSsRizra8RJHY6/FHtP1ifKUKftk9oyRuugHYsQ9cT
-	 fgBDl5r9VlRGmHeDoP2h7U7GneIgxZ+wioEFvTQP0/xDbX7VdH4zbU87GW7gjvdLcV
-	 t+iBBhHhtl2VKyyx33E+ecUNqVzKM5FjcopOVZQk=
+	s=default; t=1606121739;
+	bh=B+OXKs6jj6nmx9tm+T5dFwf0zQ+mZtjIrIBXwuoPRFw=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=V7sHUcjwE5zWJUdTudAyEZ8xmtQPi7GwNrNm+3zeao8I0iGXiAF5nBUjwWXjaf4cj
+	 UcC1pfEQnjaJ+WI6NjKtCktw3iv7x2/6wNQkAzChAOlKRG5XyeIZfiKM0UwX4IkyLS
+	 XUxkqs+nGbdyedyyoVuLnJHWY4MUO7Txb9e90+sM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 13736F80268;
-	Mon, 23 Nov 2020 09:40:47 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 123E7F80506;
+	Mon, 23 Nov 2020 09:54:07 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id D8329F80255; Mon, 23 Nov 2020 09:40:44 +0100 (CET)
+ id 69406F80506; Mon, 23 Nov 2020 09:54:03 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
- [91.207.212.93])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_MSPIKE_H3,
+ RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
+Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 4FDD1F80113
- for <alsa-devel@alsa-project.org>; Mon, 23 Nov 2020 09:40:37 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4FDD1F80113
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=st.com header.i=@st.com header.b="UhKsJoxF"
-Received: from pps.filterd (m0046660.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.16.0.43/8.16.0.43) with SMTP id
- 0AN8VfXn009764; Mon, 23 Nov 2020 09:40:36 +0100
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=st.com;
- h=from : to : cc : subject
- : date : message-id : references : in-reply-to : content-type : content-id
- : content-transfer-encoding : mime-version; s=STMicroelectronics;
- bh=QAa2GnmQAiWoa2+YVF7t7OcyZCsfIr9pWcyDLYCfUkA=;
- b=UhKsJoxFGSvG1f4curcr6LGdt1iUa76MDjniqftNWXHsi9Ly/WBHeVpe55bqJol+nt+B
- 6VFew3zTJOvN2AWpYSjLoZuppzCZSdrGXCqOZvhyBT6EYew34t3bev5cF5b2Q+WSvChI
- JeO3VYEFpuIQpiL4Y6eqafORKttyFpsLZCckRvZJKXeW/epYONTWSLpKoXN7K0ZiIUFf
- IyYuYGoo/FAZM/MIETpwVs7fRkqX4isOZSppRAVH412/FiZw4qu/XfXohum2k7W7Ygxq
- vsYzrPE4ZwfKobujUHalTM5mOA5Vo4ZajUnPxY+VfYKSlLU28Wf6NX2x62wQMsCs/jgL qg== 
-Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com with ESMTP id 34y0hj1159-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Mon, 23 Nov 2020 09:40:36 +0100
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 9BFB610002A;
- Mon, 23 Nov 2020 09:40:34 +0100 (CET)
-Received: from Webmail-eu.st.com (sfhdag3node2.st.com [10.75.127.8])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 1FB6A22A4BE;
- Mon, 23 Nov 2020 09:40:34 +0100 (CET)
-Received: from SFHDAG2NODE2.st.com (10.75.127.5) by SFHDAG3NODE2.st.com
- (10.75.127.8) with Microsoft SMTP Server (TLS) id 15.0.1473.3; Mon, 23 Nov
- 2020 09:40:33 +0100
-Received: from SFHDAG2NODE2.st.com ([fe80::14c2:73ff:db87:a27b]) by
- SFHDAG2NODE2.st.com ([fe80::14c2:73ff:db87:a27b%20]) with mapi id
- 15.00.1473.003; Mon, 23 Nov 2020 09:40:33 +0100
-From: Olivier MOYSAN <olivier.moysan@st.com>
-To: =?utf-8?B?TnVubyBTw6E=?= <nuno.sa@analog.com>, "linux-iio@vger.kernel.org"
- <linux-iio@vger.kernel.org>, "alsa-devel@alsa-project.org"
- <alsa-devel@alsa-project.org>
-Subject: Re: [PATCH 2/2] iio: buffer: Return error if no callback is given
-Thread-Topic: [PATCH 2/2] iio: buffer: Return error if no callback is given
-Thread-Index: AQHWwCGO6/PRziE1cU6P4ncVwkQG56nVV5QA
-Date: Mon, 23 Nov 2020 08:40:33 +0000
-Message-ID: <79057dac-66d0-4e2d-b720-7b6bfbbb8157@st.com>
-References: <20201121161457.957-1-nuno.sa@analog.com>
- <20201121161457.957-3-nuno.sa@analog.com>
-In-Reply-To: <20201121161457.957-3-nuno.sa@analog.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-user-agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.10.0
-x-ms-exchange-messagesentrepresentingtype: 1
-x-ms-exchange-transport-fromentityheader: Hosted
-x-originating-ip: [10.75.127.49]
-Content-Type: text/plain; charset="utf-8"
-Content-ID: <D4271702028E7447A489EB1307131F3C@st.com>
-Content-Transfer-Encoding: base64
-MIME-Version: 1.0
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.312, 18.0.737
- definitions=2020-11-23_02:2020-11-20,
- 2020-11-23 signatures=0
-Cc: Lars-Peter Clausen <lars@metafoo.de>, Liam Girdwood <lgirdwood@gmail.com>,
- Arnaud POULIQUEN <arnaud.pouliquen@st.com>, Takashi Iwai <tiwai@suse.com>,
- Mark Brown <broonie@kernel.org>, Peter Meerwald-Stadler <pmeerw@pmeerw.net>,
- Jonathan Cameron <jic23@kernel.org>
+ by alsa1.perex.cz (Postfix) with ESMTPS id A3CD6F80255
+ for <alsa-devel@alsa-project.org>; Mon, 23 Nov 2020 09:53:57 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A3CD6F80255
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id C84A0ACBD;
+ Mon, 23 Nov 2020 08:53:56 +0000 (UTC)
+From: Takashi Iwai <tiwai@suse.de>
+To: alsa-devel@alsa-project.org
+Subject: [PATCH 00/41] USB audio refactoring for better implicit feedback
+ support
+Date: Mon, 23 Nov 2020 09:53:06 +0100
+Message-Id: <20201123085347.19667-1-tiwai@suse.de>
+X-Mailer: git-send-email 2.16.4
+Cc: Matwey Kornilov <matwey.kornilov@gmail.com>,
+ Dylan Robinson <dylan_robinson@motu.com>,
+ Keith Milner <kamilner@superlative.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -116,23 +64,110 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-DQoNCk9uIDExLzIxLzIwIDU6MTQgUE0sIE51bm8gU8OhIHdyb3RlOg0KPiBSZXR1cm4gZXJyb3Ig
-aW4gY2FzZSBubyBjYWxsYmFjayBpcyBwcm92aWRlZCB0bw0KPiBgaWlvX2NoYW5uZWxfZ2V0X2Fs
-bF9jYigpYC4gVGhlcmUncyBubyBwb2ludCBpbiBzZXR0aW5nIHVwIGEgYnVmZmVyLWNiDQo+IGlm
-IG5vIGNhbGxiYWNrIGlzIHByb3ZpZGVkLg0KPiANCj4gU2lnbmVkLW9mZi1ieTogTnVubyBTw6Eg
-PG51bm8uc2FAYW5hbG9nLmNvbT4NCj4gLS0tDQo+ICAgZHJpdmVycy9paW8vYnVmZmVyL2luZHVz
-dHJpYWxpby1idWZmZXItY2IuYyB8IDUgKysrKysNCj4gICAxIGZpbGUgY2hhbmdlZCwgNSBpbnNl
-cnRpb25zKCspDQo+IA0KPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9paW8vYnVmZmVyL2luZHVzdHJp
-YWxpby1idWZmZXItY2IuYyBiL2RyaXZlcnMvaWlvL2J1ZmZlci9pbmR1c3RyaWFsaW8tYnVmZmVy
-LWNiLmMNCj4gaW5kZXggNDdjOTZmN2Y0OTc2Li40YzEyYjdhOTRhZjUgMTAwNjQ0DQo+IC0tLSBh
-L2RyaXZlcnMvaWlvL2J1ZmZlci9pbmR1c3RyaWFsaW8tYnVmZmVyLWNiLmMNCj4gKysrIGIvZHJp
-dmVycy9paW8vYnVmZmVyL2luZHVzdHJpYWxpby1idWZmZXItY2IuYw0KPiBAQCAtNTQsNiArNTQs
-MTEgQEAgc3RydWN0IGlpb19jYl9idWZmZXIgKmlpb19jaGFubmVsX2dldF9hbGxfY2Ioc3RydWN0
-IGRldmljZSAqZGV2LA0KPiAgIAlzdHJ1Y3QgaWlvX2NiX2J1ZmZlciAqY2JfYnVmZjsNCj4gICAJ
-c3RydWN0IGlpb19jaGFubmVsICpjaGFuOw0KPiAgIA0KPiArCWlmICghY2IpIHsNCj4gKwkJZGV2
-X2VycihkZXYsICJJbnZhbGlkIGFyZ3VtZW50czogQSBjYWxsYmFjayBtdXN0IGJlIHByb3ZpZGVk
-IVxuIik7DQo+ICsJCXJldHVybiBFUlJfUFRSKC1FSU5WQUwpOw0KPiArCX0NCj4gKw0KPiAgIAlj
-Yl9idWZmID0ga3phbGxvYyhzaXplb2YoKmNiX2J1ZmYpLCBHRlBfS0VSTkVMKTsNCj4gICAJaWYg
-KGNiX2J1ZmYgPT0gTlVMTCkNCj4gICAJCXJldHVybiBFUlJfUFRSKC1FTk9NRU0pOw0KPiANCg0K
-UmV2aWV3ZWQtYnk6IE9saXZpZXIgTW95c2FuIDxvbGl2aWVyLm1veXNhbkBzdC5jb20+DQoNCkJl
-c3QgcmVnYXJkcywNCk9saXZpZXI=
+Hi,
+
+here is a largish patch set for USB-audio.  Its main goal is to
+address the long-standing issues wrt the implicit feedback mode.
+With the current driver, when the implicit fb is used, the full duplex
+doesn't work properly unless you start both streams *very* carefully.
+This patch set tries to ease such the configuration mismatch and fix
+many other bugs.
+
+In short, with this patch set applied, USB-audio driver will try to
+restrict the hw_params to match with the already opened counter-part
+stream automatically.  So individual aplay and arecord invocation
+should work now, as well as PulseAudio.
+
+Also, the patch set includes more fixes, e.g. the generic detection of
+the implicit feedback mode on UAC2/3, and the fix for the sample rate
+selection on UAC2/3, as well as a few more quirks to follow the new
+implicit fb model.
+
+The latest patches are available in topic/usb-audio-refactoring
+branch.
+
+I specially thank Keith Milner and Dylan Robinson for their time spent
+for lots of testing.  Without their patient help, I couldn't finish
+those patches, as I myself don't own such devices.
+
+
+Takashi
+
+===
+
+Dylan Robinson (1):
+  ALSA: usb-audio: Fix MOTU M-Series quirks
+
+Takashi Iwai (40):
+  ALSA: usb-audio: Handle discrete rates properly in hw constraints
+  ALSA: usb-audio: Don't call usb_set_interface() at trigger callback
+  ALSA: usb-audio: Check valid altsetting at parsing rates for UAC2/3
+  ALSA: usb-audio: Check implicit feedback EP generically for UAC2
+  ALSA: usb-audio: Add snd_usb_get_endpoint() helper
+  ALSA: usb-audio: Set and clear sync EP link properly
+  ALSA: usb-audio: Improve some debug prints
+  ALSA: usb-audio: Track implicit fb sync endpoint in audioformat list
+  ALSA: usb-audio: Move snd_usb_autoresume() call out of setup_hw_info()
+  ALSA: usb-audio: Add hw constraint for implicit fb sync
+  ALSA: usb-audio: Simplify hw_params rules
+  ALSA: usb-audio: Drop debug.h
+  ALSA: usb-audio: Avoid doubly initialization for implicit fb
+  ALSA: usb-audio: Create endpoint objects at parsing phase
+  ALSA: usb-audio: Drop keep_interface flag again
+  ALSA: usb-audio: Add snd_usb_get_host_interface() helper
+  ALSA: usb-audio: Don't set altsetting before initializing sample rate
+  ALSA: usb-audio: Pass snd_usb_audio object to quirk functions
+  ALSA: usb-audio: Simplify snd_usb_init_sample_rate() arguments
+  ALSA: usb-audio: Simplify snd_usb_init_pitch() arguments
+  ALSA: usb-audio: Stop both endpoints properly at error
+  ALSA: usb-audio: Set callbacks via snd_usb_endpoint_set_callback()
+  ALSA: usb-audio: Always set up the parameters after resume
+  ALSA: usb-audio: Fix EP matching for continuous rates
+  ALSA: usb-audio: Refactor endpoint management
+  ALSA: usb-audio: Fix possible stall of implicit fb packet ring-buffer
+  ALSA: usb-audio: Constify audioformat pointer references
+  ALSA: usb-audio: Use atomic_t for endpoint use_count
+  ALSA: usb-audio: Refactoring endpoint URB deactivation
+  ALSA: usb-audio: Drop unneeded snd_usb_substream fields
+  ALSA: usb-audio: Unify the code for the next packet size calculation
+  ALSA: usb-audio: Simplify rate_min/max and rates set up
+  ALSA: usb-audio: Replace slave/master terms
+  ALSA: usb-audio: Use unsigned char for iface and altsettings fields
+  ALSA: usb-audio: Show sync endpoint information in proc outputs
+  ALSA: usb-audio: Quirk for BOSS GT-001
+  ALSA: usb-audio: Factor out the implicit feedback quirk code
+  ALSA: usb-audio: Add generic implicit fb parsing
+  ALSA: usb-audio: Add implicit_fb module option
+  ALSA: usb-audio: Fix quirks for other BOSS devices
+
+ Documentation/sound/alsa-configuration.rst |    5 +
+ sound/usb/Makefile                         |    1 +
+ sound/usb/card.c                           |   14 +-
+ sound/usb/card.h                           |   53 +-
+ sound/usb/clock.c                          |  152 ++--
+ sound/usb/clock.h                          |   11 +-
+ sound/usb/debug.h                          |   16 -
+ sound/usb/endpoint.c                       |  943 +++++++++++++----------
+ sound/usb/endpoint.h                       |   57 +-
+ sound/usb/format.c                         |  125 +++-
+ sound/usb/helper.c                         |   10 +
+ sound/usb/helper.h                         |    3 +
+ sound/usb/implicit.c                       |  402 ++++++++++
+ sound/usb/implicit.h                       |   14 +
+ sound/usb/mixer.c                          |   46 --
+ sound/usb/pcm.c                            | 1117 ++++++++++------------------
+ sound/usb/pcm.h                            |    7 +-
+ sound/usb/proc.c                           |   35 +-
+ sound/usb/quirks-table.h                   |    8 -
+ sound/usb/quirks.c                         |   60 +-
+ sound/usb/quirks.h                         |   10 +-
+ sound/usb/stream.c                         |   24 +-
+ sound/usb/usbaudio.h                       |    5 +-
+ 23 files changed, 1696 insertions(+), 1422 deletions(-)
+ delete mode 100644 sound/usb/debug.h
+ create mode 100644 sound/usb/implicit.c
+ create mode 100644 sound/usb/implicit.h
+
+-- 
+2.16.4
+

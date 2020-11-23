@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 888CF2C01C6
-	for <lists+alsa-devel@lfdr.de>; Mon, 23 Nov 2020 09:56:43 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9BE1B2C01C8
+	for <lists+alsa-devel@lfdr.de>; Mon, 23 Nov 2020 09:57:30 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 1F9F31614;
-	Mon, 23 Nov 2020 09:55:53 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1F9F31614
+	by alsa0.perex.cz (Postfix) with ESMTPS id 414C61666;
+	Mon, 23 Nov 2020 09:56:40 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 414C61666
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1606121803;
-	bh=bM4jYkikz7Y+RT2LwD0nC/BvG51BN4zANxI85oTXYk4=;
+	s=default; t=1606121850;
+	bh=/80Wxo3ZBHitJnvwBpweaPaqAkVaQ0AlbHTjkacSdjU=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=JwGloUHAv9WvgvsCnEjOph8v3hZ+l+DMaHILSmTQ9h3FE17DL06LXkw/0mM7aB/C6
-	 dtZn38cN8y0IgAWgWQWXH4oQmZdPOMXd7whrLIb7ixhd7GaO4jMteKcZLcrzAiIZ1t
-	 tlnJHEontC07QwPs4dgIqCkz2R+Ko+RoQsa73kqY=
+	b=ACvxPs7i4fQeCDzzXFKZY7JHVelrVTE09GIh0P07hJSJtmkz4t8yYZCa/pY5Gzrfs
+	 qZzJcR0UL/+6to+i0z8iZWiPx8EgWk5Bo+OTPG+QZ6Q/n/8vLz86OGqr1yu/8IOsyX
+	 bhL8v8SMbyDD1uBI3rj76QkawUV6dG+ka1enWlRE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id DF2E6F8051C;
-	Mon, 23 Nov 2020 09:54:14 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 0B254F804B4;
+	Mon, 23 Nov 2020 09:54:18 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 012D0F8050F; Mon, 23 Nov 2020 09:54:09 +0100 (CET)
+ id 3030FF8051B; Mon, 23 Nov 2020 09:54:12 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_MSPIKE_H3,
@@ -34,19 +34,18 @@ X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_MSPIKE_H3,
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id C7A8FF80268
- for <alsa-devel@alsa-project.org>; Mon, 23 Nov 2020 09:53:57 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C7A8FF80268
+ by alsa1.perex.cz (Postfix) with ESMTPS id 0819CF8027C
+ for <alsa-devel@alsa-project.org>; Mon, 23 Nov 2020 09:53:59 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0819CF8027C
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 1118AAF8D;
+ by mx2.suse.de (Postfix) with ESMTP id 1F634AF90;
  Mon, 23 Nov 2020 08:53:57 +0000 (UTC)
 From: Takashi Iwai <tiwai@suse.de>
 To: alsa-devel@alsa-project.org
-Subject: [PATCH 04/41] ALSA: usb-audio: Check implicit feedback EP generically
- for UAC2
-Date: Mon, 23 Nov 2020 09:53:10 +0100
-Message-Id: <20201123085347.19667-5-tiwai@suse.de>
+Subject: [PATCH 05/41] ALSA: usb-audio: Add snd_usb_get_endpoint() helper
+Date: Mon, 23 Nov 2020 09:53:11 +0100
+Message-Id: <20201123085347.19667-6-tiwai@suse.de>
 X-Mailer: git-send-email 2.16.4
 In-Reply-To: <20201123085347.19667-1-tiwai@suse.de>
 References: <20201123085347.19667-1-tiwai@suse.de>
@@ -68,148 +67,89 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-It seems that many UAC2 devices are with the implicit feedback, but
-they couldn't be probed properly because the assumption the driver
-takes currently isn't applied: they have the single endpoint for both
-data and implicit-fb streams, while we checked only the classical sync
-endpoints assigned to the next altsetting in the same interface.
+Factor out the code to obtain snd_usb_endpoint object matching with
+the given endpoint.  It'll be used in the later patch to add the
+implicit feedback hw-constraint.
 
-This patch extends the search to match with those typical cases where
-the implicit fb stream is found in the next interface number.
+No functional change by this patch itself.
 
-While we're at it, slightly refactor the code, not returning 0/-ERROR
-but use the standard bool to success/failur, which is more intuitive
-in this particular case.
-
-Reported-by: Dylan Robinson <dylan_robinson@motu.com>
 Tested-by: Keith Milner <kamilner@superlative.org>
 Tested-by: Dylan Robinson <dylan_robinson@motu.com>
 Signed-off-by: Takashi Iwai <tiwai@suse.de>
 ---
- sound/usb/pcm.c | 83 +++++++++++++++++++++++++++++++++++++++++++++------------
- 1 file changed, 66 insertions(+), 17 deletions(-)
+ sound/usb/endpoint.c | 36 +++++++++++++++++++++++++++---------
+ sound/usb/endpoint.h |  4 ++++
+ 2 files changed, 31 insertions(+), 9 deletions(-)
 
-diff --git a/sound/usb/pcm.c b/sound/usb/pcm.c
-index 380d7275d187..2b11c2c837bf 100644
---- a/sound/usb/pcm.c
-+++ b/sound/usb/pcm.c
-@@ -272,33 +272,70 @@ static int snd_usb_pcm_sync_stop(struct snd_pcm_substream *substream)
- 	return 0;
+diff --git a/sound/usb/endpoint.c b/sound/usb/endpoint.c
+index e2f9ce2f5b8b..cf00871fd278 100644
+--- a/sound/usb/endpoint.c
++++ b/sound/usb/endpoint.c
+@@ -439,6 +439,26 @@ static void snd_complete_urb(struct urb *urb)
+ 	clear_bit(ctx->index, &ep->active_mask);
  }
  
--static int search_roland_implicit_fb(struct usb_device *dev, int ifnum,
--				     unsigned int altsetting,
--				     struct usb_host_interface **alts,
--				     unsigned int *ep)
-+/* Check whether the given iface:altsetting points to an implicit fb source */
-+static bool search_generic_implicit_fb(struct usb_device *dev, int ifnum,
-+				       unsigned int altsetting,
-+				       struct usb_host_interface **altsp,
-+				       unsigned int *ep)
- {
- 	struct usb_interface *iface;
-+	struct usb_host_interface *alts;
-+	struct usb_interface_descriptor *altsd;
-+	struct usb_endpoint_descriptor *epd;
++/*
++ * Get the existing endpoint object corresponding EP, iface and alt numbers
++ * Returns NULL if not present.
++ * Call inside chip->mutex locking for avoiding the race.
++ */
++struct snd_usb_endpoint *
++snd_usb_get_endpoint(struct snd_usb_audio *chip,
++		     int ep_num, int iface, int altsetting)
++{
++	struct snd_usb_endpoint *ep;
 +
-+	iface = usb_ifnum_to_if(dev, ifnum);
-+	if (!iface)
-+		return false;
-+	alts = usb_altnum_to_altsetting(iface, altsetting);
-+	if (!alts)
-+		return false;
-+	altsd = get_iface_desc(alts);
-+	if (altsd->bInterfaceClass != USB_CLASS_AUDIO ||
-+	    altsd->bInterfaceSubClass != USB_SUBCLASS_AUDIOSTREAMING ||
-+	    altsd->bInterfaceProtocol != UAC_VERSION_2 ||
-+	    altsd->bNumEndpoints < 1)
-+		return false;
-+	epd = get_endpoint(alts, 0);
-+	if (!usb_endpoint_is_isoc_in(epd) ||
-+	    (epd->bmAttributes & USB_ENDPOINT_USAGE_MASK) !=
-+					USB_ENDPOINT_USAGE_IMPLICIT_FB)
-+		return false;
-+	*ep = epd->bEndpointAddress;
-+	*altsp = alts;
-+	return true;
++	list_for_each_entry(ep, &chip->ep_list, list) {
++		if (ep->ep_num == ep_num &&
++		    ep->iface == iface &&
++		    ep->altsetting == altsetting)
++			return ep;
++	}
++	return NULL;
 +}
 +
-+/* Like the function above, but specific to Roland with vendor class and hack */
-+static bool search_roland_implicit_fb(struct usb_device *dev, int ifnum,
-+				      unsigned int altsetting,
-+				      struct usb_host_interface **altsp,
-+				      unsigned int *ep)
-+{
-+	struct usb_interface *iface;
-+	struct usb_host_interface *alts;
- 	struct usb_interface_descriptor *altsd;
- 	struct usb_endpoint_descriptor *epd;
+ /**
+  * snd_usb_add_endpoint: Add an endpoint to an USB audio chip
+  *
+@@ -470,15 +490,13 @@ struct snd_usb_endpoint *snd_usb_add_endpoint(struct snd_usb_audio *chip,
  
- 	iface = usb_ifnum_to_if(dev, ifnum);
--	if (!iface || iface->num_altsetting < altsetting + 1)
--		return -ENOENT;
--	*alts = &iface->altsetting[altsetting];
--	altsd = get_iface_desc(*alts);
--	if (altsd->bAlternateSetting != altsetting ||
--	    altsd->bInterfaceClass != USB_CLASS_VENDOR_SPEC ||
-+	if (!iface)
-+		return false;
-+	alts = usb_altnum_to_altsetting(iface, altsetting);
-+	if (!alts)
-+		return false;
-+	altsd = get_iface_desc(alts);
-+	if (altsd->bInterfaceClass != USB_CLASS_VENDOR_SPEC ||
- 	    (altsd->bInterfaceSubClass != 2 &&
--	     altsd->bInterfaceProtocol != 2   ) ||
-+	     altsd->bInterfaceProtocol != 2) ||
- 	    altsd->bNumEndpoints < 1)
--		return -ENOENT;
--	epd = get_endpoint(*alts, 0);
-+		return false;
-+	epd = get_endpoint(alts, 0);
- 	if (!usb_endpoint_is_isoc_in(epd) ||
- 	    (epd->bmAttributes & USB_ENDPOINT_USAGE_MASK) !=
- 					USB_ENDPOINT_USAGE_IMPLICIT_FB)
--		return -ENOENT;
-+		return false;
- 	*ep = epd->bEndpointAddress;
--	return 0;
-+	*altsp = alts;
-+	return true;
- }
+ 	mutex_lock(&chip->mutex);
  
- /* Setup an implicit feedback endpoint from a quirk. Returns 0 if no quirk
-@@ -375,6 +412,19 @@ static int set_sync_ep_implicit_fb_quirk(struct snd_usb_substream *subs,
- 		return 0;
+-	list_for_each_entry(ep, &chip->ep_list, list) {
+-		if (ep->ep_num == ep_num &&
+-		    ep->iface == alts->desc.bInterfaceNumber &&
+-		    ep->altsetting == alts->desc.bAlternateSetting) {
+-			usb_audio_dbg(ep->chip,
+-				      "Re-using EP %x in iface %d,%d @%p\n",
+-					ep_num, ep->iface, ep->altsetting, ep);
+-			goto __exit_unlock;
+-		}
++	ep = snd_usb_get_endpoint(chip, ep_num,
++				  alts->desc.bInterfaceNumber,
++				  alts->desc.bAlternateSetting);
++	if (ep) {
++		usb_audio_dbg(ep->chip, "Re-using EP %x in iface %d,%d @%p\n",
++			      ep_num, ep->iface, ep->altsetting, ep);
++		goto __exit_unlock;
  	}
  
-+	/* Generic UAC2 implicit feedback */
-+	if (attr == USB_ENDPOINT_SYNC_ASYNC &&
-+	    altsd->bInterfaceClass == USB_CLASS_AUDIO &&
-+	    altsd->bInterfaceProtocol == UAC_VERSION_2 &&
-+	    altsd->bNumEndpoints == 1) {
-+		ifnum = altsd->bInterfaceNumber + 1;
-+		if (search_generic_implicit_fb(dev, ifnum,
-+					       altsd->bAlternateSetting,
-+					       &alts, &ep))
-+			goto add_sync_ep;
-+	}
-+
-+	/* Roland/BOSS implicit feedback with vendor spec class */
- 	if (attr == USB_ENDPOINT_SYNC_ASYNC &&
- 	    altsd->bInterfaceClass == USB_CLASS_VENDOR_SPEC &&
- 	    altsd->bInterfaceProtocol == 2 &&
-@@ -382,9 +432,8 @@ static int set_sync_ep_implicit_fb_quirk(struct snd_usb_substream *subs,
- 	    USB_ID_VENDOR(subs->stream->chip->usb_id) == 0x0582 /* Roland */ &&
- 	    search_roland_implicit_fb(dev, altsd->bInterfaceNumber + 1,
- 				      altsd->bAlternateSetting,
--				      &alts, &ep) >= 0) {
-+				      &alts, &ep))
- 		goto add_sync_ep;
--	}
+ 	usb_audio_dbg(chip, "Creating new %s %s endpoint #%x\n",
+diff --git a/sound/usb/endpoint.h b/sound/usb/endpoint.h
+index d23fa0a8c11b..61487095a766 100644
+--- a/sound/usb/endpoint.h
++++ b/sound/usb/endpoint.h
+@@ -5,6 +5,10 @@
+ #define SND_USB_ENDPOINT_TYPE_DATA     0
+ #define SND_USB_ENDPOINT_TYPE_SYNC     1
  
- 	/* No quirk */
- 	return 0;
++struct snd_usb_endpoint *snd_usb_get_endpoint(struct snd_usb_audio *chip,
++					      int ep_num, int iface,
++					      int altsetting);
++
+ struct snd_usb_endpoint *snd_usb_add_endpoint(struct snd_usb_audio *chip,
+ 					      struct usb_host_interface *alts,
+ 					      int ep_num, int direction, int type);
 -- 
 2.16.4
 

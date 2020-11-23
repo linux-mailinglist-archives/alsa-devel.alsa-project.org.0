@@ -2,86 +2,82 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D65292C0E8B
-	for <lists+alsa-devel@lfdr.de>; Mon, 23 Nov 2020 16:17:49 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1328B2C0FFA
+	for <lists+alsa-devel@lfdr.de>; Mon, 23 Nov 2020 17:20:04 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 61DDB167B;
-	Mon, 23 Nov 2020 16:16:59 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 61DDB167B
+	by alsa0.perex.cz (Postfix) with ESMTPS id 9082D1668;
+	Mon, 23 Nov 2020 17:19:13 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9082D1668
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1606144669;
-	bh=8SYRdqTtwFpsYVFsfHZkbe2b51lkQmxqgtM02UUROGE=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=Uuwj8LZ3nan/GnDMyvyJow4JIcYUwQo9kBuK6Uu1obe336Fgh5DO0jd9xxEDWookx
-	 4Vtif9yehSE/zhySkhw5RerZcwzrf3OUbNXzBGUk3QfwSHBr+1YqQufwIqTIAf36bY
-	 LK2bM4lyv57Ch+WqToaMFTUbfL99bOUtJV6ZzemM=
+	s=default; t=1606148403;
+	bh=fk88Wakb3kgLAGpqBBQiDJl86UlQBgL0CUwV0xSUvlw=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=FPJnmutyaW0F/JNa1MBGqo7XMiQk7nIClDqQrKQ31LhntEyoKB9lfoB+PuH/SLSIZ
+	 sAkoDb11pDNG19/JQreJqeXXO/WD4A4Lf/L8zMJiCPxAp2GVI0Yt1knjNu4wHMP4wf
+	 7droafbnioOlxhCXhXc+QdgsTGNuaB8/0U9+crz0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id BDE40F80113;
-	Mon, 23 Nov 2020 16:16:15 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id F285BF80268;
+	Mon, 23 Nov 2020 17:18:29 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 2717BF80255; Mon, 23 Nov 2020 16:16:13 +0100 (CET)
+ id F390FF80255; Mon, 23 Nov 2020 17:18:27 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from mail-wm1-x333.google.com (mail-wm1-x333.google.com
- [IPv6:2a00:1450:4864:20::333])
+X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from z5.mailgun.us (z5.mailgun.us [104.130.96.5])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 834CAF80113
- for <alsa-devel@alsa-project.org>; Mon, 23 Nov 2020 16:16:04 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 834CAF80113
+ by alsa1.perex.cz (Postfix) with ESMTPS id 11AF4F80128
+ for <alsa-devel@alsa-project.org>; Mon, 23 Nov 2020 17:18:20 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 11AF4F80128
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=amarulasolutions.com
- header.i=@amarulasolutions.com header.b="F+6xarMO"
-Received: by mail-wm1-x333.google.com with SMTP id a3so17579423wmb.5
- for <alsa-devel@alsa-project.org>; Mon, 23 Nov 2020 07:16:03 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=amarulasolutions.com; s=google;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=QCTAJLg3PWgLnWZQ2aRoY0SNQo81ro7UVmF3AxNC2Ig=;
- b=F+6xarMOMsyPDkxtAWpJRwzAu3qj4Z0d3lLV9w1hgD0b3JKY2itnMFNPrtQ0VQJADY
- eHNdd+LgeAx7Jbvy1cglw8pFuIsMTTXWr8IIoofXc0e7LVDNN9TeqHxtvWvPye5C4MSB
- BjycHLLoi0U0ijBpi5PJVaoM5XX/yhAr56fVI=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=QCTAJLg3PWgLnWZQ2aRoY0SNQo81ro7UVmF3AxNC2Ig=;
- b=UnxCTFX9VEGWtyiCuthW6v02rTVgR/HAhRQIusrNeSRDTMYP+9DZ17P2XhXrxyLnqY
- 70QGLvb4DyTnC9UDiGGmKBzkJntApQFq1BWwMyVLR1k/Wa1SlxrmY9wGZUbaUoRCNxE8
- qQNUomX3TBM87t9aKmVrL33x6OyBFgMt3XCMd1DrbF4M0yyPnU9cZ17OzcDyzXdCcHTv
- udVbZ9F9It4/ZmQUd3Rxyyn/l3Z+5I34z6rfZNqOSCFRjGy91qSiIMyPBlPyZVtMzKbq
- r4E1iWK5lyl3vQRPd2JgILHpFCRrxENixXbZrGo+1bC0WgqnCvWhqXGe55Q6L0/8+pY1
- OM9w==
-X-Gm-Message-State: AOAM533Dfbo+Zm1Bc/G43fhCMyA/Y+WHrc4ZIBc2Hh/ycLvRcN0P8653
- V1IIWnM7VxE/KyIjIRPpg6/UeeIe2JeH2UfQTfFnSw==
-X-Google-Smtp-Source: ABdhPJwFwlOTOzQMc+FgeAxFSahpQXBWQbM35he6qwZVoh+f+RqNGb3oWcPLoGk0DcoPD3VNiR8FQrAGlkA86wUYs6I=
-X-Received: by 2002:a1c:a706:: with SMTP id q6mr24074650wme.2.1606144561420;
- Mon, 23 Nov 2020 07:16:01 -0800 (PST)
-MIME-Version: 1.0
-References: <CAOf5uwmtixmz+RgimC_2Z31+NwRF03RJ-u0mN3NKpzhks1dzEw@mail.gmail.com>
- <s5hzh388awp.wl-tiwai@suse.de>
- <CAOf5uwmkuQDBH5gQFA4XfkiTipYKEZ8micyEkd_Xd8KFqSDZSA@mail.gmail.com>
- <s5hmtz889gw.wl-tiwai@suse.de>
- <CAOf5uwnWDaz4hK5AHEaK8guLkuVjSs+n1NcRLr+gNmyoOwWOUQ@mail.gmail.com>
- <s5hblfo87vd.wl-tiwai@suse.de>
-In-Reply-To: <s5hblfo87vd.wl-tiwai@suse.de>
-From: Michael Nazzareno Trimarchi <michael@amarulasolutions.com>
-Date: Mon, 23 Nov 2020 16:15:50 +0100
-Message-ID: <CAOf5uw=HMX4vFa+dvYy4y8GUxDTGfVQwDDzhkfH=wcsXZK4msQ@mail.gmail.com>
-Subject: Re: Poor performace on mmap reading arm64 on audio device
-To: Takashi Iwai <tiwai@suse.de>
-Content-Type: text/plain; charset="UTF-8"
-Cc: Nicolin Chen <nicoleotsuka@gmail.com>,
- Linux-ALSA <alsa-devel@alsa-project.org>, Mark Brown <broonie@linaro.org>
+ dkim=pass (1024-bit key) header.d=mg.codeaurora.org
+ header.i=@mg.codeaurora.org header.b="OiN2AJSl"
+DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
+ q=dns/txt; 
+ s=smtp; t=1606148302; h=Message-Id: Date: Subject: Cc: To: From:
+ Sender; bh=DCVdJ0U1/vf1/gv5yxYpLfd9aBdMYosbbp4vkMRvG0Y=;
+ b=OiN2AJSlATS3OSwwhQLcl6nYenCr+XGLmEIv3sii4mrUWXEjrICFwm3cJnqoWN5/HwmFVB/U
+ ZvPDuo6As0f1z5AlKNg/VDxdXvHsBwwH8lgSkt1v3AY0aOeXH7TGF7ilDHSSjl9hnIdyTMdw
+ dIgaybKIYidnP6MkE773bjw8xRY=
+X-Mailgun-Sending-Ip: 104.130.96.5
+X-Mailgun-Sid: WyI4ZmE2ZSIsICJhbHNhLWRldmVsQGFsc2EtcHJvamVjdC5vcmciLCAiYmU5ZTRhIl0=
+Received: from smtp.codeaurora.org
+ (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171]) by
+ smtp-out-n07.prod.us-east-1.postgun.com with SMTP id
+ 5fbbe0c7d64ea0b70312d964 (version=TLS1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Mon, 23 Nov 2020 16:18:15
+ GMT
+Received: by smtp.codeaurora.org (Postfix, from userid 1001)
+ id 5CA89C43460; Mon, 23 Nov 2020 16:18:14 +0000 (UTC)
+Received: from hyd-lnxbld210.qualcomm.com (unknown [202.46.22.19])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-SHA256 (128/128 bits))
+ (No client certificate requested) (Authenticated sender: srivasam)
+ by smtp.codeaurora.org (Postfix) with ESMTPSA id 29188C43462;
+ Mon, 23 Nov 2020 16:18:07 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 smtp.codeaurora.org 29188C43462
+Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
+ dmarc=none (p=none dis=none) header.from=codeaurora.org
+Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
+ spf=fail smtp.mailfrom=srivasam@codeaurora.org
+From: Srinivasa Rao Mandadapu <srivasam@codeaurora.org>
+To: agross@kernel.org, bjorn.andersson@linaro.org, lgirdwood@gmail.com,
+ broonie@kernel.org, robh+dt@kernel.org, plai@codeaurora.org,
+ bgoswami@codeaurora.org, perex@perex.cz, tiwai@suse.com,
+ srinivas.kandagatla@linaro.org, rohitkr@codeaurora.org,
+ linux-arm-msm@vger.kernel.org, alsa-devel@alsa-project.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: [PATCH] Asoc: qcom: Fix enabling BCLK and LRCLK in LPAIF invalid state
+Date: Mon, 23 Nov 2020 21:47:53 +0530
+Message-Id: <1606148273-17325-1-git-send-email-srivasam@codeaurora.org>
+X-Mailer: git-send-email 2.7.4
+Cc: V Sujith Kumar Reddy <vsujithk@codeaurora.org>,
+ Srinivasa Rao Mandadapu <srivasam@codeaurora.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -97,153 +93,227 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hi
+Fix enabling BCLK and LRCLK only when LPAIF is invalid state and
+bit clock in enable state.
+In device suspend/resume scenario LPAIF is going to reset state.
+which is causing LRCLK disable and BCLK enable.
+Avoid such inconsitency by removing unnecessary cpu dai prepare API,
+which is doing LRCLK enable, and by maintaining BLCK  state information.
 
-On Mon, Nov 23, 2020 at 3:28 PM Takashi Iwai <tiwai@suse.de> wrote:
->
-> On Mon, 23 Nov 2020 15:19:34 +0100,
-> Michael Nazzareno Trimarchi wrote:
-> >
-> > Hi
-> >
-> > On Mon, Nov 23, 2020 at 2:54 PM Takashi Iwai <tiwai@suse.de> wrote:
-> > >
-> > > On Mon, 23 Nov 2020 14:44:52 +0100,
-> > > Michael Nazzareno Trimarchi wrote:
-> > > >
-> > > > Hi
-> > > >
-> > > > On Mon, Nov 23, 2020 at 2:23 PM Takashi Iwai <tiwai@suse.de> wrote:
-> > > > >
-> > > > > On Sat, 21 Nov 2020 10:40:04 +0100,
-> > > > > Michael Nazzareno Trimarchi wrote:
-> > > > > >
-> > > > > > Hi all
-> > > > > >
-> > > > > > I'm trying to figure out how to increase performance on audio reading
-> > > > > > using the mmap interface. Right now what I understand it's that
-> > > > > > allocation comes from core/memalloc.c ops that allocate the memory for
-> > > > > > dma under driver/dma.
-> > > > > > The reference platform I have is an imx8mm and the allocation in arm64 is:
-> > > > > >
-> > > > > > 0xffff800011ff5000-0xffff800012005000          64K PTE       RW NX SHD
-> > > > > > AF            UXN MEM/NORMAL-NC
-> > > > > >
-> > > > > > This is the reason that is allocated for dma interface.
-> > > > > >
-> > > > > > Now access linear on the multichannel interface the performance is bad
-> > > > > > but worse if I try to access a channel a time on read.
-> > > > > > So it looks like it is better to copy the block using memcpy on a
-> > > > > > cached area and then operate on a single channel sample. If it's
-> > > > > > correct what I'm saying the mmap_begin and mmap_commit
-> > > > > > basically they don't do anything on cache level so the page mapping
-> > > > > > and way is used is always the same. Can the interface be modified to
-> > > > > > allow cache the area during read and restore in the commit
-> > > > > > phase?
-> > > > >
-> > > > > The current API of the mmap for the sound ring-buffer is designed to
-> > > > > allow concurrent accesses at any time in the minimalistic kernel-user
-> > > > > context switching.  So the whole buffer is allocated as coherent and
-> > > > > mmapped in a shot.  It's pretty efficient for architectures like x86,
-> > > > > but has disadvantages on ARM, indeed.
-> > > >
-> > > > Each platform e/o architecture can specialize the mmap and declare the
-> > > > area that is consistent in dma to me mapped
-> > > > as no cache one
-> > > >
-> > > > vma->vm_page_prot = pgprot_cached(vma->vm_page_prot);
-> > > >                 return remap_pfn_range(vma, vma->vm_start,
-> > > >                                 vma->vm_end - vma->vm_start, vma->vm_page_prot);
-> > > >
-> > > > I have done it for testing purposes. This give an idea
-> > > >
-> > > > - read multi channel not sequentially took around 12% of the cpu with
-> > > > mmap interface
-> > > > - read multi channel use after a memcpy took around 6%
-> > > > - read on a cached area took around 3%. I'm trying to figure out how
-> > > > and when invalidate the area
-> > > >
-> > > > I have two use cases:
-> > > > - write on the channels (no performance issue)
-> > > > - read on channels
-> > > >
-> > > > Before reading I should only say that the cached area is not in sync
-> > > > with memory. I think that supporting write use cases
-> > > > makes little sense here.
-> > >
-> > > It's a necessary use case, unfortunately.  The reason we ended up with
-> > > one device per direction for the PCM in many many years ago was that
-> > > some applications need to write the buffers for marking even for the
-> > > read.  So it can't be read-only, and it's supposed to be coherent on
-> > > both read and write -- as long as keeping the current API usage.
-> > >
-> >
-> > If I understand the allocation of the dma buffer depends on the direction.
-> > Each device allocate one dma_buffer for tx device and one dma buffer
-> > for rx device
-> >
-> > @@ -105,10 +105,16 @@ static int imx_pcm_preallocate_dma_buffer(struct
-> > snd_pcm_substream *substream,
-> >         size_t size = imx_pcm_hardware.buffer_bytes_max;
-> >         int ret;
-> >
-> > -       ret = snd_dma_alloc_pages(SNDRV_DMA_TYPE_DEV_IRAM,
-> > -                                 dev,
-> > -                                 size,
-> > -                                 &substream->dma_buffer);
-> > +       if (substream->stream == SNDRV_PCM_STREAM_PLAYBACK)
-> > +               ret = snd_dma_alloc_pages(SNDRV_DMA_TYPE_DEV,
-> > +                                         dev,
-> > +                                         size,
-> > +                                         &substream->dma_buffer);
-> > +       else
-> > +               ret = snd_dma_alloc_pages(SNDRV_DMA_TYPE_DEV_IRAM,
-> > +                                         dev,
-> > +                                         size,
-> > +                                         &substream->dma_buffer);
-> >         if (ret)
-> >                 return ret;
-> >
-> > Just a snippet from me, on some of my testing. How the physical memory
-> > is used by the kernel is nothing to do in how the memory is then mapped
-> > by the userspace to read from it. If I allocate it consistente in
-> > snd_dma_alloc_pages
-> > then you can let the user remap the area as cached in his own virtual mapping.
-> > What I'm trying to said is that behind the scene everything is
-> > consistent but the user
-> > will get a cache line read during the first access and then he/she
-> > will read from the cache.
-> > Maybe is this assumption is totally wrong?
->
-> Ah I see your point now.  I believe that this kind of mapping tweak
-> could be done, but this doesn't satisfy the expectation of the mmap of
-> the current sound API; e.g. dmix / dsnoop would fail.  So, if any,
-> this should be an extension for some special usages.
+Fixes: 7e6799d8f87d ("ASoC: qcom: lpass-cpu: Enable MI2S BCLK and LRCLK together")
 
-Yes, I understand the dmix problem but I think that the writer is still
-a single thread that mix the sources and why dsnoop is a problem?
-Sorry I don't know the logic how they are implemented.
+Signed-off-by: V Sujith Kumar Reddy <vsujithk@codeaurora.org>
+Signed-off-by: Srinivasa Rao Mandadapu <srivasam@codeaurora.org>
+---
+ sound/soc/qcom/lpass-cpu.c       | 62 ++++++++++++++++++++--------------------
+ sound/soc/qcom/lpass-lpaif-reg.h |  7 +++++
+ sound/soc/qcom/lpass-platform.c  | 20 +++++++++++--
+ sound/soc/qcom/lpass.h           |  1 +
+ 4 files changed, 57 insertions(+), 33 deletions(-)
 
->
-> My original idea was to totally go away from the coherent allocation
-> and mapping, but just let dynamically syncing like other drivers do
-> (e.g. net devices), aligned with mmap_begin/mmap_commit in alsa-lib.
->
-Agree I have seen in how make the transition simple and this is the reason
-that I was exploring the first one
-
-Michael
-
->
-> Takashi
-
-
-
+diff --git a/sound/soc/qcom/lpass-cpu.c b/sound/soc/qcom/lpass-cpu.c
+index d33eae6..af684fd 100644
+--- a/sound/soc/qcom/lpass-cpu.c
++++ b/sound/soc/qcom/lpass-cpu.c
+@@ -263,28 +263,6 @@ static int lpass_cpu_daiops_hw_params(struct snd_pcm_substream *substream,
+ 	return 0;
+ }
+ 
+-static int lpass_cpu_daiops_prepare(struct snd_pcm_substream *substream,
+-		struct snd_soc_dai *dai)
+-{
+-	struct lpass_data *drvdata = snd_soc_dai_get_drvdata(dai);
+-	struct lpaif_i2sctl *i2sctl = drvdata->i2sctl;
+-	unsigned int id = dai->driver->id;
+-	int ret;
+-
+-	if (substream->stream == SNDRV_PCM_STREAM_PLAYBACK) {
+-		ret = regmap_fields_write(i2sctl->spken, id,
+-					 LPAIF_I2SCTL_SPKEN_ENABLE);
+-	} else {
+-		ret = regmap_fields_write(i2sctl->micen, id,
+-					 LPAIF_I2SCTL_MICEN_ENABLE);
+-	}
+-
+-	if (ret)
+-		dev_err(dai->dev, "error writing to i2sctl enable: %d\n", ret);
+-
+-	return ret;
+-}
+-
+ static int lpass_cpu_daiops_trigger(struct snd_pcm_substream *substream,
+ 		int cmd, struct snd_soc_dai *dai)
+ {
+@@ -292,6 +270,18 @@ static int lpass_cpu_daiops_trigger(struct snd_pcm_substream *substream,
+ 	struct lpaif_i2sctl *i2sctl = drvdata->i2sctl;
+ 	unsigned int id = dai->driver->id;
+ 	int ret = -EINVAL;
++	unsigned int val = 0;
++
++	ret = regmap_read(drvdata->lpaif_map,
++				LPAIF_I2SCTL_REG(drvdata->variant, dai->driver->id), &val);
++	if (ret) {
++		dev_err(dai->dev, "error reading from i2sctl reg: %d\n", ret);
++		return ret;
++	}
++	if (val == LPAIF_I2SCTL_RESET_STATE) {
++		dev_err(dai->dev, "error in i2sctl register state\n");
++		return -ENOTRECOVERABLE;
++	}
+ 
+ 	switch (cmd) {
+ 	case SNDRV_PCM_TRIGGER_START:
+@@ -308,11 +298,14 @@ static int lpass_cpu_daiops_trigger(struct snd_pcm_substream *substream,
+ 			dev_err(dai->dev, "error writing to i2sctl reg: %d\n",
+ 				ret);
+ 
+-		ret = clk_enable(drvdata->mi2s_bit_clk[id]);
+-		if (ret) {
+-			dev_err(dai->dev, "error in enabling mi2s bit clk: %d\n", ret);
+-			clk_disable(drvdata->mi2s_osr_clk[id]);
+-			return ret;
++		if (drvdata->bit_clk_state[id] == LPAIF_BIT_CLK_DISABLE) {
++			ret = clk_enable(drvdata->mi2s_bit_clk[id]);
++			if (ret) {
++				dev_err(dai->dev, "error in enabling mi2s bit clk: %d\n", ret);
++				clk_disable(drvdata->mi2s_osr_clk[id]);
++				return ret;
++			}
++			drvdata->bit_clk_state[id] = LPAIF_BIT_CLK_ENABLE;
+ 		}
+ 
+ 		break;
+@@ -329,7 +322,10 @@ static int lpass_cpu_daiops_trigger(struct snd_pcm_substream *substream,
+ 		if (ret)
+ 			dev_err(dai->dev, "error writing to i2sctl reg: %d\n",
+ 				ret);
+-		clk_disable(drvdata->mi2s_bit_clk[dai->driver->id]);
++		if (drvdata->bit_clk_state[id] == LPAIF_BIT_CLK_ENABLE) {
++			clk_disable(drvdata->mi2s_bit_clk[dai->driver->id]);
++			drvdata->bit_clk_state[id] = LPAIF_BIT_CLK_DISABLE;
++		}
+ 		break;
+ 	}
+ 
+@@ -341,7 +337,6 @@ const struct snd_soc_dai_ops asoc_qcom_lpass_cpu_dai_ops = {
+ 	.startup	= lpass_cpu_daiops_startup,
+ 	.shutdown	= lpass_cpu_daiops_shutdown,
+ 	.hw_params	= lpass_cpu_daiops_hw_params,
+-	.prepare	= lpass_cpu_daiops_prepare,
+ 	.trigger	= lpass_cpu_daiops_trigger,
+ };
+ EXPORT_SYMBOL_GPL(asoc_qcom_lpass_cpu_dai_ops);
+@@ -459,16 +454,20 @@ static bool lpass_cpu_regmap_volatile(struct device *dev, unsigned int reg)
+ 	struct lpass_variant *v = drvdata->variant;
+ 	int i;
+ 
++	for (i = 0; i < v->i2s_ports; ++i)
++		if (reg == LPAIF_I2SCTL_REG(v, i))
++			return true;
+ 	for (i = 0; i < v->irq_ports; ++i)
+ 		if (reg == LPAIF_IRQSTAT_REG(v, i))
+ 			return true;
+ 
+ 	for (i = 0; i < v->rdma_channels; ++i)
+-		if (reg == LPAIF_RDMACURR_REG(v, i))
++		if (reg == LPAIF_RDMACURR_REG(v, i) || reg == LPAIF_RDMACTL_REG(v, i))
+ 			return true;
+ 
+ 	for (i = 0; i < v->wrdma_channels; ++i)
+-		if (reg == LPAIF_WRDMACURR_REG(v, i + v->wrdma_channel_start))
++		if (reg == LPAIF_WRDMACURR_REG(v, i + v->wrdma_channel_start) ||
++			reg == LPAIF_WRDMACTL_REG(v, i + v->wrdma_channel_start))
+ 			return true;
+ 
+ 	return false;
+@@ -861,6 +860,7 @@ int asoc_qcom_lpass_cpu_platform_probe(struct platform_device *pdev)
+ 				PTR_ERR(drvdata->mi2s_bit_clk[dai_id]));
+ 			return PTR_ERR(drvdata->mi2s_bit_clk[dai_id]);
+ 		}
++		drvdata->bit_clk_state[dai_id] = LPAIF_BIT_CLK_DISABLE;
+ 	}
+ 
+ 	/* Allocation for i2sctl regmap fields */
+diff --git a/sound/soc/qcom/lpass-lpaif-reg.h b/sound/soc/qcom/lpass-lpaif-reg.h
+index 08f3fe5..4055428 100644
+--- a/sound/soc/qcom/lpass-lpaif-reg.h
++++ b/sound/soc/qcom/lpass-lpaif-reg.h
+@@ -60,6 +60,13 @@
+ #define LPAIF_I2SCTL_BITWIDTH_24	1
+ #define LPAIF_I2SCTL_BITWIDTH_32	2
+ 
++#define LPAIF_BIT_CLK_DISABLE		0
++#define LPAIF_BIT_CLK_ENABLE		1
++
++#define LPAIF_I2SCTL_RESET_STATE	0x003C0004
++#define LPAIF_DMACTL_RESET_STATE	0x00200000
++
++
+ /* LPAIF IRQ */
+ #define LPAIF_IRQ_REG_ADDR(v, addr, port) \
+ 	(v->irq_reg_base + (addr) + v->irq_reg_stride * (port))
+diff --git a/sound/soc/qcom/lpass-platform.c b/sound/soc/qcom/lpass-platform.c
+index 7a3fdf8..80b09de 100644
+--- a/sound/soc/qcom/lpass-platform.c
++++ b/sound/soc/qcom/lpass-platform.c
+@@ -110,6 +110,7 @@ static int lpass_platform_pcmops_open(struct snd_soc_component *component,
+ 	struct regmap *map;
+ 	unsigned int dai_id = cpu_dai->driver->id;
+ 
++	component->id = dai_id;
+ 	data = kzalloc(sizeof(*data), GFP_KERNEL);
+ 	if (!data)
+ 		return -ENOMEM;
+@@ -451,19 +452,34 @@ static int lpass_platform_pcmops_trigger(struct snd_soc_component *component,
+ 	unsigned int reg_irqclr = 0, val_irqclr = 0;
+ 	unsigned int  reg_irqen = 0, val_irqen = 0, val_mask = 0;
+ 	unsigned int dai_id = cpu_dai->driver->id;
++	unsigned int dma_ctrl_reg = 0;
+ 
+ 	ch = pcm_data->dma_ch;
+ 	if (dir ==  SNDRV_PCM_STREAM_PLAYBACK) {
+ 		id = pcm_data->dma_ch;
+-		if (dai_id == LPASS_DP_RX)
++		if (dai_id == LPASS_DP_RX) {
+ 			dmactl = drvdata->hdmi_rd_dmactl;
+-		else
++			map = drvdata->hdmiif_map;
++		} else {
+ 			dmactl = drvdata->rd_dmactl;
++			map = drvdata->lpaif_map;
++		}
+ 	} else {
+ 		dmactl = drvdata->wr_dmactl;
+ 		id = pcm_data->dma_ch - v->wrdma_channel_start;
++		map = drvdata->lpaif_map;
++	}
++	ret = regmap_read(map, LPAIF_DMACTL_REG(v, ch, dir, dai_id), &dma_ctrl_reg);
++	if (ret) {
++		dev_err(soc_runtime->dev, "error reading from rdmactl reg: %d\n", ret);
++		return ret;
+ 	}
+ 
++	if (dma_ctrl_reg == LPAIF_DMACTL_RESET_STATE ||
++		dma_ctrl_reg == LPAIF_DMACTL_RESET_STATE + 1) {
++		dev_err(soc_runtime->dev, "error in rdmactl register state\n");
++		return -ENOTRECOVERABLE;
++	}
+ 	switch (cmd) {
+ 	case SNDRV_PCM_TRIGGER_START:
+ 	case SNDRV_PCM_TRIGGER_RESUME:
+diff --git a/sound/soc/qcom/lpass.h b/sound/soc/qcom/lpass.h
+index 32a68c4..0195372 100644
+--- a/sound/soc/qcom/lpass.h
++++ b/sound/soc/qcom/lpass.h
+@@ -68,6 +68,7 @@ struct lpass_data {
+ 	unsigned int mi2s_playback_sd_mode[LPASS_MAX_MI2S_PORTS];
+ 	unsigned int mi2s_capture_sd_mode[LPASS_MAX_MI2S_PORTS];
+ 	int hdmi_port_enable;
++	int bit_clk_state[LPASS_MAX_MI2S_PORTS];
+ 
+ 	/* low-power audio interface (LPAIF) registers */
+ 	void __iomem *lpaif;
 -- 
-Michael Nazzareno Trimarchi
-Amarula Solutions BV
-COO Co-Founder
-Cruquiuskade 47 Amsterdam 1018 AM NL
-T. +31(0)851119172
-M. +39(0)3479132170
-[`as] https://www.amarulasolutions.com
+Qualcomm India Private Limited, on behalf of Qualcomm Innovation Center, Inc.,
+is a member of Code Aurora Forum, a Linux Foundation Collaborative Project.
+

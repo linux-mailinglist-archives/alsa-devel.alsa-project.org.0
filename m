@@ -2,89 +2,105 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 15E552BFD18
-	for <lists+alsa-devel@lfdr.de>; Mon, 23 Nov 2020 00:44:43 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 175A62C01A0
+	for <lists+alsa-devel@lfdr.de>; Mon, 23 Nov 2020 09:42:21 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 8E6AE83A;
-	Mon, 23 Nov 2020 00:43:52 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8E6AE83A
+	by alsa0.perex.cz (Postfix) with ESMTPS id 99DBC886;
+	Mon, 23 Nov 2020 09:41:30 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 99DBC886
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1606088682;
-	bh=AZdFPVUNq4SIVNRuyRp2N1QXZjW4T9HeGunWRll8u+U=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=qHUKsUn4yK1Vlg43NGBVfLS/v37zMxlBeJtsBNV8yc2CvpX2v6E0RyOM4mhky5j5Y
-	 Ys/67KEGlLhm5ftcR2WYnFMX/O/uacNK7nxdGAJUtF0SFCSoKMRM3+5lGqrjPOpJPW
-	 cXkxJiW0UMJ1fYZPEICgr4ENbymkGF0me/ImswWk=
+	s=default; t=1606120940;
+	bh=QAa2GnmQAiWoa2+YVF7t7OcyZCsfIr9pWcyDLYCfUkA=;
+	h=From:To:Subject:Date:References:In-Reply-To:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=GQSexcl2ZTO0uWEekvrWTj9mSsRizra8RJHY6/FHtP1ifKUKftk9oyRuugHYsQ9cT
+	 fgBDl5r9VlRGmHeDoP2h7U7GneIgxZ+wioEFvTQP0/xDbX7VdH4zbU87GW7gjvdLcV
+	 t+iBBhHhtl2VKyyx33E+ecUNqVzKM5FjcopOVZQk=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 04AECF80107;
-	Mon, 23 Nov 2020 00:43:08 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 13736F80268;
+	Mon, 23 Nov 2020 09:40:47 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 0EE27F80165; Mon, 23 Nov 2020 00:43:07 +0100 (CET)
+ id D8329F80255; Mon, 23 Nov 2020 09:40:44 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_PASS autolearn=disabled
- version=3.4.0
-Received: from mail-lf1-x144.google.com (mail-lf1-x144.google.com
- [IPv6:2a00:1450:4864:20::144])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
+ [91.207.212.93])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 62102F80113
- for <alsa-devel@alsa-project.org>; Mon, 23 Nov 2020 00:43:01 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 62102F80113
+ by alsa1.perex.cz (Postfix) with ESMTPS id 4FDD1F80113
+ for <alsa-devel@alsa-project.org>; Mon, 23 Nov 2020 09:40:37 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4FDD1F80113
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="AzLWbqDw"
-Received: by mail-lf1-x144.google.com with SMTP id s27so1372983lfp.5
- for <alsa-devel@alsa-project.org>; Sun, 22 Nov 2020 15:43:01 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=0noCfj0vZgQAQbBKNAsd1E1O4v9lJKcaIfjgXuNCox4=;
- b=AzLWbqDw0fYIJ3mpQZZmLLrXYJcKQJSAmJ6gyw41pZQbIT4l7YLHbp8p818vG0ITzZ
- WCiShHmhxaH/zhkCURhTUHTI7f6MoR5M1uDTYxpmPj4ZWc+u/N0PTm4c9CXGBlNlNhO9
- VqbakTHAf7uU50kg0adAGUNi7iJlDoEB7Z8Wp4iHK0oFjT3WT7vYFtat3wsHeOJAilRn
- JrJ9zLCRC7wml85GX/fjJZnUO7ZLtf9TC1joUemtOIY+8ZiKeYxK0A/PvReQBnEA9u0D
- agRRbLs8TZP512fyVCNbzW+fs4WxgAnV6eQNiy7lZ2SbVj7dvoA/UNWFFxxXUbq1Z2zH
- /4CQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=0noCfj0vZgQAQbBKNAsd1E1O4v9lJKcaIfjgXuNCox4=;
- b=Ta33HJK0koWXWujB+09ploLbFf9DGSFTBAW7AL7gURvPTp9oY9NcILCxXvWut1U71p
- Bi6pu2ad0etR6tYsTabSyMaNiQL0zfJ2rE0nR3Kw32OF1emg/RLhKkKVVdz2JQHn2HdD
- Ee/YOx3zzgdEvZIr5WizY5IpV1BpV2oMOcTHgMPkkEFDfLk0QRwCOhPYh5ICDS6zyfe8
- UiOHiNatBhsM9rpABldFHZVJ7+Di0VHSGPdDx3koNrIwjn7xVIQPwCbmHsSmJKZL1fAc
- BrTB42QqYRWxc7rBeAob5QfLoD+1GiR9zeU340TM/+EeK6Bj5zNUtbrTSacb1xl+Ng1q
- lHnQ==
-X-Gm-Message-State: AOAM5306WzkBoZVfnUyyVIsbr2Def0Nt2uf3wzSRtlwF8fZme1Xu8B6G
- t2lgAKgGZOAJws4zf9fx7pA=
-X-Google-Smtp-Source: ABdhPJyBG/Ci8CgP/v0LPPMaMIk0yJh0DUQxWJZ+pyZt9CahsM05niZEB2yLEBuzH0EkrcS4qfkvhw==
-X-Received: by 2002:ac2:563a:: with SMTP id b26mr11593650lff.596.1606088578101; 
- Sun, 22 Nov 2020 15:42:58 -0800 (PST)
-Received: from localhost.localdomain (h-158-174-22-6.NA.cust.bahnhof.se.
- [158.174.22.6])
- by smtp.gmail.com with ESMTPSA id p21sm1113743ljj.13.2020.11.22.15.42.57
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 22 Nov 2020 15:42:57 -0800 (PST)
-From: Rikard Falkeborn <rikard.falkeborn@gmail.com>
-To: Andy Gross <agross@kernel.org>,
- Bjorn Andersson <bjorn.andersson@linaro.org>,
- Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
-Subject: [PATCH] slimbus: qcom-ngd-ctrl: Constify static structs
-Date: Mon, 23 Nov 2020 00:42:53 +0100
-Message-Id: <20201122234253.34047-1-rikard.falkeborn@gmail.com>
-X-Mailer: git-send-email 2.29.2
+ dkim=pass (2048-bit key) header.d=st.com header.i=@st.com header.b="UhKsJoxF"
+Received: from pps.filterd (m0046660.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.16.0.43/8.16.0.43) with SMTP id
+ 0AN8VfXn009764; Mon, 23 Nov 2020 09:40:36 +0100
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=st.com;
+ h=from : to : cc : subject
+ : date : message-id : references : in-reply-to : content-type : content-id
+ : content-transfer-encoding : mime-version; s=STMicroelectronics;
+ bh=QAa2GnmQAiWoa2+YVF7t7OcyZCsfIr9pWcyDLYCfUkA=;
+ b=UhKsJoxFGSvG1f4curcr6LGdt1iUa76MDjniqftNWXHsi9Ly/WBHeVpe55bqJol+nt+B
+ 6VFew3zTJOvN2AWpYSjLoZuppzCZSdrGXCqOZvhyBT6EYew34t3bev5cF5b2Q+WSvChI
+ JeO3VYEFpuIQpiL4Y6eqafORKttyFpsLZCckRvZJKXeW/epYONTWSLpKoXN7K0ZiIUFf
+ IyYuYGoo/FAZM/MIETpwVs7fRkqX4isOZSppRAVH412/FiZw4qu/XfXohum2k7W7Ygxq
+ vsYzrPE4ZwfKobujUHalTM5mOA5Vo4ZajUnPxY+VfYKSlLU28Wf6NX2x62wQMsCs/jgL qg== 
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+ by mx07-00178001.pphosted.com with ESMTP id 34y0hj1159-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Mon, 23 Nov 2020 09:40:36 +0100
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 9BFB610002A;
+ Mon, 23 Nov 2020 09:40:34 +0100 (CET)
+Received: from Webmail-eu.st.com (sfhdag3node2.st.com [10.75.127.8])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 1FB6A22A4BE;
+ Mon, 23 Nov 2020 09:40:34 +0100 (CET)
+Received: from SFHDAG2NODE2.st.com (10.75.127.5) by SFHDAG3NODE2.st.com
+ (10.75.127.8) with Microsoft SMTP Server (TLS) id 15.0.1473.3; Mon, 23 Nov
+ 2020 09:40:33 +0100
+Received: from SFHDAG2NODE2.st.com ([fe80::14c2:73ff:db87:a27b]) by
+ SFHDAG2NODE2.st.com ([fe80::14c2:73ff:db87:a27b%20]) with mapi id
+ 15.00.1473.003; Mon, 23 Nov 2020 09:40:33 +0100
+From: Olivier MOYSAN <olivier.moysan@st.com>
+To: =?utf-8?B?TnVubyBTw6E=?= <nuno.sa@analog.com>, "linux-iio@vger.kernel.org"
+ <linux-iio@vger.kernel.org>, "alsa-devel@alsa-project.org"
+ <alsa-devel@alsa-project.org>
+Subject: Re: [PATCH 2/2] iio: buffer: Return error if no callback is given
+Thread-Topic: [PATCH 2/2] iio: buffer: Return error if no callback is given
+Thread-Index: AQHWwCGO6/PRziE1cU6P4ncVwkQG56nVV5QA
+Date: Mon, 23 Nov 2020 08:40:33 +0000
+Message-ID: <79057dac-66d0-4e2d-b720-7b6bfbbb8157@st.com>
+References: <20201121161457.957-1-nuno.sa@analog.com>
+ <20201121161457.957-3-nuno.sa@analog.com>
+In-Reply-To: <20201121161457.957-3-nuno.sa@analog.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+user-agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.10.0
+x-ms-exchange-messagesentrepresentingtype: 1
+x-ms-exchange-transport-fromentityheader: Hosted
+x-originating-ip: [10.75.127.49]
+Content-Type: text/plain; charset="utf-8"
+Content-ID: <D4271702028E7447A489EB1307131F3C@st.com>
+Content-Transfer-Encoding: base64
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Cc: linux-arm-msm@vger.kernel.org, alsa-devel@alsa-project.org,
- linux-kernel@vger.kernel.org, Rikard Falkeborn <rikard.falkeborn@gmail.com>
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.312, 18.0.737
+ definitions=2020-11-23_02:2020-11-20,
+ 2020-11-23 signatures=0
+Cc: Lars-Peter Clausen <lars@metafoo.de>, Liam Girdwood <lgirdwood@gmail.com>,
+ Arnaud POULIQUEN <arnaud.pouliquen@st.com>, Takashi Iwai <tiwai@suse.com>,
+ Mark Brown <broonie@kernel.org>, Peter Meerwald-Stadler <pmeerw@pmeerw.net>,
+ Jonathan Cameron <jic23@kernel.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -100,38 +116,23 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-qcom_slim_qmi_msg_handlers[] and qcom_slim_ngd_qmi_svc_event_ops are
-only used as input arguments to qmi_handle_init() which accepts const
-pointers to both qmi_ops and qmi_msg_handler. Make them const to allow
-the compiler to put them in read-only memory.
-
-Signed-off-by: Rikard Falkeborn <rikard.falkeborn@gmail.com>
----
- drivers/slimbus/qcom-ngd-ctrl.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/slimbus/qcom-ngd-ctrl.c b/drivers/slimbus/qcom-ngd-ctrl.c
-index d8decb345e9d..ea8f605b5c99 100644
---- a/drivers/slimbus/qcom-ngd-ctrl.c
-+++ b/drivers/slimbus/qcom-ngd-ctrl.c
-@@ -434,7 +434,7 @@ static int qcom_slim_qmi_send_power_request(struct qcom_slim_ngd_ctrl *ctrl,
- 	return 0;
- }
- 
--static struct qmi_msg_handler qcom_slim_qmi_msg_handlers[] = {
-+static const struct qmi_msg_handler qcom_slim_qmi_msg_handlers[] = {
- 	{
- 		.type = QMI_RESPONSE,
- 		.msg_id = SLIMBUS_QMI_POWER_RESP_V01,
-@@ -1309,7 +1309,7 @@ static void qcom_slim_ngd_qmi_del_server(struct qmi_handle *hdl,
- 	qmi->svc_info.sq_port = 0;
- }
- 
--static struct qmi_ops qcom_slim_ngd_qmi_svc_event_ops = {
-+static const struct qmi_ops qcom_slim_ngd_qmi_svc_event_ops = {
- 	.new_server = qcom_slim_ngd_qmi_new_server,
- 	.del_server = qcom_slim_ngd_qmi_del_server,
- };
--- 
-2.29.2
-
+DQoNCk9uIDExLzIxLzIwIDU6MTQgUE0sIE51bm8gU8OhIHdyb3RlOg0KPiBSZXR1cm4gZXJyb3Ig
+aW4gY2FzZSBubyBjYWxsYmFjayBpcyBwcm92aWRlZCB0bw0KPiBgaWlvX2NoYW5uZWxfZ2V0X2Fs
+bF9jYigpYC4gVGhlcmUncyBubyBwb2ludCBpbiBzZXR0aW5nIHVwIGEgYnVmZmVyLWNiDQo+IGlm
+IG5vIGNhbGxiYWNrIGlzIHByb3ZpZGVkLg0KPiANCj4gU2lnbmVkLW9mZi1ieTogTnVubyBTw6Eg
+PG51bm8uc2FAYW5hbG9nLmNvbT4NCj4gLS0tDQo+ICAgZHJpdmVycy9paW8vYnVmZmVyL2luZHVz
+dHJpYWxpby1idWZmZXItY2IuYyB8IDUgKysrKysNCj4gICAxIGZpbGUgY2hhbmdlZCwgNSBpbnNl
+cnRpb25zKCspDQo+IA0KPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9paW8vYnVmZmVyL2luZHVzdHJp
+YWxpby1idWZmZXItY2IuYyBiL2RyaXZlcnMvaWlvL2J1ZmZlci9pbmR1c3RyaWFsaW8tYnVmZmVy
+LWNiLmMNCj4gaW5kZXggNDdjOTZmN2Y0OTc2Li40YzEyYjdhOTRhZjUgMTAwNjQ0DQo+IC0tLSBh
+L2RyaXZlcnMvaWlvL2J1ZmZlci9pbmR1c3RyaWFsaW8tYnVmZmVyLWNiLmMNCj4gKysrIGIvZHJp
+dmVycy9paW8vYnVmZmVyL2luZHVzdHJpYWxpby1idWZmZXItY2IuYw0KPiBAQCAtNTQsNiArNTQs
+MTEgQEAgc3RydWN0IGlpb19jYl9idWZmZXIgKmlpb19jaGFubmVsX2dldF9hbGxfY2Ioc3RydWN0
+IGRldmljZSAqZGV2LA0KPiAgIAlzdHJ1Y3QgaWlvX2NiX2J1ZmZlciAqY2JfYnVmZjsNCj4gICAJ
+c3RydWN0IGlpb19jaGFubmVsICpjaGFuOw0KPiAgIA0KPiArCWlmICghY2IpIHsNCj4gKwkJZGV2
+X2VycihkZXYsICJJbnZhbGlkIGFyZ3VtZW50czogQSBjYWxsYmFjayBtdXN0IGJlIHByb3ZpZGVk
+IVxuIik7DQo+ICsJCXJldHVybiBFUlJfUFRSKC1FSU5WQUwpOw0KPiArCX0NCj4gKw0KPiAgIAlj
+Yl9idWZmID0ga3phbGxvYyhzaXplb2YoKmNiX2J1ZmYpLCBHRlBfS0VSTkVMKTsNCj4gICAJaWYg
+KGNiX2J1ZmYgPT0gTlVMTCkNCj4gICAJCXJldHVybiBFUlJfUFRSKC1FTk9NRU0pOw0KPiANCg0K
+UmV2aWV3ZWQtYnk6IE9saXZpZXIgTW95c2FuIDxvbGl2aWVyLm1veXNhbkBzdC5jb20+DQoNCkJl
+c3QgcmVnYXJkcywNCk9saXZpZXI=

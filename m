@@ -2,83 +2,73 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5442A2C2515
-	for <lists+alsa-devel@lfdr.de>; Tue, 24 Nov 2020 12:58:25 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6D8952C2572
+	for <lists+alsa-devel@lfdr.de>; Tue, 24 Nov 2020 13:15:03 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D5757166C;
-	Tue, 24 Nov 2020 12:57:34 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D5757166C
+	by alsa0.perex.cz (Postfix) with ESMTPS id E83B71685;
+	Tue, 24 Nov 2020 13:14:12 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E83B71685
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1606219104;
-	bh=kFshpCSs5TfXWNmb1BG5j570FqaHlxnl/IH/XYR39jo=;
+	s=default; t=1606220103;
+	bh=1byQ1ti+IVq/zIRFazdI8g5yc0t6tuDqE8aoC7Kep5E=;
 	h=From:To:Subject:Date:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=B5XvEyON0TwxaI24w1suwkuRJLjl00nixGvc1V1O1MKB9WyN55bJjcBpJkN5yZ4eD
-	 xVTRXo+jnJ9ab859zy3GkmjQFk4EpXzj90zVZo5p3qlp3tcQL7w1vgVd3okdvriXs8
-	 mMJZRsu3IeM8t6Vz2dTz0w1Uzrn1Jr82LWOoxo+g=
+	b=K5ZC/QqwyFaJNZpJWT3wqRUlu1yoTyqXgk42DT8ArLMqaS8iNwmhON/OpHL6YMdm7
+	 xzFll0AwmlzQRvYHI7WIuZQ8jQb9eNfe824aKgTUyQSar5WvhPIo5wek+6hUBMevS1
+	 p9LCCUut+hPqYBwTTkqJyFGo0ImnMF1j8zqSfMUU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 4001DF8015A;
-	Tue, 24 Nov 2020 12:56:51 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 7EA2AF8015A;
+	Tue, 24 Nov 2020 13:13:29 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 5C276F80165; Tue, 24 Nov 2020 12:56:49 +0100 (CET)
+ id D3671F80165; Tue, 24 Nov 2020 13:13:27 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_MSPIKE_H4,
- RCVD_IN_MSPIKE_WL,SPF_HELO_PASS,SPF_NONE autolearn=disabled version=3.4.0
-Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id E5A24F80128
- for <alsa-devel@alsa-project.org>; Tue, 24 Nov 2020 12:56:42 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E5A24F80128
-IronPort-SDR: 0k5QjiuweleKCNFgqgHTnlL8Hl6phQnVTxJ8IdvG9SNQVdwlSC3rT6R9Wpc2/10Tg3rtW1y0t1
- L7tiY60TBKJg==
-X-IronPort-AV: E=McAfee;i="6000,8403,9814"; a="151189987"
-X-IronPort-AV: E=Sophos;i="5.78,366,1599548400"; d="scan'208";a="151189987"
+ by alsa1.perex.cz (Postfix) with ESMTPS id 62D84F80128
+ for <alsa-devel@alsa-project.org>; Tue, 24 Nov 2020 13:13:17 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 62D84F80128
+IronPort-SDR: FjwFFDL0q/bAPzRGvCv9zBMc1hu71mZh9p71fssh+lvXZOGarntrlBUTKXQwAuHFUwsD4yAVXW
+ fmwDd8V1ndCg==
+X-IronPort-AV: E=McAfee;i="6000,8403,9814"; a="172030430"
+X-IronPort-AV: E=Sophos;i="5.78,366,1599548400"; d="scan'208";a="172030430"
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
-Received: from fmsmga008.fm.intel.com ([10.253.24.58])
- by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 24 Nov 2020 03:56:38 -0800
-IronPort-SDR: 8rfsxsvxW4kwt0hrnutncO+KVyUsgjnp7zo/17UUuK90kDKz5cdn2phRTsqb8CcXnlG8NHkFe6
- 52dQ1+3y7scA==
+Received: from orsmga004.jf.intel.com ([10.7.209.38])
+ by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 24 Nov 2020 04:13:14 -0800
+IronPort-SDR: 7sRMgkqgJDGROzikiPg+doVbqcPXuLq5Oh0AmMXWxvWpXe6UWiqMbnEVhOKVvWr42ZxXgr6nuM
+ JONFxg0kJ8PA==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.78,366,1599548400"; d="scan'208";a="312558512"
-Received: from irsmsx602.ger.corp.intel.com ([163.33.146.8])
- by fmsmga008.fm.intel.com with ESMTP; 24 Nov 2020 03:56:37 -0800
+X-IronPort-AV: E=Sophos;i="5.78,366,1599548400"; d="scan'208";a="478478918"
+Received: from irsmsx604.ger.corp.intel.com ([163.33.146.137])
+ by orsmga004.jf.intel.com with ESMTP; 24 Nov 2020 04:13:12 -0800
 Received: from irsmsx601.ger.corp.intel.com (163.33.146.7) by
- irsmsx602.ger.corp.intel.com (163.33.146.8) with Microsoft SMTP Server
+ IRSMSX604.ger.corp.intel.com (163.33.146.137) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.1713.5; Tue, 24 Nov 2020 11:56:36 +0000
+ 15.1.1713.5; Tue, 24 Nov 2020 12:13:11 +0000
 Received: from irsmsx601.ger.corp.intel.com ([163.33.146.7]) by
  irsmsx601.ger.corp.intel.com ([163.33.146.7]) with mapi id 15.01.1713.004;
- Tue, 24 Nov 2020 11:56:36 +0000
+ Tue, 24 Nov 2020 12:13:11 +0000
 From: "Rojewski, Cezary" <cezary.rojewski@intel.com>
-To: Mark Brown <broonie@kernel.org>
-Subject: RE: [PATCH 00/14] ASoC: Intel/SOF: extend run-time driver selection
- to ACPI devices
-Thread-Topic: [PATCH 00/14] ASoC: Intel/SOF: extend run-time driver selection
- to ACPI devices
-Thread-Index: AQHWuUTISKj33SVxVku5O7g0f1ygmanF+0XggABMLQCAAASUgIAEnFAQgAAmMgCAAVQSgIAAh8aQgAAL6wCAAWXZUIAAA0eAgALUmaCAABNygIAABbuAgAAQAICAADBe4IAEff6AgAEzKOA=
-Date: Tue, 24 Nov 2020 11:56:36 +0000
-Message-ID: <41fbc38fa46f41f49b4ff846f9f7b5b2@intel.com>
-References: <s5h1rgst6z4.wl-tiwai@suse.de>
- <0286c6975f24432082f609d45adaa14c@intel.com>
- <0badb36f-3089-dc34-f7b0-75a73b856f0d@linux.intel.com>
- <d57fa3716a974eb9ba585ddd85dbe14c@intel.com>
- <cd8e5c2f-e1c2-7fbb-bee1-cc76ec14a801@linux.intel.com>
- <d94ccf9a3c61460db88f256df1fa3240@intel.com>
- <20201120164841.GF6751@sirena.org.uk>
- <758af664b89545c5be83ca2bc81078fb@intel.com>
- <20201120180627.GI6751@sirena.org.uk>
- <c8cd5f98e7c941c1b87aaabb850ece4e@intel.com>
- <20201123173533.GL6322@sirena.org.uk>
-In-Reply-To: <20201123173533.GL6322@sirena.org.uk>
+To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+Subject: RE: [PATCH v1] ASoC: Intel: catpt: Replace open coded variant of
+ resource_intersection()
+Thread-Topic: [PATCH v1] ASoC: Intel: catpt: Replace open coded variant of
+ resource_intersection()
+Thread-Index: AQHWwkgdIGKaAow/nEuYVlWZrtvA4KnXMNWA
+Date: Tue, 24 Nov 2020 12:13:11 +0000
+Message-ID: <f33b4381ea3a4cf4b8e7f27676cd90ed@intel.com>
+References: <20201124095628.54373-1-andriy.shevchenko@linux.intel.com>
+In-Reply-To: <20201124095628.54373-1-andriy.shevchenko@linux.intel.com>
 Accept-Language: en-US
 Content-Language: en-US
 X-MS-Has-Attach: 
@@ -90,10 +80,12 @@ x-originating-ip: [163.33.253.164]
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
-Cc: Takashi Iwai <tiwai@suse.de>, Hans de Goede <hdegoede@redhat.com>,
- "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
- "andriy.shevchenko@linux.intel.com" <andriy.shevchenko@linux.intel.com>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Cc: "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
+ "Rafael J. Wysocki" <rjw@rjwysocki.net>, Jie Yang <yang.jie@linux.intel.com>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ Liam Girdwood <liam.r.girdwood@linux.intel.com>,
+ "linux-acpi@vger.kernel.org" <linux-acpi@vger.kernel.org>,
+ Mark Brown <broonie@kernel.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -109,38 +101,36 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 2020-11-23 6:35 PM, Mark Brown wrote:
-> On Fri, Nov 20, 2020 at 09:02:24PM +0000, Rojewski, Cezary wrote:
+On 2020-11-24 10:56 AM, Andy Shevchenko wrote:
+> Since we have resource_intersection() helper, let's utilize it here.
 >=20
->> There are no circumstances under which Intel recommends distros to try
->> to convert out of catpt though. Don't believe aligning all the drivers
->> to some general idea just for the sake of aligning is a good move.
->> That's why drivers have their own specifics in the first place -
->> their complexity and performance could have been negatively impacted
->> otherwise.
+> Signed-off-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+> ---
 >=20
-> It could equally be that someone has stuck with the older, now
-> deprecated, implementations due to compatibility fears and this could
-> help them deploy the catpt implementation without worrying so much about
-> breaking things for users.
+> Promised clean up for recently introduced helper.
+>=20
+> This has dependency to the patches currently in linux-pm tree. Other than=
+ that
+> everything else is already in upstream. Hence, logically it's better to p=
+ush
+> thru Rafael's tree than wait one more cycle.
+>=20
+>   sound/soc/intel/catpt/core.h   | 11 -----------
+>   sound/soc/intel/catpt/loader.c |  2 +-
+>   2 files changed, 1 insertion(+), 12 deletions(-)
 >=20
 
-Except that it (i.e.: patchset) doesn't touch old _HASWELL kconfig at
-all as the code behind it is already removed.
+Thanks for the patch, Andy.
 
-Believe we are desync'ed here.
+I hope you didn't get the impression I somehow forgotten about this : )
+Wanted to make it part of "cleanup/code reduction" after addition of
+last two missing features (fw traces + external module support).
 
-What the patchset presents catpt vs SOF. /sof/ runs through SOF firmware
-so it cannot be account as old-implementation. It's a mix of not
-recommended fw + incorrect sw flow. As old /haswell/ is no more, there
-is no worrying about catpt deployment - it's your only option. As there
-is no userspace involved (lack of topology files), base firmware binary
-remains the same and amixer kcontrols behave 1:1 when compared to its
-predecessor, compatibility is left intact.
+Fixes and removal of lpt-specific code were the priority though.
+As change is already here, I don't see any reason for delaying its
+merge:
 
-That's exactly why we should be explicit in driver selection. Pretty
-sure hsw/bdw case is still mistakenly addressed to as if it was
-atom-based platform.
+Acked-by: Cezary Rojewski <cezary.rojewski@intel.com>
 
+Regards,
 Czarek
-

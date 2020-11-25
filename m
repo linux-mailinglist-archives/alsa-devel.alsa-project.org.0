@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4EA9A2C4617
-	for <lists+alsa-devel@lfdr.de>; Wed, 25 Nov 2020 17:57:25 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 41F7E2C4619
+	for <lists+alsa-devel@lfdr.de>; Wed, 25 Nov 2020 17:57:49 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id DAD0C1798;
-	Wed, 25 Nov 2020 17:56:34 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DAD0C1798
+	by alsa0.perex.cz (Postfix) with ESMTPS id D0324183D;
+	Wed, 25 Nov 2020 17:56:58 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D0324183D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1606323444;
-	bh=JZdCvslmdZjGvWjDcbc1iXckf5mLTjz/4L3axX6TOLs=;
+	s=default; t=1606323468;
+	bh=+j1OMI4byGz3lhkFhbKgRErhPASUUpHiO1mBssgMMAU=;
 	h=From:To:Subject:Date:In-Reply-To:References:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=eOf+eDQWl/74ztqdHP86VHJIueL1Lhd/i2Lf5It826qAUCdxvASrBW4aKzvVu7LHj
-	 y7knCipcZQa4l/ZWC/wx1MSst33EHsURmCj+TvwNSY1BtI7uznyIe0pIAaPDDSLrCv
-	 Prauak7wbse4Yy1UKf7Ma/KxyuI0HI4DvOHyyRJo=
+	b=neNB09jPFLeC5ir52q5z++BVHwWAPsu9wtNZIx8QO3B0bqx0pAtJeZx7JStEz1Nru
+	 TCYtycy/z2NBu/5xt5fcB18mAyrSEpJpnq/Zms6JTeVi/IBXAn3DBsZ/F0hoyYiBxM
+	 6waxl3XuAtDWkjw97T8cTOSK+wE4uRKYP/iqBPmA=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 95EBAF805AF;
-	Wed, 25 Nov 2020 17:47:15 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 4D8CCF805C0;
+	Wed, 25 Nov 2020 17:47:19 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 49063F805AC; Wed, 25 Nov 2020 17:47:13 +0100 (CET)
+ id 7625FF805B3; Wed, 25 Nov 2020 17:47:17 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -34,25 +34,25 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 0E25AF805AC
- for <alsa-devel@alsa-project.org>; Wed, 25 Nov 2020 17:47:11 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0E25AF805AC
+ by alsa1.perex.cz (Postfix) with ESMTPS id 392E0F805AD
+ for <alsa-devel@alsa-project.org>; Wed, 25 Nov 2020 17:47:15 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 392E0F805AD
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="ug0/QbQy"
+ header.b="FVYnSKo8"
 Received: from localhost.localdomain (adsl-84-226-167-205.adslplus.ch
  [84.226.167.205])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 7536221D46;
- Wed, 25 Nov 2020 16:47:05 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id D21F32145D;
+ Wed, 25 Nov 2020 16:47:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1606322829;
- bh=JZdCvslmdZjGvWjDcbc1iXckf5mLTjz/4L3axX6TOLs=;
+ s=default; t=1606322833;
+ bh=+j1OMI4byGz3lhkFhbKgRErhPASUUpHiO1mBssgMMAU=;
  h=From:To:Subject:Date:In-Reply-To:References:From;
- b=ug0/QbQyRM1ka9n42auQ0YfCecwYYqzw9VOOGvSqPDYU8eUYpFiYG1vimW0jrWbuw
- DF3DyKZz3h8QisHSbkDhjMs1RMVKDa6YBQqHY6jtpmeoU4iqStCicwpSKRnmCdeWet
- 3foTgpDt0wUxoa+GcKZOTkGQDhiBRycNDop+kQj4=
+ b=FVYnSKo8NZMKjj5jXrcsWobxdF2LQSLDQY4mHbY2krhz4fMjmEFrRofb0aVM1NxaJ
+ T6KAGjDHcE4VI9E6YqSNVmTk6L9zM1dwoezG6tdZAL8uz6IX22oBZXzzttxn6FJLNv
+ hNiuBHXOuyLF/Y3zLiPdYRZ7MGq2GPsTiE48T/Jg=
 From: Krzysztof Kozlowski <krzk@kernel.org>
 To: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
  Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
@@ -69,10 +69,10 @@ To: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
  Peter Ujfalusi <peter.ujfalusi@ti.com>, alsa-devel@alsa-project.org,
  linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
  linux-amlogic@lists.infradead.org, linux-rockchip@lists.infradead.org
-Subject: [PATCH v2 27/39] ASoC: pcm1789: skip of_device_id table when
+Subject: [PATCH v2 28/39] ASoC: pcm179x: skip of_device_id table when
  !CONFIG_OF
-Date: Wed, 25 Nov 2020 17:44:40 +0100
-Message-Id: <20201125164452.89239-28-krzk@kernel.org>
+Date: Wed, 25 Nov 2020 17:44:41 +0100
+Message-Id: <20201125164452.89239-29-krzk@kernel.org>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20201125164452.89239-1-krzk@kernel.org>
 References: <20201125164452.89239-1-krzk@kernel.org>
@@ -98,31 +98,31 @@ The driver can match by multiple methods.  Its of_device_id table is
 referenced via of_match_ptr() so it will be unused for !CONFIG_OF
 builds:
 
-  sound/soc/codecs/pcm1789-i2c.c:36:34: warning: ‘pcm1789_of_match’ defined but not used [-Wunused-const-variable=]
+  sound/soc/codecs/pcm179x-i2c.c:33:34: warning: ‘pcm179x_of_match’ defined but not used [-Wunused-const-variable=]
 
 Signed-off-by: Krzysztof Kozlowski <krzk@kernel.org>
 ---
- sound/soc/codecs/pcm1789-i2c.c | 2 ++
+ sound/soc/codecs/pcm179x-i2c.c | 2 ++
  1 file changed, 2 insertions(+)
 
-diff --git a/sound/soc/codecs/pcm1789-i2c.c b/sound/soc/codecs/pcm1789-i2c.c
-index 327ec584f240..7a6be45f8149 100644
---- a/sound/soc/codecs/pcm1789-i2c.c
-+++ b/sound/soc/codecs/pcm1789-i2c.c
-@@ -33,11 +33,13 @@ static int pcm1789_i2c_remove(struct i2c_client *client)
- 	return pcm1789_common_exit(&client->dev);
+diff --git a/sound/soc/codecs/pcm179x-i2c.c b/sound/soc/codecs/pcm179x-i2c.c
+index 36e01678bef4..34a3d596f288 100644
+--- a/sound/soc/codecs/pcm179x-i2c.c
++++ b/sound/soc/codecs/pcm179x-i2c.c
+@@ -30,11 +30,13 @@ static int pcm179x_i2c_probe(struct i2c_client *client,
+ 	return pcm179x_common_init(&client->dev, regmap);
  }
  
 +#ifdef CONFIG_OF
- static const struct of_device_id pcm1789_of_match[] = {
- 	{ .compatible = "ti,pcm1789", },
+ static const struct of_device_id pcm179x_of_match[] = {
+ 	{ .compatible = "ti,pcm1792a", },
  	{ }
  };
- MODULE_DEVICE_TABLE(of, pcm1789_of_match);
+ MODULE_DEVICE_TABLE(of, pcm179x_of_match);
 +#endif
  
- static const struct i2c_device_id pcm1789_i2c_ids[] = {
- 	{ "pcm1789", 0 },
+ static const struct i2c_device_id pcm179x_i2c_ids[] = {
+ 	{ "pcm179x", 0 },
 -- 
 2.25.1
 

@@ -2,83 +2,80 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D60EB2C4632
-	for <lists+alsa-devel@lfdr.de>; Wed, 25 Nov 2020 18:02:08 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 550652C46D9
+	for <lists+alsa-devel@lfdr.de>; Wed, 25 Nov 2020 18:33:29 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 6523A1889;
-	Wed, 25 Nov 2020 18:01:18 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6523A1889
+	by alsa0.perex.cz (Postfix) with ESMTPS id DE4F317AD;
+	Wed, 25 Nov 2020 18:32:38 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DE4F317AD
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1606323728;
-	bh=rHhaaDvCI3oNFGE1+QHFB0i3vECs+/DgQ7hv/ctlhEo=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1606325609;
+	bh=D35r83d1aEJWrdWR0BEEt6eN7GnUUfkiew3G9Hdb0f8=;
+	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=qJbwtHJN8EJpor4k9kgUP1B2aDOLo9+loRq9PXhi+kCJD47HkIowglDQfCkS1o3KS
-	 chp3GMHD6dK3J7h9iZscIONHWQjdlPtv/g3Ki8xd2fwrh9QqyyOrqibFllyQlMMb+I
-	 hXuIKbdnPhBKOsJ2F/DXsb/CcNELx/I7pVmjUav4=
+	b=iWyn+WxlmYXdyCf0iv+L9z89lXTaE6+aSSJCQpJHhU404Oy8fyscngwBBQNEyJlX3
+	 feAMjmvZ67EcCX5fVOcWiJQ2kVPxeEAetOMbo9TAN9+yskSv9AJQtXAOmCCXDWuad0
+	 lMnZ+NaqDO7ryBdeCCKw7Su1gZ/qwa+q0xUV0V3k=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 93106F805FE;
-	Wed, 25 Nov 2020 17:48:07 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 47178F80218;
+	Wed, 25 Nov 2020 18:31:54 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id C84D1F805FB; Wed, 25 Nov 2020 17:48:05 +0100 (CET)
+ id 6F706F8019D; Wed, 25 Nov 2020 18:31:52 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled
- version=3.4.0
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from merlin.infradead.org (merlin.infradead.org
+ [IPv6:2001:8b0:10b:1231::1])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 7FBC0F805F9
- for <alsa-devel@alsa-project.org>; Wed, 25 Nov 2020 17:48:03 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7FBC0F805F9
+ by alsa1.perex.cz (Postfix) with ESMTPS id AB659F800D2
+ for <alsa-devel@alsa-project.org>; Wed, 25 Nov 2020 18:31:44 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz AB659F800D2
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="TzW8twxN"
-Received: from localhost.localdomain (adsl-84-226-167-205.adslplus.ch
- [84.226.167.205])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id E76822145D;
- Wed, 25 Nov 2020 16:47:57 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1606322882;
- bh=rHhaaDvCI3oNFGE1+QHFB0i3vECs+/DgQ7hv/ctlhEo=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=TzW8twxNCk4GeJkwWlA0WbI44EVFTsn9/JGdItKXKkSISPUy9hwSZkj7od1gd+tqn
- 5nnfDAmhOPCpjp4ThF+MqZebT+Yf4AF+V3FVtA5rXo4RuDw1aIRUVYGbgCSva491+n
- +P7xU1JYWVt1eS99Ln1PmVJssVsW/RwxqDHLlUQ4=
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
- Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
- Support Opensource <support.opensource@diasemi.com>,
- Oder Chiou <oder_chiou@realtek.com>,
- Kevin Cernekee <cernekee@chromium.org>,
- Jerome Brunet <jbrunet@baylibre.com>, Kevin Hilman <khilman@baylibre.com>,
- Neil Armstrong <narmstrong@baylibre.com>,
- Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
- Patrick Lai <plai@codeaurora.org>,
- Banajit Goswami <bgoswami@codeaurora.org>,
- Heiko Stuebner <heiko@sntech.de>, Krzysztof Kozlowski <krzk@kernel.org>,
- Sylwester Nawrocki <s.nawrocki@samsung.com>,
- Peter Ujfalusi <peter.ujfalusi@ti.com>, alsa-devel@alsa-project.org,
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-amlogic@lists.infradead.org, linux-rockchip@lists.infradead.org
-Subject: [PATCH v2 39/39] ASoC: samsung: smdk_wm8994: remove redundant
- of_match_ptr()
-Date: Wed, 25 Nov 2020 17:44:52 +0100
-Message-Id: <20201125164452.89239-40-krzk@kernel.org>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20201125164452.89239-1-krzk@kernel.org>
-References: <20201125164452.89239-1-krzk@kernel.org>
+ dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org
+ header.b="GaOiLhHX"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=infradead.org; s=merlin.20170209; h=Content-Transfer-Encoding:Content-Type:
+ In-Reply-To:MIME-Version:Date:Message-ID:From:References:Cc:To:Subject:Sender
+ :Reply-To:Content-ID:Content-Description;
+ bh=sIqavWIU/mrQicWvL0KfH6FQlzXzymdAsQA6+ryFvwo=; b=GaOiLhHXFI1cPUREWJAWySfCgB
+ vg5y+YLo7nORpAdr0HWaaFeSubqzDYU+8wMpUb0b1pulyrv0YyiWX1J7e5eka3GKfOptTIHuJ54UZ
+ 5Up61/EtrJCtU/OIw/rO5fAVl3GEwI6cCrzFBpmY6k84Oje9NoYlEAwvT/nDYOjPOpnd8ef1HlURL
+ hNLBw03Wkhe5S4m3Spch6bilsdZxIxoPPdtm5D6hzcSxLInh68frjtekBh3+f+OA7ChYiamzH9AEG
+ i5H5SUL3LQMgLmLKy2ZhB6dlQlUq6TNIaYXTuF+xTcPprqyjVQ99hyaq95FFFsfgmFIvMKN9PGqPZ
+ dvUBbotw==;
+Received: from [2601:1c0:6280:3f0::1935] (helo=dragon.site)
+ by merlin.infradead.org with esmtpsa (Exim 4.92.3 #3 (Red Hat Linux))
+ id 1khydo-0005Eo-Vu; Wed, 25 Nov 2020 17:31:41 +0000
+Subject: Re: drivers/soundwire/qcom.c:767: undefined reference to `slimbus_bus'
+To: Vinod Koul <vkoul@kernel.org>,
+ Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
+References: <202011030351.iq9CBMO3-lkp@intel.com>
+ <e0d74391-18ae-0493-b8a1-cbeb6f00bde8@infradead.org>
+ <20201125055155.GD8403@vkoul-mobl>
+From: Randy Dunlap <rdunlap@infradead.org>
+Message-ID: <6e298ed8-dc23-7a1f-1bb1-44ba2f43ee07@infradead.org>
+Date: Wed, 25 Nov 2020 09:31:34 -0800
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.4.0
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Cc: Sylwester Nawrocki <snawrocki@kernel.org>
+In-Reply-To: <20201125055155.GD8403@vkoul-mobl>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
+Cc: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ moderated for non-subscribers <alsa-devel@alsa-project.org>,
+ kbuild-all@lists.01.org, kernel test robot <lkp@intel.com>,
+ Jonathan Marek <jonathan@marek.ca>, linux-kernel@vger.kernel.org,
+ Bjorn Andersson <bjorn.andersson@linaro.org>,
+ Bard Liao <yung-chuan.liao@linux.intel.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -94,28 +91,91 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-of_match_device() already handles properly !CONFIG_OF case, so passing
-the argument via of_match_ptr() is not needed.
+On 11/24/20 9:51 PM, Vinod Koul wrote:
+> Hi Randy,
+> 
+> On 04-11-20, 19:32, Randy Dunlap wrote:
+>> On 11/2/20 11:47 AM, kernel test robot wrote:
+>>> All errors (new ones prefixed by >>):
+>>>
+>>>     or1k-linux-ld: drivers/soundwire/qcom.o: in function `qcom_swrm_probe':
+>>>>> drivers/soundwire/qcom.c:767: undefined reference to `slimbus_bus'
+>>>>> or1k-linux-ld: drivers/soundwire/qcom.c:771: undefined reference to `slimbus_bus'
+>>>
+>>> 09309093d5e8f87 Jonathan Marek       2020-09-08  770  #if IS_ENABLED(CONFIG_SLIMBUS)
+>>> 02efb49aa805cee Srinivas Kandagatla  2020-01-13 @771  	if (dev->parent->bus == &slimbus_bus) {
+>>> 5bd773242f75da3 Jonathan Marek       2020-09-05  772  #else
+>>> 5bd773242f75da3 Jonathan Marek       2020-09-05  773  	if (false) {
+>>> 5bd773242f75da3 Jonathan Marek       2020-09-05  774  #endif
+>>
+>> config SOUNDWIRE_QCOM
+>> 	tristate "Qualcomm SoundWire Master driver"
+>> 	imply SLIMBUS
+>> 	depends on SND_SOC
+>>
+>> The kernel config that was attached has:
+>> CONFIG_SOUNDWIRE_QCOM=y
+>> CONFIG_SLIMBUS=m
+>>
+>> I expected that "imply" would make SLIMBUS=y since SOUNDWIRE_QCOM=y,
+>> but I guess that's not the case. :(
+>>
+>> Any ideas about what to do here?
+> 
+> Sorry to have missed this earlier. I did some digging and found the
+> Kconfig code to be correct, but not the driver code. Per the
+> Documentation if we are using imply we should use IS_REACHABLE() rather
+> than IS_ENABLED.
+> 
+> This seems to take care of build failure for me on arm64 and x64 builds.
+> 
+> Can you confirm with below patch:
+> 
+> ---><8---
+> 
+> From: Vinod Koul <vkoul@kernel.org>
+> Date: Wed, 25 Nov 2020 11:15:22 +0530
+> Subject: [PATCH] soundwire: qcom: Fix build failure when slimbus is module
+> 
+> Commit 5bd773242f75 ("soundwire: qcom: avoid dependency on
+> CONFIG_SLIMBUS") removed hard dependency on Slimbus for qcom driver but
+> it results in build failure when:
+> CONFIG_SOUNDWIRE_QCOM=y
+> CONFIG_SLIMBUS=m
+> 
+> drivers/soundwire/qcom.o: In function `qcom_swrm_probe':
+> qcom.c:(.text+0xf44): undefined reference to `slimbus_bus'
+> 
+> Fix this by using IS_REACHABLE() in driver which is recommended to be
+> sued with imply.
 
-Signed-off-by: Krzysztof Kozlowski <krzk@kernel.org>
-Reviewed-by: Sylwester Nawrocki <snawrocki@kernel.org>
----
- sound/soc/samsung/smdk_wm8994.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+   used
 
-diff --git a/sound/soc/samsung/smdk_wm8994.c b/sound/soc/samsung/smdk_wm8994.c
-index 28d6eb14d7db..681b244d5312 100644
---- a/sound/soc/samsung/smdk_wm8994.c
-+++ b/sound/soc/samsung/smdk_wm8994.c
-@@ -170,7 +170,7 @@ static int smdk_audio_probe(struct platform_device *pdev)
- 		smdk_dai[0].platforms->of_node = smdk_dai[0].cpus->of_node;
- 	}
- 
--	id = of_match_device(of_match_ptr(samsung_wm8994_of_match), &pdev->dev);
-+	id = of_match_device(samsung_wm8994_of_match, &pdev->dev);
- 	if (id)
- 		*board = *((struct smdk_wm8994_data *)id->data);
- 
--- 
-2.25.1
+> 
+> Fixes: 5bd773242f75 ("soundwire: qcom: avoid dependency on CONFIG_SLIMBUS")
+> Reported-by: kernel test robot <lkp@intel.com>
+> Signed-off-by: Vinod Koul <vkoul@kernel.org>
+
+Acked-by: Randy Dunlap <rdunlap@infradead.org> # build-tested
+
+Thanks.
+
+> ---
+>   drivers/soundwire/qcom.c | 2 +-
+>   1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/drivers/soundwire/qcom.c b/drivers/soundwire/qcom.c
+> index fbca4ebf63e9..6d22df01f354 100644
+> --- a/drivers/soundwire/qcom.c
+> +++ b/drivers/soundwire/qcom.c
+> @@ -799,7 +799,7 @@ static int qcom_swrm_probe(struct platform_device *pdev)
+>   	data = of_device_get_match_data(dev);
+>   	ctrl->rows_index = sdw_find_row_index(data->default_rows);
+>   	ctrl->cols_index = sdw_find_col_index(data->default_cols);
+> -#if IS_ENABLED(CONFIG_SLIMBUS)
+> +#if IS_REACHABLE(CONFIG_SLIMBUS)
+>   	if (dev->parent->bus == &slimbus_bus) {
+>   #else
+>   	if (false) {
+> 
 

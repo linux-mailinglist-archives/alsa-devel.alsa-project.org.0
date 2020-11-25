@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8F1532C45F6
-	for <lists+alsa-devel@lfdr.de>; Wed, 25 Nov 2020 17:53:49 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 18D352C45F7
+	for <lists+alsa-devel@lfdr.de>; Wed, 25 Nov 2020 17:54:21 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 274B517B7;
-	Wed, 25 Nov 2020 17:52:59 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 274B517B7
+	by alsa0.perex.cz (Postfix) with ESMTPS id AE45417E7;
+	Wed, 25 Nov 2020 17:53:30 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AE45417E7
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1606323229;
-	bh=hUJkunHo8Nfcr2uWL1x9GpPMBlvI204ks175M5PYJr4=;
+	s=default; t=1606323260;
+	bh=pvhn0QCdCkvGGSKnk7s/3kCGaDX+MblFh4AacTU7+js=;
 	h=From:To:Subject:Date:In-Reply-To:References:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=owXMU4olyAdFDo60OCjc20cWAZ/XCvygxFdbBX5We1RxkIw6PThezaUlrzzM6cQ/g
-	 OTIzvUdZlWcKhCtbZeJJsBCxkrkWmAUWCCaZWxgvJm4knVjWL3qcwkzPR0kfQ5g1W9
-	 1C784gV4G73bUOV+vpPqt2dUK/3AhrrCK39MUlNg=
+	b=h3+KGfpCqebSXJnpFVP2G9WskIXBTlNSyugTbgVPoyfGbySYavhBwL906dMiBQkDc
+	 YW3G1mWuYpUaxh6w4d/sS24el8Afhhaa+kG9Xdy686sp6j1/zvJXTBXYIXwe1VSwmC
+	 pcEjsdXlaQdiQGnl9fRG6Ai1yaWPEJw1Mhoap79I=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 53DBBF8055C;
-	Wed, 25 Nov 2020 17:46:36 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 72192F80564;
+	Wed, 25 Nov 2020 17:46:41 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id BDDA1F8055B; Wed, 25 Nov 2020 17:46:33 +0100 (CET)
+ id 7BBF3F80566; Wed, 25 Nov 2020 17:46:38 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -34,25 +34,25 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 63B47F80557
- for <alsa-devel@alsa-project.org>; Wed, 25 Nov 2020 17:46:31 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 63B47F80557
+ by alsa1.perex.cz (Postfix) with ESMTPS id E49A4F8055A
+ for <alsa-devel@alsa-project.org>; Wed, 25 Nov 2020 17:46:35 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E49A4F8055A
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="H/547qVm"
+ header.b="pg2aSvlV"
 Received: from localhost.localdomain (adsl-84-226-167-205.adslplus.ch
  [84.226.167.205])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id EFA162173E;
- Wed, 25 Nov 2020 16:46:25 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id 55A422168B;
+ Wed, 25 Nov 2020 16:46:30 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1606322789;
- bh=hUJkunHo8Nfcr2uWL1x9GpPMBlvI204ks175M5PYJr4=;
+ s=default; t=1606322794;
+ bh=pvhn0QCdCkvGGSKnk7s/3kCGaDX+MblFh4AacTU7+js=;
  h=From:To:Subject:Date:In-Reply-To:References:From;
- b=H/547qVmWN+qWtmAIqVp8akte+lg56s9z5s88DomLsnbRrmjGIFrNYJh4BcSNXXHk
- 3JJltTgpwKfri7BKqmmbMaYdC6rEeQSWANzPgrMDHa45yye9jm93bhgz0PchDHz5X3
- cXn0xcRjujzKnZlShyfYKp6o70tpF+4047mHZwAU=
+ b=pg2aSvlVtC1Le3fpOh9si345Esp7vJZO5Fs699iUJdLvyADzdRSdm/TjZlBuKwi2L
+ I3PCI8TMoatKKc9Ngl5HI/uelIyxv5Spkan+751LGFf69ULZZDElxgqiDTdHUFDxsn
+ /4kUlrxjzH0sh1UejJBuqNf4vnm/gPvNRuoO7FFY=
 From: Krzysztof Kozlowski <krzk@kernel.org>
 To: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
  Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
@@ -69,9 +69,9 @@ To: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
  Peter Ujfalusi <peter.ujfalusi@ti.com>, alsa-devel@alsa-project.org,
  linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
  linux-amlogic@lists.infradead.org, linux-rockchip@lists.infradead.org
-Subject: [PATCH v2 18/39] ASoC: da7219: skip of_device_id table when !CONFIG_OF
-Date: Wed, 25 Nov 2020 17:44:31 +0100
-Message-Id: <20201125164452.89239-19-krzk@kernel.org>
+Subject: [PATCH v2 19/39] ASoC: da9055: skip of_device_id table when !CONFIG_OF
+Date: Wed, 25 Nov 2020 17:44:32 +0100
+Message-Id: <20201125164452.89239-20-krzk@kernel.org>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20201125164452.89239-1-krzk@kernel.org>
 References: <20201125164452.89239-1-krzk@kernel.org>
@@ -97,31 +97,31 @@ The driver can match by multiple methods.  Its of_device_id table is
 referenced via of_match_ptr() so it will be unused for !CONFIG_OF
 builds:
 
-  sound/soc/codecs/da7219.c:1705:34: warning: ‘da7219_of_match’ defined but not used [-Wunused-const-variable=]
+  sound/soc/codecs/da9055.c:1522:34: warning: ‘da9055_of_match’ defined but not used [-Wunused-const-variable=]
 
 Signed-off-by: Krzysztof Kozlowski <krzk@kernel.org>
 ---
- sound/soc/codecs/da7219.c | 2 ++
+ sound/soc/codecs/da9055.c | 2 ++
  1 file changed, 2 insertions(+)
 
-diff --git a/sound/soc/codecs/da7219.c b/sound/soc/codecs/da7219.c
-index 0b3b7909efc9..e9b45daec0ca 100644
---- a/sound/soc/codecs/da7219.c
-+++ b/sound/soc/codecs/da7219.c
-@@ -1702,11 +1702,13 @@ static struct snd_soc_dai_driver da7219_dai = {
-  * DT/ACPI
-  */
+diff --git a/sound/soc/codecs/da9055.c b/sound/soc/codecs/da9055.c
+index b0d9ca6de685..aed92f615b02 100644
+--- a/sound/soc/codecs/da9055.c
++++ b/sound/soc/codecs/da9055.c
+@@ -1519,11 +1519,13 @@ static const struct i2c_device_id da9055_i2c_id[] = {
+ };
+ MODULE_DEVICE_TABLE(i2c, da9055_i2c_id);
  
 +#ifdef CONFIG_OF
- static const struct of_device_id da7219_of_match[] = {
- 	{ .compatible = "dlg,da7219", },
+ static const struct of_device_id da9055_of_match[] = {
+ 	{ .compatible = "dlg,da9055-codec", },
  	{ }
  };
- MODULE_DEVICE_TABLE(of, da7219_of_match);
+ MODULE_DEVICE_TABLE(of, da9055_of_match);
 +#endif
  
- #ifdef CONFIG_ACPI
- static const struct acpi_device_id da7219_acpi_match[] = {
+ /* I2C codec control layer */
+ static struct i2c_driver da9055_i2c_driver = {
 -- 
 2.25.1
 

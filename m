@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 30EB02C45BA
-	for <lists+alsa-devel@lfdr.de>; Wed, 25 Nov 2020 17:49:32 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 011722C45E0
+	for <lists+alsa-devel@lfdr.de>; Wed, 25 Nov 2020 17:50:03 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C82B7177E;
-	Wed, 25 Nov 2020 17:48:41 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C82B7177E
+	by alsa0.perex.cz (Postfix) with ESMTPS id 88285174D;
+	Wed, 25 Nov 2020 17:49:12 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 88285174D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1606322971;
-	bh=1EoeOU1HdN3bYTNow0bWtkQGItTZBUyVz0dyrz8aCbY=;
+	s=default; t=1606323002;
+	bh=etf7Q71IvSLRzmtXXA3ATxczWkvUTrzJz/PrLFLwlkY=;
 	h=From:To:Subject:Date:In-Reply-To:References:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=YP1T8SWQ/Ezhls9JW1o9QIvVNpqITQOLgblaoDOfOl+ZDCIapqLWDOBn3XM1v9Psm
-	 XrUDXZ3XbIFFdEnCG2ovvG1xInPPdVrCKbF4zXJg1NEI5h8J9uUHeQ8JG3ZVk6syje
-	 PE/ARTzGYjYMOyeoOiTsRDSUKeqgfhoclhSS6RXY=
+	b=BqrLJzL18Cp/TEophmEafdil3DFvybKORdOqoz4rKXV3woFzk4ZQmhdElemSHCjAE
+	 uZwymSG/Fehh0tDfLITexg8/3Oc/mcAE6fokOtKp9WwM+zlHR2nuiaMXcG5FY90wQ4
+	 /Hj/CYDsHLhnrsU0/cxWUBL3P5O9s7Of6m38Suso=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 2A277F804F1;
-	Wed, 25 Nov 2020 17:45:47 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id ECAB2F804FE;
+	Wed, 25 Nov 2020 17:45:50 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 83E98F804F3; Wed, 25 Nov 2020 17:45:45 +0100 (CET)
+ id D64BAF804FD; Wed, 25 Nov 2020 17:45:49 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -34,25 +34,25 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 57EF4F804F1
- for <alsa-devel@alsa-project.org>; Wed, 25 Nov 2020 17:45:43 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 57EF4F804F1
+ by alsa1.perex.cz (Postfix) with ESMTPS id 9AC41F804FB
+ for <alsa-devel@alsa-project.org>; Wed, 25 Nov 2020 17:45:47 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9AC41F804FB
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="dBUnr1cA"
+ header.b="YQUooFv8"
 Received: from localhost.localdomain (adsl-84-226-167-205.adslplus.ch
  [84.226.167.205])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 0A70221973;
- Wed, 25 Nov 2020 16:45:36 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id 2DD84217A0;
+ Wed, 25 Nov 2020 16:45:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1606322741;
- bh=1EoeOU1HdN3bYTNow0bWtkQGItTZBUyVz0dyrz8aCbY=;
+ s=default; t=1606322746;
+ bh=etf7Q71IvSLRzmtXXA3ATxczWkvUTrzJz/PrLFLwlkY=;
  h=From:To:Subject:Date:In-Reply-To:References:From;
- b=dBUnr1cADQ7AtUpsu8Sixmgan9lv5nsS3af2svJgeQ/q4XlrIQ9TCNndwGMAbn5II
- iltp+YDRQQKKQnul+GxBknQRNQWSm88TJWGCYa3XdFjz5OsyHQxlbmN5fe23aGbjQ0
- WtL3FsYIjgvHZWLRKI6u0HzjgQQlPu1Whqr7IPQU=
+ b=YQUooFv8yP6VUj0YY/2BFcSN4MVaqsNAMifxxrQ7O4pXbNkybn4F/9UIbxbAUPspI
+ T8i+KboaNovuBGaGimXxcmSEhIlnfuFWWNDYt23eO08K35hfAHn4zkhR0/DKvPBCYC
+ anEHWWIGA5JIAMJm6XhhFWVHZzRTZIe51RmHZ2Os=
 From: Krzysztof Kozlowski <krzk@kernel.org>
 To: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
  Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
@@ -69,10 +69,10 @@ To: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
  Peter Ujfalusi <peter.ujfalusi@ti.com>, alsa-devel@alsa-project.org,
  linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
  linux-amlogic@lists.infradead.org, linux-rockchip@lists.infradead.org
-Subject: [PATCH v2 07/39] ASoC: kirkwood: armada-370-db: mark OF related data
- as maybe unused
-Date: Wed, 25 Nov 2020 17:44:20 +0100
-Message-Id: <20201125164452.89239-8-krzk@kernel.org>
+Subject: [PATCH v2 08/39] ASoC: meson: t9015: mark OF related data as maybe
+ unused
+Date: Wed, 25 Nov 2020 17:44:21 +0100
+Message-Id: <20201125164452.89239-9-krzk@kernel.org>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20201125164452.89239-1-krzk@kernel.org>
 References: <20201125164452.89239-1-krzk@kernel.org>
@@ -97,25 +97,25 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 The driver can be compile tested with !CONFIG_OF making certain data
 unused:
 
-  sound/soc/kirkwood/armada-370-db.c:137:34: warning: ‘a370db_dt_ids’ defined but not used [-Wunused-const-variable=]
+  sound/soc/meson/t9015.c:315:34: warning: ‘t9015_ids’ defined but not used [-Wunused-const-variable=]
 
 Signed-off-by: Krzysztof Kozlowski <krzk@kernel.org>
 ---
- sound/soc/kirkwood/armada-370-db.c | 2 +-
+ sound/soc/meson/t9015.c | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/sound/soc/kirkwood/armada-370-db.c b/sound/soc/kirkwood/armada-370-db.c
-index 8e44ae37ad1e..81326426da33 100644
---- a/sound/soc/kirkwood/armada-370-db.c
-+++ b/sound/soc/kirkwood/armada-370-db.c
-@@ -134,7 +134,7 @@ static int a370db_probe(struct platform_device *pdev)
- 	return devm_snd_soc_register_card(card->dev, card);
+diff --git a/sound/soc/meson/t9015.c b/sound/soc/meson/t9015.c
+index 56d2592c16d5..4c1349dd1e06 100644
+--- a/sound/soc/meson/t9015.c
++++ b/sound/soc/meson/t9015.c
+@@ -312,7 +312,7 @@ static int t9015_probe(struct platform_device *pdev)
+ 					       &t9015_dai, 1);
  }
  
--static const struct of_device_id a370db_dt_ids[] = {
-+static const struct of_device_id a370db_dt_ids[] __maybe_unused = {
- 	{ .compatible = "marvell,a370db-audio" },
- 	{ },
+-static const struct of_device_id t9015_ids[] = {
++static const struct of_device_id t9015_ids[] __maybe_unused = {
+ 	{ .compatible = "amlogic,t9015", },
+ 	{ }
  };
 -- 
 2.25.1

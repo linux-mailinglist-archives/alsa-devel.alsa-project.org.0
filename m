@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1E1F42C3F7B
-	for <lists+alsa-devel@lfdr.de>; Wed, 25 Nov 2020 13:02:26 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id D84962C4090
+	for <lists+alsa-devel@lfdr.de>; Wed, 25 Nov 2020 13:51:42 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id AB0F3172B;
-	Wed, 25 Nov 2020 13:01:35 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AB0F3172B
+	by alsa0.perex.cz (Postfix) with ESMTPS id 77E8E171D;
+	Wed, 25 Nov 2020 13:50:52 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 77E8E171D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1606305745;
-	bh=oL0UJYisE3pSM3ttSoyOEO+6oi4dae3Ue1rvIKTOINw=;
-	h=Date:From:To:In-Reply-To:References:Subject:Cc:List-Id:
+	s=default; t=1606308702;
+	bh=TG3UpeiHbWC57NXnHtKT6Q7HjbmbKGepoMAsuPbYhgg=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=QBJETFiNBH04SC8ukK85bIaJvaiY66BZ3j2J56wS2PNUeVg/4BqALh7LisCY23D3Y
-	 uiY6MX0jQL4mrTqgRaWKLBn4HSMWSQgCiDuOQmpM+n/Igcm6gNRZo2kAQo4wySvPz1
-	 QMU6iYMCa9YLCu81fsXeQQybTEMeSwVvubGjMJ14=
+	b=iQIu4FvsA2Xja2pdHUd36FovV1nKdOQbRwckUF/RMN76wRFbFzvHvcT1HEb3xc5fK
+	 +PDRceXj5NRFdl6AgwgLKr2CTFYqU1kzERQjGf3vDGQg+XRaeJHlAQzebfGhRuzC2Z
+	 J4YgVec+1gKy2O41aGe3QE1RFRDQRIXG9SEfkOkg=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 6839AF800D2;
-	Wed, 25 Nov 2020 13:00:51 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id EC49DF8015F;
+	Wed, 25 Nov 2020 13:50:07 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 0EA82F8019D; Wed, 25 Nov 2020 13:00:49 +0100 (CET)
+ id 4DDF1F8019D; Wed, 25 Nov 2020 13:50:05 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -34,37 +34,49 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 8D26CF80128
- for <alsa-devel@alsa-project.org>; Wed, 25 Nov 2020 13:00:40 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8D26CF80128
+ by alsa1.perex.cz (Postfix) with ESMTPS id 8AEDAF8015A
+ for <alsa-devel@alsa-project.org>; Wed, 25 Nov 2020 13:49:56 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8AEDAF8015A
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="jM8fvG63"
+ header.b="qA6Yjnk0"
 Received: from localhost (cpc102334-sgyl38-2-0-cust884.18-2.cable.virginm.net
  [92.233.91.117])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 449F4206E0;
- Wed, 25 Nov 2020 12:00:37 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id 2B894206E5;
+ Wed, 25 Nov 2020 12:49:53 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1606305637;
- bh=oL0UJYisE3pSM3ttSoyOEO+6oi4dae3Ue1rvIKTOINw=;
- h=Date:From:To:Cc:In-Reply-To:References:Subject:From;
- b=jM8fvG63hAXPkyryjFtOw5AsbNW2W+dnxcBssKcBcOd/pCWSWXVWk6YVMucNVWm27
- 7UR4VZcT4B/lIO9N/kAZt+hjaOPEDJQmDLRKn0FA6OhzAawI1cZDuLVreutTXFO5NH
- /DSOg5lCJ1F9bxWg8A69KrGfe3UIM45yBxTLWNXM=
-Date: Wed, 25 Nov 2020 12:00:12 +0000
+ s=default; t=1606308593;
+ bh=TG3UpeiHbWC57NXnHtKT6Q7HjbmbKGepoMAsuPbYhgg=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=qA6Yjnk0W6zCUTsY9ibqshuDQiyuMajOgBuOizLAck5E9ZE5L+x+V2bYY6fA0yzhP
+ xrJyA9k5kSg27ql/IPPknP/v+4uxJ4vosi4p2FhH49/Imm/qZUyNXz/o2apsCdUSEv
+ 3nynnNaoFfMST3otOGu54i2pO5tWIalKvxy47vR8=
+Date: Wed, 25 Nov 2020 12:49:28 +0000
 From: Mark Brown <broonie@kernel.org>
-To: Kai Vehmanen <kai.vehmanen@linux.intel.com>, alsa-devel@alsa-project.org
-In-Reply-To: <20201124180017.2232128-1-kai.vehmanen@linux.intel.com>
-References: <20201124180017.2232128-1-kai.vehmanen@linux.intel.com>
-Subject: Re: [PATCH 0/4] ASoC: SOF: Add 'memory_info' file to debugfs
-Message-Id: <160630561272.41207.17443841126102085412.b4-ty@kernel.org>
+To: xuyuqing <xuyuqing@huaqin.corp-partner.google.com>
+Subject: Re: [PATCH v1 0/1] Fix 32 bit format for adau7002
+Message-ID: <20201125124928.GA4489@sirena.org.uk>
+References: <20201118005858.123013-1-xuyuqing@huaqin.corp-partner.google.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Cc: daniel.baluta@nxp.com, ranjani.sridharan@linux.intel.com,
- lgirdwood@gmail.com, pierre-louis.bossart@linux.intel.com
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="gKMricLos+KVdGMg"
+Content-Disposition: inline
+In-Reply-To: <20201118005858.123013-1-xuyuqing@huaqin.corp-partner.google.com>
+X-Cookie: No foreign coins.
+User-Agent: Mutt/1.10.1 (2018-07-13)
+Cc: Taniya Das <tdas@codeaurora.org>, alsa-devel@alsa-project.org,
+ Banajit Goswami <bgoswami@codeaurora.org>, Takashi Iwai <tiwai@suse.com>,
+ Rohit kumar <rohitkr@codeaurora.org>, cychiang@chromium.org,
+ Patrick Lai <plai@codeaurora.org>, Andy Gross <agross@kernel.org>,
+ dgreid@chromium.org, zhouguohui@huaqin.corp-partner.google.com,
+ devicetree@vger.kernel.org, tzungbi@chromium.org,
+ Stephan Gerhold <stephan@gerhold.net>, linux-arm-msm@vger.kernel.org,
+ Rob Herring <robh+dt@kernel.org>, Bjorn Andersson <bjorn.andersson@linaro.org>,
+ linux-arm-kernel@lists.infradead.org, dianders@chromium.org,
+ Liam Girdwood <lgirdwood@gmail.com>, linux-kernel@vger.kernel.org,
+ Srini Kandagatla <srinivas.kandagatla@linaro.org>, judyhsiao@chromium.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -80,47 +92,38 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Tue, 24 Nov 2020 20:00:13 +0200, Kai Vehmanen wrote:
-> Series that adds a new debugfs entry to query status of SOF FW memory
-> allocation at runtime. Information on used and free memory is shown
-> separately for each zone. A new IPC message is added for this purpose
-> and ABI minor revision is bumped accordingly to 3.18.
-> 
-> To implement this, additional FW configuration data needs to be
-> parsed from the firmware file and this is done in the first patch.
-> 
-> [...]
 
-Applied to
+--gKMricLos+KVdGMg
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
+On Wed, Nov 18, 2020 at 08:58:57AM +0800, xuyuqing wrote:
+> the microphone is attached to external codec(adau7002)
+> instead of rt5682.We need to always use 32 bit format on sc7180
+> to meet the clock requirement of adau7002:
+> The ADAU7002 requires a BCLK rate=20
+> that is a minimum of 64=D7 the LRCLK sample rate
 
-Thanks!
+Please don't send cover letters for single patches, if there is anything
+that needs saying put it in the changelog of the patch or after the ---
+if it's administrative stuff.  This reduces mail volume and ensures that=20
+any important information is recorded in the changelog rather than being
+lost.=20
 
-[1/4] ASoC: SOF: ext_manifest: Parse firmware config dictionary
-      commit: 7f09f79d5cb13186b0f422cf2e1c711c88c92195
-[2/4] ASoC: SOF: Improve code alignment in header.h
-      commit: 2e4f3f9141cc626147eaf6fbb8a92f17fd069553
-[3/4] ASoC: SOF: Change section comment for SOF_IPC_TEST_
-      commit: 6dd958955d3053a9c50353e39671622af4b8fba2
-[4/4] ASoC: SOF: Add `memory_info` file to debugfs
-      commit: 5b10b62989219aa527ee4fa555d1995a3b70981b
+--gKMricLos+KVdGMg
+Content-Type: application/pgp-signature; name="signature.asc"
 
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
+-----BEGIN PGP SIGNATURE-----
 
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl++UtcACgkQJNaLcl1U
+h9BXsAf+JbAuQvpTNdjb5/LUqRdyuTd2UQmI4XFbgJUpmVe1dh0IbCc5pqQg/DXU
+/Wl7kSPW1BB1dgiEpbf54AcEQedhpzJggccsH9tWbLyLvC6yVksQc+PU3dxf8FbC
+d+O/GzA4WlIomYE7szH8rvTLcBG8FE37F5qT7zADGhDFA4yjXNhmEOBFQQQsIzRR
+gemWP64PSv4ekoI7Kc9k8VXFutE67I7cPaL0uHEnaDzUcbgkompnweXA8AApxTTq
+PkxAlknTOCQQlkUQH+TgFi00oJlyriAJ9y1ua9le7GoFNRva07aIo9cehika7qTT
+CxonbnDUtgpR5DZnZ5cUXTBJkby3EA==
+=3C6x
+-----END PGP SIGNATURE-----
 
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
-
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-Thanks,
-Mark
+--gKMricLos+KVdGMg--

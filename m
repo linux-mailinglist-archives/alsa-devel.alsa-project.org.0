@@ -2,82 +2,79 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 46E742C44C1
-	for <lists+alsa-devel@lfdr.de>; Wed, 25 Nov 2020 17:18:54 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3152E2C45A9
+	for <lists+alsa-devel@lfdr.de>; Wed, 25 Nov 2020 17:46:55 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D66031742;
-	Wed, 25 Nov 2020 17:18:03 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D66031742
+	by alsa0.perex.cz (Postfix) with ESMTPS id B61D6174B;
+	Wed, 25 Nov 2020 17:46:04 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B61D6174B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1606321134;
-	bh=5tj9d2+Mw+O77Gy9ar6oI3rn0PILx0cLmPgMvhk5BIQ=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=rjVzPhObbP6E574QaaaXmQDl8TgCHxEQ6azbQk8p6FYA70BRoRJntJDsIP7CfQd+S
-	 pKiqGz5d7sBmrsxxfjKYiJYAaERbZNVDxEph/lkIxnUGudOWn+DY9l6HbuurVDaM/B
-	 slZeQFWU7sO8CRZNoVxqybUCrl1BopU8f9gdDEmI=
+	s=default; t=1606322814;
+	bh=8cjjclaA/vmhEiJGhNCIaK/0/JAKMBfJ3d0qzrpX5zs=;
+	h=From:To:Subject:Date:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=VZN4BIRJRUEYVynu2RN6Gi7lxY/pgzu6knRhax5QTQWi8lpiKI4VpRlDfRzetnd59
+	 SLpt0g35Ehm6RXdJtsXVjGUOe/FvMRz1XjCBujgLVmPbRHEvcL04B2wUGKuLU2KyrF
+	 5++mIGfgDbqageD9qLb7FiqSJ2xIDQpsk8Nzaodg=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 50860F80128;
-	Wed, 25 Nov 2020 17:17:19 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 5220AF80218;
+	Wed, 25 Nov 2020 17:45:20 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 34693F8019D; Wed, 25 Nov 2020 17:17:17 +0100 (CET)
+ id 65CA9F8019D; Wed, 25 Nov 2020 17:45:17 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_MSPIKE_H3,
- RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+ DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled
  version=3.4.0
-Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id A8923F80128
- for <alsa-devel@alsa-project.org>; Wed, 25 Nov 2020 17:17:08 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A8923F80128
-IronPort-SDR: 02MwBJgh3AtHoWj3mAMQTieP7Pj4WZOr3c5AFSks2CixmHfuc8pCrQh5UiALytls2nwqKioMAp
- crmW75Imw2qg==
-X-IronPort-AV: E=McAfee;i="6000,8403,9816"; a="190299284"
-X-IronPort-AV: E=Sophos;i="5.78,369,1599548400"; d="scan'208";a="190299284"
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from orsmga004.jf.intel.com ([10.7.209.38])
- by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 25 Nov 2020 08:17:07 -0800
-IronPort-SDR: y0htdTTEiWEL1dF38nmNwqMIo1hmafs4TD+tkZ1/2xIrJeX3ndNqwj3tp5HFH0UqonoMR2anXZ
- 8gx8kF0O7p6g==
-X-IronPort-AV: E=Sophos;i="5.78,369,1599548400"; d="scan'208";a="478984679"
-Received: from smile.fi.intel.com (HELO smile) ([10.237.68.40])
- by orsmga004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 25 Nov 2020 08:17:05 -0800
-Received: from andy by smile with local (Exim 4.94)
- (envelope-from <andriy.shevchenko@linux.intel.com>)
- id 1khxUc-009fFc-Pd; Wed, 25 Nov 2020 18:18:06 +0200
-Date: Wed, 25 Nov 2020 18:18:06 +0200
-From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-To: "Rafael J. Wysocki" <rafael@kernel.org>
-Subject: Re: [PATCH v1] ASoC: Intel: catpt: Replace open coded variant of
- resource_intersection()
-Message-ID: <20201125161806.GY4077@smile.fi.intel.com>
-References: <20201124095628.54373-1-andriy.shevchenko@linux.intel.com>
- <f33b4381ea3a4cf4b8e7f27676cd90ed@intel.com>
- <CAJZ5v0hxqydcoqTCDzR7O7Y4d71Qutx+k4sOmdvOY24f2-OWgg@mail.gmail.com>
- <20201125161028.GW4077@smile.fi.intel.com>
- <CAJZ5v0huXtSDtQEmUHx4NmjJhFNOVUMktD_eJ06=fsmZB40ayw@mail.gmail.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 2E665F80128
+ for <alsa-devel@alsa-project.org>; Wed, 25 Nov 2020 17:45:12 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2E665F80128
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="YZS4E7BK"
+Received: from localhost.localdomain (adsl-84-226-167-205.adslplus.ch
+ [84.226.167.205])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested)
+ by mail.kernel.org (Postfix) with ESMTPSA id 529FA20857;
+ Wed, 25 Nov 2020 16:45:06 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=default; t=1606322710;
+ bh=8cjjclaA/vmhEiJGhNCIaK/0/JAKMBfJ3d0qzrpX5zs=;
+ h=From:To:Subject:Date:From;
+ b=YZS4E7BK3srGsuTh+q5EIDvKyRDccEGJGdUWte/QLVxbzLZakwqVxEgFQlOXWP+xG
+ fWDx1WLNQPpQdTRZHnuLiHmWsaCUebiy3xjULAaVOtb9bsPQU378aXYKo0cUdO2p4j
+ fgZQ+f0QU20kcGBdEosXCT+mUFjQiotrV2Td0MCo=
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+ Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+ Support Opensource <support.opensource@diasemi.com>,
+ Oder Chiou <oder_chiou@realtek.com>,
+ Kevin Cernekee <cernekee@chromium.org>,
+ Jerome Brunet <jbrunet@baylibre.com>, Kevin Hilman <khilman@baylibre.com>,
+ Neil Armstrong <narmstrong@baylibre.com>,
+ Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
+ Patrick Lai <plai@codeaurora.org>,
+ Banajit Goswami <bgoswami@codeaurora.org>,
+ Heiko Stuebner <heiko@sntech.de>, Krzysztof Kozlowski <krzk@kernel.org>,
+ Sylwester Nawrocki <s.nawrocki@samsung.com>,
+ Peter Ujfalusi <peter.ujfalusi@ti.com>, alsa-devel@alsa-project.org,
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-amlogic@lists.infradead.org, linux-rockchip@lists.infradead.org
+Subject: [PATCH v2 00/39] ASoC: fix !OF compile test warnings
+Date: Wed, 25 Nov 2020 17:44:13 +0100
+Message-Id: <20201125164452.89239-1-krzk@kernel.org>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <CAJZ5v0huXtSDtQEmUHx4NmjJhFNOVUMktD_eJ06=fsmZB40ayw@mail.gmail.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
-Cc: "Rojewski, Cezary" <cezary.rojewski@intel.com>,
- "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
- "Rafael J. Wysocki" <rjw@rjwysocki.net>, Jie Yang <yang.jie@linux.intel.com>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- Liam Girdwood <liam.r.girdwood@linux.intel.com>,
- "linux-acpi@vger.kernel.org" <linux-acpi@vger.kernel.org>,
- Mark Brown <broonie@kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -93,22 +90,104 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Wed, Nov 25, 2020 at 05:10:50PM +0100, Rafael J. Wysocki wrote:
-> On Wed, Nov 25, 2020 at 5:09 PM Andy Shevchenko
-> <andriy.shevchenko@linux.intel.com> wrote:
-> > On Wed, Nov 25, 2020 at 04:49:39PM +0100, Rafael J. Wysocki wrote:
+Hi,
 
-...
+Changes since v1:
+1. New patch 2/39: ASoC: bd28623: mark OF related data as maybe unused,
+2. Patches 1-13: add maybe_unused after discussions with Mark,
+3. Add Sylwester's review to two patches (one changed so please review
+   one more time).
 
-> > There is one fix to the series [1]. But now I realized that I forgot to Cc
-> > linux-acpi@. Do you want me resend it?
-> 
-> Yes, please!
+Best regards,
+Krzysztof
 
-Done! Sent as v2.
+
+Krzysztof Kozlowski (39):
+  ASoC: ak5558: mark OF related data as maybe unused
+  ASoC: bd28623: mark OF related data as maybe unused
+  ASoC: gtm601: mark OF related data as maybe unused
+  ASoC: inno_rk3036: mark OF related data as maybe unused
+  ASoC: rk3328: mark OF related data as maybe unused
+  ASoC: tas571x: mark OF related data as maybe unused
+  ASoC: kirkwood: armada-370-db: mark OF related data as maybe unused
+  ASoC: meson: t9015: mark OF related data as maybe unused
+  ASoC: qcom: mark OF related data as maybe unused
+  ASoC: samsung: smdk_wm8994: mark OF related data as maybe unused
+  ASoC: rockchip: mark OF related data as maybe unused
+  ASoC: ti: davinci: mark OF related data as maybe unused
+  ASoC: uniphier: mark OF related data as maybe unused
+  ASoC: ak4118: skip of_device_id table when !CONFIG_OF
+  ASoC: alc5623: skip of_device_id table when !CONFIG_OF
+  ASoC: alc5632: skip of_device_id table when !CONFIG_OF
+  ASoC: da7218: skip of_device_id table when !CONFIG_OF
+  ASoC: da7219: skip of_device_id table when !CONFIG_OF
+  ASoC: da9055: skip of_device_id table when !CONFIG_OF
+  ASoC: es8316: skip of_device_id table when !CONFIG_OF
+  ASoC: max98090: skip of_device_id table when !CONFIG_OF
+  ASoC: max98095: skip of_device_id table when !CONFIG_OF
+  ASoC: max98371: skip of_device_id table when !CONFIG_OF
+  ASoC: max9867: skip of_device_id table when !CONFIG_OF
+  ASoC: max98925: skip of_device_id table when !CONFIG_OF
+  ASoC: max98926: skip of_device_id table when !CONFIG_OF
+  ASoC: pcm1789: skip of_device_id table when !CONFIG_OF
+  ASoC: pcm179x: skip of_device_id table when !CONFIG_OF
+  ASoC: rt5660: skip of_device_id table when !CONFIG_OF
+  ASoC: tas2562: skip of_device_id table when !CONFIG_OF
+  ASoC: tlv320: skip of_device_id table when !CONFIG_OF
+  ASoC: ts3a227e: skip of_device_id table when !CONFIG_OF
+  ASoC: es7134: mark OF related data as maybe unused
+  ASoC: es7241: mark OF related data as maybe unused
+  ASoC: samsung: i2s: mark OF related data as maybe unused
+  ASoC: max98371: drop driver pm=NULL assignment
+  ASoC: max98925: drop driver pm=NULL assignment
+  ASoC: max98926: drop driver pm=NULL assignment
+  ASoC: samsung: smdk_wm8994: remove redundant of_match_ptr()
+
+ sound/soc/codecs/ak4118.c           | 2 ++
+ sound/soc/codecs/ak5558.c           | 2 +-
+ sound/soc/codecs/alc5623.c          | 2 ++
+ sound/soc/codecs/alc5632.c          | 2 ++
+ sound/soc/codecs/bd28623.c          | 2 +-
+ sound/soc/codecs/da7218.c           | 2 ++
+ sound/soc/codecs/da7219.c           | 2 ++
+ sound/soc/codecs/da9055.c           | 2 ++
+ sound/soc/codecs/es7134.c           | 4 ++--
+ sound/soc/codecs/es7241.c           | 2 +-
+ sound/soc/codecs/es8316.c           | 2 ++
+ sound/soc/codecs/gtm601.c           | 2 +-
+ sound/soc/codecs/inno_rk3036.c      | 2 +-
+ sound/soc/codecs/max98090.c         | 2 ++
+ sound/soc/codecs/max98095.c         | 2 ++
+ sound/soc/codecs/max98371.c         | 3 ++-
+ sound/soc/codecs/max9867.c          | 2 ++
+ sound/soc/codecs/max98925.c         | 3 ++-
+ sound/soc/codecs/max98926.c         | 3 ++-
+ sound/soc/codecs/pcm1789-i2c.c      | 2 ++
+ sound/soc/codecs/pcm179x-i2c.c      | 2 ++
+ sound/soc/codecs/rk3328_codec.c     | 2 +-
+ sound/soc/codecs/rt5660.c           | 2 ++
+ sound/soc/codecs/tas2562.c          | 2 ++
+ sound/soc/codecs/tas571x.c          | 4 ++--
+ sound/soc/codecs/tlv320adcx140.c    | 2 ++
+ sound/soc/codecs/tlv320aic23-i2c.c  | 2 ++
+ sound/soc/codecs/ts3a227e.c         | 2 ++
+ sound/soc/kirkwood/armada-370-db.c  | 2 +-
+ sound/soc/meson/t9015.c             | 2 +-
+ sound/soc/qcom/apq8016_sbc.c        | 2 +-
+ sound/soc/qcom/lpass-apq8016.c      | 2 +-
+ sound/soc/qcom/lpass-ipq806x.c      | 2 +-
+ sound/soc/qcom/lpass-sc7180.c       | 2 +-
+ sound/soc/rockchip/rockchip_i2s.c   | 2 +-
+ sound/soc/rockchip/rockchip_pdm.c   | 2 +-
+ sound/soc/rockchip/rockchip_spdif.c | 2 +-
+ sound/soc/samsung/i2s.c             | 8 ++++----
+ sound/soc/samsung/smdk_wm8994.c     | 4 ++--
+ sound/soc/ti/davinci-i2s.c          | 2 +-
+ sound/soc/uniphier/aio-ld11.c       | 2 +-
+ sound/soc/uniphier/aio-pxs2.c       | 2 +-
+ sound/soc/uniphier/evea.c           | 2 +-
+ 43 files changed, 69 insertions(+), 32 deletions(-)
 
 -- 
-With Best Regards,
-Andy Shevchenko
-
+2.25.1
 

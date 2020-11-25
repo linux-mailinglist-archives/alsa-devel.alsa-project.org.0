@@ -2,61 +2,65 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0DCED2C3949
-	for <lists+alsa-devel@lfdr.de>; Wed, 25 Nov 2020 07:48:06 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 546682C3B67
+	for <lists+alsa-devel@lfdr.de>; Wed, 25 Nov 2020 09:53:11 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 8CB6F171B;
-	Wed, 25 Nov 2020 07:47:15 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8CB6F171B
+	by alsa0.perex.cz (Postfix) with ESMTPS id DB398171E;
+	Wed, 25 Nov 2020 09:52:20 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DB398171E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1606286885;
-	bh=mRqHZOQEeYtIMjxy/buEM7vxirHzoTybe8DB10o9lAE=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=viJfkyfqdvWZgqQLBmuDsbm4PAMpDnvjccRz93MFfm3dXtOvNlJmlndZmTZvVe8Wz
-	 kxVsqrgHM/XCNGfuKcpaAYTZpbGQxSrGpUM1UlRfaF6eziUsBTCLxfkyxxUpICXxxb
-	 AcplPTiVKZ8Knny2nS4NSmClB+nnq3eXzVgYWTgA=
+	s=default; t=1606294390;
+	bh=y55vdxv1ruCRbhonGKJGdOUuSwdAoaksTMWEaPAps5I=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=Uqdt6Qrkw236uO4xQEX/F7e4li982HqCCEj+ulv8a0gjzVl0Y6jyZ1nQoxOs59xYs
+	 nRJ1nrew26BkYvrJv9o3L7ni+QQkcHBcdqGl7t/cTJ/ydtQiO+dhtT/LcGMisPRRhf
+	 NYtmfdBqmNYkgx2HWTL423t9e+86iEUSuk9L6wFs=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 086F6F8015A;
-	Wed, 25 Nov 2020 07:46:32 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 6B5B8F80218;
+	Wed, 25 Nov 2020 09:51:37 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id CA292F8019D; Wed, 25 Nov 2020 07:46:29 +0100 (CET)
+ id B5017F8019D; Wed, 25 Nov 2020 09:51:34 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_MSPIKE_H4,
+X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_MSPIKE_H3,
  RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=disabled
  version=3.4.0
-Received: from szxga04-in.huawei.com (szxga04-in.huawei.com [45.249.212.190])
+Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id E8213F8015A
- for <alsa-devel@alsa-project.org>; Wed, 25 Nov 2020 07:46:25 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E8213F8015A
-Received: from DGGEMS411-HUB.china.huawei.com (unknown [172.30.72.58])
- by szxga04-in.huawei.com (SkyGuard) with ESMTP id 4Cgrxs0FjzzkfbD;
- Wed, 25 Nov 2020 14:45:53 +0800 (CST)
-Received: from localhost.localdomain.localdomain (10.175.113.25) by
- DGGEMS411-HUB.china.huawei.com (10.3.19.211) with Microsoft SMTP Server id
- 14.3.487.0; Wed, 25 Nov 2020 14:46:12 +0800
-From: Qinglang Miao <miaoqinglang@huawei.com>
-To: Vinod Koul <vkoul@kernel.org>, Bard Liao
- <yung-chuan.liao@linux.intel.com>, Pierre-Louis Bossart
- <pierre-louis.bossart@linux.intel.com>, Sanyog Kale <sanyog.r.kale@intel.com>
-Subject: [PATCH] soundwire: Fix error return code in sdw_compute_port_params
-Date: Wed, 25 Nov 2020 14:50:35 +0800
-Message-ID: <20201125065035.154262-1-miaoqinglang@huawei.com>
-X-Mailer: git-send-email 2.20.1
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.175.113.25]
-X-CFilter-Loop: Reflected
-Cc: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org, Qinglang
- Miao <miaoqinglang@huawei.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 69714F800D2
+ for <alsa-devel@alsa-project.org>; Wed, 25 Nov 2020 09:51:26 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 69714F800D2
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id 5D538AC90;
+ Wed, 25 Nov 2020 08:51:21 +0000 (UTC)
+Date: Wed, 25 Nov 2020 09:51:21 +0100
+Message-ID: <s5h4kldq0om.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: "Gyeongtaek Lee" <gt82.lee@samsung.com>
+Subject: Re: [PATCH v2] ALSA: compress: allow pause and resume during draining
+In-Reply-To: <000001d6be1e$dc0e2860$942a7920$@samsung.com>
+References: <CGME20201027015726epcas2p1af97e3b6d4a54948a0e29fced35a1cd6@epcas2p1.samsung.com>
+ <000501d6ac04$85019b50$8f04d1f0$@samsung.com>
+ <s5h4km2rhe7.wl-tiwai@suse.de>
+ <000001d6be1e$dc0e2860$942a7920$@samsung.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
+ FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
+ (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
+Content-Type: text/plain; charset=US-ASCII
+Cc: 'Pierre-Louis Bossart' <pierre-louis.bossart@linux.intel.com>,
+ alsa-devel@alsa-project.org, khw0178.kim@samsung.com, kimty@samsung.com,
+ tiwai@suse.com, lgirdwood@gmail.com, 'Vinod Koul' <vkoul@kernel.org>,
+ hmseo@samsung.com, s47.kang@samsung.com, pilsun.jang@samsung.com,
+ tkjung@samsung.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -72,32 +76,194 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Fix to return the error code -EINVAL in sdw_compute_port_params
-instead of 0.
+On Thu, 19 Nov 2020 03:51:19 +0100,
+Gyeongtaek Lee wrote:
+> 
+> On Fri, 06 Nov 2020 09:58:24 +0100, Takashi Iwai wrote:
+> >On Tue, 27 Oct 2020 02:57:25 +0100,
+> >Gyeongtaek Lee wrote:
+> >> 
+> >> With a stream with low bitrate, user can't pause or resume the stream
+> >> near the end of the stream because current ALSA doesn't allow it.
+> >> If the stream has very low bitrate enough to store whole stream into
+> >> the buffer, user can't do anything except stop the stream and then
+> >> restart it from the first because most of applications call draining
+> >> after sending last frame to the kernel.
+> >> If pause, resume are allowed during draining, user experience can be
+> >> enhanced.
+> >> To prevent malfunction in HW drivers which don't support pause
+> >> during draining, pause during draining will only work if HW driver
+> >> enable this feature explicitly by calling
+> >> snd_compr_use_pause_in_draining().
+> >> 
+> >> Signed-off-by: Gyeongtaek Lee <gt82.lee@samsung.com>
+> >> Cc: stable@vger.kernel.org
+> >
+> >I personally find the approach is fine, but let's see what others
+> >think.
+> >
+> >One remaining concern to me is about the setup of
+> >use_pause_in_draining flag.  This is done by an explicit function call
+> >after the snd_compr object initialization.  It's a bit uncommon style,
+> >but OTOH I understand it from the current initialization code of
+> >compress-offload API.
+> Thanks for your kind review.
+> 
+> It's been almost 2 weeks.
+> So, I think that there is no further comment for this patch.
 
-Fixes: 9026118f20e2 ("soundwire: Add generic bandwidth allocation algorithm")
-Reported-by: Hulk Robot <hulkci@huawei.com>
-Signed-off-by: Qinglang Miao <miaoqinglang@huawei.com>
----
- drivers/soundwire/generic_bandwidth_allocation.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+I guess it's just overlooked.  Vinod?
 
-diff --git a/drivers/soundwire/generic_bandwidth_allocation.c b/drivers/soundwire/generic_bandwidth_allocation.c
-index 0bdef38c9..ad857ac62 100644
---- a/drivers/soundwire/generic_bandwidth_allocation.c
-+++ b/drivers/soundwire/generic_bandwidth_allocation.c
-@@ -283,8 +283,10 @@ static int sdw_compute_port_params(struct sdw_bus *bus)
- 	if (ret < 0)
- 		return ret;
- 
--	if (group.count == 0)
-+	if (group.count == 0) {
-+		ret = -EINVAL;
- 		goto out;
-+	}
- 
- 	params = kcalloc(group.count, sizeof(*params), GFP_KERNEL);
- 	if (!params) {
--- 
-2.23.0
 
+Takashi
+
+> Could this patch be applied?
+> If so, should I resend this patch with new header like patch v3 or wait?
+> 
+> thanks again,
+> 
+> Gyeongtaek
+> >
+> >
+> >thanks,
+> >
+> >Takashi
+> >
+> >> ---
+> >>  include/sound/compress_driver.h | 17 +++++++++++++
+> >>  sound/core/compress_offload.c   | 44 +++++++++++++++++++++++++++------
+> >>  2 files changed, 53 insertions(+), 8 deletions(-)
+> >> 
+> >> diff --git a/include/sound/compress_driver.h b/include/sound/compress_driver.h
+> >> index 70cbc5095e72..5a0d6737de5e 100644
+> >> --- a/include/sound/compress_driver.h
+> >> +++ b/include/sound/compress_driver.h
+> >> @@ -67,6 +67,7 @@ struct snd_compr_runtime {
+> >>   * @metadata_set: metadata set flag, true when set
+> >>   * @next_track: has userspace signal next track transition, true when set
+> >>   * @partial_drain: undergoing partial_drain for stream, true when set
+> >> + * @pause_in_draining: paused during draining state, true when set
+> >>   * @private_data: pointer to DSP private data
+> >>   * @dma_buffer: allocated buffer if any
+> >>   */
+> >> @@ -80,6 +81,7 @@ struct snd_compr_stream {
+> >>  	bool metadata_set;
+> >>  	bool next_track;
+> >>  	bool partial_drain;
+> >> +	bool pause_in_draining;
+> >>  	void *private_data;
+> >>  	struct snd_dma_buffer dma_buffer;
+> >>  };
+> >> @@ -142,6 +144,7 @@ struct snd_compr_ops {
+> >>   * @direction: Playback or capture direction
+> >>   * @lock: device lock
+> >>   * @device: device id
+> >> + * @use_pause_in_draining: allow pause in draining, true when set
+> >>   */
+> >>  struct snd_compr {
+> >>  	const char *name;
+> >> @@ -152,6 +155,7 @@ struct snd_compr {
+> >>  	unsigned int direction;
+> >>  	struct mutex lock;
+> >>  	int device;
+> >> +	bool use_pause_in_draining;
+> >>  #ifdef CONFIG_SND_VERBOSE_PROCFS
+> >>  	/* private: */
+> >>  	char id[64];
+> >> @@ -166,6 +170,19 @@ int snd_compress_deregister(struct snd_compr *device);
+> >>  int snd_compress_new(struct snd_card *card, int device,
+> >>  			int type, const char *id, struct snd_compr *compr);
+> >>  
+> >> +/**
+> >> + * snd_compr_use_pause_in_draining - Allow pause and resume in draining state
+> >> + * @substream: compress substream to set
+> >> + *
+> >> + * Allow pause and resume in draining state.
+> >> + * Only HW driver supports this transition can call this API.
+> >> + */
+> >> +static inline void snd_compr_use_pause_in_draining(
+> >> +					struct snd_compr_stream *substream)
+> >> +{
+> >> +	substream->device->use_pause_in_draining = true;
+> >> +}
+> >> +
+> >>  /* dsp driver callback apis
+> >>   * For playback: driver should call snd_compress_fragment_elapsed() to let the
+> >>   * framework know that a fragment has been consumed from the ring buffer
+> >> diff --git a/sound/core/compress_offload.c b/sound/core/compress_offload.c
+> >> index 0e53f6f31916..a071485383ed 100644
+> >> --- a/sound/core/compress_offload.c
+> >> +++ b/sound/core/compress_offload.c
+> >> @@ -708,11 +708,24 @@ static int snd_compr_pause(struct snd_compr_stream *stream)
+> >>  {
+> >>  	int retval;
+> >>  
+> >> -	if (stream->runtime->state != SNDRV_PCM_STATE_RUNNING)
+> >> +	switch (stream->runtime->state) {
+> >> +	case SNDRV_PCM_STATE_RUNNING:
+> >> +		retval = stream->ops->trigger(stream,
+> >> +			SNDRV_PCM_TRIGGER_PAUSE_PUSH);
+> >> +		if (!retval)
+> >> +			stream->runtime->state = SNDRV_PCM_STATE_PAUSED;
+> >> +		break;
+> >> +	case SNDRV_PCM_STATE_DRAINING:
+> >> +		if (!stream->device->use_pause_in_draining)
+> >> +			return -EPERM;
+> >> +		retval = stream->ops->trigger(stream,
+> >> +			SNDRV_PCM_TRIGGER_PAUSE_PUSH);
+> >> +		if (!retval)
+> >> +			stream->pause_in_draining = true;
+> >> +		break;
+> >> +	default:
+> >>  		return -EPERM;
+> >> -	retval = stream->ops->trigger(stream, SNDRV_PCM_TRIGGER_PAUSE_PUSH);
+> >> -	if (!retval)
+> >> -		stream->runtime->state = SNDRV_PCM_STATE_PAUSED;
+> >> +	}
+> >>  	return retval;
+> >>  }
+> >>  
+> >> @@ -720,11 +733,25 @@ static int snd_compr_resume(struct snd_compr_stream *stream)
+> >>  {
+> >>  	int retval;
+> >>  
+> >> -	if (stream->runtime->state != SNDRV_PCM_STATE_PAUSED)
+> >> +	switch (stream->runtime->state) {
+> >> +	case SNDRV_PCM_STATE_PAUSED:
+> >> +		retval = stream->ops->trigger(stream,
+> >> +			SNDRV_PCM_TRIGGER_PAUSE_RELEASE);
+> >> +		if (!retval)
+> >> +			stream->runtime->state = SNDRV_PCM_STATE_RUNNING;
+> >> +		break;
+> >> +	case SNDRV_PCM_STATE_DRAINING:
+> >> +		if (!stream->device->use_pause_in_draining ||
+> >> +		    !stream->pause_in_draining)
+> >> +			return -EPERM;
+> >> +		retval = stream->ops->trigger(stream,
+> >> +			SNDRV_PCM_TRIGGER_PAUSE_RELEASE);
+> >> +		if (!retval)
+> >> +			stream->pause_in_draining = false;
+> >> +		break;
+> >> +	default:
+> >>  		return -EPERM;
+> >> -	retval = stream->ops->trigger(stream, SNDRV_PCM_TRIGGER_PAUSE_RELEASE);
+> >> -	if (!retval)
+> >> -		stream->runtime->state = SNDRV_PCM_STATE_RUNNING;
+> >> +	}
+> >>  	return retval;
+> >>  }
+> >>  
+> >> @@ -767,6 +794,7 @@ static int snd_compr_stop(struct snd_compr_stream *stream)
+> >>  		/* clear flags and stop any drain wait */
+> >>  		stream->partial_drain = false;
+> >>  		stream->metadata_set = false;
+> >> +		stream->pause_in_draining = false;
+> >>  		snd_compr_drain_notify(stream);
+> >>  		stream->runtime->total_bytes_available = 0;
+> >>  		stream->runtime->total_bytes_transferred = 0;
+> >> -- 
+> >> 2.21.0
+> >> 
+> >> 
+> >
+> 

@@ -2,72 +2,101 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id EFFF62C3E96
-	for <lists+alsa-devel@lfdr.de>; Wed, 25 Nov 2020 11:59:56 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9854C2C3F41
+	for <lists+alsa-devel@lfdr.de>; Wed, 25 Nov 2020 12:43:23 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 92B3D1729;
-	Wed, 25 Nov 2020 11:59:06 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 92B3D1729
+	by alsa0.perex.cz (Postfix) with ESMTPS id 2DF1D171D;
+	Wed, 25 Nov 2020 12:42:33 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2DF1D171D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1606301996;
-	bh=RAlg7DcQvYsdpNf0CvzrKNTNyUPVVRoy7QQrmQ0WDbk=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1606304603;
+	bh=UPDV8E+FcI176PLeU6ecsejc/CsPbLmK91KIjigB7TQ=;
+	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=Mp6zZy9PXOrly5tfTw3YMWThhGPFCg/r4M1wwjNrY3AuGpnTsX/mUtLB0LlVDioZr
-	 /4DqfxerWPAjETEy3rgpXf6Cd+DwUSCkmrPQlA7d//Gk5jPQ6IfjbXwBWEq9iOVji3
-	 CK+cj/QzxNxORdanDPYH38b4XMA77mDDztNdHBaU=
+	b=GPKWaageP5UKgTN0+usMgn0OgcPBPgCkCP3pfXrJSRRfjWqHSRpwIJVdOXInta73+
+	 wVEFt9hSrrse+Ddr/nft5FZRV0Gd9OtaWGy2tFhxcCwP9PPrnGfkJb6OeTkbtDnNA1
+	 FXx/JKLS8aKioGKGyqHEhqhNe+l/gd1qon3yKOw8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id BBE2AF80218;
-	Wed, 25 Nov 2020 11:58:21 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id AE91AF8015F;
+	Wed, 25 Nov 2020 12:41:48 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 38F35F8019D; Wed, 25 Nov 2020 11:58:20 +0100 (CET)
+ id 5E016F8019D; Wed, 25 Nov 2020 12:41:46 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
  autolearn=disabled version=3.4.0
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+Received: from mail-wm1-x343.google.com (mail-wm1-x343.google.com
+ [IPv6:2a00:1450:4864:20::343])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id A601BF800D2
- for <alsa-devel@alsa-project.org>; Wed, 25 Nov 2020 11:58:13 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A601BF800D2
+ by alsa1.perex.cz (Postfix) with ESMTPS id 54946F80128
+ for <alsa-devel@alsa-project.org>; Wed, 25 Nov 2020 12:41:36 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 54946F80128
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="PQSjAu6l"
-Received: from localhost (unknown [122.179.120.21])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 2AD0820678;
- Wed, 25 Nov 2020 10:58:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1606301890;
- bh=RAlg7DcQvYsdpNf0CvzrKNTNyUPVVRoy7QQrmQ0WDbk=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=PQSjAu6lfdjKDTO0Ps5PqClhbMmmqKLqRUBVam7twGBSkTL8UqrdzxU2Hdx2Lqqgp
- 4juWDuiuZ6hq2gDIMKGBrWEaH4VelgeZc/MtBit5MfuKkTWsY2eLLONlOur3YYtgeA
- qZ78HP5J87ZkLUxJ9QdI5DuxIeaJ5h7s2wY+pHFI=
-Date: Wed, 25 Nov 2020 16:28:05 +0530
-From: Vinod Koul <vkoul@kernel.org>
-To: Gyeongtaek Lee <gt82.lee@samsung.com>
-Subject: Re: [PATCH v2] ALSA: compress: allow pause and resume during draining
-Message-ID: <20201125105805.GF8403@vkoul-mobl>
-References: <CGME20201027015726epcas2p1af97e3b6d4a54948a0e29fced35a1cd6@epcas2p1.samsung.com>
- <000501d6ac04$85019b50$8f04d1f0$@samsung.com>
+ dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org
+ header.b="IB5nW+14"
+Received: by mail-wm1-x343.google.com with SMTP id w24so1862691wmi.0
+ for <alsa-devel@alsa-project.org>; Wed, 25 Nov 2020 03:41:36 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=subject:to:cc:references:from:message-id:date:user-agent
+ :mime-version:in-reply-to:content-language:content-transfer-encoding;
+ bh=nVuOJb86RZnub8WbfD5mttdsK/algndOavgLCFXuCFE=;
+ b=IB5nW+14riZtbKeB2ho1hmjZSLlS5UWP6ld07DKzgKjkyjiJFvMqpw/Xua9U3/i8zT
+ w7Rltfm0A0JmWNWXXR0a2oxK3qsd0UhiXFQYeJaNiELo4iJvJevE0LRy2PcGqkceBuru
+ OIu9gh5XsPWSKnP1bMaNU2Ky5fbqUpZTWerq3Eq80JYkfjvzUCCnI95iWh56H+EDCrkf
+ QVUW7kbcdiDYoktSHWmsXWqLdd1KvZd6k5HkgPKggsVh5qojGzvomp5H6by/KOTln7N5
+ bybwv7LNfYhdh75I0OSoAHezAdhNtWw1qk449I9VxHO49Wshq8/5ysew5fzKy9Cj5IAi
+ iQZw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:subject:to:cc:references:from:message-id:date
+ :user-agent:mime-version:in-reply-to:content-language
+ :content-transfer-encoding;
+ bh=nVuOJb86RZnub8WbfD5mttdsK/algndOavgLCFXuCFE=;
+ b=IuaWBTcgBiaKpDm+uM0jsCuYBqTIAvnjmkCLEj5ufCUkEc4dHcpt0yY6WvXuB826R5
+ KpbNObynWKIFEAyolCTAdxjNUpWo59tRbXhJl5fkXupsOEsUWRQxfiaTj1Z/ZbRpGWF0
+ mi4nCi0JtbN5C1Gts9fKW98N1KP+SyMy4eDWuAA9m06DI0T1l9KA1pXoaNbl1j5QqEnv
+ gVFyQ7xeVDvvSDRFGKtq1PgwvR5g82oedWSNriKUcEm0rMH8eOku1hCYvM0tmr1Hfxsi
+ 95ISolVSpybEJvYh2Wid0BBVVrZWTV0cwilbrGmXVsny4t5i1io4sTHVOOcsGJjermaP
+ bQFg==
+X-Gm-Message-State: AOAM533d2/c/lLzsFoSfAWuf6WO0K3++i6MpFvuXiWv/yJlCNvNfWrf5
+ pYYLhOjGmuRQoAtdz0BMgj1Euw==
+X-Google-Smtp-Source: ABdhPJxriUDnleNU9MZcmnzjjrOm3PoiDDlX6f3m8a9tRoYYm4aIv0fWu7awhi65a6onyI/A3229GQ==
+X-Received: by 2002:a05:600c:294c:: with SMTP id
+ n12mr3463963wmd.66.1606304490874; 
+ Wed, 25 Nov 2020 03:41:30 -0800 (PST)
+Received: from [192.168.86.34]
+ (cpc86377-aztw32-2-0-cust226.18-1.cable.virginm.net. [92.233.226.227])
+ by smtp.googlemail.com with ESMTPSA id u7sm4357558wmb.20.2020.11.25.03.41.29
+ (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+ Wed, 25 Nov 2020 03:41:30 -0800 (PST)
+Subject: Re: drivers/soundwire/qcom.c:767: undefined reference to `slimbus_bus'
+To: Vinod Koul <vkoul@kernel.org>, Randy Dunlap <rdunlap@infradead.org>
+References: <202011030351.iq9CBMO3-lkp@intel.com>
+ <e0d74391-18ae-0493-b8a1-cbeb6f00bde8@infradead.org>
+ <20201125055155.GD8403@vkoul-mobl>
+From: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
+Message-ID: <c0d24710-b2c6-aff0-c28a-fe276dd7eb46@linaro.org>
+Date: Wed, 25 Nov 2020 11:41:29 +0000
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
+ Thunderbird/60.8.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <000501d6ac04$85019b50$8f04d1f0$@samsung.com>
-Cc: alsa-devel@alsa-project.org, khw0178.kim@samsung.com, lgirdwood@gmail.com,
- 'Takashi Iwai' <tiwai@suse.de>, tiwai@suse.com,
- 'Pierre-Louis Bossart' <pierre-louis.bossart@linux.intel.com>,
- kimty@samsung.com, hmseo@samsung.com, s47.kang@samsung.com,
- pilsun.jang@samsung.com, tkjung@samsung.com
+In-Reply-To: <20201125055155.GD8403@vkoul-mobl>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
+Cc: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ moderated for non-subscribers <alsa-devel@alsa-project.org>,
+ kbuild-all@lists.01.org, kernel test robot <lkp@intel.com>,
+ Jonathan Marek <jonathan@marek.ca>, linux-kernel@vger.kernel.org,
+ Bjorn Andersson <bjorn.andersson@linaro.org>,
+ Bard Liao <yung-chuan.liao@linux.intel.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -83,171 +112,91 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 27-10-20, 10:57, Gyeongtaek Lee wrote:
-> With a stream with low bitrate, user can't pause or resume the stream
-> near the end of the stream because current ALSA doesn't allow it.
-> If the stream has very low bitrate enough to store whole stream into
-> the buffer, user can't do anything except stop the stream and then
-> restart it from the first because most of applications call draining
-> after sending last frame to the kernel.
-> If pause, resume are allowed during draining, user experience can be
-> enhanced.
-> To prevent malfunction in HW drivers which don't support pause
-> during draining, pause during draining will only work if HW driver
-> enable this feature explicitly by calling
-> snd_compr_use_pause_in_draining().
+
+
+On 25/11/2020 05:51, Vinod Koul wrote:
+> Hi Randy,
 > 
-> Signed-off-by: Gyeongtaek Lee <gt82.lee@samsung.com>
-> Cc: stable@vger.kernel.org
+> On 04-11-20, 19:32, Randy Dunlap wrote:
+>> On 11/2/20 11:47 AM, kernel test robot wrote:
+>>> All errors (new ones prefixed by >>):
+>>>
+>>>     or1k-linux-ld: drivers/soundwire/qcom.o: in function `qcom_swrm_probe':
+>>>>> drivers/soundwire/qcom.c:767: undefined reference to `slimbus_bus'
+>>>>> or1k-linux-ld: drivers/soundwire/qcom.c:771: undefined reference to `slimbus_bus'
+>>>
+>>> 09309093d5e8f87 Jonathan Marek       2020-09-08  770  #if IS_ENABLED(CONFIG_SLIMBUS)
+>>> 02efb49aa805cee Srinivas Kandagatla  2020-01-13 @771  	if (dev->parent->bus == &slimbus_bus) {
+>>> 5bd773242f75da3 Jonathan Marek       2020-09-05  772  #else
+>>> 5bd773242f75da3 Jonathan Marek       2020-09-05  773  	if (false) {
+>>> 5bd773242f75da3 Jonathan Marek       2020-09-05  774  #endif
+>>
+>> config SOUNDWIRE_QCOM
+>> 	tristate "Qualcomm SoundWire Master driver"
+>> 	imply SLIMBUS
+>> 	depends on SND_SOC
+>>
+>> The kernel config that was attached has:
+>> CONFIG_SOUNDWIRE_QCOM=y
+>> CONFIG_SLIMBUS=m
+>>
+>> I expected that "imply" would make SLIMBUS=y since SOUNDWIRE_QCOM=y,
+>> but I guess that's not the case. :(
+>>
+>> Any ideas about what to do here?
+> 
+> Sorry to have missed this earlier. I did some digging and found the
+> Kconfig code to be correct, but not the driver code. Per the
+> Documentation if we are using imply we should use IS_REACHABLE() rather
+> than IS_ENABLED.
+> 
+> This seems to take care of build failure for me on arm64 and x64 builds.
+> 
+> Can you confirm with below patch:
+> 
+> ---><8---
+> 
+> From: Vinod Koul <vkoul@kernel.org>
+> Date: Wed, 25 Nov 2020 11:15:22 +0530
+> Subject: [PATCH] soundwire: qcom: Fix build failure when slimbus is module
+> 
+> Commit 5bd773242f75 ("soundwire: qcom: avoid dependency on
+> CONFIG_SLIMBUS") removed hard dependency on Slimbus for qcom driver but
+> it results in build failure when:
+> CONFIG_SOUNDWIRE_QCOM=y
+> CONFIG_SLIMBUS=m
+> 
+> drivers/soundwire/qcom.o: In function `qcom_swrm_probe':
+> qcom.c:(.text+0xf44): undefined reference to `slimbus_bus'
+> 
+> Fix this by using IS_REACHABLE() in driver which is recommended to be
+> sued with imply.
+> 
+> Fixes: 5bd773242f75 ("soundwire: qcom: avoid dependency on CONFIG_SLIMBUS")
+> Reported-by: kernel test robot <lkp@intel.com>
+> Signed-off-by: Vinod Koul <vkoul@kernel.org>
 > ---
->  include/sound/compress_driver.h | 17 +++++++++++++
->  sound/core/compress_offload.c   | 44 +++++++++++++++++++++++++++------
->  2 files changed, 53 insertions(+), 8 deletions(-)
+
+Thanks Vinod,
+
+Tested-by: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
+Reviewed-by: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
+
+--srini
+>   drivers/soundwire/qcom.c | 2 +-
+>   1 file changed, 1 insertion(+), 1 deletion(-)
 > 
-> diff --git a/include/sound/compress_driver.h b/include/sound/compress_driver.h
-> index 70cbc5095e72..5a0d6737de5e 100644
-> --- a/include/sound/compress_driver.h
-> +++ b/include/sound/compress_driver.h
-> @@ -67,6 +67,7 @@ struct snd_compr_runtime {
->   * @metadata_set: metadata set flag, true when set
->   * @next_track: has userspace signal next track transition, true when set
->   * @partial_drain: undergoing partial_drain for stream, true when set
-> + * @pause_in_draining: paused during draining state, true when set
->   * @private_data: pointer to DSP private data
->   * @dma_buffer: allocated buffer if any
->   */
-> @@ -80,6 +81,7 @@ struct snd_compr_stream {
->  	bool metadata_set;
->  	bool next_track;
->  	bool partial_drain;
-> +	bool pause_in_draining;
->  	void *private_data;
->  	struct snd_dma_buffer dma_buffer;
->  };
-> @@ -142,6 +144,7 @@ struct snd_compr_ops {
->   * @direction: Playback or capture direction
->   * @lock: device lock
->   * @device: device id
-> + * @use_pause_in_draining: allow pause in draining, true when set
->   */
->  struct snd_compr {
->  	const char *name;
-> @@ -152,6 +155,7 @@ struct snd_compr {
->  	unsigned int direction;
->  	struct mutex lock;
->  	int device;
-> +	bool use_pause_in_draining;
->  #ifdef CONFIG_SND_VERBOSE_PROCFS
->  	/* private: */
->  	char id[64];
-> @@ -166,6 +170,19 @@ int snd_compress_deregister(struct snd_compr *device);
->  int snd_compress_new(struct snd_card *card, int device,
->  			int type, const char *id, struct snd_compr *compr);
->  
-> +/**
-> + * snd_compr_use_pause_in_draining - Allow pause and resume in draining state
-> + * @substream: compress substream to set
-> + *
-> + * Allow pause and resume in draining state.
-> + * Only HW driver supports this transition can call this API.
-> + */
-> +static inline void snd_compr_use_pause_in_draining(
-> +					struct snd_compr_stream *substream)
-> +{
-> +	substream->device->use_pause_in_draining = true;
-> +}
-> +
->  /* dsp driver callback apis
->   * For playback: driver should call snd_compress_fragment_elapsed() to let the
->   * framework know that a fragment has been consumed from the ring buffer
-> diff --git a/sound/core/compress_offload.c b/sound/core/compress_offload.c
-> index 0e53f6f31916..a071485383ed 100644
-> --- a/sound/core/compress_offload.c
-> +++ b/sound/core/compress_offload.c
-> @@ -708,11 +708,24 @@ static int snd_compr_pause(struct snd_compr_stream *stream)
->  {
->  	int retval;
->  
-> -	if (stream->runtime->state != SNDRV_PCM_STATE_RUNNING)
-> +	switch (stream->runtime->state) {
-> +	case SNDRV_PCM_STATE_RUNNING:
-> +		retval = stream->ops->trigger(stream,
-> +			SNDRV_PCM_TRIGGER_PAUSE_PUSH);
-
-this seems to fit single line with new 100char limit and makes it a
-better read, can we please do that here and few places below .. The line
-split is making it look bit ugly IMO
-
-> +		if (!retval)
-> +			stream->runtime->state = SNDRV_PCM_STATE_PAUSED;
-> +		break;
-> +	case SNDRV_PCM_STATE_DRAINING:
-> +		if (!stream->device->use_pause_in_draining)
-> +			return -EPERM;
-
-I am expecting patches to tinycompress to handle pause while drain. Esp
-this case..
-
-> +		retval = stream->ops->trigger(stream,
-> +			SNDRV_PCM_TRIGGER_PAUSE_PUSH);
-> +		if (!retval)
-> +			stream->pause_in_draining = true;
-> +		break;
-> +	default:
->  		return -EPERM;
-> -	retval = stream->ops->trigger(stream, SNDRV_PCM_TRIGGER_PAUSE_PUSH);
-> -	if (!retval)
-> -		stream->runtime->state = SNDRV_PCM_STATE_PAUSED;
-> +	}
->  	return retval;
->  }
->  
-> @@ -720,11 +733,25 @@ static int snd_compr_resume(struct snd_compr_stream *stream)
->  {
->  	int retval;
->  
-> -	if (stream->runtime->state != SNDRV_PCM_STATE_PAUSED)
-> +	switch (stream->runtime->state) {
-> +	case SNDRV_PCM_STATE_PAUSED:
-> +		retval = stream->ops->trigger(stream,
-> +			SNDRV_PCM_TRIGGER_PAUSE_RELEASE);
-> +		if (!retval)
-> +			stream->runtime->state = SNDRV_PCM_STATE_RUNNING;
-> +		break;
-> +	case SNDRV_PCM_STATE_DRAINING:
-> +		if (!stream->device->use_pause_in_draining ||
-> +		    !stream->pause_in_draining)
-> +			return -EPERM;
-
-does this condition make sense for resume part..? We have already
-checked for this while going into pause. I am not expecting drain state
-to change while we are paused :)
-
-> +		retval = stream->ops->trigger(stream,
-> +			SNDRV_PCM_TRIGGER_PAUSE_RELEASE);
-> +		if (!retval)
-> +			stream->pause_in_draining = false;
-> +		break;
-> +	default:
->  		return -EPERM;
-> -	retval = stream->ops->trigger(stream, SNDRV_PCM_TRIGGER_PAUSE_RELEASE);
-> -	if (!retval)
-> -		stream->runtime->state = SNDRV_PCM_STATE_RUNNING;
-> +	}
->  	return retval;
->  }
->  
-> @@ -767,6 +794,7 @@ static int snd_compr_stop(struct snd_compr_stream *stream)
->  		/* clear flags and stop any drain wait */
->  		stream->partial_drain = false;
->  		stream->metadata_set = false;
-> +		stream->pause_in_draining = false;
->  		snd_compr_drain_notify(stream);
->  		stream->runtime->total_bytes_available = 0;
->  		stream->runtime->total_bytes_transferred = 0;
-> -- 
-> 2.21.0
+> diff --git a/drivers/soundwire/qcom.c b/drivers/soundwire/qcom.c
+> index fbca4ebf63e9..6d22df01f354 100644
+> --- a/drivers/soundwire/qcom.c
+> +++ b/drivers/soundwire/qcom.c
+> @@ -799,7 +799,7 @@ static int qcom_swrm_probe(struct platform_device *pdev)
+>   	data = of_device_get_match_data(dev);
+>   	ctrl->rows_index = sdw_find_row_index(data->default_rows);
+>   	ctrl->cols_index = sdw_find_col_index(data->default_cols);
+> -#if IS_ENABLED(CONFIG_SLIMBUS)
+> +#if IS_REACHABLE(CONFIG_SLIMBUS)
+>   	if (dev->parent->bus == &slimbus_bus) {
+>   #else
+>   	if (false) {
 > 
-
--- 
-~Vinod

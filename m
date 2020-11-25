@@ -2,71 +2,91 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id BA49A2C384F
-	for <lists+alsa-devel@lfdr.de>; Wed, 25 Nov 2020 06:07:18 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 726582C38D3
+	for <lists+alsa-devel@lfdr.de>; Wed, 25 Nov 2020 06:43:34 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 587F71719;
-	Wed, 25 Nov 2020 06:06:28 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 587F71719
+	by alsa0.perex.cz (Postfix) with ESMTPS id 0930616CA;
+	Wed, 25 Nov 2020 06:42:44 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0930616CA
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1606280838;
-	bh=OQivpyeKMz4JHTOLZeqk0jAOobpDhVdKkjY2Gy+r8VA=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=rrzXLnS+hAAStfibjuqAttZW+IIr28QYPyWXrc+CBUqNzLgSVY0qv7yJjOwQFETjO
-	 nSmod+kDXZHXbq7z6HB5FL+QVsgiIWP/Qmh7afExbZCuMBqvY7oAidGTkHUqs6P3G5
-	 pI7Z6VaBRsYmWUkjS8oCsC9uvmI1RzcZZtm2EW9E=
+	s=default; t=1606283014;
+	bh=dOwCJJnQ3iQhKWe+kWuMfjyCHt4gC4PKnpJIFX6tijc=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=fFcqn/DBnMkivTU+VkU8RrihXd2THtb/vzkOk6XF/axIZrGheWgloAxNoQ9dNNzLs
+	 S/OVj206junw9aYj7O9vG/wUvX59yoe0WZqxoIPvtsqbm6I0yZO3EEp86nyVhBXDaG
+	 r9OW9mVF4ThpTPJYEdLRgKlPwP52Qb8vZr5dkf/Y=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 32FF0F800D2;
-	Wed, 25 Nov 2020 06:05:45 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id F1924F8015F;
+	Wed, 25 Nov 2020 06:42:00 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id D8280F80128; Wed, 25 Nov 2020 06:05:43 +0100 (CET)
+ id DB7A6F8019D; Wed, 25 Nov 2020 06:41:57 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
+Received: from mail-ot1-x343.google.com (mail-ot1-x343.google.com
+ [IPv6:2607:f8b0:4864:20::343])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id C0786F800D2
- for <alsa-devel@alsa-project.org>; Wed, 25 Nov 2020 06:05:35 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C0786F800D2
+ by alsa1.perex.cz (Postfix) with ESMTPS id 170B0F80128
+ for <alsa-devel@alsa-project.org>; Wed, 25 Nov 2020 06:41:48 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 170B0F80128
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="kaxDI2pc"
-Received: from localhost (unknown [122.179.120.21])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id F0C312075A;
- Wed, 25 Nov 2020 05:05:32 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1606280734;
- bh=OQivpyeKMz4JHTOLZeqk0jAOobpDhVdKkjY2Gy+r8VA=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=kaxDI2pcNpXJ643EHknXHl3rHCWh49qRo2CtOIUkY+YIkwvvhfmrLku1NdEHYpb9n
- yk4Y++tty12lSbOPHuEarrh/sg2q92xfp2YMU1LbVH9OyqcvgGIBQ5AYDJcVkaNTX5
- OyY+he6dFIiKj0vzpCYgaEnbAYwOQbO4PrbNbfiM=
-Date: Wed, 25 Nov 2020 10:35:28 +0530
-From: Vinod Koul <vkoul@kernel.org>
-To: Bard Liao <yung-chuan.liao@linux.intel.com>
-Subject: Re: [PATCH] soundwire: master: use pm_runtime_set_active() on add
-Message-ID: <20201125050528.GC8403@vkoul-mobl>
-References: <20201124130742.10986-1-yung-chuan.liao@linux.intel.com>
+ dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org
+ header.b="MUFNKhqQ"
+Received: by mail-ot1-x343.google.com with SMTP id k3so1165461otp.12
+ for <alsa-devel@alsa-project.org>; Tue, 24 Nov 2020 21:41:47 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=TrH5HMIZUxZ8p9ZVVV5Tv219hldD8kORSISX8v4WVrU=;
+ b=MUFNKhqQDCHQpfptt+YYZBTPRfTVUTXDGFfpo2K3QohChRAmOyh+drOOkBLeNSIYEi
+ /4Yl3ksYWaJFBB+6L8/ZFvFTL76G+Ufj6anX93pkeJBzRt8nlHPQRVcXXJOvGY+mf5+0
+ FIWPGvw/1phHPgvOn6jKCgCM4seP+1OlfZgMJSnz8niVSQQppkEGaQba96Oy32AdPJFm
+ Vs4+WGdCHlK1wwk2ECk3OsbV+2CyK4SDMB9Gs/DsC8CspVJKot8iJ1xYEGNYT1mIw6Ys
+ DK2LYih469xzjMLL5Eb+fL/JPadnt8dwuHdCrzm5ujqMxXYs8q7LDxh08vXDkxna4MSY
+ Il9g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=TrH5HMIZUxZ8p9ZVVV5Tv219hldD8kORSISX8v4WVrU=;
+ b=JCGcgcFzpO0URdboVVDHDQWzak3F7QBXQPXs69O5ASmvzrJQVHW8VLWoXe2r4wwfua
+ kG+PIW3dJE0wotbDgcqwGH1AexUNFvVaKDTZHnnmNA7IA+QIK6DQZ/fchzAmHYjHknLf
+ gb4ysU3amamzR2rRSW6GqWtE6qcQkFQe9kIgRQWSKCmN+c1NG0au7lOG7IUFEAm/AZJB
+ Wi4DPGhsoXmUaR8iEfMfh250FrU/bIqSPOPqwL2oz+BIwmKnRiLNF0l4w8BXMJo9KiqT
+ XXrC2ehjwjPuZijUNyKQFbHcC3ruGZ/kXr0sdeDuU0gaUSvlJ8X2ohTJYpMc5QgihBIR
+ WZ5A==
+X-Gm-Message-State: AOAM530o4otCPgdpVy/VYJKKCYmd6ktRnsPg0ieSoxD+jnM5xlistmjZ
+ 9hMLNW+fIyMVVi4SpxgwfYt7bQ==
+X-Google-Smtp-Source: ABdhPJzzp6dtkH49iCowittR7nB8DAE9MRULxL7pHYpMrTkXIyuxqg5YqkKrKoEV/UUUXBoNAR4/jA==
+X-Received: by 2002:a9d:851:: with SMTP id 75mr1731327oty.102.1606282904926;
+ Tue, 24 Nov 2020 21:41:44 -0800 (PST)
+Received: from localhost.localdomain
+ (104-57-184-186.lightspeed.austtx.sbcglobal.net. [104.57.184.186])
+ by smtp.gmail.com with ESMTPSA id l12sm806802ooe.27.2020.11.24.21.41.43
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 24 Nov 2020 21:41:43 -0800 (PST)
+From: Bjorn Andersson <bjorn.andersson@linaro.org>
+To: Andy Gross <agross@kernel.org>,
+ Bjorn Andersson <bjorn.andersson@linaro.org>,
+ Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
+Subject: [PATCH] slimbus: qcom-ngd-ctrl: Avoid sending power requests without
+ QMI
+Date: Tue, 24 Nov 2020 21:42:55 -0800
+Message-Id: <20201125054255.137067-1-bjorn.andersson@linaro.org>
+X-Mailer: git-send-email 2.29.2
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20201124130742.10986-1-yung-chuan.liao@linux.intel.com>
-Cc: pierre-louis.bossart@linux.intel.com, alsa-devel@alsa-project.org,
- gregkh@linuxfoundation.org, linux-kernel@vger.kernel.org,
- ranjani.sridharan@linux.intel.com, hui.wang@canonical.com,
- srinivas.kandagatla@linaro.org, jank@cadence.com, mengdong.lin@intel.com,
- sanyog.r.kale@intel.com, rander.wang@linux.intel.com, bard.liao@intel.com
+Content-Transfer-Encoding: 8bit
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Vinod Koul <vkoul@kernel.org>, alsa-devel@alsa-project.org,
+ linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -82,74 +102,41 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 24-11-20, 21:07, Bard Liao wrote:
-> From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-> 
-> The 'master' device acts as a glue layer used during bus
-> initialization only, and it needs to be 'transparent' for pm_runtime
-> management. Its behavior should be that it becomes active when one of
-> its children becomes active, and suspends when all of its children are
-> suspended.
-> 
-> In our tests on Intel platforms, we routinely see these sort of
-> warnings on the initial boot:
-> 
-> [ 21.447345] rt715 sdw:3:25d:715:0: runtime PM trying to activate
-> child device sdw:3:25d:715:0 but parent (sdw-master-3) is not active
-> 
-> This is root-caused to a missing setup to make the device 'active' on
-> probe. Since we don't want the device to remain active forever after
-> the probe, the autosuspend configuration is also enabled at the end of
-> the probe - the device will actually autosuspend only in the case
-> where there are no devices physically attached. In practice, the
-> master device will suspend when all its children are no longer active.
-> 
-> Fixes: bd84256e86ecf ('soundwire: master: enable pm runtime')
-> Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-> Reviewed-by: Rander Wang <rander.wang@linux.intel.com>
-> Signed-off-by: Bard Liao <yung-chuan.liao@linux.intel.com>
-> ---
->  drivers/soundwire/master.c | 14 ++++++++++++++
->  1 file changed, 14 insertions(+)
-> 
-> diff --git a/drivers/soundwire/master.c b/drivers/soundwire/master.c
-> index 3488bb824e84..9b05c9e25ebe 100644
-> --- a/drivers/soundwire/master.c
-> +++ b/drivers/soundwire/master.c
-> @@ -8,6 +8,15 @@
->  #include <linux/soundwire/sdw_type.h>
->  #include "bus.h"
->  
-> +/*
-> + * The 3s value for autosuspend will only be used if there are no
-> + * devices physically attached on a bus segment. In practice enabling
-> + * the bus operation will result in children devices become active and
-> + * the master device will only suspend when all its children are no
-> + * longer active.
-> + */
-> +#define SDW_MASTER_SUSPEND_DELAY_MS 3000
-> +
->  /*
->   * The sysfs for properties reflects the MIPI description as given
->   * in the MIPI DisCo spec
-> @@ -154,7 +163,12 @@ int sdw_master_device_add(struct sdw_bus *bus, struct device *parent,
->  	bus->dev = &md->dev;
->  	bus->md = md;
->  
-> +	pm_runtime_set_autosuspend_delay(&bus->md->dev, SDW_MASTER_SUSPEND_DELAY_MS);
-> +	pm_runtime_use_autosuspend(&bus->md->dev);
-> +	pm_runtime_mark_last_busy(&bus->md->dev);
-> +	pm_runtime_set_active(&bus->md->dev);
->  	pm_runtime_enable(&bus->md->dev);
-> +	pm_runtime_idle(&bus->md->dev);
+Attempting to send a power request during PM operations, when the QMI
+handle isn't initialized results in a NULL pointer dereference. So check
+if the QMI handle has been initialized before attempting to post the
+power requests.
 
-I understand that this needs to be done somewhere but is the core the
-right place. In intel case it maybe a dummy device but other controllers
-are real devices and may not support pm.
+Fixes: 917809e2280b ("slimbus: ngd: Add qcom SLIMBus NGD driver")
+Signed-off-by: Bjorn Andersson <bjorn.andersson@linaro.org>
+---
+ drivers/slimbus/qcom-ngd-ctrl.c | 6 ++++++
+ 1 file changed, 6 insertions(+)
 
-I think better idea would be to do this in respective driver.. that way
-it would be an opt-in for device supporting pm.
-
-Thanks
+diff --git a/drivers/slimbus/qcom-ngd-ctrl.c b/drivers/slimbus/qcom-ngd-ctrl.c
+index d8decb345e9d..c502e9e93965 100644
+--- a/drivers/slimbus/qcom-ngd-ctrl.c
++++ b/drivers/slimbus/qcom-ngd-ctrl.c
+@@ -1229,6 +1229,9 @@ static int qcom_slim_ngd_runtime_resume(struct device *dev)
+ 	struct qcom_slim_ngd_ctrl *ctrl = dev_get_drvdata(dev);
+ 	int ret = 0;
+ 
++	if (!ctrl->qmi.handle)
++		return 0;
++
+ 	if (ctrl->state >= QCOM_SLIM_NGD_CTRL_ASLEEP)
+ 		ret = qcom_slim_ngd_power_up(ctrl);
+ 	if (ret) {
+@@ -1616,6 +1619,9 @@ static int __maybe_unused qcom_slim_ngd_runtime_suspend(struct device *dev)
+ 	struct qcom_slim_ngd_ctrl *ctrl = dev_get_drvdata(dev);
+ 	int ret = 0;
+ 
++	if (!ctrl->qmi.handle)
++		return 0;
++
+ 	ret = qcom_slim_qmi_power_request(ctrl, false);
+ 	if (ret && ret != -EBUSY)
+ 		dev_info(ctrl->dev, "slim resource not idle:%d\n", ret);
 -- 
-~Vinod
+2.29.2
+

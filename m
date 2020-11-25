@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 250062C45AA
-	for <lists+alsa-devel@lfdr.de>; Wed, 25 Nov 2020 17:47:04 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id AF9D12C45B2
+	for <lists+alsa-devel@lfdr.de>; Wed, 25 Nov 2020 17:47:45 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id DEB6A1761;
-	Wed, 25 Nov 2020 17:46:12 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DEB6A1761
+	by alsa0.perex.cz (Postfix) with ESMTPS id 50C011765;
+	Wed, 25 Nov 2020 17:46:55 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 50C011765
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1606322823;
-	bh=ctDQgjmA21x1r/owXdM7d89mqspqDdIg/M7QN4BKZKg=;
+	s=default; t=1606322865;
+	bh=p0iU7eyvJZz7Wv8jtuRMKD46FTeF8l+5uENnprnbVOU=;
 	h=From:To:Subject:Date:In-Reply-To:References:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=OWEYVCSD9K9JZvJTj7IJvLcVyYDfudB0JIMyj8B3wB2ToWhqq8+1f49O1jzNmPYNw
-	 dcmDYyBQlsGgWQ0uLfVrWpJPO3SLVkF/Mmv/ihEg8G82z5CTGs+5LudVAcC1FlTcjB
-	 DvfqzMB6OiIBuo6PeHFHaOfUeMNHAk40D9jcTq1M=
+	b=fPsb365AmNYURshiN8KNhB8x3Y2f8EZKGSLnjeDeWaBcQngRLmWmhhzW3Rpa/P23E
+	 qc4pjXkuHPhg/z/dauRXG5pvMlzfJCspojqNtbD/ly/TYwj+oJEziU25c90d0jvW75
+	 IvxHC4YcJmNhqQXNeHBliVzVimhfzEy6CBbpdhUE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id B273FF8026A;
-	Wed, 25 Nov 2020 17:45:23 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 963FDF80128;
+	Wed, 25 Nov 2020 17:45:25 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 33F84F8015A; Wed, 25 Nov 2020 17:45:20 +0100 (CET)
+ id C15DCF804B4; Wed, 25 Nov 2020 17:45:23 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -34,25 +34,25 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 0B778F8015A
- for <alsa-devel@alsa-project.org>; Wed, 25 Nov 2020 17:45:16 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0B778F8015A
+ by alsa1.perex.cz (Postfix) with ESMTPS id DDDF2F80128
+ for <alsa-devel@alsa-project.org>; Wed, 25 Nov 2020 17:45:20 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DDDF2F80128
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="n27UDteM"
+ header.b="sYblTLo2"
 Received: from localhost.localdomain (adsl-84-226-167-205.adslplus.ch
  [84.226.167.205])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id A25A22158C;
- Wed, 25 Nov 2020 16:45:10 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id 08FA621734;
+ Wed, 25 Nov 2020 16:45:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1606322714;
- bh=ctDQgjmA21x1r/owXdM7d89mqspqDdIg/M7QN4BKZKg=;
+ s=default; t=1606322719;
+ bh=p0iU7eyvJZz7Wv8jtuRMKD46FTeF8l+5uENnprnbVOU=;
  h=From:To:Subject:Date:In-Reply-To:References:From;
- b=n27UDteMDBtJnq7aws5pmxFa2Jigq7brRnxFqGGu+usPftcv0Yp1Ahwdm29Bwubj7
- fpj8g9JooknZjAg6aKK8jhL1Jt5YlflP0qp6vpW8n+yf3cSE+UKdtGHL8jd7qukddc
- HTCpv4bbnHXtvuy/jDZO3sC9Lm/Tw6eH+52HZ6KA=
+ b=sYblTLo21J3bUS5TXJXRrd/SYXi9nK5ICGDKN0xk1+/Of241tbKU9/MnNRERurtxt
+ LP5c2rnnUbWCIEVxEavMhKaQki/66s3YU2lEDzG2GRmqLNEwbDbOIp6OFLmR/8WDkM
+ xOv2AwCYR2EVzJfqY4UNrxtnKo+vxV6pljqVWa+8=
 From: Krzysztof Kozlowski <krzk@kernel.org>
 To: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
  Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
@@ -69,9 +69,9 @@ To: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
  Peter Ujfalusi <peter.ujfalusi@ti.com>, alsa-devel@alsa-project.org,
  linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
  linux-amlogic@lists.infradead.org, linux-rockchip@lists.infradead.org
-Subject: [PATCH v2 01/39] ASoC: ak5558: mark OF related data as maybe unused
-Date: Wed, 25 Nov 2020 17:44:14 +0100
-Message-Id: <20201125164452.89239-2-krzk@kernel.org>
+Subject: [PATCH v2 02/39] ASoC: bd28623: mark OF related data as maybe unused
+Date: Wed, 25 Nov 2020 17:44:15 +0100
+Message-Id: <20201125164452.89239-3-krzk@kernel.org>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20201125164452.89239-1-krzk@kernel.org>
 References: <20201125164452.89239-1-krzk@kernel.org>
@@ -96,25 +96,29 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 The driver can be compile tested with !CONFIG_OF making certain data
 unused:
 
-  sound/soc/codecs/ak5558.c:418:34: warning: ‘ak5558_i2c_dt_ids’ defined but not used [-Wunused-const-variable=]
+  sound/soc/codecs/bd28623.c:225:34: warning: ‘bd28623_of_match’ defined but not used [-Wunused-const-variable=]
 
 Signed-off-by: Krzysztof Kozlowski <krzk@kernel.org>
+
 ---
- sound/soc/codecs/ak5558.c | 2 +-
+
+New patch
+---
+ sound/soc/codecs/bd28623.c | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/sound/soc/codecs/ak5558.c b/sound/soc/codecs/ak5558.c
-index 2f076d5ee284..8a32b0139cb0 100644
---- a/sound/soc/codecs/ak5558.c
-+++ b/sound/soc/codecs/ak5558.c
-@@ -415,7 +415,7 @@ static int ak5558_i2c_remove(struct i2c_client *i2c)
- 	return 0;
+diff --git a/sound/soc/codecs/bd28623.c b/sound/soc/codecs/bd28623.c
+index 31904ef5c88b..a6267cb86d86 100644
+--- a/sound/soc/codecs/bd28623.c
++++ b/sound/soc/codecs/bd28623.c
+@@ -222,7 +222,7 @@ static int bd28623_probe(struct platform_device *pdev)
+ 					       &soc_dai_bd, 1);
  }
  
--static const struct of_device_id ak5558_i2c_dt_ids[] = {
-+static const struct of_device_id ak5558_i2c_dt_ids[] __maybe_unused = {
- 	{ .compatible = "asahi-kasei,ak5558"},
- 	{ }
+-static const struct of_device_id bd28623_of_match[] = {
++static const struct of_device_id bd28623_of_match[] __maybe_unused = {
+ 	{ .compatible = "rohm,bd28623", },
+ 	{}
  };
 -- 
 2.25.1

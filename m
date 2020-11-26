@@ -2,174 +2,140 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 12EBC2C5233
-	for <lists+alsa-devel@lfdr.de>; Thu, 26 Nov 2020 11:39:17 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5E24E2C5407
+	for <lists+alsa-devel@lfdr.de>; Thu, 26 Nov 2020 13:36:42 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 9A9C317C2;
-	Thu, 26 Nov 2020 11:38:26 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9A9C317C2
+	by alsa0.perex.cz (Postfix) with ESMTPS id DB35417C7;
+	Thu, 26 Nov 2020 13:35:51 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DB35417C7
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1606387156;
-	bh=iA59gtYMo7j1TwbVEXLpix9gDTTpTvtPzaGwbJTCya8=;
-	h=From:To:Subject:Date:References:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=pVfaXT1DSxjnifgN9LfMgpUQVjnUUpR4iyVPQEcs5mejRNlJnyLy89T4wj1hZmnwZ
-	 GKx2n/0kcZwf5Jzwfr+d003HcnTsMX7Z2sD6lPII4VobMbWR8CzAnmKLBu8s1hLhsW
-	 wCpKw8UwAmv6VIXCAzRsa1J7rbb4L2bzUkJrb8T8=
+	s=default; t=1606394201;
+	bh=sNY/so2lf9CzsoHjVsJs3vxsBksPAtotlP+e5fBBlzA=;
+	h=From:To:Subject:Date:References:Cc:List-Id:List-Unsubscribe:
+	 List-Archive:List-Post:List-Help:List-Subscribe:From;
+	b=MO7D1XRTjjo+1c8kqq5FFseQJNmnAu/2acxXGiiT+nMcxa6i/LLdMBFlobIGsCuLE
+	 ADlGQBC7WJQZn6Dpjy3D8+eQsahgA00gILibEVeLO1fAb5bqSOFBHvwFVv6mxG+eFH
+	 ExoQ5qpH3FC8WfinMUNAOBpfIw5IsXqF00OZ177I=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 08CE9F80159;
-	Thu, 26 Nov 2020 11:37:42 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 513E2F80166;
+	Thu, 26 Nov 2020 13:35:07 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id D423BF80165; Thu, 26 Nov 2020 11:37:39 +0100 (CET)
+ id 22BF5F80165; Thu, 26 Nov 2020 13:35:04 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+ DKIM_VALID,DKIM_VALID_AU,RCVD_IN_MSPIKE_H3,RCVD_IN_MSPIKE_WL,SPF_HELO_PASS,
+ SPF_PASS autolearn=disabled version=3.4.0
+Received: from mailout2.samsung.com (mailout2.samsung.com [203.254.224.25])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id AC1DBF80159
- for <alsa-devel@alsa-project.org>; Thu, 26 Nov 2020 11:37:28 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz AC1DBF80159
+ by alsa1.perex.cz (Postfix) with ESMTPS id 6EA1FF80128
+ for <alsa-devel@alsa-project.org>; Thu, 26 Nov 2020 13:34:49 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6EA1FF80128
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=intel.onmicrosoft.com
- header.i=@intel.onmicrosoft.com header.b="Lyq2OXB0"
-IronPort-SDR: V9rgxgCYfnpeah9CvLL11D/0xXPKkIw8sKViI2uEVPwVTVqIJjaEZEAyrVk6BOucxiynBnimFq
- hPu44i73W88g==
-X-IronPort-AV: E=McAfee;i="6000,8403,9816"; a="168765090"
-X-IronPort-AV: E=Sophos;i="5.78,371,1599548400"; d="scan'208";a="168765090"
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from orsmga007.jf.intel.com ([10.7.209.58])
- by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 26 Nov 2020 02:37:24 -0800
-IronPort-SDR: vZYu1acYexffJYDk2siC5Z6IfmC5yG3PVPgwTZPTt7UjVY2OqRWr5JBgla7y59ZYLZyqIkFISB
- mAFfInHMF4Zg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.78,371,1599548400"; d="scan'208";a="371095909"
-Received: from fmsmsx604.amr.corp.intel.com ([10.18.126.84])
- by orsmga007.jf.intel.com with ESMTP; 26 Nov 2020 02:37:23 -0800
-Received: from fmsmsx611.amr.corp.intel.com (10.18.126.91) by
- fmsmsx604.amr.corp.intel.com (10.18.126.84) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.1713.5; Thu, 26 Nov 2020 02:37:23 -0800
-Received: from fmsedg602.ED.cps.intel.com (10.1.192.136) by
- fmsmsx611.amr.corp.intel.com (10.18.126.91) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1713.5
- via Frontend Transport; Thu, 26 Nov 2020 02:37:23 -0800
-Received: from NAM10-DM6-obe.outbound.protection.outlook.com (104.47.58.104)
- by edgegateway.intel.com (192.55.55.71) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.1.1713.5; Thu, 26 Nov 2020 02:37:22 -0800
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=A1ezh/P7RDaucjr3dxQYpXd4iSfSH7BoVS/mDjhrx74zAvswD6VMmjNr9I3HwV5bQWgcSmQisMIeeESIQHdjfQFy96T/B24rfrWXGGbaega0AFgq6R5OfBw3JxERubbnjTyZ33xVn8bKQeeI7WrOhej6Kgh56uSvxne0EUNfOEhv+BJJF5Mbj42ZJgT3y1WWF6CnzIrXh7T9vIObJOgzdevXR0iqahxa5xDAvzzfNFsREpxAbieitPNgHCO+fRnVWOrx8BxVA7z+nW94EbBaMYTYxQb08cBM+JCSVonUzpDV+ZOcQTUMrn/QkzrfB8xEHq2XJrP2EPY7g7FK+4oRtg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=U8odoLg5wkL/Oxhu4yDIY01VOt3bRf53LNgOhCexz8o=;
- b=dq+2H0wa4mGjEG2ihb61lp0m/yYtFmOJrO7PDuxAHWtC67XQpf2aGBHKQ1XKPVc2ZMcZH6SMUUvw7GWoOAM9UpKAXvD7Z+zOsYxO+X4QYtGHIei3nnjDpN6jYunR/YNP+TA9FUl4MNOiJTIS9UGHCZpBzkheAyYWBf6Bj5SjgnMi3F9gqFB+jkBm8Jm8SMZon0UOY2qithNWB/PU2J9zdyPgf64QFWfUXugKx+7ceqjV7TFCXW8oBxAX2KTMCKyF8J9OcXLfvTj2q8Cpziv08TSEU5p79zNVpP+W1yopdTrFtvY8shZtqxzbKtf2bcUWavSDw1qPS2S3ZpQwP1y7TQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=intel.onmicrosoft.com; 
- s=selector2-intel-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=U8odoLg5wkL/Oxhu4yDIY01VOt3bRf53LNgOhCexz8o=;
- b=Lyq2OXB0nQCnRGgy1WkMRwEJMscXjDCV7P9gncPPy5+q5Q0F2HqJ3tFTdl6RzM7dYbFUntJ3K7bFrbxt/J15FaGCj7svT2BdAJ20WtpgMc6Oalf90AYkF84wseq3jDStjMmbYbAuLz61HOEjYv4L9cvIUwEUgpxjdB1tmtixGOg=
-Received: from DM6PR11MB4074.namprd11.prod.outlook.com (2603:10b6:5:5::11) by
- DM5PR1101MB2188.namprd11.prod.outlook.com (2603:10b6:4:53::16) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.3611.20; Thu, 26 Nov 2020 10:37:18 +0000
-Received: from DM6PR11MB4074.namprd11.prod.outlook.com
- ([fe80::b554:409e:1838:bcdb]) by DM6PR11MB4074.namprd11.prod.outlook.com
- ([fe80::b554:409e:1838:bcdb%7]) with mapi id 15.20.3589.030; Thu, 26 Nov 2020
- 10:37:18 +0000
-From: "Liao, Bard" <bard.liao@intel.com>
-To: Greg KH <gregkh@linuxfoundation.org>, Bard Liao
- <yung-chuan.liao@linux.intel.com>
-Subject: RE: [PATCH] regmap: sdw: add required header files
-Thread-Topic: [PATCH] regmap: sdw: add required header files
-Thread-Index: AQHWw46uDfGD/9r1zUi19sp3Nj9ncqnZ5KgAgABTxXA=
-Date: Thu, 26 Nov 2020 10:37:18 +0000
-Message-ID: <DM6PR11MB40744C8625B57C4348989CE2FFF90@DM6PR11MB4074.namprd11.prod.outlook.com>
-References: <20201125130128.15952-1-yung-chuan.liao@linux.intel.com>
- <X78+hlJTgA3FdmxY@kroah.com>
-In-Reply-To: <X78+hlJTgA3FdmxY@kroah.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-dlp-version: 11.5.1.3
-dlp-reaction: no-action
-dlp-product: dlpe-windows
-authentication-results: linuxfoundation.org; dkim=none (message not signed)
- header.d=none;linuxfoundation.org; dmarc=none action=none
- header.from=intel.com;
-x-originating-ip: [220.133.4.96]
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: 1a2e0912-ddf7-4d08-8a46-08d891f73fd4
-x-ms-traffictypediagnostic: DM5PR1101MB2188:
-x-ld-processed: 46c98d88-e344-4ed4-8496-4ed7712e255d,ExtAddr
-x-ms-exchange-transport-forked: True
-x-microsoft-antispam-prvs: <DM5PR1101MB2188F57181F1979AD228246AFFF90@DM5PR1101MB2188.namprd11.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:3631;
-x-ms-exchange-senderadcheck: 1
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: LWVtc//n5+3rc1mmymvm7GhOB/pisJPC3BTFRsywnq4GZHuvx24Y8RLygD+hC5ETKsLYA7TQu+Z2K+iYFcwetYdhNhYhUHVw3STK+SBNeCXRjPinmUhltg+aLhoiuUvimsc8PjEjgpBR4jnddsUM1e5PSGsuJzhmNlCXlkHxa5RQOiOrEOgx+fTJRCVlMiBbWf51QsopGmlWOGFRdd4bq9rvG+OgYXj5l4X1rY8K9L+e6TEa6pZCpsCBRZtfEyfZq8F+UCfbdcmMmYfTW+OJRMdsN2n5ublO7oQvXakCCw1JdHlNayeS3Pz4p0oLjvk/
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM6PR11MB4074.namprd11.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(136003)(366004)(396003)(346002)(376002)(39860400002)(9686003)(316002)(7696005)(4326008)(54906003)(33656002)(26005)(53546011)(478600001)(66946007)(186003)(7416002)(66476007)(8936002)(76116006)(55016002)(110136005)(4744005)(64756008)(66446008)(6506007)(66556008)(71200400001)(2906002)(5660300002)(52536014)(8676002)(83380400001)(86362001);
- DIR:OUT; SFP:1102; 
-x-ms-exchange-antispam-messagedata: =?us-ascii?Q?zMo1Khctzl5RJj7GLC0fpBsrW7/U5KvBpfJfO4sOX3N/30kZFGpK4W6m5Dvm?=
- =?us-ascii?Q?XeM7d2H3TfUk7n95MnaRiv1Ws05vR3YlVOTN0tSBTppjPiRRJKppHXLaJdUy?=
- =?us-ascii?Q?6hciPJ77vbEP4ic3RbwmxvGQpLNEadMPVMTumOG+gopb+bytCEoF/Ync9t2R?=
- =?us-ascii?Q?kakjM4TjI12Cv2dj1Cx1QrfbV9vAdlmh5tCG5dP4S2II94lK6hIfow6PK5jt?=
- =?us-ascii?Q?KS4n3tKVTf2yznHYfk21piuSyJhBE/ggNCa68ncPijZ6xBaKq5kCv2UfMBbG?=
- =?us-ascii?Q?W/H/CwbTXZSFXSKwV3CEWCGeih6uw5Fw5aH86m0OHsrk94FwT3cMDnJGiL+F?=
- =?us-ascii?Q?DDd2yrJVxajBvf34HY4TgHYtlIELKb4d2pS3fN/vaXJe9nmzhdpyQh9dWmHj?=
- =?us-ascii?Q?hcqT+NE1mmMrUjLKPzKdTZu0nRP+Q5sAREI6eK8qqRxmwqymVInnsXM2jGo+?=
- =?us-ascii?Q?Qg1Mo+RRjYd83ZgTVqnu8A32FOzYCpkGmNn/iq4r3iYr3b5lSOtos2gsBM1x?=
- =?us-ascii?Q?WPFOwzkbBJxeMfDUH7qHdX1yMqePs/Eo+z4J7Cwxde3f830IJ1cVxMX7d8W9?=
- =?us-ascii?Q?ga64RfI3+PcxiL9NTN/St5CThLnnkc6Pkt7qJSjMgMJGKqOqx5uCtRxOYL0r?=
- =?us-ascii?Q?U+HdO33mYbi9WwGlM4pKjR8KsYvxSoYs4RAoOBU1k/PKusEyk5/X6zwfKZH0?=
- =?us-ascii?Q?c/4ToNJu3R2C6t4O2DCwsADLGYnc0Si87yO1eRIyevQdFLDcvsDcL9TwtY8d?=
- =?us-ascii?Q?3rLztYZLF3ViOgce08u3RqZp7ouMYh1xUK2dAqSFtUwEI0vHot3TiJWj6DxV?=
- =?us-ascii?Q?EEcZJhnfuBU0m5h4QfzyLquKIIEK2ymnIBD+zgg1pu/zkwHxtz/b+yQEiRPm?=
- =?us-ascii?Q?B7ZJUkWBr5ktR3OmLzUNKCFgeXhY8Bky2Q+Jmy2YCivupEaCpq9rlYAGL8Vm?=
- =?us-ascii?Q?Et1XBpYs8znGIPV4RZvi4H7zl2JQ7e1VRfr+IgjISAI=3D?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+ dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com
+ header.b="Vsu9iMem"
+Received: from epcas2p2.samsung.com (unknown [182.195.41.54])
+ by mailout2.samsung.com (KnoxPortal) with ESMTP id
+ 20201126123444epoutp028810ac689825e2e57fee936bf7f45616~LDuiRwnQs2331323313epoutp02M
+ for <alsa-devel@alsa-project.org>; Thu, 26 Nov 2020 12:34:44 +0000 (GMT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 mailout2.samsung.com
+ 20201126123444epoutp028810ac689825e2e57fee936bf7f45616~LDuiRwnQs2331323313epoutp02M
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
+ s=mail20170921; t=1606394084;
+ bh=a3IycIHgDlNF/3I0Sh0LSCcWupf0A7rGm8jrAGxrAA8=;
+ h=From:To:Cc:Subject:Date:References:From;
+ b=Vsu9iMemy9I5IGCEn4Ex5Y0P+xJKh4IfLYsE4JMDLwNEi3Q/RQ64eHl/YlC5wHBTB
+ 77/a6vEYXOhCUHfka8nERCZtHExD7jqyBuvA/qCYEV8EfuvLUJ1xOVRlbvZxTjaxPP
+ djYul1RRh+Hsu/61AN2DrkgN0as7eq7bEckgNTZ8=
+Received: from epsnrtp4.localdomain (unknown [182.195.42.165]) by
+ epcas2p2.samsung.com (KnoxPortal) with ESMTP id
+ 20201126123442epcas2p24ebadf0cbec68388cdb2d19c1b2ff5e6~LDuhCscYu1670816708epcas2p2L;
+ Thu, 26 Nov 2020 12:34:42 +0000 (GMT)
+Received: from epsmges2p2.samsung.com (unknown [182.195.40.190]) by
+ epsnrtp4.localdomain (Postfix) with ESMTP id 4Chcds4WQqzMqYkZ; Thu, 26 Nov
+ 2020 12:34:41 +0000 (GMT)
+Received: from epcas2p1.samsung.com ( [182.195.41.53]) by
+ epsmges2p2.samsung.com (Symantec Messaging Gateway) with SMTP id
+ 03.06.56312.1E0AFBF5; Thu, 26 Nov 2020 21:34:41 +0900 (KST)
+Received: from epsmtrp2.samsung.com (unknown [182.195.40.14]) by
+ epcas2p3.samsung.com (KnoxPortal) with ESMTPA id
+ 20201126123440epcas2p3f38035952f571b3be7e86225dc5a2745~LDuedGaMt0958509585epcas2p3Y;
+ Thu, 26 Nov 2020 12:34:40 +0000 (GMT)
+Received: from epsmgms1p1new.samsung.com (unknown [182.195.42.41]) by
+ epsmtrp2.samsung.com (KnoxPortal) with ESMTP id
+ 20201126123439epsmtrp20aa70b7df2c96f3cb2feea4483379184~LDueZY3SA0679306793epsmtrp2z;
+ Thu, 26 Nov 2020 12:34:39 +0000 (GMT)
+X-AuditID: b6c32a46-1d9ff7000000dbf8-bd-5fbfa0e1d002
+Received: from epsmtip2.samsung.com ( [182.195.34.31]) by
+ epsmgms1p1new.samsung.com (Symantec Messaging Gateway) with SMTP id
+ 2E.ED.13470.FD0AFBF5; Thu, 26 Nov 2020 21:34:39 +0900 (KST)
+Received: from KORDO025540 (unknown [12.36.182.130]) by epsmtip2.samsung.com
+ (KnoxPortal) with ESMTPA id
+ 20201126123439epsmtip22f47600451ac8777b996caf626724fa9~LDueGQlmH0561305613epsmtip2P;
+ Thu, 26 Nov 2020 12:34:39 +0000 (GMT)
+From: "Gyeongtaek Lee" <gt82.lee@samsung.com>
+To: "'Vinod Koul'" <vkoul@kernel.org>
+Subject: [PATCH v3 0/1] ALSA: compress: allow pause and resume during draining
+Date: Thu, 26 Nov 2020 21:34:39 +0900
+Message-ID: <000001d6c3f0$82250580$866f1080$@samsung.com>
 MIME-Version: 1.0
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: DM6PR11MB4074.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1a2e0912-ddf7-4d08-8a46-08d891f73fd4
-X-MS-Exchange-CrossTenant-originalarrivaltime: 26 Nov 2020 10:37:18.5858 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: hMaHxuDsQ2hejEK88Ae2eyjb1MlbQB3P9IUjjJY+lmM/SJ9dCnlAH+16GwpoVIe+Y2OoYmhuJos6rm038xmUQw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM5PR1101MB2188
-X-OriginatorOrg: intel.com
-Cc: "pierre-louis.bossart@linux.intel.com"
- <pierre-louis.bossart@linux.intel.com>,
- "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
- "vinod.koul@linaro.org" <vinod.koul@linaro.org>,
- "tiwai@suse.de" <tiwai@suse.de>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "ranjani.sridharan@linux.intel.com" <ranjani.sridharan@linux.intel.com>,
- "hui.wang@canonical.com" <hui.wang@canonical.com>,
- "vkoul@kernel.org" <vkoul@kernel.org>,
- "broonie@kernel.org" <broonie@kernel.org>,
- "srinivas.kandagatla@linaro.org" <srinivas.kandagatla@linaro.org>,
- "jank@cadence.com" <jank@cadence.com>, "Kale,
- Sanyog R" <sanyog.r.kale@intel.com>,
- "rander.wang@linux.intel.com" <rander.wang@linux.intel.com>
+Content-Transfer-Encoding: 7bit
+X-Mailer: Microsoft Outlook 16.0
+Thread-Index: AdbD7inK7M1ppD6oQROJKVAjHlS2fQ==
+Content-Language: ko
+X-Brightmail-Tracker: H4sIAAAAAAAAA+NgFtrHJsWRmVeSWpSXmKPExsWy7bCmqe7DBfvjDaYdlrW4cvEQk8XdH+YW
+ M7Z1s1g03pvAZrH66hYmi29XOpgsfv1/xmRx9OJiJouGu83sFhu+r2W0eLn5DZPFkcYpTBY7
+ 75xgduD12PC5ic1j56y77B6bVnWyecw7GejRt2UVo8f6LVdZPDafrg5gj8qxyUhNTEktUkjN
+ S85PycxLt1XyDo53jjc1MzDUNbS0MFdSyEvMTbVVcvEJ0HXLzAE6VkmhLDGnFCgUkFhcrKRv
+ Z1OUX1qSqpCRX1xiq5RakJJTYGhYoFecmFtcmpeul5yfa2VoYGBkClSZkJOxeN4ploKfohX9
+ 8/4yNTD+EOxi5OSQEDCR2Ph8B0sXIxeHkMAORon9z5czQTifGCV2du6Hcr4xSjw53ckI0/L6
+ 7mo2iMReRok1X9dA9b9klHjfOY8ZpIpNQFfiy707YLaIgKrElicPwDqYBe4xSTS+eMsEkhAW
+ CJDY2nMcyObgYAEqetggDBLmFbCUWLv1CzOELShxcuYTFhCbWUBeYvvbOcwQVyhI/Hy6jBVi
+ vp7E1JafzBA1IhKzO9uYQXZJCGzhkDgx4wIbRIOLxOwpD1ghbGGJV8e3sEPYUhKf3+1lg2ho
+ ZpR4d/YPVGIKo0RntxCEbSyxZe4psEOZBTQl1u/SBzElBJQljtyCuo1PouPwX3aIMK9ERxtU
+ o5LExlP/mCDCEhLzNkDN9pA4uWQ26wRGxVlInpyF5MlZSJ6ZhbB2ASPLKkax1ILi3PTUYqMC
+ I+TI3sQITshabjsYp7z9oHeIkYmD8RCjBAezkgivu/DeeCHelMTKqtSi/Pii0pzU4kOMpsBQ
+ n8gsJZqcD8wJeSXxhqZGZmYGlqYWpmZGFkrivKEr++KFBNITS1KzU1MLUotg+pg4OKUamO74
+ +PC9WBiYfoZX46k3tzKrafFy92CXnkbBLU3bt8t8f+q56s90fZHmuCK/hX+nPVO/IW11pM/K
+ vlV4rbt21ea/DDyrV75y5XBxS7BaZ+IYdGj3x6Il9RqdFx2VDrUEmJi1MU5euCmtu2LKBJu4
+ hzufJPxuSo9vePRV9fysA+n/9z37t2DeQ0WHlJzdW/7IP/m2//La4ye+7O18JbpgxqKJ1YUt
+ NQY9d3baul182CM548+fyw+nrzPdPvnoM48jj99rmEjxNnyaprLgNdOqc3WuF5fuvXZbKnR3
+ 9ZL8/2Hdb+LyDvtdCW447zs94lqnYe+1PRqRW3Z5lS6Y8Pf3r33nGlwqJKbxbLnM/P/+urmf
+ lFiKMxINtZiLihMBEWNDylEEAAA=
+X-Brightmail-Tracker: H4sIAAAAAAAAA+NgFuphkeLIzCtJLcpLzFFi42LZdlhJXvf+gv3xBlfn6VtcuXiIyeLuD3OL
+ Gdu6WSwa701gs1h9dQuTxbcrHUwWv/4/Y7I4enExk0XD3WZ2iw3f1zJavNz8hsniSOMUJoud
+ d04wO/B6bPjcxOaxc9Zddo9NqzrZPOadDPTo27KK0WP9lqssHptPVwewR3HZpKTmZJalFunb
+ JXBlLJ53iqXgp2hF/7y/TA2MPwS7GDk5JARMJF7fXc0GYgsJ7GaUuP+eEyIuIfFh/hl2CFtY
+ 4n7LEdYuRi6gmueMEjcuvgNLsAnoSny5d4cZxBYRUJXY8uQB2CBmgTdMEl/OFXYxcnAIC/hJ
+ dHTxg5gsQCUPG4RBKngFLCXWbv3CDGELSpyc+YQFpIRZQE+ibSMjxBB5ie1v5zBDXKAg8fPp
+ MlaIRXoSU1t+MkPUiEjM7mxjnsAoOAvJpFkIk2YhmTQLSccCRpZVjJKpBcW56bnFhgWGeanl
+ esWJucWleel6yfm5mxjBEaaluYNx+6oPeocYmTgYDzFKcDArifC6C++NF+JNSaysSi3Kjy8q
+ zUktPsQozcGiJM57o3BhnJBAemJJanZqakFqEUyWiYNTqoEp+MOLL5cshJj//2O9HczJklxy
+ 4LRibNv5jT7reQSmyakLhESeL5RXSr/z/2yA4PfChd+/2K64UBt91Kxf4t+zCTHmnxw3fXwa
+ /XSG+jbG+OpNi0rMJx95eEHpovtzpRmvGnV+WCiXJif//tu0m8fT2djcrCn1aPglUde7okFH
+ RaQvM0/YsO6UTfcXodlrGQ+Lu2jZRMZHpS1NUePt3es+efb6ItFDk5xuZAj/Lok4GRfhtsZz
+ zg1VXzFtvr8Lqk7LvVA7dPHmpEylqRZpZxa/to7ePP3bg+r/B1ZWn+L/yFWoN/tQvdOqnvMf
+ V6tOObLlzkndeQd84ytaLBKP/nrD93Ijm28Ew+6+nW5Suh/ilViKMxINtZiLihMBDEfzzx8D
+ AAA=
+X-CMS-MailID: 20201126123440epcas2p3f38035952f571b3be7e86225dc5a2745
+X-Msg-Generator: CA
+Content-Type: text/plain; charset="utf-8"
+X-Sendblock-Type: AUTO_CONFIDENTIAL
+CMS-TYPE: 102P
+DLP-Filter: Pass
+X-CFilter-Loop: Reflected
+X-CMS-RootMailID: 20201126123440epcas2p3f38035952f571b3be7e86225dc5a2745
+References: <CGME20201126123440epcas2p3f38035952f571b3be7e86225dc5a2745@epcas2p3.samsung.com>
+Cc: alsa-devel@alsa-project.org, khw0178.kim@samsung.com, lgirdwood@gmail.com,
+ 'Takashi Iwai' <tiwai@suse.de>,
+ 'Pierre-Louis Bossart' <pierre-louis.bossart@linux.intel.com>, tiwai@suse.com,
+ kimty@samsung.com, donggyun.ko@samsung.com, hmseo@samsung.com,
+ s47.kang@samsung.com, pilsun.jang@samsung.com, tkjung@samsung.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -185,35 +151,89 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+On Wed, 25 Nov 2020 16:28:05 +0530, Vinod Koul wrote:
+>On 27-10-20, 10:57, Gyeongtaek Lee wrote:
+>> diff --git a/sound/core/compress_offload.c b/sound/core/compress_offload.c
+>> index 0e53f6f31916..a071485383ed 100644
+>> --- a/sound/core/compress_offload.c
+>> +++ b/sound/core/compress_offload.c
+>> @@ -708,11 +708,24 @@ static int snd_compr_pause(struct snd_compr_stream *stream)
+>>  {
+>>  	int retval;
+>>  
+>> -	if (stream->runtime->state != SNDRV_PCM_STATE_RUNNING)
+>> +	switch (stream->runtime->state) {
+>> +	case SNDRV_PCM_STATE_RUNNING:
+>> +		retval = stream->ops->trigger(stream,
+>> +			SNDRV_PCM_TRIGGER_PAUSE_PUSH);
+>
+>this seems to fit single line with new 100char limit and makes it a
+>better read, can we please do that here and few places below .. The line
+>split is making it look bit ugly IMO
+>
+>> +		if (!retval)
+>> +			stream->runtime->state = SNDRV_PCM_STATE_PAUSED;
+>> +		break;
+>> +	case SNDRV_PCM_STATE_DRAINING:
+>> +		if (!stream->device->use_pause_in_draining)
+>> +			return -EPERM;
+>
+>I am expecting patches to tinycompress to handle pause while drain. Esp
+>this case..
+>
+>> +		retval = stream->ops->trigger(stream,
+>> +			SNDRV_PCM_TRIGGER_PAUSE_PUSH);
+>> +		if (!retval)
+>> +			stream->pause_in_draining = true;
+>> +		break;
+>> +	default:
+>>  		return -EPERM;
+>> -	retval = stream->ops->trigger(stream, SNDRV_PCM_TRIGGER_PAUSE_PUSH);
+>> -	if (!retval)
+>> -		stream->runtime->state = SNDRV_PCM_STATE_PAUSED;
+>> +	}
+>>  	return retval;
+>>  }
+>>  
+>> @@ -720,11 +733,25 @@ static int snd_compr_resume(struct snd_compr_stream *stream)
+>>  {
+>>  	int retval;
+>>  
+>> -	if (stream->runtime->state != SNDRV_PCM_STATE_PAUSED)
+>> +	switch (stream->runtime->state) {
+>> +	case SNDRV_PCM_STATE_PAUSED:
+>> +		retval = stream->ops->trigger(stream,
+>> +			SNDRV_PCM_TRIGGER_PAUSE_RELEASE);
+>> +		if (!retval)
+>> +			stream->runtime->state = SNDRV_PCM_STATE_RUNNING;
+>> +		break;
+>> +	case SNDRV_PCM_STATE_DRAINING:
+>> +		if (!stream->device->use_pause_in_draining ||
+>> +		    !stream->pause_in_draining)
+>> +			return -EPERM;
+>
+>does this condition make sense for resume part..? We have already
+>checked for this while going into pause. I am not expecting drain state
+>to change while we are paused :)
+>
+
+I have fixed the patch as your review comment and send version 3.
+For your comment about tinycompress, I'll try to make a patch after study about tinycompress.
+
+Thanks,
+Gyeongtaek
 
 
-> -----Original Message-----
-> From: Greg KH <gregkh@linuxfoundation.org>
-> Sent: Thursday, November 26, 2020 1:35 PM
-> To: Bard Liao <yung-chuan.liao@linux.intel.com>
-> Cc: alsa-devel@alsa-project.org; vkoul@kernel.org; vinod.koul@linaro.org;
-> linux-kernel@vger.kernel.org; tiwai@suse.de; broonie@kernel.org;
-> jank@cadence.com; srinivas.kandagatla@linaro.org;
-> rander.wang@linux.intel.com; ranjani.sridharan@linux.intel.com;
-> hui.wang@canonical.com; pierre-louis.bossart@linux.intel.com; Kale, Sanyo=
-g
-> R <sanyog.r.kale@intel.com>; Liao, Bard <bard.liao@intel.com>
-> Subject: Re: [PATCH] regmap: sdw: add required header files
->=20
-> On Wed, Nov 25, 2020 at 09:01:28PM +0800, Bard Liao wrote:
-> > From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-> >
-> > Explicitly add header files used by regmap SoundWire support.
->=20
-> What is failing to build without this?
+Gyeongtaek Lee (1):
+  ALSA: compress: allow pause and resume during draining
 
-I didn't see build errors. But, Documentation/process/submit-checklist.rst
-says.
-1) If you use a facility then #include the file that defines/declares
-   that facility.  Don't depend on other header files pulling in ones
-   that you use.
+ include/sound/compress_driver.h | 16 ++++++++++++++
+ sound/core/compress_offload.c   | 39 ++++++++++++++++++++++++++-------
+ 2 files changed, 47 insertions(+), 8 deletions(-)
 
->=20
-> thanks,
->=20
-> greg k-h
+
+base-commit: 418baf2c28f3473039f2f7377760bd8f6897ae18
+-- 
+2.21.0
+
+

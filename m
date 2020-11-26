@@ -2,79 +2,56 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8E5E62C5B94
-	for <lists+alsa-devel@lfdr.de>; Thu, 26 Nov 2020 19:08:06 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9FBFA2C5B96
+	for <lists+alsa-devel@lfdr.de>; Thu, 26 Nov 2020 19:08:16 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 9C7AB17CC;
-	Thu, 26 Nov 2020 19:07:15 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9C7AB17CC
+	by alsa0.perex.cz (Postfix) with ESMTPS id 2D25017E3;
+	Thu, 26 Nov 2020 19:07:26 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2D25017E3
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1606414085;
-	bh=vdkSpH/7lspvEHsOEIgQQ3Rpz4UTuc0RmPaf8fh26QE=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=F6ftM6FjIbRd5tkEEx3FE0YG0gx43L9Q7HHLLte9oZlDhuc/KjoioCFCCrxCxiA6D
-	 gfxJRD77wuvuPjAL17ZLNCzFmhB9xjGcwDE6nvfFtMWSl8CFU7/o9JWqD1WiluB+VT
-	 5/NjSo6dcTZHfioKhIpi/GSanqlxp8eCy5NAkyCE=
+	s=default; t=1606414096;
+	bh=llwzcNh9+pjnyZeItfAgWBiVxS6Sw7CQAmqPKQHzxiI=;
+	h=Date:From:To:Subject:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=XYCgJMKArvLhepKw+VuU3AWoS0ZSIJbaz4Yc+A4sxwOIFtFxFLo8wG2ZrU0jVuQR/
+	 NLPDmeGL5Gyvbts/jFVpT6JL9U1mNIUUyqpPECnCNHZgTp8YehRbycfDPqbmQ6bNh2
+	 2DfUM+jAh0M1/gdnYOD69DcO4AaB3UsuJv765jgo=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 71C17F804E7;
-	Thu, 26 Nov 2020 19:04:20 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 58723F8016A;
+	Thu, 26 Nov 2020 19:06:14 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 9BB58F804E1; Thu, 26 Nov 2020 19:04:16 +0100 (CET)
+ id E3E0CF80166; Thu, 26 Nov 2020 19:06:12 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from hqnvemgate24.nvidia.com (hqnvemgate24.nvidia.com
- [216.228.121.143])
+X-Spam-Status: No, score=0.1 required=5.0 tests=MISSING_MID,SPF_HELO_NONE,
+ SPF_PASS autolearn=disabled version=3.4.0
+Received: from roobarb.jellybean.co.uk (roobarb.crazydogs.org [46.235.224.144])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id F0E64F804DF
- for <alsa-devel@alsa-project.org>; Thu, 26 Nov 2020 19:04:12 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz F0E64F804DF
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=nvidia.com header.i=@nvidia.com
- header.b="jxGFlSqz"
-Received: from hqmail.nvidia.com (Not Verified[216.228.121.13]) by
- hqnvemgate24.nvidia.com (using TLS: TLSv1.2, AES256-SHA)
- id <B5fbfee220000>; Thu, 26 Nov 2020 10:04:18 -0800
-Received: from HQMAIL109.nvidia.com (172.20.187.15) by HQMAIL109.nvidia.com
- (172.20.187.15) with Microsoft SMTP Server (TLS) id 15.0.1473.3; Thu, 26 Nov
- 2020 18:04:11 +0000
-Received: from audio.nvidia.com (172.20.13.39) by mail.nvidia.com
- (172.20.187.15) with Microsoft SMTP Server id 15.0.1473.3 via Frontend
- Transport; Thu, 26 Nov 2020 18:04:08 +0000
-From: Sameer Pujar <spujar@nvidia.com>
-To: <broonie@kernel.org>, <robh+dt@kernel.org>, <thierry.reding@gmail.com>
-Subject: [PATCH v6 6/6] arm64: tegra: Audio graph sound card for Jetson Nano
- and TX1
-Date: Thu, 26 Nov 2020 23:33:43 +0530
-Message-ID: <1606413823-19885-7-git-send-email-spujar@nvidia.com>
-X-Mailer: git-send-email 2.7.4
-In-Reply-To: <1606413823-19885-1-git-send-email-spujar@nvidia.com>
-References: <1606413823-19885-1-git-send-email-spujar@nvidia.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id B953BF80159
+ for <alsa-devel@alsa-project.org>; Thu, 26 Nov 2020 19:06:05 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B953BF80159
+Received: from localhost ([127.0.0.1])
+ by roobarb.jellybean.co.uk with esmtp (Exim 4.92)
+ (envelope-from <bjb-alsa-devel@deus.net>) id 1kiLee-0000Wx-Hf
+ for alsa-devel@alsa-project.org; Thu, 26 Nov 2020 18:06:04 +0000
+Date: Thu, 26 Nov 2020 18:06:04 +0000
+From: Ben Bell <bjb-alsa-devel@deus.net>
+To: alsa-devel@alsa-project.org
+Subject: Behringer WING usb audio - cyclic xruns dependent on periods/buffers
 MIME-Version: 1.0
-Content-Type: text/plain
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nvidia.com; s=n1;
- t=1606413858; bh=7Xf2p7q6sLj/nHibZUjeyNnHhKjOwsiJG8GjpwoFLzg=;
- h=From:To:CC:Subject:Date:Message-ID:X-Mailer:In-Reply-To:
- References:MIME-Version:Content-Type;
- b=jxGFlSqzjYIQNlrXmUGYGR5/+mKGJbDV7+oEmrJO+G0Chv6v0Kq6rLYdwAHYTuAfJ
- p/GT+2K6i6Z3ByA1ZBoR7e03XMKlL4nkGANgUrhxEzQcWg5yKa7ex3OKTMpOnioGla
- BYfBzbajjPpreos3oMdwr0Hi7zMIHGQXDx5HhFO7JBv5eeKW370pI48nWL43u6Gij0
- zQcJmNQCXWVvxSuhZi4gPcRQqY8ExSpbUArXCrSjYL9UpdinXcf7nHBhTH/o8njKEB
- /jobKoRblbGTPmJdCOQ2NyK79qJQh12gU3EQ39FmKxypr8WbmlBjuPrGAJXO+1el58
- yfqrgYgM3E1CA==
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- kuninori.morimoto.gx@renesas.com, Sameer Pujar <spujar@nvidia.com>,
- linux-kernel@vger.kernel.org, jonathanh@nvidia.com, sharadg@nvidia.com,
- linux-tegra@vger.kernel.org
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+User-Agent: Mutt/1.10.1 (2018-07-13)
+X-SA-Exim-Connect-IP: 127.0.0.1
+X-SA-Exim-Mail-From: bjb-alsa-devel@deus.net
+X-SA-Exim-Scanned: No (on roobarb.jellybean.co.uk);
+ SAEximRunCond expanded to false
+Message-Id: <20201126180612.E3E0CF80166@alsa1.perex.cz>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -90,460 +67,81 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Enable support for audio-graph based sound card on Jetson-Nano and
-Jetson-TX1. Depending on the platform, required I/O interfaces are
-enabled.
+I've got a Behringer WING digital mixer which is equipped with a USB
+interface supporting 48 in, 48 out at 44.1 or 48kHz. It's plugged into a
+USB3 interface and for the most part it seems to work well as a class-compliant
+audio interface, but I'm struggling to eliminate xruns and it's starting to
+feel either driver or hardware quirk related issue.
 
- * Jetson-Nano: Enable I2S3, I2S4, DMIC1 and DMIC2.
- * Jetson-TX1: Enable all I2S and DMIC interfaces.
+I've done all the usual things -- I'm running a PREEMPT_RT kernel, set up
+the realtime priorities of Jack and the relevant USB IRQ to no avail. I'm
+doing most of the debugging remotely over ssh with X shutdown and most
+other processes on the system stopped. There's nothing plugged into the
+computer beyond network, keyboard, mouse and the audio interface.
 
-Signed-off-by: Sameer Pujar <spujar@nvidia.com>
-Reviewed-by: Jon Hunter <jonathanh@nvidia.com>
----
- arch/arm64/boot/dts/nvidia/tegra210-p2371-2180.dts | 262 +++++++++++++++++++++
- arch/arm64/boot/dts/nvidia/tegra210-p3450-0000.dts | 146 ++++++++++++
- 2 files changed, 408 insertions(+)
+I'm currently testing on kernel 5.10.0-rc5 with preempt-rt patches, but I've
+previously seen the same things on 5.4-rt (Debian backports) and 5.8
+(self-compiled).
 
-diff --git a/arch/arm64/boot/dts/nvidia/tegra210-p2371-2180.dts b/arch/arm64/boot/dts/nvidia/tegra210-p2371-2180.dts
-index 69102dc..747ab93 100644
---- a/arch/arm64/boot/dts/nvidia/tegra210-p2371-2180.dts
-+++ b/arch/arm64/boot/dts/nvidia/tegra210-p2371-2180.dts
-@@ -3,6 +3,7 @@
- 
- #include "tegra210-p2180.dtsi"
- #include "tegra210-p2597.dtsi"
-+#include "tegra210-audio-graph.dtsi"
- 
- / {
- 	model = "NVIDIA Jetson TX1 Developer Kit";
-@@ -127,4 +128,265 @@
- 			status = "okay";
- 		};
- 	};
-+
-+	tegra_sound {
-+		status = "okay";
-+
-+		compatible = "nvidia,tegra210-audio-graph-card";
-+
-+		dais = /* FE */
-+		       <&admaif1_port>, <&admaif2_port>, <&admaif3_port>,
-+		       <&admaif4_port>, <&admaif5_port>, <&admaif6_port>,
-+		       <&admaif7_port>, <&admaif8_port>, <&admaif9_port>,
-+		       <&admaif10_port>,
-+		       /* Router */
-+		       <&xbar_i2s1_port>, <&xbar_i2s2_port>, <&xbar_i2s3_port>,
-+		       <&xbar_i2s4_port>, <&xbar_i2s5_port>, <&xbar_dmic1_port>,
-+		       <&xbar_dmic2_port>, <&xbar_dmic3_port>,
-+		       /* I/O DAP Ports */
-+		       <&i2s1_port>, <&i2s2_port>, <&i2s3_port>, <&i2s4_port>,
-+		       <&i2s5_port>, <&dmic1_port>, <&dmic2_port>, <&dmic3_port>;
-+
-+		label = "jetson-tx1-ape";
-+	};
-+};
-+
-+&tegra_admaif {
-+	status = "okay";
-+};
-+
-+&tegra_ahub {
-+	status = "okay";
-+
-+	ports {
-+		xbar_i2s1_port: port@a {
-+			reg = <0xa>;
-+			xbar_i2s1_ep: endpoint {
-+				remote-endpoint = <&i2s1_cif_ep>;
-+			};
-+		};
-+		xbar_i2s2_port: port@b {
-+			reg = <0xb>;
-+			xbar_i2s2_ep: endpoint {
-+				remote-endpoint = <&i2s2_cif_ep>;
-+			};
-+		};
-+		xbar_i2s3_port: port@c {
-+			reg = <0xc>;
-+			xbar_i2s3_ep: endpoint {
-+				remote-endpoint = <&i2s3_cif_ep>;
-+			};
-+		};
-+		xbar_i2s4_port: port@d {
-+			reg = <0xd>;
-+			xbar_i2s4_ep: endpoint {
-+				remote-endpoint = <&i2s4_cif_ep>;
-+			};
-+		};
-+		xbar_i2s5_port: port@e {
-+			reg = <0xe>;
-+			xbar_i2s5_ep: endpoint {
-+				remote-endpoint = <&i2s5_cif_ep>;
-+			};
-+		};
-+		xbar_dmic1_port: port@f {
-+			reg = <0xf>;
-+			xbar_dmic1_ep: endpoint {
-+				remote-endpoint = <&dmic1_cif_ep>;
-+			};
-+		};
-+		xbar_dmic2_port: port@10 {
-+			reg = <0x10>;
-+			xbar_dmic2_ep: endpoint {
-+				remote-endpoint = <&dmic2_cif_ep>;
-+			};
-+		};
-+		xbar_dmic3_port: port@11 {
-+			reg = <0x11>;
-+			xbar_dmic3_ep: endpoint {
-+				remote-endpoint = <&dmic3_cif_ep>;
-+			};
-+		};
-+	};
-+};
-+
-+&tegra_i2s1 {
-+	status = "okay";
-+
-+	ports {
-+		#address-cells = <1>;
-+		#size-cells = <0>;
-+
-+		port@0 {
-+			reg = <0>;
-+			i2s1_cif_ep: endpoint {
-+				remote-endpoint = <&xbar_i2s1_ep>;
-+			};
-+		};
-+		i2s1_port: port@1 {
-+			reg = <1>;
-+			i2s1_dap_ep: endpoint {
-+				dai-format = "i2s";
-+				/* Placeholder for external Codec */
-+			};
-+		};
-+	};
-+};
-+
-+&tegra_i2s2 {
-+	status = "okay";
-+
-+	ports {
-+		#address-cells = <1>;
-+		#size-cells = <0>;
-+
-+		port@0 {
-+			reg = <0>;
-+			i2s2_cif_ep: endpoint {
-+				remote-endpoint = <&xbar_i2s2_ep>;
-+			};
-+		};
-+		i2s2_port: port@1 {
-+			reg = <1>;
-+			i2s2_dap_ep: endpoint {
-+				dai-format = "i2s";
-+				/* Placeholder for external Codec */
-+			};
-+		};
-+	};
-+};
-+
-+&tegra_i2s3 {
-+	status = "okay";
-+
-+	ports {
-+		#address-cells = <1>;
-+		#size-cells = <0>;
-+
-+		port@0 {
-+			reg = <0>;
-+			i2s3_cif_ep: endpoint {
-+				remote-endpoint = <&xbar_i2s3_ep>;
-+			};
-+		};
-+		i2s3_port: port@1 {
-+			reg = <1>;
-+			i2s3_dap_ep: endpoint {
-+				dai-format = "i2s";
-+				/* Placeholder for external Codec */
-+			};
-+		};
-+	};
-+};
-+
-+&tegra_i2s4 {
-+	status = "okay";
-+
-+	ports {
-+		#address-cells = <1>;
-+		#size-cells = <0>;
-+
-+		port@0 {
-+			reg = <0>;
-+			i2s4_cif_ep: endpoint {
-+				remote-endpoint = <&xbar_i2s4_ep>;
-+			};
-+		};
-+		i2s4_port: port@1 {
-+			reg = <1>;
-+			i2s4_dap_ep: endpoint {
-+				dai-format = "i2s";
-+				/* Placeholder for external Codec */
-+			};
-+		};
-+	};
-+};
-+
-+&tegra_i2s5 {
-+	status = "okay";
-+
-+	ports {
-+		#address-cells = <1>;
-+		#size-cells = <0>;
-+
-+		port@0 {
-+			reg = <0>;
-+			i2s5_cif_ep: endpoint {
-+				remote-endpoint = <&xbar_i2s5_ep>;
-+			};
-+		};
-+		i2s5_port: port@1 {
-+			reg = <1>;
-+			i2s5_dap_ep: endpoint {
-+				dai-format = "i2s";
-+				/* Placeholder for external Codec */
-+			};
-+		};
-+	};
-+};
-+
-+&tegra_dmic1 {
-+	status = "okay";
-+
-+	ports {
-+		#address-cells = <1>;
-+		#size-cells = <0>;
-+
-+		port@0 {
-+			reg = <0>;
-+			dmic1_cif_ep: endpoint {
-+				remote-endpoint = <&xbar_dmic1_ep>;
-+			};
-+		};
-+		dmic1_port: port@1 {
-+			reg = <1>;
-+			dmic1_dap_ep: endpoint {
-+				/* Placeholder for external Codec */
-+			};
-+		};
-+	};
-+};
-+
-+&tegra_dmic2 {
-+	status = "okay";
-+
-+	ports {
-+		#address-cells = <1>;
-+		#size-cells = <0>;
-+
-+		port@0 {
-+			reg = <0>;
-+			dmic2_cif_ep: endpoint {
-+				remote-endpoint = <&xbar_dmic2_ep>;
-+			};
-+		};
-+		dmic2_port: port@1 {
-+			reg = <1>;
-+			dmic2_dap_ep: endpoint {
-+				/* Placeholder for external Codec */
-+			};
-+		};
-+	};
-+};
-+
-+&tegra_dmic3 {
-+	status = "okay";
-+
-+	ports {
-+		#address-cells = <1>;
-+		#size-cells = <0>;
-+
-+		port@0 {
-+			reg = <0>;
-+			dmic3_cif_ep: endpoint {
-+				remote-endpoint = <&xbar_dmic3_ep>;
-+			};
-+		};
-+		dmic3_port: port@1 {
-+			reg = <1>;
-+			dmic3_dap_ep: endpoint {
-+				/* Placeholder for external Codec */
-+			};
-+		};
-+	};
- };
-diff --git a/arch/arm64/boot/dts/nvidia/tegra210-p3450-0000.dts b/arch/arm64/boot/dts/nvidia/tegra210-p3450-0000.dts
-index 6a877de..0c917a1 100644
---- a/arch/arm64/boot/dts/nvidia/tegra210-p3450-0000.dts
-+++ b/arch/arm64/boot/dts/nvidia/tegra210-p3450-0000.dts
-@@ -6,6 +6,7 @@
- #include <dt-bindings/mfd/max77620.h>
- 
- #include "tegra210.dtsi"
-+#include "tegra210-audio-graph.dtsi"
- 
- / {
- 	model = "NVIDIA Jetson Nano Developer Kit";
-@@ -870,4 +871,149 @@
- 
- 		vin-supply = <&vdd_5v0_sys>;
- 	};
-+
-+	tegra_sound {
-+		status = "okay";
-+
-+		compatible = "nvidia,tegra210-audio-graph-card";
-+
-+		dais = /* FE */
-+		       <&admaif1_port>, <&admaif2_port>, <&admaif3_port>,
-+		       <&admaif4_port>, <&admaif5_port>, <&admaif6_port>,
-+		       <&admaif7_port>, <&admaif8_port>, <&admaif9_port>,
-+		       <&admaif10_port>,
-+		       /* Router */
-+		       <&xbar_i2s3_port>, <&xbar_i2s4_port>,
-+		       <&xbar_dmic1_port>, <&xbar_dmic2_port>,
-+		       /* I/O DAP Ports */
-+		       <&i2s3_port>, <&i2s4_port>,
-+		       <&dmic1_port>, <&dmic2_port>;
-+
-+		label = "jetson-nano-ape";
-+	};
-+};
-+
-+&tegra_admaif {
-+	status = "okay";
-+};
-+
-+&tegra_ahub {
-+	status = "okay";
-+
-+	ports {
-+		xbar_i2s3_port: port@c {
-+			reg = <0xc>;
-+			xbar_i2s3_ep: endpoint {
-+				remote-endpoint = <&i2s3_cif_ep>;
-+			};
-+		};
-+		xbar_i2s4_port: port@d {
-+			reg = <0xd>;
-+			xbar_i2s4_ep: endpoint {
-+				remote-endpoint = <&i2s4_cif_ep>;
-+			};
-+		};
-+		xbar_dmic1_port: port@f {
-+			reg = <0xf>;
-+			xbar_dmic1_ep: endpoint {
-+				remote-endpoint = <&dmic1_cif_ep>;
-+			};
-+		};
-+		xbar_dmic2_port: port@10 {
-+			reg = <0x10>;
-+			xbar_dmic2_ep: endpoint {
-+				remote-endpoint = <&dmic2_cif_ep>;
-+			};
-+		};
-+	};
-+};
-+
-+&tegra_i2s3 {
-+	status = "okay";
-+
-+	ports {
-+		#address-cells = <1>;
-+		#size-cells = <0>;
-+
-+		port@0 {
-+			reg = <0>;
-+			i2s3_cif_ep: endpoint {
-+				remote-endpoint = <&xbar_i2s3_ep>;
-+			};
-+		};
-+		i2s3_port: port@1 {
-+			reg = <1>;
-+			i2s3_dap_ep: endpoint {
-+				dai-format = "i2s";
-+				/* Placeholder for external Codec */
-+			};
-+		};
-+	};
-+};
-+
-+&tegra_i2s4 {
-+	status = "okay";
-+
-+	ports {
-+		#address-cells = <1>;
-+		#size-cells = <0>;
-+
-+		port@0 {
-+			reg = <0>;
-+			i2s4_cif_ep: endpoint {
-+				remote-endpoint = <&xbar_i2s4_ep>;
-+			};
-+		};
-+		i2s4_port: port@1 {
-+			reg = <1>;
-+			i2s4_dap_ep: endpoint@0 {
-+				dai-format = "i2s";
-+				/* Placeholder for external Codec */
-+			};
-+		};
-+	};
-+};
-+
-+&tegra_dmic1 {
-+	status = "okay";
-+
-+	ports {
-+		#address-cells = <1>;
-+		#size-cells = <0>;
-+
-+		port@0 {
-+			reg = <0>;
-+			dmic1_cif_ep: endpoint@0 {
-+				remote-endpoint = <&xbar_dmic1_ep>;
-+			};
-+		};
-+		dmic1_port: port@1 {
-+			reg = <1>;
-+			dmic1_dap_ep: endpoint@0 {
-+				/* Placeholder for external Codec */
-+			};
-+		};
-+	};
-+};
-+
-+&tegra_dmic2 {
-+	status = "okay";
-+
-+	ports {
-+		#address-cells = <1>;
-+		#size-cells = <0>;
-+
-+		port@0 {
-+			reg = <0>;
-+			dmic2_cif_ep: endpoint@0 {
-+				remote-endpoint = <&xbar_dmic2_ep>;
-+			};
-+		};
-+		dmic2_port: port@1 {
-+			reg = <1>;
-+			dmic2_dap_ep: endpoint@0 {
-+				/* Placeholder for external Codec */
-+			};
-+		};
-+	};
- };
--- 
-2.7.4
+The xruns are characterised by bursts of "retire_capture_urb" warnings in
+the kernel logs (and in particular the frame status for everything in those
+URBs is EXDEV, meaning I think that the frames haven't been consumed by the
+time it's retired). I've patched sound/driver/pcm.c to provide me with a bit
+more debugging information and it looks like usually it's almost always
+between 7-10 consecutive calls to retire_capture_urb that are affected.
+
+The bursts of retire_capture_urb warnings seem roughly cyclic, with a
+cycle time that is dependent on the combination of the frames/period setting
+and the number of periods per buffer, though it doesn't appear to be a
+strictly linear thing: 512/2 (~170s cycle); 256/2 (~94s); 128/3 (~65s);
+64/13 (~270s). I can't immediately see any definitive smoking gun in the urb
+or interrupt counts, but there is some grouping in the timings between
+the xruns. Taking 64 frames, 5 periods, it's usually 50s, but sometimes 60s:
+
+ 21:47:57 50s since xrun 4 
+ 21:48:47 50s since xrun 5 
+ 21:49:46 59s since xrun 6 
+ 21:50:46 60s since xrun 7 
+ 21:51:36 50s since xrun 8 
+ 21:52:36 60s since xrun 9 
+ 21:53:36 60s since xrun 10 
+ 21:54:37 61s since xrun 11 
+ 21:55:27 50s since xrun 12 
+ 21:56:27 60s since xrun 13 
+ 21:57:27 60s since xrun 14 
+ 21:58:17 50s since xrun 15 
+ 21:59:16 59s since xrun 16 
+ 22:00:06 50s since xrun 17 
+ 22:00:56 50s since xrun 18 
+ ...
+
+If I count the URB numbers (sorry, I'm shaky on the terminology, but I'm
+counting each URB which is retired) I often (but not always) see the same
+number of URBs passing between xrun bursts. Currently at 64 frames/5
+periods, it's often exactly 50042 or 49923 urbs between bursts.
+
+The delay between starting Jack and encountering the first burst is not
+predictable -- it's not just a whole cycle -- but stopping jack for e.g 30s
+then starting again delays the next burst by the same amount. So it does seem
+related to something in the audio streaming rather than anything else going on
+on the system interfering. It's as if something is slowly slipping out of sync
+between the Wing and the kernel until they need to resync, but I don't really
+know enough about USB to have any deeper insight.
+
+All the tests above happen to be at 44.1kHz with the Wing set to 48 in,
+48 out, but changing to 48kHz or 2/2 IO doesn't seem to cure anything.
+
+One more data point which may not be relevant: if I switch off or unplug
+the Wing while Jack is running, the system gradually locks up over a period of
+a few seconds. I can get something out of the console briefly afterwards but
+within about ten seconds it's completely unresponsive. I imagine that pulling
+out a USB device from a realtime thread isn't a kind thing to do, but I don't
+recall this happening with other interfaces.
+
+Any help or insights into where I should be looking (I'm a newbie in kernel
+space) appreciated. If someone wants remote access to the box to investigate
+in realtime we could probably figure something out.
+
+bjb
+
 

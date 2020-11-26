@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2C8EB2C5CCD
-	for <lists+alsa-devel@lfdr.de>; Thu, 26 Nov 2020 21:07:48 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id E8CB62C5CD3
+	for <lists+alsa-devel@lfdr.de>; Thu, 26 Nov 2020 21:08:25 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id BBF2B17A5;
-	Thu, 26 Nov 2020 21:06:57 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BBF2B17A5
+	by alsa0.perex.cz (Postfix) with ESMTPS id 686B11804;
+	Thu, 26 Nov 2020 21:07:35 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 686B11804
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1606421267;
-	bh=+zo+VG8YGS02hHbv3OYXR4KG0Z3uDAocQBTocN1v1hU=;
-	h=Date:From:To:In-Reply-To:References:Subject:Cc:List-Id:
+	s=default; t=1606421305;
+	bh=7rQmTmv1ksW+ZfZDI/e0wJHZOLdUZO3zjTXU1u/XYRg=;
+	h=Date:From:To:In-Reply-To:References:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=G426r4gTzX2mnpv//RTLPRcATHxlvcRZRRGGJTDb5SndpIoUn+gbI6aG5pLqZYg4X
-	 2qjjH0MG9GWAVoXzRHiXbGMn6uABmJhCSSv1bTxnAznQivMKyEoX5Ht3Uq76ycvUJb
-	 sK0x7nWCTydG/A6aLvjRBB4ukPQLBe3VOrbvvd1w=
+	b=co3vF7EtHySFx0vt69eXfqDbaBXfkRPDppmF/EMPy0RDfDLlkL5olpAx0YdTYmqld
+	 FqO+kYJaXbrvmtr9ylcOFtfKPgQcMKlFuwY4wnj+TWVVlXKqNyLG66wYWqPk4OkqfX
+	 e4AqBmOE7Zd3F4tKAJYkFrsCEDLgjnr7cvXMyrFI=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id A7BA0F804C1;
-	Thu, 26 Nov 2020 21:06:05 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 518AAF804CB;
+	Thu, 26 Nov 2020 21:06:07 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 57DFAF80128; Thu, 26 Nov 2020 21:06:00 +0100 (CET)
+ id 303FCF804C3; Thu, 26 Nov 2020 21:06:05 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -34,37 +34,39 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id D55EAF80128
- for <alsa-devel@alsa-project.org>; Thu, 26 Nov 2020 21:05:57 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D55EAF80128
+ by alsa1.perex.cz (Postfix) with ESMTPS id 8E56AF800EA
+ for <alsa-devel@alsa-project.org>; Thu, 26 Nov 2020 21:06:02 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8E56AF800EA
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="GuI9iUE6"
+ header.b="SendZoJ+"
 Received: from localhost (cpc102334-sgyl38-2-0-cust884.18-2.cable.virginm.net
  [92.233.91.117])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 6F65621D91;
- Thu, 26 Nov 2020 20:05:55 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id 451FB21D91;
+ Thu, 26 Nov 2020 20:06:00 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1606421155;
- bh=+zo+VG8YGS02hHbv3OYXR4KG0Z3uDAocQBTocN1v1hU=;
+ s=default; t=1606421160;
+ bh=7rQmTmv1ksW+ZfZDI/e0wJHZOLdUZO3zjTXU1u/XYRg=;
  h=Date:From:To:Cc:In-Reply-To:References:Subject:From;
- b=GuI9iUE6SClaCN6n+FbnnpHL2tAk6X+EFZQ/BjAl5oUVz8yn9gGEvIZvQZAD6W7jU
- Yk4IoebugP6A4E3W7jazjEez12KIm3w4Y27wgfiPfY40wotJNQS3yJDyvhizZjFfa0
- musNtktoFJrV8EairzN2Alab1AMMifS1xuZ7I6/M=
-Date: Thu, 26 Nov 2020 20:05:30 +0000
+ b=SendZoJ+GTnIUWwxUbppNh9LNNQhZqfDbd82QiKtYOcnEe/bVOcvt5L451L0lmF/x
+ AucA5PdvTJHLoxu1C27BT2lv0wJqoNb2mYtdXEAN8L+ZthqUG68b7aC3Znj0/on1jL
+ FW/aebBnRyRvXFRMWNsq2shqbDkyoF6zxgP/+6vI=
+Date: Thu, 26 Nov 2020 20:05:35 +0000
 From: Mark Brown <broonie@kernel.org>
-To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-In-Reply-To: <87pn4a5ixl.wl-kuninori.morimoto.gx@renesas.com>
-References: <87pn4a5ixl.wl-kuninori.morimoto.gx@renesas.com>
-Subject: Re: [PATCH 0/5] ASoC: merge soc_compr_open() rollback and
- soc_compr_free()
-Message-Id: <160642112480.9090.18156704858684446117.b4-ty@kernel.org>
+To: jbrunet@baylibre.com, tiwai@suse.com, kuninori.morimoto.gx@renesas.com,
+ cychiang@chromium.org, perex@perex.cz, tzungbi@google.com, lgirdwood@gmail.com,
+ grandmaster@al2klimov.de, pankaj.laxminarayan.bharadiya@intel.com,
+ Shengjiu Wang <shengjiu.wang@nxp.com>, linux-kernel@vger.kernel.org,
+ alsa-devel@alsa-project.org
+In-Reply-To: <1606372608-2329-1-git-send-email-shengjiu.wang@nxp.com>
+References: <1606372608-2329-1-git-send-email-shengjiu.wang@nxp.com>
+Subject: Re: [PATCH] ASoC: hdmi-codec: Add RX support
+Message-Id: <160642112480.9090.16664768187050244422.b4-ty@kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Cc: Linux-ALSA <alsa-devel@alsa-project.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -80,19 +82,10 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 19 Nov 2020 08:49:32 +0900, Kuninori Morimoto wrote:
-> soc_compr_open() does rollback when failed (A),
-> but, it is almost same as soc_compr_free().
-> 
-> 	static int soc_compr_open(xxx)
-> 	{
-> 		...
-> 		if (ret < 0)
-> 			goto xxx_err;
-> 		...
-> 		return 0;
-> 
-> [...]
+On Thu, 26 Nov 2020 14:36:48 +0800, Shengjiu Wang wrote:
+> HDMI interface can also be used as receiver, this patch is to
+> add such support. The most difference compare with TX is that RX
+> don't need to get edid information.
 
 Applied to
 
@@ -100,16 +93,8 @@ Applied to
 
 Thanks!
 
-[1/5] ASoC: soc-compress: move soc_compr_free() next to soc_compr_open()
-      commit: 15a7b8c13653cc88de2db89af486e904aedc75ec
-[2/5] ASoC: soc-dai: add mark for snd_soc_dai_compr_startup/shutdown()
-      commit: 1e6a93cf74979e167cef8d29f6689705d9ec6735
-[3/5] ASoC: soc-component: add mark for snd_soc_component_compr_open/free()
-      commit: f94ba9ac20fab9af08240fde3741edf73655411d
-[4/5] ASoC: soc-component: add mark for snd_soc_link_compr_startup/shutdown()
-      commit: cd7c7d10e8f4ab1dac0bdb2019abc0fad995a788
-[5/5] ASoC: soc-compress: add soc_compr_clean() and call it from soc_compr_open/free()
-      commit: 453d32c2f7f7375c223eaf3a0a32efbb71bbd3f3
+[1/1] ASoC: hdmi-codec: Add RX support
+      commit: 144f836646989783cb018d00fa69f3f8dab58349
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

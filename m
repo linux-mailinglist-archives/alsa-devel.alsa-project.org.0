@@ -2,73 +2,49 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D39E12C5CDF
-	for <lists+alsa-devel@lfdr.de>; Thu, 26 Nov 2020 21:09:32 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id D19862C5D05
+	for <lists+alsa-devel@lfdr.de>; Thu, 26 Nov 2020 21:31:40 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 68C01180D;
-	Thu, 26 Nov 2020 21:08:42 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 68C01180D
+	by alsa0.perex.cz (Postfix) with ESMTPS id 61B9A1818;
+	Thu, 26 Nov 2020 21:30:50 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 61B9A1818
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1606421372;
-	bh=oBmJdlXsf0MuvIMTSzK43kmDbaZhsMs7eidBXMsiiAs=;
-	h=Date:From:To:In-Reply-To:References:Subject:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=FMfxJO0OU8cjd/TxuVwVEiwX4py7KW0i2U9ViRQFGb7UIuJPvbL4+H873aPh7dh5i
-	 xvxz+Sb6c71GEgwZ8z053iAac00IMg0yj0X964u3/6hTRgf7EplzNmzqI2aWxbD6sY
-	 ULP622ZBeDKTDkGj1Ni6/KdBjxGz5+iWObFxGaN0=
+	s=default; t=1606422700;
+	bh=FZDjzFlewa4Y22amdkR3/EA2GrbazqN5CQSYfokcpII=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=WALg9E04ov1fkmDHC/fvXzxCs/l1gRmvOjW+NLkKuiBAQIl+I/r1IyYlig5jlT537
+	 ObeqnDcaU7o9RXEt+G83cQx5dly7NpOe45HWB7NUAjNtMAKDd4TJs4fctHO/1gjRoM
+	 IDYOQmsrHuYWToJyRMQfZ2im/JFuTTjRr6K4k8kA=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 33E9DF804E7;
-	Thu, 26 Nov 2020 21:06:27 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id D06B9F80164;
+	Thu, 26 Nov 2020 21:30:05 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id E0FCAF804EC; Thu, 26 Nov 2020 21:06:24 +0100 (CET)
+ id 2F687F80165; Thu, 26 Nov 2020 21:30:04 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled
- version=3.4.0
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 8B289F804E7
- for <alsa-devel@alsa-project.org>; Thu, 26 Nov 2020 21:06:22 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8B289F804E7
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="bcOCKtP8"
-Received: from localhost (cpc102334-sgyl38-2-0-cust884.18-2.cable.virginm.net
- [92.233.91.117])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 48156221F8;
- Thu, 26 Nov 2020 20:06:20 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1606421180;
- bh=oBmJdlXsf0MuvIMTSzK43kmDbaZhsMs7eidBXMsiiAs=;
- h=Date:From:To:Cc:In-Reply-To:References:Subject:From;
- b=bcOCKtP8ennVdATv+NCde6Ehk5X280RX7ayBJKtn37R1pmW0CsityQy3Kc+/ZfCVV
- KvaUH+wQ4q9/q7oZff2iq7exZ4TnimU1V+laoV7Y5wEzrRsXO+XNj8m1gt7PTAxokr
- a7Wh04TgOCJ9/vEQuO4VERPukE4ElSgxjFzL9p+g=
-Date: Thu, 26 Nov 2020 20:05:55 +0000
-From: Mark Brown <broonie@kernel.org>
-To: alsa-devel@alsa-project.org, vkoul@kernel.org,
- Bard Liao <yung-chuan.liao@linux.intel.com>
-In-Reply-To: <20201103172226.4278-1-yung-chuan.liao@linux.intel.com>
-References: <20201103172226.4278-1-yung-chuan.liao@linux.intel.com>
-Subject: Re: [PATCH 0/5] regmap/SoundWire/ASoC: Add SoundWire SDCA support
-Message-Id: <160642115073.9278.10273170290236043053.b4-ty@kernel.org>
+X-Spam-Status: No, score=-0.0 required=5.0 tests=SPF_HELO_PASS,SPF_PASS,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from iodev.co.uk (iodev.co.uk [46.30.189.100])
+ by alsa1.perex.cz (Postfix) with ESMTP id 3B394F800EA
+ for <alsa-devel@alsa-project.org>; Thu, 26 Nov 2020 21:29:55 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3B394F800EA
+Received: from localhost (118.130.77.188.dynamic.jazztel.es [188.77.130.118])
+ by iodev.co.uk (Postfix) with ESMTPSA id 330E6154FB;
+ Thu, 26 Nov 2020 21:29:54 +0100 (CET)
+From: Ismael Luceno <ismael@iodev.co.uk>
+To: alsa-devel@alsa-project.org
+Subject: [PATCH] configure: Improve failures due to missing pkg-config
+Date: Thu, 26 Nov 2020 21:30:17 +0100
+Message-Id: <20201126203017.11936-1-ismael@iodev.co.uk>
+X-Mailer: git-send-email 2.28.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Cc: vinod.koul@linaro.org, tiwai@suse.de, mengdong.lin@intel.com,
- pierre-louis.bossart@linux.intel.com, ranjani.sridharan@linux.intel.com,
- hui.wang@canonical.com, srinivas.kandagatla@linaro.org, bard.liao@intel.com,
- jank@cadence.com, gregkh@linuxfoundation.org, sanyog.r.kale@intel.com,
- rander.wang@linux.intel.com, linux-kernel@vger.kernel.org
+Cc: Ismael Luceno <ismael@iodev.co.uk>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -84,51 +60,28 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Wed, 4 Nov 2020 01:22:21 +0800, Bard Liao wrote:
-> The MIPI SoundWire Device Class standard will define audio functionality
-> beyond the scope of the existing SoundWire 1.2 standard, which is limited
-> to the bus and interface.
-> 
-> The description is inspired by the USB Audio Class, with "functions",
-> "entities", "control selectors", "audio clusters". The main difference
-> with the USB Audio class is that the devices are typically on a motherboard
-> and descriptors stored in platform firmware instead of being retrieved
-> from the device.
-> 
-> [...]
+Output a warning at the beginning, and fill PKG_CONFIG with "false" so
+that any auto-configuration attempts fail without bogus messages.
 
-Applied to
+Signed-off-by: Ismael Luceno <ismael@iodev.co.uk>
+---
+ configure.ac | 3 +++
+ 1 file changed, 3 insertions(+)
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/regmap.git for-next
+diff --git a/configure.ac b/configure.ac
+index 1f119c5baeeb..29d043f18950 100644
+--- a/configure.ac
++++ b/configure.ac
+@@ -19,6 +19,9 @@ AC_PROG_MKDIR_P
+ AC_PROG_LN_S
+ AC_PROG_SED
+ PKG_PROG_PKG_CONFIG
++AS_IF([test -z "$PKG_CONFIG"],
++  [AC_MSG_WARN([pkg-config is needed for auto-configuration of dependencies])
++   PKG_CONFIG=false])
+ AM_PATH_ALSA(1.0.27)
+ if test "x$enable_alsatest" = "xyes"; then
+ AC_CHECK_FUNC([snd_ctl_elem_add_enumerated],
+-- 
+2.28.0
 
-Thanks!
-
-[1/5] soundwire: SDCA: add helper macro to access controls
-      commit: 07e21d4d96493fd0a8220ab134855253a34a9c84
-[2/5] regmap/SoundWire: sdw: add support for SoundWire 1.2 MBQ
-      commit: fb5103f9d6ce197b4d0b67b4e60e68470f5293d1
-[3/5] ASoC/SoundWire: rt715-sdca: First version of rt715 sdw sdca codec driver
-      commit: 6f4a038b99677f4db737841b81b9d45ed4b54966
-[4/5] ASoC/SoundWire: rt1316: Add RT1316 SDCA vendor-specific driver
-      (no commit info)
-[5/5] ASoC/SoundWire: rt711-sdca: Add RT711 SDCA vendor-specific driver
-      (no commit info)
-
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
-
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
-
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
-
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-Thanks,
-Mark

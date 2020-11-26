@@ -2,80 +2,75 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id CDADE2C59F8
-	for <lists+alsa-devel@lfdr.de>; Thu, 26 Nov 2020 18:03:25 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6D88F2C5B6A
+	for <lists+alsa-devel@lfdr.de>; Thu, 26 Nov 2020 19:05:39 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id DF28A17DF;
-	Thu, 26 Nov 2020 18:02:34 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DF28A17DF
+	by alsa0.perex.cz (Postfix) with ESMTPS id 0113517BB;
+	Thu, 26 Nov 2020 19:04:49 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0113517BB
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1606410205;
-	bh=aC449TdAtv0Huu1bkXgOuC8S3s1vaTlNl/CeieoNLl0=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=uaWstxbHUZmNIIt3XmAZJ1mm5/EjZ9xLqeFnzRocOPFGjILzM587HEWqND9UdN470
-	 IcKHqGe4Ly+++ouws5IRsHAqf8ssk4X9ECSAhqrB1qvOW5JNd5TCgLCNpvLivXyhLm
-	 CpE9Ba4a6VKO5BRuKRxw64bkWCGFKlq3ZniIhIhk=
+	s=default; t=1606413939;
+	bh=2dF9epNTLhs3SDcnncuIiu1eD3yg+KMCQWyO1ILR7EM=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=RYfx4AH9bwikT2ufM5iZJBMXF8lQgBHXQlakbsuO6ZAAl9aGNz5Sab+/5AjO+SvLx
+	 EKMY87fl47KuuZ+atSFGHpNMLBSnGBzbKVZo8gcrovidLL7uICaxZjsxCxiPN1Ps06
+	 Ogeb+g2xAoMfDHknQ0XIxTm77pis5A5bzCN3oTdw=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id E54B9F8027C;
-	Thu, 26 Nov 2020 18:01:42 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 58207F8026F;
+	Thu, 26 Nov 2020 19:04:04 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 54224F80165; Thu, 26 Nov 2020 18:01:40 +0100 (CET)
+ id 3524CF8016A; Thu, 26 Nov 2020 19:04:02 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.5 required=5.0 tests=PRX_BODY_13,SPF_HELO_NONE,
- SPF_PASS,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from metis.ext.pengutronix.de (metis.ext.pengutronix.de
- [IPv6:2001:67c:670:201:290:27ff:fe1d:cc33])
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+ DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from hqnvemgate26.nvidia.com (hqnvemgate26.nvidia.com
+ [216.228.121.65])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 947AAF800EA
- for <alsa-devel@alsa-project.org>; Thu, 26 Nov 2020 18:01:34 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 947AAF800EA
-Received: from pty.hi.pengutronix.de ([2001:67c:670:100:1d::c5])
- by metis.ext.pengutronix.de with esmtps
- (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
- (envelope-from <ukl@pengutronix.de>)
- id 1kiKcr-0001Kk-AC; Thu, 26 Nov 2020 18:00:09 +0100
-Received: from ukl by pty.hi.pengutronix.de with local (Exim 4.89)
- (envelope-from <ukl@pengutronix.de>)
- id 1kiKch-0002s0-J8; Thu, 26 Nov 2020 17:59:59 +0100
-From: =?UTF-8?q?Uwe=20Kleine-K=C3=B6nig?= <u.kleine-koenig@pengutronix.de>
-To: Geoff Levand <geoff@infradead.org>, Jaroslav Kysela <perex@perex.cz>,
- Takashi Iwai <tiwai@suse.com>, Michael Ellerman <mpe@ellerman.id.au>,
- Jens Axboe <axboe@kernel.dk>, Jim Paris <jim@jtan.com>,
- Arnd Bergmann <arnd@arndb.de>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- "David S. Miller" <davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>,
- "James E.J. Bottomley" <jejb@linux.ibm.com>,
- "Martin K. Petersen" <martin.petersen@oracle.com>,
- Alan Stern <stern@rowland.harvard.edu>,
- Bartlomiej Zolnierkiewicz <b.zolnierkie@samsung.com>
-Subject: [PATCH 2/2] powerpc/ps3: make system bus's remove and shutdown
- callbacks return void
-Date: Thu, 26 Nov 2020 17:59:50 +0100
-Message-Id: <20201126165950.2554997-2-u.kleine-koenig@pengutronix.de>
-X-Mailer: git-send-email 2.29.2
-In-Reply-To: <20201126165950.2554997-1-u.kleine-koenig@pengutronix.de>
-References: <20201126165950.2554997-1-u.kleine-koenig@pengutronix.de>
+ by alsa1.perex.cz (Postfix) with ESMTPS id D4657F800EA
+ for <alsa-devel@alsa-project.org>; Thu, 26 Nov 2020 19:03:53 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D4657F800EA
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=nvidia.com header.i=@nvidia.com
+ header.b="Gaheu44a"
+Received: from hqmail.nvidia.com (Not Verified[216.228.121.13]) by
+ hqnvemgate26.nvidia.com (using TLS: TLSv1.2, AES256-SHA)
+ id <B5fbfee090001>; Thu, 26 Nov 2020 10:03:53 -0800
+Received: from HQMAIL109.nvidia.com (172.20.187.15) by HQMAIL105.nvidia.com
+ (172.20.187.12) with Microsoft SMTP Server (TLS) id 15.0.1473.3; Thu, 26 Nov
+ 2020 18:03:49 +0000
+Received: from audio.nvidia.com (172.20.13.39) by mail.nvidia.com
+ (172.20.187.15) with Microsoft SMTP Server id 15.0.1473.3 via Frontend
+ Transport; Thu, 26 Nov 2020 18:03:46 +0000
+From: Sameer Pujar <spujar@nvidia.com>
+To: <broonie@kernel.org>, <robh+dt@kernel.org>, <thierry.reding@gmail.com>
+Subject: [PATCH v6 0/6] Tegra210 audio graph card
+Date: Thu, 26 Nov 2020 23:33:37 +0530
+Message-ID: <1606413823-19885-1-git-send-email-spujar@nvidia.com>
+X-Mailer: git-send-email 2.7.4
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-SA-Exim-Connect-IP: 2001:67c:670:100:1d::c5
-X-SA-Exim-Mail-From: ukl@pengutronix.de
-X-SA-Exim-Scanned: No (on metis.ext.pengutronix.de);
- SAEximRunCond expanded to false
-X-PTX-Original-Recipient: alsa-devel@alsa-project.org
-Cc: alsa-devel@alsa-project.org, linux-scsi@vger.kernel.org,
- Benjamin Herrenschmidt <benh@kernel.crashing.org>, linux-usb@vger.kernel.org,
- linux-fbdev@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linux-block@vger.kernel.org, Paul Mackerras <paulus@samba.org>,
- netdev@vger.kernel.org, linuxppc-dev@lists.ozlabs.org
+Content-Type: text/plain
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nvidia.com; s=n1;
+ t=1606413833; bh=8OQvUag+VIOkBSL/Xs+fpm1/r54yHxPZtytXE4/baQo=;
+ h=From:To:CC:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+ Content-Type;
+ b=Gaheu44a5O24LIg2sjtCFwm/6MxFhEc860Y2HkwapkXOvRoVFz54gQEPiNrelNY9l
+ 9M3jCG6VTbIAsF8m1Gt64d6eCFiODoq8fkg8QvTNxBJ6dPXBu+eWuqjoL+RJ3VKOFW
+ 2E/1YqfeBT/m9GHYQ2Y1uEeX7sjo/z/6u1YFroFt/lIAzeOhYqVdamwMdwUqxgipS7
+ E73ao+a+6qyGxpqLlLthQ7sFVbrapgXn6x/fwBPEMVzIwtblJIyrNaKu/xbxMyrUfk
+ eMbOW6cFw+YtoGPQQJSklkATk76K4gZ9R6Ko3QrXF6TejWz/J+rbwV+r3y5qT+1qBc
+ RhALOAg9hNOXw==
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
+ kuninori.morimoto.gx@renesas.com, Sameer Pujar <spujar@nvidia.com>,
+ linux-kernel@vger.kernel.org, jonathanh@nvidia.com, sharadg@nvidia.com,
+ linux-tegra@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -91,345 +86,114 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-The driver core ignores the return value of struct device_driver::remove
-because there is only little that can be done. For the shutdown callback
-it's ps3_system_bus_shutdown() which ignores the return value.
+This series adds audio graph based sound card support for Tegra210
+platforms like Jetson-TX1 an Jetson-Nano. The following preparatory
+audio graph enhancement series is already merged.
+ * https://patchwork.kernel.org/project/alsa-devel/list/?series=375629&state=*
 
-To simplify the quest to make struct device_driver::remove return void,
-let struct ps3_system_bus_driver::remove return void, too. All users
-already unconditionally return 0, this commit makes it obvious that
-returning an error code is a bad idea and ensures future users behave
-accordingly.
+Following are the summary of changes:
+ * Add graph/audio-graph based schemas or schema updates for Tegra210
+   component and machine drivers.
+ * Add Tegra audio graph machine driver.
+ * Add required DT support for Jetson-TX1/Nano.
 
-Signed-off-by: Uwe Kleine-König <u.kleine-koenig@pengutronix.de>
----
- arch/powerpc/include/asm/ps3.h               |  4 ++--
- arch/powerpc/platforms/ps3/system-bus.c      |  5 ++---
- drivers/block/ps3disk.c                      |  3 +--
- drivers/block/ps3vram.c                      |  3 +--
- drivers/char/ps3flash.c                      |  3 +--
- drivers/net/ethernet/toshiba/ps3_gelic_net.c |  3 +--
- drivers/ps3/ps3-lpm.c                        |  3 +--
- drivers/ps3/ps3-vuart.c                      | 10 ++++------
- drivers/scsi/ps3rom.c                        |  3 +--
- drivers/usb/host/ehci-ps3.c                  |  4 +---
- drivers/usb/host/ohci-ps3.c                  |  4 +---
- drivers/video/fbdev/ps3fb.c                  |  4 +---
- sound/ppc/snd_ps3.c                          |  3 +--
- 13 files changed, 18 insertions(+), 34 deletions(-)
+This work is based on earlier discussion of DPCM usage for Tegra
+and simple card driver updates.
+ * https://lkml.org/lkml/2020/4/30/519
+ * https://lkml.org/lkml/2020/6/27/4
 
-diff --git a/arch/powerpc/include/asm/ps3.h b/arch/powerpc/include/asm/ps3.h
-index cb89e4bf55ce..e646c7f218bc 100644
---- a/arch/powerpc/include/asm/ps3.h
-+++ b/arch/powerpc/include/asm/ps3.h
-@@ -378,8 +378,8 @@ struct ps3_system_bus_driver {
- 	enum ps3_match_sub_id match_sub_id;
- 	struct device_driver core;
- 	int (*probe)(struct ps3_system_bus_device *);
--	int (*remove)(struct ps3_system_bus_device *);
--	int (*shutdown)(struct ps3_system_bus_device *);
-+	void (*remove)(struct ps3_system_bus_device *);
-+	void (*shutdown)(struct ps3_system_bus_device *);
- /*	int (*suspend)(struct ps3_system_bus_device *, pm_message_t); */
- /*	int (*resume)(struct ps3_system_bus_device *); */
- };
-diff --git a/arch/powerpc/platforms/ps3/system-bus.c b/arch/powerpc/platforms/ps3/system-bus.c
-index c62aaa29a9d5..b431f41c6cb5 100644
---- a/arch/powerpc/platforms/ps3/system-bus.c
-+++ b/arch/powerpc/platforms/ps3/system-bus.c
-@@ -382,7 +382,6 @@ static int ps3_system_bus_probe(struct device *_dev)
- 
- static int ps3_system_bus_remove(struct device *_dev)
- {
--	int result = 0;
- 	struct ps3_system_bus_device *dev = ps3_dev_to_system_bus_dev(_dev);
- 	struct ps3_system_bus_driver *drv;
- 
-@@ -393,13 +392,13 @@ static int ps3_system_bus_remove(struct device *_dev)
- 	BUG_ON(!drv);
- 
- 	if (drv->remove)
--		result = drv->remove(dev);
-+		drv->remove(dev);
- 	else
- 		dev_dbg(&dev->core, "%s:%d %s: no remove method\n",
- 			__func__, __LINE__, drv->core.name);
- 
- 	pr_debug(" <- %s:%d: %s\n", __func__, __LINE__, dev_name(&dev->core));
--	return result;
-+	return 0;
- }
- 
- static void ps3_system_bus_shutdown(struct device *_dev)
-diff --git a/drivers/block/ps3disk.c b/drivers/block/ps3disk.c
-index 7b55811c2a81..ba3ece56cbb3 100644
---- a/drivers/block/ps3disk.c
-+++ b/drivers/block/ps3disk.c
-@@ -507,7 +507,7 @@ static int ps3disk_probe(struct ps3_system_bus_device *_dev)
- 	return error;
- }
- 
--static int ps3disk_remove(struct ps3_system_bus_device *_dev)
-+static void ps3disk_remove(struct ps3_system_bus_device *_dev)
- {
- 	struct ps3_storage_device *dev = to_ps3_storage_device(&_dev->core);
- 	struct ps3disk_private *priv = ps3_system_bus_get_drvdata(&dev->sbd);
-@@ -526,7 +526,6 @@ static int ps3disk_remove(struct ps3_system_bus_device *_dev)
- 	kfree(dev->bounce_buf);
- 	kfree(priv);
- 	ps3_system_bus_set_drvdata(_dev, NULL);
--	return 0;
- }
- 
- static struct ps3_system_bus_driver ps3disk = {
-diff --git a/drivers/block/ps3vram.c b/drivers/block/ps3vram.c
-index 1088798c8dd0..b71d28372ef3 100644
---- a/drivers/block/ps3vram.c
-+++ b/drivers/block/ps3vram.c
-@@ -797,7 +797,7 @@ static int ps3vram_probe(struct ps3_system_bus_device *dev)
- 	return error;
- }
- 
--static int ps3vram_remove(struct ps3_system_bus_device *dev)
-+static void ps3vram_remove(struct ps3_system_bus_device *dev)
- {
- 	struct ps3vram_priv *priv = ps3_system_bus_get_drvdata(dev);
- 
-@@ -817,7 +817,6 @@ static int ps3vram_remove(struct ps3_system_bus_device *dev)
- 	free_pages((unsigned long) priv->xdr_buf, get_order(XDR_BUF_SIZE));
- 	kfree(priv);
- 	ps3_system_bus_set_drvdata(dev, NULL);
--	return 0;
- }
- 
- static struct ps3_system_bus_driver ps3vram = {
-diff --git a/drivers/char/ps3flash.c b/drivers/char/ps3flash.c
-index 1a07fee33f66..23871cde41fb 100644
---- a/drivers/char/ps3flash.c
-+++ b/drivers/char/ps3flash.c
-@@ -403,7 +403,7 @@ static int ps3flash_probe(struct ps3_system_bus_device *_dev)
- 	return error;
- }
- 
--static int ps3flash_remove(struct ps3_system_bus_device *_dev)
-+static void ps3flash_remove(struct ps3_system_bus_device *_dev)
- {
- 	struct ps3_storage_device *dev = to_ps3_storage_device(&_dev->core);
- 
-@@ -413,7 +413,6 @@ static int ps3flash_remove(struct ps3_system_bus_device *_dev)
- 	kfree(ps3_system_bus_get_drvdata(&dev->sbd));
- 	ps3_system_bus_set_drvdata(&dev->sbd, NULL);
- 	ps3flash_dev = NULL;
--	return 0;
- }
- 
- 
-diff --git a/drivers/net/ethernet/toshiba/ps3_gelic_net.c b/drivers/net/ethernet/toshiba/ps3_gelic_net.c
-index d9a5722f561b..3d1fc8d2ca66 100644
---- a/drivers/net/ethernet/toshiba/ps3_gelic_net.c
-+++ b/drivers/net/ethernet/toshiba/ps3_gelic_net.c
-@@ -1791,7 +1791,7 @@ static int ps3_gelic_driver_probe(struct ps3_system_bus_device *dev)
-  * ps3_gelic_driver_remove - remove a device from the control of this driver
-  */
- 
--static int ps3_gelic_driver_remove(struct ps3_system_bus_device *dev)
-+static void ps3_gelic_driver_remove(struct ps3_system_bus_device *dev)
- {
- 	struct gelic_card *card = ps3_system_bus_get_drvdata(dev);
- 	struct net_device *netdev0;
-@@ -1840,7 +1840,6 @@ static int ps3_gelic_driver_remove(struct ps3_system_bus_device *dev)
- 	ps3_close_hv_device(dev);
- 
- 	pr_debug("%s: done\n", __func__);
--	return 0;
- }
- 
- static struct ps3_system_bus_driver ps3_gelic_driver = {
-diff --git a/drivers/ps3/ps3-lpm.c b/drivers/ps3/ps3-lpm.c
-index e54aa2d82f50..65512b6cc6fd 100644
---- a/drivers/ps3/ps3-lpm.c
-+++ b/drivers/ps3/ps3-lpm.c
-@@ -1196,7 +1196,7 @@ static int ps3_lpm_probe(struct ps3_system_bus_device *dev)
- 	return 0;
- }
- 
--static int ps3_lpm_remove(struct ps3_system_bus_device *dev)
-+static void ps3_lpm_remove(struct ps3_system_bus_device *dev)
- {
- 	dev_dbg(&dev->core, " -> %s:%u:\n", __func__, __LINE__);
- 
-@@ -1206,7 +1206,6 @@ static int ps3_lpm_remove(struct ps3_system_bus_device *dev)
- 	lpm_priv = NULL;
- 
- 	dev_info(&dev->core, " <- %s:%u:\n", __func__, __LINE__);
--	return 0;
- }
- 
- static struct ps3_system_bus_driver ps3_lpm_driver = {
-diff --git a/drivers/ps3/ps3-vuart.c b/drivers/ps3/ps3-vuart.c
-index 4ed131eaff51..e34ae6a442c7 100644
---- a/drivers/ps3/ps3-vuart.c
-+++ b/drivers/ps3/ps3-vuart.c
-@@ -1102,7 +1102,7 @@ static int ps3_vuart_cleanup(struct ps3_system_bus_device *dev)
-  * device can no longer be used.
-  */
- 
--static int ps3_vuart_remove(struct ps3_system_bus_device *dev)
-+static void ps3_vuart_remove(struct ps3_system_bus_device *dev)
- {
- 	struct ps3_vuart_port_priv *priv = to_port_priv(dev);
- 	struct ps3_vuart_port_driver *drv;
-@@ -1118,7 +1118,7 @@ static int ps3_vuart_remove(struct ps3_system_bus_device *dev)
- 		dev_dbg(&dev->core, "%s:%d: no driver bound\n", __func__,
- 			__LINE__);
- 		mutex_unlock(&vuart_bus_priv.probe_mutex);
--		return 0;
-+		return;
- 	}
- 
- 	drv = ps3_system_bus_dev_to_vuart_drv(dev);
-@@ -1141,7 +1141,6 @@ static int ps3_vuart_remove(struct ps3_system_bus_device *dev)
- 
- 	dev_dbg(&dev->core, " <- %s:%d\n", __func__, __LINE__);
- 	mutex_unlock(&vuart_bus_priv.probe_mutex);
--	return 0;
- }
- 
- /**
-@@ -1154,7 +1153,7 @@ static int ps3_vuart_remove(struct ps3_system_bus_device *dev)
-  * sequence.
-  */
- 
--static int ps3_vuart_shutdown(struct ps3_system_bus_device *dev)
-+static void ps3_vuart_shutdown(struct ps3_system_bus_device *dev)
- {
- 	struct ps3_vuart_port_driver *drv;
- 
-@@ -1169,7 +1168,7 @@ static int ps3_vuart_shutdown(struct ps3_system_bus_device *dev)
- 		dev_dbg(&dev->core, "%s:%d: no driver bound\n", __func__,
- 			__LINE__);
- 		mutex_unlock(&vuart_bus_priv.probe_mutex);
--		return 0;
-+		return;
- 	}
- 
- 	drv = ps3_system_bus_dev_to_vuart_drv(dev);
-@@ -1193,7 +1192,6 @@ static int ps3_vuart_shutdown(struct ps3_system_bus_device *dev)
- 	dev_dbg(&dev->core, " <- %s:%d\n", __func__, __LINE__);
- 
- 	mutex_unlock(&vuart_bus_priv.probe_mutex);
--	return 0;
- }
- 
- static int __init ps3_vuart_bus_init(void)
-diff --git a/drivers/scsi/ps3rom.c b/drivers/scsi/ps3rom.c
-index f75c0b5cd587..ccb5771f1cb7 100644
---- a/drivers/scsi/ps3rom.c
-+++ b/drivers/scsi/ps3rom.c
-@@ -402,7 +402,7 @@ static int ps3rom_probe(struct ps3_system_bus_device *_dev)
- 	return error;
- }
- 
--static int ps3rom_remove(struct ps3_system_bus_device *_dev)
-+static void ps3rom_remove(struct ps3_system_bus_device *_dev)
- {
- 	struct ps3_storage_device *dev = to_ps3_storage_device(&_dev->core);
- 	struct Scsi_Host *host = ps3_system_bus_get_drvdata(&dev->sbd);
-@@ -412,7 +412,6 @@ static int ps3rom_remove(struct ps3_system_bus_device *_dev)
- 	scsi_host_put(host);
- 	ps3_system_bus_set_drvdata(&dev->sbd, NULL);
- 	kfree(dev->bounce_buf);
--	return 0;
- }
- 
- static struct ps3_system_bus_driver ps3rom = {
-diff --git a/drivers/usb/host/ehci-ps3.c b/drivers/usb/host/ehci-ps3.c
-index fb52133c3557..98568b046a1a 100644
---- a/drivers/usb/host/ehci-ps3.c
-+++ b/drivers/usb/host/ehci-ps3.c
-@@ -200,7 +200,7 @@ static int ps3_ehci_probe(struct ps3_system_bus_device *dev)
- 	return result;
- }
- 
--static int ps3_ehci_remove(struct ps3_system_bus_device *dev)
-+static void ps3_ehci_remove(struct ps3_system_bus_device *dev)
- {
- 	unsigned int tmp;
- 	struct usb_hcd *hcd = ps3_system_bus_get_drvdata(dev);
-@@ -227,8 +227,6 @@ static int ps3_ehci_remove(struct ps3_system_bus_device *dev)
- 
- 	ps3_dma_region_free(dev->d_region);
- 	ps3_close_hv_device(dev);
--
--	return 0;
- }
- 
- static int __init ps3_ehci_driver_register(struct ps3_system_bus_driver *drv)
-diff --git a/drivers/usb/host/ohci-ps3.c b/drivers/usb/host/ohci-ps3.c
-index f77cd6af0ccf..4f5af929c3e4 100644
---- a/drivers/usb/host/ohci-ps3.c
-+++ b/drivers/usb/host/ohci-ps3.c
-@@ -184,7 +184,7 @@ static int ps3_ohci_probe(struct ps3_system_bus_device *dev)
- 	return result;
- }
- 
--static int ps3_ohci_remove(struct ps3_system_bus_device *dev)
-+static void ps3_ohci_remove(struct ps3_system_bus_device *dev)
- {
- 	unsigned int tmp;
- 	struct usb_hcd *hcd = ps3_system_bus_get_drvdata(dev);
-@@ -212,8 +212,6 @@ static int ps3_ohci_remove(struct ps3_system_bus_device *dev)
- 
- 	ps3_dma_region_free(dev->d_region);
- 	ps3_close_hv_device(dev);
--
--	return 0;
- }
- 
- static int __init ps3_ohci_driver_register(struct ps3_system_bus_driver *drv)
-diff --git a/drivers/video/fbdev/ps3fb.c b/drivers/video/fbdev/ps3fb.c
-index 203c254f8f6c..2fe08b67eda7 100644
---- a/drivers/video/fbdev/ps3fb.c
-+++ b/drivers/video/fbdev/ps3fb.c
-@@ -1208,7 +1208,7 @@ static int ps3fb_probe(struct ps3_system_bus_device *dev)
- 	return retval;
- }
- 
--static int ps3fb_shutdown(struct ps3_system_bus_device *dev)
-+static void ps3fb_shutdown(struct ps3_system_bus_device *dev)
- {
- 	struct fb_info *info = ps3_system_bus_get_drvdata(dev);
- 	u64 xdr_lpar = ps3_mm_phys_to_lpar(__pa(ps3fb_videomemory.address));
-@@ -1241,8 +1241,6 @@ static int ps3fb_shutdown(struct ps3_system_bus_device *dev)
- 	lv1_gpu_memory_free(ps3fb.memory_handle);
- 	ps3_close_hv_device(dev);
- 	dev_dbg(&dev->core, " <- %s:%d\n", __func__, __LINE__);
--
--	return 0;
- }
- 
- static struct ps3_system_bus_driver ps3fb_driver = {
-diff --git a/sound/ppc/snd_ps3.c b/sound/ppc/snd_ps3.c
-index 6ab796a5d936..8e44fa5d4dc7 100644
---- a/sound/ppc/snd_ps3.c
-+++ b/sound/ppc/snd_ps3.c
-@@ -1049,7 +1049,7 @@ static int snd_ps3_driver_probe(struct ps3_system_bus_device *dev)
- }; /* snd_ps3_probe */
- 
- /* called when module removal */
--static int snd_ps3_driver_remove(struct ps3_system_bus_device *dev)
-+static void snd_ps3_driver_remove(struct ps3_system_bus_device *dev)
- {
- 	int ret;
- 	pr_info("%s:start id=%d\n", __func__,  dev->match_id);
-@@ -1075,7 +1075,6 @@ static int snd_ps3_driver_remove(struct ps3_system_bus_device *dev)
- 	lv1_gpu_device_unmap(2);
- 	ps3_close_hv_device(dev);
- 	pr_info("%s:end id=%d\n", __func__, dev->match_id);
--	return 0;
- } /* snd_ps3_remove */
- 
- static struct ps3_system_bus_driver snd_ps3_bus_driver_info = {
+This series depends on following patch from Rob Herring:
+https://patchwork.ozlabs.org/project/devicetree-bindings/patch/20201117013349.2458416-3-robh@kernel.org/
+
+Changelog
+=========
+
+v5 -> v6
+--------
+ * Added ports or port description in YAML docs for Tegra AHUB
+   devices and graph card in patch 1/6 and 2/6. Reference of
+   audio-graph-port.yaml is used for AHUB devices.
+ * Dropped redundant NULL check return for of_device_get_match_data()
+   in patch 3/6.
+ * Added 'Reviewed-by' tag from Jon Hunter.
+ * No changes in remaining patches.
+
+v4 -> v5
+--------
+ * Audio graph related changes were sent in separate v5 series as
+   mentioned above and are dropped from current series.
+ * Graph and audio graph doc patches are dropped from this series
+   and are sent separately as mentioned above.
+ * Minor change with phandle label for TX1 and Nano platform DT files.
+ * No changes in other patches.
+
+v3 -> v4
+--------
+ * Added new patches to convert graph.txt and audio-graph-card.txt
+   to corresponding json-schema files. Later these references
+   are used in Tegra audio graph schema.
+
+ * AHUB component binding docs are updated to reflect the usage
+   of ports/port/endpoint
+
+ * More common stuff is moved into graph_parse_of() and this is
+   used by both generic and Tegra audio graph.
+
+ * DT binding for Tegra audio graph is updated to included "ports { }"
+
+ * As per the suggestion 'void *data' member is dropped from
+   'asoc_simple_priv' and instead container method is used to
+   maintain required custom data internal to Tegra audio graph. 
+
+v2 -> v3
+--------
+ * Dropped new compatible addition in generic graph driver
+   after reviewing it with Morimoto-san. Instead added Tegra
+   audio graph driver and new compatibles are added in the same.
+ * Added new patches to expose new members for customization
+   in audio graph driver.
+ * Added new patch for Tegra audio graph driver and related
+   documentation.
+ * Minor change in below commit where mutex version of helper is used
+   "ASoC: audio-graph: Identify 'no_pcm' DAI links for DPCM"
+ * DT binding is updated to use the newly exposed compatibles
+ * No changes in other patches
+
+v1 -> v2
+--------
+ * Re-organized ports/endpoints description for ADMAIF and XBAR.
+   Updated DT patches accordingly.
+ * After above change, multiple Codec endpoint support is not
+   required and hence dropped for now. This will be considered
+   separately if at all required in future.
+ * Re-ordered patches in the series.
+
+Sameer Pujar (6):
+  ASoC: dt-bindings: tegra: Add graph bindings
+  ASoC: dt-bindings: tegra: Add json-schema for Tegra audio graph card
+  ASoC: tegra: Add audio graph based card driver
+  arm64: defconfig: Enable Tegra audio graph card driver
+  arm64: tegra: Audio graph header for Tegra210
+  arm64: tegra: Audio graph sound card for Jetson Nano and TX1
+
+ .../sound/nvidia,tegra-audio-graph-card.yaml       | 187 +++++++++++++++
+ .../bindings/sound/nvidia,tegra186-dspk.yaml       |  18 +-
+ .../bindings/sound/nvidia,tegra210-admaif.yaml     |  13 +-
+ .../bindings/sound/nvidia,tegra210-ahub.yaml       |  13 +-
+ .../bindings/sound/nvidia,tegra210-dmic.yaml       |  18 +-
+ .../bindings/sound/nvidia,tegra210-i2s.yaml        |  18 +-
+ .../boot/dts/nvidia/tegra210-audio-graph.dtsi      | 153 ++++++++++++
+ arch/arm64/boot/dts/nvidia/tegra210-p2371-2180.dts | 262 +++++++++++++++++++++
+ arch/arm64/boot/dts/nvidia/tegra210-p3450-0000.dts | 146 ++++++++++++
+ arch/arm64/configs/defconfig                       |   1 +
+ sound/soc/tegra/Kconfig                            |   9 +
+ sound/soc/tegra/Makefile                           |   2 +
+ sound/soc/tegra/tegra_audio_graph_card.c           | 251 ++++++++++++++++++++
+ 13 files changed, 1085 insertions(+), 6 deletions(-)
+ create mode 100644 Documentation/devicetree/bindings/sound/nvidia,tegra-audio-graph-card.yaml
+ create mode 100644 arch/arm64/boot/dts/nvidia/tegra210-audio-graph.dtsi
+ create mode 100644 sound/soc/tegra/tegra_audio_graph_card.c
+
 -- 
-2.29.2
+2.7.4
 

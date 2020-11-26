@@ -2,135 +2,135 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5E24E2C5407
-	for <lists+alsa-devel@lfdr.de>; Thu, 26 Nov 2020 13:36:42 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id F1BCC2C5408
+	for <lists+alsa-devel@lfdr.de>; Thu, 26 Nov 2020 13:36:50 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id DB35417C7;
-	Thu, 26 Nov 2020 13:35:51 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DB35417C7
+	by alsa0.perex.cz (Postfix) with ESMTPS id 8642817D7;
+	Thu, 26 Nov 2020 13:36:00 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8642817D7
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1606394201;
-	bh=sNY/so2lf9CzsoHjVsJs3vxsBksPAtotlP+e5fBBlzA=;
+	s=default; t=1606394210;
+	bh=9iMUEZvL/FocxQADLepDv1tbbenfqfDFVx1x66x9tvk=;
 	h=From:To:Subject:Date:References:Cc:List-Id:List-Unsubscribe:
 	 List-Archive:List-Post:List-Help:List-Subscribe:From;
-	b=MO7D1XRTjjo+1c8kqq5FFseQJNmnAu/2acxXGiiT+nMcxa6i/LLdMBFlobIGsCuLE
-	 ADlGQBC7WJQZn6Dpjy3D8+eQsahgA00gILibEVeLO1fAb5bqSOFBHvwFVv6mxG+eFH
-	 ExoQ5qpH3FC8WfinMUNAOBpfIw5IsXqF00OZ177I=
+	b=SdSO33s3WmQk5YakQQF6Zwclt5GBGuevNt8Xd8AP1HTRE83KGV4uK84XtXl9iE5xI
+	 Tg0q2+TI3qV7Du8WgPT3eBFWJ7EIQEfaw6Th7Q38HqSs42/7FumNvXXw+ooaQOe3sG
+	 /RNEBqtgxFjYpcbUZVPD7M75EOhrFn5tSbcv+j0A=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 513E2F80166;
-	Thu, 26 Nov 2020 13:35:07 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 49CD7F80165;
+	Thu, 26 Nov 2020 13:35:18 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 22BF5F80165; Thu, 26 Nov 2020 13:35:04 +0100 (CET)
+ id 2ED2EF8026F; Thu, 26 Nov 2020 13:35:15 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
  DKIM_VALID,DKIM_VALID_AU,RCVD_IN_MSPIKE_H3,RCVD_IN_MSPIKE_WL,SPF_HELO_PASS,
- SPF_PASS autolearn=disabled version=3.4.0
-Received: from mailout2.samsung.com (mailout2.samsung.com [203.254.224.25])
+ SPF_PASS,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mailout3.samsung.com (mailout3.samsung.com [203.254.224.33])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 6EA1FF80128
- for <alsa-devel@alsa-project.org>; Thu, 26 Nov 2020 13:34:49 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6EA1FF80128
+ by alsa1.perex.cz (Postfix) with ESMTPS id ACF1FF80165
+ for <alsa-devel@alsa-project.org>; Thu, 26 Nov 2020 13:35:01 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz ACF1FF80165
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com
- header.b="Vsu9iMem"
+ header.b="Vnz0WXZv"
 Received: from epcas2p2.samsung.com (unknown [182.195.41.54])
- by mailout2.samsung.com (KnoxPortal) with ESMTP id
- 20201126123444epoutp028810ac689825e2e57fee936bf7f45616~LDuiRwnQs2331323313epoutp02M
- for <alsa-devel@alsa-project.org>; Thu, 26 Nov 2020 12:34:44 +0000 (GMT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mailout2.samsung.com
- 20201126123444epoutp028810ac689825e2e57fee936bf7f45616~LDuiRwnQs2331323313epoutp02M
+ by mailout3.samsung.com (KnoxPortal) with ESMTP id
+ 20201126123456epoutp030a95eea2ba644e6b0b8bf8dd75f9129e~LDut_gps-1804618046epoutp039
+ for <alsa-devel@alsa-project.org>; Thu, 26 Nov 2020 12:34:56 +0000 (GMT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 mailout3.samsung.com
+ 20201126123456epoutp030a95eea2ba644e6b0b8bf8dd75f9129e~LDut_gps-1804618046epoutp039
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
- s=mail20170921; t=1606394084;
- bh=a3IycIHgDlNF/3I0Sh0LSCcWupf0A7rGm8jrAGxrAA8=;
+ s=mail20170921; t=1606394096;
+ bh=lS1JywEarQwygT8uYbpAFbDu2wq+HheBzEPHD7qeGeU=;
  h=From:To:Cc:Subject:Date:References:From;
- b=Vsu9iMemy9I5IGCEn4Ex5Y0P+xJKh4IfLYsE4JMDLwNEi3Q/RQ64eHl/YlC5wHBTB
- 77/a6vEYXOhCUHfka8nERCZtHExD7jqyBuvA/qCYEV8EfuvLUJ1xOVRlbvZxTjaxPP
- djYul1RRh+Hsu/61AN2DrkgN0as7eq7bEckgNTZ8=
+ b=Vnz0WXZv8FPxFouKOpSx9As2np0aVo2IfC3UylPQO0YTTVvGB6aGQIK2S1Vl0KGR8
+ 4noCl2nn7qPNXwFBZILBEc9XQcfcKZYbMuxz5/AECm2L/SopTcQb8TRzdjLLhftOvX
+ v5aKQbbDYsGo7tYvxQF9ssM+CsIaLcV0pK3jsJhs=
 Received: from epsnrtp4.localdomain (unknown [182.195.42.165]) by
- epcas2p2.samsung.com (KnoxPortal) with ESMTP id
- 20201126123442epcas2p24ebadf0cbec68388cdb2d19c1b2ff5e6~LDuhCscYu1670816708epcas2p2L;
- Thu, 26 Nov 2020 12:34:42 +0000 (GMT)
-Received: from epsmges2p2.samsung.com (unknown [182.195.40.190]) by
- epsnrtp4.localdomain (Postfix) with ESMTP id 4Chcds4WQqzMqYkZ; Thu, 26 Nov
- 2020 12:34:41 +0000 (GMT)
-Received: from epcas2p1.samsung.com ( [182.195.41.53]) by
- epsmges2p2.samsung.com (Symantec Messaging Gateway) with SMTP id
- 03.06.56312.1E0AFBF5; Thu, 26 Nov 2020 21:34:41 +0900 (KST)
+ epcas2p4.samsung.com (KnoxPortal) with ESMTP id
+ 20201126123455epcas2p4821f75fad7c94ffc9c6645fa0ce57e72~LDutCFbWe2290322903epcas2p4-;
+ Thu, 26 Nov 2020 12:34:55 +0000 (GMT)
+Received: from epsmges2p4.samsung.com (unknown [182.195.40.184]) by
+ epsnrtp4.localdomain (Postfix) with ESMTP id 4Chcf53yqyzMqYkY; Thu, 26 Nov
+ 2020 12:34:53 +0000 (GMT)
+Received: from epcas2p2.samsung.com ( [182.195.41.54]) by
+ epsmges2p4.samsung.com (Symantec Messaging Gateway) with SMTP id
+ AB.18.52511.DE0AFBF5; Thu, 26 Nov 2020 21:34:53 +0900 (KST)
 Received: from epsmtrp2.samsung.com (unknown [182.195.40.14]) by
- epcas2p3.samsung.com (KnoxPortal) with ESMTPA id
- 20201126123440epcas2p3f38035952f571b3be7e86225dc5a2745~LDuedGaMt0958509585epcas2p3Y;
- Thu, 26 Nov 2020 12:34:40 +0000 (GMT)
+ epcas2p2.samsung.com (KnoxPortal) with ESMTPA id
+ 20201126123452epcas2p2638c08262ef400cc0ad99fc2d1bd7b2a~LDuqISAVz2668026680epcas2p2c;
+ Thu, 26 Nov 2020 12:34:52 +0000 (GMT)
 Received: from epsmgms1p1new.samsung.com (unknown [182.195.42.41]) by
  epsmtrp2.samsung.com (KnoxPortal) with ESMTP id
- 20201126123439epsmtrp20aa70b7df2c96f3cb2feea4483379184~LDueZY3SA0679306793epsmtrp2z;
- Thu, 26 Nov 2020 12:34:39 +0000 (GMT)
-X-AuditID: b6c32a46-1d9ff7000000dbf8-bd-5fbfa0e1d002
+ 20201126123452epsmtrp2cee6279ee462b728a0468637a53f24a2~LDuqHg-LM0679306793epsmtrp26;
+ Thu, 26 Nov 2020 12:34:52 +0000 (GMT)
+X-AuditID: b6c32a48-50fff7000000cd1f-89-5fbfa0ed2df6
 Received: from epsmtip2.samsung.com ( [182.195.34.31]) by
  epsmgms1p1new.samsung.com (Symantec Messaging Gateway) with SMTP id
- 2E.ED.13470.FD0AFBF5; Thu, 26 Nov 2020 21:34:39 +0900 (KST)
+ DF.ED.13470.CE0AFBF5; Thu, 26 Nov 2020 21:34:52 +0900 (KST)
 Received: from KORDO025540 (unknown [12.36.182.130]) by epsmtip2.samsung.com
  (KnoxPortal) with ESMTPA id
- 20201126123439epsmtip22f47600451ac8777b996caf626724fa9~LDueGQlmH0561305613epsmtip2P;
- Thu, 26 Nov 2020 12:34:39 +0000 (GMT)
+ 20201126123452epsmtip2018a73f2183e2ec04989ae1e857f4be1~LDup5M11p0532805328epsmtip2A;
+ Thu, 26 Nov 2020 12:34:52 +0000 (GMT)
 From: "Gyeongtaek Lee" <gt82.lee@samsung.com>
 To: "'Vinod Koul'" <vkoul@kernel.org>
-Subject: [PATCH v3 0/1] ALSA: compress: allow pause and resume during draining
-Date: Thu, 26 Nov 2020 21:34:39 +0900
-Message-ID: <000001d6c3f0$82250580$866f1080$@samsung.com>
+Subject: [PATCH v3 1/1] ALSA: compress: allow pause and resume during draining
+Date: Thu, 26 Nov 2020 21:34:52 +0900
+Message-ID: <000101d6c3f0$89b312b0$9d193810$@samsung.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
 X-Mailer: Microsoft Outlook 16.0
-Thread-Index: AdbD7inK7M1ppD6oQROJKVAjHlS2fQ==
+Thread-Index: AdbD7iBmuJf7aCd0QsuFbI+hWc4+8A==
 Content-Language: ko
-X-Brightmail-Tracker: H4sIAAAAAAAAA+NgFtrHJsWRmVeSWpSXmKPExsWy7bCmqe7DBfvjDaYdlrW4cvEQk8XdH+YW
- M7Z1s1g03pvAZrH66hYmi29XOpgsfv1/xmRx9OJiJouGu83sFhu+r2W0eLn5DZPFkcYpTBY7
- 75xgduD12PC5ic1j56y77B6bVnWyecw7GejRt2UVo8f6LVdZPDafrg5gj8qxyUhNTEktUkjN
- S85PycxLt1XyDo53jjc1MzDUNbS0MFdSyEvMTbVVcvEJ0HXLzAE6VkmhLDGnFCgUkFhcrKRv
- Z1OUX1qSqpCRX1xiq5RakJJTYGhYoFecmFtcmpeul5yfa2VoYGBkClSZkJOxeN4ploKfohX9
- 8/4yNTD+EOxi5OSQEDCR2Ph8B0sXIxeHkMAORon9z5czQTifGCV2du6Hcr4xSjw53ckI0/L6
- 7mo2iMReRok1X9dA9b9klHjfOY8ZpIpNQFfiy707YLaIgKrElicPwDqYBe4xSTS+eMsEkhAW
- CJDY2nMcyObgYAEqetggDBLmFbCUWLv1CzOELShxcuYTFhCbWUBeYvvbOcwQVyhI/Hy6jBVi
- vp7E1JafzBA1IhKzO9uYQXZJCGzhkDgx4wIbRIOLxOwpD1ghbGGJV8e3sEPYUhKf3+1lg2ho
- ZpR4d/YPVGIKo0RntxCEbSyxZe4psEOZBTQl1u/SBzElBJQljtyCuo1PouPwX3aIMK9ERxtU
- o5LExlP/mCDCEhLzNkDN9pA4uWQ26wRGxVlInpyF5MlZSJ6ZhbB2ASPLKkax1ILi3PTUYqMC
- I+TI3sQITshabjsYp7z9oHeIkYmD8RCjBAezkgivu/DeeCHelMTKqtSi/Pii0pzU4kOMpsBQ
- n8gsJZqcD8wJeSXxhqZGZmYGlqYWpmZGFkrivKEr++KFBNITS1KzU1MLUotg+pg4OKUamO74
- +PC9WBiYfoZX46k3tzKrafFy92CXnkbBLU3bt8t8f+q56s90fZHmuCK/hX+nPVO/IW11pM/K
- vlV4rbt21ea/DDyrV75y5XBxS7BaZ+IYdGj3x6Il9RqdFx2VDrUEmJi1MU5euCmtu2LKBJu4
- hzufJPxuSo9vePRV9fysA+n/9z37t2DeQ0WHlJzdW/7IP/m2//La4ye+7O18JbpgxqKJ1YUt
- NQY9d3baul182CM548+fyw+nrzPdPvnoM48jj99rmEjxNnyaprLgNdOqc3WuF5fuvXZbKnR3
- 9ZL8/2Hdb+LyDvtdCW447zs94lqnYe+1PRqRW3Z5lS6Y8Pf3r33nGlwqJKbxbLnM/P/+urmf
- lFiKMxINtZiLihMBEWNDylEEAAA=
-X-Brightmail-Tracker: H4sIAAAAAAAAA+NgFuphkeLIzCtJLcpLzFFi42LZdlhJXvf+gv3xBlfn6VtcuXiIyeLuD3OL
- Gdu6WSwa701gs1h9dQuTxbcrHUwWv/4/Y7I4enExk0XD3WZ2iw3f1zJavNz8hsniSOMUJoud
- d04wO/B6bPjcxOaxc9Zddo9NqzrZPOadDPTo27KK0WP9lqssHptPVwewR3HZpKTmZJalFunb
- JXBlLJ53iqXgp2hF/7y/TA2MPwS7GDk5JARMJF7fXc0GYgsJ7GaUuP+eEyIuIfFh/hl2CFtY
- 4n7LEdYuRi6gmueMEjcuvgNLsAnoSny5d4cZxBYRUJXY8uQB2CBmgTdMEl/OFXYxcnAIC/hJ
- dHTxg5gsQCUPG4RBKngFLCXWbv3CDGELSpyc+YQFpIRZQE+ibSMjxBB5ie1v5zBDXKAg8fPp
- MlaIRXoSU1t+MkPUiEjM7mxjnsAoOAvJpFkIk2YhmTQLSccCRpZVjJKpBcW56bnFhgWGeanl
- esWJucWleel6yfm5mxjBEaaluYNx+6oPeocYmTgYDzFKcDArifC6C++NF+JNSaysSi3Kjy8q
- zUktPsQozcGiJM57o3BhnJBAemJJanZqakFqEUyWiYNTqoEp+MOLL5cshJj//2O9HczJklxy
- 4LRibNv5jT7reQSmyakLhESeL5RXSr/z/2yA4PfChd+/2K64UBt91Kxf4t+zCTHmnxw3fXwa
- /XSG+jbG+OpNi0rMJx95eEHpovtzpRmvGnV+WCiXJif//tu0m8fT2djcrCn1aPglUde7okFH
- RaQvM0/YsO6UTfcXodlrGQ+Lu2jZRMZHpS1NUePt3es+efb6ItFDk5xuZAj/Lok4GRfhtsZz
- zg1VXzFtvr8Lqk7LvVA7dPHmpEylqRZpZxa/to7ePP3bg+r/B1ZWn+L/yFWoN/tQvdOqnvMf
- V6tOObLlzkndeQd84ytaLBKP/nrD93Ijm28Ew+6+nW5Suh/ilViKMxINtZiLihMBDEfzzx8D
- AAA=
-X-CMS-MailID: 20201126123440epcas2p3f38035952f571b3be7e86225dc5a2745
+X-Brightmail-Tracker: H4sIAAAAAAAAA01TfUwTZxzee3f2iq7bDTr2jixZOWf8yMC22nIsoCY4PN3icIRt2R/rDrgU
+ sn6l1xLBxfCRVVoYYgZua4E1cSEbfoDYUCWCrNBU7JjAkKgBolkZ6KxMYGidrGt7XcZ/z/v7
+ Pc/v43nfV4gm9gtShKU6E2vUMRpSsB7rGdyqTAs6r6ikg7Mp1MSYB6Gmn2RQ3/TUYVTVTKOA
+ On3DhVArE7UI9TT8O0J5x04hVOV0DU51PT4LqHsXHiDUUFUTQl2auoruEdFdS9UC+pJ9Gqe7
+ O6wCum34EN3g6gB0p+sGRl/wH8nDP9ZklbBMMWuUsLoifXGpTp1NvpOvylEplFJZmiyTyiAl
+ OkbLZpN7381Lyy3VRIYlJWWMxhwJ5TEcR27flWXUm02spETPmbJJ1lCsMchkhnSO0XJmnTq9
+ SK99SyaVyhUR5qeaEscVJ254tuXwrQcrWCWoIW0gQQiJnXDu5z6BDawXJhIXAfx1cRnjD4sA
+ /jZ5PJ5ZAXBo4BFiA8KYZLk3lY/3AbjotQH+cA/A6xNX8WhdAZEGl2em0CgWE5ugK3AnVgkl
+ ZhBYNR9EookkIg8+GgjESFiE1OkPxsQiIhNe/+t7hMcvweFvA1gUo8Tr0B1sQfnBJTA0276O
+ b5AO71svC3iOGDqsFjTaDBIuITzWdBvjBXuhzTMu4HESvO9z4TxOgUsPeQcgUQPgw5Fn8UQT
+ gNa6RB7vgK7Wa7H9UWIr7OzdzluxEQ7djs/2AqwdXMX5sAjWWuJCEp6/9k/cOAjbuuK1afhL
+ ezXSCFLta5a0r1nSvmYZ+/9tnQDrAMmsgdOqWU5u2Ln2srtB7CFvoy8CR/DPdA9AhMADoBAl
+ xaJ9SX2qRFExU17BGvUqo1nDch6giNh+Ak15uUgf+Qk6k0qmkCuV0kwFpVDKKfIVUcGPDapE
+ Qs2Y2M9Y1sAa/9MhwoSUSgTtYsN1yepkn1w6X+A4cBo/+hHdWr/lwJGB54YLfXZb9qay2YXP
+ +8rFOgR81fGJY2EPnrNZLPog90vSvWwcORkMjW6e+qHsjE804u/fXT0kf/L3UcurjPvQeG5C
+ 42WLuTZo8E+/F7qZUV6vah5tu6Wl1722agj+FPYfz/GVJjx/rqd1cv/NjV7vXcGJDXcPjz9W
+ EeMV8zTVcscZPh84V9K/oXe3O91qLDyY1fxig7dQNNo6d/Dr4R1T6rHGnLP5Wvbp+/XuUx92
+ O/DQMY/4Te/gyTNVodQ/vui1zImrvQtNS84WX37Baj4unt5fH2JIT8V3Rizwtrs9PPlGs1O5
+ i8S4Eka2DTVyzL/8xVLEUQQAAA==
+X-Brightmail-Tracker: H4sIAAAAAAAAA+NgFupjkeLIzCtJLcpLzFFi42LZdlhJXvfNgv3xBltbpS2uXDzEZHH3h7nF
+ jG3dLBaN9yawWay+uoXJ4tuVDiaLX/+fMVkcvbiYyaLhbjO7xYbvaxktXm5+w2RxpHEKk8XO
+ OyeYHXg9NnxuYvPYOesuu8emVZ1sHvNOBnr0bVnF6LF+y1UWj82nqwPYo7hsUlJzMstSi/Tt
+ ErgyZu9fwF7wR6Pi5ptvLA2MzUpdjBwcEgImEl92KXYxcnEICexmlGhtncLWxcgJFJeQ+DD/
+ DDuELSxxv+UIK0TRc0aJQ0sughWxCehKfLl3hxnEFhFQldjy5AFYnFngDZPEl3OFILawgJ/E
+ 3lXXGUFsFqCa9affgg3lFbCUOP91CROELShxcuYTFpCDmAX0JNo2MkKMkZfY/nYOM8QNChI/
+ ny5jhVilJ/Gqcw/UKhGJ2Z1tzBMYBWchmTQLYdIsJJNmIelYwMiyilEytaA4Nz232LDAMC+1
+ XK84Mbe4NC9dLzk/dxMjOMq0NHcwbl/1Qe8QIxMH4yFGCQ5mJRFed+G98UK8KYmVValF+fFF
+ pTmpxYcYpTlYlMR5bxQujBMSSE8sSc1OTS1ILYLJMnFwSjUwBX1bvXvapKzqbW0yfyYcT5bL
+ fLQ+OMlM9k7tpq0Hw5i+3TFeKezIZDxzr3OHZr62jZLQkgm2Tvc4KjMYgnh2WvnK3XzVwnxq
+ ZdjdRytff1natvbO7ed9WrdqHh0uDuLw+/DeMPLS0eyV2Y7GxafP2azItTta8Dj1xPTACDmt
+ 7BOZx2bvbnD+1+jxbcdO4aTqNIl8PYVMyWVpab1Hfn465Lt5VcZdVffcl3dus9yTkZz0/f3u
+ Y3tXS0jKhxs6HQ9svl4733CfzRypXUt3qd89weoy4cb5iknrN1bnXN5rUXo0adZjI4Z7T1Z9
+ ddZJFWkpFn3C2FgXwCQ8562joNe27Z8v5V4p9O39U/2k1cW1S4mlOCPRUIu5qDgRADjzyN0h
+ AwAA
+X-CMS-MailID: 20201126123452epcas2p2638c08262ef400cc0ad99fc2d1bd7b2a
 X-Msg-Generator: CA
 Content-Type: text/plain; charset="utf-8"
 X-Sendblock-Type: AUTO_CONFIDENTIAL
 CMS-TYPE: 102P
 DLP-Filter: Pass
 X-CFilter-Loop: Reflected
-X-CMS-RootMailID: 20201126123440epcas2p3f38035952f571b3be7e86225dc5a2745
-References: <CGME20201126123440epcas2p3f38035952f571b3be7e86225dc5a2745@epcas2p3.samsung.com>
+X-CMS-RootMailID: 20201126123452epcas2p2638c08262ef400cc0ad99fc2d1bd7b2a
+References: <CGME20201126123452epcas2p2638c08262ef400cc0ad99fc2d1bd7b2a@epcas2p2.samsung.com>
 Cc: alsa-devel@alsa-project.org, khw0178.kim@samsung.com, lgirdwood@gmail.com,
  'Takashi Iwai' <tiwai@suse.de>,
  'Pierre-Louis Bossart' <pierre-louis.bossart@linux.intel.com>, tiwai@suse.com,
@@ -151,88 +151,147 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Wed, 25 Nov 2020 16:28:05 +0530, Vinod Koul wrote:
->On 27-10-20, 10:57, Gyeongtaek Lee wrote:
->> diff --git a/sound/core/compress_offload.c b/sound/core/compress_offload.c
->> index 0e53f6f31916..a071485383ed 100644
->> --- a/sound/core/compress_offload.c
->> +++ b/sound/core/compress_offload.c
->> @@ -708,11 +708,24 @@ static int snd_compr_pause(struct snd_compr_stream *stream)
->>  {
->>  	int retval;
->>  
->> -	if (stream->runtime->state != SNDRV_PCM_STATE_RUNNING)
->> +	switch (stream->runtime->state) {
->> +	case SNDRV_PCM_STATE_RUNNING:
->> +		retval = stream->ops->trigger(stream,
->> +			SNDRV_PCM_TRIGGER_PAUSE_PUSH);
->
->this seems to fit single line with new 100char limit and makes it a
->better read, can we please do that here and few places below .. The line
->split is making it look bit ugly IMO
->
->> +		if (!retval)
->> +			stream->runtime->state = SNDRV_PCM_STATE_PAUSED;
->> +		break;
->> +	case SNDRV_PCM_STATE_DRAINING:
->> +		if (!stream->device->use_pause_in_draining)
->> +			return -EPERM;
->
->I am expecting patches to tinycompress to handle pause while drain. Esp
->this case..
->
->> +		retval = stream->ops->trigger(stream,
->> +			SNDRV_PCM_TRIGGER_PAUSE_PUSH);
->> +		if (!retval)
->> +			stream->pause_in_draining = true;
->> +		break;
->> +	default:
->>  		return -EPERM;
->> -	retval = stream->ops->trigger(stream, SNDRV_PCM_TRIGGER_PAUSE_PUSH);
->> -	if (!retval)
->> -		stream->runtime->state = SNDRV_PCM_STATE_PAUSED;
->> +	}
->>  	return retval;
->>  }
->>  
->> @@ -720,11 +733,25 @@ static int snd_compr_resume(struct snd_compr_stream *stream)
->>  {
->>  	int retval;
->>  
->> -	if (stream->runtime->state != SNDRV_PCM_STATE_PAUSED)
->> +	switch (stream->runtime->state) {
->> +	case SNDRV_PCM_STATE_PAUSED:
->> +		retval = stream->ops->trigger(stream,
->> +			SNDRV_PCM_TRIGGER_PAUSE_RELEASE);
->> +		if (!retval)
->> +			stream->runtime->state = SNDRV_PCM_STATE_RUNNING;
->> +		break;
->> +	case SNDRV_PCM_STATE_DRAINING:
->> +		if (!stream->device->use_pause_in_draining ||
->> +		    !stream->pause_in_draining)
->> +			return -EPERM;
->
->does this condition make sense for resume part..? We have already
->checked for this while going into pause. I am not expecting drain state
->to change while we are paused :)
->
+With a stream with low bitrate, user can't pause or resume the stream
+near the end of the stream because current ALSA doesn't allow it.
+If the stream has very low bitrate enough to store whole stream into
+the buffer, user can't do anything except stop the stream and then
+restart it from the first because most of applications call draining
+after sending last frame to the kernel.
+If pause, resume are allowed during draining, user experience can be
+enhanced.
+To prevent malfunction in HW drivers which don't support pause
+during draining, pause during draining will only work if HW driver
+enable this feature explicitly by calling
+snd_compr_use_pause_in_draining().
 
-I have fixed the patch as your review comment and send version 3.
-For your comment about tinycompress, I'll try to make a patch after study about tinycompress.
-
-Thanks,
-Gyeongtaek
-
-
-Gyeongtaek Lee (1):
-  ALSA: compress: allow pause and resume during draining
-
+Signed-off-by: Gyeongtaek Lee <gt82.lee@samsung.com>
+Cc: stable@vger.kernel.org
+---
  include/sound/compress_driver.h | 16 ++++++++++++++
  sound/core/compress_offload.c   | 39 ++++++++++++++++++++++++++-------
  2 files changed, 47 insertions(+), 8 deletions(-)
 
-
-base-commit: 418baf2c28f3473039f2f7377760bd8f6897ae18
+diff --git a/include/sound/compress_driver.h b/include/sound/compress_driver.h
+index 70cbc5095e72..277087f635f3 100644
+--- a/include/sound/compress_driver.h
++++ b/include/sound/compress_driver.h
+@@ -67,6 +67,7 @@ struct snd_compr_runtime {
+  * @metadata_set: metadata set flag, true when set
+  * @next_track: has userspace signal next track transition, true when set
+  * @partial_drain: undergoing partial_drain for stream, true when set
++ * @pause_in_draining: paused during draining state, true when set
+  * @private_data: pointer to DSP private data
+  * @dma_buffer: allocated buffer if any
+  */
+@@ -80,6 +81,7 @@ struct snd_compr_stream {
+ 	bool metadata_set;
+ 	bool next_track;
+ 	bool partial_drain;
++	bool pause_in_draining;
+ 	void *private_data;
+ 	struct snd_dma_buffer dma_buffer;
+ };
+@@ -142,6 +144,7 @@ struct snd_compr_ops {
+  * @direction: Playback or capture direction
+  * @lock: device lock
+  * @device: device id
++ * @use_pause_in_draining: allow pause in draining, true when set
+  */
+ struct snd_compr {
+ 	const char *name;
+@@ -152,6 +155,7 @@ struct snd_compr {
+ 	unsigned int direction;
+ 	struct mutex lock;
+ 	int device;
++	bool use_pause_in_draining;
+ #ifdef CONFIG_SND_VERBOSE_PROCFS
+ 	/* private: */
+ 	char id[64];
+@@ -166,6 +170,18 @@ int snd_compress_deregister(struct snd_compr *device);
+ int snd_compress_new(struct snd_card *card, int device,
+ 			int type, const char *id, struct snd_compr *compr);
+ 
++/**
++ * snd_compr_use_pause_in_draining - Allow pause and resume in draining state
++ * @substream: compress substream to set
++ *
++ * Allow pause and resume in draining state.
++ * Only HW driver supports this transition can call this API.
++ */
++static inline void snd_compr_use_pause_in_draining(struct snd_compr_stream *substream)
++{
++	substream->device->use_pause_in_draining = true;
++}
++
+ /* dsp driver callback apis
+  * For playback: driver should call snd_compress_fragment_elapsed() to let the
+  * framework know that a fragment has been consumed from the ring buffer
+diff --git a/sound/core/compress_offload.c b/sound/core/compress_offload.c
+index c1fec932c49d..debc30fcf5b3 100644
+--- a/sound/core/compress_offload.c
++++ b/sound/core/compress_offload.c
+@@ -709,11 +709,22 @@ static int snd_compr_pause(struct snd_compr_stream *stream)
+ {
+ 	int retval;
+ 
+-	if (stream->runtime->state != SNDRV_PCM_STATE_RUNNING)
++	switch (stream->runtime->state) {
++	case SNDRV_PCM_STATE_RUNNING:
++		retval = stream->ops->trigger(stream, SNDRV_PCM_TRIGGER_PAUSE_PUSH);
++		if (!retval)
++			stream->runtime->state = SNDRV_PCM_STATE_PAUSED;
++		break;
++	case SNDRV_PCM_STATE_DRAINING:
++		if (!stream->device->use_pause_in_draining)
++			return -EPERM;
++		retval = stream->ops->trigger(stream, SNDRV_PCM_TRIGGER_PAUSE_PUSH);
++		if (!retval)
++			stream->pause_in_draining = true;
++		break;
++	default:
+ 		return -EPERM;
+-	retval = stream->ops->trigger(stream, SNDRV_PCM_TRIGGER_PAUSE_PUSH);
+-	if (!retval)
+-		stream->runtime->state = SNDRV_PCM_STATE_PAUSED;
++	}
+ 	return retval;
+ }
+ 
+@@ -721,11 +732,22 @@ static int snd_compr_resume(struct snd_compr_stream *stream)
+ {
+ 	int retval;
+ 
+-	if (stream->runtime->state != SNDRV_PCM_STATE_PAUSED)
++	switch (stream->runtime->state) {
++	case SNDRV_PCM_STATE_PAUSED:
++		retval = stream->ops->trigger(stream, SNDRV_PCM_TRIGGER_PAUSE_RELEASE);
++		if (!retval)
++			stream->runtime->state = SNDRV_PCM_STATE_RUNNING;
++		break;
++	case SNDRV_PCM_STATE_DRAINING:
++		if (!stream->pause_in_draining)
++			return -EPERM;
++		retval = stream->ops->trigger(stream, SNDRV_PCM_TRIGGER_PAUSE_RELEASE);
++		if (!retval)
++			stream->pause_in_draining = false;
++		break;
++	default:
+ 		return -EPERM;
+-	retval = stream->ops->trigger(stream, SNDRV_PCM_TRIGGER_PAUSE_RELEASE);
+-	if (!retval)
+-		stream->runtime->state = SNDRV_PCM_STATE_RUNNING;
++	}
+ 	return retval;
+ }
+ 
+@@ -768,6 +790,7 @@ static int snd_compr_stop(struct snd_compr_stream *stream)
+ 		/* clear flags and stop any drain wait */
+ 		stream->partial_drain = false;
+ 		stream->metadata_set = false;
++		stream->pause_in_draining = false;
+ 		snd_compr_drain_notify(stream);
+ 		stream->runtime->total_bytes_available = 0;
+ 		stream->runtime->total_bytes_transferred = 0;
 -- 
 2.21.0
 

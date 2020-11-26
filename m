@@ -2,75 +2,74 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 096072C5B6B
-	for <lists+alsa-devel@lfdr.de>; Thu, 26 Nov 2020 19:05:49 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 487372C5B8C
+	for <lists+alsa-devel@lfdr.de>; Thu, 26 Nov 2020 19:06:38 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 6AED717EA;
-	Thu, 26 Nov 2020 19:04:57 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6AED717EA
+	by alsa0.perex.cz (Postfix) with ESMTPS id D27B8177C;
+	Thu, 26 Nov 2020 19:05:47 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D27B8177C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1606413947;
-	bh=UPteC1pgCoXv4rhH8Fh2wYMrsGgQ6L7dAsGHDiRblM0=;
+	s=default; t=1606413997;
+	bh=R1tPE5Atsd4uoeWfeIVUYpmhbG1Ul9Uubk+aZomNu8Y=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=VnfuNdPbHBxZba/1tsWfZiOINXLXceBO+DtqQI57Pvms4LGe9xVe8d5D4D3CxYVY/
-	 nh7KOBGeOoKxjWZG+5XyTEwZhMU6Xv7I0F5dE+HrGh/7FynNpqSXxj1EX5sJ7fA7R6
-	 FV6EqqgBIeKWwkbovCim69Ln09PUzPjn/ZQJJz64=
+	b=XLtt8FWL63Pz83qnCCtRM2E0AlSyudvOjGikA+eiw1tQiez76kYMWQF2VWc5UQ24h
+	 BmT0xoPg1vDXOZMfEiyHE1lA5xDCeLoQX6Js7gkTnVu2SYcJsKc6eTa6t7JleD/FFV
+	 iZL+SdRCHbK6nAkbS4XJmxxIS6J4dVxaaBgrh5Fg=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 8FB76F8027C;
-	Thu, 26 Nov 2020 19:04:08 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 6FFBAF804CA;
+	Thu, 26 Nov 2020 19:04:11 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id C7536F802C4; Thu, 26 Nov 2020 19:04:05 +0100 (CET)
+ id 3CFFDF804C1; Thu, 26 Nov 2020 19:04:09 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED
+X-Spam-Status: No, score=0.9 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+ DKIM_VALID,DKIM_VALID_AU,PRX_BODY_30,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED
  autolearn=disabled version=3.4.0
 Received: from hqnvemgate26.nvidia.com (hqnvemgate26.nvidia.com
  [216.228.121.65])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id EF667F80164
- for <alsa-devel@alsa-project.org>; Thu, 26 Nov 2020 19:03:58 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EF667F80164
+ by alsa1.perex.cz (Postfix) with ESMTPS id 7BABBF800EA
+ for <alsa-devel@alsa-project.org>; Thu, 26 Nov 2020 19:04:02 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7BABBF800EA
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=nvidia.com header.i=@nvidia.com
- header.b="ImuczdrR"
+ header.b="LHyhdK8t"
 Received: from hqmail.nvidia.com (Not Verified[216.228.121.13]) by
  hqnvemgate26.nvidia.com (using TLS: TLSv1.2, AES256-SHA)
- id <B5fbfee100000>; Thu, 26 Nov 2020 10:04:00 -0800
+ id <B5fbfee130000>; Thu, 26 Nov 2020 10:04:03 -0800
 Received: from HQMAIL109.nvidia.com (172.20.187.15) by HQMAIL109.nvidia.com
  (172.20.187.15) with Microsoft SMTP Server (TLS) id 15.0.1473.3; Thu, 26 Nov
- 2020 18:03:57 +0000
+ 2020 18:04:00 +0000
 Received: from audio.nvidia.com (172.20.13.39) by mail.nvidia.com
  (172.20.187.15) with Microsoft SMTP Server id 15.0.1473.3 via Frontend
- Transport; Thu, 26 Nov 2020 18:03:53 +0000
+ Transport; Thu, 26 Nov 2020 18:03:57 +0000
 From: Sameer Pujar <spujar@nvidia.com>
 To: <broonie@kernel.org>, <robh+dt@kernel.org>, <thierry.reding@gmail.com>
-Subject: [PATCH v6 2/6] ASoC: dt-bindings: tegra: Add json-schema for Tegra
- audio graph card
-Date: Thu, 26 Nov 2020 23:33:39 +0530
-Message-ID: <1606413823-19885-3-git-send-email-spujar@nvidia.com>
+Subject: [PATCH v6 3/6] ASoC: tegra: Add audio graph based card driver
+Date: Thu, 26 Nov 2020 23:33:40 +0530
+Message-ID: <1606413823-19885-4-git-send-email-spujar@nvidia.com>
 X-Mailer: git-send-email 2.7.4
 In-Reply-To: <1606413823-19885-1-git-send-email-spujar@nvidia.com>
 References: <1606413823-19885-1-git-send-email-spujar@nvidia.com>
 MIME-Version: 1.0
 Content-Type: text/plain
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nvidia.com; s=n1;
- t=1606413840; bh=yj6PiAVqxhNZ/wClBAXh8IgIUW3+3I9GHb8QAg2m2BM=;
+ t=1606413843; bh=myn0avhGV8FRG9HA6zQNhSBQW8UTjpYuBexd3sk0A6w=;
  h=From:To:CC:Subject:Date:Message-ID:X-Mailer:In-Reply-To:
  References:MIME-Version:Content-Type;
- b=ImuczdrRwUhLuEeXe9GPg81w8LmzMlCJQymUevy6IqB2XBGhRI9IjbE4qZowjgMoP
- m5N3wEUmUBsYnQ5rO4A8q70DWREPNnoCdQXpmWBZECeaCbgq12uSM1s9Ifx+hkx1hk
- jQ9u+TcOnIELlKddI7oy0eb4C+k86ec6zVR3Q+pim2l00VdLk77YfKGeiyAg7uaT/P
- 2RfNonTmlbbJTC2jgamZGWyXXpNsl/xJi5A9Q5r7ZTWDjdg66HDugUUH2bDTvfJ8Up
- /Tp64njBh/aAwG0UjtnUwzS0TNfO0av3wmfNTJPvFlQQ8RP+89pRV9aGXnFlxZ8+d1
- tM0q0SNcrEZJQ==
+ b=LHyhdK8tXn6pxjSsRSJinFwfqClMVyA50/ps+V+B6tvdR/rxrSgaIa6shyPag58RL
+ Tacij87wr9HT84Qc2AVx9YOZmxa40hGJm2KWwfSJl9E/CzbpFrsupf4c9KZfe3yx1F
+ IovgzAhpwlH2cR3ilboSxhd+prWi1kfaFKCDRxbN9o113111Ilko3DTQNxEGPDhyt0
+ znaBT5dPP0Fxx0jqYpf46UgYrpJSkcZ4Y6dlVkKUJSV7VwxEI1TaKzk8EYTGwY3THs
+ S7gtmN3QqLcxtzDZeC8GGZOUnKCOYGF7RQQ/dNYX+7vDdr3wss+nN6oMgE6Wky7bvD
+ GvtGWQm3LYGxA==
 Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
  kuninori.morimoto.gx@renesas.com, Sameer Pujar <spujar@nvidia.com>,
  linux-kernel@vger.kernel.org, jonathanh@nvidia.com, sharadg@nvidia.com,
@@ -90,211 +89,329 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Add YAML schema for Tegra audio graph sound card DT bindings. It uses the
-same DT bindings provided by generic audio graph driver. Along with this
-few standard clock DT bindings are added which are specifically required
-for Tegra audio.
+Add Tegra audio machine driver which is based on generic audio graph card
+driver. It re-uses most of the common stuff from audio graph driver and
+uses the same DT binding. Required Tegra specific customizations are done
+in the driver and additional DT bindings are required for clock handling.
+
+Details on the customizations done:
+
+ - Update PLL rates at runtime: Tegra HW supports multiple sample rates
+   (multiples of 8x and 11.025x) and both of these groups require different
+   PLL rates. Hence there is a requirement to update this at runtime.
+   This is achieved by providing a custom 'snd_soc_ops' and in hw_param()
+   callback PLL rate is updated as per the sample rate.
+
+ - Internal structure 'tegra_audio_graph_data' is used to maintain clock
+   handles of PLL.
+
+ - The 'force_dpcm' flag is set to use DPCM for all DAI links.
+
+ - The 'component_chaining' flag is set to use DPCM with component model.
 
 Signed-off-by: Sameer Pujar <spujar@nvidia.com>
 Reviewed-by: Jon Hunter <jonathanh@nvidia.com>
 ---
- .../sound/nvidia,tegra-audio-graph-card.yaml       | 187 +++++++++++++++++++++
- 1 file changed, 187 insertions(+)
- create mode 100644 Documentation/devicetree/bindings/sound/nvidia,tegra-audio-graph-card.yaml
+ sound/soc/tegra/Kconfig                  |   9 ++
+ sound/soc/tegra/Makefile                 |   2 +
+ sound/soc/tegra/tegra_audio_graph_card.c | 251 +++++++++++++++++++++++++++++++
+ 3 files changed, 262 insertions(+)
+ create mode 100644 sound/soc/tegra/tegra_audio_graph_card.c
 
-diff --git a/Documentation/devicetree/bindings/sound/nvidia,tegra-audio-graph-card.yaml b/Documentation/devicetree/bindings/sound/nvidia,tegra-audio-graph-card.yaml
+diff --git a/sound/soc/tegra/Kconfig b/sound/soc/tegra/Kconfig
+index a62cc87..6dc83ad 100644
+--- a/sound/soc/tegra/Kconfig
++++ b/sound/soc/tegra/Kconfig
+@@ -117,6 +117,15 @@ config SND_SOC_TEGRA210_ADMAIF
+ 	  channel. Buffer size is configurable for each ADMAIIF channel.
+ 	  Say Y or M if you want to add support for Tegra210 ADMAIF module.
+ 
++config SND_SOC_TEGRA_AUDIO_GRAPH_CARD
++	tristate "Audio Graph Card based Tegra driver"
++	depends on SND_AUDIO_GRAPH_CARD
++	help
++	  Config to enable Tegra audio machine driver based on generic
++	  audio graph driver. It is a thin driver written to customize
++	  few things for Tegra audio. Most of the code is re-used from
++	  audio graph driver and the same DT bindings are used.
++
+ config SND_SOC_TEGRA_RT5640
+ 	tristate "SoC Audio support for Tegra boards using an RT5640 codec"
+ 	depends on SND_SOC_TEGRA && I2C && GPIOLIB
+diff --git a/sound/soc/tegra/Makefile b/sound/soc/tegra/Makefile
+index 60040a0..b17dd6e 100644
+--- a/sound/soc/tegra/Makefile
++++ b/sound/soc/tegra/Makefile
+@@ -38,6 +38,7 @@ snd-soc-tegra-trimslice-objs := trimslice.o
+ snd-soc-tegra-alc5632-objs := tegra_alc5632.o
+ snd-soc-tegra-max98090-objs := tegra_max98090.o
+ snd-soc-tegra-sgtl5000-objs := tegra_sgtl5000.o
++snd-soc-tegra-audio-graph-card-objs := tegra_audio_graph_card.o
+ 
+ obj-$(CONFIG_SND_SOC_TEGRA_RT5640) += snd-soc-tegra-rt5640.o
+ obj-$(CONFIG_SND_SOC_TEGRA_RT5677) += snd-soc-tegra-rt5677.o
+@@ -48,3 +49,4 @@ obj-$(CONFIG_SND_SOC_TEGRA_TRIMSLICE) += snd-soc-tegra-trimslice.o
+ obj-$(CONFIG_SND_SOC_TEGRA_ALC5632) += snd-soc-tegra-alc5632.o
+ obj-$(CONFIG_SND_SOC_TEGRA_MAX98090) += snd-soc-tegra-max98090.o
+ obj-$(CONFIG_SND_SOC_TEGRA_SGTL5000) += snd-soc-tegra-sgtl5000.o
++obj-$(CONFIG_SND_SOC_TEGRA_AUDIO_GRAPH_CARD) += snd-soc-tegra-audio-graph-card.o
+diff --git a/sound/soc/tegra/tegra_audio_graph_card.c b/sound/soc/tegra/tegra_audio_graph_card.c
 new file mode 100644
-index 0000000..fc271f6
+index 0000000..9e43f16
 --- /dev/null
-+++ b/Documentation/devicetree/bindings/sound/nvidia,tegra-audio-graph-card.yaml
-@@ -0,0 +1,187 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/sound/nvidia,tegra-audio-graph-card.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
++++ b/sound/soc/tegra/tegra_audio_graph_card.c
+@@ -0,0 +1,251 @@
++// SPDX-License-Identifier: GPL-2.0-only
++//
++// tegra_audio_graph_card.c - Audio Graph based Tegra Machine Driver
++//
++// Copyright (c) 2020 NVIDIA CORPORATION.  All rights reserved.
 +
-+title: Audio Graph based Tegra sound card driver
++#include <linux/math64.h>
++#include <linux/module.h>
++#include <linux/of_device.h>
++#include <linux/platform_device.h>
++#include <sound/graph_card.h>
++#include <sound/pcm_params.h>
 +
-+description: |
-+  This is based on generic audio graph card driver along with additional
-+  customizations for Tegra platforms. It uses the same bindings with
-+  additional standard clock DT bindings required for Tegra.
++#define MAX_PLLA_OUT0_DIV 128
 +
-+maintainers:
-+  - Jon Hunter <jonathanh@nvidia.com>
-+  - Sameer Pujar <spujar@nvidia.com>
++#define simple_to_tegra_priv(simple) \
++		container_of(simple, struct tegra_audio_priv, simple)
 +
-+allOf:
-+  - $ref: audio-graph.yaml#
++enum srate_type {
++	/*
++	 * Sample rates multiple of 8000 Hz and below are supported:
++	 * ( 8000, 16000, 32000, 48000, 96000, 192000 Hz )
++	 */
++	x8_RATE,
 +
-+properties:
-+  compatible:
-+    enum:
-+      - nvidia,tegra210-audio-graph-card
-+      - nvidia,tegra186-audio-graph-card
++	/*
++	 * Sample rates multiple of 11025 Hz and below are supported:
++	 * ( 11025, 22050, 44100, 88200, 176400 Hz )
++	 */
++	x11_RATE,
 +
-+  clocks:
-+    minItems: 2
++	NUM_RATE_TYPE,
++};
 +
-+  clock-names:
-+    minItems: 2
-+    items:
-+      - const: pll_a
-+      - const: plla_out0
++struct tegra_audio_priv {
++	struct asoc_simple_priv simple;
++	struct clk *clk_plla_out0;
++	struct clk *clk_plla;
++};
 +
-+  assigned-clocks:
-+    minItems: 1
-+    maxItems: 3
++/* Tegra audio chip data */
++struct tegra_audio_cdata {
++	unsigned int plla_rates[NUM_RATE_TYPE];
++	unsigned int plla_out0_rates[NUM_RATE_TYPE];
++};
 +
-+  assigned-clock-parents:
-+    minItems: 1
-+    maxItems: 3
++/* Setup PLL clock as per the given sample rate */
++static int tegra_audio_graph_update_pll(struct snd_pcm_substream *substream,
++					struct snd_pcm_hw_params *params)
++{
++	struct snd_soc_pcm_runtime *rtd = asoc_substream_to_rtd(substream);
++	struct asoc_simple_priv *simple = snd_soc_card_get_drvdata(rtd->card);
++	struct tegra_audio_priv *priv = simple_to_tegra_priv(simple);
++	struct device *dev = rtd->card->dev;
++	const struct tegra_audio_cdata *data = of_device_get_match_data(dev);
++	unsigned int plla_rate, plla_out0_rate, bclk;
++	unsigned int srate = params_rate(params);
++	int err;
 +
-+  assigned-clock-rates:
-+    minItems: 1
-+    maxItems: 3
++	switch (srate) {
++	case 11025:
++	case 22050:
++	case 44100:
++	case 88200:
++	case 176400:
++		plla_out0_rate = data->plla_out0_rates[x11_RATE];
++		plla_rate = data->plla_rates[x11_RATE];
++		break;
++	case 8000:
++	case 16000:
++	case 32000:
++	case 48000:
++	case 96000:
++	case 192000:
++		plla_out0_rate = data->plla_out0_rates[x8_RATE];
++		plla_rate = data->plla_rates[x8_RATE];
++		break;
++	default:
++		dev_err(rtd->card->dev, "Unsupported sample rate %u\n",
++			srate);
++		return -EINVAL;
++	}
 +
-+required:
-+  - clocks
-+  - clock-names
-+  - assigned-clocks
-+  - assigned-clock-parents
++	/*
++	 * Below is the clock relation:
++	 *
++	 *	PLLA
++	 *	  |
++	 *	  |--> PLLA_OUT0
++	 *		  |
++	 *		  |---> I2S modules
++	 *		  |
++	 *		  |---> DMIC modules
++	 *		  |
++	 *		  |---> DSPK modules
++	 *
++	 *
++	 * Default PLLA_OUT0 rate might be too high when I/O is running
++	 * at minimum PCM configurations. This may result in incorrect
++	 * clock rates and glitchy audio. The maximum divider is 128
++	 * and any thing higher than that won't work. Thus reduce PLLA_OUT0
++	 * to work for lower configurations.
++	 *
++	 * This problem is seen for I2S only, as DMIC and DSPK minimum
++	 * clock requirements are under allowed divider limits.
++	 */
++	bclk = srate * params_channels(params) * params_width(params);
++	if (div_u64(plla_out0_rate, bclk) > MAX_PLLA_OUT0_DIV)
++		plla_out0_rate >>= 1;
 +
-+unevaluatedProperties: false
++	dev_dbg(rtd->card->dev,
++		"Update clock rates: PLLA(= %u Hz) and PLLA_OUT0(= %u Hz)\n",
++		plla_rate, plla_out0_rate);
 +
-+examples:
-+  - |
-+    #include<dt-bindings/clock/tegra210-car.h>
++	/* Set PLLA rate */
++	err = clk_set_rate(priv->clk_plla, plla_rate);
++	if (err) {
++		dev_err(rtd->card->dev,
++			"Can't set plla rate for %u, err: %d\n",
++			plla_rate, err);
++		return err;
++	}
 +
-+    tegra_sound {
-+        compatible = "nvidia,tegra210-audio-graph-card";
++	/* Set PLLA_OUT0 rate */
++	err = clk_set_rate(priv->clk_plla_out0, plla_out0_rate);
++	if (err) {
++		dev_err(rtd->card->dev,
++			"Can't set plla_out0 rate %u, err: %d\n",
++			plla_out0_rate, err);
++		return err;
++	}
 +
-+        clocks = <&tegra_car TEGRA210_CLK_PLL_A>,
-+                 <&tegra_car TEGRA210_CLK_PLL_A_OUT0>;
-+        clock-names = "pll_a", "plla_out0";
++	return err;
++}
 +
-+        assigned-clocks = <&tegra_car TEGRA210_CLK_PLL_A>,
-+                          <&tegra_car TEGRA210_CLK_PLL_A_OUT0>,
-+                          <&tegra_car TEGRA210_CLK_EXTERN1>;
-+        assigned-clock-parents = <0>, <0>, <&tegra_car TEGRA210_CLK_PLL_A_OUT0>;
-+        assigned-clock-rates = <368640000>, <49152000>, <12288000>;
++static int tegra_audio_graph_hw_params(struct snd_pcm_substream *substream,
++				       struct snd_pcm_hw_params *params)
++{
++	struct snd_soc_pcm_runtime *rtd = asoc_substream_to_rtd(substream);
++	struct snd_soc_dai *cpu_dai = asoc_rtd_to_cpu(rtd, 0);
++	int err;
 +
-+        dais = /* FE */
-+               <&admaif1_port>,
-+               /* Router */
-+               <&xbar_i2s1_port>,
-+               /* I/O DAP Ports */
-+               <&i2s1_port>;
++	/*
++	 * This gets called for each DAI link (FE or BE) when DPCM is used.
++	 * We may not want to update PLLA rate for each call. So PLLA update
++	 * must be restricted to external I/O links (I2S, DMIC or DSPK) since
++	 * they actually depend on it. I/O modules update their clocks in
++	 * hw_param() of their respective component driver and PLLA rate
++	 * update here helps them to derive appropriate rates.
++	 *
++	 * TODO: When more HW accelerators get added (like sample rate
++	 * converter, volume gain controller etc., which don't really
++	 * depend on PLLA) we need a better way to filter here.
++	 */
++	if (cpu_dai->driver->ops && rtd->dai_link->no_pcm) {
++		err = tegra_audio_graph_update_pll(substream, params);
++		if (err)
++			return err;
++	}
 +
-+        label = "jetson-tx1-ape";
-+    };
++	return asoc_simple_hw_params(substream, params);
++}
 +
-+    // The ports are defined for AHUB and its child devices.
-+    ahub@702d0800 {
-+        compatible = "nvidia,tegra210-ahub";
-+        reg = <0x702d0800 0x800>;
-+        clocks = <&tegra_car TEGRA210_CLK_D_AUDIO>;
-+        clock-names = "ahub";
-+        assigned-clocks = <&tegra_car TEGRA210_CLK_D_AUDIO>;
-+        assigned-clock-parents = <&tegra_car TEGRA210_CLK_PLL_A_OUT0>;
-+        #address-cells = <1>;
-+        #size-cells = <1>;
-+        ranges = <0x702d0000 0x702d0000 0x0000e400>;
++static const struct snd_soc_ops tegra_audio_graph_ops = {
++	.startup	= asoc_simple_startup,
++	.shutdown	= asoc_simple_shutdown,
++	.hw_params	= tegra_audio_graph_hw_params,
++};
 +
-+        ports {
-+            #address-cells = <1>;
-+            #size-cells = <0>;
++static int tegra_audio_graph_card_probe(struct snd_soc_card *card)
++{
++	struct asoc_simple_priv *simple = snd_soc_card_get_drvdata(card);
++	struct tegra_audio_priv *priv = simple_to_tegra_priv(simple);
 +
-+            port@0 {
-+                reg = <0x0>;
-+                xbar_admaif1_ep: endpoint {
-+                    remote-endpoint = <&admaif1_ep>;
-+                };
-+            };
++	priv->clk_plla = devm_clk_get(card->dev, "pll_a");
++	if (IS_ERR(priv->clk_plla)) {
++		dev_err(card->dev, "Can't retrieve clk pll_a\n");
++		return PTR_ERR(priv->clk_plla);
++	}
 +
-+            // ...
++	priv->clk_plla_out0 = devm_clk_get(card->dev, "plla_out0");
++	if (IS_ERR(priv->clk_plla_out0)) {
++		dev_err(card->dev, "Can't retrieve clk plla_out0\n");
++		return PTR_ERR(priv->clk_plla_out0);
++	}
 +
-+            xbar_i2s1_port: port@a {
-+                reg = <0xa>;
-+                xbar_i2s1_ep: endpoint {
-+                    remote-endpoint = <&i2s1_cif_ep>;
-+                };
-+            };
-+        };
++	return graph_card_probe(card);
++}
 +
-+        admaif@702d0000 {
-+            compatible = "nvidia,tegra210-admaif";
-+            reg = <0x702d0000 0x800>;
-+            dmas = <&adma 1>,  <&adma 1>,
-+                   <&adma 2>,  <&adma 2>,
-+                   <&adma 3>,  <&adma 3>,
-+                   <&adma 4>,  <&adma 4>,
-+                   <&adma 5>,  <&adma 5>,
-+                   <&adma 6>,  <&adma 6>,
-+                   <&adma 7>,  <&adma 7>,
-+                   <&adma 8>,  <&adma 8>,
-+                   <&adma 9>,  <&adma 9>,
-+                   <&adma 10>, <&adma 10>;
-+            dma-names = "rx1",  "tx1",
-+                        "rx2",  "tx2",
-+                        "rx3",  "tx3",
-+                        "rx4",  "tx4",
-+                        "rx5",  "tx5",
-+                        "rx6",  "tx6",
-+                        "rx7",  "tx7",
-+                        "rx8",  "tx8",
-+                        "rx9",  "tx9",
-+                        "rx10", "tx10";
++static int tegra_audio_graph_probe(struct platform_device *pdev)
++{
++	struct tegra_audio_priv *priv;
++	struct device *dev = &pdev->dev;
++	struct snd_soc_card *card;
 +
-+            ports {
-+                #address-cells = <1>;
-+                #size-cells = <0>;
++	priv = devm_kzalloc(dev, sizeof(*priv), GFP_KERNEL);
++	if (!priv)
++		return -ENOMEM;
 +
-+                admaif1_port: port@0 {
-+                    reg = <0x0>;
-+                    admaif1_ep: endpoint {
-+                        remote-endpoint = <&xbar_admaif1_ep>;
-+                    };
-+                };
++	card = simple_priv_to_card(&priv->simple);
 +
-+                // More ADMAIF ports to follow
-+            };
-+        };
++	card->probe = tegra_audio_graph_card_probe;
 +
-+        i2s@702d1000 {
-+            compatible = "nvidia,tegra210-i2s";
-+            clocks = <&tegra_car TEGRA210_CLK_I2S0>;
-+            clock-names = "i2s";
-+            assigned-clocks = <&tegra_car TEGRA210_CLK_I2S0>;
-+            assigned-clock-parents = <&tegra_car TEGRA210_CLK_PLL_A_OUT0>;
-+            assigned-clock-rates = <1536000>;
-+            reg = <0x702d1000 0x100>;
++	/* graph_parse_of() depends on below */
++	card->component_chaining = 1;
++	priv->simple.ops = &tegra_audio_graph_ops;
++	priv->simple.force_dpcm = 1;
 +
-+            ports {
-+                #address-cells = <1>;
-+                #size-cells = <0>;
++	return graph_parse_of(&priv->simple, dev);
++}
 +
-+                port@0 {
-+                    reg = <0x0>;
++static const struct tegra_audio_cdata tegra210_data = {
++	/* PLLA */
++	.plla_rates[x8_RATE] = 368640000,
++	.plla_rates[x11_RATE] = 338688000,
++	/* PLLA_OUT0 */
++	.plla_out0_rates[x8_RATE] = 49152000,
++	.plla_out0_rates[x11_RATE] = 45158400,
++};
 +
-+                    i2s1_cif_ep: endpoint {
-+                        remote-endpoint = <&xbar_i2s1_ep>;
-+                    };
-+                };
++static const struct tegra_audio_cdata tegra186_data = {
++	/* PLLA */
++	.plla_rates[x8_RATE] = 245760000,
++	.plla_rates[x11_RATE] = 270950400,
++	/* PLLA_OUT0 */
++	.plla_out0_rates[x8_RATE] = 49152000,
++	.plla_out0_rates[x11_RATE] = 45158400,
++};
 +
-+                i2s1_port: port@1 {
-+                    reg = <0x1>;
++static const struct of_device_id graph_of_tegra_match[] = {
++	{ .compatible = "nvidia,tegra210-audio-graph-card",
++	  .data = &tegra210_data },
++	{ .compatible = "nvidia,tegra186-audio-graph-card",
++	  .data = &tegra186_data },
++	{},
++};
++MODULE_DEVICE_TABLE(of, graph_of_tegra_match);
 +
-+                    i2s1_dap: endpoint {
-+                        dai-format = "i2s";
-+                    };
-+                };
-+            };
-+        };
-+    };
++static struct platform_driver tegra_audio_graph_card = {
++	.driver = {
++		.name = "tegra-audio-graph-card",
++		.pm = &snd_soc_pm_ops,
++		.of_match_table = graph_of_tegra_match,
++	},
++	.probe = tegra_audio_graph_probe,
++};
++module_platform_driver(tegra_audio_graph_card);
 +
-+...
++MODULE_LICENSE("GPL v2");
++MODULE_DESCRIPTION("ASoC Tegra Audio Graph Sound Card");
++MODULE_AUTHOR("Sameer Pujar <spujar@nvidia.com>");
 -- 
 2.7.4
 

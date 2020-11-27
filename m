@@ -2,91 +2,58 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D47202C617A
-	for <lists+alsa-devel@lfdr.de>; Fri, 27 Nov 2020 10:19:04 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id CDE4A2C6198
+	for <lists+alsa-devel@lfdr.de>; Fri, 27 Nov 2020 10:22:46 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 5A2E6182F;
-	Fri, 27 Nov 2020 10:18:14 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5A2E6182F
+	by alsa0.perex.cz (Postfix) with ESMTPS id 723551832;
+	Fri, 27 Nov 2020 10:21:56 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 723551832
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1606468744;
-	bh=Y5RE7zZV2jjrPPQ4IBhKuQck4SPvY/FM282Ww0Vp9ZQ=;
-	h=References:From:To:Subject:In-reply-to:Date:Cc:List-Id:
+	s=default; t=1606468966;
+	bh=MYKZgNnZxY/1xmIUX1eaBCMC34vKzmS3Uyo9N7H/QtA=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=YFFNBY/PH6Or8G6knkHYfT5iifSa70KUVn7Oj0oN+GgzF5ehUyu0jEl+92mBc9kbk
-	 YDM3nWeQaYpKv23XG5fTsfiTPgzkhBg3tLwMdBZ1XY0HrufTBiydyahunINgn2JGWP
-	 Cbynm/F45DVn50loGq7dKtRrGfhpZKYSUQyVKh4E=
+	b=o7AR/raTSyaGVzc8bbn9fz/mRknELCDf8bNgFFjfFPblZhh+jOsu4NwNyeSn3NWMZ
+	 peJjcocCuAGB4RCmuETmUNQAZeiuhcqriWfsP6WhtsC+Cx+dRXE4bz23AxKBdRZE39
+	 iVo6WYKaP8I5kcRcbUUcZwOD6PkX4dsGGUOcZbPc=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id C90C4F80218;
-	Fri, 27 Nov 2020 10:17:29 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id E9172F80218;
+	Fri, 27 Nov 2020 10:21:11 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id B2957F8019D; Fri, 27 Nov 2020 10:17:26 +0100 (CET)
+ id 23CCAF8019D; Fri, 27 Nov 2020 10:21:10 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
-Received: from mail-ej1-x643.google.com (mail-ej1-x643.google.com
- [IPv6:2a00:1450:4864:20::643])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_MSPIKE_H3,
+ RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
+Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 6619AF800EA
- for <alsa-devel@alsa-project.org>; Fri, 27 Nov 2020 10:17:18 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6619AF800EA
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=baylibre-com.20150623.gappssmtp.com
- header.i=@baylibre-com.20150623.gappssmtp.com header.b="QoES5wNi"
-Received: by mail-ej1-x643.google.com with SMTP id mc24so6611372ejb.6
- for <alsa-devel@alsa-project.org>; Fri, 27 Nov 2020 01:17:18 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=baylibre-com.20150623.gappssmtp.com; s=20150623;
- h=references:user-agent:from:to:cc:subject:in-reply-to:message-id
- :date:mime-version;
- bh=D/EXTNTMfN5B7tL8MT7b2+zO4/P2kqYnphLlP24ip1c=;
- b=QoES5wNiq1UCHnjKIX/Cq/gNxLcqDTfwFk3k9E2ONkE5qT3okJxVCixxCAHGgF0kVY
- lTTtjuRNLi8LGWKqRANvHC7en05lhEl2AGfLB0Ht3gC5Hwvu3zWCbVq6zCRsn4M1yuBu
- TdR10xCHvy7Q1qNgDJs3z9QHhPRM+paJwlbAwx8cqRW+bsivcDvKDzEedP6GYHIKn+XY
- tUib8bgGpL8LFCA33l4hgtnmYD4vSzFbf+TMT124m+H2M/XYWv+KdVSJZRhRGmt6j3kS
- GiUi8qobeBknYd9/uPwy0g07Oii+Db4Esi0EplN+wX5tO7xClNXYInRSTpOlyDa6cm1q
- MQnw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:references:user-agent:from:to:cc:subject
- :in-reply-to:message-id:date:mime-version;
- bh=D/EXTNTMfN5B7tL8MT7b2+zO4/P2kqYnphLlP24ip1c=;
- b=kbnZgHpxgy2lErlbQXcX+SCy4e01ICdJCk4RzQ7O1yfhUW1IvyKQo9QgUeZIIv6TtM
- /1qDDPhjAIpnAdRCLNAfgfZGwE6dA5NbctCqeVLl1tetmcpK5A/Qw0fveuQmaJG31J0p
- HB6noAOjWjI4rmSrSbr/oiPk7XtecGoI167JFyOlNZ0qkLC1SXELPGKEwi+PQ2P03sbO
- o17yMnDsZD49C0U1macFSj2vSyHiUYxzwdXhC4V7GR3JQKZ+jDjFP33QY0zE/eHesMn+
- aGYfpGK+VDhPxGu77w9R/K0dMMqv1fQF/Kzeh0NAIy0lFkjf/detcjog4qKQIY74676w
- 9dyA==
-X-Gm-Message-State: AOAM530YODq8Ffx04dgOMAhplsk33vP6ok2tC4fQqP3HeV3XmxM3FS8c
- MaUMK73amuvoi6SO2BLfKRXi+Q==
-X-Google-Smtp-Source: ABdhPJzI9yAuUIWhsoAeAK91Pgwuqy2Ip3AdoyuUl8Bn6Ga4h1zVJtSS9qXhU9GQO56SOyLGxYSa2Q==
-X-Received: by 2002:a17:906:4104:: with SMTP id
- j4mr6758825ejk.439.1606468637345; 
- Fri, 27 Nov 2020 01:17:17 -0800 (PST)
-Received: from localhost (253.35.17.109.rev.sfr.net. [109.17.35.253])
- by smtp.gmail.com with ESMTPSA id u5sm4605633edp.5.2020.11.27.01.17.16
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 27 Nov 2020 01:17:16 -0800 (PST)
-References: <1605220482-28487-1-git-send-email-ruslan.bilovol@gmail.com>
-User-agent: mu4e 1.4.10; emacs 27.1
-From: Jerome Brunet <jbrunet@baylibre.com>
-To: Ruslan Bilovol <ruslan.bilovol@gmail.com>, perex@perex.cz
-Subject: Re: [PATCH] [RFC] alsaloop: add feedback frequency control support
- for UAC2 gadgets
-In-reply-to: <1605220482-28487-1-git-send-email-ruslan.bilovol@gmail.com>
-Message-ID: <1j360vyx9h.fsf@starbuckisacylon.baylibre.com>
-Date: Fri, 27 Nov 2020 10:17:14 +0100
-MIME-Version: 1.0
-Content-Type: text/plain
-Cc: alsa-devel@alsa-project.org, linux-usb@vger.kernel.org,
- gschmottlach@gmail.com
+ by alsa1.perex.cz (Postfix) with ESMTPS id DE7DCF8015A
+ for <alsa-devel@alsa-project.org>; Fri, 27 Nov 2020 10:21:01 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DE7DCF8015A
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id 59444AC2F;
+ Fri, 27 Nov 2020 09:21:01 +0000 (UTC)
+Date: Fri, 27 Nov 2020 10:20:59 +0100
+Message-ID: <s5hblfjjguc.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Ben Bell <bjb-alsa-devel@deus.net>
+Subject: Re: Behringer WING usb audio - cyclic xruns dependent on
+ periods/buffers
+In-Reply-To: <20201126180612.E3E0CF80166@alsa1.perex.cz>
+References: <20201126180612.E3E0CF80166@alsa1.perex.cz>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
+ FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
+ (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
+Content-Type: text/plain; charset=US-ASCII
+Cc: alsa-devel@alsa-project.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -102,126 +69,89 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+On Thu, 26 Nov 2020 19:06:04 +0100,
+Ben Bell wrote:
+> 
+> I've got a Behringer WING digital mixer which is equipped with a USB
+> interface supporting 48 in, 48 out at 44.1 or 48kHz. It's plugged into a
+> USB3 interface and for the most part it seems to work well as a class-compliant
+> audio interface, but I'm struggling to eliminate xruns and it's starting to
+> feel either driver or hardware quirk related issue.
+> 
+> I've done all the usual things -- I'm running a PREEMPT_RT kernel, set up
+> the realtime priorities of Jack and the relevant USB IRQ to no avail. I'm
+> doing most of the debugging remotely over ssh with X shutdown and most
+> other processes on the system stopped. There's nothing plugged into the
+> computer beyond network, keyboard, mouse and the audio interface.
+> 
+> I'm currently testing on kernel 5.10.0-rc5 with preempt-rt patches, but I've
+> previously seen the same things on 5.4-rt (Debian backports) and 5.8
+> (self-compiled).
+> 
+> The xruns are characterised by bursts of "retire_capture_urb" warnings in
+> the kernel logs (and in particular the frame status for everything in those
+> URBs is EXDEV, meaning I think that the frames haven't been consumed by the
+> time it's retired). I've patched sound/driver/pcm.c to provide me with a bit
+> more debugging information and it looks like usually it's almost always
+> between 7-10 consecutive calls to retire_capture_urb that are affected.
+> 
+> The bursts of retire_capture_urb warnings seem roughly cyclic, with a
+> cycle time that is dependent on the combination of the frames/period setting
+> and the number of periods per buffer, though it doesn't appear to be a
+> strictly linear thing: 512/2 (~170s cycle); 256/2 (~94s); 128/3 (~65s);
+> 64/13 (~270s). I can't immediately see any definitive smoking gun in the urb
+> or interrupt counts, but there is some grouping in the timings between
+> the xruns. Taking 64 frames, 5 periods, it's usually 50s, but sometimes 60s:
+> 
+>  21:47:57 50s since xrun 4 
+>  21:48:47 50s since xrun 5 
+>  21:49:46 59s since xrun 6 
+>  21:50:46 60s since xrun 7 
+>  21:51:36 50s since xrun 8 
+>  21:52:36 60s since xrun 9 
+>  21:53:36 60s since xrun 10 
+>  21:54:37 61s since xrun 11 
+>  21:55:27 50s since xrun 12 
+>  21:56:27 60s since xrun 13 
+>  21:57:27 60s since xrun 14 
+>  21:58:17 50s since xrun 15 
+>  21:59:16 59s since xrun 16 
+>  22:00:06 50s since xrun 17 
+>  22:00:56 50s since xrun 18 
+>  ...
+> 
+> If I count the URB numbers (sorry, I'm shaky on the terminology, but I'm
+> counting each URB which is retired) I often (but not always) see the same
+> number of URBs passing between xrun bursts. Currently at 64 frames/5
+> periods, it's often exactly 50042 or 49923 urbs between bursts.
+> 
+> The delay between starting Jack and encountering the first burst is not
+> predictable -- it's not just a whole cycle -- but stopping jack for e.g 30s
+> then starting again delays the next burst by the same amount. So it does seem
+> related to something in the audio streaming rather than anything else going on
+> on the system interfering. It's as if something is slowly slipping out of sync
+> between the Wing and the kernel until they need to resync, but I don't really
+> know enough about USB to have any deeper insight.
+> 
+> All the tests above happen to be at 44.1kHz with the Wing set to 48 in,
+> 48 out, but changing to 48kHz or 2/2 IO doesn't seem to cure anything.
+> 
+> One more data point which may not be relevant: if I switch off or unplug
+> the Wing while Jack is running, the system gradually locks up over a period of
+> a few seconds. I can get something out of the console briefly afterwards but
+> within about ten seconds it's completely unresponsive. I imagine that pulling
+> out a USB device from a realtime thread isn't a kind thing to do, but I don't
+> recall this happening with other interfaces.
+> 
+> Any help or insights into where I should be looking (I'm a newbie in kernel
+> space) appreciated. If someone wants remote access to the box to investigate
+> in realtime we could probably figure something out.
 
-On Thu 12 Nov 2020 at 23:34, Ruslan Bilovol <ruslan.bilovol@gmail.com> wrote:
+In general you should avoid 44.1kHz if you want a small period size
+for a realtime process on USB-audio.  With 44.1kHz, the packet size
+can't be fixed in integer, and the ISO transfer requires variable
+packet sizes.  OTOH, ALSA API requires the fixed period size, hence
+it'll lead to inconsistencies occasionally.
 
-> Add support of special "PCM Feedback Frequency Hz"
-> UAC2 Gadget mixer control that is designed to notify
-> host about real sampling frequency of the gadget so
-> it can adjust number of samples that hosts sends to
-> the gadget.
->
-> This is useful if both host and gadget has its own
-> internal freerunning clock, so host can adjust
-> number of samples sent, preventing overrun/underrun
-> conditions.
->
-> This patch reuses logic of the "PCM Rate Shift 100000"
-> control used in case of in-kernel ALSA loopback
-> driver. The only difference is alsaloop reports not
-> rate shift but frequency in Hz
->
-> Signed-off-by: Ruslan Bilovol <ruslan.bilovol@gmail.com>
-> ---
->  alsaloop/alsaloop.h |  1 +
->  alsaloop/pcmjob.c   | 35 +++++++++++++++++++++++++----------
->  2 files changed, 26 insertions(+), 10 deletions(-)
->
-> diff --git a/alsaloop/alsaloop.h b/alsaloop/alsaloop.h
-> index c4aa618..9a50a42 100644
-> --- a/alsaloop/alsaloop.h
-> +++ b/alsaloop/alsaloop.h
-> @@ -122,6 +122,7 @@ struct loopback_handle {
->  	unsigned int ctl_pollfd_count;
->  	snd_ctl_elem_value_t *ctl_notify;
->  	snd_ctl_elem_value_t *ctl_rate_shift;
-> +	snd_ctl_elem_value_t *ctl_fback_freq;
->  	snd_ctl_elem_value_t *ctl_active;
->  	snd_ctl_elem_value_t *ctl_format;
->  	snd_ctl_elem_value_t *ctl_rate;
-> diff --git a/alsaloop/pcmjob.c b/alsaloop/pcmjob.c
-> index 6a9aff4..b3802a8 100644
-> --- a/alsaloop/pcmjob.c
-> +++ b/alsaloop/pcmjob.c
-> @@ -1058,15 +1058,22 @@ static int set_notify(struct loopback_handle *lhandle, int enable)
->  
->  static int set_rate_shift(struct loopback_handle *lhandle, double pitch)
->  {
-> -	int err;
-> +	int err = 0;
->  
-> -	if (lhandle->ctl_rate_shift == NULL)
-> -		return 0;
-> -	snd_ctl_elem_value_set_integer(lhandle->ctl_rate_shift, 0, pitch * 100000);
-> -	err = snd_ctl_elem_write(lhandle->ctl, lhandle->ctl_rate_shift);
-> -	if (err < 0) {
-> -		logit(LOG_CRIT, "Cannot set PCM Rate Shift element for %s: %s\n", lhandle->id, snd_strerror(err));
-> -		return err;
-> +	if (lhandle->ctl_rate_shift) {
-> +		snd_ctl_elem_value_set_integer(lhandle->ctl_rate_shift, 0, pitch * 100000);
-> +		err = snd_ctl_elem_write(lhandle->ctl, lhandle->ctl_rate_shift);
-> +		if (err < 0) {
-> +			logit(LOG_CRIT, "Cannot set PCM Rate Shift element for %s: %s\n", lhandle->id, snd_strerror(err));
-> +			return err;
-> +		}
-> +	} else if (lhandle->ctl_fback_freq) {
-> +		snd_ctl_elem_value_set_integer(lhandle->ctl_fback_freq, 0, lhandle->rate * (2.0 - pitch));
-> +		err = snd_ctl_elem_write(lhandle->ctl, lhandle->ctl_fback_freq);
-> +		if (err < 0) {
-> +			logit(LOG_CRIT, "Cannot set PCM Feedback Frequency element for %s: %s\n", lhandle->id, snd_strerror(err));
-> +			return err;
-> +		}
 
-Hi Ruslan,
-
-I wonder why bother adding a control of another type for the audio
-gadget ? Why not give the gadget a "Rate Shift" control, instead "Feedback
-Frequency" and let the driver deal with shift as necessary ?
-
-It would be easier for the applications to re-use the same logic.
-
->  	}
->  	return 0;
->  }
-> @@ -1195,6 +1202,7 @@ static int openctl(struct loopback_handle *lhandle, int device, int subdevice)
->  	int err;
->  
->  	lhandle->ctl_rate_shift = NULL;
-> +	lhandle->ctl_fback_freq = NULL;
->  	if (lhandle->loopback->play == lhandle) {
->  		if (lhandle->loopback->controls)
->  			goto __events;
-> @@ -1204,6 +1212,8 @@ static int openctl(struct loopback_handle *lhandle, int device, int subdevice)
->  			&lhandle->ctl_notify);
->  	openctl_elem(lhandle, device, subdevice, "PCM Rate Shift 100000",
->  			&lhandle->ctl_rate_shift);
-> +	openctl_elem(lhandle, device, subdevice, "PCM Feedback Frequency Hz",
-> +			&lhandle->ctl_fback_freq);
->  	set_rate_shift(lhandle, 1);
->  	openctl_elem(lhandle, device, subdevice, "PCM Slave Active",
->  			&lhandle->ctl_active);
-> @@ -1289,6 +1299,9 @@ static int closeit(struct loopback_handle *lhandle)
->  	if (lhandle->ctl_rate_shift)
->  		snd_ctl_elem_value_free(lhandle->ctl_rate_shift);
->  	lhandle->ctl_rate_shift = NULL;
-> +	if (lhandle->ctl_fback_freq)
-> +		snd_ctl_elem_value_free(lhandle->ctl_fback_freq);
-> +	lhandle->ctl_fback_freq = NULL;
->  	if (lhandle->ctl)
->  		err = snd_ctl_close(lhandle->ctl);
->  	lhandle->ctl = NULL;
-> @@ -1334,9 +1347,11 @@ int pcmjob_init(struct loopback *loop)
->  	snprintf(id, sizeof(id), "%s/%s", loop->play->id, loop->capt->id);
->  	id[sizeof(id)-1] = '\0';
->  	loop->id = strdup(id);
-> -	if (loop->sync == SYNC_TYPE_AUTO && loop->capt->ctl_rate_shift)
-> +	if (loop->sync == SYNC_TYPE_AUTO && (loop->capt->ctl_rate_shift ||
-> +			loop->capt->ctl_fback_freq))
->  		loop->sync = SYNC_TYPE_CAPTRATESHIFT;
-> -	if (loop->sync == SYNC_TYPE_AUTO && loop->play->ctl_rate_shift)
-> +	if (loop->sync == SYNC_TYPE_AUTO && (loop->play->ctl_rate_shift ||
-> +			loop->play->ctl_fback_freq))
->  		loop->sync = SYNC_TYPE_PLAYRATESHIFT;
->  #ifdef USE_SAMPLERATE
->  	if (loop->sync == SYNC_TYPE_AUTO && loop->src_enable)
-
+Takashi

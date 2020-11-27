@@ -2,64 +2,80 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6F7462C5FCE
-	for <lists+alsa-devel@lfdr.de>; Fri, 27 Nov 2020 06:39:38 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2E9CF2C5FFC
+	for <lists+alsa-devel@lfdr.de>; Fri, 27 Nov 2020 07:19:56 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 8FCD11823;
-	Fri, 27 Nov 2020 06:38:47 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8FCD11823
+	by alsa0.perex.cz (Postfix) with ESMTPS id B72871817;
+	Fri, 27 Nov 2020 07:19:05 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B72871817
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1606455577;
-	bh=YVcS42X8CBY2R5diLse+Mvnc3/9R7HM/7/BE1NkTArU=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1606457995;
+	bh=Rdoi629DjicvHoCKKgi6+NxG/4/rdjkHZDIAQJ5MAJA=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=nchZC/Kg3RLp1q371fJVa/tGQWzM+7o8IskMy0IJUEjw0At+t4bger0XU4lEdURHb
-	 gJJEeFLL54zRzthEotKXteOMhPUHHENReeCoiMWaMKTDZTmh/rw7JGIMjulcJSU/r7
-	 QRdxMGXPMBJs7GaWYYcWngD/L6wz5vtbUr8KSCoo=
+	b=te/m9uv+npYU5f2sX6FRnVQuh8OTKUHKe3bPVI49MVunOs39BKiP/h7YM06tqRuGW
+	 /mpoAdilFmVWaBQCYq2sx35onnTjaSeIcA7/X2B8f7aRSUEGednAp3/AmDLcng5yIx
+	 0WOB7XqCiH+M0bjumiNkDV7oze3x7IrCDKW2jhCQ=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 9E46AF8029B;
-	Fri, 27 Nov 2020 06:37:55 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 1C1FBF80218;
+	Fri, 27 Nov 2020 07:18:22 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 2A32CF8019D; Fri, 27 Nov 2020 06:37:52 +0100 (CET)
+ id C8D5FF8019D; Fri, 27 Nov 2020 07:18:17 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from inva020.nxp.com (inva020.nxp.com [92.121.34.13])
+X-Spam-Level: *
+X-Spam-Status: No, score=1.4 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+ DKIM_VALID,DKIM_VALID_AU,RCVD_IN_SORBS_WEB,SPF_HELO_NONE,SPF_PASS
+ autolearn=disabled version=3.4.0
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 1B218F800EA
+ for <alsa-devel@alsa-project.org>; Fri, 27 Nov 2020 07:18:11 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1B218F800EA
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="Z/HoHHKF"
+Received: from localhost (unknown [122.167.146.28])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id EDADFF8015F
- for <alsa-devel@alsa-project.org>; Fri, 27 Nov 2020 06:37:44 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EDADFF8015F
-Received: from inva020.nxp.com (localhost [127.0.0.1])
- by inva020.eu-rdc02.nxp.com (Postfix) with ESMTP id 513DC1A0E74;
- Fri, 27 Nov 2020 06:37:44 +0100 (CET)
-Received: from invc005.ap-rdc01.nxp.com (invc005.ap-rdc01.nxp.com
- [165.114.16.14])
- by inva020.eu-rdc02.nxp.com (Postfix) with ESMTP id 0FFF91A0E79;
- Fri, 27 Nov 2020 06:37:39 +0100 (CET)
-Received: from localhost.localdomain (shlinux2.ap.freescale.net
- [10.192.224.44])
- by invc005.ap-rdc01.nxp.com (Postfix) with ESMTP id E747D402D3;
- Fri, 27 Nov 2020 06:37:31 +0100 (CET)
-From: Shengjiu Wang <shengjiu.wang@nxp.com>
-To: timur@kernel.org, nicoleotsuka@gmail.com, Xiubo.Lee@gmail.com,
- festevam@gmail.com, broonie@kernel.org, perex@perex.cz, tiwai@suse.com,
- alsa-devel@alsa-project.org, lgirdwood@gmail.com, robh+dt@kernel.org,
- devicetree@vger.kernel.org
-Subject: [PATCH 2/2] ASoC: fsl: Add imx-hdmi machine driver
-Date: Fri, 27 Nov 2020 13:30:21 +0800
-Message-Id: <1606455021-18882-2-git-send-email-shengjiu.wang@nxp.com>
-X-Mailer: git-send-email 2.7.4
-In-Reply-To: <1606455021-18882-1-git-send-email-shengjiu.wang@nxp.com>
-References: <1606455021-18882-1-git-send-email-shengjiu.wang@nxp.com>
-X-Virus-Scanned: ClamAV using ClamSMTP
-Cc: linuxppc-dev@lists.ozlabs.org, linux-kernel@vger.kernel.org
+ by mail.kernel.org (Postfix) with ESMTPSA id 2ECBE221FD;
+ Fri, 27 Nov 2020 06:18:06 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=default; t=1606457888;
+ bh=Rdoi629DjicvHoCKKgi6+NxG/4/rdjkHZDIAQJ5MAJA=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=Z/HoHHKFJX74NRjz9J8FtFtn84vPzICi+RbaYQdzpvSUqgbHYwOxh+oz1TQdL1Adn
+ TZI3vXKLc0HpZkba6veJrNtrtHL+8WIwPUBFm4aYFTUuToZg7lZL2ZHGpZAScxv8Xh
+ 8WCY65V8QV7qgA+Yrj0CyoqHDtsjcPXrumrTjp3Q=
+Date: Fri, 27 Nov 2020 11:47:58 +0530
+From: Vinod Koul <vkoul@kernel.org>
+To: "Liao, Bard" <bard.liao@intel.com>
+Subject: Re: [PATCH] soundwire: master: use pm_runtime_set_active() on add
+Message-ID: <20201127061758.GK8403@vkoul-mobl>
+References: <20201124130742.10986-1-yung-chuan.liao@linux.intel.com>
+ <20201125050528.GC8403@vkoul-mobl>
+ <DM6PR11MB4074BC35644527BA45C1CB3CFFF90@DM6PR11MB4074.namprd11.prod.outlook.com>
+ <20201126042222.GG8403@vkoul-mobl>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20201126042222.GG8403@vkoul-mobl>
+Cc: "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
+ "gregkh@linuxfoundation.org" <gregkh@linuxfoundation.org>,
+ "ranjani.sridharan@linux.intel.com" <ranjani.sridharan@linux.intel.com>,
+ "pierre-louis.bossart@linux.intel.com" <pierre-louis.bossart@linux.intel.com>,
+ "hui.wang@canonical.com" <hui.wang@canonical.com>,
+ "srinivas.kandagatla@linaro.org" <srinivas.kandagatla@linaro.org>,
+ "jank@cadence.com" <jank@cadence.com>, "Lin,
+ Mengdong" <mengdong.lin@intel.com>, "Kale, Sanyog R" <sanyog.r.kale@intel.com>,
+ Bard Liao <yung-chuan.liao@linux.intel.com>,
+ "rander.wang@linux.intel.com" <rander.wang@linux.intel.com>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -75,299 +91,39 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-The driver is initially designed for sound card using HDMI
-interface on i.MX platform. There is internal HDMI IP or
-external HDMI modules connect with SAI or AUD2HTX interface.
-It supports both transmitter and receiver devices.
+On 26-11-20, 09:52, Vinod Koul wrote:
 
-Signed-off-by: Shengjiu Wang <shengjiu.wang@nxp.com>
----
- sound/soc/fsl/Kconfig    |  12 ++
- sound/soc/fsl/Makefile   |   2 +
- sound/soc/fsl/imx-hdmi.c | 235 +++++++++++++++++++++++++++++++++++++++
- 3 files changed, 249 insertions(+)
- create mode 100644 sound/soc/fsl/imx-hdmi.c
+> > > > @@ -154,7 +163,12 @@ int sdw_master_device_add(struct sdw_bus *bus,
+> > > struct device *parent,
+> > > >  	bus->dev = &md->dev;
+> > > >  	bus->md = md;
+> > > >
+> > > > +	pm_runtime_set_autosuspend_delay(&bus->md->dev,
+> > > SDW_MASTER_SUSPEND_DELAY_MS);
+> > > > +	pm_runtime_use_autosuspend(&bus->md->dev);
+> > > > +	pm_runtime_mark_last_busy(&bus->md->dev);
+> > > > +	pm_runtime_set_active(&bus->md->dev);
+> > > >  	pm_runtime_enable(&bus->md->dev);
+> > > > +	pm_runtime_idle(&bus->md->dev);
+> > > 
+> > > I understand that this needs to be done somewhere but is the core the right
+> > > place. In intel case it maybe a dummy device but other controllers are real
+> > > devices and may not support pm.
+> > > 
+> > > I think better idea would be to do this in respective driver.. that way it
+> > > would be an opt-in for device supporting pm.
+> > 
+> > Should it be put in the same place as pm_runtime_enable?
+> > IMHO, pm_runtime_enable is in the core already and it seems to be harmless
+> > for devices which don't support pm. And pm can still be optional on md's
+> > parent device.
+> 
+> For intel case yes, but world is not only intel, there are md which do
+> not have a parent like sof. they are real sdw controller devices
 
-diff --git a/sound/soc/fsl/Kconfig b/sound/soc/fsl/Kconfig
-index 24710decd38a..84db0b7b9d59 100644
---- a/sound/soc/fsl/Kconfig
-+++ b/sound/soc/fsl/Kconfig
-@@ -305,6 +305,18 @@ config SND_SOC_IMX_AUDMIX
- 	  Say Y if you want to add support for SoC audio on an i.MX board with
- 	  an Audio Mixer.
- 
-+config SND_SOC_IMX_HDMI
-+	tristate "SoC Audio support for i.MX boards with HDMI port"
-+	select SND_SOC_FSL_SAI
-+	select SND_SOC_FSL_AUD2HTX
-+	select SND_SOC_HDMI_CODEC
-+	help
-+	  ALSA SoC Audio support with HDMI feature for Freescale SoCs that have
-+	  SAI/AUD2HTX and connect with internal HDMI IP or external module
-+	  SII902X.
-+	  Say Y if you want to add support for SoC audio on an i.MX board with
-+	  IMX HDMI.
-+
- endif # SND_IMX_SOC
- 
- endmenu
-diff --git a/sound/soc/fsl/Makefile b/sound/soc/fsl/Makefile
-index 0b20e038b65b..8c5fa8a859c0 100644
---- a/sound/soc/fsl/Makefile
-+++ b/sound/soc/fsl/Makefile
-@@ -65,9 +65,11 @@ snd-soc-imx-es8328-objs := imx-es8328.o
- snd-soc-imx-sgtl5000-objs := imx-sgtl5000.o
- snd-soc-imx-spdif-objs := imx-spdif.o
- snd-soc-imx-audmix-objs := imx-audmix.o
-+snd-soc-imx-hdmi-objs := imx-hdmi.o
- 
- obj-$(CONFIG_SND_SOC_EUKREA_TLV320) += snd-soc-eukrea-tlv320.o
- obj-$(CONFIG_SND_SOC_IMX_ES8328) += snd-soc-imx-es8328.o
- obj-$(CONFIG_SND_SOC_IMX_SGTL5000) += snd-soc-imx-sgtl5000.o
- obj-$(CONFIG_SND_SOC_IMX_SPDIF) += snd-soc-imx-spdif.o
- obj-$(CONFIG_SND_SOC_IMX_AUDMIX) += snd-soc-imx-audmix.o
-+obj-$(CONFIG_SND_SOC_IMX_HDMI) += snd-soc-imx-hdmi.o
-diff --git a/sound/soc/fsl/imx-hdmi.c b/sound/soc/fsl/imx-hdmi.c
-new file mode 100644
-index 000000000000..ac164514b1b2
---- /dev/null
-+++ b/sound/soc/fsl/imx-hdmi.c
-@@ -0,0 +1,235 @@
-+// SPDX-License-Identifier: GPL-2.0
-+// Copyright 2017-2020 NXP
-+
-+#include <linux/module.h>
-+#include <linux/of_platform.h>
-+#include <sound/jack.h>
-+#include <sound/pcm_params.h>
-+#include <sound/hdmi-codec.h>
-+#include "fsl_sai.h"
-+
-+/**
-+ * struct cpu_priv - CPU private data
-+ * @sysclk_freq: SYSCLK rates for set_sysclk()
-+ * @sysclk_dir: SYSCLK directions for set_sysclk()
-+ * @sysclk_id: SYSCLK ids for set_sysclk()
-+ * @slot_width: Slot width of each frame
-+ *
-+ * Note: [1] for tx and [0] for rx
-+ */
-+struct cpu_priv {
-+	unsigned long sysclk_freq[2];
-+	u32 sysclk_dir[2];
-+	u32 sysclk_id[2];
-+	u32 slot_width;
-+};
-+
-+struct imx_hdmi_data {
-+	struct snd_soc_dai_link dai;
-+	struct snd_soc_card card;
-+	struct snd_soc_jack hdmi_jack;
-+	struct snd_soc_jack_pin hdmi_jack_pin;
-+	struct cpu_priv cpu_priv;
-+	u32 dai_fmt;
-+};
-+
-+static int imx_hdmi_hw_params(struct snd_pcm_substream *substream,
-+			      struct snd_pcm_hw_params *params)
-+{
-+	struct snd_soc_pcm_runtime *rtd = substream->private_data;
-+	struct imx_hdmi_data *data = snd_soc_card_get_drvdata(rtd->card);
-+	bool tx = substream->stream == SNDRV_PCM_STREAM_PLAYBACK;
-+	struct snd_soc_dai *cpu_dai = asoc_rtd_to_cpu(rtd, 0);
-+	struct snd_soc_card *card = rtd->card;
-+	struct device *dev = card->dev;
-+	int ret;
-+
-+	/* set cpu DAI configuration */
-+	ret = snd_soc_dai_set_sysclk(cpu_dai, data->cpu_priv.sysclk_id[tx],
-+				     8 * data->cpu_priv.slot_width * params_rate(params),
-+				     tx ? SND_SOC_CLOCK_OUT : SND_SOC_CLOCK_IN);
-+	if (ret && ret != -ENOTSUPP) {
-+		dev_err(dev, "failed to set cpu sysclk: %d\n", ret);
-+		return ret;
-+	}
-+
-+	ret = snd_soc_dai_set_tdm_slot(cpu_dai, 0, 0, 2, data->cpu_priv.slot_width);
-+	if (ret && ret != -ENOTSUPP) {
-+		dev_err(dev, "failed to set cpu dai tdm slot: %d\n", ret);
-+		return ret;
-+	}
-+
-+	return 0;
-+}
-+
-+static struct snd_soc_ops imx_hdmi_ops = {
-+	.hw_params = imx_hdmi_hw_params,
-+};
-+
-+static const struct snd_soc_dapm_widget imx_hdmi_widgets[] = {
-+	SND_SOC_DAPM_LINE("HDMI Jack", NULL),
-+};
-+
-+static int imx_hdmi_init(struct snd_soc_pcm_runtime *rtd)
-+{
-+	struct snd_soc_card *card = rtd->card;
-+	struct snd_soc_dai *codec_dai = asoc_rtd_to_codec(rtd, 0);
-+	struct snd_soc_component *component = codec_dai->component;
-+	struct imx_hdmi_data *data = snd_soc_card_get_drvdata(card);
-+	int ret;
-+
-+	data->hdmi_jack_pin.pin = "HDMI Jack";
-+	data->hdmi_jack_pin.mask = SND_JACK_LINEOUT;
-+	/* enable jack detection */
-+	ret = snd_soc_card_jack_new(card, "HDMI Jack", SND_JACK_LINEOUT,
-+				    &data->hdmi_jack, &data->hdmi_jack_pin, 1);
-+	if (ret) {
-+		dev_err(card->dev, "Can't new HDMI Jack %d\n", ret);
-+		return ret;
-+	}
-+
-+	ret = snd_soc_component_set_jack(component, &data->hdmi_jack, NULL);
-+	if (ret && ret != -EOPNOTSUPP) {
-+		dev_err(card->dev, "Can't set HDMI Jack %d\n", ret);
-+		return ret;
-+	}
-+
-+	return 0;
-+};
-+
-+static int imx_hdmi_probe(struct platform_device *pdev)
-+{
-+	struct device_node *np = pdev->dev.of_node;
-+	struct snd_soc_dai_link_component *dlc;
-+	struct platform_device *cpu_pdev;
-+	struct device_node *cpu_np;
-+	struct imx_hdmi_data *data;
-+	int ret;
-+
-+	dlc = devm_kzalloc(&pdev->dev, 3 * sizeof(*dlc), GFP_KERNEL);
-+	if (!dlc)
-+		return -ENOMEM;
-+
-+	cpu_np = of_parse_phandle(np, "audio-cpu", 0);
-+	if (!cpu_np) {
-+		dev_err(&pdev->dev, "cpu dai phandle missing or invalid\n");
-+		ret = -EINVAL;
-+		goto fail;
-+	}
-+
-+	cpu_pdev = of_find_device_by_node(cpu_np);
-+	if (!cpu_pdev) {
-+		dev_err(&pdev->dev, "failed to find SAI platform device\n");
-+		ret = -EINVAL;
-+		goto fail;
-+	}
-+
-+	data = devm_kzalloc(&pdev->dev, sizeof(*data), GFP_KERNEL);
-+	if (!data) {
-+		ret = -ENOMEM;
-+		goto fail;
-+	}
-+
-+	data->dai.cpus = &dlc[0];
-+	data->dai.num_cpus = 1;
-+	data->dai.platforms = &dlc[1];
-+	data->dai.num_platforms = 1;
-+	data->dai.codecs = &dlc[2];
-+	data->dai.num_codecs = 1;
-+
-+	data->dai.name = "i.MX HDMI";
-+	data->dai.stream_name = "i.MX HDMI";
-+	data->dai.cpus->dai_name = dev_name(&cpu_pdev->dev);
-+	data->dai.platforms->of_node = cpu_np;
-+	data->dai.ops = &imx_hdmi_ops;
-+	data->dai.playback_only = true;
-+	data->dai.capture_only = false;
-+	data->dai.init = imx_hdmi_init;
-+
-+	if (of_node_name_eq(cpu_np, "sai")) {
-+		data->cpu_priv.sysclk_id[1] = FSL_SAI_CLK_MAST1;
-+		data->cpu_priv.sysclk_id[0] = FSL_SAI_CLK_MAST1;
-+	}
-+
-+	if (of_device_is_compatible(np, "fsl,imx-audio-sii902x")) {
-+		data->dai_fmt = SND_SOC_DAIFMT_LEFT_J;
-+		data->cpu_priv.slot_width = 24;
-+	} else {
-+		data->dai_fmt = SND_SOC_DAIFMT_I2S;
-+		data->cpu_priv.slot_width = 32;
-+	}
-+
-+	if (of_property_read_bool(np, "hdmi-out")) {
-+		data->dai.playback_only = true;
-+		data->dai.capture_only = false;
-+		data->dai.codecs->dai_name = "i2s-hifi";
-+		data->dai.codecs->name = "hdmi-audio-codec.1";
-+		data->dai.dai_fmt = data->dai_fmt |
-+				    SND_SOC_DAIFMT_NB_NF |
-+				    SND_SOC_DAIFMT_CBS_CFS;
-+	}
-+
-+	if (of_property_read_bool(np, "hdmi-in")) {
-+		data->dai.playback_only = false;
-+		data->dai.capture_only = true;
-+		data->dai.codecs->dai_name = "i2s-hifi";
-+		data->dai.codecs->name = "hdmi-audio-codec.2";
-+		data->dai.dai_fmt = data->dai_fmt |
-+				    SND_SOC_DAIFMT_NB_NF |
-+				    SND_SOC_DAIFMT_CBM_CFM;
-+	}
-+
-+	if ((data->dai.playback_only && data->dai.capture_only) ||
-+	    (!data->dai.playback_only && !data->dai.capture_only)) {
-+		dev_err(&pdev->dev, "Wrongly enable HDMI DAI link\n");
-+		goto fail;
-+	}
-+
-+	data->card.dapm_widgets = imx_hdmi_widgets;
-+	data->card.num_dapm_widgets = ARRAY_SIZE(imx_hdmi_widgets);
-+	data->card.dev = &pdev->dev;
-+	data->card.owner = THIS_MODULE;
-+	ret = snd_soc_of_parse_card_name(&data->card, "model");
-+	if (ret)
-+		goto fail;
-+
-+	data->card.num_links = 1;
-+	data->card.dai_link = &data->dai;
-+
-+	platform_set_drvdata(pdev, &data->card);
-+	snd_soc_card_set_drvdata(&data->card, data);
-+	ret = devm_snd_soc_register_card(&pdev->dev, &data->card);
-+	if (ret) {
-+		dev_err(&pdev->dev, "snd_soc_register_card failed (%d)\n", ret);
-+		goto fail;
-+	}
-+
-+fail:
-+	if (cpu_np)
-+		of_node_put(cpu_np);
-+
-+	return ret;
-+}
-+
-+static const struct of_device_id imx_hdmi_dt_ids[] = {
-+	{ .compatible = "fsl,imx-audio-hdmi", },
-+	{ .compatible = "fsl,imx-audio-sii902x", },
-+	{ /* sentinel */ }
-+};
-+MODULE_DEVICE_TABLE(of, imx_hdmi_dt_ids);
-+
-+static struct platform_driver imx_hdmi_driver = {
-+	.driver = {
-+		.name = "imx-hdmi",
-+		.owner = THIS_MODULE,
-+		.pm = &snd_soc_pm_ops,
-+		.of_match_table = imx_hdmi_dt_ids,
-+	},
-+	.probe = imx_hdmi_probe,
-+};
-+module_platform_driver(imx_hdmi_driver);
-+
-+MODULE_AUTHOR("Freescale Semiconductor, Inc.");
-+MODULE_DESCRIPTION("Freescale i.MX hdmi audio ASoC machine driver");
-+MODULE_LICENSE("GPL v2");
-+MODULE_ALIAS("platform:imx-hdmi");
+Sorry I confused md with real master device ;-) I guess this patch
+should be okay then.. As the real parent will control.
+
+Thanks
 -- 
-2.27.0
-
+~Vinod

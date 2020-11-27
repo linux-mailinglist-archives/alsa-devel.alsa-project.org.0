@@ -2,49 +2,49 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 61B932C5E6A
-	for <lists+alsa-devel@lfdr.de>; Fri, 27 Nov 2020 01:09:27 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5CDF92C5E6B
+	for <lists+alsa-devel@lfdr.de>; Fri, 27 Nov 2020 01:10:09 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C2A24180E;
-	Fri, 27 Nov 2020 01:08:36 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C2A24180E
+	by alsa0.perex.cz (Postfix) with ESMTPS id 02E2417F2;
+	Fri, 27 Nov 2020 01:09:18 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 02E2417F2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1606435766;
-	bh=XKUrXHlGDC2f1cPirKtIya744POTM0kPXKLyIIAEAu8=;
+	s=default; t=1606435809;
+	bh=TS3h+enD2Ct8g6DVZC0+ADXB8/aCRQTvz694fwLgdbo=;
 	h=Date:From:Subject:To:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=mrkuQh4uyQ7YWNhfSEBZbuEqMVSvWS4DDUq8NgEPsnXjsF+GVeL4abGzSzD9tAVWy
-	 gnzQqgTx9fHD+92U3+26E88pHJksmWteb6eoD4yRE0PDuX0IKT3+gE2s0W9xTM91yF
-	 l6f2CUIkaS7B3IPt8MZo45v0dwqs6DK57d6umd4E=
+	b=ZgJRtVQ6N/het7QwNzNRjEJHnA2f0G1WvWBiI0lMkRkSkSMrs7x3w1jHyipNPVrMF
+	 JDKhoqhWABip99ALcx34imAVGtb+f+LzaP8SphJdIZvP2clbB1OdrcWyX3pNRwOLC7
+	 By7P6CIRrOHULIKdtPf/5yhXov8IcVaT/KLyZ+ls=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 3DA1CF8027C;
-	Fri, 27 Nov 2020 01:07:51 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id E9428F804BC;
+	Fri, 27 Nov 2020 01:07:56 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 91BC5F80271; Fri, 27 Nov 2020 01:07:49 +0100 (CET)
+ id 572E2F804B4; Fri, 27 Nov 2020 01:07:55 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
  URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from relmlie5.idc.renesas.com (relmlor1.renesas.com
- [210.160.252.171])
- by alsa1.perex.cz (Postfix) with ESMTP id ED675F800EA
- for <alsa-devel@alsa-project.org>; Fri, 27 Nov 2020 01:07:41 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz ED675F800EA
-Date: 27 Nov 2020 09:07:35 +0900
-X-IronPort-AV: E=Sophos;i="5.78,373,1599490800"; d="scan'208";a="64029264"
+Received: from relmlie6.idc.renesas.com (relmlor2.renesas.com
+ [210.160.252.172])
+ by alsa1.perex.cz (Postfix) with ESMTP id E01D7F80164
+ for <alsa-devel@alsa-project.org>; Fri, 27 Nov 2020 01:07:42 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E01D7F80164
+Date: 27 Nov 2020 09:07:40 +0900
+X-IronPort-AV: E=Sophos;i="5.78,373,1599490800"; d="scan'208";a="63813356"
 Received: from unknown (HELO relmlir6.idc.renesas.com) ([10.200.68.152])
- by relmlie5.idc.renesas.com with ESMTP; 27 Nov 2020 09:07:35 +0900
+ by relmlie6.idc.renesas.com with ESMTP; 27 Nov 2020 09:07:40 +0900
 Received: from mercury.renesas.com (unknown [10.166.252.133])
- by relmlir6.idc.renesas.com (Postfix) with ESMTP id 91797415F679;
- Fri, 27 Nov 2020 09:07:35 +0900 (JST)
-Message-ID: <87k0u7ekfv.wl-kuninori.morimoto.gx@renesas.com>
+ by relmlir6.idc.renesas.com (Postfix) with ESMTP id AB8D2415F19D;
+ Fri, 27 Nov 2020 09:07:40 +0900 (JST)
+Message-ID: <87im9rekfp.wl-kuninori.morimoto.gx@renesas.com>
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Subject: [PATCH 1/2] ASoC: soc-core: add soc_playback_digital_mute()
+Subject: [PATCH 2/2] ASoC: soc-core: add soc_dapm_suspend_resume()
 User-Agent: Wanderlust/2.15.9 Emacs/26.3 Mule/6.0
 To: Mark Brown <broonie@kernel.org>
 In-Reply-To: <87lfenekgg.wl-kuninori.morimoto.gx@renesas.com>
@@ -71,98 +71,84 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 
 snd_soc_suspend() and soc_resume_deferred() are calling
-same snd_soc_dai_digital_mute() with same logic with different parameter.
-This patch adds new soc_playback_digital_mute() and share the code.
+same snd_soc_dapm_stream_event() with same logic with different parameter.
+This patch adds new soc_dapm_suspend_resume() and share the code.
 
 Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 ---
- sound/soc/soc-core.c | 46 ++++++++++++++++++++------------------------
- 1 file changed, 21 insertions(+), 25 deletions(-)
+ sound/soc/soc-core.c | 38 +++++++++++++++++---------------------
+ 1 file changed, 17 insertions(+), 21 deletions(-)
 
 diff --git a/sound/soc/soc-core.c b/sound/soc/soc-core.c
-index cb7333da58f1..c03b7107cb77 100644
+index c03b7107cb77..50b4ce6374a0 100644
 --- a/sound/soc/soc-core.c
 +++ b/sound/soc/soc-core.c
-@@ -520,13 +520,31 @@ static void snd_soc_flush_all_delayed_work(struct snd_soc_card *card)
+@@ -539,6 +539,21 @@ static void soc_playback_digital_mute(struct snd_soc_card *card, int mute)
+ 	}
  }
  
- #ifdef CONFIG_PM_SLEEP
-+static void soc_playback_digital_mute(struct snd_soc_card *card, int mute)
++static void soc_dapm_suspend_resume(struct snd_soc_card *card, int event)
 +{
 +	struct snd_soc_pcm_runtime *rtd;
-+	struct snd_soc_dai *dai;
-+	int playback = SNDRV_PCM_STREAM_PLAYBACK;
-+	int i;
++	int stream;
 +
 +	for_each_card_rtds(card, rtd) {
 +
 +		if (rtd->dai_link->ignore_suspend)
 +			continue;
 +
-+		for_each_rtd_dais(rtd, i, dai) {
-+			if (snd_soc_dai_stream_active(dai, playback))
-+				snd_soc_dai_digital_mute(dai, mute, playback);
-+		}
++		for_each_pcm_streams(stream)
++			snd_soc_dapm_stream_event(rtd, stream, event);
 +	}
 +}
 +
  /* powers down audio subsystem for suspend */
  int snd_soc_suspend(struct device *dev)
  {
- 	struct snd_soc_card *card = dev_get_drvdata(dev);
- 	struct snd_soc_component *component;
- 	struct snd_soc_pcm_runtime *rtd;
--	int playback = SNDRV_PCM_STREAM_PLAYBACK;
- 	int i;
+@@ -576,16 +591,7 @@ int snd_soc_suspend(struct device *dev)
+ 	/* close any waiting streams */
+ 	snd_soc_flush_all_delayed_work(card);
  
- 	/* If the card is not initialized yet there is nothing to do */
-@@ -543,17 +561,7 @@ int snd_soc_suspend(struct device *dev)
- 	snd_power_change_state(card->snd_card, SNDRV_CTL_POWER_D3hot);
- 
- 	/* mute any active DACs */
 -	for_each_card_rtds(card, rtd) {
--		struct snd_soc_dai *dai;
+-		int stream;
 -
 -		if (rtd->dai_link->ignore_suspend)
 -			continue;
 -
--		for_each_rtd_dais(rtd, i, dai) {
--			if (snd_soc_dai_stream_active(dai, playback))
--				snd_soc_dai_digital_mute(dai, 1, playback);
--		}
+-		for_each_pcm_streams(stream)
+-			snd_soc_dapm_stream_event(rtd, stream,
+-						  SND_SOC_DAPM_STREAM_SUSPEND);
 -	}
-+	soc_playback_digital_mute(card, 1);
++	soc_dapm_suspend_resume(card, SND_SOC_DAPM_STREAM_SUSPEND);
  
- 	/* suspend all pcms */
- 	for_each_card_rtds(card, rtd) {
-@@ -650,7 +658,6 @@ static void soc_resume_deferred(struct work_struct *work)
+ 	/* Recheck all endpoints too, their state is affected by suspend */
+ 	dapm_mark_endpoints_dirty(card);
+@@ -656,7 +662,6 @@ static void soc_resume_deferred(struct work_struct *work)
+ 	struct snd_soc_card *card =
+ 			container_of(work, struct snd_soc_card,
  				     deferred_resume_work);
- 	struct snd_soc_pcm_runtime *rtd;
+-	struct snd_soc_pcm_runtime *rtd;
  	struct snd_soc_component *component;
--	int i;
  
  	/*
- 	 * our power state is still SNDRV_CTL_POWER_D3hot from suspend time,
-@@ -681,18 +688,7 @@ static void soc_resume_deferred(struct work_struct *work)
+@@ -676,16 +681,7 @@ static void soc_resume_deferred(struct work_struct *work)
+ 			snd_soc_component_resume(component);
  	}
  
- 	/* unmute any active DACs */
 -	for_each_card_rtds(card, rtd) {
--		struct snd_soc_dai *dai;
--		int playback = SNDRV_PCM_STREAM_PLAYBACK;
+-		int stream;
 -
 -		if (rtd->dai_link->ignore_suspend)
 -			continue;
 -
--		for_each_rtd_dais(rtd, i, dai) {
--			if (snd_soc_dai_stream_active(dai, playback))
--				snd_soc_dai_digital_mute(dai, 0, playback);
--		}
+-		for_each_pcm_streams(stream)
+-			snd_soc_dapm_stream_event(rtd, stream,
+-						  SND_SOC_DAPM_STREAM_RESUME);
 -	}
-+	soc_playback_digital_mute(card, 0);
++	soc_dapm_suspend_resume(card, SND_SOC_DAPM_STREAM_RESUME);
  
- 	snd_soc_card_resume_post(card);
- 
+ 	/* unmute any active DACs */
+ 	soc_playback_digital_mute(card, 0);
 -- 
 2.25.1
 

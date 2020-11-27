@@ -2,89 +2,82 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0E38E2C6112
-	for <lists+alsa-devel@lfdr.de>; Fri, 27 Nov 2020 09:42:02 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 935192C614B
+	for <lists+alsa-devel@lfdr.de>; Fri, 27 Nov 2020 10:03:06 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 97D851749;
-	Fri, 27 Nov 2020 09:41:11 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 97D851749
+	by alsa0.perex.cz (Postfix) with ESMTPS id 28F1D182C;
+	Fri, 27 Nov 2020 10:02:16 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 28F1D182C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1606466521;
-	bh=NiYg4H1aMV8tGRh+hd79esp2a/GklDPB3SA4Ax6nKwk=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=Qv2XUIolBtqzqDu1O9U5E9yH6151KO2ayvvBjjcGhS1YcBFSU1lLCaM+txMfE5m+q
-	 zbSCOeZA4mYEZ5NzIsl8wFlA+lJRcXcb4tYsTRInADbLxq/0ySxhJLAXeZ6KZzJEn1
-	 /xsqGxalSeTLzKq06Gih49avO1qPWkhplfER8BRo=
+	s=default; t=1606467786;
+	bh=SFOn+/I5AtkrCfzKsJyxTHew62MaSzDXtd9IFYivGYg=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=GhKoYr23kZyUsi8SHpSFfdtCLn3Tw3sRdLw+JBzSjD42eaXx+bBpB/8J7ms2eY27p
+	 3FBR8fEQ21N55E1vCjazuJRTJQJgx29iaB+oX3a6SpqYqw9RsX4UWV2PtwM6I/6ekw
+	 lpj5BVdM1jzYs04Q0zuZDku0GyxycNm6SJsEgyMY=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 08D1AF80218;
-	Fri, 27 Nov 2020 09:40:27 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 9B728F80218;
+	Fri, 27 Nov 2020 10:01:31 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id BC39BF8019D; Fri, 27 Nov 2020 09:40:24 +0100 (CET)
+ id D9329F8019D; Fri, 27 Nov 2020 10:01:28 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.8 required=5.0 tests=FREEMAIL_FORGED_FROMDOMAIN,
- FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,PRX_BODY_135,RCVD_IN_MSPIKE_H3,
- RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from mail-ot1-f65.google.com (mail-ot1-f65.google.com
- [209.85.210.65])
+X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from z5.mailgun.us (z5.mailgun.us [104.130.96.5])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id D35F1F800EA
- for <alsa-devel@alsa-project.org>; Fri, 27 Nov 2020 09:40:16 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D35F1F800EA
-Received: by mail-ot1-f65.google.com with SMTP id o3so4036325ota.8
- for <alsa-devel@alsa-project.org>; Fri, 27 Nov 2020 00:40:16 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc:content-transfer-encoding;
- bh=/D+lVsFpiig9p8Mfv+F/WnI4wKF69UpUHln9lDG06g4=;
- b=TCinPPIR2GdW/Tw/OlPjRAvq2fCqliUeMI6UztNG6S1rdlf+g5wccXxB5cr5uTMpVJ
- N6jNSSVC4I8PhNbyfHRVOaaryWbRvv3KEbUKITlyeCs+s5bezKlyuJXxofyT4IwfrGiE
- bZFwzL+C7BVEKv0+3R2l+e+2z5Iys3govdLhnrLkRr79FZxxs5VRzI3WKxAx/6Du6eDY
- p802lBJ/AIvZVFeWpSRZ6D8a+rWgTSshx59NKrM/h1tkkGK/rlSe+2WUDs9/NtqqHUmW
- Y+N4nsXxxIgodwTPIYKXROCwxiPF/K8q9Qi+QfjERsgxAt2fB5Sghkqptfptvz+ytq4y
- 4Pkw==
-X-Gm-Message-State: AOAM533jTy9A8oo6dkhKmeREX7uRkAqmWMmXxtpigEsja+tBRFzuxXl3
- mSoDBWGj2DA/0EM37XeSl2F4hrOvv/87bZ7vWBk=
-X-Google-Smtp-Source: ABdhPJy2I/IdfAm6V2ydZbwLB9NPNLYo9PucEpxX/NL/qzuCx8bfpYwJU7BhpITpgvBGwlFRBVNr8EmnqamS0CIYUsg=
-X-Received: by 2002:a9d:686:: with SMTP id 6mr4709371otx.107.1606466415531;
- Fri, 27 Nov 2020 00:40:15 -0800 (PST)
-MIME-Version: 1.0
-References: <20201126165950.2554997-1-u.kleine-koenig@pengutronix.de>
- <20201126165950.2554997-2-u.kleine-koenig@pengutronix.de>
-In-Reply-To: <20201126165950.2554997-2-u.kleine-koenig@pengutronix.de>
-From: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Fri, 27 Nov 2020 09:40:04 +0100
-Message-ID: <CAMuHMdW4J0xA6T4AWqZdo1go1kxWqVSSo5JXQpUAM4yWEpDdOw@mail.gmail.com>
-Subject: Re: [PATCH 2/2] powerpc/ps3: make system bus's remove and shutdown
- callbacks return void
-To: =?UTF-8?Q?Uwe_Kleine=2DK=C3=B6nig?= <u.kleine-koenig@pengutronix.de>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-Cc: ALSA Development Mailing List <alsa-devel@alsa-project.org>,
- Benjamin Herrenschmidt <benh@kernel.crashing.org>,
- Linux Fbdev development list <linux-fbdev@vger.kernel.org>,
- DRI Development <dri-devel@lists.freedesktop.org>,
- Paul Mackerras <paulus@samba.org>, scsi <linux-scsi@vger.kernel.org>,
- Michael Ellerman <mpe@ellerman.id.au>, Alan Stern <stern@rowland.harvard.edu>,
- Jakub Kicinski <kuba@kernel.org>, Arnd Bergmann <arnd@arndb.de>,
- Bartlomiej Zolnierkiewicz <b.zolnierkie@samsung.com>,
- "James E.J. Bottomley" <jejb@linux.ibm.com>, linux-block@vger.kernel.org,
- Jens Axboe <axboe@kernel.dk>,
- "Martin K. Petersen" <martin.petersen@oracle.com>,
- Geoff Levand <geoff@infradead.org>, netdev <netdev@vger.kernel.org>,
- USB list <linux-usb@vger.kernel.org>, Takashi Iwai <tiwai@suse.com>,
- Jim Paris <jim@jtan.com>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- linuxppc-dev <linuxppc-dev@lists.ozlabs.org>,
- "David S. Miller" <davem@davemloft.net>
+ by alsa1.perex.cz (Postfix) with ESMTPS id D61CAF800EA
+ for <alsa-devel@alsa-project.org>; Fri, 27 Nov 2020 10:01:20 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D61CAF800EA
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=mg.codeaurora.org
+ header.i=@mg.codeaurora.org header.b="XObBY+bN"
+DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
+ q=dns/txt; 
+ s=smtp; t=1606467682; h=Message-Id: Date: Subject: Cc: To: From:
+ Sender; bh=OIY56LGrXG7EOd8OdvHPbhXheV+DzCN0elNY5uozLLw=;
+ b=XObBY+bNQs9rNeJ3Xb6qs7iCtZ7tXWdyZ99IsLnEKZeSuP3L8wBPe4Cyc1jxu3a8EW6G1LBR
+ /BwIM5bAkX3wymF116FADzSONTSTTzTmggxEBapkc/5CjAiNZbqSyGOO/IwDzNU0oz89+jct
+ j4Lztg7gr/V+MX6TrZTzbPIBFR0=
+X-Mailgun-Sending-Ip: 104.130.96.5
+X-Mailgun-Sid: WyI4ZmE2ZSIsICJhbHNhLWRldmVsQGFsc2EtcHJvamVjdC5vcmciLCAiYmU5ZTRhIl0=
+Received: from smtp.codeaurora.org
+ (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171]) by
+ smtp-out-n05.prod.us-west-2.postgun.com with SMTP id
+ 5fc0c03ac6fdb18c636ede43 (version=TLS1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Fri, 27 Nov 2020 09:00:42
+ GMT
+Received: by smtp.codeaurora.org (Postfix, from userid 1001)
+ id CB739C43460; Fri, 27 Nov 2020 09:00:42 +0000 (UTC)
+Received: from hyd-lnxbld210.qualcomm.com (unknown [202.46.22.19])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-SHA256 (128/128 bits))
+ (No client certificate requested) (Authenticated sender: srivasam)
+ by smtp.codeaurora.org (Postfix) with ESMTPSA id EEA72C433C6;
+ Fri, 27 Nov 2020 09:00:35 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 smtp.codeaurora.org EEA72C433C6
+Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
+ dmarc=none (p=none dis=none) header.from=codeaurora.org
+Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
+ spf=fail smtp.mailfrom=srivasam@codeaurora.org
+From: Srinivasa Rao Mandadapu <srivasam@codeaurora.org>
+To: agross@kernel.org, bjorn.andersson@linaro.org, lgirdwood@gmail.com,
+ broonie@kernel.org, robh+dt@kernel.org, plai@codeaurora.org,
+ bgoswami@codeaurora.org, perex@perex.cz, tiwai@suse.com,
+ srinivas.kandagatla@linaro.org, rohitkr@codeaurora.org,
+ linux-arm-msm@vger.kernel.org, alsa-devel@alsa-project.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: [PATCH v2] Asoc: qcom: Fix plaback recover problem in suspend resume
+Date: Fri, 27 Nov 2020 14:30:21 +0530
+Message-Id: <1606467622-11735-1-git-send-email-srivasam@codeaurora.org>
+X-Mailer: git-send-email 2.7.4
+Cc: V Sujith Kumar Reddy <vsujithk@codeaurora.org>,
+ Srinivasa Rao Mandadapu <srivasam@codeaurora.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -100,38 +93,73 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hi Uwe,
+To support playback continuation after hard suspend(bypass powerd)
+ and resume:
+Prepare device in  platform trigger callback.
+Make I2s and DMA control registers as non volatile.
 
-On Thu, Nov 26, 2020 at 6:03 PM Uwe Kleine-K=C3=B6nig
-<u.kleine-koenig@pengutronix.de> wrote:
-> The driver core ignores the return value of struct device_driver::remove
-> because there is only little that can be done. For the shutdown callback
-> it's ps3_system_bus_shutdown() which ignores the return value.
->
-> To simplify the quest to make struct device_driver::remove return void,
-> let struct ps3_system_bus_driver::remove return void, too. All users
-> already unconditionally return 0, this commit makes it obvious that
-> returning an error code is a bad idea and ensures future users behave
-> accordingly.
->
-> Signed-off-by: Uwe Kleine-K=C3=B6nig <u.kleine-koenig@pengutronix.de>
+Signed-off-by: V Sujith Kumar Reddy <vsujithk@codeaurora.org>
+Signed-off-by: Srinivasa Rao Mandadapu <srivasam@codeaurora.org>
+---
+Changes Since v1:
+  -- Subject lines changed
 
-Thanks for your patch!
+ sound/soc/qcom/lpass-cpu.c      | 8 ++------
+ sound/soc/qcom/lpass-platform.c | 5 +++--
+ 2 files changed, 5 insertions(+), 8 deletions(-)
 
-Reviewed-by: Geert Uytterhoeven <geert@linux-m68k.org>
+diff --git a/sound/soc/qcom/lpass-cpu.c b/sound/soc/qcom/lpass-cpu.c
+index af684fd..c99be03 100644
+--- a/sound/soc/qcom/lpass-cpu.c
++++ b/sound/soc/qcom/lpass-cpu.c
+@@ -454,20 +454,16 @@ static bool lpass_cpu_regmap_volatile(struct device *dev, unsigned int reg)
+ 	struct lpass_variant *v = drvdata->variant;
+ 	int i;
+ 
+-	for (i = 0; i < v->i2s_ports; ++i)
+-		if (reg == LPAIF_I2SCTL_REG(v, i))
+-			return true;
+ 	for (i = 0; i < v->irq_ports; ++i)
+ 		if (reg == LPAIF_IRQSTAT_REG(v, i))
+ 			return true;
+ 
+ 	for (i = 0; i < v->rdma_channels; ++i)
+-		if (reg == LPAIF_RDMACURR_REG(v, i) || reg == LPAIF_RDMACTL_REG(v, i))
++		if (reg == LPAIF_RDMACURR_REG(v, i))
+ 			return true;
+ 
+ 	for (i = 0; i < v->wrdma_channels; ++i)
+-		if (reg == LPAIF_WRDMACURR_REG(v, i + v->wrdma_channel_start) ||
+-			reg == LPAIF_WRDMACTL_REG(v, i + v->wrdma_channel_start))
++		if (reg == LPAIF_WRDMACURR_REG(v, i + v->wrdma_channel_start))
+ 			return true;
+ 
+ 	return false;
+diff --git a/sound/soc/qcom/lpass-platform.c b/sound/soc/qcom/lpass-platform.c
+index 80b09de..2b0a7c1 100644
+--- a/sound/soc/qcom/lpass-platform.c
++++ b/sound/soc/qcom/lpass-platform.c
+@@ -481,8 +481,9 @@ static int lpass_platform_pcmops_trigger(struct snd_soc_component *component,
+ 		return -ENOTRECOVERABLE;
+ 	}
+ 	switch (cmd) {
+-	case SNDRV_PCM_TRIGGER_START:
+ 	case SNDRV_PCM_TRIGGER_RESUME:
++		lpass_platform_pcmops_prepare(component, substream);
++	case SNDRV_PCM_TRIGGER_START:
+ 	case SNDRV_PCM_TRIGGER_PAUSE_RELEASE:
+ 		ret = regmap_fields_write(dmactl->enable, id,
+ 						 LPAIF_DMACTL_ENABLE_ON);
+@@ -592,7 +593,7 @@ static int lpass_platform_pcmops_trigger(struct snd_soc_component *component,
+ 		break;
+ 	}
+ 
+-	return 0;
++	return ret;
+ }
+ 
+ static snd_pcm_uframes_t lpass_platform_pcmops_pointer(
+-- 
+Qualcomm India Private Limited, on behalf of Qualcomm Innovation Center, Inc.,
+is a member of Code Aurora Forum, a Linux Foundation Collaborative Project.
 
-Note that the same can be done for ps3_vuart_port_driver.remove().
-
-Gr{oetje,eeting}s,
-
-                        Geert
-
---=20
-Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k=
-.org
-
-In personal conversations with technical people, I call myself a hacker. Bu=
-t
-when I'm talking to journalists I just say "programmer" or something like t=
-hat.
-                                -- Linus Torvalds

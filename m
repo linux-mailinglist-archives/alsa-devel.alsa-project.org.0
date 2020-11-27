@@ -2,80 +2,73 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2E9CF2C5FFC
-	for <lists+alsa-devel@lfdr.de>; Fri, 27 Nov 2020 07:19:56 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 352B32C6035
+	for <lists+alsa-devel@lfdr.de>; Fri, 27 Nov 2020 07:47:40 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B72871817;
-	Fri, 27 Nov 2020 07:19:05 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B72871817
+	by alsa0.perex.cz (Postfix) with ESMTPS id C3AED1815;
+	Fri, 27 Nov 2020 07:46:49 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C3AED1815
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1606457995;
-	bh=Rdoi629DjicvHoCKKgi6+NxG/4/rdjkHZDIAQJ5MAJA=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=te/m9uv+npYU5f2sX6FRnVQuh8OTKUHKe3bPVI49MVunOs39BKiP/h7YM06tqRuGW
-	 /mpoAdilFmVWaBQCYq2sx35onnTjaSeIcA7/X2B8f7aRSUEGednAp3/AmDLcng5yIx
-	 0WOB7XqCiH+M0bjumiNkDV7oze3x7IrCDKW2jhCQ=
+	s=default; t=1606459659;
+	bh=Pt+V+h665Voq/3VdzVFpUSUAsYn5q/wqxS+SWE43RwI=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=trd1fFBmGGmGPvdSjGr4t+iZehA2rM3o2CYPH2Hm35N3N2hLYyPjD1fe4bnLp4wrT
+	 fZB9JvR5Y5PpWPDaRYLOoAa4WnVhRr0DdgngTuhBT5vhGW+if5wnRdPQ0RIokHW6Db
+	 9+ku8uAatesGlPzzhF4SMF9C9OSgm9gTYreAQDdI=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 1C1FBF80218;
-	Fri, 27 Nov 2020 07:18:22 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id EBFE3F80218;
+	Fri, 27 Nov 2020 07:46:03 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id C8D5FF8019D; Fri, 27 Nov 2020 07:18:17 +0100 (CET)
+ id 7C254F8019D; Fri, 27 Nov 2020 07:46:01 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: *
-X-Spam-Status: No, score=1.4 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,RCVD_IN_SORBS_WEB,SPF_HELO_NONE,SPF_PASS
- autolearn=disabled version=3.4.0
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 1B218F800EA
- for <alsa-devel@alsa-project.org>; Fri, 27 Nov 2020 07:18:11 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1B218F800EA
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="Z/HoHHKF"
-Received: from localhost (unknown [122.167.146.28])
+X-Spam-Level: ***
+X-Spam-Status: No, score=3.0 required=5.0 tests=PRX_APP_ATTACH, SPF_HELO_NONE, 
+ SPF_PASS autolearn=disabled version=3.4.0
+Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 2ECBE221FD;
- Fri, 27 Nov 2020 06:18:06 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1606457888;
- bh=Rdoi629DjicvHoCKKgi6+NxG/4/rdjkHZDIAQJ5MAJA=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=Z/HoHHKFJX74NRjz9J8FtFtn84vPzICi+RbaYQdzpvSUqgbHYwOxh+oz1TQdL1Adn
- TZI3vXKLc0HpZkba6veJrNtrtHL+8WIwPUBFm4aYFTUuToZg7lZL2ZHGpZAScxv8Xh
- 8WCY65V8QV7qgA+Yrj0CyoqHDtsjcPXrumrTjp3Q=
-Date: Fri, 27 Nov 2020 11:47:58 +0530
-From: Vinod Koul <vkoul@kernel.org>
-To: "Liao, Bard" <bard.liao@intel.com>
-Subject: Re: [PATCH] soundwire: master: use pm_runtime_set_active() on add
-Message-ID: <20201127061758.GK8403@vkoul-mobl>
-References: <20201124130742.10986-1-yung-chuan.liao@linux.intel.com>
- <20201125050528.GC8403@vkoul-mobl>
- <DM6PR11MB4074BC35644527BA45C1CB3CFFF90@DM6PR11MB4074.namprd11.prod.outlook.com>
- <20201126042222.GG8403@vkoul-mobl>
+ by alsa1.perex.cz (Postfix) with ESMTPS id E69EDF800EA
+ for <alsa-devel@alsa-project.org>; Fri, 27 Nov 2020 07:45:54 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E69EDF800EA
+Authenticated-By: 
+X-SpamFilter-By: ArmorX SpamTrap 5.73 with qID 0AR6jo483014456,
+ This message is accepted by code: ctloc85258
+Received: from mail.realtek.com (rtexmb04.realtek.com.tw[172.21.6.97])
+ by rtits2.realtek.com.tw (8.15.2/2.70/5.88) with ESMTPS id 0AR6jo483014456
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT);
+ Fri, 27 Nov 2020 14:45:50 +0800
+Received: from RTEXDAG01.realtek.com.tw (172.21.6.100) by
+ RTEXMB04.realtek.com.tw (172.21.6.97) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2044.4; Fri, 27 Nov 2020 14:45:50 +0800
+Received: from RTEXMBS01.realtek.com.tw (172.21.6.36) by
+ RTEXDAG01.realtek.com.tw (172.21.6.100) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2106.2; Fri, 27 Nov 2020 14:45:49 +0800
+Received: from RTEXMBS01.realtek.com.tw ([fe80::513b:ca8:6e55:15a2]) by
+ RTEXMBS01.realtek.com.tw ([fe80::513b:ca8:6e55:15a2%8]) with mapi id
+ 15.01.2106.003; Fri, 27 Nov 2020 14:45:49 +0800
+From: Kailang <kailang@realtek.com>
+To: "Takashi Iwai (tiwai@suse.de)" <tiwai@suse.de>
+Subject: new codec support of ALC897
+Thread-Topic: new codec support of ALC897
+Thread-Index: AdbEiMRfUeQc6GRDQsC/S9vHMGOxbg==
+Date: Fri, 27 Nov 2020 06:45:49 +0000
+Message-ID: <3b00520f304842aab8291eb8d9191bd8@realtek.com>
+Accept-Language: zh-TW, en-US
+Content-Language: zh-TW
+X-MS-Has-Attach: yes
+X-MS-TNEF-Correlator: 
+x-originating-ip: [172.22.102.96]
+Content-Type: multipart/mixed;
+ boundary="_002_3b00520f304842aab8291eb8d9191bd8realtekcom_"
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20201126042222.GG8403@vkoul-mobl>
-Cc: "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
- "gregkh@linuxfoundation.org" <gregkh@linuxfoundation.org>,
- "ranjani.sridharan@linux.intel.com" <ranjani.sridharan@linux.intel.com>,
- "pierre-louis.bossart@linux.intel.com" <pierre-louis.bossart@linux.intel.com>,
- "hui.wang@canonical.com" <hui.wang@canonical.com>,
- "srinivas.kandagatla@linaro.org" <srinivas.kandagatla@linaro.org>,
- "jank@cadence.com" <jank@cadence.com>, "Lin,
- Mengdong" <mengdong.lin@intel.com>, "Kale, Sanyog R" <sanyog.r.kale@intel.com>,
- Bard Liao <yung-chuan.liao@linux.intel.com>,
- "rander.wang@linux.intel.com" <rander.wang@linux.intel.com>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+Cc: " \(alsa-devel@alsa-project.org\)" <alsa-devel@alsa-project.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -91,39 +84,46 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 26-11-20, 09:52, Vinod Koul wrote:
+--_002_3b00520f304842aab8291eb8d9191bd8realtekcom_
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 
-> > > > @@ -154,7 +163,12 @@ int sdw_master_device_add(struct sdw_bus *bus,
-> > > struct device *parent,
-> > > >  	bus->dev = &md->dev;
-> > > >  	bus->md = md;
-> > > >
-> > > > +	pm_runtime_set_autosuspend_delay(&bus->md->dev,
-> > > SDW_MASTER_SUSPEND_DELAY_MS);
-> > > > +	pm_runtime_use_autosuspend(&bus->md->dev);
-> > > > +	pm_runtime_mark_last_busy(&bus->md->dev);
-> > > > +	pm_runtime_set_active(&bus->md->dev);
-> > > >  	pm_runtime_enable(&bus->md->dev);
-> > > > +	pm_runtime_idle(&bus->md->dev);
-> > > 
-> > > I understand that this needs to be done somewhere but is the core the right
-> > > place. In intel case it maybe a dummy device but other controllers are real
-> > > devices and may not support pm.
-> > > 
-> > > I think better idea would be to do this in respective driver.. that way it
-> > > would be an opt-in for device supporting pm.
-> > 
-> > Should it be put in the same place as pm_runtime_enable?
-> > IMHO, pm_runtime_enable is in the core already and it seems to be harmless
-> > for devices which don't support pm. And pm can still be optional on md's
-> > parent device.
-> 
-> For intel case yes, but world is not only intel, there are md which do
-> not have a parent like sof. they are real sdw controller devices
+Hi Takashi,
 
-Sorry I confused md with real master device ;-) I guess this patch
-should be okay then.. As the real parent will control.
+Attach was the enable patch for ALC897.
 
-Thanks
--- 
-~Vinod
+BR,
+Kailang
+
+--_002_3b00520f304842aab8291eb8d9191bd8realtekcom_
+Content-Type: application/octet-stream; name="0000-alc897-support.patch"
+Content-Description: 0000-alc897-support.patch
+Content-Disposition: attachment; filename="0000-alc897-support.patch";
+	size=1216; creation-date="Fri, 27 Nov 2020 06:42:43 GMT";
+	modification-date="Fri, 27 Nov 2020 06:43:53 GMT"
+Content-Transfer-Encoding: base64
+
+RnJvbSA3ZDYyNjU0NzQxNDRkNzdmM2Y4Zjc0YTM5ZjEwODFjOTRlNTIzNzFhIE1vbiBTZXAgMTcg
+MDA6MDA6MDAgMjAwMQpGcm9tOiBLYWlsYW5nIFlhbmcgPGthaWxhbmdAcmVhbHRlay5jb20+CkRh
+dGU6IEZyaSwgMjcgTm92IDIwMjAgMTQ6Mzk6MjMgKzA4MDAKU3ViamVjdDogW1BBVENIXSBBTFNB
+OiBoZGEvcmVhbHRlayAtIEFkZCBuZXcgY29kZWMgc3VwcG9ydGVkIGZvciBBTEM4OTcKCkVuYWJs
+ZSBuZXcgY29kZWMgc3VwcG9ydGVkIGZvciBBTEM4OTcuCgpTaWduZWQtb2ZmLWJ5OiBLYWlsYW5n
+IFlhbmcgPGthaWxhbmdAcmVhbHRlay5jb20+CmRpZmYgLS1naXQgYS9zb3VuZC9wY2kvaGRhL3Bh
+dGNoX3JlYWx0ZWsuYyBiL3NvdW5kL3BjaS9oZGEvcGF0Y2hfcmVhbHRlay5jCmluZGV4IDM0YWQy
+NGQyYzk3MC4uZmNkMWZiMThlY2U5IDEwMDY0NAotLS0gYS9zb3VuZC9wY2kvaGRhL3BhdGNoX3Jl
+YWx0ZWsuYworKysgYi9zb3VuZC9wY2kvaGRhL3BhdGNoX3JlYWx0ZWsuYwpAQCAtNDQ2LDYgKzQ0
+Niw3IEBAIHN0YXRpYyB2b2lkIGFsY19maWxsX2VhcGRfY29lZihzdHJ1Y3QgaGRhX2NvZGVjICpj
+b2RlYykKIAkJCWFsY191cGRhdGVfY29lZl9pZHgoY29kZWMsIDB4NywgMTw8NSwgMCk7CiAJCWJy
+ZWFrOwogCWNhc2UgMHgxMGVjMDg5MjoKKwljYXNlIDB4MTBlYzA4OTc6CiAJCWFsY191cGRhdGVf
+Y29lZl9pZHgoY29kZWMsIDB4NywgMTw8NSwgMCk7CiAJCWJyZWFrOwogCWNhc2UgMHgxMGVjMDg5
+OToKQEAgLTEwMjE0LDYgKzEwMjE1LDcgQEAgc3RhdGljIGNvbnN0IHN0cnVjdCBoZGFfZGV2aWNl
+X2lkIHNuZF9oZGFfaWRfcmVhbHRla1tdID0gewogCUhEQV9DT0RFQ19FTlRSWSgweDEwZWMwODg4
+LCAiQUxDODg4IiwgcGF0Y2hfYWxjODgyKSwKIAlIREFfQ09ERUNfRU5UUlkoMHgxMGVjMDg4OSwg
+IkFMQzg4OSIsIHBhdGNoX2FsYzg4MiksCiAJSERBX0NPREVDX0VOVFJZKDB4MTBlYzA4OTIsICJB
+TEM4OTIiLCBwYXRjaF9hbGM2NjIpLAorCUhEQV9DT0RFQ19FTlRSWSgweDEwZWMwODk3LCAiQUxD
+ODk3IiwgcGF0Y2hfYWxjNjYyKSwKIAlIREFfQ09ERUNfRU5UUlkoMHgxMGVjMDg5OSwgIkFMQzg5
+OCIsIHBhdGNoX2FsYzg4MiksCiAJSERBX0NPREVDX0VOVFJZKDB4MTBlYzA5MDAsICJBTEMxMTUw
+IiwgcGF0Y2hfYWxjODgyKSwKIAlIREFfQ09ERUNfRU5UUlkoMHgxMGVjMGIwMCwgIkFMQ1MxMjAw
+QSIsIHBhdGNoX2FsYzg4MiksCg==
+
+--_002_3b00520f304842aab8291eb8d9191bd8realtekcom_--

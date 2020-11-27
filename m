@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id CDE4A2C6198
-	for <lists+alsa-devel@lfdr.de>; Fri, 27 Nov 2020 10:22:46 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5458E2C61BA
+	for <lists+alsa-devel@lfdr.de>; Fri, 27 Nov 2020 10:32:46 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 723551832;
-	Fri, 27 Nov 2020 10:21:56 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 723551832
+	by alsa0.perex.cz (Postfix) with ESMTPS id F01711836;
+	Fri, 27 Nov 2020 10:31:55 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz F01711836
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1606468966;
-	bh=MYKZgNnZxY/1xmIUX1eaBCMC34vKzmS3Uyo9N7H/QtA=;
+	s=default; t=1606469566;
+	bh=kibr6+Lx4ptRkOsSeMP22W1KYJ9SOycF5Ucp/9yFzic=;
 	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=o7AR/raTSyaGVzc8bbn9fz/mRknELCDf8bNgFFjfFPblZhh+jOsu4NwNyeSn3NWMZ
-	 peJjcocCuAGB4RCmuETmUNQAZeiuhcqriWfsP6WhtsC+Cx+dRXE4bz23AxKBdRZE39
-	 iVo6WYKaP8I5kcRcbUUcZwOD6PkX4dsGGUOcZbPc=
+	b=vbtH7oSbzEm0/7g2YKMMmSG1iGtgM0kRKfdcEXUdbiOASbb5TRlyxocXiHYl4Pprq
+	 AqNN441mjUI54DMuz5gPyZyJR91g9hMw3EBDlhPINjwLs7nLLxF4uuuLq6fubHSo8y
+	 LlbSoLdQqf8iQSWHIjwIEUoVAmRiZ1sAwP32SHxs=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id E9172F80218;
-	Fri, 27 Nov 2020 10:21:11 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 6BCD2F800EA;
+	Fri, 27 Nov 2020 10:31:11 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 23CCAF8019D; Fri, 27 Nov 2020 10:21:10 +0100 (CET)
+ id 0820FF8019D; Fri, 27 Nov 2020 10:31:09 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_MSPIKE_H3,
@@ -33,21 +33,21 @@ X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_MSPIKE_H3,
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id DE7DCF8015A
- for <alsa-devel@alsa-project.org>; Fri, 27 Nov 2020 10:21:01 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DE7DCF8015A
+ by alsa1.perex.cz (Postfix) with ESMTPS id 97B82F800EA
+ for <alsa-devel@alsa-project.org>; Fri, 27 Nov 2020 10:31:03 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 97B82F800EA
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 59444AC2F;
- Fri, 27 Nov 2020 09:21:01 +0000 (UTC)
-Date: Fri, 27 Nov 2020 10:20:59 +0100
-Message-ID: <s5hblfjjguc.wl-tiwai@suse.de>
+ by mx2.suse.de (Postfix) with ESMTP id 21D81AC0C;
+ Fri, 27 Nov 2020 09:31:03 +0000 (UTC)
+Date: Fri, 27 Nov 2020 10:31:03 +0100
+Message-ID: <s5ha6v3jgdk.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
-To: Ben Bell <bjb-alsa-devel@deus.net>
-Subject: Re: Behringer WING usb audio - cyclic xruns dependent on
- periods/buffers
-In-Reply-To: <20201126180612.E3E0CF80166@alsa1.perex.cz>
-References: <20201126180612.E3E0CF80166@alsa1.perex.cz>
+To: Micha <debian@e-mail.de>
+Subject: Re: Help me debug snd_emu10k1 - Sound Blaster Audigy Series only
+ working in 50% of the boots
+In-Reply-To: <f7053c2bcfc6698b693102f632daa24795b6fdfa.camel@e-mail.de>
+References: <f7053c2bcfc6698b693102f632daa24795b6fdfa.camel@e-mail.de>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
  FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
  (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
@@ -69,89 +69,81 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Thu, 26 Nov 2020 19:06:04 +0100,
-Ben Bell wrote:
-> 
-> I've got a Behringer WING digital mixer which is equipped with a USB
-> interface supporting 48 in, 48 out at 44.1 or 48kHz. It's plugged into a
-> USB3 interface and for the most part it seems to work well as a class-compliant
-> audio interface, but I'm struggling to eliminate xruns and it's starting to
-> feel either driver or hardware quirk related issue.
-> 
-> I've done all the usual things -- I'm running a PREEMPT_RT kernel, set up
-> the realtime priorities of Jack and the relevant USB IRQ to no avail. I'm
-> doing most of the debugging remotely over ssh with X shutdown and most
-> other processes on the system stopped. There's nothing plugged into the
-> computer beyond network, keyboard, mouse and the audio interface.
-> 
-> I'm currently testing on kernel 5.10.0-rc5 with preempt-rt patches, but I've
-> previously seen the same things on 5.4-rt (Debian backports) and 5.8
-> (self-compiled).
-> 
-> The xruns are characterised by bursts of "retire_capture_urb" warnings in
-> the kernel logs (and in particular the frame status for everything in those
-> URBs is EXDEV, meaning I think that the frames haven't been consumed by the
-> time it's retired). I've patched sound/driver/pcm.c to provide me with a bit
-> more debugging information and it looks like usually it's almost always
-> between 7-10 consecutive calls to retire_capture_urb that are affected.
-> 
-> The bursts of retire_capture_urb warnings seem roughly cyclic, with a
-> cycle time that is dependent on the combination of the frames/period setting
-> and the number of periods per buffer, though it doesn't appear to be a
-> strictly linear thing: 512/2 (~170s cycle); 256/2 (~94s); 128/3 (~65s);
-> 64/13 (~270s). I can't immediately see any definitive smoking gun in the urb
-> or interrupt counts, but there is some grouping in the timings between
-> the xruns. Taking 64 frames, 5 periods, it's usually 50s, but sometimes 60s:
-> 
->  21:47:57 50s since xrun 4 
->  21:48:47 50s since xrun 5 
->  21:49:46 59s since xrun 6 
->  21:50:46 60s since xrun 7 
->  21:51:36 50s since xrun 8 
->  21:52:36 60s since xrun 9 
->  21:53:36 60s since xrun 10 
->  21:54:37 61s since xrun 11 
->  21:55:27 50s since xrun 12 
->  21:56:27 60s since xrun 13 
->  21:57:27 60s since xrun 14 
->  21:58:17 50s since xrun 15 
->  21:59:16 59s since xrun 16 
->  22:00:06 50s since xrun 17 
->  22:00:56 50s since xrun 18 
->  ...
-> 
-> If I count the URB numbers (sorry, I'm shaky on the terminology, but I'm
-> counting each URB which is retired) I often (but not always) see the same
-> number of URBs passing between xrun bursts. Currently at 64 frames/5
-> periods, it's often exactly 50042 or 49923 urbs between bursts.
-> 
-> The delay between starting Jack and encountering the first burst is not
-> predictable -- it's not just a whole cycle -- but stopping jack for e.g 30s
-> then starting again delays the next burst by the same amount. So it does seem
-> related to something in the audio streaming rather than anything else going on
-> on the system interfering. It's as if something is slowly slipping out of sync
-> between the Wing and the kernel until they need to resync, but I don't really
-> know enough about USB to have any deeper insight.
-> 
-> All the tests above happen to be at 44.1kHz with the Wing set to 48 in,
-> 48 out, but changing to 48kHz or 2/2 IO doesn't seem to cure anything.
-> 
-> One more data point which may not be relevant: if I switch off or unplug
-> the Wing while Jack is running, the system gradually locks up over a period of
-> a few seconds. I can get something out of the console briefly afterwards but
-> within about ten seconds it's completely unresponsive. I imagine that pulling
-> out a USB device from a realtime thread isn't a kind thing to do, but I don't
-> recall this happening with other interfaces.
-> 
-> Any help or insights into where I should be looking (I'm a newbie in kernel
-> space) appreciated. If someone wants remote access to the box to investigate
-> in realtime we could probably figure something out.
+On Mon, 23 Nov 2020 18:01:53 +0100,
+Micha wrote:
+> 20:30:00 CET. --
+> Nov 02 18:03:14 sysiphus kernel: snd_emu10k1 0000:0a:00.0: enabling
+> device (0000 -> 0001)
+> Nov 02 18:03:14 sysiphus kernel: snd_emu10k1 0000:0a:00.0: Audigy2
+> value: Special config.
+> Nov 02 18:03:15 sysiphus kernel: snd_emu10k1 0000:0a:00.0: AC'97 0 does
+> not respond - RESET
+> Nov 02 18:03:15 sysiphus kernel: snd_emu10k1 0000:0a:00.0: AC'97 0
+> access is not valid [0x0], removing mixer.
+> Nov 02 18:03:15 sysiphus kernel: snd_emu10k1: probe of 0000:0a:00.0
+> failed with error -5
 
-In general you should avoid 44.1kHz if you want a small period size
-for a realtime process on USB-audio.  With 44.1kHz, the packet size
-can't be fixed in integer, and the ISO transfer requires variable
-packet sizes.  OTOH, ALSA API requires the fixed period size, hence
-it'll lead to inconsistencies occasionally.
+IIRC, this is a very long-standing problem, and it depends on the
+motherboard.
 
+I'd start trying to increase the delay in the probe.  Although I
+thought that this didn't help in the past, maybe still worth to try.
+
+Independently from the emu10k1 probe failure, the following Oops has
+to be fixed:
+
+> [  232.428668] snd_emu10k1 0000:0a:00.0: Audigy2 value: Special config.
+> [  233.444961] snd_emu10k1 0000:0a:00.0: AC'97 0 does not respond -
+> RESET
+> [  233.444977] snd_emu10k1 0000:0a:00.0: AC'97 0 access is not valid
+> [0x0], removing mixer.
+> [  233.446714] snd_emu10k1: probe of 0000:0a:00.0 failed with error -5
+> [  943.295169] BUG: kernel NULL pointer dereference, address:
+> 0000000000000000
+> [  943.295176] #PF: supervisor instruction fetch in kernel mode
+> [  943.295179] #PF: error_code(0x0010) - not-present page
+> [  943.295181] PGD 0 P4D 0 
+> [  943.295187] Oops: 0010 [#1] SMP PTI
+> [  943.295193] CPU: 1 PID: 7669 Comm: grep Not tainted 5.9.0-2-amd64 #1
+> Debian 5.9.6-1
+> [  943.295196] Hardware name: System manufacturer System Product
+> Name/PRIME Z270-K, BIOS 1207 06/22/2018
+> [  943.295201] RIP: 0010:0x0
+> [  943.295206] Code: Unable to access opcode bytes at RIP
+> 0xffffffffffffffd6.
+> [  943.295209] RSP: 0018:ffffb76ac8f0fe40 EFLAGS: 00010203
+> [  943.295213] RAX: 0000000000000000 RBX: 0000000000000000 RCX:
+> 0000000000000030
+> [  943.295216] RDX: fffffffffffecde8 RSI: 0000000000000001 RDI:
+> ffff97b0d3b23348
+> [  943.295218] RBP: ffffb76ac8f0ff10 R08: fffffffffffecde8 R09:
+> ffffffffffffffff
+> [  943.295221] R10: fffffffffffecde8 R11: 0000000000000000 R12:
+> 0000000000000001
+> [  943.295223] R13: ffff97b0d3b23370 R14: ffff97b0d3b23348 R15:
+> ffff97b0d3b23380
+> [  943.295227] FS:  00007f9abbdc4b80(0000) GS:ffff97b226c80000(0000)
+> knlGS:0000000000000000
+> [  943.295230] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+> [  943.295233] CR2: ffffffffffffffd6 CR3: 000000028e3a6003 CR4:
+> 00000000003706e0
+> [  943.295236] DR0: 0000000000000000 DR1: 0000000000000000 DR2:
+> 0000000000000000
+> [  943.295238] DR3: 0000000000000000 DR6: 00000000fffe0ff0 DR7:
+> 0000000000000400
+> [  943.295240] Call Trace:
+> [  943.295251]  seq_read+0xb4/0x460
+> [  943.295258]  full_proxy_read+0x53/0x80
+> [  943.295264]  vfs_read+0x9c/0x180
+> [  943.295270]  ksys_read+0x5f/0xe0
+> [  943.295277]  do_syscall_64+0x33/0x80
+> [  943.295284]  entry_SYSCALL_64_after_hwframe+0x44/0xa9
+
+I suppose this is something to do with emu10k1, but do you know what
+file read triggers this?  If it always happens after the probe
+failure, it should be easy to identify.
+
+
+thanks,
 
 Takashi

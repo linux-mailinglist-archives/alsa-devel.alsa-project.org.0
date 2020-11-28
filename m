@@ -2,82 +2,82 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1CC212C6C81
-	for <lists+alsa-devel@lfdr.de>; Fri, 27 Nov 2020 21:20:57 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 06C4E2C6EE0
+	for <lists+alsa-devel@lfdr.de>; Sat, 28 Nov 2020 06:01:25 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 932741888;
-	Fri, 27 Nov 2020 21:20:06 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 932741888
+	by alsa0.perex.cz (Postfix) with ESMTPS id 895AC173E;
+	Sat, 28 Nov 2020 06:00:34 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 895AC173E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1606508456;
-	bh=o3RTkjTyHvzrrCB4moRhD+SXP7lFjO4qLgZ4zpDkqEw=;
-	h=In-Reply-To:References:Subject:From:To:Date:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=hz+54yHkAAbspAXSdRBIHXSOEihfcHHC7fNY9wc/xjdna64m+Muh2kbL45ORh8KcI
-	 9iuOrfl+HOblTPb3317gxNOJn69J8ljTnL6No3PcpOmyXZtKoxSCIXINnP/YSKlkd3
-	 TU4AIkQ/As/rooL1+tEHU71t0tI3CDFJNT4jSXAE=
+	s=default; t=1606539684;
+	bh=WMY2k5GlIsTsYatUCPWuhdEoH1HixEFJHerHG2aonqk=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=Fsso4RJLrFT4IoGVeG19kzBn9a7pDMjgptmBFw1rM+7fCNgZOFZxE6I8XjK6ko1ou
+	 WL7cFYKukm00vVzFM5kKHI41I03hq4VSfJXcIwI/VlmLWiUF/C9gmB+KTcIVyK/3pC
+	 gO5RpsQrwE5bBH3Of1kqeMzyBsfYMXQHaZPOMTow=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 202AFF800E0;
-	Fri, 27 Nov 2020 21:19:22 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id EE211F80166;
+	Sat, 28 Nov 2020 05:59:49 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id BEA84F8019D; Fri, 27 Nov 2020 21:19:19 +0100 (CET)
+ id 5D566F80166; Sat, 28 Nov 2020 05:59:45 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled
- version=3.4.0
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
+Received: from z5.mailgun.us (z5.mailgun.us [104.130.96.5])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 3F962F800E0
- for <alsa-devel@alsa-project.org>; Fri, 27 Nov 2020 21:19:16 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3F962F800E0
+ by alsa1.perex.cz (Postfix) with ESMTPS id EE18EF8015A
+ for <alsa-devel@alsa-project.org>; Sat, 28 Nov 2020 05:59:38 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EE18EF8015A
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="E1/Cvts2"
-Received: from kernel.org (unknown [104.132.1.79])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 2CB3F21D7A;
- Fri, 27 Nov 2020 20:19:14 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1606508354;
- bh=o3RTkjTyHvzrrCB4moRhD+SXP7lFjO4qLgZ4zpDkqEw=;
- h=In-Reply-To:References:Subject:From:Cc:To:Date:From;
- b=E1/Cvts2AleC6juqrgkFNASwChKaHV22sMpl7ga1RdwHhzr9Sxg1//qQRacMN5vTr
- 09SVpnPFbjA+/qQ+ocmDj0MCwXooOtNQMD0BH/9XJDSb0vcG51kZhsT47CJZAJVzyK
- cOG8kTYQMOco+n84s865MMiBAncUY4edGYJUV4ls=
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-In-Reply-To: <20201125141505.GA77733@kozik-lap>
-References: <20201115170950.304460-1-krzk@kernel.org>
- <20201115170950.304460-2-krzk@kernel.org>
- <160568531746.60232.15496517544781609246@swboyd.mtv.corp.google.com>
- <20201118074812.GA5803@kozik-lap>
- <160626309137.2717324.9318376048083763040@swboyd.mtv.corp.google.com>
- <20201125141505.GA77733@kozik-lap>
-Subject: Re: [PATCH 1/3] clk: fix redefinition of clk_prepare on MIPS with
- HAVE_LEGACY_CLK
-From: Stephen Boyd <sboyd@kernel.org>
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Date: Fri, 27 Nov 2020 12:19:12 -0800
-Message-ID: <160650835295.2717324.6223337132204167294@swboyd.mtv.corp.google.com>
-User-Agent: alot/0.9.1
-Cc: devel@driverdev.osuosl.org, Jernej Skrabec <jernej.skrabec@siol.net>,
- linux-kernel@vger.kernel.org, alsa-devel@alsa-project.org,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Michael Turquette <mturquette@baylibre.com>, Takashi Iwai <tiwai@suse.com>,
- Liam Girdwood <lgirdwood@gmail.com>, Maxime Ripard <mripard@kernel.org>,
- Chen-Yu Tsai <wens@csie.org>, Mark Brown <broonie@kernel.org>,
- Sakari Ailus <sakari.ailus@linux.intel.com>,
- Mauro Carvalho Chehab <mchehab@kernel.org>, linux-clk@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-media@vger.kernel.org
+ dkim=pass (1024-bit key) header.d=mg.codeaurora.org
+ header.i=@mg.codeaurora.org header.b="cn6aHpI8"
+DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
+ q=dns/txt; 
+ s=smtp; t=1606539579; h=Message-Id: Date: Subject: Cc: To: From:
+ Sender; bh=wcqjI/+rINfs3XtVEJAhIWB2xeJ2hiBW8kM8a+M17/w=;
+ b=cn6aHpI809lQY03I2Y3jhiAZ2HncVW8Kqb9vytYxa8uLNdNdCE9VfKbP8hqRKm4AFJNw5U4g
+ Ts7tTX7cFpc16sT24FGkc9lj4Tl9x8jSLjvIAf4Eq8DqAhRgRFex4fyi/QXGcJfS3x6Uvcq3
+ WGbX/ZtYa3mrMSFFTBfpc6+py14=
+X-Mailgun-Sending-Ip: 104.130.96.5
+X-Mailgun-Sid: WyI4ZmE2ZSIsICJhbHNhLWRldmVsQGFsc2EtcHJvamVjdC5vcmciLCAiYmU5ZTRhIl0=
+Received: from smtp.codeaurora.org
+ (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171]) by
+ smtp-out-n08.prod.us-west-2.postgun.com with SMTP id
+ 5fc1d93822377520eea244de (version=TLS1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Sat, 28 Nov 2020 04:59:36
+ GMT
+Received: by smtp.codeaurora.org (Postfix, from userid 1001)
+ id 9F273C433ED; Sat, 28 Nov 2020 04:59:36 +0000 (UTC)
+Received: from hyd-lnxbld210.qualcomm.com (unknown [202.46.22.19])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-SHA256 (128/128 bits))
+ (No client certificate requested) (Authenticated sender: srivasam)
+ by smtp.codeaurora.org (Postfix) with ESMTPSA id 8F938C433C6;
+ Sat, 28 Nov 2020 04:59:31 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 smtp.codeaurora.org 8F938C433C6
+Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
+ dmarc=none (p=none dis=none) header.from=codeaurora.org
+Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
+ spf=fail smtp.mailfrom=srivasam@codeaurora.org
+From: Srinivasa Rao Mandadapu <srivasam@codeaurora.org>
+To: agross@kernel.org, bjorn.andersson@linaro.org, lgirdwood@gmail.com,
+ broonie@kernel.org, robh+dt@kernel.org, plai@codeaurora.org,
+ bgoswami@codeaurora.org, perex@perex.cz, tiwai@suse.com,
+ srinivas.kandagatla@linaro.org, rohitkr@codeaurora.org,
+ linux-arm-msm@vger.kernel.org, alsa-devel@alsa-project.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: [PATCH v4 0/2] Platform driver update to support playback recover
+ after resume
+Date: Sat, 28 Nov 2020 10:29:17 +0530
+Message-Id: <1606539559-4277-1-git-send-email-srivasam@codeaurora.org>
+X-Mailer: git-send-email 2.7.4
+Cc: Srinivasa Rao Mandadapu <srivasam@codeaurora.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -93,16 +93,22 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Quoting Krzysztof Kozlowski (2020-11-25 06:15:05)
-> On Tue, Nov 24, 2020 at 04:11:31PM -0800, Stephen Boyd wrote:
-> >=20
-> > Ok so this patch isn't necessary then?
->=20
-> For this particular build failure - it is not necessary anymore.
->=20
-> However there might more of such errors - just not discovered yet. Also,
-> the clock bulk API has such ifdefs so it kind of symmetrical and
-> consistent approach.
->=20
+This patch set is to add support for playback recover after hard suspend and resume.
+It includes:
+1. Reverting part of previous commit, which is for handling registers invalid state
+after hard suspend.
+2. Adding pm ops in component driver and do regcache sync.
 
-Ok. Patches always welcome.
+Srinivasa Rao Mandadapu (2):
+  Partially revert ASoC: qcom: Fix enabling BCLK and LRCLK in LPAIF
+    invalid state
+  ASoC: qcom: Add support for playback recover after resume
+
+ sound/soc/qcom/lpass-cpu.c      | 20 ++----------------
+ sound/soc/qcom/lpass-platform.c | 46 +++++++++++++++++++++++++++++++----------
+ 2 files changed, 37 insertions(+), 29 deletions(-)
+
+-- 
+Qualcomm India Private Limited, on behalf of Qualcomm Innovation Center, Inc.,
+is a member of Code Aurora Forum, a Linux Foundation Collaborative Project.
+

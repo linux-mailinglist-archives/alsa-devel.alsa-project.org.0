@@ -2,88 +2,52 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 643142C6EE3
-	for <lists+alsa-devel@lfdr.de>; Sat, 28 Nov 2020 06:02:15 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0FFBC2C6F4F
+	for <lists+alsa-devel@lfdr.de>; Sat, 28 Nov 2020 09:42:32 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 0A09E1888;
-	Sat, 28 Nov 2020 06:01:25 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0A09E1888
+	by alsa0.perex.cz (Postfix) with ESMTPS id 892BE1871;
+	Sat, 28 Nov 2020 09:41:41 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 892BE1871
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1606539735;
-	bh=YIPTXVkUCo+uIY4tQrMZQOZadLQjv0qfIUXUZ6jSVKI=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=h3JFYmskYxSVCbOm+fgV1TVKjJrxmfCQeAykzJvQzwfHezRiwpyq4jtF3nBBvcQjt
-	 n7+kE7eBb/70FRHFCvMhQ5arTzJbgdrG6YddGgYukkvVNIQkLpU404zhqtiAFt9V1i
-	 93HZxMMHA5vkqj3J4NJKfrwkrcLLOYVSrY3HS8lo=
+	s=default; t=1606552951;
+	bh=qnxhb/EJHOGgTsckRxn88ZKtNsa4tXG/NU4kfLXI5QQ=;
+	h=From:To:Subject:Date:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=A6z8vDhfY6EfFp08zkb7GYqbadjC9NORps3+x3449ZbSMWPuwNvLz2ftH9yBIqjg/
+	 ffV46Hr7btlPGDT+Or/+RJQRYxSG4JXdWiIgKgx5zB3Ie3ZKFRX5o/+9xF9U+zeVE4
+	 +gtcLwFqCCNp/TbYUnYijd0wbIBmoHqFeHEXzFAU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 367DEF802C4;
-	Sat, 28 Nov 2020 06:00:20 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id E54ABF80165;
+	Sat, 28 Nov 2020 09:40:56 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 39F69F804B4; Sat, 28 Nov 2020 05:59:57 +0100 (CET)
+ id CE6C8F80166; Sat, 28 Nov 2020 09:40:53 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_DNSWL_BLOCKED,
  RCVD_IN_MSPIKE_H3,RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
  autolearn=disabled version=3.4.0
-Received: from m42-4.mailgun.net (m42-4.mailgun.net [69.72.42.4])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 36ABAF8016A
- for <alsa-devel@alsa-project.org>; Sat, 28 Nov 2020 05:59:49 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 36ABAF8016A
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=mg.codeaurora.org
- header.i=@mg.codeaurora.org header.b="CEgIqGKY"
-DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
- q=dns/txt; 
- s=smtp; t=1606539589; h=References: In-Reply-To: Message-Id: Date:
- Subject: Cc: To: From: Sender;
- bh=OiSamD4FX8ODABpnJw+lOaeR/Fh5FfWT/1adTfIH7Zw=;
- b=CEgIqGKYUeg1z2TYndL8f2+CtU8hTaiyQJpIssZhnTXbpC1moh4j1pcaFp7VRO0TsfTV544F
- z8ji1syp1r/13R9AXweJowvebhXQCoEX4hNIdgglt5K/mR0mozDWy5AEaE3lXAIwrTht/L3X
- subhXHvG1w+fLGAHznRN+jjDFm8=
-X-Mailgun-Sending-Ip: 69.72.42.4
-X-Mailgun-Sid: WyI4ZmE2ZSIsICJhbHNhLWRldmVsQGFsc2EtcHJvamVjdC5vcmciLCAiYmU5ZTRhIl0=
-Received: from smtp.codeaurora.org
- (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171]) by
- smtp-out-n04.prod.us-west-2.postgun.com with SMTP id
- 5fc1d94422377520eea24d61 (version=TLS1.2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Sat, 28 Nov 2020 04:59:48
- GMT
-Received: by smtp.codeaurora.org (Postfix, from userid 1001)
- id 4D366C43464; Sat, 28 Nov 2020 04:59:48 +0000 (UTC)
-Received: from hyd-lnxbld210.qualcomm.com (unknown [202.46.22.19])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-SHA256 (128/128 bits))
- (No client certificate requested) (Authenticated sender: srivasam)
- by smtp.codeaurora.org (Postfix) with ESMTPSA id 93EF6C433ED;
- Sat, 28 Nov 2020 04:59:42 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 smtp.codeaurora.org 93EF6C433ED
-Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
- dmarc=none (p=none dis=none) header.from=codeaurora.org
-Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
- spf=fail smtp.mailfrom=srivasam@codeaurora.org
-From: Srinivasa Rao Mandadapu <srivasam@codeaurora.org>
-To: agross@kernel.org, bjorn.andersson@linaro.org, lgirdwood@gmail.com,
- broonie@kernel.org, robh+dt@kernel.org, plai@codeaurora.org,
- bgoswami@codeaurora.org, perex@perex.cz, tiwai@suse.com,
- srinivas.kandagatla@linaro.org, rohitkr@codeaurora.org,
- linux-arm-msm@vger.kernel.org, alsa-devel@alsa-project.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: [PATCH v4 2/2] ASoC: qcom: Add support for playback recover after
- resume
-Date: Sat, 28 Nov 2020 10:29:19 +0530
-Message-Id: <1606539559-4277-3-git-send-email-srivasam@codeaurora.org>
-X-Mailer: git-send-email 2.7.4
-In-Reply-To: <1606539559-4277-1-git-send-email-srivasam@codeaurora.org>
-References: <1606539559-4277-1-git-send-email-srivasam@codeaurora.org>
-Cc: V Sujith Kumar Reddy <vsujithk@codeaurora.org>,
- Srinivasa Rao Mandadapu <srivasam@codeaurora.org>
+ by alsa1.perex.cz (Postfix) with ESMTPS id E5737F800EA
+ for <alsa-devel@alsa-project.org>; Sat, 28 Nov 2020 09:40:45 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E5737F800EA
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id 36AC6ABD7
+ for <alsa-devel@alsa-project.org>; Sat, 28 Nov 2020 08:40:40 +0000 (UTC)
+From: Takashi Iwai <tiwai@suse.de>
+To: alsa-devel@alsa-project.org
+Subject: [PATCH] ALSA: usb-audio: Add support for Pioneer DJ DDJ-RR controller
+Date: Sat, 28 Nov 2020 09:40:35 +0100
+Message-Id: <20201128084035.2958-1-tiwai@suse.de>
+X-Mailer: git-send-email 2.26.2
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -99,69 +63,88 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-To support playback continuation after hard suspend(bypass powerd)
-and resume add component driver ops and do regcache sync.
+From: Daniel Martin <dmanlfc@gmail.com>
 
-Signed-off-by: V Sujith Kumar Reddy <vsujithk@codeaurora.org>
-Signed-off-by: Srinivasa Rao Mandadapu <srivasam@codeaurora.org>
+This patch allows the Pioneer DJ DDJ-RR to be seen as a USB audio
+device under Linux and therefore usable in such applications as
+Mixxx.
+
+Tested Master Audio out, headphones (both output jacks) and microphone
+input. All work perfectly.
+
+Signed-off-by: Daniel Martin <dmanlfc@gmail.com>
+Signed-off-by: Takashi Iwai <tiwai@suse.de>
 ---
- sound/soc/qcom/lpass-platform.c | 35 +++++++++++++++++++++++++++++++++++
- 1 file changed, 35 insertions(+)
+ sound/usb/quirks-table.h | 56 ++++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 56 insertions(+)
 
-diff --git a/sound/soc/qcom/lpass-platform.c b/sound/soc/qcom/lpass-platform.c
-index 0e71899..12764a8 100644
---- a/sound/soc/qcom/lpass-platform.c
-+++ b/sound/soc/qcom/lpass-platform.c
-@@ -827,6 +827,39 @@ static void lpass_platform_pcm_free(struct snd_soc_component *component,
+diff --git a/sound/usb/quirks-table.h b/sound/usb/quirks-table.h
+index 85b99c6d3c61..7454011f6006 100644
+--- a/sound/usb/quirks-table.h
++++ b/sound/usb/quirks-table.h
+@@ -3523,6 +3523,62 @@ AU0828_DEVICE(0x2040, 0x7270, "Hauppauge", "HVR-950Q"),
  	}
- }
+ },
  
-+static int lpass_platform_pcmops_suspend(struct snd_soc_component *component)
 +{
-+	struct lpass_data *drvdata = snd_soc_component_get_drvdata(component);
-+	struct regmap *map;
-+	unsigned int dai_id = component->id;
++	/*
++	 * PIONEER DJ DDJ-RR
++	 * PCM is 6 channels out & 4 channels in @ 44.1 fixed
++	 */
++	USB_DEVICE_VENDOR_SPEC(0x2b73, 0x000d),
++	.driver_info = (unsigned long) &(const struct snd_usb_audio_quirk) {
++		.ifnum = QUIRK_ANY_INTERFACE,
++		.type = QUIRK_COMPOSITE,
++		.data = (const struct snd_usb_audio_quirk[]) {
++			{
++				.ifnum = 0,
++				.type = QUIRK_AUDIO_FIXED_ENDPOINT,
++				.data = &(const struct audioformat) {
++					.formats = SNDRV_PCM_FMTBIT_S24_3LE,
++					.channels = 6, //Master, Headphones & Booth
++					.iface = 0,
++					.altsetting = 1,
++					.altset_idx = 1,
++					.endpoint = 0x01,
++					.ep_attr = USB_ENDPOINT_XFER_ISOC|
++						   USB_ENDPOINT_SYNC_ASYNC,
++					.rates = SNDRV_PCM_RATE_44100,
++					.rate_min = 44100,
++					.rate_max = 44100,
++					.nr_rates = 1,
++					.rate_table = (unsigned int[]) { 44100 }
++				}
++			},
++			{
++				.ifnum = 0,
++				.type = QUIRK_AUDIO_FIXED_ENDPOINT,
++				.data = &(const struct audioformat) {
++					.formats = SNDRV_PCM_FMTBIT_S24_3LE,
++					.channels = 4, //2x RCA inputs (CH1 & CH2)
++					.iface = 0,
++					.altsetting = 1,
++					.altset_idx = 1,
++					.endpoint = 0x82,
++					.ep_attr = USB_ENDPOINT_XFER_ISOC|
++						 USB_ENDPOINT_SYNC_ASYNC|
++						 USB_ENDPOINT_USAGE_IMPLICIT_FB,
++					.rates = SNDRV_PCM_RATE_44100,
++					.rate_min = 44100,
++					.rate_max = 44100,
++					.nr_rates = 1,
++					.rate_table = (unsigned int[]) { 44100 }
++				}
++			},
++			{
++				.ifnum = -1
++			}
++		}
++	}
++},
 +
-+	if (dai_id == LPASS_DP_RX)
-+		map = drvdata->hdmiif_map;
-+	else
-+		map = drvdata->lpaif_map;
-+
-+	regcache_cache_only(map, true);
-+	regcache_mark_dirty(map);
-+
-+	return 0;
-+}
-+
-+static int lpass_platform_pcmops_resume(struct snd_soc_component *component)
-+{
-+	struct lpass_data *drvdata = snd_soc_component_get_drvdata(component);
-+	struct regmap *map;
-+	unsigned int dai_id = component->id;
-+
-+	if (dai_id == LPASS_DP_RX)
-+		map = drvdata->hdmiif_map;
-+	else
-+		map = drvdata->lpaif_map;
-+
-+	regcache_cache_only(map, false);
-+	return regcache_sync(map);
-+}
-+
-+
- static const struct snd_soc_component_driver lpass_component_driver = {
- 	.name		= DRV_NAME,
- 	.open		= lpass_platform_pcmops_open,
-@@ -839,6 +872,8 @@ static const struct snd_soc_component_driver lpass_component_driver = {
- 	.mmap		= lpass_platform_pcmops_mmap,
- 	.pcm_construct	= lpass_platform_pcm_new,
- 	.pcm_destruct	= lpass_platform_pcm_free,
-+	.suspend		= lpass_platform_pcmops_suspend,
-+	.resume			= lpass_platform_pcmops_resume,
- 
- };
- 
+ {
+ 	/*
+ 	 * Pioneer DJ DJM-900NXS2
 -- 
-Qualcomm India Private Limited, on behalf of Qualcomm Innovation Center, Inc.,
-is a member of Code Aurora Forum, a Linux Foundation Collaborative Project.
+2.26.2
 

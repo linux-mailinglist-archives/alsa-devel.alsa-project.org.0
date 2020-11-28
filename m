@@ -2,61 +2,73 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A32D52C6F63
-	for <lists+alsa-devel@lfdr.de>; Sat, 28 Nov 2020 10:37:48 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id D4F0C2C6F8E
+	for <lists+alsa-devel@lfdr.de>; Sat, 28 Nov 2020 14:27:44 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 2D5EC188E;
-	Sat, 28 Nov 2020 10:36:58 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2D5EC188E
+	by alsa0.perex.cz (Postfix) with ESMTPS id 4AB1117AB;
+	Sat, 28 Nov 2020 14:26:54 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4AB1117AB
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1606556268;
-	bh=tH9oT5GFm+Zb3ApfrJpzLMt1XxD8LQs7fU4v/O72d3w=;
-	h=Date:From:To:Subject:References:In-Reply-To:List-Id:
+	s=default; t=1606570064;
+	bh=wlRpR5k7tSed5+Y/LjhaD1wUPthFRlO6ecBs7oG5hHE=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=nLcMN4jYpgbLG5qlmRNcvs+5n5GXw6zz7p7CktpyfQitQOutmGjQ2WZxKu8/dbGtc
-	 7JL6GkSBq6JgpxK9VVy5YlOkhrYjoxvkECx5y1GOGt0cJcbjyKFyJHRtGcU+4KxEKb
-	 JuGB98Vi9NPRtvggv+Xft8e82Fo8qwBSK2N7JJs4=
+	b=UVWqujm+YsC+9UUr1HM+2hzHNNXtUpuXxw1co7WCEwoqbPuhSExk4juvTFGoNS/ob
+	 oNZxkIvfEdRQHZjCd56zUCyEeUtMe9ALx2lsQPlS4g+ERZG7TFJRcWGO0oYqnWeWs4
+	 VKqaUN9PfULir2gOzYw6IBrd2Wkspu8NyVhnbqGo=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 98125F80167;
-	Sat, 28 Nov 2020 10:36:13 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id B251CF80165;
+	Sat, 28 Nov 2020 14:26:09 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 48C0CF80166; Sat, 28 Nov 2020 10:36:12 +0100 (CET)
+ id 703BCF80166; Sat, 28 Nov 2020 14:26:08 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.1 required=5.0 tests=MISSING_MID,SPF_HELO_NONE,
- SPF_PASS autolearn=disabled version=3.4.0
-Received: from roobarb.jellybean.co.uk (roobarb.crazydogs.org [46.235.224.144])
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 9A6E5F800D0
+ for <alsa-devel@alsa-project.org>; Sat, 28 Nov 2020 14:26:01 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9A6E5F800D0
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="qyXpF6Sp"
+Received: from archlinux (cpc108967-cmbg20-2-0-cust86.5-4.cable.virginm.net
+ [81.101.6.87])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id D203DF800D0
- for <alsa-devel@alsa-project.org>; Sat, 28 Nov 2020 10:36:06 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D203DF800D0
-Received: from localhost ([127.0.0.1])
- by roobarb.jellybean.co.uk with esmtp (Exim 4.92)
- (envelope-from <bjb-alsa-devel@deus.net>)
- id 1kiwe8-0001HY-GQ; Sat, 28 Nov 2020 09:36:00 +0000
-Date: Sat, 28 Nov 2020 09:36:00 +0000
-From: Ben Bell <bjb-alsa-devel@deus.net>
-To: Takashi Iwai <tiwai@suse.de>, alsa-devel@alsa-project.org
-Subject: Re: Behringer WING usb audio - cyclic xruns dependent on
- periods/buffers
-References: <20201126180612.E3E0CF80166@alsa1.perex.cz>
- <s5hblfjjguc.wl-tiwai@suse.de>
+ by mail.kernel.org (Postfix) with ESMTPSA id 3A0B02466D;
+ Sat, 28 Nov 2020 13:25:55 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=default; t=1606569957;
+ bh=wlRpR5k7tSed5+Y/LjhaD1wUPthFRlO6ecBs7oG5hHE=;
+ h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+ b=qyXpF6SpgPF8iY8EUePUJsiv1JNSdeUpCyxkFYYJaSNq+1jgC97oDUbtarg61kpV9
+ pn9uaMgHeCKBgaBuW3oMi2acFODI2OPwuTtLsDYatF0Mfi2sIhHkyXvvI09HamRxO0
+ 85mMqV3o+xmJNp46PoYgcIwQ6zLmj61RUOz0I1pU=
+Date: Sat, 28 Nov 2020 13:25:51 +0000
+From: Jonathan Cameron <jic23@kernel.org>
+To: Nuno =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>
+Subject: Re: [PATCH 0/2] Make cb a required parameter of buffer-cb
+Message-ID: <20201128132551.4006f293@archlinux>
+In-Reply-To: <20201121161457.957-1-nuno.sa@analog.com>
+References: <20201121161457.957-1-nuno.sa@analog.com>
+X-Mailer: Claws Mail 3.17.8 (GTK+ 2.24.32; x86_64-pc-linux-gnu)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <s5hblfjjguc.wl-tiwai@suse.de>
-User-Agent: Mutt/1.10.1 (2018-07-13)
-X-SA-Exim-Connect-IP: 127.0.0.1
-X-SA-Exim-Mail-From: bjb-alsa-devel@deus.net
-X-SA-Exim-Scanned: No (on roobarb.jellybean.co.uk);
- SAEximRunCond expanded to false
-Message-Id: <20201128093612.48C0CF80166@alsa1.perex.cz>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
+Cc: alsa-devel@alsa-project.org, Lars-Peter Clausen <lars@metafoo.de>,
+ Olivier Moysan <olivier.moysan@st.com>, Liam Girdwood <lgirdwood@gmail.com>,
+ linux-iio@vger.kernel.org, Arnaud Pouliquen <arnaud.pouliquen@st.com>,
+ Takashi Iwai <tiwai@suse.com>, Mark Brown <broonie@kernel.org>,
+ Peter Meerwald-Stadler <pmeerw@pmeerw.net>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -72,82 +84,34 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Fri, Nov 27, 2020 at 10:20:59AM +0100, Takashi Iwai wrote:
-> On Thu, 26 Nov 2020 19:06:04 +0100, Ben Bell wrote:
-> > I've got a Behringer WING digital mixer which is equipped with a USB
-> > interface supporting 48 in, 48 out at 44.1 or 48kHz. It's plugged into a
-> > USB3 interface and for the most part it seems to work well as a class-compliant
-> > audio interface, but I'm struggling to eliminate xruns and it's starting to
-> > feel either driver or hardware quirk related issue.
-...
+On Sat, 21 Nov 2020 17:14:55 +0100
+Nuno S=C3=A1 <nuno.sa@analog.com> wrote:
 
-> In general you should avoid 44.1kHz if you want a small period size
-> for a realtime process on USB-audio.  With 44.1kHz, the packet size
-> can't be fixed in integer, and the ISO transfer requires variable
-> packet sizes.  OTOH, ALSA API requires the fixed period size, hence
-> it'll lead to inconsistencies occasionally.
+> When going through the code of the buffer-cb interface and all it's
+> users, I realized that the stm32_adfsdm driver is calling
+> `iio_channel_get_all_cb()` with NULL for the cb. After going a bit
+> trough the stm drivers, it looks like this is actually intentional.
+> However, it is clear that we have a clear/direct route here for a NULL
+> pointer dereference. This change makes cb a required parameter of the
+> API.
+>=20
+> The first patch makes the necessary changes to the stm32_adfsdm driver
+> so that it does not break.
+>=20
+> Nuno S=C3=A1 (1):
+>   iio: buffer: Return error if no callback is given
+>=20
+> Olivier Moysan (1):
+>   ASoC: stm32: dfsdm: add stm32_adfsdm_dummy_cb() callback
+>=20
+>  drivers/iio/buffer/industrialio-buffer-cb.c |  5 +++++
+>  sound/soc/stm/stm32_adfsdm.c                | 12 +++++++++++-
+>  2 files changed, 16 insertions(+), 1 deletion(-)
+>=20
 
-Thanks Takashi, that's useful to know. Most of my historical projects are
-at 44.1kHz which is why I'm using that here, but I'll try to switch to 48kHz
-in future work to avoid this. That said, I've tested a little with 48kHz and
-had similar problems. I'm currently encountering a period of relative
-stability (an xrun every 20 minutes or so) so I don't want to touch anything
-until I've got some recording out of the way, but I'll switch to 48kHz for
-future testing too.
+Applied to the togreg branch of iio.git and pushed out as testing
+for the autobuilders to do their magic.
 
-I've read people saying there are problems with USB3 and audio which go
-away when they switch to USB 2, so I've got a card in the post so we'll see
-whether that helps.
+Thanks,
 
-In the meantime, I've enabled xhci_hcd dynamic debugging and the xruns
-all coincide with events like this. I'm wondering whether this is actually
-more of a USB host issue rather than an ALSA one?
-
-      1 Nov 28 09:12:32 rowlf kernel: [nnn] xhci_hcd 0000:29:00.3: Cancel URB 00000000d9d39c02, dev 4, ep 0x81, starting at offset 0xcfbNNNNN
-      1 Nov 28 09:12:32 rowlf kernel: [nnn] xhci_hcd 0000:29:00.3: // Ding dong!
-      1 Nov 28 09:12:32 rowlf kernel: [nnn] xhci_hcd 0000:29:00.3: Cancel URB 000000001152b022, dev 4, ep 0x81, starting at offset 0xcfbNNNNN
-      1 Nov 28 09:12:32 rowlf kernel: [nnn] xhci_hcd 0000:29:00.3: Cancel URB 00000000aad0b004, dev 4, ep 0x81, starting at offset 0xcfbNNNNN
-      1 Nov 28 09:12:32 rowlf kernel: [nnn] xhci_hcd 0000:29:00.3: Cancel URB 00000000014bb8b3, dev 4, ep 0x81, starting at offset 0xcfbNNNNN
-      1 Nov 28 09:12:32 rowlf kernel: [nnn] xhci_hcd 0000:29:00.3: Cancel URB 0000000058d3a525, dev 4, ep 0x81, starting at offset 0xcfbNNNNN
-      1 Nov 28 09:12:32 rowlf kernel: [nnn] xhci_hcd 0000:29:00.3: Cancel URB 00000000095e4d66, dev 4, ep 0x81, starting at offset 0xcfbNNNNN
-      1 Nov 28 09:12:32 rowlf kernel: [nnn] xhci_hcd 0000:29:00.3: Cancel URB 00000000c5233f07, dev 4, ep 0x81, starting at offset 0xcfbNNNNN
-      1 Nov 28 09:12:32 rowlf kernel: [nnn] xhci_hcd 0000:29:00.3: Cancel URB 0000000058cfb2b9, dev 4, ep 0x81, starting at offset 0xcfbNNNNN
-      1 Nov 28 09:12:32 rowlf kernel: [nnn] xhci_hcd 0000:29:00.3: Cancel URB 00000000ecf776e8, dev 4, ep 0x81, starting at offset 0xcfbNNNNN
-      1 Nov 28 09:12:32 rowlf kernel: [nnn] xhci_hcd 0000:29:00.3: Cancel URB 0000000090c79b8f, dev 4, ep 0x81, starting at offset 0xcfbNNNNN
-      1 Nov 28 09:12:32 rowlf kernel: [nnn] xhci_hcd 0000:29:00.3: Cancel URB 00000000ad358790, dev 4, ep 0x81, starting at offset 0xcfbNNNNN
-      1 Nov 28 09:12:32 rowlf kernel: [nnn] xhci_hcd 0000:29:00.3: Cancel URB 000000008f26c7ed, dev 4, ep 0x1, starting at offset 0xcfbNNNNN
-      1 Nov 28 09:12:32 rowlf kernel: [nnn] xhci_hcd 0000:29:00.3: // Ding dong!
-      1 Nov 28 09:12:32 rowlf kernel: [nnn] xhci_hcd 0000:29:00.3: Cancel URB 0000000020b0a760, dev 4, ep 0x1, starting at offset 0xcfbNNNNN
-      1 Nov 28 09:12:32 rowlf kernel: [nnn] xhci_hcd 0000:29:00.3: Stopped on Transfer TRB for slot 1 ep 2
-      1 Nov 28 09:12:32 rowlf kernel: [nnn] xhci_hcd 0000:29:00.3: Removing canceled TD starting at 0xcfbNNNNN (dma).
-      1 Nov 28 09:12:32 rowlf kernel: [nnn] xhci_hcd 0000:29:00.3: Finding endpoint context
-      1 Nov 28 09:12:32 rowlf kernel: [nnn] xhci_hcd 0000:29:00.3: Cycle state = 0x1
-      1 Nov 28 09:12:32 rowlf kernel: [nnn] xhci_hcd 0000:29:00.3: New dequeue segment = 000000009fc8e305 (virtual)
-      1 Nov 28 09:12:32 rowlf kernel: [nnn] xhci_hcd 0000:29:00.3: New dequeue pointer = 0xcfbNNNNN (DMA)
-     84 Nov 28 09:12:32 rowlf kernel: [nnn] xhci_hcd 0000:29:00.3: Removing canceled TD starting at 0xcfbNNNNN (dma).
-      1 Nov 28 09:12:32 rowlf kernel: [nnn] xhci_hcd 0000:29:00.3: Set TR Deq Ptr cmd, new deq seg = 000000009fc8e305 (0xcfbNNNNN dma), new deq ptr = 00000000cfc75f63 (0xcfb42440 dma), new cycle = 1
-      1 Nov 28 09:12:32 rowlf kernel: [nnn] xhci_hcd 0000:29:00.3: // Ding dong!
-      1 Nov 28 09:12:32 rowlf kernel: [nnn] xhci_hcd 0000:29:00.3: Stopped on Transfer TRB for slot 1 ep 1
-     38 Nov 28 09:12:32 rowlf kernel: [nnn] xhci_hcd 0000:29:00.3: Removing canceled TD starting at 0xcfbNNNNN (dma).
-      1 Nov 28 09:12:32 rowlf kernel: [nnn] xhci_hcd 0000:29:00.3: Finding endpoint context
-      1 Nov 28 09:12:32 rowlf kernel: [nnn] xhci_hcd 0000:29:00.3: Cycle state = 0x0
-      1 Nov 28 09:12:32 rowlf kernel: [nnn] xhci_hcd 0000:29:00.3: New dequeue segment = 0000000070effd6e (virtual)
-      1 Nov 28 09:12:32 rowlf kernel: [nnn] xhci_hcd 0000:29:00.3: New dequeue pointer = 0xcfbNNNNN (DMA)
-     29 Nov 28 09:12:32 rowlf kernel: [nnn] xhci_hcd 0000:29:00.3: Removing canceled TD starting at 0xcfbNNNNN (dma).
-      1 Nov 28 09:12:32 rowlf kernel: [nnn] xhci_hcd 0000:29:00.3: Set TR Deq Ptr cmd, new deq seg = 0000000070effd6e (0xcfbNNNNN dma), new deq ptr = 0000000034521cdf (0xcfb77180 dma), new cycle = 0
-      1 Nov 28 09:12:32 rowlf kernel: [nnn] xhci_hcd 0000:29:00.3: // Ding dong!
-      1 Nov 28 09:12:32 rowlf kernel: [nnn] xhci_hcd 0000:29:00.3: Successful Set TR Deq Ptr cmd, deq = @cfb42440
-      1 Nov 28 09:12:32 rowlf kernel: [nnn] xhci_hcd 0000:29:00.3: Successful Set TR Deq Ptr cmd, deq = @cfb77180
-     32 Nov 28 09:12:32 rowlf kernel: [nnn] xhci_hcd 0000:29:00.3: Miss service interval error for slot 1 ep 2, set skip flag
-      1 Nov 28 09:12:32 rowlf kernel: [nnn] xhci_hcd 0000:29:00.3: Found td. Clear skip flag for slot 1 ep 2.
-      1 Nov 28 09:12:32 rowlf kernel: [nnn] retire_capture_urb: frames 0 - 7 of [138046467] still active: -18
-      1 Nov 28 09:12:32 rowlf kernel: [nnn] retire_capture_urb: ...a total of 4 bad urbs; between [138046467] and [138046470]; kxrun = 238; 1120718 since last
-     41 Nov 28 09:12:32 rowlf kernel: [nnn] xhci_hcd 0000:29:00.3: Miss service interval error for slot 1 ep 1, set skip flag
-      1 Nov 28 09:12:32 rowlf kernel: [nnn] xhci_hcd 0000:29:00.3: Found td. Clear skip flag for slot 1 ep 1.
-
-(First column is a dedup count, and the retire_capture_urb messages are my
-own debug patch)
-
-bjb
-
-
+Jonathan

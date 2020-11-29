@@ -2,105 +2,82 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id BA5E92C790E
-	for <lists+alsa-devel@lfdr.de>; Sun, 29 Nov 2020 13:26:08 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 199BC2C7A4F
+	for <lists+alsa-devel@lfdr.de>; Sun, 29 Nov 2020 18:35:13 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 54137185D;
-	Sun, 29 Nov 2020 13:25:18 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 54137185D
+	by alsa0.perex.cz (Postfix) with ESMTPS id 7BAF816D2;
+	Sun, 29 Nov 2020 18:34:22 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7BAF816D2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1606652768;
-	bh=343BsRWhjH0YMRTWTN2KWvwobv+IvV8XYusheLMYG3k=;
-	h=To:From:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=IWCT1VSCVHhC3gVu6XIyrgnVoPakOYvBEOUAxsP8UUSq2x/D1373iphQ0nV79mLSn
-	 /ZnUWBg4WI/9Pn/cG9DocauI1yYA9AihsqQ0lYPV06RnxFYIQ8NMgfi4smahdjHtw0
-	 Tu4zFG4J7UyhpL9Hg0P6Tv2JTnNipMnt2bV9zjZc=
+	s=default; t=1606671312;
+	bh=iCdtXCODLiXH7g5ruyrkVAnIpWmfoHpkXFrZaHIGxig=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=lLXTdfoq2iiW9yXwyacV8svo1qgyk5u3eXKhO8Bt5aD/2Mr/Fh7MrIwypFYybuxRJ
+	 NJtc0xFskNkj+m59rE+bwTFy/ZMvnAwLHl8lm3ihe5qpyTsUgOX76Lpy+qiyFAhrcH
+	 QK2G1fusAc8LW7axmrJf38ojHTn+y86pnrAnf8Xs=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id C208EF800D0;
-	Sun, 29 Nov 2020 13:24:33 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 0609BF80148;
+	Sun, 29 Nov 2020 18:33:38 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 56301F80168; Sun, 29 Nov 2020 13:24:32 +0100 (CET)
+ id 746BFF80168; Sun, 29 Nov 2020 18:33:35 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,PRX_BODY_135,RCVD_IN_MSPIKE_H3,RCVD_IN_MSPIKE_WL,
- SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [216.205.24.124])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from metis.ext.pengutronix.de (metis.ext.pengutronix.de
+ [IPv6:2001:67c:670:201:290:27ff:fe1d:cc33])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id AAD78F800D0
- for <alsa-devel@alsa-project.org>; Sun, 29 Nov 2020 13:24:27 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz AAD78F800D0
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com
- header.b="cP/JyePF"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1606652666;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding;
- bh=0e0g5vUDVH8Rmyrs90GT0KJ6kl188LCKOV+l3ewhel8=;
- b=cP/JyePFkmoSrO6mad1i40pLdwrn8lBatdfAKjYqrx5HiAxYa9DWWRCEEZCk8o96pXhH01
- PJWMzkB0bfrZT2hPEwm0+cqn452rjKGFw4HHHL0GNsokv9OVh2qwR1ezsg4sN5lHvNWWtm
- 3/vMlZsTLnnw8rGGzVRZPXj2CriCM4A=
-Received: from mail-ed1-f72.google.com (mail-ed1-f72.google.com
- [209.85.208.72]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-361-ewSg2ZKpNcqb82Gio0_SEA-1; Sun, 29 Nov 2020 07:24:22 -0500
-X-MC-Unique: ewSg2ZKpNcqb82Gio0_SEA-1
-Received: by mail-ed1-f72.google.com with SMTP id g8so5077102edm.7
- for <alsa-devel@alsa-project.org>; Sun, 29 Nov 2020 04:24:22 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:to:cc:from:subject:message-id:date:user-agent
- :mime-version:content-language:content-transfer-encoding;
- bh=0e0g5vUDVH8Rmyrs90GT0KJ6kl188LCKOV+l3ewhel8=;
- b=P496EYXL9UIMcqzVGmGxjQMkzjWI8GlXHnPpE0/X3QFkbDs6LashVWqXgRVxet/DLw
- 0xcGr0Z1e5BHi5WJWoRDrVKnLxTpxiTfnFct1oIvyclmkvj/AuqmqEDZ793qol4EB2Lq
- 32NrV9Zc1kQlOtznDWhStj9/4ZkMi9Jh8X15ah1d5GEzRpjrk5C+zDg4Ld/X741OsZqV
- QhuqUauzFfqiNvJuLj6/+wNzoiMI1wW3TWYT+zQeOUOU8KTbKR1/f4WdPa1xmTQWzBFm
- GrjTRgPb9coYQ0/84Ts8UDUK1X0OBAefGrl7+HlKADN/tlnt4UEczZj/lme7Xiz/dPk0
- n+uA==
-X-Gm-Message-State: AOAM532iHv60UgtOmsYghDpxbDfVit81pSJU3IJt0CP0ts/Mu73p9HSq
- 05t9NEuAcR0+hT9IIRwkYIvMA7tcySuSqzE3VS0RIQIyVkVhHe4kUYpdii2tNIKwytmihy2EZgH
- InRcxQ4V9S6jfDQ3z+YCqLlNT/OVPEYrwgdETmbGfDCtacgaFWy1Nuz0PFNF1RJtqBcGo6KD7an
- Y=
-X-Received: by 2002:a17:906:60c8:: with SMTP id
- f8mr15802326ejk.14.1606652661200; 
- Sun, 29 Nov 2020 04:24:21 -0800 (PST)
-X-Google-Smtp-Source: ABdhPJxtb1JqPxrKGO7XxtmknWgIZgyjSv4GbmV3bEg8Kf0mm49bPHvnBOXPQDvxCSAHGXCtNy76Mw==
-X-Received: by 2002:a17:906:60c8:: with SMTP id
- f8mr15802312ejk.14.1606652660963; 
- Sun, 29 Nov 2020 04:24:20 -0800 (PST)
-Received: from x1.localdomain
- (2001-1c00-0c0c-fe00-d2ea-f29d-118b-24dc.cable.dynamic.v6.ziggo.nl.
- [2001:1c00:c0c:fe00:d2ea:f29d:118b:24dc])
- by smtp.gmail.com with ESMTPSA id y17sm1977295ejq.88.2020.11.29.04.24.20
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Sun, 29 Nov 2020 04:24:20 -0800 (PST)
-To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- Liam Girdwood <liam.r.girdwood@linux.intel.com>,
- Jie Yang <yang.jie@linux.intel.com>, Mark Brown <broonie@kernel.org>
-From: Hans de Goede <hdegoede@redhat.com>
-Subject: Asoc: Intel: SST (CHT) regression in asoc/for-5.11
-Message-ID: <93cc93a1-82bd-f5a3-4e19-4cfc65c868e7@redhat.com>
-Date: Sun, 29 Nov 2020 13:24:19 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.4.0
+ by alsa1.perex.cz (Postfix) with ESMTPS id 737D2F800D0
+ for <alsa-devel@alsa-project.org>; Sun, 29 Nov 2020 18:33:27 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 737D2F800D0
+Received: from pty.hi.pengutronix.de ([2001:67c:670:100:1d::c5])
+ by metis.ext.pengutronix.de with esmtps
+ (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
+ (envelope-from <ukl@pengutronix.de>)
+ id 1kjQYS-0006zE-4U; Sun, 29 Nov 2020 18:32:08 +0100
+Received: from ukl by pty.hi.pengutronix.de with local (Exim 4.89)
+ (envelope-from <ukl@pengutronix.de>)
+ id 1kjQYH-0003Mg-0E; Sun, 29 Nov 2020 18:31:57 +0100
+Date: Sun, 29 Nov 2020 18:31:53 +0100
+From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <u.kleine-koenig@pengutronix.de>
+To: Takashi Iwai <tiwai@suse.de>, Michael Ellerman <mpe@ellerman.id.au>
+Subject: Re: [PATCH 2/2] powerpc/ps3: make system bus's remove and shutdown
+ callbacks return void
+Message-ID: <20201129173153.jbt3epcxnasbemir@pengutronix.de>
+References: <20201126165950.2554997-1-u.kleine-koenig@pengutronix.de>
+ <20201126165950.2554997-2-u.kleine-koenig@pengutronix.de>
+ <s5hv9dphnoh.wl-tiwai@suse.de>
 MIME-Version: 1.0
-Authentication-Results: relay.mimecast.com;
- auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=hdegoede@redhat.com
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
-Cc: "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="q5fwi2prasbljs5f"
+Content-Disposition: inline
+In-Reply-To: <s5hv9dphnoh.wl-tiwai@suse.de>
+X-SA-Exim-Connect-IP: 2001:67c:670:100:1d::c5
+X-SA-Exim-Mail-From: ukl@pengutronix.de
+X-SA-Exim-Scanned: No (on metis.ext.pengutronix.de);
+ SAEximRunCond expanded to false
+X-PTX-Original-Recipient: alsa-devel@alsa-project.org
+Cc: alsa-devel@alsa-project.org,
+ Benjamin Herrenschmidt <benh@kernel.crashing.org>, linux-fbdev@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, Paul Mackerras <paulus@samba.org>,
+ linux-scsi@vger.kernel.org, Alan Stern <stern@rowland.harvard.edu>,
+ Jakub Kicinski <kuba@kernel.org>, Arnd Bergmann <arnd@arndb.de>,
+ Bartlomiej Zolnierkiewicz <b.zolnierkie@samsung.com>,
+ "James E.J. Bottomley" <jejb@linux.ibm.com>, linux-block@vger.kernel.org,
+ Jens Axboe <axboe@kernel.dk>,
+ "Martin K. Petersen" <martin.petersen@oracle.com>,
+ Geoff Levand <geoff@infradead.org>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, linux-usb@vger.kernel.org,
+ Takashi Iwai <tiwai@suse.com>, Jim Paris <jim@jtan.com>,
+ netdev@vger.kernel.org, linuxppc-dev@lists.ozlabs.org,
+ "David S. Miller" <davem@davemloft.net>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -116,47 +93,59 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hi All,
 
-To test the code to dynamically switch between SST/SOF support on BYT/CHT
-from the kernel commandline I merged:
+--q5fwi2prasbljs5f
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git/log/?h=for-5.11
+Hello Michael,
 
-Into my personal tree (mostly Linus' master + some pending patches from
-myself).
+On Sat, Nov 28, 2020 at 09:48:30AM +0100, Takashi Iwai wrote:
+> On Thu, 26 Nov 2020 17:59:50 +0100,
+> Uwe Kleine-K=F6nig wrote:
+> >=20
+> > The driver core ignores the return value of struct device_driver::remove
+> > because there is only little that can be done. For the shutdown callback
+> > it's ps3_system_bus_shutdown() which ignores the return value.
+> >=20
+> > To simplify the quest to make struct device_driver::remove return void,
+> > let struct ps3_system_bus_driver::remove return void, too. All users
+> > already unconditionally return 0, this commit makes it obvious that
+> > returning an error code is a bad idea and ensures future users behave
+> > accordingly.
+> >=20
+> > Signed-off-by: Uwe Kleine-K=F6nig <u.kleine-koenig@pengutronix.de>
+>=20
+> For the sound bit:
+> Acked-by: Takashi Iwai <tiwai@suse.de>
 
-After this I was getting the following errors in dmesg when using sound on
-a Medion E2228T laptop with a CHT SoC + NAU8824 codec:
+assuming that you are the one who will apply this patch: Note that it
+depends on patch 1 that Takashi already applied to his tree. So you
+either have to wait untils patch 1 appears in some tree that you merge
+before applying, or you have to take patch 1, too. (With Takashi
+optinally dropping it then.)
 
-[   53.805205] intel_sst_acpi 808622A8:00: Wait timed-out condition:0x0, msg_id:0x1 fw_state 0
-[   53.805479] intel_sst_acpi 808622A8:00: fw returned err -16
-[   53.806281] sst-mfld-platform sst-mfld-platform: ASoC: PRE_PMD: pcm0_in event failed: -16
-[   54.829548] intel_sst_acpi 808622A8:00: Wait timed-out condition:0x0, msg_id:0x1 fw_state 0
-[   54.829596] intel_sst_acpi 808622A8:00: fw returned err -16
-[   54.829668] sst-mfld-platform sst-mfld-platform: ASoC: POST_PMD: media0_out event failed: -
-[   55.853230] intel_sst_acpi 808622A8:00: Wait timed-out condition:0x0, msg_id:0x1 fw_state 0
-[   55.853244] intel_sst_acpi 808622A8:00: fw returned err -16
-[   55.853269] sst-mfld-platform sst-mfld-platform: ASoC: POST_PMD: codec_out0 mix 0 event fai
-[   56.876435] intel_sst_acpi 808622A8:00: Wait timed-out condition:0x0, msg_id:0x1 fw_state 0
-[   56.876481] intel_sst_acpi 808622A8:00: fw returned err -16
-[   56.876563] sst-mfld-platform sst-mfld-platform: ASoC: POST_PMD: media0_out mix 0 event fai
-[   61.847455] intel_sst_acpi 808622A8:00: FW sent error response 0x40015
-[   61.847564] intel_sst_acpi 808622A8:00: fw returned err -1
-[   61.847659] sst-mfld-platform sst-mfld-platform: ASoC: error at snd_soc_dai_startup on ssp2
-[   61.847722]  SSP2-Codec: ASoC: BE open failed -1
-[   61.847754]  Audio Port: ASoC: failed to start some BEs -1
-[   61.847786] intel_sst_acpi 808622A8:00: FW sent error response 0x40006
-[   64.301284] intel_sst_acpi 808622A8:00: FW sent error response 0x90001
-[   64.301545] intel_sst_acpi 808622A8:00: not suspending FW!!, Err: -2
+Best regards
+Uwe
 
-Dropping the asoc/for-5.11 merge and just cherry-picking Pierre-Louis' changes
-for the dynamic switching makes these go away. So this seems to be caused by
-other changes in asoc/for-5.11.
+--=20
+Pengutronix e.K.                           | Uwe Kleine-K=F6nig            |
+Industrial Linux Solutions                 | https://www.pengutronix.de/ |
 
-So any clues where to start looking for this, or should I just bisect this?
+--q5fwi2prasbljs5f
+Content-Type: application/pgp-signature; name="signature.asc"
 
-Regards,
+-----BEGIN PGP SIGNATURE-----
 
-Hans
+iQEzBAABCgAdFiEEfnIqFpAYrP8+dKQLwfwUeK3K7AkFAl/D2wYACgkQwfwUeK3K
+7AmmxQf+IiMtqhw/kONuYhwVAdprYhlgZyY9iZSe5xHA/6/1zNmBbfhPRm6PfStb
+RRMTewx97J4joVbCv7OhlZBsoA7lnpUKJD05Qt7eXIEMdnuscbTx8YZr/z94s9/Y
+/ElFT8e2Wx6crnEbjWeFcYVTLkGgf1pnUhpFmTq4LwQqqV5lQWUu6JMnS8THMhay
+RCwTJR+P84Nw4wv39uvWN4LFmuDeM5hjnPjoEFBbnAeUtQr62AAh7itX8pTNEyZp
+t6M09QdoxpJWDPe/vRxYZSZdsuE+vXsCuMWH5Kyo0hodOX9m6JpOhsPm/YiaCK5B
+IW1LSeEeHe9uPQSACw7mkNft9x6Zfg==
+=TO3P
+-----END PGP SIGNATURE-----
 
+--q5fwi2prasbljs5f--

@@ -2,49 +2,49 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D13452C7C03
-	for <lists+alsa-devel@lfdr.de>; Mon, 30 Nov 2020 00:46:58 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5CC192C7C04
+	for <lists+alsa-devel@lfdr.de>; Mon, 30 Nov 2020 00:47:36 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 63A1A851;
-	Mon, 30 Nov 2020 00:46:08 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 63A1A851
+	by alsa0.perex.cz (Postfix) with ESMTPS id F14921751;
+	Mon, 30 Nov 2020 00:46:45 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz F14921751
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1606693618;
-	bh=+NJpzrqYSEPsfNwOX2GCaAJb65rBSmPd/lHf8cQXofc=;
+	s=default; t=1606693656;
+	bh=v+6poaRjAC/lInCncS31FgfO1nqIsHy8W8KmPiPVGb8=;
 	h=Date:From:Subject:To:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=e0R3mBf5Ws9rChq7DiQw3Mbb54VUPdhc/hSfuG1m6HSboK+fX2n1xRPx2Wwqp+C0U
-	 Wc1GGXHWddfdNzqDpkIimj5XSFWRbrHpalbFvKSf5QoEoIUt47LljfFf6VYFkNxY4r
-	 bntX/TwQNPStMsMho2N0lAKZ/Wjz16YaVGGvTX+U=
+	b=A9kFTubPkVJCRVK7fEkhrkZxz+ySxDWjym7qjb+8qawwIfO5Tb8/TZv5QOXwM8jXS
+	 nWJHLpi7md0TBVAOYHdpv1zCewviE5nzf8ncNweVgMDrb0jY7omCvcHob6AQRYnr3+
+	 jxJ3s7Raf4NY7FZSQknKu4vAp8jUOObDMx4/QjU4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 76564F8026D;
-	Mon, 30 Nov 2020 00:45:31 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 2B15EF804CB;
+	Mon, 30 Nov 2020 00:45:44 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 0F1D9F8026D; Mon, 30 Nov 2020 00:45:30 +0100 (CET)
+ id 8CEA9F804CA; Mon, 30 Nov 2020 00:45:35 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
  URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from relmlie6.idc.renesas.com (relmlor2.renesas.com
- [210.160.252.172])
- by alsa1.perex.cz (Postfix) with ESMTP id A56B1F8026D
- for <alsa-devel@alsa-project.org>; Mon, 30 Nov 2020 00:45:21 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A56B1F8026D
-Date: 30 Nov 2020 08:45:19 +0900
-X-IronPort-AV: E=Sophos;i="5.78,379,1599490800"; d="scan'208";a="64059853"
-Received: from unknown (HELO relmlir5.idc.renesas.com) ([10.200.68.151])
- by relmlie6.idc.renesas.com with ESMTP; 30 Nov 2020 08:45:19 +0900
+Received: from relmlie5.idc.renesas.com (relmlor1.renesas.com
+ [210.160.252.171])
+ by alsa1.perex.cz (Postfix) with ESMTP id A9B53F804B2
+ for <alsa-devel@alsa-project.org>; Mon, 30 Nov 2020 00:45:27 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A9B53F804B2
+Date: 30 Nov 2020 08:45:26 +0900
+X-IronPort-AV: E=Sophos;i="5.78,379,1599490800"; d="scan'208";a="64276231"
+Received: from unknown (HELO relmlir6.idc.renesas.com) ([10.200.68.152])
+ by relmlie5.idc.renesas.com with ESMTP; 30 Nov 2020 08:45:26 +0900
 Received: from mercury.renesas.com (unknown [10.166.252.133])
- by relmlir5.idc.renesas.com (Postfix) with ESMTP id B95F04007F38;
- Mon, 30 Nov 2020 08:45:19 +0900 (JST)
-Message-ID: <87y2iju3zm.wl-kuninori.morimoto.gx@renesas.com>
+ by relmlir6.idc.renesas.com (Postfix) with ESMTP id 3B402412BB41;
+ Mon, 30 Nov 2020 08:45:26 +0900 (JST)
+Message-ID: <87wny3u3zg.wl-kuninori.morimoto.gx@renesas.com>
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Subject: [PATCH 1/2] ASoC: soc-core: tidyup jack.h
+Subject: [PATCH 2/2] ASoC: add soc-jack.h
 User-Agent: Wanderlust/2.15.9 Emacs/26.3 Mule/6.0
 To: Mark Brown <broonie@kernel.org>
 In-Reply-To: <87zh2zu40a.wl-kuninori.morimoto.gx@renesas.com>
@@ -70,39 +70,301 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 
-soc-core.c don't need sound/jack.h anymore, but asoc.h needs it.
-This patch fixup header magic.
+ALSA SoC has soc-jack.c, but doesn't have soc-jack.h.
+This patch creates new soc-jack.h and moves snd_soc_jack_xxx()
+from soc.h.
 
 Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 ---
- include/trace/events/asoc.h | 1 +
- sound/soc/soc-core.c        | 1 -
- 2 files changed, 1 insertion(+), 1 deletion(-)
+ include/sound/soc-jack.h | 132 +++++++++++++++++++++++++++++++++++++++
+ include/sound/soc.h      | 122 +-----------------------------------
+ 2 files changed, 133 insertions(+), 121 deletions(-)
+ create mode 100644 include/sound/soc-jack.h
 
-diff --git a/include/trace/events/asoc.h b/include/trace/events/asoc.h
-index 40c300fe704d..4d8ef71090af 100644
---- a/include/trace/events/asoc.h
-+++ b/include/trace/events/asoc.h
-@@ -7,6 +7,7 @@
+diff --git a/include/sound/soc-jack.h b/include/sound/soc-jack.h
+new file mode 100644
+index 000000000000..a0abb1ee5110
+--- /dev/null
++++ b/include/sound/soc-jack.h
+@@ -0,0 +1,132 @@
++/* SPDX-License-Identifier: GPL-2.0
++ *
++ * soc-jack.h
++ *
++ * Copyright (C) 2019 Renesas Electronics Corp.
++ * Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
++ */
++#ifndef __SOC_JACK_H
++#define __SOC_JACK_H
++
++/**
++ * struct snd_soc_jack_pin - Describes a pin to update based on jack detection
++ *
++ * @pin:    name of the pin to update
++ * @mask:   bits to check for in reported jack status
++ * @invert: if non-zero then pin is enabled when status is not reported
++ * @list:   internal list entry
++ */
++struct snd_soc_jack_pin {
++	struct list_head list;
++	const char *pin;
++	int mask;
++	bool invert;
++};
++
++/**
++ * struct snd_soc_jack_zone - Describes voltage zones of jack detection
++ *
++ * @min_mv: start voltage in mv
++ * @max_mv: end voltage in mv
++ * @jack_type: type of jack that is expected for this voltage
++ * @debounce_time: debounce_time for jack, codec driver should wait for this
++ *		duration before reading the adc for voltages
++ * @list:   internal list entry
++ */
++struct snd_soc_jack_zone {
++	unsigned int min_mv;
++	unsigned int max_mv;
++	unsigned int jack_type;
++	unsigned int debounce_time;
++	struct list_head list;
++};
++
++/**
++ * struct snd_soc_jack_gpio - Describes a gpio pin for jack detection
++ *
++ * @gpio:         legacy gpio number
++ * @idx:          gpio descriptor index within the function of the GPIO
++ *                consumer device
++ * @gpiod_dev:    GPIO consumer device
++ * @name:         gpio name. Also as connection ID for the GPIO consumer
++ *                device function name lookup
++ * @report:       value to report when jack detected
++ * @invert:       report presence in low state
++ * @debounce_time: debounce time in ms
++ * @wake:	  enable as wake source
++ * @jack_status_check: callback function which overrides the detection
++ *		       to provide more complex checks (eg, reading an
++ *		       ADC).
++ */
++struct snd_soc_jack_gpio {
++	unsigned int gpio;
++	unsigned int idx;
++	struct device *gpiod_dev;
++	const char *name;
++	int report;
++	int invert;
++	int debounce_time;
++	bool wake;
++
++	/* private: */
++	struct snd_soc_jack *jack;
++	struct delayed_work work;
++	struct notifier_block pm_notifier;
++	struct gpio_desc *desc;
++
++	void *data;
++	/* public: */
++	int (*jack_status_check)(void *data);
++};
++
++struct snd_soc_jack {
++	struct mutex mutex;
++	struct snd_jack *jack;
++	struct snd_soc_card *card;
++	struct list_head pins;
++	int status;
++	struct blocking_notifier_head notifier;
++	struct list_head jack_zones;
++};
++
++/* Jack reporting */
++void snd_soc_jack_report(struct snd_soc_jack *jack, int status, int mask);
++int snd_soc_jack_add_pins(struct snd_soc_jack *jack, int count,
++			  struct snd_soc_jack_pin *pins);
++void snd_soc_jack_notifier_register(struct snd_soc_jack *jack,
++				    struct notifier_block *nb);
++void snd_soc_jack_notifier_unregister(struct snd_soc_jack *jack,
++				      struct notifier_block *nb);
++int snd_soc_jack_add_zones(struct snd_soc_jack *jack, int count,
++			   struct snd_soc_jack_zone *zones);
++int snd_soc_jack_get_type(struct snd_soc_jack *jack, int micbias_voltage);
++#ifdef CONFIG_GPIOLIB
++int snd_soc_jack_add_gpios(struct snd_soc_jack *jack, int count,
++			   struct snd_soc_jack_gpio *gpios);
++int snd_soc_jack_add_gpiods(struct device *gpiod_dev,
++			    struct snd_soc_jack *jack,
++			    int count, struct snd_soc_jack_gpio *gpios);
++void snd_soc_jack_free_gpios(struct snd_soc_jack *jack, int count,
++			     struct snd_soc_jack_gpio *gpios);
++#else
++static inline int snd_soc_jack_add_gpios(struct snd_soc_jack *jack, int count,
++					 struct snd_soc_jack_gpio *gpios)
++{
++	return 0;
++}
++
++static inline int snd_soc_jack_add_gpiods(struct device *gpiod_dev,
++					  struct snd_soc_jack *jack,
++					  int count,
++					  struct snd_soc_jack_gpio *gpios)
++{
++	return 0;
++}
++
++static inline void snd_soc_jack_free_gpios(struct snd_soc_jack *jack, int count,
++					   struct snd_soc_jack_gpio *gpios)
++{
++}
++#endif
++
++#endif /* __SOC_JACK_H */
+diff --git a/include/sound/soc.h b/include/sound/soc.h
+index 33c289f6097c..b51e96121fa1 100644
+--- a/include/sound/soc.h
++++ b/include/sound/soc.h
+@@ -490,46 +490,6 @@ int snd_soc_params_to_bclk(struct snd_pcm_hw_params *parms);
+ int snd_soc_set_runtime_hwparams(struct snd_pcm_substream *substream,
+ 	const struct snd_pcm_hardware *hw);
  
- #include <linux/ktime.h>
- #include <linux/tracepoint.h>
-+#include <sound/jack.h>
+-/* Jack reporting */
+-void snd_soc_jack_report(struct snd_soc_jack *jack, int status, int mask);
+-int snd_soc_jack_add_pins(struct snd_soc_jack *jack, int count,
+-			  struct snd_soc_jack_pin *pins);
+-void snd_soc_jack_notifier_register(struct snd_soc_jack *jack,
+-				    struct notifier_block *nb);
+-void snd_soc_jack_notifier_unregister(struct snd_soc_jack *jack,
+-				      struct notifier_block *nb);
+-int snd_soc_jack_add_zones(struct snd_soc_jack *jack, int count,
+-			  struct snd_soc_jack_zone *zones);
+-int snd_soc_jack_get_type(struct snd_soc_jack *jack, int micbias_voltage);
+-#ifdef CONFIG_GPIOLIB
+-int snd_soc_jack_add_gpios(struct snd_soc_jack *jack, int count,
+-			struct snd_soc_jack_gpio *gpios);
+-int snd_soc_jack_add_gpiods(struct device *gpiod_dev,
+-			    struct snd_soc_jack *jack,
+-			    int count, struct snd_soc_jack_gpio *gpios);
+-void snd_soc_jack_free_gpios(struct snd_soc_jack *jack, int count,
+-			struct snd_soc_jack_gpio *gpios);
+-#else
+-static inline int snd_soc_jack_add_gpios(struct snd_soc_jack *jack, int count,
+-					 struct snd_soc_jack_gpio *gpios)
+-{
+-	return 0;
+-}
+-
+-static inline int snd_soc_jack_add_gpiods(struct device *gpiod_dev,
+-					  struct snd_soc_jack *jack,
+-					  int count,
+-					  struct snd_soc_jack_gpio *gpios)
+-{
+-	return 0;
+-}
+-
+-static inline void snd_soc_jack_free_gpios(struct snd_soc_jack *jack, int count,
+-					   struct snd_soc_jack_gpio *gpios)
+-{
+-}
+-#endif
+-
+ struct snd_ac97 *snd_soc_alloc_ac97_component(struct snd_soc_component *component);
+ struct snd_ac97 *snd_soc_new_ac97_component(struct snd_soc_component *component,
+ 	unsigned int id, unsigned int id_mask);
+@@ -616,87 +576,6 @@ int snd_soc_get_strobe(struct snd_kcontrol *kcontrol,
+ int snd_soc_put_strobe(struct snd_kcontrol *kcontrol,
+ 	struct snd_ctl_elem_value *ucontrol);
  
- #define DAPM_DIRECT "(direct)"
- #define DAPM_ARROW(dir) (((dir) == SND_SOC_DAPM_DIR_OUT) ? "->" : "<-")
-diff --git a/sound/soc/soc-core.c b/sound/soc/soc-core.c
-index 50b4ce6374a0..4a86e987dcf0 100644
---- a/sound/soc/soc-core.c
-+++ b/sound/soc/soc-core.c
-@@ -32,7 +32,6 @@
- #include <linux/of_graph.h>
- #include <linux/dmi.h>
- #include <sound/core.h>
--#include <sound/jack.h>
- #include <sound/pcm.h>
- #include <sound/pcm_params.h>
- #include <sound/soc.h>
+-/**
+- * struct snd_soc_jack_pin - Describes a pin to update based on jack detection
+- *
+- * @pin:    name of the pin to update
+- * @mask:   bits to check for in reported jack status
+- * @invert: if non-zero then pin is enabled when status is not reported
+- * @list:   internal list entry
+- */
+-struct snd_soc_jack_pin {
+-	struct list_head list;
+-	const char *pin;
+-	int mask;
+-	bool invert;
+-};
+-
+-/**
+- * struct snd_soc_jack_zone - Describes voltage zones of jack detection
+- *
+- * @min_mv: start voltage in mv
+- * @max_mv: end voltage in mv
+- * @jack_type: type of jack that is expected for this voltage
+- * @debounce_time: debounce_time for jack, codec driver should wait for this
+- *		duration before reading the adc for voltages
+- * @list:   internal list entry
+- */
+-struct snd_soc_jack_zone {
+-	unsigned int min_mv;
+-	unsigned int max_mv;
+-	unsigned int jack_type;
+-	unsigned int debounce_time;
+-	struct list_head list;
+-};
+-
+-/**
+- * struct snd_soc_jack_gpio - Describes a gpio pin for jack detection
+- *
+- * @gpio:         legacy gpio number
+- * @idx:          gpio descriptor index within the function of the GPIO
+- *                consumer device
+- * @gpiod_dev:    GPIO consumer device
+- * @name:         gpio name. Also as connection ID for the GPIO consumer
+- *                device function name lookup
+- * @report:       value to report when jack detected
+- * @invert:       report presence in low state
+- * @debounce_time: debounce time in ms
+- * @wake:	  enable as wake source
+- * @jack_status_check: callback function which overrides the detection
+- *		       to provide more complex checks (eg, reading an
+- *		       ADC).
+- */
+-struct snd_soc_jack_gpio {
+-	unsigned int gpio;
+-	unsigned int idx;
+-	struct device *gpiod_dev;
+-	const char *name;
+-	int report;
+-	int invert;
+-	int debounce_time;
+-	bool wake;
+-
+-	/* private: */
+-	struct snd_soc_jack *jack;
+-	struct delayed_work work;
+-	struct notifier_block pm_notifier;
+-	struct gpio_desc *desc;
+-
+-	void *data;
+-	/* public: */
+-	int (*jack_status_check)(void *data);
+-};
+-
+-struct snd_soc_jack {
+-	struct mutex mutex;
+-	struct snd_jack *jack;
+-	struct snd_soc_card *card;
+-	struct list_head pins;
+-	int status;
+-	struct blocking_notifier_head notifier;
+-	struct list_head jack_zones;
+-};
+-
+ /* SoC PCM stream information */
+ struct snd_soc_pcm_stream {
+ 	const char *stream_name;
+@@ -1415,5 +1294,6 @@ static inline void snd_soc_dapm_mutex_unlock(struct snd_soc_dapm_context *dapm)
+ 
+ #include <sound/soc-component.h>
+ #include <sound/soc-card.h>
++#include <sound/soc-jack.h>
+ 
+ #endif
 -- 
 2.25.1
 

@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 361182C78F9
-	for <lists+alsa-devel@lfdr.de>; Sun, 29 Nov 2020 12:47:27 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6E9A52C78F8
+	for <lists+alsa-devel@lfdr.de>; Sun, 29 Nov 2020 12:46:46 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id CFC8E18A0;
-	Sun, 29 Nov 2020 12:46:36 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CFC8E18A0
+	by alsa0.perex.cz (Postfix) with ESMTPS id B27F8189A;
+	Sun, 29 Nov 2020 12:45:55 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B27F8189A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1606650446;
-	bh=paEKasDDWbrW6viu7tnWENTQWRxtsKVnfvu47d11CiQ=;
+	s=default; t=1606650405;
+	bh=75FpB/AZCwdv4NpvD+TfRl63Z4tdmEpBkVWhz4TI80M=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=NgOX+zlTMUBBaJwiwe4OWCSWguRjLm6iXcCdpMCNfQARgkqGL21VcUeGWGKBojTpu
-	 zMoZwfLP0q1R/kMvHhfUNx7Ap4uM7zWoOfa02zRJutz1apd3eF+XNh4DJf1NehPqLt
-	 zBSkHYMkaAj4iBL74a1F/u7niAvWGt32KimpZph8=
+	b=lQRgKYvr1Ubf3RNpkBGQGTuEHvdaPmESpdJJM9dqqsOaRGEjCimmmxcHOCDANg2Jk
+	 7gVBq7Arlyxb9014WEVmK+R7ra6zK3vMYKtNh032njPGc7h78YRebca1INAGBieZv6
+	 GpKOv77fk7yPEiPQYFvnnwqqIXQFgTXgLz4V2TF4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 45812F804EB;
-	Sun, 29 Nov 2020 12:43:38 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id A56D1F804E4;
+	Sun, 29 Nov 2020 12:43:37 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id F4202F8016E; Sun, 29 Nov 2020 12:43:27 +0100 (CET)
+ id E73C1F804C2; Sun, 29 Nov 2020 12:43:27 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_MSPIKE_H4,
@@ -34,30 +34,31 @@ X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_MSPIKE_H4,
 Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 23A41F80168
- for <alsa-devel@alsa-project.org>; Sun, 29 Nov 2020 12:43:13 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 23A41F80168
-IronPort-SDR: G+HEjYs4WZX3x0Ve80moVSYFPPOsayetsfnLJ/HXV8Q7AQzMULZBwUOfLSLOuOhtxRA3VVyPjs
- /nCbdbztD7hg==
-X-IronPort-AV: E=McAfee;i="6000,8403,9819"; a="151779973"
-X-IronPort-AV: E=Sophos;i="5.78,379,1599548400"; d="scan'208";a="151779973"
+ by alsa1.perex.cz (Postfix) with ESMTPS id 3246BF8016D
+ for <alsa-devel@alsa-project.org>; Sun, 29 Nov 2020 12:43:14 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3246BF8016D
+IronPort-SDR: +mwHlyhktjGDyAI8AY6yT0ctwUwV5fHLbU3PuzhzBvzhwmKOs4dwnuuYOhnTgEfFohOfITQdd/
+ 33VYWpfk8ZlQ==
+X-IronPort-AV: E=McAfee;i="6000,8403,9819"; a="151779975"
+X-IronPort-AV: E=Sophos;i="5.78,379,1599548400"; d="scan'208";a="151779975"
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
 Received: from orsmga004.jf.intel.com ([10.7.209.38])
  by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 29 Nov 2020 03:43:10 -0800
-IronPort-SDR: cpjO0/NBIZu5CdhR6eFa4YtgRAEv6JePLDo0TDzdw84P+IxoFXDfEkd7H9nA+K/fYOxySF3a8u
- 7rX/O/MhDnZw==
+ 29 Nov 2020 03:43:12 -0800
+IronPort-SDR: UTqLxCcKQjJf0OjHSzZEOo4sFVs3Ra0eGlQ+wvvPkSSnH2HSOKT5PqlNILnA6cBC0giRSdb+Pb
+ +xdXcCFFZ9Fw==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.78,379,1599548400"; d="scan'208";a="480261633"
+X-IronPort-AV: E=Sophos;i="5.78,379,1599548400"; d="scan'208";a="480261645"
 Received: from crojewsk-ctrl.igk.intel.com ([10.102.9.28])
- by orsmga004.jf.intel.com with ESMTP; 29 Nov 2020 03:43:08 -0800
+ by orsmga004.jf.intel.com with ESMTP; 29 Nov 2020 03:43:10 -0800
 From: Cezary Rojewski <cezary.rojewski@intel.com>
 To: stable@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH 3/8] ASoC: Intel: Skylake: Enable codec wakeup during chip init
-Date: Sun, 29 Nov 2020 12:41:43 +0100
-Message-Id: <20201129114148.13772-4-cezary.rojewski@intel.com>
+Subject: [PATCH 4/8] ASoC: Intel: Skylake: Shield against no-NHLT
+ configurations
+Date: Sun, 29 Nov 2020 12:41:44 +0100
+Message-Id: <20201129114148.13772-5-cezary.rojewski@intel.com>
 X-Mailer: git-send-email 2.17.1
 In-Reply-To: <20201129114148.13772-1-cezary.rojewski@intel.com>
 References: <20201129114148.13772-1-cezary.rojewski@intel.com>
@@ -79,40 +80,70 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-commit e603f11d5df8997d104ab405ff27640b90baffaa upstream.
+commit 9e6c382f5a6161eb55115fb56614b9827f2e7da3 upstream.
 
-Follow the recommendation set by hda_intel.c and enable HDMI/DP codec
-wakeup during bus initialization procedure. Disable wakeup once init
-completes.
+Some configurations expose no NHLT table at all within their
+/sys/firmware/acpi/tables. To prevent NULL-dereference errors from
+occurring, adjust probe flow and append additional safety checks in
+functions involved in NHLT lifecycle.
 
 Signed-off-by: Cezary Rojewski <cezary.rojewski@intel.com>
 Reviewed-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Link: https://lore.kernel.org/r/20200305145314.32579-4-cezary.rojewski@intel.com
+Link: https://lore.kernel.org/r/20200305145314.32579-5-cezary.rojewski@intel.com
 Signed-off-by: Mark Brown <broonie@kernel.org>
 Cc: <stable@vger.kernel.org> # 5.4.x
 ---
- sound/soc/intel/skylake/skl.c | 2 ++
- 1 file changed, 2 insertions(+)
+ sound/soc/intel/skylake/skl-nhlt.c | 3 ++-
+ sound/soc/intel/skylake/skl.c      | 9 +++++++--
+ 2 files changed, 9 insertions(+), 3 deletions(-)
 
+diff --git a/sound/soc/intel/skylake/skl-nhlt.c b/sound/soc/intel/skylake/skl-nhlt.c
+index 19f328d71f24..d9c8f5cb389e 100644
+--- a/sound/soc/intel/skylake/skl-nhlt.c
++++ b/sound/soc/intel/skylake/skl-nhlt.c
+@@ -182,7 +182,8 @@ void skl_nhlt_remove_sysfs(struct skl_dev *skl)
+ {
+ 	struct device *dev = &skl->pci->dev;
+ 
+-	sysfs_remove_file(&dev->kobj, &dev_attr_platform_id.attr);
++	if (skl->nhlt)
++		sysfs_remove_file(&dev->kobj, &dev_attr_platform_id.attr);
+ }
+ 
+ /*
 diff --git a/sound/soc/intel/skylake/skl.c b/sound/soc/intel/skylake/skl.c
-index f46b90ccb46f..1a3a3d6a3141 100644
+index 1a3a3d6a3141..2e5fbd220923 100644
 --- a/sound/soc/intel/skylake/skl.c
 +++ b/sound/soc/intel/skylake/skl.c
-@@ -129,6 +129,7 @@ static int skl_init_chip(struct hdac_bus *bus, bool full_reset)
- 	struct hdac_ext_link *hlink;
- 	int ret;
+@@ -632,6 +632,9 @@ static int skl_clock_device_register(struct skl_dev *skl)
+ 	struct platform_device_info pdevinfo = {NULL};
+ 	struct skl_clk_pdata *clk_pdata;
  
-+	snd_hdac_set_codec_wakeup(bus, true);
- 	skl_enable_miscbdcge(bus->dev, false);
- 	ret = snd_hdac_bus_init_chip(bus, full_reset);
++	if (!skl->nhlt)
++		return 0;
++
+ 	clk_pdata = devm_kzalloc(&skl->pci->dev, sizeof(*clk_pdata),
+ 							GFP_KERNEL);
+ 	if (!clk_pdata)
+@@ -1090,7 +1093,8 @@ static int skl_probe(struct pci_dev *pci,
+ out_clk_free:
+ 	skl_clock_device_unregister(skl);
+ out_nhlt_free:
+-	intel_nhlt_free(skl->nhlt);
++	if (skl->nhlt)
++		intel_nhlt_free(skl->nhlt);
+ out_free:
+ 	skl_free(bus);
  
-@@ -137,6 +138,7 @@ static int skl_init_chip(struct hdac_bus *bus, bool full_reset)
- 		writel(0, hlink->ml_addr + AZX_REG_ML_LOSIDV);
- 
- 	skl_enable_miscbdcge(bus->dev, true);
-+	snd_hdac_set_codec_wakeup(bus, false);
- 
- 	return ret;
+@@ -1139,7 +1143,8 @@ static void skl_remove(struct pci_dev *pci)
+ 	skl_dmic_device_unregister(skl);
+ 	skl_clock_device_unregister(skl);
+ 	skl_nhlt_remove_sysfs(skl);
+-	intel_nhlt_free(skl->nhlt);
++	if (skl->nhlt)
++		intel_nhlt_free(skl->nhlt);
+ 	skl_free(bus);
+ 	dev_set_drvdata(&pci->dev, NULL);
  }
 -- 
 2.17.1

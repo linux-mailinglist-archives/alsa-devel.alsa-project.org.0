@@ -2,69 +2,65 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 200372C7888
-	for <lists+alsa-devel@lfdr.de>; Sun, 29 Nov 2020 10:53:39 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 038C32C78E0
+	for <lists+alsa-devel@lfdr.de>; Sun, 29 Nov 2020 12:44:55 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 79CD6182B;
-	Sun, 29 Nov 2020 10:52:48 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 79CD6182B
+	by alsa0.perex.cz (Postfix) with ESMTPS id 76352181F;
+	Sun, 29 Nov 2020 12:44:04 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 76352181F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1606643618;
-	bh=yQOendWO06IH4MzKXjG9LuHed6EZE3HBwow5nkFPfKU=;
-	h=Subject:From:To:Date:In-Reply-To:References:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=TGJpv/3BySAKhfkhh6nZA9WuRs1v6mbc60PntqwMY1FV/BXkwsVjKJKwTYvAcYa5+
-	 jhp5d69FfvtmtzTh8e1bCnjI1MgR3AyWKJRU63Y9Wdxe3cRLWttGC8p66riANCtmNE
-	 H2ErF1AWiBkJoPdiWw9a+bBZV1MFlnJIWyPVd2uE=
+	s=default; t=1606650294;
+	bh=1l/uWuBDDcthJrss/8baVoZx9uZI+zhVgFPesya9QJ4=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=JXJubpKc6IthNPhlZWNwbnknR/HGnKO4BWs5X7I85CXGMRVFOg0FHkObTy8Sjxntf
+	 hYDnZiHFY8v2F8Mh/9uOB6PvRe4BirupwCKEMly/FTX8Fk4DnfVmEAsqm7nx4+wYum
+	 j1+0wNxLZ/Q/uf5YkWhrUcTRXDnK8PI9S2FUWgMY=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 00E5FF8007E;
-	Sun, 29 Nov 2020 10:52:03 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id D9C9EF802BE;
+	Sun, 29 Nov 2020 12:43:18 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 39855F80168; Sun, 29 Nov 2020 10:52:02 +0100 (CET)
+ id 58A60F80277; Sun, 29 Nov 2020 12:43:16 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=-0.0 required=5.0 tests=RCVD_IN_MSPIKE_H2,
- SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
-Received: from mout.kundenserver.de (mout.kundenserver.de [217.72.192.74])
+X-Spam-Level: **
+X-Spam-Status: No, score=2.2 required=5.0 tests=PRX_BODYSUB_1,
+ RCVD_IN_MSPIKE_H4, RCVD_IN_MSPIKE_WL, SPF_HELO_PASS,
+ SPF_NONE autolearn=disabled version=3.4.0
+Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id CDC5EF8007E
- for <alsa-devel@alsa-project.org>; Sun, 29 Nov 2020 10:51:59 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CDC5EF8007E
-Received: from [192.168.2.105] ([93.225.116.157]) by mrelayeu.kundenserver.de
- (mreue107 [212.227.15.183]) with ESMTPSA (Nemesis) id
- 1MrxfX-1kOFkh3Elp-00o1Uh; Sun, 29 Nov 2020 10:51:58 +0100
-Message-ID: <ff1568a6348d1eece000cced7a28c0b6893508cd.camel@e-mail.de>
-Subject: Re: Help me debug snd_emu10k1 - Sound Blaster Audigy Series only
- working in 50% of the boots
-From: Micha <debian@e-mail.de>
-To: Takashi Iwai <tiwai@suse.de>
-Date: Sun, 29 Nov 2020 10:51:58 +0100
-In-Reply-To: <s5ha6v3jgdk.wl-tiwai@suse.de>
-References: <f7053c2bcfc6698b693102f632daa24795b6fdfa.camel@e-mail.de>
- <s5ha6v3jgdk.wl-tiwai@suse.de>
-Content-Type: text/plain; charset="UTF-8"
-User-Agent: Evolution 3.38.1-2 
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Provags-ID: V03:K1:GyErNlby+OGJBscR5kL8PKeBM0DAUs8vas3VAfiIMpqSWZjRUu6
- +6BLAh+Qbj1Q+9IVNrLdfDhgMmVj2/lM0lh1YQp8+tFOL+QC/+BulP/jLum141ilhd3bQng
- Mx08ibQZ26oxuTJfcVPRhLe58hwCtbsvDRhF0DdMdgPMFjxuEyp4uE4QjrJffc+KsgrrM/Y
- JASQKmFDFGQG0xZolhPMQ==
-X-UI-Out-Filterresults: notjunk:1;V03:K0:2VEz9CqHwB8=:xgaGXaDVJVi68rqgPRG/hz
- obf3/RwLp9sgRdqW851WsNARU5839yfSlpX48h/YaldliY9K7R0BoXA+msy7jju842v/7T/As
- UuEbuNqbZ8CGx/KbukWCjDLPREklLmVYtRkD5Fhnr06Z7CMuycNvjA0DhZUIz7p6fvRTkvh19
- T0ALCuDPdBoQUnMppfKSGF9ouI/wmmbzOwr4POowlUytARzgWJHgnURWjvMU1iKdFegryfUfq
- 1aL1opmubGLiDFnWuUqwRgQZvITqm3yHPn/jEn3L+WqRXh4AW0sqXF4et8lxQgftlCIJwU1wc
- MHO/RJ6ZOBkeph3n4mhvnifaDVc7pfPl+RutBS4GcJkm/cMnq7MRqtBGu1uFSTM5X8W7cCweS
- zlWwDa2Xj00sBG5adYTpqrj6uIIOzcGjaasqCTE2nGRhldQwlUd2Ouo8pKwadyzbIN4gfP71l
- 9ruRAlUHM6+HXJGFJvuAtteWWO99FdYXAsLuI+6Pr+fAlIVSMbCX
-Cc: alsa-devel@alsa-project.org
+ by alsa1.perex.cz (Postfix) with ESMTPS id 2EB78F8007E
+ for <alsa-devel@alsa-project.org>; Sun, 29 Nov 2020 12:43:08 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2EB78F8007E
+IronPort-SDR: qSCYoLGHVhd4WwrMARfrSaNX10ME03McLaiEC41oJpkDycG3f9e0g3ddK0qCwABiKgC/XiUfJm
+ 8yrr5a3pLcUA==
+X-IronPort-AV: E=McAfee;i="6000,8403,9819"; a="151779967"
+X-IronPort-AV: E=Sophos;i="5.78,379,1599548400"; d="scan'208";a="151779967"
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from orsmga004.jf.intel.com ([10.7.209.38])
+ by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 29 Nov 2020 03:43:03 -0800
+IronPort-SDR: Qawjd+88XOYqtTuNMLZWEm7RyUEyTqRN6yUAYibYEj99MFt03UzyyPEBblOZx9Z7JtRdn+riqY
+ BOF/w1uTvs5Q==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.78,379,1599548400"; d="scan'208";a="480261576"
+Received: from crojewsk-ctrl.igk.intel.com ([10.102.9.28])
+ by orsmga004.jf.intel.com with ESMTP; 29 Nov 2020 03:43:01 -0800
+From: Cezary Rojewski <cezary.rojewski@intel.com>
+To: stable@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH 0/8] ASoC: Intel: Skylake: Fix HDAudio and DMIC for v5.4
+Date: Sun, 29 Nov 2020 12:41:40 +0100
+Message-Id: <20201129114148.13772-1-cezary.rojewski@intel.com>
+X-Mailer: git-send-email 2.17.1
+Cc: pierre-louis.bossart@linux.intel.com,
+ Cezary Rojewski <cezary.rojewski@intel.com>, alsa-devel@alsa-project.org,
+ tiwai@suse.com, broonie@kernel.org, mateusz.gorski@linux.intel.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -80,34 +76,48 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-> IIRC, this is a very long-standing problem, and it depends on the
-> motherboard.
-> 
-> I'd start trying to increase the delay in the probe.  Although I
-> thought that this didn't help in the past, maybe still worth to try.
+First six of the backport address numerous problems troubling HDAudio
+configuration users for Skylake driver. Upstream series:
+"ASoC: Intel: Skylake: Fix HDaudio and Dmic" [1] provides the
+explanation and reasoning behind it. These have been initialy pushed
+into v5.7-rc1 via: "sound updates for 5.7-rc1" [2] by Takashi.
 
-How can I increase the delay for the probe? 
+Last two patches are from: "Add support for different DMIC
+configurations" [3] which focuses on HDAudio with DMIC configuration.
+Patch: "ASoC: Intel: Skylake: Add alternative topology binary name"
+of the mentioned series has already been merged to v5.4.y -stable and
+thus it's not included here.
 
+Fixes target mainly Skylake and Kabylake based platforms, released
+in 2015-2016 period.
 
-> I suppose this is something to do with emu10k1, but do you know what
-> file read triggers this?  If it always happens after the probe
-> failure, it should be easy to identify.
-> 
-> 
-> thanks,
-> 
-> Takashi
+[1]: https://lore.kernel.org/alsa-devel/20200305145314.32579-1-cezary.rojewski@intel.com/
+[2]: https://lore.kernel.org/lkml/s5htv22uso8.wl-tiwai@suse.de/
+[3]: https://lore.kernel.org/alsa-devel/20200427132727.24942-1-mateusz.gorski@linux.intel.com/
 
-To create this error, I only need to:
-rmmod -fv snd_emu10k1 
-and
-insmod snd_emu10k1
-insmod: ERROR: could not load module snd_emu10k1: No such file or
-directory
+Cezary Rojewski (6):
+  ASoC: Intel: Skylake: Remove superfluous chip initialization
+  ASoC: Intel: Skylake: Select hda configuration permissively
+  ASoC: Intel: Skylake: Enable codec wakeup during chip init
+  ASoC: Intel: Skylake: Shield against no-NHLT configurations
+  ASoC: Intel: Allow for ROM init retry on CNL platforms
+  ASoC: Intel: Skylake: Await purge request ack on CNL
 
-But at the moment i can't reproducing the oops. In debian there has
-been a kernel update to 5.9.9-1, maybe it was fixed.
+Mateusz Gorski (2):
+  ASoC: Intel: Multiple I/O PCM format support for pipe
+  ASoC: Intel: Skylake: Automatic DMIC format configuration according to
+    information from NHLT
 
-regards Micha
+ include/uapi/sound/skl-tplg-interface.h |   2 +
+ sound/soc/intel/skylake/bxt-sst.c       |   3 -
+ sound/soc/intel/skylake/cnl-sst.c       |  35 ++++--
+ sound/soc/intel/skylake/skl-nhlt.c      |   3 +-
+ sound/soc/intel/skylake/skl-sst-dsp.h   |   2 +
+ sound/soc/intel/skylake/skl-topology.c  | 159 +++++++++++++++++++++++-
+ sound/soc/intel/skylake/skl-topology.h  |   1 +
+ sound/soc/intel/skylake/skl.c           |  29 ++---
+ 8 files changed, 204 insertions(+), 30 deletions(-)
 
+-- 
+2.17.1
 

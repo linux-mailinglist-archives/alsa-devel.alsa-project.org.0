@@ -2,65 +2,52 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 763032C7D86
-	for <lists+alsa-devel@lfdr.de>; Mon, 30 Nov 2020 05:07:04 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id CEB3B2C8018
+	for <lists+alsa-devel@lfdr.de>; Mon, 30 Nov 2020 09:39:00 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 123481752;
-	Mon, 30 Nov 2020 05:06:14 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 123481752
+	by alsa0.perex.cz (Postfix) with ESMTPS id 6915E173C;
+	Mon, 30 Nov 2020 09:38:10 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6915E173C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1606709224;
-	bh=mCjhWEhSH79zhPhqdwOtemKySYq54nE6Wz5pnf3NK3g=;
-	h=From:To:Subject:Date:In-Reply-To:References:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=MHLU0d9v/4wwbMzX066laF/dBmupKFtUhW0uICmWIUX0GNP81rHF4gAkgK/3JN6M/
-	 jUGrSBmIkptsV/u2VmOJc8T0JNU3cd5w5IO/SWbaNlpvxshT94BnW1Aa/Zc2cVz8sD
-	 HzwVF1Y7ObUzqVl3ew4UldiUENs20AKYc7rAMcCQ=
+	s=default; t=1606725540;
+	bh=IF6ubChBS5ikn780AVZRthycE2fIDva3ykVZWKhlvjk=;
+	h=From:To:Subject:Date:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=f8/MfIFqyqIVXVGbtoOpeZWSOo4vMCfCOfH2Dhap94LAbEYkbs38Dx6N2TelEkZXg
+	 dc+E3gOZZMk9va3VS6I6Um99OoMYUAYXA03evHMh8KYEg6hDfh8UNUwcF2TGl1qD8/
+	 x+da2Jc9iPkdykE2jLa/H/W6COLuETxWtjZoYUnM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 5A593F80247;
-	Mon, 30 Nov 2020 05:05:27 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id AB5ACF8049C;
+	Mon, 30 Nov 2020 09:37:25 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id ECB7BF8049C; Mon, 30 Nov 2020 05:05:24 +0100 (CET)
+ id DEE04F8025F; Mon, 30 Nov 2020 09:37:22 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from inva020.nxp.com (inva020.nxp.com [92.121.34.13])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-0.0 required=5.0 tests=RCVD_IN_MSPIKE_H3,
+ RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
+Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 698A4F800D0
- for <alsa-devel@alsa-project.org>; Mon, 30 Nov 2020 05:05:17 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 698A4F800D0
-Received: from inva020.nxp.com (localhost [127.0.0.1])
- by inva020.eu-rdc02.nxp.com (Postfix) with ESMTP id 5D5481A08B8;
- Mon, 30 Nov 2020 05:05:17 +0100 (CET)
-Received: from invc005.ap-rdc01.nxp.com (invc005.ap-rdc01.nxp.com
- [165.114.16.14])
- by inva020.eu-rdc02.nxp.com (Postfix) with ESMTP id 40D911A0889;
- Mon, 30 Nov 2020 05:05:12 +0100 (CET)
-Received: from localhost.localdomain (shlinux2.ap.freescale.net
- [10.192.224.44])
- by invc005.ap-rdc01.nxp.com (Postfix) with ESMTP id 05B1C402C4;
- Mon, 30 Nov 2020 05:05:05 +0100 (CET)
-From: Shengjiu Wang <shengjiu.wang@nxp.com>
-To: timur@kernel.org, nicoleotsuka@gmail.com, Xiubo.Lee@gmail.com,
- festevam@gmail.com, lgirdwood@gmail.com, broonie@kernel.org,
- perex@perex.cz, tiwai@suse.com, alsa-devel@alsa-project.org,
- linuxppc-dev@lists.ozlabs.org, linux-kernel@vger.kernel.org,
- robh+dt@kernel.org, devicetree@vger.kernel.org
-Subject: [PATCH 2/2] ASoC: bindings: fsl-asoc-card: add compatible string for
- si476x codec
-Date: Mon, 30 Nov 2020 11:57:48 +0800
-Message-Id: <1606708668-28786-2-git-send-email-shengjiu.wang@nxp.com>
-X-Mailer: git-send-email 2.7.4
-In-Reply-To: <1606708668-28786-1-git-send-email-shengjiu.wang@nxp.com>
-References: <1606708668-28786-1-git-send-email-shengjiu.wang@nxp.com>
-X-Virus-Scanned: ClamAV using ClamSMTP
+ by alsa1.perex.cz (Postfix) with ESMTPS id 698DBF80247
+ for <alsa-devel@alsa-project.org>; Mon, 30 Nov 2020 09:37:15 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 698DBF80247
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id 35AE8AC65
+ for <alsa-devel@alsa-project.org>; Mon, 30 Nov 2020 08:37:15 +0000 (UTC)
+From: Takashi Iwai <tiwai@suse.de>
+To: alsa-devel@alsa-project.org
+Subject: [PATCH] ALSA: usb-audio: Add quirk for Pioneer DJ DDJ-SR2
+Date: Mon, 30 Nov 2020 09:37:14 +0100
+Message-Id: <20201130083714.10640-1-tiwai@suse.de>
+X-Mailer: git-send-email 2.26.2
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -76,27 +63,83 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-The si476x codec is used for FM radio function on i.MX6
-auto board.
+Yet another quirk for Pioneer DJ DDJ-SR2, which is quite similar like
+other DJ DDJ models but with slightly different EPs or channels.
 
-Signed-off-by: Shengjiu Wang <shengjiu.wang@nxp.com>
+Reported-by: Geraldo <geraldogabriel@gmail.com>
+Signed-off-by: Takashi Iwai <tiwai@suse.de>
 ---
- Documentation/devicetree/bindings/sound/fsl-asoc-card.txt | 2 ++
- 1 file changed, 2 insertions(+)
+ sound/usb/quirks-table.h | 57 ++++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 57 insertions(+)
 
-diff --git a/Documentation/devicetree/bindings/sound/fsl-asoc-card.txt b/Documentation/devicetree/bindings/sound/fsl-asoc-card.txt
-index f339be62e7e4..90d9e9d81624 100644
---- a/Documentation/devicetree/bindings/sound/fsl-asoc-card.txt
-+++ b/Documentation/devicetree/bindings/sound/fsl-asoc-card.txt
-@@ -40,6 +40,8 @@ The compatible list for this generic sound card currently:
+diff --git a/sound/usb/quirks-table.h b/sound/usb/quirks-table.h
+index 7454011f6006..0e11cb96fa8c 100644
+--- a/sound/usb/quirks-table.h
++++ b/sound/usb/quirks-table.h
+@@ -3579,6 +3579,63 @@ AU0828_DEVICE(0x2040, 0x7270, "Hauppauge", "HVR-950Q"),
+ 	}
+ },
  
-  "fsl,imx-audio-tlv320aic32x4"
- 
-+ "fsl,imx-audio-si476x"
++{
++	/*
++	 * PIONEER DJ DDJ-SR2
++	 * PCM is 4 channels out, 6 channels in @ 44.1 fixed
++	 * The Feedback for the output is the input
++	 */
++	USB_DEVICE_VENDOR_SPEC(0x2b73, 0x001e),
++		.driver_info = (unsigned long) &(const struct snd_usb_audio_quirk) {
++		.ifnum = QUIRK_ANY_INTERFACE,
++		.type = QUIRK_COMPOSITE,
++		.data = (const struct snd_usb_audio_quirk[]) {
++			{
++				.ifnum = 0,
++				.type = QUIRK_AUDIO_FIXED_ENDPOINT,
++				.data = &(const struct audioformat) {
++					.formats = SNDRV_PCM_FMTBIT_S24_3LE,
++					.channels = 4,
++					.iface = 0,
++					.altsetting = 1,
++					.altset_idx = 1,
++					.endpoint = 0x01,
++					.ep_attr = USB_ENDPOINT_XFER_ISOC|
++						USB_ENDPOINT_SYNC_ASYNC,
++					.rates = SNDRV_PCM_RATE_44100,
++					.rate_min = 44100,
++					.rate_max = 44100,
++					.nr_rates = 1,
++					.rate_table = (unsigned int[]) { 44100 }
++				}
++			},
++			{
++				.ifnum = 0,
++				.type = QUIRK_AUDIO_FIXED_ENDPOINT,
++				.data = &(const struct audioformat) {
++					.formats = SNDRV_PCM_FMTBIT_S24_3LE,
++					.channels = 6,
++					.iface = 0,
++					.altsetting = 1,
++					.altset_idx = 1,
++					.endpoint = 0x82,
++					.ep_attr = USB_ENDPOINT_XFER_ISOC|
++						USB_ENDPOINT_SYNC_ASYNC|
++					USB_ENDPOINT_USAGE_IMPLICIT_FB,
++					.rates = SNDRV_PCM_RATE_44100,
++					.rate_min = 44100,
++					.rate_max = 44100,
++					.nr_rates = 1,
++					.rate_table = (unsigned int[]) { 44100 }
++				}
++			},
++			{
++				.ifnum = -1
++			}
++		}
++	}
++},
 +
- Required properties:
- 
-   - compatible		: Contains one of entries in the compatible list.
+ {
+ 	/*
+ 	 * Pioneer DJ DJM-900NXS2
 -- 
-2.27.0
+2.26.2
 

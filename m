@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id BC1822C8A1B
-	for <lists+alsa-devel@lfdr.de>; Mon, 30 Nov 2020 17:58:20 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 25A582C8A1C
+	for <lists+alsa-devel@lfdr.de>; Mon, 30 Nov 2020 17:58:29 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 621ED1739;
-	Mon, 30 Nov 2020 17:57:30 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 621ED1739
+	by alsa0.perex.cz (Postfix) with ESMTPS id BCCA21771;
+	Mon, 30 Nov 2020 17:57:38 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BCCA21771
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1606755500;
-	bh=bt05pStDnlS1AD36pvpBBu0/w+xPehwfuoghLTDmq8k=;
+	s=default; t=1606755508;
+	bh=b+x9s3I7ptvxcFj0SBZF3PC0IR2WjNoBnaNfNj77cAE=;
 	h=Date:From:To:In-Reply-To:References:Subject:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=AzrKX5fWQf5jYrUSUEcdfs5ABJA2d4mNWho+cuEsI20kkx0w1U3TwpcCgp05I6ror
-	 486I3xyQLMJx+siUTDFFkoN4s8Vds2Zk5qdxqXGZPMK00yff4dUID6F9b+NhbyKwQl
-	 1pxF7NXssxSUZPX2YPgSr+Tpvoy00CwpF/pa7IQg=
+	b=AuHxANLWbriI45V2B6JeXG3Z+sClHCdHpmpckUUg5A7G3bFVzPp00wMDO7DrfgYeJ
+	 NWZxz+fQzQHGGkruVWi6BmE/6VImk0aE00p3xMMas7pNPjPo3LLRTft7066iIyg0I4
+	 4nJhHXnSs8UnAHVskTpMVv5MMw/5Olj57BTN3BTU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 5EE97F804BC;
-	Mon, 30 Nov 2020 17:56:07 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 211AEF804BD;
+	Mon, 30 Nov 2020 17:56:08 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id BB0D8F804AB; Mon, 30 Nov 2020 17:55:59 +0100 (CET)
+ id 54361F8025F; Mon, 30 Nov 2020 17:56:01 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-1.6 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -34,36 +34,35 @@ X-Spam-Status: No, score=-1.6 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id D1275F8025F
- for <alsa-devel@alsa-project.org>; Mon, 30 Nov 2020 17:55:50 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D1275F8025F
+ by alsa1.perex.cz (Postfix) with ESMTPS id 08098F804AA
+ for <alsa-devel@alsa-project.org>; Mon, 30 Nov 2020 17:55:56 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 08098F804AA
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="E+NIjiL7"
+ header.b="MQoAewjd"
 Received: from localhost (fw-tnat.cambridge.arm.com [217.140.96.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 5779A207F7;
- Mon, 30 Nov 2020 16:55:48 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id C46F02076B;
+ Mon, 30 Nov 2020 16:55:53 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1606755348;
- bh=bt05pStDnlS1AD36pvpBBu0/w+xPehwfuoghLTDmq8k=;
+ s=default; t=1606755354;
+ bh=b+x9s3I7ptvxcFj0SBZF3PC0IR2WjNoBnaNfNj77cAE=;
  h=Date:From:To:Cc:In-Reply-To:References:Subject:From;
- b=E+NIjiL7c/Mccgffu/O0eK6scRBbebV3RXVJwuTFGJ4nBR5lxfOLhHszJWvdb9FL1
- QgvssScDV/elyzp8x2ztIecjyaPNtJjdg+SJTguW6nQMIrLWWZ61z+yCEyS8uacY2Z
- vLotaIiG78pOq6PfUg4frq32JirCeaX+o9QMfQMo=
-Date: Mon, 30 Nov 2020 16:55:20 +0000
+ b=MQoAewjdK0/e/PGQag99kTw7b5MYmYJQwqupiZ67UZxxSc6MjdH82NGP60mgXcN5+
+ fkeG/7Gk+AP1OhauhNkBZu5ih3cb3lF8yRwM9f8SU4aiJX9Tf8cH0E/uaNfy4ukt8E
+ bmS8HMIkgBXd7jCxxgid4ezyIdNgy68ZgV+PNMfI=
+Date: Mon, 30 Nov 2020 16:55:26 +0000
 From: Mark Brown <broonie@kernel.org>
-To: Takashi Iwai <tiwai@suse.de>
-In-Reply-To: <20201127143200.16272-1-tiwai@suse.de>
-References: <20201127143200.16272-1-tiwai@suse.de>
-Subject: Re: [PATCH 0/2] ASoC: amd: Minor fixes for error handling
-Message-Id: <160675530955.30326.15066131330909396381.b4-ty@kernel.org>
+To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+In-Reply-To: <87zh2zu40a.wl-kuninori.morimoto.gx@renesas.com>
+References: <87zh2zu40a.wl-kuninori.morimoto.gx@renesas.com>
+Subject: Re: [PATCH 0/2] ASoC: tidyup for jack.h
+Message-Id: <160675530955.30326.5961866712081934902.b4-ty@kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Cc: Ravulapati Vishnu vardhan rao <Vishnuvardhanrao.Ravulapati@amd.com>,
- alsa-devel@alsa-project.org, Akshu Agrawal <akshu.agrawal@amd.com>
+Cc: Linux-ALSA <alsa-devel@alsa-project.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -79,16 +78,19 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Fri, 27 Nov 2020 15:31:57 +0100, Takashi Iwai wrote:
-> this is a set of patches to address the errors appearing on the
-> machine that has no I2S DMIC on AMD machine but probed.
+On 30 Nov 2020 08:44:56 +0900, Kuninori Morimoto wrote:
+> These are jack.h related tidyup.
 > 
+> Kuninori Morimoto (2):
+>   ASoC: soc-core: tidyup jack.h
+>   ASoC: add soc-jack.h
 > 
-> Takashi
-> 
-> ===
-> 
-> [...]
+>  include/sound/soc-jack.h    | 132 ++++++++++++++++++++++++++++++++++++
+>  include/sound/soc.h         | 122 +--------------------------------
+>  include/trace/events/asoc.h |   1 +
+>  sound/soc/soc-core.c        |   1 -
+>  4 files changed, 134 insertions(+), 122 deletions(-)
+>  create mode 100644 include/sound/soc-jack.h
 
 Applied to
 
@@ -96,10 +98,10 @@ Applied to
 
 Thanks!
 
-[1/2] ASoC: amd: Downgrade print level for invalid ACP mode
-      commit: 2509bb342e476e740db448cce09c19b92905194e
-[2/2] ASoC: amd: Return -ENODEV for non-existing ACPI call
-      commit: ab5893fdc0693e4f747ef26194b6bbf628bdb044
+[1/2] ASoC: soc-core: tidyup jack.h
+      commit: 9e8434a0083b135b7fc34bd8fbd7cb99a47b3c08
+[2/2] ASoC: add soc-jack.h
+      commit: ddfbe828f2ed13f9145c5c5fa17cb0a1b58e0bc9
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

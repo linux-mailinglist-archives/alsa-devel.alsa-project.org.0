@@ -2,83 +2,74 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id DFDE82C8EB7
-	for <lists+alsa-devel@lfdr.de>; Mon, 30 Nov 2020 21:11:15 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 27A452C8F6C
+	for <lists+alsa-devel@lfdr.de>; Mon, 30 Nov 2020 21:51:16 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 79B3E1708;
-	Mon, 30 Nov 2020 21:10:25 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 79B3E1708
+	by alsa0.perex.cz (Postfix) with ESMTPS id AD962170B;
+	Mon, 30 Nov 2020 21:50:25 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AD962170B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1606767075;
-	bh=953VCQcr4k1EowvwT627lVRBs/xV9mZx25kvX80TidM=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
+	s=default; t=1606769475;
+	bh=SXp3Q+aAnMd2hJ0MxXp1DBBdkcAKlYGgRUPAOf5bJkg=;
+	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=HYPjA5Pyj8f+nddAzZYL/z0YFyYbIBLWxzIhCxV4LljKJNH71tKdpGXq3mCrOBVaa
-	 lte0dhmD1bT7xQLRL3JLYSHHdKkkMc9Dwk+7nMW+iUVNndqBmVLth/DesnisG+cCov
-	 N5ZuBi9d+JzFShH3pB5n9f5/oXVZvIlGBtnsi/Lg=
+	b=Igbj1opJbherp81E2TIkEk78Ik64oiF6kEwqHjZ28Rbr7PuMR4QP6hOAnKI3JeLKN
+	 ltCvpeirINZ4JDmzJu3oEHCSyx0l+TyWw5nI7WREQ68OWbR7XrN/ANYUnjekE1qjQv
+	 VQmypJnGcEIonrk/pagIkIQjBXnpRihCUJBICgfY=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id C4FEEF8049C;
-	Mon, 30 Nov 2020 21:09:40 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 1BC04F8049C;
+	Mon, 30 Nov 2020 21:49:41 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 14816F8025F; Mon, 30 Nov 2020 21:09:39 +0100 (CET)
+ id 7222CF8025F; Mon, 30 Nov 2020 21:49:33 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=0.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_FROM,PRX_BODY_30,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from mail-qv1-xf2e.google.com (mail-qv1-xf2e.google.com
- [IPv6:2607:f8b0:4864:20::f2e])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Level: *
+X-Spam-Status: No, score=1.1 required=5.0 tests=DATE_IN_PAST_03_06,
+ NICE_REPLY_A,RCVD_IN_MSPIKE_H4,RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_NONE,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mga06.intel.com (mga06.intel.com [134.134.136.31])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 35DB0F80146
- for <alsa-devel@alsa-project.org>; Mon, 30 Nov 2020 21:09:30 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 35DB0F80146
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="QpEwgLwK"
-Received: by mail-qv1-xf2e.google.com with SMTP id ec16so6278778qvb.0
- for <alsa-devel@alsa-project.org>; Mon, 30 Nov 2020 12:09:30 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=3uvhuMHkUig4cWE4qSBrVjyp2x4n5TblgmrS/d/iioQ=;
- b=QpEwgLwKBeU5n8jf6qhzRaLTXybUBQTw9ghcltvrvn0pJNxzTJnq1juRSBXaJY99NW
- UeqMQG8qI97WHUiWVPrXurX6j5Qt4vaTLWDXKPbQYFpk3XjWHw7BqdPqzq/zLhqexuAE
- NbLf0f+0fZn+RAUIzLdRIbHOfFldgZrLd3KuC259QfKV5MzZT1lOfMYE7M+nk8NvkFV0
- cj0QYZTM4bJ+Utd2CO4U/A/uTnwUYcBT6+6FH+6bqA88yPh1gsch9tgvuvOhCL2E/XHN
- G0Wge6HUhZLZPOhpEpgOf6LQLQgETlwSp6/B9zZeG4xcet4Xms9/fdULOgDUz4eSt/5/
- BJ5A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=3uvhuMHkUig4cWE4qSBrVjyp2x4n5TblgmrS/d/iioQ=;
- b=Z/In9pbIlJuHWsQc6Sh8JMEX2TafiZVXpuK94+63s8rsKk/eI3lJA0caaJ5mn1fpEt
- TFo2TAAN7raWxtaLqLCjgU+SqUV9Tv0b67HP+Kz+Yc7l7sQ/PLUDh24DcXFC8zKKZMld
- f7ZT3dvUAIevKwK3TRH+G8YIZQJ4twr3M4YOpq97C7/V5zj9dt9BBcIgC+xrHAI4xdPP
- valSokEilsf7fS756yqGOQsZMxe3uIr/aopwCFs7J2emJvlnp+wV0UlktOx8VS+RwESa
- k/fPbu/9O5PuxVBEJqZdjdjw3l8/o+lxFsU7FeEsupGvnUe3a2nhq1wcJjhAOD6ql+Zc
- ooSQ==
-X-Gm-Message-State: AOAM531BGbE4ev/w0LN/+fPdiw7tnKmkMp8bjQ/0I2OF5j1l/ychIgLz
- B0kQWY0Mh+sTK5OS+XXHar+Fa3liZ1/FJ2lrFvU=
-X-Google-Smtp-Source: ABdhPJyWNxv5EWImq12WTZD+zj3CX/LhHFlUJygSu1BcFtuMX4Kb7ncAm0LlIu7h6y0DmNqvGgxzZIp1Bpa68LECQU0=
-X-Received: by 2002:a0c:ec8c:: with SMTP id u12mr24475337qvo.53.1606766968456; 
- Mon, 30 Nov 2020 12:09:28 -0800 (PST)
+ by alsa1.perex.cz (Postfix) with ESMTPS id D5077F80146
+ for <alsa-devel@alsa-project.org>; Mon, 30 Nov 2020 21:49:26 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D5077F80146
+IronPort-SDR: omeQ878CmV6TesmeNoKE2aURvU7NzGB7+i2QFn2ijRXTVtxnCYGipu5gz7lDGUYpCXdB1VVkwe
+ ClmnNzAItUew==
+X-IronPort-AV: E=McAfee;i="6000,8403,9821"; a="234313434"
+X-IronPort-AV: E=Sophos;i="5.78,382,1599548400"; d="scan'208";a="234313434"
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from orsmga004.jf.intel.com ([10.7.209.38])
+ by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 30 Nov 2020 12:49:21 -0800
+IronPort-SDR: l56Kv88FxBl/g7uL0cUWjbZXa/xxgbrCaAcsyNjw772ia5128r3FdUn8oR744As54N2C3ch1GM
+ 22LAH4UIVNVw==
+X-IronPort-AV: E=Sophos;i="5.78,382,1599548400"; d="scan'208";a="480800565"
+Received: from whsiao-mobl.amr.corp.intel.com (HELO [10.209.17.17])
+ ([10.209.17.17])
+ by orsmga004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 30 Nov 2020 12:49:21 -0800
+Subject: Re: [PATCH] soundwire: Fix error return code in
+ sdw_compute_port_params
+To: Qinglang Miao <miaoqinglang@huawei.com>, Vinod Koul <vkoul@kernel.org>,
+ Bard Liao <yung-chuan.liao@linux.intel.com>,
+ Sanyog Kale <sanyog.r.kale@intel.com>
+References: <20201125065035.154262-1-miaoqinglang@huawei.com>
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Message-ID: <fc8ffb8c-955e-ddf3-3113-52c8b7329696@linux.intel.com>
+Date: Mon, 30 Nov 2020 11:35:34 -0600
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.10.0
 MIME-Version: 1.0
-References: <CAGvD0_bewR3v4Pa+9f4XLGMreVL9cx6BNj=GXWnUN2XJuG9r5w@mail.gmail.com>
- <s5hr1oaeq8l.wl-tiwai@suse.de>
-In-Reply-To: <s5hr1oaeq8l.wl-tiwai@suse.de>
-From: Soham Sen <sohamsendev@gmail.com>
-Date: Tue, 1 Dec 2020 01:39:17 +0530
-Message-ID: <CAGvD0_YjY74O2DraQ3cmONC-+QuVKM_Sra79wTbKNpxs4=RAFA@mail.gmail.com>
-Subject: Re: Mute LED not working on HP (Realtek ALC245)
-To: Takashi Iwai <tiwai@suse.de>
-Content-Type: text/plain; charset="UTF-8"
-Cc: alsa-devel@alsa-project.org
+In-Reply-To: <20201125065035.154262-1-miaoqinglang@huawei.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
+Cc: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -94,30 +85,40 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-> > I've been trying to debug the issue related to the microphone LED not
-> > working under Linux. I've confirmed that the LED works in windows.
-> > Seems like most HP laptops have this problem, and they are fixed by
-> > adding a model= parameter, however I've tried all HP mute LED related
-> > models on https://www.kernel.org/doc/html/latest/sound/hd-audio/models.html
-> > to no success. A very similar model to my laptop, running Intel HD
-> > Audio can be fixed by using model=hp-mute-led-mic3 but this didn't
-> > work on my laptop either.
-> >
-> > Can I get any help on how to further debug this issue? I tried
-> > searching for the documentation for this audio card, but wasn't able
-> > to find anything useful.
-> >
-> > Output of alsa-info.sh:
-> > http://alsa-project.org/db/?f=4173cebd458b6badbc21668461e9ba2e890333c2
->
-> I guess you've already tried to pass the model option, but judging
-> from the alsa-info.sh output, you passed it wrongly.  As the onboard
-> analog output is from the AMD HD-audio controller that is the
-> secondary card (while the primary card is Nvidia HDMI), you'd need to
-> pass "model=,XXX" (see the comma before "XXX"), i.e. set in the second
-> entry of the array.
->
->
-> Takashi
 
-Tried both, actually, but the result was the same. LED won't turn on either way.
+
+On 11/25/20 12:50 AM, Qinglang Miao wrote:
+> Fix to return the error code -EINVAL in sdw_compute_port_params
+> instead of 0.
+> 
+> Fixes: 9026118f20e2 ("soundwire: Add generic bandwidth allocation algorithm")
+> Reported-by: Hulk Robot <hulkci@huawei.com>
+> Signed-off-by: Qinglang Miao <miaoqinglang@huawei.com>
+
+Thanks for the patch.
+The test covers a very unlikely error scenario but nevertheless not a 
+zero probability so the suggested fix makes sense to me.
+
+Reviewed-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+
+> ---
+>   drivers/soundwire/generic_bandwidth_allocation.c | 4 +++-
+>   1 file changed, 3 insertions(+), 1 deletion(-)
+> 
+> diff --git a/drivers/soundwire/generic_bandwidth_allocation.c b/drivers/soundwire/generic_bandwidth_allocation.c
+> index 0bdef38c9..ad857ac62 100644
+> --- a/drivers/soundwire/generic_bandwidth_allocation.c
+> +++ b/drivers/soundwire/generic_bandwidth_allocation.c
+> @@ -283,8 +283,10 @@ static int sdw_compute_port_params(struct sdw_bus *bus)
+>   	if (ret < 0)
+>   		return ret;
+>   
+> -	if (group.count == 0)
+> +	if (group.count == 0) {
+> +		ret = -EINVAL;
+>   		goto out;
+> +	}
+>   
+>   	params = kcalloc(group.count, sizeof(*params), GFP_KERNEL);
+>   	if (!params) {
+> 

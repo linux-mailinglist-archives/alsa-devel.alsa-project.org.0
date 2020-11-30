@@ -2,62 +2,61 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 461E92C7C99
-	for <lists+alsa-devel@lfdr.de>; Mon, 30 Nov 2020 02:53:54 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 57A9D2C7D87
+	for <lists+alsa-devel@lfdr.de>; Mon, 30 Nov 2020 05:07:11 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id CCEB71745;
-	Mon, 30 Nov 2020 02:53:03 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CCEB71745
+	by alsa0.perex.cz (Postfix) with ESMTPS id 9116E175E;
+	Mon, 30 Nov 2020 05:06:20 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9116E175E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1606701233;
-	bh=MY+LW17GSXVBizLZira9jUeS58ZgUnulaWts5neqjpY=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=YZ2ZptkCmbTsvLK0SqrIqY8Bc5hlwQqpHUMOmUkfgtSEQoGmOFdQ9fL1sqa04xQ3b
-	 mChbfkxlhSqE2bnDV0E7UdveuKHvfV/bSv3lAUp6mCAXtTBIoIwrcpJCxDalf5Xk5q
-	 uzmNoiwcBt81uBw1f7PP8tkFqHH6xegyfw43PYN0=
+	s=default; t=1606709230;
+	bh=7DvGdJVQ90+MK6QoVE9CzxoWwmWGxb57inbFsWleS3w=;
+	h=From:To:Subject:Date:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=aQU9V8jXl2EBaa/nZvOQUZeuW8sxbg1mTnd+dR1L6dVxIxBWKy3yjFqKtn+RKzCKc
+	 2jpRbfl68GoHT+Q9k+LwmSDqM4c/QR9vlJSFyJwTyCVRmrd1fnQE2XSAjyIUJTYn9S
+	 EZth4+CvkkwlZ9wJeGiYz/0LAir3BsWG5yobMr50=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 549B2F80087;
-	Mon, 30 Nov 2020 02:52:19 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 5CAD6F804A9;
+	Mon, 30 Nov 2020 05:05:28 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 14A5EF80168; Mon, 30 Nov 2020 02:52:17 +0100 (CET)
+ id 830A8F8025F; Mon, 30 Nov 2020 05:05:25 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from gloria.sntech.de (gloria.sntech.de [185.11.138.130])
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from inva021.nxp.com (inva021.nxp.com [92.121.34.21])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id E90CBF80087
- for <alsa-devel@alsa-project.org>; Mon, 30 Nov 2020 02:52:10 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E90CBF80087
-Received: from ip5f5aa64a.dynamic.kabel-deutschland.de ([95.90.166.74]
- helo=phil.lan)
- by gloria.sntech.de with esmtpsa (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256)
- (Exim 4.92) (envelope-from <heiko@sntech.de>)
- id 1kjYME-0007OY-Vw; Mon, 30 Nov 2020 02:52:03 +0100
-From: Heiko Stuebner <heiko@sntech.de>
-To: Johan Jonker <jbx6244@gmail.com>
-Subject: Re: (subset) [PATCH v5 0/7] Enable rk3066a HDMI sound
-Date: Mon, 30 Nov 2020 02:51:58 +0100
-Message-Id: <160670107988.1055391.2625216014157320355.b4-ty@sntech.de>
-X-Mailer: git-send-email 2.29.2
-In-Reply-To: <20201118135822.9582-1-jbx6244@gmail.com>
-References: <20201118135822.9582-1-jbx6244@gmail.com>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Cc: alsa-devel@alsa-project.org, Heiko Stuebner <heiko@sntech.de>,
- linux-rockchip@lists.infradead.org, airlied@linux.ie, lgirdwood@gmail.com,
- mturquette@baylibre.com, hjc@rock-chips.com, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, robh+dt@kernel.org, broonie@kernel.org,
- daniel@ffwll.ch, sboyd@kernel.org, linux-clk@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org
+ by alsa1.perex.cz (Postfix) with ESMTPS id B1B30F80247
+ for <alsa-devel@alsa-project.org>; Mon, 30 Nov 2020 05:05:17 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B1B30F80247
+Received: from inva021.nxp.com (localhost [127.0.0.1])
+ by inva021.eu-rdc02.nxp.com (Postfix) with ESMTP id 2473C20074A;
+ Mon, 30 Nov 2020 05:05:16 +0100 (CET)
+Received: from invc005.ap-rdc01.nxp.com (invc005.ap-rdc01.nxp.com
+ [165.114.16.14])
+ by inva021.eu-rdc02.nxp.com (Postfix) with ESMTP id 0922320073E;
+ Mon, 30 Nov 2020 05:05:11 +0100 (CET)
+Received: from localhost.localdomain (shlinux2.ap.freescale.net
+ [10.192.224.44])
+ by invc005.ap-rdc01.nxp.com (Postfix) with ESMTP id C89D540326;
+ Mon, 30 Nov 2020 05:05:04 +0100 (CET)
+From: Shengjiu Wang <shengjiu.wang@nxp.com>
+To: timur@kernel.org, nicoleotsuka@gmail.com, Xiubo.Lee@gmail.com,
+ festevam@gmail.com, lgirdwood@gmail.com, broonie@kernel.org,
+ perex@perex.cz, tiwai@suse.com, alsa-devel@alsa-project.org,
+ linuxppc-dev@lists.ozlabs.org, linux-kernel@vger.kernel.org,
+ robh+dt@kernel.org, devicetree@vger.kernel.org
+Subject: [PATCH 1/2] ASoC: fsl-asoc-card: Add support for si476x codec
+Date: Mon, 30 Nov 2020 11:57:47 +0800
+Message-Id: <1606708668-28786-1-git-send-email-shengjiu.wang@nxp.com>
+X-Mailer: git-send-email 2.7.4
+X-Virus-Scanned: ClamAV using ClamSMTP
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -73,24 +72,52 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Wed, 18 Nov 2020 14:58:15 +0100, Johan Jonker wrote:
-> First fix some legacy things in clk-rk3188.c that was never updated,
-> because probably nobody used rk3066a I2S before in the mainline kernel.
-> Update the rk3066a HDMI documents with a #sound-dai-cells property.
-> Include the code for sound in the HDMI driver.
-> Add a simple-sound-card compatible node to rk3066a.dtsi,
-> because I2S0 and HDMI TX are connected internally.
-> And as last enable rk3066a HDMI sound in the rk3066a-mk808.dts file.
-> 
-> [...]
+The si476x codec is used for FM radio function on i.MX6
+auto board, it only supports recording function.
 
-Applied, thanks!
+Signed-off-by: Shengjiu Wang <shengjiu.wang@nxp.com>
+---
+ sound/soc/fsl/fsl-asoc-card.c | 13 +++++++++++++
+ 1 file changed, 13 insertions(+)
 
-[1/7] clk: rockchip: add CLK_SET_RATE_PARENT to sclk for rk3066a i2s and uart clocks
-      commit: 5868491e1257786628fdd2457dfb77609f49f91d
-[2/7] clk: rockchip: fix i2s gate bits on rk3066 and rk3188
-      commit: caa2fd752ecb80faf7a2e1cdadc737187934675e
-
-Best regards,
+diff --git a/sound/soc/fsl/fsl-asoc-card.c b/sound/soc/fsl/fsl-asoc-card.c
+index a2dd3b6b7fec..f62f81ceab0d 100644
+--- a/sound/soc/fsl/fsl-asoc-card.c
++++ b/sound/soc/fsl/fsl-asoc-card.c
+@@ -131,6 +131,13 @@ static const struct snd_soc_dapm_route audio_map_tx[] = {
+ 	{"CPU-Playback",  NULL, "ASRC-Playback"},
+ };
+ 
++static const struct snd_soc_dapm_route audio_map_rx[] = {
++	/* 1st half -- Normal DAPM routes */
++	{"CPU-Capture",  NULL, "Capture"},
++	/* 2nd half -- ASRC DAPM routes */
++	{"ASRC-Capture",  NULL, "CPU-Capture"},
++};
++
+ /* Add all possible widgets into here without being redundant */
+ static const struct snd_soc_dapm_widget fsl_asoc_card_dapm_widgets[] = {
+ 	SND_SOC_DAPM_LINE("Line Out Jack", NULL),
+@@ -653,6 +660,11 @@ static int fsl_asoc_card_probe(struct platform_device *pdev)
+ 		priv->cpu_priv.slot_width = 32;
+ 		priv->card.dapm_routes = audio_map_tx;
+ 		priv->card.num_dapm_routes = ARRAY_SIZE(audio_map_tx);
++	} else if (of_device_is_compatible(np, "fsl,imx-audio-si476x")) {
++		codec_dai_name = "si476x-codec";
++		priv->dai_fmt |= SND_SOC_DAIFMT_CBS_CFS;
++		priv->card.dapm_routes = audio_map_rx;
++		priv->card.num_dapm_routes = ARRAY_SIZE(audio_map_rx);
+ 	} else {
+ 		dev_err(&pdev->dev, "unknown Device Tree compatible\n");
+ 		ret = -EINVAL;
+@@ -869,6 +881,7 @@ static const struct of_device_id fsl_asoc_card_dt_ids[] = {
+ 	{ .compatible = "fsl,imx-audio-wm8960", },
+ 	{ .compatible = "fsl,imx-audio-mqs", },
+ 	{ .compatible = "fsl,imx-audio-wm8524", },
++	{ .compatible = "fsl,imx-audio-si476x", },
+ 	{}
+ };
+ MODULE_DEVICE_TABLE(of, fsl_asoc_card_dt_ids);
 -- 
-Heiko Stuebner <heiko@sntech.de>
+2.27.0
+

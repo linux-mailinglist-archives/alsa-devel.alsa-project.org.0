@@ -2,49 +2,49 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A85C62C933C
-	for <lists+alsa-devel@lfdr.de>; Tue,  1 Dec 2020 00:52:48 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 501632C9348
+	for <lists+alsa-devel@lfdr.de>; Tue,  1 Dec 2020 00:53:30 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E9AE0174A;
-	Tue,  1 Dec 2020 00:51:57 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E9AE0174A
+	by alsa0.perex.cz (Postfix) with ESMTPS id DC4C0171A;
+	Tue,  1 Dec 2020 00:52:39 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DC4C0171A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1606780368;
-	bh=+0W54dsoq0ynFCbFuuDiPpCSuxdkS9qQWg4FgLGKa/Q=;
+	s=default; t=1606780409;
+	bh=oHGnyQycpw7Nb/B7O9mB/pxE8jcqFechU0kQYdlnoKA=;
 	h=Date:From:Subject:To:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=WQhq/AH8FnmrLjINiXGiz5CYhQGyH1VvWJcu8r7tb19dW6k4P7tzDP9KWoixVrSUK
-	 B5OViIRR4MSXG8eVHyZQdLWzA8qDW7PEvh2vdz7RDBAhsGXtjkWMkqeHPNYabe6eAH
-	 UlDAtR8Gu3jUlcWa4+diXlMQ4Yym13+xaGqOZyCs=
+	b=PT4/enGUz5lp6e1jMzIDjJCTp8HN+VJyn3JhzkxpxhRbPpJF4kxF2HnT8kicnZaO9
+	 q/iW4duGjt+hoapqRvuJqxdqfwcSSwNWzN2RWa0fkk6V4rICKApdKoU+KHkfmLzmgS
+	 9QA+lxLTYpBaUmcwslzUkH4Syz4pGb8g+WnH/0/o=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id AEB23F804AD;
-	Tue,  1 Dec 2020 00:51:36 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 4AA2DF804BD;
+	Tue,  1 Dec 2020 00:51:42 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 16E82F804AB; Tue,  1 Dec 2020 00:51:34 +0100 (CET)
+ id 4F989F804BC; Tue,  1 Dec 2020 00:51:40 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
  URIBL_BLOCKED autolearn=disabled version=3.4.0
 Received: from relmlie6.idc.renesas.com (relmlor2.renesas.com
  [210.160.252.172])
- by alsa1.perex.cz (Postfix) with ESMTP id 7FC2CF8025F
- for <alsa-devel@alsa-project.org>; Tue,  1 Dec 2020 00:51:27 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7FC2CF8025F
-Date: 01 Dec 2020 08:51:25 +0900
-X-IronPort-AV: E=Sophos;i="5.78,382,1599490800"; d="scan'208";a="64186340"
+ by alsa1.perex.cz (Postfix) with ESMTP id 709C1F80254
+ for <alsa-devel@alsa-project.org>; Tue,  1 Dec 2020 00:51:33 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 709C1F80254
+Date: 01 Dec 2020 08:51:33 +0900
+X-IronPort-AV: E=Sophos;i="5.78,382,1599490800"; d="scan'208";a="64186351"
 Received: from unknown (HELO relmlir6.idc.renesas.com) ([10.200.68.152])
- by relmlie6.idc.renesas.com with ESMTP; 01 Dec 2020 08:51:25 +0900
+ by relmlie6.idc.renesas.com with ESMTP; 01 Dec 2020 08:51:33 +0900
 Received: from mercury.renesas.com (unknown [10.166.252.133])
- by relmlir6.idc.renesas.com (Postfix) with ESMTP id 9DB81412FA26;
- Tue,  1 Dec 2020 08:51:25 +0900 (JST)
-Message-ID: <87blfecssk.wl-kuninori.morimoto.gx@renesas.com>
+ by relmlir6.idc.renesas.com (Postfix) with ESMTP id 01FF7412FA39;
+ Tue,  1 Dec 2020 08:51:33 +0900 (JST)
+Message-ID: <87a6uycssd.wl-kuninori.morimoto.gx@renesas.com>
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Subject: [PATCH 1/2] ASoC: soc-pcm: remove dpcm_do_trigger()
+Subject: [PATCH 2/2] ASoC: soc-pcm: care trigger rollback
 User-Agent: Wanderlust/2.15.9 Emacs/26.3 Mule/6.0
 To: Mark Brown <broonie@kernel.org>
 In-Reply-To: <87czzucsth.wl-kuninori.morimoto.gx@renesas.com>
@@ -70,156 +70,384 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 
-dpcm_be_dai_trigger() is calling dpcm_do_trigger()
-at each SNDRV_PCM_TRIGGER_xxx (1).
+soc_pcm_trigger() calls DAI/Component/Link trigger,
+but some of them might be failed.
 
-	int dpcm_be_dai_trigger(...)
+	static int soc_pcm_trigger(...)
 	{
-		for_each_dpcm_be(fe, stream, dpcm) {
-(B)			...
-			switch (cmd) {
-			case SNDRV_PCM_TRIGGER_START:
-				...
-(1)				ret = dpcm_do_trigger(...);
-				...
-			case SNDRV_PCM_TRIGGER_RESUME:
-				...
-(1)				ret = dpcm_do_trigger(...);
-				...
-			case SNDRV_PCM_TRIGGER_PAUSE_RELEASE:
-				...
-(1)				ret = dpcm_do_trigger(...);
-				...
-			case SNDRV_PCM_TRIGGER_STOP:
-				...
-(1)				ret = dpcm_do_trigger(...);
-				...
-			case SNDRV_PCM_TRIGGER_SUSPEND:
-				...
-(1)				ret = dpcm_do_trigger(...);
-				...
-			case SNDRV_PCM_TRIGGER_PAUSE_PUSH:
-				...
-(1)				ret = dpcm_do_trigger(...);
-				...
-			}
+		...
+		switch (cmd) {
+		case SNDRV_PCM_TRIGGER_START:
+		case SNDRV_PCM_TRIGGER_RESUME:
+		case SNDRV_PCM_TRIGGER_PAUSE_RELEASE:
+			ret = snd_soc_link_trigger(substream, cmd);
+			if (ret < 0)
+				break;
+
+(*)			ret = snd_soc_pcm_component_trigger(substream, cmd);
+			if (ret < 0)
+				break;
+
+			ret = snd_soc_pcm_dai_trigger(substream, cmd);
+			break;
+		case SNDRV_PCM_TRIGGER_STOP:
+		case SNDRV_PCM_TRIGGER_SUSPEND:
+		case SNDRV_PCM_TRIGGER_PAUSE_PUSH:
+			ret = snd_soc_pcm_dai_trigger(substream, cmd);
+			if (ret < 0)
+				break;
+
+			ret = snd_soc_pcm_component_trigger(substream, cmd);
+			if (ret < 0)
+				break;
+
+			ret = snd_soc_link_trigger(substream, cmd);
+			break;
 		}
+		...
 	}
 
-But it is just very verbose and duplicated function.
-Because We can indicate dev_dbg() (A) at dpcm_be_dai_trigger() (B).
-And dev_err() (C) is not needed because soc_pcm_trigger() itself
-indicates error message when error.
+For example, if soc_pcm_trigger() failed at (*) point,
+we need to rollback previous succeeded trigger.
 
-	static int dpcm_do_trigger(...)
-	{
-		int ret;
+This patch adds trigger mark for DAI/Component/Link,
+and do STOP if START/RESUME/PAUSE_RELEASE were failed.
 
-(A)		dev_dbg(...);
-
-		ret = soc_pcm_trigger(substream, cmd);
-		if (ret < 0)
-(C)			dev_err(...);
-
-		return ret;
-	}
-
-This patch replace dpcm_do_trigger() to soc_pcm_trigger().
+Because it need to use new rollback parameter,
+we need to modify DAI/Component/Link trigger functions in the same time.
 
 Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 ---
- sound/soc/soc-pcm.c | 30 +++++++++---------------------
- 1 file changed, 9 insertions(+), 21 deletions(-)
+ include/sound/soc-component.h |  3 ++-
+ include/sound/soc-dai.h       |  4 +++-
+ include/sound/soc-link.h      |  3 ++-
+ include/sound/soc.h           |  1 +
+ sound/soc/soc-component.c     | 45 ++++++++++++++++++++++++++++-------
+ sound/soc/soc-dai.c           | 44 +++++++++++++++++++++++++++-------
+ sound/soc/soc-link.c          | 30 ++++++++++++++++++++++-
+ sound/soc/soc-pcm.c           | 42 +++++++++++++++++++++++++-------
+ 8 files changed, 143 insertions(+), 29 deletions(-)
 
-diff --git a/sound/soc/soc-pcm.c b/sound/soc/soc-pcm.c
-index 5250124dc8f5..4aaffa4ed382 100644
---- a/sound/soc/soc-pcm.c
-+++ b/sound/soc/soc-pcm.c
-@@ -2047,21 +2047,6 @@ static int dpcm_fe_dai_hw_params(struct snd_pcm_substream *substream,
- 	return ret;
+diff --git a/include/sound/soc-component.h b/include/sound/soc-component.h
+index 9140b5fa19a4..0bce41fefd30 100644
+--- a/include/sound/soc-component.h
++++ b/include/sound/soc-component.h
+@@ -221,6 +221,7 @@ struct snd_soc_component {
+ 	struct snd_pcm_substream *mark_module;
+ 	struct snd_pcm_substream *mark_open;
+ 	struct snd_pcm_substream *mark_hw_params;
++	struct snd_pcm_substream *mark_trigger;
+ 	struct snd_compr_stream  *mark_compr_open;
+ 	void *mark_pm;
+ 
+@@ -486,7 +487,7 @@ int snd_soc_pcm_component_hw_params(struct snd_pcm_substream *substream,
+ void snd_soc_pcm_component_hw_free(struct snd_pcm_substream *substream,
+ 				   int rollback);
+ int snd_soc_pcm_component_trigger(struct snd_pcm_substream *substream,
+-				  int cmd);
++				  int cmd, int rollback);
+ int snd_soc_pcm_component_pm_runtime_get(struct snd_soc_pcm_runtime *rtd,
+ 					 void *stream);
+ void snd_soc_pcm_component_pm_runtime_put(struct snd_soc_pcm_runtime *rtd,
+diff --git a/include/sound/soc-dai.h b/include/sound/soc-dai.h
+index 6f54401d3de9..34d0dbf73ca9 100644
+--- a/include/sound/soc-dai.h
++++ b/include/sound/soc-dai.h
+@@ -189,7 +189,8 @@ int snd_soc_pcm_dai_probe(struct snd_soc_pcm_runtime *rtd, int order);
+ int snd_soc_pcm_dai_remove(struct snd_soc_pcm_runtime *rtd, int order);
+ int snd_soc_pcm_dai_new(struct snd_soc_pcm_runtime *rtd);
+ int snd_soc_pcm_dai_prepare(struct snd_pcm_substream *substream);
+-int snd_soc_pcm_dai_trigger(struct snd_pcm_substream *substream, int cmd);
++int snd_soc_pcm_dai_trigger(struct snd_pcm_substream *substream, int cmd,
++			    int rollback);
+ int snd_soc_pcm_dai_bespoke_trigger(struct snd_pcm_substream *substream,
+ 				    int cmd);
+ 
+@@ -401,6 +402,7 @@ struct snd_soc_dai {
+ 	/* function mark */
+ 	struct snd_pcm_substream *mark_startup;
+ 	struct snd_pcm_substream *mark_hw_params;
++	struct snd_pcm_substream *mark_trigger;
+ 	struct snd_compr_stream  *mark_compr_startup;
+ 
+ 	/* bit field */
+diff --git a/include/sound/soc-link.h b/include/sound/soc-link.h
+index 4c68b06d6fe6..9314cde1756b 100644
+--- a/include/sound/soc-link.h
++++ b/include/sound/soc-link.h
+@@ -21,8 +21,9 @@ int snd_soc_link_hw_params(struct snd_pcm_substream *substream,
+ 			   struct snd_pcm_hw_params *params);
+ void snd_soc_link_hw_free(struct snd_pcm_substream *substream,
+ 			  int rollback);
+-int snd_soc_link_trigger(struct snd_pcm_substream *substream, int cmd);
+ 
++int snd_soc_link_trigger(struct snd_pcm_substream *substream, int cmd,
++			 int rollback);
+ int snd_soc_link_compr_startup(struct snd_compr_stream *cstream);
+ void snd_soc_link_compr_shutdown(struct snd_compr_stream *cstream,
+ 				 int rollback);
+diff --git a/include/sound/soc.h b/include/sound/soc.h
+index b51e96121fa1..3fa6c40a63b7 100644
+--- a/include/sound/soc.h
++++ b/include/sound/soc.h
+@@ -1042,6 +1042,7 @@ struct snd_soc_pcm_runtime {
+ 	/* function mark */
+ 	struct snd_pcm_substream *mark_startup;
+ 	struct snd_pcm_substream *mark_hw_params;
++	struct snd_pcm_substream *mark_trigger;
+ 	struct snd_compr_stream  *mark_compr_startup;
+ 
+ 	/* bit field */
+diff --git a/sound/soc/soc-component.c b/sound/soc/soc-component.c
+index 434987a64353..760523382f3c 100644
+--- a/sound/soc/soc-component.c
++++ b/sound/soc/soc-component.c
+@@ -1075,22 +1075,51 @@ void snd_soc_pcm_component_hw_free(struct snd_pcm_substream *substream,
+ 	}
  }
  
--static int dpcm_do_trigger(struct snd_soc_dpcm *dpcm,
--		struct snd_pcm_substream *substream, int cmd)
--{
--	int ret;
--
--	dev_dbg(dpcm->be->dev, "ASoC: trigger BE %s cmd %d\n",
--			dpcm->be->dai_link->name, cmd);
--
--	ret = soc_pcm_trigger(substream, cmd);
--	if (ret < 0)
--		dev_err(dpcm->be->dev,"ASoC: trigger BE failed %d\n", ret);
--
--	return ret;
--}
--
- int dpcm_be_dai_trigger(struct snd_soc_pcm_runtime *fe, int stream,
- 			       int cmd)
- {
-@@ -2078,6 +2063,9 @@ int dpcm_be_dai_trigger(struct snd_soc_pcm_runtime *fe, int stream,
- 		if (!snd_soc_dpcm_be_can_update(fe, be, stream))
- 			continue;
- 
-+		dev_dbg(be->dev, "ASoC: trigger BE %s cmd %d\n",
-+			be->dai_link->name, cmd);
++static int soc_component_trigger(struct snd_soc_component *component,
++				 struct snd_pcm_substream *substream,
++				 int cmd)
++{
++	int ret = 0;
 +
- 		switch (cmd) {
- 		case SNDRV_PCM_TRIGGER_START:
- 			if ((be->dpcm[stream].state != SND_SOC_DPCM_STATE_PREPARE) &&
-@@ -2085,7 +2073,7 @@ int dpcm_be_dai_trigger(struct snd_soc_pcm_runtime *fe, int stream,
- 			    (be->dpcm[stream].state != SND_SOC_DPCM_STATE_PAUSED))
- 				continue;
++	if (component->driver->trigger)
++		ret = component->driver->trigger(component, substream, cmd);
++
++	return soc_component_ret(component, ret);
++}
++
+ int snd_soc_pcm_component_trigger(struct snd_pcm_substream *substream,
+-				  int cmd)
++				  int cmd, int rollback)
+ {
+ 	struct snd_soc_pcm_runtime *rtd = asoc_substream_to_rtd(substream);
+ 	struct snd_soc_component *component;
+-	int i, ret;
+-
+-	for_each_rtd_components(rtd, i, component) {
+-		if (component->driver->trigger) {
+-			ret = component->driver->trigger(component, substream, cmd);
++	int i, r, ret = 0;
++
++	switch (cmd) {
++	case SNDRV_PCM_TRIGGER_START:
++	case SNDRV_PCM_TRIGGER_RESUME:
++	case SNDRV_PCM_TRIGGER_PAUSE_RELEASE:
++		for_each_rtd_components(rtd, i, component) {
++			ret = soc_component_trigger(component, substream, cmd);
+ 			if (ret < 0)
+-				return soc_component_ret(component, ret);
++				break;
++			soc_component_mark_push(component, substream, trigger);
++		}
++		break;
++	case SNDRV_PCM_TRIGGER_STOP:
++	case SNDRV_PCM_TRIGGER_SUSPEND:
++	case SNDRV_PCM_TRIGGER_PAUSE_PUSH:
++		for_each_rtd_components(rtd, i, component) {
++			if (rollback && !soc_component_mark_match(component, substream, trigger))
++				continue;
++
++			r = soc_component_trigger(component, substream, cmd);
++			if (r < 0)
++				ret = r; /* use last ret */
++			soc_component_mark_pop(component, substream, trigger);
+ 		}
+ 	}
  
--			ret = dpcm_do_trigger(dpcm, be_substream, cmd);
-+			ret = soc_pcm_trigger(be_substream, cmd);
- 			if (ret)
- 				return ret;
+-	return 0;
++	return ret;
+ }
  
-@@ -2095,7 +2083,7 @@ int dpcm_be_dai_trigger(struct snd_soc_pcm_runtime *fe, int stream,
- 			if ((be->dpcm[stream].state != SND_SOC_DPCM_STATE_SUSPEND))
- 				continue;
+ int snd_soc_pcm_component_pm_runtime_get(struct snd_soc_pcm_runtime *rtd,
+diff --git a/sound/soc/soc-dai.c b/sound/soc/soc-dai.c
+index 9afc6e8c3f9f..cd3bb9a7983f 100644
+--- a/sound/soc/soc-dai.c
++++ b/sound/soc/soc-dai.c
+@@ -564,23 +564,51 @@ int snd_soc_pcm_dai_prepare(struct snd_pcm_substream *substream)
+ 	return 0;
+ }
  
--			ret = dpcm_do_trigger(dpcm, be_substream, cmd);
-+			ret = soc_pcm_trigger(be_substream, cmd);
- 			if (ret)
- 				return ret;
++static int soc_dai_trigger(struct snd_soc_dai *dai,
++			   struct snd_pcm_substream *substream, int cmd)
++{
++	int ret = 0;
++
++	if (dai->driver->ops &&
++	    dai->driver->ops->trigger)
++		ret = dai->driver->ops->trigger(substream, cmd, dai);
++
++	return soc_dai_ret(dai, ret);
++}
++
+ int snd_soc_pcm_dai_trigger(struct snd_pcm_substream *substream,
+-			    int cmd)
++			    int cmd, int rollback)
+ {
+ 	struct snd_soc_pcm_runtime *rtd = asoc_substream_to_rtd(substream);
+ 	struct snd_soc_dai *dai;
+-	int i, ret;
++	int i, r, ret = 0;
  
-@@ -2105,7 +2093,7 @@ int dpcm_be_dai_trigger(struct snd_soc_pcm_runtime *fe, int stream,
- 			if ((be->dpcm[stream].state != SND_SOC_DPCM_STATE_PAUSED))
- 				continue;
+-	for_each_rtd_dais(rtd, i, dai) {
+-		if (dai->driver->ops &&
+-		    dai->driver->ops->trigger) {
+-			ret = dai->driver->ops->trigger(substream, cmd, dai);
++	switch (cmd) {
++	case SNDRV_PCM_TRIGGER_START:
++	case SNDRV_PCM_TRIGGER_RESUME:
++	case SNDRV_PCM_TRIGGER_PAUSE_RELEASE:
++		for_each_rtd_dais(rtd, i, dai) {
++			ret = soc_dai_trigger(dai, substream, cmd);
+ 			if (ret < 0)
+-				return soc_dai_ret(dai, ret);
++				break;
++			soc_dai_mark_push(dai, substream, trigger);
++		}
++		break;
++	case SNDRV_PCM_TRIGGER_STOP:
++	case SNDRV_PCM_TRIGGER_SUSPEND:
++	case SNDRV_PCM_TRIGGER_PAUSE_PUSH:
++		for_each_rtd_dais(rtd, i, dai) {
++			if (rollback && !soc_dai_mark_match(dai, substream, trigger))
++				continue;
++
++			r = soc_dai_trigger(dai, substream, cmd);
++			if (r < 0)
++				ret = r; /* use last ret */
++			soc_dai_mark_pop(dai, substream, trigger);
+ 		}
+ 	}
  
--			ret = dpcm_do_trigger(dpcm, be_substream, cmd);
-+			ret = soc_pcm_trigger(be_substream, cmd);
- 			if (ret)
- 				return ret;
+-	return 0;
++	return ret;
+ }
  
-@@ -2119,7 +2107,7 @@ int dpcm_be_dai_trigger(struct snd_soc_pcm_runtime *fe, int stream,
- 			if (!snd_soc_dpcm_can_be_free_stop(fe, be, stream))
- 				continue;
+ int snd_soc_pcm_dai_bespoke_trigger(struct snd_pcm_substream *substream,
+diff --git a/sound/soc/soc-link.c b/sound/soc/soc-link.c
+index 26cc60f8dcfb..619664cc9ab9 100644
+--- a/sound/soc/soc-link.c
++++ b/sound/soc/soc-link.c
+@@ -141,7 +141,7 @@ void snd_soc_link_hw_free(struct snd_pcm_substream *substream, int rollback)
+ 	soc_link_mark_pop(rtd, substream, hw_params);
+ }
  
--			ret = dpcm_do_trigger(dpcm, be_substream, cmd);
-+			ret = soc_pcm_trigger(be_substream, cmd);
- 			if (ret)
- 				return ret;
+-int snd_soc_link_trigger(struct snd_pcm_substream *substream, int cmd)
++static int soc_link_trigger(struct snd_pcm_substream *substream, int cmd)
+ {
+ 	struct snd_soc_pcm_runtime *rtd = asoc_substream_to_rtd(substream);
+ 	int ret = 0;
+@@ -153,6 +153,34 @@ int snd_soc_link_trigger(struct snd_pcm_substream *substream, int cmd)
+ 	return soc_link_ret(rtd, ret);
+ }
  
-@@ -2132,7 +2120,7 @@ int dpcm_be_dai_trigger(struct snd_soc_pcm_runtime *fe, int stream,
- 			if (!snd_soc_dpcm_can_be_free_stop(fe, be, stream))
- 				continue;
++int snd_soc_link_trigger(struct snd_pcm_substream *substream, int cmd,
++			 int rollback)
++{
++	struct snd_soc_pcm_runtime *rtd = asoc_substream_to_rtd(substream);
++	int ret = 0;
++
++	switch (cmd) {
++	case SNDRV_PCM_TRIGGER_START:
++	case SNDRV_PCM_TRIGGER_RESUME:
++	case SNDRV_PCM_TRIGGER_PAUSE_RELEASE:
++		ret = soc_link_trigger(substream, cmd);
++		if (ret < 0)
++			break;
++		soc_link_mark_push(rtd, substream, trigger);
++		break;
++	case SNDRV_PCM_TRIGGER_STOP:
++	case SNDRV_PCM_TRIGGER_SUSPEND:
++	case SNDRV_PCM_TRIGGER_PAUSE_PUSH:
++		if (rollback && !soc_link_mark_match(rtd, substream, trigger))
++			break;
++
++		ret = soc_link_trigger(substream, cmd);
++		soc_link_mark_pop(rtd, substream, startup);
++	}
++
++	return ret;
++}
++
+ int snd_soc_link_compr_startup(struct snd_compr_stream *cstream)
+ {
+ 	struct snd_soc_pcm_runtime *rtd = cstream->private_data;
+diff --git a/sound/soc/soc-pcm.c b/sound/soc/soc-pcm.c
+index 4aaffa4ed382..b80a082ebc1a 100644
+--- a/sound/soc/soc-pcm.c
++++ b/sound/soc/soc-pcm.c
+@@ -1012,37 +1012,61 @@ static int soc_pcm_hw_params(struct snd_pcm_substream *substream,
  
--			ret = dpcm_do_trigger(dpcm, be_substream, cmd);
-+			ret = soc_pcm_trigger(be_substream, cmd);
- 			if (ret)
- 				return ret;
+ static int soc_pcm_trigger(struct snd_pcm_substream *substream, int cmd)
+ {
+-	int ret = -EINVAL;
++	int ret = -EINVAL, _ret = 0;
++	int rollback = 0;
  
-@@ -2145,7 +2133,7 @@ int dpcm_be_dai_trigger(struct snd_soc_pcm_runtime *fe, int stream,
- 			if (!snd_soc_dpcm_can_be_free_stop(fe, be, stream))
- 				continue;
+ 	switch (cmd) {
+ 	case SNDRV_PCM_TRIGGER_START:
+ 	case SNDRV_PCM_TRIGGER_RESUME:
+ 	case SNDRV_PCM_TRIGGER_PAUSE_RELEASE:
+-		ret = snd_soc_link_trigger(substream, cmd);
++		ret = snd_soc_link_trigger(substream, cmd, 0);
+ 		if (ret < 0)
+-			break;
++			goto start_err;
++
++		ret = snd_soc_pcm_component_trigger(substream, cmd, 0);
++		if (ret < 0)
++			goto start_err;
  
--			ret = dpcm_do_trigger(dpcm, be_substream, cmd);
-+			ret = soc_pcm_trigger(be_substream, cmd);
- 			if (ret)
- 				return ret;
+-		ret = snd_soc_pcm_component_trigger(substream, cmd);
++		ret = snd_soc_pcm_dai_trigger(substream, cmd, 0);
++start_err:
+ 		if (ret < 0)
++			rollback = 1;
++	}
++
++	if (rollback) {
++		_ret = ret;
++		switch (cmd) {
++		case SNDRV_PCM_TRIGGER_START:
++			cmd = SNDRV_PCM_TRIGGER_STOP;
++			break;
++		case SNDRV_PCM_TRIGGER_RESUME:
++			cmd = SNDRV_PCM_TRIGGER_SUSPEND;
++			break;
++		case SNDRV_PCM_TRIGGER_PAUSE_RELEASE:
++			cmd = SNDRV_PCM_TRIGGER_PAUSE_PUSH;
+ 			break;
++		}
++	}
+ 
+-		ret = snd_soc_pcm_dai_trigger(substream, cmd);
+-		break;
++	switch (cmd) {
+ 	case SNDRV_PCM_TRIGGER_STOP:
+ 	case SNDRV_PCM_TRIGGER_SUSPEND:
+ 	case SNDRV_PCM_TRIGGER_PAUSE_PUSH:
+-		ret = snd_soc_pcm_dai_trigger(substream, cmd);
++		ret = snd_soc_pcm_dai_trigger(substream, cmd, rollback);
+ 		if (ret < 0)
+ 			break;
+ 
+-		ret = snd_soc_pcm_component_trigger(substream, cmd);
++		ret = snd_soc_pcm_component_trigger(substream, cmd, rollback);
+ 		if (ret < 0)
+ 			break;
+ 
+-		ret = snd_soc_link_trigger(substream, cmd);
++		ret = snd_soc_link_trigger(substream, cmd, rollback);
+ 		break;
+ 	}
+ 
++	if (_ret)
++		ret = _ret;
++
+ 	return ret;
+ }
  
 -- 
 2.25.1

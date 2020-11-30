@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8941A2C8A19
-	for <lists+alsa-devel@lfdr.de>; Mon, 30 Nov 2020 17:57:40 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id BC1822C8A1B
+	for <lists+alsa-devel@lfdr.de>; Mon, 30 Nov 2020 17:58:20 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 92AB8173F;
-	Mon, 30 Nov 2020 17:56:48 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 92AB8173F
+	by alsa0.perex.cz (Postfix) with ESMTPS id 621ED1739;
+	Mon, 30 Nov 2020 17:57:30 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 621ED1739
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1606755458;
-	bh=tZw6aamMH+u2d50z6nDTuvts6EhVQvI/WN8Xk7fNSbA=;
+	s=default; t=1606755500;
+	bh=bt05pStDnlS1AD36pvpBBu0/w+xPehwfuoghLTDmq8k=;
 	h=Date:From:To:In-Reply-To:References:Subject:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=rkxNzvjavrQBCL8suebuGN/Kd7ZqUpLO3T9zUFuAC3BU/BYcdpIBkWg4PzcshMq6s
-	 v0RczIiuE0ndAXtltfOYv8Gs89mJIqsuwz9T+Y/nR650wRVGYN9vaxIIunCQW/iTlN
-	 kYyfoHgwE9oiug+c4zHpDKpOlX36P8ajtmCUWbYw=
+	b=AzrKX5fWQf5jYrUSUEcdfs5ABJA2d4mNWho+cuEsI20kkx0w1U3TwpcCgp05I6ror
+	 486I3xyQLMJx+siUTDFFkoN4s8Vds2Zk5qdxqXGZPMK00yff4dUID6F9b+NhbyKwQl
+	 1pxF7NXssxSUZPX2YPgSr+Tpvoy00CwpF/pa7IQg=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id A6734F804AB;
-	Mon, 30 Nov 2020 17:56:06 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 5EE97F804BC;
+	Mon, 30 Nov 2020 17:56:07 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 13290F804AC; Mon, 30 Nov 2020 17:55:57 +0100 (CET)
+ id BB0D8F804AB; Mon, 30 Nov 2020 17:55:59 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-1.6 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -34,38 +34,36 @@ X-Spam-Status: No, score=-1.6 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id CBBCCF80254
- for <alsa-devel@alsa-project.org>; Mon, 30 Nov 2020 17:55:45 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CBBCCF80254
+ by alsa1.perex.cz (Postfix) with ESMTPS id D1275F8025F
+ for <alsa-devel@alsa-project.org>; Mon, 30 Nov 2020 17:55:50 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D1275F8025F
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="2Ftp/roP"
+ header.b="E+NIjiL7"
 Received: from localhost (fw-tnat.cambridge.arm.com [217.140.96.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id EE00B20789;
- Mon, 30 Nov 2020 16:55:42 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id 5779A207F7;
+ Mon, 30 Nov 2020 16:55:48 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1606755343;
- bh=tZw6aamMH+u2d50z6nDTuvts6EhVQvI/WN8Xk7fNSbA=;
+ s=default; t=1606755348;
+ bh=bt05pStDnlS1AD36pvpBBu0/w+xPehwfuoghLTDmq8k=;
  h=Date:From:To:Cc:In-Reply-To:References:Subject:From;
- b=2Ftp/roPr9kwocPZY5HaMgB1yNGgx1obvp2gEB4Tbc13Vc3IKcXPOc2Ug9maXSl2C
- g9k3aSIeusQ72zfqlZK2xmIzqAGmyrY207W4g1Nxk57iyvhsVsVnjnzxrExxyY1lxN
- aRApbzzuHLm0xJ6e4lZ32CBjwKIWcnThtmnCyntU=
-Date: Mon, 30 Nov 2020 16:55:15 +0000
+ b=E+NIjiL7c/Mccgffu/O0eK6scRBbebV3RXVJwuTFGJ4nBR5lxfOLhHszJWvdb9FL1
+ QgvssScDV/elyzp8x2ztIecjyaPNtJjdg+SJTguW6nQMIrLWWZ61z+yCEyS8uacY2Z
+ vLotaIiG78pOq6PfUg4frq32JirCeaX+o9QMfQMo=
+Date: Mon, 30 Nov 2020 16:55:20 +0000
 From: Mark Brown <broonie@kernel.org>
-To: Alexandre Belloni <alexandre.belloni@bootlin.com>
-In-Reply-To: <20201127123030.1610574-1-alexandre.belloni@bootlin.com>
-References: <20201127123030.1610574-1-alexandre.belloni@bootlin.com>
-Subject: Re: [PATCH v2 1/2] dt-bindings: sound: adau1372: Add bindings
- documentation
-Message-Id: <160675530955.30326.5536551063969425427.b4-ty@kernel.org>
+To: Takashi Iwai <tiwai@suse.de>
+In-Reply-To: <20201127143200.16272-1-tiwai@suse.de>
+References: <20201127143200.16272-1-tiwai@suse.de>
+Subject: Re: [PATCH 0/2] ASoC: amd: Minor fixes for error handling
+Message-Id: <160675530955.30326.15066131330909396381.b4-ty@kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- Lars-Peter Clausen <lars@metafoo.de>, Rob Herring <robh@kernel.org>,
- Liam Girdwood <lgirdwood@gmail.com>, linux-kernel@vger.kernel.org
+Cc: Ravulapati Vishnu vardhan rao <Vishnuvardhanrao.Ravulapati@amd.com>,
+ alsa-devel@alsa-project.org, Akshu Agrawal <akshu.agrawal@amd.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -81,8 +79,16 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Fri, 27 Nov 2020 13:30:29 +0100, Alexandre Belloni wrote:
-> Add device tree binding documentation for Analog Devices ADAU1372.
+On Fri, 27 Nov 2020 15:31:57 +0100, Takashi Iwai wrote:
+> this is a set of patches to address the errors appearing on the
+> machine that has no I2S DMIC on AMD machine but probed.
+> 
+> 
+> Takashi
+> 
+> ===
+> 
+> [...]
 
 Applied to
 
@@ -90,10 +96,10 @@ Applied to
 
 Thanks!
 
-[1/2] ASoC: adau1372: Add bindings documentation
-      commit: 32025c7c50c602a6c0bc3bef0e9a774003e2e7ae
-[2/2] ASoC: Add ADAU1372 audio CODEC support
-      commit: 6cd4c6459e47402ab90802eca61a18b231434053
+[1/2] ASoC: amd: Downgrade print level for invalid ACP mode
+      commit: 2509bb342e476e740db448cce09c19b92905194e
+[2/2] ASoC: amd: Return -ENODEV for non-existing ACPI call
+      commit: ab5893fdc0693e4f747ef26194b6bbf628bdb044
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

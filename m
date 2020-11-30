@@ -2,72 +2,77 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E546B2C8C7D
-	for <lists+alsa-devel@lfdr.de>; Mon, 30 Nov 2020 19:18:55 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id D0C8C2C8C7E
+	for <lists+alsa-devel@lfdr.de>; Mon, 30 Nov 2020 19:19:04 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 609E11701;
-	Mon, 30 Nov 2020 19:18:05 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 609E11701
+	by alsa0.perex.cz (Postfix) with ESMTPS id C20FA1710;
+	Mon, 30 Nov 2020 19:18:13 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C20FA1710
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1606760335;
-	bh=8cqYTAO7zXCkg3dI7zmJ6MhmYQP/JvOs34PggWV2qmI=;
-	h=Date:From:To:In-Reply-To:References:Subject:Cc:List-Id:
+	s=default; t=1606760343;
+	bh=tN5fsrJ08eQUu84BANI51m0Lex4+/PW8hjq6/8XCCgU=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=atsKZKxOkm7Ai3/U8a3ElFnI7QSQiLv5kfPxBLJ4fkaaMgRx80nJnrs2BxW786ThV
-	 82SJYttx08de87PHtqbH90shn2RBYP0WrT2ccyfqZ0cmMFlm+MaCjreDUrPZtZm2G3
-	 31M8CY6d1kXbDT6fiEdiQE2opvee/mq4DiYMXaFk=
+	b=asTMUZbVS0a9fQ7acFI8B9QDWSkfgw8bmUP306Mpb5F9DX7ioiTV+J5IbunO0dJEV
+	 1FccVjP3xxRvqmU6APNEUnn3ZBpNoYFN4JZ8EXdhsaOISHlTh8u++TpRtzzUvQoCrO
+	 d1d0G0ij694ycMoTp1c5ihfBbiKxQ/SiFicKcxBE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id CE2EAF8025F;
-	Mon, 30 Nov 2020 19:17:20 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id A14CFF804AB;
+	Mon, 30 Nov 2020 19:17:47 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 96A5BF8025F; Mon, 30 Nov 2020 19:17:18 +0100 (CET)
+ id 7A6E3F804AA; Mon, 30 Nov 2020 19:17:46 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-1.6 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled
- version=3.4.0
+ DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id C57B7F80247
- for <alsa-devel@alsa-project.org>; Mon, 30 Nov 2020 19:17:06 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C57B7F80247
+ by alsa1.perex.cz (Postfix) with ESMTPS id 5CAD9F804A9
+ for <alsa-devel@alsa-project.org>; Mon, 30 Nov 2020 19:17:39 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5CAD9F804A9
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="ZI2ngs16"
+ header.b="H6oD9FLj"
 Received: from localhost (fw-tnat.cambridge.arm.com [217.140.96.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id DC863206F9;
- Mon, 30 Nov 2020 18:17:02 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id 4ACE320705;
+ Mon, 30 Nov 2020 18:17:36 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1606760223;
- bh=8cqYTAO7zXCkg3dI7zmJ6MhmYQP/JvOs34PggWV2qmI=;
- h=Date:From:To:Cc:In-Reply-To:References:Subject:From;
- b=ZI2ngs16wu09wXGbXH+s3TV32uqTQ8g5T4IFCl6mGVF8Au4h+nmvlWM5EP8u8RYIM
- eeL3EPceMXWpVoZE4pPV5SzN5h6YDVQWnJ894hXvjAP9VSlULnL05PqObiUGUWEF5O
- iimJWxtDnJyAEWhujx3W5u1v+1KEQ0KBkHPqu1m0=
-Date: Mon, 30 Nov 2020 18:16:35 +0000
+ s=default; t=1606760256;
+ bh=tN5fsrJ08eQUu84BANI51m0Lex4+/PW8hjq6/8XCCgU=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=H6oD9FLj1GG2rZL9EFmQj70L653085AubiqJlmK0SQklrvj7X19HhTEjAT5JJT6sw
+ emRyogggM99WpxHItY9nBVBfC0XkjPkXAzWfZ9YQTgRSrpuDAxR7alr0+PWdHL3Hu3
+ /XH8f7IaFHeHPrCgvpZosGB8T8zmwHjx91hOK6HA=
+Date: Mon, 30 Nov 2020 18:17:08 +0000
 From: Mark Brown <broonie@kernel.org>
-To: vkoul@kernel.org, Bard Liao <yung-chuan.liao@linux.intel.com>,
- alsa-devel@alsa-project.org
-In-Reply-To: <20201103172226.4278-1-yung-chuan.liao@linux.intel.com>
+To: Bard Liao <yung-chuan.liao@linux.intel.com>
+Subject: Re: [PATCH 5/5] ASoC/SoundWire: rt711-sdca: Add RT711 SDCA
+ vendor-specific driver
+Message-ID: <20201130181708.GF4756@sirena.org.uk>
 References: <20201103172226.4278-1-yung-chuan.liao@linux.intel.com>
-Subject: Re: [PATCH 0/5] regmap/SoundWire/ASoC: Add SoundWire SDCA support
-Message-Id: <160676019500.54241.11589384467836552465.b4-ty@kernel.org>
+ <20201103172226.4278-6-yung-chuan.liao@linux.intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Cc: vinod.koul@linaro.org, tiwai@suse.de, gregkh@linuxfoundation.org,
- pierre-louis.bossart@linux.intel.com, linux-kernel@vger.kernel.org,
- hui.wang@canonical.com, srinivas.kandagatla@linaro.org,
- ranjani.sridharan@linux.intel.com, jank@cadence.com, mengdong.lin@intel.com,
- sanyog.r.kale@intel.com, rander.wang@linux.intel.com, bard.liao@intel.com
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="TU+u6i6jrDPzmlWF"
+Content-Disposition: inline
+In-Reply-To: <20201103172226.4278-6-yung-chuan.liao@linux.intel.com>
+X-Cookie: Space is limited.
+User-Agent: Mutt/1.10.1 (2018-07-13)
+Cc: pierre-louis.bossart@linux.intel.com, alsa-devel@alsa-project.org,
+ vinod.koul@linaro.org, tiwai@suse.de, gregkh@linuxfoundation.org,
+ linux-kernel@vger.kernel.org, ranjani.sridharan@linux.intel.com,
+ hui.wang@canonical.com, vkoul@kernel.org, srinivas.kandagatla@linaro.org,
+ jank@cadence.com, mengdong.lin@intel.com, sanyog.r.kale@intel.com,
+ rander.wang@linux.intel.com, bard.liao@intel.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -83,47 +88,79 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Wed, 4 Nov 2020 01:22:21 +0800, Bard Liao wrote:
-> The MIPI SoundWire Device Class standard will define audio functionality
-> beyond the scope of the existing SoundWire 1.2 standard, which is limited
-> to the bus and interface.
-> 
-> The description is inspired by the USB Audio Class, with "functions",
-> "entities", "control selectors", "audio clusters". The main difference
-> with the USB Audio class is that the devices are typically on a motherboard
-> and descriptors stored in platform firmware instead of being retrieved
-> from the device.
-> 
-> [...]
 
-Applied to
+--TU+u6i6jrDPzmlWF
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/regmap.git for-next
+On Wed, Nov 04, 2020 at 01:22:26AM +0800, Bard Liao wrote:
+> From: Shuming Fan <shumingf@realtek.com>
+>=20
+> This is the initial codec driver for rt711 SDCA version.
 
-Thanks!
+This and the rt1316 change are failing to build for me on both the
+regmap tree and a merge of this branch into the ASoC tree in an x86
+allmodconfig with the errors below, I assume this is a dependency on the
+SoundWire tree which I guess I need a pull request for?
 
-[1/3] ASoC/SoundWire: rt715-sdca: First version of rt715 sdw sdca codec driver
-      commit: 6f4a038b99677f4db737841b81b9d45ed4b54966
-[2/3] ASoC/SoundWire: rt1316: Add RT1316 SDCA vendor-specific driver
-      (no commit info)
-[3/3] ASoC/SoundWire: rt711-sdca: Add RT711 SDCA vendor-specific driver
-      (no commit info)
+/mnt/kernel/sound/soc/codecs/rt1316-sdw.c: In function 'rt1316_read_prop':
+/mnt/kernel/sound/soc/codecs/rt1316-sdw.c:83:6: error: 'struct sdw_slave_pr=
+op' has no member named 'is_sdca'
+  prop->is_sdca =3D true;
+      ^~
+/mnt/kernel/sound/soc/codecs/rt711-sdca-sdw.c: In function 'rt711_sdca_read=
+_prop':
+/mnt/kernel/sound/soc/codecs/rt711-sdca-sdw.c:182:6: error: 'struct sdw_sla=
+ve_prop' has no member named 'is_sdca'
+  prop->is_sdca =3D true;
+      ^~
+In file included from /mnt/kernel/include/linux/printk.h:409,
+                 from /mnt/kernel/include/linux/kernel.h:16,
+                 from /mnt/kernel/include/linux/delay.h:22,
+                 from /mnt/kernel/sound/soc/codecs/rt711-sdca-sdw.c:9:
+/mnt/kernel/sound/soc/codecs/rt711-sdca-sdw.c: In function 'rt711_sdca_inte=
+rrupt_callback':
+/mnt/kernel/sound/soc/codecs/rt711-sdca-sdw.c:245:31: error: 'struct sdw_sl=
+ave_intr_status' has no member named 'sdca_cascade'
+   status->control_port, status->sdca_cascade);
+                               ^~
+/mnt/kernel/include/linux/dynamic_debug.h:129:15: note: in definition of ma=
+cro '__dynamic_func_call'
+   func(&id, ##__VA_ARGS__);  \
+               ^~~~~~~~~~~
+/mnt/kernel/include/linux/dynamic_debug.h:161:2: note: in expansion of macr=
+o '_dynamic_func_call'
+  _dynamic_func_call(fmt,__dynamic_dev_dbg,   \
+  ^~~~~~~~~~~~~~~~~~
+/mnt/kernel/include/linux/dev_printk.h:123:2: note: in expansion of macro '=
+dynamic_dev_dbg'
+  dynamic_dev_dbg(dev, dev_fmt(fmt), ##__VA_ARGS__)
+  ^~~~~~~~~~~~~~~
+/mnt/kernel/sound/soc/codecs/rt711-sdca-sdw.c:243:2: note: in expansion of =
+macro 'dev_dbg'
+  dev_dbg(&slave->dev,
+  ^~~~~~~
+/mnt/kernel/sound/soc/codecs/rt711-sdca-sdw.c:308:12: error: 'struct sdw_sl=
+ave_intr_status' has no member named 'sdca_cascade'
+  if (status->sdca_cascade)
+            ^~
+make[4]: *** [/mnt/kernel/scripts/Makefile.build:283: sound/soc/codecs/rt13=
+16-sdw.o] Error 1
 
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
+--TU+u6i6jrDPzmlWF
+Content-Type: application/pgp-signature; name="signature.asc"
 
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
+-----BEGIN PGP SIGNATURE-----
 
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl/FNyMACgkQJNaLcl1U
+h9CurQf/dC37HxzASt7AqvuCkJ5753Qh0YsZluT4wI82h2wobMpmWzhQ9IszSaGr
+cXQOcGZgisQ0/O/Z30gtnucNy42ji6zsfQJQbwBawx9nR+pzufpR4dK8+GGG8cbf
+I6P2MDd92DIHJOsqqFXTNRP33dvHcPJRHzpgWefyPOfwRk3veWLTWEVRz86CtIkF
+5LVs0QYh/NTi9M2A+hYATFBlIOGBU2QP/7cwMq6Uop+QfjGDTP/Sbg3W3ksBfpz7
+Bl8iUWmxyIJbuqrw/xfwFoJUHXSqlEtOyuryTzDBF09BppbzUU6DIRkDhEDH9Ak4
+YydjxKIlbjLN1k1iaAvhZGNL8t0c+Q==
+=7AgW
+-----END PGP SIGNATURE-----
 
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-Thanks,
-Mark
+--TU+u6i6jrDPzmlWF--

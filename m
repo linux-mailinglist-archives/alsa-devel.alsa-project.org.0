@@ -2,66 +2,86 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6BE172CA633
-	for <lists+alsa-devel@lfdr.de>; Tue,  1 Dec 2020 15:47:54 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id AD6762CA65A
+	for <lists+alsa-devel@lfdr.de>; Tue,  1 Dec 2020 15:55:33 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 003A417CA;
-	Tue,  1 Dec 2020 15:47:03 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 003A417CA
+	by alsa0.perex.cz (Postfix) with ESMTPS id 3FF2917CB;
+	Tue,  1 Dec 2020 15:54:43 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3FF2917CB
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1606834074;
-	bh=8r7HB7tKskHxQW1gUwFq6uPDYvUP9w+XPQjJZ4u9P7M=;
-	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1606834533;
+	bh=qf7aGX9gVYdAZTqguqoDkQAl8piUxDoOcWMwnRZ1JdI=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=a+Jc/d9YdQ4Qwzqrj6dVWMMZbPJtuiyIzoNFDsGuS2H09p/iQRJEug7RMG0DPlt2q
-	 8TSws3p6+x1bnA5xMSm6Kayc8Yw6+RH+COqW2WS19C8tGZkTTmafMCX9LXjZw8eP4j
-	 wQxVfYMEI+0+mjDogyRQ57BHYnBg6vrdMh82WvNo=
+	b=hbEyrsCt0ZTxtoNflW/knzvaLnNz3jTnRaSqiSoMkKENANNeM0U+f0IS+pNU3Y/mS
+	 WaTcy/eDJ/NbYr7mVSvDeQ0vjiRO2sEEiUyh3BA8cPYHmtVZei3jleklpY3v5Ppyud
+	 89sO92cYdRhFcCLhIhCHabVUTDIi1wfbQfSxgIs4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 31001F80158;
-	Tue,  1 Dec 2020 15:46:19 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 5598BF8016D;
+	Tue,  1 Dec 2020 15:53:58 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id DCDEBF8016D; Tue,  1 Dec 2020 15:46:17 +0100 (CET)
+ id 6FCB1F8016C; Tue,  1 Dec 2020 15:53:57 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.3 required=5.0 tests=PRX_BODY_135, RCVD_IN_MSPIKE_H3,
- RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=disabled
+X-Spam-Status: No, score=-1.6 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+ DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled
  version=3.4.0
-Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 2ADABF80139
- for <alsa-devel@alsa-project.org>; Tue,  1 Dec 2020 15:46:06 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2ADABF80139
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 58770AC2D;
- Tue,  1 Dec 2020 14:46:06 +0000 (UTC)
-Date: Tue, 01 Dec 2020 15:46:06 +0100
-Message-ID: <s5h5z5ld1ox.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 2192FF80139
+ for <alsa-devel@alsa-project.org>; Tue,  1 Dec 2020 15:53:54 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2192FF80139
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="Pyz5H9tj"
+Received: from localhost (cpc102334-sgyl38-2-0-cust884.18-2.cable.virginm.net
+ [92.233.91.117])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by mail.kernel.org (Postfix) with ESMTPSA id 682D92084C;
+ Tue,  1 Dec 2020 14:53:51 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=default; t=1606834431;
+ bh=qf7aGX9gVYdAZTqguqoDkQAl8piUxDoOcWMwnRZ1JdI=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=Pyz5H9tjiwtuE3hMxgjaeQpKseUdVdTuM07OYBL6nE2M2bwxe4Z4tp2p22rwlQruI
+ bhsk0B3Yc9mbZyXZlwEDtIb0DWBFYlw8qDXFyONC/AJe8dGgh4s8j7VL9GzfNDMdH9
+ OKVYO15xSUIUNsxJsurjMSxttEOFY1wqOpYMVAZg=
+Date: Tue, 1 Dec 2020 14:53:22 +0000
+From: Mark Brown <broonie@kernel.org>
 To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Subject: Re: Asoc: Intel: SST (CHT) regression in asoc/for-5.11
-In-Reply-To: <7b50862a-d7e3-6a72-833d-5c8283c8deab@linux.intel.com>
-References: <93cc93a1-82bd-f5a3-4e19-4cfc65c868e7@redhat.com>
- <2d9d0d43-8239-01e2-3787-98dfd305e369@linux.intel.com>
- <7b50862a-d7e3-6a72-833d-5c8283c8deab@linux.intel.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
- FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
- (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
-MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Subject: Re: [PATCH v2 0/5] regmap/SoundWire/ASoC: Add SoundWire SDCA support
+Message-ID: <20201201145322.GG5239@sirena.org.uk>
+References: <20201130144020.19757-1-yung-chuan.liao@linux.intel.com>
+ <DM6PR11MB4074311B4E0B70F24383E754FFF40@DM6PR11MB4074.namprd11.prod.outlook.com>
+ <20201201041138.GY8403@vkoul-mobl>
+ <e9478e45-2a24-05f9-eb56-5905d54ab6a4@linux.intel.com>
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="E69HUUNAyIJqGpVn"
+Content-Disposition: inline
+In-Reply-To: <e9478e45-2a24-05f9-eb56-5905d54ab6a4@linux.intel.com>
+X-Cookie: Who was that masked man?
+User-Agent: Mutt/1.10.1 (2018-07-13)
 Cc: "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
- Jie Yang <yang.jie@linux.intel.com>,
- Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
- Liam Girdwood <liam.r.girdwood@linux.intel.com>,
- Hans de Goede <hdegoede@redhat.com>, Mark Brown <broonie@kernel.org>,
- Bard liao <yung-chuan.liao@linux.intel.com>
+ "tiwai@suse.de" <tiwai@suse.de>,
+ "gregkh@linuxfoundation.org" <gregkh@linuxfoundation.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "ranjani.sridharan@linux.intel.com" <ranjani.sridharan@linux.intel.com>,
+ "hui.wang@canonical.com" <hui.wang@canonical.com>,
+ Vinod Koul <vkoul@kernel.org>,
+ "srinivas.kandagatla@linaro.org" <srinivas.kandagatla@linaro.org>,
+ "jank@cadence.com" <jank@cadence.com>, "Kale,
+ Sanyog R" <sanyog.r.kale@intel.com>,
+ Bard Liao <yung-chuan.liao@linux.intel.com>,
+ "rander.wang@linux.intel.com" <rander.wang@linux.intel.com>, "Liao,
+ Bard" <bard.liao@intel.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -77,125 +97,40 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Tue, 01 Dec 2020 04:24:58 +0100,
-Pierre-Louis Bossart wrote:
-> 
-> 
-> 
-> 
-> > On 11/29/20 6:24 AM, Hans de Goede wrote:
-> >> Hi All,
-> >>
-> >> To test the code to dynamically switch between SST/SOF support on BYT/CHT
-> >> from the kernel commandline I merged:
-> >>
-> >> https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git/log/?h=for-5.11 
-> >>
-> >>
-> >> Into my personal tree (mostly Linus' master + some pending patches from
-> >> myself).
-> >>
-> >> After this I was getting the following errors in dmesg when using
-> >> sound on
-> >> a Medion E2228T laptop with a CHT SoC + NAU8824 codec:
-> >>
-> >> [   53.805205] intel_sst_acpi 808622A8:00: Wait timed-out
-> >> condition:0x0, msg_id:0x1 fw_state 0
-> >> [   53.805479] intel_sst_acpi 808622A8:00: fw returned err -16
-> >> [   53.806281] sst-mfld-platform sst-mfld-platform: ASoC: PRE_PMD:
-> >> pcm0_in event failed: -16
-> >> [   54.829548] intel_sst_acpi 808622A8:00: Wait timed-out
-> >> condition:0x0, msg_id:0x1 fw_state 0
-> >> [   54.829596] intel_sst_acpi 808622A8:00: fw returned err -16
-> >> [   54.829668] sst-mfld-platform sst-mfld-platform: ASoC: POST_PMD:
-> >> media0_out event failed: -
-> >> [   55.853230] intel_sst_acpi 808622A8:00: Wait timed-out
-> >> condition:0x0, msg_id:0x1 fw_state 0
-> >> [   55.853244] intel_sst_acpi 808622A8:00: fw returned err -16
-> >> [   55.853269] sst-mfld-platform sst-mfld-platform: ASoC: POST_PMD:
-> >> codec_out0 mix 0 event fai
-> >> [   56.876435] intel_sst_acpi 808622A8:00: Wait timed-out
-> >> condition:0x0, msg_id:0x1 fw_state 0
-> >> [   56.876481] intel_sst_acpi 808622A8:00: fw returned err -16
-> >> [   56.876563] sst-mfld-platform sst-mfld-platform: ASoC: POST_PMD:
-> >> media0_out mix 0 event fai
-> >> [   61.847455] intel_sst_acpi 808622A8:00: FW sent error response 0x40015
-> >> [   61.847564] intel_sst_acpi 808622A8:00: fw returned err -1
-> >> [   61.847659] sst-mfld-platform sst-mfld-platform: ASoC: error at
-> >> snd_soc_dai_startup on ssp2
-> >> [   61.847722]  SSP2-Codec: ASoC: BE open failed -1
-> >> [   61.847754]  Audio Port: ASoC: failed to start some BEs -1
-> >> [   61.847786] intel_sst_acpi 808622A8:00: FW sent error response 0x40006
-> >> [   64.301284] intel_sst_acpi 808622A8:00: FW sent error response 0x90001
-> >> [   64.301545] intel_sst_acpi 808622A8:00: not suspending FW!!, Err: -2
-> >>
-> >> Dropping the asoc/for-5.11 merge and just cherry-picking
-> >> Pierre-Louis' changes
-> >> for the dynamic switching makes these go away. So this seems to be
-> >> caused by
-> >> other changes in asoc/for-5.11.
-> >>
-> >> So any clues where to start looking for this, or should I just
-> >> bisect this?
-> >
-> > Thanks for reporting this Hans.
-> >
-> > The only thing that comes to my mind is Morimoto-san's series which
-> > modified snd_soc_dai_startup, but that was back in September and
-> > should be in 5.10-rcX
-> >
-> > Will give it a try on my side as well.
-> 
-> I was able to reproduce this error with Mark's for-next branch on a
-> CHT device w/ rt5640, and git bisect points to this commit:
-> 
-> a27b421f1d04b201c474a15ee1591919c81fb413 is the first bad commit
-> commit a27b421f1d04b201c474a15ee1591919c81fb413
-> Author: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
-> Date:   Tue Nov 17 13:50:01 2020 -0800
-> 
->     ASoC: pcm: call snd_soc_dapm_stream_stop() in soc_pcm_hw_clean
-> 
->     Currently, the SND_SOC_DAPM_STREAM_START event is sent during
->     pcm_prepare() but the SND_SOC_DAPM_STREAM_STOP event is
->     sent only in dpcm_fe_dai_shutdown() after soc_pcm_close().
->     This results in an imbalance between when the DAPM widgets
->     receive the PRE/POST_PMU/PMD events. So call
->     snd_soc_dapm_stream_stop() in soc_pcm_hw_clean() before the
->     snd_soc_pcm_component_hw_free() to keep the stream_stop DAPM
->     event balanced with the stream_start event in soc_pm_prepare().
-> 
->     Also, in order to prevent duplicate DAPM stream events,
->     remove the call for DAPM STREAM_START event in dpcm_fe_dai_prepare()
->     and the call for DAPM STREAM_STOP event in dpcm_fe_dai_shutdown().
-> 
->     Reviewed-by: Bard Liao <yung-chuan.liao@linux.intel.com>
->     Reviewed-by: Pierre-Louis Bossart
-> <pierre-louis.bossart@linux.intel.com>
->     Signed-off-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
->     Link:
-> https://lore.kernel.org/r/20201117215001.163107-1-ranjani.sridharan@linux.intel.com
->     Signed-off-by: Mark Brown <broonie@kernel.org>
-> 
->  sound/soc/soc-pcm.c | 10 +++-------
->  1 file changed, 3 insertions(+), 7 deletions(-)
-> 
-> 
-> I am not sure why this break the Atom/SST driver, this was reviewed
-> and seemed legit - even required IIRC to deal with topology pipelines
-> initialized on-demand. Reverting this patch restores functionality. I
-> would guess it's the DAPM_STREAM_START that's now missing (or in the
-> 'wrong' location) and causing issues?
 
-Indeed the DAPM_START_STREAM call completely disappeared after the
-patch, which looks very wrong.  This has to be revisited before 5.11
-merge.
+--E69HUUNAyIJqGpVn
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
+On Tue, Dec 01, 2020 at 08:35:42AM -0600, Pierre-Louis Bossart wrote:
+> On 11/30/20 10:11 PM, Vinod Koul wrote:
 
-Takashi
+> > I see Mark has already applied 1-3 ..
 
-> Hans, can you confirm if indeed this is the same issue on your devices?
-> 
-> Thanks
-> -Pierre
-> 
+> Sorry, I thought Mark had reversed the entire series.
+
+Yeah, I just backed out the one change for the driver.
+
+> Vinod, would you mind providing a tag for Mark then? The following commit is
+> needed to compile:
+
+> b7cab9be7c161 ('soundwire: SDCA: detect sdca_cascade interrupt')
+
+That'd work, looks like there's only one fix patch it's based off.
+
+--E69HUUNAyIJqGpVn
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl/GWOEACgkQJNaLcl1U
+h9B0Igf9Fzb38TLz0RVIqHyT/CX9u1t8YCBFEH1IJgAGjAkq8z49rjYj49kYtcsW
+4QD5eUeFKMmggnVdL4uQLdK5TYkHy3kX+sqn5ajxOFP2fKU5noEDJLMxRCNSoyxX
+UhyghvlIObK/EV3B3G20CSBvCCGIMGCIMsEtLCjT9GQ0htvVUgRAATbxCaDXXtT1
+UXg6CmASMQfbbnyTJYBy5aphdgPQHujuUWtswz9hR39VyWaGTg6Di4GHoVKFFD3u
+HNAbuR9st/tmPx25aGs6bKup1IPh6M9yvQ2I/gJV/44Sh0g/SSvff3HyHx2va0rV
+8s6QiPs1PLCwbaB/eLWfW5fs/+1rTw==
+=87Ur
+-----END PGP SIGNATURE-----
+
+--E69HUUNAyIJqGpVn--

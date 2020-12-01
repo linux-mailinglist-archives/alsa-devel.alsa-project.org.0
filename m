@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id F3EBF2CA4B9
-	for <lists+alsa-devel@lfdr.de>; Tue,  1 Dec 2020 15:00:16 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8E0562CA4CE
+	for <lists+alsa-devel@lfdr.de>; Tue,  1 Dec 2020 15:01:07 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 8133417B8;
-	Tue,  1 Dec 2020 14:59:26 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8133417B8
+	by alsa0.perex.cz (Postfix) with ESMTPS id 1F5C017BA;
+	Tue,  1 Dec 2020 15:00:17 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1F5C017BA
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1606831216;
-	bh=ZciRQ0clP47O2viwbKF2X3XIXX0D+EsIIPHiUJWV+yQ=;
+	s=default; t=1606831267;
+	bh=YhgQZao5VbGau9cfjrXj/A+steCHHY0BXqeRNdlaEPM=;
 	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=Tj9/YiQZ5pzfhpulisNmZKNHxXRR405zY04lAIep3H86K4IgEoMb1M1EFTVgvDxcp
-	 Zz28fZbQL+DsbAzC4NlaYwp7aw0pSsvcgzibpsTnt7Z0+C778z18b6n4LgMpREqMKl
-	 1mrQie2OABKQJJcZyoYAdzmMz32F5R9iN9/P1c20=
+	b=b9Ia1e6X/quNTv3hUEweSQKyUyzvNSiqx/tPgRpZdsqEjpwr6dCIbC8+jGWev+tYR
+	 0iwvMcLyBOo9t15VngMyD+wgGsVhT1d4PdL7dV96Ho8/7ejSbI81CLkQBcQFv9OeuI
+	 gYAFP9TJ/xLuo5qxrWt6w8G1CD07OMQj6d6CnHbU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id B7C5FF8026D;
-	Tue,  1 Dec 2020 14:58:41 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 125EBF804C1;
+	Tue,  1 Dec 2020 14:59:02 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 81883F80254; Tue,  1 Dec 2020 14:58:40 +0100 (CET)
+ id BD9C1F804BD; Tue,  1 Dec 2020 14:59:00 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-1.6 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -34,39 +34,37 @@ X-Spam-Status: No, score=-1.6 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 9DF1FF80158
- for <alsa-devel@alsa-project.org>; Tue,  1 Dec 2020 14:58:28 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9DF1FF80158
+ by alsa1.perex.cz (Postfix) with ESMTPS id 62591F80277
+ for <alsa-devel@alsa-project.org>; Tue,  1 Dec 2020 14:58:58 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 62591F80277
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="I6dIZxMU"
+ header.b="xwp65o2z"
 Received: from localhost (cpc102334-sgyl38-2-0-cust884.18-2.cable.virginm.net
  [92.233.91.117])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 4AB47206A5;
- Tue,  1 Dec 2020 13:58:25 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id EBD8320C56;
+ Tue,  1 Dec 2020 13:58:55 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1606831105;
- bh=ZciRQ0clP47O2viwbKF2X3XIXX0D+EsIIPHiUJWV+yQ=;
+ s=default; t=1606831136;
+ bh=YhgQZao5VbGau9cfjrXj/A+steCHHY0BXqeRNdlaEPM=;
  h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=I6dIZxMUSZw5LJ3shd89RuTmtg360kVOOA2fGx4s5axpSNRlbHmBC5a3eKkZHYxmI
- MPFffHppvt8NQevpinVzBgb+PspgvKNYeYwlacpuXQ7QjEfjUq2tdx12drh+qIzCJ7
- QL6emIYViGizSLXptkGIqN/S81VItMlCGYboYyKU=
+ b=xwp65o2zPjvzSxZdvnbocqTSWXL97Ef+e5Dz9gG/KHBJ1DXTr+r8AY5lJstL7l1vy
+ 0F6cKC30O3n15lGHuhcR8Y/TP78RTvfqNcvgLMuyZ/pRocnFfHm9ZtdUSI5+/Qcz+c
+ plxXlcEkbAXP125QXkT/vN6MWenpn9NsSklRerX4=
 From: Mark Brown <broonie@kernel.org>
-To: robh@kernel.org, lgirdwood@gmail.com, grandmaster@al2klimov.de,
- perex@perex.cz, dmurphy@ti.com,
- Christophe JAILLET <christophe.jaillet@wanadoo.fr>, tiwai@suse.com
-In-Reply-To: <20201002192801.639743-1-christophe.jaillet@wanadoo.fr>
-References: <20201002192801.639743-1-christophe.jaillet@wanadoo.fr>
-Subject: Re: [PATCH] ASoC: tlv320adcx140: Fix a typo in a comment
-Message-Id: <160683107674.35139.8370464905366539450.b4-ty@kernel.org>
+To: Alexandre Belloni <alexandre.belloni@bootlin.com>
+In-Reply-To: <20201130215626.2400999-1-alexandre.belloni@bootlin.com>
+References: <20201130215626.2400999-1-alexandre.belloni@bootlin.com>
+Subject: Re: [PATCH] ASoC: adau1372: add missing dependencies
+Message-Id: <160683107678.35139.14007436475647314012.b4-ty@kernel.org>
 Date: Tue, 01 Dec 2020 13:57:56 +0000
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Cc: alsa-devel@alsa-project.org, kernel-janitors@vger.kernel.org,
- linux-kernel@vger.kernel.org
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
+ Liam Girdwood <lgirdwood@gmail.com>, linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -82,10 +80,9 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Fri, 2 Oct 2020 21:28:01 +0200, Christophe JAILLET wrote:
-> It is likely that this header file is about the TLV320ADCX140. (0 and 4
-> swapped)
-> While at it fix a missing "H" in a comment related to the include guard.
+On Mon, 30 Nov 2020 22:56:26 +0100, Alexandre Belloni wrote:
+> SND_SOC_ADAU1372_I2C and SND_SOC_ADAU1372_SPI prpoerly select the REGMAP
+> config they need but forget to depend on the underlying bus.
 
 Applied to
 
@@ -93,7 +90,7 @@ Applied to
 
 Thanks!
 
-[1/1] ASoC: tlv320adcx140: Fix a typo in a comment
+[1/1] ASoC: adau1372: add missing dependencies
       (no commit info)
 
 All being well this means that it will be integrated into the linux-next

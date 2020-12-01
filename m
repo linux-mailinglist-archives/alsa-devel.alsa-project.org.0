@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 74BC02CFA7B
-	for <lists+alsa-devel@lfdr.de>; Sat,  5 Dec 2020 09:09:00 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 746CB2CFA7C
+	for <lists+alsa-devel@lfdr.de>; Sat,  5 Dec 2020 09:09:17 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 0B86D18FA;
-	Sat,  5 Dec 2020 09:08:10 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0B86D18FA
+	by alsa0.perex.cz (Postfix) with ESMTPS id C0A4718FC;
+	Sat,  5 Dec 2020 09:08:26 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C0A4718FC
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1607155740;
-	bh=3X7nDeaHGV8ca1bsDthpExKd61Y42M88KLXSYxDFZUA=;
+	s=default; t=1607155756;
+	bh=72KAK+P2D/Jk5jDmi+rUWHPjZbHczSGCgI2x/CRmrLI=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=gmJ4KRH7iWhu3EsVdRgnOlMZ9RLA4CGiWbYKNCFM7ctIhZq7pq+Qy7iMfj9W6I7DV
-	 1csx+2r54anOGejv0XWdIm3ROqOAdZzhIvP5iu8xw7gb4NvrXAsUv2ENbz0vy40wZ4
-	 FEW73uP34i2StWesEgYMdTb4MUe+K+xkyLM+R6H0=
+	b=XmZWRSbJozAxUaKiIQ70m3tmHpAoN1jmoWUbuKydCd4XucmMNchTT2UzgJ45KmcKU
+	 6pRxg1CRphc0yPjRbb/LkfUmNt9XP3AKwWngvvqpX84FzkZHfviWqmuywT11Ual5Oq
+	 yGNxutEhbFjDpdGKy1zS/Y/VBclrJy/HDaQRbHmc=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 96FBCF8050F;
-	Sat,  5 Dec 2020 09:03:27 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 0C0BAF80519;
+	Sat,  5 Dec 2020 09:03:29 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 07D5EF8016D; Tue,  1 Dec 2020 10:07:14 +0100 (CET)
+ id 871F6F8016C; Tue,  1 Dec 2020 10:07:16 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,29 +34,30 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id C7C21F8016C
- for <alsa-devel@alsa-project.org>; Tue,  1 Dec 2020 10:07:07 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C7C21F8016C
+ by alsa1.perex.cz (Postfix) with ESMTPS id 282DBF80254
+ for <alsa-devel@alsa-project.org>; Tue,  1 Dec 2020 10:07:10 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 282DBF80254
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=linuxfoundation.org
- header.i=@linuxfoundation.org header.b="Y6jSkLP2"
+ header.i=@linuxfoundation.org header.b="crenmsCA"
 Received: from localhost (83-86-74-64.cable.dynamic.v4.ziggo.nl [83.86.74.64])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
  bits)) (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 4D9C622249;
- Tue,  1 Dec 2020 09:07:05 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id 142F022240;
+ Tue,  1 Dec 2020 09:07:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
- s=korg; t=1606813625;
- bh=3X7nDeaHGV8ca1bsDthpExKd61Y42M88KLXSYxDFZUA=;
+ s=korg; t=1606813628;
+ bh=72KAK+P2D/Jk5jDmi+rUWHPjZbHczSGCgI2x/CRmrLI=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=Y6jSkLP2TnJ26daDMQI/4iYYCFW0BbJo3n3p10NEws2c6dmgg4DIl3VZtbqRyhXDN
- zo10xkjwgMEYr+HkOnvGFxWxvryxG8K6EVifhMGRxz/oWroW8sT5Ib1MD5v+wQTtBf
- 8P8TIie8dl3T1FQ37pGSbyAJ8IPEmxuj2MvEFLZY=
+ b=crenmsCAY22RliouyQcPN9DjKMR3yCh3XoJZ3qBU51xjaIe6aa8hdRCQr41rQEMKk
+ ZI+Ow14N6F6SXuL7SMMebMJmtJg2m/vI8d1T7ztTel6n+J6DBHiKbyqszz3LKm64/R
+ DbDtscq14WBsOhsqpawdN4E9l+TcJw/JMuYaF8F8=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: linux-kernel@vger.kernel.org
-Subject: [PATCH 5.4 96/98] ASoC: Intel: Skylake: Await purge request ack on CNL
-Date: Tue,  1 Dec 2020 09:54:13 +0100
-Message-Id: <20201201084659.771053432@linuxfoundation.org>
+Subject: [PATCH 5.4 97/98] ASoC: Intel: Multiple I/O PCM format support for
+ pipe
+Date: Tue,  1 Dec 2020 09:54:14 +0100
+Message-Id: <20201201084659.822145380@linuxfoundation.org>
 X-Mailer: git-send-email 2.29.2
 In-Reply-To: <20201201084652.827177826@linuxfoundation.org>
 References: <20201201084652.827177826@linuxfoundation.org>
@@ -65,10 +66,12 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Sat, 05 Dec 2020 09:03:15 +0100
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Cezary Rojewski <cezary.rojewski@intel.com>, Mark Brown <broonie@kernel.org>,
+Cc: Cezary Rojewski <cezary.rojewski@intel.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Pavan K S <pavan.k.s@intel.com>,
  Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- stable@vger.kernel.org
+ stable@vger.kernel.org, Mark Brown <broonie@kernel.org>,
+ Mateusz Gorski <mateusz.gorski@linux.intel.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -84,87 +87,176 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: Cezary Rojewski <cezary.rojewski@intel.com>
+From: Mateusz Gorski <mateusz.gorski@linux.intel.com>
 
-commit 7693cadac86548b30389a6e11d78c38db654f393 upstream.
+commit 1b450791d517d4d6666ab9ab6d9a20c8819e3572 upstream.
 
-Each purge request is sent by driver after master core is powered up and
-unresetted but before it is unstalled. On unstall, ROM begins processing
-the request and initializing environment for FW load. Host should await
-ROM's ack before moving forward. Without doing so, ROM init poll may
-start too early and false timeouts can occur.
+For pipes supporting multiple input/output formats, kcontrol is
+created and selection of pipe input and output configuration
+is done based on control set.
 
-Fixes: cb6a55284629 ("ASoC: Intel: cnl: Add sst library functions for cnl platform")
-Signed-off-by: Cezary Rojewski <cezary.rojewski@intel.com>
+If more than one configuration is supported, then this patch
+allows user to select configuration of choice
+using amixer settings.
+
+Signed-off-by: Mateusz Gorski <mateusz.gorski@linux.intel.com>
+Signed-off-by: Pavan K S <pavan.k.s@intel.com>
+Reviewed-by: Cezary Rojewski <cezary.rojewski@intel.com>
 Reviewed-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Link: https://lore.kernel.org/r/20200305145314.32579-8-cezary.rojewski@intel.com
+Link: https://lore.kernel.org/r/20200427132727.24942-3-mateusz.gorski@linux.intel.com
 Signed-off-by: Mark Brown <broonie@kernel.org>
 Cc: <stable@vger.kernel.org> # 5.4.x
 Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 ---
- sound/soc/intel/skylake/bxt-sst.c     |    1 -
- sound/soc/intel/skylake/cnl-sst.c     |   20 ++++++++++++++++++--
- sound/soc/intel/skylake/skl-sst-dsp.h |    1 +
- 3 files changed, 19 insertions(+), 3 deletions(-)
+ include/uapi/sound/skl-tplg-interface.h |    1 
+ sound/soc/intel/skylake/skl-topology.c  |   95 ++++++++++++++++++++++++++++++++
+ sound/soc/intel/skylake/skl-topology.h  |    1 
+ 3 files changed, 97 insertions(+)
 
---- a/sound/soc/intel/skylake/bxt-sst.c
-+++ b/sound/soc/intel/skylake/bxt-sst.c
-@@ -17,7 +17,6 @@
- #include "skl.h"
+--- a/include/uapi/sound/skl-tplg-interface.h
++++ b/include/uapi/sound/skl-tplg-interface.h
+@@ -18,6 +18,7 @@
+  */
+ #define SKL_CONTROL_TYPE_BYTE_TLV	0x100
+ #define SKL_CONTROL_TYPE_MIC_SELECT	0x102
++#define SKL_CONTROL_TYPE_MULTI_IO_SELECT	0x103
  
- #define BXT_BASEFW_TIMEOUT	3000
--#define BXT_INIT_TIMEOUT	300
- #define BXT_ROM_INIT_TIMEOUT	70
- #define BXT_IPC_PURGE_FW	0x01004000
+ #define HDA_SST_CFG_MAX	900 /* size of copier cfg*/
+ #define MAX_IN_QUEUE 8
+--- a/sound/soc/intel/skylake/skl-topology.c
++++ b/sound/soc/intel/skylake/skl-topology.c
+@@ -579,6 +579,38 @@ static int skl_tplg_unload_pipe_modules(
+ 	return ret;
+ }
  
---- a/sound/soc/intel/skylake/cnl-sst.c
-+++ b/sound/soc/intel/skylake/cnl-sst.c
-@@ -57,18 +57,34 @@ static int cnl_prepare_fw(struct sst_dsp
- 	ctx->dsp_ops.stream_tag = stream_tag;
- 	memcpy(ctx->dmab.area, fwdata, fwsize);
- 
-+	ret = skl_dsp_core_power_up(ctx, SKL_DSP_CORE0_MASK);
-+	if (ret < 0) {
-+		dev_err(ctx->dev, "dsp core0 power up failed\n");
-+		ret = -EIO;
-+		goto base_fw_load_failed;
++static bool skl_tplg_is_multi_fmt(struct skl_dev *skl, struct skl_pipe *pipe)
++{
++	struct skl_pipe_fmt *cur_fmt;
++	struct skl_pipe_fmt *next_fmt;
++	int i;
++
++	if (pipe->nr_cfgs <= 1)
++		return false;
++
++	if (pipe->conn_type != SKL_PIPE_CONN_TYPE_FE)
++		return true;
++
++	for (i = 0; i < pipe->nr_cfgs - 1; i++) {
++		if (pipe->direction == SNDRV_PCM_STREAM_PLAYBACK) {
++			cur_fmt = &pipe->configs[i].out_fmt;
++			next_fmt = &pipe->configs[i + 1].out_fmt;
++		} else {
++			cur_fmt = &pipe->configs[i].in_fmt;
++			next_fmt = &pipe->configs[i + 1].in_fmt;
++		}
++
++		if (!CHECK_HW_PARAMS(cur_fmt->channels, cur_fmt->freq,
++				     cur_fmt->bps,
++				     next_fmt->channels,
++				     next_fmt->freq,
++				     next_fmt->bps))
++			return true;
 +	}
 +
- 	/* purge FW request */
- 	sst_dsp_shim_write(ctx, CNL_ADSP_REG_HIPCIDR,
- 			   CNL_ADSP_REG_HIPCIDR_BUSY | (CNL_IPC_PURGE |
- 			   ((stream_tag - 1) << CNL_ROM_CTRL_DMA_ID)));
- 
--	ret = cnl_dsp_enable_core(ctx, SKL_DSP_CORE0_MASK);
-+	ret = skl_dsp_start_core(ctx, SKL_DSP_CORE0_MASK);
- 	if (ret < 0) {
--		dev_err(ctx->dev, "dsp boot core failed ret: %d\n", ret);
-+		dev_err(ctx->dev, "Start dsp core failed ret: %d\n", ret);
- 		ret = -EIO;
- 		goto base_fw_load_failed;
++	return false;
++}
++
+ /*
+  * Here, we select pipe format based on the pipe type and pipe
+  * direction to determine the current config index for the pipeline.
+@@ -601,6 +633,14 @@ skl_tplg_get_pipe_config(struct skl_dev
+ 		return 0;
  	}
  
-+	ret = sst_dsp_register_poll(ctx, CNL_ADSP_REG_HIPCIDA,
-+				    CNL_ADSP_REG_HIPCIDA_DONE,
-+				    CNL_ADSP_REG_HIPCIDA_DONE,
-+				    BXT_INIT_TIMEOUT, "HIPCIDA Done");
-+	if (ret < 0) {
-+		dev_err(ctx->dev, "timeout for purge request: %d\n", ret);
-+		goto base_fw_load_failed;
++	if (skl_tplg_is_multi_fmt(skl, pipe)) {
++		pipe->cur_config_idx = pipe->pipe_config_idx;
++		pipe->memory_pages = pconfig->mem_pages;
++		dev_dbg(skl->dev, "found pipe config idx:%d\n",
++			pipe->cur_config_idx);
++		return 0;
 +	}
 +
- 	/* enable interrupt */
- 	cnl_ipc_int_enable(ctx);
- 	cnl_ipc_op_int_enable(ctx);
---- a/sound/soc/intel/skylake/skl-sst-dsp.h
-+++ b/sound/soc/intel/skylake/skl-sst-dsp.h
-@@ -68,6 +68,7 @@ struct skl_dev;
- #define SKL_FW_INIT			0x1
- #define SKL_FW_RFW_START		0xf
- #define BXT_FW_ROM_INIT_RETRY		3
-+#define BXT_INIT_TIMEOUT		300
+ 	if (pipe->conn_type == SKL_PIPE_CONN_TYPE_NONE) {
+ 		dev_dbg(skl->dev, "No conn_type detected, take 0th config\n");
+ 		pipe->cur_config_idx = 0;
+@@ -1315,6 +1355,56 @@ static int skl_tplg_pga_event(struct snd
+ 	return 0;
+ }
  
- #define SKL_ADSPIC_IPC			1
- #define SKL_ADSPIS_IPC			1
++static int skl_tplg_multi_config_set_get(struct snd_kcontrol *kcontrol,
++					 struct snd_ctl_elem_value *ucontrol,
++					 bool is_set)
++{
++	struct snd_soc_component *component =
++		snd_soc_kcontrol_component(kcontrol);
++	struct hdac_bus *bus = snd_soc_component_get_drvdata(component);
++	struct skl_dev *skl = bus_to_skl(bus);
++	struct skl_pipeline *ppl;
++	struct skl_pipe *pipe = NULL;
++	struct soc_enum *ec = (struct soc_enum *)kcontrol->private_value;
++	u32 *pipe_id;
++
++	if (!ec)
++		return -EINVAL;
++
++	if (is_set && ucontrol->value.enumerated.item[0] > ec->items)
++		return -EINVAL;
++
++	pipe_id = ec->dobj.private;
++
++	list_for_each_entry(ppl, &skl->ppl_list, node) {
++		if (ppl->pipe->ppl_id == *pipe_id) {
++			pipe = ppl->pipe;
++			break;
++		}
++	}
++	if (!pipe)
++		return -EIO;
++
++	if (is_set)
++		pipe->pipe_config_idx = ucontrol->value.enumerated.item[0];
++	else
++		ucontrol->value.enumerated.item[0]  =  pipe->pipe_config_idx;
++
++	return 0;
++}
++
++static int skl_tplg_multi_config_get(struct snd_kcontrol *kcontrol,
++				     struct snd_ctl_elem_value *ucontrol)
++{
++	return skl_tplg_multi_config_set_get(kcontrol, ucontrol, false);
++}
++
++static int skl_tplg_multi_config_set(struct snd_kcontrol *kcontrol,
++				     struct snd_ctl_elem_value *ucontrol)
++{
++	return skl_tplg_multi_config_set_get(kcontrol, ucontrol, true);
++}
++
+ static int skl_tplg_tlv_control_get(struct snd_kcontrol *kcontrol,
+ 			unsigned int __user *data, unsigned int size)
+ {
+@@ -1854,6 +1944,11 @@ static const struct snd_soc_tplg_kcontro
+ 		.get = skl_tplg_mic_control_get,
+ 		.put = skl_tplg_mic_control_set,
+ 	},
++	{
++		.id = SKL_CONTROL_TYPE_MULTI_IO_SELECT,
++		.get = skl_tplg_multi_config_get,
++		.put = skl_tplg_multi_config_set,
++	},
+ };
+ 
+ static int skl_tplg_fill_pipe_cfg(struct device *dev,
+--- a/sound/soc/intel/skylake/skl-topology.h
++++ b/sound/soc/intel/skylake/skl-topology.h
+@@ -306,6 +306,7 @@ struct skl_pipe {
+ 	struct skl_path_config configs[SKL_MAX_PATH_CONFIGS];
+ 	struct list_head w_list;
+ 	bool passthru;
++	u32 pipe_config_idx;
+ };
+ 
+ enum skl_module_state {
 
 

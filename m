@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id AD6762CA65A
-	for <lists+alsa-devel@lfdr.de>; Tue,  1 Dec 2020 15:55:33 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 62D482CA6D1
+	for <lists+alsa-devel@lfdr.de>; Tue,  1 Dec 2020 16:19:08 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 3FF2917CB;
-	Tue,  1 Dec 2020 15:54:43 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3FF2917CB
+	by alsa0.perex.cz (Postfix) with ESMTPS id DAEAE17C7;
+	Tue,  1 Dec 2020 16:18:17 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DAEAE17C7
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1606834533;
-	bh=qf7aGX9gVYdAZTqguqoDkQAl8piUxDoOcWMwnRZ1JdI=;
+	s=default; t=1606835948;
+	bh=dGfNSOBgGRBJkk/Dgt6x48Q5cXIZYVgrqNOCHjMDkls=;
 	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=hbEyrsCt0ZTxtoNflW/knzvaLnNz3jTnRaSqiSoMkKENANNeM0U+f0IS+pNU3Y/mS
-	 WaTcy/eDJ/NbYr7mVSvDeQ0vjiRO2sEEiUyh3BA8cPYHmtVZei3jleklpY3v5Ppyud
-	 89sO92cYdRhFcCLhIhCHabVUTDIi1wfbQfSxgIs4=
+	b=JfHem9tuJ6g21uRCezi7EEsJIH4ooJAZ2VPItsEbxqs3opVjIpQSK3MhTa02lWgR0
+	 owX6UX9YaoCZOZRBsOLDY48mqivV9ilNE2YqiACU6GqOw0WDLD+islN8wq0qi9Czwo
+	 sUS+j9xEIUsRdzxV5dJxq2yZRCJH6krNRZEXhSGo=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 5598BF8016D;
-	Tue,  1 Dec 2020 15:53:58 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id E0104F80139;
+	Tue,  1 Dec 2020 16:17:32 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 6FCB1F8016C; Tue,  1 Dec 2020 15:53:57 +0100 (CET)
+ id 493F8F8016C; Tue,  1 Dec 2020 16:17:30 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-1.6 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -34,54 +34,43 @@ X-Spam-Status: No, score=-1.6 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 2192FF80139
- for <alsa-devel@alsa-project.org>; Tue,  1 Dec 2020 15:53:54 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2192FF80139
+ by alsa1.perex.cz (Postfix) with ESMTPS id 0E603F80139
+ for <alsa-devel@alsa-project.org>; Tue,  1 Dec 2020 16:17:17 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0E603F80139
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="Pyz5H9tj"
+ header.b="jm01DLEJ"
 Received: from localhost (cpc102334-sgyl38-2-0-cust884.18-2.cable.virginm.net
  [92.233.91.117])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 682D92084C;
- Tue,  1 Dec 2020 14:53:51 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id 835362084C;
+ Tue,  1 Dec 2020 15:17:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1606834431;
- bh=qf7aGX9gVYdAZTqguqoDkQAl8piUxDoOcWMwnRZ1JdI=;
+ s=default; t=1606835835;
+ bh=dGfNSOBgGRBJkk/Dgt6x48Q5cXIZYVgrqNOCHjMDkls=;
  h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=Pyz5H9tjiwtuE3hMxgjaeQpKseUdVdTuM07OYBL6nE2M2bwxe4Z4tp2p22rwlQruI
- bhsk0B3Yc9mbZyXZlwEDtIb0DWBFYlw8qDXFyONC/AJe8dGgh4s8j7VL9GzfNDMdH9
- OKVYO15xSUIUNsxJsurjMSxttEOFY1wqOpYMVAZg=
-Date: Tue, 1 Dec 2020 14:53:22 +0000
+ b=jm01DLEJUVd9ljYXUFOFnvDXYouaD7xBo/EfaVWKNbXZaKWnA8Enq2kgNj3Dzr65D
+ 9+v/oLboL5EjgttiJnoat4rw1L/ku95iNEl3J7Dtn4AlshxKZvoGi4tm95B8LEE38b
+ 6KKT/FCY/dFGKul8AkDWrjXE1u12QzCJedmi23XQ=
+Date: Tue, 1 Dec 2020 15:16:45 +0000
 From: Mark Brown <broonie@kernel.org>
-To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Subject: Re: [PATCH v2 0/5] regmap/SoundWire/ASoC: Add SoundWire SDCA support
-Message-ID: <20201201145322.GG5239@sirena.org.uk>
-References: <20201130144020.19757-1-yung-chuan.liao@linux.intel.com>
- <DM6PR11MB4074311B4E0B70F24383E754FFF40@DM6PR11MB4074.namprd11.prod.outlook.com>
- <20201201041138.GY8403@vkoul-mobl>
- <e9478e45-2a24-05f9-eb56-5905d54ab6a4@linux.intel.com>
+To: Shane Chien <shane.chien@mediatek.com>
+Subject: Re: [RFC] ASoC: Add compatible for mt6359-sound device
+Message-ID: <20201201151645.GI5239@sirena.org.uk>
+References: <1606801293-19472-1-git-send-email-shane.chien@mediatek.com>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="E69HUUNAyIJqGpVn"
+ protocol="application/pgp-signature"; boundary="xQR6quUbZ63TTuTU"
 Content-Disposition: inline
-In-Reply-To: <e9478e45-2a24-05f9-eb56-5905d54ab6a4@linux.intel.com>
+In-Reply-To: <1606801293-19472-1-git-send-email-shane.chien@mediatek.com>
 X-Cookie: Who was that masked man?
 User-Agent: Mutt/1.10.1 (2018-07-13)
-Cc: "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
- "tiwai@suse.de" <tiwai@suse.de>,
- "gregkh@linuxfoundation.org" <gregkh@linuxfoundation.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "ranjani.sridharan@linux.intel.com" <ranjani.sridharan@linux.intel.com>,
- "hui.wang@canonical.com" <hui.wang@canonical.com>,
- Vinod Koul <vkoul@kernel.org>,
- "srinivas.kandagatla@linaro.org" <srinivas.kandagatla@linaro.org>,
- "jank@cadence.com" <jank@cadence.com>, "Kale,
- Sanyog R" <sanyog.r.kale@intel.com>,
- Bard Liao <yung-chuan.liao@linux.intel.com>,
- "rander.wang@linux.intel.com" <rander.wang@linux.intel.com>, "Liao,
- Bard" <bard.liao@intel.com>
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
+ chipeng.chang@mediatek.com, wsd_upstream@mediatek.com, fan.chen@mediatek.com,
+ linux-kernel@vger.kernel.org, jiaxin.yu@mediatek.com, jeter.chen@mediatek.com,
+ tzungbi@google.com, linux-mediatek@lists.infradead.org,
+ Matthias Brugger <matthias.bgg@gmail.com>, Hsin-Hsiung.Wang@mediatek.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -98,39 +87,39 @@ Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 
---E69HUUNAyIJqGpVn
+--xQR6quUbZ63TTuTU
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 
-On Tue, Dec 01, 2020 at 08:35:42AM -0600, Pierre-Louis Bossart wrote:
-> On 11/30/20 10:11 PM, Vinod Koul wrote:
+On Tue, Dec 01, 2020 at 01:41:33PM +0800, Shane Chien wrote:
 
-> > I see Mark has already applied 1-3 ..
+> However, if the device is not given a comaptible,
+> of_node of struct device is null. I cannot use
+> devm_iio_channel_get such iio interface to get
+> auxadc value from iio channel. Because during
+> using devm_iio_channel_get, of_node of mt6359-sound is a
+> input parameter of of_iio_channel_get_by_name.
+> If the of_node is null, devm_iio_channel_get will
+> eventually return ENODEV error.
 
-> Sorry, I thought Mark had reversed the entire series.
+I would expect the IIO channel to be requestable using the top level
+device for the MFD - part of the deal here is that the function drivers
+for the MFD know they're part of the MFD so can look at their parent
+device for some things (eg, this is how regmaps are normally obtained).
 
-Yeah, I just backed out the one change for the driver.
-
-> Vinod, would you mind providing a tag for Mark then? The following commit is
-> needed to compile:
-
-> b7cab9be7c161 ('soundwire: SDCA: detect sdca_cascade interrupt')
-
-That'd work, looks like there's only one fix patch it's based off.
-
---E69HUUNAyIJqGpVn
+--xQR6quUbZ63TTuTU
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl/GWOEACgkQJNaLcl1U
-h9B0Igf9Fzb38TLz0RVIqHyT/CX9u1t8YCBFEH1IJgAGjAkq8z49rjYj49kYtcsW
-4QD5eUeFKMmggnVdL4uQLdK5TYkHy3kX+sqn5ajxOFP2fKU5noEDJLMxRCNSoyxX
-UhyghvlIObK/EV3B3G20CSBvCCGIMGCIMsEtLCjT9GQ0htvVUgRAATbxCaDXXtT1
-UXg6CmASMQfbbnyTJYBy5aphdgPQHujuUWtswz9hR39VyWaGTg6Di4GHoVKFFD3u
-HNAbuR9st/tmPx25aGs6bKup1IPh6M9yvQ2I/gJV/44Sh0g/SSvff3HyHx2va0rV
-8s6QiPs1PLCwbaB/eLWfW5fs/+1rTw==
-=87Ur
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl/GXlwACgkQJNaLcl1U
+h9BAOwf/YpwGU5QaZRcMFXBXVD7bkQtu2EutCs5svrbEIbr3lA1niZuznQAxi+6a
+EJCmeJQMOhfM1eWqoPsMR8Ys1EKuWKLwG6YQWS08MaQnTYWfxbrUOVojFD58OzaL
+hQo4Yi/3k08L2Hne44kqKBRtlKsOUinIUZi3Bfd+kApSW1EpnKsSr91qfyTJRFrx
+7qBCTxt2qNnd47lDqIrDEm72iyFR9SyCAttQJCGBnqm6ByFEhZgGQh92GOZfWG/w
+Ubq9Y3f3nY08xj3kCQD+H8HAjTPh8zdtXk5oJe8X80j9FyZDbQ01GlFkcnWeL7+p
+cc8ntzCYuiapNx0EQQhYBOrTDUkX8Q==
+=4ZF0
 -----END PGP SIGNATURE-----
 
---E69HUUNAyIJqGpVn--
+--xQR6quUbZ63TTuTU--

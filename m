@@ -2,76 +2,143 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 746CB2CFA7C
-	for <lists+alsa-devel@lfdr.de>; Sat,  5 Dec 2020 09:09:17 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 414822CFA73
+	for <lists+alsa-devel@lfdr.de>; Sat,  5 Dec 2020 09:06:31 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C0A4718FC;
-	Sat,  5 Dec 2020 09:08:26 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C0A4718FC
+	by alsa0.perex.cz (Postfix) with ESMTPS id CE7C018D1;
+	Sat,  5 Dec 2020 09:05:35 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CE7C018D1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1607155756;
-	bh=72KAK+P2D/Jk5jDmi+rUWHPjZbHczSGCgI2x/CRmrLI=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1607155585;
+	bh=gimZADzZS/lB5iWjDsKtqVY0lPxTX9vNMKPsUdlIPc0=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=XmZWRSbJozAxUaKiIQ70m3tmHpAoN1jmoWUbuKydCd4XucmMNchTT2UzgJ45KmcKU
-	 6pRxg1CRphc0yPjRbb/LkfUmNt9XP3AKwWngvvqpX84FzkZHfviWqmuywT11Ual5Oq
-	 yGNxutEhbFjDpdGKy1zS/Y/VBclrJy/HDaQRbHmc=
+	b=Gd87Z0fVa76kjt6OA7UsImyLKMJMDLBp2fnjkKDSVCrbBFCrsCWj6OMNLPVMt96/v
+	 HMbrfAY7hhuvLaTf+m9essBbRTdbrBm8mjNQv7KeP9WRTMZvQLC1BAFnKiOerJX4ui
+	 moDZXNoTy3i9LBXlI0MeCKJvNvTyPPiv79RdogN8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 0C0BAF80519;
-	Sat,  5 Dec 2020 09:03:29 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 1CF79F804D8;
+	Sat,  5 Dec 2020 09:03:20 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 871F6F8016C; Tue,  1 Dec 2020 10:07:16 +0100 (CET)
+ id 4159DF8016D; Tue,  1 Dec 2020 15:07:51 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+X-Spam-Status: No, score=-1.6 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+ DKIM_VALID,DKIM_VALID_AU,RCVD_IN_MSPIKE_H2,SPF_HELO_PASS,SPF_NONE,
+ UNPARSEABLE_RELAY autolearn=disabled version=3.4.0
+Received: from userp2130.oracle.com (userp2130.oracle.com [156.151.31.86])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 282DBF80254
- for <alsa-devel@alsa-project.org>; Tue,  1 Dec 2020 10:07:10 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 282DBF80254
+ by alsa1.perex.cz (Postfix) with ESMTPS id 91005F80139
+ for <alsa-devel@alsa-project.org>; Tue,  1 Dec 2020 15:07:45 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 91005F80139
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=linuxfoundation.org
- header.i=@linuxfoundation.org header.b="crenmsCA"
-Received: from localhost (83-86-74-64.cable.dynamic.v4.ziggo.nl [83.86.74.64])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
- bits)) (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 142F022240;
- Tue,  1 Dec 2020 09:07:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
- s=korg; t=1606813628;
- bh=72KAK+P2D/Jk5jDmi+rUWHPjZbHczSGCgI2x/CRmrLI=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=crenmsCAY22RliouyQcPN9DjKMR3yCh3XoJZ3qBU51xjaIe6aa8hdRCQr41rQEMKk
- ZI+Ow14N6F6SXuL7SMMebMJmtJg2m/vI8d1T7ztTel6n+J6DBHiKbyqszz3LKm64/R
- DbDtscq14WBsOhsqpawdN4E9l+TcJw/JMuYaF8F8=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: linux-kernel@vger.kernel.org
-Subject: [PATCH 5.4 97/98] ASoC: Intel: Multiple I/O PCM format support for
- pipe
-Date: Tue,  1 Dec 2020 09:54:14 +0100
-Message-Id: <20201201084659.822145380@linuxfoundation.org>
-X-Mailer: git-send-email 2.29.2
-In-Reply-To: <20201201084652.827177826@linuxfoundation.org>
-References: <20201201084652.827177826@linuxfoundation.org>
-User-Agent: quilt/0.66
+ dkim=pass (2048-bit key) header.d=oracle.com header.i=@oracle.com
+ header.b="vLWTsjji"
+Received: from pps.filterd (userp2130.oracle.com [127.0.0.1])
+ by userp2130.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 0B1DtHP4002730;
+ Tue, 1 Dec 2020 14:07:42 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com;
+ h=date : from : to : cc
+ : subject : message-id : references : mime-version : content-type :
+ in-reply-to; s=corp-2020-01-29;
+ bh=pTmh0fAx41hLIvYDyOekZfZD8/4rzzXxS/TqqdPExwg=;
+ b=vLWTsjjic+1p3i9uxybiHNVi42dcBKcTvA6AfpFTEr0sUNmVqp9yRxLgg7kIK5qGUN0J
+ oofgNIgToJJBxsPbFd+Am4pBxk6JPpjzRqo19VpEwymshbhsnRALOcfpiO21XOp3kmxr
+ lgOLJrUqyUshUH+0ojxyxXIg1LFHdnj2t2Bklh5y68LsxqqiRxoSPtOWNIoWynIJF754
+ 5bVkuWqCYCEFs8tq7LyeOV+zI3/vr+tI5ZKBss7pqjTfnpXNJRaPwJeD8R6AGcywA+BA
+ lerBH0PS/hUi55aURtflNdJ2juhGcYo6ht8r8gtlOn38U9XkoMGDxbASv62fD9VykISM Rg== 
+Received: from aserp3020.oracle.com (aserp3020.oracle.com [141.146.126.70])
+ by userp2130.oracle.com with ESMTP id 353dyqjnq9-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
+ Tue, 01 Dec 2020 14:07:42 +0000
+Received: from pps.filterd (aserp3020.oracle.com [127.0.0.1])
+ by aserp3020.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 0B1Du5R6003844;
+ Tue, 1 Dec 2020 14:05:41 GMT
+Received: from pps.reinject (localhost [127.0.0.1])
+ by aserp3020.oracle.com with ESMTP id 3540ey0hqt-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
+ Tue, 01 Dec 2020 14:05:41 +0000
+Received: from aserp3020.oracle.com (aserp3020.oracle.com [127.0.0.1])
+ by pps.reinject (8.16.0.36/8.16.0.36) with SMTP id 0B1E1twO021849;
+ Tue, 1 Dec 2020 14:05:41 GMT
+Received: from userv0121.oracle.com (userv0121.oracle.com [156.151.31.72])
+ by aserp3020.oracle.com with ESMTP id 3540ey0hp9-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Tue, 01 Dec 2020 14:05:40 +0000
+Received: from abhmp0010.oracle.com (abhmp0010.oracle.com [141.146.116.16])
+ by userv0121.oracle.com (8.14.4/8.13.8) with ESMTP id 0B1E5MSD015816;
+ Tue, 1 Dec 2020 14:05:23 GMT
+Received: from kadam (/102.36.221.92) by default (Oracle Beehive Gateway v4.0)
+ with ESMTP ; Tue, 01 Dec 2020 06:05:21 -0800
+Date: Tue, 1 Dec 2020 17:04:49 +0300
+From: Dan Carpenter <dan.carpenter@oracle.com>
+To: Kees Cook <keescook@chromium.org>
+Subject: Re: [PATCH 000/141] Fix fall-through warnings for Clang
+Message-ID: <20201201140449.GG2767@kadam>
+References: <cover.1605896059.git.gustavoars@kernel.org>
+ <20201120105344.4345c14e@kicinski-fedora-pc1c0hjn.dhcp.thefacebook.com>
+ <202011201129.B13FDB3C@keescook>
+ <20201120115142.292999b2@kicinski-fedora-pc1c0hjn.dhcp.thefacebook.com>
+ <202011220816.8B6591A@keescook>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Sat, 05 Dec 2020 09:03:15 +0100
-Cc: Cezary Rojewski <cezary.rojewski@intel.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Pavan K S <pavan.k.s@intel.com>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- stable@vger.kernel.org, Mark Brown <broonie@kernel.org>,
- Mateusz Gorski <mateusz.gorski@linux.intel.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <202011220816.8B6591A@keescook>
+User-Agent: Mutt/1.9.4 (2018-02-28)
+X-Proofpoint-Virus-Version: vendor=nai engine=6000 definitions=9821
+ signatures=668682
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 malwarescore=0
+ bulkscore=0
+ clxscore=1011 mlxscore=0 spamscore=0 priorityscore=1501 mlxlogscore=999
+ suspectscore=0 lowpriorityscore=0 phishscore=0 adultscore=0
+ impostorscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.12.0-2009150000 definitions=main-2012010090
+X-Mailman-Approved-At: Sat, 05 Dec 2020 09:03:14 +0100
+Cc: alsa-devel@alsa-project.org, bridge@lists.linux-foundation.org,
+ target-devel@vger.kernel.org, linux-iio@vger.kernel.org,
+ linux-wireless@vger.kernel.org, linux-fbdev@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, virtualization@lists.linux-foundation.org,
+ linux-mm@kvack.org, linux-ide@vger.kernel.org, dm-devel@redhat.com,
+ keyrings@vger.kernel.org, linux-mtd@lists.infradead.org,
+ GR-everest-linux-l2@marvell.com, wcn36xx@lists.infradead.org,
+ linux-i3c@lists.infradead.org, linux1394-devel@lists.sourceforge.net,
+ linux-afs@lists.infradead.org, devel@driverdev.osuosl.org,
+ linux-cifs@vger.kernel.org, rds-devel@oss.oracle.com,
+ linux-scsi@vger.kernel.org, linux-acpi@vger.kernel.org,
+ linux-rdma@vger.kernel.org, oss-drivers@netronome.com,
+ linux-atm-general@lists.sourceforge.net, ceph-devel@vger.kernel.org,
+ amd-gfx@lists.freedesktop.org, linux-stm32@st-md-mailman.stormreply.com,
+ cluster-devel@redhat.com, usb-storage@lists.one-eyed-alien.net,
+ linux-mmc@vger.kernel.org, coreteam@netfilter.org,
+ intel-wired-lan@lists.osuosl.org,
+ "Gustavo A. R. Silva" <gustavoars@kernel.org>, linux-input@vger.kernel.org,
+ Miguel Ojeda <ojeda@kernel.org>, Jakub Kicinski <kuba@kernel.org>,
+ linux-ext4@vger.kernel.org, netfilter-devel@vger.kernel.org,
+ linux-media@vger.kernel.org, linux-watchdog@vger.kernel.org,
+ selinux@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ intel-gfx@lists.freedesktop.org, linux-sctp@vger.kernel.org,
+ reiserfs-devel@vger.kernel.org, linux-geode@lists.infradead.org,
+ linux-block@vger.kernel.org, linux-gpio@vger.kernel.org,
+ op-tee@lists.trustedfirmware.org, linux-mediatek@lists.infradead.org,
+ xen-devel@lists.xenproject.org, drbd-dev@tron.linbit.com,
+ linux-hams@vger.kernel.org, Nathan Chancellor <natechancellor@gmail.com>,
+ linux-can@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-hwmon@vger.kernel.org, Nick Desaulniers <ndesaulniers@google.com>,
+ linux-nfs@vger.kernel.org, GR-Linux-NIC-Dev@marvell.com,
+ nouveau@lists.freedesktop.org, netdev@vger.kernel.org,
+ linux-decnet-user@lists.sourceforge.net, samba-technical@lists.samba.org,
+ linux-kernel@vger.kernel.org, linux-renesas-soc@vger.kernel.org,
+ linux-security-module@vger.kernel.org, linux-usb@vger.kernel.org,
+ tipc-discussion@lists.sourceforge.net, linux-crypto@vger.kernel.org,
+ patches@opensource.cirrus.com, Joe Perches <joe@perches.com>,
+ linux-integrity@vger.kernel.org, x86@kernel.org,
+ linux-hardening@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -87,176 +154,54 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: Mateusz Gorski <mateusz.gorski@linux.intel.com>
+On Sun, Nov 22, 2020 at 08:17:03AM -0800, Kees Cook wrote:
+> On Fri, Nov 20, 2020 at 11:51:42AM -0800, Jakub Kicinski wrote:
+> > On Fri, 20 Nov 2020 11:30:40 -0800 Kees Cook wrote:
+> > > On Fri, Nov 20, 2020 at 10:53:44AM -0800, Jakub Kicinski wrote:
+> > > > On Fri, 20 Nov 2020 12:21:39 -0600 Gustavo A. R. Silva wrote:  
+> > > > > This series aims to fix almost all remaining fall-through warnings in
+> > > > > order to enable -Wimplicit-fallthrough for Clang.
+> > > > > 
+> > > > > In preparation to enable -Wimplicit-fallthrough for Clang, explicitly
+> > > > > add multiple break/goto/return/fallthrough statements instead of just
+> > > > > letting the code fall through to the next case.
+> > > > > 
+> > > > > Notice that in order to enable -Wimplicit-fallthrough for Clang, this
+> > > > > change[1] is meant to be reverted at some point. So, this patch helps
+> > > > > to move in that direction.
+> > > > > 
+> > > > > Something important to mention is that there is currently a discrepancy
+> > > > > between GCC and Clang when dealing with switch fall-through to empty case
+> > > > > statements or to cases that only contain a break/continue/return
+> > > > > statement[2][3][4].  
+> > > > 
+> > > > Are we sure we want to make this change? Was it discussed before?
+> > > > 
+> > > > Are there any bugs Clangs puritanical definition of fallthrough helped
+> > > > find?
+> > > > 
+> > > > IMVHO compiler warnings are supposed to warn about issues that could
+> > > > be bugs. Falling through to default: break; can hardly be a bug?!  
+> > > 
+> > > It's certainly a place where the intent is not always clear. I think
+> > > this makes all the cases unambiguous, and doesn't impact the machine
+> > > code, since the compiler will happily optimize away any behavioral
+> > > redundancy.
+> > 
+> > If none of the 140 patches here fix a real bug, and there is no change
+> > to machine code then it sounds to me like a W=2 kind of a warning.
+> 
+> FWIW, this series has found at least one bug so far:
+> https://lore.kernel.org/lkml/CAFCwf11izHF=g1mGry1fE5kvFFFrxzhPSM6qKAO8gxSp=Kr_CQ@mail.gmail.com/
 
-commit 1b450791d517d4d6666ab9ab6d9a20c8819e3572 upstream.
+This is a fallthrough to a return and not to a break.  That should
+trigger a warning.  The fallthrough to a break should not generate a
+warning.
 
-For pipes supporting multiple input/output formats, kcontrol is
-created and selection of pipe input and output configuration
-is done based on control set.
+The bug we're trying to fix is "missing break statement" but if the
+result of the bug is "we hit a break statement" then now we're just
+talking about style.  GCC should limit itself to warning about
+potentially buggy code.
 
-If more than one configuration is supported, then this patch
-allows user to select configuration of choice
-using amixer settings.
-
-Signed-off-by: Mateusz Gorski <mateusz.gorski@linux.intel.com>
-Signed-off-by: Pavan K S <pavan.k.s@intel.com>
-Reviewed-by: Cezary Rojewski <cezary.rojewski@intel.com>
-Reviewed-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Link: https://lore.kernel.org/r/20200427132727.24942-3-mateusz.gorski@linux.intel.com
-Signed-off-by: Mark Brown <broonie@kernel.org>
-Cc: <stable@vger.kernel.org> # 5.4.x
-Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
----
- include/uapi/sound/skl-tplg-interface.h |    1 
- sound/soc/intel/skylake/skl-topology.c  |   95 ++++++++++++++++++++++++++++++++
- sound/soc/intel/skylake/skl-topology.h  |    1 
- 3 files changed, 97 insertions(+)
-
---- a/include/uapi/sound/skl-tplg-interface.h
-+++ b/include/uapi/sound/skl-tplg-interface.h
-@@ -18,6 +18,7 @@
-  */
- #define SKL_CONTROL_TYPE_BYTE_TLV	0x100
- #define SKL_CONTROL_TYPE_MIC_SELECT	0x102
-+#define SKL_CONTROL_TYPE_MULTI_IO_SELECT	0x103
- 
- #define HDA_SST_CFG_MAX	900 /* size of copier cfg*/
- #define MAX_IN_QUEUE 8
---- a/sound/soc/intel/skylake/skl-topology.c
-+++ b/sound/soc/intel/skylake/skl-topology.c
-@@ -579,6 +579,38 @@ static int skl_tplg_unload_pipe_modules(
- 	return ret;
- }
- 
-+static bool skl_tplg_is_multi_fmt(struct skl_dev *skl, struct skl_pipe *pipe)
-+{
-+	struct skl_pipe_fmt *cur_fmt;
-+	struct skl_pipe_fmt *next_fmt;
-+	int i;
-+
-+	if (pipe->nr_cfgs <= 1)
-+		return false;
-+
-+	if (pipe->conn_type != SKL_PIPE_CONN_TYPE_FE)
-+		return true;
-+
-+	for (i = 0; i < pipe->nr_cfgs - 1; i++) {
-+		if (pipe->direction == SNDRV_PCM_STREAM_PLAYBACK) {
-+			cur_fmt = &pipe->configs[i].out_fmt;
-+			next_fmt = &pipe->configs[i + 1].out_fmt;
-+		} else {
-+			cur_fmt = &pipe->configs[i].in_fmt;
-+			next_fmt = &pipe->configs[i + 1].in_fmt;
-+		}
-+
-+		if (!CHECK_HW_PARAMS(cur_fmt->channels, cur_fmt->freq,
-+				     cur_fmt->bps,
-+				     next_fmt->channels,
-+				     next_fmt->freq,
-+				     next_fmt->bps))
-+			return true;
-+	}
-+
-+	return false;
-+}
-+
- /*
-  * Here, we select pipe format based on the pipe type and pipe
-  * direction to determine the current config index for the pipeline.
-@@ -601,6 +633,14 @@ skl_tplg_get_pipe_config(struct skl_dev
- 		return 0;
- 	}
- 
-+	if (skl_tplg_is_multi_fmt(skl, pipe)) {
-+		pipe->cur_config_idx = pipe->pipe_config_idx;
-+		pipe->memory_pages = pconfig->mem_pages;
-+		dev_dbg(skl->dev, "found pipe config idx:%d\n",
-+			pipe->cur_config_idx);
-+		return 0;
-+	}
-+
- 	if (pipe->conn_type == SKL_PIPE_CONN_TYPE_NONE) {
- 		dev_dbg(skl->dev, "No conn_type detected, take 0th config\n");
- 		pipe->cur_config_idx = 0;
-@@ -1315,6 +1355,56 @@ static int skl_tplg_pga_event(struct snd
- 	return 0;
- }
- 
-+static int skl_tplg_multi_config_set_get(struct snd_kcontrol *kcontrol,
-+					 struct snd_ctl_elem_value *ucontrol,
-+					 bool is_set)
-+{
-+	struct snd_soc_component *component =
-+		snd_soc_kcontrol_component(kcontrol);
-+	struct hdac_bus *bus = snd_soc_component_get_drvdata(component);
-+	struct skl_dev *skl = bus_to_skl(bus);
-+	struct skl_pipeline *ppl;
-+	struct skl_pipe *pipe = NULL;
-+	struct soc_enum *ec = (struct soc_enum *)kcontrol->private_value;
-+	u32 *pipe_id;
-+
-+	if (!ec)
-+		return -EINVAL;
-+
-+	if (is_set && ucontrol->value.enumerated.item[0] > ec->items)
-+		return -EINVAL;
-+
-+	pipe_id = ec->dobj.private;
-+
-+	list_for_each_entry(ppl, &skl->ppl_list, node) {
-+		if (ppl->pipe->ppl_id == *pipe_id) {
-+			pipe = ppl->pipe;
-+			break;
-+		}
-+	}
-+	if (!pipe)
-+		return -EIO;
-+
-+	if (is_set)
-+		pipe->pipe_config_idx = ucontrol->value.enumerated.item[0];
-+	else
-+		ucontrol->value.enumerated.item[0]  =  pipe->pipe_config_idx;
-+
-+	return 0;
-+}
-+
-+static int skl_tplg_multi_config_get(struct snd_kcontrol *kcontrol,
-+				     struct snd_ctl_elem_value *ucontrol)
-+{
-+	return skl_tplg_multi_config_set_get(kcontrol, ucontrol, false);
-+}
-+
-+static int skl_tplg_multi_config_set(struct snd_kcontrol *kcontrol,
-+				     struct snd_ctl_elem_value *ucontrol)
-+{
-+	return skl_tplg_multi_config_set_get(kcontrol, ucontrol, true);
-+}
-+
- static int skl_tplg_tlv_control_get(struct snd_kcontrol *kcontrol,
- 			unsigned int __user *data, unsigned int size)
- {
-@@ -1854,6 +1944,11 @@ static const struct snd_soc_tplg_kcontro
- 		.get = skl_tplg_mic_control_get,
- 		.put = skl_tplg_mic_control_set,
- 	},
-+	{
-+		.id = SKL_CONTROL_TYPE_MULTI_IO_SELECT,
-+		.get = skl_tplg_multi_config_get,
-+		.put = skl_tplg_multi_config_set,
-+	},
- };
- 
- static int skl_tplg_fill_pipe_cfg(struct device *dev,
---- a/sound/soc/intel/skylake/skl-topology.h
-+++ b/sound/soc/intel/skylake/skl-topology.h
-@@ -306,6 +306,7 @@ struct skl_pipe {
- 	struct skl_path_config configs[SKL_MAX_PATH_CONFIGS];
- 	struct list_head w_list;
- 	bool passthru;
-+	u32 pipe_config_idx;
- };
- 
- enum skl_module_state {
-
-
+regards,
+dan carpenter

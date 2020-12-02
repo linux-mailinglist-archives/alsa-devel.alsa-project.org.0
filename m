@@ -2,82 +2,96 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2B9972CC153
-	for <lists+alsa-devel@lfdr.de>; Wed,  2 Dec 2020 16:53:29 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3F0072CC166
+	for <lists+alsa-devel@lfdr.de>; Wed,  2 Dec 2020 16:56:40 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A0F721799;
-	Wed,  2 Dec 2020 16:52:38 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A0F721799
+	by alsa0.perex.cz (Postfix) with ESMTPS id D037416EC;
+	Wed,  2 Dec 2020 16:55:49 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D037416EC
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1606924408;
-	bh=kFogjcNCiQNrz4HDIHzhRak/GyRjNI866YGzUbwPOuE=;
+	s=default; t=1606924599;
+	bh=Fz+XVGeuAorG6/2IKmHxlkQ8YNiepds68GlBGKaUcxE=;
 	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=G9ub3AiNiwvqBuYixD49blS1yonDJgBE1eYYjXLu/3ZvrwAEX9dwsVERnj0WzLv1d
-	 gvICjk1IePm/UpBsIe3yRE/jqzPjRh87y4SoV4v+Di/56g7k6QE+qNkaylH0X9LVPJ
-	 CDm9EK7BTbZaMKPeVqhyaLeB85voS+c+LJFHfurA=
+	b=UAfuYKlYDvimHg3yWfevDq/tsGWgh4jUVSfbSPCgkok0vpqAkirrBLTEcJ9k2rR29
+	 r7hNCZFrjcAbTYjVgEzTz/t3dekkQ246Nfs7txGwbzdElcB6FmtGHxSzvVbQNUpahI
+	 Jccrw80UboxDPn3JKpVHlCAIb5znelNgYRiy2x2k=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id D3C82F80158;
-	Wed,  2 Dec 2020 16:51:53 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 1946DF80168;
+	Wed,  2 Dec 2020 16:55:05 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id A56C6F8025F; Wed,  2 Dec 2020 16:51:50 +0100 (CET)
+ id C61EDF8025F; Wed,  2 Dec 2020 16:55:02 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=NICE_REPLY_A,SPF_HELO_NONE,
- SPF_NONE autolearn=disabled version=3.4.0
-Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from mail-wm1-x341.google.com (mail-wm1-x341.google.com
+ [IPv6:2a00:1450:4864:20::341])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 3F63AF80158
- for <alsa-devel@alsa-project.org>; Wed,  2 Dec 2020 16:51:44 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3F63AF80158
-IronPort-SDR: xH+0MCvAY2kT+d578QYEND5w8OA/Bsjs7equiF19Rl2oq22YNpRVfFmCB8JTEBYzxg5DHDKx/U
- 72AJtheo2VpA==
-X-IronPort-AV: E=McAfee;i="6000,8403,9823"; a="152862648"
-X-IronPort-AV: E=Sophos;i="5.78,387,1599548400"; d="scan'208";a="152862648"
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from fmsmga005.fm.intel.com ([10.253.24.32])
- by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 02 Dec 2020 07:51:40 -0800
-IronPort-SDR: 1saECTZ06J0Pd5CoYIuPgi5eATW5aWi8+qDgwlYZOHd3VIFz1dSC0xiV7ioAnAQHfGrLS1G/NE
- /4ISzNp5WTyA==
-X-IronPort-AV: E=Sophos;i="5.78,387,1599548400"; d="scan'208";a="539740422"
-Received: from ajrodr4-mobl1.amr.corp.intel.com (HELO [10.213.167.252])
- ([10.213.167.252])
- by fmsmga005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 02 Dec 2020 07:51:38 -0800
-Subject: Re: [PATCH] ASoC: intel: sof_rt5682: Add support for tgl_rt1011_rt5682
-To: Brent Lu <brent.lu@intel.com>, alsa-devel@alsa-project.org
-References: <20201202015826.7678-1-brent.lu@intel.com>
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Message-ID: <9d3d76fd-869c-ec20-0fa0-a0da88e32502@linux.intel.com>
-Date: Wed, 2 Dec 2020 09:18:16 -0600
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.10.0
+ by alsa1.perex.cz (Postfix) with ESMTPS id 6230BF80158
+ for <alsa-devel@alsa-project.org>; Wed,  2 Dec 2020 16:54:57 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6230BF80158
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org
+ header.b="bz7pVrUH"
+Received: by mail-wm1-x341.google.com with SMTP id h21so9493464wmb.2
+ for <alsa-devel@alsa-project.org>; Wed, 02 Dec 2020 07:54:57 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=subject:to:cc:references:from:message-id:date:user-agent
+ :mime-version:in-reply-to:content-language:content-transfer-encoding;
+ bh=9wSfeNEgiqafNB08squR/RO3i+fVSAtbeRf4xlfoOdo=;
+ b=bz7pVrUHwPtzzjD6kMxKQOPOXMXIJbwt0qyGNtJuLCV7WHkHz3FtwjEFuzmlFYhyfo
+ mWIuY67ZYpCZzNlFArdYsfozCpZykf+9i6Zx57MvGrpAPDb0oagQoixuYgPre0Q5iRPN
+ 9My/+gS6DrrB4hqFt4vkqIBqRNiMB+t3B5wM8cds7auXL7i4ObSFypOv+R6KMruxz8Oo
+ HYXjStNj7L9v/8md4wgpfaN4zW0SCDnw9IEBfPqxzO0vHOqpkKNCleoSHyLl3ngW326d
+ b4rnbiY8ExhaLXfQeAbiqHE0qLTUEYYlDOsm1/6HuzrBH7I4JpWHogIoyGSU5LgDflzb
+ M84w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:subject:to:cc:references:from:message-id:date
+ :user-agent:mime-version:in-reply-to:content-language
+ :content-transfer-encoding;
+ bh=9wSfeNEgiqafNB08squR/RO3i+fVSAtbeRf4xlfoOdo=;
+ b=PaprPobpmIm8rXmusOyoP2Ct0lzlrGUEnOhox+8QOlGGpuhy0nkK9bNA9za/FLX6wS
+ 5vMeFwq0xeh6lBEmR7yjtJF9SaWqIlkXoaIp/527soyz+J/Nf2N7sFBveCcKjsXkswES
+ Eu+t1O0wJZel44k5CJ2lBq4uy82QNwE9qhiV6gLxXtwMdl3Vk/uliluQpXS4vyjaJlvd
+ yRRmcj4+yxQLDzKqZb7pj6fbF7iMR8swG3h8nlBUkqlphYQOQ+IyZ7MJKutpbiXUvvC3
+ 1nELKqjM98bjym9untSC385WUJ8hLYPjCDNynWIhVCSzHLEc3/ZJAchPzmH9SndCjkfL
+ H1xg==
+X-Gm-Message-State: AOAM532aX8WrV4hrT/XUq5VQocl07FsBQNDP9Q1FIcJ+XqEhhY4mCKtZ
+ A2VKnS31F8AcO6H+3eKmyH56YQ==
+X-Google-Smtp-Source: ABdhPJyX2g86rZ8Ob/k4O48RvuqMC9+TIF5kVxAf3vcYk0Ut3B+GysUn9LRWJCDlMDNL5PxGG4ZXqA==
+X-Received: by 2002:a7b:ca4c:: with SMTP id m12mr3797813wml.11.1606924494939; 
+ Wed, 02 Dec 2020 07:54:54 -0800 (PST)
+Received: from [192.168.86.34]
+ (cpc86377-aztw32-2-0-cust226.18-1.cable.virginm.net. [92.233.226.227])
+ by smtp.googlemail.com with ESMTPSA id h2sm2577163wrv.76.2020.12.02.07.54.53
+ (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+ Wed, 02 Dec 2020 07:54:54 -0800 (PST)
+Subject: Re: [PATCH] ASoC: codecs: lpass-va-macro: remove some dead code
+To: Dan Carpenter <dan.carpenter@oracle.com>,
+ Liam Girdwood <lgirdwood@gmail.com>
+References: <X8c5gjZO7YN/CFsq@mwanda>
+From: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
+Message-ID: <7e06abb2-a969-aa1a-6adc-6cdd72e3355c@linaro.org>
+Date: Wed, 2 Dec 2020 15:54:53 +0000
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
+ Thunderbird/60.8.0
 MIME-Version: 1.0
-In-Reply-To: <20201202015826.7678-1-brent.lu@intel.com>
+In-Reply-To: <X8c5gjZO7YN/CFsq@mwanda>
 Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Language: en-US
 Content-Transfer-Encoding: 7bit
-Cc: Guennadi Liakhovetski <guennadi.liakhovetski@linux.intel.com>,
- Cezary Rojewski <cezary.rojewski@intel.com>,
- Dharageswari R <dharageswari.r@intel.com>,
- Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
- Kai Vehmanen <kai.vehmanen@linux.intel.com>,
- Rander Wang <rander.wang@linux.intel.com>, Jie Yang <yang.jie@linux.intel.com>,
- linux-kernel@vger.kernel.org, Takashi Iwai <tiwai@suse.com>,
- Liam Girdwood <liam.r.girdwood@linux.intel.com>,
- Ben Zhang <benzh@chromium.org>, Mark Brown <broonie@kernel.org>,
- Sathyanarayana Nujella <sathyanarayana.nujella@intel.com>,
- Naveen Manohar <naveen.m@intel.com>, Libin Yang <libin.yang@linux.intel.com>,
- Bard Liao <yung-chuan.liao@linux.intel.com>, Fred Oh <fred.oh@linux.intel.com>,
- Yong Zhi <yong.zhi@intel.com>
+Cc: alsa-devel@alsa-project.org, kernel-janitors@vger.kernel.org,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ Takashi Iwai <tiwai@suse.com>, Mark Brown <broonie@kernel.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -93,14 +107,48 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+Thanks Dan for the patch!
 
-> +struct {
-> +	unsigned int tx;
-> +	unsigned int rx;
-> +} rt1011_tdm_mask[] = {
-> +	{.tx = 0x4, .rx = 0x1},
-> +	{.tx = 0x8, .rx = 0x2},
-> +};
+Do you use any tools to do this checks?
 
-as noted in the GitHub review this should be static and possibly const.
 
+On 02/12/2020 06:51, Dan Carpenter wrote:
+> The "decimator" variable is in the 0-7 range and it's unsigned so there
+> is no need to check for negative values.
+> 
+> Fixes: 908e6b1df26e ("ASoC: codecs: lpass-va-macro: Add support to VA Macro")
+> Signed-off-by: Dan Carpenter <dan.carpenter@oracle.com>
+
+Reviewed-by: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
+
+> ---
+>   sound/soc/codecs/lpass-va-macro.c | 15 ++++-----------
+>   1 file changed, 4 insertions(+), 11 deletions(-)
+> 
+> diff --git a/sound/soc/codecs/lpass-va-macro.c b/sound/soc/codecs/lpass-va-macro.c
+> index 3e6bbef26dcb..91e6890d6efc 100644
+> --- a/sound/soc/codecs/lpass-va-macro.c
+> +++ b/sound/soc/codecs/lpass-va-macro.c
+> @@ -844,17 +844,10 @@ static int va_macro_hw_params(struct snd_pcm_substream *substream,
+>   
+>   	for_each_set_bit(decimator, &va->active_ch_mask[dai->id],
+>   			 VA_MACRO_DEC_MAX) {
+> -		if (decimator >= 0) {
+> -			tx_fs_reg = CDC_VA_TX0_TX_PATH_CTL +
+> -				    VA_MACRO_TX_PATH_OFFSET * decimator;
+> -			snd_soc_component_update_bits(component, tx_fs_reg,
+> -						0x0F, tx_fs_rate);
+> -		} else {
+> -			dev_err(va_dev,
+> -				"%s: ERROR: Invalid decimator: %d\n",
+> -				__func__, decimator);
+> -			return -EINVAL;
+> -		}
+> +		tx_fs_reg = CDC_VA_TX0_TX_PATH_CTL +
+> +			    VA_MACRO_TX_PATH_OFFSET * decimator;
+> +		snd_soc_component_update_bits(component, tx_fs_reg, 0x0F,
+> +					      tx_fs_rate);
+>   	}
+>   	return 0;
+>   }
+> 

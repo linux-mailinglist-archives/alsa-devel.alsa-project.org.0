@@ -2,88 +2,104 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A74242CC389
-	for <lists+alsa-devel@lfdr.de>; Wed,  2 Dec 2020 18:24:00 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 921882CC553
+	for <lists+alsa-devel@lfdr.de>; Wed,  2 Dec 2020 19:39:55 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C362117F6;
-	Wed,  2 Dec 2020 18:23:09 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C362117F6
+	by alsa0.perex.cz (Postfix) with ESMTPS id 1210E17D7;
+	Wed,  2 Dec 2020 19:39:05 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1210E17D7
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1606929839;
-	bh=WAWyOD9YIMptjKtlzubzfb1udaYH/t6EIYDlQqqc3DE=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1606934395;
+	bh=lG7vcRslsPO6RTqOGHw4q33MVVPzATNlZ8eoMZI13VA=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=XB1yJRzfdOlZC2Jh4BZtgQu4+zG/0/aGIPQI4uNT0brJFcaUVqgfV+Kf6BLxFOyLA
-	 GQalS0kepsJ0xQTHs3IjaYl07aVTz4Ge0Mp6CvJS11U6Ib9HzNCzYzVlju86WAnyBW
-	 ri5zr4GVDeJ+vNbYJkmDNGNSGkjH0c5i0Gfst4rw=
+	b=ElFrC4paQsim0msZx2ndeCGOR0s+riCvD/o/tAQxGvOH1mymgZ3MIgkaHBU9qNqYh
+	 oO8EkPoZVx50B7rSR7ifjthPEyY8yMbPWxxboQIc3sBnH6HkwQCFBJBUt1Irp/CdH/
+	 9K5F/sHvwK63Szqs8LgRi9jENb62NfGDMSr5KHRI=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 50E47F80168;
-	Wed,  2 Dec 2020 18:23:09 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 2D26FF80082;
+	Wed,  2 Dec 2020 19:38:20 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id D7835F804AB; Wed,  2 Dec 2020 18:23:07 +0100 (CET)
+ id DA1EFF8026B; Wed,  2 Dec 2020 19:38:17 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- RCVD_IN_MSPIKE_H2,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from m42-5.mailgun.net (m42-5.mailgun.net [69.72.42.5])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=-1.6 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+ DKIM_VALID,DKIM_VALID_AU,SPF_HELO_PASS,SPF_NONE,UNPARSEABLE_RELAY
+ autolearn=disabled version=3.4.0
+Received: from aserp2120.oracle.com (aserp2120.oracle.com [141.146.126.78])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id C8CC7F8026B
- for <alsa-devel@alsa-project.org>; Wed,  2 Dec 2020 18:22:59 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C8CC7F8026B
+ by alsa1.perex.cz (Postfix) with ESMTPS id D84A4F80082
+ for <alsa-devel@alsa-project.org>; Wed,  2 Dec 2020 19:38:13 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D84A4F80082
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=mg.codeaurora.org
- header.i=@mg.codeaurora.org header.b="FREz+6W0"
-DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
- q=dns/txt; 
- s=smtp; t=1606929779; h=References: In-Reply-To: Message-Id: Date:
- Subject: Cc: To: From: Sender;
- bh=XCbGtFpkxfX04IDxYSYPabTaVb2FLbxMGt+XuP7RsZE=;
- b=FREz+6W0tyGvL+83EgnxUE8gLACwwbed4KbHIMYbAo+kBmiPd5bekp5J+QX0vcmrJvW8x0cR
- l85yKRdhUGI9OWjqxaJKAQnnmN88Uldr6QgfVVx31/LKk0vgZYlNwX6GSB8YBgI3aT3+dkcm
- WUGMXcb6Fnd8LgPOVniul63RHPs=
-X-Mailgun-Sending-Ip: 69.72.42.5
-X-Mailgun-Sid: WyI4ZmE2ZSIsICJhbHNhLWRldmVsQGFsc2EtcHJvamVjdC5vcmciLCAiYmU5ZTRhIl0=
-Received: from smtp.codeaurora.org
- (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171]) by
- smtp-out-n01.prod.us-east-1.postgun.com with SMTP id
- 5fc7cd720f9adc18c75aae06 (version=TLS1.2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Wed, 02 Dec 2020 17:22:58
- GMT
-Received: by smtp.codeaurora.org (Postfix, from userid 1001)
- id 78F57C43467; Wed,  2 Dec 2020 17:22:57 +0000 (UTC)
-Received: from hyd-lnxbld210.qualcomm.com (unknown [202.46.22.19])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-SHA256 (128/128 bits))
- (No client certificate requested) (Authenticated sender: srivasam)
- by smtp.codeaurora.org (Postfix) with ESMTPSA id 379CFC43461;
- Wed,  2 Dec 2020 17:22:50 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 smtp.codeaurora.org 379CFC43461
-Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
- dmarc=none (p=none dis=none) header.from=codeaurora.org
-Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
- spf=fail smtp.mailfrom=srivasam@codeaurora.org
-From: Srinivasa Rao Mandadapu <srivasam@codeaurora.org>
-To: agross@kernel.org, bjorn.andersson@linaro.org, lgirdwood@gmail.com,
- broonie@kernel.org, robh+dt@kernel.org, plai@codeaurora.org,
- bgoswami@codeaurora.org, perex@perex.cz, tiwai@suse.com,
- srinivas.kandagatla@linaro.org, rohitkr@codeaurora.org,
- linux-arm-msm@vger.kernel.org, alsa-devel@alsa-project.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: [PATCH v5 2/2] ASoC: qcom: Add support for playback recover after
- resume
-Date: Wed,  2 Dec 2020 22:52:28 +0530
-Message-Id: <1606929748-16828-3-git-send-email-srivasam@codeaurora.org>
-X-Mailer: git-send-email 2.7.4
-In-Reply-To: <1606929748-16828-1-git-send-email-srivasam@codeaurora.org>
-References: <1606929748-16828-1-git-send-email-srivasam@codeaurora.org>
-Cc: V Sujith Kumar Reddy <vsujithk@codeaurora.org>,
- Srinivasa Rao Mandadapu <srivasam@codeaurora.org>
+ dkim=pass (2048-bit key) header.d=oracle.com header.i=@oracle.com
+ header.b="lyhZESRf"
+Received: from pps.filterd (aserp2120.oracle.com [127.0.0.1])
+ by aserp2120.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 0B2ITCEW139287;
+ Wed, 2 Dec 2020 18:38:07 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com;
+ h=date : from : to : cc
+ : subject : message-id : references : mime-version : content-type :
+ in-reply-to; s=corp-2020-01-29;
+ bh=EtihPShjuCPJjG5edj4pxu0NLVh0gWdqqyzMNCOLYHk=;
+ b=lyhZESRfP5E9bQyJuecnCJsPLjdEsSovuo/9IE5AVbxXAoIUhuqKE50bWfCfZloO3JEB
+ UjMHI/A16xG/J7Q8jPQwjHVOx3ozorbzLDm+KkFL//P1KKqrvl/mt9VLwfDVXB1ogr99
+ wA0SxBzJvYee7tmrcc4tEbMr28O3VI2t+UFbKbNV6jrYMkBoa1aCk9E4U+/SKJnt60nf
+ nFANZOBNIBsoMlzsKjfYYdM1loGvtdXRgInoNAapXJbqpYSJxs3sQWF6Zq3NrH+H7mpR
+ /zsKOZOfpkx8CkWUcyRdAMAM5VJqeHUkbJvYt6LRSrLDBs0MtJNcj9WOYfPX0I/k4gjj Aw== 
+Received: from userp3020.oracle.com (userp3020.oracle.com [156.151.31.79])
+ by aserp2120.oracle.com with ESMTP id 353egkt0y5-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
+ Wed, 02 Dec 2020 18:38:07 +0000
+Received: from pps.filterd (userp3020.oracle.com [127.0.0.1])
+ by userp3020.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 0B2Ic28Q152300;
+ Wed, 2 Dec 2020 18:38:07 GMT
+Received: from aserv0122.oracle.com (aserv0122.oracle.com [141.146.126.236])
+ by userp3020.oracle.com with ESMTP id 3540auqa8y-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Wed, 02 Dec 2020 18:38:06 +0000
+Received: from abhmp0016.oracle.com (abhmp0016.oracle.com [141.146.116.22])
+ by aserv0122.oracle.com (8.14.4/8.14.4) with ESMTP id 0B2IbkS1026781;
+ Wed, 2 Dec 2020 18:37:46 GMT
+Received: from kadam (/102.36.221.92) by default (Oracle Beehive Gateway v4.0)
+ with ESMTP ; Wed, 02 Dec 2020 10:37:46 -0800
+Date: Wed, 2 Dec 2020 21:37:39 +0300
+From: Dan Carpenter <dan.carpenter@oracle.com>
+To: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
+Subject: Re: [PATCH] ASoC: codecs: lpass-va-macro: remove some dead code
+Message-ID: <20201202183739.GP2767@kadam>
+References: <X8c5gjZO7YN/CFsq@mwanda>
+ <7e06abb2-a969-aa1a-6adc-6cdd72e3355c@linaro.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <7e06abb2-a969-aa1a-6adc-6cdd72e3355c@linaro.org>
+User-Agent: Mutt/1.9.4 (2018-02-28)
+X-Proofpoint-Virus-Version: vendor=nai engine=6000 definitions=9823
+ signatures=668682
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 mlxlogscore=999
+ bulkscore=0
+ phishscore=0 mlxscore=0 adultscore=0 malwarescore=0 suspectscore=0
+ spamscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.12.0-2009150000 definitions=main-2012020109
+X-Proofpoint-Virus-Version: vendor=nai engine=6000 definitions=9823
+ signatures=668682
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 mlxscore=0
+ bulkscore=0 suspectscore=0
+ phishscore=0 mlxlogscore=999 lowpriorityscore=0 malwarescore=0
+ priorityscore=1501 spamscore=0 impostorscore=0 clxscore=1015 adultscore=0
+ classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2009150000
+ definitions=main-2012020109
+Cc: alsa-devel@alsa-project.org, Liam Girdwood <lgirdwood@gmail.com>,
+ kernel-janitors@vger.kernel.org,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ Takashi Iwai <tiwai@suse.com>, Mark Brown <broonie@kernel.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -99,71 +115,18 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-To support playback continuation after hard suspend(bypass powerd)
-and resume do regcache sync with component driver pm ops.
+On Wed, Dec 02, 2020 at 03:54:53PM +0000, Srinivas Kandagatla wrote:
+> Thanks Dan for the patch!
+> 
+> Do you use any tools to do this checks?
+> 
 
-Signed-off-by: V Sujith Kumar Reddy <vsujithk@codeaurora.org>
-Signed-off-by: Srinivasa Rao Mandadapu <srivasam@codeaurora.org>
-Reviewed-by: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
-Tested-by: Steev Klimaszewski <steev@kali.org>
----
- sound/soc/qcom/lpass-platform.c | 35 +++++++++++++++++++++++++++++++++++
- 1 file changed, 35 insertions(+)
+Yeah.  This was a Smatch warning:
 
-diff --git a/sound/soc/qcom/lpass-platform.c b/sound/soc/qcom/lpass-platform.c
-index 0e71899..12764a8 100644
---- a/sound/soc/qcom/lpass-platform.c
-+++ b/sound/soc/qcom/lpass-platform.c
-@@ -827,6 +827,39 @@ static void lpass_platform_pcm_free(struct snd_soc_component *component,
- 	}
- }
- 
-+static int lpass_platform_pcmops_suspend(struct snd_soc_component *component)
-+{
-+	struct lpass_data *drvdata = snd_soc_component_get_drvdata(component);
-+	struct regmap *map;
-+	unsigned int dai_id = component->id;
-+
-+	if (dai_id == LPASS_DP_RX)
-+		map = drvdata->hdmiif_map;
-+	else
-+		map = drvdata->lpaif_map;
-+
-+	regcache_cache_only(map, true);
-+	regcache_mark_dirty(map);
-+
-+	return 0;
-+}
-+
-+static int lpass_platform_pcmops_resume(struct snd_soc_component *component)
-+{
-+	struct lpass_data *drvdata = snd_soc_component_get_drvdata(component);
-+	struct regmap *map;
-+	unsigned int dai_id = component->id;
-+
-+	if (dai_id == LPASS_DP_RX)
-+		map = drvdata->hdmiif_map;
-+	else
-+		map = drvdata->lpaif_map;
-+
-+	regcache_cache_only(map, false);
-+	return regcache_sync(map);
-+}
-+
-+
- static const struct snd_soc_component_driver lpass_component_driver = {
- 	.name		= DRV_NAME,
- 	.open		= lpass_platform_pcmops_open,
-@@ -839,6 +872,8 @@ static const struct snd_soc_component_driver lpass_component_driver = {
- 	.mmap		= lpass_platform_pcmops_mmap,
- 	.pcm_construct	= lpass_platform_pcm_new,
- 	.pcm_destruct	= lpass_platform_pcm_free,
-+	.suspend		= lpass_platform_pcmops_suspend,
-+	.resume			= lpass_platform_pcmops_resume,
- 
- };
- 
--- 
-Qualcomm India Private Limited, on behalf of Qualcomm Innovation Center, Inc.,
-is a member of Code Aurora Forum, a Linux Foundation Collaborative Project.
+sound/soc/codecs/lpass-va-macro.c:847 va_macro_hw_params() warn: always true condition '(decimator >= 0) => (0-u32max >= 0)'
+
+But every static checker will complain about these.
+
+regards,
+dan carpenter
 

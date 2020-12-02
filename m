@@ -2,55 +2,82 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id CC84D2CC35F
-	for <lists+alsa-devel@lfdr.de>; Wed,  2 Dec 2020 18:22:27 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 471802CC388
+	for <lists+alsa-devel@lfdr.de>; Wed,  2 Dec 2020 18:23:50 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 6082E17E6;
-	Wed,  2 Dec 2020 18:21:37 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6082E17E6
+	by alsa0.perex.cz (Postfix) with ESMTPS id 1E5EE17EA;
+	Wed,  2 Dec 2020 18:22:59 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1E5EE17EA
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1606929747;
-	bh=Z96jA5IF2CkEi7wKy3c0iCcJbMRyGf6e7fJVMLCi9QI=;
-	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=BeHqQ0cC+2LZpKy8PG/WH1nviDr5+4MtSI6koxgqNNGT7hrlujDKtEswAPCHUpy/x
-	 mdCFYFtBQPgQ5nFpq1s2pb3AHRZq4dIO7jcCWrPuncEWiTQtlhTSI9LWLZfbBSCsf3
-	 5zNeh8+qLwi/gPVT7Qwo4R8BrmuEnfQ2viGVVzxE=
+	s=default; t=1606929829;
+	bh=+Tn7sxY0qtSV69rlrnf0/Eumfqgx793Uc/lnR9gwviw=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=q5BlQyg9TpuoDk43sexyq4BUi8Y1J3zKc3d6GSGFncQVr7zcD9wwJw6aQoc65zTiV
+	 VV/wGJhvdguzwCOIlmMtqDugLF91GWvZErXtNcZHFWgwLngHHW62jEgtsu5k/e8Wxf
+	 oeOgJgIVEDw5BQMa1S5Va6BjfU9NTuQs05raxHC8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 76C7FF804C2;
-	Wed,  2 Dec 2020 18:20:16 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id A1DDAF8049C;
+	Wed,  2 Dec 2020 18:22:58 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 3FF45F804BD; Wed,  2 Dec 2020 18:20:14 +0100 (CET)
+ id D14D3F8026B; Wed,  2 Dec 2020 18:22:56 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
+Received: from a2.mail.mailgun.net (a2.mail.mailgun.net [198.61.254.61])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 13648F804AB
- for <alsa-devel@alsa-project.org>; Wed,  2 Dec 2020 18:20:08 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 13648F804AB
-From: Mark Brown <broonie@kernel.org>
-Authentication-Results: mail.kernel.org;
- dkim=permerror (bad message/signature format)
-To: lgirdwood@gmail.com, "jack.yu@realtek.com" <jack.yu@realtek.com>
-In-Reply-To: <20201202021336.3591-1-jack.yu@realtek.com>
-References: <20201202021336.3591-1-jack.yu@realtek.com>
-Subject: Re: [PATCH] ASoC: rt715: remove unused parameter
-Message-Id: <160692956495.33960.2996787930692043481.b4-ty@kernel.org>
-Date: Wed, 02 Dec 2020 17:19:24 +0000
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Cc: oder_chiou@realtek.com, alsa-devel@alsa-project.org, lars@metafoo.de,
- derek.fang@realtek.com, flove@realtek.com, shumingf@realtek.com,
- bard.liao@intel.com
+ by alsa1.perex.cz (Postfix) with ESMTPS id BAD00F80168
+ for <alsa-devel@alsa-project.org>; Wed,  2 Dec 2020 18:22:53 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BAD00F80168
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=mg.codeaurora.org
+ header.i=@mg.codeaurora.org header.b="LlPu3Wsz"
+DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.codeaurora.org;
+ q=dns/txt; 
+ s=smtp; t=1606929775; h=Message-Id: Date: Subject: Cc: To: From:
+ Sender; bh=du06zc/jHcGsUafhmo+6BZJPLrel+MajZ6mJGJKue0w=;
+ b=LlPu3WszT3RXL8gNWlgc5QQzMR9UzoR6W0n/1zmS0Kz/iFfW2IKMfCOA+I+TUXCeKG3t67aB
+ sAympL4amTHoS2lWuCBXWtDcNNag21pPE00VDHQDSa946RlwA8wVZyfB925S/itnZoUfGVHs
+ DCONq077hGTjacPq8vM13ONUq9o=
+X-Mailgun-Sending-Ip: 198.61.254.61
+X-Mailgun-Sid: WyI4ZmE2ZSIsICJhbHNhLWRldmVsQGFsc2EtcHJvamVjdC5vcmciLCAiYmU5ZTRhIl0=
+Received: from smtp.codeaurora.org
+ (ec2-35-166-182-171.us-west-2.compute.amazonaws.com [35.166.182.171]) by
+ smtp-out-n05.prod.us-west-2.postgun.com with SMTP id
+ 5fc7cd66e8c9bf49adc745ef (version=TLS1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Wed, 02 Dec 2020 17:22:46
+ GMT
+Received: by smtp.codeaurora.org (Postfix, from userid 1001)
+ id D5723C43463; Wed,  2 Dec 2020 17:22:45 +0000 (UTC)
+Received: from hyd-lnxbld210.qualcomm.com (unknown [202.46.22.19])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-SHA256 (128/128 bits))
+ (No client certificate requested) (Authenticated sender: srivasam)
+ by smtp.codeaurora.org (Postfix) with ESMTPSA id C30DDC43460;
+ Wed,  2 Dec 2020 17:22:40 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 smtp.codeaurora.org C30DDC43460
+Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
+ dmarc=none (p=none dis=none) header.from=codeaurora.org
+Authentication-Results: aws-us-west-2-caf-mail-1.web.codeaurora.org;
+ spf=fail smtp.mailfrom=srivasam@codeaurora.org
+From: Srinivasa Rao Mandadapu <srivasam@codeaurora.org>
+To: agross@kernel.org, bjorn.andersson@linaro.org, lgirdwood@gmail.com,
+ broonie@kernel.org, robh+dt@kernel.org, plai@codeaurora.org,
+ bgoswami@codeaurora.org, perex@perex.cz, tiwai@suse.com,
+ srinivas.kandagatla@linaro.org, rohitkr@codeaurora.org,
+ linux-arm-msm@vger.kernel.org, alsa-devel@alsa-project.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: [PATCH v5 0/2] Platform driver update to support playback recover
+ after resume
+Date: Wed,  2 Dec 2020 22:52:26 +0530
+Message-Id: <1606929748-16828-1-git-send-email-srivasam@codeaurora.org>
+X-Mailer: git-send-email 2.7.4
+Cc: Srinivasa Rao Mandadapu <srivasam@codeaurora.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -66,33 +93,27 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Wed, 2 Dec 2020 10:13:36 +0800, jack.yu@realtek.com wrote:
-> Remove unused parameter in rt715.h.
+This patch set is to add support for playback recover after hard suspend and resume.
+It includes:
+1. Reverting part of previous commit, which is for handling registers invalid state
+after hard suspend.
+2. Adding pm ops in component driver and do regcache sync.
+Changes Since v1 and v2:
+  -- Subject lines changed
+Changes Since v3:
+  -- Patch is splitted into 2 patches
+Changes Since v4:
+  -- Subject lines changed
 
-Applied to
+Srinivasa Rao Mandadapu (2):
+  ASoC: qcom: Fix incorrect volatile registers
+  ASoC: qcom: Add support for playback recover after resume
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
+ sound/soc/qcom/lpass-cpu.c      | 20 ++----------------
+ sound/soc/qcom/lpass-platform.c | 46 +++++++++++++++++++++++++++++++----------
+ 2 files changed, 37 insertions(+), 29 deletions(-)
 
-Thanks!
+-- 
+Qualcomm India Private Limited, on behalf of Qualcomm Innovation Center, Inc.,
+is a member of Code Aurora Forum, a Linux Foundation Collaborative Project.
 
-[1/1] ASoC: rt715: remove unused parameter
-      commit: 569c167ce3bb145662cbdd37924017f5a3071024
-
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
-
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
-
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
-
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-Thanks,
-Mark

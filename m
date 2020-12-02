@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2DCFC2CC35B
-	for <lists+alsa-devel@lfdr.de>; Wed,  2 Dec 2020 18:21:37 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 713672CC35C
+	for <lists+alsa-devel@lfdr.de>; Wed,  2 Dec 2020 18:21:47 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id BCA6517A4;
-	Wed,  2 Dec 2020 18:20:46 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BCA6517A4
+	by alsa0.perex.cz (Postfix) with ESMTPS id 90E6717E0;
+	Wed,  2 Dec 2020 18:20:55 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 90E6717E0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1606929696;
-	bh=LN8JsVr8xfkCSHAtJt40KEro5mWD1yQq9wDL1JE/psc=;
+	s=default; t=1606929705;
+	bh=gBEIekP90p0hcGbN9o99riVWEWPfhUEj3ZSXm10r/cs=;
 	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=PM7raNOtHqlaZIvEkG23fWms8U9D1QWsOYF50RPIUnZh1ssSi6OAVgXzUcx6GXBBl
-	 1PKPT8L5FWCzvRvjbyjLaa1pqaByrRJMZg8LpHLZQngMNGv6AzbO+qHY8bmarjhTjW
-	 SZJrzUOtZ74eMyCjEbq0F1RcTj6DY3A+HfzLouvc=
+	b=X/Ieht1mcFNhmy/3qy7JF3Uw9QZlR9pzpufAtycebxG/mRsjj4as9s2r/VD3lxP81
+	 73fDkb0S/cDwxkXSX9MqNbkqAeOisDAFBYh7OZgY12eNvdT3/P/QjCXR4wNI1siAsW
+	 4AG/Na8CLwBQbyISqbrnvXC4JLRMBfODh5EtyNCw=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 17A82F8026B;
-	Wed,  2 Dec 2020 18:20:02 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id BC53CF8049C;
+	Wed,  2 Dec 2020 18:20:06 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id D559BF8026B; Wed,  2 Dec 2020 18:20:00 +0100 (CET)
+ id 684B0F804AA; Wed,  2 Dec 2020 18:20:05 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS
@@ -33,23 +33,25 @@ X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 51A8FF80168
- for <alsa-devel@alsa-project.org>; Wed,  2 Dec 2020 18:19:56 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 51A8FF80168
+ by alsa1.perex.cz (Postfix) with ESMTPS id C6E35F8049C
+ for <alsa-devel@alsa-project.org>; Wed,  2 Dec 2020 18:20:02 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C6E35F8049C
 From: Mark Brown <broonie@kernel.org>
 Authentication-Results: mail.kernel.org;
  dkim=permerror (bad message/signature format)
-To: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
- alsa-devel@alsa-project.org
-In-Reply-To: <20201201211150.433472-1-ranjani.sridharan@linux.intel.com>
-References: <20201201211150.433472-1-ranjani.sridharan@linux.intel.com>
-Subject: Re: [PATCH] ASoC: Intel: Boards: tgl_max98373: update TDM slot_width
-Message-Id: <160692956495.33960.8249694735993878352.b4-ty@kernel.org>
+To: Dan Carpenter <dan.carpenter@oracle.com>,
+ Liam Girdwood <lgirdwood@gmail.com>
+In-Reply-To: <X8c5gjZO7YN/CFsq@mwanda>
+References: <X8c5gjZO7YN/CFsq@mwanda>
+Subject: Re: [PATCH] ASoC: codecs: lpass-va-macro: remove some dead code
+Message-Id: <160692956495.33960.17489548804315513103.b4-ty@kernel.org>
 Date: Wed, 02 Dec 2020 17:19:24 +0000
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Cc: tiwai@suse.de, Sathyanarayana Nujella <sathyanarayana.nujella@intel.com>,
+Cc: kernel-janitors@vger.kernel.org, alsa-devel@alsa-project.org,
+ Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
+ Takashi Iwai <tiwai@suse.com>,
  Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
@@ -66,14 +68,9 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Tue, 1 Dec 2020 13:11:50 -0800, Ranjani Sridharan wrote:
-> Speaker amp's SSP bclk configuration was changed in the topology file to be
-> based on 12.288MHz and dai_ops->hw_params is based on s32le format.
-> But, the TDM slot size remained set to 24 bits.
-> This inconsistency created audible noises and needs to be corrected.
-> This patch updates TDM slot width to 32.
-> 
-> Fixes: bc7477fc2ab4 ("ASoC: Intel: Boards: tgl_max98373: Update TDM configuration in hw_params")
+On Wed, 2 Dec 2020 09:51:46 +0300, Dan Carpenter wrote:
+> The "decimator" variable is in the 0-7 range and it's unsigned so there
+> is no need to check for negative values.
 
 Applied to
 
@@ -81,8 +78,8 @@ Applied to
 
 Thanks!
 
-[1/1] ASoC: Intel: Boards: tgl_max98373: update TDM slot_width
-      commit: 0d7f2459ae926a964ab211aac413d72074131727
+[1/1] ASoC: codecs: lpass-va-macro: remove some dead code
+      commit: 4d638b9cc79eff11bad13fb3715c0ef38a9edaec
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

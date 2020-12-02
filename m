@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9AB922CC367
-	for <lists+alsa-devel@lfdr.de>; Wed,  2 Dec 2020 18:23:11 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2DCFC2CC35B
+	for <lists+alsa-devel@lfdr.de>; Wed,  2 Dec 2020 18:21:37 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 0F75117E0;
-	Wed,  2 Dec 2020 18:22:21 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0F75117E0
+	by alsa0.perex.cz (Postfix) with ESMTPS id BCA6517A4;
+	Wed,  2 Dec 2020 18:20:46 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BCA6517A4
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1606929791;
-	bh=bVY3sAk1njpoiqn0R6N9BqRzm96U3Hsx0C9NvMMzwtk=;
+	s=default; t=1606929696;
+	bh=LN8JsVr8xfkCSHAtJt40KEro5mWD1yQq9wDL1JE/psc=;
 	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=PlN6DqNZFUH/QgEeRYhCA+BvlLQTxSXlxA3WC0UmKkv8wrFJe4FlHKKwjzkXvNnor
-	 15NIKl7fFSHlVEEZX9bt75VfAuM8ZXqFCWdTZubZqKFOENc/HqwG/vPpPZo5+ld4E+
-	 soL7MiSL05Umn7zvsPnVrnpN1feu0aMrROyjSVxA=
+	b=PM7raNOtHqlaZIvEkG23fWms8U9D1QWsOYF50RPIUnZh1ssSi6OAVgXzUcx6GXBBl
+	 1PKPT8L5FWCzvRvjbyjLaa1pqaByrRJMZg8LpHLZQngMNGv6AzbO+qHY8bmarjhTjW
+	 SZJrzUOtZ74eMyCjEbq0F1RcTj6DY3A+HfzLouvc=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id B636BF804CC;
-	Wed,  2 Dec 2020 18:20:23 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 17A82F8026B;
+	Wed,  2 Dec 2020 18:20:02 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 86D81F804D6; Wed,  2 Dec 2020 18:20:21 +0100 (CET)
+ id D559BF8026B; Wed,  2 Dec 2020 18:20:00 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS
@@ -33,28 +33,24 @@ X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 25F24F804CB
- for <alsa-devel@alsa-project.org>; Wed,  2 Dec 2020 18:20:19 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 25F24F804CB
+ by alsa1.perex.cz (Postfix) with ESMTPS id 51A8FF80168
+ for <alsa-devel@alsa-project.org>; Wed,  2 Dec 2020 18:19:56 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 51A8FF80168
 From: Mark Brown <broonie@kernel.org>
 Authentication-Results: mail.kernel.org;
  dkim=permerror (bad message/signature format)
-To: Bard Liao <yung-chuan.liao@linux.intel.com>, alsa-devel@alsa-project.org,
- vkoul@kernel.org
-In-Reply-To: <20201130144020.19757-1-yung-chuan.liao@linux.intel.com>
-References: <20201130144020.19757-1-yung-chuan.liao@linux.intel.com>
-Subject: Re: (subset) [PATCH v2 0/5] regmap/SoundWire/ASoC: Add SoundWire SDCA
- support
-Message-Id: <160692956495.33960.17128508922677938348.b4-ty@kernel.org>
+To: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
+ alsa-devel@alsa-project.org
+In-Reply-To: <20201201211150.433472-1-ranjani.sridharan@linux.intel.com>
+References: <20201201211150.433472-1-ranjani.sridharan@linux.intel.com>
+Subject: Re: [PATCH] ASoC: Intel: Boards: tgl_max98373: update TDM slot_width
+Message-Id: <160692956495.33960.8249694735993878352.b4-ty@kernel.org>
 Date: Wed, 02 Dec 2020 17:19:24 +0000
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Cc: linux-kernel@vger.kernel.org, vinod.koul@linaro.org, tiwai@suse.de,
- gregkh@linuxfoundation.org, ranjani.sridharan@linux.intel.com,
- pierre-louis.bossart@linux.intel.com, hui.wang@canonical.com,
- srinivas.kandagatla@linaro.org, jank@cadence.com, sanyog.r.kale@intel.com,
- rander.wang@linux.intel.com, bard.liao@intel.com
+Cc: tiwai@suse.de, Sathyanarayana Nujella <sathyanarayana.nujella@intel.com>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -70,18 +66,14 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Mon, 30 Nov 2020 22:40:15 +0800, Bard Liao wrote:
-> The MIPI SoundWire Device Class standard will define audio functionality
-> beyond the scope of the existing SoundWire 1.2 standard, which is limited
-> to the bus and interface.
+On Tue, 1 Dec 2020 13:11:50 -0800, Ranjani Sridharan wrote:
+> Speaker amp's SSP bclk configuration was changed in the topology file to be
+> based on 12.288MHz and dai_ops->hw_params is based on s32le format.
+> But, the TDM slot size remained set to 24 bits.
+> This inconsistency created audible noises and needs to be corrected.
+> This patch updates TDM slot width to 32.
 > 
-> The description is inspired by the USB Audio Class, with "functions",
-> "entities", "control selectors", "audio clusters". The main difference
-> with the USB Audio class is that the devices are typically on a motherboard
-> and descriptors stored in platform firmware instead of being retrieved
-> from the device.
-> 
-> [...]
+> Fixes: bc7477fc2ab4 ("ASoC: Intel: Boards: tgl_max98373: Update TDM configuration in hw_params")
 
 Applied to
 
@@ -89,12 +81,8 @@ Applied to
 
 Thanks!
 
-[3/5] ASoC/SoundWire: rt715-sdca: First version of rt715 sdw sdca codec driver
-      commit: 6f4a038b99677f4db737841b81b9d45ed4b54966
-[4/5] ASoC/SoundWire: rt1316: Add RT1316 SDCA vendor-specific driver
-      (no commit info)
-[5/5] ASoC/SoundWire: rt711-sdca: Add RT711 SDCA vendor-specific driver
-      (no commit info)
+[1/1] ASoC: Intel: Boards: tgl_max98373: update TDM slot_width
+      commit: 0d7f2459ae926a964ab211aac413d72074131727
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

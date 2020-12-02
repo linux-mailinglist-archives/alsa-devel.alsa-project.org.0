@@ -2,104 +2,67 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 921882CC553
-	for <lists+alsa-devel@lfdr.de>; Wed,  2 Dec 2020 19:39:55 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1F39E2CC6C2
+	for <lists+alsa-devel@lfdr.de>; Wed,  2 Dec 2020 20:35:42 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 1210E17D7;
-	Wed,  2 Dec 2020 19:39:05 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1210E17D7
+	by alsa0.perex.cz (Postfix) with ESMTPS id A107E17CD;
+	Wed,  2 Dec 2020 20:34:51 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A107E17CD
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1606934395;
-	bh=lG7vcRslsPO6RTqOGHw4q33MVVPzATNlZ8eoMZI13VA=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=ElFrC4paQsim0msZx2ndeCGOR0s+riCvD/o/tAQxGvOH1mymgZ3MIgkaHBU9qNqYh
-	 oO8EkPoZVx50B7rSR7ifjthPEyY8yMbPWxxboQIc3sBnH6HkwQCFBJBUt1Irp/CdH/
-	 9K5F/sHvwK63Szqs8LgRi9jENb62NfGDMSr5KHRI=
+	s=default; t=1606937741;
+	bh=TZnsTmHi5IFcCU6Ky6WBEdNl1oN50y6Ely/z3gWEcc4=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=luE1fHPVkeOOBPIqoRDy/JkDM/uMbhSMIFv1PvGnoN5IByjbIvniJkqwNaMjo93JG
+	 Lm69sHcKOLa7/wMOs4h0Azsmb38AwLH0dlhLCmOyr2KFn5kasMW5ppqr+HhjHizxtA
+	 u7iIhH/ctfcuBKnhsT71dqk/NfcbdB6k7gG1jHq8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 2D26FF80082;
-	Wed,  2 Dec 2020 19:38:20 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id A7C9FF8049C;
+	Wed,  2 Dec 2020 20:34:06 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id DA1EFF8026B; Wed,  2 Dec 2020 19:38:17 +0100 (CET)
+ id 1D7E4F8026B; Wed,  2 Dec 2020 20:34:05 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-1.6 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,SPF_HELO_PASS,SPF_NONE,UNPARSEABLE_RELAY
- autolearn=disabled version=3.4.0
-Received: from aserp2120.oracle.com (aserp2120.oracle.com [141.146.126.78])
+X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_MSPIKE_H4,
+ RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
+Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id D84A4F80082
- for <alsa-devel@alsa-project.org>; Wed,  2 Dec 2020 19:38:13 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D84A4F80082
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=oracle.com header.i=@oracle.com
- header.b="lyhZESRf"
-Received: from pps.filterd (aserp2120.oracle.com [127.0.0.1])
- by aserp2120.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 0B2ITCEW139287;
- Wed, 2 Dec 2020 18:38:07 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com;
- h=date : from : to : cc
- : subject : message-id : references : mime-version : content-type :
- in-reply-to; s=corp-2020-01-29;
- bh=EtihPShjuCPJjG5edj4pxu0NLVh0gWdqqyzMNCOLYHk=;
- b=lyhZESRfP5E9bQyJuecnCJsPLjdEsSovuo/9IE5AVbxXAoIUhuqKE50bWfCfZloO3JEB
- UjMHI/A16xG/J7Q8jPQwjHVOx3ozorbzLDm+KkFL//P1KKqrvl/mt9VLwfDVXB1ogr99
- wA0SxBzJvYee7tmrcc4tEbMr28O3VI2t+UFbKbNV6jrYMkBoa1aCk9E4U+/SKJnt60nf
- nFANZOBNIBsoMlzsKjfYYdM1loGvtdXRgInoNAapXJbqpYSJxs3sQWF6Zq3NrH+H7mpR
- /zsKOZOfpkx8CkWUcyRdAMAM5VJqeHUkbJvYt6LRSrLDBs0MtJNcj9WOYfPX0I/k4gjj Aw== 
-Received: from userp3020.oracle.com (userp3020.oracle.com [156.151.31.79])
- by aserp2120.oracle.com with ESMTP id 353egkt0y5-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
- Wed, 02 Dec 2020 18:38:07 +0000
-Received: from pps.filterd (userp3020.oracle.com [127.0.0.1])
- by userp3020.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 0B2Ic28Q152300;
- Wed, 2 Dec 2020 18:38:07 GMT
-Received: from aserv0122.oracle.com (aserv0122.oracle.com [141.146.126.236])
- by userp3020.oracle.com with ESMTP id 3540auqa8y-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Wed, 02 Dec 2020 18:38:06 +0000
-Received: from abhmp0016.oracle.com (abhmp0016.oracle.com [141.146.116.22])
- by aserv0122.oracle.com (8.14.4/8.14.4) with ESMTP id 0B2IbkS1026781;
- Wed, 2 Dec 2020 18:37:46 GMT
-Received: from kadam (/102.36.221.92) by default (Oracle Beehive Gateway v4.0)
- with ESMTP ; Wed, 02 Dec 2020 10:37:46 -0800
-Date: Wed, 2 Dec 2020 21:37:39 +0300
-From: Dan Carpenter <dan.carpenter@oracle.com>
-To: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
-Subject: Re: [PATCH] ASoC: codecs: lpass-va-macro: remove some dead code
-Message-ID: <20201202183739.GP2767@kadam>
-References: <X8c5gjZO7YN/CFsq@mwanda>
- <7e06abb2-a969-aa1a-6adc-6cdd72e3355c@linaro.org>
+ by alsa1.perex.cz (Postfix) with ESMTPS id E4441F80168
+ for <alsa-devel@alsa-project.org>; Wed,  2 Dec 2020 20:33:55 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E4441F80168
+IronPort-SDR: f5fsmEGWLwjXugXYNiCzr1jvXglsic/DK9qCXDWOYuqfg8RCvBeK8vNHwlATu1P733iI6iWaxJ
+ xk7QhHB0knrQ==
+X-IronPort-AV: E=McAfee;i="6000,8403,9823"; a="172293920"
+X-IronPort-AV: E=Sophos;i="5.78,387,1599548400"; d="scan'208";a="172293920"
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from orsmga001.jf.intel.com ([10.7.209.18])
+ by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 02 Dec 2020 11:33:50 -0800
+IronPort-SDR: gnoVE8NeXxQYw4LIyhNUuFQn6kMGfD9kXO0dceEFW47MEGb+jDYQuxaBXptDdLLJqf4oQGt9N0
+ IylW2OzhVOOg==
+X-IronPort-AV: E=Sophos;i="5.78,387,1599548400"; d="scan'208";a="405630851"
+Received: from emohamma-mobl.amr.corp.intel.com (HELO
+ rsridh-mobl1.localdomain) ([10.212.9.30])
+ by orsmga001-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 02 Dec 2020 11:33:50 -0800
+From: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
+To: alsa-devel@alsa-project.org
+Subject: [PATCH] ASoC: pcm: send DAPM_STREAM_STOP event in dpcm_fe_dai_shutdown
+Date: Wed,  2 Dec 2020 11:33:43 -0800
+Message-Id: <20201202193343.912942-1-ranjani.sridharan@linux.intel.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <7e06abb2-a969-aa1a-6adc-6cdd72e3355c@linaro.org>
-User-Agent: Mutt/1.9.4 (2018-02-28)
-X-Proofpoint-Virus-Version: vendor=nai engine=6000 definitions=9823
- signatures=668682
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 mlxlogscore=999
- bulkscore=0
- phishscore=0 mlxscore=0 adultscore=0 malwarescore=0 suspectscore=0
- spamscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.12.0-2009150000 definitions=main-2012020109
-X-Proofpoint-Virus-Version: vendor=nai engine=6000 definitions=9823
- signatures=668682
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 mlxscore=0
- bulkscore=0 suspectscore=0
- phishscore=0 mlxlogscore=999 lowpriorityscore=0 malwarescore=0
- priorityscore=1501 spamscore=0 impostorscore=0 clxscore=1015 adultscore=0
- classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2009150000
- definitions=main-2012020109
-Cc: alsa-devel@alsa-project.org, Liam Girdwood <lgirdwood@gmail.com>,
- kernel-janitors@vger.kernel.org,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- Takashi Iwai <tiwai@suse.com>, Mark Brown <broonie@kernel.org>
+Content-Transfer-Encoding: 8bit
+Cc: tiwai@suse.de, hdegoede@redhat.com, broonie@kernel.org,
+ Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -115,18 +78,49 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Wed, Dec 02, 2020 at 03:54:53PM +0000, Srinivas Kandagatla wrote:
-> Thanks Dan for the patch!
-> 
-> Do you use any tools to do this checks?
-> 
+A recent change removed the call to send the DAPM_STREAM_STOP
+event in dpcm_fe_dai_shutdown. But this causes a regression
+when a PCM prepare is not paired with a hw_free. So, add
+the DAPM_STREAM_STOP event back to dpcm_fe_dai_shutdown()
+to fix this.
 
-Yeah.  This was a Smatch warning:
+The new sequence would be:
+soc_pcm_prepare()
+    -> SND_SOC_DAPM_STREAM_START
 
-sound/soc/codecs/lpass-va-macro.c:847 va_macro_hw_params() warn: always true condition '(decimator >= 0) => (0-u32max >= 0)'
+soc_pcm_hw_free()
+    -> soc_pcm_hw_free()
+	-> SND_SOC_DAPM_STREAM_STOP
 
-But every static checker will complain about these.
+dpcm_fe_dai_shutdown()
+    -> SND_SOC_DAPM_STREAM_STOP
 
-regards,
-dan carpenter
+Note that the DAPM_STREAM_STOP will be called twice but it seems
+harmless.
+
+Fixes: a27b421f1d04 ('ASoC: pcm: call snd_soc_dapm_stream_stop() in soc_pcm_hw_clean')
+
+Reported-by: Hans de Goede <hdegoede@redhat.com>
+Reviewed-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Signed-off-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
+---
+ sound/soc/soc-pcm.c | 3 +++
+ 1 file changed, 3 insertions(+)
+
+diff --git a/sound/soc/soc-pcm.c b/sound/soc/soc-pcm.c
+index 5250124dc8f5..ae062e4d1ce8 100644
+--- a/sound/soc/soc-pcm.c
++++ b/sound/soc/soc-pcm.c
+@@ -1860,6 +1860,9 @@ static int dpcm_fe_dai_shutdown(struct snd_pcm_substream *substream)
+ 	/* now shutdown the frontend */
+ 	soc_pcm_close(substream);
+ 
++	/* run the stream stop event */
++	dpcm_dapm_stream_event(fe, stream, SND_SOC_DAPM_STREAM_STOP);
++
+ 	fe->dpcm[stream].state = SND_SOC_DPCM_STATE_CLOSE;
+ 	dpcm_set_fe_update_state(fe, stream, SND_SOC_DPCM_UPDATE_NO);
+ 	return 0;
+-- 
+2.25.1
 

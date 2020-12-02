@@ -2,119 +2,84 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4741B2CB5D3
-	for <lists+alsa-devel@lfdr.de>; Wed,  2 Dec 2020 08:39:56 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id A66272CB7E9
+	for <lists+alsa-devel@lfdr.de>; Wed,  2 Dec 2020 10:00:39 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id CDF2717DC;
-	Wed,  2 Dec 2020 08:39:05 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CDF2717DC
+	by alsa0.perex.cz (Postfix) with ESMTPS id 3AC8817DF;
+	Wed,  2 Dec 2020 09:59:49 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3AC8817DF
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1606894795;
-	bh=GMBiT+GjqHPjyeUWzN+boe7ZyQVnteQbaJCJGWDgdrI=;
-	h=From:To:In-Reply-To:Subject:Date:References:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=nV/zp0g9RcC3aUCS4W44LediyqK2DvoaR4owWhGlGilQvJhhr5nIkyTF27Xk67OFd
-	 KpsQ5d/RmXUOPLQKqcznCELSXJkYv1F1MnIgTVUTj7eyAuclIYkyBuritQtw5mGy41
-	 xgemlmoBsSEzsB2yGyDry47pfYTn7ARKupLDGh8c=
+	s=default; t=1606899639;
+	bh=4wWcur5DlsfV0lXw+0GFCRuwJmV24Pfs1EWJ0dKu/e0=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=jaiJIw2t+aTsPdIFHm0H2Wq8D7IE+z1zLDdMK928hCS31/9M4sfZx5KjYSVA5OLoW
+	 639KgmxC4NwJaWpa9/y9PRzDCwT3KkbQ1Dxc9kuQfmeERQ3+eXZ1uMbjtrfSrRJ3qp
+	 zwMCjkPWEcZVNzZHeaMQJx/9gsDPaJCNlGHkD1Wk=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 07B25F8025F;
-	Wed,  2 Dec 2020 08:38:20 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 7585CF8049C;
+	Wed,  2 Dec 2020 09:59:04 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id B926EF8026B; Wed,  2 Dec 2020 08:38:15 +0100 (CET)
+ id EBDCBF8026B; Wed,  2 Dec 2020 09:59:01 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-1.6 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,RCVD_IN_MSPIKE_H3,RCVD_IN_MSPIKE_WL,SPF_HELO_PASS,
- SPF_PASS,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mailout4.samsung.com (mailout4.samsung.com [203.254.224.34])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,RCVD_IN_MSPIKE_H3,RCVD_IN_MSPIKE_WL,SPF_HELO_PASS,SPF_PASS,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from esa1.microchip.iphmx.com (esa1.microchip.iphmx.com
+ [68.232.147.91])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 0A402F80168
- for <alsa-devel@alsa-project.org>; Wed,  2 Dec 2020 08:38:07 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0A402F80168
+ by alsa1.perex.cz (Postfix) with ESMTPS id 52318F80158
+ for <alsa-devel@alsa-project.org>; Wed,  2 Dec 2020 09:58:53 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 52318F80158
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com
- header.b="jQ9szAUp"
-Received: from epcas3p4.samsung.com (unknown [182.195.41.22])
- by mailout4.samsung.com (KnoxPortal) with ESMTP id
- 20201202073802epoutp0425ed77aee2fa46eecf7dc1c142184a59~M1jM3V8JB0145801458epoutp04e
- for <alsa-devel@alsa-project.org>; Wed,  2 Dec 2020 07:38:02 +0000 (GMT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mailout4.samsung.com
- 20201202073802epoutp0425ed77aee2fa46eecf7dc1c142184a59~M1jM3V8JB0145801458epoutp04e
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
- s=mail20170921; t=1606894682;
- bh=79sh+txxx67jiRwlMZ4xd5Tqksda/MR/MaLJUUSme+4=;
- h=From:To:Cc:In-Reply-To:Subject:Date:References:From;
- b=jQ9szAUpDfOVZJIS2R6aJ7KJZ7bXtG8LF7J8jW0gBARVaLEVMEm4pMz+jGDfW0BZH
- nPMNhWhKzKIzZjkW4tLbPpJjoh6dIuA7L4O5Vsz76TXsIYkywzRu5oa9gPA5V7ZsJ+
- CNxT9oN91AJykNEVQhVDXmod3l1Rdi6k14bYWylI=
-Received: from epsnrtp3.localdomain (unknown [182.195.42.164]) by
- epcas3p3.samsung.com (KnoxPortal) with ESMTP id
- 20201202073802epcas3p30ac7942fced3f9c1966b16894be44647~M1jMlolMT2322723227epcas3p3h;
- Wed,  2 Dec 2020 07:38:02 +0000 (GMT)
-Received: from epcpadp4 (unknown [182.195.40.18]) by epsnrtp3.localdomain
- (Postfix) with ESMTP id 4Cm9mp1K2XzMqYkf; Wed,  2 Dec 2020 07:38:02 +0000
- (GMT)
-Received: from epsmtrp2.samsung.com (unknown [182.195.40.14]) by
- epcas2p4.samsung.com (KnoxPortal) with ESMTPA id
- 20201202072607epcas2p43171cd23ab1752db8d71b2ed5f581aa8~M1YyftY-11517615176epcas2p4R;
- Wed,  2 Dec 2020 07:26:07 +0000 (GMT)
-Received: from epsmgms1p2.samsung.com (unknown [182.195.42.42]) by
- epsmtrp2.samsung.com (KnoxPortal) with ESMTP id
- 20201202072606epsmtrp20816bfabd35e4da708f908a3a2bae12d~M1YyeuV_u0370103701epsmtrp2k;
- Wed,  2 Dec 2020 07:26:06 +0000 (GMT)
-X-AuditID: b6c32a2a-73fff70000002229-4c-5fc7418e44fc
-Received: from epsmtip1.samsung.com ( [182.195.34.30]) by
- epsmgms1p2.samsung.com (Symantec Messaging Gateway) with SMTP id
- 10.E1.08745.E8147CF5; Wed,  2 Dec 2020 16:26:06 +0900 (KST)
-Received: from KORDO025540 (unknown [12.36.182.130]) by epsmtip1.samsung.com
- (KnoxPortal) with ESMTPA id
- 20201202072606epsmtip18cc784c288407292da6abd741a1857a8~M1YyOkEE30290602906epsmtip1h;
- Wed,  2 Dec 2020 07:26:06 +0000 (GMT)
-From: "Gyeongtaek Lee" <gt82.lee@samsung.com>
-To: <kuninori.morimoto.gx@renesas.com>, <cpgs@samsung.com>
-In-Reply-To: 
-Subject: [PATCH] ASoC: dpcm: acquire dpcm_lock in dpcm_do_trigger()
-Date: Wed, 2 Dec 2020 16:26:06 +0900
-Message-ID: <2038148563.21606894682167.JavaMail.epsvc@epcpadp4>
+ dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com
+ header.b="aclhel4D"
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+ d=microchip.com; i=@microchip.com; q=dns/txt; s=mchp;
+ t=1606899536; x=1638435536;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=4wWcur5DlsfV0lXw+0GFCRuwJmV24Pfs1EWJ0dKu/e0=;
+ b=aclhel4DsPrxbTRb92XPoGjLBlcjVkqm/2f0YHIz4QqEN82Y6qSJIEhH
+ /5vN7d1yq2KYR6tq1jTSfvT4ikV00Ujwx9YfEttL9Eldk9yvjqF9Q+rh5
+ jZIxraj9iaadH3pbeNZUVUiYUYNjezNPj+8ZeVzFGVTQ/jiv/PGXmFFCa
+ mU3vl2csIdpDcuG+PqxePi38ZwgZPfNTkECIpdBc5Ys7WoDq9oNEatJVt
+ hIBnru0doHJmOZnh2E8tT9W0qkX0unsZz/rDfFNFHdKQw+7wvH9rPe4aR
+ buJ5N3ydXU650n3RmXd8dHHki401qQXKhFM4epY/XkiMLYGtoJmyNMeD/ g==;
+IronPort-SDR: q5U6gLx4CEBN2KAufOk1EWi97dBu/2+kfYG6StG7i7Z8vucCkMNhZhibAzzXV/ez1xZAxFNoup
+ DauJHg09cB9dTe6D6GurXYVyntLnbd2XWOczd1UNTZw2K0VlsKjCfYpdfe7atD6LDM8khumRcy
+ f3Zp3ipp2XKm3oYiI7tk8kuejALLeY6Su413PEtIceoF43XkO8cjldn7ogcrs7ZEAse8upKZrr
+ M8h2wACC0kcZuC1woo1DmZAnPRpJZl7KAOX9GEgM1kVlb8B6qj+g39aFTAfMUtvOpe1MtrV8+x
+ C3c=
+X-IronPort-AV: E=Sophos;i="5.78,386,1599548400"; d="scan'208";a="105815768"
+Received: from smtpout.microchip.com (HELO email.microchip.com)
+ ([198.175.253.82])
+ by esa1.microchip.iphmx.com with ESMTP/TLS/AES256-SHA256;
+ 02 Dec 2020 01:58:50 -0700
+Received: from chn-vm-ex03.mchp-main.com (10.10.85.151) by
+ chn-vm-ex03.mchp-main.com (10.10.85.151) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.1979.3; Wed, 2 Dec 2020 01:58:50 -0700
+Received: from rob-ult-m19940.amer.actel.com (10.10.115.15) by
+ chn-vm-ex03.mchp-main.com (10.10.85.151) with Microsoft SMTP Server id
+ 15.1.1979.3 via Frontend Transport; Wed, 2 Dec 2020 01:58:47 -0700
+From: Codrin Ciubotariu <codrin.ciubotariu@microchip.com>
+To: <alsa-devel@alsa-project.org>, <linux-kernel@vger.kernel.org>
+Subject: [RFC PATCH] ASoC: pcm_dmaengine: Add support for BE DAIs
+Date: Wed, 2 Dec 2020 10:58:38 +0200
+Message-ID: <20201202085838.1779525-1-codrin.ciubotariu@microchip.com>
+X-Mailer: git-send-email 2.27.0
 MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-X-Mailer: Microsoft Outlook 16.0
-Thread-Index: AdbEXXsWqYYpYDBTSmWEOGYw7iIbHwEHqxVQ
-Content-Language: ko
-X-Brightmail-Tracker: H4sIAAAAAAAAA+NgFlrIIsWRmVeSWpSXmKPExsWy7bCSnG6f4/F4gwmXTC2uXDzEZPHykKbF
- 3R/mFjO2dbNYNN6bwGax+uoWJotXh3cxWny70sFk8ev/MyaLoxcXM1k03G1mt3i5+Q2TxZHG
- KUwOvB4bPjexeeycdZfdY97JQI9vZyayePRtWcXosfl0dQBbFJdNSmpOZllqkb5dAlfGu54d
- LAUnjCv27utnaWD8rNnFyMkhIWAisbtlA2MXIxeHkMAORokz3w8zQyQkJD7MP8MOYQtL3G85
- wgpR9JxRov3JUbAEm4CuxJd7d8AaRARsJG6tngI2iVngBpPEiz8PmEASQgI8Eq827AdKcHBw
- CvBKTPhnDRIWFnCWeLbxBVgJi4CKxK+NJ8Bm8gpYSrS3XmWGsAUlTs58wgLSyiygJ9G2kREk
- zCwgL7H97RyoOxUkfj5dxgpxgpFE26xNzBA1IhKzO9uYJzAKz0IyaRbCpFlIJs1C0rGAkWUV
- o2RqQXFuem6xYYFRXmq5XnFibnFpXrpecn7uJkZwLGpp7WDcs+qD3iFGJg7GQ4wSHMxKIrws
- /47EC/GmJFZWpRblxxeV5qQWH2KU5mBREuf9OmthnJBAemJJanZqakFqEUyWiYNTqoHp8uFC
- ryPqwWte7mZP+Rq0PWj6g9Wrfmau8Hh54b/M1oWLD6XahfysFVhYunKS3zHLU5sulExl8H3y
- KO0Ep2pT6guexG8XKhYo7hQ1npD4uFX+/ouHse9SpvmvX3Ihv6T6gNB3tcdb598yZVb5aRfE
- yXLWtn3qsVcXJz8w2LGSZ86i6v5XV12YhV5qf+/VvzW/+ollMQd/a8qki4c7nDYlKxVu2G0u
- tfXyAaf0Y2vDrVw/F12+oHPwRJLWnNAlfMGqFek3niQeFuHnaNzWvWgxn6iyVhyjomjZJRup
- W5Ov/JfeKvLyne1J/5mSXUasV25vlxcUSzl5f9ZX05KswveKSwvlcyV/uU6e/ZBL8kXTCiWW
- 4oxEQy3mouJEANhHkX40AwAA
-X-CMS-MailID: 20201202072607epcas2p43171cd23ab1752db8d71b2ed5f581aa8
-X-Msg-Generator: CA
-Content-Type: text/plain; charset="utf-8"
-X-Sendblock-Type: AUTO_CONFIDENTIAL
-X-CPGSPASS: Y
-X-Hop-Count: 3
-X-CMS-RootMailID: 20201202072607epcas2p43171cd23ab1752db8d71b2ed5f581aa8
-References: <CGME20201202072607epcas2p43171cd23ab1752db8d71b2ed5f581aa8@epcas2p4.samsung.com>
-Cc: alsa-devel@alsa-project.org, khw0178.kim@samsung.com,
- 'Takashi Iwai' <tiwai@suse.de>, 'Pierre-Louis
- Bossart' <pierre-louis.bossart@linux.intel.com>, lgirdwood@gmail.com,
- kimty@samsung.com, donggyun.ko@samsung.com, hmseo@samsung.com,
- s47.kang@samsung.com, pilsun.jang@samsung.com, tkjung@samsung.com
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+Cc: lars@metafoo.de, tiwai@suse.com, lgirdwood@gmail.com, broonie@kernel.org,
+ Codrin Ciubotariu <codrin.ciubotariu@microchip.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -130,215 +95,196 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-If stop by underrun and DPCM BE disconnection is run simultaneously,
-data abort can be occurred by the sequence below.
+Considering the bellow scenarios:
+                                                /- Gen DMA engine -\
+       48KHz    ********     *******   44.1KHz  ********     *******     *********
+PCM0 <-FE DAI-> * FE   * <-> * DSP * <-BE DAI-> *      *     *     *     *       *
+                * Ring *     *     *            * Ring * <-> * CPU * <-> * Codec *
+                * buff *     *******            * buff *     * DAI *     * DAI   *
+       44.1KHz  ********                        *      *     *     *     *       *
+PCM1 <--------------------DAI-----------------> *      *     *     *     *       *
+                                                ********     *******     *********
 
-/* In core X, running dpcm_be_dai_trigger() */
-for_each_dpcm_be(fe, stream, dpcm) {
-/* In core Y, running dpcm_be_disconnect() */
-spin_lock_irqsave(&fe->card->dpcm_lock, flags);
-list_del(&dpcm->list_be);
-list_del(&dpcm->list_fe);
-spin_unlock_irqrestore(&fe->card->dpcm_lock, flags);
-kfree(dpcm);
-/* In core X, running dpcm_be_dai_trigger() */
-struct snd_soc_pcm_runtime *be = dpcm->be;   <== Accessing freed memory
+For PCM0, we have two DAI links. The first DAI link is a FE, with a DSP as
+a CPU DAI and a platform driver .The second DAI link is a BE DAI link,
+with separate CPU, codec and platform drivers. We can also notice that
+there are two Ring buffers: the first one used by the DSP to communicate
+with the user-space and the second one used to move data between FE
+(DSP) and BE (CPU).
+PCM1 is a normal DAI link, with a CPU, codec and platform driver. It is
+exactly the previous BE DAI link from PCM0, so the samples from user-space
+are copied directly into the second Ring buffer.
 
-To prevent this situation, dpcm_lock should be acquired during
-iteration of dpcm list in dpcm_do_trigger().
+In this scenario, the BE DAI link driver should be the same, since it is
+decided at runtime whether the DAI is a used as a BE or not. The generic
+platform driver needs to be aware of this thing. For the BE case (PCM0),
+some callbacks of the platform driver are not called, hence the
+preallocated buffer is not available. Also, the PCM runtime strcture
+must not be touched, since it should be only used by the FE platform
+driver.
 
-Signed-off-by: Gyeongtaek Lee <gt82.lee@samsung.com>
-Cc: stable@vger.kernel.org
+With these changes, the generic dmaengine can also be used as a BE
+platform driver.
+
+Signed-off-by: Codrin Ciubotariu <codrin.ciubotariu@microchip.com>
 ---
- sound/soc/soc-pcm.c | 62 ++++++++++++++++++++++++++++++++-------------
- 1 file changed, 44 insertions(+), 18 deletions(-)
 
-diff --git a/sound/soc/soc-pcm.c b/sound/soc/soc-pcm.c
-index dcab9527ba3d..7c5d950a8628 100644
---- a/sound/soc/soc-pcm.c
-+++ b/sound/soc/soc-pcm.c
-@@ -2073,6 +2073,9 @@ static int dpcm_fe_dai_hw_params(struct snd_pcm_substream *substream,
- 	return ret;
+Hello,
+ 
+This patch is more or less incomplete for the described scenario. This
+is because DMAengine's pcm->config is ignored for the BE DAI link, so
+runtime->hw is not updated. Also, since pcm_construct/destruct are not
+called, the DMA channels are allocated only if DT is used.
+Underrun/overrun support would also be a nice to have for the transfers
+involving the buffer allocated for the BE.
+One way to hold trach of these would be to use a substream_be->runtime
+different than the one used for the FE.
+
+Please share your thoughts.
+
+ sound/core/pcm_dmaengine.c            | 18 ++++++++++--
+ sound/soc/soc-generic-dmaengine-pcm.c | 40 +++++++++++++++++++++++----
+ 2 files changed, 50 insertions(+), 8 deletions(-)
+
+diff --git a/sound/core/pcm_dmaengine.c b/sound/core/pcm_dmaengine.c
+index 4d059ff2b2e4..5e96bc27628d 100644
+--- a/sound/core/pcm_dmaengine.c
++++ b/sound/core/pcm_dmaengine.c
+@@ -137,7 +137,9 @@ static void dmaengine_pcm_dma_complete(void *arg)
+ 	if (prtd->pos >= snd_pcm_lib_buffer_bytes(substream))
+ 		prtd->pos = 0;
+ 
+-	snd_pcm_period_elapsed(substream);
++	/* do no update period for an internal PCM */
++	if (!substream->pcm->internal)
++		snd_pcm_period_elapsed(substream);
  }
  
-+static int dpcm_can_be_free_stop(struct snd_soc_pcm_runtime *fe,
-+		struct snd_soc_pcm_runtime *be, int stream);
+ static int dmaengine_pcm_prepare_and_submit(struct snd_pcm_substream *substream)
+@@ -147,6 +149,7 @@ static int dmaengine_pcm_prepare_and_submit(struct snd_pcm_substream *substream)
+ 	struct dma_async_tx_descriptor *desc;
+ 	enum dma_transfer_direction direction;
+ 	unsigned long flags = DMA_CTRL_ACK;
++	dma_addr_t addr;
+ 
+ 	direction = snd_pcm_substream_to_dma_direction(substream);
+ 
+@@ -154,11 +157,15 @@ static int dmaengine_pcm_prepare_and_submit(struct snd_pcm_substream *substream)
+ 		flags |= DMA_PREP_INTERRUPT;
+ 
+ 	prtd->pos = 0;
++	if (substream->pcm->internal)
++		addr = substream->dma_buffer.addr;
++	else
++		addr = substream->runtime->dma_addr;
 +
- static int dpcm_do_trigger(struct snd_soc_dpcm *dpcm,
- 		struct snd_pcm_substream *substream, int cmd)
- {
-@@ -2092,8 +2095,10 @@ int dpcm_be_dai_trigger(struct snd_soc_pcm_runtime *fe, int stream,
- 			       int cmd)
- {
- 	struct snd_soc_dpcm *dpcm;
-+	unsigned long flags;
- 	int ret = 0;
+ 	desc = dmaengine_prep_dma_cyclic(chan,
+-		substream->runtime->dma_addr,
++		addr,
+ 		snd_pcm_lib_buffer_bytes(substream),
+ 		snd_pcm_lib_period_bytes(substream), direction, flags);
+-
+ 	if (!desc)
+ 		return -ENOMEM;
  
-+	spin_lock_irqsave(&fe->card->dpcm_lock, flags);
- 	for_each_dpcm_be(fe, stream, dpcm) {
+@@ -315,6 +322,11 @@ int snd_dmaengine_pcm_open(struct snd_pcm_substream *substream,
  
- 		struct snd_soc_pcm_runtime *be = dpcm->be;
-@@ -2113,7 +2118,7 @@ int dpcm_be_dai_trigger(struct snd_soc_pcm_runtime *fe, int stream,
+ 	substream->runtime->private_data = prtd;
  
- 			ret = dpcm_do_trigger(dpcm, be_substream, cmd);
- 			if (ret)
--				return ret;
-+				break;
- 
- 			be->dpcm[stream].state = SND_SOC_DPCM_STATE_START;
- 			break;
-@@ -2123,7 +2128,7 @@ int dpcm_be_dai_trigger(struct snd_soc_pcm_runtime *fe, int stream,
- 
- 			ret = dpcm_do_trigger(dpcm, be_substream, cmd);
- 			if (ret)
--				return ret;
-+				break;
- 
- 			be->dpcm[stream].state = SND_SOC_DPCM_STATE_START;
- 			break;
-@@ -2133,7 +2138,7 @@ int dpcm_be_dai_trigger(struct snd_soc_pcm_runtime *fe, int stream,
- 
- 			ret = dpcm_do_trigger(dpcm, be_substream, cmd);
- 			if (ret)
--				return ret;
-+				break;
- 
- 			be->dpcm[stream].state = SND_SOC_DPCM_STATE_START;
- 			break;
-@@ -2142,12 +2147,12 @@ int dpcm_be_dai_trigger(struct snd_soc_pcm_runtime *fe, int stream,
- 			    (be->dpcm[stream].state != SND_SOC_DPCM_STATE_PAUSED))
- 				continue;
- 
--			if (!snd_soc_dpcm_can_be_free_stop(fe, be, stream))
-+			if (!dpcm_can_be_free_stop(fe, be, stream))
- 				continue;
- 
- 			ret = dpcm_do_trigger(dpcm, be_substream, cmd);
- 			if (ret)
--				return ret;
-+				break;
- 
- 			be->dpcm[stream].state = SND_SOC_DPCM_STATE_STOP;
- 			break;
-@@ -2155,12 +2160,12 @@ int dpcm_be_dai_trigger(struct snd_soc_pcm_runtime *fe, int stream,
- 			if (be->dpcm[stream].state != SND_SOC_DPCM_STATE_START)
- 				continue;
- 
--			if (!snd_soc_dpcm_can_be_free_stop(fe, be, stream))
-+			if (!dpcm_can_be_free_stop(fe, be, stream))
- 				continue;
- 
- 			ret = dpcm_do_trigger(dpcm, be_substream, cmd);
- 			if (ret)
--				return ret;
-+				break;
- 
- 			be->dpcm[stream].state = SND_SOC_DPCM_STATE_SUSPEND;
- 			break;
-@@ -2168,17 +2173,20 @@ int dpcm_be_dai_trigger(struct snd_soc_pcm_runtime *fe, int stream,
- 			if (be->dpcm[stream].state != SND_SOC_DPCM_STATE_START)
- 				continue;
- 
--			if (!snd_soc_dpcm_can_be_free_stop(fe, be, stream))
-+			if (!dpcm_can_be_free_stop(fe, be, stream))
- 				continue;
- 
- 			ret = dpcm_do_trigger(dpcm, be_substream, cmd);
- 			if (ret)
--				return ret;
-+				break;
- 
- 			be->dpcm[stream].state = SND_SOC_DPCM_STATE_PAUSED;
- 			break;
- 		}
-+		if (ret)
-+			break;
++	if (substream->pcm->internal) {
++		substream->dma_buffer.dev.type = SNDRV_DMA_TYPE_DEV_IRAM;
++		substream->dma_buffer.dev.dev = chan->device->dev;
++	}
++
+ 	return 0;
+ }
+ EXPORT_SYMBOL_GPL(snd_dmaengine_pcm_open);
+diff --git a/sound/soc/soc-generic-dmaengine-pcm.c b/sound/soc/soc-generic-dmaengine-pcm.c
+index 9ef80a48707e..f403849cd1aa 100644
+--- a/sound/soc/soc-generic-dmaengine-pcm.c
++++ b/sound/soc/soc-generic-dmaengine-pcm.c
+@@ -97,6 +97,31 @@ static int dmaengine_pcm_hw_params(struct snd_soc_component *component,
+ 		if (ret)
+ 			return ret;
  	}
-+	spin_unlock_irqrestore(&fe->card->dpcm_lock, flags);
- 
- 	return ret;
- }
-@@ -2916,10 +2924,9 @@ static int snd_soc_dpcm_check_state(struct snd_soc_pcm_runtime *fe,
- 	struct snd_soc_dpcm *dpcm;
- 	int state;
- 	int ret = 1;
--	unsigned long flags;
- 	int i;
- 
--	spin_lock_irqsave(&fe->card->dpcm_lock, flags);
-+	lockdep_assert_held(&fe->card->dpcm_lock);
- 	for_each_dpcm_fe(be, stream, dpcm) {
- 
- 		if (dpcm->fe == fe)
-@@ -2933,17 +2940,12 @@ static int snd_soc_dpcm_check_state(struct snd_soc_pcm_runtime *fe,
- 			}
- 		}
- 	}
--	spin_unlock_irqrestore(&fe->card->dpcm_lock, flags);
- 
- 	/* it's safe to do this BE DAI */
- 	return ret;
- }
- 
--/*
-- * We can only hw_free, stop, pause or suspend a BE DAI if any of it's FE
-- * are not running, paused or suspended for the specified stream direction.
-- */
--int snd_soc_dpcm_can_be_free_stop(struct snd_soc_pcm_runtime *fe,
-+static int dpcm_can_be_free_stop(struct snd_soc_pcm_runtime *fe,
- 		struct snd_soc_pcm_runtime *be, int stream)
- {
- 	const enum snd_soc_dpcm_state state[] = {
-@@ -2954,6 +2956,23 @@ int snd_soc_dpcm_can_be_free_stop(struct snd_soc_pcm_runtime *fe,
- 
- 	return snd_soc_dpcm_check_state(fe, be, stream, state, ARRAY_SIZE(state));
- }
++	if (!substream->pcm->internal) {
++		return snd_pcm_lib_malloc_pages(substream,
++						params_buffer_bytes(params));
++	}
 +
-+/*
-+ * We can only hw_free, stop, pause or suspend a BE DAI if any of it's FE
-+ * are not running, paused or suspended for the specified stream direction.
-+ */
-+int snd_soc_dpcm_can_be_free_stop(struct snd_soc_pcm_runtime *fe,
-+		struct snd_soc_pcm_runtime *be, int stream)
-+{
-+	unsigned long flags;
-+	int ret;
++	/* allocate a buffer for BE DAI; for now, the buffer will have the same
++	 * size as the buffer used by the FE
++	 */
++	if (snd_dma_alloc_pages(substream->dma_buffer.dev.type,
++				substream->dma_buffer.dev.dev,
++				params_buffer_bytes(params),
++				&substream->dma_buffer) < 0)
++		return -ENOMEM;
 +
-+	spin_lock_irqsave(&fe->card->dpcm_lock, flags);
-+	ret =  dpcm_can_be_free_stop(fe, be, stream);
-+	spin_unlock_irqrestore(&fe->card->dpcm_lock, flags);
-+
-+	return ret;
++	return 0;
 +}
- EXPORT_SYMBOL_GPL(snd_soc_dpcm_can_be_free_stop);
- 
- /*
-@@ -2963,6 +2982,9 @@ EXPORT_SYMBOL_GPL(snd_soc_dpcm_can_be_free_stop);
- int snd_soc_dpcm_can_be_params(struct snd_soc_pcm_runtime *fe,
- 		struct snd_soc_pcm_runtime *be, int stream)
- {
-+	unsigned long flags;
-+	int ret;
 +
- 	const enum snd_soc_dpcm_state state[] = {
- 		SND_SOC_DPCM_STATE_START,
- 		SND_SOC_DPCM_STATE_PAUSED,
-@@ -2970,6 +2992,10 @@ int snd_soc_dpcm_can_be_params(struct snd_soc_pcm_runtime *fe,
- 		SND_SOC_DPCM_STATE_PREPARE,
- 	};
- 
--	return snd_soc_dpcm_check_state(fe, be, stream, state, ARRAY_SIZE(state));
-+	spin_lock_irqsave(&fe->card->dpcm_lock, flags);
-+	ret = snd_soc_dpcm_check_state(fe, be, stream, state, ARRAY_SIZE(state));
-+	spin_unlock_irqrestore(&fe->card->dpcm_lock, flags);
++static int dmaengine_pcm_hw_free(struct snd_soc_component *component,
++				 struct snd_pcm_substream *substream)
++{
++	if (!substream->pcm->internal)
++		return 0;
 +
-+	return ret;
++	snd_dma_free_pages(&substream->dma_buffer);
++	substream->dma_buffer.area = NULL;
+ 
+ 	return 0;
  }
- EXPORT_SYMBOL_GPL(snd_soc_dpcm_can_be_params);
-
-base-commit: fa02fcd94b0c8dff6cc65714510cf25ad194b90d
+@@ -157,9 +182,12 @@ static int dmaengine_pcm_open(struct snd_soc_component *component,
+ 	struct dma_chan *chan = pcm->chan[substream->stream];
+ 	int ret;
+ 
+-	ret = dmaengine_pcm_set_runtime_hwparams(component, substream);
+-	if (ret)
+-		return ret;
++	/* do not touch runtime if this is an internal PCM */
++	if (!substream->pcm->internal) {
++		ret = dmaengine_pcm_set_runtime_hwparams(component, substream);
++		if (ret)
++			return ret;
++	}
+ 
+ 	return snd_dmaengine_pcm_open(substream, chan);
+ }
+@@ -309,7 +337,7 @@ static int dmaengine_copy_user(struct snd_soc_component *component,
+ 			channel * (runtime->dma_bytes / runtime->channels);
+ 	int ret;
+ 
+-	if (is_playback)
++	if (!substream->pcm->internal && is_playback)
+ 		if (copy_from_user(dma_ptr, buf, bytes))
+ 			return -EFAULT;
+ 
+@@ -319,7 +347,7 @@ static int dmaengine_copy_user(struct snd_soc_component *component,
+ 			return ret;
+ 	}
+ 
+-	if (!is_playback)
++	if (!substream->pcm->internal && !is_playback)
+ 		if (copy_to_user(buf, dma_ptr, bytes))
+ 			return -EFAULT;
+ 
+@@ -332,6 +360,7 @@ static const struct snd_soc_component_driver dmaengine_pcm_component = {
+ 	.open		= dmaengine_pcm_open,
+ 	.close		= dmaengine_pcm_close,
+ 	.hw_params	= dmaengine_pcm_hw_params,
++	.hw_free	= dmaengine_pcm_hw_free,
+ 	.trigger	= dmaengine_pcm_trigger,
+ 	.pointer	= dmaengine_pcm_pointer,
+ 	.pcm_construct	= dmaengine_pcm_new,
+@@ -344,6 +373,7 @@ static const struct snd_soc_component_driver dmaengine_pcm_component_process = {
+ 	.close		= dmaengine_pcm_close,
+ 	.hw_params	= dmaengine_pcm_hw_params,
+ 	.trigger	= dmaengine_pcm_trigger,
++	.hw_free	= dmaengine_pcm_hw_free,
+ 	.pointer	= dmaengine_pcm_pointer,
+ 	.copy_user	= dmaengine_copy_user,
+ 	.pcm_construct	= dmaengine_pcm_new,
 -- 
-2.21.0
-
-
+2.27.0
 

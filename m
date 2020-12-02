@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 713672CC35C
-	for <lists+alsa-devel@lfdr.de>; Wed,  2 Dec 2020 18:21:47 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id DBDE12CC360
+	for <lists+alsa-devel@lfdr.de>; Wed,  2 Dec 2020 18:22:36 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 90E6717E0;
-	Wed,  2 Dec 2020 18:20:55 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 90E6717E0
+	by alsa0.perex.cz (Postfix) with ESMTPS id D311217F0;
+	Wed,  2 Dec 2020 18:21:45 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D311217F0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1606929705;
-	bh=gBEIekP90p0hcGbN9o99riVWEWPfhUEj3ZSXm10r/cs=;
+	s=default; t=1606929756;
+	bh=WR3l9fx0LdxhzyaH3WCnW3jWjnkhtRskU3evFluW7jk=;
 	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=X/Ieht1mcFNhmy/3qy7JF3Uw9QZlR9pzpufAtycebxG/mRsjj4as9s2r/VD3lxP81
-	 73fDkb0S/cDwxkXSX9MqNbkqAeOisDAFBYh7OZgY12eNvdT3/P/QjCXR4wNI1siAsW
-	 4AG/Na8CLwBQbyISqbrnvXC4JLRMBfODh5EtyNCw=
+	b=qf4AmMCz3/DUpun0z17VXk7PvW2CLkBY+F+rHP6cS4PN/Z6iY+3096o0iHUtenDSd
+	 LDXIb7GTtS9JiozCSlTpY/kzBtbebv+Drv+yV3kZ8f16ROu5GyjeMoIm6mNZ1c673Y
+	 VvhzH+lIp9ReG5f/a5upk87yj4AFAXKztAComSi0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id BC53CF8049C;
-	Wed,  2 Dec 2020 18:20:06 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 118DAF804C1;
+	Wed,  2 Dec 2020 18:20:19 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 684B0F804AA; Wed,  2 Dec 2020 18:20:05 +0100 (CET)
+ id 63298F804CA; Wed,  2 Dec 2020 18:20:17 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS
@@ -33,26 +33,23 @@ X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id C6E35F8049C
- for <alsa-devel@alsa-project.org>; Wed,  2 Dec 2020 18:20:02 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C6E35F8049C
+ by alsa1.perex.cz (Postfix) with ESMTPS id 10BD7F804AB
+ for <alsa-devel@alsa-project.org>; Wed,  2 Dec 2020 18:20:15 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 10BD7F804AB
 From: Mark Brown <broonie@kernel.org>
 Authentication-Results: mail.kernel.org;
  dkim=permerror (bad message/signature format)
-To: Dan Carpenter <dan.carpenter@oracle.com>,
- Liam Girdwood <lgirdwood@gmail.com>
-In-Reply-To: <X8c5gjZO7YN/CFsq@mwanda>
-References: <X8c5gjZO7YN/CFsq@mwanda>
-Subject: Re: [PATCH] ASoC: codecs: lpass-va-macro: remove some dead code
-Message-Id: <160692956495.33960.17489548804315513103.b4-ty@kernel.org>
+To: Tzung-Bi Shih <tzungbi@google.com>, robh+dt@kernel.org
+In-Reply-To: <20201201132614.1691352-1-tzungbi@google.com>
+References: <20201201132614.1691352-1-tzungbi@google.com>
+Subject: Re: [RESEND PATCH 0/6] ASoC: mediatek: mt8192: support new machine
+ rt1015p_rt5682
+Message-Id: <160692956494.33960.780147549576992424.b4-ty@kernel.org>
 Date: Wed, 02 Dec 2020 17:19:24 +0000
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Cc: kernel-janitors@vger.kernel.org, alsa-devel@alsa-project.org,
- Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
- Takashi Iwai <tiwai@suse.com>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -68,9 +65,16 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Wed, 2 Dec 2020 09:51:46 +0300, Dan Carpenter wrote:
-> The "decimator" variable is in the 0-7 range and it's unsigned so there
-> is no need to check for negative values.
+On Tue, 1 Dec 2020 21:26:08 +0800, Tzung-Bi Shih wrote:
+> The series supports new machines with rt1015p and rt5682.  Reuses most of
+> the code in mt8192-mt6359-rt1015-rt5682.c.
+> 
+> The first 3 patches refactor the existing mt8192-mt6359-rt1015-rt5682.c.
+> For easier to support newly added components later.
+> 
+> The 4th patch fixes a typo in DT bindings document.
+> 
+> [...]
 
 Applied to
 
@@ -78,8 +82,18 @@ Applied to
 
 Thanks!
 
-[1/1] ASoC: codecs: lpass-va-macro: remove some dead code
-      commit: 4d638b9cc79eff11bad13fb3715c0ef38a9edaec
+[1/6] ASoC: mediatek: mt8192: rename common symbols
+      commit: a5f8037505cbae5b877dea3e15acce4c29e9e797
+[2/6] ASoC: mediatek: mt8192: extract rt1015_rt5682 specific DAI link
+      commit: 2b53d2e16f735d8f13b77fefe03ce6b43c726beb
+[3/6] ASoC: mediatek: mt8192: move rt1015_rt5682 specific data
+      commit: ba499c36d12bcea9d4eba0b021c508bfe13c515d
+[4/6] ASoC: dt-bindings: mt8192-mt6359: fix typo in the example
+      commit: 6552c35de1915c8b423e4969ada1f1f8a53847e1
+[5/6] ASoC: dt-bindings: mt8192-mt6359: add new compatible for using rt1015p
+      commit: 6986256fdfefc2eeaec5f21d7937d57850fd57fe
+[6/6] ASoC: mediatek: mt8192: support rt1015p_rt5682
+      commit: cfd8bb254c9985266e4be7f59042170a72548a8f
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

@@ -2,72 +2,95 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 79A662CD97E
-	for <lists+alsa-devel@lfdr.de>; Thu,  3 Dec 2020 15:44:59 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2510E2CD9BF
+	for <lists+alsa-devel@lfdr.de>; Thu,  3 Dec 2020 16:02:31 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 090B5183F;
-	Thu,  3 Dec 2020 15:44:09 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 090B5183F
+	by alsa0.perex.cz (Postfix) with ESMTPS id A4EA51823;
+	Thu,  3 Dec 2020 16:01:40 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A4EA51823
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1607006699;
-	bh=DxJ4yIYFgoE+1eOz/ODDS5hA3PYUv9G+Xtpre9H2l3U=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=iTyyZA3barS2nkW8Y3zpD0n4BOsEmNSuczXcun3dGiglgBE20zg2JWYDuj6/C5DJe
-	 gNOQyEocTzh+gdgwhtW7e4hYs9Ywz/pWATiGMABP03Ax9i4wAciuH1JxOe/rjSVi4H
-	 FL4dMsPReGIneXsUAN9sIHdwtJcfIkIzHFLr7zZk=
+	s=default; t=1607007750;
+	bh=5bjB6PQ8PRj0q39g55bb3rSaZsRqM/s7Wnh/DY9boPo=;
+	h=Date:From:To:Subject:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=PohQpvgqhLbBknk0wgDtAvznlvt3W9ku5Z6m+WsqId+j8NnQ0zRThhNyXDQL4esEn
+	 PqBzz2CCx6Tb5URRW9yynftnLwll4ltD/RVS2MjLmEhqdcgpgZ9PGYCfFMaId5khlk
+	 wmq46ZDBdkKof/idoAM63oINE/wY4Y0XqaW3YhKI=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 82785F8026B;
-	Thu,  3 Dec 2020 15:44:06 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id B4560F8012A;
+	Thu,  3 Dec 2020 16:00:55 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 80A88F8025F; Thu,  3 Dec 2020 15:44:04 +0100 (CET)
+ id 61C04F8016D; Thu,  3 Dec 2020 16:00:54 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-1.6 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled
- version=3.4.0
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ DKIM_VALID,DKIM_VALID_AU,RCVD_IN_MSPIKE_H2,SPF_HELO_PASS,SPF_NONE,
+ UNPARSEABLE_RELAY autolearn=disabled version=3.4.0
+Received: from userp2130.oracle.com (userp2130.oracle.com [156.151.31.86])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id D6AE8F80082
- for <alsa-devel@alsa-project.org>; Thu,  3 Dec 2020 15:44:00 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D6AE8F80082
+ by alsa1.perex.cz (Postfix) with ESMTPS id F30FAF8012A
+ for <alsa-devel@alsa-project.org>; Thu,  3 Dec 2020 16:00:47 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz F30FAF8012A
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="t6YKWIB+"
-Date: Thu, 3 Dec 2020 14:43:56 +0000
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1607006639;
- bh=DxJ4yIYFgoE+1eOz/ODDS5hA3PYUv9G+Xtpre9H2l3U=;
- h=From:To:Cc:Subject:References:In-Reply-To:From;
- b=t6YKWIB+WG0ISjOdzos63GK19W7EXUSf5DOAIg5xNO0Qd6voGpvfVSsNfMyzth2kT
- kQGPY0CC2GSrS+9NA2onWGCzvP57m3NFXrZ6CTxJG0Qy8Kl7Vh2EKR6Ebn50l/lDjw
- srbZgZOv7pIILINBadg/xsnLwHsnIg48wWzsLczP/0uw1vudr87Ci2c4ETN5HQrC/i
- h+HNoatu9wTRuRtgBmz0bJ0XFnFz3ZGRiDvgcnrZud6co5dSVFDEtG/BpcqwXLE7lv
- XSPByT4+xQI5qUoDJ4JEjQV0TNLnBhLz30OXF6DJCNOFvj3kEPTTzUonYeMqHmn4JL
- H2AtLhsJd4Xkg==
-From: Mark Brown <broonie@kernel.org>
-To: Chuhong Yuan <hslester96@gmail.com>
-Subject: Re: [PATCH] ASoC: amd: add missed checks for clk_get()
-Message-ID: <20201203144356.GG4700@sirena.org.uk>
-References: <20201203143116.405930-1-hslester96@gmail.com>
+ dkim=pass (2048-bit key) header.d=oracle.com header.i=@oracle.com
+ header.b="Mk4xS5FF"
+Received: from pps.filterd (userp2130.oracle.com [127.0.0.1])
+ by userp2130.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 0B3Extcs163614;
+ Thu, 3 Dec 2020 15:00:45 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com;
+ h=date : from : to : cc
+ : subject : message-id : mime-version : content-type; s=corp-2020-01-29;
+ bh=rNLRXiNThiGHAf6b3uWN9SDwMshmlc+M2pXjau3jS/A=;
+ b=Mk4xS5FFUwBe0wlr0qJwTvPhmiYS1A92lZPVTXh5qoI0IQ5hV1T1jKNJi84NTjGT6AXY
+ dfi4uiEgiMOLZ+Tp6uQU7jyYlsUUjriJQCs9v0XcRY2vpT6Dcjyovuxw5wQecupDysuD
+ C8IFl9j7W+5/ztvDPhHx1GwPMlMTGNzqX1Kk+SZPcM8EHyS65v3AjRnwqbzOdp9/lwim
+ 9U99fpKSpzRDymNDIOcTuo9Zigx8sva87MbayPaejAcbkUMEDpQcNXLEfG6f9rW8VTI/
+ FQEh0r7Kf29n04gzfjkZrADrxQITp2DQdogciTt1uSV2CinwhAEm1K1BCxLQsvaCqjRn FA== 
+Received: from aserp3020.oracle.com (aserp3020.oracle.com [141.146.126.70])
+ by userp2130.oracle.com with ESMTP id 353dyqxe6r-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
+ Thu, 03 Dec 2020 15:00:44 +0000
+Received: from pps.filterd (aserp3020.oracle.com [127.0.0.1])
+ by aserp3020.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 0B3EuDJK106550;
+ Thu, 3 Dec 2020 14:58:44 GMT
+Received: from userv0121.oracle.com (userv0121.oracle.com [156.151.31.72])
+ by aserp3020.oracle.com with ESMTP id 3540f1y3qy-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Thu, 03 Dec 2020 14:58:44 +0000
+Received: from abhmp0020.oracle.com (abhmp0020.oracle.com [141.146.116.26])
+ by userv0121.oracle.com (8.14.4/8.13.8) with ESMTP id 0B3EwfNr029861;
+ Thu, 3 Dec 2020 14:58:43 GMT
+Received: from mwanda (/102.36.221.92) by default (Oracle Beehive Gateway v4.0)
+ with ESMTP ; Thu, 03 Dec 2020 14:58:41 +0000
+Date: Thu, 3 Dec 2020 17:58:36 +0300
+From: Dan Carpenter <dan.carpenter@oracle.com>
+To: codrin.ciubotariu@microchip.com
+Subject: [bug report] ASoC: mchp-spdifrx: add driver for SPDIF RX
+Message-ID: <X8j9HPrdXRy5IDvd@mwanda>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="rV8arf8D5Dod9UkK"
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20201203143116.405930-1-hslester96@gmail.com>
-X-Cookie: Sacred cows make great hamburgers.
-User-Agent: Mutt/1.10.1 (2018-07-13)
-Cc: alsa-devel@alsa-project.org,
- Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
- Liam Girdwood <lgirdwood@gmail.com>, linux-kernel@vger.kernel.org,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- Takashi Iwai <tiwai@suse.com>, Agrawal Akshu <Akshu.Agrawal@amd.com>
+X-Proofpoint-Virus-Version: vendor=nai engine=6000 definitions=9823
+ signatures=668682
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 mlxscore=0
+ malwarescore=0 phishscore=0
+ suspectscore=3 bulkscore=0 spamscore=0 adultscore=0 mlxlogscore=720
+ classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2009150000
+ definitions=main-2012030091
+X-Proofpoint-Virus-Version: vendor=nai engine=6000 definitions=9823
+ signatures=668682
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 malwarescore=0
+ bulkscore=0
+ clxscore=1011 mlxscore=0 spamscore=0 priorityscore=1501 mlxlogscore=706
+ suspectscore=3 lowpriorityscore=0 phishscore=0 adultscore=0
+ impostorscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.12.0-2009150000 definitions=main-2012030092
+Cc: alsa-devel@alsa-project.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -83,38 +106,49 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+Hello Codrin Ciubotariu,
 
---rV8arf8D5Dod9UkK
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+The patch ef265c55c1ac: "ASoC: mchp-spdifrx: add driver for SPDIF RX"
+from Oct 2, 2020, leads to the following static checker warning:
 
-On Thu, Dec 03, 2020 at 10:31:16PM +0800, Chuhong Yuan wrote:
+	sound/soc/atmel/mchp-spdifrx.c:468 mchp_spdifrx_hw_params()
+	warn: 'dev->gclk' not released on lines: 468.
 
->  	da7219_dai_wclk = clk_get(component->dev, "da7219-dai-wclk");
-> +	if (IS_ERR(da7219_dai_wclk))
-> +		return PTR_ERR(da7219_dai_wclk);
-> +
->  	da7219_dai_bclk = clk_get(component->dev, "da7219-dai-bclk");
-> +	if (IS_ERR(da7219_dai_bclk))
-> +		return PTR_ERR(da7219_dai_bclk);
+sound/soc/atmel/mchp-spdifrx.c
+   442                          params_format(params));
+   443                  return -EINVAL;
+   444          }
+   445  
+   446          if (dev->gclk_enabled) {
+   447                  clk_disable_unprepare(dev->gclk);
+   448                  dev->gclk_enabled = 0;
+   449          }
+   450          ret = clk_set_min_rate(dev->gclk, params_rate(params) *
+   451                                            SPDIFRX_GCLK_RATIO_MIN + 1);
+   452          if (ret) {
+   453                  dev_err(dev->dev,
+   454                          "unable to set gclk min rate: rate %u * ratio %u + 1\n",
+   455                          params_rate(params), SPDIFRX_GCLK_RATIO_MIN);
+   456                  return ret;
+   457          }
+   458          ret = clk_prepare_enable(dev->gclk);
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-This is also buggy - instead of ignoring the errors (which is an issue)
-we now leak the wclk if the bclk fails.  Probably should convert to devm
-as well.
+   459          if (ret) {
+   460                  dev_err(dev->dev, "unable to enable gclk: %d\n", ret);
+   461                  return ret;
+   462          }
+   463          dev->gclk_enabled = 1;
+   464  
+   465          dev_dbg(dev->dev, "GCLK range min set to %d\n",
+   466                  params_rate(params) * SPDIFRX_GCLK_RATIO_MIN + 1);
+   467  
+   468          return regmap_write(dev->regmap, SPDIFRX_MR, mr);
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Smatch is complaining that if the regmap_write() fails then we should
+disable and unprepare the "dev->gclk".
 
---rV8arf8D5Dod9UkK
-Content-Type: application/pgp-signature; name="signature.asc"
+   469  }
 
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl/I+asACgkQJNaLcl1U
-h9B6wQf/WHDDI4u+PUzca/wx02KyGxHEMupD7sXA+muUTiOQJBg5ZjZsrhA8A1hm
-QE1YZhTrsOoNgVOMxJf6xTNOZuuL4SLg1Ui425NLyEo1RFGje54n+sH4bHqYhI+Z
-86YIurOLx9pyazc6eJUzhOWC4A99ZoaOP8tTztw3Q3rbtktTNavbD54ypj0C+pb8
-YoJlgqI5RYaDNvxDc23s5UiEUgTDG/Ux7kjAn7b44y3sApcuUNYPXWkhgSWSfPmY
-j6073kxyYlLUwnsa/ZhZcx4ebFzA1mgz6bf8hdkxW+dszJxh7/GPTfj2eWmgBz57
-9o9c433ExVA2aVQLLoZjPA4HCDudZA==
-=6c+8
------END PGP SIGNATURE-----
-
---rV8arf8D5Dod9UkK--
+regards,
+dan carpenter

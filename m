@@ -2,29 +2,29 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A807D2CE1F4
-	for <lists+alsa-devel@lfdr.de>; Thu,  3 Dec 2020 23:40:07 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 89D782CE239
+	for <lists+alsa-devel@lfdr.de>; Thu,  3 Dec 2020 23:56:51 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 3F04B1850;
-	Thu,  3 Dec 2020 23:39:17 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3F04B1850
+	by alsa0.perex.cz (Postfix) with ESMTPS id 1D10E1853;
+	Thu,  3 Dec 2020 23:56:01 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1D10E1853
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1607035207;
-	bh=Jz+eVh+viSeXmABrmOQFr/sfRteiiYgVjkCevGZxmfE=;
+	s=default; t=1607036211;
+	bh=URV65CG+N2q0i+BQnHcEgOxT/lqRzKzs3xx0w5c7VkY=;
 	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
 	 List-Post:List-Help:List-Subscribe:From;
-	b=GQk2lwdq15Q8ojaGMbA6a9MsTdgtRJj2Xg81AMG00EybqRbMhGafJG6MCbw9Lditb
-	 D/P1zDW0pdP4QAu4KtulJXXaJkde5uJKB5nFemfEI2cvCRNOPfrO+T/I4bE/OC50/E
-	 xYiplxB6mKMC47jnguph6FWCRosqt5iwN92vwJvs=
+	b=Y2wo8ANUVtjnPKKu+bMEQjPufSq+wd0Mghlykzy1EpNchmgxVWdKOdmzSHabPPEZC
+	 Fg0YKqabRzg0AZuxSTnBf980xWNhZOkuo/B5GzNIf9A5oXMmI/gQTmBOsucT825iK2
+	 wbWFw8h3MnH/2tRMeCtC6iBpZRE/uKIPSPfYM20g=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 65B18F8012A;
-	Thu,  3 Dec 2020 23:38:32 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 3E51FF80254;
+	Thu,  3 Dec 2020 23:55:16 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id A8736F8016D; Thu,  3 Dec 2020 23:38:30 +0100 (CET)
+ id 7DCE0F8016D; Thu,  3 Dec 2020 23:55:14 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
@@ -32,26 +32,26 @@ X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id C097DF8012A
- for <alsa-devel@alsa-project.org>; Thu,  3 Dec 2020 23:38:22 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C097DF8012A
+ by alsa1.perex.cz (Postfix) with ESMTPS id 0E40BF800E8
+ for <alsa-devel@alsa-project.org>; Thu,  3 Dec 2020 23:55:05 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0E40BF800E8
 From: Arnd Bergmann <arnd@kernel.org>
 Authentication-Results: mail.kernel.org;
  dkim=permerror (bad message/signature format)
-To: Codrin Ciubotariu <codrin.ciubotariu@microchip.com>,
+To: Cheng-Yi Chiang <cychiang@chromium.org>,
  Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
  Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
- Nicolas Ferre <nicolas.ferre@microchip.com>,
- Alexandre Belloni <alexandre.belloni@bootlin.com>,
- Ludovic Desroches <ludovic.desroches@microchip.com>
-Subject: [PATCH] ASoC: atmel: mchp-spdifrx needs COMMON_CLK
-Date: Thu,  3 Dec 2020 23:38:05 +0100
-Message-Id: <20201203223815.1353451-1-arnd@kernel.org>
+ Benson Leung <bleung@chromium.org>,
+ Enric Balletbo i Serra <enric.balletbo@collabora.com>,
+ Tzung-Bi Shih <tzungbi@google.com>
+Subject: [PATCH] ASoC: cros_ec_codec: fix uninitialized memory read
+Date: Thu,  3 Dec 2020 23:54:41 +0100
+Message-Id: <20201203225458.1477830-1-arnd@kernel.org>
 X-Mailer: git-send-email 2.27.0
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Cc: alsa-devel@alsa-project.org, linux-arm-kernel@lists.infradead.org,
- Arnd Bergmann <arnd@arndb.de>, linux-kernel@vger.kernel.org
+Cc: Guenter Roeck <groeck@chromium.org>, alsa-devel@alsa-project.org,
+ linux-kernel@vger.kernel.org, Arnd Bergmann <arnd@arndb.de>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -69,30 +69,34 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 From: Arnd Bergmann <arnd@arndb.de>
 
-Compile-testing this driver on an older platform without CONFIG_COMMON_CLK fails with
+gcc points out a memory area that is copied to a device
+but not initialized:
 
-ERROR: modpost: "clk_set_min_rate" [sound/soc/atmel/snd-soc-mchp-spdifrx.ko] undefined!
+sound/soc/codecs/cros_ec_codec.c: In function 'i2s_rx_event':
+arch/x86/include/asm/string_32.h:83:20: error: '*((void *)&p+4)' may be used uninitialized in this function [-Werror=maybe-uninitialized]
+   83 |   *((int *)to + 1) = *((int *)from + 1);
 
-Make this is a strict dependency.
+Initialize all the unused fields to zero.
 
-Fixes: ef265c55c1ac ("ASoC: mchp-spdifrx: add driver for SPDIF RX")
+Fixes: 727f1c71c780 ("ASoC: cros_ec_codec: refactor I2S RX")
 Signed-off-by: Arnd Bergmann <arnd@arndb.de>
 ---
- sound/soc/atmel/Kconfig | 1 +
- 1 file changed, 1 insertion(+)
+ sound/soc/codecs/cros_ec_codec.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/sound/soc/atmel/Kconfig b/sound/soc/atmel/Kconfig
-index bd8854bfd2ee..142373ec411a 100644
---- a/sound/soc/atmel/Kconfig
-+++ b/sound/soc/atmel/Kconfig
-@@ -148,6 +148,7 @@ config SND_MCHP_SOC_SPDIFTX
- config SND_MCHP_SOC_SPDIFRX
- 	tristate "Microchip ASoC driver for boards using S/PDIF RX"
- 	depends on OF && (ARCH_AT91 || COMPILE_TEST)
-+	depends on COMMON_CLK
- 	select SND_SOC_GENERIC_DMAENGINE_PCM
- 	select REGMAP_MMIO
- 	help
+diff --git a/sound/soc/codecs/cros_ec_codec.c b/sound/soc/codecs/cros_ec_codec.c
+index 58894bf47514..f33a2a9654e7 100644
+--- a/sound/soc/codecs/cros_ec_codec.c
++++ b/sound/soc/codecs/cros_ec_codec.c
+@@ -332,7 +332,7 @@ static int i2s_rx_event(struct snd_soc_dapm_widget *w,
+ 		snd_soc_dapm_to_component(w->dapm);
+ 	struct cros_ec_codec_priv *priv =
+ 		snd_soc_component_get_drvdata(component);
+-	struct ec_param_ec_codec_i2s_rx p;
++	struct ec_param_ec_codec_i2s_rx p = {};
+ 
+ 	switch (event) {
+ 	case SND_SOC_DAPM_PRE_PMU:
 -- 
 2.27.0
 

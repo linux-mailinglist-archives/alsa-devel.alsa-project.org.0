@@ -2,90 +2,118 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6D8CC2CCD82
-	for <lists+alsa-devel@lfdr.de>; Thu,  3 Dec 2020 04:53:32 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id D05DE2CCEB4
+	for <lists+alsa-devel@lfdr.de>; Thu,  3 Dec 2020 06:37:02 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id F00D81821;
-	Thu,  3 Dec 2020 04:52:41 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz F00D81821
+	by alsa0.perex.cz (Postfix) with ESMTPS id 0AACC1832;
+	Thu,  3 Dec 2020 06:36:12 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0AACC1832
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1606967612;
-	bh=cN/Ln1IbYnnQ6RzNTgSIMqfGgOIPvosUwWrAfpyQTzk=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=E6FbQLJfupjTRP9U0TQwIGBRGPgaSJfPZJtWiUHzO6cprQHbckiURkrZu1wYoeQo4
-	 FADtm2Uahudz3QtZx5kZ5r9B9fayrGa427POxulmNDKr0YD37Pg2vjEiQxuwwHQO1o
-	 R2vR+QiiRBHLDeO6xkLI7yHwpUvhuqr/SJnT+Ksg=
+	s=default; t=1606973822;
+	bh=X4ZkVgx8K4dbzS7T561ZhYBklsNGPKwrDhe3Ad4JFj4=;
+	h=From:To:Subject:Date:References:Cc:List-Id:List-Unsubscribe:
+	 List-Archive:List-Post:List-Help:List-Subscribe:From;
+	b=VqRYhGH+5R23L7ToI//IipvkQs3b73PF5sRwCDuRnBflz1xQShJvbiRHTVMoSo5xc
+	 EGFE0Vna20xtV8LTHcmXSzmXJCAOsNbezH1+3t/Bt3nUeowch5hR44e1oSkHRO8TVU
+	 6crDIL0fUp/j6f1eAxD3xd4oTyC9lRZGczjr6EHs=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 04CCBF80254;
-	Thu,  3 Dec 2020 04:51:57 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 89D94F80276;
+	Thu,  3 Dec 2020 06:35:19 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id DE182F8016D; Thu,  3 Dec 2020 04:51:54 +0100 (CET)
+ id 63F1BF8025F; Thu,  3 Dec 2020 06:35:16 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from mail-qk1-x743.google.com (mail-qk1-x743.google.com
- [IPv6:2607:f8b0:4864:20::743])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=-1.6 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+ DKIM_VALID,DKIM_VALID_AU,RCVD_IN_MSPIKE_H3,RCVD_IN_MSPIKE_WL,SPF_HELO_PASS,
+ SPF_PASS,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mailout2.samsung.com (mailout2.samsung.com [203.254.224.25])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 659BEF800E8
- for <alsa-devel@alsa-project.org>; Thu,  3 Dec 2020 04:51:46 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 659BEF800E8
+ by alsa1.perex.cz (Postfix) with ESMTPS id D12F4F80082
+ for <alsa-devel@alsa-project.org>; Thu,  3 Dec 2020 06:35:08 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D12F4F80082
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="Mhea7zKS"
-Received: by mail-qk1-x743.google.com with SMTP id n132so1016055qke.1
- for <alsa-devel@alsa-project.org>; Wed, 02 Dec 2020 19:51:46 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=SUzQs/+SoVYKqbh24yWO/KQhjnAXrlDusJdUSTJS5A8=;
- b=Mhea7zKSrwE8kuWuWy+h9M4qWmkuaGN4aIb747Gar6/nB54tO2IxYzyAY5JGJIBgFD
- 4lNXCYHb96+jK8BAabG5UbTB6v+QvEBfjJ4Bu3NKUQepLKB3saaoGPMzgBSAvvAF2dGK
- DOTSmr7c4mjAX+j/vsXoRVSKJCKOW3ZsKIdPhkqZ9xqynSGNxavwDYgdOKFnNcxCDIUB
- Fhr24MF6tv758ybaKhhDZ17K3qDhsPb/0glb7vdNKf0Ihw9JAepVuoGN9K7CJGcgoj/h
- z1oJa4ibzH3I4wFno7uS5j/qBUnMpq7ogbpp+jR2XJewTmeN2Y9rGeebn7KHR7/ov8Yi
- hSWA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=SUzQs/+SoVYKqbh24yWO/KQhjnAXrlDusJdUSTJS5A8=;
- b=FYnaooK0Dm9eNfSg2Y5PtXCojMoj7+bh+CLjajR2TlJYuHUHT54fZ8mgzeFfB1ScWQ
- QCktib7a2MaE+kzCnp1+8UmH/MhlH2CTkhfhC8urrIpBXXsoK0/VMjBq4YtSLnN2Q1tP
- 8RObHpsyzTnCEC3PaQBMZCNSM4gBTi4x9LELPCg9GwMmJDltrY53Y0wHVEiC90vsCGQy
- C7Iv3L3ZlhMbRceyEC5Amb8K0aW8zfOPhPnwxQjT1cvhP6K+lchhhFvqOwBDUm06+JEF
- uxzJsIfUcLgmLrhrosjd9OG57jmi0krjn9uuPTXsV7+CGkpeavNdEYZ0Q+oqAon2C6kx
- iCjw==
-X-Gm-Message-State: AOAM5309kQWIdvd3rHn7InFj7EozvYLWTu4vh3UfdSljZTfpoXfoENs0
- 5JxnnBliAOdsMgTs7MBkH4BW7mgFiOh8vxTiK04=
-X-Google-Smtp-Source: ABdhPJy7VJpgVDqrl8VrmWdiRB1M2O74ruT8AdiwDLEn+Mf13W/ZStOpINVSqcBacLORp6qnYaI9VhZZGC1MC4qMtf8=
-X-Received: by 2002:a37:ad17:: with SMTP id f23mr1146570qkm.121.1606967502905; 
- Wed, 02 Dec 2020 19:51:42 -0800 (PST)
+ dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com
+ header.b="kcdcIEBB"
+Received: from epcas3p1.samsung.com (unknown [182.195.41.19])
+ by mailout2.samsung.com (KnoxPortal) with ESMTP id
+ 20201203053502epoutp02c83623917fba83b88520fcc1883b6c9a~NHhFg-gNH2164821648epoutp02W
+ for <alsa-devel@alsa-project.org>; Thu,  3 Dec 2020 05:35:02 +0000 (GMT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 mailout2.samsung.com
+ 20201203053502epoutp02c83623917fba83b88520fcc1883b6c9a~NHhFg-gNH2164821648epoutp02W
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
+ s=mail20170921; t=1606973702;
+ bh=vdeHPsfHrZyOGNKdJPU0JMXwLSSBAGB7qrQsssr3lCA=;
+ h=From:To:Cc:Subject:Date:References:From;
+ b=kcdcIEBBs3sCSLCp8tH7EikraVfhBlsxXjTjiexMNtm5UcoKCYy5bG7xA+1p9iwwh
+ 3WOmySbuNaHf1gX4AOzq/GnXh4p9xFGGwP6GBybZkJD2W8XMHX3tCBIg5GM+6AUIYw
+ HtySrejDwgFyzF+CtDlW1sH4BD3uWVKDGqU8DR+s=
+Received: from epsnrtp1.localdomain (unknown [182.195.42.162]) by
+ epcas3p4.samsung.com (KnoxPortal) with ESMTP id
+ 20201203053501epcas3p43f34c0d9a94c8923a92a2bed680b752d~NHhFNeJfH1866618666epcas3p4N;
+ Thu,  3 Dec 2020 05:35:01 +0000 (GMT)
+Received: from epcpadp3 (unknown [182.195.40.17]) by epsnrtp1.localdomain
+ (Postfix) with ESMTP id 4Cml0P4mn7z4x9Px; Thu,  3 Dec 2020 05:35:01 +0000
+ (GMT)
+Received: from epsmtrp2.samsung.com (unknown [182.195.40.14]) by
+ epcas2p1.samsung.com (KnoxPortal) with ESMTPA id
+ 20201203053224epcas2p1fa702ea12a9869f5c73ec60c760a3131~NHeyv8M5j0387003870epcas2p1W;
+ Thu,  3 Dec 2020 05:32:24 +0000 (GMT)
+Received: from epsmgms1p1new.samsung.com (unknown [182.195.42.41]) by
+ epsmtrp2.samsung.com (KnoxPortal) with ESMTP id
+ 20201203053224epsmtrp2d3ec9fa58f6a2fb8bde7441c5f7d2664~NHeyvDoDH0373403734epsmtrp2O;
+ Thu,  3 Dec 2020 05:32:24 +0000 (GMT)
+X-AuditID: b6c32a29-f3fff7000000349e-82-5fc87868be89
+Received: from epsmtip2.samsung.com ( [182.195.34.31]) by
+ epsmgms1p1new.samsung.com (Symantec Messaging Gateway) with SMTP id
+ 97.EB.13470.86878CF5; Thu,  3 Dec 2020 14:32:24 +0900 (KST)
+Received: from KORDO025540 (unknown [12.36.182.130]) by epsmtip2.samsung.com
+ (KnoxPortal) with ESMTPA id
+ 20201203053224epsmtip2d87032b6e75e9739ca6a5d0933df18c7~NHeyiTQWT2399123991epsmtip2V;
+ Thu,  3 Dec 2020 05:32:24 +0000 (GMT)
+From: "Gyeongtaek Lee" <gt82.lee@samsung.com>
+To: "'Kuninori Morimoto'" <kuninori.morimoto.gx@renesas.com>,
+ <cpgs@samsung.com>
+Subject: [PATCH v2 0/1] ASoC: dpcm: acquire dpcm_lock in dpcm_do_trigger()
+Date: Thu, 3 Dec 2020 14:32:23 +0900
+Message-ID: <2038148563.21606973701670.JavaMail.epsvc@epcpadp3>
 MIME-Version: 1.0
-References: <1606455021-18882-1-git-send-email-shengjiu.wang@nxp.com>
- <1606455021-18882-2-git-send-email-shengjiu.wang@nxp.com>
- <20201202201955.GB1498@Asurada-Nvidia>
-In-Reply-To: <20201202201955.GB1498@Asurada-Nvidia>
-From: Shengjiu Wang <shengjiu.wang@gmail.com>
-Date: Thu, 3 Dec 2020 11:51:32 +0800
-Message-ID: <CAA+D8AOAMV4jyD0uBwER+0KkrBjJcrNPcT4zeYU8Y1WRDRXziQ@mail.gmail.com>
-Subject: Re: [PATCH 2/2] ASoC: fsl: Add imx-hdmi machine driver
-To: Nicolin Chen <nicoleotsuka@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Cc: "open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS"
- <devicetree@vger.kernel.org>, alsa-devel@alsa-project.org,
- Timur Tabi <timur@kernel.org>, Xiubo Li <Xiubo.Lee@gmail.com>,
- Fabio Estevam <festevam@gmail.com>, Shengjiu Wang <shengjiu.wang@nxp.com>,
- Liam Girdwood <lgirdwood@gmail.com>, Takashi Iwai <tiwai@suse.com>,
- Rob Herring <robh+dt@kernel.org>, Mark Brown <broonie@kernel.org>,
- linuxppc-dev@lists.ozlabs.org, linux-kernel <linux-kernel@vger.kernel.org>
+Content-Transfer-Encoding: quoted-printable
+X-Mailer: Microsoft Outlook 16.0
+Thread-Index: AdbJL+4kLaRovKIjTQOjmB/n5rVIiA==
+Content-Language: ko
+X-Brightmail-Tracker: H4sIAAAAAAAAA+NgFuphkeLIzCtJLcpLzFFi42LZdlhJXjej4kS8wZS3IhZXLh5isnh5SNPi
+ 7g9zixnbulksGu9NYLNYfXULk8Wrw7sYLb5d6WCy+PX/GZPF0YuLmSwa7jazW7zc/IbJ4kjj
+ FCYHXo8Nn5vYPHbOusvuMe9koMe3MxNZPPq2rGL02Hy6OoAtissmJTUnsyy1SN8ugSvj6MHV
+ bAXnBSsuX73I3MC4k6+LkZNDQsBEoq9jAlMXIxeHkMBuRokVi9uYIBISEh/mn2GHsIUl7rcc
+ YYUoes4oMfXgeTaQBJuArsSXe3eYQWwRgSCJBUv/ghUxC7xjkrj6awXYJGEBL4ldy5cwgtgs
+ AioSBxcvBrN5BSwlFuzYyAJhC0qcnPkEzGYW0JbofdjKCGMvW/iaGeIKBYmfT5exQizTk3i+
+ 6wE7RI2IxOzONuYJjIKzkIyahWTULCSjZiFpWcDIsopRMrWgODc9t9iwwDAvtVyvODG3uDQv
+ XS85P3cTIzjCtDR3MG5f9UHvECMTB+MhRgkOZiURXpZ/R+KFeFMSK6tSi/Lji0pzUosPMUpz
+ sCiJ894oXBgnJJCeWJKanZpakFoEk2Xi4JRqYAr/OJ9l8aGc1d/Uaj94TRN5v0bhaLh7pc/q
+ iMpPGw4lBkjnt9+cnuUSNHnhuyuTvlfEWiyRu7pscaPBT8ugAz881e5bVvPPsePQnc0ZwvhL
+ z/7g3PrdK+W2y88PqzQXNZfkvVrhZGl17NPt11s9lr30ddqnqPXs7UNvYaneFD//SzmCiccf
+ Zh6aM1dLwObEnR8yi3zOSq3LMdvpkWzclCge/Ms9qzOzkZl95+XId5m1Bn9nzW6d+iw4geFC
+ 14wL6ya8/volYevsm2+Dzz/ccErgSkPnVbUX///yct/P0TPUW3bJUWzm/lP8L6yOZD1Ifm+b
+ dF8v4UyCwoppBmYyUvpvY6ubf/H80LuW8TXEf4YSS3FGoqEWc1FxIgAwEoJUHwMAAA==
+X-CMS-MailID: 20201203053224epcas2p1fa702ea12a9869f5c73ec60c760a3131
+X-Msg-Generator: CA
+Content-Type: text/plain; charset="utf-8"
+X-Sendblock-Type: AUTO_CONFIDENTIAL
+X-CPGSPASS: Y
+X-Hop-Count: 3
+X-CMS-RootMailID: 20201203053224epcas2p1fa702ea12a9869f5c73ec60c760a3131
+References: <CGME20201203053224epcas2p1fa702ea12a9869f5c73ec60c760a3131@epcas2p1.samsung.com>
+Cc: alsa-devel@alsa-project.org, khw0178.kim@samsung.com, 'Takashi
+ Iwai' <tiwai@suse.de>,
+ 'Pierre-Louis Bossart' <pierre-louis.bossart@linux.intel.com>,
+ lgirdwood@gmail.com, kimty@samsung.com, donggyun.ko@samsung.com,
+ hmseo@samsung.com, cpgs@samsung.com, s47.kang@samsung.com,
+ pilsun.jang@samsung.com, tkjung@samsung.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -101,131 +129,75 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Thu, Dec 3, 2020 at 4:23 AM Nicolin Chen <nicoleotsuka@gmail.com> wrote:
+On 03 Dec 2020 07:33:03 +0900, Kuninori Morimoto wrote:
+>Hi Gyeongtaek
 >
-> On Fri, Nov 27, 2020 at 01:30:21PM +0800, Shengjiu Wang wrote:
-> > The driver is initially designed for sound card using HDMI
-> > interface on i.MX platform. There is internal HDMI IP or
-> > external HDMI modules connect with SAI or AUD2HTX interface.
-> > It supports both transmitter and receiver devices.
-> >
-> > Signed-off-by: Shengjiu Wang <shengjiu.wang@nxp.com>
-> > ---
-> >  sound/soc/fsl/Kconfig    |  12 ++
-> >  sound/soc/fsl/Makefile   |   2 +
-> >  sound/soc/fsl/imx-hdmi.c | 235 +++++++++++++++++++++++++++++++++++++++
-> >  3 files changed, 249 insertions(+)
-> >  create mode 100644 sound/soc/fsl/imx-hdmi.c
+>Thank you for your patch
 >
-> > diff --git a/sound/soc/fsl/imx-hdmi.c b/sound/soc/fsl/imx-hdmi.c
-> > new file mode 100644
-> > index 000000000000..ac164514b1b2
-> > --- /dev/null
-> > +++ b/sound/soc/fsl/imx-hdmi.c
+>> If stop by underrun and DPCM BE disconnection is run simultaneously,
+>> data abort can be occurred by the sequence below.
+>>=20
+>> /* In core X, running dpcm_be_dai_trigger() */
+>> for_each_dpcm_be(fe, stream, dpcm) {
+>> /* In core Y, running dpcm_be_disconnect() */
+>> spin_lock_irqsave(&fe->card->dpcm_lock, flags);
+>> list_del(&dpcm->list_be);
+>> list_del(&dpcm->list_fe);
+>> spin_unlock_irqrestore(&fe->card->dpcm_lock, flags);
+>> kfree(dpcm);
+>> /* In core X, running dpcm_be_dai_trigger() */
+>> struct snd_soc_pcm_runtime *be =3D dpcm->be;   <=3D=3D Accessing freed m=
+emory
 >
-> > +static int imx_hdmi_hw_params(struct snd_pcm_substream *substream,
-> > +                           struct snd_pcm_hw_params *params)
-> > +{
-> > +     struct snd_soc_pcm_runtime *rtd = substream->private_data;
-> > +     struct imx_hdmi_data *data = snd_soc_card_get_drvdata(rtd->card);
-> > +     bool tx = substream->stream == SNDRV_PCM_STREAM_PLAYBACK;
-> > +     struct snd_soc_dai *cpu_dai = asoc_rtd_to_cpu(rtd, 0);
-> > +     struct snd_soc_card *card = rtd->card;
-> > +     struct device *dev = card->dev;
-> > +     int ret;
-> > +
-> > +     /* set cpu DAI configuration */
-> > +     ret = snd_soc_dai_set_sysclk(cpu_dai, data->cpu_priv.sysclk_id[tx],
-> > +                                  8 * data->cpu_priv.slot_width * params_rate(params),
+>It is easy to read/understand if this code has alignment.
 >
-> Looks like fixed 2 slots being used, judging by the set_tdm_slot
-> call below. Then...why "8 *"? Probably need a line of comments?
+>> To prevent this situation, dpcm_lock should be acquired during
+>> iteration of dpcm list in dpcm_do_trigger().
+>>=20
+>> Signed-off-by: Gyeongtaek Lee <gt82.lee@samsung.com>
+>> Cc: stable@vger.kernel.org
+>> ---
+>
+>Is this bugfix patch for some recent commit ?
+>If so, having Fixes: tag is helpful.
+>
+>Thank you for your help !!
+I tried to find out some change from the history.
+However, I saw that dpcm_lock never be held in dpcm_be_dai_trigger() from t=
+he beginning.
+So, I just fixed some miss from the commit comment and resend.
+If you have another suggestion or request, just let me know.
 
-The master clock always 256 * rate, when slot_width=32.  so use
-the 8 * slot_width.  will add comments.
+And I have a question.
+This patch can=E2=80=99t be applied to stable branches directly by conflict=
+.
+I found out following commits are needed to apply this patch into the 5.4 s=
+table.
+ ASoC: soc-pcm: remove snd_soc_dpcm_be_get/set_state()
+ ASoC: soc-pcm: add snd_soc_dpcm_can_be() and remove duplicate code
+In this case, what should I do when stable maintainer requests resolving co=
+nflict to me?
+Should I send those patches to the maintainer?
+Or rewrite the patch on the latest of the each stable?
 
+Thank you!
+Gyeongtaek Lee
 >
-> > +                                  tx ? SND_SOC_CLOCK_OUT : SND_SOC_CLOCK_IN);
-> > +     if (ret && ret != -ENOTSUPP) {
-> > +             dev_err(dev, "failed to set cpu sysclk: %d\n", ret);
-> > +             return ret;
-> > +     }
-> > +
-> > +     ret = snd_soc_dai_set_tdm_slot(cpu_dai, 0, 0, 2, data->cpu_priv.slot_width);
->
-> May have a local variable to cache slot_width.
-
-ok.
-
->
-> > +static int imx_hdmi_probe(struct platform_device *pdev)
->
-> > +     data->dai.name = "i.MX HDMI";
-> > +     data->dai.stream_name = "i.MX HDMI";
-> > +     data->dai.cpus->dai_name = dev_name(&cpu_pdev->dev);
-> > +     data->dai.platforms->of_node = cpu_np;
-> > +     data->dai.ops = &imx_hdmi_ops;
-> > +     data->dai.playback_only = true;
-> > +     data->dai.capture_only = false;
-> > +     data->dai.init = imx_hdmi_init;
-> > +
-> > +
-> > +     if (of_property_read_bool(np, "hdmi-out")) {
-> > +             data->dai.playback_only = true;
-> > +             data->dai.capture_only = false;
-> > +             data->dai.codecs->dai_name = "i2s-hifi";
-> > +             data->dai.codecs->name = "hdmi-audio-codec.1";
-> > +             data->dai.dai_fmt = data->dai_fmt |
-> > +                                 SND_SOC_DAIFMT_NB_NF |
-> > +                                 SND_SOC_DAIFMT_CBS_CFS;
-> > +     }
-> > +
-> > +     if (of_property_read_bool(np, "hdmi-in")) {
-> > +             data->dai.playback_only = false;
-> > +             data->dai.capture_only = true;
-> > +             data->dai.codecs->dai_name = "i2s-hifi";
-> > +             data->dai.codecs->name = "hdmi-audio-codec.2";
-> > +             data->dai.dai_fmt = data->dai_fmt |
-> > +                                 SND_SOC_DAIFMT_NB_NF |
-> > +                                 SND_SOC_DAIFMT_CBM_CFM;
-> > +     }
-> > +
-> > +     if ((data->dai.playback_only && data->dai.capture_only) ||
-> > +         (!data->dai.playback_only && !data->dai.capture_only)) {
-> > +             dev_err(&pdev->dev, "Wrongly enable HDMI DAI link\n");
-> > +             goto fail;
-> > +     }
->
-> Seems that this condition check can never be true, given that:
-> 1. By default: playback_only=true && capture_only=false
-> 2. Conditionally overwritten: playback_only=true && capture_only=false
-> 3. Conditionally overwritten: playback_only=false && capture_only=true
->
-> If I understand it correctly, probably should be something like:
->         bool hdmi_out = of_property_read_bool(np, "hdmi-out");
->         bool hdmi_in = of_property_read_bool(np, "hdmi-in");
->
->         if ((hdmi_out && hdmi_in) || (!hdmi_out || !hdmi_in))
->                 // "Invalid HDMI DAI link"; goto fail;
->
->         if (hdmi_out) {
->                 // ...
->         } else if (hdmi_in) {
->                 // ...
->         } else // No need of this line if two properties are exclusive
+>Best regards
+>---
+>Kuninori Morimoto
 >
 
-Good catch, will update it.
+Gyeongtaek Lee (1):
+  ASoC: dpcm: acquire dpcm_lock in dpcm_do_trigger()
 
-> > +     data->card.num_links = 1;
-> > +     data->card.dai_link = &data->dai;
-> > +
-> > +     platform_set_drvdata(pdev, &data->card);
->
-> Why pass card pointer?
+ sound/soc/soc-pcm.c | 62 ++++++++++++++++++++++++++++++++-------------
+ 1 file changed, 44 insertions(+), 18 deletions(-)
 
-Seems it duplicates with dev_set_drvdata(card->dev, card);
-in snd_soc_register_card.  will remove it.
 
-best regards
-wang shengjiu
+base-commit: fa02fcd94b0c8dff6cc65714510cf25ad194b90d
+--=20
+2.21.0
+
+
+

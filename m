@@ -2,72 +2,84 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 339412CEE7E
-	for <lists+alsa-devel@lfdr.de>; Fri,  4 Dec 2020 13:59:50 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 391FB2CF156
+	for <lists+alsa-devel@lfdr.de>; Fri,  4 Dec 2020 16:56:14 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C11DE180F;
-	Fri,  4 Dec 2020 13:58:59 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C11DE180F
+	by alsa0.perex.cz (Postfix) with ESMTPS id D07C7187D;
+	Fri,  4 Dec 2020 16:55:23 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D07C7187D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1607086789;
-	bh=T9P6YNvJNBVRp2cBN+iSfyjc2OXEDnJ1F6QbORkDUkI=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1607097373;
+	bh=PqlvPap3aB5JvMBDlrvzhm9lWHsSCEhgf8R8I1B5hh4=;
+	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=Hq53e68i7NQYFhJbYtRybLuS/9EBjbjMg4HLtUlEfzKzGh8hcPfTgI5m5f5YBdYx7
-	 3K2qh4Y2lIqaVa98ezpr7pAXlEssuCGkm0dUYba89uMg+iI0SA1pgoCs+vM7iN0QNW
-	 Ks2PIH1WSMBtm4g/FVx8AKJVxFbNNJdhu1offR4Y=
+	b=nWZ4eOgHd67lESv+Xid3xjmAp2ZaPvQfPXPYxTGQA4K0dCDa8dTJexX33A/e9zuHf
+	 xWObQhr1QuB5GUhllD469+AvSQncyn9Rywt1q81I1Mh0i/T5rUrm/GdoNV/dwQvxzk
+	 JI8OEigYAJVdccOZvK99wotuYYEkFUnqXc5rpvAI=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id D8343F8049C;
-	Fri,  4 Dec 2020 13:58:15 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id EB797F8049C;
+	Fri,  4 Dec 2020 16:54:39 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id A7141F80278; Fri,  4 Dec 2020 13:58:14 +0100 (CET)
+ id D9475F80278; Fri,  4 Dec 2020 16:54:38 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+X-Spam-Status: No, score=0.8 required=5.0 tests=DATE_IN_PAST_12_24,
+ NICE_REPLY_A,RCVD_IN_MSPIKE_H4,RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_NONE,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 1BEE1F800E8
- for <alsa-devel@alsa-project.org>; Fri,  4 Dec 2020 13:58:07 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1BEE1F800E8
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=linuxfoundation.org
- header.i=@linuxfoundation.org header.b="1rOdLUSA"
-Date: Fri, 4 Dec 2020 13:59:22 +0100
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
- s=korg; t=1607086686;
- bh=T9P6YNvJNBVRp2cBN+iSfyjc2OXEDnJ1F6QbORkDUkI=;
- h=From:To:Cc:Subject:References:In-Reply-To:From;
- b=1rOdLUSAyMehMfxu0QGULg7JLrQns9N5Zo8xqMs7B3V9pgcgSrLGxWnbJrmlen4Aq
- QI9NONPyOonqGM2MxkVNx8AtsibYsF0xqfAWR6VnVyK07RbeYrayQFi8D1/Fxdx6T/
- Z0hJEsI+dQSG0BVPDXg04jlUW3cr4PdtSryjxgZY=
-From: Greg KH <gregkh@linuxfoundation.org>
-To: Leon Romanovsky <leonro@nvidia.com>
-Subject: Re: [resend/standalone PATCH v4] Add auxiliary bus support
-Message-ID: <X8oyqpxDQ4JV31tj@kroah.com>
-References: <160695681289.505290.8978295443574440604.stgit@dwillia2-desk3.amr.corp.intel.com>
- <X8ogtmrm7tOzZo+N@kroah.com> <20201204123207.GH16543@unreal>
+ by alsa1.perex.cz (Postfix) with ESMTPS id D0D97F8012A
+ for <alsa-devel@alsa-project.org>; Fri,  4 Dec 2020 16:54:26 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D0D97F8012A
+IronPort-SDR: T3UlXMUEmF7R1JYCRKgMlWfbu8/ew1+UDV9okgnFzmHp+DUq+Ty2CdiRqyQ5be52NEefNyrWFC
+ 24o7XNYHGVYg==
+X-IronPort-AV: E=McAfee;i="6000,8403,9825"; a="237510824"
+X-IronPort-AV: E=Sophos;i="5.78,393,1599548400"; d="scan'208";a="237510824"
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from orsmga007.jf.intel.com ([10.7.209.58])
+ by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 04 Dec 2020 07:54:24 -0800
+IronPort-SDR: Vhp5Jswx9eGcKQL0ubW9XPAUESZ+FxyWye9LDRS0HSZNv0scOiPCBnG86xBRFFAihH/b2E8VKk
+ RmWHc19aubeA==
+X-IronPort-AV: E=Sophos;i="5.78,393,1599548400"; d="scan'208";a="373958798"
+Received: from emogena-mobl1.amr.corp.intel.com (HELO [10.212.90.42])
+ ([10.212.90.42])
+ by orsmga007-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 04 Dec 2020 07:54:22 -0800
+Subject: Re: [PATCH v2] ASoC: intel: sof_rt5682: Add support for
+ tgl_rt1011_rt5682
+To: Brent Lu <brent.lu@intel.com>, alsa-devel@alsa-project.org
+References: <20201203154010.29464-1-brent.lu@intel.com>
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Message-ID: <64da393b-f591-7af0-a131-b40f49dcf804@linux.intel.com>
+Date: Thu, 3 Dec 2020 10:02:48 -0600
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.10.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20201204123207.GH16543@unreal>
-Cc: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- alsa-devel@alsa-project.org, Kiran Patil <kiran.patil@intel.com>,
- linux-rdma@vger.kernel.org, netdev@vger.kernel.org,
- Martin Habets <mhabets@solarflare.com>, lgirdwood@gmail.com,
- Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
- Fred Oh <fred.oh@linux.intel.com>, broonie@kernel.org, jgg@nvidia.com,
- Dave Ertman <david.m.ertman@intel.com>, kuba@kernel.org,
- Dan Williams <dan.j.williams@intel.com>,
- Shiraz Saleem <shiraz.saleem@intel.com>, davem@davemloft.net,
- linux-kernel@vger.kernel.org, Parav Pandit <parav@mellanox.com>
+In-Reply-To: <20201203154010.29464-1-brent.lu@intel.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
+Cc: Guennadi Liakhovetski <guennadi.liakhovetski@linux.intel.com>,
+ Cezary Rojewski <cezary.rojewski@intel.com>,
+ Dharageswari R <dharageswari.r@intel.com>,
+ Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
+ Kai Vehmanen <kai.vehmanen@linux.intel.com>,
+ Rander Wang <rander.wang@linux.intel.com>, Jie Yang <yang.jie@linux.intel.com>,
+ linux-kernel@vger.kernel.org, Takashi Iwai <tiwai@suse.com>,
+ Liam Girdwood <liam.r.girdwood@linux.intel.com>,
+ Ben Zhang <benzh@chromium.org>, Mark Brown <broonie@kernel.org>,
+ Sathyanarayana Nujella <sathyanarayana.nujella@intel.com>,
+ Naveen Manohar <naveen.m@intel.com>, Libin Yang <libin.yang@linux.intel.com>,
+ Bard Liao <yung-chuan.liao@linux.intel.com>, Fred Oh <fred.oh@linux.intel.com>,
+ Yong Zhi <yong.zhi@intel.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -83,86 +95,15 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Fri, Dec 04, 2020 at 02:32:07PM +0200, Leon Romanovsky wrote:
-> On Fri, Dec 04, 2020 at 12:42:46PM +0100, Greg KH wrote:
-> > On Wed, Dec 02, 2020 at 04:54:24PM -0800, Dan Williams wrote:
-> > > From: Dave Ertman <david.m.ertman@intel.com>
-> > >
-> > > Add support for the Auxiliary Bus, auxiliary_device and auxiliary_driver.
-> > > It enables drivers to create an auxiliary_device and bind an
-> > > auxiliary_driver to it.
-> > >
-> > > The bus supports probe/remove shutdown and suspend/resume callbacks.
-> > > Each auxiliary_device has a unique string based id; driver binds to
-> > > an auxiliary_device based on this id through the bus.
-> > >
-> > > Co-developed-by: Kiran Patil <kiran.patil@intel.com>
-> > > Co-developed-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
-> > > Co-developed-by: Fred Oh <fred.oh@linux.intel.com>
-> > > Co-developed-by: Leon Romanovsky <leonro@nvidia.com>
-> > > Signed-off-by: Kiran Patil <kiran.patil@intel.com>
-> > > Signed-off-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
-> > > Signed-off-by: Fred Oh <fred.oh@linux.intel.com>
-> > > Signed-off-by: Leon Romanovsky <leonro@nvidia.com>
-> > > Signed-off-by: Dave Ertman <david.m.ertman@intel.com>
-> > > Reviewed-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-> > > Reviewed-by: Shiraz Saleem <shiraz.saleem@intel.com>
-> > > Reviewed-by: Parav Pandit <parav@mellanox.com>
-> > > Reviewed-by: Dan Williams <dan.j.williams@intel.com>
-> > > Reviewed-by: Martin Habets <mhabets@solarflare.com>
-> > > Link: https://lore.kernel.org/r/20201113161859.1775473-2-david.m.ertman@intel.com
-> > > Signed-off-by: Dan Williams <dan.j.williams@intel.com>
-> > > ---
-> > > This patch is "To:" the maintainers that have a pending backlog of
-> > > driver updates dependent on this facility, and "Cc:" Greg. Greg, I
-> > > understand you have asked for more time to fully review this and apply
-> > > it to driver-core.git, likely for v5.12, but please consider Acking it
-> > > for v5.11 instead. It looks good to me and several other stakeholders.
-> > > Namely, stakeholders that have pressure building up behind this facility
-> > > in particular Mellanox RDMA, but also SOF, Intel Ethernet, and later on
-> > > Compute Express Link.
-> > >
-> > > I will take the blame for the 2 months of silence that made this awkward
-> > > to take through driver-core.git, but at the same time I do not want to
-> > > see that communication mistake inconvenience other parties that
-> > > reasonably thought this was shaping up to land in v5.11.
-> > >
-> > > I am willing to host this version at:
-> > >
-> > > git://git.kernel.org/pub/scm/linux/kernel/git/djbw/linux tags/auxiliary-bus-for-5.11
-> > >
-> > > ...for all the independent drivers to have a common commit baseline. It
-> > > is not there yet pending Greg's Ack.
-> > >
-> > > For example implementations incorporating this patch, see Dave Ertman's
-> > > SOF series:
-> > >
-> > > https://lore.kernel.org/r/20201113161859.1775473-2-david.m.ertman@intel.com
-> > >
-> > > ...and Leon's mlx5 series:
-> > >
-> > > http://lore.kernel.org/r/20201026111849.1035786-1-leon@kernel.org
-> > >
-> > > PS: Greg I know I promised some review on newcomer patches to help with
-> > > your queue, unfortunately Intel-internal review is keeping my plate
-> > > full. Again, I do not want other stakeholder to be waiting on me to
-> > > resolve that backlog.
-> >
-> > Ok, I spent some hours today playing around with this.  I wrote up a
-> > small test-patch for this (how did anyone test this thing???).
+
+
+On 12/3/20 9:40 AM, Brent Lu wrote:
+> This patch adds the driver data for two rt1011 speaker amplifiers on
+> SSP1 and rt5682 on SSP0 for TGL platform. DAI format for rt1011 is
+> leveraged from cml_rt1011_rt5682 which is 4-slot tdm with 100fs bclk.
 > 
-> We are running all verifications tests that we have over our
-> mlx5 driver. It includes devices reloads, power failures, FW
-> reconfiguration to emulate different devices with and without error
-> injections and many more. Up till now, no new bugs that are not known
-> to us were found.
+> Signed-off-by: Brent Lu <brent.lu@intel.com>
 
-Yes, sorry, I was implying that the authors here had to create _some_
-code to test this with, it would have been nice to include that as well
-here.  We are collecting more and more in-kernel tests, having one for
-this code would be nice to also have so we make sure not to break any
-functionality in the future.
+Thanks Brent.
 
-thanks,
-
-greg k-h
+Acked-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>

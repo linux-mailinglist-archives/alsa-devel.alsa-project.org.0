@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 74A672CD8D5
-	for <lists+alsa-devel@lfdr.de>; Thu,  3 Dec 2020 15:20:41 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 974B42CD8D4
+	for <lists+alsa-devel@lfdr.de>; Thu,  3 Dec 2020 15:20:31 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A645F180D;
-	Thu,  3 Dec 2020 15:19:50 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A645F180D
+	by alsa0.perex.cz (Postfix) with ESMTPS id 320DD1810;
+	Thu,  3 Dec 2020 15:19:41 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 320DD1810
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1607005240;
-	bh=UGXI/PWxHamoJW1r5FzJR33V/RIy/77lneQFYlAoCmU=;
-	h=From:To:In-Reply-To:References:Subject:Date:List-Id:
+	s=default; t=1607005231;
+	bh=3IVYALfz898u+1ITSWtG34Qy/Gp1zyHzbIG85qs7Olo=;
+	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=LpyKWV3Q9ySrrnLpZPYRJvctObrHU53R6nAeaCvmRSUDTQASaW27WsWphtRLFTr96
-	 fk0xS34gU9DQlZDeVyBakUwqNx2gb43jmAMSmdp3rafmgrCIRpNbiWf1GYTUoUvbT6
-	 APv2PzYE0UH0HQ+mB44bdojs3WRJXOWvdfPIjMOc=
+	b=fBsmOR2/1BVy9RzU5gN2d5w25WrAjI35jnLunVgECFYaqMIirfzogYt9N4zVcupo6
+	 QmCmuTJ8fKvCqKOkdD8p1noZJz6ZdmlBk3zAGvrWDA4HhX7M1sjE3zRWZhtnyHvLb6
+	 geckh6gHjDVl4m3jhqdrcGhxTkg3j9b9+go1EpH4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 3A6EDF80276;
-	Thu,  3 Dec 2020 15:18:58 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 629E6F80254;
+	Thu,  3 Dec 2020 15:18:56 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id D6F4DF8016D; Thu,  3 Dec 2020 15:18:54 +0100 (CET)
+ id D932EF80254; Thu,  3 Dec 2020 15:18:53 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS
@@ -33,25 +33,23 @@ X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 57B59F8012A
- for <alsa-devel@alsa-project.org>; Thu,  3 Dec 2020 15:18:52 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 57B59F8012A
+ by alsa1.perex.cz (Postfix) with ESMTPS id 09F5FF80082
+ for <alsa-devel@alsa-project.org>; Thu,  3 Dec 2020 15:18:49 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 09F5FF80082
 From: Mark Brown <broonie@kernel.org>
 Authentication-Results: mail.kernel.org;
  dkim=permerror (bad message/signature format)
-To: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, perex@perex.cz,
- Shengjiu Wang <shengjiu.wang@nxp.com>, linuxppc-dev@lists.ozlabs.org,
- timur@kernel.org, Xiubo.Lee@gmail.com, nicoleotsuka@gmail.com,
- alsa-devel@alsa-project.org, lgirdwood@gmail.com, robh+dt@kernel.org,
- tiwai@suse.com, festevam@gmail.com
-In-Reply-To: <1606708668-28786-1-git-send-email-shengjiu.wang@nxp.com>
-References: <1606708668-28786-1-git-send-email-shengjiu.wang@nxp.com>
-Subject: Re: [PATCH 1/2] ASoC: fsl-asoc-card: Add support for si476x codec
-Message-Id: <160700512198.44361.18384133171951697931.b4-ty@kernel.org>
+To: Fabio Estevam <festevam@gmail.com>
+In-Reply-To: <20201203013439.10617-1-festevam@gmail.com>
+References: <20201203013439.10617-1-festevam@gmail.com>
+Subject: Re: [PATCH] ASoC: fsl_audmix: Remove unneeded data field
+Message-Id: <160700512198.44361.16621664381682378712.b4-ty@kernel.org>
 Date: Thu, 03 Dec 2020 14:18:41 +0000
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
+Cc: nicoleotsuka@gmail.com, alsa-devel@alsa-project.org,
+ shengjiu.wang@gmail.com, viorel.suman@nxp.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -67,9 +65,11 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Mon, 30 Nov 2020 11:57:47 +0800, Shengjiu Wang wrote:
-> The si476x codec is used for FM radio function on i.MX6
-> auto board, it only supports recording function.
+On Wed, 2 Dec 2020 22:34:39 -0300, Fabio Estevam wrote:
+> The .data field is only used to pass the string name to
+> platform_device_register_data().
+> 
+> Pass the string name directly to make the code simpler.
 
 Applied to
 
@@ -77,10 +77,8 @@ Applied to
 
 Thanks!
 
-[1/2] ASoC: fsl-asoc-card: Add support for si476x codec
-      commit: 77f1ff751037fcd39c8fc37b3c3796fb139fb388
-[2/2] ASoC: bindings: fsl-asoc-card: add compatible string for si476x codec
-      commit: 0b3355b070434f9901f641aac9000df93e2c96ad
+[1/1] ASoC: fsl_audmix: Remove unneeded data field
+      commit: 5057d108d69a55f97f3e436aefbabb9c4064d9d6
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

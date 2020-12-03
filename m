@@ -2,180 +2,90 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id CB1022CCCA4
-	for <lists+alsa-devel@lfdr.de>; Thu,  3 Dec 2020 03:31:16 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6D8CC2CCD82
+	for <lists+alsa-devel@lfdr.de>; Thu,  3 Dec 2020 04:53:32 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 67DF417FD;
-	Thu,  3 Dec 2020 03:30:25 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 67DF417FD
+	by alsa0.perex.cz (Postfix) with ESMTPS id F00D81821;
+	Thu,  3 Dec 2020 04:52:41 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz F00D81821
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1606962675;
-	bh=bD0cVfG2LSpPzGAPxgotaVvJQzRExThjSv7/rUYIJNU=;
-	h=From:To:Subject:Date:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1606967612;
+	bh=cN/Ln1IbYnnQ6RzNTgSIMqfGgOIPvosUwWrAfpyQTzk=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=dvHbS465XGEqEIxUYidAkTwDbcUIUUnOCaOpO3jJARL5ikxQ768gxcxu5ejK1forz
-	 IpDTy4gOix4KBvcFoD11pPVeVmbCW0mRbxxFL5fEctDSGh7ZJTGdt0YoTwD8/8bUTv
-	 FCbpOsnKd0SrrTNGXzEuErCe1q3BRZ1cCS2ugMzE=
+	b=E6FbQLJfupjTRP9U0TQwIGBRGPgaSJfPZJtWiUHzO6cprQHbckiURkrZu1wYoeQo4
+	 FADtm2Uahudz3QtZx5kZ5r9B9fayrGa427POxulmNDKr0YD37Pg2vjEiQxuwwHQO1o
+	 R2vR+QiiRBHLDeO6xkLI7yHwpUvhuqr/SJnT+Ksg=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 9372FF8049C;
-	Thu,  3 Dec 2020 03:29:40 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 04CCBF80254;
+	Thu,  3 Dec 2020 04:51:57 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 55B7AF8026B; Thu,  3 Dec 2020 03:29:38 +0100 (CET)
+ id DE182F8016D; Thu,  3 Dec 2020 04:51:54 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from mail-qk1-x743.google.com (mail-qk1-x743.google.com
+ [IPv6:2607:f8b0:4864:20::743])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 415DDF80168
- for <alsa-devel@alsa-project.org>; Thu,  3 Dec 2020 03:29:24 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 415DDF80168
+ by alsa1.perex.cz (Postfix) with ESMTPS id 659BEF800E8
+ for <alsa-devel@alsa-project.org>; Thu,  3 Dec 2020 04:51:46 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 659BEF800E8
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=intel.onmicrosoft.com
- header.i=@intel.onmicrosoft.com header.b="j7kvJxJz"
-IronPort-SDR: QS747zz+ZhN3o32oqnbxg4y/aMoYpL7Diq6jyuZFqq9W0B7f+J2Br7TRtHIBxmqYAfLQL2s8gm
- Y59kSXY5SgLQ==
-X-IronPort-AV: E=McAfee;i="6000,8403,9823"; a="152949234"
-X-IronPort-AV: E=Sophos;i="5.78,388,1599548400"; d="scan'208";a="152949234"
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from fmsmga004.fm.intel.com ([10.253.24.48])
- by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 02 Dec 2020 18:29:19 -0800
-IronPort-SDR: yjiSzqQXpJA4nZYessrQE9wQ/GU1lsNReMeKLs6Ywj9FcDSjCt6QPY7NJmMUKAy14f5WC3TT4S
- D7h8evq2eMVQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.78,388,1599548400"; d="scan'208";a="365562099"
-Received: from orsmsx602.amr.corp.intel.com ([10.22.229.15])
- by fmsmga004.fm.intel.com with ESMTP; 02 Dec 2020 18:29:17 -0800
-Received: from orsmsx608.amr.corp.intel.com (10.22.229.21) by
- ORSMSX602.amr.corp.intel.com (10.22.229.15) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.1713.5; Wed, 2 Dec 2020 18:29:17 -0800
-Received: from orsmsx606.amr.corp.intel.com (10.22.229.19) by
- ORSMSX608.amr.corp.intel.com (10.22.229.21) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.1713.5; Wed, 2 Dec 2020 18:29:16 -0800
-Received: from orsedg603.ED.cps.intel.com (10.7.248.4) by
- orsmsx606.amr.corp.intel.com (10.22.229.19) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1713.5
- via Frontend Transport; Wed, 2 Dec 2020 18:29:16 -0800
-Received: from NAM10-DM6-obe.outbound.protection.outlook.com (104.47.58.108)
- by edgegateway.intel.com (134.134.137.100) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.1.1713.5; Wed, 2 Dec 2020 18:29:16 -0800
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=KvxPF+NxX8NvcPQssnJlg1B3kqrCZy4dXFndDI8ccN45bTLQw/EkOi3SOjr3hlNDVXObS1HRRmjFrf5Bq1/1tZf5UUXA34FxfEfzjw3/NYu8KjTxCB0MTQx+qLsnDhhe0D0bfJOlrWnnUOtLvQnmR5AuKlyVRHLsFwnHpnzzACf1jOwA2mabUktgUjq/eXaWlWp7r1DEaFdQHZPTdIpteWuVswZC3AxPkURUoznWtPzLJ6L7YFkulXza0+JymUNVqldHc98r913RcyfvN6sE6or6RoK+M19l95pIwNCQdSjDwz5LYicqPXtSSxFz26FbbsZF6Ded3ox3/WaVACQqPg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=bD0cVfG2LSpPzGAPxgotaVvJQzRExThjSv7/rUYIJNU=;
- b=efK2vXNHFYqj37OOEIGOTanmgHz+R1EZLzPj8eFHOfE8WxbIoEmuO2bFzcvcolO+wX3qChiqEYTHmdD0/CnHAySx5MqO5bZaFoCIHvR0ddqwpVi6odb50/p1/yRotqGkdPBabx/WD8KmwT6UgfdcOUBXU4b8Vyep4CWgaYF/a02MqPVQdqxyfSE+bIlDDPIDuh9vjc6ZY3/NKOnDZFcN2BQ7meXUQEbUwYvNFTa+RoTXJi43No5MnMGF0AFM4enl4pBDEnHapiW6/CyHYFyKklaJgtE86KdkTsAV5c25nIBN8/btlhh99rsYcZ9bhT9dwhz3IlaVeiU/aE4El/2EPg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=intel.onmicrosoft.com; 
- s=selector2-intel-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=bD0cVfG2LSpPzGAPxgotaVvJQzRExThjSv7/rUYIJNU=;
- b=j7kvJxJzxnnGhA8bL8w004aGE6NDawoRuGjb5jjsgqQUTUS2BEMOkLf9WpUv9HKe5h/QK8kpYizouK5xDyuW3BsnubDhSiWg8Uslbb92eMEJsh2uYLzjkCq5z5VwoPoJmtb/xDWEoqncrUJ/N98SCqARHhkWAcN7R5IYe50jH9U=
-Received: from DM6PR11MB4074.namprd11.prod.outlook.com (2603:10b6:5:5::11) by
- DM6PR11MB3595.namprd11.prod.outlook.com (2603:10b6:5:142::16) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.3611.25; Thu, 3 Dec 2020 02:29:14 +0000
-Received: from DM6PR11MB4074.namprd11.prod.outlook.com
- ([fe80::8941:7045:2dc8:707e]) by DM6PR11MB4074.namprd11.prod.outlook.com
- ([fe80::8941:7045:2dc8:707e%7]) with mapi id 15.20.3611.032; Thu, 3 Dec 2020
- 02:29:14 +0000
-From: "Liao, Bard" <bard.liao@intel.com>
-To: Mark Brown <broonie@kernel.org>, Bard Liao
- <yung-chuan.liao@linux.intel.com>
-Subject: RE: [PATCH v2 3/5] ASoC/SoundWire: rt715-sdca: First version of rt715
- sdw sdca codec driver
-Thread-Topic: [PATCH v2 3/5] ASoC/SoundWire: rt715-sdca: First version of
- rt715 sdw sdca codec driver
-Thread-Index: AQHWx4pYRUwoCWEb2EWVJIUffE01Tanj+28AgACsq1A=
-Date: Thu, 3 Dec 2020 02:29:14 +0000
-Message-ID: <DM6PR11MB40747A2F2AAC0A4D87F3EA87FFF20@DM6PR11MB4074.namprd11.prod.outlook.com>
-References: <20201130144020.19757-1-yung-chuan.liao@linux.intel.com>
- <20201130144020.19757-4-yung-chuan.liao@linux.intel.com>
- <20201202160740.GG5560@sirena.org.uk>
-In-Reply-To: <20201202160740.GG5560@sirena.org.uk>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-dlp-version: 11.5.1.3
-dlp-reaction: no-action
-dlp-product: dlpe-windows
-authentication-results: kernel.org; dkim=none (message not signed)
- header.d=none;kernel.org; dmarc=none action=none header.from=intel.com;
-x-originating-ip: [220.133.4.96]
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: d717cc83-1614-4e95-175d-08d8973339fd
-x-ms-traffictypediagnostic: DM6PR11MB3595:
-x-ld-processed: 46c98d88-e344-4ed4-8496-4ed7712e255d,ExtAddr
-x-ms-exchange-transport-forked: True
-x-microsoft-antispam-prvs: <DM6PR11MB3595AF5579E281D0D82120F5FFF20@DM6PR11MB3595.namprd11.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:773;
-x-ms-exchange-senderadcheck: 1
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: i/jxY5pnDoSkfvwlaacUQB33jclaEUHPnMXNf9ShAjgEn9k5beAeciL6/ix0epBMU/f16lPm3kyvCB3ZDZm2+6YW6zZWrd5zTfEPXdPZF0VM1iheWVlPQLhAv6tO+L4w4ASoTL5rPsNpQNBdEQ3tQt5ESPJ66IWoHSXQ4pCJhdUJfLnq30Q36ZmmUnHiFqn41rWDmNYfSUg7bac+mMvAbSuvjmgASUqozxrMjkNVUKDQPH0/yX1QxI5rEaB3JO3JgLJkzdwZjQsj4Fvs7AIswMyKoNXRRwiQ8j5gku1AQb5jmLmioHZbZxT1e5xNYcTQjUn+d7QV5SSdGwcGYtDtiw==
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM6PR11MB4074.namprd11.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(366004)(136003)(346002)(39860400002)(396003)(376002)(71200400001)(83380400001)(55016002)(8676002)(64756008)(86362001)(76116006)(54906003)(66556008)(5660300002)(53546011)(7696005)(316002)(6506007)(66946007)(66476007)(8936002)(66446008)(9686003)(110136005)(7416002)(478600001)(52536014)(2906002)(4744005)(26005)(4326008)(33656002)(186003);
- DIR:OUT; SFP:1102; 
-x-ms-exchange-antispam-messagedata: =?us-ascii?Q?9mBxO6ILD/b1tH1YJ77V3llMApnE4aNIY0e5pZDD3iLpshmAuuSGgxmhtHyQ?=
- =?us-ascii?Q?9sjVw3Kcv759jS9JY7hyGWPjwfSFht1ucivTy0AHtb65n3HgaVGBl1ye9XX/?=
- =?us-ascii?Q?Ta2XrmFXqzU4+7PzDY2RmZ+DxzR9hz3HXKBQrQLR51Yzw1eLRqQXeyHHA5yE?=
- =?us-ascii?Q?g4EJd6GbQWxDvA0d3tT3gWXOvpJeE5AW2OLB94ERbUSd7DR1ZoQLH0I1r7GN?=
- =?us-ascii?Q?tn69dTXJ5+n4dO6SGbXI/Hp2WStkT4kthkdZRE5Lz7pskigrmJtKUHPChQF4?=
- =?us-ascii?Q?DvuxWgraT1vuX5/KRUXyuhsUNkJZwbEM43L4wsw8l0FCWgxuz4MrQnNjetWW?=
- =?us-ascii?Q?Vl2EtWcFVXA/IPqXEO7QulPhMwjsqYwUepo0rQg4FY/hiWc0/cKA4aPyVDiu?=
- =?us-ascii?Q?P1QHtcw1fpNDRVg7YhenVfhIwrDZdWLAWALjjzO/YmyqTRFifz1iysKQZHFe?=
- =?us-ascii?Q?9PMwY/jUMsK1TgSvmfikpKhIVJMbcqHcAnleeZEpfiCxtAcdNgZyhtRz8AJB?=
- =?us-ascii?Q?QMA2hnNuhxqny3P6ZLUaKbeq49omAvdcMH3htY4eqsEvwNYRPTKi6mIDisoz?=
- =?us-ascii?Q?6dMXGQ0N07JtHHnu96n09A6k4JU5/sRAIGr5XEsOaQ0Y5slW/N1VOWoGnQyc?=
- =?us-ascii?Q?0yF3PKOqhTg+E9anNvhUzu01vh57NMuCYpByKBPqWRUIc4a+zWP7xllbrA9q?=
- =?us-ascii?Q?DwhC7htsMoMey735f5I3Ea5Kqzgwj//UwSolBLery4zVkyhXzGVzhPp+4d4/?=
- =?us-ascii?Q?cZSCihcmIgjTyLyZo7VtRUsu7FuF/b9c55HSMiAwWWtRrhzBg8CFgzClZfXY?=
- =?us-ascii?Q?8JwqUnOGi41Bl+7YkU+bSxu1/3/e1fNWZkWouWIYr+ZUWaQvdWNAuCOmc4Xq?=
- =?us-ascii?Q?cNXaJqkPr919lLOt4cXCIVgYj76PO5V9ApbCMfgRw9IPr20n9Z0RkSgBglu4?=
- =?us-ascii?Q?DpzPj+YInq0V9yRybOlM8HnKd+PrIOfmCB/dMCdoLOY=3D?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+ dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
+ header.b="Mhea7zKS"
+Received: by mail-qk1-x743.google.com with SMTP id n132so1016055qke.1
+ for <alsa-devel@alsa-project.org>; Wed, 02 Dec 2020 19:51:46 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=SUzQs/+SoVYKqbh24yWO/KQhjnAXrlDusJdUSTJS5A8=;
+ b=Mhea7zKSrwE8kuWuWy+h9M4qWmkuaGN4aIb747Gar6/nB54tO2IxYzyAY5JGJIBgFD
+ 4lNXCYHb96+jK8BAabG5UbTB6v+QvEBfjJ4Bu3NKUQepLKB3saaoGPMzgBSAvvAF2dGK
+ DOTSmr7c4mjAX+j/vsXoRVSKJCKOW3ZsKIdPhkqZ9xqynSGNxavwDYgdOKFnNcxCDIUB
+ Fhr24MF6tv758ybaKhhDZ17K3qDhsPb/0glb7vdNKf0Ihw9JAepVuoGN9K7CJGcgoj/h
+ z1oJa4ibzH3I4wFno7uS5j/qBUnMpq7ogbpp+jR2XJewTmeN2Y9rGeebn7KHR7/ov8Yi
+ hSWA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=SUzQs/+SoVYKqbh24yWO/KQhjnAXrlDusJdUSTJS5A8=;
+ b=FYnaooK0Dm9eNfSg2Y5PtXCojMoj7+bh+CLjajR2TlJYuHUHT54fZ8mgzeFfB1ScWQ
+ QCktib7a2MaE+kzCnp1+8UmH/MhlH2CTkhfhC8urrIpBXXsoK0/VMjBq4YtSLnN2Q1tP
+ 8RObHpsyzTnCEC3PaQBMZCNSM4gBTi4x9LELPCg9GwMmJDltrY53Y0wHVEiC90vsCGQy
+ C7Iv3L3ZlhMbRceyEC5Amb8K0aW8zfOPhPnwxQjT1cvhP6K+lchhhFvqOwBDUm06+JEF
+ uxzJsIfUcLgmLrhrosjd9OG57jmi0krjn9uuPTXsV7+CGkpeavNdEYZ0Q+oqAon2C6kx
+ iCjw==
+X-Gm-Message-State: AOAM5309kQWIdvd3rHn7InFj7EozvYLWTu4vh3UfdSljZTfpoXfoENs0
+ 5JxnnBliAOdsMgTs7MBkH4BW7mgFiOh8vxTiK04=
+X-Google-Smtp-Source: ABdhPJy7VJpgVDqrl8VrmWdiRB1M2O74ruT8AdiwDLEn+Mf13W/ZStOpINVSqcBacLORp6qnYaI9VhZZGC1MC4qMtf8=
+X-Received: by 2002:a37:ad17:: with SMTP id f23mr1146570qkm.121.1606967502905; 
+ Wed, 02 Dec 2020 19:51:42 -0800 (PST)
 MIME-Version: 1.0
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: DM6PR11MB4074.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: d717cc83-1614-4e95-175d-08d8973339fd
-X-MS-Exchange-CrossTenant-originalarrivaltime: 03 Dec 2020 02:29:14.1321 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: ZQbp9Rbm+w25ImrDgGJZvBZSQackuVEpRwryfwDsEtD2w2+o9jdubQPgQj/f/u4uFys7vgLZLHBu0BTZuwi/jQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR11MB3595
-X-OriginatorOrg: intel.com
-Cc: "pierre-louis.bossart@linux.intel.com"
- <pierre-louis.bossart@linux.intel.com>,
- "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
- "vinod.koul@linaro.org" <vinod.koul@linaro.org>,
- "tiwai@suse.de" <tiwai@suse.de>,
- "gregkh@linuxfoundation.org" <gregkh@linuxfoundation.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "ranjani.sridharan@linux.intel.com" <ranjani.sridharan@linux.intel.com>,
- "hui.wang@canonical.com" <hui.wang@canonical.com>,
- "vkoul@kernel.org" <vkoul@kernel.org>,
- "srinivas.kandagatla@linaro.org" <srinivas.kandagatla@linaro.org>,
- "jank@cadence.com" <jank@cadence.com>, "Kale,
- Sanyog R" <sanyog.r.kale@intel.com>,
- "rander.wang@linux.intel.com" <rander.wang@linux.intel.com>
+References: <1606455021-18882-1-git-send-email-shengjiu.wang@nxp.com>
+ <1606455021-18882-2-git-send-email-shengjiu.wang@nxp.com>
+ <20201202201955.GB1498@Asurada-Nvidia>
+In-Reply-To: <20201202201955.GB1498@Asurada-Nvidia>
+From: Shengjiu Wang <shengjiu.wang@gmail.com>
+Date: Thu, 3 Dec 2020 11:51:32 +0800
+Message-ID: <CAA+D8AOAMV4jyD0uBwER+0KkrBjJcrNPcT4zeYU8Y1WRDRXziQ@mail.gmail.com>
+Subject: Re: [PATCH 2/2] ASoC: fsl: Add imx-hdmi machine driver
+To: Nicolin Chen <nicoleotsuka@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Cc: "open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS"
+ <devicetree@vger.kernel.org>, alsa-devel@alsa-project.org,
+ Timur Tabi <timur@kernel.org>, Xiubo Li <Xiubo.Lee@gmail.com>,
+ Fabio Estevam <festevam@gmail.com>, Shengjiu Wang <shengjiu.wang@nxp.com>,
+ Liam Girdwood <lgirdwood@gmail.com>, Takashi Iwai <tiwai@suse.com>,
+ Rob Herring <robh+dt@kernel.org>, Mark Brown <broonie@kernel.org>,
+ linuxppc-dev@lists.ozlabs.org, linux-kernel <linux-kernel@vger.kernel.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -191,30 +101,131 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-
-
-> -----Original Message-----
-> From: Mark Brown <broonie@kernel.org>
-> Sent: Thursday, December 3, 2020 12:08 AM
-> To: Bard Liao <yung-chuan.liao@linux.intel.com>
-> Cc: alsa-devel@alsa-project.org; vkoul@kernel.org; vinod.koul@linaro.org;
-> linux-kernel@vger.kernel.org; tiwai@suse.de; gregkh@linuxfoundation.org;
-> jank@cadence.com; srinivas.kandagatla@linaro.org;
-> rander.wang@linux.intel.com; ranjani.sridharan@linux.intel.com;
-> hui.wang@canonical.com; pierre-louis.bossart@linux.intel.com; Kale, Sanyo=
-g
-> R <sanyog.r.kale@intel.com>; Liao, Bard <bard.liao@intel.com>
-> Subject: Re: [PATCH v2 3/5] ASoC/SoundWire: rt715-sdca: First version of
-> rt715 sdw sdca codec driver
->=20
-> On Mon, Nov 30, 2020 at 10:40:18PM +0800, Bard Liao wrote:
-> > From: Jack Yu <jack.yu@realtek.com>
+On Thu, Dec 3, 2020 at 4:23 AM Nicolin Chen <nicoleotsuka@gmail.com> wrote:
+>
+> On Fri, Nov 27, 2020 at 01:30:21PM +0800, Shengjiu Wang wrote:
+> > The driver is initially designed for sound card using HDMI
+> > interface on i.MX platform. There is internal HDMI IP or
+> > external HDMI modules connect with SAI or AUD2HTX interface.
+> > It supports both transmitter and receiver devices.
 > >
-> > First version of rt715 sdw sdca codec driver.
->=20
-> This doesn't apply against the ASoC tree, please check and resend.
+> > Signed-off-by: Shengjiu Wang <shengjiu.wang@nxp.com>
+> > ---
+> >  sound/soc/fsl/Kconfig    |  12 ++
+> >  sound/soc/fsl/Makefile   |   2 +
+> >  sound/soc/fsl/imx-hdmi.c | 235 +++++++++++++++++++++++++++++++++++++++
+> >  3 files changed, 249 insertions(+)
+> >  create mode 100644 sound/soc/fsl/imx-hdmi.c
+>
+> > diff --git a/sound/soc/fsl/imx-hdmi.c b/sound/soc/fsl/imx-hdmi.c
+> > new file mode 100644
+> > index 000000000000..ac164514b1b2
+> > --- /dev/null
+> > +++ b/sound/soc/fsl/imx-hdmi.c
+>
+> > +static int imx_hdmi_hw_params(struct snd_pcm_substream *substream,
+> > +                           struct snd_pcm_hw_params *params)
+> > +{
+> > +     struct snd_soc_pcm_runtime *rtd = substream->private_data;
+> > +     struct imx_hdmi_data *data = snd_soc_card_get_drvdata(rtd->card);
+> > +     bool tx = substream->stream == SNDRV_PCM_STREAM_PLAYBACK;
+> > +     struct snd_soc_dai *cpu_dai = asoc_rtd_to_cpu(rtd, 0);
+> > +     struct snd_soc_card *card = rtd->card;
+> > +     struct device *dev = card->dev;
+> > +     int ret;
+> > +
+> > +     /* set cpu DAI configuration */
+> > +     ret = snd_soc_dai_set_sysclk(cpu_dai, data->cpu_priv.sysclk_id[tx],
+> > +                                  8 * data->cpu_priv.slot_width * params_rate(params),
+>
+> Looks like fixed 2 slots being used, judging by the set_tdm_slot
+> call below. Then...why "8 *"? Probably need a line of comments?
 
+The master clock always 256 * rate, when slot_width=32.  so use
+the 8 * slot_width.  will add comments.
 
-Looks like the previous version is already in ASoC tree. I will resend the
-remaining patches on top of it.
+>
+> > +                                  tx ? SND_SOC_CLOCK_OUT : SND_SOC_CLOCK_IN);
+> > +     if (ret && ret != -ENOTSUPP) {
+> > +             dev_err(dev, "failed to set cpu sysclk: %d\n", ret);
+> > +             return ret;
+> > +     }
+> > +
+> > +     ret = snd_soc_dai_set_tdm_slot(cpu_dai, 0, 0, 2, data->cpu_priv.slot_width);
+>
+> May have a local variable to cache slot_width.
 
+ok.
+
+>
+> > +static int imx_hdmi_probe(struct platform_device *pdev)
+>
+> > +     data->dai.name = "i.MX HDMI";
+> > +     data->dai.stream_name = "i.MX HDMI";
+> > +     data->dai.cpus->dai_name = dev_name(&cpu_pdev->dev);
+> > +     data->dai.platforms->of_node = cpu_np;
+> > +     data->dai.ops = &imx_hdmi_ops;
+> > +     data->dai.playback_only = true;
+> > +     data->dai.capture_only = false;
+> > +     data->dai.init = imx_hdmi_init;
+> > +
+> > +
+> > +     if (of_property_read_bool(np, "hdmi-out")) {
+> > +             data->dai.playback_only = true;
+> > +             data->dai.capture_only = false;
+> > +             data->dai.codecs->dai_name = "i2s-hifi";
+> > +             data->dai.codecs->name = "hdmi-audio-codec.1";
+> > +             data->dai.dai_fmt = data->dai_fmt |
+> > +                                 SND_SOC_DAIFMT_NB_NF |
+> > +                                 SND_SOC_DAIFMT_CBS_CFS;
+> > +     }
+> > +
+> > +     if (of_property_read_bool(np, "hdmi-in")) {
+> > +             data->dai.playback_only = false;
+> > +             data->dai.capture_only = true;
+> > +             data->dai.codecs->dai_name = "i2s-hifi";
+> > +             data->dai.codecs->name = "hdmi-audio-codec.2";
+> > +             data->dai.dai_fmt = data->dai_fmt |
+> > +                                 SND_SOC_DAIFMT_NB_NF |
+> > +                                 SND_SOC_DAIFMT_CBM_CFM;
+> > +     }
+> > +
+> > +     if ((data->dai.playback_only && data->dai.capture_only) ||
+> > +         (!data->dai.playback_only && !data->dai.capture_only)) {
+> > +             dev_err(&pdev->dev, "Wrongly enable HDMI DAI link\n");
+> > +             goto fail;
+> > +     }
+>
+> Seems that this condition check can never be true, given that:
+> 1. By default: playback_only=true && capture_only=false
+> 2. Conditionally overwritten: playback_only=true && capture_only=false
+> 3. Conditionally overwritten: playback_only=false && capture_only=true
+>
+> If I understand it correctly, probably should be something like:
+>         bool hdmi_out = of_property_read_bool(np, "hdmi-out");
+>         bool hdmi_in = of_property_read_bool(np, "hdmi-in");
+>
+>         if ((hdmi_out && hdmi_in) || (!hdmi_out || !hdmi_in))
+>                 // "Invalid HDMI DAI link"; goto fail;
+>
+>         if (hdmi_out) {
+>                 // ...
+>         } else if (hdmi_in) {
+>                 // ...
+>         } else // No need of this line if two properties are exclusive
+>
+
+Good catch, will update it.
+
+> > +     data->card.num_links = 1;
+> > +     data->card.dai_link = &data->dai;
+> > +
+> > +     platform_set_drvdata(pdev, &data->card);
+>
+> Why pass card pointer?
+
+Seems it duplicates with dev_set_drvdata(card->dev, card);
+in snd_soc_register_card.  will remove it.
+
+best regards
+wang shengjiu

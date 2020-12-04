@@ -2,78 +2,98 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7C7B42CF2C3
-	for <lists+alsa-devel@lfdr.de>; Fri,  4 Dec 2020 18:12:23 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id AF3962CF359
+	for <lists+alsa-devel@lfdr.de>; Fri,  4 Dec 2020 18:50:03 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 1AFE81893;
-	Fri,  4 Dec 2020 18:11:33 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1AFE81893
+	by alsa0.perex.cz (Postfix) with ESMTPS id 31173184D;
+	Fri,  4 Dec 2020 18:49:13 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 31173184D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1607101943;
-	bh=AoWSZ9rATBPrh2CgyRV3pM6GNUWkdHM213tiPQeGUys=;
-	h=Subject:From:To:Date:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1607104203;
+	bh=3iAXQAkNIGvj2hCUvo/rCtF4ossE+7RivvMy+d5kWtQ=;
+	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=D/2Mv0wnWhMx7Vgj2DMFQctw+clEEHOZrXdCeOkrKmNHqdW8+LLvg0Gu0t1uQNngh
-	 h8O3K1U7YjTkv4Xgoy0rVn452BhMK32g7W9LKNjDhAgVzPzdBXB4+CcIp3eYvS85bW
-	 4Jpc7Cc0Pxq/xRt9UXuXFNcozShnb9pZfQdy849Y=
+	b=ApAeAk4J7lCcXqMIEdPOdKdjMNmos3BexkXTc62+MYzaG+jl60wzkoJgha+f3gRIB
+	 bbVxBIh0toC9L3iOX8bNiaNyf1QwmQtrM/bVrq2B1okg0w1TCJomMx4k9vyWi/jtpC
+	 FLD+iNrBuPy+Gb4j7U9ZzGo8AtAOchCk5dEt04ro=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 3F981F8049C;
-	Fri,  4 Dec 2020 18:10:49 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 10381F8049C;
+	Fri,  4 Dec 2020 18:48:29 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 77504F80278; Fri,  4 Dec 2020 18:10:47 +0100 (CET)
+ id 8CC37F80278; Fri,  4 Dec 2020 18:48:27 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_MSPIKE_H3,
- RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from mail-wm1-x341.google.com (mail-wm1-x341.google.com
+ [IPv6:2a00:1450:4864:20::341])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id BE288F800E8
- for <alsa-devel@alsa-project.org>; Fri,  4 Dec 2020 18:10:39 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BE288F800E8
-IronPort-SDR: iaB0kxvQSIQ2E76UWMpeYQQYQYvwZHq2X1s0x9WwQNuyhbNFirDe9e1X6haAJ3yIRU+W0TPbPi
- BJrAhK6OygtA==
-X-IronPort-AV: E=McAfee;i="6000,8403,9825"; a="160463220"
-X-IronPort-AV: E=Sophos;i="5.78,393,1599548400"; d="scan'208";a="160463220"
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from orsmga005.jf.intel.com ([10.7.209.41])
- by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 04 Dec 2020 09:10:35 -0800
-IronPort-SDR: Q+kE0BgnPU7r7p9k4wspq1KsSVeTDsFrzsFNtygkwpTILxTTJpT1uFQm7NdtGN+n3JtkEsQNsh
- z4MleMyQy3BQ==
-X-IronPort-AV: E=Sophos;i="5.78,393,1599548400"; d="scan'208";a="551015315"
-Received: from mwalsh7-mobl1.amr.corp.intel.com ([10.212.248.252])
- by orsmga005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 04 Dec 2020 09:10:34 -0800
-Message-ID: <f8371c36608084144fe6e8ca089901d330a7191f.camel@linux.intel.com>
-Subject: Re: [resend/standalone PATCH v4] Add auxiliary bus support
-From: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
-To: Greg KH <gregkh@linuxfoundation.org>, Leon Romanovsky <leonro@nvidia.com>
-Date: Fri, 04 Dec 2020 09:10:34 -0800
-In-Reply-To: <X8oyqpxDQ4JV31tj@kroah.com>
-References: <160695681289.505290.8978295443574440604.stgit@dwillia2-desk3.amr.corp.intel.com>
- <X8ogtmrm7tOzZo+N@kroah.com> <20201204123207.GH16543@unreal>
- <X8oyqpxDQ4JV31tj@kroah.com>
-Content-Type: text/plain; charset="UTF-8"
-User-Agent: Evolution 3.36.3-0ubuntu1 
+ by alsa1.perex.cz (Postfix) with ESMTPS id 9464EF8012A
+ for <alsa-devel@alsa-project.org>; Fri,  4 Dec 2020 18:48:20 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9464EF8012A
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org
+ header.b="i9UUNczY"
+Received: by mail-wm1-x341.google.com with SMTP id h21so7817151wmb.2
+ for <alsa-devel@alsa-project.org>; Fri, 04 Dec 2020 09:48:20 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=subject:to:cc:references:from:message-id:date:user-agent
+ :mime-version:in-reply-to:content-language:content-transfer-encoding;
+ bh=sMl59r/DRuLhlu2MW09102jLe2PGam7zMSw8APT3Z8E=;
+ b=i9UUNczYIoqf8Q0ReLkw6C9jKlRJzpV5SpA2c+E/H/NSOxbEpvbgpSpGvfrUNBP4Rg
+ M5aVvqrY15vaHr4iWkhDtMPyN5GWi7LS/SzYJNSxnO9EYqoPf39zpDD4PUXqFkhrmHfD
+ wptMqkTnE7mcf6pg8hIOg9QY8XLeQd676QxDre/GwAVEhSh6aUDWHXcEIub1mWxl3yjD
+ DR/y+2FW/2xykQ6r7uX3bGphlVjgPgRdM2f3/m7ROHPB9DZ9LdDZpTV/IDa2sE3ePuDs
+ ovQqsJpVso63a7xosb+C4X/etLR3//citOdWttgICGDwI99ZfSSSgd8/YMJtsmz3WFTp
+ 6VuQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:subject:to:cc:references:from:message-id:date
+ :user-agent:mime-version:in-reply-to:content-language
+ :content-transfer-encoding;
+ bh=sMl59r/DRuLhlu2MW09102jLe2PGam7zMSw8APT3Z8E=;
+ b=SfZoCufykwT4yYxkLdQbbnG90CfYC/DR53pmB3PuRof5Y57fjjpSKRVDHsiz2ATc6i
+ KDgEuGE7+oPETgQZPrIgattHc8Q9sP5mzy1KBDfC5DoubMvTM2nTCHjWw2tLKyswS6PJ
+ N6Q+BjCV4ngnnwFrPijTpCGAugdQctq/fjtFKXnJrLNGVAAbM9NXspVyoW7pMvPOx5kR
+ dW7OrNa5Mc73Ng3T80FqVm/d8dFUJM9ukbY7sD8adBi86CnznDWFz/KEgJ2IOZSxUh96
+ LyBFDVur4ay8YJ3zqj8ryswuqdQUEElfFcN0yRc3HYMsRFRBc/9LDkZwEtd9VEajZ2ay
+ QsCw==
+X-Gm-Message-State: AOAM533Vx6UUccWIKAe6e0/G2ENAMgBkHcz2wzXYEAeazuybxg1FZ4Xl
+ 9IJIedoJb89YsNIt6XhiyOcQmA==
+X-Google-Smtp-Source: ABdhPJxJxirtFSOAFrreLRqfQ9/krXdMGpQdC2UWJ2tuRPnf0tQGiAGmoud05hs+ubQH11BcUjmiKQ==
+X-Received: by 2002:a1c:6056:: with SMTP id u83mr5375331wmb.90.1607104099954; 
+ Fri, 04 Dec 2020 09:48:19 -0800 (PST)
+Received: from [192.168.86.34]
+ (cpc86377-aztw32-2-0-cust226.18-1.cable.virginm.net. [92.233.226.227])
+ by smtp.googlemail.com with ESMTPSA id n123sm4148301wmn.7.2020.12.04.09.48.17
+ (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+ Fri, 04 Dec 2020 09:48:18 -0800 (PST)
+Subject: Re: [PATCH] ASoC: qcom: fix QDSP6 dependencies, attempt #3
+To: Arnd Bergmann <arnd@kernel.org>, Patrick Lai <plai@codeaurora.org>,
+ Banajit Goswami <bgoswami@codeaurora.org>,
+ Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>
+References: <20201203231443.1483763-1-arnd@kernel.org>
+From: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
+Message-ID: <8323d386-c3f1-2db6-1870-2279784dd85e@linaro.org>
+Date: Fri, 4 Dec 2020 17:48:17 +0000
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
+ Thunderbird/60.8.0
 MIME-Version: 1.0
+In-Reply-To: <20201203231443.1483763-1-arnd@kernel.org>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-US
 Content-Transfer-Encoding: 7bit
-Cc: alsa-devel@alsa-project.org, Kiran Patil <kiran.patil@intel.com>,
- linux-rdma@vger.kernel.org, netdev@vger.kernel.org,
- Martin Habets <mhabets@solarflare.com>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- lgirdwood@gmail.com, Fred Oh <fred.oh@linux.intel.com>, broonie@kernel.org,
- jgg@nvidia.com, kuba@kernel.org, Dave Ertman <david.m.ertman@intel.com>,
- Dan Williams <dan.j.williams@intel.com>,
- Shiraz Saleem <shiraz.saleem@intel.com>, davem@davemloft.net,
- linux-kernel@vger.kernel.org, Parav Pandit <parav@mellanox.com>
+Cc: alsa-devel@alsa-project.org, Arnd Bergmann <arnd@arndb.de>,
+ linux-kernel@vger.kernel.org, Randy Dunlap <rdunlap@infradead.org>,
+ Ajit Pandey <ajitp@codeaurora.org>, Takashi Iwai <tiwai@suse.com>,
+ Rohit kumar <rohitkr@codeaurora.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -89,120 +109,41 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Fri, 2020-12-04 at 13:59 +0100, Greg KH wrote:
-> On Fri, Dec 04, 2020 at 02:32:07PM +0200, Leon Romanovsky wrote:
-> > On Fri, Dec 04, 2020 at 12:42:46PM +0100, Greg KH wrote:
-> > > On Wed, Dec 02, 2020 at 04:54:24PM -0800, Dan Williams wrote:
-> > > > From: Dave Ertman <david.m.ertman@intel.com>
-> > > > 
-> > > > Add support for the Auxiliary Bus, auxiliary_device and
-> > > > auxiliary_driver.
-> > > > It enables drivers to create an auxiliary_device and bind an
-> > > > auxiliary_driver to it.
-> > > > 
-> > > > The bus supports probe/remove shutdown and suspend/resume
-> > > > callbacks.
-> > > > Each auxiliary_device has a unique string based id; driver
-> > > > binds to
-> > > > an auxiliary_device based on this id through the bus.
-> > > > 
-> > > > Co-developed-by: Kiran Patil <kiran.patil@intel.com>
-> > > > Co-developed-by: Ranjani Sridharan <
-> > > > ranjani.sridharan@linux.intel.com>
-> > > > Co-developed-by: Fred Oh <fred.oh@linux.intel.com>
-> > > > Co-developed-by: Leon Romanovsky <leonro@nvidia.com>
-> > > > Signed-off-by: Kiran Patil <kiran.patil@intel.com>
-> > > > Signed-off-by: Ranjani Sridharan <
-> > > > ranjani.sridharan@linux.intel.com>
-> > > > Signed-off-by: Fred Oh <fred.oh@linux.intel.com>
-> > > > Signed-off-by: Leon Romanovsky <leonro@nvidia.com>
-> > > > Signed-off-by: Dave Ertman <david.m.ertman@intel.com>
-> > > > Reviewed-by: Pierre-Louis Bossart <
-> > > > pierre-louis.bossart@linux.intel.com>
-> > > > Reviewed-by: Shiraz Saleem <shiraz.saleem@intel.com>
-> > > > Reviewed-by: Parav Pandit <parav@mellanox.com>
-> > > > Reviewed-by: Dan Williams <dan.j.williams@intel.com>
-> > > > Reviewed-by: Martin Habets <mhabets@solarflare.com>
-> > > > Link: 
-> > > > https://lore.kernel.org/r/20201113161859.1775473-2-david.m.ertman@intel.com
-> > > > Signed-off-by: Dan Williams <dan.j.williams@intel.com>
-> > > > ---
-> > > > This patch is "To:" the maintainers that have a pending backlog
-> > > > of
-> > > > driver updates dependent on this facility, and "Cc:" Greg.
-> > > > Greg, I
-> > > > understand you have asked for more time to fully review this
-> > > > and apply
-> > > > it to driver-core.git, likely for v5.12, but please consider
-> > > > Acking it
-> > > > for v5.11 instead. It looks good to me and several other
-> > > > stakeholders.
-> > > > Namely, stakeholders that have pressure building up behind this
-> > > > facility
-> > > > in particular Mellanox RDMA, but also SOF, Intel Ethernet, and
-> > > > later on
-> > > > Compute Express Link.
-> > > > 
-> > > > I will take the blame for the 2 months of silence that made
-> > > > this awkward
-> > > > to take through driver-core.git, but at the same time I do not
-> > > > want to
-> > > > see that communication mistake inconvenience other parties that
-> > > > reasonably thought this was shaping up to land in v5.11.
-> > > > 
-> > > > I am willing to host this version at:
-> > > > 
-> > > > git://git.kernel.org/pub/scm/linux/kernel/git/djbw/linux
-> > > > tags/auxiliary-bus-for-5.11
-> > > > 
-> > > > ...for all the independent drivers to have a common commit
-> > > > baseline. It
-> > > > is not there yet pending Greg's Ack.
-> > > > 
-> > > > For example implementations incorporating this patch, see Dave
-> > > > Ertman's
-> > > > SOF series:
-> > > > 
-> > > > https://lore.kernel.org/r/20201113161859.1775473-2-david.m.ertman@intel.com
-> > > > 
-> > > > ...and Leon's mlx5 series:
-> > > > 
-> > > > http://lore.kernel.org/r/20201026111849.1035786-1-leon@kernel.org
-> > > > 
-> > > > PS: Greg I know I promised some review on newcomer patches to
-> > > > help with
-> > > > your queue, unfortunately Intel-internal review is keeping my
-> > > > plate
-> > > > full. Again, I do not want other stakeholder to be waiting on
-> > > > me to
-> > > > resolve that backlog.
-> > > 
-> > > Ok, I spent some hours today playing around with this.  I wrote
-> > > up a
-> > > small test-patch for this (how did anyone test this thing???).
-> > 
-> > We are running all verifications tests that we have over our
-> > mlx5 driver. It includes devices reloads, power failures, FW
-> > reconfiguration to emulate different devices with and without error
-> > injections and many more. Up till now, no new bugs that are not
-> > known
-> > to us were found.
+
+
+On 03/12/2020 23:14, Arnd Bergmann wrote:
+> From: Arnd Bergmann <arnd@arndb.de>
 > 
-> Yes, sorry, I was implying that the authors here had to create _some_
-> code to test this with, it would have been nice to include that as
-> well
-> here.  We are collecting more and more in-kernel tests, having one
-> for
-> this code would be nice to also have so we make sure not to break any
-> functionality in the future.
+> The previous fix left another warning in randconfig builds:
+> 
+> WARNING: unmet direct dependencies detected for SND_SOC_QDSP6
+>    Depends on [n]: SOUND [=y] && !UML && SND [=y] && SND_SOC [=y] && SND_SOC_QCOM [=y] && QCOM_APR [=y] && COMMON_CLK [=n]
+>    Selected by [y]:
+>    - SND_SOC_MSM8996 [=y] && SOUND [=y] && !UML && SND [=y] && SND_SOC [=y] && SND_SOC_QCOM [=y] && QCOM_APR [=y]
+> 
+> Add one more dependency for this one.
+> 
+> Fixes: 2bc8831b135c ("ASoC: qcom: fix SDM845 & QDSP6 dependencies more")
+> Signed-off-by: Arnd Bergmann <arnd@arndb.de>
 
-Hi Greg,
+Thanks for the patch,
 
-Thanks for your patience with this series. The v4 version submitted by
-Dave included the SOF usage code to demonstrate the usage. We have run
-all tests for device registration, module reload, PM etc and have not
-observed any regressions in the SOF audio driver.
+Reviewed-by: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
 
-Thanks,
-Ranjani
-
+> ---
+>   sound/soc/qcom/Kconfig | 1 +
+>   1 file changed, 1 insertion(+)
+> 
+> diff --git a/sound/soc/qcom/Kconfig b/sound/soc/qcom/Kconfig
+> index 27f93006be96..cc7c1de2f1d9 100644
+> --- a/sound/soc/qcom/Kconfig
+> +++ b/sound/soc/qcom/Kconfig
+> @@ -106,6 +106,7 @@ config SND_SOC_QDSP6
+>   config SND_SOC_MSM8996
+>   	tristate "SoC Machine driver for MSM8996 and APQ8096 boards"
+>   	depends on QCOM_APR
+> +	depends on COMMON_CLK
+>   	select SND_SOC_QDSP6
+>   	select SND_SOC_QCOM_COMMON
+>   	help
+> 

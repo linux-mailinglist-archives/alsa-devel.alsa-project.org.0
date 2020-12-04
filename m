@@ -2,84 +2,59 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 391FB2CF156
-	for <lists+alsa-devel@lfdr.de>; Fri,  4 Dec 2020 16:56:14 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4D4F52CF13D
+	for <lists+alsa-devel@lfdr.de>; Fri,  4 Dec 2020 16:52:27 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D07C7187D;
-	Fri,  4 Dec 2020 16:55:23 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D07C7187D
+	by alsa0.perex.cz (Postfix) with ESMTPS id B64631879;
+	Fri,  4 Dec 2020 16:51:36 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B64631879
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1607097373;
-	bh=PqlvPap3aB5JvMBDlrvzhm9lWHsSCEhgf8R8I1B5hh4=;
-	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
+	s=default; t=1607097146;
+	bh=FtXrkeP6RtnPuVMb5v4zUhk60yW2JHT3bMskKvY5Cj0=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=nWZ4eOgHd67lESv+Xid3xjmAp2ZaPvQfPXPYxTGQA4K0dCDa8dTJexX33A/e9zuHf
-	 xWObQhr1QuB5GUhllD469+AvSQncyn9Rywt1q81I1Mh0i/T5rUrm/GdoNV/dwQvxzk
-	 JI8OEigYAJVdccOZvK99wotuYYEkFUnqXc5rpvAI=
+	b=CG8Tz6ahOu98/F+HUYLBiqxD7EBmT/V1p8WiS/N4UyxOuqmqog7nhfgfq08r1bGD8
+	 0944IIVAHVlt18POF7xCorr83MhARoctkWQ7jM8joGJ1ukUEtrv/wWg3hAbRxMR1sL
+	 icXsIV8Ry1ZMa+fYNUgqCeNLVFk5qHfcmOAUnB7w=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id EB797F8049C;
-	Fri,  4 Dec 2020 16:54:39 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id E6CCDF800E8;
+	Fri,  4 Dec 2020 16:50:52 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id D9475F80278; Fri,  4 Dec 2020 16:54:38 +0100 (CET)
+ id 707CEF80278; Fri,  4 Dec 2020 16:50:51 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.8 required=5.0 tests=DATE_IN_PAST_12_24,
- NICE_REPLY_A,RCVD_IN_MSPIKE_H4,RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_NONE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_MSPIKE_H3,
+ RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
+Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id D0D97F8012A
- for <alsa-devel@alsa-project.org>; Fri,  4 Dec 2020 16:54:26 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D0D97F8012A
-IronPort-SDR: T3UlXMUEmF7R1JYCRKgMlWfbu8/ew1+UDV9okgnFzmHp+DUq+Ty2CdiRqyQ5be52NEefNyrWFC
- 24o7XNYHGVYg==
-X-IronPort-AV: E=McAfee;i="6000,8403,9825"; a="237510824"
-X-IronPort-AV: E=Sophos;i="5.78,393,1599548400"; d="scan'208";a="237510824"
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from orsmga007.jf.intel.com ([10.7.209.58])
- by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 04 Dec 2020 07:54:24 -0800
-IronPort-SDR: Vhp5Jswx9eGcKQL0ubW9XPAUESZ+FxyWye9LDRS0HSZNv0scOiPCBnG86xBRFFAihH/b2E8VKk
- RmWHc19aubeA==
-X-IronPort-AV: E=Sophos;i="5.78,393,1599548400"; d="scan'208";a="373958798"
-Received: from emogena-mobl1.amr.corp.intel.com (HELO [10.212.90.42])
- ([10.212.90.42])
- by orsmga007-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 04 Dec 2020 07:54:22 -0800
-Subject: Re: [PATCH v2] ASoC: intel: sof_rt5682: Add support for
- tgl_rt1011_rt5682
-To: Brent Lu <brent.lu@intel.com>, alsa-devel@alsa-project.org
-References: <20201203154010.29464-1-brent.lu@intel.com>
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Message-ID: <64da393b-f591-7af0-a131-b40f49dcf804@linux.intel.com>
-Date: Thu, 3 Dec 2020 10:02:48 -0600
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.10.0
-MIME-Version: 1.0
-In-Reply-To: <20201203154010.29464-1-brent.lu@intel.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
-Cc: Guennadi Liakhovetski <guennadi.liakhovetski@linux.intel.com>,
- Cezary Rojewski <cezary.rojewski@intel.com>,
- Dharageswari R <dharageswari.r@intel.com>,
- Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
- Kai Vehmanen <kai.vehmanen@linux.intel.com>,
- Rander Wang <rander.wang@linux.intel.com>, Jie Yang <yang.jie@linux.intel.com>,
- linux-kernel@vger.kernel.org, Takashi Iwai <tiwai@suse.com>,
- Liam Girdwood <liam.r.girdwood@linux.intel.com>,
- Ben Zhang <benzh@chromium.org>, Mark Brown <broonie@kernel.org>,
- Sathyanarayana Nujella <sathyanarayana.nujella@intel.com>,
- Naveen Manohar <naveen.m@intel.com>, Libin Yang <libin.yang@linux.intel.com>,
- Bard Liao <yung-chuan.liao@linux.intel.com>, Fred Oh <fred.oh@linux.intel.com>,
- Yong Zhi <yong.zhi@intel.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 2DC66F800E8
+ for <alsa-devel@alsa-project.org>; Fri,  4 Dec 2020 16:50:38 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2DC66F800E8
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id EF969AC9A;
+ Fri,  4 Dec 2020 15:50:37 +0000 (UTC)
+Date: Fri, 04 Dec 2020 16:50:37 +0100
+Message-ID: <s5hblf94lki.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Hui Wang <hui.wang@canonical.com>
+Subject: Re: [PATCH] ALSA: hda/realtek: make bass spk volume adjustable on a
+ yoga laptop
+In-Reply-To: <20201204123459.71474-1-hui.wang@canonical.com>
+References: <20201204123459.71474-1-hui.wang@canonical.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
+ FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
+ (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
+Content-Type: text/plain; charset=US-ASCII
+Cc: alsa-devel@alsa-project.org, stable@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -95,15 +70,59 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-
-
-On 12/3/20 9:40 AM, Brent Lu wrote:
-> This patch adds the driver data for two rt1011 speaker amplifiers on
-> SSP1 and rt5682 on SSP0 for TGL platform. DAI format for rt1011 is
-> leveraged from cml_rt1011_rt5682 which is 4-slot tdm with 100fs bclk.
+On Fri, 04 Dec 2020 13:34:59 +0100,
+Hui Wang wrote:
 > 
-> Signed-off-by: Brent Lu <brent.lu@intel.com>
+> This also make the headset button work on this machine.
 
-Thanks Brent.
+Hm, the description isn't clearly related with the code changes.
+Could you elaborate a bit more?  The functions you changed are used
+commonly, so it needs clarification.
 
-Acked-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+
+thanks,
+
+Takashi
+
+> 
+> Cc: <stable@vger.kernel.org>
+> Signed-off-by: Hui Wang <hui.wang@canonical.com>
+> ---
+>  sound/pci/hda/patch_realtek.c | 7 +++++++
+>  1 file changed, 7 insertions(+)
+> 
+> diff --git a/sound/pci/hda/patch_realtek.c b/sound/pci/hda/patch_realtek.c
+> index 8616c5624870..5a905fa1b33a 100644
+> --- a/sound/pci/hda/patch_realtek.c
+> +++ b/sound/pci/hda/patch_realtek.c
+> @@ -3104,6 +3104,7 @@ static void alc_disable_headset_jack_key(struct hda_codec *codec)
+>  	case 0x10ec0215:
+>  	case 0x10ec0225:
+>  	case 0x10ec0285:
+> +	case 0x10ec0287:
+>  	case 0x10ec0295:
+>  	case 0x10ec0289:
+>  	case 0x10ec0299:
+> @@ -3130,6 +3131,7 @@ static void alc_enable_headset_jack_key(struct hda_codec *codec)
+>  	case 0x10ec0215:
+>  	case 0x10ec0225:
+>  	case 0x10ec0285:
+> +	case 0x10ec0287:
+>  	case 0x10ec0295:
+>  	case 0x10ec0289:
+>  	case 0x10ec0299:
+> @@ -8578,6 +8580,11 @@ static const struct snd_hda_pin_quirk alc269_pin_fixup_tbl[] = {
+>  		{0x14, 0x90170110},
+>  		{0x19, 0x04a11040},
+>  		{0x21, 0x04211020}),
+> +	SND_HDA_PIN_QUIRK(0x10ec0287, 0x17aa, "Lenovo", ALC285_FIXUP_THINKPAD_HEADSET_JACK,
+> +		{0x14, 0x90170110},
+> +		{0x17, 0x90170111},
+> +		{0x19, 0x03a11030},
+> +		{0x21, 0x03211020}),
+>  	SND_HDA_PIN_QUIRK(0x10ec0286, 0x1025, "Acer", ALC286_FIXUP_ACER_AIO_MIC_NO_PRESENCE,
+>  		{0x12, 0x90a60130},
+>  		{0x17, 0x90170110},
+> -- 
+> 2.25.1
+> 

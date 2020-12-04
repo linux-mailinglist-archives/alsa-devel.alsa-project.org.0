@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 815B42CF778
-	for <lists+alsa-devel@lfdr.de>; Sat,  5 Dec 2020 00:32:55 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 297D92CF794
+	for <lists+alsa-devel@lfdr.de>; Sat,  5 Dec 2020 00:34:32 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 98AE818B7;
-	Sat,  5 Dec 2020 00:32:04 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 98AE818B7
+	by alsa0.perex.cz (Postfix) with ESMTPS id CC4F018C5;
+	Sat,  5 Dec 2020 00:33:41 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CC4F018C5
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1607124774;
-	bh=TOXyhKgEn1kDswVSlOw6rZ+4mo8EL6xvkF8/jx3Bj1k=;
+	s=default; t=1607124871;
+	bh=L5ZC/Tir8TfPLeHN29G+VetS+jNwwFDBVAtugMMVAmo=;
 	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=neJzGWk3gVnfP7hPECry2Ff8N20+SM0TChgZ8gBR+Wh+2Q1+Sd6UVFq4kfJNuwlYq
-	 wzyoJbJ8Yx12q4vxlw99GFkgS3dRf41kP5qHNEv0z5SocX8BnC3OFkS1em1/C7gFLv
-	 u+AizsG57wt8HVVs5Lw12s8gzN3we5qPqRd7RBl0=
+	b=LyhkDk09ioHfGaP+8nJS0+hpAx5L0xi1o+7GXsSHIzaj+GfwXkxh2hhU6ERa+kh5q
+	 Ym6jpMwlpjxI1vjimtrf3FIPc8yyYJ3DEfjVJHUZCE+lEl+qs3z+Hvmh9od7EY01EZ
+	 mf5mQlhy2q80AYuGz9YAhTIbE2ATYFlfmBwDVeZo=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id BAEF1F804C2;
-	Sat,  5 Dec 2020 00:30:25 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 822CAF804FC;
+	Sat,  5 Dec 2020 00:30:44 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id A0167F804C3; Sat,  5 Dec 2020 00:30:23 +0100 (CET)
+ id EBC94F804EB; Sat,  5 Dec 2020 00:30:40 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE
@@ -33,24 +33,24 @@ X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id C6D08F80278
- for <alsa-devel@alsa-project.org>; Sat,  5 Dec 2020 00:30:20 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C6D08F80278
+ by alsa1.perex.cz (Postfix) with ESMTPS id B4167F804E3
+ for <alsa-devel@alsa-project.org>; Sat,  5 Dec 2020 00:30:38 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B4167F804E3
 From: Mark Brown <broonie@kernel.org>
 Authentication-Results: mail.kernel.org;
  dkim=permerror (bad message/signature format)
-To: Chuhong Yuan <hslester96@gmail.com>
-In-Reply-To: <20201203144227.418194-1-hslester96@gmail.com>
-References: <20201203144227.418194-1-hslester96@gmail.com>
-Subject: Re: [PATCH] ASoC: jz4740-i2s: add missed checks for clk_get()
-Message-Id: <160712460212.7629.1938775307281622942.b4-ty@kernel.org>
+To: alsa-devel@alsa-project.org, Kai Vehmanen <kai.vehmanen@linux.intel.com>
+In-Reply-To: <20201204170313.2704499-1-kai.vehmanen@linux.intel.com>
+References: <20201204170313.2704499-1-kai.vehmanen@linux.intel.com>
+Subject: Re: [PATCH] ASoC: SOF: control: fix cppcheck warning in
+ snd_sof_volume_info()
+Message-Id: <160712460214.7629.9153522784435436749.b4-ty@kernel.org>
 Date: Fri, 04 Dec 2020 23:30:02 +0000
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Cc: alsa-devel@alsa-project.org, Lars-Peter Clausen <lars@metafoo.de>,
- Takashi Iwai <tiwai@suse.com>, Liam Girdwood <lgirdwood@gmail.com>,
- linux-kernel@vger.kernel.org, Paul Cercueil <paul@crapouillou.net>
+Cc: ranjani.sridharan@linux.intel.com, daniel.baluta@nxp.com,
+ lgirdwood@gmail.com, pierre-louis.bossart@linux.intel.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -66,10 +66,12 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Thu, 3 Dec 2020 22:42:27 +0800, Chuhong Yuan wrote:
-> jz4740_i2s_set_sysclk() does not check the return values of clk_get(),
-> while the file dereferences the pointers in clk_put().
-> Add the missed checks to fix it.
+On Fri, 4 Dec 2020 19:03:13 +0200, Kai Vehmanen wrote:
+> Fix cppcheck warning:
+> 
+> sound/soc/sof/control.c:117:82: style:inconclusive: Function
+> 'snd_sof_volume_info' argument 2 names different: declaration
+> 'ucontrol' definition 'uinfo'. [funcArgNamesDifferent]
 
 Applied to
 
@@ -77,8 +79,8 @@ Applied to
 
 Thanks!
 
-[1/1] ASoC: jz4740-i2s: add missed checks for clk_get()
-      commit: 1c1fb2653a0c2e3f310c07eacd8fc3a10e08c97a
+[1/1] ASoC: SOF: control: fix cppcheck warning in snd_sof_volume_info()
+      commit: 518a760cc369eafeef0d6c76d8c30a8acab2c921
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

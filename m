@@ -2,74 +2,75 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 096AD2CF177
-	for <lists+alsa-devel@lfdr.de>; Fri,  4 Dec 2020 17:05:07 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 76EE42CF1E2
+	for <lists+alsa-devel@lfdr.de>; Fri,  4 Dec 2020 17:27:52 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 920F91834;
-	Fri,  4 Dec 2020 17:04:16 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 920F91834
+	by alsa0.perex.cz (Postfix) with ESMTPS id 0B24F1807;
+	Fri,  4 Dec 2020 17:27:02 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0B24F1807
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1607097906;
-	bh=zrhWOnWyWAxM2P7doKySEAD3xW8YyUx3K8F4yJKqyw4=;
-	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
+	s=default; t=1607099272;
+	bh=MHHKkmoKjWu0cQa0MJSAx0XzbIRrcNJEsWUXYjQipb8=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=OlLqolCwj1bCKhDIDebKD/5CoOTQ6f6L+LUsg4mSmKNDLc70BWOwUKumaL956+Oz0
-	 Wz6S4d4Kth6wIeKSdP583WZLyN5KtbO+sv2H9GfjhFUn4AOAAzmEM/xf+Smk1CqMfX
-	 nGXY9qTGf/XZtFWeK5NCRhgh93iN+ixO4+K0P1hw=
+	b=puQI5dINFb7CIMfThf6JfNQvmizGVl5slKMVkpoBsLvxCmQHWfJOXhpevFRYdKeI0
+	 KA+l7POah0ENFNKsDeFXizujkYAZfippXBVFZYWaJGFvS94d5ktWZdIUZgcwZyssrl
+	 7hRE3MYCBsoL8z/fVKk1V8fX6QRhO2/Cf1Liv474=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id BD3E8F8049C;
-	Fri,  4 Dec 2020 17:03:32 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 15B33F8049C;
+	Fri,  4 Dec 2020 17:26:18 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id DB95FF80278; Fri,  4 Dec 2020 17:03:30 +0100 (CET)
+ id 179F4F80278; Fri,  4 Dec 2020 17:26:16 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.8 required=5.0 tests=DATE_IN_PAST_12_24,
- NICE_REPLY_A,RCVD_IN_MSPIKE_H4,RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_NONE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-1.6 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+ DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled
+ version=3.4.0
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id CFC57F800E8
- for <alsa-devel@alsa-project.org>; Fri,  4 Dec 2020 17:03:18 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CFC57F800E8
-IronPort-SDR: fDdw3FGyB1LugPkRsMLp0pWzIdOZnRZ5mucZ3LUwKe580s53b8C83HPf+Lwa6YNrhYkP4uFIeV
- NADD7RsWe/Ng==
-X-IronPort-AV: E=McAfee;i="6000,8403,9825"; a="237512474"
-X-IronPort-AV: E=Sophos;i="5.78,393,1599548400"; d="scan'208";a="237512474"
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from orsmga007.jf.intel.com ([10.7.209.58])
- by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 04 Dec 2020 08:03:16 -0800
-IronPort-SDR: /SIAt6AXx4ob0LCsOSeQ1gW9ktDI70TDWFTpVGfBprl3q2Ms/Sgazfz/0P13Bthv1hLmI2lt+Q
- w2KfKBhgMwrA==
-X-IronPort-AV: E=Sophos;i="5.78,393,1599548400"; d="scan'208";a="373960693"
-Received: from emogena-mobl1.amr.corp.intel.com (HELO [10.212.90.42])
- ([10.212.90.42])
- by orsmga007-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 04 Dec 2020 08:03:15 -0800
-Subject: Re: [PATCH] soundwire: intel: fix another unused-function warning
-To: Arnd Bergmann <arnd@kernel.org>, Vinod Koul <vkoul@kernel.org>,
- Bard Liao <yung-chuan.liao@linux.intel.com>
-References: <20201203230502.1480063-1-arnd@kernel.org>
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Message-ID: <070e64b8-88e4-ccf1-b51e-99de513ab55c@linux.intel.com>
-Date: Thu, 3 Dec 2020 17:48:47 -0600
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.10.0
+ by alsa1.perex.cz (Postfix) with ESMTPS id 38C08F800E2
+ for <alsa-devel@alsa-project.org>; Fri,  4 Dec 2020 17:26:03 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 38C08F800E2
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="MLvlA35H"
+Date: Fri, 4 Dec 2020 08:25:58 -0800
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1607099160;
+ bh=MHHKkmoKjWu0cQa0MJSAx0XzbIRrcNJEsWUXYjQipb8=;
+ h=From:To:Cc:Subject:In-Reply-To:References:From;
+ b=MLvlA35HN4ohV3iZow6D9YHeAHxFSJ3uPa6MbZFLdDwWj7Zyr58H/PSnExYJOqODJ
+ EfJWAWip59iY29pTqqNIqPGFXN10Iia11P11c9xb/Ln6SHa9G+Slpdy60vJ2bligCR
+ LW7Jh9uEV4sjc0I6m+IJY8uYG4cCeDZrLDhRVK65CeT/lLo3Yq3WouzIdZ25VmIhpK
+ 63d75Jb50lFlvPYXyXAfZ2Wdgh9YuYPRZM7gr+at0ocFyndIuSyVe6yz+X4ABBG3y7
+ gJ+Z27Ur7XalOsKughxN9oyVa4LJLeGZdNlTKCS33IZ1vWueF3VN+GCIir5zUDkw9I
+ j6zMFjspjvd3w==
+From: Jakub Kicinski <kuba@kernel.org>
+To: Leon Romanovsky <leonro@nvidia.com>
+Subject: Re: [resend/standalone PATCH v4] Add auxiliary bus support
+Message-ID: <20201204082558.4eb8c8c2@kicinski-fedora-pc1c0hjn.DHCP.thefacebook.com>
+In-Reply-To: <20201204125455.GI16543@unreal>
+References: <160695681289.505290.8978295443574440604.stgit@dwillia2-desk3.amr.corp.intel.com>
+ <X8os+X515fxeqefg@kroah.com> <20201204125455.GI16543@unreal>
 MIME-Version: 1.0
-In-Reply-To: <20201203230502.1480063-1-arnd@kernel.org>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
+Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: 7bit
-Cc: linux-kernel@vger.kernel.org, Sanyog Kale <sanyog.r.kale@intel.com>,
- alsa-devel@alsa-project.org, Arnd Bergmann <arnd@arndb.de>,
- Rander Wang <rander.wang@intel.com>
+Cc: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ alsa-devel@alsa-project.org, Kiran Patil <kiran.patil@intel.com>,
+ linux-rdma@vger.kernel.org, Greg KH <gregkh@linuxfoundation.org>,
+ Martin Habets <mhabets@solarflare.com>, lgirdwood@gmail.com,
+ Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
+ Fred Oh <fred.oh@linux.intel.com>, broonie@kernel.org, jgg@nvidia.com,
+ netdev@vger.kernel.org, Dave Ertman <david.m.ertman@intel.com>,
+ Dan Williams <dan.j.williams@intel.com>,
+ Shiraz Saleem <shiraz.saleem@intel.com>, davem@davemloft.net,
+ linux-kernel@vger.kernel.org, Parav Pandit <parav@mellanox.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -85,70 +86,14 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+On Fri, 4 Dec 2020 14:54:55 +0200 Leon Romanovsky wrote:
+> Thanks, pulled to mlx5-next
+> 
+> Jason, Jakob,
+> 
+> Can you please pull that mlx5-next branch to your trees?
+> git://git.kernel.org/pub/scm/linux/kernel/git/mellanox/linux.git
 
+Could you post a PR with a proper description and so on?
 
-On 12/3/20 5:04 PM, Arnd Bergmann wrote:
-> From: Arnd Bergmann <arnd@arndb.de>
-> 
-> Without CONFIG_PM, there is another warning about an unused function:
-> 
-> drivers/soundwire/intel.c:530:12: error: 'intel_link_power_down' defined but not used [-Werror=unused-function]
-> 
-> After a previous fix, the driver already uses both an #ifdef and
-> a __maybe_unused annotation but still gets it wrong. Remove the
-> ifdef and instead use __maybe_unused consistently to avoid the
-> problem for good.
-> 
-> Fixes: f046b2334083 ("soundwire: intel: fix intel_suspend/resume defined but not used warning")
-> Fixes: ebf878eddbb4 ("soundwire: intel: add pm_runtime support")
-> Signed-off-by: Arnd Bergmann <arnd@arndb.de>
-
-Thanks for the patch Arnd, indeed that's a miss.
-
-Reviewed-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-
-> ---
->   drivers/soundwire/intel.c | 8 ++------
->   1 file changed, 2 insertions(+), 6 deletions(-)
-> 
-> diff --git a/drivers/soundwire/intel.c b/drivers/soundwire/intel.c
-> index 6a1e862b16c3..66adb258a425 100644
-> --- a/drivers/soundwire/intel.c
-> +++ b/drivers/soundwire/intel.c
-> @@ -1585,8 +1585,6 @@ int intel_master_process_wakeen_event(struct platform_device *pdev)
->    * PM calls
->    */
->   
-> -#ifdef CONFIG_PM
-> -
->   static int __maybe_unused intel_suspend(struct device *dev)
->   {
->   	struct sdw_cdns *cdns = dev_get_drvdata(dev);
-> @@ -1641,7 +1639,7 @@ static int __maybe_unused intel_suspend(struct device *dev)
->   	return 0;
->   }
->   
-> -static int intel_suspend_runtime(struct device *dev)
-> +static int __maybe_unused intel_suspend_runtime(struct device *dev)
->   {
->   	struct sdw_cdns *cdns = dev_get_drvdata(dev);
->   	struct sdw_intel *sdw = cdns_to_intel(cdns);
-> @@ -1796,7 +1794,7 @@ static int __maybe_unused intel_resume(struct device *dev)
->   	return ret;
->   }
->   
-> -static int intel_resume_runtime(struct device *dev)
-> +static int __maybe_unused intel_resume_runtime(struct device *dev)
->   {
->   	struct sdw_cdns *cdns = dev_get_drvdata(dev);
->   	struct sdw_intel *sdw = cdns_to_intel(cdns);
-> @@ -1969,8 +1967,6 @@ static int intel_resume_runtime(struct device *dev)
->   	return ret;
->   }
->   
-> -#endif
-> -
->   static const struct dev_pm_ops intel_pm = {
->   	SET_SYSTEM_SLEEP_PM_OPS(intel_suspend, intel_resume)
->   	SET_RUNTIME_PM_OPS(intel_suspend_runtime, intel_resume_runtime, NULL)
-> 
+Thanks!

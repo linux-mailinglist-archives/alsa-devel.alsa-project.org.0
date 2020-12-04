@@ -2,72 +2,76 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id F12D92CFA76
-	for <lists+alsa-devel@lfdr.de>; Sat,  5 Dec 2020 09:07:26 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 604882CFA77
+	for <lists+alsa-devel@lfdr.de>; Sat,  5 Dec 2020 09:07:42 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 8390C18CF;
-	Sat,  5 Dec 2020 09:06:36 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8390C18CF
+	by alsa0.perex.cz (Postfix) with ESMTPS id 87A1D18DC;
+	Sat,  5 Dec 2020 09:06:49 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 87A1D18DC
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1607155646;
-	bh=VsRX+xGb8tfXxMSIDzsaHw6m6ALj/pSpVp3B7fsiqck=;
-	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=R+XwWtY9mu4/cog6p9t8xthycboJ1C3oQocaYnQ3pQfR3PLpvE5PDJAwIbRqyStnb
-	 yrgNZNKGxnWtQN2vU5TbUo9EneLEAuah8Q44na/BoK1Z04IeeBqbDROMJY2mdM8bqM
-	 pGCDRJdv0n1SiDTNdwsniK8dZ1YuPivOfcCFLKhM=
+	s=default; t=1607155659;
+	bh=vWePC9qDv7C4anJifZjGHS0AugrgVsMBcQg3lrjW1Xo=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=V/adpQIAfU3/K8dRL8tQHfPmmYAFot+/89Y7fZqx1ia/DNpCbKjVM+t+OZeWfCIDZ
+	 5Jm8Z2RHG0nUT8fLjYz/Jwdiw03KeeJvikpQo76sE73wMjT+9v+ArpaB6GuTCenICX
+	 IKqbZUwaDARDgkBDNDktGHHwwy3rdUz7ZgLpp9mI=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 9F54CF804ED;
-	Sat,  5 Dec 2020 09:03:22 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id B002AF804FA;
+	Sat,  5 Dec 2020 09:03:23 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 9DABFF8016D; Thu,  3 Dec 2020 07:46:37 +0100 (CET)
+ id D582FF80254; Fri,  4 Dec 2020 03:43:52 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.0 required=5.0 tests=NICE_REPLY_A,SPF_HELO_PASS,
- SPF_PASS autolearn=disabled version=3.4.0
-Received: from esa3.mentor.iphmx.com (esa3.mentor.iphmx.com [68.232.137.180])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
- bits)) (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 49468F800E8
- for <alsa-devel@alsa-project.org>; Thu,  3 Dec 2020 07:46:24 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 49468F800E8
-IronPort-SDR: 5wsRvo4KB5tludE9CiMBsOqzqS8dJZP/Kgxxw7WUGtA1UPcNl0Y4j8a4iLP+0yF0lQPrIsFGCq
- mnulkaDGdNbeTHdgzQom2mxRUL+qEaOIKO04WFtk999NipYZd5bdP0XAy+e+W+ohxy9EtIy3xD
- o7TamFR01ui6QgVrDprXh6B7zp6BLOIfCV+OOEbbFLJWXTcjzTe25CzLq9d/dHAq0/ad3jFo4G
- uncjW7Cm7IC9jUmi2A0q5o3VayLTWskb7wb+SzMYjDqHrWm+aC/oFLpNH56JzyXVTjUP1dK3VH
- oyI=
-X-IronPort-AV: E=Sophos;i="5.78,388,1599552000"; d="scan'208";a="55726689"
-Received: from orw-gwy-01-in.mentorg.com ([192.94.38.165])
- by esa3.mentor.iphmx.com with ESMTP; 02 Dec 2020 22:46:21 -0800
-IronPort-SDR: gJMY6Y/MU+UaXt3QljKs5RRVRB7NvxgCIP09XQgQH74ALAsBuRzPslp00xEDEHiAgJSdmPu3x0
- DudZT/WjjAXTKiAMZGLzyrUDhytFPmTYpDf5gg45240zJ2zkN4LKAmCVOw5/epkVMsFCJFXcN7
- o3NIKio6ASxnrn19ZZcqYwLSIoAozvEmfbvICzJCZiCZPa+8nLg3iHp6AD2m2vFLVSLwDAIHEy
- cQcoWcd9fj4mDKQ8qxevS9aefXecPsOslNNoBVYWpWeFGxHHAg9WGUg5VPiBMqSCHIsDW/pMY8
- WnU=
-Subject: Re: [PATCH v0] ASoC: rsnd: core: Check convert rate in rsnd_hw_params
-To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-References: <1606907286-32104-1-git-send-email-mikhail_durnev@mentor.com>
- <87sg8nbz4o.wl-kuninori.morimoto.gx@renesas.com>
-From: Mikhail Durnev <Mikhail_Durnev@mentor.com>
-Message-ID: <866c9619-757b-831b-6955-9245a6071adc@mentor.com>
-Date: Thu, 3 Dec 2020 16:46:13 +1000
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.10.0
+X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_MSPIKE_H4,
+ RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
+Received: from szxga04-in.huawei.com (szxga04-in.huawei.com [45.249.212.190])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id A19F5F80158
+ for <alsa-devel@alsa-project.org>; Fri,  4 Dec 2020 03:43:46 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A19F5F80158
+Received: from DGGEMS411-HUB.china.huawei.com (unknown [172.30.72.59])
+ by szxga04-in.huawei.com (SkyGuard) with ESMTP id 4CnH7b3FMKzkl4x;
+ Fri,  4 Dec 2020 10:43:07 +0800 (CST)
+Received: from thunder-town.china.huawei.com (10.174.177.9) by
+ DGGEMS411-HUB.china.huawei.com (10.3.19.211) with Microsoft SMTP Server id
+ 14.3.487.0; Fri, 4 Dec 2020 10:43:33 +0800
+From: Zhen Lei <thunder.leizhen@huawei.com>
+To: Rob Herring <robh+dt@kernel.org>, Michael Turquette
+ <mturquette@baylibre.com>, Stephen Boyd <sboyd@kernel.org>, Shawn Guo
+ <shawnguo@kernel.org>, Sascha Hauer <s.hauer@pengutronix.de>, "Pengutronix
+ Kernel Team" <kernel@pengutronix.de>, Fabio Estevam <festevam@gmail.com>,
+ "NXP Linux Team" <linux-imx@nxp.com>, David Airlie <airlied@linux.ie>,
+ "Daniel Vetter" <daniel@ffwll.ch>, Sumit Semwal <sumit.semwal@linaro.org>,
+ "Thierry Reding" <thierry.reding@gmail.com>, Sam Ravnborg <sam@ravnborg.org>, 
+ "Hans Verkuil" <hverkuil-cisco@xs4all.nl>, Mauro Carvalho Chehab
+ <mchehab@kernel.org>, Sakari Ailus <sakari.ailus@linux.intel.com>, "Ricardo
+ Ribalda" <ribalda@kernel.org>, Ulf Hansson <ulf.hansson@linaro.org>,
+ "Matthias Brugger" <matthias.bgg@gmail.com>, Liam Girdwood
+ <lgirdwood@gmail.com>, "Mark Brown" <broonie@kernel.org>, linux-clk
+ <linux-clk@vger.kernel.org>, devicetree <devicetree@vger.kernel.org>,
+ linux-arm-kernel <linux-arm-kernel@lists.infradead.org>, linux-kernel
+ <linux-kernel@vger.kernel.org>, dri-devel <dri-devel@lists.freedesktop.org>,
+ linux-media <linux-media@vger.kernel.org>, linux-mmc
+ <linux-mmc@vger.kernel.org>, linux-mediatek
+ <linux-mediatek@lists.infradead.org>, alsa-devel
+ <alsa-devel@alsa-project.org>
+Subject: [PATCH 0/1] dt-bindings: eliminate yamllint warnings
+Date: Fri, 4 Dec 2020 10:42:25 +0800
+Message-ID: <20201204024226.1222-1-thunder.leizhen@huawei.com>
+X-Mailer: git-send-email 2.26.0.windows.1
 MIME-Version: 1.0
-In-Reply-To: <87sg8nbz4o.wl-kuninori.morimoto.gx@renesas.com>
-Content-Type: text/plain; charset="utf-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-Content-Language: en-GB
-X-Originating-IP: [137.202.0.90]
-X-ClientProxiedBy: SVR-IES-MBX-04.mgc.mentorg.com (139.181.222.4) To
- SVR-IES-MBX-04.mgc.mentorg.com (139.181.222.4)
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.174.177.9]
+X-CFilter-Loop: Reflected
 X-Mailman-Approved-At: Sat, 05 Dec 2020 09:03:14 +0100
-Cc: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org
+Cc: Zhen Lei <thunder.leizhen@huawei.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -83,12 +87,47 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 03.12.2020 08:57, Kuninori Morimoto wrote:
-> I think you want to add "fallthrough" between case 1/3/4 and case 0 ?
-Hi Morimoto-san,
+There're too many people, I just send to the maintainer, reviewer, supporter.
 
-Yes, I will add it in the updated version of the patch. Thanks.
-The checkpatch script did not tell me about that.
+Eliminate below warnings:
+./Documentation/devicetree/bindings/clock/imx8qxp-lpcg.yaml:32:13: [warning] wrong indentation: expected 14 but found 12 (indentation)
+./Documentation/devicetree/bindings/clock/imx8qxp-lpcg.yaml:35:9: [warning] wrong indentation: expected 10 but found 8 (indentation)
+./Documentation/devicetree/bindings/display/intel,keembay-msscam.yaml:21:6: [warning] wrong indentation: expected 6 but found 5 (indentation)
+./Documentation/devicetree/bindings/display/bridge/analogix,anx7625.yaml:52:9: [warning] wrong indentation: expected 6 but found 8 (indentation)
+./Documentation/devicetree/bindings/display/bridge/intel,keembay-dsi.yaml:42:8: [warning] wrong indentation: expected 8 but found 7 (indentation)
+./Documentation/devicetree/bindings/display/bridge/intel,keembay-dsi.yaml:45:8: [warning] wrong indentation: expected 8 but found 7 (indentation)
+./Documentation/devicetree/bindings/display/panel/novatek,nt36672a.yaml:25:10: [warning] wrong indentation: expected 10 but found 9 (indentation)
+./Documentation/devicetree/bindings/media/i2c/adv7604.yaml:24:9: [warning] wrong indentation: expected 10 but found 8 (indentation)
+./Documentation/devicetree/bindings/media/i2c/mipi-ccs.yaml:4:1: [error] missing document start "---" (document-start)
+./Documentation/devicetree/bindings/media/i2c/mipi-ccs.yaml:29:9: [warning] wrong indentation: expected 10 but found 8 (indentation)
+./Documentation/devicetree/bindings/media/i2c/mipi-ccs.yaml:32:9: [warning] wrong indentation: expected 10 but found 8 (indentation)
+./Documentation/devicetree/bindings/media/i2c/ovti,ov772x.yaml:79:17: [warning] wrong indentation: expected 14 but found 16 (indentation)
+./Documentation/devicetree/bindings/media/i2c/ovti,ov772x.yaml:88:17: [warning] wrong indentation: expected 14 but found 16 (indentation)
+./Documentation/devicetree/bindings/media/i2c/sony,imx214.yaml:72:17: [warning] wrong indentation: expected 18 but found 16 (indentation)
+./Documentation/devicetree/bindings/media/i2c/sony,imx214.yaml:75:17: [warning] wrong indentation: expected 18 but found 16 (indentation)
+./Documentation/devicetree/bindings/mmc/mtk-sd.yaml:20:9: [warning] wrong indentation: expected 10 but found 8 (indentation)
+./Documentation/devicetree/bindings/mmc/mtk-sd.yaml:30:9: [warning] wrong indentation: expected 10 but found 8 (indentation)
+./Documentation/devicetree/bindings/mmc/mtk-sd.yaml:33:9: [warning] wrong indentation: expected 10 but found 8 (indentation)
+./Documentation/devicetree/bindings/sound/mt8192-mt6359-rt1015-rt5682.yaml:10:4: [warning] wrong indentation: expected 2 but found 3 (indentation)
 
-Best regards,
-Misha
+
+Zhen Lei (1):
+  dt-bindings: eliminate yamllint warnings
+
+ .../devicetree/bindings/clock/imx8qxp-lpcg.yaml    | 20 ++++++++---------
+ .../bindings/display/bridge/analogix,anx7625.yaml  |  4 ++--
+ .../bindings/display/bridge/intel,keembay-dsi.yaml |  4 ++--
+ .../bindings/display/intel,keembay-msscam.yaml     |  4 ++--
+ .../bindings/display/panel/novatek,nt36672a.yaml   |  2 +-
+ .../devicetree/bindings/media/i2c/adv7604.yaml     |  4 ++--
+ .../devicetree/bindings/media/i2c/mipi-ccs.yaml    | 11 ++++-----
+ .../devicetree/bindings/media/i2c/ovti,ov772x.yaml | 12 +++++-----
+ .../devicetree/bindings/media/i2c/sony,imx214.yaml | 12 +++++-----
+ Documentation/devicetree/bindings/mmc/mtk-sd.yaml  | 26 +++++++++++-----------
+ .../sound/mt8192-mt6359-rt1015-rt5682.yaml         |  4 ++--
+ 11 files changed, 52 insertions(+), 51 deletions(-)
+
+-- 
+1.8.3
+
+

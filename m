@@ -2,75 +2,75 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id DC4432CFBA6
-	for <lists+alsa-devel@lfdr.de>; Sat,  5 Dec 2020 16:02:26 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 377302CFBD6
+	for <lists+alsa-devel@lfdr.de>; Sat,  5 Dec 2020 16:52:10 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 642671911;
-	Sat,  5 Dec 2020 16:01:36 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 642671911
+	by alsa0.perex.cz (Postfix) with ESMTPS id B31121919;
+	Sat,  5 Dec 2020 16:51:19 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B31121919
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1607180546;
-	bh=CbUbYFXxq7Z9BtRWpeR3Kpkooa9tNRsj40xyE9azA5k=;
-	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
+	s=default; t=1607183529;
+	bh=PQ69+Tx5HitWyIcatLXcVOYusWMncetXLlHJ6cpFLvI=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=IoUe3uFtpU5hdRlYMPIuhiFdDJe8hud3P3WRw51TFiBLrNrYu/K9BoA04P2zho+Yo
-	 9fbnmt5J+JH9gwMZCSPzfk86FYWPwqNFDyo4luYSr348eRZ7SsnenRMZxEHfJkFUoH
-	 5lab44RexFDyQ3osn7739Yc+gnATeZMgvMN7pMvg=
+	b=TrOuP/RBjXdoRwCqYKHqNp5DlIhaVjjQGwy5QvfmKzbQmHn3k1hvjfR6LtpAJYcL6
+	 IjsdDBow/nAKRRlFp2VQXzCKE04U4J0nhIaCvrbcDmKNaTR53D4xFDIQRK5WFr1EaF
+	 VzBySMTOUmZhj5yVpEFA2jd5k24h83Qo+55PYpDY=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 733FDF8016C;
-	Sat,  5 Dec 2020 16:00:10 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 1E0A3F80254;
+	Sat,  5 Dec 2020 16:50:35 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 8E3F8F804BC; Sat,  5 Dec 2020 16:00:07 +0100 (CET)
+ id C4BB8F8016D; Sat,  5 Dec 2020 16:50:32 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=NICE_REPLY_A,SPF_HELO_NONE,
- SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 96AC7F8025F
- for <alsa-devel@alsa-project.org>; Sat,  5 Dec 2020 15:59:59 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 96AC7F8025F
-IronPort-SDR: JOwgChd/iQNexmmrShSQfRqRUHOUJxkYwqZ+kQmuBCYgn7BAmVg/qZ35g6rh8MvO87uECkdX+G
- XtLtbwxYzUOg==
-X-IronPort-AV: E=McAfee;i="6000,8403,9825"; a="237628585"
-X-IronPort-AV: E=Sophos;i="5.78,395,1599548400"; d="scan'208";a="237628585"
-Received: from fmsmga001.fm.intel.com ([10.253.24.23])
- by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 05 Dec 2020 06:59:56 -0800
-IronPort-SDR: RYoMDGFFTE6jxc6pGLX2RQcbEpvcChRMU2DhisSbvvl+p0aMw7PNIZxacFcm8U16RJ6X5brham
- vKsXrkEViP1Q==
-X-IronPort-AV: E=Sophos;i="5.78,395,1599548400"; d="scan'208";a="436104270"
-Received: from schamb2-mobl2.amr.corp.intel.com (HELO [10.212.89.161])
- ([10.212.89.161])
- by fmsmga001-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 05 Dec 2020 06:59:55 -0800
-Subject: Re: [PATCH 1/7] soundwire: bus: use sdw_update_no_pm when
- initializing a device
-To: Vinod Koul <vkoul@kernel.org>, Bard Liao <yung-chuan.liao@linux.intel.com>
-References: <20201202204645.23891-1-yung-chuan.liao@linux.intel.com>
- <20201202204645.23891-2-yung-chuan.liao@linux.intel.com>
- <20201205074508.GQ8403@vkoul-mobl>
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Message-ID: <1db93c2e-3c87-bc5e-ddeb-56424870b897@linux.intel.com>
-Date: Sat, 5 Dec 2020 08:59:01 -0600
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.10.0
+ by alsa1.perex.cz (Postfix) with ESMTPS id 61A17F800E8
+ for <alsa-devel@alsa-project.org>; Sat,  5 Dec 2020 16:50:25 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 61A17F800E8
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=linuxfoundation.org
+ header.i=@linuxfoundation.org header.b="obVwWTPB"
+Date: Sat, 5 Dec 2020 16:51:36 +0100
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
+ s=korg; t=1607183422;
+ bh=PQ69+Tx5HitWyIcatLXcVOYusWMncetXLlHJ6cpFLvI=;
+ h=From:To:Cc:Subject:References:In-Reply-To:From;
+ b=obVwWTPBgowRIlgR/YFaNaEEEhRcfnyHlRw/AhzQOSjfG0IGgfw0tFWEV0XoUQVID
+ Ay/YtrGkq467MNtFa5rzttgvJKrH+o3tabpljx7gRaUKF7TM+hLgvYovL14G0Ipyfh
+ b28V6+/JlrduTXFuQAuYyrfpWz39VqAQ6wwaWoMk=
+From: Greg KH <gregkh@linuxfoundation.org>
+To: Dan Williams <dan.j.williams@intel.com>
+Subject: Re: [resend/standalone PATCH v4] Add auxiliary bus support
+Message-ID: <X8usiKhLCU3PGL9J@kroah.com>
+References: <160695681289.505290.8978295443574440604.stgit@dwillia2-desk3.amr.corp.intel.com>
+ <X8ogtmrm7tOzZo+N@kroah.com>
+ <CAPcyv4iLG7V9JT34La5PYfyM9378acbLnkShx=6pOmpPK7yg3A@mail.gmail.com>
 MIME-Version: 1.0
-In-Reply-To: <20201205074508.GQ8403@vkoul-mobl>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
-Cc: alsa-devel@alsa-project.org, tiwai@suse.de, gregkh@linuxfoundation.org,
- linux-kernel@vger.kernel.org, ranjani.sridharan@linux.intel.com,
- hui.wang@canonical.com, broonie@kernel.org, srinivas.kandagatla@linaro.org,
- jank@cadence.com, sanyog.r.kale@intel.com, rander.wang@linux.intel.com,
- bard.liao@intel.com
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <CAPcyv4iLG7V9JT34La5PYfyM9378acbLnkShx=6pOmpPK7yg3A@mail.gmail.com>
+Cc: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ alsa-devel@alsa-project.org, Kiran Patil <kiran.patil@intel.com>,
+ linux-rdma <linux-rdma@vger.kernel.org>,
+ Shiraz Saleem <shiraz.saleem@intel.com>,
+ Martin Habets <mhabets@solarflare.com>, Liam Girdwood <lgirdwood@gmail.com>,
+ Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
+ Fred Oh <fred.oh@linux.intel.com>, Mark Brown <broonie@kernel.org>,
+ Jason Gunthorpe <jgg@nvidia.com>, Dave Ertman <david.m.ertman@intel.com>,
+ Jakub Kicinski <kuba@kernel.org>, Netdev <netdev@vger.kernel.org>,
+ Leon Romanovsky <leonro@nvidia.com>, David Miller <davem@davemloft.net>,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ Parav Pandit <parav@mellanox.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -86,77 +86,277 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Thanks for the review Vinod.
-
-On 12/5/20 1:45 AM, Vinod Koul wrote:
-> On 03-12-20, 04:46, Bard Liao wrote:
->> From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
->>
->> When a Slave device is resumed, it may resume the bus and restart the
->> enumeration. During that process, we absolutely don't want to call
->> regular read/write routines which will wait for the resume to
->> complete, otherwise a deadlock occurs.
->>
->> Fixes: 60ee9be25571 ('soundwire: bus: add PM/no-PM versions of read/write functions')
+On Fri, Dec 04, 2020 at 08:41:09AM -0800, Dan Williams wrote:
+> On Fri, Dec 4, 2020 at 3:41 AM Greg KH <gregkh@linuxfoundation.org> wrote:
+> >
+> > On Wed, Dec 02, 2020 at 04:54:24PM -0800, Dan Williams wrote:
+> > > From: Dave Ertman <david.m.ertman@intel.com>
+> > >
+> > > Add support for the Auxiliary Bus, auxiliary_device and auxiliary_driver.
+> > > It enables drivers to create an auxiliary_device and bind an
+> > > auxiliary_driver to it.
+> > >
+> > > The bus supports probe/remove shutdown and suspend/resume callbacks.
+> > > Each auxiliary_device has a unique string based id; driver binds to
+> > > an auxiliary_device based on this id through the bus.
+> > >
+> > > Co-developed-by: Kiran Patil <kiran.patil@intel.com>
+> > > Co-developed-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
+> > > Co-developed-by: Fred Oh <fred.oh@linux.intel.com>
+> > > Co-developed-by: Leon Romanovsky <leonro@nvidia.com>
+> > > Signed-off-by: Kiran Patil <kiran.patil@intel.com>
+> > > Signed-off-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
+> > > Signed-off-by: Fred Oh <fred.oh@linux.intel.com>
+> > > Signed-off-by: Leon Romanovsky <leonro@nvidia.com>
+> > > Signed-off-by: Dave Ertman <david.m.ertman@intel.com>
+> > > Reviewed-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+> > > Reviewed-by: Shiraz Saleem <shiraz.saleem@intel.com>
+> > > Reviewed-by: Parav Pandit <parav@mellanox.com>
+> > > Reviewed-by: Dan Williams <dan.j.williams@intel.com>
+> > > Reviewed-by: Martin Habets <mhabets@solarflare.com>
+> > > Link: https://lore.kernel.org/r/20201113161859.1775473-2-david.m.ertman@intel.com
+> > > Signed-off-by: Dan Williams <dan.j.williams@intel.com>
+> > > ---
+> > > This patch is "To:" the maintainers that have a pending backlog of
+> > > driver updates dependent on this facility, and "Cc:" Greg. Greg, I
+> > > understand you have asked for more time to fully review this and apply
+> > > it to driver-core.git, likely for v5.12, but please consider Acking it
+> > > for v5.11 instead. It looks good to me and several other stakeholders.
+> > > Namely, stakeholders that have pressure building up behind this facility
+> > > in particular Mellanox RDMA, but also SOF, Intel Ethernet, and later on
+> > > Compute Express Link.
+> > >
+> > > I will take the blame for the 2 months of silence that made this awkward
+> > > to take through driver-core.git, but at the same time I do not want to
+> > > see that communication mistake inconvenience other parties that
+> > > reasonably thought this was shaping up to land in v5.11.
+> > >
+> > > I am willing to host this version at:
+> > >
+> > > git://git.kernel.org/pub/scm/linux/kernel/git/djbw/linux tags/auxiliary-bus-for-5.11
+> > >
+> > > ...for all the independent drivers to have a common commit baseline. It
+> > > is not there yet pending Greg's Ack.
+> > >
+> > > For example implementations incorporating this patch, see Dave Ertman's
+> > > SOF series:
+> > >
+> > > https://lore.kernel.org/r/20201113161859.1775473-2-david.m.ertman@intel.com
+> > >
+> > > ...and Leon's mlx5 series:
+> > >
+> > > http://lore.kernel.org/r/20201026111849.1035786-1-leon@kernel.org
+> > >
+> > > PS: Greg I know I promised some review on newcomer patches to help with
+> > > your queue, unfortunately Intel-internal review is keeping my plate
+> > > full. Again, I do not want other stakeholder to be waiting on me to
+> > > resolve that backlog.
+> >
+> > Ok, I spent some hours today playing around with this.  I wrote up a
+> > small test-patch for this (how did anyone test this thing???) and while
+> > it feels awkward in places, and it feels like there is still way too
+> > much "boilerplate" code that a user has to write and manage, I don't
+> > have the time myself to fix it up right now.
+> >
+> > So I'll go apply this to my tree, and provide a tag for everyone else to
+> > be able to pull from for their different development trees so they can
+> > work on.
+> >
+> > I do have 3 follow-on patches that I will send to the list in response
+> > to this message that I will be applying on top of this patch.  They do
+> > some minor code formatting changes, as well as change the return type of
+> > the remove function to make it more future-proof.  That last change will
+> > require users of this code to change their implementations, but it will
+> > be obvious what to do as you will get a build warning.
+> >
+> > Note, I'm still not comfortable with a few things here.  The
+> > documentation feels odd, and didn't really help me out in writing any
+> > test code, which doesn't seem right.  Also the use of strings and '.' as
+> > part of the api feels awkward, and messy, and of course, totally
+> > undocumented.
+> >
+> > But, as the use of '.' is undocumented, that means we can change it in
+> > the future!  Because no driver or device name should ever be a user api
+> > reliant thing, if we come up with a better way to do all of this in the
+> > future, that shouldn't be a problem to change existing users over to
+> > this.  So this is a warning to everyone, you CAN NOT depend on the sysfs
+> > name of a device or bus name for any tool.  If so, your userspace tool
+> > is broken.
+> >
+> > Thanks for everyone in sticking with this, I know it's been a long slog,
+> > hopefully this will help some driver authors move forward with their
+> > crazy complex devices :)
 > 
-> Change looks okay, but not sure why this is a fix for adding no pm
-> version?
+> To me, the documentation was written, and reviewed, more from the
+> perspective of "why not open code a custom bus instead". So I can see
+> after the fact how that is a bit too much theory and justification and
+> not enough practical application. Before the fact though this was a
+> bold mechanism to propose and it was not clear that everyone was
+> grokking the "why" and the tradeoffs.
 
-when we added the no_pm version, we missed the two cases below where 
-sdw_update() was used and that creates a deadlock. To me that's a 
-conceptual bug, we didn't fully use the no_pm versions, hence the Fixes tag.
+Understood, I guess I read this from the "of course you should do this,
+now how do I use it?" point of view.  Which still needs to be addressed
+I feel.
 
-It's ok to remove the tag if you don't think it's useful/relevant, what 
-matters is that we agree on the content.
+> I also think it was a bit early to identify consistent design patterns
+> across the implementations and codify those. I expect this to evolve
+> convenience macros just like other parts of the driver-core gained
+> over time. Now that it is in though, another pass through the
+> documentation to pull in more examples seems warranted.
 
->> Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
->> Reviewed-by: Rander Wang <rander.wang@linux.intel.com>
->> Signed-off-by: Bard Liao <yung-chuan.liao@linux.intel.com>
->> ---
->>   drivers/soundwire/bus.c | 16 ++++++++++++++--
->>   1 file changed, 14 insertions(+), 2 deletions(-)
->>
->> diff --git a/drivers/soundwire/bus.c b/drivers/soundwire/bus.c
->> index d1e8c3a54976..60c42508c6c6 100644
->> --- a/drivers/soundwire/bus.c
->> +++ b/drivers/soundwire/bus.c
->> @@ -489,6 +489,18 @@ sdw_read_no_pm(struct sdw_slave *slave, u32 addr)
->>   		return buf;
->>   }
->>   
->> +static int sdw_update_no_pm(struct sdw_slave *slave, u32 addr, u8 mask, u8 val)
->> +{
->> +	int tmp;
->> +
->> +	tmp = sdw_read_no_pm(slave, addr);
->> +	if (tmp < 0)
->> +		return tmp;
->> +
->> +	tmp = (tmp & ~mask) | val;
->> +	return sdw_write_no_pm(slave, addr, tmp);
->> +}
->> +
->>   /**
->>    * sdw_nread() - Read "n" contiguous SDW Slave registers
->>    * @slave: SDW Slave
->> @@ -1256,7 +1268,7 @@ static int sdw_initialize_slave(struct sdw_slave *slave)
->>   	val = slave->prop.scp_int1_mask;
->>   
->>   	/* Enable SCP interrupts */
->> -	ret = sdw_update(slave, SDW_SCP_INTMASK1, val, val);
->> +	ret = sdw_update_no_pm(slave, SDW_SCP_INTMASK1, val, val);
->>   	if (ret < 0) {
->>   		dev_err(slave->bus->dev,
->>   			"SDW_SCP_INTMASK1 write failed:%d\n", ret);
->> @@ -1271,7 +1283,7 @@ static int sdw_initialize_slave(struct sdw_slave *slave)
->>   	val = prop->dp0_prop->imp_def_interrupts;
->>   	val |= SDW_DP0_INT_PORT_READY | SDW_DP0_INT_BRA_FAILURE;
->>   
->> -	ret = sdw_update(slave, SDW_DP0_INTMASK, val, val);
->> +	ret = sdw_update_no_pm(slave, SDW_DP0_INTMASK, val, val);
->>   	if (ret < 0)
->>   		dev_err(slave->bus->dev,
->>   			"SDW_DP0_INTMASK read failed:%d\n", ret);
->> -- 
->> 2.17.1
-> 
+A real, working, example would be great to have, so that people can know
+how to use this.  Trying to dig through the sound or IB patches to view
+how it is being used is not a trivial thing to do, which is why
+reviewing this took so much work.  Having a simple example test module,
+that creates a number of devices on a bus, ideally tied into the ktest
+framework, would be great.  I'll attach below a .c file that I used for
+some basic local testing to verify some of this working, but it does not
+implement a aux bus driver, which needs to be also tested.
+
+thanks,
+
+greg k-h
+
+-------------
+
+
+// SPDX-License-Identifier: GPL-2.0-only
+
+
+#include <linux/init.h>
+#include <linux/device.h>
+#include <linux/module.h>
+#include <linux/slab.h>
+#include <linux/auxiliary_bus.h>
+#include <linux/platform_device.h>
+
+
+struct aux_test_device {
+	struct auxiliary_device auxdev;
+	int foo;
+	void *data;
+};
+
+#define aux_dev_to_test_device(auxdev)	\
+	container_of(auxdev, struct aux_test_device, auxdev)
+
+static void aux_test_dev_release(struct device *dev)
+{
+	struct auxiliary_device *auxdev = to_auxiliary_dev(dev);
+	struct aux_test_device *test_dev = aux_dev_to_test_device(auxdev);
+
+	kfree(test_dev);
+}
+
+static struct aux_test_device *test_device_alloc(struct device *parent,
+						 const char *name, u32 id)
+{
+	struct aux_test_device *test_dev;
+	struct auxiliary_device *auxdev;
+	int retval;
+
+	test_dev = kzalloc(sizeof(*test_dev), GFP_KERNEL);
+	if (!test_dev)
+		return NULL;
+
+	auxdev= &test_dev->auxdev;
+	auxdev->name = name;
+	auxdev->dev.parent = parent;
+	auxdev->dev.release = aux_test_dev_release;
+	auxdev->id = id;
+
+	retval = auxiliary_device_init(auxdev);
+	if (retval) {
+		dev_err(parent, "aux device failed to init\n");
+		kfree(test_dev);
+		return NULL;
+	}
+
+	return test_dev;
+}
+
+static struct aux_test_device *test_device_create(struct device *parent,
+						  const char *name, u32 id)
+{
+	struct aux_test_device *test_dev;
+	int retval;
+
+	test_dev = test_device_alloc(parent, name, id);
+	if (!test_dev) {
+		dev_err(parent, "aux device %s failed to be created\n", name);
+		return NULL;
+	}
+
+	retval = auxiliary_device_add(&test_dev->auxdev);
+	if (retval) {
+		dev_err(parent, "aux device %s failed to be added, error %d\n",
+			name, retval);
+		auxiliary_device_uninit(&test_dev->auxdev);
+		return NULL;
+	}
+
+	return test_dev;
+}
+
+static void test_dev_del(struct aux_test_device *test_dev)
+{
+	if (!test_dev)
+		return;
+
+	auxiliary_device_delete(&test_dev->auxdev);
+	auxiliary_device_uninit(&test_dev->auxdev);
+}
+
+
+static struct aux_test_device *tdev1, *tdev2, *tdev3;
+
+/* Make a random device to be the "parent" of our tests */
+static struct platform_device *root_device;
+
+static void root_device_release(struct device *dev)
+{
+	struct platform_device *pdev = to_platform_device(dev);
+	kfree(pdev);
+}
+
+static int __init aux_test_init(void)
+{
+	int retval;
+
+	root_device = kzalloc(sizeof(*root_device), GFP_KERNEL);
+	if (!root_device)
+		return -ENOMEM;
+
+	root_device->name = "aux_test_root";
+	root_device->dev.release = root_device_release;
+
+	retval = platform_device_register(root_device);
+	if (retval) {
+		kfree(root_device);
+		return retval;
+	}
+
+	/* Allocate 3 test devices as a child of this parent */
+	tdev1 = test_device_create(&root_device->dev, "test_dev_1", 21);
+	tdev2 = test_device_create(&root_device->dev, "test_dev_2", 32);
+	tdev3 = test_device_create(&root_device->dev, "test_dev_3", 43);
+
+	return 0;
+}
+
+static void __exit aux_test_exit(void)
+{
+	test_dev_del(tdev1);
+	test_dev_del(tdev2);
+	test_dev_del(tdev3);
+	platform_device_unregister(root_device);
+
+}
+
+
+
+module_init(aux_test_init);
+module_exit(aux_test_exit);
+
+
+MODULE_LICENSE("GPL v2");

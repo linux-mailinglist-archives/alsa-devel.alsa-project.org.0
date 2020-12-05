@@ -2,59 +2,64 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2ABAC2CFB43
-	for <lists+alsa-devel@lfdr.de>; Sat,  5 Dec 2020 13:21:27 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 85C432CFB92
+	for <lists+alsa-devel@lfdr.de>; Sat,  5 Dec 2020 15:45:47 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 980BD1834;
-	Sat,  5 Dec 2020 13:20:36 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 980BD1834
+	by alsa0.perex.cz (Postfix) with ESMTPS id 0CD7318FE;
+	Sat,  5 Dec 2020 15:44:57 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0CD7318FE
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1607170886;
-	bh=NKdU4LZ7LZnj0qamHN65i0GB6rVa0Ega4I2aCQSivn0=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=SYGFobDgt4cuXQYaj4alXjW+JAq014hM3yVKQCFXKP6pEdCmg5BD3xBKuaKzXm1uZ
-	 Bg8yxvNP1GJZE4NdPB1xZeSfgYVP3T+BpYMbtIEgwQv74gx1mkXb2+pmH/ORboVwmw
-	 UpJvoc3tU94xvIT2nWLDKzUuMQE3Ds+0pIxJueL4=
+	s=default; t=1607179547;
+	bh=+XR6X9EpAp1xTNTC3PEgqVTnF+EJgom1bcVw9KabJAo=;
+	h=Date:From:To:Subject:References:In-Reply-To:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=XrtIB/FVDNXTDOAW4Y9zowxnvyW0jNUVXUEQr8eTBJYfpNIEMdIKiKuQhvfIPK1H5
+	 87vgDsw0VH3xNaUM3gW+FVeTXMwB6eel1IgmjDaN6AnsRfDv2o+w6r87z4de9jPs1p
+	 Oyo4P/bO8p9nlhATh/0HxR8Ghp7vdTRhOFV3tqIw=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 82D2CF80254;
-	Sat,  5 Dec 2020 13:19:52 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 15E50F800E2;
+	Sat,  5 Dec 2020 15:44:12 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id D22DBF8016D; Sat,  5 Dec 2020 13:19:50 +0100 (CET)
+ id 4BC9EF8016D; Sat,  5 Dec 2020 15:44:10 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from szxga04-in.huawei.com (szxga04-in.huawei.com [45.249.212.190])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+X-Spam-Status: No, score=0.4 required=5.0 tests=KHOP_HELO_FCRDNS, MISSING_MID, 
+ SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
+Received: from roobarb.jellybean.co.uk (roobarb.crazydogs.org [46.235.224.144])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id B9CE7F800E2
- for <alsa-devel@alsa-project.org>; Sat,  5 Dec 2020 13:19:39 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B9CE7F800E2
-Received: from DGGEMS406-HUB.china.huawei.com (unknown [172.30.72.58])
- by szxga04-in.huawei.com (SkyGuard) with ESMTP id 4Cp7sj1wgqz15JTv;
- Sat,  5 Dec 2020 20:19:05 +0800 (CST)
-Received: from huawei.com (10.175.127.227) by DGGEMS406-HUB.china.huawei.com
- (10.3.19.206) with Microsoft SMTP Server id 14.3.487.0; Sat, 5 Dec 2020
- 20:19:29 +0800
-From: Zhang Qilong <zhangqilong3@huawei.com>
-To: <agross@kernel.org>, <bjorn.andersson@linaro.org>,
- <srinivas.kandagatla@linaro.org>
-Subject: [PATCH] slimbus: qcom-ngd-ctrl: Fix error handling to keep reference
- balanced
-Date: Sat, 5 Dec 2020 20:22:45 +0800
-Message-ID: <20201205122245.2108188-1-zhangqilong3@huawei.com>
-X-Mailer: git-send-email 2.25.4
+ by alsa1.perex.cz (Postfix) with ESMTPS id 2C971F800E2
+ for <alsa-devel@alsa-project.org>; Sat,  5 Dec 2020 15:43:59 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2C971F800E2
+Received: from localhost ([127.0.0.1])
+ by roobarb.jellybean.co.uk with esmtp (Exim 4.92)
+ (envelope-from <bjb-alsa-devel@deus.net>)
+ id 1klYmz-0007h4-9K; Sat, 05 Dec 2020 14:43:57 +0000
+Date: Sat, 5 Dec 2020 14:43:56 +0000
+From: Ben Bell <bjb-alsa-devel@deus.net>
+To: Takashi Iwai <tiwai@suse.de>, alsa-devel@alsa-project.org
+Subject: Re: Behringer WING usb audio - cyclic xruns dependent on
+ periods/buffers
+References: <20201126180612.E3E0CF80166@alsa1.perex.cz>
+ <s5hblfjjguc.wl-tiwai@suse.de>
+ <20201128093612.48C0CF80166@alsa1.perex.cz>
+ <20201203200633.CC66A2C16F@relay2.suse.de>
+ <s5hblfa575t.wl-tiwai@suse.de>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.175.127.227]
-X-CFilter-Loop: Reflected
-Cc: linux-arm-msm@vger.kernel.org, alsa-devel@alsa-project.org
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <s5hblfa575t.wl-tiwai@suse.de>
+User-Agent: Mutt/1.10.1 (2018-07-13)
+X-SA-Exim-Connect-IP: 127.0.0.1
+X-SA-Exim-Mail-From: bjb-alsa-devel@deus.net
+X-SA-Exim-Scanned: No (on roobarb.jellybean.co.uk);
+ SAEximRunCond expanded to false
+Message-Id: <20201205144410.4BC9EF8016D@alsa1.perex.cz>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -70,39 +75,42 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-In the error branch, we should call pm_runtime_put_noidle and
-pm_runtime_disable to decrease usage counter and increase the
-power disable depth to avoid reference leaks.
+> > Like I said in the initial email, it feels like some sort of clock drift
+> > problem, where we're managing very slowly to collect more samples than
+> > we're reading -- to the tune of about 1 extra every few cycles -- and
+> > nothing on the consumer side is ever managing to compensate for that.
+> > I'm not even sure how that sort of drift would be possible though. Seems
+> > surprising.
+[...]
 
-Fixes: 917809e2280bb ("slimbus: ngd: Add qcom SLIMBus NGD driver")
-Signed-off-by: Zhang Qilong <zhangqilong3@huawei.com>
----
- drivers/slimbus/qcom-ngd-ctrl.c | 5 ++++-
- 1 file changed, 4 insertions(+), 1 deletion(-)
+> At least you can try the latest patch set destined for 5.11, which
+> should improve the cases for the implicit feedback.
 
-diff --git a/drivers/slimbus/qcom-ngd-ctrl.c b/drivers/slimbus/qcom-ngd-ctrl.c
-index c054e83ab636..a9b4a1d95045 100644
---- a/drivers/slimbus/qcom-ngd-ctrl.c
-+++ b/drivers/slimbus/qcom-ngd-ctrl.c
-@@ -1483,7 +1483,7 @@ static int qcom_slim_ngd_probe(struct platform_device *pdev)
- 	ret = qcom_slim_ngd_qmi_svc_event_init(ctrl);
- 	if (ret) {
- 		dev_err(&pdev->dev, "QMI service registration failed:%d", ret);
--		return ret;
-+		goto pm_err;
- 	}
- 
- 	INIT_WORK(&ctrl->m_work, qcom_slim_ngd_master_worker);
-@@ -1500,6 +1500,9 @@ static int qcom_slim_ngd_probe(struct platform_device *pdev)
- 	qcom_slim_ngd_qmi_svc_event_deinit(&ctrl->qmi);
- 	if (ctrl->mwq)
- 		destroy_workqueue(ctrl->mwq);
-+pm_err:
-+	pm_runtime_put_noidle(dev);
-+	pm_runtime_disable(dev);
- 
- 	return ret;
- }
--- 
-2.25.4
+Aha! This actually was the key piece of information I needed. I haven't
+tried 5.11 or the latest patch set yet, but googling "implicit feedback"
+and learning abobut it led me to conclude that the Wing needs an entry in
+the quirks list in set_sync_ep_implicit_fb_quirk to properly enable it:
+
+--- sound/usb/pcm.c.orig        2020-11-22 23:36:08.000000000 +0000
++++ sound/usb/pcm.c     2020-12-05 08:40:21.639600074 +0000
+@@ -340,6 +345,7 @@
+                ep = 0x81;
+                ifnum = 3;
+                goto add_sync_ep_from_ifnum;
++       case USB_ID(0x1397, 0x050b): /* Behringer Wing */
+        case USB_ID(0x0763, 0x2080): /* M-Audio FastTrack Ultra */
+        case USB_ID(0x0763, 0x2081):
+
+
+A week's worth of debugging and learning yielded a one line patch ;)
+
+Since adding that I've been running at p=128 n=2 for much of the day with
+no tweaking of interrupts, and no xruns at all (and at 44.1kHz, because that's
+what this project was originally recorded at). With further tuning that might
+come down further because I was able to run in Capture Only at p=8(!) n=2, so
+it feels like there's still scope for more tweaking.
+
+Thanks for the help,
+bjb
+
 

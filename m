@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3846C2CFBA3
-	for <lists+alsa-devel@lfdr.de>; Sat,  5 Dec 2020 16:01:36 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6A6BD2CFBA4
+	for <lists+alsa-devel@lfdr.de>; Sat,  5 Dec 2020 16:01:46 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B5EAB189B;
-	Sat,  5 Dec 2020 16:00:45 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B5EAB189B
+	by alsa0.perex.cz (Postfix) with ESMTPS id 403EE1921;
+	Sat,  5 Dec 2020 16:00:54 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 403EE1921
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1607180495;
-	bh=8YZq+wYhe31/EFf6Cu7wqNO0rxvXUXho/5LNapKytA0=;
+	s=default; t=1607180504;
+	bh=g78cXERgZMB82jkZMfWYXnVIz0zVILchaTSS7bFsayw=;
 	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=gv8A2bT0BOmPt7/5m3gtkJswTRgCBWGQQ/r/Vk+Qu7ZK04DJ9auqWrMgAmOSuG+of
-	 1YtlCDUkyAVIk/SG2y5W4yiy+dCOxLUKiqtIHDDb911KYBieMksEZyGBPFWqHSsrNJ
-	 NMUzOUOz+b3QLNwZ2hX8tdRIdhIwcH1sMHGRdHA0=
+	b=HbAd4GX4cn12CQUIKwpwww+38cHOOD3IBZj40P1/nEuMeMlv5roJoBleebca2pEgj
+	 z8/SFZixnEO4krqb7pGxjraPfLZjAjiraEHYFnQZxQEDhzWqehyyygt34UZS2EoNPi
+	 GEJ7MZR/6gB/C1mLQS4qOLHlbYNxA0dPjuzr3Y0w=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id DB6F8F8026B;
-	Sat,  5 Dec 2020 16:00:00 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 3174DF80290;
+	Sat,  5 Dec 2020 16:00:05 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 215E4F800E2; Sat,  5 Dec 2020 15:59:59 +0100 (CET)
+ id 97AC5F80290; Sat,  5 Dec 2020 16:00:01 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=NICE_REPLY_A, RCVD_IN_MSPIKE_H4,
@@ -33,39 +33,38 @@ X-Spam-Status: No, score=0.0 required=5.0 tests=NICE_REPLY_A, RCVD_IN_MSPIKE_H4,
 Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 93C63F800E2
- for <alsa-devel@alsa-project.org>; Sat,  5 Dec 2020 15:59:54 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 93C63F800E2
-IronPort-SDR: 1MJK8hg5WLrrJmreQzw5tj0OcTVeXyWUKWWlMAswm8bw8nKtL3fu8zFrykLqDXGCcVCN/riAMH
- 6A8wRMMriv2Q==
-X-IronPort-AV: E=McAfee;i="6000,8403,9825"; a="237628582"
-X-IronPort-AV: E=Sophos;i="5.78,395,1599548400"; d="scan'208";a="237628582"
+ by alsa1.perex.cz (Postfix) with ESMTPS id EAEDAF800E8
+ for <alsa-devel@alsa-project.org>; Sat,  5 Dec 2020 15:59:57 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EAEDAF800E8
+IronPort-SDR: DGEWhBoxsN+VZbbDzPsiGonl0vvHZKR2sGeoCOo7OEH249Ndd7yCFRTf1ZhPgM3xwLQn++o8lg
+ wqhTMG4QdaWQ==
+X-IronPort-AV: E=McAfee;i="6000,8403,9825"; a="237628583"
+X-IronPort-AV: E=Sophos;i="5.78,395,1599548400"; d="scan'208";a="237628583"
 Received: from fmsmga001.fm.intel.com ([10.253.24.23])
  by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 05 Dec 2020 06:59:52 -0800
-IronPort-SDR: +vl+HACmjCKcAtpEM37NXeuK0wfxYW7gV4L1SEvyX/90iJeWmUPkwGbEPU4HvxhF+3xikZUCgi
- GC/J6Jf/Vm+A==
-X-IronPort-AV: E=Sophos;i="5.78,395,1599548400"; d="scan'208";a="436104261"
+ 05 Dec 2020 06:59:54 -0800
+IronPort-SDR: 8AWgwzUhEEs3eyeszZBytfK8vf8IHarISd5ixf6hqDSjMJ/oF0NPBiziNSPRVk7Aiic8dOKM2O
+ g0oX0LMLnd7g==
+X-IronPort-AV: E=Sophos;i="5.78,395,1599548400"; d="scan'208";a="436104267"
 Received: from schamb2-mobl2.amr.corp.intel.com (HELO [10.212.89.161])
  ([10.212.89.161])
  by fmsmga001-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 05 Dec 2020 06:59:51 -0800
-Subject: Re: [PATCH 4/7] soundwire/regmap: use _no_pm functions in
- regmap_read/write
+ 05 Dec 2020 06:59:53 -0800
+Subject: Re: [PATCH 5/7] regmap: sdw: use no_pm routines for SoundWire 1.2 MBQ
 To: Vinod Koul <vkoul@kernel.org>, Bard Liao <yung-chuan.liao@linux.intel.com>
 References: <20201202204645.23891-1-yung-chuan.liao@linux.intel.com>
- <20201202204645.23891-5-yung-chuan.liao@linux.intel.com>
- <20201205074554.GR8403@vkoul-mobl>
+ <20201202204645.23891-6-yung-chuan.liao@linux.intel.com>
+ <20201205074630.GS8403@vkoul-mobl>
 From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Message-ID: <f72fc1d5-f904-2247-17ef-d01a9fcf0b97@linux.intel.com>
-Date: Sat, 5 Dec 2020 08:43:49 -0600
+Message-ID: <e4e3d7ea-0825-2c8c-4182-6d1b578200a3@linux.intel.com>
+Date: Sat, 5 Dec 2020 08:52:50 -0600
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
  Thunderbird/68.10.0
 MIME-Version: 1.0
-In-Reply-To: <20201205074554.GR8403@vkoul-mobl>
+In-Reply-To: <20201205074630.GS8403@vkoul-mobl>
 Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 Cc: alsa-devel@alsa-project.org, tiwai@suse.de, gregkh@linuxfoundation.org,
  linux-kernel@vger.kernel.org, ranjani.sridharan@linux.intel.com,
  hui.wang@canonical.com, broonie@kernel.org, srinivas.kandagatla@linaro.org,
@@ -87,14 +86,28 @@ Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 
->> -static int sdw_write_no_pm(struct sdw_slave *slave, u32 addr, u8 value)
->> +int sdw_write_no_pm(struct sdw_slave *slave, u32 addr, u8 value)
->>   {
->>   	return sdw_nwrite_no_pm(slave, addr, 1, &value);
->>   }
->> +EXPORT_SYMBOL(sdw_write_no_pm);
+>>   MODULE_DESCRIPTION("Regmap SoundWire MBQ Module");
+>> -MODULE_LICENSE("GPL v2");
+>> +MODULE_LICENSE("GPL");
 > 
-> Why not export this is patch 1..?
+> Why do you want to change this ?
 
-yes, good point. I guess Bard and I were debugging in parallel and 
-missed this. thanks for pointing it out.
+We only use MODULE_LICENSE("GPL") for new contributions since 'GPL v2' 
+does not bring any information on the license, is equivalent to 'GPL' 
+and only exists for 'historical reasons', see
+
+https://www.kernel.org/doc/html/latest/process/license-rules.html
+
+
+“GPL”	Module is licensed under GPL version 2. This does not express any 
+distinction between GPL-2.0-only or GPL-2.0-or-later. The exact license 
+information can only be determined via the license information in the 
+corresponding source files.
+
+“GPL v2”	Same as “GPL”. It exists for historic reasons.
+
+We should have used 'GPL' in the initial regmap MBQ patch but didn't for 
+some reason, this change just realigns with what we intended.
+
+That said, this is unrelated to this no_pm patch so could be in a 
+separate one if you preferred it that way.

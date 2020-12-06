@@ -2,109 +2,94 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1E7C32CFC3E
-	for <lists+alsa-devel@lfdr.de>; Sat,  5 Dec 2020 18:09:49 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 856CA2CFFF7
+	for <lists+alsa-devel@lfdr.de>; Sun,  6 Dec 2020 01:34:28 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A4C07183D;
-	Sat,  5 Dec 2020 18:08:58 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A4C07183D
+	by alsa0.perex.cz (Postfix) with ESMTPS id 1ACBD1837;
+	Sun,  6 Dec 2020 01:33:38 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1ACBD1837
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1607188188;
-	bh=+dN6pcggXvOLAu+3bVnEMaqPgedVv39OZjluGpCbUaA=;
-	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
+	s=default; t=1607214868;
+	bh=5WqkRFso8bCwcNIXq6CgbDQfXiGycajBSIxOxFyKyRo=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=WqdKG/TwpVd27Bw2qOvqs3iszhGeJxZA5TdEeiemI1RO6vXeL4xY6okw+ZXCShww4
-	 bBb4nl79ug5hYNVRwjf0QxTgwlV2eUgBSOTc7e1mMksCi9IxR8jUzb69sdGI5ZdCzv
-	 OIDDDWBxiEANYwh6laZsKu/2QVi8UMevRSRHE3Ig=
+	b=WzV+xZ8Ub/tOWDRZTl93sV7F1TV5iijscEhE/oNR2RJBiQXJ6EW+VJI6zE8Vx+ClL
+	 +winl0/yPmovZeRov3/8RiS1ILC5j5f6kSBrPGuOxIKgqbZA1a+2P5KLibz73nxq4T
+	 JzrNMQSQXwwxcvkUge1jyLMscc377ocO3MzpVtCg=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id D7AC8F800E2;
-	Sat,  5 Dec 2020 18:08:13 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 486EFF80254;
+	Sun,  6 Dec 2020 01:32:53 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 13670F8016D; Sat,  5 Dec 2020 18:08:11 +0100 (CET)
+ id 8B3ADF8016D; Sun,  6 Dec 2020 01:32:50 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE autolearn=disabled
- version=3.4.0
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [216.205.24.124])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
+Received: from mail-ed1-x544.google.com (mail-ed1-x544.google.com
+ [IPv6:2a00:1450:4864:20::544])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id BA74AF800E8
- for <alsa-devel@alsa-project.org>; Sat,  5 Dec 2020 18:08:08 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BA74AF800E8
+ by alsa1.perex.cz (Postfix) with ESMTPS id 62BD9F800E2
+ for <alsa-devel@alsa-project.org>; Sun,  6 Dec 2020 01:32:45 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 62BD9F800E2
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com
- header.b="O5b3z3iF"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1607188087;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=/kYDzaXjgsloBBA3uNwXi2lvZS3l1mNkVoc7CH0uH8c=;
- b=O5b3z3iFurYCqGbM4tq42n1SVPofm72fDW2AZZSGuMHXkyyJS1ZSix5p0MHeaypUJ1Wi4u
- E8isr14PCcLtIVYEqZO5HJdxoLqE3fPztLx8nqq7r0ISLKwPDzyLhLBhDzMcKLNirYBPZb
- ljcz1Qok8qXo12KRDYvjA3EH7Ae5Css=
-Received: from mail-ed1-f69.google.com (mail-ed1-f69.google.com
- [209.85.208.69]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-465-Gd2wPQD8MqaQSKgU8kbkFg-1; Sat, 05 Dec 2020 12:08:05 -0500
-X-MC-Unique: Gd2wPQD8MqaQSKgU8kbkFg-1
-Received: by mail-ed1-f69.google.com with SMTP id i15so3737183edx.9
- for <alsa-devel@alsa-project.org>; Sat, 05 Dec 2020 09:08:05 -0800 (PST)
+ dkim=pass (2048-bit key) header.d=intel-com.20150623.gappssmtp.com
+ header.i=@intel-com.20150623.gappssmtp.com header.b="XJKdb70p"
+Received: by mail-ed1-x544.google.com with SMTP id l5so9796127edq.11
+ for <alsa-devel@alsa-project.org>; Sat, 05 Dec 2020 16:32:45 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=intel-com.20150623.gappssmtp.com; s=20150623;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=gsJTnuBIKurvy5/BWkf4XzEJ7IPXfR3rghfxKMIdv5A=;
+ b=XJKdb70pzE/zlzt49Fah0BHTuoQI/1gp0ANorpuSlhGDe5lvKDxwj1nV++iduDrHZO
+ 5egN+IeYeOoixDnwHTi+ErwlWJ+Vl+DXaKxjuuG3F/u9C+kgikt9jpCoUPiQQ1mk0GIt
+ pBAXWYgQJ1gEgASRAC53JsKxZYF+LILb7PRheMEEHWH1ulEM1oA7Rc1amBxJiy/fw4JZ
+ neU2YHasQLwYOvA7dz6DDjUocijcqE5kYh3+tTwKzYMoSu3Q35cXR08a5d22e4q4of7L
+ ULTmY6TebcajaaxeAZrLRPeqJTkHVyBHaJyFwu6L6IYSGC272/5HyZK8l8KYXknxFPxa
+ 8P7g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:subject:to:cc:references:from:message-id:date
- :user-agent:mime-version:in-reply-to:content-language
- :content-transfer-encoding;
- bh=/kYDzaXjgsloBBA3uNwXi2lvZS3l1mNkVoc7CH0uH8c=;
- b=IV4S0ioXuNBMRjvXbbjZYmItEJvZ18nBtBGQ+HBkQuVYRPG+3Viw0bJDPuLayHTW5l
- 79cJrchir2laoPrk0Z9n2fON+AyUP70xC9VP+zwzr49jZ/SjAqYWdneJBLDENphIeFW+
- l+j8Zntiq+sAKLPI7mjndM7JT0iBBtolazUyDW5G7yPnyLHzff1INkv86uxiVpjXCm+f
- oiGPEtdNkCZjBXdJ8hSSA7e4+AVMFECBlW+OnTmzV5VLRnPSxqhoaNMSV8x/g7XzSZaI
- opKsURoVFxQkCMrZUi5q/dLGXR1iXvsZ1xkfQAlaPtawizsEyeb2wo1aGyyLwpco0NRi
- vWHA==
-X-Gm-Message-State: AOAM532jnAYfOrdu3p2WXcV+wh8XkE4iebssVPtzn6wU6QT13+gQHyVr
- wwkeozGxt0c31WDj+JdH6rwFBl3kkoD/J+0/j/gdjt7qlbpXrxMsdX9U0v6Y0LH03W3qOTtCxze
- DyQdtLWF5ku2oWVYMDDqT918=
-X-Received: by 2002:a50:9344:: with SMTP id n4mr12748365eda.85.1607188084250; 
- Sat, 05 Dec 2020 09:08:04 -0800 (PST)
-X-Google-Smtp-Source: ABdhPJw3Pe7DfR7ZCFgcmiW6IShpoHj4cp1lQO3wWwPIsTGqzXt6F5bdDg/8at45NhUIAHWPzzy6pw==
-X-Received: by 2002:a50:9344:: with SMTP id n4mr12748349eda.85.1607188084073; 
- Sat, 05 Dec 2020 09:08:04 -0800 (PST)
-Received: from x1.localdomain
- (2001-1c00-0c0c-fe00-d2ea-f29d-118b-24dc.cable.dynamic.v6.ziggo.nl.
- [2001:1c00:c0c:fe00:d2ea:f29d:118b:24dc])
- by smtp.gmail.com with ESMTPSA id n1sm5519420ejb.2.2020.12.05.09.08.03
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Sat, 05 Dec 2020 09:08:03 -0800 (PST)
-Subject: Re: [PATCH] ASoC: pcm: send DAPM_STREAM_STOP event in
- dpcm_fe_dai_shutdown
-To: Mark Brown <broonie@kernel.org>,
- Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
-References: <20201202193343.912942-1-ranjani.sridharan@linux.intel.com>
- <20201203143117.GF4700@sirena.org.uk>
-From: Hans de Goede <hdegoede@redhat.com>
-Message-ID: <7053e79c-7b68-c04e-73de-bc6efdbf27b9@redhat.com>
-Date: Sat, 5 Dec 2020 18:08:02 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.4.0
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=gsJTnuBIKurvy5/BWkf4XzEJ7IPXfR3rghfxKMIdv5A=;
+ b=A6FukxgsQ8sQQApLBDugwhSbLTULgh7SkDZqgIankwGc5aOjMto3XMqdI8eOXVmQJv
+ naVASRvjN7gZVerEpmYCWgIWfGmL3uiwYmmafv4dyRbZCmqKz8mOtR+/O0p1mIs9UNZT
+ Ee8A68dPbZrukoRRQEaa4boN/jGIJUY5DHe4z2nY8IzmYJPPcsJxNxuSUr0IH0AXfhxQ
+ XQNbof9euQx04UxQWr5e3O6+8ssLbKwTbwJCoiMbix2BJ5joyhJhRSxcmbFhRzwPB6Nd
+ FPxR+JRtQpQA3Bm8Z0m4oD/Mae6VDUYwvy9vfh9e8bzpchJG9j9Kb9oC5utNEIcy2PYH
+ e6Bw==
+X-Gm-Message-State: AOAM532zvPpCZFWDHSIavm8nE9riSt1xVbtIhfeoRJEcFxV7SDmVzly7
+ 64FBW5tvVajRWwHtOUUmrcp8ed/2ZLAaFref3cBJ5w==
+X-Google-Smtp-Source: ABdhPJyfTHBvHCXuS7GMkDJKmo6ZL65D889ZDN8Fij1tzRHq9IWIaeeueUQ0KTEr9lBaBh47xr9YPay4K9BanZOMcCg=
+X-Received: by 2002:a50:e0ce:: with SMTP id j14mr14231534edl.18.1607214765241; 
+ Sat, 05 Dec 2020 16:32:45 -0800 (PST)
 MIME-Version: 1.0
-In-Reply-To: <20201203143117.GF4700@sirena.org.uk>
-Authentication-Results: relay.mimecast.com;
- auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=hdegoede@redhat.com
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset=windows-1252
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
-Cc: tiwai@suse.de, alsa-devel@alsa-project.org,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+References: <160695681289.505290.8978295443574440604.stgit@dwillia2-desk3.amr.corp.intel.com>
+ <a24b3044-1379-6331-c171-be8d95f21353@gmail.com>
+In-Reply-To: <a24b3044-1379-6331-c171-be8d95f21353@gmail.com>
+From: Dan Williams <dan.j.williams@intel.com>
+Date: Sat, 5 Dec 2020 16:32:41 -0800
+Message-ID: <CAPcyv4iM=_MhhpKKA9ihWAq_c43kKjRwGKzhvKEYHYJ+FiAVJA@mail.gmail.com>
+Subject: Re: [resend/standalone PATCH v4] Add auxiliary bus support
+To: David Ahern <dsahern@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Cc: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ alsa-devel@alsa-project.org, Kiran Patil <kiran.patil@intel.com>,
+ Greg KH <gregkh@linuxfoundation.org>, linux-rdma <linux-rdma@vger.kernel.org>,
+ Shiraz Saleem <shiraz.saleem@intel.com>,
+ Martin Habets <mhabets@solarflare.com>, Liam Girdwood <lgirdwood@gmail.com>,
+ Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
+ Fred Oh <fred.oh@linux.intel.com>, Mark Brown <broonie@kernel.org>,
+ Jason Gunthorpe <jgg@nvidia.com>, Dave Ertman <david.m.ertman@intel.com>,
+ Jakub Kicinski <kuba@kernel.org>, Netdev <netdev@vger.kernel.org>,
+ Leon Romanovsky <leonro@nvidia.com>, David Miller <davem@davemloft.net>,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ Parav Pandit <parav@mellanox.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -120,23 +105,29 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hi,
+On Sat, Dec 5, 2020 at 4:24 PM David Ahern <dsahern@gmail.com> wrote:
+>
+> On 12/2/20 5:54 PM, Dan Williams wrote:
+> > diff --git a/drivers/base/Kconfig b/drivers/base/Kconfig
+> > index 8d7001712062..040be48ce046 100644
+> > --- a/drivers/base/Kconfig
+> > +++ b/drivers/base/Kconfig
+> > @@ -1,6 +1,9 @@
+> >  # SPDX-License-Identifier: GPL-2.0
+> >  menu "Generic Driver Options"
+> >
+> > +config AUXILIARY_BUS
+> > +     bool
+> > +
+> >  config UEVENT_HELPER
+> >       bool "Support for uevent helper"
+> >       help
+>
+> Missing a description and without it does not appear in menuconfig or in
+> the config file.
+>
+> Could use a blurb in the help as well.
 
-On 12/3/20 3:31 PM, Mark Brown wrote:
-> On Wed, Dec 02, 2020 at 11:33:43AM -0800, Ranjani Sridharan wrote:
->> A recent change removed the call to send the DAPM_STREAM_STOP
->> event in dpcm_fe_dai_shutdown. But this causes a regression
->> when a PCM prepare is not paired with a hw_free. So, add
->> the DAPM_STREAM_STOP event back to dpcm_fe_dai_shutdown()
->> to fix this.
-> 
-> Hans, does this fix the issue you were seeing?
-
-Yes I can confirm that this fixes the errors which I was seening with asoc/for-5.11:
-
-Tested-by: Hans de Goede <hdegoede@redhat.com>
-
-Regards,
-
-Hans
-
+It doesn't have a description or help because it is a select-only
+symbol, but a comment to that effect and a pointer to the
+documentation would help.

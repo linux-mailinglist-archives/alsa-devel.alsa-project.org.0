@@ -2,74 +2,77 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0E3962D04C4
-	for <lists+alsa-devel@lfdr.de>; Sun,  6 Dec 2020 13:27:19 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4F98B2D04C1
+	for <lists+alsa-devel@lfdr.de>; Sun,  6 Dec 2020 13:26:28 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 817771796;
-	Sun,  6 Dec 2020 13:26:28 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 817771796
+	by alsa0.perex.cz (Postfix) with ESMTPS id BB215168F;
+	Sun,  6 Dec 2020 13:25:37 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BB215168F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1607257638;
-	bh=sBFqxeE8ZmnxxyLYsKrdqfUY6v+4jEPcmR9OxH9f5Qo=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=dd+BSXMqxoqWjwGC4pwNqAwSiJXHKMl4RWUwng1e15q4mU0e5YxgnT90fZo8nBDY9
-	 iB+s8LfuLKDD7wBsxX7B5f2fCAcS3aRE2e00Zgg7Qi8EznwM63PCLLJMrT01A3H9ZD
-	 TP9+OtKqgiLPnM4GkaRL7ag6H2IGLRhoT29qHjjY=
+	s=default; t=1607257587;
+	bh=K1q36zssMDbkzcVpi5HCsQOs4lr2yWjM7ztQSZhPI8Y=;
+	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=vgz/J+ZsSM7W7ORsfPhrTp933jFCfcRXYv15tdUX8yRtSAcl1d82VjdkV9xYu62qn
+	 bigKJ1df3HT6GDtpph53Op9aV1vx9HPWC0bc1GW10b/BxlrIk9k0EAABeEMQHoA0YO
+	 6fqNCaZcWWlQwJnrKo+XG9aKOEQVCIq7iAiskp9g=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 7456BF804BD;
-	Sun,  6 Dec 2020 13:24:56 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id D847BF80255;
+	Sun,  6 Dec 2020 13:24:52 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 48045F8015F; Sun,  6 Dec 2020 13:24:53 +0100 (CET)
+ id 385F4F8019D; Sun,  6 Dec 2020 13:24:50 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
 Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [216.205.24.124])
+ (us-smtp-delivery-124.mimecast.com [63.128.21.124])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 8BE3FF8015F
- for <alsa-devel@alsa-project.org>; Sun,  6 Dec 2020 13:24:44 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8BE3FF8015F
+ by alsa1.perex.cz (Postfix) with ESMTPS id 5581FF8010A
+ for <alsa-devel@alsa-project.org>; Sun,  6 Dec 2020 13:24:46 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5581FF8010A
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com
- header.b="VK/3OQOb"
+ header.b="C8DOG0vu"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1607257483;
+ s=mimecast20190719; t=1607257485;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding;
- bh=sBFqxeE8ZmnxxyLYsKrdqfUY6v+4jEPcmR9OxH9f5Qo=;
- b=VK/3OQObT5k3EjcXUbXWmT7kb4PJj9p0rGYOqkUToz+jhIG2lL9sckdJxrY3pdjIpaWrON
- jbClo3FX7zt2Gp9CNL1k+yN2AFsFEcYxEUDdcz+H1hgCZ8zYx2FVARfPOfM7qSamfVLGE1
- NUPsOnm1m540yudeNp03pJu4FxT1DrU=
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=SPna4+2FWzTr09AosTFKfCdqfvHpCl9uEeyRRGqXlGA=;
+ b=C8DOG0vuWCm6JvSJ5mtsinpTmcN4TTkNYKNxyDMl46UNpi0DPbsgqJQhWNJfNYGHncIFpO
+ PdpXm7HvNtPYuWKAOaleyiSp6bAUnUN1F88D1UNTyh4dhRBKZjrVIED4It1rCWwonpMMub
+ FPg2BMMz666BoYooFACjjSoCCNtCjhg=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-155-Dlhfu3eGOoq-G9mzLrPb-g-1; Sun, 06 Dec 2020 07:24:41 -0500
-X-MC-Unique: Dlhfu3eGOoq-G9mzLrPb-g-1
+ us-mta-98-0fPhjxVpNFuVDPZ5vQfXrQ-1; Sun, 06 Dec 2020 07:24:43 -0500
+X-MC-Unique: 0fPhjxVpNFuVDPZ5vQfXrQ-1
 Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com
  [10.5.11.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 8FCE3800D53;
- Sun,  6 Dec 2020 12:24:39 +0000 (UTC)
+ by mimecast-mx01.redhat.com (Postfix) with ESMTPS id B5148180A08A;
+ Sun,  6 Dec 2020 12:24:41 +0000 (UTC)
 Received: from x1.localdomain (ovpn-112-98.ams2.redhat.com [10.36.112.98])
- by smtp.corp.redhat.com (Postfix) with ESMTP id A66865D6A8;
- Sun,  6 Dec 2020 12:24:37 +0000 (UTC)
+ by smtp.corp.redhat.com (Postfix) with ESMTP id D5DF25D6A8;
+ Sun,  6 Dec 2020 12:24:39 +0000 (UTC)
 From: Hans de Goede <hdegoede@redhat.com>
 To: Cezary Rojewski <cezary.rojewski@intel.com>,
  Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
  Liam Girdwood <liam.r.girdwood@linux.intel.com>,
  Jie Yang <yang.jie@linux.intel.com>, Mark Brown <broonie@kernel.org>
-Subject: [PATCH 0/2] ASoC: Intel: cht_bsw_nau8824: 2 fixes for usage with
- sof-audio-acpi
-Date: Sun,  6 Dec 2020 13:24:34 +0100
-Message-Id: <20201206122436.13553-1-hdegoede@redhat.com>
+Subject: [PATCH 1/2] ASoC: Intel: cht_bsw_nau8824: Drop compress-cpu-dai bits
+Date: Sun,  6 Dec 2020 13:24:35 +0100
+Message-Id: <20201206122436.13553-2-hdegoede@redhat.com>
+In-Reply-To: <20201206122436.13553-1-hdegoede@redhat.com>
+References: <20201206122436.13553-1-hdegoede@redhat.com>
 MIME-Version: 1.0
 X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
 Authentication-Results: relay.mimecast.com;
@@ -94,30 +97,48 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hi All,
+When using the snd-soc-sst-acpi driver then the compress-cpu-dai bits are
+not used, the cht_bsw_nau8824 machine-driver is the only BYT/CHT driver
+defining them.
 
-Here are 2 simple fixes which are necessary to make the
-cht_bsw_nau8824 machine driver work together with the
-sof-audio-acpi driver.
+When using the snd-sof-acpi driver then the presence of the
+compress-cpu-dai bits breaks things because the sof topology file for
+by/cht devices does not contain routing info for them.
 
-Note that atm the sof topology files are missing a .tplg
-file for this setup. Simply copying over the standard
-sof-byte-codec.tplg file does the trick, but then some
-mixer setting changes are necessary to fix the right
-speaker/headphones channel not working; and those mixer
-settings break the right channel when used with the
-sst-acpi driver.
+Drop the compress-cpu-dai bits, fixing the snd-sof-acpi driver not
+working on devices using the cht_bsw_nau8824 machine-driver.
 
-I've been trying to fix this at the tplg level so that
-we do not need to change the mixer settings, but no luck
-sofar. I'll post a RFC with the topology changes which
-I have and we can discuss this further there.
+Signed-off-by: Hans de Goede <hdegoede@redhat.com>
+---
+ sound/soc/intel/boards/cht_bsw_nau8824.c | 8 --------
+ 1 file changed, 8 deletions(-)
 
-These 2 simple fixes are necessary to make the sof-audio-acpi
-driver work regardless of the topology issue.
-
-Regards,
-
-Hans
-
+diff --git a/sound/soc/intel/boards/cht_bsw_nau8824.c b/sound/soc/intel/boards/cht_bsw_nau8824.c
+index 8131af1730f7..ac78173d01ec 100644
+--- a/sound/soc/intel/boards/cht_bsw_nau8824.c
++++ b/sound/soc/intel/boards/cht_bsw_nau8824.c
+@@ -176,9 +176,6 @@ SND_SOC_DAILINK_DEF(media,
+ SND_SOC_DAILINK_DEF(deepbuffer,
+ 	DAILINK_COMP_ARRAY(COMP_CPU("deepbuffer-cpu-dai")));
+ 
+-SND_SOC_DAILINK_DEF(compress,
+-	DAILINK_COMP_ARRAY(COMP_CPU("compress-cpu-dai")));
+-
+ SND_SOC_DAILINK_DEF(ssp2_port,
+ 	DAILINK_COMP_ARRAY(COMP_CPU("ssp2-port")));
+ SND_SOC_DAILINK_DEF(ssp2_codec,
+@@ -209,11 +206,6 @@ static struct snd_soc_dai_link cht_dailink[] = {
+ 		.ops = &cht_aif1_ops,
+ 		SND_SOC_DAILINK_REG(deepbuffer, dummy, platform),
+ 	},
+-	[MERR_DPCM_COMPR] = {
+-		.name = "Compressed Port",
+-		.stream_name = "Compress",
+-		SND_SOC_DAILINK_REG(compress, dummy, platform),
+-	},
+ 	/* Back End DAI links */
+ 	{
+ 		/* SSP2 - Codec */
+-- 
+2.28.0
 

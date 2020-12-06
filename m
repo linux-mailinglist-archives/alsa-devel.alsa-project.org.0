@@ -2,51 +2,62 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9AB642D01F7
-	for <lists+alsa-devel@lfdr.de>; Sun,  6 Dec 2020 09:36:56 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id C69692D02F6
+	for <lists+alsa-devel@lfdr.de>; Sun,  6 Dec 2020 11:51:45 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id AAACF17DC;
-	Sun,  6 Dec 2020 09:36:04 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AAACF17DC
+	by alsa0.perex.cz (Postfix) with ESMTPS id DF83B1790;
+	Sun,  6 Dec 2020 11:50:54 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DF83B1790
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1607243814;
-	bh=IlKL2TJ7rMTooE34+t9+fSWNPCqRE86LlG7ciOGEQsU=;
+	s=default; t=1607251905;
+	bh=cre4ywBr6NEc2sClDhpJoXf1dKJBoApxlXDYlNL390A=;
 	h=From:To:Subject:Date:List-Id:List-Unsubscribe:List-Archive:
 	 List-Post:List-Help:List-Subscribe:From;
-	b=vBFOKNmWlzGP95ZBUc6vrjGPD5gN6l0C7qcjdDEBZIsBiDl5+LT81YK9pZ0O2PHPB
-	 tw/1AKxF7ZDfqoj6+lZSRGI7fvaBFyiw/XuxHYSBerSlIz9dbHJBcEifbNmSSux2aD
-	 z5a55/s8zN7eiaS0ulxUN1+i/BMftw7mEo969EMs=
+	b=GbEifY+1Z8JLTYSkIftULXwJpN5wSnTYLDflsnzZmxZD990Y9pg+AmGYZ81p4oHkD
+	 Ocpp2Ge0QL+97wb9FbMhjSnT0PeiZMhyy3V3fU2hhHFFet99qswjg+hpZuXhH8Nhx5
+	 1K2Xw4Kcxv5XrH5+j0sHBVg05z8FMDA8UDlgG2G0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id CB222F8025A;
-	Sun,  6 Dec 2020 09:35:36 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 9724DF800E1;
+	Sun,  6 Dec 2020 11:49:58 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id B5B48F80255; Sun,  6 Dec 2020 09:35:35 +0100 (CET)
+ id 8544CF8010A; Sun,  6 Dec 2020 11:49:55 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
  URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+Received: from inva020.nxp.com (inva020.nxp.com [92.121.34.13])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 56805F8010A
- for <alsa-devel@alsa-project.org>; Sun,  6 Dec 2020 09:35:29 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 56805F8010A
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id AA877AB63
- for <alsa-devel@alsa-project.org>; Sun,  6 Dec 2020 08:35:28 +0000 (UTC)
-From: Takashi Iwai <tiwai@suse.de>
-To: alsa-devel@alsa-project.org
-Subject: [PATCH] ALSA: rawmidi: Access runtime->avail always in spinlock
-Date: Sun,  6 Dec 2020 09:35:27 +0100
-Message-Id: <20201206083527.21163-1-tiwai@suse.de>
-X-Mailer: git-send-email 2.26.2
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+ by alsa1.perex.cz (Postfix) with ESMTPS id BF97FF8010A
+ for <alsa-devel@alsa-project.org>; Sun,  6 Dec 2020 11:49:49 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BF97FF8010A
+Received: from inva020.nxp.com (localhost [127.0.0.1])
+ by inva020.eu-rdc02.nxp.com (Postfix) with ESMTP id BDF251A087E;
+ Sun,  6 Dec 2020 11:49:48 +0100 (CET)
+Received: from invc005.ap-rdc01.nxp.com (invc005.ap-rdc01.nxp.com
+ [165.114.16.14])
+ by inva020.eu-rdc02.nxp.com (Postfix) with ESMTP id A3EE91A0AAF;
+ Sun,  6 Dec 2020 11:49:43 +0100 (CET)
+Received: from localhost.localdomain (shlinux2.ap.freescale.net
+ [10.192.224.44])
+ by invc005.ap-rdc01.nxp.com (Postfix) with ESMTP id 26057402D0;
+ Sun,  6 Dec 2020 11:49:37 +0100 (CET)
+From: Shengjiu Wang <shengjiu.wang@nxp.com>
+To: timur@kernel.org, nicoleotsuka@gmail.com, Xiubo.Lee@gmail.com,
+ festevam@gmail.com, lgirdwood@gmail.com, broonie@kernel.org,
+ perex@perex.cz, tiwai@suse.com, alsa-devel@alsa-project.org,
+ linuxppc-dev@lists.ozlabs.org, linux-kernel@vger.kernel.org,
+ robh+dt@kernel.org, devicetree@vger.kernel.org
+Subject: [PATCH v2 1/2] ASoC: dt-bindings: imx-hdmi: Add binding doc for hdmi
+ machine driver
+Date: Sun,  6 Dec 2020 18:41:58 +0800
+Message-Id: <1607251319-5821-1-git-send-email-shengjiu.wang@nxp.com>
+X-Mailer: git-send-email 2.7.4
+X-Virus-Scanned: ClamAV using ClamSMTP
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -62,149 +73,77 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-The runtime->avail field may be accessed concurrently while some
-places refer to it without taking the runtime->lock spinlock, as
-detected by KCSAN.  Usually this isn't a big problem, but for
-consistency and safety, we should take the spinlock at each place
-referencing this field.
+Imx-hdmi is a new added machine driver for supporting hdmi devices
+on i.MX platforms. There is HDMI IP or external HDMI modules connect
+with SAI or AUD2HTX interface.
 
-Reported-by: syzbot+a23a6f1215c84756577c@syzkaller.appspotmail.com
-Reported-by: syzbot+3d367d1df1d2b67f5c19@syzkaller.appspotmail.com
-Signed-off-by: Takashi Iwai <tiwai@suse.de>
+Signed-off-by: Shengjiu Wang <shengjiu.wang@nxp.com>
 ---
- sound/core/rawmidi.c | 49 +++++++++++++++++++++++++++++++-------------
- 1 file changed, 35 insertions(+), 14 deletions(-)
+changes in v2:
+- none
 
-diff --git a/sound/core/rawmidi.c b/sound/core/rawmidi.c
-index c78720a3299c..257ad5206240 100644
---- a/sound/core/rawmidi.c
-+++ b/sound/core/rawmidi.c
-@@ -95,11 +95,21 @@ static inline unsigned short snd_rawmidi_file_flags(struct file *file)
- 	}
- }
- 
--static inline int snd_rawmidi_ready(struct snd_rawmidi_substream *substream)
-+static inline bool __snd_rawmidi_ready(struct snd_rawmidi_runtime *runtime)
-+{
-+	return runtime->avail >= runtime->avail_min;
-+}
+ .../bindings/sound/imx-audio-hdmi.yaml        | 52 +++++++++++++++++++
+ 1 file changed, 52 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/sound/imx-audio-hdmi.yaml
+
+diff --git a/Documentation/devicetree/bindings/sound/imx-audio-hdmi.yaml b/Documentation/devicetree/bindings/sound/imx-audio-hdmi.yaml
+new file mode 100644
+index 000000000000..d5474f83ac2c
+--- /dev/null
++++ b/Documentation/devicetree/bindings/sound/imx-audio-hdmi.yaml
+@@ -0,0 +1,52 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/sound/imx-audio-hdmi.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
 +
-+static bool snd_rawmidi_ready(struct snd_rawmidi_substream *substream)
- {
- 	struct snd_rawmidi_runtime *runtime = substream->runtime;
-+	unsigned long flags;
-+	bool ready;
- 
--	return runtime->avail >= runtime->avail_min;
-+	spin_lock_irqsave(&runtime->lock, flags);
-+	ready = __snd_rawmidi_ready(runtime);
-+	spin_unlock_irqrestore(&runtime->lock, flags);
-+	return ready;
- }
- 
- static inline int snd_rawmidi_ready_append(struct snd_rawmidi_substream *substream,
-@@ -1019,7 +1029,7 @@ int snd_rawmidi_receive(struct snd_rawmidi_substream *substream,
- 	if (result > 0) {
- 		if (runtime->event)
- 			schedule_work(&runtime->event_work);
--		else if (snd_rawmidi_ready(substream))
-+		else if (__snd_rawmidi_ready(runtime))
- 			wake_up(&runtime->sleep);
- 	}
- 	spin_unlock_irqrestore(&runtime->lock, flags);
-@@ -1098,7 +1108,7 @@ static ssize_t snd_rawmidi_read(struct file *file, char __user *buf, size_t coun
- 	result = 0;
- 	while (count > 0) {
- 		spin_lock_irq(&runtime->lock);
--		while (!snd_rawmidi_ready(substream)) {
-+		while (!__snd_rawmidi_ready(runtime)) {
- 			wait_queue_entry_t wait;
- 
- 			if ((file->f_flags & O_NONBLOCK) != 0 || result > 0) {
-@@ -1115,9 +1125,11 @@ static ssize_t snd_rawmidi_read(struct file *file, char __user *buf, size_t coun
- 				return -ENODEV;
- 			if (signal_pending(current))
- 				return result > 0 ? result : -ERESTARTSYS;
--			if (!runtime->avail)
--				return result > 0 ? result : -EIO;
- 			spin_lock_irq(&runtime->lock);
-+			if (!runtime->avail) {
-+				spin_unlock_irq(&runtime->lock);
-+				return result > 0 ? result : -EIO;
-+			}
- 		}
- 		spin_unlock_irq(&runtime->lock);
- 		count1 = snd_rawmidi_kernel_read1(substream,
-@@ -1255,7 +1267,7 @@ int __snd_rawmidi_transmit_ack(struct snd_rawmidi_substream *substream, int coun
- 	runtime->avail += count;
- 	substream->bytes += count;
- 	if (count > 0) {
--		if (runtime->drain || snd_rawmidi_ready(substream))
-+		if (runtime->drain || __snd_rawmidi_ready(runtime))
- 			wake_up(&runtime->sleep);
- 	}
- 	return count;
-@@ -1444,9 +1456,11 @@ static ssize_t snd_rawmidi_write(struct file *file, const char __user *buf,
- 				return -ENODEV;
- 			if (signal_pending(current))
- 				return result > 0 ? result : -ERESTARTSYS;
--			if (!runtime->avail && !timeout)
--				return result > 0 ? result : -EIO;
- 			spin_lock_irq(&runtime->lock);
-+			if (!runtime->avail && !timeout) {
-+				spin_unlock_irq(&runtime->lock);
-+				return result > 0 ? result : -EIO;
-+			}
- 		}
- 		spin_unlock_irq(&runtime->lock);
- 		count1 = snd_rawmidi_kernel_write1(substream, buf, NULL, count);
-@@ -1526,6 +1540,7 @@ static void snd_rawmidi_proc_info_read(struct snd_info_entry *entry,
- 	struct snd_rawmidi *rmidi;
- 	struct snd_rawmidi_substream *substream;
- 	struct snd_rawmidi_runtime *runtime;
-+	unsigned long buffer_size, avail, xruns;
- 
- 	rmidi = entry->private_data;
- 	snd_iprintf(buffer, "%s\n\n", rmidi->name);
-@@ -1544,13 +1559,16 @@ static void snd_rawmidi_proc_info_read(struct snd_info_entry *entry,
- 				    "  Owner PID    : %d\n",
- 				    pid_vnr(substream->pid));
- 				runtime = substream->runtime;
-+				spin_lock_irq(&runtime->lock);
-+				buffer_size = runtime->buffer_size;
-+				avail = runtime->avail;
-+				spin_unlock_irq(&runtime->lock);
- 				snd_iprintf(buffer,
- 				    "  Mode         : %s\n"
- 				    "  Buffer size  : %lu\n"
- 				    "  Avail        : %lu\n",
- 				    runtime->oss ? "OSS compatible" : "native",
--				    (unsigned long) runtime->buffer_size,
--				    (unsigned long) runtime->avail);
-+				    buffer_size, avail);
- 			}
- 		}
- 	}
-@@ -1568,13 +1586,16 @@ static void snd_rawmidi_proc_info_read(struct snd_info_entry *entry,
- 					    "  Owner PID    : %d\n",
- 					    pid_vnr(substream->pid));
- 				runtime = substream->runtime;
-+				spin_lock_irq(&runtime->lock);
-+				buffer_size = runtime->buffer_size;
-+				avail = runtime->avail;
-+				xruns = runtime->xruns;
-+				spin_unlock_irq(&runtime->lock);
- 				snd_iprintf(buffer,
- 					    "  Buffer size  : %lu\n"
- 					    "  Avail        : %lu\n"
- 					    "  Overruns     : %lu\n",
--					    (unsigned long) runtime->buffer_size,
--					    (unsigned long) runtime->avail,
--					    (unsigned long) runtime->xruns);
-+					    buffer_size, avail, xruns);
- 			}
- 		}
- 	}
++title: NXP i.MX audio complex with HDMI
++
++maintainers:
++  - Shengjiu Wang <shengjiu.wang@nxp.com>
++
++properties:
++  compatible:
++    enum:
++      - fsl,imx-audio-hdmi
++      - fsl,imx-audio-sii902x
++
++  model:
++    $ref: /schemas/types.yaml#/definitions/string
++    description: User specified audio sound card name
++
++  audio-cpu:
++    description: The phandle of an CPU DAI controller
++
++  hdmi-out:
++    description: |
++      This is a boolean property. If present, the transmitting function
++      of HDMI will be enabled, indicating there's a physical HDMI out
++      connector or jack on the board or it's connecting to some other IP
++      block, such as an HDMI encoder or display-controller.
++
++  hdmi-in:
++    description: |
++      This is a boolean property. If present, the receiving function of
++      HDMI will be enabled, indicating there is a physical HDMI in
++      connector/jack on the board.
++
++required:
++  - compatible
++  - model
++  - audio-cpu
++
++additionalProperties: false
++
++examples:
++  - |
++    sound-hdmi {
++        compatible = "fsl,imx-audio-hdmi";
++        model = "audio-hdmi";
++        audio-cpu = <&aud2htx>;
++        hdmi-out;
++    };
 -- 
-2.26.2
+2.27.0
 

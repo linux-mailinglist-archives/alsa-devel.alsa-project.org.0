@@ -2,91 +2,72 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 06FBA2D0BFB
-	for <lists+alsa-devel@lfdr.de>; Mon,  7 Dec 2020 09:48:57 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 804F52D0C22
+	for <lists+alsa-devel@lfdr.de>; Mon,  7 Dec 2020 09:54:27 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 7F1DF1768;
-	Mon,  7 Dec 2020 09:48:06 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7F1DF1768
+	by alsa0.perex.cz (Postfix) with ESMTPS id E8FF1172F;
+	Mon,  7 Dec 2020 09:53:36 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E8FF1172F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1607330936;
-	bh=OXcWzKJWIoeGPLYbAZFAkfJ1mRq+HFaUDZndzZ44aK8=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1607331267;
+	bh=OmU6VIuzrfU2tkcpfBpGag+wEALuW75gf2pstoytFCY=;
+	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=bk3XndVBcAVqggyHgXzMmh8AYPXvctZHMkpsfR1LVmP79Z8kFEF6n63tmvfp9u2Eq
-	 6EwKTinH5PZ3fNxZ/xT9gTlyxPiGt+NVxd8IwtXlLoRAt5tqCoUKZyXW9g+PSYzQih
-	 V2samta2SMxPfVw1RoRsMidLv1K9NIvyoCbyAVxk=
+	b=NMe0yqC2Bc01Bn4XpR3WgND2tmGK+Wmy/CLh2Au1lyBcTycq7I9ORKYU4cLUkClSb
+	 Wbifd52Lwc1X31gZ5XUY6yIMf/FJm7bEE1wCp1LnE2lM8AdosYZ6oJXAnq4tCRadq7
+	 eUu3Yck8OUqMhAXYqzN+lTlf2Q3UQLbp2TuMl2zY=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id C0E71F804BD;
-	Mon,  7 Dec 2020 09:46:35 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id F072BF80217;
+	Mon,  7 Dec 2020 09:52:51 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 96DC1F8026A; Mon,  7 Dec 2020 09:46:33 +0100 (CET)
+ id 7592CF8020D; Mon,  7 Dec 2020 09:52:49 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU, FREEMAIL_ENVFROM_END_DIGIT, FREEMAIL_FROM, SPF_HELO_NONE,
- SPF_NONE autolearn=disabled version=3.4.0
-Received: from mail-qt1-x843.google.com (mail-qt1-x843.google.com
- [IPv6:2607:f8b0:4864:20::843])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from mail1.perex.cz (mail1.perex.cz [77.48.224.245])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 0AFFAF80227
- for <alsa-devel@alsa-project.org>; Mon,  7 Dec 2020 09:46:29 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0AFFAF80227
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="sch1nJmJ"
-Received: by mail-qt1-x843.google.com with SMTP id y15so1313186qtv.5
- for <alsa-devel@alsa-project.org>; Mon, 07 Dec 2020 00:46:29 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding;
- bh=NpdyYEoACj40I4ZoU6WJldnVBTLBOwlyVOBQr8T4Kew=;
- b=sch1nJmJjyLcCpem9TYTDXeAaeeWlxQkuXNCbmblSiPHOtE4NfUqUpcQnUFZJZ/HpD
- kL/Ga9mPGlkojKYjTEqnEERK9cyf+PEsooGLU7l3bY4GVxeLAkIWpKfxxdfd4IPDVvPI
- ngORmXaOooXuleNyvRfEdNDeaQ2NTWXpAAz993L8+48hCcI5XAZ70IGVk9SFkBzjuJis
- tQf/XfsducGWaylpomokcaJIEsvd/fbw8IePOXDgkJVXJHDTGYLC3JDcy1aB0W/e4ojL
- HIzTq5IxkToB1DS1OeQ+jVWpkmypQM85jA5t5IblJIXckHwpfyleUX1IfL4e/Ordiz7G
- PlGg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
- :references:mime-version:content-transfer-encoding;
- bh=NpdyYEoACj40I4ZoU6WJldnVBTLBOwlyVOBQr8T4Kew=;
- b=JiFx4lUMfi6oAKZDsKjDj6eJ2+qjJMQav7n3WFcL2H7tGotLhb8N5dDbqOD25C9Cyz
- wsUIurDoJbyFW7tQb6xuF5EtvHdYJAp9zoYbj04+phlJitDDL6zPoXN0K4KSBrF819Vr
- +q2pnSdM38WB4ryVGNu/HGD2cYDNvTboftgZq0+dT1GvjxLzHCcC985o294DXTJo4/Px
- Ufif8LyyrXPXdjoQt8DSmRF/N47/jAv6W96k52ON5OGWQOZQSeT326g30QrsHqKBTpcW
- KFKR6vCm5eA0t9bRZC6a2LcyaONleiMXN3spP9OZP1E4yxkvpeAyFxFZFeBKH8RQBXII
- 3HdQ==
-X-Gm-Message-State: AOAM531j3XjvA+lUcM1iizkOUyeacL9FnjkIMo4l1tlYjfnI6IlEB9Qc
- +A6HzHcmAIZPOLPyGFvn4ojojBdwnXc=
-X-Google-Smtp-Source: ABdhPJzAJgTIZ1mMj6CcgI4tmLpV4ibh78NNHIWaZzz07FiegjSWTPIUJtrRnvEA7wX0rH1+LEpqKg==
-X-Received: by 2002:ac8:1c92:: with SMTP id f18mr10045859qtl.319.1607330787050; 
- Mon, 07 Dec 2020 00:46:27 -0800 (PST)
-Received: from localhost.localdomain (cpe-71-65-111-223.cinci.res.rr.com.
- [71.65.111.223])
- by smtp.googlemail.com with ESMTPSA id a9sm3424681qkk.39.2020.12.07.00.46.26
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 07 Dec 2020 00:46:26 -0800 (PST)
-From: Connor McAdams <conmanx360@gmail.com>
-To: 
-Subject: [PATCH 3/3] ALSA: hda/ca0132 - Unmute surround when speaker output is
- selected.
-Date: Mon,  7 Dec 2020 03:46:15 -0500
-Message-Id: <20201207084616.411531-3-conmanx360@gmail.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20201207084616.411531-1-conmanx360@gmail.com>
-References: <20201207084616.411531-1-conmanx360@gmail.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 6EF40F8015B
+ for <alsa-devel@alsa-project.org>; Mon,  7 Dec 2020 09:52:41 +0100 (CET)
+Received: from mail1.perex.cz (localhost [127.0.0.1])
+ by smtp1.perex.cz (Perex's E-mail Delivery System) with ESMTP id 2E62CA0047;
+ Mon,  7 Dec 2020 09:52:41 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 smtp1.perex.cz 2E62CA0047
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=perex.cz; s=default;
+ t=1607331161; bh=PG1fJx+9nYMGJsne8g+wOhZ3EpTRJTCCuJ/OZLzqXQs=;
+ h=Subject:To:Cc:References:From:Date:In-Reply-To:From;
+ b=lD7d0Pmx610WGSyHFCCtah+oXu53W4fysbi6jO81S0YCwx0YZe1vkDE/Ic31b7Wud
+ dMGxS2rUhbR+C+61j7wkgSogBFDjT6YJ62K5tuC98/tIzOSNszbdIGTBrouRWBPyXZ
+ O1Jv9Bb9Hp95IFGJ23b7aS1Uu47nzrWP51PpgSb8=
+Received: from p1gen2.perex-int.cz (unknown [192.168.100.98])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested) (Authenticated sender: perex)
+ by mail1.perex.cz (Perex's E-mail Delivery System) with ESMTPSA;
+ Mon,  7 Dec 2020 09:52:37 +0100 (CET)
+Subject: Re: snd-rn-pci-acp3x - auto dmic detection unreliable
+To: "Mukunda, Vijendar" <Vijendar.Mukunda@amd.com>
+References: <a13f4f45-513e-0b99-8cf4-0ae89bf7d6bd@perex.cz>
+ <MWHPR12MB166388C29409E3D488E5C85597E10@MWHPR12MB1663.namprd12.prod.outlook.com>
+From: Jaroslav Kysela <perex@perex.cz>
+Message-ID: <a7f011e4-0fb8-b861-ebc8-be6de0d46d50@perex.cz>
+Date: Mon, 7 Dec 2020 09:52:36 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.3.1
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Cc: linux-kernel@vger.kernel.org, conmanx360@gmail.com,
- Takashi Iwai <tiwai@suse.com>, alsa-devel@alsa-project.org
+In-Reply-To: <MWHPR12MB166388C29409E3D488E5C85597E10@MWHPR12MB1663.namprd12.prod.outlook.com>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
+Cc: ALSA development <alsa-devel@alsa-project.org>, "Kandimalla,
+ NagaMalleswaraRao" <NagaMalleswaraRao.Kandimalla@amd.com>, "Arya,
+ Virendra-Pratap" <Virendra-Pratap.Arya@amd.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -102,27 +83,44 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Make sure GPIO pin for surround channel mute is set to 0 when speaker
-output is selected.
+Dne 18. 11. 20 v 10:25 Mukunda, Vijendar napsal(a):
+> [AMD Public Use]
 
-Signed-off-by: Connor McAdams <conmanx360@gmail.com>
----
- sound/pci/hda/patch_ca0132.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+AMD: You just replicated my original question without any answer (2 weeks+).
+Do you have something to share or do you not support your code?
 
-diff --git a/sound/pci/hda/patch_ca0132.c b/sound/pci/hda/patch_ca0132.c
-index 793dc5d501a5..6d647d461eab 100644
---- a/sound/pci/hda/patch_ca0132.c
-+++ b/sound/pci/hda/patch_ca0132.c
-@@ -1390,7 +1390,7 @@ static const struct ca0132_alt_out_set_quirk_data quirk_out_set_data[] = {
- 		  .has_hda_gpio     = false,
- 		  .mmio_gpio_count  = 3,
- 		  .mmio_gpio_pin    = { 2, 3, 5 },
--		  .mmio_gpio_set    = { 1, 1, 0 },
-+		  .mmio_gpio_set    = { 1, 0, 0 },
- 		  .scp_cmds_count   = 0,
- 		  .has_chipio_write = false,
- 		},
+				Jaroslav
+
+> -----Original Message-----
+> From: Jaroslav Kysela <perex@perex.cz> 
+> Sent: Wednesday, November 18, 2020 2:37 PM
+> To: Mukunda, Vijendar <Vijendar.Mukunda@amd.com>
+> Cc: ALSA development <alsa-devel@alsa-project.org>
+> Subject: snd-rn-pci-acp3x - auto dmic detection unreliable
+> 
+> Hi,
+> 
+> 	it seems that the ACPI auto-detection of the presence the digital microphone connected to AMD Renoir audio bridge is unreliable. It may be that hardware vendors do not provide the correct ACPI tables.
+> 	Could you clarify the usage of _WOV integer value? It seems that this value is set on those plaforms which do not have the digital microphone (the microphone is connected to the HDA codec):
+> 
+> _WOV integer value should be set only when DMIC is connected to APU.
+> When DMIC is not available, _WOV integer value should be set to zero by BIOS.
+> 
+> Lenovo IdeaPad 5 (15ARE05)
+> Lenovo Thinkpad X395
+> 
+> 	In any case, we should probably improve the auto-detection using DMI or other platform info.
+> 
+> 					Jaroslav
+> 
+> BugLink: https://nam11.safelinks.protection.outlook.com/?url=https%3A%2F%2Fbugzilla.redhat.com%2Fshow_bug.cgi%3Fid%3D1892115&amp;data=04%7C01%7CVijendar.Mukunda%40amd.com%7C4d901531b6454bebc58208d88ba15a4b%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C637412872412887848%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C1000&amp;sdata=S7769uYGT3db%2BaztzZyobmVN2leseXPqjR6pktFUaR0%3D&amp;reserved=0
+> 
+> --
+> Jaroslav Kysela <perex@perex.cz>
+> Linux Sound Maintainer; ALSA Project; Red Hat, Inc.
+> 
+
+
 -- 
-2.25.1
-
+Jaroslav Kysela <perex@perex.cz>
+Linux Sound Maintainer; ALSA Project; Red Hat, Inc.

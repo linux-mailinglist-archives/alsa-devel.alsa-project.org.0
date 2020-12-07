@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A431E2D111E
-	for <lists+alsa-devel@lfdr.de>; Mon,  7 Dec 2020 13:55:38 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9EE132D1121
+	for <lists+alsa-devel@lfdr.de>; Mon,  7 Dec 2020 13:56:20 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id DB549176A;
-	Mon,  7 Dec 2020 13:54:47 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DB549176A
+	by alsa0.perex.cz (Postfix) with ESMTPS id 2CFCB168F;
+	Mon,  7 Dec 2020 13:55:30 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2CFCB168F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1607345737;
-	bh=ZfFmXiUV2hzTQ91OQ/B5qZ8uvdRAuDnwEbZIGgTmHJM=;
+	s=default; t=1607345780;
+	bh=Jljt51kij+VIcX4wBu6jRB2GPJfxUJVLhbv99gb00dQ=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=ozonfvu8pPT/gH63CLYGVu01AwNSqI8PBHK+BEAJ8pOdJMKrVMdKY5zhHp0LH+Mxx
-	 jcRUoNGXqR+CCzrem3zUfONRsd6aUuMTN6gAPGhKPDWdLSgdDgBGglnHP2BAC3tR97
-	 AY3qpoVYHIG6iVWF/wxTNV8uKclto4OG7OlPGMOY=
+	b=N97TPJAEMIfXWt52TOVIMgTl1D5lmNg8xE/B5LE1iRFuqEqX+x++j6G8+uN3KMWHA
+	 B2VHbZmQ/CFSO3HLAiqWFSGfri8PxYJ6ppcpm2ZQ5Ve2hnOass+4Mc+Yh1Ao0nzKKu
+	 LrKVxhy8P2N/oSs3R6Z8OAcwnkOE4ZifqZaz142g=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 9C72DF80264;
-	Mon,  7 Dec 2020 13:54:02 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 8F9CAF804C2;
+	Mon,  7 Dec 2020 13:54:09 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id D87DAF8021D; Mon,  7 Dec 2020 13:54:00 +0100 (CET)
+ id 6847AF8027C; Mon,  7 Dec 2020 13:54:03 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
@@ -33,15 +33,16 @@ X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
 Received: from aposti.net (aposti.net [89.234.176.197])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id A5BADF8020D
- for <alsa-devel@alsa-project.org>; Mon,  7 Dec 2020 13:53:54 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A5BADF8020D
+ by alsa1.perex.cz (Postfix) with ESMTPS id D655CF8021D
+ for <alsa-devel@alsa-project.org>; Mon,  7 Dec 2020 13:54:00 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D655CF8021D
 From: Paul Cercueil <paul@crapouillou.net>
 To: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
  Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>
-Subject: [PATCH 2/5] ASoC: codecs/jz4770: Reset interrupt flags in bias PREPARE
-Date: Mon,  7 Dec 2020 12:53:34 +0000
-Message-Id: <20201207125338.119397-2-paul@crapouillou.net>
+Subject: [PATCH 3/5] ASoC: codecs/jz4770: Adjust timeouts for cap-coupled
+ outputs
+Date: Mon,  7 Dec 2020 12:53:35 +0000
+Message-Id: <20201207125338.119397-3-paul@crapouillou.net>
 In-Reply-To: <20201207125338.119397-1-paul@crapouillou.net>
 References: <20201207125338.119397-1-paul@crapouillou.net>
 MIME-Version: 1.0
@@ -66,39 +67,55 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 From: Christophe Branchereau <cbranchereau@gmail.com>
 
-In case a poll for RUP times out, we might be left with some IRQ flags
-that should be cleared before the next power on.
+When using cap-coupled outputs, the RUP/RDO can take much longer than
+the 100ms timeout we used to have. Increase that timeout to one second.
 
 Signed-off-by: Christophe Branchereau <cbranchereau@gmail.com>
 Signed-off-by: Paul Cercueil <paul@crapouillou.net>
 ---
- sound/soc/codecs/jz4770.c | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+ sound/soc/codecs/jz4770.c | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
 
 diff --git a/sound/soc/codecs/jz4770.c b/sound/soc/codecs/jz4770.c
-index c6b2043f31a9..002f2300e750 100644
+index 002f2300e750..0da966785aee 100644
 --- a/sound/soc/codecs/jz4770.c
 +++ b/sound/soc/codecs/jz4770.c
-@@ -190,6 +190,9 @@ static int jz4770_codec_set_bias_level(struct snd_soc_component *codec,
+@@ -287,7 +287,7 @@ static int jz4770_codec_mute_stream(struct snd_soc_dai *dai, int mute, int direc
+ 		err = regmap_read_poll_timeout(jz_codec->regmap,
+ 					       JZ4770_CODEC_REG_IFR,
+ 					       val, val & gain_bit,
+-					       1000, 100 * USEC_PER_MSEC);
++					       1000, 1 * USEC_PER_SEC);
+ 		if (err) {
+ 			dev_err(jz_codec->dev,
+ 				"Timeout while setting digital mute: %d", err);
+@@ -381,7 +381,7 @@ static int hpout_event(struct snd_soc_dapm_widget *w,
+ 		err = regmap_read_poll_timeout(jz_codec->regmap,
+ 					       JZ4770_CODEC_REG_IFR,
+ 					       val, val & REG_IFR_RUP,
+-					       1000, 100 * USEC_PER_MSEC);
++					       1000, 1 * USEC_PER_SEC);
+ 		if (err) {
+ 			dev_err(jz_codec->dev, "RUP timeout: %d", err);
+ 			return err;
+@@ -401,7 +401,7 @@ static int hpout_event(struct snd_soc_dapm_widget *w,
+ 		err = regmap_read_poll_timeout(jz_codec->regmap,
+ 					       JZ4770_CODEC_REG_IFR,
+ 					       val, val & REG_IFR_RDO,
+-					       1000, 100 * USEC_PER_MSEC);
++					       1000, 1 * USEC_PER_SEC);
+ 		if (err) {
+ 			dev_err(jz_codec->dev, "RDO timeout: %d", err);
+ 			return err;
+@@ -803,7 +803,7 @@ static int jz4770_codec_io_wait(struct jz_codec *codec)
  
- 	switch (level) {
- 	case SND_SOC_BIAS_PREPARE:
-+		/* Reset all interrupt flags. */
-+		regmap_write(regmap, JZ4770_CODEC_REG_IFR, REG_IFR_ALL_MASK);
-+
- 		regmap_clear_bits(regmap, JZ4770_CODEC_REG_CR_VIC,
- 				  REG_CR_VIC_SB);
- 		msleep(250);
-@@ -642,9 +645,6 @@ static void jz4770_codec_codec_init_regs(struct snd_soc_component *codec)
- 	/* Send collected updates. */
- 	regcache_cache_only(regmap, false);
- 	regcache_sync(regmap);
--
--	/* Reset all interrupt flags. */
--	regmap_write(regmap, JZ4770_CODEC_REG_IFR, REG_IFR_ALL_MASK);
+ 	return readl_poll_timeout(codec->base + ICDC_RGADW_OFFSET, reg,
+ 				  !(reg & ICDC_RGADW_RGWR),
+-				  1000, 10 * USEC_PER_MSEC);
++				  1000, 1 * USEC_PER_SEC);
  }
  
- static int jz4770_codec_codec_probe(struct snd_soc_component *codec)
+ static int jz4770_codec_reg_read(void *context, unsigned int reg,
 -- 
 2.29.2
 

@@ -2,74 +2,83 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 72C422D09D3
-	for <lists+alsa-devel@lfdr.de>; Mon,  7 Dec 2020 05:49:35 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 62B922D09DF
+	for <lists+alsa-devel@lfdr.de>; Mon,  7 Dec 2020 05:54:31 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 144BA170F;
-	Mon,  7 Dec 2020 05:48:45 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 144BA170F
+	by alsa0.perex.cz (Postfix) with ESMTPS id EB8B51738;
+	Mon,  7 Dec 2020 05:53:40 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EB8B51738
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1607316575;
-	bh=5otoU6/da4hgylLuMnGsUNNL1B0DYmpjUcWY8/EgrDc=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1607316871;
+	bh=LAKlJPf7KTPND4glmW2D738l9+goD4Zw+DCnnzW7RQU=;
+	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=RdTEt5+zMdYSPdTfAQq/uj0z3DbCgc1mXWMoEwi/ZqnyJWMXiqA3TOysvXzTyvtPF
-	 wXduDsHSafTQ/eVbXqux2FNu4nNtCr3e3lyYj9af2xBHACSQHPpxsgfqgsUOt/rNPU
-	 tzS3va7qv0UbrvFfx+LEzyOzCkMltUFDgmzflxOM=
+	b=tQEAZ1n0TIWJ7qiEgG1KkkUcNG8V78YIMDnq+vIvIc2tyqxw1kGYmJQgz60YXTEw1
+	 9DvETx0kRNyhjQLzLbxJl+Guo6/jOh8IEZVoSLHvhvJgT1+LqxCB2P1Keg6wktvMAx
+	 2AHyBKd3AacHZvhWH3htEP30xPjOu+RHuQORDM9I=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 6FCE2F80217;
-	Mon,  7 Dec 2020 05:48:00 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 61501F80217;
+	Mon,  7 Dec 2020 05:52:56 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id C832EF8020D; Mon,  7 Dec 2020 05:47:58 +0100 (CET)
+ id C3FACF8020D; Mon,  7 Dec 2020 05:52:53 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE autolearn=disabled
+ version=3.4.0
+Received: from hqnvemgate24.nvidia.com (hqnvemgate24.nvidia.com
+ [216.228.121.143])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 40136F8010A
- for <alsa-devel@alsa-project.org>; Mon,  7 Dec 2020 05:47:56 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 40136F8010A
+ by alsa1.perex.cz (Postfix) with ESMTPS id 74A1CF8010A
+ for <alsa-devel@alsa-project.org>; Mon,  7 Dec 2020 05:52:48 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 74A1CF8010A
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="vPqiunth"
-Date: Mon, 7 Dec 2020 10:17:49 +0530
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1607316474;
- bh=5otoU6/da4hgylLuMnGsUNNL1B0DYmpjUcWY8/EgrDc=;
- h=From:To:Cc:Subject:References:In-Reply-To:From;
- b=vPqiunthY0LQw3w1KvSIVuc8zsJ1S4nrixVfmV83/bVVME1pS3lMrVn92PtZPmlax
- RA/tdKEuJK5+iUXLN5SW18yyDBmflxyliyqGNndcJKo0ZO5Y1v0exWDF7Um8Ruw8ZX
- YG1ZY37BT5Qzlu3HEAXpHJCQQo55Xni2Y67t3YxtF3k06pK1TUmVcUl3QHt9jpi0u9
- M0p5iXpeqG4JpDdPDD//QbkiL5gyKnfSVGz00RC55FywtLcex/tW/kIF+fG/+8y63K
- Ev0myUc4n0Qgp5VV5wPoqQ/zIzSyY7UyCP937XCSKHvS0fUNZdGsIZfh07ouJ+MaSm
- Ou3o+73FxE92Q==
-From: Vinod Koul <vkoul@kernel.org>
-To: Greg KH <gregkh@linuxfoundation.org>
-Subject: Re: [PATCH 5/7] regmap: sdw: use no_pm routines for SoundWire 1.2 MBQ
-Message-ID: <20201207044749.GB8403@vkoul-mobl>
-References: <20201202204645.23891-1-yung-chuan.liao@linux.intel.com>
- <20201202204645.23891-6-yung-chuan.liao@linux.intel.com>
- <20201205074630.GS8403@vkoul-mobl>
- <e4e3d7ea-0825-2c8c-4182-6d1b578200a3@linux.intel.com>
- <X8u147aZbdrj6qN7@kroah.com>
+ dkim=pass (2048-bit key) header.d=nvidia.com header.i=@nvidia.com
+ header.b="cjwm6O4N"
+Received: from hqmail.nvidia.com (Not Verified[216.228.121.13]) by
+ hqnvemgate24.nvidia.com (using TLS: TLSv1.2, AES256-SHA)
+ id <B5fcdb51e0000>; Sun, 06 Dec 2020 20:52:46 -0800
+Received: from [10.25.96.159] (10.124.1.5) by HQMAIL107.nvidia.com
+ (172.20.187.13) with Microsoft SMTP Server (TLS) id 15.0.1473.3; Mon, 7 Dec
+ 2020 04:52:42 +0000
+Subject: Re: [PATCH v6 0/6] Tegra210 audio graph card
+To: Mark Brown <broonie@kernel.org>, <thierry.reding@gmail.com>,
+ <robh+dt@kernel.org>
+References: <1606413823-19885-1-git-send-email-spujar@nvidia.com>
+ <160683107678.35139.14772386553150233276.b4-ty@kernel.org>
+From: Sameer Pujar <spujar@nvidia.com>
+Message-ID: <a3541d83-1f2e-c60f-05f8-4fdd8c8f4175@nvidia.com>
+Date: Mon, 7 Dec 2020 10:22:38 +0530
+User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:68.0) Gecko/20100101
+ Thunderbird/68.10.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <X8u147aZbdrj6qN7@kroah.com>
-Cc: alsa-devel@alsa-project.org, tiwai@suse.de, linux-kernel@vger.kernel.org,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- ranjani.sridharan@linux.intel.com, hui.wang@canonical.com, broonie@kernel.org,
- srinivas.kandagatla@linaro.org, jank@cadence.com, sanyog.r.kale@intel.com,
- Bard Liao <yung-chuan.liao@linux.intel.com>, rander.wang@linux.intel.com,
- bard.liao@intel.com
+In-Reply-To: <160683107678.35139.14772386553150233276.b4-ty@kernel.org>
+Content-Type: text/plain; charset="utf-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+Content-Language: en-GB
+X-Originating-IP: [10.124.1.5]
+X-ClientProxiedBy: HQMAIL111.nvidia.com (172.20.187.18) To
+ HQMAIL107.nvidia.com (172.20.187.13)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nvidia.com; s=n1;
+ t=1607316766; bh=a4fExwYSCzW8iKIEs03t5hkl0PLY9U5HKC1J+84tRhM=;
+ h=Subject:To:CC:References:From:Message-ID:Date:User-Agent:
+ MIME-Version:In-Reply-To:Content-Type:Content-Transfer-Encoding:
+ Content-Language:X-Originating-IP:X-ClientProxiedBy;
+ b=cjwm6O4NAxb/W+maQk/2sGdGDRj4MpwGSnFYip4dmHyIRdfKxdqAw/xMxz3lPIaB6
+ tLB0lnQiIr1cMTQDDHiKSwnYghiJpu2OKoCa2kVanUMKZyN0/24hDqGPzHflFuxKgx
+ 2wFJ1gRnNmxbTgKwa0/yorMDiZDK/p7CkowMZnGcrSGWwghPt4RnLehYoTER3mSq8H
+ pDWqZRHCQWgR9JlB0dOlCKGwii311NIadAqnWIIiOLzBqx3aqb4lVXEZ6QHuO6BOq9
+ aKZGq/3HYqVneBKvj62EYkUQ21rVhcspyam7+DeemDjwNLZnNXeCpncclxMTSh+KxS
+ 9CIlMFhlLXK5w==
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
+ kuninori.morimoto.gx@renesas.com, linux-kernel@vger.kernel.org,
+ jonathanh@nvidia.com, linux-tegra@vger.kernel.org, sharadg@nvidia.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -85,40 +94,36 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 05-12-20, 17:31, Greg KH wrote:
-> On Sat, Dec 05, 2020 at 08:52:50AM -0600, Pierre-Louis Bossart wrote:
-> > 
-> > > >   MODULE_DESCRIPTION("Regmap SoundWire MBQ Module");
-> > > > -MODULE_LICENSE("GPL v2");
-> > > > +MODULE_LICENSE("GPL");
-> > > 
-> > > Why do you want to change this ?
-> > 
-> > We only use MODULE_LICENSE("GPL") for new contributions since 'GPL v2' does
-> > not bring any information on the license, is equivalent to 'GPL' and only
-> > exists for 'historical reasons', see
-> > 
-> > https://www.kernel.org/doc/html/latest/process/license-rules.html
-> > 
-> > 
-> > “GPL”	Module is licensed under GPL version 2. This does not express any
-> > distinction between GPL-2.0-only or GPL-2.0-or-later. The exact license
-> > information can only be determined via the license information in the
-> > corresponding source files.
-> > 
-> > “GPL v2”	Same as “GPL”. It exists for historic reasons.
-> > 
-> > We should have used 'GPL' in the initial regmap MBQ patch but didn't for
-> > some reason, this change just realigns with what we intended.
-> > 
-> > That said, this is unrelated to this no_pm patch so could be in a separate
-> > one if you preferred it that way.
-> 
-> It should be separate as it does not have anything to do with the real
-> reason this patch was submitted.
+Hi Mark,
 
-Precisely, this should be a separate patch explaining the motivation
-behind this change.
+>> This series adds audio graph based sound card support for Tegra210
+>> platforms like Jetson-TX1 an Jetson-Nano. The following preparatory
+>> audio graph enhancement series is already merged.
+>>   * https://patchwork.kernel.org/project/alsa-devel/list/?series=375629&state=*
+>>
+>> Following are the summary of changes:
+>>   * Add graph/audio-graph based schemas or schema updates for Tegra210
+>>     component and machine drivers.
+>>   * Add Tegra audio graph machine driver.
+>>   * Add required DT support for Jetson-TX1/Nano.
+>>
+>> [...]
+> Applied to
+>
+>     https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
+>
+> Thanks!
+>
+> [1/3] ASoC: dt-bindings: tegra: Add graph bindings
+>        (no commit info)
+> [2/3] ASoC: dt-bindings: tegra: Add json-schema for Tegra audio graph card
+>        (no commit info)
+> [3/3] ASoC: tegra: Add audio graph based card driver
+>        (no commit info)
 
--- 
-~Vinod
+I don't see above patches in linux-next yet. Should I wait some more 
+time for this to appear?
+
+
+Thanks,
+Sameer.

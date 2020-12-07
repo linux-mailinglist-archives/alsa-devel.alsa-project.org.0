@@ -2,91 +2,72 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 26A532D0E02
-	for <lists+alsa-devel@lfdr.de>; Mon,  7 Dec 2020 11:29:58 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5FE712D1098
+	for <lists+alsa-devel@lfdr.de>; Mon,  7 Dec 2020 13:33:27 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A5FBD1758;
-	Mon,  7 Dec 2020 11:29:07 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A5FBD1758
+	by alsa0.perex.cz (Postfix) with ESMTPS id E09CF1737;
+	Mon,  7 Dec 2020 13:32:36 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E09CF1737
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1607336997;
-	bh=6Q0WVCoQMTBf3UO/CVtXbsOxarSaWbtHV1qOEmQjJOI=;
+	s=default; t=1607344407;
+	bh=ulIWSf4fu0+15UAYDWnox9feOF++im/0KyFh/WPgyL8=;
 	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=NtSKvCZoLtpgkWq96mGBKUlxzlX3KBCheu+S/myORCMipZ5LIrgFo7VKYsVh4Nhku
-	 pQXqIW1UlleA13vZuurvk0pqEkS2AtW4M4OfO5VWr7M/qZeEW98kKECAqPZE+k68qZ
-	 4YOU1ZIObC/LDb7Kl4A8AJnZWi2ojOtLh2PDlfjM=
+	b=bMcCxeB6/uLlVPFB7zyBjeYNg9Qc7uq63IfHolscgFnP5oI8YvmD+CRHH1tcjDB2K
+	 s/708NKUODtISdD8S+xhbi4jQQsg7Oby208093kpWPiNuLYm8XPFto8LnXlWAKyRZu
+	 kN9QrVJX/IavBCPCTCBIcFkM48bc3ntBMYqdSUdo=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 8C5F0F80217;
-	Mon,  7 Dec 2020 11:28:22 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id E5A94F8010A;
+	Mon,  7 Dec 2020 13:31:51 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 0BB5CF8020D; Mon,  7 Dec 2020 11:28:19 +0100 (CET)
+ id 8D04BF8020D; Mon,  7 Dec 2020 13:31:48 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mx0b-001ae601.pphosted.com (mx0a-001ae601.pphosted.com
- [67.231.149.25])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 8C504F801D8
- for <alsa-devel@alsa-project.org>; Mon,  7 Dec 2020 11:28:11 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8C504F801D8
+ by alsa1.perex.cz (Postfix) with ESMTPS id E4CEDF8010A
+ for <alsa-devel@alsa-project.org>; Mon,  7 Dec 2020 13:31:41 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E4CEDF8010A
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=cirrus.com header.i=@cirrus.com
- header.b="aOOduUhP"
-Received: from pps.filterd (m0077473.ppops.net [127.0.0.1])
- by mx0a-001ae601.pphosted.com (8.16.0.43/8.16.0.43) with SMTP id
- 0B7AS8LC006807; Mon, 7 Dec 2020 04:28:08 -0600
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com;
- h=date : from : to : cc
- : subject : message-id : references : mime-version : content-type :
- in-reply-to; s=PODMain02222019;
- bh=JUbfJjz4AGPwf9hQdds0f883dZueNLcW4UKMQzpl9l8=;
- b=aOOduUhPJ8venksBSXuuai+y1pi/0ejpzlmTStUYFP70X9VX6GCsfth9Ycxz5/wnY79b
- rCG5JkZQ0hVAgjyMaISOc3MSFQ94FrGJMvvoMgWFQL3whn+8ph72zztFKjUw3O9ny9DW
- 9evmSY3pExUeCn1ulGxNYdm5Pe9Eyl1671Q0+8SHNE1KbbOzADUY+Po8pcKb1kdS+tmt
- 0WXd2cw9WJmAB6WkSsNu9PFhfLNmlscRCTHpHV0/Kf3x9I8EU7l0name1nABP4+tPY8V
- X1EQSv3ym1rd+ywCVFnf+a91a793XKgEavlxx210HPcRBjzfbdL3EnLXuasb7zPMeToO WQ== 
-Received: from ediex01.ad.cirrus.com ([87.246.76.36])
- by mx0a-001ae601.pphosted.com with ESMTP id 3588g79s8r-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT);
- Mon, 07 Dec 2020 04:28:08 -0600
-Received: from EDIEX01.ad.cirrus.com (198.61.84.80) by EDIEX01.ad.cirrus.com
- (198.61.84.80) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1913.5; Mon, 7 Dec 2020
- 10:28:05 +0000
-Received: from ediswmail.ad.cirrus.com (198.61.86.93) by EDIEX01.ad.cirrus.com
- (198.61.84.80) with Microsoft SMTP Server id 15.1.1913.5 via Frontend
- Transport; Mon, 7 Dec 2020 10:28:05 +0000
-Received: from ediswmail.ad.cirrus.com (ediswmail.ad.cirrus.com [198.61.86.93])
- by ediswmail.ad.cirrus.com (Postfix) with ESMTP id D6EA145;
- Mon,  7 Dec 2020 10:28:05 +0000 (UTC)
-Date: Mon, 7 Dec 2020 10:28:05 +0000
-From: Charles Keepax <ckeepax@opensource.cirrus.com>
-To: "Lukas F. Hartmann" <lukas@mntre.com>
-Subject: Re: wm8960: add DAC Slope switch
-Message-ID: <20201207102805.GH10899@ediswmail.ad.cirrus.com>
-References: <20201124172313.981552-1-lukas@mntre.com>
+ dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="WGKKjDz4"
+Date: Mon, 7 Dec 2020 12:31:31 +0000
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1607344298;
+ bh=ulIWSf4fu0+15UAYDWnox9feOF++im/0KyFh/WPgyL8=;
+ h=From:To:Cc:Subject:References:In-Reply-To:From;
+ b=WGKKjDz4bvE/H1goWqMdH74Vdm9C+N+78Q8HLgaCX+L91VkwYRKARNpCtSkM4H74M
+ jh/DtsrNfJXeZUF/RUbvq+/GQdVFD7QaqjP2zUSS2DOJkweCqBbXw8WlBtZVMKmewn
+ F5p4h6Vs0Bi6qhRvxOeOHjwWMvdR7R5mWiWI7r/T4dKqMOzVQS6NIEbdAC4mbwEqHs
+ 4afPuls5Efdf/ngfEa2IZKA3v8MKCHHVo42X7+9INGwtzvirwsJ0KM8o5q7LK9A1yC
+ cvMwvje+8xslOTIhZ1C9WuPwggAPp596Szi2RWi6g5QVts/R1pqQTZhKVjU3UgN/q2
+ eIgGqsCrdkEJA==
+From: Mark Brown <broonie@kernel.org>
+To: Sameer Pujar <spujar@nvidia.com>
+Subject: Re: [PATCH v6 0/6] Tegra210 audio graph card
+Message-ID: <20201207123131.GB5694@sirena.org.uk>
+References: <1606413823-19885-1-git-send-email-spujar@nvidia.com>
+ <160683107678.35139.14772386553150233276.b4-ty@kernel.org>
+ <a3541d83-1f2e-c60f-05f8-4fdd8c8f4175@nvidia.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="/NkBOFFp2J2Af1nK"
 Content-Disposition: inline
-In-Reply-To: <20201124172313.981552-1-lukas@mntre.com>
-User-Agent: Mutt/1.5.21 (2010-09-15)
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 impostorscore=0
- mlxscore=0 bulkscore=0
- clxscore=1011 adultscore=0 phishscore=0 priorityscore=1501 suspectscore=0
- lowpriorityscore=0 malwarescore=0 mlxlogscore=711 spamscore=0
- classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2009150000
- definitions=main-2012070066
-Cc: alsa-devel@alsa-project.org, patches@opensource.cirrus.com,
- Takashi Iwai <tiwai@suse.com>, Liam Girdwood <lgirdwood@gmail.com>,
- Mark Brown <broonie@kernel.org>, linux-kernel@vger.kernel.org
+In-Reply-To: <a3541d83-1f2e-c60f-05f8-4fdd8c8f4175@nvidia.com>
+X-Cookie: Absinthe makes the tart grow fonder.
+User-Agent: Mutt/1.10.1 (2018-07-13)
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
+ kuninori.morimoto.gx@renesas.com, linux-kernel@vger.kernel.org,
+ robh+dt@kernel.org, jonathanh@nvidia.com, linux-tegra@vger.kernel.org,
+ thierry.reding@gmail.com, sharadg@nvidia.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -102,28 +83,39 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Tue, Nov 24, 2020 at 06:23:13PM +0100, Lukas F. Hartmann wrote:
-> The WM8960 DAC has a "DAC Slope" switch that can toggle between two
-> different output filter curves. This patch adds support for it.
-> 
-> Signed-off-by: Lukas F. Hartmann <lukas@mntre.com>
-> ---
-> +static int wm8960_put_dacslope(struct snd_kcontrol *kcontrol,
-> +			       struct snd_ctl_elem_value *ucontrol)
-> +{
-> +	struct snd_soc_component *component = snd_soc_kcontrol_component(kcontrol);
-> +	struct wm8960_priv *wm8960 = snd_soc_component_get_drvdata(component);
-> +	unsigned int val = ucontrol->value.integer.value[0];
-> +
-> +	if (val > 1)
-> +		return -EINVAL;
-> +
-> +	wm8960->dacslope = val;
-> +
-> +	return snd_soc_component_update_bits(component, WM8960_DACCTL1,
-> +				   0x2, val<<1);
 
-Is the DAC Slope switch not in DACCTL2?
+--/NkBOFFp2J2Af1nK
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-Thanks,
-Charles
+On Mon, Dec 07, 2020 at 10:22:38AM +0530, Sameer Pujar wrote:
+
+> > [1/3] ASoC: dt-bindings: tegra: Add graph bindings
+> >        (no commit info)
+> > [2/3] ASoC: dt-bindings: tegra: Add json-schema for Tegra audio graph card
+> >        (no commit info)
+> > [3/3] ASoC: tegra: Add audio graph based card driver
+> >        (no commit info)
+
+> I don't see above patches in linux-next yet. Should I wait some more time
+> for this to appear?
+
+No, this was sent by a b4 bug - notice the "no commit info" there, they
+weren't applied.
+
+--/NkBOFFp2J2Af1nK
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl/OIKMACgkQJNaLcl1U
+h9Bergf/R2n7B5AV+c3qA138O8l+XMSdm7bZ8noJM7ZoaPj/A1jX9Br56e38tOjq
+QfofOwv/rAGQG82FVgB9rPGHZRFzz3kvQwb35JO1eQV+TLbSOnGkYFpC28buXymj
+SGYm9ncc7OeN30WV4e3NymMTcOFe8ggwR05zMzc6amXV2163NQl1sN64tlkKbFSA
+yAcctZJeDD5B3TlcILu+yZp5SidHHV7gdk57QDd+A3Ut6sggbj9EBcQamZsKUmkJ
+LwQPdeqesq/WJqs33a3sFL1xDXMLwISR7isCX/6CRO1cd6evcivRf+Wmcgr7k0MJ
+6yR+VP1OIr+ecpxbGAm4CMYD++Cntw==
+=r0dO
+-----END PGP SIGNATURE-----
+
+--/NkBOFFp2J2Af1nK--

@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 25C592D0BDA
-	for <lists+alsa-devel@lfdr.de>; Mon,  7 Dec 2020 09:39:10 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8B2662D0BDD
+	for <lists+alsa-devel@lfdr.de>; Mon,  7 Dec 2020 09:40:01 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B77221749;
-	Mon,  7 Dec 2020 09:38:19 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B77221749
+	by alsa0.perex.cz (Postfix) with ESMTPS id 9C1CA175A;
+	Mon,  7 Dec 2020 09:39:10 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9C1CA175A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1607330349;
-	bh=7Zj/lqcxQWatPAS4NrJii5Pm2y9/EIX+gPdi+sVkMQY=;
+	s=default; t=1607330400;
+	bh=cX2q2ytrMX9wf9HHGS76FzkRQonF+FUXGsL0OSVgz9c=;
 	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=c+VS8i+aQvBIg+HxRvNwPX+vhu59vzMAwpaBvOXuMc7wBiURzsKASPVtCzXaHr2gF
-	 +LxRqP4WQgda0GoJUEEBp6QqlxOjTPI+yffcWGOJCCuCLRc9zgdU5C6Y1jQ0VaNSqW
-	 NDoBla/EoJdnJY7z/lemEqP4qaxGvLWOhCZ3HWd0=
+	b=CmQBbHwewy3Hi9HwSXq84uUhk+ZLpGAfhCJpz2lS2ZA575a2mNwQQKP4KKB8jqVOp
+	 B2w6UVgXoXcQWvtLk32AQv1KEtTY2fMYataK4AehEpZQM9RF1cKhsDibGYM5VzelVr
+	 n8kY5iaW6whirasw3iIJf2GqAb9QzhvVD45XjB8E=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 05554F8010A;
-	Mon,  7 Dec 2020 09:37:35 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 1C1CFF800E1;
+	Mon,  7 Dec 2020 09:39:10 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 7C3D3F8020D; Mon,  7 Dec 2020 09:37:32 +0100 (CET)
+ id A3801F80217; Mon,  7 Dec 2020 09:39:07 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
@@ -33,21 +33,21 @@ X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 5CC04F800E1
- for <alsa-devel@alsa-project.org>; Mon,  7 Dec 2020 09:37:21 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5CC04F800E1
+ by alsa1.perex.cz (Postfix) with ESMTPS id 8C695F800E1
+ for <alsa-devel@alsa-project.org>; Mon,  7 Dec 2020 09:39:01 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8C695F800E1
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 9616AAC9A;
- Mon,  7 Dec 2020 08:37:16 +0000 (UTC)
-Date: Mon, 07 Dec 2020 09:37:16 +0100
-Message-ID: <s5h4kky2ern.wl-tiwai@suse.de>
+ by mx2.suse.de (Postfix) with ESMTP id 36D3AACBA;
+ Mon,  7 Dec 2020 08:38:56 +0000 (UTC)
+Date: Mon, 07 Dec 2020 09:38:56 +0100
+Message-ID: <s5h360i2eov.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
 To: Chris Chiu <chiu@endlessos.org>
-Subject: Re: [PATCH] ALSA: hda/realtek - Enable headset mic of ASUS X430UN
- with ALC256
-In-Reply-To: <20201207072755.16210-1-chiu@endlessos.org>
-References: <20201207072755.16210-1-chiu@endlessos.org>
+Subject: Re: [PATCH] ALSA: hda/realtek - Add support for Memeza EDL03 headset
+ mic
+In-Reply-To: <20201207073346.16571-1-chiu@endlessos.org>
+References: <20201207073346.16571-1-chiu@endlessos.org>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
  FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
  (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
@@ -71,16 +71,38 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Mon, 07 Dec 2020 08:27:55 +0100,
+On Mon, 07 Dec 2020 08:33:46 +0100,
 Chris Chiu wrote:
 > 
-> The ASUS laptop X430UN with ALC256 can't detect the headset microphone
-> until ALC256_FIXUP_ASUS_MIC_NO_PRESENCE quirk applied.
+> The Memeza laptop EDL03 with codec ALC256 can't detect the headset
+> microphone. The headphone jack sensing works after we add a pin
+> definition for it by ALC256_FIXUP_ASUS_MIC_NO_PRESENCE.
 > 
 > Signed-off-by: Chris Chiu <chiu@endlessos.org>
 > Signed-off-by: Jian-Hong Pan <jhp@endlessos.org>
+> ---
+>  sound/pci/hda/patch_realtek.c | 1 +
+>  1 file changed, 1 insertion(+)
+> 
+> diff --git a/sound/pci/hda/patch_realtek.c b/sound/pci/hda/patch_realtek.c
+> index d5e4d0ba1008..8b9b94cfc67e 100644
+> --- a/sound/pci/hda/patch_realtek.c
+> +++ b/sound/pci/hda/patch_realtek.c
+> @@ -7871,6 +7871,7 @@ static const struct snd_pci_quirk alc269_fixup_tbl[] = {
+>  	SND_PCI_QUIRK(0x10cf, 0x1629, "Lifebook U7x7", ALC255_FIXUP_LIFEBOOK_U7x7_HEADSET_MIC),
+>  	SND_PCI_QUIRK(0x10cf, 0x1845, "Lifebook U904", ALC269_FIXUP_LIFEBOOK_EXTMIC),
+>  	SND_PCI_QUIRK(0x10ec, 0x10f2, "Intel Reference board", ALC700_FIXUP_INTEL_REFERENCE),
+> +	SND_PCI_QUIRK(0x10ec, 0x115a, "Memeza EDL03", ALC256_FIXUP_ASUS_MIC_NO_PRESENCE),
 
-Applied now.  Thanks.
+This looks suspicious.  10ec is the vendor ID for Realtek, i.e. it
+implies that the BIOS on this machine didn't give the proper unique
+ID.  As you can see, the other entries with 10ec are only reference
+boards.
 
+If the newer BIOS still doesn't fix the PCI SSID, you can check the
+codec SSID instead.
+
+
+thanks,
 
 Takashi

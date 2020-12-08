@@ -2,29 +2,29 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8C4762D31CB
-	for <lists+alsa-devel@lfdr.de>; Tue,  8 Dec 2020 19:12:24 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6D7092D31DD
+	for <lists+alsa-devel@lfdr.de>; Tue,  8 Dec 2020 19:14:28 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 0E4A916E3;
-	Tue,  8 Dec 2020 19:11:34 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0E4A916E3
+	by alsa0.perex.cz (Postfix) with ESMTPS id 01B4D1686;
+	Tue,  8 Dec 2020 19:13:38 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 01B4D1686
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1607451144;
-	bh=jtoRVfSnTR6uvkCkevRlv1GFLRt6Do4me7pk+woPeAA=;
+	s=default; t=1607451268;
+	bh=3wNFl2GFpmpT/o2JBpv4l1tMgpnVJBzh5AHRlwQVtIY=;
 	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
 	 List-Post:List-Help:List-Subscribe:From;
-	b=DRiFuuvibT02oMFDfIMwXpnMo1pGtQOnX1x5Isdrp75lIq1KLEOfy3fQPPZyuVgwo
-	 0Y4GGU3V8Uaj/yLdMYmMoYPUD3+xfawuhUCdPUYdyBaQTLgm8O7KDEmUtslMQUKm/7
-	 f8imQqDfiXPBVhrfZ9uny8+Twltn8fS5LaCvEICg=
+	b=muk4KlQCCfTydFhfGnDYk7XDeiXFMTu87QpCAGQO02jDyoBv2f1d3ZrEOGMS7CYu+
+	 5ryxUXJ/uCbSoT/jxXkxFIYe9myoDXQAPUZRJF0v71CFMMjusAp53/BM+WprhWEBaE
+	 ypn5/ibOKWExDOSyxa6D1+Wxxr08HYkRySAPh/j0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 31823F80218;
-	Tue,  8 Dec 2020 19:10:49 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 35126F80218;
+	Tue,  8 Dec 2020 19:12:53 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id B3AF5F8019D; Tue,  8 Dec 2020 19:10:47 +0100 (CET)
+ id ACCC3F80218; Tue,  8 Dec 2020 19:12:50 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -33,32 +33,33 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from mail1.perex.cz (mail1.perex.cz [77.48.224.245])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id A1E6FF8010A
- for <alsa-devel@alsa-project.org>; Tue,  8 Dec 2020 19:10:41 +0100 (CET)
+ by alsa1.perex.cz (Postfix) with ESMTPS id CBC91F800E1
+ for <alsa-devel@alsa-project.org>; Tue,  8 Dec 2020 19:12:44 +0100 (CET)
 Received: from mail1.perex.cz (localhost [127.0.0.1])
- by smtp1.perex.cz (Perex's E-mail Delivery System) with ESMTP id C50BCA003E;
- Tue,  8 Dec 2020 19:10:40 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 smtp1.perex.cz C50BCA003E
+ by smtp1.perex.cz (Perex's E-mail Delivery System) with ESMTP id 4930FA003E;
+ Tue,  8 Dec 2020 19:12:44 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 smtp1.perex.cz 4930FA003E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=perex.cz; s=default;
- t=1607451040; bh=lP24/kVk08TtUPodXu+hHcP/J6uDrkuoevZ4U3U14K8=;
+ t=1607451164; bh=mgWCVFiv/ng6YwPFj3e6ps0KjX58lysDmP58RwOGLyE=;
  h=From:To:Cc:Subject:Date:From;
- b=rdg5R31ySlRLAvSuSdBoAw6PgCdiIHjwiEg/nVi1NpdDdcz81hl5sddRVLzC1RcgE
- txrIUqn2N0wQzE4UYTuO/3wHQPbstBEikrKeePRtoeV0fU8/9z5k83R676DF8Er2bk
- 1GAVFjsYqsOSbC6K8Bmp72lNPNcIf/IQxhwK2KmE=
+ b=ZJN+KcX9Y/XpQIdDNM1XO8IGgJqvdYrO4vRh7W9E5/g8Ma2at5dK49nN2ljq2MGFZ
+ 1yvifEk7JdKub0Mn9M4OUsG6B+SNkoJaGR8Xb9cjRU6ny6ptZ1V/SoSa24iTwBWDlz
+ 8PVWYbJN5KipnOwF/usYq71dEHEEZj1gA75y7v3g=
 Received: from p1gen2.perex-int.cz (unknown [192.168.100.98])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested) (Authenticated sender: perex)
  by mail1.perex.cz (Perex's E-mail Delivery System) with ESMTPSA;
- Tue,  8 Dec 2020 19:10:37 +0100 (CET)
+ Tue,  8 Dec 2020 19:12:38 +0100 (CET)
 From: Jaroslav Kysela <perex@perex.cz>
 To: ALSA development <alsa-devel@alsa-project.org>
-Subject: [PATCH] ASoC: AMD Raven/Renoir - fix the PCI probe (PCI revision)
-Date: Tue,  8 Dec 2020 19:10:33 +0100
-Message-Id: <20201208181033.2745563-1-perex@perex.cz>
+Subject: [PATCH v2] ASoC: AMD Raven/Renoir - fix the PCI probe (PCI revision)
+Date: Tue,  8 Dec 2020 19:12:33 +0100
+Message-Id: <20201208181233.2745726-1-perex@perex.cz>
 X-Mailer: git-send-email 2.26.2
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Cc: Takashi Iwai <tiwai@suse.de>
+Cc: Takashi Iwai <tiwai@suse.de>, Mark Brown <broonie@kernel.org>,
+ Vijendar Mukunda <Vijendar.Mukunda@amd.com>, stable@kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -79,6 +80,9 @@ Let's do the check very early, otherwise the wrong probe code
 can be run.
 
 Link: https://lore.kernel.org/alsa-devel/2e4587f8-f602-cf23-4845-fd27a32b1cfc@amd.com/
+Cc: <stable@kernel.org>
+Cc: Vijendar Mukunda <Vijendar.Mukunda@amd.com>
+Cc: Mark Brown <broonie@kernel.org>
 Signed-off-by: Jaroslav Kysela <perex@perex.cz>
 ---
  sound/soc/amd/raven/pci-acp3x.c     | 4 ++++

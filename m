@@ -2,138 +2,70 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C681C2D28B6
-	for <lists+alsa-devel@lfdr.de>; Tue,  8 Dec 2020 11:21:31 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id F1C292D28B9
+	for <lists+alsa-devel@lfdr.de>; Tue,  8 Dec 2020 11:22:12 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C43FB16FD;
-	Tue,  8 Dec 2020 11:20:40 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C43FB16FD
+	by alsa0.perex.cz (Postfix) with ESMTPS id 7926116F4;
+	Tue,  8 Dec 2020 11:21:22 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7926116F4
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1607422890;
-	bh=wcMgVq51kFnMBveX42WZkffeawC7P+avLm7w13UTuF8=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=TfUwlV8x1mZYWEmwQEy2eUtz7KWIJLY62uQYENMx5yeVE4aVoz3Xi5rX7lZNdw771
-	 2Gr2Meilz0JSQ4lxfIerEM5jCm+TbtsxiUnBN66NcAYThlcvCvF3pn+HeHq9P75t5X
-	 ZZduYaf5hrne6yvFe5jSYs4rWrvXkd8Ht9bpJ9Y8=
+	s=default; t=1607422932;
+	bh=C8013QHlDL3TNLjqJPy2p5kRfNaqisHP910bxiPKjok=;
+	h=Date:From:To:Subject:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=FbxUSZuWDjNQIswUHlAMAd8JAoqRLqRxBew7sBvEEFlo9tS2Mf3phFjswT94aRoV8
+	 S+I3InNYImy/pcSNLDE+1t3qiAzA00PYyPt/naeb+99igQCOVC0KtYP8aK0tuByg4k
+	 AWG0RbZxf+RBXduSftDQ/R6M2AwSK1FhyxS8y6l0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 940DAF80253;
-	Tue,  8 Dec 2020 11:19:47 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 271BCF804C2;
+	Tue,  8 Dec 2020 11:19:48 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 519F7F8019D; Tue,  8 Dec 2020 05:52:44 +0100 (CET)
+ id 0AF00F8019D; Tue,  8 Dec 2020 11:15:17 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,UNPARSEABLE_RELAY autolearn=disabled
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
  version=3.4.0
-Received: from aserp2120.oracle.com (aserp2120.oracle.com [141.146.126.78])
+Received: from mout02.posteo.de (mout02.posteo.de [185.67.36.66])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id AA30AF80130
- for <alsa-devel@alsa-project.org>; Tue,  8 Dec 2020 05:52:40 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz AA30AF80130
+ by alsa1.perex.cz (Postfix) with ESMTPS id 5A6D7F80130
+ for <alsa-devel@alsa-project.org>; Tue,  8 Dec 2020 11:15:09 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5A6D7F80130
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=oracle.com header.i=@oracle.com
- header.b="V+G180Fh"
-Received: from pps.filterd (aserp2120.oracle.com [127.0.0.1])
- by aserp2120.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 0B84nxYX064111;
- Tue, 8 Dec 2020 04:52:35 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com;
- h=from : to : cc :
- subject : date : message-id : in-reply-to : references : mime-version :
- content-type : content-transfer-encoding; s=corp-2020-01-29;
- bh=1e3cV7XKyt5cBPHNeWYhYMHu3W87CKppja6U1Jvw5F4=;
- b=V+G180Fh0lHbcmydQJqS5i+cerb42SoRrRI9QCXlQMjyWKKfj0acXqExTQUiK+7OEtft
- OuMy/8L57grCegXY4FPi2mfpdUD9NETOrjU6XyLEGnB6yCKU9e30d2WSgQTsYBxq/cMN
- 5junVfgiRpfFB5rc1EfDtZHP43anCs3FIrUtz16u4yPsKG0NCInMT5yeMTaPCX1MMJeq
- qZ1GHIcbwNatFRQ/tELhwJDJybfqjlIskC/pDoCLpTPJ2KTrod7PX9rst5aaRTC3xIQA
- veh/+mbPHLjYXfePq5oiUCHv2+7Gowf8M2KKiHFzojpZKSSSQD2meZy2nTRpI8CVh6TQ Yg== 
-Received: from userp3020.oracle.com (userp3020.oracle.com [156.151.31.79])
- by aserp2120.oracle.com with ESMTP id 35825m0srp-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
- Tue, 08 Dec 2020 04:52:35 +0000
-Received: from pps.filterd (userp3020.oracle.com [127.0.0.1])
- by userp3020.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 0B84ocFe155422;
- Tue, 8 Dec 2020 04:52:34 GMT
-Received: from pps.reinject (localhost [127.0.0.1])
- by userp3020.oracle.com with ESMTP id 358kys9m8t-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
- Tue, 08 Dec 2020 04:52:34 +0000
-Received: from userp3020.oracle.com (userp3020.oracle.com [127.0.0.1])
- by pps.reinject (8.16.0.36/8.16.0.36) with SMTP id 0B84qX4M159553;
- Tue, 8 Dec 2020 04:52:33 GMT
-Received: from aserv0122.oracle.com (aserv0122.oracle.com [141.146.126.236])
- by userp3020.oracle.com with ESMTP id 358kys9m7s-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Tue, 08 Dec 2020 04:52:33 +0000
-Received: from abhmp0013.oracle.com (abhmp0013.oracle.com [141.146.116.19])
- by aserv0122.oracle.com (8.14.4/8.14.4) with ESMTP id 0B84qDZf015901;
- Tue, 8 Dec 2020 04:52:15 GMT
-Received: from ca-mkp.ca.oracle.com (/10.156.108.201)
- by default (Oracle Beehive Gateway v4.0)
- with ESMTP ; Mon, 07 Dec 2020 20:52:13 -0800
-From: "Martin K. Petersen" <martin.petersen@oracle.com>
-To: linux-kernel@vger.kernel.org, "Gustavo A. R. Silva" <gustavoars@kernel.org>
-Subject: Re: (subset) [PATCH 000/141] Fix fall-through warnings for Clang
-Date: Mon,  7 Dec 2020 23:52:01 -0500
-Message-Id: <160740299787.710.4201881220590518200.b4-ty@oracle.com>
-X-Mailer: git-send-email 2.29.2
-In-Reply-To: <cover.1605896059.git.gustavoars@kernel.org>
-References: <cover.1605896059.git.gustavoars@kernel.org>
+ dkim=pass (2048-bit key) header.d=posteo.de header.i=@posteo.de
+ header.b="b87i2/tU"
+Received: from submission (posteo.de [89.146.220.130]) 
+ by mout02.posteo.de (Postfix) with ESMTPS id 9D0E32400FB
+ for <alsa-devel@alsa-project.org>; Tue,  8 Dec 2020 11:15:08 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=posteo.de; s=2017;
+ t=1607422508; bh=C8013QHlDL3TNLjqJPy2p5kRfNaqisHP910bxiPKjok=;
+ h=Date:From:To:Subject:From;
+ b=b87i2/tU2IZ7swGVA3xcEOqKuitDaw4LuJBDbRFufS6RpiehF47G4uQHvSMkkrPag
+ gy1F3/D6+W962Nq18uwYBqJJm1f6Oh7+tdYuZ40sOBPfYMrvYKzblTU6zflx7o8aX1
+ lt2vgODO6gkt/igQzCUrNZwcU6tfww9FRxEqsRh47Gytk/oeqElMm2H+kCX/PJQ2SV
+ yXy5QfhXVdZgfPL1awabb8IOYECgkOxKyw1h0VzVHwmsAtPEHxA2SmcTCY3JR5Lud+
+ 4wUkWJe9K34tzipLY39qbOzi7wL2SLdxDaF/m5nciwPWabXWoxQv7ZGvcvFbFvJ7U1
+ F32L+iPewFU7Q==
+Received: from customer (localhost [127.0.0.1])
+ by submission (posteo.de) with ESMTPSA id 4CqwzJ1X0Nz9rxK
+ for <alsa-devel@alsa-project.org>; Tue,  8 Dec 2020 11:15:08 +0100 (CET)
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-X-Proofpoint-Virus-Version: vendor=nai engine=6000 definitions=9828
- signatures=668682
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 suspectscore=0
- adultscore=0 bulkscore=0
- phishscore=0 mlxlogscore=740 clxscore=1015 priorityscore=1501 mlxscore=0
- spamscore=0 lowpriorityscore=0 malwarescore=0 impostorscore=0
- classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2009150000
- definitions=main-2012080029
+Content-Type: text/plain; charset=US-ASCII;
+ format=flowed
+Content-Transfer-Encoding: 7bit
+Date: Tue, 08 Dec 2020 11:15:08 +0100
+From: meschi@posteo.de
+To: alsa-devel@alsa-project.org
+Subject: Steinberg UR22 Crackling and Clicks
+Message-ID: <ce03244f4699ffc9574ecc2dae41a417@posteo.de>
+X-Sender: meschi@posteo.de
+User-Agent: Posteo Webmail
 X-Mailman-Approved-At: Tue, 08 Dec 2020 11:19:44 +0100
-Cc: linux-fbdev@vger.kernel.org, linux-atm-general@lists.sourceforge.net,
- linux-stm32@st-md-mailman.stormreply.com, linux-iio@vger.kernel.org,
- linux-wireless@vger.kernel.org, alsa-devel@alsa-project.org,
- dri-devel@lists.freedesktop.org, virtualization@lists.linux-foundation.org,
- linux-mm@kvack.org, linux-ide@vger.kernel.org, dm-devel@redhat.com,
- keyrings@vger.kernel.org, linux-mtd@lists.infradead.org,
- linux-hardening@vger.kernel.org, wcn36xx@lists.infradead.org,
- linux-i3c@lists.infradead.org, linux-decnet-user@lists.sourceforge.net,
- ceph-devel@vger.kernel.org, usb-storage@lists.one-eyed-alien.net,
- Kees Cook <keescook@chromium.org>, devel@driverdev.osuosl.org,
- linux-cifs@vger.kernel.org, rds-devel@oss.oracle.com,
- linux1394-devel@lists.sourceforge.net, linux-scsi@vger.kernel.org,
- linux-rdma@vger.kernel.org, oss-drivers@netronome.com, x86@kernel.org,
- amd-gfx@lists.freedesktop.org, linux-afs@lists.infradead.org,
- cluster-devel@redhat.com, linux-acpi@vger.kernel.org, coreteam@netfilter.org,
- intel-wired-lan@lists.osuosl.org, linux-input@vger.kernel.org,
- Miguel Ojeda <ojeda@kernel.org>, xen-devel@lists.xenproject.org,
- linux-ext4@vger.kernel.org, linux-media@vger.kernel.org,
- bridge@lists.linux-foundation.org, linux-watchdog@vger.kernel.org,
- selinux@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- intel-gfx@lists.freedesktop.org, reiserfs-devel@vger.kernel.org,
- linux-geode@lists.infradead.org, linux-block@vger.kernel.org,
- linux-gpio@vger.kernel.org, op-tee@lists.trustedfirmware.org,
- linux-mediatek@lists.infradead.org, samba-technical@lists.samba.org,
- drbd-dev@tron.linbit.com, linux-hams@vger.kernel.org,
- Nathan Chancellor <natechancellor@gmail.com>, linux-can@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-hwmon@vger.kernel.org,
- linux-mmc@vger.kernel.org, linux-nfs@vger.kernel.org,
- GR-Linux-NIC-Dev@marvell.com, tipc-discussion@lists.sourceforge.net,
- "Martin K . Petersen" <martin.petersen@oracle.com>,
- nouveau@lists.freedesktop.org, patches@opensource.cirrus.com,
- linux-usb@vger.kernel.org, Nick Desaulniers <ndesaulniers@google.com>,
- linux-sctp@vger.kernel.org, linux-renesas-soc@vger.kernel.org,
- linux-security-module@vger.kernel.org, target-devel@vger.kernel.org,
- netfilter-devel@vger.kernel.org, linux-crypto@vger.kernel.org,
- netdev@vger.kernel.org, Joe Perches <joe@perches.com>,
- linux-integrity@vger.kernel.org, GR-everest-linux-l2@marvell.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -149,21 +81,91 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Fri, 20 Nov 2020 12:21:39 -0600, Gustavo A. R. Silva wrote:
+Hi,
 
-> This series aims to fix almost all remaining fall-through warnings in
-> order to enable -Wimplicit-fallthrough for Clang.
-> 
-> In preparation to enable -Wimplicit-fallthrough for Clang, explicitly
-> add multiple break/goto/return/fallthrough statements instead of just
-> letting the code fall through to the next case.
-> 
-> [...]
+I am using a Steinberg UR22 audio interface. Since installing Ubuntu 
+20.04 on my workstation I have slight crackling in audio playback. It 
+doesn't matter if the audio gets routed through pulse, jack or played 
+straight to alsa. When running jack, the crackling is not showing any 
+xruns. It's not possible to get any glitch-free playback in the system. 
+The onboard intel audio works fine.
 
-Applied to 5.11/scsi-queue, thanks!
+My system:
 
-[054/141] target: Fix fall-through warnings for Clang
-          https://git.kernel.org/mkp/scsi/c/492096ecfa39
+alsa info: 
+alsa-project.org/db/?f=8b821b17a8c83fa5db866f34a5b4dfe74d640a32
 
--- 
-Martin K. Petersen	Oracle Linux Engineering
+Processor: Intel Xeon X5687
+
+$ uname -a
+
+Linux WorkStation-T5500 5.4.0-56-lowlatency #62-Ubuntu SMP PREEMPT Mon 
+Nov 23 20:19:44 UTC 2020 x86_64 x86_64 x86_64 GNU/Linux
+
+
+
+I have tried:
+
+5.4.0-56-generic and -lowlatency
+
+5.8.0-31-generic and -lowlatency
+
+setting cpu governor to performance
+
+using nouveau driver over nvidia
+
+
+
+When playing a file with aplay like this:
+
+systemctl --user stop pulseaudio.socket
+systemctl --user stop pulseaudio.service
+aplay -D plughw:CARD=UR22 ./test.wav
+
+
+
+slight crackling can be heard every 5-10 seconds. It also appears, that 
+the clicks heard are not always on both channels, sometimes the left 
+stereo channel clicks, sometimes the right, sometimes both.
+
+
+
+Plugging the Interface into different USB-ports doesn't help. The only 
+external devices connected via USB are my mouse and my keyboard. On 
+Wndows the same setup on the same machine works fine.
+
+To make things even weirder, using the same audio interface on my 
+Thinkpad x220 (Core i5-2540M) with ubuntu 20.04 and 5.4.0.56-lowlatency 
+does not show this problem.
+
+
+
+Running dmesg seems to show nothing audio driver related after:
+
+[ 22.425520] usbcore: registered new interface driver snd-usb-audio
+
+
+
+I have found a similar issue showcasing the problem on manjaro with a 
+differend soundcard. Therefore I suspect the problem is caused by ALSA 
+interacting with the hardware.
+
+https://forum.manjaro.org/t/pops-clicks-on-audio-interface/40129
+
+
+
+Here is another occurence on ubuntu on yet another audio interface.
+
+https://askubuntu.com/questions/1256787/ubuntu-2004-novation-xiosynth-external-usb-audio-interface-producing-popping
+
+
+
+If I can supply more information I'm happy to help. I couldn't find a 
+similar issue in this mailing list, so if this is already fixed I 
+apologize in advance.
+
+
+
+Kilian
+
+

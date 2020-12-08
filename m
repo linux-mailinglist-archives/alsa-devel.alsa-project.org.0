@@ -2,83 +2,83 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0DB2F2D353C
-	for <lists+alsa-devel@lfdr.de>; Tue,  8 Dec 2020 22:28:54 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 643642D353D
+	for <lists+alsa-devel@lfdr.de>; Tue,  8 Dec 2020 22:29:05 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 551E516F7;
-	Tue,  8 Dec 2020 22:28:03 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 551E516F7
+	by alsa0.perex.cz (Postfix) with ESMTPS id DD5AD16F1;
+	Tue,  8 Dec 2020 22:28:14 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DD5AD16F1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1607462933;
-	bh=Ro4ERqqdRFSVmyVT7fuOCD5Hnh7LIO3ZAK54HXZE+yY=;
+	s=default; t=1607462945;
+	bh=y4a3G1H1O+mXzsmzvTdacRS5Ne7mFqPqgLDmdr4Uz2Y=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=K5I473phytvs1aZXOyfNzkCfBVZxKUX85ZxIvJokWVP0YAOESlqFeLpuVnHvgmIOe
-	 s/bG0YdZUmwE6viqyaNalHgUITGpPLwi+rKFl0rIdlrVGWxIoZv+nVVCmEPTsF46fZ
-	 G0jW4bB2SFuG9Rgz8mPIKLaUm+RKdJuf3NIIBV/g=
+	b=Z2Pv4J93B4U1jW+jUQE3P0pWXIvntf3xCn8YD6/I3caU3qXRYU+USzRHQk+3ByHCS
+	 QQdne5HOLewXgrqo8KT4GlqzMaqxuvXOxbcPekQ8+Q+em4bjoc0OGf5vt0E/TVxrFy
+	 ScYAJWrHSUzL4/5ygrEUpnkkbRmALzOfA9BgJogU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 522FFF804C3;
-	Tue,  8 Dec 2020 22:26:32 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id CC374F804E1;
+	Tue,  8 Dec 2020 22:26:33 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 15005F80269; Tue,  8 Dec 2020 22:26:29 +0100 (CET)
+ id 74691F80253; Tue,  8 Dec 2020 22:26:31 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU, FREEMAIL_ENVFROM_END_DIGIT, FREEMAIL_FROM, SPF_HELO_NONE,
  SPF_NONE autolearn=disabled version=3.4.0
-Received: from mail-qt1-x842.google.com (mail-qt1-x842.google.com
- [IPv6:2607:f8b0:4864:20::842])
+Received: from mail-qk1-x742.google.com (mail-qk1-x742.google.com
+ [IPv6:2607:f8b0:4864:20::742])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id E7E46F80164
- for <alsa-devel@alsa-project.org>; Tue,  8 Dec 2020 22:26:25 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E7E46F80164
+ by alsa1.perex.cz (Postfix) with ESMTPS id 7343CF80269
+ for <alsa-devel@alsa-project.org>; Tue,  8 Dec 2020 22:26:27 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7343CF80269
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="U3Or7+5B"
-Received: by mail-qt1-x842.google.com with SMTP id u21so13023056qtw.11
- for <alsa-devel@alsa-project.org>; Tue, 08 Dec 2020 13:26:25 -0800 (PST)
+ header.b="ouekelFv"
+Received: by mail-qk1-x742.google.com with SMTP id b144so28836qkc.13
+ for <alsa-devel@alsa-project.org>; Tue, 08 Dec 2020 13:26:27 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=SQZSEHpGW/GYcr7MQXvzQqIae6S9onjjJE5GGoch4P4=;
- b=U3Or7+5B68M/cY3xNm+3fseQgwQgwyGg3HMnYQeYeNM5fpBiOrfynkEzBL7nShcJJg
- aGGNDMbXKk6RBeE82WrasGMqmvUgiloGxAiTPD3SqjxCn/ab4rEOUHA5fvYYIFO3k+8B
- F8LkeL3NubvKUMIQneOUYrLWQAXCodpu37X7wdEyblKByo79mUm1ytisARsBuzBkbofh
- aS5Bis9hW4YyB2/SFHFUCWzGepIlWPmppIe5cFdm+5NHmYau2VLgrnsncVXvu9BGGntY
- DkW6Y9tPeOm7tVZjF+fhB9Xage7Nf0kR+Ha8GTtfdDQIfmBb5iHaOvtITHYiT2oGZ+cS
- 7MBw==
+ bh=XsyJ3gRTYQTAHCmnlDsIOFfZYOcu+GEmry0fZOE/64g=;
+ b=ouekelFvEGX4aWZ0CakOks1nK7SgGIo3nLeWVGG6Rqckiqqf2JL+udHXM27b01EGTa
+ R/IixshboMWM1uHCkG6iT9LGJODk78beR8NsMpN9Z8ZSphrI+no3e6iOzI6OjXqbP+Py
+ QphZNjPmiMEsmq8CWKGbNWG7qeTFdhHE67Ng1UU4PW+TiMpV5UEPACAaRU7Ny10RfRvL
+ uE27JDGgcJYTvJHJu/Ung9Smm7CbGYwZsASncTonRgiQY7+ObOs8dH7EM+JwoZ1VtLU8
+ +nlnLoBxjZzBHK9ymN0yd6wZshTrbsEvG+dizGwAUecpxTGv9NZoS3e5qW5IHecAuIfw
+ Xb1A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=SQZSEHpGW/GYcr7MQXvzQqIae6S9onjjJE5GGoch4P4=;
- b=l4igMs5QOMKfenYkawLlvdhab6LnHwAMWMxAK4nnwx0m8KkihsPf/lph24RO6d825X
- 7CJF5AGW2mrJ2XqJ4hUUxogY+udorzagzebhgA+RZGQ82TZ6tvDtyVWPejc4R/vMqN8k
- 5l4GkF6AOt89YxwqaMIRUICQZ4sowU58T/v9tVX0sUN+bUSaQsMUs5S5PBdhmyjjZ/BX
- p9ovhMniT6fzc28rkaXimZT5BGu6F+RRfwFxsfTnRoH3fpH3OPHBAxGdB1O/jtRTGU4i
- D+K2A+Jvf2bsR6wTV2iA3jk8QaL1Jd8eQiuiYv5Mng2X6F9aZvZByWXlB1kw6EUFa9AM
- KynQ==
-X-Gm-Message-State: AOAM531REc2+lIV+lZr2py0xduDDEQYA/XRmOVa/nDxvIgUXQP5KOI+J
- JTo1X147gbTPrgpj+vsfeDY=
-X-Google-Smtp-Source: ABdhPJzrCScETkAQkxrW4WASil2rnrve5p3O1xp2HzI4IVhwAzZMvf7ci54Eov4ZguUtf7aj2sTGSQ==
-X-Received: by 2002:aed:3b93:: with SMTP id r19mr27725103qte.222.1607462783517; 
- Tue, 08 Dec 2020 13:26:23 -0800 (PST)
+ bh=XsyJ3gRTYQTAHCmnlDsIOFfZYOcu+GEmry0fZOE/64g=;
+ b=UwOk6mvm/mcXsKmZmq/HR7SPqrv/wBc2VOGE/A9H7NCpSvKn8LDZXYc/7K+z4VvhNR
+ I1Vr2JNPC/HdGRR0ZdmxLL1zGyf1E8hneGmsvlzTETG3I/X7kiHruPZmmdfmSe14X9Vl
+ GaiPuZ+Bk3vhtTAJEc+TWheQ3B2LDczZACu1LusKo4F6zKPIU0k6WCqCfYFGxZ101pYi
+ XtsnR+jGxSRe7ZMwomB8G4CAZxmb1Q2Kw2hLW4FJcyRPKbOxm7TNqY4hRnDCikHQGHhq
+ dIj3vg6/Doj3dO0lJmw6r6jl6NwelYQoYZ/ZAZGuJuxp4eW/PxMsY69gaC0SB0pYALby
+ aeFw==
+X-Gm-Message-State: AOAM532Ph6P/HGPfJEQ44qP/DDx9mfP/KBAbEqi1vK2C5sWN8ISnjMkB
+ jeY/VCuXkfbadjPhItJuuoY=
+X-Google-Smtp-Source: ABdhPJwRqfeo69ee1GtzvXdcEFMUHjl9hP2aNtT+aDgUwXl5+wpPulO6P2XaFWGE5coAuEkdM/ftDA==
+X-Received: by 2002:a37:a315:: with SMTP id m21mr14315303qke.279.1607462785552; 
+ Tue, 08 Dec 2020 13:26:25 -0800 (PST)
 Received: from localhost.localdomain (cpe-71-65-111-223.cinci.res.rr.com.
  [71.65.111.223])
- by smtp.googlemail.com with ESMTPSA id l1sm16018572qkj.101.2020.12.08.13.26.22
+ by smtp.googlemail.com with ESMTPSA id l1sm16018572qkj.101.2020.12.08.13.26.24
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 08 Dec 2020 13:26:23 -0800 (PST)
+ Tue, 08 Dec 2020 13:26:25 -0800 (PST)
 From: Connor McAdams <conmanx360@gmail.com>
 To: 
-Subject: [PATCH 2/5] ALSA: hda/ca0132 - Add stream port remapping function.
-Date: Tue,  8 Dec 2020 16:25:42 -0500
-Message-Id: <20201208212546.428392-3-conmanx360@gmail.com>
+Subject: [PATCH 3/5] ALSA: hda/ca0132 - Add 8051 exram helper functions.
+Date: Tue,  8 Dec 2020 16:25:43 -0500
+Message-Id: <20201208212546.428392-4-conmanx360@gmail.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20201208212546.428392-1-conmanx360@gmail.com>
 References: <20201208212546.428392-1-conmanx360@gmail.com>
@@ -101,270 +101,214 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Add function for remapping a ChipIO stream's ports. Also include some
-documentation as to how this works.
+Add functions for both reading and writing to the 8051's exram. Also,
+add a little bit of documentation on how the addresses are segmented.
 
 Signed-off-by: Connor McAdams <conmanx360@gmail.com>
 ---
- sound/pci/hda/patch_ca0132.c | 208 ++++++++++++++++++++++++++---------
- 1 file changed, 156 insertions(+), 52 deletions(-)
+ sound/pci/hda/patch_ca0132.c | 138 ++++++++++++++++++++---------------
+ 1 file changed, 80 insertions(+), 58 deletions(-)
 
 diff --git a/sound/pci/hda/patch_ca0132.c b/sound/pci/hda/patch_ca0132.c
-index 05945f021e74..650a7e2bd311 100644
+index 650a7e2bd311..cb725586d38b 100644
 --- a/sound/pci/hda/patch_ca0132.c
 +++ b/sound/pci/hda/patch_ca0132.c
-@@ -788,6 +788,40 @@ static const struct ae5_filter_set ae5_filter_presets[] = {
- 	}
- };
- 
-+/*
-+ * Data structures for storing audio router remapping data. These are used to
-+ * remap a currently active streams ports.
-+ */
-+struct chipio_stream_remap_data {
-+	unsigned int stream_id;
-+	unsigned int count;
-+
-+	unsigned int offset[16];
-+	unsigned int value[16];
-+};
-+
-+static const struct chipio_stream_remap_data stream_remap_data[] = {
-+	{ .stream_id = 0x14,
-+	  .count     = 0x04,
-+	  .offset    = { 0x00, 0x04, 0x08, 0x0c },
-+	  .value     = { 0x0001f8c0, 0x0001f9c1, 0x0001fac6, 0x0001fbc7 },
-+	},
-+	{ .stream_id = 0x0c,
-+	  .count     = 0x0c,
-+	  .offset    = { 0x00, 0x04, 0x08, 0x0c, 0x10, 0x14, 0x18, 0x1c,
-+			 0x20, 0x24, 0x28, 0x2c },
-+	  .value     = { 0x0001e0c0, 0x0001e1c1, 0x0001e4c2, 0x0001e5c3,
-+			 0x0001e2c4, 0x0001e3c5, 0x0001e8c6, 0x0001e9c7,
-+			 0x0001ecc8, 0x0001edc9, 0x0001eaca, 0x0001ebcb },
-+	},
-+	{ .stream_id = 0x0c,
-+	  .count     = 0x08,
-+	  .offset    = { 0x08, 0x0c, 0x10, 0x14, 0x20, 0x24, 0x28, 0x2c },
-+	  .value     = { 0x000140c2, 0x000141c3, 0x000150c4, 0x000151c5,
-+			 0x000142c8, 0x000143c9, 0x000152ca, 0x000153cb },
-+	}
-+};
-+
- enum hda_cmd_vendor_io {
- 	/* for DspIO node */
- 	VENDOR_DSPIO_SCP_WRITE_DATA_LOW      = 0x000,
-@@ -7423,6 +7457,104 @@ static void ca0132_refresh_widget_caps(struct hda_codec *codec)
- 	}
+@@ -1901,6 +1901,71 @@ static void chipio_8051_write_direct(struct hda_codec *codec,
+ 	snd_hda_codec_write(codec, WIDGET_CHIP_CTRL, 0, verb, addr);
  }
  
 +/*
-+ * The region of ChipIO memory from 0x190000-0x1903fc is a sort of 'audio
-+ * router', where each entry represents a 48khz audio channel, with a format
-+ * of an 8-bit destination, an 8-bit source, and an unknown 2-bit number
-+ * value. The 2-bit number value is seemingly 0 if inactive, 1 if active,
-+ * and 3 if it's using Sample Rate Converter ports.
-+ * An example is:
-+ * 0x0001f8c0
-+ * In this case, f8 is the destination, and c0 is the source. The number value
-+ * is 1.
-+ * This region of memory is normally managed internally by the 8051, where
-+ * the region of exram memory from 0x1477-0x1575 has each byte represent an
-+ * entry within the 0x190000 range, and when a range of entries is in use, the
-+ * ending value is overwritten with 0xff.
-+ * 0x1578 in exram is a table of 0x25 entries, corresponding to the ChipIO
-+ * streamID's, where each entry is a starting 0x190000 port offset.
-+ * 0x159d in exram is the same as 0x1578, except it contains the ending port
-+ * offset for the corresponding streamID.
-+ *
-+ * On certain cards, such as the SBZ/ZxR/AE7, these are originally setup by
-+ * the 8051, then manually overwritten to remap the ports to work with the
-+ * new DACs.
-+ *
-+ * Currently known portID's:
-+ * 0x00-0x1f: HDA audio stream input/output ports.
-+ * 0x80-0xbf: Sample rate converter input/outputs. Only valid ports seem to
-+ *            have the lower-nibble set to 0x1, 0x2, and 0x9.
-+ * 0xc0-0xdf: DSP DMA input/output ports. Dynamically assigned.
-+ * 0xe0-0xff: DAC/ADC audio input/output ports.
-+ *
-+ * Currently known streamID's:
-+ * 0x03: Mic1 ADC to DSP.
-+ * 0x04: Mic2 ADC to DSP.
-+ * 0x05: HDA node 0x02 audio stream to DSP.
-+ * 0x0f: DSP Mic exit to HDA node 0x07.
-+ * 0x0c: DSP processed audio to DACs.
-+ * 0x14: DAC0, front L/R.
-+ *
-+ * It is possible to route the HDA audio streams directly to the DAC and
-+ * bypass the DSP entirely, with the only downside being that since the DSP
-+ * does volume control, the only volume control you'll get is through PCM on
-+ * the PC side, in the same way volume is handled for optical out. This may be
-+ * useful for debugging.
++ * Writes to the 8051's exram, which has 16-bits of address space.
++ * Data at addresses 0x2000-0x7fff is mirrored to 0x8000-0xdfff.
++ * Data at 0x8000-0xdfff can also be used as program memory for the 8051 by
++ * setting the pmem bank selection SFR.
++ * 0xe000-0xffff is always mapped as program memory, with only 0xf000-0xffff
++ * being writable.
 + */
-+static void chipio_remap_stream(struct hda_codec *codec,
-+		const struct chipio_stream_remap_data *remap_data)
++static void chipio_8051_write_exram(struct hda_codec *codec,
++		unsigned int addr, unsigned int data, bool use_mutex)
 +{
-+	unsigned int i, stream_offset, tmp;
++	struct ca0132_spec *spec = codec->spec;
++	unsigned int tmp;
 +
-+	/* Get the starting port for the stream to be remapped. */
-+	tmp = 0x1578 + remap_data->stream_id;
-+	for (i = 0; i < 2; i++) {
-+		snd_hda_codec_write(codec, WIDGET_CHIP_CTRL, 0,
-+				    VENDOR_CHIPIO_8051_ADDRESS_LOW + i,
-+				    ((tmp >> (i * 8)) & 0xff));
-+	}
++	if (use_mutex)
++		mutex_lock(&spec->chipio_mutex);
 +
-+	stream_offset = snd_hda_codec_read(codec, WIDGET_CHIP_CTRL, 0,
-+				   VENDOR_CHIPIO_8051_DATA_READ, 0);
++	/* Lower 8-bits. */
++	tmp = addr & 0xff;
++	snd_hda_codec_write(codec, WIDGET_CHIP_CTRL, 0,
++			    VENDOR_CHIPIO_8051_ADDRESS_LOW, tmp);
 +
-+	/*
-+	 * Check if the stream's port value is 0xff, because the 8051 may not
-+	 * have gotten around to setting up the stream yet. Wait until it's
-+	 * setup to remap it's ports.
-+	 */
-+	if (stream_offset == 0xff) {
-+		for (i = 0; i < 5; i++) {
-+			msleep(25);
++	/* Upper 8-bits. */
++	tmp = (addr >> 8) & 0xff;
++	snd_hda_codec_write(codec, WIDGET_CHIP_CTRL, 0,
++			    VENDOR_CHIPIO_8051_ADDRESS_HIGH, tmp);
 +
-+			stream_offset = snd_hda_codec_read(codec,
-+					WIDGET_CHIP_CTRL, 0,
-+					VENDOR_CHIPIO_8051_DATA_READ, 0);
++	/* 8-bits of data. */
++	tmp = data & 0xff;
++	snd_hda_codec_write(codec, WIDGET_CHIP_CTRL, 0,
++			    VENDOR_CHIPIO_8051_DATA_WRITE, tmp);
 +
-+			if (stream_offset != 0xff)
-+				break;
-+		}
-+	}
++	if (use_mutex)
++		mutex_unlock(&spec->chipio_mutex);
++}
 +
-+	if (stream_offset == 0xff) {
-+		codec_info(codec, "%s: Stream 0x%02x ports aren't allocated, remap failed!\n",
-+				__func__, remap_data->stream_id);
-+		return;
-+	}
++/* Readback data from the 8051's exram. */
++static void chipio_8051_read_exram(struct hda_codec *codec,
++		unsigned int addr, unsigned int *data, bool use_mutex)
++{
++	struct ca0132_spec *spec = codec->spec;
++	unsigned int tmp;
 +
-+	/* Offset isn't in bytes, its in 32-bit words, so multiply it by 4. */
-+	stream_offset *= 0x04;
-+	stream_offset += 0x190000;
++	if (use_mutex)
++		mutex_lock(&spec->chipio_mutex);
 +
-+	for (i = 0; i < remap_data->count; i++) {
-+		chipio_write_no_mutex(codec,
-+				stream_offset + remap_data->offset[i],
-+				remap_data->value[i]);
-+	}
++	/* Lower 8-bits. */
++	tmp = addr & 0xff;
++	snd_hda_codec_write(codec, WIDGET_CHIP_CTRL, 0,
++			    VENDOR_CHIPIO_8051_ADDRESS_LOW, tmp);
 +
-+	/* Update stream map configuration. */
-+	chipio_write_no_mutex(codec, 0x19042c, 0x00000001);
++	/* Upper 8-bits. */
++	tmp = (addr >> 8) & 0xff;
++	snd_hda_codec_write(codec, WIDGET_CHIP_CTRL, 0,
++			    VENDOR_CHIPIO_8051_ADDRESS_HIGH, tmp);
++
++	/* 8-bits of data. */
++	*data = snd_hda_codec_read(codec, WIDGET_CHIP_CTRL, 0,
++				   VENDOR_CHIPIO_8051_DATA_READ,
++				   0);
++
++	if (use_mutex)
++		mutex_unlock(&spec->chipio_mutex);
 +}
 +
  /*
-  * Default speaker tuning values setup for alternative codecs.
+  * Enable clocks.
   */
-@@ -7570,46 +7702,35 @@ static void sbz_connect_streams(struct hda_codec *codec)
-  */
- static void sbz_chipio_startup_data(struct hda_codec *codec)
- {
-+	const struct chipio_stream_remap_data *dsp_out_remap_data;
+@@ -7422,18 +7487,10 @@ static void ca0132_init_analog_mic2(struct hda_codec *codec)
  	struct ca0132_spec *spec = codec->spec;
  
  	mutex_lock(&spec->chipio_mutex);
- 	codec_dbg(codec, "Startup Data entered, mutex locked and loaded.\n");
- 
--	/* These control audio output */
--	chipio_write_no_mutex(codec, 0x190060, 0x0001f8c0);
--	chipio_write_no_mutex(codec, 0x190064, 0x0001f9c1);
--	chipio_write_no_mutex(codec, 0x190068, 0x0001fac6);
--	chipio_write_no_mutex(codec, 0x19006c, 0x0001fbc7);
--	/* Signal to update I think */
--	chipio_write_no_mutex(codec, 0x19042c, 0x00000001);
-+	/* Remap DAC0's output ports. */
-+	chipio_remap_stream(codec, &stream_remap_data[0]);
- 
--	chipio_set_stream_channels(codec, 0x0C, 6);
--	chipio_set_stream_control(codec, 0x0C, 1);
--	/* No clue what these control */
--	if (ca0132_quirk(spec) == QUIRK_SBZ) {
--		chipio_write_no_mutex(codec, 0x190030, 0x0001e0c0);
--		chipio_write_no_mutex(codec, 0x190034, 0x0001e1c1);
--		chipio_write_no_mutex(codec, 0x190038, 0x0001e4c2);
--		chipio_write_no_mutex(codec, 0x19003c, 0x0001e5c3);
--		chipio_write_no_mutex(codec, 0x190040, 0x0001e2c4);
--		chipio_write_no_mutex(codec, 0x190044, 0x0001e3c5);
--		chipio_write_no_mutex(codec, 0x190048, 0x0001e8c6);
--		chipio_write_no_mutex(codec, 0x19004c, 0x0001e9c7);
--		chipio_write_no_mutex(codec, 0x190050, 0x0001ecc8);
--		chipio_write_no_mutex(codec, 0x190054, 0x0001edc9);
--		chipio_write_no_mutex(codec, 0x190058, 0x0001eaca);
--		chipio_write_no_mutex(codec, 0x19005c, 0x0001ebcb);
--	} else if (ca0132_quirk(spec) == QUIRK_ZXR) {
--		chipio_write_no_mutex(codec, 0x190038, 0x000140c2);
--		chipio_write_no_mutex(codec, 0x19003c, 0x000141c3);
--		chipio_write_no_mutex(codec, 0x190040, 0x000150c4);
--		chipio_write_no_mutex(codec, 0x190044, 0x000151c5);
--		chipio_write_no_mutex(codec, 0x190050, 0x000142c8);
--		chipio_write_no_mutex(codec, 0x190054, 0x000143c9);
--		chipio_write_no_mutex(codec, 0x190058, 0x000152ca);
--		chipio_write_no_mutex(codec, 0x19005c, 0x000153cb);
-+	/* Remap DSP audio output stream ports. */
-+	switch (ca0132_quirk(spec)) {
-+	case QUIRK_SBZ:
-+		dsp_out_remap_data = &stream_remap_data[1];
-+		break;
+-	snd_hda_codec_write(codec, WIDGET_CHIP_CTRL, 0,
+-			    VENDOR_CHIPIO_8051_ADDRESS_LOW, 0x20);
+-	snd_hda_codec_write(codec, WIDGET_CHIP_CTRL, 0,
+-			    VENDOR_CHIPIO_8051_ADDRESS_HIGH, 0x19);
+-	snd_hda_codec_write(codec, WIDGET_CHIP_CTRL, 0,
+-			    VENDOR_CHIPIO_8051_DATA_WRITE, 0x00);
+-	snd_hda_codec_write(codec, WIDGET_CHIP_CTRL, 0,
+-			    VENDOR_CHIPIO_8051_ADDRESS_LOW, 0x2D);
+-	snd_hda_codec_write(codec, WIDGET_CHIP_CTRL, 0,
+-			    VENDOR_CHIPIO_8051_ADDRESS_HIGH, 0x19);
+-	snd_hda_codec_write(codec, WIDGET_CHIP_CTRL, 0,
+-			    VENDOR_CHIPIO_8051_DATA_WRITE, 0x00);
 +
-+	case QUIRK_ZXR:
-+		dsp_out_remap_data = &stream_remap_data[2];
-+		break;
++	chipio_8051_write_exram(codec, 0x1920, 0x00, false);
++	chipio_8051_write_exram(codec, 0x192d, 0x00, false);
 +
-+	default:
-+		dsp_out_remap_data = NULL;
-+		break;
- 	}
--	chipio_write_no_mutex(codec, 0x19042c, 0x00000001);
-+
-+	chipio_set_stream_channels(codec, 0x0c, 6);
-+	chipio_set_stream_control(codec, 0x0c, 1);
-+
-+	if (dsp_out_remap_data)
-+		chipio_remap_stream(codec, dsp_out_remap_data);
- 
- 	codec_dbg(codec, "Startup Data exited, mutex released.\n");
- 	mutex_unlock(&spec->chipio_mutex);
-@@ -7842,34 +7963,17 @@ static void ae5_post_dsp_startup_data(struct hda_codec *codec)
  	mutex_unlock(&spec->chipio_mutex);
  }
  
--static const unsigned int ae7_port_set_data[] = {
--	0x0001e0c0, 0x0001e1c1, 0x0001e4c2, 0x0001e5c3, 0x0001e2c4, 0x0001e3c5,
--	0x0001e8c6, 0x0001e9c7, 0x0001ecc8, 0x0001edc9, 0x0001eaca, 0x0001ebcb
--};
--
- static void ae7_post_dsp_setup_ports(struct hda_codec *codec)
+@@ -7504,18 +7561,11 @@ static void ca0132_refresh_widget_caps(struct hda_codec *codec)
+ static void chipio_remap_stream(struct hda_codec *codec,
+ 		const struct chipio_stream_remap_data *remap_data)
  {
- 	struct ca0132_spec *spec = codec->spec;
--	unsigned int i, count, addr;
+-	unsigned int i, stream_offset, tmp;
++	unsigned int i, stream_offset;
  
- 	mutex_lock(&spec->chipio_mutex);
- 
- 	chipio_set_stream_channels(codec, 0x0c, 6);
- 	chipio_set_stream_control(codec, 0x0c, 1);
- 
--	count = ARRAY_SIZE(ae7_port_set_data);
--	addr = 0x190030;
--	for (i = 0; i < count; i++) {
--		chipio_write_no_mutex(codec, addr, ae7_port_set_data[i]);
--
--		/* Addresses are incremented by 4-bytes. */
--		addr += 0x04;
+ 	/* Get the starting port for the stream to be remapped. */
+-	tmp = 0x1578 + remap_data->stream_id;
+-	for (i = 0; i < 2; i++) {
+-		snd_hda_codec_write(codec, WIDGET_CHIP_CTRL, 0,
+-				    VENDOR_CHIPIO_8051_ADDRESS_LOW + i,
+-				    ((tmp >> (i * 8)) & 0xff));
 -	}
 -
--	/*
--	 * Port setting always ends with a write of 0x1 to address 0x19042c.
--	 */
--	chipio_write_no_mutex(codec, 0x19042c, 0x00000001);
-+	/* Seems to share the same port remapping as the SBZ. */
-+	chipio_remap_stream(codec, &stream_remap_data[1]);
+-	stream_offset = snd_hda_codec_read(codec, WIDGET_CHIP_CTRL, 0,
+-				   VENDOR_CHIPIO_8051_DATA_READ, 0);
++	chipio_8051_read_exram(codec, 0x1578 + remap_data->stream_id,
++			&stream_offset, false);
  
- 	ca0113_mmio_command_set(codec, 0x30, 0x30, 0x00);
- 	ca0113_mmio_command_set(codec, 0x48, 0x0d, 0x40);
+ 	/*
+ 	 * Check if the stream's port value is 0xff, because the 8051 may not
+@@ -7526,9 +7576,8 @@ static void chipio_remap_stream(struct hda_codec *codec,
+ 		for (i = 0; i < 5; i++) {
+ 			msleep(25);
+ 
+-			stream_offset = snd_hda_codec_read(codec,
+-					WIDGET_CHIP_CTRL, 0,
+-					VENDOR_CHIPIO_8051_DATA_READ, 0);
++			chipio_8051_read_exram(codec, 0x1578 + remap_data->stream_id,
++					&stream_offset, false);
+ 
+ 			if (stream_offset != 0xff)
+ 				break;
+@@ -7863,12 +7912,7 @@ static void ae5_post_dsp_param_setup(struct hda_codec *codec)
+ 	snd_hda_codec_write(codec, WIDGET_CHIP_CTRL, 0, 0x724, 0x83);
+ 	chipio_set_control_param(codec, CONTROL_PARAM_ASI, 0);
+ 
+-	snd_hda_codec_write(codec, WIDGET_CHIP_CTRL, 0,
+-			    VENDOR_CHIPIO_8051_ADDRESS_LOW, 0x92);
+-	snd_hda_codec_write(codec, WIDGET_CHIP_CTRL, 0,
+-			    VENDOR_CHIPIO_8051_ADDRESS_HIGH, 0xfa);
+-	snd_hda_codec_write(codec, WIDGET_CHIP_CTRL, 0,
+-			    VENDOR_CHIPIO_8051_DATA_WRITE, 0x22);
++	chipio_8051_write_exram(codec, 0xfa92, 0x22, true);
+ }
+ 
+ static void ae5_post_dsp_pll_setup(struct hda_codec *codec)
+@@ -8134,12 +8178,7 @@ static void ae7_post_dsp_asi_setup(struct hda_codec *codec)
+ 	chipio_set_control_param(codec, CONTROL_PARAM_ASI, 0);
+ 	snd_hda_codec_write(codec, 0x17, 0, 0x794, 0x00);
+ 
+-	snd_hda_codec_write(codec, WIDGET_CHIP_CTRL, 0,
+-			    VENDOR_CHIPIO_8051_ADDRESS_LOW, 0x92);
+-	snd_hda_codec_write(codec, WIDGET_CHIP_CTRL, 0,
+-			    VENDOR_CHIPIO_8051_ADDRESS_HIGH, 0xfa);
+-	snd_hda_codec_write(codec, WIDGET_CHIP_CTRL, 0,
+-			    VENDOR_CHIPIO_8051_DATA_WRITE, 0x22);
++	chipio_8051_write_exram(codec, 0xfa92, 0x22, true);
+ 
+ 	ae7_post_dsp_pll_setup(codec);
+ 	ae7_post_dsp_asi_stream_setup(codec);
+@@ -9133,12 +9172,7 @@ static void r3d_pre_dsp_setup(struct hda_codec *codec)
+ {
+ 	chipio_write(codec, 0x18b0a4, 0x000000c2);
+ 
+-	snd_hda_codec_write(codec, WIDGET_CHIP_CTRL, 0,
+-			    VENDOR_CHIPIO_8051_ADDRESS_LOW, 0x1E);
+-	snd_hda_codec_write(codec, WIDGET_CHIP_CTRL, 0,
+-			    VENDOR_CHIPIO_8051_ADDRESS_HIGH, 0x1C);
+-	snd_hda_codec_write(codec, WIDGET_CHIP_CTRL, 0,
+-			    VENDOR_CHIPIO_8051_DATA_WRITE, 0x5B);
++	chipio_8051_write_exram(codec, 0x1c1e, 0x5b, true);
+ 
+ 	snd_hda_codec_write(codec, 0x11, 0,
+ 			AC_VERB_SET_PIN_WIDGET_CONTROL, 0x44);
+@@ -9148,21 +9182,9 @@ static void r3di_pre_dsp_setup(struct hda_codec *codec)
+ {
+ 	chipio_write(codec, 0x18b0a4, 0x000000c2);
+ 
+-	snd_hda_codec_write(codec, WIDGET_CHIP_CTRL, 0,
+-			    VENDOR_CHIPIO_8051_ADDRESS_LOW, 0x1E);
+-	snd_hda_codec_write(codec, WIDGET_CHIP_CTRL, 0,
+-			    VENDOR_CHIPIO_8051_ADDRESS_HIGH, 0x1C);
+-	snd_hda_codec_write(codec, WIDGET_CHIP_CTRL, 0,
+-			    VENDOR_CHIPIO_8051_DATA_WRITE, 0x5B);
+-
+-	snd_hda_codec_write(codec, WIDGET_CHIP_CTRL, 0,
+-			    VENDOR_CHIPIO_8051_ADDRESS_LOW, 0x20);
+-	snd_hda_codec_write(codec, WIDGET_CHIP_CTRL, 0,
+-			    VENDOR_CHIPIO_8051_ADDRESS_HIGH, 0x19);
+-	snd_hda_codec_write(codec, WIDGET_CHIP_CTRL, 0,
+-			    VENDOR_CHIPIO_8051_DATA_WRITE, 0x00);
+-	snd_hda_codec_write(codec, WIDGET_CHIP_CTRL, 0,
+-			    VENDOR_CHIPIO_8051_DATA_WRITE, 0x40);
++	chipio_8051_write_exram(codec, 0x1c1e, 0x5b, true);
++	chipio_8051_write_exram(codec, 0x1920, 0x00, true);
++	chipio_8051_write_exram(codec, 0x1921, 0x40, true);
+ 
+ 	snd_hda_codec_write(codec, 0x11, 0,
+ 			AC_VERB_SET_PIN_WIDGET_CONTROL, 0x04);
 -- 
 2.25.1
 

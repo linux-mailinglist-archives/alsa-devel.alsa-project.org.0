@@ -2,71 +2,75 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C16F32D32BC
-	for <lists+alsa-devel@lfdr.de>; Tue,  8 Dec 2020 20:33:50 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 748702D32C2
+	for <lists+alsa-devel@lfdr.de>; Tue,  8 Dec 2020 20:43:18 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 5CDDF16D0;
-	Tue,  8 Dec 2020 20:33:00 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5CDDF16D0
+	by alsa0.perex.cz (Postfix) with ESMTPS id 18C0716D1;
+	Tue,  8 Dec 2020 20:42:28 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 18C0716D1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1607456030;
-	bh=CW97W/gl30N7Tnql+tuh176jP24e3MGWQGOTMcWXg7U=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1607456598;
+	bh=cO5gKq2wZL9uekt4QOfBAap4YG6oMeueLV+wVhhvlYA=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=ZuS0ELBQsiRIPHunRcsQdO8KaN4Mkof7BwUAG7zrKbHI+FKvi+gLL3Wbm/0i2tmfM
-	 nt19IkMsvOE27gtRIRHdjURKnH+Q1p1Px3c7SiEVeFCPwt0Q5sKLNQhj6QNW4ZP0/n
-	 UYGo3MoRFnU7vd0qLPQLkiDIaMzXTu9ix4o8Doqk=
+	b=LRBhHq60uk90x0KsRn4D62Eftlui43nGJqhIlruYLxv6rk/2FxWWy9qC44yCyqJqv
+	 Hv4uyyCUJ81tflvY6IO/xCjmdoQwkqg5IwMBgh+6w+aycLwn9mUI+OF/6pvprMyO6S
+	 R+FOc67f/TvF1yclF/MYxeNMeFbh28jen20nGpZk=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 89B4CF80218;
-	Tue,  8 Dec 2020 20:32:15 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 45DAEF80130;
+	Tue,  8 Dec 2020 20:41:43 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id B54AFF8019D; Tue,  8 Dec 2020 20:32:13 +0100 (CET)
+ id 6606EF8019D; Tue,  8 Dec 2020 20:41:41 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
  version=3.4.0
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+Received: from mout01.posteo.de (mout01.posteo.de [185.67.36.65])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 3A8C1F80130
- for <alsa-devel@alsa-project.org>; Tue,  8 Dec 2020 20:32:06 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3A8C1F80130
+ by alsa1.perex.cz (Postfix) with ESMTPS id 4AAB3F8010A
+ for <alsa-devel@alsa-project.org>; Tue,  8 Dec 2020 20:41:35 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4AAB3F8010A
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="lV+2Iugj"
-Date: Tue, 8 Dec 2020 19:31:56 +0000
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1607455924;
- bh=CW97W/gl30N7Tnql+tuh176jP24e3MGWQGOTMcWXg7U=;
- h=From:To:Cc:Subject:References:In-Reply-To:From;
- b=lV+2IugjN3UFo+knFDsSpVaQlyXTJ7I7B4tCE9kOPw7gmQx0vV7eOHPtPPodOjgIV
- xoH7XUFcQK7nVt0AY2KlJL0bnkW0WStPiC/nxVQYDqSjhzep7g0bZrkGYil3sKlMaU
- KpSGcWlSErt6QN6a/2GTsoIOPgh2lAYRXzeEbx/3J0Iq8mEyuasca1ufSlyvyRhor2
- ItPYYU3j0hsmW+qQjmi2qlDS/jz41/g96H4XF3TeyvbR+EdZSl4Xfz1OEMfQTKevTM
- Kyf7LNZ1uypSXCyC/Mkru0Adstn/0VC8YPfzGiqmC/hWWzeGTQ4RBWq6sDqrnn9cLx
- C7xFTYGlBhHMQ==
-From: Mark Brown <broonie@kernel.org>
-To: Codrin.Ciubotariu@microchip.com
-Subject: Re: [RFC PATCH] ASoC: pcm_dmaengine: Add support for BE DAIs
-Message-ID: <20201208193156.GJ6686@sirena.org.uk>
-References: <20201202085838.1779525-1-codrin.ciubotariu@microchip.com>
- <20201208170422.GG6686@sirena.org.uk>
- <7ab6bffa-f88e-3e2b-287a-89eee2c01819@microchip.com>
+ dkim=pass (2048-bit key) header.d=posteo.de header.i=@posteo.de
+ header.b="koiZ/K5F"
+Received: from submission (posteo.de [89.146.220.130]) 
+ by mout01.posteo.de (Postfix) with ESMTPS id 4C5BE160061
+ for <alsa-devel@alsa-project.org>; Tue,  8 Dec 2020 20:41:34 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=posteo.de; s=2017;
+ t=1607456494; bh=cO5gKq2wZL9uekt4QOfBAap4YG6oMeueLV+wVhhvlYA=;
+ h=Date:From:To:Cc:Subject:From;
+ b=koiZ/K5FvgygI0qJKVUqnZsjZMRcL7dmI+Fv+ln9lvx5hT9VPff3OUW3v5pRkvhwm
+ BtTokN0QXys8jVIeRkfASO3HtDe3NCQsL14yyeqrzf7CuXLUJZsJiOwKwPau4szyAv
+ G4NwnEcPn806MEXm+EEePX4cJ/VRHdYq3RC+Duc1sHAf8J3cCDA9u8J36gy1O0IavH
+ IwcUrpMwzHzpi8C1ARxurD2seeJCwVmDJPjsSfjBQ9/Sg5TQPyCyQfYyuSP1N2q61U
+ JIJRzNFhhqtOO9bqefpwg0IRzHATTTGszxamROvxFENLlfsrNrzDFZq800R51RzYDf
+ RqhymqoHdNiBQ==
+Received: from customer (localhost [127.0.0.1])
+ by submission (posteo.de) with ESMTPSA id 4Cr9Xs6DmTz9rxM;
+ Tue,  8 Dec 2020 20:41:33 +0100 (CET)
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="sdJFN6SSISdF2ksn"
-Content-Disposition: inline
-In-Reply-To: <7ab6bffa-f88e-3e2b-287a-89eee2c01819@microchip.com>
-X-Cookie: Do not dry clean.
-User-Agent: Mutt/1.10.1 (2018-07-13)
-Cc: alsa-devel@alsa-project.org, lars@metafoo.de, lgirdwood@gmail.com,
- linux-kernel@vger.kernel.org, tiwai@suse.com
+Content-Type: text/plain; charset=US-ASCII;
+ format=flowed
+Content-Transfer-Encoding: 7bit
+Date: Tue, 08 Dec 2020 20:41:33 +0100
+From: meschi@posteo.de
+To: Takashi Iwai <tiwai@suse.de>
+Subject: Re: Steinberg UR22 Crackling and Clicks
+In-Reply-To: <s5hft4gwdji.wl-tiwai@suse.de>
+References: <ce03244f4699ffc9574ecc2dae41a417@posteo.de>
+ <s5hft4gy4ar.wl-tiwai@suse.de> <61da73624ff3855867b8e65936fc2e1c@posteo.de>
+ <s5hft4gwdji.wl-tiwai@suse.de>
+Message-ID: <eb1baf202fa4cd74a502661bb0ce5279@posteo.de>
+X-Sender: meschi@posteo.de
+User-Agent: Posteo Webmail
+Cc: alsa-devel@alsa-project.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -83,36 +87,55 @@ Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 
---sdJFN6SSISdF2ksn
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
 
-On Tue, Dec 08, 2020 at 07:26:35PM +0000, Codrin.Ciubotariu@microchip.com w=
-rote:
+Am 08.12.2020 15:57 schrieb Takashi Iwai:
+> On Tue, 08 Dec 2020 15:50:28 +0100,
+> meschi@posteo.de wrote:
+>> 
+>> > It's likely the issues with the implicit feedback.
+>> >
+>> > The latest development tree (either linux-next tree or
+>> > topic/usb-audio-refactoring branch of my sound.git tree) contains the
+>> > improvements of the implicit feedback mode.
+>> >
+>> >
+>> > Takashi
+>> 
+>> Here is the cropped lsusb -v output:
+>> I also have dmesg output with debug boot flag enabled.
+>> 
+>> Bus 001 Device 003: ID 0499:1509 Yamaha Corp. Steinberg UR22
+> 
+> OK, so it's a different device than UR22C.
+> 
+> Try to pass the module option quirk_alias=04991509:0499172f to
+> snd-usb-audio.  This will make the device compatible with UR22C.
+> 
+> 
+> Takashi
 
-> I do not know too much about the dummy PCM. It seems like it is creating=
-=20
-> a card without DPCM links and fakes a buffer, which is not quite what I=
-=20
-> need. I will investigate more.
+I removed snd_usb_audio and reloaded it with modprobe with the 
+parameters.
+$ modprobe snd_usb_audio quirk_alias=04991509:0499172f
 
-Right, that's what I was imagining the second runtime you proposed
-looking like.
+When I try to play a file now this happens:
+$ aplay -D plughw:CARD=UR22 ./file.wav
+Playing WAVE './file.wav' : Signed 16 bit Little Endian, Rate 44100 Hz, 
+Stereo
+aplay: set_params:1407: Unable to install hw params:
+ACCESS:  RW_INTERLEAVED
+FORMAT:  S16_LE
+SUBFORMAT:  STD
+SAMPLE_BITS: 16
+FRAME_BITS: 32
+CHANNELS: 2
+RATE: 44100
+PERIOD_TIME: (125011 125012)
+PERIOD_SIZE: 5513
+PERIOD_BYTES: 22052
+PERIODS: (3 4)
+BUFFER_TIME: 500000
+BUFFER_SIZE: 22050
+BUFFER_BYTES: 88200
+TICK_TIME: 0
 
---sdJFN6SSISdF2ksn
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl/P1KsACgkQJNaLcl1U
-h9D/hwgAhqvbHaR1KfxYUOgR8OYqIZ8t+Sk/p3dxSXSsUEyD3k/fio5ln55VJvCH
-bif2/LJGtu1Vzk0h0PI+cq09SbWx4gxgxrDC8j9BpAKQ4ETpDLqVIbqIPGWV6ENO
-Rf5LQa0so/cWjlVfSKtvLZb03OoJTttL1irv+4/ZhpZUmQVSB1rrAf32tX8aenwz
-jmn0Iz7Y5yfAxrXSA9siwgXDYbQt9rusqXKebVY4QCZKuZHXEJ7PbRZHg1ez1irq
-NlSM4GbsRFYgqlfKHx3tUmuasVDRA78FdwVx0b7GwyXUSyNrQ3VfblzoXaUdcYIv
-iPOtzRyuvSMDgcJDs6htIqfIPofnTA==
-=tjP1
------END PGP SIGNATURE-----
-
---sdJFN6SSISdF2ksn--

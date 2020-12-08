@@ -2,75 +2,88 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 748702D32C2
-	for <lists+alsa-devel@lfdr.de>; Tue,  8 Dec 2020 20:43:18 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 46C1C2D32D0
+	for <lists+alsa-devel@lfdr.de>; Tue,  8 Dec 2020 20:54:11 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 18C0716D1;
-	Tue,  8 Dec 2020 20:42:28 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 18C0716D1
+	by alsa0.perex.cz (Postfix) with ESMTPS id B511916E3;
+	Tue,  8 Dec 2020 20:53:20 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B511916E3
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1607456598;
-	bh=cO5gKq2wZL9uekt4QOfBAap4YG6oMeueLV+wVhhvlYA=;
-	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=LRBhHq60uk90x0KsRn4D62Eftlui43nGJqhIlruYLxv6rk/2FxWWy9qC44yCyqJqv
-	 Hv4uyyCUJ81tflvY6IO/xCjmdoQwkqg5IwMBgh+6w+aycLwn9mUI+OF/6pvprMyO6S
-	 R+FOc67f/TvF1yclF/MYxeNMeFbh28jen20nGpZk=
+	s=default; t=1607457250;
+	bh=g/xf2//q6vllYwiQ7SKvF3CMO9X4gMDNWk1V1NbvzrI=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=pMYR/DUiV2dn/4fBVDPe3Dny58zKGWUTLhq4bX5cIftk9KtwWikDVllo3bW+NDaQO
+	 DM2zXFWOzwfci7IP9INQN4hOP7oQ8hebMOCiTvJDa1UYrWd17Uthlt92hRwMevZDZq
+	 W20ggiBtGoNYffA46p+rVF8znmBHDJWAmlWL+DlE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 45DAEF80130;
-	Tue,  8 Dec 2020 20:41:43 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id EC093F80253;
+	Tue,  8 Dec 2020 20:52:35 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 6606EF8019D; Tue,  8 Dec 2020 20:41:41 +0100 (CET)
+ id 604F4F8019D; Tue,  8 Dec 2020 20:52:34 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from mout01.posteo.de (mout01.posteo.de [185.67.36.65])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU, FREEMAIL_ENVFROM_END_DIGIT, FREEMAIL_FROM, SPF_HELO_NONE,
+ SPF_NONE autolearn=disabled version=3.4.0
+Received: from mail-qv1-xf41.google.com (mail-qv1-xf41.google.com
+ [IPv6:2607:f8b0:4864:20::f41])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 4AAB3F8010A
- for <alsa-devel@alsa-project.org>; Tue,  8 Dec 2020 20:41:35 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4AAB3F8010A
+ by alsa1.perex.cz (Postfix) with ESMTPS id E30C7F8010A
+ for <alsa-devel@alsa-project.org>; Tue,  8 Dec 2020 20:52:31 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E30C7F8010A
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=posteo.de header.i=@posteo.de
- header.b="koiZ/K5F"
-Received: from submission (posteo.de [89.146.220.130]) 
- by mout01.posteo.de (Postfix) with ESMTPS id 4C5BE160061
- for <alsa-devel@alsa-project.org>; Tue,  8 Dec 2020 20:41:34 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=posteo.de; s=2017;
- t=1607456494; bh=cO5gKq2wZL9uekt4QOfBAap4YG6oMeueLV+wVhhvlYA=;
- h=Date:From:To:Cc:Subject:From;
- b=koiZ/K5FvgygI0qJKVUqnZsjZMRcL7dmI+Fv+ln9lvx5hT9VPff3OUW3v5pRkvhwm
- BtTokN0QXys8jVIeRkfASO3HtDe3NCQsL14yyeqrzf7CuXLUJZsJiOwKwPau4szyAv
- G4NwnEcPn806MEXm+EEePX4cJ/VRHdYq3RC+Duc1sHAf8J3cCDA9u8J36gy1O0IavH
- IwcUrpMwzHzpi8C1ARxurD2seeJCwVmDJPjsSfjBQ9/Sg5TQPyCyQfYyuSP1N2q61U
- JIJRzNFhhqtOO9bqefpwg0IRzHATTTGszxamROvxFENLlfsrNrzDFZq800R51RzYDf
- RqhymqoHdNiBQ==
-Received: from customer (localhost [127.0.0.1])
- by submission (posteo.de) with ESMTPSA id 4Cr9Xs6DmTz9rxM;
- Tue,  8 Dec 2020 20:41:33 +0100 (CET)
+ dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
+ header.b="KLKJlgWg"
+Received: by mail-qv1-xf41.google.com with SMTP id l14so497359qvh.2
+ for <alsa-devel@alsa-project.org>; Tue, 08 Dec 2020 11:52:31 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=ggClf1qYaX1ZYfaRMUNT7oZqY0pd3cd9hPip2Wzk4F4=;
+ b=KLKJlgWgWbN67LPCenCHeeJkjwAUvUak89ba7ygQ2WI2d0DKFSd+sOpBSK0ltfZCE8
+ aPs6ZvvEOxVB2SCOitevu7LEKNGkR6P7yvGSeqlhiF55Zy2XUclnSeH76/V7dw1BdjHd
+ T/E7rarteJFj2n2b0aUhMSkMlHDNu8zb66QZw0bzQ40w4SXthUiQXvxsXmRd9qp3GuiT
+ cOnXpkLKjF9LcspElKGDZ3wMrG5f8i2GC/QoBhHKquE+wt9VZ31tRvL+ibw1hKobGYTv
+ jtfJECveexzrQpKRV2zAMdI5aXZljhIsFYQoexnSTs/dGzdYO3/tadaiwYFozfteBWUR
+ e0tw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=ggClf1qYaX1ZYfaRMUNT7oZqY0pd3cd9hPip2Wzk4F4=;
+ b=RC3DAj60hRjn6s7JiOsJ+Dpfj74RCmub4onWZFnMqCEoiA1X1fC+eOcMydmk4ph4yN
+ p4jiYHSolFTR+t/G6+2XwnS8l1INasgTUJOLKR4SIrLrUc6n0XonHUkMWhz+4iS5Zb4i
+ gx+643Yo6U1PXpTK4n6BkKVS36qaT9cX57koN2HTLgH5U1/w6fm8qNa8QCix9HFyME4y
+ lKCDTdZRlFklrUAwDztk4FFaPtYExFLi2rVrYbgkH6l5S9sqhN+B3aDAUBri3UdP9i3D
+ HL4sK6OY52AhNfO/oK60IRoD4g3/wxPveYoD3jjNwmEcZ8MSvft/yoU/oUg5UikQtpKb
+ z4BQ==
+X-Gm-Message-State: AOAM5324oN/BQX6Cq50bcy5F627LiDAFl2PPlLBCN/2KK7I4rdmi/VVZ
+ fEr6mqPfu4xUIhwAmJUrG6M=
+X-Google-Smtp-Source: ABdhPJwLRmltK/EpGlS75VZoegn0zu1cz6U5kI4SqVbpM4KQKxgxNlbJQcRwUyD+ahl8etD1DfXmwA==
+X-Received: by 2002:a05:6214:12ab:: with SMTP id
+ w11mr29040746qvu.42.1607457149690; 
+ Tue, 08 Dec 2020 11:52:29 -0800 (PST)
+Received: from localhost.localdomain (cpe-71-65-111-223.cinci.res.rr.com.
+ [71.65.111.223])
+ by smtp.googlemail.com with ESMTPSA id x24sm14169458qkx.23.2020.12.08.11.52.28
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 08 Dec 2020 11:52:29 -0800 (PST)
+From: Connor McAdams <conmanx360@gmail.com>
+To: 
+Subject: [PATCH v2 1/3] ALSA: hda/ca0132 - Fix AE-5 rear headphone pincfg.
+Date: Tue,  8 Dec 2020 14:52:20 -0500
+Message-Id: <20201208195223.424753-1-conmanx360@gmail.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII;
- format=flowed
-Content-Transfer-Encoding: 7bit
-Date: Tue, 08 Dec 2020 20:41:33 +0100
-From: meschi@posteo.de
-To: Takashi Iwai <tiwai@suse.de>
-Subject: Re: Steinberg UR22 Crackling and Clicks
-In-Reply-To: <s5hft4gwdji.wl-tiwai@suse.de>
-References: <ce03244f4699ffc9574ecc2dae41a417@posteo.de>
- <s5hft4gy4ar.wl-tiwai@suse.de> <61da73624ff3855867b8e65936fc2e1c@posteo.de>
- <s5hft4gwdji.wl-tiwai@suse.de>
-Message-ID: <eb1baf202fa4cd74a502661bb0ce5279@posteo.de>
-X-Sender: meschi@posteo.de
-User-Agent: Posteo Webmail
-Cc: alsa-devel@alsa-project.org
+Content-Transfer-Encoding: 8bit
+Cc: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
+ Takashi Iwai <tiwai@suse.com>, conmanx360@gmail.com, stable@kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -86,56 +99,34 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+The Windows driver sets the pincfg for the AE-5's rear-headphone to
+report as a microphone. This causes issues with Pulseaudio mistakenly
+believing there is no headphone plugged in. In Linux, we should instead
+set it to be a headphone.
 
+Fixes: a6b0961b39896 ("ALSA: hda/ca0132 - fix AE-5 pincfg")
+Cc: <stable@kernel.org>
+Signed-off-by: Connor McAdams <conmanx360@gmail.com>
+---
+ sound/pci/hda/patch_ca0132.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-Am 08.12.2020 15:57 schrieb Takashi Iwai:
-> On Tue, 08 Dec 2020 15:50:28 +0100,
-> meschi@posteo.de wrote:
->> 
->> > It's likely the issues with the implicit feedback.
->> >
->> > The latest development tree (either linux-next tree or
->> > topic/usb-audio-refactoring branch of my sound.git tree) contains the
->> > improvements of the implicit feedback mode.
->> >
->> >
->> > Takashi
->> 
->> Here is the cropped lsusb -v output:
->> I also have dmesg output with debug boot flag enabled.
->> 
->> Bus 001 Device 003: ID 0499:1509 Yamaha Corp. Steinberg UR22
-> 
-> OK, so it's a different device than UR22C.
-> 
-> Try to pass the module option quirk_alias=04991509:0499172f to
-> snd-usb-audio.  This will make the device compatible with UR22C.
-> 
-> 
-> Takashi
+v2 changes:
+- Add fixes references to previous commits that these patches now fix.
 
-I removed snd_usb_audio and reloaded it with modprobe with the 
-parameters.
-$ modprobe snd_usb_audio quirk_alias=04991509:0499172f
-
-When I try to play a file now this happens:
-$ aplay -D plughw:CARD=UR22 ./file.wav
-Playing WAVE './file.wav' : Signed 16 bit Little Endian, Rate 44100 Hz, 
-Stereo
-aplay: set_params:1407: Unable to install hw params:
-ACCESS:  RW_INTERLEAVED
-FORMAT:  S16_LE
-SUBFORMAT:  STD
-SAMPLE_BITS: 16
-FRAME_BITS: 32
-CHANNELS: 2
-RATE: 44100
-PERIOD_TIME: (125011 125012)
-PERIOD_SIZE: 5513
-PERIOD_BYTES: 22052
-PERIODS: (3 4)
-BUFFER_TIME: 500000
-BUFFER_SIZE: 22050
-BUFFER_BYTES: 88200
-TICK_TIME: 0
+diff --git a/sound/pci/hda/patch_ca0132.c b/sound/pci/hda/patch_ca0132.c
+index 4fbec4258f58..e96db73c32f5 100644
+--- a/sound/pci/hda/patch_ca0132.c
++++ b/sound/pci/hda/patch_ca0132.c
+@@ -1223,7 +1223,7 @@ static const struct hda_pintbl ae5_pincfgs[] = {
+ 	{ 0x0e, 0x01c510f0 }, /* SPDIF In */
+ 	{ 0x0f, 0x01017114 }, /* Port A -- Rear L/R. */
+ 	{ 0x10, 0x01017012 }, /* Port D -- Center/LFE or FP Hp */
+-	{ 0x11, 0x01a170ff }, /* Port B -- LineMicIn2 / Rear Headphone */
++	{ 0x11, 0x012170ff }, /* Port B -- LineMicIn2 / Rear Headphone */
+ 	{ 0x12, 0x01a170f0 }, /* Port C -- LineIn1 */
+ 	{ 0x13, 0x908700f0 }, /* What U Hear In*/
+ 	{ 0x18, 0x50d000f0 }, /* N/A */
+-- 
+2.25.1
 

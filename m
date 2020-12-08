@@ -2,145 +2,144 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 76C2B2D31BC
-	for <lists+alsa-devel@lfdr.de>; Tue,  8 Dec 2020 19:08:59 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 67DB82D31CD
+	for <lists+alsa-devel@lfdr.de>; Tue,  8 Dec 2020 19:12:37 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id F24D516E1;
-	Tue,  8 Dec 2020 19:08:08 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz F24D516E1
+	by alsa0.perex.cz (Postfix) with ESMTPS id C4E6116E1;
+	Tue,  8 Dec 2020 19:11:46 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C4E6116E1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1607450939;
-	bh=XCycTBv8hY9LZh6opz5uNweTc9jFUYeYoYeubeqxEB0=;
-	h=Subject:From:To:References:Date:In-Reply-To:Cc:List-Id:
+	s=default; t=1607451156;
+	bh=pE+opq3LGb2JZIVJaqL03yTsVe+4NBUGJwcX3QVmTEE=;
+	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=D12PDXr9E+PT0425/qGUEzHJQdPqjOub9lUCPRFF91mNHgS+SCzfJKj0C0Jnan6Zy
-	 0L9Ziy10p1clo/8j/1C0McU/IuC7eLGEuGMs+HpKW9JVFuZ8PqqKSu9sQfKx/fXl4f
-	 LuxPE7ubaAWgmzuKBN0X6qmoIEThx6YJI8AMGtZI=
+	b=oGn6Ja1lwS1/kvZt3yXe2ndjM75FlstBPpbZyDieVLpAutZdZDrZsP3hsrEXBV+Et
+	 /zfjVmimBfpP9DmTY/fFROqrBC8BB9VvnE9RiFIDsLETBbxut6WKb5tqjq8Cjo3OgR
+	 Rl59QQNWglsEttCn+EIz1jF5/p6pjoB1pJUJ/Aaw=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 43F79F80130;
-	Tue,  8 Dec 2020 19:07:24 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 70280F804C3;
+	Tue,  8 Dec 2020 19:11:26 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id A9E7CF80130; Tue,  8 Dec 2020 19:07:22 +0100 (CET)
+ id F1891F804C2; Tue,  8 Dec 2020 19:11:24 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  MSGID_FROM_MTA_HEADER,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE autolearn=disabled
  version=3.4.0
-Received: from NAM12-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam12on2072.outbound.protection.outlook.com [40.107.237.72])
+Received: from NAM10-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam10on2051.outbound.protection.outlook.com [40.107.93.51])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id B8212F8019D
- for <alsa-devel@alsa-project.org>; Tue,  8 Dec 2020 19:07:17 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B8212F8019D
+ by alsa1.perex.cz (Postfix) with ESMTPS id 44150F800E1
+ for <alsa-devel@alsa-project.org>; Tue,  8 Dec 2020 19:11:16 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 44150F800E1
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=amdcloud.onmicrosoft.com
- header.i=@amdcloud.onmicrosoft.com header.b="AXDNOj64"
+ header.i=@amdcloud.onmicrosoft.com header.b="R9shIpi9"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=JY8K5Ij6mX+So5Q6sf758qUNCoaBEvcLBDnVbBVtnX8IGKbs1w75YyKpIbrChQ8ygY6kolRroTpvclo4Bz9PSLnriPffACZNQbntFqCwHP8j+UrILQJy3E2Hqn1/QO5sfOBFwFkLVToWNv/Tzzc9wQm0H79CpEC7jP3UqQ0ZBjPPrYVFOmAhU2M2+fzLeQj8V/mmtBGi3NtRTGP5zIttmG0CpSfoq9EaoVsJ3hDOTZ0K1sjjPoheoGHlbWFDHdkOFs6MNGyue26zosuYGjxuCxQRUVffJZU1AAzXPjtYjkfldpwaw2GnT91J/zp/BeIx73xMO66RAv9GyFs7gbQwLw==
+ b=dgBk3b01teqNmN34PqSpihyz8Yq8wyKW1oWlU25aiyVUP7Mm0pgy7EPCqIl6438F0QXzCjL9BHTx4ImRga4b0AjUCS8rSAUfDMG+iP05jidjJI1UhaTyIAdt5xwlzHdjY6vZLOlfkmds5w5GgoQNZ1iK8e3452NzpZCemzm8pIsZNksVqKg5yk/zXPNLisKXhxj2SZHKm18UtVg5MpQzffJY5lTEttylfHUVtiomUyH1ltqaez15av2S8XBRbcSyn1vVg/Ei4o31qBClo2AlJJcAPOAeQDUgwsDRT3XeP0zKFBpZuJ/7g98mLHav7acf1csyf4q2dmU47TPu6b9oqQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=7iUZDrM/YvY6JSqFoq21+bsYlxQZIGqLeOQOxHErjKQ=;
- b=bXz/UZsZG4W+XadcjyQtZebwCOFs6TYc1Bg2xyZ4frfbDOc8FtrWySxAlVxTbiYIAvdNUzzGILHhoLLo3ETSQoxIlDbnFmiX+NphwkTqoBHi0v+Rpt8GYqHal46IqC4fBQ6tFzf+633SGRWN2iEmUIp2D2alviLmAQyUPyj3HrJpD3sFkNjRZZ/XaZgdy1yxxsVOKhQDEMLxj/l2n6Xk+QtvKuDpew4gLBs5DjflF/H/jdLL0Q5LHfBj+Hk8QpCl8d0xfW5YMmqq7qpaS2Sk8YrynQBQ7u2s6t1h5ukH4oZTrW+/YVFex9ChiiXrJqHo3+C+I4df9OtgGf6MFkTNqQ==
+ bh=vrKgqoFNha2mvdQY/xx3kjWAs0gobO3EDBkZTQVLXcA=;
+ b=fhXom00N5HXKjb3bQNrT0BiB1Wd0G3EVKfDLYdZSD+rDgeEnCfGyH5nGZjmyygI0pJv9+IMvOYLGC7/9agpkxlrZNy9iIKCy94H1oGTkswtcTb6Q3DJ5N7xNhNXrT94CdcXDfIBl/CwtEjZLIn7aK0u8mOW/gBLLN4HoqB3LP0P9mPdQiDumi0xXT/XWgro5cnfgs9E8gFKweBGQA7YSMhSoDhGQgWUFNIKKo8dRkvUwLWMfuCrCpRaiqJ7votoeHQncoB33X0oqkVEUpR2SdYsmF+tpjSlf9D0+vg1VZ4IsV5E8yTlNdUE9c0hdSud5IHO4973AoK0DpDO/tDMKjQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=7iUZDrM/YvY6JSqFoq21+bsYlxQZIGqLeOQOxHErjKQ=;
- b=AXDNOj64Cqb8AlHMfWTeOTIaxhufMB2aVDDCmwPCA2CYDPlHcwnCRPG1+46wip4/9DyUB1x46VAVj6v24krO83J8mEVKozvv4HkA7BWzNMWMFi587I/lnV5qaNr4M7/j79XFVx3LhYhaT0j5ZtvYqUZP0RZmKqJFsG/H3bfFzn0=
-Authentication-Results: kernel.org; dkim=none (message not signed)
- header.d=none;kernel.org; dmarc=none action=none header.from=amd.com;
+ bh=vrKgqoFNha2mvdQY/xx3kjWAs0gobO3EDBkZTQVLXcA=;
+ b=R9shIpi9AA7nLgtuBlIl/2bCherdfSZ88CkSTcl3U5+parIfqMG3neb2rtzE8jbFwB5B/4Ag/HSSCcbGS6R2MLbD6j25iYcIbZ0JvPGRP3eot4c71EvzVxnrCdF6KTdpX/3E12YU1/WaJhLx6doxA58785dZGy8jEcJiemAub/o=
+Authentication-Results: amd.com; dkim=none (message not signed)
+ header.d=none;amd.com; dmarc=none action=none header.from=amd.com;
 Received: from MWHPR12MB1663.namprd12.prod.outlook.com (2603:10b6:301:e::9) by
- MW2PR12MB2521.namprd12.prod.outlook.com (2603:10b6:907:8::14) with
+ MWHPR12MB1181.namprd12.prod.outlook.com (2603:10b6:300:e::21) with
  Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.3632.21; Tue, 8 Dec 2020 18:07:15 +0000
+ 15.20.3654.12; Tue, 8 Dec 2020 18:11:13 +0000
 Received: from MWHPR12MB1663.namprd12.prod.outlook.com
  ([fe80::c02b:5213:d160:9a34]) by MWHPR12MB1663.namprd12.prod.outlook.com
  ([fe80::c02b:5213:d160:9a34%5]) with mapi id 15.20.3632.023; Tue, 8 Dec 2020
- 18:07:15 +0000
-Subject: Re: [PATCH] ASoC: AMD Renoir - add DMI table to avoid the ACP mic
- probe (broken BIOS)
+ 18:11:13 +0000
+Subject: Re: AMD ACP raven ridge: invalid audio mode 2
+To: Takashi Iwai <tiwai@suse.de>,
+ Janpieter Sollie <janpieter.sollie@kabelmail.de>
+References: <07aae8e3-1ee2-60a9-daee-a0172c1012e7@kabelmail.de>
+ <s5hczzkwd82.wl-tiwai@suse.de>
 From: "Mukunda,Vijendar" <vijendar.mukunda@amd.com>
-To: Takashi Iwai <tiwai@suse.de>
-References: <20201208153654.2733354-1-perex@perex.cz>
- <s5h4kkww9j3.wl-tiwai@suse.de> <20201208174002.GH6686@sirena.org.uk>
- <2e4587f8-f602-cf23-4845-fd27a32b1cfc@amd.com> <s5htuswuqng.wl-tiwai@suse.de>
- <2c48dcdb-e8c8-ca2e-e004-4e63887788c5@amd.com>
-Message-ID: <098fa0b7-5493-f3e5-afd5-8296d4300590@amd.com>
-Date: Tue, 8 Dec 2020 23:53:05 +0530
+Message-ID: <d4e099cd-3600-43d8-d2f5-9f7257da80ba@amd.com>
+Date: Tue, 8 Dec 2020 23:57:04 +0530
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
  Thunderbird/68.10.0
-In-Reply-To: <2c48dcdb-e8c8-ca2e-e004-4e63887788c5@amd.com>
+In-Reply-To: <s5hczzkwd82.wl-tiwai@suse.de>
 Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Language: en-US
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 X-Originating-IP: [165.204.159.251]
-X-ClientProxiedBy: MAXPR01CA0076.INDPRD01.PROD.OUTLOOK.COM
- (2603:1096:a00:49::18) To MWHPR12MB1663.namprd12.prod.outlook.com
+X-ClientProxiedBy: MA1PR01CA0110.INDPRD01.PROD.OUTLOOK.COM
+ (2603:1096:a00:1::26) To MWHPR12MB1663.namprd12.prod.outlook.com
  (2603:10b6:301:e::9)
 MIME-Version: 1.0
 X-MS-Exchange-MessageSentRepresentingType: 1
 Received: from [10.129.8.176] (165.204.159.251) by
- MAXPR01CA0076.INDPRD01.PROD.OUTLOOK.COM (2603:1096:a00:49::18) with Microsoft
+ MA1PR01CA0110.INDPRD01.PROD.OUTLOOK.COM (2603:1096:a00:1::26) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.3654.12 via Frontend Transport; Tue, 8 Dec 2020 18:07:13 +0000
+ 15.20.3632.17 via Frontend Transport; Tue, 8 Dec 2020 18:11:12 +0000
 X-MS-PublicTrafficType: Email
 X-MS-Office365-Filtering-HT: Tenant
-X-MS-Office365-Filtering-Correlation-Id: 33336f11-4609-408f-f66b-08d89ba4180f
-X-MS-TrafficTypeDiagnostic: MW2PR12MB2521:
-X-Microsoft-Antispam-PRVS: <MW2PR12MB2521BDB377B44EB004F91A5997CD0@MW2PR12MB2521.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:9508;
+X-MS-Office365-Filtering-Correlation-Id: 6b6e05bc-1c49-4941-4caf-08d89ba4a642
+X-MS-TrafficTypeDiagnostic: MWHPR12MB1181:
+X-MS-Exchange-Transport-Forked: True
+X-Microsoft-Antispam-PRVS: <MWHPR12MB118164EA219228FFD54DBAE997CD0@MWHPR12MB1181.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:8273;
 X-MS-Exchange-SenderADCheck: 1
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: fEPwQ1QvvZ7pvUPkX3tXNJ9Q3rCnHb8pbfvnWdqIirgTewpgnT5taB4pHNpbHhtRV97K9imE9uI6zx06CzPsbhZRGkGB4rYfCcosBk4mlemnabl0SCo08scZPK6nF/F33cPgO+SaR5GnqFXr2YClLZm18IubPN7pRs+/SyvXptIpjSPmTRZxb6nzyIxXpD/FzxGxs0WKChUKNnhytSud9wLu+X9X3mObUVaiIDZhp0XJHlBonkhQh18HkCLgSKt73Rhcji5KrfV+FQ+7bUKhgHmGH0bdgT6a+IOI7a7o2y3KxjCLcgR21OOThI69MGFkZ69bwbhqza2kuMwfpL58peMxas1XBXFaCJO/0D6DqY73lnSYR9x5wt43YpY6UxK12PRQwA5XkZhBZWK1HwyhehlTisNErGpAG/z5HiOjbqSAoVfYBEAf6n3R7aweZjw6
+X-Microsoft-Antispam-Message-Info: WXBWO+MmMwc/St3YJerl+P9rhamSOvjmPxC9wlwMEHMqQDKndcN6nliDdiHPe1pk67Ik68WqdcpyXWSNQNfWTRpB62FLcRF2Y4V2dAif4zVriC+uuAeuo1q8wFgUYXS6ASt27rGx6K7QDDLsMsxLXyhr/kXTkosX06mT9s1XbUcfRKO9zzH9A2bx63XYl8q6qo/7BhQVrSRvlmNrbR3fykSl2noe5N7zCZwMLWmu+/F4RmnDdNnqIfz0DKIAPaPvYGkpY86ISX92AtmWfxAigX4FbpTOGcfyveXJO9fwZrbDE7tRIHuwW28toTewLYjpI3bg/E5Q9i4WAZZM/5WGsJ0K8nNRIGlA3ZWoVUf+yUWP8/efAoAmbA7P9YBauIJTtiixidQRn4nbVFlD7z69v0ffICAZls6tv87SydmPMNO+BAWnUeVqu8NcUfit5B2WdyhfpBlbXT3AUi+XWQ7aJUK9GgLts3W7A/S0iVHJ/X8U2x6s6rAT+FTRS8HekibHH/8y8sc+P1cS7g9Go32/hg==
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:MWHPR12MB1663.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(376002)(346002)(136003)(366004)(36756003)(54906003)(16526019)(66556008)(16576012)(6486002)(52116002)(6916009)(956004)(508600001)(2906002)(6666004)(66476007)(34490700003)(66946007)(53546011)(4326008)(8676002)(5660300002)(186003)(2616005)(86362001)(31686004)(26005)(8936002)(31696002)(43740500002)(45980500001);
+ SFS:(4636009)(366004)(376002)(346002)(136003)(2906002)(34490700003)(45080400002)(110136005)(66556008)(66946007)(66476007)(8936002)(83380400001)(6666004)(966005)(54906003)(5660300002)(8676002)(36756003)(508600001)(86362001)(31686004)(4326008)(53546011)(2616005)(956004)(52116002)(26005)(16526019)(186003)(31696002)(6486002)(16576012)(43740500002)(45980500001);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData: =?utf-8?B?b0k0bXJCMklObHBrUXpVMVNNbDMvcCt4SG9mZHZWbFRvaFJ5NFdBSG02UHVp?=
- =?utf-8?B?anFnM2JKTWlXbWVRZ1oyRkI4bWV0MzVxSjh6TnRoVFowdmZJZnh4ZHdCa1pU?=
- =?utf-8?B?SStGeTZHTEJDUkhwdDNHTkt5R2J5ODMxZE9CQldOc1BEU25PZ0Zmb2JIRDQr?=
- =?utf-8?B?bG1TYnhDcXV4K2JCZXpRbVpzb2UvYzE5b3o0TFZ5ZW8zdEJOeHNzblZmcGFt?=
- =?utf-8?B?b2RCSUlLUSsxNFU4b0I3SHhpQkppRUlrZEdiZmpTU0s5NVBmQUFmWW81d2xO?=
- =?utf-8?B?cHdsOXpIVjN2TjRvWEJ5em8yU2owQ1VpOThkbEk4U1dLM21nS0R4UGlhQXJv?=
- =?utf-8?B?dWpFVEdiUlUzbUdiZlBRN1JHWEdybXZyWlBGMjlUZkkyc0VmbWpuamxwQTFK?=
- =?utf-8?B?Z3E0MlF2Nms2L3NlcEFMQVh1eFJOSTRnT210R202azczRk4wVXY3NmtJRWlG?=
- =?utf-8?B?dkdCbGJVN01UWWZJb3p1dmlBZGtMbU03N0pBRjNiWkt5bldIeGZMVHlkRmlH?=
- =?utf-8?B?aWFpSS9ocHN0UDFjVkhTTzlFQzBEVk5zUHIzYzlId2EwZGoyVEZTNytxZVBs?=
- =?utf-8?B?Q2tXVWQ4RE9PeDQ1OTJJZGNmbVJudVJ2d3ZkT1p2NnBha29rL2NsRENHUjdL?=
- =?utf-8?B?eUdlWlRmOXYySDkranY1MEw0TDFZeTNvSzNBalhheFYxY2dMUzZsSjdrUkFq?=
- =?utf-8?B?bDF0R05tMitkZ1lSVGRSM0FHcnI3YjZUWVdCV2xmQTFaMHE2OHdWK2d4bVRD?=
- =?utf-8?B?T1hONmVzcitDU2xlUXhqZVNsZlEvT0xydU9OblVRNU9qQmxCVHhGZ1VsTndS?=
- =?utf-8?B?RlFwd3Y4eG1DQ05UZHB2MGRrYXk0UTFyTi9WNGN3N2VWU1dQc1I1c1RlWXdp?=
- =?utf-8?B?OUhIcWJsbXBETzJLMk9rZCtHTHhvUWRSaERiOFhhUnFrZkg3dmF2Y3pvdFJ5?=
- =?utf-8?B?OWNtakJwd01kZTZRN0I4MUdybEpBSmkxb1YxckdwMnpNVWFiTjh3YlFSbWFQ?=
- =?utf-8?B?dUdiTUVFZVNLY0NxUGtvcXQyb1JZK1JqcUk5YVhFQmdYbTZEZ2xaN09jNTda?=
- =?utf-8?B?bEJmOTZYMkJSZlcxTVhaOXJEdGNlSHBlV2czbmRxTHhnSGpLU0s3TlhiY2oz?=
- =?utf-8?B?Qm5lRFd3Yi9BTDdDVzNjQUZqNTdzWHRnaUx5U3FMNUoydzRFbnlGeUo4MVBP?=
- =?utf-8?B?VVVvUVdDV1Z3dERXdmwwOEoxTXRjMVFwbG0vZ3p4SDNGMkN6UkZldEdSekJU?=
- =?utf-8?B?OXUvVnlnZ3NWRC9kME84Z3Jsb0FKNktKV2pMZmwrOVJOM3gybExDclp4WU82?=
- =?utf-8?Q?X0naOdLgBoR3vI0lbnnriA29Hkyla93HEI?=
+X-MS-Exchange-AntiSpam-MessageData: =?utf-8?B?UmY5dkVCRUNybFVnUFVPclEwaEpxSXd3L1VhMEdqUEpjSE84SEZ2WEUxZlNC?=
+ =?utf-8?B?Y3ZFTlJ4clBVNGpHTjhVanBMKy9USnJIeUQ0akRvNHN6djluS2hINjlFck1l?=
+ =?utf-8?B?bzNSR2pNTGtpTC8wNnI5WXhBT3JlY25rbk52T29DUnVNTWFUL050SkF3TS9E?=
+ =?utf-8?B?ZmNobTk5MU9qUU5YK1EwR0NUNXpjdCtLZE00OWpiWDV6cDV2UTVVSjlaWWdX?=
+ =?utf-8?B?R1Z6MnZWV0RjWWI3U1pnb2gwMUtoZkNOejhvM0xoeFF0QjVvUEdYWE05ZldZ?=
+ =?utf-8?B?QVN0UUtXcFhnaURYTXlvVlBkUW9BcG1yc0tBYUVZOFE2SzJRUmRkaFhtdVNE?=
+ =?utf-8?B?dkl0UVQrV09hWXJYTjJYUldBVC96TnoyUFgwY2tVQmozMkgrcHIwT0pQb29j?=
+ =?utf-8?B?UWZ2SUJabDJyUjhGeW9ZK29aZk1FejJYa0tMNDVpanRTcVp0cUJnaWo2eldY?=
+ =?utf-8?B?TjhYVUlnQVZ4ZnRRRlRpazl6N0dGWXRwMWI1M05MTnhaUDNxZTdqYjJGUG9U?=
+ =?utf-8?B?cW1sVnFTa1UzTW1qV2pBL3AvcWtGNVAyZ3hFKzZuYUhhM2puMllNRG1INjhm?=
+ =?utf-8?B?K2ZyVURxR1ZvMTlCRUdVSHRBajBoOTFwWGJPeExuRytCUWRTaTY4SDFtOXBu?=
+ =?utf-8?B?TGpvcW5NU1BrTmh3RXhicFVuRklxV1J3MHlybzF5dU9kd3NBY3J5c3U4OVd5?=
+ =?utf-8?B?S3k3bTRPTXpIRG1hK1pSdjk5alpVNm1xSHgyaHJwNHRTUjFUV3M5T3Y0Y0hH?=
+ =?utf-8?B?ZFpQZktnMFhqZnBVK3RSdzdndC9Sc21IWFJjaG9QTDRQZzl3SzJ3Zjd2SHV4?=
+ =?utf-8?B?R2RIWkIrWHlUWjRlQ3lTcG1xa0tLbTJMVmtmcEI0d3RaOUhyaFYxL1ZqOTdz?=
+ =?utf-8?B?RDZPZnhqSGNjeWY5cmt6MEF4TUZHNmM4TmlMdEJXbll5M0hOMGRRVGVYQjlZ?=
+ =?utf-8?B?UEpDRk5MbU9SUnNXNHlRUDBmN1hLckVMNHplUEQ4R2NNekR6aDBwa0RNcFN2?=
+ =?utf-8?B?TWRxNzJhbXVXVmQySmYvQ3dvZ3pqdUJrU09GWDBaZmhUYndwWUZGVWx6T2RQ?=
+ =?utf-8?B?MURZNWFpZWlWL3BXV05vak9OWldhWkRoVHdWcjNBalR2U1A4SnZnU3pUelFj?=
+ =?utf-8?B?Qnp1UDJSeXA5ZjZER1JMTGNBYmNPSkdXaGVVSlk4bWIrMDJ5aEtoWlZNQzVz?=
+ =?utf-8?B?RVJ5eWU3dDAvVGpna0xmRzBidVJwZEYyeHk3cDVTLzM4V0dwc0ZxN1l1TGJX?=
+ =?utf-8?B?dG14ZGxSWFZIV1dkMmxoVzBsMHFraWNNSDZrWENyQ1RIM1FTV0pNZEZ5ZFdC?=
+ =?utf-8?Q?JIfNxkVfmsBjM2Klro9cnfTkdLwkNNg+h9?=
 X-OriginatorOrg: amd.com
 X-MS-Exchange-CrossTenant-AuthSource: MWHPR12MB1663.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Dec 2020 18:07:15.3016 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Dec 2020 18:11:13.8540 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-Network-Message-Id: 33336f11-4609-408f-f66b-08d89ba4180f
+X-MS-Exchange-CrossTenant-Network-Message-Id: 6b6e05bc-1c49-4941-4caf-08d89ba4a642
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: YaPPrDPOv3rCLan+vkI+FKbXYemzE+M7SsewAp5S5tqSQ9/0Y9DtGoF/wC/EQmpyfQXNKzDDiPZYX2myXDhK/w==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW2PR12MB2521
-Cc: ALSA development <alsa-devel@alsa-project.org>,
- Mark Brown <broonie@kernel.org>, stable@kernel.org
+X-MS-Exchange-CrossTenant-UserPrincipalName: a4ILTO2KRIK9eMcm0CzzYon3xgjHvr3ntshHKYhTFIEeIOiXq7wX2RXoHwpNDEMGDPpOo+gc4yxIjOOyg5wzqw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MWHPR12MB1181
+Cc: Ravulapati Vishnu vardhan rao <Vishnuvardhanrao.Ravulapati@amd.com>,
+ alsa-devel@alsa-project.org, Akshu Agrawal <akshu.agrawal@amd.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -158,46 +157,53 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 
 
-On 08/12/20 11:51 pm, Mukunda,Vijendar wrote:
+On 08/12/20 8:34 pm, Takashi Iwai wrote:
+> Adding AMD people to Cc.
 > 
-> 
-> On 08/12/20 11:27 pm, Takashi Iwai wrote:
->> On Tue, 08 Dec 2020 19:06:21 +0100,
->> Mukunda,Vijendar wrote:
->>>
->>>
->>>
->>> On 08/12/20 11:10 pm, Mark Brown wrote:
->>>> On Tue, Dec 08, 2020 at 05:24:32PM +0100, Takashi Iwai wrote:
->>>>
->>>>> BTW, both Raven and Reonir drivers point to the very same PCI ID,
->>>>> and both drivers will be probed for this machine (and both to be
->>>>> skipped).
->>>>
->>>> Ugh, that's not good.  It's not even super obvious from the code that
->>>> this is happening.  Seems like it should be one core driver which
->>>> instantiates the components for Raven and Reonir as appropriate, the 
->>>> PCI
->>>> driver is pretty thin at present anyway.
->>>>
->>>
->>> Raven and Renoir has same PCI ID but both platforms have different
->>> revision ID. Raven platform revision id is 0x00 where as for Renoir it
->>> is 0x01.
+> On Tue, 08 Dec 2020 15:01:24 +0100,
+> Janpieter Sollie wrote:
 >>
->> But your drivers don't check the revision ID, as far as I see?
+>> Forwarded from: https://nam11.safelinks.protection.outlook.com/?url=https%3A%2F%2Fbugzilla.kernel.org%2Fshow_bug.cgi%3Fid%3D208699&amp;data=04%7C01%7CVijendar.Mukunda%40amd.com%7Cc55d2e5a7fc8472e14ce08d89b8a9a5e%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C1%7C637430367345025555%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C2000&amp;sdata=LnNjfKSgSFcozSegpZ52afwMtmK%2FE5AbcHwn0r49jdY%3D&amp;reserved=0
 >>
->> The linux PCI driver doesn't distinguish the revision id at the
->> matching time, unfortunately.
->>
->>
->> Takashi
->>
-> Apart from Revision ID difference, There are few hardware differences
-> specific to ACP IP.
-> ACP IP hardware versions are different for Raven and Renoir.
-> Unfortunately we don't have specific logic to distinguish ACP hardware 
-> versions for Raven and Renoir.
-> 
-But build wise both Raven and Renoir uses different Kconfig options.
+>> Anybody who knows what this "ACP" actually does? what's its use?
 
+ACP(Audio Co-processor) is an AMD Audio IP which has multiple 
+generations support(1.x,2.x,3.x..etc)
+
+ACP supports different audio configurations like I2S/AZ etc.. endpoint 
+support.
+Based on the platform, Audio configuration will be programmed from BIOS.
+For example, to use I2S endpoint ACP_I2S_PIN_CONFIG is programmed as 
+0x04 on Raven Ridge.
+To use the AZ(HD AUdio) endpoint, ACP_I2S_PIN_CONFIG is programmed to 
+different value.
+
+On Raven ridge APU, We have upstreamed ACP PCI driver and I2S ASoC driver.
+
+On Renoir APU, We have upstreamed ACP PCI driver along with PDM DMA 
+driver. You have to enable ACP specific Kconfig flags for renoir 
+platform when platform has DMIC support and it is connected to APU.
+
+I see from the logs, you have tried to load ACP PDM DMIC driver but 
+attached config file is not matching.
+
+There are hardware differences in terms of ACP IP for both Raven and Renoir.
+
+HD Audio endpoint uses open source HDA driver.
+
+Let us know what is your platform configuration?
+What Audio endpoints your platform supports?
+
+--
+Vijendar
+
+
+
+
+>>
+>>
+>> Kind regards,
+>>
+>>
+>> Janpieter Sollie
+>>

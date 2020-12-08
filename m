@@ -2,76 +2,88 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D3EE02D2288
-	for <lists+alsa-devel@lfdr.de>; Tue,  8 Dec 2020 05:57:51 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id AD7B22D22F8
+	for <lists+alsa-devel@lfdr.de>; Tue,  8 Dec 2020 06:19:51 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 638BD1700;
-	Tue,  8 Dec 2020 05:57:01 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 638BD1700
+	by alsa0.perex.cz (Postfix) with ESMTPS id 234161703;
+	Tue,  8 Dec 2020 06:19:01 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 234161703
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1607403471;
-	bh=1RiFaYT5sszcYT3rzZ7wK33h9vZoHSV5GWfAX84nrpk=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1607404791;
+	bh=2+yR3yuo4D7zMCR8NK9mW5qO7VOsix8sqbs+j4+m0Gg=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=RRUwweWhMEpQe0Yuo3cwQxleuhFYOv2q2KuYFeAb4FsJw1EwW+aDQLe23pyu8p6TZ
-	 XtEe9qhsXPjm9/skBSPTysdc6wYtKV7G3R5tMkKUss/+yJ3AxClc9S3u2f1YrSPus4
-	 t4z876050KMIWGsvjDQ/2k9xATAcKk3+q7sVtXdw=
+	b=Y9WAA9B6iJWxm5nygK66BcCYiiyoWVwDB33aSXMxduhhD85gDH+V0YvxwBb5cigx5
+	 yjUdhz/2C46d+eJjfkWs4vRMTXmCm/UUStFUgCGmpDrk2SQFgrncKEUlP05j8vJIXj
+	 x/pSiquni2lctLzEl7ZAlAdiUhn3/5AeWsNZgDGM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 87599F80218;
-	Tue,  8 Dec 2020 05:56:16 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 2EC42F80218;
+	Tue,  8 Dec 2020 06:18:16 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id ADE0EF80130; Tue,  8 Dec 2020 05:56:14 +0100 (CET)
+ id B7E9AF8019D; Tue,  8 Dec 2020 06:18:12 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
  version=3.4.0
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+Received: from mail-pg1-x543.google.com (mail-pg1-x543.google.com
+ [IPv6:2607:f8b0:4864:20::543])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 29E51F80130
- for <alsa-devel@alsa-project.org>; Tue,  8 Dec 2020 05:56:07 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 29E51F80130
+ by alsa1.perex.cz (Postfix) with ESMTPS id 17B17F80130
+ for <alsa-devel@alsa-project.org>; Tue,  8 Dec 2020 06:18:01 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 17B17F80130
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="JsaVxd5i"
-Date: Tue, 8 Dec 2020 10:26:00 +0530
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1607403364;
- bh=1RiFaYT5sszcYT3rzZ7wK33h9vZoHSV5GWfAX84nrpk=;
- h=From:To:Cc:Subject:References:In-Reply-To:From;
- b=JsaVxd5iO6il066W28gWU1l0+3OyFChdHtmkgNKsV/SRsoHYAr+W9iqN3k6/BsuwY
- MuEGN2cmbukxDF56bNvz94mtXuOCLuzlwe9eE5k25W0xYyE0NYvFKK6EWuodyfiATb
- Ua0qLLzG7O4GstPtpxslD6vSnZ3AbvXkraNeglweCzSA4IE6v4/fNl1wrwkEHNjuy+
- SvkiabnoRnfF8/S2usqxo4/3XEcJanoL3UQZyDxYj8OjinAs236rccCpdzsgittcZ0
- 9XL6SitN1HnpfwQqaqEQ96C9zhNTWIcOdtSt7/LshVRMFE/OFpsmawixJ1bTpIfvWG
- VAuytt2F626lA==
-From: Vinod Koul <vkoul@kernel.org>
-To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Subject: Re: [PATCH 1/7] soundwire: bus: use sdw_update_no_pm when
- initializing a device
-Message-ID: <20201208045600.GE8403@vkoul-mobl>
-References: <20201202204645.23891-1-yung-chuan.liao@linux.intel.com>
- <20201202204645.23891-2-yung-chuan.liao@linux.intel.com>
- <20201205074508.GQ8403@vkoul-mobl>
- <1db93c2e-3c87-bc5e-ddeb-56424870b897@linux.intel.com>
- <20201207044334.GA8403@vkoul-mobl>
- <668b4d5c-d9eb-0256-ce26-df38e32cc520@linux.intel.com>
+ dkim=pass (2048-bit key) header.d=endlessos.org header.i=@endlessos.org
+ header.b="MxvmroRx"
+Received: by mail-pg1-x543.google.com with SMTP id g18so11159323pgk.1
+ for <alsa-devel@alsa-project.org>; Mon, 07 Dec 2020 21:18:01 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=endlessos.org; s=google;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=6B27MjfiQVy0rXuqasBw27ufwoC3xQGBEn2nziAxKKw=;
+ b=MxvmroRxK7TMgJsiKckqSSoIB1O+g9Hvlhy4w/byUGZUDIJ6Jg1CBBkjd8zwI+Uc4T
+ 8OrBN1jwckJQo+Xuo17WQmP+SiKRlvKZY9ux9srN+/s3vucDJ0/32U43b2mz13WU5/k+
+ K6oArXu2qDuUK1hGbaOmAokFYwVPGvmt5B1/uCbXhVK0r4JgsxzIEdgaHStnW4pG/4p3
+ XHHtaKke6fFEMUTOLi4eVH5LfFj1OSW8ucnYpAO0LM9fIUSpnnsmdCypbtWGcBpM2a2f
+ OXmAQ7tp4kwE39Lvfxs9DEfDO3udXI5o0T6joSdPWXuN4rWa49yuH/i14tGxVCbC79lw
+ ic2g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=6B27MjfiQVy0rXuqasBw27ufwoC3xQGBEn2nziAxKKw=;
+ b=RBfFjVYmz6TiB9qAF1gLZc8IMXbFVx1+RcPJGUVrwdTqCxKZMyXVwCXQf5dvFNpsim
+ mYXnEXkJEkXlzTYSPx5SHOKeBJ+CLs5nvSAm6XYHRXsIlL51mC/s2fg3QkqqeRVaHql4
+ cGLmEdxyScMAWyXFHYv3y4QWCmX8RCtpTRf9Kjrpn6fGRXEOMvNXc5S2BaYtT9GmSYgQ
+ CN7FrSIbCJAKGZZ2dEoP/jq9Qkzwqf5ujYTyoyRhil3NKCz2r4kfRdn7w0au9P1qKmHU
+ PvBtYHofqMfP4i9AEcnQPmdsqF5Epxm/GDzNzc4TYRjdKJ7aW+AYGyFWtTHbvXCP8z2t
+ s5Nw==
+X-Gm-Message-State: AOAM530JevjLRRDX3G65vt5gSgFHJYiUez1pKhDAa1F7WXlTfn81nd0r
+ sjq5PmbwOmjFZKTyZJpJO7FmCrm5FDr4LnldAocz2A==
+X-Google-Smtp-Source: ABdhPJxAyat6w/s5kIrYWRiG8fkEEx0Fy4ugnBvg0BiPnvUvHJ9D+f7afjLBBjveFnwE5uOkVGTPnEKZr1qNWQiKdYw=
+X-Received: by 2002:a62:1dd5:0:b029:19d:fc87:5f45 with SMTP id
+ d204-20020a621dd50000b029019dfc875f45mr9281048pfd.63.1607404679429; Mon, 07
+ Dec 2020 21:17:59 -0800 (PST)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <668b4d5c-d9eb-0256-ce26-df38e32cc520@linux.intel.com>
-Cc: alsa-devel@alsa-project.org, tiwai@suse.de, gregkh@linuxfoundation.org,
- linux-kernel@vger.kernel.org, ranjani.sridharan@linux.intel.com,
- hui.wang@canonical.com, broonie@kernel.org, srinivas.kandagatla@linaro.org,
- jank@cadence.com, sanyog.r.kale@intel.com,
- Bard Liao <yung-chuan.liao@linux.intel.com>, rander.wang@linux.intel.com,
- bard.liao@intel.com
+References: <20201207073346.16571-1-chiu@endlessos.org>
+ <s5h360i2eov.wl-tiwai@suse.de>
+In-Reply-To: <s5h360i2eov.wl-tiwai@suse.de>
+From: Chris Chiu <chiu@endlessos.org>
+Date: Tue, 8 Dec 2020 13:17:48 +0800
+Message-ID: <CAB4CAwcuZxz260Q=7VntkZnit_x0K4Pthcdnv1xD=NgmcRCDew@mail.gmail.com>
+Subject: Re: [PATCH] ALSA: hda/realtek - Add support for Memeza EDL03 headset
+ mic
+To: Takashi Iwai <tiwai@suse.de>
+Content-Type: text/plain; charset="UTF-8"
+Cc: alsa-devel@alsa-project.org, Kailang <kailang@realtek.com>,
+ Linux Kernel <linux-kernel@vger.kernel.org>, Jian-Hong Pan <jhp@endlessos.org>,
+ tiwai@suse.com, linux@endlessos.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -87,60 +99,51 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 07-12-20, 09:31, Pierre-Louis Bossart wrote:
-> On 12/6/20 10:43 PM, Vinod Koul wrote:
-> > On 05-12-20, 08:59, Pierre-Louis Bossart wrote:
-> > > Thanks for the review Vinod.
-> > > 
-> > > On 12/5/20 1:45 AM, Vinod Koul wrote:
-> > > > On 03-12-20, 04:46, Bard Liao wrote:
-> > > > > From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-> > > > > 
-> > > > > When a Slave device is resumed, it may resume the bus and restart the
-> > > > > enumeration. During that process, we absolutely don't want to call
-> > > > > regular read/write routines which will wait for the resume to
-> > > > > complete, otherwise a deadlock occurs.
-> > > > > 
-> > > > > Fixes: 60ee9be25571 ('soundwire: bus: add PM/no-PM versions of read/write functions')
-> > > > 
-> > > > Change looks okay, but not sure why this is a fix for adding no pm
-> > > > version?
-> > > 
-> > > when we added the no_pm version, we missed the two cases below where
-> > > sdw_update() was used and that creates a deadlock. To me that's a conceptual
-> > > bug, we didn't fully use the no_pm versions, hence the Fixes tag.
-> > 
-> > Documentation says:
-> > "A Fixes: tag indicates that the patch fixes an issue in a previous commit. It
-> > is used to make it easy to determine where a bug originated, which can help
-> > review a bug fix. This tag also assists the stable kernel team in determining
-> > which stable kernel versions should receive your fix. This is the preferred
-> > method for indicating a bug fixed by the patch. See :ref:`describe_changes`
-> > for more details."
-> > 
-> > I do not this this helps here as this does not help distros etc
-> > I would say this is incremental development which improved a case not
-> > done properly earlier, unless you would like this to be backported.. In
-> > that case it helps folks...
-> 
-> IMHO the changes in the series are absolutely required to have a reliable
-> suspend-resume operation and will need to be back-ported. When I said
-> 'conceptual bug', I didn't mean a hypothetical case, I really meant that a
-> proven race condition and timeouts will occur. That's not good... We will
-> provide the list of this patches to distros that are known to support
-> SoundWire as a 'must apply'.
-> 
-> If you look at the series, we provided Fixes tags for all patches except
-> 'cosmetic' ones which don't fundamentally change the behavior (Patch 3,
-> patch 7) or when the code has not reached Linus' tree (patch 5).
-> 
-> That said, 5.10 was the first release where SoundWire started to be
-> functional so there's no need to apply these patches to earlier versions of
-> the stable tree.
-> 
-> Does this help?
+On Mon, Dec 7, 2020 at 4:38 PM Takashi Iwai <tiwai@suse.de> wrote:
+>
+> On Mon, 07 Dec 2020 08:33:46 +0100,
+> Chris Chiu wrote:
+> >
+> > The Memeza laptop EDL03 with codec ALC256 can't detect the headset
+> > microphone. The headphone jack sensing works after we add a pin
+> > definition for it by ALC256_FIXUP_ASUS_MIC_NO_PRESENCE.
+> >
+> > Signed-off-by: Chris Chiu <chiu@endlessos.org>
+> > Signed-off-by: Jian-Hong Pan <jhp@endlessos.org>
+> > ---
+> >  sound/pci/hda/patch_realtek.c | 1 +
+> >  1 file changed, 1 insertion(+)
+> >
+> > diff --git a/sound/pci/hda/patch_realtek.c b/sound/pci/hda/patch_realtek.c
+> > index d5e4d0ba1008..8b9b94cfc67e 100644
+> > --- a/sound/pci/hda/patch_realtek.c
+> > +++ b/sound/pci/hda/patch_realtek.c
+> > @@ -7871,6 +7871,7 @@ static const struct snd_pci_quirk alc269_fixup_tbl[] = {
+> >       SND_PCI_QUIRK(0x10cf, 0x1629, "Lifebook U7x7", ALC255_FIXUP_LIFEBOOK_U7x7_HEADSET_MIC),
+> >       SND_PCI_QUIRK(0x10cf, 0x1845, "Lifebook U904", ALC269_FIXUP_LIFEBOOK_EXTMIC),
+> >       SND_PCI_QUIRK(0x10ec, 0x10f2, "Intel Reference board", ALC700_FIXUP_INTEL_REFERENCE),
+> > +     SND_PCI_QUIRK(0x10ec, 0x115a, "Memeza EDL03", ALC256_FIXUP_ASUS_MIC_NO_PRESENCE),
+>
+> This looks suspicious.  10ec is the vendor ID for Realtek, i.e. it
+> implies that the BIOS on this machine didn't give the proper unique
+> ID.  As you can see, the other entries with 10ec are only reference
+> boards.
+>
+> If the newer BIOS still doesn't fix the PCI SSID, you can check the
+> codec SSID instead.
+>
+>
+> thanks,
+>
+> Takashi
 
-Yes, that helps, thanks
+Thanks for the feedback. This is a special case that the ODM didn't
+flash the DMI information
+and assign a formal SSID. They simply ship with the current status w/o
+any BIOS customization.
 
--- 
-~Vinod
+I agree that we should push the vendor for a BIOS fix or figure out a
+generic solution for this
+instead of a pin quirk. Please ignore this. Thanks
+
+Chris

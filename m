@@ -2,65 +2,62 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9EBAE2D2E6A
-	for <lists+alsa-devel@lfdr.de>; Tue,  8 Dec 2020 16:38:50 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id AE11A2D2F31
+	for <lists+alsa-devel@lfdr.de>; Tue,  8 Dec 2020 17:14:11 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 26DAC16EC;
-	Tue,  8 Dec 2020 16:38:00 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 26DAC16EC
+	by alsa0.perex.cz (Postfix) with ESMTPS id 3BB4B16C2;
+	Tue,  8 Dec 2020 17:13:21 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3BB4B16C2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1607441930;
-	bh=LDnsnK02u4RnJzHw2TjdanG4ZVPpLn6WUWx36Sj6O5A=;
+	s=default; t=1607444051;
+	bh=XgtpZdL2AMIoHO+VE1syi8rmg78v2PJ1bgh7IMkKvPE=;
 	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
 	 List-Post:List-Help:List-Subscribe:From;
-	b=k2k0Blct7bhE/shgC6cED1aoUxVKyUfUNB/YH/CqafXvJp5+QPJZYvmpv8EtJBIwD
-	 58/w4MzZkiRMs/8QzuDOOcd8F8JaB2LwMhlUVQk5arMT5GqWuJaJ3ZscYFPngtb54F
-	 5SvQ8wrVJj0RA1py0h8VeIzVaanTn36SgCh6fevk=
+	b=BiuTpv177DioAFQPRuckYe0UP7JU4GUwv4E4xJ2Nx7rmzUFRrKy583lZ4ySs8Bd3P
+	 7KvV3E8l7jwWy6EhGLiIJpsRg3+/HyL/nZlvsuHt9Qcl4Ce5PC1iLWMTYC4OYcCVPk
+	 Tma1AuP2TTX1Jng58pdfZczv9YsGeE1K5BQqQm6g=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 2F9B2F80218;
-	Tue,  8 Dec 2020 16:37:15 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 861B4F8019D;
+	Tue,  8 Dec 2020 17:12:36 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id C4293F8019D; Tue,  8 Dec 2020 16:37:12 +0100 (CET)
+ id C92A7F8019D; Tue,  8 Dec 2020 17:12:34 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from mail1.perex.cz (mail1.perex.cz [77.48.224.245])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id E01BFF800E1
- for <alsa-devel@alsa-project.org>; Tue,  8 Dec 2020 16:37:06 +0100 (CET)
-Received: from mail1.perex.cz (localhost [127.0.0.1])
- by smtp1.perex.cz (Perex's E-mail Delivery System) with ESMTP id BBBE3A0040;
- Tue,  8 Dec 2020 16:37:04 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 smtp1.perex.cz BBBE3A0040
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=perex.cz; s=default;
- t=1607441824; bh=kSeMdyTvaRHC4iiCVm+N7bf46MOLAnyiNIbgqg8CkAc=;
- h=From:To:Cc:Subject:Date:From;
- b=2FQOCxj3JChOCDnt9nQMZn+alm3MVdsIjvG41Ysnb86t0/m7sUDHImGinMzITXoZX
- pAqFZTw0/oeRkDVSaTNri0JSIdDhR8G+vCfsMQU6PDAAjcSmh68ilO7DXt189wfRTa
- po73hk3GYlnWm4Hd7BrfBN7d6Bry5gwN4D30uapo=
-Received: from p1gen2.perex-int.cz (unknown [192.168.100.98])
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested) (Authenticated sender: perex)
- by mail1.perex.cz (Perex's E-mail Delivery System) with ESMTPSA;
- Tue,  8 Dec 2020 16:36:58 +0100 (CET)
-From: Jaroslav Kysela <perex@perex.cz>
-To: ALSA development <alsa-devel@alsa-project.org>
-Subject: [PATCH] ASoC: AMD Renoir - add DMI table to avoid the ACP mic probe
- (broken BIOS)
-Date: Tue,  8 Dec 2020 16:36:54 +0100
-Message-Id: <20201208153654.2733354-1-perex@perex.cz>
-X-Mailer: git-send-email 2.26.2
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 1E960F8010A
+ for <alsa-devel@alsa-project.org>; Tue,  8 Dec 2020 17:12:22 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1E960F8010A
+IronPort-SDR: 2NoyyH8wzupbZjYhc5d/Giu9wb00nIwS+kUlEn/KpaM03j+elDevyRxDZ1nWLvn3ZsJdBTVZrP
+ 1ZnA/wARhQRg==
+X-IronPort-AV: E=McAfee;i="6000,8403,9829"; a="171344629"
+X-IronPort-AV: E=Sophos;i="5.78,402,1599548400"; d="scan'208";a="171344629"
+Received: from fmsmga006.fm.intel.com ([10.253.24.20])
+ by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 08 Dec 2020 08:12:17 -0800
+IronPort-SDR: MIIeZ22/zm0c0YHtXpGhaEr2JLvE5bNrL1SYXrwOW4XWovtutdIF9IJrguIUNaxlcg5Zu5RyvU
+ xLFusinORGTg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.78,402,1599548400"; d="scan'208";a="540304110"
+Received: from eliteleevi.tm.intel.com ([10.237.54.20])
+ by fmsmga006.fm.intel.com with ESMTP; 08 Dec 2020 08:12:16 -0800
+From: Kai Vehmanen <kai.vehmanen@linux.intel.com>
+To: alsa-devel@alsa-project.org,
+	tiwai@suse.de
+Subject: [PATCH] ALSA: hda/proc - print DP-MST connections
+Date: Tue,  8 Dec 2020 18:09:41 +0200
+Message-Id: <20201208160941.2797510-1-kai.vehmanen@linux.intel.com>
+X-Mailer: git-send-email 2.28.0
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Cc: Takashi Iwai <tiwai@suse.de>, Mark Brown <broonie@kernel.org>,
- Vijendar Mukunda <Vijendar.Mukunda@amd.com>, stable@kernel.org
+Cc: kai.vehmanen@linux.intel.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -76,94 +73,88 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Users reported that some Lenovo AMD platforms do not have ACP microphone,
-but the BIOS advertises it via ACPI.
+To help in debugging issues with DisplayPort Multi-Stream Transport (aka
+DP-MST) support, print information of active connections for
+each device of a display audio pin widget.
 
-This patch create a simple DMI table, where those machines with the broken
-BIOS can be added. The DMI description for Lenovo IdeaPad 5 and
-IdeaPad Flex 5 devices are added there.
+Example output with the patch with two monitors connected to a DP-MST hub:
 
-Also describe the dmic_acpi_check kernel module parameter in a more
-understandable way.
+Devices: 4
+     Dev 00: PD = 0, ELDV = 0, IA = 0, Connections [ 0x03* 0x05 0x07 0x09 ]
+     Dev 01: PD = 1, ELDV = 1, IA = 0, Connections [ 0x03* 0x05 0x07 0x09 ]
+    *Dev 02: PD = 1, ELDV = 1, IA = 0, Connections [ 0x03 0x05* 0x07 0x09 ]
+     Dev 03: PD = 0, ELDV = 0, IA = 0, Connections [ 0x03* 0x05 0x07 0x09 ]
+Connection: 4
+     0x03 0x05* 0x07 0x09
 
-BugLink: https://bugzilla.redhat.com/show_bug.cgi?id=1892115
-Cc: <stable@kernel.org>
-Cc: Vijendar Mukunda <Vijendar.Mukunda@amd.com>
-Cc: Mark Brown <broonie@kernel.org>
-Signed-off-by: Jaroslav Kysela <perex@perex.cz>
+Format of existing "Connection:" entry is left intact to keep
+compatibility.
+
+Signed-off-by: Kai Vehmanen <kai.vehmanen@linux.intel.com>
 ---
- sound/soc/amd/renoir/rn-pci-acp3x.c | 28 +++++++++++++++++++++++-----
- 1 file changed, 23 insertions(+), 5 deletions(-)
+ sound/pci/hda/hda_proc.c | 39 ++++++++++++++++++++++++++++++++++++++-
+ 1 file changed, 38 insertions(+), 1 deletion(-)
 
-diff --git a/sound/soc/amd/renoir/rn-pci-acp3x.c b/sound/soc/amd/renoir/rn-pci-acp3x.c
-index b943e59fc302..3289ab3eae6f 100644
---- a/sound/soc/amd/renoir/rn-pci-acp3x.c
-+++ b/sound/soc/amd/renoir/rn-pci-acp3x.c
-@@ -6,6 +6,7 @@
- 
- #include <linux/pci.h>
- #include <linux/acpi.h>
-+#include <linux/dmi.h>
- #include <linux/module.h>
- #include <linux/io.h>
- #include <linux/delay.h>
-@@ -20,14 +21,13 @@ module_param(acp_power_gating, int, 0644);
- MODULE_PARM_DESC(acp_power_gating, "Enable acp power gating");
- 
- /**
-- * dmic_acpi_check = -1 - Checks ACPI method to know DMIC hardware status runtime
-- *                 = 0 - Skips the DMIC device creation and returns probe failure
-- *                 = 1 - Assumes that platform has DMIC support and skips ACPI
-- *                       method check
-+ * dmic_acpi_check = -1 - Use ACPI/DMI method to detect the DMIC hardware presence at runtime
-+ *                 =  0 - Skip the DMIC device creation and return probe failure
-+ *                 =  1 - Force DMIC support
-  */
- static int dmic_acpi_check = ACP_DMIC_AUTO;
- module_param(dmic_acpi_check, bint, 0644);
--MODULE_PARM_DESC(dmic_acpi_check, "checks Dmic hardware runtime");
-+MODULE_PARM_DESC(dmic_acpi_check, "Digital microphone presence (-1=auto, 0=none, 1=force)");
- 
- struct acp_dev_data {
- 	void __iomem *acp_base;
-@@ -163,6 +163,17 @@ static int rn_acp_deinit(void __iomem *acp_base)
- 	return 0;
+diff --git a/sound/pci/hda/hda_proc.c b/sound/pci/hda/hda_proc.c
+index 0631f31ef87f..e1cba574cadb 100644
+--- a/sound/pci/hda/hda_proc.c
++++ b/sound/pci/hda/hda_proc.c
+@@ -679,6 +679,39 @@ static void print_gpio(struct snd_info_buffer *buffer,
+ 	print_nid_array(buffer, codec, nid, &codec->nids);
  }
  
-+static const struct dmi_system_id rn_acp_quirk_table[] = {
-+	{
-+		/* Lenovo IdeaPad Flex 5 14ARE05, IdeaPad 5 15ARE05 */
-+		.matches = {
-+			DMI_EXACT_MATCH(DMI_BOARD_VENDOR, "LENOVO"),
-+			DMI_EXACT_MATCH(DMI_BOARD_NAME, "LNVNB161216"),
-+		}
-+	},
-+	{}
-+};
++static void print_dpmst_connections(struct snd_info_buffer *buffer, struct hda_codec *codec,
++				    hda_nid_t nid, int dev_num)
++{
++	int c, conn_len, curr, dev_id_saved;
++	hda_nid_t *conn;
 +
- static int snd_rn_acp_probe(struct pci_dev *pci,
- 			    const struct pci_device_id *pci_id)
++	conn_len = snd_hda_get_num_raw_conns(codec, nid);
++	if (conn_len <= 0)
++		return;
++
++	conn = kmalloc_array(conn_len,
++			     sizeof(hda_nid_t),
++			     GFP_KERNEL);
++
++	dev_id_saved = snd_hda_get_dev_select(codec, nid);
++	snd_hda_set_dev_select(codec, nid, dev_num);
++	if (snd_hda_get_raw_connections(codec, nid, conn, conn_len) < 0)
++		goto out;
++
++	curr = snd_hda_codec_read(codec, nid, 0,
++				  AC_VERB_GET_CONNECT_SEL, 0);
++
++	for (c = 0; c < conn_len; c++) {
++		snd_iprintf(buffer, " 0x%02x", conn[c]);
++		if (c == curr)
++			snd_iprintf(buffer, "*");
++	}
++
++out:
++	kfree(conn);
++	snd_hda_set_dev_select(codec, nid, dev_id_saved);
++}
++
+ static void print_device_list(struct snd_info_buffer *buffer,
+ 			    struct hda_codec *codec, hda_nid_t nid)
  {
-@@ -172,6 +183,7 @@ static int snd_rn_acp_probe(struct pci_dev *pci,
- 	acpi_handle handle;
- 	acpi_integer dmic_status;
- #endif
-+	const struct dmi_system_id *dmi_id;
- 	unsigned int irqflags;
- 	int ret, index;
- 	u32 addr;
-@@ -232,6 +244,12 @@ static int snd_rn_acp_probe(struct pci_dev *pci,
- 			goto de_init;
- 		}
- #endif
-+		dmi_id = dmi_first_match(rn_acp_quirk_table);
-+		if (dmi_id && !dmi_id->driver_data) {
-+			dev_warn(&pci->dev, "ACPI settings override using DMI (ACP mic is not present)");
-+			ret = -ENODEV;
-+			goto de_init;
-+		}
- 	}
+@@ -702,10 +735,14 @@ static void print_device_list(struct snd_info_buffer *buffer,
+ 			snd_iprintf(buffer, "     ");
  
- 	adata->res = devm_kzalloc(&pci->dev,
+ 		snd_iprintf(buffer,
+-			"Dev %02d: PD = %d, ELDV = %d, IA = %d\n", i,
++			"Dev %02d: PD = %d, ELDV = %d, IA = %d, Connections [", i,
+ 			!!(dev_list[i] & AC_DE_PD),
+ 			!!(dev_list[i] & AC_DE_ELDV),
+ 			!!(dev_list[i] & AC_DE_IA));
++
++		print_dpmst_connections(buffer, codec, nid, i);
++
++		snd_iprintf(buffer, " ]\n");
+ 	}
+ }
+ 
 -- 
-2.26.2
+2.28.0
+

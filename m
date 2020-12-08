@@ -2,89 +2,94 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0BA772D1E9D
-	for <lists+alsa-devel@lfdr.de>; Tue,  8 Dec 2020 00:56:28 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 867472D200A
+	for <lists+alsa-devel@lfdr.de>; Tue,  8 Dec 2020 02:30:05 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 8057315F2;
-	Tue,  8 Dec 2020 00:55:37 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8057315F2
+	by alsa0.perex.cz (Postfix) with ESMTPS id 0EAF01714;
+	Tue,  8 Dec 2020 02:29:15 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0EAF01714
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1607385387;
-	bh=OODRm3cE9z/wyT1WYnHGzPxNBCV50bjoSnsGEU1Ajqo=;
-	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
+	s=default; t=1607391005;
+	bh=xGJi5PhUawzxs4O4fbnN9Dky9ml2flgXknw3Jxhd1rE=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=vSoAH3SsozxjzLU35KvnLKZj2KUs+3rT45947LapwHB9mNCjOXSoQatFZwSsPJQHF
-	 RBg0m6NfuUsneV/K4XsqZsru2qpDIEqkApewgU6bK+FX5CbEsBSnJ7RmCSHBOSdRnn
-	 mPsIHPJ5erpADDQQ83Q+Y3/ZzgdoErYmBY6objiA=
+	b=bFGSl3cHkv5PQyX+7aDFivV4JUDv+S+WP+VszhJyqetQBV5as4A2YB5rpeSm1ooGn
+	 ROerHjqJ0Ov541RrBKDqwEuwRik8ZtRuaAE61pSwIJ7tfGN8MgU4CRD0nwVUx78rdG
+	 YXVfTjhA9GEUcKOMSolaKIFsKWNnJkowdCb/hgjc=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id AD759F8015B;
-	Tue,  8 Dec 2020 00:54:52 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id DA8C7F80217;
+	Tue,  8 Dec 2020 02:28:29 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id AA446F80217; Tue,  8 Dec 2020 00:54:50 +0100 (CET)
+ id 8670BF8020D; Tue,  8 Dec 2020 02:28:27 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: *
-X-Spam-Status: No, score=1.1 required=5.0 tests=DATE_IN_PAST_06_12,
- NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
-Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Level: 
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from mail-pl1-x643.google.com (mail-pl1-x643.google.com
+ [IPv6:2607:f8b0:4864:20::643])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 0524FF8015B
- for <alsa-devel@alsa-project.org>; Tue,  8 Dec 2020 00:54:47 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0524FF8015B
-IronPort-SDR: CUKiXYjgvWdP9HfPTGQYjYImcATfqvxYgAECJfbGHxAY/X5qcJdcD3zp3hAMB88m0sdJLtvERD
- +aEvBa2e3Amw==
-X-IronPort-AV: E=McAfee;i="6000,8403,9828"; a="171230478"
-X-IronPort-AV: E=Sophos;i="5.78,401,1599548400"; d="scan'208";a="171230478"
-Received: from orsmga004.jf.intel.com ([10.7.209.38])
- by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 07 Dec 2020 15:54:42 -0800
-IronPort-SDR: 9dvKWTteYi4Y+47LmWK27eirQ55fIYTl2RuyBWXFrhfZf0g3dE3+hWYS9vjCIYbc3WOLHuVtZE
- 8mW1QfQxOefA==
-X-IronPort-AV: E=Sophos;i="5.78,401,1599548400"; d="scan'208";a="483410901"
-Received: from cegeorge-mobl.amr.corp.intel.com (HELO [10.212.61.7])
- ([10.212.61.7])
- by orsmga004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 07 Dec 2020 15:54:41 -0800
-Subject: Re: [RFC PATCH 2/4] ASoC: soc-generic-dmaengine-pcm: Add custom
- prepare and submit function
-To: Lars-Peter Clausen <lars@metafoo.de>,
- "Sit, Michael Wei Hong" <michael.wei.hong.sit@intel.com>,
- "Sia, Jee Heng" <jee.heng.sia@intel.com>,
- "Shevchenko, Andriy" <andriy.shevchenko@intel.com>
-References: <20201117080354.4309-1-michael.wei.hong.sit@intel.com>
- <20201117080354.4309-4-michael.wei.hong.sit@intel.com>
- <20201117155038.GO4077@smile.fi.intel.com>
- <CO1PR11MB50269CF832CD14BA2D2A883CDAE10@CO1PR11MB5026.namprd11.prod.outlook.com>
- <20201118145055.GW4077@smile.fi.intel.com>
- <CO1PR11MB5026A81C4294BEF4EE5EF923DAFB0@CO1PR11MB5026.namprd11.prod.outlook.com>
- <BYAPR11MB30465A81744EA686D2502DB69DF50@BYAPR11MB3046.namprd11.prod.outlook.com>
- <e9bae9eb-6b8b-5a8c-eba0-d7f5da955987@metafoo.de>
- <20201130110915.GI4077@smile.fi.intel.com>
- <74ed61e1-67d9-d7b7-0619-fbe61ad7a583@metafoo.de>
- <CO1PR11MB502600945CC303756DBBC30ADAF40@CO1PR11MB5026.namprd11.prod.outlook.com>
- <BYAPR11MB3046DFC48A045ADA72D0F9369DF00@BYAPR11MB3046.namprd11.prod.outlook.com>
- <17462280-244f-0c1e-61f2-6dd197dbcd2d@metafoo.de>
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Message-ID: <2e29264a-a64d-f1f7-8695-ae7463a773a5@linux.intel.com>
-Date: Mon, 7 Dec 2020 09:36:07 -0600
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.10.0
+ by alsa1.perex.cz (Postfix) with ESMTPS id E95BAF800E1
+ for <alsa-devel@alsa-project.org>; Tue,  8 Dec 2020 02:28:20 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E95BAF800E1
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
+ header.b="c+bi86iX"
+Received: by mail-pl1-x643.google.com with SMTP id p6so6108417plr.7
+ for <alsa-devel@alsa-project.org>; Mon, 07 Dec 2020 17:28:20 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=date:from:to:cc:subject:message-id:references:mime-version
+ :content-disposition:in-reply-to:user-agent;
+ bh=g6R21sa3bkOjEnwqhAVxyM+kWVKk9KN5CJ8WQiyRzKg=;
+ b=c+bi86iXy/pSBac/0D9EHuYLqSgzndqvSEaxFibcNpweMKyQygRkZzQDEMO+Qw0UxT
+ /33sCLHGIDMYobzNYwvDSi74tyY8ITvbbDU0Sk258GTxreVez+owDIlHjtcFzsZa3xix
+ ndvhJ1d6ZErYf3EfuNA0LAXY706OqaLr54H27c48TPfhCf0qaS4L6PqOmMCtN1HN3dO1
+ QEJZ6vbRb6gjEs93MG4zMFETc25vJntRNgVRpY1n02Py/AK4BmQHWQK+H8sSTwpOHpWn
+ XXq5k8unAN/YWq7bTwYRW4BFivBs+VzBJ60omZmbh14WbOjmjjO7/mdsrXwe3+w0Qdr2
+ OW+A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to:user-agent;
+ bh=g6R21sa3bkOjEnwqhAVxyM+kWVKk9KN5CJ8WQiyRzKg=;
+ b=WC91alXZYb35eIkBBYByQDPzOMKLAxd/eBgVv6d7Yl3D/4Ek7knixhNGGC1jkM6IOI
+ nTzn9nrz42ul7NgL3iQzyiTsWM8sl8YfJ920De629OIZKX55pHkxedvpAFkMV/C73lCb
+ ZuRJt2Gj9Vo4ukXq0Ps99IrH8DKs7PJG+5PV7m+VEK8IVkScScXo+MSrKhZvZSPFr83F
+ XB1y5UoH2S/gNexfrYEGenBq4xyFbZjbkpZsT3c57EfYAdrUiPm2fkAPsAjjirgAA0p+
+ 4rvsmrNW6mQuDD+SR6XfZ8mbRxy65LVMSTdx/P8h9pNinsZ63XACQFp0axr3r3wo07BZ
+ VbvA==
+X-Gm-Message-State: AOAM53329dEXt81bwIBonCg1hw/NVH04fGB4c2l2prHZPAD10r6SbDww
+ gvLccFZNFpbrT67oBaxqGEk=
+X-Google-Smtp-Source: ABdhPJxpxLxNICfqOJ5BiNFYHNzVKl0q1JwFffvvXbpF0tW9FuLkpPPBA+bELyA/XOq2JtoKBTRo5w==
+X-Received: by 2002:a17:902:6ac8:b029:da:d645:ab58 with SMTP id
+ i8-20020a1709026ac8b02900dad645ab58mr16864544plt.25.1607390896709; 
+ Mon, 07 Dec 2020 17:28:16 -0800 (PST)
+Received: from Asurada-Nvidia (thunderhill.nvidia.com. [216.228.112.22])
+ by smtp.gmail.com with ESMTPSA id a22sm12495382pfa.215.2020.12.07.17.28.15
+ (version=TLS1_2 cipher=ECDHE-ECDSA-CHACHA20-POLY1305 bits=256/256);
+ Mon, 07 Dec 2020 17:28:16 -0800 (PST)
+Date: Mon, 7 Dec 2020 17:25:26 -0800
+From: Nicolin Chen <nicoleotsuka@gmail.com>
+To: Shengjiu Wang <shengjiu.wang@nxp.com>
+Subject: Re: [PATCH v2 2/2] ASoC: fsl: Add imx-hdmi machine driver
+Message-ID: <20201208012526.GA21510@Asurada-Nvidia>
+References: <1607251319-5821-1-git-send-email-shengjiu.wang@nxp.com>
+ <1607251319-5821-2-git-send-email-shengjiu.wang@nxp.com>
 MIME-Version: 1.0
-In-Reply-To: <17462280-244f-0c1e-61f2-6dd197dbcd2d@metafoo.de>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
-Cc: "Rojewski, Cezary" <cezary.rojewski@intel.com>,
- "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
- "tiwai@suse.com" <tiwai@suse.com>,
- "liam.r.girdwood@linux.intel.com" <liam.r.girdwood@linux.intel.com>,
- "vkoul@kernel.org" <vkoul@kernel.org>,
- "broonie@kernel.org" <broonie@kernel.org>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <1607251319-5821-2-git-send-email-shengjiu.wang@nxp.com>
+User-Agent: Mutt/1.9.4 (2018-02-28)
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org, timur@kernel.org,
+ Xiubo.Lee@gmail.com, linuxppc-dev@lists.ozlabs.org, tiwai@suse.com,
+ lgirdwood@gmail.com, robh+dt@kernel.org, broonie@kernel.org,
+ festevam@gmail.com, linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -100,17 +105,12 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-
-
-
-> If you really want to limit your period size you need to install a range 
-> constraint on the SNDRV_PCM_HW_PARAM_PERIOD_SIZE parameter.
+On Sun, Dec 06, 2020 at 06:41:59PM +0800, Shengjiu Wang wrote:
+> The driver is initially designed for sound card using HDMI
+> interface on i.MX platform. There is internal HDMI IP or
+> external HDMI modules connect with SAI or AUD2HTX interface.
+> It supports both transmitter and receiver devices.
 > 
-> But I'd highly recommend against it and just split the transfer into 
-> multiple segments in the DMA driver. Needlessly limiting the period size 
-> will increase the number of interrupts during audio playback/recording 
-> and hurt the power efficiency of your system.
+> Signed-off-by: Shengjiu Wang <shengjiu.wang@nxp.com>
 
-Yes that was also an objection from me, the fix should be in the DMA 
-level. The 1024 block limitation would mean restricting the period size 
-to be at most 5.3 or 10.6ms (16 and 32-bit cases). That's way to small.
+Acked-by: Nicolin Chen <nicoleotsuka@gmail.com>

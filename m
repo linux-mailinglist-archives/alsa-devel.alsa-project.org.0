@@ -2,56 +2,56 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 81E132D4555
-	for <lists+alsa-devel@lfdr.de>; Wed,  9 Dec 2020 16:26:11 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 760682D4543
+	for <lists+alsa-devel@lfdr.de>; Wed,  9 Dec 2020 16:25:30 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 14E4616B8;
-	Wed,  9 Dec 2020 16:25:21 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 14E4616B8
+	by alsa0.perex.cz (Postfix) with ESMTPS id 244BA16D1;
+	Wed,  9 Dec 2020 16:24:39 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 244BA16D1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1607527571;
-	bh=gLz/k3NohftuSAuPIMwRKAgMGdgZNgtDOo7NTS7FYbk=;
+	s=default; t=1607527529;
+	bh=7MonNOtzTBEpnBFe9m6e7qNHF9PSakvJwu9L5MDVclM=;
 	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=n+htD99rcFjJUMFH5gPqTyiOBxXlXu4PNkDoPzpmwOIGsg5RafUam05s2XxiDo6kp
-	 tiqd0uC5uwyPrZjTADYBGUl6M4XVmsdN5jssCOJ8C+uihw7Ti3rHmIzPCrj08J4X9E
-	 o59kO6lx3tRjzxOc7aEnk6lvqJI7Eq0+vGC5YdaA=
+	b=Jx2l9azSE4aMqpaB6CatPtbfszLP2CNOYsXJ/xSRBLFScvkXqxrjXlduYQfjcaJkK
+	 Hqb76mm9tgPwN18nT7H0In/WFGl1FYwmRzDW0sz5UuiVn7MuNbzS2hiu+WYl0dPHdX
+	 XGoq+Ut9XkG3jTw4aDl27znjRr90CxRdQd8qO/ZE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 2A70FF804B0;
-	Wed,  9 Dec 2020 16:23:57 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 69B44F8026A;
+	Wed,  9 Dec 2020 16:23:47 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 68E54F8027C; Wed,  9 Dec 2020 16:23:55 +0100 (CET)
+ id 0D184F80240; Wed,  9 Dec 2020 16:23:46 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE
+ autolearn=disabled version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 18B34F80227
- for <alsa-devel@alsa-project.org>; Wed,  9 Dec 2020 16:23:49 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 18B34F80227
+ by alsa1.perex.cz (Postfix) with ESMTPS id 4B7CEF800E1
+ for <alsa-devel@alsa-project.org>; Wed,  9 Dec 2020 16:23:43 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4B7CEF800E1
 From: Mark Brown <broonie@kernel.org>
 Authentication-Results: mail.kernel.org;
  dkim=permerror (bad message/signature format)
-To: "derek.fang@realtek.com" <derek.fang@realtek.com>, lgirdwood@gmail.com
-In-Reply-To: <20201209091308.2823-1-derek.fang@realtek.com>
-References: <20201209091308.2823-1-derek.fang@realtek.com>
-Subject: Re: [PATCH] ASoC: rt1015: check the return value of regmap_read
- during i2c probe
-Message-Id: <160752715603.48520.4266480368563583200.b4-ty@kernel.org>
+To: Steve Lee <steves.lee@maximintegrated.com>,
+ Dan Carpenter <dan.carpenter@oracle.com>, Liam Girdwood <lgirdwood@gmail.com>
+In-Reply-To: <X9B0uz4svyNTqeMb@mwanda>
+References: <X9B0uz4svyNTqeMb@mwanda>
+Subject: Re: [PATCH] ASoC: max98390: Fix error codes in max98390_dsm_init()
+Message-Id: <160752715603.48520.1121347336816974781.b4-ty@kernel.org>
 Date: Wed, 09 Dec 2020 15:19:16 +0000
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Cc: oder_chiou@realtek.com, jack.yu@realtek.com, alsa-devel@alsa-project.org,
- lars@metafoo.de, albertchen@realtek.com, shumingf@realtek.com,
- flove@realtek.com
+Cc: alsa-devel@alsa-project.org, kernel-janitors@vger.kernel.org,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ Takashi Iwai <tiwai@suse.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -67,9 +67,8 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Wed, 9 Dec 2020 17:13:08 +0800, derek.fang@realtek.com wrote:
-> In some projects, the device ID register is not read correctly.
-> This patch helps to verify the issue is caused from i2c host or client.
+On Wed, 9 Dec 2020 09:54:51 +0300, Dan Carpenter wrote:
+> These error paths return success but they should return -EINVAL.
 
 Applied to
 
@@ -77,8 +76,8 @@ Applied to
 
 Thanks!
 
-[1/1] ASoC: rt1015: check the return value of regmap_read during i2c probe
-      commit: 397e089bda327a350c1cb29133cb66795339a5d9
+[1/1] ASoC: max98390: Fix error codes in max98390_dsm_init()
+      commit: 3cea33b6f2d7782d1be17c71509986f33ee93541
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

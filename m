@@ -2,65 +2,70 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 73AE72D3E4A
-	for <lists+alsa-devel@lfdr.de>; Wed,  9 Dec 2020 10:15:35 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id EFC912D3ED0
+	for <lists+alsa-devel@lfdr.de>; Wed,  9 Dec 2020 10:32:28 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 0EFE216DA;
-	Wed,  9 Dec 2020 10:14:45 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0EFE216DA
+	by alsa0.perex.cz (Postfix) with ESMTPS id 8799C16BF;
+	Wed,  9 Dec 2020 10:31:38 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8799C16BF
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1607505335;
-	bh=Bpsr6xbbTLOSOCwCndYFPcEpYGyaECH2CiD+OL962bg=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=ZrcrAiHkV2zu1yQGyEh56d0ZrsIZHapkZGRDE7SIkJMQJWnbv7dJBX6faUTdrYpq3
-	 8iJQjoKge6u9pRJul4FUMkJigk2pONVsop4eUBbyBlnOGLQJXrK+hQBPaKCFrEjc02
-	 DfW60WMlNluZmM/cblX72jeRPO6kWojtmrC70b18=
+	s=default; t=1607506348;
+	bh=eyQovcG0AQj0yOyWJEU00KPsyZ6dqo+L+jsH4XdLdJw=;
+	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=f2MMN+/RwFbyber+uJLbR4IQVNqM8ESYLQ3lW3AVDzM7Gqqa1xQwy8aIgjMIF0IBz
+	 JLu7S/xLJh0k4T5ZgCt1+3OnS1THojYNnj+VetR0Vs8xVDdzAYFBsJMyHVDu8bYZ5s
+	 iFHWRasTKmiQsADH4B9iglgG2OPD2mu6orF7UK7E=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 211BAF800E1;
-	Wed,  9 Dec 2020 10:14:00 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id AB4FCF80217;
+	Wed,  9 Dec 2020 10:30:53 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 9599DF8020D; Wed,  9 Dec 2020 10:13:57 +0100 (CET)
+ id D0D05F8020D; Wed,  9 Dec 2020 10:30:51 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from mail1.perex.cz (mail1.perex.cz [77.48.224.245])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id F20A7F800E1
- for <alsa-devel@alsa-project.org>; Wed,  9 Dec 2020 10:13:49 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz F20A7F800E1
-Authenticated-By: 
-X-SpamFilter-By: ArmorX SpamTrap 5.73 with qID 0B99DkUT2012659,
- This message is accepted by code: ctloc85258
-Received: from mail.realtek.com (rtexmbs01.realtek.com.tw[172.21.6.36])
- by rtits2.realtek.com.tw (8.15.2/2.70/5.88) with ESMTPS id 0B99DkUT2012659
- (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT);
- Wed, 9 Dec 2020 17:13:46 +0800
-Received: from localhost.localdomain (172.22.238.213) by
- RTEXMBS01.realtek.com.tw (172.21.6.36) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2106.2; Wed, 9 Dec 2020 17:13:46 +0800
-From: <derek.fang@realtek.com>
-To: <broonie@kernel.org>, <lgirdwood@gmail.com>
-Subject: [PATCH] ASoC: rt1015: check the return value of regmap_read during
- i2c probe
-Date: Wed, 9 Dec 2020 17:13:08 +0800
-Message-ID: <20201209091308.2823-1-derek.fang@realtek.com>
-X-Mailer: git-send-email 2.17.1
+ by alsa1.perex.cz (Postfix) with ESMTPS id A8672F8012C
+ for <alsa-devel@alsa-project.org>; Wed,  9 Dec 2020 10:30:47 +0100 (CET)
+Received: from mail1.perex.cz (localhost [127.0.0.1])
+ by smtp1.perex.cz (Perex's E-mail Delivery System) with ESMTP id BD8D8A0040;
+ Wed,  9 Dec 2020 10:30:46 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 smtp1.perex.cz BD8D8A0040
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=perex.cz; s=default;
+ t=1607506246; bh=9GTDhoswd8Q/CdEMrU1q6dHbJBYC2QPDhcgl7fOL53k=;
+ h=Subject:To:Cc:References:From:Date:In-Reply-To:From;
+ b=ArUF5ZmGoiik+JL616ihE8vdsYZRRR04AwkpYVhA4c5FCGP3zJq1xSARrMe+g72Gx
+ Jnbwfbzqfncp+0dHrNRhmmXKDSW7tJ6v4ufL4W3n4wtYha/kkw+a8L5qK87PiiBkrw
+ q17x3inO5qKDSMimxYMUGHztaFCovZ9lzTGECD6Y=
+Received: from p1gen2.perex-int.cz (unknown [192.168.100.98])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested) (Authenticated sender: perex)
+ by mail1.perex.cz (Perex's E-mail Delivery System) with ESMTPSA;
+ Wed,  9 Dec 2020 10:30:43 +0100 (CET)
+Subject: Re: [PATCH] ASoC: rt1015p: delay 300ms after SDB pulling high for
+ calibration
+To: Tzung-Bi Shih <tzungbi@google.com>, broonie@kernel.org
+References: <20201209033742.3825973-1-tzungbi@google.com>
+From: Jaroslav Kysela <perex@perex.cz>
+Message-ID: <fd713bbf-2983-8803-1ac3-3d9a59efaf6a@perex.cz>
+Date: Wed, 9 Dec 2020 10:30:43 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.3.1
 MIME-Version: 1.0
-Content-Type: text/plain
-X-Originating-IP: [172.22.238.213]
-X-ClientProxiedBy: RTEXMB06.realtek.com.tw (172.21.6.99) To
- RTEXMBS01.realtek.com.tw (172.21.6.36)
-Cc: oder_chiou@realtek.com, jack.yu@realtek.com, alsa-devel@alsa-project.org,
- lars@metafoo.de, albertchen@realtek.com, derek.fang@realtek.com,
- shumingf@realtek.com, flove@realtek.com
+In-Reply-To: <20201209033742.3825973-1-tzungbi@google.com>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
+Cc: alsa-devel@alsa-project.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -76,33 +81,19 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: Derek Fang <derek.fang@realtek.com>
+Dne 09. 12. 20 v 4:37 Tzung-Bi Shih napsal(a):
+> RT1015p needs 300ms delay after SDB pulling high for internal
+> calibration during the power on sequence.
+> 
+> Delays 300ms right before data sends out to avoid data truncated.
 
-In some projects, the device ID register is not read correctly.
-This patch helps to verify the issue is caused from i2c host or client.
+I think that this codec driver should be redesigned to add this power-up delay
+the the correct sequence like in rt1015.c - rt1015_amp_drv_event().
 
-Signed-off-by: Derek Fang <derek.fang@realtek.com>
+Those huge delays in the trigger callbacks looks and are messy.
 
-diff --git a/sound/soc/codecs/rt1015.c b/sound/soc/codecs/rt1015.c
-index ac4c9f43b338..32e6bcf763d1 100644
---- a/sound/soc/codecs/rt1015.c
-+++ b/sound/soc/codecs/rt1015.c
-@@ -1207,8 +1207,13 @@ static int rt1015_i2c_probe(struct i2c_client *i2c,
- 
- 	rt1015->hw_config = (i2c->addr == 0x29) ? RT1015_HW_29 : RT1015_HW_28;
- 
--	regmap_read(rt1015->regmap, RT1015_DEVICE_ID, &val);
--	if ((val != RT1015_DEVICE_ID_VAL) && (val != RT1015_DEVICE_ID_VAL2)) {
-+	ret = regmap_read(rt1015->regmap, RT1015_DEVICE_ID, &val);
-+	if (ret) {
-+		dev_err(&i2c->dev,
-+			"Failed to read device register: %d\n", ret);
-+		return ret;
-+	} else if ((val != RT1015_DEVICE_ID_VAL) &&
-+			(val != RT1015_DEVICE_ID_VAL2)) {
- 		dev_err(&i2c->dev,
- 			"Device with ID register %x is not rt1015\n", val);
- 		return -ENODEV;
+					Jaroslav
+
 -- 
-2.17.1
-
+Jaroslav Kysela <perex@perex.cz>
+Linux Sound Maintainer; ALSA Project; Red Hat, Inc.

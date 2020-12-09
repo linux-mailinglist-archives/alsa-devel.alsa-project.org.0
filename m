@@ -2,173 +2,71 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id F061B2D53B9
-	for <lists+alsa-devel@lfdr.de>; Thu, 10 Dec 2020 07:21:01 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0816F2D5571
+	for <lists+alsa-devel@lfdr.de>; Thu, 10 Dec 2020 09:28:39 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 771771694;
-	Thu, 10 Dec 2020 07:20:11 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 771771694
+	by alsa0.perex.cz (Postfix) with ESMTPS id 9989582A;
+	Thu, 10 Dec 2020 09:27:48 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9989582A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1607581261;
-	bh=LwMYnC2hXIlDt9JNKIRVcnPFP8vQM8vj8utSQ4PtPsE=;
-	h=From:To:Subject:Date:References:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=FWpjXFdmFAgBaW2RHY8RvuyRsdFokUFILFosMoxSVdyofMfEbRDwlkUUwNViIC4h4
-	 RmNfUsnfeUG9lPBVOE9Yuoa2i3p9A/lKetIaf8suN+ouGpaH6zGawARnA0qzwGPB9T
-	 7WrKjtxWPSFmL08AoHyYvQaQw7xw0dAj4ZBIjNmc=
+	s=default; t=1607588918;
+	bh=OVp1RTlxvRTAL+NnHlYPRJudOGrFPw3eZvcrViRaQ6c=;
+	h=Date:Subject:From:To:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=AaW8DLU82yN4RuICvu6uboNfn4Cd27gWMS+qkiuXG2hMj69OjDw2JKMo4wnC56XNi
+	 72LlKVj1qRV1ii9SEWwt6AEjRfxr+T5iot5Qn+23xP0xmhKQN6N17fHi0kK2ezyhWV
+	 WhZtidVJBz8gXgoNDJyQTyOzbbxkWjKJJL9Qk1jY=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 778FAF800EF;
-	Thu, 10 Dec 2020 07:19:21 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id EFE6BF80105;
+	Thu, 10 Dec 2020 09:27:03 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id E60FEF8016E; Thu, 10 Dec 2020 07:19:17 +0100 (CET)
+ id 8D0F2F80217; Wed,  9 Dec 2020 08:33:19 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Level: ***
+X-Spam-Status: No, score=3.1 required=5.0 tests=FROM_LOCAL_HEX,
+ HEADER_FROM_DIFFERENT_DOMAINS,SORTED_RECIPS,SPF_HELO_NONE,SPF_NONE,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mail-io1-f71.google.com (mail-io1-f71.google.com
+ [209.85.166.71])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id A852AF800EF
- for <alsa-devel@alsa-project.org>; Thu, 10 Dec 2020 07:18:52 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A852AF800EF
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=intel.onmicrosoft.com
- header.i=@intel.onmicrosoft.com header.b="wA/xDRl5"
-IronPort-SDR: MrEln+JrWd2M25bbUB31qMyZP3P0WfOuGliN0HnFkTeeuAvAvtXbRtBLsKE2N2kWp1PWHLPR+V
- vsbr481iYyMQ==
-X-IronPort-AV: E=McAfee;i="6000,8403,9830"; a="192515158"
-X-IronPort-AV: E=Sophos;i="5.78,407,1599548400"; d="scan'208";a="192515158"
-Received: from orsmga002.jf.intel.com ([10.7.209.21])
- by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 09 Dec 2020 22:18:48 -0800
-IronPort-SDR: NZthgrGGRUkFJ3xzWHczAmawQOLsFRYwAmeQh/YnP2cujDhxb9dpTryOYnpvfIvdB2IEX12z9H
- 3oBEXeqcE2SQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.78,407,1599548400"; d="scan'208";a="348659466"
-Received: from fmsmsx602.amr.corp.intel.com ([10.18.126.82])
- by orsmga002.jf.intel.com with ESMTP; 09 Dec 2020 22:18:47 -0800
-Received: from fmsmsx611.amr.corp.intel.com (10.18.126.91) by
- fmsmsx602.amr.corp.intel.com (10.18.126.82) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.1713.5; Wed, 9 Dec 2020 22:18:47 -0800
-Received: from fmsmsx606.amr.corp.intel.com (10.18.126.86) by
- fmsmsx611.amr.corp.intel.com (10.18.126.91) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.1713.5; Wed, 9 Dec 2020 22:18:47 -0800
-Received: from fmsedg602.ED.cps.intel.com (10.1.192.136) by
- fmsmsx606.amr.corp.intel.com (10.18.126.86) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1713.5
- via Frontend Transport; Wed, 9 Dec 2020 22:18:47 -0800
-Received: from NAM11-CO1-obe.outbound.protection.outlook.com (104.47.56.169)
- by edgegateway.intel.com (192.55.55.71) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.1.1713.5; Wed, 9 Dec 2020 22:18:46 -0800
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=d0zNjj6CWtU7PuzuDEOKVFQ+n0gFAV0dN+tMB83cr0dN3q0PCw59Zc7zZs9LBwqO7CvIJv6AGd/NoY8c1iKLj+VnaQX+VCDtaLk5CuJKEj5QS+Dj8aVnpOGkyEk04jRh/swVnIZOJSuiN/6M4FYK1sHMBzgns0owurq5Pl9+OVJAIre4ADglwKUv13TZBcP5es/wpWfsM9qfXYSIZoKDM8kx7p0JQDLccSjdLrwFP/wXA7mTarzuRy87w+NYyfMQxxfX7wDDLjy7hmTZdzt4NVZEI33ovnajGruVvr//6UMWJi/TFI5zOt+61eZ8ND/otMSVbF/m2LIqPd3S/puT9Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=LwMYnC2hXIlDt9JNKIRVcnPFP8vQM8vj8utSQ4PtPsE=;
- b=MVFL2/+dVw/SVxLlLn2SX4wJwCpiNA3W1P3z05CULe9Ch/+R+iFHsuSN8sNGvkSxV65bLHp/1GBHl/JPXFDa4Rhs6KH1Q5Ot82zO/XtywyHnszydlEXAkUQvNZ/ifBES27a36jB+JEMH3MQYzZMEK2Kebw/FQaVt9hrvS/W4CHcn68m+sTNAyrtaPmOBxUUitrK38SoB4haYEGZ+8XRZ7tcjBhrDoc/iH82y2gJbUAOCQJdOoRxfq3m0K7ZdOL383KzpCr4wbG+je8566XsC2OcgQ/sfdemxLXxm7Zaf0lNq6ZFr1i4662k6PndXVJQyU1jWvqLs1OdULLFWaPjOSA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=intel.onmicrosoft.com; 
- s=selector2-intel-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=LwMYnC2hXIlDt9JNKIRVcnPFP8vQM8vj8utSQ4PtPsE=;
- b=wA/xDRl5tEnP0Yw+HAJC4/8bigw6+JACmDv9gx0ZG50iDJFrYl2iv8rSqatWPJdjlH5arbOz8rH0Z8pNN6pDBcSKII25oOkwxzzjKVG32TEsuVtZlC9DOVXgNAvIu6Ay4FP+Q4PCgOqKOW540dkj/zw9YtXKAkPWBYdLMLsFZCY=
-Received: from DM6PR11MB4074.namprd11.prod.outlook.com (2603:10b6:5:5::11) by
- DM5PR11MB1673.namprd11.prod.outlook.com (2603:10b6:4:c::20) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.3632.17; Thu, 10 Dec 2020 06:18:46 +0000
-Received: from DM6PR11MB4074.namprd11.prod.outlook.com
- ([fe80::8941:7045:2dc8:707e]) by DM6PR11MB4074.namprd11.prod.outlook.com
- ([fe80::8941:7045:2dc8:707e%7]) with mapi id 15.20.3632.023; Thu, 10 Dec 2020
- 06:18:46 +0000
-From: "Liao, Bard" <bard.liao@intel.com>
-To: Mark Brown <broonie@kernel.org>, Bard Liao
- <yung-chuan.liao@linux.intel.com>, "tiwai@suse.de" <tiwai@suse.de>
-Subject: RE: [RFC] ASoC: max98373: don't access volatile registers in bias
- level off
-Thread-Topic: [RFC] ASoC: max98373: don't access volatile registers in bias
- level off
-Thread-Index: AQHWtwObwWrxFNByOE+NBK4BkmF7U6niZekAgA2jgbA=
-Date: Thu, 10 Dec 2020 06:18:45 +0000
-Message-ID: <DM6PR11MB407439429C8C348D61DE4E8AFFCB0@DM6PR11MB4074.namprd11.prod.outlook.com>
-References: <20201109135543.7862-1-yung-chuan.liao@linux.intel.com>
- <160683107675.35139.2203434126118347345.b4-ty@kernel.org>
-In-Reply-To: <160683107675.35139.2203434126118347345.b4-ty@kernel.org>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-dlp-version: 11.5.1.3
-dlp-reaction: no-action
-dlp-product: dlpe-windows
-authentication-results: kernel.org; dkim=none (message not signed)
- header.d=none;kernel.org; dmarc=none action=none header.from=intel.com;
-x-originating-ip: [220.133.4.96]
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: 45b7e4d1-3e97-4128-22df-08d89cd37360
-x-ms-traffictypediagnostic: DM5PR11MB1673:
-x-microsoft-antispam-prvs: <DM5PR11MB1673B5E6E22FA55F625267FFFFCB0@DM5PR11MB1673.namprd11.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:3044;
-x-ms-exchange-senderadcheck: 1
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: RRAoe8L82DMblJtZEL+EAC1hlr1HJL8PT9uN1fZ0gcGSsgBw8wHzRjkVHoiu3hn18AQRvSm8jvIg1oXkKZLWHk+CeoWMqJmO5B96hnwEZGKRnOaIvLQKxCTAJpRsMdG3FLXuyM/dzAORpTuNcLBnhqZKq9I25n8kMEsFzTSekL6VYriGdTP4yazC5QmLinjQ3jJ3lIX1j2wxOl+vVTVzjL0eyXlMAgIGTDE5qXfWRu6WaAC7ruAx3sQ6DCpPgkhmocb9WefD/9eImOoP+QFFw2Y6y0ouXPDY8nYhKuxiPYjurm0NsDUuXxphd5czLfel2stdeivWr4rsX07kJPV6V7aR8jRz2xvbErjSJ97LOQapbfBeaqUNqTo1OhXztBc9gkFi0vvoFSztyA9Emds9Mg==
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM6PR11MB4074.namprd11.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(366004)(136003)(376002)(346002)(5660300002)(66476007)(52536014)(55016002)(9686003)(8676002)(26005)(966005)(71200400001)(186003)(508600001)(8936002)(7696005)(53546011)(2906002)(86362001)(66946007)(110136005)(54906003)(4326008)(33656002)(83380400001)(6506007)(66556008)(66446008)(64756008)(76116006);
- DIR:OUT; SFP:1102; 
-x-ms-exchange-antispam-messagedata: =?utf-8?B?QUQ3eVFJeVJmeUhrWGFnL3B6MkNyd3lXY2x4TlpTQmcyYkd1RlVxWC9xSnNh?=
- =?utf-8?B?a3NMenQ5bnd6M3p3U3J5TS85Q2tkZHhuWHIzTnRHNTZPQUNhc1FUSlpmK0VI?=
- =?utf-8?B?OTRpWGNPS3YyZWdZQ3NhRzVIdzJSQlpBZTBiN3l0WWhFaVFUN0FQUXA3Yll6?=
- =?utf-8?B?YTZmdDUwMVYwL21qUjVrVnpDRFBGRjVQaSs3aE0wTkNHWnM5TFAyOVA3cFFk?=
- =?utf-8?B?ZWxKb0svMWhGMGxZdGhEVnVHQ1kyODZEM1U3bnZaR2RKS3pJMFdNUkRkU25z?=
- =?utf-8?B?bEJBeldVWFhBSWt0dmhZS2NBTmdOZjJJaU9zN1htT3dVaFR1b2lkZk0yc0dR?=
- =?utf-8?B?dWxSdTZxSnlVQVhqSWZaRlpJUTlRMlViL09rZlM5VENRU3pjYzg3N2s1OGhF?=
- =?utf-8?B?WEFwalZYalJ0T29xUlJna2g0Y3k1ZlFNbkpVRW90NXVoSk5NQnJReXFxTThy?=
- =?utf-8?B?aEZ6V2sxRzVQdDFuM3ZLVmhTb3J6d0Q2aDVtczRIWC8xMms2YnBvQUxUdEto?=
- =?utf-8?B?UFhpOFRRazVPZkxlQzBkcGh2bzQ1VU1jd2ZuZW5YejhPajdsWWVBaXpweVJt?=
- =?utf-8?B?Ri80N0ZHYVJnaWR6VVkycC81dy9sRDN1Ly95Nm00Myt6azhCQmhyV3FGRWVy?=
- =?utf-8?B?NHRINDAyTmFINHlUd2pYcUFuUWhXNlBNdVR5S0pKWXB5Q29FYTlLUW9zc3NL?=
- =?utf-8?B?SksrbzI5eWFPeExmRVNMWUswSmxrMmhWYk9jR0FRT3hrK1VmdHFiMHdZMVJh?=
- =?utf-8?B?Z25TRER6L1dWckR4dk9GRkphQTJuVzRCa2QyM2lIYkNlSHF2NzgwTEI3ak1p?=
- =?utf-8?B?VTFZbHRIa0w5b1dYOHZ2dnI1cU5wUXpZemc5c2NBcm16RVFhTzc2elZuTmNQ?=
- =?utf-8?B?SDFrZkZxRU4vd1Jib1NSZXlnSWFObWxBT1NGbVRHcDNYakxzOXJ2L3ZFNGRK?=
- =?utf-8?B?RVczcHo3ZWh3YUpPdGo1WVVENG0xd3Z5QnZsdVg5aUdwY0p1eFRoTE9sSThv?=
- =?utf-8?B?VUJ0Z0o1czQxLzM4NGlkNk9FNWFaSHhSNWVlQ09xNzd0c1NWNEg2TGNDRjRW?=
- =?utf-8?B?UVZZSEJVNUlUdVJsbUticFFKNUJYRUg0Syt6K1MrMHlldzc5VFAxV3dReFQ4?=
- =?utf-8?B?M05rVERVWDV1ZytCbTk2b0xSbXZrS2E3MTBRT0gvanZNaVpxSFYrakJvMFhB?=
- =?utf-8?B?eDZKK0k0UVVJd3BIWGtvMnNrVjllbXRoM2lTOU14b1JGQklqSW1BSXRmMjNj?=
- =?utf-8?B?UStPclpacHo2a2dnWnVHT2Fiak5ad0dMNUp4M2kwaU90OVIyenhoa2lVTnFI?=
- =?utf-8?Q?YxpwLfIbf4U+U=3D?=
-x-ms-exchange-transport-forked: True
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+ by alsa1.perex.cz (Postfix) with ESMTPS id 675B7F8012C
+ for <alsa-devel@alsa-project.org>; Wed,  9 Dec 2020 08:33:12 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 675B7F8012C
+Received: by mail-io1-f71.google.com with SMTP id m9so614841ioa.9
+ for <alsa-devel@alsa-project.org>; Tue, 08 Dec 2020 23:33:12 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:date:message-id:subject:from:to;
+ bh=oKhCdeN5p+5cdnOz5gwTVBe+HbKNwK7qKySSgBEppUw=;
+ b=rfNX8vtfzA4xTHQkyD+/wv/7R4MRUxrCc7SPUYAxnQ/5vSeLmACXARmapa3KauWQLZ
+ wbfPU1X0RmsHo4s7jOqFZb/JW+NuS0TPEwkSlJaUjDtqjqzfIxRbmupmheM6Ax6omXGx
+ L+HhYI2Hs75BCnPz9vYn/KBgxysTI/T67o1VBDiMN/yriUnQsnyLrUa/7HcGmZElrMQr
+ 95pqtLlsh/r5tQ5wYMiSX4/onv90Ws4rZ7yqsulMvc6EB7Uj7zguJaOSgF458An99EbU
+ zCn8v2E7APz111AoX0SV3x9UraQOtpD1XIEtoz807QNej0aiOBYn7I7K3FsppHXROK3G
+ OE4Q==
+X-Gm-Message-State: AOAM531thEk8eRw8eZDJSqZLVjVcuqhNai4c9Cz/lLK2IOk7UnqiEliK
+ 38DGaddVZAi1IId7EaUAzMJmlMQyKe3uf3WYRvDVr3p0UtTo
+X-Google-Smtp-Source: ABdhPJxFZF07z5GI3smAAiIdVpt4vBwwZxw5n5fyWs3o7QZrCwgGx4eSQ9wc13SPaczYVpX99zJ73k6OE8pupAdOjLeR47wTzvtv
 MIME-Version: 1.0
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: DM6PR11MB4074.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 45b7e4d1-3e97-4128-22df-08d89cd37360
-X-MS-Exchange-CrossTenant-originalarrivaltime: 10 Dec 2020 06:18:46.0198 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: AfAN0CyKwsTgb4NpgVYdubGH7wQu6pYdlNvPcofxHVuRRAH1EX/3VZpkhgA6ksp/2gVU/PawSYjxvXliY8RKwA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM5PR11MB1673
-X-OriginatorOrg: intel.com
-Cc: "ryans.lee@maximintegrated.com" <ryans.lee@maximintegrated.com>,
- "vkoul@kernel.org" <vkoul@kernel.org>,
- "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
- "pierre-louis.bossart@linux.intel.com" <pierre-louis.bossart@linux.intel.com>,
- "kai.vehmanen@linux.intel.com" <kai.vehmanen@linux.intel.com>
+X-Received: by 2002:a92:4002:: with SMTP id n2mr1029198ila.293.1607499191018; 
+ Tue, 08 Dec 2020 23:33:11 -0800 (PST)
+Date: Tue, 08 Dec 2020 23:33:11 -0800
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <00000000000041e8e505b603128f@google.com>
+Subject: UBSAN: shift-out-of-bounds in snd_pcm_oss_change_params_locked
+From: syzbot <syzbot+33ef0b6639a8d2d42b4c@syzkaller.appspotmail.com>
+To: akpm@linux-foundation.org, alsa-devel@alsa-project.org, 
+ gustavoars@kernel.org, linux-kernel@vger.kernel.org, perex@perex.cz, 
+ syzkaller-bugs@googlegroups.com, tiwai@suse.com, vbabka@suse.cz, 
+ walken@google.com
+Content-Type: text/plain; charset="UTF-8"
+X-Mailman-Approved-At: Thu, 10 Dec 2020 09:27:00 +0100
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -184,31 +82,65 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-DQoNCj4gLS0tLS1PcmlnaW5hbCBNZXNzYWdlLS0tLS0NCj4gRnJvbTogTWFyayBCcm93biA8YnJv
-b25pZUBrZXJuZWwub3JnPg0KPiBTZW50OiBUdWVzZGF5LCBEZWNlbWJlciAxLCAyMDIwIDk6NTgg
-UE0NCj4gVG86IEJhcmQgTGlhbyA8eXVuZy1jaHVhbi5saWFvQGxpbnV4LmludGVsLmNvbT47IHRp
-d2FpQHN1c2UuZGUNCj4gQ2M6IHBpZXJyZS1sb3Vpcy5ib3NzYXJ0QGxpbnV4LmludGVsLmNvbTsg
-dmtvdWxAa2VybmVsLm9yZzsgTGlhbywgQmFyZA0KPiA8YmFyZC5saWFvQGludGVsLmNvbT47IGth
-aS52ZWhtYW5lbkBsaW51eC5pbnRlbC5jb207DQo+IHJ5YW5zLmxlZUBtYXhpbWludGVncmF0ZWQu
-Y29tOyBhbHNhLWRldmVsQGFsc2EtcHJvamVjdC5vcmcNCj4gU3ViamVjdDogUmU6IFtSRkNdIEFT
-b0M6IG1heDk4MzczOiBkb24ndCBhY2Nlc3Mgdm9sYXRpbGUgcmVnaXN0ZXJzIGluIGJpYXMgbGV2
-ZWwNCj4gb2ZmDQo+IA0KPiBPbiBNb24sIDkgTm92IDIwMjAgMjE6NTU6NDMgKzA4MDAsIEJhcmQg
-TGlhbyB3cm90ZToNCj4gPiBXZSB3aWxsIHNldCByZWdjYWNoZV9jYWNoZV9vbmx5IHRydWUgaW4g
-c3VzcGVuZC4gQXMgYSByZXN1bHQsDQo+ID4gcmVnbWFwX3JlYWQgd2lsbCByZXR1cm4gZXJyb3Ig
-d2hlbiB3ZSB0cnkgdG8gcmVhZCB2b2xhdGlsZSByZWdpc3RlcnMgaW4NCj4gc3VzcGVuZC4NCj4g
-PiBCZXNpZGVzLCBpdCBkb2Vzbid0IG1ha2Ugc2Vuc2UgdG8gcmVhZCBmZWVkYmFjayBkYXRhIHdo
-ZW4gY29kZWMgaXMgbm90DQo+ID4gYWN0aXZlLiBUbyBhdm9pZCB0aGUgcmVnbWFwX3JlYWQgZXJy
-b3IsIHRoaXMgcGF0Y2ggdHJ5IHRvIHJldHVybiBhDQo+ID4gZmFrZSB2YWx1ZSB3aGVuIGtjb250
-cm9sIF9nZXQgaXMgY2FsbGVkIGluIHN1c3BlbmQuDQo+ID4gSG93ZXZlciwgdGhlIHF1ZXN0aW9u
-IGlzIHdoYXQgaXMgdGhlICJjb3JyZWN0IiBiZWhhdmlvciB3aGVuIHdlIHRyeSB0bw0KPiA+IHJl
-YWQgYSB2b2xhdGlsZSByZWdpc3RlciB3aGVuIGNhY2hlIG9ubHkgaXMgc2V0Lg0KPiA+IDEuIHJl
-dHVybiBhbiBlcnJvciBjb2RlIHRvIHNpZ25hbCBjb2RlYyBpcyBub3QgYXZhaWxhYmxlIGFzIHdo
-YXQgd2UNCj4gPiBoYXZlIG5vdy4NCj4gPiAyLiByZXR1cm4gYSBmYWtlIHZhbHVlIGxpa2Ugd2hh
-dCB0aGlzIHBhdGNoIGRvLg0KPiA+IDMuIHdha2UtdXAgdGhlIGNvZGVjIGFuZCBhbHdheXMgcmV0
-dXJuIGEgdmFsaWQgdmFsdWUuDQo+IA0KPiBBcHBsaWVkIHRvDQo+IA0KPiAgICBodHRwczovL2dp
-dC5rZXJuZWwub3JnL3B1Yi9zY20vbGludXgva2VybmVsL2dpdC9icm9vbmllL3NvdW5kLmdpdCBm
-b3ItbmV4dA0KPiANCj4gVGhhbmtzIQ0KPiANCj4gWzEvMV0gQVNvQzogbWF4OTgzNzM6IGRvbid0
-IGFjY2VzcyB2b2xhdGlsZSByZWdpc3RlcnMgaW4gYmlhcyBsZXZlbCBvZmYNCj4gICAgICAgKG5v
-IGNvbW1pdCBpbmZvKQ0KPiANCg0KSGkgTWFyaywNCg0KU29ycnkgYnV0IEkgZG9uJ3QgZmluZCB0
-aGUgcGF0Y2ggb24geW91ciB0cmVlLiBJcyBpdCBhcHBsaWVkPw0KRG9lcyAibm8gY29tbWl0IGlu
-Zm8iIG1lYW4gdGhlIGNvbW1pdCBkb2Vzbid0IGFwcGx5Pw0KDQpUaGFua3MsDQpCYXJkDQo=
+Hello,
+
+syzbot found the following issue on:
+
+HEAD commit:    15ac8fdb Add linux-next specific files for 20201207
+git tree:       linux-next
+console output: https://syzkaller.appspot.com/x/log.txt?x=1656cc13500000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=3696b8138207d24d
+dashboard link: https://syzkaller.appspot.com/bug?extid=33ef0b6639a8d2d42b4c
+compiler:       gcc (GCC) 10.1.0-syz 20200507
+syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=13a8ad37500000
+C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=15bc6adf500000
+
+IMPORTANT: if you fix the issue, please add the following tag to the commit:
+Reported-by: syzbot+33ef0b6639a8d2d42b4c@syzkaller.appspotmail.com
+
+================================================================================
+UBSAN: shift-out-of-bounds in sound/core/oss/pcm_oss.c:705:23
+shift exponent 58 is too large for 32-bit type 'int'
+CPU: 1 PID: 8476 Comm: syz-executor572 Not tainted 5.10.0-rc6-next-20201207-syzkaller #0
+Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 01/01/2011
+Call Trace:
+ __dump_stack lib/dump_stack.c:79 [inline]
+ dump_stack+0x107/0x163 lib/dump_stack.c:120
+ ubsan_epilogue+0xb/0x5a lib/ubsan.c:148
+ __ubsan_handle_shift_out_of_bounds.cold+0xb1/0x181 lib/ubsan.c:395
+ snd_pcm_oss_period_size sound/core/oss/pcm_oss.c:705 [inline]
+ snd_pcm_oss_change_params_locked.cold+0x55/0x78 sound/core/oss/pcm_oss.c:925
+ snd_pcm_oss_change_params sound/core/oss/pcm_oss.c:1084 [inline]
+ snd_pcm_oss_make_ready+0xe7/0x1b0 sound/core/oss/pcm_oss.c:1143
+ snd_pcm_oss_sync+0x1de/0x800 sound/core/oss/pcm_oss.c:1708
+ snd_pcm_oss_release+0x276/0x300 sound/core/oss/pcm_oss.c:2546
+ __fput+0x283/0x920 fs/file_table.c:280
+ task_work_run+0xdd/0x190 kernel/task_work.c:140
+ exit_task_work include/linux/task_work.h:30 [inline]
+ do_exit+0xb89/0x2a00 kernel/exit.c:823
+ do_group_exit+0x125/0x310 kernel/exit.c:920
+ __do_sys_exit_group kernel/exit.c:931 [inline]
+ __se_sys_exit_group kernel/exit.c:929 [inline]
+ __x64_sys_exit_group+0x3a/0x50 kernel/exit.c:929
+ do_syscall_64+0x2d/0x70 arch/x86/entry/common.c:46
+ entry_SYSCALL_64_after_hwframe+0x44/0xa9
+RIP: 0033:0x43ee98
+Code: Unable to access opcode bytes at RIP 0x43ee6e.
+RSP: 002b:00007ffc0b9ddff8 EFLAGS: 00000246 ORIG_RAX: 00000000000000e7
+RAX: ffffffffffffffda RBX: 0000000000000000 RCX: 000000000043ee98
+RDX: 0000000000000000 RSI: 000000000000003c RDI: 0000000000000000
+RBP: 00000000004be6a8 R08: 00000000000000e7 R09: ffffffffffffffd0
+R10: 0000000000000000 R11: 0000000000000246 R12: 0000000000000001
+R13: 00000000006d0180 R14: 0000000000000000 R15: 0000000000000000
+================================================================================
+
+
+---
+This report is generated by a bot. It may contain errors.
+See https://goo.gl/tpsmEJ for more information about syzbot.
+syzbot engineers can be reached at syzkaller@googlegroups.com.
+
+syzbot will keep track of this issue. See:
+https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
+syzbot can test patches for this issue, for details see:
+https://goo.gl/tpsmEJ#testing-patches

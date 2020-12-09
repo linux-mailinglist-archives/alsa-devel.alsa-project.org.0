@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id CF96D2D3ABF
-	for <lists+alsa-devel@lfdr.de>; Wed,  9 Dec 2020 06:38:37 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id CFB0C2D3ABA
+	for <lists+alsa-devel@lfdr.de>; Wed,  9 Dec 2020 06:37:58 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 61DC816CF;
-	Wed,  9 Dec 2020 06:37:47 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 61DC816CF
+	by alsa0.perex.cz (Postfix) with ESMTPS id 66DA416F3;
+	Wed,  9 Dec 2020 06:37:08 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 66DA416F3
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1607492317;
-	bh=TVG+EDMjOaNqmpUDAOxvgaA09bQRZDq+VSEnbOHuEg8=;
+	s=default; t=1607492278;
+	bh=CYn5LKDR5x31RpzAFZ4UNGrqJBdXucnTc8Nv62JrtG0=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=noU7HdcxXAHo0TvtN2vUP4FKPD+4l+Wrvge+aiUOzS7kY+qtORLtlrtRlzE+8XPA5
-	 XzzOkZERudfiQOKBy4lbG4p2LpSTagbja3zqo1A+oazbF3twvRXrxTUFP4rlDzyp61
-	 8tOE4/oUHQya/+4BDtlVF6onr4BY5fvFX/1bLjXQ=
+	b=qY9F7eC1PHMw9GDlesiELHohH/1pC19oUavU9kPZj8UnzFYwNGNga+iCdDU1CmAEF
+	 DM67WJdOoMVflQ+3VyEf0CzZo5/zmpyKTzmVchLS5jfBKqRG/MrwFlzoBJ2XmOWhVs
+	 PKmynWMve0lx0jc5frLXsyBSaNTjLLIqmO67q7Tw=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 5D5F3F804E2;
-	Wed,  9 Dec 2020 06:35:32 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 9806BF804E0;
+	Wed,  9 Dec 2020 06:35:30 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 186EBF804C3; Wed,  9 Dec 2020 06:35:29 +0100 (CET)
+ id B46F1F804C2; Wed,  9 Dec 2020 06:35:28 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
@@ -33,29 +33,28 @@ X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
 Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 420F7F8021D
- for <alsa-devel@alsa-project.org>; Wed,  9 Dec 2020 06:35:21 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 420F7F8021D
-IronPort-SDR: Cp3AL2M8t4ycWlg+ehSLTeOaWixXxu4e9/z2NxCJBkG9LS1WW2GkDAwXViAf0WweyHpWKDHWDk
- KAlTGMO5q+xg==
-X-IronPort-AV: E=McAfee;i="6000,8403,9829"; a="153259003"
-X-IronPort-AV: E=Sophos;i="5.78,404,1599548400"; d="scan'208";a="153259003"
+ by alsa1.perex.cz (Postfix) with ESMTPS id E881DF8020D
+ for <alsa-devel@alsa-project.org>; Wed,  9 Dec 2020 06:35:24 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E881DF8020D
+IronPort-SDR: LljyTigUHEmBNczjhOL7rMY7N3W8lgiOR4RtSVXOfeMbrx+wRUkNR6xTWilJXzy2DlA5nrW94Q
+ L0S7K/pthi0g==
+X-IronPort-AV: E=McAfee;i="6000,8403,9829"; a="153259010"
+X-IronPort-AV: E=Sophos;i="5.78,404,1599548400"; d="scan'208";a="153259010"
 Received: from orsmga008.jf.intel.com ([10.7.209.65])
  by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 08 Dec 2020 21:35:20 -0800
-IronPort-SDR: O99JrVXAUy+jhyslBgmo6HOP/RkfH54h2UB8hiQkzp+lo8QV+M2qBesujOTFlWnNLoXY0cvoMv
- TahI5W6hKc0w==
-X-IronPort-AV: E=Sophos;i="5.78,404,1599548400"; d="scan'208";a="363989464"
+ 08 Dec 2020 21:35:24 -0800
+IronPort-SDR: rVpbxNAJ+9/MISNX5YXxqtIQmR4T6B4r0iPODUITV3OpS4yBrHsvUoWrmN+OZ2sj+3hHld3kJx
+ X6k/QBDd6zLw==
+X-IronPort-AV: E=Sophos;i="5.78,404,1599548400"; d="scan'208";a="363989498"
 Received: from bard-ubuntu.sh.intel.com ([10.239.13.33])
  by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 08 Dec 2020 21:35:17 -0800
+ 08 Dec 2020 21:35:20 -0800
 From: Bard Liao <yung-chuan.liao@linux.intel.com>
 To: alsa-devel@alsa-project.org,
 	vkoul@kernel.org
-Subject: [PATCH v2 3/9] soundwire: bus: use no_pm IO routines for all
- interrupt handling
-Date: Wed,  9 Dec 2020 13:34:53 +0800
-Message-Id: <20201209053459.5515-4-yung-chuan.liao@linux.intel.com>
+Subject: [PATCH v2 4/9] soundwire: export sdw_write/read_no_pm functions
+Date: Wed,  9 Dec 2020 13:34:54 +0800
+Message-Id: <20201209053459.5515-5-yung-chuan.liao@linux.intel.com>
 X-Mailer: git-send-email 2.17.1
 In-Reply-To: <20201209053459.5515-1-yung-chuan.liao@linux.intel.com>
 References: <20201209053459.5515-1-yung-chuan.liao@linux.intel.com>
@@ -79,139 +78,66 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+sdw_write_no_pm and sdw_read_no_pm are useful when we want to do IO
+without touching PM.
 
-There is no need to play with pm_runtime reference counts, if needed
-the codec drivers are already explicitly resumed.
-
-Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Reviewed-by: Rander Wang <rander.wang@linux.intel.com>
+Fixes: 0231453bc08f ('soundwire: bus: add clock stop helpers')
+Fixes: 60ee9be25571 ('soundwire: bus: add PM/no-PM versions of
+read/write functions')
 Signed-off-by: Bard Liao <yung-chuan.liao@linux.intel.com>
 ---
- drivers/soundwire/bus.c | 26 +++++++++++++-------------
- 1 file changed, 13 insertions(+), 13 deletions(-)
+ drivers/soundwire/bus.c       | 7 ++++---
+ include/linux/soundwire/sdw.h | 2 ++
+ 2 files changed, 6 insertions(+), 3 deletions(-)
 
 diff --git a/drivers/soundwire/bus.c b/drivers/soundwire/bus.c
-index b1830032b052..86c339d77a39 100644
+index 86c339d77a39..4eaeeb4090f0 100644
 --- a/drivers/soundwire/bus.c
 +++ b/drivers/soundwire/bus.c
-@@ -1295,7 +1295,7 @@ static int sdw_handle_dp0_interrupt(struct sdw_slave *slave, u8 *slave_status)
- 	u8 clear, impl_int_mask;
- 	int status, status2, ret, count = 0;
+@@ -405,10 +405,11 @@ sdw_nwrite_no_pm(struct sdw_slave *slave, u32 addr, size_t count, u8 *val)
+ 	return sdw_transfer(slave->bus, &msg);
+ }
  
--	status = sdw_read(slave, SDW_DP0_INT);
-+	status = sdw_read_no_pm(slave, SDW_DP0_INT);
- 	if (status < 0) {
- 		dev_err(slave->bus->dev,
- 			"SDW_DP0_INT read failed:%d\n", status);
-@@ -1334,7 +1334,7 @@ static int sdw_handle_dp0_interrupt(struct sdw_slave *slave, u8 *slave_status)
- 		}
+-static int sdw_write_no_pm(struct sdw_slave *slave, u32 addr, u8 value)
++int sdw_write_no_pm(struct sdw_slave *slave, u32 addr, u8 value)
+ {
+ 	return sdw_nwrite_no_pm(slave, addr, 1, &value);
+ }
++EXPORT_SYMBOL(sdw_write_no_pm);
  
- 		/* clear the interrupts but don't touch reserved and SDCA_CASCADE fields */
--		ret = sdw_write(slave, SDW_DP0_INT, clear);
-+		ret = sdw_write_no_pm(slave, SDW_DP0_INT, clear);
- 		if (ret < 0) {
- 			dev_err(slave->bus->dev,
- 				"SDW_DP0_INT write failed:%d\n", ret);
-@@ -1342,7 +1342,7 @@ static int sdw_handle_dp0_interrupt(struct sdw_slave *slave, u8 *slave_status)
- 		}
+ static int
+ sdw_bread_no_pm(struct sdw_bus *bus, u16 dev_num, u32 addr)
+@@ -476,8 +477,7 @@ int sdw_bwrite_no_pm_unlocked(struct sdw_bus *bus, u16 dev_num, u32 addr, u8 val
+ }
+ EXPORT_SYMBOL(sdw_bwrite_no_pm_unlocked);
  
- 		/* Read DP0 interrupt again */
--		status2 = sdw_read(slave, SDW_DP0_INT);
-+		status2 = sdw_read_no_pm(slave, SDW_DP0_INT);
- 		if (status2 < 0) {
- 			dev_err(slave->bus->dev,
- 				"SDW_DP0_INT read failed:%d\n", status2);
-@@ -1373,7 +1373,7 @@ static int sdw_handle_port_interrupt(struct sdw_slave *slave,
- 		return sdw_handle_dp0_interrupt(slave, slave_status);
+-static int
+-sdw_read_no_pm(struct sdw_slave *slave, u32 addr)
++int sdw_read_no_pm(struct sdw_slave *slave, u32 addr)
+ {
+ 	u8 buf;
+ 	int ret;
+@@ -488,6 +488,7 @@ sdw_read_no_pm(struct sdw_slave *slave, u32 addr)
+ 	else
+ 		return buf;
+ }
++EXPORT_SYMBOL(sdw_read_no_pm);
  
- 	addr = SDW_DPN_INT(port);
--	status = sdw_read(slave, addr);
-+	status = sdw_read_no_pm(slave, addr);
- 	if (status < 0) {
- 		dev_err(slave->bus->dev,
- 			"SDW_DPN_INT read failed:%d\n", status);
-@@ -1407,7 +1407,7 @@ static int sdw_handle_port_interrupt(struct sdw_slave *slave,
- 		}
+ static int sdw_update_no_pm(struct sdw_slave *slave, u32 addr, u8 mask, u8 val)
+ {
+diff --git a/include/linux/soundwire/sdw.h b/include/linux/soundwire/sdw.h
+index f0b01b728640..d08039d65825 100644
+--- a/include/linux/soundwire/sdw.h
++++ b/include/linux/soundwire/sdw.h
+@@ -1005,6 +1005,8 @@ int sdw_bus_exit_clk_stop(struct sdw_bus *bus);
  
- 		/* clear the interrupt but don't touch reserved fields */
--		ret = sdw_write(slave, addr, clear);
-+		ret = sdw_write_no_pm(slave, addr, clear);
- 		if (ret < 0) {
- 			dev_err(slave->bus->dev,
- 				"SDW_DPN_INT write failed:%d\n", ret);
-@@ -1415,7 +1415,7 @@ static int sdw_handle_port_interrupt(struct sdw_slave *slave,
- 		}
+ int sdw_read(struct sdw_slave *slave, u32 addr);
+ int sdw_write(struct sdw_slave *slave, u32 addr, u8 value);
++int sdw_write_no_pm(struct sdw_slave *slave, u32 addr, u8 value);
++int sdw_read_no_pm(struct sdw_slave *slave, u32 addr);
+ int sdw_nread(struct sdw_slave *slave, u32 addr, size_t count, u8 *val);
+ int sdw_nwrite(struct sdw_slave *slave, u32 addr, size_t count, u8 *val);
  
- 		/* Read DPN interrupt again */
--		status2 = sdw_read(slave, addr);
-+		status2 = sdw_read_no_pm(slave, addr);
- 		if (status2 < 0) {
- 			dev_err(slave->bus->dev,
- 				"SDW_DPN_INT read failed:%d\n", status2);
-@@ -1457,7 +1457,7 @@ static int sdw_handle_slave_alerts(struct sdw_slave *slave)
- 	}
- 
- 	/* Read Intstat 1, Intstat 2 and Intstat 3 registers */
--	ret = sdw_read(slave, SDW_SCP_INT1);
-+	ret = sdw_read_no_pm(slave, SDW_SCP_INT1);
- 	if (ret < 0) {
- 		dev_err(slave->bus->dev,
- 			"SDW_SCP_INT1 read failed:%d\n", ret);
-@@ -1465,7 +1465,7 @@ static int sdw_handle_slave_alerts(struct sdw_slave *slave)
- 	}
- 	buf = ret;
- 
--	ret = sdw_nread(slave, SDW_SCP_INTSTAT2, 2, buf2);
-+	ret = sdw_nread_no_pm(slave, SDW_SCP_INTSTAT2, 2, buf2);
- 	if (ret < 0) {
- 		dev_err(slave->bus->dev,
- 			"SDW_SCP_INT2/3 read failed:%d\n", ret);
-@@ -1473,7 +1473,7 @@ static int sdw_handle_slave_alerts(struct sdw_slave *slave)
- 	}
- 
- 	if (slave->prop.is_sdca) {
--		ret = sdw_read(slave, SDW_DP0_INT);
-+		ret = sdw_read_no_pm(slave, SDW_DP0_INT);
- 		if (ret < 0) {
- 			dev_err(slave->bus->dev,
- 				"SDW_DP0_INT read failed:%d\n", ret);
-@@ -1570,7 +1570,7 @@ static int sdw_handle_slave_alerts(struct sdw_slave *slave)
- 		}
- 
- 		/* Ack interrupt */
--		ret = sdw_write(slave, SDW_SCP_INT1, clear);
-+		ret = sdw_write_no_pm(slave, SDW_SCP_INT1, clear);
- 		if (ret < 0) {
- 			dev_err(slave->bus->dev,
- 				"SDW_SCP_INT1 write failed:%d\n", ret);
-@@ -1584,7 +1584,7 @@ static int sdw_handle_slave_alerts(struct sdw_slave *slave)
- 		 * Read status again to ensure no new interrupts arrived
- 		 * while servicing interrupts.
- 		 */
--		ret = sdw_read(slave, SDW_SCP_INT1);
-+		ret = sdw_read_no_pm(slave, SDW_SCP_INT1);
- 		if (ret < 0) {
- 			dev_err(slave->bus->dev,
- 				"SDW_SCP_INT1 read failed:%d\n", ret);
-@@ -1592,7 +1592,7 @@ static int sdw_handle_slave_alerts(struct sdw_slave *slave)
- 		}
- 		_buf = ret;
- 
--		ret = sdw_nread(slave, SDW_SCP_INTSTAT2, 2, _buf2);
-+		ret = sdw_nread_no_pm(slave, SDW_SCP_INTSTAT2, 2, _buf2);
- 		if (ret < 0) {
- 			dev_err(slave->bus->dev,
- 				"SDW_SCP_INT2/3 read failed:%d\n", ret);
-@@ -1600,7 +1600,7 @@ static int sdw_handle_slave_alerts(struct sdw_slave *slave)
- 		}
- 
- 		if (slave->prop.is_sdca) {
--			ret = sdw_read(slave, SDW_DP0_INT);
-+			ret = sdw_read_no_pm(slave, SDW_DP0_INT);
- 			if (ret < 0) {
- 				dev_err(slave->bus->dev,
- 					"SDW_DP0_INT read failed:%d\n", ret);
 -- 
 2.17.1
 

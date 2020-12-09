@@ -2,76 +2,83 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1864E2D3604
-	for <lists+alsa-devel@lfdr.de>; Tue,  8 Dec 2020 23:16:24 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 03D0B2D394A
+	for <lists+alsa-devel@lfdr.de>; Wed,  9 Dec 2020 04:39:34 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 926E183A;
-	Tue,  8 Dec 2020 23:15:33 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 926E183A
+	by alsa0.perex.cz (Postfix) with ESMTPS id 8217416DB;
+	Wed,  9 Dec 2020 04:38:43 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8217416DB
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1607465783;
-	bh=EwDWy6o8ncBQllOF5X3jnP/ObpE/VeYXCvMUxj0XBbk=;
-	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=JE4Lv0BfAVU6C9ud1mZSUzPIzpjK1Zqd9RdnuWdG0CmdEbsqFcHpzlz5ET6CJfXjO
-	 qA8YLfIdts8k6miKKyk8ghdEGq0H6AIUPDwh3AHTfnGrCIPgifLWmvlG7v52iPYyTO
-	 JXO4/jVD+KT/NY/Ru1ByAe3E1Quvjdm50uNtXxjs=
+	s=default; t=1607485173;
+	bh=M7rm1GG1qmGnueWnejvg5+zBo4NycUmd8cHxwnhsCpc=;
+	h=Date:Subject:From:To:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=c+MZScw5joZJVXG1QaBosyjSN+YEwiZU6JHcKjDrAGqmNvOsvi2wG2my6Ejw+DWe+
+	 1EcczXBqKMYtRIybrSypSk0dCxzzCi1Z3rNRY7gcRlSLpbLLQ+HTzmHoS0lG1gS41S
+	 /eoIEMUW6mixRPPvQZIITR+KKqWwHJbyA3JBHvvU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id B7E6BF8019D;
-	Tue,  8 Dec 2020 23:14:48 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id B893EF800EF;
+	Wed,  9 Dec 2020 04:37:58 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 79355F80164; Tue,  8 Dec 2020 23:14:47 +0100 (CET)
+ id 620A7F8020D; Wed,  9 Dec 2020 04:37:57 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
-Received: from mout02.posteo.de (mout02.posteo.de [185.67.36.66])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-7.6 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,USER_IN_DEF_DKIM_WL autolearn=disabled
+ version=3.4.0
+Received: from mail-pg1-x54a.google.com (mail-pg1-x54a.google.com
+ [IPv6:2607:f8b0:4864:20::54a])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 00D83F800E1
- for <alsa-devel@alsa-project.org>; Tue,  8 Dec 2020 23:14:42 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 00D83F800E1
+ by alsa1.perex.cz (Postfix) with ESMTPS id A66E1F800E1
+ for <alsa-devel@alsa-project.org>; Wed,  9 Dec 2020 04:37:52 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A66E1F800E1
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=posteo.de header.i=@posteo.de
- header.b="MV/v5/oa"
-Received: from submission (posteo.de [89.146.220.130]) 
- by mout02.posteo.de (Postfix) with ESMTPS id 9EA3E2400FB
- for <alsa-devel@alsa-project.org>; Tue,  8 Dec 2020 23:14:41 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=posteo.de; s=2017;
- t=1607465681; bh=EwDWy6o8ncBQllOF5X3jnP/ObpE/VeYXCvMUxj0XBbk=;
- h=Date:From:To:Cc:Subject:From;
- b=MV/v5/oaYb/bzkBgnF+GGZecNVyi8nD+HK7vsQjj8OO/PmX80tn5Qdpm6A37YcOk7
- pKzBRO1VMyZKXsQ2KPVaduV2zMo5NYn56fd3v2WxjkYEpfe8trL2eMaVb0KFoWPvMC
- jqns+gvSXUg3zfDnnPLH45YsIxAuT91fMP8VsDJR/VmwO2xFsNDgBkmyLPUqDLRcDl
- JX/SPJfNcHZQIjg+a31WMycPmWi+e5s9Hw1wBxppH0Nsf4c9ISN8zUc9N7kST1In0G
- ae2pVFTaS+KpD3Go7ljakSS1CcXPUZ7ZEaps10yq9x+zPsCP9RedvdNan4pM+BtMHR
- 6Fsmu7E8Rkc9A==
-Received: from customer (localhost [127.0.0.1])
- by submission (posteo.de) with ESMTPSA id 4CrDxY1TgDz6tmY;
- Tue,  8 Dec 2020 23:14:41 +0100 (CET)
-MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII;
- format=flowed
-Content-Transfer-Encoding: 7bit
-Date: Tue, 08 Dec 2020 23:14:41 +0100
-From: meschi@posteo.de
-To: Takashi Iwai <tiwai@suse.de>
-Subject: Re: Steinberg UR22 Crackling and Clicks
-In-Reply-To: <s5heek0ugtk.wl-tiwai@suse.de>
-References: <ce03244f4699ffc9574ecc2dae41a417@posteo.de>
- <s5hft4gy4ar.wl-tiwai@suse.de> <61da73624ff3855867b8e65936fc2e1c@posteo.de>
- <s5hft4gwdji.wl-tiwai@suse.de> <eb1baf202fa4cd74a502661bb0ce5279@posteo.de>
- <s5ho8j4ujwx.wl-tiwai@suse.de> <987d1956f52ba49dc3b587c33e08bfb2@posteo.de>
- <s5heek0ugtk.wl-tiwai@suse.de>
-Message-ID: <4188489e2967b44e57653193cab9d1cb@posteo.de>
-X-Sender: meschi@posteo.de
-User-Agent: Posteo Webmail
-Cc: alsa-devel@alsa-project.org
+ dkim=pass (2048-bit key) header.d=google.com header.i=@google.com
+ header.b="gxWRx+su"
+Received: by mail-pg1-x54a.google.com with SMTP id i6so241426pgg.10
+ for <alsa-devel@alsa-project.org>; Tue, 08 Dec 2020 19:37:52 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
+ h=sender:date:message-id:mime-version:subject:from:to:cc;
+ bh=cLGtDGr4lSRc6pKMWGDpS/Lgwa6LfYYY02p1RrZ7Rzc=;
+ b=gxWRx+su8POnwFn4NhmnxV1GlTT9LBkySou220/WqMcil1nBC60gVM0/ovXfVYauTE
+ hv3vUHV/YiC68zreswN/MKI8Eg3CZAbtcUhYF8lLGvPCDn0RfrRqfCortP25ne7Jrf/x
+ DH5TSq1/43ots3gheUTPUgynwWhC/Lkr6T/wiqAH+Iu9SjdjxXemc9Zy6fgfSrekf3KI
+ 1NLbi/G9UXUDvJAMtfFxIEVqiaLq/BilKa+hNKQ/nJ0SDgL9Ew2uXLYrbUeODnAWODCk
+ ISgE22KQo+2Tt1mgBzrimP7xHRtJ7VH6wg5v9dkendDhyoOT7KhI5oPkxjKTbpXQ8ud/
+ 5zLQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:sender:date:message-id:mime-version:subject:from
+ :to:cc;
+ bh=cLGtDGr4lSRc6pKMWGDpS/Lgwa6LfYYY02p1RrZ7Rzc=;
+ b=L9ZnylysfREXx+RnIWrWdi4QBIfmiFEs9nD1HSnFdYipBS0IKjT6IpJQ55OFfnAnOZ
+ 1u7h3xfDk8nqHYrYqmvSFYA37X5Q3mUy9bwcIJ2k+g0V2e7jvRMPwzNW+WfAR/Fp4ZUf
+ 2qV8hJma4OAjfhQbrz11qeT01PdNG3BRNm0RjTcpptmb5Gvej9ng5BTaZgSQImuWwE6N
+ 8/btGFq80AY/y01KPhDInGyWPctshd+uSD/LN+f7W18Mh7EgUDGY/IWvxTVkfPaFLxC7
+ FbNBOMAJp5Q0rjbUgB5xJSX4zGpZGKF9UEztXmM4m9wpM1EA9TYkWfEt4UANzowtS/qX
+ oEjw==
+X-Gm-Message-State: AOAM530u9BrbrFYEKoomqj5jhTJC/R2jLvx0mBphg76V9pNjgXJwVGQe
+ TVwgTBnR3Kvu5VWFr4wppo4leihYUdCv
+X-Google-Smtp-Source: ABdhPJxPlrjdvyoTeo9tXiUPbLbCny7YzepQwxypnczxyxYzQKSKeag+0IcUTP4pfs26gtWMOaqsoKFPvRFz
+X-Received: from tzungbi-z840.tpe.corp.google.com
+ ([2401:fa00:1:b:725a:fff:fe41:c6a5])
+ (user=tzungbi job=sendgmr) by 2002:a17:90a:17a4:: with SMTP id
+ q33mr66583pja.0.1607485069873; Tue, 08 Dec 2020 19:37:49 -0800 (PST)
+Date: Wed,  9 Dec 2020 11:37:42 +0800
+Message-Id: <20201209033742.3825973-1-tzungbi@google.com>
+Mime-Version: 1.0
+X-Mailer: git-send-email 2.29.2.576.ga3fc446d84-goog
+Subject: [PATCH] ASoC: rt1015p: delay 300ms after SDB pulling high for
+ calibration
+From: Tzung-Bi Shih <tzungbi@google.com>
+To: broonie@kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Cc: tzungbi@google.com, alsa-devel@alsa-project.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -87,114 +94,48 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
->> >> >> > It's likely the issues with the implicit feedback.
->> >> >> >
->> >> >> > The latest development tree (either linux-next tree or
->> >> >> > topic/usb-audio-refactoring branch of my sound.git tree) contains the
->> >> >> > improvements of the implicit feedback mode.
->> >> >> >
->> >> >> >
->> >> >> > Takashi
->> >> When I try to play a file now this happens:
->> >> $ aplay -D plughw:CARD=UR22 ./file.wav
->> >> Playing WAVE './file.wav' : Signed 16 bit Little Endian, Rate 44100
->> >> Hz, Stereo
->> >> aplay: set_params:1407: Unable to install hw params:
->> >
->> > It's a known side-effect of the implicit feedback mode, and the latest
->> > patchset I mentioned earlier addresses the issue.
->> >
->> >
->> > Takashi
->> 
->> I'm already running the kernel built from the linux-next tree...
->> I built next-20201208 from
->> git://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git
->> Is there another patch set that I'm missing?
-> 
-> Hm, strange.
-> 
-> Please check the contents of /proc/asound/card*/stream* file.  With
-> the latest patches and the implicit feedback mode, you should see the
-> lines like "Sync Endpoint: 0x...." and "Implicit Feedback Mode: yes".
-> 
-> 
-> Takashi
+RT1015p needs 300ms delay after SDB pulling high for internal
+calibration during the power on sequence.
 
-Yes, I see this:
+Delays 300ms right before data sends out to avoid data truncated.
 
-Yamaha Corporation Steinberg UR22 at usb-0000:00:1a.7-3, high speed : 
-USB Audio
+Signed-off-by: Tzung-Bi Shih <tzungbi@google.com>
+---
+ sound/soc/codecs/rt1015p.c | 7 +++++++
+ 1 file changed, 7 insertions(+)
 
-Playback:
-   Status: Stop
-   Interface 1
-     Altset 1
-     Format: S24_3LE
-     Channels: 2
-     Endpoint: 0x07 (7 OUT) (ASYNC)
-     Rates: 44100, 48000
-     Data packet interval: 125 us
-     Bits: 24
-     Channel map: FL FR
-     Sync Endpoint: 0x81 (1 IN)
-     Sync EP Interface: 2
-     Sync EP Altset: 1
-     Implicit Feedback Mode: Yes
-   Interface 1
-     Altset 2
-     Format: S24_3LE
-     Channels: 2
-     Endpoint: 0x07 (7 OUT) (ASYNC)
-     Rates: 88200, 96000
-     Data packet interval: 125 us
-     Bits: 24
-     Channel map: FL FR
-     Sync Endpoint: 0x81 (1 IN)
-     Sync EP Interface: 2
-     Sync EP Altset: 1
-     Implicit Feedback Mode: Yes
-   Interface 1
-     Altset 3
-     Format: S24_3LE
-     Channels: 2
-     Endpoint: 0x07 (7 OUT) (ASYNC)
-     Rates: 176400, 192000
-     Data packet interval: 125 us
-     Bits: 24
-     Channel map: FL FR
-     Sync Endpoint: 0x81 (1 IN)
-     Sync EP Interface: 2
-     Sync EP Altset: 1
-     Implicit Feedback Mode: Yes
-
-Capture:
-   Status: Stop
-   Interface 2
-     Altset 1
-     Format: S24_3LE
-     Channels: 2
-     Endpoint: 0x86 (6 IN) (ASYNC)
-     Rates: 44100, 48000
-     Data packet interval: 125 us
-     Bits: 24
-     Channel map: FL FR
-   Interface 2
-     Altset 2
-     Format: S24_3LE
-     Channels: 2
-     Endpoint: 0x86 (6 IN) (ASYNC)
-     Rates: 88200, 96000
-     Data packet interval: 125 us
-     Bits: 24
-     Channel map: FL FR
-   Interface 2
-     Altset 3
-     Format: S24_3LE
-     Channels: 2
-     Endpoint: 0x86 (6 IN) (ASYNC)
-     Rates: 176400, 192000
-     Data packet interval: 125 us
-     Bits: 24
-     Channel map: FL FR
+diff --git a/sound/soc/codecs/rt1015p.c b/sound/soc/codecs/rt1015p.c
+index 59bb60682270..515357474eba 100644
+--- a/sound/soc/codecs/rt1015p.c
++++ b/sound/soc/codecs/rt1015p.c
+@@ -4,6 +4,7 @@
+ //
+ // Copyright 2020 The Linux Foundation. All rights reserved.
+ 
++#include <linux/delay.h>
+ #include <linux/device.h>
+ #include <linux/err.h>
+ #include <linux/gpio.h>
+@@ -20,6 +21,7 @@
+ struct rt1015p_priv {
+ 	struct gpio_desc *sdb;
+ 	int sdb_switch;
++	bool calib_done;
+ };
+ 
+ static int rt1015p_daiops_trigger(struct snd_pcm_substream *substream,
+@@ -39,6 +41,11 @@ static int rt1015p_daiops_trigger(struct snd_pcm_substream *substream,
+ 		if (rt1015p->sdb_switch) {
+ 			gpiod_set_value(rt1015p->sdb, 1);
+ 			dev_dbg(component->dev, "set sdb to 1");
++
++			if (!rt1015p->calib_done) {
++				mdelay(300);
++				rt1015p->calib_done = true;
++			}
+ 		}
+ 		break;
+ 	case SNDRV_PCM_TRIGGER_STOP:
+-- 
+2.29.2.576.ga3fc446d84-goog
 

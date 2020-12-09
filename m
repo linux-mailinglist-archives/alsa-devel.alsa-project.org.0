@@ -2,78 +2,77 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 653E52D3BBD
-	for <lists+alsa-devel@lfdr.de>; Wed,  9 Dec 2020 07:57:43 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 81ACC2D3BBC
+	for <lists+alsa-devel@lfdr.de>; Wed,  9 Dec 2020 07:57:19 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 03D1416F1;
-	Wed,  9 Dec 2020 07:56:53 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 03D1416F1
+	by alsa0.perex.cz (Postfix) with ESMTPS id A66CA16B4;
+	Wed,  9 Dec 2020 07:56:06 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A66CA16B4
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1607497063;
-	bh=8x7fYsl7QtSoraYuC+LPmCmrVWWoU98gfsrGFT92eSc=;
+	s=default; t=1607497039;
+	bh=2N1cD0BKR7PdbhdZE3VRt92CGNVVbyqLwCkgD0Ss4u0=;
 	h=Date:From:To:Subject:Cc:List-Id:List-Unsubscribe:List-Archive:
 	 List-Post:List-Help:List-Subscribe:From;
-	b=ELKWADs7fD4LlpVj4YxzGZ/6nByW26TvDrBBopBScQYJIoxZVG3ZByDiaSkDFP4J8
-	 enCZASbFbwasPHD8IR5/vc/9RyI88HSUJ3t1X74H2A7v5Fvx4gun6PtWxR+V9Im8ty
-	 xpXZM6FaMtFPc/scm8A5gTj2A+ygDO8s46aZr0c8=
+	b=brCEGQ6nMTxdCJaGC/0JxM5PDD3EHJe35fOw9vT6p5SALYjlAMqTOkNXwCP9WdCux
+	 HHxJO4dR3p2llYp6T4MxMvlqecJDDvGretTdRUFVYHbryPK1iCZRiugMqZt2ddknKf
+	 qIr+VWwRx4OsAsRBa8pPkCw0q8nVc+v0y1JLMJNM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id C3BB8F8026A;
-	Wed,  9 Dec 2020 07:56:32 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 198B8F80240;
+	Wed,  9 Dec 2020 07:55:12 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 02436F8021D; Wed,  9 Dec 2020 07:56:31 +0100 (CET)
+ id 2146EF80227; Wed,  9 Dec 2020 07:55:10 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,UNPARSEABLE_RELAY autolearn=disabled
  version=3.4.0
-Received: from aserp2130.oracle.com (aserp2130.oracle.com [141.146.126.79])
+Received: from aserp2120.oracle.com (aserp2120.oracle.com [141.146.126.78])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 8C8FAF8012C
- for <alsa-devel@alsa-project.org>; Wed,  9 Dec 2020 07:56:26 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8C8FAF8012C
+ by alsa1.perex.cz (Postfix) with ESMTPS id ADC80F800EF
+ for <alsa-devel@alsa-project.org>; Wed,  9 Dec 2020 07:55:04 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz ADC80F800EF
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=oracle.com header.i=@oracle.com
- header.b="zWY0nC5F"
-Received: from pps.filterd (aserp2130.oracle.com [127.0.0.1])
- by aserp2130.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 0B96tRj6084325;
- Wed, 9 Dec 2020 06:56:24 GMT
+ header.b="HFBiHGOC"
+Received: from pps.filterd (aserp2120.oracle.com [127.0.0.1])
+ by aserp2120.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 0B96nU2m109622;
+ Wed, 9 Dec 2020 06:55:03 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com;
  h=date : from : to : cc
  : subject : message-id : mime-version : content-type; s=corp-2020-01-29;
- bh=npaGBODiUebhrnP5uVe/n/+Gmor/ZdeOhj8yDGqH2iQ=;
- b=zWY0nC5F+6wqHT6KOF/AX6qzs4ESHQp9NGUK9p61usz0Vu036cJ9TMfhAB2/SahN3Q4l
- +aiqCsRnTTknZi+S5R0w8vYskshuFR3rXJBOpquNIUT3GEySwZTfiI8RjPuDrwDty1p7
- IMKTJp9VxOis8wBYU94yygX7NrgWozn59yPmX7oBkfG5dz5yWZuhJPudvclS41T91xhb
- zGEJlDpH9bqpgfeCbI8T6JC7SUj1xuxAQAKPeoz+iTxxfzHCtQcji+mwH0H5h7Bx0ts4
- 8a62fbxIWXoZlt7ugr+JA9MyBRHAQXlM92zUKCZJ1UxTeEqAFkgCR1knLvjsoBZEYfst yA== 
+ bh=zQvQwgEwh6ZSWy3cEv5wNYjxvNMsY8WwOvAKLLggvr0=;
+ b=HFBiHGOCwAXv0ssP3vBTzEj8J83wnUDSOSEhfNqeyrvoIlx+qySPIFULpnZCiE/3Ae9t
+ M0Jho8ncnv7RFn+EtTz05Vs837526+fBBLDbip0RHtVPepfV9WYNfQYR4KwTQYRCv7hP
+ M6vmFTYwDsF8Pdm/8bfQ+fCOHYhc6f1bqCHhmseUhzTBTwdvi+XlGIq5x3NTDEfS4mZr
+ IF7xGVojIW5vSZC5b7tKHecKKEZR8jXRWL4JjpuZd1nMMbOZXoKmLLp0EE9LyraG7W/S
+ fepnfr7lPDLTJG6MexKsMKP4oQD90EU1UkHnPX5Z1drWPpgblqvyfvWrlQ5G/7mWXmc7 ng== 
 Received: from aserp3020.oracle.com (aserp3020.oracle.com [141.146.126.70])
- by aserp2130.oracle.com with ESMTP id 357yqbxn52-1
+ by aserp2120.oracle.com with ESMTP id 35825m6j7v-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
- Wed, 09 Dec 2020 06:56:24 +0000
+ Wed, 09 Dec 2020 06:55:03 +0000
 Received: from pps.filterd (aserp3020.oracle.com [127.0.0.1])
- by aserp3020.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 0B96oaDZ138696;
- Wed, 9 Dec 2020 06:54:24 GMT
+ by aserp3020.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 0B96oauo138807;
+ Wed, 9 Dec 2020 06:55:03 GMT
 Received: from userv0121.oracle.com (userv0121.oracle.com [156.151.31.72])
- by aserp3020.oracle.com with ESMTP id 358m3ytq82-1
+ by aserp3020.oracle.com with ESMTP id 358m3ytqvt-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Wed, 09 Dec 2020 06:54:24 +0000
-Received: from abhmp0016.oracle.com (abhmp0016.oracle.com [141.146.116.22])
- by userv0121.oracle.com (8.14.4/8.13.8) with ESMTP id 0B96sKIj003448;
- Wed, 9 Dec 2020 06:54:20 GMT
+ Wed, 09 Dec 2020 06:55:02 +0000
+Received: from abhmp0005.oracle.com (abhmp0005.oracle.com [141.146.116.11])
+ by userv0121.oracle.com (8.14.4/8.13.8) with ESMTP id 0B96t0kF003683;
+ Wed, 9 Dec 2020 06:55:01 GMT
 Received: from mwanda (/102.36.221.92) by default (Oracle Beehive Gateway v4.0)
- with ESMTP ; Tue, 08 Dec 2020 22:54:19 -0800
-Date: Wed, 9 Dec 2020 09:54:09 +0300
+ with ESMTP ; Tue, 08 Dec 2020 22:55:00 -0800
+Date: Wed, 9 Dec 2020 09:54:51 +0300
 From: Dan Carpenter <dan.carpenter@oracle.com>
 To: Liam Girdwood <lgirdwood@gmail.com>,
- Charles Keepax <ckeepax@opensource.cirrus.com>
-Subject: [PATCH] ASoC: wm_adsp: remove "ctl" from list on error in
- wm_adsp_create_control()
-Message-ID: <X9B0keV/02wrx9Xs@mwanda>
+ Steve Lee <steves.lee@maximintegrated.com>
+Subject: [PATCH] ASoC: max98390: Fix error codes in max98390_dsm_init()
+Message-ID: <X9B0uz4svyNTqeMb@mwanda>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
@@ -82,24 +81,20 @@ X-Proofpoint-Virus-Version: vendor=nai engine=6000 definitions=9829
  signatures=668683
 X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 spamscore=0
  malwarescore=0 adultscore=0
- bulkscore=0 phishscore=0 suspectscore=2 mlxscore=0 mlxlogscore=999
+ bulkscore=0 phishscore=0 suspectscore=0 mlxscore=0 mlxlogscore=999
  classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2009150000
  definitions=main-2012090046
 X-Proofpoint-Virus-Version: vendor=nai engine=6000 definitions=9829
  signatures=668683
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 suspectscore=2
- mlxlogscore=999
- clxscore=1011 malwarescore=0 bulkscore=0 phishscore=0 adultscore=0
- spamscore=0 priorityscore=1501 mlxscore=0 lowpriorityscore=0
- impostorscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.12.0-2009150000 definitions=main-2012090047
-Cc: alsa-devel@alsa-project.org, Adam Brickman <Adam.Brickman@cirrus.com>,
- Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
- patches@opensource.cirrus.com, kernel-janitors@vger.kernel.org,
- Takashi Iwai <tiwai@suse.com>, David Rhodes <david.rhodes@cirrus.com>,
- Mark Brown <broonie@kernel.org>, Luo Meng <luomeng12@huawei.com>,
- James Schulman <james.schulman@cirrus.com>,
- Vlad Karpovich <Vlad.Karpovich@cirrus.com>
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 suspectscore=0
+ adultscore=0 bulkscore=0
+ phishscore=0 mlxlogscore=999 clxscore=1011 priorityscore=1501 mlxscore=0
+ spamscore=0 lowpriorityscore=0 malwarescore=0 impostorscore=0
+ classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2009150000
+ definitions=main-2012090046
+Cc: alsa-devel@alsa-project.org, kernel-janitors@vger.kernel.org,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ Takashi Iwai <tiwai@suse.com>, Mark Brown <broonie@kernel.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -115,39 +110,34 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-The error handling frees "ctl" but it's still on the "dsp->ctl_list"
-list so that could result in a use after free.  Remove it from the list
-before returning.
+These error paths return success but they should return -EINVAL.
 
-Fixes: 2323736dca72 ("ASoC: wm_adsp: Add basic support for rev 1 firmware file format")
+Fixes: 97ed3e509ee6 ("ASoC: max98390: Fix potential crash during param fw loading")
 Signed-off-by: Dan Carpenter <dan.carpenter@oracle.com>
 ---
- sound/soc/codecs/wm_adsp.c | 5 +++--
- 1 file changed, 3 insertions(+), 2 deletions(-)
+ sound/soc/codecs/max98390.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-diff --git a/sound/soc/codecs/wm_adsp.c b/sound/soc/codecs/wm_adsp.c
-index e61d00486c65..dec8716aa8ef 100644
---- a/sound/soc/codecs/wm_adsp.c
-+++ b/sound/soc/codecs/wm_adsp.c
-@@ -1519,7 +1519,7 @@ static int wm_adsp_create_control(struct wm_adsp *dsp,
- 	ctl_work = kzalloc(sizeof(*ctl_work), GFP_KERNEL);
- 	if (!ctl_work) {
- 		ret = -ENOMEM;
--		goto err_ctl_cache;
-+		goto err_list_del;
+diff --git a/sound/soc/codecs/max98390.c b/sound/soc/codecs/max98390.c
+index ff5cc9bbec29..bb736c44e68a 100644
+--- a/sound/soc/codecs/max98390.c
++++ b/sound/soc/codecs/max98390.c
+@@ -784,6 +784,7 @@ static int max98390_dsm_init(struct snd_soc_component *component)
+ 	if (fw->size < MAX98390_DSM_PARAM_MIN_SIZE) {
+ 		dev_err(component->dev,
+ 			"param fw is invalid.\n");
++		ret = -EINVAL;
+ 		goto err_alloc;
  	}
- 
- 	ctl_work->dsp = dsp;
-@@ -1529,7 +1529,8 @@ static int wm_adsp_create_control(struct wm_adsp *dsp,
- 
- 	return 0;
- 
--err_ctl_cache:
-+err_list_del:
-+	list_del(&ctl->list);
- 	kfree(ctl->cache);
- err_ctl_subname:
- 	kfree(ctl->subname);
+ 	dsm_param = (char *)fw->data;
+@@ -794,6 +795,7 @@ static int max98390_dsm_init(struct snd_soc_component *component)
+ 		fw->size < param_size + MAX98390_DSM_PAYLOAD_OFFSET) {
+ 		dev_err(component->dev,
+ 			"param fw is invalid.\n");
++		ret = -EINVAL;
+ 		goto err_alloc;
+ 	}
+ 	regmap_write(max98390->regmap, MAX98390_R203A_AMP_EN, 0x80);
 -- 
 2.29.2
 

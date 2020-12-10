@@ -2,79 +2,76 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 543572D577E
-	for <lists+alsa-devel@lfdr.de>; Thu, 10 Dec 2020 10:47:06 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id BCB332D59E6
+	for <lists+alsa-devel@lfdr.de>; Thu, 10 Dec 2020 13:01:02 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D7874836;
-	Thu, 10 Dec 2020 10:46:15 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D7874836
+	by alsa0.perex.cz (Postfix) with ESMTPS id 4DBE0167C;
+	Thu, 10 Dec 2020 13:00:12 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4DBE0167C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1607593625;
-	bh=BAn7IHoYlvvjxfebnshgwjKfJ9S8htAhsUbCVOiV+rE=;
-	h=To:References:From:Subject:Date:In-Reply-To:List-Id:
+	s=default; t=1607601662;
+	bh=PjRXfNwwNNxRxtmoWX/XK3WiMERL8ANubSMVIm9lqSw=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=oPFdWaLSw6lx4VKhR8zvSqklrwCug5AiFFA1gg6tzTrcgbGdZTsY4B2UuLwbyIxj+
-	 VA8e8wqPUaBD1D9C+OgW5tjTycvTWUz5FD1io7ByWtrZWizzmovphJu5CeC5yFw2kt
-	 TNWefXYH89YMmBGEW1f9z+NM11k9kT48GtaAR6gY=
+	b=YBcBdc6Y8OuWq7Wj73uRKfZKZly1fHj8uPFMnFvThoGnOIJCDSfAaa2iOGE2ItTEa
+	 FXJX/4m963sJ0aE50DHB/AD4T5VHtAnTTrE+QXtp4hUdviczgADl4a4sh5qTtx45Ny
+	 aX4P7jx0URLyvz0Oa1tW0qDJ0sevWiuk2xhTtf7o=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 187F1F80105;
-	Thu, 10 Dec 2020 10:45:31 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 6D6ADF8019D;
+	Thu, 10 Dec 2020 12:59:27 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id ABDD8F8016E; Thu, 10 Dec 2020 10:45:29 +0100 (CET)
+ id 69CEEF8016E; Thu, 10 Dec 2020 12:59:22 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=NICE_REPLY_A,SPF_HELO_NONE,
- SPF_NONE autolearn=disabled version=3.4.0
-Received: from relay-b02.edpnet.be (relay-b02.edpnet.be [212.71.1.222])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 39D9DF800E1
- for <alsa-devel@alsa-project.org>; Thu, 10 Dec 2020 10:45:23 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 39D9DF800E1
-X-ASG-Debug-ID: 1607593522-15c4334639c7040001-UKjUFf
-Received: from [192.168.177.53] ([213.219.152.236]) by relay-b02.edpnet.be
- with ESMTP id 9XdgylBPtPV5gVO1 for <alsa-devel@alsa-project.org>;
- Thu, 10 Dec 2020 10:45:22 +0100 (CET)
-X-Barracuda-Envelope-From: janpieter.sollie@kabelmail.de
-X-Barracuda-Effective-Source-IP: UNKNOWN[213.219.152.236]
-X-Barracuda-Apparent-Source-IP: 213.219.152.236
-To: alsa-devel@alsa-project.org
-References: <07aae8e3-1ee2-60a9-daee-a0172c1012e7@kabelmail.de>
- <s5hczzkwd82.wl-tiwai@suse.de> <d4e099cd-3600-43d8-d2f5-9f7257da80ba@amd.com>
- <99e81caf-2742-32a0-cee1-7ff3ea8c6913@kabelmail.de>
- <3d8b7ad9-c6a4-0e2b-7e56-62b8d898eb23@amd.com>
- <ca8fa345-f0dd-330a-5a16-a8dbf68ea687@amd.com>
-From: Janpieter Sollie <janpieter.sollie@kabelmail.de>
-Subject: Re: AMD ACP raven ridge: invalid audio mode 2
-Message-ID: <fec06387-1d64-9dda-c99f-c6d88b662f49@kabelmail.de>
-X-ASG-Orig-Subj: Re: AMD ACP raven ridge: invalid audio mode 2
-Date: Thu, 10 Dec 2020 10:45:24 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.4.0
+ by alsa1.perex.cz (Postfix) with ESMTPS id E3403F800E1
+ for <alsa-devel@alsa-project.org>; Thu, 10 Dec 2020 12:59:18 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E3403F800E1
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="c0WGPQ5y"
+Date: Thu, 10 Dec 2020 11:59:07 +0000
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1607601555;
+ bh=PjRXfNwwNNxRxtmoWX/XK3WiMERL8ANubSMVIm9lqSw=;
+ h=From:To:Cc:Subject:References:In-Reply-To:From;
+ b=c0WGPQ5y0TDK06OtlMsr4vn5qWLOMkmHfD0+Dg3kt241O764C7FhI4ExCOb8oyXjb
+ cqOuNIK7UzaejpMSGOrwQQm2HgfCNF/5wFcLPyyPeZ5ZhxAvMmgzYe3YMw9BwkhBLK
+ sZxv5iSAiFPyW2IDxAxvDJcx6n+efSgOxleVeP/r4d7th4Ppx9pafNXx8LVdsqaajV
+ FfYgSh9nvJY8+l0oSKDTJJ/RZ5cf0Io1Ntu3HYD1p6ivcVoGbVS1z9sSvAFTOI1hc5
+ C9GlSHEjxJsUHEVgHOMA2JbCf1sbauaprIKEIwk6ckG7s+f+wpzwK+jzuoV9rVA9x8
+ tkJ35lRyqShWw==
+From: Mark Brown <broonie@kernel.org>
+To: "Liao, Bard" <bard.liao@intel.com>
+Subject: Re: [RFC] ASoC: max98373: don't access volatile registers in bias
+ level off
+Message-ID: <20201210115907.GA4747@sirena.org.uk>
+References: <20201109135543.7862-1-yung-chuan.liao@linux.intel.com>
+ <160683107675.35139.2203434126118347345.b4-ty@kernel.org>
+ <DM6PR11MB407439429C8C348D61DE4E8AFFCB0@DM6PR11MB4074.namprd11.prod.outlook.com>
 MIME-Version: 1.0
-In-Reply-To: <ca8fa345-f0dd-330a-5a16-a8dbf68ea687@amd.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Content-Language: en-US
-X-Barracuda-Connect: UNKNOWN[213.219.152.236]
-X-Barracuda-Start-Time: 1607593522
-X-Barracuda-URL: https://212.71.1.222:443/cgi-mod/mark.cgi
-X-Virus-Scanned: by bsmtpd at edpnet.be
-X-Barracuda-Scan-Msg-Size: 3338
-X-Barracuda-BRTS-Status: 1
-X-Barracuda-Spam-Score: 0.40
-X-Barracuda-Spam-Status: No, SCORE=0.40 using global scores of TAG_LEVEL=1000.0
- QUARANTINE_LEVEL=1000.0 KILL_LEVEL=7.0 tests=BSF_SC0_SA085b
-X-Barracuda-Spam-Report: Code version 3.2, rules version 3.2.3.86423
- Rule breakdown below
- pts rule name              description
- ---- ---------------------- --------------------------------------------------
- 0.40 BSF_SC0_SA085b         Custom Rule SA085b
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="4Ckj6UjgE2iN1+kY"
+Content-Disposition: inline
+In-Reply-To: <DM6PR11MB407439429C8C348D61DE4E8AFFCB0@DM6PR11MB4074.namprd11.prod.outlook.com>
+X-Cookie: Your step will soil many countries.
+User-Agent: Mutt/1.10.1 (2018-07-13)
+Cc: "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
+ "kai.vehmanen@linux.intel.com" <kai.vehmanen@linux.intel.com>,
+ "ryans.lee@maximintegrated.com" <ryans.lee@maximintegrated.com>,
+ "tiwai@suse.de" <tiwai@suse.de>,
+ "pierre-louis.bossart@linux.intel.com" <pierre-louis.bossart@linux.intel.com>,
+ "vkoul@kernel.org" <vkoul@kernel.org>,
+ Bard Liao <yung-chuan.liao@linux.intel.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -90,106 +87,34 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hi Vijendar,
 
-Thank you, the patch got rid of the error message.
+--4Ckj6UjgE2iN1+kY
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-Well, I'm not an ALSA expert (more like a noob), but I'll ask the manufac=
-turer (UDOO Bolt, ryzen
-v1000) about details for the SOC modes then, they *might* be able to show=
- me something which
-could lead to a (more or less) good implementation.
-that said: would it be possible to get more info about the device an ABI =
-or something?
+On Thu, Dec 10, 2020 at 06:18:45AM +0000, Liao, Bard wrote:
 
-The PCI registers show me the following:
-frisbee /usr/src/linux # lspci -xxxxx -s 04:00.5
-04:00.5 Multimedia controller: Advanced Micro Devices, Inc. [AMD] Raven/R=
-aven2/FireFlight/Renoir
-Audio Processor
-00: 22 10 e2 15 06 04 10 00 00 00 80 04 10 00 80 00
-10: 00 00 68 fe 00 00 00 00 00 00 00 00 00 00 00 00
-20: 00 00 00 00 00 00 00 00 00 00 00 00 22 10 e2 15
-30: 00 00 00 00 48 00 00 00 00 00 00 00 ff 02 00 00
-40: 00 00 00 00 00 00 00 00 09 50 08 00 22 10 e2 15
-50: 01 64 03 c8 0b 01 00 00 00 00 00 00 00 00 00 00
-60: 00 00 00 00 10 a0 02 00 a1 8f 00 00 30 29 00 00
-70: 03 0d 40 00 40 00 03 11 00 00 00 00 00 00 00 00
-80: 00 00 00 00 00 00 00 00 00 08 70 00 00 00 00 00
-90: 0e 00 00 00 00 00 01 00 00 00 00 00 00 00 00 00
-a0: 05 00 81 00 00 00 e0 fe 00 00 00 00 00 00 00 00
-b0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
-c0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
-d0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
-e0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
-f0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
-100: 0b 00 01 00 01 00 01 01 00 00 00 00 00 00 00 00
+> > [1/1] ASoC: max98373: don't access volatile registers in bias level off
+> >       (no commit info)
 
-Where can I find more info about what these registers mean (if anything, =
-I'll ask the udoo guys
-about the device specific bytes)?
+> Sorry but I don't find the patch on your tree. Is it applied?
+> Does "no commit info" mean the commit doesn't apply?
 
-Janpieter
+Yes, this was a b4 bug and it wasn't applied.
 
-Op 10/12/2020 om 01:12 schreef Mukunda,Vijendar:
->
->
-> On 10/12/20 12:18 am, Mukunda,Vijendar wrote:
->>
->
->>>
->>> So, if I understand correctly, the snd_pci_acp3x module initialised t=
-he acp to mode 0x2, and
->>> then decides the mode is not supported?
->>> doesn't this sound a little weird to you?
->>
->> On Raven Ridge platform, ACP device enumerated by PCI root.ACP PCI dri=
-ver creates child nodes
->> for I2S device.
->>
->> Currently we had added support for only I2S configuration.
->> We recently fixed audio driver probe failure issue when Audio configur=
-ation is set to other
->> than I2S.
->>
->> When Audio Configuration is set to other than I2S, load the ACP PCI dr=
-iver instead of
->> returning probe failure.
->> Below patch already got merged in to asoc-next branch.
->>
->> https://lore.kernel.org/alsa-devel/1603476441-3506-1-git-send-email-Vi=
-jendar.Mukunda@amd.com/
->>
->>
->> Thanks,
->> Vijendar
->>
->>
->
-> To add more to my previous explanation, Based on platform audio configu=
-ration, I2S_PIN_CONFIG
-> value is programmed from BIOS.
->
-> ACP PCI driver during its probe it only checks what is the audio config=
-uration is really set.
->
-> If it sees current configuration is set to I2S, then ACP PCI driver
-> will go ahead and create the platform devices required for I2S endpoint=
-=2E
->
-> If it is other than I2S audio configuration, it wont create the child n=
-ode and returns the
-> probe as success.
->
-> ACP IP do's lot more stuff beyond supporting simple audio endpoints.
-> For other audio configurations, we have added a default case
-> and left it as a place holder for future implementation.
->
->
-> Thanks,
-> Vijendar
->
-> .
+--4Ckj6UjgE2iN1+kY
+Content-Type: application/pgp-signature; name="signature.asc"
 
+-----BEGIN PGP SIGNATURE-----
 
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl/SDYsACgkQJNaLcl1U
+h9AJvwf/ShARsLMySjpTfVysqMolgZ3ZbvqPvklVu7DtDnInsPDIU6eBTVV9CVDU
+cUXVBR+2TlZNnvo0BVpTTcCQXmQbNX850mnRv1uWYbSfnt0MVNWa4VVKsSR0LU1r
+UTN1z87ALDALqhKv/sUc5SYxB6sxPI3Ty5iK8vaInuPNh4+dbVHHU/pdm+OylD29
+gvCuoiM6Z77C4kLtgqRH//U8SoJ7T52mWYUj89m/Irzj671gkqvAyFw1PEqC+u62
+MLFEh/t8R+IjC4UTncIr9ZCouC+Z9sYsH9uUK61umDoG8/dF6q5zBjkqfOuxSi8K
+j5rnHdwQHajU3jKo/AQt6zoHvuXcAA==
+=Qa3d
+-----END PGP SIGNATURE-----
 
+--4Ckj6UjgE2iN1+kY--

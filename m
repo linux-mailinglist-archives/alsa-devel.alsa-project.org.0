@@ -2,86 +2,83 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 017762D626B
-	for <lists+alsa-devel@lfdr.de>; Thu, 10 Dec 2020 17:49:46 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3CE132D62E8
+	for <lists+alsa-devel@lfdr.de>; Thu, 10 Dec 2020 18:03:01 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 8783D1672;
-	Thu, 10 Dec 2020 17:48:55 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8783D1672
+	by alsa0.perex.cz (Postfix) with ESMTPS id CDA581670;
+	Thu, 10 Dec 2020 18:02:10 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CDA581670
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1607618985;
-	bh=DC3WWGH/zP3Ud3u9lJMxTleO+nKeR9r6s/yrVALKjKQ=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
+	s=default; t=1607619780;
+	bh=ZDKSOKcEOMAZNX622JZAcO0P3LwLGD/SvftkjPrjPYo=;
+	h=References:In-Reply-To:From:Date:Subject:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=GqshLRSabjDcMp5br5oKgHznvbJVqbFVOzhvND+lUeMhOMY6BrazsmampHfpc2NRp
-	 wxcx1pSXehASwan5QchI4Vg2UETR2lRtR97LS76sQEXrqRo4MgweVmwNNzXF85PWA0
-	 ZaYRd+q671ccmZjBI773JxWYAexLZhxowD8bHOxY=
+	b=cpvQWZ01Z9uUBF5G9uyvN4RdixNEtlYG06gGqWz52szGSmElF5i55ApUZFdQPmRv7
+	 41jNHuVWJzwCFImb0IYriAnTE46Y5Ta+xBlCGHkxdBzS0iqmkzq5baQyypmbspK2It
+	 KG2wNBIiW2Cr4JksjvHi0/0rd6Ivn9lQVDPbMj4A=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 9F812F8019D;
-	Thu, 10 Dec 2020 17:48:10 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id B43DDF800EF;
+	Thu, 10 Dec 2020 18:01:25 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id C3EF2F8016E; Thu, 10 Dec 2020 17:48:08 +0100 (CET)
+ id D241AF8016E; Thu, 10 Dec 2020 18:01:23 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=-7.6 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,USER_IN_DEF_DKIM_WL autolearn=disabled
- version=3.4.0
-Received: from mail-io1-xd43.google.com (mail-io1-xd43.google.com
- [IPv6:2607:f8b0:4864:20::d43])
+X-Spam-Level: *
+X-Spam-Status: No, score=1.4 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,FREEMAIL_ENVFROM_END_DIGIT,FREEMAIL_FROM,MISSING_HEADERS,
+ SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
+Received: from mail-oi1-x244.google.com (mail-oi1-x244.google.com
+ [IPv6:2607:f8b0:4864:20::244])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 14E36F800E1
- for <alsa-devel@alsa-project.org>; Thu, 10 Dec 2020 17:48:00 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 14E36F800E1
+ by alsa1.perex.cz (Postfix) with ESMTPS id 57161F800EF
+ for <alsa-devel@alsa-project.org>; Thu, 10 Dec 2020 18:01:17 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 57161F800EF
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=google.com header.i=@google.com
- header.b="sZOuz8mc"
-Received: by mail-io1-xd43.google.com with SMTP id n4so6172880iow.12
- for <alsa-devel@alsa-project.org>; Thu, 10 Dec 2020 08:48:00 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=zh45VyRyzgQHGkzXe0Ti4Z8IItU/CKUDVbTtYMOFVSE=;
- b=sZOuz8mcLCTfm2zeceFE+1CPwG0DXzlpMttzqc+0tnv9aEP1NDb0E1R+DLumo8fCHN
- 1Jx/weRPcuVUAswv9JxWk5YCIERRZ4OrF2tkWhZAScQYBECS1W2EBNCTX8Snne+x/yPX
- X9XpVCYbDxg+iNzAbpyL2FNJ49kNUPQf4cs6VaL2XGiu6zwhNSC3bfn5whMY3wJlGtwv
- 8rsEBfOEugMT0Vb5cXo95uKe6zVkmH+aNzb/MWSRITASS53q3gScNN4mqceGLE/6BUMk
- eJ1U/aygt9pDYbpNwEjFD5YUY4z2WqxeJHADEZa+OGM+Yh0M2lO4y4AIyPii1vCnhVAZ
- V4BQ==
+ dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
+ header.b="td1A1r7g"
+Received: by mail-oi1-x244.google.com with SMTP id d189so6442104oig.11
+ for <alsa-devel@alsa-project.org>; Thu, 10 Dec 2020 09:01:17 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:cc;
+ bh=U0QCNM5KhsFPlcnPsOFo/BoOZiFJluT00PipTNkVB0Y=;
+ b=td1A1r7g1wq1i9r6xaID8Yi6bJNgXJbquHv8nB4OfmOy3HXX3w9UPiCDKtQ+UrLTrs
+ avsd39ECJheH9OQAgScvpcItddmYCeaj0Nc5Ft4VLxFCl8ZlNNHhSgvhNEGFnaorY5W4
+ xdc2fruQfQMPsq51qbmFD1+Lqq0xTO1w5ZM9Fsh+f4s1rxJ+xNQH0gNDd8Vsm4hOfMSL
+ qFQ5+emolKF5RbQXCdAB7V/AIwPubikcAuaKS5BPMYvqopIoGyx9/vvSHmxs865dNl1v
+ EOARcUaSAR9PNw5AuoxS9UE7P/GMw5GBO53S7+WnRMn2qhqo5Yj8GwXcCDVpPY9TV3Kw
+ A3nQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=zh45VyRyzgQHGkzXe0Ti4Z8IItU/CKUDVbTtYMOFVSE=;
- b=CLuvNTeiWUhbdy2m8AilPcM9UKn2nSUY/kZ5iSP3wdpNs6GlczW9Ail8cHJ43D3m7U
- Ltkle930SQDdGFF9GgTNBJOy79ZAjSALfmwJIPrqs0bKFXEnezL8+//TFu91UB+YtZnw
- IKJU1KpiXNCVOYjL82P6cLPBaCdi7/PvfWHM2fEfjdxmdcvZujxdY9vlzYbS0y5iW2tP
- y7wUbbUXAjNyUcC1/zEIYG7FJRoQPPyKG6px4nnNVD6HTpcN5czyplUq8YKSRNY0aGxr
- 8XDn2josCJM2jN25kC7x+60anvcwofo0/6Yzg2wszVf7Eal5kGpTqeVig+sI3ezo8iaC
- E5MQ==
-X-Gm-Message-State: AOAM533fsXoQ1mvSAleXUk1ZvHO1lKM5XdHqMpH8/uVfjM5FbHmAshGP
- IyriJcgO4ykVl+hC7H/F9viHqka5EbxlSh97s0gsyQ==
-X-Google-Smtp-Source: ABdhPJwh2Ki5/TGuZQr2BVQKZlbabwChnxgPwvmDEK2CefI68FXqMEr6mNM4xtEYcIvsEXgrvo8WPWU5SKsyTW3nfH0=
-X-Received: by 2002:a05:6602:2d49:: with SMTP id
- d9mr9042080iow.109.1607618878538; 
- Thu, 10 Dec 2020 08:47:58 -0800 (PST)
+ :message-id:subject:cc;
+ bh=U0QCNM5KhsFPlcnPsOFo/BoOZiFJluT00PipTNkVB0Y=;
+ b=XTqzvGMp2homh0Jco3xYaCUkJFyYMujHYYWP/S1Dk1/wTLhT4rAu5bcETaH1iOBdIk
+ rMXXx3Gp0khrwc6r5HlGCt4FnTM8jw7iRhO2hlJuRGjVSi5vc2ULWuv6PhNbJ9hvjcP3
+ sLTZrdSjVPD5zQC+SG8teizlR+3iWzqbH8WCUy/iJa3CrMkXN1xyk1JNpo7vclaWLxJB
+ pdv1sUIbChHyWLF2LielMSLx3i0Z6xz00JV8mIE9hk55c5QtVHjdiRsnHUT8Qm2z4xT9
+ m+kEVxdZhd/ioh6ZJZAuSRjOtnrbwlPW5nsLucioTmr1CftV9EN5aqbCHpfU2Z5vgDF7
+ Rlkw==
+X-Gm-Message-State: AOAM530us6ng2KESQx1sgBNTMk1cdffE8zPyBGzIFwV0vZyPnXCFQmu/
+ ePywsWZIba8ZsA6rgIhqlD1NinJAe6ki/Sb1pv4=
+X-Received: by 2002:aca:44d:: with SMTP id 74mt6873789oie.4.1607619675083;
+ Thu, 10 Dec 2020 09:01:15 -0800 (PST)
 MIME-Version: 1.0
-References: <20201210033617.79300-1-tzungbi@google.com>
- <20201210033617.79300-3-tzungbi@google.com>
- <20201210154200.GD4747@sirena.org.uk>
-In-Reply-To: <20201210154200.GD4747@sirena.org.uk>
-From: Tzung-Bi Shih <tzungbi@google.com>
-Date: Fri, 11 Dec 2020 00:47:47 +0800
-Message-ID: <CA+Px+wXQp9mdvsjz7A1vmaipdnZkav7Mm4oDfH9LviFLC8eDKg@mail.gmail.com>
-Subject: Re: [PATCH v2 2/2] ASoC: rt1015p: delay 300ms after SDB pulling high
- for calibration
-To: Mark Brown <broonie@kernel.org>
+References: <20201207084616.411531-1-conmanx360@gmail.com>
+ <20201207084616.411531-3-conmanx360@gmail.com>
+In-Reply-To: <20201207084616.411531-3-conmanx360@gmail.com>
+From: Connor McAdams <conmanx360@gmail.com>
+Date: Thu, 10 Dec 2020 12:01:04 -0500
+Message-ID: <CAM8Agx1wF4W=wQuod5-awNzOppe-4h2xD-h4EDZFoaD0pxd0bw@mail.gmail.com>
+Subject: Re: [PATCH 3/3] ALSA: hda/ca0132 - Unmute surround when speaker
+ output is selected.
 Content-Type: text/plain; charset="UTF-8"
-Cc: ALSA development <alsa-devel@alsa-project.org>
+Cc: linux-kernel <linux-kernel@vger.kernel.org>,
+ ALSA development <alsa-devel@alsa-project.org>, Takashi Iwai <tiwai@suse.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -97,20 +94,33 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Thu, Dec 10, 2020 at 11:42 PM Mark Brown <broonie@kernel.org> wrote:
->
-> On Thu, Dec 10, 2020 at 11:36:17AM +0800, Tzung-Bi Shih wrote:
->
-> > +             if (!rt1015p->calib_done) {
-> > +                     msleep(300);
-> > +                     rt1015p->calib_done = true;
-> > +             }
->
-> Might we need to reset calib_done over suspend?  If the device looses
-> power I guess it forgets the calibration.
+Apologies, this patch seems to be a mistake.
 
-In our environment, the power VBAT and AVDD are still on even if the
-system suspends.  In more low power mode, AVDD could probably lose.
+I don't know why I thought this was the case.
 
-But agree with you, in general, suppose the device needs to calibrate
-again after suspend/resume is better.
+On Mon, Dec 7, 2020 at 3:46 AM Connor McAdams <conmanx360@gmail.com> wrote:
+>
+> Make sure GPIO pin for surround channel mute is set to 0 when speaker
+> output is selected.
+>
+> Signed-off-by: Connor McAdams <conmanx360@gmail.com>
+> ---
+>  sound/pci/hda/patch_ca0132.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+>
+> diff --git a/sound/pci/hda/patch_ca0132.c b/sound/pci/hda/patch_ca0132.c
+> index 793dc5d501a5..6d647d461eab 100644
+> --- a/sound/pci/hda/patch_ca0132.c
+> +++ b/sound/pci/hda/patch_ca0132.c
+> @@ -1390,7 +1390,7 @@ static const struct ca0132_alt_out_set_quirk_data quirk_out_set_data[] = {
+>                   .has_hda_gpio     = false,
+>                   .mmio_gpio_count  = 3,
+>                   .mmio_gpio_pin    = { 2, 3, 5 },
+> -                 .mmio_gpio_set    = { 1, 1, 0 },
+> +                 .mmio_gpio_set    = { 1, 0, 0 },
+>                   .scp_cmds_count   = 0,
+>                   .has_chipio_write = false,
+>                 },
+> --
+> 2.25.1
+>

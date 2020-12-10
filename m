@@ -2,79 +2,79 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D75C82D509B
-	for <lists+alsa-devel@lfdr.de>; Thu, 10 Dec 2020 03:07:36 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9FA0D2D50BA
+	for <lists+alsa-devel@lfdr.de>; Thu, 10 Dec 2020 03:17:38 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 6F9A5169A;
-	Thu, 10 Dec 2020 03:06:46 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6F9A5169A
+	by alsa0.perex.cz (Postfix) with ESMTPS id C12EE169C;
+	Thu, 10 Dec 2020 03:16:47 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C12EE169C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1607566056;
-	bh=5apOLPYQyNb2mpdTZXE7hOA0DX8xScrs38to6SNbQ/Y=;
+	s=default; t=1607566657;
+	bh=faahizKVXPdqW2s9jiBNRh+xn7BOJyfuQ+a1UCq+t70=;
 	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=Cjwd9BjNGaQdTGlwF1SNFiZsqjMPzXehaAwyTpc2AJQh+adJvcQqwwYi5J/QHJe8H
-	 Idut+zNldC3XHdHVJV683AIDL7VH6sQuxVbVhO7YcMos3LNWVpH81weKNvb6fUqDV4
-	 zXGZos0aBvS48Ac24+NAntPsqany+RH3StCbK88U=
+	b=TkszVogvc26uY/IQheyA6Ui8yrh6t2VT5+4PBJjlVlHn0oz9u8GWcik4YVRloGSuV
+	 6fgsJbaCcx4KP1O5fLFs+lObS68olC2eNNQS00REeOF5ehEjGtqc1ykpr6jxVAkEfN
+	 DIAiGC6WrU0ydo2/dLES74tF96+Z9uaV1k9CLMag=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 0A3E7F80217;
-	Thu, 10 Dec 2020 03:06:02 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 0D591F8012C;
+	Thu, 10 Dec 2020 03:16:03 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 9BDCCF8020D; Thu, 10 Dec 2020 03:05:57 +0100 (CET)
+ id 88AD7F8012C; Thu, 10 Dec 2020 03:16:00 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.8 required=5.0 tests=FREEMAIL_ENVFROM_END_DIGIT,
  FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,
  SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mail-oi1-f194.google.com (mail-oi1-f194.google.com
- [209.85.167.194])
+Received: from mail-oo1-f66.google.com (mail-oo1-f66.google.com
+ [209.85.161.66])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id DDAE9F800EF
- for <alsa-devel@alsa-project.org>; Thu, 10 Dec 2020 03:05:48 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DDAE9F800EF
-Received: by mail-oi1-f194.google.com with SMTP id o25so4056901oie.5
- for <alsa-devel@alsa-project.org>; Wed, 09 Dec 2020 18:05:48 -0800 (PST)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 26E69F8012C
+ for <alsa-devel@alsa-project.org>; Thu, 10 Dec 2020 03:15:53 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 26E69F8012C
+Received: by mail-oo1-f66.google.com with SMTP id w9so917505ooh.13
+ for <alsa-devel@alsa-project.org>; Wed, 09 Dec 2020 18:15:53 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:date:from:to:cc:subject:message-id:references
  :mime-version:content-disposition:in-reply-to;
- bh=8GuGks7pjJoLfrOI5hpguNKWl0aw9SWAL6rU3/z+zUI=;
- b=tuhEiBM9OiIouE74O5bHhpMkqosqInnMPeeA/vqv+1UPKt2xLEHALtNNI3kdeFwbP/
- 5Qe2rHEUoYdToISFXl/2JxmRdTfe9QyUjhyjmFVoIHgdZOqL+6cS+mpZMIA4IqSOXvFG
- 2FmG3vlpECa5EmtOVKYRCOqtwcSyHv6109c/xFeuuSUS58EAoNjnpPHDnfrwMk29nvIl
- RIXV+4m8t/Pjh9AGrM3sW08ZNq8jWtjuVFVb4Od3hEvRyC1z1jqWFmmDlhT8plF+J7Tg
- aECScYboK4IIfWTWWMfTx+AsRlf35meAAPK4Q2bqTMkgKfdEY3S9Hps0F8JVykM+m/88
- 7m2w==
-X-Gm-Message-State: AOAM533GdI3KvSC0/02jNiQzGOnsrCLDwz8v+DQRq7vYehY7LJWoyXXv
- pukiIK2n4uIPZdP3u33ojg==
-X-Google-Smtp-Source: ABdhPJwoARnT512h9iJ5Js1SDMsBW69jc17uvbUNL4uUBpC574j9b0Ymjg3ke21CekdWBTrNzGIxEw==
-X-Received: by 2002:aca:4006:: with SMTP id n6mr3949480oia.22.1607565947425;
- Wed, 09 Dec 2020 18:05:47 -0800 (PST)
+ bh=kig++s2HW24HAPkqPX1OgjRI23AmXcrz8TrgPWK8wUA=;
+ b=KM0qGQskKwoVO5MwcKySaEbT0vAanRhYr3vQTWML8NXbpYU8rPjcSjbhgK21yBRjww
+ Jfr5W5O2b6u+68H5r5/CIflPTRCjwIcpmHYaWv6qxClH92yk/OcSNe8gbNMhcgltkAGm
+ 6PK0+ZWCqQUh97Io3W8S13WxYDehaq+bisgxa0PLGRbYxZwmKmnPVUMVvTpvHW0WhXtq
+ CgHjvrsZgcVfUxTh6Dv6t2JkdWTXvayBc58DIVp63j4qVAtfQOCJ3Cd09DrvfuQ95gps
+ BHJ657D5kTrUgMoDZESg1K5tvgumsbch5+3ESDQ13mDaFho5thBx1G3KWiKLFyAMfk1y
+ uoxg==
+X-Gm-Message-State: AOAM530UFYLI9bESE2d6YtGHmO4/HToO0SRK1Ui/RzPN1hkQXPcfBAki
+ rcL1IGxW7TLZdD7cRwGTaw==
+X-Google-Smtp-Source: ABdhPJwT1EYRtwvWlEwB64Z4MD4vnsrU10z1MOaFcXuH8IyRQ02iULJwh8Qn9dR2ZrcyXDio8612Zw==
+X-Received: by 2002:a4a:aac4:: with SMTP id e4mr4420261oon.2.1607566552359;
+ Wed, 09 Dec 2020 18:15:52 -0800 (PST)
 Received: from xps15 (24-155-109-49.dyn.grandenetworks.net. [24.155.109.49])
- by smtp.gmail.com with ESMTPSA id o82sm693247oih.5.2020.12.09.18.05.45
+ by smtp.gmail.com with ESMTPSA id k13sm836582otl.72.2020.12.09.18.15.51
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 09 Dec 2020 18:05:46 -0800 (PST)
-Received: (nullmailer pid 1484610 invoked by uid 1000);
- Thu, 10 Dec 2020 02:05:45 -0000
-Date: Wed, 9 Dec 2020 20:05:45 -0600
+ Wed, 09 Dec 2020 18:15:51 -0800 (PST)
+Received: (nullmailer pid 1498781 invoked by uid 1000);
+ Thu, 10 Dec 2020 02:15:50 -0000
+Date: Wed, 9 Dec 2020 20:15:50 -0600
 From: Rob Herring <robh@kernel.org>
-To: Alexandre Belloni <alexandre.belloni@bootlin.com>
-Subject: Re: [PATCH 1/2] dt-bindings: add simple-audio-mux binding
-Message-ID: <20201210020545.GA1480364@robh.at.kernel.org>
-References: <20201205001508.346439-1-alexandre.belloni@bootlin.com>
+To: Sameer Pujar <spujar@nvidia.com>
+Subject: Re: [PATCH] ASoC: audio-graph-card: Drop remote-endpoint as required
+ property
+Message-ID: <20201210021550.GA1498001@robh.at.kernel.org>
+References: <1607498532-19518-1-git-send-email-spujar@nvidia.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20201205001508.346439-1-alexandre.belloni@bootlin.com>
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- Mark Brown <broonie@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>,
- linux-kernel@vger.kernel.org
+In-Reply-To: <1607498532-19518-1-git-send-email-spujar@nvidia.com>
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org, broonie@kernel.org,
+ linux-kernel@vger.kernel.org, kuninori.morimoto.gx@renesas.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -90,70 +90,36 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Sat, Dec 05, 2020 at 01:15:07AM +0100, Alexandre Belloni wrote:
-> Add devicetree documentation for simple audio multiplexers
+On Wed, Dec 09, 2020 at 12:52:12PM +0530, Sameer Pujar wrote:
+> The remote-endpoint may not be available if it is part of some
+> pluggable module. One such example would be an audio card, the
+> Codec endpoint will not be available until it is plugged in.
+> Hence drop 'remote-endpoint' as a required property.
+
+Please hold off on this. I have more changes coming.
+
 > 
-> Signed-off-by: Alexandre Belloni <alexandre.belloni@bootlin.com>
+> Cc: Rob Herring <robh@kernel.org>
+> Cc: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+> Signed-off-by: Sameer Pujar <spujar@nvidia.com>
 > ---
-> Cc: Rob Herring <robh+dt@kernel.org>
+>  Documentation/devicetree/bindings/sound/audio-graph-port.yaml | 3 ---
+>  1 file changed, 3 deletions(-)
 > 
->  .../bindings/sound/simple-audio-mux.yaml      | 41 +++++++++++++++++++
->  1 file changed, 41 insertions(+)
->  create mode 100644 Documentation/devicetree/bindings/sound/simple-audio-mux.yaml
-> 
-> diff --git a/Documentation/devicetree/bindings/sound/simple-audio-mux.yaml b/Documentation/devicetree/bindings/sound/simple-audio-mux.yaml
-> new file mode 100644
-> index 000000000000..5986d1fcbb54
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/sound/simple-audio-mux.yaml
-> @@ -0,0 +1,41 @@
-> +# SPDX-License-Identifier: (GPL-2.0+ OR BSD-2-Clause)
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/sound/simple-audio-mux.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: Simple Audio Multiplexer
-> +
-> +maintainers:
-> +  - Alexandre Belloni <aleandre.belloni@bootlin.com>
-
-typo
-
-> +
-> +description: |
-> +  Simple audio multiplexers are driven using gpios, allowing to select which of
-> +  their input line is connected to the output line.
-
-What's wrong with the generic mux binding and driver(s)?
-
-> +
-> +properties:
-> +  compatible:
-> +    const: simple-audio-mux
-> +
-> +  mux-gpios:
-> +    description: |
-> +      GPIOs used to select the input line.
-> +
-> +  sound-name-prefix:
-> +    $ref: /schemas/types.yaml#/definitions/string
-> +    description:
-> +      Used as prefix for sink/source names of the component. Must be a
-> +      unique string among multiple instances of the same component.
-> +
-> +required:
-> +  - compatible
-> +  - mux-gpios
-> +
-> +additionalProperties: false
-> +
-> +examples:
-> +  - |
-> +    mux {
-> +        compatible = "simple-audio-mux";
-> +        mux-gpios = <&gpio 3 0>;
-> +    };
+> diff --git a/Documentation/devicetree/bindings/sound/audio-graph-port.yaml b/Documentation/devicetree/bindings/sound/audio-graph-port.yaml
+> index 2005014..766e910 100644
+> --- a/Documentation/devicetree/bindings/sound/audio-graph-port.yaml
+> +++ b/Documentation/devicetree/bindings/sound/audio-graph-port.yaml
+> @@ -71,9 +71,6 @@ properties:
+>              description: CPU to Codec rate channels.
+>              $ref: /schemas/types.yaml#/definitions/uint32
+>  
+> -        required:
+> -          - remote-endpoint
+> -
+>    ports:
+>      description: multi OF-Graph subnode
+>      type: object
 > -- 
-> 2.28.0
+> 2.7.4
 > 

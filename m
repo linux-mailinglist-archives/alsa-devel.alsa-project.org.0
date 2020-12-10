@@ -2,63 +2,79 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id CA1532D5085
-	for <lists+alsa-devel@lfdr.de>; Thu, 10 Dec 2020 02:56:11 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id D75C82D509B
+	for <lists+alsa-devel@lfdr.de>; Thu, 10 Dec 2020 03:07:36 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 51CD6169B;
-	Thu, 10 Dec 2020 02:55:21 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 51CD6169B
+	by alsa0.perex.cz (Postfix) with ESMTPS id 6F9A5169A;
+	Thu, 10 Dec 2020 03:06:46 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6F9A5169A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1607565371;
-	bh=wz/80BABdpPt3JBlZsnrJxM9VjmDgMRSMmus5lZX0GA=;
-	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
+	s=default; t=1607566056;
+	bh=5apOLPYQyNb2mpdTZXE7hOA0DX8xScrs38to6SNbQ/Y=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=CoFCjuh2xdIgmU9XvU6l49A3g/WUTfGe+g0KJ95kj05eqXMBiyOwM4KG400kvXLvP
-	 Tzu+5cXexxA3llaBp14NMK082DP0gP1SqBwgrFgVKq6dZ0kNNubQJVuIIvm9GO1gUC
-	 MmPHjKMRweOzrsYUnaXkVlalOG7W3q9ty6VD0SqU=
+	b=Cjwd9BjNGaQdTGlwF1SNFiZsqjMPzXehaAwyTpc2AJQh+adJvcQqwwYi5J/QHJe8H
+	 Idut+zNldC3XHdHVJV683AIDL7VH6sQuxVbVhO7YcMos3LNWVpH81weKNvb6fUqDV4
+	 zXGZos0aBvS48Ac24+NAntPsqany+RH3StCbK88U=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 75016F80217;
-	Thu, 10 Dec 2020 02:54:36 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 0A3E7F80217;
+	Thu, 10 Dec 2020 03:06:02 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id CE1DAF8020D; Thu, 10 Dec 2020 02:54:33 +0100 (CET)
+ id 9BDCCF8020D; Thu, 10 Dec 2020 03:05:57 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=NICE_REPLY_A,SPF_HELO_NONE,
- SPF_NONE autolearn=disabled version=3.4.0
-Received: from youngberry.canonical.com (youngberry.canonical.com
- [91.189.89.112])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
+X-Spam-Status: No, score=0.8 required=5.0 tests=FREEMAIL_ENVFROM_END_DIGIT,
+ FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,
+ SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mail-oi1-f194.google.com (mail-oi1-f194.google.com
+ [209.85.167.194])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id D4136F800E1
- for <alsa-devel@alsa-project.org>; Thu, 10 Dec 2020 02:54:29 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D4136F800E1
-Received: from [123.114.42.209] (helo=[192.168.0.106])
- by youngberry.canonical.com with esmtpsa
- (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.86_2)
- (envelope-from <hui.wang@canonical.com>)
- id 1knBA2-0005id-EK; Thu, 10 Dec 2020 01:54:26 +0000
-Subject: Re: [RFC][PATCH 0/2] design a way to change audio Jack state by
- software
-To: Takashi Iwai <tiwai@suse.de>, Jaroslav Kysela <perex@perex.cz>
-References: <20201209124344.219158-1-hui.wang@canonical.com>
- <575811fc-cb64-c7d4-bf6b-5044949a326c@perex.cz>
- <s5hy2i7rqcc.wl-tiwai@suse.de>
-From: Hui Wang <hui.wang@canonical.com>
-Message-ID: <3cccdf16-b865-3bf2-d518-bf456b9a29e5@canonical.com>
-Date: Thu, 10 Dec 2020 09:54:19 +0800
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.10.0
+ by alsa1.perex.cz (Postfix) with ESMTPS id DDAE9F800EF
+ for <alsa-devel@alsa-project.org>; Thu, 10 Dec 2020 03:05:48 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DDAE9F800EF
+Received: by mail-oi1-f194.google.com with SMTP id o25so4056901oie.5
+ for <alsa-devel@alsa-project.org>; Wed, 09 Dec 2020 18:05:48 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to;
+ bh=8GuGks7pjJoLfrOI5hpguNKWl0aw9SWAL6rU3/z+zUI=;
+ b=tuhEiBM9OiIouE74O5bHhpMkqosqInnMPeeA/vqv+1UPKt2xLEHALtNNI3kdeFwbP/
+ 5Qe2rHEUoYdToISFXl/2JxmRdTfe9QyUjhyjmFVoIHgdZOqL+6cS+mpZMIA4IqSOXvFG
+ 2FmG3vlpECa5EmtOVKYRCOqtwcSyHv6109c/xFeuuSUS58EAoNjnpPHDnfrwMk29nvIl
+ RIXV+4m8t/Pjh9AGrM3sW08ZNq8jWtjuVFVb4Od3hEvRyC1z1jqWFmmDlhT8plF+J7Tg
+ aECScYboK4IIfWTWWMfTx+AsRlf35meAAPK4Q2bqTMkgKfdEY3S9Hps0F8JVykM+m/88
+ 7m2w==
+X-Gm-Message-State: AOAM533GdI3KvSC0/02jNiQzGOnsrCLDwz8v+DQRq7vYehY7LJWoyXXv
+ pukiIK2n4uIPZdP3u33ojg==
+X-Google-Smtp-Source: ABdhPJwoARnT512h9iJ5Js1SDMsBW69jc17uvbUNL4uUBpC574j9b0Ymjg3ke21CekdWBTrNzGIxEw==
+X-Received: by 2002:aca:4006:: with SMTP id n6mr3949480oia.22.1607565947425;
+ Wed, 09 Dec 2020 18:05:47 -0800 (PST)
+Received: from xps15 (24-155-109-49.dyn.grandenetworks.net. [24.155.109.49])
+ by smtp.gmail.com with ESMTPSA id o82sm693247oih.5.2020.12.09.18.05.45
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 09 Dec 2020 18:05:46 -0800 (PST)
+Received: (nullmailer pid 1484610 invoked by uid 1000);
+ Thu, 10 Dec 2020 02:05:45 -0000
+Date: Wed, 9 Dec 2020 20:05:45 -0600
+From: Rob Herring <robh@kernel.org>
+To: Alexandre Belloni <alexandre.belloni@bootlin.com>
+Subject: Re: [PATCH 1/2] dt-bindings: add simple-audio-mux binding
+Message-ID: <20201210020545.GA1480364@robh.at.kernel.org>
+References: <20201205001508.346439-1-alexandre.belloni@bootlin.com>
 MIME-Version: 1.0
-In-Reply-To: <s5hy2i7rqcc.wl-tiwai@suse.de>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 7bit
-Content-Language: en-US
-Cc: alsa-devel@alsa-project.org
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20201205001508.346439-1-alexandre.belloni@bootlin.com>
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
+ Mark Brown <broonie@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>,
+ linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -74,45 +90,70 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+On Sat, Dec 05, 2020 at 01:15:07AM +0100, Alexandre Belloni wrote:
+> Add devicetree documentation for simple audio multiplexers
+> 
+> Signed-off-by: Alexandre Belloni <alexandre.belloni@bootlin.com>
+> ---
+> Cc: Rob Herring <robh+dt@kernel.org>
+> 
+>  .../bindings/sound/simple-audio-mux.yaml      | 41 +++++++++++++++++++
+>  1 file changed, 41 insertions(+)
+>  create mode 100644 Documentation/devicetree/bindings/sound/simple-audio-mux.yaml
+> 
+> diff --git a/Documentation/devicetree/bindings/sound/simple-audio-mux.yaml b/Documentation/devicetree/bindings/sound/simple-audio-mux.yaml
+> new file mode 100644
+> index 000000000000..5986d1fcbb54
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/sound/simple-audio-mux.yaml
+> @@ -0,0 +1,41 @@
+> +# SPDX-License-Identifier: (GPL-2.0+ OR BSD-2-Clause)
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/sound/simple-audio-mux.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +
+> +title: Simple Audio Multiplexer
+> +
+> +maintainers:
+> +  - Alexandre Belloni <aleandre.belloni@bootlin.com>
 
-On 12/9/20 10:44 PM, Takashi Iwai wrote:
-> On Wed, 09 Dec 2020 15:25:42 +0100,
-> Jaroslav Kysela wrote:
->> Dne 09. 12. 20 v 13:43 Hui Wang napsal(a):
->>> After we change sth in the userspace audio stack like alsa-ucm or
->>> pulseaudio, we want to perform remote audio auto test to verify if the
->>> change introduce the regression or not, some of the tests are about
->>> the defaut_sink/default_source or active_port switching, this needs
->>> the audio jack state to be changed to trigger the userspace's audio
->>> device switching.
->>>
->>> So far, there is no software ways to change the audio jack state, this
->>> block the auto test.
->> I'm not convinced to pollute the kernel space with this code. You can use
->> LD_PRELOAD and simulate this via a shared library or the alsa-lib may be extended.
-> While I understand this argument, I see the merit of having the
-> kernel-side injection, too.  Wrapping with LD_PRELOAD (or use alsa-lib
-> plugin) doesn't verify whether the whole jack system works.  OTOH, the
-> jack injection in kernel simulates the closer path to the real use
-> case, which covers also the call paths inside the kernel.
->
-> Though, I'm not sure whether the current design is the best choice.
-> Basically sysfs is expressed in one value per file (although there are
-> many exceptions, of course).  So creating a node per jack object might
-> fit better?  Or can it better be in debugfs?
-OK, got it, will investigate it.
->
->> Also, the first patch can be omitted if you just create another
->> snd_jack_report() function for the user API and put the common code to the
->> static function in jack.c.
-> Fully agreed on this point.
+typo
 
-Indeed, it is a better and cleaner way, will think about it and 
-implement it.
+> +
+> +description: |
+> +  Simple audio multiplexers are driven using gpios, allowing to select which of
+> +  their input line is connected to the output line.
 
-Thanks.
+What's wrong with the generic mux binding and driver(s)?
 
->
-> thanks,
->
-> Takashi
+> +
+> +properties:
+> +  compatible:
+> +    const: simple-audio-mux
+> +
+> +  mux-gpios:
+> +    description: |
+> +      GPIOs used to select the input line.
+> +
+> +  sound-name-prefix:
+> +    $ref: /schemas/types.yaml#/definitions/string
+> +    description:
+> +      Used as prefix for sink/source names of the component. Must be a
+> +      unique string among multiple instances of the same component.
+> +
+> +required:
+> +  - compatible
+> +  - mux-gpios
+> +
+> +additionalProperties: false
+> +
+> +examples:
+> +  - |
+> +    mux {
+> +        compatible = "simple-audio-mux";
+> +        mux-gpios = <&gpio 3 0>;
+> +    };
+> -- 
+> 2.28.0
+> 

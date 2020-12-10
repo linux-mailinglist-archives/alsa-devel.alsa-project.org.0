@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 065D72D6012
-	for <lists+alsa-devel@lfdr.de>; Thu, 10 Dec 2020 16:41:50 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id B2C2A2D6029
+	for <lists+alsa-devel@lfdr.de>; Thu, 10 Dec 2020 16:43:54 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 6BE7684D;
-	Thu, 10 Dec 2020 16:40:59 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6BE7684D
+	by alsa0.perex.cz (Postfix) with ESMTPS id 4BF8A1672;
+	Thu, 10 Dec 2020 16:43:04 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4BF8A1672
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1607614909;
-	bh=BCbJuIaERpNSLN75QqMnkW2oyMSrF0Q+DvLQgp+TsLg=;
+	s=default; t=1607615034;
+	bh=o1vHR85L1PmnJia7WdCm8hPCTS9+17L1Ezqb19hWoPs=;
 	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=OM84fNMcHpADUAALSZrR4N2eFG3EH1R9lAQOFhAb0EE4RJwP9B1RLH6QTevzq8SLi
-	 ks5ppCN40DzGUthQELgZ4910lfaWP8R+eieLYLVMAt0RxdgxWTsjbsG64uZwZ3Svgl
-	 T+lxVerHek53eOH9DodUsBcBRzmAxeM8G836gMq0=
+	b=CpmtTx3OgDuyeXoquzQW4MFupaKulioM88JneqX11JKvYJla5MIPVwYNfNNkNM04X
+	 A4y6b+JPaCttpFRGVX/tL72Y15sQmee7TwaPOAhr4jsWpmUdTxw5Uvwwnkdq4SHJtS
+	 aCNIRFcYzMU/3OFfg6jP0bIRhUFXVK34HcLIL7AY=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 73F18F8019D;
-	Thu, 10 Dec 2020 16:40:14 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id AF88EF80105;
+	Thu, 10 Dec 2020 16:42:19 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 6B414F8016E; Thu, 10 Dec 2020 16:40:12 +0100 (CET)
+ id 39037F8016E; Thu, 10 Dec 2020 16:42:17 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -33,35 +33,35 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 194B5F800EF
- for <alsa-devel@alsa-project.org>; Thu, 10 Dec 2020 16:40:05 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 194B5F800EF
+ by alsa1.perex.cz (Postfix) with ESMTPS id 07164F80105
+ for <alsa-devel@alsa-project.org>; Thu, 10 Dec 2020 16:42:09 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 07164F80105
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="CQ4LlrZc"
-Date: Thu, 10 Dec 2020 15:39:55 +0000
+ header.b="GqDa6c9R"
+Date: Thu, 10 Dec 2020 15:42:00 +0000
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1607614802;
- bh=BCbJuIaERpNSLN75QqMnkW2oyMSrF0Q+DvLQgp+TsLg=;
+ s=k20201202; t=1607614928;
+ bh=o1vHR85L1PmnJia7WdCm8hPCTS9+17L1Ezqb19hWoPs=;
  h=From:To:Cc:Subject:References:In-Reply-To:From;
- b=CQ4LlrZcDX7xrivlV7oqo3VK20cLfAisMSdWwLdeZONp0YU+u/QSO4hiC/sywpSWR
- GBMuhrNUCNoMH6LVYSjr/0shVKXQHZqUyCUl/g6i+fB/O/7Jp4z1oEFbcAbgFoABBo
- kG+8qDbIq8wLXR5mKF3Q3zDaAIOaQnjrtaqzYTQL2v770dV45a1nx8F0uTHLBdqjrV
- A2fo3x7KiJ0IjCrbFUPsaYNgAjrJO9ulv5+g1YMtg7ls5r77qFacp2yuOAG9+o86n8
- 2OsssYJ0GnMLZwp/4ZKJBLznzd8cjhhlubysT5bH+4NRRUnSsh27EbV4DuoEZ32/bh
- TlUKr7l+yIuOA==
+ b=GqDa6c9ReZGYpyKO3D01S5khMe9U0xYoSvtJZHWoGkrfWvTHb+RuY3HKmIsWI84jT
+ Le+nrCcVLOvz4t7GlK3ee00lH+hDZWkQ3Iq3m8mC+Bev8VdnpzOgSs2+VeMbGO1Fx/
+ V6p0IV9S17ytXAaGdwkqUJSrLgR8A/dcTtIstwjTETOfdBhedYRxJjB2b6DIIs+5xy
+ R3uPbZjsXN01eMt4gGPy1FenVnDE+OpZT+ExfWi2IfDMox7fKQh/A6FyO+nCx9DQtB
+ /RkEI4pTaAp1moHn10bVbbi+YWcK2LIKMRrcWDgml4O3kX5jUcnChtRsta8tY+DJIk
+ shKHIjaigkeDw==
 From: Mark Brown <broonie@kernel.org>
 To: Tzung-Bi Shih <tzungbi@google.com>
-Subject: Re: [PATCH v2 1/2] ASoC: rt1015p: move SDB control from trigger to
- DAPM
-Message-ID: <20201210153955.GC4747@sirena.org.uk>
+Subject: Re: [PATCH v2 2/2] ASoC: rt1015p: delay 300ms after SDB pulling high
+ for calibration
+Message-ID: <20201210154200.GD4747@sirena.org.uk>
 References: <20201210033617.79300-1-tzungbi@google.com>
- <20201210033617.79300-2-tzungbi@google.com>
+ <20201210033617.79300-3-tzungbi@google.com>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="Fig2xvG2VGoz8o/s"
+ protocol="application/pgp-signature"; boundary="llIrKcgUOe3dCx0c"
 Content-Disposition: inline
-In-Reply-To: <20201210033617.79300-2-tzungbi@google.com>
+In-Reply-To: <20201210033617.79300-3-tzungbi@google.com>
 X-Cookie: Your step will soil many countries.
 User-Agent: Mutt/1.10.1 (2018-07-13)
 Cc: alsa-devel@alsa-project.org
@@ -81,34 +81,33 @@ Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 
---Fig2xvG2VGoz8o/s
+--llIrKcgUOe3dCx0c
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 
-On Thu, Dec 10, 2020 at 11:36:16AM +0800, Tzung-Bi Shih wrote:
+On Thu, Dec 10, 2020 at 11:36:17AM +0800, Tzung-Bi Shih wrote:
 
-> +	switch (event) {
-> +	case SND_SOC_DAPM_PRE_PMU:
-> +		gpiod_set_value(rt1015p->sdb, 1);
-> +		dev_dbg(component->dev, "set sdb to 1");
+> +		if (!rt1015p->calib_done) {
+> +			msleep(300);
+> +			rt1015p->calib_done = true;
+> +		}
 
-Now this is in DAPM it's not in atomic context so it'd be more friendly
-to use gpiod_set_value_cansleep() so that it'll work even if the GPIO
-isn't atomic safe.
+Might we need to reset calib_done over suspend?  If the device looses
+power I guess it forgets the calibration.
 
---Fig2xvG2VGoz8o/s
+--llIrKcgUOe3dCx0c
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl/SQUoACgkQJNaLcl1U
-h9AhBQf+PYse9oE0ACQGVaVkDe+CXJp6gfCY8If0Q5+DpmlZUKSZfK6dwk/MAGkT
-aVQllG3elTcObzFr2OdDl/NVZcN1TtS1pN/3Owa5XYutOE+0unP9mxWUFKpBzSFC
-CUUAI1wSB4+NG6nWOdh6MN/DMBaQTf8VBCMGyA5Eg7dTe2nYU3WgOWERYNTOPbxo
-8qOA9cJ2GJkRM7++ojVLH6yIbQ7Bh6uwzZG6ApTKMxIa2FDHXDw0E9XsifbY4ILH
-T2KnvMRqvr4WJiTpgfjlV2GOiFj6HsegbQ0HSO+ol8LB9Fpff4JzWhnfrdy2DXEn
-EKHnOC6tWJG+nI/Of1JXf/F/HZy40Q==
-=jv7y
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl/SQccACgkQJNaLcl1U
+h9CR4Qf7BqSDTdGuaHiMYO7pwsDwCxVqcV2R1W+Cu47PDXDAAlCXyte0m/K8bCll
+cSuze1PvAdgzfG1FrlGthboyxs/7+MZCWjb/1b23Gdlud7eEWLH4Unjw+CyGrbV2
+j3PfI6fTPRmQrWfYltUxya71KZt9ggNxbUuvqjGtRZJL3nOS6Qo61VZWzjK2IQH+
+2hAQilI8+zpKkC1WfZubGJH4DJHWohcw98s2Nhi2MD8+8rQ7n4K4/+a6PjjRwtRk
+x2H/3hdR3diyHNpY59XtnuI5J9IJ1f96n453nzNzXBQcq+ZtbhkbncDByc1Q7zap
+HSJDdl5V54IIDWmZTn+HnrJbUrRWrg==
+=YOuB
 -----END PGP SIGNATURE-----
 
---Fig2xvG2VGoz8o/s--
+--llIrKcgUOe3dCx0c--

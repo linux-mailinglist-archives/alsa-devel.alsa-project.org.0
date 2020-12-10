@@ -2,185 +2,79 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id EF3AF2D5565
-	for <lists+alsa-devel@lfdr.de>; Thu, 10 Dec 2020 09:26:22 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 543572D577E
+	for <lists+alsa-devel@lfdr.de>; Thu, 10 Dec 2020 10:47:06 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 860A711C;
-	Thu, 10 Dec 2020 09:25:32 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 860A711C
+	by alsa0.perex.cz (Postfix) with ESMTPS id D7874836;
+	Thu, 10 Dec 2020 10:46:15 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D7874836
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1607588782;
-	bh=1+iZODhl463/CZ2bytxzpUMePGj7cqVTaCHpMZCfKqQ=;
-	h=From:To:Subject:Date:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1607593625;
+	bh=BAn7IHoYlvvjxfebnshgwjKfJ9S8htAhsUbCVOiV+rE=;
+	h=To:References:From:Subject:Date:In-Reply-To:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=WCZhNZZH5kxPVsr6p+do2WYLGvZjGuIMbjZxzkV5GDletZhu4OGjYqzeKYmnw5Chr
-	 fxmT1RGID6oK2DKXd5+vlAWULhre5YKUyD88wYkASt+wKQEebJX70Pkg1/p67h1v78
-	 RMk1RKfnD2AWF5a40jav25BC9UwmGM1K0hUA2SYY=
+	b=oPFdWaLSw6lx4VKhR8zvSqklrwCug5AiFFA1gg6tzTrcgbGdZTsY4B2UuLwbyIxj+
+	 VA8e8wqPUaBD1D9C+OgW5tjTycvTWUz5FD1io7ByWtrZWizzmovphJu5CeC5yFw2kt
+	 TNWefXYH89YMmBGEW1f9z+NM11k9kT48GtaAR6gY=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id AF33DF8019D;
-	Thu, 10 Dec 2020 09:24:47 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 187F1F80105;
+	Thu, 10 Dec 2020 10:45:31 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id BF931F8016E; Thu, 10 Dec 2020 09:24:44 +0100 (CET)
+ id ABDD8F8016E; Thu, 10 Dec 2020 10:45:29 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
+X-Spam-Status: No, score=0.0 required=5.0 tests=NICE_REPLY_A,SPF_HELO_NONE,
+ SPF_NONE autolearn=disabled version=3.4.0
+Received: from relay-b02.edpnet.be (relay-b02.edpnet.be [212.71.1.222])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id A2CFAF800EF
- for <alsa-devel@alsa-project.org>; Thu, 10 Dec 2020 09:24:37 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A2CFAF800EF
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=intel.onmicrosoft.com
- header.i=@intel.onmicrosoft.com header.b="xACCTkkb"
-IronPort-SDR: klpM3lvElugvIF1TMqd4UxCJxOuqbVX2J6e66iMjdn5rWIlRyMI6mjS32tUb8dtr9iyuiNfrpx
- sOV2/12YEicw==
-X-IronPort-AV: E=McAfee;i="6000,8403,9830"; a="161975823"
-X-IronPort-AV: E=Sophos;i="5.78,407,1599548400"; d="scan'208";a="161975823"
-Received: from fmsmga008.fm.intel.com ([10.253.24.58])
- by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 10 Dec 2020 00:24:32 -0800
-IronPort-SDR: +Vq1AWk9RdOweMfbH5xZCb3Q9Esfx9SjlfdvxVAnZ/D38ceDOr51mKAxDcsH3g55xaX5iS6E/s
- zeBubTN8LgeQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.78,407,1599548400"; d="scan'208";a="318885540"
-Received: from orsmsx601.amr.corp.intel.com ([10.22.229.14])
- by fmsmga008.fm.intel.com with ESMTP; 10 Dec 2020 00:24:32 -0800
-Received: from orsmsx607.amr.corp.intel.com (10.22.229.20) by
- ORSMSX601.amr.corp.intel.com (10.22.229.14) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.1713.5; Thu, 10 Dec 2020 00:24:31 -0800
-Received: from orsedg603.ED.cps.intel.com (10.7.248.4) by
- orsmsx607.amr.corp.intel.com (10.22.229.20) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1713.5
- via Frontend Transport; Thu, 10 Dec 2020 00:24:31 -0800
-Received: from NAM11-DM6-obe.outbound.protection.outlook.com (104.47.57.171)
- by edgegateway.intel.com (134.134.137.100) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.1.1713.5; Thu, 10 Dec 2020 00:24:31 -0800
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=hll8iNZrzm2Rxiz1Trgqq1XHj5RqCog/lDW5a5etfVXPpNaqNUYO5OGDYMGYixGMtpUUMNqorxrqI1uhIt9eGe72aaebA5MESnsW+mWhn6j+Ay5/IPKOylWpXPTB7Y2rPjOGOcI1XGVrKuiMC5l0OhccjSYBsdjaUxrvhL1qrE8I99B34mTlyxDFfNBHZnn/rA0U6ymiONnt4lZB0yuh6lRWuuFaUy42uL914SLN1ZGaVGCjK//i1BJXlCt+KOanEXutl+lFbNBS+ZWxvOi9ahI95B/RSQAIwyQNCn+Od6eB1kwwrg+VoIoQGs+r97fW2LQTpS3NINHSjVqYyAUxXg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=1+iZODhl463/CZ2bytxzpUMePGj7cqVTaCHpMZCfKqQ=;
- b=jdyFDW8W0f0xBjqrvluAV8BTprLCwpwDKGKi1tImHur2exUtd5l87DmH9lhVrT6lJfWj+FitrDv0u6oJxi7u85ThM9lNExuuqJadvgCqLF2l19AdxCkut4R6Avm9JTMcrFR6dP9jAqHMJf/b7n0uDZs5Z9gc+nV/Z2ClXRbErAPwQBrycIIpyo6DGVyl0fNZJ1GN6e+7C8kxoKtvogStshauRbRENNUNdlwhljdIZHLZaT2dunuyfQJd79h+i9sBH6qV1heK5TRLThMLRNGSy3dADTo5sKRPnOb8x5S/quY7wit6Uk3K2099OyDdx/kWuaiIvwFTfF+FGRes3OSVXw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=intel.onmicrosoft.com; 
- s=selector2-intel-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=1+iZODhl463/CZ2bytxzpUMePGj7cqVTaCHpMZCfKqQ=;
- b=xACCTkkbrkQn9KquRP88pHg0mMNAPBAa9n5vyX3DUaLWAwc1CkBDsF3bqVAb4BqCdrYwvG9rOo2BmUZaWC3MRADJu0Jb+6i/Qzr7c2qKL8DzYEWfdukl2Ti4vgmU//07M6dkJ3gOXvKLivmyT6KMLY5rnU06uVcpfWJTLYb8OPw=
-Received: from BYAPR11MB3046.namprd11.prod.outlook.com (2603:10b6:a03:86::18)
- by BY5PR11MB3992.namprd11.prod.outlook.com (2603:10b6:a03:188::10)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3632.21; Thu, 10 Dec
- 2020 08:24:25 +0000
-Received: from BYAPR11MB3046.namprd11.prod.outlook.com
- ([fe80::b544:5491:32e8:f230]) by BYAPR11MB3046.namprd11.prod.outlook.com
- ([fe80::b544:5491:32e8:f230%3]) with mapi id 15.20.3632.024; Thu, 10 Dec 2020
- 08:24:25 +0000
-From: "Sit, Michael Wei Hong" <michael.wei.hong.sit@intel.com>
-To: "Sia, Jee Heng" <jee.heng.sia@intel.com>, Pierre-Louis Bossart
- <pierre-louis.bossart@linux.intel.com>, Lars-Peter Clausen <lars@metafoo.de>, 
- "Shevchenko, Andriy" <andriy.shevchenko@intel.com>
-Subject: RE: [RFC PATCH 2/4] ASoC: soc-generic-dmaengine-pcm: Add custom
- prepare and submit function
-Thread-Topic: [RFC PATCH 2/4] ASoC: soc-generic-dmaengine-pcm: Add custom
- prepare and submit function
-Thread-Index: AQHWvLmNGvsTxGs990eX9gpk7gsGM6nMeVYAgACSVQCAAO9RgIAIta8AgAnQR9CAABFjgIAABrKAgAFjtACAAA1/AIAFvdWggAO/aoCAAFxvgIAAxP+AgAN4nyA=
-Date: Thu, 10 Dec 2020 08:24:25 +0000
-Message-ID: <BYAPR11MB3046A125098F7D5F1A67F9759DCB0@BYAPR11MB3046.namprd11.prod.outlook.com>
-References: <20201117080354.4309-1-michael.wei.hong.sit@intel.com>
- <20201117080354.4309-4-michael.wei.hong.sit@intel.com>
- <20201117155038.GO4077@smile.fi.intel.com>
- <CO1PR11MB50269CF832CD14BA2D2A883CDAE10@CO1PR11MB5026.namprd11.prod.outlook.com>
- <20201118145055.GW4077@smile.fi.intel.com>
- <CO1PR11MB5026A81C4294BEF4EE5EF923DAFB0@CO1PR11MB5026.namprd11.prod.outlook.com>
- <BYAPR11MB30465A81744EA686D2502DB69DF50@BYAPR11MB3046.namprd11.prod.outlook.com>
- <e9bae9eb-6b8b-5a8c-eba0-d7f5da955987@metafoo.de>
- <20201130110915.GI4077@smile.fi.intel.com>
- <74ed61e1-67d9-d7b7-0619-fbe61ad7a583@metafoo.de>
- <CO1PR11MB502600945CC303756DBBC30ADAF40@CO1PR11MB5026.namprd11.prod.outlook.com>
- <BYAPR11MB3046DFC48A045ADA72D0F9369DF00@BYAPR11MB3046.namprd11.prod.outlook.com>
- <17462280-244f-0c1e-61f2-6dd197dbcd2d@metafoo.de>
- <2e29264a-a64d-f1f7-8695-ae7463a773a5@linux.intel.com>
- <CO1PR11MB5026545F07968DBC5386CF45DACD0@CO1PR11MB5026.namprd11.prod.outlook.com>
-In-Reply-To: <CO1PR11MB5026545F07968DBC5386CF45DACD0@CO1PR11MB5026.namprd11.prod.outlook.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-dlp-reaction: no-action
-dlp-version: 11.5.1.3
-dlp-product: dlpe-windows
-authentication-results: intel.com; dkim=none (message not signed)
- header.d=none;intel.com; dmarc=none action=none header.from=intel.com;
-x-originating-ip: [14.192.243.66]
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: 987a5101-fb1c-47dd-5828-08d89ce50179
-x-ms-traffictypediagnostic: BY5PR11MB3992:
-x-ld-processed: 46c98d88-e344-4ed4-8496-4ed7712e255d,ExtAddr
-x-ms-exchange-transport-forked: True
-x-microsoft-antispam-prvs: <BY5PR11MB3992FB7E5988C7B3BC87A3AA9DCB0@BY5PR11MB3992.namprd11.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:6790;
-x-ms-exchange-senderadcheck: 1
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: hpjff/JyQEiMkyfIBiXgVIp4iqApQOxciYOO9VIMYCoovcGAacJngjVft6ShzOyKFTSWfp7Wmao0sqgXCvixKXkriLYApyGzhgbMevziDAWtABoOJo/r4k41XkecXd8gNPfbh7gdBD5bYAxHKEwowMqFofcifZVhSaAE3EkcC26XdPDHB7iN2lq682QwsrLKrs/bvuDiNb2qe8FID1yr04h5EzSWCyRtg4u64j+jogDSooU/5ePLgIH5VQnFa1N9pk7ZdXS6TZ8oaqJjLD34h2WsuqzMPn15hDw2fSAOD1g4eqi/zjJeCXWMwQeUQteQJqc0wcHW485toTTLPkyIMeeXRYsOYmepPlDwpvnCbbOppo43ip5iyRBAwhhkziZB
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BYAPR11MB3046.namprd11.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(366004)(346002)(136003)(376002)(71200400001)(86362001)(52536014)(6636002)(83380400001)(55016002)(54906003)(9686003)(5660300002)(4326008)(508600001)(66446008)(66946007)(26005)(8676002)(53546011)(7696005)(2906002)(6506007)(66476007)(110136005)(64756008)(186003)(33656002)(8936002)(76116006)(66556008)(41533002);
- DIR:OUT; SFP:1102; 
-x-ms-exchange-antispam-messagedata: =?utf-8?B?ZDdNOXVVNnpYdjQ5dU1CZjNMNkZYYWZ5RlNqS1VTQWVQbmhhSUZHRVpac2Ri?=
- =?utf-8?B?SGMwSEZLNjkyZ3Jwa3doVUdHU1RsVXNhRFgvcTB6L2dRRVNqRHlQaUlWYUt0?=
- =?utf-8?B?YldBd1hZeThOOGFweUEzU2RiaW9oSkthVEltOWdOYjJ1MHV1OTdGZGlBV3F0?=
- =?utf-8?B?bmNXWXlmSHlrVFlUQXQzUitiZmtuaXBJTDVzRVo0eWJvSkFZQTA4SXpaMXlN?=
- =?utf-8?B?cUNra0UvTmgxdVpZd0tndmtrZGRrN2p0M245dHpLWlR5RHBxQm8zRU1JaWJj?=
- =?utf-8?B?RUJ6Y0krRVptdUhxSEdKOXZmeGdkZThUOWVwa3kvckJqazlFbVFOSzVUR2lm?=
- =?utf-8?B?N293SEZkUGZCYzY0UEZVOVJNR3dMWWkwcXlVY1pqZ3BLZmxnL3BGdEZLYzE5?=
- =?utf-8?B?YzlVdlZFelQ0bWdFWFdoRGRhUDE3ejh0WE5NRnMzK2llRTN1UHZZa2VBQS9T?=
- =?utf-8?B?RUx0S1NPbndzZlJJVzJxZTBNQlphN3JSYkRZRnA2YjBGeXFUS0FURkxmeWNu?=
- =?utf-8?B?VThWdzZlRTVnV1hpTVEwSEQ0UXRDVURYSVRhUzdqQ0d2R25NT01YRmxUNTdv?=
- =?utf-8?B?dFFxUHkxRnBKb2loTm1FTjlHZ05EUnYwa2ZkN3YyMW80U3Z5ZWloRGwrTFVw?=
- =?utf-8?B?V0pWajJ0L3hrdml6VmFrWUdzMzJPZlY4MlZXSitucmM5TXhuZHBpREpoUXdH?=
- =?utf-8?B?R3o4MGk3bGd0ZXh5eWthMXpaWnUyRDFxb2ZaTUN0V2hkZU1HWWs3UzFsSWM3?=
- =?utf-8?B?SDc4K2NQZWpCaFgvT3M5ZktqQnNId3FyaVBvMkNETmRtbEdPSkc3TEF0dE1x?=
- =?utf-8?B?RUZnVlJBRnVWdThGSHVBSzJzMjFrR1cwM251ZXlZWFBHT0kxcU1wMWdtRUtY?=
- =?utf-8?B?ODlmbDd4c3V0RDFSckZ1TThucUN6MHhSdEd6V2hnMUEvNERibnF0ZEVLMENj?=
- =?utf-8?B?R3VwMVFoQktnT2kraFVhakJXNk5hUU5PWC9vNnRHeEd1NG9qOGh1R2t3MXdU?=
- =?utf-8?B?bVBYQjEzRlpkanVYNzhJU09mcTBOT0s1ZEJkWnRzeUtmQjh1ckRKdmI2NWZL?=
- =?utf-8?B?Y1JvNldYdTZKU2JiRU8zWGhJK0RNdjNkaUhvZmswYWNVTVlIUnV4MXlDMUVQ?=
- =?utf-8?B?S3B2NjExMjhMTk5OV28vdWNqZzZpVTNaamFiNEh6d0lqenl2OFhmZ08wT081?=
- =?utf-8?B?K3lkR2JndWNyRHFWblFnM2xOdjZSZmxVdTFNVW94NG9RdVZ0Z2VuZHFhenhh?=
- =?utf-8?B?ZGFHeWE2K1RMRS8yVTJhNmtod2Riby9sNDFwT1hSVFNOV0ppejJ6a3NOYTYv?=
- =?utf-8?Q?q/r7nTbK7K4qc=3D?=
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+ by alsa1.perex.cz (Postfix) with ESMTPS id 39D9DF800E1
+ for <alsa-devel@alsa-project.org>; Thu, 10 Dec 2020 10:45:23 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 39D9DF800E1
+X-ASG-Debug-ID: 1607593522-15c4334639c7040001-UKjUFf
+Received: from [192.168.177.53] ([213.219.152.236]) by relay-b02.edpnet.be
+ with ESMTP id 9XdgylBPtPV5gVO1 for <alsa-devel@alsa-project.org>;
+ Thu, 10 Dec 2020 10:45:22 +0100 (CET)
+X-Barracuda-Envelope-From: janpieter.sollie@kabelmail.de
+X-Barracuda-Effective-Source-IP: UNKNOWN[213.219.152.236]
+X-Barracuda-Apparent-Source-IP: 213.219.152.236
+To: alsa-devel@alsa-project.org
+References: <07aae8e3-1ee2-60a9-daee-a0172c1012e7@kabelmail.de>
+ <s5hczzkwd82.wl-tiwai@suse.de> <d4e099cd-3600-43d8-d2f5-9f7257da80ba@amd.com>
+ <99e81caf-2742-32a0-cee1-7ff3ea8c6913@kabelmail.de>
+ <3d8b7ad9-c6a4-0e2b-7e56-62b8d898eb23@amd.com>
+ <ca8fa345-f0dd-330a-5a16-a8dbf68ea687@amd.com>
+From: Janpieter Sollie <janpieter.sollie@kabelmail.de>
+Subject: Re: AMD ACP raven ridge: invalid audio mode 2
+Message-ID: <fec06387-1d64-9dda-c99f-c6d88b662f49@kabelmail.de>
+X-ASG-Orig-Subj: Re: AMD ACP raven ridge: invalid audio mode 2
+Date: Thu, 10 Dec 2020 10:45:24 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.4.0
 MIME-Version: 1.0
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: BYAPR11MB3046.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 987a5101-fb1c-47dd-5828-08d89ce50179
-X-MS-Exchange-CrossTenant-originalarrivaltime: 10 Dec 2020 08:24:25.7219 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: 6COGXFT/UoeoBv/CxCRlD6nmKvjyShRske0DEyh3NLSDNGJEGJ/FkQJRy3PN3j7RD4gKRZvPX3FD6AN7PSsTIq2Aitbh5wtG0cTBqwx1lbI=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY5PR11MB3992
-X-OriginatorOrg: intel.com
-Cc: "Rojewski, Cezary" <cezary.rojewski@intel.com>,
- "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
- "tiwai@suse.com" <tiwai@suse.com>,
- "liam.r.girdwood@linux.intel.com" <liam.r.girdwood@linux.intel.com>,
- "vkoul@kernel.org" <vkoul@kernel.org>,
- "broonie@kernel.org" <broonie@kernel.org>
+In-Reply-To: <ca8fa345-f0dd-330a-5a16-a8dbf68ea687@amd.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Content-Language: en-US
+X-Barracuda-Connect: UNKNOWN[213.219.152.236]
+X-Barracuda-Start-Time: 1607593522
+X-Barracuda-URL: https://212.71.1.222:443/cgi-mod/mark.cgi
+X-Virus-Scanned: by bsmtpd at edpnet.be
+X-Barracuda-Scan-Msg-Size: 3338
+X-Barracuda-BRTS-Status: 1
+X-Barracuda-Spam-Score: 0.40
+X-Barracuda-Spam-Status: No, SCORE=0.40 using global scores of TAG_LEVEL=1000.0
+ QUARANTINE_LEVEL=1000.0 KILL_LEVEL=7.0 tests=BSF_SC0_SA085b
+X-Barracuda-Spam-Report: Code version 3.2, rules version 3.2.3.86423
+ Rule breakdown below
+ pts rule name              description
+ ---- ---------------------- --------------------------------------------------
+ 0.40 BSF_SC0_SA085b         Custom Rule SA085b
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -196,46 +90,106 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-DQoNCj4gLS0tLS1PcmlnaW5hbCBNZXNzYWdlLS0tLS0NCj4gRnJvbTogU2lhLCBKZWUgSGVuZyA8
-amVlLmhlbmcuc2lhQGludGVsLmNvbT4NCj4gU2VudDogVHVlc2RheSwgOCBEZWNlbWJlciwgMjAy
-MCAxMToyMSBBTQ0KPiBUbzogUGllcnJlLUxvdWlzIEJvc3NhcnQgPHBpZXJyZS1sb3Vpcy5ib3Nz
-YXJ0QGxpbnV4LmludGVsLmNvbT47DQo+IExhcnMtUGV0ZXIgQ2xhdXNlbiA8bGFyc0BtZXRhZm9v
-LmRlPjsgU2l0LCBNaWNoYWVsIFdlaSBIb25nDQo+IDxtaWNoYWVsLndlaS5ob25nLnNpdEBpbnRl
-bC5jb20+OyBTaGV2Y2hlbmtvLCBBbmRyaXkNCj4gPGFuZHJpeS5zaGV2Y2hlbmtvQGludGVsLmNv
-bT4NCj4gQ2M6IFJvamV3c2tpLCBDZXphcnkgPGNlemFyeS5yb2pld3NraUBpbnRlbC5jb20+OyBh
-bHNhLQ0KPiBkZXZlbEBhbHNhLXByb2plY3Qub3JnOyB0aXdhaUBzdXNlLmNvbTsNCj4gbGlhbS5y
-LmdpcmR3b29kQGxpbnV4LmludGVsLmNvbTsgdmtvdWxAa2VybmVsLm9yZzsNCj4gYnJvb25pZUBr
-ZXJuZWwub3JnDQo+IFN1YmplY3Q6IFJFOiBbUkZDIFBBVENIIDIvNF0gQVNvQzogc29jLWdlbmVy
-aWMtZG1hZW5naW5lLXBjbToNCj4gQWRkIGN1c3RvbSBwcmVwYXJlIGFuZCBzdWJtaXQgZnVuY3Rp
-b24NCj4gDQo+IA0KPiANCj4gPiAtLS0tLU9yaWdpbmFsIE1lc3NhZ2UtLS0tLQ0KPiA+IEZyb206
-IFBpZXJyZS1Mb3VpcyBCb3NzYXJ0IDxwaWVycmUtDQo+IGxvdWlzLmJvc3NhcnRAbGludXguaW50
-ZWwuY29tPg0KPiA+IFNlbnQ6IDA3IERlY2VtYmVyIDIwMjAgMTE6MzYgUE0NCj4gPiBUbzogTGFy
-cy1QZXRlciBDbGF1c2VuIDxsYXJzQG1ldGFmb28uZGU+OyBTaXQsIE1pY2hhZWwgV2VpDQo+IEhv
-bmcNCj4gPiA8bWljaGFlbC53ZWkuaG9uZy5zaXRAaW50ZWwuY29tPjsgU2lhLCBKZWUgSGVuZw0K
-PiA+IDxqZWUuaGVuZy5zaWFAaW50ZWwuY29tPjsgU2hldmNoZW5rbywgQW5kcml5DQo+ID4gPGFu
-ZHJpeS5zaGV2Y2hlbmtvQGludGVsLmNvbT4NCj4gPiBDYzogUm9qZXdza2ksIENlemFyeSA8Y2V6
-YXJ5LnJvamV3c2tpQGludGVsLmNvbT47IGFsc2EtDQo+IGRldmVsQGFsc2EtDQo+ID4gcHJvamVj
-dC5vcmc7IHRpd2FpQHN1c2UuY29tOyBsaWFtLnIuZ2lyZHdvb2RAbGludXguaW50ZWwuY29tOw0K
-PiA+IHZrb3VsQGtlcm5lbC5vcmc7IGJyb29uaWVAa2VybmVsLm9yZw0KPiA+IFN1YmplY3Q6IFJl
-OiBbUkZDIFBBVENIIDIvNF0gQVNvQzogc29jLWdlbmVyaWMtZG1hZW5naW5lLQ0KPiBwY206IEFk
-ZA0KPiA+IGN1c3RvbSBwcmVwYXJlIGFuZCBzdWJtaXQgZnVuY3Rpb24NCj4gPg0KPiA+DQo+ID4N
-Cj4gPg0KPiA+ID4gSWYgeW91IHJlYWxseSB3YW50IHRvIGxpbWl0IHlvdXIgcGVyaW9kIHNpemUg
-eW91IG5lZWQgdG8gaW5zdGFsbCBhDQo+ID4gPiByYW5nZSBjb25zdHJhaW50IG9uIHRoZQ0KPiBT
-TkRSVl9QQ01fSFdfUEFSQU1fUEVSSU9EX1NJWkUNCj4gPiBwYXJhbWV0ZXIuDQo+ID4gPg0KPiA+
-ID4gQnV0IEknZCBoaWdobHkgcmVjb21tZW5kIGFnYWluc3QgaXQgYW5kIGp1c3Qgc3BsaXQgdGhl
-IHRyYW5zZmVyDQo+IGludG8NCj4gPiA+IG11bHRpcGxlIHNlZ21lbnRzIGluIHRoZSBETUEgZHJp
-dmVyLiBOZWVkbGVzc2x5IGxpbWl0aW5nIHRoZQ0KPiBwZXJpb2QNCj4gPiA+IHNpemUgd2lsbCBp
-bmNyZWFzZSB0aGUgbnVtYmVyIG9mIGludGVycnVwdHMgZHVyaW5nIGF1ZGlvDQo+ID4gPiBwbGF5
-YmFjay9yZWNvcmRpbmcgYW5kIGh1cnQgdGhlIHBvd2VyIGVmZmljaWVuY3kgb2YgeW91cg0KPiBz
-eXN0ZW0uDQo+ID4NCj4gPiBZZXMgdGhhdCB3YXMgYWxzbyBhbiBvYmplY3Rpb24gZnJvbSBtZSwg
-dGhlIGZpeCBzaG91bGQgYmUgaW4gdGhlDQo+IERNQQ0KPiA+IGxldmVsLiBUaGUgMTAyNCBibG9j
-ayBsaW1pdGF0aW9uIHdvdWxkIG1lYW4gcmVzdHJpY3RpbmcgdGhlDQo+IHBlcmlvZA0KPiA+IHNp
-emUgdG8gYmUgYXQgbW9zdCA1LjMgb3IgMTAuNm1zICgxNiBhbmQgMzItYml0IGNhc2VzKS4gVGhh
-dCdzIHdheQ0KPiB0byBzbWFsbC4NCj4gWz4+XSBTZWVtcyBsaWtlIGNvbXBsZXhpdHkgaW5jcmVh
-c2VzIGlmIHNwbGl0dGluZyB0aGUgc2VnbWVudHMgaW4NCj4gQVNvQy4gVGhpcyBpcyBub3QgYSBm
-cmFtZXdvcmsgaXNzdWUgbm9yIGFyY2hpdGVjdHVyZSBpc3N1ZS4NCj4gSWYgaW50cm9kdWNpbmcg
-bmV3IEFQSSB0byBETUFFTkdJTkUgdG8gY29uc3RyYWludCB0aGUgbnVtYmVyDQo+IG9mIGl0ZW1z
-IGlzIG5vdCByZWNvbW1lbmRlZCwgdGhlbiBsZXRzIHNwbGl0IHRoZSBzZWdtZW50cyBpbg0KPiBE
-TUEgZHJpdmVyLg0KDQpXaXRoIHRoZSBpbmNyZWFzZWQgY29tcGxleGl0eSBvZiBpbnRyb2R1Y2lu
-ZyBuZXcgQVBJcyBjYW4gd2UgbW92ZSB0aGUgc2VnbWVudCBzcGxpdHRpbmcgdG8gdGhlIERNQSBk
-cml2ZXI/DQpBbnltb3JlIGNvbmNlcm5zIHdpdGggZG9pbmcgc28/DQoNCg==
+Hi Vijendar,
+
+Thank you, the patch got rid of the error message.
+
+Well, I'm not an ALSA expert (more like a noob), but I'll ask the manufac=
+turer (UDOO Bolt, ryzen
+v1000) about details for the SOC modes then, they *might* be able to show=
+ me something which
+could lead to a (more or less) good implementation.
+that said: would it be possible to get more info about the device an ABI =
+or something?
+
+The PCI registers show me the following:
+frisbee /usr/src/linux # lspci -xxxxx -s 04:00.5
+04:00.5 Multimedia controller: Advanced Micro Devices, Inc. [AMD] Raven/R=
+aven2/FireFlight/Renoir
+Audio Processor
+00: 22 10 e2 15 06 04 10 00 00 00 80 04 10 00 80 00
+10: 00 00 68 fe 00 00 00 00 00 00 00 00 00 00 00 00
+20: 00 00 00 00 00 00 00 00 00 00 00 00 22 10 e2 15
+30: 00 00 00 00 48 00 00 00 00 00 00 00 ff 02 00 00
+40: 00 00 00 00 00 00 00 00 09 50 08 00 22 10 e2 15
+50: 01 64 03 c8 0b 01 00 00 00 00 00 00 00 00 00 00
+60: 00 00 00 00 10 a0 02 00 a1 8f 00 00 30 29 00 00
+70: 03 0d 40 00 40 00 03 11 00 00 00 00 00 00 00 00
+80: 00 00 00 00 00 00 00 00 00 08 70 00 00 00 00 00
+90: 0e 00 00 00 00 00 01 00 00 00 00 00 00 00 00 00
+a0: 05 00 81 00 00 00 e0 fe 00 00 00 00 00 00 00 00
+b0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+c0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+d0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+e0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+f0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+100: 0b 00 01 00 01 00 01 01 00 00 00 00 00 00 00 00
+
+Where can I find more info about what these registers mean (if anything, =
+I'll ask the udoo guys
+about the device specific bytes)?
+
+Janpieter
+
+Op 10/12/2020 om 01:12 schreef Mukunda,Vijendar:
+>
+>
+> On 10/12/20 12:18 am, Mukunda,Vijendar wrote:
+>>
+>
+>>>
+>>> So, if I understand correctly, the snd_pci_acp3x module initialised t=
+he acp to mode 0x2, and
+>>> then decides the mode is not supported?
+>>> doesn't this sound a little weird to you?
+>>
+>> On Raven Ridge platform, ACP device enumerated by PCI root.ACP PCI dri=
+ver creates child nodes
+>> for I2S device.
+>>
+>> Currently we had added support for only I2S configuration.
+>> We recently fixed audio driver probe failure issue when Audio configur=
+ation is set to other
+>> than I2S.
+>>
+>> When Audio Configuration is set to other than I2S, load the ACP PCI dr=
+iver instead of
+>> returning probe failure.
+>> Below patch already got merged in to asoc-next branch.
+>>
+>> https://lore.kernel.org/alsa-devel/1603476441-3506-1-git-send-email-Vi=
+jendar.Mukunda@amd.com/
+>>
+>>
+>> Thanks,
+>> Vijendar
+>>
+>>
+>
+> To add more to my previous explanation, Based on platform audio configu=
+ration, I2S_PIN_CONFIG
+> value is programmed from BIOS.
+>
+> ACP PCI driver during its probe it only checks what is the audio config=
+uration is really set.
+>
+> If it sees current configuration is set to I2S, then ACP PCI driver
+> will go ahead and create the platform devices required for I2S endpoint=
+=2E
+>
+> If it is other than I2S audio configuration, it wont create the child n=
+ode and returns the
+> probe as success.
+>
+> ACP IP do's lot more stuff beyond supporting simple audio endpoints.
+> For other audio configurations, we have added a default case
+> and left it as a place holder for future implementation.
+>
+>
+> Thanks,
+> Vijendar
+>
+> .
+
+
+

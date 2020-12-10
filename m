@@ -2,69 +2,58 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B2C2A2D6029
-	for <lists+alsa-devel@lfdr.de>; Thu, 10 Dec 2020 16:43:54 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 137452D609C
+	for <lists+alsa-devel@lfdr.de>; Thu, 10 Dec 2020 16:56:44 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 4BF8A1672;
-	Thu, 10 Dec 2020 16:43:04 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4BF8A1672
+	by alsa0.perex.cz (Postfix) with ESMTPS id 9CB791616;
+	Thu, 10 Dec 2020 16:55:53 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9CB791616
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1607615034;
-	bh=o1vHR85L1PmnJia7WdCm8hPCTS9+17L1Ezqb19hWoPs=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1607615803;
+	bh=zkWn2eoAvRznGtfh5FZIOpzpaGu8lG0W0jDrxCfH/rw=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=CpmtTx3OgDuyeXoquzQW4MFupaKulioM88JneqX11JKvYJla5MIPVwYNfNNkNM04X
-	 A4y6b+JPaCttpFRGVX/tL72Y15sQmee7TwaPOAhr4jsWpmUdTxw5Uvwwnkdq4SHJtS
-	 aCNIRFcYzMU/3OFfg6jP0bIRhUFXVK34HcLIL7AY=
+	b=AkdDtJ9DVUq6qg+qgFxWWmHffHC+vWAiAoOACi50EZETUlK6EDFOVL9EQkE89XBGN
+	 QpFl5zitAO/LFMD6iGhOtX0U/XjbyF2icyaNr3n1WZGGlB/ILyGisPDXVl0zThc1a8
+	 LFR4YL+FArJpbMQaBUeCv6CeVu0+VlSwSbYCwJ1c=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id AF88EF80105;
-	Thu, 10 Dec 2020 16:42:19 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id CCCC6F8019D;
+	Thu, 10 Dec 2020 16:55:08 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 39037F8016E; Thu, 10 Dec 2020 16:42:17 +0100 (CET)
+ id 0D71AF8016E; Thu, 10 Dec 2020 16:55:07 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE
+ autolearn=disabled version=3.4.0
+Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 07164F80105
- for <alsa-devel@alsa-project.org>; Thu, 10 Dec 2020 16:42:09 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 07164F80105
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="GqDa6c9R"
-Date: Thu, 10 Dec 2020 15:42:00 +0000
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1607614928;
- bh=o1vHR85L1PmnJia7WdCm8hPCTS9+17L1Ezqb19hWoPs=;
- h=From:To:Cc:Subject:References:In-Reply-To:From;
- b=GqDa6c9ReZGYpyKO3D01S5khMe9U0xYoSvtJZHWoGkrfWvTHb+RuY3HKmIsWI84jT
- Le+nrCcVLOvz4t7GlK3ee00lH+hDZWkQ3Iq3m8mC+Bev8VdnpzOgSs2+VeMbGO1Fx/
- V6p0IV9S17ytXAaGdwkqUJSrLgR8A/dcTtIstwjTETOfdBhedYRxJjB2b6DIIs+5xy
- R3uPbZjsXN01eMt4gGPy1FenVnDE+OpZT+ExfWi2IfDMox7fKQh/A6FyO+nCx9DQtB
- /RkEI4pTaAp1moHn10bVbbi+YWcK2LIKMRrcWDgml4O3kX5jUcnChtRsta8tY+DJIk
- shKHIjaigkeDw==
-From: Mark Brown <broonie@kernel.org>
-To: Tzung-Bi Shih <tzungbi@google.com>
-Subject: Re: [PATCH v2 2/2] ASoC: rt1015p: delay 300ms after SDB pulling high
- for calibration
-Message-ID: <20201210154200.GD4747@sirena.org.uk>
-References: <20201210033617.79300-1-tzungbi@google.com>
- <20201210033617.79300-3-tzungbi@google.com>
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="llIrKcgUOe3dCx0c"
-Content-Disposition: inline
-In-Reply-To: <20201210033617.79300-3-tzungbi@google.com>
-X-Cookie: Your step will soil many countries.
-User-Agent: Mutt/1.10.1 (2018-07-13)
-Cc: alsa-devel@alsa-project.org
+ by alsa1.perex.cz (Postfix) with ESMTPS id B9E87F80105
+ for <alsa-devel@alsa-project.org>; Thu, 10 Dec 2020 16:54:59 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B9E87F80105
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id A5C1DADCD;
+ Thu, 10 Dec 2020 15:54:58 +0000 (UTC)
+Date: Thu, 10 Dec 2020 16:54:58 +0100
+Message-ID: <s5hlfe5r6zx.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Kai Vehmanen <kai.vehmanen@linux.intel.com>
+Subject: Re: [PATCH] ALSA: hda/hdmi: fix silent stream for first playback to DP
+In-Reply-To: <20201210153954.3132552-1-kai.vehmanen@linux.intel.com>
+References: <20201210153954.3132552-1-kai.vehmanen@linux.intel.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
+ FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
+ (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
+Content-Type: text/plain; charset=US-ASCII
+Cc: Harsha Priya <harshapriya.n@intel.com>,
+ Emmanuel Jillela <emmanuel.jillela@intel.com>, alsa-devel@alsa-project.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -80,34 +69,34 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+On Thu, 10 Dec 2020 16:39:54 +0100,
+Kai Vehmanen wrote:
+> +static void silent_stream_disable(struct hda_codec *codec,
+> +				  struct hdmi_spec_per_pin *per_pin)
+> +{
+> +	struct hdmi_spec *spec = codec->spec;
+> +	struct hdmi_spec_per_cvt *per_cvt;
+> +	int cvt_idx;
+> +
+> +	if (!per_pin->silent_stream)
+> +		return;
+> +
+> +	codec_dbg(codec, "HDMI: disable silent stream on pin-NID=0x%x cvt-NID=0x%x\n",
+> +		  per_pin->pin_nid, per_pin->cvt_nid);
+> +
+> +	cvt_idx = cvt_nid_to_cvt_index(codec, per_pin->cvt_nid);
+> +	if (cvt_idx >= 0 && cvt_idx < spec->num_cvts) {
+> +		per_cvt = get_cvt(spec, cvt_idx);
+> +		per_cvt->assigned = 0;
+> +	}
+> +
+> +	per_pin->cvt_nid = 0;
+> +	per_pin->silent_stream = false;
+> +}
 
---llIrKcgUOe3dCx0c
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Better to protect with per_pin->lock?
 
-On Thu, Dec 10, 2020 at 11:36:17AM +0800, Tzung-Bi Shih wrote:
 
-> +		if (!rt1015p->calib_done) {
-> +			msleep(300);
-> +			rt1015p->calib_done = true;
-> +		}
+thanks,
 
-Might we need to reset calib_done over suspend?  If the device looses
-power I guess it forgets the calibration.
-
---llIrKcgUOe3dCx0c
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl/SQccACgkQJNaLcl1U
-h9CR4Qf7BqSDTdGuaHiMYO7pwsDwCxVqcV2R1W+Cu47PDXDAAlCXyte0m/K8bCll
-cSuze1PvAdgzfG1FrlGthboyxs/7+MZCWjb/1b23Gdlud7eEWLH4Unjw+CyGrbV2
-j3PfI6fTPRmQrWfYltUxya71KZt9ggNxbUuvqjGtRZJL3nOS6Qo61VZWzjK2IQH+
-2hAQilI8+zpKkC1WfZubGJH4DJHWohcw98s2Nhi2MD8+8rQ7n4K4/+a6PjjRwtRk
-x2H/3hdR3diyHNpY59XtnuI5J9IJ1f96n453nzNzXBQcq+ZtbhkbncDByc1Q7zap
-HSJDdl5V54IIDWmZTn+HnrJbUrRWrg==
-=YOuB
------END PGP SIGNATURE-----
-
---llIrKcgUOe3dCx0c--
+Takashi

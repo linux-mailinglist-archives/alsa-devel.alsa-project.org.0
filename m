@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7ED752D7D58
-	for <lists+alsa-devel@lfdr.de>; Fri, 11 Dec 2020 18:54:12 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 30D392D7D51
+	for <lists+alsa-devel@lfdr.de>; Fri, 11 Dec 2020 18:53:15 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 28F3F1719;
-	Fri, 11 Dec 2020 18:53:22 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 28F3F1719
+	by alsa0.perex.cz (Postfix) with ESMTPS id CDF8B1719;
+	Fri, 11 Dec 2020 18:52:24 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CDF8B1719
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1607709252;
-	bh=3eNEFFIRklZak3VAQ5rwWNEeLo2/6IiZZQDo08zuhzI=;
+	s=default; t=1607709194;
+	bh=yPL5e6OBDUX4abp+aurcofifMg+d5TgRFGoEiUuCnkA=;
 	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=OfVamMEpqU0KCibbkTHVYUwTn/BPnv2mkSrrYq/OaEv3/cwkykgJkEcL82S0O+zNQ
-	 nl86BFIGdrgEJ7SXUMrQ0datMvD+zG3I/GXnmwkmapYgRrtqAYohZdILryc0LsxMZI
-	 1yblpQNJpLzze2M3Y+ywbgoEu0u4i6uBmuOpRKMY=
+	b=jdUZNyg0VQClbcbNVw86lGdZtbH+ccHHQDXh6svtm4SljUXnG2M+4FTcjERpTeAnR
+	 ziWciQ1OUguvTq7z3WrF3EeH2kji75KFdkw6aFglDckrljah/MOdCy2cOfZMuS7s6q
+	 KdxsyBnslp3siS4+W4vhK+c4XaQkB9O0A8Hn8yY0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 7ECC8F804EC;
-	Fri, 11 Dec 2020 18:50:25 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 7F789F804E4;
+	Fri, 11 Dec 2020 18:50:11 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 460B9F804FB; Fri, 11 Dec 2020 18:50:24 +0100 (CET)
+ id BF65EF804E3; Fri, 11 Dec 2020 18:50:10 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE
@@ -33,29 +33,22 @@ X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id DEBD5F804EC
- for <alsa-devel@alsa-project.org>; Fri, 11 Dec 2020 18:50:21 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DEBD5F804EC
+ by alsa1.perex.cz (Postfix) with ESMTPS id 89DCCF804DF
+ for <alsa-devel@alsa-project.org>; Fri, 11 Dec 2020 18:50:08 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 89DCCF804DF
 From: Mark Brown <broonie@kernel.org>
 Authentication-Results: mail.kernel.org;
  dkim=permerror (bad message/signature format)
-To: Charles Keepax <ckeepax@opensource.cirrus.com>,
- Dan Carpenter <dan.carpenter@oracle.com>, Liam Girdwood <lgirdwood@gmail.com>
-In-Reply-To: <X9B0keV/02wrx9Xs@mwanda>
-References: <X9B0keV/02wrx9Xs@mwanda>
-Subject: Re: [PATCH] ASoC: wm_adsp: remove "ctl" from list on error in
- wm_adsp_create_control()
-Message-Id: <160770898111.26354.10129109008284234263.b4-ty@kernel.org>
+To: Tzung-Bi Shih <tzungbi@google.com>
+In-Reply-To: <20201211051224.2307349-1-tzungbi@google.com>
+References: <20201211051224.2307349-1-tzungbi@google.com>
+Subject: Re: [PATCH v3 0/2] ASoC: rt1015p: delay 300ms for waiting calibration
+Message-Id: <160770898112.26354.6573689046730156511.b4-ty@kernel.org>
 Date: Fri, 11 Dec 2020 17:49:41 +0000
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Cc: alsa-devel@alsa-project.org, Adam Brickman <Adam.Brickman@cirrus.com>,
- Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
- patches@opensource.cirrus.com, kernel-janitors@vger.kernel.org,
- Takashi Iwai <tiwai@suse.com>, David Rhodes <david.rhodes@cirrus.com>,
- Luo Meng <luomeng12@huawei.com>, James Schulman <james.schulman@cirrus.com>,
- Vlad Karpovich <Vlad.Karpovich@cirrus.com>
+Cc: alsa-devel@alsa-project.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -71,10 +64,19 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Wed, 9 Dec 2020 09:54:09 +0300, Dan Carpenter wrote:
-> The error handling frees "ctl" but it's still on the "dsp->ctl_list"
-> list so that could result in a use after free.  Remove it from the list
-> before returning.
+On Fri, 11 Dec 2020 13:12:22 +0800, Tzung-Bi Shih wrote:
+> The 1st patch moves SDB control from DAI ops trigger to DAPM event
+> (per review comments in v1).
+> 
+> The 2nd patch adds the 300ms delay for waiting calibration.
+> 
+> Changes from v2:
+> - Use gpiod_set_value_cansleep() instead of gpiod_set_value().
+> (https://patchwork.kernel.org/project/alsa-devel/patch/20201210033617.79300-2-tzungbi@google.com/)
+> - Assuming the calibration state gets lost after system suspend.
+> (https://patchwork.kernel.org/project/alsa-devel/patch/20201210033617.79300-3-tzungbi@google.com/)
+> 
+> [...]
 
 Applied to
 
@@ -82,8 +84,10 @@ Applied to
 
 Thanks!
 
-[1/1] ASoC: wm_adsp: remove "ctl" from list on error in wm_adsp_create_control()
-      commit: 85a7555575a0e48f9b73db310d0d762a08a46d63
+[1/2] ASoC: rt1015p: move SDB control from trigger to DAPM
+      commit: 4ab9301710760b99b4229d608eb5599040b2e07e
+[2/2] ASoC: rt1015p: delay 300ms after SDB pulling high for calibration
+      commit: f102d0d173982be3fc096d0293c1c0245e988ba6
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

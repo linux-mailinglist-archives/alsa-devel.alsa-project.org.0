@@ -2,49 +2,51 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 53FE12D7190
-	for <lists+alsa-devel@lfdr.de>; Fri, 11 Dec 2020 09:21:51 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 94C642D71EC
+	for <lists+alsa-devel@lfdr.de>; Fri, 11 Dec 2020 09:40:24 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D71721672;
-	Fri, 11 Dec 2020 09:21:00 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D71721672
+	by alsa0.perex.cz (Postfix) with ESMTPS id 2D24D16DF;
+	Fri, 11 Dec 2020 09:39:34 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2D24D16DF
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1607674910;
-	bh=PYk3fNogOfTLtKaNG7HHsVUtYFBRlRQlyIUZZfYWzME=;
-	h=From:To:In-Reply-To:References:Subject:Date:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=TJq1Z2iVRr6zQEILhbEzu+Lnen5jO2za+JrFHUibthBMN4HfQ2go85t6iz1PLpHqd
-	 /3Xu+jMZP4Eev82VeDTV+T9mny62ku/JGUHbV3W+etDNAMQ2hVwFd11XWB0iwqrvkc
-	 XrsW3rijq76NYtbHJFaV7es4JGxP+BUrvycKbZd8=
+	s=default; t=1607676024;
+	bh=sg8tQPWnSUqaG6Xf+1Hr63aR/eEnz05zNhmY1jg6xWs=;
+	h=From:To:Subject:Date:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=Y2H/4AayDepIH1AJ3x7roLwhyFhofH6soyzVFztPVKCrFPQe7Sud3BgPrnIvLfLcA
+	 7MqiP6+BqzVoI5YqNdasMvJ2JfNBmCKzBcz5+d1M0/eB/Nq5sqsYKM5L2U/QhnUz9C
+	 oQzV/HuF4dlLIKgZXJ+kPIZIcfn99YjCNly1iZJ8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 403DAF8011F;
-	Fri, 11 Dec 2020 09:20:16 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id A923BF8020D;
+	Fri, 11 Dec 2020 09:38:49 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 79C26F8020D; Fri, 11 Dec 2020 09:20:13 +0100 (CET)
+ id 35F8FF8020D; Fri, 11 Dec 2020 09:38:47 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: *
-X-Spam-Status: No, score=1.5 required=5.0 tests=MISSING_DATE,MISSING_MID,
- SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
-Received: from webhooks-bot.alsa-project.org (gate.perex.cz [77.48.224.242])
- by alsa1.perex.cz (Postfix) with ESMTP id 14F75F80105
- for <alsa-devel@alsa-project.org>; Fri, 11 Dec 2020 09:20:08 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 14F75F80105
-MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
-From: GitHub issues - opened <github@alsa-project.org>
+X-Spam-Level: 
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 63D8DF80105
+ for <alsa-devel@alsa-project.org>; Fri, 11 Dec 2020 09:38:36 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 63D8DF80105
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id AF199AC10
+ for <alsa-devel@alsa-project.org>; Fri, 11 Dec 2020 08:38:35 +0000 (UTC)
+From: Takashi Iwai <tiwai@suse.de>
 To: alsa-devel@alsa-project.org
-In-Reply-To: <1607674808076721907-webhooks-bot@alsa-project.org>
-References: <1607674808076721907-webhooks-bot@alsa-project.org>
-Subject: Lose HDMI audio and internal DMIC after upgrade from 1.2.3 to 1.2.4
- on Intel TigerLake machines
-Message-Id: <20201211082013.79C26F8020D@alsa1.perex.cz>
-Date: Fri, 11 Dec 2020 09:20:13 +0100 (CET)
+Subject: [PATCH] alsactl: Skip restore during the lock
+Date: Fri, 11 Dec 2020 09:38:04 +0100
+Message-Id: <20201211083804.800-1-tiwai@suse.de>
+X-Mailer: git-send-email 2.26.2
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -60,13 +62,50 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-alsa-project/alsa-ucm-conf issue #66 was opened from starnight:
+Currently alsactl-restore tries to initialize the device when an error
+is found for restore action.  But this isn't the right behavior in the
+case where the lock is held; it implies that another alsactl is
+running concurrently, hence you shouldn't initialize the card at the
+same time.  The situation is found easily when two alsactls get
+started by both udev and systemd (note that those two invocations are
+the designed behavior, see /usr/lib/udev/rules.d/78-sound-cards.rules
+for details).
 
-We have some laptops equipped with Intel i7-1165G7 and i5-1135G7.  The HDMI audio and internal Intel SST DMIC can be detected by PulseAudio with alsa-ucm-conf at **v1.2.3**.  But, they are lost when upgrade alsa-ucm-conf to **v1.2.4** (including latest).
+This patch changes load_state() not to handle the initialization if
+the locking fails.
 
-I did bisect and found it starts to be failed at commit dcef48f ("HDA-Intel: add support for AMD acp microphone devices").
+BugLink: https://bugzilla.opensuse.org/show_bug.cgi?id=1179904
+Signed-off-by: Takashi Iwai <tiwai@suse.de>
+---
+ alsactl/state.c | 8 +++++++-
+ 1 file changed, 7 insertions(+), 1 deletion(-)
 
-[alsa-info.txt](https://github.com/alsa-project/alsa-ucm-conf/files/5677934/alsa-info.txt)
+diff --git a/alsactl/state.c b/alsactl/state.c
+index ea1d3bcaaddf..8d1d814341bd 100644
+--- a/alsactl/state.c
++++ b/alsactl/state.c
+@@ -1663,7 +1663,12 @@ int load_state(const char *file, const char *initfile, int initflags,
+ 		err = snd_input_stdio_attach(&in, stdin, 0);
+ 	} else {
+ 		lock_fd = state_lock(file, 10);
+-		err = lock_fd >= 0 ? snd_input_stdio_open(&in, file, "r") : lock_fd;
++		/* skip restore if already locked; i.e. concurrent accesses */
++		if (lock_fd < 0) {
++			err = 0;
++			goto out_global;
++		}
++		err = snd_input_stdio_open(&in, file, "r");
+ 	}
+ 	if (err >= 0) {
+ 		err = snd_config_load(config, in);
+@@ -1781,6 +1786,7 @@ single:
+ 	err = finalerr;
+ out:
+ 	snd_config_delete(config);
++out_global:
+ 	snd_config_update_free_global();
+ 	return err;
+ }
+-- 
+2.26.2
 
-Issue URL     : https://github.com/alsa-project/alsa-ucm-conf/issues/66
-Repository URL: https://github.com/alsa-project/alsa-ucm-conf

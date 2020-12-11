@@ -2,103 +2,64 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id CFD942D736E
-	for <lists+alsa-devel@lfdr.de>; Fri, 11 Dec 2020 11:08:55 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7D5432D738D
+	for <lists+alsa-devel@lfdr.de>; Fri, 11 Dec 2020 11:12:18 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 60D321721;
-	Fri, 11 Dec 2020 11:08:05 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 60D321721
+	by alsa0.perex.cz (Postfix) with ESMTPS id 545CE1738;
+	Fri, 11 Dec 2020 11:11:27 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 545CE1738
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1607681335;
-	bh=uVUQlPC6vScWVou4MetlmlYtBQ23eE76RaTkIyCOIcU=;
-	h=Date:From:To:Subject:Cc:List-Id:List-Unsubscribe:List-Archive:
+	s=default; t=1607681537;
+	bh=rstGelckiBA+mWW6H5627BkygkOL8ozsmVr2tHVFsBc=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
 	 List-Post:List-Help:List-Subscribe:From;
-	b=mM2RBCyyGvhY2Vx2o2zPPcREqlJCBROwX1vxPqQTzXooOMNDATlJBXBIuD+1KkilR
-	 +WOuZEXc7uEvuHBZ/8FUxLBV6ydlBs4ApfaCk0OP37rf4Kk5LEVL746RMGNDPuvHv+
-	 C0ozR51gAgBpjANp5b4umCowHQ1S/VGjCQ/ZsHCY=
+	b=VdoOatBTiDh3J7AcACAVj+UggppaUvD6u232p1VJYmrcvHhkRK+C/CydJQcnos3Hd
+	 JIKwljucSpt6iKKsTZVur5DE3lPJkRlFdy8SNF3StYtEhi3VGUCfnZY+BgiYneDptN
+	 ZTHXbDKRWnIBwe/ZnMfNBbK/2i+h6+CDu1tHfUd4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id BAAE5F801D8;
-	Fri, 11 Dec 2020 11:07:20 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 31412F804B0;
+	Fri, 11 Dec 2020 11:10:37 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 2BA67F8020D; Fri, 11 Dec 2020 11:07:19 +0100 (CET)
+ id E1F0DF802BE; Fri, 11 Dec 2020 11:10:34 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,UNPARSEABLE_RELAY autolearn=disabled
- version=3.4.0
-Received: from aserp2120.oracle.com (aserp2120.oracle.com [141.146.126.78])
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE
+ autolearn=disabled version=3.4.0
+Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id C6196F8014E
- for <alsa-devel@alsa-project.org>; Fri, 11 Dec 2020 11:07:10 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C6196F8014E
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=oracle.com header.i=@oracle.com
- header.b="oGypySpN"
-Received: from pps.filterd (aserp2120.oracle.com [127.0.0.1])
- by aserp2120.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 0BB9xQvw104715;
- Fri, 11 Dec 2020 10:07:08 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com;
- h=date : from : to : cc
- : subject : message-id : mime-version : content-type; s=corp-2020-01-29;
- bh=JImxBMKaa3RdyGk4mkBFq/GSb62ggB7gx8mMAoZPZeM=;
- b=oGypySpNBoVZuzkJF5FN2kn2dlKowjq9wCAB9Wlt5Urc/pV21Tz0hKANaARTSCBTyBqv
- 6uKQgMt97cQpEzvpmROmwWzep5L4h6l/AHq100QRCeVUaVq9N2UQRuxrX7dvj3Pt1vmR
- 1lqKoiD9vqiNBWNuZGk+M80kKuC85+RX7LgSxEhncRc2820mKCLtj0Yanl77pM+KzoNA
- XAGW7ONRA9ojgpNtqqrxAQqrSHiYZyKwUvU/s13GKHV/A8yGQOOgneQcaIEun0jPewYk
- mQtOJA2qlO000+UYLBKjLDUUrBZqhxJ3UzIwwyPNWTultwmRuVmyNSx+U7wAtKMUSGmm 6A== 
-Received: from aserp3030.oracle.com (aserp3030.oracle.com [141.146.126.71])
- by aserp2120.oracle.com with ESMTP id 35825mhw1n-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
- Fri, 11 Dec 2020 10:07:07 +0000
-Received: from pps.filterd (aserp3030.oracle.com [127.0.0.1])
- by aserp3030.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 0BBA10hL152750;
- Fri, 11 Dec 2020 10:07:07 GMT
-Received: from userv0121.oracle.com (userv0121.oracle.com [156.151.31.72])
- by aserp3030.oracle.com with ESMTP id 358kst34cr-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Fri, 11 Dec 2020 10:07:07 +0000
-Received: from abhmp0016.oracle.com (abhmp0016.oracle.com [141.146.116.22])
- by userv0121.oracle.com (8.14.4/8.13.8) with ESMTP id 0BBA72eO023742;
- Fri, 11 Dec 2020 10:07:04 GMT
-Received: from mwanda (/102.36.221.92) by default (Oracle Beehive Gateway v4.0)
- with ESMTP ; Fri, 11 Dec 2020 02:07:01 -0800
-Date: Fri, 11 Dec 2020 13:06:52 +0300
-From: Dan Carpenter <dan.carpenter@oracle.com>
-To: Cezary Rojewski <cezary.rojewski@intel.com>,
- Guneshwor Singh <guneshwor.o.singh@intel.com>
-Subject: [PATCH] ASoC: Intel: fix error code cnl_set_dsp_D0()
-Message-ID: <X9NEvCzuN+IObnTN@mwanda>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 4D920F80217
+ for <alsa-devel@alsa-project.org>; Fri, 11 Dec 2020 11:10:29 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4D920F80217
+IronPort-SDR: MzzsuYIOuVSIhu5jZ5yPuzXKJmJhMIqwAk/QSFiiM9FH/zh2rqgX9arUC9Vn9ZzZjZ1k5TPOTp
+ 0ikEwZaKL1gQ==
+X-IronPort-AV: E=McAfee;i="6000,8403,9831"; a="174554239"
+X-IronPort-AV: E=Sophos;i="5.78,411,1599548400"; d="scan'208";a="174554239"
+Received: from orsmga007.jf.intel.com ([10.7.209.58])
+ by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 11 Dec 2020 02:10:24 -0800
+IronPort-SDR: 7syldEva8VzKuOtrIMNYMiKi7Ij+8rFWfnz9Uh8iPxVfBl71VdlFB/dIHtuFc/s682dmdWBtWv
+ OEWy6BWHRiPw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.78,411,1599548400"; d="scan'208";a="376450936"
+Received: from eliteleevi.tm.intel.com ([10.237.54.20])
+ by orsmga007.jf.intel.com with ESMTP; 11 Dec 2020 02:10:22 -0800
+From: Kai Vehmanen <kai.vehmanen@linux.intel.com>
+To: alsa-devel@alsa-project.org,
+	broonie@kernel.org
+Subject: [PATCH 0/3] ASoC: SOF: Intel: fix to dsp state dump trace levels
+Date: Fri, 11 Dec 2020 12:07:40 +0200
+Message-Id: <20201211100743.3188821-1-kai.vehmanen@linux.intel.com>
+X-Mailer: git-send-email 2.29.2
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-X-Mailer: git-send-email haha only kidding
-X-Proofpoint-Virus-Version: vendor=nai engine=6000 definitions=9831
- signatures=668683
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 mlxlogscore=999
- suspectscore=0
- bulkscore=0 malwarescore=0 phishscore=0 mlxscore=0 spamscore=0
- adultscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.12.0-2009150000 definitions=main-2012110061
-X-Proofpoint-Virus-Version: vendor=nai engine=6000 definitions=9831
- signatures=668683
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 suspectscore=0
- adultscore=0 bulkscore=0
- phishscore=0 mlxlogscore=999 clxscore=1011 priorityscore=1501 mlxscore=0
- spamscore=0 lowpriorityscore=0 malwarescore=0 impostorscore=0
- classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2009150000
- definitions=main-2012110061
-Cc: alsa-devel@alsa-project.org,
- Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
- kernel-janitors@vger.kernel.org, Jie Yang <yang.jie@linux.intel.com>,
- Takashi Iwai <tiwai@suse.com>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- Liam Girdwood <liam.r.girdwood@linux.intel.com>,
- Mark Brown <broonie@kernel.org>
+Content-Transfer-Encoding: 8bit
+Cc: lgirdwood@gmail.com, daniel.baluta@nxp.com,
+ pierre-louis.bossart@linux.intel.com, kai.vehmanen@linux.intel.com,
+ ranjani.sridharan@linux.intel.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -114,29 +75,25 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Return -ETIMEDOUT if the dsp boot times out instead of returning
-success.
+Small series that addresses a problem where DSP status dump
+for a failure case, ends up being printed as as debug print. This
+is important information for any bug report. While at it, the series
+contains a few cleanups to related code.
 
-Fixes: cb6a55284629 ("ASoC: Intel: cnl: Add sst library functions for cnl platform")
-Signed-off-by: Dan Carpenter <dan.carpenter@oracle.com>
----
-Not tested.
+Ranjani Sridharan (3):
+  ASoC: SOF: Intel: hda: remove duplicated status dump
+  ASoC: SOF: modify the SOF_DBG flags
+  ASoC: SOF: Intel: hda: fix the condition passed to sof_dev_dbg_or_err
 
- sound/soc/intel/skylake/cnl-sst.c | 1 +
- 1 file changed, 1 insertion(+)
+ sound/soc/sof/debug.c            |  2 +-
+ sound/soc/sof/intel/byt.c        |  2 +-
+ sound/soc/sof/intel/hda-loader.c | 19 +++++++++++++------
+ sound/soc/sof/intel/hda.c        | 10 ++++------
+ sound/soc/sof/loader.c           |  4 ++--
+ sound/soc/sof/ops.c              |  2 +-
+ sound/soc/sof/sof-priv.h         | 13 ++++++++-----
+ 7 files changed, 30 insertions(+), 22 deletions(-)
 
-diff --git a/sound/soc/intel/skylake/cnl-sst.c b/sound/soc/intel/skylake/cnl-sst.c
-index fcd8dff27ae8..1275c149acc0 100644
---- a/sound/soc/intel/skylake/cnl-sst.c
-+++ b/sound/soc/intel/skylake/cnl-sst.c
-@@ -224,6 +224,7 @@ static int cnl_set_dsp_D0(struct sst_dsp *ctx, unsigned int core_id)
- 				"dsp boot timeout, status=%#x error=%#x\n",
- 				sst_dsp_shim_read(ctx, CNL_ADSP_FW_STATUS),
- 				sst_dsp_shim_read(ctx, CNL_ADSP_ERROR_CODE));
-+			ret = -ETIMEDOUT;
- 			goto err;
- 		}
- 	} else {
 -- 
 2.29.2
 

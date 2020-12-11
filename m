@@ -2,103 +2,64 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9181A2D73A5
-	for <lists+alsa-devel@lfdr.de>; Fri, 11 Dec 2020 11:14:43 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3A5AD2D73EC
+	for <lists+alsa-devel@lfdr.de>; Fri, 11 Dec 2020 11:27:24 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 04013174B;
-	Fri, 11 Dec 2020 11:13:49 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 04013174B
+	by alsa0.perex.cz (Postfix) with ESMTPS id BC4E6170B;
+	Fri, 11 Dec 2020 11:26:33 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BC4E6170B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1607681679;
-	bh=O+nuci4mo4bt72lN3RdsKBbfACpNZocB/LPNbBEaIQs=;
-	h=Date:From:To:Subject:Cc:List-Id:List-Unsubscribe:List-Archive:
+	s=default; t=1607682443;
+	bh=Io6QDBTYrxU/pakn8qlitDwVmXCxlg4/MYhI8/trE3s=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
 	 List-Post:List-Help:List-Subscribe:From;
-	b=GmxHTW/aFhxfpHWKmi0n/TEEmA9UAO4VXpCGjugLdNoxJt4aHUZ72NkEVzLaeGEcw
-	 8e+qcRHmsrhCCNe3Ck8w1zqhxI8gJtDvlAfIRjEIrER+oj2GkwoEN4tPEYkdfTQRCT
-	 z9PZFR8IXm2PHTr6kh3ZYCMBQ7eQ55GbU3UC+EgA=
+	b=Ij3YQqQpK0E5TvejM2FXb9WnSjIPetu5An5Bm09VprZSawjEJJ/D9YUmu+KdcZiNI
+	 shNan7WvrST4TkqIonjQ4nhZgfC8MoPfmDPrDLT74j1fBdFRrcbTDbe29Nl8U4ovaB
+	 toTTsW55hC4Z+6mCrZWN0d8liBHA5XP05sQ/5BDE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 93B3DF80217;
-	Fri, 11 Dec 2020 11:13:48 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 38B50F801D8;
+	Fri, 11 Dec 2020 11:25:49 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id B11CCF8011F; Fri, 11 Dec 2020 11:13:46 +0100 (CET)
+ id 67C9AF8020D; Fri, 11 Dec 2020 11:25:47 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,UNPARSEABLE_RELAY autolearn=disabled
- version=3.4.0
-Received: from userp2130.oracle.com (userp2130.oracle.com [156.151.31.86])
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 4E7FBF8014E
- for <alsa-devel@alsa-project.org>; Fri, 11 Dec 2020 11:13:43 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4E7FBF8014E
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=oracle.com header.i=@oracle.com
- header.b="ZAr/jOhe"
-Received: from pps.filterd (userp2130.oracle.com [127.0.0.1])
- by userp2130.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 0BBABR04178363;
- Fri, 11 Dec 2020 10:13:42 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com;
- h=date : from : to : cc
- : subject : message-id : mime-version : content-type; s=corp-2020-01-29;
- bh=cq57BA88UTUnfKMDclHPzLIllRZe4Oc+6i7wo7N7/GI=;
- b=ZAr/jOhevQQsu1OnodG8VZYQlWpqSZ+ptlZLg4VExc5+MtfEazr/ysJyeX7nzXuto5Kf
- q3g1PNOQ3R2AvRsDHe3exettRPu4EVr8yoayj6D1uEdDBMG9lf3f7CAYVJuxu/4XTL2+
- WSydvqdQvnwd4pTJ+UoAdQwdWhWsN5Gh7G3QMzYyjyHGrinimuzzWaFzvSLmc1TtOXZO
- 7psZ+3fWrRI2LnC98jlnfV+JIz0eZHf2H1Esj71QdMRG4OcqzZLiZRMh/yCANjYuvrUV
- SfKH2IG+Z6GqX20YgBq1NBMRl55ajv8EFGXFBRqHJeH1TiT3d8mpjDeUGMqxe4tLWJdO OQ== 
-Received: from aserp3030.oracle.com (aserp3030.oracle.com [141.146.126.71])
- by userp2130.oracle.com with ESMTP id 3581mr9w06-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
- Fri, 11 Dec 2020 10:13:42 +0000
-Received: from pps.filterd (aserp3030.oracle.com [127.0.0.1])
- by aserp3030.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 0BBAAwFO184507;
- Fri, 11 Dec 2020 10:13:41 GMT
-Received: from userv0121.oracle.com (userv0121.oracle.com [156.151.31.72])
- by aserp3030.oracle.com with ESMTP id 358kst3ff7-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Fri, 11 Dec 2020 10:13:41 +0000
-Received: from abhmp0016.oracle.com (abhmp0016.oracle.com [141.146.116.22])
- by userv0121.oracle.com (8.14.4/8.13.8) with ESMTP id 0BBADbKs027014;
- Fri, 11 Dec 2020 10:13:37 GMT
-Received: from mwanda (/102.36.221.92) by default (Oracle Beehive Gateway v4.0)
- with ESMTP ; Fri, 11 Dec 2020 02:13:31 -0800
-Date: Fri, 11 Dec 2020 13:13:21 +0300
-From: Dan Carpenter <dan.carpenter@oracle.com>
-To: Timur Tabi <timur@kernel.org>, Shengjiu Wang <shengjiu.wang@nxp.com>
-Subject: [PATCH] ASoC: fsl: imx-hdmi: Fix an uninitialized return in probe
-Message-ID: <X9NGQaF4pmK8oUAF@mwanda>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 73FB2F8014E
+ for <alsa-devel@alsa-project.org>; Fri, 11 Dec 2020 11:25:38 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 73FB2F8014E
+IronPort-SDR: bfAEXWwktw2tk4EGcIJsr3DV71FXyfYJRO1EWiBPA7jKe/HjObdoxW+NAKXiFIjzUSEPQVTxce
+ oKSq2iQzDF8A==
+X-IronPort-AV: E=McAfee;i="6000,8403,9831"; a="174524451"
+X-IronPort-AV: E=Sophos;i="5.78,411,1599548400"; d="scan'208";a="174524451"
+Received: from orsmga003.jf.intel.com ([10.7.209.27])
+ by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 11 Dec 2020 02:25:33 -0800
+IronPort-SDR: xMOhaQJB2+TbUkUPjyIg9znzXZ1hxi3fzXRyg/mBB5cdZiZ8cV7x2HiorXfuRyUA04oHHV1dbr
+ ququ8M1+e8FQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.78,411,1599548400"; d="scan'208";a="333992083"
+Received: from eliteleevi.tm.intel.com ([10.237.54.20])
+ by orsmga003.jf.intel.com with ESMTP; 11 Dec 2020 02:25:31 -0800
+From: Kai Vehmanen <kai.vehmanen@linux.intel.com>
+To: alsa-devel@alsa-project.org,
+	broonie@kernel.org
+Subject: [PATCH] ASoC: SOF: imx: update kernel-doc description
+Date: Fri, 11 Dec 2020 12:22:55 +0200
+Message-Id: <20201211102255.3189589-1-kai.vehmanen@linux.intel.com>
+X-Mailer: git-send-email 2.29.2
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-X-Mailer: git-send-email haha only kidding
-X-Proofpoint-Virus-Version: vendor=nai engine=6000 definitions=9831
- signatures=668683
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 mlxlogscore=999
- suspectscore=0
- bulkscore=0 malwarescore=0 phishscore=0 mlxscore=0 spamscore=0
- adultscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.12.0-2009150000 definitions=main-2012110062
-X-Proofpoint-Virus-Version: vendor=nai engine=6000 definitions=9831
- signatures=668683
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 suspectscore=0
- mlxlogscore=999
- clxscore=1011 malwarescore=0 priorityscore=1501 adultscore=0
- lowpriorityscore=0 phishscore=0 spamscore=0 impostorscore=0 mlxscore=0
- bulkscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.12.0-2009150000 definitions=main-2012110062
-Cc: alsa-devel@alsa-project.org, linuxppc-dev@lists.ozlabs.org,
- Xiubo Li <Xiubo.Lee@gmail.com>, Shawn Guo <shawnguo@kernel.org>,
- Sascha Hauer <s.hauer@pengutronix.de>, Takashi Iwai <tiwai@suse.com>,
- kernel-janitors@vger.kernel.org, Liam Girdwood <lgirdwood@gmail.com>,
- Nicolin Chen <nicoleotsuka@gmail.com>, Mark Brown <broonie@kernel.org>,
- NXP Linux Team <linux-imx@nxp.com>,
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- Fabio Estevam <festevam@gmail.com>
+Content-Transfer-Encoding: 8bit
+Cc: Daniel Baluta <daniel.baluta@gmail.com>, kai.vehmanen@linux.intel.com,
+ lgirdwood@gmail.com, pierre-louis.bossart@linux.intel.com,
+ ranjani.sridharan@linux.intel.com, daniel.baluta@nxp.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -114,27 +75,31 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-The "ret" variable should be set to a negative error code but
-currently it returns uninitialized stack data.
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 
-Fixes: 6a5f850aa83a ("ASoC: fsl: Add imx-hdmi machine driver")
-Signed-off-by: Dan Carpenter <dan.carpenter@oracle.com>
+Add missing parameters to avoid W=1 error
+
+Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Reviewed-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
+Reviewed-by: Daniel Baluta <daniel.baluta@gmail.com>
+Signed-off-by: Kai Vehmanen <kai.vehmanen@linux.intel.com>
 ---
- sound/soc/fsl/imx-hdmi.c | 1 +
- 1 file changed, 1 insertion(+)
+ sound/soc/sof/imx/imx-common.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-diff --git a/sound/soc/fsl/imx-hdmi.c b/sound/soc/fsl/imx-hdmi.c
-index 2c2a76a71940..ede4a9ad1054 100644
---- a/sound/soc/fsl/imx-hdmi.c
-+++ b/sound/soc/fsl/imx-hdmi.c
-@@ -164,6 +164,7 @@ static int imx_hdmi_probe(struct platform_device *pdev)
- 
- 	if ((hdmi_out && hdmi_in) || (!hdmi_out && !hdmi_in)) {
- 		dev_err(&pdev->dev, "Invalid HDMI DAI link\n");
-+		ret = -EINVAL;
- 		goto fail;
- 	}
- 
+diff --git a/sound/soc/sof/imx/imx-common.c b/sound/soc/sof/imx/imx-common.c
+index 5fee637834c2..8826ef94f04a 100644
+--- a/sound/soc/sof/imx/imx-common.c
++++ b/sound/soc/sof/imx/imx-common.c
+@@ -47,6 +47,8 @@ void imx8_get_registers(struct snd_sof_dev *sdev,
+ /**
+  * imx8_dump() - This function is called when a panic message is
+  * received from the firmware.
++ * @sdev: SOF device
++ * @flags: parameter not used but required by ops prototype
+  */
+ void imx8_dump(struct snd_sof_dev *sdev, u32 flags)
+ {
 -- 
 2.29.2
 

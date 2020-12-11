@@ -2,68 +2,75 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5C2482D76EA
-	for <lists+alsa-devel@lfdr.de>; Fri, 11 Dec 2020 14:50:34 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id E4DE12D7999
+	for <lists+alsa-devel@lfdr.de>; Fri, 11 Dec 2020 16:44:02 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 032D6171B;
-	Fri, 11 Dec 2020 14:49:44 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 032D6171B
+	by alsa0.perex.cz (Postfix) with ESMTPS id 775D8176A;
+	Fri, 11 Dec 2020 16:43:12 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 775D8176A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1607694634;
-	bh=fP7KxEKrqqulM5pXmy7W+fB2fkXM0JLGiRP3cJ1kOcc=;
-	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1607701442;
+	bh=2dYwGCjETUQTTmKyWcFB+ki1hU2IR5mtULF40l1dGqs=;
+	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=a8v27M3KaCrga1oMHGBRQoqELqBxlTQQsZYYd8wedK3vaPrnjzd3Py9RZGz20Y4ob
-	 ExtShsLxN059Dbbjcy4EtSR0peUvkQJDPh7bN5a4yJUIpIdbPC6lyOPP6/kHnR3cMr
-	 DfLxb5PZ8cP3xFEni8U3RDwGJCRCyj7vPFKbnudA=
+	b=t5545I2IBTobAQ91XDkz4fNxB2bj9BdAoDY1heyx+gyWZ9sc2QTGjcGwsROM4BWrZ
+	 zHak4cOxY2z79bovBFGy84n9R2nePlW03tMrFciqQgreVESiiiOxfHTvdafVhNjnc1
+	 VG19pW132Sn0AorRfYoTsQmHE/QqUKs66irdKuhU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 6F7E0F8020D;
-	Fri, 11 Dec 2020 14:48:59 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 506F4F80217;
+	Fri, 11 Dec 2020 16:42:27 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 3336EF8020D; Fri, 11 Dec 2020 14:48:58 +0100 (CET)
+ id E4A37F8020D; Fri, 11 Dec 2020 16:42:24 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE
- autolearn=disabled version=3.4.0
-Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
+X-Spam-Status: No, score=0.0 required=5.0 tests=NICE_REPLY_A,SPF_HELO_NONE,
+ SPF_NONE autolearn=disabled version=3.4.0
+Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 91F06F8011F
- for <alsa-devel@alsa-project.org>; Fri, 11 Dec 2020 14:48:54 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 91F06F8011F
-IronPort-SDR: O0X1gJ17bKOMq5CfXsCNxVBfrTcT1+k2emuwFSAbeu2ULNf2bh9F96jExe5nmjBM9yC9rl+5bT
- jgHKsdrdUd5A==
-X-IronPort-AV: E=McAfee;i="6000,8403,9831"; a="154240708"
-X-IronPort-AV: E=Sophos;i="5.78,411,1599548400"; d="scan'208";a="154240708"
-Received: from orsmga001.jf.intel.com ([10.7.209.18])
- by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 11 Dec 2020 05:48:52 -0800
-IronPort-SDR: 7VtTeG5GtS+8eLLyODiDhRd1Nukgpmo1KudpD+2+hNDWrkxJqPVAnoa6fnuvlUyxfINgqhPvQh
- x2LDVVMHIhqw==
-X-IronPort-AV: E=Sophos;i="5.78,411,1599548400"; d="scan'208";a="409226450"
-Received: from eliteleevi.tm.intel.com ([10.237.54.20])
- by orsmga001-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 11 Dec 2020 05:48:50 -0800
-Date: Fri, 11 Dec 2020 15:46:14 +0200 (EET)
-From: Kai Vehmanen <kai.vehmanen@linux.intel.com>
-X-X-Sender: kvehmane@eliteleevi.tm.intel.com
-To: Takashi Iwai <tiwai@suse.de>
-Subject: Re: [PATCH] ALSA: hda/hdmi: packet buffer index must be set before
- reading value
-In-Reply-To: <s5hy2i4o4le.wl-tiwai@suse.de>
-Message-ID: <alpine.DEB.2.22.394.2012111537070.864696@eliteleevi.tm.intel.com>
-References: <20201211131613.3271407-1-kai.vehmanen@linux.intel.com>
- <s5hy2i4o4le.wl-tiwai@suse.de>
-User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7 02160 Espoo
+ by alsa1.perex.cz (Postfix) with ESMTPS id 2D2C8F80105
+ for <alsa-devel@alsa-project.org>; Fri, 11 Dec 2020 16:42:14 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2D2C8F80105
+IronPort-SDR: 9fyfHsOgAuGe71H1u4Cmk2wWXJ8NXWRP1g8ElqpOhg84uzqGrObkWxB14s8LLrFCERPBVbo+88
+ h6ZmG2dGBRJA==
+X-IronPort-AV: E=McAfee;i="6000,8403,9832"; a="174595888"
+X-IronPort-AV: E=Sophos;i="5.78,411,1599548400"; d="scan'208";a="174595888"
+Received: from orsmga002.jf.intel.com ([10.7.209.21])
+ by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 11 Dec 2020 07:42:10 -0800
+IronPort-SDR: 8GcczHJRgPBSbn8VAs1UX0mK6shOPulvVbZXGtRkUx2zpw+u2LOGZr/EjJIldtVope8EorfnUR
+ SifaBcA/1b3Q==
+X-IronPort-AV: E=Sophos;i="5.78,411,1599548400"; d="scan'208";a="349521183"
+Received: from aslawinx-mobl.ger.corp.intel.com (HELO [10.249.144.44])
+ ([10.249.144.44])
+ by orsmga002-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 11 Dec 2020 07:42:07 -0800
+Subject: Re: [PATCH] ASoC: Intel: Skylake: Check the kcontrol against NULL
+To: Lukasz Majczak <lma@semihalf.com>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ Liam Girdwood <liam.r.girdwood@linux.intel.com>,
+ Mateusz Gorski <mateusz.gorski@linux.intel.com>
+References: <20201210121438.7718-1-lma@semihalf.com>
+From: =?UTF-8?Q?Amadeusz_S=c5=82awi=c5=84ski?=
+ <amadeuszx.slawinski@linux.intel.com>
+Message-ID: <669da93a-2ef2-fa08-6c7f-be2e6b5ac363@linux.intel.com>
+Date: Fri, 11 Dec 2020 16:42:04 +0100
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:68.0) Gecko/20100101
+ Thunderbird/68.12.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Cc: alsa-devel@alsa-project.org, Kai Vehmanen <kai.vehmanen@linux.intel.com>
+In-Reply-To: <20201210121438.7718-1-lma@semihalf.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
+Cc: alsa-devel@alsa-project.org, Guenter Roeck <groeck@google.com>,
+ Radoslaw Biernacki <rad@semihalf.com>, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org, Marcin Wojtas <mw@semihalf.com>,
+ Alex Levin <levinale@google.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -79,22 +86,13 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hi,
+On 12/10/2020 1:14 PM, Lukasz Majczak wrote:
+> +		kcontrol = dobj->control.kcontrol;
+> +		if(!kcontrol)
+> +			continue;
 
-On Fri, 11 Dec 2020, Takashi Iwai wrote:
+Small nitpick, there should be space between if and opening parenthesis 
+as recommended by coding style.
 
-> On Fri, 11 Dec 2020 14:16:13 +0100, Kai Vehmanen wrote:
-> > 
-> > The check for infoframe transmit status in hdmi_infoframe_uptodate()
-> > makes the assumption that packet buffer index is set to zero.
-> 
-> Currently there is no other place to change DIP index, i.e. it's
-> always zero, and the bug wouldn't hit, but it's better to be addressed
-> beforehand, indeed.
-
-indeed, agreed on that. Most likely scenario where this could actually 
-cause harm if someone later adds new functionality to this driver that 
-uses other DIP indices for something. That's pretty unlikely as well, but 
-yeah, better align with the spec.
-
-Br, Kai
+Thanks,
+Amadeusz

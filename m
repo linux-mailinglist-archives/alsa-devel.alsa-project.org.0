@@ -2,83 +2,78 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 120312D6F87
-	for <lists+alsa-devel@lfdr.de>; Fri, 11 Dec 2020 06:15:16 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 09C132D6F88
+	for <lists+alsa-devel@lfdr.de>; Fri, 11 Dec 2020 06:15:27 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 8DA9816BA;
-	Fri, 11 Dec 2020 06:14:25 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8DA9816BA
+	by alsa0.perex.cz (Postfix) with ESMTPS id 94E8E16CC;
+	Fri, 11 Dec 2020 06:14:36 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 94E8E16CC
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1607663715;
-	bh=leCxgKCw/JyYIcVLSlV2Q681xda+q0YzEHZJfuIHZD8=;
-	h=Date:In-Reply-To:References:Subject:From:To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=iKvnOQ7xGjB0puu2oXUFEC7qInRyu0AzXvnqa/CKO9dtmhQcdXzZgWhkYwYwPnLU1
-	 yDqVGJ2m+Syvr8xTJaRuHP5vNLT4ZIz+TW7odjY/2nYtB4wBY6akcjs+6gA6vP5kNM
-	 1izs9+ONV61InQJT9qCU1SoGyVPr8IVXasmS7J+4=
+	s=default; t=1607663726;
+	bh=936Nv5lJJ4m3oM4i5V1ULve6M4w02D/jWjoLlIACON0=;
+	h=Date:Subject:From:To:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=ds14Uj7Z1p7BeWpXYdIiYvhVpupDoljPt5JiFDdn6/BgT8YCTAFIRNM2u8E3hqdIm
+	 FVAv+6opfJTB0wwomRF0BVaCgKW7wASV992XYACBi6nUkIpqt1mXwjK2i6GY/fieOO
+	 D1r6/YWWEdx9bjJbfzYw7LL+19w7/M5uUS98EK9o=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 48F38F804BD;
-	Fri, 11 Dec 2020 06:12:58 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id CB504F804D6;
+	Fri, 11 Dec 2020 06:13:53 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 5862FF804B0; Fri, 11 Dec 2020 06:12:55 +0100 (CET)
+ id BD647F804D6; Fri, 11 Dec 2020 06:13:51 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-7.6 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,USER_IN_DEF_DKIM_WL autolearn=disabled
  version=3.4.0
-Received: from mail-pj1-x1049.google.com (mail-pj1-x1049.google.com
- [IPv6:2607:f8b0:4864:20::1049])
+Received: from mail-pf1-x44a.google.com (mail-pf1-x44a.google.com
+ [IPv6:2607:f8b0:4864:20::44a])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 8FECAF802BE
- for <alsa-devel@alsa-project.org>; Fri, 11 Dec 2020 06:12:51 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8FECAF802BE
+ by alsa1.perex.cz (Postfix) with ESMTPS id 47F2FF8014E
+ for <alsa-devel@alsa-project.org>; Fri, 11 Dec 2020 06:13:48 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 47F2FF8014E
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=google.com header.i=@google.com
- header.b="emgnXj/Z"
-Received: by mail-pj1-x1049.google.com with SMTP id kk4so1796083pjb.7
- for <alsa-devel@alsa-project.org>; Thu, 10 Dec 2020 21:12:50 -0800 (PST)
+ header.b="Ae2o721p"
+Received: by mail-pf1-x44a.google.com with SMTP id e126so5597240pfh.15
+ for <alsa-devel@alsa-project.org>; Thu, 10 Dec 2020 21:13:48 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
- h=sender:date:in-reply-to:message-id:mime-version:references:subject
- :from:to:cc; bh=64rrKA1XAShTMqjY0LlZBcP7tQX0AmPAC+RLWQwGwlg=;
- b=emgnXj/ZxoHcJWybIZeB+XhBbjkoqa7TY1AdwZQW1M/MsSXnUbV0oqs+nJhCn2NxKV
- sFaIZR5JpZ88ASBNl0vA8cD+jkQcmT5BVI7oVkAEyDxVoV5nuZBPrSo4qMEn8e/pMqFs
- kKnXO9jqFPL8ygAukadVQc1dRPkAAyCFEzyWHHYflO9a2+lZyGm//t6vZWUKeH+l+y0k
- z6Ke426Ee5trio5S2I5J+E0gjoIHB+Tw8Ez3jHKyn4geb7aBdQSkUmNhOEzqhmUWE89J
- PD4qxpJktuTU8wnCEzk4ETYKmCFNYI4llfdOduO4cvtbiRQR7IjyfEob2D3zns1y6lhp
- znxQ==
+ h=sender:date:message-id:mime-version:subject:from:to:cc;
+ bh=rfrdjp1A4rf9KJuMsS7idMSchmUaB6OkvensJ7rzsxU=;
+ b=Ae2o721pPEA/Y5k3DWa8iPjW0VKJKcKE3+YXjpkjA4HelRShUthd410Dcogdrl3Aav
+ OylnyT97yo5a8+CLe6/MkXRAsVJ+UFcJwsz/GFDbie6tDRzEphdY7HWWiRfEDpoEb2tD
+ vE7+npFa/3QuU1FlwyR4TxUFVv8mBaSJO473yNr28v6yS6d6qVuCkU0OKnee1kX1ypyD
+ iytn/hQAMIAx7iEMsc+F8xgaqX3h8LN53+iFt8GUdOSJEPNJhnoOTRQRz/8i/qUH9ram
+ LSDg4oPxe5KMXuDdklIWQ88gYlL39PmHboQDy6xBQIUbi05Z03TCP/JAXrAQo3Zof3DS
+ 7fjw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:sender:date:in-reply-to:message-id:mime-version
- :references:subject:from:to:cc;
- bh=64rrKA1XAShTMqjY0LlZBcP7tQX0AmPAC+RLWQwGwlg=;
- b=jDypNETzqHRbh4t/OXVAhZ6fvrGW1vqMNaq9rdTRljke3Nl8FtGo0bt5ux+NXq/08R
- eUvidsI2PTRm96LnvA0MUMv/1EreTGLa7ZRbtZEa5c+8ZQFXMHAE+it91VnqAQg8MM1R
- 1/cUihqVCLyyVAkNQzAc6ySSdvnBKT5zY8bkUDoFxqWKgueYAhCiNVNCo28fzqrS4McV
- Qn5aM01BPs4j7S/XLeKkho0msBgTyuqtdusneAGQ6fRcw4k5YpKl3ysabH5sAZwRlC/s
- O530VoC2fgabk57uSf1HmajGbS80m+x5Zx79ePT8n59swXQN0m/O+t1STXJl8Ybn/DpK
- hdCA==
-X-Gm-Message-State: AOAM532p/76hUq6GAiSTYvx4NDdVrKLm02jwpdrNUAHuGhGul6OzGDRl
- st+3zpZmA6OEW+l2uAbvUAOh3BlrpW9T
-X-Google-Smtp-Source: ABdhPJxG1U3de5HsMyTLs/XJsogRutTIoHfBCfiIsxzXPD2U4buxJAY/4IAZHR8dJD1PvHBgo5DA5fe5iKdg
+ h=x-gm-message-state:sender:date:message-id:mime-version:subject:from
+ :to:cc;
+ bh=rfrdjp1A4rf9KJuMsS7idMSchmUaB6OkvensJ7rzsxU=;
+ b=XEX0sQvp9BPq9ob3//p5j3UCQ8m6t0EtCb7x+KdvdlutZUjjytoCUk6VGdNtE7Zo0k
+ qygwFeH2QeIH+7bd1L2pmqQT7TqHn7H5bOXQgUXwqIv4rjyZjEBF4+YpJbym/198WBUA
+ W2YAKQg4WGeAcYEL7e/iyBtyXM13EbZFGT2GowLuAq+6FAjtAB7ACaLG/3xXyOtWhs6u
+ U2kWfJPZzMlDQFNfO0UeqQ4FDvO2+Y5t6f+ckzMsU/ysMcXzX4KNGMEIovCtHaWME2Ie
+ 8sff2yGF6DEAmN6MYEoX3tCVD0lxCbMUyu+VVOIoZXIfIlfHW7Ai4UsRYkuWk0lVw8OR
+ /dtQ==
+X-Gm-Message-State: AOAM533eWnF/Vjviih3hCr3QElLfNhR+xKukz4o6CjFqCZnUqrPDFBQL
+ 3bm63Aac0CQchNg2vWRKKrArZV+E13u/
+X-Google-Smtp-Source: ABdhPJyPjBDpLJO72s3M66CG7vVWXtpLDqpkJ6sG9sT5xrRSWEqBgGBLuggoc2NLDwFnxz2xcImOtvjHqjeU
 X-Received: from tzungbi-z840.tpe.corp.google.com
  ([2401:fa00:1:b:725a:fff:fe41:c6a5])
- (user=tzungbi job=sendgmr) by 2002:a17:902:854b:b029:db:c725:edcd with SMTP
- id d11-20020a170902854bb02900dbc725edcdmr1949201plo.64.1607663567905; Thu, 10
- Dec 2020 21:12:47 -0800 (PST)
-Date: Fri, 11 Dec 2020 13:12:24 +0800
-In-Reply-To: <20201211051224.2307349-1-tzungbi@google.com>
-Message-Id: <20201211051224.2307349-3-tzungbi@google.com>
+ (user=tzungbi job=sendgmr) by 2002:a17:90a:17a4:: with SMTP id
+ q33mr1126371pja.0.1607663625496; Thu, 10 Dec 2020 21:13:45 -0800 (PST)
+Date: Fri, 11 Dec 2020 13:13:34 +0800
+Message-Id: <20201211051334.2313899-1-tzungbi@google.com>
 Mime-Version: 1.0
-References: <20201211051224.2307349-1-tzungbi@google.com>
 X-Mailer: git-send-email 2.29.2.684.gfbc64c5ab5-goog
-Subject: [PATCH v3 2/2] ASoC: rt1015p: delay 300ms after SDB pulling high for
- calibration
+Subject: [PATCH] ASoC: mediatek: mt8183: add PM ops to machine drivers
 From: Tzung-Bi Shih <tzungbi@google.com>
 To: broonie@kernel.org
 Content-Type: text/plain; charset="UTF-8"
@@ -98,71 +93,39 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-RT1015p needs 300ms delay after SDB pulling high for internal
-calibration during the power on sequence.
-
-Delays 300ms right before data sends out to avoid data truncated.
-
-Assuming the calibration state gets lost after system suspend.
+Adds PM ops to machine drivers so that they notify components in the
+sound card when system suspend.
 
 Signed-off-by: Tzung-Bi Shih <tzungbi@google.com>
 ---
- sound/soc/codecs/rt1015p.c | 20 ++++++++++++++++++++
- 1 file changed, 20 insertions(+)
+ sound/soc/mediatek/mt8183/mt8183-da7219-max98357.c         | 1 +
+ sound/soc/mediatek/mt8183/mt8183-mt6358-ts3a227-max98357.c | 1 +
+ 2 files changed, 2 insertions(+)
 
-diff --git a/sound/soc/codecs/rt1015p.c b/sound/soc/codecs/rt1015p.c
-index ee9dfa2dbbf0..671f2a2130fe 100644
---- a/sound/soc/codecs/rt1015p.c
-+++ b/sound/soc/codecs/rt1015p.c
-@@ -4,6 +4,7 @@
- //
- // Copyright 2020 The Linux Foundation. All rights reserved.
- 
-+#include <linux/delay.h>
- #include <linux/device.h>
- #include <linux/err.h>
- #include <linux/gpio.h>
-@@ -19,6 +20,7 @@
- 
- struct rt1015p_priv {
- 	struct gpio_desc *sdb;
-+	bool calib_done;
+diff --git a/sound/soc/mediatek/mt8183/mt8183-da7219-max98357.c b/sound/soc/mediatek/mt8183/mt8183-da7219-max98357.c
+index 26e7d9a7198f..078e58f1ad0b 100644
+--- a/sound/soc/mediatek/mt8183/mt8183-da7219-max98357.c
++++ b/sound/soc/mediatek/mt8183/mt8183-da7219-max98357.c
+@@ -811,6 +811,7 @@ static struct platform_driver mt8183_da7219_max98357_driver = {
+ #ifdef CONFIG_OF
+ 		.of_match_table = mt8183_da7219_max98357_dt_match,
+ #endif
++		.pm = &snd_soc_pm_ops,
+ 	},
+ 	.probe = mt8183_da7219_max98357_dev_probe,
  };
- 
- static int rt1015p_sdb_event(struct snd_soc_dapm_widget *w,
-@@ -36,6 +38,11 @@ static int rt1015p_sdb_event(struct snd_soc_dapm_widget *w,
- 	case SND_SOC_DAPM_PRE_PMU:
- 		gpiod_set_value_cansleep(rt1015p->sdb, 1);
- 		dev_dbg(component->dev, "set sdb to 1");
-+
-+		if (!rt1015p->calib_done) {
-+			msleep(300);
-+			rt1015p->calib_done = true;
-+		}
- 		break;
- 	case SND_SOC_DAPM_POST_PMD:
- 		gpiod_set_value_cansleep(rt1015p->sdb, 0);
-@@ -60,7 +67,20 @@ static const struct snd_soc_dapm_route rt1015p_dapm_routes[] = {
- 	{"Speaker", NULL, "SDB"},
+diff --git a/sound/soc/mediatek/mt8183/mt8183-mt6358-ts3a227-max98357.c b/sound/soc/mediatek/mt8183/mt8183-mt6358-ts3a227-max98357.c
+index 327dfad41e31..8c8340854859 100644
+--- a/sound/soc/mediatek/mt8183/mt8183-mt6358-ts3a227-max98357.c
++++ b/sound/soc/mediatek/mt8183/mt8183-mt6358-ts3a227-max98357.c
+@@ -744,6 +744,7 @@ static struct platform_driver mt8183_mt6358_ts3a227_max98357_driver = {
+ #ifdef CONFIG_OF
+ 		.of_match_table = mt8183_mt6358_ts3a227_max98357_dt_match,
+ #endif
++		.pm = &snd_soc_pm_ops,
+ 	},
+ 	.probe = mt8183_mt6358_ts3a227_max98357_dev_probe,
  };
- 
-+#ifdef CONFIG_PM
-+static int rt1015p_suspend(struct snd_soc_component *component)
-+{
-+	struct rt1015p_priv *rt1015p = snd_soc_component_get_drvdata(component);
-+
-+	rt1015p->calib_done = false;
-+	return 0;
-+}
-+#else
-+#define rt1015p_suspend NULL
-+#endif
-+
- static const struct snd_soc_component_driver rt1015p_component_driver = {
-+	.suspend		= rt1015p_suspend,
- 	.dapm_widgets		= rt1015p_dapm_widgets,
- 	.num_dapm_widgets	= ARRAY_SIZE(rt1015p_dapm_widgets),
- 	.dapm_routes		= rt1015p_dapm_routes,
 -- 
 2.29.2.684.gfbc64c5ab5-goog
 

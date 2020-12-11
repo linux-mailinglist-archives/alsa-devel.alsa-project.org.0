@@ -2,49 +2,49 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 28C992D6FE9
-	for <lists+alsa-devel@lfdr.de>; Fri, 11 Dec 2020 06:58:27 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id C74F72D6FEA
+	for <lists+alsa-devel@lfdr.de>; Fri, 11 Dec 2020 06:59:03 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id BDB9B16D6;
-	Fri, 11 Dec 2020 06:57:36 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BDB9B16D6
+	by alsa0.perex.cz (Postfix) with ESMTPS id 5C35316C1;
+	Fri, 11 Dec 2020 06:58:13 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5C35316C1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1607666306;
-	bh=BEeGOSFZwovGvyEUOy3XAYgJfAFMtp/BOTiekGF8Y58=;
+	s=default; t=1607666343;
+	bh=SIf+Ko4ZI8VrrxqDBqhmO9JNAIInIwop5y9C2yROs3g=;
 	h=Date:From:Subject:To:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=Samun7DYlKt9UrVvYeYDPpsQ8DoBgcjS0Y7qis4NrcIM+XGE63zSer+o7ry0SrevP
-	 uKCtD3ptxMNoLEJRI+suj3aixMttzY5YXR+bMeDPGW//kKD1wHjZ21MIFVWl4UmOwY
-	 n9AKI6vDcLFUC4dIhCzhgxHFlt4QT95OfbXhbp6o=
+	b=jQqyRMzVAFanpZ7nvbN1xab8GOv0qRu7zsqrO4ZlPSJk6CEkIFtnjyZfjsSMwoIJ5
+	 Dr1u3dkBMoypiztTkqQa76tLUqU39JM3wGHGMH5eDmYy52dZtonT4am4vtdoBwMMpQ
+	 OatckxAqFh42ti0VIbmc5C0fLu+Be2RBkZtLkNZc=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 85322F804E3;
-	Fri, 11 Dec 2020 06:55:49 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 6440AF804E0;
+	Fri, 11 Dec 2020 06:55:55 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id CF114F804E2; Fri, 11 Dec 2020 06:55:46 +0100 (CET)
+ id 97CADF804F1; Fri, 11 Dec 2020 06:55:52 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.4 required=5.0 tests=KHOP_HELO_FCRDNS, SPF_HELO_NONE,
  SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from relmlie6.idc.renesas.com (relmlor2.renesas.com
- [210.160.252.172])
- by alsa1.perex.cz (Postfix) with ESMTP id D3238F804D8
- for <alsa-devel@alsa-project.org>; Fri, 11 Dec 2020 06:55:39 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D3238F804D8
-Date: 11 Dec 2020 14:55:38 +0900
-X-IronPort-AV: E=Sophos;i="5.78,410,1599490800"; d="scan'208";a="65387383"
-Received: from unknown (HELO relmlir6.idc.renesas.com) ([10.200.68.152])
- by relmlie6.idc.renesas.com with ESMTP; 11 Dec 2020 14:55:38 +0900
+Received: from relmlie5.idc.renesas.com (relmlor1.renesas.com
+ [210.160.252.171])
+ by alsa1.perex.cz (Postfix) with ESMTP id 490CAF804E0
+ for <alsa-devel@alsa-project.org>; Fri, 11 Dec 2020 06:55:45 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 490CAF804E0
+Date: 11 Dec 2020 14:55:44 +0900
+X-IronPort-AV: E=Sophos;i="5.78,410,1599490800"; d="scan'208";a="65602872"
+Received: from unknown (HELO relmlir5.idc.renesas.com) ([10.200.68.151])
+ by relmlie5.idc.renesas.com with ESMTP; 11 Dec 2020 14:55:44 +0900
 Received: from mercury.renesas.com (unknown [10.166.252.133])
- by relmlir6.idc.renesas.com (Postfix) with ESMTP id 955B641EE975;
- Fri, 11 Dec 2020 14:55:38 +0900 (JST)
-Message-ID: <87v9d87uyl.wl-kuninori.morimoto.gx@renesas.com>
+ by relmlir5.idc.renesas.com (Postfix) with ESMTP id 10A6E40062A5;
+ Fri, 11 Dec 2020 14:55:44 +0900 (JST)
+Message-ID: <87tuss7uyf.wl-kuninori.morimoto.gx@renesas.com>
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Subject: [PATCH 5/6] ASoC: soc-pcm: cleanup soc_pcm_params_symmetry()
+Subject: [PATCH 6/6] ASoC: soc-pcm: setup pcm at one place in soc_new_pcm()
 User-Agent: Wanderlust/2.15.9 Emacs/26.3 Mule/6.0
 To: Mark Brown <broonie@kernel.org>
 In-Reply-To: <87360c99kb.wl-kuninori.morimoto.gx@renesas.com>
@@ -70,89 +70,38 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 
-soc_pcm_params_symmetry() checks rate/channel/sample_bits state.
-These are very similar but different, thus, it needs to have very
-verbose code.
-This patch use macro for it and make code more simple.
+pcm is setuped at randam place.
+This patch setup it in one place.
 
 Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 ---
- sound/soc/soc-pcm.c | 60 ++++++++++++---------------------------------
- 1 file changed, 15 insertions(+), 45 deletions(-)
+ sound/soc/soc-pcm.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
 diff --git a/sound/soc/soc-pcm.c b/sound/soc/soc-pcm.c
-index bf2b49dd691d..2f2c4c19f1b8 100644
+index 2f2c4c19f1b8..1bc9fd0fec07 100644
 --- a/sound/soc/soc-pcm.c
 +++ b/sound/soc/soc-pcm.c
-@@ -384,53 +384,23 @@ static int soc_pcm_params_symmetry(struct snd_pcm_substream *substream,
+@@ -2749,9 +2749,10 @@ int soc_new_pcm(struct snd_soc_pcm_runtime *rtd, int num)
+ 	else
+ 		rtd->close_delayed_work_func = snd_soc_close_delayed_work;
  
- 	soc_pcm_set_dai_params(&d, params);
+-	pcm->nonatomic = rtd->dai_link->nonatomic;
+ 	rtd->pcm = pcm;
+ 	pcm->private_data = rtd;
++	pcm->nonatomic = rtd->dai_link->nonatomic;
++	pcm->no_device_suspend = true;
  
--	/* reject unmatched parameters when applying symmetry */
--	symmetry = rtd->dai_link->symmetric_rates;
--
--	for_each_rtd_cpu_dais(rtd, i, dai)
--		symmetry |= dai->driver->symmetric_rates;
--
--	if (symmetry) {
--		for_each_rtd_cpu_dais(rtd, i, cpu_dai) {
--			if (cpu_dai->rate && cpu_dai->rate != d.rate) {
--				dev_err(rtd->dev, "ASoC: unmatched rate symmetry: %d - %d\n",
--					cpu_dai->rate, d.rate);
--				return -EINVAL;
--			}
--		}
--	}
--
--	symmetry = rtd->dai_link->symmetric_channels;
--
--	for_each_rtd_dais(rtd, i, dai)
--		symmetry |= dai->driver->symmetric_channels;
--
--	if (symmetry) {
--		for_each_rtd_cpu_dais(rtd, i, cpu_dai) {
--			if (cpu_dai->channels &&
--			    cpu_dai->channels != d.channels) {
--				dev_err(rtd->dev, "ASoC: unmatched channel symmetry: %d - %d\n",
--					cpu_dai->channels, d.channels);
--				return -EINVAL;
-+#define __soc_pcm_params_symmetry(name, sname)				\
-+	symmetry = rtd->dai_link->symmetric_##sname;			\
-+	for_each_rtd_dais(rtd, i, dai)					\
-+		symmetry |= dai->driver->symmetric_##sname;		\
-+									\
-+	if (symmetry)							\
-+		for_each_rtd_cpu_dais(rtd, i, cpu_dai)			\
-+			if (cpu_dai->name && cpu_dai->name != d.name) {	\
-+				dev_err(rtd->dev, "ASoC: unmatched %s symmetry: %d - %d\n", \
-+					#name, cpu_dai->name, d.name);	\
-+				return -EINVAL;				\
- 			}
--		}
--	}
+ 	if (rtd->dai_link->no_pcm || rtd->dai_link->params) {
+ 		if (playback)
+@@ -2808,7 +2809,6 @@ int soc_new_pcm(struct snd_soc_pcm_runtime *rtd, int num)
+ 		return ret;
+ 	}
  
--	symmetry = rtd->dai_link->symmetric_samplebits;
--
--	for_each_rtd_dais(rtd, i, dai)
--		symmetry |= dai->driver->symmetric_samplebits;
--
--	if (symmetry) {
--		for_each_rtd_cpu_dais(rtd, i, cpu_dai) {
--			if (cpu_dai->sample_bits &&
--			    cpu_dai->sample_bits != d.sample_bits) {
--				dev_err(rtd->dev, "ASoC: unmatched sample bits symmetry: %d - %d\n",
--					cpu_dai->sample_bits, d.sample_bits);
--				return -EINVAL;
--			}
--		}
--	}
-+	/* reject unmatched parameters when applying symmetry */
-+	__soc_pcm_params_symmetry(rate,		rates);
-+	__soc_pcm_params_symmetry(channels,	channels);
-+	__soc_pcm_params_symmetry(sample_bits,	samplebits);
- 
- 	return 0;
- }
+-	pcm->no_device_suspend = true;
+ out:
+ 	dev_dbg(rtd->card->dev, "%s <-> %s mapping ok\n",
+ 		(rtd->num_codecs > 1) ? "multicodec" : asoc_rtd_to_codec(rtd, 0)->name,
 -- 
 2.25.1
 

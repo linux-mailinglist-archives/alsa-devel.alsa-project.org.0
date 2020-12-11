@@ -2,81 +2,83 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E0DB92D6F86
-	for <lists+alsa-devel@lfdr.de>; Fri, 11 Dec 2020 06:14:35 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 120312D6F87
+	for <lists+alsa-devel@lfdr.de>; Fri, 11 Dec 2020 06:15:16 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 93D2816AE;
-	Fri, 11 Dec 2020 06:13:43 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 93D2816AE
+	by alsa0.perex.cz (Postfix) with ESMTPS id 8DA9816BA;
+	Fri, 11 Dec 2020 06:14:25 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8DA9816BA
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1607663673;
-	bh=jXxYaAuXHJ+Hdwy7K4MymAsdlmLKgeo8jLHLhmKoV1g=;
+	s=default; t=1607663715;
+	bh=leCxgKCw/JyYIcVLSlV2Q681xda+q0YzEHZJfuIHZD8=;
 	h=Date:In-Reply-To:References:Subject:From:To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=OmMRgon5BGjqbTUiTqSLzSSRsxp/sPY0OeuXU2BsyML/vvCmxISBdBgU76o9auR0K
-	 DZASQtV7KnuSLEPF3dityhqLRryxPW5gQ8lVP1vIhcLTWZ9BAcEMxX4G8FSz7AXe23
-	 XTNSpTz8UkD/xqs4ikXkjGla++/cuTLDAFX2fvK0=
+	b=iKvnOQ7xGjB0puu2oXUFEC7qInRyu0AzXvnqa/CKO9dtmhQcdXzZgWhkYwYwPnLU1
+	 yDqVGJ2m+Syvr8xTJaRuHP5vNLT4ZIz+TW7odjY/2nYtB4wBY6akcjs+6gA6vP5kNM
+	 1izs9+ONV61InQJT9qCU1SoGyVPr8IVXasmS7J+4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 68A3DF8026A;
-	Fri, 11 Dec 2020 06:12:53 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 48F38F804BD;
+	Fri, 11 Dec 2020 06:12:58 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 02004F801D8; Fri, 11 Dec 2020 06:12:47 +0100 (CET)
+ id 5862FF804B0; Fri, 11 Dec 2020 06:12:55 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-7.6 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,USER_IN_DEF_DKIM_WL autolearn=disabled
  version=3.4.0
-Received: from mail-qk1-x749.google.com (mail-qk1-x749.google.com
- [IPv6:2607:f8b0:4864:20::749])
+Received: from mail-pj1-x1049.google.com (mail-pj1-x1049.google.com
+ [IPv6:2607:f8b0:4864:20::1049])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 4AA09F801D8
- for <alsa-devel@alsa-project.org>; Fri, 11 Dec 2020 06:12:45 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4AA09F801D8
+ by alsa1.perex.cz (Postfix) with ESMTPS id 8FECAF802BE
+ for <alsa-devel@alsa-project.org>; Fri, 11 Dec 2020 06:12:51 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8FECAF802BE
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=google.com header.i=@google.com
- header.b="C8s23TgB"
-Received: by mail-qk1-x749.google.com with SMTP id n137so553791qkn.10
- for <alsa-devel@alsa-project.org>; Thu, 10 Dec 2020 21:12:45 -0800 (PST)
+ header.b="emgnXj/Z"
+Received: by mail-pj1-x1049.google.com with SMTP id kk4so1796083pjb.7
+ for <alsa-devel@alsa-project.org>; Thu, 10 Dec 2020 21:12:50 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
  h=sender:date:in-reply-to:message-id:mime-version:references:subject
- :from:to:cc; bh=uY9sa0AMR9OUDAQO7CpayjoGwpWP3KncZQ/PeW43hFw=;
- b=C8s23TgBg/qP3DNn+SvIIZxUHyBZ6CeOdnX2Ab7CFt3z/11U0W0UIfcbgkel6QWC0u
- G8npUPT23LClG//9So/Lo+9MXUb9wium6Cpz2upsF1/EKNt2o5VEzRuZP5L+h9ue5JgO
- jVqITXPaxmc+zCThQWF3ZbeKQ61Sh4Z+RfEfDCDdRXpsDlC4bNXPgmGPz82eVgl8bfJt
- 7OITThR43p0oJq7lRfROsZ3ULRN3TUt3otsAdsaJVxcXbpDFjTs/oZzXlqESMAB+l4m8
- cZPtuF1A9FV2/aqKyvhDIHsrEQoxIzFG+6FcHGHoCn4E0FOJWrqW0205QJBXOapjHlRP
- c7rQ==
+ :from:to:cc; bh=64rrKA1XAShTMqjY0LlZBcP7tQX0AmPAC+RLWQwGwlg=;
+ b=emgnXj/ZxoHcJWybIZeB+XhBbjkoqa7TY1AdwZQW1M/MsSXnUbV0oqs+nJhCn2NxKV
+ sFaIZR5JpZ88ASBNl0vA8cD+jkQcmT5BVI7oVkAEyDxVoV5nuZBPrSo4qMEn8e/pMqFs
+ kKnXO9jqFPL8ygAukadVQc1dRPkAAyCFEzyWHHYflO9a2+lZyGm//t6vZWUKeH+l+y0k
+ z6Ke426Ee5trio5S2I5J+E0gjoIHB+Tw8Ez3jHKyn4geb7aBdQSkUmNhOEzqhmUWE89J
+ PD4qxpJktuTU8wnCEzk4ETYKmCFNYI4llfdOduO4cvtbiRQR7IjyfEob2D3zns1y6lhp
+ znxQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:sender:date:in-reply-to:message-id:mime-version
  :references:subject:from:to:cc;
- bh=uY9sa0AMR9OUDAQO7CpayjoGwpWP3KncZQ/PeW43hFw=;
- b=ry4Wc3k5X2dB3gZoyc5+CZ3jllL0BJIs9EnW9dpXrQ8dyxz+iaySrp3y99wrBBlsjD
- hEa/W08+g1iKwG9FHiKItAi7JmxQCkt/BsyCrnpj5BFcuLuu+0f7ZxEKuGu80Z1OoQkI
- tDQ2yzezjz2C4h4yvQvZPG9aUXvapFHuC1lBZJTB4bnwqd/J961LMPwZp/dVuMZOZd5n
- ESvHTUYSbd4wX5SXQ/ySH2cNNtH3KU49gSD6BSEnZn816U2QrTOOOT1gfyaQCqqqA41n
- Mpxbw22LxLEWT0zQZ1AXiC5mP5mGhYBZwVDtuWtYyy9krFetoprdqG+ogkPhi4Em0ZsF
- YUzQ==
-X-Gm-Message-State: AOAM533ZLMzf1Mg+5vDfdYY8mNgQ4Y4F46kxO9wINoszTkBS/ifOLtuK
- S/ljYsEv0kBwUmX6vZw/45jlYTnB9bx7
-X-Google-Smtp-Source: ABdhPJxrLHUHiAM/LXcQ319w3jyRx10QLv0egKrc75X3PaAB/FTq4rFuO3FEJp+8E/yWxdtsnWmsOfoAaTwx
+ bh=64rrKA1XAShTMqjY0LlZBcP7tQX0AmPAC+RLWQwGwlg=;
+ b=jDypNETzqHRbh4t/OXVAhZ6fvrGW1vqMNaq9rdTRljke3Nl8FtGo0bt5ux+NXq/08R
+ eUvidsI2PTRm96LnvA0MUMv/1EreTGLa7ZRbtZEa5c+8ZQFXMHAE+it91VnqAQg8MM1R
+ 1/cUihqVCLyyVAkNQzAc6ySSdvnBKT5zY8bkUDoFxqWKgueYAhCiNVNCo28fzqrS4McV
+ Qn5aM01BPs4j7S/XLeKkho0msBgTyuqtdusneAGQ6fRcw4k5YpKl3ysabH5sAZwRlC/s
+ O530VoC2fgabk57uSf1HmajGbS80m+x5Zx79ePT8n59swXQN0m/O+t1STXJl8Ybn/DpK
+ hdCA==
+X-Gm-Message-State: AOAM532p/76hUq6GAiSTYvx4NDdVrKLm02jwpdrNUAHuGhGul6OzGDRl
+ st+3zpZmA6OEW+l2uAbvUAOh3BlrpW9T
+X-Google-Smtp-Source: ABdhPJxG1U3de5HsMyTLs/XJsogRutTIoHfBCfiIsxzXPD2U4buxJAY/4IAZHR8dJD1PvHBgo5DA5fe5iKdg
 X-Received: from tzungbi-z840.tpe.corp.google.com
  ([2401:fa00:1:b:725a:fff:fe41:c6a5])
- (user=tzungbi job=sendgmr) by 2002:a0c:cd89:: with SMTP id
- v9mr13845980qvm.37.1607663563748; Thu, 10 Dec 2020 21:12:43 -0800 (PST)
-Date: Fri, 11 Dec 2020 13:12:23 +0800
+ (user=tzungbi job=sendgmr) by 2002:a17:902:854b:b029:db:c725:edcd with SMTP
+ id d11-20020a170902854bb02900dbc725edcdmr1949201plo.64.1607663567905; Thu, 10
+ Dec 2020 21:12:47 -0800 (PST)
+Date: Fri, 11 Dec 2020 13:12:24 +0800
 In-Reply-To: <20201211051224.2307349-1-tzungbi@google.com>
-Message-Id: <20201211051224.2307349-2-tzungbi@google.com>
+Message-Id: <20201211051224.2307349-3-tzungbi@google.com>
 Mime-Version: 1.0
 References: <20201211051224.2307349-1-tzungbi@google.com>
 X-Mailer: git-send-email 2.29.2.684.gfbc64c5ab5-goog
-Subject: [PATCH v3 1/2] ASoC: rt1015p: move SDB control from trigger to DAPM
+Subject: [PATCH v3 2/2] ASoC: rt1015p: delay 300ms after SDB pulling high for
+ calibration
 From: Tzung-Bi Shih <tzungbi@google.com>
 To: broonie@kernel.org
 Content-Type: text/plain; charset="UTF-8"
@@ -96,114 +98,71 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Moves SDB control from DAI ops trigger to DAPM.  As long as BCLK
-and LRCLK are ready, SDB can be toggled earlier.
+RT1015p needs 300ms delay after SDB pulling high for internal
+calibration during the power on sequence.
 
-Changes from using gpiod_set_value() to gpiod_set_value_cansleep()
-because it executes in non-atomic context.
+Delays 300ms right before data sends out to avoid data truncated.
+
+Assuming the calibration state gets lost after system suspend.
 
 Signed-off-by: Tzung-Bi Shih <tzungbi@google.com>
 ---
- sound/soc/codecs/rt1015p.c | 51 ++++++++++----------------------------
- 1 file changed, 13 insertions(+), 38 deletions(-)
+ sound/soc/codecs/rt1015p.c | 20 ++++++++++++++++++++
+ 1 file changed, 20 insertions(+)
 
 diff --git a/sound/soc/codecs/rt1015p.c b/sound/soc/codecs/rt1015p.c
-index 59bb60682270..ee9dfa2dbbf0 100644
+index ee9dfa2dbbf0..671f2a2130fe 100644
 --- a/sound/soc/codecs/rt1015p.c
 +++ b/sound/soc/codecs/rt1015p.c
-@@ -19,60 +19,40 @@
+@@ -4,6 +4,7 @@
+ //
+ // Copyright 2020 The Linux Foundation. All rights reserved.
+ 
++#include <linux/delay.h>
+ #include <linux/device.h>
+ #include <linux/err.h>
+ #include <linux/gpio.h>
+@@ -19,6 +20,7 @@
  
  struct rt1015p_priv {
  	struct gpio_desc *sdb;
--	int sdb_switch;
++	bool calib_done;
  };
  
--static int rt1015p_daiops_trigger(struct snd_pcm_substream *substream,
--		int cmd, struct snd_soc_dai *dai)
-+static int rt1015p_sdb_event(struct snd_soc_dapm_widget *w,
-+		struct snd_kcontrol *kcontrol, int event)
- {
--	struct snd_soc_component *component = dai->component;
-+	struct snd_soc_component *component =
-+		snd_soc_dapm_to_component(w->dapm);
- 	struct rt1015p_priv *rt1015p =
- 		snd_soc_component_get_drvdata(component);
- 
- 	if (!rt1015p->sdb)
- 		return 0;
- 
--	switch (cmd) {
--	case SNDRV_PCM_TRIGGER_START:
--	case SNDRV_PCM_TRIGGER_RESUME:
--	case SNDRV_PCM_TRIGGER_PAUSE_RELEASE:
--		if (rt1015p->sdb_switch) {
--			gpiod_set_value(rt1015p->sdb, 1);
--			dev_dbg(component->dev, "set sdb to 1");
--		}
-+	switch (event) {
-+	case SND_SOC_DAPM_PRE_PMU:
-+		gpiod_set_value_cansleep(rt1015p->sdb, 1);
-+		dev_dbg(component->dev, "set sdb to 1");
+ static int rt1015p_sdb_event(struct snd_soc_dapm_widget *w,
+@@ -36,6 +38,11 @@ static int rt1015p_sdb_event(struct snd_soc_dapm_widget *w,
+ 	case SND_SOC_DAPM_PRE_PMU:
+ 		gpiod_set_value_cansleep(rt1015p->sdb, 1);
+ 		dev_dbg(component->dev, "set sdb to 1");
++
++		if (!rt1015p->calib_done) {
++			msleep(300);
++			rt1015p->calib_done = true;
++		}
  		break;
--	case SNDRV_PCM_TRIGGER_STOP:
--	case SNDRV_PCM_TRIGGER_SUSPEND:
--	case SNDRV_PCM_TRIGGER_PAUSE_PUSH:
--		gpiod_set_value(rt1015p->sdb, 0);
-+	case SND_SOC_DAPM_POST_PMD:
-+		gpiod_set_value_cansleep(rt1015p->sdb, 0);
- 		dev_dbg(component->dev, "set sdb to 0");
- 		break;
-+	default:
-+		break;
- 	}
- 
- 	return 0;
- }
- 
--static int rt1015p_sdb_event(struct snd_soc_dapm_widget *w,
--		struct snd_kcontrol *kcontrol, int event)
--{
--	struct snd_soc_component *component =
--		snd_soc_dapm_to_component(w->dapm);
--	struct rt1015p_priv *rt1015p =
--		snd_soc_component_get_drvdata(component);
--
--	if (event & SND_SOC_DAPM_POST_PMU)
--		rt1015p->sdb_switch = 1;
--	else if (event & SND_SOC_DAPM_POST_PMD)
--		rt1015p->sdb_switch = 0;
--
--	return 0;
--}
--
- static const struct snd_soc_dapm_widget rt1015p_dapm_widgets[] = {
- 	SND_SOC_DAPM_OUTPUT("Speaker"),
- 	SND_SOC_DAPM_OUT_DRV_E("SDB", SND_SOC_NOPM, 0, 0, NULL, 0,
- 			rt1015p_sdb_event,
--			SND_SOC_DAPM_POST_PMU | SND_SOC_DAPM_POST_PMD),
-+			SND_SOC_DAPM_PRE_PMU | SND_SOC_DAPM_POST_PMD),
+ 	case SND_SOC_DAPM_POST_PMD:
+ 		gpiod_set_value_cansleep(rt1015p->sdb, 0);
+@@ -60,7 +67,20 @@ static const struct snd_soc_dapm_route rt1015p_dapm_routes[] = {
+ 	{"Speaker", NULL, "SDB"},
  };
  
- static const struct snd_soc_dapm_route rt1015p_dapm_routes[] = {
-@@ -91,10 +71,6 @@ static const struct snd_soc_component_driver rt1015p_component_driver = {
- 	.non_legacy_dai_naming	= 1,
- };
- 
--static const struct snd_soc_dai_ops rt1015p_dai_ops = {
--	.trigger        = rt1015p_daiops_trigger,
--};
--
- static struct snd_soc_dai_driver rt1015p_dai_driver = {
- 	.name = "HiFi",
- 	.playback = {
-@@ -104,7 +80,6 @@ static struct snd_soc_dai_driver rt1015p_dai_driver = {
- 		.channels_min	= 1,
- 		.channels_max	= 2,
- 	},
--	.ops    = &rt1015p_dai_ops,
- };
- 
- static int rt1015p_platform_probe(struct platform_device *pdev)
++#ifdef CONFIG_PM
++static int rt1015p_suspend(struct snd_soc_component *component)
++{
++	struct rt1015p_priv *rt1015p = snd_soc_component_get_drvdata(component);
++
++	rt1015p->calib_done = false;
++	return 0;
++}
++#else
++#define rt1015p_suspend NULL
++#endif
++
+ static const struct snd_soc_component_driver rt1015p_component_driver = {
++	.suspend		= rt1015p_suspend,
+ 	.dapm_widgets		= rt1015p_dapm_widgets,
+ 	.num_dapm_widgets	= ARRAY_SIZE(rt1015p_dapm_widgets),
+ 	.dapm_routes		= rt1015p_dapm_routes,
 -- 
 2.29.2.684.gfbc64c5ab5-goog
 

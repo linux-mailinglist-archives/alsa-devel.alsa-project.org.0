@@ -2,72 +2,62 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 12DDE2D93AC
-	for <lists+alsa-devel@lfdr.de>; Mon, 14 Dec 2020 08:37:57 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id EB1192D93BD
+	for <lists+alsa-devel@lfdr.de>; Mon, 14 Dec 2020 09:00:35 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 9CAE3172D;
-	Mon, 14 Dec 2020 08:37:06 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9CAE3172D
+	by alsa0.perex.cz (Postfix) with ESMTPS id 776041724;
+	Mon, 14 Dec 2020 08:59:45 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 776041724
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1607931476;
-	bh=6JV/Y7WgzOgMKEBY2qBgSg4bUYqimc5pG0yPiZIy80U=;
-	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
+	s=default; t=1607932835;
+	bh=3tXnwyz/xLjPAShIuR7y13O33lymhQ2hvlYIpEZia/o=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=mlvPJ83RctaarALJbpdaku6IfcPXdeee2XgeTpFgss3D7sDZabcq26dsgxpMhBAQY
-	 jfhu8y2yVtTH+F/v2QmvWwXmK7epTVqXpljkf7hwp4gol2dBjgkki5DzaBpgtXf97H
-	 1P0oUxXi7lHCTn6+zf+KMrPxxyUnyNZdFZZ55E/0=
+	b=aJ48UMVxg2jqTC0P91kuC5O1ZBtGRjJdBK9LfgGyihQgJpYkDlXFOx+q030JqbXnM
+	 /X5p5OgApMr5b7D0xqqZBOubFjVWuJmrDxvD1CB50N2Q4XGoxVmttx0Bp0W2EMzKld
+	 STWtYn1d7NAkTEBeLutKLmNkmrIMJ1IsbfG3rSW8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 20A98F80129;
-	Mon, 14 Dec 2020 08:36:16 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id E0967F80240;
+	Mon, 14 Dec 2020 08:58:54 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 5C838F801F7; Mon, 14 Dec 2020 08:36:14 +0100 (CET)
+ id 997A5F801F7; Mon, 14 Dec 2020 08:58:52 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from mail1.perex.cz (mail1.perex.cz [77.48.224.245])
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id B2115F800ED
- for <alsa-devel@alsa-project.org>; Mon, 14 Dec 2020 08:36:07 +0100 (CET)
-Received: from mail1.perex.cz (localhost [127.0.0.1])
- by smtp1.perex.cz (Perex's E-mail Delivery System) with ESMTP id 4CB4CA003F;
- Mon, 14 Dec 2020 08:36:06 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 smtp1.perex.cz 4CB4CA003F
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=perex.cz; s=default;
- t=1607931366; bh=gHKfSxe+Se/gEGYouid54iIj5LcCBeZSGLUnO85JdcQ=;
- h=Subject:To:Cc:References:From:Date:In-Reply-To:From;
- b=p42UoI4FJ905a9K0tSieQ4O4Y20ZJgkV+ICrpk6dvp9QWX//C5pDv21q4a0YBwTMS
- UnTTpJbwyoz8WUImOQqo4GUg7BPUACcUTlPcsL9hrJ51rbCN/MxCVQE3x7kkc76Z8Q
- wLvZMv4lEVDZJ6buL8XtFdf7LomXKDeFDZwQcyvE=
-Received: from p1gen2.perex-int.cz (unknown [192.168.100.98])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested) (Authenticated sender: perex)
- by mail1.perex.cz (Perex's E-mail Delivery System) with ESMTPSA;
- Mon, 14 Dec 2020 08:35:56 +0100 (CET)
-Subject: Re: [PATCH] ASoC: rt715: add main capture switch and main capture
- volume control
-To: jack.yu@realtek.com, broonie@kernel.org, lgirdwood@gmail.com
-References: <20201214064903.2746-1-jack.yu@realtek.com>
-From: Jaroslav Kysela <perex@perex.cz>
-Message-ID: <8eeddc8c-91cb-e62d-6114-547117d4d83e@perex.cz>
-Date: Mon, 14 Dec 2020 08:35:55 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.3.1
-MIME-Version: 1.0
-In-Reply-To: <20201214064903.2746-1-jack.yu@realtek.com>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
-Cc: oder_chiou@realtek.com, alsa-devel@alsa-project.org, lars@metafoo.de,
- derek.fang@realtek.com, bard.liao@intel.com, shumingf@realtek.com,
- flove@realtek.com
+ by alsa1.perex.cz (Postfix) with ESMTPS id 7960FF80129
+ for <alsa-devel@alsa-project.org>; Mon, 14 Dec 2020 08:58:44 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7960FF80129
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id 55EAFAC10;
+ Mon, 14 Dec 2020 07:58:44 +0000 (UTC)
+Date: Mon, 14 Dec 2020 08:58:44 +0100
+Message-ID: <s5hblewn7ij.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Kai-Heng Feng <kai.heng.feng@canonical.com>
+Subject: Re: [PATCH] ALSA: hda: Enable runtime PM when codec probe fails
+In-Reply-To: <20201214060621.1102931-1-kai.heng.feng@canonical.com>
+References: <20201214060621.1102931-1-kai.heng.feng@canonical.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
+ FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
+ (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
+Content-Type: text/plain; charset=US-ASCII
+Cc: Guennadi Liakhovetski <guennadi.liakhovetski@linux.intel.com>,
+ "moderated list:SOUND" <alsa-devel@alsa-project.org>,
+ Kai Vehmanen <kai.vehmanen@linux.intel.com>,
+ open list <linux-kernel@vger.kernel.org>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>, tiwai@suse.com,
+ Alex Deucher <alexander.deucher@amd.com>, Mike Rapoport <rppt@kernel.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -83,21 +73,61 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Dne 14. 12. 20 v 7:49 jack.yu@realtek.com napsal(a):
-> From: Jack Yu <jack.yu@realtek.com>
+On Mon, 14 Dec 2020 07:06:20 +0100,
+Kai-Heng Feng wrote:
 > 
-> Add main capture switch and main capture volume for callback to be in
-> single operation.
+> When codec probe fails, it doesn't enable runtime suspend, and can
+> prevent graphics card from getting powered down:
+> [    4.280991] snd_hda_intel 0000:01:00.1: no codecs initialized
+> 
+> $ cat /sys/bus/pci/devices/0000:01:00.1/power/runtime_status
+> active
+> 
+> So enable runtime PM when codec probe fails, to let graphics card be
+> able to runtime suspend again.
 
-Could you be more verbose, what you're trying to do in the patch description?
+Well, the runtime status is also active if the driver isn't probed at
+all.  In that sense, keeping the status active at the driver load
+failure is rather consistent, IMO.  If the driver fails or unloaded,
+it should restore the status as if it were beforehand.
 
-> +	 * "Main Capture Volume" looks the same as "ADC 07 Capture Volume",
 
-I would just use "Capture Volume" and "Capture Switch" here without the Main
-prefix to follow other drivers.
+thanks,
 
-					Jaroslav
+Takashi
 
--- 
-Jaroslav Kysela <perex@perex.cz>
-Linux Sound Maintainer; ALSA Project; Red Hat, Inc.
+> 
+> Merge azx_probe_continue() into azx_probe() and just let probe fail for
+> this case could be a better approach. However that's a much bigger task
+> so let's settle with a quirk workaround.
+> 
+> BugLink: https://bugs.launchpad.net/bugs/1907212
+> Signed-off-by: Kai-Heng Feng <kai.heng.feng@canonical.com>
+> ---
+>  sound/pci/hda/hda_intel.c | 3 ++-
+>  1 file changed, 2 insertions(+), 1 deletion(-)
+> 
+> diff --git a/sound/pci/hda/hda_intel.c b/sound/pci/hda/hda_intel.c
+> index 6852668f1bcb..3fd920069268 100644
+> --- a/sound/pci/hda/hda_intel.c
+> +++ b/sound/pci/hda/hda_intel.c
+> @@ -2328,7 +2328,7 @@ static int azx_probe_continue(struct azx *chip)
+>  	if (bus->codec_mask) {
+>  		err = azx_probe_codecs(chip, azx_max_codecs[chip->driver_type]);
+>  		if (err < 0)
+> -			goto out_free;
+> +			goto out_enable_rpm;
+>  	}
+>  
+>  #ifdef CONFIG_SND_HDA_PATCH_LOADER
+> @@ -2360,6 +2360,7 @@ static int azx_probe_continue(struct azx *chip)
+>  
+>  	set_default_power_save(chip);
+>  
+> +out_enable_rpm:
+>  	if (azx_has_pm_runtime(chip)) {
+>  		pm_runtime_use_autosuspend(&pci->dev);
+>  		pm_runtime_allow(&pci->dev);
+> -- 
+> 2.29.2
+> 

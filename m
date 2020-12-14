@@ -2,82 +2,64 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2D7532D9CF9
-	for <lists+alsa-devel@lfdr.de>; Mon, 14 Dec 2020 17:53:46 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3C4BC2D9D0C
+	for <lists+alsa-devel@lfdr.de>; Mon, 14 Dec 2020 18:00:23 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C7401177B;
-	Mon, 14 Dec 2020 17:52:55 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C7401177B
+	by alsa0.perex.cz (Postfix) with ESMTPS id C69BF1772;
+	Mon, 14 Dec 2020 17:59:32 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C69BF1772
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1607964825;
-	bh=emBWqiHzv0eb2XAg5mu3W3huf6ERXZheYegkoqX6rV4=;
-	h=Date:From:Subject:To:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=WI+dHwe105xMDaG/3P18zbLL27fvbr3KeaZw23lmHbX+3gxhpMexMdRY6WPh/HlKn
-	 oo65zQyyvy0Say/OQapvrc4+gg/JmFUVfWOt+AVUUvTKgDYITGi3l5zUWwxseEmM8l
-	 lBkZiExrS85CLDx20ZTC32XYvUi4Rjz6vzEN0TFQ=
+	s=default; t=1607965222;
+	bh=Q2OEjPujVl/W1bIoBjvewFuAJW3WhNNlfaTI40lBfn4=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=Fzsk0POSDFJAyJxM5ErFekD72O4Ceq/R1Ue4A21dWhGdtmUFTwMm6iVBmqept0JtS
+	 1KC/MqCO04PrxV3mTMuA0T8KOWzVmironhIjTheUQAXAiFuNaESYhx7udv9QpLgTZo
+	 GEH0Hb/555ep2BsKeaXEzojS2w7+5TCu4W7t6VKY=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 30BCDF80240;
-	Mon, 14 Dec 2020 17:52:10 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id ED62BF80240;
+	Mon, 14 Dec 2020 17:58:46 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 058E0F80240; Mon, 14 Dec 2020 17:52:07 +0100 (CET)
+ id 5B1A4F801F7; Mon, 14 Dec 2020 17:58:45 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: *
-X-Spam-Status: No, score=1.9 required=5.0 tests=AC_FROM_MANY_DOTS, HTML_MESSAGE,
- SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from youngberry.canonical.com (youngberry.canonical.com
- [91.189.89.112])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
+X-Spam-Level: 
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE
+ autolearn=disabled version=3.4.0
+Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 91FB3F80121
- for <alsa-devel@alsa-project.org>; Mon, 14 Dec 2020 17:52:01 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 91FB3F80121
-Received: from mail-pl1-f200.google.com ([209.85.214.200])
- by youngberry.canonical.com with esmtps
- (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.86_2)
- (envelope-from <kai.heng.feng@canonical.com>) id 1kor4q-0007oy-0R
- for alsa-devel@alsa-project.org; Mon, 14 Dec 2020 16:52:00 +0000
-Received: by mail-pl1-f200.google.com with SMTP id y10so8718548pll.20
- for <alsa-devel@alsa-project.org>; Mon, 14 Dec 2020 08:51:59 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:subject:to:cc:message-id:mime-version;
- bh=DBXM4TJ4sYpXZVawmAGPHeIMmeKftaDBG0aOsflo8SQ=;
- b=KXN7r49hPPdBiN6jF9risb0h32NLnTqojOgXDRxdp7pOyUj4UyBYx6q31d4rw4Zhjr
- Vs2PQRrlp0LiKVz8F4wEfC6si5RVtMODznsto/AWDlC75uIa1+9pZfzla+ziKGNLiWQI
- 9jXnROxANMec3j/43JayH1M5j+P/dOkgw0rTZ2KzGWgtZUOAXGbZLymupAGcyMkvti2U
- XNMqi5f5PetGHd9onvvu9lQqyTL3IWDyaZldai53yobjSyzT05Dw/Bc4EhHxrXTzpXkW
- P4SXTw+e+EnCHRoRLdcaXRgpDbHN/wfxRvCbGRWlbUD7BJXHqUsWaG/y2zQTVXH0m7um
- c1Gg==
-X-Gm-Message-State: AOAM533ayjiU3TpqD8Pb2moRuG95vO/U+VT+0pFBTDmZrwuqxF5WSm0I
- cfTRrCQULb4oipOsrSLigTFO9LEh7wii5Ho7QK6zNN0LyhB9ZACWloZx//D1ZOVuRpQUXzCK6jN
- O9sSsYYq+f89uH0OzKqdwQ1NJ3/1Ia7fXJLVZxLsr
-X-Received: by 2002:a17:90b:4014:: with SMTP id
- ie20mr25961570pjb.95.1607964718265; 
- Mon, 14 Dec 2020 08:51:58 -0800 (PST)
-X-Google-Smtp-Source: ABdhPJyUSV34rFKBkCKBLFvDVudtXx7uDVqRaDJRPVAK7OTlljFdFUjB1drDzS0EezBUcotyt6QsaA==
-X-Received: by 2002:a17:90b:4014:: with SMTP id
- ie20mr25961540pjb.95.1607964717709; 
- Mon, 14 Dec 2020 08:51:57 -0800 (PST)
-Received: from [10.101.196.174] (61-220-137-34.HINET-IP.hinet.net.
- [61.220.137.34])
- by smtp.gmail.com with ESMTPSA id m30sm13871828pgb.26.2020.12.14.08.51.55
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 14 Dec 2020 08:51:56 -0800 (PST)
-Date: Tue, 15 Dec 2020 00:51:45 +0800
-From: Kai-Heng Feng <kai.heng.feng@canonical.com>
-Subject: SoF support for 8086:9d71?
-To: sound-open-firmware@alsa-project.org
-Message-Id: <9I9CLQ.GP190FSJBRXK3@canonical.com>
-X-Mailer: geary/3.38.0
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii; format=flowed
-X-Content-Filtered-By: Mailman/MimeDel 2.1.15
-Cc: SOUND <alsa-devel@alsa-project.org>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 24D73F800ED
+ for <alsa-devel@alsa-project.org>; Mon, 14 Dec 2020 17:58:42 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 24D73F800ED
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id 05A30AD87;
+ Mon, 14 Dec 2020 16:58:42 +0000 (UTC)
+Date: Mon, 14 Dec 2020 17:58:41 +0100
+Message-ID: <s5hk0tkqq7y.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Jaroslav Kysela <perex@perex.cz>
+Subject: Re: [PATCH] ASoC: rt715: add main capture switch and main capture
+ volume control
+In-Reply-To: <0b0afd81-0595-c661-ec1e-e81b7e8f8fec@perex.cz>
+References: <20201214064903.2746-1-jack.yu@realtek.com>
+ <8eeddc8c-91cb-e62d-6114-547117d4d83e@perex.cz>
+ <0096059b-de76-d9a3-2446-b4c3becabce8@linux.intel.com>
+ <0b0afd81-0595-c661-ec1e-e81b7e8f8fec@perex.cz>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
+ FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
+ (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
+Content-Type: text/plain; charset=US-ASCII
+Cc: oder_chiou@realtek.com, jack.yu@realtek.com, alsa-devel@alsa-project.org,
+ lars@metafoo.de, Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ lgirdwood@gmail.com, broonie@kernel.org, derek.fang@realtek.com,
+ flove@realtek.com, shumingf@realtek.com, bard.liao@intel.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -93,25 +75,24 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hi,
+On Mon, 14 Dec 2020 17:44:27 +0100,
+Jaroslav Kysela wrote:
+> 
+> >>> +	 * "Main Capture Volume" looks the same as "ADC 07 Capture Volume",
+> >>
+> >> I would just use "Capture Volume" and "Capture Switch" here without the Main
+> >> prefix to follow other drivers.
+> > 
+> > It's similar to the 'Master Capture Switch' used in HDaudio, what other 
+> > drivers were you referring to?
+> 
+> HDAudio is using just 'Capture Switch' and 'Capture Volume' for the root
+> capture controls plus the input selector (enum). The Master prefix is used
+> only for the playback direction. And the word master is not prohibited for the
+> audio context, is it?
 
-On more recent kernels legacy HDA stops working for device 8086:9d71:
-[   47.211381] snd_hda_intel 0000:00:1f.3: DSP detected with PCI 
-class/subclass/prog-if info 0x040100
-[   47.211383] snd_hda_intel 0000:00:1f.3: Digital mics found on 
-Skylake+ platform, using SST driver
+Right, we keep the word Master in the sound API because it's deeply
+bound with the actual use case.
 
-However, only legacy HDA supports it:
-00:1f.3 Multimedia audio controller [0401]: Intel Corporation Sunrise 
-Point-LP HD Audio [8086:9d71] (rev 21)
-..
-	Kernel modules: snd_hda_intel
 
-Ubuntu kernel doesn't select SND_SOC_INTEL_SKYLAKE, which builds 
-snd-soc-skl, because based on the Kconfig description SOF should 
-support it.
-
-I wonder if SND_SOC_INTEL_SKYLAKE should be select again?
-
-BugLink: <https://bugs.launchpad.net/bugs/1902457>
-
+Takashi

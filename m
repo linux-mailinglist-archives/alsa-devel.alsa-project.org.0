@@ -2,75 +2,73 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id AAF762D9D56
-	for <lists+alsa-devel@lfdr.de>; Mon, 14 Dec 2020 18:14:09 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 127902D9D7C
+	for <lists+alsa-devel@lfdr.de>; Mon, 14 Dec 2020 18:21:26 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 387671783;
-	Mon, 14 Dec 2020 18:13:19 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 387671783
+	by alsa0.perex.cz (Postfix) with ESMTPS id A1E311678;
+	Mon, 14 Dec 2020 18:20:35 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A1E311678
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1607966049;
-	bh=nxMQYiF4bmKWiy3sjXp1HWbLNQe6OkT5zHVT1iAI9kg=;
-	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
+	s=default; t=1607966485;
+	bh=bCVmDKin80UwRLK3QP42XBuzcvX1vaMfWPRWPv/RKFA=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=lwA4mc0/24v5AAKb/QPziyrF9pTcCfK1DbQwljZKWZD3jx2Nu9gb1RYyTle9Q5wMY
-	 4by8OsIKu3N/swET/4pu/cxo5hpoK1HIC5bG9/s7oBe9MTnOJ9qiMU3q9X+Ii/DAnY
-	 XnrL6ynTkZU6wqPKmzuExNCuREBjKRzW5vnHy4B0=
+	b=WuE3uc9oIfoHxLgTOfRuLs22LUGJARoReU/msCxJrRIBxKMKj68Q7+6Fc5dsTFGxg
+	 V1dC/59jHRvoD/lATqV9D5OTYkx0McRyRP6X+P8MMhR8Eaj2Mxz/Dr6m1aRxN4jjy4
+	 FvqQKRhfS+rn8/7+QLmXETrbiEoCCtDyLs0+Me/Y=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id A61F3F80240;
-	Mon, 14 Dec 2020 18:12:33 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 0A999F800ED;
+	Mon, 14 Dec 2020 18:19:50 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 87D8CF801F7; Mon, 14 Dec 2020 18:12:30 +0100 (CET)
+ id 42C68F801F7; Mon, 14 Dec 2020 18:19:48 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=NICE_REPLY_A,SPF_HELO_NONE,
- SPF_NONE autolearn=disabled version=3.4.0
-Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id B370EF80121
- for <alsa-devel@alsa-project.org>; Mon, 14 Dec 2020 18:12:26 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B370EF80121
-IronPort-SDR: 9S7FTYUTBSlVwsmlm+OenhLj2CFFGNGRDBT2w/b5YOz4eID2fYOvz7xIS0LjMyv2d2qWTGnc3n
- Cz9xL2I2nn7Q==
-X-IronPort-AV: E=McAfee;i="6000,8403,9834"; a="153974806"
-X-IronPort-AV: E=Sophos;i="5.78,420,1599548400"; d="scan'208";a="153974806"
-Received: from orsmga008.jf.intel.com ([10.7.209.65])
- by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 14 Dec 2020 09:12:25 -0800
-IronPort-SDR: Lm5otmU7jX1gdy7grGunV9LIRMpxcSr5FRaKyAtAYgxjpZgaEsXmhwshwe08779i8bYJBRxGno
- eLUIvbYSgvQw==
-X-IronPort-AV: E=Sophos;i="5.78,420,1599548400"; d="scan'208";a="367515888"
-Received: from mnpatel-mobl.amr.corp.intel.com (HELO [10.209.33.233])
- ([10.209.33.233])
- by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 14 Dec 2020 09:12:23 -0800
-Subject: Re: [PATCH] ASoC: rt715: add main capture switch and main capture
- volume control
-To: Jaroslav Kysela <perex@perex.cz>, jack.yu@realtek.com,
- broonie@kernel.org, lgirdwood@gmail.com, Takashi Iwai <tiwai@suse.de>
-References: <20201214064903.2746-1-jack.yu@realtek.com>
- <8eeddc8c-91cb-e62d-6114-547117d4d83e@perex.cz>
- <0096059b-de76-d9a3-2446-b4c3becabce8@linux.intel.com>
- <0b0afd81-0595-c661-ec1e-e81b7e8f8fec@perex.cz>
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Message-ID: <7d74544f-77f2-db01-db3d-d1d8a56d576d@linux.intel.com>
-Date: Mon, 14 Dec 2020 11:12:22 -0600
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.10.0
+ by alsa1.perex.cz (Postfix) with ESMTPS id 18FA3F80121
+ for <alsa-devel@alsa-project.org>; Mon, 14 Dec 2020 18:19:41 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 18FA3F80121
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="J8oGUKbe"
+Date: Mon, 14 Dec 2020 17:19:28 +0000
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1607966379;
+ bh=bCVmDKin80UwRLK3QP42XBuzcvX1vaMfWPRWPv/RKFA=;
+ h=From:To:Cc:Subject:References:In-Reply-To:From;
+ b=J8oGUKbeHhDMltp/h3UjokbSScr0C8Vy46jl6y6xphIflhhnROQUaOBaHn2+Lted2
+ 9GY/w4NoOym77BvhcftFfd9JwUZQD7mcbLOqcOwFOdSc5BP/tanFd1mmjPN02SIs6L
+ fRcCOs6mXEMmeE7BxCbsNiqixgECw11Y9Y217Uz6Gq+9QK7JwIrGhBid6xEEfV1t4D
+ yRoIYP6TomDj8n61qI/JLiQNPKnqBON5g1tcQJPrxdmXIgnaT/L44GNfkR6dPiSq1c
+ FPPjmlUbro+pr1kvGc79rLSLdrAGB65JocvZIKkvftgq2zVAOrV24rPa/F3wI5S8YT
+ myM5pAxGnjHug==
+From: Mark Brown <broonie@kernel.org>
+To: Codrin.Ciubotariu@microchip.com
+Subject: Re: [RFC PATCH] ASoC: pcm_dmaengine: Add support for BE DAIs
+Message-ID: <20201214171928.GB4880@sirena.org.uk>
+References: <20201202085838.1779525-1-codrin.ciubotariu@microchip.com>
+ <20201208170422.GG6686@sirena.org.uk>
+ <7ab6bffa-f88e-3e2b-287a-89eee2c01819@microchip.com>
+ <20201208193156.GJ6686@sirena.org.uk>
+ <b98d9b89-268b-5a4f-57bc-b7f95d6c81a4@microchip.com>
 MIME-Version: 1.0
-In-Reply-To: <0b0afd81-0595-c661-ec1e-e81b7e8f8fec@perex.cz>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
-Cc: oder_chiou@realtek.com, alsa-devel@alsa-project.org, lars@metafoo.de,
- derek.fang@realtek.com, flove@realtek.com, shumingf@realtek.com,
- bard.liao@intel.com
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="nVMJ2NtxeReIH9PS"
+Content-Disposition: inline
+In-Reply-To: <b98d9b89-268b-5a4f-57bc-b7f95d6c81a4@microchip.com>
+X-Cookie: Everything you know is wrong!
+User-Agent: Mutt/1.10.1 (2018-07-13)
+Cc: alsa-devel@alsa-project.org, lars@metafoo.de, lgirdwood@gmail.com,
+ linux-kernel@vger.kernel.org, tiwai@suse.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -86,51 +84,37 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hi Jaroslav,
 
->>>> Add main capture switch and main capture volume for callback to be in
->>>> single operation.
->>>
->>> Could you be more verbose, what you're trying to do in the patch description?
-> 
-> I see that it's just additional volume coupling functionality (one control,
-> set all four output volume/switch registers, right?).
-> 
-> Some points:
-> 
-> 1) the separate volume controls don't send change events back to the user
-> space when the coupled capture settings is applied and versa vice - no sync
-> 2) we have already virtual master API - sound/core/vmaster.c which should
-> cover this requirement
-> 3) I don't see the purpose for this coupling (the capture direction)
+--nVMJ2NtxeReIH9PS
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-That was for UCM integration - agree the context was not well captured 
-in the commit message
+On Fri, Dec 11, 2020 at 06:00:55PM +0000, Codrin.Ciubotariu@microchip.com w=
+rote:
 
-We have 'Capture Switch' and 'Capture Volume' statements that are 
-required, and currently mistakenly set to SOF controls when they should 
-be codec controls.
+> Also, I noticed that the HW constraints added by a DAI driver (a codec=20
+> for example) are added to PCM's runtime->hw_constraints, even if the DAI=
+=20
+> driver is part of a BE. Shouldn't these constraints be applied only to=20
+> BE and eventually merge them to FE (struct snd_pcm_hardware) if=20
+> dai_link->dpcm_merged_* are set?
 
-So when we have several possible inputs controls for the codec (ADC 07 
-or ADC 27) depending on the microphone settings, which one should be 
-used in UCM?
+Probably, not sure why it's done like that.
 
-We thought this would simplify the UCM integration by adding one generic 
-control. If you have a better suggestion we are all ears.
+--nVMJ2NtxeReIH9PS
+Content-Type: application/pgp-signature; name="signature.asc"
 
->>>> +	 * "Main Capture Volume" looks the same as "ADC 07 Capture Volume",
->>>
->>> I would just use "Capture Volume" and "Capture Switch" here without the Main
->>> prefix to follow other drivers.
->>
->> It's similar to the 'Master Capture Switch' used in HDaudio, what other
->> drivers were you referring to?
-> 
-> HDAudio is using just 'Capture Switch' and 'Capture Volume' for the root
-> capture controls plus the input selector (enum). The Master prefix is used
-> only for the playback direction. And the word master is not prohibited for the
-> audio context, is it?
+-----BEGIN PGP SIGNATURE-----
 
-The naming is not the problem, we can remove the 'main' if needed, the 
-point is how to go about UCM integration.
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl/XnqAACgkQJNaLcl1U
+h9BjgQf/f/WBaHkOk3bC8134oouvuQy/LZdSjlSV8PExQ0uwTpHn3L33vpu5DUa0
+j0upkz44ZeJTuN9rPuWmlQZPPQiBJMzum7g3SMupNVTHg5pK3jvMzMibOSbpMmGV
+U0ffm1avkLZl9iD5SPmkjOS5aENk/dDzUDvPrItaEJqN/zcOqh1KGmlmOeOCHd4M
+w5vh7gWfcZiajAiBj0PLCiiGU8lf6h3G8R/5Qtp+2T81+dH5sKaQlg3BVyG9VU0m
+643JshGvppylQj2JBGPS6uIZBHXWX52EUT22nRa/ZRESDBPbf5qH7hE6s6ac30r2
+naIKWmzV2O1iz46yH2JWV1FwjF0reA==
+=gib7
+-----END PGP SIGNATURE-----
 
+--nVMJ2NtxeReIH9PS--

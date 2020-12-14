@@ -2,59 +2,69 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 663932D9EC0
-	for <lists+alsa-devel@lfdr.de>; Mon, 14 Dec 2020 19:19:36 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 892F22DA095
+	for <lists+alsa-devel@lfdr.de>; Mon, 14 Dec 2020 20:34:42 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E1B361799;
-	Mon, 14 Dec 2020 19:18:45 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E1B361799
+	by alsa0.perex.cz (Postfix) with ESMTPS id 1B0EB1798;
+	Mon, 14 Dec 2020 20:33:52 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1B0EB1798
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1607969975;
-	bh=qIk77fRS4tYp4E7CjdXLj+HocaNH7CqIpPmAJ3WAV6g=;
-	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
+	s=default; t=1607974482;
+	bh=puX4FoV1wDyC48wB7KGJn+S3DoHK+zWyL+qz7q0FaCk=;
+	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=MglRlUsKn/BqW1GIH3MqUJ5dPjawSGpTJnjaDuvrBB/rhlXrkQPFUedOdoEaiYTg5
-	 CqTrcTw0ZLNFK4IsBPSCnUvjPIO/tRTcqH9uHfli0RfdgJue26tnaXqSWgo4JAiUUK
-	 2ymuphOpA2n1W5RrQikhkqrIZjRmhP5rjvK2U5mQ=
+	b=BpFjCHIEaqO7ssKzo0SK7s+iDbG2drYvaNn7iJUC4jUwyRQN3nDZ4NCHHkStb6hbn
+	 NzFuaRHeyBNS8BW+iwANto+xeSRQBA3BWZrfIsHJC6L2B1Jzoe8csVVTSiaKMgNFJO
+	 L2SkbJ5H1ILr2KZz9X4sm2bsu+SLSxdx9RjuBU20=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 3B0BBF80240;
-	Mon, 14 Dec 2020 19:18:00 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id E210BF80245;
+	Mon, 14 Dec 2020 20:33:28 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id BC68CF801F7; Mon, 14 Dec 2020 19:17:57 +0100 (CET)
+ id C958CF801F7; Mon, 14 Dec 2020 20:33:26 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE
- autolearn=disabled version=3.4.0
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=NICE_REPLY_A,SPF_HELO_NONE,
+ SPF_NONE autolearn=disabled version=3.4.0
+Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 0A66CF800ED
- for <alsa-devel@alsa-project.org>; Mon, 14 Dec 2020 19:17:54 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0A66CF800ED
-From: Mark Brown <broonie@kernel.org>
-Authentication-Results: mail.kernel.org;
- dkim=permerror (bad message/signature format)
-To: Dan Carpenter <dan.carpenter@oracle.com>,
- Cezary Rojewski <cezary.rojewski@intel.com>,
- Guneshwor Singh <guneshwor.o.singh@intel.com>
-In-Reply-To: <X9NEvCzuN+IObnTN@mwanda>
-References: <X9NEvCzuN+IObnTN@mwanda>
-Subject: Re: [PATCH] ASoC: Intel: fix error code cnl_set_dsp_D0()
-Message-Id: <160796986130.45789.8331512610981299314.b4-ty@kernel.org>
-Date: Mon, 14 Dec 2020 18:17:41 +0000
+ by alsa1.perex.cz (Postfix) with ESMTPS id CDECEF80121;
+ Mon, 14 Dec 2020 20:33:19 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CDECEF80121
+IronPort-SDR: EVsgd/C4tnJipjfThloLj8d1QJKWL+rIScm9HsuxuO6PXwRIqyNo3mKtIpylMBCvnjnMAOEz7J
+ N4xDqKsbRNAw==
+X-IronPort-AV: E=McAfee;i="6000,8403,9834"; a="154571721"
+X-IronPort-AV: E=Sophos;i="5.78,420,1599548400"; d="scan'208";a="154571721"
+Received: from orsmga008.jf.intel.com ([10.7.209.65])
+ by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 14 Dec 2020 11:33:18 -0800
+IronPort-SDR: b8P2FUpvlD3AnIkbogshYHGI7bR6BVjBgMTsQWq88brPw8w8HDwEXXDkLgOPmATftUlqvkXlvC
+ WcCHgnHKVHqg==
+X-IronPort-AV: E=Sophos;i="5.78,420,1599548400"; d="scan'208";a="367598976"
+Received: from cmrice1-mobl.amr.corp.intel.com (HELO [10.209.79.220])
+ ([10.209.79.220])
+ by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 14 Dec 2020 11:33:17 -0800
+Subject: Re: [Sound-open-firmware] SoF support for 8086:9d71?
+To: Kai-Heng Feng <kai.heng.feng@canonical.com>,
+ sound-open-firmware@alsa-project.org
+References: <9I9CLQ.GP190FSJBRXK3@canonical.com>
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Message-ID: <f05cb5ff-b5b1-2882-ba4a-380e696b2569@linux.intel.com>
+Date: Mon, 14 Dec 2020 13:33:16 -0600
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.10.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+In-Reply-To: <9I9CLQ.GP190FSJBRXK3@canonical.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-US
 Content-Transfer-Encoding: 8bit
-Cc: alsa-devel@alsa-project.org, kernel-janitors@vger.kernel.org,
- Jie Yang <yang.jie@linux.intel.com>, Takashi Iwai <tiwai@suse.com>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- Liam Girdwood <liam.r.girdwood@linux.intel.com>,
- Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+Cc: SOUND <alsa-devel@alsa-project.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -70,34 +80,46 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Fri, 11 Dec 2020 13:06:52 +0300, Dan Carpenter wrote:
-> Return -ETIMEDOUT if the dsp boot times out instead of returning
-> success.
 
-Applied to
+> On more recent kernels legacy HDA stops working for device 8086:9d71:
+> [   47.211381] snd_hda_intel 0000:00:1f.3: DSP detected with PCI 
+> class/subclass/prog-if info 0x040100
+> [   47.211383] snd_hda_intel 0000:00:1f.3: Digital mics found on 
+> Skylake+ platform, using SST driver
+> 
+> However, only legacy HDA supports it:
+> 00:1f.3 Multimedia audio controller [0401]: Intel Corporation Sunrise 
+> Point-LP HD Audio [8086:9d71] (rev 21)
+> ..
+>      Kernel modules: snd_hda_intel
+> 
+> Ubuntu kernel doesn't select SND_SOC_INTEL_SKYLAKE, which builds 
+> snd-soc-skl, because based on the Kconfig description SOF should support 
+> it.
+> 
+> I wonder if SND_SOC_INTEL_SKYLAKE should be select again?
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
+SOF does not support Skylake and Kabylake, and only the Up2 board for 
+APL. I am not sure what you mean by 'recent' kernels since this dynamic 
+selection has been in place for a year now?
 
-Thanks!
+At any rate, to make this work again:
 
-[1/1] ASoC: Intel: fix error code cnl_set_dsp_D0()
-      commit: f373a811fd9a69fc8bafb9bcb41d2cfa36c62665
+1. You can select SND_SOC_INTEL_SKYLAKE or alternatively to be more 
+accurate:
 
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
+SND_SOC_INTEL_SKL
+SND_SOC_INTEL_APL
+SND_SOC_INTEL_KBL
 
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
+There are known issues with Conexant codecs, typically on HP devices, 
+only Realtek codecs are supported.
 
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
+2. In addition you will need to have the topology for SKL/KBL w/ HDaudio 
+codecs. It's in alsa-topology-conf but would need to be compiled and 
+installed.
 
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
+3. UCM files should be already handled in alsa-ucm-conf	
 
-Thanks,
-Mark
+Hope this helps
+-Pierre

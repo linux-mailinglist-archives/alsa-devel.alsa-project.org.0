@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2A3162DACC4
-	for <lists+alsa-devel@lfdr.de>; Tue, 15 Dec 2020 13:13:40 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2D7602DAD9F
+	for <lists+alsa-devel@lfdr.de>; Tue, 15 Dec 2020 14:02:17 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A6FB917DF;
-	Tue, 15 Dec 2020 13:12:49 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A6FB917DF
+	by alsa0.perex.cz (Postfix) with ESMTPS id B48E117D5;
+	Tue, 15 Dec 2020 14:01:26 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B48E117D5
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1608034419;
-	bh=c2r9lfpSJ4qUEj+mjRLVrMrrc10/Xm02J2Np3cRKLl8=;
+	s=default; t=1608037336;
+	bh=fDiP7ilApLHaKkbPhxkJs3BwaJy+ICOzNNwrseuWDDQ=;
 	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=QpmN82IlfbvugrWWtxfW6CF/J5EV4LeWIv7MmKASyBokge/gtA57Y/DIHrdjARVYJ
-	 BdomyHQs0tLroErigbxojJIdyCnXLzyp8VXxPs/d3VimsItM3xHIcIXuhR6tYcAzqr
-	 hN6F36eMRV6t3Z+ti6gJvGO1weV8ZvPdrOpXp0j4=
+	b=TxY6eH6JCSDjnsD3k/0UojBavY8+kRooF5EVpceJtZEjTl8SUur8OmCUOPXHBERWW
+	 I+zDluhzBn9m09lH24TtrUWuiIBRNXnKYrIVEQYa2/3K7h2rhhDJmjYZLQ6lIsLuFZ
+	 gqXsmjzBsJ/tB104IcMES6cS/4ahxfy0FHX8//A0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 1ABFCF80129;
-	Tue, 15 Dec 2020 13:12:04 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 1785DF8027B;
+	Tue, 15 Dec 2020 14:00:41 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 66181F80129; Tue, 15 Dec 2020 13:12:02 +0100 (CET)
+ id 35ABFF80278; Tue, 15 Dec 2020 14:00:39 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -33,38 +33,40 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id EC7D7F80129
- for <alsa-devel@alsa-project.org>; Tue, 15 Dec 2020 13:11:57 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EC7D7F80129
+ by alsa1.perex.cz (Postfix) with ESMTPS id DE17DF8014B
+ for <alsa-devel@alsa-project.org>; Tue, 15 Dec 2020 14:00:35 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DE17DF8014B
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="J+MLxBvB"
-Date: Tue, 15 Dec 2020 12:11:43 +0000
+ header.b="igylZFgu"
+Date: Tue, 15 Dec 2020 13:00:21 +0000
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1608034315;
- bh=c2r9lfpSJ4qUEj+mjRLVrMrrc10/Xm02J2Np3cRKLl8=;
+ s=k20201202; t=1608037233;
+ bh=fDiP7ilApLHaKkbPhxkJs3BwaJy+ICOzNNwrseuWDDQ=;
  h=From:To:Cc:Subject:References:In-Reply-To:From;
- b=J+MLxBvBt4mZvbzaExzp2DhRvZvxL0YZPwneEbCOMEL7JKO+HPKBmn0YxSm6Afcc5
- C4alHbZgCcWUQC4OGfAWi68FrVgunZuiVsTfajLxIHVGTLK/KwtiqRC3+DUC/ZGKuK
- DK7j8jOvndjNMiOFAeEF5PuviBcLfbqBEQInRYop5q5ueNfXr4/IgC2zsVNbxG2iy5
- una93RSrljNtlzjXHH18ZcnmiBHSRJu4tz32+UmBkxomO2Z/hfs+tqe6TPZbgfjO+/
- YeidALlLrWSqV+dr3TK1vKpRd1LJuZh1gK8v4B1kY2STe0k4V7Q9TdZ2na2fFi1V4W
- DSmhdg61q5v+w==
+ b=igylZFgutp+6ZB0uy7rkm5KPCGAKGCZ3mZ7wmryn8yElieFXFV6sfnel/Cz2/SXqb
+ wVQLyLa5IxVG5Y1PuFhaH9N543ogMHakK69qg9PQ+PeykMYouz5iCpi+gD/w/Fk1Po
+ IKjH40Ne5hYN0an/elbKmglXRdAddDvi4CYsJM8cLnOoZg56Ap0HTe0oHa55pGFYvu
+ sKwEMVM52gRNnoc8m85BwOiTpJnxYjPrc8Fd0LBqAq0k609+tCZSJsVb44grJZeO4u
+ gjiE2QIjDnaU2K2pjlAfuu1w3/3WeA5tp665NLBMS8DDdrypBh3+CLDLCjTSUpA8xh
+ niVQhMC+fXB/g==
 From: Mark Brown <broonie@kernel.org>
-To: Bard Liao <yung-chuan.liao@linux.intel.com>
-Subject: Re: [PATCH v2] ASoC: max98373: don't access volatile registers in
- bias level off
-Message-ID: <20201215121143.GB4738@sirena.org.uk>
-References: <20201214064237.15763-1-yung-chuan.liao@linux.intel.com>
+To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+Subject: Re: [PATCH][RFC] ASoC: rsnd: don't call clk_disable_unprepare() if
+ can't use
+Message-ID: <20201215130021.GC4738@sirena.org.uk>
+References: <CAMuHMdWvB+p=2JqTsO7bR8uJqKqO5A2XgXFXsVAjHk3hcxgcTw@mail.gmail.com>
+ <87v9d4gcqt.wl-kuninori.morimoto.gx@renesas.com>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="98e8jtXdkpgskNou"
+ protocol="application/pgp-signature"; boundary="V88s5gaDVPzZ0KCq"
 Content-Disposition: inline
-In-Reply-To: <20201214064237.15763-1-yung-chuan.liao@linux.intel.com>
+In-Reply-To: <87v9d4gcqt.wl-kuninori.morimoto.gx@renesas.com>
 X-Cookie: In specially marked packages only.
 User-Agent: Mutt/1.10.1 (2018-07-13)
-Cc: alsa-devel@alsa-project.org, ryans.lee@maximintegrated.com, tiwai@suse.de,
- pierre-louis.bossart@linux.intel.com, vkoul@kernel.org, bard.liao@intel.com
+Cc: Linux-Renesas <linux-renesas-soc@vger.kernel.org>,
+ Linux-ALSA <alsa-devel@alsa-project.org>,
+ Geert Uytterhoeven <geert@linux-m68k.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -81,51 +83,42 @@ Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 
---98e8jtXdkpgskNou
+--V88s5gaDVPzZ0KCq
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
 
-On Mon, Dec 14, 2020 at 02:42:37PM +0800, Bard Liao wrote:
+On Tue, Dec 15, 2020 at 09:06:05AM +0900, Kuninori Morimoto wrote:
 
-> --- a/sound/soc/codecs/max98373.h
-> +++ b/sound/soc/codecs/max98373.h
-> @@ -203,6 +203,17 @@
->  /* MAX98373_R2000_SW_RESET */
->  #define MAX98373_SOFT_RESET (0x1 << 0)
-> =20
-> +struct max98373_cache {
-> +	u32 reg;
-> +	u32 val;
-> +};
-> +
-> +struct max98373_cache max98373_cache[] =3D {
-> +	{MAX98373_R2054_MEAS_ADC_PVDD_CH_READBACK, 0},
-> +	{MAX98373_R2055_MEAS_ADC_THERM_CH_READBACK, 0},
-> +	{MAX98373_R20B6_BDE_CUR_STATE_READBACK, 0},
-> +};
+> -			adg->clk_rate[i] = clk_get_rate(adg->clk[i]);
+> +			if (ret < 0)
+> +				dev_warn(dev, "can't use clk %d\n", i);
+> +			else
+> +				adg->clk_rate[i] = clk_get_rate(adg->clk[i]);
 
-This is declaring a variable in the header, meaning there'll be one copy
-in each of the object files using the header and that if they get linked
-into a single object you should get warnings about duplicate symbols.
-It would be better to both allocate the version used at runtime
-dynamically (in case we somehow get multiple max98373s in a system) and
-have this list of registers be a static variable inside the driver code
-which is used to initialize that.
+We never reset adg->clk_rate[i] so if we use the clock once then get an
+error attempting to use it again...
 
---98e8jtXdkpgskNou
+>  		} else {
+> -			clk_disable_unprepare(clk);
+> +			if (adg->clk_rate[i])
+> +				clk_disable_unprepare(clk);
+
+...we'll try to disable twice.  This was already an issue of course, not
+something introduced in this patch.
+
+--V88s5gaDVPzZ0KCq
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl/Yp/4ACgkQJNaLcl1U
-h9DzMAf8C/D1aPuwe63MmG6NDqCW0KPZckhPnJJYD8C0fnX4HB59Rehqwyaq5dPm
-pXKCUKw9zYgpA7FZFm05BojjHkhmbk+JqS4M4b5eZ63d+goEu6+q+wj3bd0cTe7n
-Sa9iUY6eSDWQ5qisNGWi9/o3xaJ/zCyD8RjUENpiFuE9nYQqbjn7lG6A3zoYyoLH
-WmvRYYPB3ihFKtK8PzI/TTiYWg7G0d0RIpD/V38rqrTv42Bhd4tKV0KFNEvpnYIr
-iAlziKGugMPC9+xZSTCokJED4J4F0LcZ0bF1AmFoSPu1lJjMQEoeTsYiS+X5OxLg
-g0rhXU16htP6QBH2ZV+L71m9vkmPFw==
-=fmSH
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl/Ys2QACgkQJNaLcl1U
+h9DL3gf+LbNAoq+ie6MXE724oAYdw14gdhZfxkEnqHxElgGxZvKK4DzEZl6tGfvw
+pfaEOw057v0Jd+6M7/EgbVW+FEMMHkyrb9HJrsAaQJyBnKE8KreAqVCcsHuCIqGA
+z5qEphd6k9vzNByer4Rs+Lo8AAnNSLvEgKDfPjAVyJNOTJjR+C6JbCf/LrXU5u+s
+tuar+WbDmCTjX5mRPOqE2jyWt85IL5TFNnEegN80uYwXgpdBoIq25oFOgbzqP9Pg
+rW/6/xhRsUQ+WeyBfZrNCxpg0kgQt69OmqfG8uVniwUF0W2BAiYlG8jq46n6CAIB
+bzkkTuu/1Sh9yjRVkt9OIcQCjYvt6w==
+=B+vF
 -----END PGP SIGNATURE-----
 
---98e8jtXdkpgskNou--
+--V88s5gaDVPzZ0KCq--

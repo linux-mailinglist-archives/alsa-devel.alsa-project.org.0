@@ -2,82 +2,73 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E16322DB2A8
-	for <lists+alsa-devel@lfdr.de>; Tue, 15 Dec 2020 18:33:24 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 881892DB300
+	for <lists+alsa-devel@lfdr.de>; Tue, 15 Dec 2020 18:50:24 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 373FA1808;
-	Tue, 15 Dec 2020 18:32:34 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 373FA1808
+	by alsa0.perex.cz (Postfix) with ESMTPS id 2AFDB1818;
+	Tue, 15 Dec 2020 18:49:29 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2AFDB1818
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1608053604;
-	bh=R1/2xo6QsDm2FnIf1bDfTzBsdIzQRV6j0+EiIJvQbZ8=;
+	s=default; t=1608054619;
+	bh=RR1ue9ttp8+Uhjc1dmKhhzeOgvK+RK5M5YX+Iuw2fp8=;
 	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=A1t+jjrqlQGkOJEyaRo+iRCEJUSauirBFDM+gZ5DYECAd2s0eQMM0ZeTycMI4okae
-	 Hai+kwoIWs0wKULeJqwWSBVLj0I94HuSZQ2FNVm1NYUaHUTpfq9MgFlpYtSYoDtQfA
-	 9yNS+Ak2Lmm4gQyjdyZEjl0Uj9sUCDHt6qoC07S8=
+	b=KsMOYkJJ5jYCQN46HuDnz8UBOKvzTQ1DU5Uh4QNX9vs7hnvVrVWgtj2YRdVikoCRP
+	 tg4GRj8qWJgiPwz0FvbdEkVGN4Ad4+3OUylFPY3scyQ7aH6pkah5/CS/zRNpix6GnT
+	 OluRPIrI+g2rtvoJ/6swAUn2n2PXetHcqYMNzTG4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 8B9B6F80129;
-	Tue, 15 Dec 2020 18:31:48 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 7F07BF8027B;
+	Tue, 15 Dec 2020 18:48:43 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 86474F80278; Tue, 15 Dec 2020 18:31:46 +0100 (CET)
+ id 1D02EF80278; Tue, 15 Dec 2020 18:48:41 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,NICE_REPLY_A,PRX_BODY_65,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from mail1.perex.cz (mail1.perex.cz [77.48.224.245])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=NICE_REPLY_A,SPF_HELO_NONE,
+ SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id E5D23F80129
- for <alsa-devel@alsa-project.org>; Tue, 15 Dec 2020 18:31:38 +0100 (CET)
-Received: from mail1.perex.cz (localhost [127.0.0.1])
- by smtp1.perex.cz (Perex's E-mail Delivery System) with ESMTP id 8E926A0040;
- Tue, 15 Dec 2020 18:31:36 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 smtp1.perex.cz 8E926A0040
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=perex.cz; s=default;
- t=1608053496; bh=CKtLCeS1TBxlSpDyfui0BOKEjo3gxTXRoSHWj24DUG0=;
- h=Subject:To:Cc:References:From:Date:In-Reply-To:From;
- b=AfUvlAeuyimBV3EIl/+cSMW5G3GnnxdnIOpB31Yx2oxFSrm5I7oLWX728stFFGIsq
- jRU+G5FgSU8s/y4DTbXMn18mqc1Cws9Uaru3GbozL8a9YsUOvbSidja9gJTZV+n3/h
- cEd66HjbE8DbB8KG/2kXS4OO1IlC19CEAcsZs188=
-Received: from p1gen2.perex-int.cz (unknown [192.168.100.98])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested) (Authenticated sender: perex)
- by mail1.perex.cz (Perex's E-mail Delivery System) with ESMTPSA;
- Tue, 15 Dec 2020 18:31:24 +0100 (CET)
-Subject: Re: [PATCH] ASoC: rt715: add main capture switch and main capture
- volume control
+ by alsa1.perex.cz (Postfix) with ESMTPS id 1098BF80129;
+ Tue, 15 Dec 2020 18:48:32 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1098BF80129
+IronPort-SDR: aoSOMGZFOJ9P1ScI4GU7EPw4lcR9RU351KeOzyxKwj9Xgm0L0dLU+7KuXIlV8PTDITMh9A56Nn
+ Vsf9kO7ZFZ2g==
+X-IronPort-AV: E=McAfee;i="6000,8403,9836"; a="193297864"
+X-IronPort-AV: E=Sophos;i="5.78,422,1599548400"; d="scan'208";a="193297864"
+Received: from fmsmga001.fm.intel.com ([10.253.24.23])
+ by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 15 Dec 2020 09:48:28 -0800
+IronPort-SDR: KPRDy3Z0durNXaIKJqGF1UmkJg17B+7rjrXgI7ljceyxeP4O7qeQAylB+opfHHJcBEi+8BPJOY
+ lnGs9ObLZaQA==
+X-IronPort-AV: E=Sophos;i="5.78,422,1599548400"; d="scan'208";a="451291272"
+Received: from aslawinx-mobl.ger.corp.intel.com (HELO [10.249.146.31])
+ ([10.249.146.31])
+ by fmsmga001-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 15 Dec 2020 09:48:27 -0800
+Subject: Re: [Sound-open-firmware] SoF support for 8086:9d71?
 To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- jack.yu@realtek.com, broonie@kernel.org, lgirdwood@gmail.com,
- Takashi Iwai <tiwai@suse.de>
-References: <20201214064903.2746-1-jack.yu@realtek.com>
- <8eeddc8c-91cb-e62d-6114-547117d4d83e@perex.cz>
- <0096059b-de76-d9a3-2446-b4c3becabce8@linux.intel.com>
- <0b0afd81-0595-c661-ec1e-e81b7e8f8fec@perex.cz>
- <7d74544f-77f2-db01-db3d-d1d8a56d576d@linux.intel.com>
- <cb07f528-6c2f-1357-db54-e3d062ad6dd3@perex.cz>
- <bcdc2aba-ab7e-08bf-7e25-02e38c9d660d@linux.intel.com>
- <feb43fc8-39a3-9c50-1193-9115603c8fb8@perex.cz>
- <7bc9d35f-8bd6-4922-1900-8af729443377@linux.intel.com>
-From: Jaroslav Kysela <perex@perex.cz>
-Message-ID: <b25c849f-d1ed-f503-444f-3a49e0d03e7e@perex.cz>
-Date: Tue, 15 Dec 2020 18:31:24 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.3.1
+ Kai-Heng Feng <kai.heng.feng@canonical.com>
+References: <9I9CLQ.GP190FSJBRXK3@canonical.com>
+ <f05cb5ff-b5b1-2882-ba4a-380e696b2569@linux.intel.com>
+ <J74DLQ.CON4PD1O51YN@canonical.com>
+ <47ec2533-584c-d7f3-4489-e3a043e658e1@linux.intel.com>
+From: =?UTF-8?Q?Amadeusz_S=c5=82awi=c5=84ski?=
+ <amadeuszx.slawinski@linux.intel.com>
+Message-ID: <c3989d32-2949-048d-5fa2-8e586a17677c@linux.intel.com>
+Date: Tue, 15 Dec 2020 18:48:25 +0100
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:68.0) Gecko/20100101
+ Thunderbird/68.12.0
 MIME-Version: 1.0
-In-Reply-To: <7bc9d35f-8bd6-4922-1900-8af729443377@linux.intel.com>
-Content-Type: text/plain; charset=utf-8
+In-Reply-To: <47ec2533-584c-d7f3-4489-e3a043e658e1@linux.intel.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Language: en-US
-Content-Transfer-Encoding: 7bit
-Cc: oder_chiou@realtek.com, alsa-devel@alsa-project.org, lars@metafoo.de,
- derek.fang@realtek.com, bard.liao@intel.com, shumingf@realtek.com,
- flove@realtek.com
+Content-Transfer-Encoding: 8bit
+Cc: SOUND <alsa-devel@alsa-project.org>, sound-open-firmware@alsa-project.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -93,77 +84,91 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Dne 15. 12. 20 v 18:05 Pierre-Louis Bossart napsal(a):
+On 12/15/2020 6:21 PM, Pierre-Louis Bossart wrote:
 > 
->>>> My suggestions are (pick one):
+> 
+> On 12/14/20 9:54 PM, Kai-Heng Feng wrote:
+>>
+>>
+>> On Mon, Dec 14, 2020 at 13:33, Pierre-Louis Bossart 
+>> <pierre-louis.bossart@linux.intel.com> wrote:
+>>>
+>>>> On more recent kernels legacy HDA stops working for device 8086:9d71:
+>>>> [   47.211381] snd_hda_intel 0000:00:1f.3: DSP detected with PCI 
+>>>> class/subclass/prog-if info 0x040100
+>>>> [   47.211383] snd_hda_intel 0000:00:1f.3: Digital mics found on 
+>>>> Skylake+ platform, using SST driver
 >>>>
->>>> 1) create one multichannel control and remove the stereo controls when the
->>>> hardware is detected (no functionality dup)
+>>>> However, only legacy HDA supports it:
+>>>> 00:1f.3 Multimedia audio controller [0401]: Intel Corporation 
+>>>> Sunrise Point-LP HD Audio [8086:9d71] (rev 21)
+>>>> ..
+>>>>      Kernel modules: snd_hda_intel
+>>>>
+>>>> Ubuntu kernel doesn't select SND_SOC_INTEL_SKYLAKE, which builds 
+>>>> snd-soc-skl, because based on the Kconfig description SOF should 
+>>>> support it.
+>>>>
+>>>> I wonder if SND_SOC_INTEL_SKYLAKE should be select again?
 >>>
->>> we can't remove controls that existed before, this might break userspace
+>>> SOF does not support Skylake and Kabylake, and only the Up2 board for 
+>>> APL. I am not sure what you mean by 'recent' kernels since this 
+>>> dynamic selection has been in place for a year now?
 >>
->> It's not widely used, so it would be better to break things now than later.
-> 
-> rt715 has been used on CometLake-based devices for a while (1.5 years?).
-
-But SDW is supported recently in the upstream Linux kernel. So there are no users.
-
->> But I see that others are a bit conservative.
+>> Ubuntu kernel only changed this in 20.10 release.
 >>
->>> with older UCM files that touch those ADC07 and ADC27. That's why we
->>
->> The upstream UCM files don't refer to those controls.
-> 
-> they do, unfortunately, see ucm2/codecs/rt715/init.conf
-> 
-> cset "name='rt715 ADC 27 Capture Switch' 1"
-> cset "name='rt715 ADC 07 Capture Switch' 1"		
-> cset "name='rt715 ADC 07 Capture Volume' 58"
-> 
->>> added a new one, to be backwards compatible with a user updates their
->>> kernel.
->>
->> Even if you don't remove the duplicate controls, the right abstraction is more
->> appropriate in my eyes (better than vmaster extension). The double stereo -> 4
->> channel array mapping is not fully correct (vmaster, proposed patch).
-> 
-> The hardware exposes registers to deal with two inputs separately, they 
-> are not duplicates. The point here is that we need a mapping to a 
-> simpler view where those two inputs are merged logically.
-
-Yes, but why to force stereo grouping when you need to control 4 independent
-channels from the user space POV? I'm speaking about the forced 'stereo -> 4
-channels volume / switch' mapping.
-
->>>> 3) wait until UCM can describe this hardware and set the DAC values manually
->>>> to a sensible value via sequences (the specific hardware levels can be set
->>>> using the conditions in UCM)
 >>>
->>> Not an option, there are products that need to ship soon.
+>>> At any rate, to make this work again:
+>>>
+>>> 1. You can select SND_SOC_INTEL_SKYLAKE or alternatively to be more 
+>>> accurate:
+>>>
+>>> SND_SOC_INTEL_SKL
+>>> SND_SOC_INTEL_APL
+>>> SND_SOC_INTEL_KBL
+>>>
+>>> There are known issues with Conexant codecs, typically on HP devices, 
+>>> only Realtek codecs are supported.
 >>
->> It's the easiest method for now. It's just about to change the UCM files
->> without any other changes in the kernel / user space. It's heavily used for
->> SST drivers, isn't?
+>> Right, so we can't really enable this for generic distros like Ubuntu.
 >>
->> The current UCM upstream modifies only SOF volume levels (PGA Master Capture).
+>> Let me think of a more generic solution.
 > 
-> that's not right, see above.
+> Re-thinking about this, I actually don't know how this problem occurred:
+> the tables are conditionally built so you would only select SST if you 
+> had the drivers compiled in.
 > 
-> I may have misunderstood your point for 3). I assumed you'd need a 
-> description coming from the kernel, as we did before for the components 
-> (cfg-mics, etc). How would UCM know which of the controls to use without 
-> any change to the kernel?
+> see sound/hda/intel-dsp-config.c:
+> 
+> /* Kabylake-LP */
+> #if IS_ENABLED(CONFIG_SND_SOC_INTEL_KBL)
+>      {
+>          .flags = FLAG_SST,
+>          .device = 0x9d71,
+>          .dmi_table = (const struct dmi_system_id []) {
+>              {
+>                  .ident = "Google Chromebooks",
+>                  .matches = {
+>                      DMI_MATCH(DMI_SYS_VENDOR, "Google"),
+>                  }
+>              },
+>              {}
+>          }
+>      },
+>      {
+>          .flags = FLAG_SST | FLAG_SST_ONLY_IF_DMIC,
+>          .device = 0x9d71,
+>      },
+> #endif
+> 
+> Something's not adding up here.
 
-Ideally, yes - it will help to reduce the configuration and the driver already
-knows more about the hardware. But we can do DMI matching in UCM for now, too.
+Seems like you can enable CONFIG_SND_SOC_INTEL_KBL (and all other 
+platforms), without enabling CONFIG_SND_SOC_INTEL_SKYLAKE, which enables 
+building of snd_soc_skl module... I would say that there is something 
+wrong with module dependencies in Kconfig :/
+Will look at it tomorrow. In the meantime any chance we can get the 
+config which was used, to confirm my suspicion?
 
-Example of the sysfs substitution:
-
-  ${sys:class/dmi/id/sys_vendor}
-  ${sys:class/dmi/id/product_version}
-
-						Jaroslav
-
--- 
-Jaroslav Kysela <perex@perex.cz>
-Linux Sound Maintainer; ALSA Project; Red Hat, Inc.
+Thanks,
+Amadeusz

@@ -2,87 +2,64 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 40B1C2DC3A1
-	for <lists+alsa-devel@lfdr.de>; Wed, 16 Dec 2020 17:00:27 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id C042D2DB3E7
+	for <lists+alsa-devel@lfdr.de>; Tue, 15 Dec 2020 19:44:18 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 360351830;
-	Wed, 16 Dec 2020 16:59:36 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 360351830
+	by alsa0.perex.cz (Postfix) with ESMTPS id 5C0BD1816;
+	Tue, 15 Dec 2020 19:43:23 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5C0BD1816
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1608134426;
-	bh=gNkmhZapJK7ExKO4GuwM2CQQ3uwNU2pVSyr4GJi37Gw=;
-	h=Date:From:To:Subject:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=TP7sfKCPm0iOaHw9ElLYyp2vW23EKrPYYJzkSbjvA74npBZB0PegWPRNSIs2PuhxW
-	 ZWYWy8lbekoauSBFhsN7td/2qZNw5CTGPDKBRRzqFnwuYGN8t9meuy+jJclqhZhdbs
-	 LE6pSqEIUBOC/4nd2zS5HyxBr0jDZVR7traIa2rk=
+	s=default; t=1608057853;
+	bh=+qN+NAlOwHDBMyWFVpEcgpRtDDTEgbLYFPq4+QKCfOo=;
+	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=WbrDSFN/rQnsTY9JitpbljZBK6aIiVEdrscZbWj3cMsK06GcY2OKDzxNIE7cl5Edm
+	 rs/LqI1wU/5/kVE1WbJsd0UBj9+pgyDkFlUEku2an61vavvkCiX0e64G5UcGwTUVzS
+	 3nXX8VZvq6614rgi/iWs5VhWDiyeslW1Wbdxo5lE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 93A15F804C2;
-	Wed, 16 Dec 2020 16:59:17 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id CE73EF80259;
+	Tue, 15 Dec 2020 19:42:37 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 31D5DF80278; Tue, 15 Dec 2020 19:09:18 +0100 (CET)
+ id 41DEEF80278; Tue, 15 Dec 2020 19:42:35 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU, FREEMAIL_ENVFROM_END_DIGIT, FREEMAIL_FROM, SPF_HELO_NONE,
- SPF_NONE autolearn=disabled version=3.4.0
-Received: from mail-ej1-x644.google.com (mail-ej1-x644.google.com
- [IPv6:2a00:1450:4864:20::644])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 6B1CEF8014B
- for <alsa-devel@alsa-project.org>; Tue, 15 Dec 2020 19:09:13 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6B1CEF8014B
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="I06WjCTX"
-Received: by mail-ej1-x644.google.com with SMTP id j22so11041845eja.13
- for <alsa-devel@alsa-project.org>; Tue, 15 Dec 2020 10:09:13 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=date:from:to:subject:message-id:mime-version:content-disposition;
- bh=B6qNOoqltxeloTXeSJiHEsnoejIa/iODS20XwCdkukE=;
- b=I06WjCTXP6nt0NcJ4l9hrmmdC4x5Wr3mD7g/3+g47lfmJROVVwEqeSAEdsgVyJGHHI
- Joq9c5J2ASwOvmK4fiiXF75pCyJOBnQLfppU3RuX0fNdixt8ycqBEZHd/c5qJWz4nX0Q
- EDvPaZkFNo+g6+4Vo7ksT55RaAahBTObBDJZdsX6lGM+H9c8bCnzDDiRcQ4ODHwR6R0v
- pnnCXmUG7PP3L09bd4VyyOvk7BRIuylgd6muDn4XC/HndhFZme50cP9Ur4gkg0qgXDq8
- GAsbP8eLfJkX3ur0v9XMU0qDL91hS5HjE9f5zTlWscdZST7f9pEqNSv/UsdBbkaPcQ9h
- rMDw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:subject:message-id:mime-version
- :content-disposition;
- bh=B6qNOoqltxeloTXeSJiHEsnoejIa/iODS20XwCdkukE=;
- b=rLzkAU2Mcsgct9VfDWIc6cH4EpaOq2JHU5kxhL9Wl5VFn20U15dlmXmmo+AEikEVUF
- baxlRoJS0ugbvrYxs4k2AITFHW5gfW65R2kGE0QWlHZbmu5Ehq2Hhz8VeRuJpsmO7M2L
- Ni3gc2Kq3H/HR+NEj2gA3MfvZlGy4ofhQib+yTIecdKCz28j2iVJC6x06XyIFGCeN7PB
- w/Gx9happXnHciNFwRfeEXZJBbfY++6F5t23m2HuaZriy9U8nmN7h3wz1janmvxJXwtI
- 4XHUPWVf1BtoPlbATucSppcGgSX4B/J56QoJyTaULMHaKhLX7hS91EuK7g8Sb2GZNkVk
- fqcg==
-X-Gm-Message-State: AOAM532lFXUHayt8AS/Ye5ga1qZmYZy7HVN2khsHMREsxk49088e6AC+
- H/ovLkxedEGLE0Swx7TOWRkVG3f8mVqxwsqS
-X-Google-Smtp-Source: ABdhPJz2IO79O71SXC9aCfFIDMOxVeNrshREHXMOkjWqAkXsEWBqIPfft4fwsgVURupKoiNMMTxNVA==
-X-Received: by 2002:a17:906:4304:: with SMTP id
- j4mr27386530ejm.304.1608055748031; 
- Tue, 15 Dec 2020 10:09:08 -0800 (PST)
-Received: from ryzen.localdomain (89-212-27-98.dynamic.t-2.net. [89.212.27.98])
- by smtp.gmail.com with ESMTPSA id n2sm1924842ejj.24.2020.12.15.10.09.06
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 15 Dec 2020 10:09:07 -0800 (PST)
-Date: Tue, 15 Dec 2020 19:09:05 +0100
-From: Amadej Kastelic <amadejkastelic7@gmail.com>
-To: perex@perex.cz, tiwai@suse.com, alsa-devel@alsa-project.org,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 01/01] Add VID to support native DSD reproduction on FiiO
- devices.
-Message-ID: <X9j7wdXSr4XyK7Bd@ryzen.localdomain>
+X-Spam-Status: No, score=0.4 required=5.0 tests=KHOP_HELO_FCRDNS, NICE_REPLY_A,
+ SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from bitmer.com (49-237-179-185.static.tentacle.fi [185.179.237.49])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
+ bits)) (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 70629F8014B
+ for <alsa-devel@alsa-project.org>; Tue, 15 Dec 2020 19:42:25 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 70629F8014B
+Received: from 88-114-184-87.elisa-laajakaista.fi ([88.114.184.87]
+ helo=[192.168.1.48])
+ by bitmer.com with esmtpsa (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
+ (Exim 4.89) (envelope-from <jarkko.nikula@bitmer.com>)
+ id 1kpFGK-00044Z-4g; Tue, 15 Dec 2020 20:41:28 +0200
+Subject: Re: [PATCH 1/2] MAINTAINERS: Update email address for TI ASoC and
+ twl4030 codec drivers
+To: Peter Ujfalusi <peter.ujfalusi@ti.com>, broonie@kernel.org,
+ lgirdwood@gmail.com, robh+dt@kernel.org
+References: <20201215130512.8753-1-peter.ujfalusi@ti.com>
+ <20201215130512.8753-2-peter.ujfalusi@ti.com>
+From: Jarkko Nikula <jarkko.nikula@bitmer.com>
+Message-ID: <563f5961-40e3-3333-b734-75893806cd04@bitmer.com>
+Date: Tue, 15 Dec 2020 20:41:24 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.5.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-X-Mailman-Approved-At: Wed, 16 Dec 2020 16:59:14 +0100
+In-Reply-To: <20201215130512.8753-2-peter.ujfalusi@ti.com>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
+ linux-kernel@vger.kernel.org, jsarha@ti.com, tiwai@suse.com,
+ linux-omap@vger.kernel.org, linux-arm-kernel@lists.infradead.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -98,27 +75,31 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Message-Id: <c759bc50134ea434bfed0a183e0ce72984f5b609.camel@gmail.com>
+On 15.12.2020 15.05, Peter Ujfalusi wrote:
+> My employment with TI is coming to an end, it is my intention to look after
+> the drivers I have worked with over the years.
+> 
+> Signed-off-by: Peter Ujfalusi <peter.ujfalusi@ti.com>
+> Signed-off-by: Peter Ujfalusi <peter.ujfalusi@gmail.com>
+> ---
+>  MAINTAINERS | 6 +++---
+>  1 file changed, 3 insertions(+), 3 deletions(-)
+> 
+> diff --git a/MAINTAINERS b/MAINTAINERS
+> index f6e7162241eb..a091f183b27f 100644
+> --- a/MAINTAINERS
+> +++ b/MAINTAINERS
+> @@ -12862,7 +12862,7 @@ F:	include/misc/ocxl*
+>  F:	include/uapi/misc/ocxl.h
+>  
+>  OMAP AUDIO SUPPORT
+> -M:	Peter Ujfalusi <peter.ujfalusi@ti.com>
+> +M:	Peter Ujfalusi <peter.ujfalusi@gmail.com>
+>  M:	Jarkko Nikula <jarkko.nikula@bitmer.com>
+>  L:	alsa-devel@alsa-project.org (moderated for non-subscribers)
+>  L:	linux-omap@vger.kernel.org
+> @@ -17537,7 +17537,7 @@ F:	arch/xtensa/
+>  F:	drivers/irqchip/irq-xtensa-*
+>  
 
-Add VID to support native DSD reproduction on FiiO devices.
-
-Tested-by: Amadej Kastelic <amadejkastelic7@gmail.com>
-Signed-off-by: Emilio Moretti <emilio.moretti@gmail.com>
----
- sound/usb/quirks.c | 1 +
- 1 file changed, 1 insertion(+)
-
-diff --git a/sound/usb/quirks.c b/sound/usb/quirks.c
-index 349e1e52996d..f5fc65aef628 100644
---- a/sound/usb/quirks.c
-+++ b/sound/usb/quirks.c
-@@ -1658,6 +1658,7 @@ u64 snd_usb_interface_dsd_format_quirks(struct snd_usb_audio *chip,
- 	case 0x25ce:  /* Mytek devices */
- 	case 0x278b:  /* Rotel? */
- 	case 0x292b:  /* Gustard/Ess based devices */
-+	case 0x2972:  /* FiiO devices */
- 	case 0x2ab6:  /* T+A devices */
- 	case 0x3842:  /* EVGA */
- 	case 0xc502:  /* HiBy devices */
---
-2.20.1
+Acked-by: Jarkko Nikula <jarkko.nikula@bitmer.com>

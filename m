@@ -2,78 +2,69 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 484E62DAB04
-	for <lists+alsa-devel@lfdr.de>; Tue, 15 Dec 2020 11:41:04 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2A3162DACC4
+	for <lists+alsa-devel@lfdr.de>; Tue, 15 Dec 2020 13:13:40 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id CCE5717F3;
-	Tue, 15 Dec 2020 11:40:13 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CCE5717F3
+	by alsa0.perex.cz (Postfix) with ESMTPS id A6FB917DF;
+	Tue, 15 Dec 2020 13:12:49 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A6FB917DF
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1608028863;
-	bh=xxh0DhMEN5NEpTvWzSFzUWZHMsJ9elWVAaAXvx8+zDw=;
-	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
+	s=default; t=1608034419;
+	bh=c2r9lfpSJ4qUEj+mjRLVrMrrc10/Xm02J2Np3cRKLl8=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=R4kZNifiWNEcfb5Inh7/cOZQXYP7Q93DHYmONc2FETYE/k4qN0i2rta8LM4h0uyYO
-	 R/cLCnECJoQUJfeR/22ILpY4brezSlaBzX3oNomtBLdenzUtBDYWrWU8Jvr69s5ISr
-	 qdnOzC2yflhsSWYkEH0+AEKZlOxLJmxyKspq4kcY=
+	b=QpmN82IlfbvugrWWtxfW6CF/J5EV4LeWIv7MmKASyBokge/gtA57Y/DIHrdjARVYJ
+	 BdomyHQs0tLroErigbxojJIdyCnXLzyp8VXxPs/d3VimsItM3xHIcIXuhR6tYcAzqr
+	 hN6F36eMRV6t3Z+ti6gJvGO1weV8ZvPdrOpXp0j4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 2B400F8027B;
-	Tue, 15 Dec 2020 11:39:28 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 1ABFCF80129;
+	Tue, 15 Dec 2020 13:12:04 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 668B7F80278; Tue, 15 Dec 2020 11:39:26 +0100 (CET)
+ id 66181F80129; Tue, 15 Dec 2020 13:12:02 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_PASS,SPF_NONE,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from mail1.perex.cz (mail1.perex.cz [77.48.224.245])
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id C2809F8014B
- for <alsa-devel@alsa-project.org>; Tue, 15 Dec 2020 11:39:17 +0100 (CET)
-Received: from mail1.perex.cz (localhost [127.0.0.1])
- by smtp1.perex.cz (Perex's E-mail Delivery System) with ESMTP id D5834A0047;
- Tue, 15 Dec 2020 11:39:16 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 smtp1.perex.cz D5834A0047
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=perex.cz; s=default;
- t=1608028756; bh=vYmMoAzsDcGbC7WpgKiQvwbvxTvxVbtBC2gNLnxAgPI=;
- h=Subject:To:Cc:References:From:Date:In-Reply-To:From;
- b=i9ACbGHgcHX8bev/Onexa0oagPUd1ag1hJNhQMsUabWa9PQqnnj51ZQsPGXIE3I2x
- eFF9U6e5GhwQPh4uP5jm0wLebbKQARJYrbH0R9j9aJ+sRX8be5MogBZ0+UJWG82uQ3
- zVjcMPFKEMu6wBnxoQiWJfmZ+rRLOSUWX6cEpj+U=
-Received: from p1gen2.perex-int.cz (unknown [192.168.100.98])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested) (Authenticated sender: perex)
- by mail1.perex.cz (Perex's E-mail Delivery System) with ESMTPSA;
- Tue, 15 Dec 2020 11:39:04 +0100 (CET)
-Subject: Re: [PATCH] ASoC: rt715: add main capture switch and main capture
- volume control
-To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- jack.yu@realtek.com, broonie@kernel.org, lgirdwood@gmail.com,
- Takashi Iwai <tiwai@suse.de>
-References: <20201214064903.2746-1-jack.yu@realtek.com>
- <8eeddc8c-91cb-e62d-6114-547117d4d83e@perex.cz>
- <0096059b-de76-d9a3-2446-b4c3becabce8@linux.intel.com>
- <0b0afd81-0595-c661-ec1e-e81b7e8f8fec@perex.cz>
- <7d74544f-77f2-db01-db3d-d1d8a56d576d@linux.intel.com>
-From: Jaroslav Kysela <perex@perex.cz>
-Message-ID: <cb07f528-6c2f-1357-db54-e3d062ad6dd3@perex.cz>
-Date: Tue, 15 Dec 2020 11:39:04 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.3.1
+ by alsa1.perex.cz (Postfix) with ESMTPS id EC7D7F80129
+ for <alsa-devel@alsa-project.org>; Tue, 15 Dec 2020 13:11:57 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EC7D7F80129
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="J+MLxBvB"
+Date: Tue, 15 Dec 2020 12:11:43 +0000
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1608034315;
+ bh=c2r9lfpSJ4qUEj+mjRLVrMrrc10/Xm02J2Np3cRKLl8=;
+ h=From:To:Cc:Subject:References:In-Reply-To:From;
+ b=J+MLxBvBt4mZvbzaExzp2DhRvZvxL0YZPwneEbCOMEL7JKO+HPKBmn0YxSm6Afcc5
+ C4alHbZgCcWUQC4OGfAWi68FrVgunZuiVsTfajLxIHVGTLK/KwtiqRC3+DUC/ZGKuK
+ DK7j8jOvndjNMiOFAeEF5PuviBcLfbqBEQInRYop5q5ueNfXr4/IgC2zsVNbxG2iy5
+ una93RSrljNtlzjXHH18ZcnmiBHSRJu4tz32+UmBkxomO2Z/hfs+tqe6TPZbgfjO+/
+ YeidALlLrWSqV+dr3TK1vKpRd1LJuZh1gK8v4B1kY2STe0k4V7Q9TdZ2na2fFi1V4W
+ DSmhdg61q5v+w==
+From: Mark Brown <broonie@kernel.org>
+To: Bard Liao <yung-chuan.liao@linux.intel.com>
+Subject: Re: [PATCH v2] ASoC: max98373: don't access volatile registers in
+ bias level off
+Message-ID: <20201215121143.GB4738@sirena.org.uk>
+References: <20201214064237.15763-1-yung-chuan.liao@linux.intel.com>
 MIME-Version: 1.0
-In-Reply-To: <7d74544f-77f2-db01-db3d-d1d8a56d576d@linux.intel.com>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
-Cc: oder_chiou@realtek.com, alsa-devel@alsa-project.org, lars@metafoo.de,
- derek.fang@realtek.com, flove@realtek.com, shumingf@realtek.com,
- bard.liao@intel.com
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="98e8jtXdkpgskNou"
+Content-Disposition: inline
+In-Reply-To: <20201214064237.15763-1-yung-chuan.liao@linux.intel.com>
+X-Cookie: In specially marked packages only.
+User-Agent: Mutt/1.10.1 (2018-07-13)
+Cc: alsa-devel@alsa-project.org, ryans.lee@maximintegrated.com, tiwai@suse.de,
+ pierre-louis.bossart@linux.intel.com, vkoul@kernel.org, bard.liao@intel.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -89,70 +80,52 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Dne 14. 12. 20 v 18:12 Pierre-Louis Bossart napsal(a):
-> Hi Jaroslav,
-> 
->>>>> Add main capture switch and main capture volume for callback to be in
->>>>> single operation.
->>>>
->>>> Could you be more verbose, what you're trying to do in the patch description?
->>
->> I see that it's just additional volume coupling functionality (one control,
->> set all four output volume/switch registers, right?).
->>
->> Some points:
->>
->> 1) the separate volume controls don't send change events back to the user
->> space when the coupled capture settings is applied and versa vice - no sync
->> 2) we have already virtual master API - sound/core/vmaster.c which should
->> cover this requirement
->> 3) I don't see the purpose for this coupling (the capture direction)
-> 
-> That was for UCM integration - agree the context was not well captured 
-> in the commit message
-> 
-> We have 'Capture Switch' and 'Capture Volume' statements that are 
-> required, and currently mistakenly set to SOF controls when they should 
-> be codec controls.
-> 
-> So when we have several possible inputs controls for the codec (ADC 07 
-> or ADC 27) depending on the microphone settings, which one should be 
-> used in UCM?
-> 
-> We thought this would simplify the UCM integration by adding one generic 
-> control. If you have a better suggestion we are all ears.
 
-So, it's for the microphone array with four microphones, right? Ideally there
-should be one multi-channel control exported to the user space with the exact
-number of the connected links in hardware. But I know, SoC has universal codec
-drivers which exports the functionality without the detailed knowledge of the
-controlled hardware.
+--98e8jtXdkpgskNou
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-For UCM (without one control for volume and switch), the situation is more
-difficult, because we need to export only one volume/switch control to the
-applications (abstract layer). I see the requirement to describe the more
-complex control mechanism. I have an idea to extend the alsa-lib (mixer
-interface) to allow this description via the alsa-lib configuration files
-which may be eventually part of the UCM configuration. The nice thing is that
-we can specify the custom mixer and control devices for PA already (my latest
-UCM updates in PA 14.0), so there's a room to improve things in the user space.
+On Mon, Dec 14, 2020 at 02:42:37PM +0800, Bard Liao wrote:
 
-My suggestions are (pick one):
+> --- a/sound/soc/codecs/max98373.h
+> +++ b/sound/soc/codecs/max98373.h
+> @@ -203,6 +203,17 @@
+>  /* MAX98373_R2000_SW_RESET */
+>  #define MAX98373_SOFT_RESET (0x1 << 0)
+> =20
+> +struct max98373_cache {
+> +	u32 reg;
+> +	u32 val;
+> +};
+> +
+> +struct max98373_cache max98373_cache[] =3D {
+> +	{MAX98373_R2054_MEAS_ADC_PVDD_CH_READBACK, 0},
+> +	{MAX98373_R2055_MEAS_ADC_THERM_CH_READBACK, 0},
+> +	{MAX98373_R20B6_BDE_CUR_STATE_READBACK, 0},
+> +};
 
-1) create one multichannel control and remove the stereo controls when the
-hardware is detected (no functionality dup)
-2) create proper vmaster control like for HDA playback
-3) wait until UCM can describe this hardware and set the DAC values manually
-to a sensible value via sequences (the specific hardware levels can be set
-using the conditions in UCM)
+This is declaring a variable in the header, meaning there'll be one copy
+in each of the object files using the header and that if they get linked
+into a single object you should get warnings about duplicate symbols.
+It would be better to both allocate the version used at runtime
+dynamically (in case we somehow get multiple max98373s in a system) and
+have this list of registers be a static variable inside the driver code
+which is used to initialize that.
 
-BTW: I see lack of analog volume level controls also for other SDW hardware
-(with the RT1308 amplifier). It's a bit pitty that the audio basics are
-ignored here. Everyone wants to control the analog levels at first for audio
-I/O and then to modify the samples in the digital stream.
+--98e8jtXdkpgskNou
+Content-Type: application/pgp-signature; name="signature.asc"
 
-					Jaroslav
+-----BEGIN PGP SIGNATURE-----
 
--- 
-Jaroslav Kysela <perex@perex.cz>
-Linux Sound Maintainer; ALSA Project; Red Hat, Inc.
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl/Yp/4ACgkQJNaLcl1U
+h9DzMAf8C/D1aPuwe63MmG6NDqCW0KPZckhPnJJYD8C0fnX4HB59Rehqwyaq5dPm
+pXKCUKw9zYgpA7FZFm05BojjHkhmbk+JqS4M4b5eZ63d+goEu6+q+wj3bd0cTe7n
+Sa9iUY6eSDWQ5qisNGWi9/o3xaJ/zCyD8RjUENpiFuE9nYQqbjn7lG6A3zoYyoLH
+WmvRYYPB3ihFKtK8PzI/TTiYWg7G0d0RIpD/V38rqrTv42Bhd4tKV0KFNEvpnYIr
+iAlziKGugMPC9+xZSTCokJED4J4F0LcZ0bF1AmFoSPu1lJjMQEoeTsYiS+X5OxLg
+g0rhXU16htP6QBH2ZV+L71m9vkmPFw==
+=fmSH
+-----END PGP SIGNATURE-----
+
+--98e8jtXdkpgskNou--

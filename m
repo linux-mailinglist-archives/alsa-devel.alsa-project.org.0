@@ -2,91 +2,78 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7D1A12DAACD
-	for <lists+alsa-devel@lfdr.de>; Tue, 15 Dec 2020 11:25:07 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 484E62DAB04
+	for <lists+alsa-devel@lfdr.de>; Tue, 15 Dec 2020 11:41:04 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 1180C17E3;
-	Tue, 15 Dec 2020 11:24:17 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1180C17E3
+	by alsa0.perex.cz (Postfix) with ESMTPS id CCE5717F3;
+	Tue, 15 Dec 2020 11:40:13 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CCE5717F3
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1608027907;
-	bh=hD7oXNIPpLCQe8EUvTgaEBgNT6PCIn+D+UH0hbwJECI=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1608028863;
+	bh=xxh0DhMEN5NEpTvWzSFzUWZHMsJ9elWVAaAXvx8+zDw=;
+	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=p/etho0nfcR+rGPQX0nWUwnfFY4ZZZwwAkePYKcnGt2w1MI4sxArRb0TTVxKEA4aT
-	 qqtH6GSeCoKLUwJF05GVuEFX9Z5C/TO50jJPRCeUcV22sBa3VnRaOprCYD/7p00qil
-	 p3V/EznosuaUekxb1n2RoiF+N1MGUkT0pAtre17k=
+	b=R4kZNifiWNEcfb5Inh7/cOZQXYP7Q93DHYmONc2FETYE/k4qN0i2rta8LM4h0uyYO
+	 R/cLCnECJoQUJfeR/22ILpY4brezSlaBzX3oNomtBLdenzUtBDYWrWU8Jvr69s5ISr
+	 qdnOzC2yflhsSWYkEH0+AEKZlOxLJmxyKspq4kcY=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 42A70F8014B;
-	Tue, 15 Dec 2020 11:23:31 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 2B400F8027B;
+	Tue, 15 Dec 2020 11:39:28 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 4A232F80278; Tue, 15 Dec 2020 11:23:29 +0100 (CET)
+ id 668B7F80278; Tue, 15 Dec 2020 11:39:26 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mx0b-001ae601.pphosted.com (mx0a-001ae601.pphosted.com
- [67.231.149.25])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_PASS,SPF_NONE,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from mail1.perex.cz (mail1.perex.cz [77.48.224.245])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 32DE3F8014B
- for <alsa-devel@alsa-project.org>; Tue, 15 Dec 2020 11:23:17 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 32DE3F8014B
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=cirrus.com header.i=@cirrus.com
- header.b="PwGRccYF"
-Received: from pps.filterd (m0077473.ppops.net [127.0.0.1])
- by mx0a-001ae601.pphosted.com (8.16.0.43/8.16.0.43) with SMTP id
- 0BFAMkmt031377; Tue, 15 Dec 2020 04:23:15 -0600
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com;
- h=date : from : to : cc
- : subject : message-id : references : mime-version : content-type :
- in-reply-to; s=PODMain02222019;
- bh=tvQrv/ItfE78XRSohMF/HJEtdwtZZi+AiD3Wfw82lT4=;
- b=PwGRccYFmlBlAWmufhrIJD0yvLKqLJi0MosBRl7FsXhox0AL77Mj9nDPm+HrBmxW8NZr
- W/wWLESYPYtqcdwwjvrURPsowQZubuqAwUhI1x7BHbiWL3KRdWy6p5GGhfcgggDU56xP
- 8pklTAy9DLO8sDeR2gZPUCPB3IsOkue8RF7hn3jD2gMxZmrG8ixal13ijvbNjJBy851a
- tFF7kbo/tKjBFrzll31oM2audzjTuZkdg3WI4F3G7SDtWYG7tGfrzPXgBe4R0R/PE4Qu
- NZqTrBHWMsujwiturDSQtVlsz7RhxsCmDALiCpRAY1XvHZx9RxWg7OWtE+uxjFYT5KTX PA== 
-Received: from ediex01.ad.cirrus.com ([87.246.76.36])
- by mx0a-001ae601.pphosted.com with ESMTP id 35cv56kkmw-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT);
- Tue, 15 Dec 2020 04:23:15 -0600
-Received: from EDIEX01.ad.cirrus.com (198.61.84.80) by EDIEX01.ad.cirrus.com
- (198.61.84.80) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1913.5; Tue, 15 Dec
- 2020 10:23:13 +0000
-Received: from ediswmail.ad.cirrus.com (198.61.86.93) by EDIEX01.ad.cirrus.com
- (198.61.84.80) with Microsoft SMTP Server id 15.1.1913.5 via Frontend
- Transport; Tue, 15 Dec 2020 10:23:13 +0000
-Received: from ediswmail.ad.cirrus.com (ediswmail.ad.cirrus.com [198.61.86.93])
- by ediswmail.ad.cirrus.com (Postfix) with ESMTP id 881E811CC;
- Tue, 15 Dec 2020 10:23:13 +0000 (UTC)
-Date: Tue, 15 Dec 2020 10:23:13 +0000
-From: Charles Keepax <ckeepax@opensource.cirrus.com>
-To: Thomas Hebb <tommyhebb@gmail.com>
-Subject: Re: [PATCH] ASoC: dapm: remove widget from dirty list on free
-Message-ID: <20201215102313.GD9673@ediswmail.ad.cirrus.com>
-References: <f8b5f031d50122bf1a9bfc9cae046badf4a7a31a.1607822410.git.tommyhebb@gmail.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id C2809F8014B
+ for <alsa-devel@alsa-project.org>; Tue, 15 Dec 2020 11:39:17 +0100 (CET)
+Received: from mail1.perex.cz (localhost [127.0.0.1])
+ by smtp1.perex.cz (Perex's E-mail Delivery System) with ESMTP id D5834A0047;
+ Tue, 15 Dec 2020 11:39:16 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 smtp1.perex.cz D5834A0047
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=perex.cz; s=default;
+ t=1608028756; bh=vYmMoAzsDcGbC7WpgKiQvwbvxTvxVbtBC2gNLnxAgPI=;
+ h=Subject:To:Cc:References:From:Date:In-Reply-To:From;
+ b=i9ACbGHgcHX8bev/Onexa0oagPUd1ag1hJNhQMsUabWa9PQqnnj51ZQsPGXIE3I2x
+ eFF9U6e5GhwQPh4uP5jm0wLebbKQARJYrbH0R9j9aJ+sRX8be5MogBZ0+UJWG82uQ3
+ zVjcMPFKEMu6wBnxoQiWJfmZ+rRLOSUWX6cEpj+U=
+Received: from p1gen2.perex-int.cz (unknown [192.168.100.98])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested) (Authenticated sender: perex)
+ by mail1.perex.cz (Perex's E-mail Delivery System) with ESMTPSA;
+ Tue, 15 Dec 2020 11:39:04 +0100 (CET)
+Subject: Re: [PATCH] ASoC: rt715: add main capture switch and main capture
+ volume control
+To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ jack.yu@realtek.com, broonie@kernel.org, lgirdwood@gmail.com,
+ Takashi Iwai <tiwai@suse.de>
+References: <20201214064903.2746-1-jack.yu@realtek.com>
+ <8eeddc8c-91cb-e62d-6114-547117d4d83e@perex.cz>
+ <0096059b-de76-d9a3-2446-b4c3becabce8@linux.intel.com>
+ <0b0afd81-0595-c661-ec1e-e81b7e8f8fec@perex.cz>
+ <7d74544f-77f2-db01-db3d-d1d8a56d576d@linux.intel.com>
+From: Jaroslav Kysela <perex@perex.cz>
+Message-ID: <cb07f528-6c2f-1357-db54-e3d062ad6dd3@perex.cz>
+Date: Tue, 15 Dec 2020 11:39:04 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.3.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Disposition: inline
-In-Reply-To: <f8b5f031d50122bf1a9bfc9cae046badf4a7a31a.1607822410.git.tommyhebb@gmail.com>
-User-Agent: Mutt/1.5.21 (2010-09-15)
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0
- lowpriorityscore=0 spamscore=0
- clxscore=1011 impostorscore=0 priorityscore=1501 phishscore=0 mlxscore=0
- mlxlogscore=999 suspectscore=0 bulkscore=0 malwarescore=0 adultscore=0
- classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2009150000
- definitions=main-2012150073
-Cc: alsa-devel@alsa-project.org, Takashi Iwai <tiwai@suse.com>,
- Liam Girdwood <lgirdwood@gmail.com>, stable@vger.kernel.org,
- linux-kernel@vger.kernel.org, Mark Brown <broonie@kernel.org>
+In-Reply-To: <7d74544f-77f2-db01-db3d-d1d8a56d576d@linux.intel.com>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
+Cc: oder_chiou@realtek.com, alsa-devel@alsa-project.org, lars@metafoo.de,
+ derek.fang@realtek.com, flove@realtek.com, shumingf@realtek.com,
+ bard.liao@intel.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -102,45 +89,70 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Sat, Dec 12, 2020 at 05:20:12PM -0800, Thomas Hebb wrote:
-> A widget's "dirty" list_head, much like its "list" list_head, eventually
-> chains back to a list_head on the snd_soc_card itself. This means that
-> the list can stick around even after the widget (or all widgets) have
-> been freed. Currently, however, widgets that are in the dirty list when
-> freed remain there, corrupting the entire list and leading to memory
-> errors and undefined behavior when the list is next accessed or
-> modified.
+Dne 14. 12. 20 v 18:12 Pierre-Louis Bossart napsal(a):
+> Hi Jaroslav,
 > 
-> I encountered this issue when a component failed to probe relatively
-> late in snd_soc_bind_card(), causing it to bail out and call
-> soc_cleanup_card_resources(), which eventually called
-> snd_soc_dapm_free() with widgets that were still dirty from when they'd
-> been added.
+>>>>> Add main capture switch and main capture volume for callback to be in
+>>>>> single operation.
+>>>>
+>>>> Could you be more verbose, what you're trying to do in the patch description?
+>>
+>> I see that it's just additional volume coupling functionality (one control,
+>> set all four output volume/switch registers, right?).
+>>
+>> Some points:
+>>
+>> 1) the separate volume controls don't send change events back to the user
+>> space when the coupled capture settings is applied and versa vice - no sync
+>> 2) we have already virtual master API - sound/core/vmaster.c which should
+>> cover this requirement
+>> 3) I don't see the purpose for this coupling (the capture direction)
 > 
-> Fixes: db432b414e20 ("ASoC: Do DAPM power checks only for widgets changed since last run")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Thomas Hebb <tommyhebb@gmail.com>
-> ---
+> That was for UCM integration - agree the context was not well captured 
+> in the commit message
 > 
->  sound/soc/soc-dapm.c | 1 +
->  1 file changed, 1 insertion(+)
+> We have 'Capture Switch' and 'Capture Volume' statements that are 
+> required, and currently mistakenly set to SOF controls when they should 
+> be codec controls.
 > 
-> diff --git a/sound/soc/soc-dapm.c b/sound/soc/soc-dapm.c
-> index 7f87b449f950..148c095df27b 100644
-> --- a/sound/soc/soc-dapm.c
-> +++ b/sound/soc/soc-dapm.c
-> @@ -2486,6 +2486,7 @@ void snd_soc_dapm_free_widget(struct snd_soc_dapm_widget *w)
->  	enum snd_soc_dapm_direction dir;
->  
->  	list_del(&w->list);
-> +	list_del(&w->dirty);
+> So when we have several possible inputs controls for the codec (ADC 07 
+> or ADC 27) depending on the microphone settings, which one should be 
+> used in UCM?
+> 
+> We thought this would simplify the UCM integration by adding one generic 
+> control. If you have a better suggestion we are all ears.
 
-I can't help but wonder if we should be taking the DAPM lock for
-snd_soc_dapm_free_widgets. However your patch doesn't look like it
-is making that any more scary and looks like we should be making
-sure we remove the widget from the dirty list.
+So, it's for the microphone array with four microphones, right? Ideally there
+should be one multi-channel control exported to the user space with the exact
+number of the connected links in hardware. But I know, SoC has universal codec
+drivers which exports the functionality without the detailed knowledge of the
+controlled hardware.
 
-Reviewed-by: Charles Keepax <ckeepax@opensource.cirrus.com>
+For UCM (without one control for volume and switch), the situation is more
+difficult, because we need to export only one volume/switch control to the
+applications (abstract layer). I see the requirement to describe the more
+complex control mechanism. I have an idea to extend the alsa-lib (mixer
+interface) to allow this description via the alsa-lib configuration files
+which may be eventually part of the UCM configuration. The nice thing is that
+we can specify the custom mixer and control devices for PA already (my latest
+UCM updates in PA 14.0), so there's a room to improve things in the user space.
 
-Thanks,
-Charles
+My suggestions are (pick one):
+
+1) create one multichannel control and remove the stereo controls when the
+hardware is detected (no functionality dup)
+2) create proper vmaster control like for HDA playback
+3) wait until UCM can describe this hardware and set the DAC values manually
+to a sensible value via sequences (the specific hardware levels can be set
+using the conditions in UCM)
+
+BTW: I see lack of analog volume level controls also for other SDW hardware
+(with the RT1308 amplifier). It's a bit pitty that the audio basics are
+ignored here. Everyone wants to control the analog levels at first for audio
+I/O and then to modify the samples in the digital stream.
+
+					Jaroslav
+
+-- 
+Jaroslav Kysela <perex@perex.cz>
+Linux Sound Maintainer; ALSA Project; Red Hat, Inc.

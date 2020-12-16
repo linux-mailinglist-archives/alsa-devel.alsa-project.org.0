@@ -2,62 +2,86 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9CEB82DBF59
-	for <lists+alsa-devel@lfdr.de>; Wed, 16 Dec 2020 12:27:26 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 095EF2DBF5A
+	for <lists+alsa-devel@lfdr.de>; Wed, 16 Dec 2020 12:28:09 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 9B15F179E;
-	Wed, 16 Dec 2020 12:26:35 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9B15F179E
+	by alsa0.perex.cz (Postfix) with ESMTPS id 8867517AF;
+	Wed, 16 Dec 2020 12:27:18 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8867517AF
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1608118045;
-	bh=UyldxBFdLzj10sV5PQGFDw09JdzGQsCJfBCkmubOPNU=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=BK4Z6tGxFdv5lsjKe7li7kPccdeD1hYmA+vvnBJ1gP5ujysEAK4IoUvRj1wh9CGuf
-	 rG0OwbQmbC9w6YrbgJ/YSWz0mztwCE3nB+1jtECnHKHaaaLjugduvFugPzJLwc1MrY
-	 E+wYY1NcKphkZ0I4gjgFZoJGHxhFdcAfPv/8JHBM=
+	s=default; t=1608118088;
+	bh=A1HTWkrMiCWdXjch8Wdo2LEnpiN677jiCEapc6u0XM0=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=G3Vu0wVBjXUurcaDNiMB8Gzp7BA4JaYLc3XuEe4RICSjrgjYNS9ySniav2Mea2EBe
+	 ySQPUfSSTDfvvXrJAWD+tksJu/cQgKBbInAHyMJ9ttjTH9lp9cxrcGHho5LULB7Znp
+	 WS1vEkE+/HKC9Ab23Z8riOfP8en06fANsQDSZcPk=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id B4FCDF80274;
-	Wed, 16 Dec 2020 12:26:25 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 63778F8014B;
+	Wed, 16 Dec 2020 12:26:51 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id F1244F80272; Wed, 16 Dec 2020 12:26:23 +0100 (CET)
+ id B3354F80276; Wed, 16 Dec 2020 12:26:49 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from youngberry.canonical.com (youngberry.canonical.com
- [91.189.89.112])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
+Received: from mail-lf1-x12b.google.com (mail-lf1-x12b.google.com
+ [IPv6:2a00:1450:4864:20::12b])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id C3422F801F7
- for <alsa-devel@alsa-project.org>; Wed, 16 Dec 2020 12:26:17 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C3422F801F7
-Received: from 1.general.cking.uk.vpn ([10.172.193.212] helo=localhost)
- by youngberry.canonical.com with esmtpsa
- (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.86_2)
- (envelope-from <colin.king@canonical.com>)
- id 1kpUwb-0003B8-76; Wed, 16 Dec 2020 11:26:09 +0000
-From: Colin King <colin.king@canonical.com>
-To: Codrin Ciubotariu <codrin.ciubotariu@microchip.com>,
- Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
- Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
- Nicolas Ferre <nicolas.ferre@microchip.com>,
- Alexandre Belloni <alexandre.belloni@bootlin.com>,
- Ludovic Desroches <ludovic.desroches@microchip.com>,
- alsa-devel@alsa-project.org, linux-arm-kernel@lists.infradead.org
-Subject: [PATCH] ASoC: atmel: fix spelling mistake in Kconfig "programable" ->
- "programmable"
-Date: Wed, 16 Dec 2020 11:26:08 +0000
-Message-Id: <20201216112608.11385-1-colin.king@canonical.com>
-X-Mailer: git-send-email 2.29.2
+ by alsa1.perex.cz (Postfix) with ESMTPS id C403FF8014B
+ for <alsa-devel@alsa-project.org>; Wed, 16 Dec 2020 12:26:43 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C403FF8014B
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
+ header.b="VubTArQy"
+Received: by mail-lf1-x12b.google.com with SMTP id a12so47428634lfl.6
+ for <alsa-devel@alsa-project.org>; Wed, 16 Dec 2020 03:26:43 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=A1HTWkrMiCWdXjch8Wdo2LEnpiN677jiCEapc6u0XM0=;
+ b=VubTArQyVKuBy9L0rcU2Q1ai7i/hMZSI0M3LocyMZkbn40L9Pa4IE3DCjUd3BePaJk
+ HIPrW2ucNhY60O1nQ+wubUIaRpxry4wVQkGLP1LMST3busHi10lTW3pOvVWG13o5r6a6
+ h+tU2Gxt3mbmvTTsnjz6MZkurzo93qEug9iioXyMdQ0jHJGUS/29ssxKUB0mzkx+aGYk
+ QjGN5XJzxIlC5dc/tL/ZoaXGJMHkgpTYh3Gq1TKLPnJhAHoYNAqdWwweISe+/QbkUkZH
+ 4Y9H8NOwsLkfLLN7A/TBdlNmKUGweFK+vUwFI4z5ZwWoxObXUjq7aE62sRtn8VEvivD9
+ kHjg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=A1HTWkrMiCWdXjch8Wdo2LEnpiN677jiCEapc6u0XM0=;
+ b=asiLbzhzvNCuY2Qjhmi1Myrb3mUqjFT30mrSPEyBKtV+aRZtR5f0mGmOvC6YaA/aBH
+ kxIrirfgW7/I9+N95JBQ3WU7Q52fbJHh+bdWxxCPdezalj9QxRC/XFJyiOeKF85oROKY
+ PC5FzD5RbJZq8IfkzoQwpkOjvgHrLESlQLYeFGkvCT3o2OE4JvlfN/Y1WF6SLZjKwkdM
+ 3PAjNkpf8EExBwGK+FW0dMERGaSJBAp8aTxO7tdznTyqCucMunimOnm3DoATipSkgeLk
+ A8drMIlHItoo9rU4M0SZzlk2s8TDq0Nv1ThwAaOFIvlSk1NsoTyThQLoew/JaXQ1d5cS
+ inNA==
+X-Gm-Message-State: AOAM530iTSRHvMLg8AtQc8SD7kA6s4vBnvoaVkuoUTX6JDXJqfbutOXM
+ TGtGyiatcYlgCQx5tf1xB0PyLPFXZVV0pn3xKbA=
+X-Google-Smtp-Source: ABdhPJzk/F6xIDInXWPZPHeXBh5fRXip+E/mflmi6fxiAaY9HM5oFMwVy4lMd60HPoOAvl0PjA0S0EIA+xOtADyK5iA=
+X-Received: by 2002:a2e:8416:: with SMTP id z22mr14917310ljg.347.1608118002624; 
+ Wed, 16 Dec 2020 03:26:42 -0800 (PST)
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Cc: kernel-janitors@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <1608115464-18710-1-git-send-email-shengjiu.wang@nxp.com>
+In-Reply-To: <1608115464-18710-1-git-send-email-shengjiu.wang@nxp.com>
+From: Fabio Estevam <festevam@gmail.com>
+Date: Wed, 16 Dec 2020 08:26:31 -0300
+Message-ID: <CAOMZO5AgZhJL-wPXwAt0J=fCt+RA-Toj56X6t9W+HaWuat5VMg@mail.gmail.com>
+Subject: Re: [PATCH] ASoC: imx-hdmi: Fix warning of the uninitialized variable
+ ret
+To: Shengjiu Wang <shengjiu.wang@nxp.com>
+Content-Type: text/plain; charset="UTF-8"
+Cc: Linux-ALSA <alsa-devel@alsa-project.org>, Timur Tabi <timur@kernel.org>,
+ Xiubo Li <Xiubo.Lee@gmail.com>, linux-kernel <linux-kernel@vger.kernel.org>,
+ Takashi Iwai <tiwai@suse.com>, Nicolin Chen <nicoleotsuka@gmail.com>,
+ Mark Brown <broonie@kernel.org>, linuxppc-dev@lists.ozlabs.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -73,35 +97,23 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: Colin Ian King <colin.king@canonical.com>
+Hi Shengjiu,
 
-There are a couple of spelling mistakes in the Kconfig help text. Fix them.
+On Wed, Dec 16, 2020 at 7:52 AM Shengjiu Wang <shengjiu.wang@nxp.com> wrote:
+>
+> From: shengjiu wang <shengjiu.wang@nxp.com>
+>
+> When condition ((hdmi_out && hdmi_in) || (!hdmi_out && !hdmi_in))
+> is true, then goto fail, the uninitialized variable ret will be
+> returned.
+>
+> Signed-off-by: shengjiu wang <shengjiu.wang@nxp.com>
+> Reported-by: kernel test robot <lkp@intel.com>
 
-Signed-off-by: Colin Ian King <colin.king@canonical.com>
----
- sound/soc/atmel/Kconfig | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+Thanks for the fix.
 
-diff --git a/sound/soc/atmel/Kconfig b/sound/soc/atmel/Kconfig
-index 142373ec411a..9fe9471f4514 100644
---- a/sound/soc/atmel/Kconfig
-+++ b/sound/soc/atmel/Kconfig
-@@ -143,7 +143,7 @@ config SND_MCHP_SOC_SPDIFTX
- 	  - sama7g5
- 
- 	  This S/PDIF TX driver is compliant with IEC-60958 standard and
--	  includes programable User Data and Channel Status fields.
-+	  includes programmable User Data and Channel Status fields.
- 
- config SND_MCHP_SOC_SPDIFRX
- 	tristate "Microchip ASoC driver for boards using S/PDIF RX"
-@@ -157,5 +157,5 @@ config SND_MCHP_SOC_SPDIFRX
- 	  - sama7g5
- 
- 	  This S/PDIF RX driver is compliant with IEC-60958 standard and
--	  includes programable User Data and Channel Status fields.
-+	  includes programmable User Data and Channel Status fields.
- endif
--- 
-2.29.2
+This should have:
 
+Fixes: 6a5f850aa83a ("ASoC: fsl: Add imx-hdmi machine driver")
+
+Reviewed-by: Fabio Estevam <festevam@gmail.com>

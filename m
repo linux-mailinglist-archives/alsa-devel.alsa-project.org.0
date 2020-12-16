@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7EDF52DC385
-	for <lists+alsa-devel@lfdr.de>; Wed, 16 Dec 2020 16:55:12 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id A040A2DC392
+	for <lists+alsa-devel@lfdr.de>; Wed, 16 Dec 2020 16:56:41 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 1574D182A;
-	Wed, 16 Dec 2020 16:54:22 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1574D182A
+	by alsa0.perex.cz (Postfix) with ESMTPS id 3A1D117ED;
+	Wed, 16 Dec 2020 16:55:51 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3A1D117ED
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1608134112;
-	bh=88R5HX8QPG4Rb/zadgAFPZrUoglDHE4sM8jJ+aR23aU=;
+	s=default; t=1608134201;
+	bh=cAAklVST+xPb2zoWDWtegqkPh2oe2H6Fu7I1Tz48mHM=;
 	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=Twx4K1q4StfCZg7oOAXgBwdIxOWaR98KAJzZqO1mG2tWvEkt0Z6IxO0d4Yjjbxx6o
-	 9XFIBWQaYuq0E8s0W1sYraK0O8P+LO8S3H2IqP9Ex5C12BJe3mh7CZHEeRGSIYOoOt
-	 nQqwU8bsCz2nEZkuDp+0KXaTfyd0jBR/FtthfF/k=
+	b=nnEMtiIn3B/0Lm5MqWGC8oOeotZ53712/fb1Bns7vK2LTEahtiR0wMWCt48HamsYk
+	 rHjd4iAuTssDEkOZ+4oNiONg3NM/q/IwY8zFb8ft7xm97ZgE4Tu/0mlD7Kw5ahJpmj
+	 WMakxH+j66ww+CQd/ibbMjJgMtKYYjj987MmQHxE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 24A40F804C2;
-	Wed, 16 Dec 2020 16:53:27 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id EC2E9F804D6;
+	Wed, 16 Dec 2020 16:53:42 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 27C3CF80276; Wed, 16 Dec 2020 16:53:25 +0100 (CET)
+ id D2759F804E2; Wed, 16 Dec 2020 16:53:40 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE
@@ -33,25 +33,25 @@ X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id BA358F80276
- for <alsa-devel@alsa-project.org>; Wed, 16 Dec 2020 16:53:22 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BA358F80276
+ by alsa1.perex.cz (Postfix) with ESMTPS id 9F0F8F804D6
+ for <alsa-devel@alsa-project.org>; Wed, 16 Dec 2020 16:53:38 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9F0F8F804D6
 From: Mark Brown <broonie@kernel.org>
 Authentication-Results: mail.kernel.org;
  dkim=permerror (bad message/signature format)
-To: robh+dt@kernel.org, Peter Ujfalusi <peter.ujfalusi@ti.com>,
- lgirdwood@gmail.com, jarkko.nikula@bitmer.com
-In-Reply-To: <20201215130512.8753-1-peter.ujfalusi@ti.com>
-References: <20201215130512.8753-1-peter.ujfalusi@ti.com>
-Subject: Re: [PATCH 0/2] ASoC: ti: Maintainer mail address change
-Message-Id: <160813397774.31838.10952894427041068328.b4-ty@kernel.org>
+To: nicoleotsuka@gmail.com, Xiubo.Lee@gmail.com, timur@kernel.org,
+ tiwai@suse.com, Shengjiu Wang <shengjiu.wang@nxp.com>, perex@perex.cz,
+ festevam@gmail.com, alsa-devel@alsa-project.org
+In-Reply-To: <1608115464-18710-1-git-send-email-shengjiu.wang@nxp.com>
+References: <1608115464-18710-1-git-send-email-shengjiu.wang@nxp.com>
+Subject: Re: [PATCH] ASoC: imx-hdmi: Fix warning of the uninitialized variable
+ ret
+Message-Id: <160813397775.31838.8934909997692637790.b4-ty@kernel.org>
 Date: Wed, 16 Dec 2020 15:52:57 +0000
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- linux-kernel@vger.kernel.org, jsarha@ti.com, tiwai@suse.com,
- linux-omap@vger.kernel.org, linux-arm-kernel@lists.infradead.org
+Cc: linuxppc-dev@lists.ozlabs.org, linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -67,12 +67,10 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Tue, 15 Dec 2020 15:05:10 +0200, Peter Ujfalusi wrote:
-> My TI address is going to bounce after Friday (18.12.2020), switch my email
-> address to my private one for now.
-> 
-> Regards,
-> Peter
+On Wed, 16 Dec 2020 18:44:24 +0800, Shengjiu Wang wrote:
+> When condition ((hdmi_out && hdmi_in) || (!hdmi_out && !hdmi_in))
+> is true, then goto fail, the uninitialized variable ret will be
+> returned.
 
 Applied to
 
@@ -80,10 +78,8 @@ Applied to
 
 Thanks!
 
-[1/2] MAINTAINERS: Update email address for TI ASoC and twl4030 codec drivers
-      commit: fe6ce6c394fb1ef1d8a6384c5180e70893157f22
-[2/2] ASoC: dt-bindings: ti, j721e: Update maintainer and author information
-      commit: 61fc03b6512b18f27a25002426d595f5a36645ed
+[1/1] ASoC: imx-hdmi: Fix warning of the uninitialized variable ret
+      commit: acd894aee3149c15847bc4f0690fccba59ced5e7
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

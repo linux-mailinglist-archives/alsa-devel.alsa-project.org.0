@@ -2,91 +2,69 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C8B892DD538
-	for <lists+alsa-devel@lfdr.de>; Thu, 17 Dec 2020 17:31:29 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0A21B2DD536
+	for <lists+alsa-devel@lfdr.de>; Thu, 17 Dec 2020 17:30:29 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 67B9B193E;
-	Thu, 17 Dec 2020 17:30:39 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 67B9B193E
+	by alsa0.perex.cz (Postfix) with ESMTPS id 95E4918D4;
+	Thu, 17 Dec 2020 17:29:33 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 95E4918D4
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1608222689;
-	bh=gURtfj7Nomx5Rd/VJJ/RgQSbyibCEkvIZdmyU49eSQI=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=sdL1p0pEBjGzaEZnsa12+92TXurCqe+IBlLWuBJfwfbLdxzLbIzgctuoWm14Pb4c+
-	 j6Q9hEwu03AZUyZuRFhVdKXCYKt7/bENXqmKG5mjQKi3XiRA3YlZRRB6PcOc4HlXQ6
-	 KzC0xJ1ijJEcMJpKYuswDiYfF2CUc0NkZtaq4iG8=
+	s=default; t=1608222623;
+	bh=3lxfvae9XNfolbvHOgxOTcGIlQ5BWuT0EDRDkG3qfvA=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=MdeNk22xDQMzgO63T0CygHidrvxRDAAw4ObwbsBRBIqhnvMOxIzh6R16mWqndx8If
+	 mZBAqZ/CXWJaln5MPC8JWKcRlz7Adnt16kQrlppUWa4iLfWyJyktooBPUQetROGUEj
+	 z1ive5Erpa5ti2RBs3ZVtG8qM2/tY+DTzgQEcT9U=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 6B3F3F804B0;
-	Thu, 17 Dec 2020 17:29:52 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 06B9EF80278;
+	Thu, 17 Dec 2020 17:28:48 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id D6D45F80260; Thu, 17 Dec 2020 17:28:06 +0100 (CET)
+ id 648A2F80260; Thu, 17 Dec 2020 17:28:46 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU, FREEMAIL_ENVFROM_END_DIGIT, FREEMAIL_FROM, SPF_HELO_NONE,
- SPF_NONE, URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mail-il1-x129.google.com (mail-il1-x129.google.com
- [IPv6:2607:f8b0:4864:20::129])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Level: *
+X-Spam-Status: No, score=1.0 required=5.0 tests=PRX_BODY_30,SPF_HELO_NONE,
+ SPF_NONE autolearn=disabled version=3.4.0
+Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 1D70FF800C7
- for <alsa-devel@alsa-project.org>; Thu, 17 Dec 2020 17:27:58 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1D70FF800C7
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="tIiDpTuJ"
-Received: by mail-il1-x129.google.com with SMTP id 75so14318379ilv.13
- for <alsa-devel@alsa-project.org>; Thu, 17 Dec 2020 08:27:57 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=DqaDdh80Jc1X6em3g1sQbEFqj9BR18AP205Qoq6HnvQ=;
- b=tIiDpTuJUZPZzRuoSNxcEPMns83IKTVDMFVatIG6cEzvgpI9TGROx8mKgey/PdLUvF
- q9ySr5AgJKnk2ePIfS9NC1Wbci3eqxUW34HmeQrCEd+bb6T48DMLxizg1Tq+sDP/G/7I
- rNRqTFi/0iW797CYfh4tw5wIwIuvmIrBOQjZJe8WkiGYJLRJDHBseC8LkqvRX+zx/Miq
- hi1g8aDu6ikI7ehLZa1esCx+scEfjz/WE8AOKgkK+L+lSBDXK17HQcbzAp1mfDnvuT3Y
- p995VwDnMUXD7H3aVEdtcDPqIziy6Cd2C1AXa2xRgXH37JkjjRGpwqrvBDFp5ewboE1W
- X6rQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=DqaDdh80Jc1X6em3g1sQbEFqj9BR18AP205Qoq6HnvQ=;
- b=P4Yd3A/pnyBl6V1AdAAV+NdrWnOMpKdzHXjtYhQfuqfWceGYnZp+WbdiWEF6zshnWy
- llYmIhUysXf9fR8oRvUJCopx9XoSo1ohPgGNdY7K+VENeaSCqjfsZOZsKAltgmAJ6/Ie
- sdGjF7TYWmjIvk9T0cwHd54UryOsR8twSV2sCSlAaxXpE8BTSUlpISEZAKLbD4KaJOw5
- u6Ybl0lVt7dSbMgltPmq2G5rSbtySireWifxm72NQU6Y6PsXEOQ6eOEQCbung/tJDlaL
- CYm9oAfXrqLmOv2b8xmu4hpoJC21ZYI3nSsQIqhF4BTI17UwN15yMJoH1s0cFVZqR/h6
- /Ufw==
-X-Gm-Message-State: AOAM533GjWIhccgVDZ2mCr604ucDyNquwS8h+/wyOVKkORaiz2kASRg1
- uK/xDt3PEvmDWwiNeUGhnLp7sZmhCZQMrw==
-X-Google-Smtp-Source: ABdhPJx4ygJHmJS4lU4rhhfgBUhLOTH4vOjx/1K+DgCxR3OuwVOeTbo1edMUcENQmcdfJeqDcYgd2A==
-X-Received: by 2002:a05:6e02:4ae:: with SMTP id
- e14mr48619070ils.132.1608222475876; 
- Thu, 17 Dec 2020 08:27:55 -0800 (PST)
-Received: from aford-IdeaCentre-A730.lan
- ([2601:448:8400:9e8:f45d:df49:9a4c:4914])
- by smtp.gmail.com with ESMTPSA id y14sm3416240ilb.66.2020.12.17.08.27.54
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 17 Dec 2020 08:27:55 -0800 (PST)
-From: Adam Ford <aford173@gmail.com>
-To: alsa-devel@alsa-project.org
-Subject: [PATCH] ASoC: wm8962: Add optional mclk device tree binding
-Date: Thu, 17 Dec 2020 10:27:40 -0600
-Message-Id: <20201217162740.1452000-1-aford173@gmail.com>
-X-Mailer: git-send-email 2.25.1
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Thu, 17 Dec 2020 17:29:50 +0100
-Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- aford@beaconembedded.com, Rob Herring <robh+dt@kernel.org>,
- Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
- Geert Uytterhoeven <geert@linux-m68k.org>, Adam Ford <aford173@gmail.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 0C189F8014B
+ for <alsa-devel@alsa-project.org>; Thu, 17 Dec 2020 17:28:41 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0C189F8014B
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id F1A76AC90;
+ Thu, 17 Dec 2020 16:28:40 +0000 (UTC)
+Date: Thu, 17 Dec 2020 17:28:40 +0100
+Message-ID: <s5hh7okjt1j.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Lars-Peter Clausen <lars@metafoo.de>
+Subject: Re: [PATCH v1 ] ALSA: core: memalloc: add page alignment for iram
+In-Reply-To: <98fd6adb-5bae-56ce-c52b-f778f92f6a2d@metafoo.de>
+References: <1608221747-3474-1-git-send-email-yibin.gong@nxp.com>
+ <05c824e5-0c33-4182-26fa-b116a42b10d6@metafoo.de>
+ <s5h5z50n4dd.wl-tiwai@suse.de>
+ <70074f62-954a-9b40-ab4a-cb438925060c@metafoo.de>
+ <s5hmtyclmig.wl-tiwai@suse.de>
+ <8e103a2b-1097-6d54-7266-34743321efac@metafoo.de>
+ <s5hwnxgjysq.wl-tiwai@suse.de>
+ <1fc18b56-effa-9dbc-8263-00c632e163e7@metafoo.de>
+ <s5hmtycjwam.wl-tiwai@suse.de>
+ <98fd6adb-5bae-56ce-c52b-f778f92f6a2d@metafoo.de>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
+ FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
+ (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
+Content-Type: text/plain; charset=US-ASCII
+Cc: alsa-devel@alsa-project.org, gustavoars@kernel.org,
+ linux-kernel@vger.kernel.org, shengjiu.wang@nxp.com, tiwai@suse.com,
+ pierre-louis.bossart@linux.intel.com, xiang@kernel.org,
+ Robin Gong <yibin.gong@nxp.com>, akpm@linux-foundation.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -102,34 +80,52 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-The driver can request an optional clock for mclk.
-Update the txt file to reflect this.
+On Thu, 17 Dec 2020 16:38:22 +0100,
+Lars-Peter Clausen wrote:
+> 
+> >> Maybe what we need is a check that runtime->dma_area is page aligned
+> >> and runtime->dma_bytes is a multiple of PAGE_SIZE. With a warning at
+> >> first and then turn this into a error a year later or so.
+> > OK, how about the following instead?
+> > Just check SNDRV_PCM_INFO_MMAP in runtime->info; if this is set, the
+> > buffer size must be aligned with the page size, and we are safe to
+> > extend the size to clear.
+> >
+> > So the revised fix is much simpler, something like below.
+> 
+> I think this will work for the leaking data issue.
+> 
+> But it will not help with the original issue that
+> gen_pool_dma_alloc_align() does not reserve the remainder of the page
+> and could give it out to other allocations. We'd need a separate patch
+> for that.
 
-Suggested-by: Geert Uytterhoeven <geert@linux-m68k.org>
-Signed-off-by: Adam Ford <aford173@gmail.com>
+That can be fixed by the pcm_memory.c change in the previous patch.
+Recited below.
 
-diff --git a/Documentation/devicetree/bindings/sound/wm8962.txt b/Documentation/devicetree/bindings/sound/wm8962.txt
-index dcfa9a3369fd..c36c649ddfd0 100644
---- a/Documentation/devicetree/bindings/sound/wm8962.txt
-+++ b/Documentation/devicetree/bindings/sound/wm8962.txt
-@@ -9,6 +9,9 @@ Required properties:
-   - reg : the I2C address of the device.
+Of course it won't cover the non-standard allocation case, but then
+it's rather the responsibility of such driver.
+
+
+Takashi
+
+---
+--- a/sound/core/pcm_memory.c
++++ b/sound/core/pcm_memory.c
+@@ -36,6 +36,7 @@ static int do_alloc_pages(struct snd_card *card, int type, struct device *dev,
+ {
+ 	int err;
  
- Optional properties:
-+
-+  - clocks : The clock source of the mclk
-+
-   - spk-mono: This is a boolean property. If present, the SPK_MONO bit
-     of R51 (Class D Control 2) gets set, indicating that the speaker is
-     in mono mode.
-@@ -27,6 +30,7 @@ Example:
- wm8962: codec@1a {
- 	compatible = "wlf,wm8962";
- 	reg = <0x1a>;
-+	clocks = <&clks IMX6QDL_CLK_CKO>;
- 
- 	gpio-cfg = <
- 		0x0000 /* 0:Default */
--- 
-2.25.1
-
++	size = PAGE_ALIGN(size)
+ 	if (max_alloc_per_card &&
+ 	    card->total_pcm_alloc_bytes + size > max_alloc_per_card)
+ 		return -ENOMEM;
+@@ -187,7 +188,7 @@ static void snd_pcm_lib_preallocate_proc_write(struct snd_info_entry *entry,
+ 				buffer->error = -ENOMEM;
+ 				return;
+ 			}
+-			substream->buffer_bytes_max = size;
++			substream->buffer_bytes_max = new_dmab.bytes;
+ 		} else {
+ 			substream->buffer_bytes_max = UINT_MAX;
+ 		}

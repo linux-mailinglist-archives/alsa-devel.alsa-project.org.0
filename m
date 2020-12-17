@@ -2,90 +2,67 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 242DA2DD3C8
-	for <lists+alsa-devel@lfdr.de>; Thu, 17 Dec 2020 16:10:24 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8C8D12DD3FB
+	for <lists+alsa-devel@lfdr.de>; Thu, 17 Dec 2020 16:20:08 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 1869E186F;
-	Thu, 17 Dec 2020 16:09:32 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1869E186F
+	by alsa0.perex.cz (Postfix) with ESMTPS id 1251F189F;
+	Thu, 17 Dec 2020 16:19:18 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1251F189F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1608217822;
-	bh=cE8hDY17ZKvLvXpGPRpBTmaW7BROh9mWezI6jFITYvk=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=pUsLV1fhQhirkwfKptKyyseOS+iqYItEjdzqKqA8gtBXJfGT+Jcv+FUjvw0MFgEAX
-	 6oWiXXwc8lNasrvD3cPFh4zI3e/nxV9iGqB0T2KR53qscZu/2lG9Ce/oCCGy7MWTii
-	 6eVNWoPVuX+ppj73yx/XKI3dYGcVqKpfY3vhA3WQ=
+	s=default; t=1608218408;
+	bh=iyxm/wuZsgncJYqckWGOX+F3f07S7M7uyg+GG5iirXs=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=gyNWm+1dVTRXKmKHU9ycGMR8O4BjmMvob7LYCCpn5tFU5+/A6gnIbMwlYgA8ub0IQ
+	 HkZe1upnTanj1ROoYNrlPQD0pFk3PoPdDqtdTMMZR71rwev0um+vUEJ4w/JBBmrGnu
+	 kGLINtcZJo++OroWLmSSedxGM0zPU/tFpvDCR68c=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id B98D6F8028B;
-	Thu, 17 Dec 2020 16:08:49 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 6D547F80278;
+	Thu, 17 Dec 2020 16:18:32 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 54D16F8027D; Thu, 17 Dec 2020 16:08:48 +0100 (CET)
+ id E1792F80260; Thu, 17 Dec 2020 16:18:30 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mail-ed1-x534.google.com (mail-ed1-x534.google.com
- [IPv6:2a00:1450:4864:20::534])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Level: *
+X-Spam-Status: No, score=1.0 required=5.0 tests=PRX_BODY_30,SPF_HELO_NONE,
+ SPF_NONE autolearn=disabled version=3.4.0
+Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 4A7F0F80278
- for <alsa-devel@alsa-project.org>; Thu, 17 Dec 2020 16:08:39 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4A7F0F80278
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=baylibre-com.20150623.gappssmtp.com
- header.i=@baylibre-com.20150623.gappssmtp.com header.b="I+skmb5K"
-Received: by mail-ed1-x534.google.com with SMTP id j16so6538102edr.0
- for <alsa-devel@alsa-project.org>; Thu, 17 Dec 2020 07:08:39 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=baylibre-com.20150623.gappssmtp.com; s=20150623;
- h=from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=oMTdGaZz4epAF+h7Vd7eoxRPSBCFlzhMnNdcHFWnV2E=;
- b=I+skmb5KXzOywyDXyDuqmQZUCxvxJexgo9S7JdYiSIIbpjJI+efsBbBEqZiHwZ7dGy
- qTmcRDFbZ88zADmj51WkixxV7kI6jw1VyG7Ex0FtJNAN5j/5hDZakhfJKgc14r1XBGHR
- /FKdHIIFdAx9nSQVOmD4FRd9z6gVrkiYqiL5XEM76af2oJJEhoTr6AOKLxPcrmoqy3Ie
- nTVyzqKoRzvIr4FXOBpJHmjDfyTi8KULgIT0ywfXGIioheUgHnuHKvLiTDwKsyKQH/sQ
- +2jFyZ8hu/wYBOEqjSzjkHxMu2sZ1pxQNOQKRBD6O1iSQH4+hiDIMG26dBkPgJ1EvzSR
- QrIQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=oMTdGaZz4epAF+h7Vd7eoxRPSBCFlzhMnNdcHFWnV2E=;
- b=BImUJuA6TxdR94Z4rSDsWkzamFbq7rUzJZVXKrxXdDyiOigVJRbUalba9EOUvAlTNW
- paNBt1mEeJobpou59xRxwtlVzJZACv0k/aiplR2T2BJdxjDA63ZSG+w+83mScV25gTvE
- CNMRdBjkfwLurAlqc2P3+RYypeKzGnQpR8+vysOnkAScoLw/btqGZmdTF7Q7IvIm+/HM
- 63YdEBd8MnpOBKUOy51+hsV3aWs1zRJhjm8Jz3g8SPe1FX2TsCc24zhbScHmwd6ISFHD
- tUu7ICqmCCOyURx5VbxdcLdMnpAbQ4oEnIU92TYkDsUzMO2KVeFRQHHtM9UM+BQUoXFF
- A5aw==
-X-Gm-Message-State: AOAM531cPwe8S5HVF3IwiiLEB38+TcICbYieMU6lTJoTSZuTfGygUdB0
- AJb9k5tYoSvuX4w8JhDsZhieGA==
-X-Google-Smtp-Source: ABdhPJzToiS9DNA9nvKxMA55z2+ccMLPeBi2mj6gfCBdo9SCEIyCgtEBh+GVDXsOPgSA9ByNoUQcFg==
-X-Received: by 2002:a05:6402:c0b:: with SMTP id
- co11mr37972133edb.180.1608217719534; 
- Thu, 17 Dec 2020 07:08:39 -0800 (PST)
-Received: from starbuck.lan (82-65-169-74.subs.proxad.net. [82.65.169.74])
- by smtp.googlemail.com with ESMTPSA id k21sm3909042ejv.80.2020.12.17.07.08.38
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 17 Dec 2020 07:08:39 -0800 (PST)
-From: Jerome Brunet <jbrunet@baylibre.com>
-To: Mark Brown <broonie@kernel.org>,
-	Liam Girdwood <lgirdwood@gmail.com>
-Subject: [PATCH] ASoC: meson: axg-tdmin: fix axg skew offset
-Date: Thu, 17 Dec 2020 16:08:34 +0100
-Message-Id: <20201217150834.3247526-1-jbrunet@baylibre.com>
-X-Mailer: git-send-email 2.29.2
-MIME-Version: 1.0
-X-Patchwork-Bot: notify
-Content-Transfer-Encoding: 8bit
-Cc: linux-amlogic@lists.infradead.org, alsa-devel@alsa-project.org,
- Kevin Hilman <khilman@baylibre.com>, linux-kernel@vger.kernel.org,
- Jerome Brunet <jbrunet@baylibre.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 708D8F80148
+ for <alsa-devel@alsa-project.org>; Thu, 17 Dec 2020 16:18:26 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 708D8F80148
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id E20EEAC7B;
+ Thu, 17 Dec 2020 15:18:25 +0000 (UTC)
+Date: Thu, 17 Dec 2020 16:18:25 +0100
+Message-ID: <s5hmtycjwam.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Lars-Peter Clausen <lars@metafoo.de>
+Subject: Re: [PATCH v1 ] ALSA: core: memalloc: add page alignment for iram
+In-Reply-To: <1fc18b56-effa-9dbc-8263-00c632e163e7@metafoo.de>
+References: <1608221747-3474-1-git-send-email-yibin.gong@nxp.com>
+ <05c824e5-0c33-4182-26fa-b116a42b10d6@metafoo.de>
+ <s5h5z50n4dd.wl-tiwai@suse.de>
+ <70074f62-954a-9b40-ab4a-cb438925060c@metafoo.de>
+ <s5hmtyclmig.wl-tiwai@suse.de>
+ <8e103a2b-1097-6d54-7266-34743321efac@metafoo.de>
+ <s5hwnxgjysq.wl-tiwai@suse.de>
+ <1fc18b56-effa-9dbc-8263-00c632e163e7@metafoo.de>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
+ FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
+ (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
+Content-Type: text/plain; charset=US-ASCII
+Cc: alsa-devel@alsa-project.org, gustavoars@kernel.org,
+ linux-kernel@vger.kernel.org, shengjiu.wang@nxp.com, tiwai@suse.com,
+ pierre-louis.bossart@linux.intel.com, xiang@kernel.org,
+ Robin Gong <yibin.gong@nxp.com>, akpm@linux-foundation.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -101,51 +78,135 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-The signal captured on from tdm decoder of the AXG SoC is incorrect. It
-appears amplified. The skew offset of the decoder is wrong.
+On Thu, 17 Dec 2020 15:57:02 +0100,
+Lars-Peter Clausen wrote:
+> 
+> On 12/17/20 3:24 PM, Takashi Iwai wrote:
+> > On Thu, 17 Dec 2020 14:16:48 +0100,
+> > Lars-Peter Clausen wrote:
+> >> On 12/17/20 12:06 PM, Takashi Iwai wrote:
+> >>> On Thu, 17 Dec 2020 11:59:23 +0100,
+> >>> Lars-Peter Clausen wrote:
+> >>>> On 12/17/20 10:55 AM, Takashi Iwai wrote:
+> >>>>> On Thu, 17 Dec 2020 10:43:45 +0100,
+> >>>>> Lars-Peter Clausen wrote:
+> >>>>>> On 12/17/20 5:15 PM, Robin Gong wrote:
+> >>>>>>> Since mmap for userspace is based on page alignment, add page alignment
+> >>>>>>> for iram alloc from pool, otherwise, some good data located in the same
+> >>>>>>> page of dmab->area maybe touched wrongly by userspace like pulseaudio.
+> >>>>>>>
+> >>>>>> I wonder, do we also have to align size to be a multiple of PAGE_SIZE
+> >>>>>> to avoid leaking unrelated data?
+> >>>>> Hm, a good question.  Basically the PCM buffer size itself shouldn't
+> >>>>> be influenced by that (i.e. no hw-constraint or such is needed), but
+> >>>>> the padding should be cleared indeed.  I somehow left those to the
+> >>>>> allocator side, but maybe it's safer to clear the whole buffer in
+> >>>>> sound/core/memalloc.c commonly.
+> >>>> What I meant was that most of the APIs that we use to allocate memory
+> >>>> work on a PAGE_SIZE granularity. I.e. if you request a buffer that
+> >>>> where the size is not a multiple of PAGE_SIZE internally they will
+> >>>> still allocate a buffer that is a multiple of PAGE_SIZE and mark the
+> >>>> unused bytes as reserved.
+> >>>>
+> >>>> But I believe that is not the case gen_pool_dma_alloc(). It will
+> >>>> happily allocate those extra bytes to some other allocation request.
+> >>>>
+> >>>> That we need to zero out the reserved bytes even for those other APIs
+> >>>> is a very good additional point!
+> >>>>
+> >>>> I looked at this a few years ago and I'm pretty sure that we cleared
+> >>>> out the allocated area, but I can't find that anymore in the current
+> >>>> code. Which is not so great I guess.
+> >>> IIRC, we used GFP_ZERO in the past for the normal page allocations,
+> >>> but this was dropped as it's no longer supported or so.
+> >>>
+> >>> Also, we clear out the PCM buffer in hw_params call, but this is for
+> >>> the requested size, not the actual allocated size, hence the padding
+> >>> bytes will remain uncleared.
+> >> Ah! That memset() in hw_params is new.
+> >>> So I believe it's safer to add an extra memset() like my test patch.
+> >> Yea, we definitely want that.
+> >>
+> >> Do we care about leaking audio samples from a previous
+> >> application. I.e. application 'A' allocates a buffer plays back some
+> >> data and then closes the device again. Application 'B' then opens the
+> >> same audio devices allocates a slightly smaller buffer, so that it
+> >> still uses the same number of pages. The buffer from the previous
+> >> allocation get reused, but the remainder of the last page wont get
+> >> cleared in hw_params().
+> > That's true.  On the second though, it might be better to extend that
+> > memset() in hw_params to assure clearing the whole allocated buffer.
+> > We can check runtime->dma_buffer_p->bytes for the actual size.
+> >
+> > Also, in the PCM memory allocator, we make sure that the allocation is
+> > performed for page size.
+> >
+> >
+> > diff --git a/sound/core/pcm_native.c b/sound/core/pcm_native.c
+> > index 47b155a49226..6aabad070abf 100644
+> > --- a/sound/core/pcm_native.c
+> > +++ b/sound/core/pcm_native.c
+> > @@ -755,8 +755,15 @@ static int snd_pcm_hw_params(struct snd_pcm_substream *substream,
+> >   		runtime->boundary *= 2;
+> >     	/* clear the buffer for avoiding possible kernel info leaks */
+> > -	if (runtime->dma_area && !substream->ops->copy_user)
+> > -		memset(runtime->dma_area, 0, runtime->dma_bytes);
+> > +	if (runtime->dma_area && !substream->ops->copy_user) {
+> > +		size_t size;
+> > +
+> > +		if (runtime->dma_buffer_p)
+> > +			size = runtime->dma_buffer_p->bytes;
+> > +		else
+> > +			size = runtime->dma_bytes;
+> 
+> I'm not sure.
+> 
+> Not all drivers use snd_pcm_lib_malloc_pages() and
+> runtime->dma_buffer_p->bytes might not be a multiple of PAGE_SIZE.
 
-Setting the skew offset to 3, like the g12 and sm1 SoCs, solves and gives
-correct data.
+The runtime->dma_buffer_p->bytes is assured to be page-aligned by the
+change in pcm_memory.c in this patch.  But it's true that non-standard
+allocations won't cover the whole pages...
 
-Fixes: 13a22e6a98f8 ("ASoC: meson: add tdm input driver")
-Signed-off-by: Jerome Brunet <jbrunet@baylibre.com>
+> On the other hand if it is mmap-able, the underlying buffer must be a
+> multiple of PAGE_SIZE. So a simple memset(..., PAGE_ALIGN(size))
+> should work.
+> 
+> But we'd risk breaking drivers that do not reserve the remainder of
+> the page and use it for something else.
+> 
+> Maybe what we need is a check that runtime->dma_area is page aligned
+> and runtime->dma_bytes is a multiple of PAGE_SIZE. With a warning at
+> first and then turn this into a error a year later or so.
+
+OK, how about the following instead?
+Just check SNDRV_PCM_INFO_MMAP in runtime->info; if this is set, the
+buffer size must be aligned with the page size, and we are safe to
+extend the size to clear.
+
+So the revised fix is much simpler, something like below.
+
+
+thanks,
+
+Takashi
+
 ---
- sound/soc/meson/axg-tdmin.c | 13 ++-----------
- 1 file changed, 2 insertions(+), 11 deletions(-)
-
-diff --git a/sound/soc/meson/axg-tdmin.c b/sound/soc/meson/axg-tdmin.c
-index 88ed95ae886b..b4faf9d5c1aa 100644
---- a/sound/soc/meson/axg-tdmin.c
-+++ b/sound/soc/meson/axg-tdmin.c
-@@ -224,15 +224,6 @@ static const struct axg_tdm_formatter_ops axg_tdmin_ops = {
- };
+--- a/sound/core/pcm_native.c
++++ b/sound/core/pcm_native.c
+@@ -755,8 +755,13 @@ static int snd_pcm_hw_params(struct snd_pcm_substream *substream,
+ 		runtime->boundary *= 2;
  
- static const struct axg_tdm_formatter_driver axg_tdmin_drv = {
--	.component_drv	= &axg_tdmin_component_drv,
--	.regmap_cfg	= &axg_tdmin_regmap_cfg,
--	.ops		= &axg_tdmin_ops,
--	.quirks		= &(const struct axg_tdm_formatter_hw) {
--		.skew_offset	= 2,
--	},
--};
--
--static const struct axg_tdm_formatter_driver g12a_tdmin_drv = {
- 	.component_drv	= &axg_tdmin_component_drv,
- 	.regmap_cfg	= &axg_tdmin_regmap_cfg,
- 	.ops		= &axg_tdmin_ops,
-@@ -247,10 +238,10 @@ static const struct of_device_id axg_tdmin_of_match[] = {
- 		.data = &axg_tdmin_drv,
- 	}, {
- 		.compatible = "amlogic,g12a-tdmin",
--		.data = &g12a_tdmin_drv,
-+		.data = &axg_tdmin_drv,
- 	}, {
- 		.compatible = "amlogic,sm1-tdmin",
--		.data = &g12a_tdmin_drv,
-+		.data = &axg_tdmin_drv,
- 	}, {}
- };
- MODULE_DEVICE_TABLE(of, axg_tdmin_of_match);
--- 
-2.29.2
-
+ 	/* clear the buffer for avoiding possible kernel info leaks */
+-	if (runtime->dma_area && !substream->ops->copy_user)
+-		memset(runtime->dma_area, 0, runtime->dma_bytes);
++	if (runtime->dma_area && !substream->ops->copy_user) {
++		size_t size = runtime->dma_bytes;
++
++		if (runtime->info & SNDRV_PCM_INFO_MMAP)
++			size = PAGE_ALIGN(size);
++		memset(runtime->dma_area, 0, size);
++	}
+ 
+ 	snd_pcm_timer_resolution_change(substream);
+ 	snd_pcm_set_state(substream, SNDRV_PCM_STATE_SETUP);

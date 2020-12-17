@@ -2,79 +2,80 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8F8112DD479
-	for <lists+alsa-devel@lfdr.de>; Thu, 17 Dec 2020 16:44:21 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9451E2DD47D
+	for <lists+alsa-devel@lfdr.de>; Thu, 17 Dec 2020 16:45:05 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 26EBC18CC;
-	Thu, 17 Dec 2020 16:43:31 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 26EBC18CC
+	by alsa0.perex.cz (Postfix) with ESMTPS id 2DF1A18F3;
+	Thu, 17 Dec 2020 16:44:15 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2DF1A18F3
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1608219861;
-	bh=pUaZdMR5Hd7gPgaGrI1OmgCscbg/hdMVqnEpEgW1fXE=;
+	s=default; t=1608219905;
+	bh=tvAX3/2+xWsdlbqynAkPKd/pHdKxIJ6d0DeH1249BVg=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=U1YYIfqWvZLPXB7wvqfE96Lpm6x5OZi4IWn0fEZBp9FwX6vlXJFBdSeD/Y5LsCWKh
-	 MnMDlh6mjDQDm+/hCGo23sFfcIjMc4oQbwbkSsUoRsmqQZiMzNqGoE30oMTpzBPiD4
-	 YGDwJriIg7eO2LUPDDVbGwFB4CLapoJQzqSUwCUY=
+	b=XZLdb03GQJmwf91uR3pZ1/f2v2ZtG/Bu6B3rD9FKq7Gax8gFr5PvAFcnGRWgI+XpO
+	 kARF1cuKSktbdKdOb5qikIszhtTj2kWJWvn2OWh+47cK1le+l2fdo+NKjjdcO41Klp
+	 +eu0g7s9Bx3PVxa3uT6XVF9n7LVcVcfPSYdzXE5I=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id ADDD5F804D6;
-	Thu, 17 Dec 2020 16:42:00 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 628D5F804E1;
+	Thu, 17 Dec 2020 16:42:02 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id EA638F804CB; Thu, 17 Dec 2020 16:41:58 +0100 (CET)
+ id 35EBEF8028B; Thu, 17 Dec 2020 16:41:59 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
+X-Spam-Status: No, score=0.8 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ SPF_HELO_NONE,SPF_NONE,UPPERCASE_50_75,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
 Received: from mx0b-001ae601.pphosted.com (mx0b-001ae601.pphosted.com
  [67.231.152.168])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id B3930F800C7
+ by alsa1.perex.cz (Postfix) with ESMTPS id F2C9EF8027B
  for <alsa-devel@alsa-project.org>; Thu, 17 Dec 2020 16:41:50 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B3930F800C7
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz F2C9EF8027B
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=cirrus.com header.i=@cirrus.com
- header.b="VqrlKQan"
+ header.b="mQZZo+Pi"
 Received: from pps.filterd (m0077474.ppops.net [127.0.0.1])
  by mx0b-001ae601.pphosted.com (8.16.0.43/8.16.0.43) with SMTP id
- 0BHFPi9A001634; Thu, 17 Dec 2020 09:41:49 -0600
+ 0BHFPi9B001634; Thu, 17 Dec 2020 09:41:49 -0600
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com;
  h=from : to : cc :
  subject : date : message-id : in-reply-to : references : mime-version :
  content-transfer-encoding : content-type; s=PODMain02222019;
- bh=YAEVmqUSTWxDxxY33QVvJnlnd8rBeoEIPPK9oM8cveE=;
- b=VqrlKQanNhvLFwxyiCKqkrwevjyjX6DmKmrSArTMftbgCXacgwl5/bkqLk3O34uxp4IU
- RZSJGdynfkC50Ib/Toth6eZnnD8KhGDO9wKqKjuZ77qjGUK7sQI/yXVNQc59E2i2mYjq
- LH7m8EUgXx81PPrSNrLM2tqtY2Z2DwSG8msvfmRT4md+7Em1+UwNLQazQ9SeFYgpeGPy
- Cfmfemqm5mY9jGyiCgINnYr8Fduecsqcmf1EztA/6CvDWVTh9ZTHhWaZtVHMHuBgEtyh
- 6GiJZVHVn7q5Ld/ysQAWE/Rn6DjzFyNhWoyFrVmr7+Rq8aOjKdniFqQUFIOxDVekkrPD +A== 
+ bh=627cyMSOyeSzZ7/Nq+d6A7Mp3C4WbFQei8V0n6bIm60=;
+ b=mQZZo+Pi7R6Fw2vc3QnU2PDZOvG/itwxkWcl9IauT/jbJ5Qw4dsS9hI+b2tc5cdoazPA
+ ZDCK+xpBVEkj41VvQ0NGkCHKSSy72keE9MZ+jUYUfFzbyDfJgpeRCc1WSfKiyh6ekf4Y
+ 0utC3+CwciYEhMqfIvVyT9aOA1f63ZA6cbXdi8veFbS0P+HHKAjm1WsVr3Vd686zl8Mq
+ Y0pgKldf0wFvCV20vEcHTDpCvZg4jup3ceJSunQQ2LTEjlOfLwgg62yFJAEkLTwpGYES
+ pMULUg4+PW2YDieeTEMgmK3eCzpO3IRjXfJwto8Ika+R/WNN/yJZjgI0JMDr92GU6abJ kA== 
 Received: from ediex02.ad.cirrus.com ([87.246.76.36])
- by mx0b-001ae601.pphosted.com with ESMTP id 35cu5rxy90-5
+ by mx0b-001ae601.pphosted.com with ESMTP id 35cu5rxy90-6
  (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT);
  Thu, 17 Dec 2020 09:41:49 -0600
 Received: from EDIEX01.ad.cirrus.com (198.61.84.80) by EDIEX02.ad.cirrus.com
  (198.61.84.81) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1913.5; Thu, 17 Dec
- 2020 15:41:47 +0000
+ 2020 15:41:48 +0000
 Received: from ediswmail.ad.cirrus.com (198.61.86.93) by EDIEX01.ad.cirrus.com
  (198.61.84.80) with Microsoft SMTP Server id 15.1.1913.5 via Frontend
- Transport; Thu, 17 Dec 2020 15:41:47 +0000
+ Transport; Thu, 17 Dec 2020 15:41:48 +0000
 Received: from AUSNPC0LSNW1-debian.cirrus.com (AUSNPC0LSNW1.ad.cirrus.com
  [198.61.64.236])
- by ediswmail.ad.cirrus.com (Postfix) with ESMTP id 41F6D11CB;
+ by ediswmail.ad.cirrus.com (Postfix) with ESMTP id C37E111CE;
  Thu, 17 Dec 2020 15:41:47 +0000 (UTC)
 From: Richard Fitzgerald <rf@opensource.cirrus.com>
 To: <broonie@kernel.org>, <robh+dt@kernel.org>,
  <kuninori.morimoto.gx@renesas.com>, <nsaenzjulienne@suse.de>
-Subject: [PATCH v3 4/6] ASoC: madera: Allow codecs to be selected from kernel
- config
-Date: Thu, 17 Dec 2020 15:41:40 +0000
-Message-ID: <20201217154142.24301-5-rf@opensource.cirrus.com>
+Subject: [PATCH v3 5/6] ASoC: madera: Export clock config defines to
+ dt-bindings
+Date: Thu, 17 Dec 2020 15:41:41 +0000
+Message-ID: <20201217154142.24301-6-rf@opensource.cirrus.com>
 X-Mailer: git-send-email 2.20.1
 In-Reply-To: <20201217154142.24301-1-rf@opensource.cirrus.com>
 References: <20201217154142.24301-1-rf@opensource.cirrus.com>
@@ -83,7 +84,7 @@ Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 phishscore=0
  adultscore=0 mlxscore=0
- mlxlogscore=908 suspectscore=0 spamscore=0 clxscore=1015 malwarescore=0
+ mlxlogscore=999 suspectscore=0 spamscore=0 clxscore=1015 malwarescore=0
  impostorscore=0 priorityscore=1501 bulkscore=0 lowpriorityscore=0
  classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2009150000
  definitions=main-2012170108
@@ -107,53 +108,157 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-The codec Kconfig options were hidden and intended to be selected by
-the machine driver that requires them. But that means having either a
-dedicated machine driver or building all codecs.
-
-This patch makes the Kconfig options visible so that they can be
-selected independently of the machine driver, allowing the codec to be
-used with simple-card and other machine drivers that are not hardcoded
-to use a fixed set of codecs.
+Move the defines for clock/fll IDs and sources into the dt-bindings
+header so that they can be used by machine driver dts files.
 
 Signed-off-by: Richard Fitzgerald <rf@opensource.cirrus.com>
 ---
- sound/soc/codecs/Kconfig | 10 +++++-----
- 1 file changed, 5 insertions(+), 5 deletions(-)
+ include/dt-bindings/sound/madera.h | 60 ++++++++++++++++++++++++++++++
+ sound/soc/codecs/madera.h          | 56 +---------------------------
+ 2 files changed, 61 insertions(+), 55 deletions(-)
 
-diff --git a/sound/soc/codecs/Kconfig b/sound/soc/codecs/Kconfig
-index 34c6dd04b85a..e8a56f897cc8 100644
---- a/sound/soc/codecs/Kconfig
-+++ b/sound/soc/codecs/Kconfig
-@@ -658,23 +658,23 @@ config SND_SOC_CS4349
- 	depends on I2C
+diff --git a/include/dt-bindings/sound/madera.h b/include/dt-bindings/sound/madera.h
+index d0096d5eb0da..5c5fc1bfe6f9 100644
+--- a/include/dt-bindings/sound/madera.h
++++ b/include/dt-bindings/sound/madera.h
+@@ -22,4 +22,64 @@
+ #define CS47L35_DMIC_REF_MICBIAS2A	2
+ #define CS47L35_DMIC_REF_MICBIAS2B	3
  
- config SND_SOC_CS47L15
--	tristate
-+	tristate "Cirrus Logic CS47L15 CODEC"
++/* FLL IDs */
++#define MADERA_FLL1_REFCLK		1
++#define MADERA_FLL2_REFCLK		2
++#define MADERA_FLL3_REFCLK		3
++#define MADERA_FLLAO_REFCLK		4
++#define MADERA_FLL1_SYNCCLK		5
++#define MADERA_FLL2_SYNCCLK		6
++#define MADERA_FLL3_SYNCCLK		7
++#define MADERA_FLLAO_SYNCCLK		8
++
++/* FLL input source pin IDs */
++#define MADERA_FLL_SRC_NONE		-1
++#define MADERA_FLL_SRC_MCLK1		0
++#define MADERA_FLL_SRC_MCLK2		1
++#define MADERA_FLL_SRC_MCLK3		2
++#define MADERA_FLL_SRC_SLIMCLK		3
++#define MADERA_FLL_SRC_FLL1		4
++#define MADERA_FLL_SRC_FLL2		5
++#define MADERA_FLL_SRC_AIF1BCLK		8
++#define MADERA_FLL_SRC_AIF2BCLK		9
++#define MADERA_FLL_SRC_AIF3BCLK		10
++#define MADERA_FLL_SRC_AIF4BCLK		11
++#define MADERA_FLL_SRC_AIF1LRCLK	12
++#define MADERA_FLL_SRC_AIF2LRCLK	13
++#define MADERA_FLL_SRC_AIF3LRCLK	14
++#define MADERA_FLL_SRC_AIF4LRCLK	15
++
++/* SYSCLK IDs */
++#define MADERA_CLK_SYSCLK_1		1
++#define MADERA_CLK_ASYNCCLK_1		2
++#define MADERA_CLK_OPCLK		3
++#define MADERA_CLK_ASYNC_OPCLK		4
++#define MADERA_CLK_SYSCLK_2		5
++#define MADERA_CLK_SYSCLK_3		6
++#define MADERA_CLK_ASYNCCLK_2		7
++#define MADERA_CLK_DSPCLK		8
++#define MADERA_CLK_OUTCLK		9
++
++/* SYSCLK source IDs */
++#define MADERA_CLK_SRC_MCLK1		0x0
++#define MADERA_CLK_SRC_MCLK2		0x1
++#define MADERA_CLK_SRC_MCLK3		0x2
++#define MADERA_CLK_SRC_FLL1		0x4
++#define MADERA_CLK_SRC_FLL2		0x5
++#define MADERA_CLK_SRC_FLL3		0x6
++#define MADERA_CLK_SRC_FLLAO_HI		0x7
++#define MADERA_CLK_SRC_FLL1_DIV6	0x7
++#define MADERA_CLK_SRC_AIF1BCLK		0x8
++#define MADERA_CLK_SRC_AIF2BCLK		0x9
++#define MADERA_CLK_SRC_AIF3BCLK		0xA
++#define MADERA_CLK_SRC_AIF4BCLK		0xB
++#define MADERA_CLK_SRC_FLLAO		0xF
++
++/* OPCLK source IDs */
++#define MADERA_OUTCLK_SYSCLK		0
++#define MADERA_OUTCLK_ASYNCCLK		1
++#define MADERA_OUTCLK_MCLK1		4
++#define MADERA_OUTCLK_MCLK2		5
++#define MADERA_OUTCLK_MCLK3		6
++
+ #endif
+diff --git a/sound/soc/codecs/madera.h b/sound/soc/codecs/madera.h
+index e0c0be59e2ef..1f4ea15648c5 100644
+--- a/sound/soc/codecs/madera.h
++++ b/sound/soc/codecs/madera.h
+@@ -9,67 +9,13 @@
+ #ifndef ASOC_MADERA_H
+ #define ASOC_MADERA_H
  
- config SND_SOC_CS47L24
- 	tristate
- 	depends on MFD_CS47L24
++#include <dt-bindings/sound/madera.h>
+ #include <linux/completion.h>
+ #include <sound/soc.h>
+ #include <sound/madera-pdata.h>
  
- config SND_SOC_CS47L35
--	tristate
-+	tristate "Cirrus Logic CS47L35 CODEC"
+ #include "wm_adsp.h"
  
- config SND_SOC_CS47L85
--	tristate
-+	tristate "Cirrus Logic CS47L85 CODEC"
- 
- config SND_SOC_CS47L90
--	tristate
-+	tristate "Cirrus Logic CS47L90 CODEC"
- 
- config SND_SOC_CS47L92
--	tristate
-+	tristate "Cirrus Logic CS47L92 CODEC"
- 
- # Cirrus Logic Quad-Channel ADC
- config SND_SOC_CS53L30
+-#define MADERA_FLL1_REFCLK		1
+-#define MADERA_FLL2_REFCLK		2
+-#define MADERA_FLL3_REFCLK		3
+-#define MADERA_FLLAO_REFCLK		4
+-#define MADERA_FLL1_SYNCCLK		5
+-#define MADERA_FLL2_SYNCCLK		6
+-#define MADERA_FLL3_SYNCCLK		7
+-#define MADERA_FLLAO_SYNCCLK		8
+-
+-#define MADERA_FLL_SRC_NONE		-1
+-#define MADERA_FLL_SRC_MCLK1		0
+-#define MADERA_FLL_SRC_MCLK2		1
+-#define MADERA_FLL_SRC_MCLK3		2
+-#define MADERA_FLL_SRC_SLIMCLK		3
+-#define MADERA_FLL_SRC_FLL1		4
+-#define MADERA_FLL_SRC_FLL2		5
+-#define MADERA_FLL_SRC_AIF1BCLK		8
+-#define MADERA_FLL_SRC_AIF2BCLK		9
+-#define MADERA_FLL_SRC_AIF3BCLK		10
+-#define MADERA_FLL_SRC_AIF4BCLK		11
+-#define MADERA_FLL_SRC_AIF1LRCLK	12
+-#define MADERA_FLL_SRC_AIF2LRCLK	13
+-#define MADERA_FLL_SRC_AIF3LRCLK	14
+-#define MADERA_FLL_SRC_AIF4LRCLK	15
+-
+-#define MADERA_CLK_SYSCLK_1		1
+-#define MADERA_CLK_ASYNCCLK_1		2
+-#define MADERA_CLK_OPCLK		3
+-#define MADERA_CLK_ASYNC_OPCLK		4
+-#define MADERA_CLK_SYSCLK_2		5
+-#define MADERA_CLK_SYSCLK_3		6
+-#define MADERA_CLK_ASYNCCLK_2		7
+-#define MADERA_CLK_DSPCLK		8
+-#define MADERA_CLK_OUTCLK		9
+-
+-#define MADERA_CLK_SRC_MCLK1		0x0
+-#define MADERA_CLK_SRC_MCLK2		0x1
+-#define MADERA_CLK_SRC_MCLK3		0x2
+-#define MADERA_CLK_SRC_FLL1		0x4
+-#define MADERA_CLK_SRC_FLL2		0x5
+-#define MADERA_CLK_SRC_FLL3		0x6
+-#define MADERA_CLK_SRC_FLLAO_HI		0x7
+-#define MADERA_CLK_SRC_FLL1_DIV6	0x7
+-#define MADERA_CLK_SRC_AIF1BCLK		0x8
+-#define MADERA_CLK_SRC_AIF2BCLK		0x9
+-#define MADERA_CLK_SRC_AIF3BCLK		0xA
+-#define MADERA_CLK_SRC_AIF4BCLK		0xB
+-#define MADERA_CLK_SRC_FLLAO		0xF
+-
+-#define MADERA_OUTCLK_SYSCLK		0
+-#define MADERA_OUTCLK_ASYNCCLK		1
+-#define MADERA_OUTCLK_MCLK1		4
+-#define MADERA_OUTCLK_MCLK2		5
+-#define MADERA_OUTCLK_MCLK3		6
+-
+ #define MADERA_MIXER_VOL_MASK		0x00FE
+ #define MADERA_MIXER_VOL_SHIFT		1
+ #define MADERA_MIXER_VOL_WIDTH		7
 -- 
 2.20.1
 

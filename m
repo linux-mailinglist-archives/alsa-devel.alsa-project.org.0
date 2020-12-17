@@ -2,94 +2,87 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A48C72DD1FD
-	for <lists+alsa-devel@lfdr.de>; Thu, 17 Dec 2020 14:15:43 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id D6A832DD202
+	for <lists+alsa-devel@lfdr.de>; Thu, 17 Dec 2020 14:18:34 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 6834A1884;
-	Thu, 17 Dec 2020 14:07:15 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6834A1884
+	by alsa0.perex.cz (Postfix) with ESMTPS id 6E53D1887;
+	Thu, 17 Dec 2020 14:17:44 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6E53D1887
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1608210485;
-	bh=21i7hI5S2MyRbTV9zwqFvcUP+kIlmKF0QK+M2/VtH2k=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1608211114;
+	bh=tz9d8pVaDAgd9ocMmlLtUCtabqZDzTxkycMLWXrDsPk=;
+	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=PTUVtGlJuCMjw4GW81QXoiFZaza1HTRtr9amE4h+GPyH5STCCKY9qvJFZAWDtKJcV
-	 FdyR6cpB94kxFkYXf67Z9HRmgmSd+FfJdSI0q5xq9WT527D6qEGdVQiKckA9O8qj1z
-	 knhpsJV1EPzcjLT6UJ8+qhNSjQRB7CCEM2Q+uNuY=
+	b=vFOsiNOHmL0ZvB+kNM6of+wKy7RsQsBb8sQ2RxnPmA7vHDRxlBAuXa7smYhgkVejo
+	 fiK1W/aU+0T8R/YuTM8yhQl5MtjtZ0ioAIxeX3B0mxm3rkCakb0TPQiVJv/aNjM17a
+	 pg2YvSdgW8gvmIhSdhDecXNyZVVFsoAV4br3qLSI=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id AF7DEF80148;
-	Thu, 17 Dec 2020 14:06:19 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id E1C11F800C7;
+	Thu, 17 Dec 2020 14:16:58 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 74225F80260; Thu, 17 Dec 2020 14:06:18 +0100 (CET)
+ id E2A2BF80260; Thu, 17 Dec 2020 14:16:56 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mail-lf1-x12c.google.com (mail-lf1-x12c.google.com
- [IPv6:2a00:1450:4864:20::12c])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE autolearn=disabled
+ version=3.4.0
+Received: from www381.your-server.de (www381.your-server.de [78.46.137.84])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 8B4A9F800C7
- for <alsa-devel@alsa-project.org>; Thu, 17 Dec 2020 14:06:07 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8B4A9F800C7
+ by alsa1.perex.cz (Postfix) with ESMTPS id 948D7F800C7
+ for <alsa-devel@alsa-project.org>; Thu, 17 Dec 2020 14:16:50 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 948D7F800C7
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=semihalf-com.20150623.gappssmtp.com
- header.i=@semihalf-com.20150623.gappssmtp.com header.b="skT21vv8"
-Received: by mail-lf1-x12c.google.com with SMTP id y19so57059108lfa.13
- for <alsa-devel@alsa-project.org>; Thu, 17 Dec 2020 05:06:07 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=semihalf-com.20150623.gappssmtp.com; s=20150623;
- h=from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding;
- bh=ZtWGzuysSWKbzOtA9aKqff+RXT8SeMJQrKTIiGkLXlA=;
- b=skT21vv8lIa2uvSWRLVkO0L4xDW1tkdv0vL+Oxl2rQ9REMRw1ikTL/FTTNzk/XgJxx
- 7eN+7GELuVusEB/bY8DcdGb6S8YWTnQgFxJzGTRhbUBN7ZwfsArssi9fu2copLhoS0wX
- dRa4yoJ5y/eJNAWGDAAEvu5DGPI3siis+1CjVkaVc6GAwCDpftNXXSvuJUq+PwvwTqjc
- dPHuV7O/zXFYuayKhOkM9RIY6iGSHe6cfbT0Zzjd/lLTCsppyRLmGiiUu0g7JuQ0yqsC
- Am3JUt5hYrwWKBG87yNHYYOTZdNJmcJkjiBQuSF6d8fDzV0XqVtWIn56D94Mw/9/8+VM
- ePiQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
- :references:mime-version:content-transfer-encoding;
- bh=ZtWGzuysSWKbzOtA9aKqff+RXT8SeMJQrKTIiGkLXlA=;
- b=W1tQUPGPkRE88ahSY+JUQTv34feVHRgSwIbj01z7cCC9Kk6Zj+/e++miEG1PDh0Hx8
- j1y/ZZqLY4qU69HBwrhY9+LCivQxSetfXH0PxT6vraen9zsUFkp5x3CLlGqpsaHfzOMs
- 4Y8QDlR9dWtxHjXbIJmcTZmitLDdyJCJc9RNaQM7A78SjDoDQMZkwNu6k0JgIXZ69H4b
- 20+TiT3M1fPYCLLlwx3j2JWmEYrFp3MY5KW+T1dZyebsaQiB22gXuLIXPae+IAI059b4
- rfieKJ+5PLEOSIRhvWVf3AUNE+TUMkC5hbrRZBaJ9NuoYytGDx3H9WzSkCjt5I2UM89S
- j0eA==
-X-Gm-Message-State: AOAM5321mgQt/xd1s4+maBa8RN9uXUPOkMAATn+G6tR6xPBrxvEXLPnJ
- EOQlUSOoyZUsmckl8M/o+EJu4Q==
-X-Google-Smtp-Source: ABdhPJwwPduYP2ZedrJ0ohGFfg/MCXb/WkmLVdkdQBc1tvJGT8d58jzhHiGaw+o0Ok5LrtYH3ZgyIw==
-X-Received: by 2002:a19:f11e:: with SMTP id p30mr14449368lfh.395.1608210366471; 
- Thu, 17 Dec 2020 05:06:06 -0800 (PST)
-Received: from localhost.localdomain (89-70-221-122.dynamic.chello.pl.
- [89.70.221.122])
- by smtp.gmail.com with ESMTPSA id n10sm656201ljg.139.2020.12.17.05.06.04
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 17 Dec 2020 05:06:05 -0800 (PST)
-From: Lukasz Majczak <lma@semihalf.com>
-To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- Liam Girdwood <liam.r.girdwood@linux.intel.com>,
- Mateusz Gorski <mateusz.gorski@linux.intel.com>
-Subject: [PATCH v2] ASoC: Intel: Skylake: Check the kcontrol against NULL
-Date: Thu, 17 Dec 2020 14:04:39 +0100
-Message-Id: <20201217130439.141943-1-lma@semihalf.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20201210121438.7718-1-lma@semihalf.com>
-References: <20201210121438.7718-1-lma@semihalf.com>
+ dkim=pass (2048-bit key) header.d=metafoo.de header.i=@metafoo.de
+ header.b="FLw/WgjB"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=metafoo.de; 
+ s=default2002;
+ h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
+ MIME-Version:Date:Message-ID:From:References:Cc:To:Subject:Sender:Reply-To:
+ Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+ Resent-To:Resent-Cc:Resent-Message-ID;
+ bh=LZKbUafPeuQov+HIZ4OeOAVqPXc+101ssRAdpyGpviM=; b=FLw/WgjBHrnMZ99/KqVfG9+LKe
+ 4UaGozdGYtcfUGeVe/Ez+4K8cD4wLXRRWz9bgDipWEA0ySL7UMMj1FMclFWMHXc7wpvg3yr5PvwiN
+ ypXAL0A1mp3/2lxVzYz4PM4d/5i2fy/4D4iyW0bZ9JqdtUWrGiAJKs8CCMNxNxFeZOBy4WDeudha/
+ RrCkRdofm+Vjt5R/FWcio7j5+dJYsMoXIqJYV+D9vqWJetWC9nMZnSmQGlHtUpmaTMW3d8bkS9nbu
+ q+E7BXtBHrZVauvBj2YH5Lw4G3arEC8PZiYPD+MXBRW5++IyRowWvT5PW9q//CnLUy3szEO9Mi5Gv
+ wMOmjZvA==;
+Received: from sslproxy06.your-server.de ([78.46.172.3])
+ by www381.your-server.de with esmtpsa (TLSv1.3:TLS_AES_256_GCM_SHA384:256)
+ (Exim 4.92.3) (envelope-from <lars@metafoo.de>)
+ id 1kpt9F-0001yb-Bx; Thu, 17 Dec 2020 14:16:49 +0100
+Received: from [62.216.202.54] (helo=[192.168.178.20])
+ by sslproxy06.your-server.de with esmtpsa (TLSv1.3:TLS_AES_256_GCM_SHA384:256)
+ (Exim 4.92) (envelope-from <lars@metafoo.de>)
+ id 1kpt9F-000D9s-4W; Thu, 17 Dec 2020 14:16:49 +0100
+Subject: Re: [PATCH v1 ] ALSA: core: memalloc: add page alignment for iram
+To: Takashi Iwai <tiwai@suse.de>
+References: <1608221747-3474-1-git-send-email-yibin.gong@nxp.com>
+ <05c824e5-0c33-4182-26fa-b116a42b10d6@metafoo.de>
+ <s5h5z50n4dd.wl-tiwai@suse.de>
+ <70074f62-954a-9b40-ab4a-cb438925060c@metafoo.de>
+ <s5hmtyclmig.wl-tiwai@suse.de>
+From: Lars-Peter Clausen <lars@metafoo.de>
+Message-ID: <8e103a2b-1097-6d54-7266-34743321efac@metafoo.de>
+Date: Thu, 17 Dec 2020 14:16:48 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.5.1
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Cc: alsa-devel@alsa-project.org, Guenter Roeck <groeck@google.com>,
- Radoslaw Biernacki <rad@semihalf.com>, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org, Marcin Wojtas <mw@semihalf.com>,
- Lukasz Majczak <lma@semihalf.com>, Alex Levin <levinale@google.com>
+In-Reply-To: <s5hmtyclmig.wl-tiwai@suse.de>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 7bit
+Content-Language: en-US
+X-Authenticated-Sender: lars@metafoo.de
+X-Virus-Scanned: Clear (ClamAV 0.102.4/26019/Wed Dec 16 15:36:02 2020)
+Cc: alsa-devel@alsa-project.org, gustavoars@kernel.org,
+ linux-kernel@vger.kernel.org, shengjiu.wang@nxp.com, tiwai@suse.com,
+ pierre-louis.bossart@linux.intel.com, xiang@kernel.org,
+ Robin Gong <yibin.gong@nxp.com>, akpm@linux-foundation.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -105,45 +98,55 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-There is no check for the kcontrol against NULL and in some cases
-it causes kernel to crash.
+On 12/17/20 12:06 PM, Takashi Iwai wrote:
+> On Thu, 17 Dec 2020 11:59:23 +0100,
+> Lars-Peter Clausen wrote:
+>> On 12/17/20 10:55 AM, Takashi Iwai wrote:
+>>> On Thu, 17 Dec 2020 10:43:45 +0100,
+>>> Lars-Peter Clausen wrote:
+>>>> On 12/17/20 5:15 PM, Robin Gong wrote:
+>>>>> Since mmap for userspace is based on page alignment, add page alignment
+>>>>> for iram alloc from pool, otherwise, some good data located in the same
+>>>>> page of dmab->area maybe touched wrongly by userspace like pulseaudio.
+>>>>>
+>>>> I wonder, do we also have to align size to be a multiple of PAGE_SIZE
+>>>> to avoid leaking unrelated data?
+>>> Hm, a good question.  Basically the PCM buffer size itself shouldn't
+>>> be influenced by that (i.e. no hw-constraint or such is needed), but
+>>> the padding should be cleared indeed.  I somehow left those to the
+>>> allocator side, but maybe it's safer to clear the whole buffer in
+>>> sound/core/memalloc.c commonly.
+>> What I meant was that most of the APIs that we use to allocate memory
+>> work on a PAGE_SIZE granularity. I.e. if you request a buffer that
+>> where the size is not a multiple of PAGE_SIZE internally they will
+>> still allocate a buffer that is a multiple of PAGE_SIZE and mark the
+>> unused bytes as reserved.
+>>
+>> But I believe that is not the case gen_pool_dma_alloc(). It will
+>> happily allocate those extra bytes to some other allocation request.
+>>
+>> That we need to zero out the reserved bytes even for those other APIs
+>> is a very good additional point!
+>>
+>> I looked at this a few years ago and I'm pretty sure that we cleared
+>> out the allocated area, but I can't find that anymore in the current
+>> code. Which is not so great I guess.
+> IIRC, we used GFP_ZERO in the past for the normal page allocations,
+> but this was dropped as it's no longer supported or so.
+>
+> Also, we clear out the PCM buffer in hw_params call, but this is for
+> the requested size, not the actual allocated size, hence the padding
+> bytes will remain uncleared.
+Ah! That memset() in hw_params is new.
+>
+> So I believe it's safer to add an extra memset() like my test patch.
 
-Fixes: 2d744ecf2b984 ("ASoC: Intel: Skylake: Automatic DMIC format configuration according to information from NHLT")
-Cc: <stable@vger.kernel.org> # 5.4+
-Signed-off-by: Lukasz Majczak <lma@semihalf.com>
-Reviewed-by: Mateusz Gorski <mateusz.gorski@linux.intel.com>
----
- sound/soc/intel/skylake/skl-topology.c | 14 ++++++++++----
- 1 file changed, 10 insertions(+), 4 deletions(-)
- v1 -> v2: fixed coding style
+Yea, we definitely want that.
 
-diff --git a/sound/soc/intel/skylake/skl-topology.c b/sound/soc/intel/skylake/skl-topology.c
-index ae466cd592922..8f0bfda7096a9 100644
---- a/sound/soc/intel/skylake/skl-topology.c
-+++ b/sound/soc/intel/skylake/skl-topology.c
-@@ -3618,12 +3618,18 @@ static void skl_tplg_complete(struct snd_soc_component *component)
- 	int i;
- 
- 	list_for_each_entry(dobj, &component->dobj_list, list) {
--		struct snd_kcontrol *kcontrol = dobj->control.kcontrol;
--		struct soc_enum *se =
--			(struct soc_enum *)kcontrol->private_value;
--		char **texts = dobj->control.dtexts;
-+		struct snd_kcontrol *kcontrol;
-+		struct soc_enum *se;
-+		char **texts;
- 		char chan_text[4];
- 
-+		kcontrol = dobj->control.kcontrol;
-+		if (!kcontrol)
-+			continue;
-+
-+		se = (struct soc_enum *)kcontrol->private_value;
-+		texts = dobj->control.dtexts;
-+
- 		if (dobj->type != SND_SOC_DOBJ_ENUM ||
- 		    dobj->control.kcontrol->put !=
- 		    skl_tplg_multi_config_set_dmic)
--- 
-2.25.1
+Do we care about leaking audio samples from a previous application. I.e. 
+application 'A' allocates a buffer plays back some data and then closes 
+the device again. Application 'B' then opens the same audio devices 
+allocates a slightly smaller buffer, so that it still uses the same 
+number of pages. The buffer from the previous allocation get reused, but 
+the remainder of the last page wont get cleared in hw_params().
 

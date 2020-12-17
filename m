@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 579C82DCEEE
-	for <lists+alsa-devel@lfdr.de>; Thu, 17 Dec 2020 10:57:24 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id CB1FF2DCF50
+	for <lists+alsa-devel@lfdr.de>; Thu, 17 Dec 2020 11:16:39 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E8BA8184E;
-	Thu, 17 Dec 2020 10:56:33 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E8BA8184E
+	by alsa0.perex.cz (Postfix) with ESMTPS id 53F6B1850;
+	Thu, 17 Dec 2020 11:15:34 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 53F6B1850
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1608199044;
-	bh=VtHoD787rf/j4rYFIurjS6q93kKB/ZVirX8g3OAO0VU=;
+	s=default; t=1608200184;
+	bh=eQCydW3m1r2SCQK2N4hwFFdfxW3I+gx5a642RvdtnAw=;
 	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=j0LubY+i3/ef8FuLfoVTBTl5skudGqlw3B4XLjEUZA51rmlAnDSZah6YQiGhSgm3J
-	 LNU2Ng6Vihb1zr50ZhngGXYhLzp7auThsaO/08SnpP0EcBZiZj3jRR5KU1VlJ5f/pX
-	 m+sLPYgxFR2AdvVSNV1TCmxt/sO4bgNvHvrKIiIE=
+	b=DRsePdBGcoBmXfwBpkN1XyK+kI7cUo9F3OCmubhXTmT+TjBgiZDm5sNrCd+B8qt61
+	 chGwzE3CoSX2pEv67J8xhpcXZGuiZSkFDnSBIJGtjjFFTwJb5VriSRHdwum65JYVzE
+	 HuwRR8D1YwSx9n6LClO4eh/b979yQfOLnwWKSbps=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 66872F8014B;
-	Thu, 17 Dec 2020 10:55:48 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 70953F80278;
+	Thu, 17 Dec 2020 11:14:48 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 37D5EF80260; Thu, 17 Dec 2020 10:55:45 +0100 (CET)
+ id A9C91F80260; Thu, 17 Dec 2020 11:14:46 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE
@@ -33,21 +33,22 @@ X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 166BCF800C7
- for <alsa-devel@alsa-project.org>; Thu, 17 Dec 2020 10:55:42 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 166BCF800C7
+ by alsa1.perex.cz (Postfix) with ESMTPS id 6AA21F80148
+ for <alsa-devel@alsa-project.org>; Thu, 17 Dec 2020 11:14:43 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6AA21F80148
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 976B6AC90;
- Thu, 17 Dec 2020 09:55:42 +0000 (UTC)
-Date: Thu, 17 Dec 2020 10:55:42 +0100
-Message-ID: <s5h5z50n4dd.wl-tiwai@suse.de>
+ by mx2.suse.de (Postfix) with ESMTP id 60D6AAC7B;
+ Thu, 17 Dec 2020 10:14:43 +0000 (UTC)
+Date: Thu, 17 Dec 2020 11:14:43 +0100
+Message-ID: <s5h1rfon3ho.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
 To: Lars-Peter Clausen <lars@metafoo.de>
 Subject: Re: [PATCH v1 ] ALSA: core: memalloc: add page alignment for iram
-In-Reply-To: <05c824e5-0c33-4182-26fa-b116a42b10d6@metafoo.de>
+In-Reply-To: <s5h5z50n4dd.wl-tiwai@suse.de>
 References: <1608221747-3474-1-git-send-email-yibin.gong@nxp.com>
  <05c824e5-0c33-4182-26fa-b116a42b10d6@metafoo.de>
+ <s5h5z50n4dd.wl-tiwai@suse.de>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
  FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
  (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
@@ -72,24 +73,59 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Thu, 17 Dec 2020 10:43:45 +0100,
-Lars-Peter Clausen wrote:
+On Thu, 17 Dec 2020 10:55:42 +0100,
+Takashi Iwai wrote:
 > 
-> On 12/17/20 5:15 PM, Robin Gong wrote:
-> > Since mmap for userspace is based on page alignment, add page alignment
-> > for iram alloc from pool, otherwise, some good data located in the same
-> > page of dmab->area maybe touched wrongly by userspace like pulseaudio.
-> >
-> I wonder, do we also have to align size to be a multiple of PAGE_SIZE
-> to avoid leaking unrelated data?
+> On Thu, 17 Dec 2020 10:43:45 +0100,
+> Lars-Peter Clausen wrote:
+> > 
+> > On 12/17/20 5:15 PM, Robin Gong wrote:
+> > > Since mmap for userspace is based on page alignment, add page alignment
+> > > for iram alloc from pool, otherwise, some good data located in the same
+> > > page of dmab->area maybe touched wrongly by userspace like pulseaudio.
+> > >
+> > I wonder, do we also have to align size to be a multiple of PAGE_SIZE
+> > to avoid leaking unrelated data?
+> 
+> Hm, a good question.  Basically the PCM buffer size itself shouldn't
+> be influenced by that (i.e. no hw-constraint or such is needed), but
+> the padding should be cleared indeed.  I somehow left those to the
+> allocator side, but maybe it's safer to clear the whole buffer in
+> sound/core/memalloc.c commonly.
 
-Hm, a good question.  Basically the PCM buffer size itself shouldn't
-be influenced by that (i.e. no hw-constraint or such is needed), but
-the padding should be cleared indeed.  I somehow left those to the
-allocator side, but maybe it's safer to clear the whole buffer in
-sound/core/memalloc.c commonly.
+That said, something like below (totally untested).
+We might pass the pass-aligned size to dmab->bytes field instead of
+keeping the original value, too.
 
-
-thanks,
 
 Takashi
+
+---
+--- a/sound/core/memalloc.c
++++ b/sound/core/memalloc.c
+@@ -126,6 +126,7 @@ static inline gfp_t snd_mem_get_gfp_flags(const struct device *dev,
+ int snd_dma_alloc_pages(int type, struct device *device, size_t size,
+ 			struct snd_dma_buffer *dmab)
+ {
++	size_t orig_size = size;
+ 	gfp_t gfp;
+ 
+ 	if (WARN_ON(!size))
+@@ -133,6 +134,7 @@ int snd_dma_alloc_pages(int type, struct device *device, size_t size,
+ 	if (WARN_ON(!dmab))
+ 		return -ENXIO;
+ 
++	size = PAGE_ALIGN(size);
+ 	dmab->dev.type = type;
+ 	dmab->dev.dev = device;
+ 	dmab->bytes = 0;
+@@ -177,7 +179,8 @@ int snd_dma_alloc_pages(int type, struct device *device, size_t size,
+ 	}
+ 	if (! dmab->area)
+ 		return -ENOMEM;
+-	dmab->bytes = size;
++	memset(dmab->area, 0, size);
++	dmab->bytes = orig_size;
+ 	return 0;
+ }
+ EXPORT_SYMBOL(snd_dma_alloc_pages);

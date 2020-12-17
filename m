@@ -2,96 +2,131 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 655412DD47A
-	for <lists+alsa-devel@lfdr.de>; Thu, 17 Dec 2020 16:44:29 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id DDA6A2DCD51
+	for <lists+alsa-devel@lfdr.de>; Thu, 17 Dec 2020 09:01:58 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 5888118D6;
-	Thu, 17 Dec 2020 16:43:38 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5888118D6
+	by alsa0.perex.cz (Postfix) with ESMTPS id 70F851725;
+	Thu, 17 Dec 2020 09:01:08 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 70F851725
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1608219868;
-	bh=lbih+rnepqlXsefEa2hPSrzKUHjKbsTgVYUK5hhWgig=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=Fdfkgo8j+HixtmhkrBSeeQRRk2a77yans1pRsBRkaLujWkLKID5onuXYiE78Q9DKu
-	 1/OebZm+1mnzlwj1PE1Eic4s/brhVTkYCx/cdW5EifWXu7BS1vAtc7Q3YbGMWt3tqC
-	 C+c/GZTb+wQIrvBUqPcJQBLIuE4Gh1dXn6A6UbuU=
+	s=default; t=1608192118;
+	bh=FZV+7zbNbJF5cPIOdaTC+P9/XBrlHDz8ek95Au3ikRw=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=buxXMo46X3EvH4rsm+KM7IzN8VwRn9SA/zuAyAnEEIzS+7tNhR98T7bCed9jDwQ5c
+	 /wHZyt7qVH9qB+nuGpG8+d5lnkXsMP6/udPhP8IPtDx0Ia/e2AYkEbGTVdQoAnpxZY
+	 Rf90ehbRQ4XghR317cKZzKu7nrfHTjcpMJwFRJ4Y=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 95978F804E0;
-	Thu, 17 Dec 2020 16:42:01 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id D7E54F80278;
+	Thu, 17 Dec 2020 09:00:17 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id F2A99F8028B; Thu, 17 Dec 2020 16:41:58 +0100 (CET)
+ id B9372F80260; Thu, 17 Dec 2020 09:00:15 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mx0b-001ae601.pphosted.com (mx0b-001ae601.pphosted.com
- [67.231.152.168])
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DATE_IN_FUTURE_06_12,
+ DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,MSGID_FROM_MTA_HEADER,SPF_HELO_NONE,
+ SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from EUR03-VE1-obe.outbound.protection.outlook.com
+ (mail-eopbgr50074.outbound.protection.outlook.com [40.107.5.74])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id A2BEBF8028B
- for <alsa-devel@alsa-project.org>; Thu, 17 Dec 2020 16:41:51 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A2BEBF8028B
+ by alsa1.perex.cz (Postfix) with ESMTPS id DCEACF8014B
+ for <alsa-devel@alsa-project.org>; Thu, 17 Dec 2020 09:00:07 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DCEACF8014B
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=cirrus.com header.i=@cirrus.com
- header.b="kPVz1IIb"
-Received: from pps.filterd (m0077474.ppops.net [127.0.0.1])
- by mx0b-001ae601.pphosted.com (8.16.0.43/8.16.0.43) with SMTP id
- 0BHFPi9C001634; Thu, 17 Dec 2020 09:41:50 -0600
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com;
- h=from : to : cc :
- subject : date : message-id : in-reply-to : references : mime-version :
- content-transfer-encoding : content-type; s=PODMain02222019;
- bh=gmj8HFDT2HPiRDrHJFz8ZF2n/cAWqZV08im7JSazFa0=;
- b=kPVz1IIby7bCf6Lg5v2bmLkQZuj5p3Ah+TM0GN/uKQetWbkUubMPqcZ/4kDOfwjyzX8O
- AhpeojIU7yEwDNUjwzb7PsLt/todounaCJajKF10jBwC7f3ZWJouMA47vUrag/GryypU
- XsqNwpPuz+tMi/nM6cGojMjWWw9zwQl2X4cqw+vDEmkEH5utlXQjLnl9Z4HcDtWK3PlY
- RP3Nu7pulyC97YDqs38V8URK5Rs4JB0MKeRFR0aROcBVPyk/Oo/4bIkg+9y0dtGVSweM
- dBUDcUWv1xtnkHiN1cDVCUBQGPRPVid38r4LRiliZk2yE/nPULTWJppXNVet0mvUPXCK fg== 
-Received: from ediex02.ad.cirrus.com ([87.246.76.36])
- by mx0b-001ae601.pphosted.com with ESMTP id 35cu5rxy90-7
- (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT);
- Thu, 17 Dec 2020 09:41:50 -0600
-Received: from EDIEX01.ad.cirrus.com (198.61.84.80) by EDIEX02.ad.cirrus.com
- (198.61.84.81) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1913.5; Thu, 17 Dec
- 2020 15:41:48 +0000
-Received: from ediswmail.ad.cirrus.com (198.61.86.93) by EDIEX01.ad.cirrus.com
- (198.61.84.80) with Microsoft SMTP Server id 15.1.1913.5 via Frontend
- Transport; Thu, 17 Dec 2020 15:41:48 +0000
-Received: from AUSNPC0LSNW1-debian.cirrus.com (AUSNPC0LSNW1.ad.cirrus.com
- [198.61.64.236])
- by ediswmail.ad.cirrus.com (Postfix) with ESMTP id 593A911CB;
- Thu, 17 Dec 2020 15:41:48 +0000 (UTC)
-From: Richard Fitzgerald <rf@opensource.cirrus.com>
-To: <broonie@kernel.org>, <robh+dt@kernel.org>,
- <kuninori.morimoto.gx@renesas.com>, <nsaenzjulienne@suse.de>
-Subject: [PATCH v3 6/6] ARM: dts: Add dts for RPi4b + Cirrus Logic Lochnagar2
- + CS47L15
-Date: Thu, 17 Dec 2020 15:41:42 +0000
-Message-ID: <20201217154142.24301-7-rf@opensource.cirrus.com>
-X-Mailer: git-send-email 2.20.1
-In-Reply-To: <20201217154142.24301-1-rf@opensource.cirrus.com>
-References: <20201217154142.24301-1-rf@opensource.cirrus.com>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+ dkim=pass (1024-bit key) header.d=nxp.com header.i=@nxp.com
+ header.b="L7x7dviX"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=HHaz4fkccrtJ/l5WhMeks8dA/mm4WD0LstdngQu1IhL4j5+OoQePA7Y/ehe3j0Z5iLeB7A7WlANHFrbLRi1AkRsXk1v1csspmJqpYEU0dq/dx9Ku9OSHQzllINcn4Mpaqf6Psl2PjOQZ1ESWG39/TRDCG/BlJFlByY+JMRgzlwau0j5/xALs4STQn8zZI+LhnfNPzB37vKe3tfpPJGue9hAi7rVWRvswQAi9lbNHW+TxlRaLrgtCIozRL5vgaaziHcP/CNlzIGKgPEC6Xv7CvWueY7FW8jSthBKwNWDGtYncjm1RWa5YasAw7SuD25oELzRWyGtzeXXnqlaAZoeTfw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Hg8l/NYhQ+1E/LChxorRpKnBB3P4TfJ2XYNh5dqZNQY=;
+ b=ZmNU+y51YGFisq6kzIoGROLefbfXg45q6ab40OcjtGMmKE5BleUV6QGDNEBRqvD61neA3eqi+zUPJIGWd/r5uOZ+NxpQ902BY8xPm/ksWn/9nnPnWFoHXBzx7k2pvdUVwoQgx/2vKzUsSPjxE6dC6St8GmzSrZ9efRcfRRcz8l4Tx/xVYrYVppjeKoMCW6XGpHqIj/Kyq/LyyQ4TXyJQOtA2w8WmisgKuSdfzoq5upKuPXHjdiQJYy/oB3O7KLQ0qXRNo5NL6hz9F39nDu5UFQa7CbzYa0TsYLzyhQFKu2tYRysMXwn3n/kK3lU69kDZSR+04a+KYpcZqFUdVuvGzw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
+ header.d=nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector2; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Hg8l/NYhQ+1E/LChxorRpKnBB3P4TfJ2XYNh5dqZNQY=;
+ b=L7x7dviXKQZM4qPzpbRyrUUPj/zJUeEPEbvV35Y1Jki6JLgRNvX8IEFO2zqbBvcKjzOPkyXbYLP1qpEOB/vvf19wyY2FmztT0ow+XmWHH2rFAUFPlwh8WbNuFwpW9EUJHhGx9ew3bM6JHAbY532of6p27pQvuMBzG6YL/zRKipo=
+Authentication-Results: perex.cz; dkim=none (message not signed)
+ header.d=none;perex.cz; dmarc=none action=none header.from=nxp.com;
+Received: from VE1PR04MB6638.eurprd04.prod.outlook.com (2603:10a6:803:119::15)
+ by VI1PR0402MB3549.eurprd04.prod.outlook.com (2603:10a6:803:8::30)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3654.15; Thu, 17 Dec
+ 2020 08:00:03 +0000
+Received: from VE1PR04MB6638.eurprd04.prod.outlook.com
+ ([fe80::b042:5b55:165a:87e2]) by VE1PR04MB6638.eurprd04.prod.outlook.com
+ ([fe80::b042:5b55:165a:87e2%5]) with mapi id 15.20.3676.025; Thu, 17 Dec 2020
+ 08:00:03 +0000
+From: Robin Gong <yibin.gong@nxp.com>
+To: perex@perex.cz, tiwai@suse.com, akpm@linux-foundation.org,
+ xiang@kernel.org, pierre-louis.bossart@linux.intel.com,
+ gustavoars@kernel.org, shengjiu.wang@nxp.com
+Subject: [PATCH v1 ] ALSA: core: memalloc: add page alignment for iram
+Date: Fri, 18 Dec 2020 00:15:47 +0800
+Message-Id: <1608221747-3474-1-git-send-email-yibin.gong@nxp.com>
+X-Mailer: git-send-email 2.7.4
 Content-Type: text/plain
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 phishscore=0
- adultscore=0 mlxscore=0
- mlxlogscore=999 suspectscore=0 spamscore=0 clxscore=1015 malwarescore=0
- impostorscore=0 priorityscore=1501 bulkscore=0 lowpriorityscore=0
- classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2009150000
- definitions=main-2012170108
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- patches@opensource.cirrus.com, linux-kernel@vger.kernel.org,
- Richard Fitzgerald <rf@opensource.cirrus.com>,
- bcm-kernel-feedback-list@broadcom.com, linux-rpi-kernel@lists.infradead.org,
- linux-arm-kernel@lists.infradead.org
+X-Originating-IP: [119.31.174.66]
+X-ClientProxiedBy: SG2PR02CA0004.apcprd02.prod.outlook.com
+ (2603:1096:3:17::16) To VE1PR04MB6638.eurprd04.prod.outlook.com
+ (2603:10a6:803:119::15)
+MIME-Version: 1.0
+X-MS-Exchange-MessageSentRepresentingType: 1
+Received: from robin-OptiPlex-790.ap.freescale.net (119.31.174.66) by
+ SG2PR02CA0004.apcprd02.prod.outlook.com (2603:1096:3:17::16) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256) id
+ 15.20.3654.12 via Frontend Transport; Thu, 17 Dec 2020 07:59:59 +0000
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-HT: Tenant
+X-MS-Office365-Filtering-Correlation-Id: bcdca302-a3c5-4ed3-1bb3-08d8a261c278
+X-MS-TrafficTypeDiagnostic: VI1PR0402MB3549:
+X-MS-Exchange-Transport-Forked: True
+X-Microsoft-Antispam-PRVS: <VI1PR0402MB3549B4067E546C4BEC61BF3E89C40@VI1PR0402MB3549.eurprd04.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:4303;
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: oxBOE49abwn1qigOjMY4nWRCp6G726ZQMHyGGYlWe9vx9qt8e76FGoI2g4zq2z0IJd3v/nkEuUenR67es6iY+uckiHe5uyPmWKUtlot6Cs+k+hj6hlkePMOnjkjKjroPrfaO3GX1GiJ+a4SeGuHFOhlIUPm4Msy0XVb5ZOQIxjCCkPH12fcvPTOZi/6r/57s2sUlr90HzHQw130vue7vxCsnV3szAAvyaAxtFdg52oSOeDAdXwcDJHbsf+CqAajkCIU52fxpfrmYav12J2Idz7Rpca60mID5MSAZJSsBsYFMDmUOYR4+91o97ox3nWgUM23h4dYSgOv798PlycygRQ==
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:VE1PR04MB6638.eurprd04.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(346002)(366004)(39860400002)(396003)(376002)(136003)(6512007)(316002)(956004)(66476007)(478600001)(6486002)(36756003)(86362001)(6666004)(6636002)(52116002)(8936002)(186003)(4326008)(66946007)(83380400001)(2616005)(16526019)(26005)(4744005)(2906002)(8676002)(5660300002)(66556008)(6506007);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData: =?us-ascii?Q?d6kRqk39AqeaA9nRnlDXo7iq7Cjhb3mrGV+HUYVUfvmfKgUMsYEb3csfNDGK?=
+ =?us-ascii?Q?9jYrKPfDog7Rjvfl8MaIUNGmSuJ0Htu1lCBSsuvFpV98SJCc6QZ5FiOJGOIm?=
+ =?us-ascii?Q?OzlQGa3Edl26ssojdyf14iBgSYzC5OlxNjjV4dOOizhr/FwwhThrqnQEBghN?=
+ =?us-ascii?Q?u2UzhE2jPm5DiPRsLG4+F91E1ik115P5+O1c/eBL6+W/JeBBouZi+AV76yX2?=
+ =?us-ascii?Q?PY8ZNKBXUrrV3/FAZHUhQT2zm6Q2HutToHki66XQ5PKkl+1Y2VrOH21anOd6?=
+ =?us-ascii?Q?rBKPkGDbUV3THCI9JmrCg9n0W2H5qHjCaXYIghjswFEx9bxP/qkfSrQAhehQ?=
+ =?us-ascii?Q?1QOTvi3hfT48XaP9qR9sj1/Te4W0L5jH0nzfPr9B1RssxCqXj8VWUKW+g0CH?=
+ =?us-ascii?Q?azEA99Fa4XvXN3rbBDQw64XihrPyFr6sN6a6nGF38kuPn3zwy04dfd+3KoXc?=
+ =?us-ascii?Q?bEuEcyfwLE756EfqzQC4sIrV6LU18zBGt4SnUYwvxTFSQG/X2204Hr9Ao3Qv?=
+ =?us-ascii?Q?Qtno423TEZbi3YWoXAzWSzb7y553qLHDfSZuEjqmeLS1FVMI4Ytfb7gQd1FU?=
+ =?us-ascii?Q?6MCujNSSKMXYgUYXaS1bFj/pWMnEPh+9kAPfTLVMY1YPsHJesGEVivobBKcw?=
+ =?us-ascii?Q?OhymYwFcnWd2HUSLmBvKdpXclxnAN2eIXYQy37mYPxJlFS6FpoQ3P8ZgRL8N?=
+ =?us-ascii?Q?cPKgjFTXx6QRVPYsPdoZgglHIFlEI+YnFC8wAN4tQC2KI68+PD4TG/Eo5VSJ?=
+ =?us-ascii?Q?I0Nd8Wr/u6WvvtM944N9XPLdzhTIPwhsWUMT6psFIslmv2qveupav7DthYlP?=
+ =?us-ascii?Q?C1BPS4cceyrrR/JwIb3iJ/mZsxCKqf8dBhuHN7lBIikXSkjKfo9LiqgOONvn?=
+ =?us-ascii?Q?dfjHcKx8FNVNIh+UF8QzBvZeho/Rys2QoFzacShhji6dwNKHzO8l/yoilgdK?=
+ =?us-ascii?Q?QEEB81UgxAelgb8ytmTrTZZcWD9S27RuoDAwanEgvCmwuiVI1VhCimzlDuXZ?=
+ =?us-ascii?Q?wJyv?=
+X-OriginatorOrg: nxp.com
+X-MS-Exchange-CrossTenant-AuthSource: VE1PR04MB6638.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Dec 2020 08:00:03.0104 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-Network-Message-Id: bcdca302-a3c5-4ed3-1bb3-08d8a261c278
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: rYccN9F+yDGyi3QGBd1QKhYCXx9xaw8uC7wwyJ97eci0wl+ImjM9VB8KNqipatu13n2ntmtrFQ8KX04Cnn1wjw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR0402MB3549
+Cc: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -107,445 +142,29 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-This adds a devicetree configuration for Raspberry Pi 4b connected to
-Cirrus Logic Lochnagar 2 audio development board and CS47L15 codec.
+Since mmap for userspace is based on page alignment, add page alignment
+for iram alloc from pool, otherwise, some good data located in the same
+page of dmab->area maybe touched wrongly by userspace like pulseaudio.
 
-The common (codec-independent) Lochnagar 2 configuration is separated
-into a dtsi to simplify re-using it for other codecs.
-
-Signed-off-by: Richard Fitzgerald <rf@opensource.cirrus.com>
+Signed-off-by: Robin Gong <yibin.gong@nxp.com>
 ---
- MAINTAINERS                                   |   1 +
- arch/arm/boot/dts/Makefile                    |   1 +
- ...bcm2711-rpi4b-cirrus-lochnagar-cs47l15.dts | 186 ++++++++++++++++
- .../dts/bcm2711-rpi4b-cirrus-lochnagar.dtsi   | 201 ++++++++++++++++++
- 4 files changed, 389 insertions(+)
- create mode 100644 arch/arm/boot/dts/bcm2711-rpi4b-cirrus-lochnagar-cs47l15.dts
- create mode 100644 arch/arm/boot/dts/bcm2711-rpi4b-cirrus-lochnagar.dtsi
+ sound/core/memalloc.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 5cc595ac7b28..7dca1db52144 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -4193,6 +4193,7 @@ M:	Charles Keepax <ckeepax@opensource.cirrus.com>
- M:	Richard Fitzgerald <rf@opensource.cirrus.com>
- L:	patches@opensource.cirrus.com
- S:	Supported
-+F:	arch/arm/boot/dts/bcm2711-rpi4b-cirrus-lochnagar*
- F:	Documentation/devicetree/bindings/clock/cirrus,lochnagar.yaml
- F:	Documentation/devicetree/bindings/hwmon/cirrus,lochnagar.yaml
- F:	Documentation/devicetree/bindings/mfd/cirrus,lochnagar.yaml
-diff --git a/arch/arm/boot/dts/Makefile b/arch/arm/boot/dts/Makefile
-index ce66ffd5a1bb..240cc58fd954 100644
---- a/arch/arm/boot/dts/Makefile
-+++ b/arch/arm/boot/dts/Makefile
-@@ -93,6 +93,7 @@ dtb-$(CONFIG_ARCH_BCM2835) += \
- 	bcm2837-rpi-3-b-plus.dtb \
- 	bcm2837-rpi-cm3-io3.dtb \
- 	bcm2711-rpi-4-b.dtb \
-+	bcm2711-rpi4b-cirrus-lochnagar-cs47l15.dtb \
- 	bcm2835-rpi-zero.dtb \
- 	bcm2835-rpi-zero-w.dtb
- dtb-$(CONFIG_ARCH_BCM_5301X) += \
-diff --git a/arch/arm/boot/dts/bcm2711-rpi4b-cirrus-lochnagar-cs47l15.dts b/arch/arm/boot/dts/bcm2711-rpi4b-cirrus-lochnagar-cs47l15.dts
-new file mode 100644
-index 000000000000..b6b91289bc6f
---- /dev/null
-+++ b/arch/arm/boot/dts/bcm2711-rpi4b-cirrus-lochnagar-cs47l15.dts
-@@ -0,0 +1,186 @@
-+// SPDX-License-Identifier: GPL-2.0
-+/dts-v1/;
-+#include "bcm2711-rpi4b-cirrus-lochnagar.dtsi"
-+#include <dt-bindings/sound/madera.h>
-+
-+/ {
-+	sound {
-+		status = "okay";
-+
-+		compatible = "audio-graph-card";
-+		label = "sound-card-cs47l15";
-+
-+		clocks = <&clk_24m>, <&fll1_out>, <&fll1_dsp>;
-+		clock-names = "ln-clk-24m", "fll1-out", "fll1-dsp";
-+
-+		plls = <
-+			&cs47l15 MADERA_FLL1_REFCLK MADERA_FLL_SRC_MCLK1 98304000
-+		>;
-+		plls-clocks = "ln-clk-24m";
-+
-+		sysclks = <
-+			&cs47l15 MADERA_CLK_SYSCLK_1 MADERA_CLK_SRC_FLL1 0
-+			&cs47l15 MADERA_CLK_DSPCLK   MADERA_CLK_SRC_FLL1 0
-+		>;
-+		sysclks-clocks = "fll1-out", "fll1-dsp";
-+
-+		widgets = "Microphone", "Microphone Jack",
-+			  "Headphone", "Headphone Jack";
-+
-+		routing = "Microphone Jack", "MICBIAS1A",
-+			  "IN1BRN", "Microphone Jack",
-+			  "IN1BRP", "Microphone Jack",
-+			  "Headphone Jack", "HPOUTL",
-+			  "Headphone Jack", "HPOUTR";
-+
-+		dais = <&cpu_i2s_port &cs47l15_trace_port>;
-+
-+		/* Main output from FLL1 */
-+		fll1_out: fll1_out {
-+			compatible = "fixed-clock";
-+			#clock-cells = <0>;
-+			clock-frequency = <98304000>;
-+		};
-+
-+		/* x1.5 DSP output from FLL1 */
-+		fll1_dsp: fll1_dsp {
-+			compatible = "fixed-clock";
-+			#clock-cells = <0>;
-+			clock-frequency = <147456000>;
-+		};
-+	};
-+};
-+
-+&i2s {
-+	ports {
-+		#address-cells = <1>;
-+		#size-cells = <0>;
-+		cpu_i2s_port: port@0 {
-+			reg = <0>;
-+			cpu_i2s_ep: endpoint {
-+				remote-endpoint = <&cs47l15_aif1>;
-+				dai-format = "i2s";
-+			};
-+		};
-+	};
-+};
-+
-+&spi {
-+	status = "okay";
-+
-+	cs47l15: cs47l15@1 {
-+		status = "okay";
-+
-+		compatible = "cirrus,cs47l15";
-+		reg = <0x1>;
-+
-+		spi-max-frequency = <11000000>;
-+
-+		interrupts = <27 8>;
-+		interrupt-controller;
-+		#interrupt-cells = <2>;
-+		interrupt-parent = <&gpio>;
-+		gpio-controller;
-+		#gpio-cells = <2>;
-+		#sound-dai-cells = <1>;
-+
-+		AVDD-supply = <&lochnagar_vdd1v8>;
-+		DCVDD-supply = <&lochnagar_vddcore>;
-+		DBVDD1-supply = <&lochnagar_vdd1v8>;
-+		CPVDD1-supply = <&lochnagar_vdd1v8>;
-+		SPKVDD-supply = <&wallvdd>;
-+		MICVDD-supply = <&lochnagar_micvdd>;
-+
-+		reset-gpios = <&lochnagar_pin 0 0>;
-+
-+		cirrus,dmic-ref = <
-+			MADERA_DMIC_REF_MICBIAS1
-+		>;
-+		cirrus,inmode = <
-+			MADERA_INMODE_SE   MADERA_INMODE_SE   /* IN1A */
-+			MADERA_INMODE_DIFF MADERA_INMODE_DIFF /* IN1B */
-+			MADERA_INMODE_SE   MADERA_INMODE_SE   /* IN2A */
-+			MADERA_INMODE_DIFF MADERA_INMODE_DIFF /* IN2B */
-+		>;
-+
-+		clocks = <&lochnagar_clk LOCHNAGAR_CDC_MCLK1>,
-+			 <&lochnagar_clk LOCHNAGAR_CDC_MCLK2>;
-+		clock-names = "mclk1", "mclk2";
-+
-+		pinctrl-names = "default";
-+		pinctrl-0 = <&cdc_irq &cs47l15_defaults>;
-+
-+		cs47l15_defaults: cs47l15-gpio-defaults {
-+			aif1 {
-+				groups = "aif1";
-+				function = "aif1";
-+				bias-bus-hold;
-+			};
-+			aif2 {
-+				groups = "aif2";
-+				function = "aif2";
-+				bias-bus-hold;
-+			};
-+			aif3 {
-+				groups = "aif3";
-+				function = "aif3";
-+				bias-bus-hold;
-+			};
-+			pdmspk1 {
-+				groups = "pdmspk1";
-+				function = "pdmspk1";
-+			};
-+		};
-+
-+		micvdd {
-+			regulator-min-microvolt = <3000000>;
-+			regulator-max-microvolt = <3000000>;
-+		};
-+
-+		MICBIAS1 {
-+			regulator-min-microvolt = <2800000>;
-+			regulator-max-microvolt = <2800000>;
-+		};
-+		MICBIAS1A {
-+			regulator-active-discharge = <1>;
-+		};
-+		MICBIAS1B {
-+			regulator-active-discharge = <1>;
-+		};
-+		MICBIAS1C {
-+			regulator-active-discharge = <1>;
-+		};
-+
-+		ports {
-+			#address-cells = <1>;
-+			#size-cells = <0>;
-+			cs47l15_aif1_port: port@0 {
-+				reg = <0>;
-+				cs47l15_aif1: endpoint {
-+					remote-endpoint = <&cpu_i2s_ep>;
-+					bitclock-master;
-+					frame-master;
-+					system-clock-frequency = <0>;
-+					mclk-fs = <0>;
-+				};
-+			};
-+			/* Debug trace compressed stream */
-+			cs47l15_trace_port: port@3 {
-+				reg = <3>;
-+				cs47l15_trace_cpu: endpoint {
-+					remote-endpoint = <&cs47l15_trace_codec>;
-+					system-clock-frequency = <0>;
-+					mclk-fs = <0>;
-+				};
-+			};
-+			port@4 {
-+				reg = <4>;
-+				cs47l15_trace_codec: endpoint {
-+					remote-endpoint = <&cs47l15_trace_cpu>;
-+					system-clock-frequency = <0>;
-+					mclk-fs = <0>;
-+				};
-+			};
-+		};
-+	};
-+};
-diff --git a/arch/arm/boot/dts/bcm2711-rpi4b-cirrus-lochnagar.dtsi b/arch/arm/boot/dts/bcm2711-rpi4b-cirrus-lochnagar.dtsi
-new file mode 100644
-index 000000000000..af498d7ad18a
---- /dev/null
-+++ b/arch/arm/boot/dts/bcm2711-rpi4b-cirrus-lochnagar.dtsi
-@@ -0,0 +1,201 @@
-+// SPDX-License-Identifier: GPL-2.0
-+/dts-v1/;
-+#include "bcm2711-rpi-4-b.dts"
-+#include <dt-bindings/clk/lochnagar.h>
-+#include <dt-bindings/pinctrl/bcm2835.h>
-+#include <dt-bindings/pinctrl/lochnagar.h>
-+
-+/ {
-+	wallvdd: wallvdd@0 {
-+		compatible = "regulator-fixed";
-+
-+		regulator-name = "WALL_VDD_5V";
-+		regulator-min-microvolt = <5000000>;
-+		regulator-max-microvolt = <5000000>;
-+		regulator-boot-on;
-+		regulator-always-on;
-+	};
-+
-+};
-+
-+&gpio {
-+	lochnagar_present: lochnagar_present {
-+		brcm,pins = <22>;
-+		brcm,function = <BCM2835_FSEL_GPIO_OUT>;
-+	};
-+
-+	lochnagar_reset: lochnagar_reset {
-+		brcm,pins = <24>;
-+		brcm,function = <BCM2835_FSEL_GPIO_OUT>;
-+	};
-+
-+	cdc_irq: cdc_irq {
-+		brcm,pins = <27>;
-+		brcm,function = <BCM2835_FSEL_GPIO_IN>;
-+	};
-+
-+	spi_pins: spi_pins {
-+		brcm,pins = <9 10 11>;
-+		brcm,function = <BCM2835_FSEL_ALT0>;
-+	};
-+
-+	spi_cs: spi_cs {
-+		brcm,pins = <7 8>;
-+		brcm,function = <BCM2835_FSEL_GPIO_OUT>;
-+	};
-+
-+	i2s_pins: i2s_pins {
-+		brcm,pins = <18 19 20 21>;
-+		brcm,function = <BCM2835_FSEL_ALT0>;
-+	};
-+};
-+
-+&i2s {
-+	status = "okay";
-+	#sound-dai-cells = <1>;
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&i2s_pins>;
-+	dmas = <&dma 2>, <&dma 3>;
-+	dma-names = "tx", "rx";
-+};
-+
-+&i2c1 {
-+	status = "okay";
-+
-+	lochnagar: lochnagar@22 {
-+		status = "okay";
-+
-+		compatible = "cirrus,lochnagar2";
-+		reg = <0x22>;
-+
-+		pinctrl-names = "default";
-+		pinctrl-0 = <&lochnagar_present &lochnagar_reset>;
-+
-+		reset-gpio = <&gpio 24 0>;
-+		present-gpio = <&gpio 22 0>;
-+
-+		lochnagar_vdd1v8: VDD1V8 {
-+			compatible = "regulator-fixed";
-+
-+			regulator-name = "VDD1V8";
-+			regulator-min-microvolt = <1800000>;
-+			regulator-max-microvolt = <1800000>;
-+			regulator-boot-on;
-+			regulator-always-on;
-+
-+			vin-supply = <&wallvdd>;
-+		};
-+
-+		clk_pmic: clk_pmic {
-+			compatible = "fixed-clock";
-+			#clock-cells = <0>;
-+			clock-frequency = <32768>;
-+		};
-+		clk_24m: clk_24m {
-+			compatible = "fixed-clock";
-+			#clock-cells = <0>;
-+			clock-frequency = <24576000>;
-+		};
-+
-+		lochnagar_clk: clk {
-+			compatible = "cirrus,lochnagar2-clk";
-+
-+			#clock-cells = <1>;
-+
-+			clocks = <&clk_pmic>, <&clk_24m>;
-+			clock-names = "ln-pmic-32k", "ln-clk-24m";
-+
-+			assigned-clocks = <&lochnagar_clk LOCHNAGAR_CDC_MCLK1>,
-+					  <&lochnagar_clk LOCHNAGAR_CDC_MCLK2>,
-+					  <&lochnagar_clk LOCHNAGAR_SOUNDCARD_MCLK>;
-+			assigned-clock-parents = <&clk_24m>,
-+						 <&clk_pmic>,
-+						 <&clk_24m>;
-+		};
-+
-+		lochnagar_pin: pin {
-+			compatible = "cirrus,lochnagar-pinctrl";
-+
-+			gpio-controller;
-+			#gpio-cells = <2>;
-+			gpio-ranges = <&lochnagar_pin 0 0 LOCHNAGAR2_PIN_NUM_GPIOS>;
-+
-+			pinctrl-names = "default";
-+			pinctrl-0 = <&pin_settings>;
-+
-+			pin_settings: pin_settings {
-+				rpi_aif {
-+					input-enable;
-+					groups = "gf-aif1";
-+					function = "codec-aif1";
-+				};
-+				codec_aif1 {
-+					output-master;
-+					groups = "codec-aif1";
-+					function = "gf-aif1";
-+				};
-+				sc_codec_aif {
-+					output-enable;
-+					groups = "codec-aif2";
-+					function = "soundcard-aif";
-+				};
-+				sc_lochnagar_aif {
-+					input-enable;
-+					groups = "soundcard-aif";
-+					function = "codec-aif2";
-+				};
-+			};
-+		};
-+
-+		lochnagar_hwmon: hwmon {
-+			compatible = "cirrus,lochnagar2-hwmon";
-+		};
-+
-+		lochnagar_micvdd: MICVDD {
-+			compatible = "cirrus,lochnagar2-micvdd";
-+
-+			SYSVDD-supply = <&wallvdd>;
-+
-+			regulator-min-microvolt = <3000000>;
-+			regulator-max-microvolt = <3000000>;
-+		};
-+
-+		MIC1VDD {
-+			compatible = "cirrus,lochnagar2-mic1vdd";
-+
-+			regulator-always-on;
-+			cirrus,micbias-input = <2>;
-+		};
-+
-+		MIC2VDD {
-+			compatible = "cirrus,lochnagar2-mic2vdd";
-+
-+			regulator-always-on;
-+			cirrus,micbias-input = <3>;
-+		};
-+
-+		lochnagar_vddcore: VDDCORE {
-+			compatible = "cirrus,lochnagar2-vddcore";
-+
-+			SYSVDD-supply = <&wallvdd>;
-+
-+			regulator-min-microvolt = <1200000>;
-+			regulator-max-microvolt = <1200000>;
-+		};
-+
-+		lochnagar_sc: soundcard {
-+			compatible = "cirrus,lochnagar2-soundcard";
-+
-+			#sound-dai-cells = <1>;
-+
-+			clocks = <&lochnagar_clk LOCHNAGAR_SOUNDCARD_MCLK>;
-+			clock-names = "mclk";
-+		};
-+	};
-+};
-+
-+&spi {
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&spi_pins &spi_cs>;
-+	cs-gpios = <&gpio 8 1>, <&gpio 7 1>;
-+};
+diff --git a/sound/core/memalloc.c b/sound/core/memalloc.c
+index 0aeeb62..0f33516 100644
+--- a/sound/core/memalloc.c
++++ b/sound/core/memalloc.c
+@@ -77,7 +77,8 @@ static void snd_malloc_dev_iram(struct snd_dma_buffer *dmab, size_t size)
+ 	/* Assign the pool into private_data field */
+ 	dmab->private_data = pool;
+ 
+-	dmab->area = gen_pool_dma_alloc(pool, size, &dmab->addr);
++	dmab->area = gen_pool_dma_alloc_align(pool, size, &dmab->addr,
++					PAGE_SIZE);
+ }
+ 
+ /**
 -- 
-2.20.1
+2.7.4
 

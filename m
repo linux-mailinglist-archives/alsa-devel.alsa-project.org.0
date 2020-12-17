@@ -2,83 +2,57 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 85FEF2DCEA1
-	for <lists+alsa-devel@lfdr.de>; Thu, 17 Dec 2020 10:45:01 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1604C2DCED6
+	for <lists+alsa-devel@lfdr.de>; Thu, 17 Dec 2020 10:52:25 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id F09B91853;
-	Thu, 17 Dec 2020 10:44:10 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz F09B91853
+	by alsa0.perex.cz (Postfix) with ESMTPS id A5BC2184A;
+	Thu, 17 Dec 2020 10:51:34 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A5BC2184A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1608198301;
-	bh=vDVl1DYfRLb8e/BXBn2rMiLVmdb2GBhu6SclprCNzTk=;
-	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
+	s=default; t=1608198744;
+	bh=EjG3uivtOxgP7eqI9n1C8d/LSVP4K3kpHSLq9s59svw=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=A8khGK+Wl4fXysHvIYfNoZ0aJGU6MkIoU3ggNGMQv54tTXicJ/pIZBRr7ZuVtusLJ
-	 3UE4AQCNRZjaXoD/l5PnKCtkU8cBjh3jl70TJY5TMK3LWqpKSqJG/bvmLluDxNXvqU
-	 hWg2sEJDlbTKy00jABdrokrQioa4wVCnkzgX9ln0=
+	b=imsxhNzCaoSH3IV45N5txZpI+leLnD0lwAf75hXlwhZBRPUTjFS4l88asogGzdV5f
+	 uLT24VJc1lf4A0SXRfVjXTsNAhBw7+WqwSbVOGoV7kMKIABEAIxgYcCmIg3jU56ikh
+	 TVKeq5rlgR94xLCOyFiANA2h5eSkJP8uJnE+X7S0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id E6008F804AE;
-	Thu, 17 Dec 2020 10:44:08 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 5E049F80278;
+	Thu, 17 Dec 2020 10:50:49 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id B0A5FF804BD; Thu, 17 Dec 2020 10:44:06 +0100 (CET)
+ id 1F1DEF80260; Thu, 17 Dec 2020 10:50:47 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE autolearn=disabled
- version=3.4.0
-Received: from www381.your-server.de (www381.your-server.de [78.46.137.84])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=0.5 required=5.0 tests=PRX_BODY_13,SPF_HELO_NONE,
+ SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 66B4DF8014B
- for <alsa-devel@alsa-project.org>; Thu, 17 Dec 2020 10:44:03 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 66B4DF8014B
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=metafoo.de header.i=@metafoo.de
- header.b="GN3BTU0I"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=metafoo.de; 
- s=default2002;
- h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
- MIME-Version:Date:Message-ID:From:References:Cc:To:Subject:Sender:Reply-To:
- Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
- Resent-To:Resent-Cc:Resent-Message-ID;
- bh=HHNhKphKZ5QqF9WjO51pWepbtNuJwsgWw1Hcw6UPKx4=; b=GN3BTU0INkArDmJZ3aQuHEzafd
- zzhThECDD6GFVc960TCPKNU7Qg7akHdoXRH9RU1oZ4+KoqkDNKkT78LI5BIVfgTAJl1WnNF28PlU8
- lpKfJ8MZCK4UVYrCZ5dRpQrmEQgwPXLvYCJp0cIYrTSYPcmvQWcXLPnH0OOjjt4zB3N34Nnq3jiiv
- 8en6UD52X1B2UkTnVpoWT6PfG5dxj6+efCdoabxlmyBfKiXCgDYZDMkZvB2pm+n0drNaA7wfABJoS
- OTVl/QXy/IrMnyL67Ax6WrCqMqllyqyJEd/AJdmPN6Z957FyPseIymgV5c93+3FIv95RnezqR89Um
- NXan7Xsw==;
-Received: from sslproxy03.your-server.de ([88.198.220.132])
- by www381.your-server.de with esmtpsa (TLSv1.3:TLS_AES_256_GCM_SHA384:256)
- (Exim 4.92.3) (envelope-from <lars@metafoo.de>)
- id 1kppp3-0000rs-QS; Thu, 17 Dec 2020 10:43:46 +0100
-Received: from [62.216.202.54] (helo=[192.168.178.20])
- by sslproxy03.your-server.de with esmtpsa (TLSv1.3:TLS_AES_256_GCM_SHA384:256)
- (Exim 4.92) (envelope-from <lars@metafoo.de>)
- id 1kppp3-000DPQ-Ie; Thu, 17 Dec 2020 10:43:45 +0100
-Subject: Re: [PATCH v1 ] ALSA: core: memalloc: add page alignment for iram
-To: Robin Gong <yibin.gong@nxp.com>, perex@perex.cz, tiwai@suse.com,
- akpm@linux-foundation.org, xiang@kernel.org,
- pierre-louis.bossart@linux.intel.com, gustavoars@kernel.org,
- shengjiu.wang@nxp.com
-References: <1608221747-3474-1-git-send-email-yibin.gong@nxp.com>
-From: Lars-Peter Clausen <lars@metafoo.de>
-Message-ID: <05c824e5-0c33-4182-26fa-b116a42b10d6@metafoo.de>
-Date: Thu, 17 Dec 2020 10:43:45 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.5.1
-MIME-Version: 1.0
-In-Reply-To: <1608221747-3474-1-git-send-email-yibin.gong@nxp.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 7bit
-Content-Language: en-US
-X-Authenticated-Sender: lars@metafoo.de
-X-Virus-Scanned: Clear (ClamAV 0.102.4/26019/Wed Dec 16 15:36:02 2020)
-Cc: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org
+ by alsa1.perex.cz (Postfix) with ESMTPS id 23FF4F8014B
+ for <alsa-devel@alsa-project.org>; Thu, 17 Dec 2020 10:50:41 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 23FF4F8014B
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id B4665AC90;
+ Thu, 17 Dec 2020 09:50:40 +0000 (UTC)
+Date: Thu, 17 Dec 2020 10:50:40 +0100
+Message-ID: <s5h8s9wn4lr.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Marco Giunta <giun7a@gmail.com>
+Subject: Re: [PATCH] Fix mic sound on Jieli webcam
+In-Reply-To: <CAE5BBpTEw2pTzDhLxaQiGwAvnH_q6aChLkuDXxEQrZFvS6wVyQ@mail.gmail.com>
+References: <CAE5BBpTEw2pTzDhLxaQiGwAvnH_q6aChLkuDXxEQrZFvS6wVyQ@mail.gmail.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
+ FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
+ (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
+Content-Type: text/plain; charset=US-ASCII
+Cc: alsa-devel@alsa-project.org, tiwai@suse.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -94,11 +68,114 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 12/17/20 5:15 PM, Robin Gong wrote:
-> Since mmap for userspace is based on page alignment, add page alignment
-> for iram alloc from pool, otherwise, some good data located in the same
-> page of dmab->area maybe touched wrongly by userspace like pulseaudio.
->
-I wonder, do we also have to align size to be a multiple of PAGE_SIZE to 
-avoid leaking unrelated data?
+On Tue, 15 Dec 2020 10:44:45 +0100,
+Marco Giunta wrote:
+> 
+> Hi,
+> recently I've bought a usb webcam with integrated mic:
+> 
+>   Jieli Technology USB PHY 2.0 (1224:2a25)
+> 
+> The video part works well, but the mic sound is speedups, "like
+> minions" (cit.). When I connect the camera, these are the dmesg
+> messages:
+> 
+> kernel: usb 1-8: current rate 0 is different from the runtime rate 8000
+> kernel: usb 1-8: current rate 0 is different from the runtime rate 16000
+> kernel: usb 1-8: current rate 0 is different from the runtime rate 44100
+> kernel: usb 1-8: current rate 0 is different from the runtime rate 48000
+> kernel: usb 1-8: Warning! Unlikely big volume range (=4096), cval->res
+> is probably wrong.
+> kernel: usb 1-8: [3] FU [Mic Capture Volume] ch = 1, val = 0/4096/1
+> kernel: usbcore: registered new interface driver snd-usb-audio
+> 
+> and after a while, dmesg log is filled, every 5 seconds, with:
+> 
+> kernel: retire_capture_urb: 84 callbacks suppressed
+> kernel: retire_capture_urb: 1714 callbacks suppressed
+> 
+> A guy reports on ArchLinux bug website the same problem
+> (https://bugs.archlinux.org/task/68141?opened=12995&status%5B0%5D=)
+> and provides a patch to fix the sound issue. I've applied the patch on
+> kernel 5.9.13 (Fedora 33 x86_64) and now the mic works, no more
+> minions voice effect. Now dmesg messages are only:
+> 
+> kernel: usb 1-8: Warning! Unlikely big volume range (=4096), cval->res
+> is probably wrong.
+> kernel: usb 1-8: [3] FU [Mic Capture Volume] ch = 1, val = 0/4096/1
+> kernel: usbcore: registered new interface driver snd-usb-audio
+> 
+> the retire_capture_urb messages are gone.
+> 
+> All credits for the patch go to him but I don't know how to contact
+> that guy nor I don't know if he has already contacted you, so my
+> question is if you could review his patch and finally apply upstream.
+> 
+> If you need other information or you need a tester, I'm here.
 
+Thanks for the patch.  The still remaining warnings are about the
+mixer, and your patch doesn't touch about it.  You may apply the
+similar change in volume_control_quirks() like other webcams.
+
+And now about the patch:
+
+> --- a/sound/usb/format.c    2020-10-01 18:36:35.000000000 +0300
+> +++ b/sound/usb/format.c    2020-10-04 02:10:21.678685952 +0300
+> @@ -217,6 +217,21 @@
+>                  (chip->usb_id == USB_ID(0x041e, 0x4064) ||
+>                   chip->usb_id == USB_ID(0x041e, 0x4068)))
+>                  rate = 8000;
+> +
+> +            // hack for "Jieli Technology USB PHY 2.0" webcam
+> +            if (chip->usb_id == USB_ID(0x1224, 0x2a25)) {
+> +                switch (rate) {
+> +                case 8000:
+> +                    fp->datainterval += 4;
+> +                    break;
+> +                case 16000:
+> +                    fp->datainterval += 3;
+> +                    break;
+> +                default:
+> +                    fp->datainterval += 1;
+> +                    break;
+> +                }
+> +            }
+
+Modifying datainterval at this point doesn't look intuitive.
+What's the original datainterval value for those altsettings?
+The value is retrieved in snd_usb_parse_datainterval() in helper.c,
+and if any, the correction there would be more sensible.
+
+
+>              fp->rate_table[fp->nr_rates] = rate;
+>              if (!fp->rate_min || rate < fp->rate_min)
+> --- a/sound/usb/endpoint.c    2020-10-01 18:36:35.000000000 +0300
+> +++ b/sound/usb/endpoint.c    2020-10-04 02:09:09.471978982 +0300
+> @@ -882,6 +882,8 @@
+>      if (snd_usb_get_speed(ep->chip->dev) != USB_SPEED_FULL) {
+>          packs_per_ms = 8 >> ep->datainterval;
+>          max_packs_per_urb = MAX_PACKS_HS;
+> +        if (!packs_per_ms)
+> +            packs_per_ms = 1;
+
+This rather indicates that the datainterval is somehow wrong.
+
+>      } else {
+>          packs_per_ms = 1;
+>          max_packs_per_urb = MAX_PACKS;
+> --- a/sound/usb/quirks.c    2020-10-01 18:36:35.000000000 +0300
+> +++ b/sound/usb/quirks.c    2020-10-04 02:14:04.532196519 +0300
+> @@ -1516,6 +1516,7 @@
+>      case USB_ID(0x1901, 0x0191): /* GE B850V3 CP2114 audio interface */
+>      case USB_ID(0x21b4, 0x0081): /* AudioQuest DragonFly */
+>      case USB_ID(0x2912, 0x30c8): /* Audioengine D1 */
+> +    case USB_ID(0x1224, 0x2a25): /* Jieli Technology USB PHY 2.0 */
+>          return true;
+>      }
+
+This looks fine.
+
+
+thanks,
+
+Takashi

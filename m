@@ -2,83 +2,119 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4E5242DEA42
-	for <lists+alsa-devel@lfdr.de>; Fri, 18 Dec 2020 21:34:14 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5E9D82DEAA9
+	for <lists+alsa-devel@lfdr.de>; Fri, 18 Dec 2020 22:00:54 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D866417E9;
-	Fri, 18 Dec 2020 21:33:23 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D866417E9
+	by alsa0.perex.cz (Postfix) with ESMTPS id E4F4617EB;
+	Fri, 18 Dec 2020 21:59:58 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E4F4617EB
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1608323653;
-	bh=k7mZa1Db33KpTT5s4Uwf4FgA1fS6r85FOeZ5aqVIEIU=;
+	s=default; t=1608325249;
+	bh=T76icBg+dcbWSLbQGNEwAsnoERjrSbRWxryZK6DEnhg=;
 	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=rEqZIMrbdGjYmOtkSVztyXNuzn1B+4pVFCXjRac+Orh/tfymIf+dTw2bCgamG23AV
-	 Fe7Pxt3xfiHrPIlH7ZAtkUFJGgbrSC4Y6F1syA3UFWmihw90ejPVxZ1429e1CzPmN0
-	 suv5AjgENvtE8MhBobVHB0J8wskvAv/FU8eKl9bc=
+	b=aAbDl3ldpN5RC/xJ2TflZFIgyt+69E5DNF6z4AjkP3yVdnujubBS/O7cX1EoddvQa
+	 6HHp4MJ/rGrz94r23ATBxnCrBKC8yIxroFpAy9N7InYI+Mpor3ENUc0q6kqltuMBZK
+	 gq9Bk2n0A6bOqhX8mLog4Qc5mhwd3HGW7d6zIXr4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 46308F80240;
-	Fri, 18 Dec 2020 21:32:38 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id DE520F80240;
+	Fri, 18 Dec 2020 21:59:13 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id C859CF801F7; Fri, 18 Dec 2020 21:32:36 +0100 (CET)
+ id 93A4BF801F7; Fri, 18 Dec 2020 21:59:10 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ DKIM_VALID_AU, MSGID_FROM_MTA_HEADER, SPF_HELO_NONE,
+ SPF_NONE autolearn=disabled version=3.4.0
+Received: from nat-hk.nvidia.com (nat-hk.nvidia.com [203.18.50.4])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id D20FBF80168
- for <alsa-devel@alsa-project.org>; Fri, 18 Dec 2020 21:32:28 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D20FBF80168
+ by alsa1.perex.cz (Postfix) with ESMTPS id A64D5F80103
+ for <alsa-devel@alsa-project.org>; Fri, 18 Dec 2020 21:59:06 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A64D5F80103
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="Tl4HfRDB"
-Date: Fri, 18 Dec 2020 20:32:11 +0000
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1608323545;
- bh=k7mZa1Db33KpTT5s4Uwf4FgA1fS6r85FOeZ5aqVIEIU=;
- h=From:To:Cc:Subject:References:In-Reply-To:From;
- b=Tl4HfRDBx/GegI5g9piovvRek4amjx318VmTrnZ9w4OwIXuIG3DF6PIuju1dw4PTX
- prtq7Fp1Xf2K1AuILyHN3i7QpNbptNKr+IIXp9D9tosc9dsPwvB/t1xvOjNCG6Y/H0
- YkLqYOhXohLoODT1sQcuTbD3pNThLnuFtq28bim5QymPLb9pN/aklDplHJcCAnUb2G
- L8Bv59ttURYon0zLZlyU4UflQ5bmQID9ajYNGpObnyDzPa/wKtN9htk5U+nVm08sEg
- m1c0v4+gdvRgVDUywWkmKvIX34hWsljD6dfshxYLlWUc2VxqOkI4YYqz9icxASM+es
- YJdDWBHoBXI3Q==
-From: Mark Brown <broonie@kernel.org>
-To: Jason Gunthorpe <jgg@nvidia.com>
+ dkim=pass (2048-bit key) header.d=nvidia.com header.i=@nvidia.com
+ header.b="e4U24Cpk"
+Received: from HKMAIL102.nvidia.com (Not Verified[10.18.92.9]) by
+ nat-hk.nvidia.com (using TLS: TLSv1.2, AES256-SHA)
+ id <B5fdd18150000>; Sat, 19 Dec 2020 04:59:01 +0800
+Received: from HKMAIL104.nvidia.com (10.18.16.13) by HKMAIL102.nvidia.com
+ (10.18.16.11) with Microsoft SMTP Server (TLS) id 15.0.1473.3; Fri, 18 Dec
+ 2020 20:59:00 +0000
+Received: from NAM11-CO1-obe.outbound.protection.outlook.com (104.47.56.176)
+ by HKMAIL104.nvidia.com (10.18.16.13) with Microsoft SMTP Server (TLS) id
+ 15.0.1473.3 via Frontend Transport; Fri, 18 Dec 2020 20:59:00 +0000
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=JGrbTCunII8mPTrhgoBTw/61f7RDYJe8UwipAbQA457oKdi12GwCdewc8kpYzeMAhRbHncnaZeqbp8qhsCpzryNOOMpCFLseuSDyPwVoTWdwaThxUB6G7WiQcr5RpAyp45Z2mVKKfQ8ZxfbTZX0wGKhvMytghd8h490v1WOP8ZbyaOFJ+Dwuz/vf7vI32VZb4CbSuwQ/sIoiiDX/Nvj2UTjxh/BR+7F6G6akvndRWbiSUyKwCV5Wr34xwfzM0Lxnoz7nRNJH5+X2maeM1OytktHBvoApB3IQgkRLZ7MqkaB8fdSMFQ9mD/JbuCthVJByWcpXQs4szaYhGN0d0LZWOg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=IDI5Cvx/QMGqhJCQkIPCkWYEOEwvb1t/i3GIrRAP0jE=;
+ b=d1XIhdVhDPfoKRtu0NO2Xf+Drb+s/9Ya41Tsi9y9X8HNn9ZDTHsaGEfuhKGKdKpfMw9+4MuA9CkvN2Phiq82vpObFyFG6ZhmM7bcc4WAS6oxJtVLaX1/0SnRBjjSNjc4oCuPI6MCCUW2Pb8j2UAkEsE/iC6h6TzoKgiaclVBI7chvpYlWT/9tMRxzTbYHsDh/zTC1kKLvY//4vBynYAeQoX8BUgWxqbj9xX3+Cr2RItrVh475GdssbU9vyzYc46keBjTlL6foJGUVHP2HeKitTmg9EebV5pnqkIonhs/Ts/FLHRpBteDVjh4Zgq9j193Miu7MX5pNuUKqwGVRYm+Hw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+Received: from DM6PR12MB3834.namprd12.prod.outlook.com (2603:10b6:5:14a::12)
+ by DM5PR12MB1660.namprd12.prod.outlook.com (2603:10b6:4:9::22) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.3654.20; Fri, 18 Dec 2020 20:58:58 +0000
+Received: from DM6PR12MB3834.namprd12.prod.outlook.com
+ ([fe80::546d:512c:72fa:4727]) by DM6PR12MB3834.namprd12.prod.outlook.com
+ ([fe80::546d:512c:72fa:4727%7]) with mapi id 15.20.3676.025; Fri, 18 Dec 2020
+ 20:58:57 +0000
+Date: Fri, 18 Dec 2020 16:58:56 -0400
+From: Jason Gunthorpe <jgg@nvidia.com>
+To: Mark Brown <broonie@kernel.org>
 Subject: Re: [resend/standalone PATCH v4] Add auxiliary bus support
-Message-ID: <20201218203211.GE5333@sirena.org.uk>
-References: <CAPcyv4iLG7V9JT34La5PYfyM9378acbLnkShx=6pOmpPK7yg3A@mail.gmail.com>
- <X8usiKhLCU3PGL9J@kroah.com> <20201217211937.GA3177478@piout.net>
+Message-ID: <20201218205856.GZ552508@nvidia.com>
+References: <X8usiKhLCU3PGL9J@kroah.com> <20201217211937.GA3177478@piout.net>
  <X9xV+8Mujo4dhfU4@kroah.com> <20201218131709.GA5333@sirena.org.uk>
  <20201218140854.GW552508@nvidia.com>
  <20201218155204.GC5333@sirena.org.uk>
- <20201218162817.GX552508@nvidia.com>
- <20201218180310.GD5333@sirena.org.uk>
- <20201218184150.GY552508@nvidia.com>
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="PPYy/fEw/8QCHSq3"
+ <20201218162817.GX552508@nvidia.com> <20201218180310.GD5333@sirena.org.uk>
+ <20201218184150.GY552508@nvidia.com> <20201218203211.GE5333@sirena.org.uk>
+Content-Type: text/plain; charset="us-ascii"
 Content-Disposition: inline
-In-Reply-To: <20201218184150.GY552508@nvidia.com>
-X-Cookie: Password:
-User-Agent: Mutt/1.10.1 (2018-07-13)
+In-Reply-To: <20201218203211.GE5333@sirena.org.uk>
+X-ClientProxiedBy: BL0PR01CA0007.prod.exchangelabs.com (2603:10b6:208:71::20)
+ To DM6PR12MB3834.namprd12.prod.outlook.com
+ (2603:10b6:5:14a::12)
+MIME-Version: 1.0
+X-MS-Exchange-MessageSentRepresentingType: 1
+Received: from mlx.ziepe.ca (142.162.115.133) by
+ BL0PR01CA0007.prod.exchangelabs.com (2603:10b6:208:71::20) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.3654.12 via Frontend Transport; Fri, 18 Dec 2020 20:58:57 +0000
+Received: from jgg by mlx with local (Exim 4.94)	(envelope-from
+ <jgg@nvidia.com>)	id 1kqMq0-00CvHl-1X; Fri, 18 Dec 2020 16:58:56 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nvidia.com; s=n1;
+ t=1608325141; bh=IDI5Cvx/QMGqhJCQkIPCkWYEOEwvb1t/i3GIrRAP0jE=;
+ h=ARC-Seal:ARC-Message-Signature:ARC-Authentication-Results:Date:
+ From:To:CC:Subject:Message-ID:References:Content-Type:
+ Content-Disposition:In-Reply-To:X-ClientProxiedBy:MIME-Version:
+ X-MS-Exchange-MessageSentRepresentingType;
+ b=e4U24Cpk8UCcJbcDn9+jDbjP7qDNv3rqoxrUVk5ezTKPcccWpv9boWD7Anosm1aV+
+ LDBTd+U5ZAxZ0n8yQuFiSbX9fQs9KjoVI1HcueJzwi+7tyGJT8gqrzjihUqQmBo//z
+ NVZEgtR3qigkwRmHnFqqiv76radIFSLMlxr56KJDVtu7StPz+r7tDiwmpK2kZtl75b
+ tR/zUiflnKJT09hUyG7P5NCNla78nMTkKFf3K5HxbNJnEgE1IgSuLWdyq5BokFpaZn
+ qqUvdAStiWCCNMQDWEGD8CusvNAKMxNAwW1BHvE98MqO79QCiaXYcpkTzEauq//rDC
+ LJwy5agNHp11Q==
 Cc: Alexandre Belloni <alexandre.belloni@bootlin.com>, lee.jones@linaro.org,
  Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- Kiran Patil <kiran.patil@intel.com>, Liam Girdwood <lgirdwood@gmail.com>,
- linux-rdma <linux-rdma@vger.kernel.org>, Greg KH <gregkh@linuxfoundation.org>,
- Martin Habets <mhabets@solarflare.com>, alsa-devel@alsa-project.org,
+ Kiran Patil <kiran.patil@intel.com>, Liam
+ Girdwood <lgirdwood@gmail.com>, linux-rdma <linux-rdma@vger.kernel.org>,
+ Greg KH <gregkh@linuxfoundation.org>, Martin Habets <mhabets@solarflare.com>,
+ alsa-devel@alsa-project.org,
  Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
  Fred Oh <fred.oh@linux.intel.com>, Netdev <netdev@vger.kernel.org>,
  Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
- Jakub Kicinski <kuba@kernel.org>, Dave Ertman <david.m.ertman@intel.com>,
- Dan Williams <dan.j.williams@intel.com>,
+ Jakub Kicinski <kuba@kernel.org>, Dave
+ Ertman <david.m.ertman@intel.com>, Dan Williams <dan.j.williams@intel.com>,
  Shiraz Saleem <shiraz.saleem@intel.com>, David Miller <davem@davemloft.net>,
  Leon Romanovsky <leonro@nvidia.com>, Parav Pandit <parav@mellanox.com>
 X-BeenThere: alsa-devel@alsa-project.org
@@ -96,117 +132,49 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+On Fri, Dec 18, 2020 at 08:32:11PM +0000, Mark Brown wrote:
 
---PPYy/fEw/8QCHSq3
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+> > So, I strongly suspect, MFD should create mfd devices on a MFD bus
+> > type.
+> 
+> Historically people did try to create custom bus types, as I have
+> pointed out before there was then pushback that these were duplicating
+> the platform bus so everything uses platform bus.
 
-On Fri, Dec 18, 2020 at 02:41:50PM -0400, Jason Gunthorpe wrote:
-> On Fri, Dec 18, 2020 at 06:03:10PM +0000, Mark Brown wrote:
+Yes, I vaugely remember..
 
-> > If it's not supposed to use platform devices so I'm assuming that the
-> > intention is that it should use aux devices, otherwise presumably it'd
-> > be making some new clone of the platform bus but I've not seen anyone
-> > suggesting this.
+I don't know what to say, it seems Greg doesn't share this view of
+platform devices as a universal device.
 
-> I wouldn't assume that, I certainly don't want to see all the HW
-> related items in platform_device cloned roughly into aux device.
+Reading between the lines, I suppose things would have been happier
+with some kind of inheritance scheme where platform device remained as
+only instantiated directly in board files, while drivers could bind to
+OF/DT/ACPI/FPGA/etc device instantiations with minimal duplication &
+boilerplate.
 
-> I've understood the bus type should be basically related to the thing
-> that is creating the device. In a clean view platform code creates
-> platform devices. DT should create DT devices, ACPI creates ACPI
-> devices, PNP does pnp devices, etc
+And maybe that is exactly what we have today with platform devices,
+though the name is now unfortunate.
 
-Ah, so we *used* to do that and in fact at least acpi_device still
-exists but it was realized that this was causing a lot of effort with
-boilerplate - like Lee said board files, ACPI and DT are all just
-enumeration methods which have zero effect on the underlying hardware so
-you end up having duplication on both the bus and driver side.  Since
-this applies to all non-enumerable buses this process gets repeated for
-all of them, we wouldn't just have an of_device we'd have of_i2c_device,
-of_spi_device, of_1wire_device and so on or have to jump through hoops
-to map things into the actual bus type.  See eca3930163ba8884060ce9d9
-(of: Merge of_platform_bus_type with platform_bus_type) for part of this
-getting unwound.
+> I can't tell the difference between what it's doing and what SOF is
+> doing, the code I've seen is just looking at the system it's running
+> on and registering a fixed set of client devices.  It looks slightly
+> different because it's registering a device at a time with some wrapper
+> functions involved but that's what the code actually does.
 
-Fundamentally this is conflating physical bus type and enumeration
-method, for enumerable buses they are of course the same (mostly) but
-for non-enumerable buses not so much.
+SOF's aux bus usage in general seems weird to me, but if you think
+it fits the mfd scheme of primarily describing HW to partition vs
+describing a SW API then maybe it should use mfd.
 
-> So, I strongly suspect, MFD should create mfd devices on a MFD bus
-> type.
+The only problem with mfd as far as SOF is concerned was Greg was not
+happy when he saw PCI stuff in the MFD subsystem.
 
-Historically people did try to create custom bus types, as I have
-pointed out before there was then pushback that these were duplicating
-the platform bus so everything uses platform bus.
+This whole thing started when Intel first proposed to directly create
+platform_device's in their ethernet driver and Greg had a quite strong
+NAK to that.
 
-> Alexandre's point is completely valid, and I think is the main
-> challenge here, somehow avoiding duplication.
+MFD still doesn't fit what mlx5 and others in the netdev area are
+trying to do. Though it could have been soe-horned it would have been
+really weird to create a platform device with an empty HW resource
+list. At a certain point the bus type has to mean *something*!
 
-> If we were to look at it with some OOP viewpoint I'd say the generic
-> HW resource related parts should be some shared superclass between
-> 'struct device' and 'struct platform/pnp/pci/acpi/mfd/etc_device'.
-
-Right, duplication is the big issue with separate firmware based bus
-types particularly as we consider all non-enumerable buses.  I think
-what you're looking for here is multiple inheritance, that's potentially
-interesting but it's pretty much what we have already TBH.  We have the
-physical bus type as a primary type for devices but we also can enquire
-if they also have the properties of a DT or ACPI object and then use
-those APIs on them.
-
-Consider also FPGAs which can have the same problem Alexandre raised,
-there's the parent device for the FPGA and then we can instantiate
-bitstreams within that which may expose standard IPs which can also
-appear directly within a SoC.
-
-> > > The places I see aux device being used are a terrible fit for the cell
-> > > idea. If there are MFD drivers that are awkardly crammed into that
-> > > cell description then maybe they should be aux devices?
-
-> > When you say the MFD cell model it's not clear what you mean - I *think*
-> > you're referring to the idea of the subdevices getting all the
-
-> I mean using static "struct mfd_cell" arrays to describe things.
-
-OK, but then SOF has been actively pushed into using auxiliary devices
-since there is a desire to avoid using mfd_cells on PCI devices rather
-than the fact that it wasn't able to use a static array, and of course
-you might have devices with a mix of static and dynamic functions, or
-functions that can be both static and dynamic.
-
-> > Look at something like wm8994 for example - the subdevices just know
-> > which addresses in the device I2C/SPI regmap to work with but some of
-> > them have interrupts passed through to them (and could potentially also
-> > have separate subdevices for clocks and pinctrl).  These subdevices are
-> > not memory mapped, not enumerated by firmware and the hardware has
-> > indistinct separation of functions in the register map compared to how
-> > Linux models the chips.
-
-> wm8994 seems to fit in the mfd_cell static arrays pretty well..
-
-I can't tell the difference between what it's doing and what SOF is
-doing, the code I've seen is just looking at the system it's running
-on and registering a fixed set of client devices.  It looks slightly
-different because it's registering a device at a time with some wrapper
-functions involved but that's what the code actually does.
-
-Clearly there's something other than just the registration method going
-on here.
-
---PPYy/fEw/8QCHSq3
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl/dEcoACgkQJNaLcl1U
-h9Dm3Qf+LvCppUIG0y7HXRZYLp+1HOlN8M+sp19Wq4MznAs+tmiEitSg2oduI6VS
-IU8r1EmDjL95wDsXFirSPzs+HbNxhOiTd/5vqgA4fBypxy3TYyhnhd1DWyq18T+t
-Tskz/3SktXCO9x7LlPrWbrEbIKJOkQz65dKIrQ+KpDZ62flhnNlE/vMeGOY8vTmg
-LfNSdEAdHETxzvBCGqinCBv2NHJT38RXrB/IC89cl6Tep0PUXt6Inqlg1C1MtwFT
-9QtQZpn9lznr2oxUB6gTbZwmnYABHnK00a4uzU5rqMedWTWYuJoTECjYfZAAvu70
-nn1zTw/DzitPu9qhkCb83kMTBgL7xg==
-=BJk5
------END PGP SIGNATURE-----
-
---PPYy/fEw/8QCHSq3--
+Jason

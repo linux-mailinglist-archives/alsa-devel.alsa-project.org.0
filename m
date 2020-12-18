@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D76282DE69F
-	for <lists+alsa-devel@lfdr.de>; Fri, 18 Dec 2020 16:32:58 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id A02A12DE6A3
+	for <lists+alsa-devel@lfdr.de>; Fri, 18 Dec 2020 16:33:40 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B23C417BA;
-	Fri, 18 Dec 2020 16:32:06 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B23C417BA
+	by alsa0.perex.cz (Postfix) with ESMTPS id 4159B17D4;
+	Fri, 18 Dec 2020 16:32:50 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4159B17D4
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1608305576;
-	bh=yt2suL65+difZTgFjIrDenwCCU36rYUPiAmRnqqE51g=;
+	s=default; t=1608305620;
+	bh=lYPoV/l8tu/E78eKMJsLQMtNcX7CZZvIkf1rVrOs10Q=;
 	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=BPyhxsd2BTAJAcOoJ7vZAzYsOSZag9eKO4/hQNFIfouC4WrvA9wA6Gn2jx75WA/ND
-	 a10YE/ZxdAV/RowRvS/qkwMxosn7jwrpIxbDy3F8mc9AuknHNbHIjTVKvV4RYLf0cm
-	 m4swRNrcbeiWLccjkeoRXRzQncrsQM1r8AW2WDNc=
+	b=QD12IDmbVIPiZwoJM5+XT5L+XfngGGLhQEeUoBBODVhde6EdRZaliInL3vxPrfGXT
+	 ojBDSev+qA/s6+A14JeOZ5kw/POv+mRyfEkzXLUqiqnevTjjjaUytz+CAHdKS2napR
+	 tTuE2B/UV7b8K/esIUyXZpu23QeZHiKD4/IPGcvI=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id E42AAF80264;
-	Fri, 18 Dec 2020 16:31:50 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id ABC46F8014B;
+	Fri, 18 Dec 2020 16:32:23 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 7BD1CF80245; Fri, 18 Dec 2020 16:31:48 +0100 (CET)
+ id AD72BF80272; Fri, 18 Dec 2020 16:32:21 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,43 +34,44 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from www381.your-server.de (www381.your-server.de [78.46.137.84])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id A36E1F80103
- for <alsa-devel@alsa-project.org>; Fri, 18 Dec 2020 16:31:42 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A36E1F80103
+ by alsa1.perex.cz (Postfix) with ESMTPS id D2DBEF8014B
+ for <alsa-devel@alsa-project.org>; Fri, 18 Dec 2020 16:32:15 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D2DBEF8014B
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=metafoo.de header.i=@metafoo.de
- header.b="m5TiUCLk"
+ header.b="QbyKNMXh"
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=metafoo.de; 
  s=default2002;
  h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
  MIME-Version:Date:Message-ID:From:References:Cc:To:Subject:Sender:Reply-To:
  Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
  Resent-To:Resent-Cc:Resent-Message-ID;
- bh=2pANCJfTx5WNBpb9qmLGy0qGfbKN1ks6GOCMBDJr+DM=; b=m5TiUCLknhzxY6RzH1H7VRNbUp
- irEhIeyWjF7qTDa5htsls4K3Qbo/tgJIzeMpJY9JGxmHVXO8Fsw6GbChNY52wUih7IEeG1t2412HK
- jl3/OgcZ1UZsH6ys95hxydUMybyKKcSItoftRO29Aqa3nESy60ZVZrbMfiDE2QUHWQo3n/174kIw4
- 2Ebnhyu5v9nBuZJQI9Xm72ng9krDrlZ8HB1NJ0i17hxL5J0alGtF+13t67+HRuIvx9J3u0TI3UOnE
- iGCy8PulzMJuXibZA44fTrpRMbzSy0yHFVjko/XNAZ6kGbJXRsBmXmPVrL3IvvCYlrSdU9pD8lwtp
- 11UqTyfg==;
+ bh=BEdswbSgN9H1JTquEIx9fR/oZXKuDP30x/Q4UpxZc+Q=; b=QbyKNMXhhDtYWrorWKNUW5stHN
+ iQvgujUXPZ6weg82ZkzhTKJtTMkM27bp1uPbuIT76TMj4XScMOkFF62/VQNGeVkJPeV2/+PCe2GAG
+ V1wImjjgKm/WPoB9II/OaNUe9yvYMBKd+WFGY8W2Kilnjw8W/As4MvyBapzZGmLoh8I3bjJVvofRA
+ 3X6F4oLyguDy0lK7hPEnvnEOpBokVM3KWvAvycAbkXO0AsX7VE877yLvehS8rHO4uV2YTP4gbsIfI
+ IRRxcdG+ARdmFOnJKJVnEzFY2+IMsxBmiKYxaPQ7M4zrJkliv5iJm5u+TKHNpHzY++RlMdU88ycKu
+ Oh6DJZIw==;
 Received: from sslproxy06.your-server.de ([78.46.172.3])
  by www381.your-server.de with esmtpsa (TLSv1.3:TLS_AES_256_GCM_SHA384:256)
  (Exim 4.92.3) (envelope-from <lars@metafoo.de>)
- id 1kqHjE-000D0V-EW; Fri, 18 Dec 2020 16:31:36 +0100
+ id 1kqHjm-000D2Y-L7; Fri, 18 Dec 2020 16:32:10 +0100
 Received: from [62.216.202.54] (helo=[192.168.178.20])
  by sslproxy06.your-server.de with esmtpsa (TLSv1.3:TLS_AES_256_GCM_SHA384:256)
  (Exim 4.92) (envelope-from <lars@metafoo.de>)
- id 1kqHjE-000Ipi-AD; Fri, 18 Dec 2020 16:31:36 +0100
-Subject: Re: [PATCH 1/2] ALSA: memalloc: Align buffer allocations in page size
+ id 1kqHjm-000MiY-H9; Fri, 18 Dec 2020 16:32:10 +0100
+Subject: Re: [PATCH 2/2] ALSA: pcm: Clear the full allocated memory at
+ hw_params
 To: Takashi Iwai <tiwai@suse.de>, alsa-devel@alsa-project.org
 References: <20201218145625.2045-1-tiwai@suse.de>
- <20201218145625.2045-2-tiwai@suse.de>
+ <20201218145625.2045-3-tiwai@suse.de>
 From: Lars-Peter Clausen <lars@metafoo.de>
-Message-ID: <f39d2841-d5dd-80dd-58d1-90d270dd29e4@metafoo.de>
-Date: Fri, 18 Dec 2020 16:31:36 +0100
+Message-ID: <553a1da4-2dd8-3762-3a0c-57bbd90ae732@metafoo.de>
+Date: Fri, 18 Dec 2020 16:32:10 +0100
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
  Thunderbird/78.5.1
 MIME-Version: 1.0
-In-Reply-To: <20201218145625.2045-2-tiwai@suse.de>
+In-Reply-To: <20201218145625.2045-3-tiwai@suse.de>
 Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Transfer-Encoding: 7bit
 Content-Language: en-US
@@ -93,41 +94,45 @@ Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 On 12/18/20 3:56 PM, Takashi Iwai wrote:
-> Currently the standard memory allocator (snd_dma_malloc_pages*())
-> passes the byte size to allocate as is.  Most of the backends
-> allocates real pages, hence the actual allocations are aligned in page
-> size.  However, the genalloc doesn't seem assuring the size alignment,
-> hence it may result in the access outside the buffer when the whole
-> memory pages are exposed via mmap.
+> The PCM hw_params core function tries to clear up the PCM buffer
+> before actually using for avoiding the information leak from the
+> previous usages or the usage before a new allocation.  It performs the
+> memset() with runtime->dma_bytes, but this might still leave some
+> remaining bytes untouched; namely, the PCM buffer size is aligned in
+> page size for mmap, hence runtime->dma_bytes doesn't necessarily cover
+> all PCM buffer pages, and the remaining bytes are exposed via mmap.
 >
-> For avoiding such inconsistencies, this patch makes the allocation
-> size always to be aligned in page size.
->
-> Note that, after this change, snd_dma_buffer.bytes field contains the
-> aligned size, not the originally requested size.  This value is also
-> used for releasing the pages in return.
+> This patch changes the memory clearance to cover the all buffer pages
+> if the stream is supposed to be mmap-ready (that guarantees that the
+> buffer size is aligned in page size).
 >
 > Signed-off-by: Takashi Iwai <tiwai@suse.de>
-
-FWIW
 
 Reviewed-by: Lars-Peter Clausen <lars@metafoo.de>
 
 > ---
->   sound/core/memalloc.c | 1 +
->   1 file changed, 1 insertion(+)
+>   sound/core/pcm_native.c | 9 +++++++--
+>   1 file changed, 7 insertions(+), 2 deletions(-)
 >
-> diff --git a/sound/core/memalloc.c b/sound/core/memalloc.c
-> index 0f335162f87c..966bef5acc75 100644
-> --- a/sound/core/memalloc.c
-> +++ b/sound/core/memalloc.c
-> @@ -133,6 +133,7 @@ int snd_dma_alloc_pages(int type, struct device *device, size_t size,
->   	if (WARN_ON(!dmab))
->   		return -ENXIO;
+> diff --git a/sound/core/pcm_native.c b/sound/core/pcm_native.c
+> index 47b155a49226..9f3f8e953ff0 100644
+> --- a/sound/core/pcm_native.c
+> +++ b/sound/core/pcm_native.c
+> @@ -755,8 +755,13 @@ static int snd_pcm_hw_params(struct snd_pcm_substream *substream,
+>   		runtime->boundary *= 2;
 >   
-> +	size = PAGE_ALIGN(size);
->   	dmab->dev.type = type;
->   	dmab->dev.dev = device;
->   	dmab->bytes = 0;
+>   	/* clear the buffer for avoiding possible kernel info leaks */
+> -	if (runtime->dma_area && !substream->ops->copy_user)
+> -		memset(runtime->dma_area, 0, runtime->dma_bytes);
+> +	if (runtime->dma_area && !substream->ops->copy_user) {
+> +		size_t size = runtime->dma_bytes;
+> +
+> +		if (runtime->info & SNDRV_PCM_INFO_MMAP)
+> +			size = PAGE_ALIGN(size);
+> +		memset(runtime->dma_area, 0, size);
+> +	}
+>   
+>   	snd_pcm_timer_resolution_change(substream);
+>   	snd_pcm_set_state(substream, SNDRV_PCM_STATE_SETUP);
 
 

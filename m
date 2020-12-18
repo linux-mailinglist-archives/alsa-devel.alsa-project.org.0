@@ -2,77 +2,82 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 799D02DE7F0
-	for <lists+alsa-devel@lfdr.de>; Fri, 18 Dec 2020 18:17:31 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8ED3E2DE86A
+	for <lists+alsa-devel@lfdr.de>; Fri, 18 Dec 2020 18:43:08 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 0BAC117D0;
-	Fri, 18 Dec 2020 18:16:36 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0BAC117D0
+	by alsa0.perex.cz (Postfix) with ESMTPS id 3358717CD;
+	Fri, 18 Dec 2020 18:42:13 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3358717CD
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1608311846;
-	bh=T/kNWN51pLhBnpdDJ9y7r2j4kibYMrvL9roUbf9uJWw=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1608313383;
+	bh=zna7iCPKyDnkNnefmd+VXAlu0+pUDFajJeg7xxFchEI=;
+	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=g/0azYQJITzKXQs30h03NgfwuNJOcay/W3HFOOKmevqgrZu9+AVHuBi/IduvIUMMS
-	 8CfDQnSXHJAdJXLAX3kQDe3GkwI5ViRftJ/YWHogL5VrdpZCtPITg568aBcbphcV4U
-	 QgHdVS5JsibTNJHL3hdhgoLBUa2pSkNQJdzU0Vi0=
+	b=WoOkKF2ofS1eNdXGekr9ODXTFsX+ud78Jas8Z0g42ZfVIaviRNsmbjkjTr5pKfDkK
+	 mMsgNgmYjSzaoV8BrZPx2E52mrfNo56TXH9HsiKlwZwc1maIDl7kfzDzmzLtjIZBO9
+	 UAV+9Cs9DOal/636HrGsdeI59ro8UU1dTcQC5ipw=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id E4712F80240;
-	Fri, 18 Dec 2020 18:15:50 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 7BEBCF8014B;
+	Fri, 18 Dec 2020 18:41:27 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id A77E1F801F7; Fri, 18 Dec 2020 18:15:48 +0100 (CET)
+ id 98C5CF801F7; Fri, 18 Dec 2020 18:41:25 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from relay8-d.mail.gandi.net (relay8-d.mail.gandi.net
- [217.70.183.201])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from www381.your-server.de (www381.your-server.de [78.46.137.84])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 8B06CF80103
- for <alsa-devel@alsa-project.org>; Fri, 18 Dec 2020 18:15:37 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8B06CF80103
-X-Originating-IP: 86.202.109.140
-Received: from localhost (lfbn-lyo-1-13-140.w86-202.abo.wanadoo.fr
- [86.202.109.140])
- (Authenticated sender: alexandre.belloni@bootlin.com)
- by relay8-d.mail.gandi.net (Postfix) with ESMTPSA id 780871BF207;
- Fri, 18 Dec 2020 17:15:34 +0000 (UTC)
-Date: Fri, 18 Dec 2020 18:15:34 +0100
-From: Alexandre Belloni <alexandre.belloni@bootlin.com>
-To: Jason Gunthorpe <jgg@nvidia.com>
-Subject: Re: [resend/standalone PATCH v4] Add auxiliary bus support
-Message-ID: <20201218171534.GF3143569@piout.net>
-References: <160695681289.505290.8978295443574440604.stgit@dwillia2-desk3.amr.corp.intel.com>
- <X8ogtmrm7tOzZo+N@kroah.com>
- <CAPcyv4iLG7V9JT34La5PYfyM9378acbLnkShx=6pOmpPK7yg3A@mail.gmail.com>
- <X8usiKhLCU3PGL9J@kroah.com> <20201217211937.GA3177478@piout.net>
- <X9xV+8Mujo4dhfU4@kroah.com> <20201218131709.GA5333@sirena.org.uk>
- <20201218140854.GW552508@nvidia.com>
- <20201218155204.GC5333@sirena.org.uk>
- <20201218162817.GX552508@nvidia.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 8B665F80168
+ for <alsa-devel@alsa-project.org>; Fri, 18 Dec 2020 18:41:15 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8B665F80168
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=metafoo.de header.i=@metafoo.de
+ header.b="LE2xZ95y"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=metafoo.de; 
+ s=default2002;
+ h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
+ MIME-Version:Date:Message-ID:From:References:Cc:To:Subject:Sender:Reply-To:
+ Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+ Resent-To:Resent-Cc:Resent-Message-ID;
+ bh=HQh5MnvfaxoI+4jOAMOYaLiSa5/xT3fEKdJw3/ZzAh4=; b=LE2xZ95ygbrup8083xGM1wX1tI
+ cUdP8nqPj4pixB9BD1x/RbcfM0ELKfTZ6bj+8cpKJzjexHXMkiTObmDSMSUOxnJqlXi1G0ZezmP/w
+ 8pmrZ8dqQYX5U8RpViekjAuWJnHowWLPveKMl91JsUSWwfQYolXM0BAULaCYp4xyr67G45JK3iAPj
+ dusP1E1aC6w4lruAOKQYtAhtoNsXCxzp8X0NarG/HeZNbYXUCTO+gZu+IyQ6QJdgLDttJ8KShOAD2
+ lUUWZ0b3XaO0zUZ5tdjm60topk39mTpqrgwIdCx8aJ1+XYz9Q0lAak88lvv4aflxrLgdIqAN7x5zC
+ AShEh9LA==;
+Received: from sslproxy06.your-server.de ([78.46.172.3])
+ by www381.your-server.de with esmtpsa (TLSv1.3:TLS_AES_256_GCM_SHA384:256)
+ (Exim 4.92.3) (envelope-from <lars@metafoo.de>)
+ id 1kqJke-000FTb-OD; Fri, 18 Dec 2020 18:41:12 +0100
+Received: from [62.216.202.54] (helo=[192.168.178.20])
+ by sslproxy06.your-server.de with esmtpsa (TLSv1.3:TLS_AES_256_GCM_SHA384:256)
+ (Exim 4.92) (envelope-from <lars@metafoo.de>)
+ id 1kqJke-000Txq-KD; Fri, 18 Dec 2020 18:41:12 +0100
+Subject: Re: [PATCH] ASoC: meson: Use managed DMA buffer allocation
+To: Jerome Brunet <jbrunet@baylibre.com>, Mark Brown <broonie@kernel.org>
+References: <20201218154544.25513-1-lars@metafoo.de>
+ <1jeejnnko5.fsf@starbuckisacylon.baylibre.com>
+From: Lars-Peter Clausen <lars@metafoo.de>
+Message-ID: <fa1f3bcc-885a-9258-6653-3d5a5dc4708e@metafoo.de>
+Date: Fri, 18 Dec 2020 18:41:12 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.5.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20201218162817.GX552508@nvidia.com>
-Cc: alsa-devel@alsa-project.org, lee.jones@linaro.org,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- Kiran Patil <kiran.patil@intel.com>, David Miller <davem@davemloft.net>,
- linux-rdma <linux-rdma@vger.kernel.org>, Greg KH <gregkh@linuxfoundation.org>,
- Martin Habets <mhabets@solarflare.com>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- Liam Girdwood <lgirdwood@gmail.com>, Fred Oh <fred.oh@linux.intel.com>,
- Mark Brown <broonie@kernel.org>,
- Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
- Jakub Kicinski <kuba@kernel.org>, Dave Ertman <david.m.ertman@intel.com>,
- Dan Williams <dan.j.williams@intel.com>,
- Shiraz Saleem <shiraz.saleem@intel.com>, Netdev <netdev@vger.kernel.org>,
- Leon Romanovsky <leonro@nvidia.com>, Parav Pandit <parav@mellanox.com>
+In-Reply-To: <1jeejnnko5.fsf@starbuckisacylon.baylibre.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 7bit
+Content-Language: en-US
+X-Authenticated-Sender: lars@metafoo.de
+X-Virus-Scanned: Clear (ClamAV 0.102.4/26021/Fri Dec 18 13:56:31 2020)
+Cc: linux-amlogic@lists.infradead.org, alsa-devel@alsa-project.org,
+ Takashi Iwai <tiwai@suse.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -88,49 +93,100 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 18/12/2020 12:28:17-0400, Jason Gunthorpe wrote:
-> On Fri, Dec 18, 2020 at 03:52:04PM +0000, Mark Brown wrote:
-> > On Fri, Dec 18, 2020 at 10:08:54AM -0400, Jason Gunthorpe wrote:
-> > > On Fri, Dec 18, 2020 at 01:17:09PM +0000, Mark Brown wrote:
-> > 
-> > > > As previously discussed this will need the auxilliary bus extending to
-> > > > support at least interrupts and possibly also general resources.
-> > 
-> > > I thought the recent LWN article summed it up nicely, auxillary bus is
-> > > for gluing to subsystems together using a driver specific software API
-> > > to connect to the HW, MFD is for splitting a physical HW into disjoint
-> > > regions of HW.
-> > 
-> > This conflicts with the statements from Greg about not using the
-> > platform bus for things that aren't memory mapped or "direct firmware",
-> > a large proportion of MFD subfunctions are neither at least in so far as
-> > I can understand what direct firmware means.
-> 
-> I assume MFD will keep existing and it will somehow stop using
-> platform device for the children it builds.
-> 
-> That doesn't mean MFD must use aux device, so I don't see what you
-> mean by conflicts?
-> 
-> If someone has a PCI device and they want to split it up, they should
-> choose between aux device and MFD (assuming MFD gets fixed, as Greg
-> has basically blanket NAK'd adding more of them to MFD as is)
-> 
+On 12/18/20 5:28 PM, Jerome Brunet wrote:
+> On Fri 18 Dec 2020 at 16:45, Lars-Peter Clausen <lars@metafoo.de> wrote:
+>
+>> Using a managed buffer will pre-allocate the buffer using
+>> snd_pcm_lib_preallocate_pages() and automatically free it when the PCM is
+>> destroyed.
+>>
+>> In addition it will call snd_pcm_lib_malloc_pages() before the driver's
+>> hw_params() callback and snd_pcm_lib_free_pages() after the driver's
+>> hw_free() callback.
+>>
+>> This slightly reduces the boilerplate code of the driver.
+>>
+>> Signed-off-by: Lars-Peter Clausen <lars@metafoo.de>
+>> ---
+>>   sound/soc/meson/aiu-fifo-i2s.c   |  1 -
+>>   sound/soc/meson/aiu-fifo-spdif.c |  1 -
+>>   sound/soc/meson/aiu-fifo.c       | 18 ++----------------
+>>   3 files changed, 2 insertions(+), 18 deletions(-)
+>>
+>> diff --git a/sound/soc/meson/aiu-fifo-i2s.c b/sound/soc/meson/aiu-fifo-i2s.c
+>> index d91b0d874342..2388a2d0b3a6 100644
+>> --- a/sound/soc/meson/aiu-fifo-i2s.c
+>> +++ b/sound/soc/meson/aiu-fifo-i2s.c
+>> @@ -124,7 +124,6 @@ const struct snd_soc_dai_ops aiu_fifo_i2s_dai_ops = {
+>>   	.trigger	= aiu_fifo_i2s_trigger,
+>>   	.prepare	= aiu_fifo_i2s_prepare,
+>>   	.hw_params	= aiu_fifo_i2s_hw_params,
+>> -	.hw_free	= aiu_fifo_hw_free,
+>>   	.startup	= aiu_fifo_startup,
+>>   	.shutdown	= aiu_fifo_shutdown,
+>>   };
+>> diff --git a/sound/soc/meson/aiu-fifo-spdif.c b/sound/soc/meson/aiu-fifo-spdif.c
+>> index 44eb6faacf44..2fb30f89bf7a 100644
+>> --- a/sound/soc/meson/aiu-fifo-spdif.c
+>> +++ b/sound/soc/meson/aiu-fifo-spdif.c
+>> @@ -158,7 +158,6 @@ const struct snd_soc_dai_ops aiu_fifo_spdif_dai_ops = {
+>>   	.trigger	= fifo_spdif_trigger,
+>>   	.prepare	= fifo_spdif_prepare,
+>>   	.hw_params	= fifo_spdif_hw_params,
+>> -	.hw_free	= aiu_fifo_hw_free,
+>>   	.startup	= aiu_fifo_startup,
+>>   	.shutdown	= aiu_fifo_shutdown,
+>>   };
+>> diff --git a/sound/soc/meson/aiu-fifo.c b/sound/soc/meson/aiu-fifo.c
+>> index aa88aae8e517..4ad23267cace 100644
+>> --- a/sound/soc/meson/aiu-fifo.c
+>> +++ b/sound/soc/meson/aiu-fifo.c
+>> @@ -99,11 +99,6 @@ int aiu_fifo_hw_params(struct snd_pcm_substream *substream,
+>>   	struct snd_soc_component *component = dai->component;
+>>   	struct aiu_fifo *fifo = dai->playback_dma_data;
+>>   	dma_addr_t end;
+>> -	int ret;
+>> -
+>> -	ret = snd_pcm_lib_malloc_pages(substream, params_buffer_bytes(params));
+>> -	if (ret < 0)
+>> -		return ret;
+>>   
+>>   	/* Setup the fifo boundaries */
+>>   	end = runtime->dma_addr + runtime->dma_bytes - fifo->fifo_block;
+>> @@ -124,12 +119,6 @@ int aiu_fifo_hw_params(struct snd_pcm_substream *substream,
+>>   	return 0;
+>>   }
+>>   
+>> -int aiu_fifo_hw_free(struct snd_pcm_substream *substream,
+>> -		     struct snd_soc_dai *dai)
+>> -{
+>> -	return snd_pcm_lib_free_pages(substream);
+>> -}
+>> -
+>>   static irqreturn_t aiu_fifo_isr(int irq, void *dev_id)
+>>   {
+>>   	struct snd_pcm_substream *playback = dev_id;
+>> @@ -187,15 +176,12 @@ void aiu_fifo_shutdown(struct snd_pcm_substream *substream,
+>>   int aiu_fifo_pcm_new(struct snd_soc_pcm_runtime *rtd,
+>>   		     struct snd_soc_dai *dai)
+>>   {
+>> -	struct snd_pcm_substream *substream =
+>> -		rtd->pcm->streams[SNDRV_PCM_STREAM_PLAYBACK].substream;
+>>   	struct snd_card *card = rtd->card->snd_card;
+>>   	struct aiu_fifo *fifo = dai->playback_dma_data;
+>>   	size_t size = fifo->pcm->buffer_bytes_max;
+>>   
+>> -	snd_pcm_lib_preallocate_pages(substream,
+>> -				      SNDRV_DMA_TYPE_DEV,
+>> -				      card->dev, size, size);
+>> +	snd_pcm_set_managed_buffer_all(rtd->pcm, SNDRV_DMA_TYPE_DEV,
+>> +				       card->dev, size, size);
+> Hi Lars-Peter,
+>
+> These FIFOs only do playback so to avoid wasting memory
+> s/snd_pcm_set_managed_buffer_all/snd_pcm_set_managed_buffer ?
 
-I have an SoC with for example, a designware SPI controller (handled by
-drivers/spi/spi-dw-mmio.c), a designware I2C controller (handled by
-drivers/i2c/busses/i2c-designware-platdrv.c).
-So, those are MMIO and described using device tree. On this particular
-SoC, I can disable the CPU and connect it to another SoC using PCIe. In
-that case it will expose one BAR, with all the HW IPs.
+snd_pcm_set_managed_buffer_all() will skip substreams that do not exist. E.g. if the there is not capture support it wont allocate memory for it.
 
-The question here is why would I use something different from platform
-devices to register the SPI and I2C controllers? It seems that by using
-auxiliary devices, I would have to reinvent parsing device property and
-children/clients description. This isn't great from a code reuse
-perspective.
+To keep things simple I prefer snd_pcm_set_managed_buffer_all(). snd_pcm_set_managed_buffer() only makes sense if you have a different DMA device for capture and playback or you want different buffer sizes.
 
--- 
-Alexandre Belloni, Bootlin
-Embedded Linux and Kernel engineering
-https://bootlin.com

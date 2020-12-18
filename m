@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id CF2F82DE29F
-	for <lists+alsa-devel@lfdr.de>; Fri, 18 Dec 2020 13:18:12 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 733E32DE2B6
+	for <lists+alsa-devel@lfdr.de>; Fri, 18 Dec 2020 13:20:55 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 6068A1766;
-	Fri, 18 Dec 2020 13:17:17 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6068A1766
+	by alsa0.perex.cz (Postfix) with ESMTPS id 1090A17A5;
+	Fri, 18 Dec 2020 13:20:05 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1090A17A5
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1608293887;
-	bh=IQoQ0V//vJbQmszW8LL7/TZUVWrrjPTLu15m1jF880g=;
+	s=default; t=1608294055;
+	bh=9kNe8C8PSo4rr3n8SgIw9xoT5taqQecbG2EBbdPdgqE=;
 	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=OIgRwg5ayyVUdzKWirTppn6mJYHPnZKHF76y6xt0G5LTSVMF/HreZ363IfGs18tkw
-	 zTm16maV4Xaw69kVWZQJHHsvvFGEXJBDCMSq1XdKtch/uX2GBaZ/IlRYel+Kyr6atU
-	 H9klkXpLiDCAhZBHzYLSuqUH2leLHKNp3Gbtt5wc=
+	b=Z/LeMKcdnwivTk23XC+htRXgp1ZcYjX/MKFDKuzI4pGmIIoSoxgw/q7JOziGUGk3u
+	 Ud13cVARFnhvlZ0e0vCXHLJAcSrbSRGqcrPIg/jFLgrZHVil8rlhmos2FDnb26uPMn
+	 iIcBGI+VPsy72ltOddKXdKVzMmbXjeOWY+n2KfnM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id D3176F80168;
-	Fri, 18 Dec 2020 13:16:31 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 69621F804FA;
+	Fri, 18 Dec 2020 13:17:18 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id B4D6CF801F7; Fri, 18 Dec 2020 13:16:29 +0100 (CET)
+ id C4936F804D6; Fri, 18 Dec 2020 13:17:14 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE
@@ -33,23 +33,24 @@ X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 54E8EF8014B
- for <alsa-devel@alsa-project.org>; Fri, 18 Dec 2020 13:16:26 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 54E8EF8014B
+ by alsa1.perex.cz (Postfix) with ESMTPS id A45CAF804D6
+ for <alsa-devel@alsa-project.org>; Fri, 18 Dec 2020 13:17:11 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A45CAF804D6
 From: Mark Brown <broonie@kernel.org>
 Authentication-Results: mail.kernel.org;
  dkim=permerror (bad message/signature format)
-To: Cezary Rojewski <cezary.rojewski@intel.com>, alsa-devel@alsa-project.org
-In-Reply-To: <20201217105401.27865-1-cezary.rojewski@intel.com>
-References: <20201217105401.27865-1-cezary.rojewski@intel.com>
-Subject: Re: [PATCH] ASoC: Intel: haswell: Add missing pm_ops
-Message-Id: <160829377018.10885.10506165188431726601.b4-ty@kernel.org>
+To: tiwai@suse.de, Bard Liao <yung-chuan.liao@linux.intel.com>
+In-Reply-To: <20201217074556.32370-1-yung-chuan.liao@linux.intel.com>
+References: <20201217074556.32370-1-yung-chuan.liao@linux.intel.com>
+Subject: Re: [PATCH v3] ASoC: max98373: don't access volatile registers in
+ bias level off
+Message-Id: <160829377017.10885.108778143464822701.b4-ty@kernel.org>
 Date: Fri, 18 Dec 2020 12:16:10 +0000
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Cc: hdegoede@redhat.com, tiwai@suse.com, pierre-louis.bossart@linux.intel.com,
- lgirdwood@gmail.com
+Cc: vkoul@kernel.org, alsa-devel@alsa-project.org,
+ pierre-louis.bossart@linux.intel.com, bard.liao@intel.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -65,10 +66,13 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Thu, 17 Dec 2020 11:54:01 +0100, Cezary Rojewski wrote:
-> haswell machine board is missing pm_ops what prevents it from undergoing
-> suspend-resume procedure successfully. Assign default snd_soc_pm_ops so
-> this is no longer the case.
+On Thu, 17 Dec 2020 15:45:56 +0800, Bard Liao wrote:
+> We will set regcache_cache_only true in suspend. As a result,
+> regmap_read will return error when we try to read volatile
+> registers in suspend. Besides, it doesn't make sense to read
+> feedback data when codec is not active. To make userspace
+> happy, this patch returns a cached value shich should be a
+> valid value.
 
 Applied to
 
@@ -76,8 +80,8 @@ Applied to
 
 Thanks!
 
-[1/1] ASoC: Intel: haswell: Add missing pm_ops
-      commit: bb224c3e3e41d940612d4cc9573289cdbd5cb8f5
+[1/1] ASoC: max98373: don't access volatile registers in bias level off
+      commit: 349dd23931d1943b1083182e35715eba8b150fe1
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

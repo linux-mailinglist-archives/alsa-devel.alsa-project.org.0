@@ -2,56 +2,55 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 022B82DE2B0
-	for <lists+alsa-devel@lfdr.de>; Fri, 18 Dec 2020 13:20:06 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9EDDC2DE2AA
+	for <lists+alsa-devel@lfdr.de>; Fri, 18 Dec 2020 13:18:58 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 34EBD17AD;
-	Fri, 18 Dec 2020 13:19:15 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 34EBD17AD
+	by alsa0.perex.cz (Postfix) with ESMTPS id EA6E91758;
+	Fri, 18 Dec 2020 13:18:07 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EA6E91758
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1608294005;
-	bh=0NZkli/uiZ4M4DuflqtCIRfqQenr82L6tSGLuednRfg=;
+	s=default; t=1608293938;
+	bh=JbvG77/bmA6vFJaS/zM+08oHbgCRrNBau8GBsWUvz9c=;
 	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=ZEOu31JJp9K5Lf3S+p4wZAKNIsGx0f+dId/Bx4DYlQebWyKp1JeVJDx5nXPqPluft
-	 ymqe2PMXjuofQ14KcytNsciXuwUczu/4I3/uvWRRg2eIWI3fS+KqJFhIjzUClHDiFO
-	 BNcmXdfNOlTmwznF/XdeqB17p+xij61E4mGUOGxQ=
+	b=Tj67cRpirHhPYbQ8zuSqebujvrSnRvPcNul8JAiXC672UbbCgeiwqCbWofrxWzFt1
+	 2QVGy3e2htf7aXRm/2K9JhJLxAmEiOviSRdBT8upxrjffMyerC3Ywv/OIS9HYnGfii
+	 I7vi/lTnOHJYsm+8Xd5kK4wu2IC0ElavroFB3r2A=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id C42A9F804E6;
-	Fri, 18 Dec 2020 13:17:15 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 9DAE6F804C1;
+	Fri, 18 Dec 2020 13:16:44 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 2BE13F804E2; Fri, 18 Dec 2020 13:17:08 +0100 (CET)
+ id E7906F804BD; Fri, 18 Dec 2020 13:16:42 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
+X-Spam-Level: *
+X-Spam-Status: No, score=1.0 required=5.0 tests=PRX_BODY_30,SPF_HELO_NONE,
+ SPF_NONE autolearn=disabled version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id B61FEF804D6
- for <alsa-devel@alsa-project.org>; Fri, 18 Dec 2020 13:17:01 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B61FEF804D6
+ by alsa1.perex.cz (Postfix) with ESMTPS id 8EB88F80274
+ for <alsa-devel@alsa-project.org>; Fri, 18 Dec 2020 13:16:40 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8EB88F80274
 From: Mark Brown <broonie@kernel.org>
 Authentication-Results: mail.kernel.org;
  dkim=permerror (bad message/signature format)
-To: lgirdwood@gmail.com, "shumingf@realtek.com" <shumingf@realtek.com>
-In-Reply-To: <20201217085651.24580-1-shumingf@realtek.com>
-References: <20201217085651.24580-1-shumingf@realtek.com>
-Subject: Re: [PATCH] ASoC: rt711: mutex between calibration and power state
- changes
-Message-Id: <160829377018.10885.7000256104492511426.b4-ty@kernel.org>
+To: Liam Girdwood <lgirdwood@gmail.com>, Jerome Brunet <jbrunet@baylibre.com>
+In-Reply-To: <20201217150812.3247405-1-jbrunet@baylibre.com>
+References: <20201217150812.3247405-1-jbrunet@baylibre.com>
+Subject: Re: [PATCH] ASoC: meson: axg-tdm-interface: fix loopback
+Message-Id: <160829377018.10885.15767835159300610540.b4-ty@kernel.org>
 Date: Fri, 18 Dec 2020 12:16:10 +0000
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Cc: oder_chiou@realtek.com, jack.yu@realtek.com, alsa-devel@alsa-project.org,
- lars@metafoo.de, derek.fang@realtek.com, bard.liao@intel.com,
- flove@realtek.com, pierre-louis.bossart@intel.com
+Cc: linux-amlogic@lists.infradead.org, alsa-devel@alsa-project.org,
+ Charles Keepax <ckeepax@opensource.cirrus.com>, linux-kernel@vger.kernel.org,
+ Kevin Hilman <khilman@baylibre.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -67,8 +66,17 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Thu, 17 Dec 2020 16:56:51 +0800, shumingf@realtek.com wrote:
-> To avoid calibration time-out, this patch adds the mutex between calibration and power state changes
+On Thu, 17 Dec 2020 16:08:12 +0100, Jerome Brunet wrote:
+> When the axg-tdm-interface was introduced, the backend DAI was marked as an
+> endpoint when DPCM was walking the DAPM graph to find a its BE.
+> 
+> It is no longer the case since this
+> commit 8dd26dff00c0 ("ASoC: dapm: Fix handling of custom_stop_condition on DAPM graph walks")
+> Because of this, when DPCM finds a BE it does everything it needs on the
+> DAIs but it won't power up the widgets between the FE and the BE if there
+> is no actual endpoint after the BE.
+> 
+> [...]
 
 Applied to
 
@@ -76,8 +84,8 @@ Applied to
 
 Thanks!
 
-[1/1] ASoC: rt711: mutex between calibration and power state changes
-      commit: 6108f990c0887d3e8f1db2d13c7012e40a061f28
+[1/1] ASoC: meson: axg-tdm-interface: fix loopback
+      commit: 671ee4db952449acde126965bf76817a3159040d
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

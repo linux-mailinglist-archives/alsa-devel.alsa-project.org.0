@@ -2,104 +2,119 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6CE642DE373
-	for <lists+alsa-devel@lfdr.de>; Fri, 18 Dec 2020 14:47:55 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 391092DE3BD
+	for <lists+alsa-devel@lfdr.de>; Fri, 18 Dec 2020 15:11:06 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 0B2001788;
-	Fri, 18 Dec 2020 14:47:05 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0B2001788
+	by alsa0.perex.cz (Postfix) with ESMTPS id C026B178B;
+	Fri, 18 Dec 2020 15:10:10 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C026B178B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1608299275;
-	bh=SsPzs1d15tKvn31FOztMFrSDP8UWAr47AjjcdKdfs0w=;
+	s=default; t=1608300660;
+	bh=FqxdLmDnf0NVpgTU0lP9G0CPHgb64TOJPJ/P8z8Dc8U=;
 	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=u9lcrQfouog2WUI4k6Rw89Tg8ATzCsVWjEQKc1c8rc2Upq16C5tGrU3sGxmvRQRri
-	 LOHmxt0nA1smhpXsRa+cqlnnNurZI5j7+P/jk8O4IyGbeW4vM6+CgjGJ+sKWuAPXDa
-	 w03Qfe1hbdm2g6Yoagt5oaO7npntouNTGZb3vGO0=
+	b=t/jYvIuDoLOU8vyNYxlV01RHnuN6PhKWWfQjcAqRnxgWGRKNoAfkECzAePYsf1PI1
+	 WADqtcgWa5KqbAISX1EY27N622opNSkM0TofXZTQSZS08441blaKYxUeG8HI/5E1QX
+	 u4PS8+KJej2s3Ktc4q7fvuFFfrzLajY5LlP+rekE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 7DA41F80103;
-	Fri, 18 Dec 2020 14:46:19 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 5CDE4F8014B;
+	Fri, 18 Dec 2020 15:09:25 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 0B398F801F7; Fri, 18 Dec 2020 14:46:17 +0100 (CET)
+ id 00A46F80168; Fri, 18 Dec 2020 15:09:22 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from mail-wr1-x434.google.com (mail-wr1-x434.google.com
- [IPv6:2a00:1450:4864:20::434])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ DKIM_VALID_AU, MSGID_FROM_MTA_HEADER, SPF_HELO_NONE,
+ SPF_NONE autolearn=disabled version=3.4.0
+Received: from nat-hk.nvidia.com (nat-hk.nvidia.com [203.18.50.4])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id EC9C6F80168
- for <alsa-devel@alsa-project.org>; Fri, 18 Dec 2020 14:46:06 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EC9C6F80168
+ by alsa1.perex.cz (Postfix) with ESMTPS id 25AAEF80168
+ for <alsa-devel@alsa-project.org>; Fri, 18 Dec 2020 15:09:12 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 25AAEF80168
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org
- header.b="D86dpjGa"
-Received: by mail-wr1-x434.google.com with SMTP id c5so2211769wrp.6
- for <alsa-devel@alsa-project.org>; Fri, 18 Dec 2020 05:46:06 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=date:from:to:cc:subject:message-id:references:mime-version
- :content-disposition:content-transfer-encoding:in-reply-to;
- bh=Ka1x3IgXnDKEVbUNgJSUcPN8PzFVanlFrtTuT6E8rts=;
- b=D86dpjGakhZl+5XAKRbJimghynE7rov8qUJl/t75gAK4y/Fp5ssvHO49HPwJtIaWW7
- X0ZJnoyYSQEoJHAhiXySsnJJYjhmZB45KowbpkHybNPtkPHbDggsC/oXZOIjNV0OxfIP
- JtLk8ioNSYQNcBqUgcvb8hGzTjMFok0Z5d20D9TGp+gj3yAWd0tBwAcawAEAoclM3CeV
- hlVaCtzhQlhb3gLpgfbarf5Mch5uuBb3PuxZXm6+Qk42SmEjVCjqSdKkAl+v/+V8XpWa
- kzHRKLbBkT4RUsGzpF0vZVjKR15UffhOdqNzvt5OEAGmcdsDkI4BoE2RGEi1CeWWnZHq
- NPTw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:content-transfer-encoding
- :in-reply-to;
- bh=Ka1x3IgXnDKEVbUNgJSUcPN8PzFVanlFrtTuT6E8rts=;
- b=mkIZCAFvgxrmMbJpp2NSdvZOOvBbRCqPN2tMOGUuExtK+fnWIza9Q9X5kk4VyUgCDe
- v9GG8b9JI+KU+UQvJ1hOpfO5mjgfqbW+/Plr+yrblEaFxtgSr5JpB98vE0q0JqSyG2+0
- RzrGuijJ9ZP5A4AAV3curmsU99DW1wAw/SvdE5o7lLQuKDZLqyXpF0oXcYOLipBHfxZo
- +Blmkqu/E9ZXH1H+tcSon8UWZ29Zre1+fgctr6SbRKw2fGv1C0W5xS4vIybHq4az6CFU
- Wgz8ifEi34onEOAM6XZS3RJqx1Lt5dbb1lSJ9Sj4DaOn6VmVdLO6WhnbZmzRFvf9B36z
- ybZw==
-X-Gm-Message-State: AOAM533ZixqetyBd4Ab/zE7FqDrtlBjIcJSYu+Il/z1Yhj/fM7Nu3lsX
- 9aA6tVkmNq9UM7LNG9+uSB8LAw==
-X-Google-Smtp-Source: ABdhPJzuzueQDnbBnCkvc22NOc11UsjLlpycV2v2yPaJ9/Pn3FrNYBjDBsPM3Sqix1VPGW3J6EwCWQ==
-X-Received: by 2002:a5d:52c1:: with SMTP id r1mr4590809wrv.255.1608299166077; 
- Fri, 18 Dec 2020 05:46:06 -0800 (PST)
-Received: from dell ([91.110.221.216])
- by smtp.gmail.com with ESMTPSA id l1sm14124574wrq.64.2020.12.18.05.46.04
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 18 Dec 2020 05:46:05 -0800 (PST)
-Date: Fri, 18 Dec 2020 13:46:03 +0000
-From: Lee Jones <lee.jones@linaro.org>
+ dkim=pass (2048-bit key) header.d=nvidia.com header.i=@nvidia.com
+ header.b="P3bQzSnN"
+Received: from HKMAIL103.nvidia.com (Not Verified[10.18.92.100]) by
+ nat-hk.nvidia.com (using TLS: TLSv1.2, AES256-SHA)
+ id <B5fdcb7fe0000>; Fri, 18 Dec 2020 22:09:02 +0800
+Received: from HKMAIL104.nvidia.com (10.18.16.13) by HKMAIL103.nvidia.com
+ (10.18.16.12) with Microsoft SMTP Server (TLS) id 15.0.1473.3; Fri, 18 Dec
+ 2020 14:09:00 +0000
+Received: from NAM12-BN8-obe.outbound.protection.outlook.com (104.47.55.171)
+ by HKMAIL104.nvidia.com (10.18.16.13) with Microsoft SMTP Server (TLS) id
+ 15.0.1473.3 via Frontend Transport; Fri, 18 Dec 2020 14:09:00 +0000
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=JoYn5ucAb62TBndhdo+39D7KTtQVPjq+OLzQ4hgrbDlB+EXonyWGYw+vnkxWSNpVVdO88yPUSP1flStOcbrCsB4meeMWJsOdLMXoeVzxWw8z5BvVX2xXDgJ7vXeN0CnxzlqiyCDsNo1Xhu9mRFMeOzLhZyVJvxF7J/t6iDrM/n68dR63JYD7zyiZYzmLsC9vxU3jfv15RFTRjExVFGi8FTBpHIKQtu8MuCe+bAMRgnEXvKIArQwAefd95EQ7Iuykd42g0I/jso4lk2F06+YIPWm4oNHGMpnM4fj9xLaSArOmoFIOu/UJ7r+Vp34S13cy6ZQltfw3ybLhUsoP6xlXLA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=FqxdLmDnf0NVpgTU0lP9G0CPHgb64TOJPJ/P8z8Dc8U=;
+ b=ltvny34KhEquTQoAFGZJSF7E5cVJxFSTZqvN/nr/GEm0FR353/qZOw1Yo1AEx2xTG9bHu4uxEVTBH3qY+LHOSb6cWFOn+gpPpHhjcZmrIy+ggjUHJEkPDzcxpnlq6z8jKEDPLp6nk/xYVrJJJEM9r/ObRlZgS7Kx6wBpJS+YeUdAiEMJ63ZZa6o3UeT3hky1ma5m2PNvvPqYv2xq2vkt2Nnx1lpyyARe8f2DTVulEn7yIV+TGEA1SavfbKPacx8oq9TmybDfmedRqtwRHWYvU0q+nchWhRYZyJu2IQYsADCoGrBBbR3m2ETWuZJrs7eAdKU5Ybx/oGBR/Qu0cIH5xw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+Received: from DM6PR12MB3834.namprd12.prod.outlook.com (2603:10b6:5:14a::12)
+ by DM6PR12MB4041.namprd12.prod.outlook.com (2603:10b6:5:210::18) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3654.12; Fri, 18 Dec
+ 2020 14:08:55 +0000
+Received: from DM6PR12MB3834.namprd12.prod.outlook.com
+ ([fe80::546d:512c:72fa:4727]) by DM6PR12MB3834.namprd12.prod.outlook.com
+ ([fe80::546d:512c:72fa:4727%7]) with mapi id 15.20.3676.025; Fri, 18 Dec 2020
+ 14:08:55 +0000
+Date: Fri, 18 Dec 2020 10:08:54 -0400
+From: Jason Gunthorpe <jgg@nvidia.com>
 To: Mark Brown <broonie@kernel.org>
 Subject: Re: [resend/standalone PATCH v4] Add auxiliary bus support
-Message-ID: <20201218134603.GS207743@dell>
+Message-ID: <20201218140854.GW552508@nvidia.com>
 References: <160695681289.505290.8978295443574440604.stgit@dwillia2-desk3.amr.corp.intel.com>
  <X8ogtmrm7tOzZo+N@kroah.com>
  <CAPcyv4iLG7V9JT34La5PYfyM9378acbLnkShx=6pOmpPK7yg3A@mail.gmail.com>
  <X8usiKhLCU3PGL9J@kroah.com> <20201217211937.GA3177478@piout.net>
  <X9xV+8Mujo4dhfU4@kroah.com> <20201218131709.GA5333@sirena.org.uk>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset="us-ascii"
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
 In-Reply-To: <20201218131709.GA5333@sirena.org.uk>
-Cc: Alexandre Belloni <alexandre.belloni@bootlin.com>,
+X-ClientProxiedBy: BL1PR13CA0392.namprd13.prod.outlook.com
+ (2603:10b6:208:2c2::7) To DM6PR12MB3834.namprd12.prod.outlook.com
+ (2603:10b6:5:14a::12)
+MIME-Version: 1.0
+X-MS-Exchange-MessageSentRepresentingType: 1
+Received: from mlx.ziepe.ca (142.162.115.133) by
+ BL1PR13CA0392.namprd13.prod.outlook.com (2603:10b6:208:2c2::7) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.3676.13 via Frontend Transport; Fri, 18 Dec 2020 14:08:55 +0000
+Received: from jgg by mlx with local (Exim 4.94)	(envelope-from
+ <jgg@nvidia.com>)	id 1kqGRC-00Cg9S-2d; Fri, 18 Dec 2020 10:08:54 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nvidia.com; s=n1;
+ t=1608300542; bh=FqxdLmDnf0NVpgTU0lP9G0CPHgb64TOJPJ/P8z8Dc8U=;
+ h=ARC-Seal:ARC-Message-Signature:ARC-Authentication-Results:Date:
+ From:To:CC:Subject:Message-ID:References:Content-Type:
+ Content-Disposition:In-Reply-To:X-ClientProxiedBy:MIME-Version:
+ X-MS-Exchange-MessageSentRepresentingType;
+ b=P3bQzSnN2N1kR/c2ruQqvBBXyTIAePZxtznSnSZhxZocH22xrPnPMcj0epcAhzBiA
+ D2vmq54B8kq4cn44ri+yJbT/cof450WbIaOnnHoZXAeLrE997aQUbKX2rnnklVGbn1
+ p74dBh7ZBNnLPfXVybBas5TYj/NqNd72EgVNZb5/MP3Ws4P+R1l77WLOMcGEGbEiPd
+ mh0ICzdJRO9rHLkVfkX/ltcd2BMyUwYBYjo1ceYgoVuwBoumn+19eE16OK+7z3/5ia
+ 9ZZMYIi6KcCcmBzG1bISAhIox3/suLl/uM/DB2suG9/l+F97CILWWgkAu7O2VZXFvp
+ 4lSalwb8Kp8Bg==
+Cc: Alexandre Belloni <alexandre.belloni@bootlin.com>, lee.jones@linaro.org,
  Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- Kiran Patil <kiran.patil@intel.com>, Liam Girdwood <lgirdwood@gmail.com>,
- linux-rdma <linux-rdma@vger.kernel.org>, Greg KH <gregkh@linuxfoundation.org>,
- Martin Habets <mhabets@solarflare.com>, alsa-devel@alsa-project.org,
+ Kiran Patil <kiran.patil@intel.com>, Liam
+ Girdwood <lgirdwood@gmail.com>, linux-rdma <linux-rdma@vger.kernel.org>,
+ Greg KH <gregkh@linuxfoundation.org>, Martin Habets <mhabets@solarflare.com>,
+ alsa-devel@alsa-project.org,
  Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
  Fred Oh <fred.oh@linux.intel.com>, Netdev <netdev@vger.kernel.org>,
  Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
- Jason Gunthorpe <jgg@nvidia.com>, Jakub Kicinski <kuba@kernel.org>,
- Dave Ertman <david.m.ertman@intel.com>,
- Dan Williams <dan.j.williams@intel.com>,
+ Jakub Kicinski <kuba@kernel.org>, Dave
+ Ertman <david.m.ertman@intel.com>, Dan Williams <dan.j.williams@intel.com>,
  Shiraz Saleem <shiraz.saleem@intel.com>, David Miller <davem@davemloft.net>,
  Leon Romanovsky <leonro@nvidia.com>, Parav Pandit <parav@mellanox.com>
 X-BeenThere: alsa-devel@alsa-project.org
@@ -117,55 +132,18 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Fri, 18 Dec 2020, Mark Brown wrote:
+On Fri, Dec 18, 2020 at 01:17:09PM +0000, Mark Brown wrote:
 
-> On Fri, Dec 18, 2020 at 08:10:51AM +0100, Greg KH wrote:
-> > On Thu, Dec 17, 2020 at 10:19:37PM +0100, Alexandre Belloni wrote:
-> 
-> > > There is something I don't get from the documentation and it is what is
-> > > this introducing that couldn't already be done using platform drivers
-> > > and platform devices?
-> 
-> > Because platform drivers and devices should ONLY be for actual platform
-> > devices.  Do NOT use that interface to fake up a non-platform device
-> > (i.e. something that is NOT connected to a cpu through a memory-mapped
-> > or direct-firmware interface).
-> 
-> > Do not abuse the platform code anymore than it currently is, it's bad
-> > enough what has been done to it over time, let's not make it any worse.
-> 
-> I am not clear on why you're giving direct-firmware devices (which I
-> assume means things like ARM SCMI where we're talking directly to some
-> firmware?) a pass here but not for example a GPIO controlled devices.
-> If this is mainly about improving abstractions it seems like the
-> boundary here isn't great.  Or perhaps I'm just missing what
-> direct-firmware is supposed to mean?
-> 
-> In any case, to be clear part of what you're saying here is that all
-> I2C and SPI MFDs should be rewritten to use this new bus - I've just
-> copied Lee in again since he keeps getting missed from these threads.
 > As previously discussed this will need the auxilliary bus extending to
 > support at least interrupts and possibly also general resources.
 
-Thanks Mark.
+I thought the recent LWN article summed it up nicely, auxillary bus is
+for gluing to subsystems together using a driver specific software API
+to connect to the HW, MFD is for splitting a physical HW into disjoint
+regions of HW.
 
-Not entirely sure why this needed an entirely new subsystem to handle
-non-MMIO Multi-Functional Devices (MFD).  Or why I was not approached
-by any of the developers during the process.
+Maybe there is some overlap, but if you want to add HW representations
+to the general auxillary device then I think you are using it for the
+wrong thing.
 
-Having 2 entirely separate subsystems where MFDs can now be registered
-sounds confusing and convoluted at best.  Why not simply extend actual
-MFD to be capable of registering non-pure platform devices via other
-means?  By doing so you keep things bound to a central location
-resulting in less chance of misuse.
-
-I turn away MFD implementation abuses all the time.  Seeing as the 2
-subsystems are totally disjoint, this just unwittingly opened up
-another back-channel opportunity for those abuses to make it into the
-mainline kernel.
-
--- 
-Lee Jones [李琼斯]
-Senior Technical Lead - Developer Services
-Linaro.org │ Open source software for Arm SoCs
-Follow Linaro: Facebook | Twitter | Blog
+Jason

@@ -2,76 +2,83 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id CB6742DE2FC
-	for <lists+alsa-devel@lfdr.de>; Fri, 18 Dec 2020 13:59:59 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id B58752DE337
+	for <lists+alsa-devel@lfdr.de>; Fri, 18 Dec 2020 14:19:12 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 9D66B1779;
-	Fri, 18 Dec 2020 13:59:08 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9D66B1779
+	by alsa0.perex.cz (Postfix) with ESMTPS id 385941772;
+	Fri, 18 Dec 2020 14:18:17 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 385941772
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1608296398;
-	bh=HtSLK8Qq3NQ+grFSmB3TwIvB2DSFsoE9tGloW3FPnUo=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
+	s=default; t=1608297547;
+	bh=v6z69yu84QJf1R6RvlLOXcMX6c+Fwb3zy/Gr6WnNltI=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=O591+8gujULkjrHdyoSOWexspGVad1KmzHRir3KN0/iNI3xv+TTVsRqUyqGWMxj1y
-	 JHtuO5ExHoMOTEAtU+0wIIi82dI7K7Nu8LSrWwzDK53uTOnyjWwcIC7oZOd8+uKpSv
-	 R03atHbT/6LFZ+85CyHeLp5dbWovBUX3xkvaddAs=
+	b=i0GF2nAzAZ1uMHRNFZ85gAHBbmO5tUIlIT+cRBe/tFylzJ0cyiSNg8+/Uks4cwIwJ
+	 JLVvv9ce3nCSDTcsUbasyRFAqSaxd4079w8srQOn+cTMlluAhjL+xOltkA5rSfgxX2
+	 qzCrtSYzfpy4g8S0PgQ8sUXZnUWtD90wxy6qtcSk=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 53A54F80171;
-	Fri, 18 Dec 2020 13:59:06 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 54F9EF80240;
+	Fri, 18 Dec 2020 14:17:31 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 8CA82F80245; Fri, 18 Dec 2020 13:59:04 +0100 (CET)
+ id 1DC9DF80171; Fri, 18 Dec 2020 14:17:30 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.8 required=5.0 tests=FREEMAIL_FORGED_FROMDOMAIN,
- FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,PRX_BODY_135,SPF_HELO_NONE,
- SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mail-ot1-f54.google.com (mail-ot1-f54.google.com
- [209.85.210.54])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id F24E9F8014B
- for <alsa-devel@alsa-project.org>; Fri, 18 Dec 2020 13:59:01 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz F24E9F8014B
-Received: by mail-ot1-f54.google.com with SMTP id w3so1752288otp.13
- for <alsa-devel@alsa-project.org>; Fri, 18 Dec 2020 04:59:00 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=yDDmWva6k+onru4ElOy7d/wNOJ87lqqkD8MjbWeXtwU=;
- b=f2FSOk0p4XKu8NbA0BaA2Ai/1XPxDaLGZ2eSUO5hWhb0EFylNLzHWyLh0oxuJW8b4w
- IstasRLvKnGonBWGaP79XhHC+QsWfvifULWQoJ7x+zqP8n9d1rGIZeJK2gaIydHjvPtb
- xxdS4qxzt6tfs3ZLjObnYqryMrXkgFt5psuRFECLxpqjpNNMoSDSt/fPSq0VSpgUnExV
- Sq5UN3A35yuH6RoUIq8qhHsuMtQQehu4CNTaV5MlPBI7imPQvSTw3pOWc9tgDJV21kPf
- vyiEt52s5QTGoHEhSPZkZ0Qhch0mgibfwRnPQqjDQ1t5r+As7kl9+hBXHsRkewU6Ih9e
- Ue7g==
-X-Gm-Message-State: AOAM532G9TBkt2I4CzQcAO9Xh21f28tfT4CdbnJ9e1kPyTGTA148h8PM
- 9Kiwvfpm61F1YMBsn4S/bD8RNxs1B4BgKRW9bI4=
-X-Google-Smtp-Source: ABdhPJyVnS44pT7s+1XMXMXLzgmkCPbXXe1tAtY16NLc5knQgn/2hErWmFmznw8uQihbNqN3+62Ky++aLOQYfTNMNNI=
-X-Received: by 2002:a05:6830:1f5a:: with SMTP id
- u26mr2667908oth.250.1608296339939; 
- Fri, 18 Dec 2020 04:58:59 -0800 (PST)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 8A24DF80103
+ for <alsa-devel@alsa-project.org>; Fri, 18 Dec 2020 14:17:26 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8A24DF80103
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="K8gcgeKn"
+Date: Fri, 18 Dec 2020 13:17:09 +0000
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1608297443;
+ bh=v6z69yu84QJf1R6RvlLOXcMX6c+Fwb3zy/Gr6WnNltI=;
+ h=From:To:Cc:Subject:References:In-Reply-To:From;
+ b=K8gcgeKnC82VwJ4M0CQaQG76QT5VP10SRDtN8kNVWnNlu9I+CSCB07c6/MlHjQ0Uz
+ UgHPhAhbKPEycfLmxUpE90p2yL9EEcFZB2xNdla2NOTYpt7Dvedq97d45Eke9KATbn
+ P//PsnL7JlZCm5UW3XbqO8BpQots8yJ0Hvw9VmkWLEuVHMQ6ClLaHMe1M9wj523Qms
+ GU5BMD3lgQIiQuNHn6YHpbMwYIjIBH9UAac0IYZo3CXmCZ3+QN0Yaw4Bs1HyzOjDlV
+ e8ctID2YzuRNAFf3XpZ1a5+J+jjnmBAm5sfwb7gAk5F6fnqby1jOCOGCbGHp8OMyXh
+ qm/zJM/YVhnoA==
+From: Mark Brown <broonie@kernel.org>
+To: Greg KH <gregkh@linuxfoundation.org>
+Subject: Re: [resend/standalone PATCH v4] Add auxiliary bus support
+Message-ID: <20201218131709.GA5333@sirena.org.uk>
+References: <160695681289.505290.8978295443574440604.stgit@dwillia2-desk3.amr.corp.intel.com>
+ <X8ogtmrm7tOzZo+N@kroah.com>
+ <CAPcyv4iLG7V9JT34La5PYfyM9378acbLnkShx=6pOmpPK7yg3A@mail.gmail.com>
+ <X8usiKhLCU3PGL9J@kroah.com> <20201217211937.GA3177478@piout.net>
+ <X9xV+8Mujo4dhfU4@kroah.com>
 MIME-Version: 1.0
-References: <20201217162740.1452000-1-aford173@gmail.com>
-In-Reply-To: <20201217162740.1452000-1-aford173@gmail.com>
-From: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Fri, 18 Dec 2020 13:58:48 +0100
-Message-ID: <CAMuHMdV3WKFLPKf_6nVc0bX4wXe55GtKST9whiEKpG_8wq6t6w@mail.gmail.com>
-Subject: Re: [PATCH] ASoC: wm8962: Add optional mclk device tree binding
-To: Adam Ford <aford173@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Cc: "open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS"
- <devicetree@vger.kernel.org>,
- ALSA Development Mailing List <alsa-devel@alsa-project.org>,
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="zhXaljGHf11kAtnf"
+Content-Disposition: inline
+In-Reply-To: <X9xV+8Mujo4dhfU4@kroah.com>
+X-Cookie: Password:
+User-Agent: Mutt/1.10.1 (2018-07-13)
+Cc: Alexandre Belloni <alexandre.belloni@bootlin.com>, lee.jones@linaro.org,
  Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- Adam Ford-BE <aford@beaconembedded.com>, Rob Herring <robh+dt@kernel.org>,
- Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>
+ Kiran Patil <kiran.patil@intel.com>, Liam Girdwood <lgirdwood@gmail.com>,
+ linux-rdma <linux-rdma@vger.kernel.org>, Netdev <netdev@vger.kernel.org>,
+ Martin Habets <mhabets@solarflare.com>, alsa-devel@alsa-project.org,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ Fred Oh <fred.oh@linux.intel.com>,
+ Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
+ Jason Gunthorpe <jgg@nvidia.com>, Jakub Kicinski <kuba@kernel.org>,
+ Dave Ertman <david.m.ertman@intel.com>,
+ Dan Williams <dan.j.williams@intel.com>,
+ Shiraz Saleem <shiraz.saleem@intel.com>, David Miller <davem@davemloft.net>,
+ Leon Romanovsky <leonro@nvidia.com>, Parav Pandit <parav@mellanox.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -87,47 +94,52 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Thu, Dec 17, 2020 at 5:27 PM Adam Ford <aford173@gmail.com> wrote:
-> The driver can request an optional clock for mclk.
-> Update the txt file to reflect this.
->
-> Suggested-by: Geert Uytterhoeven <geert@linux-m68k.org>
-> Signed-off-by: Adam Ford <aford173@gmail.com>
 
-Reviewed-by: Geert Uytterhoeven <geert+renesas@glider.be>
+--zhXaljGHf11kAtnf
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-> --- a/Documentation/devicetree/bindings/sound/wm8962.txt
-> +++ b/Documentation/devicetree/bindings/sound/wm8962.txt
-> @@ -9,6 +9,9 @@ Required properties:
->    - reg : the I2C address of the device.
->
->  Optional properties:
-> +
+On Fri, Dec 18, 2020 at 08:10:51AM +0100, Greg KH wrote:
+> On Thu, Dec 17, 2020 at 10:19:37PM +0100, Alexandre Belloni wrote:
 
-This blank line is not needed (but it will probably be removed during a
-future txt-to-yaml conversion ;-)
+> > There is something I don't get from the documentation and it is what is
+> > this introducing that couldn't already be done using platform drivers
+> > and platform devices?
 
-> +  - clocks : The clock source of the mclk
-> +
->    - spk-mono: This is a boolean property. If present, the SPK_MONO bit
->      of R51 (Class D Control 2) gets set, indicating that the speaker is
->      in mono mode.
-> @@ -27,6 +30,7 @@ Example:
->  wm8962: codec@1a {
->         compatible = "wlf,wm8962";
->         reg = <0x1a>;
-> +       clocks = <&clks IMX6QDL_CLK_CKO>;
->
->         gpio-cfg = <
->                 0x0000 /* 0:Default */
+> Because platform drivers and devices should ONLY be for actual platform
+> devices.  Do NOT use that interface to fake up a non-platform device
+> (i.e. something that is NOT connected to a cpu through a memory-mapped
+> or direct-firmware interface).
 
-Gr{oetje,eeting}s,
+> Do not abuse the platform code anymore than it currently is, it's bad
+> enough what has been done to it over time, let's not make it any worse.
 
-                        Geert
+I am not clear on why you're giving direct-firmware devices (which I
+assume means things like ARM SCMI where we're talking directly to some
+firmware?) a pass here but not for example a GPIO controlled devices.
+If this is mainly about improving abstractions it seems like the
+boundary here isn't great.  Or perhaps I'm just missing what
+direct-firmware is supposed to mean?
 
--- 
-Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
+In any case, to be clear part of what you're saying here is that all
+I2C and SPI MFDs should be rewritten to use this new bus - I've just
+copied Lee in again since he keeps getting missed from these threads.
+As previously discussed this will need the auxilliary bus extending to
+support at least interrupts and possibly also general resources.
 
-In personal conversations with technical people, I call myself a hacker. But
-when I'm talking to journalists I just say "programmer" or something like that.
-                                -- Linus Torvalds
+--zhXaljGHf11kAtnf
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl/cq9QACgkQJNaLcl1U
+h9Cf2wf/V/9ux9B/P6JhOdSp8/cnAt5M1bqV3QMIpBxKfkDzfpIhgCbQHcuTHohO
+GadrjXD1DMJSWcpx/mh1qNjeEYyROMYnVN7UrxVgTgrCD/HN/MqpgvWlLA8ubGTH
+S6/1XPHbMOsHIIXclMzGpmO4jA9hOwKz14gnvnWraHDojOhymTJV9Jl2wQ9UaOV/
+FDPyY3zYA0fUvzSkIDkzHAcjhdpulnxztlYYH73f81R1L1NTdfMn1E4mZMBIBMMD
+94BiLYMhjiFBXH2MkTbSugyxARIgOM9uKM3AIttLQq7l4deMDjvOX85wlcGA6JjM
+/jmS76XyUz+UNO505l7CrvuL0X37jQ==
+=ErBA
+-----END PGP SIGNATURE-----
+
+--zhXaljGHf11kAtnf--

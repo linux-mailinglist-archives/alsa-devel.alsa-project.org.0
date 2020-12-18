@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E9E152DE2B5
-	for <lists+alsa-devel@lfdr.de>; Fri, 18 Dec 2020 13:20:46 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0B5352DE2AB
+	for <lists+alsa-devel@lfdr.de>; Fri, 18 Dec 2020 13:19:11 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 7AB1C179D;
-	Fri, 18 Dec 2020 13:19:56 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7AB1C179D
+	by alsa0.perex.cz (Postfix) with ESMTPS id 846461792;
+	Fri, 18 Dec 2020 13:18:20 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 846461792
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1608294046;
-	bh=cmY75H0sFE4QOYAMpUL30yKd09Brv22QxxKauVKw5Lk=;
-	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
+	s=default; t=1608293950;
+	bh=ZSV3eWWJGKKj6sLb/XSTSMSm+F9uNhVueYm4dkmlXKI=;
+	h=From:To:In-Reply-To:References:Subject:Date:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=WkXX9sbZ6/Q3KwsT5ZHpTtQY+ZVQLH7HmKPjEFfwww0om8cX3cGvgJH0gcHxsGxQL
-	 vmSkMK76/KOgbiL+miJzu2UE+1CK2VlqNWY2FzbZJ/9fvacTYtjiBQkNlTDOncZkQ3
-	 Rw7stpLa4Jtdzjxul7j0qb3O+rlp5G1EyalFH0/k=
+	b=fv/Ct6cUhnmKxHoHrWpPnpRxuQC4WMT/hKsVALV4kL/pe7304ftzIdisQHWfG8Yoz
+	 Z+k1ZMY0/T84yTweYvrBbiaNMarw2jxh4bY+l45YhGa2bccxomuzbO9tLGEJ12hfkx
+	 5BAokGTh8922jb4roxjscVq+D1+ZU9/oCIhINsto=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 82FABF804E7;
-	Fri, 18 Dec 2020 13:17:16 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 4F903F804C3;
+	Fri, 18 Dec 2020 13:16:50 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 83B6EF804E1; Fri, 18 Dec 2020 13:17:08 +0100 (CET)
+ id DC48DF804CA; Fri, 18 Dec 2020 13:16:48 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE
@@ -33,23 +33,27 @@ X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 3379EF804D2
- for <alsa-devel@alsa-project.org>; Fri, 18 Dec 2020 13:17:06 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3379EF804D2
+ by alsa1.perex.cz (Postfix) with ESMTPS id 7EDA5F804C2
+ for <alsa-devel@alsa-project.org>; Fri, 18 Dec 2020 13:16:46 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7EDA5F804C2
 From: Mark Brown <broonie@kernel.org>
 Authentication-Results: mail.kernel.org;
  dkim=permerror (bad message/signature format)
-To: Liam Girdwood <lgirdwood@gmail.com>, Jerome Brunet <jbrunet@baylibre.com>
-In-Reply-To: <20201217150834.3247526-1-jbrunet@baylibre.com>
-References: <20201217150834.3247526-1-jbrunet@baylibre.com>
-Subject: Re: [PATCH] ASoC: meson: axg-tdmin: fix axg skew offset
-Message-Id: <160829377018.10885.1833310761978739911.b4-ty@kernel.org>
+To: alsa-devel@alsa-project.org, tiwai@suse.com,
+ Srinivasa Rao Mandadapu <srivasam@codeaurora.org>, plai@codeaurora.org,
+ devicetree@vger.kernel.org, rohitkr@codeaurora.org, lgirdwood@gmail.com,
+ linux-kernel@vger.kernel.org, bjorn.andersson@linaro.org,
+ srinivas.kandagatla@linaro.org, agross@kernel.org, robh+dt@kernel.org,
+ linux-arm-msm@vger.kernel.org, bgoswami@codeaurora.org, perex@perex.cz
+In-Reply-To: <1606929748-16828-1-git-send-email-srivasam@codeaurora.org>
+References: <1606929748-16828-1-git-send-email-srivasam@codeaurora.org>
+Subject: Re: [PATCH v5 0/2] Platform driver update to support playback recover
+ after resume
+Message-Id: <160829377016.10885.14131365889928811294.b4-ty@kernel.org>
 Date: Fri, 18 Dec 2020 12:16:10 +0000
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Cc: linux-amlogic@lists.infradead.org, alsa-devel@alsa-project.org,
- linux-kernel@vger.kernel.org, Kevin Hilman <khilman@baylibre.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -65,12 +69,20 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Thu, 17 Dec 2020 16:08:34 +0100, Jerome Brunet wrote:
-> The signal captured on from tdm decoder of the AXG SoC is incorrect. It
-> appears amplified. The skew offset of the decoder is wrong.
+On Wed, 2 Dec 2020 22:52:26 +0530, Srinivasa Rao Mandadapu wrote:
+> This patch set is to add support for playback recover after hard suspend and resume.
+> It includes:
+> 1. Reverting part of previous commit, which is for handling registers invalid state
+> after hard suspend.
+> 2. Adding pm ops in component driver and do regcache sync.
+> Changes Since v1 and v2:
+>   -- Subject lines changed
+> Changes Since v3:
+>   -- Patch is splitted into 2 patches
+> Changes Since v4:
+>   -- Subject lines changed
 > 
-> Setting the skew offset to 3, like the g12 and sm1 SoCs, solves and gives
-> correct data.
+> [...]
 
 Applied to
 
@@ -78,8 +90,10 @@ Applied to
 
 Thanks!
 
-[1/1] ASoC: meson: axg-tdmin: fix axg skew offset
-      commit: a84dfb3d55934253de6aed38ad75990278a2d21e
+[1/2] ASoC: qcom: Fix incorrect volatile registers
+      commit: 315fbe4cef98ee5fb6085bc54c7f25eb06466c70
+[2/2] ASoC: qcom: Add support for playback recover after resume
+      commit: 8d1bfc04c97407767559f6389a0f0fb060cbe25e
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

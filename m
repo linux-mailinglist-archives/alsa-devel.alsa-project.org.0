@@ -2,96 +2,97 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 763172DE995
-	for <lists+alsa-devel@lfdr.de>; Fri, 18 Dec 2020 20:11:08 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id CE9362DEA0B
+	for <lists+alsa-devel@lfdr.de>; Fri, 18 Dec 2020 21:16:01 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 00C6817D7;
-	Fri, 18 Dec 2020 20:10:12 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 00C6817D7
+	by alsa0.perex.cz (Postfix) with ESMTPS id 5E53317AB;
+	Fri, 18 Dec 2020 21:15:06 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5E53317AB
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1608318663;
-	bh=qFe8EP7EKzyr4KWlk53fYbJLAQ53D14Yto2qyrZYLpA=;
+	s=default; t=1608322556;
+	bh=cAaYGLbx+veeWkLpPkNhNVZXHztP+U2YsKXs0JdDK1w=;
 	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=Ak+jdmVe4Q5oBhZj3MGU6F15u2qH22wRNfDxK3eFJSpninX/F6GI4qkxWC+r0vI/k
-	 tlPtnCDWaGPmkYRy9qk/uiPUlz5h7iRhhRpdP0GdDHIyB+A5iIPeTknhG4m0N/rW2T
-	 B5M2u8RNJMY8cz3gPWZC+gq/P5DQeop3F/baELMs=
+	b=N+84m/4G+y5VniYIGjQfhbvTwMaSK0IC9ZVJQF0SmO0fc7RDt54+AE225CrX7ukQx
+	 yO2vrNsj/m4HOBqpNKV1lRLew+L1gp60UG3Eu2tjLsSJ3eBMEAk1OJAV2t0c15ti5E
+	 8kGn00NK/7lIwkR3KG0RqQ/zdSMvrmleWSMfYpPU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 640C0F80240;
-	Fri, 18 Dec 2020 20:09:27 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id A40A9F80240;
+	Fri, 18 Dec 2020 21:14:20 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id B9E40F801F7; Fri, 18 Dec 2020 20:09:24 +0100 (CET)
+ id 596E9F801F7; Fri, 18 Dec 2020 21:14:18 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from mail-wr1-x433.google.com (mail-wr1-x433.google.com
- [IPv6:2a00:1450:4864:20::433])
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
+Received: from mail-qv1-xf2c.google.com (mail-qv1-xf2c.google.com
+ [IPv6:2607:f8b0:4864:20::f2c])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id AC1D0F80168
- for <alsa-devel@alsa-project.org>; Fri, 18 Dec 2020 20:09:16 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz AC1D0F80168
+ by alsa1.perex.cz (Postfix) with ESMTPS id 5F1F0F8014B
+ for <alsa-devel@alsa-project.org>; Fri, 18 Dec 2020 21:14:12 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5F1F0F8014B
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org
- header.b="KQQTxWZh"
-Received: by mail-wr1-x433.google.com with SMTP id m5so3419983wrx.9
- for <alsa-devel@alsa-project.org>; Fri, 18 Dec 2020 11:09:16 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ dkim=pass (2048-bit key) header.d=ziepe.ca header.i=@ziepe.ca
+ header.b="jHvWhOqW"
+Received: by mail-qv1-xf2c.google.com with SMTP id a4so1191615qvd.12
+ for <alsa-devel@alsa-project.org>; Fri, 18 Dec 2020 12:14:12 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ziepe.ca; s=google;
  h=date:from:to:cc:subject:message-id:references:mime-version
- :content-disposition:content-transfer-encoding:in-reply-to;
- bh=DsPzYSmK1PzNzvrUgHsnSLZZOIK5NlSaB+JDZhlEtOQ=;
- b=KQQTxWZhnTj/uNvQiy5xn4LTnyxBdtGdpkYyOFIpxGKBvQ0jRZD0TcZ/LTAWdqpOMc
- iBcpeBjOV6WolPKdkW0k8N0vFjZSuoQjHFQImAfO7PL9uwRQteKZBpMRX1HBVjykkDEA
- U3qmmLIdCJs5EYo9f3hmuHygRAauxGP2e50tehtEmbR5vg9qpkq3aVmWqG/A+Y3wM9B5
- x2A2CCcjsXOySa5bkd3cVqt3gKt7Jjj6iBIA9+aTTnKeHl3699g09lg3tnN0bCuc9+Po
- MkaSkh0ais3cCFxxZPmnNI/HE5mGjItnY4PhUTeeO8CRkP8j2f19YX9GIjqHvIP3l0rR
- LM9A==
+ :content-disposition:in-reply-to;
+ bh=+6dOcXCZmIRThv69enwRAoT3Ssvc0OhfvILN9vdlg4o=;
+ b=jHvWhOqW9gjdg6bCt0oq8HPNAPiqjsnvVkc2ZUdCGpEZNIdSLT+GDPCECJElwUYAxA
+ Y1pIExXfv/DBr7VTF+bFuxD1/qc48sp4jjZGVoGH32YbTQAwsodVlyqEal+TFhSvUReR
+ bQH7LL5BN51mLTZ7XWLywXYOanGqutzAK76tB+8PuUq+RbgeAnOhwHP+K4O7eHiCyJ6Z
+ PbkZyuovTuop9ttweKxiab8tuHcdQfnii8DrxMLWuGsSk2o7ieWZHMk1nqidqmHDP5kd
+ mRvodxQKAx0bRwGOtG28y4RrryymGsGvvkNhr00Frg6N6/bpTYHvKS3sn6joFWSellTo
+ IV4Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:content-transfer-encoding
- :in-reply-to;
- bh=DsPzYSmK1PzNzvrUgHsnSLZZOIK5NlSaB+JDZhlEtOQ=;
- b=sdV30kZ7VcV0zxGopa18R118eyuzHiewPGcagYkGGpYO7Ffn/hRZHXCI3E5RM0y9JX
- j6PoLsK2OT6ho66yBKT13183DkNQ1Bv/qudohzRSx0KuD3YkeZr0sIrCnixuBvfyTh0C
- QM6kP49SYN2f0jrGYL3CGE7YkjQSjD5H4GoKNGlIGwADsfn8K0G6CZL9nckzl4gR/Gmm
- 5D2lvM0/eCF8U882Zubkr2+acH/DzxKUvLtIRRQMy6wdkBxsGRgqDFqmw43TcvB3CluR
- K3Vhob1w9fHDHf3qSTOOoraNlQe5RPaJG9gelLmVOHSeXwhkjc2Dwlztp7JJDeZIQpqO
- T72Q==
-X-Gm-Message-State: AOAM532CBSBd6kP5XcQUw0PZUDPXfnG2e5Q0S9RJ/U9NDdZ8qhGwvLSf
- uhWIaGvHLYPfFCpVCSpwRoSi7g==
-X-Google-Smtp-Source: ABdhPJw2jm4Tmi76TPXnjr8OBHNcrvwwjBfCy+FlD9dVZuo+ZdRb6pVpABn/SW3x01x5YHD7dj9svw==
-X-Received: by 2002:a5d:4d50:: with SMTP id a16mr5940186wru.43.1608318554221; 
- Fri, 18 Dec 2020 11:09:14 -0800 (PST)
-Received: from dell ([91.110.221.216])
- by smtp.gmail.com with ESMTPSA id s13sm12555285wmj.28.2020.12.18.11.09.12
+ :mime-version:content-disposition:in-reply-to;
+ bh=+6dOcXCZmIRThv69enwRAoT3Ssvc0OhfvILN9vdlg4o=;
+ b=O46hXXVhfXTzA45D8h6YxOBpo+3uAQU0lPt+HfSvnb0RsygWbKEiAieJ+ePHC2AaNO
+ MxfNGwRJ/Rv+HIVpyX3oFBMnA58mEHOltbk9Mt0sSn5nYZ8pj/9L35khUx4MyQKTO8aA
+ z8lPCvIhPCByimnqbwfh43JNunlvHBDkAnn3kQIdy9O04bwHXpcLE+rkWbVHDAtfsO3E
+ oZyxmcF0wcZFXk7FeKomNZYquC7mhP4C/kyhUlTo8zHG9QYJ0PGz5dFaUtwQiptuBNQH
+ 4x4uTDTPHawoc2mCiKP5eYUMpz4mzqunIPcGcv8V8vR+xvVAyYo+R1kLTlxfa8liyayX
+ 0vYQ==
+X-Gm-Message-State: AOAM531kxnpFPgUWkOSbERidphCKyGsfLercpGz1cOEQn28+5RQNP8YH
+ ikUWC8IXVOSoHVU+LauUyfb1fw==
+X-Google-Smtp-Source: ABdhPJz7x65BC/4X9IrtWfhOoatGUO93t2Fz3LqYQnC1yk/9wcYLKCu/MCpGx2+lmEtdYxTq7GxBsw==
+X-Received: by 2002:a05:6214:15c1:: with SMTP id
+ p1mr6432035qvz.8.1608322450319; 
+ Fri, 18 Dec 2020 12:14:10 -0800 (PST)
+Received: from ziepe.ca
+ (hlfxns017vw-142-162-115-133.dhcp-dynamic.fibreop.ns.bellaliant.net.
+ [142.162.115.133])
+ by smtp.gmail.com with ESMTPSA id p15sm6479556qke.11.2020.12.18.12.14.09
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 18 Dec 2020 11:09:13 -0800 (PST)
-Date: Fri, 18 Dec 2020 19:09:11 +0000
-From: Lee Jones <lee.jones@linaro.org>
-To: Jason Gunthorpe <jgg@nvidia.com>
+ Fri, 18 Dec 2020 12:14:09 -0800 (PST)
+Received: from jgg by mlx with local (Exim 4.94) (envelope-from <jgg@ziepe.ca>)
+ id 1kqM8e-00CtcB-SK; Fri, 18 Dec 2020 16:14:08 -0400
+Date: Fri, 18 Dec 2020 16:14:08 -0400
+From: Jason Gunthorpe <jgg@ziepe.ca>
+To: Lee Jones <lee.jones@linaro.org>
 Subject: Re: [resend/standalone PATCH v4] Add auxiliary bus support
-Message-ID: <20201218190911.GT207743@dell>
-References: <CAPcyv4iLG7V9JT34La5PYfyM9378acbLnkShx=6pOmpPK7yg3A@mail.gmail.com>
- <X8usiKhLCU3PGL9J@kroah.com> <20201217211937.GA3177478@piout.net>
+Message-ID: <20201218201408.GP5487@ziepe.ca>
+References: <X8usiKhLCU3PGL9J@kroah.com> <20201217211937.GA3177478@piout.net>
  <X9xV+8Mujo4dhfU4@kroah.com> <20201218131709.GA5333@sirena.org.uk>
  <20201218140854.GW552508@nvidia.com>
  <20201218155204.GC5333@sirena.org.uk>
  <20201218162817.GX552508@nvidia.com>
  <20201218180310.GD5333@sirena.org.uk>
- <20201218184150.GY552508@nvidia.com>
+ <20201218184150.GY552508@nvidia.com> <20201218190911.GT207743@dell>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20201218184150.GY552508@nvidia.com>
+In-Reply-To: <20201218190911.GT207743@dell>
 Cc: Alexandre Belloni <alexandre.belloni@bootlin.com>,
  Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
  Kiran Patil <kiran.patil@intel.com>, Liam Girdwood <lgirdwood@gmail.com>,
@@ -120,58 +121,35 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Fri, 18 Dec 2020, Jason Gunthorpe wrote:
+On Fri, Dec 18, 2020 at 07:09:11PM +0000, Lee Jones wrote:
 
-> On Fri, Dec 18, 2020 at 06:03:10PM +0000, Mark Brown wrote:
-> > On Fri, Dec 18, 2020 at 12:28:17PM -0400, Jason Gunthorpe wrote:
-> > > On Fri, Dec 18, 2020 at 03:52:04PM +0000, Mark Brown wrote:
-> > > > On Fri, Dec 18, 2020 at 10:08:54AM -0400, Jason Gunthorpe wrote:
-> > 
-> > > > > I thought the recent LWN article summed it up nicely, auxillary bus is
-> > > > > for gluing to subsystems together using a driver specific software API
-> > > > > to connect to the HW, MFD is for splitting a physical HW into disjoint
-> > > > > regions of HW.
-> > 
-> > > > This conflicts with the statements from Greg about not using the
-> > > > platform bus for things that aren't memory mapped or "direct firmware",
-> > > > a large proportion of MFD subfunctions are neither at least in so far as
-> > > > I can understand what direct firmware means.
-> > 
-> > > I assume MFD will keep existing and it will somehow stop using
-> > > platform device for the children it builds.
-> > 
-> > If it's not supposed to use platform devices so I'm assuming that the
-> > intention is that it should use aux devices, otherwise presumably it'd
-> > be making some new clone of the platform bus but I've not seen anyone
-> > suggesting this.
-> 
-> I wouldn't assume that, I certainly don't want to see all the HW
-> related items in platform_device cloned roughly into aux device.
-> 
-> I've understood the bus type should be basically related to the thing
-> that is creating the device. In a clean view platform code creates
-> platform devices. DT should create DT devices, ACPI creates ACPI
-> devices, PNP does pnp devices, etc
-> 
-> So, I strongly suspect, MFD should create mfd devices on a MFD bus
-> type.
-> 
-> Alexandre's point is completely valid, and I think is the main
-> challenge here, somehow avoiding duplication.
-> 
-> If we were to look at it with some OOP viewpoint I'd say the generic
-> HW resource related parts should be some shared superclass between
-> 'struct device' and 'struct platform/pnp/pci/acpi/mfd/etc_device'.
+> ACPI, DT and MFD are not busses.  
 
-You're confusing things here.
+And yet ACPI and PNP have a bus:
+  extern struct bus_type acpi_bus_type;
+  extern struct bus_type pnp_bus_type;
 
-ACPI, DT and MFD are not busses.  They are just methods to
-describe/register devices which will operate on buses.
+Why? Because in the driver core if you subclass struct device and want
+to bind drivers, as both PNP and ACPI do, you must place those devices
+on a bus with a bus_type matching the device type. Thus subclassing
+the device means subclassing the bus as well.
 
-Busses include things like; I2C, SPI, PCI, USB and Platform (MMIO).
+The purpose of the bus_type is to match drivers to devices and provide
+methods to the driver core. The bus_type also defines the unique name
+space of the device names.
 
--- 
-Lee Jones [李琼斯]
-Senior Technical Lead - Developer Services
-Linaro.org │ Open source software for Arm SoCs
-Follow Linaro: Facebook | Twitter | Blog
+It is confusing because the word bus immediately makes people think of
+physical objects like I2C, PCI, etc, but that is not what bus_type
+does in the object model of the driver core, IMHO.
+
+So, if you subclass struct device for MFD's usage, then you must also
+create a bus_type to handle driver binding. The MFD bus_type. Just
+like auxillary does.
+
+Making a mfd subclass is the logical thing for a subsystem to do,
+co-opting another subsystem's bus_type is just really weird/abusive.
+
+auxillary bus shows how all these parts work, and it is simple enough
+to see the pieces clearly.
+
+Jason

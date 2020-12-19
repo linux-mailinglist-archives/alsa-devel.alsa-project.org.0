@@ -2,79 +2,89 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 47E0A2DEC57
-	for <lists+alsa-devel@lfdr.de>; Sat, 19 Dec 2020 01:24:11 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 314D42DEE12
+	for <lists+alsa-devel@lfdr.de>; Sat, 19 Dec 2020 10:55:48 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D7D58180E;
-	Sat, 19 Dec 2020 01:23:15 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D7D58180E
+	by alsa0.perex.cz (Postfix) with ESMTPS id A638617E2;
+	Sat, 19 Dec 2020 10:49:23 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A638617E2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1608337445;
-	bh=drY6lNNupQlLWpDH1GajFlUCnnHe7P/lb/BiD5YN7FM=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1608371413;
+	bh=IU6Bk8mVYpHBV2VbJj/fdLl94+HIag6wMbrlV7vLLbc=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=f7D7MvO3RRYAorM5XG1eqlZBWajeIiJWw/cGL1VDFnPnaqDAsbkqVEuQOSGA8AoeX
-	 qt6W8G6daWuA9z56T0R0avLAuKyHBLH5BNFv5NbBWmk3PAhqdcop8hps27SF5CyV51
-	 sUwHu8SLUPlt3CDyb95ufQqYyEhhRr4yEx7Rrq6Q=
+	b=U/xvhKSIHWlCqQlkQhEWSOecQS60iLk/5xWuPoKyCQnK3K1cy697u/GtiGzvmpv73
+	 EYQDyJ4kIlBc/eTcvYBzQUh/+Cof2W/HQGLr9xnFzj0cm0ZuVFbfYKM8mNd9JNTFx8
+	 DWD7sK8EmVSppiq5di61Opa1HsqC734PQuS+gaik=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 7D276F80240;
-	Sat, 19 Dec 2020 01:22:30 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 1334EF8011B;
+	Sat, 19 Dec 2020 10:48:38 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id ED113F801F7; Sat, 19 Dec 2020 01:22:27 +0100 (CET)
+ id 0AD4CF80260; Sat, 19 Dec 2020 10:48:36 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from relay4-d.mail.gandi.net (relay4-d.mail.gandi.net
- [217.70.183.196])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from mail-pf1-x431.google.com (mail-pf1-x431.google.com
+ [IPv6:2607:f8b0:4864:20::431])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id DFD5BF8014B
- for <alsa-devel@alsa-project.org>; Sat, 19 Dec 2020 01:22:16 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DFD5BF8014B
-X-Originating-IP: 86.202.109.140
-Received: from localhost (lfbn-lyo-1-13-140.w86-202.abo.wanadoo.fr
- [86.202.109.140])
- (Authenticated sender: alexandre.belloni@bootlin.com)
- by relay4-d.mail.gandi.net (Postfix) with ESMTPSA id 73881E0002;
- Sat, 19 Dec 2020 00:22:08 +0000 (UTC)
-Date: Sat, 19 Dec 2020 01:22:08 +0100
-From: Alexandre Belloni <alexandre.belloni@bootlin.com>
-To: Jason Gunthorpe <jgg@nvidia.com>
-Subject: Re: [resend/standalone PATCH v4] Add auxiliary bus support
-Message-ID: <20201219002208.GI3143569@piout.net>
-References: <20201218131709.GA5333@sirena.org.uk>
- <20201218140854.GW552508@nvidia.com>
- <20201218155204.GC5333@sirena.org.uk>
- <20201218162817.GX552508@nvidia.com>
- <20201218180310.GD5333@sirena.org.uk>
- <20201218184150.GY552508@nvidia.com>
- <20201218203211.GE5333@sirena.org.uk>
- <20201218205856.GZ552508@nvidia.com>
- <20201218211658.GH3143569@piout.net>
- <20201218233608.GA552508@nvidia.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 90F95F80103
+ for <alsa-devel@alsa-project.org>; Sat, 19 Dec 2020 10:48:27 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 90F95F80103
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
+ header.b="pUrueJvW"
+Received: by mail-pf1-x431.google.com with SMTP id x126so3058027pfc.7
+ for <alsa-devel@alsa-project.org>; Sat, 19 Dec 2020 01:48:27 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=KUox93+V05ymwhdM9Gg/OPzlTfeRKR4O+GR7K+AAOx4=;
+ b=pUrueJvWgOZ0M0fl8r0zp9rvumJwJBiSA285NONnCV45Gd8MUFSBb8AGCc3uLCkcT8
+ YmaNry8z0bCfLAGLeIo5LARbm63Lrsfk9KNrWYmS0u8OwZW5QTSaeLqyQNTwxssIzJc4
+ w0kz/arThf6tV67QK7yh0KVNrjpreczyCY0Apcs1WiYBz1m05/M0q2lS1X6zTviQgd8f
+ YwGh2jDFlZY4bk201a2qX0eN30+7ZV+wM2AZKaAzFPzt/3FxrR55Jwm6iTKA2b/Xz9Yn
+ 1yrMnweKEm2vX7Ew+R9yGonlbYtxSj3ym/vhQXE8YlR7DC4DjqsE78UUw3d0OEV8NDCY
+ sp+A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=KUox93+V05ymwhdM9Gg/OPzlTfeRKR4O+GR7K+AAOx4=;
+ b=hVh5+av95iK0ggGb5MnpyLYHUy2gHvFXW7u3SlrlPykTNzoak5eSDn0q962V2f+APk
+ htKIMca6TlVRSunY+TWwDlItD0YRGRckOWkwLhREK88xcbW/TqCK7V2IPEAafb9L0Acp
+ 1B/EXj3iWRdFQdsTXqtfBi81ROBBQi6HozQwrrlWl5D8Hlu/TonW0VuQCpl6MrMzx2TN
+ Z4dpN870+WXUyL048GgUux2ZH5SbtrtV7b4rmZj3G2EVR6wjFzJrJqTKhi3+3NJT6oNO
+ x2aI7RXO5kuyLu3iH+ELUkK+rfonev/mNwrLw/jwEvn0Ks1K2x183haFgdlmX+63kDeH
+ JBsw==
+X-Gm-Message-State: AOAM530WtEGQlamhva2ZvrI/NW7MW78c/Em+edATUPK+Vgs+WdqThG32
+ O/CnWpyiqqJMiJ/Wp4ObiAdrpiLOHKwQTDbfLhQ=
+X-Google-Smtp-Source: ABdhPJxSmDX0piP0IKrsfAL/3clqRAUIQuqfJkMIxiWQHAn/HQUbS70a9Vs/AXtkzImrQCO4iRd8lDmoB6dyvZ8i1Tk=
+X-Received: by 2002:a63:5c52:: with SMTP id n18mr7649877pgm.404.1608371305073; 
+ Sat, 19 Dec 2020 01:48:25 -0800 (PST)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20201218233608.GA552508@nvidia.com>
-Cc: alsa-devel@alsa-project.org, lee.jones@linaro.org,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- Kiran Patil <kiran.patil@intel.com>, David Miller <davem@davemloft.net>,
- linux-rdma <linux-rdma@vger.kernel.org>, Greg KH <gregkh@linuxfoundation.org>,
- Martin Habets <mhabets@solarflare.com>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- Liam Girdwood <lgirdwood@gmail.com>, Fred Oh <fred.oh@linux.intel.com>,
- Mark Brown <broonie@kernel.org>,
- Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
- Jakub Kicinski <kuba@kernel.org>, Dave Ertman <david.m.ertman@intel.com>,
- Dan Williams <dan.j.williams@intel.com>,
- Shiraz Saleem <shiraz.saleem@intel.com>, Netdev <netdev@vger.kernel.org>,
- Leon Romanovsky <leonro@nvidia.com>, Parav Pandit <parav@mellanox.com>
+References: <CAE5BBpTEw2pTzDhLxaQiGwAvnH_q6aChLkuDXxEQrZFvS6wVyQ@mail.gmail.com>
+ <s5h8s9wn4lr.wl-tiwai@suse.de>
+ <CAE5BBpTbyjkd--Nfcqpv01wYyScEgXJSQETYhWyUH9-qPKYw+g@mail.gmail.com>
+ <s5h8s9wlj86.wl-tiwai@suse.de>
+ <CAE5BBpQpWkLqVFbPDjiOEqA85Pht_g+YEkpnhpdAepQkpLMfEQ@mail.gmail.com>
+ <s5hy2hwjzcs.wl-tiwai@suse.de>
+ <CAE5BBpQKbmzift4SZShcG7oSh1ZQwj6Fo_1eDUko153V8WTQHw@mail.gmail.com>
+ <s5ha6ubi11k.wl-tiwai@suse.de>
+In-Reply-To: <s5ha6ubi11k.wl-tiwai@suse.de>
+From: Marco Giunta <giun7a@gmail.com>
+Date: Sat, 19 Dec 2020 10:48:13 +0100
+Message-ID: <CAE5BBpQAfxXqFPgUU+37YF3L1i3Q_J+XFeg8QzDBh5+Xe8UTcQ@mail.gmail.com>
+Subject: Re: [PATCH] Fix mic sound on Jieli webcam
+To: Takashi Iwai <tiwai@suse.de>
+Content-Type: text/plain; charset="UTF-8"
+Cc: alsa-devel@alsa-project.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -90,52 +100,41 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 18/12/2020 19:36:08-0400, Jason Gunthorpe wrote:
-> On Fri, Dec 18, 2020 at 10:16:58PM +0100, Alexandre Belloni wrote:
-> 
-> > But then again, what about non-enumerable devices on the PCI device? I
-> > feel this would exactly fit MFD. This is a collection of IPs that exist
-> > as standalone but in this case are grouped in a single device.
-> 
-> So, if mfd had a mfd_device and a mfd bus_type then drivers would need
-> to have both a mfd_driver and a platform_driver to bind. Look at
-> something like drivers/char/tpm/tpm_tis.c to see how a multi-probe
-> driver is structured
-> 
-> See Mark's remarks about the old of_platform_device, to explain why we
-> don't have a 'dt_device' today
-> 
+On Fri, Dec 18, 2020 at 4:31 PM Takashi Iwai <tiwai@suse.de> wrote:
+>
+> OK, the patch for suppressing the rate errors was submitted and will
+> be merged to upstream later.  Now let's hunt Minions.
+>
+> Just as a blind shot, could you try the following?
+>
 
-So, what would that mfd_driver have that the platform_driver doesn't
-already provide?
+nope, Minion voice is still there ;-P
+I've tried to record at any rate (8k, 16k, 44,1k and 48k), but no
+luck. Moreover, there are a lot of new error messages:
 
-> > Note that I then have another issue because the kernel doesn't support
-> > irq controllers on PCI and this is exactly what my SoC has. But for now,
-> > I can just duplicate the irqchip driver in the MFD driver.
-> 
-> I think Thomas fixed that recently on x86 at least.. 
-> 
-> Having to put dummy irq chip drivers in MFD anything sounds scary :|
-> 
+ kernel: usb 1-6.2: 3:3: usb_set_interface failed (-19)
+ kernel: usb 1-6.2: 3:3: usb_set_interface failed (-19)
+ kernel: usb 1-6.2: 3:3: usb_set_interface failed (-19)
+kernel: usb 1-6.2: 3:3: usb_set_interface failed (-19)
+ pulseaudio[2818]: Failed to find a working profile.
+pulseaudio[2818]: Failed to load module "module-alsa-card" (argument:
+"device_id="1" name="usb-Jieli_Technology_USB_PHY_2.0-02"
+card_name="alsa_card.usb-Jieli_Technology_USB_PHY_2.0-02"
+namereg_fail=false tsched=yes fixed_latency_range=no ignore_dB=no
+deferred_volume=yes use_ucm=yes avoid_resampling=no
+card_properties="module-udev-detect.discovered=1""): initialization
+failed.
+ pulseaudio[2818]: Failed to get card object.
+ pulseaudio[2818]: Failed to find a working profile.
+ pulseaudio[2818]: Failed to load module "module-alsa-card" (argument:
+"device_id="1" name="usb-Jieli_Technology_USB_PHY_2.0-02"
+card_name="alsa_card.usb-Jieli_Technology_USB_PHY_2.0-02"
+namereg_fail=false tsched=yes fixed_latency_range=no ignore_dB=no
+deferred_volume=yes use_ucm=yes avoid_resampling=no
+card_properties="module-udev-detect.discovered=1""): initialization
+failed.
+kernel: usb 1-6.2: cannot submit urb (err = -19)
+ kernel: usb 1-6.2: cannot submit urb 0, error -19: no device
 
-This isn't a dummy driver it is a real irqchip, what issue is there to
-register an irqchip from MFD ?
-
-> > Let me point to drivers/net/ethernet/cadence/macb_pci.c which is a
-> > fairly recent example. It does exactly that and I'm not sure you could
-> > do it otherwise while still not having to duplicate most of macb_probe.
-> 
-> Creating a platform_device to avoid restructuring the driver's probe
-> and device logic to be generic is a *really* horrible reason to use a
-> platform device.
-> 
-
-Definitively but it made it in and seemed reasonable at the time it
-seems. I stumbled upon that a while ago because I wanted to remove
-platform_data support from the macb driver and this is the last user. I
-never got the time to tackle that.
-
--- 
-Alexandre Belloni, Bootlin
-Embedded Linux and Kernel engineering
-https://bootlin.com
+Thanks,
+  Marco

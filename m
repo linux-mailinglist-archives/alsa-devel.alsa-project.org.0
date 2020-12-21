@@ -2,95 +2,86 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8EB392DFED6
-	for <lists+alsa-devel@lfdr.de>; Mon, 21 Dec 2020 18:18:02 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9DBBC2E0075
+	for <lists+alsa-devel@lfdr.de>; Mon, 21 Dec 2020 19:53:51 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 3017C170A;
-	Mon, 21 Dec 2020 18:17:12 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3017C170A
+	by alsa0.perex.cz (Postfix) with ESMTPS id 315F81711;
+	Mon, 21 Dec 2020 19:53:01 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 315F81711
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1608571082;
-	bh=WR5YcAk4uPDmS+YmwqAS3BDVf+Za0Xc03FERC6Qe3I0=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
+	s=default; t=1608576831;
+	bh=YkdUJqE0UIpHET+IcPL1+UgnebkbGvIwmn1cUuRAHqw=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=MDqB5zDSkjuMhgDHlTfCmli9dXAOPRA7GIMxnV+D+5Z799Ty4/vYeRuA1nBqUB/QT
-	 0yHKmuluUosXdvgL0dRxYth39Pu2f3Cc+m0s3SErkubKZHdiamEJ2WwFIyIUX8e3kG
-	 IZkoPiD87dR4DRXhcZ1VpKJIp3X4YUcFKSsKwclg=
+	b=nm9wVOCZ/GE0G1Q6uwoUG+5xGn1tPxoaNSWYz+8Usai9RcUThyXQzFLF2FOh9SNMm
+	 0UCZya2GWfxyVhQAzJUMzrBJZoos2KouZvWXBbzU7+TT5Ys+6DCr1cBHi/Ip9jRnp/
+	 gECoAbV15m2O54Mku3hlh0CktzaT0f7Bn+GxVJe0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id B34C5F800E4;
-	Mon, 21 Dec 2020 18:16:21 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 9AF06F801EB;
+	Mon, 21 Dec 2020 19:52:05 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 1B17BF801D5; Mon, 21 Dec 2020 18:16:19 +0100 (CET)
+ id 4F562F801D5; Mon, 21 Dec 2020 19:52:03 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: *
-X-Spam-Status: No, score=1.0 required=5.0 tests=PRX_BODY_30,SPF_HELO_NONE,
- SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from youngberry.canonical.com (youngberry.canonical.com
- [91.189.89.112])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
+X-Spam-Level: 
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 0EFDAF80116
- for <alsa-devel@alsa-project.org>; Mon, 21 Dec 2020 18:16:12 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0EFDAF80116
-Received: from mail-lf1-f72.google.com ([209.85.167.72])
- by youngberry.canonical.com with esmtps
- (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.86_2)
- (envelope-from <kai.heng.feng@canonical.com>) id 1krOn5-00031o-Nx
- for alsa-devel@alsa-project.org; Mon, 21 Dec 2020 17:16:11 +0000
-Received: by mail-lf1-f72.google.com with SMTP id i21so11344109lfe.14
- for <alsa-devel@alsa-project.org>; Mon, 21 Dec 2020 09:16:11 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=2Pz4SBTDx6BMkbLDQ5nrfRYm9x7WmPr6bGZI10+5Wso=;
- b=BiPbt8IfsDdHoLexxEILg/v8o5Axfw+7voJpnZCSBdMgy417X0tmKlYz0bdmUPhIp1
- ndnkSg6xrnwVuDG7gZg2NAwemgilTRSQ/OfGbnVy8GMi+X1mzJ9fbBpue4f4Ad+a+US5
- 1cPwuCSGAhxQHQ3h3rcKhTk5mYXsCELK6kh2wocvK6dyWPpHtmPCSOS4KYrv/twaNZpg
- BzeGlkjzFQCzJ1NTPiWDevaRytg6o4uW6REJAXTWY7rvlTqpyUG7wKmR+as52SHe7PDO
- 48dJPJf+NFjHdA+2QldoO5cWpUUby5XJ5wRkO5qSyo+we9xLl/bYrthVwcGcLJEpDwnH
- uPSQ==
-X-Gm-Message-State: AOAM530bXZBmbmI+2tsI7eZJTkqcZGAhaBgA8qBDWFa/khvFLT3st4yS
- pYuOAER1M5ElDMobPq2R2cZpiImvMgs3GRJ6DDZoB56ZWsYzPUtRHho41eyR6u26pEwm1/snHAy
- lS/bq57Sjp07Py+8HcoJgdrYHhredRElbS+yWnG9RjTdB5/dYnVlF6ERB
-X-Received: by 2002:a05:651c:118b:: with SMTP id
- w11mr1574954ljo.402.1608570971160; 
- Mon, 21 Dec 2020 09:16:11 -0800 (PST)
-X-Google-Smtp-Source: ABdhPJy2YXycweLB9saylOYpQELQXyDWheqBfUKEeeBhg9fBTp5dxHBt0XV6PKI9T7tz8LDvPKU6uC6XcVCTDVBIws8=
-X-Received: by 2002:a05:651c:118b:: with SMTP id
- w11mr1574936ljo.402.1608570970912; 
- Mon, 21 Dec 2020 09:16:10 -0800 (PST)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 2F820F800EC
+ for <alsa-devel@alsa-project.org>; Mon, 21 Dec 2020 19:51:59 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2F820F800EC
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="PPuUblpL"
+Date: Mon, 21 Dec 2020 18:51:40 +0000
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1608576716;
+ bh=YkdUJqE0UIpHET+IcPL1+UgnebkbGvIwmn1cUuRAHqw=;
+ h=From:To:Cc:Subject:References:In-Reply-To:From;
+ b=PPuUblpLuOc1RSKrGcqCxeAYBiCDVP04QbB2xwERZ46f97Dbr4rG2NHcPg2eWhh+s
+ 25fc68oQk+EkXqjdRNXf8d+7OlRu8O0Ba0QIsPur/VgL0jHbF9/lljutpft9IQdqPG
+ 9zWT54tu8QKq3QSCLp0RfdMFSG5xj58AXFRDxyiN++cCxXswTLTbBf9rFK1RHMia1Z
+ 9ILGRXgag4/cVkVuIAqUcbp4Ahk9FBNyWjrQOhh8YO7oVyaNWMzigv1ZlzIqByTZ+z
+ +KiIelx9q3Rrjz6T9L9whT8X1q/f4MN3iPOYx13C+wfBLu2sUzTbU/WoHXHqNiJNfF
+ 0o+63uGLtoe/A==
+From: Mark Brown <broonie@kernel.org>
+To: Jason Gunthorpe <jgg@nvidia.com>
+Subject: Re: [resend/standalone PATCH v4] Add auxiliary bus support
+Message-ID: <20201221185140.GD4521@sirena.org.uk>
+References: <20201217211937.GA3177478@piout.net> <X9xV+8Mujo4dhfU4@kroah.com>
+ <20201218131709.GA5333@sirena.org.uk>
+ <20201218140854.GW552508@nvidia.com>
+ <20201218155204.GC5333@sirena.org.uk>
+ <20201218162817.GX552508@nvidia.com>
+ <20201218180310.GD5333@sirena.org.uk>
+ <20201218184150.GY552508@nvidia.com>
+ <20201218203211.GE5333@sirena.org.uk>
+ <20201218205856.GZ552508@nvidia.com>
 MIME-Version: 1.0
-References: <20201214060621.1102931-1-kai.heng.feng@canonical.com>
- <20201216124726.2842197-1-kai.heng.feng@canonical.com>
- <s5h5z51oj12.wl-tiwai@suse.de>
- <CAAd53p6kORC1GsW5zt+=0=J5ki43iriO-OqtFvf5W67LWhyyhA@mail.gmail.com>
- <s5hzh2dn3oa.wl-tiwai@suse.de>
- <CAAd53p6Ef2zFX_t3y1c6O7BmHnxYGtGSfgzXAMQSom1ainWXzg@mail.gmail.com>
- <s5hsg85n2km.wl-tiwai@suse.de> <s5hmtydn0yg.wl-tiwai@suse.de>
- <CAAd53p6MMFh=HCNF9pyrJc9hVMZWFe7_8MvBcBHVWARqHU_TTA@mail.gmail.com>
- <s5h7dpfk06y.wl-tiwai@suse.de>
- <CAAd53p53w0H6tsb4JgQtFTkYinniicTYBs2uk7tc=heP2dM_Cw@mail.gmail.com>
- <s5hft3zf6mi.wl-tiwai@suse.de>
-In-Reply-To: <s5hft3zf6mi.wl-tiwai@suse.de>
-From: Kai-Heng Feng <kai.heng.feng@canonical.com>
-Date: Tue, 22 Dec 2020 01:15:59 +0800
-Message-ID: <CAAd53p7TOBwee6dfY8uY=2P6wGJ9Uf551LVp95jLwz7SA9PWFA@mail.gmail.com>
-Subject: Re: [PATCH v2] ALSA: hda: Continue to probe when codec probe fails
-To: Takashi Iwai <tiwai@suse.de>
-Content-Type: text/plain; charset="UTF-8"
-Cc: "moderated list:SOUND" <alsa-devel@alsa-project.org>,
- Kai Vehmanen <kai.vehmanen@linux.intel.com>, nouveau@lists.freedesktop.org,
- open list <linux-kernel@vger.kernel.org>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>, tiwai@suse.com,
- Bjorn Helgaas <bhelgaas@google.com>, Alan Stern <stern@rowland.harvard.edu>,
- Linux PCI <linux-pci@vger.kernel.org>,
- Alex Deucher <alexander.deucher@amd.com>, Mike Rapoport <rppt@kernel.org>
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="a2FkP9tdjPU2nyhF"
+Content-Disposition: inline
+In-Reply-To: <20201218205856.GZ552508@nvidia.com>
+X-Cookie: Remember: use logout to logout.
+User-Agent: Mutt/1.10.1 (2018-07-13)
+Cc: Alexandre Belloni <alexandre.belloni@bootlin.com>, lee.jones@linaro.org,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ Kiran Patil <kiran.patil@intel.com>, Liam Girdwood <lgirdwood@gmail.com>,
+ linux-rdma <linux-rdma@vger.kernel.org>, Greg KH <gregkh@linuxfoundation.org>,
+ Martin Habets <mhabets@solarflare.com>, alsa-devel@alsa-project.org,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ Fred Oh <fred.oh@linux.intel.com>, Netdev <netdev@vger.kernel.org>,
+ Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
+ Jakub Kicinski <kuba@kernel.org>, Dave Ertman <david.m.ertman@intel.com>,
+ Dan Williams <dan.j.williams@intel.com>,
+ Shiraz Saleem <shiraz.saleem@intel.com>, David Miller <davem@davemloft.net>,
+ Leon Romanovsky <leonro@nvidia.com>, Parav Pandit <parav@mellanox.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -106,17 +97,92 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Tue, Dec 22, 2020 at 12:47 AM Takashi Iwai <tiwai@suse.de> wrote:
-[snip]
-> But what happens if you plug the HDMI cable later and want to use the
-> HDMI audio?  It won't work with your fix, right?
 
-No it won't.
-It's possible to fix from nouveau, but it's at the mercy of Nvidia to
-fix their proprietary driver, which many users use.
+--a2FkP9tdjPU2nyhF
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-Kai-Heng
+On Fri, Dec 18, 2020 at 04:58:56PM -0400, Jason Gunthorpe wrote:
+> On Fri, Dec 18, 2020 at 08:32:11PM +0000, Mark Brown wrote:
+>=20
+> > Historically people did try to create custom bus types, as I have
+> > pointed out before there was then pushback that these were duplicating
+> > the platform bus so everything uses platform bus.
 
->
->
-> Takashi
+> Yes, I vaugely remember..
+
+> I don't know what to say, it seems Greg doesn't share this view of
+> platform devices as a universal device.
+
+He did at the time, he seems to have changed his mind at some point for
+unclear reasons=20
+
+> Reading between the lines, I suppose things would have been happier
+> with some kind of inheritance scheme where platform device remained as
+> only instantiated directly in board files, while drivers could bind to
+> OF/DT/ACPI/FPGA/etc device instantiations with minimal duplication &
+> boilerplate.
+
+Like I said in my previous message that is essentially what we have now.
+It's not worded in quite that way but it's how all the non-enumerable
+buses work. =20
+
+BTW I did have a bit of a scan through some of the ACPI devices and for
+a good proportion of them it seems fairly clear that they are not
+platform devices at all - they were mostly interacting with ACPI
+firmware functionality rather than hardware, something you can't really
+do with FDT at all.
+
+> > I can't tell the difference between what it's doing and what SOF is
+> > doing, the code I've seen is just looking at the system it's running
+> > on and registering a fixed set of client devices.  It looks slightly
+> > different because it's registering a device at a time with some wrapper
+> > functions involved but that's what the code actually does.
+
+> SOF's aux bus usage in general seems weird to me, but if you think
+> it fits the mfd scheme of primarily describing HW to partition vs
+> describing a SW API then maybe it should use mfd.
+
+> The only problem with mfd as far as SOF is concerned was Greg was not
+> happy when he saw PCI stuff in the MFD subsystem.
+
+This is a huge part of the problem here - there's no clearly articulated
+logic, it's all coming back to these sorts of opinion statements about
+specific cases which aren't really something you can base anything on.
+Personally I'm even struggling to identify a practical problem that
+we're trying to solve here.  Like Alexandre says what would an
+mfd_driver actually buy us?
+
+> MFD still doesn't fit what mlx5 and others in the netdev area are
+> trying to do. Though it could have been soe-horned it would have been
+> really weird to create a platform device with an empty HW resource
+> list. At a certain point the bus type has to mean *something*!
+
+I have some bad news for you about the hardware description problem
+space.  Among other things we have a bunch of platform devices that
+don't have any resources exposed through the resource API but are still
+things like chips on a board, doing some combination of exposing
+resources for other devices (eg, a fixed voltage regulator) and
+consuming things like clocks or GPIOs that don't appear in the resource
+API.  We *could* make a new bus type and move all these things over to
+that but it is not clear what the upside of doing that would be,
+especially given the amount of upheval it would generate and the
+classification issues that will inevitably result.
+
+--a2FkP9tdjPU2nyhF
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl/g7rsACgkQJNaLcl1U
+h9DSKggAhfCDV1DtqQcqFWmEf71EctSZmBw/wFXh4jJLz2YiDQfdfb47IE0G77QQ
+mVgjLvUJc8cnyNASB6688PiDZAs9dbuZtQXSFNHfZ9xUAlLJrBzTln5F2zIb2Al9
+9KdOuFf8ba1yQbSYM0//mj9QOzGqYKijeENExwvY68n8MyZRK1OkZoY450GPkzo2
+A2x7daMtTh7jXg7sSVedM2UYENxmoR9SCZLQWH7iR4rXD7sDGRR2CqT5x6Br45/3
+VPJvjJAn/EkCpIj9EDwICvC5ux6aXTG9yQVB4NfiQ2V7vR5Bm0MjfgHoF3mVdOPH
+p6HNRk3s5haMLHRwy/HCxJkyKJQ4qA==
+=A+iW
+-----END PGP SIGNATURE-----
+
+--a2FkP9tdjPU2nyhF--

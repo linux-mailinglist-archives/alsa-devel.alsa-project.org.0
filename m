@@ -2,92 +2,99 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id DF31D2DF9CF
-	for <lists+alsa-devel@lfdr.de>; Mon, 21 Dec 2020 09:17:04 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1D7072DFB1D
+	for <lists+alsa-devel@lfdr.de>; Mon, 21 Dec 2020 11:40:22 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 66D3D172B;
-	Mon, 21 Dec 2020 09:16:14 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 66D3D172B
+	by alsa0.perex.cz (Postfix) with ESMTPS id A1EBE1757;
+	Mon, 21 Dec 2020 11:39:31 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A1EBE1757
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1608538624;
-	bh=SJzfuW5RA3xA47YYNnf9zSzFvatXEMZKH1QazhOXPOc=;
-	h=References:From:To:Subject:In-reply-to:Date:Cc:List-Id:
+	s=default; t=1608547221;
+	bh=zM8NfCGaAI9o+QLPpcpq43henb1mqNfB4O11DYdPfw4=;
+	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=gQ43XJYMArazDj/EC5IWWscGwaAZOPS8C7lqvtC13Iy3Je+JSopYMbr+/e/VTr2qR
-	 qKYXmMvG0+ZMR1aN0bjpviK+LMcz+rATTJQsM7mXVRCg2ojfe1NZDLfhGfLR2O5xTG
-	 O55b6BGJZvu6kqQzopVi2nOWOJeG2PyELvZsW9Dk=
+	b=WxLt93mmZvSuO1w9Pgk7cRAdQU2K7DuYtjgObE8uMmOGVZa0Fk29FfFI3QHlCY5sl
+	 Cf4lf6yLRirKKeGsZPrnMDTu2kh/YTiQ2zjrDfjdwlLKE5otW9HpGUkbdejoZ1o2et
+	 aG2xnGx4SHUsYNcDa+wYhqjTZB9c782BwH5uo78o=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 0F9B3F801EB;
-	Mon, 21 Dec 2020 09:15:24 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id D230DF801EB;
+	Mon, 21 Dec 2020 11:38:35 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id DB59DF801D5; Mon, 21 Dec 2020 09:15:19 +0100 (CET)
+ id 8BCCCF801D5; Mon, 21 Dec 2020 11:38:33 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mail-ej1-x62c.google.com (mail-ej1-x62c.google.com
- [IPv6:2a00:1450:4864:20::62c])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=-1.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ NICE_REPLY_A,PRX_BODY_76,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from mx0b-001ae601.pphosted.com (mx0b-001ae601.pphosted.com
+ [67.231.152.168])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 0C3EDF800EC
- for <alsa-devel@alsa-project.org>; Mon, 21 Dec 2020 09:15:13 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0C3EDF800EC
+ by alsa1.perex.cz (Postfix) with ESMTPS id A3DC7F800E4
+ for <alsa-devel@alsa-project.org>; Mon, 21 Dec 2020 11:38:26 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A3DC7F800E4
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=baylibre-com.20150623.gappssmtp.com
- header.i=@baylibre-com.20150623.gappssmtp.com header.b="hVl/2TgZ"
-Received: by mail-ej1-x62c.google.com with SMTP id d17so12173911ejy.9
- for <alsa-devel@alsa-project.org>; Mon, 21 Dec 2020 00:15:13 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=baylibre-com.20150623.gappssmtp.com; s=20150623;
- h=references:user-agent:from:to:cc:subject:in-reply-to:message-id
- :date:mime-version;
- bh=xUsvdR/WeGTYf9wm0poC0ggXriA18BQWFkluydsdRYs=;
- b=hVl/2TgZ+0fHUReuJsBEZJ4FWb1VN4U9nO7+L2RWPGo/XxeapDTlLbgvt6onHI2jYI
- M1NEA33irdr0Z8U7rKcsogkfv9Hibo22pIHLnl7NNE1dUcaFZ8b9iDy/lOyEqWJHOiV+
- ZXfyE3MOqPXNW9Tmsp6CoqPv4DRqc1XoV1sAAVXJ6O8hUJRuSaJOphZBzJUSjAfwcucV
- CbzXTMDCtsXriukK2L7yCwSPjYMSSrZo0MDmSNFqxFp3gRt9iv5Zr7bpM5iQUqQSx+zC
- ohbml5gOQwXsPFPNzG/qgzWP7p0o9eBlvKyKjdCz2R99QhqjJYmkYtioBpjJOAMbLMyX
- ovOQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:references:user-agent:from:to:cc:subject
- :in-reply-to:message-id:date:mime-version;
- bh=xUsvdR/WeGTYf9wm0poC0ggXriA18BQWFkluydsdRYs=;
- b=OnK7Mp/wRwIQ2nZGrwHPtKG9hNpicA8OnxvPVcNV07lMH5gTardOsEIhhtmcG3un1w
- v3fUYSlD9SsCi4Akewe65n5vdfbMLgpsEpq7QVIgm1zWqPh3lD2drEp66jcipDt+JUu5
- ticPsAyXd/s4h75AG+ysJtuQDmlyidA0jKS0pdAG+zwghQ2+B3XV7nhScuJJnnymQV7M
- BTyg4FJ/2+iK3Xen27VOTopz5FNrifhxjs6cdUegOJa67hoVgaBBvLe+qLb7Ql8OAoxD
- TOasEBH8+k3Wsjs0UL352THyp0LuprEIYIBiqt3iQqxpSTx8u1IIBBbP1x34p+61uk+f
- Y7kA==
-X-Gm-Message-State: AOAM531GYtFPesZ61HeIguIv2k7WSwfgu/jgc0mB5oRu1HFMcHQ5Ynrn
- gLUi4QVl8qWI83pH0bmw9O5HOg==
-X-Google-Smtp-Source: ABdhPJwon213LIfdCYvAOzDUqZYJfH9VYNfLieHDt76eK9jdAu/WN2Tc3bo0+Cu83Kc4apAyMMxsYw==
-X-Received: by 2002:a17:906:94d4:: with SMTP id
- d20mr14194179ejy.475.1608538513189; 
- Mon, 21 Dec 2020 00:15:13 -0800 (PST)
-Received: from localhost (82-65-169-74.subs.proxad.net. [82.65.169.74])
- by smtp.gmail.com with ESMTPSA id r7sm21421717edh.86.2020.12.21.00.15.12
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 21 Dec 2020 00:15:12 -0800 (PST)
-References: <20201218154544.25513-1-lars@metafoo.de>
- <1jeejnnko5.fsf@starbuckisacylon.baylibre.com>
- <fa1f3bcc-885a-9258-6653-3d5a5dc4708e@metafoo.de>
-User-agent: mu4e 1.4.10; emacs 27.1
-From: Jerome Brunet <jbrunet@baylibre.com>
-To: Lars-Peter Clausen <lars@metafoo.de>, Mark Brown <broonie@kernel.org>
-Subject: Re: [PATCH] ASoC: meson: Use managed DMA buffer allocation
-In-reply-to: <fa1f3bcc-885a-9258-6653-3d5a5dc4708e@metafoo.de>
-Message-ID: <1jbleno9rk.fsf@starbuckisacylon.baylibre.com>
-Date: Mon, 21 Dec 2020 09:15:11 +0100
+ dkim=pass (2048-bit key) header.d=cirrus.com header.i=@cirrus.com
+ header.b="RslDdVW4"
+Received: from pps.filterd (m0077474.ppops.net [127.0.0.1])
+ by mx0b-001ae601.pphosted.com (8.16.0.43/8.16.0.43) with SMTP id
+ 0BLAa20H005340; Mon, 21 Dec 2020 04:38:25 -0600
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com;
+ h=subject : to : cc :
+ references : from : message-id : date : mime-version : in-reply-to :
+ content-type : content-transfer-encoding; s=PODMain02222019;
+ bh=kqdrZOb2FKOv/PPkSfWW8gDUQTDnYAioyzgCwgZ6rwY=;
+ b=RslDdVW4u3AMhMt7KVd3LndOMuy6lI0ypiM37Wos/JYCG4/lYBStcpHtTV6axoHpcM9g
+ G41mDGnT1FZ2ujzc6HhKQl3AFdaLi92NAaTmzg6ffHLz9+4GmE2Mx5dtu8Z9qt7Qeu8h
+ wn0Tcdhp9tUgZsH6kZvih8o3MysFxaiwjY/9latiAvzt7gnnSUXU5eW+nr5lpwcTWu6o
+ kLB9mN0l7qscO4LIPyUyFirqZs3KA9OAx8A+aDtKgwHGs/rQ1Yad3/vQ502isCWBRL+t
+ I61dqUImyjrtlQwR6caRUFi4rEcD1AscnQDcsDlOg8K2fEb7ywLdgFfWd/uL4cM0JedS DQ== 
+Received: from ediex01.ad.cirrus.com ([87.246.76.36])
+ by mx0b-001ae601.pphosted.com with ESMTP id 35hetuhqqt-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT);
+ Mon, 21 Dec 2020 04:38:25 -0600
+Received: from EDIEX01.ad.cirrus.com (198.61.84.80) by EDIEX01.ad.cirrus.com
+ (198.61.84.80) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1913.5; Mon, 21 Dec
+ 2020 10:38:23 +0000
+Received: from ediswmail.ad.cirrus.com (198.61.86.93) by EDIEX01.ad.cirrus.com
+ (198.61.84.80) with Microsoft SMTP Server id 15.1.1913.5 via Frontend
+ Transport; Mon, 21 Dec 2020 10:38:23 +0000
+Received: from [10.0.2.15] (AUSNPC0LSNW1.ad.cirrus.com [198.61.64.186])
+ by ediswmail.ad.cirrus.com (Postfix) with ESMTP id 0B45511CB;
+ Mon, 21 Dec 2020 10:38:22 +0000 (UTC)
+Subject: Re: [PATCH v3 3/6] ASoC: audio-graph-card: Support setting component
+ plls and sysclks
+To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+References: <20201217154142.24301-1-rf@opensource.cirrus.com>
+ <20201217154142.24301-4-rf@opensource.cirrus.com>
+ <873604gf45.wl-kuninori.morimoto.gx@renesas.com>
+From: Richard Fitzgerald <rf@opensource.cirrus.com>
+Message-ID: <35430e71-5718-de7f-9587-73d15ed6507a@opensource.cirrus.com>
+Date: Mon, 21 Dec 2020 10:38:22 +0000
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.5.1
 MIME-Version: 1.0
-Content-Type: text/plain
-Cc: linux-amlogic@lists.infradead.org, alsa-devel@alsa-project.org,
- Takashi Iwai <tiwai@suse.com>
+In-Reply-To: <873604gf45.wl-kuninori.morimoto.gx@renesas.com>
+Content-Type: text/plain; charset="utf-8"; format=flowed
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0
+ priorityscore=1501 adultscore=0
+ spamscore=0 lowpriorityscore=0 bulkscore=0 clxscore=1015 suspectscore=0
+ malwarescore=0 phishscore=0 mlxlogscore=876 mlxscore=0 impostorscore=0
+ classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2009150000
+ definitions=main-2012210077
+Cc: linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org,
+ alsa-devel@alsa-project.org, patches@opensource.cirrus.com,
+ linux-kernel@vger.kernel.org, robh+dt@kernel.org, broonie@kernel.org,
+ bcm-kernel-feedback-list@broadcom.com, linux-rpi-kernel@lists.infradead.org,
+ nsaenzjulienne@suse.de
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -103,108 +110,59 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+On 18/12/2020 00:03, Kuninori Morimoto wrote:
+> 
+> Hi Richard
+> 
+> Thank you for your patch.
+> This is v3 patch, but I think this is the first time for me
+> to receive patch...
 
-On Fri 18 Dec 2020 at 18:41, Lars-Peter Clausen <lars@metafoo.de> wrote:
+Yes sorry.
+Somehow I missed you off V1 and V2 emails.
 
-> On 12/18/20 5:28 PM, Jerome Brunet wrote:
->> On Fri 18 Dec 2020 at 16:45, Lars-Peter Clausen <lars@metafoo.de> wrote:
+> 
+>> Some codecs need plls and/or sysclks to be configured using the
+>> snd_soc_component_set_[sysclk|pll] functions. These drivers cannot
+>> necessarily be converted to use the clock framework. If the codec is on
+>> a I2C/SPI bus, a nested clk_get would be needed to enable the bus clock.
+>> But the clock framework does not support nested operations and this would
+>> deadlock.
 >>
->>> Using a managed buffer will pre-allocate the buffer using
->>> snd_pcm_lib_preallocate_pages() and automatically free it when the PCM is
->>> destroyed.
->>>
->>> In addition it will call snd_pcm_lib_malloc_pages() before the driver's
->>> hw_params() callback and snd_pcm_lib_free_pages() after the driver's
->>> hw_free() callback.
->>>
->>> This slightly reduces the boilerplate code of the driver.
->>>
->>> Signed-off-by: Lars-Peter Clausen <lars@metafoo.de>
->>> ---
->>>   sound/soc/meson/aiu-fifo-i2s.c   |  1 -
->>>   sound/soc/meson/aiu-fifo-spdif.c |  1 -
->>>   sound/soc/meson/aiu-fifo.c       | 18 ++----------------
->>>   3 files changed, 2 insertions(+), 18 deletions(-)
->>>
->>> diff --git a/sound/soc/meson/aiu-fifo-i2s.c b/sound/soc/meson/aiu-fifo-i2s.c
->>> index d91b0d874342..2388a2d0b3a6 100644
->>> --- a/sound/soc/meson/aiu-fifo-i2s.c
->>> +++ b/sound/soc/meson/aiu-fifo-i2s.c
->>> @@ -124,7 +124,6 @@ const struct snd_soc_dai_ops aiu_fifo_i2s_dai_ops = {
->>>   	.trigger	= aiu_fifo_i2s_trigger,
->>>   	.prepare	= aiu_fifo_i2s_prepare,
->>>   	.hw_params	= aiu_fifo_i2s_hw_params,
->>> -	.hw_free	= aiu_fifo_hw_free,
->>>   	.startup	= aiu_fifo_startup,
->>>   	.shutdown	= aiu_fifo_shutdown,
->>>   };
->>> diff --git a/sound/soc/meson/aiu-fifo-spdif.c b/sound/soc/meson/aiu-fifo-spdif.c
->>> index 44eb6faacf44..2fb30f89bf7a 100644
->>> --- a/sound/soc/meson/aiu-fifo-spdif.c
->>> +++ b/sound/soc/meson/aiu-fifo-spdif.c
->>> @@ -158,7 +158,6 @@ const struct snd_soc_dai_ops aiu_fifo_spdif_dai_ops = {
->>>   	.trigger	= fifo_spdif_trigger,
->>>   	.prepare	= fifo_spdif_prepare,
->>>   	.hw_params	= fifo_spdif_hw_params,
->>> -	.hw_free	= aiu_fifo_hw_free,
->>>   	.startup	= aiu_fifo_startup,
->>>   	.shutdown	= aiu_fifo_shutdown,
->>>   };
->>> diff --git a/sound/soc/meson/aiu-fifo.c b/sound/soc/meson/aiu-fifo.c
->>> index aa88aae8e517..4ad23267cace 100644
->>> --- a/sound/soc/meson/aiu-fifo.c
->>> +++ b/sound/soc/meson/aiu-fifo.c
->>> @@ -99,11 +99,6 @@ int aiu_fifo_hw_params(struct snd_pcm_substream *substream,
->>>   	struct snd_soc_component *component = dai->component;
->>>   	struct aiu_fifo *fifo = dai->playback_dma_data;
->>>   	dma_addr_t end;
->>> -	int ret;
->>> -
->>> -	ret = snd_pcm_lib_malloc_pages(substream, params_buffer_bytes(params));
->>> -	if (ret < 0)
->>> -		return ret;
->>>     	/* Setup the fifo boundaries */
->>>   	end = runtime->dma_addr + runtime->dma_bytes - fifo->fifo_block;
->>> @@ -124,12 +119,6 @@ int aiu_fifo_hw_params(struct snd_pcm_substream *substream,
->>>   	return 0;
->>>   }
->>>   -int aiu_fifo_hw_free(struct snd_pcm_substream *substream,
->>> -		     struct snd_soc_dai *dai)
->>> -{
->>> -	return snd_pcm_lib_free_pages(substream);
->>> -}
->>> -
->>>   static irqreturn_t aiu_fifo_isr(int irq, void *dev_id)
->>>   {
->>>   	struct snd_pcm_substream *playback = dev_id;
->>> @@ -187,15 +176,12 @@ void aiu_fifo_shutdown(struct snd_pcm_substream *substream,
->>>   int aiu_fifo_pcm_new(struct snd_soc_pcm_runtime *rtd,
->>>   		     struct snd_soc_dai *dai)
->>>   {
->>> -	struct snd_pcm_substream *substream =
->>> -		rtd->pcm->streams[SNDRV_PCM_STREAM_PLAYBACK].substream;
->>>   	struct snd_card *card = rtd->card->snd_card;
->>>   	struct aiu_fifo *fifo = dai->playback_dma_data;
->>>   	size_t size = fifo->pcm->buffer_bytes_max;
->>>   -	snd_pcm_lib_preallocate_pages(substream,
->>> -				      SNDRV_DMA_TYPE_DEV,
->>> -				      card->dev, size, size);
->>> +	snd_pcm_set_managed_buffer_all(rtd->pcm, SNDRV_DMA_TYPE_DEV,
->>> +				       card->dev, size, size);
->> Hi Lars-Peter,
+>> This patch adds new dt properties that list phandles of components with
+>> the pll/sysclk settings to be applied. Multiple settings can be given for
+>> the same phandle to allow for components with multiple clocks and plls.
+>> The plls and sysclks are enabled when the card bias level moves to STANDBY
+>> and disabled when it moves to OFF.
 >>
->> These FIFOs only do playback so to avoid wasting memory
->> s/snd_pcm_set_managed_buffer_all/snd_pcm_set_managed_buffer ?
->
-> snd_pcm_set_managed_buffer_all() will skip substreams that do not
-> exist. E.g. if the there is not capture support it wont allocate
-> memory for it.
-
-Indeed, Thanks !
-
-Reviewed-by: Jerome Brunet <jbrunet@baylibre.com>
-Tested-by: Jerome Brunet <jbrunet@baylibre.com>
-
->
-> To keep things simple I prefer snd_pcm_set_managed_buffer_all(). snd_pcm_set_managed_buffer() only makes sense if you have a different DMA device for capture and playback or you want different buffer sizes.
-
+>> The implementation does not attempt to handle specifying complex clock
+>> ordering interdependencies between components. The plls and sysclks are
+>> applied to a component as it is passed to the card set_bias_level/
+>> set_bias_level_post callbacks. It follows from this that the order
+>> components are configured is the order that they are passed to those
+>> callbacks.
+>>
+>> Signed-off-by: Richard Fitzgerald <rf@opensource.cirrus.com>
+>> ---
+>>   include/sound/simple_card_utils.h     |  25 +++
+>>   sound/soc/generic/audio-graph-card.c  |  16 +-
+>>   sound/soc/generic/simple-card-utils.c | 236 ++++++++++++++++++++++++++
+>>   3 files changed, 275 insertions(+), 2 deletions(-)
+> 
+> I understand that you need sysclk/pll and .set_bias_level_xxx().
+> But I guess makes it generic code is difficult (?).
+> Thus, as Sameer doing on Tegra, creating custom audio-graph-card is better
+> idea for you ?
+> 
+> # Now I'm creating new audio-graph-card2 which also supports
+> # overwriting/customizing each/all functions.
+> # It is not full compatible with audio-graph-card, but almost same if you
+> # uses normal connection.
+> # I hope I can post it next year
+> 
+> Thank you for your help !!
+> 
+> Best regards
+> ---
+> Kuninori Morimoto
+> 

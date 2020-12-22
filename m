@@ -2,95 +2,79 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4EF2A2E0485
-	for <lists+alsa-devel@lfdr.de>; Tue, 22 Dec 2020 03:52:03 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id D89AC2E04A8
+	for <lists+alsa-devel@lfdr.de>; Tue, 22 Dec 2020 04:17:27 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id DDAE01768;
-	Tue, 22 Dec 2020 03:51:12 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DDAE01768
+	by alsa0.perex.cz (Postfix) with ESMTPS id 762791767;
+	Tue, 22 Dec 2020 04:16:37 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 762791767
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1608605523;
-	bh=ALF99WUKAwW2sbY13eFVrIB3h5j1qqJRhhy33/Ig5DM=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=kdXBsYLyazFJWh0yi3gxQJtMTlI18BvfrbEQiSOcLhxSWONHh39vL6k0JzZFSbU3t
-	 w0AimfykuE45CSVsbCgzSeQ1u2NZ0LkzHUYsUwZLWp2ceGZWEmjDqLk6TP4hrWrc1N
-	 VGkRd8j4PYDseoU4oPRCL3OYfkaezGMh1w7f7id8=
+	s=default; t=1608607047;
+	bh=c/cakAaBZjolcxGLDXhx9oMuH0bCAxEemaxz0gF0QCo=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=EjX8QqSs+WowUFbqDn8/DB0u+BxMQjwM5It6CTzaQAqo0+v6U4wpdrGbCgfbGfbb6
+	 HHsmwXKbqO5TG2QGii2PIHgWV2EmKeCPSpMtR15xvTzAdV+lNOwiPc2uVluKcw7RQg
+	 aXmK2aPV7jfbDGwzV224lUc94gK8Lvh9nlJxGWTU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 6409EF80232;
-	Tue, 22 Dec 2020 03:50:17 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id E0181F80161;
+	Tue, 22 Dec 2020 04:15:46 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id A8F7AF80224; Tue, 22 Dec 2020 03:50:13 +0100 (CET)
+ id 1C549F80224; Tue, 22 Dec 2020 04:15:44 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
  URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from youngberry.canonical.com (youngberry.canonical.com
- [91.189.89.112])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
+Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 4F872F800BC
- for <alsa-devel@alsa-project.org>; Tue, 22 Dec 2020 03:50:06 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4F872F800BC
-Received: from mail-lf1-f70.google.com ([209.85.167.70])
- by youngberry.canonical.com with esmtps
- (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.86_2)
- (envelope-from <kai.heng.feng@canonical.com>) id 1krXkT-0003Az-Fh
- for alsa-devel@alsa-project.org; Tue, 22 Dec 2020 02:50:05 +0000
-Received: by mail-lf1-f70.google.com with SMTP id o16so14560927lfo.0
- for <alsa-devel@alsa-project.org>; Mon, 21 Dec 2020 18:50:05 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=N2WMaOhgXeDwILxq6jfp+AN/tR6hFKnoPSJxCRZJRSk=;
- b=OwMd1c9xBVpFpZvDANqjmwmWAcS2O7Ggd06anErAhThjF4ZpPAo/4BX6d22fxsjnuC
- D0Nq+xWULoIRAt8Bd3snfK2VgraX+ck1turXEXmLlbp+6z2PlFwqHAJPA9ehCImfcpEK
- Y19nGmSg29d0JVvFzDdEQt61w+oJHtFFz96d0UBanClWFv4iBFLWweTlxz8lrnxxhKPK
- 4UflrksCWBR5W8e/775KF/icOOAkX7Fn38tPBTXlKKpI5t/EvFLnmHrPcLBZWs/g15pb
- pbOgR/Am+fvCBOPz6mQbMpKb6oI3jzebhUELqLlrF4few6eJCyBzWv23ktDoAoYl3clt
- T5OA==
-X-Gm-Message-State: AOAM5339sKbZLYBNNJtn64e4bdHQjXXJolWJAGgV80l3PN/aTNrbRqyy
- 1mbX0GIvcTA4rYc0ueVHMPBom4mc55MwELswZNB7Y9F/ojDFG8pmMkcLmOim2U81koK+Fh9FQgq
- 0DLZG9uLgF64w7hiWl6pN1mVd9VAfqZKfm1yB2PEvVfJ9Rba+kQtHJjpR
-X-Received: by 2002:a19:dc5:: with SMTP id 188mr8244383lfn.513.1608605404812; 
- Mon, 21 Dec 2020 18:50:04 -0800 (PST)
-X-Google-Smtp-Source: ABdhPJy2RV37UUec/PcA87XKutLKbjDR6qoXQSMlpRpU1eKlPPw5UWb60W7kMgtYOQIg5DFid2leHa/hfFsclEh336A=
-X-Received: by 2002:a19:dc5:: with SMTP id 188mr8244369lfn.513.1608605404522; 
- Mon, 21 Dec 2020 18:50:04 -0800 (PST)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 253A5F80116
+ for <alsa-devel@alsa-project.org>; Tue, 22 Dec 2020 04:15:37 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 253A5F80116
+Authenticated-By: 
+X-SpamFilter-By: ArmorX SpamTrap 5.73 with qID 0BM3FPlkC003136,
+ This message is accepted by code: ctloc85258
+Received: from mail.realtek.com (rtexmbs02.realtek.com.tw[172.21.6.95])
+ by rtits2.realtek.com.tw (8.15.2/2.70/5.88) with ESMTPS id 0BM3FPlkC003136
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT);
+ Tue, 22 Dec 2020 11:15:25 +0800
+Received: from RTEXMBS01.realtek.com.tw (172.21.6.94) by
+ RTEXMBS02.realtek.com.tw (172.21.6.95) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2106.2; Tue, 22 Dec 2020 11:15:24 +0800
+Received: from RTEXMBS01.realtek.com.tw ([fe80::5d07:e256:a2a2:81ee]) by
+ RTEXMBS01.realtek.com.tw ([fe80::5d07:e256:a2a2:81ee%5]) with mapi id
+ 15.01.2106.006; Tue, 22 Dec 2020 11:15:24 +0800
+Content-Type: multipart/mixed;
+ boundary="_000_ec66399502514edbb1de3cf9bff08b1drealtekcom_"
+From: Jack Yu <jack.yu@realtek.com>
+To: "broonie@kernel.org" <broonie@kernel.org>, "lgirdwood@gmail.com"
+ <lgirdwood@gmail.com>
+Subject: [PATCH] ASoC: rt1015: modify calibration sequence for better
+ performance
+Thread-Topic: [PATCH] ASoC: rt1015: modify calibration sequence for better
+ performance
+Thread-Index: AdbYEK/rqpYr+RlwTWeZK6cgbzH3yg==
+Date: Tue, 22 Dec 2020 03:15:24 +0000
+Message-ID: <ec66399502514edbb1de3cf9bff08b1d@realtek.com>
+Accept-Language: zh-TW, en-US
+Content-Language: zh-TW
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: <ec66399502514edbb1de3cf9bff08b1d@realtek.com>
+x-originating-ip: [172.22.102.167]
 MIME-Version: 1.0
-References: <20201214060621.1102931-1-kai.heng.feng@canonical.com>
- <20201216124726.2842197-1-kai.heng.feng@canonical.com>
- <s5h5z51oj12.wl-tiwai@suse.de>
- <CAAd53p6kORC1GsW5zt+=0=J5ki43iriO-OqtFvf5W67LWhyyhA@mail.gmail.com>
- <s5hzh2dn3oa.wl-tiwai@suse.de>
- <CAAd53p6Ef2zFX_t3y1c6O7BmHnxYGtGSfgzXAMQSom1ainWXzg@mail.gmail.com>
- <s5hsg85n2km.wl-tiwai@suse.de> <s5hmtydn0yg.wl-tiwai@suse.de>
- <CAAd53p6MMFh=HCNF9pyrJc9hVMZWFe7_8MvBcBHVWARqHU_TTA@mail.gmail.com>
- <s5h7dpfk06y.wl-tiwai@suse.de>
- <CAAd53p53w0H6tsb4JgQtFTkYinniicTYBs2uk7tc=heP2dM_Cw@mail.gmail.com>
- <CAKb7UvjWX7xbwMKtnad5EVy16nY1M-A13YJeRWyUwHzemcVswA@mail.gmail.com>
-In-Reply-To: <CAKb7UvjWX7xbwMKtnad5EVy16nY1M-A13YJeRWyUwHzemcVswA@mail.gmail.com>
-From: Kai-Heng Feng <kai.heng.feng@canonical.com>
-Date: Tue, 22 Dec 2020 10:49:53 +0800
-Message-ID: <CAAd53p4=bSX26QzsPyV1sxADiuVn2sowWyb5JFDoPZQ+ZYoCzA@mail.gmail.com>
-Subject: Re: [Nouveau] [PATCH v2] ALSA: hda: Continue to probe when codec
- probe fails
-To: Ilia Mirkin <imirkin@alum.mit.edu>
-Content-Type: text/plain; charset="UTF-8"
-Cc: "moderated list:SOUND" <alsa-devel@alsa-project.org>,
- Kai Vehmanen <kai.vehmanen@linux.intel.com>, Takashi Iwai <tiwai@suse.de>,
- nouveau <nouveau@lists.freedesktop.org>, tiwai@suse.com,
- open list <linux-kernel@vger.kernel.org>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- Alan Stern <stern@rowland.harvard.edu>, Linux PCI <linux-pci@vger.kernel.org>,
- Bjorn Helgaas <bhelgaas@google.com>, Mike Rapoport <rppt@kernel.org>
+Cc: Oder Chiou <oder_chiou@realtek.com>, Jack Yu <jack.yu@realtek.com>,
+ "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
+ "lars@metafoo.de" <lars@metafoo.de>,
+ =?big5?B?a2VudF9jaGVuQHJlYWx0ZWsuY29tIFuzr6vYp7td?= <kent_chen@realtek.com>,
+ =?big5?B?s6/O66fT?= <kenny_chen@realtek.com>,
+ =?big5?B?RGVyZWsgW6TovHe4cV0=?= <derek.fang@realtek.com>,
+ =?big5?B?U2h1bWluZyBbrVOu0bvKXQ==?= <shumingf@realtek.com>,
+ "Flove\(HsinFu\)" <flove@realtek.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -106,65 +90,163 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Tue, Dec 22, 2020 at 1:56 AM Ilia Mirkin <imirkin@alum.mit.edu> wrote:
->
-> On Mon, Dec 21, 2020 at 11:33 AM Kai-Heng Feng
-> <kai.heng.feng@canonical.com> wrote:
-> >
-> > [+Cc nouveau]
-> >
-> > On Fri, Dec 18, 2020 at 4:06 PM Takashi Iwai <tiwai@suse.de> wrote:
-> > [snip]
-> > > > Quite possibly the system doesn't power up HDA controller when there's
-> > > > no external monitor.
-> > > > So when it's connected to external monitor, it's still needed for HDMI audio.
-> > > > Let me ask the user to confirm this.
-> > >
-> > > Yeah, it's the basic question whether the HD-audio is supposed to work
-> > > on this machine at all.  If yes, the current approach we take makes
-> > > less sense - instead we should rather make the HD-audio controller
-> > > working.
-> >
-> > Yea, confirmed that the Nvidia HDA works when HDMI is connected prior boot.
-> >
-> > > > > - The second problem is that pci_enable_device() ignores the error
-> > > > >   returned from pci_set_power_state() if it's -EIO.  And the
-> > > > >   inaccessible access error returns -EIO, although it's rather a fatal
-> > > > >   problem.  So the driver believes as the PCI device gets enabled
-> > > > >   properly.
-> > > >
-> > > > This was introduced in 2005, by Alan's 11f3859b1e85 ("[PATCH] PCI: Fix
-> > > > regression in pci_enable_device_bars") to fix UHCI controller.
-> > > >
-> > > > >
-> > > > > - The third problem is that HD-audio driver blindly believes the
-> > > > >   codec_mask read from the register even if it's a read failure as I
-> > > > >   already showed.
-> > > >
-> > > > This approach has least regression risk.
-> > >
-> > > Yes, but it assumes that HD-audio is really non-existent.
-> >
-> > I really don't know any good approach to address this.
-> > On Windows, HDA PCI is "hidden" until HDMI cable is plugged, then the
-> > driver will flag the magic bit to make HDA audio appear on the PCI
-> > bus.
-> > IIRC the current approach is to make nouveau and device link work.
->
-> I don't have the full context of this discussion, but the kernel
-> force-enables the HDA subfunction nowadays, irrespective of nouveau or
-> nvidia or whatever:
+--_000_ec66399502514edbb1de3cf9bff08b1drealtekcom_
+Content-Type: text/plain; charset="big5"
+Content-Transfer-Encoding: base64
 
-That's the problem.
+TmV3IGNhbGlicmF0aW9uIHNlcXVlbmNlIHRvIGZpeCBwb3dlciBpc3N1ZSBpbiBpZGxlIHN0YXRl
+Lg0KDQpTaWduZWQtb2ZmLWJ5OiBKYWNrIFl1IDxqYWNrLnl1QHJlYWx0ZWsuY29tPg0KLS0tDQog
+c291bmQvc29jL2NvZGVjcy9ydDEwMTUuYyB8IDQwICsrKysrKysrKystLS0tLS0tLS0tLS0tLS0t
+LS0tLS0tLS0tLS0tLQ0KIDEgZmlsZSBjaGFuZ2VkLCAxMCBpbnNlcnRpb25zKCspLCAzMCBkZWxl
+dGlvbnMoLSkNCg0KZGlmZiAtLWdpdCBhL3NvdW5kL3NvYy9jb2RlY3MvcnQxMDE1LmMgYi9zb3Vu
+ZC9zb2MvY29kZWNzL3J0MTAxNS5jDQppbmRleCAzMmU2YmNmNzYzZDEuLjVmZGY3YmJmZDM3NSAx
+MDA2NDQNCi0tLSBhL3NvdW5kL3NvYy9jb2RlY3MvcnQxMDE1LmMNCisrKyBiL3NvdW5kL3NvYy9j
+b2RlY3MvcnQxMDE1LmMNCkBAIC00OTcsNDAgKzQ5NywyMCBAQCBzdGF0aWMgdm9pZCBydDEwMTVf
+Y2FsaWJyYXRlKHN0cnVjdCBydDEwMTVfcHJpdiAqcnQxMDE1KQ0KIAlzbmRfc29jX2RhcG1fbXV0
+ZXhfbG9jaygmY29tcG9uZW50LT5kYXBtKTsNCiAJcmVnY2FjaGVfY2FjaGVfYnlwYXNzKHJlZ21h
+cCwgdHJ1ZSk7DQogDQotCXJlZ21hcF93cml0ZShyZWdtYXAsIFJUMTAxNV9QV1I5LCAweEFBNjAp
+Ow0KLQlyZWdtYXBfd3JpdGUocmVnbWFwLCBSVDEwMTVfUFdSX1NUQVRFX0NUUkwsIDB4MDA4OSk7
+DQotCXJlZ21hcF93cml0ZShyZWdtYXAsIFJUMTAxNV9QV1JfU1RBVEVfQ1RSTCwgMHgwMDhBKTsN
+Ci0JcmVnbWFwX3dyaXRlKHJlZ21hcCwgUlQxMDE1X1BXUl9TVEFURV9DVFJMLCAweDAwOEMpOw0K
+LQlyZWdtYXBfd3JpdGUocmVnbWFwLCBSVDEwMTVfUFdSX1NUQVRFX0NUUkwsIDB4MDA4RCk7DQot
+CXJlZ21hcF93cml0ZShyZWdtYXAsIFJUMTAxNV9QV1I0LCAweDgwQjIpOw0KLQlyZWdtYXBfd3Jp
+dGUocmVnbWFwLCBSVDEwMTVfQ0xBU1NEX1NFUSwgMHg1Nzk3KTsNCi0JcmVnbWFwX3dyaXRlKHJl
+Z21hcCwgUlQxMDE1X0NMU0RfSU5URVJOQUw4LCAweDIxMDApOw0KLQlyZWdtYXBfd3JpdGUocmVn
+bWFwLCBSVDEwMTVfQ0xTRF9JTlRFUk5BTDksIDB4MDEwMCk7DQotCXJlZ21hcF93cml0ZShyZWdt
+YXAsIFJUMTAxNV9QV1I1LCAweDIxNzUpOw0KLQlyZWdtYXBfd3JpdGUocmVnbWFwLCBSVDEwMTVf
+TUlYRVIxLCAweDAwNUQpOw0KLQlyZWdtYXBfd3JpdGUocmVnbWFwLCBSVDEwMTVfQ0xTRF9JTlRF
+Uk5BTDEsIDB4MDBBMSk7DQotCXJlZ21hcF93cml0ZShyZWdtYXAsIFJUMTAxNV9DTFNEX0lOVEVS
+TkFMMiwgMHgxMkY3KTsNCi0JcmVnbWFwX3dyaXRlKHJlZ21hcCwgUlQxMDE1X0RDX0NBTElCX0NM
+U0QxLCAweDEyMDUpOw0KLQltc2xlZXAoMjAwKTsNCi0JcmVnbWFwX3dyaXRlKHJlZ21hcCwgUlQx
+MDE1X0NMU0RfSU5URVJOQUw4LCAweDIwMDApOw0KLQlyZWdtYXBfd3JpdGUocmVnbWFwLCBSVDEw
+MTVfQ0xTRF9JTlRFUk5BTDksIDB4MDE4MCk7DQotCXJlZ21hcF93cml0ZShyZWdtYXAsIFJUMTAx
+NV9DTFNEX0lOVEVSTkFMMSwgMHgwMEExKTsNCi0JcmVnbWFwX3dyaXRlKHJlZ21hcCwgUlQxMDE1
+X0RDX0NBTElCX0NMU0QxLCAweDBBMDUpOw0KLQltc2xlZXAoMjAwKTsNCisJcmVnbWFwX3dyaXRl
+KHJlZ21hcCwgUlQxMDE1X0NMS19ERVQsIDB4MDAwMCk7DQogCXJlZ21hcF93cml0ZShyZWdtYXAs
+IFJUMTAxNV9QV1I0LCAweDAwQjIpOw0KKwlyZWdtYXBfd3JpdGUocmVnbWFwLCBSVDEwMTVfUFdS
+X1NUQVRFX0NUUkwsIDB4MDAwOSk7DQorCW1zbGVlcCgxMDApOw0KKwlyZWdtYXBfd3JpdGUocmVn
+bWFwLCBSVDEwMTVfUFdSX1NUQVRFX0NUUkwsIDB4MDAwQSk7DQorCW1zbGVlcCgxMDApOw0KKwly
+ZWdtYXBfd3JpdGUocmVnbWFwLCBSVDEwMTVfUFdSX1NUQVRFX0NUUkwsIDB4MDAwQyk7DQorCW1z
+bGVlcCgxMDApOw0KIAlyZWdtYXBfd3JpdGUocmVnbWFwLCBSVDEwMTVfQ0xTRF9JTlRFUk5BTDgs
+IDB4MjAyOCk7DQogCXJlZ21hcF93cml0ZShyZWdtYXAsIFJUMTAxNV9DTFNEX0lOVEVSTkFMOSwg
+MHgwMTQwKTsNCi0JcmVnbWFwX3dyaXRlKHJlZ21hcCwgUlQxMDE1X1BXUjUsIDB4MDE3NSk7DQot
+CXJlZ21hcF93cml0ZShyZWdtYXAsIFJUMTAxNV9DTFNEX0lOVEVSTkFMMSwgMHgxNzIxKTsNCi0J
+cmVnbWFwX3dyaXRlKHJlZ21hcCwgUlQxMDE1X0NMQVNTRF9TRVEsIDB4NTcwRSk7DQotCXJlZ21h
+cF93cml0ZShyZWdtYXAsIFJUMTAxNV9NSVhFUjEsIDB4MjAzRCk7DQotCXJlZ21hcF93cml0ZShy
+ZWdtYXAsIFJUMTAxNV9EQ19DQUxJQl9DTFNEMSwgMHg1QTAxKTsNCi0JcmVnbWFwX3dyaXRlKHJl
+Z21hcCwgUlQxMDE1X0NMU0RfSU5URVJOQUwyLCAweDEyRkYpOw0KLQlyZWdtYXBfd3JpdGUocmVn
+bWFwLCBSVDEwMTVfR0FUX0JPT1NULCAweDBlRkUpOw0KLQlyZWdtYXBfd3JpdGUocmVnbWFwLCBS
+VDEwMTVfUFdSX1NUQVRFX0NUUkwsIDB4MDA4RSk7DQotCXJlZ21hcF93cml0ZShyZWdtYXAsIFJU
+MTAxNV9QV1JfU1RBVEVfQ1RSTCwgMHgwMDg4KTsNCisJcmVnbWFwX3dyaXRlKHJlZ21hcCwgUlQx
+MDE1X1BXUl9TVEFURV9DVFJMLCAweDAwMEQpOw0KKwltc2xlZXAoMzAwKTsNCisJcmVnbWFwX3dy
+aXRlKHJlZ21hcCwgUlQxMDE1X1BXUl9TVEFURV9DVFJMLCAweDAwMDgpOw0KIAlyZWdtYXBfd3Jp
+dGUocmVnbWFwLCBSVDEwMTVfU1lTX1JTVDEsIDB4MDVGNSk7DQotCXJlZ21hcF93cml0ZShyZWdt
+YXAsIFJUMTAxNV9TWVNfUlNUMiwgMHgwYjlhKTsNCiANCiAJcmVnY2FjaGVfY2FjaGVfYnlwYXNz
+KHJlZ21hcCwgZmFsc2UpOw0KIAlyZWdjYWNoZV9tYXJrX2RpcnR5KHJlZ21hcCk7DQotLSANCjIu
+MjkuMA0KDQo=
 
-The nvidia HDA controller on the affected system only gets its power
-after HDMI cable plugged, so the probe on boot fails.
+--_000_ec66399502514edbb1de3cf9bff08b1drealtekcom_
+Content-Disposition: attachment; filename="winmail.dat"
+Content-Transfer-Encoding: base64
+Content-Type: application/ms-tnef; name="winmail.dat"
 
-Kai-Heng
+eJ8+IosWAQaQCAAEAAAAAAABAAEAAQeQBgAIAAAAtgMAAAAAAAC5AAEJgAEAIQAAAERENUE3QTRG
+NzM1MjIyNEE5NTAxMERERkI4QzEwMDhEADEHAQ2ABAACAAAAAgACAAEFgAMADgAAAOQHDAAWAAMA
+DwAYAAIAOQEBIIADAA4AAADkBwwAFgADAA8AGAACADkBAQiABwAYAAAASVBNLk1pY3Jvc29mdCBN
+YWlsLk5vdGUAMQgBBIABAEkAAABbUEFUQ0hdIEFTb0M6IHJ0MTAxNTogbW9kaWZ5IGNhbGlicmF0
+aW9uIHNlcXVlbmNlIGZvciBiZXR0ZXIgcGVyZm9ybWFuY2UAVxkBC4ABACEAAABERDVBN0E0Rjcz
+NTIyMjRBOTUwMTBEREZCOEMxMDA4RAAxBwEDkAYAaBQAAEQAAAACAX8AAQAAAC8AAAA8ZWM2NjM5
+OTUwMjUxNGVkYmIxZGUzY2Y5YmZmMDhiMWRAcmVhbHRlay5jb20+AAALAB8OAAAAAAIBCRABAAAA
+ywQAAMcEAABVDQAATFpGdQYl2hxhAApmYmlkBAAAY2PAcGcxMjUyAP4DQ/B0ZXh0AfcCpAPjAgAE
+Y2gKwHNldDAg7wdtAoMAUBFNMgqABrQCgJZ9CoAIyDsJYjE5DsC/CcMWcgoyFnECgBViKgmwcwnw
+BJBhdAWyDlADYHOibwGAIEV4EcFuGDBdBlJ2BJAXtgIQcgDAdH0IUG4aMRAgBcAFoBtkZJogA1Ig
+ECIXslx2CJDkd2sLgGQ1HVME8AdADRdwMApxF/Jia21rBnMBkAAgIEJNX0LgRUdJTn0K/AHxC/FT
+B7MeUWliGHFpAiAg5RIAcQpQbmMZ4BiQHHDAaXggcG93G7EEAf8KUCPwA6AN0B5wIpABkBAgPC5c
+IgAYUAqBJVRTaRJnGFBkLRkwZi1iEHk6IEoA0GsgWRB1IDxqJyEueXU+QAlwB0AQICfQBaBtPn0l
+RS0pUCVFIpAIYB3AL5kZIGMvBaAFgXMvACAJHpAxNSiQIHwgNH0SMCsr9ylRLL8tVymGMecjUSSx
+GZRkLC7QEjALgIcSAAAgImFzKCspL8CeMxIwAQAecDBkLSklTEsN4AEgIClQZ2kFQGH3KlEqLys1
+YjOfKwclRR2xAxAwMPAyZTZiY2aINzYzFmAuLjUFcIk4IGJiBXAzNzUv0XAwNjQ0KOgzfzZPCkcr
+8TU/O48KQEAzEDT4OTcsK8I/QiFxPwEk4lEOUCB2bw3QICsUX4kh5mUoH2BydWMFQMVBJXAFEHYg
+KisUMeYLIpAdwF89YV9kYXDQbV9tdRAhXwkAJzA8KCYooSOgGFACMC0+3UTiKRYgKZUJcGceUBHA
+vmVBgUfSJtAKsAQQKEeB7QDAcC/AQkFlRugo5kjknF93BRBCAUjmUlRBQxBQV1I5L8AweEE4QTYw
+RudKv0vNX1MAVEFURV9DVFLmTEzCHqA4OU1PTl9Pb71QdkFRD1IfUy9QdkNUz3dV31bvUHZEWI9Z
+n0xFNOFMwjgwQjJcT11fQVJAQ0xBU1NEWxBF8lFMwjU3P1Bfb2B/YYQHYgEgIFAQUk5BTDj9TMIy
+HpFi72P/ZQ9MsytA92aPZ59MJzVmJDlAam9rf1FBUk1JWGXAMVCENZdcP26PaL9McDVBMXDP23Hf
+cu8yTMIOkEZi33WPmUFDRENQMGXwSUJlM09wMw6QcJB4SG1zHnBl/HAoAdBqX3lPdp9mBR6g/30/
+fk9/X2nGXyCBD4Ifgy9/c/+FT3nfeuyIUHvvfPwry4kvYRtLitBFVFCEgOn/R3KOX14uHqBfSY4f
+Wi9P/fowUPgrjOVqOpSPlZ+Wrv9UuJhPmV+ab5t/HqBYeJ1Px5E/jv9/zzAyOKL/pA//pR9p1SvA
+iI+nz2yKK0Btb/+rb6i/h9WtYGZgrZ+ur2GPeWKRMEWxX7Jvb6wB0DPvcL+134qfe2Q1jBCxT7kf
+u6+vd6dGu9+870FSR1AAmR/gT09bIFCDZUa0z//An6APUGfC/8QPxR9QZ6ao/56PyG+WrrgIokYx
+AJ3vy48fzJ+XF6av0I9BQ1NZU8xfUslgcDQ1Rq2P1E/D1Vp3szBiOWFJr0d/fUiMZgdAEgBG79uQ
+AMBy6mtE0GkAIHlI1daoOmDBJUUyLjI5LgFAJVsDFULiQAAfAEIAAQAAABAAAABKAGEAYwBrACAA
+WQB1AAAAHwBlAAEAAAAoAAAAagBhAGMAawAuAHkAdQBAAHIAZQBhAGwAdABlAGsALgBjAG8AbQAA
+AB8AZAABAAAACgAAAFMATQBUAFAAAAAAAAIBQQABAAAAWgAAAAAAAACBKx+kvqMQGZ1uAN0BD1QC
+AAAAgEoAYQBjAGsAIABZAHUAAABTAE0AVABQAAAAagBhAGMAawAuAHkAdQBAAHIAZQBhAGwAdABl
+AGsALgBjAG8AbQAAAAAAHwACXQEAAAAoAAAAagBhAGMAawAuAHkAdQBAAHIAZQBhAGwAdABlAGsA
+LgBjAG8AbQAAAB8A5V8BAAAAMAAAAHMAaQBwADoAagBhAGMAawAuAHkAdQBAAHIAZQBhAGwAdABl
+AGsALgBjAG8AbQAAAB8AGgwBAAAAEAAAAEoAYQBjAGsAIABZAHUAAAAfAB8MAQAAACgAAABqAGEA
+YwBrAC4AeQB1AEAAcgBlAGEAbAB0AGUAawAuAGMAbwBtAAAAHwAeDAEAAAAKAAAAUwBNAFQAUAAA
+AAAAAgEZDAEAAABaAAAAAAAAAIErH6S+oxAZnW4A3QEPVAIAAACASgBhAGMAawAgAFkAdQAAAFMA
+TQBUAFAAAABqAGEAYwBrAC4AeQB1AEAAcgBlAGEAbAB0AGUAawAuAGMAbwBtAAAAAAAfAAFdAQAA
+ACgAAABqAGEAYwBrAC4AeQB1AEAAcgBlAGEAbAB0AGUAawAuAGMAbwBtAAAACwBAOgEAAAAfABoA
+AQAAABIAAABJAFAATQAuAE4AbwB0AGUAAAAAAAMA8T8EBAAACwBAOgEAAAADAP0/tgMAAAIBCzAB
+AAAAEAAAAN1aek9zUiJKlQEN37jBAI0DABcAAQAAAEAAOQAAbiCwENjWAUAACDC39GKwENjWAQsA
+KQAAAAAAHwDZPwEAAAAAAgAATgBlAHcAIABjAGEAbABpAGIAcgBhAHQAaQBvAG4AIABzAGUAcQB1
+AGUAbgBjAGUAIAB0AG8AIABmAGkAeAAgAHAAbwB3AGUAcgAgAGkAcwBzAHUAZQAgAGkAbgAgAGkA
+ZABsAGUAIABzAHQAYQB0AGUALgANAAoADQAKAFMAaQBnAG4AZQBkAC0AbwBmAGYALQBiAHkAOgAg
+AEoAYQBjAGsAIABZAHUAIAA8AGoAYQBjAGsALgB5AHUAQAByAGUAYQBsAHQAZQBrAC4AYwBvAG0A
+PgANAAoALQAtAC0ADQAKACAAcwBvAHUAbgBkAC8AcwBvAGMALwBjAG8AZABlAGMAcwAvAHIAdAAx
+ADAAMQA1AC4AYwAgAHwAIAA0ADAAIAArACsAKwArACsAKwArACsAKwArAC0ALQAtAC0ALQAtAC0A
+LQAtAC0ALQAtAC0ALQAtAC0ALQAtAC0ALQAtAC0ALQAtAC0ALQAtAC0ALQANAAoAIAAxACAAZgBp
+AGwAZQAgAGMAaABhAG4AZwBlAGQALAAgADEAMAAgAGkAbgBzAGUAcgB0AGkAbwBuAHMAKAArACkA
+LAAgADMAMAAgAGQAZQBsAGUAdABpAG8AbgBzACgALQApAA0ACgANAAoAZABpAGYAZgAgAC0ALQBn
+AGkAdAAgAGEALwBzAG8AAAALAACACCAGAAAAAADAAAAAAAAARgAAAAAUhQAAAQAAAB8AAICGAwIA
+AAAAAMAAAAAAAABGAQAAAB4AAABhAGMAYwBlAHAAdABsAGEAbgBnAHUAYQBnAGUAAAAAAAEAAAAa
+AAAAegBoAC0AVABXACwAIABlAG4ALQBVAFMAAAAAAAMAAIAIIAYAAAAAAMAAAAAAAABGAQAAADIA
+AABFAHgAYwBoAGEAbgBnAGUAQQBwAHAAbABpAGMAYQB0AGkAbwBuAEYAbABhAGcAcwAAAAAAIAAA
+AEgAAIAIIAYAAAAAAMAAAAAAAABGAQAAACIAAABOAGUAdAB3AG8AcgBrAE0AZQBzAHMAYQBnAGUA
+SQBkAAAAAABY44dbXIulS074CNimJ9L6HwAAgBOP8kH0gxRBpYTu21prC/8BAAAAFgAAAEMAbABp
+AGUAbgB0AEkAbgBmAG8AAAAAAAEAAAAqAAAAQwBsAGkAZQBuAHQAPQBNAFMARQB4AGMAaABhAG4A
+ZwBlAFIAUABDAAAAAAAfAPo/AQAAABAAAABKAGEAYwBrACAAWQB1AAAAHwA3AAEAAACSAAAAWwBQ
+AEEAVABDAEgAXQAgAEEAUwBvAEMAOgAgAHIAdAAxADAAMQA1ADoAIABtAG8AZABpAGYAeQAgAGMA
+YQBsAGkAYgByAGEAdABpAG8AbgAgAHMAZQBxAHUAZQBuAGMAZQAgAGYAbwByACAAYgBlAHQAdABl
+AHIAIABwAGUAcgBmAG8AcgBtAGEAbgBjAGUAAAAAAB8APQABAAAAAgAAAAAAAAADADYAAAAAAAIB
+cQABAAAAFgAAAAHW2BCv66qWK/kZcE1nmSunIG8x98oAAB8AcAABAAAAkgAAAFsAUABBAFQAQwBI
+AF0AIABBAFMAbwBDADoAIAByAHQAMQAwADEANQA6ACAAbQBvAGQAaQBmAHkAIABjAGEAbABpAGIA
+cgBhAHQAaQBvAG4AIABzAGUAcQB1AGUAbgBjAGUAIABmAG8AcgAgAGIAZQB0AHQAZQByACAAcABl
+AHIAZgBvAHIAbQBhAG4AYwBlAAAAAAAfADUQAQAAAF4AAAA8AGUAYwA2ADYAMwA5ADkANQAwADIA
+NQAxADQAZQBkAGIAYgAxAGQAZQAzAGMAZgA5AGIAZgBmADAAOABiADEAZABAAHIAZQBhAGwAdABl
+AGsALgBjAG8AbQA+AAAAAAADAN4/tgMAAAMAExIAAAAAAgEAgBOP8kH0gxRBpYTu21prC/8BAAAA
+LgAAAEgAZQBhAGQAZQByAEIAbwBkAHkARgByAGEAZwBtAGUAbgB0AEwAaQBzAHQAAAAAAAEAAAAi
+AAAAAQAKAAAABAAAAAAAAAAUAAAAAAAAAAAAAAD/////AAAAAAAACwAAgBOP8kH0gxRBpYTu21pr
+C/8BAAAAHAAAAEgAYQBzAFEAdQBvAHQAZQBkAFQAZQB4AHQAAAAAAAAACwAAgBOP8kH0gxRBpYTu
+21prC/8BAAAAKAAAAEkAcwBRAHUAbwB0AGUAZABUAGUAeAB0AEMAaABhAG4AZwBlAGQAAAAAAAAA
+QAAHMDPEXbAQ2NYBAgELAAEAAAAQAAAA3Vp6T3NSIkqVAQ3fuMEAjQMAJgAAAAAACwAGDAAAAAAC
+ARAwAQAAAEYAAAAAAAAA2+nESiSg50GTGyq7K7NtTAcATLd9DVWheUS+c4U5YtAApQAAAGlg9wAA
+Mq84BUqwTkaAx8c4IroPWgAAAdekfAAAAAACARMwAQAAABAAAACqliv5GXBNZ5krpyBvMffKAgEU
+MAEAAAAMAAAAqAAAAEn1gXJOAAAAHwD4PwEAAAAQAAAASgBhAGMAawAgAFkAdQAAAB8AIkABAAAA
+BgAAAEUAWAAAAAAAHwAjQAEAAAC2AAAALwBPAD0AUgBUAEUAWABDAEgALwBPAFUAPQBFAFgAQwBI
+AEEATgBHAEUAIABBAEQATQBJAE4ASQBTAFQAUgBBAFQASQBWAEUAIABHAFIATwBVAFAAIAAoAEYA
+WQBEAEkAQgBPAEgARgAyADMAUwBQAEQATABUACkALwBDAE4APQBSAEUAQwBJAFAASQBFAE4AVABT
+AC8AQwBOAD0AVQBTAEUAUgA1ADkAOAA2ADUAMQAwADkAAAAAAB8AJEABAAAABgAAAEUAWAAAAAAA
+HwAlQAEAAAC2AAAALwBPAD0AUgBUAEUAWABDAEgALwBPAFUAPQBFAFgAQwBIAEEATgBHAEUAIABB
+AEQATQBJAE4ASQBTAFQAUgBBAFQASQBWAEUAIABHAFIATwBVAFAAIAAoAEYAWQBEAEkAQgBPAEgA
+RgAyADMAUwBQAEQATABUACkALwBDAE4APQBSAEUAQwBJAFAASQBFAE4AVABTAC8AQwBOAD0AVQBT
+AEUAUgA1ADkAOAA2ADUAMQAwADkAAAAAAB8AMEABAAAAEAAAAEoAYQBjAGsAIABZAHUAAAAfADFA
+AQAAABAAAABKAGEAYwBrACAAWQB1AAAAHwA4QAEAAAAQAAAASgBhAGMAawAgAFkAdQAAAB8AOUAB
+AAAAEAAAAEoAYQBjAGsAIABZAHUAAAADAFlAAAAAAAMAWkAAAAAAAwAJWQEAAAAfAApdAQAAACgA
+AABqAGEAYwBrAC4AeQB1AEAAcgBlAGEAbAB0AGUAawAuAGMAbwBtAAAAHwALXQEAAAAoAAAAagBh
+AGMAawAuAHkAdQBAAHIAZQBhAGwAdABlAGsALgBjAG8AbQAAAB8AAIAfpOszqHouQr57eeGpjlSz
+AQAAADgAAABDAG8AbgB2AGUAcgBzAGEAdABpAG8AbgBJAG4AZABlAHgAVAByAGEAYwBrAGkAbgBn
+AEUAeAAAAAEAAAAkAQAASQBJAD0AWwBDAEkARAA9AGYAOQAyAGIAOQA2AGEAYQAtADcAMAAxADkA
+LQA2ADcANABkAC0AOQA5ADIAYgAtAGEANwAyADAANgBmADMAMQBmADcAYwBhADsASQBEAFgASABF
+AEEARAA9AEQANgBEADgAMQAwAEEARgBFAEIAOwBJAEQAWABDAE8AVQBOAFQAPQAxAF0AOwBQAFMA
+PQBVAG4AawBuAG8AdwBuADsAVgBlAHIAcwBpAG8AbgA9AFYAZQByAHMAaQBvAG4AIAAxADUALgAx
+ACAAKABCAHUAaQBsAGQAIAAyADEAMAA2AC4AMAApACwAIABTAHQAYQBnAGUAPQBIADQAOwBVAFAA
+PQAxADAAOwBEAFAAPQAxAEMANQAAAAsAAIAIIAYAAAAAAMAAAAAAAABGAAAAAIKFAAAAAAAAAwAN
+NP0/AAAfAACAhgMCAAAAAADAAAAAAAAARgEAAAAgAAAAeAAtAG0AcwAtAGgAYQBzAC0AYQB0AHQA
+YQBjAGgAAAABAAAAAgAAAAAAAAAfAACAhgMCAAAAAADAAAAAAAAARgEAAAAiAAAAeAAtAG8AcgBp
+AGcAaQBuAGEAdABpAG4AZwAtAGkAcAAAAAAAAQAAACIAAABbADEANwAyAC4AMgAyAC4AMQAwADIA
+LgAxADYANwBdAAAAAACvMQ==
 
->
-> https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/drivers/pci/quirks.c?h=v5.10#n5267
->
-> Cheers,
->
->   -ilia
+--_000_ec66399502514edbb1de3cf9bff08b1drealtekcom_--

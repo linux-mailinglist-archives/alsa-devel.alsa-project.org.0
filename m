@@ -2,91 +2,96 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A51C82E0C59
-	for <lists+alsa-devel@lfdr.de>; Tue, 22 Dec 2020 16:06:51 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8E2BF2E0C5F
+	for <lists+alsa-devel@lfdr.de>; Tue, 22 Dec 2020 16:07:00 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 4B8BF170E;
-	Tue, 22 Dec 2020 16:06:01 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4B8BF170E
+	by alsa0.perex.cz (Postfix) with ESMTPS id A1C571754;
+	Tue, 22 Dec 2020 16:06:09 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A1C571754
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1608649611;
-	bh=y9mV0pXPAqy4grD23Wznh5cVN3raTqtO+ixMA2XSFl8=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=bsvst4eS/HfVs9FO8cVV0/5kF20ZxQpGWBKdfiisuCz6FNWcSBYO3OXdkers+Q0aB
-	 b0Jd1nBsPWg6Yy1iUJaVhNV2+/ouUtky7Ava9WBi61dezXeYhGf+qzJtgd5JT+YS4H
-	 woAYg/MM9xtK0DhNGXmFbAPMNSKjLIEcY9m1YshI=
+	s=default; t=1608649619;
+	bh=whIHW8i+f5PAMaBl9ev4koA4d1+LZZK1gdr4WxXChOU=;
+	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=oxo1ZHnYrJmaUIhcbHl5m4jzqfdgedW75gJ3pO6g91efgBiTJXjSEChVP3Ksg1CIE
+	 TSW8KmLW67RGz7XONlziLL2tiB1sjIk5YKF2DzkUHfuv7n+qtw2OwCykpv3blR6Dw4
+	 lx2ITbg2V7hHrFVthlw/jfL6/NqZmD/Z14+huipQ=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 9F0B5F80234;
-	Tue, 22 Dec 2020 16:05:16 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 559A3F8021D;
+	Tue, 22 Dec 2020 16:05:22 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 16CC6F80232; Tue, 22 Dec 2020 16:05:15 +0100 (CET)
+ id DDCAFF8023E; Tue, 22 Dec 2020 16:05:19 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
  version=3.4.0
-Received: from mail-pf1-x435.google.com (mail-pf1-x435.google.com
- [IPv6:2607:f8b0:4864:20::435])
+Received: from mail-pg1-x52f.google.com (mail-pg1-x52f.google.com
+ [IPv6:2607:f8b0:4864:20::52f])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id B53B7F80161
- for <alsa-devel@alsa-project.org>; Tue, 22 Dec 2020 16:05:08 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B53B7F80161
+ by alsa1.perex.cz (Postfix) with ESMTPS id 7CA21F8021D
+ for <alsa-devel@alsa-project.org>; Tue, 22 Dec 2020 16:05:10 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7CA21F8021D
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=endlessos.org header.i=@endlessos.org
- header.b="HkRAe48k"
-Received: by mail-pf1-x435.google.com with SMTP id v2so8619085pfm.9
- for <alsa-devel@alsa-project.org>; Tue, 22 Dec 2020 07:05:08 -0800 (PST)
+ header.b="EqRZ/gRP"
+Received: by mail-pg1-x52f.google.com with SMTP id f17so8516080pge.6
+ for <alsa-devel@alsa-project.org>; Tue, 22 Dec 2020 07:05:10 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=endlessos.org; s=google;
- h=from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=+mDMj1VhS1g9ZAydEXjYxo+LFu7baJkisWPTmeHryq4=;
- b=HkRAe48kmhhdtqn526nFfNaVz5YDjvAHem15pAA1tH2xPajKeNawB4hMOddDcGBvRs
- n9Ahdraj8di2Bw+ju2Qhj+uFiFf02l853SnlzIqJSIrXe7hrNcubbWXOvY62xmgyp4/a
- aVB4C/sPqQC9Iy3WiI/60pUJFq3PI96QMes5e3euokL0gJ90o9OkzhEqt/+XCpwvBm+G
- Axji+O5gqnBF7RRy6ZNlM0mAUKN/avuS/ijjROTjesFj8xoKdTjVWtUPqh2VhHOcPQqk
- nvFRLv+USeuK9J7XeYi8JAzGwGmj6TvN/Bg4uwvLZXAVSlQlRR5cKxEVeLw6Bt6sxi2e
- 2cQQ==
+ h=from:to:cc:subject:date:message-id:in-reply-to:references
+ :mime-version:content-transfer-encoding;
+ bh=7Hrgc2vErdduBB9qM7RbOF/nuu0syt0R9KKjGGJCpoc=;
+ b=EqRZ/gRPWI+a3OaYV+YvH80ky5fZtAnCqzWOHvrGTYHYUqe9/QKO7dz0T5yrWbIWLS
+ Z0hn/fe/f8Hi1isP0zvWIzHjfFOP/96EaZ1REeAfypGnHGFcqUA1Gx5Opw2chy/BTlBg
+ ALJpyv7ya0FAvYQD1a+szxZ/vaiuOVN0a/VxXYU1mWIwk3lsmFyXVNmQXdQXgCpOteJh
+ mRWzHRI94UgUom2tHJRsqxcBSlpbhGjmqmRmrHo/96lOKtI5873x+DZw66kgdlU3c64A
+ cMhno0qLS06NpfkneAyGWwXGNCyCltXrCl7CB+c6uKw8+u8ExVlTwOBNZF2nvzDw8z2i
+ bzfQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=+mDMj1VhS1g9ZAydEXjYxo+LFu7baJkisWPTmeHryq4=;
- b=icTQ4gxcNg+N54oNqms1bT6aDD9vZaMCjwWBf+tt13uGUto/sewM3tprOe6FZrE53w
- sbbUGHog8cJHDEnM4shCVzlRs7Xg1aHEwnOfxglpdTEUfrTxTprBgbbetqnYNTWNpDDf
- cgt5vcHprD0rm7biJ5vjUC4YyD81EQbf9RlwD0+PUnMGoRFxjTranNivdYk0RBo1PIFE
- r4VwxEp+sTvQzl6iE6+j8DhLz44kn2BKqW3vdwh8TvFiN7UzBgaFMlYTZLSD9q1tnGPj
- AdHp2ryHemzTvPtaqSh19/MrqRu0jqZExtJuA8xeuO3Mgv+D9gaETlEGF8mDXLW7WLWT
- pqPQ==
-X-Gm-Message-State: AOAM532qMfeoKFvfiX0zhaB/dJ4BFkx0HbcnkmAKXH1BwgomuyxGFZGV
- PEmgUk3kUWkK3cyGWz8zsfx/0A==
-X-Google-Smtp-Source: ABdhPJxFVIxjenBWQ4dL+giI/9f1UeSo9v0t064Em0SPBDUGBx4YI6ZLA3x6/jbmTJB3ErbMoty2mQ==
-X-Received: by 2002:a63:470b:: with SMTP id u11mr20100411pga.436.1608649506157; 
- Tue, 22 Dec 2020 07:05:06 -0800 (PST)
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
+ :references:mime-version:content-transfer-encoding;
+ bh=7Hrgc2vErdduBB9qM7RbOF/nuu0syt0R9KKjGGJCpoc=;
+ b=t37ANcQTGPlQrqt4EA4lgmN+LxWmA+ZKgPhgWPR3sP/tGaCXnf0KKQwY+iikqyxJ8c
+ pXNzAdicjXq67KNwh+0Kn+uVnxyOWqK74hyAvAOXP4hovDtOhlGeOkgPoVIxCdIpy7BK
+ lXcaqHARzmgVcFNT3y++m2Qtj8bHBLDqx+HTdjr1Bxygm6jSLnE7G2UV4H72ahnGrH3/
+ 4vVlnbdObHBCsB6Y8Y/mjvckqcUhHJIVUoa3Xa+AcEUxzVnhZ6DGM6dywoeaeIIF7nV5
+ egG2XdD9d+ydHDlpexpwG9SxI4fMXBj+Kg6855DfINtvtjmNIXczbpIvAzahL+DdHZax
+ JKag==
+X-Gm-Message-State: AOAM530GBvbkrObf/3C7unlZEOIgV/EP3g85uDBV+9ty/LvTrUlRjdPL
+ GvCaaflEt1MlgMEyumEzMiv2+bze9yuhQQ==
+X-Google-Smtp-Source: ABdhPJx//2nSKhHTG8gyFHAn9MT2fZxkt0i1lk3RChMj03CHREE0oJTSOQ7Wbcrh7D+i0dOzhq6CqQ==
+X-Received: by 2002:a63:4f64:: with SMTP id p36mr12935334pgl.374.1608649508742; 
+ Tue, 22 Dec 2020 07:05:08 -0800 (PST)
 Received: from localhost.localdomain
  (2001-b011-3814-dae9-4a2f-9772-47bc-5b94.dynamic-ip6.hinet.net.
  [2001:b011:3814:dae9:4a2f:9772:47bc:5b94])
  by smtp.googlemail.com with ESMTPSA id
- u14sm19000202pfk.111.2020.12.22.07.05.03
+ u14sm19000202pfk.111.2020.12.22.07.05.06
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 22 Dec 2020 07:05:05 -0800 (PST)
+ Tue, 22 Dec 2020 07:05:08 -0800 (PST)
 From: Chris Chiu <chiu@endlessos.org>
 To: tiwai@suse.com,
 	kailang@realtek.com
-Subject: [PATCH 1/2] ALSA: hda/realtek: Apply jack fixup for Quanta NL3
-Date: Tue, 22 Dec 2020 23:04:58 +0800
-Message-Id: <20201222150459.9545-1-chiu@endlessos.org>
+Subject: [PATCH 2/2] ALSA/hda: apply jack fixup for the Acer Veriton
+ N4640G/N6640G/N2510G
+Date: Tue, 22 Dec 2020 23:04:59 +0800
+Message-Id: <20201222150459.9545-2-chiu@endlessos.org>
 X-Mailer: git-send-email 2.20.1
+In-Reply-To: <20201222150459.9545-1-chiu@endlessos.org>
+References: <20201222150459.9545-1-chiu@endlessos.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Cc: alsa-devel@alsa-project.org, Chris Chiu <chiu@endlessos.org>,
- linux-kernel@vger.kernel.org, linux@endlessos.org
+ linux-kernel@vger.kernel.org, Jian-Hong Pan <jhp@endlessos.org>,
+ linux@endlessos.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -102,34 +107,39 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-The Quanta NL3 laptop has both a headphone output jack and a headset
-jack, on the right edge of the chassis.
+This Acer Veriton N4640G/N6640G/N2510G desktops have 2 headphone
+jacks(front and rear), and a separate Mic In jack.
 
-The pin information suggests that both of these are at the Front.
-The PulseAudio is confused to differentiate them so one of the jack
-can neither get the jack sense working nor the audio output.
-
-The ALC269_FIXUP_LIFEBOOK chained with ALC269_FIXUP_QUANTA_MUTE can
-help to differentiate 2 jacks and get the 'Auto-Mute Mode' working
-correctly.
+The rear headphone jack is actually a line out jack but always silent
+while playing audio. The front 'Mic In' also fails the jack sensing.
+Apply the ALC269_FIXUP_LIFEBOOK to have all audio jacks to work as
+expected.
 
 Signed-off-by: Chris Chiu <chiu@endlessos.org>
+Signed-off-by: Jian-Hong Pan <jhp@endlessos.org>
 ---
- sound/pci/hda/patch_realtek.c | 1 +
- 1 file changed, 1 insertion(+)
+ sound/pci/hda/patch_realtek.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
 diff --git a/sound/pci/hda/patch_realtek.c b/sound/pci/hda/patch_realtek.c
-index 8616c5624870..bb1010d78717 100644
+index bb1010d78717..9eb43d827bda 100644
 --- a/sound/pci/hda/patch_realtek.c
 +++ b/sound/pci/hda/patch_realtek.c
-@@ -8013,6 +8013,7 @@ static const struct snd_pci_quirk alc269_fixup_tbl[] = {
- 	SND_PCI_QUIRK(0x1458, 0xfa53, "Gigabyte BXBT-2807", ALC283_FIXUP_HEADSET_MIC),
- 	SND_PCI_QUIRK(0x1462, 0xb120, "MSI Cubi MS-B120", ALC283_FIXUP_HEADSET_MIC),
- 	SND_PCI_QUIRK(0x1462, 0xb171, "Cubi N 8GL (MS-B171)", ALC283_FIXUP_HEADSET_MIC),
-+	SND_PCI_QUIRK(0x152d, 0x1082, "Quanta NL3", ALC269_FIXUP_LIFEBOOK),
- 	SND_PCI_QUIRK(0x1558, 0x1323, "Clevo N130ZU", ALC293_FIXUP_SYSTEM76_MIC_NO_PRESENCE),
- 	SND_PCI_QUIRK(0x1558, 0x1325, "System76 Darter Pro (darp5)", ALC293_FIXUP_SYSTEM76_MIC_NO_PRESENCE),
- 	SND_PCI_QUIRK(0x1558, 0x1401, "Clevo L140[CZ]U", ALC293_FIXUP_SYSTEM76_MIC_NO_PRESENCE),
+@@ -7803,11 +7803,14 @@ static const struct snd_pci_quirk alc269_fixup_tbl[] = {
+ 	SND_PCI_QUIRK(0x1025, 0x0762, "Acer Aspire E1-472", ALC271_FIXUP_HP_GATE_MIC_JACK_E1_572),
+ 	SND_PCI_QUIRK(0x1025, 0x0775, "Acer Aspire E1-572", ALC271_FIXUP_HP_GATE_MIC_JACK_E1_572),
+ 	SND_PCI_QUIRK(0x1025, 0x079b, "Acer Aspire V5-573G", ALC282_FIXUP_ASPIRE_V5_PINS),
++	SND_PCI_QUIRK(0x1025, 0x101c, "Acer Veriton N2510G", ALC269_FIXUP_LIFEBOOK),
+ 	SND_PCI_QUIRK(0x1025, 0x102b, "Acer Aspire C24-860", ALC286_FIXUP_ACER_AIO_MIC_NO_PRESENCE),
+ 	SND_PCI_QUIRK(0x1025, 0x1065, "Acer Aspire C20-820", ALC269VC_FIXUP_ACER_HEADSET_MIC),
+ 	SND_PCI_QUIRK(0x1025, 0x106d, "Acer Cloudbook 14", ALC283_FIXUP_CHROME_BOOK),
+ 	SND_PCI_QUIRK(0x1025, 0x1099, "Acer Aspire E5-523G", ALC255_FIXUP_ACER_MIC_NO_PRESENCE),
+ 	SND_PCI_QUIRK(0x1025, 0x110e, "Acer Aspire ES1-432", ALC255_FIXUP_ACER_MIC_NO_PRESENCE),
++	SND_PCI_QUIRK(0x1025, 0x1166, "Acer Veriton N4640G", ALC269_FIXUP_LIFEBOOK),
++	SND_PCI_QUIRK(0x1025, 0x1167, "Acer Veriton N6640G", ALC269_FIXUP_LIFEBOOK),
+ 	SND_PCI_QUIRK(0x1025, 0x1246, "Acer Predator Helios 500", ALC299_FIXUP_PREDATOR_SPK),
+ 	SND_PCI_QUIRK(0x1025, 0x1247, "Acer vCopperbox", ALC269VC_FIXUP_ACER_VCOPPERBOX_PINS),
+ 	SND_PCI_QUIRK(0x1025, 0x1248, "Acer Veriton N4660G", ALC269VC_FIXUP_ACER_MIC_NO_PRESENCE),
 -- 
 2.20.1
 

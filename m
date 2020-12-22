@@ -2,88 +2,82 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E16FE2E2022
-	for <lists+alsa-devel@lfdr.de>; Wed, 23 Dec 2020 18:49:08 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id DF1562E2023
+	for <lists+alsa-devel@lfdr.de>; Wed, 23 Dec 2020 18:49:44 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 7B24117BF;
-	Wed, 23 Dec 2020 18:48:18 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7B24117BF
+	by alsa0.perex.cz (Postfix) with ESMTPS id 64F91180A;
+	Wed, 23 Dec 2020 18:48:54 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 64F91180A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1608745748;
-	bh=MTmv8gzoszlWkMeBQ/OzWNq2dhw8AhsB6l8Td3Dqmmw=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
+	s=default; t=1608745784;
+	bh=S7CIbWUQ5EtWy4K2smd2DLLQocrv83d6WnTC8JsR1RE=;
+	h=References:In-Reply-To:From:Date:Subject:To:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=jjGKY9yKwc+di7Nm69QfWvmWrSUhzGrE8OFjcHSEgA9weDgKjkxcEkZrsS1x2v9F1
-	 ytXj/DZcblYqyCxCwAUWZ2fc2tEHkI4Us7IgvGnRPqWr5o/qv5GMx1bhtLtpKav0I3
-	 a+7KWZAKbr8BSIcInkVg2WlKJ1VOWkpA0JNCv1IA=
+	b=ZKMoYP4y75/ICy9IxDtb5acfbmfmpwgZE0cyNXxswh45AoK4aqGN8lWepdpACvRND
+	 ACvnQWTknZn+gp2QJntToPpO8YKqN08z/NLVYO/Jf3AE0UoHi//UHRGQGJA+V2WhUX
+	 3L36zp8kQcHy2ZtBcJ9xRMgH6tI4G8BhZgqIrdFs=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 31017F804C1;
-	Wed, 23 Dec 2020 18:45:52 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 218B1F804FE;
+	Wed, 23 Dec 2020 18:45:53 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 0C0EEF801D5; Mon, 21 Dec 2020 18:56:55 +0100 (CET)
+ id BFE13F80224; Tue, 22 Dec 2020 06:23:20 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.5 required=5.0 tests=FREEMAIL_FORGED_FROMDOMAIN,
- FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,SPF_HELO_NONE,SPF_NONE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mail-ua1-f41.google.com (mail-ua1-f41.google.com
- [209.85.222.41])
+X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
+Received: from mail-yb1-xb2f.google.com (mail-yb1-xb2f.google.com
+ [IPv6:2607:f8b0:4864:20::b2f])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 7E214F800EC
- for <alsa-devel@alsa-project.org>; Mon, 21 Dec 2020 18:56:50 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7E214F800EC
-Received: by mail-ua1-f41.google.com with SMTP id y21so3567691uag.2
- for <alsa-devel@alsa-project.org>; Mon, 21 Dec 2020 09:56:50 -0800 (PST)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 65702F800BC
+ for <alsa-devel@alsa-project.org>; Tue, 22 Dec 2020 06:23:16 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 65702F800BC
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=bertschiettecatte-com.20150623.gappssmtp.com
+ header.i=@bertschiettecatte-com.20150623.gappssmtp.com header.b="Fz53xhuA"
+Received: by mail-yb1-xb2f.google.com with SMTP id f6so2153181ybq.13
+ for <alsa-devel@alsa-project.org>; Mon, 21 Dec 2020 21:23:16 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=bertschiettecatte-com.20150623.gappssmtp.com; s=20150623;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to;
+ bh=S7CIbWUQ5EtWy4K2smd2DLLQocrv83d6WnTC8JsR1RE=;
+ b=Fz53xhuAh/3yeQBT15LPK2yJoZq8fR10vNkiI9wkt34bgulH4rESx2QL2IaHCcXbhm
+ OvLg73B1yCUeKY+Ur2dvpyhKxvrHrZoKdbBuod+BvEpspdNsCbrDi6lyOFO3rEIsZsDO
+ TxolGJrRj1IVHXozMq2Fbn5lHIldMVI4pgWovjH3TuA/eiaGsHESnNJ5ziVsalaH/MXk
+ knmjOXJyvc3D3S2q50ebfcQNMsvaEAJU4E1IuMZezykcaSa2z7LMyH2JH/nXsDhJ6opN
+ VdkkOeY6RajrXAUfiYm6eedowTk8FXERkjoaKALI7fLySqLIQgXCfKQJNpRF74NtCt1X
+ YU7Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=MrAF3XcfgmbCY17OqyOzfLrhkI98KCYJDR2DMtLfdY8=;
- b=s6KyXOSHT2yKby/8KUNdpBN8kzJcqPWdLTLgofPi97ngM/92uRirPe18RdtCp8ejh2
- eU4M07+8l6P0hTLEvtvULDjCXvxInxYs43U24oaFQlfBnA/s84tHKdu4GaiubB5/77yF
- fLFqi1QL4pBBpf8pYM4fgkuHEGWC8R/tubEr3Uo7BPQn7rKRILR95EzDbL3/TMORISfM
- mLKJ2WMTljZpouC90+WQEKWaIl5Ol8p46MMzq/7s13bRjIX28tMPQovoKAFg+arz4ZKk
- 3jNQVa8dh1oInoAUXB1fy6GoOX3FlqPYfs/0qh/MBhZX+fxopG5bTQRRQqRhjU0U8RSb
- sElQ==
-X-Gm-Message-State: AOAM532CukWbE7LXjfv/aVtAdCmKFnSyack1LkLQ4slBKgwJm9/ixIBA
- pnwc3g+AsonU+BFmOyKWJ7vg5gtgShepxVeYOcY=
-X-Google-Smtp-Source: ABdhPJzVdL7B8bTZxy+rQMk6er8L4T5ie68H4w9L1UEygB7FM35lOkrdx7hEzcfKNr2eDQb6J0Pb9eQgDYeA07DY5rA=
-X-Received: by 2002:ab0:1e4a:: with SMTP id n10mr13442742uak.98.1608573409390; 
- Mon, 21 Dec 2020 09:56:49 -0800 (PST)
+ :message-id:subject:to;
+ bh=S7CIbWUQ5EtWy4K2smd2DLLQocrv83d6WnTC8JsR1RE=;
+ b=eX88eIC5xz4E/5VI2xD4COB09CTt3caPdMDdbIeX67UFEg5YaUanBsAVG8rWGa9n5I
+ KBa96zpuHOzXOF68Bolxy+C2o+t3vlLKmukJuhFIWWe0wvDPzRr8n6dRPoY6L3q8kJtf
+ MgpGdk5M5sfVPij97QobPF8mQUuIeW10WaEa51aA5jZewfnBts0yU5mzLb2ELHGaJGAy
+ ITwDCAyyjPqoPoiRL04+NpxouOSH11p9Voz0/ywadd5FuKhdd086x6+j8XSxsakE7eSA
+ AgoodkKkHBvr1F3Y02KmMqNqKPTT+g+4AtJ7n54lLMHJ64pV9NbmbU0li2NI0vD1BLtG
+ zuWg==
+X-Gm-Message-State: AOAM532DkgWgqii3UmWZWQdBPsTnVzpQK8aHh4f/1z4x5gfbDSBI5wbh
+ AVmR6i3MROGK5j42B2q/hSDFOsJB7tWqXeo8K1uRcqybu+VBoIW0
+X-Google-Smtp-Source: ABdhPJzkXP36hCm8NxEUGZDerO6mVnzAlbCcw8yoRorOriPPp3LwKl71IK5NZRnZHeJDfbloJjXby3AUE7f4+VeA5yQ=
+X-Received: by 2002:a25:8608:: with SMTP id y8mr27287081ybk.324.1608614593547; 
+ Mon, 21 Dec 2020 21:23:13 -0800 (PST)
 MIME-Version: 1.0
-References: <20201214060621.1102931-1-kai.heng.feng@canonical.com>
- <20201216124726.2842197-1-kai.heng.feng@canonical.com>
- <s5h5z51oj12.wl-tiwai@suse.de>
- <CAAd53p6kORC1GsW5zt+=0=J5ki43iriO-OqtFvf5W67LWhyyhA@mail.gmail.com>
- <s5hzh2dn3oa.wl-tiwai@suse.de>
- <CAAd53p6Ef2zFX_t3y1c6O7BmHnxYGtGSfgzXAMQSom1ainWXzg@mail.gmail.com>
- <s5hsg85n2km.wl-tiwai@suse.de> <s5hmtydn0yg.wl-tiwai@suse.de>
- <CAAd53p6MMFh=HCNF9pyrJc9hVMZWFe7_8MvBcBHVWARqHU_TTA@mail.gmail.com>
- <s5h7dpfk06y.wl-tiwai@suse.de>
- <CAAd53p53w0H6tsb4JgQtFTkYinniicTYBs2uk7tc=heP2dM_Cw@mail.gmail.com>
-In-Reply-To: <CAAd53p53w0H6tsb4JgQtFTkYinniicTYBs2uk7tc=heP2dM_Cw@mail.gmail.com>
-From: Ilia Mirkin <imirkin@alum.mit.edu>
-Date: Mon, 21 Dec 2020 12:56:38 -0500
-Message-ID: <CAKb7UvjWX7xbwMKtnad5EVy16nY1M-A13YJeRWyUwHzemcVswA@mail.gmail.com>
-Subject: Re: [Nouveau] [PATCH v2] ALSA: hda: Continue to probe when codec
- probe fails
-To: Kai-Heng Feng <kai.heng.feng@canonical.com>
+References: <CALd3UbSrAqYFe5Z-S6NMKGaVMvOZx7C4zV5O7CwtTKPmV+UeVQ@mail.gmail.com>
+In-Reply-To: <CALd3UbSrAqYFe5Z-S6NMKGaVMvOZx7C4zV5O7CwtTKPmV+UeVQ@mail.gmail.com>
+From: Bert Schiettecatte <bert@bertschiettecatte.com>
+Date: Mon, 21 Dec 2020 21:23:02 -0800
+Message-ID: <CALd3UbS6MtKQEdhXQXH2GmU1EvZgS52XcTPihZ5wjb=4FaiYXA@mail.gmail.com>
+Subject: Fwd: question about alsa tracepoints and alsa debugging
+To: alsa-devel@alsa-project.org
 Content-Type: text/plain; charset="UTF-8"
 X-Mailman-Approved-At: Wed, 23 Dec 2020 18:45:49 +0100
-Cc: "moderated list:SOUND" <alsa-devel@alsa-project.org>,
- Kai Vehmanen <kai.vehmanen@linux.intel.com>, Takashi Iwai <tiwai@suse.de>,
- nouveau <nouveau@lists.freedesktop.org>, tiwai@suse.com,
- open list <linux-kernel@vger.kernel.org>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- Alan Stern <stern@rowland.harvard.edu>, Linux PCI <linux-pci@vger.kernel.org>,
- Bjorn Helgaas <bhelgaas@google.com>, Mike Rapoport <rppt@kernel.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -99,55 +93,48 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Mon, Dec 21, 2020 at 11:33 AM Kai-Heng Feng
-<kai.heng.feng@canonical.com> wrote:
->
-> [+Cc nouveau]
->
-> On Fri, Dec 18, 2020 at 4:06 PM Takashi Iwai <tiwai@suse.de> wrote:
-> [snip]
-> > > Quite possibly the system doesn't power up HDA controller when there's
-> > > no external monitor.
-> > > So when it's connected to external monitor, it's still needed for HDMI audio.
-> > > Let me ask the user to confirm this.
-> >
-> > Yeah, it's the basic question whether the HD-audio is supposed to work
-> > on this machine at all.  If yes, the current approach we take makes
-> > less sense - instead we should rather make the HD-audio controller
-> > working.
->
-> Yea, confirmed that the Nvidia HDA works when HDMI is connected prior boot.
->
-> > > > - The second problem is that pci_enable_device() ignores the error
-> > > >   returned from pci_set_power_state() if it's -EIO.  And the
-> > > >   inaccessible access error returns -EIO, although it's rather a fatal
-> > > >   problem.  So the driver believes as the PCI device gets enabled
-> > > >   properly.
-> > >
-> > > This was introduced in 2005, by Alan's 11f3859b1e85 ("[PATCH] PCI: Fix
-> > > regression in pci_enable_device_bars") to fix UHCI controller.
-> > >
-> > > >
-> > > > - The third problem is that HD-audio driver blindly believes the
-> > > >   codec_mask read from the register even if it's a read failure as I
-> > > >   already showed.
-> > >
-> > > This approach has least regression risk.
-> >
-> > Yes, but it assumes that HD-audio is really non-existent.
->
-> I really don't know any good approach to address this.
-> On Windows, HDA PCI is "hidden" until HDMI cable is plugged, then the
-> driver will flag the magic bit to make HDA audio appear on the PCI
-> bus.
-> IIRC the current approach is to make nouveau and device link work.
+Hi all,
 
-I don't have the full context of this discussion, but the kernel
-force-enables the HDA subfunction nowadays, irrespective of nouveau or
-nvidia or whatever:
+I have a rk3288 board I am working with, it has two ADCs and one DAC.
+The ADCs are connected via an FPGA to the rk3288. The DAC is directly
+connected to the I2S port of the rk3288. The rk3288 generates the
+master clock. I am using buildroot and busybox and kernel 5.9.12
+(stable).
 
-https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/drivers/pci/quirks.c?h=v5.10#n5267
+I have a driver which receives the ADC data from the FPGA via SDIO.
+When I run speaker-test in the background and use arecord to record
+simultaneously in the foreground, both arecord and speaker-test seem
+to lock up. When I run speaker-test alone I do not have a problem. The
+playback device uses the rockchip_i2s.c driver while the capture
+device uses my SDIO driver.
 
-Cheers,
+My driver based on dw_mmc.c calls snd_pcm_period_elapsed() for each
+buffer of frames that is ready. I can see that this is being called
+for a while when I start arecord in the foreground, until the lockup
+occurs. The moment I start arecord, the console output from
+speaker-test stops, so it's locked up by starting arecord. Previously
+this was working fine on kernel 4.11. However, since I updated to
+kernel 5.9.12 this no longer works. Has anything changed between 4.11
+and 5.9.12 that could be the cause of the problem?
 
-  -ilia
+commands used for starting playback / trace capture and for recording -
+./perf record -F 99 -g -e snd_pcm:* -e sched:sched_switch -e
+sched:sched_wakeup -e irq:* speaker-test -D
+hw:CARD=ak4458ak5558aud,DEV=0 -c8 -r192000 -FS32_LE -tsine &
+arecord -Dhw:CARD=ak4458ak5558aud,DEV=1 -fS32_LE -c16 -r192000
+/mnt/ramdisk/rec.wav
+
+I enabled the kernel options as described at
+https://www.kernel.org/doc/html/v5.9/sound/designs/tracepoints.html
+and have used perf to record a trace, which can be access here -
+https://kernel-debugging.s3-us-west-1.amazonaws.com/perf.data.script.211220202054.txt
+(exported using "perf script")
+
+The trace file shows "lockdep_recursion" at some point so I am
+wondering if my problem has to do with a deadlock somehow being
+caused. However, I also see handle_mm_fault, and do_page_fault, which
+has to do with memory mapping? So I'm not sure what the problem
+exactly is and what to do next to find out what's wrong.
+
+Thanks in advance for your help and interest and patience,
+Bert

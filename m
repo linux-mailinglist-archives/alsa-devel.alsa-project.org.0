@@ -2,79 +2,80 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D89AC2E04A8
-	for <lists+alsa-devel@lfdr.de>; Tue, 22 Dec 2020 04:17:27 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id D82592E0543
+	for <lists+alsa-devel@lfdr.de>; Tue, 22 Dec 2020 05:08:49 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 762791767;
-	Tue, 22 Dec 2020 04:16:37 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 762791767
+	by alsa0.perex.cz (Postfix) with ESMTPS id 72FC6176A;
+	Tue, 22 Dec 2020 05:07:59 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 72FC6176A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1608607047;
-	bh=c/cakAaBZjolcxGLDXhx9oMuH0bCAxEemaxz0gF0QCo=;
+	s=default; t=1608610129;
+	bh=yLCId4Dm/ftEQOnQHAKChetw58XIgRl3/P7wj6bXWuY=;
 	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
 	 List-Post:List-Help:List-Subscribe:From;
-	b=EjX8QqSs+WowUFbqDn8/DB0u+BxMQjwM5It6CTzaQAqo0+v6U4wpdrGbCgfbGfbb6
-	 HHsmwXKbqO5TG2QGii2PIHgWV2EmKeCPSpMtR15xvTzAdV+lNOwiPc2uVluKcw7RQg
-	 aXmK2aPV7jfbDGwzV224lUc94gK8Lvh9nlJxGWTU=
+	b=CAwQ0RT5gcKs8ihOW9SKC64EVf9Ri9EQ1j1wGFMa/H2oXH+q4ytMW4qMEw2gk7GBR
+	 /9IPVtDfx9I1ueZHwsBWapNEGObt3QnYYcxW5/P3crrTuIxvZug8nLFH0B50MooDYA
+	 ImYtEHk0+yf0gsyLctkDnuBvqdG6uBoZ0SUm4OBE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id E0181F80161;
-	Tue, 22 Dec 2020 04:15:46 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id D2D07F80232;
+	Tue, 22 Dec 2020 05:07:03 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 1C549F80224; Tue, 22 Dec 2020 04:15:44 +0100 (CET)
+ id 589A7F80224; Tue, 22 Dec 2020 05:06:57 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Level: *
+X-Spam-Status: No, score=1.3 required=5.0 tests=FREEMAIL_ENVFROM_END_DIGIT,
+ FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,
+ PRX_BODY_13,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
+Received: from mail-ot1-f41.google.com (mail-ot1-f41.google.com
+ [209.85.210.41])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 253A5F80116
- for <alsa-devel@alsa-project.org>; Tue, 22 Dec 2020 04:15:37 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 253A5F80116
-Authenticated-By: 
-X-SpamFilter-By: ArmorX SpamTrap 5.73 with qID 0BM3FPlkC003136,
- This message is accepted by code: ctloc85258
-Received: from mail.realtek.com (rtexmbs02.realtek.com.tw[172.21.6.95])
- by rtits2.realtek.com.tw (8.15.2/2.70/5.88) with ESMTPS id 0BM3FPlkC003136
- (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT);
- Tue, 22 Dec 2020 11:15:25 +0800
-Received: from RTEXMBS01.realtek.com.tw (172.21.6.94) by
- RTEXMBS02.realtek.com.tw (172.21.6.95) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2106.2; Tue, 22 Dec 2020 11:15:24 +0800
-Received: from RTEXMBS01.realtek.com.tw ([fe80::5d07:e256:a2a2:81ee]) by
- RTEXMBS01.realtek.com.tw ([fe80::5d07:e256:a2a2:81ee%5]) with mapi id
- 15.01.2106.006; Tue, 22 Dec 2020 11:15:24 +0800
-Content-Type: multipart/mixed;
- boundary="_000_ec66399502514edbb1de3cf9bff08b1drealtekcom_"
-From: Jack Yu <jack.yu@realtek.com>
-To: "broonie@kernel.org" <broonie@kernel.org>, "lgirdwood@gmail.com"
- <lgirdwood@gmail.com>
-Subject: [PATCH] ASoC: rt1015: modify calibration sequence for better
- performance
-Thread-Topic: [PATCH] ASoC: rt1015: modify calibration sequence for better
- performance
-Thread-Index: AdbYEK/rqpYr+RlwTWeZK6cgbzH3yg==
-Date: Tue, 22 Dec 2020 03:15:24 +0000
-Message-ID: <ec66399502514edbb1de3cf9bff08b1d@realtek.com>
-Accept-Language: zh-TW, en-US
-Content-Language: zh-TW
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: <ec66399502514edbb1de3cf9bff08b1d@realtek.com>
-x-originating-ip: [172.22.102.167]
+ by alsa1.perex.cz (Postfix) with ESMTPS id 23E04F800BC
+ for <alsa-devel@alsa-project.org>; Tue, 22 Dec 2020 05:06:49 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 23E04F800BC
+Received: by mail-ot1-f41.google.com with SMTP id j20so10821914otq.5
+ for <alsa-devel@alsa-project.org>; Mon, 21 Dec 2020 20:06:49 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=q3IkBlOmHE3mDRbIb8lAHBUkpZJ3o80cNN5b/4sEG/I=;
+ b=fDqWM/i5krD6jfCDlrioQzb89RuqVL1+uzs8iCWeICvvsXsmDBFmdp3sJ6NrK035j/
+ fsY7UDvWBFjaKYfiiiRwBmnkcj2LflwKnbCGA+mQuyUE8JyNISNF2EyGEZwlHrDYz5Kw
+ A3yrXqE2KzW68vxDVIi5/dD4bcIst4HxoJKJ8tETVfwNFReer6C8fG2FjqJ31Elk1QGB
+ ke0Ip/pWJxt3NGxPfHFpC/sFg/s49G8rUHIwseB2fLKsbcWVUGfE3aQbRnAiUBeSoF8f
+ H6P96b+H4G/tESEJux9GkCi4al1B3LQHjtjF3uN6sBMwf2urwVvnkH1nVo/7Ox91q/Rt
+ z6bQ==
+X-Gm-Message-State: AOAM531LsdYLz2vgE9iNIPd/X2bbPjr8BaQoUUKvYzuJ0NL2YZhOHYr9
+ dKfUKQjPQkjAXI9peIT+Yg==
+X-Google-Smtp-Source: ABdhPJzc2AcXawDMexyhwX9kljUmHJGpp3yp74aSZqBghugGE4ma17w5UwkOCA62mhIs+ne0II6TKw==
+X-Received: by 2002:a05:6830:1189:: with SMTP id
+ u9mr14233531otq.70.1608610007879; 
+ Mon, 21 Dec 2020 20:06:47 -0800 (PST)
+Received: from xps15.herring.priv ([64.188.179.253])
+ by smtp.googlemail.com with ESMTPSA id m22sm4261765otr.79.2020.12.21.20.06.46
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 21 Dec 2020 20:06:47 -0800 (PST)
+From: Rob Herring <robh@kernel.org>
+To: devicetree@vger.kernel.org
+Subject: [PATCH] dt-bindings: Drop redundant maxItems/items
+Date: Mon, 21 Dec 2020 21:06:45 -0700
+Message-Id: <20201222040645.1323611-1-robh@kernel.org>
+X-Mailer: git-send-email 2.27.0
 MIME-Version: 1.0
-Cc: Oder Chiou <oder_chiou@realtek.com>, Jack Yu <jack.yu@realtek.com>,
- "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
- "lars@metafoo.de" <lars@metafoo.de>,
- =?big5?B?a2VudF9jaGVuQHJlYWx0ZWsuY29tIFuzr6vYp7td?= <kent_chen@realtek.com>,
- =?big5?B?s6/O66fT?= <kenny_chen@realtek.com>,
- =?big5?B?RGVyZWsgW6TovHe4cV0=?= <derek.fang@realtek.com>,
- =?big5?B?U2h1bWluZyBbrVOu0bvKXQ==?= <shumingf@realtek.com>,
- "Flove\(HsinFu\)" <flove@realtek.com>
+Content-Transfer-Encoding: 8bit
+Cc: alsa-devel@alsa-project.org,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, linux-usb@vger.kernel.org,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ Jassi Brar <jaswinder.singh@linaro.org>, Vinod Koul <vkoul@kernel.org>,
+ Mark Brown <broonie@kernel.org>,
+ Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+ dmaengine@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -90,163 +91,116 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
---_000_ec66399502514edbb1de3cf9bff08b1drealtekcom_
-Content-Type: text/plain; charset="big5"
-Content-Transfer-Encoding: base64
+'maxItems' equal to the 'items' list length is redundant. 'maxItems' is
+preferred for a single entry while greater than 1 should have an 'items'
+list.
 
-TmV3IGNhbGlicmF0aW9uIHNlcXVlbmNlIHRvIGZpeCBwb3dlciBpc3N1ZSBpbiBpZGxlIHN0YXRl
-Lg0KDQpTaWduZWQtb2ZmLWJ5OiBKYWNrIFl1IDxqYWNrLnl1QHJlYWx0ZWsuY29tPg0KLS0tDQog
-c291bmQvc29jL2NvZGVjcy9ydDEwMTUuYyB8IDQwICsrKysrKysrKystLS0tLS0tLS0tLS0tLS0t
-LS0tLS0tLS0tLS0tLQ0KIDEgZmlsZSBjaGFuZ2VkLCAxMCBpbnNlcnRpb25zKCspLCAzMCBkZWxl
-dGlvbnMoLSkNCg0KZGlmZiAtLWdpdCBhL3NvdW5kL3NvYy9jb2RlY3MvcnQxMDE1LmMgYi9zb3Vu
-ZC9zb2MvY29kZWNzL3J0MTAxNS5jDQppbmRleCAzMmU2YmNmNzYzZDEuLjVmZGY3YmJmZDM3NSAx
-MDA2NDQNCi0tLSBhL3NvdW5kL3NvYy9jb2RlY3MvcnQxMDE1LmMNCisrKyBiL3NvdW5kL3NvYy9j
-b2RlY3MvcnQxMDE1LmMNCkBAIC00OTcsNDAgKzQ5NywyMCBAQCBzdGF0aWMgdm9pZCBydDEwMTVf
-Y2FsaWJyYXRlKHN0cnVjdCBydDEwMTVfcHJpdiAqcnQxMDE1KQ0KIAlzbmRfc29jX2RhcG1fbXV0
-ZXhfbG9jaygmY29tcG9uZW50LT5kYXBtKTsNCiAJcmVnY2FjaGVfY2FjaGVfYnlwYXNzKHJlZ21h
-cCwgdHJ1ZSk7DQogDQotCXJlZ21hcF93cml0ZShyZWdtYXAsIFJUMTAxNV9QV1I5LCAweEFBNjAp
-Ow0KLQlyZWdtYXBfd3JpdGUocmVnbWFwLCBSVDEwMTVfUFdSX1NUQVRFX0NUUkwsIDB4MDA4OSk7
-DQotCXJlZ21hcF93cml0ZShyZWdtYXAsIFJUMTAxNV9QV1JfU1RBVEVfQ1RSTCwgMHgwMDhBKTsN
-Ci0JcmVnbWFwX3dyaXRlKHJlZ21hcCwgUlQxMDE1X1BXUl9TVEFURV9DVFJMLCAweDAwOEMpOw0K
-LQlyZWdtYXBfd3JpdGUocmVnbWFwLCBSVDEwMTVfUFdSX1NUQVRFX0NUUkwsIDB4MDA4RCk7DQot
-CXJlZ21hcF93cml0ZShyZWdtYXAsIFJUMTAxNV9QV1I0LCAweDgwQjIpOw0KLQlyZWdtYXBfd3Jp
-dGUocmVnbWFwLCBSVDEwMTVfQ0xBU1NEX1NFUSwgMHg1Nzk3KTsNCi0JcmVnbWFwX3dyaXRlKHJl
-Z21hcCwgUlQxMDE1X0NMU0RfSU5URVJOQUw4LCAweDIxMDApOw0KLQlyZWdtYXBfd3JpdGUocmVn
-bWFwLCBSVDEwMTVfQ0xTRF9JTlRFUk5BTDksIDB4MDEwMCk7DQotCXJlZ21hcF93cml0ZShyZWdt
-YXAsIFJUMTAxNV9QV1I1LCAweDIxNzUpOw0KLQlyZWdtYXBfd3JpdGUocmVnbWFwLCBSVDEwMTVf
-TUlYRVIxLCAweDAwNUQpOw0KLQlyZWdtYXBfd3JpdGUocmVnbWFwLCBSVDEwMTVfQ0xTRF9JTlRF
-Uk5BTDEsIDB4MDBBMSk7DQotCXJlZ21hcF93cml0ZShyZWdtYXAsIFJUMTAxNV9DTFNEX0lOVEVS
-TkFMMiwgMHgxMkY3KTsNCi0JcmVnbWFwX3dyaXRlKHJlZ21hcCwgUlQxMDE1X0RDX0NBTElCX0NM
-U0QxLCAweDEyMDUpOw0KLQltc2xlZXAoMjAwKTsNCi0JcmVnbWFwX3dyaXRlKHJlZ21hcCwgUlQx
-MDE1X0NMU0RfSU5URVJOQUw4LCAweDIwMDApOw0KLQlyZWdtYXBfd3JpdGUocmVnbWFwLCBSVDEw
-MTVfQ0xTRF9JTlRFUk5BTDksIDB4MDE4MCk7DQotCXJlZ21hcF93cml0ZShyZWdtYXAsIFJUMTAx
-NV9DTFNEX0lOVEVSTkFMMSwgMHgwMEExKTsNCi0JcmVnbWFwX3dyaXRlKHJlZ21hcCwgUlQxMDE1
-X0RDX0NBTElCX0NMU0QxLCAweDBBMDUpOw0KLQltc2xlZXAoMjAwKTsNCisJcmVnbWFwX3dyaXRl
-KHJlZ21hcCwgUlQxMDE1X0NMS19ERVQsIDB4MDAwMCk7DQogCXJlZ21hcF93cml0ZShyZWdtYXAs
-IFJUMTAxNV9QV1I0LCAweDAwQjIpOw0KKwlyZWdtYXBfd3JpdGUocmVnbWFwLCBSVDEwMTVfUFdS
-X1NUQVRFX0NUUkwsIDB4MDAwOSk7DQorCW1zbGVlcCgxMDApOw0KKwlyZWdtYXBfd3JpdGUocmVn
-bWFwLCBSVDEwMTVfUFdSX1NUQVRFX0NUUkwsIDB4MDAwQSk7DQorCW1zbGVlcCgxMDApOw0KKwly
-ZWdtYXBfd3JpdGUocmVnbWFwLCBSVDEwMTVfUFdSX1NUQVRFX0NUUkwsIDB4MDAwQyk7DQorCW1z
-bGVlcCgxMDApOw0KIAlyZWdtYXBfd3JpdGUocmVnbWFwLCBSVDEwMTVfQ0xTRF9JTlRFUk5BTDgs
-IDB4MjAyOCk7DQogCXJlZ21hcF93cml0ZShyZWdtYXAsIFJUMTAxNV9DTFNEX0lOVEVSTkFMOSwg
-MHgwMTQwKTsNCi0JcmVnbWFwX3dyaXRlKHJlZ21hcCwgUlQxMDE1X1BXUjUsIDB4MDE3NSk7DQot
-CXJlZ21hcF93cml0ZShyZWdtYXAsIFJUMTAxNV9DTFNEX0lOVEVSTkFMMSwgMHgxNzIxKTsNCi0J
-cmVnbWFwX3dyaXRlKHJlZ21hcCwgUlQxMDE1X0NMQVNTRF9TRVEsIDB4NTcwRSk7DQotCXJlZ21h
-cF93cml0ZShyZWdtYXAsIFJUMTAxNV9NSVhFUjEsIDB4MjAzRCk7DQotCXJlZ21hcF93cml0ZShy
-ZWdtYXAsIFJUMTAxNV9EQ19DQUxJQl9DTFNEMSwgMHg1QTAxKTsNCi0JcmVnbWFwX3dyaXRlKHJl
-Z21hcCwgUlQxMDE1X0NMU0RfSU5URVJOQUwyLCAweDEyRkYpOw0KLQlyZWdtYXBfd3JpdGUocmVn
-bWFwLCBSVDEwMTVfR0FUX0JPT1NULCAweDBlRkUpOw0KLQlyZWdtYXBfd3JpdGUocmVnbWFwLCBS
-VDEwMTVfUFdSX1NUQVRFX0NUUkwsIDB4MDA4RSk7DQotCXJlZ21hcF93cml0ZShyZWdtYXAsIFJU
-MTAxNV9QV1JfU1RBVEVfQ1RSTCwgMHgwMDg4KTsNCisJcmVnbWFwX3dyaXRlKHJlZ21hcCwgUlQx
-MDE1X1BXUl9TVEFURV9DVFJMLCAweDAwMEQpOw0KKwltc2xlZXAoMzAwKTsNCisJcmVnbWFwX3dy
-aXRlKHJlZ21hcCwgUlQxMDE1X1BXUl9TVEFURV9DVFJMLCAweDAwMDgpOw0KIAlyZWdtYXBfd3Jp
-dGUocmVnbWFwLCBSVDEwMTVfU1lTX1JTVDEsIDB4MDVGNSk7DQotCXJlZ21hcF93cml0ZShyZWdt
-YXAsIFJUMTAxNV9TWVNfUlNUMiwgMHgwYjlhKTsNCiANCiAJcmVnY2FjaGVfY2FjaGVfYnlwYXNz
-KHJlZ21hcCwgZmFsc2UpOw0KIAlyZWdjYWNoZV9tYXJrX2RpcnR5KHJlZ21hcCk7DQotLSANCjIu
-MjkuMA0KDQo=
+A meta-schema check for this is pending once these existing cases are
+fixed.
 
---_000_ec66399502514edbb1de3cf9bff08b1drealtekcom_
-Content-Disposition: attachment; filename="winmail.dat"
-Content-Transfer-Encoding: base64
-Content-Type: application/ms-tnef; name="winmail.dat"
+Cc: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+Cc: Vinod Koul <vkoul@kernel.org>
+Cc: Mark Brown <broonie@kernel.org>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: Jassi Brar <jaswinder.singh@linaro.org>
+Cc: dri-devel@lists.freedesktop.org
+Cc: dmaengine@vger.kernel.org
+Cc: alsa-devel@alsa-project.org
+Cc: linux-usb@vger.kernel.org
+Signed-off-by: Rob Herring <robh@kernel.org>
+---
+ .../devicetree/bindings/display/xlnx/xlnx,zynqmp-dpsub.yaml    | 1 -
+ Documentation/devicetree/bindings/dma/renesas,rcar-dmac.yaml   | 1 -
+ Documentation/devicetree/bindings/mailbox/arm,mhu.yaml         | 1 -
+ .../devicetree/bindings/sound/nvidia,tegra30-hda.yaml          | 2 --
+ Documentation/devicetree/bindings/usb/renesas,usb-xhci.yaml    | 1 -
+ Documentation/devicetree/bindings/usb/renesas,usbhs.yaml       | 3 ---
+ 6 files changed, 9 deletions(-)
 
-eJ8+IosWAQaQCAAEAAAAAAABAAEAAQeQBgAIAAAAtgMAAAAAAAC5AAEJgAEAIQAAAERENUE3QTRG
-NzM1MjIyNEE5NTAxMERERkI4QzEwMDhEADEHAQ2ABAACAAAAAgACAAEFgAMADgAAAOQHDAAWAAMA
-DwAYAAIAOQEBIIADAA4AAADkBwwAFgADAA8AGAACADkBAQiABwAYAAAASVBNLk1pY3Jvc29mdCBN
-YWlsLk5vdGUAMQgBBIABAEkAAABbUEFUQ0hdIEFTb0M6IHJ0MTAxNTogbW9kaWZ5IGNhbGlicmF0
-aW9uIHNlcXVlbmNlIGZvciBiZXR0ZXIgcGVyZm9ybWFuY2UAVxkBC4ABACEAAABERDVBN0E0Rjcz
-NTIyMjRBOTUwMTBEREZCOEMxMDA4RAAxBwEDkAYAaBQAAEQAAAACAX8AAQAAAC8AAAA8ZWM2NjM5
-OTUwMjUxNGVkYmIxZGUzY2Y5YmZmMDhiMWRAcmVhbHRlay5jb20+AAALAB8OAAAAAAIBCRABAAAA
-ywQAAMcEAABVDQAATFpGdQYl2hxhAApmYmlkBAAAY2PAcGcxMjUyAP4DQ/B0ZXh0AfcCpAPjAgAE
-Y2gKwHNldDAg7wdtAoMAUBFNMgqABrQCgJZ9CoAIyDsJYjE5DsC/CcMWcgoyFnECgBViKgmwcwnw
-BJBhdAWyDlADYHOibwGAIEV4EcFuGDBdBlJ2BJAXtgIQcgDAdH0IUG4aMRAgBcAFoBtkZJogA1Ig
-ECIXslx2CJDkd2sLgGQ1HVME8AdADRdwMApxF/Jia21rBnMBkAAgIEJNX0LgRUdJTn0K/AHxC/FT
-B7MeUWliGHFpAiAg5RIAcQpQbmMZ4BiQHHDAaXggcG93G7EEAf8KUCPwA6AN0B5wIpABkBAgPC5c
-IgAYUAqBJVRTaRJnGFBkLRkwZi1iEHk6IEoA0GsgWRB1IDxqJyEueXU+QAlwB0AQICfQBaBtPn0l
-RS0pUCVFIpAIYB3AL5kZIGMvBaAFgXMvACAJHpAxNSiQIHwgNH0SMCsr9ylRLL8tVymGMecjUSSx
-GZRkLC7QEjALgIcSAAAgImFzKCspL8CeMxIwAQAecDBkLSklTEsN4AEgIClQZ2kFQGH3KlEqLys1
-YjOfKwclRR2xAxAwMPAyZTZiY2aINzYzFmAuLjUFcIk4IGJiBXAzNzUv0XAwNjQ0KOgzfzZPCkcr
-8TU/O48KQEAzEDT4OTcsK8I/QiFxPwEk4lEOUCB2bw3QICsUX4kh5mUoH2BydWMFQMVBJXAFEHYg
-KisUMeYLIpAdwF89YV9kYXDQbV9tdRAhXwkAJzA8KCYooSOgGFACMC0+3UTiKRYgKZUJcGceUBHA
-vmVBgUfSJtAKsAQQKEeB7QDAcC/AQkFlRugo5kjknF93BRBCAUjmUlRBQxBQV1I5L8AweEE4QTYw
-RudKv0vNX1MAVEFURV9DVFLmTEzCHqA4OU1PTl9Pb71QdkFRD1IfUy9QdkNUz3dV31bvUHZEWI9Z
-n0xFNOFMwjgwQjJcT11fQVJAQ0xBU1NEWxBF8lFMwjU3P1Bfb2B/YYQHYgEgIFAQUk5BTDj9TMIy
-HpFi72P/ZQ9MsytA92aPZ59MJzVmJDlAam9rf1FBUk1JWGXAMVCENZdcP26PaL9McDVBMXDP23Hf
-cu8yTMIOkEZi33WPmUFDRENQMGXwSUJlM09wMw6QcJB4SG1zHnBl/HAoAdBqX3lPdp9mBR6g/30/
-fk9/X2nGXyCBD4Ifgy9/c/+FT3nfeuyIUHvvfPwry4kvYRtLitBFVFCEgOn/R3KOX14uHqBfSY4f
-Wi9P/fowUPgrjOVqOpSPlZ+Wrv9UuJhPmV+ab5t/HqBYeJ1Px5E/jv9/zzAyOKL/pA//pR9p1SvA
-iI+nz2yKK0Btb/+rb6i/h9WtYGZgrZ+ur2GPeWKRMEWxX7Jvb6wB0DPvcL+134qfe2Q1jBCxT7kf
-u6+vd6dGu9+870FSR1AAmR/gT09bIFCDZUa0z//An6APUGfC/8QPxR9QZ6ao/56PyG+WrrgIokYx
-AJ3vy48fzJ+XF6av0I9BQ1NZU8xfUslgcDQ1Rq2P1E/D1Vp3szBiOWFJr0d/fUiMZgdAEgBG79uQ
-AMBy6mtE0GkAIHlI1daoOmDBJUUyLjI5LgFAJVsDFULiQAAfAEIAAQAAABAAAABKAGEAYwBrACAA
-WQB1AAAAHwBlAAEAAAAoAAAAagBhAGMAawAuAHkAdQBAAHIAZQBhAGwAdABlAGsALgBjAG8AbQAA
-AB8AZAABAAAACgAAAFMATQBUAFAAAAAAAAIBQQABAAAAWgAAAAAAAACBKx+kvqMQGZ1uAN0BD1QC
-AAAAgEoAYQBjAGsAIABZAHUAAABTAE0AVABQAAAAagBhAGMAawAuAHkAdQBAAHIAZQBhAGwAdABl
-AGsALgBjAG8AbQAAAAAAHwACXQEAAAAoAAAAagBhAGMAawAuAHkAdQBAAHIAZQBhAGwAdABlAGsA
-LgBjAG8AbQAAAB8A5V8BAAAAMAAAAHMAaQBwADoAagBhAGMAawAuAHkAdQBAAHIAZQBhAGwAdABl
-AGsALgBjAG8AbQAAAB8AGgwBAAAAEAAAAEoAYQBjAGsAIABZAHUAAAAfAB8MAQAAACgAAABqAGEA
-YwBrAC4AeQB1AEAAcgBlAGEAbAB0AGUAawAuAGMAbwBtAAAAHwAeDAEAAAAKAAAAUwBNAFQAUAAA
-AAAAAgEZDAEAAABaAAAAAAAAAIErH6S+oxAZnW4A3QEPVAIAAACASgBhAGMAawAgAFkAdQAAAFMA
-TQBUAFAAAABqAGEAYwBrAC4AeQB1AEAAcgBlAGEAbAB0AGUAawAuAGMAbwBtAAAAAAAfAAFdAQAA
-ACgAAABqAGEAYwBrAC4AeQB1AEAAcgBlAGEAbAB0AGUAawAuAGMAbwBtAAAACwBAOgEAAAAfABoA
-AQAAABIAAABJAFAATQAuAE4AbwB0AGUAAAAAAAMA8T8EBAAACwBAOgEAAAADAP0/tgMAAAIBCzAB
-AAAAEAAAAN1aek9zUiJKlQEN37jBAI0DABcAAQAAAEAAOQAAbiCwENjWAUAACDC39GKwENjWAQsA
-KQAAAAAAHwDZPwEAAAAAAgAATgBlAHcAIABjAGEAbABpAGIAcgBhAHQAaQBvAG4AIABzAGUAcQB1
-AGUAbgBjAGUAIAB0AG8AIABmAGkAeAAgAHAAbwB3AGUAcgAgAGkAcwBzAHUAZQAgAGkAbgAgAGkA
-ZABsAGUAIABzAHQAYQB0AGUALgANAAoADQAKAFMAaQBnAG4AZQBkAC0AbwBmAGYALQBiAHkAOgAg
-AEoAYQBjAGsAIABZAHUAIAA8AGoAYQBjAGsALgB5AHUAQAByAGUAYQBsAHQAZQBrAC4AYwBvAG0A
-PgANAAoALQAtAC0ADQAKACAAcwBvAHUAbgBkAC8AcwBvAGMALwBjAG8AZABlAGMAcwAvAHIAdAAx
-ADAAMQA1AC4AYwAgAHwAIAA0ADAAIAArACsAKwArACsAKwArACsAKwArAC0ALQAtAC0ALQAtAC0A
-LQAtAC0ALQAtAC0ALQAtAC0ALQAtAC0ALQAtAC0ALQAtAC0ALQAtAC0ALQANAAoAIAAxACAAZgBp
-AGwAZQAgAGMAaABhAG4AZwBlAGQALAAgADEAMAAgAGkAbgBzAGUAcgB0AGkAbwBuAHMAKAArACkA
-LAAgADMAMAAgAGQAZQBsAGUAdABpAG8AbgBzACgALQApAA0ACgANAAoAZABpAGYAZgAgAC0ALQBn
-AGkAdAAgAGEALwBzAG8AAAALAACACCAGAAAAAADAAAAAAAAARgAAAAAUhQAAAQAAAB8AAICGAwIA
-AAAAAMAAAAAAAABGAQAAAB4AAABhAGMAYwBlAHAAdABsAGEAbgBnAHUAYQBnAGUAAAAAAAEAAAAa
-AAAAegBoAC0AVABXACwAIABlAG4ALQBVAFMAAAAAAAMAAIAIIAYAAAAAAMAAAAAAAABGAQAAADIA
-AABFAHgAYwBoAGEAbgBnAGUAQQBwAHAAbABpAGMAYQB0AGkAbwBuAEYAbABhAGcAcwAAAAAAIAAA
-AEgAAIAIIAYAAAAAAMAAAAAAAABGAQAAACIAAABOAGUAdAB3AG8AcgBrAE0AZQBzAHMAYQBnAGUA
-SQBkAAAAAABY44dbXIulS074CNimJ9L6HwAAgBOP8kH0gxRBpYTu21prC/8BAAAAFgAAAEMAbABp
-AGUAbgB0AEkAbgBmAG8AAAAAAAEAAAAqAAAAQwBsAGkAZQBuAHQAPQBNAFMARQB4AGMAaABhAG4A
-ZwBlAFIAUABDAAAAAAAfAPo/AQAAABAAAABKAGEAYwBrACAAWQB1AAAAHwA3AAEAAACSAAAAWwBQ
-AEEAVABDAEgAXQAgAEEAUwBvAEMAOgAgAHIAdAAxADAAMQA1ADoAIABtAG8AZABpAGYAeQAgAGMA
-YQBsAGkAYgByAGEAdABpAG8AbgAgAHMAZQBxAHUAZQBuAGMAZQAgAGYAbwByACAAYgBlAHQAdABl
-AHIAIABwAGUAcgBmAG8AcgBtAGEAbgBjAGUAAAAAAB8APQABAAAAAgAAAAAAAAADADYAAAAAAAIB
-cQABAAAAFgAAAAHW2BCv66qWK/kZcE1nmSunIG8x98oAAB8AcAABAAAAkgAAAFsAUABBAFQAQwBI
-AF0AIABBAFMAbwBDADoAIAByAHQAMQAwADEANQA6ACAAbQBvAGQAaQBmAHkAIABjAGEAbABpAGIA
-cgBhAHQAaQBvAG4AIABzAGUAcQB1AGUAbgBjAGUAIABmAG8AcgAgAGIAZQB0AHQAZQByACAAcABl
-AHIAZgBvAHIAbQBhAG4AYwBlAAAAAAAfADUQAQAAAF4AAAA8AGUAYwA2ADYAMwA5ADkANQAwADIA
-NQAxADQAZQBkAGIAYgAxAGQAZQAzAGMAZgA5AGIAZgBmADAAOABiADEAZABAAHIAZQBhAGwAdABl
-AGsALgBjAG8AbQA+AAAAAAADAN4/tgMAAAMAExIAAAAAAgEAgBOP8kH0gxRBpYTu21prC/8BAAAA
-LgAAAEgAZQBhAGQAZQByAEIAbwBkAHkARgByAGEAZwBtAGUAbgB0AEwAaQBzAHQAAAAAAAEAAAAi
-AAAAAQAKAAAABAAAAAAAAAAUAAAAAAAAAAAAAAD/////AAAAAAAACwAAgBOP8kH0gxRBpYTu21pr
-C/8BAAAAHAAAAEgAYQBzAFEAdQBvAHQAZQBkAFQAZQB4AHQAAAAAAAAACwAAgBOP8kH0gxRBpYTu
-21prC/8BAAAAKAAAAEkAcwBRAHUAbwB0AGUAZABUAGUAeAB0AEMAaABhAG4AZwBlAGQAAAAAAAAA
-QAAHMDPEXbAQ2NYBAgELAAEAAAAQAAAA3Vp6T3NSIkqVAQ3fuMEAjQMAJgAAAAAACwAGDAAAAAAC
-ARAwAQAAAEYAAAAAAAAA2+nESiSg50GTGyq7K7NtTAcATLd9DVWheUS+c4U5YtAApQAAAGlg9wAA
-Mq84BUqwTkaAx8c4IroPWgAAAdekfAAAAAACARMwAQAAABAAAACqliv5GXBNZ5krpyBvMffKAgEU
-MAEAAAAMAAAAqAAAAEn1gXJOAAAAHwD4PwEAAAAQAAAASgBhAGMAawAgAFkAdQAAAB8AIkABAAAA
-BgAAAEUAWAAAAAAAHwAjQAEAAAC2AAAALwBPAD0AUgBUAEUAWABDAEgALwBPAFUAPQBFAFgAQwBI
-AEEATgBHAEUAIABBAEQATQBJAE4ASQBTAFQAUgBBAFQASQBWAEUAIABHAFIATwBVAFAAIAAoAEYA
-WQBEAEkAQgBPAEgARgAyADMAUwBQAEQATABUACkALwBDAE4APQBSAEUAQwBJAFAASQBFAE4AVABT
-AC8AQwBOAD0AVQBTAEUAUgA1ADkAOAA2ADUAMQAwADkAAAAAAB8AJEABAAAABgAAAEUAWAAAAAAA
-HwAlQAEAAAC2AAAALwBPAD0AUgBUAEUAWABDAEgALwBPAFUAPQBFAFgAQwBIAEEATgBHAEUAIABB
-AEQATQBJAE4ASQBTAFQAUgBBAFQASQBWAEUAIABHAFIATwBVAFAAIAAoAEYAWQBEAEkAQgBPAEgA
-RgAyADMAUwBQAEQATABUACkALwBDAE4APQBSAEUAQwBJAFAASQBFAE4AVABTAC8AQwBOAD0AVQBT
-AEUAUgA1ADkAOAA2ADUAMQAwADkAAAAAAB8AMEABAAAAEAAAAEoAYQBjAGsAIABZAHUAAAAfADFA
-AQAAABAAAABKAGEAYwBrACAAWQB1AAAAHwA4QAEAAAAQAAAASgBhAGMAawAgAFkAdQAAAB8AOUAB
-AAAAEAAAAEoAYQBjAGsAIABZAHUAAAADAFlAAAAAAAMAWkAAAAAAAwAJWQEAAAAfAApdAQAAACgA
-AABqAGEAYwBrAC4AeQB1AEAAcgBlAGEAbAB0AGUAawAuAGMAbwBtAAAAHwALXQEAAAAoAAAAagBh
-AGMAawAuAHkAdQBAAHIAZQBhAGwAdABlAGsALgBjAG8AbQAAAB8AAIAfpOszqHouQr57eeGpjlSz
-AQAAADgAAABDAG8AbgB2AGUAcgBzAGEAdABpAG8AbgBJAG4AZABlAHgAVAByAGEAYwBrAGkAbgBn
-AEUAeAAAAAEAAAAkAQAASQBJAD0AWwBDAEkARAA9AGYAOQAyAGIAOQA2AGEAYQAtADcAMAAxADkA
-LQA2ADcANABkAC0AOQA5ADIAYgAtAGEANwAyADAANgBmADMAMQBmADcAYwBhADsASQBEAFgASABF
-AEEARAA9AEQANgBEADgAMQAwAEEARgBFAEIAOwBJAEQAWABDAE8AVQBOAFQAPQAxAF0AOwBQAFMA
-PQBVAG4AawBuAG8AdwBuADsAVgBlAHIAcwBpAG8AbgA9AFYAZQByAHMAaQBvAG4AIAAxADUALgAx
-ACAAKABCAHUAaQBsAGQAIAAyADEAMAA2AC4AMAApACwAIABTAHQAYQBnAGUAPQBIADQAOwBVAFAA
-PQAxADAAOwBEAFAAPQAxAEMANQAAAAsAAIAIIAYAAAAAAMAAAAAAAABGAAAAAIKFAAAAAAAAAwAN
-NP0/AAAfAACAhgMCAAAAAADAAAAAAAAARgEAAAAgAAAAeAAtAG0AcwAtAGgAYQBzAC0AYQB0AHQA
-YQBjAGgAAAABAAAAAgAAAAAAAAAfAACAhgMCAAAAAADAAAAAAAAARgEAAAAiAAAAeAAtAG8AcgBp
-AGcAaQBuAGEAdABpAG4AZwAtAGkAcAAAAAAAAQAAACIAAABbADEANwAyAC4AMgAyAC4AMQAwADIA
-LgAxADYANwBdAAAAAACvMQ==
+diff --git a/Documentation/devicetree/bindings/display/xlnx/xlnx,zynqmp-dpsub.yaml b/Documentation/devicetree/bindings/display/xlnx/xlnx,zynqmp-dpsub.yaml
+index 7b9d468c3e52..403d57977ee7 100644
+--- a/Documentation/devicetree/bindings/display/xlnx/xlnx,zynqmp-dpsub.yaml
++++ b/Documentation/devicetree/bindings/display/xlnx/xlnx,zynqmp-dpsub.yaml
+@@ -98,7 +98,6 @@ properties:
+     maxItems: 1
+ 
+   dmas:
+-    maxItems: 4
+     items:
+       - description: Video layer, plane 0 (RGB or luma)
+       - description: Video layer, plane 1 (U/V or U)
+diff --git a/Documentation/devicetree/bindings/dma/renesas,rcar-dmac.yaml b/Documentation/devicetree/bindings/dma/renesas,rcar-dmac.yaml
+index b548e4723936..c07eb6f2fc8d 100644
+--- a/Documentation/devicetree/bindings/dma/renesas,rcar-dmac.yaml
++++ b/Documentation/devicetree/bindings/dma/renesas,rcar-dmac.yaml
+@@ -73,7 +73,6 @@ properties:
+     maxItems: 1
+ 
+   clock-names:
+-    maxItems: 1
+     items:
+       - const: fck
+ 
+diff --git a/Documentation/devicetree/bindings/mailbox/arm,mhu.yaml b/Documentation/devicetree/bindings/mailbox/arm,mhu.yaml
+index d43791a2dde7..d07eb00b97c8 100644
+--- a/Documentation/devicetree/bindings/mailbox/arm,mhu.yaml
++++ b/Documentation/devicetree/bindings/mailbox/arm,mhu.yaml
+@@ -61,7 +61,6 @@ properties:
+       - description: low-priority non-secure
+       - description: high-priority non-secure
+       - description: Secure
+-    maxItems: 3
+ 
+   clocks:
+     maxItems: 1
+diff --git a/Documentation/devicetree/bindings/sound/nvidia,tegra30-hda.yaml b/Documentation/devicetree/bindings/sound/nvidia,tegra30-hda.yaml
+index e543a6123792..b55775e21de6 100644
+--- a/Documentation/devicetree/bindings/sound/nvidia,tegra30-hda.yaml
++++ b/Documentation/devicetree/bindings/sound/nvidia,tegra30-hda.yaml
+@@ -44,7 +44,6 @@ properties:
+     maxItems: 3
+ 
+   clock-names:
+-    maxItems: 3
+     items:
+       - const: hda
+       - const: hda2hdmi
+@@ -54,7 +53,6 @@ properties:
+     maxItems: 3
+ 
+   reset-names:
+-    maxItems: 3
+     items:
+       - const: hda
+       - const: hda2hdmi
+diff --git a/Documentation/devicetree/bindings/usb/renesas,usb-xhci.yaml b/Documentation/devicetree/bindings/usb/renesas,usb-xhci.yaml
+index 0f078bd0a3e5..22603256ddf8 100644
+--- a/Documentation/devicetree/bindings/usb/renesas,usb-xhci.yaml
++++ b/Documentation/devicetree/bindings/usb/renesas,usb-xhci.yaml
+@@ -51,7 +51,6 @@ properties:
+     maxItems: 1
+ 
+   phy-names:
+-    maxItems: 1
+     items:
+       - const: usb
+ 
+diff --git a/Documentation/devicetree/bindings/usb/renesas,usbhs.yaml b/Documentation/devicetree/bindings/usb/renesas,usbhs.yaml
+index 737c1f47b7de..54c361d4a7af 100644
+--- a/Documentation/devicetree/bindings/usb/renesas,usbhs.yaml
++++ b/Documentation/devicetree/bindings/usb/renesas,usbhs.yaml
+@@ -74,11 +74,8 @@ properties:
+ 
+   phys:
+     maxItems: 1
+-    items:
+-      - description: phandle + phy specifier pair.
+ 
+   phy-names:
+-    maxItems: 1
+     items:
+       - const: usb
+ 
+-- 
+2.27.0
 
---_000_ec66399502514edbb1de3cf9bff08b1drealtekcom_--

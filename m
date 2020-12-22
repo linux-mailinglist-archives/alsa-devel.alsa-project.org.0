@@ -2,81 +2,95 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id F0F9B2E02A3
-	for <lists+alsa-devel@lfdr.de>; Mon, 21 Dec 2020 23:53:40 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4EF2A2E0485
+	for <lists+alsa-devel@lfdr.de>; Tue, 22 Dec 2020 03:52:03 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 85F7F175D;
-	Mon, 21 Dec 2020 23:52:50 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 85F7F175D
+	by alsa0.perex.cz (Postfix) with ESMTPS id DDAE01768;
+	Tue, 22 Dec 2020 03:51:12 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DDAE01768
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1608591220;
-	bh=lePDU5VwODevzBS7Iwlgqpthx/TKyjoF3KY6yRcBDFA=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1608605523;
+	bh=ALF99WUKAwW2sbY13eFVrIB3h5j1qqJRhhy33/Ig5DM=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=q7vP36zw5qWFwoDGPt2iHoo6gtQpCwGAIdrfHPJ+ic0jJQgErVHDdgNyJCBHfce0A
-	 wb7/27nDLxQOGk5Q2QUzSf5QNFoKp+LlZAStJU1XgYX9ctRl0xLtz6XHrs2Ob5EWKH
-	 LuBS6OnjQk1Yag2PyTrWfGVeRA1mvzHLZQyvqhPA=
+	b=kdXBsYLyazFJWh0yi3gxQJtMTlI18BvfrbEQiSOcLhxSWONHh39vL6k0JzZFSbU3t
+	 w0AimfykuE45CSVsbCgzSeQ1u2NZ0LkzHUYsUwZLWp2ceGZWEmjDqLk6TP4hrWrc1N
+	 VGkRd8j4PYDseoU4oPRCL3OYfkaezGMh1w7f7id8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 040EAF80116;
-	Mon, 21 Dec 2020 23:52:00 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 6409EF80232;
+	Tue, 22 Dec 2020 03:50:17 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 93633F801D5; Mon, 21 Dec 2020 23:51:58 +0100 (CET)
+ id A8F7AF80224; Tue, 22 Dec 2020 03:50:13 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.8 required=5.0 tests=FREEMAIL_ENVFROM_END_DIGIT,
- FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,
- SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mail-ot1-f42.google.com (mail-ot1-f42.google.com
- [209.85.210.42])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from youngberry.canonical.com (youngberry.canonical.com
+ [91.189.89.112])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 5EDA0F80116
- for <alsa-devel@alsa-project.org>; Mon, 21 Dec 2020 23:51:48 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5EDA0F80116
-Received: by mail-ot1-f42.google.com with SMTP id f16so10267358otl.11
- for <alsa-devel@alsa-project.org>; Mon, 21 Dec 2020 14:51:48 -0800 (PST)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 4F872F800BC
+ for <alsa-devel@alsa-project.org>; Tue, 22 Dec 2020 03:50:06 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4F872F800BC
+Received: from mail-lf1-f70.google.com ([209.85.167.70])
+ by youngberry.canonical.com with esmtps
+ (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.86_2)
+ (envelope-from <kai.heng.feng@canonical.com>) id 1krXkT-0003Az-Fh
+ for alsa-devel@alsa-project.org; Tue, 22 Dec 2020 02:50:05 +0000
+Received: by mail-lf1-f70.google.com with SMTP id o16so14560927lfo.0
+ for <alsa-devel@alsa-project.org>; Mon, 21 Dec 2020 18:50:05 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to;
- bh=xGMhjs6ip+VhnoHGisVBlYY5haZY44B4LgsaGJIElNA=;
- b=h7bHeP1h3wdhKWiu+NE3wUCJwwgWDF3g0UeRjxZ5VHBgyuzIjePTbyIYweTF5D9Q8P
- 1OPubdMc6bx00E5H/J+F5gLgk0NJpWA8KzErThkiERBLQDP0+Upw5NU5ixK71h6K6L5S
- 7W7c/P9caZLyghO+RKw/h5JEexvni7YSsC8I5mTCl6oyN+tJyX5Xv3kswisDZjoHqJ8v
- X1yRfJUHpIaf/UgUsUAJmMN9ZW/qbyml5EWnkwu+lQwPy68aYmmP6axsaVY1I4pakbdB
- gVhMBAh+67KE8EVeFSr4QF9npQtGe4VytGGKzYkB4oOx8Ys2JTaxjAL9C6CzTrK02L5J
- 5ZBg==
-X-Gm-Message-State: AOAM533QFiasl9WIm7Np/Je1O6pJQwFXmUJLBbiGtK4HveWfude2IbEx
- qfZvu2JiF6uQx3XCLUGazw==
-X-Google-Smtp-Source: ABdhPJyEneAcqgapuClLy3QG+WNloZI+QjG5a9eKSxP6BzvpzXcDR/RnINhSm96dHxDrcRZGlePjkA==
-X-Received: by 2002:a05:6830:1d71:: with SMTP id
- l17mr13816820oti.269.1608591106625; 
- Mon, 21 Dec 2020 14:51:46 -0800 (PST)
-Received: from robh.at.kernel.org ([64.188.179.253])
- by smtp.gmail.com with ESMTPSA id w138sm3856739oie.44.2020.12.21.14.51.43
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 21 Dec 2020 14:51:45 -0800 (PST)
-Received: (nullmailer pid 720870 invoked by uid 1000);
- Mon, 21 Dec 2020 22:51:42 -0000
-Date: Mon, 21 Dec 2020 15:51:42 -0700
-From: Rob Herring <robh@kernel.org>
-To: Adam Ford <aford173@gmail.com>
-Subject: Re: [PATCH] ASoC: wm8962: Add optional mclk device tree binding
-Message-ID: <20201221225142.GA720812@robh.at.kernel.org>
-References: <20201217162740.1452000-1-aford173@gmail.com>
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=N2WMaOhgXeDwILxq6jfp+AN/tR6hFKnoPSJxCRZJRSk=;
+ b=OwMd1c9xBVpFpZvDANqjmwmWAcS2O7Ggd06anErAhThjF4ZpPAo/4BX6d22fxsjnuC
+ D0Nq+xWULoIRAt8Bd3snfK2VgraX+ck1turXEXmLlbp+6z2PlFwqHAJPA9ehCImfcpEK
+ Y19nGmSg29d0JVvFzDdEQt61w+oJHtFFz96d0UBanClWFv4iBFLWweTlxz8lrnxxhKPK
+ 4UflrksCWBR5W8e/775KF/icOOAkX7Fn38tPBTXlKKpI5t/EvFLnmHrPcLBZWs/g15pb
+ pbOgR/Am+fvCBOPz6mQbMpKb6oI3jzebhUELqLlrF4few6eJCyBzWv23ktDoAoYl3clt
+ T5OA==
+X-Gm-Message-State: AOAM5339sKbZLYBNNJtn64e4bdHQjXXJolWJAGgV80l3PN/aTNrbRqyy
+ 1mbX0GIvcTA4rYc0ueVHMPBom4mc55MwELswZNB7Y9F/ojDFG8pmMkcLmOim2U81koK+Fh9FQgq
+ 0DLZG9uLgF64w7hiWl6pN1mVd9VAfqZKfm1yB2PEvVfJ9Rba+kQtHJjpR
+X-Received: by 2002:a19:dc5:: with SMTP id 188mr8244383lfn.513.1608605404812; 
+ Mon, 21 Dec 2020 18:50:04 -0800 (PST)
+X-Google-Smtp-Source: ABdhPJy2RV37UUec/PcA87XKutLKbjDR6qoXQSMlpRpU1eKlPPw5UWb60W7kMgtYOQIg5DFid2leHa/hfFsclEh336A=
+X-Received: by 2002:a19:dc5:: with SMTP id 188mr8244369lfn.513.1608605404522; 
+ Mon, 21 Dec 2020 18:50:04 -0800 (PST)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20201217162740.1452000-1-aford173@gmail.com>
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- Liam Girdwood <lgirdwood@gmail.com>, aford@beaconembedded.com,
- Rob Herring <robh+dt@kernel.org>, linux-kernel@vger.kernel.org,
- Mark Brown <broonie@kernel.org>, Geert Uytterhoeven <geert@linux-m68k.org>
+References: <20201214060621.1102931-1-kai.heng.feng@canonical.com>
+ <20201216124726.2842197-1-kai.heng.feng@canonical.com>
+ <s5h5z51oj12.wl-tiwai@suse.de>
+ <CAAd53p6kORC1GsW5zt+=0=J5ki43iriO-OqtFvf5W67LWhyyhA@mail.gmail.com>
+ <s5hzh2dn3oa.wl-tiwai@suse.de>
+ <CAAd53p6Ef2zFX_t3y1c6O7BmHnxYGtGSfgzXAMQSom1ainWXzg@mail.gmail.com>
+ <s5hsg85n2km.wl-tiwai@suse.de> <s5hmtydn0yg.wl-tiwai@suse.de>
+ <CAAd53p6MMFh=HCNF9pyrJc9hVMZWFe7_8MvBcBHVWARqHU_TTA@mail.gmail.com>
+ <s5h7dpfk06y.wl-tiwai@suse.de>
+ <CAAd53p53w0H6tsb4JgQtFTkYinniicTYBs2uk7tc=heP2dM_Cw@mail.gmail.com>
+ <CAKb7UvjWX7xbwMKtnad5EVy16nY1M-A13YJeRWyUwHzemcVswA@mail.gmail.com>
+In-Reply-To: <CAKb7UvjWX7xbwMKtnad5EVy16nY1M-A13YJeRWyUwHzemcVswA@mail.gmail.com>
+From: Kai-Heng Feng <kai.heng.feng@canonical.com>
+Date: Tue, 22 Dec 2020 10:49:53 +0800
+Message-ID: <CAAd53p4=bSX26QzsPyV1sxADiuVn2sowWyb5JFDoPZQ+ZYoCzA@mail.gmail.com>
+Subject: Re: [Nouveau] [PATCH v2] ALSA: hda: Continue to probe when codec
+ probe fails
+To: Ilia Mirkin <imirkin@alum.mit.edu>
+Content-Type: text/plain; charset="UTF-8"
+Cc: "moderated list:SOUND" <alsa-devel@alsa-project.org>,
+ Kai Vehmanen <kai.vehmanen@linux.intel.com>, Takashi Iwai <tiwai@suse.de>,
+ nouveau <nouveau@lists.freedesktop.org>, tiwai@suse.com,
+ open list <linux-kernel@vger.kernel.org>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ Alan Stern <stern@rowland.harvard.edu>, Linux PCI <linux-pci@vger.kernel.org>,
+ Bjorn Helgaas <bhelgaas@google.com>, Mike Rapoport <rppt@kernel.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -92,12 +106,65 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Thu, 17 Dec 2020 10:27:40 -0600, Adam Ford wrote:
-> The driver can request an optional clock for mclk.
-> Update the txt file to reflect this.
-> 
-> Suggested-by: Geert Uytterhoeven <geert@linux-m68k.org>
-> Signed-off-by: Adam Ford <aford173@gmail.com>
-> 
+On Tue, Dec 22, 2020 at 1:56 AM Ilia Mirkin <imirkin@alum.mit.edu> wrote:
+>
+> On Mon, Dec 21, 2020 at 11:33 AM Kai-Heng Feng
+> <kai.heng.feng@canonical.com> wrote:
+> >
+> > [+Cc nouveau]
+> >
+> > On Fri, Dec 18, 2020 at 4:06 PM Takashi Iwai <tiwai@suse.de> wrote:
+> > [snip]
+> > > > Quite possibly the system doesn't power up HDA controller when there's
+> > > > no external monitor.
+> > > > So when it's connected to external monitor, it's still needed for HDMI audio.
+> > > > Let me ask the user to confirm this.
+> > >
+> > > Yeah, it's the basic question whether the HD-audio is supposed to work
+> > > on this machine at all.  If yes, the current approach we take makes
+> > > less sense - instead we should rather make the HD-audio controller
+> > > working.
+> >
+> > Yea, confirmed that the Nvidia HDA works when HDMI is connected prior boot.
+> >
+> > > > > - The second problem is that pci_enable_device() ignores the error
+> > > > >   returned from pci_set_power_state() if it's -EIO.  And the
+> > > > >   inaccessible access error returns -EIO, although it's rather a fatal
+> > > > >   problem.  So the driver believes as the PCI device gets enabled
+> > > > >   properly.
+> > > >
+> > > > This was introduced in 2005, by Alan's 11f3859b1e85 ("[PATCH] PCI: Fix
+> > > > regression in pci_enable_device_bars") to fix UHCI controller.
+> > > >
+> > > > >
+> > > > > - The third problem is that HD-audio driver blindly believes the
+> > > > >   codec_mask read from the register even if it's a read failure as I
+> > > > >   already showed.
+> > > >
+> > > > This approach has least regression risk.
+> > >
+> > > Yes, but it assumes that HD-audio is really non-existent.
+> >
+> > I really don't know any good approach to address this.
+> > On Windows, HDA PCI is "hidden" until HDMI cable is plugged, then the
+> > driver will flag the magic bit to make HDA audio appear on the PCI
+> > bus.
+> > IIRC the current approach is to make nouveau and device link work.
+>
+> I don't have the full context of this discussion, but the kernel
+> force-enables the HDA subfunction nowadays, irrespective of nouveau or
+> nvidia or whatever:
 
-Acked-by: Rob Herring <robh@kernel.org>
+That's the problem.
+
+The nvidia HDA controller on the affected system only gets its power
+after HDMI cable plugged, so the probe on boot fails.
+
+Kai-Heng
+
+>
+> https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/drivers/pci/quirks.c?h=v5.10#n5267
+>
+> Cheers,
+>
+>   -ilia

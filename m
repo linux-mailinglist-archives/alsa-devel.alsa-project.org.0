@@ -2,52 +2,71 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2F5D12E0C83
-	for <lists+alsa-devel@lfdr.de>; Tue, 22 Dec 2020 16:13:36 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id BCE352E0D60
+	for <lists+alsa-devel@lfdr.de>; Tue, 22 Dec 2020 17:29:08 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 18FAA1790;
-	Tue, 22 Dec 2020 16:12:44 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 18FAA1790
+	by alsa0.perex.cz (Postfix) with ESMTPS id 526A416D5;
+	Tue, 22 Dec 2020 17:28:13 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 526A416D5
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1608650014;
-	bh=3v4FR8gdXVOW9oUvGs2RYXbvkHQvUUjThcwM1pp33nM=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=RZwZKa9eggOypfXjxhkAIChD/aTIBupXNI9SLaYcE9KSiUo/4nf6NEtRMMOLMtg8X
-	 zbZ7zWlu2vsDNGAoIFnFlvkx1M2ivY3dEnYjN1ZJQeIqf10ctB8FdG+YI1Qtnfeh8T
-	 sfxLWEN4lb5bcwAasWmmi+yMgJESyoxGE8ibWtNE=
+	s=default; t=1608654543;
+	bh=TL0OpA64GzFmwToXJLX0r9Oq1tR4MpAMJvZ6vZ0Fdyg=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=IVJqsezHT5/LwaoHXvsYgTyh7UlUPp1yoEWkxTC6giayUWGwida2a7VzN/qIdPT+L
+	 7W4ToWnPs7RX7cPphhBly4sjhqFjsoQieE+L7OATgC5kLQy88xM8pgs2Ekzj0VCmfp
+	 QdmwUAsN0u4BNOiqmXt5etg9ToQDPNp+8b5U9qXI=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id B688DF80264;
-	Tue, 22 Dec 2020 16:12:33 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 4941BF80232;
+	Tue, 22 Dec 2020 17:27:23 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 95098F8023E; Tue, 22 Dec 2020 16:12:31 +0100 (CET)
+ id 3AFB1F80224; Tue, 22 Dec 2020 17:27:21 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 53E40F8021D
- for <alsa-devel@alsa-project.org>; Tue, 22 Dec 2020 16:12:25 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 53E40F8021D
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 14225AD5C;
- Tue, 22 Dec 2020 15:12:25 +0000 (UTC)
-From: Takashi Iwai <tiwai@suse.de>
-To: alsa-devel@alsa-project.org
-Subject: [PATCH] pcm: Fix a typo in SND_PCM_AUDIO_TSTAMP_TYPE_LAST definition
-Date: Tue, 22 Dec 2020 16:12:23 +0100
-Message-Id: <20201222151223.14476-1-tiwai@suse.de>
-X-Mailer: git-send-email 2.26.2
+ by alsa1.perex.cz (Postfix) with ESMTPS id 009D5F80116
+ for <alsa-devel@alsa-project.org>; Tue, 22 Dec 2020 17:27:17 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 009D5F80116
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="iDgzLpQB"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id C5D5622AAE;
+ Tue, 22 Dec 2020 16:27:13 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1608654434;
+ bh=TL0OpA64GzFmwToXJLX0r9Oq1tR4MpAMJvZ6vZ0Fdyg=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=iDgzLpQBBXH9YTfFBKVQJYN6MYAp0jCmF55BRi4QMkWj9bvJlAMGoT5ymjLbEQtzw
+ 3tEM/W5nGCHA3+B+VwbF798B2VViU6tS/mjzIV7x4TgTTUMiDOkQq5MI3n7dW9zA5E
+ FSw9Km5td0sUQBbjY85j2Q3PdKmI6mps5XRQCC2ChSGNeeoPAZ528rrHsxGFxTJSNt
+ 5g4vgoUpkM5Ac394XVjisDu4ydN3le5yZm44TWYT94ZnALtWvXTqjsMhTMGaD8dqa1
+ Gk5eCeSwlpTHzab3W/rGF8KZK1Pw/MvIBODzv2zvbb43/pVQ+KG76KZIpU6ryF/bZW
+ 0vu2GqQzMYCJA==
+Date: Tue, 22 Dec 2020 21:57:09 +0530
+From: Vinod Koul <vkoul@kernel.org>
+To: Rob Herring <robh@kernel.org>
+Subject: Re: [PATCH] dt-bindings: Drop redundant maxItems/items
+Message-ID: <20201222162709.GA120946@vkoul-mobl>
+References: <20201222040645.1323611-1-robh@kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Cc: David Henningsson <coding@diwic.se>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20201222040645.1323611-1-robh@kernel.org>
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, linux-usb@vger.kernel.org,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ Jassi Brar <jaswinder.singh@linaro.org>, Mark Brown <broonie@kernel.org>,
+ Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+ dmaengine@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -63,27 +82,19 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-It was wrongly defined with SNDRV_ prefix.  Fix it.
+On 21-12-20, 21:06, Rob Herring wrote:
+> 'maxItems' equal to the 'items' list length is redundant. 'maxItems' is
+> preferred for a single entry while greater than 1 should have an 'items'
+> list.
+> 
+> A meta-schema check for this is pending once these existing cases are
+> fixed.
 
-Fixes: ea02dbd20a53 ("pcm: Add snd_pcm_audio_tstamp_type_t constants")
-Signed-off-by: Takashi Iwai <tiwai@suse.de>
----
- include/pcm.h | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+> ---
+>  .../devicetree/bindings/display/xlnx/xlnx,zynqmp-dpsub.yaml    | 1 -
+>  Documentation/devicetree/bindings/dma/renesas,rcar-dmac.yaml   | 1 -
 
-diff --git a/include/pcm.h b/include/pcm.h
-index cf1eea8bbc9b..e300b951c076 100644
---- a/include/pcm.h
-+++ b/include/pcm.h
-@@ -361,7 +361,7 @@ typedef enum _snd_pcm_audio_tstamp_type {
- 	SND_PCM_AUDIO_TSTAMP_TYPE_LINK_ABSOLUTE = 3,	   /**< link time reported by sample or wallclock counter, not reset on startup */
- 	SND_PCM_AUDIO_TSTAMP_TYPE_LINK_ESTIMATED = 4,    /**< link time estimated indirectly */
- 	SND_PCM_AUDIO_TSTAMP_TYPE_LINK_SYNCHRONIZED = 5, /**< link time synchronized with system time */
--	SND_PCM_AUDIO_TSTAMP_TYPE_LAST = SNDRV_PCM_AUDIO_TSTAMP_TYPE_LINK_SYNCHRONIZED
-+	SND_PCM_AUDIO_TSTAMP_TYPE_LAST = SND_PCM_AUDIO_TSTAMP_TYPE_LINK_SYNCHRONIZED
- } snd_pcm_audio_tstamp_type_t;
- 
- typedef struct _snd_pcm_audio_tstamp_config {
+Acked-By: Vinod Koul <vkoul@kernel.org>
+
 -- 
-2.26.2
-
+~Vinod

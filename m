@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 847C62E1FFE
-	for <lists+alsa-devel@lfdr.de>; Wed, 23 Dec 2020 18:31:52 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4FAAC2E1FFF
+	for <lists+alsa-devel@lfdr.de>; Wed, 23 Dec 2020 18:32:06 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 1493F178F;
-	Wed, 23 Dec 2020 18:31:02 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1493F178F
+	by alsa0.perex.cz (Postfix) with ESMTPS id BDF2C17BA;
+	Wed, 23 Dec 2020 18:31:10 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BDF2C17BA
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1608744712;
-	bh=kZRFZTMFNi6ZMQgiLy/oIebZlQ5QKiAUFwPLCGiJLFk=;
+	s=default; t=1608744720;
+	bh=vdDzEzcb+ZoiWzFA0JfJiMg9+Gt2wS1wlMRmfgp2Igo=;
 	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=H+rfCJFqJdXhfbddN9CuJ28q7AiNu/qdpYD5TbDIp+SmrS1DmnuvBVCbOdny73LeD
-	 l3H7xiO8CLsEgMMgQC6jUC260aBm6/XGZCfSu4P5IYx3FbXl8gsM5zInj1n+q344d3
-	 Nr1ua95cswH/iAJLizfsPUYrFKc+9rkOx/zkTEJc=
+	b=aTVf9gR0WYHgKy35l74tnQx/6AuNVwf7yh1okg13qzPuQLOf+pp//QO/vTTmPpwS9
+	 sEv9d/9ptibDOGoXwTPop0UpcIlUJj4AZTBRwOvLfXZQvv+9ucMbW7RmtnhmLC5Yjg
+	 n5TgRD/jl1SqhSVgkaF5EQK6hNaMkBLeGMLLg5+8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 0FDE9F801EB;
-	Wed, 23 Dec 2020 18:30:17 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 02FDFF8021C;
+	Wed, 23 Dec 2020 18:30:19 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id C3E35F801EB; Wed, 23 Dec 2020 18:30:13 +0100 (CET)
+ id 6A2E5F801D5; Wed, 23 Dec 2020 18:30:15 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE
@@ -33,20 +33,20 @@ X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 51977F800BC
- for <alsa-devel@alsa-project.org>; Wed, 23 Dec 2020 18:30:05 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 51977F800BC
+ by alsa1.perex.cz (Postfix) with ESMTPS id 6C345F80116
+ for <alsa-devel@alsa-project.org>; Wed, 23 Dec 2020 18:30:12 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6C345F80116
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 569E9AD09;
- Wed, 23 Dec 2020 17:30:00 +0000 (UTC)
-Date: Wed, 23 Dec 2020 18:30:00 +0100
-Message-ID: <s5hft3wctwn.wl-tiwai@suse.de>
+ by mx2.suse.de (Postfix) with ESMTP id 0D18EACF1;
+ Wed, 23 Dec 2020 17:30:12 +0000 (UTC)
+Date: Wed, 23 Dec 2020 18:30:11 +0100
+Message-ID: <s5heejgctwc.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
 To: Kailang <kailang@realtek.com>
-Subject: Re: Lenovo C940 speaker
-In-Reply-To: <ea25b4e5c468491aa2e9d6cb1f2fced3@realtek.com>
-References: <ea25b4e5c468491aa2e9d6cb1f2fced3@realtek.com>
+Subject: Re: Dell 0x0a58 change name
+In-Reply-To: <efe7c196158241aa817229df7835d645@realtek.com>
+References: <efe7c196158241aa817229df7835d645@realtek.com>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
  FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
  (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
@@ -68,21 +68,17 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Wed, 23 Dec 2020 08:28:36 +0100,
+On Wed, 23 Dec 2020 08:43:55 +0100,
 Kailang wrote:
 > 
 > Hi Takashi,
 > 
-> C940 make i2s Amp(none Realtek) verb in BIOS verb table. It will enable internal speaker.
-> This patch will solve it can't adjust speaker volume issue.
+> Dell want change platform name to 'Dell' only.
 > 
 > BR,
 > Kailang
 
-Applied now with a slight modification to put at the next of the other
-speaker quirk for Dell and more clarifications in the description.
+Thanks, applied now.
 
-
-thanks,
 
 Takashi

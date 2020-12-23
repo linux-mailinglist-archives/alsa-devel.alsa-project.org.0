@@ -2,69 +2,82 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id CA3E62E196E
-	for <lists+alsa-devel@lfdr.de>; Wed, 23 Dec 2020 08:45:50 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 771332E1AA6
+	for <lists+alsa-devel@lfdr.de>; Wed, 23 Dec 2020 10:58:44 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 6CB6117D8;
-	Wed, 23 Dec 2020 08:44:55 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6CB6117D8
+	by alsa0.perex.cz (Postfix) with ESMTPS id 2B26A17C4;
+	Wed, 23 Dec 2020 10:57:47 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2B26A17C4
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1608709545;
-	bh=AbKLbHkbOufoZoynXBoGQ03ONqmeruzSaJECZydgUf8=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=az4zunDvBV2EDgMA+z0V+kPjbDw7qMKLWHJuDlRcdlpkreUbXmHVab+/R58c/bt4n
-	 Bg7dtaHE/zmyjow9x379SeYaqGuuXF3ZEEh8TcfKRM4Q/AwEKINh9O6PnD/7HQFd5F
-	 pTq7LgnZOvfnwm4Gim+iNnAUFGcDd1FlhW9mK/QE=
+	s=default; t=1608717517;
+	bh=s6xfg+p/MyD4xGjYyM4ELwDcP6gn2NuWZR8JVBrM50Q=;
+	h=Subject:To:References:From:Date:In-Reply-To:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=doEckLxhqv4liDm04Cse97T3o+JSjMtsgd2dze8ut3mZtBGIk1HYvYvOu+xbcwjQo
+	 /vgJFfV+owPDhl3wDJL4IL8YVLgnIX5oQks4kz05pgTx7I8sX/zNDiNIXDIMgm3243
+	 YsnqJ1oyXIKpOahwOm7IC8alKPss5coVk2yjn0eM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id C5C9AF801EB;
-	Wed, 23 Dec 2020 08:44:10 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 82669F801EB;
+	Wed, 23 Dec 2020 10:57:02 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 8C4DDF801D5; Wed, 23 Dec 2020 08:44:09 +0100 (CET)
+ id 14512F800BC; Wed, 23 Dec 2020 10:56:59 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: ***
-X-Spam-Status: No, score=3.0 required=5.0 tests=PRX_APP_ATTACH, SPF_HELO_NONE, 
- SPF_PASS autolearn=disabled version=3.4.0
-Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
+X-Spam-Level: 
+X-Spam-Status: No, score=-2.6 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE autolearn=disabled
+ version=3.4.0
+Received: from www381.your-server.de (www381.your-server.de [78.46.137.84])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 8AF74F80116
- for <alsa-devel@alsa-project.org>; Wed, 23 Dec 2020 08:43:59 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8AF74F80116
-Authenticated-By: 
-X-SpamFilter-By: ArmorX SpamTrap 5.73 with qID 0BN7hu3kB008275,
- This message is accepted by code: ctloc85258
-Received: from mail.realtek.com (rtexmbs01.realtek.com.tw[172.21.6.94])
- by rtits2.realtek.com.tw (8.15.2/2.70/5.88) with ESMTPS id 0BN7hu3kB008275
- (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT);
- Wed, 23 Dec 2020 15:43:56 +0800
-Received: from RTEXMBS01.realtek.com.tw (172.21.6.94) by
- RTEXMBS01.realtek.com.tw (172.21.6.94) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2106.2; Wed, 23 Dec 2020 15:43:56 +0800
-Received: from RTEXMBS01.realtek.com.tw ([fe80::5d07:e256:a2a2:81ee]) by
- RTEXMBS01.realtek.com.tw ([fe80::5d07:e256:a2a2:81ee%5]) with mapi id
- 15.01.2106.006; Wed, 23 Dec 2020 15:43:56 +0800
-From: Kailang <kailang@realtek.com>
-To: "Takashi Iwai (tiwai@suse.de)" <tiwai@suse.de>
-Subject: Dell 0x0a58 change name
-Thread-Topic: Dell 0x0a58 change name
-Thread-Index: AdbY/yF2CXJ2T0xXQmuD7EGzprsE1w==
-Date: Wed, 23 Dec 2020 07:43:55 +0000
-Message-ID: <efe7c196158241aa817229df7835d645@realtek.com>
-Accept-Language: zh-TW, en-US
-Content-Language: zh-TW
-X-MS-Has-Attach: yes
-X-MS-TNEF-Correlator: 
-x-originating-ip: [172.22.102.96]
-Content-Type: multipart/mixed;
- boundary="_002_efe7c196158241aa817229df7835d645realtekcom_"
+ by alsa1.perex.cz (Postfix) with ESMTPS id 8FC2DF80116
+ for <alsa-devel@alsa-project.org>; Wed, 23 Dec 2020 10:56:53 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8FC2DF80116
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=metafoo.de header.i=@metafoo.de
+ header.b="A3k0uc5u"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=metafoo.de; 
+ s=default2002;
+ h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
+ MIME-Version:Date:Message-ID:From:References:To:Subject:Sender:Reply-To:Cc:
+ Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+ Resent-To:Resent-Cc:Resent-Message-ID;
+ bh=NXeKGEY3u7W/GCYxtzehcRKLskHSvgJV0Vp78KnqJhA=; b=A3k0uc5uZlNMfTObqYiiG8wiXW
+ /GWW6ftsp/I0CUikRkyi2iqniquO9CG/8ZKLTSSU+Ee8OKnOKiTri3CUuBcoeE752izEqONMyn+FR
+ I607GZ2Gm+7ftpSirab6ESMOSmunMWCdCcVTwhgQ3AKLzmxpmLB1e0VNaK+/PalF/Pml5K3em7zrO
+ plQVPloB2u2G4huU7T742WjJz/WikogYhz3/dXkzQdt1fLU8jru9ZFC433g8D/SPMB4OFoXJhK3a1
+ sbi7/TtDjV4pWImZJEv+R1wJeIN9nt6K5i6utjILLCttAXiPp6WUYtEYP/zcu2Jf0Lvn0Am3cEzQF
+ nfklELzw==;
+Received: from sslproxy03.your-server.de ([88.198.220.132])
+ by www381.your-server.de with esmtpsa (TLSv1.3:TLS_AES_256_GCM_SHA384:256)
+ (Exim 4.92.3) (envelope-from <lars@metafoo.de>)
+ id 1ks0sy-0006tg-Q9; Wed, 23 Dec 2020 10:56:48 +0100
+Received: from [62.216.202.54] (helo=[192.168.178.20])
+ by sslproxy03.your-server.de with esmtpsa (TLSv1.3:TLS_AES_256_GCM_SHA384:256)
+ (Exim 4.92) (envelope-from <lars@metafoo.de>)
+ id 1ks0sy-000S5Z-Md; Wed, 23 Dec 2020 10:56:48 +0100
+Subject: Re: question about alsa tracepoints and alsa debugging
+To: Bert Schiettecatte <bert@bertschiettecatte.com>,
+ alsa-devel@alsa-project.org
+References: <CALd3UbSrAqYFe5Z-S6NMKGaVMvOZx7C4zV5O7CwtTKPmV+UeVQ@mail.gmail.com>
+ <CALd3UbS6MtKQEdhXQXH2GmU1EvZgS52XcTPihZ5wjb=4FaiYXA@mail.gmail.com>
+ <CALd3UbQuDU6asvTkQTP48ct4hT9euUGUoenD5TW2ZD7gbuHPag@mail.gmail.com>
+From: Lars-Peter Clausen <lars@metafoo.de>
+Message-ID: <8fc2a9ae-c87a-03cd-4349-81d0ea3380d3@metafoo.de>
+Date: Wed, 23 Dec 2020 10:56:48 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.6.0
 MIME-Version: 1.0
-Cc: " \(alsa-devel@alsa-project.org\)" <alsa-devel@alsa-project.org>
+In-Reply-To: <CALd3UbQuDU6asvTkQTP48ct4hT9euUGUoenD5TW2ZD7gbuHPag@mail.gmail.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 7bit
+Content-Language: en-US
+X-Authenticated-Sender: lars@metafoo.de
+X-Virus-Scanned: Clear (ClamAV 0.102.4/26025/Tue Dec 22 13:51:35 2020)
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -80,46 +93,70 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
---_002_efe7c196158241aa817229df7835d645realtekcom_
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+On 12/23/20 5:31 AM, Bert Schiettecatte wrote:
+> Hi all,
+>
+> I have a rk3288 board I am working with, it has two ADCs and one DAC.
+> The ADCs are connected via an FPGA to the rk3288. The DAC is directly
+> connected to the I2S port of the rk3288. The rk3288 generates the
+> master clock. I am using buildroot and busybox and kernel 5.9.12
+> (stable).
+>
+> I have a driver which receives the ADC data from the FPGA via SDIO.
+> When I run speaker-test in the background and use arecord to record
+> simultaneously in the foreground, both arecord and speaker-test seem
+> to lock up. When I run speaker-test alone I do not have a problem. The
+> playback device uses the rockchip_i2s.c driver while the capture
+> device uses my SDIO driver.
+>
+> My driver based on dw_mmc.c calls snd_pcm_period_elapsed() for each
+> buffer of frames that is ready. I can see that this is being called
+> for a while when I start arecord in the foreground, until the lockup
+> occurs. The moment I start arecord, the console output from
+> speaker-test stops, so it's locked up by starting arecord.
+Are these implemented as two separate sound cards? If so I don't see how 
+they could interfere with each other. There should not be any shared 
+resources or locks between them at least on the ALSA side.
+> Previously this was working fine on kernel 4.11. However, since I updated to
+> kernel 5.9.12 this no longer works. Has anything changed between 4.11
+> and 5.9.12 that could be the cause of the problem?
 
-Hi Takashi,
+There are almost 300k commits between v4.11 and v5.9.12 one of them 
+surely could have added a new issue :)
 
-Dell want change platform name to 'Dell' only.
+If possible try to narrow this down a bit more, this will help to track 
+this down. If this is a more general issue it is quite likely that this 
+is a more recently introduced problem, otherwise others would have 
+already run into it. Maybe try one of the stable kernels like v5.4.
 
-BR,
-Kailang
+>
+> commands used for starting playback / trace capture and for recording -
+> ./perf record -F 99 -g -e snd_pcm:* -e sched:sched_switch -e
+> sched:sched_wakeup -e irq:* speaker-test -D
+> hw:CARD=ak4458ak5558aud,DEV=0 -c8 -r192000 -FS32_LE -tsine &
+> arecord -Dhw:CARD=ak4458ak5558aud,DEV=1 -fS32_LE -c16 -r192000
+> /mnt/ramdisk/rec.wav
+>
+> I enabled the kernel options as described at
+> https://www.kernel.org/doc/html/v5.9/sound/designs/tracepoints.html
+> and have used perf to record a trace, which can be access here -
+> https://kernel-debugging.s3-us-west-1.amazonaws.com/perf.data.script.211220202054.txt
+> (exported using "perf script")
+>
+> The trace file shows "lockdep_recursion" at some point so I am
+> wondering if my problem has to do with a deadlock somehow being
+> caused.
 
---_002_efe7c196158241aa817229df7835d645realtekcom_
-Content-Type: application/octet-stream; name="0001-dell-0x0a58.patch"
-Content-Description: 0001-dell-0x0a58.patch
-Content-Disposition: attachment; filename="0001-dell-0x0a58.patch"; size=1201;
-	creation-date="Wed, 23 Dec 2020 07:36:36 GMT";
-	modification-date="Wed, 23 Dec 2020 07:41:47 GMT"
-Content-Transfer-Encoding: base64
+lockdep_recursion is not even a function. I think this is just an 
+incorrectly resolved stack trace.
 
-RnJvbSA0NDZhZjI5YjA4NjZlNmY0OTNkOGVjMGFkYTQ0MWZhYmJjZWMwMWMxIE1vbiBTZXAgMTcg
-MDA6MDA6MDAgMjAwMQpGcm9tOiBrYWlsYW5nIDxrYWlsYW5nQHJlYWx0ZWsuY29tPgpEYXRlOiBX
-ZWQsIDIzIERlYyAyMDIwIDE1OjM0OjU3ICswODAwClN1YmplY3Q6IFtQQVRDSF0gQUxTQTogaGRh
-L3JlYWx0ZWsgLSBNb2RpZnkgRGVsbCBwbGF0Zm9ybSBuYW1lCgpEZWxsIHBsYXRmb3JtIFNTSUQ6
-MHgwYTU4IGNoYW5nZSBwbGF0Zm9ybSBuYW1lLgoKU2lnbmVkLW9mZi1ieTogS2FpbGFuZyBZYW5n
-IDxrYWlsYW5nQHJlYWx0ZWsuY29tPgpkaWZmIC0tZ2l0IGEvc291bmQvcGNpL2hkYS9wYXRjaF9y
-ZWFsdGVrLmMgYi9zb3VuZC9wY2kvaGRhL3BhdGNoX3JlYWx0ZWsuYwppbmRleCBkZGU1YmEyMDk1
-NDEuLjAwNmFmNjU0MWRhZCAxMDA2NDQKLS0tIGEvc291bmQvcGNpL2hkYS9wYXRjaF9yZWFsdGVr
-LmMKKysrIGIvc291bmQvcGNpL2hkYS9wYXRjaF9yZWFsdGVrLmMKQEAgLTc4ODUsNyArNzg4NSw3
-IEBAIHN0YXRpYyBjb25zdCBzdHJ1Y3Qgc25kX3BjaV9xdWlyayBhbGMyNjlfZml4dXBfdGJsW10g
-PSB7CiAJU05EX1BDSV9RVUlSSygweDEwMjgsIDB4MDliZiwgIkRlbGwgUHJlY2lzaW9uIiwgQUxD
-MjMzX0ZJWFVQX0FTVVNfTUlDX05PX1BSRVNFTkNFKSwKIAlTTkRfUENJX1FVSVJLKDB4MTAyOCwg
-MHgwYTJlLCAiRGVsbCIsIEFMQzIzNl9GSVhVUF9ERUxMX0FJT19IRUFEU0VUX01JQyksCiAJU05E
-X1BDSV9RVUlSSygweDEwMjgsIDB4MGEzMCwgIkRlbGwiLCBBTEMyMzZfRklYVVBfREVMTF9BSU9f
-SEVBRFNFVF9NSUMpLAotCVNORF9QQ0lfUVVJUksoMHgxMDI4LCAweDBhNTgsICJEZWxsIFByZWNp
-c2lvbiAzNjUwIFRvd2VyIiwgQUxDMjU1X0ZJWFVQX0RFTExfSEVBRFNFVF9NSUMpLAorCVNORF9Q
-Q0lfUVVJUksoMHgxMDI4LCAweDBhNTgsICJEZWxsIiwgQUxDMjU1X0ZJWFVQX0RFTExfSEVBRFNF
-VF9NSUMpLAogCVNORF9QQ0lfUVVJUksoMHgxMDI4LCAweDE2NGEsICJEZWxsIiwgQUxDMjkzX0ZJ
-WFVQX0RFTEwxX01JQ19OT19QUkVTRU5DRSksCiAJU05EX1BDSV9RVUlSSygweDEwMjgsIDB4MTY0
-YiwgIkRlbGwiLCBBTEMyOTNfRklYVVBfREVMTDFfTUlDX05PX1BSRVNFTkNFKSwKIAlTTkRfUENJ
-X1FVSVJLKDB4MTAzYywgMHgxNTg2LCAiSFAiLCBBTEMyNjlfRklYVVBfSFBfTVVURV9MRURfTUlD
-MiksCg==
+To check if there is a locking issue somewhere compile your kernel with 
+CONFIG_PROVE_LOCKING=y
 
---_002_efe7c196158241aa817229df7835d645realtekcom_--
+Do both devices I2S and MMC use the same DMA? If so I could see things 
+going wrong there since that would be shared resources in the DMA 
+driver. If possible try to run the MMC driver without DMA and see what 
+happens.
+
+- Lars
+

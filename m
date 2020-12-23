@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 88D7F2E1FDA
-	for <lists+alsa-devel@lfdr.de>; Wed, 23 Dec 2020 18:24:58 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 475462E1FF6
+	for <lists+alsa-devel@lfdr.de>; Wed, 23 Dec 2020 18:27:28 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 091231748;
-	Wed, 23 Dec 2020 18:24:03 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 091231748
+	by alsa0.perex.cz (Postfix) with ESMTPS id CC1F9179D;
+	Wed, 23 Dec 2020 18:26:37 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CC1F9179D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1608744293;
-	bh=h1DjeuziAPWAhXzrZWjO1w2pXJeCBxFyfJelL/xgEOU=;
+	s=default; t=1608744447;
+	bh=MXsG7Q3BwM7UmoE6V780l3f6ryR7cmLdrOiB5/Es1aE=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=pt5yhiIIWP1CkDUPXrf9SqaeLnZPr/fX8dTEOQBg/zG4C3oYVf2bTaOOynTD4z1rr
-	 a6DY1w+DSCbBbgB4gl+r5fyuI8lNVuBykmg9NHhcfmjP4Sq5+wGISSOjUdh0tln2EE
-	 NJq7tOjl9ly8ghn8MNpbIwB5BqX6iyMPkVUDTuzc=
+	b=pD/r0AcO5Rs8W5s11G/JuIlBreRGdCkH5U6ijPykatylLiU+5p1hchYQq9sAUnKbG
+	 8+SuwpcDMADO8Wq5g+G9PQEJYHgOiXfv/D/1/eawei0CNSWYgBXwu1po82MZoCdHoL
+	 XpsYOxFipNMvF4+WA4qLo0yEocPcCwt0aGJuyRJ0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 3D89AF804CA;
-	Wed, 23 Dec 2020 18:23:15 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 1E101F804ED;
+	Wed, 23 Dec 2020 18:23:35 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 3069AF804C1; Wed, 23 Dec 2020 18:23:11 +0100 (CET)
+ id C43D4F804C3; Wed, 23 Dec 2020 18:23:19 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,38 +34,38 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from www381.your-server.de (www381.your-server.de [78.46.137.84])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id DD2F8F80212
- for <alsa-devel@alsa-project.org>; Wed, 23 Dec 2020 18:23:02 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DD2F8F80212
+ by alsa1.perex.cz (Postfix) with ESMTPS id BE6AFF8027D
+ for <alsa-devel@alsa-project.org>; Wed, 23 Dec 2020 18:23:07 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BE6AFF8027D
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=metafoo.de header.i=@metafoo.de
- header.b="dihiTNNZ"
+ header.b="VcMtc3v8"
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=metafoo.de; 
  s=default2002;
  h=Content-Transfer-Encoding:MIME-Version:References:
  In-Reply-To:Message-Id:Date:Subject:Cc:To:From:Sender:Reply-To:Content-Type:
  Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
  Resent-To:Resent-Cc:Resent-Message-ID;
- bh=pX1LgKhVCtV+QZok7N1fQH9W07X3ZG11IQtJVsDun5Q=; b=dihiTNNZhJ71/ZUhUTQ6OF9POX
- KWir5k3P9HzaqXxjG+3/gWz7nqyV0vGcBHxgKSD+W8Qav4Q5KJkeuPcnn6TZt9ZUwxpXwFTyck7Qb
- kO786mfXZLPe+QtciD6+fe1zHZJiKupwI3OwX3+Z4QDhWzZPkvjWHjGapWX+j0F05m1XSgAb96rZM
- B1YDa7EP6rf9Z8rP4/lRcqTQ7UZWaEPSuhu1LGgepaRCxljsuaa6YiR3FlEEizkKC5SpbJKRywzCI
- t9cCUoKRYOhmg+V+lYh5b84ppCAG9wAdfKy7Qq41kUBxnaOrwtDk19ocmBB37Vrz4SayAAPGjsoH/
- 1o+3FsaQ==;
+ bh=Qih6Acpb9w4ikOh/x6soFx60kNwlnscMxJPMPsz4ZGw=; b=VcMtc3v8ba5+VnJPNEQAskuScm
+ 5doHcB4fmPGgll68LNWI3au8oPY0oaOybJDWQLn5AX25kAXbzjTsDst9qKa0GdGYS0MCPh+oweHZh
+ bsmvu31LNiZBg6sW8/OtG8OeDjxtwdVE/FowCLPlQeAOz2SWJFcrLs/88e+PhHwbl9qQ5s/ulplsl
+ Fq2juUis0kIuUbZMV2og1H8WiJlVLfYPBZz5LAITE4IV+hxDsOoQnlz8A7k2CyK3I9A2qgvZyhTnz
+ 8GUrLlY6wqloia+yFj21e+TGpWZ6b1J7VIGSCVuAio6GE0W3I+QAD5qDiaJPvNVopQdSwzubcZJdw
+ cZCFtqGw==;
 Received: from sslproxy01.your-server.de ([78.46.139.224])
  by www381.your-server.de with esmtpsa (TLSv1.3:TLS_AES_256_GCM_SHA384:256)
  (Exim 4.92.3) (envelope-from <lars@metafoo.de>)
- id 1ks7qo-000Eu7-G8; Wed, 23 Dec 2020 18:23:02 +0100
+ id 1ks7qt-000EuA-Ix; Wed, 23 Dec 2020 18:23:07 +0100
 Received: from [62.216.202.54] (helo=lars-desktop.fritz.box)
  by sslproxy01.your-server.de with esmtpsa (TLSv1.3:TLS_AES_256_GCM_SHA384:256)
  (Exim 4.92) (envelope-from <lars@metafoo.de>)
- id 1ks7qo-000Crk-Cl; Wed, 23 Dec 2020 18:23:02 +0100
+ id 1ks7qo-000Crk-ER; Wed, 23 Dec 2020 18:23:02 +0100
 From: Lars-Peter Clausen <lars@metafoo.de>
 To: Takashi Iwai <tiwai@suse.com>
-Subject: [PATCH 07/18] ALSA: dummy: Use DIV_ROUND_UP() instead of open-coding
- it
-Date: Wed, 23 Dec 2020 18:22:18 +0100
-Message-Id: <20201223172229.781-7-lars@metafoo.de>
+Subject: [PATCH 08/18] ALSA: emu10k1: Use DIV_ROUND_UP() instead of
+ open-coding it
+Date: Wed, 23 Dec 2020 18:22:19 +0100
+Message-Id: <20201223172229.781-8-lars@metafoo.de>
 X-Mailer: git-send-email 2.20.1
 In-Reply-To: <20201223172229.781-1-lars@metafoo.de>
 References: <20201223172229.781-1-lars@metafoo.de>
@@ -104,22 +104,22 @@ expression x, y;
 
 Signed-off-by: Lars-Peter Clausen <lars@metafoo.de>
 ---
- sound/drivers/dummy.c | 2 +-
+ sound/pci/emu10k1/memory.c | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/sound/drivers/dummy.c b/sound/drivers/dummy.c
-index b5486de08b97..316c9afadefe 100644
---- a/sound/drivers/dummy.c
-+++ b/sound/drivers/dummy.c
-@@ -236,7 +236,7 @@ struct dummy_systimer_pcm {
- static void dummy_systimer_rearm(struct dummy_systimer_pcm *dpcm)
+diff --git a/sound/pci/emu10k1/memory.c b/sound/pci/emu10k1/memory.c
+index 94b8d5b08225..288e0fd2e47d 100644
+--- a/sound/pci/emu10k1/memory.c
++++ b/sound/pci/emu10k1/memory.c
+@@ -375,7 +375,7 @@ int snd_emu10k1_alloc_pages_maybe_wider(struct snd_emu10k1 *emu, size_t size,
+ 					struct snd_dma_buffer *dmab)
  {
- 	mod_timer(&dpcm->timer, jiffies +
--		(dpcm->frac_period_rest + dpcm->rate - 1) / dpcm->rate);
-+		DIV_ROUND_UP(dpcm->frac_period_rest, dpcm->rate));
- }
+ 	if (emu->iommu_workaround) {
+-		size_t npages = (size + PAGE_SIZE - 1) / PAGE_SIZE;
++		size_t npages = DIV_ROUND_UP(size, PAGE_SIZE);
+ 		size_t size_real = npages * PAGE_SIZE;
  
- static void dummy_systimer_update(struct dummy_systimer_pcm *dpcm)
+ 		/*
 -- 
 2.20.1
 

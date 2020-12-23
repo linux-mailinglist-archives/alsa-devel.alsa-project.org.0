@@ -2,69 +2,72 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2C8D22E1FF3
-	for <lists+alsa-devel@lfdr.de>; Wed, 23 Dec 2020 18:26:39 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 50CBC2E1FDD
+	for <lists+alsa-devel@lfdr.de>; Wed, 23 Dec 2020 18:25:52 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 9C52F17A4;
-	Wed, 23 Dec 2020 18:25:48 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9C52F17A4
+	by alsa0.perex.cz (Postfix) with ESMTPS id DF2491794;
+	Wed, 23 Dec 2020 18:25:01 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DF2491794
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1608744398;
-	bh=bVPjvGl2aJrmftvy6AH+naYZLiG73n7geMHZqE6bdgY=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=bAhmleRI2KiRmiIO+o4V7vWgkvw7jdX0AclSWNo9/oFYqijLjthgXirLIpWQ6wkC5
-	 pdtejzAl7X5fPqRei1WJ8ubOK+svGZmcGSeOKsqM1n+a5glL1AT7Tt+rOjslI/TXB9
-	 E3LeEywNhuWx76837I2FVK3XZhfex+1PhKhG8qHU=
+	s=default; t=1608744352;
+	bh=SDRhyBj6A/CnkWB+wgoMBIX95pD084nhrniGB0mWfxg=;
+	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=qNHG9bOyicb2Krmfrm6UX49f4JMGuZ2GuCUKkgQHI/FtHNXlVfHsDLdstRWsIQTqz
+	 aqBJghJU3uFJjJuXnCrf22GOWnyXyAbP2XwxHifXYnabw4VHKmrlLgi3JwI78JBOKv
+	 NTfayrkZl0MmHMtVvg/9QBUMIFi9MzRfZIrq5Nzw=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id B2C87F804E2;
-	Wed, 23 Dec 2020 18:23:27 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id A17EDF804CB;
+	Wed, 23 Dec 2020 18:23:25 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 81199F801EB; Wed, 23 Dec 2020 18:23:18 +0100 (CET)
+ id 274ECF80212; Wed, 23 Dec 2020 18:23:18 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
+X-Spam-Status: No, score=0.2 required=5.0 tests=DKIM_INVALID,DKIM_SIGNED,
+ SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
 Received: from www381.your-server.de (www381.your-server.de [78.46.137.84])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id CFF23F800BC
+ by alsa1.perex.cz (Postfix) with ESMTPS id DA3A5F801D5
  for <alsa-devel@alsa-project.org>; Wed, 23 Dec 2020 18:23:02 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CFF23F800BC
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DA3A5F801D5
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=metafoo.de header.i=@metafoo.de
- header.b="hKVZbEjQ"
+ header.b="Ec7Ihd7X"
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=metafoo.de; 
  s=default2002;
- h=Content-Transfer-Encoding:MIME-Version:Message-Id:Date:
- Subject:Cc:To:From:Sender:Reply-To:Content-Type:Content-ID:
- Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
- :Resent-Message-ID:In-Reply-To:References;
- bh=fYo0RobiqrqzECasl7opFEvOEWIw54kbWjgJoxjA1dA=; b=hKVZbEjQ11amBy+NDRwkqG6EoC
- RDqHeKEnCpZW2hXLEPYzpSJ6fznz3MN/jMWrgzB02jGcXf0PRMbmvoVlW6nWbfK2rfUkZQCm6+N3a
- 8WZUvrITEpu/CzwPOIZz44mFJaCpF8ffWDBIdWdtM1wX6yG9wxm6KQSF53iS6/QoUWhUU5dvvsOBU
- qnih91ocCKrRuThtmQP0GjPWM6j9gRog2KYq0qOnLsoGSbxMQ7p/Yr8J1lGCg/BLD2cqvWzUE07J2
- Cy7KdIPC9ZXFndIQcW2unfxtTLl7fip9LwfZipPskQahG/cHnqNMqXH9ygO2m8/fOJ+9zrXBha+GG
- p8urzEpg==;
+ h=Content-Transfer-Encoding:MIME-Version:References:
+ In-Reply-To:Message-Id:Date:Subject:Cc:To:From:Sender:Reply-To:Content-Type:
+ Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+ Resent-To:Resent-Cc:Resent-Message-ID;
+ bh=WDDcrSCXs8gV93fKAibxvnLmcru5DbXMuQOl7b/bdsw=; b=Ec7Ihd7XIgSDemEDIAHUBzsgcI
+ xfNrGvmjc7ccvlRWrLnXogHDs5qYLtEQNd4RcjcJFewb498TZx1ozrWVDAMNgqWotX5OarR4665R6
+ NGJSeByHF3HnZ6EZm1nPa3KcdGiEW5if43DbEDydADO6RKy+XWSn+qTPXdEilYtlZZQjppIBb8Q+Y
+ DIVMJtEJolvjdy/164aoRF5/71YgzoB0d3UuGnmoTo2syRlS6Rb41xaxENhRbTe3/k5tv1vM+nChQ
+ 0lYLwqLIcjHJv4bPMkl9SQsQhZEA28EIoUcME8mfnvsMwEVjfZpfkvN892yuSweXCzeQSV/Ag2u0m
+ 30uZ4Vdw==;
 Received: from sslproxy01.your-server.de ([78.46.139.224])
  by www381.your-server.de with esmtpsa (TLSv1.3:TLS_AES_256_GCM_SHA384:256)
  (Exim 4.92.3) (envelope-from <lars@metafoo.de>)
- id 1ks7qo-000EtM-5Z; Wed, 23 Dec 2020 18:23:02 +0100
+ id 1ks7qo-000EtP-7V; Wed, 23 Dec 2020 18:23:02 +0100
 Received: from [62.216.202.54] (helo=lars-desktop.fritz.box)
  by sslproxy01.your-server.de with esmtpsa (TLSv1.3:TLS_AES_256_GCM_SHA384:256)
  (Exim 4.92) (envelope-from <lars@metafoo.de>)
- id 1ks7qo-000Crk-2O; Wed, 23 Dec 2020 18:23:02 +0100
+ id 1ks7qo-000Crk-4E; Wed, 23 Dec 2020 18:23:02 +0100
 From: Lars-Peter Clausen <lars@metafoo.de>
 To: Takashi Iwai <tiwai@suse.com>
-Subject: [PATCH 01/18] ALSA: core: Use DIV_ROUND_UP() instead of open-coding it
-Date: Wed, 23 Dec 2020 18:22:12 +0100
-Message-Id: <20201223172229.781-1-lars@metafoo.de>
+Subject: [PATCH 02/18] ALSA: aloop: Use DIV_ROUND_UP() instead of open-coding
+ it
+Date: Wed, 23 Dec 2020 18:22:13 +0100
+Message-Id: <20201223172229.781-2-lars@metafoo.de>
 X-Mailer: git-send-email 2.20.1
+In-Reply-To: <20201223172229.781-1-lars@metafoo.de>
+References: <20201223172229.781-1-lars@metafoo.de>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Authenticated-Sender: lars@metafoo.de
@@ -100,45 +103,22 @@ expression x, y;
 
 Signed-off-by: Lars-Peter Clausen <lars@metafoo.de>
 ---
- sound/core/control.c        | 4 ++--
- sound/core/seq/seq_memory.c | 2 +-
- 2 files changed, 3 insertions(+), 3 deletions(-)
+ sound/drivers/aloop.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/sound/core/control.c b/sound/core/control.c
-index 3b44378b9dec..1571c7f7c43b 100644
---- a/sound/core/control.c
-+++ b/sound/core/control.c
-@@ -836,7 +836,7 @@ static void fill_remaining_elem_value(struct snd_ctl_elem_value *control,
- {
- 	size_t offset = value_sizes[info->type] * info->count;
- 
--	offset = (offset + sizeof(u32) - 1) / sizeof(u32);
-+	offset = DIV_ROUND_UP(offset, sizeof(u32));
- 	memset32((u32 *)control->value.bytes.data + offset, pattern,
- 		 sizeof(control->value) / sizeof(u32) - offset);
- }
-@@ -928,7 +928,7 @@ static int sanity_check_elem_value(struct snd_card *card,
- 
- 	/* check whether the remaining area kept untouched */
- 	offset = value_sizes[info->type] * info->count;
--	offset = (offset + sizeof(u32) - 1) / sizeof(u32);
-+	offset = DIV_ROUND_UP(offset, sizeof(u32));
- 	p = (u32 *)control->value.bytes.data + offset;
- 	for (; offset < sizeof(control->value) / sizeof(u32); offset++, p++) {
- 		if (*p != pattern) {
-diff --git a/sound/core/seq/seq_memory.c b/sound/core/seq/seq_memory.c
-index 65db1a7c77b7..e245bb6ba533 100644
---- a/sound/core/seq/seq_memory.c
-+++ b/sound/core/seq/seq_memory.c
-@@ -290,7 +290,7 @@ int snd_seq_event_dup(struct snd_seq_pool *pool, struct snd_seq_event *event,
- 	extlen = 0;
- 	if (snd_seq_ev_is_variable(event)) {
- 		extlen = event->data.ext.len & ~SNDRV_SEQ_EXT_MASK;
--		ncells = (extlen + sizeof(struct snd_seq_event) - 1) / sizeof(struct snd_seq_event);
-+		ncells = DIV_ROUND_UP(extlen, sizeof(struct snd_seq_event));
+diff --git a/sound/drivers/aloop.c b/sound/drivers/aloop.c
+index 702f91b9c60f..8a24e5ae7cef 100644
+--- a/sound/drivers/aloop.c
++++ b/sound/drivers/aloop.c
+@@ -219,7 +219,7 @@ static int loopback_jiffies_timer_start(struct loopback_pcm *dpcm)
+ 		dpcm->period_update_pending = 1;
  	}
- 	if (ncells >= pool->total_elements)
- 		return -ENOMEM;
+ 	tick = dpcm->period_size_frac - dpcm->irq_pos;
+-	tick = (tick + dpcm->pcm_bps - 1) / dpcm->pcm_bps;
++	tick = DIV_ROUND_UP(tick, dpcm->pcm_bps);
+ 	mod_timer(&dpcm->timer, jiffies + tick);
+ 
+ 	return 0;
 -- 
 2.20.1
 

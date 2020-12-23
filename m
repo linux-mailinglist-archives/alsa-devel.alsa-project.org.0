@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3DD1F2E125E
-	for <lists+alsa-devel@lfdr.de>; Wed, 23 Dec 2020 03:23:04 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id C12412E1263
+	for <lists+alsa-devel@lfdr.de>; Wed, 23 Dec 2020 03:23:35 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id BF59017AF;
-	Wed, 23 Dec 2020 03:22:13 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BF59017AF
+	by alsa0.perex.cz (Postfix) with ESMTPS id 5ED8D17C8;
+	Wed, 23 Dec 2020 03:22:45 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5ED8D17C8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1608690183;
-	bh=ByjQs1YoUc/0ujkBrb1y2ptoYeB7i9eLo3wbOY18TCs=;
+	s=default; t=1608690215;
+	bh=r6ATr39LdH2Wgn+rfcjhGAkUmoykTGGDmnds48iQwYI=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=OrQvx+GxT9cqtS8oiByme5BPLDBof3S9ktyNWuKiuVxGFalM4XxiOuPhRLEobkZqg
-	 XaXHccqZ5McqA+R/sAlMThuhvymOZt5n8yIc2jTgC/zGYeLes8uOY/kNsgGjbK4LkB
-	 r93hTqWLHAU6RNKTgfYt5i2O0qd4+IxsT9IackQc=
+	b=WVq9KTxTu7V5bZtcKjY6rNBC6A5RidXX1z9bt39+rhEH9dHurEpI23GdCJuhke5Il
+	 oOguoPBVXo+DlbyGF9DEMvl8aJMW0BM6Im0gmm93vAxCco6ZmFE76ybJ7AP+L51tEu
+	 HoBRggU+KdKgI4ucDjVINPGDMbP/jJ38Z4WfNbcI=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 6E4B8F8027D;
-	Wed, 23 Dec 2020 03:21:05 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 543ACF8013F;
+	Wed, 23 Dec 2020 03:22:05 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 4BCA0F804E2; Wed, 23 Dec 2020 03:21:04 +0100 (CET)
+ id 6258DF804C2; Wed, 23 Dec 2020 03:21:56 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,40 +34,41 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 470ACF801D5
- for <alsa-devel@alsa-project.org>; Wed, 23 Dec 2020 03:20:58 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 470ACF801D5
+ by alsa1.perex.cz (Postfix) with ESMTPS id 4BB72F801EB
+ for <alsa-devel@alsa-project.org>; Wed, 23 Dec 2020 03:21:50 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4BB72F801EB
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="aEaoj0qi"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id E2471225AC;
- Wed, 23 Dec 2020 02:20:55 +0000 (UTC)
+ header.b="OVynjc+O"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 0C0F522573;
+ Wed, 23 Dec 2020 02:21:47 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1608690056;
- bh=ByjQs1YoUc/0ujkBrb1y2ptoYeB7i9eLo3wbOY18TCs=;
+ s=k20201202; t=1608690108;
+ bh=r6ATr39LdH2Wgn+rfcjhGAkUmoykTGGDmnds48iQwYI=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=aEaoj0qiFAqMhS7GT6K1hDHd+EfVEbnJd9HVV1cYysRPHcA4EEwDnT+vjHtHUeodz
- LZPgdlJPhu2roZRtNrGXYpGumFM1RSNwGdK8xcNbhWzAYmVDOZfQi8kTZHFuPM65Jl
- +Pfn0MqoFVIlC/XtfDZx3pUo0H0EE97F3UJxLzEXuCIcmbr3/sIxeZv+wMjaZcaGVn
- EVJ7ScTC4PCJ97Lrkh25msFRIckLFe8PlQCjHD6XQal2vvFq7Om79H4h5Yq1ioLHO7
- uuI1QR3yHnFMuwDtMeWHjSUGVFjB0+aJByAfiWFYdggtkJwLf2oUAkjXi4dMt7sxlk
- sdd7Wh5I6ZEIA==
+ b=OVynjc+Omiou4avRIXun5Elr4dAom1Is/6bOLTK1ItvqXlNK4/b/CPYtjTLPmJH2V
+ +/mI5Jt9who0NTXaq42rx1tSL24uwy4S8m82qD37mAt1mtW/Bl0ua6HvVFhyNycU8u
+ tUAYqkn3qq6D2dQUiqIdQOWAJD6cAUe40DWPG06BwBBevFqzT0XhUbI1LxIANfm+GH
+ AYm0x1rdlfKZNLdpOsvmoDJJtX/Gc/nvN3BakH7W6blSA0tWX4XrW9ctWP3uKCBjoK
+ 1bvXdNtA3uEOWz0VQC7P0teNY7ni9F6UlkYamVtkLUz2wKp3nS7AA8uC1O/95jxPFh
+ btKlO2YmdCemQ==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 5.4 126/130] ALSA: hda/hdmi: packet buffer index must
- be set before reading value
-Date: Tue, 22 Dec 2020 21:18:09 -0500
-Message-Id: <20201223021813.2791612-126-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 4.19 37/87] ALSA: usb-audio: Don't call
+ usb_set_interface() at trigger callback
+Date: Tue, 22 Dec 2020 21:20:13 -0500
+Message-Id: <20201223022103.2792705-37-sashal@kernel.org>
 X-Mailer: git-send-email 2.27.0
-In-Reply-To: <20201223021813.2791612-1-sashal@kernel.org>
-References: <20201223021813.2791612-1-sashal@kernel.org>
+In-Reply-To: <20201223022103.2792705-1-sashal@kernel.org>
+References: <20201223022103.2792705-1-sashal@kernel.org>
 MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
 Content-Transfer-Encoding: 8bit
 Cc: Takashi Iwai <tiwai@suse.de>, Sasha Levin <sashal@kernel.org>,
- alsa-devel@alsa-project.org, Kai Vehmanen <kai.vehmanen@linux.intel.com>
+ alsa-devel@alsa-project.org, Dylan Robinson <dylan_robinson@motu.com>,
+ Keith Milner <kamilner@superlative.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -83,46 +84,73 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: Kai Vehmanen <kai.vehmanen@linux.intel.com>
+From: Takashi Iwai <tiwai@suse.de>
 
-[ Upstream commit 46c3bbd9827952f92e250fa6ee30a797a4c4e17e ]
+[ Upstream commit 4974b7950929e4a28d4eaee48e4ad07f168ac132 ]
 
-The check for infoframe transmit status in hdmi_infoframe_uptodate()
-makes the assumption that packet buffer index is set to zero.
+The PCM trigger callback is atomic, hence we must not call a function
+like usb_set_interface() there.  Calling it from there would lead to a
+kernel Oops.
 
-Align code with specification and explicitly set the index before
-AC_VERB_GET_HDMI_DIP_XMIT. The packet index setting affects both
-DIP-Data and DIP-XmitCtrl verbs.
+Fix it by moving the usb_set_interface() call to set_sync_endpoint().
 
-There are no known cases where the old implementation has caused driver
-to work incorrectly. This change is purely based on code review against
-the specification (HDA spec rev1.0a).
+Also, apply the snd_usb_set_interface_quirk() for consistency, too.
 
-Signed-off-by: Kai Vehmanen <kai.vehmanen@linux.intel.com>
-Link: https://lore.kernel.org/r/20201211131613.3271407-1-kai.vehmanen@linux.intel.com
+Tested-by: Keith Milner <kamilner@superlative.org>
+Tested-by: Dylan Robinson <dylan_robinson@motu.com>
+Link: https://lore.kernel.org/r/20201123085347.19667-3-tiwai@suse.de
 Signed-off-by: Takashi Iwai <tiwai@suse.de>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- sound/pci/hda/patch_hdmi.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ sound/usb/pcm.c | 28 +++++++++++++---------------
+ 1 file changed, 13 insertions(+), 15 deletions(-)
 
-diff --git a/sound/pci/hda/patch_hdmi.c b/sound/pci/hda/patch_hdmi.c
-index df4771b9eff24..0faee80e28b66 100644
---- a/sound/pci/hda/patch_hdmi.c
-+++ b/sound/pci/hda/patch_hdmi.c
-@@ -645,11 +645,11 @@ static bool hdmi_infoframe_uptodate(struct hda_codec *codec, hda_nid_t pin_nid,
- 	u8 val;
- 	int i;
+diff --git a/sound/usb/pcm.c b/sound/usb/pcm.c
+index e4d2fcc89c306..5ff51c2983a19 100644
+--- a/sound/usb/pcm.c
++++ b/sound/usb/pcm.c
+@@ -243,21 +243,6 @@ static int start_endpoints(struct snd_usb_substream *subs)
+ 	    !test_and_set_bit(SUBSTREAM_FLAG_SYNC_EP_STARTED, &subs->flags)) {
+ 		struct snd_usb_endpoint *ep = subs->sync_endpoint;
  
-+	hdmi_set_dip_index(codec, pin_nid, 0x0, 0x0);
- 	if (snd_hda_codec_read(codec, pin_nid, 0, AC_VERB_GET_HDMI_DIP_XMIT, 0)
- 							    != AC_DIPXMIT_BEST)
- 		return false;
+-		if (subs->data_endpoint->iface != subs->sync_endpoint->iface ||
+-		    subs->data_endpoint->altsetting != subs->sync_endpoint->altsetting) {
+-			err = usb_set_interface(subs->dev,
+-						subs->sync_endpoint->iface,
+-						subs->sync_endpoint->altsetting);
+-			if (err < 0) {
+-				clear_bit(SUBSTREAM_FLAG_SYNC_EP_STARTED, &subs->flags);
+-				dev_err(&subs->dev->dev,
+-					   "%d:%d: cannot set interface (%d)\n",
+-					   subs->sync_endpoint->iface,
+-					   subs->sync_endpoint->altsetting, err);
+-				return -EIO;
+-			}
+-		}
+-
+ 		dev_dbg(&subs->dev->dev, "Starting sync EP @%p\n", ep);
  
--	hdmi_set_dip_index(codec, pin_nid, 0x0, 0x0);
- 	for (i = 0; i < size; i++) {
- 		val = snd_hda_codec_read(codec, pin_nid, 0,
- 					 AC_VERB_GET_HDMI_DIP_DATA, 0);
+ 		ep->sync_slave = subs->data_endpoint;
+@@ -501,6 +486,19 @@ static int set_sync_endpoint(struct snd_usb_substream *subs,
+ 
+ 	subs->data_endpoint->sync_master = subs->sync_endpoint;
+ 
++	if (subs->data_endpoint->iface != subs->sync_endpoint->iface ||
++	    subs->data_endpoint->altsetting != subs->sync_endpoint->altsetting) {
++		err = usb_set_interface(subs->dev,
++					subs->sync_endpoint->iface,
++					subs->sync_endpoint->altsetting);
++		if (err < 0)
++			return err;
++		dev_dbg(&dev->dev, "setting usb interface %d:%d\n",
++			subs->sync_endpoint->iface,
++			subs->sync_endpoint->altsetting);
++		snd_usb_set_interface_quirk(dev);
++	}
++
+ 	return 0;
+ }
+ 
 -- 
 2.27.0
 

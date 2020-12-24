@@ -2,84 +2,85 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 882BF2E25EA
-	for <lists+alsa-devel@lfdr.de>; Thu, 24 Dec 2020 11:21:14 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 968AB2E28CE
+	for <lists+alsa-devel@lfdr.de>; Thu, 24 Dec 2020 21:42:25 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 2200C1801;
-	Thu, 24 Dec 2020 11:20:24 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2200C1801
+	by alsa0.perex.cz (Postfix) with ESMTPS id 193DE17FD;
+	Thu, 24 Dec 2020 21:41:30 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 193DE17FD
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1608805274;
-	bh=8B935isYO6O2+Y+yPgm9Xuethj9ImaQJt5yZMks6ywM=;
-	h=Date:Subject:From:To:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=FGmZ/4nGVqUcjEiOa9rSZAuRihDzZdeMe6LojMbCuWNlduuHd+y4XUImb0QkFNsJ8
-	 TTSZ7T7gYmufXL1mkN0wcQeHIv5mn+b55w9Cc2cwFXqwvDaSJbBYnUvxDOvjDLO8Kk
-	 JAVCK5LXSxCC9nR0scLkpwEzVQMmnsR1HwJfzj1I=
+	s=default; t=1608842540;
+	bh=JAQyv4W4kH+EO8z09e8KSQcx+oGV2eTvt+OFDQsoOz0=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=qoWb6xnTd2wi7PYHEx50bU8+tTe7BAH5hEW5aP6oZgXQl1uwhYaHiK+4BPZN916QQ
+	 aUiuba3uQQqV+ZP42qc/vXnntuncS6OQvG0uJv+LbrKSPw2yJxIQiPn/3ZuT79jcKl
+	 vfq2GpjsfeCmy6iXCEqeylKrnVDj/6QRaafyZZ5g=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 82CA2F80232;
-	Thu, 24 Dec 2020 11:19:39 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 73DC0F80224;
+	Thu, 24 Dec 2020 21:40:40 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id D6938F80224; Thu, 24 Dec 2020 11:19:37 +0100 (CET)
+ id 3AA7FF800CE; Thu, 24 Dec 2020 21:40:39 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-7.6 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED,USER_IN_DEF_DKIM_WL
- autolearn=disabled version=3.4.0
-Received: from mail-qt1-x849.google.com (mail-qt1-x849.google.com
- [IPv6:2607:f8b0:4864:20::849])
+X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
+Received: from mail-yb1-xb32.google.com (mail-yb1-xb32.google.com
+ [IPv6:2607:f8b0:4864:20::b32])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 5F17EF800AB
- for <alsa-devel@alsa-project.org>; Thu, 24 Dec 2020 11:19:29 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5F17EF800AB
+ by alsa1.perex.cz (Postfix) with ESMTPS id 3B374F800CE
+ for <alsa-devel@alsa-project.org>; Thu, 24 Dec 2020 21:40:33 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3B374F800CE
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=google.com header.i=@google.com
- header.b="L9Abo8Dz"
-Received: by mail-qt1-x849.google.com with SMTP id f7so1010457qtj.7
- for <alsa-devel@alsa-project.org>; Thu, 24 Dec 2020 02:19:29 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
- h=sender:date:message-id:mime-version:subject:from:to:cc;
- bh=H5W3vK4Nl5LbPT4WOHTUkbKsfYAlfjD3n4xde2tMLms=;
- b=L9Abo8DzLScZtNCCGMWOu0GZoIYJDLCsJtAkILLCHEXiSUfm8hESOAJ9+CZj8jfwlY
- +M7dKzqyulLuj0rtwj+xCS1JeVICaVx35h9Wb6anvdOxkQWIR3fzjUeas4EI+zEsqKuY
- lS2OkRMMbiUKpAXgwtO0w8Y930IRvUL2w+bPV3p8f5FjAEBZ/np7YWgyRU3XWrLKobu5
- Z3wJZHaxMkVwbIRJcP8bsIIejUfxZ34RaCPR43Jzk5OsORxXJHd96WqiNdkGsXu+00Tv
- axSLNzCkziD6OMIa0aw2kGAVkE1iLX5VVDr70DA14vhgDPAXLfynzBsx7q383XERa076
- qdCA==
+ dkim=pass (2048-bit key) header.d=bertschiettecatte-com.20150623.gappssmtp.com
+ header.i=@bertschiettecatte-com.20150623.gappssmtp.com header.b="LPW+oUdw"
+Received: by mail-yb1-xb32.google.com with SMTP id k78so2980506ybf.12
+ for <alsa-devel@alsa-project.org>; Thu, 24 Dec 2020 12:40:33 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=bertschiettecatte-com.20150623.gappssmtp.com; s=20150623;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=tSyr6qkcvYbpyiBSBM+TXRGBi6HOleNiV7+FejsS8wI=;
+ b=LPW+oUdwlGbmpo6DwzY6iCkUFl9YXCCR8TD9tdKHmHZovSHhBnezrdJPVzLPxky4TR
+ TFwF06nf7/msdZLBTQRyTaV8E53TBxpAh5TdRj6Gti1x3QorQPjuz20pocOdvDlEruAC
+ YrYjR88Mr4ntJeaD8oUscfHD2sdKN4wvsxJZcj4oDRblzIrtCz3kNrWcBLqNDrzd19eU
+ PMpRwKTNPx1ZTO0pwDR628fhXJASbzY3Yk8Fnpa6PPvzEVik5/ziPKF4p0OABScoIx6F
+ +DdwHfoBON9QXqzsSMtkLUk/Rb2yyyBaXbPo7grxEUrRcX8o+RX4a+/7MQKJa0hwBQge
+ q7kg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:sender:date:message-id:mime-version:subject:from
- :to:cc;
- bh=H5W3vK4Nl5LbPT4WOHTUkbKsfYAlfjD3n4xde2tMLms=;
- b=TI7JFUJYHa7T29yyK5/nm2Nx2zJm/n/er3mATdp22IXXVxm1mWE95irxvHrsRVRySc
- rgaNnJAOhFTOXVpgfgXHRVNR4g093gyYU3GjFCThCavLTHIOfSB8LrOk8yzxNmQgKRcb
- RtD6K0DcrmqM7ilP/tLJ1Sg/zN8qS5fk58emMGj6V53Fpw3LUwKDKSqWm5IfZRcbSSVG
- 0mQYthqNnqQPt+PuMx4t96CDyRgI8aWIIM7idPM9aQ/xjxJELi0n7AVy55vBhoy2OsVJ
- NczoOhAmKDo1VuBvEJ3vfv4RrR+TcEV7Q57E9FnxISrbnqinaOvvr8coRUsO6XEq4W9V
- hOIw==
-X-Gm-Message-State: AOAM53395A9I4oSwD2vum7Gl4uh7xtiUo8uCJ56KopMp76K616Th9Ccv
- 6Ih2XsxgNllgTuleL0Z4I2Lo43HoKB1f
-X-Google-Smtp-Source: ABdhPJwBLiDaP5j587CbwQSfXkTI8HfNDLCF1JCF2zS7cpUCyAJV0LPqunlBGZnS2gHKF70lPcNOw+/zNjRo
-X-Received: from tzungbi-z840.tpe.corp.google.com
- ([2401:fa00:1:b:725a:fff:fe41:c6a5])
- (user=tzungbi job=sendgmr) by 2002:a0c:e74a:: with SMTP id
- g10mr6239952qvn.3.1608805167207; Thu, 24 Dec 2020 02:19:27 -0800 (PST)
-Date: Thu, 24 Dec 2020 18:18:54 +0800
-Message-Id: <20201224101854.3024823-1-tzungbi@google.com>
-Mime-Version: 1.0
-X-Mailer: git-send-email 2.29.2.729.g45daf8777d-goog
-Subject: [RFC PATCH] ASoC: rt1015: remove bclk_ratio
-From: Tzung-Bi Shih <tzungbi@google.com>
-To: broonie@kernel.org
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=tSyr6qkcvYbpyiBSBM+TXRGBi6HOleNiV7+FejsS8wI=;
+ b=Rs8PiEIzRKwGrjWSJxqo7JOsQo7vl7o6yeGbC/MI5GcT+io3J+Vuhdj5cDx1hBuEbx
+ j1y6WLyuTq/zvBo9KqcAU0WsGbD9ZO0VWQMjHMx7nDES0iPDYmKBA8r86sOCcYRITcst
+ H+CKMvtSp/vp472UawlTrwAFjWny/Nq4NPmtZ6KzYmc2HDDd1nH9Rtj56Lz0QbrGOm0j
+ xW03mYL0Lz9I0N7jKXK1lGq0JiAQxp1YBVnEehYWJmC656ZCQVxQIvt8RKOYNFXjRS6t
+ CUrk5Q5/xM5k4YE49OZF0AUojeqMZJ7KvXjIBcY7FhNmNYvIccdKKE5OZkR+ZZlYwZHl
+ kl0g==
+X-Gm-Message-State: AOAM5307F5wS0V0kPSHAmHNzZumSJUUuxs7n4gn+3eaLywuOy5KY2iHZ
+ O0HJVGh3kv7uq6WyuuKSjXx/RbXkM470WbU33WsU3w==
+X-Google-Smtp-Source: ABdhPJwjosD4zdcoib2n/dWn5Sg6L9cHMqcGcGm2bxjGOBsHOkNjxZe0n/oVS1f+xqIbkQ1fclSXmE31YB9QT2fma1E=
+X-Received: by 2002:a25:8608:: with SMTP id y8mr45176529ybk.324.1608842430818; 
+ Thu, 24 Dec 2020 12:40:30 -0800 (PST)
+MIME-Version: 1.0
+References: <CALd3UbSrAqYFe5Z-S6NMKGaVMvOZx7C4zV5O7CwtTKPmV+UeVQ@mail.gmail.com>
+ <CALd3UbS6MtKQEdhXQXH2GmU1EvZgS52XcTPihZ5wjb=4FaiYXA@mail.gmail.com>
+ <CALd3UbQuDU6asvTkQTP48ct4hT9euUGUoenD5TW2ZD7gbuHPag@mail.gmail.com>
+ <8fc2a9ae-c87a-03cd-4349-81d0ea3380d3@metafoo.de>
+In-Reply-To: <8fc2a9ae-c87a-03cd-4349-81d0ea3380d3@metafoo.de>
+From: Bert Schiettecatte <bert@bertschiettecatte.com>
+Date: Thu, 24 Dec 2020 12:40:19 -0800
+Message-ID: <CALd3UbQEJBqUqwx2ua9Sx1P3xr3uf221AVJUV7erp6MF0JegRg@mail.gmail.com>
+Subject: Re: question about alsa tracepoints and alsa debugging
+To: Lars-Peter Clausen <lars@metafoo.de>
 Content-Type: text/plain; charset="UTF-8"
-Cc: oder_chiou@realtek.com, jack.yu@realtek.com, alsa-devel@alsa-project.org,
- pierre-louis.bossart@linux.intel.com, akshu.agrawal@amd.com,
- tzungbi@google.com, Vishnuvardhanrao.Ravulapati@amd.com
+Cc: alsa-devel@alsa-project.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -95,183 +96,75 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-bclk_ratio is unused.  Removes bclk_ratio and .set_bclk_ratio callback.
+Hi Lars-Peter
 
-Removes snd_soc_dai_set_bclk_ratio() in a few machine drivers which are
-obviously using rt1015.
+> > occurs. The moment I start arecord, the console output from
+> > speaker-test stops, so it's locked up by starting arecord.
+> Are these implemented as two separate sound cards? If so I don't see how
+> they could interfere with each other. There should not be any shared
+> resources or locks between them at least on the ALSA side.
 
-Signed-off-by: Tzung-Bi Shih <tzungbi@google.com>
----
-The patch applies after the series:
-https://mailman.alsa-project.org/pipermail/alsa-devel/2020-December/178608.html
-and
-https://mailman.alsa-project.org/pipermail/alsa-devel/2020-December/178614.html
+here are the definitions I've used in my driver - I had to translate
+my old code from kernel 4.11 to using the new macros so not sure if
+something got broken while doing that. I want my DAC and ADCs to be
+one sound card device.
 
- sound/soc/amd/acp3x-rt5682-max9836.c          |  4 +--
- sound/soc/codecs/rt1015.c                     | 28 -------------------
- sound/soc/codecs/rt1015.h                     |  1 -
- sound/soc/intel/boards/sof_rt5682.c           |  7 -----
- .../mediatek/mt8183/mt8183-da7219-max98357.c  |  6 ----
- .../mt8183/mt8183-mt6358-ts3a227-max98357.c   |  6 ----
- .../mt8192/mt8192-mt6359-rt1015-rt5682.c      |  6 ----
- 7 files changed, 1 insertion(+), 57 deletions(-)
+SND_SOC_DAILINK_DEFS(ak4458,
+                     DAILINK_COMP_ARRAY(COMP_CPU("ff890000.i2s")),
+                     DAILINK_COMP_ARRAY(COMP_CODEC(NULL, "ak4458")),
+                     DAILINK_COMP_ARRAY(COMP_PLATFORM("ff890000.i2s")));
 
-diff --git a/sound/soc/amd/acp3x-rt5682-max9836.c b/sound/soc/amd/acp3x-rt5682-max9836.c
-index 1a4e8ca0f99c..cea320ad0e1c 100644
---- a/sound/soc/amd/acp3x-rt5682-max9836.c
-+++ b/sound/soc/amd/acp3x-rt5682-max9836.c
-@@ -140,9 +140,7 @@ static int acp3x_1015_hw_params(struct snd_pcm_substream *substream,
- 	for_each_rtd_codec_dais(rtd, i, codec_dai) {
- 		if (strcmp(codec_dai->name, "rt1015-aif"))
- 			continue;
--		ret = snd_soc_dai_set_bclk_ratio(codec_dai, 64);
--		if (ret < 0)
--			return ret;
-+
- 		ret = snd_soc_dai_set_pll(codec_dai, 0, RT1015_PLL_S_BCLK,
- 						64 * srate, 256 * srate);
- 		if (ret < 0)
-diff --git a/sound/soc/codecs/rt1015.c b/sound/soc/codecs/rt1015.c
-index 2dcb7b0fba60..dcb1261bbffa 100644
---- a/sound/soc/codecs/rt1015.c
-+++ b/sound/soc/codecs/rt1015.c
-@@ -884,14 +884,6 @@ static int rt1015_set_component_pll(struct snd_soc_component *component,
- 		freq_out == rt1015->pll_out)
- 		return 0;
- 
--	if (source == RT1015_PLL_S_BCLK) {
--		if (rt1015->bclk_ratio == 0) {
--			dev_err(component->dev,
--				"Can not support bclk ratio as 0.\n");
--			return -EINVAL;
--		}
--	}
--
- 	switch (source) {
- 	case RT1015_PLL_S_MCLK:
- 		snd_soc_component_update_bits(component, RT1015_CLK2,
-@@ -931,23 +923,6 @@ static int rt1015_set_component_pll(struct snd_soc_component *component,
- 	return 0;
- }
- 
--static int rt1015_set_bclk_ratio(struct snd_soc_dai *dai, unsigned int ratio)
--{
--	struct snd_soc_component *component = dai->component;
--	struct rt1015_priv *rt1015 = snd_soc_component_get_drvdata(component);
--
--	dev_dbg(component->dev, "%s ratio=%d\n", __func__, ratio);
--
--	rt1015->bclk_ratio = ratio;
--
--	if (ratio == 50) {
--		dev_dbg(component->dev, "Unsupport bclk ratio\n");
--		return -EINVAL;
--	}
--
--	return 0;
--}
--
- static int rt1015_set_tdm_slot(struct snd_soc_dai *dai,
- 	unsigned int tx_mask, unsigned int rx_mask, int slots, int slot_width)
- {
-@@ -1054,8 +1029,6 @@ static int rt1015_probe(struct snd_soc_component *component)
- 		snd_soc_component_get_drvdata(component);
- 
- 	rt1015->component = component;
--	rt1015->bclk_ratio = 0;
--
- 	INIT_DELAYED_WORK(&rt1015->flush_work, rt1015_flush_work);
- 
- 	return 0;
-@@ -1076,7 +1049,6 @@ static void rt1015_remove(struct snd_soc_component *component)
- static struct snd_soc_dai_ops rt1015_aif_dai_ops = {
- 	.hw_params = rt1015_hw_params,
- 	.set_fmt = rt1015_set_dai_fmt,
--	.set_bclk_ratio = rt1015_set_bclk_ratio,
- 	.set_tdm_slot = rt1015_set_tdm_slot,
- };
- 
-diff --git a/sound/soc/codecs/rt1015.h b/sound/soc/codecs/rt1015.h
-index e9b498a754e0..2aeaf65ba793 100644
---- a/sound/soc/codecs/rt1015.h
-+++ b/sound/soc/codecs/rt1015.h
-@@ -427,7 +427,6 @@ struct rt1015_priv {
- 	struct regmap *regmap;
- 	int sysclk;
- 	int sysclk_src;
--	int bclk_ratio;
- 	int pll_src;
- 	int pll_in;
- 	int pll_out;
-diff --git a/sound/soc/intel/boards/sof_rt5682.c b/sound/soc/intel/boards/sof_rt5682.c
-index 8b1ca2da9bb9..55505e207bc0 100644
---- a/sound/soc/intel/boards/sof_rt5682.c
-+++ b/sound/soc/intel/boards/sof_rt5682.c
-@@ -323,13 +323,6 @@ static int sof_rt1015_hw_params(struct snd_pcm_substream *substream,
- 		fs = 64;
- 
- 	for_each_rtd_codec_dais(rtd, i, codec_dai) {
--		/* Set tdm/i2s1 master bclk ratio */
--		ret = snd_soc_dai_set_bclk_ratio(codec_dai, fs);
--		if (ret < 0) {
--			dev_err(card->dev, "failed to set bclk ratio\n");
--			return ret;
--		}
--
- 		ret = snd_soc_dai_set_pll(codec_dai, 0, RT1015_PLL_S_BCLK,
- 					  params_rate(params) * fs,
- 					  params_rate(params) * 256);
-diff --git a/sound/soc/mediatek/mt8183/mt8183-da7219-max98357.c b/sound/soc/mediatek/mt8183/mt8183-da7219-max98357.c
-index 078e58f1ad0b..870cdfd17fff 100644
---- a/sound/soc/mediatek/mt8183/mt8183-da7219-max98357.c
-+++ b/sound/soc/mediatek/mt8183/mt8183-da7219-max98357.c
-@@ -125,12 +125,6 @@ mt8183_da7219_rt1015_i2s_hw_params(struct snd_pcm_substream *substream,
- 	for_each_rtd_codec_dais(rtd, i, codec_dai) {
- 		if (!strcmp(codec_dai->component->name, RT1015_DEV0_NAME) ||
- 		    !strcmp(codec_dai->component->name, RT1015_DEV1_NAME)) {
--			ret = snd_soc_dai_set_bclk_ratio(codec_dai, 64);
--			if (ret) {
--				dev_err(rtd->dev, "failed to set bclk ratio\n");
--				return ret;
--			}
--
- 			ret = snd_soc_dai_set_pll(codec_dai, 0,
- 						  RT1015_PLL_S_BCLK,
- 						  rate * 64, rate * 256);
-diff --git a/sound/soc/mediatek/mt8183/mt8183-mt6358-ts3a227-max98357.c b/sound/soc/mediatek/mt8183/mt8183-mt6358-ts3a227-max98357.c
-index 8c8340854859..0e4892245035 100644
---- a/sound/soc/mediatek/mt8183/mt8183-mt6358-ts3a227-max98357.c
-+++ b/sound/soc/mediatek/mt8183/mt8183-mt6358-ts3a227-max98357.c
-@@ -68,12 +68,6 @@ mt8183_mt6358_rt1015_i2s_hw_params(struct snd_pcm_substream *substream,
- 	int ret, i;
- 
- 	for_each_rtd_codec_dais(rtd, i, codec_dai) {
--		ret = snd_soc_dai_set_bclk_ratio(codec_dai, 64);
--		if (ret < 0) {
--			dev_err(card->dev, "failed to set bclk ratio\n");
--			return ret;
--		}
--
- 		ret = snd_soc_dai_set_pll(codec_dai, 0, RT1015_PLL_S_BCLK,
- 				rate * 64, rate * 256);
- 		if (ret < 0) {
-diff --git a/sound/soc/mediatek/mt8192/mt8192-mt6359-rt1015-rt5682.c b/sound/soc/mediatek/mt8192/mt8192-mt6359-rt1015-rt5682.c
-index 716fbb4126b5..a988ce1e58de 100644
---- a/sound/soc/mediatek/mt8192/mt8192-mt6359-rt1015-rt5682.c
-+++ b/sound/soc/mediatek/mt8192/mt8192-mt6359-rt1015-rt5682.c
-@@ -46,12 +46,6 @@ static int mt8192_rt1015_i2s_hw_params(struct snd_pcm_substream *substream,
- 	int ret, i;
- 
- 	for_each_rtd_codec_dais(rtd, i, codec_dai) {
--		ret = snd_soc_dai_set_bclk_ratio(codec_dai, 64);
--		if (ret) {
--			dev_err(card->dev, "failed to set bclk ratio\n");
--			return ret;
--		}
--
- 		ret = snd_soc_dai_set_pll(codec_dai, 0,
- 					  RT1015_PLL_S_BCLK,
- 					  params_rate(params) * 64,
--- 
-2.29.2.729.g45daf8777d-goog
+SND_SOC_DAILINK_DEFS(ak5558,
+                     DAILINK_COMP_ARRAY(COMP_CPU("audio-cpld")),
+                     DAILINK_COMP_ARRAY(COMP_CODEC(NULL, "ak5558")),
+                     DAILINK_COMP_ARRAY(COMP_PLATFORM("audio-cpld")));
 
+enum {
+        DAILINK_AK4458,
+        DAILINK_AK5558,
+};
+
+static struct snd_soc_dai_link rockchip_ak4458_ak5558_dai[] = {
+        [DAILINK_AK4458] = {
+                        .name = "Audio out",
+                        .ops = &rockchip_ak4458_dai_ops,
+                        SND_SOC_DAILINK_REG(ak4458),
+        },
+        [DAILINK_AK5558] = {
+                        .name = "Audio in",
+                        .ops = &rockchip_ak5558_dai_ops,
+                        SND_SOC_DAILINK_REG(ak5558),
+        },
+};
+
+static struct snd_soc_card rockchip_ak4458_ak5558 = {
+        .name           = "ak4458-ak5558-audio",
+        .dai_link       = rockchip_ak4458_ak5558_dai,
+        .num_links      = ARRAY_SIZE(rockchip_ak4458_ak5558_dai),
+};
+
+> If possible try to narrow this down a bit more, this will help to track
+> this down. If this is a more general issue it is quite likely that this
+> is a more recently introduced problem, otherwise others would have
+> already run into it. Maybe try one of the stable kernels like v5.4.
+
+I will play around with a few different versions to see what happens.
+
+> To check if there is a locking issue somewhere compile your kernel with
+> CONFIG_PROVE_LOCKING=y
+
+do I need PROVE_RAW_LOCK_NESTING as well? what about PROVE_RCU and
+PROVE_RCU_LIST ?
+
+> Do both devices I2S and MMC use the same DMA? If so I could see things
+> going wrong there since that would be shared resources in the DMA
+> driver. If possible try to run the MMC driver without DMA and see what
+> happens.
+
+I think they both use DMA but I don't think the resources are shared,
+from what I can tell. My version of dw_mmc.c is 99% the same code but
+I just directly call my own callbacks in dw_mci_interrupt
+instead of dealing with the tasklet or work stuff.
+
+Thanks for helping!
+Bert

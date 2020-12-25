@@ -2,111 +2,94 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 065E92E2958
-	for <lists+alsa-devel@lfdr.de>; Fri, 25 Dec 2020 02:01:57 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 69E042E2967
+	for <lists+alsa-devel@lfdr.de>; Fri, 25 Dec 2020 02:22:47 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 836E9180E;
-	Fri, 25 Dec 2020 02:01:01 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 836E9180E
+	by alsa0.perex.cz (Postfix) with ESMTPS id CBD73181A;
+	Fri, 25 Dec 2020 02:21:51 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CBD73181A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1608858111;
-	bh=9ok1QqrMTlKhme16WjIhReUtyMscPuYMuK8jZsOIpHE=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=cof/r8cHJRdHLpVPbjGQqxjZP3FIBa+mh0w94/mupDJZE1MZQyqax0Xv6leAiJc7Y
-	 Uez5dptq8ip7dlZLVo7OzJ2vuirIeVrs8goYXkRbGZZy1LRn6Fp8XhKFqgPJyTPawd
-	 riOOoP2Az7tkkzUSF8PTFlzBKoQnSvOuoodR5KX0=
+	s=default; t=1608859361;
+	bh=Z/dzda6u0PE/bA2S8KZwNY46GVYWKD7yjPWHWyoWAUU=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=akQWOFLJOPTg2OWKUjwrSBaq46eDSjyFAqnSojSQ87HI66Ep/T7K5b2tH1VDxS7p4
+	 E+/6tezB+XKqy/svQmSoB2zoX8SxH0Nf0ZxNerW1/onPDuqAJuvBJxAgxL+FyCzU+O
+	 rh91UpG+QQgAPmp+HEZM77RBh4Egbe5/p/grvp2c=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id B5C42F80232;
-	Fri, 25 Dec 2020 02:00:16 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 231C1F8023E;
+	Fri, 25 Dec 2020 02:21:07 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id E0205F80224; Fri, 25 Dec 2020 02:00:13 +0100 (CET)
+ id BC1B0F80232; Fri, 25 Dec 2020 02:21:04 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
+ DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_NONE autolearn=disabled
  version=3.4.0
-Received: from wout2-smtp.messagingengine.com (wout2-smtp.messagingengine.com
- [64.147.123.25])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+Received: from mail-qk1-x729.google.com (mail-qk1-x729.google.com
+ [IPv6:2607:f8b0:4864:20::729])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id D2960F800BC
- for <alsa-devel@alsa-project.org>; Fri, 25 Dec 2020 02:00:02 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D2960F800BC
+ by alsa1.perex.cz (Postfix) with ESMTPS id 34F77F800CE
+ for <alsa-devel@alsa-project.org>; Fri, 25 Dec 2020 02:21:00 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 34F77F800CE
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=sakamocchi.jp header.i=@sakamocchi.jp
- header.b="bAILL6w/"; 
- dkim=pass (2048-bit key) header.d=messagingengine.com
- header.i=@messagingengine.com header.b="qw/MUtQk"
-Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
- by mailout.west.internal (Postfix) with ESMTP id C3C1850C;
- Thu, 24 Dec 2020 19:59:58 -0500 (EST)
-Received: from mailfrontend1 ([10.202.2.162])
- by compute4.internal (MEProxy); Thu, 24 Dec 2020 19:59:59 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sakamocchi.jp;
- h=date:from:to:cc:subject:message-id:references:mime-version
- :content-type:in-reply-to; s=fm3; bh=RkwuP0pyzfxjQmEOQiOYmHmA3aO
- 1RuDV1FqJqVamqyo=; b=bAILL6w/iR6XLBtUkxbcIuVqGxyzSX0MhLNISuFgihF
- v2e7+M64L/Lz76/r0+At/blio9Q6jm982VtWxUIAQW56z6/aozO8lbDZ4YZSYj9+
- RDFNXsVCvoixmvbidYxJB9HjfYhbL1jLLOeSyLN2vqeNCTfskqDHemkvDDf++A6D
- q03HUeCy+L5Bxn9dtKYPrNOICr0/YGe5uvQLMdIaMtD3bqGSYdy/qtS2rzTbilqh
- becjXV/GkRp3VgZtH+awX+rbrY9RXjmeGYAFpf8ev74V+3idH+3Px5iBuvCP2rwM
- OIGdLBkuBzBjDfv3Q2HR3W6fSu4ovLoi68ldUHBsyCg==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to:x-me-proxy
- :x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; bh=RkwuP0
- pyzfxjQmEOQiOYmHmA3aO1RuDV1FqJqVamqyo=; b=qw/MUtQkP94WX4ZIvzfmyw
- PYlI4gCsBzIPdxHuCAP407v5lpwJyFFUbzQJWBaz7rJdn2C0gvZ0h81swAlr4q1e
- eGipvoEUJR3c2SYzg0KJ+eKUcddG4ucyV3j316iSNyaymItLoXPg2b+297mTahg4
- h5ScxXI6eGeZLYj5enTLyVRZgyynuFApW8xrX9CcsVn12WmGAiHkIjcAQBHmUGjT
- M9uG6/jFJVnj8/hK9ucof0vPLjMae8GPokYOCdCG7fublce0w6CivdrWMk6W/nDJ
- ZHKXUkeSSqqA2yTxRfbAj4c9OpJs526pcuMk0++wtrICfaAg6MmmE86nw3yH6ZsA
- ==
-X-ME-Sender: <xms:jTnlX-aapXxwEqEHqDEiC9SrGylNOgYlClqIflntakEO6ir7x49gog>
- <xme:jTnlXxa0q2PgFgQootc1YS1P1m5Tom9C2Th9ZAMH_GCu3_jiwP0IEO57xlAiTado3
- C_6IryOb1RzdHz4_l4>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedujedrvddutddgvdejucetufdoteggodetrfdotf
- fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
- uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
- cujfgurhepfffhvffukfhfgggtuggjsehttdertddttddvnecuhfhrohhmpefvrghkrghs
- hhhiucfurghkrghmohhtohcuoehoqdhtrghkrghshhhisehsrghkrghmohgttghhihdrjh
- hpqeenucggtffrrghtthgvrhhnpeegtdefgfehvdefgfehudevhfffleeigfeuiefgkeeg
- jeekgeeiheehgedutdduvdenucffohhmrghinhepkhgvrhhnvghlrdhorhhgpdgrmhgrii
- honhgrfihsrdgtohhmpdhgihhthhhusgdrtghomhdpphgrrhhsvgdrphihnecukfhppedu
- udekrddvgeefrdejkedrheeknecuvehluhhsthgvrhfuihiivgeptdenucfrrghrrghmpe
- hmrghilhhfrhhomhepohdqthgrkhgrshhhihesshgrkhgrmhhotggthhhirdhjph
-X-ME-Proxy: <xmx:jTnlX4_Jj8MnrHhXSv6gE_iYYNFojrqp8Y-iE2grV-sLx9VXIBmNpw>
- <xmx:jTnlXwq4Boo8m6SX1RH_NLk0DnUjS6RXCucnfJvVwMtqc1w4znloNg>
- <xmx:jTnlX5ocsV_tfcmU56B9jERdg8sLch4PnLEg6LP_XPe7Gswo6AQjbw>
- <xmx:jjnlX4TpsJ71JUcxewUQz4T13gzXsqyXhUUccBVfG20IrQ4OYrQhaw>
-Received: from workstation (y078058.dynamic.ppp.asahi-net.or.jp
- [118.243.78.58])
- by mail.messagingengine.com (Postfix) with ESMTPA id 1BD7B24005D;
- Thu, 24 Dec 2020 19:59:55 -0500 (EST)
-Date: Fri, 25 Dec 2020 09:59:53 +0900
-From: Takashi Sakamoto <o-takashi@sakamocchi.jp>
-To: Bert Schiettecatte <bert@bertschiettecatte.com>,
- Lars-Peter Clausen <lars@metafoo.de>
-Subject: Re: question about alsa tracepoints and alsa debugging
-Message-ID: <20201225005953.GA162573@workstation>
-Mail-Followup-To: Bert Schiettecatte <bert@bertschiettecatte.com>,
- Lars-Peter Clausen <lars@metafoo.de>, alsa-devel@alsa-project.org
-References: <CALd3UbSrAqYFe5Z-S6NMKGaVMvOZx7C4zV5O7CwtTKPmV+UeVQ@mail.gmail.com>
- <CALd3UbS6MtKQEdhXQXH2GmU1EvZgS52XcTPihZ5wjb=4FaiYXA@mail.gmail.com>
- <CALd3UbQuDU6asvTkQTP48ct4hT9euUGUoenD5TW2ZD7gbuHPag@mail.gmail.com>
- <8fc2a9ae-c87a-03cd-4349-81d0ea3380d3@metafoo.de>
- <CALd3UbQEJBqUqwx2ua9Sx1P3xr3uf221AVJUV7erp6MF0JegRg@mail.gmail.com>
+ dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
+ header.b="hAn5MJD5"
+Received: by mail-qk1-x729.google.com with SMTP id c7so3290777qke.1
+ for <alsa-devel@alsa-project.org>; Thu, 24 Dec 2020 17:21:00 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=eR/51XLp7HQCd5RWnkeAFXvnTVVeE+YelrG/OsehfgY=;
+ b=hAn5MJD5rRItKlT/7Zl24e2BKZi0Ls8BZo0yfG0VHqNGbxZIImG5bj/Hw62Gu+mG/u
+ QO7Mr9HJasfbcRh505O+zP9Cp22ZCzWUHrxmqVE9qhvWlELEdxNImMJDFxUDvwziQxI6
+ NMUBe1UMHiSbY24xZSLCEC0gjY+JPmEyJJkyAQdan47NLcDaq2OjTXlOcu56PrZEf/Qj
+ K3VfpTdZSMv/g56hpCEy1zR7HYWykU6U6oBzC6tznzZ8ClVF/vQitTc9y6DEuUMNcsQ3
+ ql+bigyXHfDYne4ATahAJRh8V7qWXqutn0+s3hatv64QVfUd+i0A0z5k/VgcvxeTHRD+
+ YW5w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=eR/51XLp7HQCd5RWnkeAFXvnTVVeE+YelrG/OsehfgY=;
+ b=nTPHxkU7N7bMKFeoqh9c6+PUkNxWe4jgcHeX70Wa7DgIZhcn/4aQbZVI2a06wMZPsi
+ wXo/ao6pCjjZptBuueCy+68sswY1wVf/ekdGIpPIm3FlgkoOmJEy5bWvg4dgctV4VXzC
+ TjlL2t+ilIAEGbFqNbJI4i6lKMsny6RjeoJ3ExcOr0wSbATxwYVb7GkT6czXpO/QzWgZ
+ V2o3oneNlUhmYgjIA19saJCa6PmsgeE5hwsZ7dF5KstROC3DYbm/Dm4XLehMRCphm658
+ W55vc4H3zw8RSX1XHTymXtKHUb82uF/rlJ/8Gd9FvzJoo61IZhnp7UOSNscriS5vdIDQ
+ H6PQ==
+X-Gm-Message-State: AOAM531uflrXprC15YLT2TtDUeLhZHS0LgVTShlLUG36U+e4h42HS3nS
+ MgN2rQIedUQqVdh8OGiUHNI=
+X-Google-Smtp-Source: ABdhPJyrNjeysbrlaGCYU+QBL1gUJ/O/dP/8CtbqfoqjVSeWYb5ZgSJ1J5pFIsmM63ClMqGEBprPBg==
+X-Received: by 2002:a37:5a47:: with SMTP id o68mr21575955qkb.423.1608859257152; 
+ Thu, 24 Dec 2020 17:20:57 -0800 (PST)
+Received: from rockpro64.hsd1.md.comcast.net ([2601:153:900:7730::20])
+ by smtp.gmail.com with ESMTPSA id x47sm17583505qtb.86.2020.12.24.17.20.55
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 24 Dec 2020 17:20:56 -0800 (PST)
+From: Peter Geis <pgwipeout@gmail.com>
+To: Michael Turquette <mturquette@baylibre.com>,
+ Stephen Boyd <sboyd@kernel.org>,
+ Peter De Schrijver <pdeschrijver@nvidia.com>,
+ Prashant Gaikwad <pgaikwad@nvidia.com>,
+ Thierry Reding <thierry.reding@gmail.com>,
+ Jonathan Hunter <jonathanh@nvidia.com>, Jaroslav Kysela <perex@perex.cz>,
+ Takashi Iwai <tiwai@suse.com>, Sameer Pujar <spujar@nvidia.com>,
+ Mohan Kumar <mkumard@nvidia.com>
+Subject: [PATCH 0/2] fix tegra-hda on tegra30 devices
+Date: Fri, 25 Dec 2020 01:20:24 +0000
+Message-Id: <20201225012025.507803-1-pgwipeout@gmail.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <CALd3UbQEJBqUqwx2ua9Sx1P3xr3uf221AVJUV7erp6MF0JegRg@mail.gmail.com>
-Cc: alsa-devel@alsa-project.org
+Content-Transfer-Encoding: 8bit
+Cc: linux-tegra@vger.kernel.org, alsa-devel@alsa-project.org,
+ linux-clk@vger.kernel.org, Peter Geis <pgwipeout@gmail.com>,
+ linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -122,79 +105,25 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hi,
+The following patches fix tegra-hda on legacy tegra devices.
+Two issues were discovered preventing tegra-hda from functioning:
+The hda clocks on tegra30 were assigned to clk_m and running at too low of a rate to function.
+The tegra-hda encounters an input/output error when opening a stream.
 
-> commands used for starting playback / trace capture and for recording -
-> ./perf record -F 99 -g -e snd_pcm:* -e sched:sched_switch -e
-> sched:sched_wakeup -e irq:* speaker-test -D
-> hw:CARD=ak4458ak5558aud,DEV=0 -c8 -r192000 -FS32_LE -tsine &
-> arecord -Dhw:CARD=ak4458ak5558aud,DEV=1 -fS32_LE -c16 -r192000
-> /mnt/ramdisk/rec.wav
->
-> I enabled the kernel options as described at
-> https://www.kernel.org/doc/html/v5.9/sound/designs/tracepoints.html
-> and have used perf to record a trace, which can be access here -
-> https://kernel-debugging.s3-us-west-1.amazonaws.com/perf.data.script.211220202054.txt
-> (exported using "perf script")
->
-> The trace file shows "lockdep_recursion" at some point so I am
-> wondering if my problem has to do with a deadlock somehow being
-> caused.
+Since the only mainline device that used tegra-hda previously was the t124, it is unknown exactly when this was broken.
+Fortunately a recent patch was submitted that fixed the issue only on t194 devices.
+We can apply it universally to the tegra-hda device to resolve the issues across the board.
+Note that downstream devices used the spdif device instead of hda for hdmi audio.
+The spdif device lacks a driver on mainline.
 
-According to the log, speaker-test starts PCM substream for playback
-direction with below parameters:
+Peter Geis (2):
+  clk: tegra30: Add hda clock default rates to clock driver
+  ALSA: hda/tegra: fix tegra-hda on tegra30 soc
 
- - bits per sample: 32 bit
- - samples per frame: 8
- - frames per second: 192000
- - frames per period: 4096
- - frames per buffer: 16384
- - ...
+ drivers/clk/tegra/clk-tegra30.c | 2 ++
+ sound/pci/hda/hda_tegra.c       | 3 +--
+ 2 files changed, 3 insertions(+), 2 deletions(-)
 
-By calculation with the above parameters, the hardware of I2S interface
-should be configured to generate harware interrupt every 21.3 msec.
+-- 
+2.25.1
 
-I wrote a Python 3 script to check the period of interrupt with a focus
-on the record including call of 'snd_pcm_period_elapsed' in its backtrace:
-https://gist.github.com/takaswie/af2b93b58a1154903d6fbe1a6bee3c69
-
-```
-$ ./parse.py /tmp/perf.data.script.211220202054.txt | \
-  grep -B 3 -A 3 unexpected
-73.2000 0.02132900 expected
-73.2213 0.02133500 expected
-73.2426 0.02135300 expected
-110.0207 36.77807000 unexpected
-110.0420 0.02133000 expected
-110.0634 0.02133400 expected
-110.0847 0.02132400 expected
-```
-
-I can find around 37 second gap in timestamp 110.0207. It means that the
-I2S driver failed to control RK3288 I2S interface for periodical hardware
-interrupt.
-
-Furthermore, I can see following records after the gap. It means that
-speaker-test process successfully detected XRUN of the PCM substream,
-then recoverd it to continue processing PCM frames for playback
-expectedly. Thus the I2S driver seems to have few problems about
-dead-lock issue.
-
-With records of tracepoints events for capture PCM substream
-which Bert's SDIO driver handles as well as for the playback PCM
-substream which speaker-test starts, we can get more details of
-runtimes.
-
-P.S. diagrams for the case:
-
-```
-+-----------+       +----+          +------+         +-------+
-|AK5558 x 2 |<-(?)->|FPGA|          |RK3288|         | AK4458|
-| (ADC)     |<-(?)->|    |<-(SDIO)->|      |<-(I2S)->| (DAC) |
-+-----------+       +----+          +------+         +-------+
-```
-
-
-Regards
-
-Takashi Sakamoto

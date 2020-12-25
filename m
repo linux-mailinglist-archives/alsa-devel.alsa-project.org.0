@@ -2,76 +2,77 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 69E042E2967
-	for <lists+alsa-devel@lfdr.de>; Fri, 25 Dec 2020 02:22:47 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1EE412E2968
+	for <lists+alsa-devel@lfdr.de>; Fri, 25 Dec 2020 02:22:51 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id CBD73181A;
-	Fri, 25 Dec 2020 02:21:51 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CBD73181A
+	by alsa0.perex.cz (Postfix) with ESMTPS id 559C2182D;
+	Fri, 25 Dec 2020 02:22:00 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 559C2182D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1608859361;
-	bh=Z/dzda6u0PE/bA2S8KZwNY46GVYWKD7yjPWHWyoWAUU=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=akQWOFLJOPTg2OWKUjwrSBaq46eDSjyFAqnSojSQ87HI66Ep/T7K5b2tH1VDxS7p4
-	 E+/6tezB+XKqy/svQmSoB2zoX8SxH0Nf0ZxNerW1/onPDuqAJuvBJxAgxL+FyCzU+O
-	 rh91UpG+QQgAPmp+HEZM77RBh4Egbe5/p/grvp2c=
+	s=default; t=1608859370;
+	bh=wWeDxOf20cTo0T4VOPmXagFd4IAjj8gi9OfNm1MK0VQ=;
+	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=u6WULQfRxJnm7CpJIJi0otlBqZdF/SvwBky8/z3b1f/XMk+Ef0VzN01Ibmp4EIfMQ
+	 E/L0RLAlhoP9DCOMm96bkCen0looUIM5x4dfwjBH8vvnjtvQ1IRjPyOs0+tpsXiHgN
+	 zLeaeLhW3R9TOetlllOab6SqLu8m84Tg6rMT0qmA=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 231C1F8023E;
-	Fri, 25 Dec 2020 02:21:07 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 41C91F80264;
+	Fri, 25 Dec 2020 02:21:12 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id BC1B0F80232; Fri, 25 Dec 2020 02:21:04 +0100 (CET)
+ id 314D2F802BE; Fri, 25 Dec 2020 02:21:09 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_NONE autolearn=disabled
- version=3.4.0
-Received: from mail-qk1-x729.google.com (mail-qk1-x729.google.com
- [IPv6:2607:f8b0:4864:20::729])
+ DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from mail-qk1-x72e.google.com (mail-qk1-x72e.google.com
+ [IPv6:2607:f8b0:4864:20::72e])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 34F77F800CE
+ by alsa1.perex.cz (Postfix) with ESMTPS id 59D99F8021D
  for <alsa-devel@alsa-project.org>; Fri, 25 Dec 2020 02:21:00 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 34F77F800CE
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 59D99F8021D
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="hAn5MJD5"
-Received: by mail-qk1-x729.google.com with SMTP id c7so3290777qke.1
+ header.b="E9N6HIFl"
+Received: by mail-qk1-x72e.google.com with SMTP id h4so3287850qkk.4
  for <alsa-devel@alsa-project.org>; Thu, 24 Dec 2020 17:21:00 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=eR/51XLp7HQCd5RWnkeAFXvnTVVeE+YelrG/OsehfgY=;
- b=hAn5MJD5rRItKlT/7Zl24e2BKZi0Ls8BZo0yfG0VHqNGbxZIImG5bj/Hw62Gu+mG/u
- QO7Mr9HJasfbcRh505O+zP9Cp22ZCzWUHrxmqVE9qhvWlELEdxNImMJDFxUDvwziQxI6
- NMUBe1UMHiSbY24xZSLCEC0gjY+JPmEyJJkyAQdan47NLcDaq2OjTXlOcu56PrZEf/Qj
- K3VfpTdZSMv/g56hpCEy1zR7HYWykU6U6oBzC6tznzZ8ClVF/vQitTc9y6DEuUMNcsQ3
- ql+bigyXHfDYne4ATahAJRh8V7qWXqutn0+s3hatv64QVfUd+i0A0z5k/VgcvxeTHRD+
- YW5w==
+ h=from:to:cc:subject:date:message-id:in-reply-to:references
+ :mime-version:content-transfer-encoding;
+ bh=pP0KV/2+7GkTRIp32tbGx/ReBjy/Twn2d1xplbAtnNc=;
+ b=E9N6HIFlusnXfDWBBoInTFQmW5rVueWZKRVRyLbZnyvd1nlUfKa74nPFgUhY1Ij019
+ qk2cIMnRCEj4hBfQLrZmJuXueXB+B8+rRLkfL5fib7v/vxccfbLkUmz8Ptsa8mAUR+4p
+ vctiSInbUMjQ7Kq2voTPQP6EASFJLuulWdwCus3NL8D1cqay6nwaDCQktJDxE7NgRV76
+ gAEW+lxorTpIYAd7n3mDoTfkrbMpP0CIGhV3gQ0WJu3OOEbb7r9NfK3ssKyGaLvzeUqG
+ q5Pe7DMaYkwWtm+SzQcdgOVeKzXBH3URFXHfk2fysV4N9VV6pXzcHw1109Vs0jFIWdkQ
+ ww7A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=eR/51XLp7HQCd5RWnkeAFXvnTVVeE+YelrG/OsehfgY=;
- b=nTPHxkU7N7bMKFeoqh9c6+PUkNxWe4jgcHeX70Wa7DgIZhcn/4aQbZVI2a06wMZPsi
- wXo/ao6pCjjZptBuueCy+68sswY1wVf/ekdGIpPIm3FlgkoOmJEy5bWvg4dgctV4VXzC
- TjlL2t+ilIAEGbFqNbJI4i6lKMsny6RjeoJ3ExcOr0wSbATxwYVb7GkT6czXpO/QzWgZ
- V2o3oneNlUhmYgjIA19saJCa6PmsgeE5hwsZ7dF5KstROC3DYbm/Dm4XLehMRCphm658
- W55vc4H3zw8RSX1XHTymXtKHUb82uF/rlJ/8Gd9FvzJoo61IZhnp7UOSNscriS5vdIDQ
- H6PQ==
-X-Gm-Message-State: AOAM531uflrXprC15YLT2TtDUeLhZHS0LgVTShlLUG36U+e4h42HS3nS
- MgN2rQIedUQqVdh8OGiUHNI=
-X-Google-Smtp-Source: ABdhPJyrNjeysbrlaGCYU+QBL1gUJ/O/dP/8CtbqfoqjVSeWYb5ZgSJ1J5pFIsmM63ClMqGEBprPBg==
-X-Received: by 2002:a37:5a47:: with SMTP id o68mr21575955qkb.423.1608859257152; 
- Thu, 24 Dec 2020 17:20:57 -0800 (PST)
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
+ :references:mime-version:content-transfer-encoding;
+ bh=pP0KV/2+7GkTRIp32tbGx/ReBjy/Twn2d1xplbAtnNc=;
+ b=CkBjbeAcXxxfTG1iiOT1OQdJUrD2r6WJ33o/nwKoCx7T84qDfDwMLNeYU51M4H+D59
+ bwY5A6zv57Q6GwrUZP4JbPCvMXLOexWvvaj+Xx28mGywjM88uMzEwEGdl7OAv7/vA6dV
+ ISTihds3rfNg5/9WHTryDync5TgC/dSJemStUaMflPwuiRgxPxDarwQ7eDbwPmapTwsU
+ kKNjkzHLS55T8pXr/+p73/o934EAl2NgnofdcLqmm7MEDZiZvWBCg4SxMj6NJJMs0Ejt
+ 87Jc4Jt/tRujj823+oioZlCkbwbX5sUqr6QPPLrTeeallq0lh8ArIft9GgckhVFP9JIQ
+ 9n7g==
+X-Gm-Message-State: AOAM5334KDmF1LukWVW/KWzSvt6+89yYXeddQE3F2gr0cGXf+5Pc3tnT
+ WWVLkNaEB0CEi94Y8DwSSbADhvS08BJTgqeQ
+X-Google-Smtp-Source: ABdhPJyzXSk0ny8cZkeOBtow3I428lF9SfG+izFkxFIAPzhmbIliAXfI+zzTi9/kM+w7JecEW9RJOg==
+X-Received: by 2002:a37:478f:: with SMTP id u137mr32609154qka.16.1608859258313; 
+ Thu, 24 Dec 2020 17:20:58 -0800 (PST)
 Received: from rockpro64.hsd1.md.comcast.net ([2601:153:900:7730::20])
- by smtp.gmail.com with ESMTPSA id x47sm17583505qtb.86.2020.12.24.17.20.55
+ by smtp.gmail.com with ESMTPSA id x47sm17583505qtb.86.2020.12.24.17.20.57
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 24 Dec 2020 17:20:56 -0800 (PST)
+ Thu, 24 Dec 2020 17:20:57 -0800 (PST)
 From: Peter Geis <pgwipeout@gmail.com>
 To: Michael Turquette <mturquette@baylibre.com>,
  Stephen Boyd <sboyd@kernel.org>,
@@ -81,15 +82,17 @@ To: Michael Turquette <mturquette@baylibre.com>,
  Jonathan Hunter <jonathanh@nvidia.com>, Jaroslav Kysela <perex@perex.cz>,
  Takashi Iwai <tiwai@suse.com>, Sameer Pujar <spujar@nvidia.com>,
  Mohan Kumar <mkumard@nvidia.com>
-Subject: [PATCH 0/2] fix tegra-hda on tegra30 devices
-Date: Fri, 25 Dec 2020 01:20:24 +0000
-Message-Id: <20201225012025.507803-1-pgwipeout@gmail.com>
+Subject: [PATCH 1/2] clk: tegra30: Add hda clock default rates to clock driver
+Date: Fri, 25 Dec 2020 01:20:25 +0000
+Message-Id: <20201225012025.507803-2-pgwipeout@gmail.com>
 X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20201225012025.507803-1-pgwipeout@gmail.com>
+References: <20201225012025.507803-1-pgwipeout@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Cc: linux-tegra@vger.kernel.org, alsa-devel@alsa-project.org,
- linux-clk@vger.kernel.org, Peter Geis <pgwipeout@gmail.com>,
- linux-kernel@vger.kernel.org
+Cc: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
+ Ion Agorria <ion@agorria.com>, Peter Geis <pgwipeout@gmail.com>,
+ linux-tegra@vger.kernel.org, linux-clk@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -105,25 +108,31 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-The following patches fix tegra-hda on legacy tegra devices.
-Two issues were discovered preventing tegra-hda from functioning:
-The hda clocks on tegra30 were assigned to clk_m and running at too low of a rate to function.
-The tegra-hda encounters an input/output error when opening a stream.
+Current implementation defaults the hda clocks to clk_m.
+This causes hda to run too slow to operate correctly.
+Fix this by defaulting to pll_p and setting the frequency to the correct rate.
 
-Since the only mainline device that used tegra-hda previously was the t124, it is unknown exactly when this was broken.
-Fortunately a recent patch was submitted that fixed the issue only on t194 devices.
-We can apply it universally to the tegra-hda device to resolve the issues across the board.
-Note that downstream devices used the spdif device instead of hda for hdmi audio.
-The spdif device lacks a driver on mainline.
+This matches upstream t124 and downstream t30.
 
-Peter Geis (2):
-  clk: tegra30: Add hda clock default rates to clock driver
-  ALSA: hda/tegra: fix tegra-hda on tegra30 soc
-
+Signed-off-by: Peter Geis <pgwipeout@gmail.com>
+Tested-by: Ion Agorria <ion@agorria.com>
+---
  drivers/clk/tegra/clk-tegra30.c | 2 ++
- sound/pci/hda/hda_tegra.c       | 3 +--
- 2 files changed, 3 insertions(+), 2 deletions(-)
+ 1 file changed, 2 insertions(+)
 
+diff --git a/drivers/clk/tegra/clk-tegra30.c b/drivers/clk/tegra/clk-tegra30.c
+index 37244a7e68c2..9cf249c344d9 100644
+--- a/drivers/clk/tegra/clk-tegra30.c
++++ b/drivers/clk/tegra/clk-tegra30.c
+@@ -1256,6 +1256,8 @@ static struct tegra_clk_init_table init_table[] __initdata = {
+ 	{ TEGRA30_CLK_I2S3_SYNC, TEGRA30_CLK_CLK_MAX, 24000000, 0 },
+ 	{ TEGRA30_CLK_I2S4_SYNC, TEGRA30_CLK_CLK_MAX, 24000000, 0 },
+ 	{ TEGRA30_CLK_VIMCLK_SYNC, TEGRA30_CLK_CLK_MAX, 24000000, 0 },
++	{ TEGRA30_CLK_HDA, TEGRA30_CLK_PLL_P, 102000000, 0 },
++	{ TEGRA30_CLK_HDA2CODEC_2X, TEGRA30_CLK_PLL_P, 48000000, 0 },
+ 	/* must be the last entry */
+ 	{ TEGRA30_CLK_CLK_MAX, TEGRA30_CLK_CLK_MAX, 0, 0 },
+ };
 -- 
 2.25.1
 

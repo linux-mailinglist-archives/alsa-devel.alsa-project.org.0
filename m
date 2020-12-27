@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 17AF22E307E
-	for <lists+alsa-devel@lfdr.de>; Sun, 27 Dec 2020 09:40:50 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id B25962E307F
+	for <lists+alsa-devel@lfdr.de>; Sun, 27 Dec 2020 09:41:03 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B087E17AB;
-	Sun, 27 Dec 2020 09:39:54 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B087E17AB
+	by alsa0.perex.cz (Postfix) with ESMTPS id 4D411178E;
+	Sun, 27 Dec 2020 09:40:13 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4D411178E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1609058444;
-	bh=5fT91PjE4MrwXbArri1NlDa2oJtdGVQQkRRgZObsKqc=;
+	s=default; t=1609058463;
+	bh=kKj0ZO5jOYa20hdEsMhjPftcBOypX5wJEOV8Qo7hGuY=;
 	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=SbW4Hw4xDJ5iA+gHNPbhen2eTPLAnXq/35frnmycu0ykspqvZX1E4Z5VLI2bS3ue1
-	 Nxd3XPoNRQykGNQDqNFG+PFEjnDJTcgWb/c2LVgjBiC8gP9DPrdaBQlfdCgC8SFaZZ
-	 xaUgFEtZVK/6XmLnTPk+nQ+nBp23IYaPPJq6ot4Y=
+	b=BMX5k02gzVXKs+0bapIjWOZr2WoQNkIrAELxt/snV4lUruHJUOGR2pRs0tBXRlBe8
+	 XtiUBcxHJwh0O8IQ7L+ZGxqvc55/6J/tJTHi05tVuqr3N0SvHRI7AGJu2ZKg4GS5+r
+	 v4+eB7yaBa4tHlyacRk8PbZQaCAuPT2dwQqzWaqY=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 953A3F804D2;
-	Sun, 27 Dec 2020 09:39:08 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 46559F804CC;
+	Sun, 27 Dec 2020 09:39:20 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id EF784F804D2; Sun, 27 Dec 2020 09:39:05 +0100 (CET)
+ id 30A0EF800C8; Sun, 27 Dec 2020 09:39:18 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE
@@ -33,22 +33,22 @@ X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id C6431F804CA
- for <alsa-devel@alsa-project.org>; Sun, 27 Dec 2020 09:39:03 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C6431F804CA
+ by alsa1.perex.cz (Postfix) with ESMTPS id 1C140F800C8
+ for <alsa-devel@alsa-project.org>; Sun, 27 Dec 2020 09:39:16 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1C140F800C8
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 84F63AD64;
- Sun, 27 Dec 2020 08:39:03 +0000 (UTC)
-Date: Sun, 27 Dec 2020 09:39:03 +0100
-Message-ID: <s5hr1nbej88.wl-tiwai@suse.de>
+ by mx2.suse.de (Postfix) with ESMTP id CCE9EAD75;
+ Sun, 27 Dec 2020 08:39:15 +0000 (UTC)
+Date: Sun, 27 Dec 2020 09:39:15 +0100
+Message-ID: <s5hpn2vej7w.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
 To: Alex Henrie <alexhenrie24@gmail.com>
-Subject: Re: [PATCH 5/9] timer: fix sizeof operator mismatch in
- snd_timer_query_hw_open
-In-Reply-To: <20201226213547.175071-6-alexhenrie24@gmail.com>
+Subject: Re: [PATCH 6/9] pcm: remove dead assignments from
+ snd_pcm_rate_(commit_area|grab_next_period)
+In-Reply-To: <20201226213547.175071-7-alexhenrie24@gmail.com>
 References: <20201226213547.175071-1-alexhenrie24@gmail.com>
- <20201226213547.175071-6-alexhenrie24@gmail.com>
+ <20201226213547.175071-7-alexhenrie24@gmail.com>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
  FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
  (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
@@ -70,7 +70,7 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Sat, 26 Dec 2020 22:35:43 +0100,
+On Sat, 26 Dec 2020 22:35:44 +0100,
 Alex Henrie wrote:
 > 
 > Signed-off-by: Alex Henrie <alexhenrie24@gmail.com>

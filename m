@@ -2,65 +2,68 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2E9E12E32E9
-	for <lists+alsa-devel@lfdr.de>; Sun, 27 Dec 2020 22:20:52 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 32D432E32C0
+	for <lists+alsa-devel@lfdr.de>; Sun, 27 Dec 2020 22:14:36 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 0967616F3;
-	Sun, 27 Dec 2020 22:13:35 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0967616F3
+	by alsa0.perex.cz (Postfix) with ESMTPS id AB858173E;
+	Sun, 27 Dec 2020 22:13:43 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AB858173E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1609103665;
-	bh=zvJ5kNh7SmjrT6WmZeKgA+lo1FzeemJRzVAyyIUSXok=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=grEGt1vHp8XTfvkwnG4/kLsYFYRFa6bSGBt/ZpG6PPDe3s6q5qjj2TZ/CZEx2ralc
-	 qxPmbkplyOn1oFDmp0KsyPPonub/3Xor7nqvGJgN83O/uPBZKht72sM54aTwk1+KdL
-	 cKChHvk/d2UvR29broj8xeFo/MdfUtlQDpy/ckLM=
+	s=default; t=1609103673;
+	bh=ZGayqt2MdlT/EgXzClZD+4CtncCt9VspuiiPHxj5yXI=;
+	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=Gsj/43Me4RkIL1hCyyq367gbkLmKKdmG2AwEhkn4N+ZYkk5A+xrctUpfc6SOaXExA
+	 udEGEDzAy9MTNkF8iyR54IA8gesz6jccPQXBy9J+vPIiok5Lwg1nRvhLZPuVCg7tir
+	 mUQqii7zB/YEW5lttQtNziDnK22QPiWE0ojsAwWA=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 94F24F8022D;
-	Sun, 27 Dec 2020 22:12:50 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 08B63F800C8;
+	Sun, 27 Dec 2020 22:12:57 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 1E37AF8022B; Sun, 27 Dec 2020 22:12:48 +0100 (CET)
+ id 36623F80276; Sun, 27 Dec 2020 22:12:51 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
+X-Spam-Status: No, score=0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,PRX_BODY_76,SPF_HELO_NONE,SPF_NONE autolearn=disabled
+ version=3.4.0
 Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [63.128.21.124])
+ (us-smtp-delivery-124.mimecast.com [216.205.24.124])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 9EC27F800C8
- for <alsa-devel@alsa-project.org>; Sun, 27 Dec 2020 22:12:44 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9EC27F800C8
+ by alsa1.perex.cz (Postfix) with ESMTPS id 12369F80085
+ for <alsa-devel@alsa-project.org>; Sun, 27 Dec 2020 22:12:46 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 12369F80085
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com
- header.b="hfVqoT2d"
+ header.b="dWZ5HG5W"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1609103563;
+ s=mimecast20190719; t=1609103565;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding;
- bh=x6mS5fwdK6liDxgjybZtFeenAXjcPuU8dH8q/9rJU64=;
- b=hfVqoT2dUxhq64yBx3mROCRBaZpCYqGxNeNKtdOK7d19qNoMXT/C8KCqLV8rC3kVaYsuo+
- eAkt6l8f6hMSJ1i90cSMwZ797hMivOygAJ2VS96gR8FnyPYq5zNtAu6Ns2z8oZCCCprPMO
- iYF/TGSfkEAmn6Vejd4dthdI0bglbN8=
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=h6DblsvkQcBaI8Wi2z8PNad4xomPrNWUmS5lSu1NYpw=;
+ b=dWZ5HG5Wk9OQ3JcXlUX0PLDAET/GnHInPVElBRXpz26HoGlzbm0jL22E3Ry3iqZT3cVEEf
+ Ayz/+wBOdgl+X37kJsiOVr003h73/yOHe0W3hBkihw59aiTytaKZwLIgkv2fC+BKgobOu2
+ fIPenTWg27MxC+OmlnPA2dUz0/Ahlks=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-514-jwqao8p3NgSZNlMDDv8DlQ-1; Sun, 27 Dec 2020 16:12:38 -0500
-X-MC-Unique: jwqao8p3NgSZNlMDDv8DlQ-1
+ us-mta-325-mPobGU11NJ-A6I5uw4mowA-1; Sun, 27 Dec 2020 16:12:40 -0500
+X-MC-Unique: mPobGU11NJ-A6I5uw4mowA-1
 Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com
  [10.5.11.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 6A1151005504;
- Sun, 27 Dec 2020 21:12:36 +0000 (UTC)
+ by mimecast-mx01.redhat.com (Postfix) with ESMTPS id E9B03E75A;
+ Sun, 27 Dec 2020 21:12:38 +0000 (UTC)
 Received: from x1.localdomain.com (ovpn-112-25.ams2.redhat.com [10.36.112.25])
- by smtp.corp.redhat.com (Postfix) with ESMTP id 55B54629C0;
- Sun, 27 Dec 2020 21:12:33 +0000 (UTC)
+ by smtp.corp.redhat.com (Postfix) with ESMTP id B069C62A24;
+ Sun, 27 Dec 2020 21:12:36 +0000 (UTC)
 From: Hans de Goede <hdegoede@redhat.com>
 To: Lee Jones <lee.jones@linaro.org>, MyungJoo Ham <myungjoo.ham@samsung.com>,
  Chanwoo Choi <cw00.choi@samsung.com>,
@@ -68,10 +71,11 @@ To: Lee Jones <lee.jones@linaro.org>, MyungJoo Ham <myungjoo.ham@samsung.com>,
  Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
  Liam Girdwood <liam.r.girdwood@linux.intel.com>,
  Jie Yang <yang.jie@linux.intel.com>, Mark Brown <broonie@kernel.org>
-Subject: [PATCH 00/14] MFD/extcon/ASoC: Add support for Intel Bay Trail boards
- with WM5102 codec
-Date: Sun, 27 Dec 2020 22:12:18 +0100
-Message-Id: <20201227211232.117801-1-hdegoede@redhat.com>
+Subject: [PATCH 01/14] mfd: arizona: Add jack pointer to struct arizona
+Date: Sun, 27 Dec 2020 22:12:19 +0100
+Message-Id: <20201227211232.117801-2-hdegoede@redhat.com>
+In-Reply-To: <20201227211232.117801-1-hdegoede@redhat.com>
+References: <20201227211232.117801-1-hdegoede@redhat.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
@@ -92,35 +96,50 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hi All,
+The Linux Arizona driver uses the MFD framework to create several
+sub-devices for the Arizona codec and then uses a driver per function.
 
-This patch series adds support for Intel Bay Trail based device which use
-a WM5102 codec for audio output/input. This was developed and tested on a
-Lenovo Yoga Tablet 1051L.
+The jack-detect support for the Arizona codec is handled by the
+extcon-arizona driver. This driver exports info about the jack state
+to userspace through the standard extcon sysfs class interface.
 
-This series consists of 3 parts:
-1. Arizona MFD drv patches for ACPI bindings, better jack-detect support
-   and misc. fixes
-2. extcon-arizona driver fixes and improved jack reporting (this depends
-   on the MFD changes)
-3. ASoC patches in the form of a quirk for BYTCR detecting, a new
-   machine driver for BYT + WM5102 and jack-detect support for the new
-   machine driver (which again depends on the MFD changes).
+But standard Linux userspace does not monitor/use the extcon sysfs
+interface for jack-detection.
 
-Given that 2. and 3. depend on the MFD changes I believe that it is best
-if all patches in this series are merged through the MFD tree (once
-reviewed and acked) and then Lee can provide a immutable branch for
-the ASoC and extcon maintainers to merge into their trees.
+Add a jack pointer to the shared arizona data struct, this allows
+the ASoC machine driver to create a snd_soc_jack and then pass this
+to the extcon-arizona driver to report jack-detect state, so that
+jack-detection works with standard Linux userspace.
 
-I have a patch with matching UCM profile changes available here:
-https://github.com/jwrdegoede/alsa-ucm-conf/commit/316109e7814926ba984322c1d9190575fab9021c
+The extcon-arizona code already depends on (waits for with -EPROBE_DEFER)
+the snd_card being registered by the machine driver, so this does not
+cause any ordering issues.
 
-This series + the UCM profile has been tested with both the SST and
-SOF ASoC drivers for BYT devices.
+Signed-off-by: Hans de Goede <hdegoede@redhat.com>
+---
+ include/linux/mfd/arizona/core.h | 2 ++
+ 1 file changed, 2 insertions(+)
 
-Regards,
-
-Hans
-
-BugLink: https://github.com/thesofproject/linux/issues/2485
+diff --git a/include/linux/mfd/arizona/core.h b/include/linux/mfd/arizona/core.h
+index 6d6f96b2b29f..5eb269bdbfcb 100644
+--- a/include/linux/mfd/arizona/core.h
++++ b/include/linux/mfd/arizona/core.h
+@@ -115,6 +115,7 @@ enum arizona_type {
+ #define ARIZONA_NUM_IRQ                   75
+ 
+ struct snd_soc_dapm_context;
++struct snd_soc_jack;
+ 
+ struct arizona {
+ 	struct regmap *regmap;
+@@ -148,6 +149,7 @@ struct arizona {
+ 	bool ctrlif_error;
+ 
+ 	struct snd_soc_dapm_context *dapm;
++	struct snd_soc_jack *jack;
+ 
+ 	int tdm_width[ARIZONA_MAX_AIF];
+ 	int tdm_slots[ARIZONA_MAX_AIF];
+-- 
+2.28.0
 

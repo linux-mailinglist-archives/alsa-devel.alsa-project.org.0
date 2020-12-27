@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E114A2E3070
-	for <lists+alsa-devel@lfdr.de>; Sun, 27 Dec 2020 09:28:28 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id E853A2E3074
+	for <lists+alsa-devel@lfdr.de>; Sun, 27 Dec 2020 09:35:52 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 66104175E;
-	Sun, 27 Dec 2020 09:27:33 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 66104175E
+	by alsa0.perex.cz (Postfix) with ESMTPS id 68EB11765;
+	Sun, 27 Dec 2020 09:35:02 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 68EB11765
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1609057703;
-	bh=1+3mjEfNVYt6Al6EnFVH/66k9ICh2GkojNH2vhmlz+E=;
+	s=default; t=1609058152;
+	bh=layuWHgBNzzS/mlk2MkswunfjQR1gKxdP0yx9UWI7hE=;
 	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=pvIfChxtZMxW1RcwbxasZYGXxWTDBixdaXOOXW0gRpnKcGY4Y+X39jV3DB6d/20Du
-	 9NIlCaPZgo9wXnjeAxAcTKHpFOtqUmDAa+2WecI9zMN31gn8dKoEsfL9oxryS6iZie
-	 dYr5SE0Ic+HBsAi0foB+UOOygprmbfqUjToJ59vw=
+	b=Qiu37fj73mFQuV+uUOiSXwJQK5DAEnwjPk0AbTogWxVNIdnDK5KxV1+qjIRXY4t0P
+	 kcaDFEK3S+lZyF23BSkCObhLXBumh/MYXlCY/0nem+J3Gd0WW54ht7AZh9TgtgX40n
+	 yvc4pOdQBoMKUo9OeyzqdqO/jMogPz78EcdDE9FU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id CC4D8F800C8;
-	Sun, 27 Dec 2020 09:26:48 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id B7814F8022D;
+	Sun, 27 Dec 2020 09:34:17 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 3EBC5F800C8; Sun, 27 Dec 2020 09:26:47 +0100 (CET)
+ id E2B51F8022B; Sun, 27 Dec 2020 09:34:14 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE
@@ -33,21 +33,21 @@ X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 23D97F800C8
- for <alsa-devel@alsa-project.org>; Sun, 27 Dec 2020 09:26:44 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 23D97F800C8
+ by alsa1.perex.cz (Postfix) with ESMTPS id 8EB61F80169
+ for <alsa-devel@alsa-project.org>; Sun, 27 Dec 2020 09:34:12 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8EB61F80169
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 46406AE52;
- Sun, 27 Dec 2020 08:26:44 +0000 (UTC)
-Date: Sun, 27 Dec 2020 09:26:44 +0100
-Message-ID: <s5hzh1zejsr.wl-tiwai@suse.de>
+ by mx2.suse.de (Postfix) with ESMTP id 47F31AD64;
+ Sun, 27 Dec 2020 08:34:12 +0000 (UTC)
+Date: Sun, 27 Dec 2020 09:34:12 +0100
+Message-ID: <s5hy2hjejgb.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
 To: Alex Henrie <alexhenrie24@gmail.com>
-Subject: Re: [PATCH 4/9] confmisc: fix memory leak in snd_func_concat
-In-Reply-To: <20201226213547.175071-5-alexhenrie24@gmail.com>
+Subject: Re: [PATCH 8/9] pcm: fix undefined bit shift in bad_pcm_state
+In-Reply-To: <20201226213547.175071-9-alexhenrie24@gmail.com>
 References: <20201226213547.175071-1-alexhenrie24@gmail.com>
- <20201226213547.175071-5-alexhenrie24@gmail.com>
+ <20201226213547.175071-9-alexhenrie24@gmail.com>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
  FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
  (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
@@ -69,32 +69,64 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Sat, 26 Dec 2020 22:35:42 +0100,
+On Sat, 26 Dec 2020 22:35:46 +0100,
 Alex Henrie wrote:
 > 
 > Signed-off-by: Alex Henrie <alexhenrie24@gmail.com>
 > ---
->  src/confmisc.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
+>  include/pcm.h       | 4 +++-
+>  src/pcm/pcm.c       | 2 ++
+>  src/pcm/pcm_local.h | 2 +-
+>  3 files changed, 6 insertions(+), 2 deletions(-)
 > 
-> diff --git a/src/confmisc.c b/src/confmisc.c
-> index eb8218c1..aece39c3 100644
-> --- a/src/confmisc.c
-> +++ b/src/confmisc.c
-> @@ -440,8 +440,8 @@ int snd_func_concat(snd_config_t **dst, snd_config_t *root, snd_config_t *src,
->  	err = snd_config_get_id(src, &id);
->  	if (err >= 0)
->  		err = snd_config_imake_string(dst, id, res);
-> -	free(res);
->        __error:
-> +	free(res);
->  	return err;
->  }
->  #ifndef DOC_HIDDEN
+> diff --git a/include/pcm.h b/include/pcm.h
+> index e300b951..c6c5d8f8 100644
+> --- a/include/pcm.h
+> +++ b/include/pcm.h
+> @@ -307,7 +307,9 @@ typedef enum _snd_pcm_state {
+>  	SND_PCM_STATE_SUSPENDED,
+>  	/** Hardware is disconnected */
+>  	SND_PCM_STATE_DISCONNECTED,
+> -	SND_PCM_STATE_LAST = SND_PCM_STATE_DISCONNECTED,
+> +	/** State cannot be queried */
+> +	SND_PCM_STATE_UNKNOWN,
+> +	SND_PCM_STATE_LAST = SND_PCM_STATE_UNKNOWN,
+>  	/** Private - used internally in the library - do not use*/
+>  	SND_PCM_STATE_PRIVATE1 = 1024
+>  } snd_pcm_state_t;
 
-I guess this would lead to the double-free at the error path after
-realloc() that already freed res before the goto line.
-Care to fix it and resubmit this one?
+We can't add a random new state here.  If any, such a thing has to be
+defined locally, but this would also break ABI.  So, I don't think
+adding a new state is the right fix.
+
+> diff --git a/src/pcm/pcm.c b/src/pcm/pcm.c
+> index 24030b31..5fafc2a0 100644
+> --- a/src/pcm/pcm.c
+> +++ b/src/pcm/pcm.c
+> @@ -680,6 +680,8 @@ static int pcm_state_to_error(snd_pcm_state_t state)
+>  		return -ESTRPIPE;
+>  	case SND_PCM_STATE_DISCONNECTED:
+>  		return -ENODEV;
+> +	case SND_PCM_STATE_UNKNOWN:
+> +		return -ENOSYS;
+>  	default:
+>  		return 0;
+>  	}
+> diff --git a/src/pcm/pcm_local.h b/src/pcm/pcm_local.h
+> index fe77e50d..04f89623 100644
+> --- a/src/pcm/pcm_local.h
+> +++ b/src/pcm/pcm_local.h
+> @@ -444,7 +444,7 @@ static inline int __snd_pcm_start(snd_pcm_t *pcm)
+>  static inline snd_pcm_state_t __snd_pcm_state(snd_pcm_t *pcm)
+>  {
+>  	if (!pcm->fast_ops->state)
+> -		return -ENOSYS;
+> +		return SND_PCM_STATE_UNKNOWN;
+>  	return pcm->fast_ops->state(pcm->fast_op_arg);
+
+We need either to handle a special error value in all places calling
+__snd_pcm_state() or to just return SND_PCM_STATE_XRUN or such instead
+here, IMO.
 
 
 thanks,

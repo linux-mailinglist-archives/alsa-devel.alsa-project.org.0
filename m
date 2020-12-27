@@ -2,67 +2,67 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E47BD2E32D5
-	for <lists+alsa-devel@lfdr.de>; Sun, 27 Dec 2020 22:16:11 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8170C2E32D6
+	for <lists+alsa-devel@lfdr.de>; Sun, 27 Dec 2020 22:16:20 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 1C2501754;
-	Sun, 27 Dec 2020 22:15:21 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1C2501754
+	by alsa0.perex.cz (Postfix) with ESMTPS id 1429E1736;
+	Sun, 27 Dec 2020 22:15:30 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1429E1736
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1609103771;
-	bh=LNQWr1wGi1Fdirec6U/n9yVnpV6ANUw/vSAa5Yu80t4=;
+	s=default; t=1609103780;
+	bh=/zqvHOsxGc5ZLUzaj2jucqzQy9y8CKgjFwhDYXtL2uA=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=pWE0Ah6R7QFFIEoLo/i3qAWmgc+vRSHFHEsM7L9O9xk3EhJegTocDZ0t8RY2OmHFy
-	 u63e2q6u4lfdbaMuBIQtta6++ZtM/sP1wbkNyVwSB2mUngG043gbXAtKXPV7TfS3/R
-	 f4yZwp8XJTwPgztChS6NgNTxO82h5fLzBGw4aRkQ=
+	b=l7H4m1P6c4kPOnnYgrJFaJkCEbinHhbuujhkinwy1TA9XhC+5zgsrbFJ5Go29929V
+	 de6AeRVF/IEKP78FBMCkIk5alvFHpKNnDCOqXuQa8JX5Ukvkgi2JN6cfXVMzn6N/P9
+	 DjZHFkY2OD2106aNt3/730ekfGp+DntV0iYy/gvc=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 080A6F804E7;
+	by alsa1.perex.cz (Postfix) with ESMTP id CA854F804E4;
 	Sun, 27 Dec 2020 22:13:06 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id D4C0CF80279; Sun, 27 Dec 2020 22:12:56 +0100 (CET)
+ id 68599F804CB; Sun, 27 Dec 2020 22:12:58 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
 Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [216.205.24.124])
+ (us-smtp-delivery-124.mimecast.com [63.128.21.124])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 9F383F8020C
- for <alsa-devel@alsa-project.org>; Sun, 27 Dec 2020 22:12:51 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9F383F8020C
+ by alsa1.perex.cz (Postfix) with ESMTPS id E7D5CF80245
+ for <alsa-devel@alsa-project.org>; Sun, 27 Dec 2020 22:12:53 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E7D5CF80245
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com
- header.b="YAqqiWti"
+ header.b="PF4jH4up"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1609103570;
+ s=mimecast20190719; t=1609103572;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=LvFJh0Qn1ycOxxwBE4kQRIv/qlxm9GSq3qk1YZJCsBI=;
- b=YAqqiWtipAtR20BEantkmJIA8r0QwK0XwXwvbPihXrtWiFhJbW89LN18APO/CY6OZ7Upfr
- qk0VG25iVUJvzKAgWcQcPWYUK7Z6oPMiKq/06OAuu84lao8y7fk6vIz+XKd9Vcrx0eiVtY
- eTOp0sGNBfYMIMnLqykfXZ2/hLYcJek=
+ bh=utJRUA8GlxAK71uOfLlrP9p2hhW5a8gj5ZZkIQXdrr4=;
+ b=PF4jH4upx+9ZMe+1xjfJ8F9XmIWYw5jSDOciAkm983Ld65N1KOapRq82Zl2uwfxU21gADN
+ LecvedOoEkydk7ZLIc2LIVsbTQpqwWS09U+ByAD4eVELM8ua7EzGTqH1zoHQgPj0NpEufq
+ 8k1pR7S5/agmXS6MjRiXkxMui7pqdes=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-441-2-wQVVySM4mPqReCKZ943A-1; Sun, 27 Dec 2020 16:12:48 -0500
-X-MC-Unique: 2-wQVVySM4mPqReCKZ943A-1
+ us-mta-594-C5NIzWiZOM6QACV5DXixcQ-1; Sun, 27 Dec 2020 16:12:50 -0500
+X-MC-Unique: C5NIzWiZOM6QACV5DXixcQ-1
 Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com
  [10.5.11.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 91C69800D53;
- Sun, 27 Dec 2020 21:12:46 +0000 (UTC)
+ by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 0FEF91800D42;
+ Sun, 27 Dec 2020 21:12:49 +0000 (UTC)
 Received: from x1.localdomain.com (ovpn-112-25.ams2.redhat.com [10.36.112.25])
- by smtp.corp.redhat.com (Postfix) with ESMTP id 6AB641ACB9;
- Sun, 27 Dec 2020 21:12:44 +0000 (UTC)
+ by smtp.corp.redhat.com (Postfix) with ESMTP id DB27862A23;
+ Sun, 27 Dec 2020 21:12:46 +0000 (UTC)
 From: Hans de Goede <hdegoede@redhat.com>
 To: Lee Jones <lee.jones@linaro.org>, MyungJoo Ham <myungjoo.ham@samsung.com>,
  Chanwoo Choi <cw00.choi@samsung.com>,
@@ -70,9 +70,10 @@ To: Lee Jones <lee.jones@linaro.org>, MyungJoo Ham <myungjoo.ham@samsung.com>,
  Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
  Liam Girdwood <liam.r.girdwood@linux.intel.com>,
  Jie Yang <yang.jie@linux.intel.com>, Mark Brown <broonie@kernel.org>
-Subject: [PATCH 04/14] mfd: arizona: Allow building arizona MFD-core as module
-Date: Sun, 27 Dec 2020 22:12:22 +0100
-Message-Id: <20201227211232.117801-5-hdegoede@redhat.com>
+Subject: [PATCH 05/14] extcon: arizona: Fix some issues when HPDET IRQ fires
+ after the jack has been unplugged
+Date: Sun, 27 Dec 2020 22:12:23 +0100
+Message-Id: <20201227211232.117801-6-hdegoede@redhat.com>
 In-Reply-To: <20201227211232.117801-1-hdegoede@redhat.com>
 References: <20201227211232.117801-1-hdegoede@redhat.com>
 MIME-Version: 1.0
@@ -95,85 +96,83 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-There is no reason why the arizona core,irq and codec model specific
-regmap bits cannot be build as a module. All they do is export symbols
-which are used by the arizona-spi and/or arizona-i2c modules, which
-themselves can be built as module.
+When the jack is partially inserted and then removed again it may be
+removed while the hpdet code is running. In this case the following
+may happen:
 
-Change the Kconfig and Makefile arizona bits so that the arizona MFD-core
-can be built as a module.
+1. The "JACKDET rise" or ""JACKDET fall" IRQ triggers
+2. arizona_jackdet runs and takes info->lock
+3. The "HPDET" IRQ triggers
+4. arizona_hpdet_irq runs, blocks on info->lock
+5. arizona_jackdet calls arizona_stop_mic() and clears info->hpdet_done
+6. arizona_jackdet releases info->lock
+7. arizona_hpdet_irq now can continue running and:
+7.1 Calls arizona_start_mic() (if a mic was detected)
+7.2 sets info->hpdet_done
 
-This is especially useful on x86 platforms with a WM5102 codec, this
-allows the arizona MFD driver necessary for the WM5102 codec to be
-enabled in generic distro-kernels without growing the base kernel-image
-size.
+Step 7 is undeseriable / a bug:
+7.1 causes the device to stay in a high power-state (with MICVDD enabled)
+7.2 causes hpdet to not run on the next jack insertion, which in turn
+    causes the EXTCON_JACK_HEADPHONE state to never get set
+
+This fixes both issues by skipping these 2 steps when arizona_hpdet_irq
+runs after the jack has been unplugged.
 
 Signed-off-by: Hans de Goede <hdegoede@redhat.com>
 ---
- drivers/mfd/Kconfig        |  2 +-
- drivers/mfd/Makefile       | 14 +++++++-------
- drivers/mfd/arizona-core.c |  2 ++
- 3 files changed, 10 insertions(+), 8 deletions(-)
+ drivers/extcon/extcon-arizona.c | 17 +++++++++--------
+ 1 file changed, 9 insertions(+), 8 deletions(-)
 
-diff --git a/drivers/mfd/Kconfig b/drivers/mfd/Kconfig
-index cc0b73280c68..8fe9e10eaf51 100644
---- a/drivers/mfd/Kconfig
-+++ b/drivers/mfd/Kconfig
-@@ -1831,7 +1831,7 @@ config MFD_ARIZONA
- 	select REGMAP
- 	select REGMAP_IRQ
- 	select MFD_CORE
--	bool
-+	tristate
+diff --git a/drivers/extcon/extcon-arizona.c b/drivers/extcon/extcon-arizona.c
+index aae82db542a5..f7ef247de46a 100644
+--- a/drivers/extcon/extcon-arizona.c
++++ b/drivers/extcon/extcon-arizona.c
+@@ -601,7 +601,7 @@ static irqreturn_t arizona_hpdet_irq(int irq, void *data)
+ 	struct arizona *arizona = info->arizona;
+ 	int id_gpio = arizona->pdata.hpdet_id_gpio;
+ 	unsigned int report = EXTCON_JACK_HEADPHONE;
+-	int ret, reading;
++	int ret, reading, state;
+ 	bool mic = false;
  
- config MFD_ARIZONA_I2C
- 	tristate "Cirrus Logic/Wolfson Microelectronics Arizona platform with I2C"
-diff --git a/drivers/mfd/Makefile b/drivers/mfd/Makefile
-index 14fdb188af02..3f208af1664f 100644
---- a/drivers/mfd/Makefile
-+++ b/drivers/mfd/Makefile
-@@ -41,24 +41,24 @@ obj-$(CONFIG_MFD_TQMX86)	+= tqmx86.o
+ 	mutex_lock(&info->lock);
+@@ -614,12 +614,11 @@ static irqreturn_t arizona_hpdet_irq(int irq, void *data)
+ 	}
  
- obj-$(CONFIG_MFD_LOCHNAGAR)	+= lochnagar-i2c.o
+ 	/* If the cable was removed while measuring ignore the result */
+-	ret = extcon_get_state(info->edev, EXTCON_MECHANICAL);
+-	if (ret < 0) {
+-		dev_err(arizona->dev, "Failed to check cable state: %d\n",
+-			ret);
++	state = extcon_get_state(info->edev, EXTCON_MECHANICAL);
++	if (state < 0) {
++		dev_err(arizona->dev, "Failed to check cable state: %d\n", state);
+ 		goto out;
+-	} else if (!ret) {
++	} else if (!state) {
+ 		dev_dbg(arizona->dev, "Ignoring HPDET for removed cable\n");
+ 		goto done;
+ 	}
+@@ -667,7 +666,7 @@ static irqreturn_t arizona_hpdet_irq(int irq, void *data)
+ 		gpio_set_value_cansleep(id_gpio, 0);
  
--obj-$(CONFIG_MFD_ARIZONA)	+= arizona-core.o
--obj-$(CONFIG_MFD_ARIZONA)	+= arizona-irq.o
-+arizona-objs			:= arizona-core.o arizona-irq.o
-+obj-$(CONFIG_MFD_ARIZONA)	+= arizona.o
- obj-$(CONFIG_MFD_ARIZONA_I2C)	+= arizona-i2c.o
- obj-$(CONFIG_MFD_ARIZONA_SPI)	+= arizona-spi.o
- ifeq ($(CONFIG_MFD_WM5102),y)
--obj-$(CONFIG_MFD_ARIZONA)	+= wm5102-tables.o
-+arizona-objs			+= wm5102-tables.o
- endif
- ifeq ($(CONFIG_MFD_WM5110),y)
--obj-$(CONFIG_MFD_ARIZONA)	+= wm5110-tables.o
-+arizona-objs			+= wm5110-tables.o
- endif
- ifeq ($(CONFIG_MFD_WM8997),y)
--obj-$(CONFIG_MFD_ARIZONA)	+= wm8997-tables.o
-+arizona-objs			+= wm8997-tables.o
- endif
- ifeq ($(CONFIG_MFD_WM8998),y)
--obj-$(CONFIG_MFD_ARIZONA)	+= wm8998-tables.o
-+arizona-objs			+= wm8998-tables.o
- endif
- ifeq ($(CONFIG_MFD_CS47L24),y)
--obj-$(CONFIG_MFD_ARIZONA)	+= cs47l24-tables.o
-+arizona-objs			+= cs47l24-tables.o
- endif
- obj-$(CONFIG_MFD_WCD934X)	+= wcd934x.o
- obj-$(CONFIG_MFD_WM8400)	+= wm8400-core.o
-diff --git a/drivers/mfd/arizona-core.c b/drivers/mfd/arizona-core.c
-index 000cb82023e3..a9ba1c865abf 100644
---- a/drivers/mfd/arizona-core.c
-+++ b/drivers/mfd/arizona-core.c
-@@ -1478,3 +1478,5 @@ int arizona_dev_exit(struct arizona *arizona)
- 	return 0;
- }
- EXPORT_SYMBOL_GPL(arizona_dev_exit);
-+
-+MODULE_LICENSE("GPL v2");
+ 	/* If we have a mic then reenable MICDET */
+-	if (mic || info->mic)
++	if (state && (mic || info->mic))
+ 		arizona_start_mic(info);
+ 
+ 	if (info->hpdet_active) {
+@@ -675,7 +674,9 @@ static irqreturn_t arizona_hpdet_irq(int irq, void *data)
+ 		info->hpdet_active = false;
+ 	}
+ 
+-	info->hpdet_done = true;
++	/* Do not set hp_det done when the cable has been unplugged */
++	if (state)
++		info->hpdet_done = true;
+ 
+ out:
+ 	mutex_unlock(&info->lock);
 -- 
 2.28.0
 

@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C13FA2E307A
-	for <lists+alsa-devel@lfdr.de>; Sun, 27 Dec 2020 09:39:07 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4BCFC2E307B
+	for <lists+alsa-devel@lfdr.de>; Sun, 27 Dec 2020 09:39:28 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 64104176A;
-	Sun, 27 Dec 2020 09:38:17 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 64104176A
+	by alsa0.perex.cz (Postfix) with ESMTPS id A53981777;
+	Sun, 27 Dec 2020 09:38:37 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A53981777
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1609058347;
-	bh=aDJrPjABdwWWUvB6LCCz3wjzeqRQp08wdUifWQZ1GZA=;
+	s=default; t=1609058367;
+	bh=o7u+h2VLdKKT+HTEoFbPJ50R/3C1mbRew5xBFg0zHUk=;
 	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=PqF3aIBOK5SMaSiLIYAEPuDFGmxi25weZgCrXiKDCkANscLjhZWbKyFjofKL1v+ik
-	 Zfto77aSIlAglRd2lYXIT4/khRiLGvmP4tBHyfBCrlpvrO7GxFhmTFlPjq3QT9BY/6
-	 QT1s3n0om/kw2TR+XOPMFBbGWE/DFHABHvFDIUYw=
+	b=F3pFCHqXV5nKnU996A1A3xlfVkloA6eOCzMHNBcYjyjnqPjYBTcGqawvGeZOwUJGR
+	 qh00dzMPmy64n+YxJQRdQJTCYw0+m/fPt6TwY8+tt8bt4bDjAoqMjilFefmp7qqzRj
+	 Fo3ZWCUHRk9+LaIh2m/p8cgzry5xOrU/0pyZ2gAQ=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id C4AC4F800C8;
-	Sun, 27 Dec 2020 09:37:32 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 93BE2F80245;
+	Sun, 27 Dec 2020 09:38:35 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 727EBF8022B; Sun, 27 Dec 2020 09:37:30 +0100 (CET)
+ id E6CC9F8022D; Sun, 27 Dec 2020 09:38:29 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE
@@ -33,21 +33,22 @@ X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 15051F800C8
- for <alsa-devel@alsa-project.org>; Sun, 27 Dec 2020 09:37:28 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 15051F800C8
+ by alsa1.perex.cz (Postfix) with ESMTPS id 54F26F80169
+ for <alsa-devel@alsa-project.org>; Sun, 27 Dec 2020 09:38:26 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 54F26F80169
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id C7F90AD75;
- Sun, 27 Dec 2020 08:37:27 +0000 (UTC)
-Date: Sun, 27 Dec 2020 09:37:27 +0100
-Message-ID: <s5hwnx3ejaw.wl-tiwai@suse.de>
+ by mx2.suse.de (Postfix) with ESMTP id 37BFFAD64;
+ Sun, 27 Dec 2020 08:38:26 +0000 (UTC)
+Date: Sun, 27 Dec 2020 09:38:26 +0100
+Message-ID: <s5hv9cnej99.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
 To: Alex Henrie <alexhenrie24@gmail.com>
-Subject: Re: [PATCH 9/9] conf: remove dead code from get_hexachar
-In-Reply-To: <20201226213547.175071-10-alexhenrie24@gmail.com>
+Subject: Re: [PATCH 1/9] conf: fix use after free in
+ _snd_config_load_with_include
+In-Reply-To: <20201226213547.175071-2-alexhenrie24@gmail.com>
 References: <20201226213547.175071-1-alexhenrie24@gmail.com>
- <20201226213547.175071-10-alexhenrie24@gmail.com>
+ <20201226213547.175071-2-alexhenrie24@gmail.com>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
  FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
  (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
@@ -69,42 +70,12 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Sat, 26 Dec 2020 22:35:47 +0100,
+On Sat, 26 Dec 2020 22:35:39 +0100,
 Alex Henrie wrote:
 > 
 > Signed-off-by: Alex Henrie <alexhenrie24@gmail.com>
-> ---
->  src/conf.c | 9 +--------
->  1 file changed, 1 insertion(+), 8 deletions(-)
-> 
-> diff --git a/src/conf.c b/src/conf.c
-> index 44d1bfde..970ad643 100644
-> --- a/src/conf.c
-> +++ b/src/conf.c
-> @@ -877,16 +877,9 @@ static int get_nonwhite(input_t *input)
->  
->  static inline int get_hexachar(input_t *input)
->  {
-> -	int c, num = 0;
-> -
-> +	int c;
->  	c = get_char(input);
-> -	if (c >= '0' && c <= '9') num |= (c - '0') << 4;
-> -	else if (c >= 'a' && c <= 'f') num |= (c - 'a') << 4;
-> -	else if (c >= 'A' && c <= 'F') num |= (c - 'A') << 4;
->  	c = get_char(input);
-> -	if (c >= '0' && c <= '9') num |= (c - '0') << 0;
-> -	else if (c >= 'a' && c <= 'f') num |= (c - 'a') << 0;
-> -	else if (c >= 'A' && c <= 'F') num |= (c - 'A') << 0;
->  	return c;
 
-The current code is obviously wrong and the suggested fix goes even to
-a wronger direction :)  The function should return num instead.
+Applied, thanks.
 
-I wonder how this did't hit any problem, so far.  Maybe 0x prefix was
-rarely used, fortunately.
-
-
-thanks,
 
 Takashi

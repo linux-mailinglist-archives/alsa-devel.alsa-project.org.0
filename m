@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4623D2E307C
-	for <lists+alsa-devel@lfdr.de>; Sun, 27 Dec 2020 09:39:58 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 026A02E307D
+	for <lists+alsa-devel@lfdr.de>; Sun, 27 Dec 2020 09:40:17 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id DD0DC1760;
-	Sun, 27 Dec 2020 09:39:07 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DD0DC1760
+	by alsa0.perex.cz (Postfix) with ESMTPS id 9174817D3;
+	Sun, 27 Dec 2020 09:39:26 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9174817D3
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1609058397;
-	bh=S466+rkErT3VN9Ny9jqwTxoLvmvU5bY2ZwTt+919eKU=;
+	s=default; t=1609058416;
+	bh=C/e2wwbldJhr76rDS6dIdY9gkbxJ9ODwUprFRnzVYMk=;
 	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=qsfKyv8TBSBzcL7+6jKCKkikMfVuyDstk8FkduVKB1e+xL3FlNWYpx0Lqlmf7+KYZ
-	 E37JIwgtzJaP38l7jYygxi5g9Bh/dbkPuxsse34tpcv7mDLdKtTJqUtVwIOawMEY+Q
-	 bjFt6zZW0TwhValO84m4nBtT7IqyijRhOEc64ipg=
+	b=Pq7F43GEWWAPIZQTSsRJDdjTFkWeBuXeVbXD0zbXXd7nKgnZUNBCz4h9EbLi5VczW
+	 IwbdykcCcIIb5nyekC/iXnXONWavepc/F5WMF2xjImKCv+5TlRCquDp7IrJqcEbc/z
+	 v0gP+WpaZOzl1bBZeBICAbxx3C4aup8T0QXjSXzc=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 0464BF80279;
-	Sun, 27 Dec 2020 09:38:42 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 990E5F804CB;
+	Sun, 27 Dec 2020 09:38:55 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id F1B30F8026C; Sun, 27 Dec 2020 09:38:39 +0100 (CET)
+ id C9248F804C3; Sun, 27 Dec 2020 09:38:53 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE
@@ -33,21 +33,21 @@ X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id AB75FF8020C
- for <alsa-devel@alsa-project.org>; Sun, 27 Dec 2020 09:38:37 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz AB75FF8020C
+ by alsa1.perex.cz (Postfix) with ESMTPS id A7D5FF8026C
+ for <alsa-devel@alsa-project.org>; Sun, 27 Dec 2020 09:38:51 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A7D5FF8026C
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 6A124AD8C;
- Sun, 27 Dec 2020 08:38:37 +0000 (UTC)
-Date: Sun, 27 Dec 2020 09:38:37 +0100
-Message-ID: <s5htus7ej8y.wl-tiwai@suse.de>
+ by mx2.suse.de (Postfix) with ESMTP id 4A3CBADA3;
+ Sun, 27 Dec 2020 08:38:51 +0000 (UTC)
+Date: Sun, 27 Dec 2020 09:38:51 +0100
+Message-ID: <s5hsg7rej8k.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
 To: Alex Henrie <alexhenrie24@gmail.com>
-Subject: Re: [PATCH 2/9] ucm: fix bad frees in get_list0 and get_list20
-In-Reply-To: <20201226213547.175071-3-alexhenrie24@gmail.com>
+Subject: Re: [PATCH 3/9] rawmidi: fix memory leak in snd_rawmidi_virtual_open
+In-Reply-To: <20201226213547.175071-4-alexhenrie24@gmail.com>
 References: <20201226213547.175071-1-alexhenrie24@gmail.com>
- <20201226213547.175071-3-alexhenrie24@gmail.com>
+ <20201226213547.175071-4-alexhenrie24@gmail.com>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
  FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
  (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
@@ -69,7 +69,7 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Sat, 26 Dec 2020 22:35:40 +0100,
+On Sat, 26 Dec 2020 22:35:41 +0100,
 Alex Henrie wrote:
 > 
 > Signed-off-by: Alex Henrie <alexhenrie24@gmail.com>

@@ -2,97 +2,93 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 66BFC2E3AA1
-	for <lists+alsa-devel@lfdr.de>; Mon, 28 Dec 2020 14:40:37 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id D3CD02E3D65
+	for <lists+alsa-devel@lfdr.de>; Mon, 28 Dec 2020 15:16:36 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id F3D151716;
-	Mon, 28 Dec 2020 14:39:41 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz F3D151716
+	by alsa0.perex.cz (Postfix) with ESMTPS id 51F63171B;
+	Mon, 28 Dec 2020 15:15:41 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 51F63171B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1609162832;
-	bh=d+ggE0jTQ/GL5J1bUWUgp6Ujud77xl4PvSUqHGWdSP8=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=uIUvy4iPoE7wHlNbIWZ8osHoc+HmdQhglIwgJFYLI3mbe4YMaMpxgmo21dDtNAm0f
-	 dz4ohKqazGf62Vw2lU86tfRsOTkFv010Q4aauxCl/8m78iShbi2W9Btp4803rRQNSP
-	 z5Yb8YgPqYflEdGQ7eErASRPd6kR7UD6nwQLqERU=
+	s=default; t=1609164991;
+	bh=F7nnAEjQNb2un2qoM7pFGWFc/16736+Vo+D2THtKN30=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=b/pAIbDmI/iGd6GGBpkx3AEF3CVrq7kSxaBdc3mwLPx5PPb7ql/J0oL2By25+BUWh
+	 MFYdohziZgDVN+AaTQUaqIKO1YHlihptsfhy5URz0YJhOpaQCcMJhNirul9B43uNJJ
+	 Tv5ENhW0NUSbOpj0B5LuPFrHT7HMZ4/42ufu+/yI=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 16FEAF801F5;
-	Mon, 28 Dec 2020 14:38:57 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 9A947F801F9;
+	Mon, 28 Dec 2020 15:14:56 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id C88CBF801F5; Mon, 28 Dec 2020 14:38:53 +0100 (CET)
+ id EA824F801F5; Mon, 28 Dec 2020 15:14:53 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
-Received: from mx0a-00154904.pphosted.com (mx0a-00154904.pphosted.com
- [148.163.133.20])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from mail-pg1-x52b.google.com (mail-pg1-x52b.google.com
+ [IPv6:2607:f8b0:4864:20::52b])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id A90DBF80169
- for <alsa-devel@alsa-project.org>; Mon, 28 Dec 2020 14:38:47 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A90DBF80169
+ by alsa1.perex.cz (Postfix) with ESMTPS id B073EF80143
+ for <alsa-devel@alsa-project.org>; Mon, 28 Dec 2020 15:14:45 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B073EF80143
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=dell.com header.i=@dell.com
- header.b="dmL7psTX"
-Received: from pps.filterd (m0170391.ppops.net [127.0.0.1])
- by mx0a-00154904.pphosted.com (8.16.0.43/8.16.0.43) with SMTP id
- 0BSDcGgR008828
- for <alsa-devel@alsa-project.org>; Mon, 28 Dec 2020 08:38:45 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=dell.com;
- h=from : to : cc :
- subject : date : message-id : mime-version : content-transfer-encoding;
- s=smtpout1; bh=tQR4jRZ/qW4QaiXsR3B6X0bnpzWvfDAF7DkqMpvHFTE=;
- b=dmL7psTX4D24omgfTn6mVJa+DRX0zWRF2aBrold8uiYoHY4ZHiQf9DQYXsVjkjRCCEeH
- 4fsRs37I8izNPMjYcKmxlZbFqLGu0PK7b0JX1QRRPwbcjolAAr3uCoW66q/AFp5A1eY6
- UBCrwcBlMDA7Sd+jmzxBAThoxHn5zmL/5hp58t5CPS0Gu4n2TQ4yBt7LmSSDInR/BmdE
- RQHUI3Yr8PmqkXR0XqTZbAC8fflhMFZiC8AMz+VmtI2jMDeu2ol/+hVKOAMuVt1ssA+Y
- PywbJNyW1+WUmAXqwJVx+djhL0eHVjBU0ecI1VGTTWZ4K+0jIVvy9Ndb9fEbtf1JJfCD YA== 
-Received: from mx0a-00154901.pphosted.com (mx0b-00154901.pphosted.com
- [67.231.157.37])
- by mx0a-00154904.pphosted.com with ESMTP id 35p173ce8j-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT)
- for <alsa-devel@alsa-project.org>; Mon, 28 Dec 2020 08:38:45 -0500
-Received: from pps.filterd (m0089484.ppops.net [127.0.0.1])
- by mx0b-00154901.pphosted.com (8.16.0.43/8.16.0.43) with SMTP id
- 0BSDaVI8107877
- for <alsa-devel@alsa-project.org>; Mon, 28 Dec 2020 08:38:44 -0500
-Received: from ausxippc106.us.dell.com ([143.166.85.156])
- by mx0b-00154901.pphosted.com with ESMTP id 35pkdfd3ej-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK)
- for <alsa-devel@alsa-project.org>; Mon, 28 Dec 2020 08:38:44 -0500
-X-LoopCount0: from 10.69.132.19
-X-PREM-Routing: D-Outbound
-X-IronPort-AV: E=Sophos;i="5.60,349,1549951200"; d="scan'208";a="639372522"
-From: Perry Yuan <Perry.Yuan@dell.com>
-To: oder_chiou@realtek.com, perex@perex.cz, tiwai@suse.com
-Subject: [PATCH v2 2/2] ASoC: rt715:add Mic Mute LED control support
-Date: Mon, 28 Dec 2020 21:38:31 +0800
-Message-Id: <20201228133831.17464-1-Perry_Yuan@Dell.com>
-X-Mailer: git-send-email 2.19.2.windows.1
+ dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
+ header.b="rg7WbRj1"
+Received: by mail-pg1-x52b.google.com with SMTP id i7so7388093pgc.8
+ for <alsa-devel@alsa-project.org>; Mon, 28 Dec 2020 06:14:45 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=jzv76ZxrfyN9aLufGK4Ag7xuBKo0xh2BNWYNmVhmZnU=;
+ b=rg7WbRj11lokwdONgJDWxxmo2Cd5hR3p5eTsMApwFhZ6YrjXaJ2X9Ld3UxV/xCqYPc
+ h/65VLLkmldjIfJsYlSpXTBQWFibWMITt0L8g6yE9Y/Hw1E+qWVySxw6amuAbuWnaDeq
+ p+MnueT1C2ayp5PExAHLUuQ6FMFRKlniOkFt600zGL6Wu7sFTqZtfcpoNuNNc0ZjXIL5
+ lYOn1VnmkFaeI+zEPdHxh8xXir1e+F/6HcRf48MQ/x5fBra3uB9pw0QXKGOiuM717k0n
+ 7ZhUl5bhEqbO8+GXpI38MiNEFG2hHYa3jSRtzl6QpRhv6iaryfxb1rcN5sOgaNkilPVl
+ UOLQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=jzv76ZxrfyN9aLufGK4Ag7xuBKo0xh2BNWYNmVhmZnU=;
+ b=Iq9TpMDbxBX1fwf5aICJjxv+V2jD37qEBZ2tv2XoB2ycFD0Ke2lxhGx42aOabZ9exI
+ TQ0H1dUSqwiAA9I9n1iMyd0w5YmtjJXOD/VktizkewB4GH7w59d1gA6ghPzcGt0RDI++
+ PRr4fiAMJp6IVamRz/FZTa4xQtIR/qcY7ecmzOcA0ITpwvMVFb6djXt4yZsNcmC+bSA9
+ FV9nJh8JqCEY2F5IyXAD5PrsnsaHOzNpfNsVDi459g0CYTYlr1vsmF1yH4xQ01O3q1me
+ btnVtJyQoCBAY9/L0lkeEqaFnEk2eDxRy4w46NMZRdjHXeE1QZ+a+fTpJCtkyLAqrXA+
+ r7zA==
+X-Gm-Message-State: AOAM531vlAPUEMJdA6UegWl76+bBRqPpEJMNtbc5pCTxhri0a7ZJP9UW
+ Wk6sk2GHPyoKJ1QNhYySDe06h4Xryv+bvisBA2o=
+X-Google-Smtp-Source: ABdhPJw0jdWVruIXOd+HR2C6dc9/TXCfNZWddyDREtzDGvhSptycRDJkF3safh2eGG216pDI3oUUfKtBMTD5AmHVd6g=
+X-Received: by 2002:a63:b1e:: with SMTP id 30mr43734626pgl.203.1609164884087; 
+ Mon, 28 Dec 2020 06:14:44 -0800 (PST)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.343, 18.0.737
- definitions=2020-12-28_11:2020-12-28,
- 2020-12-28 signatures=0
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- mlxlogscore=957 mlxscore=0
- impostorscore=0 spamscore=0 lowpriorityscore=0 suspectscore=0
- malwarescore=0 adultscore=0 bulkscore=0 clxscore=1011 phishscore=0
- priorityscore=1501 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.12.0-2009150000 definitions=main-2012280085
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 adultscore=0
- suspectscore=0 mlxscore=0
- malwarescore=0 spamscore=0 phishscore=0 bulkscore=0 mlxlogscore=999
- classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2009150000
- definitions=main-2012280085
-Cc: alsa-devel@alsa-project.org, Limonciello Mario <Mario.Limonciello@dell.com>,
- Perry Yuan <Perry.Yuan@dell.com>, lgirdwood@gmail.com,
- linux-kernel@vger.kernel.org, broonie@kernel.org
+References: <20201227211232.117801-1-hdegoede@redhat.com>
+ <20201227211232.117801-4-hdegoede@redhat.com>
+In-Reply-To: <20201227211232.117801-4-hdegoede@redhat.com>
+From: Andy Shevchenko <andy.shevchenko@gmail.com>
+Date: Mon, 28 Dec 2020 16:14:27 +0200
+Message-ID: <CAHp75VesAo9-GGCVyGcQuNLG8KOLcB_S+bokcxJTfeDn7sb0Bg@mail.gmail.com>
+Subject: Re: [PATCH 03/14] mfd: arizona: Add support for ACPI enumeration of
+ WM5102 connected over SPI
+To: Hans de Goede <hdegoede@redhat.com>
+Content-Type: text/plain; charset="UTF-8"
+Cc: Cezary Rojewski <cezary.rojewski@intel.com>,
+ Christian Hartmann <cornogle@googlemail.com>,
+ ALSA Development Mailing List <alsa-devel@alsa-project.org>,
+ patches@opensource.cirrus.com, Mark Brown <broonie@kernel.org>,
+ Jie Yang <yang.jie@linux.intel.com>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ Liam Girdwood <liam.r.girdwood@linux.intel.com>,
+ Chanwoo Choi <cw00.choi@samsung.com>, MyungJoo Ham <myungjoo.ham@samsung.com>,
+ Lee Jones <lee.jones@linaro.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -108,138 +104,218 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: Perry Yuan <perry_yuan@dell.com>
+On Sun, Dec 27, 2020 at 11:16 PM Hans de Goede <hdegoede@redhat.com> wrote:
+>
+> The Intel Bay Trail (x86/ACPI) based Lenovo Yoga Tablet 2 series use
+> a WM5102 codec connected over SPI.
+>
+> Add support for ACPI enumeration to arizona-spi so that arizona-spi can
+> bind to the codec on these tablets.
+>
+> This is loosely based on an earlier attempt (for Android-x86) at this by
+> Christian Hartmann, combined with insights in things like the speaker GPIO
+> from the android-x86 android port for the Lenovo Yoga Tablet 2 1051F/L [1].
 
-Some new Dell system is going to support audio internal micphone
-privacy setting from hardware level with micmute led state changing
-When micmute hotkey pressed by user, soft mute will need to be enabled
-firstly in case of pop noise, and codec driver need to react to mic
-mute event to EC notifying that SW mute is completed. Then EC will do the
-HW mute physically.
+Few nitpicks here and there, but the most important bit that hits me
+is device_get_match_data().
 
-This patch allow codec rt715 driver to ack EC when micmute key pressed
-through this micphone led control interface like hda_generic provided.
+> [1] https://github.com/Kitsune2222/Android_Yoga_Tablet_2-1051F_Kernel
+>
+> Cc: Christian Hartmann <cornogle@googlemail.com>
+> Signed-off-by: Hans de Goede <hdegoede@redhat.com>
+> ---
+>  drivers/mfd/arizona-spi.c | 120 ++++++++++++++++++++++++++++++++++++++
+>  1 file changed, 120 insertions(+)
+>
+> diff --git a/drivers/mfd/arizona-spi.c b/drivers/mfd/arizona-spi.c
+> index 704f214d2614..bcdbd72fefb5 100644
+> --- a/drivers/mfd/arizona-spi.c
+> +++ b/drivers/mfd/arizona-spi.c
+> @@ -7,7 +7,10 @@
+>   * Author: Mark Brown <broonie@opensource.wolfsonmicro.com>
+>   */
+>
+> +#include <linux/acpi.h>
+>  #include <linux/err.h>
+> +#include <linux/gpio/consumer.h>
+> +#include <linux/gpio/machine.h>
+>  #include <linux/module.h>
+>  #include <linux/pm_runtime.h>
+>  #include <linux/regmap.h>
+> @@ -15,11 +18,119 @@
+>  #include <linux/slab.h>
+>  #include <linux/spi/spi.h>
+>  #include <linux/of.h>
+> +#include <uapi/linux/input-event-codes.h>
+>
+>  #include <linux/mfd/arizona/core.h>
+>
+>  #include "arizona.h"
+>
+> +#ifdef CONFIG_ACPI
+> +const struct acpi_gpio_params reset_gpios = { 1, 0, false };
+> +const struct acpi_gpio_params ldoena_gpios = { 2, 0, false };
+> +
+> +static const struct acpi_gpio_mapping arizona_acpi_gpios[] = {
+> +       { "reset-gpios", &reset_gpios, 1, },
+> +       { "wlf,ldoena-gpios", &ldoena_gpios, 1 },
+> +       { }
+> +};
+> +
+> +/*
+> + * The ACPI resources for the device only describe external GPIO-s. They do
+> + * not provide mappings for the GPIO-s coming from the Arizona codec itself.
+> + */
+> +static const struct gpiod_lookup arizona_soc_gpios[] = {
+> +       { "arizona", 2, "wlf,spkvdd-ena", 0, GPIO_ACTIVE_HIGH },
+> +       { "arizona", 4, "wlf,micd-pol", 0, GPIO_ACTIVE_LOW },
+> +};
+> +
+> +/*
+> + * The AOSP 3.5 mm Headset: Accessory Specification gives the following values:
+> + * Function A Play/Pause:           0 ohm
+> + * Function D Voice assistant:    135 ohm
+> + * Function B Volume Up           240 ohm
+> + * Function C Volume Down         470 ohm
+> + * Minimum Mic DC resistance     1000 ohm
+> + * Minimum Ear speaker impedance   16 ohm
+> + * Note the first max value below must be less then the min. speaker impedance,
+> + * to allow CTIA/OMTP detection to work. The other max values are the closest
+> + * value from extcon-arizona.c:arizona_micd_levels halfway 2 button resistances.
+> + */
+> +static const struct arizona_micd_range arizona_micd_aosp_ranges[] = {
+> +       { .max =  11, .key = KEY_PLAYPAUSE },
+> +       { .max = 186, .key = KEY_VOICECOMMAND },
+> +       { .max = 348, .key = KEY_VOLUMEUP },
+> +       { .max = 752, .key = KEY_VOLUMEDOWN },
+> +};
+> +
+> +static void arizona_spi_acpi_remove_lookup(void *lookup)
+> +{
+> +       gpiod_remove_lookup_table(lookup);
+> +}
+> +
+> +static int arizona_spi_acpi_probe(struct arizona *arizona)
+> +{
+> +       struct gpiod_lookup_table *lookup;
+> +       int i, ret;
+> +
+> +       /* Add mappings for the 2 ACPI declared GPIOs used for reset and ldo-ena */
+> +       devm_acpi_dev_add_driver_gpios(arizona->dev, arizona_acpi_gpios);
+> +
+> +       /* Add lookups for the SoCs own GPIOs used for micdet-polarity and spkVDD-enable */
+> +       lookup = devm_kzalloc(arizona->dev,
+> +                             struct_size(lookup, table, ARRAY_SIZE(arizona_soc_gpios) + 1),
+> +                             GFP_KERNEL);
+> +       if (!lookup)
+> +               return -ENOMEM;
+> +
+> +       lookup->dev_id = dev_name(arizona->dev);
 
-Signed-off-by: Perry Yuan <perry_yuan@dell.com>
-Signed-off-by: Limonciello Mario <mario_limonciello@dell.com>
----
- sound/soc/codecs/rt715-sdca.c | 19 ++++++++++++++++++-
- sound/soc/codecs/rt715-sdca.h |  1 +
- sound/soc/codecs/rt715.c      | 19 ++++++++++++++++++-
- sound/soc/codecs/rt715.h      |  1 +
- 4 files changed, 38 insertions(+), 2 deletions(-)
+> +       for (i = 0; i < ARRAY_SIZE(arizona_soc_gpios); i++)
+> +               lookup->table[i] = arizona_soc_gpios[i];
 
-diff --git a/sound/soc/codecs/rt715-sdca.c b/sound/soc/codecs/rt715-sdca.c
-index b43ac8559e45..e168ef6efcf5 100644
---- a/sound/soc/codecs/rt715-sdca.c
-+++ b/sound/soc/codecs/rt715-sdca.c
-@@ -12,6 +12,7 @@
- #include <linux/version.h>
- #include <linux/kernel.h>
- #include <linux/init.h>
-+#include <linux/leds.h>
- #include <linux/pm_runtime.h>
- #include <linux/pm.h>
- #include <linux/soundwire/sdw.h>
-@@ -268,6 +269,7 @@ static int rt715_sdca_put_volsw(struct snd_kcontrol *kcontrol,
- 	unsigned int reg2 = mc->rreg;
- 	unsigned int reg = mc->reg;
- 	unsigned int max = mc->max;
-+	unsigned int val0, val1;
- 	int err;
- 
- 	val = ucontrol->value.integer.value[0];
-@@ -286,7 +288,22 @@ static int rt715_sdca_put_volsw(struct snd_kcontrol *kcontrol,
- 		if (err < 0)
- 			return err;
- 	}
--
-+#if IS_ENABLED(CONFIG_DELL_PRIVACY)
-+	/* Privacy LED Trigger State Changed by muted/unmute switch */
-+	if (mc->invert) {
-+		val0 = ucontrol->value.integer.value[0];
-+		val1 = ucontrol->value.integer.value[1];
-+		if (val0 == 1 && val1 == 1) {
-+			rt715->micmute_led = LED_OFF;
-+			ledtrig_audio_set(LED_AUDIO_MICMUTE,
-+					rt715->micmute_led ? LED_ON : LED_OFF);
-+		} else if (val0 == 0 && val1 == 0) {
-+			rt715->micmute_led = LED_ON;
-+			ledtrig_audio_set(LED_AUDIO_MICMUTE,
-+					rt715->micmute_led ? LED_ON : LED_OFF);
-+		}
-+	}
-+#endif
- 	return 0;
- }
- 
-diff --git a/sound/soc/codecs/rt715-sdca.h b/sound/soc/codecs/rt715-sdca.h
-index 840c237895dd..2ab8724ae50b 100644
---- a/sound/soc/codecs/rt715-sdca.h
-+++ b/sound/soc/codecs/rt715-sdca.h
-@@ -31,6 +31,7 @@ struct rt715_sdca_priv {
- 	int l_is_unmute;
- 	int r_is_unmute;
- 	int hw_sdw_ver;
-+	int micmute_led;
- };
- 
- struct rt715_sdw_stream_data {
-diff --git a/sound/soc/codecs/rt715.c b/sound/soc/codecs/rt715.c
-index cdcba70146da..faa4dee6b39a 100644
---- a/sound/soc/codecs/rt715.c
-+++ b/sound/soc/codecs/rt715.c
-@@ -13,6 +13,7 @@
- #include <linux/init.h>
- #include <linux/delay.h>
- #include <linux/i2c.h>
-+#include <linux/leds.h>
- #include <linux/pm_runtime.h>
- #include <linux/pm.h>
- #include <linux/soundwire/sdw.h>
-@@ -88,13 +89,29 @@ static int rt715_set_amp_gain_put(struct snd_kcontrol *kcontrol,
- 		RT715_SET_GAIN_MIX_ADC2_L};
- 	unsigned int addr_h, addr_l, val_h, val_ll, val_lr;
- 	unsigned int read_ll, read_rl, i, j, loop_cnt;
-+	unsigned int val0, val1;
- 
- 	if (strstr(ucontrol->id.name, "Main Capture Switch") ||
- 		strstr(ucontrol->id.name, "Main Capture Volume"))
- 		loop_cnt = 4;
- 	else
- 		loop_cnt = 1;
--
-+#if IS_ENABLED(CONFIG_DELL_PRIVACY)
-+	/*  Privacy micmute led trigger for  muted/unmute switch */
-+	if (mc->invert) {
-+		val0 = ucontrol->value.integer.value[0];
-+		val1 = ucontrol->value.integer.value[1];
-+		if (val0 == 1 && val1 == 1) {
-+			rt715->micmute_led = LED_OFF;
-+			ledtrig_audio_set(LED_AUDIO_MICMUTE,
-+					rt715->micmute_led ? LED_ON : LED_OFF);
-+		} else if (val0 == 0 && val1 == 0) {
-+			rt715->micmute_led = LED_ON;
-+			ledtrig_audio_set(LED_AUDIO_MICMUTE,
-+					rt715->micmute_led ? LED_ON : LED_OFF);
-+		}
-+	}
-+#endif
- 	for (j = 0; j < loop_cnt; j++) {
- 		/* Can't use update bit function, so read the original value first */
- 		if (loop_cnt == 1) {
-diff --git a/sound/soc/codecs/rt715.h b/sound/soc/codecs/rt715.h
-index 009a8266f606..2d3b5b299514 100644
---- a/sound/soc/codecs/rt715.h
-+++ b/sound/soc/codecs/rt715.h
-@@ -22,6 +22,7 @@ struct rt715_priv {
- 	struct sdw_bus_params params;
- 	bool hw_init;
- 	bool first_hw_init;
-+	int micmute_led;
- };
- 
- struct sdw_stream_data {
+Would memcpy() do the same at one pass?
+
+> +       gpiod_add_lookup_table(lookup);
+> +       ret = devm_add_action_or_reset(arizona->dev, arizona_spi_acpi_remove_lookup, lookup);
+> +       if (ret)
+> +               return ret;
+
+> +       /* Enable 32KHz clock from SoC to codec for jack-detect */
+> +       acpi_evaluate_object(ACPI_HANDLE(arizona->dev), "CLKE", NULL, NULL);
+
+No error check?
+
+> +       /*
+> +        * Some DSDTs wrongly declare the IRQ trigger-type as IRQF_TRIGGER_FALLING
+> +        * The IRQ line will stay low when a new IRQ event happens between reading
+> +        * the IRQ status flags and acknowledging them. When the IRQ line stays
+> +        * low like this the IRQ will never trigger again when its type is set
+> +        * to IRQF_TRIGGER_FALLING. Correct the IRQ trigger-type to fix this.
+> +        */
+> +       arizona->pdata.irq_flags = IRQF_TRIGGER_LOW;
+> +
+> +       /* Wait 200 ms after jack insertion */
+> +       arizona->pdata.micd_detect_debounce = 200;
+> +
+> +       /* Use standard AOSP values for headset-button mappings */
+> +       arizona->pdata.micd_ranges = arizona_micd_aosp_ranges;
+> +       arizona->pdata.num_micd_ranges = ARRAY_SIZE(arizona_micd_aosp_ranges);
+> +
+> +       return 0;
+> +}
+> +
+> +static const struct acpi_device_id arizona_acpi_match[] = {
+> +       {
+> +               .id = "WM510204",
+> +               .driver_data = WM5102,
+> +       },
+> +       {
+> +               .id = "WM510205",
+> +               .driver_data = WM5102,
+> +       },
+
+> +       { },
+
+No need for comma here.
+
+> +};
+> +MODULE_DEVICE_TABLE(acpi, arizona_acpi_match);
+> +#else
+
+> +static void arizona_spi_acpi_probe(struct arizona *arizona)
+> +{
+> +}
+
+Can be one line?
+
+> +#endif
+> +
+>  static int arizona_spi_probe(struct spi_device *spi)
+>  {
+>         const struct spi_device_id *id = spi_get_device_id(spi);
+> @@ -30,6 +141,8 @@ static int arizona_spi_probe(struct spi_device *spi)
+>
+>         if (spi->dev.of_node)
+>                 type = arizona_of_get_type(&spi->dev);
+> +       else if (ACPI_COMPANION(&spi->dev))
+> +               type = (unsigned long)acpi_device_get_match_data(&spi->dev);
+
+Can we rather get rid of these and use device_get_match_data() directly?
+
+>         else
+>                 type = id->driver_data;
+>
+> @@ -75,6 +188,12 @@ static int arizona_spi_probe(struct spi_device *spi)
+>         arizona->dev = &spi->dev;
+>         arizona->irq = spi->irq;
+>
+> +       if (ACPI_COMPANION(&spi->dev)) {
+
+has_acpi_companion() ?
+
+> +               ret = arizona_spi_acpi_probe(arizona);
+> +               if (ret)
+> +                       return ret;
+> +       }
+> +
+>         return arizona_dev_init(arizona);
+>  }
+>
+> @@ -102,6 +221,7 @@ static struct spi_driver arizona_spi_driver = {
+>                 .name   = "arizona",
+>                 .pm     = &arizona_pm_ops,
+>                 .of_match_table = of_match_ptr(arizona_of_match),
+> +               .acpi_match_table = ACPI_PTR(arizona_acpi_match),
+>         },
+>         .probe          = arizona_spi_probe,
+>         .remove         = arizona_spi_remove,
+> --
+> 2.28.0
+>
+
+
 -- 
-2.25.1
-
+With Best Regards,
+Andy Shevchenko

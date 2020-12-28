@@ -2,71 +2,69 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id AF6322E3E3B
-	for <lists+alsa-devel@lfdr.de>; Mon, 28 Dec 2020 15:26:00 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 191F72E3EFF
+	for <lists+alsa-devel@lfdr.de>; Mon, 28 Dec 2020 15:36:07 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E670A1729;
-	Mon, 28 Dec 2020 15:25:09 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E670A1729
+	by alsa0.perex.cz (Postfix) with ESMTPS id 9BF741729;
+	Mon, 28 Dec 2020 15:35:16 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9BF741729
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1609165560;
-	bh=lGErfxxzbn0Ii22/b/IifQuVSKKVZl6XKfYzpme7JKE=;
+	s=default; t=1609166166;
+	bh=ogKcYkMw9ARzUKF21VmoE9vp/OT8fP5rL3ZGtMvoMDg=;
 	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=UVfwVOsuttxGLN6uma8goe9XZ28Vj5ddcMnfqK93nHC65+cI/bTNDg3TDl+eTSIA5
-	 +lfV0tF2TjMlkYQ2D/heUo9u1QpKp3/Vf8yNx+Pb/c3jV0hdpprGP8lYWWCSTKgk8O
-	 b75F5lcQibp0i673hwCEmarRGC218J5OQZNU4iUM=
+	b=QxdMx0Q8Ploz2grl36d8wcCKUz8vcBjagRy0Xb/q1XAIwhgRVPPgJQwckl8MTIWtG
+	 uhCSDVKFYKrmLiI+TvcwbuK0Ai8mkRYDwUSluow982F8lXwaVDHleWyoTMV6SGJO/u
+	 rVA4C/z6MgS2s7L4fglE5VVXBFPXwHwWlH6d7Y8I=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 2109FF80143;
-	Mon, 28 Dec 2020 15:24:25 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id EBE1CF801F9;
+	Mon, 28 Dec 2020 15:34:31 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id F3307F801F5; Mon, 28 Dec 2020 15:24:22 +0100 (CET)
+ id 8E890F801F5; Mon, 28 Dec 2020 15:34:29 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id CD947F80143
- for <alsa-devel@alsa-project.org>; Mon, 28 Dec 2020 15:24:19 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CD947F80143
+ by alsa1.perex.cz (Postfix) with ESMTPS id 68925F80169
+ for <alsa-devel@alsa-project.org>; Mon, 28 Dec 2020 15:34:22 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 68925F80169
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="PBWNGIQ/"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 63C7C2245C;
- Mon, 28 Dec 2020 14:24:16 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1609165456;
- bh=lGErfxxzbn0Ii22/b/IifQuVSKKVZl6XKfYzpme7JKE=;
+ dkim=pass (1024-bit key) header.d=linuxfoundation.org
+ header.i=@linuxfoundation.org header.b="fYWTZ9tz"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 196CE208B6;
+ Mon, 28 Dec 2020 14:34:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
+ s=korg; t=1609166059;
+ bh=ogKcYkMw9ARzUKF21VmoE9vp/OT8fP5rL3ZGtMvoMDg=;
  h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=PBWNGIQ/Uf7HYu1pEA4q1cF9tk4BNI2PqOhpxdUcz9TQMwwLWNQbSK6HGaSd9iX5y
- U/cWh+38+hDCYzFfwvzuVdIOLY40ku+xpUPcCIvgK92Ca8ZqS7xyZNRCMt5gjjuowW
- BxviIqdvj7fIB7XKIgd9ddfIfPHCgfa81K5djKj+5CY0Wt9OWi1g3Yx7TZFktS1kg6
- DyPwMBxBBmlKLJLoX0S+lLPDWg5uobQvnQpGiwhE1gQkbCbNLQbAlkBP/hDGkRfz93
- VECbrzuqqTzhJIkIYhLJBUt9MLdN+Vc6gDQ/nqp36f5kFN2Fi1Nd17ytlMAXn2fkLC
- hugI2glMZgF5Q==
-Date: Mon, 28 Dec 2020 14:23:55 +0000
-From: Mark Brown <broonie@kernel.org>
-To: Jaroslav Kysela <perex@perex.cz>
-Subject: Re: [PATCH v2] ASoC: AMD Renoir - add DMI entry for Lenovo ThinkPad
- X395
-Message-ID: <20201228142355.GC5352@sirena.org.uk>
-References: <20201227164109.269973-1-perex@perex.cz>
+ b=fYWTZ9tzG3dASXGRvFijK93GYHKBOz+qKNOQu/g4BlfZya9eLTcntZ7Nlql4qaUTq
+ 7CR2tycoArNSxqesLE+c3Jf+PQr8YYxT3b5c2VUhjiB7UBKl+I/3Z7vvWII1xqDh71
+ 7U0C+AVXy+mLmO1zHTTSO5tfbYjxs+uxrb73DWbc=
+Date: Mon, 28 Dec 2020 15:25:24 +0100
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: Rob Herring <robh@kernel.org>
+Subject: Re: [PATCH] dt-bindings: Drop redundant maxItems/items
+Message-ID: <X+nq1JJLxyVr7Ih+@kroah.com>
+References: <20201222040645.1323611-1-robh@kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="uXxzq0nDebZQVNAZ"
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20201227164109.269973-1-perex@perex.cz>
-X-Cookie: To see you is to sympathize.
-User-Agent: Mutt/1.10.1 (2018-07-13)
-Cc: Takashi Iwai <tiwai@suse.de>,
- ALSA development <alsa-devel@alsa-project.org>, stable@kernel.org
+In-Reply-To: <20201222040645.1323611-1-robh@kernel.org>
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
+ linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, Jassi Brar <jaswinder.singh@linaro.org>,
+ Vinod Koul <vkoul@kernel.org>, Mark Brown <broonie@kernel.org>,
+ Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+ dmaengine@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -82,37 +80,23 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+On Mon, Dec 21, 2020 at 09:06:45PM -0700, Rob Herring wrote:
+> 'maxItems' equal to the 'items' list length is redundant. 'maxItems' is
+> preferred for a single entry while greater than 1 should have an 'items'
+> list.
+> 
+> A meta-schema check for this is pending once these existing cases are
+> fixed.
+> 
+> Cc: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+> Cc: Vinod Koul <vkoul@kernel.org>
+> Cc: Mark Brown <broonie@kernel.org>
+> Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+> Cc: Jassi Brar <jaswinder.singh@linaro.org>
+> Cc: dri-devel@lists.freedesktop.org
+> Cc: dmaengine@vger.kernel.org
+> Cc: alsa-devel@alsa-project.org
+> Cc: linux-usb@vger.kernel.org
+> Signed-off-by: Rob Herring <robh@kernel.org>
 
---uXxzq0nDebZQVNAZ
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-
-On Sun, Dec 27, 2020 at 05:41:09PM +0100, Jaroslav Kysela wrote:
-
->  			DMI_EXACT_MATCH(DMI_BOARD_NAME, "20T6CTO1WW"),
->  		}
->  	},
-> +	{
-> +		/* Lenovo ThinkPad X395 */
-> +		.matches = {
-
-This has a context dependency on your previous patch so the two patches
-should've been a series, git can't figure out how to apply it
-independently.
-
---uXxzq0nDebZQVNAZ
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl/p6noACgkQJNaLcl1U
-h9DB3Qf/TKaKRV7U8je6M8LAxfXgue68OLqci/ti4Vk9BSiNkq6k2T21nEW2/MW3
-7vJ+z7ygP5+3OW2JxVc38rZktgg6Xw1VicksBCqqCTXx9smeTSfRcLqJy+WUeLRO
-4zoYPK9q88WWhATKvx/X0CIb/0wZ+lMPN8jyUz8hBtNoAnZYXfHedp1RG+vFEgD/
-ZQSqbw581FqCgEmUCghTEjX8RBldJjL7Cm13q/Y2Vk67v8q1sk+tDcEGwnHOPSis
-3uB9zrv2bKWAr2g/9PIUig/YriaJdIMgrQZRPNlnBksPVw+Xtnv9GkZ/5UeQcPSh
-p66xHkG7TF7wYR6X59YGiZyB9IFR5w==
-=tRuP
------END PGP SIGNATURE-----
-
---uXxzq0nDebZQVNAZ--
+Acked-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>

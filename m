@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1556D2E34E7
-	for <lists+alsa-devel@lfdr.de>; Mon, 28 Dec 2020 09:03:03 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id CD5E42E34E8
+	for <lists+alsa-devel@lfdr.de>; Mon, 28 Dec 2020 09:03:43 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A987B1723;
-	Mon, 28 Dec 2020 09:02:12 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A987B1723
+	by alsa0.perex.cz (Postfix) with ESMTPS id 5C41A170A;
+	Mon, 28 Dec 2020 09:02:53 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5C41A170A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1609142582;
-	bh=Sqhj94N61rb1g5cfu545mBKMIsrX/ya3kdQRGLhKcbs=;
+	s=default; t=1609142623;
+	bh=J3AKSXXQZPJEa2bAgKUXx0tOF3VNvxAV8kA6Za15L4s=;
 	h=From:To:Subject:Date:In-Reply-To:References:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=Gaerj4YkCoUxRe0yoKiSh3oJDMRvZtTG725znPjbGfVXxowNqlgWpLXHkKj3bJqZj
-	 HTsRCWXY7H+cijkMjjpgYrFFfNDG1aPFp4ffIctHNuqafoXHysaciHAFA/1MHqkVrj
-	 qngrdgRnWHBKjpxfFTAC+N8Ru50vXC6BiUxnv5kQ=
+	b=Q/PbhaS1PFg1ofyCnMDoR7xNV3wwBTh9fciBoS9I7W8KYmZfLMnbkOXwkL8MGi0NO
+	 9BvkyUcFxK3/CGMgBbdk2voZ1i15XupemMLip68YyrJD0YwkmJEeeZVeMn16Y59Cxp
+	 C3UvSNZpVwUqe+jj0Sbsk/juum2xw6aCXeCCuj4k=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 37D99F804CB;
-	Mon, 28 Dec 2020 09:00:34 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id DD960F804CC;
+	Mon, 28 Dec 2020 09:00:35 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 7FD50F804C1; Mon, 28 Dec 2020 09:00:29 +0100 (CET)
+ id A78AEF802A9; Mon, 28 Dec 2020 09:00:29 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
@@ -34,20 +34,21 @@ Received: from youngberry.canonical.com (youngberry.canonical.com
  [91.189.89.112])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 3E600F801ED
- for <alsa-devel@alsa-project.org>; Mon, 28 Dec 2020 09:00:23 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3E600F801ED
+ by alsa1.perex.cz (Postfix) with ESMTPS id 92BC5F804B0
+ for <alsa-devel@alsa-project.org>; Mon, 28 Dec 2020 09:00:26 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 92BC5F804B0
 Received: from [223.72.45.82] (helo=localhost.localdomain)
  by youngberry.canonical.com with esmtpsa
  (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.86_2)
  (envelope-from <hui.wang@canonical.com>)
- id 1ktnS1-0004UZ-W2; Mon, 28 Dec 2020 08:00:22 +0000
+ id 1ktnS5-0004UZ-8a; Mon, 28 Dec 2020 08:00:26 +0000
 From: Hui Wang <hui.wang@canonical.com>
 To: alsa-devel@alsa-project.org, tiwai@suse.de, perex@perex.cz,
  kai.vehmanen@linux.intel.com
-Subject: [RFC][PATCH v3 3/4] alsa: jack: add more jack_kctl debugfs nodes
-Date: Mon, 28 Dec 2020 16:00:02 +0800
-Message-Id: <20201228080003.19127-4-hui.wang@canonical.com>
+Subject: [RFC][PATCH v3 4/4] alsa: jack: implement save-and-restore for jack's
+ hw status
+Date: Mon, 28 Dec 2020 16:00:03 +0800
+Message-Id: <20201228080003.19127-5-hui.wang@canonical.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20201228080003.19127-1-hui.wang@canonical.com>
 References: <20201228080003.19127-1-hui.wang@canonical.com>
@@ -68,202 +69,59 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Adding 4 more debugfs nodes, users could get more information about
-the jack_kctl from them:
- - kctl_id, read-only, get jack_kctl->kctl's id
-   sound-core/card0/HeadphoneJack# cat kctl_id
-   Headphone Jack
+Once we enable the sw_inject for a jack_kctl, the hw status change
+will be blocked, but the hw status still could be reported to
+snd_jack_report() and be saved to hw_status_cache.
 
- - mask_bits, read-only, get jack_kctl's events mask_bits
-   sound-core/card0/HeadphoneJack# cat mask_bits
-   0x0001 HEADPHONE(0x0001)
-
- - status, read-only, get jack_kctl's current status
-   headphone unplugged:
-   sound-core/card0/HeadphoneJack# cat status
-   0x0000
-   headphone plugged:
-   sound-core/card0/HeadphoneJack# cat status
-   0x0001 HEADPHONE(0x0001)
-
- - type, read-only, get jack's supported events type
-   sound-core/card0/HeadphoneJack# cat type
-   0x0001 HEADPHONE(0x0001)
+After the sw_inject is disabled, we use the last saved hw_status_cache
+to restore jack's status.
 
 Signed-off-by: Hui Wang <hui.wang@canonical.com>
 ---
- sound/core/jack.c | 144 ++++++++++++++++++++++++++++++++++++++++++++++
- 1 file changed, 144 insertions(+)
+ include/sound/jack.h | 1 +
+ sound/core/jack.c    | 8 ++++++++
+ 2 files changed, 9 insertions(+)
 
+diff --git a/include/sound/jack.h b/include/sound/jack.h
+index 9eb2b5ec1ec4..1181f536557e 100644
+--- a/include/sound/jack.h
++++ b/include/sound/jack.h
+@@ -67,6 +67,7 @@ struct snd_jack {
+ 	char name[100];
+ 	unsigned int key[6];   /* Keep in sync with definitions above */
+ #endif /* CONFIG_SND_JACK_INPUT_DEV */
++	int hw_status_cache;
+ 	void *private_data;
+ 	void (*private_free)(struct snd_jack *);
+ };
 diff --git a/sound/core/jack.c b/sound/core/jack.c
-index 62e9215fa0f0..31c80883db2c 100644
+index 31c80883db2c..2c7fef94823d 100644
 --- a/sound/core/jack.c
 +++ b/sound/core/jack.c
-@@ -229,6 +229,119 @@ static ssize_t jackin_inject_write(struct file *file,
+@@ -193,8 +193,14 @@ static ssize_t sw_inject_enable_write(struct file *file,
+ 		goto exit;
+ 	}
+ 
++	if (jack_kctl->sw_inject_enable == (!!enable))
++		goto exit;
++
+ 	jack_kctl->sw_inject_enable = !!enable;
+ 
++	if (!jack_kctl->sw_inject_enable)
++		snd_jack_report(jack_kctl->jack, jack_kctl->jack->hw_status_cache);
++
+  exit:
+ 	kfree(buf);
  	return ret;
- }
+@@ -678,6 +684,8 @@ void snd_jack_report(struct snd_jack *jack, int status)
+ 	if (!jack)
+ 		return;
  
-+static ssize_t jack_kctl_id_read(struct file *file,
-+				 char __user *to, size_t count, loff_t *ppos)
-+{
-+	struct snd_jack_kctl *jack_kctl = file->private_data;
-+	char *buf;
-+	int len, ret;
++	jack->hw_status_cache = status;
 +
-+	buf = kzalloc(PAGE_SIZE, GFP_KERNEL);
-+	if (!buf)
-+		return -ENOMEM;
-+
-+	len = scnprintf(buf, PAGE_SIZE, "%s\n", jack_kctl->kctl->id.name);
-+	ret = simple_read_from_buffer(to, count, ppos, buf, len);
-+
-+	kfree(buf);
-+	return ret;
-+}
-+
-+/* the bit definition is aligned with snd_jack_types in jack.h */
-+static const char * const jack_events_name[] = {
-+	"HEADPHONE(0x0001)", "MICROPHONE(0x0002)", "LINEOUT(0x0004)",
-+	"MECHANICAL(0x0008)", "VIDEOOUT(0x0010)", "LINEIN(0x0020)",
-+	"", "", "", "BTN_5(0x0200)", "BTN_4(0x0400)", "BTN_3(0x0800)",
-+	"BTN_2(0x1000)", "BTN_1(0x2000)", "BTN_0(0x4000)", "",
-+};
-+
-+static int parse_mask_bits(unsigned int mask_bits, char *s)
-+{
-+	char *buf;
-+	int len, i;
-+
-+	buf = kzalloc(PAGE_SIZE, GFP_KERNEL);
-+	if (!buf)
-+		return -ENOMEM;
-+
-+	len = scnprintf(buf, PAGE_SIZE, "0x%04x", mask_bits);
-+
-+	for (i = 0; i < 16; i++)
-+		if (mask_bits & (1 << i))
-+			len += scnprintf(buf + strlen(buf), PAGE_SIZE - strlen(buf),
-+					 " %s", jack_events_name[i]);
-+
-+	len += scnprintf(buf + strlen(buf), PAGE_SIZE - strlen(buf), "\n");
-+
-+	strcpy(s, buf);
-+
-+	kfree(buf);
-+
-+	return len;
-+}
-+
-+static ssize_t jack_kctl_mask_bits_read(struct file *file,
-+					char __user *to, size_t count, loff_t *ppos)
-+{
-+	struct snd_jack_kctl *jack_kctl = file->private_data;
-+	char *buf;
-+	int len, ret;
-+
-+	buf = kzalloc(PAGE_SIZE, GFP_KERNEL);
-+	if (!buf)
-+		return -ENOMEM;
-+
-+	len = parse_mask_bits(jack_kctl->mask_bits, buf);
-+	ret = simple_read_from_buffer(to, count, ppos, buf, len);
-+
-+	kfree(buf);
-+	return ret;
-+}
-+
-+static ssize_t jack_kctl_status_read(struct file *file,
-+				     char __user *to, size_t count, loff_t *ppos)
-+{
-+	struct snd_jack_kctl *jack_kctl = file->private_data;
-+	char *buf;
-+	int len, ret;
-+
-+	buf = kzalloc(PAGE_SIZE, GFP_KERNEL);
-+	if (!buf)
-+		return -ENOMEM;
-+
-+	len = parse_mask_bits(jack_kctl->kctl->private_value, buf);
-+	ret = simple_read_from_buffer(to, count, ppos, buf, len);
-+
-+	kfree(buf);
-+	return ret;
-+}
-+
-+#ifdef CONFIG_SND_JACK_INPUT_DEV
-+static ssize_t jack_type_read(struct file *file,
-+			      char __user *to, size_t count, loff_t *ppos)
-+{
-+	struct snd_jack_kctl *jack_kctl = file->private_data;
-+	char *buf;
-+	int len, ret;
-+
-+	buf = kzalloc(PAGE_SIZE, GFP_KERNEL);
-+	if (!buf)
-+		return -ENOMEM;
-+
-+	len = parse_mask_bits(jack_kctl->jack->type, buf);
-+	ret = simple_read_from_buffer(to, count, ppos, buf, len);
-+
-+	kfree(buf);
-+	return ret;
-+}
-+
-+static const struct file_operations jack_type_fops = {
-+	.open = simple_open,
-+	.read = jack_type_read,
-+	.llseek = default_llseek,
-+};
-+#endif
-+
- static const struct file_operations sw_inject_enable_fops = {
- 	.open = simple_open,
- 	.read = sw_inject_enable_read,
-@@ -242,6 +355,24 @@ static const struct file_operations jackin_inject_fops = {
- 	.llseek = default_llseek,
- };
- 
-+static const struct file_operations jack_kctl_id_fops = {
-+	.open = simple_open,
-+	.read = jack_kctl_id_read,
-+	.llseek = default_llseek,
-+};
-+
-+static const struct file_operations jack_kctl_mask_bits_fops = {
-+	.open = simple_open,
-+	.read = jack_kctl_mask_bits_read,
-+	.llseek = default_llseek,
-+};
-+
-+static const struct file_operations jack_kctl_status_fops = {
-+	.open = simple_open,
-+	.read = jack_kctl_status_read,
-+	.llseek = default_llseek,
-+};
-+
- /* The substrings in the jack's name but not suitable for folder's name */
- static const char * const dropped_chars[] = {
- 	"/", "=", ",", " ",
-@@ -281,6 +412,19 @@ static int snd_jack_debugfs_add_inject_node(struct snd_jack *jack,
- 	debugfs_create_file("jackin_inject", 0200, jack_kctl->jack_debugfs_root, jack_kctl,
- 			    &jackin_inject_fops);
- 
-+	debugfs_create_file("kctl_id", 0444, jack_kctl->jack_debugfs_root, jack_kctl,
-+			    &jack_kctl_id_fops);
-+
-+	debugfs_create_file("mask_bits", 0444, jack_kctl->jack_debugfs_root, jack_kctl,
-+			    &jack_kctl_mask_bits_fops);
-+
-+	debugfs_create_file("status", 0444, jack_kctl->jack_debugfs_root, jack_kctl,
-+			    &jack_kctl_status_fops);
-+
-+#ifdef CONFIG_SND_JACK_INPUT_DEV
-+	debugfs_create_file("type", 0444, jack_kctl->jack_debugfs_root, jack_kctl,
-+			    &jack_type_fops);
-+#endif
- 	return 0;
- }
- #else /* CONFIG_DEBUG_FS */
+ 	list_for_each_entry(jack_kctl, &jack->kctl_list, list)
+ 		if (jack_kctl->sw_inject_enable)
+ 			mask_bits |= jack_kctl->mask_bits;
 -- 
 2.25.1
 

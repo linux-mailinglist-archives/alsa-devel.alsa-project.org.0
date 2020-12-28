@@ -2,88 +2,85 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0D0D72E337D
-	for <lists+alsa-devel@lfdr.de>; Mon, 28 Dec 2020 02:45:07 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2F5002E3380
+	for <lists+alsa-devel@lfdr.de>; Mon, 28 Dec 2020 02:47:36 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 9BC6717BC;
-	Mon, 28 Dec 2020 02:44:16 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9BC6717BC
+	by alsa0.perex.cz (Postfix) with ESMTPS id C218717AB;
+	Mon, 28 Dec 2020 02:46:45 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C218717AB
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1609119906;
-	bh=8XHHi8Siaf/qYcMrh8wROE3iL3tKo+nYaMA1jMHWzDw=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=eXjvaaPKAAend5XKBORZD2BoC/ClrPJ8zZK1XttqjEmUguNQJNWiHPpcYjDIeZ7OP
-	 86GIypLsCFa6+7X0PPqIdU3m7uNdC4U7mK0eYqytgJ459meUbYC0u9WrvY0oqMiqhd
-	 uZvMS5ZP8K/bGEuboGs1TmyUND4oSiHEXBWG14fo=
+	s=default; t=1609120055;
+	bh=ay+peubD+TvKtOB29br41WlkmMswaFbX5FqO3JTGnDo=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=f7+0fo7JhVQlB1cgd1EqA49n+dTEFKO1MSR5LTuzL19URoCgndcu+ksosjKDE4RNy
+	 Hi3zaddIsifYLawLurzeY+VYbfTG+pzUXkaIZP/EhJhkfT8MHhhIo5vW1oGYp9obwI
+	 EEyqkNr6pGUMMa4hGcePQXSBa7N69FEodypikISs=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 43875F80169;
-	Mon, 28 Dec 2020 02:44:14 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 54457F8020C;
+	Mon, 28 Dec 2020 02:46:01 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id BEFA6F80240; Mon, 28 Dec 2020 02:44:12 +0100 (CET)
+ id 7F0E1F8022B; Mon, 28 Dec 2020 02:45:59 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU, FREEMAIL_ENVFROM_END_DIGIT, FREEMAIL_FROM, SPF_HELO_NONE,
- SPF_NONE autolearn=disabled version=3.4.0
-Received: from mail-pg1-x532.google.com (mail-pg1-x532.google.com
- [IPv6:2607:f8b0:4864:20::532])
+ SPF_NONE, URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mail-lf1-x132.google.com (mail-lf1-x132.google.com
+ [IPv6:2a00:1450:4864:20::132])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 5057EF80169
- for <alsa-devel@alsa-project.org>; Mon, 28 Dec 2020 02:44:09 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5057EF80169
+ by alsa1.perex.cz (Postfix) with ESMTPS id 17B22F80085
+ for <alsa-devel@alsa-project.org>; Mon, 28 Dec 2020 02:45:52 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 17B22F80085
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="f9GQootl"
-Received: by mail-pg1-x532.google.com with SMTP id v19so6473159pgj.12
- for <alsa-devel@alsa-project.org>; Sun, 27 Dec 2020 17:44:09 -0800 (PST)
+ header.b="bgrpCuz6"
+Received: by mail-lf1-x132.google.com with SMTP id 23so20765436lfg.10
+ for <alsa-devel@alsa-project.org>; Sun, 27 Dec 2020 17:45:52 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=z1FPgLpDk0gh+cKN0ax6PiFpVakJ9UkXdOQerOT23RY=;
- b=f9GQootlA1cGpm9ySBaeMh/zyB73fARiaAycDwZEselhQxlUASYEGvt97pzdkaCYhd
- obesKc2C5sTPhIe280H5ftsjOTW71bZZ/Beq4capTLz25KhK9PlG8jW7DV43qhl0FvIu
- qXCRcHJqXGUAdipzPxT9XqSGGmZJEQRF81W2EK/uv7Eo2k4pa5F6DC47/hx3z4JXC6oT
- oZyOPwgi2laSjH/Q7N1zm29i1pKg1H2VsYPilq1jLs4j1OIaQs3/Wi8QSZHSN0yPr+0V
- OBIlYXKsigytDeqhUWfuW4eDYKRMlMxNV3ATqrgoK5X9a+HRsfrA5cxgvvPaOIOo33sq
- Id6g==
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=ay+peubD+TvKtOB29br41WlkmMswaFbX5FqO3JTGnDo=;
+ b=bgrpCuz6y8GtBm2A6A2uiGtnS6p/aGQalXW5wzI6gRoElqIaFNi9R638lG0zxDLu5P
+ lB3UnMPwPF1driakDFaBzcbjTMbHufSusHgDH0HHTZTom+z5vLzr5zeuKfJ5GMZC+XX6
+ DZgSh3/6krLd/wjYw5A8igEVafqxR+UVs5EgP5QjwASmB5A4bFUKx9byGxEG55LHxa3J
+ b34BozptpfEKfvd6IRMP2R6OhuyC4zNIPXgSPU1IgRYpRgedBQ7WJYf6hQKu/L4o10D9
+ oikdEiwQgaw6Couh/9khQFTwWPhNFjtcVfUqFBFG1/E0q+QV2SYWYgZoM4Wvw0fHPZrj
+ BPkA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=z1FPgLpDk0gh+cKN0ax6PiFpVakJ9UkXdOQerOT23RY=;
- b=lV09HCpri5jlX+iTKZJTmDZi17JmqYRGQaVXzaIP4TNAvH97RH4BBI+XHPvUAnoSJE
- lyuQl5/mvR9dPdZYmHg6+pACktIAEtPAdJuwR+jGqqX6bC0s0OXvnhcU2gsi32FDqDKO
- Ioc1Vur63Mv1DnyYhLzmvciTimN+SADShsZceXYseTvOM8AJrrUdpjJ4AbEKxxf+lzm6
- AYtAwfJQAxRD/g61vDGJorWxn20BsKnYO+Pj3xM3jw7uLnX9eHRuT2WyGJnwtaAZsD+a
- wNDKklCxgDia7+6sSaISTIhmvK/M92IDVE8a7OpLYi6qy+5idYqTEDdL85sQ26Qon8ZX
- kNCg==
-X-Gm-Message-State: AOAM53393ttUhoJuSx5SMVfLlrlP/vtEefoCyRIUh9oWOQ8WeQhJW/7R
- 6YIuGF1ACXRzhWX9J945dR6iupbsxCJRnQ==
-X-Google-Smtp-Source: ABdhPJzBGVS4m52XKyzxVYVBi79yMDvAmwB1y2wxQ+pd8XLPHWYTXK8GLwC/mRnL/ykPYfM38VcnhQ==
-X-Received: by 2002:a62:d142:0:b029:19e:62a0:ca1a with SMTP id
- t2-20020a62d1420000b029019e62a0ca1amr38755981pfl.80.1609119846848; 
- Sun, 27 Dec 2020 17:44:06 -0800 (PST)
-Received: from viper.bn-i.net ([2001:470:b:65c:b92f:8d47:b3dd:6388])
- by smtp.gmail.com with ESMTPSA id b12sm33635701pft.114.2020.12.27.17.44.05
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 27 Dec 2020 17:44:06 -0800 (PST)
-From: Alex Henrie <alexhenrie24@gmail.com>
-To: alsa-devel@alsa-project.org,
-	perex@perex.cz,
-	tiwai@suse.de
-Subject: [PATCH v2] confmisc: fix memory leak in snd_func_concat
-Date: Sun, 27 Dec 2020 18:43:15 -0700
-Message-Id: <20201228014315.39991-1-alexhenrie24@gmail.com>
-X-Mailer: git-send-email 2.29.2
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=ay+peubD+TvKtOB29br41WlkmMswaFbX5FqO3JTGnDo=;
+ b=cx/nL6aZlK8cwU+oEH5o91NECHw9rGQ/AkW/HW5ZgiEWE6bTNHxLJH66AVpOwScYR8
+ wEAB8NIWyhoLNhRSh4kJFFNlSDF5LMuoVf0v88MnkBzoOKriDxKK04hC6CIkGfPdxuv7
+ Iniuhz8/V31PajHi2hChTdmVWc9vFFhgOEcQ1rOXm+gPBlSp1AWeqreAL80VAQA4miL9
+ bXYPNB6WBGBtRJXIBmQUbnNFaIfh/nrz5dw9JUkShD4mI1p+a+l4gVXeslVWCdFW/iDv
+ RRyC2muWBxtVSWo1tT+Vh1LGICiPgo+TfZlLuC4O+WC3VKHxzdzvGokR9IAbYNIpreS6
+ i/xA==
+X-Gm-Message-State: AOAM531WQ4O8/F722gA4FucvfexWU+zlyq/XyaTIJGsQqSrZ3T8TyZVN
+ BCg2E0xarfZLaU+c0WvzVUQcd0Gl8ZPwLOYnjbo=
+X-Google-Smtp-Source: ABdhPJwUa1ZjTRz94TIJ4oc8GEMM7yOxD4po/N+xSV2zeAjbzdfK/+s1U3aOjVhhiG93z7u0bLwaVoV1Y9SxvwArUZs=
+X-Received: by 2002:a2e:9550:: with SMTP id t16mr19361266ljh.370.1609119952149; 
+ Sun, 27 Dec 2020 17:45:52 -0800 (PST)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Cc: Alex Henrie <alexhenrie24@gmail.com>
+References: <20201226213547.175071-1-alexhenrie24@gmail.com>
+ <20201226213547.175071-9-alexhenrie24@gmail.com>
+ <s5hy2hjejgb.wl-tiwai@suse.de>
+ <f4f03e79-5e0a-a306-09f1-a3f5ef46c7b0@perex.cz>
+In-Reply-To: <f4f03e79-5e0a-a306-09f1-a3f5ef46c7b0@perex.cz>
+From: Alex Henrie <alexhenrie24@gmail.com>
+Date: Sun, 27 Dec 2020 18:45:40 -0700
+Message-ID: <CAMMLpeQRS+Q_LQb9C7qFWTqBk2oQsTRtvuK39x2S2ZnLAVJLnw@mail.gmail.com>
+Subject: Re: [PATCH 8/9] pcm: fix undefined bit shift in bad_pcm_state
+To: Jaroslav Kysela <perex@perex.cz>
+Content-Type: text/plain; charset="UTF-8"
+Cc: Takashi Iwai <tiwai@suse.de>, alsa-devel@alsa-project.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -99,33 +96,18 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Signed-off-by: Alex Henrie <alexhenrie24@gmail.com>
----
- src/confmisc.c | 3 +--
- 1 file changed, 1 insertion(+), 2 deletions(-)
+On Sun, Dec 27, 2020 at 5:36 AM Jaroslav Kysela <perex@perex.cz> wrote:
+>
+> Dne 27. 12. 20 v 9:34 Takashi Iwai napsal(a):
+> > We need either to handle a special error value in all places calling
+> > __snd_pcm_state() or to just return SND_PCM_STATE_XRUN or such instead
+> > here, IMO.
+>
+> I think that SND_PCM_STATE_OPEN is more appropriate here. If the state
+> callback is not defined, the state management is screwed anyway. The other
+> functions will return an error (because they depend on the state management),
+> so it's safe. I applied this change to repo.
 
-diff --git a/src/confmisc.c b/src/confmisc.c
-index eb8218c1..3ce95c7a 100644
---- a/src/confmisc.c
-+++ b/src/confmisc.c
-@@ -419,7 +419,6 @@ int snd_func_concat(snd_config_t **dst, snd_config_t *root, snd_config_t *src,
- 				tmp = realloc(res, len + len1 + 1);
- 				if (tmp == NULL) {
- 					free(ptr);
--					free(res);
- 					err = -ENOMEM;
- 					goto __error;
- 				}
-@@ -440,8 +439,8 @@ int snd_func_concat(snd_config_t **dst, snd_config_t *root, snd_config_t *src,
- 	err = snd_config_get_id(src, &id);
- 	if (err >= 0)
- 		err = snd_config_imake_string(dst, id, res);
--	free(res);
-       __error:
-+	free(res);
- 	return err;
- }
- #ifndef DOC_HIDDEN
--- 
-2.29.2
+Thank you for fixing this properly!
 
+-Alex

@@ -2,81 +2,81 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6A4172E3D8F
-	for <lists+alsa-devel@lfdr.de>; Mon, 28 Dec 2020 15:18:21 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 094DC2E3DD0
+	for <lists+alsa-devel@lfdr.de>; Mon, 28 Dec 2020 15:21:45 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 1036E1710;
-	Mon, 28 Dec 2020 15:17:31 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1036E1710
+	by alsa0.perex.cz (Postfix) with ESMTPS id 95EFF1720;
+	Mon, 28 Dec 2020 15:20:54 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 95EFF1720
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1609165101;
-	bh=5LUbBI1gyuNYj0CSrFsMmOUA9YPlSs1eSpFES5/nvGI=;
+	s=default; t=1609165304;
+	bh=6P02yudSFuRvDAb1yd+N9QI67Furir65Ex3Xgg8iHx8=;
 	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=ASGaHI+HJ0ekuBXkP6rVHOewL5bLihSNu8VQD4lRP2zwTBZNDQtHkowX7H2aB/Lvm
-	 RmBxii4DPl+NzEQB8CVQOYXV56uI+2+SlXsyrogeCgzqG9XMkJ5gKi22Rw2gVQJNRP
-	 NEyOY2OhV4noEQh9Od+EZ/4GBq7h2VVTtB/YP09U=
+	b=lGcdfBY6LfGi6RHBOIV6fmh4wuPpICqBfehEsvtPbZDZAXroAQOFImrSQp5buN8S5
+	 oMBc953GjmqA/a/FcPGJkdkEkctX/Kka0PFsxgxJfM691Zn0rTHdWjNgTHZ91c+8mk
+	 O++kRNWndTCTVnEkU0/ZM0SXeq13+IX44HkjoQzk=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 72279F801F9;
-	Mon, 28 Dec 2020 15:16:41 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 0C332F801F9;
+	Mon, 28 Dec 2020 15:20:10 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id E7D84F801F5; Mon, 28 Dec 2020 15:16:39 +0100 (CET)
+ id B924EF801F5; Mon, 28 Dec 2020 15:20:08 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_NONE autolearn=disabled
  version=3.4.0
-Received: from mail-pg1-x529.google.com (mail-pg1-x529.google.com
- [IPv6:2607:f8b0:4864:20::529])
+Received: from mail-pl1-x632.google.com (mail-pl1-x632.google.com
+ [IPv6:2607:f8b0:4864:20::632])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 6DF7EF80143
- for <alsa-devel@alsa-project.org>; Mon, 28 Dec 2020 15:16:35 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6DF7EF80143
+ by alsa1.perex.cz (Postfix) with ESMTPS id F01BEF80143
+ for <alsa-devel@alsa-project.org>; Mon, 28 Dec 2020 15:20:05 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz F01BEF80143
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="BASgsSc6"
-Received: by mail-pg1-x529.google.com with SMTP id p18so7381498pgm.11
- for <alsa-devel@alsa-project.org>; Mon, 28 Dec 2020 06:16:35 -0800 (PST)
+ header.b="kXj6ALbb"
+Received: by mail-pl1-x632.google.com with SMTP id j1so5709337pld.3
+ for <alsa-devel@alsa-project.org>; Mon, 28 Dec 2020 06:20:05 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=tG/RECwRgNQRQ8Y3N/bmt9ivqZMjunU0lDRr6TZ1FSs=;
- b=BASgsSc6AnQXc6h5OKkLHTc8nKdTjRKgDhLNdBqlxiHrzOKY+xmqtDb6hX1w3ne7aP
- +GSzpQldp9Ol/Tsf+3hroeJPMnK9Yvk9n2qUWJ6Nk8vUn3mc2v2Al1DLuCAHnHgTeDd9
- uOP4Jyul3i3FiDyb3ggNcGbZ8phIPSBBjEoFddI9zJwlMrmCStujI/TsjZ5ZhI5pxC+a
- 4YFPVDaDV2eC1jaW+sDSERr92tbw9Pgo9SLKTqt73r5rvJuDJgsOaldg/f+7iNutwcG0
- qdijuRjw1OfQMIEKKtuWwiTdSmU5ToRX59ewX+mUuz6Y9x2wPqM9nWeafu9tDnF081lV
- JN7g==
+ :cc; bh=c3eeDccvrtLhJ2RlU4cT+GxgHVi8ODX3K/3/cMoQn/k=;
+ b=kXj6ALbb7BsUDHxYmTLQCj+IoAVVGAFFcd/GgRVc1henpkMQOd3UkBcPkLLlBdf9FF
+ q6M8/srNJmwFr5kf5LhooXTW+6g6Ihfzov1bjX3G0HPc8uSvzXuft7hoORGrGtENY6lC
+ +RoQyAkLm2S5THWl+AubvKZ5ueibnu5Lj0mGBkvtF7o23RGpXobbsnFi6OJMjMTwTGhb
+ 383K9+T1iDrltKQIyGN0Oc7PhcEcIDfc0NQHvd+kJs4/StE2E0E3E2dRCZRQHtbXhSyw
+ kWwHZKwSjNJA4QEmE1WAICI7Z2R3lNheiQWhRCM541xMsPxJqjTZgN7C1LYr3nXjwP8i
+ HKgw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc;
- bh=tG/RECwRgNQRQ8Y3N/bmt9ivqZMjunU0lDRr6TZ1FSs=;
- b=JE1ACIDc1LkPv2cuDNWtQVhPkzQW89/K1iVR7xBjfaasnXpULVYLdHzPcNg+NR9S27
- Ix0/maRb/ga91DgiQELtOj9FXl9jOryrXXXob44LlOEO6pvS/quUV07zpt/ZAZqVn9Hi
- tOOSpXXiJ+Ul32jTojjRCY+mCISJFXN7mjs8ZJV2Oy1h/xZ7BoxVuKpp5SyQf3dkVPzG
- RHWMTcszbAMgZTFfeInbhOZgv1IoGhmIe5wPvmNrPlMvsJYF7GpDQBHH5F8zX9qenLDo
- SB81Rs/JfQVMy9cbqF0lQqWQC5TRjTYI+4SJ798apgkJG1w7hhd4LOJvxQkuDxV+a8r9
- e8SA==
-X-Gm-Message-State: AOAM531LRc65+CxfgDQxATtZs7Vg3ak4bgW6XoUb/eqJmsq4CWcojHQf
- ck3O9wvzF7XoOLfHi6Mb/gectWyRY7ojkw0eJAc=
-X-Google-Smtp-Source: ABdhPJzgfoxIJsP2SMbDpjaL6TOeeco/9fSOdRZRL5HgwYT+kLVXmorkD+7UgHeMCnuoRe3C8xC6Ph7OGm2IH3XMfIw=
-X-Received: by 2002:a63:b1e:: with SMTP id 30mr43741498pgl.203.1609164994000; 
- Mon, 28 Dec 2020 06:16:34 -0800 (PST)
+ bh=c3eeDccvrtLhJ2RlU4cT+GxgHVi8ODX3K/3/cMoQn/k=;
+ b=h493WC3Gpy2FKjhs6u6CShNbh5ncvsZGyliamQrVlIVzuNhzvl727FIaTF6oF1/UHf
+ gtuBFXJGkcgexwTF6hhQGhc7d3aIz+PTn057t6JqLO9gFZrRHEWabL6DcDkag+zop54/
+ CL+jnJhGePN1pdd+u5tUgBp64BIb6P2FIb/M7O9ZWRU4FBiv8Itgx7PO8GDvBPBzLwbQ
+ yP20j+xaOeLRVrPypLfSsKjIfc5UI5pJ+YOkRVbKzoFLn8TyhhVriz/3s+qExzaUEpbW
+ VHiefKYNClv3qqNVpJeniCvF3ilnQ/Frxm0dPF6mRwXHOb59GnTwIUrRDkoXcb5XGUlE
+ TawA==
+X-Gm-Message-State: AOAM532b2eP8dEIepUqgEAQHSGjFgyhc+swiXGFgsxL4cKTRqkBHSaer
+ b4PFfeoQYwl9ocYsIJCU+TA9/q9XjYhxV0fj0hk=
+X-Google-Smtp-Source: ABdhPJwNC33nHrVZvkEyUW3jXHOEfzfHJSbX/0d6I5CasyY83H4HtlUyaSLZUVZKRF8RaXC/Ld1qRvjesVFnjc4wom4=
+X-Received: by 2002:a17:902:e98c:b029:da:cb88:f11d with SMTP id
+ f12-20020a170902e98cb02900dacb88f11dmr24012086plb.17.1609165203427; Mon, 28
+ Dec 2020 06:20:03 -0800 (PST)
 MIME-Version: 1.0
 References: <20201227211232.117801-1-hdegoede@redhat.com>
- <20201227211232.117801-11-hdegoede@redhat.com>
-In-Reply-To: <20201227211232.117801-11-hdegoede@redhat.com>
+In-Reply-To: <20201227211232.117801-1-hdegoede@redhat.com>
 From: Andy Shevchenko <andy.shevchenko@gmail.com>
-Date: Mon, 28 Dec 2020 16:16:17 +0200
-Message-ID: <CAHp75VfpdJkDxwynHTaLbVKZ1fp7XZS=RUSC1OV_06cmpyoNAQ@mail.gmail.com>
-Subject: Re: [PATCH 10/14] extcon: arizona: Also report jack state through
- snd_soc_jack_report()
+Date: Mon, 28 Dec 2020 16:19:46 +0200
+Message-ID: <CAHp75VcMGjhuNWgVx6Jn6vGCN8pvPO5ePz7oprabhiW=Ffc_rg@mail.gmail.com>
+Subject: Re: [PATCH 00/14] MFD/extcon/ASoC: Add support for Intel Bay Trail
+ boards with WM5102 codec
 To: Hans de Goede <hdegoede@redhat.com>
 Content-Type: text/plain; charset="UTF-8"
 Cc: Cezary Rojewski <cezary.rojewski@intel.com>,
@@ -103,72 +103,46 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Sun, Dec 27, 2020 at 11:16 PM Hans de Goede <hdegoede@redhat.com> wrote:
+On Sun, Dec 27, 2020 at 11:15 PM Hans de Goede <hdegoede@redhat.com> wrote:
 >
-> The Linux Arizona driver uses the MFD framework to create several
-> sub-devices for the Arizona codec and then uses a driver per function.
+> Hi All,
 >
-> The extcon-arizona driver handles jack-detect support and exports info
-> about the jack state to userspace through the standard extcon sysfs
-> class interface.
+> This patch series adds support for Intel Bay Trail based device which use
+> a WM5102 codec for audio output/input. This was developed and tested on a
+> Lenovo Yoga Tablet 1051L.
 >
-> Standard Linux userspace does not monitor/use the extcon sysfs interface
-> for jack-detection, resulting in the jack-state not being taken into
-> account by userspace.
+> This series consists of 3 parts:
+> 1. Arizona MFD drv patches for ACPI bindings, better jack-detect support
+>    and misc. fixes
+> 2. extcon-arizona driver fixes and improved jack reporting (this depends
+>    on the MFD changes)
+> 3. ASoC patches in the form of a quirk for BYTCR detecting, a new
+>    machine driver for BYT + WM5102 and jack-detect support for the new
+>    machine driver (which again depends on the MFD changes).
 >
-> The ASoC machine-driver may have created a standard ASoC jack when
-> registering the card. In this case also report the jack-state through the
-> ASoC jack so that jack-detection works with standard Linux userspace.
+> Given that 2. and 3. depend on the MFD changes I believe that it is best
+> if all patches in this series are merged through the MFD tree (once
+> reviewed and acked) and then Lee can provide a immutable branch for
+> the ASoC and extcon maintainers to merge into their trees.
 >
-> Signed-off-by: Hans de Goede <hdegoede@redhat.com>
-> ---
->  drivers/extcon/extcon-arizona.c | 11 ++++++++++-
->  1 file changed, 10 insertions(+), 1 deletion(-)
+> I have a patch with matching UCM profile changes available here:
+> https://github.com/jwrdegoede/alsa-ucm-conf/commit/316109e7814926ba984322c1d9190575fab9021c
 >
-> diff --git a/drivers/extcon/extcon-arizona.c b/drivers/extcon/extcon-arizona.c
-> index d5b3231744f9..931a7d239aea 100644
-> --- a/drivers/extcon/extcon-arizona.c
-> +++ b/drivers/extcon/extcon-arizona.c
-> @@ -20,6 +20,7 @@
->  #include <linux/regulator/consumer.h>
->  #include <linux/extcon-provider.h>
->
-> +#include <sound/jack.h>
->  #include <sound/soc.h>
->
->  #include <linux/mfd/arizona/core.h>
-> @@ -598,11 +599,19 @@ static int arizona_hpdet_do_id(struct arizona_extcon_info *info, int *reading,
->  static void arizona_set_extcon_state(struct arizona_extcon_info *info,
->                                      unsigned int id, bool state)
->  {
-> -       int ret;
-> +       int ret, mask = 0;
+> This series + the UCM profile has been tested with both the SST and
+> SOF ASoC drivers for BYT devices.
 
-I would rather prefer... drop  assignment here...
+Thanks for fixing this!
+I found the series pretty much in a good shape (only two patches I
+think need a bit of work), FWIW
+Reviewed-by: Andy Shevchenko <andy.shevchenko@gmail.com>
+after addressing comments.
 
->         ret = extcon_set_state_sync(info->edev, id, state);
->         if (ret)
->                 dev_err(info->arizona->dev, "Failed to set extcon state: %d\n", ret);
-> +
-> +       switch (id) {
-> +       case EXTCON_JACK_HEADPHONE:     mask = SND_JACK_HEADPHONE;      break;
-> +       case EXTCON_JACK_MICROPHONE:    mask = SND_JACK_MICROPHONE;     break;
+> BugLink: https://github.com/thesofproject/linux/issues/2485
 
-...introduce default here, which immediately bails out (return)...
-
-> +       }
-> +
-> +       if (info->arizona->jack && mask)
-
-...and drop mask check here.
-
-> +               snd_soc_jack_report(info->arizona->jack, state ? mask : 0, mask);
->  }
->
->  static irqreturn_t arizona_hpdet_irq(int irq, void *data)
-> --
-> 2.28.0
->
+Shouldn't this be somewhere in the "main" fix? (Yes, I understand that
+it may sound silly and should be copied to almost half of the series,
+but if there is a good place it would be nice to have in the Git
+history)
 
 
 -- 

@@ -2,115 +2,97 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E4BEB2E38F4
-	for <lists+alsa-devel@lfdr.de>; Mon, 28 Dec 2020 14:18:01 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 66BFC2E3AA1
+	for <lists+alsa-devel@lfdr.de>; Mon, 28 Dec 2020 14:40:37 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 6F8F616EC;
-	Mon, 28 Dec 2020 14:17:06 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6F8F616EC
+	by alsa0.perex.cz (Postfix) with ESMTPS id F3D151716;
+	Mon, 28 Dec 2020 14:39:41 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz F3D151716
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1609161476;
-	bh=pDrUC6zcVzxt20zp77eoSlx3Hl6I4Sr4uAaAsz0Pbqs=;
-	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=STtbWCBQHm5wS1QUuFSGc3LuXQGjmhphwhBfmn90WKNZU/e93cmVTWyGewTzPp/Ye
-	 OUQMSqrD94OaG2vvFWhZ7tFb4nliJwRKe51bSNWNGbXfsuBZOEL4i6hzcFcSa6iSZ7
-	 BFeGoD5vB11iDTgq+Lsj3B8w6u4+K3wQ850/ldvM=
+	s=default; t=1609162832;
+	bh=d+ggE0jTQ/GL5J1bUWUgp6Ujud77xl4PvSUqHGWdSP8=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=uIUvy4iPoE7wHlNbIWZ8osHoc+HmdQhglIwgJFYLI3mbe4YMaMpxgmo21dDtNAm0f
+	 dz4ohKqazGf62Vw2lU86tfRsOTkFv010Q4aauxCl/8m78iShbi2W9Btp4803rRQNSP
+	 z5Yb8YgPqYflEdGQ7eErASRPd6kR7UD6nwQLqERU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id C51E4F80169;
-	Mon, 28 Dec 2020 14:16:21 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 16FEAF801F5;
+	Mon, 28 Dec 2020 14:38:57 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 81AA1F801F5; Mon, 28 Dec 2020 14:16:19 +0100 (CET)
+ id C88CBF801F5; Mon, 28 Dec 2020 14:38:53 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.6 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,NICE_REPLY_A,PRX_BODY_76,SPF_HELO_NONE,SPF_NONE
- autolearn=disabled version=3.4.0
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [216.205.24.124])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
+Received: from mx0a-00154904.pphosted.com (mx0a-00154904.pphosted.com
+ [148.163.133.20])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id A9476F8014E
- for <alsa-devel@alsa-project.org>; Mon, 28 Dec 2020 14:16:11 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A9476F8014E
+ by alsa1.perex.cz (Postfix) with ESMTPS id A90DBF80169
+ for <alsa-devel@alsa-project.org>; Mon, 28 Dec 2020 14:38:47 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A90DBF80169
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com
- header.b="gTK8LZsh"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1609161370;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=BpGZqNqjl/EqgtMH0TEGlmSlmsvZxZ2+cVJLVuiye3o=;
- b=gTK8LZshZ8PKIYMAuu/tr9nJ2El5KvjhbPMiKR5Ov1g8mxggXky0qNyve8HQDwOrFv69mP
- YiUJjkpIq9UWqaMJslIyRXNx035wfpCeYUKptXyhkbEIjmIvh1p4RbrLT0Mlt/1jO/stOz
- eQ4ZXYGeu9DD75xNQq6ddiBYq24oHhE=
-Received: from mail-ed1-f69.google.com (mail-ed1-f69.google.com
- [209.85.208.69]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-307-ou7QJp9nNZmwawU2XoD2SA-1; Mon, 28 Dec 2020 08:16:07 -0500
-X-MC-Unique: ou7QJp9nNZmwawU2XoD2SA-1
-Received: by mail-ed1-f69.google.com with SMTP id n18so3311013eds.2
- for <alsa-devel@alsa-project.org>; Mon, 28 Dec 2020 05:16:07 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:subject:to:cc:references:from:message-id:date
- :user-agent:mime-version:in-reply-to:content-language
- :content-transfer-encoding;
- bh=BpGZqNqjl/EqgtMH0TEGlmSlmsvZxZ2+cVJLVuiye3o=;
- b=jWcHEk+XPzYtlbDzJ60WBHm8JLcE9vUDzRBJb1uK21Aey9jYLpD50fTIy0VnwqDksW
- MsvO45I20dfN0N/bGix9YEb4q7Eac3zPlIVr7hWLNdL+2uOefSUplGjY7rGvqReuRnJ7
- 7tcC5fau9VbHU+dqb4VtewEbOtTWVlDuA5rzWT0Mnq40Chl4qaR1XWElpohYF69jHTjP
- I8dqmfJx/BF33ynSqcZSs979kEZp1sj6wnnuUZXV4VGnKYfr4Mx+90ws79DhXH5O/z6l
- AqHiotBbVTiiG0ZLlgmm4KevyAgCH/mEjnTPh23MvFoS1NEpVMrSa1e+EldzG8E6cKNj
- Y3gg==
-X-Gm-Message-State: AOAM533Ik/LjvVTrZcyXj5zC196kN25iQw1aFJlRfD8AAYHqqsakZ+O7
- bLS8h3DVyM/fuy8LJK9CTHWGWUXmRP1KO+8+P6eCMUN0Jh7wpFwQC9embtg2LywHSgstL6Sorle
- ElcOOHOSi4TRShxduCbGsd2BCWm2sXpZWgpTGLBPIWQgFo+rGZd80Kv5iuX/p5TR2dIFISS0umr
- U=
-X-Received: by 2002:a17:907:40f0:: with SMTP id
- nn24mr40959184ejb.233.1609161366056; 
- Mon, 28 Dec 2020 05:16:06 -0800 (PST)
-X-Google-Smtp-Source: ABdhPJxzrt1uKlVWXyK7ZFE9xUmRMZZXRSzEOAZI8gbA5K9cPIpgkRK+cinnSnJmQyqJNyCEoqnoxw==
-X-Received: by 2002:a17:907:40f0:: with SMTP id
- nn24mr40959157ejb.233.1609161365830; 
- Mon, 28 Dec 2020 05:16:05 -0800 (PST)
-Received: from x1.localdomain
- (2001-1c00-0c0c-fe00-d2ea-f29d-118b-24dc.cable.dynamic.v6.ziggo.nl.
- [2001:1c00:c0c:fe00:d2ea:f29d:118b:24dc])
- by smtp.gmail.com with ESMTPSA id e19sm36838102edr.61.2020.12.28.05.16.04
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 28 Dec 2020 05:16:05 -0800 (PST)
-Subject: Re: [PATCH 01/14] mfd: arizona: Add jack pointer to struct arizona
-To: Mark Brown <broonie@kernel.org>
-References: <20201227211232.117801-1-hdegoede@redhat.com>
- <20201227211232.117801-2-hdegoede@redhat.com>
- <20201228122138.GA5352@sirena.org.uk>
-From: Hans de Goede <hdegoede@redhat.com>
-Message-ID: <44f84485-8efc-39f9-d0a7-cb8db2ea3faa@redhat.com>
-Date: Mon, 28 Dec 2020 14:16:04 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.4.0
+ dkim=pass (2048-bit key) header.d=dell.com header.i=@dell.com
+ header.b="dmL7psTX"
+Received: from pps.filterd (m0170391.ppops.net [127.0.0.1])
+ by mx0a-00154904.pphosted.com (8.16.0.43/8.16.0.43) with SMTP id
+ 0BSDcGgR008828
+ for <alsa-devel@alsa-project.org>; Mon, 28 Dec 2020 08:38:45 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=dell.com;
+ h=from : to : cc :
+ subject : date : message-id : mime-version : content-transfer-encoding;
+ s=smtpout1; bh=tQR4jRZ/qW4QaiXsR3B6X0bnpzWvfDAF7DkqMpvHFTE=;
+ b=dmL7psTX4D24omgfTn6mVJa+DRX0zWRF2aBrold8uiYoHY4ZHiQf9DQYXsVjkjRCCEeH
+ 4fsRs37I8izNPMjYcKmxlZbFqLGu0PK7b0JX1QRRPwbcjolAAr3uCoW66q/AFp5A1eY6
+ UBCrwcBlMDA7Sd+jmzxBAThoxHn5zmL/5hp58t5CPS0Gu4n2TQ4yBt7LmSSDInR/BmdE
+ RQHUI3Yr8PmqkXR0XqTZbAC8fflhMFZiC8AMz+VmtI2jMDeu2ol/+hVKOAMuVt1ssA+Y
+ PywbJNyW1+WUmAXqwJVx+djhL0eHVjBU0ecI1VGTTWZ4K+0jIVvy9Ndb9fEbtf1JJfCD YA== 
+Received: from mx0a-00154901.pphosted.com (mx0b-00154901.pphosted.com
+ [67.231.157.37])
+ by mx0a-00154904.pphosted.com with ESMTP id 35p173ce8j-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT)
+ for <alsa-devel@alsa-project.org>; Mon, 28 Dec 2020 08:38:45 -0500
+Received: from pps.filterd (m0089484.ppops.net [127.0.0.1])
+ by mx0b-00154901.pphosted.com (8.16.0.43/8.16.0.43) with SMTP id
+ 0BSDaVI8107877
+ for <alsa-devel@alsa-project.org>; Mon, 28 Dec 2020 08:38:44 -0500
+Received: from ausxippc106.us.dell.com ([143.166.85.156])
+ by mx0b-00154901.pphosted.com with ESMTP id 35pkdfd3ej-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK)
+ for <alsa-devel@alsa-project.org>; Mon, 28 Dec 2020 08:38:44 -0500
+X-LoopCount0: from 10.69.132.19
+X-PREM-Routing: D-Outbound
+X-IronPort-AV: E=Sophos;i="5.60,349,1549951200"; d="scan'208";a="639372522"
+From: Perry Yuan <Perry.Yuan@dell.com>
+To: oder_chiou@realtek.com, perex@perex.cz, tiwai@suse.com
+Subject: [PATCH v2 2/2] ASoC: rt715:add Mic Mute LED control support
+Date: Mon, 28 Dec 2020 21:38:31 +0800
+Message-Id: <20201228133831.17464-1-Perry_Yuan@Dell.com>
+X-Mailer: git-send-email 2.19.2.windows.1
 MIME-Version: 1.0
-In-Reply-To: <20201228122138.GA5352@sirena.org.uk>
-Authentication-Results: relay.mimecast.com;
- auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=hdegoede@redhat.com
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset=windows-1252
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
-Cc: Cezary Rojewski <cezary.rojewski@intel.com>, alsa-devel@alsa-project.org,
- patches@opensource.cirrus.com, Jie Yang <yang.jie@linux.intel.com>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- linux-kernel@vger.kernel.org, Liam Girdwood <liam.r.girdwood@linux.intel.com>,
- Chanwoo Choi <cw00.choi@samsung.com>, MyungJoo Ham <myungjoo.ham@samsung.com>,
- Lee Jones <lee.jones@linaro.org>
+Content-Transfer-Encoding: 8bit
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.343, 18.0.737
+ definitions=2020-12-28_11:2020-12-28,
+ 2020-12-28 signatures=0
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ mlxlogscore=957 mlxscore=0
+ impostorscore=0 spamscore=0 lowpriorityscore=0 suspectscore=0
+ malwarescore=0 adultscore=0 bulkscore=0 clxscore=1011 phishscore=0
+ priorityscore=1501 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.12.0-2009150000 definitions=main-2012280085
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 adultscore=0
+ suspectscore=0 mlxscore=0
+ malwarescore=0 spamscore=0 phishscore=0 bulkscore=0 mlxlogscore=999
+ classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2009150000
+ definitions=main-2012280085
+Cc: alsa-devel@alsa-project.org, Limonciello Mario <Mario.Limonciello@dell.com>,
+ Perry Yuan <Perry.Yuan@dell.com>, lgirdwood@gmail.com,
+ linux-kernel@vger.kernel.org, broonie@kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -126,93 +108,138 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hi,
+From: Perry Yuan <perry_yuan@dell.com>
 
-On 12/28/20 1:21 PM, Mark Brown wrote:
-> On Sun, Dec 27, 2020 at 10:12:19PM +0100, Hans de Goede wrote:
->> The Linux Arizona driver uses the MFD framework to create several
->> sub-devices for the Arizona codec and then uses a driver per function.
->>
->> The jack-detect support for the Arizona codec is handled by the
->> extcon-arizona driver. This driver exports info about the jack state
->> to userspace through the standard extcon sysfs class interface.
->>
->> But standard Linux userspace does not monitor/use the extcon sysfs
->> interface for jack-detection.
-> 
-> This seems like the wrong layer to fix this problem at, this issue will
-> apply to all extcon devices that can detect audio.
+Some new Dell system is going to support audio internal micphone
+privacy setting from hardware level with micmute led state changing
+When micmute hotkey pressed by user, soft mute will need to be enabled
+firstly in case of pop noise, and codec driver need to react to mic
+mute event to EC notifying that SW mute is completed. Then EC will do the
+HW mute physically.
 
-Well, the problem really is that using extcon to report jack-state is
-rather unusual to do, extcon-arizona.c is the only extcon driver which
-deals with jack-state (typically extcon is used for things like determining
-the type of charger connected to an USB charging port):
+This patch allow codec rt715 driver to ack EC when micmute key pressed
+through this micphone led control interface like hda_generic provided.
 
-[hans@x1 linux]$ grep -lr EXTCON_JACK_HEADPHONE drivers/extcon/
-drivers/extcon/extcon-arizona.c
-drivers/extcon/extcon.c
+Signed-off-by: Perry Yuan <perry_yuan@dell.com>
+Signed-off-by: Limonciello Mario <mario_limonciello@dell.com>
+---
+ sound/soc/codecs/rt715-sdca.c | 19 ++++++++++++++++++-
+ sound/soc/codecs/rt715-sdca.h |  1 +
+ sound/soc/codecs/rt715.c      | 19 ++++++++++++++++++-
+ sound/soc/codecs/rt715.h      |  1 +
+ 4 files changed, 38 insertions(+), 2 deletions(-)
 
-And more in general AFAIK extcon is sort of deprecated and it is
-not advised to use it for new code. I would esp. not expect it to
-be used for new jack-detection code since we already have standard
-uAPI support for that through sound/core/jack.c .
-
-So extcon-arizona really is the odd duck here and writing some
-generic extcon to sound/core/jack.c glue seems unnecessary since
-we are just trying dealing with one special case here.
-
-Also at first I tried to use extcon-glue like code in
-sound/soc/intel/boards/bytcr_wm5102.c making it listen for
-extcon events and have sound/soc/intel/boards/bytcr_wm5102.c
-report jack events instead of sharing the jack with extcon-arizona.c
-through the shared MFD data struct. But that did not work, because
-the extcon-arizona.c probe function already (before this patch-set)
-has this:
-
-        if (!arizona->dapm || !arizona->dapm->card)
-                return -EPROBE_DEFER;
-
-Which means that the sound/soc/intel/boards/bytcr_wm5102.c machine
-driver must first complete calling devm_snd_soc_register_card() before
-the extcon driver will bind and register the extcon device.
-
-But listening to extcon events requires the machine driver to do an:
-extcon_get_extcon_dev("arizona-extcon") and as long as that returns
-NULL, return -EPROBE_DEFER.
-
-So now we have the machine-driver's probe returning with -EPROBE_DEFER
-until the extcon driver shows up and the other-way around, so neither
-ever binds.
-
-I could have fixed this by making the machine driver bind without the
-extcon driver being bound and then poll every second for the extcon device
-to show up, and once it has shown up stop polling and register the jack,
-once it has the extcon device.
-
-But that seems quite ugly, so I did not even try to implement that
-coming up with this solution instead which is much more KISS really.
-
-Also note that sharing the jack is necessary to avoid creating 2
-separate input_device-s for the headset, which also looks weird / ugly.
-
-Besides being ugly, there also is another potential problem with
-polling to wait for the extcon device to show up: the jack must be
-registered before the card registration completes otherwise
-snd_jack_dev_register will not run, since we are post registration.
-But I guess that the sound core might be smart enough to call
-the dev_register op immediately if the card has already been
-registered ?
-
-TL;DR: writing a generic solution for what is a special case used
-in just driver seems like overkill and also writing such a
-generic solution is not easily possible because of probe ordering
-issues. So instead I've gone with this approach which is a much
-simpler solution and as such seems a better way to deal with this
-special case.
-
-Regards,
-
-Hans
-
-
+diff --git a/sound/soc/codecs/rt715-sdca.c b/sound/soc/codecs/rt715-sdca.c
+index b43ac8559e45..e168ef6efcf5 100644
+--- a/sound/soc/codecs/rt715-sdca.c
++++ b/sound/soc/codecs/rt715-sdca.c
+@@ -12,6 +12,7 @@
+ #include <linux/version.h>
+ #include <linux/kernel.h>
+ #include <linux/init.h>
++#include <linux/leds.h>
+ #include <linux/pm_runtime.h>
+ #include <linux/pm.h>
+ #include <linux/soundwire/sdw.h>
+@@ -268,6 +269,7 @@ static int rt715_sdca_put_volsw(struct snd_kcontrol *kcontrol,
+ 	unsigned int reg2 = mc->rreg;
+ 	unsigned int reg = mc->reg;
+ 	unsigned int max = mc->max;
++	unsigned int val0, val1;
+ 	int err;
+ 
+ 	val = ucontrol->value.integer.value[0];
+@@ -286,7 +288,22 @@ static int rt715_sdca_put_volsw(struct snd_kcontrol *kcontrol,
+ 		if (err < 0)
+ 			return err;
+ 	}
+-
++#if IS_ENABLED(CONFIG_DELL_PRIVACY)
++	/* Privacy LED Trigger State Changed by muted/unmute switch */
++	if (mc->invert) {
++		val0 = ucontrol->value.integer.value[0];
++		val1 = ucontrol->value.integer.value[1];
++		if (val0 == 1 && val1 == 1) {
++			rt715->micmute_led = LED_OFF;
++			ledtrig_audio_set(LED_AUDIO_MICMUTE,
++					rt715->micmute_led ? LED_ON : LED_OFF);
++		} else if (val0 == 0 && val1 == 0) {
++			rt715->micmute_led = LED_ON;
++			ledtrig_audio_set(LED_AUDIO_MICMUTE,
++					rt715->micmute_led ? LED_ON : LED_OFF);
++		}
++	}
++#endif
+ 	return 0;
+ }
+ 
+diff --git a/sound/soc/codecs/rt715-sdca.h b/sound/soc/codecs/rt715-sdca.h
+index 840c237895dd..2ab8724ae50b 100644
+--- a/sound/soc/codecs/rt715-sdca.h
++++ b/sound/soc/codecs/rt715-sdca.h
+@@ -31,6 +31,7 @@ struct rt715_sdca_priv {
+ 	int l_is_unmute;
+ 	int r_is_unmute;
+ 	int hw_sdw_ver;
++	int micmute_led;
+ };
+ 
+ struct rt715_sdw_stream_data {
+diff --git a/sound/soc/codecs/rt715.c b/sound/soc/codecs/rt715.c
+index cdcba70146da..faa4dee6b39a 100644
+--- a/sound/soc/codecs/rt715.c
++++ b/sound/soc/codecs/rt715.c
+@@ -13,6 +13,7 @@
+ #include <linux/init.h>
+ #include <linux/delay.h>
+ #include <linux/i2c.h>
++#include <linux/leds.h>
+ #include <linux/pm_runtime.h>
+ #include <linux/pm.h>
+ #include <linux/soundwire/sdw.h>
+@@ -88,13 +89,29 @@ static int rt715_set_amp_gain_put(struct snd_kcontrol *kcontrol,
+ 		RT715_SET_GAIN_MIX_ADC2_L};
+ 	unsigned int addr_h, addr_l, val_h, val_ll, val_lr;
+ 	unsigned int read_ll, read_rl, i, j, loop_cnt;
++	unsigned int val0, val1;
+ 
+ 	if (strstr(ucontrol->id.name, "Main Capture Switch") ||
+ 		strstr(ucontrol->id.name, "Main Capture Volume"))
+ 		loop_cnt = 4;
+ 	else
+ 		loop_cnt = 1;
+-
++#if IS_ENABLED(CONFIG_DELL_PRIVACY)
++	/*  Privacy micmute led trigger for  muted/unmute switch */
++	if (mc->invert) {
++		val0 = ucontrol->value.integer.value[0];
++		val1 = ucontrol->value.integer.value[1];
++		if (val0 == 1 && val1 == 1) {
++			rt715->micmute_led = LED_OFF;
++			ledtrig_audio_set(LED_AUDIO_MICMUTE,
++					rt715->micmute_led ? LED_ON : LED_OFF);
++		} else if (val0 == 0 && val1 == 0) {
++			rt715->micmute_led = LED_ON;
++			ledtrig_audio_set(LED_AUDIO_MICMUTE,
++					rt715->micmute_led ? LED_ON : LED_OFF);
++		}
++	}
++#endif
+ 	for (j = 0; j < loop_cnt; j++) {
+ 		/* Can't use update bit function, so read the original value first */
+ 		if (loop_cnt == 1) {
+diff --git a/sound/soc/codecs/rt715.h b/sound/soc/codecs/rt715.h
+index 009a8266f606..2d3b5b299514 100644
+--- a/sound/soc/codecs/rt715.h
++++ b/sound/soc/codecs/rt715.h
+@@ -22,6 +22,7 @@ struct rt715_priv {
+ 	struct sdw_bus_params params;
+ 	bool hw_init;
+ 	bool first_hw_init;
++	int micmute_led;
+ };
+ 
+ struct sdw_stream_data {
+-- 
+2.25.1
 

@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E87692E6603
-	for <lists+alsa-devel@lfdr.de>; Mon, 28 Dec 2020 17:08:23 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id F13862E6606
+	for <lists+alsa-devel@lfdr.de>; Mon, 28 Dec 2020 17:09:20 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 69208173A;
-	Mon, 28 Dec 2020 17:07:28 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 69208173A
+	by alsa0.perex.cz (Postfix) with ESMTPS id 49D23177D;
+	Mon, 28 Dec 2020 17:08:30 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 49D23177D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1609171698;
-	bh=YgrGkHMfAyZKwQEyxTmWs0kIk58KqReA72MzIZ4Uem0=;
-	h=From:To:In-Reply-To:References:Subject:Date:List-Id:
+	s=default; t=1609171760;
+	bh=6GZH+u+8WUGAQKjZRQucFo/eXB1TvTVwVbUKfVa9vLU=;
+	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=hz7jju4rmcVChcah50qYsDgTG7l3DbtRnhF6KZPeLzvOxTzEgtOAq17tXNuR+TNEg
-	 VF1xWNouUG9GPzLJFdio6qv9mqTGfNkHBvjlfdvo4ctPkj2b+cJvJTbMOumEZ72jI2
-	 yuGw4pKvdBApk7GmeEhij48MtiWVuut/APmJUcBU=
+	b=FxsIrPkO+IGdGKtScj1tZLnnZz6w+LLrdBqi9QJjPtSTigrFkv6X6gVnmiaj04HnO
+	 p24Dpe1LPlXWo/ksEYsl+tDxoBg03vUM1b9Yt5dZIZmDvB9G/+NKFtOs3UQNQImRKZ
+	 YeEXBYXtDPv1gflhK9+ivl0T13XuEEeKGh6zfHaE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id D3A7AF8014E;
-	Mon, 28 Dec 2020 17:06:43 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id BCD4FF804D6;
+	Mon, 28 Dec 2020 17:07:06 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 2176EF8020B; Mon, 28 Dec 2020 17:06:42 +0100 (CET)
+ id D024CF802A9; Mon, 28 Dec 2020 17:06:44 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -33,39 +33,36 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 9146DF8014E
- for <alsa-devel@alsa-project.org>; Mon, 28 Dec 2020 17:06:37 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9146DF8014E
+ by alsa1.perex.cz (Postfix) with ESMTPS id 6CC5CF8020B
+ for <alsa-devel@alsa-project.org>; Mon, 28 Dec 2020 17:06:42 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6CC5CF8020B
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="P7mxp10g"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 4B2F82074A;
- Mon, 28 Dec 2020 16:06:35 +0000 (UTC)
+ header.b="Rnw9CLnr"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 46305207FB;
+ Mon, 28 Dec 2020 16:06:40 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1609171595;
- bh=YgrGkHMfAyZKwQEyxTmWs0kIk58KqReA72MzIZ4Uem0=;
- h=From:To:In-Reply-To:References:Subject:Date:From;
- b=P7mxp10gFK9ETne0zeAuKlPLkV9uc0dy3Tr8lcR+++3mvNZBmforWcRMxYbjJ6MkG
- 1sQ5dl5jHXrqd8gw68ObZVJON/Azy0POjqbX824Utdk89Z6pQQO/dpnoIBeyRguMNm
- RQWC1qybkiVl9s5UwBtxAHP/kCAE3qGbREmBFagbLqhVyL5fzFovuBf1TP9wgXgcVd
- 3opp7esGBYtigPYuA808irMuE8m6RryIGhhFHtdNMVBjwjNuomBanu5xx8IVqnL4CR
- nqZSeMu6ur7W5JEWg4KhFkjx9R420JHS+iiyaR9/18Fure8J5RaEnft/KIjDT9CbKg
- gLTc9uo5UJqkg==
+ s=k20201202; t=1609171600;
+ bh=6GZH+u+8WUGAQKjZRQucFo/eXB1TvTVwVbUKfVa9vLU=;
+ h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
+ b=Rnw9CLnrfKYeq5KfGUyB7zNWgThUJi6EsTEbc37agkbfHuoFCyYGW69k1v/kKzThw
+ e9byvdWEZXCJP825+k6vAL8xQIC8oiHiDje4+9rtnNHnDRI7POpXF0v+6apEGLmpAS
+ z95tLbP6QdxT8B9p7akXG+jLOcKj024nzmrZ04BW2V3KG1LNk6qTy7L1DQkdF6onyg
+ sjxjhI6CQ/lkeVqxDf24ZOL55zKViIQs058S3PanU051G4ruW4deyzdFtwZ3XBb8fK
+ P0r3Z9AmItQEuur0iW9IkrEZWi+CVdPnsR+jc6z5PpZWX/Q7Nvkn32+beTCEPDs9u2
+ oqWzM3k5GU1yw==
 From: Mark Brown <broonie@kernel.org>
-To: Liam Girdwood <liam.r.girdwood@linux.intel.com>,
- Jie Yang <yang.jie@linux.intel.com>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- Cezary Rojewski <cezary.rojewski@intel.com>,
- Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
- alsa-devel@alsa-project.org
-In-Reply-To: <20201208102637.1168-1-andriy.shevchenko@linux.intel.com>
-References: <20201208102637.1168-1-andriy.shevchenko@linux.intel.com>
-Subject: Re: [PATCH v1] catpt: Switch to use list_entry_is_head() helper
-Message-Id: <160917143256.51553.10440161736126371527.b4-ty@kernel.org>
+To: Lars-Peter Clausen <lars@metafoo.de>
+In-Reply-To: <20201218154544.25513-1-lars@metafoo.de>
+References: <20201218154544.25513-1-lars@metafoo.de>
+Subject: Re: [PATCH] ASoC: meson: Use managed DMA buffer allocation
+Message-Id: <160917143257.51553.13640540260612593561.b4-ty@kernel.org>
 Date: Mon, 28 Dec 2020 16:03:52 +0000
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
+Cc: linux-amlogic@lists.infradead.org, alsa-devel@alsa-project.org,
+ Takashi Iwai <tiwai@suse.com>, Jerome Brunet <jbrunet@baylibre.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -81,9 +78,16 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Tue, 8 Dec 2020 12:26:37 +0200, Andy Shevchenko wrote:
-> Since we got list_entry_is_head() helper in the generic header,
-> we may switch catpt to use it. It removes the need in additional variable.
+On Fri, 18 Dec 2020 16:45:44 +0100, Lars-Peter Clausen wrote:
+> Using a managed buffer will pre-allocate the buffer using
+> snd_pcm_lib_preallocate_pages() and automatically free it when the PCM is
+> destroyed.
+> 
+> In addition it will call snd_pcm_lib_malloc_pages() before the driver's
+> hw_params() callback and snd_pcm_lib_free_pages() after the driver's
+> hw_free() callback.
+> 
+> [...]
 
 Applied to
 
@@ -91,8 +95,8 @@ Applied to
 
 Thanks!
 
-[1/1] catpt: Switch to use list_entry_is_head() helper
-      commit: a9830fc388817c90282925694474fae005fec990
+[1/1] ASoC: meson: Use managed DMA buffer allocation
+      commit: e05cde84eabccc0441f837f0661cd4c6f4820513
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

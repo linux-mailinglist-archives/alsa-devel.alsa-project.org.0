@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3FA9C2E6604
-	for <lists+alsa-devel@lfdr.de>; Mon, 28 Dec 2020 17:08:27 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 33DAC2E6696
+	for <lists+alsa-devel@lfdr.de>; Mon, 28 Dec 2020 17:15:48 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id BD51C1747;
-	Mon, 28 Dec 2020 17:07:36 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BD51C1747
+	by alsa0.perex.cz (Postfix) with ESMTPS id B94D11743;
+	Mon, 28 Dec 2020 17:14:57 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B94D11743
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1609171706;
-	bh=mqb+V8KwpniY5OTuAQBPlleqKjClqNjI5EX4LEXBC1s=;
-	h=From:To:In-Reply-To:References:Subject:Date:List-Id:
+	s=default; t=1609172147;
+	bh=ITfs0W/+RpXTKRzJEvABqjsZfGEPs/V/z9bip7jFNo4=;
+	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=i0iiFu2N20IKIkQmE1/DTIW0tbrum9JXlPCdSgdqB7yvxak79qIdvNCeqE/PONUBX
-	 di33gAppEeU1/J8FWWgxJsCgEltjI1wfxYru8ucTCt9kxIaoeUbHUGtPmBdxklTx2A
-	 RPsMDNLSn7mI+hc0gO6XQ13aD0ECMOWmKo+G9GLE=
+	b=eRpWk8kYb1K8RkvPv53heUE2fA+4nTq9/3yA8oNDhdkaxDzT0FyB3Z5XaUk1TR1Ov
+	 BQn4lC9Wpila2yuClaRfsFzd95IHa4DnKdk05HkuE+youfb8+WH+sIefWWHjlvXIKp
+	 mtHdyqMKT50txOIMJGsulTq6FmmyuuZu6mOvW/zU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 61D70F8020B;
-	Mon, 28 Dec 2020 17:06:45 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 78A7FF804C1;
+	Mon, 28 Dec 2020 17:13:27 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 2FE19F801F9; Mon, 28 Dec 2020 17:06:42 +0100 (CET)
+ id 64A87F804B0; Mon, 28 Dec 2020 17:13:25 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -33,37 +33,40 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 95A67F801ED
- for <alsa-devel@alsa-project.org>; Mon, 28 Dec 2020 17:06:36 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 95A67F801ED
+ by alsa1.perex.cz (Postfix) with ESMTPS id 1281DF80249
+ for <alsa-devel@alsa-project.org>; Mon, 28 Dec 2020 17:13:23 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1281DF80249
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="YG+9hR2a"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id AD71720719;
- Mon, 28 Dec 2020 16:06:32 +0000 (UTC)
+ header.b="d1V40PzH"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 13F7E2084D;
+ Mon, 28 Dec 2020 16:13:20 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1609171593;
- bh=mqb+V8KwpniY5OTuAQBPlleqKjClqNjI5EX4LEXBC1s=;
- h=From:To:In-Reply-To:References:Subject:Date:From;
- b=YG+9hR2a0eQLdmIwqUt5+j9zwe/xDbB+DHADXmxHsKfP9h0EsYODWYptwZ+C3F3EP
- gv4Q0/d4Ko8GFYpte+01WTZjAYGyZAwMdhykFMFxfsctA4yJs6DpF7Cc3GPqTBwSZm
- 0L4apwmL72WJ1Tb2M3pzsgb0X1O8KazpGKHBzoK0YryToyxJ1DPCAmzms59TlPRhcu
- 5ekaF5r+N0uQHS9bx3g/Y4nB/1OSXuLSnF3wBm7VenOtY5wGfSFzCC7BFCniYtelir
- /iMa161BbjEBNkcl+gQh7SsuLIJtdcnV/L5SBqWxfgfX/yd9/fiy8YLon701DUBXXM
- 1XYDVYY/E5dbQ==
+ s=k20201202; t=1609172001;
+ bh=ITfs0W/+RpXTKRzJEvABqjsZfGEPs/V/z9bip7jFNo4=;
+ h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
+ b=d1V40PzHeYxxfXzjxWxCzHwYJE/Ad5XkchDbhQVuLAWHfe4rQm0aDo5d7Jg2HZLqO
+ uzfDnBAlu7LrI1gOh2yJca4caskyNzU8hNQHt3IjD0FxNdxNYK+Oflvpc6XxuJAA7X
+ vh+ywvK9BSYIXn6d9SeVYuvQfKN6HTvvTWBOAkaKbGPJW+wiSwzNLwV3el35VsPfbB
+ PY5AAH96HhK7npELSbEXC7W9uJRRWf3pnoJ6GPqXZ7at4l3/GaIXJQNXdpWM8K3GvX
+ HAWU7lwJ57nIOIIhub3zETK/XAOTpcSrjCUI8rclVKXMs2kpi2BtEs18bBcI4h8Z9H
+ BeHO/RTroOa2Q==
 From: Mark Brown <broonie@kernel.org>
-To: Liam Girdwood <lgirdwood@gmail.com>, Baolin Wang <baolin.wang7@gmail.com>,
- Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
- Chunyan Zhang <zhang.lyra@gmail.com>, Orson Zhai <orsonzhai@gmail.com>,
- alsa-devel@alsa-project.org
-In-Reply-To: <20201208111805.6989-1-andriy.shevchenko@linux.intel.com>
-References: <20201208111805.6989-1-andriy.shevchenko@linux.intel.com>
-Subject: Re: [PATCH v1] ASoC: sprd: Switch to use list_entry_is_head() helper
-Message-Id: <160917143257.51553.9711078590395339738.b4-ty@kernel.org>
-Date: Mon, 28 Dec 2020 16:03:52 +0000
+To: Ravulapati Vishnu vardhan rao <Vishnuvardhanrao.Ravulapati@amd.com>
+In-Reply-To: <20201222115929.11222-1-Vishnuvardhanrao.Ravulapati@amd.com>
+References: <20201222115929.11222-1-Vishnuvardhanrao.Ravulapati@amd.com>
+Subject: Re: [PATCH] ASoC: amd:Replacing MSI with Legacy IRQ model
+Message-Id: <160917197014.51862.14166013678155131576.b4-ty@kernel.org>
+Date: Mon, 28 Dec 2020 16:12:50 +0000
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
+Cc: "moderated list:SOUND - SOC LAYER / DYNAMIC AUDIO POWER MANAGEM..."
+ <alsa-devel@alsa-project.org>, Liam Girdwood <lgirdwood@gmail.com>,
+ open list <linux-kernel@vger.kernel.org>, Takashi Iwai <tiwai@suse.com>,
+ Akshu Agrawal <akshu.agrawal@amd.com>,
+ Vijendar Mukunda <Vijendar.Mukunda@amd.com>, Alexander.Deucher@amd.com,
+ Dan Carpenter <dan.carpenter@oracle.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -79,10 +82,15 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Tue, 8 Dec 2020 13:18:05 +0200, Andy Shevchenko wrote:
-> Since we got list_entry_is_head() helper in the generic header,
-> we may switch driver to use it. This eliminates the need
-> in additional variable.
+On Tue, 22 Dec 2020 17:29:18 +0530, Ravulapati Vishnu vardhan rao wrote:
+> When we try to play and capture simultaneously we see that
+> interrupts are genrated but our handler is not being acknowledged,
+> After investigating further more in detail on this issue we found
+> that IRQ delivery via MSI from the ACP IP is unreliable and so sometimes
+> interrupt generated will not be acknowledged so MSI model shouldn't be used
+> and using legacy IRQs will resolve interrupt handling issue.
+> 
+> [...]
 
 Applied to
 
@@ -90,8 +98,8 @@ Applied to
 
 Thanks!
 
-[1/1] ASoC: sprd: Switch to use list_entry_is_head() helper
-      commit: 57fc2bbc62ef9d505e8732acbae0d6b5c59836cd
+[1/1] ASoC: amd:Replacing MSI with Legacy IRQ model
+      commit: a523e1538fdd5f00ea3289cc0b3c6c1785b89814
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

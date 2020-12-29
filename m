@@ -2,69 +2,66 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 15BAE2E7165
-	for <lists+alsa-devel@lfdr.de>; Tue, 29 Dec 2020 15:34:15 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4211C2E7173
+	for <lists+alsa-devel@lfdr.de>; Tue, 29 Dec 2020 15:40:48 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 1D1CF17F1;
-	Tue, 29 Dec 2020 15:33:24 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1D1CF17F1
+	by alsa0.perex.cz (Postfix) with ESMTPS id 8903517E4;
+	Tue, 29 Dec 2020 15:33:14 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8903517E4
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1609252454;
-	bh=+wEc4SDjjvQxCYzjg82D60rVExvdnzCs5DHAhhlUhZQ=;
+	s=default; t=1609252444;
+	bh=QqMaEx90N9oMhrMtPQbph9L/Wp7Di5Cvs+G8YCC9Yj0=;
 	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=EiPxO9P0W/AHQ42AFzY0lJqSplN5MdUGiOKRCPq4bkTzVLL/5J6ktHMcdsaPZAy04
-	 NYWOp2nRZNXSuexaIn5T+LvGjJK7iV3LylshoyTasnnf+iU18la9CNibGafHtwrLPJ
-	 x/f5Ih/CkLY9yJaAJkSOu/n3nmGEiGG1/ZpY71bU=
+	b=Te9ZCTPvP1/csIUHAxAKy2DRdWPG7MmiIVrxSQBDZvA1N8aCLWd0FWLd4dIiHraOr
+	 t01w5A2156Dd5e81PFnIFyNJl7NdKboONzsg0aSdrErCUWgAhO5wgoMBbcdhRBLTis
+	 SbkvIZU169JeIKrwg6gvGVQE7CAG/5SzzKue6L2c=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id AF7CBF80274;
-	Tue, 29 Dec 2020 15:32:31 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id E4436F8022D;
+	Tue, 29 Dec 2020 15:32:30 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id BB547F8022B; Tue, 29 Dec 2020 15:32:29 +0100 (CET)
+ id A4FBFF8022D; Tue, 29 Dec 2020 15:32:23 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.2 required=5.0 tests=DKIM_INVALID,DKIM_SIGNED,
- SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id B3B9BF80143
- for <alsa-devel@alsa-project.org>; Tue, 29 Dec 2020 15:32:16 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B3B9BF80143
+ by alsa1.perex.cz (Postfix) with ESMTPS id 27D3FF8020C
+ for <alsa-devel@alsa-project.org>; Tue, 29 Dec 2020 15:32:21 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 27D3FF8020C
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="LSlJmzce"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 6F69120825;
- Tue, 29 Dec 2020 14:32:12 +0000 (UTC)
+ header.b="pKAlpD2I"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id DE3E120867;
+ Tue, 29 Dec 2020 14:32:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1609252333;
- bh=+wEc4SDjjvQxCYzjg82D60rVExvdnzCs5DHAhhlUhZQ=;
+ s=k20201202; t=1609252339;
+ bh=QqMaEx90N9oMhrMtPQbph9L/Wp7Di5Cvs+G8YCC9Yj0=;
  h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=LSlJmzceAFcWqgCqZZmKdw2E21UJ/HfgWyKRsrR+mR7Bp8EVYIkEtOvsKpex72ITn
- a0Ae0g7rrl5iuXX+nbqi0nW6bqdU4/9MSUyRLL43V7/cb9JfYwzC4e7sbiXMCAD9GN
- FUR/i6DFO2bJwm7FrV9QiciBGF4zAXIZcI9GQJBAMAgeLncKqRi67f8KdDssNqrwOK
- pH788++c5Ik93Ag95VjwgorvQSGEueqKVjyTw3DhW1Ia1FAnyLh/oAXnDLRVJYRrMb
- K3cZwcqWvldhjLNCXZAvHhrowF10jiBFTHcZD+iFkgAXsnIgHZXKmHni+ztZAbMkt4
- JyLZSjy7+VAAQ==
+ b=pKAlpD2I38OwjhpE6ur7QgVruSaI0+oT7f0S52INorghVw0VsUnBuNlqVEWjw9gCR
+ lPviXlaFLPMQSKy3QCqHvtJLrJ/mm/YVk9BOFuGTK5QH0ChXE7gceerp78/VMNG9By
+ gN6hRRrJ3Nh0tf8BvoVfpFFsymMSrTm88McrvXsOnoiUYg4PEErzaG3BrGYLGCp0le
+ CXm3lVJFufk5nXMEe8oIqNq+q5Lj47FgyIZv3qqibdVKkAZHZcAeIKkLntD5YtbuTX
+ wapYgeroBrwmVLYc8+brBhM4rix2HU4uCeLUPmLLQJ6lUyNhUj16RI8GZsFdjWga/2
+ eX/kxZI2M+TqA==
 From: Mark Brown <broonie@kernel.org>
-To: perex@perex.cz, Christophe JAILLET <christophe.jaillet@wanadoo.fr>,
- liam.r.girdwood@linux.intel.com, tiwai@suse.com,
- pierre-louis.bossart@linux.intel.com, cezary.rojewski@intel.com
-In-Reply-To: <20201229085103.192715-1-christophe.jaillet@wanadoo.fr>
-References: <20201229085103.192715-1-christophe.jaillet@wanadoo.fr>
-Subject: Re: [PATCH] ASoC: Intel: common: Fix some typos
-Message-Id: <160925231113.47851.16711392922590085956.b4-ty@kernel.org>
+To: Tzung-Bi Shih <tzungbi@google.com>
+In-Reply-To: <20201224100607.3006171-1-tzungbi@google.com>
+References: <20201224100607.3006171-1-tzungbi@google.com>
+Subject: Re: [PATCH 0/5] ASoC: rt1015: apply some refactors
+Message-Id: <160925231113.47851.726753863114006613.b4-ty@kernel.org>
 Date: Tue, 29 Dec 2020 14:31:51 +0000
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Cc: alsa-devel@alsa-project.org, kernel-janitors@vger.kernel.org,
- linux-kernel@vger.kernel.org
+Cc: alsa-devel@alsa-project.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -80,10 +77,16 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Tue, 29 Dec 2020 09:51:03 +0100, Christophe JAILLET wrote:
-> s/apci/acpi/
+On Thu, 24 Dec 2020 18:06:02 +0800, Tzung-Bi Shih wrote:
+> The series refactors rt1015.c.
 > 
-> Turn an ICL into a TGL because it is likely a cut'n'paste error
+> The 1st patch sorts header inclusions alphabetically.
+> 
+> The 2nd and 3rd patch improve error handling for kcontrols.
+> 
+> The 4th patch enhances readability.
+> 
+> [...]
 
 Applied to
 
@@ -91,8 +94,16 @@ Applied to
 
 Thanks!
 
-[1/1] ASoC: Intel: common: Fix some typos
-      commit: 49d411f2c93aae48dd379c77db887aa282e9fb51
+[1/5] ASoC: rt1015: sort header inclusions
+      commit: 4ac275eda0d7bf6f222ad0093ffbdfd2f4228eaa
+[2/5] ASoC: rt1015: save boost_mode only if valid
+      commit: bf1eb056ac15a058fb5e254307f14f45efbe79d8
+[3/5] ASoC: rt1015: return error if any when setting bypass_boost
+      commit: e48b41e903a102744827661080acd500b7bbef26
+[4/5] ASoC: rt1015: refactor retry loop and rt1015_priv allocation
+      commit: 3128f1c3b53d73e35e1069663736284358fcdd01
+[5/5] ASoC: rt1015: remove unneeded variables in rt1015_priv
+      commit: a5db2ca51367eeafb0c4013d3a6fc58932612c03
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

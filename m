@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id CED1F2E78E6
-	for <lists+alsa-devel@lfdr.de>; Wed, 30 Dec 2020 14:05:37 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7077B2E78E7
+	for <lists+alsa-devel@lfdr.de>; Wed, 30 Dec 2020 14:05:48 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 5EA4F183A;
-	Wed, 30 Dec 2020 14:04:47 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5EA4F183A
+	by alsa0.perex.cz (Postfix) with ESMTPS id D1B841856;
+	Wed, 30 Dec 2020 14:04:56 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D1B841856
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1609333537;
-	bh=zGv/m5AikMZ667F9yl+zvQX9024+DMSLSU/2yaYPhcc=;
+	s=default; t=1609333546;
+	bh=DzPD7MUYEs37ZsR4J4eFe2J1AKJMrumiPDtaWLyiu60=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=kW52OkQBT2C/hhszP55u8uo2+4yHfDo6HHmaZpYsgeKbTNdJu3C+HWKdtgw8m8nDE
-	 K9Eq0jRpjh4aX63nsNDO340nLie3vijQNoiVqezHZ0JWVztqK5oMG/pxHb7qDZ63ly
-	 aNdsJ6bquTObuR/I/EcGIplU23b0NGLxwfplKBtM=
+	b=dW7EpZ+Z7PXVIaGjmXuO/ffLqG74Rr3A4IoqJPqNJDtnIwk+xk5N/SFzRDYrHzj3N
+	 0U6zsDUWRSwlM2/Fr57MbK5G0melIvibTm4F1JtvZ9lnX6J0VfywbbGuAJDa1pFn+3
+	 3YcpfVaakmB+E3AHO/QmeO8OEDb4xrcUjMc7jnlo=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id CFF77F80132;
-	Wed, 30 Dec 2020 14:04:03 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id D3045F80245;
+	Wed, 30 Dec 2020 14:04:30 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 6FD0FF801F5; Wed, 30 Dec 2020 14:04:01 +0100 (CET)
+ id F2372F80229; Wed, 30 Dec 2020 14:04:28 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,34 +34,34 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 3BCEFF80162
- for <alsa-devel@alsa-project.org>; Wed, 30 Dec 2020 14:03:54 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3BCEFF80162
+ by alsa1.perex.cz (Postfix) with ESMTPS id 672D8F80162
+ for <alsa-devel@alsa-project.org>; Wed, 30 Dec 2020 14:04:22 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 672D8F80162
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="cKu2GX4K"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 2D9C222475;
- Wed, 30 Dec 2020 13:03:51 +0000 (UTC)
+ header.b="pSu2EdUW"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 1911222227;
+ Wed, 30 Dec 2020 13:04:19 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1609333431;
- bh=zGv/m5AikMZ667F9yl+zvQX9024+DMSLSU/2yaYPhcc=;
+ s=k20201202; t=1609333459;
+ bh=DzPD7MUYEs37ZsR4J4eFe2J1AKJMrumiPDtaWLyiu60=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=cKu2GX4KaR2u/pGLbnA5HT98ofpxh2C9Vg5VWf3ULgvDekx/psp81RI5GscfZL4Uf
- mA66kDcxaPPffUgXJocYq0UwxC1CLRjOqKjJGH8crfNbjuqqJz/khfaog8a+F/Tm4s
- NQTHtqmx9PxlxGmaokSOELNjsdn0B1pxpKQh8bFxGtkS1OI5MuSLJhzi8Ry+CW5aW+
- MBafoHbq4v35jLGdgZjAg6zJ3Pz0MeBJHjYduubOjMFtwyCaXtQ04xoPIZWE2nvgHk
- aBOGIPQzR+FReMB5dp/Ohrg6JWvbYVtn2xZGspehcUP1/Yjyqz4zfliA6733qEnyPZ
- ErvDs/wM1AayA==
+ b=pSu2EdUWYYHJ9JkXcEGMTxAZSry/dD2QfIlIDodJ8di3Yy0P3wwPLKl1pxf4VR6qf
+ Yk0QQPjTyBCLt/1rBTS68vujqJLJ6yF96FXBLtuhrz7UNOchUi8ufgzA+lIWfEDgjj
+ FpFz12WcQkZ/L2qCrWMjFo5pAJhHfi3O0D4riw0nzgYYQS+1t8iAD1bzMxd1V6gQgD
+ YzK7np65z4wZYwVsLwxEMxUdyidpNN1BpMxoDs0oVotejPoc9IIZePcyoiRvtbO35A
+ OHOne8UkmKT7YpBoB1+dcQWjFOtJdbed5+yiBnnCFaDDKpViRM+3i9xxNb3gMR0Aco
+ IpTrBuSsnYfRg==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 5.10 28/31] ALSA: pcm: Clear the full allocated memory
+Subject: [PATCH AUTOSEL 5.4 16/17] ALSA: pcm: Clear the full allocated memory
  at hw_params
-Date: Wed, 30 Dec 2020 08:03:10 -0500
-Message-Id: <20201230130314.3636961-28-sashal@kernel.org>
+Date: Wed, 30 Dec 2020 08:03:56 -0500
+Message-Id: <20201230130357.3637261-16-sashal@kernel.org>
 X-Mailer: git-send-email 2.27.0
-In-Reply-To: <20201230130314.3636961-1-sashal@kernel.org>
-References: <20201230130314.3636961-1-sashal@kernel.org>
+In-Reply-To: <20201230130357.3637261-1-sashal@kernel.org>
+References: <20201230130357.3637261-1-sashal@kernel.org>
 MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
@@ -108,10 +108,10 @@ Signed-off-by: Sasha Levin <sashal@kernel.org>
  1 file changed, 7 insertions(+), 2 deletions(-)
 
 diff --git a/sound/core/pcm_native.c b/sound/core/pcm_native.c
-index 47b155a49226f..9f3f8e953ff04 100644
+index ec501fbaabe49..0c5b7a54ca81c 100644
 --- a/sound/core/pcm_native.c
 +++ b/sound/core/pcm_native.c
-@@ -755,8 +755,13 @@ static int snd_pcm_hw_params(struct snd_pcm_substream *substream,
+@@ -717,8 +717,13 @@ static int snd_pcm_hw_params(struct snd_pcm_substream *substream,
  		runtime->boundary *= 2;
  
  	/* clear the buffer for avoiding possible kernel info leaks */

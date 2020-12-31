@@ -2,83 +2,92 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 35AFE2E8109
-	for <lists+alsa-devel@lfdr.de>; Thu, 31 Dec 2020 16:40:55 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id B4F262E8187
+	for <lists+alsa-devel@lfdr.de>; Thu, 31 Dec 2020 19:08:28 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 9F16616F9;
-	Thu, 31 Dec 2020 16:31:50 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9F16616F9
+	by alsa0.perex.cz (Postfix) with ESMTPS id 4453D16F3;
+	Thu, 31 Dec 2020 19:07:33 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4453D16F3
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1609428760;
-	bh=461qu8Sat/4rXWnutos8EWd7prfi4k6bwTzFkOGuyIE=;
-	h=Subject:To:References:From:Date:In-Reply-To:List-Id:
+	s=default; t=1609438103;
+	bh=dUMQ2crghd7TCz7rEEk0wUG2xTHGc1ElzpKEtftFsio=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=KZt3FcsZybsjRAoCojcXwzwjlW1zMFlQVeQUFRZr3YsVD7wCf5h+VKbMPkRQABcjK
-	 qvHQc9VlYAoYhZNOQgGqhQUKl9+bBeZ7UKE2ebaGvYNQmvIkXP+revPiJwfo2mWYVV
-	 ZqO3ewv7rXtaJDDHBKvRZudqkX9C2/sLDeSb4/ZI=
+	b=NZ0nsd/9ueJuVXO8Oa2jJNyO+LVbsDBCT0PwNWB/+Gip1lGvJxb34fneMV4h7CNt9
+	 gbJXyErMUNT1HJjoNupJRgoXKDmhRs3ihMsNZgvInR7S+wjOFFtz4WORK6IwhRDfjI
+	 Po032mjTI9oDIVAHo/Kw1OogKDnd/gRm0yIDdXsg=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 1AB75F8022D;
-	Thu, 31 Dec 2020 16:31:02 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 2CA00F80274;
+	Thu, 31 Dec 2020 19:07:10 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 55AE6F8022B; Thu, 31 Dec 2020 16:31:00 +0100 (CET)
+ id ACA18F80240; Thu, 31 Dec 2020 19:07:06 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-3.5 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from www381.your-server.de (www381.your-server.de [78.46.137.84])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from youngberry.canonical.com (youngberry.canonical.com
+ [91.189.89.112])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 5D662F8015F
- for <alsa-devel@alsa-project.org>; Thu, 31 Dec 2020 16:30:53 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5D662F8015F
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=metafoo.de header.i=@metafoo.de
- header.b="N1ivUMAP"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=metafoo.de; 
- s=default2002;
- h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
- MIME-Version:Date:Message-ID:From:References:To:Subject:Sender:Reply-To:Cc:
- Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
- Resent-To:Resent-Cc:Resent-Message-ID;
- bh=rCmzRgQ4NmzJnsW5QkY3AiIeE1tWx7YUFCjih+Ynqbg=; b=N1ivUMAPLwLWggWj371K7B2mJe
- eZE5c/Az11eJjsxRlr8Gb4b3Fioimr7Hd8UdKhjaipeVoLrSR7UVZqBx0NUW/1noJ4/eSJlj5OMnE
- VGJ7i5hnoIT+r3wbGHZCO0/ZAWFGFxqFh/uO12RvTPTVW7Onh5ivQsDEmRty6QIfaVxUj6zjpmeo0
- yhVuO6riWgwB6OSGjjEmNIh0lQPtf5rezg1/S6wUPU/4iMw9CUE8pCGzGzujjxPrZW9FhPvw4VlhF
- Z4mWrK/Sx/x9D4DIktPkUmOhjJQoVpKrwoNMWXPu5Sn5xbQiI03Dhko7/Edtm9X84r5bWRfB4v/ek
- 7R63Kn7w==;
-Received: from sslproxy05.your-server.de ([78.46.172.2])
- by www381.your-server.de with esmtpsa (TLSv1.3:TLS_AES_256_GCM_SHA384:256)
- (Exim 4.92.3) (envelope-from <lars@metafoo.de>)
- id 1kuzub-0005ay-Qs; Thu, 31 Dec 2020 16:30:50 +0100
-Received: from [2001:a61:2af4:a201:9e5c:8eff:fe01:8578]
- by sslproxy05.your-server.de with esmtpsa (TLSv1.3:TLS_AES_256_GCM_SHA384:256)
- (Exim 4.92) (envelope-from <lars@metafoo.de>)
- id 1kuzub-0008af-M8; Thu, 31 Dec 2020 16:30:49 +0100
-Subject: Re: Haswell audio no longer working with new Catpt driver
-To: Christian Labisch <clnetbox@gmail.com>,
- amadeuszx.slawinski@linux.intel.com, gregkh@linuxfoundation.org,
- "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
- Takashi Iwai <tiwai@suse.com>
-References: <8b005c64fe129fc2a283da90b2949b1fcb42e8c2.camel@gmail.com>
- <1ad341b1b0e0eefb83d157ac24d162eaad53ab32.camel@gmail.com>
-From: Lars-Peter Clausen <lars@metafoo.de>
-Message-ID: <0111f282-f044-47ed-f93e-5a19de61bdce@metafoo.de>
-Date: Thu, 31 Dec 2020 16:30:49 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.6.0
+ by alsa1.perex.cz (Postfix) with ESMTPS id A5067F80141
+ for <alsa-devel@alsa-project.org>; Thu, 31 Dec 2020 19:06:57 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A5067F80141
+Received: from mail-lf1-f70.google.com ([209.85.167.70])
+ by youngberry.canonical.com with esmtps
+ (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.86_2)
+ (envelope-from <kai.heng.feng@canonical.com>) id 1kv2Lf-0004w3-Tt
+ for alsa-devel@alsa-project.org; Thu, 31 Dec 2020 18:06:56 +0000
+Received: by mail-lf1-f70.google.com with SMTP id i7so12315067lfi.4
+ for <alsa-devel@alsa-project.org>; Thu, 31 Dec 2020 10:06:55 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=wDj432l99j0xoDiBy5UNgfzTx7FTAcBiF2LYc+uCoyU=;
+ b=hPp24PO5wgygPzQYg0r+ItHjUYqxgUuyvUx8V3Uvx2eARuxWcN6woryE4UiTVDZ9SO
+ XVtBYbYQFqyizEJ4KwG6w0UlJ0szJa6z0RNMnIf18VXgLuPCrGzhW6uY2ONSph3KqxV6
+ 9mw5DwIpt/RMgByZfj9cqqS9k9lcs/TVDDrlmKoqvBtNcap9vQkLoGMuvgz62MxVhYGZ
+ 1hYEIIJkKptbAYOh2Sr1ZKKoBtJX9Ef9PA/LZYspA2at3QuJ92J1gd7/5E78kCNh0U3A
+ v7ACJSv57F6EqrmX2y8hhvxro8V9sIXALZ8+efKaVIHZWpksc9vmjVAN8MzK9YXw9AVS
+ 4ivQ==
+X-Gm-Message-State: AOAM5332MIJw9rFIfb25usjLB2B7UdALi0+0CMCAVurafM37St2Y+UJJ
+ hnnGlW4QouhG7M4JI0mH4fozrCa8/US1ZGuCgo2QnctJ1zovUvuVcjOfjf3IhhlyFKACyz0q7Wa
+ LOfBnC6yhjbipXpsQTG6pa+MxlSy6GuU8YhA8u563tbzazqCe0/Z6kgb6
+X-Received: by 2002:a2e:3201:: with SMTP id y1mr28334525ljy.12.1609438015219; 
+ Thu, 31 Dec 2020 10:06:55 -0800 (PST)
+X-Google-Smtp-Source: ABdhPJyomzGuJYL0lgRaiEO2TvrE1LLBAmPBetoODYiJzvNGvAIg7FcxXQ0JLlat/oHCujvg7jfiyAP+kfmkP7JY9kY=
+X-Received: by 2002:a2e:3201:: with SMTP id y1mr28334512ljy.12.1609438014965; 
+ Thu, 31 Dec 2020 10:06:54 -0800 (PST)
 MIME-Version: 1.0
-In-Reply-To: <1ad341b1b0e0eefb83d157ac24d162eaad53ab32.camel@gmail.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 8bit
-Content-Language: en-US
-X-Authenticated-Sender: lars@metafoo.de
-X-Virus-Scanned: Clear (ClamAV 0.102.4/26034/Thu Dec 31 13:42:27 2020)
+References: <20201229133817.190160-1-kai.heng.feng@canonical.com>
+ <20201229133817.190160-2-kai.heng.feng@canonical.com>
+ <s5hr1n6b5yp.wl-tiwai@suse.de>
+In-Reply-To: <s5hr1n6b5yp.wl-tiwai@suse.de>
+From: Kai-Heng Feng <kai.heng.feng@canonical.com>
+Date: Fri, 1 Jan 2021 02:06:43 +0800
+Message-ID: <CAAd53p77EGZqFcMrDSNQU+TkdWMgath7+M-41hwn5WOhDpZqcg@mail.gmail.com>
+Subject: Re: [PATCH 2/2] ASoC: SOF: Intel: hda: Avoid checking jack on system
+ suspend
+To: Takashi Iwai <tiwai@suse.de>
+Content-Type: text/plain; charset="UTF-8"
+Cc: "moderated list:SOUND - SOC LAYER / DYNAMIC AUDIO POWER MANAGEM..."
+ <alsa-devel@alsa-project.org>,
+ Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
+ Kai Vehmanen <kai.vehmanen@linux.intel.com>,
+ Liam Girdwood <lgirdwood@gmail.com>, open list <linux-kernel@vger.kernel.org>,
+ Takashi Iwai <tiwai@suse.com>, Keyon Jie <yang.jie@linux.intel.com>,
+ Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ Mark Brown <broonie@kernel.org>,
+ Payal Kshirsagar <payalskshirsagar1234@gmail.com>, daniel.baluta@nxp.com,
+ Marcin Rajwa <marcin.rajwa@linux.intel.com>,
+ "moderated list:SOUND - SOUND OPEN FIRMWARE \(SOF\) DRIVERS"
+ <sound-open-firmware@alsa-project.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -94,85 +103,68 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hi,
-
-I'm taking this conversation back to the mailinglist. Hope you don't mind.
-
-On 12/31/20 2:15 PM, Christian Labisch wrote:
-> Hi Amadeusz, Greg, and Lars-Peter,
+On Thu, Dec 31, 2020 at 6:55 PM Takashi Iwai <tiwai@suse.de> wrote:
 >
-> Do you have a suggestion for a workaround ?
-> A special boot parameter that I could add ?
-> Will the drivers work in the next version ?
+> On Tue, 29 Dec 2020 14:38:15 +0100,
+> Kai-Heng Feng wrote:
+> >
+> > System takes a very long time to suspend after commit 215a22ed31a1
+> > ("ALSA: hda: Refactor codec PM to use direct-complete optimization"):
+> > [   90.065964] PM: suspend entry (s2idle)
+> > [   90.067337] Filesystems sync: 0.001 seconds
+> > [   90.185758] Freezing user space processes ... (elapsed 0.002 seconds) done.
+> > [   90.188713] OOM killer disabled.
+> > [   90.188714] Freezing remaining freezable tasks ... (elapsed 0.001 seconds) done.
+> > [   90.190024] printk: Suspending console(s) (use no_console_suspend to debug)
+> > [   90.904912] intel_pch_thermal 0000:00:12.0: CPU-PCH is cool [49C], continue to suspend
+> > [  321.262505] snd_hda_codec_realtek ehdaudio0D0: Unable to sync register 0x2b8000. -5
+> > [  328.426919] snd_hda_codec_realtek ehdaudio0D0: Unable to sync register 0x2b8000. -5
+> > [  329.490933] ACPI: EC: interrupt blocked
+> >
+> > That commit keeps codec suspended during the system suspend. However,
+> > SOF driver's runtime resume, which is for system suspend, calls
+> > hda_codec_jack_check() and schedules jackpoll_work. The jackpoll
+> > work uses snd_hda_power_up_pm() which tries to resume the codec in
+> > system suspend path, hence blocking the suspend process.
+> >
+> > So only check jack status if it's not in system PM process.
+>
+> After your previous patch set, the legacy HDA does queue the
+> jackpoll_work only if jackpoll_interval is set.  I suppose rather the
+> same rule would be applied?
 
-I had a quick look at the changes to the HDA driver between v5.9 and 
-v5.10. And there isn't that much, expect some changes to power management.
+It's queued in hda_codec_pm_complete(), which happens at the end of PM process.
+This one is queued in the middle of PM suspend, so it's not the same here.
 
-Curiously enough pretty much your only difference between your v5.9 and 
-v5.10 alsa-info.sh is that a few of the nodes are in D3 state (meaning 
-powered down) in v5.10. One of them is the internal speaker.
-
-But this could also be a coincidence, would be interesting to see what 
-the output of alsa-info.sh looks like when the you are trying to play 
-some audio. If it is still powered down then there is a bug.
-
-- Lars
-
+Kai-Heng
 
 >
-> Regards,
-> Christian
 >
+> thanks,
 >
->> On Thu, 2020-12-31 at 12:20 +0100, Amadeusz Sławiński wrote:
->>> On 12/31/2020 11:50 AM, Christian Labisch wrote:
->>>> Hi Lars-Peter,
->>>>
->>>> Thank you, please find attached the requested information from both kernels.
->>>> I freshly installed the fedora kernel 5.10.4 to give you the latest results.
->>>>
->>>> Regards,
->>>> Christian
->>>>
->>>> Christian Labisch
->>>> Red Hat Accelerator
->>>> clnetbox.blogspot.com
->>>> access.redhat.com/community
->>>> access.redhat.com/accelerators
->>>>
->>>>
->>>> On Thu, 2020-12-31 at 11:04 +0100, Lars-Peter Clausen wrote:
->>>>> On 12/31/20 9:33 AM, Greg Kroah-Hartman wrote:
->>>>>> On Wed, Dec 30, 2020 at 07:10:16PM +0100, Christian Labisch wrote:
->>>>>>> Update :
->>>>>>>
->>>>>>> I've just tested the kernel 5.10.4 from ELRepo.
->>>>>>> Unfortunately nothing changed - still no sound.
->>>>>> Ah, sad.  Can you run 'git bisect' between 5.9 and 5.10 to determine the
->>>>>> commit that caused the problem?
->>>>> The problem is that one driver was replaced with another driver. git
->>>>> bisect wont really help to narrow down why the new driver does not work.
->>>>>
->>>>> Christian can you run the alsa-info.sh[1] script on your system and send
->>>>> back the result?
->>>>>
->>>>> You say sound is not working, can you clarify that a bit? Is no sound
->>>>> card registered? Is it registered but output stays silent?
->>>>>
->>>>> - Lars
->>>>>
->>>>> [1] https://www.alsa-project.org/wiki/AlsaInfo
->>>>> <https://www.alsa-project.org/wiki/AlsaInfo>
->>>>>
->>>>>
->>> Hi,
->>>
->>> from reading provided files it seems that you use snd_intel_hda driver,
->>> it should be possible to git bisect it between 5.9 and 5.10 as it wasn't
->>> replaced.
->>>
->>> Catpt driver is used on machines using DSP.
->>>
->>> Amadeusz
-
-
+> Takashi
+>
+> >
+> > Fixes: 215a22ed31a1 ("ALSA: hda: Refactor codec PM to use direct-complete optimization")
+> > Signed-off-by: Kai-Heng Feng <kai.heng.feng@canonical.com>
+> > ---
+> >  sound/soc/sof/intel/hda-dsp.c | 3 ++-
+> >  1 file changed, 2 insertions(+), 1 deletion(-)
+> >
+> > diff --git a/sound/soc/sof/intel/hda-dsp.c b/sound/soc/sof/intel/hda-dsp.c
+> > index 7d00107cf3b2..1c5e05b88a90 100644
+> > --- a/sound/soc/sof/intel/hda-dsp.c
+> > +++ b/sound/soc/sof/intel/hda-dsp.c
+> > @@ -685,7 +685,8 @@ static int hda_resume(struct snd_sof_dev *sdev, bool runtime_resume)
+> >       /* check jack status */
+> >       if (runtime_resume) {
+> >               hda_codec_jack_wake_enable(sdev, false);
+> > -             hda_codec_jack_check(sdev);
+> > +             if (sdev->system_suspend_target == SOF_SUSPEND_NONE)
+> > +                     hda_codec_jack_check(sdev);
+> >       }
+> >
+> >       /* turn off the links that were off before suspend */
+> > --
+> > 2.29.2
+> >

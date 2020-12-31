@@ -2,98 +2,87 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 94C572E7EAF
-	for <lists+alsa-devel@lfdr.de>; Thu, 31 Dec 2020 09:20:50 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3E6A72E7F32
+	for <lists+alsa-devel@lfdr.de>; Thu, 31 Dec 2020 11:07:01 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 57B2C16DB;
-	Thu, 31 Dec 2020 09:14:14 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 57B2C16DB
+	by alsa0.perex.cz (Postfix) with ESMTPS id B910F16BD;
+	Thu, 31 Dec 2020 11:06:05 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B910F16BD
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1609402504;
-	bh=PkoqhAGH8xigNDtPbHTaLRe++uO6h3DzHwGgq767vAY=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1609409215;
+	bh=h6RA8d3DUY9hWJeGWMAzZaZ6ADTNPhMGGqtODAnZ2/c=;
+	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=bKoqzYuNZpy40BkLdCfdG3+ccTOQB91RIiwWrMiMDRBwn6B3Xcim2F5s2Vbg9yiJ6
-	 ZD3a3dmk2bKmi/2i11Mlhg+NbiYfKAaBVsWcg+h1Lg06EV8TRdxZv0AeNPfyeYdFnU
-	 XcYuP0QpeD4sqtP/qke1149J7pw7zXWYFGxnI9Vo=
+	b=p60Vv2EMsIr+7e1glgDX7L0Mhy4/fQyh6Jmsj2UjGyhGTBV8FHK3Rfa1nmeLdOou1
+	 e+y40/eHFpA+kwlfZLTU1l28QmlIR3O3UOwxW2E7OCQXDDSxc37nX5wRfYHjM1qBJS
+	 DB2WN+IOeVRTGlhWRGjGU1eSHFmOyaSTHL7j8QW8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 7556EF8020C;
-	Thu, 31 Dec 2020 09:13:30 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 148EBF8020C;
+	Thu, 31 Dec 2020 11:05:22 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 2E705F8022B; Thu, 31 Dec 2020 09:12:56 +0100 (CET)
+ id 37505F8022B; Thu, 31 Dec 2020 11:05:17 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED
+X-Spam-Status: No, score=-3.5 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED
  autolearn=disabled version=3.4.0
-Received: from mail-il1-x129.google.com (mail-il1-x129.google.com
- [IPv6:2607:f8b0:4864:20::129])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from www381.your-server.de (www381.your-server.de [78.46.137.84])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 4E0CDF8015F
- for <alsa-devel@alsa-project.org>; Thu, 31 Dec 2020 09:12:48 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4E0CDF8015F
+ by alsa1.perex.cz (Postfix) with ESMTPS id B4CE4F8015F
+ for <alsa-devel@alsa-project.org>; Thu, 31 Dec 2020 11:05:09 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B4CE4F8015F
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="OkZtmlJL"
-Received: by mail-il1-x129.google.com with SMTP id r17so16781514ilo.11
- for <alsa-devel@alsa-project.org>; Thu, 31 Dec 2020 00:12:47 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=date:from:to:cc:subject:message-id:references:mime-version
- :content-disposition:in-reply-to;
- bh=t3sCvs+FLAqfEmFOY3gSWy3C5FD079L2BEMz5q0+2bY=;
- b=OkZtmlJLPwpYGEBhlMTlxC1UNnPNxBb2enYNiFsvCETew052T/SM529w00lcZ0fkU5
- DxiAtfdG8AYnhPcUYDCLhQw30Pb+ngkdcM6cwNWgNn8pByZaN2K3aSG2A9pRE/bJ8/z8
- 5qv7tFwZyFVcLOVEXFxINtfell5leVzCMDegQwV63WYi8gfCDuh/Cp1qG/tCa/z+FSwh
- BK5joIczA34jFH5vo97p8k0BzClO9gA1LZSYgRuBJDRZJkkPar5IE905+skQb43AJvoA
- 7Etsuhic3bu54GcaoTvgKEG6C8epT7F+fos6MZ/LRuETJImDYOBGc0QFIkj2G4G2FRz5
- 3WQw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to;
- bh=t3sCvs+FLAqfEmFOY3gSWy3C5FD079L2BEMz5q0+2bY=;
- b=PXCYfKsqkh9I+E61rzelsVJIdZI/EpPhsUT4Nbiiw+zbD2Do877s/QPQ34ulY2Y/MC
- psAqq0EVE/AyJFDEdApenar8RxxYYKj3renFKCMfb2cHWDLeSNQMOwYOCAhbWDxcUmfl
- 4YJ4vY7NxEVT0tyeVafXNMFBAHp6HOnnlsA8+xrPYzczYN4MQXaYb+XLLQN56PGdmL1b
- 6GL/wVdc4SA5+JFcCAUzYNqwQgeZEu/y91UYAToienrBRpEhAnHkwYtCpOCKdcRHtvf1
- JNQ68fhj3Asfff5lvfKAJzCf1wzW736Flr8Txyg3NaifJpYyTklmu+rndktMNU2q6a6Y
- Gwsg==
-X-Gm-Message-State: AOAM533Ax8PL9PIgt8llsW5PIc9EbyefW0RHGa7tl7/PCqiiU9HZTFh8
- O0gh2GshkyUexuW6dpESSPE=
-X-Google-Smtp-Source: ABdhPJzulMTF8nMMBl5A1e/hD/tt98OHBQ06c26gifLgedLyKNUPLiTG4n2V5ZcJIbzuF8Inj5bFxA==
-X-Received: by 2002:a92:8404:: with SMTP id l4mr54964892ild.49.1609402363602; 
- Thu, 31 Dec 2020 00:12:43 -0800 (PST)
-Received: from ubuntu-m3-large-x86 ([2604:1380:45f1:1d00::1])
- by smtp.gmail.com with ESMTPSA id r10sm32437881ilo.34.2020.12.31.00.12.42
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 31 Dec 2020 00:12:42 -0800 (PST)
-Date: Thu, 31 Dec 2020 01:12:40 -0700
-From: Nathan Chancellor <natechancellor@gmail.com>
-To: Arnd Bergmann <arnd@kernel.org>
-Subject: Re: [PATCH] ASoC: fsl: fix -Wmaybe-uninitialized warning
-Message-ID: <20201231081240.GB1970946@ubuntu-m3-large-x86>
-References: <20201230154443.656997-1-arnd@kernel.org>
+ dkim=pass (2048-bit key) header.d=metafoo.de header.i=@metafoo.de
+ header.b="CR0YduAI"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=metafoo.de; 
+ s=default2002;
+ h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
+ MIME-Version:Date:Message-ID:From:References:Cc:To:Subject:Sender:Reply-To:
+ Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+ Resent-To:Resent-Cc:Resent-Message-ID;
+ bh=U8meFnagSx5UoL6OkuHCQ1qYQXyfGOujKQn9JkRkgxw=; b=CR0YduAIqGTPqs/+Eg6L34JJbN
+ lOFf8cyjDV/koo3PRttFyvepYh0Tb5/tJC4rWs5ER/UYsh4EXSdN7b4eDlHjGHwYh7lBs5lViZkhQ
+ jmFWTfsmjmphTQ3I3XByjIHE4ouiKbCw5ZOxhVUfzkXB0Ee0khLgMS9jb6wC5B1nbybqH/0Zm96Au
+ vdUfMHKdokQkhRFtn2XZKxTRYyGHWjRJs0qvcHDoEHtxyN8uuWabZafwp/30AD5qLQ9euBrnzqErh
+ wk0uk22x0spmdfOdKPOzJYsv8kypz3nbAKfEqKZgIeH9Ud0QpPKAwIJJc92TyatwNmNuChB8DBFqn
+ 9TpqE4LQ==;
+Received: from sslproxy02.your-server.de ([78.47.166.47])
+ by www381.your-server.de with esmtpsa (TLSv1.3:TLS_AES_256_GCM_SHA384:256)
+ (Exim 4.92.3) (envelope-from <lars@metafoo.de>)
+ id 1kuupB-0006d6-Af; Thu, 31 Dec 2020 11:04:53 +0100
+Received: from [2001:a61:2af4:a201:9e5c:8eff:fe01:8578]
+ by sslproxy02.your-server.de with esmtpsa (TLSv1.3:TLS_AES_256_GCM_SHA384:256)
+ (Exim 4.92) (envelope-from <lars@metafoo.de>)
+ id 1kuupB-0007li-3g; Thu, 31 Dec 2020 11:04:53 +0100
+Subject: Re: Haswell audio no longer working with new Catpt driver (was: sound)
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Christian Labisch <clnetbox@gmail.com>
+References: <2f0acfa1330ca6b40bff564fd317c8029eb23453.camel@gmail.com>
+ <efc6d5e8abc1da3cac754cb760fff08a1887013b.camel@gmail.com>
+ <X+2MzJ7bKCQTRCd/@kroah.com>
+From: Lars-Peter Clausen <lars@metafoo.de>
+Message-ID: <a194639e-f444-da95-095d-38e07e34f72f@metafoo.de>
+Date: Thu, 31 Dec 2020 11:04:52 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.6.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20201230154443.656997-1-arnd@kernel.org>
-Cc: alsa-devel@alsa-project.org, linuxppc-dev@lists.ozlabs.org,
- linux-kernel@vger.kernel.org, Timur Tabi <timur@kernel.org>,
- Arnd Bergmann <arnd@arndb.de>, Xiubo Li <Xiubo.Lee@gmail.com>,
- Shengjiu Wang <shengjiu.wang@gmail.com>, Sascha Hauer <s.hauer@pengutronix.de>,
- Takashi Iwai <tiwai@suse.com>, Nick Desaulniers <ndesaulniers@google.com>,
- Liam Girdwood <lgirdwood@gmail.com>, Nicolin Chen <nicoleotsuka@gmail.com>,
- clang-built-linux@googlegroups.com, Mark Brown <broonie@kernel.org>,
- NXP Linux Team <linux-imx@nxp.com>,
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- Shawn Guo <shawnguo@kernel.org>, Fabio Estevam <festevam@gmail.com>,
- linux-arm-kernel@lists.infradead.org
+In-Reply-To: <X+2MzJ7bKCQTRCd/@kroah.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 7bit
+Content-Language: en-US
+X-Authenticated-Sender: lars@metafoo.de
+X-Virus-Scanned: Clear (ClamAV 0.102.4/26033/Wed Dec 30 13:42:10 2020)
+Cc: "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
+ Akemi Yagi <toracat@elrepo.org>, Cezary Rojewski <cezary.rojewski@intel.com>,
+ Greg Kroah-Hartman <stable@vger.kernel.org>,
+ Greg Kroah-Hartman <linux-kernel@vger.kernel.org>,
+ Justin Forbes <jforbes@redhat.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -109,43 +98,27 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Wed, Dec 30, 2020 at 04:44:15PM +0100, Arnd Bergmann wrote:
-> From: Arnd Bergmann <arnd@arndb.de>
-> 
-> Clang points out a code path that returns an undefined value
-> in an error case:
-> 
-> sound/soc/fsl/imx-hdmi.c:165:6: error: variable 'ret' is used uninitialized whenever 'if' condition is true [-Werror,-Wsom
-> etimes-uninitialized]
->         if ((hdmi_out && hdmi_in) || (!hdmi_out && !hdmi_in)) {
->             ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-> sound/soc/fsl/imx-hdmi.c:212:9: note: uninitialized use occurs here
->         return ret;
-> 
-> The driver returns -EINVAL for other broken DT properties, so do
-> it the same way here.
-> 
-> Fixes: 6a5f850aa83a ("ASoC: fsl: Add imx-hdmi machine driver")
-> Signed-off-by: Arnd Bergmann <arnd@arndb.de>
+On 12/31/20 9:33 AM, Greg Kroah-Hartman wrote:
+> On Wed, Dec 30, 2020 at 07:10:16PM +0100, Christian Labisch wrote:
+>> Update :
+>>
+>> I've just tested the kernel 5.10.4 from ELRepo.
+>> Unfortunately nothing changed - still no sound.
+> Ah, sad.  Can you run 'git bisect' between 5.9 and 5.10 to determine the
+> commit that caused the problem?
 
-Reviewed-by: Nathan Chancellor <natechancellor@gmail.com>
+The problem is that one driver was replaced with another driver. git 
+bisect wont really help to narrow down why the new driver does not work.
 
-> ---
->  sound/soc/fsl/imx-hdmi.c | 1 +
->  1 file changed, 1 insertion(+)
-> 
-> diff --git a/sound/soc/fsl/imx-hdmi.c b/sound/soc/fsl/imx-hdmi.c
-> index 2c2a76a71940..ede4a9ad1054 100644
-> --- a/sound/soc/fsl/imx-hdmi.c
-> +++ b/sound/soc/fsl/imx-hdmi.c
-> @@ -164,6 +164,7 @@ static int imx_hdmi_probe(struct platform_device *pdev)
->  
->  	if ((hdmi_out && hdmi_in) || (!hdmi_out && !hdmi_in)) {
->  		dev_err(&pdev->dev, "Invalid HDMI DAI link\n");
-> +		ret = -EINVAL;
->  		goto fail;
->  	}
->  
-> -- 
-> 2.29.2
-> 
+Christian can you run the alsa-info.sh[1] script on your system and send 
+back the result?
+
+You say sound is not working, can you clarify that a bit? Is no sound 
+card registered? Is it registered but output stays silent?
+
+- Lars
+
+[1] https://www.alsa-project.org/wiki/AlsaInfo 
+<https://www.alsa-project.org/wiki/AlsaInfo>
+
+

@@ -2,96 +2,99 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 876412E8188
-	for <lists+alsa-devel@lfdr.de>; Thu, 31 Dec 2020 19:11:00 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2AB232E81E2
+	for <lists+alsa-devel@lfdr.de>; Thu, 31 Dec 2020 21:09:40 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 0FA8716FC;
-	Thu, 31 Dec 2020 19:10:10 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0FA8716FC
+	by alsa0.perex.cz (Postfix) with ESMTPS id A88571704;
+	Thu, 31 Dec 2020 21:08:44 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A88571704
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1609438260;
-	bh=AjgznMQhmlYwoGEtQcFjNGWrUOhOfe03PXKmMCn52As=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
+	s=default; t=1609445374;
+	bh=555ljg+6YPrD+wMXSB+bYIMx22VyvyRPeppNzLZgc/c=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=E97R2jooNQ9J0E7lgtfrDnrnrvEi6uMovGJtNDp3vylU6sHJnHoEbPs1yYhO26x+d
-	 GsvB7P50QAUnGH5qzZw/Dx8FH8yUzg7WxNcc49x81PK8clIYXGH+KQFdTNnbrqXxfe
-	 x1HDKpF3W4IjkU1w5KJ181koLhmQFRcMiVwDAHD8=
+	b=X0ScZtBkpa24fBcyE/BO9ENiopOz/t6nayki6Adb/eFsHwnrk+kxkxbNpkeYbq7g1
+	 6qXKHiSw+bHAEd0pCqAf6uBMF6JpzEwzzlDz8eRi4E3hBPcJCUWYywtO1e9mwXf6PT
+	 3yNqUAYDpFFvhgbZpz+ZOjEBJJnhr+Xv5tkrilxU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 90AD8F80141;
-	Thu, 31 Dec 2020 19:09:26 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 13F6CF8022D;
+	Thu, 31 Dec 2020 21:08:01 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 0F5A2F8022B; Thu, 31 Dec 2020 19:09:25 +0100 (CET)
+ id EA6CCF8022B; Thu, 31 Dec 2020 21:07:57 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from youngberry.canonical.com (youngberry.canonical.com
- [91.189.89.112])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from mail-pj1-x102e.google.com (mail-pj1-x102e.google.com
+ [IPv6:2607:f8b0:4864:20::102e])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id D4D4DF80129
- for <alsa-devel@alsa-project.org>; Thu, 31 Dec 2020 19:09:18 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D4D4DF80129
-Received: from mail-lf1-f69.google.com ([209.85.167.69])
- by youngberry.canonical.com with esmtps
- (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.86_2)
- (envelope-from <kai.heng.feng@canonical.com>) id 1kv2MV-00052E-Vg
- for alsa-devel@alsa-project.org; Thu, 31 Dec 2020 18:07:48 +0000
-Received: by mail-lf1-f69.google.com with SMTP id a10so12276015lfg.13
- for <alsa-devel@alsa-project.org>; Thu, 31 Dec 2020 10:07:47 -0800 (PST)
+ by alsa1.perex.cz (Postfix) with ESMTPS id E9824F8015F
+ for <alsa-devel@alsa-project.org>; Thu, 31 Dec 2020 21:07:48 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E9824F8015F
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
+ header.b="q4OSIz/J"
+Received: by mail-pj1-x102e.google.com with SMTP id z12so5344497pjn.1
+ for <alsa-devel@alsa-project.org>; Thu, 31 Dec 2020 12:07:48 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=date:from:to:cc:subject:message-id:references:mime-version
+ :content-disposition:in-reply-to:user-agent;
+ bh=LUdKDlLlflhborB/8hVdW+VgkZLtdJkIlQCMkULEfnY=;
+ b=q4OSIz/JkJT0Z+P9uVNEenQw9LCMicx+csh5V1YclMspc2ubhEGsY9l8aXWn/1o2D2
+ tqsq+6zRnIEQMwGOBhYBOR9pibQi2htQPQreoUST292qXMsKVsAGim3LKXZ9E+zMie7M
+ 52pwQiP+QDRiqEfB5yLl54UhEeUJ60jgAJwDEmxEkbKliBbXL/avFooqe6pFZMd1QB1x
+ f3/SsfSySDPPrUOV8ywWsXStpQTqui22/EZnyTuI7YSk7qzrBY3irhTo5l7yn6rfj/Vz
+ GGe2OnNRSe4tThPrYvn4loOQr6sb0xPyFqSteoIbplYoQzmBYtJfo/gJZzG5cX1u/qXP
+ c+Gw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=0V7U/gNm+Y+R6u7qQmRsQkwPnBjsroHOTb3lajqSuRM=;
- b=WFyhZKxcUg0Vrr043Z3gVBQ3of2mQxoFvCiGXJAe9wc9qmoH0X7WBT2yTTMdugXb9d
- Ai4/EW83yfD0urUv1UjbFv+FSilMXOC7sDWJdvRJ6b1xTiPZQKaxw/SlkVHsAiXeHvLD
- nBumPIJNpRWU96rJYBMRjArXXeCzc/zftBBGtcIpZne48YAGpDGZgajXdPfJYwye/Hxa
- zx78MoTlGL8sbvjesWi5hrQFC7yYDEpioRz7/Z7DdBzSs3M1gsyyuekUUg2Af3B6h1S1
- WdtReqMTTBZGlLXZuf6C7Uu/scKfjPBdm8jvWiVfeNFModNH7wo3y7bPtCdvZSagrk5x
- UHbw==
-X-Gm-Message-State: AOAM530ocJvbyk8IxMdT8e27eI2gyd3cOgqyyVT2TI+wUuAUFXhdDVui
- Vl74QaWpln+ZzcVoB+ABdeFZyUS3V8UxbDMD1wnN8uv1ASVLy5HYGh0PY2Sko/MwIMR3njo8VFc
- CjUEvUWXGQtymlpdO+rwY+ubTp1IzIDJVi4w4mrwRxcgrzipnCP0Nh+mt
-X-Received: by 2002:a19:8316:: with SMTP id f22mr27363189lfd.10.1609438067025; 
- Thu, 31 Dec 2020 10:07:47 -0800 (PST)
-X-Google-Smtp-Source: ABdhPJxKnCfGocE3EH8dPTyyxTDZeVYd6vD0uGtU7jtolwNyuue4/jjmMeNyR3I806TvGD2AdPoRwTjn7s4wRb+yE00=
-X-Received: by 2002:a19:8316:: with SMTP id f22mr27363162lfd.10.1609438066739; 
- Thu, 31 Dec 2020 10:07:46 -0800 (PST)
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to:user-agent;
+ bh=LUdKDlLlflhborB/8hVdW+VgkZLtdJkIlQCMkULEfnY=;
+ b=JpdwwC7WPQdv6a0vDHFS7O4m4hmFG22CETH+8wYYZ9/7gmW5eiEDEobJ2l0+9VG0Kp
+ PUhqRRMhDk9dsuk+foVmr704TwiwCyqp8WuxOkjW0xkgHvniAUBK+ggKNWrBEJ6cd0FW
+ 5cu2t8aQ9YQ1e5Px8jJbxxMI0vJKM84GPkfJy+1Q+xUvZwGxwQleCIOFy4yxvrwJEoSo
+ vaUYAVVFHjZbMoDae/JxbynR+Nw7s/13VQA+ZH9GfC2rAgBjaYGvOYJtpH5i4O6avDYb
+ Tv3HtQKFFNjP982bxKgmuxCs+RH56cuIE/EOw5KXlM27HG6k615kpUrn3psmJGbVy3sZ
+ Vahg==
+X-Gm-Message-State: AOAM531VshzA+oViRFlKsVnPEJ8sR3s2ZshAGrKGvmFTGOKf20YzJiWv
+ 8SYPUcWRH60ulInzdcy8PGM=
+X-Google-Smtp-Source: ABdhPJzl+Fbw2ZK/0YW+xvW1opW2piy82XGq/LFQSMQzdbhXDr9nGtRYASFfPXeTVmyCnl65miZT/w==
+X-Received: by 2002:a17:902:6b0a:b029:dc:31af:8dc3 with SMTP id
+ o10-20020a1709026b0ab02900dc31af8dc3mr36249199plk.41.1609445265935; 
+ Thu, 31 Dec 2020 12:07:45 -0800 (PST)
+Received: from Asurada-Nvidia (thunderhill.nvidia.com. [216.228.112.22])
+ by smtp.gmail.com with ESMTPSA id y189sm44418568pfb.155.2020.12.31.12.07.44
+ (version=TLS1_2 cipher=ECDHE-ECDSA-CHACHA20-POLY1305 bits=256/256);
+ Thu, 31 Dec 2020 12:07:45 -0800 (PST)
+Date: Thu, 31 Dec 2020 12:07:57 -0800
+From: Nicolin Chen <nicoleotsuka@gmail.com>
+To: Arnd Bergmann <arnd@kernel.org>
+Subject: Re: [PATCH] ASoC: fsl: fix -Wmaybe-uninitialized warning
+Message-ID: <20201231200756.GA15207@Asurada-Nvidia>
+References: <20201230154443.656997-1-arnd@kernel.org>
 MIME-Version: 1.0
-References: <20201229133817.190160-1-kai.heng.feng@canonical.com>
- <s5hsg7mb63l.wl-tiwai@suse.de>
-In-Reply-To: <s5hsg7mb63l.wl-tiwai@suse.de>
-From: Kai-Heng Feng <kai.heng.feng@canonical.com>
-Date: Fri, 1 Jan 2021 02:07:34 +0800
-Message-ID: <CAAd53p4GxNnbWKRDxck0=Qz5JTyKTSubswbG+LQ=y2ntJ=KvqQ@mail.gmail.com>
-Subject: Re: [PATCH 1/2] ASoC: SOF: Intel: hda: Modify existing helper to
- disable WAKEEN
-To: Takashi Iwai <tiwai@suse.de>
-Content-Type: text/plain; charset="UTF-8"
-Cc: "moderated list:SOUND - SOC LAYER / DYNAMIC AUDIO POWER MANAGEM..."
- <alsa-devel@alsa-project.org>,
- Guennadi Liakhovetski <guennadi.liakhovetski@linux.intel.com>,
- Cezary Rojewski <cezary.rojewski@intel.com>,
- Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
- Kai Vehmanen <kai.vehmanen@linux.intel.com>,
- Liam Girdwood <lgirdwood@gmail.com>, Rander Wang <rander.wang@intel.com>,
- Bard Liao <yung-chuan.liao@linux.intel.com>, Takashi Iwai <tiwai@suse.com>,
- Keyon Jie <yang.jie@linux.intel.com>,
- Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- Fred Oh <fred.oh@linux.intel.com>, Mark Brown <broonie@kernel.org>,
- Payal Kshirsagar <payalskshirsagar1234@gmail.com>,
- Amery Song <chao.song@intel.com>, daniel.baluta@nxp.com,
- Marcin Rajwa <marcin.rajwa@linux.intel.com>,
- open list <linux-kernel@vger.kernel.org>,
- "moderated list:SOUND - SOUND OPEN FIRMWARE \(SOF\) DRIVERS"
- <sound-open-firmware@alsa-project.org>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20201230154443.656997-1-arnd@kernel.org>
+User-Agent: Mutt/1.9.4 (2018-02-28)
+Cc: alsa-devel@alsa-project.org, linuxppc-dev@lists.ozlabs.org,
+ linux-kernel@vger.kernel.org, Timur Tabi <timur@kernel.org>,
+ Arnd Bergmann <arnd@arndb.de>, Xiubo Li <Xiubo.Lee@gmail.com>,
+ Fabio Estevam <festevam@gmail.com>, Sascha Hauer <s.hauer@pengutronix.de>,
+ Takashi Iwai <tiwai@suse.com>, Nick Desaulniers <ndesaulniers@google.com>,
+ Liam Girdwood <lgirdwood@gmail.com>, clang-built-linux@googlegroups.com,
+ Mark Brown <broonie@kernel.org>, NXP Linux Team <linux-imx@nxp.com>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Shawn Guo <shawnguo@kernel.org>, Nathan Chancellor <natechancellor@gmail.com>,
+ Shengjiu Wang <shengjiu.wang@gmail.com>, linux-arm-kernel@lists.infradead.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -107,125 +110,38 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Thu, Dec 31, 2020 at 6:52 PM Takashi Iwai <tiwai@suse.de> wrote:
->
-> On Tue, 29 Dec 2020 14:38:14 +0100,
-> Kai-Heng Feng wrote:
-> >
-> > Modify hda_codec_jack_wake_enable() to also support disable WAKEEN.
-> > This is a preparation for next patch.
-> >
-> > No functional change intended.
->
-> Maybe it's better to mention that this patch moves the WAKEEN
-> disablement call out of hda_codec_jack_check() into
-> hda_codec_jack_wake_enable(), too.
+On Wed, Dec 30, 2020 at 04:44:15PM +0100, Arnd Bergmann wrote:
+> From: Arnd Bergmann <arnd@arndb.de>
+> 
+> Clang points out a code path that returns an undefined value
+> in an error case:
+> 
+> sound/soc/fsl/imx-hdmi.c:165:6: error: variable 'ret' is used uninitialized whenever 'if' condition is true [-Werror,-Wsom
+> etimes-uninitialized]
+>         if ((hdmi_out && hdmi_in) || (!hdmi_out && !hdmi_in)) {
+>             ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+> sound/soc/fsl/imx-hdmi.c:212:9: note: uninitialized use occurs here
+>         return ret;
+> 
+> The driver returns -EINVAL for other broken DT properties, so do
+> it the same way here.
+> 
+> Fixes: 6a5f850aa83a ("ASoC: fsl: Add imx-hdmi machine driver")
+> Signed-off-by: Arnd Bergmann <arnd@arndb.de>
+> ---
+>  sound/soc/fsl/imx-hdmi.c | 1 +
+>  1 file changed, 1 insertion(+)
+> 
+> diff --git a/sound/soc/fsl/imx-hdmi.c b/sound/soc/fsl/imx-hdmi.c
+> index 2c2a76a71940..ede4a9ad1054 100644
+> --- a/sound/soc/fsl/imx-hdmi.c
+> +++ b/sound/soc/fsl/imx-hdmi.c
+> @@ -164,6 +164,7 @@ static int imx_hdmi_probe(struct platform_device *pdev)
+>  
+>  	if ((hdmi_out && hdmi_in) || (!hdmi_out && !hdmi_in)) {
+>  		dev_err(&pdev->dev, "Invalid HDMI DAI link\n");
+> +		ret = -EINVAL;
+>  		goto fail;
 
-Ok, will update the commit log in v2.
-
-Kai-Heng
-
->
->
-> thanks,
->
-> Takashi
->
-> >
-> > Signed-off-by: Kai-Heng Feng <kai.heng.feng@canonical.com>
-> > ---
-> >  sound/soc/sof/intel/hda-codec.c | 16 +++++++---------
-> >  sound/soc/sof/intel/hda-dsp.c   |  6 ++++--
-> >  sound/soc/sof/intel/hda.h       |  2 +-
-> >  3 files changed, 12 insertions(+), 12 deletions(-)
-> >
-> > diff --git a/sound/soc/sof/intel/hda-codec.c b/sound/soc/sof/intel/hda-codec.c
-> > index 6875fa570c2c..bc9ac4abdab5 100644
-> > --- a/sound/soc/sof/intel/hda-codec.c
-> > +++ b/sound/soc/sof/intel/hda-codec.c
-> > @@ -63,16 +63,18 @@ static int hda_codec_load_module(struct hda_codec *codec)
-> >  }
-> >
-> >  /* enable controller wake up event for all codecs with jack connectors */
-> > -void hda_codec_jack_wake_enable(struct snd_sof_dev *sdev)
-> > +void hda_codec_jack_wake_enable(struct snd_sof_dev *sdev, bool enable)
-> >  {
-> >       struct hda_bus *hbus = sof_to_hbus(sdev);
-> >       struct hdac_bus *bus = sof_to_bus(sdev);
-> >       struct hda_codec *codec;
-> >       unsigned int mask = 0;
-> >
-> > -     list_for_each_codec(codec, hbus)
-> > -             if (codec->jacktbl.used)
-> > -                     mask |= BIT(codec->core.addr);
-> > +     if (enable) {
-> > +             list_for_each_codec(codec, hbus)
-> > +                     if (codec->jacktbl.used)
-> > +                             mask |= BIT(codec->core.addr);
-> > +     }
-> >
-> >       snd_hdac_chip_updatew(bus, WAKEEN, STATESTS_INT_MASK, mask);
-> >  }
-> > @@ -81,12 +83,8 @@ void hda_codec_jack_wake_enable(struct snd_sof_dev *sdev)
-> >  void hda_codec_jack_check(struct snd_sof_dev *sdev)
-> >  {
-> >       struct hda_bus *hbus = sof_to_hbus(sdev);
-> > -     struct hdac_bus *bus = sof_to_bus(sdev);
-> >       struct hda_codec *codec;
-> >
-> > -     /* disable controller Wake Up event*/
-> > -     snd_hdac_chip_updatew(bus, WAKEEN, STATESTS_INT_MASK, 0);
-> > -
-> >       list_for_each_codec(codec, hbus)
-> >               /*
-> >                * Wake up all jack-detecting codecs regardless whether an event
-> > @@ -97,7 +95,7 @@ void hda_codec_jack_check(struct snd_sof_dev *sdev)
-> >                                             codec->jackpoll_interval);
-> >  }
-> >  #else
-> > -void hda_codec_jack_wake_enable(struct snd_sof_dev *sdev) {}
-> > +void hda_codec_jack_wake_enable(struct snd_sof_dev *sdev, bool enable) {}
-> >  void hda_codec_jack_check(struct snd_sof_dev *sdev) {}
-> >  #endif /* CONFIG_SND_SOC_SOF_HDA_AUDIO_CODEC */
-> >  EXPORT_SYMBOL_NS(hda_codec_jack_wake_enable, SND_SOC_SOF_HDA_AUDIO_CODEC);
-> > diff --git a/sound/soc/sof/intel/hda-dsp.c b/sound/soc/sof/intel/hda-dsp.c
-> > index 2b001151fe37..7d00107cf3b2 100644
-> > --- a/sound/soc/sof/intel/hda-dsp.c
-> > +++ b/sound/soc/sof/intel/hda-dsp.c
-> > @@ -617,7 +617,7 @@ static int hda_suspend(struct snd_sof_dev *sdev, bool runtime_suspend)
-> >
-> >  #if IS_ENABLED(CONFIG_SND_SOC_SOF_HDA)
-> >       if (runtime_suspend)
-> > -             hda_codec_jack_wake_enable(sdev);
-> > +             hda_codec_jack_wake_enable(sdev, true);
-> >
-> >       /* power down all hda link */
-> >       snd_hdac_ext_bus_link_power_down_all(bus);
-> > @@ -683,8 +683,10 @@ static int hda_resume(struct snd_sof_dev *sdev, bool runtime_resume)
-> >
-> >  #if IS_ENABLED(CONFIG_SND_SOC_SOF_HDA)
-> >       /* check jack status */
-> > -     if (runtime_resume)
-> > +     if (runtime_resume) {
-> > +             hda_codec_jack_wake_enable(sdev, false);
-> >               hda_codec_jack_check(sdev);
-> > +     }
-> >
-> >       /* turn off the links that were off before suspend */
-> >       list_for_each_entry(hlink, &bus->hlink_list, list) {
-> > diff --git a/sound/soc/sof/intel/hda.h b/sound/soc/sof/intel/hda.h
-> > index 9ec8ae0fd649..a3b6f3e9121c 100644
-> > --- a/sound/soc/sof/intel/hda.h
-> > +++ b/sound/soc/sof/intel/hda.h
-> > @@ -650,7 +650,7 @@ void sof_hda_bus_init(struct hdac_bus *bus, struct device *dev);
-> >   */
-> >  void hda_codec_probe_bus(struct snd_sof_dev *sdev,
-> >                        bool hda_codec_use_common_hdmi);
-> > -void hda_codec_jack_wake_enable(struct snd_sof_dev *sdev);
-> > +void hda_codec_jack_wake_enable(struct snd_sof_dev *sdev, bool enable);
-> >  void hda_codec_jack_check(struct snd_sof_dev *sdev);
-> >
-> >  #endif /* CONFIG_SND_SOC_SOF_HDA */
-> > --
-> > 2.29.2
-> >
+I think Mark has already applied a fix :)
+https://lkml.org/lkml/2020/12/16/275

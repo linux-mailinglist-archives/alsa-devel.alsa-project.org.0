@@ -2,77 +2,88 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C97662E8261
-	for <lists+alsa-devel@lfdr.de>; Thu, 31 Dec 2020 23:47:20 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 055F42E8355
+	for <lists+alsa-devel@lfdr.de>; Fri,  1 Jan 2021 09:41:34 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 657CB1708;
-	Thu, 31 Dec 2020 23:46:20 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 657CB1708
+	by alsa0.perex.cz (Postfix) with ESMTPS id 5CC1A16BF;
+	Fri,  1 Jan 2021 09:40:42 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5CC1A16BF
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1609454830;
-	bh=vWRf9+QtcBOdiln5j7M9lXDj8RSqne9gog1SWTOVAbY=;
-	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1609490492;
+	bh=f3UKxByAEdW/JRPvHJPKheyVkmnwL0J4lXWTO9H0JGk=;
+	h=Subject:From:To:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=UYOf+LGbIpHMhY4PD9txHGLxAywwnxqI+fNTQG87HaWqU9YIfU10FBBsbZA7QN9aS
-	 OS0yLa7erWJ5wrdwCZ01LzaZcBSOrT2F6SPUNkKOaXot7NOr/+2k+LiNsr4xKhWKus
-	 Rq2pOwBPIqPOwQWdshPo2Krsf1d/pYd6xXMfTHsc=
+	b=YSC41yVH3zUZvo08VouSriYF8X279XGMCPBChLF+/QnzeDQPdZjfs9s5HTg/631gX
+	 XxGlDkLioRkbNYWMU9xFL7SgcPNnbQNUhQmoiXbnK/Nd0V0gnJ0/XkBBX2JVV3yqnM
+	 ho+rG51b0HkaCldTyVvpkKSEIK8XBygpH3FwDMRU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id DA712F8022D;
-	Thu, 31 Dec 2020 23:45:36 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 3744BF801ED;
+	Fri,  1 Jan 2021 09:40:40 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 3310FF8022B; Thu, 31 Dec 2020 23:45:34 +0100 (CET)
+ id 4BD7CF801F5; Fri,  1 Jan 2021 06:15:54 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from ms.lwn.net (ms.lwn.net [IPv6:2600:3c01:e000:3a1::42])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
+Received: from mail.archlinux.org (mail.archlinux.org [95.216.189.61])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id E5065F80141
- for <alsa-devel@alsa-project.org>; Thu, 31 Dec 2020 23:45:25 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E5065F80141
+ by alsa1.perex.cz (Postfix) with ESMTPS id A8202F8015F
+ for <alsa-devel@alsa-project.org>; Fri,  1 Jan 2021 06:15:49 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A8202F8015F
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=lwn.net header.i=@lwn.net
- header.b="fvvOqr2D"
-Received: from lwn.net (localhost [127.0.0.1])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by ms.lwn.net (Postfix) with ESMTPSA id 63D3260B;
- Thu, 31 Dec 2020 22:45:20 +0000 (UTC)
-DKIM-Filter: OpenDKIM Filter v2.11.0 ms.lwn.net 63D3260B
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=lwn.net; s=20201203;
- t=1609454721; bh=tMnJuIUNfFdc8FRuTCustjnoFzYrW86BK7QzKx5Y8uY=;
- h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
- b=fvvOqr2D52pcHO5U+rmC245H1ANjhQVhPQ8anZ3sJBAePTEwjDa+W/9hNIhZfzKuo
- U0wmvhx02lT7Ujt1wzEOoOrgdXa8ooqrtpPF6OPicXT8h/FtmaASaUnD7TXHGTZEEi
- 7wyClBrH+KduCpG0eOzDy1xKoYn0PPVIlOoYroJA4RoqVZPX/mXlj+nJFhfokljBQI
- 4vYUBoPX4TMEmA1JFA7ldTGGmg6l4oN4a/0OKDTkYDgWBEEqoh/hk9hzIedT2uFTiA
- 0vb/iWkG1OPBhRRPNnSeUmIe7NjRu2w37HUpnSPW2miy2dFq27pl+/V7E6cx8vaZQ+
- 1UM8LIztNX5Xw==
-Date: Thu, 31 Dec 2020 15:45:19 -0700
-From: Jonathan Corbet <corbet@lwn.net>
-To: "=?UTF-8?B?TsOtY29sYXM=?= F. R. A. Prado" <nfraprado@protonmail.com>
-Subject: Re: [PATCH v2] docs: Fix reST markup when linking to sections
-Message-ID: <20201231154519.25425c3b@lwn.net>
-In-Reply-To: <20201228144537.135353-1-nfraprado@protonmail.com>
-References: <20201228144537.135353-1-nfraprado@protonmail.com>
-Organization: LWN.net
+ dkim=permerror (0-bit key) header.d=archlinux.org header.i=@archlinux.org
+ header.b="YS0W2VTD"; 
+ dkim=pass (4096-bit key) header.d=archlinux.org header.i=@archlinux.org
+ header.b="Ez0ALtBe"
+Message-ID: <f9e278f822e97c6698a04ab848beed279fb793dd.camel@archlinux.org>
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=archlinux.org;
+ s=dkim-ed25519; t=1609478143;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=f3UKxByAEdW/JRPvHJPKheyVkmnwL0J4lXWTO9H0JGk=;
+ b=YS0W2VTD5mVfjWYmBIoaO52CjRgJZj/OyFhZd0KWYg/e9dMNo2Bz1wupfSSGDNlfVPeAbc
+ N/Gi0KW3C3XaKLDQ==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=archlinux.org;
+ s=dkim-rsa; t=1609478143;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=f3UKxByAEdW/JRPvHJPKheyVkmnwL0J4lXWTO9H0JGk=;
+ b=Ez0ALtBeibtZ9fBkwyxWWWa38f40Vc5lx6LtA9JO4syx4cpDPO6Z4kMLyy1KdNovHYhgDB
+ g6Yzc3HFl3ZqEISqQqQcKfNvKXs9GbW9jLltnZfVX+yUFudbHbLGOPuKqkd7IUadF3CCFa
+ 0hN7ur8HCWt96fg+6MIHQ8jpDAWTPQ6uyt7V4H9VcYNyKG4OEjOwsAtbPZ75zYet7++HNU
+ Vz/ljQQynp0k0bPeQLUUSzM3p1evxv8ePJD0IecW1Gb+iYQHnm26rNHqi7IGOjSEZVCBMl
+ WEjejovAO7oFegq+ufjUYOodkOCpA6UVqlCcRQtC5g/uEzif1b7cwS2lKcK7NkKK1i/UGv
+ 8DROUqPLqyvKtng/XEjzs/rZH3WRDcEYh2PUCmPIvDSPV3gJ23smFKC+i2AI87sZHNNkHW
+ ey7lCOjKiS1gVgM/eF4wX2ni1wH+j8VZlZfeX6Sc+jdfrwNR5Nrdf9z4FT3Q9dpHq2ohyB
+ W/w7E6N0VHy3xjca5Or6FncdSnwN5meC/MooJ7yOJolXSNZqpLUTMGIZrraLa0D/v1GM61
+ kDC4tSHJ05+7lvmj31TzSXLILRow4fGAC8LwuI5906pnp/8axOYcRCMEYPBqeoi3/ts6uJ
+ K38TB8tqxD7UvBJUyLBxz6gIEDIDJo0XooncqD1MC3j9a3cTbzLWY=
+Subject: Re: [PATCH v2] ALSA: hda/hdmi: fix silent stream for first playback
+ to DP
+From: "Jan Alexander Steffens (heftig)" <heftig@archlinux.org>
+To: Kai Vehmanen <kai.vehmanen@linux.intel.com>,
+ alsa-devel@alsa-project.org,  tiwai@suse.de
+Date: Fri, 01 Jan 2021 06:15:42 +0100
+In-Reply-To: <20201210174445.3134104-1-kai.vehmanen@linux.intel.com>
+References: <20201210174445.3134104-1-kai.vehmanen@linux.intel.com>
+Content-Type: text/plain; charset="UTF-8"
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Cc: alsa-devel@alsa-project.org, linux-doc@vger.kernel.org,
- Mauro Carvalho Chehab <mchehab+huawei@kernel.org>,
- linux-kernel@vger.kernel.org, Lai Jiangshan <jiangshanlai@gmail.com>,
- Takashi Iwai <tiwai@suse.com>, Steven Rostedt <rostedt@goodmis.org>,
- rcu@vger.kernel.org, lkcamp@lists.libreplanetbr.org,
- Mathieu Desnoyers <mathieu.desnoyers@efficios.com>, andrealmeid@collabora.com,
- Joel Fernandes <joel@joelfernandes.org>, Stephen Boyd <swboyd@chromium.org>
+Authentication-Results: mail.archlinux.org;
+ auth=pass smtp.auth=heftig smtp.mailfrom=heftig@archlinux.org
+X-Mailman-Approved-At: Fri, 01 Jan 2021 09:40:37 +0100
+Cc: Harsha Priya <harshapriya.n@intel.com>,
+ Emmanuel Jillela <emmanuel.jillela@intel.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -88,36 +99,37 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Mon, 28 Dec 2020 14:46:07 +0000
-Nícolas F. R. A. Prado <nfraprado@protonmail.com> wrote:
+On Thu, 2020-12-10 at 19:44 +0200, Kai Vehmanen wrote:
+> +static void silent_stream_disable(struct hda_codec *codec,
+> +                                 struct hdmi_spec_per_pin *per_pin)
+> +{
+> +       struct hdmi_spec *spec = codec->spec;
+> +       struct hdmi_spec_per_cvt *per_cvt;
+> +       int cvt_idx;
+> +
+> +       mutex_lock(&per_pin->lock);
+> +       if (!per_pin->silent_stream)
+> +               goto unlock_out;
+> +
+> +       codec_dbg(codec, "HDMI: disable silent stream on pin-NID=0x%x
+> cvt-NID=0x%x\n",
+> +                 per_pin->pin_nid, per_pin->cvt_nid);
+> +
+> +       cvt_idx = cvt_nid_to_cvt_index(codec, per_pin->cvt_nid);
+> +       if (cvt_idx >= 0 && cvt_idx < spec->num_cvts) {
+> +               per_cvt = get_cvt(spec, cvt_idx);
+> +               per_cvt->assigned = 0;
+> +       }
+> +
+> +       per_pin->cvt_nid = 0;
+> +       per_pin->silent_stream = false;
+> +
+> + unlock_out:
+> +       mutex_unlock(&spec->pcm_lock);
 
-> During the process of converting the documentation to reST, some links
-> were converted using the following wrong syntax (and sometimes using %20
-> instead of spaces):
-> 
->    `Display text <#section-name-in-html>`__
-> 
-> This syntax isn't valid according to the docutils' spec [1], but more
-> importantly, it is specific to HTML, since it uses '#' to link to an
-> HTML anchor.
-> 
-> The right syntax would instead use a docutils hyperlink reference as the
-> embedded URI to point to the section [2], that is:
-> 
->    `Display text <Section Name_>`__
-> 
-> This syntax works in both HTML and PDF.
-> 
-> The LaTeX toolchain doesn't mind the HTML anchor syntax when generating
-> the pdf documentation (make pdfdocs), that is, the build succeeds but
-> the links don't work, but that syntax causes errors when trying to build
-> using the not-yet-merged rst2pdf:
-> 
->    ValueError: format not resolved, probably missing URL scheme or undefined destination target for 'Forcing%20Quiescent%20States'
-> 
-> So, use the correct syntax in order to have it work in all different
-> output formats.
+Shouldn't this be `mutex_unlock(&per_pin->lock);`?
 
-Applied, thanks.
+I'm experiencing deadlocks since 5.10.4, which backported this patch.
 
-jon
+
+

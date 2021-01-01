@@ -2,121 +2,98 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 597BF2E83DA
-	for <lists+alsa-devel@lfdr.de>; Fri,  1 Jan 2021 14:26:33 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3E6532E83DB
+	for <lists+alsa-devel@lfdr.de>; Fri,  1 Jan 2021 14:27:11 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E31F216C1;
-	Fri,  1 Jan 2021 14:25:37 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E31F216C1
+	by alsa0.perex.cz (Postfix) with ESMTPS id 6979716E6;
+	Fri,  1 Jan 2021 14:26:06 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6979716E6
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1609507588;
-	bh=s8PkXsyDTa8Nq+XJUTcsoy53HVxuWdg4Ggsi9J//vmM=;
-	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
+	s=default; t=1609507616;
+	bh=bb4MhU5yLr7+qFqSPP6AqEtElrsxoknE03Y8Jqiny+A=;
+	h=Subject:From:To:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=I32g8ocSoO2+RxN9xDcXCLABrEOC7R6DB82nSKzqSjHwJ4RO/RsdMP1PFJVDWWuL4
-	 tOQa4/WnVQzb1lVfEn2ma1DbIzgIclGiToNeaW03kn+R1o06kpaniH94IXVC1Va2wa
-	 na+pXXzz57tRR3R0K+3t4qH0HCoyieGLXGD0DcX4=
+	b=AJ4zoshLf/R3BcUVYHWeHMzAWn6a/2Zfja2zQKDxjhzXZYiSDObKiz/DGXUfEXrlc
+	 918cMBgs+VUUj6QogLn/FEi9+RJ++sKUJfiY+EeJPqwr+iAPxawHv89SZ0/qo1QFV1
+	 eZLMGeOuy1mMVVu8GwatPshr3nFrjdAiJdKpP1Fs=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 53FF1F8020B;
-	Fri,  1 Jan 2021 14:24:53 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 47860F801ED;
+	Fri,  1 Jan 2021 14:26:05 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 309D6F801F5; Fri,  1 Jan 2021 14:24:51 +0100 (CET)
+ id 7D9E3F80245; Fri,  1 Jan 2021 14:26:01 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.8 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [216.205.24.124])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_NONE autolearn=disabled
+ version=3.4.0
+Received: from mail-wr1-x431.google.com (mail-wr1-x431.google.com
+ [IPv6:2a00:1450:4864:20::431])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 9F41BF8012B
- for <alsa-devel@alsa-project.org>; Fri,  1 Jan 2021 14:24:43 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9F41BF8012B
+ by alsa1.perex.cz (Postfix) with ESMTPS id AB21FF8015F
+ for <alsa-devel@alsa-project.org>; Fri,  1 Jan 2021 14:25:58 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz AB21FF8015F
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com
- header.b="ifg8Q1B9"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1609507482;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=NlUf3RFrTX25sJTt0DKiuNwG0dF3j8VQJM9/nMs04SU=;
- b=ifg8Q1B9sVhxs/HuhZtQ3f2LV3xJlFalrwgfIzZnLC4VddP2qd6ejOnmSKrERZXSiXGiPY
- xad/1jHvCmmHjbdHgeYuxwvyg1odVUzw7QzQ/krUwDRghxWkDAFP4x9Fh5MS6L7CSI7BsH
- 4v0j3QN2jJ+e3afKpIQXLLV4O8ppKlk=
-Received: from mail-ed1-f72.google.com (mail-ed1-f72.google.com
- [209.85.208.72]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-115-GlwDLzGvNOqLVCq-bnAIhA-1; Fri, 01 Jan 2021 08:24:37 -0500
-X-MC-Unique: GlwDLzGvNOqLVCq-bnAIhA-1
-Received: by mail-ed1-f72.google.com with SMTP id e12so8272342eds.19
- for <alsa-devel@alsa-project.org>; Fri, 01 Jan 2021 05:24:37 -0800 (PST)
+ dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
+ header.b="Wa1QVpHW"
+Received: by mail-wr1-x431.google.com with SMTP id y17so21975125wrr.10
+ for <alsa-devel@alsa-project.org>; Fri, 01 Jan 2021 05:25:58 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=message-id:subject:from:to:cc:date:in-reply-to:references
+ :user-agent:mime-version:content-transfer-encoding;
+ bh=N2lDy9/TSo1Q0eaHUZMjAV3VX4LqfddeRPtN3x+vRug=;
+ b=Wa1QVpHWHcrE5Yy2xLW8M+QROIcR/5qiQciMXDyF36QU4Vy2awh3k0GMlBSBl6sW2J
+ gLtRk4FM1V46Br2K2C4YksIzwj9v4eVQFflXNTadZXKy6HExF1aShLOrZS0vi51Z5nbV
+ 5iBcURCW7/lsiy3CTy7Bs6DdjmxTTnQbw7aTvVgnior8RWIr+v8oSBL63eFKiNGZtt8T
+ YzaCqIWs5wQWGRvHNXghoeTSWJi6/55GiIQNKi9/21d5ajiuofuvx8tslX4k1YYGJWPK
+ nJns4cTFFccm5F+ll8qnmZCngokr1TJu1nM+5YkgO8ArLTq+jLv2HwgG/IAozfiqEJqY
+ wHBQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:subject:to:cc:references:from:message-id:date
- :user-agent:mime-version:in-reply-to:content-language
- :content-transfer-encoding;
- bh=NlUf3RFrTX25sJTt0DKiuNwG0dF3j8VQJM9/nMs04SU=;
- b=b/GHpVY5MF4T9vZaqwOmb0vaMoHj1sq4I6n6ZqmadGJinoWKM0P+usD9H/RXahORvR
- u/pPTKg1y9V5mBsP6WmJdsoIjRjC93FCC+utqz94y05gWvyUFRhJilxDxWc07R00QFoJ
- 0QdGoeUBlTA1qrU5eL3DG5JIXjsVAkxRJ3Ci7lNzPgcMyYMzGz7OvOES/JfM3MAFLdcf
- F/e+rihbQRHZfSqbWkrBBaXcq+BsydX8k5HcF8S/MWSN2VQdGu9ONLm2v0EpkR5btaB/
- +yFpcV17eUQANnwv0EriP3+xvDVORvgDfghMwbHJeg9n/QQk+PkrmpB1minRYXYNbXXr
- GGKw==
-X-Gm-Message-State: AOAM530SJNEee/qtGFljiDEN04VcnEwSHIOpvxx7AcftVIc0JfsIw1Fs
- QGx1qAyBMMz0vVuHJ2cAaNr5qt9ncoqeCWgQc3zdk9bvT2gptGsEfL9rIS13Pej01/A9q2dJo+0
- bv83iVIrjdeXIGWbm4uHGoGKi5WxFUEPn7hoe7X0F4l0iCjNVn2o26T+3EPtTrwUd0RznaljxMw
- M=
-X-Received: by 2002:a17:906:2c54:: with SMTP id
- f20mr57560684ejh.318.1609507476462; 
- Fri, 01 Jan 2021 05:24:36 -0800 (PST)
-X-Google-Smtp-Source: ABdhPJyOkcdqEPEYFudNaC7S3egmI6FCqsKLaZbnzjTvYAnMq7f7U8r4OTu9efaWXmITnAXsrwDSCQ==
-X-Received: by 2002:a17:906:2c54:: with SMTP id
- f20mr57560669ejh.318.1609507476213; 
- Fri, 01 Jan 2021 05:24:36 -0800 (PST)
-Received: from x1.localdomain ([185.200.132.250])
- by smtp.gmail.com with ESMTPSA id r23sm20864486ejd.56.2021.01.01.05.24.35
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 01 Jan 2021 05:24:35 -0800 (PST)
-Subject: Re: [PATCH 01/14] mfd: arizona: Add jack pointer to struct arizona
-To: Mark Brown <broonie@kernel.org>
-References: <20201227211232.117801-1-hdegoede@redhat.com>
- <20201227211232.117801-2-hdegoede@redhat.com>
- <20201228122138.GA5352@sirena.org.uk>
- <44f84485-8efc-39f9-d0a7-cb8db2ea3faa@redhat.com>
- <20201228162807.GE5352@sirena.org.uk>
- <20201229130657.GN9673@ediswmail.ad.cirrus.com>
- <19c2d056-4f71-2c4c-c243-cdcc0115876c@redhat.com>
- <20201229150807.GF4786@sirena.org.uk>
- <07037a8a-1d35-362e-1b82-b73b81f7c6ac@redhat.com>
- <20201230133803.GC4428@sirena.org.uk>
-From: Hans de Goede <hdegoede@redhat.com>
-Message-ID: <fca91ed2-408b-bb31-f6e8-4391f06b0ccc@redhat.com>
-Date: Fri, 1 Jan 2021 14:24:34 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.4.0
+ h=x-gm-message-state:message-id:subject:from:to:cc:date:in-reply-to
+ :references:user-agent:mime-version:content-transfer-encoding;
+ bh=N2lDy9/TSo1Q0eaHUZMjAV3VX4LqfddeRPtN3x+vRug=;
+ b=Pes8kAZjYqZoBFO8ROykWvujAMJwj+CkEUscMTjoACNKUo9RRxEn+3sQFIk6XVuRWC
+ lEBG0zjxMX0uQ7Sjn6XfRktYOKWUcalEzuE4IOZtzg6XVLSqqU/cFc/6/hbBpq9CYI+U
+ tywjPh4YY4tXGKVdcCPCJ5iuPCoC/wY9NjaOwaokcw+xfZmczEDHGRWyI0x1PWFIu9KW
+ e37SQDwIp2JpBjnjZBsJxbpjb4C06uwgjIPU1BNgZROPetEeUmvR6xkMCNXuIq5EcdX4
+ /8z0sPfxI67CDj7nj/vH2MB4RzZO/LpQk3Z5A4mJjId0JIdFPHw+EkfYyk4Nbwrm2ypv
+ sOxA==
+X-Gm-Message-State: AOAM530pE9KZm+a7NlRvvpI3EfxbKS/IJtMQw508wOciWHBbTirFa8gX
+ op+L0jw+yvKrAjaHen41b50Xak2ESnyZ9g==
+X-Google-Smtp-Source: ABdhPJyQj8cghiNOQIGgQpdd0hHN8kti6YsnbBSSfOe6FVlPItd4It1ac8fmHSGbxFDDPqUDC0+Uvg==
+X-Received: by 2002:a5d:4307:: with SMTP id h7mr69377292wrq.353.1609507552656; 
+ Fri, 01 Jan 2021 05:25:52 -0800 (PST)
+Received: from cl-fw-1.fritz.box
+ (p200300d867287f008e6f6d509bafaa1a.dip0.t-ipconnect.de.
+ [2003:d8:6728:7f00:8e6f:6d50:9baf:aa1a])
+ by smtp.gmail.com with ESMTPSA id u13sm74768118wrw.11.2021.01.01.05.25.51
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 01 Jan 2021 05:25:51 -0800 (PST)
+Message-ID: <1f5c37af35419358a8d7f22544490088675b2c3f.camel@gmail.com>
+Subject: Re: Haswell audio no longer working with new Catpt driver
+From: Christian Labisch <clnetbox@gmail.com>
+To: Takashi Iwai <tiwai@suse.de>
+Date: Fri, 01 Jan 2021 14:25:50 +0100
+In-Reply-To: <s5h1rf4c10a.wl-tiwai@suse.de>
+References: <8b005c64fe129fc2a283da90b2949b1fcb42e8c2.camel@gmail.com>
+ <1ad341b1b0e0eefb83d157ac24d162eaad53ab32.camel@gmail.com>
+ <0111f282-f044-47ed-f93e-5a19de61bdce@metafoo.de>
+ <088cd3b6ba6589266e316d6adcb76861edd18775.camel@gmail.com>
+ <s5h1rf4c10a.wl-tiwai@suse.de>
+Content-Type: text/plain; charset="UTF-8"
+User-Agent: Evolution 3.38.2 (3.38.2-1.fc33) 
 MIME-Version: 1.0
-In-Reply-To: <20201230133803.GC4428@sirena.org.uk>
-Authentication-Results: relay.mimecast.com;
- auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=hdegoede@redhat.com
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset=windows-1252
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
-Cc: Cezary Rojewski <cezary.rojewski@intel.com>,
- Charles Keepax <ckeepax@opensource.cirrus.com>, alsa-devel@alsa-project.org,
- patches@opensource.cirrus.com, Jie Yang <yang.jie@linux.intel.com>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- linux-kernel@vger.kernel.org, Liam Girdwood <liam.r.girdwood@linux.intel.com>,
- Chanwoo Choi <cw00.choi@samsung.com>, MyungJoo Ham <myungjoo.ham@samsung.com>,
- Lee Jones <lee.jones@linaro.org>
+Content-Transfer-Encoding: 8bit
+Cc: gregkh@linuxfoundation.org,
+ "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
+ Lars-Peter Clausen <lars@metafoo.de>, Takashi Iwai <tiwai@suse.com>,
+ amadeuszx.slawinski@linux.intel.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -132,48 +109,37 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hi,
+Hi Takashi,
 
-On 12/30/20 2:38 PM, Mark Brown wrote:
-> On Tue, Dec 29, 2020 at 04:33:09PM +0100, Hans de Goede wrote:
->> On 12/29/20 4:08 PM, Mark Brown wrote:
-
-<snip>
- 
->>> The whole purpose of creating sound/core/jack.c is to abstract away the
->>> userspace interfaces from the drivers, most audio devices shouldn't be
->>> working with extcon directly just as they shouldn't be creating input
->>> devices or ALSA controls directly.  The missing bit there is to add
->>> extcon into jack.c.
-> 
->> So what you are suggesting is making sound/core/jack.c register the
->> extcon device and then have arizona-extcon.c talk to sound/core/jack.c
->> and no longer do any extcon stuff itself.
-> 
-> Yes.
-
-Ok, so this seems to be the same solution as which the opensource.cirrus.com
-folks want in that both you and the opensource.cirrus.com people want to
-change the arizona-extcon.c driver to be changed to stop reporting extcon
-info directly itself and instead do all the reporting through sound/core/jack.c.
-
-Where the thoughts on this seem to differ is that the opensource.cirrus.com
-folks seem to be fine with dropping extcon support, where as you suggest
-to extend sound/core/jack.c to register an extcon device and have it report
-extcon events.
-
-I'm with the opensource.cirrus.com folks here that ATM it seems best to just
-drop extcon support since the only user is Android, which also supports the
-input_dev API.
-
-If the need arises we can always add extcon-support to sound/core/jack.c
-later.
-
-So I'll start on reworking this patch-series to change the arizona-extcon.c
-driver to stop it reporting extcon info directly itself and instead do all
-the reporting through sound/core/jack.c.
+Thanks for your suggestion - unfortunately it does not work.
+Still no sound after adding the boot parameter and a reboot.
 
 Regards,
+Christian
 
-Hans
+On Fri, 2021-01-01 at 13:09 +0100, Takashi Iwai wrote:
+> On Fri, 01 Jan 2021 12:10:23 +0100,
+> Christian Labisch wrote:
+> > 
+> > Hi Lars,
+> > 
+> > Thanks for your response, as requested I ran alsa-info while playing audio.
+> > Please check the attached information - to me it looks like it being a bug.
+> > It should affect many users, will it be solved in the next release 5.10.5 ?
+> 
+> It's likely some runtime PM-related changes that caused this behavior
+> change.  But, there must be some program that sets the power_save
+> option explicitly on your system.  As dmesg shows, the default
+> power_save to this device has been suppressed, but it's activated by
+> the later action.  On, 5.9.x, this didn't take effect, but on 5.10.x,
+> this became effective, as it seems.
+> 
+> You can try to pass power_save=0 option to snd-hda-intel module (or
+> boot with snd_hda_intel.power_save=0 boot option).  It could work
+> around the issue, although it's no solution.
+> 
+> 
+> thanks,
+> 
+> Takashi
 

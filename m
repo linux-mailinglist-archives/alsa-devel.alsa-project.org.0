@@ -2,84 +2,94 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E078D2E85CC
-	for <lists+alsa-devel@lfdr.de>; Fri,  1 Jan 2021 23:21:56 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1E6422E8605
+	for <lists+alsa-devel@lfdr.de>; Sat,  2 Jan 2021 02:25:34 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 63A2E16BC;
-	Fri,  1 Jan 2021 23:21:01 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 63A2E16BC
+	by alsa0.perex.cz (Postfix) with ESMTPS id 8DD7716A4;
+	Sat,  2 Jan 2021 02:24:38 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8DD7716A4
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1609539711;
-	bh=jMwXiMjRPNgjy8AA61m/2S9siVt4OWWaNSlKQ33wBSk=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=f5U/eZVqn7jgIAMfgYOrnRZThL5pxtQqijxb+5PfgUgdSGklqpK7uIZWck5q6DvYX
-	 U9Qx7IugDQpRA1LyzuP6zrZP56X1Bh3VhaHshhesLW6tmkQ1iL65iuSjowmLPtaYph
-	 v02BnPvaGHj4JDdPd++wjj3cJ5/AiVVNM61GmtRE=
+	s=default; t=1609550728;
+	bh=FMHb9QAyYttgipB8eYWrnYvfJ+prGDQGzNUNEYzedX4=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=BAX96JbC9WfURFCCyvRVfXVxZULkslkZvEe63qiPIF61M67/4Ka9ekAR0jmMlV1JZ
+	 7yWsKtquTz3LkeEV9zOGWFh8PW9Hu9cfh2kJkyWPf/51A5sc32CxnMo1udX/nsIJ7A
+	 3T9VNbT6bJzGvMlmjKM/eNeVAwa50U8W9tet1W98=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 70DF8F8020B;
-	Fri,  1 Jan 2021 23:20:17 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id B9A10F800B7;
+	Sat,  2 Jan 2021 02:23:54 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 3609EF801F5; Fri,  1 Jan 2021 23:20:07 +0100 (CET)
+ id 476B8F801F5; Sat,  2 Jan 2021 02:23:51 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_NONE autolearn=disabled
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
  version=3.4.0
-Received: from mout.gmx.net (mout.gmx.net [212.227.17.20])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail.archlinux.org (mail.archlinux.org
+ [IPv6:2a01:4f9:c010:3052::1])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id CADE6F8012B
- for <alsa-devel@alsa-project.org>; Fri,  1 Jan 2021 23:19:54 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CADE6F8012B
+ by alsa1.perex.cz (Postfix) with ESMTPS id EB89FF800B7
+ for <alsa-devel@alsa-project.org>; Sat,  2 Jan 2021 02:23:43 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EB89FF800B7
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=gmx.net header.i=@gmx.net
- header.b="UHfQ+4E8"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=gmx.net;
- s=badeba3b8450; t=1609539590;
- bh=jMwXiMjRPNgjy8AA61m/2S9siVt4OWWaNSlKQ33wBSk=;
- h=X-UI-Sender-Class:From:To:Cc:Subject:Date;
- b=UHfQ+4E8+6bt7niXqDPg9a/Bs8CVJccbrLd7hichakV7H7Wi1WmZeaHIhWtCdri4V
- zyFBSGZDT+hzmXhMwg3bdU4JEOM0V4nnt83oivBV4ns2F8fbRdhcSzPhckcxzx8bdx
- sPEGWOzBsfEUjG1j/q/hc1wHQQnp892KYhzBYHQw=
-X-UI-Sender-Class: 01bb95c1-4bf8-414a-932a-4f6e2808ef9c
-Received: from longitude ([37.201.215.57]) by mail.gmx.com (mrgmx104
- [212.227.17.168]) with ESMTPSA (Nemesis) id 1MirjY-1kPRwY2E1k-00ewkT; Fri, 01
- Jan 2021 23:19:50 +0100
-From: =?UTF-8?q?Jonathan=20Neusch=C3=A4fer?= <j.neuschaefer@gmx.net>
-To: linux-doc@vger.kernel.org
-Subject: [PATCH] docs: ALSA: Fix reference to mixart.rst
-Date: Fri,  1 Jan 2021 23:19:42 +0100
-Message-Id: <20210101221942.1068388-1-j.neuschaefer@gmx.net>
-X-Mailer: git-send-email 2.29.2
+ dkim=pass (4096-bit key) header.d=archlinux.org header.i=@archlinux.org
+ header.b="Mho4fl0/"; 
+ dkim=permerror (0-bit key) header.d=archlinux.org header.i=@archlinux.org
+ header.b="j7XazsnP"
+X-Gm-Message-State: AOAM531F5qYwoqPn6Ij+5pyKalwI3UXQBPiZ69+9rEqUeX4x0xyb+hnL
+ 8VcSqGeW21YdwScE1unV7O+SwstUku3EP5sKXfw=
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=archlinux.org;
+ s=dkim-rsa; t=1609550617;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=FMHb9QAyYttgipB8eYWrnYvfJ+prGDQGzNUNEYzedX4=;
+ b=Mho4fl0/3aX+dUta8eEe21bKvq8fvf+5SR8COv1W2KffPqIe0TFeo2F+Aw/P5iv14dotey
+ p9ohFdwJeCsspnXFhfqrzGfjGZOmBko++7VxyeVHk2In4fEEW109v8Sm1eoNhFGfTZerwu
+ dUGINFtLSZCDvwc6DGoKOTakcui2y7KiNeWWZZWnAKBxZiSfVYBd2KfCDzH/Y5f8dzEiDs
+ mJiniSRZLED7bo+b+JotziNeN//QmKFumFAmEN7JGIXoQzVZVirJdx9wlMIPgRkA1h/5l9
+ vMZr7PO0P6OtSV1KYqa2KJuHFPWJow+lHnP5b3bXHuYmw0df3SQcCTbmsumcS0dop/TUxj
+ BRW45OhypH0lcneVCEOHg/lgTC/l8MjA7z3LpMyOmfuXCDzHhPd2EKQzytmOwGBigLqmjl
+ 6CzVGXp14sKtK2hsGaV1OlalhxdIJmt3A4qKwGd+B0+y+0xtEe5N1k6GvEBNUIuxrA1erM
+ HwmoA+cz720pH1Ea8LOuRxXu+1bwBJNk1F1+Ruc8BHSCKsDvRv0JiOQjW59RS92svLH/OI
+ I+Cr3r2ktsSVSqU2miZCOjhlNhQlqqmIYyIyu6N7VU0kzfsooMtXrq1HGkCqctU+IDZhKa
+ IplfoJSguQcbt3AfXk0wFOo0i8+KAIt+77HOBiMHADiigiAzLsG1c=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=archlinux.org;
+ s=dkim-ed25519; t=1609550617;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=FMHb9QAyYttgipB8eYWrnYvfJ+prGDQGzNUNEYzedX4=;
+ b=j7XazsnPb1H4dz+Qnajp+Nt30dwF8LUjVKXVtAEGD6C0esofawmCvj0qxIiTMJpfWe4Rs5
+ NqTIBWFBwuFeZvCw==
+X-Google-Smtp-Source: ABdhPJxsXvyUq3+ApCCqKEs9bVkCxmCkFcU4X3t5GNoj1uxb+cQKYxF62gNgbHmwou9sRC80DGcH0Q2N2sQ5mBNugo4=
+X-Received: by 2002:a25:e047:: with SMTP id x68mr91054769ybg.160.1609550616036; 
+ Fri, 01 Jan 2021 17:23:36 -0800 (PST)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
-X-Provags-ID: V03:K1:u4OdV2KYuu67DbBoGJ+25LQDNFC8odVCZqA11wCKXavaJOYVKwA
- pcmu2JFhX/flR4D295h0ysUXE/v10ePDzBCr9IcbGlq0JWlwb6h7OWQC1bcDQ46QmQdk8tq
- L4W/P8d00ttRVpzgMypWKdezTwGZ18VkVUIiuNlfbs//F0mQEi7GdSiGLvfeVZdUOSzcTNH
- STehxjVcTlsvITUojTv0A==
-X-UI-Out-Filterresults: notjunk:1;V03:K0:n+OgFaAHS4w=:sAJG1ANtldmAofN6xRLV+u
- e0siHJqME3EYMHQ/iVVlV0bwsjj9QHlSHYm18twbi4ELiu4RkcRu6xT8eQadCEP05Qg+KW/tL
- PEInvzoLsz71c+6u+rbSmtGhn33gQxPNi0cz8EpKS5rKzBUaPUF7Pm++NhM+QHdwSRxwqOQAo
- xabZOhEQ7uD7A+BUyrTqPzIVaAiiBR2GCDPd5x6s4cENQZgKkUsNQf3Ca0IOBxvNjqlwA8WxK
- jdL14vi4QJl2zVYQN7NjLd8c5FSxQIQXGMdbFjJ8X0i0ogyr5KjdYiuhF5e4zxW/EvxWmB9vn
- gklr3msPag3uIhPZ/e0fXJoBuoVQIwOzUVzbxjC16uIFZC4+EFwwPHNYN1botom4xNUhzkpSa
- M662+Bk01E+bSrGKGe81v8oqmh+ncGt1XH+TXuOhCyRnOfkphN5WhWGq3fcfl/W/ho4txXAv/
- P79l2ZfAiB5QSaZ0bOAK4Rm/0H1qAGlBnhBTd767Cw+1WLyw8BZZQfphEPkoVVKBLArrAdKXn
- 8eAT8SAJsewfUK/1l7i4BirIdAB5tXiF0m3InKZ9j66dexUkMpAUGoqb6C/6LIJcph9S6gr0b
- Lz9WBBLXLYW2IGO3ludLk/jVUPK04X6YPtoCnZvSsZO/LQmXJVVSkET1ICASPjU5tC5XzEWIg
- LB6v3Kxhi6x0zi9AfgHoX2ns1BJ2VdzaPqpB8xwpJ2OUnzEyKAQn7jKoFemY8FgrXsOid0tPp
- 0n0VdrQGBUl1MIdpKBzCpNs56kNKqNRHg0G3jDoGE+eBENRqgHsTKjBVXpf2dea0HrNNDEsu4
- olls2alLEG7/8PT0VpHdx7BTqs01mzo+UqU///Kc1PXYyUdtyKx878Q3dF1LQdceafP5NUAoi
- H12oeTUaUnKu6Fb9ZL0g==
-Cc: alsa-devel@alsa-project.org, Jonathan Corbet <corbet@lwn.net>,
- linux-kernel@vger.kernel.org, Takashi Iwai <tiwai@suse.com>,
- =?UTF-8?q?Jonathan=20Neusch=C3=A4fer?= <j.neuschaefer@gmx.net>
+References: <20201210174445.3134104-1-kai.vehmanen@linux.intel.com>
+ <f9e278f822e97c6698a04ab848beed279fb793dd.camel@archlinux.org>
+ <s5hczypay2j.wl-tiwai@suse.de>
+In-Reply-To: <s5hczypay2j.wl-tiwai@suse.de>
+From: Jan Alexander Steffens <heftig@archlinux.org>
+Date: Sat, 2 Jan 2021 02:23:24 +0100
+X-Gmail-Original-Message-ID: <CAMQ-g0ddjpKmD9V0UyBTps1cr+0vtzmssxF__EQ0xOEFrxDbFg@mail.gmail.com>
+Message-ID: <CAMQ-g0ddjpKmD9V0UyBTps1cr+0vtzmssxF__EQ0xOEFrxDbFg@mail.gmail.com>
+Subject: Re: [PATCH v2] ALSA: hda/hdmi: fix silent stream for first playback
+ to DP
+To: Takashi Iwai <tiwai@suse.de>
+Content-Type: text/plain; charset="UTF-8"
+Authentication-Results: mail.archlinux.org;
+ auth=pass smtp.auth=heftig smtp.mailfrom=heftig@archlinux.org
+Cc: Harsha Priya <harshapriya.n@intel.com>,
+ Emmanuel Jillela <emmanuel.jillela@intel.com>, alsa-devel@alsa-project.org,
+ Kai Vehmanen <kai.vehmanen@linux.intel.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -95,29 +105,13 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-MIXART.txt has been converted to ReST and renamed. Fix the reference
-in alsa-configuration.rst.
+On Fri, Jan 1, 2021 at 8:57 AM Takashi Iwai <tiwai@suse.de> wrote:
+> On Fri, 01 Jan 2021 06:15:42 +0100, Jan Alexander Steffens (heftig) wrote:
+> > I'm experiencing deadlocks since 5.10.4, which backported this patch.
+>
+> Could you check whether correcting the unlock fixes the problem?
 
-Fixes: 3d8e81862ce4 ("ALSA: doc: ReSTize MIXART.txt")
-Signed-off-by: Jonathan Neusch=C3=A4fer <j.neuschaefer@gmx.net>
-=2D--
- Documentation/sound/alsa-configuration.rst | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Yes, correcting the unlock fixes my problem.
 
-diff --git a/Documentation/sound/alsa-configuration.rst b/Documentation/so=
-und/alsa-configuration.rst
-index fe52c314b7639..b36af65a08edf 100644
-=2D-- a/Documentation/sound/alsa-configuration.rst
-+++ b/Documentation/sound/alsa-configuration.rst
-@@ -1501,7 +1501,7 @@ Module for Digigram miXart8 sound cards.
-
- This module supports multiple cards.
- Note: One miXart8 board will be represented as 4 alsa cards.
--See MIXART.txt for details.
-+See Documentation/sound/cards/mixart.rst for details.
-
- When the driver is compiled as a module and the hotplug firmware
- is supported, the firmware data is loaded via hotplug automatically.
-=2D-
-2.29.2
-
+Thanks,
+Jan

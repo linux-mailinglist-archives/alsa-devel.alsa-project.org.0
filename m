@@ -2,68 +2,123 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 55EEA2E9C36
-	for <lists+alsa-devel@lfdr.de>; Mon,  4 Jan 2021 18:42:15 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2B4AE2E9CD1
+	for <lists+alsa-devel@lfdr.de>; Mon,  4 Jan 2021 19:10:27 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id BBE1D1692;
-	Mon,  4 Jan 2021 18:41:24 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BBE1D1692
+	by alsa0.perex.cz (Postfix) with ESMTPS id B30601685;
+	Mon,  4 Jan 2021 19:09:31 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B30601685
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1609782134;
-	bh=TdktIRetHITr1rQkVosDcvCOXEpiK2F9oh+Iey8UjR4=;
-	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
+	s=default; t=1609783821;
+	bh=OlxcT0K6dNR2D03NZC3JPydPtuXT4ihtlD1aLaY54Ys=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=C/Q0XHdHbPqnAzqGA6F6aHNmJy+jEObHoXuwAVGHXGmj6Y8VJaR5ejGftZ1zWLGVa
-	 n24GmM3gqJMioDTZQeUXwvL2eWtKOzrVUZrG1SbWd3KjFA7APczBbS6ELD2ZOU3D7o
-	 mtn96AS3yMIAexJ3nm1koV61UdkE/MRL2s2nQR/Q=
+	b=uDStsTiMRLXktCghjDtHa2eDtd7o1Mltj/zd5cWDjOfdFL98K/xPSPP5wcS4EpAY5
+	 wQSAvlKVD6P5IzIh9iYWb/PJReUWhgSk2HLVRMsLJB0h6lzNK+IlbosEc01e/eXWpj
+	 xKTq8hdG6HUZbqnqTAemjbPAyCd1vwo3bw66WcEY=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 74939F802BE;
-	Mon,  4 Jan 2021 18:40:28 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 1474AF80167;
+	Mon,  4 Jan 2021 19:08:48 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 9B13BF80166; Mon,  4 Jan 2021 18:40:25 +0100 (CET)
+ id 69D6EF80166; Mon,  4 Jan 2021 19:08:46 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ DKIM_VALID_AU, MSGID_FROM_MTA_HEADER, SPF_HELO_NONE,
+ SPF_NONE autolearn=disabled version=3.4.0
+Received: from hqnvemgate26.nvidia.com (hqnvemgate26.nvidia.com
+ [216.228.121.65])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id B8499F80158
- for <alsa-devel@alsa-project.org>; Mon,  4 Jan 2021 18:40:22 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B8499F80158
+ by alsa1.perex.cz (Postfix) with ESMTPS id 7A3AEF8012B
+ for <alsa-devel@alsa-project.org>; Mon,  4 Jan 2021 19:08:40 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7A3AEF8012B
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="XVb0Nxi5"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 9980D206A4;
- Mon,  4 Jan 2021 17:40:20 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1609782021;
- bh=TdktIRetHITr1rQkVosDcvCOXEpiK2F9oh+Iey8UjR4=;
- h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=XVb0Nxi5lXFFYfDjuZaW1eha7r9nhpdKQwzq6nRNjJjtbSIgZS2IAH5iGhXywMnL+
- +B/6KHXWVV710kQDBAukAUqXDc7PS9uenGBKifkqn0SiTzqXQTGCr7afxMA8M9DySC
- HN7UK7NLhpBktpx/mvn1GUgzQzbrisN7bNnKvadw/9kfP7XCF+PK9NKlBuIFKZU3M8
- 9OhVjnXluL3OuPiW6TiIF7Tk6qpVfLmA/oyS1xCK+gXcqlxfzWLM8paeq2aZFyUn4Z
- ERTq8jXbWGGVzXDmxeh9CLN+fVEuQaTHKMxK2HNaygFDEMhFG6LnIlpZw2C1EFBMnG
- wb0wdxwRRWVFQ==
-From: Mark Brown <broonie@kernel.org>
-To: Adam Ford <aford173@gmail.com>, alsa-devel@alsa-project.org
-In-Reply-To: <20201217162740.1452000-1-aford173@gmail.com>
-References: <20201217162740.1452000-1-aford173@gmail.com>
-Subject: Re: [PATCH] ASoC: wm8962: Add optional mclk device tree binding
-Message-Id: <160978198913.14397.16832958229666174829.b4-ty@kernel.org>
-Date: Mon, 04 Jan 2021 17:39:49 +0000
+ dkim=pass (2048-bit key) header.d=nvidia.com header.i=@nvidia.com
+ header.b="LPiLlt1g"
+Received: from hqmail.nvidia.com (Not Verified[216.228.121.13]) by
+ hqnvemgate26.nvidia.com (using TLS: TLSv1.2, AES256-SHA)
+ id <B5ff359a50000>; Mon, 04 Jan 2021 10:08:37 -0800
+Received: from HQMAIL109.nvidia.com (172.20.187.15) by HQMAIL109.nvidia.com
+ (172.20.187.15) with Microsoft SMTP Server (TLS) id 15.0.1473.3; Mon, 4 Jan
+ 2021 18:08:35 +0000
+Received: from NAM11-CO1-obe.outbound.protection.outlook.com (104.47.56.176)
+ by HQMAIL109.nvidia.com (172.20.187.15) with Microsoft SMTP Server (TLS) id
+ 15.0.1473.3 via Frontend Transport; Mon, 4 Jan 2021 18:08:35 +0000
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=FhER2jPesHAWZ1bJXQV+ge2RwYJKaLYIwcWdbMkn3z4bpxOv00Ay+0bTohau9MiVgeqMWJ1I/N+K7GYnzrys06rNlSL5T88o8FUijqTAyQL7aIIyMqfp+Hk0HtRJkcz2/VE28TvblKNBMnguCB5QuvVr8zyk5taOANCvm3ftM9MjqgT4fWrahUH7KNFW9WS89lqzBMjU0TYxXBXAdryFRhY0qdxukx2Us7tqNG/GE7YIIYbb66sLI2dL0pKPZyjeUcyu/SIqlynTxx8HG79abWpUvT74rPzAetr8aM8g+3fLDhIl9chkE5eMY8oWc7LKQ6qaXFf1yzHmnlzl3rQWlg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=jYWF5Za5RQIKsxGqPAjvR0Bf5RAvnJ0hHtXWaOODqsw=;
+ b=Fb9y+rIh28xBSl6BHojToSMiEmP5Vj6z3iam/ID16/9v+wtz02fnpWXGC0XSJVrAUV+113GyMHSli7o8dN18aJajsCzrKjNh5YMH17zTL3TGlSwRUSdZZTAlMRi1tVcgsOhUDf1sz4mArFTUhTqqXOZ80d+cND1SrVp38AhB76wGM0e8pWYtP/Y1cXAPuywJvNP6Ng68Ud5GTsbPQq2ifY3uJO0v5aoILbbyevEAM+WqblmtnO8fLoyCh+hxjJJvdD8DdFaKvirUVlpmOmgzZjrVm2MFnaGnCHj+g/NzKW2J7BouOR1caXtI06pkCVZPIC2OSO55Vr4M1ij7Ckcm3A==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+Received: from DM6PR12MB3834.namprd12.prod.outlook.com (2603:10b6:5:14a::12)
+ by DM6PR12MB3401.namprd12.prod.outlook.com (2603:10b6:5:39::32) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3721.19; Mon, 4 Jan
+ 2021 18:08:33 +0000
+Received: from DM6PR12MB3834.namprd12.prod.outlook.com
+ ([fe80::546d:512c:72fa:4727]) by DM6PR12MB3834.namprd12.prod.outlook.com
+ ([fe80::546d:512c:72fa:4727%7]) with mapi id 15.20.3721.024; Mon, 4 Jan 2021
+ 18:08:33 +0000
+Date: Mon, 4 Jan 2021 14:08:31 -0400
+From: Jason Gunthorpe <jgg@nvidia.com>
+To: Mark Brown <broonie@kernel.org>
+Subject: Re: [resend/standalone PATCH v4] Add auxiliary bus support
+Message-ID: <20210104180831.GD552508@nvidia.com>
+References: <X9xV+8Mujo4dhfU4@kroah.com> <20201218131709.GA5333@sirena.org.uk>
+ <20201218140854.GW552508@nvidia.com>
+ <20201218155204.GC5333@sirena.org.uk>
+ <20201218162817.GX552508@nvidia.com> <20201218180310.GD5333@sirena.org.uk>
+ <20201218184150.GY552508@nvidia.com> <20201218203211.GE5333@sirena.org.uk>
+ <20201218205856.GZ552508@nvidia.com> <20201221185140.GD4521@sirena.org.uk>
+Content-Type: text/plain; charset="us-ascii"
+Content-Disposition: inline
+In-Reply-To: <20201221185140.GD4521@sirena.org.uk>
+X-ClientProxiedBy: MN2PR04CA0021.namprd04.prod.outlook.com
+ (2603:10b6:208:d4::34) To DM6PR12MB3834.namprd12.prod.outlook.com
+ (2603:10b6:5:14a::12)
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- Liam Girdwood <lgirdwood@gmail.com>, aford@beaconembedded.com,
- Rob Herring <robh+dt@kernel.org>, Geert Uytterhoeven <geert@linux-m68k.org>
+X-MS-Exchange-MessageSentRepresentingType: 1
+Received: from mlx.ziepe.ca (206.223.160.26) by
+ MN2PR04CA0021.namprd04.prod.outlook.com (2603:10b6:208:d4::34) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.3721.20 via Frontend Transport; Mon, 4 Jan 2021 18:08:33 +0000
+Received: from jgg by mlx with local (Exim 4.94)	(envelope-from
+ <jgg@nvidia.com>)	id 1kwUHP-001zC1-Fx; Mon, 04 Jan 2021 14:08:31 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nvidia.com; s=n1;
+ t=1609783717; bh=jYWF5Za5RQIKsxGqPAjvR0Bf5RAvnJ0hHtXWaOODqsw=;
+ h=ARC-Seal:ARC-Message-Signature:ARC-Authentication-Results:Date:
+ From:To:CC:Subject:Message-ID:References:Content-Type:
+ Content-Disposition:In-Reply-To:X-ClientProxiedBy:MIME-Version:
+ X-MS-Exchange-MessageSentRepresentingType;
+ b=LPiLlt1g/HZDtpXcsJ2Bwq06TRD6MJWZ42Cszedhx65KExX4C06vZyyV/gzV/xKgB
+ nkcNWrqx4S+4UaK/DGfjRg1Dy/BR854zj97kCs9anlkuBetxNoJwyRangA6gRCxren
+ 0nOgW6p9MAIW6dVBE9VtDA1/7Z6MFACZ33Ig1QqGgiBH9+OzF6WOWqecFcr9iVtiYT
+ 0gGWflIvnIwlzZ1+LSB0di1vMpcrNyPYFsC/LuFV/elXWwXwZJ8FtKKZiuut3Vl/1V
+ 6vO3aX9hPCThx3N3phGl5Xo0QKHW1gK3WaJaoKopWXXBEjWC3XDZ+VnBLS0mWtcG4M
+ /Kaan5mZGrKaQ==
+Cc: Alexandre Belloni <alexandre.belloni@bootlin.com>, lee.jones@linaro.org,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ Kiran Patil <kiran.patil@intel.com>, Liam
+ Girdwood <lgirdwood@gmail.com>, linux-rdma <linux-rdma@vger.kernel.org>,
+ Greg KH <gregkh@linuxfoundation.org>, Martin Habets <mhabets@solarflare.com>,
+ alsa-devel@alsa-project.org,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ Fred Oh <fred.oh@linux.intel.com>, Netdev <netdev@vger.kernel.org>,
+ Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
+ Jakub Kicinski <kuba@kernel.org>, Dave
+ Ertman <david.m.ertman@intel.com>, Dan Williams <dan.j.williams@intel.com>,
+ Shiraz Saleem <shiraz.saleem@intel.com>, David Miller <davem@davemloft.net>,
+ Leon Romanovsky <leonro@nvidia.com>, Parav Pandit <parav@mellanox.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -79,34 +134,132 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Thu, 17 Dec 2020 10:27:40 -0600, Adam Ford wrote:
-> The driver can request an optional clock for mclk.
-> Update the txt file to reflect this.
+On Mon, Dec 21, 2020 at 06:51:40PM +0000, Mark Brown wrote:
 
-Applied to
+> > with some kind of inheritance scheme where platform device remained as
+> > only instantiated directly in board files, while drivers could bind to
+> > OF/DT/ACPI/FPGA/etc device instantiations with minimal duplication &
+> > boilerplate.
+> 
+> Like I said in my previous message that is essentially what we have now.
+> It's not worded in quite that way but it's how all the non-enumerable
+> buses work.  
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
+I think it is about half way there. We jammed everything into platform
+device and platform bus and then had a few api aspects to tell if
+which of the subtypes it might be.
 
-Thanks!
+That functions sort of like an object model with inheritance, but a
+single type and 'is it a XXX' queries is not quite the same thing.
 
-[1/1] ASoC: wm8962: Add optional mclk device tree binding
-      commit: e33c93b2206fedee35df756940e07af7b1f29768
+> BTW I did have a bit of a scan through some of the ACPI devices and
+> for a good proportion of them it seems fairly clear that they are
+> not platform devices at all - they were mostly interacting with ACPI
+> firmware functionality rather than hardware, something you can't
+> really do with FDT at all.
 
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
+Right, that is kind of the point. We also have cases where ACPI
+devices are just an ioresource list and don't have any special
+ACPIness. IIRC DT has a similar issue where there are DT drivers that
+just don't work without the OF stuff. Why are they platform drivers?
 
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
+IMHO the point of the bus type is to tell the driver what API set you
+have. If you have a of_device then you have an OF node and can do all
+the of operations. Same for PCI/ACPI/etc.
 
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
+We fake this idea out by being able to convert platform to DT and OF,
+but if platform is to be the universal device then why do we have PCI
+device and not a 'platform to pci' operator instead? None of this is
+consistent.
 
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
+Regardless of the shortcut to make everything a struct
+platform_device, I think it was a mistake to put OF devices on
+platform_bus. Those should have remained on some of_bus even if they
+are represented by struct platform_device and fiddling in the core
+done to make that work OK.
 
-Thanks,
-Mark
+It is much easier to identify what a bus_type is (the unique
+collection of APIs) and thus when to create those.
+
+If the bus_type should contain struct platform_device or a unqiue
+struct then becomes a different question.
+
+Yes that is very hacky, but it feels less hacky than the platform
+bus/device is everything and can be used everwhere idea.
+
+> > The only problem with mfd as far as SOF is concerned was Greg was not
+> > happy when he saw PCI stuff in the MFD subsystem.
+> 
+> This is a huge part of the problem here - there's no clearly articulated
+> logic, it's all coming back to these sorts of opinion statements about
+> specific cases which aren't really something you can base anything
+> on.
+
+I agree with this, IMHO there is no really cohesive explanation for
+when to create a bus vs use the "universal bus" (platform) that can
+also explain the things platform is already doing.
+
+This feels like a good conference topic someday..
+
+> Personally I'm even struggling to identify a practical problem that
+> we're trying to solve here.  Like Alexandre says what would an
+> mfd_driver actually buy us?
+
+Well, there is the minor issue of name collision eg
+/sys/bus/XX/devices/* must list all devices in the system with no
+collisions.
+
+The owner of the bus is supposed to define the stable naming scheme
+and all the devices are supposed to follow it. platform doesn't have
+this:
+
+$ ls /sys/bus/platform/devices/
+ ACPI000C:00	     dell-smbios.0	'Fixed MDIO bus.0'   INT33A1:00         microcode     PNP0C04:00   PNP0C0B:03   PNP0C14:00
+ alarmtimer.0.auto   dell-smbios.1	 GHES.0		     intel_rapl_msr.0   MSFT0101:00   PNP0C0B:00   PNP0C0B:04   PNP0C14:01
+ coretemp.0	     efi-framebuffer.0	 GHES.1		     iTCO_wdt	        pcspkr	      PNP0C0B:01   PNP0C0C:00   reg-dummy
+ dcdbas		     eisa.0		 INT0800:00	     kgdboc	        PNP0103:00    PNP0C0B:02   PNP0C0E:00   serial8250
+
+Why are ACPI names in here? It looks like "because platform drivers
+were used to bind to ACPI devices" 
+
+eg INT33A1 is pmc_core_driver so the device was moved from acpi_bus to
+platform_bus? How does that make sense??
+
+Why is pmc_core_driver a platform device instead of ACPI? Because some
+platforms don't have ACPI and the board file properly creates a
+platform device in C code.
+
+> I have some bad news for you about the hardware description problem
+> space.  Among other things we have a bunch of platform devices that
+> don't have any resources exposed through the resource API but are still
+> things like chips on a board, doing some combination of exposing
+> resources for other devices (eg, a fixed voltage regulator) and
+> consuming things like clocks or GPIOs that don't appear in the resource
+> API.
+
+So in these cases how do I use the generic platform bus API to find
+the GPIOs, regulators, and so on to connect with?
+
+If drivers take a platform device and immediately covert it to an OF
+object and use OF APIs to find those connections then it really
+*never* was a platform device in the first place and coding an OF
+driver as platform is an abuse.
+
+A decent step would be to accept that 'platform_device' is something
+weird and special and split its bus_type. Only devices created
+direclty in C code should be on the platform_bus, OF/ACPI/etc should
+all be on their own bus_types, even though they all use the same
+'struct platform_bus'
+
+Yes, it is super hacky, but at least the bus side would follow the
+basic architecture..
+ 
+> that but it is not clear what the upside of doing that would be,
+> especially given the amount of upheval it would generate and the
+> classification issues that will inevitably result.
+
+Well, I think the upside for existing is very small, but I would like
+to see a shared idea about how to answer questions like 'when should I
+use a existing device type' and 'when should I make a new device type'.
+
+Jason

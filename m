@@ -2,71 +2,64 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6A2E12E980C
-	for <lists+alsa-devel@lfdr.de>; Mon,  4 Jan 2021 16:05:52 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 15F812E980D
+	for <lists+alsa-devel@lfdr.de>; Mon,  4 Jan 2021 16:06:15 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id EBD01828;
-	Mon,  4 Jan 2021 16:05:01 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EBD01828
+	by alsa0.perex.cz (Postfix) with ESMTPS id 93D0F1688;
+	Mon,  4 Jan 2021 16:05:24 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 93D0F1688
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1609772752;
-	bh=71RHjH4IQa5zuwq4wEpOk/8L9AgS+B+ZSX3ZEM397uI=;
-	h=Subject:To:References:From:Date:In-Reply-To:List-Id:
+	s=default; t=1609772774;
+	bh=1a7DZwg2NqfYM9U/mJznBpNlMVs+55dPU7KRwDy6PTA=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=pkCS663l0CJT2TAPPt16SFnuZPfXOMdet+Lv3d9QozHsyrO0hSfrxkR9fKohdwxsq
-	 MWJWTzdkQVXfJuURPzuJ19QZRLrMzzdIQ9/JotXGZ90bo7CfB1K68WXE1ogCZ2glka
-	 oPOdqnxZAmFH+cW7LHsfQyXYtquTywzNCq4Jwelc=
+	b=JdHZdEcIg7gVHQPIVaiRZwn09H2m226tBmnlRAX7jFaZO5bD8xunUNdNB+ItnKwI8
+	 rDAgX7nVYSjvzvjhKJOGxjWpWzBhHecHOOGUMNuEBi4+4J+PY5OunnjWQ7jjDM4YI/
+	 qXLYreaHM6Pci7juxFpYfsZjD8FkEl/3RjCdfXWg=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 362D2F8012B;
-	Mon,  4 Jan 2021 16:04:18 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 791D9F8025E;
+	Mon,  4 Jan 2021 16:05:22 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id D0EDBF80166; Mon,  4 Jan 2021 16:04:15 +0100 (CET)
+ id E6BA1F8025E; Mon,  4 Jan 2021 16:05:19 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.4 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from mail1.perex.cz (mail1.perex.cz [77.48.224.245])
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 54EB7F8012C
- for <alsa-devel@alsa-project.org>; Mon,  4 Jan 2021 16:04:08 +0100 (CET)
-Received: from mail1.perex.cz (localhost [127.0.0.1])
- by smtp1.perex.cz (Perex's E-mail Delivery System) with ESMTP id EA41EA0049;
- Mon,  4 Jan 2021 16:04:07 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 smtp1.perex.cz EA41EA0049
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=perex.cz; s=default;
- t=1609772648; bh=cStwRWXbeRT6RBa8C4Y0c1+h/rywhLMItXvgyil81ds=;
- h=Subject:To:References:From:Date:In-Reply-To:From;
- b=JUQdsostteFV68gN952kg9kSNfFz0oxOwWYRFmI9Rk6tnHgbAFjIYFwN0zJ9Kcob5
- 1CNOK/VlXm/joMF2JSlMN2ymGSnJyy76lWGvDYdF5xn8/lx1GJKaE0bLdJGPpncdRD
- dsYDWDflMTblWd2f5WtGCAatFiJr3QsiHO7SIyRw=
-Received: from p1gen2.localdomain (unknown [192.168.100.98])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested) (Authenticated sender: perex)
- by mail1.perex.cz (Perex's E-mail Delivery System) with ESMTPSA;
- Mon,  4 Jan 2021 16:04:03 +0100 (CET)
-Subject: Re: [RFC][PATCH v3 1/4] alsa: jack: implement software jack injection
- via debugfs
-To: Hui Wang <hui.wang@canonical.com>, alsa-devel@alsa-project.org,
- tiwai@suse.de, kai.vehmanen@linux.intel.com
-References: <20201228080003.19127-1-hui.wang@canonical.com>
- <20201228080003.19127-2-hui.wang@canonical.com>
-From: Jaroslav Kysela <perex@perex.cz>
-Message-ID: <c847a7a4-9d2f-7991-811f-756ab7af248c@perex.cz>
-Date: Mon, 4 Jan 2021 16:04:03 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.6.0
-MIME-Version: 1.0
-In-Reply-To: <20201228080003.19127-2-hui.wang@canonical.com>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 8bit
+ by alsa1.perex.cz (Postfix) with ESMTPS id 8552CF80165;
+ Mon,  4 Jan 2021 16:05:10 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8552CF80165
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id C8F47AE05;
+ Mon,  4 Jan 2021 15:05:09 +0000 (UTC)
+Date: Mon, 04 Jan 2021 16:05:09 +0100
+Message-ID: <s5hble491zu.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Jaroslav Kysela <perex@perex.cz>
+Subject: Re: [PATCH] ALSA: hda: fix SND_INTEL_DSP_CONFIG dependency
+In-Reply-To: <3c19a5d5-8883-f917-a96a-f51bb188d115@perex.cz>
+References: <20210103135257.3611821-1-arnd@kernel.org>
+ <3c19a5d5-8883-f917-a96a-f51bb188d115@perex.cz>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
+ FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
+ (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
+Content-Type: text/plain; charset=US-ASCII
+Cc: Arnd Bergmann <arnd@kernel.org>, alsa-devel@alsa-project.org,
+ Kai Vehmanen <kai.vehmanen@linux.intel.com>, Arnd Bergmann <arnd@arndb.de>,
+ linux-kernel@vger.kernel.org, Takashi Iwai <tiwai@suse.com>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+ Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
+ Daniel Baluta <daniel.baluta@nxp.com>, sound-open-firmware@alsa-project.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -82,29 +75,62 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Dne 28. 12. 20 v 9:00 Hui Wang napsal(a):
-> We want to perform remote audio auto test, need the audio jack to
-> change from plugout to plugin or vice versa by software ways.
+On Mon, 04 Jan 2021 16:00:05 +0100,
+Jaroslav Kysela wrote:
 > 
-> Here the design is creating a sound-core root folder in the debugfs
-> dir, and each sound card will create a folder cardN under sound-core,
-> then the sound jack will create folders by jack_ctrl->ctrl->id.name,
-> and will create 2 file nodes jackin_inject and sw_inject_enable in
-> the folder, this is the layout of folder on a machine with 2 sound
-> cards:
-> $tree $debugfs_mount_dir/sound-core
-> sound-core/
-> ├── card0
-> │   ├── HDMI!DP,pcm=10 Jack
-> │   │   ├── jackin_inject
-> │   │   └── sw_inject_enable
+> Dne 03. 01. 21 v 14:52 Arnd Bergmann napsal(a):
+> > From: Arnd Bergmann <arnd@arndb.de>
+> > 
+> > The sof-pci-dev driver fails to link when built into the kernel
+> > and CONFIG_SND_INTEL_DSP_CONFIG is set to =m:
+> > 
+> > arm-linux-gnueabi-ld: sound/soc/sof/sof-pci-dev.o: in function `sof_pci_probe':
+> > sof-pci-dev.c:(.text+0x1c): undefined reference to `snd_intel_dsp_driver_probe'
+> > 
+> > All other drivers using this interface already use a 'select
+> > SND_INTEL_DSP_CONFIG' statement to force the it to be present, so it
+> > seems reasonable to do the same here.
+> > 
+> > The stub implementation in the header makes the problem harder to find,
+> > as it avoids the link error when SND_INTEL_DSP_CONFIG is completely
+> > disabled, without any obvious upsides. Remove these stubs to make it
+> > clearer that the driver is in fact needed here.
+> > 
+> > Fixes: 82d9d54a6c0e ("ALSA: hda: add Intel DSP configuration / probe code")
+> > Signed-off-by: Arnd Bergmann <arnd@arndb.de>
+> > ---
+> >  include/sound/intel-dsp-config.h | 17 -----------------
+> >  sound/soc/sof/Kconfig            |  2 ++
+> >  2 files changed, 2 insertions(+), 17 deletions(-)
+> > 
+> > diff --git a/include/sound/intel-dsp-config.h b/include/sound/intel-dsp-config.h
+> > index d4609077c258..94667e870029 100644
+> > --- a/include/sound/intel-dsp-config.h
+> > +++ b/include/sound/intel-dsp-config.h
+> > @@ -18,24 +18,7 @@ enum {
+> >  	SND_INTEL_DSP_DRIVER_LAST = SND_INTEL_DSP_DRIVER_SOF
+> >  };
+> >  
+> > -#if IS_ENABLED(CONFIG_SND_INTEL_DSP_CONFIG)
+> 
+> The SOF drivers selects the DSP config code only when required (for specific
+> platforms - see sound/soc/sof/intel/Kconfig).
+> 
+> It seems that the above if should be modified as:
+> 
+> #if IS_BUILDIN(CONFIG_SND_INTEL_DSP_CONFIG) || (defined(MODULE) &&
+> IS_MODULE(CONFIG_SND_INTEL_DSP_CONFIG))
+> 
+> So the buildin drivers which do not require the DSP config probe can be
+> compiled without this dependency.
 
-> +	sound_core_debugfs_root = debugfs_create_dir("sound-core", NULL);
+As I wrote in another post, a part of the problem is that SOF PCI and
+ACPI drivers call snd_intel_dsp_driver_probe() unconditionally, even
+if no Intel driver is bound.  So even if changing like the above (or
+better to use IS_REACHABLE() macro) works around the issue, the call
+pattern needs to be reconsidered.
 
-I would just use "sound" directory name here. Why "core" suffix?
 
-					Jaroslav
+thanks,
 
--- 
-Jaroslav Kysela <perex@perex.cz>
-Linux Sound Maintainer; ALSA Project; Red Hat, Inc.
+Takashi

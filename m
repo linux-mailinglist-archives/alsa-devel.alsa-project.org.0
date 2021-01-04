@@ -2,187 +2,90 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0ACEC2E9E34
-	for <lists+alsa-devel@lfdr.de>; Mon,  4 Jan 2021 20:33:15 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2F1242E9F77
+	for <lists+alsa-devel@lfdr.de>; Mon,  4 Jan 2021 22:21:53 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 8F358167D;
-	Mon,  4 Jan 2021 20:32:19 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8F358167D
+	by alsa0.perex.cz (Postfix) with ESMTPS id A92951680;
+	Mon,  4 Jan 2021 22:20:57 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A92951680
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1609788789;
-	bh=Lrr4TeCmsFovTD39NjZ7prOkxBdZYdLLdbFJ017gKlA=;
-	h=From:To:Subject:Date:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1609795307;
+	bh=E7g2U+SvOmE1Xw5CMic8FCeXkufHPLDtW4XNdpKvxvM=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=Mrt9ZyLH+5zhpWmuLGEO90icetW/XICB5X5eOHwvJGzbMEvor9hkJ2r40l5pVMF0d
-	 op8+u0HBuipX8g4y8vFX6mo+0zAn+hQ91tdEMFZkQnxHLR88Ocx7v59ijCJ1IdhYFp
-	 ap5ygWa1dr/c4HgwvqNn2+BJmDg+N+aZG1NXLIX8=
+	b=soiJ/HL3Mf0ZbiC7Rki5iqvy/mBMx9Wv7ucIjc9zu/iAOB8wcoVk0w6jXnMDelm+0
+	 GgEZQv7tLe0x70xStH8FNu3JRE3LGjh2VHabZQfTluiwgCCdSMXlah3Q5NyATjdaC6
+	 YvEn100spzfQFxrRraa4p5ne6ZgrhVHFZI4w0Ew8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id F3A4DF80167;
-	Mon,  4 Jan 2021 20:31:34 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id E6F94F80166;
+	Mon,  4 Jan 2021 22:20:13 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 45DDFF80166; Mon,  4 Jan 2021 20:31:32 +0100 (CET)
+ id A7C54F80166; Mon,  4 Jan 2021 22:20:04 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
+X-Spam-Status: No, score=0.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,PRX_BODY_30,SPF_HELO_NONE,SPF_NONE autolearn=disabled
  version=3.4.0
-Received: from mx0b-00154904.pphosted.com (mx0b-00154904.pphosted.com
- [148.163.137.20])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 38B92F80158
- for <alsa-devel@alsa-project.org>; Mon,  4 Jan 2021 20:31:23 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 38B92F80158
+ by alsa1.perex.cz (Postfix) with ESMTPS id F2170F8012C
+ for <alsa-devel@alsa-project.org>; Mon,  4 Jan 2021 22:19:59 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz F2170F8012C
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=dell.com header.i=@dell.com
- header.b="RxdxUrdm"; 
- dkim=fail reason="signature verification failed" (1024-bit key)
- header.d=Dell.onmicrosoft.com header.i=@Dell.onmicrosoft.com
- header.b="qEJM2TpN"
-Received: from pps.filterd (m0170396.ppops.net [127.0.0.1])
- by mx0b-00154904.pphosted.com (8.16.0.43/8.16.0.43) with SMTP id
- 104JSLhl017131; Mon, 4 Jan 2021 14:31:21 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=dell.com;
- h=from : to : cc :
- subject : date : message-id : references : in-reply-to : content-type :
- content-transfer-encoding : mime-version; s=smtpout1;
- bh=pfd8/OBRjw4PZlEhzN0C+iwSn2NknCR79mcf2Kw8QTE=;
- b=RxdxUrdmUyLQ7UnWNypUPJtutkjyhPsq8s8oG+tY04OKogMRFx0N+EI8cJlYozroh4qG
- gaW0k1RLsUAPlRei+LnPo/e89VN09rR9P+30VhTe+8lEPThrbgFixKxh/i+VAgoXvLs5
- 21d/q78KeC7gUiXBTCOX01bU/F7uNXO64f4w1RNj9S0QX7wVjtQGybGMjcs6xOSlNsqn
- cfbVFJpNXdLFMOZJgB+GwG3Q7TMTCSIrRXXKsKeaDIm6IVPUgfbBKrMAwoiYALUWi9Gg
- E9b43z2/PFjDysezsH7+X8KFPBnGktImlK1Q3E43VIMJYr4ee2CwhF0sf3EAX7XiMl38 7A== 
-Received: from mx0a-00154901.pphosted.com (mx0a-00154901.pphosted.com
- [67.231.149.39])
- by mx0b-00154904.pphosted.com with ESMTP id 35tnj3x3ju-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Mon, 04 Jan 2021 14:31:21 -0500
-Received: from pps.filterd (m0142693.ppops.net [127.0.0.1])
- by mx0a-00154901.pphosted.com (8.16.0.43/8.16.0.43) with SMTP id
- 104JV2xF075191; Mon, 4 Jan 2021 14:31:20 -0500
-Received: from nam11-co1-obe.outbound.protection.outlook.com
- (mail-co1nam11lp2171.outbound.protection.outlook.com [104.47.56.171])
- by mx0a-00154901.pphosted.com with ESMTP id 35v8r60buk-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Mon, 04 Jan 2021 14:31:20 -0500
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=HuEH83DJEE8tMW+0Uc0/M2zrSO/x47m84DtdJoP7dGFhBpRQ3EsZkjXwOxr6hWQonZ1QsvtmwT5ixqfW+10ojuYCl46WPLIFX881hWExMetA3eL8h7aZHQ3qpktI6KBJQ/YOv2Sl3RfWKyMI65qSbvp+qozJS0dwtbT4d3BAVT+ogIiObAFoChSGoa4a/6uOhXo/BYkU9wr+YT2e7hqy4sZ8+58/7Xk+Itf673W+4wmtPrtqCLRv4YM/9OuPjd1izMm5/kCSJ1mwxLPfVyE7SM3DQ2rA4VekqlXw2OdQSTUQkHn70onvbI0zmA6rhzVuYGWo7aInjablS9gfDtNhOQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=pfd8/OBRjw4PZlEhzN0C+iwSn2NknCR79mcf2Kw8QTE=;
- b=l/aNVrC3YKC4brmcPp3u0x9o0M41wpKIWmsAO1d34Gg7ow1FUVsrM/XV9vFh193vwh/NeFH+h9vJqDZx2qORS2WLgdtbpIf7Zx/RbiLxBeYpCE0gxavnp669rHT1h3nC8nu3ArKPR6CeMoyEVCebKLFgzFZbcAT3knlpZ0n0XUt+1epnqojz9eM94Q2UOXweS1PAXwAw9Ge6VcLZCep8Wwv8HHVeNIw0KvnT3BZJghTZUFqMbIUGCVC5fyx2bxNyD+E7PzzT+8BO4F9XtXKZ/+5p6KM8ltNkqDZJOZNdOLMi5XfLEDo4c28yVmOgSQOG31ouF/zIiPsJ9U5ts7StLg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=dell.com; dmarc=pass action=none header.from=dell.com;
- dkim=pass header.d=dell.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Dell.onmicrosoft.com; 
- s=selector1-Dell-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=pfd8/OBRjw4PZlEhzN0C+iwSn2NknCR79mcf2Kw8QTE=;
- b=qEJM2TpNtXVQp1S6Ki/cd48UhhLdQMhBbohDSSZOBK2OBzZdqpQLN4YhEHRCGUhbTGP0zozASlVgciqQrsxj1rddG28+lRfX0dp+ANQtdHW+2MRpUK0yrJ68OS/QCHvhkZ59kUySXYAUmlAVekGilSYFX9mw7bPC94ByqQ2tG7U=
-Received: from SA1PR19MB4926.namprd19.prod.outlook.com (2603:10b6:806:1a6::18)
- by SA1PR19MB5183.namprd19.prod.outlook.com (2603:10b6:806:1a2::11)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3721.22; Mon, 4 Jan
- 2021 19:31:19 +0000
-Received: from SA1PR19MB4926.namprd19.prod.outlook.com
- ([fe80::e14a:eb33:4847:6cba]) by SA1PR19MB4926.namprd19.prod.outlook.com
- ([fe80::e14a:eb33:4847:6cba%3]) with mapi id 15.20.3721.024; Mon, 4 Jan 2021
- 19:31:19 +0000
-From: "Limonciello, Mario" <Mario.Limonciello@dell.com>
-To: "Yuan, Perry" <Perry.Yuan@dell.com>, Mark Brown <broonie@kernel.org>
-Subject: RE: [PATCH v2 2/2] ASoC: rt715:add Mic Mute LED control support
-Thread-Topic: [PATCH v2 2/2] ASoC: rt715:add Mic Mute LED control support
-Thread-Index: AQHW3R7JM+4Y3CMF4UaqpPGWNyPaH6oOBVuAgAkzNoCAAK0ucA==
-Date: Mon, 4 Jan 2021 19:31:19 +0000
-Message-ID: <SA1PR19MB4926A0A6E5ACE68DAC8346EDFAD20@SA1PR19MB4926.namprd19.prod.outlook.com>
-References: <20201228133831.17464-1-Perry_Yuan@Dell.com>
- <20201229124033.GC4786@sirena.org.uk>
- <SJ0PR19MB4528A021F3C0528ABE5F324984D20@SJ0PR19MB4528.namprd19.prod.outlook.com>
-In-Reply-To: <SJ0PR19MB4528A021F3C0528ABE5F324984D20@SJ0PR19MB4528.namprd19.prod.outlook.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_17cb76b2-10b8-4fe1-93d4-2202842406cd_Enabled=True;
- MSIP_Label_17cb76b2-10b8-4fe1-93d4-2202842406cd_SiteId=945c199a-83a2-4e80-9f8c-5a91be5752dd;
- MSIP_Label_17cb76b2-10b8-4fe1-93d4-2202842406cd_Owner=Mario_Limonciello@Dell.com;
- MSIP_Label_17cb76b2-10b8-4fe1-93d4-2202842406cd_SetDate=2021-01-04T19:31:19.7293257Z;
- MSIP_Label_17cb76b2-10b8-4fe1-93d4-2202842406cd_Name=External Public;
- MSIP_Label_17cb76b2-10b8-4fe1-93d4-2202842406cd_Application=Microsoft Azure
- Information Protection;
- MSIP_Label_17cb76b2-10b8-4fe1-93d4-2202842406cd_ActionId=a5ead022-90a4-4dd1-92d8-5ed693366d6e;
- MSIP_Label_17cb76b2-10b8-4fe1-93d4-2202842406cd_Extended_MSFT_Method=Manual
-authentication-results: Dell.com; dkim=none (message not signed)
- header.d=none;Dell.com; dmarc=none action=none header.from=Dell.com;
-x-originating-ip: [76.251.167.31]
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: 1f9ca77d-8bd4-47dd-bc1d-08d8b0e74f98
-x-ms-traffictypediagnostic: SA1PR19MB5183:
-x-ms-exchange-transport-forked: True
-x-microsoft-antispam-prvs: <SA1PR19MB51837E26756881914E9695BBFAD20@SA1PR19MB5183.namprd19.prod.outlook.com>
-x-exotenant: 2khUwGVqB6N9v58KS13ncyUmMJd8q4
-x-ms-oob-tlc-oobclassifiers: OLM:9508;
-x-ms-exchange-senderadcheck: 1
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: xG+c13AZgmUQ8OtvULsCFd3yN8jH72Blj7LKC44dtcjw74+1IqUvQhHbOQycP9IltOFEs/SrWSCEUqZg/v7m8OyH0y4jQXX9iC51cyL8BRXeepLueBuWMRfNnwxgkCR9BC5FJgm12PhTxNOSHCYD16V0T5WqKMwtoyBiNkcCKNTnLrzshML8OgSraWIZL0BU/lLdhm0VgaBKNXJED8fBOlNRGdSUKaEciN+agpAKy6xGWRUARAHJ+a57a1gqLWINppQWdkHovYcBSLxPhvKEzSkpGYGKww4TzDOLOMxMDtrukcnwFIuzMK+1YPJfLTzkmP4PFl855QBJX2uIZdYEPoaSKzTw3hW9aCXDBGu9OAyTAfJ8lsf7ObxUzQhQl0kl/C2N705oV/UquUjtv4zJTQ==
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:SA1PR19MB4926.namprd19.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(39860400002)(366004)(346002)(396003)(136003)(376002)(316002)(8936002)(26005)(110136005)(54906003)(66946007)(786003)(4326008)(9686003)(55016002)(186003)(86362001)(7696005)(5660300002)(478600001)(83380400001)(6506007)(33656002)(66476007)(53546011)(76116006)(66446008)(66556008)(64756008)(2906002)(8676002)(71200400001)(52536014);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata: =?us-ascii?Q?aOFFPnaJKA2fVop3t5j+Dy+0MAf5JHBjSbKN6WPPT7PP5toZeDAPo3xBgMxm?=
- =?us-ascii?Q?98yw2miGg+NdbBznAIz7Fe+xqnjIKvGjIPSeJyBEJWB5oH0CA+m7jAlp+zpI?=
- =?us-ascii?Q?D8YRRuY1lDkLmoDvtrdyLxMHVilzsLRw9ur+6meNvRay+mm/GQF/voc4wzMZ?=
- =?us-ascii?Q?0eI+TQG1x9JTbn/dpjr5pQ7aHbOsKdWkReNqPPNWWLSnWx5OiQzWIXNDM8ke?=
- =?us-ascii?Q?O8NGaPkIhisqDaxLdTR+85Yap4dF/t2UANhqQIlqZKHHNRJibey4e2wpZMjQ?=
- =?us-ascii?Q?WkgaiomiVyKL6K5BGJxgmIp088RlOdJ2eI2WZJcYsvbL1BALRHEADBduL7Ax?=
- =?us-ascii?Q?DGhJFn+W/Wn6r/u4sttANOOnEAVmQcQYnbwNGeSfY32QLKZFKxzpxnIkUObb?=
- =?us-ascii?Q?vjaA7SejReGZpv/rMjq5RseUrNSNFE34sEBT/KtVL8UF8/cdo+gwQmkq/uDz?=
- =?us-ascii?Q?5F4oqzpKIRsVyGfVLx7VPVl8ub1YGTiIg1NcUgoYUJXYdd0/rEpfaJ1m9BxY?=
- =?us-ascii?Q?VWh739+RFhIF7Siapd7uCC+6yh7V2cC5zf7KIH2qiLafbcgKQK+akmCH4pZX?=
- =?us-ascii?Q?NlMD7WpInOMv0tt4tKFcA1AXYFy6d/RFvbxZgqHdqxt4NgWeKZP2iR49w5pJ?=
- =?us-ascii?Q?J+VcRpuzwJrxXeTGG9ODh0fKIUYeDeE9Any1M4j/mz2Yq69E/CAdMvIUHKjk?=
- =?us-ascii?Q?9mBOgtL1srllofBnuuDjWAIZC17qgsy4hfqMBmtfi94Fm7lbXR8hHm3RWfp/?=
- =?us-ascii?Q?ZsW0IRVZ3RnoHGpPi9cybhEnFh64OH3/UHnDPTr8jeK5+9OlBM/MwDIPd06Q?=
- =?us-ascii?Q?5AsMCVed76/BPChJrh/a/K2o+HgZLvnTzROkD3njeJYNvQY/ypfHdi9NYFjT?=
- =?us-ascii?Q?hG94nx+f9G17hbL7ju7SuEXYtliUSkvrDB48t5j6znWP4XKlhcb1fJ8qrDZw?=
- =?us-ascii?Q?D4eFj2T9lDyMX3tcbmnP+760fNVFotPx6yEjM2QyjbI=3D?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+ dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="Ry6zT4PV"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 66F7421919;
+ Mon,  4 Jan 2021 21:19:56 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1609795196;
+ bh=E7g2U+SvOmE1Xw5CMic8FCeXkufHPLDtW4XNdpKvxvM=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=Ry6zT4PVSKjhC0GhVl9JkFTWwDVA4CFPTW4DzBiJFLKbVqXiuKIUGYe3Rq/O1drpl
+ EPQb90QsdrlfLy4sGxkxol0wN4qVE3WvkU6LNrvbs7QQftDwLguZE9tTk44TNH5pJs
+ kXiwEQjfwE+CiAoDGTjCcL7hbnCJFGGFRyxM6q+unzA73TIbzYIIM7DcuDRsvMdNEZ
+ YFhKzAAxcs1B3gBa1lEveHV4tXSi8j7+JQGc6uf3a1djoDn1YiUFK7kmS2OlNSRB7B
+ aU6VCEhdOkY6X3YADzC4TItFeZL/jjEBHP02DmGnACyZzPVzoYzOuSWM8iZAUF6sNt
+ AmLuZ6TvW8LWg==
+Date: Mon, 4 Jan 2021 21:19:30 +0000
+From: Mark Brown <broonie@kernel.org>
+To: Jason Gunthorpe <jgg@nvidia.com>
+Subject: Re: [resend/standalone PATCH v4] Add auxiliary bus support
+Message-ID: <20210104211930.GI5645@sirena.org.uk>
+References: <20201218131709.GA5333@sirena.org.uk>
+ <20201218140854.GW552508@nvidia.com>
+ <20201218155204.GC5333@sirena.org.uk>
+ <20201218162817.GX552508@nvidia.com>
+ <20201218180310.GD5333@sirena.org.uk>
+ <20201218184150.GY552508@nvidia.com>
+ <20201218203211.GE5333@sirena.org.uk>
+ <20201218205856.GZ552508@nvidia.com>
+ <20201221185140.GD4521@sirena.org.uk>
+ <20210104180831.GD552508@nvidia.com>
 MIME-Version: 1.0
-X-OriginatorOrg: Dell.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: SA1PR19MB4926.namprd19.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1f9ca77d-8bd4-47dd-bc1d-08d8b0e74f98
-X-MS-Exchange-CrossTenant-originalarrivaltime: 04 Jan 2021 19:31:19.1004 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 945c199a-83a2-4e80-9f8c-5a91be5752dd
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: EkwGkTFNnGk/aUljGYT/I1UIlf0Nm2eR0ehbQMKAV1x9csi+4UR+KliBXDZmjzNjOyan0ClXQKsnlj5ioTRehbYRMUV9EwgGMdztztv4PNo=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR19MB5183
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.343, 18.0.737
- definitions=2021-01-04_12:2021-01-04,
- 2021-01-04 signatures=0
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- lowpriorityscore=0
- spamscore=0 malwarescore=0 phishscore=0 mlxlogscore=812 bulkscore=0
- priorityscore=1501 impostorscore=0 adultscore=0 mlxscore=0 clxscore=1011
- suspectscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.12.0-2009150000 definitions=main-2101040123
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 mlxscore=0
- spamscore=0 adultscore=0
- phishscore=0 malwarescore=0 mlxlogscore=924 suspectscore=0 bulkscore=0
- classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2009150000
- definitions=main-2101040123
-Cc: "oder_chiou@realtek.com" <oder_chiou@realtek.com>,
- "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "lgirdwood@gmail.com" <lgirdwood@gmail.com>, "tiwai@suse.com" <tiwai@suse.com>
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="l0l+eSofNeLXHSnY"
+Content-Disposition: inline
+In-Reply-To: <20210104180831.GD552508@nvidia.com>
+X-Cookie: Stupidity is its own reward.
+User-Agent: Mutt/1.10.1 (2018-07-13)
+Cc: Alexandre Belloni <alexandre.belloni@bootlin.com>, lee.jones@linaro.org,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ Kiran Patil <kiran.patil@intel.com>, Liam Girdwood <lgirdwood@gmail.com>,
+ linux-rdma <linux-rdma@vger.kernel.org>, Greg KH <gregkh@linuxfoundation.org>,
+ Martin Habets <mhabets@solarflare.com>, alsa-devel@alsa-project.org,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ Fred Oh <fred.oh@linux.intel.com>, Netdev <netdev@vger.kernel.org>,
+ Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
+ Jakub Kicinski <kuba@kernel.org>, Dave Ertman <david.m.ertman@intel.com>,
+ Dan Williams <dan.j.williams@intel.com>,
+ Shiraz Saleem <shiraz.saleem@intel.com>, David Miller <davem@davemloft.net>,
+ Leon Romanovsky <leonro@nvidia.com>, Parav Pandit <parav@mellanox.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -198,47 +101,163 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-> -----Original Message-----
-> From: Yuan, Perry <Perry_Yuan@Dell.com>
-> Sent: Monday, January 4, 2021 3:10
-> To: Mark Brown
-> Cc: oder_chiou@realtek.com; perex@perex.cz; tiwai@suse.com;
-> lgirdwood@gmail.com; alsa-devel@alsa-project.org; linux-
-> kernel@vger.kernel.org; Limonciello, Mario
-> Subject: RE: [PATCH v2 2/2] ASoC: rt715:add Mic Mute LED control support
->=20
-> > -----Original Message-----
-> > From: Mark Brown <broonie@kernel.org>
-> > Sent: Tuesday, December 29, 2020 8:41 PM
-> > To: Yuan, Perry
-> > Cc: oder_chiou@realtek.com; perex@perex.cz; tiwai@suse.com;
-> > lgirdwood@gmail.com; alsa-devel@alsa-project.org; linux-
-> > kernel@vger.kernel.org; Limonciello, Mario
-> > Subject: Re: [PATCH v2 2/2] ASoC: rt715:add Mic Mute LED control suppor=
-t
-> >
-> > On Mon, Dec 28, 2020 at 09:38:31PM +0800, Perry Yuan wrote:
-> > > From: Perry Yuan <perry_yuan@dell.com>
-> > >
-> > > Some new Dell system is going to support audio internal micphone
-> > > privacy setting from hardware level with micmute led state changing
-> >
-> > I'm missing patch 1 of this series - what's the story with dependencies=
- and
-> so
-> > on?
->=20
-> HI Mark:
-> Sorry to make this confused.
-> The two patches are not in the same module, I use different cc list for e=
-ach
-> patch.
-> I will send another v3 looping all the cc list and some new improvement.
->=20
 
-Since the patches span subsystems and have a dependency, once reviewers are=
- happy I
-think we'll have to get an agreement of which subsystem to bring them throu=
-gh.  So
-yes, please keep all CC list the same for both patches for now when you sub=
-mit v3.
+--l0l+eSofNeLXHSnY
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+
+On Mon, Jan 04, 2021 at 02:08:31PM -0400, Jason Gunthorpe wrote:
+> On Mon, Dec 21, 2020 at 06:51:40PM +0000, Mark Brown wrote:
+
+> > BTW I did have a bit of a scan through some of the ACPI devices and
+> > for a good proportion of them it seems fairly clear that they are
+> > not platform devices at all - they were mostly interacting with ACPI
+> > firmware functionality rather than hardware, something you can't
+> > really do with FDT at all.
+
+> Right, that is kind of the point. We also have cases where ACPI
+> devices are just an ioresource list and don't have any special
+> ACPIness. IIRC DT has a similar issue where there are DT drivers that
+> just don't work without the OF stuff. Why are they platform drivers?
+
+There *might* be some very legacy ones for actual OF systems but that's
+not really at all a thing for FDT which is essentially all DT usage at
+this point - to the extent that things won't work it's due to the
+non-enumarability of the hardware so it's just a question of where the
+data comes from rather than one of communicating with a firmware (and
+for more generic things like GPIOs exactly where the data comes from
+ends up abstracted away from the driver anyway which is all some devices
+need).  The idiom with DT is more that it's just a different way of
+filling out the data you'd get from a board file, it's not a runtime
+thing like ACPI.
+
+> We fake this idea out by being able to convert platform to DT and OF,
+> but if platform is to be the universal device then why do we have PCI
+> device and not a 'platform to pci' operator instead? None of this is
+> consistent.
+
+If it were more common for there to be IPs that appear as both PCI and
+platform devices (Intel do it a bit but otherwise it's quite rare) I'd
+guess we would actually have helpers for that translation.
+
+> Regardless of the shortcut to make everything a struct
+> platform_device, I think it was a mistake to put OF devices on
+> platform_bus. Those should have remained on some of_bus even if they
+
+Like I keep saying the same thing applies to all non-enumerable buses -
+exactly the same considerations exist for all the other buses like I2C
+(including the ACPI naming issue you mention below), and for that matter
+with enumerable buses which can have firmware info.
+
+> are represented by struct platform_device and fiddling in the core
+> done to make that work OK.
+
+What exactly is the fiddling in the core here, I'm a bit unclear?
+
+> I agree with this, IMHO there is no really cohesive explanation for
+> when to create a bus vs use the "universal bus" (platform) that can
+> also explain the things platform is already doing.
+
+> This feels like a good conference topic someday..
+
+We should have this discussion *before* we get too far along with trying
+to implement things, we should at least have some idea where we want to
+head there.
+
+> > Personally I'm even struggling to identify a practical problem that
+> > we're trying to solve here.  Like Alexandre says what would an
+> > mfd_driver actually buy us?
+
+> Well, there is the minor issue of name collision eg
+> /sys/bus/XX/devices/* must list all devices in the system with no
+> collisions.
+
+> The owner of the bus is supposed to define the stable naming scheme
+> and all the devices are supposed to follow it. platform doesn't have
+> this:
+
+> $ ls /sys/bus/platform/devices/
+>  ACPI000C:00	     dell-smbios.0	'Fixed MDIO bus.0'   INT33A1:00         m=
+icrocode     PNP0C04:00   PNP0C0B:03   PNP0C14:00
+>  alarmtimer.0.auto   dell-smbios.1	 GHES.0		     intel_rapl_msr.0   MSFT0=
+101:00   PNP0C0B:00   PNP0C0B:04   PNP0C14:01
+>  coretemp.0	     efi-framebuffer.0	 GHES.1		     iTCO_wdt	        pcspkr	=
+      PNP0C0B:01   PNP0C0C:00   reg-dummy
+>  dcdbas		     eisa.0		 INT0800:00	     kgdboc	        PNP0103:00    PNP0C=
+0B:02   PNP0C0E:00   serial8250
+
+> Why are ACPI names in here? It looks like "because platform drivers
+> were used to bind to ACPI devices"=20
+
+I think we decided that the ACPI namespace was sufficiently divergent
+=66rom our general conventions that we could just safely use the string,
+ICBW though.
+
+> > I have some bad news for you about the hardware description problem
+> > space.  Among other things we have a bunch of platform devices that
+> > don't have any resources exposed through the resource API but are still
+> > things like chips on a board, doing some combination of exposing
+> > resources for other devices (eg, a fixed voltage regulator) and
+> > consuming things like clocks or GPIOs that don't appear in the resource
+> > API.
+
+> So in these cases how do I use the generic platform bus API to find
+> the GPIOs, regulators, and so on to connect with?
+
+> If drivers take a platform device and immediately covert it to an OF
+> object and use OF APIs to find those connections then it really
+> *never* was a platform device in the first place and coding an OF
+> driver as platform is an abuse.
+
+Those APIs all take a struct device for lookup so it's the same call for
+looking things up regardless of the bus the device is on or what
+firmware the system is using - where there are firmware specific lookup
+functions they're generally historical and shouldn't be used for new
+code.  It's generally something in the form
+
+	api_type *api_get(struct device *dev, const char *name);
+
+with the strings being defined according to something in the hardware
+spec so there's a good chance of them working generically (and
+realistically it's only DT that's actually putting these names in
+firmware, otherwise it's just board files that we totally control, so
+this really is fine).
+
+> A decent step would be to accept that 'platform_device' is something
+> weird and special and split its bus_type. Only devices created
+> direclty in C code should be on the platform_bus, OF/ACPI/etc should
+> all be on their own bus_types, even though they all use the same
+> 'struct platform_bus'
+
+=2E..and then do the same thing for every other bus with firmware
+bindings.  If it's about the firmware interfaces it really isn't a
+platform bus specific thing.  It's not clear to me if that's what it is
+though or if this is just some tangent.
+
+> > that but it is not clear what the upside of doing that would be,
+> > especially given the amount of upheval it would generate and the
+> > classification issues that will inevitably result.
+
+> Well, I think the upside for existing is very small, but I would like
+> to see a shared idea about how to answer questions like 'when should I
+> use a existing device type' and 'when should I make a new device type'.
+
+Yes, very much so.
+
+--l0l+eSofNeLXHSnY
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl/zhmEACgkQJNaLcl1U
+h9CC1Af/W6qT0dhp0UsFJwoF36YD6R1ez1NBi/iFRJs6c2jlc19nvoyzAwQSbuk4
+bO4YCjRfXM4GlFVailFSw+eJMJv1U6D00AdrYKZRUeO+S91I4rI5ID/37M8WWY5C
+W5uusTAYNn/TTsrrWdT8QqOEjGjLZv9mDYJaTpauZhwbnjVovZkC0JZUAUfpQAYN
+WOyGecFCclyk8JIY4EU0GzihaaJC7PD0kdc7lqV52i4kIkTRCWHlWdULcwTrz9C0
+UyMa7I8k8lbRXbKp7J7jrYz2Ug9/QiIhfsV27Ytgl0/DvhEdL+WilU4hnKmZ2ums
+z4DU3MTubqoDXkZ+nCT3UJ4xVgU/uQ==
+=tjQX
+-----END PGP SIGNATURE-----
+
+--l0l+eSofNeLXHSnY--

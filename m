@@ -2,102 +2,87 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C653E2EA3CC
-	for <lists+alsa-devel@lfdr.de>; Tue,  5 Jan 2021 04:14:52 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2CD4A2EA572
+	for <lists+alsa-devel@lfdr.de>; Tue,  5 Jan 2021 07:32:44 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 3FCED1666;
-	Tue,  5 Jan 2021 04:13:56 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3FCED1666
+	by alsa0.perex.cz (Postfix) with ESMTPS id AA6361676;
+	Tue,  5 Jan 2021 07:31:48 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AA6361676
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1609816487;
-	bh=yvoSzg344dN/N+DqfiYgrY7pc/I34P5dAbpEpkhBIJI=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
+	s=default; t=1609828358;
+	bh=it6t+8n8vyDORX1wRCYhRSmF/edjbso4T9TfC+IVIdk=;
+	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=uRMe5pCMFgx+9i8khGwORtrjckKqPdM6vFBwEsu+QtZylziyJdaf7glFKav8ZplRu
-	 nzM60DbQjcSE1ToFEygk1I51NfR0lXnx8zzNjmRrGsITMxm8qLM9FzO+fyta61Os2J
-	 Mg9aSIUU6BblULHCfsEhLKcZ3/ns6P9YiTZEuDuY=
+	b=VjaLmxbwOJad44vagL74c+dghyBZIHZOq1k5vQb1lSzTT/Q7UctkZAe27bLImwL/n
+	 dmjh9tGpjNzwLi26woYLbhmEzE0OGWy/lDft/Ah2XkCD+983kksOZ/pHbkqqHfAHiQ
+	 xyaYKsoTLgDbrSptURurUcLHhVvgCPkZYcEGJeb4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 35751F800FD;
-	Tue,  5 Jan 2021 04:13:09 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 175E7F8012B;
+	Tue,  5 Jan 2021 07:31:05 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 62E07F80258; Tue,  5 Jan 2021 04:13:06 +0100 (CET)
+ id BE9C0F80258; Tue,  5 Jan 2021 07:31:01 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mail-ej1-x633.google.com (mail-ej1-x633.google.com
- [IPv6:2a00:1450:4864:20::633])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=-0.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from hqnvemgate24.nvidia.com (hqnvemgate24.nvidia.com
+ [216.228.121.143])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id CB822F8012B
- for <alsa-devel@alsa-project.org>; Tue,  5 Jan 2021 04:12:56 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CB822F8012B
+ by alsa1.perex.cz (Postfix) with ESMTPS id F343DF8012B
+ for <alsa-devel@alsa-project.org>; Tue,  5 Jan 2021 07:30:51 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz F343DF8012B
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=intel-com.20150623.gappssmtp.com
- header.i=@intel-com.20150623.gappssmtp.com header.b="rQJxNXH+"
-Received: by mail-ej1-x633.google.com with SMTP id d17so39393914ejy.9
- for <alsa-devel@alsa-project.org>; Mon, 04 Jan 2021 19:12:56 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=intel-com.20150623.gappssmtp.com; s=20150623;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=yvoSzg344dN/N+DqfiYgrY7pc/I34P5dAbpEpkhBIJI=;
- b=rQJxNXH+GsHO6zvvAN5QlpD7RI9zvbxjhJhWT5bkV5oIVVbWJZULG+2WWV/lEPCGPb
- 5LE9xwHUQp0sZ1hLMQf29jNLuIQZzVSzp8+Us0QEWtzd8y1GcaQ94MRaxCxsNS9qwF8U
- arYIf7Qri4YXmEU4dAVC5ouH+3+/w53ZK0cRc2Zgz5k5cI89Vmc2Bwn1F4cqsfRs7nHN
- ACSKhEPrnZS9J6vx+5lKjYWXuQ1gG6FXAXPsdtyEqEvKfkAacpVqZ1MHVWBPbOXHi7Zv
- an26E0lvekKWUDEGvpluK3itPhuYNM9RJIs9AkkkeMyy7TOAKGTfbWMrOsacHHDv4UP5
- FGXQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=yvoSzg344dN/N+DqfiYgrY7pc/I34P5dAbpEpkhBIJI=;
- b=bO1pFCeHgELPCpMiOSiNY8Xo47c/kWH5jkW581kXYlj1dakQs09pgvNBUeALCtodu9
- BSXg/sP4tCrAAcNWT3hdMB+XevqeaMlLKylnHfKCVID0+AX2NLoaUjS8YZKuASI3DcVa
- M3RI7UVldEP63ItS3WcdZJXBS4rmDipzt4oHYCrfqZsmRabxObwwkmGGaWmj7qyqOMB4
- mHZ/6aR7xgTkj/KGQjLpclBnBJsmrZdCCCq+fvpsvsdJbs5mHXqZUpZ5ibv7F4juofHA
- eX4jh7bJNymtnoK50NEZmYCZ9kYeChUxXs66stHqKhm+0OZpmZ36NnYVbrvh7M1VtxJQ
- MSaQ==
-X-Gm-Message-State: AOAM531hgIFnAoJyAuNJTbVz1SPJxTQHJU/jvk8juOddgSwqXmGWDnmB
- 1OWGNOmyzF/33z1Qw/I6tKLRNZ+QS/MvGo0bc7DWww==
-X-Google-Smtp-Source: ABdhPJxWhopuC35KPwfnKawh6cLcwSxhekWmpZrV2rdkrXYdZ1KZfaRVhs2RbvUV5dzGgIZtqDT24zcxcDmDY6YjXwA=
-X-Received: by 2002:a17:906:a3c7:: with SMTP id
- ca7mr71056515ejb.523.1609816374613; 
- Mon, 04 Jan 2021 19:12:54 -0800 (PST)
+ dkim=pass (2048-bit key) header.d=nvidia.com header.i=@nvidia.com
+ header.b="VRFUKKcl"
+Received: from hqmail.nvidia.com (Not Verified[216.228.121.13]) by
+ hqnvemgate24.nvidia.com (using TLS: TLSv1.2, AES256-SHA)
+ id <B5ff407920000>; Mon, 04 Jan 2021 22:30:42 -0800
+Received: from [10.25.100.71] (172.20.145.6) by HQMAIL107.nvidia.com
+ (172.20.187.13) with Microsoft SMTP Server (TLS) id 15.0.1473.3; Tue, 5 Jan
+ 2021 06:30:35 +0000
+Subject: Re: [PATCH 2/2] ALSA: hda/tegra: fix tegra-hda on tegra30 soc
+To: Peter Geis <pgwipeout@gmail.com>, Michael Turquette
+ <mturquette@baylibre.com>, Stephen Boyd <sboyd@kernel.org>, "Peter De
+ Schrijver" <pdeschrijver@nvidia.com>, Prashant Gaikwad <pgaikwad@nvidia.com>, 
+ Thierry Reding <thierry.reding@gmail.com>, Jonathan Hunter
+ <jonathanh@nvidia.com>, Jaroslav Kysela <perex@perex.cz>, Takashi Iwai
+ <tiwai@suse.com>, Mohan Kumar <mkumard@nvidia.com>
+References: <20201225012025.507803-1-pgwipeout@gmail.com>
+ <20201225012025.507803-3-pgwipeout@gmail.com>
+From: Sameer Pujar <spujar@nvidia.com>
+Message-ID: <0c3665b2-bac6-546a-bdd4-0ab7a90adf7c@nvidia.com>
+Date: Tue, 5 Jan 2021 12:00:29 +0530
+User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:68.0) Gecko/20100101
+ Thunderbird/68.12.0
 MIME-Version: 1.0
-References: <20201218162817.GX552508@nvidia.com>
- <20201218180310.GD5333@sirena.org.uk>
- <20201218184150.GY552508@nvidia.com> <20201218203211.GE5333@sirena.org.uk>
- <20201218205856.GZ552508@nvidia.com> <20201221185140.GD4521@sirena.org.uk>
- <20210104180831.GD552508@nvidia.com> <20210104211930.GI5645@sirena.org.uk>
- <20210105001341.GL552508@nvidia.com>
- <CAPcyv4gxprMo1LwGTqGDyN-z2TrXLcAvJ3AN9-fbUs6y-LwXeA@mail.gmail.com>
- <20210105015314.GM552508@nvidia.com>
-In-Reply-To: <20210105015314.GM552508@nvidia.com>
-From: Dan Williams <dan.j.williams@intel.com>
-Date: Mon, 4 Jan 2021 19:12:47 -0800
-Message-ID: <CAPcyv4jAAC01rktNadUPv9jDRCOcDEO22uAOHXobpJ7TqAbp1w@mail.gmail.com>
-Subject: Re: [resend/standalone PATCH v4] Add auxiliary bus support
-To: Jason Gunthorpe <jgg@nvidia.com>
-Content-Type: text/plain; charset="UTF-8"
-Cc: Alexandre Belloni <alexandre.belloni@bootlin.com>,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- Kiran Patil <kiran.patil@intel.com>, alsa-devel@alsa-project.org,
- David Miller <davem@davemloft.net>, linux-rdma <linux-rdma@vger.kernel.org>,
- Greg KH <gregkh@linuxfoundation.org>, Martin Habets <mhabets@solarflare.com>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- Liam Girdwood <lgirdwood@gmail.com>, Fred Oh <fred.oh@linux.intel.com>,
- Mark Brown <broonie@kernel.org>,
- Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
- Jakub Kicinski <kuba@kernel.org>, Dave Ertman <david.m.ertman@intel.com>,
- Lee Jones <lee.jones@linaro.org>, Shiraz Saleem <shiraz.saleem@intel.com>,
- Netdev <netdev@vger.kernel.org>, Leon Romanovsky <leonro@nvidia.com>,
- Parav Pandit <parav@mellanox.com>
+In-Reply-To: <20201225012025.507803-3-pgwipeout@gmail.com>
+Content-Type: text/plain; charset="utf-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+Content-Language: en-GB
+X-Originating-IP: [172.20.145.6]
+X-ClientProxiedBy: HQMAIL101.nvidia.com (172.20.187.10) To
+ HQMAIL107.nvidia.com (172.20.187.13)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nvidia.com; s=n1;
+ t=1609828242; bh=+TbvEK70pgMeNJJMJSEFAbEVqczYIlNcn1A6iMFsvnE=;
+ h=Subject:To:CC:References:From:Message-ID:Date:User-Agent:
+ MIME-Version:In-Reply-To:Content-Type:Content-Transfer-Encoding:
+ Content-Language:X-Originating-IP:X-ClientProxiedBy;
+ b=VRFUKKclHq/2JaUXtTHG2IvmplsF4cEUVv+dvwRSHRNg9oDsK0HASEjYbR6dysveJ
+ hz5IEXn8h96NnUF4hw650hWsM4Npsn1Q4peEf6yOgPD5qf4KBoqdwEgr3HOkuJjq6y
+ VCtU5PeVRothSPjDO0pAphq5l/bCRR9zQJN63G16mcpuvtnto5XS8ixo4mLJ+jwNpi
+ TdOmEkn9RRteF8QEWVSIY+Zmc1Dc45G0uZGJZ1+fejUs+ll5D5OLqTmF1g2+wfsmA7
+ H3nO6isudhca8rAGTYv6fJmmoLWKKideLZldwEPmvKcwps3+951MupvV78dc/hPtud
+ Y2qtuKU+3NpnA==
+Cc: linux-tegra@vger.kernel.org, alsa-devel@alsa-project.org,
+ Ion Agorria <ion@agorria.com>, linux-clk@vger.kernel.org,
+ linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -113,66 +98,78 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Mon, Jan 4, 2021 at 5:53 PM Jason Gunthorpe <jgg@nvidia.com> wrote:
+
+
+On 12/25/2020 6:50 AM, Peter Geis wrote:
+> External email: Use caution opening links or attachments
 >
-> On Mon, Jan 04, 2021 at 04:51:51PM -0800, Dan Williams wrote:
-> > On Mon, Jan 4, 2021 at 4:14 PM Jason Gunthorpe <jgg@nvidia.com> wrote:
-> > >
-> > > On Mon, Jan 04, 2021 at 09:19:30PM +0000, Mark Brown wrote:
-> > >
-> > >
-> > > > > Regardless of the shortcut to make everything a struct
-> > > > > platform_device, I think it was a mistake to put OF devices on
-> > > > > platform_bus. Those should have remained on some of_bus even if they
-> > > >
-> > > > Like I keep saying the same thing applies to all non-enumerable buses -
-> > > > exactly the same considerations exist for all the other buses like I2C
-> > > > (including the ACPI naming issue you mention below), and for that matter
-> > > > with enumerable buses which can have firmware info.
-> > >
-> > > And most busses do already have their own bus type. ACPI, I2C, PCI,
-> > > etc. It is just a few that have been squished into platform, notably
-> > > OF.
-> > >
-> >
-> > I'll note that ACPI is an outlier that places devices on 2 buses,
-> > where new acpi_driver instances are discouraged [1] in favor of
-> > platform_drivers. ACPI scan handlers are awkwardly integrated into the
-> > Linux device model.
-> >
-> > So while I agree with sentiment that an "ACPI bus" should
-> > theoretically stand on its own there is legacy to unwind.
-> >
-> > I only bring that up to keep the focus on how to organize drivers
-> > going forward, because trying to map some of these arguments backwards
-> > runs into difficulties.
-> >
-> > [1]: http://lore.kernel.org/r/CAJZ5v0j_ReK3AGDdw7fLvmw_7knECCg2U_huKgJzQeLCy8smug@mail.gmail.com
 >
-> Well, this is the exact kind of thing I think we are talking about
-> here..
+> Currently hda on tegra30 fails to open a stream with an input/output error.
+> This is similar to the issue referenced in [1].
 >
-> > > It should be split up based on the unique naming scheme and any bus
-> > > specific API elements - like raw access to ACPI or OF data or what
-> > > have you for other FW bus types.
-> >
-> > I agree that the pendulum may have swung too far towards "reuse
-> > existing bus_type", and auxiliary-bus unwinds some of that, but does
-> > the bus_type really want to be an indirection for driver apis outside
-> > of bus-specific operations?
+> For example:
+> speaker-test -Dhw:0,3 -c 2
 >
-> If the bus is the "enumeration entity" and we define that things like
-> name, resources, gpio's, regulators, etc are a generic part of what is
-> enumerated, then it makes sense that the bus would have methods
-> to handle those things too.
+> speaker-test 1.2.2
 >
-> In other words, the only way to learn what GPIO 'resource' is to ask
-> the enumeration mechnism that is providing the bus. If the enumeration
-> and bus are 1:1 then you can use a function pointer on the bus type
-> instead of open coding a dispatch based on an indirect indication.
+> Playback device is hw:0,3
+> Stream parameters are 48000Hz, S16_LE, 2 channels
+> Using 16 octaves of pink noise
+> Rate set to 48000Hz (requested 48000Hz)
+> Buffer size range from 64 to 16384
+> Period size range from 32 to 8192
+> Using max buffer size 16384
+> Periods = 4
+> was set period_size = 4096
+> was set buffer_size = 16384
+>   0 - Front Left
+> Write error: -5,Input/output error
+> xrun_recovery failed: -5,Input/output error
+> Transfer failed: Input/output error
+>
+> [1] states "Due to a legacy HW design problem", implying the issue applies to all previous tegra-hda devices.
+> The tegra-hda device was introduced in tegra30 but only utilized in tegra124 until now.
+> For this reason it is unknown when this issue first manifested.
+>
+> Applying the fix in [1] universally resolves this issue on tegra30.
+> Tested on the Ouya game console and the tf201 tablet.
+>
+> [1] 60019d8c650d ("ALSA: hda/tegra: workaround playback failure on Tegra194")
+
+This issue was never seen on Tegra210/Tegra186 and hence at that time it 
+was thought to be specific to Tegra194. I never tested this on Tegra30 
+since I don't have this device. I will clarify this with HW folks if 
+workaround is safer for all chips.
+
+>
+> Signed-off-by: Peter Geis <pgwipeout@gmail.com>
+> Tested-by: Ion Agorria <ion@agorria.com>
+> ---
+>   sound/pci/hda/hda_tegra.c | 3 +--
+>   1 file changed, 1 insertion(+), 2 deletions(-)
+>
+> diff --git a/sound/pci/hda/hda_tegra.c b/sound/pci/hda/hda_tegra.c
+> index 70164d1428d4..f8d61e677a09 100644
+> --- a/sound/pci/hda/hda_tegra.c
+> +++ b/sound/pci/hda/hda_tegra.c
+> @@ -388,8 +388,7 @@ static int hda_tegra_first_init(struct azx *chip, struct platform_device *pdev)
+>           * in powers of 2, next available ratio is 16 which can be
+>           * used as a limiting factor here.
+>           */
+> -       if (of_device_is_compatible(np, "nvidia,tegra194-hda"))
+> -               chip->bus.core.sdo_limit = 16;
+> +       chip->bus.core.sdo_limit = 16;
+
+Future Tegra chips address this problem and hence cannot be enforced by 
+default. May be we can have like below:
+
+if (of_device_is_compatible(np, "nvidia,tegra30-hda"))
+chip->bus.core.sdo_limit = 16;
+
+>
+>          /* codec detection */
+>          if (!bus->codec_mask) {
+> --
+> 2.25.1
 >
 
-I get that, but I'm fearing a gigantic bus_ops structure that has
-narrow helpers like ->gpio_count() that mean nothing to the many other
-clients of the bus. Maybe I'm overestimating the pressure there will
-be to widen the ops structure at the bus level.

@@ -2,73 +2,125 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B730F2EACF9
-	for <lists+alsa-devel@lfdr.de>; Tue,  5 Jan 2021 15:09:43 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id E37CD2EAD6F
+	for <lists+alsa-devel@lfdr.de>; Tue,  5 Jan 2021 15:38:29 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 4ACA316CB;
-	Tue,  5 Jan 2021 15:08:53 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4ACA316CB
+	by alsa0.perex.cz (Postfix) with ESMTPS id 5618416A2;
+	Tue,  5 Jan 2021 15:37:33 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5618416A2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1609855783;
-	bh=NM02vya9y2V9/BIHyBu3+r90ag/AdkNr9lYqeOUaBRk=;
-	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1609857503;
+	bh=ailUhbQd3qTTwuI5XfU7NuHTCYaozt7NJzgQFuOYpy8=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=NHQj7dqVV+4Ugk+BK/YBHX0PMsouE3RY6x/3eqisWekH+n7UvZkJuSMbY3nNwKUIx
-	 L2IZMODeUY0VWT8gNI3+XDBOdXsTPNn4gwrSHa1h/xSMMlZY8Yq5Ac2MiMZil2g38U
-	 wx2o7jM2u48GgVTNNjvt+mDDxpDRZlsG6obzKqWw=
+	b=Wo0OFwXQjVsR7fRRr8XAPa6CzSlKGEHAN9+GBGDM4LACHwvObxfHhaoMaDJkfo1Dz
+	 QNLSKGRkF4YU3tcdPPifigQ0EUQ5IMNmz69n6hEl5kmcDOk8lhHU8ABAZfUwK02OL5
+	 J4SQnE9Ie4JXNVqwHqZH4IDdZWPOad+Un4/76s9Y=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 49772F804B0;
-	Tue,  5 Jan 2021 15:06:53 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 85ED1F8012B;
+	Tue,  5 Jan 2021 15:36:49 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 0E72EF8049C; Tue,  5 Jan 2021 15:06:49 +0100 (CET)
+ id 84555F80258; Tue,  5 Jan 2021 15:36:45 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from relay5-d.mail.gandi.net (relay5-d.mail.gandi.net
- [217.70.183.197])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=0.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,MSGID_FROM_MTA_HEADER,PRX_BODY_30,SPF_HELO_NONE,SPF_NONE
+ autolearn=disabled version=3.4.0
+Received: from hqnvemgate26.nvidia.com (hqnvemgate26.nvidia.com
+ [216.228.121.65])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 77587F80268
- for <alsa-devel@alsa-project.org>; Tue,  5 Jan 2021 15:06:44 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 77587F80268
-X-Originating-IP: 90.89.98.255
-Received: from xps13 (lfbn-tou-1-1535-bdcst.w90-89.abo.wanadoo.fr
- [90.89.98.255]) (Authenticated sender: miquel.raynal@bootlin.com)
- by relay5-d.mail.gandi.net (Postfix) with ESMTPSA id 4F0391C000F;
- Tue,  5 Jan 2021 14:06:37 +0000 (UTC)
-Date: Tue, 5 Jan 2021 15:06:36 +0100
-From: Miquel Raynal <miquel.raynal@bootlin.com>
-To: Thomas Bogendoerfer <tsbogend@alpha.franken.de>
-Subject: Re: [PATCH 06/10] mtd: Remove drivers used by TX49xx
-Message-ID: <20210105150636.175598fc@xps13>
-In-Reply-To: <20210105140305.141401-7-tsbogend@alpha.franken.de>
-References: <20210105140305.141401-1-tsbogend@alpha.franken.de>
- <20210105140305.141401-7-tsbogend@alpha.franken.de>
-Organization: Bootlin
-X-Mailer: Claws Mail 3.17.4 (GTK+ 2.24.32; x86_64-pc-linux-gnu)
+ by alsa1.perex.cz (Postfix) with ESMTPS id B9CF0F8012B
+ for <alsa-devel@alsa-project.org>; Tue,  5 Jan 2021 15:36:40 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B9CF0F8012B
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=nvidia.com header.i=@nvidia.com
+ header.b="CQa8SH9G"
+Received: from hqmail.nvidia.com (Not Verified[216.228.121.13]) by
+ hqnvemgate26.nvidia.com (using TLS: TLSv1.2, AES256-SHA)
+ id <B5ff479740000>; Tue, 05 Jan 2021 06:36:36 -0800
+Received: from HQMAIL107.nvidia.com (172.20.187.13) by HQMAIL109.nvidia.com
+ (172.20.187.15) with Microsoft SMTP Server (TLS) id 15.0.1473.3; Tue, 5 Jan
+ 2021 14:36:32 +0000
+Received: from NAM02-SN1-obe.outbound.protection.outlook.com (104.47.36.55) by
+ HQMAIL107.nvidia.com (172.20.187.13) with Microsoft SMTP Server
+ (TLS) id
+ 15.0.1473.3 via Frontend Transport; Tue, 5 Jan 2021 14:36:32 +0000
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=m41B1rp2qw3CGWjLE4HUj1kQIhulMVfj9wNR8TdK6Ew+PPi6T4t7dGWV7rCkdohsPwff3/QY6aKdTEZIY/na1rgYtPZ9YUU8KR4WpXHX7U/S5fCb0XEBQZzw4sxyQUEE2JmxVGgJG4yiYNsYjRxoQXo0vhXj665aswnsDpVbetzZfFDJ1NQ8kF97FKG26nTVkt3yhvybyOwS7NDgMweNc6YPcRCdPb/lQfJqTjy4rsSu+9cL+im4OojHJNmkXmN+gMKdUziFd2MAViFtFcRYbfa7c1fF+cc1yDCaWKUzsmSsq7nSRZ8X6U67l3vkimwbrMP6jDDWq4og3FR/7IO0KQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=PAwrKySJQvQFPuf6e10AMprqTOhIvV+daRoILtUq4QM=;
+ b=V+pmMd775DjQhFXf2SydKhowmJUav5ntBDIt2xnOZmqJRMCowTbTYPotex4urT12HmZL0gSIxMkR5XgNt7kZ4A6JNhe/A42VkSDRs8HqGDD+nLBthCqxB9uV74hYqFZAS6JU65Y9X3aRXaUFmrDigPHrzAEQ+kp5gPRTU/5tmAQXCdXhrcCkiv7WNfj1zopT9NDDXY0HE0cAtxHpJg246XCPiXoRc0LUTrv8heyly2b2BFxPn87R+iVP5apmUw115LZ6SfbaNlZ9YEem1WdktyW1H2ulbSiByuuE3oqR7hm2bYmKs3ucLwaWQLVrsblALaW/3XfcmJLCfnibFYioPQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+Received: from DM6PR12MB3834.namprd12.prod.outlook.com (2603:10b6:5:14a::12)
+ by DM5PR12MB2440.namprd12.prod.outlook.com (2603:10b6:4:b6::39) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3742.6; Tue, 5 Jan
+ 2021 14:36:29 +0000
+Received: from DM6PR12MB3834.namprd12.prod.outlook.com
+ ([fe80::546d:512c:72fa:4727]) by DM6PR12MB3834.namprd12.prod.outlook.com
+ ([fe80::546d:512c:72fa:4727%7]) with mapi id 15.20.3721.024; Tue, 5 Jan 2021
+ 14:36:29 +0000
+Date: Tue, 5 Jan 2021 10:36:27 -0400
+From: Jason Gunthorpe <jgg@nvidia.com>
+To: Mark Brown <broonie@kernel.org>
+Subject: Re: [resend/standalone PATCH v4] Add auxiliary bus support
+Message-ID: <20210105143627.GT552508@nvidia.com>
+References: <20201218162817.GX552508@nvidia.com>
+ <20201218180310.GD5333@sirena.org.uk> <20201218184150.GY552508@nvidia.com>
+ <20201218203211.GE5333@sirena.org.uk> <20201218205856.GZ552508@nvidia.com>
+ <20201221185140.GD4521@sirena.org.uk> <20210104180831.GD552508@nvidia.com>
+ <20210104211930.GI5645@sirena.org.uk> <20210105001341.GL552508@nvidia.com>
+ <20210105134256.GA4487@sirena.org.uk>
+Content-Type: text/plain; charset="us-ascii"
+Content-Disposition: inline
+In-Reply-To: <20210105134256.GA4487@sirena.org.uk>
+X-ClientProxiedBy: BL1PR13CA0140.namprd13.prod.outlook.com
+ (2603:10b6:208:2bb::25) To DM6PR12MB3834.namprd12.prod.outlook.com
+ (2603:10b6:5:14a::12)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
-Cc: Alexandre Belloni <alexandre.belloni@bootlin.com>,
- Vignesh Raghavendra <vigneshr@ti.com>, Liam Girdwood <lgirdwood@gmail.com>,
- alsa-devel@alsa-project.org, Takashi Iwai <tiwai@suse.com>,
- linux-ide@vger.kernel.org, linux-mtd@lists.infradead.org,
- linux-spi@vger.kernel.org, linux-rtc@vger.kernel.org,
- Wim Van Sebroeck <wim@linux-watchdog.org>,
- Herbert Xu <herbert@gondor.apana.org.au>, Richard Weinberger <richard@nod.at>,
- Jakub Kicinski <kuba@kernel.org>, Guenter Roeck <linux@roeck-us.net>,
- linux-watchdog@vger.kernel.org, Mark Brown <broonie@kernel.org>,
- Matt Mackall <mpm@selenic.com>, Dan Williams <dan.j.williams@intel.com>,
- Alessandro Zummo <a.zummo@towertech.it>, netdev@vger.kernel.org,
- linux-mips@vger.kernel.org, linux-kernel@vger.kernel.org,
- Vinod Koul <vkoul@kernel.org>, linux-crypto@vger.kernel.org,
- dmaengine@vger.kernel.org, "David S. Miller" <davem@davemloft.net>
+X-MS-Exchange-MessageSentRepresentingType: 1
+Received: from mlx.ziepe.ca (206.223.160.26) by
+ BL1PR13CA0140.namprd13.prod.outlook.com (2603:10b6:208:2bb::25) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3742.4 via Frontend
+ Transport; Tue, 5 Jan 2021 14:36:29 +0000
+Received: from jgg by mlx with local (Exim 4.94)	(envelope-from
+ <jgg@nvidia.com>)	id 1kwnRj-002I0M-Hy; Tue, 05 Jan 2021 10:36:27 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nvidia.com; s=n1;
+ t=1609857397; bh=PAwrKySJQvQFPuf6e10AMprqTOhIvV+daRoILtUq4QM=;
+ h=ARC-Seal:ARC-Message-Signature:ARC-Authentication-Results:Date:
+ From:To:CC:Subject:Message-ID:References:Content-Type:
+ Content-Disposition:In-Reply-To:X-ClientProxiedBy:MIME-Version:
+ X-MS-Exchange-MessageSentRepresentingType;
+ b=CQa8SH9GIYMJA6nt71T+rpipSFvqRsSJhRmvYTKsGLjtFkpVJpee92z8jmi6+loVJ
+ qGYMM4abqJpYhpnynIZkqmwsl58T86E8dl2ONysMl8uBUsPc0haiUOhErMM40/kWd5
+ X5ScPjNlwA1sjqDAPJ0s61OCH4UtzNl2wXkdiNJQ9BCfRlhQMji6WgCBXOpLWZjR/a
+ bk403GxmonQ/QdEWS6KGmQicXEDL7QRJjthswRZ7dl5d5aBD18b6OJSluqw+3yBqTp
+ KY+fTysxhVoSGKyJ/II7IK7GPpuuDqOOJry7RyPHoSx29JLUegwMPFD31x/QubCQMg
+ 7SwK2TAxk1lGQ==
+Cc: Alexandre Belloni <alexandre.belloni@bootlin.com>, lee.jones@linaro.org,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ Kiran Patil <kiran.patil@intel.com>, Liam
+ Girdwood <lgirdwood@gmail.com>, linux-rdma <linux-rdma@vger.kernel.org>,
+ Greg KH <gregkh@linuxfoundation.org>, Martin Habets <mhabets@solarflare.com>,
+ alsa-devel@alsa-project.org,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ Fred Oh <fred.oh@linux.intel.com>, Netdev <netdev@vger.kernel.org>,
+ Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
+ Jakub Kicinski <kuba@kernel.org>, Dave
+ Ertman <david.m.ertman@intel.com>, Dan Williams <dan.j.williams@intel.com>,
+ Shiraz Saleem <shiraz.saleem@intel.com>, David Miller <davem@davemloft.net>,
+ Leon Romanovsky <leonro@nvidia.com>, Parav Pandit <parav@mellanox.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -84,33 +136,54 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hi Thomas,
+On Tue, Jan 05, 2021 at 01:42:56PM +0000, Mark Brown wrote:
+> On Mon, Jan 04, 2021 at 08:13:41PM -0400, Jason Gunthorpe wrote:
+> > On Mon, Jan 04, 2021 at 09:19:30PM +0000, Mark Brown wrote:
+> 
+> > > Like I keep saying the same thing applies to all non-enumerable buses -
+> > > exactly the same considerations exist for all the other buses like I2C
+> > > (including the ACPI naming issue you mention below), and for that matter
+> > > with enumerable buses which can have firmware info.
+> 
+> > And most busses do already have their own bus type. ACPI, I2C, PCI,
+> > etc. It is just a few that have been squished into platform, notably
+> > OF.
+> 
+> You're missing the point there.  I2C is enumerated by firmware in
+> exactly the same way as the platform bus is, it's not discoverable from
+> the hardware (and similarly for a bunch of other buses).  If we were to
+> say that we need separate device types for platform devices enumerated
+> using firmware then by analogy we should do the same for devices on
+> these other buses that happen to be enumerated by firmware.
 
-Thomas Bogendoerfer <tsbogend@alpha.franken.de> wrote on Tue,  5 Jan
-2021 15:02:51 +0100:
+No, I understand how I2C works and I think it is fine as is because
+the enumeration outcome is all standard. You always end up with a
+stable I2C device address (the name) and you always end up with the
+I2C programming API. So it doesn't matter how I2C gets enumerated, it
+is always an I2C device.
 
-> CPU support for TX49xx is getting removed, so remove MTD support for it.
->=20
-> Signed-off-by: Thomas Bogendoerfer <tsbogend@alpha.franken.de>
+PCI does this too, pci_device gets crossed over to the DT data, but it
+is still a pci_device.
 
-If the removal happens, you may take this patch through the mips tree.
+I see a big difference between attaching FW data to an existing
+subsystem's HW centric bus (and possibly guiding enumeration of a HW
+bus from FW data) and directly creating struct devices based on FW
+data unconnected to any existing subsystem.
 
-Acked-by: Miquel Raynal <miquel.raynal@bootlin.com>
+The latter case is where the enumerating FW should stay on its own
+bus_type because there is no standardized subsystem bus providing an
+API or naming rules, so the FW type should provide those rules
+instead.
 
-One less driver to convert to ->exec_op() :-)
+> > With an actual bus specific virtual function:
+> 
+> >     return dev->bus->gpio_count(dev);
+> 
+> That won't work, you might have a mix of enumeration types for a given
+> bus type in a single system so you'd need to do this per device. 
 
-> ---
->  drivers/mtd/maps/Kconfig                 |   6 -
->  drivers/mtd/maps/Makefile                |   1 -
->  drivers/mtd/maps/rbtx4939-flash.c        | 133 -------
->  drivers/mtd/nand/raw/Kconfig             |   7 -
->  drivers/mtd/nand/raw/Makefile            |   1 -
->  drivers/mtd/nand/raw/txx9ndfmc.c         | 423 -----------------------
->  include/linux/platform_data/txx9/ndfmc.h |  28 --
->  7 files changed, 599 deletions(-)
->  delete mode 100644 drivers/mtd/maps/rbtx4939-flash.c
->  delete mode 100644 drivers/mtd/nand/raw/txx9ndfmc.c
->  delete mode 100644 include/linux/platform_data/txx9/ndfmc.h
+I'm being very general here, probably what we want is a little more
+formal 'fw_type' concept, so a device is on a bus and also has a FW
+attachment which can provide this other data.
 
-Thanks,
-Miqu=C3=A8l
+Jason

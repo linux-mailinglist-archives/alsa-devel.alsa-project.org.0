@@ -2,89 +2,66 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 01A982EAF60
-	for <lists+alsa-devel@lfdr.de>; Tue,  5 Jan 2021 16:50:06 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 079BB2EAF89
+	for <lists+alsa-devel@lfdr.de>; Tue,  5 Jan 2021 17:01:34 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 6C31116B4;
-	Tue,  5 Jan 2021 16:49:15 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6C31116B4
+	by alsa0.perex.cz (Postfix) with ESMTPS id 882F216B8;
+	Tue,  5 Jan 2021 17:00:43 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 882F216B8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1609861805;
-	bh=exjbVXJp44u+pVE6fQ5+LZ7JcUb4ur3YJ8VVpBtZA/E=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=KU2S/Ry5Xf2DkttSnKAenxB06ygyfDMPO7h8Px5uxUpcQb9si68jBWJTer5tPti38
-	 /OZdUjPM9pGwaLf0hzjvP+xb4p4ylsmvW+iO+5Lbk6DGFr8tSr78T+bIKb5HotjIqf
-	 IlViDetWhHSwGqW6qZ4zkIp0cNMLwyKOEp9a8qXY=
+	s=default; t=1609862493;
+	bh=DG+0KpnUmJ3JIFG2/iCCLICGV1fbwokFnR5EI1QuFbE=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=IaVEMhU2x6bGMUqOXxzwdpzbJWrh7SQdQeoUJirEqP2xvhL2h6f4T8I21oMii6Wq+
+	 VDZBcSeIcZYLsbzFY4AisGW+GFeT2rWD9f6PWpqnK4RLtu/sOieK/ac9n3RC+uhiJD
+	 XcklQPzrDSQbUILNIHcUq3VrRceMYmILsEbsiwpM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 04B76F80268;
-	Tue,  5 Jan 2021 16:48:32 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id E336EF800FD;
+	Tue,  5 Jan 2021 16:59:59 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id D09A9F80258; Tue,  5 Jan 2021 16:48:29 +0100 (CET)
+ id 1AC25F801F5; Tue,  5 Jan 2021 16:59:58 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id EA905F8015B
- for <alsa-devel@alsa-project.org>; Tue,  5 Jan 2021 16:48:26 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EA905F8015B
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="gMRuCgsY"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 856B72070C;
- Tue,  5 Jan 2021 15:48:23 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1609861704;
- bh=exjbVXJp44u+pVE6fQ5+LZ7JcUb4ur3YJ8VVpBtZA/E=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=gMRuCgsYekpNaoOTme7BOK9BV4pd7gsOFdyDiEVCa4L97sPaGG7c5xNcmISFOhh18
- 7WIEBCovZf9nMpVrKZafXj1Ch/Sd28l5gh/6wm4lpx5UIFhpicBXqmlG0v4GLpgAU2
- zBoYOYkU8MfArhPNSyUt9B8Lfz78obrgmu5D9AHJi//KPeUIwkRm+xCaf9y0cceDrU
- 722lR8FPtXsRzLGu42WosALrUJO8pUaSBrtXM3mvtsHg6ERA/VLS06N9864Yn50r3K
- ZZfLaM9sEJR+fSgby2mq9c6DgYi+khhvHYwdu1mUROSxvVwG5L+nI8JDQT2XJ5kJD2
- Z9Q1LEZyyU+dg==
-Date: Tue, 5 Jan 2021 15:47:56 +0000
-From: Mark Brown <broonie@kernel.org>
-To: Jason Gunthorpe <jgg@nvidia.com>
-Subject: Re: [resend/standalone PATCH v4] Add auxiliary bus support
-Message-ID: <20210105154756.GF4487@sirena.org.uk>
-References: <20201218180310.GD5333@sirena.org.uk>
- <20201218184150.GY552508@nvidia.com>
- <20201218203211.GE5333@sirena.org.uk>
- <20201218205856.GZ552508@nvidia.com>
- <20201221185140.GD4521@sirena.org.uk>
- <20210104180831.GD552508@nvidia.com>
- <20210104211930.GI5645@sirena.org.uk>
- <20210105001341.GL552508@nvidia.com>
- <20210105134256.GA4487@sirena.org.uk>
- <20210105143627.GT552508@nvidia.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 1A9B7F8015B
+ for <alsa-devel@alsa-project.org>; Tue,  5 Jan 2021 16:59:50 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1A9B7F8015B
+IronPort-SDR: ftlBu/ybJ1Lj1eXgWSensxrkig4ckF3iWDOm+aNmnqWpwSWKsLmVsFeYU41uFoSOBZ1bQ4wpG2
+ bXNwjD9ypTuw==
+X-IronPort-AV: E=McAfee;i="6000,8403,9855"; a="241210636"
+X-IronPort-AV: E=Sophos;i="5.78,477,1599548400"; d="scan'208";a="241210636"
+Received: from fmsmga001.fm.intel.com ([10.253.24.23])
+ by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 05 Jan 2021 07:59:42 -0800
+IronPort-SDR: 8FFJx94PSRc4FF+6BpVzj704fly8VhJR3r+PBrH5nd6VLQ6wW115BkIf89H80DFCAjy3qv3S3M
+ RNa/54bPPOiQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.78,477,1599548400"; d="scan'208";a="462342757"
+Received: from eliteleevi.tm.intel.com ([10.237.54.20])
+ by fmsmga001.fm.intel.com with ESMTP; 05 Jan 2021 07:59:41 -0800
+From: Kai Vehmanen <kai.vehmanen@linux.intel.com>
+To: alsa-devel@alsa-project.org,
+	broonie@kernel.org
+Subject: [PATCH] ASoC: SOF: add mutex to protect the dsp_power_state access
+Date: Tue,  5 Jan 2021 17:56:40 +0200
+Message-Id: <20210105155640.3725238-1-kai.vehmanen@linux.intel.com>
+X-Mailer: git-send-email 2.29.2
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="Y1L3PTX8QE8cb2T+"
-Content-Disposition: inline
-In-Reply-To: <20210105143627.GT552508@nvidia.com>
-X-Cookie: I'm ANN LANDERS!!  I can SHOPLIFT!!
-User-Agent: Mutt/1.10.1 (2018-07-13)
-Cc: Alexandre Belloni <alexandre.belloni@bootlin.com>, lee.jones@linaro.org,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- Kiran Patil <kiran.patil@intel.com>, Liam Girdwood <lgirdwood@gmail.com>,
- linux-rdma <linux-rdma@vger.kernel.org>, Greg KH <gregkh@linuxfoundation.org>,
- Martin Habets <mhabets@solarflare.com>, alsa-devel@alsa-project.org,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- Fred Oh <fred.oh@linux.intel.com>, Netdev <netdev@vger.kernel.org>,
- Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
- Jakub Kicinski <kuba@kernel.org>, Dave Ertman <david.m.ertman@intel.com>,
- Dan Williams <dan.j.williams@intel.com>,
- Shiraz Saleem <shiraz.saleem@intel.com>, David Miller <davem@davemloft.net>,
- Leon Romanovsky <leonro@nvidia.com>, Parav Pandit <parav@mellanox.com>
+Content-Transfer-Encoding: 8bit
+Cc: Guennadi Liakhovetski <guennadi.liakhovetski@linux.intel.com>,
+ kai.vehmanen@linux.intel.com, Keyon Jie <yang.jie@linux.intel.com>,
+ lgirdwood@gmail.com, pierre-louis.bossart@linux.intel.com,
+ ranjani.sridharan@linux.intel.com, daniel.baluta@nxp.com,
+ Bard Liao <bard.liao@intel.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -100,42 +77,73 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+From: Keyon Jie <yang.jie@linux.intel.com>
 
---Y1L3PTX8QE8cb2T+
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+There could be more than one thread read/write the dsp_power_state
+simultaneously (e.g. hda_dsp_d0i3_work and sof_ipc_tx_message), add a
+mutex power_state_access to make sure the access to it is mutually
+exclusive.
 
-On Tue, Jan 05, 2021 at 10:36:27AM -0400, Jason Gunthorpe wrote:
-> On Tue, Jan 05, 2021 at 01:42:56PM +0000, Mark Brown wrote:
+Signed-off-by: Keyon Jie <yang.jie@linux.intel.com>
+Reviewed-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
+Reviewed-by: Bard Liao <bard.liao@intel.com>
+Reviewed-by: Guennadi Liakhovetski <guennadi.liakhovetski@linux.intel.com>
+Signed-off-by: Kai Vehmanen <kai.vehmanen@linux.intel.com>
+---
+ sound/soc/sof/core.c     |  1 +
+ sound/soc/sof/ops.h      | 11 ++++++++---
+ sound/soc/sof/sof-priv.h |  2 ++
+ 3 files changed, 11 insertions(+), 3 deletions(-)
 
-> > You're missing the point there.  I2C is enumerated by firmware in
-> > exactly the same way as the platform bus is, it's not discoverable from
-> > the hardware (and similarly for a bunch of other buses).  If we were to
+diff --git a/sound/soc/sof/core.c b/sound/soc/sof/core.c
+index adc7c37145d6..2b85ef5d6092 100644
+--- a/sound/soc/sof/core.c
++++ b/sound/soc/sof/core.c
+@@ -316,6 +316,7 @@ int snd_sof_device_probe(struct device *dev, struct snd_sof_pdata *plat_data)
+ 	INIT_LIST_HEAD(&sdev->route_list);
+ 	spin_lock_init(&sdev->ipc_lock);
+ 	spin_lock_init(&sdev->hw_lock);
++	mutex_init(&sdev->power_state_access);
+ 
+ 	if (IS_ENABLED(CONFIG_SND_SOC_SOF_PROBE_WORK_QUEUE))
+ 		INIT_WORK(&sdev->probe_work, sof_probe_work);
+diff --git a/sound/soc/sof/ops.h b/sound/soc/sof/ops.h
+index 95e748b36903..4c1f9daaa6e8 100644
+--- a/sound/soc/sof/ops.h
++++ b/sound/soc/sof/ops.h
+@@ -208,11 +208,16 @@ static inline int
+ snd_sof_dsp_set_power_state(struct snd_sof_dev *sdev,
+ 			    const struct sof_dsp_power_state *target_state)
+ {
++	int ret = 0;
++
++	mutex_lock(&sdev->power_state_access);
++
+ 	if (sof_ops(sdev)->set_power_state)
+-		return sof_ops(sdev)->set_power_state(sdev, target_state);
++		ret = sof_ops(sdev)->set_power_state(sdev, target_state);
+ 
+-	/* D0 substate is not supported, do nothing here. */
+-	return 0;
++	mutex_unlock(&sdev->power_state_access);
++
++	return ret;
+ }
+ 
+ /* debug */
+diff --git a/sound/soc/sof/sof-priv.h b/sound/soc/sof/sof-priv.h
+index 68da8f797403..28d19fa30614 100644
+--- a/sound/soc/sof/sof-priv.h
++++ b/sound/soc/sof/sof-priv.h
+@@ -375,6 +375,8 @@ struct snd_sof_dev {
+ 
+ 	/* current DSP power state */
+ 	struct sof_dsp_power_state dsp_power_state;
++	/* mutex to protect the dsp_power_state access */
++	struct mutex power_state_access;
+ 
+ 	/* Intended power target of system suspend */
+ 	enum sof_system_suspend_state system_suspend_target;
+-- 
+2.29.2
 
-> No, I understand how I2C works and I think it is fine as is because
-> the enumeration outcome is all standard. You always end up with a
-> stable I2C device address (the name) and you always end up with the
-> I2C programming API. So it doesn't matter how I2C gets enumerated, it
-> is always an I2C device.
-
-I don't follow this logic at all, sorry - whatever the platonic ideal of
-what a platform device actually turns out to be when we get down to
-using the hardware it's the same hardware which we interact with in the
-same way no matter how we figured out that it was present.
-
---Y1L3PTX8QE8cb2T+
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl/0iisACgkQJNaLcl1U
-h9BB8wf+Nvnu4y6NJYvpzLoo2IgcymvT/prWQ1KEuyqHcAvdeu1xjdLu9OAfjsoy
-pMF/Jm/JOZ0IFRHxXoUZFJV9xvCMn872QTO0DcCPdR+fM5h77AYQK8rgtimD/Ub8
-EFDtt/K2ISvp4cA+YV9ERnZwi+LGpbUY9r5D9KYUJP4U+qJO1MgMq6YfXqrB2shL
-l1ZUB5CF1y5gsuHe4oIT7h510NcjGaOhz8heNjXlfVM2w4gyZjgXvitT9uIxmIzC
-TkqwF419JQgTFrNq6BsGB/19WH6AyMEokj987mDVEmeOJsvmZMRtExB4bL0UfgD/
-PA6KL84AFXMSXgjzqeapAd8MOcTBnw==
-=jQX1
------END PGP SIGNATURE-----
-
---Y1L3PTX8QE8cb2T+--

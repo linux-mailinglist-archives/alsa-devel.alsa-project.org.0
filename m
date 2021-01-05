@@ -2,63 +2,65 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2A7AD2EA750
-	for <lists+alsa-devel@lfdr.de>; Tue,  5 Jan 2021 10:30:17 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id B3DA42EA751
+	for <lists+alsa-devel@lfdr.de>; Tue,  5 Jan 2021 10:30:29 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B8368167C;
-	Tue,  5 Jan 2021 10:29:21 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B8368167C
+	by alsa0.perex.cz (Postfix) with ESMTPS id 5334E168D;
+	Tue,  5 Jan 2021 10:29:39 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5334E168D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1609839011;
-	bh=1yJhnmKiVwsjkAYbXkA4DzakN/m6LwFsIe9ZqABEu2g=;
-	h=Subject:To:References:From:Date:In-Reply-To:List-Id:
+	s=default; t=1609839029;
+	bh=/MujjlqOa3XPgcQl/9vRC1lUB6YrqsSGtW4003vWZao=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=okLP3espIihodfZNGL4+OSK0zISJJKWeL1jtPWH/85JS9Wcl0Ze78WAxTCfGZAM6g
-	 7O0TR42u0+obuhdYA7b833X8dMbkJEwGvwDP5HRsnFRdq43pRWttkUPN3w1vnG4SL8
-	 vDdx88MTKEuFLnXt+Wnvot/uzf3x/s71WR+blIMs=
+	b=bP8cSH+ilvMo7V4ppq+NpshFTpJHhdoRbl6sb/EEDAAMBXMUgDEHaZsamnkEQC3XO
+	 WNT/GmMie9qD0sfNNc7z9baZyC6kBGCPsBRyrkKfs+f7ZAHSmXEZwepZaLm1Vk8OCS
+	 H7GHypQR0TBjw24Km14fvNIo8JeoEXiqh1sJu8Jo=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 15429F80268;
-	Tue,  5 Jan 2021 10:28:38 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 13027F800FD;
+	Tue,  5 Jan 2021 10:29:32 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id C8673F80258; Tue,  5 Jan 2021 10:28:27 +0100 (CET)
+ id D9009F80271; Tue,  5 Jan 2021 10:29:28 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.2 required=5.0 tests=NICE_REPLY_A,SPF_HELO_NONE,
- SPF_NONE autolearn=disabled version=3.4.0
-Received: from youngberry.canonical.com (youngberry.canonical.com
- [91.189.89.112])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE
+ autolearn=disabled version=3.4.0
+Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id B9AD8F8015B
- for <alsa-devel@alsa-project.org>; Tue,  5 Jan 2021 10:28:21 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B9AD8F8015B
-Received: from [114.252.213.174] (helo=[192.168.0.106])
- by youngberry.canonical.com with esmtpsa
- (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.86_2)
- (envelope-from <hui.wang@canonical.com>)
- id 1kwidX-0007IS-1s; Tue, 05 Jan 2021 09:28:19 +0000
-Subject: Re: [RFC][PATCH v3 1/4] alsa: jack: implement software jack injection
- via debugfs
-To: Jaroslav Kysela <perex@perex.cz>, alsa-devel@alsa-project.org,
- tiwai@suse.de, kai.vehmanen@linux.intel.com
-References: <20201228080003.19127-1-hui.wang@canonical.com>
- <20201228080003.19127-2-hui.wang@canonical.com>
- <c847a7a4-9d2f-7991-811f-756ab7af248c@perex.cz>
-From: Hui Wang <hui.wang@canonical.com>
-Message-ID: <ec1b03b0-fc8d-5e5a-2516-1e1733be618a@canonical.com>
-Date: Tue, 5 Jan 2021 17:28:09 +0800
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.5.0
-MIME-Version: 1.0
-In-Reply-To: <c847a7a4-9d2f-7991-811f-756ab7af248c@perex.cz>
-Content-Type: text/plain; charset=utf-8; format=flowed
+ by alsa1.perex.cz (Postfix) with ESMTPS id 25327F800FD
+ for <alsa-devel@alsa-project.org>; Tue,  5 Jan 2021 10:29:24 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 25327F800FD
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id 3B32DAEA2;
+ Tue,  5 Jan 2021 09:29:24 +0000 (UTC)
+Date: Tue, 05 Jan 2021 10:29:24 +0100
+Message-ID: <s5him8b7mvf.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: =?UTF-8?B?RnJhbnRpxaFlayBLdcSNZXJh?= <konference@frantovo.cz>
+Subject: Re: [PATCH 14/41] ALSA: usb-audio: Create endpoint objects at parsing
+ phase - Pioneer DJ DJM-250MK2 stopped working
+In-Reply-To: <90c7f45a-91e6-f4e2-97a5-81df773bc22a@frantovo.cz>
+References: <20201123085347.19667-1-tiwai@suse.de>
+ <20201123085347.19667-15-tiwai@suse.de>
+ <f7e8fe36-571e-7b78-3abe-777e365b53b0@frantovo.cz>
+ <s5h8s9a9bvh.wl-tiwai@suse.de>
+ <90c7f45a-91e6-f4e2-97a5-81df773bc22a@frantovo.cz>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
+ FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
+ (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Content-Language: en-US
+Cc: alsa-devel@alsa-project.org, Matwey Kornilov <matwey.kornilov@gmail.com>,
+ Dylan Robinson <dylan_robinson@motu.com>,
+ Keith Milner <kamilner@superlative.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -74,31 +76,46 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+On Sun, 03 Jan 2021 19:15:48 +0100,
+František Kučera wrote:
+> 
+> Dne 03. 01. 21 v 18:19 Takashi Iwai napsal(a):
+> > Could you give lsusb -v output as well as /proc/asound/card*/usbmixer
+> > and stream* files?  The proc files are at best from both older and new
+> > kernels.
+> 
+> Here are the files. They look same. The only difference is in the stream0, but it is probably only formatting. I also attached the kern.log from the new version.
 
-On 1/4/21 11:04 PM, Jaroslav Kysela wrote:
-> Dne 28. 12. 20 v 9:00 Hui Wang napsal(a):
->> We want to perform remote audio auto test, need the audio jack to
->> change from plugout to plugin or vice versa by software ways.
->>
->> Here the design is creating a sound-core root folder in the debugfs
->> dir, and each sound card will create a folder cardN under sound-core,
->> then the sound jack will create folders by jack_ctrl->ctrl->id.name,
->> and will create 2 file nodes jackin_inject and sw_inject_enable in
->> the folder, this is the layout of folder on a machine with 2 sound
->> cards:
->> $tree $debugfs_mount_dir/sound-core
->> sound-core/
->> ├── card0
->> │   ├── HDMI!DP,pcm=10 Jack
->> │   │   ├── jackin_inject
->> │   │   └── sw_inject_enable
->> +	sound_core_debugfs_root = debugfs_create_dir("sound-core", NULL);
-> I would just use "sound" directory name here. Why "core" suffix?
+Thanks.
 
-OK, will change it to sound.
+It must be something specific to the devices with the fixed stream
+qurik.  Could you try the patch below?
 
-thx.
 
->
-> 					Jaroslav
->
+Takashi
+
+-- 8< --
+--- a/sound/usb/quirks.c
++++ b/sound/usb/quirks.c
+@@ -155,9 +155,6 @@ static int create_fixed_stream_quirk(struct snd_usb_audio *chip,
+ 
+ 	stream = (fp->endpoint & USB_DIR_IN)
+ 		? SNDRV_PCM_STREAM_CAPTURE : SNDRV_PCM_STREAM_PLAYBACK;
+-	err = snd_usb_add_audio_stream(chip, stream, fp);
+-	if (err < 0)
+-		goto error;
+ 	if (fp->iface != get_iface_desc(&iface->altsetting[0])->bInterfaceNumber ||
+ 	    fp->altset_idx >= iface->num_altsetting) {
+ 		err = -EINVAL;
+@@ -176,6 +173,11 @@ static int create_fixed_stream_quirk(struct snd_usb_audio *chip,
+ 		fp->datainterval = snd_usb_parse_datainterval(chip, alts);
+ 	if (fp->maxpacksize == 0)
+ 		fp->maxpacksize = le16_to_cpu(get_endpoint(alts, 0)->wMaxPacketSize);
++
++	err = snd_usb_add_audio_stream(chip, stream, fp);
++	if (err < 0)
++		goto error;
++
+ 	usb_set_interface(chip->dev, fp->iface, 0);
+ 	snd_usb_init_pitch(chip, fp);
+ 	snd_usb_init_sample_rate(chip, fp, fp->rate_max);

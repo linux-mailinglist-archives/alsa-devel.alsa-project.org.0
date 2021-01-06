@@ -2,114 +2,90 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6EA612EB55D
-	for <lists+alsa-devel@lfdr.de>; Tue,  5 Jan 2021 23:29:20 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6FD8F2EB934
+	for <lists+alsa-devel@lfdr.de>; Wed,  6 Jan 2021 06:08:08 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id F133F1684;
-	Tue,  5 Jan 2021 23:28:24 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz F133F1684
+	by alsa0.perex.cz (Postfix) with ESMTPS id 08AD686E;
+	Wed,  6 Jan 2021 06:07:13 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 08AD686E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1609885755;
-	bh=gkchqikZNW8vplW3C6C1wfbQdwUH9asYq0AjN4LvrZg=;
-	h=Subject:References:To:From:Date:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=ddzs22bYR2RC93xcx6W4WH+owUtIpMuP6oNd6SdyVExL0An/VxlxTKhBoRAKjN9sh
-	 cKoXyHmYxgJMTNRt+zt17AX9MQ+QFTYQfcWCxEvsyvzYdglSyly1IL6veirzxrYfVn
-	 klC7Prw1qLiCl/igfPUlHK5LnQDg+Y/NW2WVM3q0=
+	s=default; t=1609909683;
+	bh=qq8btwwNVAS26MkIndQR7HvnBqko/OuI+G6k1r3Oqqw=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=ZpAKvfcWUo9R6cJZZa2hMBZycpraZEgdrbyTzahy9I2+SvZD+DCR7fbun3lHG+Gbu
+	 Z7/d7nkCA9Zd5AEeL2+w+aoKbn6pZxeBjyoyIE6WtN1SD+P7X1FE8lQfUICwMqcajo
+	 QAChi22XxZE0wLdldruuFEnTasMGDiUazzAI4hk8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 6AD67F80268;
-	Tue,  5 Jan 2021 23:27:37 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 73D7DF80167;
+	Wed,  6 Jan 2021 06:06:24 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 9F22CF80258; Tue,  5 Jan 2021 23:27:33 +0100 (CET)
+ id C5E85F80166; Wed,  6 Jan 2021 06:06:20 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE autolearn=disabled
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
  version=3.4.0
-Received: from posta.frantovo.cz (czf.frantovo.cz [91.219.244.97])
- (using TLSv1.1 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 5DA94F8012B
- for <alsa-devel@alsa-project.org>; Tue,  5 Jan 2021 23:27:24 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5DA94F8012B
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=frantovo.cz header.i=@frantovo.cz
- header.b="TqowRHor"
-Received: from [192.168.1.4] (osma.doma.frantovo.cz [192.168.1.4])
+Received: from mail-pl1-x632.google.com (mail-pl1-x632.google.com
+ [IPv6:2607:f8b0:4864:20::632])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- (Authenticated sender: fiki@frantovo.cz)
- by posta.frantovo.cz (Postfix) with ESMTPSA id B8C2E1A9847;
- Tue,  5 Jan 2021 23:25:58 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=frantovo.cz;
- s=default; t=1609885565;
- bh=gkchqikZNW8vplW3C6C1wfbQdwUH9asYq0AjN4LvrZg=;
- h=Subject:Cc:References:To:From:Date:In-Reply-To;
- b=TqowRHorizr9iT8DNgw635puEIwLZ7og68HSiP82IPnafCmkOja41wCpjuvrde7st
- jfnmG2GQsWkWnWTyXUvqDTYwdWGqOXHaLkfMeWkuWGmtYhMqmhtC4g18EGjc/Hgq5t
- srGqnAQM3WU31PvJNqSJIKwUwSlYFiikDNczY9/Y=
-Subject: Re: [PATCH 14/41] ALSA: usb-audio: Create endpoint objects at parsing
- phase - Pioneer DJ DJM-250MK2 stopped working
-References: <20201123085347.19667-1-tiwai@suse.de>
- <20201123085347.19667-15-tiwai@suse.de>
- <f7e8fe36-571e-7b78-3abe-777e365b53b0@frantovo.cz>
- <s5h8s9a9bvh.wl-tiwai@suse.de>
- <90c7f45a-91e6-f4e2-97a5-81df773bc22a@frantovo.cz>
- <s5him8b7mvf.wl-tiwai@suse.de> <s5hble35xlo.wl-tiwai@suse.de>
-To: alsa-devel@alsa-project.org
-From: =?UTF-8?B?RnJhbnRpxaFlayBLdcSNZXJh?= <konference@frantovo.cz>
-Autocrypt: addr=konference@frantovo.cz; prefer-encrypt=mutual; keydata=
- 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
- hW6mcblB0mov13r3UFNF1TB7
-Message-ID: <153e3b6e-0481-1d2e-fd00-4a2391a8035b@frantovo.cz>
-Date: Tue, 5 Jan 2021 23:27:14 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.10.0
+ by alsa1.perex.cz (Postfix) with ESMTPS id 8917EF800DD
+ for <alsa-devel@alsa-project.org>; Wed,  6 Jan 2021 06:06:10 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8917EF800DD
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org
+ header.b="n6ErXUBc"
+Received: by mail-pl1-x632.google.com with SMTP id x18so964895pln.6
+ for <alsa-devel@alsa-project.org>; Tue, 05 Jan 2021 21:06:10 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=a+jp8aijiy58DxcPOl4wMV4A6IsbTlkbWpcRF+h39no=;
+ b=n6ErXUBc9DzTkG9itHjGJ+eQztJ4nFXJ0bEjylysEqFfyomIYNiuZEeopa9+2QrQFb
+ dgXajEXrK3vArf7eJM0inY9jm4f6O+quKZZWNf8KY7Mu4te/M+crpoedpBfQjeo0sn2j
+ W7DWx2Msdwgc239HhH7U79VtA9+bjoAJG+nBk=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=a+jp8aijiy58DxcPOl4wMV4A6IsbTlkbWpcRF+h39no=;
+ b=Tncy9FxtQVCYFcUrE4Pc1ERT2z/Zr+8VJD6kmZvI2gaJgBrQYET6lBlGFdp17R4fhP
+ jzPmQlTauBlpgXcIRpqnU4rUxgll0v1bFcwutr5+ZsWMgG2zZKncZtuwYIxFgIpyFLdv
+ VAc6PB/J/Q5e0abS0AVE6SENLzXehkqdITYI1ygg6Pm0pF8REfngvKCRzgv9XQvamLw+
+ 2sgcjuoEfn778nMw7X/7Xmcfg1EZQC3xeS+iANvrqNsOeWy0IXEBzpSeGtWIyrnaoYgw
+ TW3mLyqOGG3r0oFvoKAuo6O43AlkLXHLewYU4G56JgPUWebP5Dns8MfACAzXVBNuEFWz
+ Rvag==
+X-Gm-Message-State: AOAM533M9ZyWlVG0n3+NWHSzdOtUzbwJYTBMFIp7LjB//saL24uM10PF
+ mLDXEbclFg4QCoDKmYFcfbs6zQ==
+X-Google-Smtp-Source: ABdhPJyCbhXlMX97B3jAUFrMxSj9rBddxh5FIX/r5Xx2XIEuyf28wNRiNg+HEbpL3MWu6IcVctaf8w==
+X-Received: by 2002:a17:90b:1983:: with SMTP id
+ mv3mr2580134pjb.211.1609909567741; 
+ Tue, 05 Jan 2021 21:06:07 -0800 (PST)
+Received: from localhost ([2401:fa00:1:10:725a:fff:fe46:44eb])
+ by smtp.gmail.com with ESMTPSA id h16sm931002pgd.62.2021.01.05.21.06.04
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 05 Jan 2021 21:06:07 -0800 (PST)
+From: Yu-Hsuan Hsu <yuhsuan@chromium.org>
+To: linux-kernel@vger.kernel.org
+Subject: [PATCH] ASoC: cros_ec_codec: Reset I2S RX when probing
+Date: Wed,  6 Jan 2021 13:05:59 +0800
+Message-Id: <20210106050559.1459027-1-yuhsuan@chromium.org>
+X-Mailer: git-send-email 2.29.2.729.g45daf8777d-goog
 MIME-Version: 1.0
-In-Reply-To: <s5hble35xlo.wl-tiwai@suse.de>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Content-Language: en-US
-X-Virus-Scanned: clamav-milter 0.98.1 at posta
-X-Virus-Status: Clean
-Cc: Takashi Iwai <tiwai@suse.de>, Matwey Kornilov <matwey.kornilov@gmail.com>,
- Dylan Robinson <dylan_robinson@motu.com>,
- Keith Milner <kamilner@superlative.org>
+Content-Transfer-Encoding: 8bit
+Cc: alsa-devel@alsa-project.org,
+ "Gustavo A . R . Silva" <gustavoars@kernel.org>, Takashi Iwai <tiwai@suse.com>,
+ Liam Girdwood <lgirdwood@gmail.com>, Guenter Roeck <groeck@chromium.org>,
+ Mark Brown <broonie@kernel.org>, Prashant Malani <pmalani@chromium.org>,
+ Pi-Hsun Shih <pihsun@chromium.org>,
+ Enric Balletbo i Serra <enric.balletbo@collabora.com>,
+ Benson Leung <bleung@chromium.org>, Yu-Hsuan Hsu <yuhsuan@chromium.org>,
+ Cheng-Yi Chiang <cychiang@chromium.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -125,22 +101,47 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Dne 05. 01. 21 v 14:20 Takashi Iwai napsal(a):
-> The call of snd_usb_add_endpoint() is needed explicitly
-> now at the quirk itself.
->
-> Below is the v2 patch.  Please give it a try.
+It is not guaranteed that I2S RX is disabled when the kernel booting.
+For example, if the kernel crashes while it is enabled, it will keep
+enabled until the next time EC reboots. Reset I2S RX when probing to
+fix this issue.
 
-I applied your v2 patch to f6e7a024bfe5 version and tested with DJM-250MK=
-2. It seems working (playback, recording).
+Signed-off-by: Yu-Hsuan Hsu <yuhsuan@chromium.org>
+---
+ include/linux/platform_data/cros_ec_commands.h | 1 +
+ sound/soc/codecs/cros_ec_codec.c               | 7 +++++++
+ 2 files changed, 8 insertions(+)
 
-The original error messages (usb 1-3: Cannot find EP 0x1 to open, usb 1-3=
-: Cannot find EP 0x82 to open) disappeared from the log. And new one occu=
-rred (Incompatible EP setup for 0x82 - repeats many times). However DJM-2=
-50MK2 works again.
-
-Thanks,
-
-Franta
-
+diff --git a/include/linux/platform_data/cros_ec_commands.h b/include/linux/platform_data/cros_ec_commands.h
+index 86376779ab31..95889ada83a3 100644
+--- a/include/linux/platform_data/cros_ec_commands.h
++++ b/include/linux/platform_data/cros_ec_commands.h
+@@ -4600,6 +4600,7 @@ enum ec_codec_i2s_rx_subcmd {
+ 	EC_CODEC_I2S_RX_SET_SAMPLE_DEPTH = 0x2,
+ 	EC_CODEC_I2S_RX_SET_DAIFMT = 0x3,
+ 	EC_CODEC_I2S_RX_SET_BCLK = 0x4,
++	EC_CODEC_I2S_RX_RESET = 0x5,
+ 	EC_CODEC_I2S_RX_SUBCMD_COUNT,
+ };
+ 
+diff --git a/sound/soc/codecs/cros_ec_codec.c b/sound/soc/codecs/cros_ec_codec.c
+index f33a2a9654e7..28b3e2c48c86 100644
+--- a/sound/soc/codecs/cros_ec_codec.c
++++ b/sound/soc/codecs/cros_ec_codec.c
+@@ -1011,6 +1011,13 @@ static int cros_ec_codec_platform_probe(struct platform_device *pdev)
+ 	}
+ 	priv->ec_capabilities = r.capabilities;
+ 
++	/* Reset EC codec i2s rx. */
++	p.cmd = EC_CODEC_I2S_RX_RESET;
++	ret = send_ec_host_command(priv->ec_device, EC_CMD_EC_CODEC_I2S_RX,
++				   (uint8_t *)&p, sizeof(p), NULL, 0);
++	if (ret)
++		dev_warn(dev, "failed to EC_CODEC_I2S_RESET: %d\n", ret);
++
+ 	platform_set_drvdata(pdev, priv);
+ 
+ 	ret = devm_snd_soc_register_component(dev, &i2s_rx_component_driver,
+-- 
+2.29.2.729.g45daf8777d-goog
 

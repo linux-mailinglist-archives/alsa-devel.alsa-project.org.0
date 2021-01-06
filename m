@@ -2,90 +2,73 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6FD8F2EB934
-	for <lists+alsa-devel@lfdr.de>; Wed,  6 Jan 2021 06:08:08 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 814D12EB9B8
+	for <lists+alsa-devel@lfdr.de>; Wed,  6 Jan 2021 07:01:06 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 08AD686E;
-	Wed,  6 Jan 2021 06:07:13 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 08AD686E
+	by alsa0.perex.cz (Postfix) with ESMTPS id 123611672;
+	Wed,  6 Jan 2021 07:00:11 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 123611672
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1609909683;
-	bh=qq8btwwNVAS26MkIndQR7HvnBqko/OuI+G6k1r3Oqqw=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=ZpAKvfcWUo9R6cJZZa2hMBZycpraZEgdrbyTzahy9I2+SvZD+DCR7fbun3lHG+Gbu
-	 Z7/d7nkCA9Zd5AEeL2+w+aoKbn6pZxeBjyoyIE6WtN1SD+P7X1FE8lQfUICwMqcajo
-	 QAChi22XxZE0wLdldruuFEnTasMGDiUazzAI4hk8=
+	s=default; t=1609912861;
+	bh=aovVTGHsEd7lpXJVZ9UJHQBManE8+HoTxC4a8R17IOA=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=c4gogd820TXpSXe0ku1mAjgbEfX1wxAnaVKNOn7B1LJbfIABa27jnOMUxAds3CE+Q
+	 GzshQwQxmCdvroXjPN+dsQTpec8bWmbZ4bttIkpEBBan3zltVrHaQlrprnBJs65imi
+	 cVee+QF10oaG6J51MTy46FZ1xm+ba5ajIg0YnZ50=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 73D7DF80167;
-	Wed,  6 Jan 2021 06:06:24 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 5E235F800FD;
+	Wed,  6 Jan 2021 06:59:27 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id C5E85F80166; Wed,  6 Jan 2021 06:06:20 +0100 (CET)
+ id 0099FF80166; Wed,  6 Jan 2021 06:59:22 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
  version=3.4.0
-Received: from mail-pl1-x632.google.com (mail-pl1-x632.google.com
- [IPv6:2607:f8b0:4864:20::632])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 8917EF800DD
- for <alsa-devel@alsa-project.org>; Wed,  6 Jan 2021 06:06:10 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8917EF800DD
+ by alsa1.perex.cz (Postfix) with ESMTPS id 28A65F800E3
+ for <alsa-devel@alsa-project.org>; Wed,  6 Jan 2021 06:59:08 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 28A65F800E3
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org
- header.b="n6ErXUBc"
-Received: by mail-pl1-x632.google.com with SMTP id x18so964895pln.6
- for <alsa-devel@alsa-project.org>; Tue, 05 Jan 2021 21:06:10 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
- h=from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=a+jp8aijiy58DxcPOl4wMV4A6IsbTlkbWpcRF+h39no=;
- b=n6ErXUBc9DzTkG9itHjGJ+eQztJ4nFXJ0bEjylysEqFfyomIYNiuZEeopa9+2QrQFb
- dgXajEXrK3vArf7eJM0inY9jm4f6O+quKZZWNf8KY7Mu4te/M+crpoedpBfQjeo0sn2j
- W7DWx2Msdwgc239HhH7U79VtA9+bjoAJG+nBk=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=a+jp8aijiy58DxcPOl4wMV4A6IsbTlkbWpcRF+h39no=;
- b=Tncy9FxtQVCYFcUrE4Pc1ERT2z/Zr+8VJD6kmZvI2gaJgBrQYET6lBlGFdp17R4fhP
- jzPmQlTauBlpgXcIRpqnU4rUxgll0v1bFcwutr5+ZsWMgG2zZKncZtuwYIxFgIpyFLdv
- VAc6PB/J/Q5e0abS0AVE6SENLzXehkqdITYI1ygg6Pm0pF8REfngvKCRzgv9XQvamLw+
- 2sgcjuoEfn778nMw7X/7Xmcfg1EZQC3xeS+iANvrqNsOeWy0IXEBzpSeGtWIyrnaoYgw
- TW3mLyqOGG3r0oFvoKAuo6O43AlkLXHLewYU4G56JgPUWebP5Dns8MfACAzXVBNuEFWz
- Rvag==
-X-Gm-Message-State: AOAM533M9ZyWlVG0n3+NWHSzdOtUzbwJYTBMFIp7LjB//saL24uM10PF
- mLDXEbclFg4QCoDKmYFcfbs6zQ==
-X-Google-Smtp-Source: ABdhPJyCbhXlMX97B3jAUFrMxSj9rBddxh5FIX/r5Xx2XIEuyf28wNRiNg+HEbpL3MWu6IcVctaf8w==
-X-Received: by 2002:a17:90b:1983:: with SMTP id
- mv3mr2580134pjb.211.1609909567741; 
- Tue, 05 Jan 2021 21:06:07 -0800 (PST)
-Received: from localhost ([2401:fa00:1:10:725a:fff:fe46:44eb])
- by smtp.gmail.com with ESMTPSA id h16sm931002pgd.62.2021.01.05.21.06.04
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 05 Jan 2021 21:06:07 -0800 (PST)
-From: Yu-Hsuan Hsu <yuhsuan@chromium.org>
-To: linux-kernel@vger.kernel.org
-Subject: [PATCH] ASoC: cros_ec_codec: Reset I2S RX when probing
-Date: Wed,  6 Jan 2021 13:05:59 +0800
-Message-Id: <20210106050559.1459027-1-yuhsuan@chromium.org>
-X-Mailer: git-send-email 2.29.2.729.g45daf8777d-goog
+ dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="lk96XD1U"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 6C3EE22C9F;
+ Wed,  6 Jan 2021 05:59:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1609912745;
+ bh=aovVTGHsEd7lpXJVZ9UJHQBManE8+HoTxC4a8R17IOA=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=lk96XD1UnD3J5cm6LohB5oiOdNiupt0I0ZH09obXQ6As9gwszNIRMM9Tfpq9TfkHy
+ USJuXkhzct4kvsvqNfc8SKyDfR0Bz8t/FzcrleQhfnoo5MvxhaI/4RVxrOcRQrGUs4
+ rwSv4nwWkd2FncsvdYYXVVfJanwV000Uv5nw2Zf+b/hGPLlKdAQulg/o9ku7oxdexJ
+ 0M9k0D+9jHy6lNkZJ8Q6Octcb9pHd5/SHLhNSlg1nOHR2jc2G9SXc3wTtyruvGJ3a9
+ fNwovDud6iHJmgER3ICyx108/BcwEwTQfiduUHoWl1TJ58eICjD1HxUnNuUBPTMkA5
+ hv0hO+OtRggQA==
+Date: Wed, 6 Jan 2021 11:29:01 +0530
+From: Vinod Koul <vkoul@kernel.org>
+To: Bard Liao <yung-chuan.liao@linux.intel.com>, broonie@kernel.org
+Subject: Re: [PATCH v2 5/9] regmap: sdw: use _no_pm functions in
+ regmap_read/write
+Message-ID: <20210106055901.GL2771@vkoul-mobl>
+References: <20201209053459.5515-1-yung-chuan.liao@linux.intel.com>
+ <20201209053459.5515-6-yung-chuan.liao@linux.intel.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Cc: alsa-devel@alsa-project.org,
- "Gustavo A . R . Silva" <gustavoars@kernel.org>, Takashi Iwai <tiwai@suse.com>,
- Liam Girdwood <lgirdwood@gmail.com>, Guenter Roeck <groeck@chromium.org>,
- Mark Brown <broonie@kernel.org>, Prashant Malani <pmalani@chromium.org>,
- Pi-Hsun Shih <pihsun@chromium.org>,
- Enric Balletbo i Serra <enric.balletbo@collabora.com>,
- Benson Leung <bleung@chromium.org>, Yu-Hsuan Hsu <yuhsuan@chromium.org>,
- Cheng-Yi Chiang <cychiang@chromium.org>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20201209053459.5515-6-yung-chuan.liao@linux.intel.com>
+Cc: pierre-louis.bossart@linux.intel.com, alsa-devel@alsa-project.org,
+ tiwai@suse.de, gregkh@linuxfoundation.org, linux-kernel@vger.kernel.org,
+ ranjani.sridharan@linux.intel.com, hui.wang@canonical.com,
+ srinivas.kandagatla@linaro.org, jank@cadence.com, sanyog.r.kale@intel.com,
+ rander.wang@linux.intel.com, bard.liao@intel.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -101,47 +84,58 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-It is not guaranteed that I2S RX is disabled when the kernel booting.
-For example, if the kernel crashes while it is enabled, it will keep
-enabled until the next time EC reboots. Reset I2S RX when probing to
-fix this issue.
+HeY Mark,
 
-Signed-off-by: Yu-Hsuan Hsu <yuhsuan@chromium.org>
----
- include/linux/platform_data/cros_ec_commands.h | 1 +
- sound/soc/codecs/cros_ec_codec.c               | 7 +++++++
- 2 files changed, 8 insertions(+)
+On 09-12-20, 13:34, Bard Liao wrote:
+> sdw_update_slave_status will be invoked when a codec is attached,
+> and the codec driver will initialize the codec with regmap functions
+> while the codec device is pm_runtime suspended.
+> 
+> regmap routines currently rely on regular SoundWire IO functions,
+> which will call pm_runtime_get_sync()/put_autosuspend.
+> 
+> This causes a deadlock where the resume routine waits for an
+> initialization complete signal that while the initialization complete
+> can only be reached when the resume completes.
+> 
+> The only solution if we allow regmap functions to be used in resume
+> operations as well as during codec initialization is to use _no_pm
+> routines. The duty of making sure the bus is operational needs to be
+> handled above the regmap level.
 
-diff --git a/include/linux/platform_data/cros_ec_commands.h b/include/linux/platform_data/cros_ec_commands.h
-index 86376779ab31..95889ada83a3 100644
---- a/include/linux/platform_data/cros_ec_commands.h
-+++ b/include/linux/platform_data/cros_ec_commands.h
-@@ -4600,6 +4600,7 @@ enum ec_codec_i2s_rx_subcmd {
- 	EC_CODEC_I2S_RX_SET_SAMPLE_DEPTH = 0x2,
- 	EC_CODEC_I2S_RX_SET_DAIFMT = 0x3,
- 	EC_CODEC_I2S_RX_SET_BCLK = 0x4,
-+	EC_CODEC_I2S_RX_RESET = 0x5,
- 	EC_CODEC_I2S_RX_SUBCMD_COUNT,
- };
- 
-diff --git a/sound/soc/codecs/cros_ec_codec.c b/sound/soc/codecs/cros_ec_codec.c
-index f33a2a9654e7..28b3e2c48c86 100644
---- a/sound/soc/codecs/cros_ec_codec.c
-+++ b/sound/soc/codecs/cros_ec_codec.c
-@@ -1011,6 +1011,13 @@ static int cros_ec_codec_platform_probe(struct platform_device *pdev)
- 	}
- 	priv->ec_capabilities = r.capabilities;
- 
-+	/* Reset EC codec i2s rx. */
-+	p.cmd = EC_CODEC_I2S_RX_RESET;
-+	ret = send_ec_host_command(priv->ec_device, EC_CMD_EC_CODEC_I2S_RX,
-+				   (uint8_t *)&p, sizeof(p), NULL, 0);
-+	if (ret)
-+		dev_warn(dev, "failed to EC_CODEC_I2S_RESET: %d\n", ret);
-+
- 	platform_set_drvdata(pdev, priv);
- 
- 	ret = devm_snd_soc_register_component(dev, &i2s_rx_component_driver,
+You okay these going thru sdw tree..?
+
+> 
+> Fixes: 7c22ce6e21840 ('regmap: Add SoundWire bus support')
+> Signed-off-by: Bard Liao <yung-chuan.liao@linux.intel.com>
+> ---
+>  drivers/base/regmap/regmap-sdw.c | 4 ++--
+>  1 file changed, 2 insertions(+), 2 deletions(-)
+> 
+> diff --git a/drivers/base/regmap/regmap-sdw.c b/drivers/base/regmap/regmap-sdw.c
+> index c92d614b4943..4b8d2d010cab 100644
+> --- a/drivers/base/regmap/regmap-sdw.c
+> +++ b/drivers/base/regmap/regmap-sdw.c
+> @@ -11,7 +11,7 @@ static int regmap_sdw_write(void *context, unsigned int reg, unsigned int val)
+>  	struct device *dev = context;
+>  	struct sdw_slave *slave = dev_to_sdw_dev(dev);
+>  
+> -	return sdw_write(slave, reg, val);
+> +	return sdw_write_no_pm(slave, reg, val);
+>  }
+>  
+>  static int regmap_sdw_read(void *context, unsigned int reg, unsigned int *val)
+> @@ -20,7 +20,7 @@ static int regmap_sdw_read(void *context, unsigned int reg, unsigned int *val)
+>  	struct sdw_slave *slave = dev_to_sdw_dev(dev);
+>  	int read;
+>  
+> -	read = sdw_read(slave, reg);
+> +	read = sdw_read_no_pm(slave, reg);
+>  	if (read < 0)
+>  		return read;
+>  
+> -- 
+> 2.17.1
+
 -- 
-2.29.2.729.g45daf8777d-goog
-
+~Vinod

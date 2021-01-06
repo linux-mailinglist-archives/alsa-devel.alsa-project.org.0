@@ -2,81 +2,67 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 77CF42EB9F3
-	for <lists+alsa-devel@lfdr.de>; Wed,  6 Jan 2021 07:20:22 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5188E2EBB82
+	for <lists+alsa-devel@lfdr.de>; Wed,  6 Jan 2021 10:05:08 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 09748166B;
-	Wed,  6 Jan 2021 07:19:27 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 09748166B
+	by alsa0.perex.cz (Postfix) with ESMTPS id C1170167B;
+	Wed,  6 Jan 2021 10:04:12 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C1170167B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1609914017;
-	bh=5lp+13jiD6sIpu3g6HHgflH2MeBd+glQhPUXzn5sEb0=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1609923902;
+	bh=bWma9UjHoKLLUzGAVLYCymfvzHRmtIUe2/fP0Is4jdQ=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=hbG3KUmihQpM7dCM1OxwO9jMR/s6fujnPEEc3uyVkAL0GvMp5iG0G6OHN56295EI5
-	 9cG1BRzuBNxrun+fdyAVDP816urolKJbFmONnTnjEGvLIdHA3ZbEFzFBhnV8jji/IY
-	 pPS9AkrDATf385oc5jANsdMTWeNC6IX0rdh5LDhg=
+	b=FwRnsmyAIRSSSYzaBAZ6Y5bLhwcDSBa5tfBEwIgQOgPuPdzhLIxGhrU3zzkCFYV/1
+	 dvPAifLSnuwvF1Lfl8tc42lcnEJol2TWDWXSKbMa1s2/EHkhEVIQmwJBswLP4YcElx
+	 37XTVbTXX+s9D12E+a8wW+8PAxFiGZqN49ARR7I8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 7BCD6F80167;
-	Wed,  6 Jan 2021 07:18:38 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id F170AF80167;
+	Wed,  6 Jan 2021 10:03:30 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id B8E50F80166; Wed,  6 Jan 2021 07:18:24 +0100 (CET)
+ id 8A35BF80166; Wed,  6 Jan 2021 10:03:21 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id A0BCEF800E3
- for <alsa-devel@alsa-project.org>; Wed,  6 Jan 2021 07:18:17 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A0BCEF800E3
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="CakvhJq/"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id AA573207AB;
- Wed,  6 Jan 2021 06:18:13 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1609913894;
- bh=5lp+13jiD6sIpu3g6HHgflH2MeBd+glQhPUXzn5sEb0=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=CakvhJq/S0InR70KIkE0nT8f4OsK8tazYsMYaSFjfmUD+Huax/XAoFChfqSwh2Ko3
- O2Yr5kMJTtRg84SKasb5ZjVbjiriRmjXC//Mp6svMTkOguihXcYD8Y7jrNAu5hhU9s
- NdGVzXNjj+s9GjbUJWIyH+IHiUgF6TmPNadTJjfPC+mngpvbFg7c/5UFpGfay3esh2
- cYJ3MG2vwyVhJDX/j+RFuMWxX9ZlY7uvVKpUVyQmSjwgaHtsGBtJTIpjBfFO76T5xG
- lQPLPifs3+qF6HuckWFMEKtmfxytThn8qOgCOh6FZpFqy+bNi0rc5xLf/Si1eeEIi4
- d5j4VPRJ+OyIg==
-Date: Wed, 6 Jan 2021 11:48:10 +0530
-From: Vinod Koul <vkoul@kernel.org>
-To: Thomas Bogendoerfer <tsbogend@alpha.franken.de>
-Subject: Re: [PATCH 05/10] dma: tx49 removal
-Message-ID: <20210106061810.GO2771@vkoul-mobl>
-References: <20210105140305.141401-1-tsbogend@alpha.franken.de>
- <20210105140305.141401-6-tsbogend@alpha.franken.de>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20210105140305.141401-6-tsbogend@alpha.franken.de>
-Cc: Alexandre Belloni <alexandre.belloni@bootlin.com>,
- Vignesh Raghavendra <vigneshr@ti.com>, Liam Girdwood <lgirdwood@gmail.com>,
- alsa-devel@alsa-project.org, Takashi Iwai <tiwai@suse.com>,
- linux-ide@vger.kernel.org, linux-mtd@lists.infradead.org,
- Miquel Raynal <miquel.raynal@bootlin.com>, linux-spi@vger.kernel.org,
- linux-rtc@vger.kernel.org, Wim Van Sebroeck <wim@linux-watchdog.org>,
- Herbert Xu <herbert@gondor.apana.org.au>, Richard Weinberger <richard@nod.at>,
- Jakub Kicinski <kuba@kernel.org>, Guenter Roeck <linux@roeck-us.net>,
- linux-watchdog@vger.kernel.org, Mark Brown <broonie@kernel.org>,
- Matt Mackall <mpm@selenic.com>, Dan Williams <dan.j.williams@intel.com>,
- Alessandro Zummo <a.zummo@towertech.it>, netdev@vger.kernel.org,
- linux-mips@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-crypto@vger.kernel.org, dmaengine@vger.kernel.org,
- "David S. Miller" <davem@davemloft.net>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 825FCF800DD
+ for <alsa-devel@alsa-project.org>; Wed,  6 Jan 2021 10:03:08 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 825FCF800DD
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id CC85FAD4E;
+ Wed,  6 Jan 2021 09:03:07 +0000 (UTC)
+Date: Wed, 06 Jan 2021 10:03:07 +0100
+Message-ID: <s5ha6tm30ac.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: =?UTF-8?B?RnJhbnRpxaFlayBLdcSNZXJh?= <konference@frantovo.cz>
+Subject: Re: [PATCH 14/41] ALSA: usb-audio: Create endpoint objects at parsing
+ phase - Pioneer DJ DJM-250MK2 stopped working
+In-Reply-To: <153e3b6e-0481-1d2e-fd00-4a2391a8035b@frantovo.cz>
+References: <20201123085347.19667-1-tiwai@suse.de>
+ <20201123085347.19667-15-tiwai@suse.de>
+ <f7e8fe36-571e-7b78-3abe-777e365b53b0@frantovo.cz>
+ <s5h8s9a9bvh.wl-tiwai@suse.de>
+ <90c7f45a-91e6-f4e2-97a5-81df773bc22a@frantovo.cz>
+ <s5him8b7mvf.wl-tiwai@suse.de> <s5hble35xlo.wl-tiwai@suse.de>
+ <153e3b6e-0481-1d2e-fd00-4a2391a8035b@frantovo.cz>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
+ FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
+ (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+Cc: alsa-devel@alsa-project.org, Matwey Kornilov <matwey.kornilov@gmail.com>,
+ Dylan Robinson <dylan_robinson@motu.com>,
+ Keith Milner <kamilner@superlative.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -92,10 +78,171 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 05-01-21, 15:02, Thomas Bogendoerfer wrote:
-> Signed-off-by: Thomas Bogendoerfer <tsbogend@alpha.franken.de>
+On Tue, 05 Jan 2021 23:27:14 +0100,
+František Kučera wrote:
+> 
+> Dne 05. 01. 21 v 14:20 Takashi Iwai napsal(a):
+> > The call of snd_usb_add_endpoint() is needed explicitly
+> > now at the quirk itself.
+> >
+> > Below is the v2 patch.  Please give it a try.
+> 
+> I applied your v2 patch to f6e7a024bfe5 version and tested with DJM-250MK2. It seems working (playback, recording).
+> 
+> The original error messages (usb 1-3: Cannot find EP 0x1 to open, usb 1-3: Cannot find EP 0x82 to open) disappeared from the log. And new one occurred (Incompatible EP setup for 0x82 - repeats many times). However DJM-250MK2 works again.
 
-Applied after fixing subsystem name, thanks
+OK, then could you try the v3 patch below?
 
+
+Takashi
+
+-- 8< --
+From: Takashi Iwai <tiwai@suse.de>
+Subject: [PATCH v3] ALSA: usb-audio: Fix the missing endpoints creations for
+ quirks
+
+The recent change in the endpoint management moved the endpoint object
+creation from the stream open time to the parser of the audio
+descriptor.  It works fine for the standard audio, but it overlooked
+the other places that create audio streams via quirks
+(QUIRK_AUDIO_FIXED_ENDPOINT) like the reported Pioneer devices;
+those call snd_usb_add_audio_stream() manually, hence they miss the
+endpoints, eventually resulting in the error at opening streams.
+Moreover, now the sync EP setup was moved to the explicit call of
+snd_usb_audioformat_set_sync_ep(), and this needs to be added for
+those places, too.
+
+This patch addresses those regressions for quirks.  It adds a local
+helper function add_audio_stream_from_fixed_fmt(), which does the all
+needed tasks, and replaces the calls of snd_usb_add_audio_stream()
+with this new function.
+
+Also, since the implicit feedback can be handled generically, drop
+the implicit feedback quirk entries for those devices.
+This fixes the missing sync_ep_idx entry, too.
+
+Fixes: 54cb31901b83 ("ALSA: usb-audio: Create endpoint objects at parsing phase")
+Reported-by: František Kučera <konference@frantovo.cz>
+Signed-off-by: Takashi Iwai <tiwai@suse.de>
+---
+ sound/usb/implicit.c |  2 --
+ sound/usb/quirks.c   | 54 ++++++++++++++++++++++++++++++++++++--------
+ 2 files changed, 44 insertions(+), 12 deletions(-)
+
+diff --git a/sound/usb/implicit.c b/sound/usb/implicit.c
+index 931042a6a051..3e0d8a59dddb 100644
+--- a/sound/usb/implicit.c
++++ b/sound/usb/implicit.c
+@@ -58,8 +58,6 @@ static const struct snd_usb_implicit_fb_match playback_implicit_fb_quirks[] = {
+ 	IMPLICIT_FB_FIXED_DEV(0x0499, 0x172f, 0x81, 2), /* Steinberg UR22C */
+ 	IMPLICIT_FB_FIXED_DEV(0x0d9a, 0x00df, 0x81, 2), /* RTX6001 */
+ 	IMPLICIT_FB_FIXED_DEV(0x22f0, 0x0006, 0x81, 3), /* Allen&Heath Qu-16 */
+-	IMPLICIT_FB_FIXED_DEV(0x2b73, 0x000a, 0x82, 0), /* Pioneer DJ DJM-900NXS2 */
+-	IMPLICIT_FB_FIXED_DEV(0x2b73, 0x0017, 0x82, 0), /* Pioneer DJ DJM-250MK2 */
+ 	IMPLICIT_FB_FIXED_DEV(0x1686, 0xf029, 0x82, 2), /* Zoom UAC-2 */
+ 	IMPLICIT_FB_FIXED_DEV(0x2466, 0x8003, 0x86, 2), /* Fractal Audio Axe-Fx II */
+ 	IMPLICIT_FB_FIXED_DEV(0x0499, 0x172a, 0x86, 2), /* Yamaha MODX */
+diff --git a/sound/usb/quirks.c b/sound/usb/quirks.c
+index e4a690bb4c99..b70e2ebc3e29 100644
+--- a/sound/usb/quirks.c
++++ b/sound/usb/quirks.c
+@@ -120,6 +120,40 @@ static int create_standard_audio_quirk(struct snd_usb_audio *chip,
+ 	return 0;
+ }
+ 
++/* create the audio stream and the corresponding endpoints from the fixed
++ * audioformat object; this is used for quirks with the fixed EPs
++ */
++static int add_audio_stream_from_fixed_fmt(struct snd_usb_audio *chip,
++					   struct audioformat *fp)
++{
++	int stream, err;
++
++	stream = (fp->endpoint & USB_DIR_IN) ?
++		SNDRV_PCM_STREAM_CAPTURE : SNDRV_PCM_STREAM_PLAYBACK;
++
++	snd_usb_audioformat_set_sync_ep(chip, fp);
++
++	err = snd_usb_add_audio_stream(chip, stream, fp);
++	if (err < 0)
++		return err;
++
++	err = snd_usb_add_endpoint(chip, fp->endpoint,
++				   SND_USB_ENDPOINT_TYPE_DATA);
++	if (err < 0)
++		return err;
++
++	if (fp->sync_ep) {
++		err = snd_usb_add_endpoint(chip, fp->sync_ep,
++					   fp->implicit_fb ?
++					   SND_USB_ENDPOINT_TYPE_DATA :
++					   SND_USB_ENDPOINT_TYPE_SYNC);
++		if (err < 0)
++			return err;
++	}
++
++	return 0;
++}
++
+ /*
+  * create a stream for an endpoint/altsetting without proper descriptors
+  */
+@@ -131,8 +165,8 @@ static int create_fixed_stream_quirk(struct snd_usb_audio *chip,
+ 	struct audioformat *fp;
+ 	struct usb_host_interface *alts;
+ 	struct usb_interface_descriptor *altsd;
+-	int stream, err;
+ 	unsigned *rate_table = NULL;
++	int err;
+ 
+ 	fp = kmemdup(quirk->data, sizeof(*fp), GFP_KERNEL);
+ 	if (!fp)
+@@ -153,11 +187,6 @@ static int create_fixed_stream_quirk(struct snd_usb_audio *chip,
+ 		fp->rate_table = rate_table;
+ 	}
+ 
+-	stream = (fp->endpoint & USB_DIR_IN)
+-		? SNDRV_PCM_STREAM_CAPTURE : SNDRV_PCM_STREAM_PLAYBACK;
+-	err = snd_usb_add_audio_stream(chip, stream, fp);
+-	if (err < 0)
+-		goto error;
+ 	if (fp->iface != get_iface_desc(&iface->altsetting[0])->bInterfaceNumber ||
+ 	    fp->altset_idx >= iface->num_altsetting) {
+ 		err = -EINVAL;
+@@ -176,6 +205,13 @@ static int create_fixed_stream_quirk(struct snd_usb_audio *chip,
+ 		fp->datainterval = snd_usb_parse_datainterval(chip, alts);
+ 	if (fp->maxpacksize == 0)
+ 		fp->maxpacksize = le16_to_cpu(get_endpoint(alts, 0)->wMaxPacketSize);
++	if (!fp->fmt_type)
++		fp->fmt_type = UAC_FORMAT_TYPE_I;
++
++	err = add_audio_stream_from_fixed_fmt(chip, fp);
++	if (err < 0)
++		goto error;
++
+ 	usb_set_interface(chip->dev, fp->iface, 0);
+ 	snd_usb_init_pitch(chip, fp);
+ 	snd_usb_init_sample_rate(chip, fp, fp->rate_max);
+@@ -417,7 +453,7 @@ static int create_uaxx_quirk(struct snd_usb_audio *chip,
+ 	struct usb_host_interface *alts;
+ 	struct usb_interface_descriptor *altsd;
+ 	struct audioformat *fp;
+-	int stream, err;
++	int err;
+ 
+ 	/* both PCM and MIDI interfaces have 2 or more altsettings */
+ 	if (iface->num_altsetting < 2)
+@@ -482,9 +518,7 @@ static int create_uaxx_quirk(struct snd_usb_audio *chip,
+ 		return -ENXIO;
+ 	}
+ 
+-	stream = (fp->endpoint & USB_DIR_IN)
+-		? SNDRV_PCM_STREAM_CAPTURE : SNDRV_PCM_STREAM_PLAYBACK;
+-	err = snd_usb_add_audio_stream(chip, stream, fp);
++	err = add_audio_stream_from_fixed_fmt(chip, fp);
+ 	if (err < 0) {
+ 		list_del(&fp->list); /* unlink for avoiding double-free */
+ 		kfree(fp);
 -- 
-~Vinod
+2.26.2
+

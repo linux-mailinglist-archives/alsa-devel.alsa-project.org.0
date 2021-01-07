@@ -2,71 +2,74 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6B4B12ED48A
-	for <lists+alsa-devel@lfdr.de>; Thu,  7 Jan 2021 17:42:47 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id A23812ED494
+	for <lists+alsa-devel@lfdr.de>; Thu,  7 Jan 2021 17:45:32 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id EBFDB1699;
-	Thu,  7 Jan 2021 17:41:56 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EBFDB1699
+	by alsa0.perex.cz (Postfix) with ESMTPS id 283721684;
+	Thu,  7 Jan 2021 17:44:42 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 283721684
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1610037767;
-	bh=fOWMAya6MUgIxPCi2rUu0Qt+PUSCQkj1fFqZohufbqw=;
+	s=default; t=1610037932;
+	bh=vuM9vAjQJkgCU4xBUoFmKddeaCN97wvKiCrb9wFq5Rs=;
 	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=MkFmQWJ3yuj2F6ZiWyDlpSAmB0Nma+Il47XsOdMqqcVoMMVxPblVRdCGt+Lu6HSyb
-	 Q7tWD5de1UD2coU9fwtf2W/HVKsVPT58VgfQN0QGDAAegR8M7png7fWw/PKe1MdruV
-	 s5vYVthdJi6WuEfyN+slPxxP30utbnp9ZGaQuZsk=
+	b=q+gGMKOg96MrHIGJ7pCf2Gn6Rcz+ZifnLL5hFB3k2T2TxGmJxAs5QPUFQ79Cj1yWy
+	 zW2KHFSTzrJypPKd+cun/08vYeoWq2Zi3SiggNI0hUEoOfyGZxY7AbWs7/UHqd7eo+
+	 LK1PoSY8h6GHiBptDXYZSRNBvrsoP7lD8buMoZUw=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 5DBC0F800FD;
-	Thu,  7 Jan 2021 17:41:14 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id C9943F800E9;
+	Thu,  7 Jan 2021 17:43:59 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 0AEE4F80258; Thu,  7 Jan 2021 17:41:12 +0100 (CET)
+ id AAA26F80258; Thu,  7 Jan 2021 17:43:57 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from elvis.franken.de (elvis.franken.de [193.175.24.41])
- by alsa1.perex.cz (Postfix) with ESMTP id 809FEF800FD
- for <alsa-devel@alsa-project.org>; Thu,  7 Jan 2021 17:41:04 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 809FEF800FD
-Received: from uucp (helo=alpha)
- by elvis.franken.de with local-bsmtp (Exim 3.36 #1)
- id 1kxYL4-0000Tv-00; Thu, 07 Jan 2021 17:40:42 +0100
-Received: by alpha.franken.de (Postfix, from userid 1000)
- id 98E5BC080E; Thu,  7 Jan 2021 17:40:15 +0100 (CET)
-Date: Thu, 7 Jan 2021 17:40:15 +0100
-From: Thomas Bogendoerfer <tsbogend@alpha.franken.de>
-To: Joe Perches <joe@perches.com>
-Subject: Re: [PATCH 05/10] dma: tx49 removal
-Message-ID: <20210107164015.GA12533@alpha.franken.de>
-References: <20210105140305.141401-1-tsbogend@alpha.franken.de>
- <20210105140305.141401-6-tsbogend@alpha.franken.de>
- <b84dadc2e98b1986dc800c5f6f202880ed905b38.camel@perches.com>
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id B391BF800E9
+ for <alsa-devel@alsa-project.org>; Thu,  7 Jan 2021 17:43:54 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B391BF800E9
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="D3c+nbeK"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 06DA923403;
+ Thu,  7 Jan 2021 16:43:51 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1610037832;
+ bh=vuM9vAjQJkgCU4xBUoFmKddeaCN97wvKiCrb9wFq5Rs=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=D3c+nbeK0+kwJq39ghmw5I0A2Sw54HCgrv/tFM+DIHWYNS3ROj+9a3hGG/ymGzI+U
+ Pu/rXvAE/ZQSwa0q//9N/EPrkdjLh0vVY7DxaJ2Dl397bBnVDmJKFh9D/VwUypQUdp
+ Koza40wb43KKwHbactJTZwJb6+Lfd4gI28RLFuDEu4ytqWPOykodoaP3uyYKRp6H49
+ IqdKD5U5ReSi/UR6ny56E3jUPVg35RtPdVfWOd7PdDhiZ5cDQsI/at36xOfyfq17CN
+ A9Y2/u0XWCDapFMk+HKm9WPeJuUFo5n6Ahsnik1mLa3Q2JgipctO2/gyBqRrmfOu5f
+ yF6y3JnRGKLFA==
+Date: Thu, 7 Jan 2021 16:43:22 +0000
+From: Mark Brown <broonie@kernel.org>
+To: Takashi Iwai <tiwai@suse.de>
+Subject: Re: [PATCH resend] sound: Convert strlcpy to strscpy when return
+ value is unused
+Message-ID: <20210107164322.GF4726@sirena.org.uk>
+References: <22b393d1790bb268769d0bab7bacf0866dcb0c14.camel@perches.com>
+ <s5hpn2j2rr3.wl-tiwai@suse.de>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="uTRFFR9qmiCqR05s"
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <b84dadc2e98b1986dc800c5f6f202880ed905b38.camel@perches.com>
+In-Reply-To: <s5hpn2j2rr3.wl-tiwai@suse.de>
+X-Cookie: See store for details.
 User-Agent: Mutt/1.10.1 (2018-07-13)
-Cc: Alexandre Belloni <alexandre.belloni@bootlin.com>,
- Vignesh Raghavendra <vigneshr@ti.com>, Liam Girdwood <lgirdwood@gmail.com>,
- alsa-devel@alsa-project.org, Takashi Iwai <tiwai@suse.com>,
- linux-ide@vger.kernel.org, linux-mtd@lists.infradead.org,
- Miquel Raynal <miquel.raynal@bootlin.com>, linux-spi@vger.kernel.org,
- linux-rtc@vger.kernel.org, Wim Van Sebroeck <wim@linux-watchdog.org>,
- Herbert Xu <herbert@gondor.apana.org.au>, Richard Weinberger <richard@nod.at>,
- Jakub Kicinski <kuba@kernel.org>, Guenter Roeck <linux@roeck-us.net>,
- linux-watchdog@vger.kernel.org, Mark Brown <broonie@kernel.org>,
- Matt Mackall <mpm@selenic.com>, Dan Williams <dan.j.williams@intel.com>,
- Alessandro Zummo <a.zummo@towertech.it>, netdev@vger.kernel.org,
- linux-mips@vger.kernel.org, linux-kernel@vger.kernel.org,
- Vinod Koul <vkoul@kernel.org>, linux-crypto@vger.kernel.org,
- dmaengine@vger.kernel.org, "David S.  Miller" <davem@davemloft.net>
+Cc: alsa-devel <alsa-devel@alsa-project.org>,
+ kernel-janitors <kernel-janitors@vger.kernel.org>,
+ LKML <linux-kernel@vger.kernel.org>, Julia Lawall <Julia.Lawall@inria.fr>,
+ Joe Perches <joe@perches.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -82,39 +85,29 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Wed, Jan 06, 2021 at 11:10:38AM -0800, Joe Perches wrote:
-> On Tue, 2021-01-05 at 15:02 +0100, Thomas Bogendoerfer wrote:
-> > Signed-off-by: Thomas Bogendoerfer <tsbogend@alpha.franken.de>
-> []
-> > diff --git a/drivers/dma/txx9dmac.h b/drivers/dma/txx9dmac.h
-> []
-> > @@ -26,11 +26,6 @@
-> >   * DMA channel.
-> >   */
-> >  
-> > 
-> > -#ifdef CONFIG_MACH_TX49XX
-> > -static inline bool txx9_dma_have_SMPCHN(void)
-> > -{
-> > -	return true;
-> > -}
-> >  #define TXX9_DMA_USE_SIMPLE_CHAIN
-> >  #else
-> >  static inline bool txx9_dma_have_SMPCHN(void)
-> 
-> This doesn't look like it compiles as there's now an #else
-> without an #if
 
-you are right, no idea what I had in mind while doing that.
+--uTRFFR9qmiCqR05s
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-Vinod,
+On Tue, Jan 05, 2021 at 06:55:12PM +0100, Takashi Iwai wrote:
+> Mark, could you check the ASoC part?
 
-as this patch series found a still active user of the platform,
-could you drop the patch from your tree, or do you want a revert
-from me ?
+Acked-by: Mark Brown <broonie@kernel.org>
 
-Thomas.
+--uTRFFR9qmiCqR05s
+Content-Type: application/pgp-signature; name="signature.asc"
 
--- 
-Crap can work. Given enough thrust pigs will fly, but it's not necessarily a
-good idea.                                                [ RFC1925, 2.3 ]
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl/3OikACgkQJNaLcl1U
+h9CliQf/fWBovJb9ILFKC38hv8wOmoZfK1W6JdCZ51RizmOwpB+ucVe7GG03haN1
+hrh54Tj0NzpYo3cuAEWPMRIXiWisE77mm2MOGuf005H8oB58ETQ1B6GM/odbNEuA
+MiHC0MdNL87krLHKIKQLKfx0FZ8K1T3VjvmJminiHTKtP90SPWWh+m260M7rFaMN
+IreAoGI0QSZd2QYlX4/rcLgcAWhQdGBBSmn5L0bzHD41sobO5Cy74nJfIUovvtMQ
+HZsgPZH/VmGJm931ztYmln9NuI9vhi76GYVeWlXvo8NNa+1zzGqpyQMjp9I8vUob
+Nc1ec/s5nRsTNcrfpEiiUwOd5EMVCg==
+=u4EK
+-----END PGP SIGNATURE-----
+
+--uTRFFR9qmiCqR05s--

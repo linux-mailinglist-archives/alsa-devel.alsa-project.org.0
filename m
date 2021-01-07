@@ -2,86 +2,86 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2FC082ECC53
-	for <lists+alsa-devel@lfdr.de>; Thu,  7 Jan 2021 10:09:18 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id D686F2ECC55
+	for <lists+alsa-devel@lfdr.de>; Thu,  7 Jan 2021 10:10:03 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C8D09168B;
-	Thu,  7 Jan 2021 10:08:27 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C8D09168B
+	by alsa0.perex.cz (Postfix) with ESMTPS id 7B1051684;
+	Thu,  7 Jan 2021 10:09:13 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7B1051684
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1610010557;
-	bh=PMlTmQ3nXoOH1bJjVar6F8K6/GhjQ9sYb4lkPX4mFVI=;
+	s=default; t=1610010603;
+	bh=uyOSuIEcHd3QXQsK2S7IfLp6TlUUY8lkCnDYeSWxePM=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=jkzo3tJpkpznyY34o+uEDTN88xCdg4y0TOoECgS96MpYpCbD1dydJLmEDCsCS/8wr
-	 QmRH/J82B5ybuS3gADBO3N4D0kQx6WNh+teXPmmCDZzrBn2Ki8dFfBslAv4hTWMpdl
-	 F/LTm9RmIA3Pxm1QAo1VmaVJa/9K2wj3pftrYy0A=
+	b=ZSFzzaQ9c/ceMVuvyOwBgDmu32DEHOVGKkesgxl4N56vtLfEJ7V8HQJ6/uU0nMqop
+	 /qWXNgIu3RcSQHQXLW25nRz6m6lQmOXctJ8olvssOF4LWs1b/lKIuz4vg5AOT5Xi8/
+	 YaLmDFsa1n8Pzo7XgVxUy6pPyrvi8l4wOWAMTH7c=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 26A68F804BD;
-	Thu,  7 Jan 2021 10:07:03 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 87034F804E0;
+	Thu,  7 Jan 2021 10:07:05 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 72F0EF804C3; Thu,  7 Jan 2021 10:07:00 +0100 (CET)
+ id 3B60DF804C3; Thu,  7 Jan 2021 10:07:02 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
  version=3.4.0
-Received: from mail-pj1-x102d.google.com (mail-pj1-x102d.google.com
- [IPv6:2607:f8b0:4864:20::102d])
+Received: from mail-pg1-x535.google.com (mail-pg1-x535.google.com
+ [IPv6:2607:f8b0:4864:20::535])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 021BFF80271
- for <alsa-devel@alsa-project.org>; Thu,  7 Jan 2021 10:06:47 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 021BFF80271
+ by alsa1.perex.cz (Postfix) with ESMTPS id C5826F801F5
+ for <alsa-devel@alsa-project.org>; Thu,  7 Jan 2021 10:06:50 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C5826F801F5
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=endlessos.org header.i=@endlessos.org
- header.b="fDGKemIp"
-Received: by mail-pj1-x102d.google.com with SMTP id j13so3332236pjz.3
- for <alsa-devel@alsa-project.org>; Thu, 07 Jan 2021 01:06:47 -0800 (PST)
+ header.b="tdQiJclZ"
+Received: by mail-pg1-x535.google.com with SMTP id v19so4384902pgj.12
+ for <alsa-devel@alsa-project.org>; Thu, 07 Jan 2021 01:06:50 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=endlessos.org; s=google;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=ViO6PydNgMGhzgsctVMRzuTtGGnQjswu8DFXv1qC3B8=;
- b=fDGKemIpa0IVex6SVvtLMLeLpbX8hwf1aTMh3SKYdzc6vf0I0zWjc36xoPzzbiEGKJ
- a17xHx8PgAgh+BZuBF4h/rwOeKWmeD9VBJ9CgkyAQqRfA5vVD11ddiMzVXu1BG3QfGrZ
- FL6etZ/dJKCXgqiBJNZOZcLa4Ha5c115UdvKOfbxJaD+Ta1i/0ZGeaJ6PR+Al2hQ78Q5
- UccaW2ZY7ujhy5a3lrhvWl8pfRZInjbCrXuZAB+2nNsqsG5HezlnXuaESVqW8Nqv8NGt
- FOStHIjeWu+onuqBmwi3grlhCu/LG35jjKZCndyA22vdym5Yuy439ulEBRmw0wnKneX8
- f7xw==
+ bh=oGDP77wj0SBSqj0K7AcIhTlzIQ1EOZW+OCgfJtSnnj0=;
+ b=tdQiJclZl5WYttq+YANmngxav4yaUb4TOFtHKzx6l8boS5QkElEvoN9cGpRuCVh8+U
+ be5bFqEt0u5npj6bmQdFi0utLrfuV1J2Mv+BREsB3riHS82GOO5vzzw6q/eV/WAmw09r
+ BhJzYLGj8r7avNP/9l3zfyBM0NyTbxFwRFbAaxDff61uHYSeWCBBaR+I/Kt/DgZG0HBX
+ Ki+lTwmBS7qDMTZWDwcS4ihuI205E6JOA8fmb1BECz7XpjtJqLLVlwYKMiQbzDiBmidZ
+ uhROoAkw59GghHKroEDzu2D0c9pIc67nehO3WYKZZ8NEWjG2CKMZVC3tuELtpUwJqxX7
+ oQJQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=ViO6PydNgMGhzgsctVMRzuTtGGnQjswu8DFXv1qC3B8=;
- b=fryle2muTW9MHV6u0gV7wymrao5MfaVnPTm2SHse6bCAatLLRnL7Erkvl7gei/cJbo
- GgN466GbUoAc2dXSqDlnC7xhMUcvz3LRjE93A24fInTH2n+aQfN/y/1lM26fqCgub9W2
- JfzGFPnjAgPXHB5oVB9uiLKmQXT7bAkMkh7/MS63eQe/AMRsU00zQF2XoIwKLl53Z6fv
- 7Z3/0szPzdiJoVhQOGNMBEv5d5Ydv7TdTlp0broDofF5ldAsS3/uvLmXGZ9WWQBIWprE
- wnscu2FXdlQ/Yd0IENgTjQ13Y7uUQDbLkdRfB00VAUbRQA3RfLG8RZzU5furo//pdLIy
- uZUQ==
-X-Gm-Message-State: AOAM5304Ta262+m5w8p5hcw4JMT+IM2nUBLpwRxA8ewPuPWWkrW6mOBE
- +0DCZr3V2/cXl5xLhgTcA2z+Iw==
-X-Google-Smtp-Source: ABdhPJyQ1BWvEYxS4zI9slZsnUqXT+CnmasvCM1QErDNZiba0rcM9PTPxUq5ZQnbX6d1WRr2XQmfRg==
-X-Received: by 2002:a17:90a:1a10:: with SMTP id
- 16mr8177738pjk.42.1610010404772; 
- Thu, 07 Jan 2021 01:06:44 -0800 (PST)
+ bh=oGDP77wj0SBSqj0K7AcIhTlzIQ1EOZW+OCgfJtSnnj0=;
+ b=Bn6zPGv1/Faru/jF9L3I6Zfu+6JySvIvRBoBEldYCpAuckArkWoc6zu4VCt0phL0lF
+ Q4fh4xobtAJ/SI5pS+5UHayhBFZpjdoCgf9HSqUoVMXf5dgBaHrlyb0UC79Y2nzDoFHt
+ l2Fa2Q40vFwkm5+iX7EAiX0o9scxdFaKPARQ32MezbftWcZmhWdk2hg1a3oO65w6zBq2
+ 7isQsFqMWdappzqSdeP1LHFiOmRQOlypehuSsptNtoD9aucqFe98qIDdAES92crpQMck
+ akujE094s+aGWBQRZCJSSm6geXnQb8qNF0bBVsraJF4pOkIwuKXGbBneRqWKqn/9ZLSr
+ 0zDw==
+X-Gm-Message-State: AOAM5302ezwZBuWOaqtBJm/A8z3788qMd0Jn/pC0j0mG+i1YynjWY2Hk
+ YOrfkTYWGhwU8zUuvNFm5mGDPg==
+X-Google-Smtp-Source: ABdhPJw/8oBCbWbG0rUFRC4/JHq/k8qLYU3KPf/U/tgCSiPOwlDExBMcmfq4NheFwmH1P+SovtDBDg==
+X-Received: by 2002:aa7:8506:0:b029:19e:95:f75f with SMTP id
+ v6-20020aa785060000b029019e0095f75fmr7711545pfn.7.1610010407586; 
+ Thu, 07 Jan 2021 01:06:47 -0800 (PST)
 Received: from endless.endlessm-sf.com
  (ec2-34-209-191-27.us-west-2.compute.amazonaws.com. [34.209.191.27])
- by smtp.googlemail.com with ESMTPSA id b2sm5006394pfo.164.2021.01.07.01.06.42
+ by smtp.googlemail.com with ESMTPSA id b2sm5006394pfo.164.2021.01.07.01.06.45
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 07 Jan 2021 01:06:44 -0800 (PST)
+ Thu, 07 Jan 2021 01:06:47 -0800 (PST)
 From: Chris Chiu <chiu@endlessos.org>
 To: oder_chiou@realtek.com, lgirdwood@gmail.com, broonie@kernel.org,
  perex@perex.cz, tiwai@suse.com
-Subject: [PATCH 2/4] ASoC: rt5645: Add ACPI-defined GPIO for ECS EF20 series
-Date: Thu,  7 Jan 2021 17:06:23 +0800
-Message-Id: <20210107090625.107078-3-chiu@endlessos.org>
+Subject: [PATCH 3/4] ASoC: rt5645: add inv_hp_det flag
+Date: Thu,  7 Jan 2021 17:06:24 +0800
+Message-Id: <20210107090625.107078-4-chiu@endlessos.org>
 X-Mailer: git-send-email 2.20.1
 In-Reply-To: <20210107090625.107078-1-chiu@endlessos.org>
 References: <20210107090625.107078-1-chiu@endlessos.org>
@@ -104,83 +104,67 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Add the hp-detect gpio for ECS EF20 series laptops based on the
-_CRS defined in DSDT table.
+The ECS EF20EA laptop use gpio for jack detection instead of rt5645
+rt5645 JD. However, the GPIO polarity is inverse for hp-detect based
+on the _DSD property of the RTK2 device.
 
-Method (_CRS, 0, NotSerialized)
-{
-  Name (SBUF, ResourceTemplate ()
-  {
-    I2cSerialBusV2 (0x001A, ControllerInitiated, 0x00061A80,
-        AddressingMode7Bit, "\\_SB.PCI0.I2C2",
-        0x00, ResourceConsumer, , Exclusive,
-        )
-    GpioInt (Edge, ActiveBoth, SharedAndWake, PullNone, 0x0000,
-        "\\_SB.GPO3", 0x00, ResourceConsumer, ,
-        )
-        {   // Pin list
-            0x004F
-        }
-    GpioIo (Shared, PullDefault, 0x0000, 0x0000, IoRestrictionInputOnly,
-        "\\_SB.GPO3", 0x00, ResourceConsumer, ,
-        )
-        {   // Pin list
-            0x004F
-        }
-  })
-  Return (SBUF) /* \_SB_.PCI0.I2C2.RTK2._CRS.SBUF */
-}
+Name (_DSD, Package () {
+    ToUUID("daffd814-6eba-4d8c-8a91-bc9bbf4aa301"),
+    Package () {
+        Package () {"hp-detect-gpio", Package() {^RTK2, 0, 0, 1 }},
+    }
+})
+
+This flag will invert the hp-detect gpio polarity.
 
 Signed-off-by: Chris Chiu <chiu@endlessos.org>
 ---
- sound/soc/codecs/rt5645.c | 27 +++++++++++++++++++++++++++
- 1 file changed, 27 insertions(+)
+ include/sound/rt5645.h    | 2 ++
+ sound/soc/codecs/rt5645.c | 4 ++++
+ 2 files changed, 6 insertions(+)
 
+diff --git a/include/sound/rt5645.h b/include/sound/rt5645.h
+index 39a77c7cea36..710c95be5509 100644
+--- a/include/sound/rt5645.h
++++ b/include/sound/rt5645.h
+@@ -22,6 +22,8 @@ struct rt5645_platform_data {
+ 	bool level_trigger_irq;
+ 	/* Invert JD1_1 status polarity */
+ 	bool inv_jd1_1;
++	/* Invert HP detect status polarity */
++	bool inv_hp_pol;
+ 
+ 	/* Value to asign to snd_soc_card.long_name */
+ 	const char *long_name;
 diff --git a/sound/soc/codecs/rt5645.c b/sound/soc/codecs/rt5645.c
-index 78f0ab0a008e..24a6acb3c12f 100644
+index 24a6acb3c12f..530145cf8c5b 100644
 --- a/sound/soc/codecs/rt5645.c
 +++ b/sound/soc/codecs/rt5645.c
-@@ -3653,6 +3653,19 @@ static const struct rt5645_platform_data kahlee_platform_data = {
- 	.jd_mode = 3,
- };
- 
-+static const struct acpi_gpio_params ef20_hp_detect = { 1, 0, false };
-+
-+static const struct acpi_gpio_mapping cht_rt5645_ef20_gpios[] = {
-+	{ "hp-detect-gpios", &ef20_hp_detect, 1 },
-+	{ },
-+};
-+
-+static int cht_rt5645_ef20_quirk_cb(const struct dmi_system_id *id)
-+{
-+	cht_rt5645_gpios = cht_rt5645_ef20_gpios;
-+	return 1;
-+}
-+
- static const struct dmi_system_id dmi_platform_data[] = {
- 	{
- 		.ident = "Chrome Buddy",
-@@ -3782,6 +3795,20 @@ static const struct dmi_system_id dmi_platform_data[] = {
- 		},
- 		.driver_data = (void *)&intel_braswell_platform_data,
- 	},
-+	{
-+		.ident = "EF20",
-+		.callback = cht_rt5645_ef20_quirk_cb,
-+		.matches = {
-+			DMI_MATCH(DMI_PRODUCT_NAME, "EF20"),
-+		},
-+	},
-+	{
-+		.ident = "EF20EA",
-+		.callback = cht_rt5645_ef20_quirk_cb,
-+		.matches = {
-+			DMI_MATCH(DMI_PRODUCT_NAME, "EF20EA"),
-+		},
-+	},
- };
- 
- static bool rt5645_check_dp(struct device *dev)
+@@ -34,6 +34,7 @@
+ #define QUIRK_INV_JD1_1(q)	((q) & 1)
+ #define QUIRK_LEVEL_IRQ(q)	(((q) >> 1) & 1)
+ #define QUIRK_IN2_DIFF(q)	(((q) >> 2) & 1)
++#define QUIRK_INV_HP_POL(q)	(((q) >> 3) & 1)
+ #define QUIRK_JD_MODE(q)	(((q) >> 4) & 7)
+ #define QUIRK_DMIC1_DATA_PIN(q)	(((q) >> 8) & 3)
+ #define QUIRK_DMIC2_DATA_PIN(q)	(((q) >> 12) & 3)
+@@ -3263,6 +3264,8 @@ static void rt5645_jack_detect_work(struct work_struct *work)
+ 	case 0: /* Not using rt5645 JD */
+ 		if (rt5645->gpiod_hp_det) {
+ 			gpio_state = gpiod_get_value(rt5645->gpiod_hp_det);
++			if (rt5645->pdata.inv_hp_pol)
++				gpio_state ^= 1;
+ 			dev_dbg(rt5645->component->dev, "gpio_state = %d\n",
+ 				gpio_state);
+ 			report = rt5645_jack_detect(rt5645->component, gpio_state);
+@@ -3871,6 +3874,7 @@ static int rt5645_i2c_probe(struct i2c_client *i2c,
+ 		rt5645->pdata.in2_diff = QUIRK_IN2_DIFF(quirk);
+ 		rt5645->pdata.level_trigger_irq = QUIRK_LEVEL_IRQ(quirk);
+ 		rt5645->pdata.inv_jd1_1 = QUIRK_INV_JD1_1(quirk);
++		rt5645->pdata.inv_hp_pol = QUIRK_INV_HP_POL(quirk);
+ 		rt5645->pdata.jd_mode = QUIRK_JD_MODE(quirk);
+ 		rt5645->pdata.dmic1_data_pin = QUIRK_DMIC1_DATA_PIN(quirk);
+ 		rt5645->pdata.dmic2_data_pin = QUIRK_DMIC2_DATA_PIN(quirk);
 -- 
 2.20.1
 

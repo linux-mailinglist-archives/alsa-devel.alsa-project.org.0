@@ -2,69 +2,95 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3FF222F0F8A
-	for <lists+alsa-devel@lfdr.de>; Mon, 11 Jan 2021 10:58:29 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 369422F135C
+	for <lists+alsa-devel@lfdr.de>; Mon, 11 Jan 2021 14:08:22 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C6A1E16BC;
-	Mon, 11 Jan 2021 10:57:38 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C6A1E16BC
+	by alsa0.perex.cz (Postfix) with ESMTPS id D8D7116DF;
+	Mon, 11 Jan 2021 14:07:30 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D8D7116DF
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1610359108;
-	bh=cAZu7S70mi3NkmOTLsHAHbWrZvNYRuXq3kPfV2Fw5Y4=;
-	h=To:Subject:In-Reply-To:From:Date:Cc:List-Id:List-Unsubscribe:
-	 List-Archive:List-Post:List-Help:List-Subscribe:From;
-	b=s0iLgKTU4M0faP/mHIX/5VYGLP63q0U8j8k5UCrF9fcMpipm7WHpYzWw0PvStX2ik
-	 6e9yEjcBufdu7LP1eguDmV4WWDHrYJ4Js1Z1A74qG4JX+usueOQ5XVNe/jEri8FooF
-	 fx8EXRzji8OVT1QM9eRdCNFjHk8K1ELtgSaTiDu0=
+	s=default; t=1610370500;
+	bh=ADI0+Mi4lZGXFyg33NjPYSC/4ySofakTg23lOClaknE=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=co1CvDXFkivm3V2bkDBoIfUp8MWnu/lTXOV9vvADTRTfwZtAM9uEHf9goNgqt608W
+	 tjsiwuqx5rgziRD3UobygWT5ydpCklMCnjHFegeZ9vGuS+7NJ/29mVeICarCZUITNk
+	 GHZMunDCFXTw2OtSq5visk5ZMIweGNrNbtP783zY=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 1209CF80113;
-	Mon, 11 Jan 2021 10:56:56 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 0B209F80290;
+	Mon, 11 Jan 2021 14:06:45 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 3A059F8016D; Mon, 11 Jan 2021 10:56:53 +0100 (CET)
+ id 167F5F80258; Thu,  7 Jan 2021 09:05:09 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=HTML_MESSAGE,
- MSGID_FROM_MTA_HEADER, SPF_HELO_NONE, SPF_NONE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from m176148.mail.qiye.163.com (m176148.mail.qiye.163.com
- [59.111.176.148])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+X-Spam-Status: No, score=0.8 required=5.0 tests=FREEMAIL_FORGED_FROMDOMAIN,
+ FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,PRX_BODY_135,SPF_HELO_NONE,
+ SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mail-ot1-f54.google.com (mail-ot1-f54.google.com
+ [209.85.210.54])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 57C7FF8013D
- for <alsa-devel@alsa-project.org>; Mon, 11 Jan 2021 10:56:45 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 57C7FF8013D
-Received: from vivo.com (wm-8.qy.internal [127.0.0.1])
- by m176148.mail.qiye.163.com (Hmail) with ESMTP id 568541A493A;
- Mon, 11 Jan 2021 17:56:37 +0800 (CST)
-Message-ID: <AJsAUwACDs*x8qLUpTvPvKqR.3.1610358997320.Hmail.zhucancan@vivo.com>
-To: Colin King <colin.king@canonical.com>
-Subject: =?UTF-8?B?UmU6W1BBVENIXVtuZXh0XSBBU29DOiBzb2MtcGNtOiBGaXggdW5pbml0aWFsaXNlZCByZXR1cm4gdmFsdWUgaW4gdmFyaWFibGUgcmV0?=
-X-Priority: 3
-X-Mailer: HMail Webmail Server V2.0 Copyright (c) 2016-163.com
-X-Originating-IP: 58.251.74.232
-In-Reply-To: <20210108123546.19601-1-colin.king@canonical.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 41A7DF80096
+ for <alsa-devel@alsa-project.org>; Thu,  7 Jan 2021 09:04:55 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 41A7DF80096
+Received: by mail-ot1-f54.google.com with SMTP id j20so5542149otq.5
+ for <alsa-devel@alsa-project.org>; Thu, 07 Jan 2021 00:04:55 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=0TPseVwGCXsOzziJOFXy0csIKxTAA1WaNx2ZI4idEKY=;
+ b=cfIB4YjxQyDUao5caxYGKdujMauVYlBzYIm2adfxoaxmP+m3lmFNoOpMOkfF0Ecnq4
+ L05a6siJ01tuuAJosPmV+zzTBTbFz2hXz3fnFRQADJbCpSmAA8szQsyAn/TpKwV9DPKo
+ OoRvINdOzjRXFXt8F0D2yPVyDK1ZE3BZgSSMQqJbV1amiajsji6J9mnfPAi5dFyKBTt+
+ AzjU4Y8lOsd9eirf9urWpfnFo+1EKNUzmMwtCNvfTxFgxWQDy4GZ6PtE4UcCDwSNYD01
+ 915k6ItkfWTM5TdFohiCcEM/EGYTVbANKisQWYXbz5VSR6JQNfqTaY16NdnzsRnv3mAB
+ eYMw==
+X-Gm-Message-State: AOAM5314bfcOS5K+9HX89zxOrMo4uG7eITfRY3guWDD2mQwoCvMekdca
+ kiIRBuwfi/+os0leUq1fA1swuUBccKYLRYMLq8w=
+X-Google-Smtp-Source: ABdhPJzVAPf8/NQQQzT3zzrkoDzUv+P+SG+XgCFUWTKsU/u1ByX8ezoz8GuB2nVGz7LNk3BFgEKDp8LcWHb42uaO/Sc=
+X-Received: by 2002:a05:6830:1f5a:: with SMTP id
+ u26mr5905584oth.250.1610006693990; 
+ Thu, 07 Jan 2021 00:04:53 -0800 (PST)
 MIME-Version: 1.0
-Received: from zhucancan@vivo.com( [58.251.74.232) ] by ajax-webmail (
- [127.0.0.1] ) ; Mon, 11 Jan 2021 17:56:37 +0800 (GMT+08:00)
-From: =?UTF-8?B?5pyx54G/54G/?= <zhucancan@vivo.com>
-Date: Mon, 11 Jan 2021 17:56:37 +0800 (GMT+08:00)
-X-HM-Spam-Status: e1kfGhgUHx5ZQUtXWQgYFAkeWUFZS1VLWVdZKFlBSE83V1ktWUFJV1kPCR
- oVCBIfWUFZS0sYQkpJSE5PHktLVkpNSktITkNCQkxIQkNVEwETFhoSFyQUDg9ZV1kWGg8SFR0UWU
- FZT0tIVUpKS09ISFVLWQY+
-X-HM-Sender-Digest: e1kJHlYWEh9ZQU1LQklKTkpPQ0xPN1dZDB4ZWUEPCQ4eV1kSHx4VD1lB
- WUc6MQg6Lgw6OD8IUQNDCjcuCy8NKw0wCilVSFVKTUpLSE5DQkJMTE5KVTMWGhIXVQETDhgaFRga
- FTsNEg0UVRgUFkVZV1kSC1lBWU5DVUlOSlVMT1VJSElZV1kIAVlBTkxOQzcG
-X-HM-Tid: 0a76f0e0416d9394kuws568541a493a
+References: <CAMuHMdX=trGqj8RzV7r1iTneqDjWOc4e1T-X+R_B34rxxhJpbg@mail.gmail.com>
+ <20210106184839.GA7773@alpha.franken.de>
+ <CAMuHMdV86BES7dmWr-7j1jbtoSy0bH1J0e5W41p8evagi0Nqcw@mail.gmail.com>
+ <20210107.101729.1936921832901251107.anemo@mba.ocn.ne.jp>
+In-Reply-To: <20210107.101729.1936921832901251107.anemo@mba.ocn.ne.jp>
+From: Geert Uytterhoeven <geert@linux-m68k.org>
+Date: Thu, 7 Jan 2021 09:04:43 +0100
+Message-ID: <CAMuHMdX6ptaO3r=b55zqwrrK8ADfSRWdunwHA5DYD08PMCAPaA@mail.gmail.com>
+Subject: Re: [PATCH 00/10] Remove support for TX49xx
+To: Atsushi Nemoto <anemo@mba.ocn.ne.jp>
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: base64
-X-Content-Filtered-By: Mailman/MimeDel 2.1.15
-Cc: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
- kernel-janitors@vger.kernel.org, Takashi Iwai <tiwai@suse.com>,
- Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>
+X-Mailman-Approved-At: Mon, 11 Jan 2021 14:06:42 +0100
+Cc: Alexandre Belloni <alexandre.belloni@bootlin.com>, "R,
+ Vignesh" <vigneshr@ti.com>,
+ ALSA Development Mailing List <alsa-devel@alsa-project.org>,
+ Liam Girdwood <lgirdwood@gmail.com>, linux-ide@vger.kernel.org,
+ MTD Maling List <linux-mtd@lists.infradead.org>,
+ Miquel Raynal <miquel.raynal@bootlin.com>, linux-rtc@vger.kernel.org,
+ Herbert Xu <herbert@gondor.apana.org.au>, Richard Weinberger <richard@nod.at>,
+ Jakub Kicinski <kuba@kernel.org>,
+ "open list:BROADCOM NVRAM DRIVER" <linux-mips@vger.kernel.org>,
+ Guenter Roeck <linux@roeck-us.net>,
+ Linux Watchdog Mailing List <linux-watchdog@vger.kernel.org>,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ Mark Brown <broonie@kernel.org>, Matt Mackall <mpm@selenic.com>,
+ Dan Williams <dan.j.williams@intel.com>,
+ Wim Van Sebroeck <wim@linux-watchdog.org>,
+ Alessandro Zummo <a.zummo@towertech.it>,
+ Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
+ netdev <netdev@vger.kernel.org>, Takashi Iwai <tiwai@suse.com>,
+ linux-spi <linux-spi@vger.kernel.org>, Vinod <vkoul@kernel.org>,
+ Linux Crypto Mailing List <linux-crypto@vger.kernel.org>,
+ dmaengine <dmaengine@vger.kernel.org>, "David S. Miller" <davem@davemloft.net>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -80,23 +106,48 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-QWdyZWUsIHRoYW5rcy4KCgo+Cj5DdXJyZW50bHkgd2hlbiBhdHRlbXB0aW5nIHRvIHN0YXJ0IHRo
-ZSBCRSBmYWlscyBiZWNhdXNlIHRoZQo+RkUgaXMgbm90IHN0YXJ0ZWQgdGhlIGVycm9yIHJldHVy
-biB2YXJpYWJsZSByZXQgaXMgbm90IGluaXRpYWxpemVkCj5hbmQgZ2FyYmFnZSBpcyByZXR1cm5l
-ZC4gIEZpeCB0aGlzIGJ5IHNldHRpbmcgaXQgdG8gMCBzbyB0aGUKPmNhbGxlciBkb2VzIG5vdCBy
-ZXBvcnQgdGhlIGVycm9yICJBU29DOiBmYWlsZWQgdG8gc2h1dGRvd24gc29tZSBCRXMiCj5hbmQg
-YmVjYXVzZSB0aGlzIGZhaWx1cmUgcGF0aCBoYXMgYWxyZWFkeSByZXBvcnRlZCB0aGUgcmVhc29u
-IGZvcgo+dGhlIGVhcmx5IHJldHVybi4KPgo+QWRkcmVzc2VzLUNvdmVyaXR5OiAoIlVuaW5pdGlh
-bGl6ZWQgc2NhbGFyIHZhcmlhYmxlIikKPkZpeGVzOiAyYzEzODI4NDBjMTkgKCJBU29DOiBzb2Mt
-cGNtOiBkaXNjb25uZWN0IEJFcyBpZiB0aGUgRkUgaXMgbm90IHJlYWR5IikKPlNpZ25lZC1vZmYt
-Ynk6IENvbGluIElhbiBLaW5nIDxjb2xpbi5raW5nQGNhbm9uaWNhbC5jb20+Cj4tLS0KPiBzb3Vu
-ZC9zb2Mvc29jLXBjbS5jIHwgMSArCj4gMSBmaWxlIGNoYW5nZWQsIDEgaW5zZXJ0aW9uKCspCj4K
-PmRpZmYgLS1naXQgYS9zb3VuZC9zb2Mvc29jLXBjbS5jIGIvc291bmQvc29jL3NvYy1wY20uYwo+
-aW5kZXggNDgxYTRhMjVhY2IwLi5iNzg3Y2U0Y2ViNWEgMTAwNjQ0Cj4tLS0gYS9zb3VuZC9zb2Mv
-c29jLXBjbS5jCj4rKysgYi9zb3VuZC9zb2Mvc29jLXBjbS5jCj5AQCAtMjQ0Myw2ICsyNDQzLDcg
-QEAgc3RhdGljIGludCBkcGNtX3J1bl91cGRhdGVfc3RhcnR1cChzdHJ1Y3Qgc25kX3NvY19wY21f
-cnVudGltZSAqZmUsIGludCBzdHJlYW0pCj4gCQlmZS0+ZHBjbVtzdHJlYW1dLnN0YXRlID09IFNO
-RF9TT0NfRFBDTV9TVEFURV9DTE9TRSkgewo+IAkJZGV2X2VycihmZS0+ZGV2LCAiQVNvQzogRkUg
-JXMgaXMgbm90IHJlYWR5ICVkXG4iLAo+IAkJCWZlLT5kYWlfbGluay0+bmFtZSwgZmUtPmRwY21b
-c3RyZWFtXS5zdGF0ZSk7Cj4rCQlyZXQgPSAwOwo+IAkJZ290byBkaXNjb25uZWN0Owo+IAl9Cj4g
-Cj4tLSAKPjIuMjkuMgo+CgoKDQoNCg==
+Hi Nemoto-san,
+
+On Thu, Jan 7, 2021 at 2:18 AM Atsushi Nemoto <anemo@mba.ocn.ne.jp> wrote:
+> On Wed, 6 Jan 2021 21:41:24 +0100, Geert Uytterhoeven <geert@linux-m68k.org> wrote:
+> >> > Is that sufficient to keep it?
+> >>
+> >> for me it is. But now we probaly need some reverts then...
+> >
+> > Indeed. Fortunately not all of it, as some removals were TX4938-only.
+>
+> These patches should not break RBTX4927:
+>
+>   net: tc35815: Drop support for TX49XX boards
+>   spi: txx9: Remove driver
+>   mtd: Remove drivers used by TX49xx
+>   char: hw_random: Remove tx4939 driver
+>   rtc: tx4939: Remove driver
+>   ide: tx4938ide: Remove driver
+
+Indeed.
+
+> And these patches just break audio-support only.
+>
+>   dma: tx49 removal
+>   ASoC: txx9: Remove driver
+>
+> I think dma and ASoC drivers are hard to maintain now, and can be
+> dropped for basic support for RBTX4927.
+> (TX39 boards does not have audio-support, so dma txx9 driver can be
+> dropped too)
+
+Agreed, I don't test audio anyway, but I know it used to work (I had
+intended to use the board as an MPD media server, but never got beyond
+the prototyping phase).
+
+Gr{oetje,eeting}s,
+
+                        Geert
+
+-- 
+Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
+
+In personal conversations with technical people, I call myself a hacker. But
+when I'm talking to journalists I just say "programmer" or something like that.
+                                -- Linus Torvalds

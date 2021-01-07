@@ -2,94 +2,90 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E71FB2ECC54
-	for <lists+alsa-devel@lfdr.de>; Thu,  7 Jan 2021 10:09:26 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 73B7F2ECDE6
+	for <lists+alsa-devel@lfdr.de>; Thu,  7 Jan 2021 11:34:17 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 8FD4816A8;
-	Thu,  7 Jan 2021 10:08:36 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8FD4816A8
+	by alsa0.perex.cz (Postfix) with ESMTPS id 098C21674;
+	Thu,  7 Jan 2021 11:33:22 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 098C21674
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1610010566;
-	bh=hmLfxvcPYr7tnBpam5qHUE2JmIOjcLSdPkFqYUXFH60=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1610015652;
+	bh=DpBoN1LVXmETXjAE31rnLADbsPY1LgdG1c5YeXrFgCY=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=GDJSwQwr4iZ0ov5qGJaJonBAkqRHmeR/qWtsEhijOlwLn9RYHZ72gSZ1AW079qYNI
-	 v046ALKdnCfv2YXviD9szVuNgOREQKawMVjFI67zMi5IJippgkfS3272EHVlP12A3r
-	 lxjd/mVbLhVgZt+1B2bAFo/pmKinPRoYuGOedHEU=
+	b=HFfacDD2v1VdoDMcWNMiAN6hH2MCjtOY0LCOtXkNuIXU4wijp7SFcf42TYVveQUBS
+	 UXPyv/Y1B5YgenEuo2v58pzgUcSGpS1Bn0cVIvANvpmFkzzz1W7Wy0LPeqk+iUnnHn
+	 9OYFtPjpCCIX7hFiCqSGEqdvbZjlmz7MC3lZWebQ=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id D17ECF804C3;
-	Thu,  7 Jan 2021 10:07:04 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id B4BB1F80096;
+	Thu,  7 Jan 2021 11:32:39 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id A3311F804C3; Thu,  7 Jan 2021 10:07:01 +0100 (CET)
+ id 6456EF80271; Thu,  7 Jan 2021 11:32:35 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from mail-pf1-x436.google.com (mail-pf1-x436.google.com
- [IPv6:2607:f8b0:4864:20::436])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from youngberry.canonical.com (youngberry.canonical.com
+ [91.189.89.112])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 283AAF804BD
- for <alsa-devel@alsa-project.org>; Thu,  7 Jan 2021 10:06:53 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 283AAF804BD
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=endlessos.org header.i=@endlessos.org
- header.b="JJbofJ5i"
-Received: by mail-pf1-x436.google.com with SMTP id w6so3488059pfu.1
- for <alsa-devel@alsa-project.org>; Thu, 07 Jan 2021 01:06:53 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=endlessos.org; s=google;
- h=from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding;
- bh=b1YfOOLyujNTY31P6K35Sp25DPEHUg4Lk9EfBksnDDw=;
- b=JJbofJ5iaDY1Ke5i+MdO64iHHnfm2sdSOVZV8Kvl65CB1vsDp/jy28hqENRiPeH14D
- RuvuYmlOIz9y+kreEVjFcj1+HDm/ybOTny5lTciL0t/pmEKi/fx6HJntB4LmcIDqWpKE
- qklfGNr0eWpe5KP0N1NeWE9JS1NaLywFxEL+geofN83NiSdNlCPmhsHjFqn/nyQLD7ZU
- BEmcypKu38EBBHEE4GMgSwu3zDNW+rFgI9EqIaOsQw2+Iyh0IWGmZZPlA6rqXA7AbL6I
- Rnx/oK6cmTKtW4bb4yxudSvrX+JU5rSPyGbNIryUT71fPqXzdsNQlNvUr47X3gQSe8rD
- +XsA==
+ by alsa1.perex.cz (Postfix) with ESMTPS id BB624F800E9
+ for <alsa-devel@alsa-project.org>; Thu,  7 Jan 2021 11:32:24 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BB624F800E9
+Received: from mail-lf1-f71.google.com ([209.85.167.71])
+ by youngberry.canonical.com with esmtps
+ (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.86_2)
+ (envelope-from <kai.heng.feng@canonical.com>) id 1kxSac-0001fp-P5
+ for alsa-devel@alsa-project.org; Thu, 07 Jan 2021 10:32:22 +0000
+Received: by mail-lf1-f71.google.com with SMTP id i21so5724013lfe.14
+ for <alsa-devel@alsa-project.org>; Thu, 07 Jan 2021 02:32:22 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
- :references:mime-version:content-transfer-encoding;
- bh=b1YfOOLyujNTY31P6K35Sp25DPEHUg4Lk9EfBksnDDw=;
- b=FSDMe72U9dAwLrRW4VNE9XsIxz3CgELDBK9pXSWfjLdW5EDJqRKExZrW+mzH6exVXE
- qqGeD6uAhEIuoXQl+yUIrAdR/h0cszfz7HZtaLr/8Vuag52gqgK1NFoAT81Nc15ogrMw
- vWnUpPcjbbLT+RMv2KAvv1J78QMz6AtfBgAJryznritU1pd/+UlbJCK6IX7bsTYkTG3d
- 67w2rrX9EQJZzMCivdZWeKl60j/yw+sGCMHQqcwwEja2PJeEcNFLelMuI3SOzT34vrw5
- YNR/dILoOAWRoxAZ3Wwy+HvuszJ5Ikv8FpWFE0ADUhMKZif+rBEK8TCWoQ36cqhICsWR
- VIlg==
-X-Gm-Message-State: AOAM533qfCWAKFLfa0irepiFejg/Qtum50d5bGGZWYFncBFHNa84dD5a
- htZx5TeADzrmuaJGRLQ2kIbX9g==
-X-Google-Smtp-Source: ABdhPJwzjJy9uBXJ+42hsdSQ5rfbYd7OPl02I3+RutmkSExPxKFat6sdQO5dBWnNSFzYSFYJkPZKFg==
-X-Received: by 2002:aa7:8749:0:b029:1a5:63e6:56fe with SMTP id
- g9-20020aa787490000b02901a563e656femr1357149pfo.32.1610010410515; 
- Thu, 07 Jan 2021 01:06:50 -0800 (PST)
-Received: from endless.endlessm-sf.com
- (ec2-34-209-191-27.us-west-2.compute.amazonaws.com. [34.209.191.27])
- by smtp.googlemail.com with ESMTPSA id b2sm5006394pfo.164.2021.01.07.01.06.47
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 07 Jan 2021 01:06:50 -0800 (PST)
-From: Chris Chiu <chiu@endlessos.org>
-To: oder_chiou@realtek.com, lgirdwood@gmail.com, broonie@kernel.org,
- perex@perex.cz, tiwai@suse.com
-Subject: [PATCH 4/4] ASoC: rt5645: Enable internal microphone and JD on ECS
- EF20
-Date: Thu,  7 Jan 2021 17:06:25 +0800
-Message-Id: <20210107090625.107078-5-chiu@endlessos.org>
-X-Mailer: git-send-email 2.20.1
-In-Reply-To: <20210107090625.107078-1-chiu@endlessos.org>
-References: <20210107090625.107078-1-chiu@endlessos.org>
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=D/Y5buNtMZu8paZ5pdJK7XpNPN8q/w0jqWstP/iLbT4=;
+ b=abnqx/xpu/leMu7S76+gSZ+uJJKiYNbntzNBVLFELSuawmweLk5gklcFXJlGpf7BOI
+ qzkl8LGrJlqc8uYhu8K+Mqgbu0CfjXupBD/7fNLaFvz2AOnlojQBJYLK4zK3CfNKvD+z
+ Tq5UWBmwNM86ooLYkylmNkijHcgUhq3QoO5pCumOeBkjF4AFyn9/+HQeQSq8BIJwwyWJ
+ G405WQ5X8UB0QY91Qu8wOwgwB3Pot9CUp54KQ4mTycp+YAEFap2W3gHvPXjoIaY8HUGa
+ NjmZNrHOl7vtO+zxQivlCylSLyObQgLPXpftNRPyJRqkwPN1J+dmTl19dHkMJ9at7gm1
+ ePxw==
+X-Gm-Message-State: AOAM533VAh8rwLz9TPdz+gOAwTw01wE5uUMqw7FFB2+3+vnU0j+DSxdF
+ D7t1v3tQZYd46CNWFwibmNQ71Qa00T/gV32mSMm89roDDFJmxniN6dYcSrtnQAsY8qdmxNk8WX7
+ VVXcmxwlS0DmcD0kOagJPXFm3gIlvPfWtT3BG8Q0M08rsIcoRe4LGzvzO
+X-Received: by 2002:a19:dc5:: with SMTP id 188mr3947117lfn.513.1610015542155; 
+ Thu, 07 Jan 2021 02:32:22 -0800 (PST)
+X-Google-Smtp-Source: ABdhPJzvjI7EOWLxlJykcG6C96lN66Kbefk0r7+QFwEUXJQvjuBr5gTp9PCQ7STZfkhNmOn0+mGm3OC0x4+P2PVAzZA=
+X-Received: by 2002:a19:dc5:: with SMTP id 188mr3947096lfn.513.1610015541825; 
+ Thu, 07 Jan 2021 02:32:21 -0800 (PST)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Cc: alsa-devel@alsa-project.org, Chris Chiu <chiu@endlessos.org>,
- linux-kernel@vger.kernel.org, linux@endlessos.org
+References: <20210104140853.228448-1-kai.heng.feng@canonical.com>
+ <20210104140853.228448-3-kai.heng.feng@canonical.com>
+ <alpine.DEB.2.22.394.2101051354300.864696@eliteleevi.tm.intel.com>
+In-Reply-To: <alpine.DEB.2.22.394.2101051354300.864696@eliteleevi.tm.intel.com>
+From: Kai-Heng Feng <kai.heng.feng@canonical.com>
+Date: Thu, 7 Jan 2021 18:32:09 +0800
+Message-ID: <CAAd53p7JvPAYt3NGQU-cCEDtLaL8L+vBoSyYbYSD-bkKS-g50g@mail.gmail.com>
+Subject: Re: [PATCH v2 3/3] ASoC: SOF: Intel: hda: Avoid checking jack on
+ system suspend
+To: Kai Vehmanen <kai.vehmanen@linux.intel.com>
+Content-Type: text/plain; charset="UTF-8"
+Cc: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ "moderated list:SOUND - SOC LAYER / DYNAMIC AUDIO POWER MANAGEM..."
+ <alsa-devel@alsa-project.org>, Marcin Rajwa <marcin.rajwa@linux.intel.com>,
+ Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
+ Liam Girdwood <lgirdwood@gmail.com>, open list <linux-kernel@vger.kernel.org>,
+ Takashi Iwai <tiwai@suse.com>, Keyon Jie <yang.jie@linux.intel.com>,
+ Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
+ Mark Brown <broonie@kernel.org>,
+ Payal Kshirsagar <payalskshirsagar1234@gmail.com>, daniel.baluta@nxp.com,
+ "moderated list:SOUND - SOUND OPEN FIRMWARE \(SOF\) DRIVERS"
+ <sound-open-firmware@alsa-project.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -105,48 +101,44 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On ECS EF20 series laptops, the internal mic is on DMIC2/IN2P.
-And they need the inv_hp_det to make jack detection to work as
-exoected.
+On Tue, Jan 5, 2021 at 8:28 PM Kai Vehmanen
+<kai.vehmanen@linux.intel.com> wrote:
+>
+> Hey,
+>
+> On Mon, 4 Jan 2021, Kai-Heng Feng wrote:
+>
+> > System takes a very long time to suspend after commit 215a22ed31a1
+> > ("ALSA: hda: Refactor codec PM to use direct-complete optimization"):
+> > [   90.065964] PM: suspend entry (s2idle)
+>
+> the patch itself looks good, but can you explain a bit more in what
+> conditions you hit the delay?
 
-Signed-off-by: Chris Chiu <chiu@endlessos.org>
----
- sound/soc/codecs/rt5645.c | 8 ++++++++
- 1 file changed, 8 insertions(+)
+If both controller and codec are suspended, I can 100% reproduce the issue.
 
-diff --git a/sound/soc/codecs/rt5645.c b/sound/soc/codecs/rt5645.c
-index 530145cf8c5b..154d9db9ceb3 100644
---- a/sound/soc/codecs/rt5645.c
-+++ b/sound/soc/codecs/rt5645.c
-@@ -3656,6 +3656,12 @@ static const struct rt5645_platform_data kahlee_platform_data = {
- 	.jd_mode = 3,
- };
- 
-+static const struct rt5645_platform_data ecs_ef20_platform_data = {
-+	.dmic1_data_pin = RT5645_DMIC1_DISABLE,
-+	.dmic2_data_pin = RT5645_DMIC_DATA_IN2P,
-+	.inv_hp_pol = 1,
-+};
-+
- static const struct acpi_gpio_params ef20_hp_detect = { 1, 0, false };
- 
- static const struct acpi_gpio_mapping cht_rt5645_ef20_gpios[] = {
-@@ -3804,6 +3810,7 @@ static const struct dmi_system_id dmi_platform_data[] = {
- 		.matches = {
- 			DMI_MATCH(DMI_PRODUCT_NAME, "EF20"),
- 		},
-+		.driver_data = (void *)&ecs_ef20_platform_data,
- 	},
- 	{
- 		.ident = "EF20EA",
-@@ -3811,6 +3818,7 @@ static const struct dmi_system_id dmi_platform_data[] = {
- 		.matches = {
- 			DMI_MATCH(DMI_PRODUCT_NAME, "EF20EA"),
- 		},
-+		.driver_data = (void *)&ecs_ef20_platform_data,
- 	},
- };
- 
--- 
-2.20.1
+>
+> I tried to reproduce the delay on multiple systems (with tip of
+> tiwai/master), but with no luck. I can see hda_jackpoll_work() called, but
+> at this point runtime pm has been disabled already (via
+> __device_suspend()) and snd_hdac_is_power_on() will return true even when
+> pm_runtime_suspended() is true as well (which is expected as runtime-pm is
+> disabled at this point for system suspend). End result is codec is not
+> powered up in hda_jackpoll_work() and suspend is not delayed.
 
+On my system snd_hdac_is_power_on() calls hda_set_power_state() which
+takes long time to write to (suspended) codec.
+I am not sure why it doesn't power up codec on your system.
+
+>
+> The patch still seems correct. You would hit the problem you describe if
+> jackpoll_interval was set to a non-zero value (not the case on most
+> systems supported by SOF, but still a possibility). I'm still curious how
+> you hit the problem. At minimum, we are missing a scenario in our testing.
+
+The issue happens with zero jackpoll_interval.
+
+Kai-Heng
+
+>
+> Br, Kai

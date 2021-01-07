@@ -2,93 +2,89 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 30B942ECC29
-	for <lists+alsa-devel@lfdr.de>; Thu,  7 Jan 2021 10:02:07 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id A846A2ECC51
+	for <lists+alsa-devel@lfdr.de>; Thu,  7 Jan 2021 10:08:27 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 8DC4F168F;
-	Thu,  7 Jan 2021 10:01:16 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8DC4F168F
+	by alsa0.perex.cz (Postfix) with ESMTPS id 3D969167B;
+	Thu,  7 Jan 2021 10:07:37 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3D969167B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1610010126;
-	bh=jDEfG+YLBCMi1arDmXO2srcUQsVp5mimFD60RG16w58=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=XW8e5FQa1rTVfjhaiW9VpcYNWdFY6Gu0Gg0aBj13xk7di4tOoNluCxLmsydX8YwOa
-	 A7Y4p0ooi/+n3SsIahgYwQe1PDsvKTwcaAZzhVCE5sLNlVhqAoAkwnax44kZaUdCik
-	 iLlvzl0UCBb/6MdNpblcr5uR6Drn9pof67khnWBo=
+	s=default; t=1610010507;
+	bh=Uxgo7ZvK40puurgf88Fdj0HUjmCkq9IrIFW4ogHiCVw=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=O99jRlhCWee3bKPzO/IjKqWl2qLfLM2j+I9uCAi3ftn3FJVrsmpPL/dqhtA9pkBWJ
+	 5XrUjnvEJNo/Q9jvDjt2M2gpG0m6g1R9mRtoxiWRydFMXbKt+vKOn7ug4rTnShFyka
+	 We2NIgDsFDn+cH27J9x2k6EZQDrf4MtzDQx7w/YI=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id A8CF5F80268;
-	Thu,  7 Jan 2021 10:00:26 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id C65EEF80268;
+	Thu,  7 Jan 2021 10:06:54 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 614EDF80268; Thu,  7 Jan 2021 10:00:19 +0100 (CET)
+ id 098C4F80268; Thu,  7 Jan 2021 10:06:51 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from mail-pj1-x1033.google.com (mail-pj1-x1033.google.com
- [IPv6:2607:f8b0:4864:20::1033])
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
+Received: from mail-pl1-x62d.google.com (mail-pl1-x62d.google.com
+ [IPv6:2607:f8b0:4864:20::62d])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 0AEE8F80268
- for <alsa-devel@alsa-project.org>; Thu,  7 Jan 2021 10:00:13 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0AEE8F80268
+ by alsa1.perex.cz (Postfix) with ESMTPS id EDC74F800E9
+ for <alsa-devel@alsa-project.org>; Thu,  7 Jan 2021 10:06:42 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EDC74F800E9
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org
- header.b="SVJKcvr9"
-Received: by mail-pj1-x1033.google.com with SMTP id v1so1086319pjr.2
- for <alsa-devel@alsa-project.org>; Thu, 07 Jan 2021 01:00:12 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
- h=from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding;
- bh=lgk0TCrbfrPPwCLQFrB7xrsoIfDGu1gFurEi0wsLYw0=;
- b=SVJKcvr9Izh4sNUSpK6YEtczrCVWRg6wTpG7q41qHhdCkeMm+Efzi6nwWrDDlZrzD2
- xV6UIRfzfTgjd+dQNkU9PQ9IO0xnXPiptG/pB442Ha2BDDWDopILjcKnm0cQ2FSwRmvG
- pEuPHdSbikE850NnUNOre/c2jNp6n7QVqELH0=
+ dkim=pass (2048-bit key) header.d=endlessos.org header.i=@endlessos.org
+ header.b="Ny4WfLB5"
+Received: by mail-pl1-x62d.google.com with SMTP id b8so3182944plx.0
+ for <alsa-devel@alsa-project.org>; Thu, 07 Jan 2021 01:06:42 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=endlessos.org; s=google;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=8DoPhwpxVpcCeNa7xRylUEVANyqRa0budKloP0YXXbk=;
+ b=Ny4WfLB5f/tyTudlrLm+sC0kTXjRmuKvXnRfUVfCkRy7KJL72UFlIw+uLDqA+1ft+p
+ 0bidtRs3/bwRkD+5CECBcoZaG7JO9Zatu2mTUWFrysiOZfy2BZoGu0AkusnaP1rSQz3V
+ uTB49MJhiKZ/HS6y3rYl/vJZmlNWJ/MwlD7bmBsUcjOqFhaBuBm9gRcHu592QoEG/sN1
+ Pv+VO3UWGU0ePTSPmdQWOHX9bt2UeqSDw05g9NtQFPDx2jHyqw1DZGgcnISdL0RJlBIa
+ 0Lc+oZrMrW36cOtwKCG6qR7A89ErN3U6Y6vYQNBLRlzM24Cn1L5WTmeVHMjA8KxDZuNv
+ auTQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
- :references:mime-version:content-transfer-encoding;
- bh=lgk0TCrbfrPPwCLQFrB7xrsoIfDGu1gFurEi0wsLYw0=;
- b=YyRKfOXFgtUbSiAtemOqn4m3wUsGfSv7bHcl7iJgGccIXB7P77uU6TeP3X42X5dWZH
- m1OaFBteZZdJxjclAi/rbBzQpyHgX9V7j0vh8CxVOu8/L3F0GRnoaluJGE0AN4ZTy2G0
- H0lxhadCk+VVAk67STk2LxjS6gn3uuK+zaOJ5xjFnorFkaBZkMToWl5wlhDcgsnztHgj
- NcPy4fvy4ZKOj4D1m0KpF+ISq/Rq+5w/tbmrOhJR7N+GgdyIDSBgKbefrx2M9ksfY8e1
- kjwTlYuIs1jcg2WRbiIdyUXV1Y6O5rgaxMsf+9F74k/po9vPAUhFa+72HaHdV8dcDwyt
- Phyw==
-X-Gm-Message-State: AOAM530VG6nWjo3uTiXPOqRhyDH7ZTV9yUQoAlreEJgi7sO4zGuQQ91e
- ODirRO1ln2Mei1tZ/fkH9TrV6g==
-X-Google-Smtp-Source: ABdhPJzpH4P9q/xGWMBgmLDqzAzIVGQPN/gilgSFIZSJyC2/avLxAiq63WQ/h8cZCBvxrHw4OgKCrg==
-X-Received: by 2002:a17:90a:c396:: with SMTP id
- h22mr8438394pjt.84.1610010011464; 
- Thu, 07 Jan 2021 01:00:11 -0800 (PST)
-Received: from localhost ([2401:fa00:1:10:725a:fff:fe46:44eb])
- by smtp.gmail.com with ESMTPSA id v1sm5679450pga.63.2021.01.07.01.00.08
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 07 Jan 2021 01:00:10 -0800 (PST)
-From: Yu-Hsuan Hsu <yuhsuan@chromium.org>
-To: linux-kernel@vger.kernel.org
-Subject: [PATCH 2/2] ASoC: cros_ec_codec: Reset I2S RX when probing
-Date: Thu,  7 Jan 2021 16:59:42 +0800
-Message-Id: <20210107085942.2891525-2-yuhsuan@chromium.org>
-X-Mailer: git-send-email 2.29.2.729.g45daf8777d-goog
-In-Reply-To: <20210107085942.2891525-1-yuhsuan@chromium.org>
-References: <20210107085942.2891525-1-yuhsuan@chromium.org>
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=8DoPhwpxVpcCeNa7xRylUEVANyqRa0budKloP0YXXbk=;
+ b=ibIdiFpAHzRsYrZR3iGZRFS5lW+V6jLeyxmXI13B6kt5m45s/tlM0wBqHko9ujyyTk
+ Wq8Vh3e3EgBOzhm9czehiBYFYIlJS4Gh9GDAw+OxtYAMFnu/m+u3+BgfLbD9B3ACQDZw
+ U8L1niL6JizkZOVTsmCjn+vCPoCfxm9J6Yf1bZprblTQsGpo6ZhjpgpWfHK6sdgIkBuR
+ tkUIJ8DdE/JrRWOdyVDcT/rwka/bDR1LnCKLU3wQ7u2HU3tT0s1iPwIM4ZA/0Z6K+d5v
+ f/dgNt2cmuqmZN0qjs2OfhkI6zBJUm/rI9zO+OkzX3V2yNa0I4Aq7IXV5UEVZi2nQSZp
+ yNXA==
+X-Gm-Message-State: AOAM531PdVZrmullM2QJ9SY8MAtvDzB7XdZ5ILEWrUwJ8sfnwjBFlBey
+ +A+oxhsgEE4aw8018IqKuMk4AQ==
+X-Google-Smtp-Source: ABdhPJz8cAvssJCyCm+bYYDR9GUQ7MmaQlcbn+bpw/86jcMpufKrAup3HXnGKUy1j8gkLaveTjhJsg==
+X-Received: by 2002:a17:902:59d0:b029:da:69a8:11a8 with SMTP id
+ d16-20020a17090259d0b02900da69a811a8mr8185541plj.63.1610010399008; 
+ Thu, 07 Jan 2021 01:06:39 -0800 (PST)
+Received: from endless.endlessm-sf.com
+ (ec2-34-209-191-27.us-west-2.compute.amazonaws.com. [34.209.191.27])
+ by smtp.googlemail.com with ESMTPSA id b2sm5006394pfo.164.2021.01.07.01.06.36
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 07 Jan 2021 01:06:38 -0800 (PST)
+From: Chris Chiu <chiu@endlessos.org>
+To: oder_chiou@realtek.com, lgirdwood@gmail.com, broonie@kernel.org,
+ perex@perex.cz, tiwai@suse.com
+Subject: [PATCH 0/4] ASoC: rt5645: Enable internal mic and headset on ECS EF20
+Date: Thu,  7 Jan 2021 17:06:21 +0800
+Message-Id: <20210107090625.107078-1-chiu@endlessos.org>
+X-Mailer: git-send-email 2.20.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Cc: alsa-devel@alsa-project.org,
- "Gustavo A . R . Silva" <gustavoars@kernel.org>, Takashi Iwai <tiwai@suse.com>,
- Liam Girdwood <lgirdwood@gmail.com>, Guenter Roeck <groeck@chromium.org>,
- Mark Brown <broonie@kernel.org>, Prashant Malani <pmalani@chromium.org>,
- Pi-Hsun Shih <pihsun@chromium.org>,
- Enric Balletbo i Serra <enric.balletbo@collabora.com>,
- Benson Leung <bleung@chromium.org>, Yu-Hsuan Hsu <yuhsuan@chromium.org>,
- Cheng-Yi Chiang <cychiang@chromium.org>
+Cc: alsa-devel@alsa-project.org, Chris Chiu <chiu@endlessos.org>,
+ linux-kernel@vger.kernel.org, linux@endlessos.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -104,34 +100,21 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-It is not guaranteed that I2S RX is disabled when the kernel booting.
-For example, if the kernel crashes while it is enabled, it will keep
-enabled until the next time EC reboots. Reset I2S RX when probing to
-fix this issue.
+These patches are trying to fix the jack detection and internal
+microphone problems on ECS EF20 series laptops which are empowered
+by Intel Atom x5-Z8350 CPU (CherryTrail) with Realtek rt5645 audio
+codec.
 
-Signed-off-by: Yu-Hsuan Hsu <yuhsuan@chromium.org>
----
- sound/soc/codecs/cros_ec_codec.c | 7 +++++++
- 1 file changed, 7 insertions(+)
+Chris Chiu (4):
+  ASoC: rt5645: Introduce mapping for ACPI-defined GPIO
+  ASoC: rt5645: Add ACPI-defined GPIO for ECS EF20 series
+  ASoC: rt5645: add inv_hp_det flag
+  ASoC: rt5645: Enable internal microphone and JD on ECS EF20
 
-diff --git a/sound/soc/codecs/cros_ec_codec.c b/sound/soc/codecs/cros_ec_codec.c
-index f33a2a9654e7..28b3e2c48c86 100644
---- a/sound/soc/codecs/cros_ec_codec.c
-+++ b/sound/soc/codecs/cros_ec_codec.c
-@@ -1011,6 +1011,13 @@ static int cros_ec_codec_platform_probe(struct platform_device *pdev)
- 	}
- 	priv->ec_capabilities = r.capabilities;
- 
-+	/* Reset EC codec i2s rx. */
-+	p.cmd = EC_CODEC_I2S_RX_RESET;
-+	ret = send_ec_host_command(priv->ec_device, EC_CMD_EC_CODEC_I2S_RX,
-+				   (uint8_t *)&p, sizeof(p), NULL, 0);
-+	if (ret)
-+		dev_warn(dev, "failed to EC_CODEC_I2S_RESET: %d\n", ret);
-+
- 	platform_set_drvdata(pdev, priv);
- 
- 	ret = devm_snd_soc_register_component(dev, &i2s_rx_component_driver,
+ include/sound/rt5645.h    |  2 ++
+ sound/soc/codecs/rt5645.c | 46 ++++++++++++++++++++++++++++++++++++++-
+ 2 files changed, 47 insertions(+), 1 deletion(-)
+
 -- 
-2.29.2.729.g45daf8777d-goog
+2.20.1
 

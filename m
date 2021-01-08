@@ -2,64 +2,90 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D89B72EF155
-	for <lists+alsa-devel@lfdr.de>; Fri,  8 Jan 2021 12:35:08 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id C43402EF16E
+	for <lists+alsa-devel@lfdr.de>; Fri,  8 Jan 2021 12:35:51 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E3DCC16EA;
-	Fri,  8 Jan 2021 12:34:17 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E3DCC16EA
+	by alsa0.perex.cz (Postfix) with ESMTPS id 4AE6316D9;
+	Fri,  8 Jan 2021 12:35:01 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4AE6316D9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1610105708;
-	bh=g5Y1Bs1GpXwWuo+B9p35HuRqTqsmLVHcA6Q2oPQOAfU=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1610105751;
+	bh=J8DpbcOxqKyxmfDE00RD7Fsqjb+1GbA22M2WdUuD5F0=;
+	h=Subject:From:To:References:Date:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=BcUX3JO+DOV7RuOTlZAtbX2QtF3IU9N7Z6TMGYjNhExxzEaOEHMN6tWgqhzmizvNZ
-	 GfKxpINbiYW/Zp8cVnBkJvn1uEVZmHmiCfQl672BudQHcxi847v/zU84NtU3p6eWiZ
-	 +fB5/NOXZ+NM5vXq62+qf/uqNHqSyemDKiJx4d8I=
+	b=pZkZe5QIWpnAuufDbXrUwxQUDp9W7sJgRUYDf/YRiRjUUVC99hzTvYXfOKAjL6ACS
+	 sI5sBC0slzxaVdwAo0WnyIuCWnq9GHqN1T5JUwE/9l0Ns3xFy75uKAbtXd6NIzmtSj
+	 QKuuJU1LrFF1xh7cncx96gSDnlgnjFhU+G5wbpq4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id E4A96F804D2;
-	Fri,  8 Jan 2021 12:32:40 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id C56EDF804E2;
+	Fri,  8 Jan 2021 12:33:56 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 35352F80167; Fri,  8 Jan 2021 12:32:38 +0100 (CET)
+ id 345B8F8016A; Fri,  8 Jan 2021 12:33:55 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
+X-Spam-Status: No, score=-0.4 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from hqnvemgate25.nvidia.com (hqnvemgate25.nvidia.com
+ [216.228.121.64])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 44398F80167
- for <alsa-devel@alsa-project.org>; Fri,  8 Jan 2021 12:32:29 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 44398F80167
-IronPort-SDR: dx5QHUgU4/WoGLsnjvnVMkx+VxhUsCaIFuvg+MtDN7V8FsFvJ3gPAfjvM9/3qsKYJytBq70Nym
- GfvMa5uwkKNQ==
-X-IronPort-AV: E=McAfee;i="6000,8403,9857"; a="175002638"
-X-IronPort-AV: E=Sophos;i="5.79,330,1602572400"; d="scan'208";a="175002638"
-Received: from orsmga002.jf.intel.com ([10.7.209.21])
- by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 08 Jan 2021 03:32:28 -0800
-IronPort-SDR: q6/u5IPqIA9wI4rYtCfe8nooDupzWDChoWhtnQpUnkZ6334Rgv+wTthAcnWqqG3+GLJdus9IQq
- kp90BM7TAyiA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.79,330,1602572400"; d="scan'208";a="362310525"
-Received: from kekkonen.fi.intel.com ([10.237.72.68])
- by orsmga002.jf.intel.com with ESMTP; 08 Jan 2021 03:32:27 -0800
-From: Jaska Uimonen <jaska.uimonen@linux.intel.com>
-To: alsa-devel@alsa-project.org
-Subject: [RFC PATCH 3/3] ASoC: SOF: topology: use individual kcontrol types
-Date: Fri,  8 Jan 2021 13:23:55 +0200
-Message-Id: <20210108112355.2053917-4-jaska.uimonen@linux.intel.com>
-X-Mailer: git-send-email 2.24.1
-In-Reply-To: <20210108112355.2053917-1-jaska.uimonen@linux.intel.com>
-References: <20210108112355.2053917-1-jaska.uimonen@linux.intel.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 79400F80279
+ for <alsa-devel@alsa-project.org>; Fri,  8 Jan 2021 12:33:41 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 79400F80279
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=nvidia.com header.i=@nvidia.com
+ header.b="HNx7oyBT"
+Received: from hqmail.nvidia.com (Not Verified[216.228.121.13]) by
+ hqnvemgate25.nvidia.com (using TLS: TLSv1.2, AES256-SHA)
+ id <B5ff843120001>; Fri, 08 Jan 2021 03:33:38 -0800
+Received: from [10.26.72.150] (172.20.145.6) by HQMAIL107.nvidia.com
+ (172.20.187.13) with Microsoft SMTP Server (TLS) id 15.0.1473.3; Fri, 8 Jan
+ 2021 11:33:33 +0000
+Subject: Re: [PATCH 2/2] ALSA: hda/tegra: fix tegra-hda on tegra30 soc
+From: Jon Hunter <jonathanh@nvidia.com>
+To: Sameer Pujar <spujar@nvidia.com>, Peter Geis <pgwipeout@gmail.com>
+References: <20201225012025.507803-1-pgwipeout@gmail.com>
+ <20201225012025.507803-3-pgwipeout@gmail.com>
+ <0c3665b2-bac6-546a-bdd4-0ab7a90adf7c@nvidia.com>
+ <CAMdYzYraT5AXzyscN3Pa+0FWZwHFsD-4ZwbA80kNxgtn7Y1PXw@mail.gmail.com>
+ <b3a3ede2-22d5-b13d-f245-7c3b40ea411a@nvidia.com>
+ <a2c5c1d4-500b-6dad-d4ab-339154624c43@nvidia.com>
+Message-ID: <18f44f67-ba81-98d6-67d9-c6ddbb3c9302@nvidia.com>
+Date: Fri, 8 Jan 2021 11:33:31 +0000
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.10.0
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Cc: Jaska Uimonen <jaska.uimonen@linux.intel.com>
+In-Reply-To: <a2c5c1d4-500b-6dad-d4ab-339154624c43@nvidia.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Language: en-US
+Content-Transfer-Encoding: quoted-printable
+X-Originating-IP: [172.20.145.6]
+X-ClientProxiedBy: HQMAIL105.nvidia.com (172.20.187.12) To
+ HQMAIL107.nvidia.com (172.20.187.13)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nvidia.com; s=n1;
+ t=1610105618; bh=E2T06x4spWYNF2pWJ3DV1KaBnD+2MtnlPvmF7IoJDAA=;
+ h=Subject:From:To:CC:References:Message-ID:Date:User-Agent:
+ MIME-Version:In-Reply-To:Content-Type:Content-Language:
+ Content-Transfer-Encoding:X-Originating-IP:X-ClientProxiedBy;
+ b=HNx7oyBTuCOKaDcKlAYfoNqMi3K8AqdYOh13qQ9jY66wuomGM+ECLZq2pay8AJMQI
+ AndHThEOXUqONBPEAA2+DjPOln6xTxqGn/h6BkIzvzgLxy4MKET6EnPfNU3DOdkuoO
+ /g4sJbjPNAaAbJbD344Ozu0iLSK0w+OFyORjbhhuuKLZU5NMtOly2Y49hjhJGwuUWn
+ eKWVMlM9gl4pOCDMlalNnuOJPTx0PP1CCpwNtaxkTyf1yzXHCLRHqpxue1S35rvyss
+ uzP6eN73+n+Hn5r65yXlv3+uXmM/K5ziyK1g03/DS+lPZuN5CPxObUxcP2lhk55oPj
+ L5VHv/U7u0lYA==
+Cc: alsa-devel@alsa-project.org, Prashant
+ Gaikwad <pgaikwad@nvidia.com>, Mohan Kumar <mkumard@nvidia.com>,
+ Stephen Boyd <sboyd@kernel.org>, linux-kernel@vger.kernel.org,
+ Michael Turquette <mturquette@baylibre.com>, linux-clk@vger.kernel.org,
+ Takashi Iwai <tiwai@suse.com>, Thierry Reding <thierry.reding@gmail.com>,
+ Ion Agorria <ion@agorria.com>, linux-tegra@vger.kernel.org,
+ Peter De Schrijver <pdeschrijver@nvidia.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -75,81 +101,74 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Change control creation and deletion to use individual kcontrol types.
-This enables the use of multiple different type of controls in single
-widget.
 
-Signed-off-by: Jaska Uimonen <jaska.uimonen@linux.intel.com>
----
- sound/soc/sof/topology.c | 13 ++++++++-----
- 1 file changed, 8 insertions(+), 5 deletions(-)
+On 08/01/2021 10:54, Jon Hunter wrote:
+>=20
+> On 08/01/2021 08:00, Sameer Pujar wrote:
+>=20
+> ...
+>=20
+>>>>> Signed-off-by: Peter Geis <pgwipeout@gmail.com>
+>>>>> Tested-by: Ion Agorria <ion@agorria.com>
+>>>>> ---
+>>>>> =C2=A0=C2=A0 sound/pci/hda/hda_tegra.c | 3 +--
+>>>>> =C2=A0=C2=A0 1 file changed, 1 insertion(+), 2 deletions(-)
+>>>>>
+>>>>> diff --git a/sound/pci/hda/hda_tegra.c b/sound/pci/hda/hda_tegra.c
+>>>>> index 70164d1428d4..f8d61e677a09 100644
+>>>>> --- a/sound/pci/hda/hda_tegra.c
+>>>>> +++ b/sound/pci/hda/hda_tegra.c
+>>>>> @@ -388,8 +388,7 @@ static int hda_tegra_first_init(struct azx
+>>>>> *chip, struct platform_device *pdev)
+>>>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 * in pow=
+ers of 2, next available ratio is 16 which can be
+>>>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 * used a=
+s a limiting factor here.
+>>>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 */
+>>>>> -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 if (of_device_is_compatible(np,=
+ "nvidia,tegra194-hda"))
+>>>>> -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0 chip->bus.core.sdo_limit =3D 16;
+>>>>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 chip->bus.core.sdo_limit =3D 16=
+;
+>>>> Future Tegra chips address this problem and hence cannot be enforced b=
+y
+>>>> default. May be we can have like below:
+>>>>
+>>>> if (of_device_is_compatible(np, "nvidia,tegra30-hda"))
+>>>> chip->bus.core.sdo_limit =3D 16;
+>>>>
+>>> It will need to be a bit more complicated than that, since the
+>>> tegra186 and tegra210 device trees have "nvidia,tegra30-hda" as a
+>>> fallback.
+>>> Looking at the generation map, tegra30-hda can be the fallback for the
+>>> broken implementation and tegra210-hda can be the fallback for the
+>>> working implementation.
+>>> Does that work for you?
+>>
+>> As per above explanation, it is fine to apply the workaround for
+>> Tegra210/186 as well. So it simplifies things for all existing chips.
+>=20
+>=20
+> FYI ... we now have minimal support for Tegra234 in upstream that should
+> not require this. Given that the Tegra234 device-tree does not include
+> support for HDA yet, I think it is fine to apply this as-is. However,
+> once we do add support for Tegra234 HDA, then we should ensure that this
+> is not applied. So that said ...
+>=20
+> Reviewed-by: Jon Hunter <jonathanh@nvidia.com>
 
-diff --git a/sound/soc/sof/topology.c b/sound/soc/sof/topology.c
-index 2c9581c6b92d..3855796936bb 100644
---- a/sound/soc/sof/topology.c
-+++ b/sound/soc/sof/topology.c
-@@ -1063,6 +1063,7 @@ static int sof_control_load_volume(struct snd_soc_component *scomp,
- 	scontrol->min_volume_step = le32_to_cpu(mc->min);
- 	scontrol->max_volume_step = le32_to_cpu(mc->max);
- 	scontrol->num_channels = le32_to_cpu(mc->num_channels);
-+	scontrol->control_data->index = kc->index;
- 
- 	/* set cmd for mixer control */
- 	if (le32_to_cpu(mc->max) == 1) {
-@@ -1140,7 +1141,7 @@ static int sof_control_load_enum(struct snd_soc_component *scomp,
- 
- 	scontrol->comp_id = sdev->next_comp_id;
- 	scontrol->num_channels = le32_to_cpu(ec->num_channels);
--
-+	scontrol->control_data->index = kc->index;
- 	scontrol->cmd = SOF_CTRL_CMD_ENUM;
- 
- 	dev_dbg(scomp->dev, "tplg: load kcontrol index %d chans %d comp_id %d\n",
-@@ -1188,6 +1189,7 @@ static int sof_control_load_bytes(struct snd_soc_component *scomp,
- 
- 	scontrol->comp_id = sdev->next_comp_id;
- 	scontrol->cmd = SOF_CTRL_CMD_BINARY;
-+	scontrol->control_data->index = kc->index;
- 
- 	dev_dbg(scomp->dev, "tplg: load kcontrol index %d chans %d\n",
- 		scontrol->comp_id, scontrol->num_channels);
-@@ -2133,7 +2135,7 @@ static int sof_get_control_data(struct snd_soc_component *scomp,
- 	for (i = 0; i < widget->num_kcontrols; i++) {
- 		kc = &widget->kcontrol_news[i];
- 
--		switch (widget->dobj.widget.kcontrol_type) {
-+		switch (kc->kcontrol_type) {
- 		case SND_SOC_TPLG_TYPE_MIXER:
- 			sm = (struct soc_mixer_control *)kc->private_value;
- 			wdata[i].control = sm->dobj.private;
-@@ -2148,7 +2150,7 @@ static int sof_get_control_data(struct snd_soc_component *scomp,
- 			break;
- 		default:
- 			dev_err(scomp->dev, "error: unknown kcontrol type %d in widget %s\n",
--				widget->dobj.widget.kcontrol_type,
-+				kc->kcontrol_type,
- 				widget->name);
- 			return -EINVAL;
- 		}
-@@ -2164,7 +2166,8 @@ static int sof_get_control_data(struct snd_soc_component *scomp,
- 			return -EINVAL;
- 
- 		/* make sure data is valid - data can be updated at runtime */
--		if (wdata[i].pdata->magic != SOF_ABI_MAGIC)
-+		if (kc->kcontrol_type == SND_SOC_TPLG_TYPE_BYTES &&
-+		    wdata[i].pdata->magic != SOF_ABI_MAGIC)
- 			return -EINVAL;
- 
- 		*size += wdata[i].pdata->size;
-@@ -2605,7 +2608,7 @@ static int sof_widget_unload(struct snd_soc_component *scomp,
- 	}
- 	for (i = 0; i < widget->num_kcontrols; i++) {
- 		kc = &widget->kcontrol_news[i];
--		switch (dobj->widget.kcontrol_type) {
-+		switch (kc->kcontrol_type) {
- 		case SND_SOC_TPLG_TYPE_MIXER:
- 			sm = (struct soc_mixer_control *)kc->private_value;
- 			scontrol = sm->dobj.private;
--- 
-2.24.1
 
+Sorry I was chatting with Sameer offline and we think if we just switch
+the test to the following then this will take care of Tegra234 when we
+add it ...
+
+    if (of_device_is_compatible(np, "nvidia,tegra30-hda"))
+
+Peter, would you be able to send a V2 with this?
+
+Thanks!
+Jon
+
+--=20
+nvpublic

@@ -2,58 +2,88 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7D1A82EEE2D
-	for <lists+alsa-devel@lfdr.de>; Fri,  8 Jan 2021 08:55:15 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id B5D072EEE41
+	for <lists+alsa-devel@lfdr.de>; Fri,  8 Jan 2021 09:02:01 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 3206016CA;
-	Fri,  8 Jan 2021 08:54:24 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3206016CA
+	by alsa0.perex.cz (Postfix) with ESMTPS id 4934B16BC;
+	Fri,  8 Jan 2021 09:01:11 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4934B16BC
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1610092514;
-	bh=/Eyh1zWo8kef16K3/fQ3J2ynzpE/h5F7WO9175qvZ/4=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1610092921;
+	bh=Rp5Q+LQ8DaHbEnjTmLGm3pfmDcExA/dcAHCMDe997Uk=;
+	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=Efz18rvIcSMzMl9jGtSF/le1WYMiEyzbg5ozxQP/Tdq4fUr3g8wCh/peoPd7+CjH/
-	 BJ72HP5CgRJAEZM+5DuFnpDuBYexsiBHERVzMpWmHsxVsGi1CIK2gIK+/6FxQXoucL
-	 AnXeCXeLjaOQHTHI88g0P/X2gP5VuNPvXtlJUJuM=
+	b=LUNFHAvXYCaCcQOUp6+RHhj4qdr1Ar0snEVcH6CZXd9ujNx7lRKM9/tj8LDIQti98
+	 nO38KWKKYB5kDBmJiXCJ3TXtc+1aJLbQZrHw6AMu8GIpOwZc0KHWEocAX9u7ZVlKeW
+	 7uHuMELU+11rN9Pag9YO23AYLbtPx8MiAnVuXDAA=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 90652F804D2;
-	Fri,  8 Jan 2021 08:52:54 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 8B7BAF80167;
+	Fri,  8 Jan 2021 09:00:29 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 10034F800EE; Fri,  8 Jan 2021 08:52:34 +0100 (CET)
+ id BA032F80166; Fri,  8 Jan 2021 09:00:25 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+X-Spam-Status: No, score=-0.4 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from hqnvemgate24.nvidia.com (hqnvemgate24.nvidia.com
+ [216.228.121.143])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id C1B06F8025E
- for <alsa-devel@alsa-project.org>; Fri,  8 Jan 2021 08:52:24 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C1B06F8025E
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id B3914AF1E;
- Fri,  8 Jan 2021 07:52:20 +0000 (UTC)
-From: Takashi Iwai <tiwai@suse.de>
-To: alsa-devel@alsa-project.org
-Subject: [PATCH v5 5/5] ALSA: usb-audio: Fix implicit feedback sync setup for
- Pioneer devices
-Date: Fri,  8 Jan 2021 08:52:19 +0100
-Message-Id: <20210108075219.21463-6-tiwai@suse.de>
-X-Mailer: git-send-email 2.26.2
-In-Reply-To: <20210108075219.21463-1-tiwai@suse.de>
-References: <20210108075219.21463-1-tiwai@suse.de>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 2DCDBF80165
+ for <alsa-devel@alsa-project.org>; Fri,  8 Jan 2021 09:00:14 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2DCDBF80165
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=nvidia.com header.i=@nvidia.com
+ header.b="bVvAn6XM"
+Received: from hqmail.nvidia.com (Not Verified[216.228.121.13]) by
+ hqnvemgate24.nvidia.com (using TLS: TLSv1.2, AES256-SHA)
+ id <B5ff8110b0003>; Fri, 08 Jan 2021 00:00:11 -0800
+Received: from [10.25.98.33] (172.20.145.6) by HQMAIL107.nvidia.com
+ (172.20.187.13) with Microsoft SMTP Server (TLS) id 15.0.1473.3; Fri, 8 Jan
+ 2021 08:00:06 +0000
+Subject: Re: [PATCH 2/2] ALSA: hda/tegra: fix tegra-hda on tegra30 soc
+To: Peter Geis <pgwipeout@gmail.com>
+References: <20201225012025.507803-1-pgwipeout@gmail.com>
+ <20201225012025.507803-3-pgwipeout@gmail.com>
+ <0c3665b2-bac6-546a-bdd4-0ab7a90adf7c@nvidia.com>
+ <CAMdYzYraT5AXzyscN3Pa+0FWZwHFsD-4ZwbA80kNxgtn7Y1PXw@mail.gmail.com>
+From: Sameer Pujar <spujar@nvidia.com>
+Message-ID: <b3a3ede2-22d5-b13d-f245-7c3b40ea411a@nvidia.com>
+Date: Fri, 8 Jan 2021 13:30:02 +0530
+User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:68.0) Gecko/20100101
+ Thunderbird/68.12.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-Cc: =?UTF-8?q?Franti=C5=A1ek=20Ku=C4=8Dera?= <konference@frantovo.cz>,
- Geraldo <geraldogabriel@gmail.com>
+In-Reply-To: <CAMdYzYraT5AXzyscN3Pa+0FWZwHFsD-4ZwbA80kNxgtn7Y1PXw@mail.gmail.com>
+Content-Type: text/plain; charset="utf-8"; format=flowed
+Content-Transfer-Encoding: quoted-printable
+Content-Language: en-GB
+X-Originating-IP: [172.20.145.6]
+X-ClientProxiedBy: HQMAIL111.nvidia.com (172.20.187.18) To
+ HQMAIL107.nvidia.com (172.20.187.13)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nvidia.com; s=n1;
+ t=1610092811; bh=tAX7+nwrhbWHTaFDYsrLY7TV7AsIei6JzO5pznTK/EY=;
+ h=Subject:To:CC:References:From:Message-ID:Date:User-Agent:
+ MIME-Version:In-Reply-To:Content-Type:Content-Transfer-Encoding:
+ Content-Language:X-Originating-IP:X-ClientProxiedBy;
+ b=bVvAn6XMiAZ7FoTF4OYFwB8L3AnCfRZgNwnpAWTwq9iSt9JPgLv0hKIvDEi8xr8lQ
+ laUYCy+WEWqF1ED0lhDotEwuMGmsiMEXe4bD6D7pLqVems6d7NQ1MaoceT9HHi6S28
+ v9peEUWyStRs/KnaepmCvucDQ6yfUdK7HadQ3Sj4Ahyk7ma4QxN3eH21eoUd6zilMn
+ Z95vNauSua3gmlKEuJEUMk2qj+ChuLK0NS9bRnPgN/IC3LE7KRH5MMpKmnn/Dkcs81
+ C6hDOkSU+Xhj4hJldLe5pFoBhGdHHsqS9y9gOWy1mTyd1SebKlo/bjI5KTdVg9z9NU
+ ecaVWzLmv8wmw==
+Cc: alsa-devel@alsa-project.org, Prashant
+ Gaikwad <pgaikwad@nvidia.com>, Mohan Kumar <mkumard@nvidia.com>,
+ Stephen Boyd <sboyd@kernel.org>, linux-kernel@vger.kernel.org,
+ Michael Turquette <mturquette@baylibre.com>, linux-clk@vger.kernel.org,
+ Takashi Iwai <tiwai@suse.com>, Jonathan Hunter <jonathanh@nvidia.com>,
+ Thierry Reding <thierry.reding@gmail.com>, Ion Agorria <ion@agorria.com>,
+ linux-tegra@vger.kernel.org, Peter De Schrijver <pdeschrijver@nvidia.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -69,137 +99,123 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Pioneer devices have both playback and capture streams sharing the
-same iface/altsetting, and those need to be paired as implicit
-feedback.  Instead of a half-baked (and broken) static quirk entry,
-set up more generically for those devices by checking the number of
-endpoints and the attribute of the secondary EP.
 
-Fixes: bf6313a0ff76 ("ALSA: usb-audio: Refactor endpoint management")
-Reported-by: František Kučera <konference@frantovo.cz>
-Signed-off-by: Takashi Iwai <tiwai@suse.de>
----
- sound/usb/implicit.c | 48 +++++++++++++++++++++++++++++++++++---------
- 1 file changed, 38 insertions(+), 10 deletions(-)
 
-diff --git a/sound/usb/implicit.c b/sound/usb/implicit.c
-index 9724efe1cdce..1ac2cc6c33fb 100644
---- a/sound/usb/implicit.c
-+++ b/sound/usb/implicit.c
-@@ -58,8 +58,6 @@ static const struct snd_usb_implicit_fb_match playback_implicit_fb_quirks[] = {
- 	IMPLICIT_FB_FIXED_DEV(0x0499, 0x172f, 0x81, 2), /* Steinberg UR22C */
- 	IMPLICIT_FB_FIXED_DEV(0x0d9a, 0x00df, 0x81, 2), /* RTX6001 */
- 	IMPLICIT_FB_FIXED_DEV(0x22f0, 0x0006, 0x81, 3), /* Allen&Heath Qu-16 */
--	IMPLICIT_FB_FIXED_DEV(0x2b73, 0x000a, 0x82, 0), /* Pioneer DJ DJM-900NXS2 */
--	IMPLICIT_FB_FIXED_DEV(0x2b73, 0x0017, 0x82, 0), /* Pioneer DJ DJM-250MK2 */
- 	IMPLICIT_FB_FIXED_DEV(0x1686, 0xf029, 0x82, 2), /* Zoom UAC-2 */
- 	IMPLICIT_FB_FIXED_DEV(0x2466, 0x8003, 0x86, 2), /* Fractal Audio Axe-Fx II */
- 	IMPLICIT_FB_FIXED_DEV(0x0499, 0x172a, 0x86, 2), /* Yamaha MODX */
-@@ -100,7 +98,7 @@ static const struct snd_usb_implicit_fb_match capture_implicit_fb_quirks[] = {
- /* set up sync EP information on the audioformat */
- static int add_implicit_fb_sync_ep(struct snd_usb_audio *chip,
- 				   struct audioformat *fmt,
--				   int ep, int ifnum,
-+				   int ep, int ep_idx, int ifnum,
- 				   const struct usb_host_interface *alts)
- {
- 	struct usb_interface *iface;
-@@ -115,7 +113,7 @@ static int add_implicit_fb_sync_ep(struct snd_usb_audio *chip,
- 	fmt->sync_ep = ep;
- 	fmt->sync_iface = ifnum;
- 	fmt->sync_altsetting = alts->desc.bAlternateSetting;
--	fmt->sync_ep_idx = 0;
-+	fmt->sync_ep_idx = ep_idx;
- 	fmt->implicit_fb = 1;
- 	usb_audio_dbg(chip,
- 		      "%d:%d: added %s implicit_fb sync_ep %x, iface %d:%d\n",
-@@ -147,7 +145,7 @@ static int add_generic_uac2_implicit_fb(struct snd_usb_audio *chip,
- 	    (epd->bmAttributes & USB_ENDPOINT_USAGE_MASK) !=
- 					USB_ENDPOINT_USAGE_IMPLICIT_FB)
- 		return 0;
--	return add_implicit_fb_sync_ep(chip, fmt, epd->bEndpointAddress,
-+	return add_implicit_fb_sync_ep(chip, fmt, epd->bEndpointAddress, 0,
- 				       ifnum, alts);
- }
- 
-@@ -173,10 +171,32 @@ static int add_roland_implicit_fb(struct snd_usb_audio *chip,
- 	    (epd->bmAttributes & USB_ENDPOINT_USAGE_MASK) !=
- 					USB_ENDPOINT_USAGE_IMPLICIT_FB)
- 		return 0;
--	return add_implicit_fb_sync_ep(chip, fmt, epd->bEndpointAddress,
-+	return add_implicit_fb_sync_ep(chip, fmt, epd->bEndpointAddress, 0,
- 				       ifnum, alts);
- }
- 
-+/* Pioneer devices: playback and capture streams sharing the same iface/altset
-+ */
-+static int add_pioneer_implicit_fb(struct snd_usb_audio *chip,
-+				   struct audioformat *fmt,
-+				   struct usb_host_interface *alts)
-+{
-+	struct usb_endpoint_descriptor *epd;
-+
-+	if (alts->desc.bNumEndpoints != 2)
-+		return 0;
-+
-+	epd = get_endpoint(alts, 1);
-+	if (!usb_endpoint_is_isoc_in(epd) ||
-+	    (epd->bmAttributes & USB_ENDPOINT_SYNCTYPE) != USB_ENDPOINT_SYNC_ASYNC ||
-+	    ((epd->bmAttributes & USB_ENDPOINT_USAGE_MASK) !=
-+	     USB_ENDPOINT_USAGE_DATA &&
-+	     (epd->bmAttributes & USB_ENDPOINT_USAGE_MASK) !=
-+	     USB_ENDPOINT_USAGE_IMPLICIT_FB))
-+		return 0;
-+	return add_implicit_fb_sync_ep(chip, fmt, epd->bEndpointAddress, 1,
-+				       alts->desc.bInterfaceNumber, alts);
-+}
- 
- static int __add_generic_implicit_fb(struct snd_usb_audio *chip,
- 				     struct audioformat *fmt,
-@@ -197,7 +217,7 @@ static int __add_generic_implicit_fb(struct snd_usb_audio *chip,
- 	if (!usb_endpoint_is_isoc_in(epd) ||
- 	    (epd->bmAttributes & USB_ENDPOINT_SYNCTYPE) != USB_ENDPOINT_SYNC_ASYNC)
- 		return 0;
--	return add_implicit_fb_sync_ep(chip, fmt, epd->bEndpointAddress,
-+	return add_implicit_fb_sync_ep(chip, fmt, epd->bEndpointAddress, 0,
- 				       iface, alts);
- }
- 
-@@ -250,7 +270,7 @@ static int audioformat_implicit_fb_quirk(struct snd_usb_audio *chip,
- 		case IMPLICIT_FB_NONE:
- 			return 0; /* No quirk */
- 		case IMPLICIT_FB_FIXED:
--			return add_implicit_fb_sync_ep(chip, fmt, p->ep_num,
-+			return add_implicit_fb_sync_ep(chip, fmt, p->ep_num, 0,
- 						       p->iface, NULL);
- 		}
- 	}
-@@ -278,6 +298,14 @@ static int audioformat_implicit_fb_quirk(struct snd_usb_audio *chip,
- 			return 1;
- 	}
- 
-+	/* Pioneer devices implicit feedback with vendor spec class */
-+	if (attr == USB_ENDPOINT_SYNC_ASYNC &&
-+	    alts->desc.bInterfaceClass == USB_CLASS_VENDOR_SPEC &&
-+	    USB_ID_VENDOR(chip->usb_id) == 0x2b73 /* Pioneer */) {
-+		if (add_pioneer_implicit_fb(chip, fmt, alts))
-+			return 1;
-+	}
-+
- 	/* Try the generic implicit fb if available */
- 	if (chip->generic_implicit_fb)
- 		return add_generic_implicit_fb(chip, fmt, alts);
-@@ -295,8 +323,8 @@ static int audioformat_capture_quirk(struct snd_usb_audio *chip,
- 
- 	p = find_implicit_fb_entry(chip, capture_implicit_fb_quirks, alts);
- 	if (p && p->type == IMPLICIT_FB_FIXED)
--		return add_implicit_fb_sync_ep(chip, fmt, p->ep_num, p->iface,
--					       NULL);
-+		return add_implicit_fb_sync_ep(chip, fmt, p->ep_num, 0,
-+					       p->iface, NULL);
- 	return 0;
- }
- 
--- 
-2.26.2
+On 1/7/2021 2:51 AM, Peter Geis wrote:
+> External email: Use caution opening links or attachments
+>
+>
+> On Tue, Jan 5, 2021 at 1:30 AM Sameer Pujar <spujar@nvidia.com> wrote:
+>>
+>>
+>> On 12/25/2020 6:50 AM, Peter Geis wrote:
+>>> External email: Use caution opening links or attachments
+>>>
+>>>
+>>> Currently hda on tegra30 fails to open a stream with an input/output er=
+ror.
+>>> This is similar to the issue referenced in [1].
+>>>
+>>> For example:
+>>> speaker-test -Dhw:0,3 -c 2
+>>>
+>>> speaker-test 1.2.2
+>>>
+>>> Playback device is hw:0,3
+>>> Stream parameters are 48000Hz, S16_LE, 2 channels
+>>> Using 16 octaves of pink noise
+>>> Rate set to 48000Hz (requested 48000Hz)
+>>> Buffer size range from 64 to 16384
+>>> Period size range from 32 to 8192
+>>> Using max buffer size 16384
+>>> Periods =3D 4
+>>> was set period_size =3D 4096
+>>> was set buffer_size =3D 16384
+>>>    0 - Front Left
+>>> Write error: -5,Input/output error
+>>> xrun_recovery failed: -5,Input/output error
+>>> Transfer failed: Input/output error
+>>>
+>>> [1] states "Due to a legacy HW design problem", implying the issue appl=
+ies to all previous tegra-hda devices.
+>>> The tegra-hda device was introduced in tegra30 but only utilized in teg=
+ra124 until now.
+>>> For this reason it is unknown when this issue first manifested.
+>>>
+>>> Applying the fix in [1] universally resolves this issue on tegra30.
+>>> Tested on the Ouya game console and the tf201 tablet.
+>>>
+>>> [1] 60019d8c650d ("ALSA: hda/tegra: workaround playback failure on Tegr=
+a194")
+>> This issue was never seen on Tegra210/Tegra186 and hence at that time it
+>> was thought to be specific to Tegra194. I never tested this on Tegra30
+>> since I don't have this device. I will clarify this with HW folks if
+>> workaround is safer for all chips.
+> So this is confirmed to not affect Tegra210 and Tegra186, but it does
+> affect Tegra194 and Tegra30.
+> Is it possible for the hardware team to pitch on on where the fix was
+> implemented?
+
+I discussed this with HW team. The issue is applicable to all Tegra chips.
+
+Below is the striping formula referenced from HD audio spec.
+ =C2=A0 { ((num_channels * bits_per_sample) / number of SDOs) >=3D 8 }
+
+The current issue is seen because Tegra HW has a problem with boundary=20
+condition (=3D 8) for striping. The reason why it is not seen on=20
+Tegra210/Tegra186 is because it uses max 2SDO lines. Max SDO lines is=20
+read from GCAP register.
+
+For the given stream (channels =3D 2, bps =3D 16);
+ratio =3D (channels * bps) / NSDO =3D 32 / NSDO;
+
+On Tegra30,=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 ratio =3D 32/4 =3D 8=C2=A0 (FAIL)
+On Tegra210/186, ratio =3D 32/2 =3D 16 (PASS)
+On Tegra194,=C2=A0=C2=A0=C2=A0=C2=A0 ratio =3D 32/4 =3D 8=C2=A0 (FAIL) =3D=
+=3D> Earlier workaround was=20
+applied for it
+
+If Tegra210/186 is forced to use 4SDO, it fails there as well. So the=20
+behavior is consistent across all these chips.
+
+>>> Signed-off-by: Peter Geis <pgwipeout@gmail.com>
+>>> Tested-by: Ion Agorria <ion@agorria.com>
+>>> ---
+>>>    sound/pci/hda/hda_tegra.c | 3 +--
+>>>    1 file changed, 1 insertion(+), 2 deletions(-)
+>>>
+>>> diff --git a/sound/pci/hda/hda_tegra.c b/sound/pci/hda/hda_tegra.c
+>>> index 70164d1428d4..f8d61e677a09 100644
+>>> --- a/sound/pci/hda/hda_tegra.c
+>>> +++ b/sound/pci/hda/hda_tegra.c
+>>> @@ -388,8 +388,7 @@ static int hda_tegra_first_init(struct azx *chip, s=
+truct platform_device *pdev)
+>>>            * in powers of 2, next available ratio is 16 which can be
+>>>            * used as a limiting factor here.
+>>>            */
+>>> -       if (of_device_is_compatible(np, "nvidia,tegra194-hda"))
+>>> -               chip->bus.core.sdo_limit =3D 16;
+>>> +       chip->bus.core.sdo_limit =3D 16;
+>> Future Tegra chips address this problem and hence cannot be enforced by
+>> default. May be we can have like below:
+>>
+>> if (of_device_is_compatible(np, "nvidia,tegra30-hda"))
+>> chip->bus.core.sdo_limit =3D 16;
+>>
+> It will need to be a bit more complicated than that, since the
+> tegra186 and tegra210 device trees have "nvidia,tegra30-hda" as a
+> fallback.
+> Looking at the generation map, tegra30-hda can be the fallback for the
+> broken implementation and tegra210-hda can be the fallback for the
+> working implementation.
+> Does that work for you?
+
+As per above explanation, it is fine to apply the workaround for=20
+Tegra210/186 as well. So it simplifies things for all existing chips.
+
+>>>           /* codec detection */
+>>>           if (!bus->codec_mask) {
+>>> --
+>>> 2.25.1
+>>>
 

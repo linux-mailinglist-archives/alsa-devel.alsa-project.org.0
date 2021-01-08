@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8ECA52EF5BE
-	for <lists+alsa-devel@lfdr.de>; Fri,  8 Jan 2021 17:32:09 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id B8DBD2EF5BF
+	for <lists+alsa-devel@lfdr.de>; Fri,  8 Jan 2021 17:32:18 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 218F71738;
-	Fri,  8 Jan 2021 17:31:14 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 218F71738
+	by alsa0.perex.cz (Postfix) with ESMTPS id 420F3174B;
+	Fri,  8 Jan 2021 17:31:25 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 420F3174B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1610123524;
-	bh=wcMtwzIrYkV0N//ezKy6wESkf9IHM1UZrLFcLkpuC6M=;
+	s=default; t=1610123535;
+	bh=ZBu9tjYBBJQuV5KbmR1p4sGRZK+cB8ndAlphGe/jjPs=;
 	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=tjFNdgxP3H25T6fx9gy3luFo7tMknfK8xBOQqq7kpTiOKmKJwQuu9e68glbjrA5VU
-	 HLE+GKaPBhG0gkCEwquEzYaQIfgq86FCCKMOUD/diBdK8yIW8fjshwKs4IAtnO8kO8
-	 Ksc6U13Rg9D7cAkZ+Ot8TN7sGvThRm63YyLRaINY=
+	b=QkY3+SsLOzipAJfaQRacSsOOANCoPjz+O4HpG5S8ltd6WUbD9W58hU6VwxKTOsIfm
+	 7JEMLIT2x4cjoolkYlxx1/iCdjh00mWNxL+fkwTa4oR7Mkpglf6IBHGxhpus4QsurT
+	 2AsTJNbs/RRVjLEiL1c/dHfDd8ZlMlFl/U86fwBA=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id A692EF800FD;
-	Fri,  8 Jan 2021 17:30:26 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 74CD5F80279;
+	Fri,  8 Jan 2021 17:30:27 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 0F502F800E9; Fri,  8 Jan 2021 17:30:22 +0100 (CET)
+ id 8A9A1F8016A; Fri,  8 Jan 2021 17:30:22 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -33,38 +33,40 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 1761BF800FD
- for <alsa-devel@alsa-project.org>; Fri,  8 Jan 2021 17:30:15 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1761BF800FD
+ by alsa1.perex.cz (Postfix) with ESMTPS id 01B76F80165
+ for <alsa-devel@alsa-project.org>; Fri,  8 Jan 2021 17:30:17 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 01B76F80165
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="fCPitXXk"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id B197A238E8;
- Fri,  8 Jan 2021 16:30:10 +0000 (UTC)
+ header.b="KqiAd65K"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id F1CFE2399C;
+ Fri,  8 Jan 2021 16:30:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1610123411;
- bh=wcMtwzIrYkV0N//ezKy6wESkf9IHM1UZrLFcLkpuC6M=;
+ s=k20201202; t=1610123416;
+ bh=ZBu9tjYBBJQuV5KbmR1p4sGRZK+cB8ndAlphGe/jjPs=;
  h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=fCPitXXkUMbOM3eAeVjC+zWBVv5QsraUqy0cND1O++fVskhgSfmghT3afUhmlFO6K
- TjnZOqqH1Tld3Ol2QuiNsU3pjHbB9DRj3gfktm+6oAyF55ywM9JjwdnK4QkAEONZcO
- jBOfLU+FuDVYQyhemTRYSkL3u9JHVfYw7sEtaJnoi0OZ6I9u5WVEGejYxO4JVvbLwB
- 2FTg1aQ7fmVSsLCbzyr6pYrQo4BSf9vmRtGYucy/NJFWzG71/OyPRNM76jH+jqCwAU
- Vn3O4br0yS5U7XttIORPf9Ir9DGfa1BQKBEeWn4kwJJL2oyMcSu/br9y7ey4pGKrPr
- Z1qkytWS6x5hw==
+ b=KqiAd65KXPLfyi2hp74X74giWKKNvdCa6ERl4qmtzaSng7Ocj/aNxVdTLybA0PSU1
+ wRk1Ubl7O8lbUi0nA99Wt4goF0iVZ92sht1AjESfFGy858YuYUkMcnje+/NiIVu5wr
+ P7hl6z5KUJkpkQdFRFGtQh6XIfAG5byel7ZVbA50tYRs7wAjCbMBUZ8VCvFEUjGYfG
+ 1IIpp0A9ChcocGRuj69JkVXt7k3st+75hyMo/m83qOAldK0CSLVAK9wmIs+UtBlT2L
+ qTTqUNHFODWlDMCv+BH8WMxSY6XcyWYrcSPjHx2CO0Gng1lkA+sJAOCGb86ISQEyZT
+ wNg+wiO15Kf+Q==
 From: Mark Brown <broonie@kernel.org>
-To: lgirdwood@gmail.com, alsa-devel@alsa-project.org, perex@perex.cz,
- tiwai@suse.com, kuninori.morimoto.gx@renesas.com, peter.ujfalusi@ti.com,
- Xu Wang <vulab@iscas.ac.cn>, gustavoars@kernel.org
-In-Reply-To: <20210108085834.7168-1-vulab@iscas.ac.cn>
-References: <20210108085834.7168-1-vulab@iscas.ac.cn>
-Subject: Re: [PATCH] ASoC: es8328: Remove redundant null check before
- clk_disable_unprepare
-Message-Id: <161012338172.40879.13082564120833365290.b4-ty@kernel.org>
+To: Stephan Gerhold <stephan@gerhold.net>
+In-Reply-To: <20210107165131.2535-1-stephan@gerhold.net>
+References: <20210107165131.2535-1-stephan@gerhold.net>
+Subject: Re: [PATCH v2] ASoC: hdmi-codec: Fix return value in
+ hdmi_codec_set_jack()
+Message-Id: <161012338172.40879.415070195222728099.b4-ty@kernel.org>
 Date: Fri, 08 Jan 2021 16:29:41 +0000
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Cc: linux-kernel@vger.kernel.org
+Cc: alsa-devel@alsa-project.org, Timur Tabi <timur@kernel.org>,
+ Xiubo Li <Xiubo.Lee@gmail.com>, Shengjiu Wang <shengjiu.wang@gmail.com>,
+ Liam Girdwood <lgirdwood@gmail.com>, Nicolin Chen <nicoleotsuka@gmail.com>,
+ Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
+ Fabio Estevam <festevam@gmail.com>, Cheng-Yi Chiang <cychiang@chromium.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -80,9 +82,16 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Fri, 8 Jan 2021 08:58:34 +0000, Xu Wang wrote:
-> Because clk_disable_unprepare() already checked NULL clock parameter,
-> so the additional check is unnecessary, just remove it.
+On Thu, 7 Jan 2021 17:51:31 +0100, Stephan Gerhold wrote:
+> Sound is broken on the DragonBoard 410c (apq8016_sbc) since 5.10:
+> 
+>   hdmi-audio-codec hdmi-audio-codec.1.auto: ASoC: error at snd_soc_component_set_jack on hdmi-audio-codec.1.auto: -95
+>   qcom-apq8016-sbc 7702000.sound: Failed to set jack: -95
+>   ADV7533: ASoC: error at snd_soc_link_init on ADV7533: -95
+>   hdmi-audio-codec hdmi-audio-codec.1.auto: ASoC: error at snd_soc_component_set_jack on hdmi-audio-codec.1.auto: -95
+>   qcom-apq8016-sbc: probe of 7702000.sound failed with error -95
+> 
+> [...]
 
 Applied to
 
@@ -90,8 +99,8 @@ Applied to
 
 Thanks!
 
-[1/1] ASoC: es8328: Remove redundant null check before clk_disable_unprepare
-      commit: 31c51a424f5163ee6f14fcc251f81078457123e1
+[1/1] ASoC: hdmi-codec: Fix return value in hdmi_codec_set_jack()
+      commit: 2a0435df963f996ca870a2ef1cbf1773dc0ea25a
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

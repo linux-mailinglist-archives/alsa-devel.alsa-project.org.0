@@ -2,97 +2,107 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3E1292EF39B
-	for <lists+alsa-devel@lfdr.de>; Fri,  8 Jan 2021 15:01:35 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3E2EA2EF3B7
+	for <lists+alsa-devel@lfdr.de>; Fri,  8 Jan 2021 15:08:48 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 8B1E116F0;
-	Fri,  8 Jan 2021 15:00:42 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8B1E116F0
+	by alsa0.perex.cz (Postfix) with ESMTPS id C7E7516DC;
+	Fri,  8 Jan 2021 15:07:57 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C7E7516DC
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1610114492;
-	bh=Pv/yndSPAVxsshRuw3JgDVsdExY4eI/YMd7VBTIzzoM=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1610114927;
+	bh=KPkX8kJ3tSHutgLYt+oWXuKMd5SsWXmsa0u0bnwepbs=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=YVnTyrquL7qXdQbtYVU3D5b3YHcWb22NXXB9Rh6Hi4ZxqORDcc0yPznAYHFMqpW1S
-	 keEhm+2wTTP6K3xleC16LmRSOeldE3BTTSG56UqUBZvSBx5X2Zvro801SsaYs3UX1k
-	 Cp4gwPW/AQcG9XWneH+gaoyF0kiz8XTMIva+4mrU=
+	b=MAYE+ix5DCez65VDIsHSXn40qAZRRyGdspx7HhTmr0hgfW5qtfj92y0jQuJCoTWny
+	 PuTXJw67aFv659rKNoq9tM66jflcieumeUEv+xRBYBZ1JiIXrso61ZfPlmyYx53nus
+	 ZL0JUM/r/qNTWGObHQrJDrksgwyuWG0g0mUEB9ns=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 30FA3F8026F;
-	Fri,  8 Jan 2021 14:59:49 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 31997F80167;
+	Fri,  8 Jan 2021 15:07:15 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id D41B5F8025E; Fri,  8 Jan 2021 14:59:43 +0100 (CET)
+ id 02916F80166; Fri,  8 Jan 2021 15:07:12 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from mail-io1-xd36.google.com (mail-io1-xd36.google.com
- [IPv6:2607:f8b0:4864:20::d36])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
+Received: from out4-smtp.messagingengine.com (out4-smtp.messagingengine.com
+ [66.111.4.28])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id E2C0BF80166
- for <alsa-devel@alsa-project.org>; Fri,  8 Jan 2021 14:59:35 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E2C0BF80166
+ by alsa1.perex.cz (Postfix) with ESMTPS id 5E13DF800FD
+ for <alsa-devel@alsa-project.org>; Fri,  8 Jan 2021 15:07:06 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5E13DF800FD
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="GOEfVOeF"
-Received: by mail-io1-xd36.google.com with SMTP id w18so9856834iot.0
- for <alsa-devel@alsa-project.org>; Fri, 08 Jan 2021 05:59:35 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding;
- bh=v3YUKh3Pg+3HEmWFEzA6lV+W8xXHYJpJ+0Kz0Ylu/I0=;
- b=GOEfVOeF+iauU8s3f5xN+vySJJL75+qUxx13gPkp6BxYrf3ZpvDuz6iLgsQ+1qV84Y
- TtTnmu9ZLNEj9fSZsIHZeBF7IRDWzLvLoRurqNKGEJ2Ys1OVUt4zntLQYChpTuk/ZTmy
- lAXGAicWa/C9SFlDLPTWyNlMEm/xC1aKOhWguiaffn3r/eIe4vRr3aaAWUzMpUCa/qzl
- eDLd8Z3d1uGg5HnPbFIa7IIJxTrR5KISNk/hOKd206XMfSPFHaLdLKhC88FsNtOTQs7x
- qn/PK2LHIEMmjFm5mcRS5IBYY3rGX2Uxdom7V2KV4BEdclUtOEvMqx1laFL4vyDKAks8
- 5TsQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
- :references:mime-version:content-transfer-encoding;
- bh=v3YUKh3Pg+3HEmWFEzA6lV+W8xXHYJpJ+0Kz0Ylu/I0=;
- b=uL+RWKSV7trd4BveRboHWnJ3v+Quu1lnkgBxLC4lbOKopaxnyH6P1+K54XBno9Mlwx
- 9T9U/QIIZb+ctUFer9ISHCOAItPh52sh1UnB3OKUWb+zmQyJEyMMjcYD8UqmSrG8Ndqa
- 1EkogC19NB9uqnR+f75RpSPpWT3RW0ckwnWqPFgMq+LfsSwTbcsLEQOkcmoPu1qL+WHA
- E1DKyDNjmAAG/Psxrp7ELNfGsz5lsfx8xYsnz1hBN1gMWmvAQpCmCWjtwq7e957f+1ZV
- cKhE3Lqe4k59sx+vCAweqa/fFyjWUSABt12yOOgH0wMmmqc7yP51l7rwGMzIdfCAyfuh
- HR4g==
-X-Gm-Message-State: AOAM532nqkT9nC0vlAJj2Z1Obs5+K1r1wNrTpZrCOdypyipvVtMiRt+4
- 5WNYPXQcZb3bLNx7H173RKY=
-X-Google-Smtp-Source: ABdhPJyq3vyCn6Be2+obp8pxMdElBtgDGBCoHR8SfzvmL/r/TeRvqDvxO4BZCcIetZoFLBvygFklHg==
-X-Received: by 2002:a5d:8a1a:: with SMTP id w26mr5458680iod.112.1610114374783; 
- Fri, 08 Jan 2021 05:59:34 -0800 (PST)
-Received: from rockpro64.hsd1.md.comcast.net ([2601:153:900:7730::20])
- by smtp.gmail.com with ESMTPSA id l6sm7570063ili.78.2021.01.08.05.59.33
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 08 Jan 2021 05:59:34 -0800 (PST)
-From: Peter Geis <pgwipeout@gmail.com>
-To: Michael Turquette <mturquette@baylibre.com>,
- Stephen Boyd <sboyd@kernel.org>,
- Peter De Schrijver <pdeschrijver@nvidia.com>,
- Prashant Gaikwad <pgaikwad@nvidia.com>,
- Thierry Reding <thierry.reding@gmail.com>,
- Jonathan Hunter <jonathanh@nvidia.com>, Jaroslav Kysela <perex@perex.cz>,
- Takashi Iwai <tiwai@suse.com>, Sameer Pujar <spujar@nvidia.com>,
- Mohan Kumar <mkumard@nvidia.com>
-Subject: [PATCH v2 2/2] ALSA: hda/tegra: fix tegra-hda on tegra30 soc
-Date: Fri,  8 Jan 2021 13:59:13 +0000
-Message-Id: <20210108135913.2421585-3-pgwipeout@gmail.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20210108135913.2421585-1-pgwipeout@gmail.com>
-References: <20210108135913.2421585-1-pgwipeout@gmail.com>
+ dkim=pass (2048-bit key) header.d=sakamocchi.jp header.i=@sakamocchi.jp
+ header.b="Hi7Pjvef"; 
+ dkim=pass (2048-bit key) header.d=messagingengine.com
+ header.i=@messagingengine.com header.b="fN8TJbrO"
+Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
+ by mailout.nyi.internal (Postfix) with ESMTP id 1A78D5C02F7;
+ Fri,  8 Jan 2021 09:07:03 -0500 (EST)
+Received: from mailfrontend1 ([10.202.2.162])
+ by compute4.internal (MEProxy); Fri, 08 Jan 2021 09:07:03 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sakamocchi.jp;
+ h=date:from:to:cc:subject:message-id:references:mime-version
+ :content-type:in-reply-to; s=fm3; bh=FYLIlukazq6vAAkgiAm08ILg0O7
+ KItJeyTfySSMx1OA=; b=Hi7Pjvefm/gf1FDgfd3OeT2eruUgje6wb8zLj8mOHqI
+ 3hPISCmFtpw+YdpikxPseam9/EJ45/V2n3Gfv1DTczC2xBxmHcF6wJgyOrOLs/dc
+ avAynRQriAsIcEc1dGKjCf717e89v6tCejskXZFHJlIZNiJl9VrwFF9u2XdwT/jX
+ v5I4AhPzN7Lu4Hyvpy+OcxJEf97d1UWCcvig1okVkYT0NpUrcAvxBaIO2l0LAiX7
+ S4THB9DL2uFTwScuNfNg5srvs50nyRLuQYvgoQat9n+fl1hjkuIEyOeWdWqQeYRS
+ GKU3lhCY/oHWh5PAqZk0NuJp3ZGX/dwPio1o4Amva7w==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to:x-me-proxy
+ :x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; bh=FYLIlu
+ kazq6vAAkgiAm08ILg0O7KItJeyTfySSMx1OA=; b=fN8TJbrOS325USkuVg6sks
+ DmNIkRvoimjGXqNm3B7vjoRNNMRoEjjv15MAMh5aNRkDdNR6FZWHS6/uJCBq+mNx
+ q/0aPg+9lDviny1K+4GrFlIzD/fEUhdn5kb9VYnFgEZ+kk19c1xqKfBQ3AKSG1fG
+ X0tdivaisNkkwCmPT8CKjOOq71CXzEd8i4OQC4EUGgCtkO/DQJthHwIBbKj4PfjL
+ ks7BPetmQgD/55Jk02JW3QBkG8IIE8+WzpytC8ZmaYlox7XgjqvCXr/73yXtRKxe
+ k8du9Dal1LuH1aNciZQBLNY8JaBjJkTZKP64CGG8Fi4f86de5FAUakEHuaWpADgQ
+ ==
+X-ME-Sender: <xms:Bmf4X8tr3lFKc2AxWn7o-ADW0rdYGAzLnO_nfDLXB-KE5u3UpHKl4A>
+ <xme:Bmf4X5djpmHE-EiNgsj_IuDV6MDw2Sr8S71ExMVX-siPV1qzh7ytJDyIq14mxOcO9
+ PSDnanDe8wuN5Kcr1o>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedujedrvdeggedgiedtucetufdoteggodetrfdotf
+ fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
+ uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
+ cujfgurhepfffhvffukfhfgggtuggjsehttdertddttddvnecuhfhrohhmpefvrghkrghs
+ hhhiucfurghkrghmohhtohcuoehoqdhtrghkrghshhhisehsrghkrghmohgttghhihdrjh
+ hpqeenucggtffrrghtthgvrhhnpeelhfeugedvjefgjefgudekfedutedvtddutdeuieev
+ tddtgeetjeekvdefgeefhfenucfkphepuddukedrvdegfedrjeekrdehkeenucevlhhush
+ htvghrufhiiigvpedtnecurfgrrhgrmhepmhgrihhlfhhrohhmpehoqdhtrghkrghshhhi
+ sehsrghkrghmohgttghhihdrjhhp
+X-ME-Proxy: <xmx:Bmf4X3xp5sk_9tdXlxIjmzxWJyw2y2eiFR_Vijp6pTTAQd2FMlr4_A>
+ <xmx:Bmf4X_O9EwUjTVpSrvd0nrf_88vIfr70PFP2eEOTnmsKLIQ6NVsQWw>
+ <xmx:Bmf4X8_2V_iSNN7YqZku9fLB3B9IRnplnwXQEObG3KJU8vtwVItxCw>
+ <xmx:B2f4XxG6cI0P1629ZZBUnPvCeU_-sbPvo5ShzZuiQ5FmxrScFEknnA>
+Received: from workstation (y078058.dynamic.ppp.asahi-net.or.jp
+ [118.243.78.58])
+ by mail.messagingengine.com (Postfix) with ESMTPA id 538AF240066;
+ Fri,  8 Jan 2021 09:07:01 -0500 (EST)
+Date: Fri, 8 Jan 2021 23:06:59 +0900
+From: Takashi Sakamoto <o-takashi@sakamocchi.jp>
+To: Jaroslav Kysela <perex@perex.cz>
+Subject: Re: [RFC PATCH 1/3] ALSA: control: add kcontrol_type to control
+Message-ID: <20210108140659.GA44940@workstation>
+Mail-Followup-To: Jaroslav Kysela <perex@perex.cz>,
+ Jaska Uimonen <jaska.uimonen@linux.intel.com>,
+ alsa-devel@alsa-project.org
+References: <20210108112355.2053917-1-jaska.uimonen@linux.intel.com>
+ <20210108112355.2053917-2-jaska.uimonen@linux.intel.com>
+ <1272f71c-c736-d267-563e-c2bf43b740da@perex.cz>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Cc: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
- Ion Agorria <ion@agorria.com>, Peter Geis <pgwipeout@gmail.com>,
- linux-tegra@vger.kernel.org, linux-clk@vger.kernel.org
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <1272f71c-c736-d267-563e-c2bf43b740da@perex.cz>
+Cc: alsa-devel@alsa-project.org, Jaska Uimonen <jaska.uimonen@linux.intel.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -108,81 +118,59 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Currently hda on tegra30 fails to open a stream with an input/output error.
+Hi,
 
-For example:
-speaker-test -Dhw:0,3 -c 2
+On Fri, Jan 08, 2021 at 12:40:28PM +0100, Jaroslav Kysela wrote:
+> Dne 08. 01. 21 v 12:23 Jaska Uimonen napsal(a):
+> > Current kcontrol structs don't have a member to describe the control
+> > type. The type is present in the widget which contains the control. As
+> > there can be many controls in one widget it is inherently presumed that
+> > the control types are the same.
+> > 
+> > Lately there has been use cases where different types of controls would
+> > be needed for single widget. Thus enable this by adding the control type
+> > to kcontrol and kcontrol_new structs.
+> 
+> It looks like a SoC only extension. Use private_data to carry this
+> information. It has no value for the toplevel code.
+> 
+> 				Jaroslav
 
-speaker-test 1.2.2
+In current design of ALSA control core, the type of control element is
+firstly determined by driver in callback of snd_kcontrol.info(). The
+callback is done when userspace applications call ioctl(2) with
+SNDRV_CTL_IOCTL_ELEM_INFO request.
 
-Playback device is hw:0,3
-Stream parameters are 48000Hz, S16_LE, 2 channels
-Using 16 octaves of pink noise
-Rate set to 48000Hz (requested 48000Hz)
-Buffer size range from 64 to 16384
-Period size range from 32 to 8192
-Using max buffer size 16384
-Periods = 4
-was set period_size = 4096
-was set buffer_size = 16384
- 0 - Front Left
-Write error: -5,Input/output error
-xrun_recovery failed: -5,Input/output error
-Transfer failed: Input/output error
+The patch doesn't touch to the above processing. It means that the type
+information is just for kernel-land implementation and is not exposed to
+userspace application.
 
-The tegra-hda device was introduced in tegra30 but only utilized in
-tegra124 until recent chips. Tegra210/186 work only due to a hardware
-change. For this reason it is unknown when this issue first manifested.
-Discussions with the hardware team show this applies to all current tegra
-chips. It has been resolved in the tegra234, which does not have hda
-support at this time.
+Essentially, driver is dominant to determine the type of control element
+in control element set which the driver adds. It's possible to achieve
+your intension without changing ALSA control core itself, in my opinion.
 
-The explanation from the hardware team is this:
-Below is the striping formula referenced from HD audio spec.
-   { ((num_channels * bits_per_sample) / number of SDOs) >= 8 }
+As Jaroslav said, it's better to change core of ALSA SoC part according
+to your intention. If you'd like to change ALSA control core, I'd like
+to request for the check of mismatch between the value of added member
+in snd_kcontrol and the value of type of control element returned from
+driver, like:
 
-The current issue is seen because Tegra HW has a problem with boundary
-condition (= 8) for striping. The reason why it is not seen on
-Tegra210/Tegra186 is because it uses max 2SDO lines. Max SDO lines is
-read from GCAP register.
+```
+diff --git a/sound/core/control.c b/sound/core/control.c
+index 809b0a62e..c3ae70574 100644
+--- a/sound/core/control.c
++++ b/sound/core/control.c
+@@ -973,6 +973,7 @@ static int __snd_ctl_elem_info(struct snd_card *card,
+        result = kctl->info(kctl, info);
+        if (result >= 0) {
+                snd_BUG_ON(info->access);
++               snd_BUG_ON(info->type == kctl->kcontrol_type);
+                index_offset = snd_ctl_get_ioff(kctl, &info->id);
+                vd = &kctl->vd[index_offset];
+                snd_ctl_build_ioff(&info->id, kctl, index_offset);
+```
 
-For the given stream (channels = 2, bps = 16);
-ratio = (channels * bps) / NSDO = 32 / NSDO;
 
-On Tegra30,      ratio = 32/4 = 8  (FAIL)
-On Tegra210/186, ratio = 32/2 = 16 (PASS)
-On Tegra194,     ratio = 32/4 = 8  (FAIL) ==> Earlier workaround was
-applied for it
+Regards
 
-If Tegra210/186 is forced to use 4SDO, it fails there as well. So the
-behavior is consistent across all these chips.
-
-Applying the fix in [1] universally resolves this issue on tegra30-hda.
-Tested on the Ouya game console and the tf201 tablet.
-
-[1] commit 60019d8c650d ("ALSA: hda/tegra: workaround playback failure on
-Tegra194")
-
-Reviewed-by: Jon Hunter <jonathanh@nvidia.com>
-Tested-by: Ion Agorria <ion@agorria.com>
-Signed-off-by: Peter Geis <pgwipeout@gmail.com>
----
- sound/pci/hda/hda_tegra.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/sound/pci/hda/hda_tegra.c b/sound/pci/hda/hda_tegra.c
-index 70164d1428d4..361cf2041911 100644
---- a/sound/pci/hda/hda_tegra.c
-+++ b/sound/pci/hda/hda_tegra.c
-@@ -388,7 +388,7 @@ static int hda_tegra_first_init(struct azx *chip, struct platform_device *pdev)
- 	 * in powers of 2, next available ratio is 16 which can be
- 	 * used as a limiting factor here.
- 	 */
--	if (of_device_is_compatible(np, "nvidia,tegra194-hda"))
-+	if (of_device_is_compatible(np, "nvidia,tegra30-hda"))
- 		chip->bus.core.sdo_limit = 16;
- 
- 	/* codec detection */
--- 
-2.25.1
-
+Takashi Sakamoto

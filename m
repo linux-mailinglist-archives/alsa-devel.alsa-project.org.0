@@ -2,68 +2,66 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B00022EEEC0
-	for <lists+alsa-devel@lfdr.de>; Fri,  8 Jan 2021 09:46:49 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4B9DE2EEECF
+	for <lists+alsa-devel@lfdr.de>; Fri,  8 Jan 2021 09:55:14 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 293B916BB;
-	Fri,  8 Jan 2021 09:45:59 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 293B916BB
+	by alsa0.perex.cz (Postfix) with ESMTPS id CC8B516BC;
+	Fri,  8 Jan 2021 09:54:18 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CC8B516BC
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1610095609;
-	bh=xCoPf6zoGc5QZM/JJLc+mt/zvp7B+97iF9+Y8mjE98A=;
+	s=default; t=1610096108;
+	bh=2jWceUbZh6MrbsPjW8NMHq/2QwyFs8lI10Ogvkc3Rb8=;
 	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
 	 List-Post:List-Help:List-Subscribe:From;
-	b=SmWfMNtgTsfqaMwnnrbZV3GstUM++UyHYZihdrBoAyMj2eLe+gH8WlVHUo18A2kBt
-	 f6mxnEqb3Lc7z4tIi2c8bhlYvzwQvV7gpMPDe+s4T1VWR3eeb9lWWsKn2/P0HN548e
-	 m+r6iDbrVrpXhP3rij0bo28H3t1qPO/PwfnfOzio=
+	b=CEmUCef4BSik1p8FfJANj1RyfXKLHyywZyVsfkVWoI1+BIIrs+rCZjtIJY2sT1d6M
+	 nmeq2I7BfOfsl5ry/X996+HW8U0GsN2OYcWVrJtvOx4aKhN1PMz4wiLXKuP5F0MvLj
+	 5LkcqTmfAFB/mK3COidbgZ5QPU+3PeiqkEZkJIL4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 7B0FEF80167;
-	Fri,  8 Jan 2021 09:45:16 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 34FE0F80165;
+	Fri,  8 Jan 2021 09:53:36 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id DE51FF80166; Fri,  8 Jan 2021 09:45:13 +0100 (CET)
+ id BD62EF80166; Fri,  8 Jan 2021 09:53:34 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.2 required=5.0 tests=KHOP_HELO_FCRDNS, SPF_HELO_NONE,
  SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
 Received: from cstnet.cn (smtp21.cstnet.cn [159.226.251.21])
- by alsa1.perex.cz (Postfix) with ESMTP id 9D916F800FD
- for <alsa-devel@alsa-project.org>; Fri,  8 Jan 2021 09:45:04 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9D916F800FD
+ by alsa1.perex.cz (Postfix) with ESMTP id 28664F800FD
+ for <alsa-devel@alsa-project.org>; Fri,  8 Jan 2021 09:53:26 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 28664F800FD
 Received: from localhost.localdomain (unknown [124.16.141.241])
- by APP-01 (Coremail) with SMTP id qwCowAAXHxOKG_hfCUaaAQ--.6846S2;
- Fri, 08 Jan 2021 16:45:00 +0800 (CST)
+ by APP-01 (Coremail) with SMTP id qwCowADHzxOCHfhf2ImaAQ--.7931S2;
+ Fri, 08 Jan 2021 16:53:22 +0800 (CST)
 From: Xu Wang <vulab@iscas.ac.cn>
-To: lars@metafoo.de, nuno.sa@analog.com, lgirdwood@gmail.com,
- broonie@kernel.org, perex@perex.cz, tiwai@suse.com,
- alsa-devel@alsa-project.org
-Subject: [PATCH] ASoC: adau17x1: Remove redundant null check before
- clk_disable_unprepare
-Date: Fri,  8 Jan 2021 08:44:56 +0000
-Message-Id: <20210108084456.6603-1-vulab@iscas.ac.cn>
+To: support.opensource@diasemi.com, lgirdwood@gmail.com, broonie@kernel.org,
+ perex@perex.cz, tiwai@suse.com, alsa-devel@alsa-project.org
+Subject: [PATCH] ASoC: codecs: da*: Remove redundant null check before
+ clk_prepare_enable/clk_disable_unprepare
+Date: Fri,  8 Jan 2021 08:53:19 +0000
+Message-Id: <20210108085319.6912-1-vulab@iscas.ac.cn>
 X-Mailer: git-send-email 2.17.1
-X-CM-TRANSID: qwCowAAXHxOKG_hfCUaaAQ--.6846S2
-X-Coremail-Antispam: 1UD129KBjvdXoWrZFy8CFy8Aw45GF47uw15urg_yoW3GFb_Ja
- 18Wr4vgF1DXwnIvryUGrWUZF4vqF1xZFWjkF10yF42qry8Gr43uFyqkw15Cas7A3WkCa45
- AF4UXrnxAr4xCjkaLaAFLSUrUUUUUb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
- 9fnUUIcSsGvfJTRUUUb4AYjsxI4VWDJwAYFVCjjxCrM7AC8VAFwI0_Gr0_Xr1l1xkIjI8I
- 6I8E6xAIw20EY4v20xvaj40_Wr0E3s1l1IIY67AEw4v_Jr0_Jr4l8cAvFVAK0II2c7xJM2
- 8CjxkF64kEwVA0rcxSw2x7M28EF7xvwVC0I7IYx2IY67AKxVWDJVCq3wA2z4x0Y4vE2Ix0
- cI8IcVCY1x0267AKxVW8Jr0_Cr1UM28EF7xvwVC2z280aVAFwI0_GcCE3s1l84ACjcxK6I
- 8E87Iv6xkF7I0E14v26rxl6s0DM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI
- 64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r1q6rW5McIj6xkF7I0En7xvr7AKxVWUJV
- W8JwAv7VC2z280aVAFwI0_Gr1j6F4UJwAm72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IYc2Ij
- 64vIr41l42xK82IYc2Ij64vIr41l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67
- AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r1q6r43MIIY
- rxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_Jr0_JF4lIxAIcVC0I7IYx2IY6xkF7I0E14
- v26r1j6r4UMIIF0xvE42xK8VAvwI8IcIk0rVWrZr1j6s0DMIIF0xvEx4A2jsIE14v26r1j
- 6r4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Jr0_GrUvcSsGvfC2KfnxnUUI43ZEXa7IU8kWrJ
- UUUUU==
+X-CM-TRANSID: qwCowADHzxOCHfhf2ImaAQ--.7931S2
+X-Coremail-Antispam: 1UD129KBjvJXoWxZr1UKFW5ZFWftF4DZrW8Zwb_yoW5ury3pF
+ n3trZYq3y7XFWrZrn8Jrs7ZF10grWY9FWUXws2k3W5Xr15AFs2gw1ktr13ZFZ5AF93Crnx
+ WrnFqrW0yF97Wa7anT9S1TB71UUUUUUqnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+ 9KBjDU0xBIdaVrnRJUUUkqb7Iv0xC_Kw4lb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I2
+ 0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
+ A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Ar0_tr1l84ACjcxK6xII
+ jxv20xvEc7CjxVAFwI0_Gr1j6F4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwV
+ C2z280aVCY1x0267AKxVW0oVCq3wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC
+ 0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AKxVWUAVWUtwAv7VC2z280aVAFwI0_Gr1j6F
+ 4UJwAm72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IYc2Ij64vIr41lc2xSY4AK67AK6r43MxAI
+ w28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr
+ 4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUAVWUtwCIc40Y0x0EwIxG
+ rwCI42IY6xIIjxv20xvE14v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVW8JVWxJw
+ CI42IY6xAIw20EY4v20xvaj40_Wr1j6rW3Jr1lIxAIcVC2z280aVAFwI0_Jr0_Gr1lIxAI
+ cVC2z280aVCY1x0267AKxVW8JVW8JrUvcSsGvfC2KfnxnUUI43ZEXa7IU5PKs5UUUUU==
 X-Originating-IP: [124.16.141.241]
-X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiCggPA1z4jSDJHAAAsS
+X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiCQoPA102Z2nUrwAAsR
 Cc: linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
@@ -80,28 +78,99 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Because clk_disable_unprepare() already checked NULL clock parameter,
-so the additional check is unnecessary, just remove it.
+Because clk_prepare_enable() and clk_disable_unprepare() already checked
+NULL clock parameter, so the additional checks are unnecessary, just
+remove them.
 
 Signed-off-by: Xu Wang <vulab@iscas.ac.cn>
 ---
- sound/soc/codecs/adau17x1.c | 3 +--
- 1 file changed, 1 insertion(+), 2 deletions(-)
+ sound/soc/codecs/da7218.c     | 13 +++++--------
+ sound/soc/codecs/da7219-aad.c | 19 ++++++++-----------
+ sound/soc/codecs/da7219.c     |  3 +--
+ 3 files changed, 14 insertions(+), 21 deletions(-)
 
-diff --git a/sound/soc/codecs/adau17x1.c b/sound/soc/codecs/adau17x1.c
-index 30e072c80ac1..546ee8178038 100644
---- a/sound/soc/codecs/adau17x1.c
-+++ b/sound/soc/codecs/adau17x1.c
-@@ -1095,8 +1095,7 @@ void adau17x1_remove(struct device *dev)
- {
- 	struct adau *adau = dev_get_drvdata(dev);
+diff --git a/sound/soc/codecs/da7218.c b/sound/soc/codecs/da7218.c
+index 2bfafbe9e3dc..324d95e3b48a 100644
+--- a/sound/soc/codecs/da7218.c
++++ b/sound/soc/codecs/da7218.c
+@@ -2582,12 +2582,10 @@ static int da7218_set_bias_level(struct snd_soc_component *component,
+ 	case SND_SOC_BIAS_PREPARE:
+ 		/* Enable MCLK for transition to ON state */
+ 		if (snd_soc_component_get_bias_level(component) == SND_SOC_BIAS_STANDBY) {
+-			if (da7218->mclk) {
+-				ret = clk_prepare_enable(da7218->mclk);
+-				if (ret) {
+-					dev_err(component->dev, "Failed to enable mclk\n");
+-					return ret;
+-				}
++			ret = clk_prepare_enable(da7218->mclk);
++			if (ret) {
++				dev_err(component->dev, "Failed to enable mclk\n");
++				return ret;
+ 			}
+ 		}
  
--	if (adau->mclk)
--		clk_disable_unprepare(adau->mclk);
-+	clk_disable_unprepare(adau->mclk);
- }
- EXPORT_SYMBOL_GPL(adau17x1_remove);
+@@ -2605,8 +2603,7 @@ static int da7218_set_bias_level(struct snd_soc_component *component,
+ 					    DA7218_LDO_EN_MASK);
+ 		} else {
+ 			/* Remove MCLK */
+-			if (da7218->mclk)
+-				clk_disable_unprepare(da7218->mclk);
++			clk_disable_unprepare(da7218->mclk);
+ 		}
+ 		break;
+ 	case SND_SOC_BIAS_OFF:
+diff --git a/sound/soc/codecs/da7219-aad.c b/sound/soc/codecs/da7219-aad.c
+index 48081d71c22c..fa61cfc8e50c 100644
+--- a/sound/soc/codecs/da7219-aad.c
++++ b/sound/soc/codecs/da7219-aad.c
+@@ -123,15 +123,13 @@ static void da7219_aad_hptest_work(struct work_struct *work)
+ 	mutex_lock(&da7219->pll_lock);
  
+ 	/* Ensure MCLK is available for HP test procedure */
+-	if (da7219->mclk) {
+-		ret = clk_prepare_enable(da7219->mclk);
+-		if (ret) {
+-			dev_err(component->dev, "Failed to enable mclk - %d\n", ret);
+-			mutex_unlock(&da7219->pll_lock);
+-			mutex_unlock(&da7219->ctrl_lock);
+-			snd_soc_dapm_mutex_unlock(dapm);
+-			return;
+-		}
++	ret = clk_prepare_enable(da7219->mclk);
++	if (ret) {
++		dev_err(component->dev, "Failed to enable mclk - %d\n", ret);
++		mutex_unlock(&da7219->pll_lock);
++		mutex_unlock(&da7219->ctrl_lock);
++		snd_soc_dapm_mutex_unlock(dapm);
++		return;
+ 	}
+ 
+ 	/*
+@@ -318,8 +316,7 @@ static void da7219_aad_hptest_work(struct work_struct *work)
+ 		da7219_set_pll(component, DA7219_SYSCLK_MCLK, 0);
+ 
+ 	/* Remove MCLK, if previously enabled */
+-	if (da7219->mclk)
+-		clk_disable_unprepare(da7219->mclk);
++	clk_disable_unprepare(da7219->mclk);
+ 
+ 	mutex_unlock(&da7219->pll_lock);
+ 	mutex_unlock(&da7219->ctrl_lock);
+diff --git a/sound/soc/codecs/da7219.c b/sound/soc/codecs/da7219.c
+index e9b45daec0ca..50307cc9d640 100644
+--- a/sound/soc/codecs/da7219.c
++++ b/sound/soc/codecs/da7219.c
+@@ -1826,8 +1826,7 @@ static int da7219_set_bias_level(struct snd_soc_component *component,
+ 
+ 		if (snd_soc_component_get_bias_level(component) == SND_SOC_BIAS_PREPARE) {
+ 			/* Remove MCLK */
+-			if (da7219->mclk)
+-				clk_disable_unprepare(da7219->mclk);
++			clk_disable_unprepare(da7219->mclk);
+ 		}
+ 		break;
+ 	case SND_SOC_BIAS_OFF:
 -- 
 2.17.1
 

@@ -2,71 +2,83 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B8DBD2EF5BF
-	for <lists+alsa-devel@lfdr.de>; Fri,  8 Jan 2021 17:32:18 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 212F52EFD98
+	for <lists+alsa-devel@lfdr.de>; Sat,  9 Jan 2021 04:47:01 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 420F3174B;
-	Fri,  8 Jan 2021 17:31:25 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 420F3174B
+	by alsa0.perex.cz (Postfix) with ESMTPS id DE2691731;
+	Sat,  9 Jan 2021 04:46:03 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DE2691731
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1610123535;
-	bh=ZBu9tjYBBJQuV5KbmR1p4sGRZK+cB8ndAlphGe/jjPs=;
-	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=QkY3+SsLOzipAJfaQRacSsOOANCoPjz+O4HpG5S8ltd6WUbD9W58hU6VwxKTOsIfm
-	 7JEMLIT2x4cjoolkYlxx1/iCdjh00mWNxL+fkwTa4oR7Mkpglf6IBHGxhpus4QsurT
-	 2AsTJNbs/RRVjLEiL1c/dHfDd8ZlMlFl/U86fwBA=
+	s=default; t=1610164014;
+	bh=1r0jkhWao4jCvCuJB8Tvd717NYt9rYqaq1al9iSeO3U=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=eJ/cOpEh/LxK4lvSxR2PE4BxChhTu+JD7fsyNMxsZ7AzzB7BtFYAF1OgFFcT67saw
+	 JrLLr5vUeBIYX7jux0NqbSDvxeytpU8cfSnIe85JTiz/t3lN0vOrWH/XeAOzYF6qZ0
+	 s9prlGkPuGu1jt6AFHqg24QIuArosCltr4aeKENU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 74CD5F80279;
-	Fri,  8 Jan 2021 17:30:27 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id B835BF80149;
+	Sat,  9 Jan 2021 04:45:21 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 8A9A1F8016A; Fri,  8 Jan 2021 17:30:22 +0100 (CET)
+ id 5CF90F80258; Sat,  9 Jan 2021 04:45:15 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from mail-pl1-x62b.google.com (mail-pl1-x62b.google.com
+ [IPv6:2607:f8b0:4864:20::62b])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 01B76F80165
- for <alsa-devel@alsa-project.org>; Fri,  8 Jan 2021 17:30:17 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 01B76F80165
+ by alsa1.perex.cz (Postfix) with ESMTPS id 17DBBF80159
+ for <alsa-devel@alsa-project.org>; Sat,  9 Jan 2021 04:45:02 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 17DBBF80159
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="KqiAd65K"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id F1CFE2399C;
- Fri,  8 Jan 2021 16:30:15 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1610123416;
- bh=ZBu9tjYBBJQuV5KbmR1p4sGRZK+cB8ndAlphGe/jjPs=;
- h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=KqiAd65KXPLfyi2hp74X74giWKKNvdCa6ERl4qmtzaSng7Ocj/aNxVdTLybA0PSU1
- wRk1Ubl7O8lbUi0nA99Wt4goF0iVZ92sht1AjESfFGy858YuYUkMcnje+/NiIVu5wr
- P7hl6z5KUJkpkQdFRFGtQh6XIfAG5byel7ZVbA50tYRs7wAjCbMBUZ8VCvFEUjGYfG
- 1IIpp0A9ChcocGRuj69JkVXt7k3st+75hyMo/m83qOAldK0CSLVAK9wmIs+UtBlT2L
- qTTqUNHFODWlDMCv+BH8WMxSY6XcyWYrcSPjHx2CO0Gng1lkA+sJAOCGb86ISQEyZT
- wNg+wiO15Kf+Q==
-From: Mark Brown <broonie@kernel.org>
-To: Stephan Gerhold <stephan@gerhold.net>
-In-Reply-To: <20210107165131.2535-1-stephan@gerhold.net>
-References: <20210107165131.2535-1-stephan@gerhold.net>
-Subject: Re: [PATCH v2] ASoC: hdmi-codec: Fix return value in
- hdmi_codec_set_jack()
-Message-Id: <161012338172.40879.415070195222728099.b4-ty@kernel.org>
-Date: Fri, 08 Jan 2021 16:29:41 +0000
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Cc: alsa-devel@alsa-project.org, Timur Tabi <timur@kernel.org>,
- Xiubo Li <Xiubo.Lee@gmail.com>, Shengjiu Wang <shengjiu.wang@gmail.com>,
- Liam Girdwood <lgirdwood@gmail.com>, Nicolin Chen <nicoleotsuka@gmail.com>,
- Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
- Fabio Estevam <festevam@gmail.com>, Cheng-Yi Chiang <cychiang@chromium.org>
+ dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
+ header.b="ZH83PzSw"
+Received: by mail-pl1-x62b.google.com with SMTP id x12so6694736plr.10
+ for <alsa-devel@alsa-project.org>; Fri, 08 Jan 2021 19:45:01 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=from:to:cc:subject:date:message-id;
+ bh=uB92DUbwohcnWwVtbyujXH7Yz0oL9MOyb3SwRnmiePo=;
+ b=ZH83PzSw6BIe8d/gDKZbJ3TGaNxxV8mPkaTkEnHVw2p4eFmTYUJmXhg4Z0OqN+ev8Q
+ n5nK/kYnOJVmhs6JHUwKxVkErgoLJB5xvTGTcEjQ4lwzX33GbUnLmhRJt+1k/1GyYEoL
+ P7FXOaLeKr+p5xlN4YOr1aFDzN712XzDyR6eMYVDkNFO/QVq4/Ii3VtpeCYEwYfmuo63
+ nZR0cm+cTkxILfm3wGRkUX2QkVonbIUtWY1+IVeR6XyfrxfB79vnPAGjpjNub6dfFX3F
+ Fjob7Z36mV9QXDiNwWYBz/pRCdfHLcI/gr+99suxk2CmxN/xG/oKT7N4kxq1vsTkKrxX
+ xxmg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id;
+ bh=uB92DUbwohcnWwVtbyujXH7Yz0oL9MOyb3SwRnmiePo=;
+ b=JL2tEyvHN3sugI0ICZH9Ui1N8c7UQ3tdwfdLcO7ckA6dozQmUnHA2YvhBV09MJY+t0
+ /BZ9T3MTfOuU4D2hfHS4Jlbbqbapo2jUO9ml3ojzLkO1oxZMBPoqeNKBKjBVcXNqOBgV
+ clbJJ57hZMicMPg4e0/nKzEbo3xurgwPHqqmmKWyU9CgEgZnuBBpxZjnhpNzPjK/7O9a
+ Pd+GjhawSzQ7fctpTpY/hz4WmTCFqWxGfLvKvokDsLFjpLNzSf/1iR4O/q35+nTSQvvq
+ uC5ILBsGgSyUQTZpFLl2E4YaJijNI/vO9T4hK+RhI1Iz2yMp3iFM1rmA7qfta+emJIfi
+ 7U/Q==
+X-Gm-Message-State: AOAM530MfB+23uqLqytJppwbql90G6fZyG0Ge+zYbuRzZuoAl6NwSZ+S
+ ScuzOlmAJGetkm4D6bXMb9k=
+X-Google-Smtp-Source: ABdhPJy7/bAYzdNNmr61Zjr56SHx1fNrknsK8odyIFCPYl80ubIOMXYQATWQICuH69Pz+TBfaJgZiQ==
+X-Received: by 2002:a17:90a:5911:: with SMTP id
+ k17mr6976465pji.152.1610163898789; 
+ Fri, 08 Jan 2021 19:44:58 -0800 (PST)
+Received: from jordon-HP-15-Notebook-PC.domain.name ([122.171.171.27])
+ by smtp.gmail.com with ESMTPSA id q12sm10770952pgj.24.2021.01.08.19.44.56
+ (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+ Fri, 08 Jan 2021 19:44:58 -0800 (PST)
+From: Souptick Joarder <jrdr.linux@gmail.com>
+To: lgirdwood@gmail.com, broonie@kernel.org, perex@perex.cz, tiwai@suse.com
+Subject: [PATCH] ASoC: soc-pcm: return correct -ERRNO in failure path
+Date: Sat,  9 Jan 2021 09:15:01 +0530
+Message-Id: <1610163901-5523-1-git-send-email-jrdr.linux@gmail.com>
+X-Mailer: git-send-email 1.9.1
+Cc: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
+ Souptick Joarder <jrdr.linux@gmail.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -82,41 +94,40 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Thu, 7 Jan 2021 17:51:31 +0100, Stephan Gerhold wrote:
-> Sound is broken on the DragonBoard 410c (apq8016_sbc) since 5.10:
-> 
->   hdmi-audio-codec hdmi-audio-codec.1.auto: ASoC: error at snd_soc_component_set_jack on hdmi-audio-codec.1.auto: -95
->   qcom-apq8016-sbc 7702000.sound: Failed to set jack: -95
->   ADV7533: ASoC: error at snd_soc_link_init on ADV7533: -95
->   hdmi-audio-codec hdmi-audio-codec.1.auto: ASoC: error at snd_soc_component_set_jack on hdmi-audio-codec.1.auto: -95
->   qcom-apq8016-sbc: probe of 7702000.sound failed with error -95
-> 
-> [...]
+Kernel test robot throws below error ->
 
-Applied to
+sound/soc/soc-pcm.c:2523 dpcm_run_update_startup() error: uninitialized
+symbol 'ret'.
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
+Initializing ret = 0 and returning correct -ERRNO in failure path.
 
-Thanks!
+Reported-by: kernel test robot <lkp@intel.com>
+Signed-off-by: Souptick Joarder <jrdr.linux@gmail.com>
+---
+ sound/soc/soc-pcm.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-[1/1] ASoC: hdmi-codec: Fix return value in hdmi_codec_set_jack()
-      commit: 2a0435df963f996ca870a2ef1cbf1773dc0ea25a
+diff --git a/sound/soc/soc-pcm.c b/sound/soc/soc-pcm.c
+index 481a4a2..29328ce 100644
+--- a/sound/soc/soc-pcm.c
++++ b/sound/soc/soc-pcm.c
+@@ -2432,7 +2432,7 @@ static int dpcm_run_update_startup(struct snd_soc_pcm_runtime *fe, int stream)
+ 		snd_soc_dpcm_get_substream(fe, stream);
+ 	struct snd_soc_dpcm *dpcm;
+ 	enum snd_soc_dpcm_trigger trigger = fe->dai_link->trigger[stream];
+-	int ret;
++	int ret = 0;
+ 	unsigned long flags;
+ 
+ 	dev_dbg(fe->dev, "ASoC: runtime %s open on FE %s\n",
+@@ -2441,6 +2441,7 @@ static int dpcm_run_update_startup(struct snd_soc_pcm_runtime *fe, int stream)
+ 	/* Only start the BE if the FE is ready */
+ 	if (fe->dpcm[stream].state == SND_SOC_DPCM_STATE_HW_FREE ||
+ 		fe->dpcm[stream].state == SND_SOC_DPCM_STATE_CLOSE) {
++		ret = -EINVAL;
+ 		dev_err(fe->dev, "ASoC: FE %s is not ready %d\n",
+ 			fe->dai_link->name, fe->dpcm[stream].state);
+ 		goto disconnect;
+-- 
+1.9.1
 
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
-
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
-
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
-
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-Thanks,
-Mark

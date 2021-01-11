@@ -2,53 +2,56 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id CFAB62F135B
-	for <lists+alsa-devel@lfdr.de>; Mon, 11 Jan 2021 14:08:10 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id CC7A12F1371
+	for <lists+alsa-devel@lfdr.de>; Mon, 11 Jan 2021 14:09:09 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 4AF4916D2;
-	Mon, 11 Jan 2021 14:07:20 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4AF4916D2
+	by alsa0.perex.cz (Postfix) with ESMTPS id 69D1E1707;
+	Mon, 11 Jan 2021 14:08:19 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 69D1E1707
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1610370490;
-	bh=jpvlPaZVEezRMz9QjFHNhf6I/H6LSkXPCsNgw2Z23Xw=;
-	h=From:To:Subject:Date:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=nmw8M+Zs62mrGJQdK0ze43gf+fCkgS8yzykL4a9oc84oaCdjNpsOdtK2PXaWjE2c2
-	 u9E1lkYsSzPTbAzkIqHq6AKn4ysbb86eiIC65SAGCFeQxC1fB8gzYdpyrOJfb3TkSP
-	 R5xUWLtSKr+SCQ9y/CR/oxeh5c5LabIE32rHi9fI=
+	s=default; t=1610370549;
+	bh=8v8IVd+IwBa1S/Hej1vw+RrPvKqA0JwuAql9Wbuzx9Y=;
+	h=From:To:Subject:Date:In-Reply-To:References:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=N4xlnQX7wQWM2h4SKlRM9gmE5vN7h0+JTwp0YemNRfI2hm5Io24oj7UGom8TSyBUj
+	 BOZEHxnNNhKI09DI7IYsKs1Rnn/7Njoo8GcO3rHWiBdYc/xqVt17PznirGXz619bwT
+	 AUg6Jtynj41+jPR/xCTH7xYxiiXajBYiG2K7sYWY=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id DF63CF80254;
-	Mon, 11 Jan 2021 14:06:37 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id EBD0CF804D2;
+	Mon, 11 Jan 2021 14:06:54 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 6479EF8016D; Mon, 11 Jan 2021 14:06:35 +0100 (CET)
+ id 6E49FF804C3; Mon, 11 Jan 2021 14:06:45 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE
- autolearn=disabled version=3.4.0
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
 Received: from youngberry.canonical.com (youngberry.canonical.com
  [91.189.89.112])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id A70A2F800BE
- for <alsa-devel@alsa-project.org>; Mon, 11 Jan 2021 14:06:32 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A70A2F800BE
+ by alsa1.perex.cz (Postfix) with ESMTPS id 13695F8013D
+ for <alsa-devel@alsa-project.org>; Mon, 11 Jan 2021 14:06:38 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 13695F8013D
 Received: from [123.114.32.120] (helo=localhost.localdomain)
  by youngberry.canonical.com with esmtpsa
  (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.86_2)
  (envelope-from <hui.wang@canonical.com>)
- id 1kywtv-0001Ym-Lu; Mon, 11 Jan 2021 13:06:31 +0000
+ id 1kywu4-0001Ym-Sq; Mon, 11 Jan 2021 13:06:37 +0000
 From: Hui Wang <hui.wang@canonical.com>
 To: alsa-devel@alsa-project.org, tiwai@suse.de, perex@perex.cz,
  kai.vehmanen@linux.intel.com
-Subject: [RFC][PATCH v4 0/4] design a way to change audio Jack state by
- software
-Date: Mon, 11 Jan 2021 21:05:53 +0800
-Message-Id: <20210111130557.90208-1-hui.wang@canonical.com>
+Subject: [RFC][PATCH v4 1/4] alsa: jack: implement software jack injection via
+ debugfs
+Date: Mon, 11 Jan 2021 21:05:54 +0800
+Message-Id: <20210111130557.90208-2-hui.wang@canonical.com>
 X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20210111130557.90208-1-hui.wang@canonical.com>
+References: <20210111130557.90208-1-hui.wang@canonical.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
@@ -67,57 +70,434 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-the changes in the v4:
- - change the sound-core to sound and change the sound_core_debugfs_root
-   to sound_debugfs_root in the 0001-xxx.patch
- - change kzalloc/kfree to kvzalloc/kvfree in the debugfs fops for
-   0001-xxx.patch and 0003-xxx.patch
- - And if needed, I could squash 4 patches into 1 patch before merging.
+We want to perform remote audio auto test, need the audio jack to
+change from plugout to plugin or vice versa by software ways.
 
-the changes in the v3 (for easy to review, divide change into 4 patches):
- - address the comment about the snd_jack_report() and _snd_jack_report(),
-   the v2 design is hard to understand and is hard to review, in the v3,
-   separate the jack_report to snd_jack_report() and snd_jack_inject_report(),
-   hw jack events call snd_jack_report() as before, if a jack contains multi
-   jack_kctl and the jack_kctl's sw_inject is enabled, the status and the
-   related input-dev's events will not be reproted. The injection events call
-   snd_jack_inject_report(). This change is squashed to 0001-xxx.patch,  the
-   rest part of 0001-xxx.patch is same as v2.
+Here the design is creating a sound root folder in the debugfs
+dir, and each sound card will create a folder cardN under sound,
+then the sound jack will create folders by jack_ctrl->ctrl->id.name,
+and will create 2 file nodes jackin_inject and sw_inject_enable in
+the folder, this is the layout of folder on a machine with 2 sound
+cards:
+$tree $debugfs_mount_dir/sound
+sound/
+├── card0
+│   ├── HDMI!DP,pcm=10 Jack
+│   │   ├── jackin_inject
+│   │   └── sw_inject_enable
+│   ├── HDMI!DP,pcm=11 Jack
+│   │   ├── jackin_inject
+│   │   └── sw_inject_enable
+│   ├── HDMI!DP,pcm=3 Jack
+│   │   ├── jackin_inject
+│   │   └── sw_inject_enable
+│   ├── HDMI!DP,pcm=7 Jack
+│   │   ├── jackin_inject
+│   │   └── sw_inject_enable
+│   ├── HDMI!DP,pcm=8 Jack
+│   │   ├── jackin_inject
+│   │   └── sw_inject_enable
+│   └── HDMI!DP,pcm=9 Jack
+│       ├── jackin_inject
+│       └── sw_inject_enable
+└── card1
+    ├── HDMI!DP,pcm=3 Jack
+    │   ├── jackin_inject
+    │   └── sw_inject_enable
+    ├── HDMI!DP,pcm=4 Jack
+    │   ├── jackin_inject
+    │   └── sw_inject_enable
+    ├── HDMI!DP,pcm=5 Jack
+    │   ├── jackin_inject
+    │   └── sw_inject_enable
+    ├── Headphone Jack
+    │   ├── jackin_inject
+    │   └── sw_inject_enable
+    ├── Headset Jack
+    │   ├── jackin_inject
+    │   └── sw_inject_enable
+    └── Mic Jack
+        ├── jackin_inject
+        └── sw_inject_enable
 
- - address the comment about folders'name in the 0002-xxx.patch, so far, drop
-   the '/', ',', '=' and ' ' from the folders' name.
+Suppose users want to enable jack injection for Headphone, they need
+to run $sudo sh -c 'echo 1 > 'Headphone Jack'/sw_inject_enable', then
+users could change the Headphone Jack state through jackin_inject and
+this Jack's state will not be changed by non-injection ways anymore
+until users echo 0 to sw_inject_enable.
 
- - address the comment about adding more debugfs nodes in the 0003-xxx.patch,
-   it adds kctl_id, mask_bits, status and type.
+Users could run $sudo sh -c 'echo 1 > 'Headphone Jack'/jackin_inject'
+to trigger the Headphone jack to plugin or echo 0 to trigger it to
+plugout.
 
- - address the comment about save-n-restore jack's hw status in the
-   0004-xxx.patch, adding a hw_status_cache and save the last reported jack
-   hw event, once the sw_inject is disabled, will restore all jack_kctl's
-   state under the same snd_jack with hw_status_cache.
-[snip]
+If users finish their test, they could run
+$sudo sh -c 'echo 0 > 'Headphone Jack'/sw_inject_enable' to disable
+injection and let non-injection ways control this Jack.
 
+For the jack event report, the hw jack event will call
+snd_jack_report(), it will avoid to report the events if a jack_kctl's
+sw_inject is enabled, also the related input_dev's events will not be
+reproted.
 
-the changes in the V2:
- - using debugfs instead of sysfs
- - using jack_ctrl to create a folder instead of snd_jack, since ASoC drivers
-   could create multi jack_ctrls within a snd_jack
- - create a folder for each jack_ctrl instead for all jack_ctrls
-[ snip ]
+If users inject a event, it will call snd_jack_inject_report(), it
+only reports the events for this jack_kctl and reports the related
+input_dev's events.
 
-
-Hui Wang (4):
-  alsa: jack: implement software jack injection via debugfs
-  alsa: jack: adjust jack_kctl debugfs folder's name
-  alsa: jack: add more jack_kctl debugfs nodes
-  alsa: jack: implement save-and-restore for jack's hw status
-
+Signed-off-by: Hui Wang <hui.wang@canonical.com>
+---
  include/sound/core.h |   2 +
- include/sound/jack.h |   1 +
- sound/core/init.c    |   7 +
- sound/core/jack.c    | 352 ++++++++++++++++++++++++++++++++++++++++++-
- sound/core/sound.c   |   8 +
- 5 files changed, 366 insertions(+), 4 deletions(-)
+ sound/core/init.c    |   7 ++
+ sound/core/jack.c    | 182 ++++++++++++++++++++++++++++++++++++++++++-
+ sound/core/sound.c   |   8 ++
+ 4 files changed, 195 insertions(+), 4 deletions(-)
 
+diff --git a/include/sound/core.h b/include/sound/core.h
+index 0462c577d7a3..15175fd44971 100644
+--- a/include/sound/core.h
++++ b/include/sound/core.h
+@@ -122,6 +122,7 @@ struct snd_card {
+ 
+ 	size_t total_pcm_alloc_bytes;	/* total amount of allocated buffers */
+ 	struct mutex memory_mutex;	/* protection for the above */
++	struct dentry *debugfs_root;    /* debugfs root for card */
+ 
+ #ifdef CONFIG_PM
+ 	unsigned int power_state;	/* power state */
+@@ -180,6 +181,7 @@ static inline struct device *snd_card_get_device_link(struct snd_card *card)
+ extern int snd_major;
+ extern int snd_ecards_limit;
+ extern struct class *sound_class;
++extern struct dentry *sound_debugfs_root;
+ 
+ void snd_request_card(int card);
+ 
+diff --git a/sound/core/init.c b/sound/core/init.c
+index 75aec71c48a8..d5ed2580f30c 100644
+--- a/sound/core/init.c
++++ b/sound/core/init.c
+@@ -13,6 +13,7 @@
+ #include <linux/time.h>
+ #include <linux/ctype.h>
+ #include <linux/pm.h>
++#include <linux/debugfs.h>
+ #include <linux/completion.h>
+ 
+ #include <sound/core.h>
+@@ -161,6 +162,7 @@ int snd_card_new(struct device *parent, int idx, const char *xid,
+ {
+ 	struct snd_card *card;
+ 	int err;
++	char name[8];
+ 
+ 	if (snd_BUG_ON(!card_ret))
+ 		return -EINVAL;
+@@ -244,6 +246,10 @@ int snd_card_new(struct device *parent, int idx, const char *xid,
+ 		dev_err(parent, "unable to create card info\n");
+ 		goto __error_ctl;
+ 	}
++
++	sprintf(name, "card%d", idx);
++	card->debugfs_root = debugfs_create_dir(name, sound_debugfs_root);
++
+ 	*card_ret = card;
+ 	return 0;
+ 
+@@ -416,6 +422,7 @@ int snd_card_disconnect(struct snd_card *card)
+ 	/* notify all devices that we are disconnected */
+ 	snd_device_disconnect_all(card);
+ 
++	debugfs_remove(card->debugfs_root);
+ 	snd_info_card_disconnect(card);
+ 	if (card->registered) {
+ 		device_del(&card->card_dev);
+diff --git a/sound/core/jack.c b/sound/core/jack.c
+index 503c8af79d55..0092cb6b5b79 100644
+--- a/sound/core/jack.c
++++ b/sound/core/jack.c
+@@ -8,6 +8,9 @@
+ #include <linux/input.h>
+ #include <linux/slab.h>
+ #include <linux/module.h>
++#include <linux/ctype.h>
++#include <linux/mm.h>
++#include <linux/debugfs.h>
+ #include <sound/jack.h>
+ #include <sound/core.h>
+ #include <sound/control.h>
+@@ -16,6 +19,9 @@ struct snd_jack_kctl {
+ 	struct snd_kcontrol *kctl;
+ 	struct list_head list;  /* list of controls belong to the same jack */
+ 	unsigned int mask_bits; /* only masked status bits are reported via kctl */
++	struct snd_jack *jack;  /* pointer to struct snd_jack */
++	bool sw_inject_enable;  /* allow to inject plug event via debugfs */
++	struct dentry *jack_debugfs_root; /* jack_kctl debugfs root */
+ };
+ 
+ #ifdef CONFIG_SND_JACK_INPUT_DEV
+@@ -109,12 +115,172 @@ static int snd_jack_dev_register(struct snd_device *device)
+ }
+ #endif /* CONFIG_SND_JACK_INPUT_DEV */
+ 
++#ifdef CONFIG_DEBUG_FS
++static void snd_jack_inject_report(struct snd_jack_kctl *jack_kctl, int status)
++{
++	struct snd_jack *jack;
++#ifdef CONFIG_SND_JACK_INPUT_DEV
++	int i;
++#endif
++	if (!jack_kctl)
++		return;
++
++	jack = jack_kctl->jack;
++
++	if (jack_kctl->sw_inject_enable)
++		snd_kctl_jack_report(jack->card, jack_kctl->kctl,
++				     status & jack_kctl->mask_bits);
++
++#ifdef CONFIG_SND_JACK_INPUT_DEV
++	if (!jack->input_dev)
++		return;
++
++	for (i = 0; i < ARRAY_SIZE(jack->key); i++) {
++		int testbit = ((SND_JACK_BTN_0 >> i) & jack_kctl->mask_bits);
++
++		if (jack->type & testbit)
++			input_report_key(jack->input_dev, jack->key[i],
++					 status & testbit);
++	}
++
++	for (i = 0; i < ARRAY_SIZE(jack_switch_types); i++) {
++		int testbit = ((1 << i) & jack_kctl->mask_bits);
++
++		if (jack->type & testbit)
++			input_report_switch(jack->input_dev,
++					    jack_switch_types[i],
++					    status & testbit);
++	}
++
++	input_sync(jack->input_dev);
++#endif /* CONFIG_SND_JACK_INPUT_DEV */
++}
++
++static ssize_t sw_inject_enable_read(struct file *file,
++				     char __user *to, size_t count, loff_t *ppos)
++{
++	struct snd_jack_kctl *jack_kctl = file->private_data;
++	char *buf;
++	int len, ret;
++
++	buf = kvzalloc(PAGE_SIZE, GFP_KERNEL);
++	if (!buf)
++		return -ENOMEM;
++
++	len = scnprintf(buf, PAGE_SIZE, "%s: %s\t\t%s: %i\n", "Jack", jack_kctl->kctl->id.name,
++			"Inject Enabled", jack_kctl->sw_inject_enable);
++	ret = simple_read_from_buffer(to, count, ppos, buf, len);
++
++	kvfree(buf);
++	return ret;
++}
++
++static ssize_t sw_inject_enable_write(struct file *file,
++				      const char __user *from, size_t count, loff_t *ppos)
++{
++	struct snd_jack_kctl *jack_kctl = file->private_data;
++	char *buf;
++	int ret, err;
++	unsigned long enable;
++
++	buf = kvzalloc(count, GFP_KERNEL);
++	if (!buf)
++		return -ENOMEM;
++
++	ret = simple_write_to_buffer(buf, count, ppos, from, count);
++	err = kstrtoul(buf, 0, &enable);
++	if (err) {
++		ret = err;
++		goto exit;
++	}
++
++	jack_kctl->sw_inject_enable = !!enable;
++
++ exit:
++	kvfree(buf);
++	return ret;
++}
++
++static ssize_t jackin_inject_write(struct file *file,
++				   const char __user *from, size_t count, loff_t *ppos)
++{
++	struct snd_jack_kctl *jack_kctl = file->private_data;
++	char *buf;
++	int ret, err;
++	unsigned long enable;
++
++	if (!jack_kctl->sw_inject_enable)
++		return -EINVAL;
++
++	buf = kvzalloc(count, GFP_KERNEL);
++	if (!buf)
++		return -ENOMEM;
++
++	ret = simple_write_to_buffer(buf, count, ppos, from, count);
++	err = kstrtoul(buf, 0, &enable);
++	if (err) {
++		ret = err;
++		goto exit;
++	}
++
++	snd_jack_inject_report(jack_kctl, !!enable ? jack_kctl->mask_bits : 0);
++
++ exit:
++	kvfree(buf);
++	return ret;
++}
++
++static const struct file_operations sw_inject_enable_fops = {
++	.open = simple_open,
++	.read = sw_inject_enable_read,
++	.write = sw_inject_enable_write,
++	.llseek = default_llseek,
++};
++
++static const struct file_operations jackin_inject_fops = {
++	.open = simple_open,
++	.write = jackin_inject_write,
++	.llseek = default_llseek,
++};
++
++static int snd_jack_debugfs_add_inject_node(struct snd_jack *jack,
++					    struct snd_jack_kctl *jack_kctl)
++{
++	char *tname;
++
++	/* the folder's name can't contains '/', need to replace it with '!'
++	 * as lib/kobject.c does
++	 */
++	tname = kstrdup(jack_kctl->kctl->id.name, GFP_KERNEL);
++	if (!tname)
++		return -ENOMEM;
++	strreplace(tname, '/', '!');
++	jack_kctl->jack_debugfs_root = debugfs_create_dir(tname, jack->card->debugfs_root);
++	kfree(tname);
++
++	debugfs_create_file("sw_inject_enable", 0644, jack_kctl->jack_debugfs_root, jack_kctl,
++			    &sw_inject_enable_fops);
++
++	debugfs_create_file("jackin_inject", 0200, jack_kctl->jack_debugfs_root, jack_kctl,
++			    &jackin_inject_fops);
++
++	return 0;
++}
++#else /* CONFIG_DEBUG_FS */
++static int snd_jack_debugfs_add_inject_node(struct snd_jack *jack,
++					    struct snd_jack_kctl *jack_kctl)
++{
++	return 0;
++}
++#endif /* CONFIG_DEBUG_FS */
++
+ static void snd_jack_kctl_private_free(struct snd_kcontrol *kctl)
+ {
+ 	struct snd_jack_kctl *jack_kctl;
+ 
+ 	jack_kctl = kctl->private_data;
+ 	if (jack_kctl) {
++		debugfs_remove(jack_kctl->jack_debugfs_root);
+ 		list_del(&jack_kctl->list);
+ 		kfree(jack_kctl);
+ 	}
+@@ -122,7 +288,10 @@ static void snd_jack_kctl_private_free(struct snd_kcontrol *kctl)
+ 
+ static void snd_jack_kctl_add(struct snd_jack *jack, struct snd_jack_kctl *jack_kctl)
+ {
++	jack_kctl->jack = jack;
+ 	list_add_tail(&jack_kctl->list, &jack->kctl_list);
++	if (!strstr(jack_kctl->kctl->id.name, "Phantom"))
++		snd_jack_debugfs_add_inject_node(jack, jack_kctl);
+ }
+ 
+ static struct snd_jack_kctl * snd_jack_kctl_new(struct snd_card *card, const char *name, unsigned int mask)
+@@ -340,6 +509,7 @@ EXPORT_SYMBOL(snd_jack_set_key);
+ void snd_jack_report(struct snd_jack *jack, int status)
+ {
+ 	struct snd_jack_kctl *jack_kctl;
++	unsigned int mask_bits = 0;
+ #ifdef CONFIG_SND_JACK_INPUT_DEV
+ 	int i;
+ #endif
+@@ -348,15 +518,18 @@ void snd_jack_report(struct snd_jack *jack, int status)
+ 		return;
+ 
+ 	list_for_each_entry(jack_kctl, &jack->kctl_list, list)
+-		snd_kctl_jack_report(jack->card, jack_kctl->kctl,
+-					    status & jack_kctl->mask_bits);
++		if (jack_kctl->sw_inject_enable)
++			mask_bits |= jack_kctl->mask_bits;
++		else
++			snd_kctl_jack_report(jack->card, jack_kctl->kctl,
++					     status & jack_kctl->mask_bits);
+ 
+ #ifdef CONFIG_SND_JACK_INPUT_DEV
+ 	if (!jack->input_dev)
+ 		return;
+ 
+ 	for (i = 0; i < ARRAY_SIZE(jack->key); i++) {
+-		int testbit = SND_JACK_BTN_0 >> i;
++		int testbit = ((SND_JACK_BTN_0 >> i) & ~mask_bits);
+ 
+ 		if (jack->type & testbit)
+ 			input_report_key(jack->input_dev, jack->key[i],
+@@ -364,7 +537,8 @@ void snd_jack_report(struct snd_jack *jack, int status)
+ 	}
+ 
+ 	for (i = 0; i < ARRAY_SIZE(jack_switch_types); i++) {
+-		int testbit = 1 << i;
++		int testbit = ((1 << i) & ~mask_bits);
++
+ 		if (jack->type & testbit)
+ 			input_report_switch(jack->input_dev,
+ 					    jack_switch_types[i],
+diff --git a/sound/core/sound.c b/sound/core/sound.c
+index b75f78f2c4b8..8a80f0440455 100644
+--- a/sound/core/sound.c
++++ b/sound/core/sound.c
+@@ -9,6 +9,7 @@
+ #include <linux/time.h>
+ #include <linux/device.h>
+ #include <linux/module.h>
++#include <linux/debugfs.h>
+ #include <sound/core.h>
+ #include <sound/minors.h>
+ #include <sound/info.h>
+@@ -39,6 +40,9 @@ MODULE_ALIAS_CHARDEV_MAJOR(CONFIG_SND_MAJOR);
+ int snd_ecards_limit;
+ EXPORT_SYMBOL(snd_ecards_limit);
+ 
++struct dentry *sound_debugfs_root;
++EXPORT_SYMBOL_GPL(sound_debugfs_root);
++
+ static struct snd_minor *snd_minors[SNDRV_OS_MINORS];
+ static DEFINE_MUTEX(sound_mutex);
+ 
+@@ -395,6 +399,9 @@ static int __init alsa_sound_init(void)
+ 		unregister_chrdev(major, "alsa");
+ 		return -ENOMEM;
+ 	}
++
++	sound_debugfs_root = debugfs_create_dir("sound", NULL);
++
+ #ifndef MODULE
+ 	pr_info("Advanced Linux Sound Architecture Driver Initialized.\n");
+ #endif
+@@ -403,6 +410,7 @@ static int __init alsa_sound_init(void)
+ 
+ static void __exit alsa_sound_exit(void)
+ {
++	debugfs_remove(sound_debugfs_root);
+ 	snd_info_done();
+ 	unregister_chrdev(major, "alsa");
+ }
 -- 
 2.25.1
 

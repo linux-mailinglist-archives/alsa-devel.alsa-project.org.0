@@ -2,75 +2,118 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 053DC2F1D4C
-	for <lists+alsa-devel@lfdr.de>; Mon, 11 Jan 2021 19:00:32 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id C4F592F1E50
+	for <lists+alsa-devel@lfdr.de>; Mon, 11 Jan 2021 19:56:09 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 6C272173A;
-	Mon, 11 Jan 2021 18:59:41 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6C272173A
+	by alsa0.perex.cz (Postfix) with ESMTPS id BE6421710;
+	Mon, 11 Jan 2021 19:55:13 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BE6421710
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1610388031;
-	bh=l9BECwPh5Uw1xsnT6CBJ//g1d59ts1A3zWVtuCkzoJY=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1610391363;
+	bh=nSEcBSpGjdUw/N7IV/KQ30OyHCdl3cldfKUMvEy3ZfI=;
+	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=tlBy1ArswQzByd1wz340OACNVX/J29Q4H5SbGvAsNCu5CmRPfeC+fdrjYp6wzajkl
-	 J7CeSbO+34nI+68YFu/+mX1/jIRvfWSp5oCXc5ckR3n7Dc8Sm91LrSUQ27JFDdXObY
-	 XqnGO4G5df1aG+zBW8Gxmb0t9h+IqATcyBaLsu00=
+	b=eMozbqstlEqI1ezDov3kIne2/dDj1ynt+OEbESmX4D5gH2olSJ5yBcl36m0dK1mYd
+	 pSkxFHeTzkO1chebCrRj1UraEHMCnpxedOzPWXOadxTaJpfnv9sPEkyihEY3YwGYR2
+	 mFJH5YLH4O/y/6sxBG+EMiwZApl/YEqlsN7cAZKE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id D02ACF80254;
-	Mon, 11 Jan 2021 18:58:58 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id EECF0F80254;
+	Mon, 11 Jan 2021 19:54:30 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id A7029F8016D; Mon, 11 Jan 2021 18:58:56 +0100 (CET)
+ id 4BDB8F8016D; Mon, 11 Jan 2021 19:54:26 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,PRX_BODY_30,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE autolearn=disabled
+ version=3.4.0
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [63.128.21.124])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id C8F3BF80113
- for <alsa-devel@alsa-project.org>; Mon, 11 Jan 2021 18:58:48 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C8F3BF80113
+ by alsa1.perex.cz (Postfix) with ESMTPS id C21E3F8013D
+ for <alsa-devel@alsa-project.org>; Mon, 11 Jan 2021 19:54:22 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C21E3F8013D
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="d1+EiBSp"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 368A3223C8;
- Mon, 11 Jan 2021 17:58:45 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1610387925;
- bh=l9BECwPh5Uw1xsnT6CBJ//g1d59ts1A3zWVtuCkzoJY=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=d1+EiBSpawyQ677csW0iNpD59tJDqpWFYDwZz4nKjt0Y9Al9lI7opSvj8kTSUGTNj
- O6Y+MOWGgOs1KX/rFdNcBol0oLWJHStoHBwYpDYry62Qiczcq9iMJIUNZXLZheY4iS
- 2CwuicaCpop9rxRtKh68mCr8RcbeGe4i94QmoG0JUxVwUOJWEw8MijkN8Qm/ENkvq+
- 04dz7pdgQZlyIw+EYn8jLSCbMUpUBiRI88YayrW0BvXmEicRn6E3O6df9bH3R6nIFp
- +vZUoMLPcPRCP9RZ6JKyXEti2kiyeihkazsxmXG7QhAMjdlnBw9V/any77rK4WR9S6
- 70Amgsr9TZ+5g==
-Date: Mon, 11 Jan 2021 17:58:12 +0000
-From: Mark Brown <broonie@kernel.org>
-To: Colin Ian King <colin.king@canonical.com>
-Subject: Re: [PATCH][next] ASoC: soc-pcm: Fix uninitialised return value in
- variable ret
-Message-ID: <20210111175812.GK4728@sirena.org.uk>
-References: <20210108123546.19601-1-colin.king@canonical.com>
- <20210111163551.GA33269@sirena.org.uk>
- <9bef4fe5-0eed-03f8-9505-909b669ba49b@canonical.com>
+ dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com
+ header.b="Po5rRmSL"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1610391261;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=uN8LVAFq57erg1VZoogi4pvvwx0ELMzBGbyuGNoOJNQ=;
+ b=Po5rRmSLpjT8pjl9UkZAhXGq11XnGkkb9tyuMvuLe84srZhblalCQ4HqBX5WRFStVitR5K
+ bvMyLSUK+4jOI8N5MbuNfNMeVQ8e/2h/EyUaQ3Y0Gwg+Orlv4VgzN7KiLW4h7BamQVPKs0
+ Td3dtOAVUTJ+Dx8E125S12c02/1GpZ8=
+Received: from mail-ed1-f70.google.com (mail-ed1-f70.google.com
+ [209.85.208.70]) (Using TLS) by relay.mimecast.com with ESMTP id
+ us-mta-274-EbzvPXQ8NBqTtszxIPYqTg-1; Mon, 11 Jan 2021 13:54:17 -0500
+X-MC-Unique: EbzvPXQ8NBqTtszxIPYqTg-1
+Received: by mail-ed1-f70.google.com with SMTP id dc6so98655edb.14
+ for <alsa-devel@alsa-project.org>; Mon, 11 Jan 2021 10:54:17 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:subject:to:cc:references:from:message-id:date
+ :user-agent:mime-version:in-reply-to:content-language
+ :content-transfer-encoding;
+ bh=uN8LVAFq57erg1VZoogi4pvvwx0ELMzBGbyuGNoOJNQ=;
+ b=bsXMNTgDyICQPDW1lb/gImhVFn2GXzVGR7cQ/3xLmDnazCBwqKwQTQv7xZFO3VjSgY
+ lLy5jLOHc5ISExfRNWvnSIaw6jxP83oNPWIQ4GQJ+g0dIaTvreomg8oQX3NUBIY4dlnZ
+ c1kPGZjoCCUOXT2rdhDccb/8qkEUjkA6EI6ec5M9luCXZxmg9UkO/Ud5+D5QcgYutgOQ
+ BNuqDOgHDwjy07g6cvP3WutP9VstkinJoDCZqRimtpyrC94JrbaXd7Us5ug1+zb6j5p7
+ Csk1S3c66F59HC/bhDRHEtaV6qpT3D3Z9ZqdW48E8nf+SR90nN3hUV23hW6rJta20TFu
+ JQ8A==
+X-Gm-Message-State: AOAM533ma9hMXJkLomElZuU1/UWD7qDM25ue2nEJFnfDY0GaQLfnuVSI
+ ZIv/vShc7ZzOovqrGPu8FOB3izqREtQ5+7Y8HsZsca9F050EthMCeOCjRX/LiAjWiGBHTqdgSqZ
+ CAVOEGtTR6YnVimm/y88J26xnScFaw4ZUcezidx3sZvwIwBCSTKXSFdDylzs3RaIPcHeZ3GQxo3
+ A=
+X-Received: by 2002:a17:906:fb1a:: with SMTP id
+ lz26mr618251ejb.194.1610391255786; 
+ Mon, 11 Jan 2021 10:54:15 -0800 (PST)
+X-Google-Smtp-Source: ABdhPJxVXqLUxJh5i0c1UI1w2DoRmg/BYR5TJnoaTSIEr6tFF0zm1S8TKTiTVqTLEmyXNS1iRoH3pA==
+X-Received: by 2002:a17:906:fb1a:: with SMTP id
+ lz26mr618229ejb.194.1610391255588; 
+ Mon, 11 Jan 2021 10:54:15 -0800 (PST)
+Received: from x1.localdomain
+ (2001-1c00-0c1e-bf00-37a3-353b-be90-1238.cable.dynamic.v6.ziggo.nl.
+ [2001:1c00:c1e:bf00:37a3:353b:be90:1238])
+ by smtp.gmail.com with ESMTPSA id z10sm201661ejl.30.2021.01.11.10.54.14
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 11 Jan 2021 10:54:15 -0800 (PST)
+Subject: Re: [PATCH 00/14] MFD/extcon/ASoC: Add support for Intel Bay Trail
+ boards with WM5102 codec
+To: Andy Shevchenko <andy.shevchenko@gmail.com>
+References: <20201227211232.117801-1-hdegoede@redhat.com>
+ <CAHp75VcMGjhuNWgVx6Jn6vGCN8pvPO5ePz7oprabhiW=Ffc_rg@mail.gmail.com>
+From: Hans de Goede <hdegoede@redhat.com>
+Message-ID: <ab291026-4e4e-7ab7-246a-f85001092a32@redhat.com>
+Date: Mon, 11 Jan 2021 19:54:14 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.4.0
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="yiup30KVCQiHUZFC"
-Content-Disposition: inline
-In-Reply-To: <9bef4fe5-0eed-03f8-9505-909b669ba49b@canonical.com>
-X-Cookie: Too much is not enough.
-User-Agent: Mutt/1.10.1 (2018-07-13)
-Cc: alsa-devel@alsa-project.org, =?utf-8?B?5pyx54G/54G/?= <zhucancan@vivo.com>,
- kernel-janitors@vger.kernel.org, Takashi Iwai <tiwai@suse.com>,
- Liam Girdwood <lgirdwood@gmail.com>, linux-kernel@vger.kernel.org
+In-Reply-To: <CAHp75VcMGjhuNWgVx6Jn6vGCN8pvPO5ePz7oprabhiW=Ffc_rg@mail.gmail.com>
+Authentication-Results: relay.mimecast.com;
+ auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=hdegoede@redhat.com
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
+Cc: Cezary Rojewski <cezary.rojewski@intel.com>,
+ ALSA Development Mailing List <alsa-devel@alsa-project.org>,
+ patches@opensource.cirrus.com, Mark Brown <broonie@kernel.org>,
+ Jie Yang <yang.jie@linux.intel.com>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ Liam Girdwood <liam.r.girdwood@linux.intel.com>,
+ Chanwoo Choi <cw00.choi@samsung.com>, MyungJoo Ham <myungjoo.ham@samsung.com>,
+ Lee Jones <lee.jones@linaro.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -86,40 +129,61 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+Hi,
 
---yiup30KVCQiHUZFC
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+On 12/28/20 3:19 PM, Andy Shevchenko wrote:
+> On Sun, Dec 27, 2020 at 11:15 PM Hans de Goede <hdegoede@redhat.com> wrote:
+>>
+>> Hi All,
+>>
+>> This patch series adds support for Intel Bay Trail based device which use
+>> a WM5102 codec for audio output/input. This was developed and tested on a
+>> Lenovo Yoga Tablet 1051L.
+>>
+>> This series consists of 3 parts:
+>> 1. Arizona MFD drv patches for ACPI bindings, better jack-detect support
+>>    and misc. fixes
+>> 2. extcon-arizona driver fixes and improved jack reporting (this depends
+>>    on the MFD changes)
+>> 3. ASoC patches in the form of a quirk for BYTCR detecting, a new
+>>    machine driver for BYT + WM5102 and jack-detect support for the new
+>>    machine driver (which again depends on the MFD changes).
+>>
+>> Given that 2. and 3. depend on the MFD changes I believe that it is best
+>> if all patches in this series are merged through the MFD tree (once
+>> reviewed and acked) and then Lee can provide a immutable branch for
+>> the ASoC and extcon maintainers to merge into their trees.
+>>
+>> I have a patch with matching UCM profile changes available here:
+>> https://github.com/jwrdegoede/alsa-ucm-conf/commit/316109e7814926ba984322c1d9190575fab9021c
+>>
+>> This series + the UCM profile has been tested with both the SST and
+>> SOF ASoC drivers for BYT devices.
+> 
+> Thanks for fixing this!
+> I found the series pretty much in a good shape (only two patches I
+> think need a bit of work), FWIW
+> Reviewed-by: Andy Shevchenko <andy.shevchenko@gmail.com>
+> after addressing comments.
 
-On Mon, Jan 11, 2021 at 05:37:36PM +0000, Colin Ian King wrote:
-> On 11/01/2021 16:35, Mark Brown wrote:
+Thank you, because of the jack-handling discussion I've extensively
+reworked this series (and I'm going to split it into 2 series for v2).
+I've kept your Reviewed-by: for the patches which are >= 99% unchanged
+from v1. I've not added it to a whole bunch of new patches (and some
+other patches were dropped).
 
-> > This doesn't apply against current code, please check and resend.
+>> BugLink: https://github.com/thesofproject/linux/issues/2485
+> 
+> Shouldn't this be somewhere in the "main" fix? (Yes, I understand that
+> it may sound silly and should be copied to almost half of the series,
+> but if there is a good place it would be nice to have in the Git
+> history)
 
-> ..both set ret to non-zero, which I believe will throw a subsequent
-> warning messagethat's not strictly related.
+Ack. I've added this to the:
+"ASoC: Intel: bytcr_wm5102: Add machine driver for BYT/WM5102"
+patches' commit msg now.
 
-> my fix was acked by zhucancan@vivo.com, so I'm now confused what is the
-> *correct* fix.
+Regards,
 
-Quite probably yours in which case it'll need rebasing - IIRC I looked
-at the various patches at fairly separate times and didn't connect them,
-my workflow is based on queueing things for automated processing later
-so I won't always remember seeing something similar.
+Hans
 
---yiup30KVCQiHUZFC
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl/8kbQACgkQJNaLcl1U
-h9DAkwf+M1VbQOU/Iy6orX+mjHXlUnvmVyBAj7mzFuZiwwbG0+Eh3ZdHM1zNcNO4
-oLc75RxJJjJu4LVtwB2yNCi/ecE6wpn4RCQphOUqC0JceV7Fmv1g6DbgQm7FAEg6
-c51rug8SVBRaNw3MisdINNE6LOAuO7lRTJYzCINoei2Bc5VvhGva4E2mhnXvr7Ht
-o6T03efSI+GFHGtXt5UzmzwSJd55bx/I1hmzPSSkIgqLhgMsCiqEAm/ksQrUD7Hl
-cIZBh4puCJwHry9XMaqDK1FX8l4eg1Ey6suXcsBBvbsXUJG/C75zFr5rgLb38y0w
-yCqLHIaGdltiVwB+kQAZ/MXBZct/Dw==
-=6anD
------END PGP SIGNATURE-----
-
---yiup30KVCQiHUZFC--

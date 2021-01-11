@@ -2,115 +2,75 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 17F002F1EBB
-	for <lists+alsa-devel@lfdr.de>; Mon, 11 Jan 2021 20:14:13 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7748F2F20CD
+	for <lists+alsa-devel@lfdr.de>; Mon, 11 Jan 2021 21:30:34 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A38C0173B;
-	Mon, 11 Jan 2021 20:13:22 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A38C0173B
+	by alsa0.perex.cz (Postfix) with ESMTPS id F28A91744;
+	Mon, 11 Jan 2021 21:29:43 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz F28A91744
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1610392452;
-	bh=zpaNkIRCm1LVX8vNEnqBsoTV32pbpUoE7E4ZzGtZ4Hk=;
+	s=default; t=1610397034;
+	bh=/UPbUNU8WPdgjrPsMWuYGzfIMgl/Zq6kyj/wFYULlTY=;
 	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=CZROuji3kbew8fCNbUJdnpCEIKecei93RHSuHU/fHJrg8NMSIu0BA8Gh26CB89Xnt
-	 GF1uo+8Gon8a73pD7MI74+cqSRqCRIsaMVM9oazFZ8SAyxh2j54Ws8H975uhsfF1AV
-	 ZaJZ07QphPAfZNQ+OMU9BBbguB2WnGYwxm5L+4+Y=
+	b=Fp8EtVHm81Uo5UWKMFyfqTWQQWNFPyymy+T2AyobfYCglf/VC1ai9C8ag3bqz42KN
+	 chuR8unm4co3mxCpS54xG4WXE9JHc7aR7rvkqFV9/DlOoTekuCf3oUv+x461XWmBF4
+	 d99QiosU3kmdwDX8cowR/9ACbOJz4NwfA5unI3Ws=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id A4B8FF800BE;
-	Mon, 11 Jan 2021 20:12:40 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 8600FF8016C;
+	Mon, 11 Jan 2021 21:29:01 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 894E1F8016D; Mon, 11 Jan 2021 20:12:38 +0100 (CET)
+ id 7F270F80290; Mon, 11 Jan 2021 21:28:53 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE autolearn=disabled
- version=3.4.0
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [216.205.24.124])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-0.0 required=5.0 tests=NICE_REPLY_A,SPF_HELO_NONE,
+ SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id A02EEF800BE
- for <alsa-devel@alsa-project.org>; Mon, 11 Jan 2021 20:12:33 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A02EEF800BE
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com
- header.b="KCKXss+Y"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1610392352;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=k4k4vHfas2/mfUg7QiyVoCdeOBt+W1BwAcMEvMJo9ZY=;
- b=KCKXss+Ye7/2qyvyg6KYuYTk2aIXb99kVUkgB2zcy7mGtBKrwIwPPkC8jeDCkk9pUKD3wh
- yYC4PwNb79B3mzQNtOwc5X4jsA2uBuMrtccZxBx8GGq/Kn1b8kkziqIP6fW+jczu8Muf6O
- VVLlYWlWx/WgVJT909EYcJtUdWUOmPY=
-Received: from mail-ed1-f72.google.com (mail-ed1-f72.google.com
- [209.85.208.72]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-163-YRnGshOqPDy7cAbWdzKKUg-1; Mon, 11 Jan 2021 14:12:30 -0500
-X-MC-Unique: YRnGshOqPDy7cAbWdzKKUg-1
-Received: by mail-ed1-f72.google.com with SMTP id u17so118626edi.18
- for <alsa-devel@alsa-project.org>; Mon, 11 Jan 2021 11:12:30 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:subject:to:cc:references:from:message-id:date
- :user-agent:mime-version:in-reply-to:content-language
- :content-transfer-encoding;
- bh=k4k4vHfas2/mfUg7QiyVoCdeOBt+W1BwAcMEvMJo9ZY=;
- b=Su336mk8Dq9Kl75Di4LBBnJOnpiAVuscYkEe/lnALb7/BRlU4ebbblFI2PDRo+lcQr
- 1AeP4ZNBnH2RmAYr2Fy3lHpwMbPsTtGpTykgGO1ORDTX7yPPQQvGhc5Lc/oHbVcO/3T/
- 9UzHxfz3mHPy8jzZRELUB/9j2CGrom2l5f1BvYPY2OGUDk2EGA3rP9Qkh4yV+nr9ZbZx
- 8/At+JDU0EcmAjqjq4HivXDOwMfKHYSLpiK03jzsQMAFjPFrqK6bzgfhcga82w0kZdJo
- bq6vTVUCdly4nvzZVyvKbL4DtsmV8MP6RnSF56a/R62+If4vMy94DGJtGKRJeeFoQnDc
- tczA==
-X-Gm-Message-State: AOAM5338PkrPcWF5YesReuePnauuymxSN+lleqSAHmqpSY9E2pa1n86X
- sOZ/JPmPPX52Fcsc7YyBEbnkvtOjFpf2tN0FAUsjnriw17iaB2YrOuTEmAXz5lg5uAUHwENYZnm
- ER8G9RcsINZ5eJTGZBDAX4jfmE3H4hI5hzcD13ho79l19zg5Tb94tx+jun2LQ0Kl//v52NZWXC2
- s=
-X-Received: by 2002:aa7:df0d:: with SMTP id c13mr608361edy.387.1610392348981; 
- Mon, 11 Jan 2021 11:12:28 -0800 (PST)
-X-Google-Smtp-Source: ABdhPJxoUfiTrQIZDkbSWIORExhpcx31FDvF4RUR04EuWDnj+mZK8y6ZiTUUVvTNgVsSA/0cqV+nwA==
-X-Received: by 2002:aa7:df0d:: with SMTP id c13mr608334edy.387.1610392348650; 
- Mon, 11 Jan 2021 11:12:28 -0800 (PST)
-Received: from x1.localdomain
- (2001-1c00-0c1e-bf00-37a3-353b-be90-1238.cable.dynamic.v6.ziggo.nl.
- [2001:1c00:c1e:bf00:37a3:353b:be90:1238])
- by smtp.gmail.com with ESMTPSA id k23sm199424ejs.100.2021.01.11.11.12.27
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 11 Jan 2021 11:12:28 -0800 (PST)
-Subject: Re: [PATCH 04/14] mfd: arizona: Allow building arizona MFD-core as
- module
-To: Charles Keepax <ckeepax@opensource.cirrus.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 44106F80113
+ for <alsa-devel@alsa-project.org>; Mon, 11 Jan 2021 21:28:42 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 44106F80113
+IronPort-SDR: G5X+o3/Cm1v2rDaHjrnjuBA2fXx9BCJax0qdsdhQ1p7v0jh07TT3NXp3vQH3f7NuhItL0yiZD7
+ nnbj2rejFazA==
+X-IronPort-AV: E=McAfee;i="6000,8403,9861"; a="262712508"
+X-IronPort-AV: E=Sophos;i="5.79,339,1602572400"; d="scan'208";a="262712508"
+Received: from fmsmga007.fm.intel.com ([10.253.24.52])
+ by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 11 Jan 2021 12:28:37 -0800
+IronPort-SDR: 7Lmv4jpP+QuEafbuouAL4jOSz3kIZVScDA8uz+WZCQOjEsYkHs4kPTvy+63kmXbu6sGVUjS2+o
+ Nw+oosBYKUFg==
+X-IronPort-AV: E=Sophos;i="5.79,339,1602572400"; d="scan'208";a="344995375"
+Received: from gkbech1x-mobl.amr.corp.intel.com (HELO [10.212.87.85])
+ ([10.212.87.85])
+ by fmsmga007-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 11 Jan 2021 12:28:33 -0800
+Subject: Re: [PATCH 12/14] ASoC: Intel: Add DMI quirk table to
+ soc_intel_is_byt_cr()
+To: Hans de Goede <hdegoede@redhat.com>, Lee Jones <lee.jones@linaro.org>,
+ MyungJoo Ham <myungjoo.ham@samsung.com>, Chanwoo Choi
+ <cw00.choi@samsung.com>, Cezary Rojewski <cezary.rojewski@intel.com>,
+ Liam Girdwood <liam.r.girdwood@linux.intel.com>,
+ Jie Yang <yang.jie@linux.intel.com>, Mark Brown <broonie@kernel.org>
 References: <20201227211232.117801-1-hdegoede@redhat.com>
- <20201227211232.117801-5-hdegoede@redhat.com>
- <20201229120039.GI9673@ediswmail.ad.cirrus.com>
-From: Hans de Goede <hdegoede@redhat.com>
-Message-ID: <d80e90c1-143e-2655-b053-9361458f3df9@redhat.com>
-Date: Mon, 11 Jan 2021 20:12:27 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.4.0
+ <20201227211232.117801-13-hdegoede@redhat.com>
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Message-ID: <92934cb4-0b68-bdcc-d63b-d20628bc3c94@linux.intel.com>
+Date: Mon, 11 Jan 2021 11:52:51 -0600
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.10.0
 MIME-Version: 1.0
-In-Reply-To: <20201229120039.GI9673@ediswmail.ad.cirrus.com>
-Authentication-Results: relay.mimecast.com;
- auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=hdegoede@redhat.com
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset=utf-8
+In-Reply-To: <20201227211232.117801-13-hdegoede@redhat.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Language: en-US
 Content-Transfer-Encoding: 7bit
-Cc: Cezary Rojewski <cezary.rojewski@intel.com>, alsa-devel@alsa-project.org,
- patches@opensource.cirrus.com, Mark Brown <broonie@kernel.org>,
- Jie Yang <yang.jie@linux.intel.com>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- linux-kernel@vger.kernel.org, Liam Girdwood <liam.r.girdwood@linux.intel.com>,
- Chanwoo Choi <cw00.choi@samsung.com>, MyungJoo Ham <myungjoo.ham@samsung.com>,
- Lee Jones <lee.jones@linaro.org>
+Cc: patches@opensource.cirrus.com, alsa-devel@alsa-project.org,
+ linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -126,125 +86,77 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hi,
 
-First of all thank you for the review and for all your comments
-(also in the other part of the thread).
 
-On 12/29/20 1:00 PM, Charles Keepax wrote:
-> On Sun, Dec 27, 2020 at 10:12:22PM +0100, Hans de Goede wrote:
->> There is no reason why the arizona core,irq and codec model specific
->> regmap bits cannot be build as a module. All they do is export symbols
->> which are used by the arizona-spi and/or arizona-i2c modules, which
->> themselves can be built as module.
->>
->> Change the Kconfig and Makefile arizona bits so that the arizona MFD-core
->> can be built as a module.
->>
->> This is especially useful on x86 platforms with a WM5102 codec, this
->> allows the arizona MFD driver necessary for the WM5102 codec to be
->> enabled in generic distro-kernels without growing the base kernel-image
->> size.
->>
->> Signed-off-by: Hans de Goede <hdegoede@redhat.com>
->> ---
+On 12/27/20 3:12 PM, Hans de Goede wrote:
+> Some Bay Trail systems:
+> 1. Use a non CR version of the Bay Trail SoC
+> 2. Contain at least 6 interrupt resources so that the
+>     platform_get_resource(pdev, IORESOURCE_IRQ, 5) check to workaround
+>     non CR systems which list their IPC IRQ at index 0 despite being
+>     non CR does not work
+> 3. Despite 1. and 2. still have their IPC IRQ at index 0 rather then 5
 > 
-> I think this patch might still cause some issues. ASoC has an
-> idiom where the machine driver does a select on the necessary
-> CODEC drivers. Select doesn't take care of dependencies etc. So I
-> believe if you build the machine driver as built in, it then
-> selects the CODEC as built in. If you have the MFD as a module
-> the build then fails due to the the CODEC calling some Arizona
-> functions.
-
-The rules for using select in Kconfig say that the Kconfig
-symbol doing the selecting must either have a "requires on
-or a "select" on any dependencies of the Kconfig symbol which
-it is selecting. Looking at the new machine-driver which this
-series adds:
-
-config SND_SOC_INTEL_BYTCR_WM5102_MACH
-        tristate "Baytrail and Baytrail-CR with WM5102 codec"
-        depends on SPI && ACPI
-        depends on X86_INTEL_LPSS || COMPILE_TEST
-        select SND_SOC_ACPI
-        select SND_SOC_WM5102
-        help
-          This adds support for ASoC machine driver for Intel(R) Baytrail and Baytrail-CR
-          platforms with WM5102 audio codec.
-          Say Y if you have such a device.
-          If unsure select "N".
-
-I now see that I'm breaking that rule myself and this is
-missing a "depends on MFD_WM5102" I do see a "depends on MFD_WM5102"
-here:
-
-config SND_SOC_WM5102
-        tristate
-        depends on MFD_WM5102
-
-So I would expect some sort of error if I unselect MFD_WM5102 and indeed
-the following happens if I unselect MFD_WM5102:
-
-[hans@x1 linux]$ make oldconfig
-
-WARNING: unmet direct dependencies detected for SND_SOC_WM5102
-  Depends on [n]: SOUND [=m] && !UML && SND [=m] && SND_SOC [=m] && MFD_WM5102 [=n]
-  Selected by [m]:
-  - SND_SOC_INTEL_BYTCR_WM5102_MACH [=m] && SOUND [=m] && !UML && SND [=m] && SND_SOC [=m] && SND_SOC_INTEL_MACH [=y] && (SND_SST_ATOM_HIFI2_PLATFORM [=m] || SND_SOC_SOF_BAYTRAIL [=m]) && SPI [=y] && ACPI [=y] && (X86_INTEL_LPSS [=y] || COMPILE_TEST [=n])
-
-Which of course is not supposed to happen and is caused by the
-config SND_SOC_INTEL_BYTCR_WM5102_MACH missing
-"depends on MFD_WM5102", which is my bad.
-
-But typing this (rubber ducky effect) has made me realized what the
-problem is, the codec Kconfig symbols depend on the: MFD_WM5102,
-MFD_WM5110, etc. Kconfig symbols. But those are booleans which enable/disable
-support for those codecs inside arizona-core.c. So you are right that
-this ("mfd: arizona: Allow building arizona MFD-core as module") could
-cause a scenario where the core is built as a module and the codec
-driver is builtin.
-
-But I do not think that the solution is to inline all the functions used
-from the codec drivers. The solution is to extend:
-
-config SND_SOC_WM5102
-        tristate
-        depends on MFD_WM5102
-
-to:
-
-config SND_SOC_WM5102
-        tristate
-        depends on MFD_WM5102
-        depends on MFD_ARIZONA
-
-And to update machine drivers to still match the:
-"The Kconfig symbol doing the selecting must either have a "requires
-on" or a "select" on any dependencies of the Kconfig symbol which
-it is selecting." rule which I formulated above.
-
-(and idem for all the other codecs which use symbols from MFD_ARIZONA)
-
-> arizona_request_irq, arizona_free_irq, arizona_set_irq_wake
+> Add a DMI quirk table to check for the few known models with this issue,
+> so that the right IPC IRQ index is used on these systems.
 > 
-> On Madera we made the equivalents inline functions to avoid the
-> issue, the same should work here.
+> Signed-off-by: Hans de Goede <hdegoede@redhat.com>
+
+Acked-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+
+Thanks Hans!
+
+> ---
+>   sound/soc/intel/common/soc-intel-quirks.h | 25 +++++++++++++++++++++++
+>   1 file changed, 25 insertions(+)
 > 
-> include/linux/irqchip/irq-madera.h
-
-Yes that will work too, but I would prefer to solve what is a Kconfig
-issue with Kconfig changes.
-
-Note I will simply drop this patch for the next version of this series (*)
-since the whole jack rework thing we discussed is really orthogonal to
-this and that one will be interesting enough the review all by itself :)
-
-Regards,
-
-Hans
-
-
-
-*) I will resubmit a fixed version later after the other stuff has landed
-
+> diff --git a/sound/soc/intel/common/soc-intel-quirks.h b/sound/soc/intel/common/soc-intel-quirks.h
+> index b07df3059926..a93987ab7f4d 100644
+> --- a/sound/soc/intel/common/soc-intel-quirks.h
+> +++ b/sound/soc/intel/common/soc-intel-quirks.h
+> @@ -11,6 +11,7 @@
+>   
+>   #if IS_ENABLED(CONFIG_X86)
+>   
+> +#include <linux/dmi.h>
+>   #include <asm/cpu_device_id.h>
+>   #include <asm/intel-family.h>
+>   #include <asm/iosf_mbi.h>
+> @@ -38,12 +39,36 @@ SOC_INTEL_IS_CPU(cml, KABYLAKE_L);
+>   
+>   static inline bool soc_intel_is_byt_cr(struct platform_device *pdev)
+>   {
+> +	/*
+> +	 * List of systems which:
+> +	 * 1. Use a non CR version of the Bay Trail SoC
+> +	 * 2. Contain at least 6 interrupt resources so that the
+> +	 *    platform_get_resource(pdev, IORESOURCE_IRQ, 5) check below
+> +	 *    succeeds
+> +	 * 3. Despite 1. and 2. still have their IPC IRQ at index 0 rather then 5
+> +	 *
+> +	 * This needs to be here so that it can be shared between the SST and
+> +	 * SOF drivers. We rely on the compiler to optimize this out in files
+> +	 * where soc_intel_is_byt_cr is not used.
+> +	 */
+> +	static const struct dmi_system_id force_bytcr_table[] = {
+> +		{	/* Lenovo Yoga Tablet 2 series */
+> +			.matches = {
+> +				DMI_MATCH(DMI_SYS_VENDOR, "LENOVO"),
+> +				DMI_MATCH(DMI_PRODUCT_FAMILY, "YOGATablet2"),
+> +			},
+> +		},
+> +		{}
+> +	};
+>   	struct device *dev = &pdev->dev;
+>   	int status = 0;
+>   
+>   	if (!soc_intel_is_byt())
+>   		return false;
+>   
+> +	if (dmi_check_system(force_bytcr_table))
+> +		return true;
+> +
+>   	if (iosf_mbi_available()) {
+>   		u32 bios_status;
+>   
+> 

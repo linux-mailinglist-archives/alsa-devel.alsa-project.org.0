@@ -2,69 +2,73 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 421492F1AF8
-	for <lists+alsa-devel@lfdr.de>; Mon, 11 Jan 2021 17:32:31 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id E523D2F1B24
+	for <lists+alsa-devel@lfdr.de>; Mon, 11 Jan 2021 17:38:08 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E07ED1712;
-	Mon, 11 Jan 2021 17:31:40 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E07ED1712
+	by alsa0.perex.cz (Postfix) with ESMTPS id 69248170B;
+	Mon, 11 Jan 2021 17:37:18 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 69248170B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1610382751;
-	bh=uaqHS7z5RkvbmEe8SBF1rbRHZQZ8K0Zavox9mQwyTdM=;
-	h=From:To:In-Reply-To:References:Subject:Date:Cc:List-Id:
+	s=default; t=1610383088;
+	bh=FJ6UYmcp9qZ1+F9nDoqN3eSCeXg5LWZGhO2qmO2UrgU=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=nMoXu+ipfIMQsLKclUs+cuKvT5Oi/c4oGFF5iTkpVrYGMrerfmpz0f49c45yGbGUN
-	 iw5JgZT595WwUpQLGJA7S8fEcaD3VAxLOiPCKi+jDPEqKyreAjFqicNn7uGYVKdbPb
-	 y0JZy9td7CAPC02/QLjKw0Tg0lW8gENpeJME0MYM=
+	b=eBzXY08u5KjA2gbcWDr+6vsSmARM2i+BG4uF8I1jE6+MFf23QT2oQWnoSU+rlcpuj
+	 B0tZLd1xYBPmxaHJadzlasf9s0R/IIuA/ZW2ntwsg9qxOxieBDPCXQXIXa/9MuNJCZ
+	 cjSUAzFDxgcbrYZuyvYYO5mJdMaJt5h2VkCbX38g=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id DB4ECF804ED;
-	Mon, 11 Jan 2021 17:28:49 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id C15B4F80113;
+	Mon, 11 Jan 2021 17:36:35 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 51D05F804F3; Mon, 11 Jan 2021 17:28:48 +0100 (CET)
+ id C0CC5F8016D; Mon, 11 Jan 2021 17:36:33 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 76B48F804ED
- for <alsa-devel@alsa-project.org>; Mon, 11 Jan 2021 17:28:45 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 76B48F804ED
+ by alsa1.perex.cz (Postfix) with ESMTPS id B5C95F8013D
+ for <alsa-devel@alsa-project.org>; Mon, 11 Jan 2021 17:36:26 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B5C95F8013D
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="Yujz+ip9"
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 6407B22B51;
- Mon, 11 Jan 2021 16:28:43 +0000 (UTC)
+ header.b="erEHoJgE"
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 6A9F420B1F;
+ Mon, 11 Jan 2021 16:36:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1610382523;
- bh=uaqHS7z5RkvbmEe8SBF1rbRHZQZ8K0Zavox9mQwyTdM=;
- h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=Yujz+ip9M7UHyf7RzxeYs9G1Kdo2m0cvD8tnPUZcKwmqRgGxIhKy+Ny9cJDhfxr4A
- YCNexMg4Hkrc4RDIfhL4qECvYchfs6wo/X4CJPWMWyDrv8WlySxM61WOFDmuqnz4yK
- PelBs54xIs8aqH+gYiydjI8tHOcyN0nf+VGRprWlzXsWwi1ViYf+FY+wXG8epTe33n
- pLP5vqeILzJ3ZJDPbsH2BBhOfLxJou2dDp2eUe1CdXgo9to7rBMEbqPb9SD33ujgd4
- QzfO/cbvtUb+q0PXjrzD3wRcweZvaL2KHQJvlzvShoQHxnwdZr5p0C4XcqAzoY2kWJ
- MJgns06bLxkUg==
+ s=k20201202; t=1610382984;
+ bh=FJ6UYmcp9qZ1+F9nDoqN3eSCeXg5LWZGhO2qmO2UrgU=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=erEHoJgEokRZJPDaOfAepJ6+VEHuyp7HvfoJ+KEJ2EyWGzv0KVvCFc2J2gTDQM58v
+ rTjbHSoJHqMp9+g27xZk2GKBbGxnUHJ9eANnJjyKCoTFFccA/EA3LSyV5eCwcC3BqP
+ f8WW2UlhOhalPXGu0Iq/WpCI+nfy4NG28cFzJXv1GPA9RyWKpymG2G9rABQYCg8/G5
+ j+2IonqWPZXA5QpQMZKBOUMv9KSLxdRQKvXQHbyOjx4ZbTTvh4no/eT4oFQ4kSSz7c
+ f0zEwxhCMeSeszOrS2mlPq058PPIywzyL0oz4K/DXteje68hDf1F1JbjqAtyGRSkfu
+ 1VuLM+o1Sigdg==
+Date: Mon, 11 Jan 2021 16:35:51 +0000
 From: Mark Brown <broonie@kernel.org>
-To: alsa-devel@alsa-project.org,
- Michael Sit Wei Hong <michael.wei.hong.sit@intel.com>
-In-Reply-To: <20210108031248.20520-4-michael.wei.hong.sit@intel.com>
-References: <20210108031248.20520-4-michael.wei.hong.sit@intel.com>
-Subject: Re: [PATCH v2 0/2] Enable DMA mode on Intel Keem Bay platform
-Message-Id: <161038245911.32701.5782165651933217585.b4-ty@kernel.org>
-Date: Mon, 11 Jan 2021 16:27:39 +0000
+To: Colin King <colin.king@canonical.com>
+Subject: Re: [PATCH][next] ASoC: soc-pcm: Fix uninitialised return value in
+ variable ret
+Message-ID: <20210111163551.GA33269@sirena.org.uk>
+References: <20210108123546.19601-1-colin.king@canonical.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Cc: cezary.rojewski@intel.com, lars@metafoo.de, tiwai@suse.com,
- jee.heng.sia@intel.com, pierre-louis.bossart@linux.intel.com,
- liam.r.girdwood@linux.intel.com
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="gBBFr7Ir9EOA20Yy"
+Content-Disposition: inline
+In-Reply-To: <20210108123546.19601-1-colin.king@canonical.com>
+X-Cookie: Made with real ingredients.
+User-Agent: Mutt/1.10.1 (2018-07-13)
+Cc: alsa-devel@alsa-project.org, =?utf-8?B?5pyx54G/54G/?= <zhucancan@vivo.com>,
+ kernel-janitors@vger.kernel.org, Takashi Iwai <tiwai@suse.com>,
+ Liam Girdwood <lgirdwood@gmail.com>, linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -80,43 +84,34 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Fri, 8 Jan 2021 11:12:46 +0800, Michael Sit Wei Hong wrote:
-> Michael Sit Wei Hong (2):
->   dt-bindings: sound: intel, keembay-i2s: Add info for device to use DMA
->   ASoC: Intel: KMB: Enable DMA transfer mode
-> 
->  .../bindings/sound/intel,keembay-i2s.yaml     |  14 ++
->  sound/soc/intel/Kconfig                       |   2 +
->  sound/soc/intel/keembay/kmb_platform.c        | 157 ++++++++++++++++--
->  sound/soc/intel/keembay/kmb_platform.h        |   9 +
->  4 files changed, 167 insertions(+), 15 deletions(-)
 
-Applied to
+--gBBFr7Ir9EOA20Yy
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
+On Fri, Jan 08, 2021 at 12:35:46PM +0000, Colin King wrote:
+> From: Colin Ian King <colin.king@canonical.com>
+>=20
+> Currently when attempting to start the BE fails because the
+> FE is not started the error return variable ret is not initialized
+> and garbage is returned.  Fix this by setting it to 0 so the
 
-Thanks!
+This doesn't apply against current code, please check and resend.
 
-[1/2] dt-bindings: sound: intel, keembay-i2s: Add info for device to use DMA
-      commit: 9ddaa1e6181b3d33080f2ed7c27cb0bba819e562
-[2/2] ASoC: Intel: KMB: Enable DMA transfer mode
-      commit: 11b943c06a1c1baafb0325896e666d77f5ac78b8
+--gBBFr7Ir9EOA20Yy
+Content-Type: application/pgp-signature; name="signature.asc"
 
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
+-----BEGIN PGP SIGNATURE-----
 
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl/8fmYACgkQJNaLcl1U
+h9Buowf/Z7C140455AraBh0sDuBCFIG9HvDvb3RUm0/Xt5lR91JwaVxdYRlBbjJ0
+dLSaYFh0GepPSHSAAn+AjVG5dN+26Lck2t/19LRscETOIZlqNwJ+YNY5f/FLJlau
+Fe7Z6qDaPUL/WgeDGaY1gqAsJpdVdfGP1ojKEXeqsKjyZnB35D7Ftt9Ouw/v5MPV
+V4z2ody8iK6SwNe/kIRIZndr8c2DOz3nodv0nBBuEn+18jdL1twh3CqqiL0eirCa
+nC9dqQWuy12SdRHWWv6w1M/lfWqVdZKhVO5/d/2jS2nGOr2bphnJ5/3Hy9ecbF5o
+TKGZIfArkmvxX+IAXxXeyPP85xKDBg==
+=RuRu
+-----END PGP SIGNATURE-----
 
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
-
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-Thanks,
-Mark
+--gBBFr7Ir9EOA20Yy--

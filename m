@@ -2,83 +2,90 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4A3AF2F0BF3
-	for <lists+alsa-devel@lfdr.de>; Mon, 11 Jan 2021 05:51:58 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id D20BE2F0C96
+	for <lists+alsa-devel@lfdr.de>; Mon, 11 Jan 2021 06:45:08 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 8EAEA16AB;
-	Mon, 11 Jan 2021 05:51:01 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8EAEA16AB
+	by alsa0.perex.cz (Postfix) with ESMTPS id 6315F16AD;
+	Mon, 11 Jan 2021 06:44:13 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6315F16AD
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1610340711;
-	bh=6prArE3e1adeqkRe9nYdbuwYqIrKzrY1o7gpc43KFyg=;
-	h=Subject:From:To:References:Date:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=ghEB0GDsnq3NJSruXULOI+WvRMgGNBvZnboKfVsFiSnpgHKIGthS3qbXRJrS/BMTl
-	 wOY5xRbPxcj3kW8ozC0kuitLAxJrH6MFPuRGCjDbFkSNgZiK6cuDMp4fccNQ5DvSEz
-	 S7k569REiWpppCDfMtPMRHubRnuFBxPz+Z9ZaNFg=
+	s=default; t=1610343903;
+	bh=iWKp95CDEIUX90/wl1G5qQXmHCRDYtELF6mLSwDvotw=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=VraWBEt/2KgJ+MRTkl3QGwtIwSdwJAIUC+maVKhNZ4RdFcVhkjrzJfO5iG6I9S0Rw
+	 1c5lgSDpdOYFF2uT+R8lKKnnijWSQXBMGHxOu0pb5BhktABzAtbWW1rvVBjoUYso3n
+	 dtVZGTmJufhhSpfgy0PP4HO16n2LfN+8cGfmNp9U=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 7F176F80113;
-	Mon, 11 Jan 2021 05:50:15 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id D59A2F800BE;
+	Mon, 11 Jan 2021 06:43:30 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id C3156F8016D; Mon, 11 Jan 2021 05:50:11 +0100 (CET)
+ id 351F2F80254; Mon, 11 Jan 2021 06:43:25 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE autolearn=disabled
- version=3.4.0
-Received: from hqnvemgate26.nvidia.com (hqnvemgate26.nvidia.com
- [216.228.121.65])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
+Received: from mail-pj1-x102b.google.com (mail-pj1-x102b.google.com
+ [IPv6:2607:f8b0:4864:20::102b])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 17633F80113
- for <alsa-devel@alsa-project.org>; Mon, 11 Jan 2021 05:50:01 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 17633F80113
+ by alsa1.perex.cz (Postfix) with ESMTPS id 90862F8013D
+ for <alsa-devel@alsa-project.org>; Mon, 11 Jan 2021 06:43:18 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 90862F8013D
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=nvidia.com header.i=@nvidia.com
- header.b="SHyf0qx0"
-Received: from hqmail.nvidia.com (Not Verified[216.228.121.13]) by
- hqnvemgate26.nvidia.com (using TLS: TLSv1.2, AES256-SHA)
- id <B5ffbd8f50000>; Sun, 10 Jan 2021 20:49:58 -0800
-Received: from [10.25.100.239] (172.20.145.6) by HQMAIL107.nvidia.com
- (172.20.187.13) with Microsoft SMTP Server (TLS) id 15.0.1473.3; Mon, 11 Jan
- 2021 04:49:53 +0000
-Subject: Re: [PATCH] ASoC: audio-graph-card: Drop remote-endpoint as required
- property
-From: Sameer Pujar <spujar@nvidia.com>
-To: Rob Herring <robh@kernel.org>
-References: <1607498532-19518-1-git-send-email-spujar@nvidia.com>
- <20201210021550.GA1498001@robh.at.kernel.org>
- <1fd0f074-c437-2b83-e395-d4b83ae49444@nvidia.com>
-Message-ID: <5bb5c1bf-34c8-6c59-63c1-fa93d4b68f08@nvidia.com>
-Date: Mon, 11 Jan 2021 10:19:49 +0530
-User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:68.0) Gecko/20100101
- Thunderbird/68.12.0
+ dkim=pass (2048-bit key) header.d=endlessos.org header.i=@endlessos.org
+ header.b="W8GdeCg0"
+Received: by mail-pj1-x102b.google.com with SMTP id p12so7106295pju.5
+ for <alsa-devel@alsa-project.org>; Sun, 10 Jan 2021 21:43:17 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=endlessos.org; s=google;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=vMMmd7niASL0GbkxyQPnOxVIMiI8ncl5HbzeLIPpHis=;
+ b=W8GdeCg0Uv4Qa9tjMNDZRbfwkndQtOZnj5X4CyYAcgpr20Bp9YjN8VAAQhqfS9jPAU
+ u7nH9gzeuEi2aMLL8PGj74SiItupw0gjOy8nheZODCbqV/GBse57aB1jV3Hipi4UALow
+ 11QgCoY9R219S+84gCL/aqim5DljdcLbshAmIZBgf+jzEAI59sd88pSWCnbyVHf/nFmu
+ 91NCM9qkWBzV9n1ehCBlOWngUIoNx20WZ5ooxGlv/xXTAUyUu5Ua+hkC+rOtRXDIOo8p
+ vFevAnvF0+AFarL3tYGqyUMh86054aOdviMaiuCslePriMBCNAqV/37mWvH6vbNRrjjx
+ JdfQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=vMMmd7niASL0GbkxyQPnOxVIMiI8ncl5HbzeLIPpHis=;
+ b=kNB1vV5Od1CSKzIwijazFsV+PlDOOg7H/PhaWk9AvyNmXsWc09jV0yC9TQ72toTHOQ
+ K868+fwAYOSgOXv5JzEeH5gq0V/5NRN15aAIsdUJOTf6zgcL8YJbCM67vnANM0D2aYb1
+ XCdbUhXOBa1VG/cfie+m+zxUJj/Vc++E1PNnMAVngnRJeSlSgg7G9Y6oxLpRBusr4ZTn
+ NtLn24MHSY4XZJx/ux+xpSWggFMOnhBzMt86pdy55ExJFoz1l5X44RImFl3dKvg3CT8x
+ AiaoUPt9PcksrRP6hslNKR/YqSD3qeFfveUmaBQp6hZ0qmlxNE73MdWhI0y3i/l3T7c1
+ Iffg==
+X-Gm-Message-State: AOAM5300K6WKKPzMO0DnpHEhnbcGSnMXA80OeiCfpcy/h8iq5Tb4OPQZ
+ aM4I9AHSZiR6q9ojJF/sdNWRtpCyECleog==
+X-Google-Smtp-Source: ABdhPJyNb71bO/KS+r+7CKUUk+mowNqb7YK+RxJx1uNuYKPOlFd4RP6N6FwKZPOgBH+uiYZrb58I0w==
+X-Received: by 2002:a17:90a:4402:: with SMTP id
+ s2mr16311396pjg.37.1610343795412; 
+ Sun, 10 Jan 2021 21:43:15 -0800 (PST)
+Received: from localhost.localdomain (61-231-198-38.dynamic-ip.hinet.net.
+ [61.231.198.38]) by smtp.googlemail.com with ESMTPSA id
+ x15sm16726267pfn.118.2021.01.10.21.43.13
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sun, 10 Jan 2021 21:43:14 -0800 (PST)
+From: Chris Chiu <chiu@endlessos.org>
+To: oder_chiou@realtek.com, lgirdwood@gmail.com, broonie@kernel.org,
+ perex@perex.cz, tiwai@suse.com
+Subject: [PATCH v3 0/4] ASoC: rt5645: Enable internal mic and headset on ECS
+ EF20
+Date: Mon, 11 Jan 2021 13:41:37 +0800
+Message-Id: <20210111054141.4668-1-chiu@endlessos.org>
+X-Mailer: git-send-email 2.20.1
 MIME-Version: 1.0
-In-Reply-To: <1fd0f074-c437-2b83-e395-d4b83ae49444@nvidia.com>
-Content-Type: text/plain; charset="utf-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-Content-Language: en-GB
-X-Originating-IP: [172.20.145.6]
-X-ClientProxiedBy: HQMAIL105.nvidia.com (172.20.187.12) To
- HQMAIL107.nvidia.com (172.20.187.13)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nvidia.com; s=n1;
- t=1610340598; bh=e8XqNFSxdK2VUGmE8qRW6SXK86Nnm5AcKjr9gMHphpI=;
- h=Subject:From:To:CC:References:Message-ID:Date:User-Agent:
- MIME-Version:In-Reply-To:Content-Type:Content-Transfer-Encoding:
- Content-Language:X-Originating-IP:X-ClientProxiedBy;
- b=SHyf0qx0lz6wC1LySFTX6c68Jw05DuZkrLD49WuG+GnRT+MaEvEf93UUbFuM6ib/C
- kZUGyNYmjqrB3UDOAu2J2P428P889msgtivFmL2WjyoToQfs4Jjip8bxsTG3n1rgL3
- SAhGhom8o2YdGo5xZD418i+GEDUqab35W5leyPlJ0PnW3Jhc67+AAxDpdtIcRm9uFd
- BtCTx3OsSW7h/z6DlGDoHmHzlCzzolDj7HY6AIe0e1ABaOsdUIIuyLCghljNYOhjCP
- E68vpgIjA0Yo71lOFeplpmHi1bH8K6S5tTjly2UVCm0Io2PYTQ3CNI8A0HK24M6voi
- X7eJ7K0GlPV1A==
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org, broonie@kernel.org,
- linux-kernel@vger.kernel.org, kuninori.morimoto.gx@renesas.com
+Content-Transfer-Encoding: 8bit
+Cc: alsa-devel@alsa-project.org, Chris Chiu <chiu@endlessos.org>,
+ linux-kernel@vger.kernel.org, linux@endlessos.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -94,24 +101,31 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hi Rob,
+These patches are trying to fix the jack detection and internal
+microphone problems on ECS EF20 series laptops which are empowered
+by Intel Atom x5-Z8350 CPU (CherryTrail) with Realtek rt5645 audio
+codec.
 
+---
+  v2 -> v3:
+	Restore the accidentally removed terminator of the
+	dmi_platform_data[].
 
-On 12/10/2020 8:14 PM, Sameer Pujar wrote:
-> Hi Rob,
->
->>> The remote-endpoint may not be available if it is part of some
->>> pluggable module. One such example would be an audio card, the
->>> Codec endpoint will not be available until it is plugged in.
->>> Hence drop 'remote-endpoint' as a required property.
->> Please hold off on this. I have more changes coming.
+  v1 -> v2:
+        Invoke callback() of the DMI quirk if it exists, because
+        the dmi_first_match() doesn't.
+---
 
-Sorry to bother you again. Is it possible if we take this patch now and 
-your remaining changes can come later? This would help to unblock below 
-series, which is pending quite some time now.
+Chris Chiu (4):
+  ASoC: rt5645: Introduce mapping for ACPI-defined GPIO
+  ASoC: rt5645: Add ACPI-defined GPIO for ECS EF20 series
+  ASoC: rt5645: add inv_hp_det flag
+  ASoC: rt5645: Enable internal microphone and JD on ECS EF20
 
->
-> OK, I will wait for your patch. Kindly note that this is currently 
-> blocking series 
-> https://patchwork.kernel.org/project/alsa-devel/list/?series=391735&state=*
+ include/sound/rt5645.h    |  2 ++
+ sound/soc/codecs/rt5645.c | 45 +++++++++++++++++++++++++++++++++++++++
+ 2 files changed, 47 insertions(+)
+
+-- 
+2.20.1
 

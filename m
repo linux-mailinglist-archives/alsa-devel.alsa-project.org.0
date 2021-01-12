@@ -2,67 +2,64 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9D9152F3050
-	for <lists+alsa-devel@lfdr.de>; Tue, 12 Jan 2021 14:10:03 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 324632F312C
+	for <lists+alsa-devel@lfdr.de>; Tue, 12 Jan 2021 14:18:42 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 4382816BD;
-	Tue, 12 Jan 2021 14:09:08 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4382816BD
+	by alsa0.perex.cz (Postfix) with ESMTPS id A78241678;
+	Tue, 12 Jan 2021 14:17:51 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A78241678
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1610456998;
-	bh=/RUGP7q17uLq3epDE8yfQZi6P+xfsdaTGy8GOWAEj+s=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1610457521;
+	bh=W56/B74/gC6pExy31JCtQMJNSOHpQh1XtamkSWm971o=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=LNmkg4GJbl06YUCE/bmQrUkY5qaiVXM9manr39FpnyR5uiplOofI3HelXY8x5p1Z+
-	 oZ/H7yt80BiWCzAo7B9tpIIbyJkI+KZlMdK5J4N6IJbGZE5mIxtZcty40XGgn80w+Q
-	 IA3XyW3fGb72C908IY05gR39zKqUOHcB1Z1/np5o=
+	b=tXZlt5CRUdf0RVNV0n/yIaZa8sB68qxcPNdN41fkdlKYlQl22JliXZFRBNk7V5euK
+	 /AzU/DsD5xpJi9OYSjqvLaNLbSKXqOextUm/VrSSGYy1aKUsF2LwXWXum7ietseXyh
+	 HFUIcePPnuFAZu6Yadt3eUziASV2cAawZmyV9Eqk=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 08D65F804CC;
-	Tue, 12 Jan 2021 14:07:47 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 3AC4DF800B9;
+	Tue, 12 Jan 2021 14:17:09 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 9E616F804CC; Tue, 12 Jan 2021 14:07:41 +0100 (CET)
+ id D5045F8025E; Tue, 12 Jan 2021 14:17:06 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE
  autolearn=disabled version=3.4.0
-Received: from youngberry.canonical.com (youngberry.canonical.com
- [91.189.89.112])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
+Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 1BD94F804C3;
- Tue, 12 Jan 2021 14:07:38 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1BD94F804C3
-Received: from 36-229-236-11.dynamic-ip.hinet.net ([36.229.236.11]
- helo=localhost) by youngberry.canonical.com with esmtpsa
- (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.86_2)
- (envelope-from <kai.heng.feng@canonical.com>)
- id 1kzJOS-0008Sh-UQ; Tue, 12 Jan 2021 13:07:29 +0000
-From: Kai-Heng Feng <kai.heng.feng@canonical.com>
-To: tiwai@suse.com, pierre-louis.bossart@linux.intel.com, lgirdwood@gmail.com,
- ranjani.sridharan@linux.intel.com, kai.vehmanen@linux.intel.com,
- daniel.baluta@nxp.com
-Subject: [PATCH v3 4/4] ASoC: SOF: Intel: hda: Avoid checking jack on system
- suspend
-Date: Tue, 12 Jan 2021 21:07:02 +0800
-Message-Id: <20210112130704.1201406-4-kai.heng.feng@canonical.com>
-X-Mailer: git-send-email 2.29.2
+ by alsa1.perex.cz (Postfix) with ESMTPS id 3EE3DF800B9
+ for <alsa-devel@alsa-project.org>; Tue, 12 Jan 2021 14:17:02 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3EE3DF800B9
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id 409A7B92B;
+ Tue, 12 Jan 2021 13:17:01 +0000 (UTC)
+Date: Tue, 12 Jan 2021 14:16:56 +0100
+Message-ID: <s5h1reqs3av.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Kai-Heng Feng <kai.heng.feng@canonical.com>
+Subject: Re: [PATCH v3 1/4] ALSA: hda/realtek: Power up codec when setting LED
+ via COEF and GPIO
 In-Reply-To: <20210112130704.1201406-1-kai.heng.feng@canonical.com>
 References: <20210112130704.1201406-1-kai.heng.feng@canonical.com>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Cc: "moderated list:SOUND - SOC LAYER / DYNAMIC AUDIO POWER MANAGEM..."
- <alsa-devel@alsa-project.org>, Marcin Rajwa <marcin.rajwa@linux.intel.com>,
- Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>, broonie@kernel.org,
- Keyon Jie <yang.jie@linux.intel.com>, open list <linux-kernel@vger.kernel.org>,
- Kai-Heng Feng <kai.heng.feng@canonical.com>,
- Payal Kshirsagar <payalskshirsagar1234@gmail.com>,
- "moderated list:SOUND - SOUND OPEN FIRMWARE SOF DRIVERS"
- <sound-open-firmware@alsa-project.org>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
+ FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
+ (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
+Content-Type: text/plain; charset=US-ASCII
+Cc: "moderated list:SOUND" <alsa-devel@alsa-project.org>,
+ pierre-louis.bossart@linux.intel.com, Jian-Hong Pan <jhp@endlessos.org>,
+ Kailang Yang <kailang@realtek.com>, Thomas Hebb <tommyhebb@gmail.com>,
+ kai.vehmanen@linux.intel.com, open list <linux-kernel@vger.kernel.org>,
+ tiwai@suse.com, lgirdwood@gmail.com, ranjani.sridharan@linux.intel.com,
+ Hui Wang <hui.wang@canonical.com>, broonie@kernel.org,
+ Huacai Chen <chenhuacai@kernel.org>, daniel.baluta@nxp.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -78,45 +75,110 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-When runtime resume is for system suspend, hda_codec_jack_check()
-schedules jackpoll_work which uses snd_hdac_is_power_on() to check
-whether codec is suspended.
+On Tue, 12 Jan 2021 14:06:59 +0100,
+Kai-Heng Feng wrote:
+> 
+> System takes a very long time to suspend after commit 215a22ed31a1
+> ("ALSA: hda: Refactor codec PM to use direct-complete optimization"):
+> [   90.065964] PM: suspend entry (s2idle)
+> [   90.067337] Filesystems sync: 0.001 seconds
+> [   90.185758] Freezing user space processes ... (elapsed 0.002 seconds) done.
+> [   90.188713] OOM killer disabled.
+> [   90.188714] Freezing remaining freezable tasks ... (elapsed 0.001 seconds) done.
+> [   90.190024] printk: Suspending console(s) (use no_console_suspend to debug)
+> [   90.904912] intel_pch_thermal 0000:00:12.0: CPU-PCH is cool [49C], continue to suspend
+> [  321.262505] snd_hda_codec_realtek ehdaudio0D0: Unable to sync register 0x2b8000. -5
+> [  328.426919] snd_hda_codec_realtek ehdaudio0D0: Unable to sync register 0x2b8000. -5
+> [  329.490933] ACPI: EC: interrupt blocked
+> 
+> That commit keeps the codec suspended during the system suspend. However,
+> led_suspend() for mute and micmute led writes codec register, triggers
+> a pending wake up. The wakeup is then handled in __device_suspend() by
+> the following:
+> - pm_runtime_disable() to handle the wakeup event.
+> - device is no longer is suspended state, direct-complete isn't taken.
+> - pm_runtime_enable() to balance disable_depth.
+> 
+> if (dev->power.direct_complete) {
+> 	if (pm_runtime_status_suspended(dev)) {
+> 		pm_runtime_disable(dev);
+> 		if (pm_runtime_status_suspended(dev)) {
+> 			pm_dev_dbg(dev, state, "direct-complete ");
+> 			goto Complete;
+> 		}
+> 
+> 		pm_runtime_enable(dev);
+> 	}
+> 	dev->power.direct_complete = false;
+> }
+> 
+> Since direct-complete doens't apply anymore, the codec's system suspend
+> routine is used.
+> 
+> This doesn't play well with SOF driver. When its runtime resume is
+> called for system suspend, hda_codec_jack_check() schedules
+> jackpoll_work which uses snd_hdac_is_power_on() to check whether codec
+> is suspended. Because of the previous pm_runtime_enable(),
+> snd_hdac_is_power_on() returns false and jackpoll continues to run, and
+> snd_hda_power_up_pm() cannot power up an already suspended codec in
+> multiple attempts, causes the long delay on system suspend.
+> 
+> When direct-complete path is taken, snd_hdac_is_power_on() returns true
+> and hda_jackpoll_work() is skipped by accident. This is still not
+> correct, and it will be addressed by later patch.
+> 
+> Explicitly runtime resume codec on setting LED to solve the issue.
+> 
+> Fixes: 215a22ed31a1 ("ALSA: hda: Refactor codec PM to use direct-complete optimization")
 
-If we were to use snd_hdac_is_power_on() in system PM path,
-pm_runtime_status_suspended() should be used instead of
-pm_runtime_suspended(), otherwise pm_runtime_{enable,disable}() changes
-the result of snd_hdac_is_power_on().
+Hmm, I really don't get this.
 
-Because devices suspend in reverse order (i.e. child first), it doesn't
-make much sense to resume already suspended codec from audio controller.
+alc_update_gpio_data() calls snd_hda_codec_write() in the end, and
+this function goes over bus->exec_verb call.  And for the legacy HDA
+codec, it's codec_exec_verb in hda_codec.c, which has already
+snd_hda_power_up_pm().
 
-So instead of using pm_runtime_status_suspended(), the better approach
-here is to make sure jackpoll isn't used in system PM process.
+What's the missing piece?
 
-Fixes: 215a22ed31a1 ("ALSA: hda: Refactor codec PM to use direct-complete optimization")
----
-v3:
- Clarify the root cause and why it's needed.
-v2:
- No change.
 
- sound/soc/sof/intel/hda-dsp.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
 
-diff --git a/sound/soc/sof/intel/hda-dsp.c b/sound/soc/sof/intel/hda-dsp.c
-index 7d00107cf3b2..1c5e05b88a90 100644
---- a/sound/soc/sof/intel/hda-dsp.c
-+++ b/sound/soc/sof/intel/hda-dsp.c
-@@ -685,7 +685,8 @@ static int hda_resume(struct snd_sof_dev *sdev, bool runtime_resume)
- 	/* check jack status */
- 	if (runtime_resume) {
- 		hda_codec_jack_wake_enable(sdev, false);
--		hda_codec_jack_check(sdev);
-+		if (sdev->system_suspend_target == SOF_SUSPEND_NONE)
-+			hda_codec_jack_check(sdev);
- 	}
- 
- 	/* turn off the links that were off before suspend */
--- 
-2.29.2
+thanks,
 
+Takashi
+
+> ---
+> v3:
+>  New patch.
+> 
+>  sound/pci/hda/patch_realtek.c | 5 +++++
+>  1 file changed, 5 insertions(+)
+> 
+> diff --git a/sound/pci/hda/patch_realtek.c b/sound/pci/hda/patch_realtek.c
+> index 3c1d2a3fb1a4..304a7bc89fcd 100644
+> --- a/sound/pci/hda/patch_realtek.c
+> +++ b/sound/pci/hda/patch_realtek.c
+> @@ -4164,7 +4164,10 @@ static void alc_update_gpio_led(struct hda_codec *codec, unsigned int mask,
+>  {
+>  	if (polarity)
+>  		enabled = !enabled;
+> +	/* temporarily power up/down for setting GPIO */
+> +	snd_hda_power_up_pm(codec);
+>  	alc_update_gpio_data(codec, mask, !enabled); /* muted -> LED on */
+> +	snd_hda_power_down_pm(codec);
+>  }
+>  
+>  /* turn on/off mute LED via GPIO per vmaster hook */
+> @@ -4287,8 +4290,10 @@ static void alc_update_coef_led(struct hda_codec *codec,
+>  	if (polarity)
+>  		on = !on;
+>  	/* temporarily power up/down for setting COEF bit */
+> +	snd_hda_power_up_pm(codec);
+>  	alc_update_coef_idx(codec, led->idx, led->mask,
+>  			    on ? led->on : led->off);
+> +	snd_hda_power_down_pm(codec);
+>  }
+>  
+>  /* update mute-LED according to the speaker mute state via COEF bit */
+> -- 
+> 2.29.2
+> 

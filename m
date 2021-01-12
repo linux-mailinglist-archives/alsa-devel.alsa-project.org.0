@@ -2,53 +2,53 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C18FF2F326A
-	for <lists+alsa-devel@lfdr.de>; Tue, 12 Jan 2021 15:00:24 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 68D9F2F326B
+	for <lists+alsa-devel@lfdr.de>; Tue, 12 Jan 2021 15:00:30 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 5754016E8;
-	Tue, 12 Jan 2021 14:59:29 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5754016E8
+	by alsa0.perex.cz (Postfix) with ESMTPS id 3423F1706;
+	Tue, 12 Jan 2021 14:59:39 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3423F1706
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1610460019;
-	bh=wZQ8xFqRw7JlcbQ2v0DknCklDhqflJBb6E+03dUndiE=;
+	s=default; t=1610460029;
+	bh=fXmLqIWUAHOEkiiWrX5mSKNgTRn6fLibNHMCg9LLEWA=;
 	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=N0E8ILY+I3/DLeFhMjDZeYZzZ3ISgogb47nTMG+njmSu0RZPWoI2IWcOGS6mxmw5x
-	 fqfuRs3uN+7+Hk7jASSJ+6pSxK0MgHoqovCRXGuOKRCzUYYkQFILgRPlJeEDwoo5Np
-	 XTzkMdmLAVAhz9OmvGKJVEGI+Kg1Dleifi+ou2lY=
+	b=Cy8rAaqiS4aRnUaQqV6dXi5e9B3hq5i8Bj6FucVjApSPLeeV3JSgXxe800UYEC/6h
+	 /sMVzbuMWu05/I1l3UZilywxsG8bbCib9tmwcylAiKoomNO0Z7o9UmPCzlKSxiE1Wz
+	 +hlrWH6kWmrebO0hrgEBfJK4wSjHgqeXOEpiUFg4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 4F052F80113;
-	Tue, 12 Jan 2021 14:58:46 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id D3913F800B9;
+	Tue, 12 Jan 2021 14:58:56 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id A97EFF8025E; Tue, 12 Jan 2021 14:58:43 +0100 (CET)
+ id 11159F80475; Tue, 12 Jan 2021 14:58:53 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
  URIBL_BLOCKED autolearn=disabled version=3.4.0
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 1A158F80113
- for <alsa-devel@alsa-project.org>; Tue, 12 Jan 2021 14:58:35 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1A158F80113
+ by alsa1.perex.cz (Postfix) with ESMTPS id 61AC8F80279
+ for <alsa-devel@alsa-project.org>; Tue, 12 Jan 2021 14:58:47 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 61AC8F80279
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 98CDDAC24;
- Tue, 12 Jan 2021 13:58:35 +0000 (UTC)
-Date: Tue, 12 Jan 2021 14:58:35 +0100
-Message-ID: <s5hturmqmt0.wl-tiwai@suse.de>
+ by mx2.suse.de (Postfix) with ESMTP id 0B353AC8F;
+ Tue, 12 Jan 2021 13:58:47 +0000 (UTC)
+Date: Tue, 12 Jan 2021 14:58:47 +0100
+Message-ID: <s5hsg76qmso.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
 To: Geert Uytterhoeven <geert+renesas@glider.be>
-Subject: Re: [PATCH/RFC 1/2] ALSA: fireface: Fix integer overflow in
- transmit_midi_msg()
-In-Reply-To: <20210111130251.361335-2-geert+renesas@glider.be>
+Subject: Re: [PATCH/RFC 2/2] ALSA: firewire-tascam: Fix integer overflow in
+ midi_port_work()
+In-Reply-To: <20210111130251.361335-3-geert+renesas@glider.be>
 References: <20210111130251.361335-1-geert+renesas@glider.be>
- <20210111130251.361335-2-geert+renesas@glider.be>
+ <20210111130251.361335-3-geert+renesas@glider.be>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
  FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
  (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
@@ -71,20 +71,20 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Mon, 11 Jan 2021 14:02:50 +0100,
+On Mon, 11 Jan 2021 14:02:51 +0100,
 Geert Uytterhoeven wrote:
 > 
-> As snd_ff.rx_bytes[] is unsigned int, and NSEC_PER_SEC is 1000000000L,
-> the second multiplication in
+> As snd_fw_async_midi_port.consume_bytes is unsigned int, and
+> NSEC_PER_SEC is 1000000000L, the second multiplication in
 > 
->     ff->rx_bytes[port] * 8 * NSEC_PER_SEC / 31250
+>     port->consume_bytes * 8 * NSEC_PER_SEC / 31250
 > 
 > always overflows on 32-bit platforms, truncating the result.  Fix this
 > by precalculating "NSEC_PER_SEC / 31250", which is an integer constant.
 > 
-> Note that this assumes ff->rx_bytes[port] <= 16777.
+> Note that this assumes port->consume_bytes <= 16777.
 > 
-> Fixes: 19174295788de77d ("ALSA: fireface: add transaction support")
+> Fixes: 531f471834227d03 ("ALSA: firewire-lib/firewire-tascam: localize async midi port")
 > Signed-off-by: Geert Uytterhoeven <geert+renesas@glider.be>
 > ---
 > Compile-tested only.
